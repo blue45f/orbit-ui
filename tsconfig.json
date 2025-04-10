@@ -1,0 +1,35 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "jsx": "react-jsx",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "declaration": false,
+    "allowSyntheticDefaultImports": true,
+    "noUncheckedIndexedAccess": true,
+    "baseUrl": ".",
+    "paths": {
+      "@orbit-ui/core": ["./packages/core/src"],
+      "@orbit-ui/core/*": ["./packages/core/src/*"],
+      "@orbit-ui/theme-eclipse": ["./packages/theme-eclipse/src"],
+      "@orbit-ui/theme-eclipse/*": ["./packages/theme-eclipse/src/*"],
+      "@orbit-ui/icons": ["./packages/icons/src"],
+      "@orbit-ui/icons/*": ["./packages/icons/src/*"]
+    }
+  },
+  "include": ["packages/*/src/**/*.ts", "packages/*/src/**/*.tsx", "config/*/src/**/*.ts"],
+  "exclude": ["node_modules", "**/dist/**", "**/build/**", "**/coverage/**"],
+  "references": [
+    { "path": "./packages/core" },
+    { "path": "./packages/theme-eclipse" },
+    { "path": "./packages/icons" }
+  ]
+}
