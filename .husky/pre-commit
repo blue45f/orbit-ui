@@ -1,0 +1,2 @@
+bash .husky/changeset.sh
+pnpm lint-staged
