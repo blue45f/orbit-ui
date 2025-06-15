@@ -1,0 +1,277 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ========================================================================
+ * CSS Variables (Semantic Tokens)
+ * ======================================================================== */
+
+:root {
+  /* Fill Colors */
+  --fill-primary: rgba(243, 245, 247, 1);
+  --fill-secondary: rgba(228, 230, 232, 1);
+  --fill-tertiary: rgba(213, 215, 217, 1);
+  --fill-none: transparent;
+  --fill-inverted: rgba(24, 26, 28, 1);
+
+  /* Foreground Colors */
+  --foreground-primary: rgba(24, 26, 28, 1);
+  --foreground-secondary: rgba(75, 77, 79, 1);
+  --foreground-tertiary: rgba(126, 128, 130, 1);
+  --foreground-quaternary: rgba(177, 179, 181, 1);
+  --foreground-inverted: rgba(255, 255, 255, 1);
+
+  /* Border Colors */
+  --border-primary: rgba(213, 215, 217, 1);
+  --border-secondary: rgba(228, 230, 232, 1);
+  --border-tertiary: rgba(243, 245, 247, 1);
+
+  /* Status Colors */
+  --status-positive: rgba(0, 185, 107, 1);
+  --status-negative: rgba(255, 64, 62, 1);
+  --status-warning: rgba(255, 132, 0, 1);
+  --status-info: rgba(26, 124, 255, 1);
+
+  /* Primary Color */
+  --primary: rgba(12, 239, 211, 1);
+  --primary-hover: rgba(0, 201, 185, 1);
+  --primary-active: rgba(0, 163, 155, 1);
+}
+
+.dark {
+  /* Fill Colors (Dark) */
+  --fill-primary: rgba(38, 40, 42, 1);
+  --fill-secondary: rgba(49, 51, 53, 1);
+  --fill-tertiary: rgba(75, 77, 79, 1);
+  --fill-none: transparent;
+  --fill-inverted: rgba(243, 245, 247, 1);
+
+  /* Foreground Colors (Dark) */
+  --foreground-primary: rgba(243, 245, 247, 1);
+  --foreground-secondary: rgba(177, 179, 181, 1);
+  --foreground-tertiary: rgba(126, 128, 130, 1);
+  --foreground-quaternary: rgba(75, 77, 79, 1);
+  --foreground-inverted: rgba(24, 26, 28, 1);
+
+  /* Border Colors (Dark) */
+  --border-primary: rgba(75, 77, 79, 1);
+  --border-secondary: rgba(49, 51, 53, 1);
+  --border-tertiary: rgba(38, 40, 42, 1);
+}
+
+/* ========================================================================
+ * Reset Styles
+ * ======================================================================== */
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  button {
+    @apply appearance-none bg-transparent border-none p-0 m-0 cursor-pointer;
+  }
+
+  input {
+    @apply appearance-none bg-transparent border-none outline-none p-0 m-0;
+  }
+
+  a {
+    @apply no-underline text-inherit;
+  }
+}
+
+/* ========================================================================
+ * Component Utilities
+ * ======================================================================== */
+
+@layer utilities {
+  /* Screen Reader Only */
+  .sr-only {
+    @apply absolute w-px h-px p-0 -m-px overflow-hidden whitespace-nowrap;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+  }
+
+  /* Focus Ring */
+  .focus-ring {
+    @apply outline-none ring-2 ring-offset-2 ring-blue-500;
+  }
+
+  /* Container Layer */
+  .container-layer {
+    @apply relative inline-flex;
+  }
+
+  /* State Layer */
+  .state-layer {
+    @apply absolute inset-0 pointer-events-none transition-colors duration-fast;
+  }
+
+  /* Content Layer */
+  .content-layer {
+    @apply relative flex items-center;
+  }
+
+  /* Border Layer */
+  .border-layer {
+    @apply absolute inset-0 pointer-events-none rounded-[inherit];
+    border: var(--border-width, 1px) solid var(--border-color, transparent);
+  }
+}
+
+/* ========================================================================
+ * Component Base Styles
+ * ======================================================================== */
+
+@layer components {
+  /* Button */
+  .btn {
+    @apply inline-flex items-center justify-center gap-200;
+    @apply px-400 py-200 rounded-md;
+    @apply text-base font-medium;
+    @apply transition-colors duration-fast;
+    @apply disabled:cursor-not-allowed disabled:opacity-50;
+  }
+
+  .btn-primary {
+    @apply bg-[var(--primary)] text-foreground-inverted;
+    @apply hover:bg-[var(--primary-hover)];
+    @apply active:bg-[var(--primary-active)];
+  }
+
+  .btn-secondary {
+    @apply bg-fill-primary text-foreground-primary;
+    @apply hover:bg-fill-secondary;
+    @apply active:bg-fill-tertiary;
+  }
+
+  .btn-outline {
+    @apply bg-transparent border border-border-primary text-foreground-primary;
+    @apply hover:bg-fill-primary;
+    @apply active:bg-fill-secondary;
+  }
+
+  /* Input */
+  .input {
+    @apply w-full px-400 py-300;
+    @apply bg-fill-primary rounded-md;
+    @apply border border-border-secondary;
+    @apply text-base text-foreground-primary;
+    @apply placeholder:text-foreground-quaternary;
+    @apply focus:border-[var(--primary)] focus:outline-none;
+    @apply transition-colors duration-fast;
+    @apply disabled:cursor-not-allowed disabled:opacity-50;
+  }
+
+  /* Toggle/Switch */
+  .toggle {
+    @apply relative inline-flex items-center;
+    @apply w-[38px] h-[24px] rounded-full;
+    @apply bg-fill-tertiary;
+    @apply transition-colors duration-normal;
+    @apply cursor-pointer;
+  }
+
+  .toggle[data-checked='true'] {
+    @apply bg-[var(--primary)];
+  }
+
+  .toggle-thumb {
+    @apply absolute top-[3px] left-[3px];
+    @apply w-[18px] h-[18px] rounded-full;
+    @apply bg-white;
+    @apply transition-transform duration-normal;
+    @apply shadow-sm;
+  }
+
+  .toggle[data-checked='true'] .toggle-thumb {
+    @apply translate-x-[14px];
+  }
+
+  /* Checkbox */
+  .checkbox {
+    @apply relative inline-flex items-center justify-center;
+    @apply w-[20px] h-[20px] rounded-xs;
+    @apply border border-border-primary;
+    @apply bg-transparent;
+    @apply transition-colors duration-fast;
+    @apply cursor-pointer;
+  }
+
+  .checkbox[data-checked='true'] {
+    @apply bg-[var(--primary)] border-[var(--primary)];
+  }
+
+  /* Radio */
+  .radio {
+    @apply relative inline-flex items-center justify-center;
+    @apply w-[20px] h-[20px] rounded-full;
+    @apply border border-border-primary;
+    @apply bg-transparent;
+    @apply transition-colors duration-fast;
+    @apply cursor-pointer;
+  }
+
+  .radio[data-checked='true'] {
+    @apply border-[var(--primary)];
+  }
+
+  .radio-indicator {
+    @apply w-[10px] h-[10px] rounded-full;
+    @apply bg-[var(--primary)] scale-0;
+    @apply transition-transform duration-fast;
+  }
+
+  .radio[data-checked='true'] .radio-indicator {
+    @apply scale-100;
+  }
+
+  /* Badge */
+  .badge {
+    @apply inline-flex items-center justify-center;
+    @apply px-200 py-50 rounded-full;
+    @apply text-xs font-medium;
+  }
+
+  /* Chip */
+  .chip {
+    @apply inline-flex items-center gap-100;
+    @apply px-300 py-150 rounded-full;
+    @apply bg-fill-primary text-foreground-primary;
+    @apply text-sm font-medium;
+    @apply border border-transparent;
+    @apply transition-colors duration-fast;
+    @apply cursor-pointer;
+  }
+
+  .chip[data-selected='true'] {
+    @apply bg-[var(--primary)] text-foreground-inverted;
+  }
+
+  /* Divider */
+  .divider {
+    @apply w-full h-px bg-border-secondary;
+  }
+
+  .divider-vertical {
+    @apply w-px h-full bg-border-secondary;
+  }
+
+  /* Alert */
+  .alert {
+    @apply flex items-start gap-300;
+    @apply p-400 rounded-md;
+    @apply bg-fill-primary;
+  }
+
+  /* Snackbar/Toast */
+  .toast {
+    @apply flex items-center gap-300;
+    @apply px-400 py-300 rounded-md;
+    @apply bg-fill-inverted text-foreground-inverted;
+    @apply shadow-lg;
+  }
+}
