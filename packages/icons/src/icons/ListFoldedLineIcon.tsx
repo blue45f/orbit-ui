@@ -1,0 +1,22 @@
+import { memo } from 'react'
+import { IconRoot } from '../IconRoot'
+import type { IconProps } from '../types'
+
+function ListFoldedLineIcon(props: IconProps) {
+  return (
+    <IconRoot {...props}>
+      <path d="M7.75 9.20154C7.75 8.64925 8.19772 8.20154 8.75 8.20154H15.25C15.8023 8.20154 16.25 8.64925 16.25 9.20154C16.25 9.75382 15.8023 10.2015 15.25 10.2015H8.75C8.19772 10.2015 7.75 9.75382 7.75 9.20154Z" />
+      <path d="M8.75 12.8031C8.19772 12.8031 7.75 13.2508 7.75 13.8031C7.75 14.3554 8.19772 14.8031 8.75 14.8031H15.25C15.8023 14.8031 16.25 14.3554 16.25 13.8031C16.25 13.2508 15.8023 12.8031 15.25 12.8031H8.75Z" />
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M3.69995 3.8031C3.69995 3.25082 4.14767 2.8031 4.69995 2.8031H19.3C19.8522 2.8031 20.3 3.25082 20.3 3.8031V16.8209C20.3 17.315 20.1171 17.7916 19.7866 18.1588L17.6412 20.5426C17.2619 20.964 16.7216 21.2047 16.1546 21.2047H4.69995C4.14767 21.2047 3.69995 20.7569 3.69995 20.2047V3.8031ZM5.69995 4.8031V19.2047H16.1546L18.3 16.8209V4.8031H5.69995Z"
+      />
+    </IconRoot>
+  )
+}
+
+ListFoldedLineIcon.displayName = 'ListFoldedLineIcon'
+
+export default memo(ListFoldedLineIcon)
+export { ListFoldedLineIcon }

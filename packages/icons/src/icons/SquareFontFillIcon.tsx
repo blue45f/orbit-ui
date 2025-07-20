@@ -1,0 +1,16 @@
+import { memo } from 'react'
+import { IconRoot } from '../IconRoot'
+import type { IconProps } from '../types'
+
+function SquareFontFillIcon(props: IconProps) {
+  return (
+    <IconRoot {...props}>
+      <path d="M6.19922 3.19922H17.7992C19.4561 3.19922 20.7992 4.54237 20.7992 6.19922V17.7992C20.7992 19.4561 19.4561 20.7992 17.7992 20.7992H6.19922C4.54236 20.7992 3.19922 19.4561 3.19922 17.7992V6.19922C3.19922 4.54236 4.54237 3.19922 6.19922 3.19922ZM15.0592 12.0992H16.3392V10.3392H15.0592V7.63922H13.2792V16.3292H15.0592V12.0992ZM10.5792 13.6092C11.4092 12.7892 12.5092 11.2192 12.5092 9.76922V8.36922H7.97922V10.0592H10.6692C10.5592 10.9392 9.52922 12.3992 8.23922 13.4992V15.6592C9.11922 15.0292 9.88922 14.3392 10.5792 13.6092Z" />
+    </IconRoot>
+  )
+}
+
+SquareFontFillIcon.displayName = 'SquareFontFillIcon'
+
+export default memo(SquareFontFillIcon)
+export { SquareFontFillIcon }

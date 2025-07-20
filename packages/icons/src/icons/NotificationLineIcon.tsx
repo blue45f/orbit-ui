@@ -1,0 +1,20 @@
+import { memo } from 'react'
+import { IconRoot } from '../IconRoot'
+import type { IconProps } from '../types'
+
+function NotificationLineIcon(props: IconProps) {
+  return (
+    <IconRoot {...props}>
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M13.0008 3.47656C13.0008 2.92428 12.5531 2.47656 12.0008 2.47656C11.4485 2.47656 11.0008 2.92428 11.0008 3.47656V4.19215C7.27604 4.68168 4.40076 7.86854 4.40076 11.727V17.8765H4.30078C3.7485 17.8765 3.30078 18.3243 3.30078 18.8765C3.30078 19.4288 3.7485 19.8765 4.30078 19.8765H11.0008V20.5268C11.0008 21.079 11.4485 21.5268 12.0008 21.5268C12.5531 21.5268 13.0008 21.079 13.0008 20.5268V19.8765H19.7008C20.2531 19.8765 20.7008 19.4288 20.7008 18.8765C20.7008 18.3243 20.2531 17.8765 19.7008 17.8765H19.6008V11.727C19.6008 7.86859 16.7256 4.68176 13.0008 4.19217V3.47656ZM17.6008 17.8765H6.40076V11.727C6.40076 8.63416 8.90796 6.12695 12.0008 6.12695C15.0936 6.12695 17.6008 8.63416 17.6008 11.727V17.8765Z"
+      />
+    </IconRoot>
+  )
+}
+
+NotificationLineIcon.displayName = 'NotificationLineIcon'
+
+export default memo(NotificationLineIcon)
+export { NotificationLineIcon }

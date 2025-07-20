@@ -1,0 +1,20 @@
+import { memo } from 'react'
+import { IconRoot } from '../IconRoot'
+import type { IconProps } from '../types'
+
+function CirclePlusFillIcon(props: IconProps) {
+  return (
+    <IconRoot {...props}>
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M2.2998 11.9998C2.2998 6.64264 6.64264 2.2998 11.9998 2.2998C17.357 2.2998 21.6998 6.64264 21.6998 11.9998C21.6998 17.357 17.357 21.6998 11.9998 21.6998C6.64264 21.6998 2.2998 17.357 2.2998 11.9998ZM10.9997 15.8451C10.9997 16.3973 11.4474 16.8451 11.9997 16.8451C12.552 16.8451 12.9997 16.3973 12.9997 15.8451V13.0002H15.8446C16.3969 13.0002 16.8446 12.5525 16.8446 12.0002C16.8446 11.4479 16.3969 11.0002 15.8446 11.0002H12.9997V8.15527C12.9997 7.60299 12.552 7.15527 11.9997 7.15527C11.4474 7.15527 10.9997 7.60299 10.9997 8.15527V11.0002H8.15479C7.6025 11.0002 7.15479 11.4479 7.15479 12.0002C7.15479 12.5525 7.6025 13.0002 8.15479 13.0002H10.9997V15.8451Z"
+      />
+    </IconRoot>
+  )
+}
+
+CirclePlusFillIcon.displayName = 'CirclePlusFillIcon'
+
+export default memo(CirclePlusFillIcon)
+export { CirclePlusFillIcon }

@@ -1,0 +1,16 @@
+import { memo } from 'react'
+import { IconRoot } from '../IconRoot'
+import type { IconProps } from '../types'
+
+function VideoFillIcon(props: IconProps) {
+  return (
+    <IconRoot {...props}>
+      <path d="M4.19922 3.69922H19.7992C20.3515 3.69922 20.7992 4.14693 20.7992 4.69922V19.2992C20.7992 19.8515 20.3515 20.2992 19.7992 20.2992H4.19922C3.64693 20.2992 3.19922 19.8515 3.19922 19.2992V4.69922C3.19922 4.14693 3.64693 3.69922 4.19922 3.69922ZM14.25 12.4324C14.4047 12.3431 14.5 12.178 14.5 11.9994C14.5 11.8208 14.4047 11.6557 14.25 11.5664L11.25 9.83432C11.0953 9.745 10.9047 9.745 10.75 9.83432C10.5953 9.92364 10.5 10.0887 10.5 10.2673V13.7314C10.5 13.9101 10.5953 14.0751 10.75 14.1644C10.9047 14.2538 11.0953 14.2538 11.25 14.1644L14.25 12.4324Z" />
+    </IconRoot>
+  )
+}
+
+VideoFillIcon.displayName = 'VideoFillIcon'
+
+export default memo(VideoFillIcon)
+export { VideoFillIcon }

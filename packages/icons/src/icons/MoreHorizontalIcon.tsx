@@ -1,0 +1,18 @@
+import { memo } from 'react'
+import { IconRoot } from '../IconRoot'
+import type { IconProps } from '../types'
+
+function MoreHorizontalIcon(props: IconProps) {
+  return (
+    <IconRoot {...props}>
+      <path d="M5.88018 10.2998C6.81906 10.2998 7.58018 11.0609 7.58018 11.9998C7.58018 12.9387 6.81906 13.6998 5.88018 13.6998C4.94129 13.6998 4.18018 12.9387 4.18018 11.9998C4.18018 11.0609 4.94129 10.2998 5.88018 10.2998Z" />
+      <path d="M18.1199 10.2998C19.0588 10.2998 19.8199 11.0609 19.8199 11.9998C19.8199 12.9387 19.0588 13.6998 18.1199 13.6998C17.181 13.6998 16.4199 12.9387 16.4199 11.9998C16.4199 11.0609 17.181 10.2998 18.1199 10.2998Z" />
+      <path d="M13.6998 11.9998C13.6998 11.0609 12.9387 10.2998 11.9998 10.2998C11.0609 10.2998 10.2998 11.0609 10.2998 11.9998C10.2998 12.9387 11.0609 13.6998 11.9998 13.6998C12.9387 13.6998 13.6998 12.9387 13.6998 11.9998Z" />
+    </IconRoot>
+  )
+}
+
+MoreHorizontalIcon.displayName = 'MoreHorizontalIcon'
+
+export default memo(MoreHorizontalIcon)
+export { MoreHorizontalIcon }

@@ -1,0 +1,17 @@
+import { memo } from 'react'
+import { IconRoot } from '../IconRoot'
+import type { IconProps } from '../types'
+
+function ScreenReductionLineIcon(props: IconProps) {
+  return (
+    <IconRoot {...props}>
+      <path d="M7.5 9.43956C6.94772 9.43956 6.5 9.88728 6.5 10.4396C6.5 10.9918 6.94771 11.4396 7.5 11.4396H13.5C14.0523 11.4396 14.5 10.9918 14.5 10.4396C14.5 9.88728 14.0523 9.43956 13.5 9.43956H7.5Z" />
+      <path d="M10.5 2.93945C6.35786 2.93945 3 6.29732 3 10.4395C3 14.5816 6.35786 17.9395 10.5 17.9395C12.1825 17.9395 13.7356 17.3854 14.9868 16.4499L19.2929 20.756C19.6834 21.1465 20.3166 21.1465 20.7071 20.756C21.0976 20.3655 21.0976 19.7323 20.7071 19.3418L16.4157 15.0503C17.4085 13.7784 18 12.178 18 10.4395C18 6.29732 14.6421 2.93945 10.5 2.93945ZM5 10.4395C5 7.40189 7.46243 4.93945 10.5 4.93945C13.5376 4.93945 16 7.40189 16 10.4395C16 13.477 13.5376 15.9395 10.5 15.9395C7.46243 15.9395 5 13.477 5 10.4395Z" />
+    </IconRoot>
+  )
+}
+
+ScreenReductionLineIcon.displayName = 'ScreenReductionLineIcon'
+
+export default memo(ScreenReductionLineIcon)
+export { ScreenReductionLineIcon }
