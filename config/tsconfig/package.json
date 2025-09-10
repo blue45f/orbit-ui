@@ -1,0 +1,7 @@
+{
+  "name": "@orbit-ui/tsconfig",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Orbit UI 공유 TypeScript 설정",
+  "license": "MIT"
+}
