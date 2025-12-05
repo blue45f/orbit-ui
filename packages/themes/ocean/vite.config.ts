@@ -1,7 +1,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 
-import { cssBangCommentPlugin, cssReorderPlugin, removeVanillaExtractVirtualFilePlugin } from '@clay-kit/vite-plugin'
+import { cssBangCommentPlugin, cssReorderPlugin, removeVanillaExtractVirtualFilePlugin } from '@ui-forge/vite-plugin'
 import babel, { getBabelOutputPlugin } from '@rollup/plugin-babel'
 import dynamicImportVars from '@rollup/plugin-dynamic-import-vars'
 import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin'
@@ -20,9 +20,8 @@ const externalDependenciesRegExrs = [
   ...Object.keys(packageInfo.dependencies),
   ...Object.keys(packageInfo.peerDependencies),
   // Next.js library css import 제약 https://nextjs.org/docs/messages/css-npm
-  // @clay-kit/core의 style.css 등 CSS 디펜던시는 최종 번들에 포함
+  // @ui-forge/core의 style.css 등 CSS 디펜던시는 최종 번들에 포함
   // 나머지는 제외
-  // https://cloud.jira.claykit.in/browse/WOOTELIER-469
 ].map((name) => new RegExp(`^${name}(/.*)?(?<!\\.css)$`))
 
 export default defineConfig(({ mode }) => {
@@ -48,7 +47,7 @@ export default defineConfig(({ mode }) => {
           index: path.resolve(__dirname, 'src/index.ts'),
           token: path.resolve(__dirname, 'src/token.ts'),
           base: path.resolve(__dirname, 'src/base.ts'),
-          mold: path.resolve(__dirname, 'src/mold.ts'),
+          composites: path.resolve(__dirname, 'src/composites.ts'),
         },
         fileName: '[name]',
       },
