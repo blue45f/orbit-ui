@@ -7,6 +7,11 @@ storybook-static/
 !.turbo/config.json
 .DS_Store
 
+# IDE
+.idea/
+.vscode/
+.cursor/
+
 design-tokens.source.json
 notice-summary-*.txt
 *.vsix

@@ -1,4 +1,4 @@
-# Clay Kit 개발 가이드
+# UI Forge 개발 가이드
 
 ## 프로젝트 개요
 
@@ -14,20 +14,20 @@ Figma 기반 React 디자인 시스템 컴포넌트 라이브러리입니다.
 
 | 패키지 | 경로 | 설명 |
 |--------|------|------|
-| `@clay-kit/foundation` | `packages/foundation/` | Base 컴포넌트 |
-| `@clay-kit/mint` | `packages/clay/mint/` | Mint 테마 컴포넌트 |
-| `@clay-kit/icons` | `packages/icons/` | 아이콘 |
+| `@ui-forge/core` | `packages/core/` | 코어 컴포넌트 |
+| `@ui-forge/themes` | `packages/themes/ocean/` | Ocean 테마 |
+| `@ui-forge/icons` | `packages/icons/` | 아이콘 |
 
 ```
 packages/
-├── foundation/src/
-│   ├── components/    # Base 컴포넌트
+├── core/src/
+│   ├── components/    # 코어 컴포넌트
 │   ├── libs/          # 훅, 유틸리티
 │   └── styles/        # 디자인 토큰
 │
-└── clay/mint/src/
+└── themes/ocean/src/
     ├── components/    # 테마 컴포넌트
-    └── styles/        # Mint 토큰
+    └── styles/        # Ocean 토큰
 ```
 
 ---
@@ -60,10 +60,10 @@ packages/
 
 ```tsx
 // 새 이름 (권장)
-import { Button, Input, Toggle } from '@clay-kit/foundation'
+import { Button, Input, Toggle } from '@ui-forge/core'
 
 // 기존 이름 (호환성 유지)
-import { BaseButton, BaseTextField, BaseSwitch } from '@clay-kit/foundation'
+import { BaseButton, BaseTextField, BaseSwitch } from '@ui-forge/core'
 ```
 
 ---
