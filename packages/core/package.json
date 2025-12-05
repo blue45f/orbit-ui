@@ -1,0 +1,84 @@
+{
+  "name": "@ui-forge/core",
+  "version": "2.0.0-beta.16",
+  "type": "module",
+  "description": "UI Forge Core 컴포넌트 - 스타일 미적용 기능 컴포넌트",
+  "license": "MIT",
+  "files": ["dist"],
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./public": {
+      "types": "./dist/public.d.ts",
+      "import": "./dist/public.js",
+      "require": "./dist/public.cjs"
+    },
+    "./style.css": "./dist/style.css"
+  },
+  "sideEffects": ["*.css"],
+  "browserslist": ["chrome >= 105", "safari >= 15"],
+  "scripts": {
+    "preinstall": "mkdir -p dist && touch dist/style.css",
+    "dev": "storybook dev -p 6009",
+    "build": "vite build && pnpm build:css && pnpm build:dts",
+    "build:css": "tailwindcss -i ./src/styles/globals.css -o ./dist/style.css --minify",
+    "build:dts": "tsc -p tsconfig.dts.json",
+    "build:storybook": "storybook build",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "clean": "rm -rf dist coverage storybook-static"
+  },
+  "dependencies": {
+    "@ui-forge/icons": "workspace:*",
+    "@use-gesture/react": "^10.3.1",
+    "aria-hidden": "^1.2.4",
+    "clsx": "^2.1.1",
+    "lottie-web": "^5.12.2",
+    "react-focus-lock": "^2.13.2",
+    "react-remove-scroll": "^2.6.0",
+    "tailwind-merge": "^2.5.5"
+  },
+  "devDependencies": {
+    "@ui-forge/tsconfig": "workspace:*",
+    "@storybook/addon-a11y": "^8.4.7",
+    "@storybook/addon-essentials": "^8.4.7",
+    "@storybook/addon-links": "^8.4.7",
+    "@storybook/addon-viewport": "^8.4.7",
+    "@storybook/blocks": "^8.4.7",
+    "@storybook/react": "^8.4.7",
+    "@storybook/react-vite": "^8.4.7",
+    "@storybook/test": "^8.4.7",
+    "@testing-library/dom": "^10.4.0",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.0.1",
+    "@testing-library/user-event": "^14.5.2",
+    "@types/node": "^22.10.1",
+    "@types/react": "^19.0.1",
+    "@types/react-dom": "^19.0.1",
+    "@vitejs/plugin-react-swc": "^3.7.2",
+    "@vitest/coverage-v8": "^2.1.8",
+    "@vitest/ui": "^2.1.8",
+    "autoprefixer": "^10.4.20",
+    "jsdom": "^25.0.1",
+    "postcss": "^8.4.49",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "storybook": "^8.4.7",
+    "tailwindcss": "^3.4.16",
+    "typescript": "^5.7.2",
+    "vite": "^5.4.11",
+    "vitest": "^2.1.8"
+  },
+  "peerDependencies": {
+    "react": "^18.0.0 || ^19.0.0",
+    "react-dom": "^18.0.0 || ^19.0.0"
+  }
+}
