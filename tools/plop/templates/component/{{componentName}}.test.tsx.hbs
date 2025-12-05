@@ -1,0 +1,15 @@
+import { afterEach, expect, test } from 'vitest'
+
+import { screen, render, cleanup } from '../../test-utils'
+
+import { {{componentName}} } from './{{componentName}}'
+
+afterEach(() => cleanup())
+
+test('`{{componentName}}` 컴포넌트를 렌더링한다', () => {
+  // Arrange & Act
+  render(<{{componentName}}>My Component</{{componentName}}>)
+
+  // Assert
+  expect(screen.getByText('My Component')).toBeInTheDocument()
+})

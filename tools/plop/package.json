@@ -1,0 +1,16 @@
+{
+  "name": "@tools/plop",
+  "version": "0.0.0",
+  "private": true,
+  "description": "템플릿 기반 코드 생성기",
+  "type": "module",
+  "scripts": {
+    "gen": "cross-env NODE_OPTIONS='--import tsx' plop --plopfile=plopfile.ts"
+  },
+  "devDependencies": {
+    "@ui-forge/tsconfig": "workspace:*",
+    "cross-env": "^7.0.3",
+    "plop": "^3.1.2",
+    "tsx": "^4.16.2"
+  }
+}
