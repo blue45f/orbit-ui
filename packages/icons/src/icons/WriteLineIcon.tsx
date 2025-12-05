@@ -1,0 +1,16 @@
+import { memo } from 'react'
+import { IconRoot } from '../IconRoot'
+import type { IconProps } from '../types'
+
+function WriteLineIcon(props: IconProps) {
+  return (
+  <IconRoot {...props}>
+    <path d='M16.1067 3.39446L20.6067 7.89446C20.9973 8.28498 20.9973 8.91814 20.6067 9.30867L9.32039 20.595C9.13086 20.7846 8.87317 20.8901 8.60514 20.8879L4.14149 20.8515C3.59558 20.8471 3.15412 20.4056 3.14967 19.8597L3.11331 15.3961C3.11113 15.128 3.21664 14.8703 3.40617 14.6808L14.6925 3.39446C15.0831 3.00393 15.7162 3.00393 16.1067 3.39446ZM13.9884 6.92698L17.0742 10.0128L18.4854 8.60156L15.3996 5.51578L13.9884 6.92698ZM12.5742 8.34119L5.11666 15.7988L5.14159 18.8596L8.20245 18.8845L15.66 11.427L12.5742 8.34119Z' />
+  </IconRoot>
+  )
+}
+
+WriteLineIcon.displayName = 'WriteLineIcon'
+
+export default memo(WriteLineIcon)
+export { WriteLineIcon }
