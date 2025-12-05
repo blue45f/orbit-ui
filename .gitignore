@@ -1,0 +1,15 @@
+.pnpm-store/
+node_modules/
+dist/
+coverage/
+storybook-static/
+.turbo/
+!.turbo/config.json
+.DS_Store
+
+design-tokens.source.json
+notice-summary-*.txt
+*.vsix
+out
+# V8 compile cache
+v8-compile-cache-*/

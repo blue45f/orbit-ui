@@ -1,0 +1,45 @@
+# Auto detect text files and perform LF normalization
+* text=auto
+
+# Explicitly declare text files
+*.md text diff=markdown
+*.txt text
+*.json text
+*.yml text
+*.yaml text
+*.xml text
+*.svg text
+*.html text
+*.css text
+*.scss text
+*.less text
+*.js text
+*.jsx text
+*.ts text
+*.tsx text
+*.mjs text
+*.cjs text
+
+# Denote all files that are truly binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.webp binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.eot binary
+*.pdf binary
+
+# Keep shell scripts with LF endings
+*.sh text eol=lf
+*.bash text eol=lf
+
+# Keep Windows batch files with CRLF endings
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# Mark lock files as generated
+pnpm-lock.yaml -diff linguist-generated=true
