@@ -1,0 +1,7 @@
+{
+  "name": "@ui-forge/tsconfig",
+  "version": "0.0.0",
+  "private": true,
+  "description": "UI Forge 공유 TypeScript 설정",
+  "license": "MIT"
+}
