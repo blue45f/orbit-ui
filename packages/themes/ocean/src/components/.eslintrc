@@ -1,0 +1,11 @@
+{
+  "rules": {
+    "no-restricted-imports": [
+      "error",
+      {
+        "name": "@clay-kit/foundation/foundation",
+        "message": "mint/component에서는 foundation/foundation을 직접 참조할 수 없어요. mint 패키지 내부 foundation 경로를 import 해주세요."
+      }
+    ]
+  }
+}

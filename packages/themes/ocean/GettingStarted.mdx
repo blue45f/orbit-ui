@@ -1,0 +1,180 @@
+import { Meta, Markdown } from '@storybook/blocks'
+
+<Meta title='intro/시작하기' />
+
+# Getting Started
+
+<br />
+
+## 1. 패키지 설치하기
+
+사용하시는 패키지 매니저를 통해, 클레이 민트 `@clay-kit/mint` 패키지를 설치해주세요.
+
+```bash
+pnpm add @clay-kit/mint
+```
+
+```bash
+npm install @clay-kit/mint
+```
+
+```bash
+yarn add @clay-kit/mint
+```
+
+> ℹ️ 설치 전 사내 레지스트리 설정 여부를 확인해주세요.  
+> 프로젝트 루트 디렉토리의 `.npmrc` 파일에 아래 설정이 필요해요.
+>
+> ```
+> registry=https://nexus.claykit.in/repository/npm/
+> ```
+
+<br />
+
+## 2. 환경 설정하기
+
+1. 프로젝트 최상단에 `ClayRoot`를 적용해주세요
+2. 클레이 민트의 스타일을 사용하기 위해 `CSS` 파일을 import 해주세요.
+
+```tsx
+import { ClayRoot } from '@clay-kit/mint'
+import '@clay-kit/mint/style.css' // <--- 스타일 import ✅
+
+function MyApp() {
+  return (
+    <ClayRoot>
+      <AppComponents />
+    </ClayRoot>
+  )
+}
+```
+
+#### Server Side Rendering 가이드
+
+Next.js 등의 `SSR`을 사용하시는 경우에는, 깜빡임을 방지하기 위해 아래처럼 html `<body>`태그의 `className` 속성에 `getTheme()` 으로 불러온 문자열을 삽입해주세요.
+
+> ##### Next.js SSR 예시
+
+```tsx
+// _document.tsx
+
+import { getTheme } from '@clay-kit/mint/server'
+
+export default function Document(): JSX.Element {
+  return (
+    <Html lang='ko'>
+      <Head />
+      <body className={getTheme()}>
+        <Main />
+        <NextScript />
+      </body>
+    </Html>
+  )
+}
+
+// _app.tsx
+
+import '@clay-kit/mint/style.css' // <--- 스타일 import ✅
+```
+
+> ##### Next 13 App Directory 예시
+
+```tsx
+import { getTheme } from '@clay-kit/mint/server'
+import '@clay-kit/mint/style.css' // <--- 스타일 import ✅
+
+const RootLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  return (
+    <html lang='ko'>
+      <body className={getTheme()}>
+        <LayoutRegistry>{children}</LayoutRegistry>
+      </body>
+    </html>
+  )
+}
+```
+
+<br />
+
+## 3. 컴포넌트 사용하기
+
+#### 🙋🏻 지금 어떤 컴포넌트를 쓸 수 있나요?
+
+사용 가능한 컴포넌트 목록은 [index.ts 파일](https://git.claykit.in/common-fe/system/claykithan-atelier/component/-/blob/main/packages/mint/src/index.ts) 에서 확인할 수 있어요.
+
+- `unstable_` 접두사가 붙은 컴포넌트는 구현 또는 디자인 QA 진행 중이므로 사용에 유의해주세요.
+
+```tsx
+import { unstable_Component as Component } from '@clay-kit/mint'
+```
+
+#### 🍒 아이콘 사용하기 [(목록 바로가기)](/docs/intro-아이콘-카탈로그--docs)
+
+아이콘은 별도 엔트리 포인트로 분리되어 있어요. 아이콘을 사용하려면 다음과 같은 경로로 아이콘을 import 해주세요.
+
+```tsx
+import { BellIcon } from '@clay-kit/mint/icons'
+```
+
+<br />
+
+## 4. 디자인 토큰 사용하기
+
+#### 🙋🏻 디자인 토큰을 직접 사용하는 방법이 있을까요?
+
+디자인 토큰은 `@clay-kit/mint/token` 경로에서 확인할 수 있어요.
+
+- 디자인 토큰 값은 ClayRoot의 theme에 포함되어있는 CSS Variable이에요.
+
+##### 사용 예시
+
+```tsx
+import { vars } from '@clay-kit/mint/token'
+
+// ✅ inline style
+const Component = () => {
+  return <div style={{ color: vars.sem.color.fg_brand_primary }}>텍스트</div>
+}
+
+// ✅ CSS-in-JS
+const Root = styled.div`
+  color: ${vars.sem.color.fg_brand_primary};
+`
+
+// ❌ JSX 속성에 사용 불가능 (ex. color, backgroundColor 속성)
+const Component = () => {
+  return <div color={vars.sem.color.fg_brand_primary}>속성에 사용이 어려워요.</div>
+}
+```
+
+<br />
+
+## 5. 스토리북에서 코드 확인하기
+
+#### 🙋🏻 스토리북에서 각 스토리에 구현한 코드를 확인할 수 있는 방법이 있을까요?
+
+방법1) 각 컴포넌트의 Docs 탭에서 `Show code` 버튼을 누르면, 해당 컴포넌트를 구현한 코드를 확인할 수 있어요.
+
+방법2) 스토리를 구성하기 위해 작성한 코드를 보고 싶다면, 각 스토리 페이지 하단의 `Code` 탭에서 확인할 수 있어요.
+
+<br />
+
+## 6. FAQ
+
+#### 🙋🏻 font는 별도로 설치해서 사용해야하나요?
+
+모바일 웹뷰에서는 시스템 폰트를 사용하기 때문에 설치가 필요하지 않아요. 하지만 웹뷰가 아닌 환경에서는 [Pretendard](https://cactus.tistory.com/306) 폰트를 사용하기 때문에 별도 설치가 필요해요.
+
+Clay Kit에서는 [Pretendard](https://cactus.tistory.com/306) 폰트 파일을 아래의 CDN 경로로 제공하고 있어요. (패키지 번들에는 폰트 파일이 없어요.)
+
+```css
+/* 운영 */
+@import url(https://atelier-assets.claykit.com/font/css/pretendard.css);
+
+/* 베타 */
+@import url(https://atelier-assets.betaclaykit.in/font/css/pretendard.css);
+```
+
+## 7. 이슈 제보
+
+적용 중 이슈 발생 시 [#support-Clay Kit](https://claykithan.slack.com/archives/C04K1GP099S) 슬랙 채널 워크플로우를 통해 문의해주세요. 🙂
