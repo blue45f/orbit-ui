@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 💬 토론
+    url: https://github.com/clay-kit/clay-kit/discussions
+    about: 질문 및 아이디어 토론
+  - name: 🔒 보안 취약점
+    url: https://github.com/clay-kit/clay-kit/blob/main/SECURITY.md
+    about: 보안 취약점 비공개 신고
