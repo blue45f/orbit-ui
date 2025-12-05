@@ -1,6 +1,7 @@
-import { forwardRef, Children, cloneElement } from 'react'
+import { forwardRef } from 'react'
 
 import { cn } from '../../styles'
+import { mapChildrenWithSelection } from '../../libs'
 import { ContainerLayer, ContentLayer } from '../primitives/Layer'
 
 /* ========================================================================
@@ -55,13 +56,7 @@ export const TabItems = forwardRef<HTMLDivElement, TabItemsProps>(
       ...styleProp,
     }
 
-    const childrenWithProps = Children.map(children, (child, index) => {
-      if (!child || typeof child !== 'object') return child
-      return cloneElement(child as React.ReactElement<any>, {
-        selected: index === selectedIndex,
-        onClick: () => onTabChange?.(index),
-      })
-    })
+    const childrenWithProps = mapChildrenWithSelection(children, selectedIndex, onTabChange)
 
     return (
       <ContainerLayer as="div" ref={ref} className={className} style={style} role="tablist" {...rest}>

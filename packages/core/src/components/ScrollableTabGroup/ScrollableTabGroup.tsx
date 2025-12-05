@@ -1,6 +1,7 @@
-import { forwardRef, useRef, useEffect, useState, Children, cloneElement } from 'react'
+import { forwardRef, useRef, useEffect, useState } from 'react'
 
 import { cn } from '../../styles'
+import { mapChildrenWithSelection } from '../../libs'
 import { ContainerLayer, ContentLayer } from '../primitives/Layer'
 
 /* ========================================================================
@@ -75,13 +76,7 @@ export const ScrollableTabGroup = forwardRef<HTMLDivElement, ScrollableTabGroupP
       ...styleProp,
     }
 
-    const childrenWithProps = Children.map(children, (child, index) => {
-      if (!child || typeof child !== 'object') return child
-      return cloneElement(child as React.ReactElement<any>, {
-        selected: index === selectedIndex,
-        onClick: () => onTabChange?.(index),
-      })
-    })
+    const childrenWithProps = mapChildrenWithSelection(children, selectedIndex, onTabChange)
 
     return (
       <ContainerLayer as="div" ref={ref} className={className} style={style} role="tablist" {...rest}>

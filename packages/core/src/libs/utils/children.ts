@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { ReactElement, ReactNode, isValidElement } from 'react'
+import { Children, ReactElement, ReactNode, cloneElement, isValidElement } from 'react'
 
 import { isComponentTypeOf } from '../core/componentType'
 
@@ -166,4 +166,36 @@ export const fillDummyComponents = (
     center: center || dummyComponents?.center,
     trailing: trailing || dummyComponents?.trailing,
   }
+}
+
+/**
+ * children을 순회하며 각 child에 선택 상태와 클릭 핸들러를 주입합니다.
+ * TabGroup, PageIndicator 등 선택 가능한 아이템 목록에서 사용됩니다.
+ *
+ * @param children - React children
+ * @param selectedIndex - 현재 선택된 아이템의 인덱스
+ * @param onSelect - 아이템 선택 시 호출될 콜백 함수
+ * @returns 선택 상태와 클릭 핸들러가 주입된 children 배열
+ *
+ * @example
+ * ```tsx
+ * const childrenWithProps = mapChildrenWithSelection(
+ *   children,
+ *   selectedIndex,
+ *   (index) => onTabChange?.(index)
+ * )
+ * ```
+ */
+export function mapChildrenWithSelection(
+  children: ReactNode,
+  selectedIndex: number,
+  onSelect?: (index: number) => void
+): ReactNode {
+  return Children.map(children, (child, index) => {
+    if (!child || typeof child !== 'object') return child
+    return cloneElement(child as ReactElement<any>, {
+      selected: index === selectedIndex,
+      onClick: () => onSelect?.(index),
+    })
+  })
 }
