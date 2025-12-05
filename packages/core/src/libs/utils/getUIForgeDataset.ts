@@ -3,8 +3,8 @@
  * - `data-ui-forge-component="{componentName}"`
  */
 // eslint-disable-next-line
-export function getClayKitDataset(componentName: string, props: any): string {
-  // 몰드에서 추가로 정의한 경우
+export function getUIForgeDataset(componentName: string, props: any): string {
+  // 컴포짓에서 추가로 정의한 경우
   if ('data-ui-forge-component' in props) {
     return `${componentName}${props['data-ui-forge-component'] as string}`
   }
