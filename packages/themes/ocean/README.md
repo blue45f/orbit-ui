@@ -1,31 +1,31 @@
-# @clay-kit/mint
+# @ui-forge/theme-ocean
 
-[![npm](https://img.shields.io/npm/v/@clay-kit/mint)](https://www.npmjs.com/package/@clay-kit/mint)
+[![npm](https://img.shields.io/npm/v/@ui-forge/theme-ocean)](https://www.npmjs.com/package/@ui-forge/theme-ocean)
 
-> Mint 테마 컴포넌트
+> Ocean 테마 컴포넌트
 
 ## 설치
 
 ```bash
-pnpm add @clay-kit/mint
+pnpm add @ui-forge/theme-ocean
 ```
 
 ## 사용법
 
 ```tsx
-import { Button, Provider } from '@clay-kit/mint'
-import '@clay-kit/mint/style.css'
+import { SolidButton, OutlinedButton, ForgeRoot } from '@ui-forge/theme-ocean'
+import '@ui-forge/theme-ocean/style.css'
 
 function App() {
   return (
-    <Provider>
-      <Button variant="filled" size="medium">
+    <ForgeRoot>
+      <SolidButton variant="primary" size="medium">
         확인
-      </Button>
-      <Button variant="outlined" size="medium">
+      </SolidButton>
+      <OutlinedButton variant="primary" size="medium">
         취소
-      </Button>
-    </Provider>
+      </OutlinedButton>
+    </ForgeRoot>
   )
 }
 ```
@@ -34,14 +34,14 @@ function App() {
 
 ```tsx
 // app/layout.tsx
-import { Provider } from '@clay-kit/mint/server'
-import '@clay-kit/mint/style.css'
+import { ForgeRoot } from '@ui-forge/theme-ocean/server'
+import '@ui-forge/theme-ocean/style.css'
 
 export default function RootLayout({ children }) {
   return (
     <html>
       <body>
-        <Provider>{children}</Provider>
+        <ForgeRoot>{children}</ForgeRoot>
       </body>
     </html>
   )
@@ -51,25 +51,27 @@ export default function RootLayout({ children }) {
 ## 컴포넌트
 
 ### 버튼
-- `Button` - variant: filled, outlined, text
+- `SolidButton` - 채워진 버튼
+- `OutlinedButton` - 외곽선 버튼
+- `TextButton` - 텍스트 버튼
 - `IconButton` - 아이콘 버튼
 
 ### 입력
 - `TextField` - 텍스트 입력
-- `TextArea` - 다중 줄 입력
-- `Select` - 선택
+- `FloatingTextField` - 플로팅 라벨 입력
+- `Dropdown` - 드롭다운
 - `Checkbox` - 체크박스
-- `Radio` - 라디오
-- `Switch` - 스위치
+- `RadioButton` - 라디오
+- `Toggle` - 토글 스위치
 
 ### 피드백
-- `Alert` - 알림
-- `Snackbar` - 스낵바
+- `AlertDialog` - 알림 다이얼로그
+- `Toast` - 토스트
 - `Badge` - 배지
 
 ### 내비게이션
-- `Tabs` - 탭
-- `TopBar` - 상단 바
+- `TabItem` - 탭
+- `NavigationBar` - 네비게이션 바
 
 ### 레이아웃
 - `Flex` - 플렉스박스
@@ -79,14 +81,14 @@ export default function RootLayout({ children }) {
 ## 테마 커스터마이징
 
 ```tsx
-<Button
+<SolidButton
   theme={{
     enabledFill: '#FF6B6B',
     enabledForeground: '#FFFFFF',
   }}
 >
   커스텀
-</Button>
+</SolidButton>
 ```
 
 ## 라이선스

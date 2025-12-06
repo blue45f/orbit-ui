@@ -12,7 +12,6 @@ module.exports = {
     'plugin:react/recommended',
     'plugin:react/jsx-runtime',
     'plugin:react-hooks/recommended',
-    'turbo',
     'prettier',
   ],
   parser: '@typescript-eslint/parser',

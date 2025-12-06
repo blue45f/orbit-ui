@@ -45,7 +45,7 @@ export type RadioButtonProps = Omit<RadioButtonButtonProps, keyof RadioButtonBut
  */
 export const RadioButton = forwardRef<HTMLInputElement, RadioButtonProps>((props, ref) => {
   return (
-    <RadioButton
+    <RadioButtonButton
       ref={ref}
       {...props}
       theme={{ ...vars.com.radio, ...props.theme }}

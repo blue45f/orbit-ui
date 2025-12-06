@@ -1,5 +1,5 @@
 <p align="center">
-  <h1 align="center">🎨 Clay Kit</h1>
+  <h1 align="center">UI Forge</h1>
 </p>
 
 <p align="center">
@@ -14,49 +14,49 @@
 
 ---
 
-## ✨ 주요 특징
+## 주요 특징
 
 | 특징 | 설명 |
 |------|------|
-| 🎯 **Figma 연동** | Figma Variables와 동기화된 디자인 토큰 |
-| 🧱 **계층적 구조** | Base → Theme → Custom 3단계 아키텍처 |
-| 🎨 **테마 커스터마이징** | `theme` prop으로 스타일 재정의 |
-| ♿ **접근성** | WAI-ARIA 표준 준수 |
-| 📦 **Tree Shaking** | 필요한 컴포넌트만 번들에 포함 |
-| 🔧 **TypeScript** | 완벽한 타입 지원 |
+| **Figma 연동** | Figma Variables와 동기화된 디자인 토큰 |
+| **계층적 구조** | Base → Theme → Custom 3단계 아키텍처 |
+| **테마 커스터마이징** | `theme` prop으로 스타일 재정의 |
+| **접근성** | WAI-ARIA 표준 준수 |
+| **Tree Shaking** | 필요한 컴포넌트만 번들에 포함 |
+| **TypeScript** | 완벽한 타입 지원 |
 
 ---
 
-## 📦 패키지
+## 패키지
 
 | 패키지 | 설명 |
 |--------|------|
-| `@clay-kit/foundation` | Base 컴포넌트 (스타일 미적용) |
-| `@clay-kit/mint` | Mint 테마 컴포넌트 |
-| `@clay-kit/icons` | SVG 아이콘 |
+| `@ui-forge/core` | Base 컴포넌트 (스타일 미적용) |
+| `@ui-forge/theme-ocean` | Ocean 테마 컴포넌트 |
+| `@ui-forge/icons` | SVG 아이콘 |
 
 ---
 
-## 🚀 시작하기
+## 시작하기
 
 ### 설치
 
 ```bash
-pnpm add @clay-kit/mint
+pnpm add @ui-forge/theme-ocean
 ```
 
 ### 기본 사용법
 
 ```tsx
-import { FilledButton, OutlinedButton, ClayRoot } from '@clay-kit/mint'
-import '@clay-kit/mint/style.css'
+import { SolidButton, OutlinedButton, ForgeRoot } from '@ui-forge/theme-ocean'
+import '@ui-forge/theme-ocean/style.css'
 
 function App() {
   return (
-    <ClayRoot>
-      <FilledButton>확인</FilledButton>
+    <ForgeRoot>
+      <SolidButton>확인</SolidButton>
       <OutlinedButton>취소</OutlinedButton>
-    </ClayRoot>
+    </ForgeRoot>
   )
 }
 ```
@@ -65,14 +65,14 @@ function App() {
 
 ```tsx
 // app/layout.tsx
-import { ClayRoot } from '@clay-kit/mint/server'
-import '@clay-kit/mint/style.css'
+import { ForgeRoot } from '@ui-forge/theme-ocean/server'
+import '@ui-forge/theme-ocean/style.css'
 
 export default function RootLayout({ children }) {
   return (
     <html lang="ko">
       <body>
-        <ClayRoot>{children}</ClayRoot>
+        <ForgeRoot>{children}</ForgeRoot>
       </body>
     </html>
   )
@@ -81,59 +81,44 @@ export default function RootLayout({ children }) {
 
 ---
 
-## 🧩 컴포넌트
+## 컴포넌트
 
-### 새로운 컴포넌트명 (권장)
+### Base 컴포넌트 (@ui-forge/core)
 
-Base 컴포넌트의 `Base` 접두사를 제거한 더 직관적인 이름을 사용할 수 있습니다.
+Base 컴포넌트는 스타일이 적용되지 않은 기능 컴포넌트입니다.
 
 ```tsx
-// 새 이름 (권장)
-import { Button, Input, Toggle, Toast } from '@clay-kit/foundation'
-
-// 기존 이름 (호환성 유지)
-import { BaseButton, BaseTextField, BaseSwitch, BaseSnackbar } from '@clay-kit/foundation'
+import { Button, TextField, Toggle, Toast } from '@ui-forge/core'
 ```
 
-### 컴포넌트 매핑
+### Theme 컴포넌트 (@ui-forge/theme-ocean)
 
-| 기존 | 새 이름 | 설명 |
-|------|---------|------|
-| `BaseButton` | `Button` | 버튼 |
-| `BaseTextField` | `Input` | 입력 필드 |
-| `BaseSwitch` | `Toggle` | 토글 스위치 |
-| `BaseSnackbar` | `Toast` | 토스트 알림 |
-| `BaseSheet` | `Sheet` | 바텀시트 |
-| `BaseCheckbox` | `Checkbox` | 체크박스 |
-| `BaseRadio` | `Radio` | 라디오 버튼 |
-| `BaseSelect` | `Select` | 선택 |
-| `BaseChip` | `Chip` | 칩 |
-| `BaseTabs` | `Tabs` | 탭 |
-| `BaseAlert` | `Alert` | 알림 |
-| `BaseBadge` | `Badge` | 배지 |
-| `BaseDivider` | `Divider` | 구분선 |
-| `BaseSpacer` | `Spacer` | 여백 |
-| `BaseNavigationBar` | `NavBar` | 네비게이션 바 |
-| `BaseScrim` | `Backdrop` | 배경 오버레이 |
+Ocean 테마가 적용된 스타일 컴포넌트입니다.
+
+```tsx
+import { SolidButton, TextField, Checkbox, Radio } from '@ui-forge/theme-ocean'
+```
 
 ---
 
-## 📁 프로젝트 구조
+## 프로젝트 구조
 
 ```
-clay-kit/
+ui-forge/
 ├── packages/
-│   ├── foundation/        # Base 컴포넌트
-│   ├── clay/mint/         # Mint 테마 컴포넌트
-│   └── icons/             # 아이콘
+│   ├── core/              # @ui-forge/core - Base 컴포넌트
+│   ├── themes/ocean/      # @ui-forge/theme-ocean - Ocean 테마
+│   └── icons/             # @ui-forge/icons - 아이콘
 ├── tools/
-│   └── vite-plugin/       # 빌드 플러그인
+│   ├── vite-plugin/       # 빌드 플러그인
+│   ├── eslint-plugin-custom-sort/ # CSS 속성 정렬 규칙
+│   └── plop/              # 컴포넌트 생성기
 └── docs/                  # 문서
 ```
 
 ---
 
-## 🛠️ 개발
+## 개발
 
 ### 요구사항
 
@@ -151,16 +136,18 @@ pnpm build        # 빌드
 pnpm test         # 테스트
 pnpm typecheck    # 타입 체크
 pnpm lint         # 린트
+pnpm gen          # 컴포넌트 생성
+pnpm changeset    # 변경셋 생성
 ```
 
 ---
 
-## 🤝 기여
+## 기여
 
 기여를 환영합니다! [기여 가이드](./CONTRIBUTING.md)를 참고하세요.
 
 ---
 
-## 📄 라이선스
+## 라이선스
 
-MIT License © Clay Kit Contributors
+MIT License © UI Forge Contributors

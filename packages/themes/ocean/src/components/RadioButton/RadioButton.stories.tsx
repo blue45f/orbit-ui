@@ -26,14 +26,14 @@ export const 기본 = {
     const [selected, setSelected] = useState('blue')
     return (
       <fieldset role='radiogroup'>
-        <Radio
+        <RadioButton
           {...args}
           value='blue'
           name='color'
           checked={selected === 'blue'}
           onChange={(e) => setSelected(e.target.value)}
         />
-        <Radio
+        <RadioButton
           {...args}
           value='foundation'
           name='color'
@@ -51,7 +51,7 @@ export const 테마_재정의 = {
     const [selected, setSelected] = useState('blue')
     return (
       <fieldset role='radiogroup'>
-        <Radio
+        <RadioButton
           {...args}
           checked={selected === 'blue'}
           onChange={(e) => setSelected(e.target.value)}
@@ -60,7 +60,7 @@ export const 테마_재정의 = {
           }}
           value='blue'
         />
-        <Radio
+        <RadioButton
           {...args}
           value='foundation'
           checked={selected === 'foundation'}
@@ -69,7 +69,7 @@ export const 테마_재정의 = {
             enabledSelectedForegroundColor: 'red',
           }}
         />
-        <Radio
+        <RadioButton
           {...args}
           value='mint'
           checked={selected === 'mint'}
@@ -90,7 +90,7 @@ export const 라벨_추가 = {
       <fieldset role='radiogroup'>
         <Flex rowGap='25px' flexDirection={'column'}>
           <Flex columnGap='10px'>
-            <Radio
+            <RadioButton
               {...args}
               value='blue'
               id='blue'
@@ -100,7 +100,7 @@ export const 라벨_추가 = {
             <label htmlFor='blue'>블루</label>
           </Flex>
           <Flex columnGap='10px'>
-            <Radio
+            <RadioButton
               {...args}
               value='foundation'
               disabled
@@ -111,7 +111,7 @@ export const 라벨_추가 = {
             <label htmlFor='foundation'>파운데이션</label>
           </Flex>
           <Flex columnGap='10px'>
-            <Radio
+            <RadioButton
               {...args}
               value='mint'
               id='mint'
@@ -173,7 +173,7 @@ export const 디자인QA = {
         <div style={{ marginBottom: '25px' }}>첫 번째 라디오는 라벨이 없어요</div>
         <Flex rowGap={args.rowGap} columnGap={args.columnGap} flexDirection={args.flexDirection}>
           <Flex columnGap='10px'>
-            <Radio
+            <RadioButton
               {...args}
               name='color'
               value='blue'
@@ -182,7 +182,7 @@ export const 디자인QA = {
             />
           </Flex>
           <Flex columnGap='10px'>
-            <Radio
+            <RadioButton
               {...args}
               name='color'
               id='foundation'
@@ -194,7 +194,7 @@ export const 디자인QA = {
             <label htmlFor='foundation'>{args.labelText}</label>
           </Flex>
           <Flex columnGap='10px'>
-            <Radio
+            <RadioButton
               {...args}
               id='mint'
               name='color'

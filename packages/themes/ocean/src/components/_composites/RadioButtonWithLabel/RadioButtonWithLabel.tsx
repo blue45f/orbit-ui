@@ -2,8 +2,8 @@ import { useUniqueID, errorDev } from '@ui-forge/core'
 import { assignInlineVars } from '@vanilla-extract/dynamic'
 import { forwardRef } from 'react'
 
-import { Radio, RadioProps } from '../../Radio'
-import { Typography } from '../../Typography'
+import { RadioButton as Radio, RadioButtonProps as RadioProps } from '../../RadioButton'
+import { Typography } from '../../Text'
 import { useRadioGroupContext } from '../RadioGroup'
 
 import * as styles from './RadioButtonWithLabel.css'
