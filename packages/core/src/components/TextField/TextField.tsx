@@ -10,12 +10,10 @@ import {
   useControllableState,
   flattenFragment,
   setNativeValue,
-  textOverflow,
-  useElementSize,
 } from '../../libs'
 import { BorderLayer, ContainerLayer, ContentLayer } from '../primitives/Layer'
 
-import { TextFieldProvider, TextFieldContextValue, useTextFieldContext } from './TextField.lib'
+import { TextFieldProvider, useTextFieldContext } from './TextField.lib'
 
 /* ========================================================================
  * Types
@@ -83,7 +81,7 @@ const InternalTextFieldRoot = forwardRef<HTMLElement, TextFieldPropsWithAs>((pro
     height = 48,
     disabled = false,
     axis = 'horizontal',
-    maximumLine,
+    maximumLine: _maximumLine,
     minimumLine = 1,
     type = 'text',
     maxLength,
@@ -124,7 +122,6 @@ const InternalTextFieldRoot = forwardRef<HTMLElement, TextFieldPropsWithAs>((pro
   })
 
   const refs = composeRefs(ref, selfRef)
-  const [valueSizeRef, valueSize] = useElementSize<HTMLSpanElement>()
 
   // 상태별 색상 결정
   const fillColor = disabled
@@ -225,7 +222,8 @@ const InternalTextFieldRoot = forwardRef<HTMLElement, TextFieldPropsWithAs>((pro
             <InputComponent
               {...rest}
               {...handlers}
-              ref={refs as any}
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              ref={refs as React.Ref<HTMLInputElement | HTMLTextAreaElement> as any}
               type={axis === 'horizontal' ? type : undefined}
               disabled={disabled}
               maxLength={maxLength}
@@ -295,6 +293,21 @@ const TextFieldTrailing: React.FC<TextFieldTrailingProps> = ({
   </span>
 )
 
+export type TextFieldCenterProps = {
+  children?: React.ReactNode
+} & HTMLAttributes<HTMLSpanElement>
+
+/** TextField Center - 입력 영역에 추가 컨텐츠 배치 */
+const TextFieldCenter: React.FC<TextFieldCenterProps> = ({
+  children,
+  className,
+  ...rest
+}) => (
+  <span {...rest} className={cn('inline-flex items-center', className)}>
+    {children}
+  </span>
+)
+
 export type TextFieldClearButtonProps = {
   visibility?: 'onFocused' | 'onPopulated'
   children?: React.ReactNode
@@ -334,6 +347,7 @@ const TextFieldClearButton: React.FC<TextFieldClearButtonProps> = ({
 type TextFieldComponent = typeof InternalTextFieldRoot & {
   Leading: typeof TextFieldLeading
   Trailing: typeof TextFieldTrailing
+  Center: typeof TextFieldCenter
   ClearButton: typeof TextFieldClearButton
 }
 
@@ -351,5 +365,6 @@ type TextFieldComponent = typeof InternalTextFieldRoot & {
 export const TextField: TextFieldComponent = Object.assign(InternalTextFieldRoot, {
   Leading: TextFieldLeading,
   Trailing: TextFieldTrailing,
+  Center: TextFieldCenter,
   ClearButton: TextFieldClearButton,
 })

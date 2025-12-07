@@ -1,7 +1,7 @@
-import { Divider, DividerProps } from '@ui-forge/core'
+import { BaseDivider, BaseDividerProps } from '@ui-forge/core'
 import React from 'react'
 
-export type DividerProps = Omit<DividerProps, 'thickness'> & {
+export type DividerProps = Omit<BaseDividerProps, 'thickness'> & {
   /**
    * Divider 컴포넌트의 방향
    * @defaultValue `horizontal`
@@ -53,7 +53,7 @@ export type DividerProps = Omit<DividerProps, 'thickness'> & {
 export const Divider: React.FC<DividerProps> = (props) => {
   const { orientation = 'horizontal', length = '100%', style, ...rest } = props
 
-  return <Divider orientation={orientation} thickness='1px' length={length} style={style} {...rest} />
+  return <BaseDivider orientation={orientation} thickness='1px' length={length} style={style} {...rest} />
 }
 
 Divider.displayName = 'Divider'

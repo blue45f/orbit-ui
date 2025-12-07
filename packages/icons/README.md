@@ -1,19 +1,19 @@
-# @clay-kit/icons
+# @ui-forge/icons
 
-[![npm](https://img.shields.io/npm/v/@clay-kit/icons)](https://www.npmjs.com/package/@clay-kit/icons)
+[![npm](https://img.shields.io/npm/v/@ui-forge/icons)](https://www.npmjs.com/package/@ui-forge/icons)
 
 > SVG 아이콘 컴포넌트
 
 ## 설치
 
 ```bash
-pnpm add @clay-kit/icons
+pnpm add @ui-forge/icons
 ```
 
 ## 사용법
 
 ```tsx
-import { PlusIcon, CheckIcon, CloseIcon } from '@clay-kit/icons'
+import { PlusIcon, CheckIcon, CloseIcon } from '@ui-forge/icons'
 
 function App() {
   return (
@@ -29,17 +29,17 @@ function App() {
 ## 버튼과 함께 사용
 
 ```tsx
-import { Button } from '@clay-kit/mint'
-import { PlusIcon } from '@clay-kit/icons'
+import { SolidButton } from '@ui-forge/theme-ocean'
+import { PlusIcon } from '@ui-forge/icons'
 
 function App() {
   return (
-    <Button>
-      <Button.Leading>
+    <SolidButton>
+      <SolidButton.Leading>
         <PlusIcon />
-      </Button.Leading>
+      </SolidButton.Leading>
       추가
-    </Button>
+    </SolidButton>
   )
 }
 ```
@@ -56,7 +56,7 @@ function App() {
 ## 아이콘 컨텍스트
 
 ```tsx
-import { IconPropsContext } from '@clay-kit/icons'
+import { IconPropsContext } from '@ui-forge/icons'
 
 <IconPropsContext.Provider value={{ size: 20, color: 'blue' }}>
   <PlusIcon />  {/* 20px, blue */}

@@ -36,15 +36,7 @@ export type PageNumberProps = PageNumberSpecificProps & {
  * Component
  * ======================================================================== */
 
-/**
- * 페이지 카운터 컴포넌트
- *
- * @example
- * ```tsx
- * <PageNumber current={1} total={10} />
- * ```
- */
-export const PageNumber = forwardRef<HTMLDivElement, PageNumberProps>(
+const InternalPageNumber = forwardRef<HTMLDivElement, PageNumberProps>(
   ({ current, total, trailing, className: classProp, style: styleProp, theme, ...rest }, ref) => {
     const className = cn('relative inline-flex items-center', classProp)
 
@@ -68,3 +60,35 @@ export const PageNumber = forwardRef<HTMLDivElement, PageNumberProps>(
     )
   }
 )
+
+/* ========================================================================
+ * Sub-components
+ * ======================================================================== */
+
+export type PageNumberTrailingProps = {
+  children: React.ReactNode
+}
+
+const PageNumberTrailing: React.FC<PageNumberTrailingProps> = ({ children }) => (
+  <span className="flex-shrink-0">{children}</span>
+)
+
+/* ========================================================================
+ * Export
+ * ======================================================================== */
+
+type PageNumberComponent = typeof InternalPageNumber & {
+  Trailing: typeof PageNumberTrailing
+}
+
+/**
+ * 페이지 카운터 컴포넌트
+ *
+ * @example
+ * ```tsx
+ * <PageNumber current={1} total={10} />
+ * ```
+ */
+export const PageNumber: PageNumberComponent = Object.assign(InternalPageNumber, {
+  Trailing: PageNumberTrailing,
+})

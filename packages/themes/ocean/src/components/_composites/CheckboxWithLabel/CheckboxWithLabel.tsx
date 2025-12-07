@@ -3,7 +3,7 @@ import { assignInlineVars } from '@vanilla-extract/dynamic'
 import { forwardRef } from 'react'
 
 import { Checkbox, CheckboxProps } from '../../Checkbox'
-import { Typography } from '../../Typography'
+import { Typography } from '../../Text'
 
 import * as styles from './CheckboxWithLabel.css'
 

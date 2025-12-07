@@ -11,7 +11,7 @@ import { forwardRef, Children, PropsWithChildren, HTMLAttributes } from 'react'
 
 import { vars } from '../../styles/theme.css'
 
-import * as styles from './Dialog.css'
+import * as styles from './Modal.css'
 
 export type DialogProps = Omit<AlertDialogProps, keyof AlertDialogSpecificProps> &
   ComponentThemeProps<typeof vars.com.dialog>

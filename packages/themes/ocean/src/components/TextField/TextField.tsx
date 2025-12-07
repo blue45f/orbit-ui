@@ -1,6 +1,6 @@
-import { TextField, TextFieldProps, TextFieldSpecificProps, ComponentThemeProps } from '@ui-forge/core'
+import { BaseTextField, BaseTextFieldProps, BaseTextFieldSpecificProps, ComponentThemeProps } from '@ui-forge/core'
 import { CircleCancelFillIcon } from '@ui-forge/icons'
-import { AllHTMLAttributes, forwardRef } from 'react'
+import { AllHTMLAttributes, forwardRef, ReactNode } from 'react'
 
 import { vars } from '../../styles/theme.css'
 import { FilledIconButton } from '../SolidIconButton'
@@ -8,16 +8,17 @@ import { FilledIconButton } from '../SolidIconButton'
 import * as styles from './TextField.css'
 
 export type TextFieldProps = Omit<
-  Omit<TextFieldProps, keyof TextFieldSpecificProps>,
+  Omit<BaseTextFieldProps, keyof BaseTextFieldSpecificProps>,
   'theme' | 'axis'
 > &
   ComponentThemeProps<Omit<typeof vars.com.textFieldSingleline, 'variant'>> &
-  Omit<AllHTMLAttributes<HTMLInputElement>, keyof TextFieldProps | 'as'> & {
+  Omit<AllHTMLAttributes<HTMLInputElement>, keyof BaseTextFieldProps | 'as'> & {
     /**
      * 에러 상태
      * @defaultValue `false`
      */
     error?: boolean
+    children?: ReactNode
   }
 
 /**
@@ -90,7 +91,7 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>((props, re
   const { variant: variantTokens, ...commonTokens } = vars.com.textFieldSingleline
 
   return (
-    <TextField
+    <BaseTextField
       {...rest}
       ref={ref}
       axis='horizontal'
@@ -101,8 +102,8 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>((props, re
         ...theme,
       }}
     >
-      <TextField.Center>{children}</TextField.Center>
-      <TextField.ClearButton visibility='onFocused' className={styles.clearButton}>
+      <BaseTextField.Center>{children}</BaseTextField.Center>
+      <BaseTextField.ClearButton visibility='onFocused' className={styles.clearButton}>
         <FilledIconButton
           color='white'
           size='medium'
@@ -111,7 +112,7 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>((props, re
         >
           <CircleCancelFillIcon size={16} color={vars.sem.color.foregroundQuaternary} />
         </FilledIconButton>
-      </TextField.ClearButton>
-    </TextField>
+      </BaseTextField.ClearButton>
+    </BaseTextField>
   )
 })

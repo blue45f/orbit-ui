@@ -11,7 +11,7 @@ import { forwardRef, Children, PropsWithChildren } from 'react'
 import { vars } from '../../styles/theme.css'
 import { Typography } from '../Text'
 
-import * as styles from './Alert.css'
+import * as styles from './AlertDialog.css'
 
 export type AlertProps = Omit<AlertDialogProps, keyof AlertDialogSpecificProps> & ComponentThemeProps<typeof vars.com.alert>
 
