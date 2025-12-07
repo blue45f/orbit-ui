@@ -22,3 +22,6 @@ export const Toggle = forwardRef<HTMLInputElement, ToggleProps>((props, ref) => 
     </BaseToggle>
   )
 })
+
+/** @deprecated Use Toggle instead */
+export const Switch = Toggle

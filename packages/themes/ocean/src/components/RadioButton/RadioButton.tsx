@@ -57,3 +57,6 @@ export const RadioButton = forwardRef<HTMLInputElement, RadioButtonProps>((props
     </RadioButtonButton>
   )
 })
+
+/** @deprecated Use RadioButton instead */
+export const Radio = RadioButton

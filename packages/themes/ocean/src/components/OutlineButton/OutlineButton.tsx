@@ -180,3 +180,6 @@ export const OutlineButton: OutlineButtonComponent = Object.assign(OutlineButton
   Center: Button.Center,
   Trailing: OutlineButtonTrailing,
 })
+
+/** @deprecated Use OutlineButton instead */
+export const OutlinedButton = OutlineButton

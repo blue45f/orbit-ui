@@ -2,7 +2,7 @@ import { Flex, TextStyleBaseSize, TextStyleTokenType } from '@ui-forge/core'
 import { Meta, StoryObj } from '@storybook/react'
 
 import { vars } from '../../styles/theme.css'
-import { ThemeProvider } from '../MintProvider'
+import { OceanProvider } from '../OceanProvider'
 
 import { ForcedTextStyle, Text } from './Text'
 
@@ -50,7 +50,7 @@ export const 기본 = {
 
 export const 모든_사이즈 = {
   render: (args: React.ComponentProps<typeof Text>) => {
-    const { children, textStyle, ...rest } = args
+    const { children: _children, textStyle: _textStyle, ...rest } = args
     const typographyStyles = Object.keys(vars.sem.textStyle)
       .map((key) => key.replace(/LineHeight|Size|Weight|Tracking|Face/g, ''))
       .filter((key, index, arr) => arr.indexOf(key) === index)
@@ -95,11 +95,11 @@ export const 디자인_QA = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/explicit-module-boundary-types
   render: ({ baseSize, children, textStyle, ...rest }: any) => {
     return (
-      <ThemeProvider baseTextSize={baseSize as TextStyleBaseSize}>
+      <OceanProvider baseTextSize={baseSize as TextStyleBaseSize}>
         <Text {...rest} textStyle={textStyle as TextStyleTokenType}>
           {textStyle}사이즈: {children}
         </Text>
-      </ThemeProvider>
+      </OceanProvider>
     )
   },
 }

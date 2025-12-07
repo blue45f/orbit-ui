@@ -126,3 +126,6 @@ export const GhostButton: GhostButtonComponent = Object.assign(GhostButtonRoot, 
   Center: Button.Center,
   Trailing: GhostButtonTrailing,
 })
+
+/** @deprecated Use GhostButton instead */
+export const TextButton = GhostButton

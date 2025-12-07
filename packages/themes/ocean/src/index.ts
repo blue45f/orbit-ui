@@ -27,10 +27,10 @@ export * from './components/LabelBadge'
 export * from './components/ListTile'
 
 /* M */
-export * from './components/MintProvider'
 export * from './components/Modal'
 
 /* O */
+export * from './components/OceanProvider' // Exports OceanProvider (primary) and MintProvider (deprecated alias)
 export * from './components/OutlineButton'
 export * from './components/OutlineIconButton'
 

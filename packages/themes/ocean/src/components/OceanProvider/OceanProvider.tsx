@@ -8,7 +8,7 @@ import { ReusableSVG } from './ReusableSVG'
 
 import '@ui-forge/core/style.css'
 
-export type MintProviderProps = {
+export type OceanProviderProps = {
   /**
    * 현재 테마 모드
    * @defaultValue `light`
@@ -23,6 +23,9 @@ export type MintProviderProps = {
   baseTextSize?: TextStyleBaseSize
 }
 
+/** @deprecated Use OceanProviderProps instead */
+export type MintProviderProps = OceanProviderProps
+
 /**
  * ### 💡 알아두기
  * - 사용처 앱의 최상단에 배치되는 Provider 컴포넌트예요.
@@ -31,20 +34,18 @@ export type MintProviderProps = {
  * @example
  * ### 👇 기본 사용법
  * ```
- * import { MintProvider } from '@ui-forge/theme-ocean'
+ * import { OceanProvider } from '@ui-forge/theme-ocean'
  *
  * function MyApp() {
  *  return (
- *    <MintProvider mode='light'>
- *      <MintSpecificProviders>
- *        <AppComponents />
- *      </MintSpecificProviders>
- *    </MintProvider>
+ *    <OceanProvider mode='light'>
+ *      <App />
+ *    </OceanProvider>
  *  )
  * }
  * ```
  */
-export const MintProvider: React.FC<PropsWithChildren<MintProviderProps>> = ({
+export const OceanProvider: React.FC<PropsWithChildren<OceanProviderProps>> = ({
   mode = 'light',
   baseTextSize = 'medium',
   children,
@@ -64,3 +65,6 @@ export const MintProvider: React.FC<PropsWithChildren<MintProviderProps>> = ({
     </ThemeProvider>
   )
 }
+
+/** @deprecated Use OceanProvider instead */
+export const MintProvider = OceanProvider

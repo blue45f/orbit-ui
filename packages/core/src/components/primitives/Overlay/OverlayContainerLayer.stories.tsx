@@ -90,11 +90,11 @@ const Basic = () => {
           }}
         >
           <ContentLayer direction='vertical'>
-            <Text textStyle='titleLarge' color='white'>
+            <Text as='h2' style={{ color: 'white', fontSize: '1.5rem', fontWeight: 'bold' }}>
               Header
             </Text>
             <input type='text' />
-            <Text textStyle='titleSmall' color='white'>
+            <Text as='span' style={{ color: 'white', fontSize: '0.875rem' }}>
               Footer
             </Text>
           </ContentLayer>

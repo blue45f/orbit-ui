@@ -1,0 +1,7 @@
+.rowGap {
+  row-gap: var(--row-gap);
+}
+
+.columnGap {
+  column-gap: var(--column-gap);
+}
