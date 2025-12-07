@@ -1,6 +1,5 @@
+import { render, cleanup } from '@testing-library/react'
 import { afterEach, describe, expect, test } from 'vitest'
-
-import { cleanup, render } from '../../../../../foundation/src/test-utils'
 
 import { Toggle } from './Toggle'
 

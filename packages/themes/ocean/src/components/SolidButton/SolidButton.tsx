@@ -178,3 +178,6 @@ export const SolidButton: SolidButtonComponent = Object.assign(SolidButtonRoot, 
   Center: Button.Center,
   Trailing: SolidButtonTrailing,
 })
+
+/** @deprecated Use SolidButton instead */
+export const FilledButton = SolidButton

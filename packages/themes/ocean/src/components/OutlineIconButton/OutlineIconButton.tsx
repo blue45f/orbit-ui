@@ -115,3 +115,6 @@ const OutlineIconButtonRoot: React.ForwardRefExoticComponent<
  * ```
  */
 export const OutlineIconButton = OutlineIconButtonRoot
+
+/** @deprecated Use OutlineIconButton instead */
+export const OutlinedIconButton = OutlineIconButton

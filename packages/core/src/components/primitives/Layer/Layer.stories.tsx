@@ -28,8 +28,8 @@ export const 기본 = {
     return (
       <ContainerLayer
         as='button'
-        className={coreStyle.reset.button}
         style={{
+          ...coreStyle.reset.button,
           color: 'gray',
         }}
       >

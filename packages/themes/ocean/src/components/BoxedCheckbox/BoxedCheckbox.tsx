@@ -42,3 +42,6 @@ export const BoxedCheckbox = forwardRef<HTMLInputElement, BoxedCheckboxProps>((p
     </Checkbox>
   )
 })
+
+/** @deprecated Use BoxedCheckbox instead */
+export const ContainedCheckbox = BoxedCheckbox

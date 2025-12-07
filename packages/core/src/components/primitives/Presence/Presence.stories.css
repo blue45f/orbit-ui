@@ -1,0 +1,11 @@
+.presentable {
+  padding: 20px;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+.presentable[data-hidden='true'] {
+  opacity: 0;
+}
