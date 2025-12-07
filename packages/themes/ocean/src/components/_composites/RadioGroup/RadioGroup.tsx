@@ -1,5 +1,7 @@
-import { setupContext, styleProtected, StyleProtected, useControllableState, reset } from '@ui-forge/core'
+import { setupContext, styleProtected, StyleProtected, useControllableState } from '@ui-forge/core'
 import { forwardRef } from 'react'
+
+import * as styles from './RadioGroup.css'
 
 // ========== RadioGroupContext ==========
 
@@ -84,7 +86,7 @@ export const RadioGroup = forwardRef<HTMLFieldSetElement, RadioGroupProps>(
             })
           }}
           {...styleProtected(rest)}
-          className={reset.fieldset}
+          className={styles.fieldset}
         />
       </RadioGroupProvider>
     )

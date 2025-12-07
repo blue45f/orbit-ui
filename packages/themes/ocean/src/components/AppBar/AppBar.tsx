@@ -1,7 +1,7 @@
 import {
-  AppBar,
-  AppBarProps,
-  AppBarSpecificProps,
+  BaseAppBar,
+  BaseAppBarProps,
+  BaseAppBarSpecificProps,
   ComponentThemeProps,
   findComponent,
 } from '@ui-forge/core'
@@ -9,7 +9,7 @@ import React, { Children, PropsWithChildren, ReactNode, forwardRef } from 'react
 
 import { vars } from '../../styles'
 
-export type AppBarProps = Omit<AppBarProps, keyof AppBarSpecificProps> &
+export type AppBarProps = Omit<BaseAppBarProps, keyof BaseAppBarSpecificProps> &
   ComponentThemeProps<typeof vars.com.navigationBar>
 
 const AppBarRoot = forwardRef<HTMLDivElement, AppBarProps>((props, ref) => {
@@ -34,11 +34,11 @@ const AppBarRoot = forwardRef<HTMLDivElement, AppBarProps>((props, ref) => {
   })
 
   return (
-    <AppBar ref={ref} theme={{ ...vars.com.navigationBar, ...theme }} {...rest}>
-      {leading && <AppBar.Leading>{leading}</AppBar.Leading>}
-      {center && <AppBar.Center>{center}</AppBar.Center>}
-      {trailing && <AppBar.Trailing>{trailing}</AppBar.Trailing>}
-    </AppBar>
+    <BaseAppBar ref={ref} theme={{ ...vars.com.navigationBar, ...theme }} {...rest}>
+      {leading && <BaseAppBar.Leading>{leading}</BaseAppBar.Leading>}
+      {center && <BaseAppBar.Center>{center}</BaseAppBar.Center>}
+      {trailing && <BaseAppBar.Trailing>{trailing}</BaseAppBar.Trailing>}
+    </BaseAppBar>
   )
 })
 

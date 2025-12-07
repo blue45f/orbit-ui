@@ -27,6 +27,8 @@ export type TabTheme = {
 export type TabItemSpecificProps = {
   /** 테마 커스터마이징 */
   theme?: Partial<TabTheme>
+  /** 탭 높이 */
+  height?: number | string
   /** 스타일 */
   style?: React.CSSProperties
   /** 클래스명 */
@@ -50,6 +52,7 @@ const InternalTabItemRoot = forwardRef<HTMLButtonElement, TabItemProps>((props, 
     children,
     selected = false,
     disabled = false,
+    height,
     onClick,
     onFocus,
     onBlur,
@@ -91,6 +94,7 @@ const InternalTabItemRoot = forwardRef<HTMLButtonElement, TabItemProps>((props, 
   )
 
   const style: React.CSSProperties = {
+    height: height ? toCSSLength(height) : undefined,
     backgroundColor: fillColor,
     color: foregroundColor,
     paddingLeft: theme?.paddingHorizontal || '16px',
@@ -168,12 +172,21 @@ const TabItemTrailing: React.FC<TabItemTrailingProps> = ({ size = 20, children }
   </span>
 )
 
+export type TabItemCenterProps = {
+  children: React.ReactNode
+}
+
+const TabItemCenter: React.FC<TabItemCenterProps> = ({ children }) => (
+  <span className="inline-flex items-center justify-center">{children}</span>
+)
+
 /* ========================================================================
  * Export
  * ======================================================================== */
 
 type TabItemComponent = typeof InternalTabItemRoot & {
   Leading: typeof TabItemLeading
+  Center: typeof TabItemCenter
   Trailing: typeof TabItemTrailing
 }
 
@@ -189,5 +202,6 @@ type TabItemComponent = typeof InternalTabItemRoot & {
  */
 export const TabItem: TabItemComponent = Object.assign(InternalTabItemRoot, {
   Leading: TabItemLeading,
+  Center: TabItemCenter,
   Trailing: TabItemTrailing,
 })

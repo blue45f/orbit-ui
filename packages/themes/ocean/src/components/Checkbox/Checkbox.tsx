@@ -1,10 +1,10 @@
-import { ComponentThemeProps, Checkbox, CheckboxProps, CheckboxSpecificProps } from '@ui-forge/core'
+import { ComponentThemeProps, BaseCheckbox, BaseCheckboxProps, BaseCheckboxSpecificProps } from '@ui-forge/core'
 import { CheckIcon, MinusIcon } from '@ui-forge/icons'
 import { forwardRef } from 'react'
 
 import { vars } from '../../styles/theme.css'
 
-export type CheckboxProps = Omit<CheckboxProps, keyof CheckboxSpecificProps> &
+export type CheckboxProps = Omit<BaseCheckboxProps, keyof BaseCheckboxSpecificProps> &
   ComponentThemeProps<typeof vars.com.plainCheckbox> & {
     /** @defaultValue `check` */
     iconName?: 'check' | 'minus'
@@ -30,7 +30,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>((props, ref)
   const { theme, iconName, ...rest } = props
 
   return (
-    <Checkbox
+    <BaseCheckbox
       ref={ref}
       {...rest}
       theme={{ ...vars.com.plainCheckbox, ...theme }}
@@ -38,7 +38,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>((props, ref)
       height={22}
       borderWidth={2}
     >
-      <Checkbox.Icon>{iconName === 'minus' ? <MinusIcon size={18} /> : <CheckIcon size={18} />}</Checkbox.Icon>
-    </Checkbox>
+      <BaseCheckbox.Icon>{iconName === 'minus' ? <MinusIcon size={18} /> : <CheckIcon size={18} />}</BaseCheckbox.Icon>
+    </BaseCheckbox>
   )
 })

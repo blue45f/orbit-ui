@@ -12,6 +12,95 @@ export * from './tokens'
 export * from './types'
 
 /* ========================================================================
+ * CSS Reset Utilities
+ * ======================================================================== */
+
+/** Base CSS reset styles */
+const baseReset = {
+  boxSizing: 'border-box' as const,
+  margin: 0,
+  padding: 0,
+  border: 0,
+  fontSize: '100%',
+  font: 'inherit',
+  verticalAlign: 'baseline',
+}
+
+/** CSS reset object with element-specific resets for vanilla-extract */
+export const reset = {
+  /** Base reset for all elements */
+  base: baseReset,
+
+  /** Reset for div elements */
+  div: {
+    ...baseReset,
+  },
+
+  /** Reset for span elements */
+  span: {
+    ...baseReset,
+  },
+
+  /** Reset for label elements */
+  label: {
+    ...baseReset,
+    display: 'inline-block',
+  },
+
+  /** Reset for fieldset elements */
+  fieldset: {
+    ...baseReset,
+    minWidth: 0,
+  },
+
+  /** Reset for button elements */
+  button: {
+    ...baseReset,
+    background: 'none',
+    cursor: 'pointer',
+    appearance: 'none' as const,
+    outline: 'none',
+    WebkitTapHighlightColor: 'transparent',
+  },
+
+  /** Reset for input elements */
+  input: {
+    ...baseReset,
+    appearance: 'none' as const,
+    outline: 'none',
+    background: 'transparent',
+  },
+
+  /** Reset for textarea elements */
+  textarea: {
+    ...baseReset,
+    appearance: 'none' as const,
+    outline: 'none',
+    background: 'transparent',
+    resize: 'none' as const,
+  },
+
+  /** Reset for ul/ol elements */
+  list: {
+    ...baseReset,
+    listStyle: 'none',
+  },
+
+  /** Reset for anchor elements */
+  a: {
+    ...baseReset,
+    textDecoration: 'none',
+    color: 'inherit',
+  },
+}
+
+/** Button-specific reset (legacy alias) */
+export const buttonReset = reset.button
+
+/** Input-specific reset (legacy alias) */
+export const inputReset = reset.input
+
+/* ========================================================================
  * Legacy Compatibility Layer
  * ======================================================================== */
 
