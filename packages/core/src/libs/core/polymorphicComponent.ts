@@ -1,6 +1,6 @@
 import { forwardRef, JSX } from 'react'
 
-/* eslint-disable @typescript-eslint/ban-types */
+/* eslint-disable @typescript-eslint/no-empty-object-type */
 
 /**
  * @info 해당 기능은 Typescript 5.3 버전 이상에서만 사용할 수 있어요.

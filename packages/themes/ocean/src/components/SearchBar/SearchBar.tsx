@@ -5,8 +5,8 @@ import {
   ComponentThemeProps,
   composeRefs,
   useFocus,
-} from '@ui-forge/core'
-import { CircleCancelFillIcon, SearchIcon } from '@ui-forge/icons'
+} from '@prism-ui/core'
+import { CircleCancelFillIcon, SearchIcon } from '@prism-ui/icons'
 import React, { AllHTMLAttributes, forwardRef, useState } from 'react'
 
 import { vars } from '../../styles/theme.css'
@@ -32,7 +32,7 @@ export type SearchBarProps = Omit<Omit<TextFieldProps, keyof TextFieldSpecificPr
  * @example
  * ### 👇 기본 사용법
  * ```tsx
- * import { SearchBar } from '@ui-forge/theme-ocean'
+ * import { SearchBar } from '@prism-ui/theme-ocean'
  *
  * function App() {
  *   const [value, setValue] = useState('')

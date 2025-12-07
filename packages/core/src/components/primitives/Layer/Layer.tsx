@@ -73,12 +73,15 @@ export type ContainerLayerProps = ContainerLayerOwnProps & Omit<AllHTMLAttribute
 
 export const ContainerLayer = forwardRef<HTMLElement, ContainerLayerProps>(
   ({ as = 'div', className, children, ...rest }, ref) => {
-    return createElement(as, {
-      ref,
-      className: cn(containerLayerStyles, className),
-      ...rest,
-      children,
-    })
+    return createElement(
+      as,
+      {
+        ref,
+        className: cn(containerLayerStyles, className),
+        ...rest,
+      },
+      children
+    )
   }
 )
 
@@ -133,7 +136,6 @@ const contentLayerStyles = cn('w-full h-full', '[color:var(--layer-foreground,in
 export const ContentLayer = forwardRef<HTMLDivElement, ContentLayerProps>(
   ({ direction = 'horizontal', alignment, arrangement, className, style, ...rest }, ref) => {
     const flexDirection = direction === 'horizontal' ? 'row' : 'column'
-    const gapProp = flexDirection === 'row' ? 'columnGap' : 'rowGap'
     const alignItems = alignment === 'top' ? 'flex-start' : alignment === 'center' ? 'center' : 'flex-end'
     const justifyContent =
       {

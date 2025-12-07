@@ -1,5 +1,5 @@
-import { TextField } from '@ui-forge/core'
-import { ArrowLeftIcon, ShopFillIcon, CarFillIcon, CartLineIcon, HomeLineIcon, SearchIcon } from '@ui-forge/icons'
+import { TextField } from '@prism-ui/core'
+import { ArrowLeftIcon, ShopFillIcon, CarFillIcon, CartLineIcon, HomeLineIcon, SearchIcon } from '@prism-ui/icons'
 import { Meta, StoryObj } from '@storybook/react'
 import { useState } from 'react'
 

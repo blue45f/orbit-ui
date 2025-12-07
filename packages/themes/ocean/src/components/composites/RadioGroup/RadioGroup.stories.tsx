@@ -1,4 +1,4 @@
-import { useUniqueID } from '@ui-forge/core'
+import { useUniqueID } from '@prism-ui/core'
 import { Meta, StoryObj } from '@storybook/react'
 import { useState } from 'react'
 

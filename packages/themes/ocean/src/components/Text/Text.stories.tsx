@@ -1,4 +1,4 @@
-import { Flex, TextStyleBaseSize, TextStyleTokenType } from '@ui-forge/core'
+import { Flex, TextStyleBaseSize, TextStyleTokenType } from '@prism-ui/core'
 import { Meta, StoryObj } from '@storybook/react'
 
 import { vars } from '../../styles/theme.css'

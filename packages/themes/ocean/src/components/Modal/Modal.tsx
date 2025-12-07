@@ -6,7 +6,7 @@ import {
   findComponent,
   Flex,
   useElementScroll,
-} from '@ui-forge/core'
+} from '@prism-ui/core'
 import { forwardRef, Children, PropsWithChildren, HTMLAttributes } from 'react'
 
 import { vars } from '../../styles/theme.css'
@@ -145,8 +145,8 @@ type DialogComponent = typeof DialogRoot & {
  * @example
  * ### 👇 기본 사용법 (비제어)
  * ```tsx
- * import { Alert, Button } from '@ui-forge/theme-ocean'
- * import { Flex } from '@ui-forge/core'
+ * import { Alert, Button } from '@prism-ui/theme-ocean'
+ * import { Flex } from '@prism-ui/core'
  *
  * function App() {
  *   return (
@@ -176,7 +176,7 @@ type DialogComponent = typeof DialogRoot & {
  * @example
  * ### 👇 제어 모드
  * ```tsx
- * import { Alert, Button } from '@ui-forge/theme-ocean'
+ * import { Alert, Button } from '@prism-ui/theme-ocean'
  *
  * function App() {
  *   const [open, setOpen] = useState(false)

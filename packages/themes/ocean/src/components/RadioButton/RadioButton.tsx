@@ -1,4 +1,4 @@
-import { RadioButtonButton, RadioButtonButtonProps, RadioButtonButtonSpecificProps, ComponentThemeProps } from '@ui-forge/core'
+import { RadioButtonButton, RadioButtonButtonProps, RadioButtonButtonSpecificProps, ComponentThemeProps } from '@prism-ui/core'
 import { forwardRef } from 'react'
 
 import { vars } from '../../styles/theme.css'
@@ -19,7 +19,7 @@ export type RadioButtonProps = Omit<RadioButtonButtonProps, keyof RadioButtonBut
  * - 그룹으로 묶으려면 같은 `name` prop을 지정해주세요.
  *
  * ```
- * import { RadioButton } from '@ui-forge/theme-ocean'
+ * import { RadioButton } from '@prism-ui/theme-ocean'
  *
  * function App() {
  *   return (

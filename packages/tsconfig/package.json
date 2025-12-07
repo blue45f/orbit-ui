@@ -1,7 +1,7 @@
 {
-  "name": "@ui-forge/tsconfig",
+  "name": "@prism-ui/tsconfig",
   "version": "0.0.0",
   "private": true,
-  "description": "UI Forge 공유 TypeScript 설정",
+  "description": "Prism UI 공유 TypeScript 설정",
   "license": "MIT"
 }

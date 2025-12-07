@@ -1,5 +1,5 @@
 /**
- * Test utilities for @ui-forge/core
+ * Test utilities for @prism-ui/core
  */
 import { render, screen, cleanup } from '@testing-library/react'
 

@@ -1,4 +1,4 @@
-import { ChevronRightLineIcon, CircleInfoLineIcon } from '@ui-forge/icons'
+import { ChevronRightLineIcon, CircleInfoLineIcon } from '@prism-ui/icons'
 import type { Meta, StoryObj } from '@storybook/react'
 
 import { TextButton } from '../GhostButton'

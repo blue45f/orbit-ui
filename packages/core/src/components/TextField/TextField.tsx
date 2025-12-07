@@ -1,4 +1,4 @@
-import { CancelIcon, IconPropsContext } from '@ui-forge/icons'
+import { CancelIcon, IconPropsContext } from '@prism-ui/icons'
 import React, { Children, HTMLAttributes, forwardRef, useCallback } from 'react'
 
 import { cn } from '../../styles'

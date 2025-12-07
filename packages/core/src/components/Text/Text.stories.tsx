@@ -111,7 +111,7 @@ export const 스타일_상위_제어 = {
 
     return (
       <ClayRoot {...rest} themeClass='' baseTextSize={baseSize}>
-        <p>Context Setting: textStyle='titleLarge' color='mint5' maxLines={1}</p>
+        <p>Context Setting: textStyle=&apos;titleLarge&apos; color=&apos;mint5&apos; maxLines=&#123;1&#125;</p>
         <ForcedTextStyle textStyle='titleLarge' color='mint5' maxLines={1}>
           <div style={{ width: '600px' }}>
             <Text {...props}>{props.children}</Text>

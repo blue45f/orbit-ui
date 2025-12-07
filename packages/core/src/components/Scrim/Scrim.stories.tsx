@@ -1,4 +1,4 @@
-import { CheckIcon } from '@ui-forge/icons'
+import { CheckIcon } from '@prism-ui/icons'
 import type { Meta, StoryObj } from '@storybook/react'
 import { useState } from 'react'
 

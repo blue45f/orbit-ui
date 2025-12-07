@@ -1,5 +1,3 @@
-import { forwardRef } from 'react'
-
 import { cn } from '../../styles'
 import { toCSSLength, polymorphic } from '../../libs'
 import { ContainerLayer, ContentLayer, ShapeLayer } from '../primitives/Layer'

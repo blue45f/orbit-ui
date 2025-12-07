@@ -1,20 +1,20 @@
-# @ui-forge/core
+# @prism-ui/core
 
-[![npm](https://img.shields.io/npm/v/@ui-forge/core)](https://www.npmjs.com/package/@ui-forge/core)
+[![npm](https://img.shields.io/npm/v/@prism-ui/core)](https://www.npmjs.com/package/@prism-ui/core)
 
 > 스타일 미적용 Base 컴포넌트
 
 ## 설치
 
 ```bash
-pnpm add @ui-forge/core
+pnpm add @prism-ui/core
 ```
 
 ## 사용법
 
 ```tsx
-import { Button, Provider } from '@ui-forge/core'
-import '@ui-forge/core/style.css'
+import { Button, Provider } from '@prism-ui/core'
+import '@prism-ui/core/style.css'
 
 function App() {
   return (

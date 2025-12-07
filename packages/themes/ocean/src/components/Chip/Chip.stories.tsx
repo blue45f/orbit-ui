@@ -1,4 +1,4 @@
-import { CheckIcon, ChevronDownLineIcon } from '@ui-forge/icons'
+import { CheckIcon, ChevronDownLineIcon } from '@prism-ui/icons'
 import { Meta, StoryObj } from '@storybook/react'
 
 import { vars } from '../../styles'

@@ -82,7 +82,7 @@ export function Plug<Keys extends string>({ children, name }: PlugProps<Keys>): 
 // =================== slotted ===================
 
 type SlotsRecord<Keys extends string> = Partial<Record<Keys | 'default', React.ReactElement>>
-// eslint-disable-next-line @typescript-eslint/ban-types
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export type PropsWithSlots<Keys extends string, P = {}> = P & {
   slots: SlotsRecord<Keys>
 }

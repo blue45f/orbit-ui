@@ -1,4 +1,4 @@
-import { BaseSpace, errorDev } from '@ui-forge/core'
+import { BaseSpace, errorDev } from '@prism-ui/core'
 
 import { vars } from '../../styles/theme.css'
 
@@ -27,7 +27,7 @@ export type SpaceProps = {
  * @example
  * ### 👇 가로로 간격 주기
  * ```
- * import { Button, Space } from '@ui-forge/theme-ocean'
+ * import { Button, Space } from '@prism-ui/theme-ocean'
  *
  * function App() {
  *   return (
@@ -42,7 +42,7 @@ export type SpaceProps = {
  *
  * ### 👇 세로로 간격 주기
  * ```
- * import { Button, Space } from '@ui-forge/theme-ocean'
+ * import { Button, Space } from '@prism-ui/theme-ocean'
  *
  * function App() {
  *   return (

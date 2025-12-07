@@ -1,4 +1,4 @@
-import { ComponentThemeProps, BaseToggle, BaseToggleProps, BaseToggleSpecificProps } from '@ui-forge/core'
+import { ComponentThemeProps, BaseToggle, BaseToggleProps, BaseToggleSpecificProps } from '@prism-ui/core'
 import { forwardRef } from 'react'
 
 import { vars } from '../../styles/theme.css'

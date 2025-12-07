@@ -4,7 +4,7 @@ import {
   BasePageNumberProps,
   BasePageNumberSpecificProps,
   findComponent,
-} from '@ui-forge/core'
+} from '@prism-ui/core'
 import { Children, forwardRef } from 'react'
 
 import { vars } from '../../styles/theme.css'
@@ -61,7 +61,7 @@ type PageNumberComponent = typeof PageNumberRoot & {
  * @example
  * ### 👇 기본 사용법
  * ```tsx
- * import { PageNumber } from '@ui-forge/theme-ocean'
+ * import { PageNumber } from '@prism-ui/theme-ocean'
  *
  * function App() {
  *   return <PageNumber current={1} total={3} />
@@ -71,7 +71,7 @@ type PageNumberComponent = typeof PageNumberRoot & {
  * @example
  * ### 👇 아이콘과 함께
  * ```tsx
- * import { PageNumber, CloseIcon } from '@ui-forge/theme-ocean'
+ * import { PageNumber, CloseIcon } from '@prism-ui/theme-ocean'
  *
  * function App() {
  *   return (

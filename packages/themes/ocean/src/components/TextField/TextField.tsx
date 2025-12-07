@@ -1,5 +1,5 @@
-import { BaseTextField, BaseTextFieldProps, BaseTextFieldSpecificProps, ComponentThemeProps } from '@ui-forge/core'
-import { CircleCancelFillIcon } from '@ui-forge/icons'
+import { BaseTextField, BaseTextFieldProps, BaseTextFieldSpecificProps, ComponentThemeProps } from '@prism-ui/core'
+import { CircleCancelFillIcon } from '@prism-ui/icons'
 import { AllHTMLAttributes, forwardRef, ReactNode } from 'react'
 
 import { vars } from '../../styles/theme.css'
@@ -32,7 +32,7 @@ export type TextFieldProps = Omit<
  * @example
  * ### 👇 기본 사용법
  * ```tsx
- * import { TextField } from '@ui-forge/theme-ocean'
+ * import { TextField } from '@prism-ui/theme-ocean'
  *
  * function App() {
  *   const [value, setValue] = useState('')
@@ -50,7 +50,7 @@ export type TextFieldProps = Omit<
  * @example
  * ### 👇 에러 상태
  * ```tsx
- * import { TextField } from '@ui-forge/theme-ocean'
+ * import { TextField } from '@prism-ui/theme-ocean'
  *
  * function App() {
  *   const [value, setValue] = useState('')
@@ -70,7 +70,7 @@ export type TextFieldProps = Omit<
  * @example
  * ### 👇 Clear Button visibility 설정
  * ```tsx
- * import { TextField } from '@ui-forge/theme-ocean'
+ * import { TextField } from '@prism-ui/theme-ocean'
  *
  * function App() {
  *   const [value, setValue] = useState('')

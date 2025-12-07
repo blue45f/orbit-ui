@@ -1,4 +1,4 @@
-import { ChevronDownLineIcon } from '@ui-forge/icons'
+import { ChevronDownLineIcon } from '@prism-ui/icons'
 import React, { AllHTMLAttributes, Children, HTMLAttributes, forwardRef, useCallback } from 'react'
 
 import { cn } from '../../styles'

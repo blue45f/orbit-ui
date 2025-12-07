@@ -1,7 +1,7 @@
 import { forwardRef } from 'react'
 
 import { cn } from '../../../styles'
-import { getPadding, SpacingMap, getSpacingValue, SpacingToken } from '../../../libs'
+import { SpacingMap, getSpacingValue, SpacingToken } from '../../../libs'
 
 export type { SpacingMap } from '../../../libs'
 

@@ -1,8 +1,8 @@
 {
-  "name": "@ui-forge/core",
+  "name": "@prism-ui/core",
   "version": "2.0.0-beta.16",
   "type": "module",
-  "description": "UI Forge Core 컴포넌트 - 스타일 미적용 기능 컴포넌트",
+  "description": "Prism UI Core 컴포넌트 - 스타일 미적용 기능 컴포넌트",
   "license": "MIT",
   "files": ["dist"],
   "main": "./dist/index.cjs",
@@ -37,7 +37,7 @@
     "clean": "rm -rf dist coverage storybook-static"
   },
   "dependencies": {
-    "@ui-forge/icons": "workspace:*",
+    "@prism-ui/icons": "workspace:*",
     "@use-gesture/react": "^10.3.1",
     "aria-hidden": "^1.2.4",
     "clsx": "^2.1.1",
@@ -47,7 +47,7 @@
     "tailwind-merge": "^2.5.5"
   },
   "devDependencies": {
-    "@ui-forge/tsconfig": "workspace:*",
+    "@prism-ui/tsconfig": "workspace:*",
     "@storybook/addon-a11y": "^8.4.7",
     "@storybook/addon-essentials": "^8.4.7",
     "@storybook/addon-links": "^8.4.7",

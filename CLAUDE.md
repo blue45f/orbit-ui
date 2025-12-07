@@ -1,10 +1,10 @@
 # CLAUDE.md
 
-This file provides guidance for AI assistants working with the UI Forge codebase.
+This file provides guidance for AI assistants working with the Prism UI codebase.
 
 ## Project Overview
 
-UI Forge (formerly Clay Kit) is a Figma-based React design system component library. It provides a 3-tier architecture: Base components (unstyled) -> Theme components (styled) -> Custom components (project extensions).
+Prism UI (formerly Clay Kit) is a Figma-based React design system component library. It provides a 3-tier architecture: Base components (unstyled) -> Theme components (styled) -> Custom components (project extensions).
 
 **Key Technologies:**
 - React 18/19 with TypeScript 5.7+
@@ -17,21 +17,21 @@ UI Forge (formerly Clay Kit) is a Figma-based React design system component libr
 ## Package Structure
 
 ```
-ui-forge/
+prism-ui/
 ├── packages/
-│   ├── core/                    # @ui-forge/core - Base components (unstyled)
+│   ├── core/                    # @prism-ui/core - Base components (unstyled)
 │   │   └── src/
 │   │       ├── components/      # UI components
 │   │       ├── libs/            # Hooks, utilities, core functions
 │   │       └── styles/          # Tailwind utilities, design tokens
 │   │
-│   ├── themes/ocean/            # @ui-forge/theme-ocean - Ocean theme
+│   ├── themes/ocean/            # @prism-ui/theme-ocean - Ocean theme
 │   │   └── src/
 │   │       ├── components/      # Themed component wrappers
 │   │       ├── styles/          # vanilla-extract styles
 │   │       └── server/          # Server components for Next.js
 │   │
-│   ├── icons/                   # @ui-forge/icons - SVG icon components
+│   ├── icons/                   # @prism-ui/icons - SVG icon components
 │   │
 │   └── tsconfig/                # Shared TypeScript configurations
 │
@@ -73,7 +73,7 @@ ComponentName/
 
 ## Component Patterns
 
-### Base Components (@ui-forge/core)
+### Base Components (@prism-ui/core)
 
 Base components are unstyled and use Tailwind CSS utilities:
 
@@ -104,13 +104,13 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 )
 ```
 
-### Theme Components (@ui-forge/theme-ocean)
+### Theme Components (@prism-ui/theme-ocean)
 
 Theme components wrap base components with styled tokens using vanilla-extract:
 
 ```tsx
 import { forwardRef } from 'react'
-import { Button as BaseButton } from '@ui-forge/core'
+import { Button as BaseButton } from '@prism-ui/core'
 import { oceanTokens } from '../../styles'
 
 export const SolidButton = forwardRef<HTMLButtonElement, ButtonProps>(

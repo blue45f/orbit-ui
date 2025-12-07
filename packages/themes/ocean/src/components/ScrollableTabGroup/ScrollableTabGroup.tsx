@@ -6,7 +6,7 @@ import {
   filterComponents,
   getReactElementRef,
   BaseScrollableTabGroup,
-} from '@ui-forge/core'
+} from '@prism-ui/core'
 import { Children, ComponentProps, forwardRef, PropsWithChildren, ReactElement, ReactNode } from 'react'
 
 import { vars } from '../../styles'
@@ -85,7 +85,7 @@ type ScrollableTabGroupComponent = typeof ScrollableTabGroupRoot & {
  * @example
  * ### 👇 기본 사용법
  * ```
- * import { ScrollableTabGroup } from '@ui-forge/theme-ocean'
+ * import { ScrollableTabGroup } from '@prism-ui/theme-ocean'
  *
  * function App() {
  *   return (

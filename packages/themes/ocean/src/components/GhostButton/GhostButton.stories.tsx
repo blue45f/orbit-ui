@@ -1,5 +1,5 @@
-import { Flex } from '@ui-forge/core'
-import { ChevronRightLineIcon } from '@ui-forge/icons'
+import { Flex } from '@prism-ui/core'
+import { ChevronRightLineIcon } from '@prism-ui/icons'
 import { Meta, StoryObj } from '@storybook/react'
 import { ComponentProps } from 'react'
 
@@ -97,7 +97,7 @@ export const 디자인QA = {
     disabled: false,
   },
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
-  render: ({ leading, trailing, text, ...args }: any) => {
+  render: ({ leading: _leading, trailing, text, ...args }: any) => {
     return (
       <GhostButton {...args}>
         <GhostButton.Center>{text}</GhostButton.Center>

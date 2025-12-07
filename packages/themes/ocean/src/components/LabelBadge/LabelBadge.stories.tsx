@@ -1,4 +1,4 @@
-import { StarFillIcon, CheckIcon } from '@ui-forge/icons'
+import { StarFillIcon, CheckIcon } from '@prism-ui/icons'
 import { Meta, StoryObj } from '@storybook/react'
 
 import { LabelBadge } from './LabelBadge'

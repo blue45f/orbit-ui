@@ -1,7 +1,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 
-import { cssBangCommentPlugin, cssReorderPlugin, removeVanillaExtractVirtualFilePlugin } from '@ui-forge/vite-plugin'
+import { cssBangCommentPlugin, cssReorderPlugin, removeVanillaExtractVirtualFilePlugin } from '@prism-ui/vite-plugin'
 import babel, { getBabelOutputPlugin } from '@rollup/plugin-babel'
 import dynamicImportVars from '@rollup/plugin-dynamic-import-vars'
 import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin'
@@ -20,7 +20,7 @@ const externalDependenciesRegExrs = [
   ...Object.keys(packageInfo.dependencies),
   ...Object.keys(packageInfo.peerDependencies),
   // Next.js library css import 제약 https://nextjs.org/docs/messages/css-npm
-  // @ui-forge/core의 style.css 등 CSS 디펜던시는 최종 번들에 포함
+  // @prism-ui/core의 style.css 등 CSS 디펜던시는 최종 번들에 포함
   // 나머지는 제외
 ].map((name) => new RegExp(`^${name}(/.*)?(?<!\\.css)$`))
 

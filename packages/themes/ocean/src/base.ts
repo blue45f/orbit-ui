@@ -1,1 +1,1 @@
-export * from '@ui-forge/core/public'
+export * from '@prism-ui/core/public'

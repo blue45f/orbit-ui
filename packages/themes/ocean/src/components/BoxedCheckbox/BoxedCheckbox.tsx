@@ -1,5 +1,5 @@
-import { ComponentThemeProps, Checkbox, CheckboxProps, CheckboxSpecificProps } from '@ui-forge/core'
-import { CheckIcon, MinusIcon } from '@ui-forge/icons'
+import { ComponentThemeProps, Checkbox, CheckboxProps, CheckboxSpecificProps } from '@prism-ui/core'
+import { CheckIcon, MinusIcon } from '@prism-ui/icons'
 import { forwardRef } from 'react'
 
 import { vars } from '../../styles/theme.css'
@@ -17,7 +17,7 @@ export type BoxedCheckboxProps = Omit<CheckboxProps, keyof CheckboxSpecificProps
  * @example
  * ### 👇 기본 사용법
  * ```
- * import { BoxedCheckbox } from '@ui-forge/theme-ocean'
+ * import { BoxedCheckbox } from '@prism-ui/theme-ocean'
  *
  * function App() {
  *   return (

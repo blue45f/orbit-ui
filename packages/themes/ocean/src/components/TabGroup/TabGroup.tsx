@@ -6,7 +6,7 @@ import {
   TabItemsTabProps,
   filterComponents,
   getReactElementRef,
-} from '@ui-forge/core'
+} from '@prism-ui/core'
 import { Children, ComponentProps, forwardRef, PropsWithChildren, ReactElement, ReactNode } from 'react'
 
 import { vars } from '../../styles'
@@ -85,7 +85,7 @@ type FixedTabsComponent = typeof FixedTabsRoot & {
  * @example
  * ### 👇 기본 사용법
  * ```
- * import { Tabs } from '@ui-forge/theme-ocean'
+ * import { Tabs } from '@prism-ui/theme-ocean'
  *
  * function App() {
  *   return (

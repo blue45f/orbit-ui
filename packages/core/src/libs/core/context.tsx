@@ -28,10 +28,7 @@ import React, { PropsWithChildren, useMemo } from 'react'
  *   </FooProvider>
  * }
  */
-export function setupContext<
-  // eslint-disable-next-line @typescript-eslint/ban-types
-  ContextValue extends object,
->(
+export function setupContext<ContextValue extends object>(
   providerName: string,
   defaultValue?: ContextValue,
 ): [React.FC<PropsWithChildren<ContextValue>>, (consumerName: string) => PropsWithChildren<ContextValue>] {

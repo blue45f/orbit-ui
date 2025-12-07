@@ -1,5 +1,5 @@
 /* ========================================================================
- * @ui-forge/core
+ * @prism-ui/core
  * 
  * Foundation layer for Clay design system components.
  * Provides unstyled, accessible base components.

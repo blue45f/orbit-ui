@@ -1,4 +1,4 @@
-import { CancelIcon, CircleInfoFillIcon } from '@ui-forge/icons'
+import { CancelIcon, CircleInfoFillIcon } from '@prism-ui/icons'
 import type { Meta, StoryObj } from '@storybook/react'
 
 import { Button } from '../Button'

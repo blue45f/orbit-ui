@@ -1,4 +1,4 @@
-import { ComponentThemeProps, Style, Badge, polymorphic } from '@ui-forge/core'
+import { ComponentThemeProps, Style, Badge, polymorphic } from '@prism-ui/core'
 
 import { vars } from '../../styles/theme.css'
 

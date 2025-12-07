@@ -1,4 +1,4 @@
-import { useUniqueID, errorDev } from '@ui-forge/core'
+import { useUniqueID, errorDev } from '@prism-ui/core'
 import { assignInlineVars } from '@vanilla-extract/dynamic'
 import { forwardRef } from 'react'
 
@@ -30,7 +30,7 @@ type RadioButtonWithLabelProps = RadioProps & {
  * - 그룹으로 묶으려면 같은 `name` prop을 지정해주세요.
  *
  * ```
- * import { RadioButtonWithLabel, RadioGroup } from '@ui-forge/theme-ocean/composites'
+ * import { RadioButtonWithLabel, RadioGroup } from '@prism-ui/theme-ocean/composites'
  *
  * function App() {
  *   return (

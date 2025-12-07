@@ -160,9 +160,9 @@ export const useSwipe = <T extends HTMLElement = HTMLDivElement>(
       if (active) {
         assignSiblingIfNeeded()
 
-        self.current && translate(self.current, `${movement}px`)
-        prev.current && translate(prev.current, `calc(-100% + ${movement}px)`)
-        next.current && translate(next.current, `calc(100% + ${movement}px)`)
+        if (self.current) translate(self.current, `${movement}px`)
+        if (prev.current) translate(prev.current, `calc(-100% + ${movement}px)`)
+        if (next.current) translate(next.current, `calc(100% + ${movement}px)`)
 
         return
       }
@@ -171,9 +171,9 @@ export const useSwipe = <T extends HTMLElement = HTMLDivElement>(
         handler(movement > 0 ? 1 : -1)
       }
 
-      self.current && unset(self.current)
-      prev.current && unset(prev.current)
-      next.current && unset(next.current)
+      if (self.current) unset(self.current)
+      if (prev.current) unset(prev.current)
+      if (next.current) unset(next.current)
 
       prev.current = null
       next.current = null
@@ -229,7 +229,7 @@ export const useSwipe = <T extends HTMLElement = HTMLDivElement>(
       const shouldPrevent = !ongoingTouchAxis || (axis === 'x' ? ongoingTouchAxis === 'x' : ongoingTouchAxis === 'y')
 
       if (shouldPrevent) {
-        e.cancelable && e.preventDefault()
+        if (e.cancelable) e.preventDefault()
       } else {
         selfElement.removeEventListener('touchmove', handleTouchMove)
       }

@@ -3,7 +3,7 @@ import {
   BasePageDots,
   BasePageDotsProps,
   BasePageDotsSpecificProps,
-} from '@ui-forge/core'
+} from '@prism-ui/core'
 import { forwardRef } from 'react'
 
 import { vars } from '../../styles/theme.css'
@@ -20,7 +20,7 @@ export type PageDotsProps = Omit<BasePageDotsProps, keyof BasePageDotsSpecificPr
  * @example
  * ### 👇 기본 사용법
  * ```tsx
- * import { PageDots } from '@ui-forge/theme-ocean'
+ * import { PageDots } from '@prism-ui/theme-ocean'
  *
  * function App() {
  *   const [selected, setSelected] = useState(false)

@@ -5,7 +5,7 @@ import {
   ButtonProps,
   ButtonSpecificProps,
   ComponentThemeProps,
-} from '@ui-forge/core'
+} from '@prism-ui/core'
 import React, { AllHTMLAttributes, Children, forwardRef, ReactNode } from 'react'
 
 import { vars } from '../../styles/theme.css'
@@ -158,7 +158,7 @@ type OutlineButtonComponent = typeof OutlineButtonRoot & {
  * @example
  * ### 👇 기본 사용법
  * ```tsx
- * import { OutlineButton, ChatLineIcon, ChevronRightLineIcon } from '@ui-forge/theme-ocean'
+ * import { OutlineButton, ChatLineIcon, ChevronRightLineIcon } from '@prism-ui/theme-ocean'
  *
  * function App() {
  *   return (

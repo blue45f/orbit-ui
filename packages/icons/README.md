@@ -1,19 +1,19 @@
-# @ui-forge/icons
+# @prism-ui/icons
 
-[![npm](https://img.shields.io/npm/v/@ui-forge/icons)](https://www.npmjs.com/package/@ui-forge/icons)
+[![npm](https://img.shields.io/npm/v/@prism-ui/icons)](https://www.npmjs.com/package/@prism-ui/icons)
 
 > SVG 아이콘 컴포넌트
 
 ## 설치
 
 ```bash
-pnpm add @ui-forge/icons
+pnpm add @prism-ui/icons
 ```
 
 ## 사용법
 
 ```tsx
-import { PlusIcon, CheckIcon, CloseIcon } from '@ui-forge/icons'
+import { PlusIcon, CheckIcon, CloseIcon } from '@prism-ui/icons'
 
 function App() {
   return (
@@ -29,8 +29,8 @@ function App() {
 ## 버튼과 함께 사용
 
 ```tsx
-import { SolidButton } from '@ui-forge/theme-ocean'
-import { PlusIcon } from '@ui-forge/icons'
+import { SolidButton } from '@prism-ui/theme-ocean'
+import { PlusIcon } from '@prism-ui/icons'
 
 function App() {
   return (
@@ -56,7 +56,7 @@ function App() {
 ## 아이콘 컨텍스트
 
 ```tsx
-import { IconPropsContext } from '@ui-forge/icons'
+import { IconPropsContext } from '@prism-ui/icons'
 
 <IconPropsContext.Provider value={{ size: 20, color: 'blue' }}>
   <PlusIcon />  {/* 20px, blue */}

@@ -1,4 +1,4 @@
-import { reset } from '@ui-forge/core'
+import { reset } from '@prism-ui/core'
 import { createVar, style } from '@vanilla-extract/css'
 import { recipe } from '@vanilla-extract/recipes'
 

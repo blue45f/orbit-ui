@@ -1,4 +1,4 @@
-import { ChevronRightLineIcon, CancelIcon } from '@ui-forge/icons'
+import { ChevronRightLineIcon, CancelIcon } from '@prism-ui/icons'
 import { Meta, StoryObj } from '@storybook/react'
 
 import { PageNumber } from './PageNumber'

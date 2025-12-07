@@ -4,7 +4,7 @@ import {
   BaseAppBarSpecificProps,
   ComponentThemeProps,
   findComponent,
-} from '@ui-forge/core'
+} from '@prism-ui/core'
 import React, { Children, PropsWithChildren, ReactNode, forwardRef } from 'react'
 
 import { vars } from '../../styles'
@@ -71,7 +71,7 @@ type AppBarComponent = typeof AppBarRoot & {
  * @example
  * ### 👇 기본 사용법 (Text Title)
  * ```tsx
- * import { AppBar } from '@ui-forge/theme-ocean'
+ * import { AppBar } from '@prism-ui/theme-ocean'
  *
  * function App() {
  *   return (
@@ -85,7 +85,7 @@ type AppBarComponent = typeof AppBarRoot & {
  * @example
  * ### 👇 backButton prop을 사용한 뒤로가기 버튼
  * ```tsx
- * import { AppBar } from '@ui-forge/theme-ocean'
+ * import { AppBar } from '@prism-ui/theme-ocean'
  *
  * function App() {
  *   const handleBack = () => {
@@ -108,7 +108,7 @@ type AppBarComponent = typeof AppBarRoot & {
  * @example
  * ### 👇 타이틀 중앙 정렬. equal-weight로 블록 요소를 중앙 정렬할 수 있어요.
  * ```tsx
- * import { AppBar } from '@ui-forge/theme-ocean'
+ * import { AppBar } from '@prism-ui/theme-ocean'
  *
  * function App() {
  *   return (
@@ -122,7 +122,7 @@ type AppBarComponent = typeof AppBarRoot & {
  * @example
  * ### 👇 Logo Title 사용
  * ```tsx
- * import { AppBar } from '@ui-forge/theme-ocean'
+ * import { AppBar } from '@prism-ui/theme-ocean'
  *
  * function App() {
  *   return (
@@ -138,7 +138,7 @@ type AppBarComponent = typeof AppBarRoot & {
  * @example
  * ### 👇 Transparent 배경 사용
  * ```tsx
- * import { AppBar } from '@ui-forge/theme-ocean'
+ * import { AppBar } from '@prism-ui/theme-ocean'
  *
  * function App() {
  *   return (
@@ -157,8 +157,8 @@ type AppBarComponent = typeof AppBarRoot & {
  * @example
  * ### 👇 Center 영역에 아이콘과 함께 사용
  * ```tsx
- * import { AppBar } from '@ui-forge/theme-ocean'
- * import { ChevronDownIcon } from '@ui-forge/icons'
+ * import { AppBar } from '@prism-ui/theme-ocean'
+ * import { ChevronDownIcon } from '@prism-ui/icons'
  *
  * function App() {
  *   return (
@@ -175,8 +175,8 @@ type AppBarComponent = typeof AppBarRoot & {
  * @example
  * ### 👇 검색 기능이 있는 네비게이션 바
  * ```tsx
- * import { AppBar } from '@ui-forge/theme-ocean'
- * import { TextField } from '@ui-forge/core'
+ * import { AppBar } from '@prism-ui/theme-ocean'
+ * import { TextField } from '@prism-ui/core'
  * import { useState } from 'react'
  *
  * function App() {

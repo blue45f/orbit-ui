@@ -164,5 +164,5 @@ export const 디자인QA = {
     error: false,
   },
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
-  render: ({ placeholder, disabled, error, ...args }: any) => <PasswordField {...args} />,
+  render: ({ placeholder: _placeholder, disabled: _disabled, error: _error, ...args }: any) => <PasswordField {...args} />,
 }

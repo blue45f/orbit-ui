@@ -5,7 +5,7 @@ import {
   ComponentThemeProps,
   findComponent,
   Flex,
-} from '@ui-forge/core'
+} from '@prism-ui/core'
 import { forwardRef, Children, PropsWithChildren } from 'react'
 
 import { vars } from '../../styles/theme.css'
@@ -144,8 +144,8 @@ type AlertComponent = typeof AlertRoot & {
  * @example
  * ### 👇 기본 사용법 (비제어)
  * ```tsx
- * import { Alert, Button } from '@ui-forge/theme-ocean'
- * import { Typography } from '@ui-forge/core'
+ * import { Alert, Button } from '@prism-ui/theme-ocean'
+ * import { Typography } from '@prism-ui/core'
  *
  * function App() {
  *   return (
@@ -176,8 +176,8 @@ type AlertComponent = typeof AlertRoot & {
  * @example
  * ### 👇 제어 모드
  * ```tsx
- * import { Alert, Button } from '@ui-forge/theme-ocean'
- * import { Typography } from '@ui-forge/core'
+ * import { Alert, Button } from '@prism-ui/theme-ocean'
+ * import { Typography } from '@prism-ui/core'
  * import { useState } from 'react'
  *
  * function App() {
