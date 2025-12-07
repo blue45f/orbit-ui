@@ -3,9 +3,9 @@
  * and mold to composites
  */
 
-const fs = require('fs');
-const path = require('path');
-const { execSync } = require('child_process');
+const fs = require('fs')
+const path = require('path')
+const { execSync } = require('child_process')
 
 const replacements = [
   { from: '@clay-kit/foundation', to: '@ui-forge/core' },
@@ -19,40 +19,36 @@ const replacements = [
   { from: '"mold"', to: '"composites"' },
   { from: 'Clay Kit', to: 'UI Forge' },
   { from: 'clay-kit', to: 'ui-forge' },
-];
+]
 
-const directories = [
-  'packages/themes/ocean/src',
-  'packages/core/src',
-  'packages/icons/src',
-];
+const directories = ['packages/theme-ocean/src', 'packages/core/src', 'packages/icons/src']
 
 function replaceInFile(filePath) {
   try {
-    let content = fs.readFileSync(filePath, 'utf-8');
-    let changed = false;
+    let content = fs.readFileSync(filePath, 'utf-8')
+    let changed = false
 
     replacements.forEach(({ from, to }) => {
       if (content.includes(from)) {
-        content = content.replace(new RegExp(from.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g'), to);
-        changed = true;
+        content = content.replace(new RegExp(from.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g'), to)
+        changed = true
       }
-    });
+    })
 
     if (changed) {
-      fs.writeFileSync(filePath, content, 'utf-8');
-      console.log(`✓ ${filePath}`);
-      return true;
+      fs.writeFileSync(filePath, content, 'utf-8')
+      console.log(`✓ ${filePath}`)
+      return true
     }
-    return false;
+    return false
   } catch (error) {
-    console.error(`✗ ${filePath}: ${error.message}`);
-    return false;
+    console.error(`✗ ${filePath}: ${error.message}`)
+    return false
   }
 }
 
 function processDirectory(dir) {
-  const baseDir = path.join(__dirname, '..', dir);
+  const baseDir = path.join(__dirname, '..', dir)
 
   try {
     // Find all .ts, .tsx, .js, .jsx, .json files
@@ -61,30 +57,30 @@ function processDirectory(dir) {
       { encoding: 'utf-8' }
     )
       .split('\n')
-      .filter(Boolean);
+      .filter(Boolean)
 
-    console.log(`\nProcessing ${dir} (${files.length} files)...`);
+    console.log(`\nProcessing ${dir} (${files.length} files)...`)
 
-    let changedCount = 0;
-    files.forEach(file => {
+    let changedCount = 0
+    files.forEach((file) => {
       if (replaceInFile(file)) {
-        changedCount++;
+        changedCount++
       }
-    });
+    })
 
-    console.log(`Changed ${changedCount} files in ${dir}`);
-    return changedCount;
+    console.log(`Changed ${changedCount} files in ${dir}`)
+    return changedCount
   } catch (error) {
-    console.error(`Error processing ${dir}:`, error.message);
-    return 0;
+    console.error(`Error processing ${dir}:`, error.message)
+    return 0
   }
 }
 
-console.log('🔄 Renaming imports from @clay-kit to @ui-forge...\n');
+console.log('🔄 Renaming imports from @clay-kit to @ui-forge...\n')
 
-let totalChanged = 0;
-directories.forEach(dir => {
-  totalChanged += processDirectory(dir);
-});
+let totalChanged = 0
+directories.forEach((dir) => {
+  totalChanged += processDirectory(dir)
+})
 
-console.log(`\n✨ Total: ${totalChanged} files changed`);
+console.log(`\n✨ Total: ${totalChanged} files changed`)

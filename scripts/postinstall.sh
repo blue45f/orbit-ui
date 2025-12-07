@@ -4,16 +4,16 @@
 if [[ -x "$(command -v husky)" ]]; then husky install; fi
 
 # 2. vite-plugin이 아직 빌드되지 않았다면 먼저 빌드
-if [[ ! -d ./tools/vite-plugin/dist ]]; then
-  pnpm --filter @clay-kit/vite-plugin build
+if [[ ! -d ./packages/vite-plugin/dist ]]; then
+  pnpm --filter @prism-ui/vite-plugin build
 fi
 
-# 3. foundation 패키지가 아직 빌드되지 않았다면 빌드
-if [[ ! -d ./packages/foundation/dist ]]; then
-  pnpm --filter @clay-kit/foundation build
+# 3. core 패키지가 아직 빌드되지 않았다면 빌드
+if [[ ! -d ./packages/core/dist ]]; then
+  pnpm --filter @prism-ui/core build
 fi
 
 # 4. icons 패키지가 아직 빌드되지 않았다면 빌드
 if [[ ! -d ./packages/icons/dist ]]; then
-  pnpm --filter @clay-kit/icons build
+  pnpm --filter @prism-ui/icons build
 fi

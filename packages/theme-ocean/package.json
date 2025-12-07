@@ -4,7 +4,9 @@
   "type": "module",
   "description": "Prism UI Ocean 테마 컴포넌트",
   "license": "MIT",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -36,8 +38,14 @@
     },
     "./style.css": "./dist/style.css"
   },
-  "sideEffects": ["*.css"],
-  "browserslist": ["chrome >= 105", "safari >= 15", "ios_saf >= 15"],
+  "sideEffects": [
+    "*.css"
+  ],
+  "browserslist": [
+    "chrome >= 105",
+    "safari >= 15",
+    "ios_saf >= 15"
+  ],
   "scripts": {
     "dev": "storybook dev -p 6007",
     "build": "vite build && pnpm build:dts",

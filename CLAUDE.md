@@ -25,20 +25,19 @@ prism-ui/
 │   │       ├── libs/            # Hooks, utilities, core functions
 │   │       └── styles/          # Tailwind utilities, design tokens
 │   │
-│   ├── themes/ocean/            # @prism-ui/theme-ocean - Ocean theme
+│   ├── theme-ocean/             # @prism-ui/theme-ocean - Ocean theme
 │   │   └── src/
 │   │       ├── components/      # Themed component wrappers
 │   │       ├── styles/          # vanilla-extract styles
 │   │       └── server/          # Server components for Next.js
 │   │
 │   ├── icons/                   # @prism-ui/icons - SVG icon components
-│   │
-│   └── tsconfig/                # Shared TypeScript configurations
+│   ├── vite-plugin/             # @prism-ui/vite-plugin - CSS ordering plugins
+│   ├── eslint-plugin/           # @prism-ui/eslint-plugin - CSS property ordering
+│   └── generator/               # @prism-ui/generator - Component scaffolding
 │
-└── tools/
-    ├── vite-plugin/             # Custom Vite plugins for CSS ordering
-    ├── eslint-plugin-custom-sort/ # CSS property ordering ESLint rule
-    ├── plop/                    # Component generators
+└── config/
+    ├── tsconfig/                # Shared TypeScript configurations
     └── figma/                   # Figma integration tools
 ```
 
@@ -196,7 +195,7 @@ export const buttonRecipe = recipe({
 
 ### CSS Property Ordering
 
-CSS properties in `.css.ts` files should follow concentric ordering (enforced by `@tools/custom-sort/css-concentric-order`). Order: positioning -> display -> box model -> visual -> typography -> misc.
+CSS properties in `.css.ts` files should follow concentric ordering (enforced by `@prism-ui/css-concentric-order`). Order: positioning -> display -> box model -> visual -> typography -> misc.
 
 ## Design Token Hierarchy
 

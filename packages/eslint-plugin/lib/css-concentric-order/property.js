@@ -25,7 +25,8 @@ class Property {
     return this.node.value
   }
   get valueToPrint() {
-    const isExpression = this.valueNode.type === 'ObjectExpression' || this.valueNode?.type === 'MemberExpression'
+    const isExpression =
+      this.valueNode.type === 'ObjectExpression' || this.valueNode?.type === 'MemberExpression'
     if (isExpression) {
       return this.sourceCode.getText(this.valueNode)
     }

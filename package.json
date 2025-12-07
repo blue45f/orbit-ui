@@ -13,7 +13,7 @@
     "lint:fix": "eslint packages --ext .ts,.tsx --fix",
     "format": "prettier --write \"packages/**/*.{ts,tsx,json,md}\"",
     "clean": "turbo clean && rm -rf node_modules",
-    "gen": "pnpm --filter @tools/cli gen",
+    "gen": "pnpm --filter @prism-ui/generator gen",
     "changeset": "changeset",
     "version": "changeset version",
     "release": "pnpm build && changeset publish",
@@ -22,7 +22,7 @@
   "devDependencies": {
     "@changesets/cli": "^2.27.10",
     "@eslint/js": "^9.16.0",
-    "@tools/eslint-plugin-custom-sort": "workspace:*",
+    "@prism-ui/eslint-plugin": "workspace:*",
     "@types/node": "^22.10.1",
     "@typescript-eslint/eslint-plugin": "^8.17.0",
     "@typescript-eslint/parser": "^8.17.0",

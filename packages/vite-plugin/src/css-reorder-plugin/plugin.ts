@@ -5,7 +5,6 @@ import { sortBlocks } from './utils'
 
 export function cssReorderPlugin({ priorityList, removeBangComment = false }: CssReorderPluginOptions): Plugin {
   const REORDER_PLUGIN_NAME = 'vite-plugin-css-reorder'
-  // eslint-disable-next-line turbo/no-undeclared-env-vars
   const MODULE_GRAPH = process.env.MODULE_GRAPH || false
 
   let config: ResolvedConfig
@@ -28,9 +27,13 @@ export function cssReorderPlugin({ priorityList, removeBangComment = false }: Cs
           const imported = info.importedIds.join('\n\t\t')
           const importers = info.importers.join('\n\t\t  ')
 
+          // eslint-disable-next-line no-console
           console.info(`\n\x1b[32m%s\x1b[0m`, `📄 ${id}`)
+          // eslint-disable-next-line no-console
           if (imported) console.info(`     ↳ imports: ${imported}`)
+          // eslint-disable-next-line no-console
           if (importers) console.info(`   ↲ imported by: ${importers}`)
+          // eslint-disable-next-line no-console
           console.info()
         }
       }
@@ -63,6 +66,7 @@ export function cssReorderPlugin({ priorityList, removeBangComment = false }: Cs
           ? 'Priority-based sorting not required; step skipped.'
           : 'Priority-based sorting applied.'
 
+      // eslint-disable-next-line no-console
       console.info('\n\x1b[32m%s\x1b[0m', `✓ [style.css] ${message}`)
     },
   }
