@@ -1,5 +1,5 @@
-import { ComponentThemeProps, filterComponents, BaseDropdown, BaseDropdownProps } from '@ui-forge/core'
-import { IconPropsContext } from '@ui-forge/icons'
+import { ComponentThemeProps, filterComponents, BaseDropdown, BaseDropdownProps } from '@prism-ui/core'
+import { IconPropsContext } from '@prism-ui/icons'
 import { AllHTMLAttributes, Children, forwardRef, ReactNode, useMemo, useState } from 'react'
 
 import { vars } from '../../styles/theme.css'
@@ -115,7 +115,7 @@ type DropdownComponent = typeof DropdownRoot & {
  * @example
  * ### 👇 기본 사용법
  * ```tsx
- * import { Dropdown } from '@ui-forge/theme-ocean'
+ * import { Dropdown } from '@prism-ui/theme-ocean'
  *
  * function App() {
  *   const [isOpen, setIsOpen] = useState(false)
@@ -134,7 +134,7 @@ type DropdownComponent = typeof DropdownRoot & {
  * @example
  * ### 👇 Leading 아이콘 추가
  * ```tsx
- * import { Dropdown, SearchIcon } from '@ui-forge/theme-ocean'
+ * import { Dropdown, SearchIcon } from '@prism-ui/theme-ocean'
  *
  * function App() {
  *   return (

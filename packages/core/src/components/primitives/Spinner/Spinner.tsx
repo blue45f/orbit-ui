@@ -32,7 +32,7 @@ export type SpinnerProps = {
  * @example
  * ### 👇 기본 사용법
  * ```
- * import { Spinner } from '@ui-forge/theme-ocean'
+ * import { Spinner } from '@prism-ui/theme-ocean'
  *
  * function App() {
  *  return (

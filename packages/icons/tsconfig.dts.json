@@ -1,6 +1,6 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
-  "extends": "@ui-forge/tsconfig/dts.json",
+  "extends": "@prism-ui/tsconfig/dts.json",
   "compilerOptions": {
     "declarationDir": "./dist",
     "declarationMap": true

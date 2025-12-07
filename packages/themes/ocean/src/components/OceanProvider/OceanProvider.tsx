@@ -1,4 +1,4 @@
-import { ThemeProvider, LottieProvider, Portal, TextStyleBaseSize } from '@ui-forge/core'
+import { ThemeProvider, LottieProvider, Portal, TextStyleBaseSize } from '@prism-ui/core'
 import clsx from 'clsx'
 import { PropsWithChildren } from 'react'
 
@@ -6,7 +6,7 @@ import { darkTheme, lightTheme, textStyleTheme } from '../../styles'
 
 import { ReusableSVG } from './ReusableSVG'
 
-import '@ui-forge/core/style.css'
+import '@prism-ui/core/style.css'
 
 export type OceanProviderProps = {
   /**
@@ -34,7 +34,7 @@ export type MintProviderProps = OceanProviderProps
  * @example
  * ### 👇 기본 사용법
  * ```
- * import { OceanProvider } from '@ui-forge/theme-ocean'
+ * import { OceanProvider } from '@prism-ui/theme-ocean'
  *
  * function MyApp() {
  *  return (

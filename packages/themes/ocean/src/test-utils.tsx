@@ -1,4 +1,4 @@
-import { ThemeProvider } from '@ui-forge/core'
+import { ThemeProvider } from '@prism-ui/core'
 import { render, RenderOptions } from '@testing-library/react'
 import { vi } from 'vitest'
 

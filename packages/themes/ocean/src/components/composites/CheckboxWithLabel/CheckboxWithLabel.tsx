@@ -1,4 +1,4 @@
-import { useUniqueID } from '@ui-forge/core'
+import { useUniqueID } from '@prism-ui/core'
 import { assignInlineVars } from '@vanilla-extract/dynamic'
 import { forwardRef } from 'react'
 
@@ -28,7 +28,7 @@ export type CheckboxWithLabelProps = CheckboxProps & {
  * - `id` prop을 전달하지 않으면 자동으로 생성돼요.
  *
  * ```
- * import { CheckboxWithLabel } from '@ui-forge/theme-ocean/composites'
+ * import { CheckboxWithLabel } from '@prism-ui/theme-ocean/composites'
  *
  * function App() {
  *   return <CheckboxWithLabel>민트</CheckboxWithLabel>

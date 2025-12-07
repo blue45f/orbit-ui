@@ -1,4 +1,4 @@
-import { Flex } from '@ui-forge/core'
+import { Flex } from '@prism-ui/core'
 import { Meta, StoryObj } from '@storybook/react'
 
 import { RadioGroup } from '../RadioGroup'

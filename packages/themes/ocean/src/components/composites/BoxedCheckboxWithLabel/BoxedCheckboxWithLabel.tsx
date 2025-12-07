@@ -1,4 +1,4 @@
-import { useUniqueID } from '@ui-forge/core'
+import { useUniqueID } from '@prism-ui/core'
 import { assignInlineVars } from '@vanilla-extract/dynamic'
 import { forwardRef } from 'react'
 
@@ -28,7 +28,7 @@ export type BoxedCheckboxWithLabelProps = BoxedCheckboxProps & {
  * - `id` prop을 전달하지 않으면 자동으로 생성돼요.
  *
  * ```
- * import { BoxedCheckboxWithLabel } from '@ui-forge/theme-ocean/composites'
+ * import { BoxedCheckboxWithLabel } from '@prism-ui/theme-ocean/composites'
  *
  * function App() {
  *   return <BoxedCheckboxWithLabel>민트</BoxedCheckboxWithLabel>

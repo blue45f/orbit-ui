@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import { utils } from '@ui-forge/core'
+import { utils } from '@prism-ui/core'
 import { Meta } from '@storybook/react'
 
 import { OutlinedButton } from '../OutlineButton'

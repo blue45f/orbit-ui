@@ -3,7 +3,7 @@ import {
   BasePasswordFieldProps,
   ComponentThemeProps,
   BasePasswordFieldSpecificProps,
-} from '@ui-forge/core'
+} from '@prism-ui/core'
 import { AllHTMLAttributes, forwardRef } from 'react'
 
 import { vars } from '../../styles/theme.css'
@@ -49,7 +49,7 @@ PasswordFieldRoot.displayName = 'PasswordField'
  * @example
  * ### 👇 기본 사용법
  * ```tsx
- * import { PasswordField } from '@ui-forge/theme-ocean'
+ * import { PasswordField } from '@prism-ui/theme-ocean'
  *
  * function App() {
  *   const [password, setPassword] = useState('')
@@ -67,7 +67,7 @@ PasswordFieldRoot.displayName = 'PasswordField'
  * @example
  * ### 👇 에러 상태
  * ```tsx
- * import { PasswordField } from '@ui-forge/theme-ocean'
+ * import { PasswordField } from '@prism-ui/theme-ocean'
  *
  * function App() {
  *   const [password, setPassword] = useState('')

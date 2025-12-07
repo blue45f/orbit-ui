@@ -1,5 +1,5 @@
-import { Flex } from '@ui-forge/core'
-import { PlusIcon } from '@ui-forge/icons'
+import { Flex } from '@prism-ui/core'
+import { PlusIcon } from '@prism-ui/icons'
 import { Meta, StoryObj } from '@storybook/react'
 import { ComponentProps } from 'react'
 

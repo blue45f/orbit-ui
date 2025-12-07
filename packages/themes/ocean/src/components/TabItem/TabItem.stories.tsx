@@ -1,4 +1,4 @@
-import { AwesomeIcon } from '@ui-forge/icons'
+import { AwesomeIcon } from '@prism-ui/icons'
 import { Meta, StoryObj } from '@storybook/react'
 
 import { Tab } from './Tab'

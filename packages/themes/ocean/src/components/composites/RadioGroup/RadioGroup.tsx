@@ -1,4 +1,4 @@
-import { setupContext, styleProtected, StyleProtected, useControllableState } from '@ui-forge/core'
+import { setupContext, styleProtected, StyleProtected, useControllableState } from '@prism-ui/core'
 import { forwardRef } from 'react'
 
 import * as styles from './RadioGroup.css'

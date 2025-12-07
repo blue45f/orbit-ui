@@ -6,8 +6,8 @@ import {
   findComponent,
   Flex,
   polymorphic,
-} from '@ui-forge/core'
-import { IconPropsContext } from '@ui-forge/icons'
+} from '@prism-ui/core'
+import { IconPropsContext } from '@prism-ui/icons'
 import { Children, createElement } from 'react'
 
 import { vars } from '../../token'
@@ -126,7 +126,7 @@ type SectionTitleComponent = typeof SectionTitleRoot & {
  * @example
  * ### 👇 기본 사용법
  * ```tsx
- * import { SectionTitle } from '@ui-forge/theme-ocean'
+ * import { SectionTitle } from '@prism-ui/theme-ocean'
  *
  * function App() {
  *   return (
@@ -141,8 +141,8 @@ type SectionTitleComponent = typeof SectionTitleRoot & {
  * @example
  * ### 👇 툴팁 아이콘과 함께 사용
  * ```tsx
- * import { SectionTitle } from '@ui-forge/theme-ocean'
- * import { CircleInfoLineIcon } from '@ui-forge/icons'
+ * import { SectionTitle } from '@prism-ui/theme-ocean'
+ * import { CircleInfoLineIcon } from '@prism-ui/icons'
  *
  * function App() {
  *   return (
@@ -159,9 +159,9 @@ type SectionTitleComponent = typeof SectionTitleRoot & {
  * @example
  * ### 👇 텍스트 버튼과 함께 사용
  * ```tsx
- * import { SectionTitle } from '@ui-forge/theme-ocean'
- * import { TextButton } from '@ui-forge/theme-ocean'
- * import { ChevronRightLineIcon } from '@ui-forge/icons'
+ * import { SectionTitle } from '@prism-ui/theme-ocean'
+ * import { TextButton } from '@prism-ui/theme-ocean'
+ * import { ChevronRightLineIcon } from '@prism-ui/icons'
  *
  * function App() {
  *   return (

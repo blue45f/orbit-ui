@@ -1,4 +1,4 @@
-import { CancelIcon, CheckIcon, MinusIcon } from '@ui-forge/icons'
+import { CancelIcon, CheckIcon, MinusIcon } from '@prism-ui/icons'
 import { Meta, StoryObj } from '@storybook/react'
 import { useState } from 'react'
 

@@ -1,4 +1,4 @@
-import { reset } from '@ui-forge/core'
+import { reset } from '@prism-ui/core'
 import { style } from '@vanilla-extract/css'
 
 export const fieldset = style([

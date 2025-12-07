@@ -1,4 +1,4 @@
-import { ComponentThemeProps, TabItemProps, TabItemSpecificProps, filterComponents, TabItem } from '@ui-forge/core'
+import { ComponentThemeProps, TabItemProps, TabItemSpecificProps, filterComponents, TabItem } from '@prism-ui/core'
 import { Children, forwardRef, PropsWithChildren, ReactNode } from 'react'
 
 import { vars } from '../../styles/theme.css'
@@ -42,7 +42,7 @@ type TabComponent = typeof TabRoot & {
  * @example
  * ### 👇 기본 사용법
  * ```
- * import { SegmentedControl } from '@ui-forge/theme-ocean'
+ * import { SegmentedControl } from '@prism-ui/theme-ocean'
  *
  * function App() {
  *   return (

@@ -1,4 +1,4 @@
-import { ChevronRightLineIcon, SearchIcon } from '@ui-forge/icons'
+import { ChevronRightLineIcon, SearchIcon } from '@prism-ui/icons'
 import type { Meta, StoryObj } from '@storybook/react'
 import { fn } from '@storybook/test'
 import { useState } from 'react'

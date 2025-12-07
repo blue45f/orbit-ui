@@ -1,5 +1,5 @@
-import { Flex } from '@ui-forge/core'
-import { ChatLineIcon, ChevronRightLineIcon } from '@ui-forge/icons'
+import { Flex } from '@prism-ui/core'
+import { ChatLineIcon, ChevronRightLineIcon } from '@prism-ui/icons'
 import { Meta, StoryObj } from '@storybook/react'
 
 import { SolidButton, SolidButtonProps } from '.'

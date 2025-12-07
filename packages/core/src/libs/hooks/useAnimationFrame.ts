@@ -39,12 +39,16 @@ export const useAnimationFrame = (
     rafID.current = window.requestAnimationFrame(animate)
 
     return () => {
-      rafID.current !== undefined && window.cancelAnimationFrame(rafID.current)
+      if (rafID.current !== undefined) {
+        window.cancelAnimationFrame(rafID.current)
+      }
     }
   }, [])
 
   const pause = () => {
-    rafID.current !== undefined && window.cancelAnimationFrame(rafID.current)
+    if (rafID.current !== undefined) {
+      window.cancelAnimationFrame(rafID.current)
+    }
     rafID.current = undefined
     prevTimestamp.current = undefined
   }

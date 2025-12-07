@@ -1,5 +1,5 @@
-import { Flex } from '@ui-forge/core'
-import { ChevronRightLineIcon, CheckIcon, ChevronDownLineIcon } from '@ui-forge/icons'
+import { Flex } from '@prism-ui/core'
+import { ChevronRightLineIcon, CheckIcon, ChevronDownLineIcon } from '@prism-ui/icons'
 import type { Meta, StoryObj } from '@storybook/react'
 
 import { ContainedCheckbox } from '../BoxedCheckbox'

@@ -1,4 +1,4 @@
-import { TextField, TextFieldProps, TextFieldSpecificProps, ComponentThemeProps } from '@ui-forge/core'
+import { TextField, TextFieldProps, TextFieldSpecificProps, ComponentThemeProps } from '@prism-ui/core'
 import { AllHTMLAttributes, forwardRef } from 'react'
 
 import { vars } from '../../styles/theme.css'
@@ -27,7 +27,7 @@ export type TextAreaProps = Omit<
  * @example
  * ### 👇 기본 사용법
  * ```tsx
- * import { TextArea } from '@ui-forge/theme-ocean'
+ * import { TextArea } from '@prism-ui/theme-ocean'
  *
  * function App() {
  *   const [value, setValue] = useState('')
@@ -46,7 +46,7 @@ export type TextAreaProps = Omit<
  * @example
  * ### 👇 에러 상태
  * ```tsx
- * import { TextArea } from '@ui-forge/theme-ocean'
+ * import { TextArea } from '@prism-ui/theme-ocean'
  *
  * function App() {
  *   const [value, setValue] = useState('')

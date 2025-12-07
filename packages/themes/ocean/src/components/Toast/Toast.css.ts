@@ -1,4 +1,4 @@
-import { layerUtils, layerVars } from '@ui-forge/core'
+import { layerUtils, layerVars } from '@prism-ui/core'
 import { style } from '@vanilla-extract/css'
 
 import { vars } from '../../styles'

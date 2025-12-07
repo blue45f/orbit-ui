@@ -3,7 +3,7 @@ import {
   BasePageIndicator,
   BasePageIndicatorProps,
   BasePageIndicatorSpecificProps,
-} from '@ui-forge/core'
+} from '@prism-ui/core'
 import { forwardRef } from 'react'
 
 import { vars } from '../../styles/theme.css'
@@ -21,7 +21,7 @@ export type PageIndicatorProps = Omit<BasePageIndicatorProps, keyof BasePageIndi
  * @example
  * ### 👇 기본 사용법
  * ```tsx
- * import { PageIndicator } from '@ui-forge/theme-ocean'
+ * import { PageIndicator } from '@prism-ui/theme-ocean'
  *
  * function App() {
  *   const [current, setCurrent] = useState(0)

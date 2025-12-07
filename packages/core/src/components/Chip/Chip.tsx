@@ -1,4 +1,4 @@
-import { IconPropsContext } from '@ui-forge/icons'
+import { IconPropsContext } from '@prism-ui/icons'
 import { Children, forwardRef, MouseEvent, ReactNode, useCallback } from 'react'
 
 import { cn } from '../../styles'

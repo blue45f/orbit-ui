@@ -4,7 +4,7 @@ import {
   BaseToastSpecificProps,
   ComponentThemeProps,
   findComponent,
-} from '@ui-forge/core'
+} from '@prism-ui/core'
 import { forwardRef, Children, PropsWithChildren } from 'react'
 
 import { vars } from '../../styles/theme.css'
@@ -88,7 +88,7 @@ type ToastComponent = typeof ToastRoot & {
  * @example
  * ### 👇 기본 사용법
  * ```
- * import { Toast } from '@ui-forge/theme-ocean'
+ * import { Toast } from '@prism-ui/theme-ocean'
  *
  * function App() {
  *   return (

@@ -1,5 +1,5 @@
 <p align="center">
-  <h1 align="center">UI Forge</h1>
+  <h1 align="center">Prism UI</h1>
 </p>
 
 <p align="center">
@@ -31,9 +31,9 @@
 
 | 패키지 | 설명 |
 |--------|------|
-| `@ui-forge/core` | Base 컴포넌트 (스타일 미적용) |
-| `@ui-forge/theme-ocean` | Ocean 테마 컴포넌트 |
-| `@ui-forge/icons` | SVG 아이콘 |
+| `@prism-ui/core` | Base 컴포넌트 (스타일 미적용) |
+| `@prism-ui/theme-ocean` | Ocean 테마 컴포넌트 |
+| `@prism-ui/icons` | SVG 아이콘 |
 
 ---
 
@@ -42,14 +42,14 @@
 ### 설치
 
 ```bash
-pnpm add @ui-forge/theme-ocean
+pnpm add @prism-ui/theme-ocean
 ```
 
 ### 기본 사용법
 
 ```tsx
-import { SolidButton, OutlinedButton, ForgeRoot } from '@ui-forge/theme-ocean'
-import '@ui-forge/theme-ocean/style.css'
+import { SolidButton, OutlinedButton, ForgeRoot } from '@prism-ui/theme-ocean'
+import '@prism-ui/theme-ocean/style.css'
 
 function App() {
   return (
@@ -65,8 +65,8 @@ function App() {
 
 ```tsx
 // app/layout.tsx
-import { ForgeRoot } from '@ui-forge/theme-ocean/server'
-import '@ui-forge/theme-ocean/style.css'
+import { ForgeRoot } from '@prism-ui/theme-ocean/server'
+import '@prism-ui/theme-ocean/style.css'
 
 export default function RootLayout({ children }) {
   return (
@@ -83,20 +83,20 @@ export default function RootLayout({ children }) {
 
 ## 컴포넌트
 
-### Base 컴포넌트 (@ui-forge/core)
+### Base 컴포넌트 (@prism-ui/core)
 
 Base 컴포넌트는 스타일이 적용되지 않은 기능 컴포넌트입니다.
 
 ```tsx
-import { Button, TextField, Toggle, Toast } from '@ui-forge/core'
+import { Button, TextField, Toggle, Toast } from '@prism-ui/core'
 ```
 
-### Theme 컴포넌트 (@ui-forge/theme-ocean)
+### Theme 컴포넌트 (@prism-ui/theme-ocean)
 
 Ocean 테마가 적용된 스타일 컴포넌트입니다.
 
 ```tsx
-import { SolidButton, TextField, Checkbox, Radio } from '@ui-forge/theme-ocean'
+import { SolidButton, TextField, Checkbox, Radio } from '@prism-ui/theme-ocean'
 ```
 
 ---
@@ -104,11 +104,11 @@ import { SolidButton, TextField, Checkbox, Radio } from '@ui-forge/theme-ocean'
 ## 프로젝트 구조
 
 ```
-ui-forge/
+prism-ui/
 ├── packages/
-│   ├── core/              # @ui-forge/core - Base 컴포넌트
-│   ├── themes/ocean/      # @ui-forge/theme-ocean - Ocean 테마
-│   └── icons/             # @ui-forge/icons - 아이콘
+│   ├── core/              # @prism-ui/core - Base 컴포넌트
+│   ├── themes/ocean/      # @prism-ui/theme-ocean - Ocean 테마
+│   └── icons/             # @prism-ui/icons - 아이콘
 ├── tools/
 │   ├── vite-plugin/       # 빌드 플러그인
 │   ├── eslint-plugin-custom-sort/ # CSS 속성 정렬 규칙
@@ -150,4 +150,4 @@ pnpm changeset    # 변경셋 생성
 
 ## 라이선스
 
-MIT License © UI Forge Contributors
+MIT License © Prism UI Contributors

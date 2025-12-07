@@ -1,4 +1,4 @@
-import { BaseDivider, BaseDividerProps } from '@ui-forge/core'
+import { BaseDivider, BaseDividerProps } from '@prism-ui/core'
 import React from 'react'
 
 export type DividerProps = Omit<BaseDividerProps, 'thickness'> & {
@@ -30,7 +30,7 @@ export type DividerProps = Omit<BaseDividerProps, 'thickness'> & {
  * @example
  * ### 👇 가로
  * ```
- * import { Divider } from '@ui-forge/theme-ocean'
+ * import { Divider } from '@prism-ui/theme-ocean'
  *
  * function App() {
  *   return (
@@ -41,7 +41,7 @@ export type DividerProps = Omit<BaseDividerProps, 'thickness'> & {
  *
  * ### 👇 세로
  * ```
- * import { Divider } from '@ui-forge/theme-ocean'
+ * import { Divider } from '@prism-ui/theme-ocean'
  *
  * function App() {
  *   return (

@@ -4,7 +4,7 @@ import {
   IndicatorBadgeProps,
   IndicatorBadgeSpecificProps,
   polymorphic,
-} from '@ui-forge/core'
+} from '@prism-ui/core'
 
 import { vars } from '../../styles/theme.css'
 

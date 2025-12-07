@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { ForwardIcon, MenuIcon } from '@ui-forge/icons'
+import { ForwardIcon, MenuIcon } from '@prism-ui/icons'
 import type { Meta, StoryObj } from '@storybook/react'
 import { useState } from 'react'
 

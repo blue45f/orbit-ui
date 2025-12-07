@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.1",
   "description": "CSS 순서 자동 정렬 지원 (vanilla-extract 사용에 최적화)",
-  "author": "UI Forge Team",
+  "author": "Prism UI Team",
   "main": "lib/index.js",
   "scripts": {
     "test:rule": "mocha --reporter nyan --experimental-modules tests/**/*.spec.js"

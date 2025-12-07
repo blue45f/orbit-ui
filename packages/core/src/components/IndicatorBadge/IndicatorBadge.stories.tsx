@@ -1,4 +1,4 @@
-import { CheckIcon } from '@ui-forge/icons'
+import { CheckIcon } from '@prism-ui/icons'
 import { Meta, StoryObj } from '@storybook/react'
 
 import { IndicatorBadge } from './IndicatorBadge'
@@ -29,7 +29,7 @@ export const Shape = {
       exclude: ['children'],
     },
   },
-  render: ({ children, ...rest }) => (
+  render: ({ children: _children, ...rest }) => (
     <IndicatorBadge {...rest}>
       <CheckIcon />
     </IndicatorBadge>

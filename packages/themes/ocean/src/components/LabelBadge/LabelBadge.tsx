@@ -1,5 +1,5 @@
-import { ComponentThemeProps, Style, Badge, findComponent, polymorphic } from '@ui-forge/core'
-import { IconPropsContext } from '@ui-forge/icons'
+import { ComponentThemeProps, Style, Badge, findComponent, polymorphic } from '@prism-ui/core'
+import { IconPropsContext } from '@prism-ui/icons'
 import { Children } from 'react'
 
 import { vars } from '../../styles/theme.css'

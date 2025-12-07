@@ -4,7 +4,7 @@ import {
   Chip,
   ChipSpecificProps,
   ChipPropsAsButton,
-} from '@ui-forge/core'
+} from '@prism-ui/core'
 import { Children, forwardRef, ReactNode } from 'react'
 
 import { vars } from '../../styles/theme.css'
@@ -74,8 +74,8 @@ type ChipComponent = typeof ChipRoot & {
  * @example
  * ### 👇 기본 사용법
  * ```
- * import { Chip } from '@ui-forge/theme-ocean'
- * import { CheckIcon, ChevronDownLineIcon } from '@ui-forge/icons'
+ * import { Chip } from '@prism-ui/theme-ocean'
+ * import { CheckIcon, ChevronDownLineIcon } from '@prism-ui/icons'
  *
  * function App() {
  *   return (

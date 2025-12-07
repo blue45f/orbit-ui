@@ -1,4 +1,4 @@
-import { TextStyleBaseSize } from '@ui-forge/core'
+import { TextStyleBaseSize } from '@prism-ui/core'
 import clsx from 'clsx'
 
 import { darkTheme, lightTheme, textStyleTheme } from '../styles/theme.css'

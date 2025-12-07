@@ -1,5 +1,5 @@
-import { ComponentThemeProps, BaseCheckbox, BaseCheckboxProps, BaseCheckboxSpecificProps } from '@ui-forge/core'
-import { CheckIcon, MinusIcon } from '@ui-forge/icons'
+import { ComponentThemeProps, BaseCheckbox, BaseCheckboxProps, BaseCheckboxSpecificProps } from '@prism-ui/core'
+import { CheckIcon, MinusIcon } from '@prism-ui/icons'
 import { forwardRef } from 'react'
 
 import { vars } from '../../styles/theme.css'
@@ -17,7 +17,7 @@ export type CheckboxProps = Omit<BaseCheckboxProps, keyof BaseCheckboxSpecificPr
  * @example
  * ### 👇 기본 사용법
  * ```
- * import { Checkbox } from '@ui-forge/theme-ocean'
+ * import { Checkbox } from '@prism-ui/theme-ocean'
  *
  * function App() {
  *   return (

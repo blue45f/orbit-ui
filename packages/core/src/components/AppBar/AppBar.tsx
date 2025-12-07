@@ -1,5 +1,4 @@
 import { forwardRef, Children, ReactNode } from 'react'
-import { IconPropsContext } from '@ui-forge/icons'
 
 import { cn } from '../../styles'
 import { filterComponents, toCSSLength } from '../../libs'

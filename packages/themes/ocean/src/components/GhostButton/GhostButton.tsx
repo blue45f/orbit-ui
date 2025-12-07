@@ -4,7 +4,7 @@ import {
   ButtonProps,
   ButtonSpecificProps,
   ComponentThemeProps,
-} from '@ui-forge/core'
+} from '@prism-ui/core'
 import React, { AllHTMLAttributes, Children, forwardRef, ReactNode } from 'react'
 
 import { vars } from '../../styles/theme.css'
@@ -108,7 +108,7 @@ type GhostButtonComponent = typeof GhostButtonRoot & {
  * @example
  * ### 👇 기본 사용법
  * ```tsx
- * import { GhostButton, ChevronRightLineIcon } from '@ui-forge/theme-ocean'
+ * import { GhostButton, ChevronRightLineIcon } from '@prism-ui/theme-ocean'
  *
  * function App() {
  *   return (

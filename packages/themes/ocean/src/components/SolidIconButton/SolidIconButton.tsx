@@ -1,4 +1,4 @@
-import { Button, ButtonProps, ButtonSpecificProps, ComponentThemeProps } from '@ui-forge/core'
+import { Button, ButtonProps, ButtonSpecificProps, ComponentThemeProps } from '@prism-ui/core'
 import React, { AllHTMLAttributes, forwardRef } from 'react'
 
 import { vars } from '../../styles/theme.css'
@@ -100,7 +100,7 @@ const SolidIconButtonRoot: React.ForwardRefExoticComponent<
  * @example
  * ### 👇 기본 사용법
  * ```tsx
- * import { SolidIconButton, PlusIcon } from '@ui-forge/theme-ocean'
+ * import { SolidIconButton, PlusIcon } from '@prism-ui/theme-ocean'
  *
  * function App() {
  *   return (

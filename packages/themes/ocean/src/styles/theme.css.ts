@@ -1,4 +1,4 @@
-import { ref, referenceDarkTheme, referenceLightTheme, TextStyleBaseSize } from '@ui-forge/core'
+import { ref, referenceDarkTheme, referenceLightTheme, TextStyleBaseSize } from '@prism-ui/core'
 import { style } from '@vanilla-extract/css'
 
 import { com, componentDarkTheme, componentLightTheme } from './component-token'

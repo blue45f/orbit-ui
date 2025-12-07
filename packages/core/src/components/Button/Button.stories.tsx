@@ -1,4 +1,4 @@
-import { ChatLineIcon, MinusIcon } from '@ui-forge/icons'
+import { ChatLineIcon, MinusIcon } from '@prism-ui/icons'
 import { Meta, StoryObj } from '@storybook/react'
 
 import { InternalButtonRootType, Button, ButtonProps } from './Button'

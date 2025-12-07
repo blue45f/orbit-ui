@@ -34,7 +34,9 @@ export const useFocus = <T extends HTMLElement>(params: UseFocusParameters<T>): 
 
   // NOTE: Prevent blur event when clicking on the element
   const preventElementBlur: MouseEventHandler<HTMLElement> = (e) => {
-    e.target !== ref.current && e.preventDefault()
+    if (e.target !== ref.current) {
+      e.preventDefault()
+    }
   }
   return { isFocused, onFocus, onBlur, focusElement, ref: ref as RefObject<T>, preventElementBlur }
 }

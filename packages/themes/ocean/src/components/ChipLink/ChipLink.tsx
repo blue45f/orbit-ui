@@ -4,7 +4,7 @@ import {
   Chip,
   ChipPropsAsAnchor,
   ChipSpecificProps,
-} from '@ui-forge/core'
+} from '@prism-ui/core'
 import { Children, forwardRef, ReactNode } from 'react'
 
 import { vars } from '../../styles/theme.css'
@@ -53,8 +53,8 @@ type ChipLinkComponent = typeof ChipLinkRoot & {
  * @example
  * ### 👇 기본 사용법
  * ```
- * import { ChipLink } from '@ui-forge/theme-ocean'
- * import { CheckIcon } from '@ui-forge/icons'
+ * import { ChipLink } from '@prism-ui/theme-ocean'
+ * import { CheckIcon } from '@prism-ui/icons'
  *
  * function App() {
  *   return (

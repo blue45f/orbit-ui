@@ -8,18 +8,18 @@ import { Meta, Markdown } from '@storybook/blocks'
 
 ## 1. 패키지 설치하기
 
-사용하시는 패키지 매니저를 통해, Ocean 테마 `@ui-forge/themes` 패키지를 설치해주세요.
+사용하시는 패키지 매니저를 통해, Ocean 테마 `@prism-ui/themes` 패키지를 설치해주세요.
 
 ```bash
-pnpm add @ui-forge/themes
+pnpm add @prism-ui/themes
 ```
 
 ```bash
-npm install @ui-forge/themes
+npm install @prism-ui/themes
 ```
 
 ```bash
-yarn add @ui-forge/themes
+yarn add @prism-ui/themes
 ```
 
 <br />
@@ -30,8 +30,8 @@ yarn add @ui-forge/themes
 2. Ocean 테마의 스타일을 사용하기 위해 `CSS` 파일을 import 해주세요.
 
 ```tsx
-import { OceanRoot } from '@ui-forge/themes'
-import '@ui-forge/themes/style.css' // <--- 스타일 import ✅
+import { OceanRoot } from '@prism-ui/themes'
+import '@prism-ui/themes/style.css' // <--- 스타일 import ✅
 
 function MyApp() {
   return (
@@ -51,7 +51,7 @@ Next.js 등의 `SSR`을 사용하시는 경우에는, 깜빡임을 방지하기 
 ```tsx
 // _document.tsx
 
-import { getTheme } from '@ui-forge/themes/server'
+import { getTheme } from '@prism-ui/themes/server'
 
 export default function Document(): JSX.Element {
   return (
@@ -67,14 +67,14 @@ export default function Document(): JSX.Element {
 
 // _app.tsx
 
-import '@ui-forge/themes/style.css' // <--- 스타일 import ✅
+import '@prism-ui/themes/style.css' // <--- 스타일 import ✅
 ```
 
 > ##### Next 13 App Directory 예시
 
 ```tsx
-import { getTheme } from '@ui-forge/themes/server'
-import '@ui-forge/themes/style.css' // <--- 스타일 import ✅
+import { getTheme } from '@prism-ui/themes/server'
+import '@prism-ui/themes/style.css' // <--- 스타일 import ✅
 
 const RootLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return (
@@ -93,12 +93,12 @@ const RootLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 
 #### 🙋🏻 지금 어떤 컴포넌트를 쓸 수 있나요?
 
-사용 가능한 컴포넌트 목록은 [index.ts 파일](https://git.claykit.in/common-fe/system/claykithan-ui-forge/component/-/blob/main/packages/mint/src/index.ts) 에서 확인할 수 있어요.
+사용 가능한 컴포넌트 목록은 [index.ts 파일](https://git.claykit.in/common-fe/system/claykithan-prism-ui/component/-/blob/main/packages/mint/src/index.ts) 에서 확인할 수 있어요.
 
 - `unstable_` 접두사가 붙은 컴포넌트는 구현 또는 디자인 QA 진행 중이므로 사용에 유의해주세요.
 
 ```tsx
-import { unstable_Component as Component } from '@ui-forge/themes'
+import { unstable_Component as Component } from '@prism-ui/themes'
 ```
 
 #### 🍒 아이콘 사용하기 [(목록 바로가기)](/docs/intro-아이콘-카탈로그--docs)
@@ -106,7 +106,7 @@ import { unstable_Component as Component } from '@ui-forge/themes'
 아이콘은 별도 엔트리 포인트로 분리되어 있어요. 아이콘을 사용하려면 다음과 같은 경로로 아이콘을 import 해주세요.
 
 ```tsx
-import { BellIcon } from '@ui-forge/themes/icons'
+import { BellIcon } from '@prism-ui/themes/icons'
 ```
 
 <br />
@@ -115,14 +115,14 @@ import { BellIcon } from '@ui-forge/themes/icons'
 
 #### 🙋🏻 디자인 토큰을 직접 사용하는 방법이 있을까요?
 
-디자인 토큰은 `@ui-forge/themes/token` 경로에서 확인할 수 있어요.
+디자인 토큰은 `@prism-ui/themes/token` 경로에서 확인할 수 있어요.
 
 - 디자인 토큰 값은 OceanRoot의 theme에 포함되어있는 CSS Variable이에요.
 
 ##### 사용 예시
 
 ```tsx
-import { vars } from '@ui-forge/themes/token'
+import { vars } from '@prism-ui/themes/token'
 
 // ✅ inline style
 const Component = () => {
@@ -158,16 +158,16 @@ const Component = () => {
 
 모바일 웹뷰에서는 시스템 폰트를 사용하기 때문에 설치가 필요하지 않아요. 하지만 웹뷰가 아닌 환경에서는 [Pretendard](https://cactus.tistory.com/306) 폰트를 사용하기 때문에 별도 설치가 필요해요.
 
-UI Forge에서는 [Pretendard](https://cactus.tistory.com/306) 폰트 파일을 아래의 CDN 경로로 제공하고 있어요. (패키지 번들에는 폰트 파일이 없어요.)
+Prism UI에서는 [Pretendard](https://cactus.tistory.com/306) 폰트 파일을 아래의 CDN 경로로 제공하고 있어요. (패키지 번들에는 폰트 파일이 없어요.)
 
 ```css
 /* 운영 */
-@import url(https://ui-forge-assets.claykit.com/font/css/pretendard.css);
+@import url(https://prism-ui-assets.claykit.com/font/css/pretendard.css);
 
 /* 베타 */
-@import url(https://ui-forge-assets.betaclaykit.in/font/css/pretendard.css);
+@import url(https://prism-ui-assets.betaclaykit.in/font/css/pretendard.css);
 ```
 
 ## 7. 이슈 제보
 
-적용 중 이슈 발생 시 [#support-UI Forge](https://claykithan.slack.com/archives/C04K1GP099S) 슬랙 채널 워크플로우를 통해 문의해주세요. 🙂
+적용 중 이슈 발생 시 [#support-Prism UI](https://claykithan.slack.com/archives/C04K1GP099S) 슬랙 채널 워크플로우를 통해 문의해주세요. 🙂

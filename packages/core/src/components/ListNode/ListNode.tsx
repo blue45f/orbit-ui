@@ -1,5 +1,5 @@
 import { forwardRef, Children, ReactNode, createElement, useCallback, MouseEvent } from 'react'
-import { IconPropsContext } from '@ui-forge/icons'
+import { IconPropsContext } from '@prism-ui/icons'
 
 import { cn } from '../../styles'
 import {
@@ -8,7 +8,7 @@ import {
   useFocus,
   toCSSLength,
 } from '../../libs'
-import { ContainerLayer, StateLayer, ContentLayer } from '../primitives/Layer'
+import { StateLayer, ContentLayer } from '../primitives/Layer'
 
 /* ========================================================================
  * Types

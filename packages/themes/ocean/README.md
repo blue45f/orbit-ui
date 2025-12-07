@@ -1,20 +1,20 @@
-# @ui-forge/theme-ocean
+# @prism-ui/theme-ocean
 
-[![npm](https://img.shields.io/npm/v/@ui-forge/theme-ocean)](https://www.npmjs.com/package/@ui-forge/theme-ocean)
+[![npm](https://img.shields.io/npm/v/@prism-ui/theme-ocean)](https://www.npmjs.com/package/@prism-ui/theme-ocean)
 
 > Ocean 테마 컴포넌트
 
 ## 설치
 
 ```bash
-pnpm add @ui-forge/theme-ocean
+pnpm add @prism-ui/theme-ocean
 ```
 
 ## 사용법
 
 ```tsx
-import { SolidButton, OutlinedButton, ForgeRoot } from '@ui-forge/theme-ocean'
-import '@ui-forge/theme-ocean/style.css'
+import { SolidButton, OutlinedButton, ForgeRoot } from '@prism-ui/theme-ocean'
+import '@prism-ui/theme-ocean/style.css'
 
 function App() {
   return (
@@ -34,8 +34,8 @@ function App() {
 
 ```tsx
 // app/layout.tsx
-import { ForgeRoot } from '@ui-forge/theme-ocean/server'
-import '@ui-forge/theme-ocean/style.css'
+import { ForgeRoot } from '@prism-ui/theme-ocean/server'
+import '@prism-ui/theme-ocean/style.css'
 
 export default function RootLayout({ children }) {
   return (

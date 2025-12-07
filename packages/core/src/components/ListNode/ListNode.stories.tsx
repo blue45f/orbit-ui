@@ -1,4 +1,4 @@
-import { CheckIcon, ChevronRightLineIcon } from '@ui-forge/icons'
+import { CheckIcon, ChevronRightLineIcon } from '@prism-ui/icons'
 import { Meta, StoryObj } from '@storybook/react'
 
 import { Checkbox } from '../Checkbox'

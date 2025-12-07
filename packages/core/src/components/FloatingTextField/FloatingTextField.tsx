@@ -1,5 +1,5 @@
-import { CancelIcon, IconPropsContext } from '@ui-forge/icons'
-import React, { Children, HTMLAttributes, forwardRef, useCallback, useState } from 'react'
+import { CancelIcon, IconPropsContext } from '@prism-ui/icons'
+import React, { Children, HTMLAttributes, forwardRef, useCallback } from 'react'
 
 import { cn } from '../../styles'
 import {
@@ -10,7 +10,6 @@ import {
   useControllableState,
   flattenFragment,
   setNativeValue,
-  useElementSize,
 } from '../../libs'
 import { BorderLayer, ContainerLayer, ContentLayer } from '../primitives/Layer'
 

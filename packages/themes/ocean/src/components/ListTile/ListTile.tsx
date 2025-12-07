@@ -5,8 +5,8 @@ import {
   ComponentThemeProps,
   findComponent,
   polymorphic,
-} from '@ui-forge/core'
-import { IconPropsContext } from '@ui-forge/icons'
+} from '@prism-ui/core'
+import { IconPropsContext } from '@prism-ui/icons'
 import { Children } from 'react'
 
 import { vars } from '../../styles/theme.css'
@@ -149,7 +149,7 @@ type ListTileComponent = typeof ListTileRoot & {
  * @example
  * ### 👇 기본 사용법
  * ```tsx
- * import { ListTile } from '@ui-forge/theme-ocean'
+ * import { ListTile } from '@prism-ui/theme-ocean'
  *
  * function App() {
  *   return (
@@ -168,7 +168,7 @@ type ListTileComponent = typeof ListTileRoot & {
  * @example
  * ### 👇 인터랙티브한 List Item
  * ```tsx
- * import { ListTile } from '@ui-forge/theme-ocean'
+ * import { ListTile } from '@prism-ui/theme-ocean'
  *
  * function App() {
  *   return (
