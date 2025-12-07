@@ -107,12 +107,14 @@ import { SolidButton, TextField, Checkbox, Radio } from '@prism-ui/theme-ocean'
 prism-ui/
 ├── packages/
 │   ├── core/              # @prism-ui/core - Base 컴포넌트
-│   ├── themes/ocean/      # @prism-ui/theme-ocean - Ocean 테마
-│   └── icons/             # @prism-ui/icons - 아이콘
-├── tools/
-│   ├── vite-plugin/       # 빌드 플러그인
-│   ├── eslint-plugin-custom-sort/ # CSS 속성 정렬 규칙
-│   └── plop/              # 컴포넌트 생성기
+│   ├── theme-ocean/       # @prism-ui/theme-ocean - Ocean 테마
+│   ├── icons/             # @prism-ui/icons - 아이콘
+│   ├── vite-plugin/       # @prism-ui/vite-plugin - 빌드 플러그인
+│   ├── eslint-plugin/     # @prism-ui/eslint-plugin - CSS 정렬 규칙
+│   └── generator/         # @prism-ui/generator - 컴포넌트 생성기
+├── config/
+│   ├── tsconfig/          # 공유 TS 설정
+│   └── figma/             # Figma 도구
 └── docs/                  # 문서
 ```
 

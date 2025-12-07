@@ -11,7 +11,6 @@ import { getFilenameSegment } from './utils'
  */
 export function cssBangCommentPlugin(): Plugin {
   const BANG_COMMENT_PLUGIN_NAME = 'vite-plugin-css-bang-comment'
-  // eslint-disable-next-line turbo/no-undeclared-env-vars
   const DEBUG = process.env.DEBUG || false
 
   let config: ResolvedConfig

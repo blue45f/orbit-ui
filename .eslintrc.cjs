@@ -5,7 +5,7 @@ module.exports = {
     node: true,
     es2022: true,
   },
-  plugins: ['@typescript-eslint', 'react', 'react-hooks', 'import', '@tools/custom-sort'],
+  plugins: ['@typescript-eslint', 'react', 'react-hooks', 'import', '@prism-ui/eslint-plugin'],
   extends: [
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
@@ -31,13 +31,20 @@ module.exports = {
     {
       files: ['*.css.ts'],
       rules: {
-        '@tools/custom-sort/css-concentric-order': 'warn',
+        '@prism-ui/css-concentric-order': 'warn',
       },
     },
     {
       files: ['*.test.ts', '*.test.tsx', '*.stories.tsx'],
       rules: {
         '@typescript-eslint/no-explicit-any': 'off',
+        'no-console': 'off',
+      },
+    },
+    {
+      files: ['**/e2e/**/*.ts', '**/e2e/*.ts'],
+      rules: {
+        'no-console': 'off',
       },
     },
   ],

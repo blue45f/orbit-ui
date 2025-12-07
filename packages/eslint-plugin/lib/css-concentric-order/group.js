@@ -13,7 +13,9 @@ const { Property } = require('./property.js')
  */
 class Group {
   constructor(properties, sourceCode) {
-    this.properties = properties?.map((node, nodeIndex) => new Property(node, nodeIndex, sourceCode))
+    this.properties = properties?.map(
+      (node, nodeIndex) => new Property(node, nodeIndex, sourceCode)
+    )
     this.sortedProperties = [...this.properties].sort((a, b) => a.priority - b.priority)
     this.sourceCode = sourceCode
   }

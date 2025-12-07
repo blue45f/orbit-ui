@@ -54,25 +54,27 @@ pnpm dev
 ## 프로젝트 구조
 
 ```
-clay-kit/
+prism-ui/
 ├── packages/
-│   ├── core/                    # @aspect-ui/core
+│   ├── core/                    # @prism-ui/core
 │   │   └── src/
 │   │       ├── components/      # Base 컴포넌트
-│   │       ├── hooks/           # 공용 훅
-│   │       ├── utils/           # 유틸리티
-│   │       └── tokens/          # 디자인 토큰
+│   │       ├── libs/            # 훅, 유틸리티
+│   │       └── styles/          # 디자인 토큰
 │   │
-│   ├── theme-mint/              # @aspect-ui/theme-mint
+│   ├── theme-ocean/             # @prism-ui/theme-ocean
 │   │   └── src/
 │   │       ├── components/      # 테마 컴포넌트
-│   │       └── tokens/          # Mint 테마 토큰
+│   │       └── styles/          # Ocean 테마 토큰
 │   │
-│   └── icons/                   # @aspect-ui/icons
+│   ├── icons/                   # @prism-ui/icons
+│   ├── vite-plugin/             # @prism-ui/vite-plugin
+│   ├── eslint-plugin/           # @prism-ui/eslint-plugin
+│   └── generator/               # @prism-ui/generator
 │
-└── tools/
-    ├── cli/                     # CLI 도구
-    └── vite-plugin/             # 빌드 플러그인
+└── config/
+    ├── tsconfig/                # 공유 TS 설정
+    └── figma/                   # Figma 도구
 ```
 
 ### 컴포넌트 파일 구조

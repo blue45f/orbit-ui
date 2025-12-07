@@ -8,7 +8,7 @@ export default function (plop: NodePlopAPI): void {
         type: 'list',
         name: 'packageName',
         message: '패키지를 선택해주세요.',
-        choices: ['foundation', 'mint'],
+        choices: ['core', 'theme-ocean'],
       },
       {
         type: 'input',
@@ -30,7 +30,7 @@ export default function (plop: NodePlopAPI): void {
     ],
     actions: [
       (answers) => {
-        answers.isCorePackage = answers.packageName === 'foundation'
+        answers.isCorePackage = answers.packageName === 'core'
         answers.isSlotted = answers.componentType === 'slotted'
         answers.subComponentNames = answers.subComponentNames?.replace(/ /g, '').split(',')
 
@@ -40,7 +40,7 @@ export default function (plop: NodePlopAPI): void {
         type: 'addMany',
         templateFiles: './templates/component/*',
         base: './templates/component',
-        destination: '../../packages/{{packageName}}/src/components/{{componentName}}',
+        destination: '../{{packageName}}/src/components/{{componentName}}',
       },
     ],
   })

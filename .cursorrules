@@ -15,8 +15,11 @@ Figma 기반 React 디자인 시스템 컴포넌트 라이브러리입니다.
 | 패키지 | 경로 | 설명 |
 |--------|------|------|
 | `@prism-ui/core` | `packages/core/` | 코어 컴포넌트 |
-| `@prism-ui/themes` | `packages/themes/ocean/` | Ocean 테마 |
+| `@prism-ui/theme-ocean` | `packages/theme-ocean/` | Ocean 테마 |
 | `@prism-ui/icons` | `packages/icons/` | 아이콘 |
+| `@prism-ui/vite-plugin` | `packages/vite-plugin/` | Vite 플러그인 |
+| `@prism-ui/eslint-plugin` | `packages/eslint-plugin/` | ESLint 플러그인 |
+| `@prism-ui/generator` | `packages/generator/` | 컴포넌트 생성기 |
 
 ```
 packages/
@@ -25,9 +28,18 @@ packages/
 │   ├── libs/          # 훅, 유틸리티
 │   └── styles/        # 디자인 토큰
 │
-└── themes/ocean/src/
-    ├── components/    # 테마 컴포넌트
-    └── styles/        # Ocean 토큰
+├── theme-ocean/src/
+│   ├── components/    # 테마 컴포넌트
+│   └── styles/        # Ocean 토큰
+│
+├── icons/             # 아이콘 컴포넌트
+├── vite-plugin/       # Vite CSS 플러그인
+├── eslint-plugin/     # CSS 순서 정렬 규칙
+└── generator/         # 컴포넌트 스캐폴딩
+
+config/
+├── tsconfig/          # 공유 TS 설정
+└── figma/             # Figma 도구
 ```
 
 ---

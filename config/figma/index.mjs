@@ -34,7 +34,7 @@ const getMetaInfo = (packageName, type) => {
     {
       token: tokenURL,
     }[type],
-    true,
+    true
   )
   const pathFragments = pathname.split('/')
   const branchIndex = pathFragments.findIndex((frag) => frag === 'file')

@@ -15,7 +15,9 @@ export const removeVanillaExtractVirtualFilePlugin = (): Plugin => {
             delete bundle[fileName]
 
             // .vanilla.css.js.map 파일 제거
-            chunk.map && delete bundle[fileName + '.map']
+            if (chunk.map) {
+              delete bundle[fileName + '.map']
+            }
           } else {
             // .vanilla.css.js import문 제거
             chunk.code = chunk.code.replace(/import\s+["'][^"']+\.vanilla\.css\.js["'];?/g, '').trim()

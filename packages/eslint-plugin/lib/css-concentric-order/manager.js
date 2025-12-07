@@ -42,7 +42,7 @@ class Manager {
         accLines,
         group.isSingleLine ? [group.fixedSingleLine] : group.fixedLines,
         group.firstLineIndex,
-        group.lastLineIndex,
+        group.lastLineIndex
       )
     }, this.sourceCode.lines)
 

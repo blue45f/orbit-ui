@@ -1,8 +1,8 @@
 {
-  "name": "@tools/figma",
+  "name": "@prism-ui/figma",
   "version": "0.0.0",
   "private": true,
-  "description": "Figma API Client",
+  "description": "Figma API 클라이언트",
   "type": "module",
   "devDependencies": {
     "axios": "^1.3.4",
