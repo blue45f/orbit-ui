@@ -8,16 +8,30 @@ import {
   cloneElement,
 } from 'react'
 
+import * as RadixToast from '@radix-ui/react-toast'
+
 import { cn } from '../../styles'
+
+const VIEWPORT_STYLE: React.CSSProperties = {
+  position: 'fixed',
+  bottom: 0,
+  right: 0,
+  display: 'flex',
+  flexDirection: 'column',
+  padding: 0,
+  margin: 0,
+  listStyle: 'none',
+  zIndex: 9999,
+  outline: 'none',
+}
 import {
   useControllableState,
   toCSSLength,
   getReactElementRef,
   findComponent,
 } from '../../libs'
-import { Portal, Presence, useUniqueID } from '../primitives'
 import { ContentLayer, ContentLayerProps } from '../primitives/Layer'
-import { OverlayContainerLayer, OverlayContainerLayerProps } from '../primitives/Overlay'
+import { useUniqueID } from '../primitives'
 
 import { SnackbarProvider, useSnackbarContext } from './Toast.lib'
 
@@ -60,7 +74,7 @@ export type ToastProps = ToastSpecificProps & {
   /** 고유 ID */
   id?: string
   /** z-index 값 @defaultValue '300' */
-  elevation?: OverlayContainerLayerProps['elevation']
+  elevation?: string
   /**
    * 스크린 리더 공지 우선순위
    * - 'polite': 일반 알림 (role="status", aria-live="polite")
@@ -153,35 +167,55 @@ export const ToastRoot = forwardRef<HTMLDivElement, ToastProps>(
       ...styleProp,
     }
 
+    const handleRadixOpenChange = useCallback(
+      (open: boolean) => {
+        changeIsPresented({
+          changeParams: [open],
+          value: open,
+        })
+      },
+      [changeIsPresented]
+    )
+
     return (
       <SnackbarProvider id={id} isPresented={isPresented} changeIsPresented={changeIsPresented}>
-        {trigger}
-        <Portal>
-          <Presence present={isPresented}>
-            <OverlayContainerLayer
-              {...rest}
-              ref={forwardedRef}
-              className={className}
-              style={style}
-              elevation={elevation}
-              role={priority === 'assertive' ? 'alert' : 'status'}
-              aria-live={priority}
-              id={id}
-            >
-              <ContentLayer
-                direction="horizontal"
-                alignment={alignment}
-                arrangement={arrangement}
-                className="relative"
-                style={{ gap: theme?.gap || '12px' }}
-              >
-                {leading && leading}
-                {center}
-                {trailing && trailing}
-              </ContentLayer>
-            </OverlayContainerLayer>
-          </Presence>
-        </Portal>
+        <RadixToast.Provider swipeDirection="right" duration={Infinity}>
+          {trigger}
+          <RadixToast.Root
+            open={isPresented}
+            onOpenChange={handleRadixOpenChange}
+            type={priority === 'assertive' ? 'foreground' : 'background'}
+            asChild
+          >
+            <li style={{ listStyle: 'none' }}>
+                <div
+                  {...rest}
+                  ref={forwardedRef}
+                  className={className}
+                  style={{
+                    ...style,
+                    zIndex: elevation,
+                  }}
+                  role={priority === 'assertive' ? 'alert' : 'status'}
+                  aria-live={priority}
+                  id={id}
+                >
+                  <ContentLayer
+                    direction="horizontal"
+                    alignment={alignment}
+                    arrangement={arrangement}
+                    className="relative"
+                    style={{ gap: theme?.gap || '12px' }}
+                  >
+                    {leading && leading}
+                    {center}
+                    {trailing && trailing}
+                  </ContentLayer>
+                </div>
+            </li>
+          </RadixToast.Root>
+          <RadixToast.Viewport style={VIEWPORT_STYLE} />
+        </RadixToast.Provider>
       </SnackbarProvider>
     )
   }
@@ -205,17 +239,19 @@ interface ToastCenterProps extends PropsWithChildren<HTMLAttributes<HTMLDivEleme
 
 const ToastCenter = forwardRef<HTMLDivElement, ToastCenterProps>(
   ({ children, className, alignment = 'top', style: styleProp, ...rest }, ref) => (
-    <div
-      {...rest}
-      ref={ref}
-      className={cn('flex-1 min-w-0', className)}
-      style={{
-        alignSelf: alignment === 'top' ? 'flex-start' : alignment === 'center' ? 'center' : 'flex-end',
-        ...styleProp,
-      }}
-    >
-      {children}
-    </div>
+    <RadixToast.Description asChild>
+      <div
+        {...rest}
+        ref={ref}
+        className={cn('flex-1 min-w-0', className)}
+        style={{
+          alignSelf: alignment === 'top' ? 'flex-start' : alignment === 'center' ? 'center' : 'flex-end',
+          ...styleProp,
+        }}
+      >
+        {children}
+      </div>
+    </RadixToast.Description>
   )
 )
 
@@ -305,6 +341,9 @@ type ToastComponent = typeof ToastRoot & {
 
 /**
  * 스낵바 컴포넌트
+ *
+ * Internally powered by @radix-ui/react-toast for accessibility
+ * (aria-live announcements, swipe-to-dismiss, auto-close timer).
  *
  * @example
  * ```tsx
