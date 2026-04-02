@@ -51,6 +51,7 @@
     "aria-hidden": "^1.2.4",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "es-toolkit": "^1.45.1",
     "lottie-web": "^5.12.2",
     "react-focus-lock": "^2.13.2",
     "react-remove-scroll": "^2.6.0",

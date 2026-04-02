@@ -1,6 +1,4 @@
-import React, { useRef } from 'react'
-
-import { useIsomorphicLayoutEffect } from './useIsomorphicLayoutEffect'
+import { useRef, useCallback, useLayoutEffect } from 'react'
 
 /**
  *
@@ -20,9 +18,10 @@ export const useEvent = <
 ) => {
   const cache = useRef(cb)
 
-  useIsomorphicLayoutEffect(() => {
+  useLayoutEffect(() => {
     cache.current = cb
-  }, [cb])
+  })
 
-  return React.useCallback((...args: P) => cache.current(...args), [cache])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  return useCallback((...args: P) => cache.current(...args), [])
 }

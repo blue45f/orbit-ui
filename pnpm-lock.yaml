@@ -91,6 +91,9 @@ importers:
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
+      es-toolkit:
+        specifier: ^1.45.1
+        version: 1.45.1
       lottie-web:
         specifier: ^5.12.2
         version: 5.13.0
@@ -268,7 +271,7 @@ importers:
         version: 5.4.20(@types/node@20.11.30)
       vitest:
         specifier: 3.2.4
-        version: 3.2.4(@types/node@20.11.30)(@vitest/ui@3.2.4)(jsdom@25.0.1)
+        version: 3.2.4(@types/debug@4.1.13)(@types/node@20.11.30)(@vitest/ui@3.2.4)(jsdom@25.0.1)
 
   packages/theme-ocean:
     dependencies:
@@ -281,9 +284,6 @@ importers:
       '@prism-ui/icons':
         specifier: workspace:*
         version: link:../icons
-      '@react-spring/web':
-        specifier: ^10.0.3
-        version: 10.0.3(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
       '@use-gesture/react':
         specifier: ^10.3.1
         version: 10.3.1(react@19.1.1)
@@ -437,7 +437,7 @@ importers:
         version: 5.4.20(@types/node@22.19.1)
       vitest:
         specifier: ^3.0.7
-        version: 3.2.4(@types/node@22.19.1)(@vitest/ui@3.2.4)(jsdom@25.0.1)
+        version: 3.2.4(@types/debug@4.1.13)(@types/node@22.19.1)(@vitest/ui@3.2.4)(jsdom@25.0.1)
 
 packages:
 
@@ -1661,33 +1661,6 @@ packages:
       '@types/react':
         optional: true
 
-  '@react-spring/animated@10.0.3':
-    resolution: {integrity: sha512-7MrxADV3vaUADn2V9iYhaIL6iOWRx9nCJjYrsk2AHD2kwPr6fg7Pt0v+deX5RnCDmCKNnD6W5fasiyM8D+wzJQ==}
-    peerDependencies:
-      react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
-
-  '@react-spring/core@10.0.3':
-    resolution: {integrity: sha512-D4DwNO68oohDf/0HG2G0Uragzb9IA1oXblxrd6MZAcBcUQG2EHUWXewjdECMPLNmQvlYVyyBRH6gPxXM5DX7DQ==}
-    peerDependencies:
-      react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
-
-  '@react-spring/rafz@10.0.3':
-    resolution: {integrity: sha512-Ri2/xqt8OnQ2iFKkxKMSF4Nqv0LSWnxXT4jXFzBDsHgeeH/cHxTLupAWUwmV9hAGgmEhBmh5aONtj3J6R/18wg==}
-
-  '@react-spring/shared@10.0.3':
-    resolution: {integrity: sha512-geCal66nrkaQzUVhPkGomylo+Jpd5VPK8tPMEDevQEfNSWAQP15swHm+MCRG4wVQrQlTi9lOzKzpRoTL3CA84Q==}
-    peerDependencies:
-      react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
-
-  '@react-spring/types@10.0.3':
-    resolution: {integrity: sha512-H5Ixkd2OuSIgHtxuHLTt7aJYfhMXKXT/rK32HPD/kSrOB6q6ooeiWAXkBy7L8F3ZxdkBb9ini9zP9UwnEFzWgQ==}
-
-  '@react-spring/web@10.0.3':
-    resolution: {integrity: sha512-ndU+kWY81rHsT7gTFtCJ6mrVhaJ6grFmgTnENipzmKqot4HGf5smPNK+cZZJqoGeDsj9ZsiWPW4geT/NyD484A==}
-    peerDependencies:
-      react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
-      react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
-
   '@rolldown/pluginutils@1.0.0-beta.27':
     resolution: {integrity: sha512-+d0F4MKMCbeVUJwG96uQ4SgAznZNSq93I3V+9NHA4OpvqG8mRCpGdKmK8l/dl02h2CCDHwW2FqilnTyDcAnqjA==}
 
@@ -2163,6 +2136,9 @@ packages:
   '@types/chai@5.2.3':
     resolution: {integrity: sha512-Mw558oeA9fFbv65/y4mHtXDs9bPnFMZAL/jxdPFUpOHHIXX91mcgEHbS5Lahr+pwZFR8A7GQleRWeI6cGFC2UA==}
 
+  '@types/debug@4.1.13':
+    resolution: {integrity: sha512-KSVgmQmzMwPlmtljOomayoR89W4FynCAi3E8PPs7vmDVPe84hT+vGPKkJfThkmXs0x0jAaa9U8uW8bbfyS2fWw==}
+
   '@types/deep-eql@4.0.2':
     resolution: {integrity: sha512-c9h9dVVMigMPc4bwTvC5dxqtqJZwQPePsWjPlpSOnojbor6pGqdk541lfA7AqFQr5pB1BRdq0juY9db81BwyFw==}
 
@@ -2186,6 +2162,9 @@ packages:
 
   '@types/mdx@2.0.13':
     resolution: {integrity: sha512-+OWZQfAYyio6YkJb3HLxDrvnx6SWWDbC0zVPfBRzUk0/nqoDyf6dNxQi3eArPe8rJ473nobTMQ/8Zk+LxJ+Yuw==}
+
+  '@types/ms@2.1.0':
+    resolution: {integrity: sha512-GsCCIZDE/p3i96vtEqx+7dBUGXrc7zeSK3wwPHIaRThS+9OhWIXRqzs4d6k1SVU8g91DrNRWxWUGhp5KXQb2VA==}
 
   '@types/node@12.20.55':
     resolution: {integrity: sha512-J8xLz7q2OFulZ2cyGTLE1TbbZcjpno7FaN6zdJNrgAdrJ+DZzh/uFR6YrTb4C+nXakvud8Q4+rbhoIWlYQbUFQ==}
@@ -3054,6 +3033,9 @@ packages:
   es-to-primitive@1.3.0:
     resolution: {integrity: sha512-w+5mJ3GuFL+NjVtJlvydShqE1eN3h3PbI7/5LAsYJP/2qtuMXjfL2LpHSRqo4b4eSF5K/DH1JXKUAHSB2UW50g==}
     engines: {node: '>= 0.4'}
+
+  es-toolkit@1.45.1:
+    resolution: {integrity: sha512-/jhoOj/Fx+A+IIyDNOvO3TItGmlMKhtX8ISAHKE90c4b/k1tqaqEZ+uUqfpU8DMnW5cgNJv606zS55jGvza0Xw==}
 
   esbuild-register@3.6.0:
     resolution: {integrity: sha512-H2/S7Pm8a9CL1uhp9OvjwrBh5Pvx0H8qVOxNu8Wed9Y7qv56MPtq+GGM8RJpq6glYJn9Wspr8uw7l55uyinNeg==}
@@ -6714,38 +6696,6 @@ snapshots:
     optionalDependencies:
       '@types/react': 19.1.13
 
-  '@react-spring/animated@10.0.3(react@19.1.1)':
-    dependencies:
-      '@react-spring/shared': 10.0.3(react@19.1.1)
-      '@react-spring/types': 10.0.3
-      react: 19.1.1
-
-  '@react-spring/core@10.0.3(react@19.1.1)':
-    dependencies:
-      '@react-spring/animated': 10.0.3(react@19.1.1)
-      '@react-spring/shared': 10.0.3(react@19.1.1)
-      '@react-spring/types': 10.0.3
-      react: 19.1.1
-
-  '@react-spring/rafz@10.0.3': {}
-
-  '@react-spring/shared@10.0.3(react@19.1.1)':
-    dependencies:
-      '@react-spring/rafz': 10.0.3
-      '@react-spring/types': 10.0.3
-      react: 19.1.1
-
-  '@react-spring/types@10.0.3': {}
-
-  '@react-spring/web@10.0.3(react-dom@19.1.1(react@19.1.1))(react@19.1.1)':
-    dependencies:
-      '@react-spring/animated': 10.0.3(react@19.1.1)
-      '@react-spring/core': 10.0.3(react@19.1.1)
-      '@react-spring/shared': 10.0.3(react@19.1.1)
-      '@react-spring/types': 10.0.3
-      react: 19.1.1
-      react-dom: 19.1.1(react@19.1.1)
-
   '@rolldown/pluginutils@1.0.0-beta.27': {}
 
   '@rollup/plugin-babel@6.1.0(@babel/core@7.28.5)(@types/babel__core@7.20.5)(rollup@4.53.3)':
@@ -7230,6 +7180,11 @@ snapshots:
       '@types/deep-eql': 4.0.2
       assertion-error: 2.0.1
 
+  '@types/debug@4.1.13':
+    dependencies:
+      '@types/ms': 2.1.0
+    optional: true
+
   '@types/deep-eql@4.0.2': {}
 
   '@types/doctrine@0.0.9': {}
@@ -7251,6 +7206,9 @@ snapshots:
       '@types/node': 22.19.1
 
   '@types/mdx@2.0.13': {}
+
+  '@types/ms@2.1.0':
+    optional: true
 
   '@types/node@12.20.55': {}
 
@@ -7514,7 +7472,7 @@ snapshots:
       std-env: 3.10.0
       test-exclude: 7.0.1
       tinyrainbow: 2.0.0
-      vitest: 3.2.4(@types/node@20.11.30)(@vitest/ui@3.2.4)(jsdom@25.0.1)
+      vitest: 3.2.4(@types/debug@4.1.13)(@types/node@20.11.30)(@vitest/ui@3.2.4)(jsdom@25.0.1)
     transitivePeerDependencies:
       - supports-color
 
@@ -7631,7 +7589,7 @@ snapshots:
       sirv: 3.0.2
       tinyglobby: 0.2.15
       tinyrainbow: 2.0.0
-      vitest: 3.2.4(@types/node@20.11.30)(@vitest/ui@3.2.4)(jsdom@25.0.1)
+      vitest: 3.2.4(@types/debug@4.1.13)(@types/node@20.11.30)(@vitest/ui@3.2.4)(jsdom@25.0.1)
 
   '@vitest/utils@2.0.5':
     dependencies:
@@ -8364,6 +8322,8 @@ snapshots:
       is-callable: 1.2.7
       is-date-object: 1.1.0
       is-symbol: 1.1.1
+
+  es-toolkit@1.45.1: {}
 
   esbuild-register@3.6.0(esbuild@0.25.12):
     dependencies:
@@ -10920,7 +10880,7 @@ snapshots:
       - supports-color
       - terser
 
-  vitest@3.2.4(@types/node@20.11.30)(@vitest/ui@3.2.4)(jsdom@25.0.1):
+  vitest@3.2.4(@types/debug@4.1.13)(@types/node@20.11.30)(@vitest/ui@3.2.4)(jsdom@25.0.1):
     dependencies:
       '@types/chai': 5.2.3
       '@vitest/expect': 3.2.4
@@ -10946,6 +10906,7 @@ snapshots:
       vite-node: 3.2.4(@types/node@20.11.30)
       why-is-node-running: 2.3.0
     optionalDependencies:
+      '@types/debug': 4.1.13
       '@types/node': 20.11.30
       '@vitest/ui': 3.2.4(vitest@3.2.4)
       jsdom: 25.0.1
@@ -10960,7 +10921,7 @@ snapshots:
       - supports-color
       - terser
 
-  vitest@3.2.4(@types/node@22.19.1)(@vitest/ui@3.2.4)(jsdom@25.0.1):
+  vitest@3.2.4(@types/debug@4.1.13)(@types/node@22.19.1)(@vitest/ui@3.2.4)(jsdom@25.0.1):
     dependencies:
       '@types/chai': 5.2.3
       '@vitest/expect': 3.2.4
@@ -10986,6 +10947,7 @@ snapshots:
       vite-node: 3.2.4(@types/node@22.19.1)
       why-is-node-running: 2.3.0
     optionalDependencies:
+      '@types/debug': 4.1.13
       '@types/node': 22.19.1
       '@vitest/ui': 3.2.4(vitest@3.2.4)
       jsdom: 25.0.1
