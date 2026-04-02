@@ -1,15 +1,7 @@
-import { Children, cloneElement, ReactElement, useEffect, useRef, useState } from 'react'
-import { flushSync } from 'react-dom'
+import { Children, cloneElement, ReactElement, useEffect } from 'react'
+import { Presence as RadixPresence } from '@radix-ui/react-presence'
 
-import {
-  getReactElementRef,
-  noop,
-  useComposedRefs,
-  useEvent,
-  useIsMounted,
-  useIsomorphicLayoutEffect,
-  usePrevious,
-} from '../../../libs'
+import { noop, useEvent, useIsMounted } from '../../../libs'
 
 // =========== Presence ===========
 
@@ -55,94 +47,24 @@ export interface PresenceProps {
  * ```
  */
 export const Presence: React.FC<PresenceProps> = ({ children, present, onChange }) => {
-  const { isPresent, ref: selfRef } = usePresence(present, onChange)
-
   const child = Children.only(children)
-
-  const refProp = getReactElementRef(child)
-  const ref = useComposedRefs(selfRef, refProp)
-
-  // 사용처가 숨기고 싶어하면 숨겨줘야 하니 순서 주의
-  const cloakedProps = {
-    // aria-hidden="false"를 렌더링할 필요는 없으니까 undefined
-    'aria-hidden': !present || undefined,
-    ...(child.props as React.HTMLAttributes<HTMLElement>),
-  }
-
-  return isPresent
-    ? cloneElement(child, {
-        ...cloakedProps,
-        ref,
-        'data-present': present,
-      } as React.HTMLAttributes<HTMLElement>)
-    : null
-}
-
-// =========== * ===========
-
-function usePresence(present: boolean, onChangeProp?: (state: boolean) => void) {
-  const ref = useRef<HTMLElement>(null)
-  const onChange = useEvent(onChangeProp || noop)
-
-  const [resolvedPresence, setResolvedPresence] = useState(present)
-  const prevPresence = usePrevious(present)
+  const onChange_ = useEvent(onChange || noop)
   const isMounted = useIsMounted()
-
-  // 애니메이션 끝나면 isPresent: false
-  useIsomorphicLayoutEffect(() => {
-    if (!ref.current) {
-      return
-    }
-
-    const handleAnimationEnd = () => {
-      if (present) {
-        return
-      }
-
-      // React v18 automatic batch로 인한 애니메이션 버그 해결
-      flushSync(() => setResolvedPresence(false))
-    }
-
-    ref.current.addEventListener('animationend', handleAnimationEnd)
-
-    return () => {
-      ref.current?.removeEventListener('animationend', handleAnimationEnd)
-    }
-  }, [present, resolvedPresence])
-
-  // 애니메이션 없는 경우 즉시 isPresent: false
-  useIsomorphicLayoutEffect(() => {
-    // 없다가 나타날 땐 별 처리 안해도 됨
-    if (present && !resolvedPresence) {
-      setResolvedPresence(true)
-      return
-    }
-
-    if (!ref.current) {
-      return
-    }
-
-    const presenceChanged = prevPresence !== present
-    if (!presenceChanged) {
-      return
-    }
-
-    const animationInPlay = getComputedStyle(ref.current).animationName
-
-    // 애니메이션 없으면 바로 isPresent: false
-    if (!animationInPlay || animationInPlay === 'none') {
-      setResolvedPresence(false)
-    }
-  }, [present, resolvedPresence])
 
   useEffect(() => {
     if (!isMounted) return
-    onChange?.(resolvedPresence)
+    onChange_?.(present)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [resolvedPresence, onChange])
+  }, [present, onChange_])
 
-  return {
-    isPresent: resolvedPresence,
-    ref,
-  }
+  // Radix Presence handles animation-aware mount/unmount internally.
+  // We wrap the child with data-present and aria-hidden attributes to preserve API compatibility.
+  const wrappedChild = cloneElement(child, {
+    // aria-hidden="false"를 렌더링할 필요는 없으니까 undefined
+    'aria-hidden': !present || undefined,
+    ...(child.props as React.HTMLAttributes<HTMLElement>),
+    'data-present': present,
+  } as React.HTMLAttributes<HTMLElement>)
+
+  return <RadixPresence present={present}>{wrappedChild}</RadixPresence>
 }

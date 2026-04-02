@@ -9,11 +9,14 @@ import React, {
   useState,
 } from 'react'
 
+import {
+  DismissableLayer as RadixDismissableLayer,
+  DismissableLayerBranch as RadixDismissableLayerBranch,
+} from '@radix-ui/react-dismissable-layer'
+
 import { polymorphic, useComposedRefs } from '../../../libs'
 import { vars } from '../../../styles/theme.css'
 import { ContainerLayer } from '../Layer'
-
-import { useEscapeKeydown, useFocusOutside, usePointerDownOutside } from './OverlayContainerLayer.lib'
 
 type OverlayContainerLayerContextValue = {
   layers: Set<HTMLElement>
@@ -96,44 +99,7 @@ const OverlayContainerLayerRoot = polymorphic<
     const asProp = (as ?? 'div') as AllowOverlayContainerLayerTagNames
     const context = useContext(OverlayContainerLayerContext)
     const [node, setNode] = useState<HTMLElement | null>(null)
-    const ownerDocument = node?.ownerDocument ?? globalThis?.document
     const composedRefs = useComposedRefs(forwardedRef, (nd) => setNode(nd))
-
-    const pointerDownOutside = usePointerDownOutside((event) => {
-      const target = event.target as HTMLElement
-      const isPointerDownOnProtected = [...context.protectedItems].some((protectedItem) =>
-        protectedItem.contains(target),
-      )
-
-      if (!dismissOnClickOutside || isPointerDownOnProtected) return
-
-      onDismiss?.()
-    }, ownerDocument)
-
-    const focusOutside = useFocusOutside((event) => {
-      const target = event.target as HTMLElement
-      const isPointerDownOnProtected = [...context.protectedItems].some((protectedItem) =>
-        protectedItem.contains(target),
-      )
-
-      if (!dismissOnFocusOutside || isPointerDownOnProtected) return
-
-      onDismiss?.()
-    }, ownerDocument)
-
-    useEscapeKeydown((event) => {
-      const layers = Array.from(context.layers)
-      const index = node ? layers.indexOf(node) : -1
-      // 가장 상위의 레이어만 ESC 키를 통해 닫을 수 있음
-      const isHighestLayer = index === context.layers.size - 1 && index !== -1
-
-      if (!isHighestLayer) return
-
-      if (dismissOnEscape && onDismiss) {
-        event.preventDefault()
-        onDismiss()
-      }
-    }, ownerDocument)
 
     useEffect(() => {
       if (!node) return
@@ -145,32 +111,63 @@ const OverlayContainerLayerRoot = polymorphic<
     }, [node, context])
 
     return (
-      <ContainerLayer
-        as={asProp}
-        {...rest}
-        ref={composedRefs}
-        style={{
-          zIndex: elevation,
-          ...props.style,
+      <RadixDismissableLayer
+        asChild
+        onEscapeKeyDown={(event) => {
+          const layers = Array.from(context.layers)
+          const index = node ? layers.indexOf(node) : -1
+          // 가장 상위의 레이어만 ESC 키를 통해 닫을 수 있음
+          const isHighestLayer = index === context.layers.size - 1 && index !== -1
+
+          if (!isHighestLayer || !dismissOnEscape) {
+            event.preventDefault()
+            return
+          }
+
+          if (onDismiss) {
+            event.preventDefault()
+            onDismiss()
+          }
         }}
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        onFocusCapture={(event: React.FocusEvent<any>) => {
-          props.onFocusCapture?.(event)
-          focusOutside.onFocusCapture()
+        onPointerDownOutside={(event) => {
+          const target = event.target as HTMLElement
+          const isPointerDownOnProtected = [...context.protectedItems].some((protectedItem) =>
+            protectedItem.contains(target),
+          )
+
+          if (!dismissOnClickOutside || isPointerDownOnProtected) {
+            event.preventDefault()
+            return
+          }
+
+          onDismiss?.()
         }}
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        onBlurCapture={(event: React.FocusEvent<any>) => {
-          props.onBlurCapture?.(event)
-          focusOutside.onBlurCapture()
-        }}
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        onPointerDownCapture={(event: React.PointerEvent<any>) => {
-          props.onPointerDownCapture?.(event)
-          pointerDownOutside.onPointerDownCapture()
+        onFocusOutside={(event) => {
+          const target = event.target as HTMLElement
+          const isPointerDownOnProtected = [...context.protectedItems].some((protectedItem) =>
+            protectedItem.contains(target),
+          )
+
+          if (!dismissOnFocusOutside || isPointerDownOnProtected) {
+            event.preventDefault()
+            return
+          }
+
+          onDismiss?.()
         }}
       >
-        {children}
-      </ContainerLayer>
+        <ContainerLayer
+          as={asProp}
+          {...rest}
+          ref={composedRefs}
+          style={{
+            zIndex: elevation,
+            ...props.style,
+          }}
+        >
+          {children}
+        </ContainerLayer>
+      </RadixDismissableLayer>
     )
   },
   { useForwardRef: true },
@@ -192,7 +189,11 @@ const OverlayContainerLayerProtected = forwardRef<HTMLDivElement, React.HTMLAttr
       }
     }, [context.protectedItems])
 
-    return <div {...props} ref={composedRefs} />
+    return (
+      <RadixDismissableLayerBranch asChild>
+        <div {...props} ref={composedRefs} />
+      </RadixDismissableLayerBranch>
+    )
   },
 )
 // =========== exports ===========

@@ -1,7 +1,5 @@
-import { forwardRef, useState } from 'react'
-import { createPortal } from 'react-dom'
-
-import { useIsomorphicLayoutEffect } from '../../../libs'
+import { forwardRef } from 'react'
+import { Portal as RadixPortal } from '@radix-ui/react-portal'
 
 type Props = {
   /**
@@ -40,15 +38,9 @@ type Props = {
  * </div>
  * ```
  */
-export const Portal = forwardRef<HTMLDivElement, Props>(({ host: hostProp, ...props }, ref) => {
-  const [host, setHost] = useState<HTMLElement | null>(null)
+export const Portal = forwardRef<HTMLDivElement, Props>(({ host, ...props }, ref) => {
+  // host가 null이면 렌더링하지 않음
+  if (host === null) return null
 
-  useIsomorphicLayoutEffect(() => {
-    if (!host) {
-      setHost(hostProp === undefined ? document.body : hostProp)
-      return
-    }
-  }, [hostProp, host])
-
-  return host ? createPortal(<div ref={ref} {...props} />, host) : null
+  return <RadixPortal ref={ref} container={host} {...props} />
 })

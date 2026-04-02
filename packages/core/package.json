@@ -46,6 +46,9 @@
   "dependencies": {
     "@prism-ui/icons": "workspace:*",
     "@radix-ui/react-compose-refs": "^1.1.2",
+    "@radix-ui/react-dismissable-layer": "^1.1.11",
+    "@radix-ui/react-portal": "^1.1.10",
+    "@radix-ui/react-presence": "^1.1.5",
     "@radix-ui/react-use-controllable-state": "^1.2.2",
     "@use-gesture/react": "^10.3.1",
     "aria-hidden": "^1.2.4",
@@ -53,8 +56,6 @@
     "clsx": "^2.1.1",
     "es-toolkit": "^1.45.1",
     "lottie-web": "^5.12.2",
-    "react-focus-lock": "^2.13.2",
-    "react-remove-scroll": "^2.6.0",
     "tailwind-merge": "^2.5.5"
   },
   "devDependencies": {
