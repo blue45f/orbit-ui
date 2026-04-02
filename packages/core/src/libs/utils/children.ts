@@ -132,43 +132,6 @@ export const findComponent = <T extends string>(params: {
 }
 
 /**
- * leading, center, trailing 영역이 존재하는 컴포넌트의 더미 컴포넌트를 채워 반환합니다.
- * equal-weight 배치 방식을 사용할 때 실제 center 위치를 차지하기 위해 사용할 수 있습니다.
- * (leading 혹은 trailing 영역이 존재하지 않을 경우 단순 center로 배치할 경우 중앙 정렬이 되지 않습니다)
- *
- * @example
- * ```tsx
- * const { leading, center, trailing } = fillDummyComponents(
- *   {
- *     leading: <BaseNavigationBarLeading />,
- *     center: <BaseNavigationBarCenter />,
- *     trailing: <BaseNavigationBarTrailing />,
- *   },
- *   findComponent({
- *     childrenArray: Children.toArray(children),
- *     target: [
- *       { name: 'leading', component: BaseNavigationBarLeading },
- *       { name: 'center', component: BaseNavigationBarCenter },
- *       { name: 'trailing', component: BaseNavigationBarTrailing },
- *     ],
- *   })
- * )
- * ```
- */
-export const fillDummyComponents = (
-  dummyComponents: Partial<Record<'leading' | 'center' | 'trailing', ReactElement>>,
-  originComponents: Record<'leading' | 'center' | 'trailing', React.ReactNode | undefined>,
-): Record<'leading' | 'center' | 'trailing', React.ReactNode> => {
-  const { leading, center, trailing } = originComponents
-
-  return {
-    leading: leading || dummyComponents?.leading,
-    center: center || dummyComponents?.center,
-    trailing: trailing || dummyComponents?.trailing,
-  }
-}
-
-/**
  * children을 순회하며 각 child에 선택 상태와 클릭 핸들러를 주입합니다.
  * TabGroup, PageIndicator 등 선택 가능한 아이템 목록에서 사용됩니다.
  *
