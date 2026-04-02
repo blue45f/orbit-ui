@@ -3,7 +3,7 @@ import { dirname, join } from 'path'
 import type { StorybookConfig } from '@storybook/react-vite'
 
 const config: StorybookConfig = {
-  stories: ['../src', '../*.mdx'],
+  stories: ['../src/**/*.stories.@(ts|tsx)', '../src/**/*.mdx', '../*.mdx'],
   addons: [
     getAbsolutePath('@storybook/addon-links'),
     getAbsolutePath('@storybook/addon-essentials'),
