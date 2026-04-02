@@ -117,34 +117,34 @@ const ToggleRoot = forwardRef<HTMLInputElement, ToggleProps>((props, ref) => {
 
   if (!thumbExists) errorDev('Toggle.Thumb 서브컴포넌트를 전달해주세요.')
 
-  // 상태별 색상 결정
+  // 상태별 색상 결정 (fallback 값으로 시각적 기본 스타일 보장)
   const fillColor = disabled
     ? checked
-      ? theme?.disabledOnFillColor
-      : theme?.disabledOffFillColor
+      ? (theme?.disabledOnFillColor ?? 'rgba(0,0,0,0.12)')
+      : (theme?.disabledOffFillColor ?? 'rgba(0,0,0,0.06)')
     : checked
-      ? theme?.enabledOnFillColor
-      : theme?.enabledOffFillColor
+      ? (theme?.enabledOnFillColor ?? '#2563EB')
+      : (theme?.enabledOffFillColor ?? 'rgba(0,0,0,0.12)')
 
   const borderColor = isFocused
     ? checked
-      ? theme?.focusedOnBorderColor
-      : theme?.focusedOffBorderColor
+      ? (theme?.focusedOnBorderColor ?? '#2563EB')
+      : (theme?.focusedOffBorderColor ?? '#94A3B8')
     : disabled
       ? checked
-        ? theme?.disabledOnBorderColor
-        : theme?.disabledOffBorderColor
+        ? (theme?.disabledOnBorderColor ?? 'transparent')
+        : (theme?.disabledOffBorderColor ?? 'transparent')
       : checked
-        ? theme?.enabledOnBorderColor
-        : theme?.enabledOffBorderColor
+        ? (theme?.enabledOnBorderColor ?? 'transparent')
+        : (theme?.enabledOffBorderColor ?? 'transparent')
 
   const foregroundColor = disabled
     ? checked
-      ? theme?.disabledOnForegroundColor
-      : theme?.disabledOffForegroundColor
+      ? (theme?.disabledOnForegroundColor ?? 'white')
+      : (theme?.disabledOffForegroundColor ?? 'rgba(0,0,0,0.26)')
     : checked
-      ? theme?.enabledOnForegroundColor
-      : theme?.enabledOffForegroundColor
+      ? (theme?.enabledOnForegroundColor ?? 'white')
+      : (theme?.enabledOffForegroundColor ?? 'white')
 
   const className = cn(
     'relative inline-block',

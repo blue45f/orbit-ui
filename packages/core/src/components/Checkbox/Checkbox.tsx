@@ -120,6 +120,7 @@ const CheckboxRoot = forwardRef<HTMLButtonElement, CheckboxProps>((props, ref) =
           'focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500',
           classProp,
         )}
+        data-state={checkedProp ? 'checked' : 'unchecked'}
         style={
           {
             width: toCSSLength(width),
@@ -127,6 +128,15 @@ const CheckboxRoot = forwardRef<HTMLButtonElement, CheckboxProps>((props, ref) =
             borderWidth: toCSSLength(borderWidth),
             borderStyle: 'solid',
             borderRadius: theme?.radius || '4px',
+            backgroundColor: checkedProp
+              ? (theme?.enabledCheckedFillColor ?? '#2563EB')
+              : (theme?.enabledUncheckedFillColor ?? 'transparent'),
+            borderColor: checkedProp
+              ? (theme?.enabledCheckedBorderColor ?? '#2563EB')
+              : (theme?.enabledUncheckedBorderColor ?? '#D1D5DB'),
+            color: checkedProp
+              ? (theme?.enabledCheckedForegroundColor ?? 'white')
+              : (theme?.enabledUncheckedForegroundColor ?? 'transparent'),
             ...styleProp,
           } as React.CSSProperties
         }
