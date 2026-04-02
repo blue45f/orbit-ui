@@ -9,7 +9,6 @@ const config: StorybookConfig = {
     getAbsolutePath('@storybook/addon-essentials'),
     getAbsolutePath('@storybook/addon-a11y'),
     getAbsolutePath('@storybook/addon-storysource'),
-    getAbsolutePath('@storybook/addon-mdx-gfm'),
   ],
   core: {
     builder: getAbsolutePath('@storybook/builder-vite'),

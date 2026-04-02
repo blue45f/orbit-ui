@@ -1,4 +1,1 @@
-#!/bin/sh
-. "$(dirname "$0")/_/husky.sh"
-
-# pnpm test (disabled due to existing type errors in codebase)
+# pnpm test
