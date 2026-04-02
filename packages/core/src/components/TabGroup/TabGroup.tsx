@@ -1,4 +1,4 @@
-import { forwardRef, HTMLAttributes, PropsWithChildren, ReactNode } from 'react'
+import { forwardRef, HTMLAttributes, PropsWithChildren, ReactNode, useCallback, Children } from 'react'
 
 import { cn } from '../../styles'
 import { mapChildrenWithSelection, toCSSLength } from '../../libs'
@@ -83,10 +83,46 @@ const InternalTabItems = forwardRef<HTMLDivElement, TabItemsProps>(
       ...styleProp,
     }
 
+    const tabCount = Children.count(children)
+
+    const handleKeyDown = useCallback(
+      (e: React.KeyboardEvent<HTMLDivElement>) => {
+        if (!onTabChange || tabCount === 0) return
+
+        let nextIndex: number | null = null
+
+        switch (e.key) {
+          case 'ArrowRight':
+            nextIndex = (selectedIndex + 1) % tabCount
+            break
+          case 'ArrowLeft':
+            nextIndex = (selectedIndex - 1 + tabCount) % tabCount
+            break
+          case 'Home':
+            nextIndex = 0
+            break
+          case 'End':
+            nextIndex = tabCount - 1
+            break
+          default:
+            return
+        }
+
+        e.preventDefault()
+        onTabChange(nextIndex)
+
+        // Focus the newly selected tab button
+        const tablist = e.currentTarget
+        const tabs = tablist.querySelectorAll<HTMLElement>('[role="tab"]')
+        tabs[nextIndex]?.focus()
+      },
+      [selectedIndex, tabCount, onTabChange]
+    )
+
     const childrenWithProps = mapChildrenWithSelection(children, selectedIndex, onTabChange)
 
     return (
-      <ContainerLayer as="div" ref={ref} className={className} style={style} role="tablist" {...rest}>
+      <ContainerLayer as="div" ref={ref} className={className} style={style} role="tablist" onKeyDown={handleKeyDown} {...rest}>
         <ContentLayer
           className="relative"
           direction="horizontal"
@@ -124,6 +160,7 @@ const TabItemsTab = forwardRef<HTMLButtonElement, TabItemsTabProps>(
         type="button"
         role="tab"
         aria-selected={selected}
+        tabIndex={selected ? 0 : -1}
         disabled={disabled}
         className={cn('relative inline-flex items-center justify-center', classProp)}
         style={style}

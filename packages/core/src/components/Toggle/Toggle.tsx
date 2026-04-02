@@ -175,6 +175,7 @@ const ToggleRoot = forwardRef<HTMLInputElement, ToggleProps>((props, ref) => {
         ref={refs}
         type="checkbox"
         role="switch"
+        aria-checked={checked}
         disabled={disabled}
         checked={checked}
         className={cn('absolute inset-0 opacity-0 w-full h-full cursor-[inherit]')}

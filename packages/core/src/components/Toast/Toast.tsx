@@ -61,6 +61,13 @@ export type ToastProps = ToastSpecificProps & {
   id?: string
   /** z-index 값 @defaultValue '300' */
   elevation?: OverlayContainerLayerProps['elevation']
+  /**
+   * 스크린 리더 공지 우선순위
+   * - 'polite': 일반 알림 (role="status", aria-live="polite")
+   * - 'assertive': 긴급 알림 (role="alert", aria-live="assertive")
+   * @defaultValue 'polite'
+   */
+  priority?: 'polite' | 'assertive'
   children?: ReactNode
 } & Omit<HTMLAttributes<HTMLDivElement>, keyof ToastSpecificProps | 'children' | 'open'>
 
@@ -79,6 +86,7 @@ export const ToastRoot = forwardRef<HTMLDivElement, ToastProps>(
       onIsPresentedChange,
       id: idProp,
       elevation = '300',
+      priority = 'polite',
       children,
       style: styleProp,
       arrangement = 'start',
@@ -156,8 +164,8 @@ export const ToastRoot = forwardRef<HTMLDivElement, ToastProps>(
               className={className}
               style={style}
               elevation={elevation}
-              role="status"
-              aria-live="polite"
+              role={priority === 'assertive' ? 'alert' : 'status'}
+              aria-live={priority}
               id={id}
             >
               <ContentLayer
@@ -243,6 +251,7 @@ export const ToastTrigger: React.FC<PropsWithChildren> = ({ children }) => {
         value: true,
       })
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [props.onClick, changeIsPresented]
   )
 
@@ -271,6 +280,7 @@ export const ToastClose: React.FC<ToastCloseProps> = ({ children }) => {
         value: false,
       })
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [childProps.onClick, changeIsPresented]
   )
 

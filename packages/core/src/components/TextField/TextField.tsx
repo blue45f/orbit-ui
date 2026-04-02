@@ -60,6 +60,12 @@ export type TextFieldProps = TextFieldSpecificProps & {
   maxLength?: number
   placeholder?: string
   disabled?: boolean
+  /** 유효성 검증 실패 여부 */
+  'aria-invalid'?: boolean | 'true' | 'false' | 'grammar' | 'spelling'
+  /** 필수 입력 여부 */
+  'aria-required'?: boolean | 'true' | 'false'
+  /** 오류 메시지 등 설명 요소의 ID */
+  'aria-describedby'?: string
   value?: string
   defaultValue?: string
   onChange?: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void

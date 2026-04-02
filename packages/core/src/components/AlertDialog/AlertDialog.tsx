@@ -86,6 +86,8 @@ export const AlertDialogRoot = forwardRef<HTMLDivElement, AlertDialogProps>(
     forwardedRef
   ) => {
     const id = useUniqueID(idProp)
+    const titleId = `${id}-title`
+    const descriptionId = `${id}-description`
 
     const [isPresented, handleIsPresentedChange] = useControllableState({
       value: isPresentedProp,
@@ -143,7 +145,7 @@ export const AlertDialogRoot = forwardRef<HTMLDivElement, AlertDialogProps>(
     }
 
     return (
-      <AlertProvider id={id} isPresented={isPresented} changeIsPresented={changeIsPresented}>
+      <AlertProvider id={id} isPresented={isPresented} changeIsPresented={changeIsPresented} titleId={titleId} descriptionId={descriptionId}>
         {trigger}
         <Portal>
           <Scrim isPresented={isPresented} elevation={elevation} />
@@ -160,6 +162,10 @@ export const AlertDialogRoot = forwardRef<HTMLDivElement, AlertDialogProps>(
                 changeIsPresented({ changeParams: [false], value: false })
               }}
               elevation={elevation}
+              role="alertdialog"
+              aria-modal="true"
+              aria-labelledby={titleId}
+              id={id}
             >
               <ContentLayer direction="vertical" alignment="top" arrangement="start">
                 {top}
@@ -178,11 +184,14 @@ export const AlertDialogRoot = forwardRef<HTMLDivElement, AlertDialogProps>(
  * ======================================================================== */
 
 const AlertDialogTop = forwardRef<HTMLDivElement, PropsWithChildren<HTMLAttributes<HTMLDivElement>>>(
-  ({ children, className, ...rest }, ref) => (
-    <div ref={ref} {...rest} className={cn('p-6', className)}>
-      {children}
-    </div>
-  )
+  ({ children, className, ...rest }, ref) => {
+    const { titleId } = useAlertContext('AlertDialog.Top')
+    return (
+      <div ref={ref} id={titleId} {...rest} className={cn('p-6', className)}>
+        {children}
+      </div>
+    )
+  }
 )
 
 const AlertDialogBottom = forwardRef<HTMLDivElement, PropsWithChildren<HTMLAttributes<HTMLDivElement>>>(
