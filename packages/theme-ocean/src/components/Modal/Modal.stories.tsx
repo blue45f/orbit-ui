@@ -109,7 +109,7 @@ export const 바디스크롤: Story = {
               <Button.Center>작성 취소</Button.Center>
             </Button>
           </Dialog.Close>
-          <Button type='submit' form='claykit-form' color='black' size='medium' width='100%'>
+          <Button type='submit' form='prism-form' color='black' size='medium' width='100%'>
             <Button.Center>버튼</Button.Center>
           </Button>
         </Dialog.Bottom>

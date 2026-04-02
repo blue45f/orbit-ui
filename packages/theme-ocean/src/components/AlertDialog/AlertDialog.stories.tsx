@@ -54,7 +54,7 @@ export const 컨펌: Story = {
         <Alert.Top>
           <Alert.Title>결제를 거절하시겠어요?</Alert.Title>
           <form
-            id='claykit-form'
+            id='prism-form'
             onSubmit={(e) => {
               e.preventDefault()
               const formData = new FormData(e.target as HTMLFormElement)
@@ -72,7 +72,7 @@ export const 컨펌: Story = {
               <Button.Center>작성 취소</Button.Center>
             </Button>
           </Alert.Close>
-          <Button type='submit' form='claykit-form' color='black' size='large' width='100%'>
+          <Button type='submit' form='prism-form' color='black' size='large' width='100%'>
             <Button.Center>버튼</Button.Center>
           </Button>
         </Alert.Bottom>

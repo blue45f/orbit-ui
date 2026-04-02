@@ -3,7 +3,7 @@
 const fs = require('fs')
 
 // GitHub 저장소 링크 (실제 저장소로 변경 필요)
-const REPO_LINK = 'https://github.com/your-org/clay-kit'
+const REPO_LINK = 'https://github.com/prism-ui/prism-ui'
 
 // ========== getReleaseLine (본 패키지 변경사항 요약) ==========
 
@@ -44,11 +44,12 @@ const getDependencyReleaseLine = async (changesets, dependenciesUpdated) => {
   if (dependenciesUpdated.length === 0) return ''
 
   const changesetLinks = changesets.map(
-    (changeset) => `- Updated dependencies${changeset.commit ? ` [${toCommitLink(changeset.commit)}]` : ''}`,
+    (changeset) =>
+      `- Updated dependencies${changeset.commit ? ` [${toCommitLink(changeset.commit)}]` : ''}`
   )
 
   const updatedDependenciesList = dependenciesUpdated.map(
-    (dependency) => `  - ${dependency.name}@${dependency.newVersion}`,
+    (dependency) => `  - ${dependency.name}@${dependency.newVersion}`
   )
 
   return [...changesetLinks, ...updatedDependenciesList].join('\n')

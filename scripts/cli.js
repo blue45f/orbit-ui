@@ -5,7 +5,7 @@ const chalk = require('chalk')
 const cliSelect = require('cli-select')
 
 const EXECUTE_TYPES = Object.freeze({
-  CLAY_KIT: 'Clay Kit 컴포넌트 프로젝트 실행',
+  PRISM_UI: 'Prism UI 컴포넌트 프로젝트 실행',
 })
 
 // ==============================================================================
@@ -20,15 +20,15 @@ async function run() {
     const selectedExecuteType = await selectAnyway(EXECUTE_TYPES)
 
     switch (selectedExecuteType.value) {
-      case EXECUTE_TYPES.CLAY_KIT:
-        executeClayKitCommand()
+      case EXECUTE_TYPES.PRISM_UI:
+        executePrismUICommand()
         break
     }
   })
 }
 
-/** Clay Kit 프로젝트 실행을 위한 Command */
-async function executeClayKitCommand() {
+/** Prism UI 프로젝트 실행을 위한 Command */
+async function executePrismUICommand() {
   errorBoundary(async () => {
     const executableProject = ['mint', 'foundation']
     const PROJECT_PATH = path.join(process.cwd(), '/packages')
@@ -118,7 +118,7 @@ function printInfo(description, subDescription = null) {
 
 async function errorBoundary(
   successFunc,
-  errorOption = { cancelFunc: () => {}, customFunc: () => {}, defaultFunc: () => {} },
+  errorOption = { cancelFunc: () => {}, customFunc: () => {}, defaultFunc: () => {} }
 ) {
   try {
     await successFunc()

@@ -17,19 +17,19 @@
     "noUncheckedIndexedAccess": true,
     "baseUrl": ".",
     "paths": {
-      "@clay-kit/foundation": ["./packages/foundation/src"],
-      "@clay-kit/foundation/*": ["./packages/foundation/src/*"],
-      "@clay-kit/mint": ["./packages/clay/mint/src"],
-      "@clay-kit/mint/*": ["./packages/clay/mint/src/*"],
-      "@clay-kit/icons": ["./packages/icons/src"],
-      "@clay-kit/icons/*": ["./packages/icons/src/*"]
+      "@prism-ui/core": ["./packages/core/src"],
+      "@prism-ui/core/*": ["./packages/core/src/*"],
+      "@prism-ui/theme-ocean": ["./packages/theme-ocean/src"],
+      "@prism-ui/theme-ocean/*": ["./packages/theme-ocean/src/*"],
+      "@prism-ui/icons": ["./packages/icons/src"],
+      "@prism-ui/icons/*": ["./packages/icons/src/*"]
     }
   },
   "include": ["packages/*/src/**/*.ts", "packages/*/src/**/*.tsx", "config/*/src/**/*.ts"],
   "exclude": ["node_modules", "**/dist/**", "**/build/**", "**/coverage/**"],
   "references": [
-    { "path": "./packages/foundation" },
-    { "path": "./packages/clay/mint" },
+    { "path": "./packages/core" },
+    { "path": "./packages/theme-ocean" },
     { "path": "./packages/icons" }
   ]
 }

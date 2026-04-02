@@ -11,7 +11,7 @@ if (packageName !== 'mint') {
   process.exit(1)
 }
 
-const filterOptions = `--filter @clay-kit/${packageName}...`
+const filterOptions = `--filter @prism-ui/${packageName}...`
 const buildCommand = `pnpm tr build ${filterOptions} --force`
 const publishCommand = `pnpm ${filterOptions} publish --no-git-checks --tag v2-experimental`
 
@@ -19,7 +19,7 @@ const publishCommand = `pnpm ${filterOptions} publish --no-git-checks --tag v2-e
 const mintPackagePath = path.join(__dirname, '../../packages/clay/mint')
 const mintPackageJsonPath = path.join(mintPackagePath, 'package.json')
 
-const findAvailableVersion = async (packageName = '@clay-kit/mint') => {
+const findAvailableVersion = async (packageName = '@prism-ui/theme-ocean') => {
   // 실제 사용자명과 날짜 가져오기
   const username = os.userInfo().username || process.env.USER || 'unknown'
   const dateStr = new Date().toISOString().slice(0, 10).replace(/-/g, '') // YYYYMMDD 형식
@@ -52,7 +52,7 @@ const findAvailableVersion = async (packageName = '@clay-kit/mint') => {
     await execa.command(buildCommand, { cleanup: true, stdin: 'inherit', stdout: 'inherit' })
 
     // 2. mint와 의존 패키지 version 업데이트
-    const version = await findAvailableVersion(`@clay-kit/${packageName}`)
+    const version = await findAvailableVersion(`@prism-ui/${packageName}`)
     const versionCommand = `pnpm ${filterOptions} version "${version}"`
 
     console.log(chalk.green(`업데이트 작업 중: ${versionCommand}`))
@@ -71,12 +71,12 @@ const findAvailableVersion = async (packageName = '@clay-kit/mint') => {
     originalPackageJson = JSON.parse(fs.readFileSync(mintPackageJsonPath, 'utf8'))
     originalName = originalPackageJson.name
 
-    originalPackageJson.name = '@clay-kit/canary'
+    originalPackageJson.name = '@prism-ui/canary'
     fs.writeFileSync(mintPackageJsonPath, JSON.stringify(originalPackageJson, null, 2) + '\n')
-    console.log(chalk.green(`package.json name 변경: ${originalName} -> @clay-kit/canary`))
+    console.log(chalk.green(`package.json name 변경: ${originalName} -> @prism-ui/canary`))
 
     // 5. canary publish (같은 태그로)
-    const canaryPublishCommand = `pnpm --filter @clay-kit/canary publish --no-git-checks --tag v2-experimental`
+    const canaryPublishCommand = `pnpm --filter @prism-ui/canary publish --no-git-checks --tag v2-experimental`
     console.log(chalk.green(`Canary Publish 작업 중: ${canaryPublishCommand}`))
     await execa.command(canaryPublishCommand, { shell: true, stdout: 'inherit' })
 
@@ -85,7 +85,9 @@ const findAvailableVersion = async (packageName = '@clay-kit/mint') => {
     fs.writeFileSync(mintPackageJsonPath, JSON.stringify(originalPackageJson, null, 2) + '\n')
     console.log(chalk.green('package.json name 복구 완료'))
 
-    console.log(chalk.green(`canary 배포를 완료했어요. 설치 방법: pnpm add @clay-kit/canary@v2-experimental`))
+    console.log(
+      chalk.green(`canary 배포를 완료했어요. 설치 방법: pnpm add @prism-ui/canary@v2-experimental`)
+    )
     console.log(chalk.green('모든 배포를 완료했어요.'))
   } catch (error) {
     // 에러 발생 시 package.json 복구

@@ -1,6 +1,6 @@
 # 아키텍처
 
-Clay Kit의 설계와 구현 원칙을 설명합니다.
+Prism UI의 설계와 구현 원칙을 설명합니다.
 
 ---
 
@@ -19,16 +19,16 @@ Clay Kit의 설계와 구현 원칙을 설명합니다.
 
 ## 개요
 
-Clay Kit은 Figma 기반 3계층 컴포넌트 아키텍처를 제공합니다.
+Prism UI는 Figma 기반 3계층 컴포넌트 아키텍처를 제공합니다.
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
 │  Custom 컴포넌트 (프로젝트별 확장)                            │
 ├─────────────────────────────────────────────────────────────┤
-│  Theme 컴포넌트 (@clay-kit/mint)                             │
+│  Theme 컴포넌트 (@prism-ui/theme-ocean)                             │
 │  └─ 테마가 적용된 즉시 사용 가능한 컴포넌트                    │
 ├─────────────────────────────────────────────────────────────┤
-│  Base 컴포넌트 (@clay-kit/foundation)                        │
+│  Base 컴포넌트 (@prism-ui/core)                        │
 │  └─ 스타일 미적용 기능 컴포넌트                               │
 ├─────────────────────────────────────────────────────────────┤
 │  디자인 토큰                                                  │
@@ -46,10 +46,10 @@ Clay Kit은 Figma 기반 3계층 컴포넌트 아키텍처를 제공합니다.
 
 ```tsx
 // 새 이름 (권장)
-import { Button, Input, Toggle, Toast } from '@clay-kit/foundation'
+import { Button, Input, Toggle, Toast } from '@prism-ui/core'
 
 // 기존 이름 (호환성 유지)
-import { BaseButton, BaseTextField, BaseSwitch, BaseSnackbar } from '@clay-kit/foundation'
+import { BaseButton, BaseTextField, BaseSwitch, BaseSnackbar } from '@prism-ui/core'
 ```
 
 ### 매핑 테이블

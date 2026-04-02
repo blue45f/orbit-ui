@@ -91,7 +91,7 @@
 SSR 환경인 경우 body 요소 className을 직접 연결할 수 있어요. 신규 스페이싱 토큰을 사용하려면 tokenMode 옵션을 객체로 전달해주세요.
 
 ```tsx
-import { getTheme } from '@clay-kit/mint/server'
+import { getTheme } from '@prism-ui/theme-ocean/server'
 
 // Before
 <body className={getTheme()}>
@@ -152,7 +152,7 @@ import { getTheme } from '@clay-kit/mint/server'
 아래 예제와 같이 radius 토큰을 직접 가져다 쓰는 코드가 있는지 확인 및 변경해주세요.
 
 ```ts
-import { vars } from '@clay-kit/mint/token'
+import { vars } from '@prism-ui/theme-ocean/token'
 
 const someStyle = `
   border-radius: ${vars.radius.medium}; // <- vars.radius.small로 변경
@@ -166,7 +166,7 @@ const someStyle = `
 SSR 환경인 경우 body 요소 className을 직접 연결할 수 있어요. 신규 radius 토큰을 사용하려면 tokenMode 옵션을 객체로 전달해주세요.
 
 ```tsx
-import { getTheme } from '@clay-kit/mint/server'
+import { getTheme } from '@prism-ui/theme-ocean/server'
 
 // Before
 <body className={getTheme()}>
@@ -195,7 +195,7 @@ SSR 대응을 위한 함수 `getTheme`도 동일하게 적용 가능해요.
 
 ## React 17과 Webpack을 사용하는 환경의 대응
 
-v1.59.0부터 React 19 환경에서 Clay Kit을 사용할 수 있어요. React 19 변경점 대응을 위해, React 17과 Webpack을 사용하는 환경에서는 다음과 같이 Webpack의 config에 옵션 추가가 필요해요. 히스토리 문서도 참고해주세요.
+v1.59.0부터 React 19 환경에서 Prism UI을 사용할 수 있어요. React 19 변경점 대응을 위해, React 17과 Webpack을 사용하는 환경에서는 다음과 같이 Webpack의 config에 옵션 추가가 필요해요. 히스토리 문서도 참고해주세요.
 
 - [React19 기술리뷰](https://cloud.wiki.claykit.in/wiki/spaces/SVCWEB/pages/364746081/2025-02+React19)
 - [jsx transform 트러블 슈팅](https://cloud.wiki.claykit.in/wiki/spaces/SVCWEB/pages/492234416/jsx+transform)

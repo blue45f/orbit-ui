@@ -17,9 +17,9 @@ body:
       label: 패키지
       multiple: true
       options:
-        - "@clay-kit/foundation"
-        - "@clay-kit/mint"
-        - "@clay-kit/icons"
+        - "@prism-ui/core"
+        - "@prism-ui/theme-ocean"
+        - "@prism-ui/icons"
         - "새 패키지"
         - "문서"
     validations:

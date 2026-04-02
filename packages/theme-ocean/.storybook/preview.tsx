@@ -8,7 +8,7 @@ import '@prism-ui/core/style.css'
 import { lightTheme, darkTheme, textStyleTheme } from '../src/styles'
 
 // 스토리북 개발 환경과 빌드 환경에서 코어 스타일 우선순위가 달라지는 이슈를 우회하기 위함
-const prependClayRootStyles = () => {
+const prependThemeStyles = () => {
   const head = document.head
   // NOTE: canary는 코어 패키지가 분리되지 않아 초기화 스타일 위치가 다름
   // reset, shared 순으로 재배치
@@ -28,7 +28,7 @@ const prependClayRootStyles = () => {
   }
 }
 
-export const useClayRoot: Decorator = (Story, context) => {
+export const useThemeRoot: Decorator = (Story, context) => {
   const theme = context.globals.backgrounds?.value === '#333333' ? 'dark' : 'light'
   const themeClass = clsx(textStyleTheme.medium, {
     [lightTheme]: theme === 'light',
@@ -36,7 +36,7 @@ export const useClayRoot: Decorator = (Story, context) => {
   })
 
   useLayoutEffect(() => {
-    prependClayRootStyles()
+    prependThemeStyles()
   }, [])
 
   return (
@@ -85,7 +85,7 @@ const preview: Preview = {
       },
     },
   },
-  decorators: [useClayRoot],
+  decorators: [useThemeRoot],
 }
 
 export default preview
