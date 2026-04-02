@@ -4,7 +4,9 @@
   "type": "module",
   "description": "Prism UI Core 컴포넌트 - 스타일 미적용 기능 컴포넌트",
   "license": "MIT",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -21,8 +23,13 @@
     },
     "./style.css": "./dist/style.css"
   },
-  "sideEffects": ["*.css"],
-  "browserslist": ["chrome >= 105", "safari >= 15"],
+  "sideEffects": [
+    "*.css"
+  ],
+  "browserslist": [
+    "chrome >= 105",
+    "safari >= 15"
+  ],
   "scripts": {
     "preinstall": "mkdir -p dist && touch dist/style.css",
     "dev": "storybook dev -p 6009",
@@ -38,8 +45,11 @@
   },
   "dependencies": {
     "@prism-ui/icons": "workspace:*",
+    "@radix-ui/react-compose-refs": "^1.1.2",
+    "@radix-ui/react-use-controllable-state": "^1.2.2",
     "@use-gesture/react": "^10.3.1",
     "aria-hidden": "^1.2.4",
+    "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lottie-web": "^5.12.2",
     "react-focus-lock": "^2.13.2",
@@ -48,14 +58,14 @@
   },
   "devDependencies": {
     "@prism-ui/tsconfig": "workspace:*",
-    "@storybook/addon-a11y": "^8.4.7",
-    "@storybook/addon-essentials": "^8.4.7",
-    "@storybook/addon-links": "^8.4.7",
-    "@storybook/addon-viewport": "^8.4.7",
-    "@storybook/blocks": "^8.4.7",
-    "@storybook/react": "^8.4.7",
-    "@storybook/react-vite": "^8.4.7",
-    "@storybook/test": "^8.4.7",
+    "@storybook/addon-a11y": "^8.6.15",
+    "@storybook/addon-essentials": "^8.6.15",
+    "@storybook/addon-links": "^8.6.15",
+    "@storybook/addon-viewport": "^8.6.15",
+    "@storybook/blocks": "^8.6.15",
+    "@storybook/react": "^8.6.15",
+    "@storybook/react-vite": "^8.6.15",
+    "@storybook/test": "^8.6.15",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.0.1",
@@ -71,7 +81,7 @@
     "postcss": "^8.4.49",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "storybook": "^8.4.7",
+    "storybook": "^8.6.15",
     "tailwindcss": "^3.4.16",
     "typescript": "^5.7.2",
     "vite": "^5.4.11",

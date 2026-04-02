@@ -18,3 +18,12 @@ notice-summary-*.txt
 out
 # V8 compile cache
 v8-compile-cache-*/
+
+# Environment & Secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.crt
+*.p12
