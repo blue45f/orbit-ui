@@ -4,7 +4,7 @@ import { afterEach, describe, expect, test } from 'vitest'
 import { darkTheme, lightTheme } from '../../styles'
 import { FilledButton } from '../SolidButton'
 
-import { OceanProvider, MintProvider } from './OceanProvider'
+import { OceanProvider } from './OceanProvider'
 
 afterEach(() => cleanup())
 
@@ -41,15 +41,3 @@ describe('OceanProvider', () => {
   })
 })
 
-describe('MintProvider (deprecated alias)', () => {
-  test('MintProvider는 OceanProvider와 동일하게 동작', () => {
-    render(
-      <MintProvider mode='light'>
-        <FilledButton color='black' size='medium'>
-          Mint Provider Test
-        </FilledButton>
-      </MintProvider>,
-    )
-    expect(document.body.classList.contains(lightTheme)).toBeTruthy()
-  })
-})

@@ -23,8 +23,7 @@ export type OceanProviderProps = {
   baseTextSize?: TextStyleBaseSize
 }
 
-/** @deprecated Use OceanProviderProps instead */
-export type MintProviderProps = OceanProviderProps
+
 
 /**
  * ### 💡 알아두기
@@ -66,5 +65,3 @@ export const OceanProvider: React.FC<PropsWithChildren<OceanProviderProps>> = ({
   )
 }
 
-/** @deprecated Use OceanProvider instead */
-export const MintProvider = OceanProvider

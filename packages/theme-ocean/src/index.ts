@@ -30,7 +30,7 @@ export * from './components/ListTile'
 export * from './components/Modal'
 
 /* O */
-export * from './components/OceanProvider' // Exports OceanProvider (primary) and MintProvider (deprecated alias)
+export * from './components/OceanProvider'
 export * from './components/OutlineButton'
 export * from './components/OutlineIconButton'
 
