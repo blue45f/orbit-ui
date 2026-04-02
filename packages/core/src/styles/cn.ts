@@ -1,5 +1,9 @@
 import clsx, { ClassValue } from 'clsx'
 import { twMerge } from 'tailwind-merge'
+import { cva } from 'class-variance-authority'
+
+export { cva }
+export type { VariantProps } from 'class-variance-authority'
 
 /**
  * Tailwind 클래스 병합 유틸리티
@@ -85,21 +89,13 @@ export function variants<
   variants: T
   defaultVariants?: D
 }) {
+  const cvaFn = cva(config.base, {
+    variants: config.variants as Record<string, Record<string, string>>,
+    defaultVariants: config.defaultVariants as Record<string, string> | undefined,
+  })
+
   return (props?: { [K in keyof T]?: keyof T[K] }) => {
-    const classes: string[] = []
-
-    if (config.base) {
-      classes.push(config.base)
-    }
-
-    for (const [key, variantOptions] of Object.entries(config.variants)) {
-      const variantKey = key as keyof T
-      const value = props?.[variantKey] ?? config.defaultVariants?.[variantKey]
-      if (value && variantOptions[value as string]) {
-        classes.push(variantOptions[value as string])
-      }
-    }
-
-    return cn(...classes)
+    // cva returns the merged class string; wrap with cn for tailwind-merge
+    return cn(cvaFn(props as Record<string, string> | undefined))
   }
 }

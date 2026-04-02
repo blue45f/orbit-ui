@@ -10,8 +10,16 @@ export type Tokens = {
 
 export type ThemeOverrides<Theme extends Record<string, string>> = Partial<Record<keyof Theme, string>>
 
+/**
+ * Recursively collects all string-valued leaf keys from a (possibly nested) theme token object.
+ * This allows `theme` overrides to target any token key, including those nested under `variant`.
+ */
+type CollectStringKeys<T> = T extends string
+  ? never
+  : { [K in keyof T]: T[K] extends string ? K : CollectStringKeys<T[K]> }[keyof T]
+
 export type ComponentThemeProps<Theme> = {
-  theme?: Theme extends Record<string, string> ? ThemeOverrides<Theme> : never
+  theme?: Partial<Record<CollectStringKeys<Theme> & string, string>>
 }
 
 export type UseComponentThemeReturn = {
@@ -72,7 +80,7 @@ export const useComponentTheme = <Theme extends Record<string, string>>(
       // CSS 변수를 인라인 스타일로 변환
       if (value) {
         const cssVarName = `--${camelToKebab(key)}`
-        ;(style as any)[cssVarName] = value
+        ;(style as Record<string, string>)[cssVarName] = value
       }
     }
     return style

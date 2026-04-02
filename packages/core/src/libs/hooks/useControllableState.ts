@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback } from 'react'
+
+import { useControllableState as useRadixControllableState } from '@radix-ui/react-use-controllable-state'
 
 interface ControllableStateParam<T, HandlerArgs extends any[]> {
   /** 비제어 컴포넌트일 때의 상태 */
@@ -17,6 +19,7 @@ export type ControllableStateSetter<T, HandlerArgs extends any[]> = (params: {
 
 /**
  * 외부에서 제어할 수도, 제어하지 않을 수도 있는 컴포넌트의 내부 상태를 선언해요.
+ * 내부적으로 @radix-ui/react-use-controllable-state를 사용합니다.
  *
  * @description
  * HTML `<input>`을 고려해 보세요.
@@ -58,36 +61,26 @@ export function useControllableState<T, HandlerArgs extends any[]>({
   value: T,
   changeHandler: ControllableStateSetter<T, HandlerArgs>,
 ] {
-  const [uncontrolledValue, setUncontrolledValue] = useUncontrolledState(defaultValue)
+  const [value, setValue] = useRadixControllableState({
+    prop: controlledValue,
+    defaultProp: defaultValue as T,
+    onChange: useCallback(
+      (_value: T) => {
+        // Radix onChange only receives the new value, not the original handler args.
+        // We handle calling the original onChange in the setter below instead.
+      },
+      [],
+    ),
+    caller: 'useControllableState',
+  })
 
-  const controlled = controlledValue !== undefined
-  const value = controlled ? controlledValue : uncontrolledValue
-
-  // 코드 간략화를 위해 `setState((current: T) => T)`의 사용은 생각하지 않음
-  // 필요해지면 추가
-  const setValue: ControllableStateSetter<T, HandlerArgs> = useCallback(
+  const handleChange: ControllableStateSetter<T, HandlerArgs> = useCallback(
     ({ changeParams, value: newValue }) => {
-      if (!controlled) {
-        setUncontrolledValue(newValue)
-      }
+      setValue(newValue)
       onChange?.(...changeParams)
     },
-    [controlled, setUncontrolledValue, onChange],
+    [setValue, onChange],
   )
 
-  return [value as T, setValue] as const
-}
-
-function useUncontrolledState<T>(uncontrolledValue: T): readonly [T | undefined, (newValue: T) => void] {
-  const uncontrolledState = useState(uncontrolledValue)
-  const [value] = uncontrolledState
-  const prevValueRef = useRef(value)
-
-  useEffect(() => {
-    if (prevValueRef.current !== value) {
-      prevValueRef.current = value
-    }
-  }, [value])
-
-  return uncontrolledState
+  return [value as T, handleChange] as const
 }

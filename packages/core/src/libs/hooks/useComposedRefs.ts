@@ -1,10 +1,7 @@
-import { useCallback } from 'react'
-
-export type PossibleRef<T> = React.Ref<T> | undefined
-
 /**
  * ### 💡 알아두기
  * - 여러 `React.Ref`를 하나로 합쳐요.
+ * - 내부적으로 @radix-ui/react-compose-refs를 사용합니다.
  *
  * @example
  * ### 👇 기본 사용법
@@ -17,23 +14,9 @@ export type PossibleRef<T> = React.Ref<T> | undefined
  * }
  * ```
  */
-export function useComposedRefs<T>(...refs: PossibleRef<T>[]): (node: T | null) => void {
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  return useCallback(composeRefs(...refs), refs)
-}
+export {
+  useComposedRefs,
+  composeRefs,
+} from '@radix-ui/react-compose-refs'
 
-export function composeRefs<T>(...refs: PossibleRef<T>[]): (node: T | null) => void {
-  return (node: T | null) => refs.forEach((ref) => setRef(ref, node))
-}
-
-function setRef<T>(ref: PossibleRef<T>, value: T | null) {
-  if (ref === null || ref === undefined) {
-    return
-  }
-
-  if (typeof ref === 'function') {
-    ref(value)
-  } else {
-    ;(ref as React.MutableRefObject<T | null>).current = value
-  }
-}
+export type PossibleRef<T> = React.Ref<T> | undefined
