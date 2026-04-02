@@ -35,7 +35,7 @@ export type BoxedCheckboxWithLabelProps = BoxedCheckboxProps & {
  * }
  * ```
  */
-export const BoxedCheckboxWithLabel = forwardRef<HTMLInputElement, BoxedCheckboxWithLabelProps>(
+export const BoxedCheckboxWithLabel = forwardRef<HTMLButtonElement, BoxedCheckboxWithLabelProps>(
   (props, ref) => {
     const { id: idProp, fullWidth = false, children, alignItems = 'flex-start', ...rest } = props
     const style = {

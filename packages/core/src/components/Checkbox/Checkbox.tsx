@@ -1,14 +1,8 @@
-import { forwardRef } from 'react'
+import { forwardRef, useCallback } from 'react'
+import * as RadixCheckbox from '@radix-ui/react-checkbox'
 
 import { cn } from '../../styles'
-import {
-  toCSSLength,
-  useComposedRefs,
-  useControllableState,
-  useFocus,
-  countElements,
-  errorDev,
-} from '../../libs'
+import { toCSSLength, countElements, errorDev } from '../../libs'
 import { ContainerLayer, StateLayer, ShapeLayer } from '../primitives/Layer'
 
 /* ========================================================================
@@ -70,9 +64,9 @@ export type CheckboxProps = CheckboxSpecificProps & {
   /** 비활성화 여부 */
   disabled?: boolean
   /** 체크 여부 변경 이벤트 핸들러 */
-  onChange?: React.ChangeEventHandler<HTMLInputElement>
+  onChange?: (checked: boolean) => void
 } & Omit<
-    React.InputHTMLAttributes<HTMLInputElement>,
+    React.ButtonHTMLAttributes<HTMLButtonElement>,
     'type' | 'checked' | 'defaultChecked' | 'disabled' | 'children' | 'onChange'
   >
 
@@ -80,119 +74,69 @@ export type CheckboxProps = CheckboxSpecificProps & {
  * Main Component
  * ======================================================================== */
 
-const CheckboxRoot = forwardRef<HTMLInputElement, CheckboxProps>((props, ref) => {
+const CheckboxRoot = forwardRef<HTMLButtonElement, CheckboxProps>((props, ref) => {
   const {
     width = 22,
     height = 22,
     borderWidth = 1,
     checked: checkedProp,
-    defaultChecked = false,
+    defaultChecked,
     disabled = false,
     children,
     onChange,
-    onFocus,
-    onBlur,
     className: classProp,
     style: styleProp,
     theme,
     ...rest
   } = props
 
-  const [checked, handleChange] = useControllableState({
-    value: checkedProp,
-    defaultValue: defaultChecked,
-    onChange,
-  })
-
-  const {
-    isFocused,
-    ref: selfRef,
-    handlers,
-  } = useFocus<HTMLInputElement>({
-    onFocus,
-    onBlur,
-    disabled,
-  })
-
-  const refs = useComposedRefs(ref, selfRef)
   const iconExists = countElements(children, CheckboxIcon) === 1
 
   if (!iconExists) errorDev('Checkbox.Icon 서브컴포넌트를 전달해주세요.')
 
-  // 상태별 색상 결정
-  const fillColor = disabled
-    ? checked
-      ? theme?.disabledCheckedFillColor
-      : theme?.disabledUncheckedFillColor
-    : checked
-      ? theme?.enabledCheckedFillColor
-      : theme?.enabledUncheckedFillColor
-
-  const borderColor = isFocused
-    ? checked
-      ? theme?.focusedCheckedBorderColor
-      : theme?.focusedUncheckedBorderColor
-    : disabled
-      ? checked
-        ? theme?.disabledCheckedBorderColor
-        : theme?.disabledUncheckedBorderColor
-      : checked
-        ? theme?.enabledCheckedBorderColor
-        : theme?.enabledUncheckedBorderColor
-
-  const foregroundColor = isFocused
-    ? checked
-      ? theme?.focusedCheckedForegroundColor
-      : theme?.focusedUncheckedForegroundColor
-    : disabled
-      ? checked
-        ? theme?.disabledCheckedForegroundColor
-        : theme?.disabledUncheckedForegroundColor
-      : checked
-        ? theme?.enabledCheckedForegroundColor
-        : theme?.enabledUncheckedForegroundColor
-
-  const className = cn(
-    'relative inline-flex items-center justify-center',
-    disabled ? 'cursor-not-allowed opacity-60' : 'cursor-pointer',
-    isFocused && 'ring-2 ring-offset-2 ring-blue-500',
-    classProp
+  const handleCheckedChange = useCallback(
+    (value: RadixCheckbox.CheckedState) => {
+      onChange?.(value === true)
+    },
+    [onChange],
   )
 
-  const style: React.CSSProperties = {
-    width: toCSSLength(width),
-    height: toCSSLength(height),
-    borderWidth: toCSSLength(borderWidth),
-    borderStyle: 'solid',
-    borderRadius: theme?.radius || '4px',
-    backgroundColor: fillColor,
-    borderColor: borderColor,
-    color: foregroundColor,
-    ...styleProp,
-  }
-
   return (
-    <ContainerLayer as="div" className={className} style={style} data-checked={checked}>
-      <input
-        {...rest}
-        {...handlers}
-        ref={refs}
-        type="checkbox"
-        checked={checked}
-        disabled={disabled}
-        className="absolute inset-0 opacity-0 w-full h-full cursor-[inherit]"
-        onChange={(e) =>
-          handleChange({
-            changeParams: [e],
-            value: e.target.checked,
-          })
+    <RadixCheckbox.Root
+      ref={ref}
+      checked={checkedProp}
+      defaultChecked={defaultChecked}
+      disabled={disabled}
+      onCheckedChange={handleCheckedChange}
+      asChild
+      {...rest}
+    >
+      <ContainerLayer
+        as='button'
+        type='button'
+        className={cn(
+          'relative inline-flex items-center justify-center',
+          disabled ? 'cursor-not-allowed opacity-60' : 'cursor-pointer',
+          'focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500',
+          classProp,
+        )}
+        style={
+          {
+            width: toCSSLength(width),
+            height: toCSSLength(height),
+            borderWidth: toCSSLength(borderWidth),
+            borderStyle: 'solid',
+            borderRadius: theme?.radius || '4px',
+            ...styleProp,
+          } as React.CSSProperties
         }
-      />
-      <StateLayer
-        className={cn(!disabled && 'hover:bg-black/5 active:bg-black/10')}
-      />
-      <ShapeLayer className="flex items-center justify-center">{children}</ShapeLayer>
-    </ContainerLayer>
+      >
+        <StateLayer className={cn(!disabled && 'hover:bg-black/5 active:bg-black/10')} />
+        <ShapeLayer className='flex items-center justify-center'>
+          <RadixCheckbox.Indicator forceMount>{children}</RadixCheckbox.Indicator>
+        </ShapeLayer>
+      </ContainerLayer>
+    </RadixCheckbox.Root>
   )
 })
 
@@ -217,6 +161,9 @@ type CheckboxComponent = typeof CheckboxRoot & {
 
 /**
  * 체크박스 컴포넌트
+ *
+ * Radix UI Checkbox primitive를 내부적으로 사용합니다.
+ * 접근성(aria-checked, keyboard navigation)이 자동으로 처리됩니다.
  *
  * @example
  * ```tsx

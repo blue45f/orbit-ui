@@ -26,7 +26,7 @@ export type BoxedCheckboxProps = Omit<CheckboxProps, keyof CheckboxSpecificProps
  * }
  * ```
  */
-export const BoxedCheckbox = forwardRef<HTMLInputElement, BoxedCheckboxProps>((props, ref) => {
+export const BoxedCheckbox = forwardRef<HTMLButtonElement, BoxedCheckboxProps>((props, ref) => {
   const { theme, iconName, ...rest } = props
 
   return (

@@ -45,10 +45,12 @@
   },
   "dependencies": {
     "@prism-ui/icons": "workspace:*",
+    "@radix-ui/react-checkbox": "^1.3.3",
     "@radix-ui/react-compose-refs": "^1.1.2",
     "@radix-ui/react-dismissable-layer": "^1.1.11",
     "@radix-ui/react-portal": "^1.1.10",
     "@radix-ui/react-presence": "^1.1.5",
+    "@radix-ui/react-radio-group": "^1.3.8",
     "@radix-ui/react-use-controllable-state": "^1.2.2",
     "@use-gesture/react": "^10.3.1",
     "aria-hidden": "^1.2.4",

@@ -43,7 +43,7 @@ type RadioButtonWithLabelProps = RadioProps & {
  * }
  * ```
  */
-export const RadioButtonWithLabel = forwardRef<HTMLInputElement, RadioButtonWithLabelProps>((props, ref) => {
+export const RadioButtonWithLabel = forwardRef<HTMLButtonElement, RadioButtonWithLabelProps>((props, ref) => {
   const { id: idProp, value, disabled: disabledProp, checked: checkedProp, name: nameProp, ...rest } = props
   const { fullWidth = false, children, alignItems = 'flex-start' } = rest
   const style = {
@@ -86,7 +86,6 @@ export const RadioButtonWithLabel = forwardRef<HTMLInputElement, RadioButtonWith
           name={name}
           checked={checked}
           disabled={disabled}
-          readOnly={withinGroup}
           id={id}
         />
       </div>

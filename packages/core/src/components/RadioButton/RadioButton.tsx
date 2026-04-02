@@ -1,7 +1,8 @@
-import { forwardRef } from 'react'
+import { forwardRef, useCallback } from 'react'
+import * as RadixRadioGroup from '@radix-ui/react-radio-group'
 
 import { cn } from '../../styles'
-import { toCSSLength, useComposedRefs, useFocus } from '../../libs'
+import { toCSSLength } from '../../libs'
 import { BorderLayer, ContainerLayer, StateLayer } from '../primitives/Layer'
 import { useUniqueID } from '../primitives/UniqueIDProvider'
 
@@ -56,21 +57,28 @@ export type RadioButtonSpecificProps = {
 export type RadioButtonProps = RadioButtonSpecificProps & {
   /** 체크 여부 (제어 컴포넌트) */
   checked?: boolean
-  onChange?: React.ChangeEventHandler<HTMLInputElement>
+  onChange?: (checked: boolean) => void
   /** 비활성화 여부 */
   disabled?: boolean
-} & Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type' | 'checked' | 'disabled' | 'children' | 'onChange'>
+  /** radio name group */
+  name?: string
+  /** radio value */
+  value?: string
+} & Omit<
+    React.ButtonHTMLAttributes<HTMLButtonElement>,
+    'type' | 'checked' | 'disabled' | 'children' | 'onChange' | 'value'
+  >
 
 /* ========================================================================
  * Main Component
  * ======================================================================== */
 
-export const RadioButtonRoot = forwardRef<HTMLInputElement, RadioButtonProps>((props, ref) => {
+export const RadioButtonRoot = forwardRef<HTMLButtonElement, RadioButtonProps>((props, ref) => {
   const {
     id: idProp,
     children,
-    value,
-    name,
+    value = '__radio_value__',
+    name: _name,
     checked = false,
     disabled = false,
     className: classProp,
@@ -78,25 +86,12 @@ export const RadioButtonRoot = forwardRef<HTMLInputElement, RadioButtonProps>((p
     height = 24,
     style: styleProp,
     borderWidth = 1,
-    onFocus,
-    onBlur,
     theme,
+    onChange,
     ...rest
   } = props
 
   const id = useUniqueID(idProp)
-
-  const {
-    isFocused,
-    ref: selfRef,
-    handlers,
-  } = useFocus<HTMLInputElement>({
-    onFocus,
-    onBlur,
-    disabled,
-  })
-
-  const refs = useComposedRefs(ref, selfRef)
 
   // 상태별 색상 결정
   const fillColor = disabled
@@ -107,17 +102,13 @@ export const RadioButtonRoot = forwardRef<HTMLInputElement, RadioButtonProps>((p
       ? theme?.enabledSelectedFillColor
       : theme?.enabledUnselectedFillColor
 
-  const borderColor = isFocused
+  const borderColor = disabled
     ? checked
-      ? theme?.focusedSelectedBorderColor
-      : theme?.focusedUnselectedBorderColor
-    : disabled
-      ? checked
-        ? theme?.disabledSelectedBorderColor
-        : theme?.disabledUnselectedBorderColor
-      : checked
-        ? theme?.enabledSelectedBorderColor
-        : theme?.enabledUnselectedBorderColor
+      ? theme?.disabledSelectedBorderColor
+      : theme?.disabledUnselectedBorderColor
+    : checked
+      ? theme?.enabledSelectedBorderColor
+      : theme?.enabledUnselectedBorderColor
 
   const foregroundColor = disabled
     ? checked
@@ -130,8 +121,8 @@ export const RadioButtonRoot = forwardRef<HTMLInputElement, RadioButtonProps>((p
   const className = cn(
     'relative inline-flex items-center justify-center rounded-full',
     disabled ? 'cursor-not-allowed opacity-60' : 'cursor-pointer',
-    isFocused && 'ring-2 ring-offset-2 ring-blue-500',
-    classProp
+    'focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500',
+    classProp,
   )
 
   const style: React.CSSProperties = {
@@ -144,29 +135,35 @@ export const RadioButtonRoot = forwardRef<HTMLInputElement, RadioButtonProps>((p
     ...styleProp,
   } as React.CSSProperties
 
+  const handleValueChange = useCallback(
+    (val: string) => {
+      if (val === value) {
+        onChange?.(true)
+      }
+    },
+    [onChange, value],
+  )
+
   return (
-    <ContainerLayer as="div" style={style} className={className} data-checked={checked}>
-      <input
-        {...rest}
-        {...handlers}
-        ref={refs}
-        type="radio"
-        className="absolute inset-0 opacity-0 w-full h-full cursor-[inherit]"
-        id={id}
-        name={name}
-        value={value}
-        checked={checked}
-        disabled={disabled}
-      />
-      <StateLayer className={cn(!disabled && 'hover:bg-black/5 active:bg-black/10')} />
-      <BorderLayer
-        style={{
-          borderWidth: 'var(--radio-border-width)',
-          borderColor: 'var(--radio-border-color)',
-        }}
-      />
-      {children}
-    </ContainerLayer>
+    <RadixRadioGroup.Root
+      value={checked ? value : ''}
+      onValueChange={handleValueChange}
+      disabled={disabled}
+      style={{ display: 'contents' }}
+    >
+      <RadixRadioGroup.Item ref={ref} value={value} id={id} asChild {...rest}>
+        <ContainerLayer as='button' type='button' style={style} className={className} data-checked={checked}>
+          <StateLayer className={cn(!disabled && 'hover:bg-black/5 active:bg-black/10')} />
+          <BorderLayer
+            style={{
+              borderWidth: 'var(--radio-border-width)',
+              borderColor: 'var(--radio-border-color)',
+            }}
+          />
+          {children}
+        </ContainerLayer>
+      </RadixRadioGroup.Item>
+    </RadixRadioGroup.Root>
   )
 })
 
@@ -191,7 +188,7 @@ export const Indicator: React.FC<IndicatorProps> = (props) => {
         'bg-[var(--radio-foreground)]',
         'scale-0 transition-transform duration-150',
         '[[data-checked=true]_&]:scale-100',
-        classProp
+        classProp,
       )}
       style={{
         width: toCSSLength(width),
@@ -213,6 +210,9 @@ type RadioButtonComponent = typeof RadioButtonRoot & {
 
 /**
  * 라디오 버튼 컴포넌트
+ *
+ * 내부적으로 @radix-ui/react-radio-group을 사용합니다.
+ * 접근성(role="radio", aria-checked, keyboard navigation)이 자동으로 처리됩니다.
  *
  * @example
  * ```tsx

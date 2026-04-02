@@ -55,9 +55,9 @@ export const 제어 = {
         {...rest}
         theme={normalTheme}
         checked={checked}
-        onChange={(e) => {
-          onChange?.(e)
-          setChecked(e.target.checked)
+        onChange={(isChecked) => {
+          onChange?.(isChecked)
+          setChecked(isChecked)
         }}
       >
         <Checkbox.Icon>

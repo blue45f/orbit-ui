@@ -30,7 +30,7 @@ export const 기본 = {
           value='1'
           name='test'
           checked={selected === '1'}
-          onChange={(e) => setSelected(e.target.value)}
+          onChange={() => setSelected('1')}
         >
           <RadioButton.Indicator height={24} width={24} />
         </RadioButton>
@@ -39,7 +39,7 @@ export const 기본 = {
           value='2'
           name='test'
           checked={selected === '2'}
-          onChange={(e) => setSelected(e.target.value)}
+          onChange={() => setSelected('2')}
         >
           <RadioButton.Indicator height={24} width={24} />
         </RadioButton>
@@ -65,7 +65,7 @@ export const 디자인_QA = {
           disabled={disabled}
           value='햄버거'
           checked={selected === '햄버거'}
-          onChange={(e) => setSelected(e.target.value)}
+          onChange={() => setSelected('햄버거')}
           borderWidth={2}
           width={48}
           height={48}
@@ -77,7 +77,7 @@ export const 디자인_QA = {
           disabled={disabled}
           value='피자'
           checked={selected === '피자'}
-          onChange={(e) => setSelected(e.target.value)}
+          onChange={() => setSelected('피자')}
           borderWidth={2}
           width={48}
           height={48}
@@ -89,7 +89,7 @@ export const 디자인_QA = {
           disabled={disabled}
           value='치킨'
           checked={selected === '치킨'}
-          onChange={(e) => setSelected(e.target.value)}
+          onChange={() => setSelected('치킨')}
           borderWidth={2}
           width={48}
           height={48}
@@ -101,7 +101,7 @@ export const 디자인_QA = {
           disabled={disabled}
           value='막걸리'
           checked={selected === '막걸리'}
-          onChange={(e) => setSelected(e.target.value)}
+          onChange={() => setSelected('막걸리')}
           borderWidth={2}
           width={48}
           height={48}
@@ -113,7 +113,7 @@ export const 디자인_QA = {
           disabled={disabled}
           value='위스키'
           checked={selected === '위스키'}
-          onChange={(e) => setSelected(e.target.value)}
+          onChange={() => setSelected('위스키')}
           borderWidth={2}
           width={48}
           height={48}

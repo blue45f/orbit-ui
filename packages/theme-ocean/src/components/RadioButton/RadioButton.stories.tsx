@@ -31,16 +31,16 @@ export const 기본 = {
           value='blue'
           name='color'
           checked={selected === 'blue'}
-          onChange={(e) => setSelected(e.target.value)}
+          onChange={() => setSelected('blue')}
         />
         <RadioButton
           {...args}
           value='foundation'
           name='color'
           checked={selected === 'foundation'}
-          onChange={(e) => setSelected(e.target.value)}
+          onChange={() => setSelected('foundation')}
         />
-        <RadioButton {...args} value='mint' checked={selected === 'mint'} onChange={(e) => setSelected(e.target.value)} />
+        <RadioButton {...args} value='mint' checked={selected === 'mint'} onChange={() => setSelected('mint')} />
       </fieldset>
     )
   },
@@ -54,7 +54,7 @@ export const 테마_재정의 = {
         <RadioButton
           {...args}
           checked={selected === 'blue'}
-          onChange={(e) => setSelected(e.target.value)}
+          onChange={() => setSelected('blue')}
           theme={{
             enabledSelectedForegroundColor: 'red',
           }}
@@ -64,7 +64,7 @@ export const 테마_재정의 = {
           {...args}
           value='foundation'
           checked={selected === 'foundation'}
-          onChange={(e) => setSelected(e.target.value)}
+          onChange={() => setSelected('foundation')}
           theme={{
             enabledSelectedForegroundColor: 'red',
           }}
@@ -73,7 +73,7 @@ export const 테마_재정의 = {
           {...args}
           value='mint'
           checked={selected === 'mint'}
-          onChange={(e) => setSelected(e.target.value)}
+          onChange={() => setSelected('mint')}
           theme={{
             enabledSelectedForegroundColor: 'red',
           }}
@@ -95,7 +95,7 @@ export const 라벨_추가 = {
               value='blue'
               id='blue'
               checked={selected === 'blue'}
-              onChange={(e) => setSelected(e.target.value)}
+              onChange={() => setSelected('blue')}
             />
             <label htmlFor='blue'>블루</label>
           </Flex>
@@ -106,7 +106,7 @@ export const 라벨_추가 = {
               disabled
               id='foundation'
               checked={selected === 'foundation'}
-              onChange={(e) => setSelected(e.target.value)}
+              onChange={() => setSelected('foundation')}
             />
             <label htmlFor='foundation'>파운데이션</label>
           </Flex>
@@ -116,7 +116,7 @@ export const 라벨_추가 = {
               value='mint'
               id='mint'
               checked={selected === 'mint'}
-              onChange={(e) => setSelected(e.target.value)}
+              onChange={() => setSelected('mint')}
             />
             <label htmlFor='mint'>민트</label>
           </Flex>
@@ -178,7 +178,7 @@ export const 디자인QA = {
               name='color'
               value='blue'
               checked={selected === 'blue'}
-              onChange={(e) => setSelected(e.target.value)}
+              onChange={() => setSelected('blue')}
             />
           </Flex>
           <Flex columnGap='10px'>
@@ -189,7 +189,7 @@ export const 디자인QA = {
               value='foundation'
               disabled={args.disabledSecond}
               checked={selected === 'foundation'}
-              onChange={(e) => setSelected(e.target.value)}
+              onChange={() => setSelected('foundation')}
             />
             <label htmlFor='foundation'>{args.labelText}</label>
           </Flex>
@@ -200,7 +200,7 @@ export const 디자인QA = {
               name='color'
               value='mint'
               checked={selected === 'mint'}
-              onChange={(e) => setSelected(e.target.value)}
+              onChange={() => setSelected('mint')}
             />
             <label htmlFor='mint'>민트</label>
           </Flex>

@@ -69,6 +69,6 @@ export const 디자인_QA = {
       setIsChecked(args.checked)
     }, [args.checked])
 
-    return <BoxedCheckbox {...args} checked={isChecked} onChange={(e) => setIsChecked(e.target.checked)} />
+    return <BoxedCheckbox {...args} checked={isChecked} onChange={(checked) => setIsChecked(checked)} />
   },
 } satisfies Story

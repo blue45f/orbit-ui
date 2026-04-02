@@ -35,7 +35,7 @@ export type CheckboxWithLabelProps = CheckboxProps & {
  * }
  * ```
  */
-export const CheckboxWithLabel = forwardRef<HTMLInputElement, CheckboxWithLabelProps>((props, ref) => {
+export const CheckboxWithLabel = forwardRef<HTMLButtonElement, CheckboxWithLabelProps>((props, ref) => {
   const { id: idProp, fullWidth = false, children, alignItems = 'flex-start', ...rest } = props
   const style = {
     ...assignInlineVars({

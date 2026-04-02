@@ -26,7 +26,7 @@ export type CheckboxProps = Omit<BaseCheckboxProps, keyof BaseCheckboxSpecificPr
  * }
  * ```
  */
-export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>((props, ref) => {
+export const Checkbox = forwardRef<HTMLButtonElement, CheckboxProps>((props, ref) => {
   const { theme, iconName, ...rest } = props
 
   return (
