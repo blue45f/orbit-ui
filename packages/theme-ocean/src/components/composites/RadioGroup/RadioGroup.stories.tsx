@@ -7,7 +7,7 @@ import { RadioGroup, useRadioGroupContext } from './RadioGroup'
 RadioGroup.displayName = 'RadioGroup'
 
 const meta = {
-  title: 'internal/RadioGroup',
+  title: 'ocean/Composites/RadioGroup',
   component: RadioGroup,
   args: {
     name: '',
