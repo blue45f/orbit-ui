@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react'
 
-import { FixedTabs } from './Tabs'
+import { FixedTabs } from './TabGroup'
 
 FixedTabs.displayName = 'FixedTabs'
 FixedTabs.Tab.displayName = 'FixedTabs.Tab'

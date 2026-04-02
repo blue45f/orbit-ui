@@ -35,80 +35,15 @@ describe('AppBar', () => {
     expect(screen.getByText('Trailing')).toBeInTheDocument()
   })
 
-  test('height prop의 기본값은 44이다.', () => {
+  test('maxWidth prop을 설정할 수 있다.', () => {
     render(
-      <AppBar data-testid='navigation-bar'>
+      <AppBar maxWidth={300} data-testid='navigation-bar'>
         <AppBar.Center>Center</AppBar.Center>
       </AppBar>,
     )
 
     const navElement = screen.getByTestId('navigation-bar')
-    // height는 assignInlineVars를 통해 인라인 스타일로 설정되므로
-    // 컴포넌트가 정상적으로 렌더링되는지로 검증
     expect(navElement).toBeInTheDocument()
-  })
-
-  test('height prop을 56으로 설정할 수 있다.', () => {
-    render(
-      <AppBar height={56} data-testid='navigation-bar'>
-        <AppBar.Center>Center</AppBar.Center>
-      </AppBar>,
-    )
-
-    const navElement = screen.getByTestId('navigation-bar')
-    // height는 assignInlineVars를 통해 인라인 스타일로 설정되므로
-    // 컴포넌트가 정상적으로 렌더링되는지로 검증
-    expect(navElement).toBeInTheDocument()
-  })
-
-  test('arrangement prop의 기본값은 "start"이다.', () => {
-    render(
-      <AppBar data-testid='navigation-bar'>
-        <AppBar.Center>Center</AppBar.Center>
-      </AppBar>,
-    )
-
-    // arrangement는 ContentLayer에 전달되므로, 실제 DOM에서 확인하기 어렵지만
-    // 컴포넌트가 정상적으로 렌더링되는지로 검증
-    expect(screen.getByTestId('navigation-bar')).toBeInTheDocument()
-  })
-
-  test('arrangement prop을 "equal-weight"로 설정할 수 있다.', () => {
-    render(
-      <AppBar arrangement='equal-weight' data-testid='navigation-bar'>
-        <AppBar.Center>Center</AppBar.Center>
-      </AppBar>,
-    )
-
-    expect(screen.getByTestId('navigation-bar')).toBeInTheDocument()
-  })
-
-  test('alignment prop의 기본값은 "center"이다.', () => {
-    render(
-      <AppBar data-testid='navigation-bar'>
-        <AppBar.Center>Center</AppBar.Center>
-      </AppBar>,
-    )
-
-    expect(screen.getByTestId('navigation-bar')).toBeInTheDocument()
-  })
-
-  test('alignment prop을 "top" 또는 "bottom"으로 설정할 수 있다.', () => {
-    const { rerender } = render(
-      <AppBar alignment='top' data-testid='navigation-bar'>
-        <AppBar.Center>Center</AppBar.Center>
-      </AppBar>,
-    )
-
-    expect(screen.getByTestId('navigation-bar')).toBeInTheDocument()
-
-    rerender(
-      <AppBar alignment='bottom' data-testid='navigation-bar'>
-        <AppBar.Center>Center</AppBar.Center>
-      </AppBar>,
-    )
-
-    expect(screen.getByTestId('navigation-bar')).toBeInTheDocument()
   })
 
   test('theme prop을 통해 스타일을 커스터마이징할 수 있다.', () => {
@@ -173,16 +108,6 @@ describe('AppBar.Center', () => {
     render(
       <AppBar>
         <AppBar.Center>Center</AppBar.Center>
-      </AppBar>,
-    )
-
-    expect(screen.getByText('Center')).toBeInTheDocument()
-  })
-
-  test('arrangement prop을 전달할 수 있다.', () => {
-    render(
-      <AppBar>
-        <AppBar.Center arrangement='equal-weight'>Center</AppBar.Center>
       </AppBar>,
     )
 

@@ -8,7 +8,7 @@ import { forwardRef } from 'react'
 
 import { vars } from '../../styles/theme.css'
 
-export type PageIndicatorProps = Omit<BasePageIndicatorProps, keyof BasePageIndicatorSpecificProps | 'dotSize'> &
+export type PageIndicatorProps = Omit<BasePageIndicatorProps, keyof BasePageIndicatorSpecificProps> &
   ComponentThemeProps<typeof vars.com.pageControl>
 
 /**
@@ -39,7 +39,7 @@ export type PageIndicatorProps = Omit<BasePageIndicatorProps, keyof BasePageIndi
 export const PageIndicator = forwardRef<HTMLDivElement, PageIndicatorProps>((props, ref) => {
   const { theme, ...rest } = props
 
-  return <BasePageIndicator ref={ref} theme={{ ...vars.com.pageControl, ...theme }} dotSize={6} {...rest} />
+  return <BasePageIndicator ref={ref} theme={{ ...vars.com.pageControl, ...theme }} {...rest} />
 })
 
 PageIndicator.displayName = 'PageIndicator'

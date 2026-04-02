@@ -24,15 +24,7 @@ const meta: Meta<typeof AppBar> = {
     },
   ],
   argTypes: {
-    arrangement: {
-      control: 'select',
-      options: ['start', 'center', 'end', 'space-between', 'equal-weight'],
-    },
-    alignment: {
-      control: 'select',
-      options: ['center', 'bottom', 'top'],
-    },
-    height: {
+    maxWidth: {
       control: 'number',
     },
   },
@@ -100,7 +92,7 @@ export const 검색_필드_포함: Story = {
             value={value}
             onChange={(e) => setValue(e.target.value)}
           >
-            <TextField.ClearButton visibility='onPopulated' onClick={() => console.log('Cleared!')} />
+            <TextField.ClearButton visibility='onPopulated' />
           </TextField>
         </AppBar.Center>
         <AppBar.Trailing>
@@ -114,7 +106,6 @@ export const 검색_필드_포함: Story = {
 export const 멀티_슬롯: Story = {
   args: {
     children: '페이지 제목',
-    arrangement: 'start',
   },
   render: (args) => (
     <AppBar {...args}>
@@ -135,7 +126,6 @@ export const 멀티_슬롯: Story = {
 export const 중앙_정렬: Story = {
   args: {
     children: '페이지 제목',
-    arrangement: 'equal-weight',
   },
   render: (args) => (
     <AppBar {...args}>
@@ -178,7 +168,6 @@ export const 커스텀_테마: Story = {
 export const 스크롤: Story = {
   args: {
     children: '페이지 제목',
-    arrangement: 'equal-weight',
   },
   render: (args) => (
     <div>
@@ -197,7 +186,6 @@ export const 스크롤: Story = {
 export const 디자인QA: Story = {
   args: {
     children: '페이지 제목',
-    arrangement: 'equal-weight',
     leadingActionCount: 0,
     trailingActionCount: 0,
   } as never,

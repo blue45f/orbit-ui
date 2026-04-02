@@ -1,4 +1,4 @@
-import { Flex, TextStyleBaseSize, TextStyleTokenType } from '@prism-ui/core'
+import { Flex, TextStyleBaseSize } from '@prism-ui/core'
 import { Meta, StoryObj } from '@storybook/react'
 
 import { vars } from '../../styles/theme.css'
@@ -58,7 +58,7 @@ export const 모든_사이즈 = {
     return (
       <Flex flexDirection='column' rowGap={vars.ref.spacing[200]}>
         {typographyStyles.map((style) => (
-          <Text key={style} {...rest} textStyle={style as TextStyleTokenType}>
+          <Text key={style} {...rest} textStyle={style as string}>
             {style} 사이즈의 텍스트입니다.
           </Text>
         ))}
@@ -72,7 +72,7 @@ export const 텍스트_스타일_강제 = {
     const { children, textStyle, ...rest } = args
     return (
       <ForcedTextStyle color='mint5'>
-        <Text {...rest} textStyle={textStyle as TextStyleTokenType}>
+        <Text {...rest} textStyle={textStyle as string}>
           {children}
         </Text>
       </ForcedTextStyle>
@@ -96,7 +96,7 @@ export const 디자인_QA = {
   render: ({ baseSize, children, textStyle, ...rest }: any) => {
     return (
       <OceanProvider baseTextSize={baseSize as TextStyleBaseSize}>
-        <Text {...rest} textStyle={textStyle as TextStyleTokenType}>
+        <Text {...rest} textStyle={textStyle as string}>
           {textStyle}사이즈: {children}
         </Text>
       </OceanProvider>

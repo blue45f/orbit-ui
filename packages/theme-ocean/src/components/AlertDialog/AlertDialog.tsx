@@ -40,7 +40,7 @@ export const AlertRoot = forwardRef<HTMLDivElement, AlertProps>((props, forwarde
     <AlertDialog
       {...rest}
       ref={forwardedRef}
-      theme={{ ...vars.com.alert, ...theme }}
+      theme={{ ...vars.com.alert, ...theme } as AlertDialogProps['theme']}
       defaultIsPresented={defaultIsPresented}
       isPresented={isPresentedProp}
     >

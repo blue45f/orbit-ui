@@ -1,9 +1,10 @@
+import React from 'react'
 import type { Meta, StoryObj } from '@storybook/react'
 
 import { FilledButton as Button } from '../SolidButton'
-import { TextFieldSingleline } from '../TextField'
+import { TextField } from '../TextField'
 
-import { Alert } from './Alert'
+import { Alert } from './AlertDialog'
 
 const meta = {
   title: 'mint/Alert',
@@ -19,7 +20,7 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 export const 기본: Story = {
-  render: (args) => (
+  render: (args: React.ComponentProps<typeof Alert>) => (
     <Alert {...args}>
       <Alert.Trigger>
         <Button color='mint' size='medium'>
@@ -42,7 +43,7 @@ export const 기본: Story = {
 }
 
 export const 컨펌: Story = {
-  render: (args) => {
+  render: (args: React.ComponentProps<typeof Alert>) => {
     return (
       <Alert {...args}>
         <Alert.Trigger>
@@ -62,7 +63,7 @@ export const 컨펌: Story = {
             }}
           >
             <Alert.Description>결제요청을 거절하시려면 아래에 사유를 입력해 주세요.</Alert.Description>
-            <TextFieldSingleline placeholder='예) 이번 달 예산 초과' name='reason' />
+            <TextField placeholder='예) 이번 달 예산 초과' name='reason' />
           </form>
         </Alert.Top>
         <Alert.Bottom>
@@ -81,7 +82,7 @@ export const 컨펌: Story = {
 }
 
 export const 버튼세로정렬: Story = {
-  render: (args) => {
+  render: (args: React.ComponentProps<typeof Alert>) => {
     return (
       <Alert {...args}>
         <Alert.Trigger>

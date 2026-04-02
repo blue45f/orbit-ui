@@ -1,7 +1,7 @@
 import {
   ComponentThemeProps,
   filterComponents,
-  Chip,
+  Chip as BaseChip,
   ChipSpecificProps,
   ChipPropsAsButton,
 } from '@prism-ui/core'
@@ -23,20 +23,22 @@ const ChipRoot = forwardRef<HTMLButtonElement, ChipProps>((props, ref) => {
     ChipTrailing,
   )
 
+  const { variant: _variant, ...chipTokens } = vars.com.chip
+
   return (
-    <Chip
+    <BaseChip
       {...rest}
       ref={ref}
       className={styles.chip}
-      theme={{ ...vars.com.chip, gap: vars.ref.spacing[50], ...theme }}
+      theme={{ ...chipTokens, gap: vars.ref.spacing[50], ...theme }}
       as='button'
     >
-      {filtered[0].length > 0 && <Chip.Leading size={18}>{filtered[0][0]}</Chip.Leading>}
+      {filtered[0].length > 0 && <BaseChip.Leading size={18}>{filtered[0][0] as React.ReactElement}</BaseChip.Leading>}
 
       {unfiltered}
 
-      {filtered[1].length > 0 && <Chip.Trailing size={16}>{filtered[1][0]}</Chip.Trailing>}
-    </Chip>
+      {filtered[1].length > 0 && <BaseChip.Trailing size={16}>{filtered[1][0] as React.ReactElement}</BaseChip.Trailing>}
+    </BaseChip>
   )
 })
 

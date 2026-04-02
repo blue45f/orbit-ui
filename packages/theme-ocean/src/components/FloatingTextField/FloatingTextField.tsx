@@ -5,7 +5,7 @@ import {
   ComponentThemeProps,
 } from '@prism-ui/core'
 import { CircleCancelFillIcon } from '@prism-ui/icons'
-import { AllHTMLAttributes, forwardRef } from 'react'
+import React, { AllHTMLAttributes, forwardRef } from 'react'
 
 import { vars } from '../../styles/theme.css'
 import { FilledIconButton } from '../SolidIconButton'
@@ -15,12 +15,17 @@ export type FloatingTextFieldProps = Omit<
   'theme'
 > &
   ComponentThemeProps<Omit<typeof vars.com.textFieldWithLabelAnimation, 'variant'>> &
-  Omit<AllHTMLAttributes<HTMLInputElement>, keyof BaseFloatingTextFieldProps> & {
+  Omit<AllHTMLAttributes<HTMLInputElement>, keyof BaseFloatingTextFieldProps | 'as'> & {
     /**
      * 에러 상태
      * @defaultValue `false`
      */
     error?: boolean
+    /** 스타일 */
+    style?: React.CSSProperties
+    /** 클래스명 */
+    className?: string
+    children?: React.ReactNode
   }
 
 /**

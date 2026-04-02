@@ -5,12 +5,42 @@ import { PageIndicator } from './PageIndicator'
 
 PageIndicator.displayName = 'PageIndicator'
 
+/** Simple dot element for stories */
+const Dot: React.FC<{ selected?: boolean; onClick?: () => void; style?: React.CSSProperties }> = ({
+  selected,
+  onClick,
+  style,
+}) => (
+  <button
+    type='button'
+    role='tab'
+    aria-selected={selected}
+    onClick={onClick}
+    style={{
+      width: 6,
+      height: 6,
+      borderRadius: '50%',
+      border: 'none',
+      padding: 0,
+      cursor: 'pointer',
+      backgroundColor: selected ? '#333' : '#ccc',
+      transition: 'background-color 0.2s',
+      ...style,
+    }}
+  />
+)
+
+function createDots(count: number, dotSize?: number) {
+  return Array.from({ length: count }, (_, i) => (
+    <Dot key={i} style={dotSize ? { width: dotSize, height: dotSize } : undefined} />
+  ))
+}
+
 const meta = {
   title: 'foundation/PageIndicator',
   component: PageIndicator,
   args: {
-    total: 5,
-    current: 0,
+    currentPage: 0,
   },
   argTypes: {
     onPageChange: { action: 'page changed' },
@@ -23,76 +53,80 @@ export default meta
 
 export const 기본 = {
   render: function Basic({ onPageChange, ...rest }) {
-    const [current, setCurrent] = useState(0)
+    const [currentPage, setCurrentPage] = useState(0)
 
     return (
       <PageIndicator
         {...rest}
-        current={current}
+        currentPage={currentPage}
         onPageChange={(page) => {
           onPageChange?.(page)
-          setCurrent(page)
+          setCurrentPage(page)
         }}
-      />
+      >
+        {createDots(5)}
+      </PageIndicator>
     )
   },
 } satisfies Story
 
 export const 페이지_3개 = {
   render: function ThreePages({ onPageChange, ...rest }) {
-    const [current, setCurrent] = useState(0)
+    const [currentPage, setCurrentPage] = useState(0)
 
     return (
       <PageIndicator
         {...rest}
-        total={3}
-        current={current}
+        currentPage={currentPage}
         onPageChange={(page) => {
           onPageChange?.(page)
-          setCurrent(page)
+          setCurrentPage(page)
         }}
-      />
+      >
+        {createDots(3)}
+      </PageIndicator>
     )
   },
 } satisfies Story
 
 export const 페이지_10개 = {
   render: function TenPages({ onPageChange, ...rest }) {
-    const [current, setCurrent] = useState(0)
+    const [currentPage, setCurrentPage] = useState(0)
 
     return (
       <PageIndicator
         {...rest}
-        total={10}
-        current={current}
+        currentPage={currentPage}
         onPageChange={(page) => {
           onPageChange?.(page)
-          setCurrent(page)
+          setCurrentPage(page)
         }}
-      />
+      >
+        {createDots(10)}
+      </PageIndicator>
     )
   },
 } satisfies Story
 
 export const 첫_페이지 = {
   args: {
-    total: 5,
-    current: 0,
+    currentPage: 0,
   },
+  render: (args) => <PageIndicator {...args}>{createDots(5)}</PageIndicator>,
 } satisfies Story
 
 export const 중간_페이지 = {
   args: {
-    total: 5,
-    current: 2,
+    currentPage: 2,
   },
+  render: (args) => <PageIndicator {...args}>{createDots(5)}</PageIndicator>,
 } satisfies Story
 
 export const 마지막_페이지 = {
   args: {
-    total: 5,
-    current: 4,
+    currentPage: 4,
   },
+  render: (args) => <PageIndicator {...args}>{createDots(5)}</PageIndicator>,
 } satisfies Story
 
 export const Dot_크기_변경 = {
@@ -101,15 +135,15 @@ export const Dot_크기_변경 = {
       <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
         <div>
           <div>Size 6 (default)</div>
-          <PageIndicator total={5} current={2} dotSize={6} />
+          <PageIndicator currentPage={2}>{createDots(5, 6)}</PageIndicator>
         </div>
         <div>
           <div>Size 9</div>
-          <PageIndicator total={5} current={2} dotSize={9} />
+          <PageIndicator currentPage={2}>{createDots(5, 9)}</PageIndicator>
         </div>
         <div>
           <div>Size 12</div>
-          <PageIndicator total={5} current={2} dotSize={12} />
+          <PageIndicator currentPage={2}>{createDots(5, 12)}</PageIndicator>
         </div>
       </div>
     )
@@ -118,13 +152,13 @@ export const Dot_크기_변경 = {
 
 export const 자동_페이징 = {
   render: function AutoPaging() {
-    const [current, setCurrent] = useState(0)
+    const [currentPage, setCurrentPage] = useState(0)
     const total = 5
 
     // Auto-advance page every second for demo
     React.useEffect(() => {
       const interval = setInterval(() => {
-        setCurrent((prev) => (prev + 1) % total)
+        setCurrentPage((prev) => (prev + 1) % total)
       }, 1000)
       return () => clearInterval(interval)
     }, [])
@@ -132,9 +166,9 @@ export const 자동_페이징 = {
     return (
       <div>
         <div>
-          Current Page: {current + 1}/{total}
+          Current Page: {currentPage + 1}/{total}
         </div>
-        <PageIndicator total={total} current={current} />
+        <PageIndicator currentPage={currentPage}>{createDots(total)}</PageIndicator>
       </div>
     )
   },

@@ -8,7 +8,7 @@ const meta = {
   component: TabItems,
   tags: ['autodocs'],
   argTypes: {
-    onValueChange: { action: 'changed' },
+    onTabChange: { action: 'changed' },
   },
 } satisfies Meta<typeof TabItems>
 
@@ -18,7 +18,7 @@ type Story = StoryObj<typeof meta>
 export const 기본: Story = {
   render: (args) => (
     <div style={{ width: '100%' }}>
-      <TabItems {...args} defaultValue='tab1'>
+      <TabItems {...args}>
         <TabItems.ActiveIndicator />
         <TabItems.Tab value='tab1'>
           <TabItems.TabCenter>Home</TabItems.TabCenter>
@@ -41,16 +41,16 @@ export const 기본: Story = {
 
 export const 제어: Story = {
   render: function Controlled(args) {
-    const [value, setValue] = useState('tab2')
+    const [selectedIndex, setSelectedIndex] = useState(1)
 
-    const handleValueChange = (newValue: string) => {
-      setValue(newValue)
-      args.onValueChange?.(newValue)
+    const handleTabChange = (index: number) => {
+      setSelectedIndex(index)
+      args.onTabChange?.(index)
     }
 
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-        <TabItems {...args} value={value} onValueChange={handleValueChange}>
+        <TabItems {...args} selectedIndex={selectedIndex} onTabChange={handleTabChange}>
           <TabItems.ActiveIndicator />
           <TabItems.Tab value='tab1'>
             <TabItems.TabCenter>Tab 1</TabItems.TabCenter>
@@ -63,7 +63,7 @@ export const 제어: Story = {
           </TabItems.Tab>
         </TabItems>
 
-        <div style={{ fontSize: '14px', color: '#666' }}>Selected: {value}</div>
+        <div style={{ fontSize: '14px', color: '#666' }}>Selected index: {selectedIndex}</div>
       </div>
     )
   },
@@ -71,7 +71,7 @@ export const 제어: Story = {
 
 export const 아이콘: Story = {
   render: (args) => (
-    <TabItems {...args} defaultValue='home'>
+    <TabItems {...args}>
       <TabItems.ActiveIndicator />
       <TabItems.Tab value='home'>
         <TabItems.TabLeading>
@@ -106,7 +106,7 @@ export const 아이콘: Story = {
 
 export const 배지: Story = {
   render: (args) => (
-    <TabItems {...args} defaultValue='messages'>
+    <TabItems {...args}>
       <TabItems.ActiveIndicator />
       <TabItems.Tab value='messages'>
         <TabItems.TabCenter>Messages</TabItems.TabCenter>

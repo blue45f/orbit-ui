@@ -1,20 +1,22 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import { utils } from '@prism-ui/core'
 import { Meta } from '@storybook/react'
 
+import { vars } from '../../styles/theme.css'
 import { OutlinedButton } from '../OutlineButton'
 
-import { Space, SpaceProps } from './Space'
+import { Space, SpaceProps, Spacing } from './Space'
 
 Space.displayName = 'Space'
+
+const spacingKeys = Object.keys(vars.ref.spacing) as Spacing[]
 
 const meta = {
   title: 'mint/Space',
   component: Space,
   args: {},
   argTypes: {
-    x: { control: 'select', options: utils.tokenKeysOf('spacing') },
-    y: { control: 'select', options: utils.tokenKeysOf('spacing') },
+    x: { control: 'select', options: spacingKeys },
+    y: { control: 'select', options: spacingKeys },
   },
 } satisfies Meta<typeof Space>
 
@@ -22,7 +24,7 @@ export default meta
 
 export const 가로_간격 = {
   args: {
-    x: utils.tokenKeysOf('spacing')[1],
+    x: spacingKeys[1],
   },
   render: (args: SpaceProps) => (
     <div style={{ display: 'flex' }}>
@@ -39,7 +41,7 @@ export const 가로_간격 = {
 
 export const 세로_간격 = {
   args: {
-    y: utils.tokenKeysOf('spacing')[1],
+    y: spacingKeys[1],
   },
   render: (args: SpaceProps) => (
     <div>
@@ -56,7 +58,7 @@ export const 세로_간격 = {
 
 export const 디자인_QA = {
   args: {
-    y: utils.tokenKeysOf('spacing')[1],
+    y: spacingKeys[1],
   },
   render: (args: SpaceProps) => {
     if (args.x) {

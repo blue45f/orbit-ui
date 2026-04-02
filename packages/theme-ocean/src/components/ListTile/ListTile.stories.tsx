@@ -127,6 +127,7 @@ export const 디자인_QA: Story = {
         <ListTile.Description>단순 리스트 형태 (인터렉션 불가, 터치 없음)</ListTile.Description>
       </ListTile>
 
+      {/* @ts-expect-error htmlFor is valid when as='label' but polymorphic types don't narrow correctly */}
       <ListTile as='label' htmlFor='checkbox-list-item'>
         <ListTile.Leading>
           <ContainedCheckbox id='checkbox-list-item' />
@@ -135,6 +136,7 @@ export const 디자인_QA: Story = {
         <ListTile.Description>인터랙티브 리스트 형태 (인터렉션 가능, 전체가 터치영역)</ListTile.Description>
       </ListTile>
 
+      {/* @ts-expect-error htmlFor is valid when as='label' but polymorphic types don't narrow correctly */}
       <ListTile as='label' htmlFor='radio-list-item'>
         <ListTile.Leading>
           <Radio id='radio-list-item' value='ryu' />

@@ -57,10 +57,6 @@ export const 제어: Story = {
                 enabledUncheckedForegroundColor: 'black',
                 disabledCheckedForegroundColor: 'black',
                 disabledUncheckedForegroundColor: 'black',
-                hoveredCheckedForegroundColor: 'black',
-                hoveredUncheckedForegroundColor: 'black',
-                pressedCheckedForegroundColor: 'black',
-                pressedUncheckedForegroundColor: 'black',
               }}
               onClick={() => setIsClickable(!isClickable)}
             >

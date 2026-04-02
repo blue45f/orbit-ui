@@ -1,10 +1,8 @@
 import { Meta, StoryObj } from '@storybook/react'
-import { assignInlineVars } from '@vanilla-extract/dynamic'
 
 import { Flex } from '../primitives'
 
 import { Divider } from './Divider'
-import * as styles from './Divider.css'
 Divider.displayName = 'Divider'
 
 const meta = {
@@ -27,21 +25,17 @@ export const 디자인_QA = {
   },
   // eslint-disable-next-line
   render: ({ children }: any) => {
-    const style = assignInlineVars({
-      [styles.dividerVars.borderColor]: 'gray',
-    })
-
     return (
       <>
         <Flex flexDirection='column' rowGap='15px'>
-          <Divider thickness={1} style={style} />
-          <Divider thickness={3} style={style} />
-          <Divider thickness={2} style={style} />
+          <Divider thickness={1} color='gray' />
+          <Divider thickness={3} color='gray' />
+          <Divider thickness={2} color='gray' />
         </Flex>
         <Flex columnGap='15px' style={{ height: 40, marginTop: 40 }}>
-          <Divider orientation='vertical' thickness={1} style={style} />
-          <Divider orientation='vertical' thickness={3} style={style} />
-          <Divider orientation='vertical' thickness={2} style={style} />
+          <Divider orientation='vertical' thickness={1} color='gray' />
+          <Divider orientation='vertical' thickness={3} color='gray' />
+          <Divider orientation='vertical' thickness={2} color='gray' />
         </Flex>
       </>
     )

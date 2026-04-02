@@ -1,9 +1,9 @@
-import { ClayRoot, LottieProvider } from '@clay-kit/foundation'
+import { ThemeProvider, LottieProvider } from '@prism-ui/core'
 import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport'
 import type { Decorator, Preview } from '@storybook/react'
 import clsx from 'clsx'
 import { useLayoutEffect } from 'react'
-import '@clay-kit/foundation/style.css'
+import '@prism-ui/core/style.css'
 
 import { lightTheme, darkTheme, textStyleTheme } from '../src/styles'
 
@@ -41,13 +41,13 @@ export const useClayRoot: Decorator = (Story, context) => {
 
   return (
     //NOTE: themeClass는 필수 prop 에러를 방지하기위해 의미없는 core라는 themeClass를 추가
-    <ClayRoot mode={theme} themeClass={themeClass}>
+    <ThemeProvider mode={theme} themeClass={themeClass}>
       <LottieProvider>
         <div style={{ margin: '1rem' }}>
           <Story />
         </div>
       </LottieProvider>
-    </ClayRoot>
+    </ThemeProvider>
   )
 }
 

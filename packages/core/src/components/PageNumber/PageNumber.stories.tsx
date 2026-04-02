@@ -80,24 +80,24 @@ export const Trailing_크기_변경 = {
         <div>
           <div>Size 12</div>
           <PageNumber current={1} total={3}>
-            <PageNumber.Trailing size={12}>
-              <ChevronRightLineIcon />
+            <PageNumber.Trailing>
+              <ChevronRightLineIcon size={12} />
             </PageNumber.Trailing>
           </PageNumber>
         </div>
         <div>
           <div>Size 16 (default)</div>
           <PageNumber current={1} total={3}>
-            <PageNumber.Trailing size={16}>
-              <ChevronRightLineIcon />
+            <PageNumber.Trailing>
+              <ChevronRightLineIcon size={16} />
             </PageNumber.Trailing>
           </PageNumber>
         </div>
         <div>
           <div>Size 20</div>
           <PageNumber current={1} total={3}>
-            <PageNumber.Trailing size={20}>
-              <ChevronRightLineIcon />
+            <PageNumber.Trailing>
+              <ChevronRightLineIcon size={20} />
             </PageNumber.Trailing>
           </PageNumber>
         </div>

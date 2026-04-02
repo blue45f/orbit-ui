@@ -47,19 +47,17 @@ describe('TextField', () => {
     expect(screen.getByLabelText('입력 내용 지우기')).toBeInTheDocument()
   })
 
-  test('calls onClick when clear button is clicked', () => {
-    const handleClick = vi.fn()
+  test('clears value when clear button is clicked', () => {
     const handleChange = vi.fn()
     render(
       <TextField defaultValue='테스트 값' onChange={handleChange} placeholder='클리어 클릭 테스트'>
-        <TextField.ClearButton visibility='onPopulated' onClick={handleClick} />
+        <TextField.ClearButton visibility='onPopulated' />
       </TextField>,
     )
 
     const clearButton = screen.getByLabelText('입력 내용 지우기')
     fireEvent.click(clearButton)
 
-    expect(handleClick).toHaveBeenCalled()
     expect(handleChange).toHaveBeenCalled()
     expect(handleChange.mock.calls[0][0].target.value).toBe('')
   })

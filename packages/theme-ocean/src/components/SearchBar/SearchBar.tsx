@@ -96,7 +96,7 @@ export const SearchBar = forwardRef<HTMLInputElement, SearchBarProps>((props, re
         )}
       </TextField.Center>
 
-      <TextField.ClearButton visibility='onPopulated' className={styles.clearButton}>
+      <TextField.ClearButton visibility='onPopulated'>
         <FilledIconButton
           color='white'
           size='medium'

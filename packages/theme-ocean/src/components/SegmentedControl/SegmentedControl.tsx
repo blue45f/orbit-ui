@@ -22,15 +22,15 @@ const SegmentedControlRoot = forwardRef<HTMLDivElement, SegmentedControlProps>((
   } = filterComponents(Children.toArray(children) as Awaited<ReactNode>[], SegmentedControlTab)
 
   return (
-    <TabItems ref={ref} {...rest} theme={{ ...vars.com.segmentedControl, ...theme }} alignment='top'>
-      <TabItems.ActiveIndicator height={50} withAnimation={false} />
+    <TabItems ref={ref} {...rest} theme={{ ...vars.com.segmentedControl, ...theme } as TabItemsProps['theme']}>
+      <TabItems.ActiveIndicator />
       {(segmentedControlTabs as ReactElement<ComponentProps<typeof TabItems.Tab>>[]).map((tab) => (
         <TabItems.Tab
           {...tab.props}
           ref={getReactElementRef(tab)}
           key={tab.props.value}
           height={50}
-          theme={{ ...tab.props.theme, hoveredFillColor: 'transparent' }}
+          theme={{ ...tab.props.theme }}
         >
           {tab}
         </TabItems.Tab>

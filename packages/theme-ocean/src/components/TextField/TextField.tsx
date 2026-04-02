@@ -103,7 +103,7 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>((props, re
       }}
     >
       <BaseTextField.Center>{children}</BaseTextField.Center>
-      <BaseTextField.ClearButton visibility='onFocused' className={styles.clearButton}>
+      <BaseTextField.ClearButton visibility='onFocused'>
         <FilledIconButton
           color='white'
           size='medium'

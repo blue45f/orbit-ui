@@ -13,7 +13,7 @@ const meta = {
   component: ScrollableTabGroup,
   tags: ['autodocs'],
   argTypes: {
-    onValueChange: { action: 'changed' },
+    onTabChange: { action: 'changed' },
   },
 } satisfies Meta<typeof ScrollableTabGroup>
 
@@ -22,12 +22,12 @@ type Story = StoryObj<typeof meta>
 
 export const 기본: Story = {
   args: {
-    defaultValue: 'tab4',
+    selectedIndex: 3,
   },
   argTypes: {
-    defaultValue: {
+    selectedIndex: {
       control: { type: 'select' },
-      options: ['tab1', 'tab2', 'tab3', 'tab4', 'tab5', 'tab6', 'tab7', 'tab8', 'tab9', 'tab10'],
+      options: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
     },
   },
   render: (args) => (
@@ -98,16 +98,16 @@ export const 기본: Story = {
 
 export const 제어: Story = {
   render: function Controlled(args) {
-    const [value, setValue] = useState('tab2')
+    const [selectedIndex, setSelectedIndex] = useState(1)
 
-    const handleValueChange = (newValue: string) => {
-      setValue(newValue)
-      args.onValueChange?.(newValue)
+    const handleTabChange = (newIndex: number) => {
+      setSelectedIndex(newIndex)
+      args.onTabChange?.(newIndex)
     }
 
     return (
       <div style={{ width: '320px', height: '700px', border: '1px solid #ccc' }}>
-        <ScrollableTabGroup {...args} value={value} onValueChange={handleValueChange}>
+        <ScrollableTabGroup {...args} selectedIndex={selectedIndex} onTabChange={handleTabChange}>
           <ScrollableTabGroup.ActiveIndicator />
           <ScrollableTabGroup.Tab value='tab1'>
             <ScrollableTabGroup.TabCenter>Tab 1</ScrollableTabGroup.TabCenter>
@@ -120,7 +120,7 @@ export const 제어: Story = {
           </ScrollableTabGroup.Tab>
         </ScrollableTabGroup>
 
-        <div style={{ fontSize: '14px', color: '#666' }}>Selected: {value}</div>
+        <div style={{ fontSize: '14px', color: '#666' }}>Selected index: {selectedIndex}</div>
       </div>
     )
   },

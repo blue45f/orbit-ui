@@ -1,7 +1,8 @@
 import { AwesomeIcon } from '@prism-ui/icons'
 import { Meta, StoryObj } from '@storybook/react'
+import React from 'react'
 
-import { Tab } from './Tab'
+import { Tab } from './TabItem'
 
 Tab.displayName = 'Tab'
 Tab.Leading.displayName = 'Tab.Leading'
@@ -25,7 +26,7 @@ export const 기본 = {
   args: {
     value: '기본탭',
   },
-  render: (args) => {
+  render: (args: React.ComponentProps<typeof Tab>) => {
     return (
       <Tab {...args}>
         <Tab.Leading>

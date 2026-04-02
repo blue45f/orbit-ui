@@ -1,11 +1,12 @@
 import { Flex } from '@prism-ui/core'
+import React from 'react'
 import type { Meta, StoryObj } from '@storybook/react'
 
 import { vars } from '../../styles'
 import { FilledButton as Button } from '../SolidButton'
 import { Typography } from '../Text'
 
-import { Dialog } from './Dialog'
+import { Dialog } from './Modal'
 
 const meta = {
   title: 'mint/Dialog',
@@ -21,7 +22,7 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 export const 기본: Story = {
-  render: (args) => (
+  render: (args: React.ComponentProps<typeof Dialog>) => (
     <Dialog {...args}>
       <Dialog.Trigger>
         <Button color='mint' size='medium'>

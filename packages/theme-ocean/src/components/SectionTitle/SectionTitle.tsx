@@ -8,6 +8,7 @@ import {
   polymorphic,
 } from '@prism-ui/core'
 import { IconPropsContext } from '@prism-ui/icons'
+import type { TypographyTheme } from '@prism-ui/core'
 import { Children, createElement } from 'react'
 
 import { vars } from '../../token'
@@ -30,7 +31,7 @@ const SectionTitleRoot = polymorphic<'div', 'div', SectionTitleOwnProps>((props,
   return (
     <ListNode ref={ref} theme={{ ...vars.com.listHeader, ...theme }} {...rest}>
       <ListNode.Center>
-        <ForcedTypographyStyle maxLines={1} theme={{ ...vars.com.listHeader }}>
+        <ForcedTypographyStyle maxLines={1} theme={vars.com.listHeader as Partial<TypographyTheme>}>
           <IconPropsContext.Provider value={{ size: '16px', forcedColor: vars.sem.color.foregroundQuaternary }}>
             {title}
           </IconPropsContext.Provider>
@@ -52,7 +53,7 @@ const SectionTitleTitle = polymorphic<
     const { as = 'div', children, ...rest } = props
 
     return (
-      <ForcedTypographyStyle maxLines={1} theme={{ ...vars.com.listHeader }}>
+      <ForcedTypographyStyle maxLines={1} theme={vars.com.listHeader as Partial<TypographyTheme>}>
         <Flex
           as={as as keyof React.JSX.IntrinsicElements}
           ref={ref}

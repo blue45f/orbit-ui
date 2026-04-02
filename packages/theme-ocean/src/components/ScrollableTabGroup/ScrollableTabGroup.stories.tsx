@@ -13,7 +13,7 @@ const meta = {
   component: ScrollableTabGroup,
   tags: ['autodocs'],
   argTypes: {
-    onValueChange: { action: 'changed' },
+    onTabChange: { action: 'changed' },
   },
 } satisfies Meta<typeof ScrollableTabGroup>
 

@@ -3,13 +3,17 @@ import React, { useEffect, useState } from 'react'
 
 import { PageIndicator } from './PageIndicator'
 
+/**
+ * Helper to generate dot children for PageIndicator.
+ * The core PageIndicator uses children (PageDots) to represent pages,
+ * with `currentPage` controlling which is selected.
+ */
+const generateDots = (count: number) =>
+  Array.from({ length: count }, (_, i) => <span key={i} />)
+
 const meta = {
   title: 'mint/PageIndicator',
   component: PageIndicator,
-  args: {
-    total: 5,
-    current: 0,
-  },
   argTypes: {
     onPageChange: { action: 'page changed' },
   },
@@ -21,63 +25,79 @@ export default meta
 
 export const 기본 = {
   render: function Basic({ onPageChange, ...rest }) {
-    const [current, setCurrent] = useState(0)
+    const [currentPage, setCurrentPage] = useState(0)
 
     return (
       <PageIndicator
         {...rest}
-        current={current}
-        onPageChange={(page) => {
+        currentPage={currentPage}
+        onPageChange={(page: number) => {
           onPageChange?.(page)
-          setCurrent(page)
+          setCurrentPage(page)
         }}
-      />
+      >
+        {generateDots(5)}
+      </PageIndicator>
     )
   },
 } satisfies Story
 
 export const 페이지_3개 = {
   render: function ThreePages() {
-    const [current, setCurrent] = useState(0)
+    const [currentPage, setCurrentPage] = useState(0)
 
-    return <PageIndicator total={3} current={current} onPageChange={setCurrent} />
+    return (
+      <PageIndicator currentPage={currentPage} onPageChange={setCurrentPage}>
+        {generateDots(3)}
+      </PageIndicator>
+    )
   },
 } satisfies Story
 
 export const 페이지_5개 = {
   render: function FivePages() {
-    const [current, setCurrent] = useState(0)
+    const [currentPage, setCurrentPage] = useState(0)
 
-    return <PageIndicator total={5} current={current} onPageChange={setCurrent} />
+    return (
+      <PageIndicator currentPage={currentPage} onPageChange={setCurrentPage}>
+        {generateDots(5)}
+      </PageIndicator>
+    )
   },
 } satisfies Story
 
 export const 페이지_10개 = {
   render: function TenPages() {
-    const [current, setCurrent] = useState(0)
+    const [currentPage, setCurrentPage] = useState(0)
 
-    return <PageIndicator total={10} current={current} onPageChange={setCurrent} />
+    return (
+      <PageIndicator currentPage={currentPage} onPageChange={setCurrentPage}>
+        {generateDots(10)}
+      </PageIndicator>
+    )
   },
 } satisfies Story
 
 export const 자동_페이징 = {
   render: function AutoPaging() {
-    const [current, setCurrent] = useState(0)
+    const [currentPage, setCurrentPage] = useState(0)
     const total = 5
 
     // Auto-advance page every second for demo
     React.useEffect(() => {
       const interval = setInterval(() => {
-        setCurrent((prev) => (prev + 1) % total)
+        setCurrentPage((prev) => (prev + 1) % total)
       }, 1000)
       return () => clearInterval(interval)
     }, [])
 
     return (
       <div>
-        <PageIndicator total={total} current={current} />
+        <PageIndicator currentPage={currentPage}>
+          {generateDots(total)}
+        </PageIndicator>
         <p style={{ marginTop: '16px', fontSize: '14px' }}>
-          페이지 {current + 1} / {total}
+          페이지 {currentPage + 1} / {total}
         </p>
       </div>
     )
@@ -86,7 +106,7 @@ export const 자동_페이징 = {
 
 export const 배경과_함께 = {
   render: function WithBackground() {
-    const [current, setCurrent] = useState(0)
+    const [currentPage, setCurrentPage] = useState(0)
 
     return (
       <div
@@ -96,7 +116,9 @@ export const 배경과_함께 = {
           borderRadius: '12px',
         }}
       >
-        <PageIndicator total={5} current={current} onPageChange={setCurrent} />
+        <PageIndicator currentPage={currentPage} onPageChange={setCurrentPage}>
+          {generateDots(5)}
+        </PageIndicator>
       </div>
     )
   },
@@ -104,33 +126,31 @@ export const 배경과_함께 = {
 
 export const 디자인_QA = {
   args: {
-    total: 5,
-    current: 0,
+    currentPage: 0,
   },
   argTypes: {
-    total: {
-      control: { type: 'range', min: 1, max: 10, step: 1 },
-    },
-    current: {
+    currentPage: {
       control: { type: 'range', min: 0, max: 9, step: 1 },
     },
   },
-  render: function Controlled({ current: currentProp, onPageChange, ...rest }) {
-    const [current, setCurrent] = useState(currentProp || 0)
+  render: function Controlled({ currentPage: currentPageProp, onPageChange, ...rest }) {
+    const [currentPage, setCurrentPage] = useState(currentPageProp || 0)
 
     useEffect(() => {
-      setCurrent(currentProp || 0)
-    }, [currentProp])
+      setCurrentPage(currentPageProp || 0)
+    }, [currentPageProp])
 
     return (
       <PageIndicator
         {...rest}
-        current={current}
-        onPageChange={(page) => {
+        currentPage={currentPage}
+        onPageChange={(page: number) => {
           onPageChange?.(page)
-          setCurrent(page)
+          setCurrentPage(page)
         }}
-      />
+      >
+        {generateDots(10)}
+      </PageIndicator>
     )
   },
 } satisfies Story

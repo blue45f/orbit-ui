@@ -1,54 +1,23 @@
 import { Meta } from '@storybook/react'
 
-import { TextStyleBaseSize, TextStyleTokenType } from '../../styles'
-import { vars } from '../../styles/theme.css'
-import { getColorTokenKeys, tokenKeysOf } from '../../styles/utils'
-import { ClayRoot, useClayRootContext } from '../primitives/ClayRoot'
 import { Flex } from '../primitives/Flex'
 
-import { ForcedTextStyle, Text } from './Text'
+import { ForcedBaseTextStyle, Text } from './Text'
 
 Text.displayName = 'Text'
 
-type ExtraProps = {
-  baseSize: TextStyleBaseSize
-}
-
-const meta: Meta<React.ComponentProps<typeof Text> & ExtraProps> = {
+const meta: Meta<React.ComponentProps<typeof Text>> = {
   title: 'internal/Text',
   component: Text,
   args: {
-    baseSize: 'medium',
-    textStyle: 'bodyLarge',
-    color: 'foregroundPrimary',
-    theme: {
-      textStyleLineHeight: undefined,
-      textStyleSize: undefined,
-      textStyleWeight: undefined,
-      textStyleTracking: undefined,
-      textStyleFace: undefined,
-    },
+    variant: 'body1',
     as: 'span',
     children: 'Children에 값을 입력하여, Text 컴포넌트의 텍스트를 확인해보세요.',
   },
   argTypes: {
-    baseSize: {
+    variant: {
       control: 'select',
-      options: ['xSmall', 'small', 'medium', 'large', 'xLarge', 'xxLarge', 'xxxLarge'],
-    },
-    textStyle: {
-      control: 'select',
-      options: [
-        'bodyLarge',
-        ...Object.keys(vars.sem.textStyle).map((key) => key.replace(/LineHeight|Size|Weight|Tracking|Face/g, '')),
-      ],
-    },
-    color: {
-      control: 'select',
-      options: [...tokenKeysOf('color', 'foreground'), ...getColorTokenKeys('palette'), ...getColorTokenKeys('state')],
-    },
-    maxLines: {
-      control: 'number',
+      options: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'body1', 'body2', 'caption', 'overline'],
     },
     as: {
       control: 'select',
@@ -63,61 +32,46 @@ const meta: Meta<React.ComponentProps<typeof Text> & ExtraProps> = {
 export default meta
 
 export const 기본 = {
-  render: function DefaultStory(args: React.ComponentProps<typeof Text> & ExtraProps): React.ReactElement {
-    const { baseSize, ...props } = args
-    const { ...rest } = useClayRootContext('Text')
-
+  render: function DefaultStory(args: React.ComponentProps<typeof Text>): React.ReactElement {
     return (
-      <ClayRoot {...rest} themeClass='' baseTextSize={baseSize}>
-        <div style={{ width: '300px' }}>
-          <Text {...props}>{props.children}</Text>
-        </div>
-      </ClayRoot>
+      <div style={{ width: '300px' }}>
+        <Text {...args}>{args.children}</Text>
+      </div>
     )
   },
 }
 
 export const 최대_줄_수_제한 = {
   args: {
-    maxLines: 1,
     children:
       '여러줄으로 넘어가야하지만 기본 값 기준 최대 1줄까지만 표기 되어야해요. 여러줄으로 넘어가야하지만 기본 값 기준 최대 1줄까지만 표기 되어야해요. 여러줄으로 넘어가야하지만 기본 값 기준 최대 1줄까지만 표기 되어야해요.',
   },
-  render: function MaxLinesStory(args: React.ComponentProps<typeof Text> & ExtraProps): React.ReactElement {
-    const { baseSize, ...props } = args
-    const { ...rest } = useClayRootContext('Text')
-
+  render: function MaxLinesStory(args: React.ComponentProps<typeof Text>): React.ReactElement {
     return (
-      <ClayRoot {...rest} themeClass='' baseTextSize={baseSize}>
-        <div style={{ width: '400px' }}>
-          <Text {...props}>{props.children}</Text>
-        </div>
-      </ClayRoot>
+      <div style={{ width: '400px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+        <Text {...args}>{args.children}</Text>
+      </div>
     )
   },
 }
 
 export const 스타일_상위_제어 = {
   args: {
-    maxLines: 2,
     children:
       '스타일이 고정되어 있어서 텍스트 스타일이 변경되지 않아요. 스타일이 고정되어 있어서 텍스트 스타일이 변경되지 않아요.',
   },
   render: function ForcedTypographyStyleStory(
-    args: React.ComponentProps<typeof Text> & ExtraProps,
+    args: React.ComponentProps<typeof Text>,
   ): React.ReactElement {
-    const { baseSize, ...props } = args
-    const { ...rest } = useClayRootContext('Text')
-
     return (
-      <ClayRoot {...rest} themeClass='' baseTextSize={baseSize}>
+      <>
         <p>Context Setting: textStyle=&apos;titleLarge&apos; color=&apos;mint5&apos; maxLines=&#123;1&#125;</p>
-        <ForcedTextStyle textStyle='titleLarge' color='mint5' maxLines={1}>
+        <ForcedBaseTextStyle textStyle='titleLarge' color='mint5' maxLines={1}>
           <div style={{ width: '600px' }}>
-            <Text {...props}>{props.children}</Text>
+            <Text {...args}>{args.children}</Text>
           </div>
-        </ForcedTextStyle>
-      </ClayRoot>
+        </ForcedBaseTextStyle>
+      </>
     )
   },
 }
@@ -133,31 +87,23 @@ export const 디자인_QA = {
       control: 'text',
     },
   },
-  render: function DesignQA(args: React.ComponentProps<typeof Text> & ExtraProps): React.ReactElement {
-    const { baseSize, ...props } = args
-
-    const typographyStyles = Object.keys(vars.sem.textStyle)
-      .map((key) => key.replace(/LineHeight|Size|Weight|Tracking|Face/g, ''))
-      .filter((key, index, arr) => arr.indexOf(key) === index)
-
-    const { ...rest } = useClayRootContext('Text')
+  render: function DesignQA(args: React.ComponentProps<typeof Text>): React.ReactElement {
+    const variants = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'body1', 'body2', 'caption', 'overline'] as const
 
     return (
-      <ClayRoot {...rest} themeClass='' baseTextSize={baseSize}>
-        <Flex flexDirection='column' rowGap='20px'>
-          {typographyStyles.map((style) => (
-            <Text key={style} {...props} as={props.as} textStyle={style as TextStyleTokenType}>
-              {args.children ? (
-                <>
-                  {style}: {args.children}
-                </>
-              ) : (
-                style
-              )}
-            </Text>
-          ))}
-        </Flex>
-      </ClayRoot>
+      <Flex flexDirection='column' rowGap='20px'>
+        {variants.map((variant) => (
+          <Text key={variant} {...args} as={args.as} variant={variant}>
+            {args.children ? (
+              <>
+                {variant}: {args.children}
+              </>
+            ) : (
+              variant
+            )}
+          </Text>
+        ))}
+      </Flex>
     )
   },
 }

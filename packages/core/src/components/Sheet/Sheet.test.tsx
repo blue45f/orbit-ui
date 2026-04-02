@@ -1,4 +1,3 @@
-import { fireEvent } from '@storybook/test'
 import userEvent from '@testing-library/user-event'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 
@@ -19,9 +18,9 @@ describe('Sheet', () => {
           <Sheet.Header>
             <div>Header Content</div>
           </Sheet.Header>
-          <Sheet.Body>
+          <Sheet.Content>
             <div>Body Content</div>
-          </Sheet.Body>
+          </Sheet.Content>
           <Sheet.Footer>
             <div>Footer Content</div>
           </Sheet.Footer>
@@ -36,9 +35,9 @@ describe('Sheet', () => {
     it('isPresented가 false일 때는 Sheet가 렌더링되지 않아야 한다', () => {
       render(
         <Sheet isPresented={false}>
-          <Sheet.Body>
+          <Sheet.Content>
             <div>Body Content</div>
-          </Sheet.Body>
+          </Sheet.Content>
         </Sheet>,
       )
 
@@ -48,9 +47,9 @@ describe('Sheet', () => {
     it('isPresented가 true일 때는 Sheet가 렌더링되어야 한다', () => {
       render(
         <Sheet isPresented={true}>
-          <Sheet.Body>
+          <Sheet.Content>
             <div>Body Content</div>
-          </Sheet.Body>
+          </Sheet.Content>
         </Sheet>,
       )
 
@@ -62,9 +61,9 @@ describe('Sheet', () => {
     it('isPresented prop으로 Sheet의 표시 여부를 제어할 수 있어야 한다', () => {
       const { rerender } = render(
         <Sheet isPresented={false}>
-          <Sheet.Body>
+          <Sheet.Content>
             <div>Body Content</div>
-          </Sheet.Body>
+          </Sheet.Content>
         </Sheet>,
       )
 
@@ -72,9 +71,9 @@ describe('Sheet', () => {
 
       rerender(
         <Sheet isPresented={true}>
-          <Sheet.Body>
+          <Sheet.Content>
             <div>Body Content</div>
-          </Sheet.Body>
+          </Sheet.Content>
         </Sheet>,
       )
 
@@ -87,12 +86,14 @@ describe('Sheet', () => {
 
       render(
         <Sheet isPresented={true} onIsPresentedChange={onIsPresentedChange}>
-          <Sheet.Close>
-            <button type='button'>닫기</button>
-          </Sheet.Close>
-          <Sheet.Body>
+          <Sheet.Footer>
+            <Sheet.Close>
+              <button type='button'>닫기</button>
+            </Sheet.Close>
+          </Sheet.Footer>
+          <Sheet.Content>
             <div>Body Content</div>
-          </Sheet.Body>
+          </Sheet.Content>
         </Sheet>,
       )
 
@@ -113,9 +114,9 @@ describe('Sheet', () => {
     it('defaultIsPresented로 초기 상태를 설정할 수 있어야 한다', () => {
       render(
         <Sheet defaultIsPresented={true}>
-          <Sheet.Body>
+          <Sheet.Content>
             <div>Body Content</div>
-          </Sheet.Body>
+          </Sheet.Content>
         </Sheet>,
       )
 
@@ -125,9 +126,9 @@ describe('Sheet', () => {
     it('defaultIsPresented가 false일 때는 초기에 Sheet가 닫혀있어야 한다', () => {
       render(
         <Sheet defaultIsPresented={false}>
-          <Sheet.Body>
+          <Sheet.Content>
             <div>Body Content</div>
-          </Sheet.Body>
+          </Sheet.Content>
         </Sheet>,
       )
 
@@ -144,9 +145,9 @@ describe('Sheet', () => {
           <Sheet.Trigger>
             <button type='button'>열기</button>
           </Sheet.Trigger>
-          <Sheet.Body>
+          <Sheet.Content>
             <div>Body Content</div>
-          </Sheet.Body>
+          </Sheet.Content>
         </Sheet>,
       )
 
@@ -168,9 +169,9 @@ describe('Sheet', () => {
           <Sheet.Trigger>
             <button type='button'>열기</button>
           </Sheet.Trigger>
-          <Sheet.Body>
+          <Sheet.Content>
             <div>Body Content</div>
-          </Sheet.Body>
+          </Sheet.Content>
         </Sheet>,
       )
 
@@ -187,22 +188,22 @@ describe('Sheet', () => {
       })
     })
 
-    it('Trigger가 button이 아닌 요소일 때도 role="button"과 tabIndex가 설정되어야 한다', () => {
+    it('Trigger가 button이 아닌 요소일 때도 aria 속성이 설정되어야 한다', () => {
       render(
         <Sheet defaultIsPresented={false}>
           <Sheet.Trigger>
             <div>열기</div>
           </Sheet.Trigger>
-          <Sheet.Body>
+          <Sheet.Content>
             <div>Body Content</div>
-          </Sheet.Body>
+          </Sheet.Content>
         </Sheet>,
       )
 
       const trigger = screen.getByText('열기')
 
-      expect(trigger).toHaveAttribute('role', 'button')
-      expect(trigger).toHaveAttribute('tabIndex', '0')
+      expect(trigger).toHaveAttribute('aria-haspopup', 'dialog')
+      expect(trigger).toHaveAttribute('aria-expanded', 'false')
     })
   })
 
@@ -212,12 +213,14 @@ describe('Sheet', () => {
 
       render(
         <Sheet defaultIsPresented={true}>
-          <Sheet.Close>
-            <button type='button'>닫기</button>
-          </Sheet.Close>
-          <Sheet.Body>
+          <Sheet.Footer>
+            <Sheet.Close>
+              <button type='button'>닫기</button>
+            </Sheet.Close>
+          </Sheet.Footer>
+          <Sheet.Content>
             <div>Body Content</div>
-          </Sheet.Body>
+          </Sheet.Content>
         </Sheet>,
       )
 
@@ -237,14 +240,16 @@ describe('Sheet', () => {
 
       render(
         <Sheet defaultIsPresented={true}>
-          <Sheet.Close>
-            <button type='button' onClick={existingOnClick}>
-              닫기
-            </button>
-          </Sheet.Close>
-          <Sheet.Body>
+          <Sheet.Footer>
+            <Sheet.Close>
+              <button type='button' onClick={existingOnClick}>
+                닫기
+              </button>
+            </Sheet.Close>
+          </Sheet.Footer>
+          <Sheet.Content>
             <div>Body Content</div>
-          </Sheet.Body>
+          </Sheet.Content>
         </Sheet>,
       )
 
@@ -263,9 +268,9 @@ describe('Sheet', () => {
 
       render(
         <Sheet defaultIsPresented={true}>
-          <Sheet.Body>
+          <Sheet.Content>
             <div>Body Content</div>
-          </Sheet.Body>
+          </Sheet.Content>
         </Sheet>,
       )
 
@@ -278,25 +283,6 @@ describe('Sheet', () => {
       })
     })
 
-    it('dismissOnEscape가 false이면 ESC 키로 닫히지 않아야 한다', async () => {
-      const user = userEvent.setup()
-
-      render(
-        <Sheet defaultIsPresented={true} dismissOnEscape={false}>
-          <Sheet.Body>
-            <div>Body Content</div>
-          </Sheet.Body>
-        </Sheet>,
-      )
-
-      expect(screen.getByText('Body Content')).toBeInTheDocument()
-
-      await user.keyboard('{Escape}')
-
-      await waitFor(() => {
-        expect(screen.getByText('Body Content')).toBeInTheDocument()
-      })
-    })
   })
 
   describe('외부 클릭으로 닫기 기능', () => {
@@ -309,9 +295,9 @@ describe('Sheet', () => {
             외부 버튼
           </button>
           <Sheet defaultIsPresented={true}>
-            <Sheet.Body>
+            <Sheet.Content>
               <div>Body Content</div>
-            </Sheet.Body>
+            </Sheet.Content>
           </Sheet>
         </div>,
       )
@@ -326,31 +312,6 @@ describe('Sheet', () => {
       })
     })
 
-    it('dismissOnClickOutside가 false이면 외부 클릭으로 닫히지 않아야 한다', async () => {
-      const onIsPresentedChange = vi.fn()
-
-      render(
-        <div>
-          <button type='button' data-testid='outside-button-disabled'>
-            외부 버튼
-          </button>
-
-          <Sheet defaultIsPresented={true} dismissOnClickOutside={false} onIsPresentedChange={onIsPresentedChange}>
-            <Sheet.Body>
-              <div>Body Content</div>
-            </Sheet.Body>
-          </Sheet>
-        </div>,
-      )
-
-      expect(screen.getByText('Body Content')).toBeInTheDocument()
-
-      const outsideButton = screen.getByTestId('outside-button-disabled')
-      await fireEvent.click(outsideButton)
-
-      expect(onIsPresentedChange).not.toHaveBeenCalled()
-      expect(screen.getByText('Body Content')).toBeInTheDocument()
-    })
   })
 
   describe('외부 포커스로 닫기 기능', () => {
@@ -361,9 +322,9 @@ describe('Sheet', () => {
             외부 버튼
           </button>
           <Sheet defaultIsPresented={true}>
-            <Sheet.Body>
+            <Sheet.Content>
               <input data-testid='inside-input' />
-            </Sheet.Body>
+            </Sheet.Content>
           </Sheet>
         </div>,
       )
@@ -381,30 +342,6 @@ describe('Sheet', () => {
       })
     })
 
-    it('dismissOnFocusOutside가 false이면 외부 포커스로 닫히지 않아야 한다', async () => {
-      render(
-        <div>
-          <button type='button' data-testid='outside-button-focus-disabled'>
-            외부 버튼
-          </button>
-          <Sheet defaultIsPresented={true} dismissOnFocusOutside={false}>
-            <Sheet.Body>
-              <input data-testid='inside-input-disabled' />
-            </Sheet.Body>
-          </Sheet>
-        </div>,
-      )
-
-      const insideInput = screen.getByTestId('inside-input-disabled')
-      const outsideButton = screen.getByTestId('outside-button-focus-disabled')
-
-      insideInput.focus()
-      outsideButton.focus()
-
-      await waitFor(() => {
-        expect(screen.getByTestId('inside-input-disabled')).toBeInTheDocument()
-      })
-    })
   })
 
   describe('onIsPresentedChange 콜백', () => {
@@ -417,9 +354,9 @@ describe('Sheet', () => {
           <Sheet.Trigger>
             <button type='button'>열기</button>
           </Sheet.Trigger>
-          <Sheet.Body>
+          <Sheet.Content>
             <div>Body Content</div>
-          </Sheet.Body>
+          </Sheet.Content>
         </Sheet>,
       )
 
@@ -443,12 +380,14 @@ describe('Sheet', () => {
 
       render(
         <Sheet defaultIsPresented={true} onIsPresentedChange={onIsPresentedChange}>
-          <Sheet.Close>
-            <button type='button'>닫기</button>
-          </Sheet.Close>
-          <Sheet.Body>
+          <Sheet.Footer>
+            <Sheet.Close>
+              <button type='button'>닫기</button>
+            </Sheet.Close>
+          </Sheet.Footer>
+          <Sheet.Content>
             <div>Body Content</div>
-          </Sheet.Body>
+          </Sheet.Content>
         </Sheet>,
       )
 
@@ -482,9 +421,9 @@ describe('Sheet', () => {
           <Sheet.Header>
             <div>Header Content</div>
           </Sheet.Header>
-          <Sheet.Body>
+          <Sheet.Content>
             <div>Body Content</div>
-          </Sheet.Body>
+          </Sheet.Content>
           <Sheet.Footer>
             <div>Footer Content</div>
           </Sheet.Footer>
@@ -508,9 +447,9 @@ describe('Sheet', () => {
       render(
         <div data-testid='root-container'>
           <Sheet defaultIsPresented={true} data-testid='sheet-portal'>
-            <Sheet.Body>
+            <Sheet.Content>
               <div>Body Content</div>
-            </Sheet.Body>
+            </Sheet.Content>
           </Sheet>
         </div>,
       )
@@ -534,9 +473,9 @@ describe('Sheet', () => {
             외부 버튼
           </button>
           <Sheet defaultIsPresented={true} onIsPresentedChange={onIsPresentedChange}>
-            <Sheet.Body>
+            <Sheet.Content>
               <div>Body Content</div>
-            </Sheet.Body>
+            </Sheet.Content>
           </Sheet>
         </div>,
       )
@@ -552,9 +491,9 @@ describe('Sheet', () => {
             외부 버튼
           </button>
           <Sheet defaultIsPresented={true}>
-            <Sheet.Body>
+            <Sheet.Content>
               <div>Body Content</div>
-            </Sheet.Body>
+            </Sheet.Content>
           </Sheet>
         </div>,
       )

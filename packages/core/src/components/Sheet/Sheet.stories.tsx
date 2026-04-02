@@ -9,7 +9,7 @@ import { useResizable } from './Sheet.lib'
 
 Sheet.displayName = 'Sheet'
 Sheet.Header.displayName = 'SheetHeader'
-Sheet.Body.displayName = 'SheetBody'
+Sheet.Content.displayName = 'SheetContent'
 Sheet.Footer.displayName = 'SheetFooter'
 
 const meta = {
@@ -17,13 +17,6 @@ const meta = {
   component: Sheet,
   args: {
     isPresented: false,
-    as: 'div',
-  },
-  argTypes: {
-    as: {
-      control: 'select',
-      options: ['div', 'dialog', 'section'],
-    },
   },
 } satisfies Meta<typeof Sheet>
 
@@ -50,14 +43,14 @@ export const 제어 = {
           <Sheet.Header>
             <div style={{ padding: '20px' }}>Sheet Title</div>
           </Sheet.Header>
-          <Sheet.Body>
+          <Sheet.Content>
             <div style={{ padding: '20px' }}>
               <p>Body Content</p>
               <button type='button' onClick={() => setIsPresented(false)}>
                 닫기
               </button>
             </div>
-          </Sheet.Body>
+          </Sheet.Content>
           <Sheet.Footer>
             <div style={{ padding: '20px' }}>Footer Content</div>
           </Sheet.Footer>
@@ -78,14 +71,14 @@ export const 비제어 = {
           <Sheet.Header>
             <div style={{ padding: '20px' }}>Sheet Title</div>
           </Sheet.Header>
-          <Sheet.Body>
+          <Sheet.Content>
             <div style={{ padding: '20px' }}>
               <p>Body Content</p>
               <Sheet.Close>
                 <Button>닫기</Button>
               </Sheet.Close>
             </div>
-          </Sheet.Body>
+          </Sheet.Content>
           <Sheet.Footer>
             <div style={{ padding: '20px' }}>Footer Content</div>
           </Sheet.Footer>
@@ -105,8 +98,7 @@ export const 풀시트 = {
           defaultIsPresented={false}
           width='100%'
           height='100%'
-          radiusCorners='all'
-          theme={{ radius: 'none' }}
+          theme={{ radius: '0' }}
         >
           <Sheet.Trigger>
             <Button>열기</Button>
@@ -114,14 +106,14 @@ export const 풀시트 = {
           <Sheet.Header>
             <div style={{ padding: '20px' }}>Sheet Title</div>
           </Sheet.Header>
-          <Sheet.Body>
+          <Sheet.Content>
             <div style={{ padding: '20px' }}>
               <p>Body Content</p>
               <Sheet.Close>
                 <Button>닫기</Button>
               </Sheet.Close>
             </div>
-          </Sheet.Body>
+          </Sheet.Content>
           <Sheet.Footer>
             <div style={{ padding: '20px' }}>Footer Content</div>
           </Sheet.Footer>
@@ -141,10 +133,7 @@ export const 테마_변경 = {
           defaultIsPresented={false}
           width='50%'
           height='60%'
-          maxWidth='360px'
-          alignment='center'
-          radiusCorners='all'
-          theme={{ fillColor: 'blue', foregroundColor: 'yellow', gap: '30px', radius: '50px' }}
+          theme={{ fillColor: 'blue', foregroundColor: 'yellow', radius: '50px' }}
         >
           <Sheet.Trigger>
             <Button>열기</Button>
@@ -152,14 +141,14 @@ export const 테마_변경 = {
           <Sheet.Header>
             <div style={{ padding: '20px' }}>Sheet Title</div>
           </Sheet.Header>
-          <Sheet.Body>
+          <Sheet.Content>
             <div style={{ padding: '20px' }}>
               <p>Body Content</p>
               <Sheet.Close>
                 <Button>닫기</Button>
               </Sheet.Close>
             </div>
-          </Sheet.Body>
+          </Sheet.Content>
           <Sheet.Footer>
             <div style={{ padding: '20px' }}>Footer Content</div>
           </Sheet.Footer>
@@ -200,14 +189,18 @@ export const 크기조절 = {
             setIsPresented(params.newValue)
           }}
         >
-          <Sheet.Grabber ref={handleElementRef} />
+          <Sheet.Header>
+            <button type='button' ref={handleElementRef} style={{ width: '100%', cursor: 'grab', padding: '8px' }}>
+              ━━━
+            </button>
+          </Sheet.Header>
 
-          <Sheet.Body>
+          <Sheet.Content>
             <div style={{ padding: '20px' }}>
               <p>Body Content</p>
               <Button onClick={() => setIsPresented(false)}>닫기</Button>
             </div>
-          </Sheet.Body>
+          </Sheet.Content>
           <Sheet.Footer>
             <div style={{ padding: '20px' }}>Footer Content</div>
           </Sheet.Footer>
@@ -221,30 +214,20 @@ export const 디자인_QA = {
   // eslint-disable-next-line
   args: {
     isPresented: true,
-    alignment: 'end',
     width: '100%',
     height: 'fit-content',
-    maxWidth: '360px',
-    radiusCorners: 'top',
     fillColor: undefined,
     foregroundColor: undefined,
-    gap: undefined,
     radius: undefined,
-    showGrabber: true,
     showHeader: true,
-    showBody: true,
+    showContent: true,
     showFooter: true,
-    dismissOnEscape: false,
-    dismissOnClickOutside: false,
-    dismissOnFocusOutside: false,
   } as SheetProps & {
     fillColor?: string
     foregroundColor?: string
-    gap?: string
     radius?: string
-    showGrabber?: boolean
     showHeader?: boolean
-    showBody?: boolean
+    showContent?: boolean
     showFooter?: boolean
   },
   // eslint-disable-next-line
@@ -252,11 +235,6 @@ export const 디자인_QA = {
     isPresented: {
       control: 'boolean',
       description: 'Sheet 표시 여부',
-    },
-    alignment: {
-      control: 'select',
-      options: ['start', 'center', 'end'],
-      description: 'Sheet가 화면에서 노출될 위치',
     },
     width: {
       control: 'text',
@@ -266,15 +244,6 @@ export const 디자인_QA = {
       control: 'text',
       description: 'Sheet 높이',
     },
-    maxWidth: {
-      control: 'text',
-      description: '최대 너비 제한',
-    },
-    radiusCorners: {
-      control: 'select',
-      options: ['top', 'bottom', 'left', 'right', 'all', 'top-left', 'top-right', 'bottom-right', 'bottom-left'],
-      description: '모서리 곡선 적용 위치',
-    },
     fillColor: {
       control: 'color',
       description: '배경색',
@@ -283,41 +252,21 @@ export const 디자인_QA = {
       control: 'color',
       description: '전경색',
     },
-    gap: {
-      control: 'text',
-      description: '간격',
-    },
     radius: {
       control: 'text',
       description: '반지름',
-    },
-    showGrabber: {
-      control: 'boolean',
-      description: 'Grabber 표시 여부 (리사이즈 기능 포함)',
     },
     showHeader: {
       control: 'boolean',
       description: 'Header 표시 여부',
     },
-    showBody: {
+    showContent: {
       control: 'boolean',
-      description: 'Body 표시 여부',
+      description: 'Content 표시 여부',
     },
     showFooter: {
       control: 'boolean',
       description: 'Footer 표시 여부',
-    },
-    dismissOnEscape: {
-      control: 'boolean',
-      description: 'ESC 키로 닫힐지 여부',
-    },
-    dismissOnClickOutside: {
-      control: 'boolean',
-      description: '외부 영역 클릭 시 닫힐지 여부',
-    },
-    dismissOnFocusOutside: {
-      control: 'boolean',
-      description: '외부로 포커스 이동 시 닫힐지 여부',
     },
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } as any,
@@ -325,62 +274,27 @@ export const 디자인_QA = {
   render: function Story(args: any) {
     const {
       isPresented,
-      alignment,
       width,
       height,
-      maxWidth,
-      radiusCorners,
       fillColor,
       foregroundColor,
-      gap,
       radius,
-      showGrabber,
       showHeader,
-      showBody,
+      showContent,
       showFooter,
-      dismissOnEscape,
-      dismissOnClickOutside,
-      dismissOnFocusOutside,
     } = args
 
-    const containerRef = useRef<HTMLDivElement>(null)
-    const [sheetHeight, setSheetHeight] = useState<string | number | undefined>(height)
     const [isPresentedState, setIsPresentedState] = useState(isPresented)
 
     useEffect(() => {
       setIsPresentedState(isPresented)
     }, [isPresented])
 
-    useEffect(() => {
-      if (!showGrabber) {
-        setSheetHeight(height)
-      }
-    }, [height, showGrabber])
-
-    const { grabberElementRef: handleElementRef, containerElementRef } = useResizable<
-      HTMLButtonElement,
-      HTMLDivElement
-    >({
-      enabled: showGrabber,
-      breakpoints: [100, 75, 50, 25, 'HIDDEN'],
-      onChangeHeight: (heightPercent: number) => {
-        if (heightPercent === 0) {
-          setIsPresentedState(false)
-          return
-        }
-        setSheetHeight(`${heightPercent}%`)
-        if (containerRef.current) {
-          containerRef.current.style.height = `${heightPercent}%`
-        }
-      },
-    })
-
     const theme =
-      fillColor || foregroundColor || gap || radius
+      fillColor || foregroundColor || radius
         ? {
             ...(fillColor && { fillColor }),
             ...(foregroundColor && { foregroundColor }),
-            ...(gap && { gap }),
             ...(radius && { radius }),
           }
         : undefined
@@ -394,18 +308,10 @@ export const 디자인_QA = {
         <Sheet
           isPresented={isPresentedState}
           onIsPresentedChange={(params) => setIsPresentedState(params.newValue)}
-          alignment={alignment}
           width={width}
-          height={showGrabber ? sheetHeight : height}
-          maxWidth={maxWidth}
-          radiusCorners={radiusCorners}
+          height={height}
           theme={theme}
-          ref={showGrabber ? composeRefs(containerElementRef, containerRef) : undefined}
-          dismissOnEscape={dismissOnEscape}
-          dismissOnClickOutside={dismissOnClickOutside}
-          dismissOnFocusOutside={dismissOnFocusOutside}
         >
-          {showGrabber && <Sheet.Grabber ref={handleElementRef} />}
           {showHeader && (
             <Sheet.Header>
               <div
@@ -415,20 +321,15 @@ export const 디자인_QA = {
               </div>
             </Sheet.Header>
           )}
-          {showBody && (
-            <Sheet.Body>
+          {showContent && (
+            <Sheet.Content>
               <div style={{ padding: '20px', width: '100%', boxSizing: 'border-box' }}>
-                <p style={{ margin: '0 0 16px 0' }}>Sheet Body Content</p>
+                <p style={{ margin: '0 0 16px 0' }}>Sheet Content</p>
                 <p style={{ margin: '0 0 16px 0', fontSize: '14px', color: '#666' }}>
                   컨트롤을 통해 다양한 속성을 조절해보세요.
                 </p>
-                {showGrabber && (
-                  <p style={{ margin: '16px 0 0 0', fontSize: '12px', color: '#999' }}>
-                    💡 Grabber를 드래그하여 시트 크기를 조절할 수 있어요.
-                  </p>
-                )}
               </div>
-            </Sheet.Body>
+            </Sheet.Content>
           )}
           {showFooter && (
             <Sheet.Footer>

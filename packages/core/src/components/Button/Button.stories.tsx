@@ -1,7 +1,7 @@
 import { ChatLineIcon, MinusIcon } from '@prism-ui/icons'
 import { Meta, StoryObj } from '@storybook/react'
 
-import { InternalButtonRootType, Button, ButtonProps } from './Button'
+import { Button, ButtonProps } from './Button'
 
 Button.displayName = 'Button'
 Button.Leading.displayName = 'ButtonLeading'
@@ -11,7 +11,7 @@ Button.Loading.displayName = 'ButtonLoading'
 
 const meta = {
   title: 'foundation/Button',
-  component: Button as InternalButtonRootType,
+  component: Button,
   args: {
     disabled: false,
     loading: false,
@@ -28,7 +28,7 @@ const meta = {
       options: ['start', 'center', 'end', 'space-between', 'equal-weight'],
     },
   },
-} satisfies Meta<InternalButtonRootType>
+} satisfies Meta<typeof Button>
 
 type Story = StoryObj<typeof meta>
 
