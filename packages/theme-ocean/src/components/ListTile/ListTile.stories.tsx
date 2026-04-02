@@ -15,7 +15,7 @@ ListTile.Description.displayName = 'ListTile.Description'
 ListTile.Trailing.displayName = 'ListTile.Trailing'
 
 const meta = {
-  title: 'mint/Lists/ListTile',
+  title: 'ocean/Lists/ListTile',
   component: ListTile,
   parameters: {
     layout: 'centered',

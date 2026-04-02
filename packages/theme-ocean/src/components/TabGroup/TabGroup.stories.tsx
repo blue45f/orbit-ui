@@ -9,7 +9,7 @@ FixedTabs.TabCenter.displayName = 'FixedTabs.TabCenter'
 FixedTabs.TabTrailing.displayName = 'FixedTabs.TabTrailing'
 
 const meta = {
-  title: 'mint/Tabs/FixedTabs',
+  title: 'ocean/Tabs/FixedTabs',
   component: FixedTabs,
   tags: ['autodocs'],
 } satisfies Meta<typeof FixedTabs>
@@ -28,8 +28,8 @@ export const 기본 = {
         <FixedTabs.Tab value='foundation'>
           <FixedTabs.TabCenter>Foundation</FixedTabs.TabCenter>
         </FixedTabs.Tab>
-        <FixedTabs.Tab value='mint'>
-          <FixedTabs.TabCenter>Mint</FixedTabs.TabCenter>
+        <FixedTabs.Tab value='ocean'>
+          <FixedTabs.TabCenter>Ocean</FixedTabs.TabCenter>
         </FixedTabs.Tab>
       </FixedTabs>
     )

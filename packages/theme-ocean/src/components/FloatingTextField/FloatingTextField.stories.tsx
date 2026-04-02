@@ -5,7 +5,7 @@ import { useState } from 'react'
 import { FloatingTextField } from './FloatingTextField'
 
 const meta = {
-  title: 'mint/Text Fields/FloatingTextField',
+  title: 'ocean/Text Fields/FloatingTextField',
   component: FloatingTextField,
   parameters: {
     layout: 'centered',

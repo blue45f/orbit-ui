@@ -16,7 +16,7 @@ const iconSize: Record<SolidButtonProps['size'], number> = {
 }
 
 const meta = {
-  title: 'mint/Buttons/SolidButton',
+  title: 'ocean/Buttons/SolidButton',
   component: SolidButton,
   args: { color: 'black', size: 'medium', disabled: false },
   argTypes: {

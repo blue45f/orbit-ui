@@ -9,7 +9,7 @@ import { Typography } from '../Text'
 import { Dialog } from './Modal'
 
 const meta = {
-  title: 'mint/Dialog',
+  title: 'ocean/Dialog',
   component: Dialog,
   tags: ['autodocs'],
   args: {

@@ -8,7 +8,7 @@ import { RadioButtonWithLabel } from './RadioButtonWithLabel'
 RadioButtonWithLabel.displayName = 'RadioButtonWithLabel'
 
 const meta = {
-  title: 'mint/_Mold/RadioButtonWithLabel',
+  title: 'ocean/_Mold/RadioButtonWithLabel',
   component: RadioButtonWithLabel,
   args: {
     disabled: false,

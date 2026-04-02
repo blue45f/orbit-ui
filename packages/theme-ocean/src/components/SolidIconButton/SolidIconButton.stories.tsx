@@ -8,7 +8,7 @@ import { SolidIconButton } from '.'
 SolidIconButton.displayName = 'SolidIconButton'
 
 const meta = {
-  title: 'mint/Buttons/SolidIconButton',
+  title: 'ocean/Buttons/SolidIconButton',
   component: SolidIconButton,
   args: { color: 'black', size: 'medium', disabled: false },
   argTypes: {

@@ -14,7 +14,7 @@ import { AppBar as AppBarBase } from './AppBar'
 const AppBar = AppBarBase as typeof AppBarBase & React.FC<any>
 
 const meta = {
-  title: 'mint/AppBar',
+  title: 'ocean/AppBar',
   component: AppBar,
   decorators: [
     (Story) => {

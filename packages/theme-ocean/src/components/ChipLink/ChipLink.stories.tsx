@@ -8,7 +8,7 @@ ChipLink.displayName = 'ChipLink'
 ChipLink.Leading.displayName = 'ChipLink.Leading'
 
 const meta = {
-  title: 'mint/Chips/ChipLink',
+  title: 'ocean/Chips/ChipLink',
   component: ChipLink,
   args: {},
   argTypes: {

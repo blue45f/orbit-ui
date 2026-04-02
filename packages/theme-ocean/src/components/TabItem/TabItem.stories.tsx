@@ -10,7 +10,7 @@ Tab.Center.displayName = 'Tab.Center'
 Tab.Trailing.displayName = 'Tab.Trailing'
 
 const meta = {
-  title: 'mint/Tabs/Tab',
+  title: 'ocean/Tabs/Tab',
   component: Tab,
   tags: ['autodocs'],
   args: {

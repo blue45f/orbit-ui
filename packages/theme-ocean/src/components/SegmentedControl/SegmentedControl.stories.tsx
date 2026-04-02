@@ -10,7 +10,7 @@ SegmentedControl.TabCenter.displayName = 'SegmentedControl.TabCenter'
 SegmentedControl.TabTrailing.displayName = 'SegmentedControl.TabTrailing'
 
 const meta = {
-  title: 'mint/SegmentedControl',
+  title: 'ocean/SegmentedControl',
   component: SegmentedControl,
   tags: ['autodocs'],
 } satisfies Meta<typeof SegmentedControl>
@@ -29,8 +29,8 @@ export const 기본 = {
         <SegmentedControl.Tab value='foundation'>
           <SegmentedControl.TabCenter>Foundation</SegmentedControl.TabCenter>
         </SegmentedControl.Tab>
-        <SegmentedControl.Tab value='mint'>
-          <SegmentedControl.TabCenter>Mint</SegmentedControl.TabCenter>
+        <SegmentedControl.Tab value='ocean'>
+          <SegmentedControl.TabCenter>Ocean</SegmentedControl.TabCenter>
         </SegmentedControl.Tab>
       </SegmentedControl>
     )
@@ -63,8 +63,8 @@ export const 디자인_QA = {
   // eslint-disable-next-line
   render: ({ tabCount, hasLeading, hasCenter, hasTrailing, defaultValue, ...rest }: any) => {
     const tabs = Array.from({ length: tabCount || 3 }, (_, i) => {
-      const value = ['blue', 'foundation', 'mint', 'green'][i] || `tab${i}`
-      const label = ['Blue', 'Foundation', 'Mint', 'Green'][i] || `Tab ${i + 1}`
+      const value = ['blue', 'foundation', 'ocean', 'green'][i] || `tab${i}`
+      const label = ['Blue', 'Foundation', 'Ocean', 'Green'][i] || `Tab ${i + 1}`
 
       return (
         <SegmentedControl.Tab key={value} value={value}>

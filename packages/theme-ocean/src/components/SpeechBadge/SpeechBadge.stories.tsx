@@ -5,7 +5,7 @@ import { SpeechBadge } from './SpeechBadge'
 SpeechBadge.displayName = 'SpeechBadge'
 
 const meta = {
-  title: 'mint/Badges/SpeechBadge',
+  title: 'ocean/Badges/SpeechBadge',
   component: SpeechBadge,
   args: {},
   argTypes: {

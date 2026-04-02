@@ -6,7 +6,7 @@ import { BoxedCheckbox } from './BoxedCheckbox'
 BoxedCheckbox.displayName = 'BoxedCheckbox'
 
 const meta = {
-  title: 'mint/Checkbox/BoxedCheckbox',
+  title: 'ocean/Checkbox/BoxedCheckbox',
   component: BoxedCheckbox,
   args: {
     disabled: false,

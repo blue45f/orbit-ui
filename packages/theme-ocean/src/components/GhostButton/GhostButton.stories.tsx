@@ -15,7 +15,7 @@ GhostButton.Center.displayName = 'GhostButton.Center'
 GhostButton.Trailing.displayName = 'GhostButton.Trailing'
 
 const meta = {
-  title: 'mint/Buttons/GhostButton',
+  title: 'ocean/Buttons/GhostButton',
   component: GhostButton,
   args: { color: 'black', size: 'large', disabled: false },
   argTypes: {

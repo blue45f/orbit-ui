@@ -5,7 +5,7 @@ import { useState } from 'react'
 import { SearchBar } from './SearchBar'
 
 const meta = {
-  title: 'mint/Text Fields/SearchBar',
+  title: 'ocean/Text Fields/SearchBar',
   component: SearchBar,
   parameters: {
     layout: 'centered',

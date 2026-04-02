@@ -5,7 +5,7 @@ import { CounterBadge } from './CounterBadge'
 CounterBadge.displayName = 'CounterBadge'
 
 const meta = {
-  title: 'mint/Badges/CounterBadge',
+  title: 'ocean/Badges/CounterBadge',
   component: CounterBadge,
   args: {
     children: 99,

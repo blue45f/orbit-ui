@@ -6,7 +6,7 @@ import { Checkbox } from './Checkbox'
 Checkbox.displayName = 'Checkbox'
 
 const meta = {
-  title: 'mint/Checkbox/Checkbox',
+  title: 'ocean/Checkbox/Checkbox',
   component: Checkbox,
   args: {
     disabled: false,

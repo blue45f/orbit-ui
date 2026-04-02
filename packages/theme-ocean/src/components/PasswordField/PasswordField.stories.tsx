@@ -5,7 +5,7 @@ import { useState } from 'react'
 import { PasswordField } from './PasswordField'
 
 const meta = {
-  title: 'mint/Text Fields/PasswordField',
+  title: 'ocean/Text Fields/PasswordField',
   component: PasswordField,
   parameters: {
     layout: 'centered',

@@ -9,7 +9,7 @@ import { ForcedTextStyle, Text } from './Text'
 Text.displayName = 'Text'
 
 const meta = {
-  title: 'mint/Text',
+  title: 'ocean/Text',
   component: Text,
   args: {
     textStyle: 'bodyLarge',

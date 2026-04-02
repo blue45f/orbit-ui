@@ -26,7 +26,7 @@ export type SearchBarProps = Omit<Omit<TextFieldProps, keyof TextFieldSpecificPr
  * [🔗 figma 디자인가이드라인 바로가기](https://www.figma.com/design/nvbYsAN7MkMtI50gQpoWdk/-%EB%AF%BC%ED%8A%B8-2.0--%ED%81%B4%EB%A0%88%EC%9D%B4%EB%AF%BC%ED%8A%B8?node-id=3690-51255&m=dev)
  *
  * 검색어 입력을 위한 컴포넌트예요.
- * TextField를 재사용하며, mint theme의 Component Token이 적용되어 있어요.
+ * TextField를 재사용하며, ocean theme의 Component Token이 적용되어 있어요.
  * Leading에 SearchIcon이 자동으로 추가되고, Center와 ClearButton이 내장되어 있어요.
  *
  * @example

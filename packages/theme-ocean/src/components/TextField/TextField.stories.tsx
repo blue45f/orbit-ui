@@ -5,7 +5,7 @@ import { useState } from 'react'
 import { TextField } from './TextField'
 
 const meta = {
-  title: 'mint/Text Fields/TextField',
+  title: 'ocean/Text Fields/TextField',
   component: TextField,
   parameters: {
     layout: 'centered',

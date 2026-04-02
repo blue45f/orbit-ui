@@ -6,7 +6,7 @@ import { AnimatedBadge } from './AnimatedBadge'
 AnimatedBadge.displayName = 'AnimatedBadge'
 
 const meta = {
-  title: 'mint/Badges/AnimatedBadge',
+  title: 'ocean/Badges/AnimatedBadge',
   component: AnimatedBadge,
   args: {},
   argTypes: {

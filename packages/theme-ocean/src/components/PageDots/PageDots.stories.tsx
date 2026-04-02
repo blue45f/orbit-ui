@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { PageDots } from './PageDots'
 
 const meta = {
-  title: 'mint/PageDots',
+  title: 'ocean/PageDots',
   component: PageDots,
   args: {
     selected: false,

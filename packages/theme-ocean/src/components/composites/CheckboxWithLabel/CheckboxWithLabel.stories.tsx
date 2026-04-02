@@ -6,7 +6,7 @@ import { CheckboxWithLabel } from './CheckboxWithLabel'
 CheckboxWithLabel.displayName = 'CheckboxWithLabel'
 
 const meta = {
-  title: 'mint/_Mold/CheckboxWithLabel',
+  title: 'ocean/_Mold/CheckboxWithLabel',
   component: CheckboxWithLabel,
   args: {
     disabled: false,

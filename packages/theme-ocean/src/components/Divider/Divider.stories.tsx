@@ -6,7 +6,7 @@ import { Divider } from './Divider'
 Divider.displayName = 'Divider'
 
 const meta = {
-  title: 'mint/Divider',
+  title: 'ocean/Divider',
   component: Divider,
   args: {
     orientation: 'horizontal',

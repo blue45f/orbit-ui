@@ -6,7 +6,7 @@ import { useState } from 'react'
 import { Dropdown } from './Dropdown'
 
 const meta = {
-  title: 'mint/Dropdown',
+  title: 'ocean/Dropdown',
   component: Dropdown,
   parameters: {
     layout: 'centered',

@@ -6,7 +6,7 @@ import { BoxedCheckboxWithLabel } from './BoxedCheckboxWithLabel'
 BoxedCheckboxWithLabel.displayName = 'BoxedCheckboxWithLabel'
 
 const meta = {
-  title: 'mint/_Mold/BoxedCheckboxWithLabel',
+  title: 'ocean/_Mold/BoxedCheckboxWithLabel',
   component: BoxedCheckboxWithLabel,
   args: {
     disabled: false,

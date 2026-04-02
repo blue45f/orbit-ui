@@ -9,7 +9,7 @@ import { OutlinedIconButton } from '../OutlineIconButton'
 import { Toast } from './Toast'
 
 const meta = {
-  title: 'mint/Toast',
+  title: 'ocean/Toast',
   component: Toast,
   tags: ['autodocs'],
   args: {

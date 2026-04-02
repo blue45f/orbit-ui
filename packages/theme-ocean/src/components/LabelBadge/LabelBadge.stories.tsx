@@ -6,7 +6,7 @@ import { LabelBadge } from './LabelBadge'
 LabelBadge.displayName = 'LabelBadge'
 
 const meta = {
-  title: 'mint/Badges/LabelBadge',
+  title: 'ocean/Badges/LabelBadge',
   component: LabelBadge,
   args: {},
   argTypes: {

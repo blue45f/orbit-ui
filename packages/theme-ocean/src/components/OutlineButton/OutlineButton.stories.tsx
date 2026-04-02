@@ -16,7 +16,7 @@ OutlineButton.Center.displayName = 'OutlineButton.Center'
 OutlineButton.Trailing.displayName = 'OutlineButton.Trailing'
 
 const meta = {
-  title: 'mint/Buttons/OutlineButton',
+  title: 'ocean/Buttons/OutlineButton',
   component: OutlineButton,
   args: { color: 'black', size: 'medium', disabled: false },
   argTypes: {

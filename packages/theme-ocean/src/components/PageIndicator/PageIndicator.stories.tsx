@@ -12,7 +12,7 @@ const generateDots = (count: number) =>
   Array.from({ length: count }, (_, i) => <span key={i} />)
 
 const meta = {
-  title: 'mint/PageIndicator',
+  title: 'ocean/PageIndicator',
   component: PageIndicator,
   argTypes: {
     onPageChange: { action: 'page changed' },

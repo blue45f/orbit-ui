@@ -5,7 +5,7 @@ import { Toggle } from './Toggle'
 Toggle.displayName = 'Toggle'
 
 const meta = {
-  title: 'mint/Toggle',
+  title: 'ocean/Toggle',
   component: Toggle,
   args: {},
   argTypes: {

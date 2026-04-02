@@ -9,7 +9,7 @@ ScrollableTabGroup.TabCenter.displayName = 'ScrollableTabGroup.TabCenter'
 ScrollableTabGroup.TabTrailing.displayName = 'ScrollableTabGroup.TabTrailing'
 
 const meta = {
-  title: 'mint/Tabs/ScrollableTabGroup',
+  title: 'ocean/Tabs/ScrollableTabGroup',
   component: ScrollableTabGroup,
   tags: ['autodocs'],
   argTypes: {

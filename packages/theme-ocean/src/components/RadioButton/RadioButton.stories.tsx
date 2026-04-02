@@ -7,7 +7,7 @@ import { RadioButton } from './RadioButton'
 RadioButton.displayName = 'RadioButton'
 
 const meta = {
-  title: 'mint/RadioButton',
+  title: 'ocean/RadioButton',
   component: RadioButton,
   args: {
     disabled: false,

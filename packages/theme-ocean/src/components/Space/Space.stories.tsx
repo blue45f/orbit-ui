@@ -11,7 +11,7 @@ Space.displayName = 'Space'
 const spacingKeys = Object.keys(vars.ref.spacing) as Spacing[]
 
 const meta = {
-  title: 'mint/Space',
+  title: 'ocean/Space',
   component: Space,
   args: {},
   argTypes: {
