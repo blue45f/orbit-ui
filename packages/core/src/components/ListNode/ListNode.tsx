@@ -71,7 +71,7 @@ const InternalListNodeRoot = forwardRef<HTMLElement, ListNodeProps>((props, ref)
   const {
     isFocused,
     ref: selfRef,
-    ...handlers
+    handlers,
   } = useFocus<HTMLElement>({
     onFocus,
     onBlur,

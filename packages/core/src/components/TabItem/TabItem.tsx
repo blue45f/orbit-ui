@@ -65,7 +65,7 @@ const InternalTabItemRoot = forwardRef<HTMLButtonElement, TabItemProps>((props, 
   const {
     isFocused,
     ref: selfRef,
-    ...handlers
+    handlers,
   } = useFocus<HTMLButtonElement>({
     onFocus,
     onBlur,

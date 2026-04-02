@@ -76,7 +76,7 @@ export const PageDots = forwardRef<HTMLButtonElement, PageDotsProps>((props, ref
   const {
     isFocused,
     ref: selfRef,
-    ...handlers
+    handlers,
   } = useFocus<HTMLButtonElement>({
     onFocus,
     onBlur,

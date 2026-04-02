@@ -110,7 +110,7 @@ const InternalTextFieldWithLabelAnimationRoot = forwardRef<HTMLInputElement, Tex
       focusElement,
       preventElementBlur,
       ref: selfRef,
-      ...handlers
+      handlers,
     } = useFocus<HTMLInputElement>({
       onFocus,
       onBlur,

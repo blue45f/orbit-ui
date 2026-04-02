@@ -105,7 +105,7 @@ const ToggleRoot = forwardRef<HTMLInputElement, ToggleProps>((props, ref) => {
   const {
     isFocused,
     ref: selfRef,
-    ...handlers
+    handlers,
   } = useFocus<HTMLInputElement>({
     onFocus,
     onBlur,

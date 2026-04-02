@@ -27,8 +27,8 @@ export type StyleProtectedAsChainingProps<
   T extends React.ElementType,
   Element extends React.ElementType,
   DefaultElement extends React.ElementType,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
 > =
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   T extends React.ComponentType<any>
     ? StyleProtectedAsProps<T>
     : T extends Element

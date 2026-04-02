@@ -11,19 +11,23 @@ type UseFocusReturnValue<T extends HTMLElement> = {
   ref: RefObject<T>
   focusElement: () => void
   preventElementBlur: MouseEventHandler<HTMLOrSVGElement>
-} & Pick<UseFocusParameters<T>, 'onFocus' | 'onBlur'>
+  /** DOM-safe handlers (only onFocus/onBlur). Safe to spread onto elements. */
+  handlers: Pick<UseFocusParameters<T>, 'onFocus' | 'onBlur'>
+  onFocus: FocusEventHandler<T>
+  onBlur: FocusEventHandler<T>
+}
 
 export const useFocus = <T extends HTMLElement>(params: UseFocusParameters<T>): UseFocusReturnValue<T> => {
   const ref = useRef<T>(null)
   const [isFocused, setIsFocused] = useState(false)
 
-  const onFocus: UseFocusParameters<T>['onFocus'] = (e) => {
+  const onFocus: FocusEventHandler<T> = (e) => {
     if (params?.disabled) return
     setIsFocused(true)
     params.onFocus?.(e)
   }
 
-  const onBlur: UseFocusParameters<T>['onBlur'] = (e) => {
+  const onBlur: FocusEventHandler<T> = (e) => {
     setIsFocused(false)
     params.onBlur?.(e)
   }
@@ -38,5 +42,14 @@ export const useFocus = <T extends HTMLElement>(params: UseFocusParameters<T>): 
       e.preventDefault()
     }
   }
-  return { isFocused, onFocus, onBlur, focusElement, ref: ref as RefObject<T>, preventElementBlur }
+
+  return {
+    isFocused,
+    onFocus,
+    onBlur,
+    focusElement,
+    ref: ref as RefObject<T>,
+    preventElementBlur,
+    handlers: { onFocus, onBlur },
+  }
 }

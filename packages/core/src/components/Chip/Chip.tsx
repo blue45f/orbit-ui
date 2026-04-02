@@ -100,7 +100,7 @@ const ChipRoot = forwardRef<HTMLButtonElement | HTMLAnchorElement, ChipProps>((p
   const {
     isFocused,
     ref: selfRef,
-    ...handlers
+    handlers,
   } = useFocus<HTMLButtonElement | HTMLAnchorElement>({
     onFocus: onFocus as React.FocusEventHandler<HTMLButtonElement | HTMLAnchorElement>,
     onBlur: onBlur as React.FocusEventHandler<HTMLButtonElement | HTMLAnchorElement>,

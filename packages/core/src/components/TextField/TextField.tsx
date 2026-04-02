@@ -120,7 +120,7 @@ const InternalTextFieldRoot = forwardRef<HTMLElement, TextFieldPropsWithAs>((pro
     focusElement,
     preventElementBlur,
     ref: selfRef,
-    ...handlers
+    handlers,
   } = useFocus<HTMLInputElement | HTMLTextAreaElement>({
     onFocus,
     onBlur,

@@ -54,7 +54,7 @@ export const Spinner: React.FC<SpinnerProps> = ({
       .then(({ default: json }) => {
         setAnimationData(json)
       })
-      .catch((err) => console.log(err))
+      .catch((err) => console.error(err))
   }, [color])
 
   if (!animationData) return null

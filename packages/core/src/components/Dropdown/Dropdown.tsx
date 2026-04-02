@@ -83,7 +83,7 @@ const InternalDropdownRoot = forwardRef<HTMLButtonElement, DropdownPropsWithRest
   const {
     isFocused,
     ref: selfRef,
-    ...handlers
+    handlers,
   } = useFocus<HTMLButtonElement>({
     onFocus,
     onBlur,

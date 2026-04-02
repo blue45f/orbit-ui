@@ -89,7 +89,7 @@ export const RadioButtonRoot = forwardRef<HTMLInputElement, RadioButtonProps>((p
   const {
     isFocused,
     ref: selfRef,
-    ...handlers
+    handlers,
   } = useFocus<HTMLInputElement>({
     onFocus,
     onBlur,

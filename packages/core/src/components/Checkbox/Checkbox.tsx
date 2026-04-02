@@ -107,7 +107,7 @@ const CheckboxRoot = forwardRef<HTMLInputElement, CheckboxProps>((props, ref) =>
   const {
     isFocused,
     ref: selfRef,
-    ...handlers
+    handlers,
   } = useFocus<HTMLInputElement>({
     onFocus,
     onBlur,

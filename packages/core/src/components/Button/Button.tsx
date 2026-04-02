@@ -105,7 +105,7 @@ const InternalButtonRoot = forwardRef<HTMLButtonElement | HTMLAnchorElement, But
 
     const a11y = useButtonA11y({ disabled, loading: loadingProp })
 
-    const { isFocused, ref: selfRef, ...handlers } = useFocus<HTMLButtonElement>({
+    const { isFocused, ref: selfRef, handlers } = useFocus<HTMLButtonElement>({
       onFocus,
       onBlur,
       disabled,
@@ -149,12 +149,14 @@ const InternalButtonRoot = forwardRef<HTMLButtonElement | HTMLAnchorElement, But
     return (
       <ButtonContext disabled={disabled} loading={loadingProp}>
         <Component
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           ref={refs as any}
           className={className}
           style={style}
           data-loading={loadingProp}
           {...rest}
           {...a11y}
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           {...(handlers as any)}
         >
           {/* Content */}
