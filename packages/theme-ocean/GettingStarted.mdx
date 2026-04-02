@@ -1,59 +1,80 @@
-import { Meta, Markdown } from '@storybook/blocks'
+import { Meta } from '@storybook/blocks'
 
 <Meta title='intro/시작하기' />
 
 # Getting Started
 
+Prism UI Ocean 테마를 프로젝트에 적용하는 방법을 안내합니다.
+
 <br />
 
 ## 1. 패키지 설치하기
 
-사용하시는 패키지 매니저를 통해, Ocean 테마 `@prism-ui/themes` 패키지를 설치해주세요.
+패키지 매니저를 통해 `@prism-ui/theme-ocean` 패키지를 설치해주세요.
 
 ```bash
-pnpm add @prism-ui/themes
+pnpm add @prism-ui/theme-ocean
 ```
 
 ```bash
-npm install @prism-ui/themes
+npm install @prism-ui/theme-ocean
 ```
 
 ```bash
-yarn add @prism-ui/themes
+yarn add @prism-ui/theme-ocean
+```
+
+아이콘을 사용하려면 `@prism-ui/icons`도 함께 설치해주세요.
+
+```bash
+pnpm add @prism-ui/icons
 ```
 
 <br />
 
 ## 2. 환경 설정하기
 
-1. 프로젝트 최상단에 `OceanRoot`를 적용해주세요
-2. Ocean 테마의 스타일을 사용하기 위해 `CSS` 파일을 import 해주세요.
+프로젝트 최상단에 `OceanProvider`를 적용하고, 스타일 CSS를 import 해주세요.
 
 ```tsx
-import { OceanRoot } from '@prism-ui/themes'
-import '@prism-ui/themes/style.css' // <--- 스타일 import ✅
+import { OceanProvider } from '@prism-ui/theme-ocean'
+import '@prism-ui/theme-ocean/style.css'
 
 function MyApp() {
   return (
-    <OceanRoot>
+    <OceanProvider>
       <AppComponents />
-    </OceanRoot>
+    </OceanProvider>
   )
 }
 ```
 
-#### Server Side Rendering 가이드
+### OceanProvider 옵션
 
-Next.js 등의 `SSR`을 사용하시는 경우에는, 깜빡임을 방지하기 위해 아래처럼 html `<body>`태그의 `className` 속성에 `getTheme()` 으로 불러온 문자열을 삽입해주세요.
+| Prop | 타입 | 기본값 | 설명 |
+|------|------|--------|------|
+| `mode` | `'light' \| 'dark'` | `'light'` | 테마 모드 |
+| `baseTextSize` | `'small' \| 'medium' \| 'large'` | `'medium'` | 기본 텍스트 크기 |
 
-> ##### Next.js SSR 예시
+```tsx
+<OceanProvider mode="dark" baseTextSize="medium">
+  <App />
+</OceanProvider>
+```
+
+<br />
+
+### Server Side Rendering (Next.js)
+
+SSR 환경에서는 초기 렌더링 시 깜빡임을 방지하기 위해 `getTheme()`을 사용해주세요.
+
+#### Next.js Pages Router
 
 ```tsx
 // _document.tsx
+import { getTheme } from '@prism-ui/theme-ocean/server'
 
-import { getTheme } from '@prism-ui/themes/server'
-
-export default function Document(): JSX.Element {
+export default function Document() {
   return (
     <Html lang='ko'>
       <Head />
@@ -66,21 +87,21 @@ export default function Document(): JSX.Element {
 }
 
 // _app.tsx
-
-import '@prism-ui/themes/style.css' // <--- 스타일 import ✅
+import '@prism-ui/theme-ocean/style.css'
 ```
 
-> ##### Next 13 App Directory 예시
+#### Next.js App Router
 
 ```tsx
-import { getTheme } from '@prism-ui/themes/server'
-import '@prism-ui/themes/style.css' // <--- 스타일 import ✅
+// app/layout.tsx
+import { getTheme } from '@prism-ui/theme-ocean/server'
+import '@prism-ui/theme-ocean/style.css'
 
-const RootLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang='ko'>
       <body className={getTheme()}>
-        <LayoutRegistry>{children}</LayoutRegistry>
+        {children}
       </body>
     </html>
   )
@@ -91,83 +112,122 @@ const RootLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 
 ## 3. 컴포넌트 사용하기
 
-#### 🙋🏻 지금 어떤 컴포넌트를 쓸 수 있나요?
-
-사용 가능한 컴포넌트 목록은 [index.ts 파일](https://git.claykit.in/common-fe/system/claykithan-prism-ui/component/-/blob/main/packages/mint/src/index.ts) 에서 확인할 수 있어요.
-
-- `unstable_` 접두사가 붙은 컴포넌트는 구현 또는 디자인 QA 진행 중이므로 사용에 유의해주세요.
+모든 컴포넌트는 `@prism-ui/theme-ocean`에서 import 합니다.
 
 ```tsx
-import { unstable_Component as Component } from '@prism-ui/themes'
+import { SolidButton, TextField, Toggle } from '@prism-ui/theme-ocean'
+
+function MyForm() {
+  return (
+    <div>
+      <TextField placeholder="이름을 입력하세요" />
+      <Toggle />
+      <SolidButton>제출</SolidButton>
+    </div>
+  )
+}
 ```
 
-#### 🍒 아이콘 사용하기 [(목록 바로가기)](/docs/intro-아이콘-카탈로그--docs)
+### 사용 가능한 컴포넌트
 
-아이콘은 별도 엔트리 포인트로 분리되어 있어요. 아이콘을 사용하려면 다음과 같은 경로로 아이콘을 import 해주세요.
+| 카테고리 | 컴포넌트 |
+|----------|----------|
+| **버튼** | `SolidButton`, `OutlineButton`, `GhostButton`, `SolidIconButton`, `OutlineIconButton` |
+| **입력** | `TextField`, `FloatingTextField`, `PasswordField`, `TextArea`, `SearchBar`, `Toggle`, `Checkbox`, `BoxedCheckbox`, `RadioButton` |
+| **선택** | `Dropdown`, `TabGroup`, `TabItem`, `ScrollableTabGroup`, `SegmentedControl` |
+| **피드백** | `Toast`, `Modal`, `AlertDialog` |
+| **뱃지** | `AnimatedBadge`, `CounterBadge`, `LabelBadge`, `SpeechBadge` |
+| **레이아웃** | `AppBar`, `Divider`, `Space`, `ListTile`, `SectionTitle` |
+| **페이지네이션** | `PageIndicator`, `PageNumber`, `PageDots` |
+| **기타** | `Chip`, `ChipLink`, `Text` |
+
+<br />
+
+## 4. 아이콘 사용하기
+
+아이콘은 `@prism-ui/icons` 패키지에서 import 합니다. [(아이콘 카탈로그 바로가기)](/docs/intro-아이콘-카탈로그--docs)
 
 ```tsx
-import { BellIcon } from '@prism-ui/themes/icons'
+import { BellIcon, SearchIcon, ChevronRightLineIcon } from '@prism-ui/icons'
+
+function MyComponent() {
+  return (
+    <SolidButton>
+      <SolidButton.Leading><BellIcon /></SolidButton.Leading>
+      <SolidButton.Center>알림</SolidButton.Center>
+    </SolidButton>
+  )
+}
 ```
 
 <br />
 
-## 4. 디자인 토큰 사용하기
+## 5. 디자인 토큰 사용하기
 
-#### 🙋🏻 디자인 토큰을 직접 사용하는 방법이 있을까요?
+디자인 토큰은 `@prism-ui/theme-ocean/token`에서 가져옵니다. [(토큰 문서 바로가기)](/docs/intro-디자인-토큰--docs)
 
-디자인 토큰은 `@prism-ui/themes/token` 경로에서 확인할 수 있어요.
-
-- 디자인 토큰 값은 OceanRoot의 theme에 포함되어있는 CSS Variable이에요.
-
-##### 사용 예시
+토큰 값은 `OceanProvider` 내부에서 CSS Variable로 동작합니다.
 
 ```tsx
-import { vars } from '@prism-ui/themes/token'
+import { vars } from '@prism-ui/theme-ocean/token'
 
-// ✅ inline style
-const Component = () => {
-  return <div style={{ color: vars.sem.color.fg_brand_primary }}>텍스트</div>
-}
+// inline style에서 사용
+const MyComponent = () => (
+  <div style={{ color: vars.sem.color.foregroundPrimary }}>
+    텍스트
+  </div>
+)
 
-// ✅ CSS-in-JS
-const Root = styled.div`
-  color: ${vars.sem.color.fg_brand_primary};
+// CSS-in-JS에서 사용
+const StyledDiv = styled.div`
+  color: ${vars.sem.color.foregroundPrimary};
 `
-
-// ❌ JSX 속성에 사용 불가능 (ex. color, backgroundColor 속성)
-const Component = () => {
-  return <div color={vars.sem.color.fg_brand_primary}>속성에 사용이 어려워요.</div>
-}
 ```
 
 <br />
 
-## 5. 스토리북에서 코드 확인하기
+## 6. 스토리북에서 코드 확인하기
 
-#### 🙋🏻 스토리북에서 각 스토리에 구현한 코드를 확인할 수 있는 방법이 있을까요?
-
-방법1) 각 컴포넌트의 Docs 탭에서 `Show code` 버튼을 누르면, 해당 컴포넌트를 구현한 코드를 확인할 수 있어요.
-
-방법2) 스토리를 구성하기 위해 작성한 코드를 보고 싶다면, 각 스토리 페이지 하단의 `Code` 탭에서 확인할 수 있어요.
+- 각 컴포넌트의 **Docs** 탭에서 `Show code` 버튼을 누르면 구현 코드를 확인할 수 있어요.
+- 스토리 페이지 하단의 **Code** 탭에서 스토리 소스 코드를 볼 수 있어요.
+- **Controls** 패널에서 prop 값을 실시간으로 변경하며 테스트할 수 있어요.
 
 <br />
 
-## 6. FAQ
+## 7. FAQ
 
-#### 🙋🏻 font는 별도로 설치해서 사용해야하나요?
+### 폰트는 별도 설치가 필요한가요?
 
-모바일 웹뷰에서는 시스템 폰트를 사용하기 때문에 설치가 필요하지 않아요. 하지만 웹뷰가 아닌 환경에서는 [Pretendard](https://cactus.tistory.com/306) 폰트를 사용하기 때문에 별도 설치가 필요해요.
-
-Prism UI에서는 [Pretendard](https://cactus.tistory.com/306) 폰트 파일을 아래의 CDN 경로로 제공하고 있어요. (패키지 번들에는 폰트 파일이 없어요.)
+모바일 웹뷰에서는 시스템 폰트를 사용하므로 설치가 불필요합니다.
+웹뷰가 아닌 환경에서는 [Pretendard](https://cactus.tistory.com/306) 폰트를 권장합니다.
 
 ```css
-/* 운영 */
-@import url(https://prism-ui-assets.claykit.com/font/css/pretendard.css);
-
-/* 베타 */
-@import url(https://prism-ui-assets.betaclaykit.in/font/css/pretendard.css);
+@import url(https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.min.css);
 ```
 
-## 7. 이슈 제보
+### Compound Component 패턴이란?
 
-적용 중 이슈 발생 시 [#support-Prism UI](https://claykithan.slack.com/archives/C04K1GP099S) 슬랙 채널 워크플로우를 통해 문의해주세요. 🙂
+Prism UI의 많은 컴포넌트는 서브컴포넌트로 구성됩니다.
+
+```tsx
+<SolidButton>
+  <SolidButton.Leading><PlusIcon /></SolidButton.Leading>
+  <SolidButton.Center>추가</SolidButton.Center>
+  <SolidButton.Trailing><ChevronRightLineIcon /></SolidButton.Trailing>
+</SolidButton>
+```
+
+### TypeScript 지원
+
+모든 컴포넌트는 완전한 TypeScript 타입을 제공합니다.
+
+```tsx
+import type { SolidButtonProps, TextFieldProps } from '@prism-ui/theme-ocean'
+```
+
+<br />
+
+## 8. 이슈 및 기여
+
+- 이슈 제보: [GitHub Issues](https://github.com/prism-ui/prism-ui/issues)
+- 기여 가이드: [CONTRIBUTING.md](https://github.com/prism-ui/prism-ui/blob/main/CONTRIBUTING.md)

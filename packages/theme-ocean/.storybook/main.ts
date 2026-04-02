@@ -15,6 +15,9 @@ const config: StorybookConfig = {
     builder: getAbsolutePath('@storybook/builder-vite'),
   },
   framework: getAbsolutePath('@storybook/react-vite'),
+  docs: {
+    autodocs: 'tag',
+  },
 }
 
 function getAbsolutePath(value: string) {

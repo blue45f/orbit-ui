@@ -1,0 +1,53 @@
+import { Meta } from '@storybook/blocks'
+
+<Meta title='intro/소개' />
+
+# Prism UI - Ocean Theme
+
+**@prism-ui/theme-ocean** `v2.0.0-beta`
+
+Prism UI는 Figma 기반의 React 디자인 시스템 컴포넌트 라이브러리입니다. Ocean 테마는 Prism UI의 공식 테마 패키지로, 즉시 사용 가능한 스타일이 적용된 컴포넌트를 제공합니다.
+
+<br />
+
+## 아키텍처
+
+Prism UI는 3-tier 구조로 설계되어 있어요:
+
+| 계층 | 패키지 | 역할 |
+|------|--------|------|
+| **Base** | `@prism-ui/core` | 스타일이 없는 기본 컴포넌트 |
+| **Theme** | `@prism-ui/theme-ocean` | 디자인 토큰이 적용된 테마 컴포넌트 |
+| **Custom** | 프로젝트별 확장 | 프로젝트에 맞게 커스텀한 컴포넌트 |
+
+<br />
+
+## 패키지 구조
+
+```
+@prism-ui/theme-ocean        # Ocean 테마 컴포넌트
+@prism-ui/theme-ocean/token  # 디자인 토큰 (CSS Variables)
+@prism-ui/theme-ocean/server # SSR 유틸리티 (Next.js)
+@prism-ui/core               # Base 컴포넌트 (unstyled)
+@prism-ui/icons              # SVG 아이콘 컴포넌트
+```
+
+<br />
+
+## 주요 특징
+
+- **React 19** - 최신 React 지원 (React 18 호환)
+- **TypeScript** - 완전한 타입 지원
+- **Tailwind CSS + vanilla-extract** - 유연한 스타일링
+- **접근성(A11y)** - WAI-ARIA 패턴 준수
+- **다크 모드** - Light / Dark 테마 전환 지원
+- **SSR 지원** - Next.js App Router / Pages Router 호환
+
+<br />
+
+## 빠른 링크
+
+- [시작하기](/docs/intro-시작하기--docs) - 설치 및 환경 설정
+- [컴포넌트 목록](/docs/intro-컴포넌트-목록--docs) - 사용 가능한 전체 컴포넌트
+- [디자인 토큰](/docs/intro-디자인토큰--docs) - 토큰 사용법
+- [아이콘 카탈로그](/docs/intro-아이콘-카탈로그--docs) - 아이콘 목록
