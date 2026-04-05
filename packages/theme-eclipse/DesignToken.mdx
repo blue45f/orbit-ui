@@ -1,0 +1,39 @@
+import { Meta } from '@storybook/blocks'
+
+<Meta title="intro/디자인토큰" />
+
+# 디자인 토큰
+
+Eclipse 테마의 디자인 토큰은 `@orbit-ui/theme-eclipse/token`에서 사용할 수 있어요.
+
+<br />
+
+## 토큰 계층 구조
+
+```
+Reference Token  ->  Semantic Token  ->  Component Token
+   (원시 값)          (의미 기반)         (컴포넌트 전용)
+
+예시:
+colorBlue500  ->  fillPrimary  ->  buttonEnabledFill
+```
+
+<br />
+
+## 사용법
+
+```tsx
+import { vars } from '@orbit-ui/theme-eclipse/token'
+
+// inline style
+const Component = () => {
+  return <div style={{ color: vars.sem.color.fg_brand_primary }}>텍스트</div>
+}
+
+// CSS-in-JS
+const Root = styled.div`
+  color: ${vars.sem.color.fg_brand_primary};
+`
+```
+
+디자인 토큰 값은 `EclipseProvider`의 theme에 포함된 CSS Variable입니다. 반드시 `EclipseProvider` 하위에서 사용해주세요.

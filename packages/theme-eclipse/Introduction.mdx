@@ -1,0 +1,54 @@
+import { Meta } from '@storybook/blocks'
+
+<Meta title='intro/소개' />
+
+# Orbit UI - Eclipse Theme
+
+**@orbit-ui/theme-eclipse** `v2.0.0-beta`
+
+Orbit UI는 현대적인 웹 개발 환경을 위해 설계된 고성능 React 디자인 시스템 컴포넌트 라이브러리입니다. 
+Eclipse 테마는 Orbit UI의 공식 테마 패키지로, 우주적인 깊이감과 세련된 인터랙션을 제공합니다.
+
+<br />
+
+## 🪐 아키텍처
+
+Orbit UI는 **Headless & Tiered Architecture**를 지향합니다:
+
+| 계층 | 패키지 | 역할 | 핵심 기술 |
+|------|--------|------|-----------|
+| **Base** | `@orbit-ui/core` | unstyled, 접근성 중심 기능 | Radix UI, Headless UI |
+| **Theme** | `@orbit-ui/theme-eclipse` | 디자인 토큰 및 시각적 스타일링 | Tailwind CSS, vanilla-extract |
+| **Icons** | `@orbit-ui/icons` | SVG 아이콘 시스템 | React SVG |
+
+<br />
+
+## 📂 패키지 구조
+
+```
+@orbit-ui/theme-eclipse        # Eclipse 테마 컴포넌트
+@orbit-ui/theme-eclipse/token  # 디자인 토큰 (CSS Variables)
+@orbit-ui/theme-eclipse/server # SSR 유틸리티 (Next.js 지원)
+@orbit-ui/core               # Base 컴포넌트 (Headless)
+@orbit-ui/icons              # SVG 아이콘 컬렉션
+```
+
+<br />
+
+## ✨ 주요 특징
+
+- **React 19 Ready** - 최신 React 기능 및 서버 컴포넌트 지원
+- **Radix UI Primitives** - WAI-ARIA 표준을 준수하는 강력한 접근성
+- **Glassmorphism & Shadows** - 현대적이고 입체적인 시각 디자인 언어
+- **Smart Animation** - `framer-motion`과 `tailwindcss-animate`를 활용한 부드러운 전환
+- **Platform Optimized** - 모바일과 PC 환경에 최적화된 유연한 레이아웃
+- **Type Safety** - 100% TypeScript 기반의 견고한 개발 경험
+
+<br />
+
+## 🚀 빠른 링크
+
+- [시작하기](/docs/intro-시작하기--docs) - 설치 및 환경 설정 가이드
+- [컴포넌트 목록](/docs/intro-컴포넌트-목록--docs) - 시각적으로 정리된 컴포넌트 개요
+- [디자인 토큰](/docs/intro-디자인토큰--docs) - 시멘틱 토큰 및 시스템 변수 안내
+- [아이콘 카탈로그](/docs/intro-아이콘-카탈로그--docs) - 사용 가능한 아이콘 라이브러리

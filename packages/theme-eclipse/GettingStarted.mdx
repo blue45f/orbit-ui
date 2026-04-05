@@ -1,0 +1,233 @@
+import { Meta } from '@storybook/blocks'
+
+<Meta title='intro/시작하기' />
+
+# Getting Started
+
+Orbit UI Eclipse 테마를 프로젝트에 적용하는 방법을 안내합니다.
+
+<br />
+
+## 1. 패키지 설치하기
+
+패키지 매니저를 통해 `@orbit-ui/theme-eclipse` 패키지를 설치해주세요.
+
+```bash
+pnpm add @orbit-ui/theme-eclipse
+```
+
+```bash
+npm install @orbit-ui/theme-eclipse
+```
+
+```bash
+yarn add @orbit-ui/theme-eclipse
+```
+
+아이콘을 사용하려면 `@orbit-ui/icons`도 함께 설치해주세요.
+
+```bash
+pnpm add @orbit-ui/icons
+```
+
+<br />
+
+## 2. 환경 설정하기
+
+프로젝트 최상단에 `EclipseProvider`를 적용하고, 스타일 CSS를 import 해주세요.
+
+```tsx
+import { EclipseProvider } from '@orbit-ui/theme-eclipse'
+import '@orbit-ui/theme-eclipse/style.css'
+
+function MyApp() {
+  return (
+    <EclipseProvider>
+      <AppComponents />
+    </EclipseProvider>
+  )
+}
+```
+
+### EclipseProvider 옵션
+
+| Prop | 타입 | 기본값 | 설명 |
+|------|------|--------|------|
+| `mode` | `'light' \| 'dark'` | `'light'` | 테마 모드 |
+| `baseTextSize` | `'small' \| 'medium' \| 'large'` | `'medium'` | 기본 텍스트 크기 |
+
+```tsx
+<EclipseProvider mode="dark" baseTextSize="medium">
+  <App />
+</EclipseProvider>
+```
+
+<br />
+
+### Server Side Rendering (Next.js)
+
+SSR 환경에서는 초기 렌더링 시 깜빡임을 방지하기 위해 `getTheme()`을 사용해주세요.
+
+#### Next.js Pages Router
+
+```tsx
+// _document.tsx
+import { getTheme } from '@orbit-ui/theme-eclipse/server'
+
+export default function Document() {
+  return (
+    <Html lang='ko'>
+      <Head />
+      <body className={getTheme()}>
+        <Main />
+        <NextScript />
+      </body>
+    </Html>
+  )
+}
+
+// _app.tsx
+import '@orbit-ui/theme-eclipse/style.css'
+```
+
+#### Next.js App Router
+
+```tsx
+// app/layout.tsx
+import { getTheme } from '@orbit-ui/theme-eclipse/server'
+import '@orbit-ui/theme-eclipse/style.css'
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang='ko'>
+      <body className={getTheme()}>
+        {children}
+      </body>
+    </html>
+  )
+}
+```
+
+<br />
+
+## 3. 컴포넌트 사용하기
+
+모든 컴포넌트는 `@orbit-ui/theme-eclipse`에서 import 합니다.
+
+```tsx
+import { SolidButton, TextField, Toggle } from '@orbit-ui/theme-eclipse'
+
+function MyForm() {
+  return (
+    <div>
+      <TextField placeholder="이름을 입력하세요" />
+      <Toggle />
+      <SolidButton>제출</SolidButton>
+    </div>
+  )
+}
+```
+
+### 사용 가능한 컴포넌트
+
+| 카테고리 | 컴포넌트 |
+|----------|----------|
+| **버튼** | `SolidButton`, `OutlineButton`, `GhostButton`, `SolidIconButton`, `OutlineIconButton` |
+| **입력** | `TextField`, `FloatingTextField`, `PasswordField`, `TextArea`, `SearchBar`, `Toggle`, `Checkbox`, `BoxedCheckbox`, `RadioButton` |
+| **선택** | `Dropdown`, `TabGroup`, `TabItem`, `ScrollableTabGroup`, `SegmentedControl` |
+| **피드백** | `Toast`, `Modal`, `AlertDialog` |
+| **뱃지** | `AnimatedBadge`, `CounterBadge`, `LabelBadge`, `SpeechBadge` |
+| **레이아웃** | `AppBar`, `Divider`, `Space`, `ListTile`, `SectionTitle` |
+| **페이지네이션** | `PageIndicator`, `PageNumber`, `PageDots` |
+| **기타** | `Chip`, `ChipLink`, `Text` |
+
+<br />
+
+## 4. 아이콘 사용하기
+
+아이콘은 `@orbit-ui/icons` 패키지에서 import 합니다. [(아이콘 카탈로그 바로가기)](/docs/intro-아이콘-카탈로그--docs)
+
+```tsx
+import { BellIcon, SearchIcon, ChevronRightLineIcon } from '@orbit-ui/icons'
+
+function MyComponent() {
+  return (
+    <SolidButton>
+      <SolidButton.Leading><BellIcon /></SolidButton.Leading>
+      <SolidButton.Center>알림</SolidButton.Center>
+    </SolidButton>
+  )
+}
+```
+
+<br />
+
+## 5. 디자인 토큰 사용하기
+
+디자인 토큰은 `@orbit-ui/theme-eclipse/token`에서 가져옵니다. [(토큰 문서 바로가기)](/docs/intro-디자인-토큰--docs)
+
+토큰 값은 `EclipseProvider` 내부에서 CSS Variable로 동작합니다.
+
+```tsx
+import { vars } from '@orbit-ui/theme-eclipse/token'
+
+// inline style에서 사용
+const MyComponent = () => (
+  <div style={{ color: vars.sem.color.foregroundPrimary }}>
+    텍스트
+  </div>
+)
+
+// CSS-in-JS에서 사용
+const StyledDiv = styled.div`
+  color: ${vars.sem.color.foregroundPrimary};
+`
+```
+
+<br />
+
+## 6. 스토리북에서 코드 확인하기
+
+- 각 컴포넌트의 **Docs** 탭에서 `Show code` 버튼을 누르면 구현 코드를 확인할 수 있어요.
+- 스토리 페이지 하단의 **Code** 탭에서 스토리 소스 코드를 볼 수 있어요.
+- **Controls** 패널에서 prop 값을 실시간으로 변경하며 테스트할 수 있어요.
+
+<br />
+
+## 7. FAQ
+
+### 폰트는 별도 설치가 필요한가요?
+
+모바일 웹뷰에서는 시스템 폰트를 사용하므로 설치가 불필요합니다.
+웹뷰가 아닌 환경에서는 [Pretendard](https://cactus.tistory.com/306) 폰트를 권장합니다.
+
+```css
+@import url(https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.min.css);
+```
+
+### Compound Component 패턴이란?
+
+Orbit UI의 많은 컴포넌트는 서브컴포넌트로 구성됩니다.
+
+```tsx
+<SolidButton>
+  <SolidButton.Leading><PlusIcon /></SolidButton.Leading>
+  <SolidButton.Center>추가</SolidButton.Center>
+  <SolidButton.Trailing><ChevronRightLineIcon /></SolidButton.Trailing>
+</SolidButton>
+```
+
+### TypeScript 지원
+
+모든 컴포넌트는 완전한 TypeScript 타입을 제공합니다.
+
+```tsx
+import type { SolidButtonProps, TextFieldProps } from '@orbit-ui/theme-eclipse'
+```
+
+<br />
+
+## 8. 이슈 및 기여
+
+- 이슈 제보: [GitHub Issues](https://github.com/orbit-ui/orbit-ui/issues)
+- 기여 가이드: [CONTRIBUTING.md](https://github.com/orbit-ui/orbit-ui/blob/main/CONTRIBUTING.md)
