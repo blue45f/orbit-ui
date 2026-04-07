@@ -1,5 +1,5 @@
 /**
- * Test utilities for @prism-ui/core
+ * Test utilities for @orbit-ui/core
  */
 import { render, screen, cleanup } from '@testing-library/react'
 

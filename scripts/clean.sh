@@ -81,9 +81,7 @@ else
   UNIQUE_PATHS=$(for dir in "${HARDCODED_DIRS[@]}"; do
     find . -type d -name "$dir" -prune 2>/dev/null
   done | sort | filter_unique_paths)
-  # .turbo 디렉토리는 config.json을 제외하고 정리 대상에 포함
-  TURBO_PATH=$(find ".turbo" -mindepth 1 ! -path ".turbo/config.json" | sort | filter_unique_paths)
-  TARGET_PATHS="$UNIQUE_PATHS"$'\n'"$TURBO_PATH"
+  TARGET_PATHS="$UNIQUE_PATHS"
 
   # 삭제 혹은 dry-run
   while IFS= read -r path; do

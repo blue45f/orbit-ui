@@ -1,4 +1,4 @@
-import { CancelIcon, CheckIcon, MinusIcon } from '@prism-ui/icons'
+import { CancelIcon, CheckIcon, MinusIcon } from '@orbit-ui/icons'
 import { Meta, StoryObj } from '@storybook/react'
 import { useState } from 'react'
 
@@ -89,8 +89,8 @@ export const 복합_상호작용 = {
         Chip
         <Chip.Trailing size={20}>
           <button
-            type='button'
-            className='appearance-none bg-transparent border-0 p-0 m-0 cursor-pointer outline-none'
+            type="button"
+            className="appearance-none bg-transparent border-0 p-0 m-0 cursor-pointer outline-none"
             style={{ display: 'inline-flex' }}
             onClick={() => window.alert('trailing button clicked')}
           >

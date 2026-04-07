@@ -12,9 +12,9 @@ afterEach(() => {
 describe('AppBar', () => {
   test('Center만 있는 경우 정상적으로 렌더링된다.', () => {
     render(
-      <AppBar data-testid='navigation-bar'>
+      <AppBar data-testid="navigation-bar">
         <AppBar.Center>Hello, World!</AppBar.Center>
-      </AppBar>,
+      </AppBar>
     )
 
     expect(screen.getByTestId('navigation-bar')).toBeInTheDocument()
@@ -23,11 +23,11 @@ describe('AppBar', () => {
 
   test('Leading, Center, Trailing 모두 렌더링된다.', () => {
     render(
-      <AppBar data-testid='navigation-bar'>
+      <AppBar data-testid="navigation-bar">
         <AppBar.Leading>Leading</AppBar.Leading>
         <AppBar.Center>Center</AppBar.Center>
         <AppBar.Trailing>Trailing</AppBar.Trailing>
-      </AppBar>,
+      </AppBar>
     )
 
     expect(screen.getByText('Leading')).toBeInTheDocument()
@@ -37,9 +37,9 @@ describe('AppBar', () => {
 
   test('maxWidth prop을 설정할 수 있다.', () => {
     render(
-      <AppBar maxWidth={300} data-testid='navigation-bar'>
+      <AppBar maxWidth={300} data-testid="navigation-bar">
         <AppBar.Center>Center</AppBar.Center>
-      </AppBar>,
+      </AppBar>
     )
 
     const navElement = screen.getByTestId('navigation-bar')
@@ -53,10 +53,10 @@ describe('AppBar', () => {
           fillColor: 'red',
           foregroundColor: 'blue',
         }}
-        data-testid='navigation-bar'
+        data-testid="navigation-bar"
       >
         <AppBar.Center>Center</AppBar.Center>
-      </AppBar>,
+      </AppBar>
     )
 
     expect(screen.getByTestId('navigation-bar')).toBeInTheDocument()
@@ -64,9 +64,13 @@ describe('AppBar', () => {
 
   test('style과 className prop을 전달할 수 있다.', () => {
     render(
-      <AppBar style={{ backgroundColor: 'red' }} className='custom-class' data-testid='navigation-bar'>
+      <AppBar
+        style={{ backgroundColor: 'red' }}
+        className="custom-class"
+        data-testid="navigation-bar"
+      >
         <AppBar.Center>Center</AppBar.Center>
-      </AppBar>,
+      </AppBar>
     )
 
     const navElement = screen.getByTestId('navigation-bar')
@@ -83,7 +87,7 @@ describe('AppBar.Leading', () => {
       <AppBar>
         <AppBar.Leading>Leading</AppBar.Leading>
         <AppBar.Center>Center</AppBar.Center>
-      </AppBar>,
+      </AppBar>
     )
 
     expect(screen.getByText('Leading')).toBeInTheDocument()
@@ -92,9 +96,9 @@ describe('AppBar.Leading', () => {
   test('className prop을 전달할 수 있다.', () => {
     const { container } = render(
       <AppBar>
-        <AppBar.Leading className='leading-class'>Leading</AppBar.Leading>
+        <AppBar.Leading className="leading-class">Leading</AppBar.Leading>
         <AppBar.Center>Center</AppBar.Center>
-      </AppBar>,
+      </AppBar>
     )
 
     // Leading은 Flex 컴포넌트로 렌더링되며 className이 적용됨
@@ -108,7 +112,7 @@ describe('AppBar.Center', () => {
     render(
       <AppBar>
         <AppBar.Center>Center</AppBar.Center>
-      </AppBar>,
+      </AppBar>
     )
 
     expect(screen.getByText('Center')).toBeInTheDocument()
@@ -117,8 +121,8 @@ describe('AppBar.Center', () => {
   test('className prop을 전달할 수 있다.', () => {
     const { container } = render(
       <AppBar>
-        <AppBar.Center className='center-class'>Center</AppBar.Center>
-      </AppBar>,
+        <AppBar.Center className="center-class">Center</AppBar.Center>
+      </AppBar>
     )
 
     // Center는 Flex 컴포넌트로 렌더링되며 className이 적용됨
@@ -133,7 +137,7 @@ describe('AppBar.Trailing', () => {
       <AppBar>
         <AppBar.Center>Center</AppBar.Center>
         <AppBar.Trailing>Trailing</AppBar.Trailing>
-      </AppBar>,
+      </AppBar>
     )
 
     expect(screen.getByText('Trailing')).toBeInTheDocument()
@@ -143,8 +147,8 @@ describe('AppBar.Trailing', () => {
     const { container } = render(
       <AppBar>
         <AppBar.Center>Center</AppBar.Center>
-        <AppBar.Trailing className='trailing-class'>Trailing</AppBar.Trailing>
-      </AppBar>,
+        <AppBar.Trailing className="trailing-class">Trailing</AppBar.Trailing>
+      </AppBar>
     )
 
     // Trailing은 Flex 컴포넌트로 렌더링되며 className이 적용됨

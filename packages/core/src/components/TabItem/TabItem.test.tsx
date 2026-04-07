@@ -50,14 +50,14 @@ describe('TabItem', () => {
 
       expect(screen.getByRole('tab').closest('[data-selected]')).toHaveAttribute(
         'data-selected',
-        'false',
+        'false'
       )
 
       rerender(<TabItem selected={true}>탭</TabItem>)
 
       expect(screen.getByRole('tab').closest('[data-selected]')).toHaveAttribute(
         'data-selected',
-        'true',
+        'true'
       )
     })
   })
@@ -82,7 +82,7 @@ describe('TabItem', () => {
       render(
         <TabItem disabled onClick={onClick}>
           비활성 탭
-        </TabItem>,
+        </TabItem>
       )
 
       await user.click(screen.getByRole('tab'))
@@ -111,7 +111,7 @@ describe('TabItem', () => {
           <TabItem.Leading>아이콘</TabItem.Leading>
           <TabItem.Center>탭 이름</TabItem.Center>
           <TabItem.Trailing>뱃지</TabItem.Trailing>
-        </TabItem>,
+        </TabItem>
       )
 
       expect(screen.getByText('아이콘')).toBeInTheDocument()
@@ -133,7 +133,7 @@ describe('TabItem', () => {
           }}
         >
           테마 탭
-        </TabItem>,
+        </TabItem>
       )
 
       const tabContainer = screen.getByRole('tab').closest('[data-selected]')!
@@ -148,11 +148,7 @@ describe('TabItem', () => {
 
   describe('높이 설정', () => {
     it('height prop으로 높이를 설정할 수 있어야 한다', () => {
-      render(
-        <TabItem height={48}>
-          높이 탭
-        </TabItem>,
-      )
+      render(<TabItem height={48}>높이 탭</TabItem>)
 
       const tabContainer = screen.getByRole('tab').closest('[data-selected]')!
       expect(tabContainer).toHaveStyle({ height: '48px' })

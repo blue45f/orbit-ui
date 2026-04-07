@@ -1,19 +1,9 @@
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
-import { ChevronDownLineIcon } from '@prism-ui/icons'
-import React, {
-  AllHTMLAttributes,
-  Children,
-  HTMLAttributes,
-  forwardRef,
-  useCallback,
-} from 'react'
+import { ChevronDownLineIcon } from '@orbit-ui/icons'
+import React, { AllHTMLAttributes, Children, HTMLAttributes, forwardRef, useCallback } from 'react'
 
 import { cn } from '../../styles'
-import {
-  filterComponents,
-  toCSSLength,
-  flattenFragment,
-} from '../../libs'
+import { filterComponents, toCSSLength, flattenFragment } from '../../libs'
 import { BorderLayer, ContainerLayer, ContentLayer } from '../primitives/Layer'
 
 import { SelectProvider, useSelectContext } from './Dropdown.lib'
@@ -64,142 +54,150 @@ export type DropdownProps = {
   className?: string
 }
 
-type DropdownPropsWithRest = DropdownProps & Omit<AllHTMLAttributes<HTMLButtonElement>, 'onClick' | 'value'>
+type DropdownPropsWithRest = DropdownProps &
+  Omit<AllHTMLAttributes<HTMLButtonElement>, 'onClick' | 'value'>
 
 /* ========================================================================
  * Trigger (styled button)
  * ======================================================================== */
 
-const InternalDropdownTrigger = forwardRef<HTMLButtonElement, DropdownPropsWithRest>((props, ref) => {
-  const {
-    children,
-    disabled = false,
-    activated = false,
-    open: _open,
-    onOpenChange: _onOpenChange,
-    value,
-    placeholder,
-    onClick,
-    onFocus: _onFocus,
-    onBlur: _onBlur,
-    theme,
-    style: styleProp,
-    className: classProp,
-    height,
-    ...rest
-  } = props
-  const selected = value !== undefined && value !== null && !(typeof value === 'string' && value.length === 0)
+const InternalDropdownTrigger = forwardRef<HTMLButtonElement, DropdownPropsWithRest>(
+  (props, ref) => {
+    const {
+      children,
+      disabled = false,
+      activated = false,
+      open: _open,
+      onOpenChange: _onOpenChange,
+      value,
+      placeholder,
+      onClick,
+      onFocus: _onFocus,
+      onBlur: _onBlur,
+      theme,
+      style: styleProp,
+      className: classProp,
+      height,
+      ...rest
+    } = props
+    const selected =
+      value !== undefined && value !== null && !(typeof value === 'string' && value.length === 0)
 
-  // 상태별 색상 결정
-  const fillColor = disabled
-    ? theme?.disabledFillColor
-    : activated
-      ? theme?.activatedFillColor
-      : theme?.enabledFillColor
+    // 상태별 색상 결정
+    const fillColor = disabled
+      ? theme?.disabledFillColor
+      : activated
+        ? theme?.activatedFillColor
+        : theme?.enabledFillColor
 
-  const borderColor = disabled
-    ? theme?.disabledBorderColor
-    : activated
-      ? theme?.activatedBorderColor
-      : theme?.enabledBorderColor
+    const borderColor = disabled
+      ? theme?.disabledBorderColor
+      : activated
+        ? theme?.activatedBorderColor
+        : theme?.enabledBorderColor
 
-  const foregroundColor = disabled
-    ? theme?.disabledForegroundColor
-    : theme?.enabledForegroundColor
+    const foregroundColor = disabled
+      ? theme?.disabledForegroundColor
+      : theme?.enabledForegroundColor
 
-  const className = cn(
-    'relative inline-flex w-full',
-    disabled ? 'cursor-not-allowed opacity-60' : 'cursor-pointer',
-    classProp
-  )
+    const className = cn(
+      'relative inline-flex w-full',
+      disabled ? 'cursor-not-allowed opacity-60' : 'cursor-pointer',
+      classProp
+    )
 
-  const style: React.CSSProperties = {
-    backgroundColor: fillColor,
-    borderRadius: theme?.radius || '8px',
-    borderWidth: '1px',
-    borderStyle: 'solid',
-    borderColor: borderColor,
-    color: foregroundColor,
-    ...(height !== undefined && { height: toCSSLength(height) }),
-    ...styleProp,
-  }
+    const style: React.CSSProperties = {
+      backgroundColor: fillColor,
+      borderRadius: theme?.radius || '8px',
+      borderWidth: '1px',
+      borderStyle: 'solid',
+      borderColor: borderColor,
+      color: foregroundColor,
+      ...(height !== undefined && { height: toCSSLength(height) }),
+      ...styleProp,
+    }
 
-  const {
-    filtered: [leading, trailing],
-    unfiltered: center,
-  } = filterComponents(Children.toArray(children) as React.ReactElement[], DropdownLeading, DropdownTrailing)
+    const {
+      filtered: [leading, trailing],
+      unfiltered: center,
+    } = filterComponents(
+      Children.toArray(children) as React.ReactElement[],
+      DropdownLeading,
+      DropdownTrailing
+    )
 
-  const hasLeadingSlot = flattenFragment(leading).length > 0
-  const hasTrailingSlot = flattenFragment(trailing).length > 0
+    const hasLeadingSlot = flattenFragment(leading).length > 0
+    const hasTrailingSlot = flattenFragment(trailing).length > 0
 
-  const handleClick = useCallback(
-    (e: React.MouseEvent<HTMLButtonElement>) => {
-      if (!disabled && onClick) {
-        onClick(e)
-      }
-    },
-    [disabled, onClick]
-  )
+    const handleClick = useCallback(
+      (e: React.MouseEvent<HTMLButtonElement>) => {
+        if (!disabled && onClick) {
+          onClick(e)
+        }
+      },
+      [disabled, onClick]
+    )
 
-  return (
-    <SelectProvider disabled={disabled} focused={false} activated={activated} selected={selected}>
-      <ContainerLayer
-        as="div"
-        style={style}
-        className={className}
-        data-disabled={disabled}
-        data-activated={activated}
-        data-selected={selected}
-      >
-        <DropdownMenu.Trigger asChild>
-          <button
-            ref={ref}
-            disabled={disabled}
-            {...rest}
-            type="button"
-            onClick={handleClick}
-            className={cn(
-              'w-full h-full bg-transparent border-none outline-none',
-              'text-left cursor-[inherit]',
-              disabled && 'cursor-not-allowed'
-            )}
-            style={{
-              paddingLeft: theme?.paddingHorizontal || '16px',
-              paddingRight: theme?.paddingHorizontal || '16px',
-            }}
-            aria-disabled={disabled}
-          >
-            <ContentLayer
-              className="relative"
-              alignment="center"
-              arrangement="start"
-              style={{ gap: theme?.gap || '8px' }}
+    return (
+      <SelectProvider disabled={disabled} focused={false} activated={activated} selected={selected}>
+        <ContainerLayer
+          as="div"
+          style={style}
+          className={className}
+          data-disabled={disabled}
+          data-activated={activated}
+          data-selected={selected}
+        >
+          <DropdownMenu.Trigger asChild>
+            <button
+              ref={ref}
+              disabled={disabled}
+              {...rest}
+              type="button"
+              onClick={handleClick}
+              className={cn(
+                'w-full h-full bg-transparent border-none outline-none',
+                'text-left cursor-[inherit]',
+                disabled && 'cursor-not-allowed'
+              )}
+              style={{
+                paddingLeft: theme?.paddingHorizontal || '16px',
+                paddingRight: theme?.paddingHorizontal || '16px',
+              }}
+              aria-disabled={disabled}
             >
-              {hasLeadingSlot && leading}
-              <div className="flex-1 min-w-0">
-                {value ? (
-                  <div className="truncate">{value}</div>
-                ) : (
-                  placeholder && (
-                    <div
-                      className="truncate"
-                      style={{ color: theme?.placeholderColor || 'rgba(177, 179, 181, 1)' }}
-                    >
-                      {placeholder}
-                    </div>
-                  )
-                )}
-                {center}
-              </div>
-              {hasTrailingSlot ? trailing : <DropdownChevron />}
-            </ContentLayer>
-          </button>
-        </DropdownMenu.Trigger>
-        <BorderLayer />
-      </ContainerLayer>
-    </SelectProvider>
-  )
-})
+              <ContentLayer
+                className="relative"
+                alignment="center"
+                arrangement="start"
+                style={{ gap: theme?.gap || '8px' }}
+              >
+                {hasLeadingSlot && leading}
+                <div className="flex-1 min-w-0">
+                  {value ? (
+                    <div className="truncate">{value}</div>
+                  ) : (
+                    placeholder && (
+                      <div
+                        className="truncate"
+                        style={{ color: theme?.placeholderColor || 'rgba(177, 179, 181, 1)' }}
+                      >
+                        {placeholder}
+                      </div>
+                    )
+                  )}
+                  {center}
+                </div>
+                {hasTrailingSlot ? trailing : <DropdownChevron />}
+              </ContentLayer>
+            </button>
+          </DropdownMenu.Trigger>
+          <BorderLayer />
+        </ContainerLayer>
+      </SelectProvider>
+    )
+  }
+)
 
 /* ========================================================================
  * Root (wraps Radix DropdownMenu.Root)
@@ -251,7 +249,10 @@ export type DropdownLeadingProps = {
 } & HTMLAttributes<HTMLSpanElement>
 
 const DropdownLeading: React.FC<DropdownLeadingProps> = ({ children, className, ...rest }) => (
-  <span {...rest} className={cn('inline-flex items-center justify-center flex-shrink-0', className)}>
+  <span
+    {...rest}
+    className={cn('inline-flex items-center justify-center flex-shrink-0', className)}
+  >
     {children}
   </span>
 )
@@ -271,7 +272,10 @@ export type DropdownTrailingProps = {
 } & HTMLAttributes<HTMLSpanElement>
 
 const DropdownTrailing: React.FC<DropdownTrailingProps> = ({ className, ...props }) => (
-  <span {...props} className={cn('inline-flex items-center justify-center flex-shrink-0', className)} />
+  <span
+    {...props}
+    className={cn('inline-flex items-center justify-center flex-shrink-0', className)}
+  />
 )
 
 const DropdownChevron: React.FC = () => {

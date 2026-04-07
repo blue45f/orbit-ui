@@ -14,7 +14,7 @@ test('Fragment로 감싸여진 자식 노드를 배열로 반환한다', () => {
       <div>1</div>
       <div>2</div>
       <div>3</div>
-    </>,
+    </>
   )
 
   // Assert
@@ -30,7 +30,7 @@ test('1-depth까지만 처리한다', () => {
         <div>2</div>
         <div>3</div>
       </div>
-    </>,
+    </>
   )
 
   // Assert
@@ -43,7 +43,7 @@ test('Fragment가 없으면 그대로 반환한다', () => {
     <div>
       <div>1</div>
       <div>2</div>
-    </div>,
+    </div>
   )
 
   // Assert

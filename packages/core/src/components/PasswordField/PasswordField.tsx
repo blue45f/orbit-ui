@@ -31,7 +31,7 @@ export type PasswordFieldProps = PasswordFieldSpecificProps & {
  * @example
  * ### 👇 기본 사용법
  * ```tsx
- * import { PasswordField } from '@prism-ui/core'
+ * import { PasswordField } from '@orbit-ui/core'
  *
  * function App() {
  *   const [password, setPassword] = useState('')
@@ -49,7 +49,7 @@ export type PasswordFieldProps = PasswordFieldSpecificProps & {
  * @example
  * ### 👇 ref로 input 요소 접근
  * ```tsx
- * import { PasswordField } from '@prism-ui/core'
+ * import { PasswordField } from '@orbit-ui/core'
  * import { useRef } from 'react'
  *
  * function App() {
@@ -74,8 +74,8 @@ export const PasswordField = forwardRef<HTMLInputElement, PasswordFieldProps>((p
   return (
     <TextField
       ref={ref}
-      type='password'
-      axis='horizontal'
+      type="password"
+      axis="horizontal"
       height={height}
       theme={{
         ...vars.com.secureField,

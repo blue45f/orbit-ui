@@ -4,9 +4,9 @@ import type { IconProps } from '../types'
 
 function RadioThumbIcon(props: IconProps) {
   return (
-  <IconRoot {...props}>
-    <circle cx='12.5' cy='12' r='4' />
-  </IconRoot>
+    <IconRoot {...props}>
+      <circle cx="12.5" cy="12" r="4" />
+    </IconRoot>
   )
 }
 

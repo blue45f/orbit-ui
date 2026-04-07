@@ -17,7 +17,10 @@ export type FlexProps = {
   rowGap?: string
   columnGap?: string
   gap?: string
-} & Pick<CSSProperties, 'flexDirection' | 'justifyContent' | 'alignItems' | 'alignContent' | 'flexWrap'>
+} & Pick<
+  CSSProperties,
+  'flexDirection' | 'justifyContent' | 'alignItems' | 'alignContent' | 'flexWrap'
+>
 
 /**
  * ### 💡 알아두기
@@ -77,7 +80,10 @@ export const Flex = polymorphic<'div', keyof React.JSX.IntrinsicElements, FlexPr
  * FlexItem
  * ======================================================================== */
 
-export type FlexItemProps = Pick<CSSProperties, 'flexGrow' | 'flexShrink' | 'flexBasis' | 'alignSelf'> & {
+export type FlexItemProps = Pick<
+  CSSProperties,
+  'flexGrow' | 'flexShrink' | 'flexBasis' | 'alignSelf'
+> & {
   /** @defaultValue 'div' */
   as?: React.ElementType
 }

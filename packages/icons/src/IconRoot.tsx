@@ -1,6 +1,7 @@
 import { createContext, useContext, useMemo } from 'react'
 
-interface IconA11YProps extends Pick<React.SVGAttributes<SVGElement>, 'role'>, React.AriaAttributes {
+interface IconA11YProps
+  extends Pick<React.SVGAttributes<SVGElement>, 'role'>, React.AriaAttributes {
   alt?: string
   title?: string
   description?: string
@@ -12,8 +13,8 @@ export interface IconProps<
   Color extends string = string,
   ColorPart extends string = string,
   ColorPartKey extends string = string,
-> extends IconA11YProps,
-    React.SVGAttributes<SVGElement> {
+>
+  extends IconA11YProps, React.SVGAttributes<SVGElement> {
   color?: Color
   colorParts?: Record<ColorPartKey, ColorPart>
   size?: Size
@@ -34,7 +35,17 @@ const useUniqueID = () => {
   return id
 }
 
-export const IconRoot: React.FC<Props> = ({ color, size, role, alt, title, description, children, style, ...rest }) => {
+export const IconRoot: React.FC<Props> = ({
+  color,
+  size,
+  role,
+  alt,
+  title,
+  description,
+  children,
+  style,
+  ...rest
+}) => {
   const contextProps = useContext(IconPropsContext)
   const DEFAULT_SIZE = '24'
 
@@ -70,7 +81,7 @@ export const IconRoot: React.FC<Props> = ({ color, size, role, alt, title, descr
   return (
     <svg
       viewBox={`0 0 ${DEFAULT_SIZE} ${DEFAULT_SIZE}`}
-      xmlns='http://www.w3.org/2000/svg'
+      xmlns="http://www.w3.org/2000/svg"
       width={handledSize}
       height={handledSize}
       style={{

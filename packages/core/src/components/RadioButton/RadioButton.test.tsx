@@ -11,7 +11,7 @@ test('`RadioButton` 컴포넌트를 렌더링한다', () => {
   render(
     <RadioButton width={10} height={10} borderWidth={1}>
       My Component
-    </RadioButton>,
+    </RadioButton>
   )
 
   expect(screen.getByText('My Component')).toBeInTheDocument()
@@ -19,9 +19,9 @@ test('`RadioButton` 컴포넌트를 렌더링한다', () => {
 
 test('radio role이 설정된다.', () => {
   render(
-    <RadioButton data-testid='radio' value='test'>
+    <RadioButton data-testid="radio" value="test">
       <RadioButton.Indicator width={8} height={8} />
-    </RadioButton>,
+    </RadioButton>
   )
 
   expect(screen.getByRole('radio')).toBeInTheDocument()
@@ -31,9 +31,9 @@ test('클릭 시 onChange 핸들러가 호출된다.', async () => {
   const changeHandler = vi.fn()
 
   render(
-    <RadioButton data-testid='radio' value='test' onChange={changeHandler}>
+    <RadioButton data-testid="radio" value="test" onChange={changeHandler}>
       <RadioButton.Indicator width={8} height={8} />
-    </RadioButton>,
+    </RadioButton>
   )
 
   await userEvent.click(screen.getByTestId('radio'))
@@ -46,9 +46,9 @@ test('disabled일 경우 클릭해도 onChange 핸들러가 호출되지 않는�
   const changeHandler = vi.fn()
 
   render(
-    <RadioButton disabled data-testid='radio' value='test' onChange={changeHandler}>
+    <RadioButton disabled data-testid="radio" value="test" onChange={changeHandler}>
       <RadioButton.Indicator width={8} height={8} />
-    </RadioButton>,
+    </RadioButton>
   )
 
   await userEvent.click(screen.getByTestId('radio'))

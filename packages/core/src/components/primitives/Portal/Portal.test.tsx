@@ -48,17 +48,17 @@ test('문제 없이 리렌더한다', () => {
   const screen = render(
     <>
       <h1>Main flow</h1>
-      <Portal id='id'>Portal A</Portal>
-      <Portal className='class'>Portal B</Portal>
-    </>,
+      <Portal id="id">Portal A</Portal>
+      <Portal className="class">Portal B</Portal>
+    </>
   )
 
   // Act
   screen.rerender(
     <>
       <h1>Main flow</h1>
-      <Portal id='id'>Portal C</Portal>
-    </>,
+      <Portal id="id">Portal C</Portal>
+    </>
   )
 
   // Assert

@@ -9,8 +9,8 @@ describe('getNodeText', () => {
         <div>
           <span>foo</span>
           <span>bar</span>
-        </div>,
-      ),
+        </div>
+      )
     ).toBe('foobar')
   })
 
@@ -20,8 +20,8 @@ describe('getNodeText', () => {
         <>
           <span>foo</span>
           <span>bar</span>
-        </>,
-      ),
+        </>
+      )
     ).toBe('foobar')
   })
 
@@ -31,13 +31,13 @@ describe('getNodeText', () => {
         <div>
           <span>foo</span>
           <svg>
-            <path d='M15.5002 10.1C14.7822' />
+            <path d="M15.5002 10.1C14.7822" />
           </svg>
-          <img src='https://placehold.co/150x150' alt='' />
+          <img src="https://placehold.co/150x150" alt="" />
           {false && <span>bar</span>}
           <span>bar</span>
-        </div>,
-      ),
+        </div>
+      )
     ).toBe('foobar')
   })
 
@@ -52,8 +52,8 @@ describe('getNodeText', () => {
             </div>
           </div>
         </div>,
-        3,
-      ),
+        3
+      )
     ).toBe('depth 3')
   })
 })

@@ -11,13 +11,13 @@ describe('TextField', () => {
   })
 
   test('renders with placeholder', () => {
-    render(<TextField placeholder='테스트 플레이스홀더' />)
+    render(<TextField placeholder="테스트 플레이스홀더" />)
     expect(screen.getByPlaceholderText('테스트 플레이스홀더')).toBeInTheDocument()
   })
 
   test('handles value changes', () => {
     const handleChange = vi.fn()
-    render(<TextField defaultValue='' onChange={handleChange} placeholder='변경 테스트' />)
+    render(<TextField defaultValue="" onChange={handleChange} placeholder="변경 테스트" />)
 
     const input = screen.getByPlaceholderText('변경 테스트')
     fireEvent.change(input, { target: { value: '새로운 값' } })
@@ -27,22 +27,22 @@ describe('TextField', () => {
   })
 
   test('renders as disabled when disabled prop is true', () => {
-    render(<TextField disabled placeholder='비활성화된 필드' />)
+    render(<TextField disabled placeholder="비활성화된 필드" />)
     const input = screen.getByPlaceholderText('비활성화된 필드')
     expect(input).toBeDisabled()
   })
 
   test('renders as textarea when multiline is true', () => {
-    render(<TextField axis='vertical' placeholder='다중 줄 입력' />)
+    render(<TextField axis="vertical" placeholder="다중 줄 입력" />)
     const textarea = screen.getByPlaceholderText('다중 줄 입력')
     expect(textarea.tagName).toBe('TEXTAREA')
   })
 
   test('renders clear button when ClearButton component is provided and value exists', () => {
     render(
-      <TextField value='테스트 값' placeholder='클리어 테스트'>
-        <TextField.ClearButton visibility='onPopulated' />
-      </TextField>,
+      <TextField value="테스트 값" placeholder="클리어 테스트">
+        <TextField.ClearButton visibility="onPopulated" />
+      </TextField>
     )
     expect(screen.getByLabelText('입력 내용 지우기')).toBeInTheDocument()
   })
@@ -50,9 +50,9 @@ describe('TextField', () => {
   test('clears value when clear button is clicked', () => {
     const handleChange = vi.fn()
     render(
-      <TextField defaultValue='테스트 값' onChange={handleChange} placeholder='클리어 클릭 테스트'>
-        <TextField.ClearButton visibility='onPopulated' />
-      </TextField>,
+      <TextField defaultValue="테스트 값" onChange={handleChange} placeholder="클리어 클릭 테스트">
+        <TextField.ClearButton visibility="onPopulated" />
+      </TextField>
     )
 
     const clearButton = screen.getByLabelText('입력 내용 지우기')
@@ -64,25 +64,25 @@ describe('TextField', () => {
 
   test('renders leading slot content', () => {
     render(
-      <TextField placeholder='리딩 테스트'>
+      <TextField placeholder="리딩 테스트">
         <TextField.Leading>🔍</TextField.Leading>
-      </TextField>,
+      </TextField>
     )
     expect(screen.getByText('🔍')).toBeInTheDocument()
   })
 
   test('renders trailing slot content', () => {
     render(
-      <TextField placeholder='트레일링 테스트'>
+      <TextField placeholder="트레일링 테스트">
         <TextField.Trailing>✓</TextField.Trailing>
-      </TextField>,
+      </TextField>
     )
     expect(screen.getByText('✓')).toBeInTheDocument()
   })
 
   test('ref is attached to input element', () => {
     const ref = createRef<HTMLInputElement>()
-    render(<TextField ref={ref} placeholder='ref 테스트' />)
+    render(<TextField ref={ref} placeholder="ref 테스트" />)
 
     expect(ref.current).toBeInstanceOf(HTMLInputElement)
     expect(ref.current?.tagName).toBe('INPUT')
@@ -90,7 +90,7 @@ describe('TextField', () => {
 
   test('ref is attached to textarea element when axis is vertical', () => {
     const ref = createRef<HTMLTextAreaElement>()
-    render(<TextField ref={ref} axis='vertical' placeholder='ref 테스트' />)
+    render(<TextField ref={ref} axis="vertical" placeholder="ref 테스트" />)
 
     expect(ref.current).toBeInstanceOf(HTMLTextAreaElement)
     expect(ref.current?.tagName).toBe('TEXTAREA')
@@ -98,7 +98,7 @@ describe('TextField', () => {
 
   test('can focus input element using ref', () => {
     const ref = createRef<HTMLInputElement>()
-    render(<TextField ref={ref} placeholder='포커스 테스트' />)
+    render(<TextField ref={ref} placeholder="포커스 테스트" />)
 
     ref.current?.focus()
 

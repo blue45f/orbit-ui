@@ -1,78 +1,89 @@
 <p align="center">
-  <h1 align="center">Prism UI</h1>
+  <img src="https://raw.githubusercontent.com/blue45f/ui-forge/main/packages/theme-eclipse/src/assets/media-placeholder.png" width="120" height="120" alt="Orbit UI Logo" />
+  <h1 align="center">Orbit UI</h1>
 </p>
 
 <p align="center">
-  <strong>Figma 기반 React 디자인 시스템 컴포넌트 라이브러리</strong>
+  <strong>The Sentient Design System for Modern React Applications (2026 Edition)</strong>
 </p>
 
 <p align="center">
   <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License: MIT" /></a>
   <a href="https://www.typescriptlang.org/"><img src="https://img.shields.io/badge/TypeScript-5.7-blue" alt="TypeScript" /></a>
   <a href="https://reactjs.org/"><img src="https://img.shields.io/badge/React-19-61dafb" alt="React" /></a>
+  <a href="https://github.com/blue45f/ui-forge"><img src="https://img.shields.io/badge/Docs-GitHub-black" alt="Official Docs" /></a>
 </p>
 
 ---
 
-## 주요 특징
+## 🪐 Overview
 
-| 특징 | 설명 |
+**Orbit UI** is a high-performance, accessible, and AI-ready React design system. Built for the 2026 web ecosystem, it leverages **React 19 Server Components (RSC)**, **Radix UI Primitives**, and a modular 3-tier architecture to provide a seamless development experience across Mobile and Desktop platforms.
+
+This is the **Official Documentation** repository. For live component playgrounds, visit our [Storybook Instance](http://localhost:6007).
+
+---
+
+## ✨ Key Features (2026 Modernized)
+
+| Feature | Description |
 |------|------|
-| **Figma 연동** | Figma Variables와 동기화된 디자인 토큰 |
-| **계층적 구조** | Base → Theme → Custom 3단계 아키텍처 |
-| **테마 커스터마이징** | `theme` prop으로 스타일 재정의 |
-| **접근성** | WAI-ARIA 표준 준수 |
-| **Tree Shaking** | 필요한 컴포넌트만 번들에 포함 |
-| **TypeScript** | 완벽한 타입 지원 |
+| **AI-Ready Architecture** | Modular components designed for dynamic assembly and generative UI patterns. |
+| **Server-First Design** | Fully optimized for React Server Components (RSC) and the React Compiler. |
+| **Eclipse Theme** | A sophisticated visual language featuring glassmorphism, soft layered shadows, and tactile interactions. |
+| **Platform Fluidity** | Native-like experience switching between Mobile and PC modes via `EclipseProvider`. |
+| **Accessibility (A11y)** | Built on Radix UI, ensuring WAI-ARIA compliance out of the box. |
+| **Zero Runtime Styling** | Blazingly fast styles powered by Tailwind CSS v4 and vanilla-extract. |
 
 ---
 
-## 패키지
+## 📦 Packages
 
-| 패키지 | 설명 |
+| Package | Description |
 |--------|------|
-| `@prism-ui/core` | Base 컴포넌트 (스타일 미적용) |
-| `@prism-ui/theme-ocean` | Ocean 테마 컴포넌트 |
-| `@prism-ui/icons` | SVG 아이콘 |
+| [`@orbit-ui/core`](./packages/core) | Headless logic & accessible primitives (unstyled). |
+| [`@orbit-ui/theme-eclipse`](./packages/theme-eclipse) | The official Eclipse theme with modern aesthetic. |
+| [`@orbit-ui/icons`](./packages/icons) | Optimized SVG icon library. |
 
 ---
 
-## 시작하기
+## 🚀 Getting Started
 
-### 설치
+### Installation
 
 ```bash
-pnpm add @prism-ui/theme-ocean
+pnpm add @orbit-ui/theme-eclipse
 ```
 
-### 기본 사용법
+### Basic Usage
+
+Wrap your application with `EclipseProvider` to enable theme tokens and platform-specific styling.
 
 ```tsx
-import { SolidButton, OutlinedButton, ForgeRoot } from '@prism-ui/theme-ocean'
-import '@prism-ui/theme-ocean/style.css'
+import { SolidButton, EclipseProvider } from '@orbit-ui/theme-eclipse'
+import '@orbit-ui/theme-eclipse/style.css'
 
 function App() {
   return (
-    <ForgeRoot>
-      <SolidButton>확인</SolidButton>
-      <OutlinedButton>취소</OutlinedButton>
-    </ForgeRoot>
+    <EclipseProvider mode="light" platform="pc">
+      <SolidButton color="mint">Initialize System</SolidButton>
+    </EclipseProvider>
   )
 }
 ```
 
-### Next.js (App Router)
+### Server Components (Next.js)
 
 ```tsx
 // app/layout.tsx
-import { ForgeRoot } from '@prism-ui/theme-ocean/server'
-import '@prism-ui/theme-ocean/style.css'
+import { EclipseProvider } from '@orbit-ui/theme-eclipse'
+import '@orbit-ui/theme-eclipse/style.css'
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="ko">
+    <html lang="en">
       <body>
-        <ForgeRoot>{children}</ForgeRoot>
+        <EclipseProvider platform="mobile">{children}</EclipseProvider>
       </body>
     </html>
   )
@@ -81,75 +92,52 @@ export default function RootLayout({ children }) {
 
 ---
 
-## 컴포넌트
-
-### Base 컴포넌트 (@prism-ui/core)
-
-Base 컴포넌트는 스타일이 적용되지 않은 기능 컴포넌트입니다.
-
-```tsx
-import { Button, TextField, Toggle, Toast } from '@prism-ui/core'
-```
-
-### Theme 컴포넌트 (@prism-ui/theme-ocean)
-
-Ocean 테마가 적용된 스타일 컴포넌트입니다.
-
-```tsx
-import { SolidButton, TextField, Checkbox, Radio } from '@prism-ui/theme-ocean'
-```
-
----
-
-## 프로젝트 구조
+## 🛠 Project Structure
 
 ```
-prism-ui/
+orbit-ui/
 ├── packages/
-│   ├── core/              # @prism-ui/core - Base 컴포넌트
-│   ├── theme-ocean/       # @prism-ui/theme-ocean - Ocean 테마
-│   ├── icons/             # @prism-ui/icons - 아이콘
-│   ├── vite-plugin/       # @prism-ui/vite-plugin - 빌드 플러그인
-│   ├── eslint-plugin/     # @prism-ui/eslint-plugin - CSS 정렬 규칙
-│   └── generator/         # @prism-ui/generator - 컴포넌트 생성기
-├── config/
-│   ├── tsconfig/          # 공유 TS 설정
-│   └── figma/             # Figma 도구
-└── docs/                  # 문서
+│   ├── core/              # @orbit-ui/core - Headless Primitives
+│   ├── theme-eclipse/     # @orbit-ui/theme-eclipse - Eclipse Design System
+│   ├── icons/             # @orbit-ui/icons - Atomic Icons
+│   ├── vite-plugin/       # Build-time optimization plugins
+│   ├── eslint-plugin/     # Custom design system lint rules
+│   └── generator/         # Plop-based component generator
+└── docs/                  # Architectural guidelines
 ```
 
 ---
 
-## 개발
+## 💻 Development
 
-### 요구사항
-
-| 도구 | 버전 |
-|------|------|
-| Node.js | v20+ |
-| pnpm | v9+ |
-
-### 명령어
+Orbit UI uses **pnpm workspaces** for efficient monorepo management.
 
 ```bash
-pnpm install      # 설치
-pnpm dev          # 스토리북 실행
-pnpm build        # 빌드
-pnpm test         # 테스트
-pnpm typecheck    # 타입 체크
-pnpm lint         # 린트
-pnpm gen          # 컴포넌트 생성
-pnpm changeset    # 변경셋 생성
+pnpm install      # Install dependencies
+pnpm dev          # Run Storybook development server
+pnpm build        # Build all packages
+pnpm test         # Run unit & visual regression tests
+pnpm typecheck    # Static type checking
+pnpm gen          # Generate new component boilerplate
 ```
 
 ---
 
-## 기여
+## 📄 Documentation
 
-기여를 환영합니다! [기여 가이드](./CONTRIBUTING.md)를 참고하세요.
+The full documentation, including API references and design tokens, is maintained in this GitHub repository. 
+- [Architecture Deep Dive](./docs/ARCHITECTURE.md)
+- [Eclipse Design Tokens](./packages/theme-eclipse/DesignToken.mdx)
+- [Component Overview](./packages/theme-eclipse/ComponentOverview.mdx)
 
 ---
 
-## 라이선스
+## 🤝 Contributing
 
-MIT License © Prism UI Contributors
+We welcome contributions! Please see our [Contributing Guide](./CONTRIBUTING.md) for more details.
+
+---
+
+## ⚖️ License
+
+MIT License © 2026 Orbit UI Contributors. Dedicated to building a more beautiful and accessible web.

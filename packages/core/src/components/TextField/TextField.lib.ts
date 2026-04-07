@@ -20,4 +20,5 @@ export type TextFieldContextValue = {
   valueSizeRef?: React.RefObject<HTMLSpanElement | null>
 }
 
-export const [TextFieldProvider, useTextFieldContext] = setupContext<TextFieldContextValue>('TextField')
+export const [TextFieldProvider, useTextFieldContext] =
+  setupContext<TextFieldContextValue>('TextField')

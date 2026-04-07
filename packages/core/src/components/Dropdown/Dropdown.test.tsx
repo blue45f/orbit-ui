@@ -12,26 +12,26 @@ afterEach(() => {
 
 describe('Dropdown', () => {
   it('should render correctly', () => {
-    render(<Dropdown value='Option 1' />)
+    render(<Dropdown value="Option 1" />)
     expect(screen.getByRole('button')).toBeInTheDocument()
     expect(screen.getByText('Option 1')).toBeInTheDocument()
   })
 
   it('should show placeholder when value is not provided', () => {
-    render(<Dropdown placeholder='Select an option' />)
+    render(<Dropdown placeholder="Select an option" />)
     expect(screen.getByText('Select an option')).toBeInTheDocument()
   })
 
   it('should forward ref to button element', () => {
     const ref = createRef<HTMLButtonElement>()
-    render(<Dropdown ref={ref} value='Option 1' />)
+    render(<Dropdown ref={ref} value="Option 1" />)
     expect(ref.current).toBeInstanceOf(HTMLButtonElement)
   })
 
   it('should call onClick when clicked', async () => {
     const user = userEvent.setup()
     const handleClick = vi.fn()
-    render(<Dropdown value='Option 1' onClick={handleClick} />)
+    render(<Dropdown value="Option 1" onClick={handleClick} />)
 
     const button = screen.getByRole('button')
     await user.click(button)
@@ -43,7 +43,7 @@ describe('Dropdown', () => {
   it('should not call onClick when disabled', async () => {
     const user = userEvent.setup()
     const handleClick = vi.fn()
-    render(<Dropdown value='Option 1' disabled onClick={handleClick} />)
+    render(<Dropdown value="Option 1" disabled onClick={handleClick} />)
 
     const button = screen.getByRole('button')
     await user.click(button)
@@ -52,24 +52,24 @@ describe('Dropdown', () => {
   })
 
   it('should apply disabled attribute', () => {
-    render(<Dropdown value='Option 1' disabled />)
+    render(<Dropdown value="Option 1" disabled />)
     const button = screen.getByRole('button')
     expect(button).toBeDisabled()
   })
 
   it('should show default chevron when trailing slot is not provided', () => {
-    render(<Dropdown value='Option 1' />)
+    render(<Dropdown value="Option 1" />)
     const svg = screen.getByRole('button').querySelector('svg')
     expect(svg).toBeInTheDocument()
   })
 
   it('should not show default chevron when trailing slot is provided', () => {
     render(
-      <Dropdown value='Option 1'>
+      <Dropdown value="Option 1">
         <Dropdown.Trailing>
-          <div data-testid='custom-trailing'>Custom</div>
+          <div data-testid="custom-trailing">Custom</div>
         </Dropdown.Trailing>
-      </Dropdown>,
+      </Dropdown>
     )
     const customTrailing = screen.getByTestId('custom-trailing')
     expect(customTrailing).toBeInTheDocument()
@@ -83,32 +83,32 @@ describe('Dropdown', () => {
 
   it('should render leading slot', () => {
     render(
-      <Dropdown value='Option 1'>
+      <Dropdown value="Option 1">
         <Dropdown.Leading>
-          <div data-testid='custom-leading'>Leading</div>
+          <div data-testid="custom-leading">Leading</div>
         </Dropdown.Leading>
-      </Dropdown>,
+      </Dropdown>
     )
     const customLeading = screen.getByTestId('custom-leading')
     expect(customLeading).toBeInTheDocument()
   })
 
   it('should not render leading slot when not provided', () => {
-    render(<Dropdown value='Option 1' />)
+    render(<Dropdown value="Option 1" />)
     const button = screen.getByRole('button')
     const leadingElements = button.querySelectorAll('[data-testid="custom-leading"]')
     expect(leadingElements.length).toBe(0)
   })
 
   it('should apply data attributes based on state', () => {
-    const { rerender } = render(<Dropdown value='Option 1' activated={false} disabled={false} />)
+    const { rerender } = render(<Dropdown value="Option 1" activated={false} disabled={false} />)
     const container = screen.getByRole('button').parentElement
 
     expect(container).toHaveAttribute('data-selected', 'true') // value가 있으므로 selected
     expect(container).toHaveAttribute('data-activated', 'false')
     expect(container).toHaveAttribute('data-disabled', 'false')
 
-    rerender(<Dropdown placeholder='Empty' activated={true} disabled={true} />)
+    rerender(<Dropdown placeholder="Empty" activated={true} disabled={true} />)
 
     expect(container).toHaveAttribute('data-selected', 'false') // value가 없으므로 unselected
     expect(container).toHaveAttribute('data-activated', 'true')
@@ -116,19 +116,19 @@ describe('Dropdown', () => {
   })
 
   it('should determine selected state based on value prop', () => {
-    const { rerender } = render(<Dropdown placeholder='Empty' />)
+    const { rerender } = render(<Dropdown placeholder="Empty" />)
     const container = screen.getByRole('button').parentElement
 
     expect(container).toHaveAttribute('data-selected', 'false')
 
-    rerender(<Dropdown value='Option 1' />)
+    rerender(<Dropdown value="Option 1" />)
     expect(container).toHaveAttribute('data-selected', 'true')
   })
 
   it('should handle click on trailing slot (chevron)', async () => {
     const user = userEvent.setup()
     const handleClick = vi.fn()
-    render(<Dropdown value='Option 1' onClick={handleClick} />)
+    render(<Dropdown value="Option 1" onClick={handleClick} />)
 
     const button = screen.getByRole('button')
     const svg = button.querySelector('svg')

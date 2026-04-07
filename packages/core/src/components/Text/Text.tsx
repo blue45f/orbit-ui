@@ -7,7 +7,17 @@ import { polymorphic } from '../../libs'
  * Types
  * ======================================================================== */
 
-type TypographyVariant = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'body1' | 'body2' | 'caption' | 'overline'
+type TypographyVariant =
+  | 'h1'
+  | 'h2'
+  | 'h3'
+  | 'h4'
+  | 'h5'
+  | 'h6'
+  | 'body1'
+  | 'body2'
+  | 'caption'
+  | 'overline'
 
 export type TypographyTheme = {
   color?: string
@@ -178,7 +188,16 @@ export const ForcedBaseTextStyle: React.FC<BaseTextProps> = (props) => {
  */
 export const BaseText = polymorphic<'span', keyof React.JSX.IntrinsicElements, BaseTextProps>(
   (props, ref) => {
-    const { as = 'span', maxLines, textStyle: _textStyle, color, theme, vars, children, ...rest } = props
+    const {
+      as = 'span',
+      maxLines,
+      textStyle: _textStyle,
+      color,
+      theme,
+      vars,
+      children,
+      ...rest
+    } = props
     const context = useContext(BaseTextContext)
 
     const style: React.CSSProperties = {

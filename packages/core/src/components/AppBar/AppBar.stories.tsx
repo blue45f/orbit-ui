@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { ForwardIcon, MenuIcon } from '@prism-ui/icons'
+import { ForwardIcon, MenuIcon } from '@orbit-ui/icons'
 import type { Meta, StoryObj } from '@storybook/react'
 import { useState } from 'react'
 
@@ -88,11 +88,11 @@ export const 검색_필드_포함: Story = {
         <AppBar.Center>
           <TextField
             style={{ width: '100%' }}
-            placeholder='Search..'
+            placeholder="Search.."
             value={value}
             onChange={(e) => setValue(e.target.value)}
           >
-            <TextField.ClearButton visibility='onPopulated' />
+            <TextField.ClearButton visibility="onPopulated" />
           </TextField>
         </AppBar.Center>
         <AppBar.Trailing>

@@ -37,7 +37,7 @@ describe('Spinner', () => {
     })
 
     it('커스텀 aria-label을 설정할 수 있어야 한다', async () => {
-      render(<Spinner aria-label='로딩 중' />)
+      render(<Spinner aria-label="로딩 중" />)
 
       await waitFor(() => {
         const spinner = screen.getByLabelText('로딩 중')
@@ -46,7 +46,7 @@ describe('Spinner', () => {
     })
 
     it('aria-live="polite" 속성이 설정되어야 한다', async () => {
-      render(<Spinner data-testid='spinner' />)
+      render(<Spinner data-testid="spinner" />)
 
       await waitFor(() => {
         const spinner = screen.getByTestId('spinner')
@@ -57,7 +57,7 @@ describe('Spinner', () => {
 
   describe('크기', () => {
     it('기본 크기가 28px이어야 한다', async () => {
-      render(<Spinner data-testid='spinner-default' />)
+      render(<Spinner data-testid="spinner-default" />)
 
       await waitFor(() => {
         const spinner = screen.getByTestId('spinner-default')
@@ -66,7 +66,7 @@ describe('Spinner', () => {
     })
 
     it('커스텀 크기를 설정할 수 있어야 한다', async () => {
-      render(<Spinner size={48} data-testid='spinner-custom' />)
+      render(<Spinner size={48} data-testid="spinner-custom" />)
 
       await waitFor(() => {
         const spinner = screen.getByTestId('spinner-custom')
@@ -77,7 +77,7 @@ describe('Spinner', () => {
 
   describe('색상', () => {
     it('기본 색상은 mint이어야 한다', async () => {
-      render(<Spinner data-testid='spinner-mint' />)
+      render(<Spinner data-testid="spinner-mint" />)
 
       await waitFor(() => {
         expect(screen.getByTestId('spinner-mint')).toBeInTheDocument()
@@ -85,7 +85,7 @@ describe('Spinner', () => {
     })
 
     it('purple 색상을 설정할 수 있어야 한다', async () => {
-      render(<Spinner color='purple' data-testid='spinner-purple' />)
+      render(<Spinner color="purple" data-testid="spinner-purple" />)
 
       await waitFor(() => {
         expect(screen.getByTestId('spinner-purple')).toBeInTheDocument()
@@ -95,7 +95,7 @@ describe('Spinner', () => {
 
   describe('추가 props', () => {
     it('추가 HTML 속성을 전달할 수 있어야 한다', async () => {
-      render(<Spinner data-testid='spinner-extra' className='custom-class' />)
+      render(<Spinner data-testid="spinner-extra" className="custom-class" />)
 
       await waitFor(() => {
         const spinner = screen.getByTestId('spinner-extra')
@@ -104,7 +104,7 @@ describe('Spinner', () => {
     })
 
     it('커스텀 style을 전달할 수 있어야 한다', async () => {
-      render(<Spinner data-testid='spinner-style' style={{ opacity: 0.5 }} />)
+      render(<Spinner data-testid="spinner-style" style={{ opacity: 0.5 }} />)
 
       await waitFor(() => {
         const spinner = screen.getByTestId('spinner-style')

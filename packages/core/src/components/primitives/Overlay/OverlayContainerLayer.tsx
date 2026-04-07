@@ -32,9 +32,16 @@ export const OverlayContainerLayerProvider: React.FC<PropsWithChildren> = ({ chi
   const layersRef = useRef(new Set<HTMLElement>())
   const protectedItemsRef = useRef(new Set<HTMLElement>())
 
-  const value = useMemo(() => ({ layers: layersRef.current, protectedItems: protectedItemsRef.current }), [])
+  const value = useMemo(
+    () => ({ layers: layersRef.current, protectedItems: protectedItemsRef.current }),
+    []
+  )
 
-  return <OverlayContainerLayerContext.Provider value={value}>{children}</OverlayContainerLayerContext.Provider>
+  return (
+    <OverlayContainerLayerContext.Provider value={value}>
+      {children}
+    </OverlayContainerLayerContext.Provider>
+  )
 }
 
 type AllowOverlayContainerLayerTagNames =
@@ -132,7 +139,7 @@ const OverlayContainerLayerRoot = polymorphic<
         onPointerDownOutside={(event) => {
           const target = event.target as HTMLElement
           const isPointerDownOnProtected = [...context.protectedItems].some((protectedItem) =>
-            protectedItem.contains(target),
+            protectedItem.contains(target)
           )
 
           if (!dismissOnClickOutside || isPointerDownOnProtected) {
@@ -145,7 +152,7 @@ const OverlayContainerLayerRoot = polymorphic<
         onFocusOutside={(event) => {
           const target = event.target as HTMLElement
           const isPointerDownOnProtected = [...context.protectedItems].some((protectedItem) =>
-            protectedItem.contains(target),
+            protectedItem.contains(target)
           )
 
           if (!dismissOnFocusOutside || isPointerDownOnProtected) {
@@ -170,32 +177,33 @@ const OverlayContainerLayerRoot = polymorphic<
       </RadixDismissableLayer>
     )
   },
-  { useForwardRef: true },
+  { useForwardRef: true }
 )
 
-const OverlayContainerLayerProtected = forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
-  (props, forwardedRef) => {
-    const context = useContext(OverlayContainerLayerContext)
-    const ref = useRef<HTMLDivElement>(null)
-    const composedRefs = useComposedRefs(forwardedRef, ref)
+const OverlayContainerLayerProtected = forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>((props, forwardedRef) => {
+  const context = useContext(OverlayContainerLayerContext)
+  const ref = useRef<HTMLDivElement>(null)
+  const composedRefs = useComposedRefs(forwardedRef, ref)
 
-    useEffect(() => {
-      const node = ref.current
-      if (node) {
-        context.protectedItems.add(node)
-        return () => {
-          context.protectedItems.delete(node)
-        }
+  useEffect(() => {
+    const node = ref.current
+    if (node) {
+      context.protectedItems.add(node)
+      return () => {
+        context.protectedItems.delete(node)
       }
-    }, [context.protectedItems])
+    }
+  }, [context.protectedItems])
 
-    return (
-      <RadixDismissableLayerBranch asChild>
-        <div {...props} ref={composedRefs} />
-      </RadixDismissableLayerBranch>
-    )
-  },
-)
+  return (
+    <RadixDismissableLayerBranch asChild>
+      <div {...props} ref={composedRefs} />
+    </RadixDismissableLayerBranch>
+  )
+})
 // =========== exports ===========
 
 type OverlayContainerLayerComponent = typeof OverlayContainerLayerRoot & {
@@ -206,8 +214,11 @@ type OverlayContainerLayerComponent = typeof OverlayContainerLayerRoot & {
   Protected: typeof OverlayContainerLayerProtected
 }
 
-const OverlayContainerLayer: OverlayContainerLayerComponent = Object.assign(OverlayContainerLayerRoot, {
-  Protected: OverlayContainerLayerProtected,
-})
+const OverlayContainerLayer: OverlayContainerLayerComponent = Object.assign(
+  OverlayContainerLayerRoot,
+  {
+    Protected: OverlayContainerLayerProtected,
+  }
+)
 
 export { OverlayContainerLayer }

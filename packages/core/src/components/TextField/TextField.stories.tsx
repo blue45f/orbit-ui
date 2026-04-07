@@ -58,7 +58,10 @@ export const 기본: Story = {
     },
   },
   render: function Render(args) {
-    const { leading, trailing, ...textFieldProps } = args as typeof args & { leading?: boolean; trailing?: boolean }
+    const { leading, trailing, ...textFieldProps } = args as typeof args & {
+      leading?: boolean
+      trailing?: boolean
+    }
 
     return (
       <TextField {...textFieldProps} style={{ width: '300px' }}>
@@ -103,7 +106,9 @@ export const 지우기버튼: Story = {
     },
   },
   render: function Render(args) {
-    const { visibility, ...textFieldProps } = args as typeof args & { visibility?: 'onFocused' | 'onPopulated' }
+    const { visibility, ...textFieldProps } = args as typeof args & {
+      visibility?: 'onFocused' | 'onPopulated'
+    }
 
     return (
       <TextField {...textFieldProps} style={{ width: '300px' }}>
@@ -126,7 +131,7 @@ export const 커스텀지우기버튼: Story = {
     return (
       <TextField {...args} style={{ width: '300px' }}>
         <TextField.Leading>🔍</TextField.Leading>
-        <TextField.ClearButton visibility='onPopulated'>🗑️</TextField.ClearButton>
+        <TextField.ClearButton visibility="onPopulated">🗑️</TextField.ClearButton>
       </TextField>
     )
   },

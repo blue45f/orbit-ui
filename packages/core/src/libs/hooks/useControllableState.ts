@@ -64,13 +64,10 @@ export function useControllableState<T, HandlerArgs extends any[]>({
   const [value, setValue] = useRadixControllableState({
     prop: controlledValue,
     defaultProp: defaultValue as T,
-    onChange: useCallback(
-      (_value: T) => {
-        // Radix onChange only receives the new value, not the original handler args.
-        // We handle calling the original onChange in the setter below instead.
-      },
-      [],
-    ),
+    onChange: useCallback((_value: T) => {
+      // Radix onChange only receives the new value, not the original handler args.
+      // We handle calling the original onChange in the setter below instead.
+    }, []),
     caller: 'useControllableState',
   })
 
@@ -79,7 +76,7 @@ export function useControllableState<T, HandlerArgs extends any[]>({
       setValue(newValue)
       onChange?.(...changeParams)
     },
-    [setValue, onChange],
+    [setValue, onChange]
   )
 
   return [value as T, handleChange] as const

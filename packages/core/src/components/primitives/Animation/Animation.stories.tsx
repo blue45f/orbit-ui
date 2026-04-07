@@ -37,7 +37,7 @@ export const 성능_테스트 = {
       <>
         {/* FIXME: @hya.kwon 추후 Stepper 구현 시 주석 풀기 */}
         {/* <Stepper size='large' value={count} onChange={(_, value) => setCount(value)} /> */}
-        <Flex flexWrap='wrap' justifyContent='center'>
+        <Flex flexWrap="wrap" justifyContent="center">
           {Array.from({ length: count }).map((_, index) => (
             <div key={index} style={{ width: '30%' }}>
               <Animation {...args} />

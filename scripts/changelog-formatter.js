@@ -3,7 +3,7 @@
 const fs = require('fs')
 
 // GitHub 저장소 링크 (실제 저장소로 변경 필요)
-const REPO_LINK = 'https://github.com/prism-ui/prism-ui'
+const REPO_LINK = 'https://github.com/orbit-ui/orbit-ui'
 
 // ========== getReleaseLine (본 패키지 변경사항 요약) ==========
 

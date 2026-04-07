@@ -1,6 +1,6 @@
 # 기여 가이드
 
-Prism UI에 관심을 가져주셔서 감사합니다!
+Orbit UI에 관심을 가져주셔서 감사합니다!
 
 ---
 
@@ -28,8 +28,8 @@ Prism UI에 관심을 가져주셔서 감사합니다!
 
 ```bash
 # 저장소 클론
-git clone https://github.com/prism-ui/prism-ui.git
-cd prism-ui
+git clone https://github.com/orbit-ui/orbit-ui.git
+cd orbit-ui
 
 # 의존성 설치
 pnpm install
@@ -54,23 +54,23 @@ pnpm dev
 ## 프로젝트 구조
 
 ```
-prism-ui/
+orbit-ui/
 ├── packages/
-│   ├── core/                    # @prism-ui/core
+│   ├── core/                    # @orbit-ui/core
 │   │   └── src/
 │   │       ├── components/      # Base 컴포넌트
 │   │       ├── libs/            # 훅, 유틸리티
 │   │       └── styles/          # 디자인 토큰
 │   │
-│   ├── theme-ocean/             # @prism-ui/theme-ocean
+│   ├── theme-eclipse/             # @orbit-ui/theme-eclipse
 │   │   └── src/
 │   │       ├── components/      # 테마 컴포넌트
-│   │       └── styles/          # Ocean 테마 토큰
+│   │       └── styles/          # Eclipse 테마 토큰
 │   │
-│   ├── icons/                   # @prism-ui/icons
-│   ├── vite-plugin/             # @prism-ui/vite-plugin
-│   ├── eslint-plugin/           # @prism-ui/eslint-plugin
-│   └── generator/               # @prism-ui/generator
+│   ├── icons/                   # @orbit-ui/icons
+│   ├── vite-plugin/             # @orbit-ui/vite-plugin
+│   ├── eslint-plugin/           # @orbit-ui/eslint-plugin
+│   └── generator/               # @orbit-ui/generator
 │
 └── config/
     ├── tsconfig/                # 공유 TS 설정
@@ -135,7 +135,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 ```tsx
 // packages/theme-mint/src/components/Button/Button.tsx
 import { forwardRef } from 'react'
-import { Button as BaseButton, ButtonProps as BaseProps } from '@prism-ui/core'
+import { Button as BaseButton, ButtonProps as BaseProps } from '@orbit-ui/core'
 import { mintTokens } from '../../tokens'
 
 export interface ButtonProps extends Omit<BaseProps, 'theme'> {
@@ -171,7 +171,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 pnpm test
 
 # 특정 패키지
-pnpm test --filter @prism-ui/core
+pnpm test --filter @orbit-ui/core
 
 # Watch 모드
 pnpm test:watch
@@ -259,4 +259,4 @@ pnpm changeset
 ## 도움이 필요하신가요?
 
 - 📖 [아키텍처 문서](./docs/ARCHITECTURE.md)
-- 🐛 [이슈 리포트](https://github.com/prism-ui/prism-ui/issues)
+- 🐛 [이슈 리포트](https://github.com/orbit-ui/orbit-ui/issues)

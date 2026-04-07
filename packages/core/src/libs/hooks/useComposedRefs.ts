@@ -14,9 +14,6 @@
  * }
  * ```
  */
-export {
-  useComposedRefs,
-  composeRefs,
-} from '@radix-ui/react-compose-refs'
+export { useComposedRefs, composeRefs } from '@radix-ui/react-compose-refs'
 
 export type PossibleRef<T> = React.Ref<T> | undefined

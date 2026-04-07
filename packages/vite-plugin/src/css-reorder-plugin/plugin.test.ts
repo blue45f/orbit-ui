@@ -3,7 +3,8 @@ import { describe, test, expect } from 'vitest'
 import { sortBlocks } from './utils'
 
 describe('sortBlocks', () => {
-  const createBlock = (key?: string, body = 'body { color: black; }') => (key ? `/*! ${key} */\n${body}` : body)
+  const createBlock = (key?: string, body = 'body { color: black; }') =>
+    key ? `/*! ${key} */\n${body}` : body
 
   test('우선순위에 따라 정렬되어야 한다', () => {
     const blocks = [createBlock('reset'), createBlock('components'), createBlock('theme')]
@@ -57,12 +58,20 @@ describe('sortBlocks', () => {
   })
 
   test('동일한 키가 있을 경우 순서가 변경되지 않는다', () => {
-    const blocks = ['/*! reset */\nhtml {}', '/*! reset */\nbody {}', '/*! components */\n.button {}']
+    const blocks = [
+      '/*! reset */\nhtml {}',
+      '/*! reset */\nbody {}',
+      '/*! components */\n.button {}',
+    ]
 
     const priorityList = ['components', 'reset']
     const result = sortBlocks(priorityList)(blocks)
 
-    expect(result).toEqual(['/*! components */\n.button {}', '/*! reset */\nhtml {}', '/*! reset */\nbody {}'])
+    expect(result).toEqual([
+      '/*! components */\n.button {}',
+      '/*! reset */\nhtml {}',
+      '/*! reset */\nbody {}',
+    ])
   })
 
   test('공백이 영향을 주지 않는다', () => {

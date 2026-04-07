@@ -22,7 +22,7 @@ describe('Toggle', () => {
     render(
       <Toggle ref={ref}>
         <Toggle.Thumb />
-      </Toggle>,
+      </Toggle>
     )
 
     const inputElement = screen.getByRole('switch')
@@ -34,7 +34,7 @@ describe('Toggle', () => {
     render(
       <Toggle onChange={handler}>
         <Toggle.Thumb />
-      </Toggle>,
+      </Toggle>
     )
 
     const inputElement = screen.getByRole('switch')
@@ -46,9 +46,9 @@ describe('Toggle', () => {
   test('disabled일 경우, 클릭해도 change event 핸들러가 호출되지 않는다.', async () => {
     const handler = vi.fn()
     render(
-      <Toggle data-testid='my-switch' disabled onChange={handler}>
+      <Toggle data-testid="my-switch" disabled onChange={handler}>
         <Toggle.Thumb />
-      </Toggle>,
+      </Toggle>
     )
 
     const root = screen.getByTestId('my-switch')
@@ -63,7 +63,7 @@ describe('Toggle.Thumb', () => {
     render(
       <Toggle>
         <div />
-      </Toggle>,
+      </Toggle>
     )
 
     expect(console.error).toBeCalledWith('Toggle.Thumb 서브컴포넌트를 전달해주세요.')

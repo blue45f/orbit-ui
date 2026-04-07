@@ -60,23 +60,34 @@ export const 기본: Story = {
     },
   },
   render: function Render(args) {
-    const { leading, trailing, ...textFieldProps } = args as typeof args & { leading?: boolean; trailing?: boolean }
+    const { leading, trailing, ...textFieldProps } = args as typeof args & {
+      leading?: boolean
+      trailing?: boolean
+    }
 
     return (
       <TextFieldWithLabelAnimation {...textFieldProps} style={{ width: '300px' }}>
         {leading && <TextFieldWithLabelAnimation.Leading>@</TextFieldWithLabelAnimation.Leading>}
-        {trailing && <TextFieldWithLabelAnimation.Trailing>.com</TextFieldWithLabelAnimation.Trailing>}
+        {trailing && (
+          <TextFieldWithLabelAnimation.Trailing>.com</TextFieldWithLabelAnimation.Trailing>
+        )}
       </TextFieldWithLabelAnimation>
     )
   },
 }
 
-function ControlledExample(args: React.ComponentProps<typeof TextFieldWithLabelAnimation>): JSX.Element {
+function ControlledExample(
+  args: React.ComponentProps<typeof TextFieldWithLabelAnimation>
+): JSX.Element {
   const [value, setValue] = useState('')
 
   return (
     <div>
-      <TextFieldWithLabelAnimation {...args} value={value} onChange={(e) => setValue(e.target.value)} />
+      <TextFieldWithLabelAnimation
+        {...args}
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+      />
       <div style={{ marginTop: '1rem' }}>Current value: {value}</div>
     </div>
   )
@@ -112,7 +123,9 @@ export const 지우기버튼: Story = {
     },
   },
   render: function Render(args) {
-    const { visibility, ...textFieldProps } = args as typeof args & { visibility?: 'onFocused' | 'onPopulated' }
+    const { visibility, ...textFieldProps } = args as typeof args & {
+      visibility?: 'onFocused' | 'onPopulated'
+    }
 
     return (
       <TextFieldWithLabelAnimation {...textFieldProps} style={{ width: '300px' }}>
@@ -136,7 +149,7 @@ export const 커스텀지우기버튼: Story = {
     return (
       <TextFieldWithLabelAnimation {...args} style={{ width: '300px' }}>
         <TextFieldWithLabelAnimation.Leading>@</TextFieldWithLabelAnimation.Leading>
-        <TextFieldWithLabelAnimation.ClearButton visibility='onPopulated'>
+        <TextFieldWithLabelAnimation.ClearButton visibility="onPopulated">
           🗑️
         </TextFieldWithLabelAnimation.ClearButton>
       </TextFieldWithLabelAnimation>

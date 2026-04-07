@@ -10,8 +10,10 @@ export type IntellisenseFriendlyString = string & Record<never, never>
  * - 자체 IconRoot 기반
  * - semantic color 기반 color 속성 제공
  */
-export interface IconProps<ColorPartKey extends string = string>
-  extends Omit<BaseIconProps<string, ColorPartKey>, 'color'> {
+export interface IconProps<ColorPartKey extends string = string> extends Omit<
+  BaseIconProps<string, ColorPartKey>,
+  'color'
+> {
   /**
    * 아이콘 색상
    * - semantic color token 사용 권장

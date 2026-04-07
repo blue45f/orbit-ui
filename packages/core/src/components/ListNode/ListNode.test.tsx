@@ -16,7 +16,7 @@ test('Leading, Center, Trailing 모두 렌더링된다.', () => {
       <ListNode.Leading>Leading Content</ListNode.Leading>
       <ListNode.Center>Center Content</ListNode.Center>
       <ListNode.Trailing>Trailing Content</ListNode.Trailing>
-    </ListNode>,
+    </ListNode>
   )
 
   expect(screen.getByText('Leading Content')).toBeInTheDocument()
@@ -26,9 +26,9 @@ test('Leading, Center, Trailing 모두 렌더링된다.', () => {
 
 test('as prop이 없을 경우 기본적으로 div로 렌더링된다.', () => {
   render(
-    <ListNode data-testid='list-node'>
+    <ListNode data-testid="list-node">
       <ListNode.Center>Content</ListNode.Center>
-    </ListNode>,
+    </ListNode>
   )
 
   const element = screen.getByTestId('list-node')
@@ -37,9 +37,9 @@ test('as prop이 없을 경우 기본적으로 div로 렌더링된다.', () => {
 
 test('as="li"로 설정하면 li 요소로 렌더링된다.', () => {
   render(
-    <ListNode as='li' data-testid='list-node'>
+    <ListNode as="li" data-testid="list-node">
       <ListNode.Center>Content</ListNode.Center>
-    </ListNode>,
+    </ListNode>
   )
 
   const element = screen.getByTestId('list-node')
@@ -48,9 +48,9 @@ test('as="li"로 설정하면 li 요소로 렌더링된다.', () => {
 
 test('as="button"으로 설정하면 button 요소로 렌더링된다.', () => {
   render(
-    <ListNode as='button' data-testid='list-node'>
+    <ListNode as="button" data-testid="list-node">
       <ListNode.Center>Content</ListNode.Center>
-    </ListNode>,
+    </ListNode>
   )
 
   const element = screen.getByTestId('list-node')
@@ -61,9 +61,9 @@ test('as="button"일 때 클릭 이벤트 핸들러가 호출된다.', async () 
   const clickHandler = vi.fn()
 
   render(
-    <ListNode as='button' onClick={clickHandler}>
+    <ListNode as="button" onClick={clickHandler}>
       <ListNode.Center>Clickable Content</ListNode.Center>
-    </ListNode>,
+    </ListNode>
   )
 
   await userEvent.click(screen.getByRole('button'))
@@ -74,9 +74,9 @@ test('as="button"이고 disabled일 경우 클릭해도 핸들러가 호출되�
   const clickHandler = vi.fn()
 
   render(
-    <ListNode as='button' disabled onClick={clickHandler}>
+    <ListNode as="button" disabled onClick={clickHandler}>
       <ListNode.Center>Disabled Content</ListNode.Center>
-    </ListNode>,
+    </ListNode>
   )
 
   await userEvent.click(screen.getByRole('button'))
@@ -85,9 +85,9 @@ test('as="button"이고 disabled일 경우 클릭해도 핸들러가 호출되�
 
 test('as="div"일 때 disabled prop이 전달되어도 영향을 주지 않는다.', () => {
   render(
-    <ListNode as='div' disabled data-testid='list-node'>
+    <ListNode as="div" disabled data-testid="list-node">
       <ListNode.Center>Content</ListNode.Center>
-    </ListNode>,
+    </ListNode>
   )
 
   const element = screen.getByTestId('list-node')
@@ -98,9 +98,9 @@ test('focus 이벤트 핸들러가 호출된다.', () => {
   const focusHandler = vi.fn()
 
   render(
-    <ListNode as='button' onFocus={focusHandler}>
+    <ListNode as="button" onFocus={focusHandler}>
       <ListNode.Center>Content</ListNode.Center>
-    </ListNode>,
+    </ListNode>
   )
 
   const button = screen.getByRole('button')
@@ -113,9 +113,9 @@ test('blur 이벤트 핸들러가 호출된다.', () => {
   const blurHandler = vi.fn()
 
   render(
-    <ListNode as='button' onBlur={blurHandler}>
+    <ListNode as="button" onBlur={blurHandler}>
       <ListNode.Center>Content</ListNode.Center>
-    </ListNode>,
+    </ListNode>
   )
 
   const button = screen.getByRole('button')
@@ -127,9 +127,9 @@ test('blur 이벤트 핸들러가 호출된다.', () => {
 
 test('className이 제대로 적용된다.', () => {
   render(
-    <ListNode className='custom-class' data-testid='list-node'>
+    <ListNode className="custom-class" data-testid="list-node">
       <ListNode.Center>Content</ListNode.Center>
-    </ListNode>,
+    </ListNode>
   )
 
   const element = screen.getByTestId('list-node')
@@ -138,9 +138,9 @@ test('className이 제대로 적용된다.', () => {
 
 test('style이 제대로 적용된다.', () => {
   render(
-    <ListNode style={{ backgroundColor: 'red' }} data-testid='list-node'>
+    <ListNode style={{ backgroundColor: 'red' }} data-testid="list-node">
       <ListNode.Center>Content</ListNode.Center>
-    </ListNode>,
+    </ListNode>
   )
 
   const element = screen.getByTestId('list-node')
@@ -152,7 +152,7 @@ test('Center만 있어도 렌더링된다.', () => {
   render(
     <ListNode>
       <ListNode.Center>Center Only</ListNode.Center>
-    </ListNode>,
+    </ListNode>
   )
 
   expect(screen.getByText('Center Only')).toBeInTheDocument()
@@ -163,7 +163,7 @@ test('Leading과 Center만 있어도 렌더링된다.', () => {
     <ListNode>
       <ListNode.Leading>Leading</ListNode.Leading>
       <ListNode.Center>Center</ListNode.Center>
-    </ListNode>,
+    </ListNode>
   )
 
   expect(screen.getByText('Leading')).toBeInTheDocument()
@@ -175,7 +175,7 @@ test('Center와 Trailing만 있어도 렌더링된다.', () => {
     <ListNode>
       <ListNode.Center>Center</ListNode.Center>
       <ListNode.Trailing>Trailing</ListNode.Trailing>
-    </ListNode>,
+    </ListNode>
   )
 
   expect(screen.getByText('Center')).toBeInTheDocument()

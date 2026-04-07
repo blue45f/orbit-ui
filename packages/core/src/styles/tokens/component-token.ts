@@ -575,11 +575,14 @@ const _textFieldWithLabelAnimation = {
   disabledEmptyPlaceholderTextStyleSize: 'var(--sem-base-textStyle-labelLargeSize)',
   disabledPopulatedPlaceholderTextStyleSize: 'var(--sem-base-textStyle-captionMediumSize)',
   enabledEmptyPlaceholderTextStyleLineHeight: 'var(--sem-base-textStyle-labelLargeLineHeight)',
-  enabledPopulatedPlaceholderTextStyleLineHeight: 'var(--sem-base-textStyle-captionMediumLineHeight)',
+  enabledPopulatedPlaceholderTextStyleLineHeight:
+    'var(--sem-base-textStyle-captionMediumLineHeight)',
   focusedEmptyPlaceholderTextStyleLineHeight: 'var(--sem-base-textStyle-captionMediumLineHeight)',
-  focusedPopulatedPlaceholderTextStyleLineHeight: 'var(--sem-base-textStyle-captionMediumLineHeight)',
+  focusedPopulatedPlaceholderTextStyleLineHeight:
+    'var(--sem-base-textStyle-captionMediumLineHeight)',
   disabledEmptyPlaceholderTextStyleLineHeight: 'var(--sem-base-textStyle-labelLargeLineHeight)',
-  disabledPopulatedPlaceholderTextStyleLineHeight: 'var(--sem-base-textStyle-captionMediumLineHeight)',
+  disabledPopulatedPlaceholderTextStyleLineHeight:
+    'var(--sem-base-textStyle-captionMediumLineHeight)',
   enabledEmptyPlaceholderTextStyleTracking: 'var(--sem-base-textStyle-labelLargeTracking)',
   enabledPopulatedPlaceholderTextStyleTracking: 'var(--sem-base-textStyle-captionMediumTracking)',
   focusedEmptyPlaceholderTextStyleTracking: 'var(--sem-base-textStyle-captionMediumTracking)',
@@ -741,7 +744,8 @@ const VAR_NAME = {
   chipFocusedSelectedTextStyleSize: '--com-base-chip-focusedSelectedTextStyleSize',
   chipEnabledUnselectedTextStyleLineHeight: '--com-base-chip-enabledUnselectedTextStyleLineHeight',
   chipEnabledSelectedTextStyleLineHeight: '--com-base-chip-enabledSelectedTextStyleLineHeight',
-  chipDisabledUnselectedTextStyleLineHeight: '--com-base-chip-disabledUnselectedTextStyleLineHeight',
+  chipDisabledUnselectedTextStyleLineHeight:
+    '--com-base-chip-disabledUnselectedTextStyleLineHeight',
   chipDisabledSelectedTextStyleLineHeight: '--com-base-chip-disabledSelectedTextStyleLineHeight',
   chipHoveredUnselectedTextStyleLineHeight: '--com-base-chip-hoveredUnselectedTextStyleLineHeight',
   chipHoveredSelectedTextStyleLineHeight: '--com-base-chip-hoveredSelectedTextStyleLineHeight',
@@ -927,12 +931,15 @@ const VAR_NAME = {
   secureFieldTextStyleSize: '--com-base-secureField-textStyleSize',
   secureFieldTextStyleLineHeight: '--com-base-secureField-textStyleLineHeight',
   secureFieldTextStyleTracking: '--com-base-secureField-textStyleTracking',
-  secureFieldEnabledPlaceholderForegroundColor: '--com-base-secureField-enabledPlaceholderForegroundColor',
-  secureFieldDisabledPlaceholderForegroundColor: '--com-base-secureField-disabledPlaceholderForegroundColor',
+  secureFieldEnabledPlaceholderForegroundColor:
+    '--com-base-secureField-enabledPlaceholderForegroundColor',
+  secureFieldDisabledPlaceholderForegroundColor:
+    '--com-base-secureField-disabledPlaceholderForegroundColor',
   secureFieldPlaceholderTextStyleFace: '--com-base-secureField-placeholderTextStyleFace',
   secureFieldPlaceholderTextStyleWeight: '--com-base-secureField-placeholderTextStyleWeight',
   secureFieldPlaceholderTextStyleSize: '--com-base-secureField-placeholderTextStyleSize',
-  secureFieldPlaceholderTextStyleLineHeight: '--com-base-secureField-placeholderTextStyleLineHeight',
+  secureFieldPlaceholderTextStyleLineHeight:
+    '--com-base-secureField-placeholderTextStyleLineHeight',
   secureFieldPlaceholderTextStyleTracking: '--com-base-secureField-placeholderTextStyleTracking',
   secureFieldCursorFillColor: '--com-base-secureField-cursorFillColor',
   selectEnabledFillColor: '--com-base-select-enabledFillColor',
@@ -1058,17 +1065,27 @@ const VAR_NAME = {
   tabsFillColor: '--com-base-tabs-fillColor',
   tabsPadding: '--com-base-tabs-padding',
   tabsGap: '--com-base-tabs-gap',
-  tabsEnabledUnselectedActiveIndicatorFillColor: '--com-base-tabs-enabledUnselectedActiveIndicatorFillColor',
-  tabsHoveredUnselectedActiveIndicatorFillColor: '--com-base-tabs-hoveredUnselectedActiveIndicatorFillColor',
-  tabsPressedUnselectedActiveIndicatorFillColor: '--com-base-tabs-pressedUnselectedActiveIndicatorFillColor',
-  tabsFocusedUnselectedActiveIndicatorFillColor: '--com-base-tabs-focusedUnselectedActiveIndicatorFillColor',
-  tabsEnabledSelectedActiveIndicatorFillColor: '--com-base-tabs-enabledSelectedActiveIndicatorFillColor',
-  tabsHoveredSelectedActiveIndicatorFillColor: '--com-base-tabs-hoveredSelectedActiveIndicatorFillColor',
-  tabsPressedSelectedActiveIndicatorFillColor: '--com-base-tabs-pressedSelectedActiveIndicatorFillColor',
-  tabsFocusedSelectedActiveIndicatorFillColor: '--com-base-tabs-focusedSelectedActiveIndicatorFillColor',
+  tabsEnabledUnselectedActiveIndicatorFillColor:
+    '--com-base-tabs-enabledUnselectedActiveIndicatorFillColor',
+  tabsHoveredUnselectedActiveIndicatorFillColor:
+    '--com-base-tabs-hoveredUnselectedActiveIndicatorFillColor',
+  tabsPressedUnselectedActiveIndicatorFillColor:
+    '--com-base-tabs-pressedUnselectedActiveIndicatorFillColor',
+  tabsFocusedUnselectedActiveIndicatorFillColor:
+    '--com-base-tabs-focusedUnselectedActiveIndicatorFillColor',
+  tabsEnabledSelectedActiveIndicatorFillColor:
+    '--com-base-tabs-enabledSelectedActiveIndicatorFillColor',
+  tabsHoveredSelectedActiveIndicatorFillColor:
+    '--com-base-tabs-hoveredSelectedActiveIndicatorFillColor',
+  tabsPressedSelectedActiveIndicatorFillColor:
+    '--com-base-tabs-pressedSelectedActiveIndicatorFillColor',
+  tabsFocusedSelectedActiveIndicatorFillColor:
+    '--com-base-tabs-focusedSelectedActiveIndicatorFillColor',
   tabsActiveIndicatorRadius: '--com-base-tabs-activeIndicatorRadius',
-  tabsFocusedUnselectedActiveIndicatorBorderColor: '--com-base-tabs-focusedUnselectedActiveIndicatorBorderColor',
-  tabsFocusedSelectedActiveIndicatorBorderColor: '--com-base-tabs-focusedSelectedActiveIndicatorBorderColor',
+  tabsFocusedUnselectedActiveIndicatorBorderColor:
+    '--com-base-tabs-focusedUnselectedActiveIndicatorBorderColor',
+  tabsFocusedSelectedActiveIndicatorBorderColor:
+    '--com-base-tabs-focusedSelectedActiveIndicatorBorderColor',
   textFieldEnabledFillColor: '--com-base-textField-enabledFillColor',
   textFieldFocusedFillColor: '--com-base-textField-focusedFillColor',
   textFieldDisabledFillColor: '--com-base-textField-disabledFillColor',
@@ -1095,48 +1112,64 @@ const VAR_NAME = {
   textFieldTextStyleSize: '--com-base-textField-textStyleSize',
   textFieldTextStyleLineHeight: '--com-base-textField-textStyleLineHeight',
   textFieldTextStyleTracking: '--com-base-textField-textStyleTracking',
-  textFieldEnabledPlaceholderForegroundColor: '--com-base-textField-enabledPlaceholderForegroundColor',
-  textFieldDisabledPlaceholderForegroundColor: '--com-base-textField-disabledPlaceholderForegroundColor',
+  textFieldEnabledPlaceholderForegroundColor:
+    '--com-base-textField-enabledPlaceholderForegroundColor',
+  textFieldDisabledPlaceholderForegroundColor:
+    '--com-base-textField-disabledPlaceholderForegroundColor',
   textFieldPlaceholderTextStyleFace: '--com-base-textField-placeholderTextStyleFace',
   textFieldPlaceholderTextStyleWeight: '--com-base-textField-placeholderTextStyleWeight',
   textFieldPlaceholderTextStyleSize: '--com-base-textField-placeholderTextStyleSize',
   textFieldPlaceholderTextStyleLineHeight: '--com-base-textField-placeholderTextStyleLineHeight',
   textFieldPlaceholderTextStyleTracking: '--com-base-textField-placeholderTextStyleTracking',
   textFieldCursorFillColor: '--com-base-textField-cursorFillColor',
-  textFieldWithLabelAnimationEnabledFillColor: '--com-base-textFieldWithLabelAnimation-enabledFillColor',
-  textFieldWithLabelAnimationFocusedFillColor: '--com-base-textFieldWithLabelAnimation-focusedFillColor',
-  textFieldWithLabelAnimationDisabledFillColor: '--com-base-textFieldWithLabelAnimation-disabledFillColor',
-  textFieldWithLabelAnimationEnabledEmptyBorderColor: '--com-base-textFieldWithLabelAnimation-enabledEmptyBorderColor',
+  textFieldWithLabelAnimationEnabledFillColor:
+    '--com-base-textFieldWithLabelAnimation-enabledFillColor',
+  textFieldWithLabelAnimationFocusedFillColor:
+    '--com-base-textFieldWithLabelAnimation-focusedFillColor',
+  textFieldWithLabelAnimationDisabledFillColor:
+    '--com-base-textFieldWithLabelAnimation-disabledFillColor',
+  textFieldWithLabelAnimationEnabledEmptyBorderColor:
+    '--com-base-textFieldWithLabelAnimation-enabledEmptyBorderColor',
   textFieldWithLabelAnimationEnabledPopulatedBorderColor:
     '--com-base-textFieldWithLabelAnimation-enabledPopulatedBorderColor',
   textFieldWithLabelAnimationDisabledEmptyBorderColor:
     '--com-base-textFieldWithLabelAnimation-disabledEmptyBorderColor',
   textFieldWithLabelAnimationDisabledPopulatedBorderColor:
     '--com-base-textFieldWithLabelAnimation-disabledPopulatedBorderColor',
-  textFieldWithLabelAnimationFocusedEmptyBorderColor: '--com-base-textFieldWithLabelAnimation-focusedEmptyBorderColor',
+  textFieldWithLabelAnimationFocusedEmptyBorderColor:
+    '--com-base-textFieldWithLabelAnimation-focusedEmptyBorderColor',
   textFieldWithLabelAnimationFocusedPopulatedBorderColor:
     '--com-base-textFieldWithLabelAnimation-focusedPopulatedBorderColor',
-  textFieldWithLabelAnimationEnabledEmptyBorderWidth: '--com-base-textFieldWithLabelAnimation-enabledEmptyBorderWidth',
+  textFieldWithLabelAnimationEnabledEmptyBorderWidth:
+    '--com-base-textFieldWithLabelAnimation-enabledEmptyBorderWidth',
   textFieldWithLabelAnimationEnabledPopulatedBorderWidth:
     '--com-base-textFieldWithLabelAnimation-enabledPopulatedBorderWidth',
-  textFieldWithLabelAnimationFocusedEmptyBorderWidth: '--com-base-textFieldWithLabelAnimation-focusedEmptyBorderWidth',
+  textFieldWithLabelAnimationFocusedEmptyBorderWidth:
+    '--com-base-textFieldWithLabelAnimation-focusedEmptyBorderWidth',
   textFieldWithLabelAnimationFocusedPopulatedBorderWidth:
     '--com-base-textFieldWithLabelAnimation-focusedPopulatedBorderWidth',
   textFieldWithLabelAnimationDisabledEmptyBorderWidth:
     '--com-base-textFieldWithLabelAnimation-disabledEmptyBorderWidth',
   textFieldWithLabelAnimationDisabledPopulatedBorderWidth:
     '--com-base-textFieldWithLabelAnimation-disabledPopulatedBorderWidth',
-  textFieldWithLabelAnimationPaddingHorizontal: '--com-base-textFieldWithLabelAnimation-paddingHorizontal',
-  textFieldWithLabelAnimationPaddingVertical: '--com-base-textFieldWithLabelAnimation-paddingVertical',
+  textFieldWithLabelAnimationPaddingHorizontal:
+    '--com-base-textFieldWithLabelAnimation-paddingHorizontal',
+  textFieldWithLabelAnimationPaddingVertical:
+    '--com-base-textFieldWithLabelAnimation-paddingVertical',
   textFieldWithLabelAnimationRadius: '--com-base-textFieldWithLabelAnimation-radius',
   textFieldWithLabelAnimationGap: '--com-base-textFieldWithLabelAnimation-gap',
-  textFieldWithLabelAnimationEnabledForegroundColor: '--com-base-textFieldWithLabelAnimation-enabledForegroundColor',
-  textFieldWithLabelAnimationDisabledForegroundColor: '--com-base-textFieldWithLabelAnimation-disabledForegroundColor',
+  textFieldWithLabelAnimationEnabledForegroundColor:
+    '--com-base-textFieldWithLabelAnimation-enabledForegroundColor',
+  textFieldWithLabelAnimationDisabledForegroundColor:
+    '--com-base-textFieldWithLabelAnimation-disabledForegroundColor',
   textFieldWithLabelAnimationTextStyleFace: '--com-base-textFieldWithLabelAnimation-textStyleFace',
-  textFieldWithLabelAnimationTextStyleWeight: '--com-base-textFieldWithLabelAnimation-textStyleWeight',
+  textFieldWithLabelAnimationTextStyleWeight:
+    '--com-base-textFieldWithLabelAnimation-textStyleWeight',
   textFieldWithLabelAnimationTextStyleSize: '--com-base-textFieldWithLabelAnimation-textStyleSize',
-  textFieldWithLabelAnimationTextStyleLineHeight: '--com-base-textFieldWithLabelAnimation-textStyleLineHeight',
-  textFieldWithLabelAnimationTextStyleTracking: '--com-base-textFieldWithLabelAnimation-textStyleTracking',
+  textFieldWithLabelAnimationTextStyleLineHeight:
+    '--com-base-textFieldWithLabelAnimation-textStyleLineHeight',
+  textFieldWithLabelAnimationTextStyleTracking:
+    '--com-base-textFieldWithLabelAnimation-textStyleTracking',
   textFieldWithLabelAnimationEnabledPlaceholderForegroundColor:
     '--com-base-textFieldWithLabelAnimation-enabledPlaceholderForegroundColor',
   textFieldWithLabelAnimationDisabledPlaceholderForegroundColor:
@@ -1201,7 +1234,8 @@ const VAR_NAME = {
     '--com-base-textFieldWithLabelAnimation-disabledEmptyPlaceholderTextStyleTracking',
   textFieldWithLabelAnimationDisabledPopulatedPlaceholderTextStyleTracking:
     '--com-base-textFieldWithLabelAnimation-disabledPopulatedPlaceholderTextStyleTracking',
-  textFieldWithLabelAnimationCursorFillColor: '--com-base-textFieldWithLabelAnimation-cursorFillColor',
+  textFieldWithLabelAnimationCursorFillColor:
+    '--com-base-textFieldWithLabelAnimation-cursorFillColor',
   tooltipFillColor: '--com-base-tooltip-fillColor',
   tooltipRadius: '--com-base-tooltip-radius',
   tooltipPaddingHorizontal: '--com-base-tooltip-paddingHorizontal',
@@ -1906,11 +1940,16 @@ export const componentLightTheme = {
   [VAR_NAME['checkboxHoveredCheckedForegroundColor']]: _checkbox['hoveredCheckedForegroundColor'],
   [VAR_NAME['checkboxPressedCheckedForegroundColor']]: _checkbox['pressedCheckedForegroundColor'],
   [VAR_NAME['checkboxFocusedCheckedForegroundColor']]: _checkbox['focusedCheckedForegroundColor'],
-  [VAR_NAME['checkboxEnabledUncheckedForegroundColor']]: _checkbox['enabledUncheckedForegroundColor'],
-  [VAR_NAME['checkboxDisabledUncheckedForegroundColor']]: _checkbox['disabledUncheckedForegroundColor'],
-  [VAR_NAME['checkboxHoveredUncheckedForegroundColor']]: _checkbox['hoveredUncheckedForegroundColor'],
-  [VAR_NAME['checkboxPressedUncheckedForegroundColor']]: _checkbox['pressedUncheckedForegroundColor'],
-  [VAR_NAME['checkboxFocusedUncheckedForegroundColor']]: _checkbox['focusedUncheckedForegroundColor'],
+  [VAR_NAME['checkboxEnabledUncheckedForegroundColor']]:
+    _checkbox['enabledUncheckedForegroundColor'],
+  [VAR_NAME['checkboxDisabledUncheckedForegroundColor']]:
+    _checkbox['disabledUncheckedForegroundColor'],
+  [VAR_NAME['checkboxHoveredUncheckedForegroundColor']]:
+    _checkbox['hoveredUncheckedForegroundColor'],
+  [VAR_NAME['checkboxPressedUncheckedForegroundColor']]:
+    _checkbox['pressedUncheckedForegroundColor'],
+  [VAR_NAME['checkboxFocusedUncheckedForegroundColor']]:
+    _checkbox['focusedUncheckedForegroundColor'],
   [VAR_NAME['chipEnabledUnselectedFillColor']]: _chip['enabledUnselectedFillColor'],
   [VAR_NAME['chipDisabledUnselectedFillColor']]: _chip['disabledUnselectedFillColor'],
   [VAR_NAME['chipFocusedUnselectedFillColor']]: _chip['focusedUnselectedFillColor'],
@@ -1967,19 +2006,26 @@ export const componentLightTheme = {
   [VAR_NAME['chipPressedSelectedTextStyleSize']]: _chip['pressedSelectedTextStyleSize'],
   [VAR_NAME['chipFocusedUnselectedTextStyleSize']]: _chip['focusedUnselectedTextStyleSize'],
   [VAR_NAME['chipFocusedSelectedTextStyleSize']]: _chip['focusedSelectedTextStyleSize'],
-  [VAR_NAME['chipEnabledUnselectedTextStyleLineHeight']]: _chip['enabledUnselectedTextStyleLineHeight'],
+  [VAR_NAME['chipEnabledUnselectedTextStyleLineHeight']]:
+    _chip['enabledUnselectedTextStyleLineHeight'],
   [VAR_NAME['chipEnabledSelectedTextStyleLineHeight']]: _chip['enabledSelectedTextStyleLineHeight'],
-  [VAR_NAME['chipDisabledUnselectedTextStyleLineHeight']]: _chip['disabledUnselectedTextStyleLineHeight'],
-  [VAR_NAME['chipDisabledSelectedTextStyleLineHeight']]: _chip['disabledSelectedTextStyleLineHeight'],
-  [VAR_NAME['chipHoveredUnselectedTextStyleLineHeight']]: _chip['hoveredUnselectedTextStyleLineHeight'],
+  [VAR_NAME['chipDisabledUnselectedTextStyleLineHeight']]:
+    _chip['disabledUnselectedTextStyleLineHeight'],
+  [VAR_NAME['chipDisabledSelectedTextStyleLineHeight']]:
+    _chip['disabledSelectedTextStyleLineHeight'],
+  [VAR_NAME['chipHoveredUnselectedTextStyleLineHeight']]:
+    _chip['hoveredUnselectedTextStyleLineHeight'],
   [VAR_NAME['chipHoveredSelectedTextStyleLineHeight']]: _chip['hoveredSelectedTextStyleLineHeight'],
-  [VAR_NAME['chipPressedUnselectedTextStyleLineHeight']]: _chip['pressedUnselectedTextStyleLineHeight'],
+  [VAR_NAME['chipPressedUnselectedTextStyleLineHeight']]:
+    _chip['pressedUnselectedTextStyleLineHeight'],
   [VAR_NAME['chipPressedSelectedTextStyleLineHeight']]: _chip['pressedSelectedTextStyleLineHeight'],
-  [VAR_NAME['chipFocusedUnselectedTextStyleLineHeight']]: _chip['focusedUnselectedTextStyleLineHeight'],
+  [VAR_NAME['chipFocusedUnselectedTextStyleLineHeight']]:
+    _chip['focusedUnselectedTextStyleLineHeight'],
   [VAR_NAME['chipFocusedSelectedTextStyleLineHeight']]: _chip['focusedSelectedTextStyleLineHeight'],
   [VAR_NAME['chipEnabledUnselectedTextStyleTracking']]: _chip['enabledUnselectedTextStyleTracking'],
   [VAR_NAME['chipEnabledSelectedTextStyleTracking']]: _chip['enabledSelectedTextStyleTracking'],
-  [VAR_NAME['chipDisabledUnselectedTextStyleTracking']]: _chip['disabledUnselectedTextStyleTracking'],
+  [VAR_NAME['chipDisabledUnselectedTextStyleTracking']]:
+    _chip['disabledUnselectedTextStyleTracking'],
   [VAR_NAME['chipDisabledSelectedTextStyleTracking']]: _chip['disabledSelectedTextStyleTracking'],
   [VAR_NAME['chipHoveredUnselectedTextStyleTracking']]: _chip['hoveredUnselectedTextStyleTracking'],
   [VAR_NAME['chipHoveredSelectedTextStyleTracking']]: _chip['hoveredSelectedTextStyleTracking'],
@@ -2135,7 +2181,8 @@ export const componentLightTheme = {
   [VAR_NAME['secureFieldEnabledEmptyBorderColor']]: _secureField['enabledEmptyBorderColor'],
   [VAR_NAME['secureFieldEnabledPopulatedBorderColor']]: _secureField['enabledPopulatedBorderColor'],
   [VAR_NAME['secureFieldDisabledEmptyBorderColor']]: _secureField['disabledEmptyBorderColor'],
-  [VAR_NAME['secureFieldDisabledPopulatedBorderColor']]: _secureField['disabledPopulatedBorderColor'],
+  [VAR_NAME['secureFieldDisabledPopulatedBorderColor']]:
+    _secureField['disabledPopulatedBorderColor'],
   [VAR_NAME['secureFieldFocusedEmptyBorderColor']]: _secureField['focusedEmptyBorderColor'],
   [VAR_NAME['secureFieldFocusedPopulatedBorderColor']]: _secureField['focusedPopulatedBorderColor'],
   [VAR_NAME['secureFieldEnabledEmptyBorderWidth']]: _secureField['enabledEmptyBorderWidth'],
@@ -2143,7 +2190,8 @@ export const componentLightTheme = {
   [VAR_NAME['secureFieldFocusedEmptyBorderWidth']]: _secureField['focusedEmptyBorderWidth'],
   [VAR_NAME['secureFieldFocusedPopulatedBorderWidth']]: _secureField['focusedPopulatedBorderWidth'],
   [VAR_NAME['secureFieldDisabledEmptyBorderWidth']]: _secureField['disabledEmptyBorderWidth'],
-  [VAR_NAME['secureFieldDisabledPopulatedBorderWidth']]: _secureField['disabledPopulatedBorderWidth'],
+  [VAR_NAME['secureFieldDisabledPopulatedBorderWidth']]:
+    _secureField['disabledPopulatedBorderWidth'],
   [VAR_NAME['secureFieldPaddingHorizontal']]: _secureField['paddingHorizontal'],
   [VAR_NAME['secureFieldPaddingVertical']]: _secureField['paddingVertical'],
   [VAR_NAME['secureFieldRadius']]: _secureField['radius'],
@@ -2155,13 +2203,17 @@ export const componentLightTheme = {
   [VAR_NAME['secureFieldTextStyleSize']]: _secureField['textStyleSize'],
   [VAR_NAME['secureFieldTextStyleLineHeight']]: _secureField['textStyleLineHeight'],
   [VAR_NAME['secureFieldTextStyleTracking']]: _secureField['textStyleTracking'],
-  [VAR_NAME['secureFieldEnabledPlaceholderForegroundColor']]: _secureField['enabledPlaceholderForegroundColor'],
-  [VAR_NAME['secureFieldDisabledPlaceholderForegroundColor']]: _secureField['disabledPlaceholderForegroundColor'],
+  [VAR_NAME['secureFieldEnabledPlaceholderForegroundColor']]:
+    _secureField['enabledPlaceholderForegroundColor'],
+  [VAR_NAME['secureFieldDisabledPlaceholderForegroundColor']]:
+    _secureField['disabledPlaceholderForegroundColor'],
   [VAR_NAME['secureFieldPlaceholderTextStyleFace']]: _secureField['placeholderTextStyleFace'],
   [VAR_NAME['secureFieldPlaceholderTextStyleWeight']]: _secureField['placeholderTextStyleWeight'],
   [VAR_NAME['secureFieldPlaceholderTextStyleSize']]: _secureField['placeholderTextStyleSize'],
-  [VAR_NAME['secureFieldPlaceholderTextStyleLineHeight']]: _secureField['placeholderTextStyleLineHeight'],
-  [VAR_NAME['secureFieldPlaceholderTextStyleTracking']]: _secureField['placeholderTextStyleTracking'],
+  [VAR_NAME['secureFieldPlaceholderTextStyleLineHeight']]:
+    _secureField['placeholderTextStyleLineHeight'],
+  [VAR_NAME['secureFieldPlaceholderTextStyleTracking']]:
+    _secureField['placeholderTextStyleTracking'],
   [VAR_NAME['secureFieldCursorFillColor']]: _secureField['cursorFillColor'],
   [VAR_NAME['selectEnabledFillColor']]: _select['enabledFillColor'],
   [VAR_NAME['selectFocusedFillColor']]: _select['focusedFillColor'],
@@ -2193,8 +2245,10 @@ export const componentLightTheme = {
   [VAR_NAME['selectTextStyleSize']]: _select['textStyleSize'],
   [VAR_NAME['selectTextStyleLineHeight']]: _select['textStyleLineHeight'],
   [VAR_NAME['selectTextStyleTracking']]: _select['textStyleTracking'],
-  [VAR_NAME['selectEnabledPlaceholderForegroundColor']]: _select['enabledPlaceholderForegroundColor'],
-  [VAR_NAME['selectDisabledPlaceholderForegroundColor']]: _select['disabledPlaceholderForegroundColor'],
+  [VAR_NAME['selectEnabledPlaceholderForegroundColor']]:
+    _select['enabledPlaceholderForegroundColor'],
+  [VAR_NAME['selectDisabledPlaceholderForegroundColor']]:
+    _select['disabledPlaceholderForegroundColor'],
   [VAR_NAME['selectPlaceholderTextStyleFace']]: _select['placeholderTextStyleFace'],
   [VAR_NAME['selectPlaceholderTextStyleWeight']]: _select['placeholderTextStyleWeight'],
   [VAR_NAME['selectPlaceholderTextStyleSize']]: _select['placeholderTextStyleSize'],
@@ -2253,10 +2307,14 @@ export const componentLightTheme = {
   [VAR_NAME['tabHoveredUnselectedTextStyleSize']]: _tab['hoveredUnselectedTextStyleSize'],
   [VAR_NAME['tabPressedUnselectedTextStyleSize']]: _tab['pressedUnselectedTextStyleSize'],
   [VAR_NAME['tabFocusedUnselectedTextStyleSize']]: _tab['focusedUnselectedTextStyleSize'],
-  [VAR_NAME['tabEnabledUnselectedTextStyleLineHeight']]: _tab['enabledUnselectedTextStyleLineHeight'],
-  [VAR_NAME['tabHoveredUnselectedTextStyleLineHeight']]: _tab['hoveredUnselectedTextStyleLineHeight'],
-  [VAR_NAME['tabPressedUnselectedTextStyleLineHeight']]: _tab['pressedUnselectedTextStyleLineHeight'],
-  [VAR_NAME['tabFocusedUnselectedTextStyleLineHeight']]: _tab['focusedUnselectedTextStyleLineHeight'],
+  [VAR_NAME['tabEnabledUnselectedTextStyleLineHeight']]:
+    _tab['enabledUnselectedTextStyleLineHeight'],
+  [VAR_NAME['tabHoveredUnselectedTextStyleLineHeight']]:
+    _tab['hoveredUnselectedTextStyleLineHeight'],
+  [VAR_NAME['tabPressedUnselectedTextStyleLineHeight']]:
+    _tab['pressedUnselectedTextStyleLineHeight'],
+  [VAR_NAME['tabFocusedUnselectedTextStyleLineHeight']]:
+    _tab['focusedUnselectedTextStyleLineHeight'],
   [VAR_NAME['tabEnabledUnselectedTextStyleTracking']]: _tab['enabledUnselectedTextStyleTracking'],
   [VAR_NAME['tabHoveredUnselectedTextStyleTracking']]: _tab['hoveredUnselectedTextStyleTracking'],
   [VAR_NAME['tabPressedUnselectedTextStyleTracking']]: _tab['pressedUnselectedTextStyleTracking'],
@@ -2286,17 +2344,27 @@ export const componentLightTheme = {
   [VAR_NAME['tabsFillColor']]: _tabs['fillColor'],
   [VAR_NAME['tabsPadding']]: _tabs['padding'],
   [VAR_NAME['tabsGap']]: _tabs['gap'],
-  [VAR_NAME['tabsEnabledUnselectedActiveIndicatorFillColor']]: _tabs['enabledUnselectedActiveIndicatorFillColor'],
-  [VAR_NAME['tabsHoveredUnselectedActiveIndicatorFillColor']]: _tabs['hoveredUnselectedActiveIndicatorFillColor'],
-  [VAR_NAME['tabsPressedUnselectedActiveIndicatorFillColor']]: _tabs['pressedUnselectedActiveIndicatorFillColor'],
-  [VAR_NAME['tabsFocusedUnselectedActiveIndicatorFillColor']]: _tabs['focusedUnselectedActiveIndicatorFillColor'],
-  [VAR_NAME['tabsEnabledSelectedActiveIndicatorFillColor']]: _tabs['enabledSelectedActiveIndicatorFillColor'],
-  [VAR_NAME['tabsHoveredSelectedActiveIndicatorFillColor']]: _tabs['hoveredSelectedActiveIndicatorFillColor'],
-  [VAR_NAME['tabsPressedSelectedActiveIndicatorFillColor']]: _tabs['pressedSelectedActiveIndicatorFillColor'],
-  [VAR_NAME['tabsFocusedSelectedActiveIndicatorFillColor']]: _tabs['focusedSelectedActiveIndicatorFillColor'],
+  [VAR_NAME['tabsEnabledUnselectedActiveIndicatorFillColor']]:
+    _tabs['enabledUnselectedActiveIndicatorFillColor'],
+  [VAR_NAME['tabsHoveredUnselectedActiveIndicatorFillColor']]:
+    _tabs['hoveredUnselectedActiveIndicatorFillColor'],
+  [VAR_NAME['tabsPressedUnselectedActiveIndicatorFillColor']]:
+    _tabs['pressedUnselectedActiveIndicatorFillColor'],
+  [VAR_NAME['tabsFocusedUnselectedActiveIndicatorFillColor']]:
+    _tabs['focusedUnselectedActiveIndicatorFillColor'],
+  [VAR_NAME['tabsEnabledSelectedActiveIndicatorFillColor']]:
+    _tabs['enabledSelectedActiveIndicatorFillColor'],
+  [VAR_NAME['tabsHoveredSelectedActiveIndicatorFillColor']]:
+    _tabs['hoveredSelectedActiveIndicatorFillColor'],
+  [VAR_NAME['tabsPressedSelectedActiveIndicatorFillColor']]:
+    _tabs['pressedSelectedActiveIndicatorFillColor'],
+  [VAR_NAME['tabsFocusedSelectedActiveIndicatorFillColor']]:
+    _tabs['focusedSelectedActiveIndicatorFillColor'],
   [VAR_NAME['tabsActiveIndicatorRadius']]: _tabs['activeIndicatorRadius'],
-  [VAR_NAME['tabsFocusedUnselectedActiveIndicatorBorderColor']]: _tabs['focusedUnselectedActiveIndicatorBorderColor'],
-  [VAR_NAME['tabsFocusedSelectedActiveIndicatorBorderColor']]: _tabs['focusedSelectedActiveIndicatorBorderColor'],
+  [VAR_NAME['tabsFocusedUnselectedActiveIndicatorBorderColor']]:
+    _tabs['focusedUnselectedActiveIndicatorBorderColor'],
+  [VAR_NAME['tabsFocusedSelectedActiveIndicatorBorderColor']]:
+    _tabs['focusedSelectedActiveIndicatorBorderColor'],
   [VAR_NAME['textFieldEnabledFillColor']]: _textField['enabledFillColor'],
   [VAR_NAME['textFieldFocusedFillColor']]: _textField['focusedFillColor'],
   [VAR_NAME['textFieldDisabledFillColor']]: _textField['disabledFillColor'],
@@ -2323,17 +2391,23 @@ export const componentLightTheme = {
   [VAR_NAME['textFieldTextStyleSize']]: _textField['textStyleSize'],
   [VAR_NAME['textFieldTextStyleLineHeight']]: _textField['textStyleLineHeight'],
   [VAR_NAME['textFieldTextStyleTracking']]: _textField['textStyleTracking'],
-  [VAR_NAME['textFieldEnabledPlaceholderForegroundColor']]: _textField['enabledPlaceholderForegroundColor'],
-  [VAR_NAME['textFieldDisabledPlaceholderForegroundColor']]: _textField['disabledPlaceholderForegroundColor'],
+  [VAR_NAME['textFieldEnabledPlaceholderForegroundColor']]:
+    _textField['enabledPlaceholderForegroundColor'],
+  [VAR_NAME['textFieldDisabledPlaceholderForegroundColor']]:
+    _textField['disabledPlaceholderForegroundColor'],
   [VAR_NAME['textFieldPlaceholderTextStyleFace']]: _textField['placeholderTextStyleFace'],
   [VAR_NAME['textFieldPlaceholderTextStyleWeight']]: _textField['placeholderTextStyleWeight'],
   [VAR_NAME['textFieldPlaceholderTextStyleSize']]: _textField['placeholderTextStyleSize'],
-  [VAR_NAME['textFieldPlaceholderTextStyleLineHeight']]: _textField['placeholderTextStyleLineHeight'],
+  [VAR_NAME['textFieldPlaceholderTextStyleLineHeight']]:
+    _textField['placeholderTextStyleLineHeight'],
   [VAR_NAME['textFieldPlaceholderTextStyleTracking']]: _textField['placeholderTextStyleTracking'],
   [VAR_NAME['textFieldCursorFillColor']]: _textField['cursorFillColor'],
-  [VAR_NAME['textFieldWithLabelAnimationEnabledFillColor']]: _textFieldWithLabelAnimation['enabledFillColor'],
-  [VAR_NAME['textFieldWithLabelAnimationFocusedFillColor']]: _textFieldWithLabelAnimation['focusedFillColor'],
-  [VAR_NAME['textFieldWithLabelAnimationDisabledFillColor']]: _textFieldWithLabelAnimation['disabledFillColor'],
+  [VAR_NAME['textFieldWithLabelAnimationEnabledFillColor']]:
+    _textFieldWithLabelAnimation['enabledFillColor'],
+  [VAR_NAME['textFieldWithLabelAnimationFocusedFillColor']]:
+    _textFieldWithLabelAnimation['focusedFillColor'],
+  [VAR_NAME['textFieldWithLabelAnimationDisabledFillColor']]:
+    _textFieldWithLabelAnimation['disabledFillColor'],
   [VAR_NAME['textFieldWithLabelAnimationEnabledEmptyBorderColor']]:
     _textFieldWithLabelAnimation['enabledEmptyBorderColor'],
   [VAR_NAME['textFieldWithLabelAnimationEnabledPopulatedBorderColor']]:
@@ -2358,19 +2432,26 @@ export const componentLightTheme = {
     _textFieldWithLabelAnimation['disabledEmptyBorderWidth'],
   [VAR_NAME['textFieldWithLabelAnimationDisabledPopulatedBorderWidth']]:
     _textFieldWithLabelAnimation['disabledPopulatedBorderWidth'],
-  [VAR_NAME['textFieldWithLabelAnimationPaddingHorizontal']]: _textFieldWithLabelAnimation['paddingHorizontal'],
-  [VAR_NAME['textFieldWithLabelAnimationPaddingVertical']]: _textFieldWithLabelAnimation['paddingVertical'],
+  [VAR_NAME['textFieldWithLabelAnimationPaddingHorizontal']]:
+    _textFieldWithLabelAnimation['paddingHorizontal'],
+  [VAR_NAME['textFieldWithLabelAnimationPaddingVertical']]:
+    _textFieldWithLabelAnimation['paddingVertical'],
   [VAR_NAME['textFieldWithLabelAnimationRadius']]: _textFieldWithLabelAnimation['radius'],
   [VAR_NAME['textFieldWithLabelAnimationGap']]: _textFieldWithLabelAnimation['gap'],
   [VAR_NAME['textFieldWithLabelAnimationEnabledForegroundColor']]:
     _textFieldWithLabelAnimation['enabledForegroundColor'],
   [VAR_NAME['textFieldWithLabelAnimationDisabledForegroundColor']]:
     _textFieldWithLabelAnimation['disabledForegroundColor'],
-  [VAR_NAME['textFieldWithLabelAnimationTextStyleFace']]: _textFieldWithLabelAnimation['textStyleFace'],
-  [VAR_NAME['textFieldWithLabelAnimationTextStyleWeight']]: _textFieldWithLabelAnimation['textStyleWeight'],
-  [VAR_NAME['textFieldWithLabelAnimationTextStyleSize']]: _textFieldWithLabelAnimation['textStyleSize'],
-  [VAR_NAME['textFieldWithLabelAnimationTextStyleLineHeight']]: _textFieldWithLabelAnimation['textStyleLineHeight'],
-  [VAR_NAME['textFieldWithLabelAnimationTextStyleTracking']]: _textFieldWithLabelAnimation['textStyleTracking'],
+  [VAR_NAME['textFieldWithLabelAnimationTextStyleFace']]:
+    _textFieldWithLabelAnimation['textStyleFace'],
+  [VAR_NAME['textFieldWithLabelAnimationTextStyleWeight']]:
+    _textFieldWithLabelAnimation['textStyleWeight'],
+  [VAR_NAME['textFieldWithLabelAnimationTextStyleSize']]:
+    _textFieldWithLabelAnimation['textStyleSize'],
+  [VAR_NAME['textFieldWithLabelAnimationTextStyleLineHeight']]:
+    _textFieldWithLabelAnimation['textStyleLineHeight'],
+  [VAR_NAME['textFieldWithLabelAnimationTextStyleTracking']]:
+    _textFieldWithLabelAnimation['textStyleTracking'],
   [VAR_NAME['textFieldWithLabelAnimationEnabledPlaceholderForegroundColor']]:
     _textFieldWithLabelAnimation['enabledPlaceholderForegroundColor'],
   [VAR_NAME['textFieldWithLabelAnimationDisabledPlaceholderForegroundColor']]:
@@ -2435,7 +2516,8 @@ export const componentLightTheme = {
     _textFieldWithLabelAnimation['disabledEmptyPlaceholderTextStyleTracking'],
   [VAR_NAME['textFieldWithLabelAnimationDisabledPopulatedPlaceholderTextStyleTracking']]:
     _textFieldWithLabelAnimation['disabledPopulatedPlaceholderTextStyleTracking'],
-  [VAR_NAME['textFieldWithLabelAnimationCursorFillColor']]: _textFieldWithLabelAnimation['cursorFillColor'],
+  [VAR_NAME['textFieldWithLabelAnimationCursorFillColor']]:
+    _textFieldWithLabelAnimation['cursorFillColor'],
   [VAR_NAME['tooltipFillColor']]: _tooltip['fillColor'],
   [VAR_NAME['tooltipRadius']]: _tooltip['radius'],
   [VAR_NAME['tooltipPaddingHorizontal']]: _tooltip['paddingHorizontal'],
@@ -2445,7 +2527,8 @@ export const componentLightTheme = {
   [VAR_NAME['tooltipOverlayHeaderTextStyleFace']]: _tooltip['overlayHeaderTextStyleFace'],
   [VAR_NAME['tooltipOverlayHeaderTextStyleWeight']]: _tooltip['overlayHeaderTextStyleWeight'],
   [VAR_NAME['tooltipOverlayHeaderTextStyleSize']]: _tooltip['overlayHeaderTextStyleSize'],
-  [VAR_NAME['tooltipOverlayHeaderTextStyleLineHeight']]: _tooltip['overlayHeaderTextStyleLineHeight'],
+  [VAR_NAME['tooltipOverlayHeaderTextStyleLineHeight']]:
+    _tooltip['overlayHeaderTextStyleLineHeight'],
   [VAR_NAME['tooltipOverlayHeaderTextStyleTracking']]: _tooltip['overlayHeaderTextStyleTracking'],
   [VAR_NAME['tooltipOverlayBodyTextStyleFace']]: _tooltip['overlayBodyTextStyleFace'],
   [VAR_NAME['tooltipOverlayBodyTextStyleWeight']]: _tooltip['overlayBodyTextStyleWeight'],
@@ -2525,11 +2608,16 @@ export const componentDarkTheme = {
   [VAR_NAME['checkboxHoveredCheckedForegroundColor']]: _checkbox['hoveredCheckedForegroundColor'],
   [VAR_NAME['checkboxPressedCheckedForegroundColor']]: _checkbox['pressedCheckedForegroundColor'],
   [VAR_NAME['checkboxFocusedCheckedForegroundColor']]: _checkbox['focusedCheckedForegroundColor'],
-  [VAR_NAME['checkboxEnabledUncheckedForegroundColor']]: _checkbox['enabledUncheckedForegroundColor'],
-  [VAR_NAME['checkboxDisabledUncheckedForegroundColor']]: _checkbox['disabledUncheckedForegroundColor'],
-  [VAR_NAME['checkboxHoveredUncheckedForegroundColor']]: _checkbox['hoveredUncheckedForegroundColor'],
-  [VAR_NAME['checkboxPressedUncheckedForegroundColor']]: _checkbox['pressedUncheckedForegroundColor'],
-  [VAR_NAME['checkboxFocusedUncheckedForegroundColor']]: _checkbox['focusedUncheckedForegroundColor'],
+  [VAR_NAME['checkboxEnabledUncheckedForegroundColor']]:
+    _checkbox['enabledUncheckedForegroundColor'],
+  [VAR_NAME['checkboxDisabledUncheckedForegroundColor']]:
+    _checkbox['disabledUncheckedForegroundColor'],
+  [VAR_NAME['checkboxHoveredUncheckedForegroundColor']]:
+    _checkbox['hoveredUncheckedForegroundColor'],
+  [VAR_NAME['checkboxPressedUncheckedForegroundColor']]:
+    _checkbox['pressedUncheckedForegroundColor'],
+  [VAR_NAME['checkboxFocusedUncheckedForegroundColor']]:
+    _checkbox['focusedUncheckedForegroundColor'],
   [VAR_NAME['chipEnabledUnselectedFillColor']]: _chip['enabledUnselectedFillColor'],
   [VAR_NAME['chipDisabledUnselectedFillColor']]: _chip['disabledUnselectedFillColor'],
   [VAR_NAME['chipFocusedUnselectedFillColor']]: _chip['focusedUnselectedFillColor'],
@@ -2586,19 +2674,26 @@ export const componentDarkTheme = {
   [VAR_NAME['chipPressedSelectedTextStyleSize']]: _chip['pressedSelectedTextStyleSize'],
   [VAR_NAME['chipFocusedUnselectedTextStyleSize']]: _chip['focusedUnselectedTextStyleSize'],
   [VAR_NAME['chipFocusedSelectedTextStyleSize']]: _chip['focusedSelectedTextStyleSize'],
-  [VAR_NAME['chipEnabledUnselectedTextStyleLineHeight']]: _chip['enabledUnselectedTextStyleLineHeight'],
+  [VAR_NAME['chipEnabledUnselectedTextStyleLineHeight']]:
+    _chip['enabledUnselectedTextStyleLineHeight'],
   [VAR_NAME['chipEnabledSelectedTextStyleLineHeight']]: _chip['enabledSelectedTextStyleLineHeight'],
-  [VAR_NAME['chipDisabledUnselectedTextStyleLineHeight']]: _chip['disabledUnselectedTextStyleLineHeight'],
-  [VAR_NAME['chipDisabledSelectedTextStyleLineHeight']]: _chip['disabledSelectedTextStyleLineHeight'],
-  [VAR_NAME['chipHoveredUnselectedTextStyleLineHeight']]: _chip['hoveredUnselectedTextStyleLineHeight'],
+  [VAR_NAME['chipDisabledUnselectedTextStyleLineHeight']]:
+    _chip['disabledUnselectedTextStyleLineHeight'],
+  [VAR_NAME['chipDisabledSelectedTextStyleLineHeight']]:
+    _chip['disabledSelectedTextStyleLineHeight'],
+  [VAR_NAME['chipHoveredUnselectedTextStyleLineHeight']]:
+    _chip['hoveredUnselectedTextStyleLineHeight'],
   [VAR_NAME['chipHoveredSelectedTextStyleLineHeight']]: _chip['hoveredSelectedTextStyleLineHeight'],
-  [VAR_NAME['chipPressedUnselectedTextStyleLineHeight']]: _chip['pressedUnselectedTextStyleLineHeight'],
+  [VAR_NAME['chipPressedUnselectedTextStyleLineHeight']]:
+    _chip['pressedUnselectedTextStyleLineHeight'],
   [VAR_NAME['chipPressedSelectedTextStyleLineHeight']]: _chip['pressedSelectedTextStyleLineHeight'],
-  [VAR_NAME['chipFocusedUnselectedTextStyleLineHeight']]: _chip['focusedUnselectedTextStyleLineHeight'],
+  [VAR_NAME['chipFocusedUnselectedTextStyleLineHeight']]:
+    _chip['focusedUnselectedTextStyleLineHeight'],
   [VAR_NAME['chipFocusedSelectedTextStyleLineHeight']]: _chip['focusedSelectedTextStyleLineHeight'],
   [VAR_NAME['chipEnabledUnselectedTextStyleTracking']]: _chip['enabledUnselectedTextStyleTracking'],
   [VAR_NAME['chipEnabledSelectedTextStyleTracking']]: _chip['enabledSelectedTextStyleTracking'],
-  [VAR_NAME['chipDisabledUnselectedTextStyleTracking']]: _chip['disabledUnselectedTextStyleTracking'],
+  [VAR_NAME['chipDisabledUnselectedTextStyleTracking']]:
+    _chip['disabledUnselectedTextStyleTracking'],
   [VAR_NAME['chipDisabledSelectedTextStyleTracking']]: _chip['disabledSelectedTextStyleTracking'],
   [VAR_NAME['chipHoveredUnselectedTextStyleTracking']]: _chip['hoveredUnselectedTextStyleTracking'],
   [VAR_NAME['chipHoveredSelectedTextStyleTracking']]: _chip['hoveredSelectedTextStyleTracking'],
@@ -2754,7 +2849,8 @@ export const componentDarkTheme = {
   [VAR_NAME['secureFieldEnabledEmptyBorderColor']]: _secureField['enabledEmptyBorderColor'],
   [VAR_NAME['secureFieldEnabledPopulatedBorderColor']]: _secureField['enabledPopulatedBorderColor'],
   [VAR_NAME['secureFieldDisabledEmptyBorderColor']]: _secureField['disabledEmptyBorderColor'],
-  [VAR_NAME['secureFieldDisabledPopulatedBorderColor']]: _secureField['disabledPopulatedBorderColor'],
+  [VAR_NAME['secureFieldDisabledPopulatedBorderColor']]:
+    _secureField['disabledPopulatedBorderColor'],
   [VAR_NAME['secureFieldFocusedEmptyBorderColor']]: _secureField['focusedEmptyBorderColor'],
   [VAR_NAME['secureFieldFocusedPopulatedBorderColor']]: _secureField['focusedPopulatedBorderColor'],
   [VAR_NAME['secureFieldEnabledEmptyBorderWidth']]: _secureField['enabledEmptyBorderWidth'],
@@ -2762,7 +2858,8 @@ export const componentDarkTheme = {
   [VAR_NAME['secureFieldFocusedEmptyBorderWidth']]: _secureField['focusedEmptyBorderWidth'],
   [VAR_NAME['secureFieldFocusedPopulatedBorderWidth']]: _secureField['focusedPopulatedBorderWidth'],
   [VAR_NAME['secureFieldDisabledEmptyBorderWidth']]: _secureField['disabledEmptyBorderWidth'],
-  [VAR_NAME['secureFieldDisabledPopulatedBorderWidth']]: _secureField['disabledPopulatedBorderWidth'],
+  [VAR_NAME['secureFieldDisabledPopulatedBorderWidth']]:
+    _secureField['disabledPopulatedBorderWidth'],
   [VAR_NAME['secureFieldPaddingHorizontal']]: _secureField['paddingHorizontal'],
   [VAR_NAME['secureFieldPaddingVertical']]: _secureField['paddingVertical'],
   [VAR_NAME['secureFieldRadius']]: _secureField['radius'],
@@ -2774,13 +2871,17 @@ export const componentDarkTheme = {
   [VAR_NAME['secureFieldTextStyleSize']]: _secureField['textStyleSize'],
   [VAR_NAME['secureFieldTextStyleLineHeight']]: _secureField['textStyleLineHeight'],
   [VAR_NAME['secureFieldTextStyleTracking']]: _secureField['textStyleTracking'],
-  [VAR_NAME['secureFieldEnabledPlaceholderForegroundColor']]: _secureField['enabledPlaceholderForegroundColor'],
-  [VAR_NAME['secureFieldDisabledPlaceholderForegroundColor']]: _secureField['disabledPlaceholderForegroundColor'],
+  [VAR_NAME['secureFieldEnabledPlaceholderForegroundColor']]:
+    _secureField['enabledPlaceholderForegroundColor'],
+  [VAR_NAME['secureFieldDisabledPlaceholderForegroundColor']]:
+    _secureField['disabledPlaceholderForegroundColor'],
   [VAR_NAME['secureFieldPlaceholderTextStyleFace']]: _secureField['placeholderTextStyleFace'],
   [VAR_NAME['secureFieldPlaceholderTextStyleWeight']]: _secureField['placeholderTextStyleWeight'],
   [VAR_NAME['secureFieldPlaceholderTextStyleSize']]: _secureField['placeholderTextStyleSize'],
-  [VAR_NAME['secureFieldPlaceholderTextStyleLineHeight']]: _secureField['placeholderTextStyleLineHeight'],
-  [VAR_NAME['secureFieldPlaceholderTextStyleTracking']]: _secureField['placeholderTextStyleTracking'],
+  [VAR_NAME['secureFieldPlaceholderTextStyleLineHeight']]:
+    _secureField['placeholderTextStyleLineHeight'],
+  [VAR_NAME['secureFieldPlaceholderTextStyleTracking']]:
+    _secureField['placeholderTextStyleTracking'],
   [VAR_NAME['secureFieldCursorFillColor']]: _secureField['cursorFillColor'],
   [VAR_NAME['selectEnabledFillColor']]: _select['enabledFillColor'],
   [VAR_NAME['selectFocusedFillColor']]: _select['focusedFillColor'],
@@ -2812,8 +2913,10 @@ export const componentDarkTheme = {
   [VAR_NAME['selectTextStyleSize']]: _select['textStyleSize'],
   [VAR_NAME['selectTextStyleLineHeight']]: _select['textStyleLineHeight'],
   [VAR_NAME['selectTextStyleTracking']]: _select['textStyleTracking'],
-  [VAR_NAME['selectEnabledPlaceholderForegroundColor']]: _select['enabledPlaceholderForegroundColor'],
-  [VAR_NAME['selectDisabledPlaceholderForegroundColor']]: _select['disabledPlaceholderForegroundColor'],
+  [VAR_NAME['selectEnabledPlaceholderForegroundColor']]:
+    _select['enabledPlaceholderForegroundColor'],
+  [VAR_NAME['selectDisabledPlaceholderForegroundColor']]:
+    _select['disabledPlaceholderForegroundColor'],
   [VAR_NAME['selectPlaceholderTextStyleFace']]: _select['placeholderTextStyleFace'],
   [VAR_NAME['selectPlaceholderTextStyleWeight']]: _select['placeholderTextStyleWeight'],
   [VAR_NAME['selectPlaceholderTextStyleSize']]: _select['placeholderTextStyleSize'],
@@ -2872,10 +2975,14 @@ export const componentDarkTheme = {
   [VAR_NAME['tabHoveredUnselectedTextStyleSize']]: _tab['hoveredUnselectedTextStyleSize'],
   [VAR_NAME['tabPressedUnselectedTextStyleSize']]: _tab['pressedUnselectedTextStyleSize'],
   [VAR_NAME['tabFocusedUnselectedTextStyleSize']]: _tab['focusedUnselectedTextStyleSize'],
-  [VAR_NAME['tabEnabledUnselectedTextStyleLineHeight']]: _tab['enabledUnselectedTextStyleLineHeight'],
-  [VAR_NAME['tabHoveredUnselectedTextStyleLineHeight']]: _tab['hoveredUnselectedTextStyleLineHeight'],
-  [VAR_NAME['tabPressedUnselectedTextStyleLineHeight']]: _tab['pressedUnselectedTextStyleLineHeight'],
-  [VAR_NAME['tabFocusedUnselectedTextStyleLineHeight']]: _tab['focusedUnselectedTextStyleLineHeight'],
+  [VAR_NAME['tabEnabledUnselectedTextStyleLineHeight']]:
+    _tab['enabledUnselectedTextStyleLineHeight'],
+  [VAR_NAME['tabHoveredUnselectedTextStyleLineHeight']]:
+    _tab['hoveredUnselectedTextStyleLineHeight'],
+  [VAR_NAME['tabPressedUnselectedTextStyleLineHeight']]:
+    _tab['pressedUnselectedTextStyleLineHeight'],
+  [VAR_NAME['tabFocusedUnselectedTextStyleLineHeight']]:
+    _tab['focusedUnselectedTextStyleLineHeight'],
   [VAR_NAME['tabEnabledUnselectedTextStyleTracking']]: _tab['enabledUnselectedTextStyleTracking'],
   [VAR_NAME['tabHoveredUnselectedTextStyleTracking']]: _tab['hoveredUnselectedTextStyleTracking'],
   [VAR_NAME['tabPressedUnselectedTextStyleTracking']]: _tab['pressedUnselectedTextStyleTracking'],
@@ -2905,17 +3012,27 @@ export const componentDarkTheme = {
   [VAR_NAME['tabsFillColor']]: _tabs['fillColor'],
   [VAR_NAME['tabsPadding']]: _tabs['padding'],
   [VAR_NAME['tabsGap']]: _tabs['gap'],
-  [VAR_NAME['tabsEnabledUnselectedActiveIndicatorFillColor']]: _tabs['enabledUnselectedActiveIndicatorFillColor'],
-  [VAR_NAME['tabsHoveredUnselectedActiveIndicatorFillColor']]: _tabs['hoveredUnselectedActiveIndicatorFillColor'],
-  [VAR_NAME['tabsPressedUnselectedActiveIndicatorFillColor']]: _tabs['pressedUnselectedActiveIndicatorFillColor'],
-  [VAR_NAME['tabsFocusedUnselectedActiveIndicatorFillColor']]: _tabs['focusedUnselectedActiveIndicatorFillColor'],
-  [VAR_NAME['tabsEnabledSelectedActiveIndicatorFillColor']]: _tabs['enabledSelectedActiveIndicatorFillColor'],
-  [VAR_NAME['tabsHoveredSelectedActiveIndicatorFillColor']]: _tabs['hoveredSelectedActiveIndicatorFillColor'],
-  [VAR_NAME['tabsPressedSelectedActiveIndicatorFillColor']]: _tabs['pressedSelectedActiveIndicatorFillColor'],
-  [VAR_NAME['tabsFocusedSelectedActiveIndicatorFillColor']]: _tabs['focusedSelectedActiveIndicatorFillColor'],
+  [VAR_NAME['tabsEnabledUnselectedActiveIndicatorFillColor']]:
+    _tabs['enabledUnselectedActiveIndicatorFillColor'],
+  [VAR_NAME['tabsHoveredUnselectedActiveIndicatorFillColor']]:
+    _tabs['hoveredUnselectedActiveIndicatorFillColor'],
+  [VAR_NAME['tabsPressedUnselectedActiveIndicatorFillColor']]:
+    _tabs['pressedUnselectedActiveIndicatorFillColor'],
+  [VAR_NAME['tabsFocusedUnselectedActiveIndicatorFillColor']]:
+    _tabs['focusedUnselectedActiveIndicatorFillColor'],
+  [VAR_NAME['tabsEnabledSelectedActiveIndicatorFillColor']]:
+    _tabs['enabledSelectedActiveIndicatorFillColor'],
+  [VAR_NAME['tabsHoveredSelectedActiveIndicatorFillColor']]:
+    _tabs['hoveredSelectedActiveIndicatorFillColor'],
+  [VAR_NAME['tabsPressedSelectedActiveIndicatorFillColor']]:
+    _tabs['pressedSelectedActiveIndicatorFillColor'],
+  [VAR_NAME['tabsFocusedSelectedActiveIndicatorFillColor']]:
+    _tabs['focusedSelectedActiveIndicatorFillColor'],
   [VAR_NAME['tabsActiveIndicatorRadius']]: _tabs['activeIndicatorRadius'],
-  [VAR_NAME['tabsFocusedUnselectedActiveIndicatorBorderColor']]: _tabs['focusedUnselectedActiveIndicatorBorderColor'],
-  [VAR_NAME['tabsFocusedSelectedActiveIndicatorBorderColor']]: _tabs['focusedSelectedActiveIndicatorBorderColor'],
+  [VAR_NAME['tabsFocusedUnselectedActiveIndicatorBorderColor']]:
+    _tabs['focusedUnselectedActiveIndicatorBorderColor'],
+  [VAR_NAME['tabsFocusedSelectedActiveIndicatorBorderColor']]:
+    _tabs['focusedSelectedActiveIndicatorBorderColor'],
   [VAR_NAME['textFieldEnabledFillColor']]: _textField['enabledFillColor'],
   [VAR_NAME['textFieldFocusedFillColor']]: _textField['focusedFillColor'],
   [VAR_NAME['textFieldDisabledFillColor']]: _textField['disabledFillColor'],
@@ -2942,17 +3059,23 @@ export const componentDarkTheme = {
   [VAR_NAME['textFieldTextStyleSize']]: _textField['textStyleSize'],
   [VAR_NAME['textFieldTextStyleLineHeight']]: _textField['textStyleLineHeight'],
   [VAR_NAME['textFieldTextStyleTracking']]: _textField['textStyleTracking'],
-  [VAR_NAME['textFieldEnabledPlaceholderForegroundColor']]: _textField['enabledPlaceholderForegroundColor'],
-  [VAR_NAME['textFieldDisabledPlaceholderForegroundColor']]: _textField['disabledPlaceholderForegroundColor'],
+  [VAR_NAME['textFieldEnabledPlaceholderForegroundColor']]:
+    _textField['enabledPlaceholderForegroundColor'],
+  [VAR_NAME['textFieldDisabledPlaceholderForegroundColor']]:
+    _textField['disabledPlaceholderForegroundColor'],
   [VAR_NAME['textFieldPlaceholderTextStyleFace']]: _textField['placeholderTextStyleFace'],
   [VAR_NAME['textFieldPlaceholderTextStyleWeight']]: _textField['placeholderTextStyleWeight'],
   [VAR_NAME['textFieldPlaceholderTextStyleSize']]: _textField['placeholderTextStyleSize'],
-  [VAR_NAME['textFieldPlaceholderTextStyleLineHeight']]: _textField['placeholderTextStyleLineHeight'],
+  [VAR_NAME['textFieldPlaceholderTextStyleLineHeight']]:
+    _textField['placeholderTextStyleLineHeight'],
   [VAR_NAME['textFieldPlaceholderTextStyleTracking']]: _textField['placeholderTextStyleTracking'],
   [VAR_NAME['textFieldCursorFillColor']]: _textField['cursorFillColor'],
-  [VAR_NAME['textFieldWithLabelAnimationEnabledFillColor']]: _textFieldWithLabelAnimation['enabledFillColor'],
-  [VAR_NAME['textFieldWithLabelAnimationFocusedFillColor']]: _textFieldWithLabelAnimation['focusedFillColor'],
-  [VAR_NAME['textFieldWithLabelAnimationDisabledFillColor']]: _textFieldWithLabelAnimation['disabledFillColor'],
+  [VAR_NAME['textFieldWithLabelAnimationEnabledFillColor']]:
+    _textFieldWithLabelAnimation['enabledFillColor'],
+  [VAR_NAME['textFieldWithLabelAnimationFocusedFillColor']]:
+    _textFieldWithLabelAnimation['focusedFillColor'],
+  [VAR_NAME['textFieldWithLabelAnimationDisabledFillColor']]:
+    _textFieldWithLabelAnimation['disabledFillColor'],
   [VAR_NAME['textFieldWithLabelAnimationEnabledEmptyBorderColor']]:
     _textFieldWithLabelAnimation['enabledEmptyBorderColor'],
   [VAR_NAME['textFieldWithLabelAnimationEnabledPopulatedBorderColor']]:
@@ -2977,19 +3100,26 @@ export const componentDarkTheme = {
     _textFieldWithLabelAnimation['disabledEmptyBorderWidth'],
   [VAR_NAME['textFieldWithLabelAnimationDisabledPopulatedBorderWidth']]:
     _textFieldWithLabelAnimation['disabledPopulatedBorderWidth'],
-  [VAR_NAME['textFieldWithLabelAnimationPaddingHorizontal']]: _textFieldWithLabelAnimation['paddingHorizontal'],
-  [VAR_NAME['textFieldWithLabelAnimationPaddingVertical']]: _textFieldWithLabelAnimation['paddingVertical'],
+  [VAR_NAME['textFieldWithLabelAnimationPaddingHorizontal']]:
+    _textFieldWithLabelAnimation['paddingHorizontal'],
+  [VAR_NAME['textFieldWithLabelAnimationPaddingVertical']]:
+    _textFieldWithLabelAnimation['paddingVertical'],
   [VAR_NAME['textFieldWithLabelAnimationRadius']]: _textFieldWithLabelAnimation['radius'],
   [VAR_NAME['textFieldWithLabelAnimationGap']]: _textFieldWithLabelAnimation['gap'],
   [VAR_NAME['textFieldWithLabelAnimationEnabledForegroundColor']]:
     _textFieldWithLabelAnimation['enabledForegroundColor'],
   [VAR_NAME['textFieldWithLabelAnimationDisabledForegroundColor']]:
     _textFieldWithLabelAnimation['disabledForegroundColor'],
-  [VAR_NAME['textFieldWithLabelAnimationTextStyleFace']]: _textFieldWithLabelAnimation['textStyleFace'],
-  [VAR_NAME['textFieldWithLabelAnimationTextStyleWeight']]: _textFieldWithLabelAnimation['textStyleWeight'],
-  [VAR_NAME['textFieldWithLabelAnimationTextStyleSize']]: _textFieldWithLabelAnimation['textStyleSize'],
-  [VAR_NAME['textFieldWithLabelAnimationTextStyleLineHeight']]: _textFieldWithLabelAnimation['textStyleLineHeight'],
-  [VAR_NAME['textFieldWithLabelAnimationTextStyleTracking']]: _textFieldWithLabelAnimation['textStyleTracking'],
+  [VAR_NAME['textFieldWithLabelAnimationTextStyleFace']]:
+    _textFieldWithLabelAnimation['textStyleFace'],
+  [VAR_NAME['textFieldWithLabelAnimationTextStyleWeight']]:
+    _textFieldWithLabelAnimation['textStyleWeight'],
+  [VAR_NAME['textFieldWithLabelAnimationTextStyleSize']]:
+    _textFieldWithLabelAnimation['textStyleSize'],
+  [VAR_NAME['textFieldWithLabelAnimationTextStyleLineHeight']]:
+    _textFieldWithLabelAnimation['textStyleLineHeight'],
+  [VAR_NAME['textFieldWithLabelAnimationTextStyleTracking']]:
+    _textFieldWithLabelAnimation['textStyleTracking'],
   [VAR_NAME['textFieldWithLabelAnimationEnabledPlaceholderForegroundColor']]:
     _textFieldWithLabelAnimation['enabledPlaceholderForegroundColor'],
   [VAR_NAME['textFieldWithLabelAnimationDisabledPlaceholderForegroundColor']]:
@@ -3054,7 +3184,8 @@ export const componentDarkTheme = {
     _textFieldWithLabelAnimation['disabledEmptyPlaceholderTextStyleTracking'],
   [VAR_NAME['textFieldWithLabelAnimationDisabledPopulatedPlaceholderTextStyleTracking']]:
     _textFieldWithLabelAnimation['disabledPopulatedPlaceholderTextStyleTracking'],
-  [VAR_NAME['textFieldWithLabelAnimationCursorFillColor']]: _textFieldWithLabelAnimation['cursorFillColor'],
+  [VAR_NAME['textFieldWithLabelAnimationCursorFillColor']]:
+    _textFieldWithLabelAnimation['cursorFillColor'],
   [VAR_NAME['tooltipFillColor']]: _tooltip['fillColor'],
   [VAR_NAME['tooltipRadius']]: _tooltip['radius'],
   [VAR_NAME['tooltipPaddingHorizontal']]: _tooltip['paddingHorizontal'],
@@ -3064,7 +3195,8 @@ export const componentDarkTheme = {
   [VAR_NAME['tooltipOverlayHeaderTextStyleFace']]: _tooltip['overlayHeaderTextStyleFace'],
   [VAR_NAME['tooltipOverlayHeaderTextStyleWeight']]: _tooltip['overlayHeaderTextStyleWeight'],
   [VAR_NAME['tooltipOverlayHeaderTextStyleSize']]: _tooltip['overlayHeaderTextStyleSize'],
-  [VAR_NAME['tooltipOverlayHeaderTextStyleLineHeight']]: _tooltip['overlayHeaderTextStyleLineHeight'],
+  [VAR_NAME['tooltipOverlayHeaderTextStyleLineHeight']]:
+    _tooltip['overlayHeaderTextStyleLineHeight'],
   [VAR_NAME['tooltipOverlayHeaderTextStyleTracking']]: _tooltip['overlayHeaderTextStyleTracking'],
   [VAR_NAME['tooltipOverlayBodyTextStyleFace']]: _tooltip['overlayBodyTextStyleFace'],
   [VAR_NAME['tooltipOverlayBodyTextStyleWeight']]: _tooltip['overlayBodyTextStyleWeight'],

@@ -1,4 +1,4 @@
-import { ChatLineIcon, MinusIcon } from '@prism-ui/icons'
+import { ChatLineIcon, MinusIcon } from '@orbit-ui/icons'
 import { Meta, StoryObj } from '@storybook/react'
 
 import { Button, ButtonProps } from './Button'

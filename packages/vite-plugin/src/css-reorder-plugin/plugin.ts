@@ -3,7 +3,10 @@ import type { Plugin, ResolvedConfig } from 'vite'
 import type { CssReorderPluginOptions } from './models'
 import { sortBlocks } from './utils'
 
-export function cssReorderPlugin({ priorityList, removeBangComment = false }: CssReorderPluginOptions): Plugin {
+export function cssReorderPlugin({
+  priorityList,
+  removeBangComment = false,
+}: CssReorderPluginOptions): Plugin {
   const REORDER_PLUGIN_NAME = 'vite-plugin-css-reorder'
   const MODULE_GRAPH = process.env.MODULE_GRAPH || false
 

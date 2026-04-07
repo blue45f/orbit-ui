@@ -103,26 +103,26 @@ export const 중첩 = {
         }
         `}
       </style>
-      <Flex className='outer' flexDirection='column' rowGap='6px' columnGap='6px'>
-        <Flex className='inner' flexDirection='column' rowGap='12px' columnGap='12px'>
+      <Flex className="outer" flexDirection="column" rowGap="6px" columnGap="6px">
+        <Flex className="inner" flexDirection="column" rowGap="12px" columnGap="12px">
           <div>01</div>
           <div>02</div>
           <div>03</div>
         </Flex>
-        <Flex className='inner' flexDirection='column' rowGap='12px' columnGap='12px'>
+        <Flex className="inner" flexDirection="column" rowGap="12px" columnGap="12px">
           <div>04</div>
           <div>05</div>
           <div>06</div>
         </Flex>
       </Flex>
       <div style={{ height: '30px' }} />
-      <Flex className='outer' flexDirection='column' rowGap='6px' columnGap='6px'>
-        <Flex className='inner' flexDirection='column' rowGap='12px' columnGap='12px'>
+      <Flex className="outer" flexDirection="column" rowGap="6px" columnGap="6px">
+        <Flex className="inner" flexDirection="column" rowGap="12px" columnGap="12px">
           <div>01 (구버전)</div>
           <div>02</div>
           <div>03</div>
         </Flex>
-        <Flex className='inner' flexDirection='column' rowGap='12px' columnGap='12px'>
+        <Flex className="inner" flexDirection="column" rowGap="12px" columnGap="12px">
           <div>04</div>
           <div>05</div>
           <div>06</div>

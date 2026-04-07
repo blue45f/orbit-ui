@@ -1,4 +1,4 @@
-import { CancelIcon, IconPropsContext } from '@prism-ui/icons'
+import { CancelIcon, IconPropsContext } from '@orbit-ui/icons'
 import React, { Children, HTMLAttributes, forwardRef, useCallback } from 'react'
 
 import { cn } from '../../styles'
@@ -73,197 +73,194 @@ type TextFieldWithLabelAnimationPropsWithRest = TextFieldWithLabelAnimationProps
  * Main Component
  * ======================================================================== */
 
-const InternalTextFieldWithLabelAnimationRoot = forwardRef<HTMLInputElement, TextFieldWithLabelAnimationPropsWithRest>(
-  (props, ref) => {
-    const {
-      children,
-      height = 56,
-      disabled = false,
-      type = 'text',
-      maxLength,
-      placeholder,
-      label,
-      value,
-      defaultValue = '',
-      onChange,
-      onFocus,
-      onBlur,
-      theme,
-      style: styleProp,
-      className: classProp,
-      ...rest
-    } = props
+const InternalTextFieldWithLabelAnimationRoot = forwardRef<
+  HTMLInputElement,
+  TextFieldWithLabelAnimationPropsWithRest
+>((props, ref) => {
+  const {
+    children,
+    height = 56,
+    disabled = false,
+    type = 'text',
+    maxLength,
+    placeholder,
+    label,
+    value,
+    defaultValue = '',
+    onChange,
+    onFocus,
+    onBlur,
+    theme,
+    style: styleProp,
+    className: classProp,
+    ...rest
+  } = props
 
-    const [currentValue, handleValueChange] = useControllableState<
-      string,
-      [React.ChangeEvent<HTMLInputElement>]
-    >({
-      value,
-      defaultValue,
-      onChange,
-    })
+  const [currentValue, handleValueChange] = useControllableState<
+    string,
+    [React.ChangeEvent<HTMLInputElement>]
+  >({
+    value,
+    defaultValue,
+    onChange,
+  })
 
-    const isPopulated = currentValue.length > 0
+  const isPopulated = currentValue.length > 0
 
-    const {
-      isFocused,
-      focusElement,
-      preventElementBlur,
-      ref: selfRef,
-      handlers,
-    } = useFocus<HTMLInputElement>({
-      onFocus,
-      onBlur,
-      disabled,
-    })
+  const {
+    isFocused,
+    focusElement,
+    preventElementBlur,
+    ref: selfRef,
+    handlers,
+  } = useFocus<HTMLInputElement>({
+    onFocus,
+    onBlur,
+    disabled,
+  })
 
-    const refs = composeRefs(ref, selfRef)
-    const isLabelFloating = isFocused || isPopulated
+  const refs = composeRefs(ref, selfRef)
+  const isLabelFloating = isFocused || isPopulated
 
-    const fillColor = disabled
-      ? theme?.disabledFillColor
-      : isFocused
-        ? theme?.focusedFillColor
-        : theme?.enabledFillColor
+  const fillColor = disabled
+    ? theme?.disabledFillColor
+    : isFocused
+      ? theme?.focusedFillColor
+      : theme?.enabledFillColor
 
-    const borderColor = disabled
-      ? theme?.disabledBorderColor
-      : isFocused
-        ? theme?.focusedBorderColor
-        : theme?.enabledBorderColor
+  const borderColor = disabled
+    ? theme?.disabledBorderColor
+    : isFocused
+      ? theme?.focusedBorderColor
+      : theme?.enabledBorderColor
 
-    const foregroundColor = disabled
-      ? theme?.disabledForegroundColor
-      : theme?.enabledForegroundColor
+  const foregroundColor = disabled ? theme?.disabledForegroundColor : theme?.enabledForegroundColor
 
-    const labelColor = isFocused
-      ? theme?.labelFocusedColor
-      : theme?.labelColor
+  const labelColor = isFocused ? theme?.labelFocusedColor : theme?.labelColor
 
-    const className = cn(
-      'relative inline-flex w-full',
-      disabled ? 'cursor-not-allowed opacity-60' : 'cursor-text',
-      classProp
-    )
+  const className = cn(
+    'relative inline-flex w-full',
+    disabled ? 'cursor-not-allowed opacity-60' : 'cursor-text',
+    classProp
+  )
 
-    const style: React.CSSProperties = {
-      height: toCSSLength(height),
-      backgroundColor: fillColor,
-      borderRadius: theme?.radius || '8px',
-      borderWidth: '1px',
-      borderStyle: 'solid',
-      borderColor: borderColor,
-      color: foregroundColor,
-      ...styleProp,
-    }
-
-    const {
-      filtered: [leading, trailing, clearButton],
-      unfiltered: center,
-    } = filterComponents(
-      Children.toArray(children) as React.ReactElement[],
-      TextFieldWithLabelAnimationLeading,
-      TextFieldWithLabelAnimationTrailing,
-      TextFieldWithLabelAnimationClearButton
-    )
-
-    const hasLeadingSlot = flattenFragment(leading).length > 0
-    const hasTrailingSlot = flattenFragment(trailing).length > 0
-    const hasClearButton = flattenFragment(clearButton).length > 0
-
-    const handleClear = useCallback(() => {
-      if (selfRef.current) {
-        setNativeValue(selfRef.current, '')
-        selfRef.current.focus()
-        handleValueChange({
-          changeParams: [{ target: { value: '' } } as React.ChangeEvent<HTMLInputElement>],
-          value: '',
-        })
-      }
-    }, [handleValueChange, selfRef])
-
-    return (
-      <TextFieldWithLabelAnimationProvider
-        value={{
-          disabled,
-          focused: isFocused,
-          populated: isPopulated,
-          focusElement,
-          preventElementBlur,
-          handleClear,
-        }}
-      >
-        <ContainerLayer
-          as="div"
-          className={className}
-          style={style}
-          data-disabled={disabled}
-          data-focused={isFocused}
-          data-populated={isPopulated}
-          onClick={() => focusElement()}
-        >
-          <ContentLayer
-            className="relative flex-1"
-            direction="horizontal"
-            alignment="center"
-            style={{
-              paddingLeft: theme?.paddingHorizontal || '16px',
-              paddingRight: theme?.paddingHorizontal || '16px',
-              gap: theme?.gap || '8px',
-            }}
-          >
-            {hasLeadingSlot && leading}
-            <div className="flex-1 relative pt-4">
-              {/* Floating Label */}
-              {label && (
-                <label
-                  className={cn(
-                    'absolute left-0 transition-all duration-200 pointer-events-none',
-                    isLabelFloating
-                      ? 'top-0 text-xs'
-                      : 'top-1/2 -translate-y-1/2 text-base'
-                  )}
-                  style={{ color: labelColor }}
-                >
-                  {label}
-                </label>
-              )}
-              <input
-                {...rest}
-                {...handlers}
-                ref={refs}
-                type={type}
-                disabled={disabled}
-                maxLength={maxLength}
-                placeholder={isLabelFloating ? placeholder : undefined}
-                value={currentValue}
-                className={cn(
-                  'w-full bg-transparent border-none outline-none',
-                  'text-inherit placeholder:text-[var(--placeholder-color)]',
-                  disabled && 'cursor-not-allowed'
-                )}
-                style={{
-                  '--placeholder-color': theme?.placeholderColor || 'rgba(177, 179, 181, 1)',
-                } as React.CSSProperties}
-                onChange={(e) => {
-                  handleValueChange({
-                    changeParams: [e],
-                    value: e.target.value,
-                  })
-                }}
-                aria-disabled={disabled}
-              />
-              {center}
-            </div>
-            {hasClearButton && clearButton}
-            {hasTrailingSlot && trailing}
-          </ContentLayer>
-          <BorderLayer />
-        </ContainerLayer>
-      </TextFieldWithLabelAnimationProvider>
-    )
+  const style: React.CSSProperties = {
+    height: toCSSLength(height),
+    backgroundColor: fillColor,
+    borderRadius: theme?.radius || '8px',
+    borderWidth: '1px',
+    borderStyle: 'solid',
+    borderColor: borderColor,
+    color: foregroundColor,
+    ...styleProp,
   }
-)
+
+  const {
+    filtered: [leading, trailing, clearButton],
+    unfiltered: center,
+  } = filterComponents(
+    Children.toArray(children) as React.ReactElement[],
+    TextFieldWithLabelAnimationLeading,
+    TextFieldWithLabelAnimationTrailing,
+    TextFieldWithLabelAnimationClearButton
+  )
+
+  const hasLeadingSlot = flattenFragment(leading).length > 0
+  const hasTrailingSlot = flattenFragment(trailing).length > 0
+  const hasClearButton = flattenFragment(clearButton).length > 0
+
+  const handleClear = useCallback(() => {
+    if (selfRef.current) {
+      setNativeValue(selfRef.current, '')
+      selfRef.current.focus()
+      handleValueChange({
+        changeParams: [{ target: { value: '' } } as React.ChangeEvent<HTMLInputElement>],
+        value: '',
+      })
+    }
+  }, [handleValueChange, selfRef])
+
+  return (
+    <TextFieldWithLabelAnimationProvider
+      value={{
+        disabled,
+        focused: isFocused,
+        populated: isPopulated,
+        focusElement,
+        preventElementBlur,
+        handleClear,
+      }}
+    >
+      <ContainerLayer
+        as="div"
+        className={className}
+        style={style}
+        data-disabled={disabled}
+        data-focused={isFocused}
+        data-populated={isPopulated}
+        onClick={() => focusElement()}
+      >
+        <ContentLayer
+          className="relative flex-1"
+          direction="horizontal"
+          alignment="center"
+          style={{
+            paddingLeft: theme?.paddingHorizontal || '16px',
+            paddingRight: theme?.paddingHorizontal || '16px',
+            gap: theme?.gap || '8px',
+          }}
+        >
+          {hasLeadingSlot && leading}
+          <div className="flex-1 relative pt-4">
+            {/* Floating Label */}
+            {label && (
+              <label
+                className={cn(
+                  'absolute left-0 transition-all duration-200 pointer-events-none',
+                  isLabelFloating ? 'top-0 text-xs' : 'top-1/2 -translate-y-1/2 text-base'
+                )}
+                style={{ color: labelColor }}
+              >
+                {label}
+              </label>
+            )}
+            <input
+              {...rest}
+              {...handlers}
+              ref={refs}
+              type={type}
+              disabled={disabled}
+              maxLength={maxLength}
+              placeholder={isLabelFloating ? placeholder : undefined}
+              value={currentValue}
+              className={cn(
+                'w-full bg-transparent border-none outline-none',
+                'text-inherit placeholder:text-[var(--placeholder-color)]',
+                disabled && 'cursor-not-allowed'
+              )}
+              style={
+                {
+                  '--placeholder-color': theme?.placeholderColor || 'rgba(177, 179, 181, 1)',
+                } as React.CSSProperties
+              }
+              onChange={(e) => {
+                handleValueChange({
+                  changeParams: [e],
+                  value: e.target.value,
+                })
+              }}
+              aria-disabled={disabled}
+            />
+            {center}
+          </div>
+          {hasClearButton && clearButton}
+          {hasTrailingSlot && trailing}
+        </ContentLayer>
+        <BorderLayer />
+      </ContainerLayer>
+    </TextFieldWithLabelAnimationProvider>
+  )
+})
 
 /* ========================================================================
  * Sub-components
@@ -280,7 +277,10 @@ const TextFieldWithLabelAnimationLeading: React.FC<TextFieldWithLabelAnimationLe
   className,
   ...rest
 }) => (
-  <span {...rest} className={cn('inline-flex items-center justify-center flex-shrink-0', className)}>
+  <span
+    {...rest}
+    className={cn('inline-flex items-center justify-center flex-shrink-0', className)}
+  >
     <IconPropsContext.Provider value={{ size }}>{children}</IconPropsContext.Provider>
   </span>
 )
@@ -296,7 +296,10 @@ const TextFieldWithLabelAnimationTrailing: React.FC<TextFieldWithLabelAnimationT
   className,
   ...rest
 }) => (
-  <span {...rest} className={cn('inline-flex items-center justify-center flex-shrink-0', className)}>
+  <span
+    {...rest}
+    className={cn('inline-flex items-center justify-center flex-shrink-0', className)}
+  >
     <IconPropsContext.Provider value={{ size }}>{children}</IconPropsContext.Provider>
   </span>
 )
@@ -306,10 +309,9 @@ export type TextFieldWithLabelAnimationClearButtonProps = {
   children?: React.ReactNode
 }
 
-const TextFieldWithLabelAnimationClearButton: React.FC<TextFieldWithLabelAnimationClearButtonProps> = ({
-  visibility = 'onFocused',
-  children,
-}) => {
+const TextFieldWithLabelAnimationClearButton: React.FC<
+  TextFieldWithLabelAnimationClearButtonProps
+> = ({ visibility = 'onFocused', children }) => {
   const { focused, populated, handleClear, preventElementBlur } =
     useTextFieldWithLabelAnimationContext('TextField.ClearButton')
 

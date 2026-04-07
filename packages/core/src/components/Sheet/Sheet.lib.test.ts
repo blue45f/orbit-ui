@@ -6,7 +6,10 @@ import { useResizable } from './Sheet.lib'
 const mockUseDrag = vi.fn()
 
 vi.mock('@use-gesture/react', () => ({
-  useDrag: (callback: Parameters<typeof mockUseDrag>[0], config: Parameters<typeof mockUseDrag>[1]) => {
+  useDrag: (
+    callback: Parameters<typeof mockUseDrag>[0],
+    config: Parameters<typeof mockUseDrag>[1]
+  ) => {
     mockUseDrag(callback, config)
   },
 }))
@@ -98,7 +101,7 @@ describe('useResizable', () => {
         useResizable({
           enabled: true,
           onChangeHeight,
-        }),
+        })
       )
       const grabberElement = document.createElement('div')
       const containerElement = document.createElement('div')
@@ -140,7 +143,7 @@ describe('useResizable', () => {
           enabled: true,
           breakpoints: [25, 50, 75],
           onChangeHeight,
-        }),
+        })
       )
       const grabberElement = document.createElement('div')
       const containerElement = document.createElement('div')
@@ -182,7 +185,7 @@ describe('useResizable', () => {
           enabled: true,
           breakpoints: [25, 'HIDDEN', 75],
           onChangeHeight,
-        }),
+        })
       )
       const grabberElement = document.createElement('div')
       const containerElement = document.createElement('div')
@@ -226,7 +229,7 @@ describe('useResizable', () => {
           enabled: true,
           breakpoints: [50],
           onChangeHeight,
-        }),
+        })
       )
       const grabberElement = document.createElement('div')
       const containerElement = document.createElement('div')
@@ -272,7 +275,7 @@ describe('useResizable', () => {
       const { result } = renderHook(() =>
         useResizable({
           enabled: true,
-        }),
+        })
       )
       const grabberElement = document.createElement('div')
       const containerElement = document.createElement('div')
@@ -309,7 +312,7 @@ describe('useResizable', () => {
       const { result } = renderHook(() =>
         useResizable({
           enabled: true,
-        }),
+        })
       )
       const grabberElement = document.createElement('div')
       const containerElement = document.createElement('div')
@@ -349,7 +352,7 @@ describe('useResizable', () => {
       const { result } = renderHook(() =>
         useResizable({
           enabled: true,
-        }),
+        })
       )
       const grabberElement = document.createElement('div')
       const containerElement = document.createElement('div')

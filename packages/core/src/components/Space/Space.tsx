@@ -35,5 +35,13 @@ export const Space: React.FC<SpaceProps> = (props) => {
     flexShrink: '0',
   }
 
-  return <Flex style={style} data-testid='spacer' data-prism-ui-component='Spacer' aria-hidden {...rest} />
+  return (
+    <Flex
+      style={style}
+      data-testid="spacer"
+      data-orbit-ui-component="Spacer"
+      aria-hidden
+      {...rest}
+    />
+  )
 }

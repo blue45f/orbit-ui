@@ -21,10 +21,10 @@ export const 기본: React.FC = () => {
   return (
     <Slotted>
       <span>default test 123</span>
-      <Plug key='prefix' name='prefix'>
+      <Plug key="prefix" name="prefix">
         hi!
       </Plug>
-      <Plug key='suffix' name='suffix'>
+      <Plug key="suffix" name="suffix">
         bye!
       </Plug>
       <br />

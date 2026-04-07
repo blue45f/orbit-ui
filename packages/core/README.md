@@ -1,20 +1,20 @@
-# @prism-ui/core
+# @orbit-ui/core
 
-[![npm](https://img.shields.io/npm/v/@prism-ui/core)](https://www.npmjs.com/package/@prism-ui/core)
+[![npm](https://img.shields.io/npm/v/@orbit-ui/core)](https://www.npmjs.com/package/@orbit-ui/core)
 
 > 스타일 미적용 Base 컴포넌트
 
 ## 설치
 
 ```bash
-pnpm add @prism-ui/core
+pnpm add @orbit-ui/core
 ```
 
 ## 사용법
 
 ```tsx
-import { Button, Provider } from '@prism-ui/core'
-import '@prism-ui/core/style.css'
+import { Button, Provider } from '@orbit-ui/core'
+import '@orbit-ui/core/style.css'
 
 function App() {
   return (
@@ -35,9 +35,11 @@ function App() {
 ## 컴포넌트
 
 ### 버튼
+
 - `Button` - 기본 버튼
 
 ### 입력
+
 - `TextField` - 텍스트 입력
 - `FloatingTextField` - 플로팅 라벨 텍스트 입력
 - `Checkbox` - 체크박스
@@ -47,21 +49,25 @@ function App() {
 - `Chip` - 칩
 
 ### 피드백
+
 - `Badge` - 배지
 - `AlertDialog` - 알림 다이얼로그
 - `Toast` - 토스트
 
 ### 내비게이션
+
 - `TabItem` - 탭
 - `NavigationBar` - 네비게이션 바
 
 ### 레이아웃
+
 - `Flex` - 플렉스박스
 - `Spacer` - 여백
 - `Divider` - 구분선
 - `ListNode` - 리스트 아이템
 
 ### 오버레이
+
 - `Sheet` - 바텀시트
 - `Portal` - 포탈
 - `Scrim` - 배경 오버레이

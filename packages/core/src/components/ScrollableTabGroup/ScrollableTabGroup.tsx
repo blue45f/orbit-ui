@@ -1,4 +1,12 @@
-import { forwardRef, useRef, useEffect, useState, PropsWithChildren, HTMLAttributes, ReactNode } from 'react'
+import {
+  forwardRef,
+  useRef,
+  useEffect,
+  useState,
+  PropsWithChildren,
+  HTMLAttributes,
+  ReactNode,
+} from 'react'
 
 import { cn } from '../../styles'
 import { mapChildrenWithSelection, toCSSLength } from '../../libs'
@@ -77,7 +85,18 @@ export type ScrollableTabGroupTabProps = {
  * ```
  */
 const InternalScrollableTabGroup = forwardRef<HTMLDivElement, ScrollableTabGroupProps>(
-  ({ children, selectedIndex = 0, onTabChange, className: classProp, style: styleProp, theme, ...rest }, ref) => {
+  (
+    {
+      children,
+      selectedIndex = 0,
+      onTabChange,
+      className: classProp,
+      style: styleProp,
+      theme,
+      ...rest
+    },
+    ref
+  ) => {
     const containerRef = useRef<HTMLDivElement>(null)
     const [indicatorStyle, setIndicatorStyle] = useState<React.CSSProperties>({})
 
@@ -106,7 +125,14 @@ const InternalScrollableTabGroup = forwardRef<HTMLDivElement, ScrollableTabGroup
     const childrenWithProps = mapChildrenWithSelection(children, selectedIndex, onTabChange)
 
     return (
-      <ContainerLayer as="div" ref={ref} className={className} style={style} role="tablist" {...rest}>
+      <ContainerLayer
+        as="div"
+        ref={ref}
+        className={className}
+        style={style}
+        role="tablist"
+        {...rest}
+      >
         <div ref={containerRef} className="inline-flex min-w-full">
           <ContentLayer
             className="relative"
@@ -119,10 +145,7 @@ const InternalScrollableTabGroup = forwardRef<HTMLDivElement, ScrollableTabGroup
         </div>
         {/* Active indicator */}
         <div
-          className={cn(
-            'absolute bottom-0 left-0',
-            'transition-all duration-200 ease-out'
-          )}
+          className={cn('absolute bottom-0 left-0', 'transition-all duration-200 ease-out')}
           style={{
             height: theme?.indicatorHeight || '2px',
             backgroundColor: theme?.indicatorColor || 'currentColor',
@@ -140,7 +163,20 @@ const InternalScrollableTabGroup = forwardRef<HTMLDivElement, ScrollableTabGroup
 
 /** Tab - 개별 탭 컴포넌트 */
 const ScrollableTabGroupTab = forwardRef<HTMLButtonElement, ScrollableTabGroupTabProps>(
-  ({ value, height, selected, disabled, theme, children, className: classProp, style: styleProp, ...rest }, ref) => {
+  (
+    {
+      value,
+      height,
+      selected,
+      disabled,
+      theme,
+      children,
+      className: classProp,
+      style: styleProp,
+      ...rest
+    },
+    ref
+  ) => {
     const style: React.CSSProperties = {
       height: height ? toCSSLength(height) : undefined,
       backgroundColor: selected ? theme?.selectedFillColor : theme?.fillColor,
@@ -159,7 +195,10 @@ const ScrollableTabGroupTab = forwardRef<HTMLButtonElement, ScrollableTabGroupTa
         role="tab"
         aria-selected={selected}
         disabled={disabled}
-        className={cn('relative inline-flex items-center justify-center whitespace-nowrap', classProp)}
+        className={cn(
+          'relative inline-flex items-center justify-center whitespace-nowrap',
+          classProp
+        )}
         style={style}
         data-value={value}
         {...rest}
@@ -171,11 +210,11 @@ const ScrollableTabGroupTab = forwardRef<HTMLButtonElement, ScrollableTabGroupTa
 )
 
 /** ActiveIndicator - 활성 탭 인디케이터 */
-const ScrollableTabGroupActiveIndicator: React.FC<{ height?: number; className?: string; style?: React.CSSProperties }> = ({
-  height = 2,
-  className,
-  style,
-}) => (
+const ScrollableTabGroupActiveIndicator: React.FC<{
+  height?: number
+  className?: string
+  style?: React.CSSProperties
+}> = ({ height = 2, className, style }) => (
   <span
     className={cn('absolute bottom-0 left-0 bg-current transition-all', className)}
     style={{ height, ...style }}
@@ -221,10 +260,13 @@ type ScrollableTabGroupComponent = typeof InternalScrollableTabGroup & {
  * </ScrollableTabGroup>
  * ```
  */
-export const ScrollableTabGroup: ScrollableTabGroupComponent = Object.assign(InternalScrollableTabGroup, {
-  Tab: ScrollableTabGroupTab,
-  TabLeading: ScrollableTabGroupTabLeading,
-  TabCenter: ScrollableTabGroupTabCenter,
-  TabTrailing: ScrollableTabGroupTabTrailing,
-  ActiveIndicator: ScrollableTabGroupActiveIndicator,
-})
+export const ScrollableTabGroup: ScrollableTabGroupComponent = Object.assign(
+  InternalScrollableTabGroup,
+  {
+    Tab: ScrollableTabGroupTab,
+    TabLeading: ScrollableTabGroupTabLeading,
+    TabCenter: ScrollableTabGroupTabCenter,
+    TabTrailing: ScrollableTabGroupTabTrailing,
+    ActiveIndicator: ScrollableTabGroupActiveIndicator,
+  }
+)

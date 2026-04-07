@@ -1,10 +1,10 @@
 # CLAUDE.md
 
-This file provides guidance for AI assistants working with the Prism UI codebase.
+This file provides guidance for AI assistants working with the Orbit UI codebase.
 
 ## Project Overview
 
-Prism UI (formerly Clay Kit) is a Figma-based React design system component library. It provides a 3-tier architecture: Base components (unstyled) -> Theme components (styled) -> Custom components (project extensions).
+Orbit UI (formerly Clay Kit) is a Figma-based React design system component library. It provides a 3-tier architecture: Base components (unstyled) -> Theme components (styled) -> Custom components (project extensions).
 
 **Key Technologies:**
 - React 18/19 with TypeScript 5.7+
@@ -12,29 +12,29 @@ Prism UI (formerly Clay Kit) is a Figma-based React design system component libr
 - vanilla-extract for theme-layer CSS-in-JS
 - Vite for building, Vitest for testing
 - Storybook for component documentation
-- pnpm workspaces with Turborepo
+- pnpm workspaces
 
 ## Package Structure
 
 ```
-prism-ui/
+orbit-ui/
 ├── packages/
-│   ├── core/                    # @prism-ui/core - Base components (unstyled)
+│   ├── core/                    # @orbit-ui/core - Base components (unstyled)
 │   │   └── src/
 │   │       ├── components/      # UI components
 │   │       ├── libs/            # Hooks, utilities, core functions
 │   │       └── styles/          # Tailwind utilities, design tokens
 │   │
-│   ├── theme-ocean/             # @prism-ui/theme-ocean - Ocean theme
+│   ├── theme-eclipse/             # @orbit-ui/theme-eclipse - Eclipse theme
 │   │   └── src/
 │   │       ├── components/      # Themed component wrappers
 │   │       ├── styles/          # vanilla-extract styles
 │   │       └── server/          # Server components for Next.js
 │   │
-│   ├── icons/                   # @prism-ui/icons - SVG icon components
-│   ├── vite-plugin/             # @prism-ui/vite-plugin - CSS ordering plugins
-│   ├── eslint-plugin/           # @prism-ui/eslint-plugin - CSS property ordering
-│   └── generator/               # @prism-ui/generator - Component scaffolding
+│   ├── icons/                   # @orbit-ui/icons - SVG icon components
+│   ├── vite-plugin/             # @orbit-ui/vite-plugin - CSS ordering plugins
+│   ├── eslint-plugin/           # @orbit-ui/eslint-plugin - CSS property ordering
+│   └── generator/               # @orbit-ui/generator - Component scaffolding
 │
 └── config/
     ├── tsconfig/                # Shared TypeScript configurations
@@ -72,7 +72,7 @@ ComponentName/
 
 ## Component Patterns
 
-### Base Components (@prism-ui/core)
+### Base Components (@orbit-ui/core)
 
 Base components are unstyled and use Tailwind CSS utilities:
 
@@ -103,22 +103,22 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 )
 ```
 
-### Theme Components (@prism-ui/theme-ocean)
+### Theme Components (@orbit-ui/theme-eclipse)
 
 Theme components wrap base components with styled tokens using vanilla-extract:
 
 ```tsx
 import { forwardRef } from 'react'
-import { Button as BaseButton } from '@prism-ui/core'
-import { oceanTokens } from '../../styles'
+import { Button as BaseButton } from '@orbit-ui/core'
+import { eclipseTokens } from '../../styles'
 
 export const SolidButton = forwardRef<HTMLButtonElement, ButtonProps>(
   ({ variant = 'primary', size = 'medium', ...props }, ref) => (
     <BaseButton
       ref={ref}
       theme={{
-        ...oceanTokens.button,
-        ...oceanTokens.button.variant[variant],
+        ...eclipseTokens.button,
+        ...eclipseTokens.button.variant[variant],
       }}
       {...props}
     />
@@ -195,7 +195,7 @@ export const buttonRecipe = recipe({
 
 ### CSS Property Ordering
 
-CSS properties in `.css.ts` files should follow concentric ordering (enforced by `@prism-ui/css-concentric-order`). Order: positioning -> display -> box model -> visual -> typography -> misc.
+CSS properties in `.css.ts` files should follow concentric ordering (enforced by `@orbit-ui/css-concentric-order`). Order: positioning -> display -> box model -> visual -> typography -> misc.
 
 ## Design Token Hierarchy
 

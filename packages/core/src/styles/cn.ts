@@ -83,12 +83,8 @@ export function stateClasses(config: {
  */
 export function variants<
   T extends Record<string, Record<string, string>>,
-  D extends { [K in keyof T]?: keyof T[K] }
->(config: {
-  base?: string
-  variants: T
-  defaultVariants?: D
-}) {
+  D extends { [K in keyof T]?: keyof T[K] },
+>(config: { base?: string; variants: T; defaultVariants?: D }) {
   const cvaFn = cva(config.base, {
     variants: config.variants as Record<string, Record<string, string>>,
     defaultVariants: config.defaultVariants as Record<string, string> | undefined,

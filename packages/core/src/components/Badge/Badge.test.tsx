@@ -12,7 +12,7 @@ test('`Badge` 컴포넌트를 렌더링한다', () => {
     <Badge>
       <Badge.Leading>Leading</Badge.Leading>
       <Badge.Trailing>Trailing</Badge.Trailing>
-    </Badge>,
+    </Badge>
   )
 
   // Assert

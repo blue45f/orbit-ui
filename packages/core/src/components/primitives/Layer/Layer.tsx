@@ -69,7 +69,8 @@ export type ContainerLayerOwnProps = {
   className?: string
 }
 
-export type ContainerLayerProps = ContainerLayerOwnProps & Omit<AllHTMLAttributes<HTMLElement>, keyof ContainerLayerOwnProps>
+export type ContainerLayerProps = ContainerLayerOwnProps &
+  Omit<AllHTMLAttributes<HTMLElement>, keyof ContainerLayerOwnProps>
 
 export const ContainerLayer = forwardRef<HTMLElement, ContainerLayerProps>(
   ({ as = 'div', className, children, ...rest }, ref) => {
@@ -136,7 +137,8 @@ const contentLayerStyles = cn('w-full h-full', '[color:var(--layer-foreground,in
 export const ContentLayer = forwardRef<HTMLDivElement, ContentLayerProps>(
   ({ direction = 'horizontal', alignment, arrangement, className, style, ...rest }, ref) => {
     const flexDirection = direction === 'horizontal' ? 'row' : 'column'
-    const alignItems = alignment === 'top' ? 'flex-start' : alignment === 'center' ? 'center' : 'flex-end'
+    const alignItems =
+      alignment === 'top' ? 'flex-start' : alignment === 'center' ? 'center' : 'flex-end'
     const justifyContent =
       {
         start: 'flex-start',
@@ -173,7 +175,11 @@ const shapeLayerStyles = cn(
   '[color:var(--layer-foreground,inherit)]'
 )
 
-export const ShapeLayer: React.FC<AllHTMLAttributes<HTMLElement>> = ({ as = 'div', className, ...rest }) => {
+export const ShapeLayer: React.FC<AllHTMLAttributes<HTMLElement>> = ({
+  as = 'div',
+  className,
+  ...rest
+}) => {
   return createElement(as, { className: cn(shapeLayerStyles, className), ...rest })
 }
 

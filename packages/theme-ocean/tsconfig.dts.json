@@ -1,9 +1,0 @@
-{
-  "$schema": "https://json.schemastore.org/tsconfig",
-  "extends": "@prism-ui/tsconfig/dts.json",
-  "compilerOptions": {
-    "declarationDir": "./dist"
-  },
-  "include": ["src"],
-  "exclude": ["**/*.stories.*", "**/*.test.*"]
-}

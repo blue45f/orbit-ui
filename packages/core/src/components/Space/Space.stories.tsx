@@ -81,12 +81,16 @@ export const 디자인_QA: Story = {
     return (
       <div style={{ display: 'flex', flexDirection: 'column', border: '1px solid red' }}>
         <div style={{ display: 'flex', width: '100%' }}>
-          <div style={{ backgroundColor: 'lightgreen', width: '100%' }}>우측 요소와 {args.x} 간격이에요</div>
+          <div style={{ backgroundColor: 'lightgreen', width: '100%' }}>
+            우측 요소와 {args.x} 간격이에요
+          </div>
           <Space {...args} />
           <div style={{ backgroundColor: 'green', width: '100%' }} />
         </div>
         <Space {...args} />
-        <div style={{ backgroundColor: 'lightblue', height: '100%' }}>위의 행의 요소와 {args.y} 간격을 가져요</div>
+        <div style={{ backgroundColor: 'lightblue', height: '100%' }}>
+          위의 행의 요소와 {args.y} 간격을 가져요
+        </div>
       </div>
     )
   },

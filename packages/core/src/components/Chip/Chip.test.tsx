@@ -31,7 +31,7 @@ test('disabled일 경우, 클릭해도 핸들러가 호출되지 않는다.', as
   render(
     <Chip disabled onClick={clickHandler}>
       Chip
-    </Chip>,
+    </Chip>
   )
 
   await userEvent.click(screen.getByRole('button'))

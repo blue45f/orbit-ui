@@ -4,12 +4,16 @@ import { ThemeProvider } from './components/primitives'
 
 // ======== 기본 유틸 ========
 const wrapper = ({ children }: { children: React.ReactNode }) => (
-  <ThemeProvider mode='light' themeClass='light'>{children}</ThemeProvider>
+  <ThemeProvider mode="light" themeClass="light">
+    {children}
+  </ThemeProvider>
 )
 
 // https://testing-library.com/docs/react-testing-library/setup#custom-render
-const customRender = (ui: React.ReactElement, options?: Omit<RenderOptions, 'wrapper'>): ReturnType<typeof render> =>
-  render(ui, { wrapper, ...options })
+const customRender = (
+  ui: React.ReactElement,
+  options?: Omit<RenderOptions, 'wrapper'>
+): ReturnType<typeof render> => render(ui, { wrapper, ...options })
 
 export * from '@testing-library/react'
 export { customRender as render }
@@ -81,7 +85,7 @@ export class VirtualDOMRectClass {
     public x: number,
     public y: number,
     public width: number,
-    public height: number,
+    public height: number
   ) {
     return createDOMRect({ x, y, width, height })
   }

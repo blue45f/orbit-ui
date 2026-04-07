@@ -4,9 +4,9 @@ import type { IconProps } from '../types'
 
 function SwitchThumbIcon(props: IconProps) {
   return (
-  <IconRoot {...props}>
-    <circle cx='12' cy='12' r='9' />
-  </IconRoot>
+    <IconRoot {...props}>
+      <circle cx="12" cy="12" r="9" />
+    </IconRoot>
   )
 }
 

@@ -37,7 +37,7 @@ describe('Text 컴포넌트', () => {
       const { unmount } = render(
         <Text variant={variant as keyof typeof variantTagMap} data-testid={TEST_ID}>
           {variant} 텍스트
-        </Text>,
+        </Text>
       )
 
       expect(screen.getByTestId(TEST_ID).tagName).toBe(expectedTag)
@@ -47,9 +47,9 @@ describe('Text 컴포넌트', () => {
 
   test('as prop을 통해 HTML 태그를 변경할 수 있다', () => {
     render(
-      <Text as='h1' variant='body1' data-testid={TEST_ID}>
+      <Text as="h1" variant="body1" data-testid={TEST_ID}>
         제목
-      </Text>,
+      </Text>
     )
 
     const typography = screen.getByTestId(TEST_ID)
@@ -71,7 +71,7 @@ describe('Text 컴포넌트', () => {
         data-testid={TEST_ID}
       >
         커스텀 텍스트
-      </Text>,
+      </Text>
     )
 
     const typography = screen.getByTestId(TEST_ID)
@@ -87,7 +87,7 @@ describe('Text 컴포넌트', () => {
     render(
       <Text theme={{ fontSize: '18px' }} data-testid={TEST_ID}>
         부분 오버라이드
-      </Text>,
+      </Text>
     )
 
     const typography = screen.getByTestId(TEST_ID)
@@ -102,7 +102,7 @@ describe('Text 컴포넌트', () => {
     render(
       <Text className={expectedClassName} style={expectedStyle} data-testid={TEST_ID}>
         텍스트
-      </Text>,
+      </Text>
     )
 
     const typography = screen.getByTestId(TEST_ID)
@@ -119,7 +119,7 @@ describe('Text 컴포넌트', () => {
         data-testid={TEST_ID}
       >
         병합 텍스트
-      </Text>,
+      </Text>
     )
 
     const typography = screen.getByTestId(TEST_ID)
@@ -148,7 +148,7 @@ describe('Text 컴포넌트', () => {
         const { unmount } = render(
           <Text variant={variant} data-testid={TEST_ID}>
             {variant} 텍스트
-          </Text>,
+          </Text>
         )
 
         expect(screen.getByTestId(TEST_ID)).toBeInTheDocument()

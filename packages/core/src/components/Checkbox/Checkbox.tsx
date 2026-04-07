@@ -98,7 +98,7 @@ const CheckboxRoot = forwardRef<HTMLButtonElement, CheckboxProps>((props, ref) =
     (value: RadixCheckbox.CheckedState) => {
       onChange?.(value === true)
     },
-    [onChange],
+    [onChange]
   )
 
   return (
@@ -112,13 +112,13 @@ const CheckboxRoot = forwardRef<HTMLButtonElement, CheckboxProps>((props, ref) =
       {...rest}
     >
       <ContainerLayer
-        as='button'
-        type='button'
+        as="button"
+        type="button"
         className={cn(
           'relative inline-flex items-center justify-center',
           disabled ? 'cursor-not-allowed opacity-60' : 'cursor-pointer',
           'focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500',
-          classProp,
+          classProp
         )}
         data-state={checkedProp ? 'checked' : 'unchecked'}
         style={
@@ -142,7 +142,7 @@ const CheckboxRoot = forwardRef<HTMLButtonElement, CheckboxProps>((props, ref) =
         }
       >
         <StateLayer className={cn(!disabled && 'hover:bg-black/5 active:bg-black/10')} />
-        <ShapeLayer className='flex items-center justify-center'>
+        <ShapeLayer className="flex items-center justify-center">
           <RadixCheckbox.Indicator forceMount>{children}</RadixCheckbox.Indicator>
         </ShapeLayer>
       </ContainerLayer>

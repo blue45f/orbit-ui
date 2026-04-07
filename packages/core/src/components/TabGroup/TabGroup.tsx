@@ -1,4 +1,11 @@
-import { forwardRef, HTMLAttributes, PropsWithChildren, ReactNode, useCallback, Children } from 'react'
+import {
+  forwardRef,
+  HTMLAttributes,
+  PropsWithChildren,
+  ReactNode,
+  useCallback,
+  Children,
+} from 'react'
 
 import { cn } from '../../styles'
 import { mapChildrenWithSelection, toCSSLength } from '../../libs'
@@ -75,7 +82,18 @@ export type TabItemsTabProps = {
  * ```
  */
 const InternalTabItems = forwardRef<HTMLDivElement, TabItemsProps>(
-  ({ children, selectedIndex = 0, onTabChange, className: classProp, style: styleProp, theme, ...rest }, ref) => {
+  (
+    {
+      children,
+      selectedIndex = 0,
+      onTabChange,
+      className: classProp,
+      style: styleProp,
+      theme,
+      ...rest
+    },
+    ref
+  ) => {
     const className = cn('relative inline-flex', classProp)
 
     const style: React.CSSProperties = {
@@ -122,7 +140,15 @@ const InternalTabItems = forwardRef<HTMLDivElement, TabItemsProps>(
     const childrenWithProps = mapChildrenWithSelection(children, selectedIndex, onTabChange)
 
     return (
-      <ContainerLayer as="div" ref={ref} className={className} style={style} role="tablist" onKeyDown={handleKeyDown} {...rest}>
+      <ContainerLayer
+        as="div"
+        ref={ref}
+        className={className}
+        style={style}
+        role="tablist"
+        onKeyDown={handleKeyDown}
+        {...rest}
+      >
         <ContentLayer
           className="relative"
           direction="horizontal"
@@ -142,7 +168,20 @@ const InternalTabItems = forwardRef<HTMLDivElement, TabItemsProps>(
 
 /** Tab - 개별 탭 컴포넌트 */
 const TabItemsTab = forwardRef<HTMLButtonElement, TabItemsTabProps>(
-  ({ value, height, selected, disabled, theme, children, className: classProp, style: styleProp, ...rest }, ref) => {
+  (
+    {
+      value,
+      height,
+      selected,
+      disabled,
+      theme,
+      children,
+      className: classProp,
+      style: styleProp,
+      ...rest
+    },
+    ref
+  ) => {
     const style: React.CSSProperties = {
       height: height ? toCSSLength(height) : undefined,
       backgroundColor: selected ? theme?.selectedFillColor : theme?.fillColor,

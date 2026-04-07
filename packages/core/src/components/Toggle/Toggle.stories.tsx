@@ -81,24 +81,46 @@ export const 디자인QA = {
   // eslint-disable-next-line
   render: ({ thumbWidth, thumbHeight, ...args }: any) => {
     return (
-      <Flex flexDirection={'column'} rowGap='20px'>
-        <label htmlFor='mint'>
+      <Flex flexDirection={'column'} rowGap="20px">
+        <label htmlFor="mint">
           민트
-          <Toggle id='mint' theme={mintTheme} width={38} height={24} borderWidth={1} onChange={args.onChange}>
-            <Toggle.Thumb style={{ transition: `transform 300ms ease-out` }} width={18} height={18} />
+          <Toggle
+            id="mint"
+            theme={mintTheme}
+            width={38}
+            height={24}
+            borderWidth={1}
+            onChange={args.onChange}
+          >
+            <Toggle.Thumb
+              style={{ transition: `transform 300ms ease-out` }}
+              width={18}
+              height={18}
+            />
           </Toggle>
         </label>
 
-        <label htmlFor='blue'>
+        <label htmlFor="blue">
           블루
-          <Toggle id='blue' theme={blueTheme} width={40} height={24} borderWidth={1} onChange={args.onChange}>
-            <Toggle.Thumb style={{ transition: `transform 300ms ease-out` }} width={20} height={20} />
+          <Toggle
+            id="blue"
+            theme={blueTheme}
+            width={40}
+            height={24}
+            borderWidth={1}
+            onChange={args.onChange}
+          >
+            <Toggle.Thumb
+              style={{ transition: `transform 300ms ease-out` }}
+              width={20}
+              height={20}
+            />
           </Toggle>
         </label>
 
-        <label htmlFor='custom'>
+        <label htmlFor="custom">
           커스텀
-          <Toggle {...args} id='custom' theme={customTheme} onChange={args.onChange}>
+          <Toggle {...args} id="custom" theme={customTheme} onChange={args.onChange}>
             <Toggle.Thumb style={{ transition: 'none' }} width={thumbWidth} height={thumbHeight} />
           </Toggle>
         </label>

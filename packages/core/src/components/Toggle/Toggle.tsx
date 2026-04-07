@@ -186,11 +186,7 @@ const ToggleRoot = forwardRef<HTMLInputElement, ToggleProps>((props, ref) => {
           })
         }}
       />
-      <StateLayer
-        className={cn(
-          !disabled && 'hover:bg-black/5 active:bg-black/10'
-        )}
-      />
+      <StateLayer className={cn(!disabled && 'hover:bg-black/5 active:bg-black/10')} />
       <ShapeLayer>{children}</ShapeLayer>
     </ContainerLayer>
   )
@@ -227,13 +223,15 @@ const ToggleThumb: React.FC<ToggleThumbProps> = (props) => {
         '[[data-checked=true]_&]:translate-x-[calc(var(--switch-width)-var(--thumb-width)-(var(--switch-height)-var(--thumb-height)))]',
         className
       )}
-      style={{
-        width: toCSSLength(width),
-        height: toCSSLength(height),
-        '--thumb-width': toCSSLength(width),
-        '--thumb-height': toCSSLength(height),
-        ...style,
-      } as React.CSSProperties}
+      style={
+        {
+          width: toCSSLength(width),
+          height: toCSSLength(height),
+          '--thumb-width': toCSSLength(width),
+          '--thumb-height': toCSSLength(height),
+          ...style,
+        } as React.CSSProperties
+      }
     />
   )
 }

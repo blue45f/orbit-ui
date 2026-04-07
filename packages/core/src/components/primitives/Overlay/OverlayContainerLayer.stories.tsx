@@ -36,7 +36,7 @@ const Basic = () => {
       <div style={{ display: 'inline-block', textAlign: 'left', marginBottom: 20 }}>
         <label style={{ display: 'block' }}>
           <input
-            type='checkbox'
+            type="checkbox"
             checked={dismissOnEscape}
             onChange={(event) => setDismissOnEscape(event.target.checked)}
           />{' '}
@@ -45,7 +45,7 @@ const Basic = () => {
 
         <label style={{ display: 'block' }}>
           <input
-            type='checkbox'
+            type="checkbox"
             checked={dismissOnPointerDownOutside}
             onChange={(event) => setDismissOnPointerDownOutside(event.target.checked)}
           />{' '}
@@ -54,7 +54,7 @@ const Basic = () => {
 
         <label style={{ display: 'block' }}>
           <input
-            type='checkbox'
+            type="checkbox"
             checked={dismissOnFocusOutside}
             onChange={(event) => setDismissOnFocusOutside(event.target.checked)}
           />{' '}
@@ -65,7 +65,7 @@ const Basic = () => {
       </div>
 
       <div style={{ marginBottom: 20 }}>
-        <button ref={openButtonRef} type='button' onClick={() => setOpen((v) => !v)}>
+        <button ref={openButtonRef} type="button" onClick={() => setOpen((v) => !v)}>
           {open ? 'Close' : 'Open'} layer
         </button>
       </div>
@@ -89,12 +89,12 @@ const Basic = () => {
             color: 'white',
           }}
         >
-          <ContentLayer direction='vertical'>
-            <Text as='h2' style={{ color: 'white', fontSize: '1.5rem', fontWeight: 'bold' }}>
+          <ContentLayer direction="vertical">
+            <Text as="h2" style={{ color: 'white', fontSize: '1.5rem', fontWeight: 'bold' }}>
               Header
             </Text>
-            <input type='text' />
-            <Text as='span' style={{ color: 'white', fontSize: '0.875rem' }}>
+            <input type="text" />
+            <Text as="span" style={{ color: 'white', fontSize: '0.875rem' }}>
               Footer
             </Text>
           </ContentLayer>
@@ -102,8 +102,8 @@ const Basic = () => {
       ) : null}
 
       <div style={{ marginBottom: 20 }}>
-        <input type='text' defaultValue='hello' style={{ marginRight: 20 }} />
-        <button type='button' onMouseDown={() => alert('hey!')}>
+        <input type="text" defaultValue="hello" style={{ marginRight: 20 }} />
+        <button type="button" onMouseDown={() => alert('hey!')}>
           hey!
         </button>
       </div>
@@ -126,7 +126,7 @@ export const OverlayProtected_예제: React.FC = () => {
   return (
     <>
       <h2>OverlayProtected</h2>
-      <button type='button' onClick={() => setOpen((v) => !v)}>
+      <button type="button" onClick={() => setOpen((v) => !v)}>
         {open ? 'Close' : 'Open'} layer
       </button>
       <div>
@@ -144,7 +144,7 @@ export const OverlayProtected_예제: React.FC = () => {
           }}
         >
           빨간 부분을 클릭해도 안닫혀요
-          <input type='text' />
+          <input type="text" />
         </OverlayContainerLayer.Protected>
       </div>
       {open && (
@@ -163,7 +163,7 @@ export const OverlayProtected_예제: React.FC = () => {
           }}
           onDismiss={() => setOpen(false)}
         >
-          <ContentLayer direction='vertical'>
+          <ContentLayer direction="vertical">
             <span>Header</span>
             <span>열린 OverlayContainer</span>
             <span>Footer</span>
@@ -191,14 +191,16 @@ function OverlayBox(props: OverlayContainerLayerProps) {
         ...props.style,
       }}
     >
-      <ContentLayer direction='vertical'>
+      <ContentLayer direction="vertical">
         <div>
-          <button ref={openButtonRef} type='button' onClick={() => setOpen((v) => !v)}>
+          <button ref={openButtonRef} type="button" onClick={() => setOpen((v) => !v)}>
             {open ? 'Close' : 'Open'} new layer
           </button>
         </div>
 
-        {open ? <OverlayBox dismissOnFocusOutside={false} onDismiss={() => setOpen(false)} /> : null}
+        {open ? (
+          <OverlayBox dismissOnFocusOutside={false} onDismiss={() => setOpen(false)} />
+        ) : null}
       </ContentLayer>
     </OverlayContainerLayer>
   )

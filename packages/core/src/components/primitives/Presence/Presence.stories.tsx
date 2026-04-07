@@ -22,7 +22,7 @@ export const 예제: StoryObj<Meta> = {
 
     return (
       <>
-        <button type='button' onClick={togglePresent}>
+        <button type="button" onClick={togglePresent}>
           토글
         </button>
         <Presence present={present} onChange={onChange}>

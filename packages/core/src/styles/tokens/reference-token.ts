@@ -186,10 +186,10 @@ export const radius = {
 } as const
 export const shadow = {
   none: '0px 0px 0px rgba(0, 0, 0, 0)',
-  level1: '0px 2px 8px rgba(0, 0, 0, 0.06)',
-  level2: '0px 2px 8px rgba(0, 0, 0, 0.12)',
-  level3: '0px 2px 10px rgba(0, 0, 0, 0.18)',
-  level4: '0px 6px 20px rgba(0, 0, 0, 0.12)',
+  level1: '0px 1px 2px rgba(0, 0, 0, 0.05), 0px 1px 3px rgba(0, 0, 0, 0.02)',
+  level2: '0px 2px 4px rgba(0, 0, 0, 0.05), 0px 4px 6px rgba(0, 0, 0, 0.02)',
+  level3: '0px 4px 6px rgba(0, 0, 0, 0.05), 0px 8px 12px rgba(0, 0, 0, 0.04)',
+  level4: '0px 10px 24px rgba(0, 0, 0, 0.06), 0px 4px 8px rgba(0, 0, 0, 0.03)',
 } as const
 export const spacing = {
   '1': '1px',

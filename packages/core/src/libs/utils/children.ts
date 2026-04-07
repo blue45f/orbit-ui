@@ -39,11 +39,15 @@ export function filterComponents(
   let unfilteredChildren: Awaited<ReactNode>[] = [...childrenArray]
 
   componentTypes.forEach((componentType) => {
-    const componentsOfType = childrenArray.filter((child) => isComponentTypeOf(child, componentType))
+    const componentsOfType = childrenArray.filter((child) =>
+      isComponentTypeOf(child, componentType)
+    )
     filteredResults.push(componentsOfType as ReactElement[])
 
     // 필터링된 요소들은 unfilteredChildren에서 제거합니다.
-    unfilteredChildren = unfilteredChildren.filter((child) => !isComponentTypeOf(child, componentType))
+    unfilteredChildren = unfilteredChildren.filter(
+      (child) => !isComponentTypeOf(child, componentType)
+    )
   })
 
   return {

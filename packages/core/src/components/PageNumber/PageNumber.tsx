@@ -50,7 +50,12 @@ const InternalPageNumber = forwardRef<HTMLDivElement, PageNumberProps>(
 
     return (
       <ContainerLayer as="div" ref={ref} className={className} style={style} {...rest}>
-        <ContentLayer className="relative" direction="horizontal" alignment="center" style={{ gap: '4px' }}>
+        <ContentLayer
+          className="relative"
+          direction="horizontal"
+          alignment="center"
+          style={{ gap: '4px' }}
+        >
           <span className="text-sm font-medium">
             {current} / {total}
           </span>

@@ -30,8 +30,11 @@ import React, { PropsWithChildren, useMemo } from 'react'
  */
 export function setupContext<ContextValue extends object>(
   providerName: string,
-  defaultValue?: ContextValue,
-): [React.FC<PropsWithChildren<ContextValue>>, (consumerName: string) => PropsWithChildren<ContextValue>] {
+  defaultValue?: ContextValue
+): [
+  React.FC<PropsWithChildren<ContextValue>>,
+  (consumerName: string) => PropsWithChildren<ContextValue>,
+] {
   const Context = React.createContext<ContextValue | undefined>(defaultValue)
 
   const Provider: React.FC<PropsWithChildren<ContextValue>> = ({ children, ...providerProps }) => {

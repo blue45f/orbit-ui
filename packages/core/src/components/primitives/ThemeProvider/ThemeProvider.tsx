@@ -9,7 +9,8 @@ export type ThemeProviderContextValue = {
   baseTextSize: TextStyleBaseSize
 }
 
-export const [ThemeProviderProvider, useThemeProviderContext] = setupContext<ThemeProviderContextValue>('ThemeProvider')
+export const [ThemeProviderProvider, useThemeProviderContext] =
+  setupContext<ThemeProviderContextValue>('ThemeProvider')
 
 type Props = {
   /**
@@ -38,7 +39,12 @@ type Props = {
  * - 사용처 앱의 최상단에 배치되는 Provider를 구성하는 공통 컴포넌트예요.
  * - `<body>` 태그에 테마 클래스명을 추가하거나, context를 통한 전역 상태 전달 등의 역할을 해요.
  */
-export const ThemeProvider: React.FC<Props> = ({ mode = 'light', themeClass, baseTextSize = 'medium', children }) => {
+export const ThemeProvider: React.FC<Props> = ({
+  mode = 'light',
+  themeClass,
+  baseTextSize = 'medium',
+  children,
+}) => {
   const foundationTheme = {
     light: lightTheme,
     dark: darkTheme,

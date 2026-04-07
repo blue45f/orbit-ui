@@ -19,11 +19,11 @@ test('클릭 시 change event 핸들러가 호출된다..', async () => {
   const changeHandler = vi.fn()
 
   render(
-    <Checkbox data-testid='checkbox' onChange={changeHandler}>
+    <Checkbox data-testid="checkbox" onChange={changeHandler}>
       <Checkbox.Icon>
         <span />
       </Checkbox.Icon>
-    </Checkbox>,
+    </Checkbox>
   )
 
   await userEvent.click(screen.getByTestId('checkbox'))
@@ -36,11 +36,11 @@ test('disabled일 경우, 클릭해도 change event 핸들러가 호출되지 �
   const changeHandler = vi.fn()
 
   render(
-    <Checkbox disabled data-testid='checkbox' onChange={changeHandler}>
+    <Checkbox disabled data-testid="checkbox" onChange={changeHandler}>
       <Checkbox.Icon>
         <span />
       </Checkbox.Icon>
-    </Checkbox>,
+    </Checkbox>
   )
 
   await userEvent.click(screen.getByTestId('checkbox'))
@@ -53,11 +53,11 @@ test('하위요소에 ref를 전달했을 때 정상적으로 하위요소에 �
   const changeHandler = vi.fn()
 
   render(
-    <Checkbox ref={ref} data-testid='checkbox' onChange={changeHandler}>
+    <Checkbox ref={ref} data-testid="checkbox" onChange={changeHandler}>
       <Checkbox.Icon>
         <span />
       </Checkbox.Icon>
-    </Checkbox>,
+    </Checkbox>
   )
 
   expect(ref.current).toBe(screen.getByTestId('checkbox'))
@@ -67,11 +67,11 @@ test('Space 키로 체크 상태가 토글된다.', async () => {
   const changeHandler = vi.fn()
 
   render(
-    <Checkbox data-testid='checkbox' onChange={changeHandler}>
+    <Checkbox data-testid="checkbox" onChange={changeHandler}>
       <Checkbox.Icon>
         <span />
       </Checkbox.Icon>
-    </Checkbox>,
+    </Checkbox>
   )
 
   const checkbox = screen.getByTestId('checkbox')
@@ -84,11 +84,11 @@ test('Space 키로 체크 상태가 토글된다.', async () => {
 
 test('aria-checked 속성이 올바르게 설정된다.', () => {
   render(
-    <Checkbox data-testid='checkbox' checked>
+    <Checkbox data-testid="checkbox" checked>
       <Checkbox.Icon>
         <span />
       </Checkbox.Icon>
-    </Checkbox>,
+    </Checkbox>
   )
 
   const checkbox = screen.getByTestId('checkbox')
@@ -97,11 +97,11 @@ test('aria-checked 속성이 올바르게 설정된다.', () => {
 
 test('checkbox role이 설정된다.', () => {
   render(
-    <Checkbox data-testid='checkbox'>
+    <Checkbox data-testid="checkbox">
       <Checkbox.Icon>
         <span />
       </Checkbox.Icon>
-    </Checkbox>,
+    </Checkbox>
   )
 
   expect(screen.getByRole('checkbox')).toBeInTheDocument()

@@ -11,14 +11,14 @@ describe('TextFieldWithLabelAnimation', () => {
   })
 
   it('renders with label', () => {
-    render(<TextFieldWithLabelAnimation label='이메일을 입력하세요' />)
+    render(<TextFieldWithLabelAnimation label="이메일을 입력하세요" />)
 
     const label = screen.getByText('이메일을 입력하세요')
     expect(label).toBeInTheDocument()
   })
 
   it('label is initially inactive (centered)', () => {
-    render(<TextFieldWithLabelAnimation label='라벨' />)
+    render(<TextFieldWithLabelAnimation label="라벨" />)
 
     const label = screen.getByText('라벨')
     // When not focused and not populated, label is centered (has -translate-y-1/2 class)
@@ -26,7 +26,7 @@ describe('TextFieldWithLabelAnimation', () => {
   })
 
   it('label becomes active when focused', () => {
-    render(<TextFieldWithLabelAnimation label='라벨' />)
+    render(<TextFieldWithLabelAnimation label="라벨" />)
 
     const input = screen.getByRole('textbox')
     const label = screen.getByText('라벨')
@@ -39,7 +39,7 @@ describe('TextFieldWithLabelAnimation', () => {
   })
 
   it('label remains active when populated', () => {
-    render(<TextFieldWithLabelAnimation label='라벨' />)
+    render(<TextFieldWithLabelAnimation label="라벨" />)
 
     const input = screen.getByRole('textbox')
     const label = screen.getByText('라벨')
@@ -52,7 +52,7 @@ describe('TextFieldWithLabelAnimation', () => {
   })
 
   it('label stays active after blur when populated', () => {
-    render(<TextFieldWithLabelAnimation label='라벨' />)
+    render(<TextFieldWithLabelAnimation label="라벨" />)
 
     const input = screen.getByRole('textbox')
     const label = screen.getByText('라벨')
@@ -66,7 +66,7 @@ describe('TextFieldWithLabelAnimation', () => {
   })
 
   it('label becomes inactive after blur when empty', () => {
-    render(<TextFieldWithLabelAnimation label='라벨' />)
+    render(<TextFieldWithLabelAnimation label="라벨" />)
 
     const input = screen.getByRole('textbox')
     const label = screen.getByText('라벨')
@@ -80,7 +80,7 @@ describe('TextFieldWithLabelAnimation', () => {
   })
 
   it('label is active initially when defaultValue is provided', () => {
-    render(<TextFieldWithLabelAnimation label='라벨' defaultValue='initial value' />)
+    render(<TextFieldWithLabelAnimation label="라벨" defaultValue="initial value" />)
 
     const label = screen.getByText('라벨')
     expect(label).toHaveClass('top-0')
@@ -89,7 +89,7 @@ describe('TextFieldWithLabelAnimation', () => {
 
   it('handles onChange event', () => {
     const handleChange = vi.fn()
-    render(<TextFieldWithLabelAnimation label='라벨' onChange={handleChange} />)
+    render(<TextFieldWithLabelAnimation label="라벨" onChange={handleChange} />)
 
     const input = screen.getByRole('textbox')
     fireEvent.change(input, { target: { value: 'a' } })
@@ -99,7 +99,7 @@ describe('TextFieldWithLabelAnimation', () => {
   })
 
   it('applies disabled state', () => {
-    render(<TextFieldWithLabelAnimation label='라벨' disabled />)
+    render(<TextFieldWithLabelAnimation label="라벨" disabled />)
 
     const input = screen.getByRole('textbox')
     expect(input).toBeDisabled()
@@ -107,7 +107,7 @@ describe('TextFieldWithLabelAnimation', () => {
 
   it('forwards ref to input element', () => {
     const ref = createRef<HTMLInputElement>()
-    render(<TextFieldWithLabelAnimation ref={ref} label='라벨' />)
+    render(<TextFieldWithLabelAnimation ref={ref} label="라벨" />)
 
     expect(ref.current).toBeInstanceOf(HTMLInputElement)
     expect(ref.current?.tagName).toBe('INPUT')
@@ -115,9 +115,9 @@ describe('TextFieldWithLabelAnimation', () => {
 
   it('renders with leading slot', () => {
     render(
-      <TextFieldWithLabelAnimation label='라벨'>
+      <TextFieldWithLabelAnimation label="라벨">
         <TextFieldWithLabelAnimation.Leading>@</TextFieldWithLabelAnimation.Leading>
-      </TextFieldWithLabelAnimation>,
+      </TextFieldWithLabelAnimation>
     )
 
     const leading = screen.getByText('@')
@@ -126,9 +126,9 @@ describe('TextFieldWithLabelAnimation', () => {
 
   it('renders with trailing slot', () => {
     render(
-      <TextFieldWithLabelAnimation label='라벨'>
+      <TextFieldWithLabelAnimation label="라벨">
         <TextFieldWithLabelAnimation.Trailing>.com</TextFieldWithLabelAnimation.Trailing>
-      </TextFieldWithLabelAnimation>,
+      </TextFieldWithLabelAnimation>
     )
 
     const trailing = screen.getByText('.com')
@@ -137,14 +137,16 @@ describe('TextFieldWithLabelAnimation', () => {
 
   it('supports controlled mode', () => {
     const handleChange = vi.fn()
-    const { rerender } = render(<TextFieldWithLabelAnimation label='라벨' value='' onChange={handleChange} />)
+    const { rerender } = render(
+      <TextFieldWithLabelAnimation label="라벨" value="" onChange={handleChange} />
+    )
 
     const input = screen.getByRole('textbox')
     fireEvent.change(input, { target: { value: 'a' } })
 
     expect(handleChange).toHaveBeenCalled()
 
-    rerender(<TextFieldWithLabelAnimation label='라벨' value='a' onChange={handleChange} />)
+    rerender(<TextFieldWithLabelAnimation label="라벨" value="a" onChange={handleChange} />)
 
     expect(input).toHaveValue('a')
   })

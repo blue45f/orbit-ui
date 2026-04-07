@@ -12,7 +12,10 @@ type UseResizableParams = {
   onChangeHeight?: (height: number) => void
 }
 
-type UseResizableReturn<T extends HTMLElement = HTMLElement, K extends HTMLElement = HTMLElement> = {
+type UseResizableReturn<
+  T extends HTMLElement = HTMLElement,
+  K extends HTMLElement = HTMLElement,
+> = {
   grabberElementRef: React.Ref<T>
   containerElementRef: React.Ref<K>
 }
@@ -26,8 +29,11 @@ type ContainerInitialValue = {
   transitionDelay: string | null
 }
 
-export const useResizable = <T extends HTMLElement = HTMLElement, K extends HTMLElement = HTMLElement>(
-  params: UseResizableParams,
+export const useResizable = <
+  T extends HTMLElement = HTMLElement,
+  K extends HTMLElement = HTMLElement,
+>(
+  params: UseResizableParams
 ): UseResizableReturn<T, K> => {
   const containerInitialStyle = useRef<ContainerInitialValue>({
     height: null,
@@ -73,7 +79,7 @@ export const useResizable = <T extends HTMLElement = HTMLElement, K extends HTML
       axis: 'y',
       preventDefault: true,
     }),
-    [params.enabled, grabberElement],
+    [params.enabled, grabberElement]
   )
 
   useDrag(({ movement: [_, movementY], first, last, dragging }) => {
@@ -101,10 +107,11 @@ export const useResizable = <T extends HTMLElement = HTMLElement, K extends HTML
 
       containerElement.addEventListener(
         'transitionend',
-        () => (containerElement.style.transition = containerInitialStyle.current.transition || 'unset'),
+        () =>
+          (containerElement.style.transition = containerInitialStyle.current.transition || 'unset'),
         {
           once: true,
-        },
+        }
       )
       params.onChangeHeight?.(closestBreakpoint)
     }
@@ -144,5 +151,9 @@ export const SheetProvider: React.FC<{
   changeIsPresented: (params: { changeParams: [newValue: boolean]; value: boolean }) => void
   children: React.ReactNode
 }> = ({ id, isPresented, changeIsPresented, children }) => {
-  return createElement(SheetContext.Provider, { value: { id, isPresented, changeIsPresented } }, children)
+  return createElement(
+    SheetContext.Provider,
+    { value: { id, isPresented, changeIsPresented } },
+    children
+  )
 }

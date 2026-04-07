@@ -57,11 +57,7 @@ export const Divider: React.FC<DividerProps> = (props) => {
 
   const isHorizontal = orientation === 'horizontal'
 
-  const className = cn(
-    'flex-shrink-0',
-    isHorizontal ? 'w-full' : 'h-full',
-    classProp
-  )
+  const className = cn('flex-shrink-0', isHorizontal ? 'w-full' : 'h-full', classProp)
 
   const style: React.CSSProperties = {
     backgroundColor: color || 'var(--border-secondary, rgba(228, 230, 232, 1))',

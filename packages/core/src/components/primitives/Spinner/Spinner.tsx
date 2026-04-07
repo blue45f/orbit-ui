@@ -32,7 +32,7 @@ export type SpinnerProps = {
  * @example
  * ### 👇 기본 사용법
  * ```
- * import { Spinner } from '@prism-ui/theme-ocean'
+ * import { Spinner } from '@orbit-ui/theme-eclipse'
  *
  * function App() {
  *  return (
@@ -61,7 +61,7 @@ export const Spinner: React.FC<SpinnerProps> = ({
 
   return (
     <Animation
-      aria-live='polite'
+      aria-live="polite"
       aria-label={rest['aria-label'] || '화면을 불러오는 중입니다.'}
       {...rest}
       style={{

@@ -30,7 +30,7 @@ export const 제어 = {
 
     return (
       <>
-        <button type='button' onClick={() => setIsPresented(true)}>
+        <button type="button" onClick={() => setIsPresented(true)}>
           열기
         </button>
         <Sheet
@@ -46,7 +46,7 @@ export const 제어 = {
           <Sheet.Content>
             <div style={{ padding: '20px' }}>
               <p>Body Content</p>
-              <button type='button' onClick={() => setIsPresented(false)}>
+              <button type="button" onClick={() => setIsPresented(false)}>
                 닫기
               </button>
             </div>
@@ -96,8 +96,8 @@ export const 풀시트 = {
           {...args}
           isPresented={undefined}
           defaultIsPresented={false}
-          width='100%'
-          height='100%'
+          width="100%"
+          height="100%"
           theme={{ radius: '0' }}
         >
           <Sheet.Trigger>
@@ -131,8 +131,8 @@ export const 테마_변경 = {
           {...args}
           isPresented={undefined}
           defaultIsPresented={false}
-          width='50%'
-          height='60%'
+          width="50%"
+          height="60%"
           theme={{ fillColor: 'blue', foregroundColor: 'yellow', radius: '50px' }}
         >
           <Sheet.Trigger>
@@ -190,7 +190,11 @@ export const 크기조절 = {
           }}
         >
           <Sheet.Header>
-            <button type='button' ref={handleElementRef} style={{ width: '100%', cursor: 'grab', padding: '8px' }}>
+            <button
+              type="button"
+              ref={handleElementRef}
+              style={{ width: '100%', cursor: 'grab', padding: '8px' }}
+            >
               ━━━
             </button>
           </Sheet.Header>
@@ -302,7 +306,7 @@ export const 디자인_QA = {
     return (
       <>
         <p>컨트롤 패널을 통해 Sheet의 속성을 조절할 수 있어요.</p>
-        <button type='button' onClick={() => setIsPresentedState(true)}>
+        <button type="button" onClick={() => setIsPresentedState(true)}>
           Sheet 열기
         </button>
         <Sheet
@@ -315,7 +319,12 @@ export const 디자인_QA = {
           {showHeader && (
             <Sheet.Header>
               <div
-                style={{ padding: '20px', borderBottom: '1px solid #e0e0e0', width: '100%', boxSizing: 'border-box' }}
+                style={{
+                  padding: '20px',
+                  borderBottom: '1px solid #e0e0e0',
+                  width: '100%',
+                  boxSizing: 'border-box',
+                }}
               >
                 <h3 style={{ fontSize: '20px', fontWeight: 700, margin: 0 }}>Sheet Header</h3>
               </div>
@@ -333,7 +342,14 @@ export const 디자인_QA = {
           )}
           {showFooter && (
             <Sheet.Footer>
-              <div style={{ padding: '20px', borderTop: '1px solid #e0e0e0', width: '100%', boxSizing: 'border-box' }}>
+              <div
+                style={{
+                  padding: '20px',
+                  borderTop: '1px solid #e0e0e0',
+                  width: '100%',
+                  boxSizing: 'border-box',
+                }}
+              >
                 <Button
                   onClick={() => {
                     alert('Footer Action')

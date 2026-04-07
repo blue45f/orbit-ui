@@ -83,12 +83,7 @@ export const Scrim = forwardRef<HTMLDivElement, ScrimProps>(
 
     return (
       <Presence present={isPresented}>
-        <ContainerLayer
-          {...rest}
-          ref={forwardedRef}
-          className={className}
-          style={computedStyle}
-        />
+        <ContainerLayer {...rest} ref={forwardedRef} className={className} style={computedStyle} />
       </Presence>
     )
   }

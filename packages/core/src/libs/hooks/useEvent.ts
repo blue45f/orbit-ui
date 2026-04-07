@@ -13,7 +13,7 @@ export const useEvent = <
   P extends any[] = Parameters<F>,
   R = ReturnType<F>,
 >(
-  cb: (...args: P) => R,
+  cb: (...args: P) => R
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 ) => {
   const cache = useRef(cb)

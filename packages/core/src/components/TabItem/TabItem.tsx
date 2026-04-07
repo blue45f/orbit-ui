@@ -1,5 +1,5 @@
 import { forwardRef, Children, ReactNode } from 'react'
-import { IconPropsContext } from '@prism-ui/icons'
+import { IconPropsContext } from '@orbit-ui/icons'
 
 import { cn } from '../../styles'
 import { filterComponents, useComposedRefs, useFocus, toCSSLength } from '../../libs'

@@ -22,8 +22,8 @@ const Consume = ({ useCtx }: { useCtx: (name: string) => TestContext }) => {
 
   return (
     <div>
-      <span data-testid='a'>{a}</span>
-      <span data-testid='b'>{b}</span>
+      <span data-testid="a">{a}</span>
+      <span data-testid="b">{b}</span>
     </div>
   )
 }

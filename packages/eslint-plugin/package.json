@@ -1,9 +1,9 @@
 {
-  "name": "@prism-ui/eslint-plugin",
+  "name": "@orbit-ui/eslint-plugin",
   "private": true,
   "version": "0.0.1",
   "description": "CSS 순서 자동 정렬 ESLint 플러그인",
-  "author": "Prism UI Team",
+  "author": "Orbit UI Team",
   "main": "lib/index.js",
   "scripts": {
     "test:rule": "mocha --reporter nyan --experimental-modules tests/**/*.spec.js"

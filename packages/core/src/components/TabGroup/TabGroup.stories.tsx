@@ -20,18 +20,19 @@ export const 기본: Story = {
     <div style={{ width: '100%' }}>
       <TabItems {...args}>
         <TabItems.ActiveIndicator />
-        <TabItems.Tab value='tab1'>
+        <TabItems.Tab value="tab1">
           <TabItems.TabCenter>Home</TabItems.TabCenter>
         </TabItems.Tab>
-        <TabItems.Tab value='tab2'>
+        <TabItems.Tab value="tab2">
           <TabItems.TabCenter>
-            Products Products Products Products Products Products Products Products Products Products
+            Products Products Products Products Products Products Products Products Products
+            Products
           </TabItems.TabCenter>
         </TabItems.Tab>
-        <TabItems.Tab value='tab3'>
+        <TabItems.Tab value="tab3">
           <TabItems.TabCenter>About</TabItems.TabCenter>
         </TabItems.Tab>
-        <TabItems.Tab value='tab4'>
+        <TabItems.Tab value="tab4">
           <TabItems.TabCenter>Contact</TabItems.TabCenter>
         </TabItems.Tab>
       </TabItems>
@@ -52,13 +53,13 @@ export const 제어: Story = {
       <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
         <TabItems {...args} selectedIndex={selectedIndex} onTabChange={handleTabChange}>
           <TabItems.ActiveIndicator />
-          <TabItems.Tab value='tab1'>
+          <TabItems.Tab value="tab1">
             <TabItems.TabCenter>Tab 1</TabItems.TabCenter>
           </TabItems.Tab>
-          <TabItems.Tab value='tab2'>
+          <TabItems.Tab value="tab2">
             <TabItems.TabCenter>Tab 2</TabItems.TabCenter>
           </TabItems.Tab>
-          <TabItems.Tab value='tab3'>
+          <TabItems.Tab value="tab3">
             <TabItems.TabCenter>Tab 3</TabItems.TabCenter>
           </TabItems.Tab>
         </TabItems>
@@ -73,29 +74,29 @@ export const 아이콘: Story = {
   render: (args) => (
     <TabItems {...args}>
       <TabItems.ActiveIndicator />
-      <TabItems.Tab value='home'>
+      <TabItems.Tab value="home">
         <TabItems.TabLeading>
-          <svg width='16' height='16' viewBox='0 0 16 16' fill='currentColor'>
-            <path d='M8 0L16 8L14 10L8 4L2 10L0 8L8 0Z' />
-            <path d='M2 8V16H6V12H10V16H14V8L8 2L2 8Z' />
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+            <path d="M8 0L16 8L14 10L8 4L2 10L0 8L8 0Z" />
+            <path d="M2 8V16H6V12H10V16H14V8L8 2L2 8Z" />
           </svg>
         </TabItems.TabLeading>
         <TabItems.TabCenter>Home</TabItems.TabCenter>
       </TabItems.Tab>
 
-      <TabItems.Tab value='search'>
+      <TabItems.Tab value="search">
         <TabItems.TabLeading>
-          <svg width='16' height='16' viewBox='0 0 16 16' fill='currentColor'>
-            <path d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z' />
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
           </svg>
         </TabItems.TabLeading>
         <TabItems.TabCenter>Search</TabItems.TabCenter>
       </TabItems.Tab>
 
-      <TabItems.Tab value='profile'>
+      <TabItems.Tab value="profile">
         <TabItems.TabLeading>
-          <svg width='16' height='16' viewBox='0 0 16 16' fill='currentColor'>
-            <path d='M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z' />
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+            <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z" />
           </svg>
         </TabItems.TabLeading>
         <TabItems.TabCenter>Profile</TabItems.TabCenter>
@@ -108,7 +109,7 @@ export const 배지: Story = {
   render: (args) => (
     <TabItems {...args}>
       <TabItems.ActiveIndicator />
-      <TabItems.Tab value='messages'>
+      <TabItems.Tab value="messages">
         <TabItems.TabCenter>Messages</TabItems.TabCenter>
         <TabItems.TabTrailing>
           <span
@@ -130,7 +131,7 @@ export const 배지: Story = {
         </TabItems.TabTrailing>
       </TabItems.Tab>
 
-      <TabItems.Tab value='notifications'>
+      <TabItems.Tab value="notifications">
         <TabItems.TabCenter>Notifications</TabItems.TabCenter>
         <TabItems.TabTrailing>
           <span
@@ -152,7 +153,7 @@ export const 배지: Story = {
         </TabItems.TabTrailing>
       </TabItems.Tab>
 
-      <TabItems.Tab value='settings'>
+      <TabItems.Tab value="settings">
         <TabItems.TabCenter>Settings</TabItems.TabCenter>
       </TabItems.Tab>
     </TabItems>

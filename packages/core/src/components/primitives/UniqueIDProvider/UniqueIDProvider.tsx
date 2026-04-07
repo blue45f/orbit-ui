@@ -59,7 +59,7 @@ export const useUniqueID = (idOverride?: string): string => {
 
     context.current += 1
 
-    return `prism-ui-id-${context.current}`
+    return `orbit-ui-id-${context.current}`
 
     // context는 ref 값이므로 의존성 배열에서 제외함
     // eslint-disable-next-line react-hooks/exhaustive-deps

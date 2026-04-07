@@ -27,15 +27,15 @@ export const 디자인_QA = {
   render: ({ children }: any) => {
     return (
       <>
-        <Flex flexDirection='column' rowGap='15px'>
-          <Divider thickness={1} color='gray' />
-          <Divider thickness={3} color='gray' />
-          <Divider thickness={2} color='gray' />
+        <Flex flexDirection="column" rowGap="15px">
+          <Divider thickness={1} color="gray" />
+          <Divider thickness={3} color="gray" />
+          <Divider thickness={2} color="gray" />
         </Flex>
-        <Flex columnGap='15px' style={{ height: 40, marginTop: 40 }}>
-          <Divider orientation='vertical' thickness={1} color='gray' />
-          <Divider orientation='vertical' thickness={3} color='gray' />
-          <Divider orientation='vertical' thickness={2} color='gray' />
+        <Flex columnGap="15px" style={{ height: 40, marginTop: 40 }}>
+          <Divider orientation="vertical" thickness={1} color="gray" />
+          <Divider orientation="vertical" thickness={3} color="gray" />
+          <Divider orientation="vertical" thickness={2} color="gray" />
         </Flex>
       </>
     )

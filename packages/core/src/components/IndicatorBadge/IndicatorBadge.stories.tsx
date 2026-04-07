@@ -1,4 +1,4 @@
-import { CheckIcon } from '@prism-ui/icons'
+import { CheckIcon } from '@orbit-ui/icons'
 import { Meta, StoryObj } from '@storybook/react'
 
 import { IndicatorBadge } from './IndicatorBadge'

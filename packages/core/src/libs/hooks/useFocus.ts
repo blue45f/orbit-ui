@@ -17,7 +17,9 @@ type UseFocusReturnValue<T extends HTMLElement> = {
   onBlur: FocusEventHandler<T>
 }
 
-export const useFocus = <T extends HTMLElement>(params: UseFocusParameters<T>): UseFocusReturnValue<T> => {
+export const useFocus = <T extends HTMLElement>(
+  params: UseFocusParameters<T>
+): UseFocusReturnValue<T> => {
   const ref = useRef<T>(null)
   const [isFocused, setIsFocused] = useState(false)
 

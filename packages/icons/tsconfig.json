@@ -1,6 +1,6 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
-  "extends": "@prism-ui/tsconfig/base.json",
+  "extends": "@orbit-ui/tsconfig/base.json",
   "include": ["src/**/*", "./*.ts", "vitest-setup.ts"],
   "compilerOptions": {
     "types": ["@testing-library/jest-dom"]

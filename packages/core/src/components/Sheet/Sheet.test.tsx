@@ -14,7 +14,7 @@ describe('Sheet', () => {
   describe('기본 렌더링', () => {
     it('컴포넌트가 정상적으로 렌더링되어야 한다', () => {
       render(
-        <Sheet defaultIsPresented={true} data-testid='sheet-basic'>
+        <Sheet defaultIsPresented={true} data-testid="sheet-basic">
           <Sheet.Header>
             <div>Header Content</div>
           </Sheet.Header>
@@ -24,7 +24,7 @@ describe('Sheet', () => {
           <Sheet.Footer>
             <div>Footer Content</div>
           </Sheet.Footer>
-        </Sheet>,
+        </Sheet>
       )
 
       expect(screen.getByText('Header Content')).toBeInTheDocument()
@@ -38,7 +38,7 @@ describe('Sheet', () => {
           <Sheet.Content>
             <div>Body Content</div>
           </Sheet.Content>
-        </Sheet>,
+        </Sheet>
       )
 
       expect(screen.queryByText('Body Content')).not.toBeInTheDocument()
@@ -50,7 +50,7 @@ describe('Sheet', () => {
           <Sheet.Content>
             <div>Body Content</div>
           </Sheet.Content>
-        </Sheet>,
+        </Sheet>
       )
 
       expect(screen.getByText('Body Content')).toBeInTheDocument()
@@ -64,7 +64,7 @@ describe('Sheet', () => {
           <Sheet.Content>
             <div>Body Content</div>
           </Sheet.Content>
-        </Sheet>,
+        </Sheet>
       )
 
       expect(screen.queryByText('Body Content')).not.toBeInTheDocument()
@@ -74,7 +74,7 @@ describe('Sheet', () => {
           <Sheet.Content>
             <div>Body Content</div>
           </Sheet.Content>
-        </Sheet>,
+        </Sheet>
       )
 
       expect(screen.getByText('Body Content')).toBeInTheDocument()
@@ -88,13 +88,13 @@ describe('Sheet', () => {
         <Sheet isPresented={true} onIsPresentedChange={onIsPresentedChange}>
           <Sheet.Footer>
             <Sheet.Close>
-              <button type='button'>닫기</button>
+              <button type="button">닫기</button>
             </Sheet.Close>
           </Sheet.Footer>
           <Sheet.Content>
             <div>Body Content</div>
           </Sheet.Content>
-        </Sheet>,
+        </Sheet>
       )
 
       const closeButton = screen.getByText('닫기')
@@ -117,7 +117,7 @@ describe('Sheet', () => {
           <Sheet.Content>
             <div>Body Content</div>
           </Sheet.Content>
-        </Sheet>,
+        </Sheet>
       )
 
       expect(screen.getByText('Body Content')).toBeInTheDocument()
@@ -129,7 +129,7 @@ describe('Sheet', () => {
           <Sheet.Content>
             <div>Body Content</div>
           </Sheet.Content>
-        </Sheet>,
+        </Sheet>
       )
 
       expect(screen.queryByText('Body Content')).not.toBeInTheDocument()
@@ -143,12 +143,12 @@ describe('Sheet', () => {
       render(
         <Sheet defaultIsPresented={false}>
           <Sheet.Trigger>
-            <button type='button'>열기</button>
+            <button type="button">열기</button>
           </Sheet.Trigger>
           <Sheet.Content>
             <div>Body Content</div>
           </Sheet.Content>
-        </Sheet>,
+        </Sheet>
       )
 
       expect(screen.queryByText('Body Content')).not.toBeInTheDocument()
@@ -165,14 +165,14 @@ describe('Sheet', () => {
       const user = userEvent.setup()
 
       render(
-        <Sheet defaultIsPresented={false} id='test-sheet'>
+        <Sheet defaultIsPresented={false} id="test-sheet">
           <Sheet.Trigger>
-            <button type='button'>열기</button>
+            <button type="button">열기</button>
           </Sheet.Trigger>
           <Sheet.Content>
             <div>Body Content</div>
           </Sheet.Content>
-        </Sheet>,
+        </Sheet>
       )
 
       const triggerButton = screen.getByText('열기')
@@ -197,7 +197,7 @@ describe('Sheet', () => {
           <Sheet.Content>
             <div>Body Content</div>
           </Sheet.Content>
-        </Sheet>,
+        </Sheet>
       )
 
       const trigger = screen.getByText('열기')
@@ -215,13 +215,13 @@ describe('Sheet', () => {
         <Sheet defaultIsPresented={true}>
           <Sheet.Footer>
             <Sheet.Close>
-              <button type='button'>닫기</button>
+              <button type="button">닫기</button>
             </Sheet.Close>
           </Sheet.Footer>
           <Sheet.Content>
             <div>Body Content</div>
           </Sheet.Content>
-        </Sheet>,
+        </Sheet>
       )
 
       expect(screen.getByText('Body Content')).toBeInTheDocument()
@@ -242,7 +242,7 @@ describe('Sheet', () => {
         <Sheet defaultIsPresented={true}>
           <Sheet.Footer>
             <Sheet.Close>
-              <button type='button' onClick={existingOnClick}>
+              <button type="button" onClick={existingOnClick}>
                 닫기
               </button>
             </Sheet.Close>
@@ -250,7 +250,7 @@ describe('Sheet', () => {
           <Sheet.Content>
             <div>Body Content</div>
           </Sheet.Content>
-        </Sheet>,
+        </Sheet>
       )
 
       const closeButton = screen.getByText('닫기')
@@ -271,7 +271,7 @@ describe('Sheet', () => {
           <Sheet.Content>
             <div>Body Content</div>
           </Sheet.Content>
-        </Sheet>,
+        </Sheet>
       )
 
       expect(screen.getByText('Body Content')).toBeInTheDocument()
@@ -282,7 +282,6 @@ describe('Sheet', () => {
         expect(screen.queryByText('Body Content')).not.toBeInTheDocument()
       })
     })
-
   })
 
   describe('외부 클릭으로 닫기 기능', () => {
@@ -291,7 +290,7 @@ describe('Sheet', () => {
 
       render(
         <div>
-          <button type='button' data-testid='outside-button'>
+          <button type="button" data-testid="outside-button">
             외부 버튼
           </button>
           <Sheet defaultIsPresented={true}>
@@ -299,7 +298,7 @@ describe('Sheet', () => {
               <div>Body Content</div>
             </Sheet.Content>
           </Sheet>
-        </div>,
+        </div>
       )
 
       expect(screen.getByText('Body Content')).toBeInTheDocument()
@@ -311,22 +310,21 @@ describe('Sheet', () => {
         expect(screen.queryByText('Body Content')).not.toBeInTheDocument()
       })
     })
-
   })
 
   describe('외부 포커스로 닫기 기능', () => {
     it('외부로 포커스가 이동하면 Sheet가 닫혀야 한다', async () => {
       render(
         <div>
-          <button type='button' data-testid='outside-button-focus'>
+          <button type="button" data-testid="outside-button-focus">
             외부 버튼
           </button>
           <Sheet defaultIsPresented={true}>
             <Sheet.Content>
-              <input data-testid='inside-input' />
+              <input data-testid="inside-input" />
             </Sheet.Content>
           </Sheet>
-        </div>,
+        </div>
       )
 
       expect(screen.getByText('외부 버튼')).toBeInTheDocument()
@@ -341,7 +339,6 @@ describe('Sheet', () => {
         expect(screen.queryByTestId('inside-input')).not.toBeInTheDocument()
       })
     })
-
   })
 
   describe('onIsPresentedChange 콜백', () => {
@@ -352,12 +349,12 @@ describe('Sheet', () => {
       render(
         <Sheet defaultIsPresented={false} onIsPresentedChange={onIsPresentedChange}>
           <Sheet.Trigger>
-            <button type='button'>열기</button>
+            <button type="button">열기</button>
           </Sheet.Trigger>
           <Sheet.Content>
             <div>Body Content</div>
           </Sheet.Content>
-        </Sheet>,
+        </Sheet>
       )
 
       const triggerButton = screen.getByText('열기')
@@ -382,13 +379,13 @@ describe('Sheet', () => {
         <Sheet defaultIsPresented={true} onIsPresentedChange={onIsPresentedChange}>
           <Sheet.Footer>
             <Sheet.Close>
-              <button type='button'>닫기</button>
+              <button type="button">닫기</button>
             </Sheet.Close>
           </Sheet.Footer>
           <Sheet.Content>
             <div>Body Content</div>
           </Sheet.Content>
-        </Sheet>,
+        </Sheet>
       )
 
       const closeButton = screen.getByText('닫기')
@@ -427,7 +424,7 @@ describe('Sheet', () => {
           <Sheet.Footer>
             <div>Footer Content</div>
           </Sheet.Footer>
-        </Sheet>,
+        </Sheet>
       )
 
       expect(screen.getByText('Header Content')).toBeInTheDocument()
@@ -436,7 +433,7 @@ describe('Sheet', () => {
     })
 
     it('슬롯이 없어도 정상적으로 렌더링되어야 한다', () => {
-      render(<Sheet defaultIsPresented={true} data-testid='sheet-empty' />)
+      render(<Sheet defaultIsPresented={true} data-testid="sheet-empty" />)
 
       expect(screen.getByTestId('sheet-empty')).toBeInTheDocument()
     })
@@ -445,13 +442,13 @@ describe('Sheet', () => {
   describe('Portal 렌더링', () => {
     it('Sheet가 Portal을 통해 렌더링되어야 한다', () => {
       render(
-        <div data-testid='root-container'>
-          <Sheet defaultIsPresented={true} data-testid='sheet-portal'>
+        <div data-testid="root-container">
+          <Sheet defaultIsPresented={true} data-testid="sheet-portal">
             <Sheet.Content>
               <div>Body Content</div>
             </Sheet.Content>
           </Sheet>
-        </div>,
+        </div>
       )
 
       const rootContainer = screen.getByTestId('root-container')
@@ -469,7 +466,7 @@ describe('Sheet', () => {
 
       render(
         <div>
-          <button type='button' data-testid='outside-default'>
+          <button type="button" data-testid="outside-default">
             외부 버튼
           </button>
           <Sheet defaultIsPresented={true} onIsPresentedChange={onIsPresentedChange}>
@@ -477,7 +474,7 @@ describe('Sheet', () => {
               <div>Body Content</div>
             </Sheet.Content>
           </Sheet>
-        </div>,
+        </div>
       )
 
       await user.keyboard('{Escape}')
@@ -487,7 +484,7 @@ describe('Sheet', () => {
 
       render(
         <div>
-          <button type='button' data-testid='outside-default-2'>
+          <button type="button" data-testid="outside-default-2">
             외부 버튼
           </button>
           <Sheet defaultIsPresented={true}>
@@ -495,7 +492,7 @@ describe('Sheet', () => {
               <div>Body Content</div>
             </Sheet.Content>
           </Sheet>
-        </div>,
+        </div>
       )
 
       const outsideButton = screen.getByTestId('outside-default-2')

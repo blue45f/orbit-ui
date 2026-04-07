@@ -10,7 +10,7 @@ test('children을 렌더링한다', () => {
   render(
     <UniqueIDProvider>
       <>children</>
-    </UniqueIDProvider>,
+    </UniqueIDProvider>
   )
 
   // Assert
@@ -49,7 +49,7 @@ test('useUniqueID hook마다 고유한 ID를 반환한다', () => {
     }),
     {
       wrapper: UniqueIDProvider,
-    },
+    }
   )
 
   // Assert

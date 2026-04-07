@@ -1,6 +1,6 @@
 # 아키텍처
 
-Prism UI의 설계와 구현 원칙을 설명합니다.
+Orbit UI의 설계와 구현 원칙을 설명합니다.
 
 ---
 
@@ -19,16 +19,16 @@ Prism UI의 설계와 구현 원칙을 설명합니다.
 
 ## 개요
 
-Prism UI는 Figma 기반 3계층 컴포넌트 아키텍처를 제공합니다.
+Orbit UI는 Figma 기반 3계층 컴포넌트 아키텍처를 제공합니다.
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
 │  Custom 컴포넌트 (프로젝트별 확장)                            │
 ├─────────────────────────────────────────────────────────────┤
-│  Theme 컴포넌트 (@prism-ui/theme-ocean)                             │
+│  Theme 컴포넌트 (@orbit-ui/theme-eclipse)                             │
 │  └─ 테마가 적용된 즉시 사용 가능한 컴포넌트                    │
 ├─────────────────────────────────────────────────────────────┤
-│  Base 컴포넌트 (@prism-ui/core)                        │
+│  Base 컴포넌트 (@orbit-ui/core)                        │
 │  └─ 스타일 미적용 기능 컴포넌트                               │
 ├─────────────────────────────────────────────────────────────┤
 │  디자인 토큰                                                  │
@@ -46,10 +46,10 @@ Prism UI는 Figma 기반 3계층 컴포넌트 아키텍처를 제공합니다.
 
 ```tsx
 // 새 이름 (권장)
-import { Button, Input, Toggle, Toast } from '@prism-ui/core'
+import { Button, Input, Toggle, Toast } from '@orbit-ui/core'
 
 // 기존 이름 (호환성 유지)
-import { BaseButton, BaseTextField, BaseSwitch, BaseSnackbar } from '@prism-ui/core'
+import { BaseButton, BaseTextField, BaseSwitch, BaseSnackbar } from '@orbit-ui/core'
 ```
 
 ### 매핑 테이블

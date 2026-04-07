@@ -11,9 +11,9 @@ describe('OverlayContainerLayer', () => {
   describe('기본 렌더링', () => {
     it('컴포넌트가 정상적으로 렌더링되어야 한다', () => {
       render(
-        <OverlayContainerLayer data-testid='overlay-basic'>
+        <OverlayContainerLayer data-testid="overlay-basic">
           <ContentLayer>Overlay Content</ContentLayer>
-        </OverlayContainerLayer>,
+        </OverlayContainerLayer>
       )
 
       expect(screen.getByTestId('overlay-basic')).toBeInTheDocument()
@@ -27,11 +27,11 @@ describe('OverlayContainerLayer', () => {
       const user = userEvent.setup()
 
       render(
-        <OverlayContainerLayer dismissOnEscape onDismiss={onDismiss} data-testid='overlay-escape'>
+        <OverlayContainerLayer dismissOnEscape onDismiss={onDismiss} data-testid="overlay-escape">
           <ContentLayer>
             <div>Overlay Content</div>
           </ContentLayer>
-        </OverlayContainerLayer>,
+        </OverlayContainerLayer>
       )
 
       await user.keyboard('{Escape}')
@@ -44,11 +44,15 @@ describe('OverlayContainerLayer', () => {
       const user = userEvent.setup()
 
       render(
-        <OverlayContainerLayer dismissOnEscape={false} onDismiss={onDismiss} data-testid='overlay-escape-disabled'>
+        <OverlayContainerLayer
+          dismissOnEscape={false}
+          onDismiss={onDismiss}
+          data-testid="overlay-escape-disabled"
+        >
           <ContentLayer>
             <div>Overlay Content</div>
           </ContentLayer>
-        </OverlayContainerLayer>,
+        </OverlayContainerLayer>
       )
 
       await user.keyboard('{Escape}')
@@ -60,11 +64,11 @@ describe('OverlayContainerLayer', () => {
       const user = userEvent.setup()
 
       render(
-        <OverlayContainerLayer data-testid='overlay-no-dismiss'>
+        <OverlayContainerLayer data-testid="overlay-no-dismiss">
           <ContentLayer>
             <div>Overlay Content</div>
           </ContentLayer>
-        </OverlayContainerLayer>,
+        </OverlayContainerLayer>
       )
 
       await user.keyboard('{Escape}')
@@ -80,15 +84,19 @@ describe('OverlayContainerLayer', () => {
 
       render(
         <div>
-          <button type='button' data-testid='outside-click'>
+          <button type="button" data-testid="outside-click">
             Outside Content
           </button>
-          <OverlayContainerLayer dismissOnClickOutside onDismiss={onDismiss} data-testid='overlay-click'>
+          <OverlayContainerLayer
+            dismissOnClickOutside
+            onDismiss={onDismiss}
+            data-testid="overlay-click"
+          >
             <ContentLayer>
               <div>Overlay Content</div>
             </ContentLayer>
           </OverlayContainerLayer>
-        </div>,
+        </div>
       )
 
       await user.click(screen.getByTestId('outside-click'))
@@ -101,11 +109,15 @@ describe('OverlayContainerLayer', () => {
       const onDismiss = vi.fn()
 
       render(
-        <OverlayContainerLayer dismissOnClickOutside={false} onDismiss={onDismiss} data-testid='overlay-click-disabled'>
+        <OverlayContainerLayer
+          dismissOnClickOutside={false}
+          onDismiss={onDismiss}
+          data-testid="overlay-click-disabled"
+        >
           <ContentLayer>
             <div>Overlay Content</div>
           </ContentLayer>
-        </OverlayContainerLayer>,
+        </OverlayContainerLayer>
       )
 
       await user.pointer({ target: screen.getByTestId('overlay-click-disabled') })
@@ -119,15 +131,15 @@ describe('OverlayContainerLayer', () => {
 
       render(
         <div>
-          <OverlayContainerLayer.Protected data-testid='protected-click'>
+          <OverlayContainerLayer.Protected data-testid="protected-click">
             Protected Content
           </OverlayContainerLayer.Protected>
-          <OverlayContainerLayer onDismiss={onDismiss} data-testid='overlay-protected'>
+          <OverlayContainerLayer onDismiss={onDismiss} data-testid="overlay-protected">
             <ContentLayer>
               <div>Overlay Content</div>
             </ContentLayer>
           </OverlayContainerLayer>
-        </div>,
+        </div>
       )
 
       await user.pointer({ target: screen.getByTestId('protected-click') })
@@ -142,15 +154,19 @@ describe('OverlayContainerLayer', () => {
 
       render(
         <div>
-          <button type='button' data-testid='outside-button-focus'>
+          <button type="button" data-testid="outside-button-focus">
             Outside Button
           </button>
-          <OverlayContainerLayer dismissOnFocusOutside onDismiss={onDismiss} data-testid='overlay-focus'>
+          <OverlayContainerLayer
+            dismissOnFocusOutside
+            onDismiss={onDismiss}
+            data-testid="overlay-focus"
+          >
             <ContentLayer>
-              <input data-testid='inside-input-focus' />
+              <input data-testid="inside-input-focus" />
             </ContentLayer>
           </OverlayContainerLayer>
-        </div>,
+        </div>
       )
 
       const insideInput = screen.getByTestId('inside-input-focus')
@@ -166,19 +182,19 @@ describe('OverlayContainerLayer', () => {
       const onDismiss = vi.fn()
       render(
         <div>
-          <button type='button' data-testid='outside-button-focus-disabled'>
+          <button type="button" data-testid="outside-button-focus-disabled">
             Outside Button
           </button>
           <OverlayContainerLayer
             dismissOnFocusOutside={false}
             onDismiss={onDismiss}
-            data-testid='overlay-focus-disabled'
+            data-testid="overlay-focus-disabled"
           >
             <ContentLayer>
-              <input data-testid='inside-input-focus-disabled' />
+              <input data-testid="inside-input-focus-disabled" />
             </ContentLayer>
           </OverlayContainerLayer>
-        </div>,
+        </div>
       )
 
       const insideInput = screen.getByTestId('inside-input-focus-disabled')
@@ -195,15 +211,15 @@ describe('OverlayContainerLayer', () => {
 
       render(
         <div>
-          <OverlayContainerLayer onDismiss={onDismiss} data-testid='overlay-focus-protected'>
+          <OverlayContainerLayer onDismiss={onDismiss} data-testid="overlay-focus-protected">
             <ContentLayer>
-              <input data-testid='inside-input-focus-protected' />
+              <input data-testid="inside-input-focus-protected" />
             </ContentLayer>
           </OverlayContainerLayer>
-          <OverlayContainerLayer.Protected data-testid='protected-focus'>
-            <input data-testid='protected-input-focus' />
+          <OverlayContainerLayer.Protected data-testid="protected-focus">
+            <input data-testid="protected-input-focus" />
           </OverlayContainerLayer.Protected>
-        </div>,
+        </div>
       )
 
       const insideInput = screen.getByTestId('inside-input-focus-protected')
@@ -225,21 +241,25 @@ describe('OverlayContainerLayer', () => {
         if (!open) return null
 
         return (
-          <OverlayContainerLayer dismissOnEscape onDismiss={() => setOpen(false)} data-testid='overlay-box'>
+          <OverlayContainerLayer
+            dismissOnEscape
+            onDismiss={() => setOpen(false)}
+            data-testid="overlay-box"
+          >
             <ContentLayer>{children}</ContentLayer>
           </OverlayContainerLayer>
         )
       }
 
       render(
-        <div data-testid='overlay-container-multiple'>
+        <div data-testid="overlay-container-multiple">
           <OverlayBox>
             <div>First Overlay</div>
           </OverlayBox>
           <OverlayBox>
             <div>Second Overlay</div>
           </OverlayBox>
-        </div>,
+        </div>
       )
 
       expect(screen.getByText('Second Overlay')).toBeInTheDocument()
@@ -264,14 +284,14 @@ describe('OverlayContainerLayer', () => {
 
       render(
         <div>
-          <div data-testid='outside-default'>Outside Content</div>
+          <div data-testid="outside-default">Outside Content</div>
 
-          <OverlayContainerLayer onDismiss={onDismiss} data-testid='overlay-default'>
+          <OverlayContainerLayer onDismiss={onDismiss} data-testid="overlay-default">
             <ContentLayer>
               <div>Overlay Content</div>
             </ContentLayer>
           </OverlayContainerLayer>
-        </div>,
+        </div>
       )
 
       await user.keyboard('{Escape}')
@@ -285,11 +305,11 @@ describe('OverlayContainerLayer', () => {
   describe('접근성', () => {
     it('컴포넌트가 포커스를 받을 수 있어야 한다', () => {
       render(
-        <OverlayContainerLayer data-testid='overlay-accessibility' tabIndex={0}>
+        <OverlayContainerLayer data-testid="overlay-accessibility" tabIndex={0}>
           <ContentLayer>
             <div>Overlay Content</div>
           </ContentLayer>
-        </OverlayContainerLayer>,
+        </OverlayContainerLayer>
       )
 
       const overlay = screen.getByTestId('overlay-accessibility')
@@ -305,7 +325,7 @@ describe('OverlayContainerLayer', () => {
 
       render(
         <OverlayContainerLayer
-          data-testid='overlay-events'
+          data-testid="overlay-events"
           onFocusCapture={onFocusCapture}
           onBlurCapture={onBlurCapture}
           onPointerDownCapture={onPointerDownCapture}
@@ -313,7 +333,7 @@ describe('OverlayContainerLayer', () => {
           <ContentLayer>
             <div>Overlay Content</div>
           </ContentLayer>
-        </OverlayContainerLayer>,
+        </OverlayContainerLayer>
       )
 
       const overlay = screen.getByTestId('overlay-events')

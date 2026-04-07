@@ -1,4 +1,4 @@
-import { CheckIcon } from '@prism-ui/icons'
+import { CheckIcon } from '@orbit-ui/icons'
 import type { Meta, StoryObj } from '@storybook/react'
 import { useState } from 'react'
 
@@ -30,7 +30,9 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 export const 기본: Story = {
-  render: (args) => <Scrim {...args} defaultIsPresented={true} className={storyStyles.animatedScrim} />,
+  render: (args) => (
+    <Scrim {...args} defaultIsPresented={true} className={storyStyles.animatedScrim} />
+  ),
 }
 
 export const 제어: Story = {
@@ -43,13 +45,13 @@ export const 제어: Story = {
     }
 
     return (
-      <Flex flexDirection='column' rowGap='10px'>
-        <Flex columnGap='5px' alignItems='center'>
+      <Flex flexDirection="column" rowGap="10px">
+        <Flex columnGap="5px" alignItems="center">
           <Button onClick={() => setIsPresented(true)}>Scrim 열기</Button> (
-          <Flex columnGap='5px' alignItems='center'>
-            <label htmlFor='checkbox'>Scrim 클릭 가능 여부</label>
+          <Flex columnGap="5px" alignItems="center">
+            <label htmlFor="checkbox">Scrim 클릭 가능 여부</label>
             <Checkbox
-              id='checkbox'
+              id="checkbox"
               theme={{
                 focusedCheckedForegroundColor: 'black',
                 focusedUncheckedForegroundColor: 'black',

@@ -8,7 +8,7 @@ export default function (plop: NodePlopAPI): void {
         type: 'list',
         name: 'packageName',
         message: '패키지를 선택해주세요.',
-        choices: ['core', 'theme-ocean'],
+        choices: ['core', 'theme-eclipse'],
       },
       {
         type: 'input',

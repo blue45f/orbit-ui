@@ -34,10 +34,10 @@ export type PlugIdentity = {
  * const MyPlug = asPlug('prefix', ({ children }) => <div>{children}</div>)
  * // <Plug name='prefix'><div>{children}</div></Plug>임
  */
-export function asPlug<Props extends object, Component extends React.ComponentType<Props> = React.FC<Props>>(
-  key: string,
-  component: Component,
-): Component & PlugIdentity {
+export function asPlug<
+  Props extends object,
+  Component extends React.ComponentType<Props> = React.FC<Props>,
+>(key: string, component: Component): Component & PlugIdentity {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const c = component as any
   c[PLUG_NAME] = key
@@ -94,10 +94,11 @@ export type SlottedRenderFunction<Keys extends string, P> = React.FC<PropsWithSl
 /**
  * @see {@link slotted `slotted()`}
  */
-export type SlottedForwardRefRenderFunction<Keys extends string, T, P> = React.ForwardRefRenderFunction<
+export type SlottedForwardRefRenderFunction<
+  Keys extends string,
   T,
-  React.PropsWithoutRef<PropsWithSlots<Keys, P>>
->
+  P,
+> = React.ForwardRefRenderFunction<T, React.PropsWithoutRef<PropsWithSlots<Keys, P>>>
 
 /**
  * @see {@link slotted `slotted()`}
@@ -113,9 +114,11 @@ export type SlottedComponent<Keys extends string, Props> = React.FC<Props> & {
 /**
  * @see {@link slotted `slotted()`}
  */
-export type SlottedForwardRefComponent<Keys extends string, T, Props> = React.ForwardRefExoticComponent<
-  React.PropsWithoutRef<Props> & React.RefAttributes<T>
-> & {
+export type SlottedForwardRefComponent<
+  Keys extends string,
+  T,
+  Props,
+> = React.ForwardRefExoticComponent<React.PropsWithoutRef<Props> & React.RefAttributes<T>> & {
   /**
    * 사용 가능한 슬롯의 이름만 지정할 수 있는 {@link Plug `<Plug>`}예요.
    * - 타입 체커가 슬롯 이름을 검사해요.
@@ -197,7 +200,7 @@ export function slottedForwardRef<
   Props extends { children?: React.ReactNode } = { children: React.ReactNode },
 >(
   keys: Keys[],
-  Component: SlottedForwardRefRenderFunction<Keys, Ref, Props>,
+  Component: SlottedForwardRefRenderFunction<Keys, Ref, Props>
 ): SlottedForwardRefComponent<Keys, Ref, Props> {
   const RefForwardedComponent = forwardRef(Component)
 
@@ -214,7 +217,10 @@ export function slottedForwardRef<
   })
 }
 
-function makeSlots<Keys extends string>(keys: Keys[], children: React.ReactNode): SlotsRecord<Keys> {
+function makeSlots<Keys extends string>(
+  keys: Keys[],
+  children: React.ReactNode
+): SlotsRecord<Keys> {
   if (!children && children !== 0) {
     return {}
   }
@@ -323,7 +329,7 @@ export const cloneSlot = <
 >(
   nodes: Parameters<typeof filterElements>[0],
   componentType: ComponentType,
-  props?: Partial<Props>,
+  props?: Partial<Props>
 ): ReturnType<typeof cloneElement> | null => {
   const slots = filterElements(nodes, componentType)
 

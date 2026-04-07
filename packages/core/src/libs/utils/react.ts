@@ -35,8 +35,9 @@ export const getNodeText = (node: React.ReactNode, depth = 3): string => {
 /**
  * styleProtected인 컴포넌트에 style과 className을 오버라이드 할 수 없게 하는 함수
  */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const styleProtected = <T>(obj: T): T & Pick<React.HTMLAttributes<any>, 'className' | 'style'> => {
+export const styleProtected = <T>(
+  obj: T
+): T & Pick<React.HTMLAttributes<HTMLElement>, 'className' | 'style'> => {
   return { ...obj, className: '', style: {} }
 }
 
@@ -51,12 +52,10 @@ export const computeDuration = (node: React.ReactNode): number => {
 // DOM 선택자로 쓰이면 예외 에러가 발생하므로 제거
 export const sanitizeReactID = (id: string): string => id.replace(/:/g, '')
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const getReactElementRef = (element: React.ReactElement): React.Ref<any> | null => {
+export const getReactElementRef = (element: React.ReactElement): React.Ref<unknown> | null => {
   // React 19 에서는 ref 가 prop 으로 전달되고, 이전 버전에서는 ref 가 직접 children 에 존재해서 다른 처리 방식이 필요함
   if (parseInt(version, 10) >= 19) {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    return (element?.props as React.RefAttributes<any>)?.ref || null
+    return (element?.props as React.RefAttributes<unknown>)?.ref || null
   }
   // @ts-expect-error element.ref is not included in the ReactElement type
   return element?.ref || null

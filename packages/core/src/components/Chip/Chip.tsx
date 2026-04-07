@@ -1,4 +1,4 @@
-import { IconPropsContext } from '@prism-ui/icons'
+import { IconPropsContext } from '@orbit-ui/icons'
 import { Children, forwardRef, MouseEvent, ReactNode, useCallback } from 'react'
 
 import { cn } from '../../styles'
@@ -162,7 +162,11 @@ const ChipRoot = forwardRef<HTMLButtonElement | HTMLAnchorElement, ChipProps>((p
   const {
     filtered: [leading, trailing],
     unfiltered,
-  } = filterComponents(Children.toArray(children) as Awaited<ReactNode>[], ChipLeading, ChipTrailing)
+  } = filterComponents(
+    Children.toArray(children) as Awaited<ReactNode>[],
+    ChipLeading,
+    ChipTrailing
+  )
 
   const handleClick = useCallback(
     (e: MouseEvent<HTMLButtonElement | HTMLAnchorElement>) =>

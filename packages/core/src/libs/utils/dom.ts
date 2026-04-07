@@ -48,11 +48,14 @@ export const parseSelectValue = (target: HTMLSelectElement): string | string[] =
  * ResizeObserver wrapper for better module compatibility
  * @see https://developer.mozilla.org/en-US/docs/Web/API/ResizeObserver
  */
-export const ResizeObserverWrapper = typeof ResizeObserver !== 'undefined' ? ResizeObserver : class {
-  observe() { }
-  unobserve() { }
-  disconnect() { }
-} as unknown as typeof ResizeObserver
+export const ResizeObserverWrapper =
+  typeof ResizeObserver !== 'undefined'
+    ? ResizeObserver
+    : (class {
+        observe() {}
+        unobserve() {}
+        disconnect() {}
+      } as unknown as typeof ResizeObserver)
 
 // Re-export for backward compatibility
 export { ResizeObserverWrapper as ResizeObserver }
@@ -60,10 +63,10 @@ export { ResizeObserverWrapper as ResizeObserver }
 type EventMap<T extends EventTarget> = T extends Window
   ? WindowEventMap
   : T extends Document
-  ? DocumentEventMap
-  : T extends Worker
-  ? WorkerEventMap
-  : GlobalEventHandlersEventMap
+    ? DocumentEventMap
+    : T extends Worker
+      ? WorkerEventMap
+      : GlobalEventHandlersEventMap
 
 /**
  * 정리 함수를 반환하는 이벤트 수신기 부착 함수.
@@ -77,7 +80,7 @@ export function listen<T extends EventTarget, E extends EventMap<T>, K extends k
   target: T,
   type: K,
   listener: (evt: E[K]) => unknown,
-  options?: boolean | AddEventListenerOptions,
+  options?: boolean | AddEventListenerOptions
 ): () => void {
   target.addEventListener(type as string, listener as unknown as EventListener, options)
 

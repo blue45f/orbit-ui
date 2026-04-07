@@ -55,7 +55,15 @@ export default defineConfig({
       },
     },
     fakeTimers: {
-      toFake: ['setTimeout', 'clearTimeout', 'setInterval', 'clearInterval', 'setImmediate', 'clearImmediate', 'Date'],
+      toFake: [
+        'setTimeout',
+        'clearTimeout',
+        'setInterval',
+        'clearInterval',
+        'setImmediate',
+        'clearImmediate',
+        'Date',
+      ],
     },
   },
 })

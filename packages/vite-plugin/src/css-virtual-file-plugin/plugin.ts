@@ -20,7 +20,9 @@ export const removeVanillaExtractVirtualFilePlugin = (): Plugin => {
             }
           } else {
             // .vanilla.css.js import문 제거
-            chunk.code = chunk.code.replace(/import\s+["'][^"']+\.vanilla\.css\.js["'];?/g, '').trim()
+            chunk.code = chunk.code
+              .replace(/import\s+["'][^"']+\.vanilla\.css\.js["'];?/g, '')
+              .trim()
           }
         }
       }

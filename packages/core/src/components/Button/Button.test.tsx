@@ -12,7 +12,7 @@ afterEach(() => {
 const clickHandler = vi.fn()
 
 const TestButton: React.FC<{ disabled?: boolean }> = ({ disabled }) => (
-  <Button as='button' disabled={disabled} data-testid='button' onClick={clickHandler}>
+  <Button as="button" disabled={disabled} data-testid="button" onClick={clickHandler}>
     <Button.Leading>Left</Button.Leading>
     <Button.Center>Center</Button.Center>
     <Button.Trailing>Right</Button.Trailing>

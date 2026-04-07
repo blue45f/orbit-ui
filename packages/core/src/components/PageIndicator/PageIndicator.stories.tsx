@@ -12,8 +12,8 @@ const Dot: React.FC<{ selected?: boolean; onClick?: () => void; style?: React.CS
   style,
 }) => (
   <button
-    type='button'
-    role='tab'
+    type="button"
+    role="tab"
     aria-selected={selected}
     onClick={onClick}
     style={{

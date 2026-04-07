@@ -122,7 +122,7 @@ export const RadioButtonRoot = forwardRef<HTMLButtonElement, RadioButtonProps>((
     'relative inline-flex items-center justify-center rounded-full',
     disabled ? 'cursor-not-allowed opacity-60' : 'cursor-pointer',
     'focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500',
-    classProp,
+    classProp
   )
 
   const style: React.CSSProperties = {
@@ -141,7 +141,7 @@ export const RadioButtonRoot = forwardRef<HTMLButtonElement, RadioButtonProps>((
         onChange?.(true)
       }
     },
-    [onChange, value],
+    [onChange, value]
   )
 
   return (
@@ -152,7 +152,13 @@ export const RadioButtonRoot = forwardRef<HTMLButtonElement, RadioButtonProps>((
       style={{ display: 'contents' }}
     >
       <RadixRadioGroup.Item ref={ref} value={value} id={id} asChild {...rest}>
-        <ContainerLayer as='button' type='button' style={style} className={className} data-checked={checked}>
+        <ContainerLayer
+          as="button"
+          type="button"
+          style={style}
+          className={className}
+          data-checked={checked}
+        >
           <StateLayer className={cn(!disabled && 'hover:bg-black/5 active:bg-black/10')} />
           <BorderLayer
             style={{
@@ -188,7 +194,7 @@ export const Indicator: React.FC<IndicatorProps> = (props) => {
         'bg-[var(--radio-foreground)]',
         'scale-0 transition-transform duration-150',
         '[[data-checked=true]_&]:scale-100',
-        classProp,
+        classProp
       )}
       style={{
         width: toCSSLength(width),

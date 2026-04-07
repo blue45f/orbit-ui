@@ -27,7 +27,7 @@ export const 기본 = {
   render: ({ children }: any) => {
     return (
       <ContainerLayer
-        as='button'
+        as="button"
         style={{
           ...coreStyle.reset.button,
           color: 'gray',

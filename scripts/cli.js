@@ -5,7 +5,7 @@ const chalk = require('chalk')
 const cliSelect = require('cli-select')
 
 const EXECUTE_TYPES = Object.freeze({
-  PRISM_UI: 'Prism UI 컴포넌트 프로젝트 실행',
+  ORBIT_UI: 'Orbit UI 컴포넌트 프로젝트 실행',
 })
 
 // ==============================================================================
@@ -20,15 +20,15 @@ async function run() {
     const selectedExecuteType = await selectAnyway(EXECUTE_TYPES)
 
     switch (selectedExecuteType.value) {
-      case EXECUTE_TYPES.PRISM_UI:
-        executePrismUICommand()
+      case EXECUTE_TYPES.ORBIT_UI:
+        executeOrbitUICommand()
         break
     }
   })
 }
 
-/** Prism UI 프로젝트 실행을 위한 Command */
-async function executePrismUICommand() {
+/** Orbit UI 프로젝트 실행을 위한 Command */
+async function executeOrbitUICommand() {
   errorBoundary(async () => {
     const executableProject = ['mint', 'foundation']
     const PROJECT_PATH = path.join(process.cwd(), '/packages')

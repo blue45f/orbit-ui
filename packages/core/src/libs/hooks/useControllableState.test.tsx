@@ -16,14 +16,14 @@ const ControllableInput: React.FC<{
   return (
     <>
       <input
-        data-testid='input'
+        data-testid="input"
         value={value}
         onChange={(e) => {
           handleChange({ changeParams: [e], value: e.target.value })
         }}
       />
       {/* 밖에서는 비제어로 보이더라도, 안에서는 제어하는가? */}
-      <output data-testid='output'>{value}</output>
+      <output data-testid="output">{value}</output>
     </>
   )
 }
@@ -33,7 +33,7 @@ test('상태를 제어할 수 있다', async () => {
   const user = userEvent.setup()
   const handler = vitest.fn()
 
-  const screen = render(<ControllableInput value='foo' onChange={handler} />)
+  const screen = render(<ControllableInput value="foo" onChange={handler} />)
   const input = (await screen.findByTestId('input')) as HTMLInputElement
   const output = (await screen.findByTestId('output')) as HTMLOutputElement
 
@@ -52,7 +52,7 @@ test('상태를 제어하지 않을 수 있다', async () => {
   const user = userEvent.setup()
   const handler = vitest.fn()
 
-  const screen = render(<ControllableInput defaultValue='foo' onChange={handler} />)
+  const screen = render(<ControllableInput defaultValue="foo" onChange={handler} />)
   const input = (await screen.findByTestId('input')) as HTMLInputElement
   const output = (await screen.findByTestId('output')) as HTMLOutputElement
 

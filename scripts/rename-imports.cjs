@@ -1,5 +1,5 @@
 /**
- * Script to rename all imports from @clay-kit to @ui-forge
+ * Script to rename all imports from @clay-kit to @orbit-ui
  * and mold to composites
  */
 
@@ -8,20 +8,20 @@ const path = require('path')
 const { execSync } = require('child_process')
 
 const replacements = [
-  { from: '@clay-kit/foundation', to: '@ui-forge/core' },
-  { from: '@clay-kit/mint', to: '@ui-forge/theme-ocean' },
-  { from: '@clay-kit/icons', to: '@ui-forge/icons' },
-  { from: '@clay-kit/tsconfig', to: '@ui-forge/tsconfig' },
-  { from: '@clay-kit/vite-plugin', to: '@ui-forge/vite-plugin' },
-  { from: '@clay-kit', to: '@ui-forge' },
+  { from: '@orbit-ui/core', to: '@orbit-ui/core' },
+  { from: '@orbit-ui/theme-eclipse', to: '@orbit-ui/theme-eclipse' },
+  { from: '@orbit-ui/icons', to: '@orbit-ui/icons' },
+  { from: '@clay-kit/tsconfig', to: '@orbit-ui/tsconfig' },
+  { from: '@clay-kit/vite-plugin', to: '@orbit-ui/vite-plugin' },
+  { from: '@clay-kit', to: '@orbit-ui' },
   { from: '/mold', to: '/composites' },
   { from: "'mold'", to: "'composites'" },
   { from: '"mold"', to: '"composites"' },
   { from: 'Clay Kit', to: 'UI Forge' },
-  { from: 'clay-kit', to: 'ui-forge' },
+  { from: 'clay-kit', to: 'orbit-ui' },
 ]
 
-const directories = ['packages/theme-ocean/src', 'packages/core/src', 'packages/icons/src']
+const directories = ['packages/theme-eclipse/src', 'packages/core/src', 'packages/icons/src']
 
 function replaceInFile(filePath) {
   try {
@@ -76,7 +76,7 @@ function processDirectory(dir) {
   }
 }
 
-console.log('🔄 Renaming imports from @clay-kit to @ui-forge...\n')
+console.log('🔄 Renaming imports from @clay-kit to @orbit-ui...\n')
 
 let totalChanged = 0
 directories.forEach((dir) => {

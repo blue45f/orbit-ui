@@ -8,7 +8,9 @@ export type Tokens = {
   [key: string]: string
 }
 
-export type ThemeOverrides<Theme extends Record<string, string>> = Partial<Record<keyof Theme, string>>
+export type ThemeOverrides<Theme extends Record<string, string>> = Partial<
+  Record<keyof Theme, string>
+>
 
 /**
  * Recursively collects all string-valued leaf keys from a (possibly nested) theme token object.
@@ -66,7 +68,7 @@ export const useComponentTheme = <Theme extends Record<string, string>>(
     return Object.entries(themeOverrides).reduce(
       (acc, [key, value]) => {
         if (value !== undefined) {
-          (acc as Record<string, string>)[key] = value
+          ;(acc as Record<string, string>)[key] = value
         }
         return acc
       },

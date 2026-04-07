@@ -1,4 +1,4 @@
-import { CancelIcon, IconPropsContext } from '@prism-ui/icons'
+import { CancelIcon, IconPropsContext } from '@orbit-ui/icons'
 import React, { Children, HTMLAttributes, forwardRef, useCallback } from 'react'
 
 import { cn } from '../../styles'
@@ -241,9 +241,11 @@ const InternalTextFieldRoot = forwardRef<HTMLElement, TextFieldPropsWithAs>((pro
                 'text-inherit placeholder:text-[var(--placeholder-color)]',
                 disabled && 'cursor-not-allowed'
               )}
-              style={{
-                '--placeholder-color': theme?.placeholderColor || 'rgba(177, 179, 181, 1)',
-              } as React.CSSProperties}
+              style={
+                {
+                  '--placeholder-color': theme?.placeholderColor || 'rgba(177, 179, 181, 1)',
+                } as React.CSSProperties
+              }
               onChange={(e) => {
                 handleValueChange({
                   changeParams: [e],
@@ -278,7 +280,10 @@ const TextFieldLeading: React.FC<TextFieldLeadingProps> = ({
   className,
   ...rest
 }) => (
-  <span {...rest} className={cn('inline-flex items-center justify-center flex-shrink-0', className)}>
+  <span
+    {...rest}
+    className={cn('inline-flex items-center justify-center flex-shrink-0', className)}
+  >
     <IconPropsContext.Provider value={{ size }}>{children}</IconPropsContext.Provider>
   </span>
 )
@@ -294,7 +299,10 @@ const TextFieldTrailing: React.FC<TextFieldTrailingProps> = ({
   className,
   ...rest
 }) => (
-  <span {...rest} className={cn('inline-flex items-center justify-center flex-shrink-0', className)}>
+  <span
+    {...rest}
+    className={cn('inline-flex items-center justify-center flex-shrink-0', className)}
+  >
     <IconPropsContext.Provider value={{ size }}>{children}</IconPropsContext.Provider>
   </span>
 )
@@ -304,11 +312,7 @@ export type TextFieldCenterProps = {
 } & HTMLAttributes<HTMLSpanElement>
 
 /** TextField Center - 입력 영역에 추가 컨텐츠 배치 */
-const TextFieldCenter: React.FC<TextFieldCenterProps> = ({
-  children,
-  className,
-  ...rest
-}) => (
+const TextFieldCenter: React.FC<TextFieldCenterProps> = ({ children, className, ...rest }) => (
   <span {...rest} className={cn('inline-flex items-center', className)}>
     {children}
   </span>
@@ -323,7 +327,8 @@ const TextFieldClearButton: React.FC<TextFieldClearButtonProps> = ({
   visibility = 'onFocused',
   children,
 }) => {
-  const { focused, populated, handleClear, preventElementBlur } = useTextFieldContext('TextField.ClearButton')
+  const { focused, populated, handleClear, preventElementBlur } =
+    useTextFieldContext('TextField.ClearButton')
 
   const isVisible = visibility === 'onFocused' ? focused && populated : populated
   if (!isVisible) return null

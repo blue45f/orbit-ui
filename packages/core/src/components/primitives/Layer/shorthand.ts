@@ -39,10 +39,20 @@ export const radius = (value: string, corners: RadiusCorners = 'all'): CSSVarObj
   if (corners === 'all' || corners === 'top' || corners === 'right' || corners === 'top-right') {
     result[layerVars.radiusTopRight] = value
   }
-  if (corners === 'all' || corners === 'bottom' || corners === 'right' || corners === 'bottom-right') {
+  if (
+    corners === 'all' ||
+    corners === 'bottom' ||
+    corners === 'right' ||
+    corners === 'bottom-right'
+  ) {
     result[layerVars.radiusBottomRight] = value
   }
-  if (corners === 'all' || corners === 'bottom' || corners === 'left' || corners === 'bottom-left') {
+  if (
+    corners === 'all' ||
+    corners === 'bottom' ||
+    corners === 'left' ||
+    corners === 'bottom-left'
+  ) {
     result[layerVars.radiusBottomLeft] = value
   }
 

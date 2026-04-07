@@ -47,7 +47,18 @@ export type PageIndicatorProps = PageIndicatorSpecificProps & {
  * ```
  */
 export const PageIndicator = forwardRef<HTMLDivElement, PageIndicatorProps>(
-  ({ children, currentPage = 0, onPageChange, className: classProp, style: styleProp, theme, ...rest }, ref) => {
+  (
+    {
+      children,
+      currentPage = 0,
+      onPageChange,
+      className: classProp,
+      style: styleProp,
+      theme,
+      ...rest
+    },
+    ref
+  ) => {
     const className = cn('relative inline-flex', classProp)
 
     const style: React.CSSProperties = {
@@ -58,7 +69,14 @@ export const PageIndicator = forwardRef<HTMLDivElement, PageIndicatorProps>(
     const childrenWithProps = mapChildrenWithSelection(children, currentPage, onPageChange)
 
     return (
-      <ContainerLayer as="div" ref={ref} className={className} style={style} role="tablist" {...rest}>
+      <ContainerLayer
+        as="div"
+        ref={ref}
+        className={className}
+        style={style}
+        role="tablist"
+        {...rest}
+      >
         <ContentLayer
           className="relative"
           direction="horizontal"

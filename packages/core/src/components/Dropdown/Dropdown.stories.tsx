@@ -55,7 +55,7 @@ export const 기본: Story = {
 const WithLeadingExample = () => {
   const [isOpen, setIsOpen] = useState(false)
   return (
-    <Dropdown value='Option 1' activated={isOpen} onClick={() => setIsOpen(!isOpen)}>
+    <Dropdown value="Option 1" activated={isOpen} onClick={() => setIsOpen(!isOpen)}>
       <Dropdown.Leading>$</Dropdown.Leading>
     </Dropdown>
   )
@@ -68,15 +68,15 @@ export const Leading: Story = {
 const WithCustomTrailingExample = () => {
   const [isOpen, setIsOpen] = useState(false)
   return (
-    <Dropdown value='Option 1' activated={isOpen} onClick={() => setIsOpen(!isOpen)}>
+    <Dropdown value="Option 1" activated={isOpen} onClick={() => setIsOpen(!isOpen)}>
       <Dropdown.Trailing>
-        <svg width='24' height='24' viewBox='0 0 24 24' fill='none'>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
           <path
-            d='M9 5L15 12L9 19'
-            stroke='currentColor'
-            strokeWidth='2'
-            strokeLinecap='round'
-            strokeLinejoin='round'
+            d="M9 5L15 12L9 19"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
           />
         </svg>
       </Dropdown.Trailing>
@@ -93,13 +93,13 @@ const LongTextExample = () => {
   return (
     <div style={{ width: '200px' }}>
       <Dropdown
-        value='This is a very long text that should be truncated when it exceeds the available space'
+        value="This is a very long text that should be truncated when it exceeds the available space"
         activated={isOpen}
         onClick={() => setIsOpen(!isOpen)}
       >
         <Dropdown.Leading>
-          <svg width='24' height='24' viewBox='0 0 24 24' fill='none'>
-            <circle cx='12' cy='12' r='8' stroke='currentColor' strokeWidth='2' />
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <circle cx="12" cy="12" r="8" stroke="currentColor" strokeWidth="2" />
           </svg>
         </Dropdown.Leading>
       </Dropdown>
@@ -118,37 +118,44 @@ const AllStatesExample = () => {
   const [selectedActivatedOpen, setSelectedActivatedOpen] = useState(false)
 
   return (
-    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '16px', width: '600px' }}>
+    <div
+      style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(2, 1fr)',
+        gap: '16px',
+        width: '600px',
+      }}
+    >
       <div>
         <h4 style={{ marginBottom: '8px' }}>Unselected (value 없음)</h4>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
           <Dropdown
-            placeholder='Enabled'
+            placeholder="Enabled"
             activated={unselectedEnabledOpen}
             onClick={() => setUnselectedEnabledOpen(!unselectedEnabledOpen)}
           />
           <Dropdown
-            placeholder='Activated'
+            placeholder="Activated"
             activated={unselectedActivatedOpen}
             onClick={() => setUnselectedActivatedOpen(!unselectedActivatedOpen)}
           />
-          <Dropdown placeholder='Disabled' disabled />
+          <Dropdown placeholder="Disabled" disabled />
         </div>
       </div>
       <div>
         <h4 style={{ marginBottom: '8px' }}>Selected (value 있음)</h4>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
           <Dropdown
-            value='Enabled'
+            value="Enabled"
             activated={selectedEnabledOpen}
             onClick={() => setSelectedEnabledOpen(!selectedEnabledOpen)}
           />
           <Dropdown
-            value='Activated'
+            value="Activated"
             activated={selectedActivatedOpen}
             onClick={() => setSelectedActivatedOpen(!selectedActivatedOpen)}
           />
-          <Dropdown value='Disabled' disabled />
+          <Dropdown value="Disabled" disabled />
         </div>
       </div>
     </div>
@@ -185,20 +192,20 @@ export const 디자인QA = {
       <Dropdown {...args} activated={isOpen} onClick={() => setIsOpen(!isOpen)}>
         {leading && (
           <Dropdown.Leading>
-            <svg width='24' height='24' viewBox='0 0 24 24' fill='none'>
-              <circle cx='12' cy='12' r='8' stroke='currentColor' strokeWidth='2' />
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <circle cx="12" cy="12" r="8" stroke="currentColor" strokeWidth="2" />
             </svg>
           </Dropdown.Leading>
         )}
         {trailing && (
           <Dropdown.Trailing>
-            <svg width='24' height='24' viewBox='0 0 24 24' fill='none'>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
               <path
-                d='M9 5L15 12L9 19'
-                stroke='currentColor'
-                strokeWidth='2'
-                strokeLinecap='round'
-                strokeLinejoin='round'
+                d="M9 5L15 12L9 19"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
               />
             </svg>
           </Dropdown.Trailing>

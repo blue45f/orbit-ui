@@ -28,7 +28,7 @@ export const elevation = {
  * { none: '--sem-base-elevation-none', level1: '--sem-base-elevation-level1', ... }
  */
 export const VAR_NAME = Object.fromEntries(
-  Object.entries(elevation).map(([key]) => [key, `--sem-base-elevation-${key}`]),
+  Object.entries(elevation).map(([key]) => [key, `--sem-base-elevation-${key}`])
 ) as {
   [K in keyof typeof elevation]: `--sem-base-elevation-${K & string}`
 }
@@ -39,7 +39,7 @@ export const VAR_NAME = Object.fromEntries(
  * vars.sem.elevation.level3 형태로 접근 가능합니다.
  */
 export const semanticElevationVars = Object.fromEntries(
-  Object.entries(elevation).map(([key]) => [key, `var(${VAR_NAME[key as keyof typeof VAR_NAME]})`]),
+  Object.entries(elevation).map(([key]) => [key, `var(${VAR_NAME[key as keyof typeof VAR_NAME]})`])
 )
 
 /**

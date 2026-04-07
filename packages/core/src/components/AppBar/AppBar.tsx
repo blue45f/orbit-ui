@@ -35,16 +35,9 @@ export type AppBarProps = AppBarSpecificProps & {
  * ======================================================================== */
 
 const InternalAppBarRoot = forwardRef<HTMLElement, AppBarProps>((props, ref) => {
-  const {
-    children,
-    maxWidth,
-    theme,
-    style: styleProp,
-    className: classProp,
-    ...rest
-  } = props
+  const { children, maxWidth, theme, style: styleProp, className: classProp, ...rest } = props
 
-  const className = cn('relative w-full', classProp)
+  const className = cn('relative w-full backdrop-blur-md', classProp)
 
   const style: React.CSSProperties = {
     backgroundColor: theme?.fillColor,
@@ -92,11 +85,7 @@ export type AppBarLeadingProps = {
   children: React.ReactNode
 } & React.HTMLAttributes<HTMLDivElement>
 
-const AppBarLeading: React.FC<AppBarLeadingProps> = ({
-  children,
-  className,
-  ...rest
-}) => (
+const AppBarLeading: React.FC<AppBarLeadingProps> = ({ children, className, ...rest }) => (
   <div {...rest} className={cn('inline-flex items-center flex-shrink-0', className)}>
     {children}
   </div>
@@ -106,11 +95,7 @@ export type AppBarCenterProps = {
   children: React.ReactNode
 } & React.HTMLAttributes<HTMLDivElement>
 
-const AppBarCenter: React.FC<AppBarCenterProps> = ({
-  children,
-  className,
-  ...rest
-}) => (
+const AppBarCenter: React.FC<AppBarCenterProps> = ({ children, className, ...rest }) => (
   <div {...rest} className={cn('flex-1 min-w-0 text-center', className)}>
     {children}
   </div>
@@ -120,11 +105,7 @@ export type AppBarTrailingProps = {
   children: React.ReactNode
 } & React.HTMLAttributes<HTMLDivElement>
 
-const AppBarTrailing: React.FC<AppBarTrailingProps> = ({
-  children,
-  className,
-  ...rest
-}) => (
+const AppBarTrailing: React.FC<AppBarTrailingProps> = ({ children, className, ...rest }) => (
   <div {...rest} className={cn('inline-flex items-center flex-shrink-0', className)}>
     {children}
   </div>

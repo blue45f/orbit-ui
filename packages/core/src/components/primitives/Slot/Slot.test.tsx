@@ -5,7 +5,7 @@ import { asPlug, slotted, slottedForwardRef } from './Slot'
 
 const Slotted = slotted(['prefix', 'suffix'], ({ slots }) => {
   return (
-    <div data-testid='root'>
+    <div data-testid="root">
       {slots.prefix}
       {slots.default}
       {slots.suffix}
@@ -17,13 +17,13 @@ const SlottedRefForwarding = slottedForwardRef<'prefix' | 'suffix', HTMLDivEleme
   ['prefix', 'suffix'],
   ({ slots }, ref) => {
     return (
-      <div ref={ref} data-testid='root'>
+      <div ref={ref} data-testid="root">
         {slots.prefix}
         {slots.default}
         {slots.suffix}
       </div>
     )
-  },
+  }
 )
 
 const CustomPrefixPlug = asPlug<{ children: string }>('prefix', ({ children }) => {
@@ -41,9 +41,9 @@ test('렌더링 순서가 유지된다', () => {
   const screen = render(
     <Slotted>
       center!
-      <Slotted.Plug name='suffix'>bye!</Slotted.Plug>
-      <Slotted.Plug name='prefix'>hi!</Slotted.Plug>
-    </Slotted>,
+      <Slotted.Plug name="suffix">bye!</Slotted.Plug>
+      <Slotted.Plug name="prefix">hi!</Slotted.Plug>
+    </Slotted>
   )
 
   // Act
@@ -58,11 +58,11 @@ test('중복 슬롯과 알 수 없는 슬롯 이름은 무시한다', () => {
   const screen = render(
     <Slotted>
       center!
-      <Slotted.Plug name='prefix'>prefix A!</Slotted.Plug>
-      <Slotted.Plug name='prefix'>prefix B!</Slotted.Plug>
+      <Slotted.Plug name="prefix">prefix A!</Slotted.Plug>
+      <Slotted.Plug name="prefix">prefix B!</Slotted.Plug>
       {/* @ts-expect-error 없는 이름 의도됨 */}
-      <Slotted.Plug name='bad'>bad!</Slotted.Plug>
-    </Slotted>,
+      <Slotted.Plug name="bad">bad!</Slotted.Plug>
+    </Slotted>
   )
 
   // Act
@@ -84,7 +84,7 @@ test('참조 포워딩이 깨지지 않는다', () => {
       }}
     >
       forwarded
-    </SlottedRefForwarding>,
+    </SlottedRefForwarding>
   )
 
   // Act
@@ -103,8 +103,8 @@ test('조건부 렌더링과 Fragment 안에서도 정상 동작한다', () => {
         center!
         {ready && (
           <>
-            <Slotted.Plug name='prefix'>prefix!</Slotted.Plug>
-            <Slotted.Plug name='suffix'>suffix!</Slotted.Plug>
+            <Slotted.Plug name="prefix">prefix!</Slotted.Plug>
+            <Slotted.Plug name="suffix">suffix!</Slotted.Plug>
           </>
         )}
       </Slotted>
@@ -126,7 +126,7 @@ test('커스텀 플러그 컴포넌트를 선언하고 사용할 수 있다', ()
     <Slotted>
       center!
       <CustomPrefixPlug>custom prefix!</CustomPrefixPlug>
-    </Slotted>,
+    </Slotted>
   )
 
   // Act

@@ -3,7 +3,14 @@
  * ======================================================================== */
 
 /* Text Style Types */
-export type TextStyleBaseSize = 'xSmall' | 'small' | 'medium' | 'large' | 'xLarge' | 'xxLarge' | 'xxxLarge'
+export type TextStyleBaseSize =
+  | 'xSmall'
+  | 'small'
+  | 'medium'
+  | 'large'
+  | 'xLarge'
+  | 'xxLarge'
+  | 'xxxLarge'
 
 export type TextStyleLineHeightToken = string
 export type TextStyleSizeToken = string
@@ -21,13 +28,27 @@ export type TextStyleThemeKey =
 export type TextStyleSuffix = 'Size' | 'LineHeight' | 'Weight' | 'Tracking' | 'Face'
 
 /* Spacing Types */
-export type Spacing = '0' | '50' | '100' | '150' | '200' | '250' | '300' | '400' | '500' | '600' | '800' | '1000' | '1200' | '1600'
+export type Spacing =
+  | '0'
+  | '50'
+  | '100'
+  | '150'
+  | '200'
+  | '250'
+  | '300'
+  | '400'
+  | '500'
+  | '600'
+  | '800'
+  | '1000'
+  | '1200'
+  | '1600'
 
 /* Radius Types */
 export type Radius = 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'full'
 
 /* Color Types */
-export type PaletteColor = 
+export type PaletteColor =
   | `gray${string}`
   | `blue${string}`
   | `purple${string}`

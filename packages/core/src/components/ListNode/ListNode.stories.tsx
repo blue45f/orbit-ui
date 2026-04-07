@@ -1,4 +1,4 @@
-import { CheckIcon, ChevronRightLineIcon } from '@prism-ui/icons'
+import { CheckIcon, ChevronRightLineIcon } from '@orbit-ui/icons'
 import { Meta, StoryObj } from '@storybook/react'
 
 import { Checkbox } from '../Checkbox'
@@ -35,7 +35,7 @@ export const 기본 = {
 export const 인터랙티브 = {
   render: ({ ...args }) => (
     <div style={{ width: 375 }}>
-      <ListNode as='button' onClick={() => alert('clicked')} {...args}>
+      <ListNode as="button" onClick={() => alert('clicked')} {...args}>
         <ListNode.Leading>
           <CheckIcon size={18} />
         </ListNode.Leading>
@@ -51,7 +51,7 @@ export const 인터랙티브 = {
 export const Leading과_Trailing = {
   render: ({ ...args }) => (
     <div style={{ width: 375 }}>
-      <ListNode as='button' {...args}>
+      <ListNode as="button" {...args}>
         <ListNode.Leading>
           <div
             style={{
@@ -82,7 +82,7 @@ export const Leading과_Trailing = {
 export const Trailing만 = {
   render: ({ ...args }) => (
     <div style={{ width: 375 }}>
-      <ListNode as='button' {...args}>
+      <ListNode as="button" {...args}>
         <ListNode.Center>
           <div style={{ fontSize: 16, fontWeight: 600 }}>Title</div>
           <div style={{ fontSize: 14, color: '#666', marginTop: 4 }}>Description</div>
@@ -103,7 +103,7 @@ export const Trailing만 = {
 export const 비활성화 = {
   render: ({ ...args }) => (
     <div style={{ width: 375 }}>
-      <ListNode as='button' disabled {...args}>
+      <ListNode as="button" disabled {...args}>
         <ListNode.Leading>
           <Checkbox disabled>
             <Checkbox.Icon>
@@ -130,43 +130,47 @@ export const 디자인_QA = {
         </ListNode.Center>
       </ListNode>
 
-      <ListNode as='button' {...args}>
+      <ListNode as="button" {...args}>
         <ListNode.Center>
           <div style={{ fontSize: 16, fontWeight: 600 }}>Button Item</div>
           <div style={{ fontSize: 14, color: '#666', marginTop: 4 }}>인터렉션이 가능한 상태</div>
         </ListNode.Center>
         <ListNode.Trailing>
-          <ChevronRightLineIcon size={18} color='#222' />
+          <ChevronRightLineIcon size={18} color="#222" />
         </ListNode.Trailing>
       </ListNode>
 
-      <ListNode as='a' {...args}>
+      <ListNode as="a" {...args}>
         <ListNode.Center>
           <div style={{ fontSize: 16, fontWeight: 600 }}>A Item</div>
           <div style={{ fontSize: 14, color: '#666', marginTop: 4 }}>인터렉션이 가능한 상태</div>
         </ListNode.Center>
         <ListNode.Trailing>
-          <ChevronRightLineIcon size={18} color='#222' />
+          <ChevronRightLineIcon size={18} color="#222" />
         </ListNode.Trailing>
       </ListNode>
 
-      <ListNode as='li' {...args}>
+      <ListNode as="li" {...args}>
         <ListNode.Leading>
           <div style={{ width: '32px', fontSize: '16px', fontWeight: 'bold' }}>Li</div>
         </ListNode.Leading>
         <ListNode.Center>
           <div style={{ fontSize: 16, fontWeight: 600 }}>List Item</div>
-          <div style={{ fontSize: 14, color: '#666', marginTop: 4 }}>단순 리스트 형태 (인터렉션 불가)</div>
+          <div style={{ fontSize: 14, color: '#666', marginTop: 4 }}>
+            단순 리스트 형태 (인터렉션 불가)
+          </div>
         </ListNode.Center>
       </ListNode>
 
-      <ListNode as='div' {...args}>
+      <ListNode as="div" {...args}>
         <ListNode.Leading>
           <div style={{ width: '32px', fontSize: '16px', fontWeight: 'bold' }}>Div</div>
         </ListNode.Leading>
         <ListNode.Center>
           <div style={{ fontSize: 16, fontWeight: 600 }}>Div Item</div>
-          <div style={{ fontSize: 14, color: '#666', marginTop: 4 }}>단순 박스 형태 (인터렉션 불가)</div>
+          <div style={{ fontSize: 14, color: '#666', marginTop: 4 }}>
+            단순 박스 형태 (인터렉션 불가)
+          </div>
         </ListNode.Center>
         <ListNode.Trailing>
           <div style={{ fontSize: 13, color: '#666' }}>Trailing</div>

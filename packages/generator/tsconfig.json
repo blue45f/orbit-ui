@@ -1,6 +1,6 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
-  "extends": "@prism-ui/tsconfig/base.json",
+  "extends": "@orbit-ui/tsconfig/base.json",
   "exclude": ["node_modules", "dist"],
   "compilerOptions": {
     "typeRoots": ["./node_modules/@types", "./types"]

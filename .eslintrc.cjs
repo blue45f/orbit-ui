@@ -5,7 +5,7 @@ module.exports = {
     node: true,
     es2022: true,
   },
-  plugins: ['@typescript-eslint', 'react', 'react-hooks', 'import', '@prism-ui/eslint-plugin'],
+  plugins: ['@typescript-eslint', 'react', 'react-hooks', 'import', '@orbit-ui/eslint-plugin'],
   extends: [
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
@@ -31,7 +31,7 @@ module.exports = {
     {
       files: ['*.css.ts'],
       rules: {
-        '@prism-ui/css-concentric-order': 'warn',
+        '@orbit-ui/css-concentric-order': 'warn',
       },
     },
     {

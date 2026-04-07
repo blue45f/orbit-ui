@@ -1,4 +1,4 @@
-import { IconPropsContext } from '@prism-ui/icons'
+import { IconPropsContext } from '@orbit-ui/icons'
 import { Children, HTMLAttributes, ReactNode, forwardRef, useEffect, useReducer } from 'react'
 
 import { cn, stateClasses } from '../../styles'
@@ -105,7 +105,11 @@ const InternalButtonRoot = forwardRef<HTMLButtonElement | HTMLAnchorElement, But
 
     const a11y = useButtonA11y({ disabled, loading: loadingProp })
 
-    const { isFocused, ref: selfRef, handlers } = useFocus<HTMLButtonElement>({
+    const {
+      isFocused,
+      ref: selfRef,
+      handlers,
+    } = useFocus<HTMLButtonElement>({
       onFocus,
       onBlur,
       disabled,
@@ -160,12 +164,7 @@ const InternalButtonRoot = forwardRef<HTMLButtonElement | HTMLAnchorElement, But
           {...(handlers as any)}
         >
           {/* Content */}
-          <span
-            className={cn(
-              'flex items-center gap-200',
-              busy && 'invisible'
-            )}
-          >
+          <span className={cn('flex items-center gap-200', busy && 'invisible')}>
             {leading}
             {center}
             {trailing}
@@ -221,7 +220,11 @@ const ButtonLeading: React.FC<ButtonLeadingProps> = ({
   }
 
   return (
-    <span {...rest} className={cn('inline-flex items-center justify-center', className)} style={style}>
+    <span
+      {...rest}
+      className={cn('inline-flex items-center justify-center', className)}
+      style={style}
+    >
       <IconPropsContext.Provider value={{ size }}>{children}</IconPropsContext.Provider>
     </span>
   )
@@ -257,7 +260,11 @@ const ButtonTrailing: React.FC<ButtonTrailingProps> = ({
   }
 
   return (
-    <span {...rest} className={cn('inline-flex items-center justify-center overflow-hidden', className)} style={style}>
+    <span
+      {...rest}
+      className={cn('inline-flex items-center justify-center overflow-hidden', className)}
+      style={style}
+    >
       <IconPropsContext.Provider value={{ size }}>{children}</IconPropsContext.Provider>
     </span>
   )

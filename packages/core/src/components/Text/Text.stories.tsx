@@ -21,7 +21,23 @@ const meta: Meta<React.ComponentProps<typeof Text>> = {
     },
     as: {
       control: 'select',
-      options: ['span', 'p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'strong', 's', 'i', 'em', 'div', 'label', 'a'],
+      options: [
+        'span',
+        'p',
+        'h1',
+        'h2',
+        'h3',
+        'h4',
+        'h5',
+        'h6',
+        'strong',
+        's',
+        'i',
+        'em',
+        'div',
+        'label',
+        'a',
+      ],
     },
     theme: {
       control: 'object',
@@ -48,7 +64,14 @@ export const 최대_줄_수_제한 = {
   },
   render: function MaxLinesStory(args: React.ComponentProps<typeof Text>): React.ReactElement {
     return (
-      <div style={{ width: '400px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+      <div
+        style={{
+          width: '400px',
+          overflow: 'hidden',
+          textOverflow: 'ellipsis',
+          whiteSpace: 'nowrap',
+        }}
+      >
         <Text {...args}>{args.children}</Text>
       </div>
     )
@@ -61,12 +84,15 @@ export const 스타일_상위_제어 = {
       '스타일이 고정되어 있어서 텍스트 스타일이 변경되지 않아요. 스타일이 고정되어 있어서 텍스트 스타일이 변경되지 않아요.',
   },
   render: function ForcedTypographyStyleStory(
-    args: React.ComponentProps<typeof Text>,
+    args: React.ComponentProps<typeof Text>
   ): React.ReactElement {
     return (
       <>
-        <p>Context Setting: textStyle=&apos;titleLarge&apos; color=&apos;mint5&apos; maxLines=&#123;1&#125;</p>
-        <ForcedBaseTextStyle textStyle='titleLarge' color='mint5' maxLines={1}>
+        <p>
+          Context Setting: textStyle=&apos;titleLarge&apos; color=&apos;mint5&apos;
+          maxLines=&#123;1&#125;
+        </p>
+        <ForcedBaseTextStyle textStyle="titleLarge" color="mint5" maxLines={1}>
           <div style={{ width: '600px' }}>
             <Text {...args}>{args.children}</Text>
           </div>
@@ -88,10 +114,21 @@ export const 디자인_QA = {
     },
   },
   render: function DesignQA(args: React.ComponentProps<typeof Text>): React.ReactElement {
-    const variants = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'body1', 'body2', 'caption', 'overline'] as const
+    const variants = [
+      'h1',
+      'h2',
+      'h3',
+      'h4',
+      'h5',
+      'h6',
+      'body1',
+      'body2',
+      'caption',
+      'overline',
+    ] as const
 
     return (
-      <Flex flexDirection='column' rowGap='20px'>
+      <Flex flexDirection="column" rowGap="20px">
         {variants.map((variant) => (
           <Text key={variant} {...args} as={args.as} variant={variant}>
             {args.children ? (

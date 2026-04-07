@@ -7,7 +7,7 @@ import { Flex } from './Flex'
 afterEach(() => cleanup())
 
 test('gap 관련 prop이 없으면 gap 스타일을 설정하지 않는다', () => {
-  render(<Flex data-testid='flex' />)
+  render(<Flex data-testid="flex" />)
 
   const flex = screen.getByTestId('flex')
 
@@ -17,7 +17,7 @@ test('gap 관련 prop이 없으면 gap 스타일을 설정하지 않는다', () 
 })
 
 test('rowGap prop이 있으면 rowGap 스타일을 설정한다', () => {
-  render(<Flex data-testid='flex' rowGap='10px' />)
+  render(<Flex data-testid="flex" rowGap="10px" />)
 
   const flex = screen.getByTestId('flex')
 
@@ -26,7 +26,7 @@ test('rowGap prop이 있으면 rowGap 스타일을 설정한다', () => {
 })
 
 test('columnGap prop이 있으면 columnGap 스타일을 설정한다', () => {
-  render(<Flex data-testid='flex' columnGap='20px' />)
+  render(<Flex data-testid="flex" columnGap="20px" />)
 
   const flex = screen.getByTestId('flex')
 
@@ -35,7 +35,7 @@ test('columnGap prop이 있으면 columnGap 스타일을 설정한다', () => {
 })
 
 test('rowGap과 columnGap prop이 모두 있으면 스타일을 모두 설정한다', () => {
-  render(<Flex data-testid='flex' rowGap='10px' columnGap='20px' />)
+  render(<Flex data-testid="flex" rowGap="10px" columnGap="20px" />)
 
   const flex = screen.getByTestId('flex')
 
@@ -45,7 +45,7 @@ test('rowGap과 columnGap prop이 모두 있으면 스타일을 모두 설정한
 
 describe('flexWrap과 관계없이 gap이 설정된다', () => {
   test('flexWrap: nowrap일 때도 gap이 설정된다', () => {
-    render(<Flex data-testid='flex' flexWrap='nowrap' rowGap='10px' columnGap='20px' />)
+    render(<Flex data-testid="flex" flexWrap="nowrap" rowGap="10px" columnGap="20px" />)
 
     const flex = screen.getByTestId('flex')
 
@@ -54,7 +54,7 @@ describe('flexWrap과 관계없이 gap이 설정된다', () => {
   })
 
   test('flexWrap: wrap일 때도 gap이 설정된다', () => {
-    render(<Flex data-testid='flex' flexWrap='wrap' rowGap='10px' columnGap='20px' />)
+    render(<Flex data-testid="flex" flexWrap="wrap" rowGap="10px" columnGap="20px" />)
 
     const flex = screen.getByTestId('flex')
 
@@ -65,7 +65,7 @@ describe('flexWrap과 관계없이 gap이 설정된다', () => {
 
 describe('flexDirection과 관계없이 gap이 설정된다', () => {
   test('flexDirection: row일 때도 gap이 설정된다', () => {
-    render(<Flex data-testid='flex' flexDirection='row' rowGap='10px' columnGap='20px' />)
+    render(<Flex data-testid="flex" flexDirection="row" rowGap="10px" columnGap="20px" />)
 
     const flex = screen.getByTestId('flex')
 
@@ -74,7 +74,7 @@ describe('flexDirection과 관계없이 gap이 설정된다', () => {
   })
 
   test('flexDirection: column일 때도 gap이 설정된다', () => {
-    render(<Flex data-testid='flex' flexDirection='column' rowGap='10px' columnGap='20px' />)
+    render(<Flex data-testid="flex" flexDirection="column" rowGap="10px" columnGap="20px" />)
 
     const flex = screen.getByTestId('flex')
 

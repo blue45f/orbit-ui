@@ -1350,7 +1350,8 @@ export const VAR_NAME = {
   descriptionMediumTracking: '--sem-base-textStyle-descriptionMediumTracking',
   descriptionMediumEmphasizedFace: '--sem-base-textStyle-descriptionMediumEmphasizedFace',
   descriptionMediumEmphasizedSize: '--sem-base-textStyle-descriptionMediumEmphasizedSize',
-  descriptionMediumEmphasizedLineHeight: '--sem-base-textStyle-descriptionMediumEmphasizedLineHeight',
+  descriptionMediumEmphasizedLineHeight:
+    '--sem-base-textStyle-descriptionMediumEmphasizedLineHeight',
   descriptionMediumEmphasizedWeight: '--sem-base-textStyle-descriptionMediumEmphasizedWeight',
   descriptionMediumEmphasizedTracking: '--sem-base-textStyle-descriptionMediumEmphasizedTracking',
   descriptionSmallFace: '--sem-base-textStyle-descriptionSmallFace',
@@ -1459,15 +1460,21 @@ export const xSmallTextStyleTheme = {
   [VAR_NAME['labelLargeTracking']]: xSmallTextStyleTokenValues['LabelLargeTracking'],
   [VAR_NAME['labelLargeEmphasizedFace']]: xSmallTextStyleTokenValues['LabelLargeEmphasizedFace'],
   [VAR_NAME['labelLargeEmphasizedSize']]: xSmallTextStyleTokenValues['LabelLargeEmphasizedSize'],
-  [VAR_NAME['labelLargeEmphasizedLineHeight']]: xSmallTextStyleTokenValues['LabelLargeEmphasizedLineHeight'],
-  [VAR_NAME['labelLargeEmphasizedWeight']]: xSmallTextStyleTokenValues['LabelLargeEmphasizedWeight'],
-  [VAR_NAME['labelLargeEmphasizedTracking']]: xSmallTextStyleTokenValues['LabelLargeEmphasizedTracking'],
+  [VAR_NAME['labelLargeEmphasizedLineHeight']]:
+    xSmallTextStyleTokenValues['LabelLargeEmphasizedLineHeight'],
+  [VAR_NAME['labelLargeEmphasizedWeight']]:
+    xSmallTextStyleTokenValues['LabelLargeEmphasizedWeight'],
+  [VAR_NAME['labelLargeEmphasizedTracking']]:
+    xSmallTextStyleTokenValues['LabelLargeEmphasizedTracking'],
   [VAR_NAME['labelMediumFace']]: xSmallTextStyleTokenValues['LabelMediumFace'],
   [VAR_NAME['labelMediumEmphasizedFace']]: xSmallTextStyleTokenValues['LabelMediumEmphasizedFace'],
   [VAR_NAME['labelMediumEmphasizedSize']]: xSmallTextStyleTokenValues['LabelMediumEmphasizedSize'],
-  [VAR_NAME['labelMediumEmphasizedLineHeight']]: xSmallTextStyleTokenValues['LabelMediumEmphasizedLineHeight'],
-  [VAR_NAME['labelMediumEmphasizedWeight']]: xSmallTextStyleTokenValues['LabelMediumEmphasizedWeight'],
-  [VAR_NAME['labelMediumEmphasizedTracking']]: xSmallTextStyleTokenValues['LabelMediumEmphasizedTracking'],
+  [VAR_NAME['labelMediumEmphasizedLineHeight']]:
+    xSmallTextStyleTokenValues['LabelMediumEmphasizedLineHeight'],
+  [VAR_NAME['labelMediumEmphasizedWeight']]:
+    xSmallTextStyleTokenValues['LabelMediumEmphasizedWeight'],
+  [VAR_NAME['labelMediumEmphasizedTracking']]:
+    xSmallTextStyleTokenValues['LabelMediumEmphasizedTracking'],
   [VAR_NAME['labelMediumSize']]: xSmallTextStyleTokenValues['LabelMediumSize'],
   [VAR_NAME['labelMediumLineHeight']]: xSmallTextStyleTokenValues['LabelMediumLineHeight'],
   [VAR_NAME['labelMediumWeight']]: xSmallTextStyleTokenValues['LabelMediumWeight'],
@@ -1475,76 +1482,109 @@ export const xSmallTextStyleTheme = {
   [VAR_NAME['labelSmallFace']]: xSmallTextStyleTokenValues['LabelSmallFace'],
   [VAR_NAME['labelSmallEmphasizedFace']]: xSmallTextStyleTokenValues['LabelSmallEmphasizedFace'],
   [VAR_NAME['labelSmallEmphasizedSize']]: xSmallTextStyleTokenValues['LabelSmallEmphasizedSize'],
-  [VAR_NAME['labelSmallEmphasizedLineHeight']]: xSmallTextStyleTokenValues['LabelSmallEmphasizedLineHeight'],
-  [VAR_NAME['labelSmallEmphasizedWeight']]: xSmallTextStyleTokenValues['LabelSmallEmphasizedWeight'],
-  [VAR_NAME['labelSmallEmphasizedTracking']]: xSmallTextStyleTokenValues['LabelSmallEmphasizedTracking'],
+  [VAR_NAME['labelSmallEmphasizedLineHeight']]:
+    xSmallTextStyleTokenValues['LabelSmallEmphasizedLineHeight'],
+  [VAR_NAME['labelSmallEmphasizedWeight']]:
+    xSmallTextStyleTokenValues['LabelSmallEmphasizedWeight'],
+  [VAR_NAME['labelSmallEmphasizedTracking']]:
+    xSmallTextStyleTokenValues['LabelSmallEmphasizedTracking'],
   [VAR_NAME['labelSmallSize']]: xSmallTextStyleTokenValues['LabelSmallSize'],
   [VAR_NAME['labelSmallLineHeight']]: xSmallTextStyleTokenValues['LabelSmallLineHeight'],
   [VAR_NAME['labelSmallWeight']]: xSmallTextStyleTokenValues['LabelSmallWeight'],
   [VAR_NAME['labelSmallTracking']]: xSmallTextStyleTokenValues['LabelSmallTracking'],
   [VAR_NAME['captionLargeFace']]: xSmallTextStyleTokenValues['CaptionLargeFace'],
-  [VAR_NAME['captionLargeEmphasizedFace']]: xSmallTextStyleTokenValues['CaptionLargeEmphasizedFace'],
-  [VAR_NAME['captionLargeEmphasizedSize']]: xSmallTextStyleTokenValues['CaptionLargeEmphasizedSize'],
-  [VAR_NAME['captionLargeEmphasizedLineHeight']]: xSmallTextStyleTokenValues['CaptionLargeEmphasizedLineHeight'],
-  [VAR_NAME['captionLargeEmphasizedWeight']]: xSmallTextStyleTokenValues['CaptionLargeEmphasizedWeight'],
-  [VAR_NAME['captionLargeEmphasizedTracking']]: xSmallTextStyleTokenValues['CaptionLargeEmphasizedTracking'],
+  [VAR_NAME['captionLargeEmphasizedFace']]:
+    xSmallTextStyleTokenValues['CaptionLargeEmphasizedFace'],
+  [VAR_NAME['captionLargeEmphasizedSize']]:
+    xSmallTextStyleTokenValues['CaptionLargeEmphasizedSize'],
+  [VAR_NAME['captionLargeEmphasizedLineHeight']]:
+    xSmallTextStyleTokenValues['CaptionLargeEmphasizedLineHeight'],
+  [VAR_NAME['captionLargeEmphasizedWeight']]:
+    xSmallTextStyleTokenValues['CaptionLargeEmphasizedWeight'],
+  [VAR_NAME['captionLargeEmphasizedTracking']]:
+    xSmallTextStyleTokenValues['CaptionLargeEmphasizedTracking'],
   [VAR_NAME['captionLargeSize']]: xSmallTextStyleTokenValues['CaptionLargeSize'],
   [VAR_NAME['captionLargeLineHeight']]: xSmallTextStyleTokenValues['CaptionLargeLineHeight'],
   [VAR_NAME['captionLargeWeight']]: xSmallTextStyleTokenValues['CaptionLargeWeight'],
   [VAR_NAME['captionLargeTracking']]: xSmallTextStyleTokenValues['CaptionLargeTracking'],
   [VAR_NAME['captionMediumFace']]: xSmallTextStyleTokenValues['CaptionMediumFace'],
-  [VAR_NAME['captionMediumEmphasizedFace']]: xSmallTextStyleTokenValues['CaptionMediumEmphasizedFace'],
-  [VAR_NAME['captionMediumEmphasizedSize']]: xSmallTextStyleTokenValues['CaptionMediumEmphasizedSize'],
-  [VAR_NAME['captionMediumEmphasizedLineHeight']]: xSmallTextStyleTokenValues['CaptionMediumEmphasizedLineHeight'],
-  [VAR_NAME['captionMediumEmphasizedWeight']]: xSmallTextStyleTokenValues['CaptionMediumEmphasizedWeight'],
-  [VAR_NAME['captionMediumEmphasizedTracking']]: xSmallTextStyleTokenValues['CaptionMediumEmphasizedTracking'],
+  [VAR_NAME['captionMediumEmphasizedFace']]:
+    xSmallTextStyleTokenValues['CaptionMediumEmphasizedFace'],
+  [VAR_NAME['captionMediumEmphasizedSize']]:
+    xSmallTextStyleTokenValues['CaptionMediumEmphasizedSize'],
+  [VAR_NAME['captionMediumEmphasizedLineHeight']]:
+    xSmallTextStyleTokenValues['CaptionMediumEmphasizedLineHeight'],
+  [VAR_NAME['captionMediumEmphasizedWeight']]:
+    xSmallTextStyleTokenValues['CaptionMediumEmphasizedWeight'],
+  [VAR_NAME['captionMediumEmphasizedTracking']]:
+    xSmallTextStyleTokenValues['CaptionMediumEmphasizedTracking'],
   [VAR_NAME['captionMediumSize']]: xSmallTextStyleTokenValues['CaptionMediumSize'],
   [VAR_NAME['captionMediumLineHeight']]: xSmallTextStyleTokenValues['CaptionMediumLineHeight'],
   [VAR_NAME['captionMediumWeight']]: xSmallTextStyleTokenValues['CaptionMediumWeight'],
   [VAR_NAME['captionMediumTracking']]: xSmallTextStyleTokenValues['CaptionMediumTracking'],
   [VAR_NAME['captionSmallFace']]: xSmallTextStyleTokenValues['CaptionSmallFace'],
-  [VAR_NAME['captionSmallEmphasizedFace']]: xSmallTextStyleTokenValues['CaptionSmallEmphasizedFace'],
-  [VAR_NAME['captionSmallEmphasizedSize']]: xSmallTextStyleTokenValues['CaptionSmallEmphasizedSize'],
-  [VAR_NAME['captionSmallEmphasizedLineHeight']]: xSmallTextStyleTokenValues['CaptionSmallEmphasizedLineHeight'],
-  [VAR_NAME['captionSmallEmphasizedWeight']]: xSmallTextStyleTokenValues['CaptionSmallEmphasizedWeight'],
-  [VAR_NAME['captionSmallEmphasizedTracking']]: xSmallTextStyleTokenValues['CaptionSmallEmphasizedTracking'],
+  [VAR_NAME['captionSmallEmphasizedFace']]:
+    xSmallTextStyleTokenValues['CaptionSmallEmphasizedFace'],
+  [VAR_NAME['captionSmallEmphasizedSize']]:
+    xSmallTextStyleTokenValues['CaptionSmallEmphasizedSize'],
+  [VAR_NAME['captionSmallEmphasizedLineHeight']]:
+    xSmallTextStyleTokenValues['CaptionSmallEmphasizedLineHeight'],
+  [VAR_NAME['captionSmallEmphasizedWeight']]:
+    xSmallTextStyleTokenValues['CaptionSmallEmphasizedWeight'],
+  [VAR_NAME['captionSmallEmphasizedTracking']]:
+    xSmallTextStyleTokenValues['CaptionSmallEmphasizedTracking'],
   [VAR_NAME['captionSmallSize']]: xSmallTextStyleTokenValues['CaptionSmallSize'],
   [VAR_NAME['captionSmallLineHeight']]: xSmallTextStyleTokenValues['CaptionSmallLineHeight'],
   [VAR_NAME['captionSmallWeight']]: xSmallTextStyleTokenValues['CaptionSmallWeight'],
   [VAR_NAME['captionSmallTracking']]: xSmallTextStyleTokenValues['CaptionSmallTracking'],
   [VAR_NAME['descriptionLargeFace']]: xSmallTextStyleTokenValues['DescriptionLargeFace'],
-  [VAR_NAME['descriptionLargeEmphasizedFace']]: xSmallTextStyleTokenValues['DescriptionLargeEmphasizedFace'],
-  [VAR_NAME['descriptionLargeEmphasizedSize']]: xSmallTextStyleTokenValues['DescriptionLargeEmphasizedSize'],
+  [VAR_NAME['descriptionLargeEmphasizedFace']]:
+    xSmallTextStyleTokenValues['DescriptionLargeEmphasizedFace'],
+  [VAR_NAME['descriptionLargeEmphasizedSize']]:
+    xSmallTextStyleTokenValues['DescriptionLargeEmphasizedSize'],
   [VAR_NAME['descriptionLargeEmphasizedLineHeight']]:
     xSmallTextStyleTokenValues['DescriptionLargeEmphasizedLineHeight'],
-  [VAR_NAME['descriptionLargeEmphasizedWeight']]: xSmallTextStyleTokenValues['DescriptionLargeEmphasizedWeight'],
-  [VAR_NAME['descriptionLargeEmphasizedTracking']]: xSmallTextStyleTokenValues['DescriptionLargeEmphasizedTracking'],
+  [VAR_NAME['descriptionLargeEmphasizedWeight']]:
+    xSmallTextStyleTokenValues['DescriptionLargeEmphasizedWeight'],
+  [VAR_NAME['descriptionLargeEmphasizedTracking']]:
+    xSmallTextStyleTokenValues['DescriptionLargeEmphasizedTracking'],
   [VAR_NAME['descriptionLargeSize']]: xSmallTextStyleTokenValues['DescriptionLargeSize'],
-  [VAR_NAME['descriptionLargeLineHeight']]: xSmallTextStyleTokenValues['DescriptionLargeLineHeight'],
+  [VAR_NAME['descriptionLargeLineHeight']]:
+    xSmallTextStyleTokenValues['DescriptionLargeLineHeight'],
   [VAR_NAME['descriptionLargeWeight']]: xSmallTextStyleTokenValues['DescriptionLargeWeight'],
   [VAR_NAME['descriptionLargeTracking']]: xSmallTextStyleTokenValues['DescriptionLargeTracking'],
   [VAR_NAME['descriptionMediumFace']]: xSmallTextStyleTokenValues['DescriptionMediumFace'],
   [VAR_NAME['descriptionMediumSize']]: xSmallTextStyleTokenValues['DescriptionMediumSize'],
-  [VAR_NAME['descriptionMediumLineHeight']]: xSmallTextStyleTokenValues['DescriptionMediumLineHeight'],
+  [VAR_NAME['descriptionMediumLineHeight']]:
+    xSmallTextStyleTokenValues['DescriptionMediumLineHeight'],
   [VAR_NAME['descriptionMediumWeight']]: xSmallTextStyleTokenValues['DescriptionMediumWeight'],
   [VAR_NAME['descriptionMediumTracking']]: xSmallTextStyleTokenValues['DescriptionMediumTracking'],
-  [VAR_NAME['descriptionMediumEmphasizedFace']]: xSmallTextStyleTokenValues['DescriptionMediumEmphasizedFace'],
-  [VAR_NAME['descriptionMediumEmphasizedSize']]: xSmallTextStyleTokenValues['DescriptionMediumEmphasizedSize'],
+  [VAR_NAME['descriptionMediumEmphasizedFace']]:
+    xSmallTextStyleTokenValues['DescriptionMediumEmphasizedFace'],
+  [VAR_NAME['descriptionMediumEmphasizedSize']]:
+    xSmallTextStyleTokenValues['DescriptionMediumEmphasizedSize'],
   [VAR_NAME['descriptionMediumEmphasizedLineHeight']]:
     xSmallTextStyleTokenValues['DescriptionMediumEmphasizedLineHeight'],
-  [VAR_NAME['descriptionMediumEmphasizedWeight']]: xSmallTextStyleTokenValues['DescriptionMediumEmphasizedWeight'],
-  [VAR_NAME['descriptionMediumEmphasizedTracking']]: xSmallTextStyleTokenValues['DescriptionMediumEmphasizedTracking'],
+  [VAR_NAME['descriptionMediumEmphasizedWeight']]:
+    xSmallTextStyleTokenValues['DescriptionMediumEmphasizedWeight'],
+  [VAR_NAME['descriptionMediumEmphasizedTracking']]:
+    xSmallTextStyleTokenValues['DescriptionMediumEmphasizedTracking'],
   [VAR_NAME['descriptionSmallFace']]: xSmallTextStyleTokenValues['DescriptionSmallFace'],
   [VAR_NAME['descriptionSmallSize']]: xSmallTextStyleTokenValues['DescriptionSmallSize'],
-  [VAR_NAME['descriptionSmallLineHeight']]: xSmallTextStyleTokenValues['DescriptionSmallLineHeight'],
+  [VAR_NAME['descriptionSmallLineHeight']]:
+    xSmallTextStyleTokenValues['DescriptionSmallLineHeight'],
   [VAR_NAME['descriptionSmallWeight']]: xSmallTextStyleTokenValues['DescriptionSmallWeight'],
   [VAR_NAME['descriptionSmallTracking']]: xSmallTextStyleTokenValues['DescriptionSmallTracking'],
-  [VAR_NAME['descriptionSmallEmphasizedFace']]: xSmallTextStyleTokenValues['DescriptionSmallEmphasizedFace'],
-  [VAR_NAME['descriptionSmallEmphasizedSize']]: xSmallTextStyleTokenValues['DescriptionSmallEmphasizedSize'],
+  [VAR_NAME['descriptionSmallEmphasizedFace']]:
+    xSmallTextStyleTokenValues['DescriptionSmallEmphasizedFace'],
+  [VAR_NAME['descriptionSmallEmphasizedSize']]:
+    xSmallTextStyleTokenValues['DescriptionSmallEmphasizedSize'],
   [VAR_NAME['descriptionSmallEmphasizedLineHeight']]:
     xSmallTextStyleTokenValues['DescriptionSmallEmphasizedLineHeight'],
-  [VAR_NAME['descriptionSmallEmphasizedWeight']]: xSmallTextStyleTokenValues['DescriptionSmallEmphasizedWeight'],
-  [VAR_NAME['descriptionSmallEmphasizedTracking']]: xSmallTextStyleTokenValues['DescriptionSmallEmphasizedTracking'],
+  [VAR_NAME['descriptionSmallEmphasizedWeight']]:
+    xSmallTextStyleTokenValues['DescriptionSmallEmphasizedWeight'],
+  [VAR_NAME['descriptionSmallEmphasizedTracking']]:
+    xSmallTextStyleTokenValues['DescriptionSmallEmphasizedTracking'],
   [VAR_NAME['detailFace']]: xSmallTextStyleTokenValues['DetailFace'],
   [VAR_NAME['detailSize']]: xSmallTextStyleTokenValues['DetailSize'],
   [VAR_NAME['detailLineHeight']]: xSmallTextStyleTokenValues['DetailLineHeight'],
@@ -1577,7 +1617,8 @@ export const xSmallTextStyleTheme = {
   [VAR_NAME['subheadingSmallTracking']]: xSmallTextStyleTokenValues['SubheadingSmallTracking'],
   [VAR_NAME['subheadingMediumFace']]: xSmallTextStyleTokenValues['SubheadingMediumFace'],
   [VAR_NAME['subheadingMediumSize']]: xSmallTextStyleTokenValues['SubheadingMediumSize'],
-  [VAR_NAME['subheadingMediumLineHeight']]: xSmallTextStyleTokenValues['SubheadingMediumLineHeight'],
+  [VAR_NAME['subheadingMediumLineHeight']]:
+    xSmallTextStyleTokenValues['SubheadingMediumLineHeight'],
   [VAR_NAME['subheadingMediumWeight']]: xSmallTextStyleTokenValues['SubheadingMediumWeight'],
   [VAR_NAME['subheadingMediumTracking']]: xSmallTextStyleTokenValues['SubheadingMediumTracking'],
   [VAR_NAME['subheadingLargeFace']]: xSmallTextStyleTokenValues['SubheadingLargeFace'],
@@ -1642,15 +1683,20 @@ export const smallTextStyleTheme = {
   [VAR_NAME['labelLargeTracking']]: smallTextStyleTokenValues['LabelLargeTracking'],
   [VAR_NAME['labelLargeEmphasizedFace']]: smallTextStyleTokenValues['LabelLargeEmphasizedFace'],
   [VAR_NAME['labelLargeEmphasizedSize']]: smallTextStyleTokenValues['LabelLargeEmphasizedSize'],
-  [VAR_NAME['labelLargeEmphasizedLineHeight']]: smallTextStyleTokenValues['LabelLargeEmphasizedLineHeight'],
+  [VAR_NAME['labelLargeEmphasizedLineHeight']]:
+    smallTextStyleTokenValues['LabelLargeEmphasizedLineHeight'],
   [VAR_NAME['labelLargeEmphasizedWeight']]: smallTextStyleTokenValues['LabelLargeEmphasizedWeight'],
-  [VAR_NAME['labelLargeEmphasizedTracking']]: smallTextStyleTokenValues['LabelLargeEmphasizedTracking'],
+  [VAR_NAME['labelLargeEmphasizedTracking']]:
+    smallTextStyleTokenValues['LabelLargeEmphasizedTracking'],
   [VAR_NAME['labelMediumFace']]: smallTextStyleTokenValues['LabelMediumFace'],
   [VAR_NAME['labelMediumEmphasizedFace']]: smallTextStyleTokenValues['LabelMediumEmphasizedFace'],
   [VAR_NAME['labelMediumEmphasizedSize']]: smallTextStyleTokenValues['LabelMediumEmphasizedSize'],
-  [VAR_NAME['labelMediumEmphasizedLineHeight']]: smallTextStyleTokenValues['LabelMediumEmphasizedLineHeight'],
-  [VAR_NAME['labelMediumEmphasizedWeight']]: smallTextStyleTokenValues['LabelMediumEmphasizedWeight'],
-  [VAR_NAME['labelMediumEmphasizedTracking']]: smallTextStyleTokenValues['LabelMediumEmphasizedTracking'],
+  [VAR_NAME['labelMediumEmphasizedLineHeight']]:
+    smallTextStyleTokenValues['LabelMediumEmphasizedLineHeight'],
+  [VAR_NAME['labelMediumEmphasizedWeight']]:
+    smallTextStyleTokenValues['LabelMediumEmphasizedWeight'],
+  [VAR_NAME['labelMediumEmphasizedTracking']]:
+    smallTextStyleTokenValues['LabelMediumEmphasizedTracking'],
   [VAR_NAME['labelMediumSize']]: smallTextStyleTokenValues['LabelMediumSize'],
   [VAR_NAME['labelMediumLineHeight']]: smallTextStyleTokenValues['LabelMediumLineHeight'],
   [VAR_NAME['labelMediumWeight']]: smallTextStyleTokenValues['LabelMediumWeight'],
@@ -1658,9 +1704,11 @@ export const smallTextStyleTheme = {
   [VAR_NAME['labelSmallFace']]: smallTextStyleTokenValues['LabelSmallFace'],
   [VAR_NAME['labelSmallEmphasizedFace']]: smallTextStyleTokenValues['LabelSmallEmphasizedFace'],
   [VAR_NAME['labelSmallEmphasizedSize']]: smallTextStyleTokenValues['LabelSmallEmphasizedSize'],
-  [VAR_NAME['labelSmallEmphasizedLineHeight']]: smallTextStyleTokenValues['LabelSmallEmphasizedLineHeight'],
+  [VAR_NAME['labelSmallEmphasizedLineHeight']]:
+    smallTextStyleTokenValues['LabelSmallEmphasizedLineHeight'],
   [VAR_NAME['labelSmallEmphasizedWeight']]: smallTextStyleTokenValues['LabelSmallEmphasizedWeight'],
-  [VAR_NAME['labelSmallEmphasizedTracking']]: smallTextStyleTokenValues['LabelSmallEmphasizedTracking'],
+  [VAR_NAME['labelSmallEmphasizedTracking']]:
+    smallTextStyleTokenValues['LabelSmallEmphasizedTracking'],
   [VAR_NAME['labelSmallSize']]: smallTextStyleTokenValues['LabelSmallSize'],
   [VAR_NAME['labelSmallLineHeight']]: smallTextStyleTokenValues['LabelSmallLineHeight'],
   [VAR_NAME['labelSmallWeight']]: smallTextStyleTokenValues['LabelSmallWeight'],
@@ -1668,19 +1716,27 @@ export const smallTextStyleTheme = {
   [VAR_NAME['captionLargeFace']]: smallTextStyleTokenValues['CaptionLargeFace'],
   [VAR_NAME['captionLargeEmphasizedFace']]: smallTextStyleTokenValues['CaptionLargeEmphasizedFace'],
   [VAR_NAME['captionLargeEmphasizedSize']]: smallTextStyleTokenValues['CaptionLargeEmphasizedSize'],
-  [VAR_NAME['captionLargeEmphasizedLineHeight']]: smallTextStyleTokenValues['CaptionLargeEmphasizedLineHeight'],
-  [VAR_NAME['captionLargeEmphasizedWeight']]: smallTextStyleTokenValues['CaptionLargeEmphasizedWeight'],
-  [VAR_NAME['captionLargeEmphasizedTracking']]: smallTextStyleTokenValues['CaptionLargeEmphasizedTracking'],
+  [VAR_NAME['captionLargeEmphasizedLineHeight']]:
+    smallTextStyleTokenValues['CaptionLargeEmphasizedLineHeight'],
+  [VAR_NAME['captionLargeEmphasizedWeight']]:
+    smallTextStyleTokenValues['CaptionLargeEmphasizedWeight'],
+  [VAR_NAME['captionLargeEmphasizedTracking']]:
+    smallTextStyleTokenValues['CaptionLargeEmphasizedTracking'],
   [VAR_NAME['captionLargeSize']]: smallTextStyleTokenValues['CaptionLargeSize'],
   [VAR_NAME['captionLargeLineHeight']]: smallTextStyleTokenValues['CaptionLargeLineHeight'],
   [VAR_NAME['captionLargeWeight']]: smallTextStyleTokenValues['CaptionLargeWeight'],
   [VAR_NAME['captionLargeTracking']]: smallTextStyleTokenValues['CaptionLargeTracking'],
   [VAR_NAME['captionMediumFace']]: smallTextStyleTokenValues['CaptionMediumFace'],
-  [VAR_NAME['captionMediumEmphasizedFace']]: smallTextStyleTokenValues['CaptionMediumEmphasizedFace'],
-  [VAR_NAME['captionMediumEmphasizedSize']]: smallTextStyleTokenValues['CaptionMediumEmphasizedSize'],
-  [VAR_NAME['captionMediumEmphasizedLineHeight']]: smallTextStyleTokenValues['CaptionMediumEmphasizedLineHeight'],
-  [VAR_NAME['captionMediumEmphasizedWeight']]: smallTextStyleTokenValues['CaptionMediumEmphasizedWeight'],
-  [VAR_NAME['captionMediumEmphasizedTracking']]: smallTextStyleTokenValues['CaptionMediumEmphasizedTracking'],
+  [VAR_NAME['captionMediumEmphasizedFace']]:
+    smallTextStyleTokenValues['CaptionMediumEmphasizedFace'],
+  [VAR_NAME['captionMediumEmphasizedSize']]:
+    smallTextStyleTokenValues['CaptionMediumEmphasizedSize'],
+  [VAR_NAME['captionMediumEmphasizedLineHeight']]:
+    smallTextStyleTokenValues['CaptionMediumEmphasizedLineHeight'],
+  [VAR_NAME['captionMediumEmphasizedWeight']]:
+    smallTextStyleTokenValues['CaptionMediumEmphasizedWeight'],
+  [VAR_NAME['captionMediumEmphasizedTracking']]:
+    smallTextStyleTokenValues['CaptionMediumEmphasizedTracking'],
   [VAR_NAME['captionMediumSize']]: smallTextStyleTokenValues['CaptionMediumSize'],
   [VAR_NAME['captionMediumLineHeight']]: smallTextStyleTokenValues['CaptionMediumLineHeight'],
   [VAR_NAME['captionMediumWeight']]: smallTextStyleTokenValues['CaptionMediumWeight'],
@@ -1688,44 +1744,62 @@ export const smallTextStyleTheme = {
   [VAR_NAME['captionSmallFace']]: smallTextStyleTokenValues['CaptionSmallFace'],
   [VAR_NAME['captionSmallEmphasizedFace']]: smallTextStyleTokenValues['CaptionSmallEmphasizedFace'],
   [VAR_NAME['captionSmallEmphasizedSize']]: smallTextStyleTokenValues['CaptionSmallEmphasizedSize'],
-  [VAR_NAME['captionSmallEmphasizedLineHeight']]: smallTextStyleTokenValues['CaptionSmallEmphasizedLineHeight'],
-  [VAR_NAME['captionSmallEmphasizedWeight']]: smallTextStyleTokenValues['CaptionSmallEmphasizedWeight'],
-  [VAR_NAME['captionSmallEmphasizedTracking']]: smallTextStyleTokenValues['CaptionSmallEmphasizedTracking'],
+  [VAR_NAME['captionSmallEmphasizedLineHeight']]:
+    smallTextStyleTokenValues['CaptionSmallEmphasizedLineHeight'],
+  [VAR_NAME['captionSmallEmphasizedWeight']]:
+    smallTextStyleTokenValues['CaptionSmallEmphasizedWeight'],
+  [VAR_NAME['captionSmallEmphasizedTracking']]:
+    smallTextStyleTokenValues['CaptionSmallEmphasizedTracking'],
   [VAR_NAME['captionSmallSize']]: smallTextStyleTokenValues['CaptionSmallSize'],
   [VAR_NAME['captionSmallLineHeight']]: smallTextStyleTokenValues['CaptionSmallLineHeight'],
   [VAR_NAME['captionSmallWeight']]: smallTextStyleTokenValues['CaptionSmallWeight'],
   [VAR_NAME['captionSmallTracking']]: smallTextStyleTokenValues['CaptionSmallTracking'],
   [VAR_NAME['descriptionLargeFace']]: smallTextStyleTokenValues['DescriptionLargeFace'],
-  [VAR_NAME['descriptionLargeEmphasizedFace']]: smallTextStyleTokenValues['DescriptionLargeEmphasizedFace'],
-  [VAR_NAME['descriptionLargeEmphasizedSize']]: smallTextStyleTokenValues['DescriptionLargeEmphasizedSize'],
-  [VAR_NAME['descriptionLargeEmphasizedLineHeight']]: smallTextStyleTokenValues['DescriptionLargeEmphasizedLineHeight'],
-  [VAR_NAME['descriptionLargeEmphasizedWeight']]: smallTextStyleTokenValues['DescriptionLargeEmphasizedWeight'],
-  [VAR_NAME['descriptionLargeEmphasizedTracking']]: smallTextStyleTokenValues['DescriptionLargeEmphasizedTracking'],
+  [VAR_NAME['descriptionLargeEmphasizedFace']]:
+    smallTextStyleTokenValues['DescriptionLargeEmphasizedFace'],
+  [VAR_NAME['descriptionLargeEmphasizedSize']]:
+    smallTextStyleTokenValues['DescriptionLargeEmphasizedSize'],
+  [VAR_NAME['descriptionLargeEmphasizedLineHeight']]:
+    smallTextStyleTokenValues['DescriptionLargeEmphasizedLineHeight'],
+  [VAR_NAME['descriptionLargeEmphasizedWeight']]:
+    smallTextStyleTokenValues['DescriptionLargeEmphasizedWeight'],
+  [VAR_NAME['descriptionLargeEmphasizedTracking']]:
+    smallTextStyleTokenValues['DescriptionLargeEmphasizedTracking'],
   [VAR_NAME['descriptionLargeSize']]: smallTextStyleTokenValues['DescriptionLargeSize'],
   [VAR_NAME['descriptionLargeLineHeight']]: smallTextStyleTokenValues['DescriptionLargeLineHeight'],
   [VAR_NAME['descriptionLargeWeight']]: smallTextStyleTokenValues['DescriptionLargeWeight'],
   [VAR_NAME['descriptionLargeTracking']]: smallTextStyleTokenValues['DescriptionLargeTracking'],
   [VAR_NAME['descriptionMediumFace']]: smallTextStyleTokenValues['DescriptionMediumFace'],
   [VAR_NAME['descriptionMediumSize']]: smallTextStyleTokenValues['DescriptionMediumSize'],
-  [VAR_NAME['descriptionMediumLineHeight']]: smallTextStyleTokenValues['DescriptionMediumLineHeight'],
+  [VAR_NAME['descriptionMediumLineHeight']]:
+    smallTextStyleTokenValues['DescriptionMediumLineHeight'],
   [VAR_NAME['descriptionMediumWeight']]: smallTextStyleTokenValues['DescriptionMediumWeight'],
   [VAR_NAME['descriptionMediumTracking']]: smallTextStyleTokenValues['DescriptionMediumTracking'],
-  [VAR_NAME['descriptionMediumEmphasizedFace']]: smallTextStyleTokenValues['DescriptionMediumEmphasizedFace'],
-  [VAR_NAME['descriptionMediumEmphasizedSize']]: smallTextStyleTokenValues['DescriptionMediumEmphasizedSize'],
+  [VAR_NAME['descriptionMediumEmphasizedFace']]:
+    smallTextStyleTokenValues['DescriptionMediumEmphasizedFace'],
+  [VAR_NAME['descriptionMediumEmphasizedSize']]:
+    smallTextStyleTokenValues['DescriptionMediumEmphasizedSize'],
   [VAR_NAME['descriptionMediumEmphasizedLineHeight']]:
     smallTextStyleTokenValues['DescriptionMediumEmphasizedLineHeight'],
-  [VAR_NAME['descriptionMediumEmphasizedWeight']]: smallTextStyleTokenValues['DescriptionMediumEmphasizedWeight'],
-  [VAR_NAME['descriptionMediumEmphasizedTracking']]: smallTextStyleTokenValues['DescriptionMediumEmphasizedTracking'],
+  [VAR_NAME['descriptionMediumEmphasizedWeight']]:
+    smallTextStyleTokenValues['DescriptionMediumEmphasizedWeight'],
+  [VAR_NAME['descriptionMediumEmphasizedTracking']]:
+    smallTextStyleTokenValues['DescriptionMediumEmphasizedTracking'],
   [VAR_NAME['descriptionSmallFace']]: smallTextStyleTokenValues['DescriptionSmallFace'],
   [VAR_NAME['descriptionSmallSize']]: smallTextStyleTokenValues['DescriptionSmallSize'],
   [VAR_NAME['descriptionSmallLineHeight']]: smallTextStyleTokenValues['DescriptionSmallLineHeight'],
   [VAR_NAME['descriptionSmallWeight']]: smallTextStyleTokenValues['DescriptionSmallWeight'],
   [VAR_NAME['descriptionSmallTracking']]: smallTextStyleTokenValues['DescriptionSmallTracking'],
-  [VAR_NAME['descriptionSmallEmphasizedFace']]: smallTextStyleTokenValues['DescriptionSmallEmphasizedFace'],
-  [VAR_NAME['descriptionSmallEmphasizedSize']]: smallTextStyleTokenValues['DescriptionSmallEmphasizedSize'],
-  [VAR_NAME['descriptionSmallEmphasizedLineHeight']]: smallTextStyleTokenValues['DescriptionSmallEmphasizedLineHeight'],
-  [VAR_NAME['descriptionSmallEmphasizedWeight']]: smallTextStyleTokenValues['DescriptionSmallEmphasizedWeight'],
-  [VAR_NAME['descriptionSmallEmphasizedTracking']]: smallTextStyleTokenValues['DescriptionSmallEmphasizedTracking'],
+  [VAR_NAME['descriptionSmallEmphasizedFace']]:
+    smallTextStyleTokenValues['DescriptionSmallEmphasizedFace'],
+  [VAR_NAME['descriptionSmallEmphasizedSize']]:
+    smallTextStyleTokenValues['DescriptionSmallEmphasizedSize'],
+  [VAR_NAME['descriptionSmallEmphasizedLineHeight']]:
+    smallTextStyleTokenValues['DescriptionSmallEmphasizedLineHeight'],
+  [VAR_NAME['descriptionSmallEmphasizedWeight']]:
+    smallTextStyleTokenValues['DescriptionSmallEmphasizedWeight'],
+  [VAR_NAME['descriptionSmallEmphasizedTracking']]:
+    smallTextStyleTokenValues['DescriptionSmallEmphasizedTracking'],
   [VAR_NAME['detailFace']]: smallTextStyleTokenValues['DetailFace'],
   [VAR_NAME['detailSize']]: smallTextStyleTokenValues['DetailSize'],
   [VAR_NAME['detailLineHeight']]: smallTextStyleTokenValues['DetailLineHeight'],
@@ -1823,15 +1897,21 @@ export const mediumTextStyleTheme = {
   [VAR_NAME['labelLargeTracking']]: mediumTextStyleTokenValues['LabelLargeTracking'],
   [VAR_NAME['labelLargeEmphasizedFace']]: mediumTextStyleTokenValues['LabelLargeEmphasizedFace'],
   [VAR_NAME['labelLargeEmphasizedSize']]: mediumTextStyleTokenValues['LabelLargeEmphasizedSize'],
-  [VAR_NAME['labelLargeEmphasizedLineHeight']]: mediumTextStyleTokenValues['LabelLargeEmphasizedLineHeight'],
-  [VAR_NAME['labelLargeEmphasizedWeight']]: mediumTextStyleTokenValues['LabelLargeEmphasizedWeight'],
-  [VAR_NAME['labelLargeEmphasizedTracking']]: mediumTextStyleTokenValues['LabelLargeEmphasizedTracking'],
+  [VAR_NAME['labelLargeEmphasizedLineHeight']]:
+    mediumTextStyleTokenValues['LabelLargeEmphasizedLineHeight'],
+  [VAR_NAME['labelLargeEmphasizedWeight']]:
+    mediumTextStyleTokenValues['LabelLargeEmphasizedWeight'],
+  [VAR_NAME['labelLargeEmphasizedTracking']]:
+    mediumTextStyleTokenValues['LabelLargeEmphasizedTracking'],
   [VAR_NAME['labelMediumFace']]: mediumTextStyleTokenValues['LabelMediumFace'],
   [VAR_NAME['labelMediumEmphasizedFace']]: mediumTextStyleTokenValues['LabelMediumEmphasizedFace'],
   [VAR_NAME['labelMediumEmphasizedSize']]: mediumTextStyleTokenValues['LabelMediumEmphasizedSize'],
-  [VAR_NAME['labelMediumEmphasizedLineHeight']]: mediumTextStyleTokenValues['LabelMediumEmphasizedLineHeight'],
-  [VAR_NAME['labelMediumEmphasizedWeight']]: mediumTextStyleTokenValues['LabelMediumEmphasizedWeight'],
-  [VAR_NAME['labelMediumEmphasizedTracking']]: mediumTextStyleTokenValues['LabelMediumEmphasizedTracking'],
+  [VAR_NAME['labelMediumEmphasizedLineHeight']]:
+    mediumTextStyleTokenValues['LabelMediumEmphasizedLineHeight'],
+  [VAR_NAME['labelMediumEmphasizedWeight']]:
+    mediumTextStyleTokenValues['LabelMediumEmphasizedWeight'],
+  [VAR_NAME['labelMediumEmphasizedTracking']]:
+    mediumTextStyleTokenValues['LabelMediumEmphasizedTracking'],
   [VAR_NAME['labelMediumSize']]: mediumTextStyleTokenValues['LabelMediumSize'],
   [VAR_NAME['labelMediumLineHeight']]: mediumTextStyleTokenValues['LabelMediumLineHeight'],
   [VAR_NAME['labelMediumWeight']]: mediumTextStyleTokenValues['LabelMediumWeight'],
@@ -1839,76 +1919,109 @@ export const mediumTextStyleTheme = {
   [VAR_NAME['labelSmallFace']]: mediumTextStyleTokenValues['LabelSmallFace'],
   [VAR_NAME['labelSmallEmphasizedFace']]: mediumTextStyleTokenValues['LabelSmallEmphasizedFace'],
   [VAR_NAME['labelSmallEmphasizedSize']]: mediumTextStyleTokenValues['LabelSmallEmphasizedSize'],
-  [VAR_NAME['labelSmallEmphasizedLineHeight']]: mediumTextStyleTokenValues['LabelSmallEmphasizedLineHeight'],
-  [VAR_NAME['labelSmallEmphasizedWeight']]: mediumTextStyleTokenValues['LabelSmallEmphasizedWeight'],
-  [VAR_NAME['labelSmallEmphasizedTracking']]: mediumTextStyleTokenValues['LabelSmallEmphasizedTracking'],
+  [VAR_NAME['labelSmallEmphasizedLineHeight']]:
+    mediumTextStyleTokenValues['LabelSmallEmphasizedLineHeight'],
+  [VAR_NAME['labelSmallEmphasizedWeight']]:
+    mediumTextStyleTokenValues['LabelSmallEmphasizedWeight'],
+  [VAR_NAME['labelSmallEmphasizedTracking']]:
+    mediumTextStyleTokenValues['LabelSmallEmphasizedTracking'],
   [VAR_NAME['labelSmallSize']]: mediumTextStyleTokenValues['LabelSmallSize'],
   [VAR_NAME['labelSmallLineHeight']]: mediumTextStyleTokenValues['LabelSmallLineHeight'],
   [VAR_NAME['labelSmallWeight']]: mediumTextStyleTokenValues['LabelSmallWeight'],
   [VAR_NAME['labelSmallTracking']]: mediumTextStyleTokenValues['LabelSmallTracking'],
   [VAR_NAME['captionLargeFace']]: mediumTextStyleTokenValues['CaptionLargeFace'],
-  [VAR_NAME['captionLargeEmphasizedFace']]: mediumTextStyleTokenValues['CaptionLargeEmphasizedFace'],
-  [VAR_NAME['captionLargeEmphasizedSize']]: mediumTextStyleTokenValues['CaptionLargeEmphasizedSize'],
-  [VAR_NAME['captionLargeEmphasizedLineHeight']]: mediumTextStyleTokenValues['CaptionLargeEmphasizedLineHeight'],
-  [VAR_NAME['captionLargeEmphasizedWeight']]: mediumTextStyleTokenValues['CaptionLargeEmphasizedWeight'],
-  [VAR_NAME['captionLargeEmphasizedTracking']]: mediumTextStyleTokenValues['CaptionLargeEmphasizedTracking'],
+  [VAR_NAME['captionLargeEmphasizedFace']]:
+    mediumTextStyleTokenValues['CaptionLargeEmphasizedFace'],
+  [VAR_NAME['captionLargeEmphasizedSize']]:
+    mediumTextStyleTokenValues['CaptionLargeEmphasizedSize'],
+  [VAR_NAME['captionLargeEmphasizedLineHeight']]:
+    mediumTextStyleTokenValues['CaptionLargeEmphasizedLineHeight'],
+  [VAR_NAME['captionLargeEmphasizedWeight']]:
+    mediumTextStyleTokenValues['CaptionLargeEmphasizedWeight'],
+  [VAR_NAME['captionLargeEmphasizedTracking']]:
+    mediumTextStyleTokenValues['CaptionLargeEmphasizedTracking'],
   [VAR_NAME['captionLargeSize']]: mediumTextStyleTokenValues['CaptionLargeSize'],
   [VAR_NAME['captionLargeLineHeight']]: mediumTextStyleTokenValues['CaptionLargeLineHeight'],
   [VAR_NAME['captionLargeWeight']]: mediumTextStyleTokenValues['CaptionLargeWeight'],
   [VAR_NAME['captionLargeTracking']]: mediumTextStyleTokenValues['CaptionLargeTracking'],
   [VAR_NAME['captionMediumFace']]: mediumTextStyleTokenValues['CaptionMediumFace'],
-  [VAR_NAME['captionMediumEmphasizedFace']]: mediumTextStyleTokenValues['CaptionMediumEmphasizedFace'],
-  [VAR_NAME['captionMediumEmphasizedSize']]: mediumTextStyleTokenValues['CaptionMediumEmphasizedSize'],
-  [VAR_NAME['captionMediumEmphasizedLineHeight']]: mediumTextStyleTokenValues['CaptionMediumEmphasizedLineHeight'],
-  [VAR_NAME['captionMediumEmphasizedWeight']]: mediumTextStyleTokenValues['CaptionMediumEmphasizedWeight'],
-  [VAR_NAME['captionMediumEmphasizedTracking']]: mediumTextStyleTokenValues['CaptionMediumEmphasizedTracking'],
+  [VAR_NAME['captionMediumEmphasizedFace']]:
+    mediumTextStyleTokenValues['CaptionMediumEmphasizedFace'],
+  [VAR_NAME['captionMediumEmphasizedSize']]:
+    mediumTextStyleTokenValues['CaptionMediumEmphasizedSize'],
+  [VAR_NAME['captionMediumEmphasizedLineHeight']]:
+    mediumTextStyleTokenValues['CaptionMediumEmphasizedLineHeight'],
+  [VAR_NAME['captionMediumEmphasizedWeight']]:
+    mediumTextStyleTokenValues['CaptionMediumEmphasizedWeight'],
+  [VAR_NAME['captionMediumEmphasizedTracking']]:
+    mediumTextStyleTokenValues['CaptionMediumEmphasizedTracking'],
   [VAR_NAME['captionMediumSize']]: mediumTextStyleTokenValues['CaptionMediumSize'],
   [VAR_NAME['captionMediumLineHeight']]: mediumTextStyleTokenValues['CaptionMediumLineHeight'],
   [VAR_NAME['captionMediumWeight']]: mediumTextStyleTokenValues['CaptionMediumWeight'],
   [VAR_NAME['captionMediumTracking']]: mediumTextStyleTokenValues['CaptionMediumTracking'],
   [VAR_NAME['captionSmallFace']]: mediumTextStyleTokenValues['CaptionSmallFace'],
-  [VAR_NAME['captionSmallEmphasizedFace']]: mediumTextStyleTokenValues['CaptionSmallEmphasizedFace'],
-  [VAR_NAME['captionSmallEmphasizedSize']]: mediumTextStyleTokenValues['CaptionSmallEmphasizedSize'],
-  [VAR_NAME['captionSmallEmphasizedLineHeight']]: mediumTextStyleTokenValues['CaptionSmallEmphasizedLineHeight'],
-  [VAR_NAME['captionSmallEmphasizedWeight']]: mediumTextStyleTokenValues['CaptionSmallEmphasizedWeight'],
-  [VAR_NAME['captionSmallEmphasizedTracking']]: mediumTextStyleTokenValues['CaptionSmallEmphasizedTracking'],
+  [VAR_NAME['captionSmallEmphasizedFace']]:
+    mediumTextStyleTokenValues['CaptionSmallEmphasizedFace'],
+  [VAR_NAME['captionSmallEmphasizedSize']]:
+    mediumTextStyleTokenValues['CaptionSmallEmphasizedSize'],
+  [VAR_NAME['captionSmallEmphasizedLineHeight']]:
+    mediumTextStyleTokenValues['CaptionSmallEmphasizedLineHeight'],
+  [VAR_NAME['captionSmallEmphasizedWeight']]:
+    mediumTextStyleTokenValues['CaptionSmallEmphasizedWeight'],
+  [VAR_NAME['captionSmallEmphasizedTracking']]:
+    mediumTextStyleTokenValues['CaptionSmallEmphasizedTracking'],
   [VAR_NAME['captionSmallSize']]: mediumTextStyleTokenValues['CaptionSmallSize'],
   [VAR_NAME['captionSmallLineHeight']]: mediumTextStyleTokenValues['CaptionSmallLineHeight'],
   [VAR_NAME['captionSmallWeight']]: mediumTextStyleTokenValues['CaptionSmallWeight'],
   [VAR_NAME['captionSmallTracking']]: mediumTextStyleTokenValues['CaptionSmallTracking'],
   [VAR_NAME['descriptionLargeFace']]: mediumTextStyleTokenValues['DescriptionLargeFace'],
-  [VAR_NAME['descriptionLargeEmphasizedFace']]: mediumTextStyleTokenValues['DescriptionLargeEmphasizedFace'],
-  [VAR_NAME['descriptionLargeEmphasizedSize']]: mediumTextStyleTokenValues['DescriptionLargeEmphasizedSize'],
+  [VAR_NAME['descriptionLargeEmphasizedFace']]:
+    mediumTextStyleTokenValues['DescriptionLargeEmphasizedFace'],
+  [VAR_NAME['descriptionLargeEmphasizedSize']]:
+    mediumTextStyleTokenValues['DescriptionLargeEmphasizedSize'],
   [VAR_NAME['descriptionLargeEmphasizedLineHeight']]:
     mediumTextStyleTokenValues['DescriptionLargeEmphasizedLineHeight'],
-  [VAR_NAME['descriptionLargeEmphasizedWeight']]: mediumTextStyleTokenValues['DescriptionLargeEmphasizedWeight'],
-  [VAR_NAME['descriptionLargeEmphasizedTracking']]: mediumTextStyleTokenValues['DescriptionLargeEmphasizedTracking'],
+  [VAR_NAME['descriptionLargeEmphasizedWeight']]:
+    mediumTextStyleTokenValues['DescriptionLargeEmphasizedWeight'],
+  [VAR_NAME['descriptionLargeEmphasizedTracking']]:
+    mediumTextStyleTokenValues['DescriptionLargeEmphasizedTracking'],
   [VAR_NAME['descriptionLargeSize']]: mediumTextStyleTokenValues['DescriptionLargeSize'],
-  [VAR_NAME['descriptionLargeLineHeight']]: mediumTextStyleTokenValues['DescriptionLargeLineHeight'],
+  [VAR_NAME['descriptionLargeLineHeight']]:
+    mediumTextStyleTokenValues['DescriptionLargeLineHeight'],
   [VAR_NAME['descriptionLargeWeight']]: mediumTextStyleTokenValues['DescriptionLargeWeight'],
   [VAR_NAME['descriptionLargeTracking']]: mediumTextStyleTokenValues['DescriptionLargeTracking'],
   [VAR_NAME['descriptionMediumFace']]: mediumTextStyleTokenValues['DescriptionMediumFace'],
   [VAR_NAME['descriptionMediumSize']]: mediumTextStyleTokenValues['DescriptionMediumSize'],
-  [VAR_NAME['descriptionMediumLineHeight']]: mediumTextStyleTokenValues['DescriptionMediumLineHeight'],
+  [VAR_NAME['descriptionMediumLineHeight']]:
+    mediumTextStyleTokenValues['DescriptionMediumLineHeight'],
   [VAR_NAME['descriptionMediumWeight']]: mediumTextStyleTokenValues['DescriptionMediumWeight'],
   [VAR_NAME['descriptionMediumTracking']]: mediumTextStyleTokenValues['DescriptionMediumTracking'],
-  [VAR_NAME['descriptionMediumEmphasizedFace']]: mediumTextStyleTokenValues['DescriptionMediumEmphasizedFace'],
-  [VAR_NAME['descriptionMediumEmphasizedSize']]: mediumTextStyleTokenValues['DescriptionMediumEmphasizedSize'],
+  [VAR_NAME['descriptionMediumEmphasizedFace']]:
+    mediumTextStyleTokenValues['DescriptionMediumEmphasizedFace'],
+  [VAR_NAME['descriptionMediumEmphasizedSize']]:
+    mediumTextStyleTokenValues['DescriptionMediumEmphasizedSize'],
   [VAR_NAME['descriptionMediumEmphasizedLineHeight']]:
     mediumTextStyleTokenValues['DescriptionMediumEmphasizedLineHeight'],
-  [VAR_NAME['descriptionMediumEmphasizedWeight']]: mediumTextStyleTokenValues['DescriptionMediumEmphasizedWeight'],
-  [VAR_NAME['descriptionMediumEmphasizedTracking']]: mediumTextStyleTokenValues['DescriptionMediumEmphasizedTracking'],
+  [VAR_NAME['descriptionMediumEmphasizedWeight']]:
+    mediumTextStyleTokenValues['DescriptionMediumEmphasizedWeight'],
+  [VAR_NAME['descriptionMediumEmphasizedTracking']]:
+    mediumTextStyleTokenValues['DescriptionMediumEmphasizedTracking'],
   [VAR_NAME['descriptionSmallFace']]: mediumTextStyleTokenValues['DescriptionSmallFace'],
   [VAR_NAME['descriptionSmallSize']]: mediumTextStyleTokenValues['DescriptionSmallSize'],
-  [VAR_NAME['descriptionSmallLineHeight']]: mediumTextStyleTokenValues['DescriptionSmallLineHeight'],
+  [VAR_NAME['descriptionSmallLineHeight']]:
+    mediumTextStyleTokenValues['DescriptionSmallLineHeight'],
   [VAR_NAME['descriptionSmallWeight']]: mediumTextStyleTokenValues['DescriptionSmallWeight'],
   [VAR_NAME['descriptionSmallTracking']]: mediumTextStyleTokenValues['DescriptionSmallTracking'],
-  [VAR_NAME['descriptionSmallEmphasizedFace']]: mediumTextStyleTokenValues['DescriptionSmallEmphasizedFace'],
-  [VAR_NAME['descriptionSmallEmphasizedSize']]: mediumTextStyleTokenValues['DescriptionSmallEmphasizedSize'],
+  [VAR_NAME['descriptionSmallEmphasizedFace']]:
+    mediumTextStyleTokenValues['DescriptionSmallEmphasizedFace'],
+  [VAR_NAME['descriptionSmallEmphasizedSize']]:
+    mediumTextStyleTokenValues['DescriptionSmallEmphasizedSize'],
   [VAR_NAME['descriptionSmallEmphasizedLineHeight']]:
     mediumTextStyleTokenValues['DescriptionSmallEmphasizedLineHeight'],
-  [VAR_NAME['descriptionSmallEmphasizedWeight']]: mediumTextStyleTokenValues['DescriptionSmallEmphasizedWeight'],
-  [VAR_NAME['descriptionSmallEmphasizedTracking']]: mediumTextStyleTokenValues['DescriptionSmallEmphasizedTracking'],
+  [VAR_NAME['descriptionSmallEmphasizedWeight']]:
+    mediumTextStyleTokenValues['DescriptionSmallEmphasizedWeight'],
+  [VAR_NAME['descriptionSmallEmphasizedTracking']]:
+    mediumTextStyleTokenValues['DescriptionSmallEmphasizedTracking'],
   [VAR_NAME['detailFace']]: mediumTextStyleTokenValues['DetailFace'],
   [VAR_NAME['detailSize']]: mediumTextStyleTokenValues['DetailSize'],
   [VAR_NAME['detailLineHeight']]: mediumTextStyleTokenValues['DetailLineHeight'],
@@ -1941,7 +2054,8 @@ export const mediumTextStyleTheme = {
   [VAR_NAME['subheadingSmallTracking']]: mediumTextStyleTokenValues['SubheadingSmallTracking'],
   [VAR_NAME['subheadingMediumFace']]: mediumTextStyleTokenValues['SubheadingMediumFace'],
   [VAR_NAME['subheadingMediumSize']]: mediumTextStyleTokenValues['SubheadingMediumSize'],
-  [VAR_NAME['subheadingMediumLineHeight']]: mediumTextStyleTokenValues['SubheadingMediumLineHeight'],
+  [VAR_NAME['subheadingMediumLineHeight']]:
+    mediumTextStyleTokenValues['SubheadingMediumLineHeight'],
   [VAR_NAME['subheadingMediumWeight']]: mediumTextStyleTokenValues['SubheadingMediumWeight'],
   [VAR_NAME['subheadingMediumTracking']]: mediumTextStyleTokenValues['SubheadingMediumTracking'],
   [VAR_NAME['subheadingLargeFace']]: mediumTextStyleTokenValues['SubheadingLargeFace'],
@@ -2006,15 +2120,20 @@ export const largeTextStyleTheme = {
   [VAR_NAME['labelLargeTracking']]: largeTextStyleTokenValues['LabelLargeTracking'],
   [VAR_NAME['labelLargeEmphasizedFace']]: largeTextStyleTokenValues['LabelLargeEmphasizedFace'],
   [VAR_NAME['labelLargeEmphasizedSize']]: largeTextStyleTokenValues['LabelLargeEmphasizedSize'],
-  [VAR_NAME['labelLargeEmphasizedLineHeight']]: largeTextStyleTokenValues['LabelLargeEmphasizedLineHeight'],
+  [VAR_NAME['labelLargeEmphasizedLineHeight']]:
+    largeTextStyleTokenValues['LabelLargeEmphasizedLineHeight'],
   [VAR_NAME['labelLargeEmphasizedWeight']]: largeTextStyleTokenValues['LabelLargeEmphasizedWeight'],
-  [VAR_NAME['labelLargeEmphasizedTracking']]: largeTextStyleTokenValues['LabelLargeEmphasizedTracking'],
+  [VAR_NAME['labelLargeEmphasizedTracking']]:
+    largeTextStyleTokenValues['LabelLargeEmphasizedTracking'],
   [VAR_NAME['labelMediumFace']]: largeTextStyleTokenValues['LabelMediumFace'],
   [VAR_NAME['labelMediumEmphasizedFace']]: largeTextStyleTokenValues['LabelMediumEmphasizedFace'],
   [VAR_NAME['labelMediumEmphasizedSize']]: largeTextStyleTokenValues['LabelMediumEmphasizedSize'],
-  [VAR_NAME['labelMediumEmphasizedLineHeight']]: largeTextStyleTokenValues['LabelMediumEmphasizedLineHeight'],
-  [VAR_NAME['labelMediumEmphasizedWeight']]: largeTextStyleTokenValues['LabelMediumEmphasizedWeight'],
-  [VAR_NAME['labelMediumEmphasizedTracking']]: largeTextStyleTokenValues['LabelMediumEmphasizedTracking'],
+  [VAR_NAME['labelMediumEmphasizedLineHeight']]:
+    largeTextStyleTokenValues['LabelMediumEmphasizedLineHeight'],
+  [VAR_NAME['labelMediumEmphasizedWeight']]:
+    largeTextStyleTokenValues['LabelMediumEmphasizedWeight'],
+  [VAR_NAME['labelMediumEmphasizedTracking']]:
+    largeTextStyleTokenValues['LabelMediumEmphasizedTracking'],
   [VAR_NAME['labelMediumSize']]: largeTextStyleTokenValues['LabelMediumSize'],
   [VAR_NAME['labelMediumLineHeight']]: largeTextStyleTokenValues['LabelMediumLineHeight'],
   [VAR_NAME['labelMediumWeight']]: largeTextStyleTokenValues['LabelMediumWeight'],
@@ -2022,9 +2141,11 @@ export const largeTextStyleTheme = {
   [VAR_NAME['labelSmallFace']]: largeTextStyleTokenValues['LabelSmallFace'],
   [VAR_NAME['labelSmallEmphasizedFace']]: largeTextStyleTokenValues['LabelSmallEmphasizedFace'],
   [VAR_NAME['labelSmallEmphasizedSize']]: largeTextStyleTokenValues['LabelSmallEmphasizedSize'],
-  [VAR_NAME['labelSmallEmphasizedLineHeight']]: largeTextStyleTokenValues['LabelSmallEmphasizedLineHeight'],
+  [VAR_NAME['labelSmallEmphasizedLineHeight']]:
+    largeTextStyleTokenValues['LabelSmallEmphasizedLineHeight'],
   [VAR_NAME['labelSmallEmphasizedWeight']]: largeTextStyleTokenValues['LabelSmallEmphasizedWeight'],
-  [VAR_NAME['labelSmallEmphasizedTracking']]: largeTextStyleTokenValues['LabelSmallEmphasizedTracking'],
+  [VAR_NAME['labelSmallEmphasizedTracking']]:
+    largeTextStyleTokenValues['LabelSmallEmphasizedTracking'],
   [VAR_NAME['labelSmallSize']]: largeTextStyleTokenValues['LabelSmallSize'],
   [VAR_NAME['labelSmallLineHeight']]: largeTextStyleTokenValues['LabelSmallLineHeight'],
   [VAR_NAME['labelSmallWeight']]: largeTextStyleTokenValues['LabelSmallWeight'],
@@ -2032,19 +2153,27 @@ export const largeTextStyleTheme = {
   [VAR_NAME['captionLargeFace']]: largeTextStyleTokenValues['CaptionLargeFace'],
   [VAR_NAME['captionLargeEmphasizedFace']]: largeTextStyleTokenValues['CaptionLargeEmphasizedFace'],
   [VAR_NAME['captionLargeEmphasizedSize']]: largeTextStyleTokenValues['CaptionLargeEmphasizedSize'],
-  [VAR_NAME['captionLargeEmphasizedLineHeight']]: largeTextStyleTokenValues['CaptionLargeEmphasizedLineHeight'],
-  [VAR_NAME['captionLargeEmphasizedWeight']]: largeTextStyleTokenValues['CaptionLargeEmphasizedWeight'],
-  [VAR_NAME['captionLargeEmphasizedTracking']]: largeTextStyleTokenValues['CaptionLargeEmphasizedTracking'],
+  [VAR_NAME['captionLargeEmphasizedLineHeight']]:
+    largeTextStyleTokenValues['CaptionLargeEmphasizedLineHeight'],
+  [VAR_NAME['captionLargeEmphasizedWeight']]:
+    largeTextStyleTokenValues['CaptionLargeEmphasizedWeight'],
+  [VAR_NAME['captionLargeEmphasizedTracking']]:
+    largeTextStyleTokenValues['CaptionLargeEmphasizedTracking'],
   [VAR_NAME['captionLargeSize']]: largeTextStyleTokenValues['CaptionLargeSize'],
   [VAR_NAME['captionLargeLineHeight']]: largeTextStyleTokenValues['CaptionLargeLineHeight'],
   [VAR_NAME['captionLargeWeight']]: largeTextStyleTokenValues['CaptionLargeWeight'],
   [VAR_NAME['captionLargeTracking']]: largeTextStyleTokenValues['CaptionLargeTracking'],
   [VAR_NAME['captionMediumFace']]: largeTextStyleTokenValues['CaptionMediumFace'],
-  [VAR_NAME['captionMediumEmphasizedFace']]: largeTextStyleTokenValues['CaptionMediumEmphasizedFace'],
-  [VAR_NAME['captionMediumEmphasizedSize']]: largeTextStyleTokenValues['CaptionMediumEmphasizedSize'],
-  [VAR_NAME['captionMediumEmphasizedLineHeight']]: largeTextStyleTokenValues['CaptionMediumEmphasizedLineHeight'],
-  [VAR_NAME['captionMediumEmphasizedWeight']]: largeTextStyleTokenValues['CaptionMediumEmphasizedWeight'],
-  [VAR_NAME['captionMediumEmphasizedTracking']]: largeTextStyleTokenValues['CaptionMediumEmphasizedTracking'],
+  [VAR_NAME['captionMediumEmphasizedFace']]:
+    largeTextStyleTokenValues['CaptionMediumEmphasizedFace'],
+  [VAR_NAME['captionMediumEmphasizedSize']]:
+    largeTextStyleTokenValues['CaptionMediumEmphasizedSize'],
+  [VAR_NAME['captionMediumEmphasizedLineHeight']]:
+    largeTextStyleTokenValues['CaptionMediumEmphasizedLineHeight'],
+  [VAR_NAME['captionMediumEmphasizedWeight']]:
+    largeTextStyleTokenValues['CaptionMediumEmphasizedWeight'],
+  [VAR_NAME['captionMediumEmphasizedTracking']]:
+    largeTextStyleTokenValues['CaptionMediumEmphasizedTracking'],
   [VAR_NAME['captionMediumSize']]: largeTextStyleTokenValues['CaptionMediumSize'],
   [VAR_NAME['captionMediumLineHeight']]: largeTextStyleTokenValues['CaptionMediumLineHeight'],
   [VAR_NAME['captionMediumWeight']]: largeTextStyleTokenValues['CaptionMediumWeight'],
@@ -2052,44 +2181,62 @@ export const largeTextStyleTheme = {
   [VAR_NAME['captionSmallFace']]: largeTextStyleTokenValues['CaptionSmallFace'],
   [VAR_NAME['captionSmallEmphasizedFace']]: largeTextStyleTokenValues['CaptionSmallEmphasizedFace'],
   [VAR_NAME['captionSmallEmphasizedSize']]: largeTextStyleTokenValues['CaptionSmallEmphasizedSize'],
-  [VAR_NAME['captionSmallEmphasizedLineHeight']]: largeTextStyleTokenValues['CaptionSmallEmphasizedLineHeight'],
-  [VAR_NAME['captionSmallEmphasizedWeight']]: largeTextStyleTokenValues['CaptionSmallEmphasizedWeight'],
-  [VAR_NAME['captionSmallEmphasizedTracking']]: largeTextStyleTokenValues['CaptionSmallEmphasizedTracking'],
+  [VAR_NAME['captionSmallEmphasizedLineHeight']]:
+    largeTextStyleTokenValues['CaptionSmallEmphasizedLineHeight'],
+  [VAR_NAME['captionSmallEmphasizedWeight']]:
+    largeTextStyleTokenValues['CaptionSmallEmphasizedWeight'],
+  [VAR_NAME['captionSmallEmphasizedTracking']]:
+    largeTextStyleTokenValues['CaptionSmallEmphasizedTracking'],
   [VAR_NAME['captionSmallSize']]: largeTextStyleTokenValues['CaptionSmallSize'],
   [VAR_NAME['captionSmallLineHeight']]: largeTextStyleTokenValues['CaptionSmallLineHeight'],
   [VAR_NAME['captionSmallWeight']]: largeTextStyleTokenValues['CaptionSmallWeight'],
   [VAR_NAME['captionSmallTracking']]: largeTextStyleTokenValues['CaptionSmallTracking'],
   [VAR_NAME['descriptionLargeFace']]: largeTextStyleTokenValues['DescriptionLargeFace'],
-  [VAR_NAME['descriptionLargeEmphasizedFace']]: largeTextStyleTokenValues['DescriptionLargeEmphasizedFace'],
-  [VAR_NAME['descriptionLargeEmphasizedSize']]: largeTextStyleTokenValues['DescriptionLargeEmphasizedSize'],
-  [VAR_NAME['descriptionLargeEmphasizedLineHeight']]: largeTextStyleTokenValues['DescriptionLargeEmphasizedLineHeight'],
-  [VAR_NAME['descriptionLargeEmphasizedWeight']]: largeTextStyleTokenValues['DescriptionLargeEmphasizedWeight'],
-  [VAR_NAME['descriptionLargeEmphasizedTracking']]: largeTextStyleTokenValues['DescriptionLargeEmphasizedTracking'],
+  [VAR_NAME['descriptionLargeEmphasizedFace']]:
+    largeTextStyleTokenValues['DescriptionLargeEmphasizedFace'],
+  [VAR_NAME['descriptionLargeEmphasizedSize']]:
+    largeTextStyleTokenValues['DescriptionLargeEmphasizedSize'],
+  [VAR_NAME['descriptionLargeEmphasizedLineHeight']]:
+    largeTextStyleTokenValues['DescriptionLargeEmphasizedLineHeight'],
+  [VAR_NAME['descriptionLargeEmphasizedWeight']]:
+    largeTextStyleTokenValues['DescriptionLargeEmphasizedWeight'],
+  [VAR_NAME['descriptionLargeEmphasizedTracking']]:
+    largeTextStyleTokenValues['DescriptionLargeEmphasizedTracking'],
   [VAR_NAME['descriptionLargeSize']]: largeTextStyleTokenValues['DescriptionLargeSize'],
   [VAR_NAME['descriptionLargeLineHeight']]: largeTextStyleTokenValues['DescriptionLargeLineHeight'],
   [VAR_NAME['descriptionLargeWeight']]: largeTextStyleTokenValues['DescriptionLargeWeight'],
   [VAR_NAME['descriptionLargeTracking']]: largeTextStyleTokenValues['DescriptionLargeTracking'],
   [VAR_NAME['descriptionMediumFace']]: largeTextStyleTokenValues['DescriptionMediumFace'],
   [VAR_NAME['descriptionMediumSize']]: largeTextStyleTokenValues['DescriptionMediumSize'],
-  [VAR_NAME['descriptionMediumLineHeight']]: largeTextStyleTokenValues['DescriptionMediumLineHeight'],
+  [VAR_NAME['descriptionMediumLineHeight']]:
+    largeTextStyleTokenValues['DescriptionMediumLineHeight'],
   [VAR_NAME['descriptionMediumWeight']]: largeTextStyleTokenValues['DescriptionMediumWeight'],
   [VAR_NAME['descriptionMediumTracking']]: largeTextStyleTokenValues['DescriptionMediumTracking'],
-  [VAR_NAME['descriptionMediumEmphasizedFace']]: largeTextStyleTokenValues['DescriptionMediumEmphasizedFace'],
-  [VAR_NAME['descriptionMediumEmphasizedSize']]: largeTextStyleTokenValues['DescriptionMediumEmphasizedSize'],
+  [VAR_NAME['descriptionMediumEmphasizedFace']]:
+    largeTextStyleTokenValues['DescriptionMediumEmphasizedFace'],
+  [VAR_NAME['descriptionMediumEmphasizedSize']]:
+    largeTextStyleTokenValues['DescriptionMediumEmphasizedSize'],
   [VAR_NAME['descriptionMediumEmphasizedLineHeight']]:
     largeTextStyleTokenValues['DescriptionMediumEmphasizedLineHeight'],
-  [VAR_NAME['descriptionMediumEmphasizedWeight']]: largeTextStyleTokenValues['DescriptionMediumEmphasizedWeight'],
-  [VAR_NAME['descriptionMediumEmphasizedTracking']]: largeTextStyleTokenValues['DescriptionMediumEmphasizedTracking'],
+  [VAR_NAME['descriptionMediumEmphasizedWeight']]:
+    largeTextStyleTokenValues['DescriptionMediumEmphasizedWeight'],
+  [VAR_NAME['descriptionMediumEmphasizedTracking']]:
+    largeTextStyleTokenValues['DescriptionMediumEmphasizedTracking'],
   [VAR_NAME['descriptionSmallFace']]: largeTextStyleTokenValues['DescriptionSmallFace'],
   [VAR_NAME['descriptionSmallSize']]: largeTextStyleTokenValues['DescriptionSmallSize'],
   [VAR_NAME['descriptionSmallLineHeight']]: largeTextStyleTokenValues['DescriptionSmallLineHeight'],
   [VAR_NAME['descriptionSmallWeight']]: largeTextStyleTokenValues['DescriptionSmallWeight'],
   [VAR_NAME['descriptionSmallTracking']]: largeTextStyleTokenValues['DescriptionSmallTracking'],
-  [VAR_NAME['descriptionSmallEmphasizedFace']]: largeTextStyleTokenValues['DescriptionSmallEmphasizedFace'],
-  [VAR_NAME['descriptionSmallEmphasizedSize']]: largeTextStyleTokenValues['DescriptionSmallEmphasizedSize'],
-  [VAR_NAME['descriptionSmallEmphasizedLineHeight']]: largeTextStyleTokenValues['DescriptionSmallEmphasizedLineHeight'],
-  [VAR_NAME['descriptionSmallEmphasizedWeight']]: largeTextStyleTokenValues['DescriptionSmallEmphasizedWeight'],
-  [VAR_NAME['descriptionSmallEmphasizedTracking']]: largeTextStyleTokenValues['DescriptionSmallEmphasizedTracking'],
+  [VAR_NAME['descriptionSmallEmphasizedFace']]:
+    largeTextStyleTokenValues['DescriptionSmallEmphasizedFace'],
+  [VAR_NAME['descriptionSmallEmphasizedSize']]:
+    largeTextStyleTokenValues['DescriptionSmallEmphasizedSize'],
+  [VAR_NAME['descriptionSmallEmphasizedLineHeight']]:
+    largeTextStyleTokenValues['DescriptionSmallEmphasizedLineHeight'],
+  [VAR_NAME['descriptionSmallEmphasizedWeight']]:
+    largeTextStyleTokenValues['DescriptionSmallEmphasizedWeight'],
+  [VAR_NAME['descriptionSmallEmphasizedTracking']]:
+    largeTextStyleTokenValues['DescriptionSmallEmphasizedTracking'],
   [VAR_NAME['detailFace']]: largeTextStyleTokenValues['DetailFace'],
   [VAR_NAME['detailSize']]: largeTextStyleTokenValues['DetailSize'],
   [VAR_NAME['detailLineHeight']]: largeTextStyleTokenValues['DetailLineHeight'],
@@ -2187,15 +2334,21 @@ export const xLargeTextStyleTheme = {
   [VAR_NAME['labelLargeTracking']]: xLargeTextStyleTokenValues['LabelLargeTracking'],
   [VAR_NAME['labelLargeEmphasizedFace']]: xLargeTextStyleTokenValues['LabelLargeEmphasizedFace'],
   [VAR_NAME['labelLargeEmphasizedSize']]: xLargeTextStyleTokenValues['LabelLargeEmphasizedSize'],
-  [VAR_NAME['labelLargeEmphasizedLineHeight']]: xLargeTextStyleTokenValues['LabelLargeEmphasizedLineHeight'],
-  [VAR_NAME['labelLargeEmphasizedWeight']]: xLargeTextStyleTokenValues['LabelLargeEmphasizedWeight'],
-  [VAR_NAME['labelLargeEmphasizedTracking']]: xLargeTextStyleTokenValues['LabelLargeEmphasizedTracking'],
+  [VAR_NAME['labelLargeEmphasizedLineHeight']]:
+    xLargeTextStyleTokenValues['LabelLargeEmphasizedLineHeight'],
+  [VAR_NAME['labelLargeEmphasizedWeight']]:
+    xLargeTextStyleTokenValues['LabelLargeEmphasizedWeight'],
+  [VAR_NAME['labelLargeEmphasizedTracking']]:
+    xLargeTextStyleTokenValues['LabelLargeEmphasizedTracking'],
   [VAR_NAME['labelMediumFace']]: xLargeTextStyleTokenValues['LabelMediumFace'],
   [VAR_NAME['labelMediumEmphasizedFace']]: xLargeTextStyleTokenValues['LabelMediumEmphasizedFace'],
   [VAR_NAME['labelMediumEmphasizedSize']]: xLargeTextStyleTokenValues['LabelMediumEmphasizedSize'],
-  [VAR_NAME['labelMediumEmphasizedLineHeight']]: xLargeTextStyleTokenValues['LabelMediumEmphasizedLineHeight'],
-  [VAR_NAME['labelMediumEmphasizedWeight']]: xLargeTextStyleTokenValues['LabelMediumEmphasizedWeight'],
-  [VAR_NAME['labelMediumEmphasizedTracking']]: xLargeTextStyleTokenValues['LabelMediumEmphasizedTracking'],
+  [VAR_NAME['labelMediumEmphasizedLineHeight']]:
+    xLargeTextStyleTokenValues['LabelMediumEmphasizedLineHeight'],
+  [VAR_NAME['labelMediumEmphasizedWeight']]:
+    xLargeTextStyleTokenValues['LabelMediumEmphasizedWeight'],
+  [VAR_NAME['labelMediumEmphasizedTracking']]:
+    xLargeTextStyleTokenValues['LabelMediumEmphasizedTracking'],
   [VAR_NAME['labelMediumSize']]: xLargeTextStyleTokenValues['LabelMediumSize'],
   [VAR_NAME['labelMediumLineHeight']]: xLargeTextStyleTokenValues['LabelMediumLineHeight'],
   [VAR_NAME['labelMediumWeight']]: xLargeTextStyleTokenValues['LabelMediumWeight'],
@@ -2203,76 +2356,109 @@ export const xLargeTextStyleTheme = {
   [VAR_NAME['labelSmallFace']]: xLargeTextStyleTokenValues['LabelSmallFace'],
   [VAR_NAME['labelSmallEmphasizedFace']]: xLargeTextStyleTokenValues['LabelSmallEmphasizedFace'],
   [VAR_NAME['labelSmallEmphasizedSize']]: xLargeTextStyleTokenValues['LabelSmallEmphasizedSize'],
-  [VAR_NAME['labelSmallEmphasizedLineHeight']]: xLargeTextStyleTokenValues['LabelSmallEmphasizedLineHeight'],
-  [VAR_NAME['labelSmallEmphasizedWeight']]: xLargeTextStyleTokenValues['LabelSmallEmphasizedWeight'],
-  [VAR_NAME['labelSmallEmphasizedTracking']]: xLargeTextStyleTokenValues['LabelSmallEmphasizedTracking'],
+  [VAR_NAME['labelSmallEmphasizedLineHeight']]:
+    xLargeTextStyleTokenValues['LabelSmallEmphasizedLineHeight'],
+  [VAR_NAME['labelSmallEmphasizedWeight']]:
+    xLargeTextStyleTokenValues['LabelSmallEmphasizedWeight'],
+  [VAR_NAME['labelSmallEmphasizedTracking']]:
+    xLargeTextStyleTokenValues['LabelSmallEmphasizedTracking'],
   [VAR_NAME['labelSmallSize']]: xLargeTextStyleTokenValues['LabelSmallSize'],
   [VAR_NAME['labelSmallLineHeight']]: xLargeTextStyleTokenValues['LabelSmallLineHeight'],
   [VAR_NAME['labelSmallWeight']]: xLargeTextStyleTokenValues['LabelSmallWeight'],
   [VAR_NAME['labelSmallTracking']]: xLargeTextStyleTokenValues['LabelSmallTracking'],
   [VAR_NAME['captionLargeFace']]: xLargeTextStyleTokenValues['CaptionLargeFace'],
-  [VAR_NAME['captionLargeEmphasizedFace']]: xLargeTextStyleTokenValues['CaptionLargeEmphasizedFace'],
-  [VAR_NAME['captionLargeEmphasizedSize']]: xLargeTextStyleTokenValues['CaptionLargeEmphasizedSize'],
-  [VAR_NAME['captionLargeEmphasizedLineHeight']]: xLargeTextStyleTokenValues['CaptionLargeEmphasizedLineHeight'],
-  [VAR_NAME['captionLargeEmphasizedWeight']]: xLargeTextStyleTokenValues['CaptionLargeEmphasizedWeight'],
-  [VAR_NAME['captionLargeEmphasizedTracking']]: xLargeTextStyleTokenValues['CaptionLargeEmphasizedTracking'],
+  [VAR_NAME['captionLargeEmphasizedFace']]:
+    xLargeTextStyleTokenValues['CaptionLargeEmphasizedFace'],
+  [VAR_NAME['captionLargeEmphasizedSize']]:
+    xLargeTextStyleTokenValues['CaptionLargeEmphasizedSize'],
+  [VAR_NAME['captionLargeEmphasizedLineHeight']]:
+    xLargeTextStyleTokenValues['CaptionLargeEmphasizedLineHeight'],
+  [VAR_NAME['captionLargeEmphasizedWeight']]:
+    xLargeTextStyleTokenValues['CaptionLargeEmphasizedWeight'],
+  [VAR_NAME['captionLargeEmphasizedTracking']]:
+    xLargeTextStyleTokenValues['CaptionLargeEmphasizedTracking'],
   [VAR_NAME['captionLargeSize']]: xLargeTextStyleTokenValues['CaptionLargeSize'],
   [VAR_NAME['captionLargeLineHeight']]: xLargeTextStyleTokenValues['CaptionLargeLineHeight'],
   [VAR_NAME['captionLargeWeight']]: xLargeTextStyleTokenValues['CaptionLargeWeight'],
   [VAR_NAME['captionLargeTracking']]: xLargeTextStyleTokenValues['CaptionLargeTracking'],
   [VAR_NAME['captionMediumFace']]: xLargeTextStyleTokenValues['CaptionMediumFace'],
-  [VAR_NAME['captionMediumEmphasizedFace']]: xLargeTextStyleTokenValues['CaptionMediumEmphasizedFace'],
-  [VAR_NAME['captionMediumEmphasizedSize']]: xLargeTextStyleTokenValues['CaptionMediumEmphasizedSize'],
-  [VAR_NAME['captionMediumEmphasizedLineHeight']]: xLargeTextStyleTokenValues['CaptionMediumEmphasizedLineHeight'],
-  [VAR_NAME['captionMediumEmphasizedWeight']]: xLargeTextStyleTokenValues['CaptionMediumEmphasizedWeight'],
-  [VAR_NAME['captionMediumEmphasizedTracking']]: xLargeTextStyleTokenValues['CaptionMediumEmphasizedTracking'],
+  [VAR_NAME['captionMediumEmphasizedFace']]:
+    xLargeTextStyleTokenValues['CaptionMediumEmphasizedFace'],
+  [VAR_NAME['captionMediumEmphasizedSize']]:
+    xLargeTextStyleTokenValues['CaptionMediumEmphasizedSize'],
+  [VAR_NAME['captionMediumEmphasizedLineHeight']]:
+    xLargeTextStyleTokenValues['CaptionMediumEmphasizedLineHeight'],
+  [VAR_NAME['captionMediumEmphasizedWeight']]:
+    xLargeTextStyleTokenValues['CaptionMediumEmphasizedWeight'],
+  [VAR_NAME['captionMediumEmphasizedTracking']]:
+    xLargeTextStyleTokenValues['CaptionMediumEmphasizedTracking'],
   [VAR_NAME['captionMediumSize']]: xLargeTextStyleTokenValues['CaptionMediumSize'],
   [VAR_NAME['captionMediumLineHeight']]: xLargeTextStyleTokenValues['CaptionMediumLineHeight'],
   [VAR_NAME['captionMediumWeight']]: xLargeTextStyleTokenValues['CaptionMediumWeight'],
   [VAR_NAME['captionMediumTracking']]: xLargeTextStyleTokenValues['CaptionMediumTracking'],
   [VAR_NAME['captionSmallFace']]: xLargeTextStyleTokenValues['CaptionSmallFace'],
-  [VAR_NAME['captionSmallEmphasizedFace']]: xLargeTextStyleTokenValues['CaptionSmallEmphasizedFace'],
-  [VAR_NAME['captionSmallEmphasizedSize']]: xLargeTextStyleTokenValues['CaptionSmallEmphasizedSize'],
-  [VAR_NAME['captionSmallEmphasizedLineHeight']]: xLargeTextStyleTokenValues['CaptionSmallEmphasizedLineHeight'],
-  [VAR_NAME['captionSmallEmphasizedWeight']]: xLargeTextStyleTokenValues['CaptionSmallEmphasizedWeight'],
-  [VAR_NAME['captionSmallEmphasizedTracking']]: xLargeTextStyleTokenValues['CaptionSmallEmphasizedTracking'],
+  [VAR_NAME['captionSmallEmphasizedFace']]:
+    xLargeTextStyleTokenValues['CaptionSmallEmphasizedFace'],
+  [VAR_NAME['captionSmallEmphasizedSize']]:
+    xLargeTextStyleTokenValues['CaptionSmallEmphasizedSize'],
+  [VAR_NAME['captionSmallEmphasizedLineHeight']]:
+    xLargeTextStyleTokenValues['CaptionSmallEmphasizedLineHeight'],
+  [VAR_NAME['captionSmallEmphasizedWeight']]:
+    xLargeTextStyleTokenValues['CaptionSmallEmphasizedWeight'],
+  [VAR_NAME['captionSmallEmphasizedTracking']]:
+    xLargeTextStyleTokenValues['CaptionSmallEmphasizedTracking'],
   [VAR_NAME['captionSmallSize']]: xLargeTextStyleTokenValues['CaptionSmallSize'],
   [VAR_NAME['captionSmallLineHeight']]: xLargeTextStyleTokenValues['CaptionSmallLineHeight'],
   [VAR_NAME['captionSmallWeight']]: xLargeTextStyleTokenValues['CaptionSmallWeight'],
   [VAR_NAME['captionSmallTracking']]: xLargeTextStyleTokenValues['CaptionSmallTracking'],
   [VAR_NAME['descriptionLargeFace']]: xLargeTextStyleTokenValues['DescriptionLargeFace'],
-  [VAR_NAME['descriptionLargeEmphasizedFace']]: xLargeTextStyleTokenValues['DescriptionLargeEmphasizedFace'],
-  [VAR_NAME['descriptionLargeEmphasizedSize']]: xLargeTextStyleTokenValues['DescriptionLargeEmphasizedSize'],
+  [VAR_NAME['descriptionLargeEmphasizedFace']]:
+    xLargeTextStyleTokenValues['DescriptionLargeEmphasizedFace'],
+  [VAR_NAME['descriptionLargeEmphasizedSize']]:
+    xLargeTextStyleTokenValues['DescriptionLargeEmphasizedSize'],
   [VAR_NAME['descriptionLargeEmphasizedLineHeight']]:
     xLargeTextStyleTokenValues['DescriptionLargeEmphasizedLineHeight'],
-  [VAR_NAME['descriptionLargeEmphasizedWeight']]: xLargeTextStyleTokenValues['DescriptionLargeEmphasizedWeight'],
-  [VAR_NAME['descriptionLargeEmphasizedTracking']]: xLargeTextStyleTokenValues['DescriptionLargeEmphasizedTracking'],
+  [VAR_NAME['descriptionLargeEmphasizedWeight']]:
+    xLargeTextStyleTokenValues['DescriptionLargeEmphasizedWeight'],
+  [VAR_NAME['descriptionLargeEmphasizedTracking']]:
+    xLargeTextStyleTokenValues['DescriptionLargeEmphasizedTracking'],
   [VAR_NAME['descriptionLargeSize']]: xLargeTextStyleTokenValues['DescriptionLargeSize'],
-  [VAR_NAME['descriptionLargeLineHeight']]: xLargeTextStyleTokenValues['DescriptionLargeLineHeight'],
+  [VAR_NAME['descriptionLargeLineHeight']]:
+    xLargeTextStyleTokenValues['DescriptionLargeLineHeight'],
   [VAR_NAME['descriptionLargeWeight']]: xLargeTextStyleTokenValues['DescriptionLargeWeight'],
   [VAR_NAME['descriptionLargeTracking']]: xLargeTextStyleTokenValues['DescriptionLargeTracking'],
   [VAR_NAME['descriptionMediumFace']]: xLargeTextStyleTokenValues['DescriptionMediumFace'],
   [VAR_NAME['descriptionMediumSize']]: xLargeTextStyleTokenValues['DescriptionMediumSize'],
-  [VAR_NAME['descriptionMediumLineHeight']]: xLargeTextStyleTokenValues['DescriptionMediumLineHeight'],
+  [VAR_NAME['descriptionMediumLineHeight']]:
+    xLargeTextStyleTokenValues['DescriptionMediumLineHeight'],
   [VAR_NAME['descriptionMediumWeight']]: xLargeTextStyleTokenValues['DescriptionMediumWeight'],
   [VAR_NAME['descriptionMediumTracking']]: xLargeTextStyleTokenValues['DescriptionMediumTracking'],
-  [VAR_NAME['descriptionMediumEmphasizedFace']]: xLargeTextStyleTokenValues['DescriptionMediumEmphasizedFace'],
-  [VAR_NAME['descriptionMediumEmphasizedSize']]: xLargeTextStyleTokenValues['DescriptionMediumEmphasizedSize'],
+  [VAR_NAME['descriptionMediumEmphasizedFace']]:
+    xLargeTextStyleTokenValues['DescriptionMediumEmphasizedFace'],
+  [VAR_NAME['descriptionMediumEmphasizedSize']]:
+    xLargeTextStyleTokenValues['DescriptionMediumEmphasizedSize'],
   [VAR_NAME['descriptionMediumEmphasizedLineHeight']]:
     xLargeTextStyleTokenValues['DescriptionMediumEmphasizedLineHeight'],
-  [VAR_NAME['descriptionMediumEmphasizedWeight']]: xLargeTextStyleTokenValues['DescriptionMediumEmphasizedWeight'],
-  [VAR_NAME['descriptionMediumEmphasizedTracking']]: xLargeTextStyleTokenValues['DescriptionMediumEmphasizedTracking'],
+  [VAR_NAME['descriptionMediumEmphasizedWeight']]:
+    xLargeTextStyleTokenValues['DescriptionMediumEmphasizedWeight'],
+  [VAR_NAME['descriptionMediumEmphasizedTracking']]:
+    xLargeTextStyleTokenValues['DescriptionMediumEmphasizedTracking'],
   [VAR_NAME['descriptionSmallFace']]: xLargeTextStyleTokenValues['DescriptionSmallFace'],
   [VAR_NAME['descriptionSmallSize']]: xLargeTextStyleTokenValues['DescriptionSmallSize'],
-  [VAR_NAME['descriptionSmallLineHeight']]: xLargeTextStyleTokenValues['DescriptionSmallLineHeight'],
+  [VAR_NAME['descriptionSmallLineHeight']]:
+    xLargeTextStyleTokenValues['DescriptionSmallLineHeight'],
   [VAR_NAME['descriptionSmallWeight']]: xLargeTextStyleTokenValues['DescriptionSmallWeight'],
   [VAR_NAME['descriptionSmallTracking']]: xLargeTextStyleTokenValues['DescriptionSmallTracking'],
-  [VAR_NAME['descriptionSmallEmphasizedFace']]: xLargeTextStyleTokenValues['DescriptionSmallEmphasizedFace'],
-  [VAR_NAME['descriptionSmallEmphasizedSize']]: xLargeTextStyleTokenValues['DescriptionSmallEmphasizedSize'],
+  [VAR_NAME['descriptionSmallEmphasizedFace']]:
+    xLargeTextStyleTokenValues['DescriptionSmallEmphasizedFace'],
+  [VAR_NAME['descriptionSmallEmphasizedSize']]:
+    xLargeTextStyleTokenValues['DescriptionSmallEmphasizedSize'],
   [VAR_NAME['descriptionSmallEmphasizedLineHeight']]:
     xLargeTextStyleTokenValues['DescriptionSmallEmphasizedLineHeight'],
-  [VAR_NAME['descriptionSmallEmphasizedWeight']]: xLargeTextStyleTokenValues['DescriptionSmallEmphasizedWeight'],
-  [VAR_NAME['descriptionSmallEmphasizedTracking']]: xLargeTextStyleTokenValues['DescriptionSmallEmphasizedTracking'],
+  [VAR_NAME['descriptionSmallEmphasizedWeight']]:
+    xLargeTextStyleTokenValues['DescriptionSmallEmphasizedWeight'],
+  [VAR_NAME['descriptionSmallEmphasizedTracking']]:
+    xLargeTextStyleTokenValues['DescriptionSmallEmphasizedTracking'],
   [VAR_NAME['detailFace']]: xLargeTextStyleTokenValues['DetailFace'],
   [VAR_NAME['detailSize']]: xLargeTextStyleTokenValues['DetailSize'],
   [VAR_NAME['detailLineHeight']]: xLargeTextStyleTokenValues['DetailLineHeight'],
@@ -2305,7 +2491,8 @@ export const xLargeTextStyleTheme = {
   [VAR_NAME['subheadingSmallTracking']]: xLargeTextStyleTokenValues['SubheadingSmallTracking'],
   [VAR_NAME['subheadingMediumFace']]: xLargeTextStyleTokenValues['SubheadingMediumFace'],
   [VAR_NAME['subheadingMediumSize']]: xLargeTextStyleTokenValues['SubheadingMediumSize'],
-  [VAR_NAME['subheadingMediumLineHeight']]: xLargeTextStyleTokenValues['SubheadingMediumLineHeight'],
+  [VAR_NAME['subheadingMediumLineHeight']]:
+    xLargeTextStyleTokenValues['SubheadingMediumLineHeight'],
   [VAR_NAME['subheadingMediumWeight']]: xLargeTextStyleTokenValues['SubheadingMediumWeight'],
   [VAR_NAME['subheadingMediumTracking']]: xLargeTextStyleTokenValues['SubheadingMediumTracking'],
   [VAR_NAME['subheadingLargeFace']]: xLargeTextStyleTokenValues['SubheadingLargeFace'],
@@ -2370,15 +2557,21 @@ export const xxLargeTextStyleTheme = {
   [VAR_NAME['labelLargeTracking']]: xxLargeTextStyleTokenValues['LabelLargeTracking'],
   [VAR_NAME['labelLargeEmphasizedFace']]: xxLargeTextStyleTokenValues['LabelLargeEmphasizedFace'],
   [VAR_NAME['labelLargeEmphasizedSize']]: xxLargeTextStyleTokenValues['LabelLargeEmphasizedSize'],
-  [VAR_NAME['labelLargeEmphasizedLineHeight']]: xxLargeTextStyleTokenValues['LabelLargeEmphasizedLineHeight'],
-  [VAR_NAME['labelLargeEmphasizedWeight']]: xxLargeTextStyleTokenValues['LabelLargeEmphasizedWeight'],
-  [VAR_NAME['labelLargeEmphasizedTracking']]: xxLargeTextStyleTokenValues['LabelLargeEmphasizedTracking'],
+  [VAR_NAME['labelLargeEmphasizedLineHeight']]:
+    xxLargeTextStyleTokenValues['LabelLargeEmphasizedLineHeight'],
+  [VAR_NAME['labelLargeEmphasizedWeight']]:
+    xxLargeTextStyleTokenValues['LabelLargeEmphasizedWeight'],
+  [VAR_NAME['labelLargeEmphasizedTracking']]:
+    xxLargeTextStyleTokenValues['LabelLargeEmphasizedTracking'],
   [VAR_NAME['labelMediumFace']]: xxLargeTextStyleTokenValues['LabelMediumFace'],
   [VAR_NAME['labelMediumEmphasizedFace']]: xxLargeTextStyleTokenValues['LabelMediumEmphasizedFace'],
   [VAR_NAME['labelMediumEmphasizedSize']]: xxLargeTextStyleTokenValues['LabelMediumEmphasizedSize'],
-  [VAR_NAME['labelMediumEmphasizedLineHeight']]: xxLargeTextStyleTokenValues['LabelMediumEmphasizedLineHeight'],
-  [VAR_NAME['labelMediumEmphasizedWeight']]: xxLargeTextStyleTokenValues['LabelMediumEmphasizedWeight'],
-  [VAR_NAME['labelMediumEmphasizedTracking']]: xxLargeTextStyleTokenValues['LabelMediumEmphasizedTracking'],
+  [VAR_NAME['labelMediumEmphasizedLineHeight']]:
+    xxLargeTextStyleTokenValues['LabelMediumEmphasizedLineHeight'],
+  [VAR_NAME['labelMediumEmphasizedWeight']]:
+    xxLargeTextStyleTokenValues['LabelMediumEmphasizedWeight'],
+  [VAR_NAME['labelMediumEmphasizedTracking']]:
+    xxLargeTextStyleTokenValues['LabelMediumEmphasizedTracking'],
   [VAR_NAME['labelMediumSize']]: xxLargeTextStyleTokenValues['LabelMediumSize'],
   [VAR_NAME['labelMediumLineHeight']]: xxLargeTextStyleTokenValues['LabelMediumLineHeight'],
   [VAR_NAME['labelMediumWeight']]: xxLargeTextStyleTokenValues['LabelMediumWeight'],
@@ -2386,76 +2579,109 @@ export const xxLargeTextStyleTheme = {
   [VAR_NAME['labelSmallFace']]: xxLargeTextStyleTokenValues['LabelSmallFace'],
   [VAR_NAME['labelSmallEmphasizedFace']]: xxLargeTextStyleTokenValues['LabelSmallEmphasizedFace'],
   [VAR_NAME['labelSmallEmphasizedSize']]: xxLargeTextStyleTokenValues['LabelSmallEmphasizedSize'],
-  [VAR_NAME['labelSmallEmphasizedLineHeight']]: xxLargeTextStyleTokenValues['LabelSmallEmphasizedLineHeight'],
-  [VAR_NAME['labelSmallEmphasizedWeight']]: xxLargeTextStyleTokenValues['LabelSmallEmphasizedWeight'],
-  [VAR_NAME['labelSmallEmphasizedTracking']]: xxLargeTextStyleTokenValues['LabelSmallEmphasizedTracking'],
+  [VAR_NAME['labelSmallEmphasizedLineHeight']]:
+    xxLargeTextStyleTokenValues['LabelSmallEmphasizedLineHeight'],
+  [VAR_NAME['labelSmallEmphasizedWeight']]:
+    xxLargeTextStyleTokenValues['LabelSmallEmphasizedWeight'],
+  [VAR_NAME['labelSmallEmphasizedTracking']]:
+    xxLargeTextStyleTokenValues['LabelSmallEmphasizedTracking'],
   [VAR_NAME['labelSmallSize']]: xxLargeTextStyleTokenValues['LabelSmallSize'],
   [VAR_NAME['labelSmallLineHeight']]: xxLargeTextStyleTokenValues['LabelSmallLineHeight'],
   [VAR_NAME['labelSmallWeight']]: xxLargeTextStyleTokenValues['LabelSmallWeight'],
   [VAR_NAME['labelSmallTracking']]: xxLargeTextStyleTokenValues['LabelSmallTracking'],
   [VAR_NAME['captionLargeFace']]: xxLargeTextStyleTokenValues['CaptionLargeFace'],
-  [VAR_NAME['captionLargeEmphasizedFace']]: xxLargeTextStyleTokenValues['CaptionLargeEmphasizedFace'],
-  [VAR_NAME['captionLargeEmphasizedSize']]: xxLargeTextStyleTokenValues['CaptionLargeEmphasizedSize'],
-  [VAR_NAME['captionLargeEmphasizedLineHeight']]: xxLargeTextStyleTokenValues['CaptionLargeEmphasizedLineHeight'],
-  [VAR_NAME['captionLargeEmphasizedWeight']]: xxLargeTextStyleTokenValues['CaptionLargeEmphasizedWeight'],
-  [VAR_NAME['captionLargeEmphasizedTracking']]: xxLargeTextStyleTokenValues['CaptionLargeEmphasizedTracking'],
+  [VAR_NAME['captionLargeEmphasizedFace']]:
+    xxLargeTextStyleTokenValues['CaptionLargeEmphasizedFace'],
+  [VAR_NAME['captionLargeEmphasizedSize']]:
+    xxLargeTextStyleTokenValues['CaptionLargeEmphasizedSize'],
+  [VAR_NAME['captionLargeEmphasizedLineHeight']]:
+    xxLargeTextStyleTokenValues['CaptionLargeEmphasizedLineHeight'],
+  [VAR_NAME['captionLargeEmphasizedWeight']]:
+    xxLargeTextStyleTokenValues['CaptionLargeEmphasizedWeight'],
+  [VAR_NAME['captionLargeEmphasizedTracking']]:
+    xxLargeTextStyleTokenValues['CaptionLargeEmphasizedTracking'],
   [VAR_NAME['captionLargeSize']]: xxLargeTextStyleTokenValues['CaptionLargeSize'],
   [VAR_NAME['captionLargeLineHeight']]: xxLargeTextStyleTokenValues['CaptionLargeLineHeight'],
   [VAR_NAME['captionLargeWeight']]: xxLargeTextStyleTokenValues['CaptionLargeWeight'],
   [VAR_NAME['captionLargeTracking']]: xxLargeTextStyleTokenValues['CaptionLargeTracking'],
   [VAR_NAME['captionMediumFace']]: xxLargeTextStyleTokenValues['CaptionMediumFace'],
-  [VAR_NAME['captionMediumEmphasizedFace']]: xxLargeTextStyleTokenValues['CaptionMediumEmphasizedFace'],
-  [VAR_NAME['captionMediumEmphasizedSize']]: xxLargeTextStyleTokenValues['CaptionMediumEmphasizedSize'],
-  [VAR_NAME['captionMediumEmphasizedLineHeight']]: xxLargeTextStyleTokenValues['CaptionMediumEmphasizedLineHeight'],
-  [VAR_NAME['captionMediumEmphasizedWeight']]: xxLargeTextStyleTokenValues['CaptionMediumEmphasizedWeight'],
-  [VAR_NAME['captionMediumEmphasizedTracking']]: xxLargeTextStyleTokenValues['CaptionMediumEmphasizedTracking'],
+  [VAR_NAME['captionMediumEmphasizedFace']]:
+    xxLargeTextStyleTokenValues['CaptionMediumEmphasizedFace'],
+  [VAR_NAME['captionMediumEmphasizedSize']]:
+    xxLargeTextStyleTokenValues['CaptionMediumEmphasizedSize'],
+  [VAR_NAME['captionMediumEmphasizedLineHeight']]:
+    xxLargeTextStyleTokenValues['CaptionMediumEmphasizedLineHeight'],
+  [VAR_NAME['captionMediumEmphasizedWeight']]:
+    xxLargeTextStyleTokenValues['CaptionMediumEmphasizedWeight'],
+  [VAR_NAME['captionMediumEmphasizedTracking']]:
+    xxLargeTextStyleTokenValues['CaptionMediumEmphasizedTracking'],
   [VAR_NAME['captionMediumSize']]: xxLargeTextStyleTokenValues['CaptionMediumSize'],
   [VAR_NAME['captionMediumLineHeight']]: xxLargeTextStyleTokenValues['CaptionMediumLineHeight'],
   [VAR_NAME['captionMediumWeight']]: xxLargeTextStyleTokenValues['CaptionMediumWeight'],
   [VAR_NAME['captionMediumTracking']]: xxLargeTextStyleTokenValues['CaptionMediumTracking'],
   [VAR_NAME['captionSmallFace']]: xxLargeTextStyleTokenValues['CaptionSmallFace'],
-  [VAR_NAME['captionSmallEmphasizedFace']]: xxLargeTextStyleTokenValues['CaptionSmallEmphasizedFace'],
-  [VAR_NAME['captionSmallEmphasizedSize']]: xxLargeTextStyleTokenValues['CaptionSmallEmphasizedSize'],
-  [VAR_NAME['captionSmallEmphasizedLineHeight']]: xxLargeTextStyleTokenValues['CaptionSmallEmphasizedLineHeight'],
-  [VAR_NAME['captionSmallEmphasizedWeight']]: xxLargeTextStyleTokenValues['CaptionSmallEmphasizedWeight'],
-  [VAR_NAME['captionSmallEmphasizedTracking']]: xxLargeTextStyleTokenValues['CaptionSmallEmphasizedTracking'],
+  [VAR_NAME['captionSmallEmphasizedFace']]:
+    xxLargeTextStyleTokenValues['CaptionSmallEmphasizedFace'],
+  [VAR_NAME['captionSmallEmphasizedSize']]:
+    xxLargeTextStyleTokenValues['CaptionSmallEmphasizedSize'],
+  [VAR_NAME['captionSmallEmphasizedLineHeight']]:
+    xxLargeTextStyleTokenValues['CaptionSmallEmphasizedLineHeight'],
+  [VAR_NAME['captionSmallEmphasizedWeight']]:
+    xxLargeTextStyleTokenValues['CaptionSmallEmphasizedWeight'],
+  [VAR_NAME['captionSmallEmphasizedTracking']]:
+    xxLargeTextStyleTokenValues['CaptionSmallEmphasizedTracking'],
   [VAR_NAME['captionSmallSize']]: xxLargeTextStyleTokenValues['CaptionSmallSize'],
   [VAR_NAME['captionSmallLineHeight']]: xxLargeTextStyleTokenValues['CaptionSmallLineHeight'],
   [VAR_NAME['captionSmallWeight']]: xxLargeTextStyleTokenValues['CaptionSmallWeight'],
   [VAR_NAME['captionSmallTracking']]: xxLargeTextStyleTokenValues['CaptionSmallTracking'],
   [VAR_NAME['descriptionLargeFace']]: xxLargeTextStyleTokenValues['DescriptionLargeFace'],
-  [VAR_NAME['descriptionLargeEmphasizedFace']]: xxLargeTextStyleTokenValues['DescriptionLargeEmphasizedFace'],
-  [VAR_NAME['descriptionLargeEmphasizedSize']]: xxLargeTextStyleTokenValues['DescriptionLargeEmphasizedSize'],
+  [VAR_NAME['descriptionLargeEmphasizedFace']]:
+    xxLargeTextStyleTokenValues['DescriptionLargeEmphasizedFace'],
+  [VAR_NAME['descriptionLargeEmphasizedSize']]:
+    xxLargeTextStyleTokenValues['DescriptionLargeEmphasizedSize'],
   [VAR_NAME['descriptionLargeEmphasizedLineHeight']]:
     xxLargeTextStyleTokenValues['DescriptionLargeEmphasizedLineHeight'],
-  [VAR_NAME['descriptionLargeEmphasizedWeight']]: xxLargeTextStyleTokenValues['DescriptionLargeEmphasizedWeight'],
-  [VAR_NAME['descriptionLargeEmphasizedTracking']]: xxLargeTextStyleTokenValues['DescriptionLargeEmphasizedTracking'],
+  [VAR_NAME['descriptionLargeEmphasizedWeight']]:
+    xxLargeTextStyleTokenValues['DescriptionLargeEmphasizedWeight'],
+  [VAR_NAME['descriptionLargeEmphasizedTracking']]:
+    xxLargeTextStyleTokenValues['DescriptionLargeEmphasizedTracking'],
   [VAR_NAME['descriptionLargeSize']]: xxLargeTextStyleTokenValues['DescriptionLargeSize'],
-  [VAR_NAME['descriptionLargeLineHeight']]: xxLargeTextStyleTokenValues['DescriptionLargeLineHeight'],
+  [VAR_NAME['descriptionLargeLineHeight']]:
+    xxLargeTextStyleTokenValues['DescriptionLargeLineHeight'],
   [VAR_NAME['descriptionLargeWeight']]: xxLargeTextStyleTokenValues['DescriptionLargeWeight'],
   [VAR_NAME['descriptionLargeTracking']]: xxLargeTextStyleTokenValues['DescriptionLargeTracking'],
   [VAR_NAME['descriptionMediumFace']]: xxLargeTextStyleTokenValues['DescriptionMediumFace'],
   [VAR_NAME['descriptionMediumSize']]: xxLargeTextStyleTokenValues['DescriptionMediumSize'],
-  [VAR_NAME['descriptionMediumLineHeight']]: xxLargeTextStyleTokenValues['DescriptionMediumLineHeight'],
+  [VAR_NAME['descriptionMediumLineHeight']]:
+    xxLargeTextStyleTokenValues['DescriptionMediumLineHeight'],
   [VAR_NAME['descriptionMediumWeight']]: xxLargeTextStyleTokenValues['DescriptionMediumWeight'],
   [VAR_NAME['descriptionMediumTracking']]: xxLargeTextStyleTokenValues['DescriptionMediumTracking'],
-  [VAR_NAME['descriptionMediumEmphasizedFace']]: xxLargeTextStyleTokenValues['DescriptionMediumEmphasizedFace'],
-  [VAR_NAME['descriptionMediumEmphasizedSize']]: xxLargeTextStyleTokenValues['DescriptionMediumEmphasizedSize'],
+  [VAR_NAME['descriptionMediumEmphasizedFace']]:
+    xxLargeTextStyleTokenValues['DescriptionMediumEmphasizedFace'],
+  [VAR_NAME['descriptionMediumEmphasizedSize']]:
+    xxLargeTextStyleTokenValues['DescriptionMediumEmphasizedSize'],
   [VAR_NAME['descriptionMediumEmphasizedLineHeight']]:
     xxLargeTextStyleTokenValues['DescriptionMediumEmphasizedLineHeight'],
-  [VAR_NAME['descriptionMediumEmphasizedWeight']]: xxLargeTextStyleTokenValues['DescriptionMediumEmphasizedWeight'],
-  [VAR_NAME['descriptionMediumEmphasizedTracking']]: xxLargeTextStyleTokenValues['DescriptionMediumEmphasizedTracking'],
+  [VAR_NAME['descriptionMediumEmphasizedWeight']]:
+    xxLargeTextStyleTokenValues['DescriptionMediumEmphasizedWeight'],
+  [VAR_NAME['descriptionMediumEmphasizedTracking']]:
+    xxLargeTextStyleTokenValues['DescriptionMediumEmphasizedTracking'],
   [VAR_NAME['descriptionSmallFace']]: xxLargeTextStyleTokenValues['DescriptionSmallFace'],
   [VAR_NAME['descriptionSmallSize']]: xxLargeTextStyleTokenValues['DescriptionSmallSize'],
-  [VAR_NAME['descriptionSmallLineHeight']]: xxLargeTextStyleTokenValues['DescriptionSmallLineHeight'],
+  [VAR_NAME['descriptionSmallLineHeight']]:
+    xxLargeTextStyleTokenValues['DescriptionSmallLineHeight'],
   [VAR_NAME['descriptionSmallWeight']]: xxLargeTextStyleTokenValues['DescriptionSmallWeight'],
   [VAR_NAME['descriptionSmallTracking']]: xxLargeTextStyleTokenValues['DescriptionSmallTracking'],
-  [VAR_NAME['descriptionSmallEmphasizedFace']]: xxLargeTextStyleTokenValues['DescriptionSmallEmphasizedFace'],
-  [VAR_NAME['descriptionSmallEmphasizedSize']]: xxLargeTextStyleTokenValues['DescriptionSmallEmphasizedSize'],
+  [VAR_NAME['descriptionSmallEmphasizedFace']]:
+    xxLargeTextStyleTokenValues['DescriptionSmallEmphasizedFace'],
+  [VAR_NAME['descriptionSmallEmphasizedSize']]:
+    xxLargeTextStyleTokenValues['DescriptionSmallEmphasizedSize'],
   [VAR_NAME['descriptionSmallEmphasizedLineHeight']]:
     xxLargeTextStyleTokenValues['DescriptionSmallEmphasizedLineHeight'],
-  [VAR_NAME['descriptionSmallEmphasizedWeight']]: xxLargeTextStyleTokenValues['DescriptionSmallEmphasizedWeight'],
-  [VAR_NAME['descriptionSmallEmphasizedTracking']]: xxLargeTextStyleTokenValues['DescriptionSmallEmphasizedTracking'],
+  [VAR_NAME['descriptionSmallEmphasizedWeight']]:
+    xxLargeTextStyleTokenValues['DescriptionSmallEmphasizedWeight'],
+  [VAR_NAME['descriptionSmallEmphasizedTracking']]:
+    xxLargeTextStyleTokenValues['DescriptionSmallEmphasizedTracking'],
   [VAR_NAME['detailFace']]: xxLargeTextStyleTokenValues['DetailFace'],
   [VAR_NAME['detailSize']]: xxLargeTextStyleTokenValues['DetailSize'],
   [VAR_NAME['detailLineHeight']]: xxLargeTextStyleTokenValues['DetailLineHeight'],
@@ -2488,7 +2714,8 @@ export const xxLargeTextStyleTheme = {
   [VAR_NAME['subheadingSmallTracking']]: xxLargeTextStyleTokenValues['SubheadingSmallTracking'],
   [VAR_NAME['subheadingMediumFace']]: xxLargeTextStyleTokenValues['SubheadingMediumFace'],
   [VAR_NAME['subheadingMediumSize']]: xxLargeTextStyleTokenValues['SubheadingMediumSize'],
-  [VAR_NAME['subheadingMediumLineHeight']]: xxLargeTextStyleTokenValues['SubheadingMediumLineHeight'],
+  [VAR_NAME['subheadingMediumLineHeight']]:
+    xxLargeTextStyleTokenValues['SubheadingMediumLineHeight'],
   [VAR_NAME['subheadingMediumWeight']]: xxLargeTextStyleTokenValues['SubheadingMediumWeight'],
   [VAR_NAME['subheadingMediumTracking']]: xxLargeTextStyleTokenValues['SubheadingMediumTracking'],
   [VAR_NAME['subheadingLargeFace']]: xxLargeTextStyleTokenValues['SubheadingLargeFace'],
@@ -2553,15 +2780,23 @@ export const xxxLargeTextStyleTheme = {
   [VAR_NAME['labelLargeTracking']]: xxxLargeTextStyleTokenValues['LabelLargeTracking'],
   [VAR_NAME['labelLargeEmphasizedFace']]: xxxLargeTextStyleTokenValues['LabelLargeEmphasizedFace'],
   [VAR_NAME['labelLargeEmphasizedSize']]: xxxLargeTextStyleTokenValues['LabelLargeEmphasizedSize'],
-  [VAR_NAME['labelLargeEmphasizedLineHeight']]: xxxLargeTextStyleTokenValues['LabelLargeEmphasizedLineHeight'],
-  [VAR_NAME['labelLargeEmphasizedWeight']]: xxxLargeTextStyleTokenValues['LabelLargeEmphasizedWeight'],
-  [VAR_NAME['labelLargeEmphasizedTracking']]: xxxLargeTextStyleTokenValues['LabelLargeEmphasizedTracking'],
+  [VAR_NAME['labelLargeEmphasizedLineHeight']]:
+    xxxLargeTextStyleTokenValues['LabelLargeEmphasizedLineHeight'],
+  [VAR_NAME['labelLargeEmphasizedWeight']]:
+    xxxLargeTextStyleTokenValues['LabelLargeEmphasizedWeight'],
+  [VAR_NAME['labelLargeEmphasizedTracking']]:
+    xxxLargeTextStyleTokenValues['LabelLargeEmphasizedTracking'],
   [VAR_NAME['labelMediumFace']]: xxxLargeTextStyleTokenValues['LabelMediumFace'],
-  [VAR_NAME['labelMediumEmphasizedFace']]: xxxLargeTextStyleTokenValues['LabelMediumEmphasizedFace'],
-  [VAR_NAME['labelMediumEmphasizedSize']]: xxxLargeTextStyleTokenValues['LabelMediumEmphasizedSize'],
-  [VAR_NAME['labelMediumEmphasizedLineHeight']]: xxxLargeTextStyleTokenValues['LabelMediumEmphasizedLineHeight'],
-  [VAR_NAME['labelMediumEmphasizedWeight']]: xxxLargeTextStyleTokenValues['LabelMediumEmphasizedWeight'],
-  [VAR_NAME['labelMediumEmphasizedTracking']]: xxxLargeTextStyleTokenValues['LabelMediumEmphasizedTracking'],
+  [VAR_NAME['labelMediumEmphasizedFace']]:
+    xxxLargeTextStyleTokenValues['LabelMediumEmphasizedFace'],
+  [VAR_NAME['labelMediumEmphasizedSize']]:
+    xxxLargeTextStyleTokenValues['LabelMediumEmphasizedSize'],
+  [VAR_NAME['labelMediumEmphasizedLineHeight']]:
+    xxxLargeTextStyleTokenValues['LabelMediumEmphasizedLineHeight'],
+  [VAR_NAME['labelMediumEmphasizedWeight']]:
+    xxxLargeTextStyleTokenValues['LabelMediumEmphasizedWeight'],
+  [VAR_NAME['labelMediumEmphasizedTracking']]:
+    xxxLargeTextStyleTokenValues['LabelMediumEmphasizedTracking'],
   [VAR_NAME['labelMediumSize']]: xxxLargeTextStyleTokenValues['LabelMediumSize'],
   [VAR_NAME['labelMediumLineHeight']]: xxxLargeTextStyleTokenValues['LabelMediumLineHeight'],
   [VAR_NAME['labelMediumWeight']]: xxxLargeTextStyleTokenValues['LabelMediumWeight'],
@@ -2569,77 +2804,110 @@ export const xxxLargeTextStyleTheme = {
   [VAR_NAME['labelSmallFace']]: xxxLargeTextStyleTokenValues['LabelSmallFace'],
   [VAR_NAME['labelSmallEmphasizedFace']]: xxxLargeTextStyleTokenValues['LabelSmallEmphasizedFace'],
   [VAR_NAME['labelSmallEmphasizedSize']]: xxxLargeTextStyleTokenValues['LabelSmallEmphasizedSize'],
-  [VAR_NAME['labelSmallEmphasizedLineHeight']]: xxxLargeTextStyleTokenValues['LabelSmallEmphasizedLineHeight'],
-  [VAR_NAME['labelSmallEmphasizedWeight']]: xxxLargeTextStyleTokenValues['LabelSmallEmphasizedWeight'],
-  [VAR_NAME['labelSmallEmphasizedTracking']]: xxxLargeTextStyleTokenValues['LabelSmallEmphasizedTracking'],
+  [VAR_NAME['labelSmallEmphasizedLineHeight']]:
+    xxxLargeTextStyleTokenValues['LabelSmallEmphasizedLineHeight'],
+  [VAR_NAME['labelSmallEmphasizedWeight']]:
+    xxxLargeTextStyleTokenValues['LabelSmallEmphasizedWeight'],
+  [VAR_NAME['labelSmallEmphasizedTracking']]:
+    xxxLargeTextStyleTokenValues['LabelSmallEmphasizedTracking'],
   [VAR_NAME['labelSmallSize']]: xxxLargeTextStyleTokenValues['LabelSmallSize'],
   [VAR_NAME['labelSmallLineHeight']]: xxxLargeTextStyleTokenValues['LabelSmallLineHeight'],
   [VAR_NAME['labelSmallWeight']]: xxxLargeTextStyleTokenValues['LabelSmallWeight'],
   [VAR_NAME['labelSmallTracking']]: xxxLargeTextStyleTokenValues['LabelSmallTracking'],
   [VAR_NAME['captionLargeFace']]: xxxLargeTextStyleTokenValues['CaptionLargeFace'],
-  [VAR_NAME['captionLargeEmphasizedFace']]: xxxLargeTextStyleTokenValues['CaptionLargeEmphasizedFace'],
-  [VAR_NAME['captionLargeEmphasizedSize']]: xxxLargeTextStyleTokenValues['CaptionLargeEmphasizedSize'],
-  [VAR_NAME['captionLargeEmphasizedLineHeight']]: xxxLargeTextStyleTokenValues['CaptionLargeEmphasizedLineHeight'],
-  [VAR_NAME['captionLargeEmphasizedWeight']]: xxxLargeTextStyleTokenValues['CaptionLargeEmphasizedWeight'],
-  [VAR_NAME['captionLargeEmphasizedTracking']]: xxxLargeTextStyleTokenValues['CaptionLargeEmphasizedTracking'],
+  [VAR_NAME['captionLargeEmphasizedFace']]:
+    xxxLargeTextStyleTokenValues['CaptionLargeEmphasizedFace'],
+  [VAR_NAME['captionLargeEmphasizedSize']]:
+    xxxLargeTextStyleTokenValues['CaptionLargeEmphasizedSize'],
+  [VAR_NAME['captionLargeEmphasizedLineHeight']]:
+    xxxLargeTextStyleTokenValues['CaptionLargeEmphasizedLineHeight'],
+  [VAR_NAME['captionLargeEmphasizedWeight']]:
+    xxxLargeTextStyleTokenValues['CaptionLargeEmphasizedWeight'],
+  [VAR_NAME['captionLargeEmphasizedTracking']]:
+    xxxLargeTextStyleTokenValues['CaptionLargeEmphasizedTracking'],
   [VAR_NAME['captionLargeSize']]: xxxLargeTextStyleTokenValues['CaptionLargeSize'],
   [VAR_NAME['captionLargeLineHeight']]: xxxLargeTextStyleTokenValues['CaptionLargeLineHeight'],
   [VAR_NAME['captionLargeWeight']]: xxxLargeTextStyleTokenValues['CaptionLargeWeight'],
   [VAR_NAME['captionLargeTracking']]: xxxLargeTextStyleTokenValues['CaptionLargeTracking'],
   [VAR_NAME['captionMediumFace']]: xxxLargeTextStyleTokenValues['CaptionMediumFace'],
-  [VAR_NAME['captionMediumEmphasizedFace']]: xxxLargeTextStyleTokenValues['CaptionMediumEmphasizedFace'],
-  [VAR_NAME['captionMediumEmphasizedSize']]: xxxLargeTextStyleTokenValues['CaptionMediumEmphasizedSize'],
-  [VAR_NAME['captionMediumEmphasizedLineHeight']]: xxxLargeTextStyleTokenValues['CaptionMediumEmphasizedLineHeight'],
-  [VAR_NAME['captionMediumEmphasizedWeight']]: xxxLargeTextStyleTokenValues['CaptionMediumEmphasizedWeight'],
-  [VAR_NAME['captionMediumEmphasizedTracking']]: xxxLargeTextStyleTokenValues['CaptionMediumEmphasizedTracking'],
+  [VAR_NAME['captionMediumEmphasizedFace']]:
+    xxxLargeTextStyleTokenValues['CaptionMediumEmphasizedFace'],
+  [VAR_NAME['captionMediumEmphasizedSize']]:
+    xxxLargeTextStyleTokenValues['CaptionMediumEmphasizedSize'],
+  [VAR_NAME['captionMediumEmphasizedLineHeight']]:
+    xxxLargeTextStyleTokenValues['CaptionMediumEmphasizedLineHeight'],
+  [VAR_NAME['captionMediumEmphasizedWeight']]:
+    xxxLargeTextStyleTokenValues['CaptionMediumEmphasizedWeight'],
+  [VAR_NAME['captionMediumEmphasizedTracking']]:
+    xxxLargeTextStyleTokenValues['CaptionMediumEmphasizedTracking'],
   [VAR_NAME['captionMediumSize']]: xxxLargeTextStyleTokenValues['CaptionMediumSize'],
   [VAR_NAME['captionMediumLineHeight']]: xxxLargeTextStyleTokenValues['CaptionMediumLineHeight'],
   [VAR_NAME['captionMediumWeight']]: xxxLargeTextStyleTokenValues['CaptionMediumWeight'],
   [VAR_NAME['captionMediumTracking']]: xxxLargeTextStyleTokenValues['CaptionMediumTracking'],
   [VAR_NAME['captionSmallFace']]: xxxLargeTextStyleTokenValues['CaptionSmallFace'],
-  [VAR_NAME['captionSmallEmphasizedFace']]: xxxLargeTextStyleTokenValues['CaptionSmallEmphasizedFace'],
-  [VAR_NAME['captionSmallEmphasizedSize']]: xxxLargeTextStyleTokenValues['CaptionSmallEmphasizedSize'],
-  [VAR_NAME['captionSmallEmphasizedLineHeight']]: xxxLargeTextStyleTokenValues['CaptionSmallEmphasizedLineHeight'],
-  [VAR_NAME['captionSmallEmphasizedWeight']]: xxxLargeTextStyleTokenValues['CaptionSmallEmphasizedWeight'],
-  [VAR_NAME['captionSmallEmphasizedTracking']]: xxxLargeTextStyleTokenValues['CaptionSmallEmphasizedTracking'],
+  [VAR_NAME['captionSmallEmphasizedFace']]:
+    xxxLargeTextStyleTokenValues['CaptionSmallEmphasizedFace'],
+  [VAR_NAME['captionSmallEmphasizedSize']]:
+    xxxLargeTextStyleTokenValues['CaptionSmallEmphasizedSize'],
+  [VAR_NAME['captionSmallEmphasizedLineHeight']]:
+    xxxLargeTextStyleTokenValues['CaptionSmallEmphasizedLineHeight'],
+  [VAR_NAME['captionSmallEmphasizedWeight']]:
+    xxxLargeTextStyleTokenValues['CaptionSmallEmphasizedWeight'],
+  [VAR_NAME['captionSmallEmphasizedTracking']]:
+    xxxLargeTextStyleTokenValues['CaptionSmallEmphasizedTracking'],
   [VAR_NAME['captionSmallSize']]: xxxLargeTextStyleTokenValues['CaptionSmallSize'],
   [VAR_NAME['captionSmallLineHeight']]: xxxLargeTextStyleTokenValues['CaptionSmallLineHeight'],
   [VAR_NAME['captionSmallWeight']]: xxxLargeTextStyleTokenValues['CaptionSmallWeight'],
   [VAR_NAME['captionSmallTracking']]: xxxLargeTextStyleTokenValues['CaptionSmallTracking'],
   [VAR_NAME['descriptionLargeFace']]: xxxLargeTextStyleTokenValues['DescriptionLargeFace'],
-  [VAR_NAME['descriptionLargeEmphasizedFace']]: xxxLargeTextStyleTokenValues['DescriptionLargeEmphasizedFace'],
-  [VAR_NAME['descriptionLargeEmphasizedSize']]: xxxLargeTextStyleTokenValues['DescriptionLargeEmphasizedSize'],
+  [VAR_NAME['descriptionLargeEmphasizedFace']]:
+    xxxLargeTextStyleTokenValues['DescriptionLargeEmphasizedFace'],
+  [VAR_NAME['descriptionLargeEmphasizedSize']]:
+    xxxLargeTextStyleTokenValues['DescriptionLargeEmphasizedSize'],
   [VAR_NAME['descriptionLargeEmphasizedLineHeight']]:
     xxxLargeTextStyleTokenValues['DescriptionLargeEmphasizedLineHeight'],
-  [VAR_NAME['descriptionLargeEmphasizedWeight']]: xxxLargeTextStyleTokenValues['DescriptionLargeEmphasizedWeight'],
-  [VAR_NAME['descriptionLargeEmphasizedTracking']]: xxxLargeTextStyleTokenValues['DescriptionLargeEmphasizedTracking'],
+  [VAR_NAME['descriptionLargeEmphasizedWeight']]:
+    xxxLargeTextStyleTokenValues['DescriptionLargeEmphasizedWeight'],
+  [VAR_NAME['descriptionLargeEmphasizedTracking']]:
+    xxxLargeTextStyleTokenValues['DescriptionLargeEmphasizedTracking'],
   [VAR_NAME['descriptionLargeSize']]: xxxLargeTextStyleTokenValues['DescriptionLargeSize'],
-  [VAR_NAME['descriptionLargeLineHeight']]: xxxLargeTextStyleTokenValues['DescriptionLargeLineHeight'],
+  [VAR_NAME['descriptionLargeLineHeight']]:
+    xxxLargeTextStyleTokenValues['DescriptionLargeLineHeight'],
   [VAR_NAME['descriptionLargeWeight']]: xxxLargeTextStyleTokenValues['DescriptionLargeWeight'],
   [VAR_NAME['descriptionLargeTracking']]: xxxLargeTextStyleTokenValues['DescriptionLargeTracking'],
   [VAR_NAME['descriptionMediumFace']]: xxxLargeTextStyleTokenValues['DescriptionMediumFace'],
   [VAR_NAME['descriptionMediumSize']]: xxxLargeTextStyleTokenValues['DescriptionMediumSize'],
-  [VAR_NAME['descriptionMediumLineHeight']]: xxxLargeTextStyleTokenValues['DescriptionMediumLineHeight'],
+  [VAR_NAME['descriptionMediumLineHeight']]:
+    xxxLargeTextStyleTokenValues['DescriptionMediumLineHeight'],
   [VAR_NAME['descriptionMediumWeight']]: xxxLargeTextStyleTokenValues['DescriptionMediumWeight'],
-  [VAR_NAME['descriptionMediumTracking']]: xxxLargeTextStyleTokenValues['DescriptionMediumTracking'],
-  [VAR_NAME['descriptionMediumEmphasizedFace']]: xxxLargeTextStyleTokenValues['DescriptionMediumEmphasizedFace'],
-  [VAR_NAME['descriptionMediumEmphasizedSize']]: xxxLargeTextStyleTokenValues['DescriptionMediumEmphasizedSize'],
+  [VAR_NAME['descriptionMediumTracking']]:
+    xxxLargeTextStyleTokenValues['DescriptionMediumTracking'],
+  [VAR_NAME['descriptionMediumEmphasizedFace']]:
+    xxxLargeTextStyleTokenValues['DescriptionMediumEmphasizedFace'],
+  [VAR_NAME['descriptionMediumEmphasizedSize']]:
+    xxxLargeTextStyleTokenValues['DescriptionMediumEmphasizedSize'],
   [VAR_NAME['descriptionMediumEmphasizedLineHeight']]:
     xxxLargeTextStyleTokenValues['DescriptionMediumEmphasizedLineHeight'],
-  [VAR_NAME['descriptionMediumEmphasizedWeight']]: xxxLargeTextStyleTokenValues['DescriptionMediumEmphasizedWeight'],
+  [VAR_NAME['descriptionMediumEmphasizedWeight']]:
+    xxxLargeTextStyleTokenValues['DescriptionMediumEmphasizedWeight'],
   [VAR_NAME['descriptionMediumEmphasizedTracking']]:
     xxxLargeTextStyleTokenValues['DescriptionMediumEmphasizedTracking'],
   [VAR_NAME['descriptionSmallFace']]: xxxLargeTextStyleTokenValues['DescriptionSmallFace'],
   [VAR_NAME['descriptionSmallSize']]: xxxLargeTextStyleTokenValues['DescriptionSmallSize'],
-  [VAR_NAME['descriptionSmallLineHeight']]: xxxLargeTextStyleTokenValues['DescriptionSmallLineHeight'],
+  [VAR_NAME['descriptionSmallLineHeight']]:
+    xxxLargeTextStyleTokenValues['DescriptionSmallLineHeight'],
   [VAR_NAME['descriptionSmallWeight']]: xxxLargeTextStyleTokenValues['DescriptionSmallWeight'],
   [VAR_NAME['descriptionSmallTracking']]: xxxLargeTextStyleTokenValues['DescriptionSmallTracking'],
-  [VAR_NAME['descriptionSmallEmphasizedFace']]: xxxLargeTextStyleTokenValues['DescriptionSmallEmphasizedFace'],
-  [VAR_NAME['descriptionSmallEmphasizedSize']]: xxxLargeTextStyleTokenValues['DescriptionSmallEmphasizedSize'],
+  [VAR_NAME['descriptionSmallEmphasizedFace']]:
+    xxxLargeTextStyleTokenValues['DescriptionSmallEmphasizedFace'],
+  [VAR_NAME['descriptionSmallEmphasizedSize']]:
+    xxxLargeTextStyleTokenValues['DescriptionSmallEmphasizedSize'],
   [VAR_NAME['descriptionSmallEmphasizedLineHeight']]:
     xxxLargeTextStyleTokenValues['DescriptionSmallEmphasizedLineHeight'],
-  [VAR_NAME['descriptionSmallEmphasizedWeight']]: xxxLargeTextStyleTokenValues['DescriptionSmallEmphasizedWeight'],
-  [VAR_NAME['descriptionSmallEmphasizedTracking']]: xxxLargeTextStyleTokenValues['DescriptionSmallEmphasizedTracking'],
+  [VAR_NAME['descriptionSmallEmphasizedWeight']]:
+    xxxLargeTextStyleTokenValues['DescriptionSmallEmphasizedWeight'],
+  [VAR_NAME['descriptionSmallEmphasizedTracking']]:
+    xxxLargeTextStyleTokenValues['DescriptionSmallEmphasizedTracking'],
   [VAR_NAME['detailFace']]: xxxLargeTextStyleTokenValues['DetailFace'],
   [VAR_NAME['detailSize']]: xxxLargeTextStyleTokenValues['DetailSize'],
   [VAR_NAME['detailLineHeight']]: xxxLargeTextStyleTokenValues['DetailLineHeight'],
@@ -2667,17 +2935,20 @@ export const xxxLargeTextStyleTheme = {
   [VAR_NAME['bodyLargeTracking']]: xxxLargeTextStyleTokenValues['BodyLargeTracking'],
   [VAR_NAME['subheadingSmallFace']]: xxxLargeTextStyleTokenValues['SubheadingSmallFace'],
   [VAR_NAME['subheadingSmallSize']]: xxxLargeTextStyleTokenValues['SubheadingSmallSize'],
-  [VAR_NAME['subheadingSmallLineHeight']]: xxxLargeTextStyleTokenValues['SubheadingSmallLineHeight'],
+  [VAR_NAME['subheadingSmallLineHeight']]:
+    xxxLargeTextStyleTokenValues['SubheadingSmallLineHeight'],
   [VAR_NAME['subheadingSmallWeight']]: xxxLargeTextStyleTokenValues['SubheadingSmallWeight'],
   [VAR_NAME['subheadingSmallTracking']]: xxxLargeTextStyleTokenValues['SubheadingSmallTracking'],
   [VAR_NAME['subheadingMediumFace']]: xxxLargeTextStyleTokenValues['SubheadingMediumFace'],
   [VAR_NAME['subheadingMediumSize']]: xxxLargeTextStyleTokenValues['SubheadingMediumSize'],
-  [VAR_NAME['subheadingMediumLineHeight']]: xxxLargeTextStyleTokenValues['SubheadingMediumLineHeight'],
+  [VAR_NAME['subheadingMediumLineHeight']]:
+    xxxLargeTextStyleTokenValues['SubheadingMediumLineHeight'],
   [VAR_NAME['subheadingMediumWeight']]: xxxLargeTextStyleTokenValues['SubheadingMediumWeight'],
   [VAR_NAME['subheadingMediumTracking']]: xxxLargeTextStyleTokenValues['SubheadingMediumTracking'],
   [VAR_NAME['subheadingLargeFace']]: xxxLargeTextStyleTokenValues['SubheadingLargeFace'],
   [VAR_NAME['subheadingLargeSize']]: xxxLargeTextStyleTokenValues['SubheadingLargeSize'],
-  [VAR_NAME['subheadingLargeLineHeight']]: xxxLargeTextStyleTokenValues['SubheadingLargeLineHeight'],
+  [VAR_NAME['subheadingLargeLineHeight']]:
+    xxxLargeTextStyleTokenValues['SubheadingLargeLineHeight'],
   [VAR_NAME['subheadingLargeWeight']]: xxxLargeTextStyleTokenValues['SubheadingLargeWeight'],
   [VAR_NAME['subheadingLargeTracking']]: xxxLargeTextStyleTokenValues['SubheadingLargeTracking'],
   [VAR_NAME['headlineSmallFace']]: xxxLargeTextStyleTokenValues['HeadlineSmallFace'],

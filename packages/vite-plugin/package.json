@@ -1,12 +1,12 @@
 {
-  "name": "@prism-ui/vite-plugin",
+  "name": "@orbit-ui/vite-plugin",
   "version": "0.0.0",
   "private": true,
   "type": "module",
   "files": [
     "dist"
   ],
-  "description": "Prism UI CSS Re-order Plugin for Vite",
+  "description": "Orbit UI CSS Re-order Plugin for Vite",
   "license": "MIT",
   "scripts": {
     "test": "vitest run",
@@ -22,7 +22,7 @@
     "./package.json": "./package.json"
   },
   "devDependencies": {
-    "@prism-ui/tsconfig": "workspace:*",
+    "@orbit-ui/tsconfig": "workspace:*",
     "typescript": "5.0.2",
     "vite": "^5.0.0 || ^6.0.0",
     "vitest": "^3.0.7"

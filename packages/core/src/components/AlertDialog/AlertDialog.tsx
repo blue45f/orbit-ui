@@ -1,309 +1,123 @@
-import {
-  HTMLAttributes,
-  ReactNode,
-  forwardRef,
-  Children,
-  PropsWithChildren,
-  useCallback,
-  cloneElement,
-} from 'react'
+import * as React from 'react'
+import * as AlertDialogPrimitive from '@radix-ui/react-alert-dialog'
 
 import { cn } from '../../styles'
-import {
-  useControllableState,
-  findComponent,
-  toCSSLength,
-  getReactElementRef,
-  composeEventHandlers,
-} from '../../libs'
-import { Scrim } from '../Scrim'
-import { ContentLayer, Portal, Presence, useUniqueID } from '../primitives'
-import { OverlayContainerLayer, OverlayContainerLayerProps } from '../primitives/Overlay/OverlayContainerLayer'
 
-import { AlertProvider, useAlertContext } from './AlertDialog.lib'
+const AlertDialogRoot = AlertDialogPrimitive.Root
+const AlertDialogTrigger = AlertDialogPrimitive.Trigger
+const AlertDialogPortal = AlertDialogPrimitive.Portal
 
-/* ========================================================================
- * Types
- * ======================================================================== */
+const AlertDialogOverlay = React.forwardRef<
+  React.ElementRef<typeof AlertDialogPrimitive.Overlay>,
+  React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Overlay>
+>(({ className, ...props }, ref) => (
+  <AlertDialogPrimitive.Overlay
+    className={cn(
+      'fixed inset-0 z-[300] bg-black/50 backdrop-blur-sm',
+      'data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0',
+      className
+    )}
+    {...props}
+    ref={ref}
+  />
+))
+AlertDialogOverlay.displayName = AlertDialogPrimitive.Overlay.displayName
 
-export type AlertTheme = {
-  fillColor?: string
-  foregroundColor?: string
-  radius?: string
-  padding?: string
-}
+const AlertDialogContent = React.forwardRef<
+  React.ElementRef<typeof AlertDialogPrimitive.Content>,
+  React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Content>
+>(({ className, ...props }, ref) => (
+  <AlertDialogPortal>
+    <AlertDialogOverlay />
+    <AlertDialogPrimitive.Content
+      ref={ref}
+      className={cn(
+        'fixed left-[50%] top-[50%] z-[300] grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border border-slate-200 bg-white p-6 shadow-2xl duration-200',
+        'data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%]',
+        'sm:rounded-2xl dark:border-slate-800 dark:bg-slate-950',
+        className
+      )}
+      {...props}
+    />
+  </AlertDialogPortal>
+))
+AlertDialogContent.displayName = AlertDialogPrimitive.Content.displayName
 
-export type AlertDialogSpecificProps = {
-  /** AlertDialog 너비 @defaultValue '100%' */
-  width?: number | string
-  /** AlertDialog 높이 @defaultValue 'fit-content' */
-  height?: number | string
-  /** AlertDialog 최대 너비 @defaultValue '300px' */
-  maxWidth?: number | string
-  /** 테마 커스터마이징 */
-  theme?: Partial<AlertTheme>
-  /** 스타일 */
-  style?: React.CSSProperties
-  /** 클래스명 */
-  className?: string
-}
-
-export type AlertDialogProps = AlertDialogSpecificProps & {
-  /** AlertDialog 열림 여부 (비제어) @defaultValue false */
-  defaultIsPresented?: boolean
-  /** AlertDialog 열림 여부 (제어) */
-  isPresented?: boolean
-  /** 열림/닫힘 상태 변경 콜백 */
-  onIsPresentedChange?: (event: { newValue: boolean; when: 'before' | 'after' }) => void
-  /** AlertDialog 고유 ID */
-  id?: string
-  /** z-index 값 @defaultValue '300' */
-  elevation?: OverlayContainerLayerProps['elevation']
-  children?: ReactNode
-} & Omit<HTMLAttributes<HTMLDivElement>, keyof AlertDialogSpecificProps | 'children' | 'open'>
-
-/* ========================================================================
- * Main Component
- * ======================================================================== */
-
-export const AlertDialogRoot = forwardRef<HTMLDivElement, AlertDialogProps>(
-  (
-    {
-      width = '100%',
-      height = 'fit-content',
-      maxWidth = 300,
-      className: classNameProp,
-      defaultIsPresented = false,
-      isPresented: isPresentedProp,
-      onIsPresentedChange,
-      id: idProp,
-      elevation = '300',
-      children,
-      style: styleProp,
-      theme,
-      ...rest
-    },
-    forwardedRef
-  ) => {
-    const id = useUniqueID(idProp)
-    const titleId = `${id}-title`
-    const descriptionId = `${id}-description`
-
-    const [isPresented, handleIsPresentedChange] = useControllableState({
-      value: isPresentedProp,
-      defaultValue: defaultIsPresented,
-      onChange: (newValue: boolean) => {
-        onIsPresentedChange?.({
-          newValue,
-          when: 'after',
-        })
-      },
-    })
-
-    const changeIsPresented = useCallback(
-      (params: Parameters<typeof handleIsPresentedChange>[0]) => {
-        const newValue = params.value
-        const currentValue = isPresented
-
-        if (currentValue !== newValue) {
-          onIsPresentedChange?.({
-            newValue,
-            when: 'before',
-          })
-        }
-
-        handleIsPresentedChange(params)
-      },
-      [isPresented, handleIsPresentedChange, onIsPresentedChange]
-    )
-
-    const { trigger, top, bottom } = findComponent({
-      childrenArray: Children.toArray(children),
-      target: [
-        { name: 'trigger', component: AlertDialogTrigger },
-        { name: 'top', component: AlertDialogTop },
-        { name: 'bottom', component: AlertDialogBottom },
-      ],
-    })
-
-    const className = cn(
-      'relative rounded-xl',
-      'bg-white dark:bg-gray-800',
-      'shadow-xl',
-      classNameProp
-    )
-
-    const style: React.CSSProperties = {
-      width: toCSSLength(width),
-      height: toCSSLength(height),
-      maxWidth: toCSSLength(maxWidth),
-      backgroundColor: theme?.fillColor,
-      color: theme?.foregroundColor,
-      borderRadius: theme?.radius || '12px',
-      padding: theme?.padding,
-      ...styleProp,
-    }
-
-    return (
-      <AlertProvider id={id} isPresented={isPresented} changeIsPresented={changeIsPresented} titleId={titleId} descriptionId={descriptionId}>
-        {trigger}
-        <Portal>
-          <Scrim isPresented={isPresented} elevation={elevation} />
-          <Presence present={isPresented}>
-            <OverlayContainerLayer
-              {...rest}
-              ref={forwardedRef}
-              className={className}
-              style={style}
-              dismissOnEscape={false}
-              dismissOnClickOutside={false}
-              dismissOnFocusOutside={false}
-              onDismiss={() => {
-                changeIsPresented({ changeParams: [false], value: false })
-              }}
-              elevation={elevation}
-              role="alertdialog"
-              aria-modal="true"
-              aria-labelledby={titleId}
-              id={id}
-            >
-              <ContentLayer direction="vertical" alignment="top" arrangement="start">
-                {top}
-                {bottom}
-              </ContentLayer>
-            </OverlayContainerLayer>
-          </Presence>
-        </Portal>
-      </AlertProvider>
-    )
-  }
+const AlertDialogHeader = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
+  <div className={cn('flex flex-col space-y-2 text-center sm:text-left', className)} {...props} />
 )
+AlertDialogHeader.displayName = 'AlertDialogHeader'
 
-/* ========================================================================
- * Sub-components
- * ======================================================================== */
-
-const AlertDialogTop = forwardRef<HTMLDivElement, PropsWithChildren<HTMLAttributes<HTMLDivElement>>>(
-  ({ children, className, ...rest }, ref) => {
-    const { titleId } = useAlertContext('AlertDialog.Top')
-    return (
-      <div ref={ref} id={titleId} {...rest} className={cn('p-6', className)}>
-        {children}
-      </div>
-    )
-  }
+const AlertDialogFooter = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
+  <div
+    className={cn('flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2', className)}
+    {...props}
+  />
 )
+AlertDialogFooter.displayName = 'AlertDialogFooter'
 
-const AlertDialogBottom = forwardRef<HTMLDivElement, PropsWithChildren<HTMLAttributes<HTMLDivElement>>>(
-  ({ children, className, ...rest }, ref) => (
-    <div ref={ref} {...rest} className={cn('p-4 flex gap-2', className)}>
-      {children}
-    </div>
-  )
-)
+const AlertDialogTitle = React.forwardRef<
+  React.ElementRef<typeof AlertDialogPrimitive.Title>,
+  React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Title>
+>(({ className, ...props }, ref) => (
+  <AlertDialogPrimitive.Title
+    ref={ref}
+    className={cn('text-lg font-semibold tracking-tight', className)}
+    {...props}
+  />
+))
+AlertDialogTitle.displayName = AlertDialogPrimitive.Title.displayName
 
-export const AlertDialogTrigger: React.FC<PropsWithChildren> = ({ children }) => {
-  const { changeIsPresented, id, isPresented } = useAlertContext('AlertDialog.Trigger')
+const AlertDialogDescription = React.forwardRef<
+  React.ElementRef<typeof AlertDialogPrimitive.Description>,
+  React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Description>
+>(({ className, ...props }, ref) => (
+  <AlertDialogPrimitive.Description
+    ref={ref}
+    className={cn('text-sm text-slate-500 dark:text-slate-400', className)}
+    {...props}
+  />
+))
+AlertDialogDescription.displayName = AlertDialogPrimitive.Description.displayName
 
-  const child = Children.only(children) as React.ReactElement
-  const childProps = child.props as React.HTMLAttributes<HTMLElement>
+const AlertDialogAction = React.forwardRef<
+  React.ElementRef<typeof AlertDialogPrimitive.Action>,
+  React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Action>
+>(({ className, ...props }, ref) => (
+  <AlertDialogPrimitive.Action ref={ref} className={className} {...props} />
+))
+AlertDialogAction.displayName = AlertDialogPrimitive.Action.displayName
 
-  const isButton = child.type === 'button'
-  const isAnchor = child.type === 'a'
-  const isInteractiveElement = isButton || isAnchor
-
-  const props = {
-    ...childProps,
-    'aria-haspopup': 'dialog',
-    'aria-controls': id,
-    'aria-expanded': isPresented,
-    ...(isInteractiveElement ? {} : { role: 'button', tabIndex: 0 }),
-  }
-
-  const handleClick: React.MouseEventHandler<HTMLElement> = useCallback(() => {
-    changeIsPresented({
-      changeParams: [true],
-      value: true,
-    })
-  }, [changeIsPresented])
-
-  const handleKeyDown: React.KeyboardEventHandler<HTMLElement> = useCallback(
-    (e) => {
-      if (!isInteractiveElement && (e.key === 'Enter' || e.key === ' ')) {
-        e.preventDefault()
-        changeIsPresented({
-          changeParams: [true],
-          value: true,
-        })
-      }
-    },
-    [isInteractiveElement, changeIsPresented]
-  )
-
-  return cloneElement(child, {
-    ref: getReactElementRef(child),
-    ...props,
-    onClick: composeEventHandlers(childProps.onClick, handleClick),
-    ...(isInteractiveElement ? {} : { onKeyDown: composeEventHandlers(childProps.onKeyDown, handleKeyDown) }),
-  } as React.HTMLAttributes<HTMLElement>)
-}
-
-export type AlertDialogCloseProps = {
-  children: React.ReactElement
-}
-
-export const AlertDialogClose: React.FC<AlertDialogCloseProps> = ({ children }) => {
-  const { changeIsPresented } = useAlertContext('AlertDialog.Close')
-
-  const child = Children.only(children)
-  const childProps = child.props as React.HTMLAttributes<HTMLElement>
-
-  const handleClick: React.MouseEventHandler<HTMLElement> = useCallback(() => {
-    changeIsPresented({
-      changeParams: [false],
-      value: false,
-    })
-  }, [changeIsPresented])
-
-  return cloneElement(child, {
-    ref: getReactElementRef(child),
-    ...childProps,
-    onClick: composeEventHandlers(childProps.onClick, handleClick),
-  } as React.HTMLAttributes<HTMLElement>)
-}
-
-/* ========================================================================
- * Export
- * ======================================================================== */
+const AlertDialogCancel = React.forwardRef<
+  React.ElementRef<typeof AlertDialogPrimitive.Cancel>,
+  React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Cancel>
+>(({ className, ...props }, ref) => (
+  <AlertDialogPrimitive.Cancel ref={ref} className={cn('mt-2 sm:mt-0', className)} {...props} />
+))
+AlertDialogCancel.displayName = AlertDialogPrimitive.Cancel.displayName
 
 type AlertDialogComponent = typeof AlertDialogRoot & {
   Trigger: typeof AlertDialogTrigger
-  Top: typeof AlertDialogTop
-  Bottom: typeof AlertDialogBottom
-  Close: typeof AlertDialogClose
+  Portal: typeof AlertDialogPortal
+  Overlay: typeof AlertDialogOverlay
+  Content: typeof AlertDialogContent
+  Header: typeof AlertDialogHeader
+  Footer: typeof AlertDialogFooter
+  Title: typeof AlertDialogTitle
+  Description: typeof AlertDialogDescription
+  Action: typeof AlertDialogAction
+  Cancel: typeof AlertDialogCancel
 }
 
-/**
- * 알림 다이얼로그 컴포넌트
- *
- * @example
- * ```tsx
- * <AlertDialog>
- *   <AlertDialog.Trigger>
- *     <Button>열기</Button>
- *   </AlertDialog.Trigger>
- *   <AlertDialog.Top>제목</AlertDialog.Top>
- *   <AlertDialog.Bottom>
- *     <AlertDialog.Close>
- *       <Button>확인</Button>
- *     </AlertDialog.Close>
- *   </AlertDialog.Bottom>
- * </AlertDialog>
- * ```
- */
 export const AlertDialog: AlertDialogComponent = Object.assign(AlertDialogRoot, {
   Trigger: AlertDialogTrigger,
-  Top: AlertDialogTop,
-  Bottom: AlertDialogBottom,
-  Close: AlertDialogClose,
+  Portal: AlertDialogPortal,
+  Overlay: AlertDialogOverlay,
+  Content: AlertDialogContent,
+  Header: AlertDialogHeader,
+  Footer: AlertDialogFooter,
+  Title: AlertDialogTitle,
+  Description: AlertDialogDescription,
+  Action: AlertDialogAction,
+  Cancel: AlertDialogCancel,
 })

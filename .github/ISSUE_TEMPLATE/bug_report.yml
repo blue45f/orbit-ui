@@ -17,9 +17,9 @@ body:
       label: 패키지
       multiple: true
       options:
-        - "@prism-ui/core"
-        - "@prism-ui/theme-ocean"
-        - "@prism-ui/icons"
+        - "@orbit-ui/core"
+        - "@orbit-ui/theme-eclipse"
+        - "@orbit-ui/icons"
     validations:
       required: true
 

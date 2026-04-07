@@ -9,12 +9,12 @@ export type TextFieldWithLabelAnimationContextValue = {
   handleClear?: () => void
 }
 
-export const TextFieldWithLabelAnimationContext = createContext<TextFieldWithLabelAnimationContextValue | undefined>(
-  undefined,
-)
+export const TextFieldWithLabelAnimationContext = createContext<
+  TextFieldWithLabelAnimationContextValue | undefined
+>(undefined)
 
 export const useTextFieldWithLabelAnimationContext = (
-  componentName: string,
+  componentName: string
 ): TextFieldWithLabelAnimationContextValue => {
   const context = useContext(TextFieldWithLabelAnimationContext)
 

@@ -55,7 +55,7 @@ export type PolymorphicComponent<
     props: PolymorphicComponentProps<DefaultTagName, TagName, Props> & {
       as?: TagName
     },
-    ref?: PolymorphicRef<DefaultTagName, TagName>,
+    ref?: PolymorphicRef<DefaultTagName, TagName>
   ): React.ReactElement | null
 
   propTypes?: Record<string, unknown>
@@ -72,7 +72,7 @@ export type PolymorphicComponentWithOmitProps<
 > = {
   <TagName extends AllowTagNames = DefaultTagName>(
     props: Omit<PolymorphicComponentProps<DefaultTagName, TagName, Props>, OmitProps>,
-    ref?: PolymorphicRef<DefaultTagName, TagName>,
+    ref?: PolymorphicRef<DefaultTagName, TagName>
   ): React.ReactElement | null
 
   propTypes?: Record<string, unknown>
@@ -88,10 +88,13 @@ export type PolymorphicComponentWithPickProps<
 > = {
   <TagName extends AllowTagNames = DefaultTagName>(
     props: Props &
-      Pick<React.ComponentPropsWithRef<TagName>, PickProps & keyof React.ComponentPropsWithRef<TagName>> & {
+      Pick<
+        React.ComponentPropsWithRef<TagName>,
+        PickProps & keyof React.ComponentPropsWithRef<TagName>
+      > & {
         as?: TagName
       },
-    ref?: PolymorphicRef<DefaultTagName, TagName>,
+    ref?: PolymorphicRef<DefaultTagName, TagName>
   ): React.ReactElement | null
 
   propTypes?: Record<string, unknown>
@@ -107,7 +110,7 @@ type PolymorphicDefaultFunction = <
   ResultComponent = PolymorphicComponent<DefaultTagName, AllowTagNames, Props>,
 >(
   Component: ResultComponent,
-  options?: Partial<{ useForwardRef: boolean }>,
+  options?: Partial<{ useForwardRef: boolean }>
 ) => ResultComponent
 
 type PolymorphicAttributeOmitFunction = <
@@ -115,10 +118,15 @@ type PolymorphicAttributeOmitFunction = <
   AllowTagNames extends keyof JSX.IntrinsicElements = DefaultTagName,
   Props = React.PropsWithChildren<{}>,
   OmitProps extends keyof React.ComponentPropsWithoutRef<DefaultTagName> = never,
-  ResultComponent = PolymorphicComponentWithOmitProps<DefaultTagName, AllowTagNames, Props, OmitProps>,
+  ResultComponent = PolymorphicComponentWithOmitProps<
+    DefaultTagName,
+    AllowTagNames,
+    Props,
+    OmitProps
+  >,
 >(
   Component: ResultComponent,
-  options?: Partial<{ useForwardRef: boolean }>,
+  options?: Partial<{ useForwardRef: boolean }>
 ) => ResultComponent
 
 type PolymorphicAttributePickFunction = <
@@ -126,15 +134,20 @@ type PolymorphicAttributePickFunction = <
   AllowTagNames extends keyof JSX.IntrinsicElements = DefaultTagName,
   Props = React.PropsWithChildren<{}>,
   PickProps extends keyof React.ComponentPropsWithRef<AllowTagNames> = never,
-  ResultComponent = PolymorphicComponentWithPickProps<DefaultTagName, AllowTagNames, Props, PickProps>,
+  ResultComponent = PolymorphicComponentWithPickProps<
+    DefaultTagName,
+    AllowTagNames,
+    Props,
+    PickProps
+  >,
 >(
   Component: ResultComponent,
-  options?: Partial<{ useForwardRef: boolean }>,
+  options?: Partial<{ useForwardRef: boolean }>
 ) => ResultComponent
 
 const polymorphicFunction = (
   Component: React.ForwardRefRenderFunction<unknown, unknown>,
-  options?: Partial<{ useForwardRef: boolean }>,
+  options?: Partial<{ useForwardRef: boolean }>
 ) => {
   if (options?.useForwardRef) {
     return forwardRef(Component)
