@@ -57,6 +57,7 @@ const categoryMap = {
   ListTile: 'Data Display',
   Combination: 'Data Display',
   Avatar: 'Data Display',
+  DataTable: 'Data Display',
 
   // Layout
   Divider: 'Layout',

@@ -38,7 +38,7 @@ const SegmentedControlRoot = forwardRef<HTMLDivElement, SegmentedControlProps>((
       {(segmentedControlTabs as ReactElement<ComponentProps<typeof TabItems.Tab>>[]).map((tab) => (
         <TabItems.Tab
           {...tab.props}
-          ref={getReactElementRef(tab)}
+          ref={getReactElementRef(tab) as React.Ref<HTMLButtonElement>}
           key={tab.props.value}
           height={50}
           theme={{ ...tab.props.theme }}

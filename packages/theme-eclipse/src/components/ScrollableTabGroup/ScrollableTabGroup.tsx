@@ -37,7 +37,7 @@ const ScrollableTabGroupRoot = forwardRef<HTMLDivElement, ScrollableTabGroupProp
       {(tabs as ReactElement<ComponentProps<typeof BaseScrollableTabGroup.Tab>>[]).map((tab) => (
         <BaseScrollableTabGroup.Tab
           {...tab.props}
-          ref={getReactElementRef(tab)}
+          ref={getReactElementRef(tab) as React.Ref<HTMLButtonElement>}
           key={tab.props.value}
           height={44}
           theme={{ ...tab.props.theme }}

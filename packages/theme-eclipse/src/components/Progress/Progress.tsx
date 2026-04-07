@@ -12,7 +12,7 @@ export const Progress = forwardRef<HTMLDivElement, ProgressProps>((props, ref) =
       {...props}
       className={`h-2 ${props.className || ''}`}
       style={{
-        backgroundColor: vars.sem.color.backgroundSecondary,
+        backgroundColor: vars.sem.color.backgroundPrimary,
         ...props.style,
       }}
     />

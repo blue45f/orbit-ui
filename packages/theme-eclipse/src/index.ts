@@ -6,7 +6,6 @@ export * from './components/AppBar'
 export * from './components/Avatar'
 
 /* B */
-export * from './components/Badge'
 export * from './components/BoxedCheckbox'
 export * from './components/Breadcrumb'
 
@@ -15,8 +14,10 @@ export * from './components/Calendar'
 export * from './components/Checkbox'
 export * from './components/Chip'
 export * from './components/ChipLink'
+export * from './components/CounterBadge'
 
 /* D */
+export * from './components/DataTable'
 export * from './components/Divider'
 export * from './components/Dropdown'
 
@@ -27,7 +28,8 @@ export * from './components/EclipseProvider'
 export * from './components/FloatingTextField'
 
 /* L */
-export * from './components/ListNode'
+export * from './components/LabelBadge'
+export * from './components/ListTile'
 export * from './components/Loading'
 
 /* M */
@@ -63,5 +65,4 @@ export * from './components/Text'
 export * from './components/TextArea'
 export * from './components/TextField'
 export * from './components/Toast'
-export * from './components/Toggle'
 export * from './components/Tooltip'
