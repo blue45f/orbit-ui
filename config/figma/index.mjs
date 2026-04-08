@@ -48,7 +48,7 @@ const getMetaInfo = (packageName, type) => {
  * 노드 정보 조회
  *
  * @param {Object} params
- * @param {'blue' | 'mint'} params.packageName
+ * @param {'blue' | 'eclipse'} params.packageName
  * @param {'icon' | 'image' | 'token'} params.type
  * @returns {Promise<{ version: string; nodeTree: import("./types").FigmaNode }>}
  */

@@ -96,7 +96,7 @@ import { BaseButton, BaseTextField, BaseSwitch, BaseSnackbar } from '@orbit-ui/c
 
 ### Theme 컴포넌트
 
-- 경로: `packages/clay/mint/src/components/`
+- 경로: `packages/clay/eclipse/src/components/`
 - Base 컴포넌트에 테마 적용
 - `style`, `className` props 닫힘
 - `theme` prop으로 토큰 재정의 가능

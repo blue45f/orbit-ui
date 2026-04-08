@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/blue45f/ui-forge/main/packages/theme-eclipse/src/assets/media-placeholder.png" width="120" height="120" alt="Orbit UI Logo" />
+  <img src="https://placehold.co/120x120/0f172a/ffffff.png?text=Orbit+UI&font=Inter" width="120" height="120" alt="Orbit UI Logo" />
   <h1 align="center">Orbit UI</h1>
 </p>
 
