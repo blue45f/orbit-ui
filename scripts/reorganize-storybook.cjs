@@ -35,6 +35,8 @@ const categoryMap = {
   Popover: 'Feedback',
   Tooltip: 'Feedback',
   Loading: 'Feedback',
+  Drawer: 'Feedback',
+  HoverCard: 'Feedback',
 
   // Navigation
   Tabs: 'Navigation',
@@ -43,6 +45,7 @@ const categoryMap = {
   ScrollableTabGroup: 'Navigation',
   AppBar: 'Navigation',
   Breadcrumb: 'Navigation',
+  Command: 'Navigation',
 
   // Data Display
   Badge: 'Data Display',

@@ -1,11 +1,7 @@
-<p align="center">
-  <img src="https://raw.githubusercontent.com/blue45f/ui-forge/main/packages/theme-eclipse/src/assets/media-placeholder.png" width="120" height="120" alt="Orbit UI Logo" />
-  <h1 align="center">Orbit UI</h1>
-</p>
+ <h1 align="center">Orbit UI</h1>
 
-<p align="center">
-  <strong>The Sentient Design System for Modern React Applications (2026 Edition)</strong>
-</p>
+ <strong>The Sentient Design System for Modern React Applications (2026 Edition)</strong>
+
 
 <p align="center">
   <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License: MIT" /></a>

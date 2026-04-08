@@ -14,11 +14,13 @@ export * from './components/Calendar'
 export * from './components/Checkbox'
 export * from './components/Chip'
 export * from './components/ChipLink'
+export * from './components/Command'
 export * from './components/CounterBadge'
 
 /* D */
 export * from './components/DataTable'
 export * from './components/Divider'
+export * from './components/Drawer'
 export * from './components/Dropdown'
 
 /* E */
@@ -26,6 +28,9 @@ export * from './components/EclipseProvider'
 
 /* F */
 export * from './components/FloatingTextField'
+
+/* H */
+export * from './components/HoverCard'
 
 /* L */
 export * from './components/LabelBadge'
