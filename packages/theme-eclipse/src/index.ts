@@ -11,6 +11,7 @@ export * from './components/Breadcrumb'
 
 /* C */
 export * from './components/Calendar'
+export * from './components/Carousel'
 export * from './components/Checkbox'
 export * from './components/Chip'
 export * from './components/ChipLink'

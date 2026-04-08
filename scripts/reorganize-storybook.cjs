@@ -61,6 +61,7 @@ const categoryMap = {
   Combination: 'Data Display',
   Avatar: 'Data Display',
   DataTable: 'Data Display',
+  Carousel: 'Data Display',
 
   // Layout
   Divider: 'Layout',
