@@ -8,7 +8,7 @@ export const Calendar = (props: CalendarProps) => {
       {...props}
       classNames={{
         day_selected:
-          'bg-[var(--sem-color-fill-mint)] text-white hover:bg-[var(--sem-color-fill-mint)] hover:text-white',
+          'bg-[var(--sem-color-fill-primary)] text-white hover:bg-[var(--sem-color-fill-primary)] hover:text-white',
         ...props.classNames,
       }}
     />

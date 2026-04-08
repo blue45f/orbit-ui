@@ -89,7 +89,7 @@ export const 텍스트_스타일_강제 = {
   render: (args: React.ComponentProps<typeof Text>) => {
     const { children, textStyle, ...rest } = args
     return (
-      <ForcedTextStyle color="mint5">
+      <ForcedTextStyle color="primary5">
         <Text {...rest} textStyle={textStyle as string}>
           {children}
         </Text>

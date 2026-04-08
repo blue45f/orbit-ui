@@ -32,8 +32,8 @@ export type RadioButtonProps = Omit<
  * function App() {
  *   return (
  *     <Flex columnGap='10px'>
- *       <RadioButton id='mint' value='mint' />
- *       <label htmlFor='mint'>민트</label>
+ *       <RadioButton id='primary' value='primary' />
+ *       <label htmlFor='primary'>기본</label>
  *     </Flex>
  *   )
  * }
@@ -47,7 +47,7 @@ export type RadioButtonProps = Omit<
  * <RadioButtonGroup name='color' defaultValue='blue'>
  *   <RadioButtonWithLabel value='blue'>블루</RadioButtonWithLabel>
  *   <RadioButtonWithLabel value='foundation'>코어</RadioButtonWithLabel>
- *   <RadioButtonWithLabel value='mint'>민트</RadioButtonWithLabel>
+ *   <RadioButtonWithLabel value='primary'>기본</RadioButtonWithLabel>
  * </RadioButtonGroup>
  * ```
  */

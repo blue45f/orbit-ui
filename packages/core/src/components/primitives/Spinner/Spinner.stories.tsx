@@ -8,12 +8,12 @@ const meta = {
   title: 'utils/Spinner',
   component: Spinner,
   args: {
-    color: 'mint',
+    color: 'primary',
   },
   argTypes: {
     color: {
       control: 'inline-radio',
-      options: ['mint', 'purple', 'white', 'orange'],
+      options: ['primary', 'purple', 'white', 'orange'],
     },
   },
 } satisfies Meta<typeof Spinner>

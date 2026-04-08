@@ -30,7 +30,7 @@ export const 기본 = {
         <CheckboxWithLabel {...args} value="foundation" disabled>
           파운데이션
         </CheckboxWithLabel>
-        <CheckboxWithLabel {...args} value="mint">
+        <CheckboxWithLabel {...args} value="primary">
           민트
         </CheckboxWithLabel>
       </Flex>
@@ -96,7 +96,7 @@ export const 디자인QA = {
           </CheckboxWithLabel>
         </Flex>
         <Flex columnGap="10px">
-          <CheckboxWithLabel {...args} value="mint">
+          <CheckboxWithLabel {...args} value="primary">
             민트
           </CheckboxWithLabel>
         </Flex>

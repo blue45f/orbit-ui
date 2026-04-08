@@ -25,7 +25,7 @@ export const 기본: Story = {
   render: (args: React.ComponentProps<typeof Dialog>) => (
     <Dialog {...args}>
       <Dialog.Trigger asChild>
-        <Button color="mint" size="medium">
+        <Button color="primary" size="medium">
           <Button.Center>열기</Button.Center>
         </Button>
       </Dialog.Trigger>
@@ -54,7 +54,7 @@ export const 바디스크롤: Story = {
     return (
       <Dialog {...args}>
         <Dialog.Trigger asChild>
-          <Button color="mint" size="medium">
+          <Button color="primary" size="medium">
             <Button.Center>열기</Button.Center>
           </Button>
         </Dialog.Trigger>
@@ -147,7 +147,7 @@ export const 디자인QA = {
   render: ({ footerDirection, headerText, bodyText, buttonText, buttonCount, ...rest }: any) => (
     <Dialog {...rest}>
       <Dialog.Trigger asChild>
-        <Button color="mint" size="medium">
+        <Button color="primary" size="medium">
           <Button.Center>열기</Button.Center>
         </Button>
       </Dialog.Trigger>

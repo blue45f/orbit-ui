@@ -19,7 +19,7 @@ export const 기본: Story = {
       <Tooltip.Provider>
         <Tooltip>
           <Tooltip.Trigger asChild>
-            <Button color="mint" size="medium">
+            <Button color="primary" size="medium">
               <Button.Center>마우스 오버</Button.Center>
             </Button>
           </Tooltip.Trigger>

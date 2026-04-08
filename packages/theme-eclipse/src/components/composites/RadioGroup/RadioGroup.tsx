@@ -54,7 +54,7 @@ export type RadioGroupProps = {
  * <RadioGroup name='pkg' value={value} onChange={(e) => setValue(e.target.value)}>
  *   <Radio value='blue'>블루</Radio>
  *   <Radio value='foundation'>코어</Radio>
- *   <Radio value='mint'>민트</Radio>
+ *   <Radio value='primary'>기본</Radio>
  * </RadioGroup>
  * ```
  *
@@ -63,7 +63,7 @@ export type RadioGroupProps = {
  * <RadioGroup name='pkg' defaultValue='blue' onChange={(e) => act(e.target.value)}>
  *   <Radio value='blue'>블루</Radio>
  *   <Radio value='foundation'>코어</Radio>
- *   <Radio value='mint'>민트</Radio>
+ *   <Radio value='primary'>기본</Radio>
  * </RadioGroup>
  * ```
  */

@@ -27,7 +27,7 @@ export const 기본: Story = {
       }}
     >
       <Toaster {...args} />
-      <Button color="mint" size="medium" onClick={() => toast('기본 토스트입니다.')}>
+      <Button color="primary" size="medium" onClick={() => toast('기본 토스트입니다.')}>
         <Button.Center>기본 토스트 띄우기</Button.Center>
       </Button>
       <div style={{ height: 16 }} />

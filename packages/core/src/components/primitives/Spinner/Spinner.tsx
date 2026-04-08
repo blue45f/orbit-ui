@@ -6,9 +6,9 @@ import { Animation } from '../Animation'
 export type SpinnerProps = {
   /**
    * 원형 애니메이션의 색상
-   * @defaultValue `mint`
+   * @defaultValue `primary`
    */
-  color?: 'mint' | 'purple'
+  color?: 'primary' | 'purple'
   /**
    * 원형 애니메이션의 크기
    * @defaultValue `28`
@@ -36,13 +36,13 @@ export type SpinnerProps = {
  *
  * function App() {
  *  return (
- *    <Spinner color='mint' />
+ *    <Spinner color='primary' />
  *  )
  * }
  * ```
  */
 export const Spinner: React.FC<SpinnerProps> = ({
-  color = 'mint',
+  color = 'primary',
   size = 28,
   style: styleProp,
   ...rest

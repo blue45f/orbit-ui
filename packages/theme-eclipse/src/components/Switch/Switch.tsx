@@ -8,7 +8,7 @@ export const Switch = forwardRef<HTMLButtonElement, SwitchProps>((props, ref) =>
     <CoreSwitch
       ref={ref}
       {...props}
-      className={`data-[state=checked]:bg-[var(--sem-color-fill-mint)] ${props.className || ''}`}
+      className={`data-[state=checked]:bg-[var(--sem-color-fill-primary)] ${props.className || ''}`}
     />
   )
 })

@@ -39,7 +39,7 @@ export const Loading = ({
 
   return (
     <div className={containerClasses}>
-      <Spinner size={spinnerSize} color="mint" />
+      <Spinner size={spinnerSize} color="primary" />
       {children && (
         <span className="text-sm font-medium text-slate-600 dark:text-slate-400">{children}</span>
       )}

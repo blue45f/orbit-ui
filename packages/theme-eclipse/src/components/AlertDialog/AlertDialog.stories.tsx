@@ -23,7 +23,7 @@ export const 기본: Story = {
   render: (args: React.ComponentProps<typeof Alert>) => (
     <Alert {...args}>
       <Alert.Trigger asChild>
-        <Button color="mint" size="medium">
+        <Button color="primary" size="medium">
           <Button.Center>열기</Button.Center>
         </Button>
       </Alert.Trigger>
@@ -47,7 +47,7 @@ export const 컨펌: Story = {
     return (
       <Alert {...args}>
         <Alert.Trigger asChild>
-          <Button color="mint" size="medium">
+          <Button color="primary" size="medium">
             <Button.Center>열기</Button.Center>
           </Button>
         </Alert.Trigger>
@@ -91,7 +91,7 @@ export const 버튼세로정렬: Story = {
     return (
       <Alert {...args}>
         <Alert.Trigger asChild>
-          <Button color="mint" size="medium">
+          <Button color="primary" size="medium">
             <Button.Center>열기</Button.Center>
           </Button>
         </Alert.Trigger>
@@ -149,7 +149,7 @@ export const 디자인QA = {
     return (
       <Alert {...rest}>
         <Alert.Trigger asChild>
-          <Button color="mint" size="medium">
+          <Button color="primary" size="medium">
             <Button.Center>열기</Button.Center>
           </Button>
         </Alert.Trigger>

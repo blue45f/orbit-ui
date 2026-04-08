@@ -89,10 +89,10 @@ export const 스타일_상위_제어 = {
     return (
       <>
         <p>
-          Context Setting: textStyle=&apos;titleLarge&apos; color=&apos;mint5&apos;
+          Context Setting: textStyle=&apos;titleLarge&apos; color=&apos;primary5&apos;
           maxLines=&#123;1&#125;
         </p>
-        <ForcedBaseTextStyle textStyle="titleLarge" color="mint5" maxLines={1}>
+        <ForcedBaseTextStyle textStyle="titleLarge" color="primary5" maxLines={1}>
           <div style={{ width: '600px' }}>
             <Text {...args}>{args.children}</Text>
           </div>

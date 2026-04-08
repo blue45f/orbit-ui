@@ -18,7 +18,7 @@ export const 기본: Story = {
     <div style={{ padding: '100px', display: 'flex', justifyContent: 'center' }}>
       <Popover>
         <Popover.Trigger asChild>
-          <Button color="mint" size="medium">
+          <Button color="primary" size="medium">
             <Button.Center>정보 확인</Button.Center>
           </Button>
         </Popover.Trigger>

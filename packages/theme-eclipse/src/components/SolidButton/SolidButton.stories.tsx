@@ -23,7 +23,7 @@ const meta = {
     onClick: { action: 'clicked' },
     color: {
       control: 'select',
-      options: ['black', 'mint', 'gray', 'white'],
+      options: ['black', 'primary', 'gray', 'white'],
     },
     size: {
       control: 'select',
@@ -51,8 +51,8 @@ export const 색상 = {
         <SolidButton {...prop} color="black">
           <SolidButton.Center>Black</SolidButton.Center>
         </SolidButton>
-        <SolidButton {...prop} color="mint">
-          <SolidButton.Center>Mint</SolidButton.Center>
+        <SolidButton {...prop} color="primary">
+          <SolidButton.Center>Primary</SolidButton.Center>
         </SolidButton>
         <SolidButton {...prop} color="gray">
           <SolidButton.Center>Gray</SolidButton.Center>
@@ -130,11 +130,11 @@ export const 전체너비 = {
   },
   render: (prop: SolidButtonProps) => {
     return (
-      <Flex columnGap="8px" style={{ width: '400px' }}>
+      <Flex flexDirection="column" gap="8px" style={{ width: '400px' }}>
         <SolidButton {...prop} color="black" width="100%">
           <SolidButton.Center>첫 번째 버튼</SolidButton.Center>
         </SolidButton>
-        <SolidButton {...prop} color="mint" width="100%">
+        <SolidButton {...prop} color="primary" width="100%">
           <SolidButton.Center>두 번째 버튼</SolidButton.Center>
         </SolidButton>
         <SolidButton {...prop} color="gray" width="100%">
@@ -147,7 +147,7 @@ export const 전체너비 = {
 
 export const 디자인QA = {
   args: {
-    color: 'mint',
+    color: 'primary',
     size: 'medium',
     text: '버튼입니다',
     leading: true,

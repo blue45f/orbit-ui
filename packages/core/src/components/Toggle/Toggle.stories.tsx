@@ -82,10 +82,10 @@ export const 디자인QA = {
   render: ({ thumbWidth, thumbHeight, ...args }: any) => {
     return (
       <Flex flexDirection={'column'} rowGap="20px">
-        <label htmlFor="mint">
+        <label htmlFor="primary">
           민트
           <Toggle
-            id="mint"
+            id="primary"
             theme={mintTheme}
             width={38}
             height={24}

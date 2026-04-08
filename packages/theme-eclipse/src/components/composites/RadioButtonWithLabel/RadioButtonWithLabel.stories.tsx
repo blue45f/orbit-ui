@@ -33,7 +33,7 @@ export const 기본 = {
           <RadioButtonWithLabel {...args} value="foundation" disabled>
             파운데이션
           </RadioButtonWithLabel>
-          <RadioButtonWithLabel {...args} value="mint">
+          <RadioButtonWithLabel {...args} value="primary">
             민트
           </RadioButtonWithLabel>
         </Flex>
@@ -95,7 +95,7 @@ export const 디자인QA = {
           </RadioButtonWithLabel>
         </Flex>
         <Flex columnGap="10px">
-          <RadioButtonWithLabel {...args} value="mint">
+          <RadioButtonWithLabel {...args} value="primary">
             민트
           </RadioButtonWithLabel>
         </Flex>

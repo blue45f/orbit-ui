@@ -31,7 +31,7 @@ export type CheckboxWithLabelProps = CheckboxProps & {
  * import { CheckboxWithLabel } from '@orbit-ui/theme-eclipse/composites'
  *
  * function App() {
- *   return <CheckboxWithLabel>민트</CheckboxWithLabel>
+ *   return <CheckboxWithLabel>기본</CheckboxWithLabel>
  * }
  * ```
  */

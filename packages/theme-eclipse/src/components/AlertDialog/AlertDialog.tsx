@@ -100,7 +100,7 @@ type AlertComponent = typeof AlertRoot & {
  *   return (
  *     <Alert>
  *       <Alert.Trigger>
- *         <Button color='mint' size='medium'>열기</Button>
+ *         <Button color='primary' size='medium'>열기</Button>
  *       </Alert.Trigger>
  *       <Alert.Top>
  *         <Alert.Title>이용 정책이 업데이트되었습니다.</Alert.Title>
@@ -111,7 +111,7 @@ type AlertComponent = typeof AlertRoot & {
  *           <Button color='black' size='large' width='100%'>취소</Button>
  *         </Alert.Close>
  *         <Alert.Action asChild>
- *           <Button color='mint' size='large' width='100%'>확인</Button>
+ *           <Button color='primary' size='large' width='100%'>확인</Button>
  *         </Alert.Action>
  *       </Alert.Bottom>
  *     </Alert>

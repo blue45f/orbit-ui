@@ -55,7 +55,7 @@ export const 이미지: Story = {
       <Chip {...args}>
         <Chip.Leading>
           <img
-            src="https://atelier-assets.claykit.com/images/mint/snackbar_snow_2.png"
+            src="https://raw.githubusercontent.com/blue45f/ui-forge/main/packages/theme-eclipse/src/assets/media-placeholder.png"
             width={24}
             height={24}
             alt=""
@@ -73,7 +73,7 @@ export const 썸네일: Story = {
       <Chip {...args}>
         <Chip.Leading>
           <img
-            src="https://atelier-assets.claykit.com/images/mint/snackbar_snow_2.png"
+            src="https://raw.githubusercontent.com/blue45f/ui-forge/main/packages/theme-eclipse/src/assets/media-placeholder.png"
             width={30}
             height={30}
             alt=""
@@ -128,7 +128,7 @@ export const 모든상태: Story = {
               <Chip>
                 <Chip.Leading>
                   <img
-                    src="https://atelier-assets.claykit.com/images/mint/graphic_star_full@2x.png"
+                    src="https://raw.githubusercontent.com/blue45f/ui-forge/main/packages/theme-eclipse/src/assets/media-placeholder.png"
                     width={24}
                     height={24}
                     alt=""
@@ -188,7 +188,7 @@ export const 디자인_QA = {
           {leading && (
             <Chip.Leading>
               <img
-                src="https://atelier-assets.claykit.com/images/mint/snackbar_snow_2.png"
+                src="https://raw.githubusercontent.com/blue45f/ui-forge/main/packages/theme-eclipse/src/assets/media-placeholder.png"
                 width={24}
                 height={24}
                 alt=""
@@ -210,7 +210,7 @@ export const 디자인_QA = {
           {leading && (
             <Chip.Leading>
               <img
-                src="https://atelier-assets.claykit.com/images/mint/snackbar_snow_2.png"
+                src="https://raw.githubusercontent.com/blue45f/ui-forge/main/packages/theme-eclipse/src/assets/media-placeholder.png"
                 width={30}
                 height={30}
                 alt=""

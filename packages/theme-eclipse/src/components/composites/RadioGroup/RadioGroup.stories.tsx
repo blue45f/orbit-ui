@@ -71,7 +71,7 @@ export const 제어 = {
         <Radio id="controlled-2" value="foundation">
           코어
         </Radio>
-        <Radio id="controlled-3" value="mint">
+        <Radio id="controlled-3" value="primary">
           민트
         </Radio>
       </RadioGroup>
@@ -89,7 +89,7 @@ export const 비제어 = {
         <Radio id="uncontrolled-2" value="foundation">
           코어
         </Radio>
-        <Radio id="uncontrolled-3" value="mint">
+        <Radio id="uncontrolled-3" value="primary">
           민트
         </Radio>
       </RadioGroup>

@@ -17,7 +17,7 @@ export const 기본: Story = {
   render: () => (
     <Drawer>
       <Drawer.Trigger asChild>
-        <Button color="mint" size="medium">
+        <Button color="primary" size="medium">
           <Button.Center>서랍 열기</Button.Center>
         </Button>
       </Drawer.Trigger>

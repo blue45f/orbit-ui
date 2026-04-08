@@ -42,9 +42,9 @@ export const 기본 = {
         />
         <RadioButton
           {...args}
-          value="mint"
-          checked={selected === 'mint'}
-          onChange={() => setSelected('mint')}
+          value="primary"
+          checked={selected === 'primary'}
+          onChange={() => setSelected('primary')}
         />
       </fieldset>
     )
@@ -76,9 +76,9 @@ export const 테마_재정의 = {
         />
         <RadioButton
           {...args}
-          value="mint"
-          checked={selected === 'mint'}
-          onChange={() => setSelected('mint')}
+          value="primary"
+          checked={selected === 'primary'}
+          onChange={() => setSelected('primary')}
           theme={{
             enabledSelectedForegroundColor: 'red',
           }}
@@ -118,12 +118,12 @@ export const 라벨_추가 = {
           <Flex columnGap="10px">
             <RadioButton
               {...args}
-              value="mint"
-              id="mint"
-              checked={selected === 'mint'}
-              onChange={() => setSelected('mint')}
+              value="primary"
+              id="primary"
+              checked={selected === 'primary'}
+              onChange={() => setSelected('primary')}
             />
-            <label htmlFor="mint">민트</label>
+            <label htmlFor="primary">기본</label>
           </Flex>
         </Flex>
       </fieldset>
@@ -201,13 +201,13 @@ export const 디자인QA = {
           <Flex columnGap="10px">
             <RadioButton
               {...args}
-              id="mint"
+              id="primary"
               name="color"
-              value="mint"
-              checked={selected === 'mint'}
-              onChange={() => setSelected('mint')}
+              value="primary"
+              checked={selected === 'primary'}
+              onChange={() => setSelected('primary')}
             />
-            <label htmlFor="mint">민트</label>
+            <label htmlFor="primary">기본</label>
           </Flex>
         </Flex>
       </fieldset>

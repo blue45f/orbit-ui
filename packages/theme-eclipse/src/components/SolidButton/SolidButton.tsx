@@ -36,12 +36,12 @@ type SolidButtonOwnProps = {
    * @example
    * ```tsx preview
    * <SolidButton color='black'>검은색 버튼</SolidButton>
-   * <SolidButton color='mint'>민트색 버튼</SolidButton>
+   * <SolidButton color='primary'>주요 버튼</SolidButton>
    * <SolidButton color='gray'>회색 버튼</SolidButton>
    * <SolidButton color='white'>흰색 버튼</SolidButton>
    * ```
    */
-  color: 'black' | 'mint' | 'gray' | 'white'
+  color: 'black' | 'primary' | 'gray' | 'white'
   /**
    * 버튼 크기
    * @example
@@ -116,7 +116,7 @@ const SolidButtonRoot: React.ForwardRefExoticComponent<
 
       <Button.Loading>
         <Spinner
-          color="mint"
+          color="primary"
           size={Math.min(
             FILLED_BUTTON_SIZE_MAP[size].leading.width,
             FILLED_BUTTON_SIZE_MAP[size].leading.height

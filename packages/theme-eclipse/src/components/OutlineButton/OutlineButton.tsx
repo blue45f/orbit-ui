@@ -36,11 +36,11 @@ type OutlineButtonOwnProps = {
    * @example
    * ```tsx preview
    * <OutlineButton color='black'>검은색 버튼</OutlineButton>
-   * <OutlineButton color='mint'>민트색 버튼</OutlineButton>
+   * <OutlineButton color='primary'>주요 버튼</OutlineButton>
    * <OutlineButton color='gray'>회색 버튼</OutlineButton>
    * ```
    */
-  color: 'black' | 'mint' | 'gray'
+  color: 'black' | 'primary' | 'gray'
   /**
    * 버튼 크기
    * @example
@@ -115,7 +115,7 @@ const OutlineButtonRoot: React.ForwardRefExoticComponent<
 
       <Button.Loading>
         <Spinner
-          color="mint"
+          color="primary"
           size={Math.min(
             OUTLINED_BUTTON_SIZE_MAP[size].leading.width,
             OUTLINED_BUTTON_SIZE_MAP[size].leading.height

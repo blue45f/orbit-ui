@@ -34,9 +34,9 @@ type RadioButtonWithLabelProps = RadioProps & {
  *
  * function App() {
  *   return (
- *     <RadioGroup defaultValue='mint' name='color'>
+ *     <RadioGroup defaultValue='primary' name='color'>
  *       <RadioButtonWithLabel value='blue'>블루</RadioButtonWithLabel>
- *       <RadioButtonWithLabel value='mint'>민트</RadioButtonWithLabel>
+ *       <RadioButtonWithLabel value='primary'>기본</RadioButtonWithLabel>
  *       <RadioButtonWithLabel value='foundation'>파운데이션</RadioButtonWithLabel>
  *     </RadioGroup>
  *   )

@@ -23,7 +23,7 @@ const meta = {
     onClick: { action: 'clicked' },
     color: {
       control: 'select',
-      options: ['black', 'mint', 'gray'],
+      options: ['black', 'primary', 'gray'],
     },
     size: {
       control: 'select',
@@ -51,8 +51,8 @@ export const 색상 = {
         <OutlineButton {...prop} color="black">
           <OutlineButton.Center>Black</OutlineButton.Center>
         </OutlineButton>
-        <OutlineButton {...prop} color="mint">
-          <OutlineButton.Center>Mint</OutlineButton.Center>
+        <OutlineButton {...prop} color="primary">
+          <OutlineButton.Center>Primary</OutlineButton.Center>
         </OutlineButton>
         <OutlineButton {...prop} color="gray">
           <OutlineButton.Center>Gray</OutlineButton.Center>

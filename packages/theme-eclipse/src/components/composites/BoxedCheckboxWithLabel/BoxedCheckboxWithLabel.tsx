@@ -31,7 +31,7 @@ export type BoxedCheckboxWithLabelProps = BoxedCheckboxProps & {
  * import { BoxedCheckboxWithLabel } from '@orbit-ui/theme-eclipse/composites'
  *
  * function App() {
- *   return <BoxedCheckboxWithLabel>민트</BoxedCheckboxWithLabel>
+ *   return <BoxedCheckboxWithLabel>기본</BoxedCheckboxWithLabel>
  * }
  * ```
  */
