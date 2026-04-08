@@ -98,10 +98,14 @@ const _chip = {
   disabledSelectedTextStyleSize: 'var(--sem-eclipse-textStyle-labelMediumEmphasizedSize)',
   pressedSelectedTextStyleSize: 'var(--sem-eclipse-textStyle-labelMediumEmphasizedSize)',
   focusedSelectedTextStyleSize: 'var(--sem-eclipse-textStyle-labelMediumEmphasizedSize)',
-  enabledSelectedTextStyleLineHeight: 'var(--sem-eclipse-textStyle-labelMediumEmphasizedLineHeight)',
-  disabledSelectedTextStyleLineHeight: 'var(--sem-eclipse-textStyle-labelMediumEmphasizedLineHeight)',
-  pressedSelectedTextStyleLineHeight: 'var(--sem-eclipse-textStyle-labelMediumEmphasizedLineHeight)',
-  focusedSelectedTextStyleLineHeight: 'var(--sem-eclipse-textStyle-labelMediumEmphasizedLineHeight)',
+  enabledSelectedTextStyleLineHeight:
+    'var(--sem-eclipse-textStyle-labelMediumEmphasizedLineHeight)',
+  disabledSelectedTextStyleLineHeight:
+    'var(--sem-eclipse-textStyle-labelMediumEmphasizedLineHeight)',
+  pressedSelectedTextStyleLineHeight:
+    'var(--sem-eclipse-textStyle-labelMediumEmphasizedLineHeight)',
+  focusedSelectedTextStyleLineHeight:
+    'var(--sem-eclipse-textStyle-labelMediumEmphasizedLineHeight)',
   enabledSelectedTextStyleTracking: 'var(--sem-eclipse-textStyle-labelMediumEmphasizedTracking)',
   disabledSelectedTextStyleTracking: 'var(--sem-eclipse-textStyle-labelMediumEmphasizedTracking)',
   pressedSelectedTextStyleTracking: 'var(--sem-eclipse-textStyle-labelMediumEmphasizedTracking)',
@@ -963,7 +967,8 @@ const VAR_NAME = {
   chipPaddingHorizontalTypeImage: '--com-eclipse-chip-paddingHorizontal-type-image',
   chipPaddingLeadingTypeThumbnail: '--com-eclipse-chip-paddingLeading-type-thumbnail',
   chipPaddingTrailingTypeThumbnail: '--com-eclipse-chip-paddingTrailing-type-thumbnail',
-  containedCheckboxEnabledCheckedFillColor: '--com-eclipse-containedCheckbox-enabledCheckedFillColor',
+  containedCheckboxEnabledCheckedFillColor:
+    '--com-eclipse-containedCheckbox-enabledCheckedFillColor',
   containedCheckboxDisabledCheckedFillColor:
     '--com-eclipse-containedCheckbox-disabledCheckedFillColor',
   containedCheckboxEnabledUncheckedFillColor:
@@ -1089,14 +1094,16 @@ const VAR_NAME = {
   filledButtonTextStyleLineHeightSizeSmall:
     '--com-eclipse-filledButton-textStyleLineHeight-size-small',
   filledButtonTextStyleTrackingSizeSmall: '--com-eclipse-filledButton-textStyleTracking-size-small',
-  filledButtonPaddingHorizontalSizeMedium: '--com-eclipse-filledButton-paddingHorizontal-size-medium',
+  filledButtonPaddingHorizontalSizeMedium:
+    '--com-eclipse-filledButton-paddingHorizontal-size-medium',
   filledButtonRadiusSizeMedium: '--com-eclipse-filledButton-radius-size-medium',
   filledButtonTextStyleFaceSizeMedium: '--com-eclipse-filledButton-textStyleFace-size-medium',
   filledButtonTextStyleWeightSizeMedium: '--com-eclipse-filledButton-textStyleWeight-size-medium',
   filledButtonTextStyleSizeSizeMedium: '--com-eclipse-filledButton-textStyleSize-size-medium',
   filledButtonTextStyleLineHeightSizeMedium:
     '--com-eclipse-filledButton-textStyleLineHeight-size-medium',
-  filledButtonTextStyleTrackingSizeMedium: '--com-eclipse-filledButton-textStyleTracking-size-medium',
+  filledButtonTextStyleTrackingSizeMedium:
+    '--com-eclipse-filledButton-textStyleTracking-size-medium',
   filledButtonPaddingHorizontalSizeLarge: '--com-eclipse-filledButton-paddingHorizontal-size-large',
   filledButtonRadiusSizeLarge: '--com-eclipse-filledButton-radius-size-large',
   filledButtonTextStyleFaceSizeLarge: '--com-eclipse-filledButton-textStyleFace-size-large',
@@ -1105,15 +1112,20 @@ const VAR_NAME = {
   filledButtonTextStyleLineHeightSizeLarge:
     '--com-eclipse-filledButton-textStyleLineHeight-size-large',
   filledButtonTextStyleTrackingSizeLarge: '--com-eclipse-filledButton-textStyleTracking-size-large',
-  filledButtonEnabledFillColorColorPrimary: '--com-eclipse-filledButton-enabledFillColor-color-mint',
-  filledButtonHoveredFillColorColorPrimary: '--com-eclipse-filledButton-hoveredFillColor-color-mint',
-  filledButtonPressedFillColorColorPrimary: '--com-eclipse-filledButton-pressedFillColor-color-mint',
+  filledButtonEnabledFillColorColorPrimary:
+    '--com-eclipse-filledButton-enabledFillColor-color-mint',
+  filledButtonHoveredFillColorColorPrimary:
+    '--com-eclipse-filledButton-hoveredFillColor-color-mint',
+  filledButtonPressedFillColorColorPrimary:
+    '--com-eclipse-filledButton-pressedFillColor-color-mint',
   filledButtonEnabledForegroundColorColorPrimary:
     '--com-eclipse-filledButton-enabledForegroundColor-color-mint',
-  filledButtonEnabledBorderColorColorPrimary: '--com-eclipse-filledButton-enabledBorderColor-color-mint',
+  filledButtonEnabledBorderColorColorPrimary:
+    '--com-eclipse-filledButton-enabledBorderColor-color-mint',
   filledButtonDisabledBorderColorColorPrimary:
     '--com-eclipse-filledButton-disabledBorderColor-color-mint',
-  filledButtonFocusedBorderColorColorPrimary: '--com-eclipse-filledButton-focusedBorderColor-color-mint',
+  filledButtonFocusedBorderColorColorPrimary:
+    '--com-eclipse-filledButton-focusedBorderColor-color-mint',
   filledButtonEnabledFillColorColorBlack: '--com-eclipse-filledButton-enabledFillColor-color-black',
   filledButtonHoveredFillColorColorBlack: '--com-eclipse-filledButton-hoveredFillColor-color-black',
   filledButtonPressedFillColorColorBlack: '--com-eclipse-filledButton-pressedFillColor-color-black',
@@ -1130,10 +1142,12 @@ const VAR_NAME = {
   filledButtonPressedFillColorColorGray: '--com-eclipse-filledButton-pressedFillColor-color-gray',
   filledButtonEnabledForegroundColorColorGray:
     '--com-eclipse-filledButton-enabledForegroundColor-color-gray',
-  filledButtonEnabledBorderColorColorGray: '--com-eclipse-filledButton-enabledBorderColor-color-gray',
+  filledButtonEnabledBorderColorColorGray:
+    '--com-eclipse-filledButton-enabledBorderColor-color-gray',
   filledButtonDisabledBorderColorColorGray:
     '--com-eclipse-filledButton-disabledBorderColor-color-gray',
-  filledButtonFocusedBorderColorColorGray: '--com-eclipse-filledButton-focusedBorderColor-color-gray',
+  filledButtonFocusedBorderColorColorGray:
+    '--com-eclipse-filledButton-focusedBorderColor-color-gray',
   filledButtonEnabledFillColorColorWhite: '--com-eclipse-filledButton-enabledFillColor-color-white',
   filledButtonHoveredFillColorColorWhite: '--com-eclipse-filledButton-hoveredFillColor-color-white',
   filledButtonPressedFillColorColorWhite: '--com-eclipse-filledButton-pressedFillColor-color-white',
@@ -1298,7 +1312,8 @@ const VAR_NAME = {
     '--com-eclipse-outlinedButton-paddingHorizontal-size-medium',
   outlinedButtonRadiusSizeMedium: '--com-eclipse-outlinedButton-radius-size-medium',
   outlinedButtonTextStyleFaceSizeMedium: '--com-eclipse-outlinedButton-textStyleFace-size-medium',
-  outlinedButtonTextStyleWeightSizeMedium: '--com-eclipse-outlinedButton-textStyleWeight-size-medium',
+  outlinedButtonTextStyleWeightSizeMedium:
+    '--com-eclipse-outlinedButton-textStyleWeight-size-medium',
   outlinedButtonTextStyleSizeSizeMedium: '--com-eclipse-outlinedButton-textStyleSize-size-medium',
   outlinedButtonTextStyleLineHeightSizeMedium:
     '--com-eclipse-outlinedButton-textStyleLineHeight-size-medium',
@@ -1372,12 +1387,14 @@ const VAR_NAME = {
   plainCheckboxPressedUncheckedFillColor: '--com-eclipse-plainCheckbox-pressedUncheckedFillColor',
   plainCheckboxFocusedUncheckedFillColor: '--com-eclipse-plainCheckbox-focusedUncheckedFillColor',
   plainCheckboxEnabledCheckedBorderColor: '--com-eclipse-plainCheckbox-enabledCheckedBorderColor',
-  plainCheckboxEnabledUncheckedBorderColor: '--com-eclipse-plainCheckbox-enabledUncheckedBorderColor',
+  plainCheckboxEnabledUncheckedBorderColor:
+    '--com-eclipse-plainCheckbox-enabledUncheckedBorderColor',
   plainCheckboxDisabledCheckedBorderColor: '--com-eclipse-plainCheckbox-disabledCheckedBorderColor',
   plainCheckboxDisabledUncheckedBorderColor:
     '--com-eclipse-plainCheckbox-disabledUncheckedBorderColor',
   plainCheckboxFocusedCheckedBorderColor: '--com-eclipse-plainCheckbox-focusedCheckedBorderColor',
-  plainCheckboxFocusedUncheckedBorderColor: '--com-eclipse-plainCheckbox-focusedUncheckedBorderColor',
+  plainCheckboxFocusedUncheckedBorderColor:
+    '--com-eclipse-plainCheckbox-focusedUncheckedBorderColor',
   plainCheckboxRadius: '--com-eclipse-plainCheckbox-radius',
   plainCheckboxEnabledCheckedForegroundColor:
     '--com-eclipse-plainCheckbox-enabledCheckedForegroundColor',
@@ -1459,10 +1476,12 @@ const VAR_NAME = {
   secureFieldEnabledPlaceholderForegroundColor:
     '--com-eclipse-secureField-enabledPlaceholderForegroundColor',
   secureFieldCursorFillColor: '--com-eclipse-secureField-cursorFillColor',
-  secureFieldEnabledEmptyBorderColorError: '--com-eclipse-secureField-enabledEmptyBorderColor-error',
+  secureFieldEnabledEmptyBorderColorError:
+    '--com-eclipse-secureField-enabledEmptyBorderColor-error',
   secureFieldEnabledPopulatedBorderColorError:
     '--com-eclipse-secureField-enabledPopulatedBorderColor-error',
-  secureFieldFocusedEmptyBorderColorError: '--com-eclipse-secureField-focusedEmptyBorderColor-error',
+  secureFieldFocusedEmptyBorderColorError:
+    '--com-eclipse-secureField-focusedEmptyBorderColor-error',
   secureFieldFocusedPopulatedBorderColorError:
     '--com-eclipse-secureField-focusedPopulatedBorderColor-error',
   segmentedControlFillColor: '--com-eclipse-segmentedControl-fillColor',
@@ -1516,12 +1535,15 @@ const VAR_NAME = {
   selectFocusedUnselectedBorderWidth: '--com-eclipse-select-focusedUnselectedBorderWidth',
   selectFocusedSelectedBorderWidth: '--com-eclipse-select-focusedSelectedBorderWidth',
   selectEnabledPlaceholderForegroundColor: '--com-eclipse-select-enabledPlaceholderForegroundColor',
-  selectEnabledUnselectedBorderColorError: '--com-eclipse-select-enabledUnselectedBorderColor-error',
+  selectEnabledUnselectedBorderColorError:
+    '--com-eclipse-select-enabledUnselectedBorderColor-error',
   selectEnabledSelectedBorderColorError: '--com-eclipse-select-enabledSelectedBorderColor-error',
   selectActivatedUnselectedBorderColorError:
     '--com-eclipse-select-activatedUnselectedBorderColor-error',
-  selectActivatedSelectedBorderColorError: '--com-eclipse-select-activatedSelectedBorderColor-error',
-  selectFocusedUnselectedBorderColorError: '--com-eclipse-select-focusedUnselectedBorderColor-error',
+  selectActivatedSelectedBorderColorError:
+    '--com-eclipse-select-activatedSelectedBorderColor-error',
+  selectFocusedUnselectedBorderColorError:
+    '--com-eclipse-select-focusedUnselectedBorderColor-error',
   selectFocusedSelectedBorderColorError: '--com-eclipse-select-focusedSelectedBorderColor-error',
   snackbarFillColor: '--com-eclipse-snackbar-fillColor',
   snackbarPaddingHorizontal: '--com-eclipse-snackbar-paddingHorizontal',
@@ -1758,7 +1780,8 @@ const VAR_NAME = {
   textInputTextFieldFocusedEmptyTextStyle: '--com-eclipse-textInput-textFieldFocusedEmptyTextStyle',
   textInputTextFieldFocusedPopulatedTextStyle:
     '--com-eclipse-textInput-textFieldFocusedPopulatedTextStyle',
-  textInputTextFieldDisabledEmptyTextStyle: '--com-eclipse-textInput-textFieldDisabledEmptyTextStyle',
+  textInputTextFieldDisabledEmptyTextStyle:
+    '--com-eclipse-textInput-textFieldDisabledEmptyTextStyle',
   textInputTextFieldDisabledPopulatedTextStyle:
     '--com-eclipse-textInput-textFieldDisabledPopulatedTextStyle',
   textInputTextFieldEnabledEmptyFillColor: '--com-eclipse-textInput-textFieldEnabledEmptyFillColor',
@@ -1767,7 +1790,8 @@ const VAR_NAME = {
   textInputTextFieldFocusedEmptyFillColor: '--com-eclipse-textInput-textFieldFocusedEmptyFillColor',
   textInputTextFieldFocusedPopulatedFillColor:
     '--com-eclipse-textInput-textFieldFocusedPopulatedFillColor',
-  textInputTextFieldDisabledEmptyFillColor: '--com-eclipse-textInput-textFieldDisabledEmptyFillColor',
+  textInputTextFieldDisabledEmptyFillColor:
+    '--com-eclipse-textInput-textFieldDisabledEmptyFillColor',
   textInputTextFieldDisabledPopulatedFillColor:
     '--com-eclipse-textInput-textFieldDisabledPopulatedFillColor',
   tooltipFillColor: '--com-eclipse-tooltip-fillColor',
@@ -1784,7 +1808,8 @@ const VAR_NAME = {
   topBarFillColorBGColorWhite: '--com-eclipse-topBar-fillColor-bGColor-white',
   topBarForegroundColorBGColorWhite: '--com-eclipse-topBar-foregroundColor-bGColor-white',
   topBarFillColorBGColorTransparent: '--com-eclipse-topBar-fillColor-bGColor-transparent',
-  topBarForegroundColorBGColorTransparent: '--com-eclipse-topBar-foregroundColor-bGColor-transparent',
+  topBarForegroundColorBGColorTransparent:
+    '--com-eclipse-topBar-foregroundColor-bGColor-transparent',
 } as const
 export const com = {
   alert: { topPaddingBottom: `var(${VAR_NAME['alertTopPaddingBottom']})` },
@@ -3051,9 +3076,12 @@ export const componentLightTheme = {
   [VAR_NAME['filledButtonTextStyleLineHeightSizeLarge']]:
     _filledButton['textStyleLineHeightSizeLarge'],
   [VAR_NAME['filledButtonTextStyleTrackingSizeLarge']]: _filledButton['textStyleTrackingSizeLarge'],
-  [VAR_NAME['filledButtonEnabledFillColorColorPrimary']]: _filledButton['enabledFillColorColorPrimary'],
-  [VAR_NAME['filledButtonHoveredFillColorColorPrimary']]: _filledButton['hoveredFillColorColorPrimary'],
-  [VAR_NAME['filledButtonPressedFillColorColorPrimary']]: _filledButton['pressedFillColorColorPrimary'],
+  [VAR_NAME['filledButtonEnabledFillColorColorPrimary']]:
+    _filledButton['enabledFillColorColorPrimary'],
+  [VAR_NAME['filledButtonHoveredFillColorColorPrimary']]:
+    _filledButton['hoveredFillColorColorPrimary'],
+  [VAR_NAME['filledButtonPressedFillColorColorPrimary']]:
+    _filledButton['pressedFillColorColorPrimary'],
   [VAR_NAME['filledButtonEnabledForegroundColorColorPrimary']]:
     _filledButton['enabledForegroundColorColorPrimary'],
   [VAR_NAME['filledButtonEnabledBorderColorColorPrimary']]:
@@ -4022,9 +4050,12 @@ export const componentDarkTheme = {
   [VAR_NAME['filledButtonTextStyleLineHeightSizeLarge']]:
     _filledButton['textStyleLineHeightSizeLarge'],
   [VAR_NAME['filledButtonTextStyleTrackingSizeLarge']]: _filledButton['textStyleTrackingSizeLarge'],
-  [VAR_NAME['filledButtonEnabledFillColorColorPrimary']]: _filledButton['enabledFillColorColorPrimary'],
-  [VAR_NAME['filledButtonHoveredFillColorColorPrimary']]: _filledButton['hoveredFillColorColorPrimary'],
-  [VAR_NAME['filledButtonPressedFillColorColorPrimary']]: _filledButton['pressedFillColorColorPrimary'],
+  [VAR_NAME['filledButtonEnabledFillColorColorPrimary']]:
+    _filledButton['enabledFillColorColorPrimary'],
+  [VAR_NAME['filledButtonHoveredFillColorColorPrimary']]:
+    _filledButton['hoveredFillColorColorPrimary'],
+  [VAR_NAME['filledButtonPressedFillColorColorPrimary']]:
+    _filledButton['pressedFillColorColorPrimary'],
   [VAR_NAME['filledButtonEnabledForegroundColorColorPrimary']]:
     _filledButton['enabledForegroundColorColorPrimary'],
   [VAR_NAME['filledButtonEnabledBorderColorColorPrimary']]:

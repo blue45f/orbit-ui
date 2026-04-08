@@ -1336,7 +1336,8 @@ export const VAR_NAME = {
   descriptionLargeFace: '--sem-eclipse-textStyle-descriptionLargeFace',
   descriptionLargeEmphasizedFace: '--sem-eclipse-textStyle-descriptionLargeEmphasizedFace',
   descriptionLargeEmphasizedSize: '--sem-eclipse-textStyle-descriptionLargeEmphasizedSize',
-  descriptionLargeEmphasizedLineHeight: '--sem-eclipse-textStyle-descriptionLargeEmphasizedLineHeight',
+  descriptionLargeEmphasizedLineHeight:
+    '--sem-eclipse-textStyle-descriptionLargeEmphasizedLineHeight',
   descriptionLargeEmphasizedWeight: '--sem-eclipse-textStyle-descriptionLargeEmphasizedWeight',
   descriptionLargeEmphasizedTracking: '--sem-eclipse-textStyle-descriptionLargeEmphasizedTracking',
   descriptionLargeSize: '--sem-eclipse-textStyle-descriptionLargeSize',
@@ -1353,11 +1354,13 @@ export const VAR_NAME = {
   descriptionMediumEmphasizedLineHeight:
     '--sem-eclipse-textStyle-descriptionMediumEmphasizedLineHeight',
   descriptionMediumEmphasizedWeight: '--sem-eclipse-textStyle-descriptionMediumEmphasizedWeight',
-  descriptionMediumEmphasizedTracking: '--sem-eclipse-textStyle-descriptionMediumEmphasizedTracking',
+  descriptionMediumEmphasizedTracking:
+    '--sem-eclipse-textStyle-descriptionMediumEmphasizedTracking',
   descriptionSmallFace: '--sem-eclipse-textStyle-descriptionSmallFace',
   descriptionSmallEmphasizedFace: '--sem-eclipse-textStyle-descriptionSmallEmphasizedFace',
   descriptionSmallEmphasizedSize: '--sem-eclipse-textStyle-descriptionSmallEmphasizedSize',
-  descriptionSmallEmphasizedLineHeight: '--sem-eclipse-textStyle-descriptionSmallEmphasizedLineHeight',
+  descriptionSmallEmphasizedLineHeight:
+    '--sem-eclipse-textStyle-descriptionSmallEmphasizedLineHeight',
   descriptionSmallEmphasizedWeight: '--sem-eclipse-textStyle-descriptionSmallEmphasizedWeight',
   descriptionSmallEmphasizedTracking: '--sem-eclipse-textStyle-descriptionSmallEmphasizedTracking',
   descriptionSmallSize: '--sem-eclipse-textStyle-descriptionSmallSize',
