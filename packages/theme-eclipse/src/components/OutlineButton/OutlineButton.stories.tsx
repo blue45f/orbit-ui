@@ -311,3 +311,240 @@ export const Mantine_useDisclosure_패턴: Story = {
   name: 'Mantine - useDisclosure 패턴 (단계별 확인 흐름)',
   render: () => <DisclosurePatternRender />,
 }
+
+// ─── Tailwind UI: 버튼 그룹 패턴 ────────────────────────────────────────────
+// Tailwind UI Button Group 패턴: 연관된 액션을 인라인으로 묶어 컴팩트하게 표시합니다.
+// 파일 시스템 툴바, 에디터 포맷 버튼, 페이지 네비게이션에 활용됩니다.
+export const Tailwind_버튼_그룹: Story = {
+  name: 'Tailwind UI - 버튼 그룹 패턴 (인접 버튼 묶음)',
+  render: () => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '32px', maxWidth: '560px' }}>
+      <div>
+        <p
+          style={{
+            color: '#94a3b8',
+            fontSize: '11px',
+            fontWeight: 600,
+            letterSpacing: '0.06em',
+            marginBottom: '12px',
+            textTransform: 'uppercase',
+          }}
+        >
+          Pagination Controls
+        </p>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0' }}>
+          <OutlineButton
+            color="black"
+            size="medium"
+            style={{ borderRadius: '8px 0 0 8px', borderRight: 'none' }}
+          >
+            <OutlineButton.Center>이전</OutlineButton.Center>
+          </OutlineButton>
+          <OutlineButton
+            color="black"
+            size="medium"
+            style={{ borderRadius: 0, borderRight: 'none' }}
+          >
+            <OutlineButton.Center>1</OutlineButton.Center>
+          </OutlineButton>
+          <OutlineButton
+            color="primary"
+            size="medium"
+            style={{ borderRadius: 0, borderRight: 'none' }}
+          >
+            <OutlineButton.Center>2</OutlineButton.Center>
+          </OutlineButton>
+          <OutlineButton
+            color="black"
+            size="medium"
+            style={{ borderRadius: 0, borderRight: 'none' }}
+          >
+            <OutlineButton.Center>3</OutlineButton.Center>
+          </OutlineButton>
+          <OutlineButton
+            color="black"
+            size="medium"
+            style={{ borderRadius: '0 8px 8px 0' }}
+          >
+            <OutlineButton.Center>다음</OutlineButton.Center>
+          </OutlineButton>
+        </div>
+      </div>
+
+      <div>
+        <p
+          style={{
+            color: '#94a3b8',
+            fontSize: '11px',
+            fontWeight: 600,
+            letterSpacing: '0.06em',
+            marginBottom: '12px',
+            textTransform: 'uppercase',
+          }}
+        >
+          Action Toolbar
+        </p>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
+          <OutlineButton color="black" size="small">
+            <OutlineButton.Center>내보내기</OutlineButton.Center>
+          </OutlineButton>
+          <OutlineButton color="black" size="small">
+            <OutlineButton.Center>필터</OutlineButton.Center>
+          </OutlineButton>
+          <OutlineButton color="black" size="small">
+            <OutlineButton.Center>정렬</OutlineButton.Center>
+          </OutlineButton>
+          <div style={{ width: '1px', height: '20px', background: '#e2e8f0', margin: '0 4px' }} />
+          <OutlineButton color="gray" size="small">
+            <OutlineButton.Center>초기화</OutlineButton.Center>
+          </OutlineButton>
+        </div>
+      </div>
+    </div>
+  ),
+}
+
+// ─── Tailwind UI: 3열 레이아웃 폼 내 보조 액션 패턴 ─────────────────────────
+// Tailwind UI Form Layout의 레이블 + 설명 + 액션 3열 구조에서
+// OutlineButton은 보조 액션(취소, 초기화)을 담당합니다.
+function FormLayoutRender() {
+  const [saved, setSaved] = useState(false)
+  const [name, setName] = useState('김준혁')
+  const [email, setEmail] = useState('hjun@example.com')
+  const [bio, setBio] = useState('')
+
+  const handleSave = () => {
+    setSaved(true)
+    setTimeout(() => setSaved(false), 2000)
+  }
+
+  const handleReset = () => {
+    setName('김준혁')
+    setEmail('hjun@example.com')
+    setBio('')
+  }
+
+  return (
+    <div style={{ maxWidth: '640px', display: 'flex', flexDirection: 'column', gap: '0' }}>
+      <div
+        style={{
+          borderBottom: '1px solid #e2e8f0',
+          marginBottom: '24px',
+          paddingBottom: '16px',
+        }}
+      >
+        <div style={{ fontSize: '16px', fontWeight: 700, color: '#0f172a' }}>프로필 설정</div>
+        <div style={{ fontSize: '13px', color: '#64748b', marginTop: '4px' }}>
+          공개 프로필 정보를 관리합니다.
+        </div>
+      </div>
+
+      {[
+        {
+          label: '이름',
+          desc: '공개 프로필에 표시됩니다.',
+          input: (
+            <input
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              style={{
+                width: '100%',
+                padding: '8px 12px',
+                border: '1px solid #e2e8f0',
+                borderRadius: '8px',
+                fontSize: '14px',
+                color: '#0f172a',
+                outline: 'none',
+                boxSizing: 'border-box',
+              }}
+            />
+          ),
+        },
+        {
+          label: '이메일',
+          desc: '계정 알림을 수신합니다.',
+          input: (
+            <input
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              style={{
+                width: '100%',
+                padding: '8px 12px',
+                border: '1px solid #e2e8f0',
+                borderRadius: '8px',
+                fontSize: '14px',
+                color: '#0f172a',
+                outline: 'none',
+                boxSizing: 'border-box',
+              }}
+            />
+          ),
+        },
+        {
+          label: '자기소개',
+          desc: '300자 이내로 작성하세요.',
+          input: (
+            <textarea
+              value={bio}
+              onChange={(e) => setBio(e.target.value)}
+              rows={3}
+              style={{
+                width: '100%',
+                padding: '8px 12px',
+                border: '1px solid #e2e8f0',
+                borderRadius: '8px',
+                fontSize: '14px',
+                color: '#0f172a',
+                outline: 'none',
+                resize: 'vertical',
+                boxSizing: 'border-box',
+              }}
+            />
+          ),
+        },
+      ].map((field) => (
+        <div
+          key={field.label}
+          style={{
+            display: 'grid',
+            gridTemplateColumns: '160px 1fr',
+            gap: '16px',
+            marginBottom: '20px',
+            alignItems: 'start',
+          }}
+        >
+          <div>
+            <div style={{ fontSize: '14px', fontWeight: 600, color: '#0f172a' }}>{field.label}</div>
+            <div style={{ fontSize: '12px', color: '#94a3b8', marginTop: '2px' }}>{field.desc}</div>
+          </div>
+          <div>{field.input}</div>
+        </div>
+      ))}
+
+      <div
+        style={{
+          borderTop: '1px solid #e2e8f0',
+          display: 'flex',
+          gap: '8px',
+          justifyContent: 'flex-end',
+          paddingTop: '20px',
+        }}
+      >
+        <OutlineButton color="gray" size="medium" onClick={handleReset}>
+          <OutlineButton.Center>초기화</OutlineButton.Center>
+        </OutlineButton>
+        <OutlineButton color="black" size="medium">
+          <OutlineButton.Center>취소</OutlineButton.Center>
+        </OutlineButton>
+        <OutlineButton color="primary" size="medium" onClick={handleSave}>
+          <OutlineButton.Center>{saved ? '저장됨' : '저장'}</OutlineButton.Center>
+        </OutlineButton>
+      </div>
+    </div>
+  )
+}
+
+export const Tailwind_폼_레이아웃_보조_액션: Story = {
+  name: 'Tailwind UI - 3열 폼 레이아웃 내 보조 액션 패턴',
+  render: () => <FormLayoutRender />,
+}

@@ -449,5 +449,195 @@ function App() {
 }`}</pre>
     </section>
 
+    {/* Dark Mode Token Override */}
+    <section style={{ marginBottom: '56px' }}>
+      <h2 style={{ fontSize: '22px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '8px' }}>
+        Dark Mode 토큰 재정의
+      </h2>
+      <p style={{ fontSize: '14px', color: '#64748b', lineHeight: '1.6', marginBottom: '24px' }}>
+        EclipseProvider의 <code style={{ background: '#f1f5f9', color: '#6366f1', padding: '2px 6px', borderRadius: '4px', fontSize: '13px' }}>mode="dark"</code> prop을 설정하거나, CSS Variable을 직접 재정의하여 다크 모드를 구현할 수 있습니다.
+      </p>
+
+      {/* 다크/라이트 토큰 비교 */}
+      <div style={{ overflowX: 'auto', marginBottom: '24px' }}>
+        <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px' }}>
+          <thead>
+            <tr style={{ background: '#f8fafc' }}>
+              <th style={{ padding: '10px 16px', textAlign: 'left', fontWeight: '600', color: '#475569', borderBottom: '2px solid #e2e8f0' }}>Token</th>
+              <th style={{ padding: '10px 16px', textAlign: 'left', fontWeight: '600', color: '#f59e0b', borderBottom: '2px solid #e2e8f0' }}>Light Mode</th>
+              <th style={{ padding: '10px 16px', textAlign: 'left', fontWeight: '600', color: '#818cf8', borderBottom: '2px solid #e2e8f0' }}>Dark Mode</th>
+            </tr>
+          </thead>
+          <tbody>
+            {[
+              ['color.backgroundPrimary', '#ffffff', '#0f172a'],
+              ['color.surfaceContainer', '#f8fafc', '#1e293b'],
+              ['color.surfaceContainerHigh', '#f1f5f9', '#334155'],
+              ['color.foregroundPrimary', '#0f172a', '#f8fafc'],
+              ['color.foregroundSecondary', '#64748b', '#94a3b8'],
+              ['color.borderPrimary', '#e2e8f0', '#334155'],
+              ['color.fillPrimary', '#6366f1', '#818cf8'],
+            ].map(([token, light, dark]) => (
+              <tr key={token} style={{ borderBottom: '1px solid #f1f5f9' }}>
+                <td style={{ padding: '10px 16px' }}>
+                  <code style={{ background: '#f1f5f9', color: '#6366f1', padding: '2px 8px', borderRadius: '4px', fontSize: '11px', fontFamily: '"JetBrains Mono", monospace' }}>
+                    {token}
+                  </code>
+                </td>
+                <td style={{ padding: '10px 16px' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <div style={{ width: '16px', height: '16px', borderRadius: '4px', background: light, border: '1px solid #e2e8f0', flexShrink: 0 }} />
+                    <code style={{ fontSize: '12px', color: '#64748b', fontFamily: '"JetBrains Mono", monospace' }}>{light}</code>
+                  </div>
+                </td>
+                <td style={{ padding: '10px 16px', background: '#1e293b' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <div style={{ width: '16px', height: '16px', borderRadius: '4px', background: dark, border: '1px solid #334155', flexShrink: 0 }} />
+                    <code style={{ fontSize: '12px', color: '#94a3b8', fontFamily: '"JetBrains Mono", monospace' }}>{dark}</code>
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      {/* 다크모드 적용 코드 */}
+      <div style={{ borderRadius: '12px', border: '1px solid #e2e8f0', overflow: 'hidden' }}>
+        <div style={{ padding: '8px 16px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', gap: '6px' }}>
+          <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#f87171' }} />
+          <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#fbbf24' }} />
+          <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#34d399' }} />
+          <span style={{ marginLeft: '8px', fontSize: '11px', color: '#94a3b8', fontWeight: '500' }}>App.tsx</span>
+        </div>
+        <pre style={{ margin: 0, padding: '20px', background: '#0f172a', color: '#e2e8f0', fontSize: '12px', lineHeight: '1.8', fontFamily: '"JetBrains Mono", monospace', overflow: 'auto' }}>{`import { useState } from 'react'
+import { EclipseProvider } from '@heejun-com/theme-eclipse'
+
+function App() {
+  const [mode, setMode] = useState<'light' | 'dark'>('light')
+
+  return (
+    <EclipseProvider mode={mode}>
+      {/* 모드 전환 버튼 */}
+      <button onClick={() => setMode(m => m === 'light' ? 'dark' : 'light')}>
+        {mode === 'light' ? '다크 모드 전환' : '라이트 모드 전환'}
+      </button>
+      <YourApp />
+    </EclipseProvider>
+  )
+}`}</pre>
+      </div>
+
+      {/* CSS 직접 재정의 방법 */}
+      <div style={{ marginTop: '20px', borderRadius: '12px', border: '1px solid #e2e8f0', overflow: 'hidden' }}>
+        <div style={{ padding: '8px 16px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', gap: '6px' }}>
+          <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#f87171' }} />
+          <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#fbbf24' }} />
+          <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#34d399' }} />
+          <span style={{ marginLeft: '8px', fontSize: '11px', color: '#94a3b8', fontWeight: '500' }}>global.css — CSS Variables 직접 사용</span>
+        </div>
+        <pre style={{ margin: 0, padding: '20px', background: '#0f172a', color: '#e2e8f0', fontSize: '12px', lineHeight: '1.8', fontFamily: '"JetBrains Mono", monospace', overflow: 'auto' }}>{`/* ① CSS Variable을 직접 참조 (컴포넌트 외부에서도 활용 가능) */
+.my-component {
+  background: var(--sem-eclipse-color-backgroundPrimary);
+  color: var(--sem-eclipse-color-foregroundPrimary);
+  border: 1px solid var(--sem-eclipse-color-borderPrimary);
+  border-radius: var(--sem-eclipse-radius-md);
+}
+
+/* ② Tailwind와 CSS Variable 조합 */
+.card {
+  background-color: var(--sem-eclipse-color-surfaceContainer);
+  padding: var(--sem-eclipse-spacing-md);
+}
+
+/* ③ 다크 모드 직접 재정의 (EclipseProvider 없이) */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --sem-eclipse-color-backgroundPrimary: #0f172a;
+    --sem-eclipse-color-foregroundPrimary: #f8fafc;
+    --sem-eclipse-color-borderPrimary: #334155;
+    --sem-eclipse-color-fillPrimary: #818cf8;
+  }
+}`}</pre>
+      </div>
+    </section>
+
+    {/* Before/After 실제 코드 예시 */}
+    <section style={{ marginBottom: '56px' }}>
+      <h2 style={{ fontSize: '22px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '8px' }}>
+        Before / After: 토큰 도입 전후 비교
+      </h2>
+      <p style={{ fontSize: '14px', color: '#64748b', lineHeight: '1.6', marginBottom: '24px' }}>
+        하드코딩된 색상값에서 Orbit UI 디자인 토큰으로 전환하는 실제 코드 예시입니다.
+      </p>
+
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '20px' }}>
+        {/* Before */}
+        <div style={{ borderRadius: '12px', border: '1.5px solid #fecaca', overflow: 'hidden' }}>
+          <div style={{ padding: '10px 16px', background: '#fef2f2', borderBottom: '1px solid #fecaca', display: 'flex', alignItems: 'center', gap: '6px' }}>
+            <span style={{ fontSize: '11px', fontWeight: '700', color: '#ef4444', textTransform: 'uppercase', letterSpacing: '0.06em' }}>Before (하드코딩)</span>
+          </div>
+          <pre style={{ margin: 0, padding: '16px', background: '#0f172a', color: '#fca5a5', fontSize: '11px', lineHeight: '1.8', fontFamily: '"JetBrains Mono", monospace', overflow: 'auto' }}>{`/* components/Card.css */
+.card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.card-title {
+  color: #0f172a;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.card-body {
+  color: #64748b;
+  font-size: 14px;
+}
+
+/* 다크모드 - 모든 파일에 중복 작성 */
+@media (prefers-color-scheme: dark) {
+  .card { background: #1e293b; }
+  .card-title { color: #f8fafc; }
+}`}</pre>
+        </div>
+
+        {/* After */}
+        <div style={{ borderRadius: '12px', border: '1.5px solid #bbf7d0', overflow: 'hidden' }}>
+          <div style={{ padding: '10px 16px', background: '#f0fdf4', borderBottom: '1px solid #bbf7d0', display: 'flex', alignItems: 'center', gap: '6px' }}>
+            <span style={{ fontSize: '11px', fontWeight: '700', color: '#10b981', textTransform: 'uppercase', letterSpacing: '0.06em' }}>After (토큰 사용)</span>
+          </div>
+          <pre style={{ margin: 0, padding: '16px', background: '#0f172a', color: '#6ee7b7', fontSize: '11px', lineHeight: '1.8', fontFamily: '"JetBrains Mono", monospace', overflow: 'auto' }}>{`/* components/Card.css */
+.card {
+  background: var(--sem-eclipse-color-backgroundPrimary);
+  border: 1px solid var(--sem-eclipse-color-borderPrimary);
+  border-radius: var(--sem-eclipse-radius-md);
+  padding: var(--sem-eclipse-spacing-md);
+}
+
+.card-title {
+  color: var(--sem-eclipse-color-foregroundPrimary);
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.card-body {
+  color: var(--sem-eclipse-color-foregroundSecondary);
+  font-size: 14px;
+}
+
+/* 다크모드 - EclipseProvider가 자동 처리 */
+/* 별도 @media 불필요 */`}</pre>
+        </div>
+      </div>
+
+      <div style={{ padding: '16px 20px', borderRadius: '10px', background: 'linear-gradient(90deg, rgba(16,185,129,0.04) 0%, transparent 100%)', borderLeft: '3px solid #10b981' }}>
+        <p style={{ fontSize: '14px', color: '#475569', margin: 0, lineHeight: '1.6' }}>
+          <strong style={{ color: '#0f172a' }}>핵심 이점:</strong> CSS Variable 기반 토큰을 사용하면 다크모드, 브랜드 변경, 접근성 조정 모두 한 곳에서 관리됩니다. 컴포넌트 코드는 변경 없이 토큰 값만 바꾸면 전체 UI가 일관되게 업데이트됩니다.
+        </p>
+      </div>
+    </section>
+
   </div>
 </Unstyled>

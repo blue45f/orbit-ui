@@ -5690,3 +5690,959 @@ export const DeveloperProfile: Story = {
   name: 'DeveloperProfile',
   render: () => <DeveloperProfileRender />,
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   OnboardingFlow (사이클 20)
+   단계 표시기 + 환영 화면 → 프로필 → 팀 초대 → 완료 흐름.
+   Progress + SolidButton + OutlineButton 활용.
+   Notion/Figma 벤치마크: 아바타 색상 선택 + 인라인 편집 패턴.
+   ═══════════════════════════════════════════════════════════════════════════ */
+const OnboardingFlowRender = () => {
+  const [step, setStep] = useState(0)
+  const [profileName, setProfileName] = useState('')
+  const [profileRole, setProfileRole] = useState('')
+  const [inviteEmails, setInviteEmails] = useState([''])
+  const [profileColor, setProfileColor] = useState('#6366f1')
+
+  const steps = [
+    { id: 'welcome', title: '환영합니다', subtitle: 'Orbit UI에 오신 것을 환영합니다' },
+    { id: 'profile', title: '프로필 설정', subtitle: '팀원들에게 보여질 정보를 입력하세요' },
+    { id: 'invite', title: '팀 초대', subtitle: '함께 일할 팀원을 초대하세요' },
+    { id: 'done', title: '준비 완료!', subtitle: '이제 Orbit UI를 사용할 수 있습니다' },
+  ]
+
+  const total = steps.length
+  const progressValue = Math.round((step / (total - 1)) * 100)
+
+  const avatarColors = ['#6366f1', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6', '#06b6d4']
+
+  const addEmail = () => setInviteEmails((prev) => [...prev, ''])
+  const updateEmail = (i: number, val: string) => {
+    setInviteEmails((prev) => prev.map((e, idx) => (idx === i ? val : e)))
+  }
+  const removeEmail = (i: number) => {
+    setInviteEmails((prev) => prev.filter((_e, idx) => idx !== i))
+  }
+
+  return (
+    <div
+      style={{
+        minHeight: '100vh',
+        background: tc.surface,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: '40px 20px',
+      }}
+    >
+      <div
+        style={{
+          width: '100%',
+          maxWidth: '520px',
+          background: tc.bg,
+          borderRadius: '24px',
+          boxShadow: '0 8px 48px rgba(0,0,0,0.10)',
+          overflow: 'hidden',
+        }}
+      >
+        {/* 상단 Progress 바 */}
+        <div style={{ padding: '28px 40px 0' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
+            <span style={{ fontSize: '12px', fontWeight: '700', color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+              Orbit UI
+            </span>
+            <span style={{ fontSize: '12px', color: tc.fgMuted }}>
+              {step + 1} / {total}
+            </span>
+          </div>
+          <Progress value={progressValue} color={step === total - 1 ? 'success' : 'primary'} size="small" />
+
+          {/* 단계 인디케이터 */}
+          <div style={{ display: 'flex', gap: '8px', marginTop: '16px' }}>
+            {steps.map((s, i) => (
+              <div
+                key={s.id}
+                style={{
+                  flex: 1,
+                  height: '3px',
+                  borderRadius: '2px',
+                  background: i <= step ? (step === total - 1 ? '#10b981' : '#6366f1') : '#e2e8f0',
+                  transition: 'background 0.3s ease',
+                }}
+              />
+            ))}
+          </div>
+        </div>
+
+        {/* 콘텐츠 영역 */}
+        <div style={{ padding: '32px 40px 40px' }}>
+          {/* Step 0: 환영 화면 */}
+          {step === 0 && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+              <div style={{ textAlign: 'center' }}>
+                <div
+                  style={{
+                    width: '72px',
+                    height: '72px',
+                    borderRadius: '20px',
+                    background: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)',
+                    margin: '0 auto 20px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    fontSize: '32px',
+                    fontWeight: '800',
+                    color: '#fff',
+                    boxShadow: '0 8px 24px rgba(99,102,241,0.35)',
+                  }}
+                >
+                  O
+                </div>
+                <h2 style={{ margin: '0 0 8px', fontSize: '26px', fontWeight: '800', color: tc.fg, letterSpacing: '-0.03em' }}>
+                  {steps[0].title}
+                </h2>
+                <p style={{ margin: 0, fontSize: '14px', color: tc.fgSub, lineHeight: '1.6' }}>
+                  {steps[0].subtitle}
+                </p>
+              </div>
+
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                {[
+                  { icon: 'D', label: '3단계 토큰 기반 디자인 시스템', desc: 'Reference → Semantic → Component 계층 구조' },
+                  { icon: 'C', label: '70+ 컴포넌트 즉시 사용 가능', desc: 'Storybook으로 인터랙티브하게 탐색' },
+                  { icon: 'T', label: 'Eclipse 테마 + 다크모드 지원', desc: 'CSS Variable 기반으로 쉬운 커스터마이징' },
+                ].map(({ icon, label, desc }) => (
+                  <div
+                    key={label}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'flex-start',
+                      gap: '14px',
+                      padding: '14px 16px',
+                      borderRadius: '12px',
+                      background: tc.surface,
+                      border: `1px solid ${tc.border}`,
+                    }}
+                  >
+                    <div
+                      style={{
+                        width: '36px',
+                        height: '36px',
+                        borderRadius: '10px',
+                        background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
+                        color: '#fff',
+                        fontSize: '14px',
+                        fontWeight: '700',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        flexShrink: 0,
+                      }}
+                    >
+                      {icon}
+                    </div>
+                    <div>
+                      <div style={{ fontSize: '13px', fontWeight: '600', color: tc.fg, marginBottom: '3px' }}>{label}</div>
+                      <div style={{ fontSize: '12px', color: tc.fgSub }}>{desc}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Step 1: 프로필 설정 */}
+          {step === 1 && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+              <div>
+                <h2 style={{ margin: '0 0 6px', fontSize: '22px', fontWeight: '800', color: tc.fg, letterSpacing: '-0.03em' }}>
+                  {steps[1].title}
+                </h2>
+                <p style={{ margin: 0, fontSize: '13px', color: tc.fgSub }}>{steps[1].subtitle}</p>
+              </div>
+
+              {/* 아바타 선택 */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                <label style={{ fontSize: '12px', fontWeight: '600', color: tc.fgSub }}>아바타 색상</label>
+                <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+                  <div
+                    style={{
+                      width: '52px',
+                      height: '52px',
+                      borderRadius: '50%',
+                      background: profileColor,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      fontSize: '18px',
+                      fontWeight: '700',
+                      color: '#fff',
+                      flexShrink: 0,
+                      boxShadow: '0 2px 8px rgba(0,0,0,0.12)',
+                    }}
+                  >
+                    {profileName ? profileName.slice(0, 2).toUpperCase() : 'ME'}
+                  </div>
+                  <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
+                    {avatarColors.map((color) => (
+                      <button
+                        key={color}
+                        onClick={() => setProfileColor(color)}
+                        aria-label={`아바타 색상 ${color}`}
+                        style={{
+                          width: '26px',
+                          height: '26px',
+                          borderRadius: '50%',
+                          background: color,
+                          border: profileColor === color ? '2px solid #fff' : '2px solid transparent',
+                          boxShadow: profileColor === color ? `0 0 0 2px ${color}` : 'none',
+                          cursor: 'pointer',
+                          transition: 'all 0.15s',
+                        }}
+                      />
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* 이름 입력 */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                <label style={{ fontSize: '12px', fontWeight: '600', color: tc.fgSub }}>
+                  이름 <span style={{ color: '#ef4444' }}>*</span>
+                </label>
+                <TextField
+                  placeholder="홍길동"
+                  value={profileName}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+                    setProfileName(e.target.value)
+                  }
+                />
+              </div>
+
+              {/* 역할 입력 */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                <label style={{ fontSize: '12px', fontWeight: '600', color: tc.fgSub }}>역할</label>
+                <TextField
+                  placeholder="Frontend Developer"
+                  value={profileRole}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+                    setProfileRole(e.target.value)
+                  }
+                />
+              </div>
+            </div>
+          )}
+
+          {/* Step 2: 팀 초대 */}
+          {step === 2 && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+              <div>
+                <h2 style={{ margin: '0 0 6px', fontSize: '22px', fontWeight: '800', color: tc.fg, letterSpacing: '-0.03em' }}>
+                  {steps[2].title}
+                </h2>
+                <p style={{ margin: 0, fontSize: '13px', color: tc.fgSub }}>{steps[2].subtitle}</p>
+              </div>
+
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                {inviteEmails.map((email, i) => (
+                  <div key={i} style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+                    <div style={{ flex: 1 }}>
+                      <TextField
+                        placeholder={`teammate${i + 1}@company.com`}
+                        value={email}
+                        onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+                          updateEmail(i, e.target.value)
+                        }
+                      />
+                    </div>
+                    {inviteEmails.length > 1 && (
+                      <button
+                        onClick={() => removeEmail(i)}
+                        aria-label="이메일 제거"
+                        style={{
+                          width: '32px',
+                          height: '32px',
+                          borderRadius: '8px',
+                          border: '1px solid #e2e8f0',
+                          background: '#fff',
+                          color: '#94a3b8',
+                          cursor: 'pointer',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          fontSize: '16px',
+                          flexShrink: 0,
+                        }}
+                      >
+                        x
+                      </button>
+                    )}
+                  </div>
+                ))}
+              </div>
+
+              {inviteEmails.length < 5 && (
+                <button
+                  onClick={addEmail}
+                  style={{
+                    alignSelf: 'flex-start',
+                    padding: '7px 14px',
+                    borderRadius: '8px',
+                    border: `1.5px dashed ${tc.border}`,
+                    background: 'transparent',
+                    color: tc.fgSub,
+                    fontSize: '13px',
+                    fontWeight: '500',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '6px',
+                  }}
+                >
+                  <span style={{ fontSize: '16px', lineHeight: 1 }}>+</span>
+                  팀원 추가
+                </button>
+              )}
+
+              <div
+                style={{
+                  padding: '12px 16px',
+                  borderRadius: '10px',
+                  background: 'rgba(99,102,241,0.04)',
+                  border: '1px solid rgba(99,102,241,0.12)',
+                  fontSize: '12px',
+                  color: '#6366f1',
+                }}
+              >
+                초대를 건너뛰고 나중에 설정에서 추가할 수 있습니다.
+              </div>
+            </div>
+          )}
+
+          {/* Step 3: 완료 */}
+          {step === 3 && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', textAlign: 'center' }}>
+              <div>
+                <div
+                  style={{
+                    width: '72px',
+                    height: '72px',
+                    borderRadius: '50%',
+                    background: 'rgba(16,185,129,0.1)',
+                    border: '3px solid #10b981',
+                    margin: '0 auto 20px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+                    <path d="M5 13l4 4L19 7" stroke="#10b981" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </div>
+                <h2 style={{ margin: '0 0 8px', fontSize: '26px', fontWeight: '800', color: tc.fg, letterSpacing: '-0.03em' }}>
+                  {steps[3].title}
+                </h2>
+                <p style={{ margin: 0, fontSize: '14px', color: tc.fgSub, lineHeight: '1.6' }}>
+                  {steps[3].subtitle}
+                </p>
+              </div>
+
+              {/* 프로필 요약 */}
+              {(profileName || profileRole) && (
+                <div
+                  style={{
+                    padding: '16px',
+                    borderRadius: '12px',
+                    background: tc.surface,
+                    border: `1px solid ${tc.border}`,
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '14px',
+                    textAlign: 'left',
+                  }}
+                >
+                  <div
+                    style={{
+                      width: '44px',
+                      height: '44px',
+                      borderRadius: '50%',
+                      background: profileColor,
+                      color: '#fff',
+                      fontSize: '16px',
+                      fontWeight: '700',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      flexShrink: 0,
+                    }}
+                  >
+                    {profileName ? profileName.slice(0, 2).toUpperCase() : 'ME'}
+                  </div>
+                  <div>
+                    <div style={{ fontSize: '14px', fontWeight: '600', color: tc.fg }}>
+                      {profileName || '이름 미입력'}
+                    </div>
+                    <div style={{ fontSize: '12px', color: '#6366f1', fontWeight: '500' }}>
+                      {profileRole || '역할 미입력'}
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                {[
+                  { label: '초대된 팀원', value: `${inviteEmails.filter((e) => e.trim()).length}명` },
+                  { label: '시작 준비', value: '완료' },
+                ].map(({ label, value }) => (
+                  <div
+                    key={label}
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                      padding: '10px 14px',
+                      borderRadius: '8px',
+                      background: tc.surface,
+                    }}
+                  >
+                    <span style={{ fontSize: '13px', color: tc.fgSub }}>{label}</span>
+                    <span style={{ fontSize: '13px', fontWeight: '600', color: '#10b981' }}>{value}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* 하단 버튼 */}
+          <div style={{ display: 'flex', gap: '10px', marginTop: '32px' }}>
+            {step > 0 && step < total - 1 && (
+              <OutlineButton
+                color="black"
+                size="medium"
+                onClick={() => setStep((s) => s - 1)}
+              >
+                <OutlineButton.Center>이전</OutlineButton.Center>
+              </OutlineButton>
+            )}
+
+            {step < total - 1 && (
+              <>
+                {step > 0 && (
+                  <OutlineButton
+                    color="black"
+                    size="medium"
+                    onClick={() => setStep((s) => s + 1)}
+                  >
+                    <OutlineButton.Center>건너뛰기</OutlineButton.Center>
+                  </OutlineButton>
+                )}
+                <SolidButton
+                  color="primary"
+                  size="medium"
+                  style={{ flex: step === 0 ? 1 : undefined }}
+                  onClick={() => setStep((s) => s + 1)}
+                >
+                  <SolidButton.Center>
+                    {step === 0 ? '시작하기' : step === total - 2 ? '초대 보내기' : '계속하기'}
+                  </SolidButton.Center>
+                </SolidButton>
+              </>
+            )}
+
+            {step === total - 1 && (
+              <SolidButton
+                color="primary"
+                size="medium"
+                style={{ flex: 1 }}
+                onClick={() => setStep(0)}
+              >
+                <SolidButton.Center>Storybook 탐색 시작</SolidButton.Center>
+              </SolidButton>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const OnboardingFlow: Story = {
+  name: 'OnboardingFlow',
+  render: () => <OnboardingFlowRender />,
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// SocialFeed 템플릿
+// Arco Design 피드 카드 + Tailwind UI 사이드바 레이아웃을 조합한 소셜 피드 UI
+// ─────────────────────────────────────────────────────────────────────────────
+
+type FeedFilter = 'all' | 'following' | 'popular'
+
+type FeedPost = {
+  id: string
+  authorInitials: string
+  authorName: string
+  authorHandle: string
+  timeAgo: string
+  content: string
+  likes: number
+  comments: number
+  shares: number
+  tags: string[]
+  liked: boolean
+}
+
+const INITIAL_POSTS: FeedPost[] = [
+  {
+    id: 'p1',
+    authorInitials: 'HJ',
+    authorName: '김준혁',
+    authorHandle: '@hjunkim',
+    timeAgo: '2분 전',
+    content:
+      'Orbit UI의 SegmentedControl에 Arco Design 패턴을 적용했습니다. 통계 카드 기간 선택 UI가 훨씬 직관적이 되었어요. 디자인 시스템을 벤치마크할 때는 단순히 따라하는 것이 아니라 우리 컨텍스트에 맞게 재해석하는 것이 중요합니다.',
+    likes: 24,
+    comments: 6,
+    shares: 3,
+    tags: ['디자인시스템', 'OrbitUI'],
+    liked: false,
+  },
+  {
+    id: 'p2',
+    authorInitials: 'SY',
+    authorName: '박서연',
+    authorHandle: '@soyeon.p',
+    timeAgo: '18분 전',
+    content:
+      'Tailwind UI의 3열 폼 레이아웃은 정말 잘 설계되어 있어요. 레이블 + 설명 + 입력 구조는 복잡한 설정 화면에서 인지 부하를 크게 낮춰줍니다. 우리 팀에서도 이 패턴을 도입할 예정입니다.',
+    likes: 41,
+    comments: 12,
+    shares: 8,
+    tags: ['TailwindUI', 'UX패턴'],
+    liked: true,
+  },
+  {
+    id: 'p3',
+    authorInitials: 'JW',
+    authorName: '이지원',
+    authorHandle: '@jiwon.dev',
+    timeAgo: '1시간 전',
+    content:
+      'Switch 컴포넌트에 Apple HIG 설정 화면 패턴을 구현했는데, 전체 행을 탭 타겟으로 만드는 것이 모바일 UX에서 핵심이더군요. 작은 토글을 정확하게 누르기 어렵다는 사실을 테스트 후에야 깨달았습니다.',
+    likes: 18,
+    comments: 4,
+    shares: 2,
+    tags: ['모바일UX', 'AppleHIG'],
+    liked: false,
+  },
+  {
+    id: 'p4',
+    authorInitials: 'MK',
+    authorName: '최민규',
+    authorHandle: '@minkyu.c',
+    timeAgo: '3시간 전',
+    content:
+      'ListTile Linear 스타일 컴팩트 이슈 목록을 구현했어요. 32px 행 높이에서 상태 표시, ID, 우선순위, 담당자까지 모두 담는 게 쉽지 않았습니다. 정보 밀도와 가독성 사이의 균형을 잡는 것이 핵심입니다.',
+    likes: 33,
+    comments: 9,
+    shares: 5,
+    tags: ['Linear', 'DataDensity'],
+    liked: false,
+  },
+]
+
+const SUGGESTED_FOLLOWS = [
+  { initials: 'AR', name: '안지수', handle: '@areum.design', color: '#8b5cf6' },
+  { initials: 'DK', name: '권도현', handle: '@dohyeon.k', color: '#06b6d4' },
+  { initials: 'YJ', name: '송유진', handle: '@yujin.s', color: '#f59e0b' },
+]
+
+function AvatarCircle({
+  initials,
+  color,
+  size = 40,
+}: {
+  initials: string
+  color: string
+  size?: number
+}) {
+  return (
+    <div
+      style={{
+        alignItems: 'center',
+        background: color,
+        borderRadius: '50%',
+        color: '#fff',
+        display: 'flex',
+        flexShrink: 0,
+        fontSize: size * 0.32,
+        fontWeight: 700,
+        height: size,
+        justifyContent: 'center',
+        width: size,
+      }}
+    >
+      {initials}
+    </div>
+  )
+}
+
+function PostCard({
+  post,
+  onLike,
+}: {
+  post: FeedPost
+  onLike: (id: string) => void
+}) {
+  return (
+    <div
+      style={{
+        background: tc.bg,
+        border: `1px solid ${tc.border}`,
+        borderRadius: '14px',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '12px',
+        padding: '18px',
+      }}
+    >
+      {/* Header */}
+      <div style={{ alignItems: 'center', display: 'flex', gap: '10px' }}>
+        <AvatarCircle
+          initials={post.authorInitials}
+          color={
+            post.authorInitials === 'HJ'
+              ? '#6366f1'
+              : post.authorInitials === 'SY'
+                ? '#10b981'
+                : post.authorInitials === 'JW'
+                  ? '#f59e0b'
+                  : '#ef4444'
+          }
+          size={38}
+        />
+        <div style={{ flex: 1 }}>
+          <div style={{ color: tc.fg, fontSize: '14px', fontWeight: 600 }}>{post.authorName}</div>
+          <div style={{ color: tc.fgMuted, fontSize: '12px' }}>
+            {post.authorHandle} · {post.timeAgo}
+          </div>
+        </div>
+        <OutlineButton color="gray" size="small">
+          <OutlineButton.Center>팔로우</OutlineButton.Center>
+        </OutlineButton>
+      </div>
+
+      {/* Content */}
+      <div
+        style={{
+          color: tc.fgSub,
+          fontSize: '14px',
+          lineHeight: 1.65,
+        }}
+      >
+        {post.content}
+      </div>
+
+      {/* Tags */}
+      {post.tags.length > 0 && (
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+          {post.tags.map((tag) => (
+            <span
+              key={tag}
+              style={{
+                background: 'rgba(99,102,241,0.07)',
+                border: '1px solid rgba(99,102,241,0.15)',
+                borderRadius: '6px',
+                color: '#6366f1',
+                fontSize: '12px',
+                fontWeight: 500,
+                padding: '2px 8px',
+              }}
+            >
+              #{tag}
+            </span>
+          ))}
+        </div>
+      )}
+
+      {/* Actions */}
+      <div
+        style={{
+          borderTop: `1px solid ${tc.borderSub}`,
+          display: 'flex',
+          gap: '0',
+          paddingTop: '10px',
+        }}
+      >
+        {[
+          { label: post.liked ? `좋아요 ${post.likes + 1}` : `좋아요 ${post.likes}`, active: post.liked, action: () => onLike(post.id) },
+          { label: `댓글 ${post.comments}`, active: false, action: () => {} },
+          { label: `공유 ${post.shares}`, active: false, action: () => {} },
+        ].map((btn) => (
+          <button
+            key={btn.label}
+            onClick={btn.action}
+            style={{
+              background: 'transparent',
+              border: 'none',
+              borderRadius: '8px',
+              color: btn.active ? '#6366f1' : tc.fgMuted,
+              cursor: 'pointer',
+              fontSize: '13px',
+              fontWeight: btn.active ? 600 : 400,
+              padding: '6px 12px',
+            }}
+          >
+            {btn.label}
+          </button>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+function SkeletonPost() {
+  return (
+    <div
+      style={{
+        background: tc.bg,
+        border: `1px solid ${tc.border}`,
+        borderRadius: '14px',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '12px',
+        padding: '18px',
+      }}
+    >
+      <div style={{ alignItems: 'center', display: 'flex', gap: '10px' }}>
+        <Skeleton width={38} height={38} style={{ borderRadius: '50%' }} />
+        <div style={{ display: 'flex', flex: 1, flexDirection: 'column', gap: '6px' }}>
+          <Skeleton width={120} height={14} />
+          <Skeleton width={80} height={12} />
+        </div>
+      </div>
+      <Skeleton width="100%" height={14} />
+      <Skeleton width="85%" height={14} />
+      <Skeleton width="60%" height={14} />
+    </div>
+  )
+}
+
+function SocialFeedV2Render() {
+  const feedFilters: FeedFilter[] = ['all', 'following', 'popular']
+  const [filterIndex, setFilterIndex] = useState(0)
+  const _filter = feedFilters[filterIndex]
+  const [posts, setPosts] = useState<FeedPost[]>(INITIAL_POSTS)
+  const [loading, setLoading] = useState(false)
+  const [query, setQuery] = useState('')
+
+  const handleFilterChange = (newIndex: number) => {
+    setFilterIndex(newIndex)
+    setLoading(true)
+    setTimeout(() => setLoading(false), 800)
+  }
+
+  const handleLike = (id: string) => {
+    setPosts((prev) =>
+      prev.map((p) => (p.id === id ? { ...p, liked: !p.liked } : p))
+    )
+  }
+
+  const filteredPosts = posts.filter((p) =>
+    query.length === 0 ||
+    p.content.includes(query) ||
+    p.tags.some((t) => t.includes(query))
+  )
+
+  return (
+    <div
+      style={{
+        background: tc.surface,
+        display: 'flex',
+        fontFamily:
+          '"Pretendard Variable", "Pretendard", -apple-system, BlinkMacSystemFont, system-ui, sans-serif',
+        minHeight: '100vh',
+      }}
+    >
+      {/* Left Sidebar */}
+      <div
+        style={{
+          background: tc.bg,
+          borderRight: `1px solid ${tc.border}`,
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '24px',
+          padding: '28px 20px',
+          width: '240px',
+        }}
+      >
+        {/* My Profile */}
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '10px' }}>
+          <AvatarCircle initials="HJ" color="#6366f1" size={56} />
+          <div style={{ textAlign: 'center' }}>
+            <div style={{ color: tc.fg, fontSize: '15px', fontWeight: 700 }}>김준혁</div>
+            <div style={{ color: tc.fgMuted, fontSize: '12px' }}>@hjunkim</div>
+          </div>
+          <div style={{ display: 'flex', gap: '20px', marginTop: '4px' }}>
+            {[
+              { label: '팔로잉', value: '128' },
+              { label: '팔로워', value: '342' },
+            ].map((stat) => (
+              <div key={stat.label} style={{ textAlign: 'center' }}>
+                <div style={{ color: tc.fg, fontSize: '14px', fontWeight: 700 }}>{stat.value}</div>
+                <div style={{ color: tc.fgMuted, fontSize: '11px' }}>{stat.label}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <Divider />
+
+        {/* Suggested Follows */}
+        <div>
+          <div
+            style={{
+              color: tc.fgMuted,
+              fontSize: '11px',
+              fontWeight: 700,
+              letterSpacing: '0.06em',
+              marginBottom: '12px',
+              textTransform: 'uppercase',
+            }}
+          >
+            팔로우 추천
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+            {SUGGESTED_FOLLOWS.map((user) => (
+              <div key={user.handle} style={{ alignItems: 'center', display: 'flex', gap: '10px' }}>
+                <AvatarCircle initials={user.initials} color={user.color} size={32} />
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <div style={{ color: tc.fg, fontSize: '13px', fontWeight: 600, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                    {user.name}
+                  </div>
+                  <div style={{ color: tc.fgMuted, fontSize: '11px' }}>{user.handle}</div>
+                </div>
+                <OutlineButton color="primary" size="small">
+                  <OutlineButton.Center>팔로우</OutlineButton.Center>
+                </OutlineButton>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <Divider />
+
+        {/* Tags */}
+        <div>
+          <div
+            style={{
+              color: tc.fgMuted,
+              fontSize: '11px',
+              fontWeight: 700,
+              letterSpacing: '0.06em',
+              marginBottom: '10px',
+              textTransform: 'uppercase',
+            }}
+          >
+            인기 태그
+          </div>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+            {['디자인시스템', 'OrbitUI', 'TailwindUI', 'UX패턴', 'Linear'].map((tag) => (
+              <span
+                key={tag}
+                style={{
+                  background: tc.surfaceElevated,
+                  border: `1px solid ${tc.border}`,
+                  borderRadius: '6px',
+                  color: tc.fgSub,
+                  cursor: 'pointer',
+                  fontSize: '11px',
+                  fontWeight: 500,
+                  padding: '3px 8px',
+                }}
+              >
+                #{tag}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Main Feed */}
+      <div
+        style={{
+          display: 'flex',
+          flex: 1,
+          flexDirection: 'column',
+          maxWidth: '680px',
+          padding: '24px',
+        }}
+      >
+        {/* Search + Filter */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginBottom: '20px' }}>
+          <SearchBar
+            value={query}
+            placeholder="피드 검색..."
+            onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+              setQuery(e.target.value)
+            }
+          />
+          <SegmentedControl
+            selectedIndex={filterIndex}
+            onTabChange={handleFilterChange}
+          >
+            <SegmentedControl.Tab value="all">
+              <SegmentedControl.TabCenter>전체</SegmentedControl.TabCenter>
+            </SegmentedControl.Tab>
+            <SegmentedControl.Tab value="following">
+              <SegmentedControl.TabCenter>팔로잉</SegmentedControl.TabCenter>
+            </SegmentedControl.Tab>
+            <SegmentedControl.Tab value="popular">
+              <SegmentedControl.TabCenter>인기</SegmentedControl.TabCenter>
+            </SegmentedControl.Tab>
+          </SegmentedControl>
+        </div>
+
+        {/* Posts */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          {loading ? (
+            <>
+              <SkeletonPost />
+              <SkeletonPost />
+              <SkeletonPost />
+            </>
+          ) : filteredPosts.length > 0 ? (
+            filteredPosts.map((post) => (
+              <PostCard key={post.id} post={post} onLike={handleLike} />
+            ))
+          ) : (
+            <div
+              style={{
+                alignItems: 'center',
+                background: tc.bg,
+                border: `1px solid ${tc.border}`,
+                borderRadius: '14px',
+                color: tc.fgMuted,
+                display: 'flex',
+                flexDirection: 'column',
+                fontSize: '14px',
+                gap: '8px',
+                padding: '48px 24px',
+                textAlign: 'center',
+              }}
+            >
+              <div style={{ fontSize: '32px' }}>검색 결과 없음</div>
+              <div>&ldquo;{query}&rdquo;에 대한 결과가 없습니다.</div>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const SocialFeedV2: Story = {
+  name: 'SocialFeed (Arco + Tailwind UI 사이드바)',
+  render: () => <SocialFeedV2Render />,
+}
