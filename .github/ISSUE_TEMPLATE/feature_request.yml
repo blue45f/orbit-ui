@@ -1,0 +1,73 @@
+name: ✨ 기능 요청
+description: 새로운 기능 제안
+title: "[기능]: "
+labels: ["enhancement", "triage"]
+body:
+  - type: checkboxes
+    id: existing
+    attributes:
+      label: 기존 이슈 확인
+      options:
+        - label: 유사한 기능 요청이 있는지 검색했습니다
+          required: true
+
+  - type: dropdown
+    id: package
+    attributes:
+      label: 패키지
+      multiple: true
+      options:
+        - "@orbit-ui/core"
+        - "@orbit-ui/theme-eclipse"
+        - "@orbit-ui/icons"
+        - "새 패키지"
+        - "문서"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: type
+    attributes:
+      label: 유형
+      options:
+        - "새 컴포넌트"
+        - "컴포넌트 개선"
+        - "새 훅/유틸리티"
+        - "디자인 토큰"
+        - "접근성"
+        - "성능"
+        - "개발자 경험"
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: 문제 상황
+      placeholder: 어떤 문제를 해결하고 싶나요?
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: 제안 해결책
+      placeholder: 어떻게 해결하면 좋을까요?
+    validations:
+      required: true
+
+  - type: textarea
+    id: api
+    attributes:
+      label: API 제안
+      placeholder: |
+        ```tsx
+        <NewComponent prop="value" />
+        ```
+
+  - type: checkboxes
+    id: contribute
+    attributes:
+      label: 기여 의사
+      options:
+        - label: 이 기능을 직접 구현할 의향이 있습니다

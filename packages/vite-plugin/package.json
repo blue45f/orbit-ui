@@ -1,0 +1,30 @@
+{
+  "name": "@orbit-ui/vite-plugin",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "description": "Orbit UI CSS Re-order Plugin for Vite",
+  "license": "MIT",
+  "scripts": {
+    "test": "vitest run",
+    "lint": "eslint src --ext ts",
+    "build:dts": "tsc -p tsconfig.dts.json",
+    "build": "vite build && pnpm build:dts"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/vite-plugin.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./package.json": "./package.json"
+  },
+  "devDependencies": {
+    "@orbit-ui/tsconfig": "workspace:*",
+    "typescript": "5.0.2",
+    "vite": "^5.0.0 || ^6.0.0",
+    "vitest": "^3.0.7"
+  }
+}

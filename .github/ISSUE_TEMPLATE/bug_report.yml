@@ -1,0 +1,77 @@
+name: 🐛 버그 리포트
+description: 버그 또는 예상치 못한 동작 신고
+title: "[버그]: "
+labels: ["bug", "triage"]
+body:
+  - type: checkboxes
+    id: existing
+    attributes:
+      label: 기존 이슈 확인
+      options:
+        - label: 기존 이슈를 검색했습니다
+          required: true
+
+  - type: dropdown
+    id: package
+    attributes:
+      label: 패키지
+      multiple: true
+      options:
+        - "@orbit-ui/core"
+        - "@orbit-ui/theme-eclipse"
+        - "@orbit-ui/icons"
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: 버전
+      placeholder: "2.0.0"
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: 버그 설명
+      placeholder: 어떤 문제가 발생했나요?
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: 재현 단계
+      placeholder: |
+        1. ...
+        2. ...
+        3. ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: 예상 동작
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: 실제 동작
+    validations:
+      required: true
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: 환경
+      value: |
+        - OS:
+        - 브라우저:
+        - Node.js:
+        - React:
+    validations:
+      required: true

@@ -1,0 +1,87 @@
+{{#if isSlotted}}
+import { asPlug, slotted } from '@orbit-ui/core'
+{{/if}}
+
+import * as styles from './{{componentName}}.css'
+
+export type {{componentName}}Props = {
+  /** {{componentName}} 내부에 렌더링되는 요소 */
+  children: React.ReactNode
+}
+
+{{#if isSlotted}}
+const {{componentName}}Root = slotted<{{#each subComponentNames}}'{{this}}'{{#unless @last}} | {{/unless}}{{/each}}, {{componentName}}Props>([{{#each subComponentNames}}'{{this}}'{{#unless @last}}, {{/unless}}{{/each}}], (props) => {
+  const { slots, children, ...rest } = props
+  return (
+    <div className={styles.container} {...rest}>
+      <h1>{{componentName}}</h1>
+      {children}
+    </div>
+  )
+})
+{{else}}
+/**
+ * ### 💡 알아두기
+ * - 컴포넌트 사용처, 특징 등 필요한 설명이 있다면 적어주세요.
+ * - 🚨 같은 {{componentName}}를 여러 개 렌더링하면 하나의 컴포넌트만 렌더링돼요.
+ * - [🔗 figma 디자인가이드라인 바로가기](https...🙋🏻🙋🏻🙋🏻...주소복붙)
+ *
+ * ### 🧩 서브컴포넌트
+ * - {@link {{componentName}}Sub `{{componentName}}.Sub`}: Sub 영역이에요.
+ *
+ * @example
+ * ### 👇 기본 사용법
+ * ```
+ * <{{componentName}} foo='bar'>
+ *   <p>some text</p>
+ * </{{componentName}}>
+ * ```
+ */
+export const {{componentName}}: React.FC<{{componentName}}Props> = ({ children, ...rest }) => {
+  return (
+    <div className={styles.container} {...rest}>
+      <h1>{{componentName}}</h1>
+      {children}
+    </div>
+  )
+}
+{{/if}}
+
+{{#each subComponentNames}}
+const {{../componentName}}{{pascalCase this}} = asPlug<{ children: React.ReactElement }>('{{this}}', (props) => {
+  return <div {...props} />
+})
+{{/each}}
+
+{{#if isSlotted}}
+type {{componentName}}Component = typeof {{componentName}}Root & {
+  {{#each subComponentNames}}
+  {{pascalCase this}}: typeof {{../componentName}}{{pascalCase this}}
+  {{/each}}
+}
+
+/**
+ * ### 💡 알아두기
+ * - 컴포넌트 사용처, 특징 등 필요한 설명이 있다면 적어주세요.
+ * - 🚨 같은 {{componentName}}를 여러 개 렌더링하면 하나의 컴포넌트만 렌더링돼요.
+ * - [🔗 figma 디자인가이드라인 바로가기](https...🙋🏻🙋🏻🙋🏻...주소복붙)
+ *
+ * ### 🧩 서브컴포넌트
+{{#each subComponentNames}}
+ * - {@link {{../componentName}}{{pascalCase this}} `{{../componentName}}.{{pascalCase this}}`}: Sub 영역이에요.
+{{/each}}
+ *
+ * @example
+ * ### 👇 기본 사용법
+ * ```
+ * <{{componentName}} foo='bar'>
+ *   <p>some text</p>
+ * </{{componentName}}>
+ * ```
+ */
+export const {{componentName}}: {{componentName}}Component = Object.assign({{componentName}}Root, {
+  {{#each subComponentNames}}
+  {{pascalCase this}}: {{../componentName}}{{pascalCase this}},
+  {{/each}}
+})
+{{/if}}

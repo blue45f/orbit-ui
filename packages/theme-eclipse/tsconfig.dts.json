@@ -1,0 +1,9 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "extends": "@orbit-ui/tsconfig/dts.json",
+  "compilerOptions": {
+    "declarationDir": "./dist"
+  },
+  "include": ["src"],
+  "exclude": ["**/*.stories.*", "**/*.test.*"]
+}

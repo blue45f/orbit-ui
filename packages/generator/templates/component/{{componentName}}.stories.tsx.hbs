@@ -1,0 +1,44 @@
+import { Meta, StoryObj } from '@storybook/react'
+
+import { {{componentName}} } from './{{componentName}}'
+
+{{componentName}}.displayName = '{{componentName}}'
+{{#each subComponentNames}}
+{{../componentName}}.{{pascalCase this}}.displayName = '{{../componentName}}.{{pascalCase this}}'
+{{/each}}
+
+const meta = {
+  {{#unless isCorePackage}}
+  /*
+   * title은 root name, folder name (optional), component name으로 구성됩니다.
+   *
+   * root는 아래와 같이 구분됩니다. 진행 상태와 컴포넌트 분류에 맞춰 변경해주세요.
+   * - ocean: 사용 가능한 컴포넌트 모음
+   * - unstable: 개발(또는 디자인 QA) 중인 컴포넌트 모음
+   * - internal: 기반 컴포넌트 모음 (디자인 QA 불필요)
+   */
+  title: 'eclipse/{{componentName}}',
+  {{/unless}}
+  component: {{componentName}},
+  args: {
+    children: '시작하기',
+  },
+} satisfies Meta<typeof {{componentName}}>
+
+type Story = StoryObj<typeof meta>
+
+export default meta
+
+export const 기본 = {
+  render: (args) => <{{componentName}} {...args}>작성</{{componentName}}>,
+} satisfies Story
+
+export const 디자인_QA = {
+  args: {
+    children: '커스텀',
+  },
+  // eslint-disable-next-line
+  render: ({ children }: any) => {
+    return <{{componentName}}>{children}</{{componentName}}>
+  },
+}
