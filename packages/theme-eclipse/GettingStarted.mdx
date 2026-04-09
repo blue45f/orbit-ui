@@ -1,78 +1,144 @@
-import { Meta } from '@storybook/blocks'
+import { Meta, Unstyled } from '@storybook/blocks'
 
-<Meta title='0. Intro/2. 시작하기' />
+<Meta title='Intro/시작하기' />
 
-# Getting Started
+<Unstyled>
+  <div style={{
+    maxWidth: '800px',
+    margin: '0 auto',
+    fontFamily: '"Pretendard Variable", "Pretendard", -apple-system, BlinkMacSystemFont, system-ui, sans-serif',
+  }}>
 
-Orbit UI Eclipse 테마를 프로젝트에 적용하는 방법을 안내합니다.
+    {/* Header */}
+    <div style={{ marginBottom: '48px' }}>
+      <div style={{ fontSize: '12px', fontWeight: '700', color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '8px' }}>Getting Started</div>
+      <h1 style={{ fontSize: '36px', fontWeight: '800', color: '#1e293b', letterSpacing: '-0.03em', margin: '0 0 12px' }}>시작하기</h1>
+      <p style={{ fontSize: '16px', color: '#64748b', lineHeight: '1.6', margin: 0 }}>Orbit UI Eclipse 테마를 프로젝트에 적용하는 방법을 안내합니다.</p>
+    </div>
 
-<br />
+    {/* Step 1: Installation */}
+    <section style={{ marginBottom: '48px' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '20px' }}>
+        <div style={{
+          width: '28px', height: '28px', borderRadius: '8px', background: '#6366f1',
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          color: '#ffffff', fontSize: '14px', fontWeight: '700', flexShrink: 0,
+        }}>1</div>
+        <h2 style={{ fontSize: '20px', fontWeight: '700', color: '#1e293b', margin: 0 }}>패키지 설치</h2>
+      </div>
 
-## 1. 패키지 설치하기
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+        {[
+          { label: 'pnpm', cmd: 'pnpm add @orbit-ui/theme-eclipse @orbit-ui/icons', recommended: true },
+          { label: 'npm', cmd: 'npm install @orbit-ui/theme-eclipse @orbit-ui/icons' },
+          { label: 'yarn', cmd: 'yarn add @orbit-ui/theme-eclipse @orbit-ui/icons' },
+        ].map((pkg, i) => (
+          <div key={i} style={{
+            display: 'flex', alignItems: 'center', gap: '12px',
+            padding: '12px 16px', borderRadius: '10px',
+            background: '#0f172a', fontFamily: '"JetBrains Mono", monospace',
+            border: pkg.recommended ? '1px solid rgba(99, 102, 241, 0.3)' : '1px solid #1e293b',
+          }}>
+            <span style={{ fontSize: '11px', color: '#64748b', fontWeight: '600', minWidth: '36px', textTransform: 'uppercase' }}>{pkg.label}</span>
+            <code style={{ fontSize: '13px', color: '#e2e8f0' }}>{pkg.cmd}</code>
+            {pkg.recommended && <span style={{ fontSize: '10px', color: '#6366f1', fontWeight: '600', marginLeft: 'auto', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Recommended</span>}
+          </div>
+        ))}
+      </div>
+    </section>
 
-패키지 매니저를 통해 `@orbit-ui/theme-eclipse` 패키지를 설치해주세요.
+    {/* Step 2: Setup */}
+    <section style={{ marginBottom: '48px' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '20px' }}>
+        <div style={{
+          width: '28px', height: '28px', borderRadius: '8px', background: '#6366f1',
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          color: '#ffffff', fontSize: '14px', fontWeight: '700', flexShrink: 0,
+        }}>2</div>
+        <h2 style={{ fontSize: '20px', fontWeight: '700', color: '#1e293b', margin: 0 }}>환경 설정</h2>
+      </div>
 
-```bash
-pnpm add @orbit-ui/theme-eclipse
-```
+      <p style={{ fontSize: '14px', color: '#64748b', marginBottom: '16px', lineHeight: '1.6' }}>
+        프로젝트 최상단에 <code style={{ background: '#f1f5f9', color: '#6366f1', padding: '2px 6px', borderRadius: '4px', fontSize: '13px', fontWeight: '500' }}>EclipseProvider</code>를 적용하고, 스타일 CSS를 import 해주세요.
+      </p>
 
-```bash
-npm install @orbit-ui/theme-eclipse
-```
-
-```bash
-yarn add @orbit-ui/theme-eclipse
-```
-
-아이콘을 사용하려면 `@orbit-ui/icons`도 함께 설치해주세요.
-
-```bash
-pnpm add @orbit-ui/icons
-```
-
-<br />
-
-## 2. 환경 설정하기
-
-프로젝트 최상단에 `EclipseProvider`를 적용하고, 스타일 CSS를 import 해주세요.
-
-```tsx
-import { EclipseProvider } from '@orbit-ui/theme-eclipse'
+      <div style={{
+        borderRadius: '12px', border: '1px solid #e2e8f0', overflow: 'hidden', marginBottom: '24px',
+      }}>
+        <div style={{ padding: '8px 16px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', gap: '6px' }}>
+          <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#f87171' }} />
+          <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#fbbf24' }} />
+          <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#34d399' }} />
+          <span style={{ marginLeft: '8px', fontSize: '11px', color: '#94a3b8', fontWeight: '500' }}>App.tsx</span>
+        </div>
+        <pre style={{ margin: 0, padding: '20px', background: '#0f172a', color: '#e2e8f0', fontSize: '13px', lineHeight: '1.8', fontFamily: '"JetBrains Mono", monospace', overflow: 'auto' }}>
+{`import { EclipseProvider } from '@orbit-ui/theme-eclipse'
 import '@orbit-ui/theme-eclipse/style.css'
 
 function MyApp() {
   return (
-    <EclipseProvider>
+    <EclipseProvider mode="light">
       <AppComponents />
     </EclipseProvider>
   )
-}
-```
+}`}
+        </pre>
+      </div>
 
-### EclipseProvider 옵션
+      {/* Provider Options */}
+      <div style={{ fontSize: '13px', fontWeight: '600', color: '#475569', marginBottom: '12px' }}>EclipseProvider Props</div>
+      <div style={{ borderRadius: '12px', border: '1px solid #e2e8f0', overflow: 'hidden' }}>
+        <table style={{ width: '100%', borderCollapse: 'collapse', margin: 0 }}>
+          <thead>
+            <tr style={{ background: '#f8fafc' }}>
+              <th style={{ padding: '10px 16px', textAlign: 'left', fontSize: '12px', fontWeight: '600', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.05em', borderBottom: '1px solid #e2e8f0' }}>Prop</th>
+              <th style={{ padding: '10px 16px', textAlign: 'left', fontSize: '12px', fontWeight: '600', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.05em', borderBottom: '1px solid #e2e8f0' }}>Type</th>
+              <th style={{ padding: '10px 16px', textAlign: 'left', fontSize: '12px', fontWeight: '600', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.05em', borderBottom: '1px solid #e2e8f0' }}>Default</th>
+              <th style={{ padding: '10px 16px', textAlign: 'left', fontSize: '12px', fontWeight: '600', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.05em', borderBottom: '1px solid #e2e8f0' }}>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style={{ padding: '10px 16px', borderBottom: '1px solid #f1f5f9' }}><code style={{ background: '#f1f5f9', color: '#6366f1', padding: '2px 6px', borderRadius: '4px', fontSize: '12px', fontWeight: '600' }}>mode</code></td>
+              <td style={{ padding: '10px 16px', borderBottom: '1px solid #f1f5f9', fontSize: '13px', color: '#64748b' }}>'light' | 'dark'</td>
+              <td style={{ padding: '10px 16px', borderBottom: '1px solid #f1f5f9', fontSize: '13px', color: '#64748b' }}>'light'</td>
+              <td style={{ padding: '10px 16px', borderBottom: '1px solid #f1f5f9', fontSize: '13px', color: '#475569' }}>라이트/다크 모드 전환</td>
+            </tr>
+            <tr>
+              <td style={{ padding: '10px 16px' }}><code style={{ background: '#f1f5f9', color: '#6366f1', padding: '2px 6px', borderRadius: '4px', fontSize: '12px', fontWeight: '600' }}>baseTextSize</code></td>
+              <td style={{ padding: '10px 16px', fontSize: '13px', color: '#64748b' }}>'small' | 'medium' | 'large'</td>
+              <td style={{ padding: '10px 16px', fontSize: '13px', color: '#64748b' }}>'medium'</td>
+              <td style={{ padding: '10px 16px', fontSize: '13px', color: '#475569' }}>기본 텍스트 크기</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
 
-| Prop | 타입 | 기본값 | 설명 |
-| :--- | :--- | :--- | :--- |
-| `mode` | `'light' \| 'dark'` | `'light'` | 테마 모드 |
-| `baseTextSize` | `'small' \| 'medium' \| 'large'` | `'medium'` | 기본 텍스트 크기 |
+    {/* Step 3: SSR */}
+    <section style={{ marginBottom: '48px' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '20px' }}>
+        <div style={{
+          width: '28px', height: '28px', borderRadius: '8px', background: '#6366f1',
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          color: '#ffffff', fontSize: '14px', fontWeight: '700', flexShrink: 0,
+        }}>3</div>
+        <h2 style={{ fontSize: '20px', fontWeight: '700', color: '#1e293b', margin: 0 }}>Server Side Rendering</h2>
+      </div>
 
-```tsx
-<EclipseProvider mode="dark" baseTextSize="medium">
-  <App />
-</EclipseProvider>
-```
+      <div style={{
+        padding: '16px 20px', borderRadius: '10px', marginBottom: '16px',
+        background: 'linear-gradient(90deg, rgba(99, 102, 241, 0.04) 0%, transparent 100%)',
+        borderLeft: '3px solid #6366f1',
+      }}>
+        <p style={{ fontSize: '14px', color: '#475569', margin: 0, lineHeight: '1.6' }}>
+          SSR 환경에서 초기 렌더링 시 깜빡임을 방지하려면 <code style={{ background: '#f1f5f9', color: '#6366f1', padding: '2px 6px', borderRadius: '4px', fontSize: '13px', fontWeight: '500' }}>getTheme()</code>을 사용해주세요.
+        </p>
+      </div>
 
-<br />
-
-### Server Side Rendering (Next.js)
-
-SSR 환경에서는 초기 렌더링 시 깜빡임을 방지하기 위해 `getTheme()`을 사용해주세요.
-
-#### Next.js Pages Router
-
-```tsx
-// _document.tsx
-import { getTheme } from '@orbit-ui/theme-eclipse/server'
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+        {[
+          { title: 'Pages Router', file: '_document.tsx', code: `import { getTheme } from '@orbit-ui/theme-eclipse/server'
 
 export default function Document() {
   return (
@@ -84,20 +150,15 @@ export default function Document() {
       </body>
     </Html>
   )
-}
-
-// _app.tsx
-import '@orbit-ui/theme-eclipse/style.css'
-```
-
-#### Next.js App Router
-
-```tsx
-// app/layout.tsx
-import { getTheme } from '@orbit-ui/theme-eclipse/server'
+}` },
+          { title: 'App Router', file: 'app/layout.tsx', code: `import { getTheme } from '@orbit-ui/theme-eclipse/server'
 import '@orbit-ui/theme-eclipse/style.css'
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children
+}: {
+  children: React.ReactNode
+}) {
   return (
     <html lang='ko'>
       <body className={getTheme()}>
@@ -105,130 +166,107 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </body>
     </html>
   )
-}
-```
+}` },
+        ].map((example, i) => (
+          <div key={i} style={{ borderRadius: '12px', border: '1px solid #e2e8f0', overflow: 'hidden' }}>
+            <div style={{ padding: '8px 16px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+              <span style={{ fontSize: '12px', color: '#64748b', fontWeight: '600' }}>{example.title}</span>
+              <span style={{ fontSize: '11px', color: '#94a3b8' }}>{example.file}</span>
+            </div>
+            <pre style={{ margin: 0, padding: '16px', background: '#0f172a', color: '#e2e8f0', fontSize: '11px', lineHeight: '1.7', fontFamily: '"JetBrains Mono", monospace', overflow: 'auto' }}>
+              {example.code}
+            </pre>
+          </div>
+        ))}
+      </div>
+    </section>
 
-<br />
+    {/* Step 4: Components */}
+    <section style={{ marginBottom: '48px' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '20px' }}>
+        <div style={{
+          width: '28px', height: '28px', borderRadius: '8px', background: '#6366f1',
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          color: '#ffffff', fontSize: '14px', fontWeight: '700', flexShrink: 0,
+        }}>4</div>
+        <h2 style={{ fontSize: '20px', fontWeight: '700', color: '#1e293b', margin: 0 }}>컴포넌트 사용</h2>
+      </div>
 
-## 3. 컴포넌트 사용하기
-
-모든 컴포넌트는 `@orbit-ui/theme-eclipse`에서 import 합니다.
-
-```tsx
-import { SolidButton, TextField, Toggle } from '@orbit-ui/theme-eclipse'
+      <div style={{ borderRadius: '12px', border: '1px solid #e2e8f0', overflow: 'hidden', marginBottom: '24px' }}>
+        <pre style={{ margin: 0, padding: '20px', background: '#0f172a', color: '#e2e8f0', fontSize: '13px', lineHeight: '1.8', fontFamily: '"JetBrains Mono", monospace', overflow: 'auto' }}>
+{`import { SolidButton, TextField, Toggle } from '@orbit-ui/theme-eclipse'
+import { BellIcon } from '@orbit-ui/icons'
 
 function MyForm() {
   return (
     <div>
       <TextField placeholder="이름을 입력하세요" />
       <Toggle />
-      <SolidButton>제출</SolidButton>
+      <SolidButton>
+        <SolidButton.Leading><BellIcon /></SolidButton.Leading>
+        <SolidButton.Center>알림 설정</SolidButton.Center>
+      </SolidButton>
     </div>
   )
-}
-```
+}`}
+        </pre>
+      </div>
 
-### 주요 컴포넌트 카테고리
+      {/* Component Categories */}
+      <div style={{ fontSize: '13px', fontWeight: '600', color: '#475569', marginBottom: '12px' }}>Component Categories</div>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '8px' }}>
+        {[
+          { cat: 'Actions', items: 'Button, Chip, Tab, SegmentedControl', color: '#6366f1' },
+          { cat: 'Inputs', items: 'TextField, SearchBar, Checkbox, Radio, Toggle, Dropdown, Calendar, Slider', color: '#8b5cf6' },
+          { cat: 'Data Display', items: 'DataTable, Avatar, Badge, ListTile, Accordion, Carousel', color: '#3b82f6' },
+          { cat: 'Feedback', items: 'Toast, Modal, Alert, Progress, Skeleton, Popover, Tooltip', color: '#f59e0b' },
+          { cat: 'Navigation', items: 'AppBar, Breadcrumb, PageIndicator, PageNumber', color: '#10b981' },
+          { cat: 'Layout & Utils', items: 'Divider, Space, Flex, Animation, Presence', color: '#ef4444' },
+        ].map((c, i) => (
+          <div key={i} style={{
+            padding: '14px 16px', borderRadius: '10px', border: '1px solid #f1f5f9',
+            display: 'flex', flexDirection: 'column', gap: '4px',
+          }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: c.color }} />
+              <span style={{ fontSize: '13px', fontWeight: '700', color: '#1e293b' }}>{c.cat}</span>
+            </div>
+            <span style={{ fontSize: '12px', color: '#94a3b8', lineHeight: '1.5' }}>{c.items}</span>
+          </div>
+        ))}
+      </div>
+    </section>
 
-| 카테고리 | 포함된 컴포넌트 |
-| :--- | :--- |
-| **1. Actions** | `Button`, `Chip`, `Tab`, `SegmentedControl` |
-| **2. Inputs** | `TextField`, `SearchBar`, `Checkbox`, `Radio`, `Toggle`, `Dropdown`, `Calendar`, `Slider` |
-| **3. Data Display** | `DataTable`, `Avatar`, `Badge`, `ListTile`, `Accordion`, `Carousel` |
-| **4. Feedback** | `Toast`, `Modal`, `Alert`, `Progress`, `Skeleton`, `Popover`, `Tooltip` |
-| **5. Navigation** | `AppBar`, `Breadcrumb`, `PageIndicator`, `PageNumber` |
-| **6. Layout** | `Divider`, `Space` |
-| **7. Utils** | `Flex`, `Animation`, `Presence` |
+    {/* FAQ */}
+    <section style={{ marginBottom: '48px' }}>
+      <h2 style={{ fontSize: '20px', fontWeight: '700', color: '#1e293b', marginBottom: '16px' }}>FAQ</h2>
 
-<br />
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+        {[
+          { q: '폰트는 별도 설치가 필요한가요?', a: '모바일 웹뷰에서는 시스템 폰트를 사용하므로 설치가 불필요합니다. 웹 환경에서는 Pretendard 폰트를 권장합니다.' },
+          { q: 'Compound Component 패턴이란?', a: 'SolidButton.Leading, SolidButton.Center 처럼 서브 컴포넌트로 구성하는 패턴입니다. 내부 로직 변경 없이 유연한 조합이 가능합니다.' },
+          { q: 'TypeScript를 지원하나요?', a: '모든 컴포넌트는 완전한 TypeScript 타입을 제공합니다. import type { SolidButtonProps } from \'@orbit-ui/theme-eclipse\'' },
+        ].map((faq, i) => (
+          <div key={i} style={{
+            padding: '16px 20px', borderRadius: '10px', border: '1px solid #e2e8f0', background: '#fafafa',
+          }}>
+            <div style={{ fontSize: '14px', fontWeight: '600', color: '#1e293b', marginBottom: '6px' }}>{faq.q}</div>
+            <div style={{ fontSize: '13px', color: '#64748b', lineHeight: '1.6' }}>{faq.a}</div>
+          </div>
+        ))}
+      </div>
+    </section>
 
-<br />
+    {/* Footer Links */}
+    <section style={{
+      padding: '24px', borderRadius: '12px',
+      background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.04), rgba(168, 85, 247, 0.04))',
+      border: '1px solid rgba(99, 102, 241, 0.1)',
+      display: 'flex', justifyContent: 'center', gap: '32px',
+    }}>
+      <a href="https://github.com/orbit-ui/orbit-ui/issues" target="_blank" style={{ fontSize: '13px', color: '#6366f1', fontWeight: '600', textDecoration: 'none' }}>GitHub Issues</a>
+      <a href="https://github.com/orbit-ui/orbit-ui/blob/main/CONTRIBUTING.md" target="_blank" style={{ fontSize: '13px', color: '#6366f1', fontWeight: '600', textDecoration: 'none' }}>Contributing Guide</a>
+    </section>
 
-## 4. 아이콘 사용하기
-
-아이콘은 `@orbit-ui/icons` 패키지에서 import 합니다. [(아이콘 카탈로그 바로가기)](/docs/intro-아이콘-카탈로그--docs)
-
-```tsx
-import { BellIcon, SearchIcon, ChevronRightLineIcon } from '@orbit-ui/icons'
-
-function MyComponent() {
-  return (
-    <SolidButton>
-      <SolidButton.Leading><BellIcon /></SolidButton.Leading>
-      <SolidButton.Center>알림</SolidButton.Center>
-    </SolidButton>
-  )
-}
-```
-
-<br />
-
-## 5. 디자인 토큰 사용하기
-
-디자인 토큰은 `@orbit-ui/theme-eclipse/token`에서 가져옵니다. [(토큰 문서 바로가기)](/docs/intro-디자인-토큰--docs)
-
-토큰 값은 `EclipseProvider` 내부에서 CSS Variable로 동작합니다.
-
-```tsx
-import { vars } from '@orbit-ui/theme-eclipse/token'
-
-// inline style에서 사용
-const MyComponent = () => (
-  <div style={{ color: vars.sem.color.foregroundPrimary }}>
-    텍스트
   </div>
-)
-
-// CSS-in-JS에서 사용
-const StyledDiv = styled.div`
-  color: ${vars.sem.color.foregroundPrimary};
-`
-```
-
-<br />
-
-## 6. 스토리북에서 코드 확인하기
-
-- 각 컴포넌트의 **Docs** 탭에서 `Show code` 버튼을 누르면 구현 코드를 확인할 수 있어요.
-- 스토리 페이지 하단의 **Code** 탭에서 스토리 소스 코드를 볼 수 있어요.
-- **Controls** 패널에서 prop 값을 실시간으로 변경하며 테스트할 수 있어요.
-
-<br />
-
-## 7. FAQ
-
-### 폰트는 별도 설치가 필요한가요?
-
-모바일 웹뷰에서는 시스템 폰트를 사용하므로 설치가 불필요합니다.
-웹뷰가 아닌 환경에서는 [Pretendard](https://cactus.tistory.com/306) 폰트를 권장합니다.
-
-```css
-@import url(https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.min.css);
-```
-
-### Compound Component 패턴이란?
-
-Orbit UI의 많은 컴포넌트는 서브컴포넌트로 구성됩니다.
-
-```tsx
-<SolidButton>
-  <SolidButton.Leading><PlusIcon /></SolidButton.Leading>
-  <SolidButton.Center>추가</SolidButton.Center>
-  <SolidButton.Trailing><ChevronRightLineIcon /></SolidButton.Trailing>
-</SolidButton>
-```
-
-### TypeScript 지원
-
-모든 컴포넌트는 완전한 TypeScript 타입을 제공합니다.
-
-```tsx
-import type { SolidButtonProps, TextFieldProps } from '@orbit-ui/theme-eclipse'
-```
-
-<br />
-
-## 8. 이슈 및 기여
-
-- 이슈 제보: [GitHub Issues](https://github.com/orbit-ui/orbit-ui/issues)
-- 기여 가이드: [CONTRIBUTING.md](https://github.com/orbit-ui/orbit-ui/blob/main/CONTRIBUTING.md)
+</Unstyled>

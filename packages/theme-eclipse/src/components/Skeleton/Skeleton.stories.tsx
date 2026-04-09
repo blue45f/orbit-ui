@@ -5,7 +5,7 @@ import { Flex } from '@orbit-ui/core'
 import { Skeleton } from './Skeleton'
 
 const meta = {
-  title: 'eclipse/4. Feedback/Skeleton',
+  title: 'eclipse/Feedback/Skeleton',
   component: Skeleton,
   tags: ['autodocs'],
 } satisfies Meta<typeof Skeleton>

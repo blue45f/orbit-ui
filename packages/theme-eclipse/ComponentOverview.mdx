@@ -1,37 +1,207 @@
-import { Meta } from '@storybook/blocks'
+import { Meta, Unstyled } from '@storybook/blocks'
 
-<Meta title='0. Intro/3. 컴포넌트 개요' />
+<Meta title='Intro/컴포넌트 개요' />
 
-# Orbit UI - Component Overview 🪐
+<Unstyled>
+  <div style={{
+    maxWidth: '960px',
+    margin: '0 auto',
+    fontFamily: '"Pretendard Variable", "Pretendard", -apple-system, BlinkMacSystemFont, system-ui, sans-serif',
+  }}>
 
-Orbit UI는 현대적인 감각과 높은 유연성을 가진 컴포넌트 라이브러리입니다.
+    {/* Header */}
+    <div style={{ marginBottom: '48px' }}>
+      <div style={{ fontSize: '12px', fontWeight: '700', color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '8px' }}>Component Overview</div>
+      <h1 style={{ fontSize: '36px', fontWeight: '800', color: '#1e293b', letterSpacing: '-0.03em', margin: '0 0 12px' }}>컴포넌트 개요</h1>
+      <p style={{ fontSize: '16px', color: '#64748b', lineHeight: '1.6', margin: 0 }}>50개 이상의 프로덕션 레디 컴포넌트로 구성된 완전한 디자인 시스템</p>
+    </div>
 
-## 🎨 Modern UI Patterns
+    {/* Design Principles */}
+    <section style={{ marginBottom: '64px' }}>
+      <h2 style={{ fontSize: '22px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '24px' }}>Design Principles</h2>
 
-### 1. Soft Shadows & Elevation
-모던한 인터페이스를 위해 다층적인 그림자(Layered Shadows)를 사용합니다. 단순히 짙은 그림자가 아닌, 빛의 물리적 특성을 고려한 부드러운 전이를 제공합니다.
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px' }}>
+        {[
+          {
+            title: 'Soft Elevation',
+            desc: '빛의 물리적 특성을 고려한 다층적 그림자 시스템으로 자연스러운 깊이감을 제공합니다.',
+            gradient: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)',
+          },
+          {
+            title: 'Micro-Interactions',
+            desc: '모든 상호작용에 물리 기반 애니메이션을 적용하여 생동감 있는 피드백을 전달합니다.',
+            gradient: 'linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%)',
+          },
+          {
+            title: 'Glassmorphism',
+            desc: '투명도와 블러 효과의 SurfaceGlass 토큰으로 배경과 콘텐츠의 깊이를 표현합니다.',
+            gradient: 'linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%)',
+          },
+        ].map((item, i) => (
+          <div key={i} style={{
+            borderRadius: '16px',
+            overflow: 'hidden',
+          }}>
+            <div style={{
+              height: '4px',
+              background: item.gradient,
+            }} />
+            <div style={{
+              padding: '24px',
+              border: '1px solid #e2e8f0',
+              borderTop: 'none',
+              borderRadius: '0 0 16px 16px',
+            }}>
+              <h3 style={{ fontSize: '16px', fontWeight: '700', color: '#1e293b', margin: '0 0 8px' }}>{item.title}</h3>
+              <p style={{ fontSize: '13px', color: '#64748b', lineHeight: '1.65', margin: 0 }}>{item.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
 
-### 2. Micro-Interactions
-버튼 클릭, 토글 스위치 전환, 모달 열림 등 모든 상호작용에 미세한 애니메이션을 적용하여 사용자에게 생동감 있는 피드백을 전달합니다.
+    {/* Component Map */}
+    <section style={{ marginBottom: '64px' }}>
+      <h2 style={{ fontSize: '22px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '24px' }}>Component Map</h2>
 
-### 3. Glassmorphism & Translucency
-배경과 콘텐츠의 깊이감을 위해 투명도와 블러 효과가 적용된 `SurfaceGlass` 토큰을 지원합니다.
+      {[
+        {
+          category: 'Actions',
+          color: '#6366f1',
+          bg: 'rgba(99, 102, 241, 0.04)',
+          components: [
+            { name: 'SolidButton', desc: 'Primary CTA 버튼' },
+            { name: 'OutlineButton', desc: '보조 액션 버튼' },
+            { name: 'GhostButton', desc: '최소 스타일 버튼' },
+            { name: 'SolidIconButton', desc: '아이콘 전용 버튼' },
+            { name: 'Chip', desc: '필터/태그 칩' },
+            { name: 'TabGroup', desc: '탭 네비게이션' },
+            { name: 'SegmentedControl', desc: '분절 선택 컨트롤' },
+          ],
+        },
+        {
+          category: 'Inputs',
+          color: '#8b5cf6',
+          bg: 'rgba(139, 92, 246, 0.04)',
+          components: [
+            { name: 'TextField', desc: '텍스트 입력 필드' },
+            { name: 'FloatingTextField', desc: '플로팅 라벨 필드' },
+            { name: 'PasswordField', desc: '비밀번호 입력' },
+            { name: 'SearchBar', desc: '검색 입력바' },
+            { name: 'Checkbox', desc: '체크박스 선택' },
+            { name: 'RadioButton', desc: '라디오 선택' },
+            { name: 'Toggle / Switch', desc: '온오프 전환' },
+            { name: 'Dropdown', desc: '드롭다운 선택' },
+            { name: 'Slider', desc: '범위 슬라이더' },
+            { name: 'Calendar', desc: '날짜 선택기' },
+          ],
+        },
+        {
+          category: 'Data Display',
+          color: '#3b82f6',
+          bg: 'rgba(59, 130, 246, 0.04)',
+          components: [
+            { name: 'DataTable', desc: '정렬/선택/페이지네이션 테이블' },
+            { name: 'Avatar', desc: '사용자 아바타' },
+            { name: 'LabelBadge', desc: '상태 라벨 배지' },
+            { name: 'CounterBadge', desc: '수치 카운터 배지' },
+            { name: 'AnimatedBadge', desc: '애니메이션 배지' },
+            { name: 'ListTile', desc: '리스트 타일' },
+            { name: 'Accordion', desc: '접기/펼치기' },
+            { name: 'Carousel', desc: '캐러셀 슬라이더' },
+          ],
+        },
+        {
+          category: 'Feedback',
+          color: '#f59e0b',
+          bg: 'rgba(245, 158, 11, 0.04)',
+          components: [
+            { name: 'Modal', desc: '다이얼로그 모달' },
+            { name: 'AlertDialog', desc: '확인/경고 다이얼로그' },
+            { name: 'Toast', desc: '토스트 알림' },
+            { name: 'Tooltip', desc: '툴팁 오버레이' },
+            { name: 'HoverCard', desc: '호버 카드 팝업' },
+            { name: 'Popover', desc: '팝오버 컨텐츠' },
+            { name: 'Progress', desc: '진행률 표시' },
+            { name: 'Skeleton', desc: '로딩 스켈레톤' },
+            { name: 'Loading', desc: '로딩 스피너' },
+          ],
+        },
+        {
+          category: 'Navigation',
+          color: '#10b981',
+          bg: 'rgba(16, 185, 129, 0.04)',
+          components: [
+            { name: 'AppBar', desc: '앱 상단바' },
+            { name: 'Breadcrumb', desc: '경로 탐색' },
+            { name: 'ScrollableTabGroup', desc: '스크롤 탭' },
+            { name: 'PageIndicator', desc: '페이지 인디케이터' },
+            { name: 'PageNumber', desc: '페이지 번호' },
+            { name: 'PageDots', desc: '페이지 도트' },
+          ],
+        },
+      ].map((section, i) => (
+        <div key={i} style={{ marginBottom: '24px' }}>
+          <div style={{
+            display: 'flex', alignItems: 'center', gap: '10px',
+            marginBottom: '12px',
+          }}>
+            <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: section.color }} />
+            <h3 style={{ fontSize: '16px', fontWeight: '700', color: '#1e293b', margin: 0 }}>{section.category}</h3>
+            <span style={{ fontSize: '12px', color: '#94a3b8', fontWeight: '500' }}>{section.components.length} components</span>
+          </div>
 
----
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
+            gap: '8px',
+          }}>
+            {section.components.map((comp, j) => (
+              <div key={j} style={{
+                padding: '12px 16px',
+                borderRadius: '8px',
+                border: '1px solid #f1f5f9',
+                background: section.bg,
+              }}>
+                <div style={{ fontSize: '13px', fontWeight: '600', color: '#1e293b' }}>{comp.name}</div>
+                <div style={{ fontSize: '11px', color: '#94a3b8', marginTop: '2px' }}>{comp.desc}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </section>
 
-## 🏗 핵심 컴포넌트
+    {/* Design Guidelines */}
+    <section style={{ marginBottom: '40px' }}>
+      <h2 style={{ fontSize: '22px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '24px' }}>Design Guidelines</h2>
 
-| 컴포넌트 | 카테고리 | 설명 |
-| :--- | :--- | :--- |
-| **Buttons** | Actions | Primary, Secondary, Ghost 등 다양한 타입 지원 |
-| **Inputs** | Inputs | 텍스트 필드, 검색바, 비밀번호 필드 등 |
-| **DataTable** | Data Display | 정렬, 선택, 페이지네이션이 내장된 고성능 테이블 |
-| **Feedback** | Feedback | Toast, Modal, Dialog 등 상황에 맞는 알림 |
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '12px' }}>
+        {[
+          { title: '8px Grid', desc: '모든 간격과 크기는 8px 단위(0.5rem)로 설계', icon: '#' },
+          { title: 'Type-safe', desc: 'TypeScript로 강력한 타입 추론과 자동완성 제공', icon: 'TS' },
+          { title: 'Accessible', desc: 'WCAG AA 등급 준수, WAI-ARIA 패턴 적용', icon: 'A' },
+        ].map((item, i) => (
+          <div key={i} style={{
+            padding: '24px',
+            borderRadius: '12px',
+            background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.04), rgba(168, 85, 247, 0.04))',
+            border: '1px solid rgba(99, 102, 241, 0.08)',
+            textAlign: 'center',
+          }}>
+            <div style={{
+              width: '36px', height: '36px', borderRadius: '8px',
+              background: '#6366f1', color: '#ffffff',
+              display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+              fontSize: '13px', fontWeight: '800', marginBottom: '12px',
+              fontFamily: '"JetBrains Mono", monospace',
+            }}>{item.icon}</div>
+            <div style={{ fontSize: '15px', fontWeight: '700', color: '#1e293b', marginBottom: '4px' }}>{item.title}</div>
+            <div style={{ fontSize: '12px', color: '#64748b', lineHeight: '1.5' }}>{item.desc}</div>
+          </div>
+        ))}
+      </div>
+    </section>
 
----
-
-## 🚀 디자인 가이드라인
-
-- **8px Grid**: 모든 간격과 크기는 8px 단위(0.5rem)로 설계되었습니다.
-- **Type-safe**: 모든 컴포넌트는 TypeScript로 작성되어 강력한 타입 추론을 제공합니다.
-- **Accessible**: WCAG AA 등급 준수를 목표로 설계되었습니다.
+  </div>
+</Unstyled>

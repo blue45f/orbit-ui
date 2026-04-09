@@ -4,7 +4,7 @@ import type { Meta, StoryObj } from '@storybook/react'
 import { Loading } from './Loading'
 
 const meta = {
-  title: 'eclipse/4. Feedback/Loading',
+  title: 'eclipse/Feedback/Loading',
   component: Loading,
   tags: ['autodocs'],
 } satisfies Meta<typeof Loading>

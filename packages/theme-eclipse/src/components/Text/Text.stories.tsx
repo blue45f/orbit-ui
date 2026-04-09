@@ -9,7 +9,7 @@ import { ForcedTextStyle, Text } from './Text'
 Text.displayName = 'Text'
 
 const meta = {
-  title: 'eclipse/3. Data Display/Text',
+  title: 'eclipse/Data Display/Text',
   component: Text,
   args: {
     textStyle: 'bodyLarge',

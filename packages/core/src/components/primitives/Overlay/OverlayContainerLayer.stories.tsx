@@ -9,13 +9,32 @@ import { OverlayContainerLayer, OverlayContainerLayerProps } from './OverlayCont
 OverlayContainerLayer.displayName = 'OverlayContainerLayer'
 
 const meta = {
-  title: '7. Utils/OverlayContainerLayer',
+  title: 'Utils/OverlayContainerLayer',
   component: OverlayContainerLayer,
 } satisfies Meta<typeof OverlayContainerLayer>
 
 type Story = StoryObj<typeof meta>
 
 export default meta
+
+const labelStyle: React.CSSProperties = {
+  display: 'flex', alignItems: 'center', gap: '8px',
+  fontSize: '14px', cursor: 'pointer', padding: '4px 0',
+}
+
+const btnStyle: React.CSSProperties = {
+  padding: '8px 16px', borderRadius: '8px', border: '1px solid #d1d5db',
+  background: '#ffffff', fontSize: '14px', fontWeight: '500', cursor: 'pointer',
+}
+
+const btnPrimaryStyle: React.CSSProperties = {
+  ...btnStyle, background: '#6366f1', color: '#ffffff', border: '1px solid #6366f1',
+}
+
+const inputStyle: React.CSSProperties = {
+  padding: '8px 12px', borderRadius: '6px', border: '1px solid #d1d5db',
+  fontSize: '14px', outline: 'none', width: '200px',
+}
 
 export const 기본 = {
   render: () => <Basic />,
@@ -30,43 +49,44 @@ const Basic = () => {
   const [dismissOnFocusOutside, setDismissOnFocusOutside] = React.useState(false)
 
   return (
-    <div style={{ fontFamily: 'sans-serif', textAlign: 'center' }}>
-      <h1>OverlayContainer</h1>
+    <div style={{ fontFamily: 'sans-serif', maxWidth: '600px' }}>
+      <Text as="h2" style={{ fontSize: '20px', fontWeight: '700', marginBottom: '20px' }}>
+        OverlayContainerLayer
+      </Text>
 
-      <div style={{ display: 'inline-block', textAlign: 'left', marginBottom: 20 }}>
-        <label style={{ display: 'block' }}>
+      <div style={{
+        padding: '16px 20px', borderRadius: '12px', border: '1px solid #e5e7eb',
+        marginBottom: '20px', display: 'flex', flexDirection: 'column', gap: '8px',
+      }}>
+        <label style={labelStyle}>
           <input
             type="checkbox"
             checked={dismissOnEscape}
             onChange={(event) => setDismissOnEscape(event.target.checked)}
-          />{' '}
-          <code>escape</code> 키로 닫기
+          />
+          <code style={{ fontSize: '13px', background: '#f3f4f6', padding: '2px 6px', borderRadius: '4px' }}>escape</code> 키로 닫기
         </label>
-
-        <label style={{ display: 'block' }}>
+        <label style={labelStyle}>
           <input
             type="checkbox"
             checked={dismissOnPointerDownOutside}
             onChange={(event) => setDismissOnPointerDownOutside(event.target.checked)}
-          />{' '}
-          포인터가 바깥쪽에서 눌렸을 때 닫기
+          />
+          포인터가 바깥에서 눌렸을 때 닫기
         </label>
-
-        <label style={{ display: 'block' }}>
+        <label style={labelStyle}>
           <input
             type="checkbox"
             checked={dismissOnFocusOutside}
             onChange={(event) => setDismissOnFocusOutside(event.target.checked)}
-          />{' '}
-          포커스가 바깥쪽으로 이동했을 때 닫기
+          />
+          포커스가 바깥으로 이동했을 때 닫기
         </label>
-
-        <hr />
       </div>
 
-      <div style={{ marginBottom: 20 }}>
-        <button ref={openButtonRef} type="button" onClick={() => setOpen((v) => !v)}>
-          {open ? 'Close' : 'Open'} layer
+      <div style={{ marginBottom: '20px' }}>
+        <button ref={openButtonRef} type="button" onClick={() => setOpen((v) => !v)} style={open ? btnPrimaryStyle : btnStyle}>
+          {open ? 'Close' : 'Open'} Layer
         </button>
       </div>
 
@@ -82,28 +102,29 @@ const Basic = () => {
             alignItems: 'center',
             verticalAlign: 'middle',
             width: 400,
-            height: 300,
-            backgroundColor: 'black',
-            borderRadius: 10,
+            height: 280,
+            backgroundColor: '#1e293b',
+            borderRadius: '16px',
             marginBottom: 20,
             color: 'white',
+            boxShadow: '0 20px 60px -12px rgba(0, 0, 0, 0.25)',
           }}
         >
-          <ContentLayer direction="vertical">
-            <Text as="h2" style={{ color: 'white', fontSize: '1.5rem', fontWeight: 'bold' }}>
-              Header
+          <ContentLayer direction="vertical" style={{ gap: '16px', alignItems: 'center', padding: '24px' }}>
+            <Text as="h2" style={{ color: 'white', fontSize: '18px', fontWeight: '700', margin: 0 }}>
+              Overlay Header
             </Text>
-            <input type="text" />
-            <Text as="span" style={{ color: 'white', fontSize: '0.875rem' }}>
-              Footer
+            <input type="text" placeholder="Type something..." style={{ ...inputStyle, border: '1px solid #475569', background: '#0f172a', color: '#e2e8f0' }} />
+            <Text as="span" style={{ color: '#94a3b8', fontSize: '13px' }}>
+              Overlay Footer
             </Text>
           </ContentLayer>
         </OverlayContainerLayer>
       ) : null}
 
-      <div style={{ marginBottom: 20 }}>
-        <input type="text" defaultValue="hello" style={{ marginRight: 20 }} />
-        <button type="button" onMouseDown={() => alert('hey!')}>
+      <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
+        <input type="text" defaultValue="hello" style={inputStyle} />
+        <button type="button" onMouseDown={() => alert('hey!')} style={btnStyle}>
           hey!
         </button>
       </div>
@@ -113,8 +134,10 @@ const Basic = () => {
 
 export const 중첩: React.FC = () => {
   return (
-    <div style={{ textAlign: 'center' }}>
-      <h1>OverlayContainer (nested)</h1>
+    <div>
+      <Text as="h2" style={{ fontSize: '20px', fontWeight: '700', marginBottom: '20px' }}>
+        OverlayContainer (Nested)
+      </Text>
       <OverlayBox />
     </div>
   )
@@ -124,53 +147,59 @@ export const OverlayProtected_예제: React.FC = () => {
   const [open, setOpen] = React.useState(false)
 
   return (
-    <>
-      <h2>OverlayProtected</h2>
-      <button type="button" onClick={() => setOpen((v) => !v)}>
-        {open ? 'Close' : 'Open'} layer
-      </button>
-      <div>
+    <div>
+      <Text as="h2" style={{ fontSize: '20px', fontWeight: '700', marginBottom: '16px' }}>
+        OverlayProtected
+      </Text>
+      <div style={{ marginBottom: '16px' }}>
+        <button type="button" onClick={() => setOpen((v) => !v)} style={btnStyle}>
+          {open ? 'Close' : 'Open'} Layer
+        </button>
+      </div>
+      <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
         <OverlayContainerLayer.Protected
           style={{
             display: 'inline-flex',
             justifyContent: 'center',
             alignItems: 'center',
-            verticalAlign: 'middle',
-            width: 400,
-            height: 300,
-            backgroundColor: '#915454',
-            borderRadius: 10,
-            marginBottom: 20,
+            width: 360,
+            height: 240,
+            backgroundColor: '#dc2626',
+            borderRadius: '16px',
+            color: '#ffffff',
+            fontSize: '14px',
+            fontWeight: '500',
+            flexDirection: 'column',
+            gap: '12px',
           }}
         >
-          빨간 부분을 클릭해도 안닫혀요
-          <input type="text" />
+          Protected 영역 (클릭해도 닫히지 않음)
+          <input type="text" style={{ ...inputStyle, border: '1px solid rgba(255,255,255,0.3)', background: 'rgba(0,0,0,0.2)', color: '#ffffff' }} />
         </OverlayContainerLayer.Protected>
+        {open && (
+          <OverlayContainerLayer
+            style={{
+              display: 'inline-flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              width: 360,
+              height: 240,
+              backgroundColor: '#16a34a',
+              borderRadius: '16px',
+              color: '#ffffff',
+              boxShadow: '0 20px 60px -12px rgba(0, 0, 0, 0.25)',
+            }}
+            onDismiss={() => setOpen(false)}
+          >
+            <ContentLayer direction="vertical" style={{ gap: '12px', alignItems: 'center' }}>
+              <span style={{ fontSize: '16px', fontWeight: '600' }}>Header</span>
+              <span style={{ fontSize: '14px' }}>Dismissible Overlay</span>
+              <span style={{ fontSize: '13px', opacity: 0.8 }}>Footer</span>
+            </ContentLayer>
+          </OverlayContainerLayer>
+        )}
       </div>
-      {open && (
-        <OverlayContainerLayer
-          style={{
-            display: 'inline-flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            verticalAlign: 'middle',
-            width: 400,
-            height: 300,
-            backgroundColor: '#549159',
-            borderRadius: 10,
-            marginBottom: 20,
-            color: 'white',
-          }}
-          onDismiss={() => setOpen(false)}
-        >
-          <ContentLayer direction="vertical">
-            <span>Header</span>
-            <span>열린 OverlayContainer</span>
-            <span>Footer</span>
-          </ContentLayer>
-        </OverlayContainerLayer>
-      )}
-    </>
+    </div>
   )
 }
 
@@ -184,17 +213,18 @@ function OverlayBox(props: OverlayContainerLayerProps) {
       style={{
         display: 'inline-block',
         verticalAlign: 'middle',
-        padding: 20,
-        backgroundColor: 'rgba(0, 0, 0, 0.2)',
-        borderRadius: 10,
-        marginTop: 20,
+        padding: 24,
+        backgroundColor: 'rgba(99, 102, 241, 0.1)',
+        borderRadius: '16px',
+        marginTop: 16,
+        border: '1px solid rgba(99, 102, 241, 0.2)',
         ...props.style,
       }}
     >
-      <ContentLayer direction="vertical">
+      <ContentLayer direction="vertical" style={{ gap: '12px' }}>
         <div>
-          <button ref={openButtonRef} type="button" onClick={() => setOpen((v) => !v)}>
-            {open ? 'Close' : 'Open'} new layer
+          <button ref={openButtonRef} type="button" onClick={() => setOpen((v) => !v)} style={btnStyle}>
+            {open ? 'Close' : 'Open'} Nested Layer
           </button>
         </div>
 

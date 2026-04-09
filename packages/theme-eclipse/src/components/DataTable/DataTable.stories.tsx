@@ -7,7 +7,7 @@ import { LabelBadge as Badge } from '../LabelBadge'
 import { Checkbox } from '../Checkbox'
 
 const meta = {
-  title: 'eclipse/3. Data Display/DataTable',
+  title: 'eclipse/Data Display/DataTable',
   component: DataTable,
   tags: ['autodocs'],
   args: {
@@ -27,52 +27,34 @@ type Payment = {
 }
 
 const data: Payment[] = [
-  {
-    id: 'm5gr84i9',
-    amount: 316,
-    status: 'success',
-    email: 'ken99@yahoo.com',
-  },
-  {
-    id: '3u1reuv4',
-    amount: 242,
-    status: 'success',
-    email: 'Abe45@gmail.com',
-  },
-  {
-    id: 'derv1ws0',
-    amount: 837,
-    status: 'processing',
-    email: 'Monserrat44@gmail.com',
-  },
-  {
-    id: '5kma53ae',
-    amount: 874,
-    status: 'success',
-    email: 'Silas22@gmail.com',
-  },
-  {
-    id: 'bhqecj4p',
-    amount: 721,
-    status: 'failed',
-    email: 'carmella@hotmail.com',
-  },
+  { id: 'm5gr84i9', amount: 316, status: 'success', email: 'ken99@yahoo.com' },
+  { id: '3u1reuv4', amount: 242, status: 'success', email: 'Abe45@gmail.com' },
+  { id: 'derv1ws0', amount: 837, status: 'processing', email: 'Monserrat44@gmail.com' },
+  { id: '5kma53ae', amount: 874, status: 'success', email: 'Silas22@gmail.com' },
+  { id: 'bhqecj4p', amount: 721, status: 'failed', email: 'carmella@hotmail.com' },
 ]
+
+const statusColorMap = {
+  success: 'benefit',
+  processing: 'gray',
+  pending: 'gray',
+  failed: 'gray',
+} as const
 
 const columns: ColumnDef<Payment>[] = [
   {
     id: 'select',
     header: ({ table }) => (
       <Checkbox
-        checked={table.getIsAllPageRowsSelected() || (table.getIsSomePageRowsSelected() && 'indeterminate')}
-        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+        checked={table.getIsAllPageRowsSelected()}
+        onChange={(e: any) => table.toggleAllPageRowsSelected(e.target.checked)}
         aria-label="Select all"
       />
     ),
     cell: ({ row }) => (
       <Checkbox
         checked={row.getIsSelected()}
-        onCheckedChange={(value) => row.toggleSelected(!!value)}
+        onChange={(e: any) => row.toggleSelected(e.target.checked)}
         aria-label="Select row"
       />
     ),
@@ -84,8 +66,9 @@ const columns: ColumnDef<Payment>[] = [
     header: '상태',
     cell: ({ row }) => {
       const status = row.getValue('status') as string
+      const color = statusColorMap[status as keyof typeof statusColorMap] ?? 'gray'
       return (
-        <Badge color={status === 'success' ? 'benefit' : 'gray'}>
+        <Badge color={color}>
           <Badge.Label>{status.toUpperCase()}</Badge.Label>
         </Badge>
       )
@@ -136,6 +119,15 @@ export const 페이지네이션: Story = {
     data: [...data, ...data, ...data] as any,
     enablePagination: true,
     pageSize: 5,
+  },
+  render: (args) => <DataTable {...args} />,
+}
+
+export const 정렬: Story = {
+  args: {
+    columns: columns as any,
+    data: data as any,
+    enableSorting: true,
   },
   render: (args) => <DataTable {...args} />,
 }

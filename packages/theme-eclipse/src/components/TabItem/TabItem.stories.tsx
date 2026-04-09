@@ -10,7 +10,7 @@ Tab.Center.displayName = 'Tab.Center'
 Tab.Trailing.displayName = 'Tab.Trailing'
 
 const meta = {
-  title: 'eclipse/1. Actions/Tabs/Tab',
+  title: 'eclipse/Actions/Tabs/Tab',
   component: Tab,
   tags: ['autodocs'],
   args: {

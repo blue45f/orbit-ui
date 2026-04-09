@@ -1,67 +1,304 @@
-import { Meta } from '@storybook/blocks'
+import { Meta, Unstyled } from '@storybook/blocks'
 
-<Meta title='0. Intro/1. 소개' />
+<Meta title='Intro/소개' />
 
-# Orbit UI - Eclipse Theme 🪐
+<Unstyled>
+  <div style={{
+    maxWidth: '960px',
+    margin: '0 auto',
+    fontFamily: '"Pretendard Variable", "Pretendard", -apple-system, BlinkMacSystemFont, system-ui, sans-serif',
+  }}>
 
-**@orbit-ui/theme-eclipse** `v2.0.0-beta.16`
+    {/* Hero Section */}
+    <div style={{
+      textAlign: 'center',
+      padding: '80px 0 60px',
+    }}>
+      <div style={{
+        display: 'inline-flex',
+        alignItems: 'center',
+        gap: '8px',
+        padding: '6px 16px',
+        borderRadius: '100px',
+        background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(168, 85, 247, 0.1))',
+        border: '1px solid rgba(99, 102, 241, 0.2)',
+        marginBottom: '24px',
+        fontSize: '13px',
+        fontWeight: '600',
+        color: '#6366f1',
+        letterSpacing: '0.02em',
+      }}>
+        v2.0.0-beta.16
+      </div>
 
-Orbit UI는 현대적인 웹 개발 환경을 위해 설계된 고성능 React 디자인 시스템 컴포넌트 라이브러리입니다. 
-Eclipse 테마는 광활한 우주의 깊이감과 정교한 인터랙션을 디자인 언어로 승화시킨 공식 테마 패키지입니다.
+      <h1 style={{
+        fontSize: 'clamp(40px, 6vw, 64px)',
+        fontWeight: '800',
+        letterSpacing: '-0.04em',
+        lineHeight: '1.1',
+        margin: '0 0 20px',
+        background: 'linear-gradient(135deg, #1e293b 0%, #475569 50%, #6366f1 100%)',
+        WebkitBackgroundClip: 'text',
+        WebkitTextFillColor: 'transparent',
+      }}>
+        Orbit UI
+      </h1>
 
-## 🏛 아키텍처 및 확장성 (Extensibility)
+      <p style={{
+        fontSize: '13px',
+        fontWeight: '600',
+        letterSpacing: '0.15em',
+        textTransform: 'uppercase',
+        color: '#94a3b8',
+        margin: '0 0 24px',
+      }}>
+        Eclipse Theme
+      </p>
 
-Orbit UI는 **Headless & Tiered 아키텍처**를 기반으로 하여 디자인 변경과 기능 확장이 매우 유연합니다.
+      <p style={{
+        fontSize: '18px',
+        lineHeight: '1.7',
+        color: '#64748b',
+        maxWidth: '600px',
+        margin: '0 auto',
+      }}>
+        Headless & Tiered Architecture 기반의 고성능 React 디자인 시스템.
+        <br />
+        깊이감 있는 인터랙션과 정교한 디자인 언어를 제공합니다.
+      </p>
+    </div>
 
-### 1. 슬롯 패턴 (Slot Pattern)
-대부분의 컴포넌트는 Leading, Center, Trailing과 같은 서브 컴포넌트를 제공합니다. 이를 통해 컴포넌트 내부의 로직을 건드리지 않고도 원하는 아이콘이나 요소를 자유롭게 주입할 수 있습니다.
+    {/* Stats Row */}
+    <div style={{
+      display: 'grid',
+      gridTemplateColumns: 'repeat(4, 1fr)',
+      gap: '1px',
+      background: '#e2e8f0',
+      borderRadius: '16px',
+      overflow: 'hidden',
+      marginBottom: '64px',
+    }}>
+      {[
+        { value: '50+', label: 'Components' },
+        { value: '3-Tier', label: 'Architecture' },
+        { value: 'A11y', label: 'WAI-ARIA' },
+        { value: 'TS', label: 'Type-safe' },
+      ].map((stat, i) => (
+        <div key={i} style={{
+          padding: '28px 16px',
+          textAlign: 'center',
+          background: '#ffffff',
+        }}>
+          <div style={{ fontSize: '24px', fontWeight: '800', color: '#1e293b', letterSpacing: '-0.02em' }}>{stat.value}</div>
+          <div style={{ fontSize: '12px', fontWeight: '500', color: '#94a3b8', marginTop: '4px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>{stat.label}</div>
+        </div>
+      ))}
+    </div>
 
-```tsx
-<SolidButton>
-  <SolidButton.Leading><CustomIcon /></SolidButton.Leading>
-  <SolidButton.Center>커스텀 버튼</SolidButton.Center>
-</SolidButton>
-```
+    {/* Architecture Section */}
+    <section style={{ marginBottom: '64px' }}>
+      <div style={{ marginBottom: '32px' }}>
+        <div style={{ fontSize: '12px', fontWeight: '700', color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '8px' }}>Architecture</div>
+        <h2 style={{ fontSize: '28px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', margin: 0 }}>확장성을 위한 설계</h2>
+      </div>
 
-### 2. 다형성 (Polymorphic)
-as prop을 지원하여 시각적 스타일은 유지하되 실제 렌더링되는 HTML 태그를 변경할 수 있습니다. (예: Button 스타일을 가진 a 태그)
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px' }}>
+        {[
+          {
+            icon: '{ }',
+            title: 'Slot Pattern',
+            desc: 'Leading, Center, Trailing 서브 컴포넌트로 내부 로직 변경 없이 유연하게 구성',
+            color: '#6366f1',
+            bg: 'rgba(99, 102, 241, 0.06)',
+          },
+          {
+            icon: '</>',
+            title: 'Polymorphic',
+            desc: 'as prop으로 시각적 스타일은 유지하면서 렌더링 태그를 자유롭게 변경',
+            color: '#8b5cf6',
+            bg: 'rgba(139, 92, 246, 0.06)',
+          },
+          {
+            icon: '\u25D0',
+            title: 'Theme Control',
+            desc: 'EclipseProvider로 light/dark 모드, mobile/pc 플랫폼을 전역 제어',
+            color: '#a855f7',
+            bg: 'rgba(168, 85, 247, 0.06)',
+          },
+        ].map((item, i) => (
+          <div key={i} style={{
+            padding: '28px',
+            borderRadius: '16px',
+            border: '1px solid #f1f5f9',
+            background: item.bg,
+            transition: 'all 0.2s ease',
+          }}>
+            <div style={{
+              width: '40px',
+              height: '40px',
+              borderRadius: '10px',
+              background: item.color,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              color: '#ffffff',
+              fontSize: '16px',
+              fontWeight: '700',
+              marginBottom: '16px',
+              fontFamily: '"JetBrains Mono", monospace',
+            }}>{item.icon}</div>
+            <h3 style={{ fontSize: '16px', fontWeight: '700', color: '#1e293b', margin: '0 0 8px', letterSpacing: '-0.01em' }}>{item.title}</h3>
+            <p style={{ fontSize: '14px', color: '#64748b', lineHeight: '1.6', margin: 0 }}>{item.desc}</p>
+          </div>
+        ))}
+      </div>
+    </section>
 
-### 3. 테마 제어
-`EclipseProvider`를 통해 전역적으로 테마를 제어할 수 있습니다.
+    {/* Code Example */}
+    <section style={{ marginBottom: '64px' }}>
+      <div style={{
+        borderRadius: '16px',
+        border: '1px solid #e2e8f0',
+        overflow: 'hidden',
+      }}>
+        <div style={{
+          padding: '12px 20px',
+          background: 'linear-gradient(180deg, #f8fafc, #f1f5f9)',
+          borderBottom: '1px solid #e2e8f0',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '8px',
+        }}>
+          <div style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#f87171' }} />
+          <div style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#fbbf24' }} />
+          <div style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#34d399' }} />
+          <span style={{ marginLeft: '12px', fontSize: '12px', color: '#94a3b8', fontWeight: '500' }}>Compound Component Example</span>
+        </div>
+        <pre style={{
+          margin: 0,
+          padding: '24px',
+          background: '#0f172a',
+          color: '#e2e8f0',
+          fontSize: '13px',
+          lineHeight: '1.8',
+          fontFamily: '"JetBrains Mono", "Fira Code", monospace',
+          overflow: 'auto',
+        }}>
+{`<SolidButton>
+  <SolidButton.Leading>
+    <PlusIcon />
+  </SolidButton.Leading>
+  <SolidButton.Center>
+    새 항목 추가
+  </SolidButton.Center>
+  <SolidButton.Trailing>
+    <ChevronRightIcon />
+  </SolidButton.Trailing>
+</SolidButton>`}
+        </pre>
+      </div>
+    </section>
 
-| Prop | 값 | 설명 |
-| :--- | :--- | :--- |
-| **mode** | `light` / `dark` | 라이트/다크 모드 전환 |
-| **platform** | `mobile` / `pc` | 플랫폼별 최적화 스타일 |
+    {/* Design Philosophy */}
+    <section style={{ marginBottom: '64px' }}>
+      <div style={{ marginBottom: '32px' }}>
+        <div style={{ fontSize: '12px', fontWeight: '700', color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '8px' }}>Design Philosophy</div>
+        <h2 style={{ fontSize: '28px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', margin: 0 }}>감각적 사용자 경험</h2>
+      </div>
 
-## 🛠 유틸리티 및 원자 단위 컴포넌트 (Utility)
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+        {[
+          { title: 'Layered Elevation', desc: '다층적 Elevation 시스템으로 컴포넌트 계층을 우아하게 분리합니다. 빛의 물리적 특성을 고려한 자연스러운 깊이감을 제공합니다.', icon: '\u25A3' },
+          { title: 'Haptic Feedback', desc: '버튼 클릭의 미세한 스케일 변화, 토글의 탄성 있는 움직임 등 물리적 피드백을 디지털로 구현합니다.', icon: '\u2726' },
+          { title: 'Visual Harmony', desc: '아이콘, 컬러, 간격 토큰 모두 엄격한 8px 그리드 시스템으로 관리되어 어떤 조합에서도 조화로운 UI를 보장합니다.', icon: '\u25C9' },
+          { title: 'Motion Design', desc: '고성능 Animation 엔진으로 자연스러운 트랜지션과 Presence 애니메이션을 손쉽게 적용할 수 있습니다.', icon: '\u27A4' },
+        ].map((item, i) => (
+          <div key={i} style={{
+            padding: '24px',
+            borderRadius: '12px',
+            border: '1px solid #f1f5f9',
+            background: '#fafafa',
+          }}>
+            <div style={{ fontSize: '20px', marginBottom: '12px' }}>{item.icon}</div>
+            <h3 style={{ fontSize: '15px', fontWeight: '700', color: '#1e293b', margin: '0 0 8px' }}>{item.title}</h3>
+            <p style={{ fontSize: '13px', color: '#64748b', lineHeight: '1.65', margin: 0 }}>{item.desc}</p>
+          </div>
+        ))}
+      </div>
+    </section>
 
-Orbit UI는 레이아웃과 애니메이션을 위한 강력한 유틸리티 컴포넌트를 제공합니다. `utils` 카테고리에서 확인하실 수 있습니다.
+    {/* Utility Components */}
+    <section style={{ marginBottom: '64px' }}>
+      <div style={{ marginBottom: '32px' }}>
+        <div style={{ fontSize: '12px', fontWeight: '700', color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '8px' }}>Utilities</div>
+        <h2 style={{ fontSize: '28px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', margin: 0 }}>레이아웃 & 애니메이션</h2>
+      </div>
 
-- **Flex**: 유연한 레이아웃 구성을 위한 Flexbox 래퍼
-- **Space**: 컴포넌트 간의 일정한 간격을 위한 스페이싱 유틸리티
-- **Animation**: 고성능 트랜지션 및 애니메이션 엔진
-- **Presence**: 조건부 렌더링 시 애니메이션 처리를 위한 유틸리티
+      <div style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(4, 1fr)',
+        gap: '12px',
+      }}>
+        {[
+          { name: 'Flex', desc: 'Flexbox 래퍼', color: '#3b82f6' },
+          { name: 'Space', desc: '스페이싱 유틸리티', color: '#10b981' },
+          { name: 'Animation', desc: '트랜지션 엔진', color: '#f59e0b' },
+          { name: 'Presence', desc: '조건부 애니메이션', color: '#ef4444' },
+        ].map((item, i) => (
+          <div key={i} style={{
+            padding: '20px',
+            borderRadius: '12px',
+            border: '1px solid #f1f5f9',
+            textAlign: 'center',
+          }}>
+            <div style={{
+              width: '8px',
+              height: '8px',
+              borderRadius: '50%',
+              background: item.color,
+              margin: '0 auto 12px',
+            }} />
+            <div style={{ fontSize: '14px', fontWeight: '700', color: '#1e293b', marginBottom: '4px' }}>{item.name}</div>
+            <div style={{ fontSize: '12px', color: '#94a3b8' }}>{item.desc}</div>
+          </div>
+        ))}
+      </div>
+    </section>
 
----
+    {/* Quick Navigation */}
+    <section style={{ marginBottom: '40px' }}>
+      <div style={{ marginBottom: '24px' }}>
+        <div style={{ fontSize: '12px', fontWeight: '700', color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '8px' }}>Quick Navigation</div>
+        <h2 style={{ fontSize: '28px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', margin: 0 }}>빠른 탐색</h2>
+      </div>
 
-## 🌟 디자인 철학 (Premium UX)
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+        {[
+          { title: '시작하기', desc: '설치 및 환경 설정', href: '/docs/0-intro-2--시작하기--docs', icon: '\u2192' },
+          { title: '컴포넌트 개요', desc: '전체 컴포넌트 목록', href: '/docs/0-intro-3--컴포넌트-개요--docs', icon: '\u2192' },
+          { title: '디자인 토큰', desc: '컬러, 타이포그래피, 스페이싱', href: '/docs/0-intro-4--디자인토큰--docs', icon: '\u2192' },
+          { title: '아이콘 카탈로그', desc: 'Line & Fill 아이콘 갤러리', href: '/docs/0-intro-5--아이콘-카탈로그--docs', icon: '\u2192' },
+        ].map((item, i) => (
+          <div key={i} style={{
+            padding: '20px 24px',
+            borderRadius: '12px',
+            border: '1px solid #e2e8f0',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            cursor: 'pointer',
+            transition: 'all 0.15s ease',
+            background: '#ffffff',
+          }}>
+            <div>
+              <div style={{ fontSize: '15px', fontWeight: '600', color: '#1e293b' }}>{item.title}</div>
+              <div style={{ fontSize: '13px', color: '#94a3b8', marginTop: '2px' }}>{item.desc}</div>
+            </div>
+            <div style={{ fontSize: '18px', color: '#6366f1', fontWeight: '600' }}>{item.icon}</div>
+          </div>
+        ))}
+      </div>
+    </section>
 
-Orbit UI는 단순한 시각적 요소를 넘어, 사용자와 제품 사이의 감각적 연결을 중요시합니다.
-
-- **Layered Elevation**: 단순히 짙은 그림자가 아닌, 다층적인 Elevation 시스템을 통해 컴포넌트 간의 계층을 우아하게 분리합니다.
-- **Haptic-like Feedback**: 버튼 클릭 시의 미세한 스케일 변화, 토글의 탄성 있는 움직임 등 물리적인 피드백을 디지털로 구현합니다.
-- **Visual Consistency**: 모든 아이콘, 컬러, 간격 토큰은 엄격한 그리드 시스템 하에 관리되어 어떤 조합에서도 조화로운 UI를 제공합니다.
-
-## 🚀 빠른 탐색
-
-- [시작하기](/docs/intro-시작하기--docs) - 설치 및 환경 설정 가이드
-- [아이콘 카탈로그](/docs/intro-아이콘-카탈로그--docs) - 전체 아이콘 목록 (Line/Fill)
-- [이미지 카탈로그](/docs/intro-이미지-카탈로그--docs) - 비주얼 자산 및 일러스트레이션
-- [디자인 토큰](/docs/intro-디자인토큰--docs) - 컬러, 타이포그래피, 스페이싱 시스템
-
-## 🔍 바로가기
-
-👉 [전체 아이콘 갤러리 검색](/story/intro-iconcatalog--gallery)
-
-👉 [이미지 자산 미리보기](/story/intro-imagecatalog--gallery)
+  </div>
+</Unstyled>

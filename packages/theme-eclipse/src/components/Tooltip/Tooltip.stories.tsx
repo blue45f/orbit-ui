@@ -5,7 +5,7 @@ import { FilledButton as Button } from '../SolidButton'
 import { Typography } from '../Text'
 
 const meta = {
-  title: 'eclipse/4. Feedback/Tooltip',
+  title: 'eclipse/Feedback/Tooltip',
   component: Tooltip,
   tags: ['autodocs'],
 } satisfies Meta<typeof Tooltip>

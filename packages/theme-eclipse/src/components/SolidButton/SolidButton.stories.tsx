@@ -16,7 +16,7 @@ const iconSize: Record<SolidButtonProps['size'], number> = {
 }
 
 const meta = {
-  title: 'eclipse/1. Actions/Buttons/SolidButton',
+  title: 'eclipse/Actions/Buttons/SolidButton',
   component: SolidButton,
   args: { color: 'black', size: 'medium', disabled: false },
   argTypes: {

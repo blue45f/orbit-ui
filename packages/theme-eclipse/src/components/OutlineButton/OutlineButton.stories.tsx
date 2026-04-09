@@ -16,7 +16,7 @@ OutlineButton.Center.displayName = 'OutlineButton.Center'
 OutlineButton.Trailing.displayName = 'OutlineButton.Trailing'
 
 const meta = {
-  title: 'eclipse/1. Actions/Buttons/OutlineButton',
+  title: 'eclipse/Actions/Buttons/OutlineButton',
   component: OutlineButton,
   args: { color: 'black', size: 'medium', disabled: false },
   argTypes: {

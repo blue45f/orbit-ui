@@ -4,7 +4,7 @@ import type { Meta, StoryObj } from '@storybook/react'
 import { Calendar } from './Calendar'
 
 const meta = {
-  title: 'eclipse/2. Inputs/Pickers/Calendar',
+  title: 'eclipse/Inputs/Pickers/Calendar',
   component: Calendar,
   tags: ['autodocs'],
   parameters: {

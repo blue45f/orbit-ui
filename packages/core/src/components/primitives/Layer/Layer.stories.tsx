@@ -10,7 +10,7 @@ StateLayer.displayName = 'StateLayer'
 ContentLayer.displayName = 'ContentLayer'
 
 const meta = {
-  title: '8. Internal/Layer',
+  title: 'Internal/Layer',
   component: ContainerLayer,
   args: {
     children: '시작하기',

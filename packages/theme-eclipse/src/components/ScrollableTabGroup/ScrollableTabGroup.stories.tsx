@@ -9,7 +9,7 @@ ScrollableTabGroup.TabCenter.displayName = 'ScrollableTabGroup.TabCenter'
 ScrollableTabGroup.TabTrailing.displayName = 'ScrollableTabGroup.TabTrailing'
 
 const meta = {
-  title: 'eclipse/1. Actions/Tabs/ScrollableTabGroup',
+  title: 'eclipse/Actions/Tabs/ScrollableTabGroup',
   component: ScrollableTabGroup,
   tags: ['autodocs'],
   argTypes: {

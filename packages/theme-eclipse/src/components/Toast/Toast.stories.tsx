@@ -4,7 +4,7 @@ import { Toaster, toast } from './Toast'
 import { FilledButton as Button } from '../SolidButton'
 
 const meta = {
-  title: 'eclipse/4. Feedback/Toast',
+  title: 'eclipse/Feedback/Toast',
   component: Toaster,
   tags: ['autodocs'],
   args: {

@@ -6,7 +6,7 @@ import { Checkbox } from './Checkbox'
 Checkbox.displayName = 'Checkbox'
 
 const meta = {
-  title: 'eclipse/2. Inputs/Selection/Checkbox',
+  title: 'eclipse/Inputs/Selection/Checkbox',
   component: Checkbox,
   args: {
     disabled: false,

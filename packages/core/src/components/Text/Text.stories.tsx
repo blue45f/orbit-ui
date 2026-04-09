@@ -7,7 +7,7 @@ import { ForcedBaseTextStyle, Text } from './Text'
 Text.displayName = 'Text'
 
 const meta: Meta<React.ComponentProps<typeof Text>> = {
-  title: '8. Internal/Text',
+  title: 'Internal/Text',
   component: Text,
   args: {
     variant: 'body1',

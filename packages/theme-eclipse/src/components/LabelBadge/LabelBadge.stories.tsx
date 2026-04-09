@@ -6,7 +6,7 @@ import { LabelBadge } from './LabelBadge'
 LabelBadge.displayName = 'LabelBadge'
 
 const meta = {
-  title: 'eclipse/3. Data Display/LabelBadge',
+  title: 'eclipse/Data Display/LabelBadge',
   component: LabelBadge,
   args: {},
   argTypes: {

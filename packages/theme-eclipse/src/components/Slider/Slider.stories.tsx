@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react'
 import { Slider } from './Slider'
 
 const meta = {
-  title: 'eclipse/2. Inputs/Pickers/Slider',
+  title: 'eclipse/Inputs/Pickers/Slider',
   component: Slider,
   tags: ['autodocs'],
 } satisfies Meta<typeof Slider>

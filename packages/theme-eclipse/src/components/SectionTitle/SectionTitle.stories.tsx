@@ -12,7 +12,7 @@ SectionTitle.Description.displayName = 'SectionTitle.Description'
 SectionTitle.Trailing.displayName = 'SectionTitle.Trailing'
 
 const meta = {
-  title: 'eclipse/3. Data Display/SectionTitle',
+  title: 'eclipse/Data Display/SectionTitle',
   component: SectionTitle,
   parameters: {
     layout: 'centered',

@@ -7,7 +7,7 @@ import { TextField } from '../TextField'
 import { Alert } from './AlertDialog'
 
 const meta = {
-  title: 'eclipse/4. Feedback/Alert',
+  title: 'eclipse/Feedback/Alert',
   component: Alert,
   tags: ['autodocs'],
   args: {

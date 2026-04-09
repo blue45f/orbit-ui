@@ -5,7 +5,7 @@ import { Presence } from './Presence'
 import * as styles from './Presence.stories.css'
 
 const meta = {
-  title: '7. Utils/Presence',
+  title: 'Utils/Presence',
   component: Presence,
   tags: ['autodocs'],
 } satisfies Meta<typeof Presence>

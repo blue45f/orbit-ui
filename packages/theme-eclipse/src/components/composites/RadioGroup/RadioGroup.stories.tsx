@@ -7,7 +7,7 @@ import { RadioGroup, useRadioGroupContext } from './RadioGroup'
 RadioGroup.displayName = 'RadioGroup'
 
 const meta = {
-  title: 'eclipse/2. Inputs/Selection/RadioGroup',
+  title: 'eclipse/Inputs/Selection/RadioGroup',
   component: RadioGroup,
   args: {
     name: '',

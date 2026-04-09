@@ -15,7 +15,7 @@ GhostButton.Center.displayName = 'GhostButton.Center'
 GhostButton.Trailing.displayName = 'GhostButton.Trailing'
 
 const meta = {
-  title: 'eclipse/1. Actions/Buttons/GhostButton',
+  title: 'eclipse/Actions/Buttons/GhostButton',
   component: GhostButton,
   args: { color: 'black', size: 'large', disabled: false },
   argTypes: {

@@ -4,7 +4,7 @@ import { Meta, StoryObj } from '@storybook/react'
 import { PageNumber } from './PageNumber'
 
 const meta = {
-  title: 'eclipse/5. Navigation/PageNumber',
+  title: 'eclipse/Navigation/PageNumber',
   component: PageNumber,
   args: {
     current: 1,

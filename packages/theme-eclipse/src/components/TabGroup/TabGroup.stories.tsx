@@ -3,7 +3,7 @@ import { Meta, StoryObj } from '@storybook/react'
 import { FixedTabs } from './TabGroup'
 
 const meta = {
-  title: 'eclipse/1. Actions/Tabs/FixedTabs',
+  title: 'eclipse/Actions/Tabs/FixedTabs',
   component: FixedTabs,
   tags: ['autodocs'],
 } satisfies Meta<typeof FixedTabs>

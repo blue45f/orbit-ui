@@ -4,7 +4,7 @@ import { Breadcrumb } from './Breadcrumb'
 import { ChevronRightLineIcon } from '@orbit-ui/icons'
 
 const meta = {
-  title: 'eclipse/5. Navigation/Breadcrumb',
+  title: 'eclipse/Navigation/Breadcrumb',
   component: Breadcrumb,
   tags: ['autodocs'],
 } satisfies Meta<typeof Breadcrumb>

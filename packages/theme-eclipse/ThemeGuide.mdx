@@ -1,0 +1,266 @@
+import { Meta, Unstyled } from '@storybook/blocks'
+
+<Meta title="Intro/테마 가이드" />
+
+<Unstyled>
+  <div style={{
+    maxWidth: '960px',
+    margin: '0 auto',
+    fontFamily: '"Pretendard Variable", "Pretendard", -apple-system, BlinkMacSystemFont, system-ui, sans-serif',
+  }}>
+
+    {/* Header */}
+    <div style={{ marginBottom: '48px' }}>
+      <div style={{ fontSize: '12px', fontWeight: '700', color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '8px' }}>Theme Guide</div>
+      <h1 style={{ fontSize: '36px', fontWeight: '800', color: '#1e293b', letterSpacing: '-0.03em', margin: '0 0 12px' }}>테마 가이드</h1>
+      <p style={{ fontSize: '16px', color: '#64748b', lineHeight: '1.7', margin: 0 }}>
+        Eclipse 테마의 Light/Dark 모드 시스템과 <code style={{ background: '#f1f5f9', color: '#6366f1', padding: '2px 6px', borderRadius: '4px', fontSize: '14px', fontWeight: '500' }}>EclipseProvider</code> 활용법을 안내합니다.
+      </p>
+    </div>
+
+    {/* Theme Preview Side-by-Side */}
+    <section style={{ marginBottom: '56px' }}>
+      <h2 style={{ fontSize: '24px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '24px' }}>Light & Dark Mode</h2>
+
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '24px' }}>
+        {/* Light */}
+        <div style={{
+          borderRadius: '16px', overflow: 'hidden',
+          border: '1px solid #e2e8f0',
+        }}>
+          <div style={{
+            padding: '12px 20px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0',
+            display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+          }}>
+            <span style={{ fontSize: '13px', fontWeight: '600', color: '#475569' }}>Light Mode</span>
+            <div style={{ width: '20px', height: '20px', borderRadius: '50%', background: 'linear-gradient(135deg, #f8fafc, #ffffff)', border: '1px solid #e2e8f0' }} />
+          </div>
+          <div style={{ padding: '24px', background: '#ffffff' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+              <div style={{ padding: '12px 16px', borderRadius: '10px', background: '#f8fafc', border: '1px solid #e2e8f0' }}>
+                <div style={{ fontSize: '13px', fontWeight: '600', color: '#1e293b', marginBottom: '4px' }}>Surface Container</div>
+                <div style={{ fontSize: '12px', color: '#64748b' }}>카드, 패널의 기본 배경</div>
+              </div>
+              <div style={{ display: 'flex', gap: '8px' }}>
+                <div style={{ flex: 1, padding: '10px', borderRadius: '8px', background: '#6366f1', color: '#ffffff', fontSize: '12px', fontWeight: '600', textAlign: 'center' }}>Primary</div>
+                <div style={{ flex: 1, padding: '10px', borderRadius: '8px', background: '#ffffff', border: '1px solid #e2e8f0', color: '#1e293b', fontSize: '12px', fontWeight: '600', textAlign: 'center' }}>Secondary</div>
+              </div>
+              <div style={{ display: 'flex', gap: '8px' }}>
+                <div style={{ height: '8px', flex: 3, borderRadius: '4px', background: '#1e293b' }} />
+                <div style={{ height: '8px', flex: 2, borderRadius: '4px', background: '#64748b' }} />
+                <div style={{ height: '8px', flex: 1, borderRadius: '4px', background: '#cbd5e1' }} />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Dark */}
+        <div style={{
+          borderRadius: '16px', overflow: 'hidden',
+          border: '1px solid #1e293b',
+        }}>
+          <div style={{
+            padding: '12px 20px', background: '#0f172a', borderBottom: '1px solid #1e293b',
+            display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+          }}>
+            <span style={{ fontSize: '13px', fontWeight: '600', color: '#94a3b8' }}>Dark Mode</span>
+            <div style={{ width: '20px', height: '20px', borderRadius: '50%', background: 'linear-gradient(135deg, #0f172a, #1e293b)', border: '1px solid #334155' }} />
+          </div>
+          <div style={{ padding: '24px', background: '#0f172a' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+              <div style={{ padding: '12px 16px', borderRadius: '10px', background: '#1e293b', border: '1px solid #334155' }}>
+                <div style={{ fontSize: '13px', fontWeight: '600', color: '#e2e8f0', marginBottom: '4px' }}>Surface Container</div>
+                <div style={{ fontSize: '12px', color: '#94a3b8' }}>카드, 패널의 기본 배경</div>
+              </div>
+              <div style={{ display: 'flex', gap: '8px' }}>
+                <div style={{ flex: 1, padding: '10px', borderRadius: '8px', background: '#818cf8', color: '#ffffff', fontSize: '12px', fontWeight: '600', textAlign: 'center' }}>Primary</div>
+                <div style={{ flex: 1, padding: '10px', borderRadius: '8px', background: '#1e293b', border: '1px solid #334155', color: '#e2e8f0', fontSize: '12px', fontWeight: '600', textAlign: 'center' }}>Secondary</div>
+              </div>
+              <div style={{ display: 'flex', gap: '8px' }}>
+                <div style={{ height: '8px', flex: 3, borderRadius: '4px', background: '#f1f5f9' }} />
+                <div style={{ height: '8px', flex: 2, borderRadius: '4px', background: '#94a3b8' }} />
+                <div style={{ height: '8px', flex: 1, borderRadius: '4px', background: '#475569' }} />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style={{
+        padding: '16px 20px', borderRadius: '10px',
+        background: 'linear-gradient(90deg, rgba(99, 102, 241, 0.04) 0%, transparent 100%)',
+        borderLeft: '3px solid #6366f1',
+      }}>
+        <p style={{ fontSize: '14px', color: '#475569', margin: 0, lineHeight: '1.6' }}>
+          스토리북 상단 툴바의 <strong style={{ color: '#1e293b' }}>Light/Dark 토글</strong>로 모든 컴포넌트의 테마를 실시간 전환할 수 있습니다.
+        </p>
+      </div>
+    </section>
+
+    {/* EclipseProvider Setup */}
+    <section style={{ marginBottom: '56px' }}>
+      <h2 style={{ fontSize: '24px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '24px' }}>EclipseProvider</h2>
+
+      <p style={{ fontSize: '14px', color: '#64748b', lineHeight: '1.7', marginBottom: '20px' }}>
+        모든 테마 기능은 <code style={{ background: '#f1f5f9', color: '#6366f1', padding: '2px 6px', borderRadius: '4px', fontSize: '13px', fontWeight: '500' }}>EclipseProvider</code>를 통해 제공됩니다.
+        내부적으로 <strong style={{ color: '#1e293b' }}>ThemeProvider, LottieProvider, Portal</strong>을 결합하여 테마 클래스, 애니메이션 엔진, 포탈 렌더링을 한번에 설정합니다.
+      </p>
+
+      <div style={{ borderRadius: '16px', border: '1px solid #e2e8f0', overflow: 'hidden', marginBottom: '24px' }}>
+        <div style={{ padding: '12px 20px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0', fontSize: '13px', fontWeight: '600', color: '#475569' }}>
+          EclipseProvider 내부 구조
+        </div>
+        <pre style={{
+          margin: 0, padding: '20px', background: '#0f172a', color: '#e2e8f0',
+          fontSize: '12px', lineHeight: '1.8', fontFamily: '"JetBrains Mono", monospace', overflow: 'auto',
+        }}>
+{`<ThemeProvider mode={mode} themeClass={themeClass}>
+  <Portal>
+    <ReusableSVG />    {/* 공유 SVG 정의 */}
+  </Portal>
+  <LottieProvider>     {/* Lottie 애니메이션 엔진 */}
+    {children}
+  </LottieProvider>
+</ThemeProvider>`}
+        </pre>
+      </div>
+
+      {/* Props Table */}
+      <div style={{ borderRadius: '12px', border: '1px solid #e2e8f0', overflow: 'hidden' }}>
+        <table style={{ width: '100%', borderCollapse: 'collapse', margin: 0 }}>
+          <thead>
+            <tr style={{ background: '#f8fafc' }}>
+              <th style={{ padding: '10px 16px', textAlign: 'left', fontSize: '12px', fontWeight: '600', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.05em', borderBottom: '1px solid #e2e8f0' }}>Prop</th>
+              <th style={{ padding: '10px 16px', textAlign: 'left', fontSize: '12px', fontWeight: '600', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.05em', borderBottom: '1px solid #e2e8f0' }}>Type</th>
+              <th style={{ padding: '10px 16px', textAlign: 'left', fontSize: '12px', fontWeight: '600', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.05em', borderBottom: '1px solid #e2e8f0' }}>Default</th>
+              <th style={{ padding: '10px 16px', textAlign: 'left', fontSize: '12px', fontWeight: '600', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.05em', borderBottom: '1px solid #e2e8f0' }}>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            {[
+              { prop: 'mode', type: "'light' | 'dark'", def: "'light'", desc: 'Light/Dark 테마 모드' },
+              { prop: 'platform', type: "'mobile' | 'pc'", def: "'mobile'", desc: '플랫폼별 최적화 스타일' },
+              { prop: 'baseTextSize', type: "'xSmall' | 'small' | 'medium' | 'large' | 'xLarge' | 'xxLarge' | 'xxxLarge'", def: "'medium'", desc: '전역 타이포그래피 스케일' },
+            ].map((row, i) => (
+              <tr key={i}>
+                <td style={{ padding: '10px 16px', borderBottom: '1px solid #f1f5f9' }}><code style={{ background: '#f1f5f9', color: '#6366f1', padding: '2px 6px', borderRadius: '4px', fontSize: '12px', fontWeight: '600' }}>{row.prop}</code></td>
+                <td style={{ padding: '10px 16px', borderBottom: '1px solid #f1f5f9', fontSize: '12px', color: '#64748b', fontFamily: '"JetBrains Mono", monospace' }}>{row.type}</td>
+                <td style={{ padding: '10px 16px', borderBottom: '1px solid #f1f5f9', fontSize: '12px', color: '#64748b', fontFamily: '"JetBrains Mono", monospace' }}>{row.def}</td>
+                <td style={{ padding: '10px 16px', borderBottom: '1px solid #f1f5f9', fontSize: '13px', color: '#475569' }}>{row.desc}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    {/* Semantic Color Tokens */}
+    <section style={{ marginBottom: '56px' }}>
+      <h2 style={{ fontSize: '24px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '24px' }}>Semantic Color Tokens</h2>
+      <p style={{ fontSize: '14px', color: '#64748b', lineHeight: '1.7', marginBottom: '20px' }}>
+        Light/Dark 모드에 따라 자동으로 매핑되는 시맨틱 컬러 토큰입니다. 
+        <code style={{ background: '#f1f5f9', color: '#6366f1', padding: '2px 6px', borderRadius: '4px', fontSize: '13px', fontWeight: '500' }}>vars.sem.color.*</code>로 접근합니다.
+      </p>
+
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '12px' }}>
+        {[
+          {
+            group: 'Foreground',
+            tokens: [
+              { name: 'foregroundPrimary', light: '#1e293b', dark: '#f1f5f9', desc: '주요 텍스트' },
+              { name: 'foregroundSecondary', light: '#475569', dark: '#94a3b8', desc: '보조 텍스트' },
+              { name: 'foregroundTertiary', light: '#94a3b8', dark: '#64748b', desc: '비활성 텍스트' },
+            ],
+          },
+          {
+            group: 'Fill',
+            tokens: [
+              { name: 'fillPrimary', light: '#6366f1', dark: '#818cf8', desc: '주요 채움' },
+              { name: 'fillHovered', light: 'rgba(0,0,0,0.04)', dark: 'rgba(255,255,255,0.06)', desc: '호버 상태' },
+              { name: 'fillPressed', light: 'rgba(0,0,0,0.08)', dark: 'rgba(255,255,255,0.1)', desc: '프레스 상태' },
+            ],
+          },
+          {
+            group: 'Background & Surface',
+            tokens: [
+              { name: 'backgroundPrimary', light: '#ffffff', dark: '#0f172a', desc: '기본 배경' },
+              { name: 'surfaceContainer', light: '#f8fafc', dark: '#1e293b', desc: '컨테이너 배경' },
+            ],
+          },
+          {
+            group: 'Status Colors',
+            tokens: [
+              { name: 'positivePrimary', light: '#22c55e', dark: '#4ade80', desc: '성공/긍정' },
+              { name: 'negativePrimary', light: '#ef4444', dark: '#f87171', desc: '오류/부정' },
+              { name: 'warningPrimary', light: '#f59e0b', dark: '#fbbf24', desc: '경고' },
+            ],
+          },
+        ].map((group, i) => (
+          <div key={i} style={{
+            padding: '20px', borderRadius: '12px', border: '1px solid #e2e8f0',
+          }}>
+            <div style={{ fontSize: '13px', fontWeight: '700', color: '#1e293b', marginBottom: '12px' }}>{group.group}</div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+              {group.tokens.map((t, j) => (
+                <div key={j} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <div style={{ display: 'flex', gap: '2px', flexShrink: 0 }}>
+                    <div style={{ width: '16px', height: '16px', borderRadius: '4px', background: t.light, border: '1px solid #e2e8f0' }} />
+                    <div style={{ width: '16px', height: '16px', borderRadius: '4px', background: t.dark, border: '1px solid #334155' }} />
+                  </div>
+                  <code style={{ fontSize: '11px', color: '#6366f1', fontFamily: '"JetBrains Mono", monospace', flexShrink: 0 }}>{t.name}</code>
+                  <span style={{ fontSize: '11px', color: '#94a3b8' }}>{t.desc}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    {/* Usage Examples */}
+    <section style={{ marginBottom: '40px' }}>
+      <h2 style={{ fontSize: '24px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '24px' }}>실전 사용 예시</h2>
+
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+        <div style={{ borderRadius: '16px', border: '1px solid #e2e8f0', overflow: 'hidden' }}>
+          <div style={{ padding: '10px 16px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0', fontSize: '12px', fontWeight: '600', color: '#475569' }}>
+            Dynamic Theme Toggle
+          </div>
+          <pre style={{ margin: 0, padding: '16px', background: '#0f172a', color: '#e2e8f0', fontSize: '11px', lineHeight: '1.8', fontFamily: '"JetBrains Mono", monospace', overflow: 'auto' }}>
+{`const [mode, setMode] = useState('light')
+
+<EclipseProvider mode={mode}>
+  <button onClick={() => 
+    setMode(m => m === 'light' ? 'dark' : 'light')
+  }>
+    Toggle Theme
+  </button>
+  <App />
+</EclipseProvider>`}
+          </pre>
+        </div>
+        <div style={{ borderRadius: '16px', border: '1px solid #e2e8f0', overflow: 'hidden' }}>
+          <div style={{ padding: '10px 16px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0', fontSize: '12px', fontWeight: '600', color: '#475569' }}>
+            Token 기반 커스텀 스타일
+          </div>
+          <pre style={{ margin: 0, padding: '16px', background: '#0f172a', color: '#e2e8f0', fontSize: '11px', lineHeight: '1.8', fontFamily: '"JetBrains Mono", monospace', overflow: 'auto' }}>
+{`import { vars } from '@orbit-ui/theme-eclipse/token'
+
+const CustomCard = () => (
+  <div style={{
+    background: vars.sem.color.surfaceContainer,
+    color: vars.sem.color.foregroundPrimary,
+    border: \`1px solid \${vars.sem.color.borderPrimary}\`,
+    borderRadius: '12px',
+    padding: '24px',
+  }}>
+    테마에 자동 반응하는 카드
+  </div>
+)`}
+          </pre>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</Unstyled>

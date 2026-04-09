@@ -6,7 +6,7 @@ import * as styles from './Flex.stories.css'
 Flex.displayName = 'Flex'
 
 const meta = {
-  title: '7. Utils/Flex',
+  title: 'Utils/Flex',
   component: Flex,
   args: {
     justifyContent: 'normal',

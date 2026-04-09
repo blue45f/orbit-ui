@@ -2,7 +2,7 @@ import { Plug, slotted } from './Slot'
 
 export default {
   args: {},
-  title: '8. Internal/Slot',
+  title: 'Internal/Slot',
 }
 
 const Slotted = slotted(['prefix', 'suffix'], ({ slots }) => {

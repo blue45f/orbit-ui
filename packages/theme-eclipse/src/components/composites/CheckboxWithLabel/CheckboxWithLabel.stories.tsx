@@ -6,7 +6,7 @@ import { CheckboxWithLabel } from './CheckboxWithLabel'
 CheckboxWithLabel.displayName = 'CheckboxWithLabel'
 
 const meta = {
-  title: 'eclipse/2. Inputs/Selection/CheckboxWithLabel',
+  title: 'eclipse/Inputs/Selection/CheckboxWithLabel',
   component: CheckboxWithLabel,
   args: {
     disabled: false,
