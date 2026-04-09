@@ -7,6 +7,7 @@ import {
   Avatar,
   Breadcrumb,
   Carousel,
+  Checkbox,
   Chip,
   CounterBadge,
   DataTable,
@@ -23,7 +24,9 @@ import {
   SolidIconButton,
   Switch,
   Text,
+  TextArea,
   TextField,
+  Toggle,
   Tooltip,
 } from '../index'
 
@@ -1804,4 +1807,310 @@ const SocialFeedRender = () => {
 
 export const SocialFeed: Story = {
   render: () => <SocialFeedRender />,
+}
+
+/* ═══════════════════════════════════════════
+   7. Onboarding Flow
+   Ant Design Steps + Mantine Notification 패턴 참고:
+   - 단계별 진행 (Progress + PageDots)
+   - 각 단계에 다른 입력 컴포넌트
+   - 완료 화면 + CTA
+   ═══════════════════════════════════════════ */
+const OnboardingRender = () => {
+  const [step, setStep] = useState(0)
+  const [name, setName] = useState('')
+  const [role, setRole] = useState('')
+  const [notifications, setNotifications] = useState(true)
+  const [emailDigest, setEmailDigest] = useState(false)
+  const [interests, setInterests] = useState<string[]>([])
+  const [bio, setBio] = useState('')
+  const [done, setDone] = useState(false)
+
+  const totalSteps = 4
+  const progress = Math.round((step / (totalSteps - 1)) * 100)
+
+  const roles = ['디자이너', '개발자', 'PM', '마케터', '기타']
+  const interestOptions = ['UI/UX', 'Frontend', 'Backend', 'DevOps', 'AI/ML', 'Mobile']
+
+  const toggleInterest = (v: string) => {
+    setInterests((prev) =>
+      prev.includes(v) ? prev.filter((x) => x !== v) : [...prev, v]
+    )
+  }
+
+  const canNext = () => {
+    if (step === 0) return name.trim().length > 0 && role !== ''
+    if (step === 1) return interests.length > 0
+    return true
+  }
+
+  const handleNext = () => {
+    if (step < totalSteps - 1) setStep((s) => s + 1)
+  }
+
+  const handleBack = () => {
+    if (step > 0) setStep((s) => s - 1)
+  }
+
+  const handleFinish = () => {
+    setDone(true)
+  }
+
+  if (done) {
+    return (
+      <div style={{
+        minHeight: '100vh',
+        background: 'linear-gradient(135deg, #f0f4ff 0%, #faf5ff 100%)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}>
+        <div style={{
+          background: '#fff',
+          borderRadius: '24px',
+          padding: '56px 48px',
+          maxWidth: '440px',
+          width: '100%',
+          textAlign: 'center',
+          boxShadow: '0 20px 60px rgba(99,102,241,0.12)',
+        }}>
+          <div style={{
+            width: '72px',
+            height: '72px',
+            borderRadius: '50%',
+            background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            margin: '0 auto 24px',
+            fontSize: '32px',
+          }}>
+            <span style={{ color: '#fff', fontWeight: 700, fontSize: '28px' }}>!</span>
+          </div>
+          <div style={{ fontSize: '26px', fontWeight: 800, color: '#1e293b', marginBottom: '12px', letterSpacing: '-0.02em' }}>
+            설정 완료!
+          </div>
+          <div style={{ fontSize: '14px', color: '#64748b', lineHeight: '1.6', marginBottom: '32px' }}>
+            <strong style={{ color: '#6366f1' }}>{name || '사용자'}</strong>님, 환영합니다.
+            <br />Orbit UI 경험을 시작할 준비가 되었습니다.
+          </div>
+          <Progress value={100} color="success" size="small" />
+          <div style={{ marginTop: '8px', fontSize: '12px', color: '#10b981', fontWeight: 600 }}>
+            프로필 100% 완성
+          </div>
+          <div style={{ marginTop: '32px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+            <SolidButton color="primary" size="large" style={{ width: '100%' }} onClick={() => { setDone(false); setStep(0) }}>
+              <SolidButton.Center>시작하기</SolidButton.Center>
+            </SolidButton>
+            <GhostButton color="black" size="large" style={{ width: '100%' }} onClick={() => { setDone(false); setStep(0); setName(''); setRole(''); setInterests([]); setBio(''); setNotifications(true); setEmailDigest(false) }}>
+              <GhostButton.Center>처음부터 다시</GhostButton.Center>
+            </GhostButton>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  return (
+    <div style={{
+      minHeight: '100vh',
+      background: 'linear-gradient(135deg, #f0f4ff 0%, #faf5ff 100%)',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      padding: '24px',
+    }}>
+      <div style={{
+        background: '#fff',
+        borderRadius: '24px',
+        padding: '40px 40px 32px',
+        maxWidth: '480px',
+        width: '100%',
+        boxShadow: '0 20px 60px rgba(99,102,241,0.1)',
+      }}>
+        {/* 상단 진행 표시 */}
+        <div style={{ marginBottom: '32px' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
+            <span style={{ fontSize: '12px', fontWeight: 700, color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+              단계 {step + 1} / {totalSteps}
+            </span>
+            <span style={{ fontSize: '12px', fontWeight: 600, color: '#94a3b8' }}>{progress}%</span>
+          </div>
+          <Progress value={progress} color="primary" size="small" />
+          <div style={{ marginTop: '16px', display: 'flex', justifyContent: 'center', gap: '6px' }}>
+            {Array.from({ length: totalSteps }).map((_, i) => (
+              <PageDots
+                key={i}
+                selected={i === step}
+                onClick={() => setStep(i)}
+              />
+            ))}
+          </div>
+        </div>
+
+        {/* 단계별 콘텐츠 */}
+        {step === 0 && (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+            <div>
+              <div style={{ fontSize: '22px', fontWeight: 800, color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '6px' }}>
+                안녕하세요! 소개해 주세요
+              </div>
+              <div style={{ fontSize: '13px', color: '#94a3b8' }}>이름과 직군을 알려주시면 맞춤 경험을 제공합니다.</div>
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+              <div style={{ fontSize: '13px', fontWeight: 600, color: '#475569' }}>이름</div>
+              <TextField
+                value={name}
+                onChange={(e) => setName((e.target as HTMLInputElement).value)}
+                placeholder="이름을 입력하세요"
+              />
+            </div>
+            <div>
+              <div style={{ fontSize: '13px', fontWeight: 600, color: '#475569', marginBottom: '10px' }}>직군</div>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+                {roles.map((r) => (
+                  <label
+                    key={r}
+                    style={{ display: 'flex', alignItems: 'center', gap: '6px', cursor: 'pointer', fontSize: '13px', color: '#475569' }}
+                  >
+                    <RadioButton
+                      name="role"
+                      value={r}
+                      checked={role === r}
+                      onChange={() => setRole(r)}
+                    />
+                    {r}
+                  </label>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {step === 1 && (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+            <div>
+              <div style={{ fontSize: '22px', fontWeight: 800, color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '6px' }}>
+                관심 분야를 선택하세요
+              </div>
+              <div style={{ fontSize: '13px', color: '#94a3b8' }}>여러 개 선택 가능합니다.</div>
+            </div>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
+              {interestOptions.map((opt) => (
+                <label
+                  key={opt}
+                  style={{ display: 'flex', alignItems: 'center', gap: '6px', cursor: 'pointer', fontSize: '13px', color: '#475569' }}
+                >
+                  <Checkbox
+                    checked={interests.includes(opt)}
+                    onChange={() => toggleInterest(opt)}
+                  />
+                  {opt}
+                </label>
+              ))}
+            </div>
+            {interests.length > 0 && (
+              <div style={{ fontSize: '12px', color: '#6366f1', fontWeight: 600 }}>
+                {interests.length}개 선택됨: {interests.join(', ')}
+              </div>
+            )}
+          </div>
+        )}
+
+        {step === 2 && (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+            <div>
+              <div style={{ fontSize: '22px', fontWeight: 800, color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '6px' }}>
+                알림 설정
+              </div>
+              <div style={{ fontSize: '13px', color: '#94a3b8' }}>나중에 설정에서 변경할 수 있습니다.</div>
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0' }}>
+              {[
+                { label: '푸시 알림', desc: '중요 업데이트를 바로 받습니다.', value: notifications, onChange: setNotifications },
+                { label: '이메일 다이제스트', desc: '주간 요약 이메일을 받습니다.', value: emailDigest, onChange: setEmailDigest },
+              ].map(({ label, desc, value, onChange }, i) => (
+                <div
+                  key={label}
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    padding: '16px 0',
+                    borderBottom: i === 0 ? '1px solid #f1f5f9' : 'none',
+                  }}
+                >
+                  <div>
+                    <div style={{ fontSize: '14px', fontWeight: 500, color: '#1e293b' }}>{label}</div>
+                    <div style={{ fontSize: '12px', color: '#94a3b8', marginTop: '2px' }}>{desc}</div>
+                  </div>
+                  <Toggle checked={value} onCheckedChange={onChange} />
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {step === 3 && (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+            <div>
+              <div style={{ fontSize: '22px', fontWeight: 800, color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '6px' }}>
+                자기소개 (선택)
+              </div>
+              <div style={{ fontSize: '13px', color: '#94a3b8' }}>팀원들이 당신을 더 잘 알 수 있습니다.</div>
+            </div>
+            <TextArea
+              value={bio}
+              onChange={(e) => setBio((e.target as HTMLTextAreaElement).value)}
+              placeholder="간략한 자기소개를 작성해 주세요..."
+              rows={4}
+            />
+            <div style={{
+              padding: '14px 16px',
+              borderRadius: '10px',
+              background: '#f8fafc',
+              border: '1px solid #e2e8f0',
+            }}>
+              <div style={{ fontSize: '12px', fontWeight: 600, color: '#64748b', marginBottom: '8px' }}>입력한 정보 요약</div>
+              <div style={{ fontSize: '13px', color: '#475569', lineHeight: '1.8' }}>
+                <span style={{ color: '#94a3b8' }}>이름:</span> {name || '(미입력)'}<br />
+                <span style={{ color: '#94a3b8' }}>직군:</span> {role || '(미선택)'}<br />
+                <span style={{ color: '#94a3b8' }}>관심사:</span> {interests.length > 0 ? interests.join(', ') : '(미선택)'}<br />
+                <span style={{ color: '#94a3b8' }}>알림:</span> {notifications ? '켜짐' : '꺼짐'}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* 하단 버튼 */}
+        <div style={{ marginTop: '32px', display: 'flex', gap: '10px', justifyContent: 'space-between' }}>
+          {step > 0 ? (
+            <OutlineButton color="black" size="medium" onClick={handleBack}>
+              <OutlineButton.Center>이전</OutlineButton.Center>
+            </OutlineButton>
+          ) : (
+            <div />
+          )}
+          {step < totalSteps - 1 ? (
+            <SolidButton
+              color="primary"
+              size="medium"
+              disabled={!canNext()}
+              onClick={handleNext}
+            >
+              <SolidButton.Center>다음</SolidButton.Center>
+            </SolidButton>
+          ) : (
+            <SolidButton color="primary" size="medium" onClick={handleFinish}>
+              <SolidButton.Center>시작하기</SolidButton.Center>
+            </SolidButton>
+          )}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const Onboarding: Story = {
+  render: () => <OnboardingRender />,
 }

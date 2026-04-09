@@ -2,7 +2,7 @@ import { Meta, StoryObj } from '@storybook/react'
 import { useReducer } from 'react'
 
 import { Presence } from './Presence'
-import * as styles from './Presence.stories.css'
+
 
 const meta = {
   title: 'Utils/Presence',
@@ -29,7 +29,7 @@ export const 예제: StoryObj<Meta> = {
           토글
         </button>
         <Presence present={present} onChange={onChange}>
-          <div className={styles.presentable}>I sense you!</div>
+          <div style={{ padding: "20px", background: "#f5f5f5", borderRadius: "8px" }}>I sense you!</div>
         </Presence>
       </>
     )

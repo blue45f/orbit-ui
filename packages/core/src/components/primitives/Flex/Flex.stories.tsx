@@ -1,7 +1,7 @@
 import { Meta, StoryObj } from '@storybook/react'
 
 import { Flex, FlexItem } from './Flex'
-import * as styles from './Flex.stories.css'
+
 
 Flex.displayName = 'Flex'
 
@@ -63,14 +63,11 @@ const COLORS = ['#83E8E2', '#A396FF', '#77BBFF']
 
 export const 기본 = {
   render: (args) => (
-    <Flex {...args} className={styles.container}>
+    <Flex {...args} style={{ padding: "20px", background: "#f5f5f5", border: "1px solid #ddd", borderRadius: "8px" }}>
       {COLORS.map((color, i) => (
         <div
           key={color}
-          className={styles.content}
-          style={{
-            backgroundColor: color,
-          }}
+          style={{ padding: "20px", borderRadius: "4px", color: "white", fontWeight: 500, display: "flex", alignItems: "center", justifyContent: "center", minWidth: "80px", minHeight: "60px", backgroundColor: color }}
         >
           Box{i + 1}
         </div>
@@ -135,7 +132,7 @@ export const 중첩 = {
 export const 아이템 = {
   render: (args) => {
     return (
-      <Flex {...args} className={styles.container}>
+      <Flex {...args} style={{ padding: "20px", background: "#f5f5f5", border: "1px solid #ddd", borderRadius: "8px" }}>
         <FlexItem style={{ background: 'blue' }}>아이템 1</FlexItem>
         <FlexItem style={{ background: 'red' }} flexGrow={1}>
           아이템 2

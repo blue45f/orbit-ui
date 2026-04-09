@@ -1,0 +1,274 @@
+import { Meta, Unstyled } from '@storybook/blocks'
+
+<Meta title='Intro/벤치마크 비교' />
+
+<Unstyled>
+  <div style={{
+    maxWidth: '960px',
+    margin: '0 auto',
+    fontFamily: '"Pretendard Variable", "Pretendard", -apple-system, BlinkMacSystemFont, system-ui, sans-serif',
+    padding: '0 24px',
+  }}>
+
+    {/* Header */}
+    <div style={{ marginBottom: '48px', paddingTop: '48px' }}>
+      <div style={{ fontSize: '12px', fontWeight: '700', color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '8px' }}>Benchmark Comparison</div>
+      <h1 style={{ fontSize: '36px', fontWeight: '800', color: '#1e293b', letterSpacing: '-0.03em', margin: '0 0 12px' }}>벤치마크 비교</h1>
+      <p style={{ fontSize: '16px', color: '#64748b', lineHeight: '1.6', margin: 0 }}>Mantine, Ant Design, shadcn/ui, MUI와 비교하여 Orbit UI가 채택한 패턴과 차별점을 설명합니다.</p>
+    </div>
+
+    {/* Comparison Table */}
+    <section style={{ marginBottom: '64px' }}>
+      <h2 style={{ fontSize: '22px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '24px' }}>시스템 비교 요약</h2>
+      <div style={{ overflowX: 'auto', borderRadius: '12px', border: '1.5px solid #e2e8f0' }}>
+        <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '14px' }}>
+          <thead>
+            <tr style={{ background: '#f8fafc' }}>
+              {['항목', 'Mantine', 'Ant Design', 'shadcn/ui', 'MUI', 'Orbit UI'].map((col, i) => (
+                <th key={col} style={{
+                  padding: '14px 18px',
+                  textAlign: 'left',
+                  fontWeight: 700,
+                  color: i === 5 ? '#6366f1' : '#475569',
+                  borderBottom: '1.5px solid #e2e8f0',
+                  whiteSpace: 'nowrap',
+                }}>{col}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {[
+              ['스타일 방식', 'CSS Modules', 'Less + CSS-in-JS', 'Tailwind CSS', 'Emotion', 'Tailwind + vanilla-extract'],
+              ['번들 크기', '중간', '큰 편', '최소', '큰 편', '최소 (트리쉐이킹)'],
+              ['테마 커스텀', 'MantineProvider', 'ConfigProvider', 'CSS 변수', 'ThemeProvider', '3-Tier Token'],
+              ['TypeScript', '완전 지원', '완전 지원', '완전 지원', '완전 지원', '완전 지원'],
+              ['컴파운드 패턴', '일부 지원', '일부 지원', '미지원', '일부 지원', '전면 채택'],
+              ['SSR 지원', 'O', 'O', 'O', 'O', 'O (Next.js 최적화)'],
+              ['접근성(A11Y)', '높음', '높음', '높음', '높음', '높음 (WAI-ARIA)'],
+              ['디자인 시스템', '독립적', '엔터프라이즈', 'Radix 기반', 'Material', 'Eclipse 테마'],
+            ].map((row, i) => (
+              <tr key={i} style={{ background: i % 2 === 0 ? '#fff' : '#fafafa' }}>
+                {row.map((cell, j) => (
+                  <td key={j} style={{
+                    padding: '12px 18px',
+                    color: j === 0 ? '#475569' : j === 5 ? '#6366f1' : '#64748b',
+                    fontWeight: j === 0 ? 600 : j === 5 ? 600 : 400,
+                    borderBottom: '1px solid #f1f5f9',
+                  }}>{cell}</td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    {/* Strengths adopted */}
+    <section style={{ marginBottom: '64px' }}>
+      <h2 style={{ fontSize: '22px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '24px' }}>Orbit UI가 채택한 장점</h2>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '16px' }}>
+        {[
+          {
+            source: 'Mantine',
+            color: '#339af0',
+            bg: '#e7f5ff',
+            items: [
+              'Notification 큐 패턴: toast.success/error/warning/info 타입 분리',
+              '제어 컴포넌트 패턴: checked + onCheckedChange로 상태 명시',
+              '설정 패널 패턴: Toggle 리스트로 환경설정 구성',
+            ],
+          },
+          {
+            source: 'Ant Design',
+            color: '#1677ff',
+            bg: '#e6f4ff',
+            items: [
+              'Steps 패턴: Progress + PageDots 조합으로 단계별 진행 표현',
+              'Form 검증 패턴: 제출 시 toast로 성공/실패 피드백',
+              'API 일관성: 모든 컴포넌트가 color/size/disabled 인터페이스 통일',
+            ],
+          },
+          {
+            source: 'shadcn/ui',
+            color: '#18181b',
+            bg: '#f4f4f5',
+            items: [
+              'Radix UI 프리미티브 기반: 접근성 보장된 Headless 컴포넌트',
+              '최소 번들: 사용한 컴포넌트만 포함되는 트리쉐이킹 구조',
+              'CSS 변수 기반 토큰: 런타임 테마 변경 가능',
+            ],
+          },
+          {
+            source: 'MUI',
+            color: '#007fff',
+            bg: '#e3f2fd',
+            items: [
+              'forwardRef 일관성: 모든 컴포넌트 루트에 ref 전달 보장',
+              'sx prop 영향: theme prop으로 컴포넌트 토큰 오버라이드',
+              '컴파운드 컴포넌트: Button.Leading/Center/Trailing 서브컴포넌트',
+            ],
+          },
+        ].map(({ source, color, bg, items }) => (
+          <div key={source} style={{
+            borderRadius: '12px',
+            border: `1.5px solid ${color}30`,
+            padding: '20px',
+          }}>
+            <div style={{
+              display: 'inline-block',
+              padding: '4px 10px',
+              borderRadius: '6px',
+              background: bg,
+              color,
+              fontSize: '12px',
+              fontWeight: 700,
+              marginBottom: '14px',
+            }}>{source}</div>
+            <ul style={{ margin: 0, paddingLeft: '16px' }}>
+              {items.map((item, i) => (
+                <li key={i} style={{ fontSize: '13px', color: '#475569', lineHeight: '1.7', marginBottom: '6px' }}>{item}</li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    {/* Migration Examples */}
+    <section style={{ marginBottom: '64px' }}>
+      <h2 style={{ fontSize: '22px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '24px' }}>마이그레이션 예시</h2>
+
+      {/* Mantine to Orbit UI */}
+      <div style={{ marginBottom: '32px' }}>
+        <div style={{ fontSize: '16px', fontWeight: 700, color: '#1e293b', marginBottom: '16px' }}>
+          <span style={{ color: '#339af0' }}>Mantine</span> → Orbit UI
+        </div>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+          <div style={{ borderRadius: '10px', overflow: 'hidden', border: '1.5px solid #e2e8f0' }}>
+            <div style={{ padding: '8px 14px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0', fontSize: '12px', fontWeight: 600, color: '#94a3b8' }}>Before (Mantine)</div>
+            <pre style={{ margin: 0, padding: '16px', fontSize: '12px', color: '#334155', background: '#fff', overflowX: 'auto', lineHeight: '1.6' }}>{`import { Button } from '@mantine/core'
+import { notifications } from '@mantine/notifications'
+
+// 버튼
+<Button variant="filled" color="blue">
+  저장
+</Button>
+
+// 알림
+notifications.show({
+  title: '완료',
+  message: '저장되었습니다.',
+  color: 'green',
+})`}</pre>
+          </div>
+          <div style={{ borderRadius: '10px', overflow: 'hidden', border: '1.5px solid #6366f130' }}>
+            <div style={{ padding: '8px 14px', background: '#f0f4ff', borderBottom: '1px solid #6366f130', fontSize: '12px', fontWeight: 600, color: '#6366f1' }}>After (Orbit UI)</div>
+            <pre style={{ margin: 0, padding: '16px', fontSize: '12px', color: '#334155', background: '#fff', overflowX: 'auto', lineHeight: '1.6' }}>{`import { SolidButton, Toaster, toast }
+  from '@heejun-com/theme-eclipse'
+
+// 버튼
+<SolidButton color="primary" size="medium">
+  <SolidButton.Center>저장</SolidButton.Center>
+</SolidButton>
+
+// 알림 (앱 최상단에 Toaster 선언 필요)
+toast.success('저장되었습니다.')`}</pre>
+          </div>
+        </div>
+      </div>
+
+      {/* Ant Design to Orbit UI */}
+      <div style={{ marginBottom: '32px' }}>
+        <div style={{ fontSize: '16px', fontWeight: 700, color: '#1e293b', marginBottom: '16px' }}>
+          <span style={{ color: '#1677ff' }}>Ant Design</span> → Orbit UI
+        </div>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+          <div style={{ borderRadius: '10px', overflow: 'hidden', border: '1.5px solid #e2e8f0' }}>
+            <div style={{ padding: '8px 14px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0', fontSize: '12px', fontWeight: 600, color: '#94a3b8' }}>Before (Ant Design)</div>
+            <pre style={{ margin: 0, padding: '16px', fontSize: '12px', color: '#334155', background: '#fff', overflowX: 'auto', lineHeight: '1.6' }}>{`import { Steps, Progress } from 'antd'
+
+// 단계 표시
+<Steps current={current} items={[
+  { title: '정보 입력' },
+  { title: '확인' },
+  { title: '완료' },
+]} />
+
+// 진행률
+<Progress percent={60} status="active" />`}</pre>
+          </div>
+          <div style={{ borderRadius: '10px', overflow: 'hidden', border: '1.5px solid #6366f130' }}>
+            <div style={{ padding: '8px 14px', background: '#f0f4ff', borderBottom: '1px solid #6366f130', fontSize: '12px', fontWeight: 600, color: '#6366f1' }}>After (Orbit UI)</div>
+            <pre style={{ margin: 0, padding: '16px', fontSize: '12px', color: '#334155', background: '#fff', overflowX: 'auto', lineHeight: '1.6' }}>{`import { PageDots, Progress }
+  from '@heejun-com/theme-eclipse'
+
+// 단계 표시 (PageDots + 진행률 조합)
+{steps.map((_, i) => (
+  <PageDots
+    key={i}
+    selected={i === current}
+    onClick={() => setCurrent(i)}
+  />
+))}
+
+// 진행률
+<Progress value={60} color="primary" />`}</pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* Decision rationale */}
+    <section style={{ marginBottom: '64px' }}>
+      <h2 style={{ fontSize: '22px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '24px' }}>설계 결정 근거</h2>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+        {[
+          {
+            title: 'vanilla-extract 선택 이유',
+            desc: 'MUI의 Emotion과 달리 빌드 타임에 CSS를 생성하여 런타임 오버헤드 없음. Tailwind와 조합으로 유틸리티 클래스와 정적 CSS를 함께 사용.',
+          },
+          {
+            title: '컴파운드 컴포넌트 전면 채택',
+            desc: 'Ant Design의 단일 props 방식 대신 Button.Leading/Center/Trailing 구조로 레이아웃 유연성 확보. 렌더링 제어권을 소비자에게 위임.',
+          },
+          {
+            title: '3-Tier 토큰 시스템',
+            desc: 'MUI의 ThemeProvider 의존 없이 Reference → Semantic → Component 토큰 계층으로 테마 변경 범위를 명확히 분리. 컴포넌트 단위 오버라이드 가능.',
+          },
+          {
+            title: 'Sonner 기반 Toast',
+            desc: 'Mantine Notification의 복잡한 큐 관리 대신 Sonner 라이브러리로 toast() 단일 API 제공. 앱 최상단에 Toaster 한 번 선언으로 전역 사용.',
+          },
+        ].map(({ title, desc }, i) => (
+          <div key={i} style={{
+            display: 'flex',
+            gap: '16px',
+            padding: '18px 20px',
+            borderRadius: '10px',
+            border: '1.5px solid #e2e8f0',
+            background: '#fafafa',
+          }}>
+            <div style={{
+              width: '28px',
+              height: '28px',
+              borderRadius: '8px',
+              background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
+              color: '#fff',
+              fontSize: '13px',
+              fontWeight: 800,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              flexShrink: 0,
+            }}>{i + 1}</div>
+            <div>
+              <div style={{ fontSize: '14px', fontWeight: 700, color: '#1e293b', marginBottom: '4px' }}>{title}</div>
+              <div style={{ fontSize: '13px', color: '#64748b', lineHeight: '1.6' }}>{desc}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+  </div>
+</Unstyled>

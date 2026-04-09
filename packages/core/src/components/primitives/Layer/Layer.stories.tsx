@@ -3,7 +3,7 @@ import { Meta } from '@storybook/react'
 import * as coreStyle from '../../../styles'
 
 import { ContainerLayer, StateLayer, ContentLayer } from './Layer'
-import * as styles from './Layer.stories.css'
+
 
 ContainerLayer.displayName = 'ContainerLayer'
 StateLayer.displayName = 'StateLayer'
@@ -76,7 +76,7 @@ export const 기본 = {
               textAlign: 'left',
             }}
           >
-            <StateLayer className={styles.state} style={{ borderRadius: '12px' }} />
+            <StateLayer style={{ backgroundColor: "rgba(0,0,0,0.1)", transition: "background-color 0.2s ease", borderRadius: "12px" }} />
             <ContentLayer direction="horizontal" style={{ gap: '12px', alignItems: 'center' }}>
               <div style={{
                 width: '40px', height: '40px', borderRadius: '10px',
@@ -97,7 +97,7 @@ export const 기본 = {
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '12px' }}>
             {[
               { name: 'ContainerLayer', desc: '최외곽 래퍼. border-radius, shadow, padding을 담당', color: '#64748b', code: '<ContainerLayer as="button">' },
-              { name: 'StateLayer', desc: 'hover/press 시각 효과 오버레이. absolute로 컨테이너를 덮음', color: '#6366f1', code: '<StateLayer className={styles.state} />' },
+              { name: 'StateLayer', desc: 'hover/press 시각 효과 오버레이. absolute로 컨테이너를 덮음', color: '#6366f1', code: '<StateLayer style={{ backgroundColor: "rgba(0,0,0,0.1)", transition: "background-color 0.2s ease", borderRadius: "12px" }} />' },
               { name: 'BorderLayer', desc: '테두리 전용 레이어. border-width/color를 독립 제어', color: '#3b82f6', code: '<BorderLayer />' },
               { name: 'ContentLayer', desc: '텍스트/아이콘 등 실제 콘텐츠. Flex 기반 레이아웃', color: '#10b981', code: '<ContentLayer direction="horizontal">' },
             ].map((l, i) => (

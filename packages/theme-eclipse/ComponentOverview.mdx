@@ -203,5 +203,118 @@ import { Meta, Unstyled } from '@storybook/blocks'
       </div>
     </section>
 
+    {/* Do / Don't */}
+    <section style={{ marginBottom: '64px' }}>
+      <h2 style={{ fontSize: '22px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '8px' }}>Do / Don't</h2>
+      <p style={{ fontSize: '14px', color: '#64748b', marginBottom: '28px' }}>컴포넌트를 올바르게 사용하는 방법과 피해야 할 패턴을 안내합니다.</p>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+        {[
+          {
+            topic: 'SolidButton — 컴파운드 패턴',
+            do: 'Center, Leading, Trailing 서브컴포넌트를 사용해 버튼 내부 레이아웃을 구성합니다.',
+            dont: '버튼 내부에 임의의 div나 span을 직접 삽입하면 스타일과 접근성이 깨질 수 있습니다.',
+            doCode: `<SolidButton color="primary" size="medium">
+  <SolidButton.Leading><PlusIcon /></SolidButton.Leading>
+  <SolidButton.Center>항목 추가</SolidButton.Center>
+</SolidButton>`,
+            dontCode: `<SolidButton color="primary" size="medium">
+  <div style={{ display: 'flex', gap: 8 }}>
+    <PlusIcon />
+    항목 추가
+  </div>
+</SolidButton>`,
+          },
+          {
+            topic: 'Toast — 피드백 타입 분리',
+            do: 'toast.success / toast.error / toast.warning / toast.info를 상황에 맞게 사용합니다.',
+            dont: '모든 피드백에 기본 toast()를 사용하면 사용자가 결과를 구분하기 어렵습니다.',
+            doCode: `// 저장 성공
+toast.success('변경사항이 저장되었습니다.')
+
+// 네트워크 오류
+toast.error('요청에 실패했습니다.', {
+  description: '잠시 후 다시 시도해 주세요.',
+})`,
+            dontCode: `// 타입 구분 없이 모두 동일
+toast('저장되었습니다.')
+toast('실패했습니다.')
+toast('주의가 필요합니다.')`,
+          },
+          {
+            topic: 'Toggle — 제어 vs 비제어',
+            do: 'controlled(제어) 사용 시 checked + onCheckedChange를 함께 지정합니다.',
+            dont: 'checked만 지정하고 onCheckedChange를 생략하면 상태가 변경되지 않습니다.',
+            doCode: `const [enabled, setEnabled] = useState(false)
+
+<Toggle
+  checked={enabled}
+  onCheckedChange={setEnabled}
+/>`,
+            dontCode: `// onCheckedChange 없으면 동작 안 함
+<Toggle checked={true} />`,
+          },
+          {
+            topic: 'API 일관성 — color / size / disabled',
+            do: '모든 인터랙티브 컴포넌트는 동일한 color, size, disabled 인터페이스를 따릅니다.',
+            dont: '컴포넌트마다 다른 prop 이름을 사용하거나 HTML 속성을 직접 조작하지 않습니다.',
+            doCode: `// 통일된 인터페이스
+<SolidButton color="primary" size="medium" disabled />
+<OutlineButton color="black" size="large" disabled />
+<GhostButton color="gray" size="small" disabled />`,
+            dontCode: `// 임의로 색상을 인라인 스타일로 변경
+<SolidButton style={{ background: '#ff0000' }}>
+  버튼
+</SolidButton>`,
+          },
+        ].map(({ topic, do: doText, dont, doCode, dontCode }, i) => (
+          <div key={i} style={{ borderRadius: '14px', border: '1.5px solid #e2e8f0', overflow: 'hidden' }}>
+            <div style={{ padding: '14px 20px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0' }}>
+              <span style={{ fontSize: '13px', fontWeight: 700, color: '#475569' }}>{topic}</span>
+            </div>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 0 }}>
+              <div style={{ padding: '20px', borderRight: '1px solid #e2e8f0' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '10px' }}>
+                  <div style={{ width: '20px', height: '20px', borderRadius: '50%', background: '#10b981', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '11px', fontWeight: 800, color: '#fff' }}>O</div>
+                  <span style={{ fontSize: '12px', fontWeight: 700, color: '#10b981' }}>Do</span>
+                </div>
+                <p style={{ fontSize: '13px', color: '#475569', lineHeight: '1.6', margin: '0 0 12px' }}>{doText}</p>
+                <pre style={{ margin: 0, padding: '12px', borderRadius: '8px', background: '#f0fdf4', border: '1px solid #bbf7d0', fontSize: '11px', color: '#15803d', lineHeight: '1.6', overflowX: 'auto' }}>{doCode}</pre>
+              </div>
+              <div style={{ padding: '20px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '10px' }}>
+                  <div style={{ width: '20px', height: '20px', borderRadius: '50%', background: '#ef4444', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '11px', fontWeight: 800, color: '#fff' }}>X</div>
+                  <span style={{ fontSize: '12px', fontWeight: 700, color: '#ef4444' }}>Don't</span>
+                </div>
+                <p style={{ fontSize: '13px', color: '#475569', lineHeight: '1.6', margin: '0 0 12px' }}>{dont}</p>
+                <pre style={{ margin: 0, padding: '12px', borderRadius: '8px', background: '#fef2f2', border: '1px solid #fecaca', fontSize: '11px', color: '#b91c1c', lineHeight: '1.6', overflowX: 'auto' }}>{dontCode}</pre>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    {/* API Consistency */}
+    <section style={{ marginBottom: '64px' }}>
+      <h2 style={{ fontSize: '22px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '8px' }}>API 일관성</h2>
+      <p style={{ fontSize: '14px', color: '#64748b', marginBottom: '24px' }}>Ant Design에서 영감을 받아 모든 컴포넌트가 예측 가능한 인터페이스를 따릅니다.</p>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '14px' }}>
+        {[
+          { prop: 'color', values: '"primary" | "black" | "gray" | "white"', desc: '시각적 색상 변형. 모든 버튼/입력 컴포넌트에 동일하게 적용.' },
+          { prop: 'size', values: '"small" | "medium" | "large"', desc: '컴포넌트 크기. 패딩, 폰트, 아이콘 크기가 연동하여 변경.' },
+          { prop: 'disabled', values: 'boolean', desc: '비활성화 상태. HTML aria-disabled와 cursor: not-allowed가 자동 적용.' },
+          { prop: 'theme', values: 'ComponentToken 부분 오버라이드', desc: 'CSS 변수 없이 TypeScript로 토큰을 직접 오버라이드.' },
+          { prop: 'ref', values: 'ForwardedRef', desc: '모든 루트 엘리먼트에 forwardRef가 적용되어 DOM 접근 가능.' },
+          { prop: 'as', values: '"button" | "a" | ...', desc: '렌더링 엘리먼트를 변경. 링크 버튼 구현 시 사용.' },
+        ].map(({ prop, values, desc }, i) => (
+          <div key={i} style={{ padding: '18px', borderRadius: '10px', border: '1.5px solid #e2e8f0', background: '#fff' }}>
+            <code style={{ fontSize: '13px', fontWeight: 700, color: '#6366f1', background: '#f0f4ff', padding: '2px 8px', borderRadius: '5px' }}>{prop}</code>
+            <div style={{ fontSize: '11px', color: '#94a3b8', marginTop: '8px', marginBottom: '6px', fontFamily: 'monospace' }}>{values}</div>
+            <div style={{ fontSize: '12px', color: '#64748b', lineHeight: '1.5' }}>{desc}</div>
+          </div>
+        ))}
+      </div>
+    </section>
+
   </div>
 </Unstyled>
