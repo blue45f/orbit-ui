@@ -8,7 +8,7 @@ import animationData from './example.json'
 Animation.displayName = 'Animation'
 
 const meta = {
-  title: 'utils/Animation',
+  title: '7. Utils/Animation',
   component: Animation,
   args: {
     autoplay: true,

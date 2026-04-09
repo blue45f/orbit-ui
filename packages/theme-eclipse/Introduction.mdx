@@ -26,14 +26,28 @@ Orbit UI는 **Headless & Tiered 아키텍처**를 기반으로 하여 디자인 
 ### 2. 다형성 (Polymorphic)
 as prop을 지원하여 시각적 스타일은 유지하되 실제 렌더링되는 HTML 태그를 변경할 수 있습니다. (예: Button 스타일을 가진 a 태그)
 
-### 3. 테마 및 밀도 제어
-EclipseProvider를 통해 전역적으로 테마와 정보 밀도를 제어할 수 있습니다.
+### 3. 테마 제어
+`EclipseProvider`를 통해 전역적으로 테마를 제어할 수 있습니다.
+
+<br />
 
 | Prop | 값 | 설명 |
 | :--- | :--- | :--- |
-| mode | light / dark | 라이트/다크 모드 전환 |
-| density | standard / high | 일반/고밀도(어드민용) 여백 조정 |
-| platform | mobile / pc | 플랫폼별 최적화 스타일 |
+| **mode** | `light` / `dark` | 라이트/다크 모드 전환 |
+| **platform** | `mobile` / `pc` | 플랫폼별 최적화 스타일 |
+
+<br />
+
+## 🛠 유틸리티 및 원자 단위 컴포넌트 (Utility)
+
+Orbit UI는 레이아웃과 애니메이션을 위한 강력한 유틸리티 컴포넌트를 제공합니다. `utils` 카테고리에서 확인하실 수 있습니다.
+
+- **Flex**: 유연한 레이아웃 구성을 위한 Flexbox 래퍼
+- **Space**: 컴포넌트 간의 일정한 간격을 위한 스페이싱 유틸리티
+- **Animation**: 고성능 트랜지션 및 애니메이션 엔진
+- **Presence**: 조건부 렌더링 시 애니메이션 처리를 위한 유틸리티
+
+---
 
 ## 🌟 디자인 철학 (Premium UX)
 

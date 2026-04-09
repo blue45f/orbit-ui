@@ -9,7 +9,7 @@ import { OverlayContainerLayer, OverlayContainerLayerProps } from './OverlayCont
 OverlayContainerLayer.displayName = 'OverlayContainerLayer'
 
 const meta = {
-  title: 'utils/OverlayContainerLayer',
+  title: '7. Utils/OverlayContainerLayer',
   component: OverlayContainerLayer,
 } satisfies Meta<typeof OverlayContainerLayer>
 

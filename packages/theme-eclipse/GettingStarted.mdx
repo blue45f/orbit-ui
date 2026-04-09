@@ -51,10 +51,14 @@ function MyApp() {
 
 ### EclipseProvider 옵션
 
+<br />
+
 | Prop | 타입 | 기본값 | 설명 |
 |------|------|--------|------|
 | `mode` | `'light' \| 'dark'` | `'light'` | 테마 모드 |
 | `baseTextSize` | `'small' \| 'medium' \| 'large'` | `'medium'` | 기본 텍스트 크기 |
+
+<br />
 
 ```tsx
 <EclipseProvider mode="dark" baseTextSize="medium">
@@ -128,18 +132,20 @@ function MyForm() {
 }
 ```
 
-### 사용 가능한 컴포넌트
+### 주요 컴포넌트 카테고리
 
-| 카테고리 | 컴포넌트 |
+<br />
+
+| 카테고리 | 포함된 컴포넌트 |
 |----------|----------|
-| **버튼** | `SolidButton`, `OutlineButton`, `GhostButton`, `SolidIconButton`, `OutlineIconButton` |
-| **입력** | `TextField`, `FloatingTextField`, `PasswordField`, `TextArea`, `SearchBar`, `Toggle`, `Checkbox`, `BoxedCheckbox`, `RadioButton` |
-| **선택** | `Dropdown`, `TabGroup`, `TabItem`, `ScrollableTabGroup`, `SegmentedControl` |
-| **피드백** | `Toast`, `Modal`, `AlertDialog` |
-| **뱃지** | `AnimatedBadge`, `CounterBadge`, `LabelBadge`, `SpeechBadge` |
-| **레이아웃** | `AppBar`, `Divider`, `Space`, `ListTile`, `SectionTitle` |
-| **페이지네이션** | `PageIndicator`, `PageNumber`, `PageDots` |
-| **기타** | `Chip`, `ChipLink`, `Text` |
+| **1. Actions** | `Button`, `Chip`, `Tab`, `SegmentedControl` |
+| **2. Inputs** | `TextField`, `SearchBar`, `Checkbox`, `Radio`, `Toggle`, `Dropdown`, `Calendar`, `Slider` |
+| **3. Data Display** | `DataTable`, `Avatar`, `Badge`, `ListTile`, `Accordion`, `Carousel` |
+| **4. Feedback** | `Toast`, `Modal`, `Alert`, `Progress`, `Skeleton`, `Popover`, `Tooltip` |
+| **5. Navigation** | `AppBar`, `Breadcrumb`, `PageIndicator`, `PageNumber` |
+| **6. Layout** | `Divider`, `Space` |
+
+<br />
 
 <br />
 

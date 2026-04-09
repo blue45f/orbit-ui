@@ -5,7 +5,7 @@ import { Spinner } from './Spinner'
 Spinner.displayName = 'Spinner'
 
 const meta = {
-  title: 'utils/Spinner',
+  title: '7. Utils/Spinner',
   component: Spinner,
   args: {
     color: 'primary',
