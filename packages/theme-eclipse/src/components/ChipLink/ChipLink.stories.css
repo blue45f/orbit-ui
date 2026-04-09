@@ -1,0 +1,13 @@
+.chiplink-stories-table {
+  border: 1px solid var(--sem-eclipse-color-borderPrimary);
+  border-radius: var(--ref-radius-medium);
+}
+
+.chiplink-stories-table th,
+.chiplink-stories-table td {
+  padding: var(--ref-spacing-100);
+}
+
+.chiplink-stories-table th {
+  background-color: var(--sem-eclipse-color-backgroundPrimary);
+}

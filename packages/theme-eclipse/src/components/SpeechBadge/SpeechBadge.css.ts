@@ -1,32 +1,12 @@
-import { recipe } from '@vanilla-extract/recipes'
+import clsx from 'clsx'
 
-import { vars } from '../../styles'
-
-export const tail = recipe({
-  base: {
-    position: 'absolute',
-    width: '9px',
-    height: '5px',
-  },
-  variants: {
-    color: {
-      pink: {
-        color: vars.com.bubbleBadge.variant.color.pink.fillColor,
-      },
-      blue: {
-        color: vars.com.bubbleBadge.variant.color.blue.fillColor,
-      },
-    },
-    position: {
-      leading: {
-        bottom: '0px',
-        left: '7.7px',
-        transform: 'scaleX(-1)',
-      },
-      trailing: {
-        right: '7.7px',
-        bottom: '0px',
-      },
-    },
-  },
-})
+export const tail = (opts: {
+  color: 'pink' | 'blue'
+  position: 'leading' | 'trailing'
+}) =>
+  clsx('absolute w-[9px] h-[5px]', {
+    '[color:var(--com-eclipse-bubbleBadge-fillColor-color-pink)]': opts.color === 'pink',
+    '[color:var(--com-eclipse-bubbleBadge-fillColor-color-blue)]': opts.color === 'blue',
+    'bottom-0 left-[7.7px] scale-x-[-1]': opts.position === 'leading',
+    'right-[7.7px] bottom-0': opts.position === 'trailing',
+  })

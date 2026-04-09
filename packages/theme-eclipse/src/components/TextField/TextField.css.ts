@@ -1,15 +1,3 @@
-import { style } from '@vanilla-extract/css'
+export const clearButton = 'w-6 h-6 overflow-visible'
 
-export const clearButton = style({
-  width: 24,
-  height: 24,
-  overflow: 'visible',
-})
-
-export const iconButton = style({
-  selectors: {
-    [`${clearButton} > &`]: {
-      flexShrink: 0,
-    },
-  },
-})
+export const iconButton = 'shrink-0'

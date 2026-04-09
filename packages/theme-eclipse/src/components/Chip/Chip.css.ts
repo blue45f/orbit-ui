@@ -1,5 +1,1 @@
-import { style } from '@vanilla-extract/css'
-
-export const chip = style({
-  minHeight: 38,
-})
+export const chip = 'min-h-[38px]'

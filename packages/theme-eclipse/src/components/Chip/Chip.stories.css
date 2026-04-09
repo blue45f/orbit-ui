@@ -1,0 +1,13 @@
+.chip-stories-table {
+  border: 1px solid var(--sem-eclipse-color-borderPrimary);
+  border-radius: var(--ref-radius-medium);
+}
+
+.chip-stories-table th,
+.chip-stories-table td {
+  padding: var(--ref-spacing-100);
+}
+
+.chip-stories-table th {
+  background-color: var(--sem-eclipse-color-backgroundPrimary);
+}

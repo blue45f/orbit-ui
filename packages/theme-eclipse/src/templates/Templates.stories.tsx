@@ -3400,14 +3400,16 @@ const NotificationCenterRender = () => {
         }}>
           <GhostButton
             color="black"
-            size="medium"
-            width="100%"
+            size="small"
+            style={{ width: '100%' }}
             onClick={() => setPage((p) => Math.min(p + 1, 2))}
           >
             <GhostButton.Center>더보기</GhostButton.Center>
           </GhostButton>
-          <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <PageDots total={3} current={page} />
+          <div style={{ display: 'flex', justifyContent: 'center', gap: 4 }}>
+            {[0, 1, 2].map((i) => (
+              <PageDots key={i} selected={i === page % 3} />
+            ))}
           </div>
         </div>
       )}

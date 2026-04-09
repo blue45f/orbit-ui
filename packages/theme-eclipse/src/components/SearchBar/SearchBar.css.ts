@@ -1,25 +1,7 @@
-import { style } from '@vanilla-extract/css'
+export const captionWrapper = 'flex gap-[var(--ref-spacing-50)]'
 
-import { vars } from '../../styles'
+export const caption = 'whitespace-nowrap'
 
-export const captionWrapper = style({
-  gap: vars.ref.spacing['50'],
-})
+export const clearButton = 'w-6 h-6 overflow-visible'
 
-export const caption = style({
-  whiteSpace: 'nowrap',
-})
-
-export const clearButton = style({
-  width: 24,
-  height: 24,
-  overflow: 'visible',
-})
-
-export const iconButton = style({
-  selectors: {
-    [`${clearButton} > &`]: {
-      flexShrink: 0,
-    },
-  },
-})
+export const iconButton = 'shrink-0'
