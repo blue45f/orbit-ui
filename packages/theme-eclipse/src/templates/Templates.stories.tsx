@@ -3809,7 +3809,7 @@ const AnalyticsDashboardRender = () => {
             <Text textStyle="displaySmall" style={{ color: tc.fg, fontWeight: 700, display: 'block' }}>분석 대시보드</Text>
             <Text textStyle="bodyMedium" style={{ color: tc.fgSub }}>사이트 성과 요약</Text>
           </div>
-          <SegmentedControl selectedIndex={dateRange} onTabChange={setDateRange}>
+          <SegmentedControl defaultValue="7d">
             <SegmentedControl.Tab value="7d"><SegmentedControl.TabCenter>7일</SegmentedControl.TabCenter></SegmentedControl.Tab>
             <SegmentedControl.Tab value="30d"><SegmentedControl.TabCenter>30일</SegmentedControl.TabCenter></SegmentedControl.Tab>
             <SegmentedControl.Tab value="90d"><SegmentedControl.TabCenter>90일</SegmentedControl.TabCenter></SegmentedControl.Tab>
