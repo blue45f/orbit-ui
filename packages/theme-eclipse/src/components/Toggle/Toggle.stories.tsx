@@ -353,3 +353,159 @@ const FeatureFlagsRender = () => {
 export const Linear_기능_플래그: Story = {
   render: () => <FeatureFlagsRender />,
 }
+
+/* --------------------------------------------------------------------------
+   Chakra UI 벤치마크: useColorMode 패턴
+   Chakra UI의 useColorMode hook + ColorModeButton 패턴에 대응하는
+   Toggle 기반 테마/다크모드 전환 UI — EclipseProvider와 연동되는 시뮬레이션
+-------------------------------------------------------------------------- */
+const ColorModeToggleRender = () => {
+  const [isDark, setIsDark] = useState(false)
+  const [highContrast, setHighContrast] = useState(false)
+  const [reducedMotion, setReducedMotion] = useState(false)
+
+  const bg = isDark ? '#0f172a' : '#fff'
+  const surface = isDark ? '#1e293b' : '#f8fafc'
+  const fg = isDark ? '#f1f5f9' : '#1e293b'
+  const fgSub = isDark ? '#94a3b8' : '#64748b'
+  const border = isDark ? '#334155' : '#e2e8f0'
+  const borderSub = isDark ? '#1e293b' : '#f1f5f9'
+  const accent = '#6366f1'
+
+  const modes = [
+    {
+      key: 'dark',
+      label: '다크 모드',
+      desc: isDark ? '다크 테마가 적용되어 있습니다' : '라이트 테마가 적용되어 있습니다',
+      value: isDark,
+      onChange: setIsDark,
+    },
+    {
+      key: 'contrast',
+      label: '고대비 모드',
+      desc: highContrast ? '텍스트 대비가 강화되었습니다' : 'WCAG AA 기본 대비 적용',
+      value: highContrast,
+      onChange: setHighContrast,
+    },
+    {
+      key: 'motion',
+      label: '애니메이션 줄이기',
+      desc: reducedMotion ? '애니메이션이 최소화됩니다' : '일반 애니메이션 효과 사용',
+      value: reducedMotion,
+      onChange: setReducedMotion,
+    },
+  ]
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', maxWidth: '420px' }}>
+      {/* 미리보기 카드 */}
+      <div
+        style={{
+          borderRadius: '16px',
+          border: `1.5px solid ${border}`,
+          background: bg,
+          overflow: 'hidden',
+          transition: 'all 0.25s ease',
+        }}
+      >
+        {/* 헤더 */}
+        <div
+          style={{
+            padding: '16px 20px',
+            borderBottom: `1px solid ${borderSub}`,
+            background: surface,
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+          }}
+        >
+          <span style={{ fontSize: '14px', fontWeight: 700, color: fg }}>테마 미리보기</span>
+          <div
+            style={{
+              padding: '4px 10px',
+              borderRadius: '100px',
+              background: isDark ? 'rgba(99,102,241,0.2)' : 'rgba(99,102,241,0.1)',
+              color: accent,
+              fontSize: '11px',
+              fontWeight: 700,
+            }}
+          >
+            {isDark ? 'Dark' : 'Light'}
+          </div>
+        </div>
+        {/* 본문 */}
+        <div style={{ padding: '16px 20px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+          <div style={{ fontSize: '13px', fontWeight: 600, color: fg }}>Orbit UI Eclipse Theme</div>
+          <div style={{ fontSize: '12px', color: fgSub, lineHeight: '1.6' }}>
+            Chakra UI의 <code style={{ background: surface, padding: '1px 5px', borderRadius: '4px', fontFamily: 'monospace', color: accent }}>useColorMode</code> 패턴에 대응하여
+            Toggle 컴포넌트로 테마 전환 UI를 구현한 예시입니다.
+          </div>
+          <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap', marginTop: '4px' }}>
+            {['Primary', 'Secondary', 'Muted'].map((label, _i) => (
+              <div
+                key={label}
+                style={{
+                  padding: '4px 10px',
+                  borderRadius: '6px',
+                  border: `1px solid ${border}`,
+                  background: _i === 0 ? accent : surface,
+                  color: _i === 0 ? '#fff' : fg,
+                  fontSize: '11px',
+                  fontWeight: 600,
+                }}
+              >
+                {label}
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* 접근성 설정 토글 패널 */}
+      <div
+        style={{
+          borderRadius: '12px',
+          border: '1.5px solid #e2e8f0',
+          overflow: 'hidden',
+        }}
+      >
+        <div
+          style={{
+            padding: '12px 16px',
+            borderBottom: '1px solid #f1f5f9',
+            background: '#f8fafc',
+          }}
+        >
+          <div style={{ fontSize: '13px', fontWeight: 700, color: '#1e293b' }}>접근성 설정</div>
+          <div style={{ fontSize: '11px', color: '#94a3b8', marginTop: '2px' }}>
+            Chakra UI colorMode + accessibility 통합 패턴
+          </div>
+        </div>
+        {modes.map(({ key, label, desc, value, onChange }) => (
+          <div
+            key={key}
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              padding: '14px 16px',
+              borderBottom: '1px solid #f8fafc',
+              background: value ? 'rgba(99,102,241,0.03)' : '#fff',
+              transition: 'background 0.15s',
+            }}
+          >
+            <div>
+              <div style={{ fontSize: '13px', fontWeight: 500, color: '#1e293b' }}>{label}</div>
+              <div style={{ fontSize: '11px', color: '#94a3b8', marginTop: '2px' }}>{desc}</div>
+            </div>
+            <Toggle checked={value} onCheckedChange={onChange} />
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+export const Chakra_컬러모드_토글: Story = {
+  render: () => <ColorModeToggleRender />,
+}

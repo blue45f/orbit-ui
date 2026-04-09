@@ -28,22 +28,34 @@ import { Meta, Unstyled } from '@storybook/blocks'
       </div>
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-        {[
-          { label: 'pnpm', cmd: 'pnpm add @heejun-com/theme-eclipse @heejun-com/icons', recommended: true },
-          { label: 'npm', cmd: 'npm install @heejun-com/theme-eclipse @heejun-com/icons' },
-          { label: 'yarn', cmd: 'yarn add @heejun-com/theme-eclipse @heejun-com/icons' },
-        ].map((pkg, i) => (
-          <div key={i} style={{
-            display: 'flex', alignItems: 'center', gap: '12px',
-            padding: '12px 16px', borderRadius: '10px',
-            background: '#0f172a', fontFamily: '"JetBrains Mono", monospace',
-            border: pkg.recommended ? '1px solid rgba(99, 102, 241, 0.3)' : '1px solid #1e293b',
-          }}>
-            <span style={{ fontSize: '11px', color: '#64748b', fontWeight: '600', minWidth: '36px', textTransform: 'uppercase' }}>{pkg.label}</span>
-            <code style={{ fontSize: '13px', color: '#e2e8f0' }}>{pkg.cmd}</code>
-            {pkg.recommended && <span style={{ fontSize: '10px', color: '#6366f1', fontWeight: '600', marginLeft: 'auto', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Recommended</span>}
-          </div>
-        ))}
+        <div style={{
+          display: 'flex', alignItems: 'center', gap: '12px',
+          padding: '12px 16px', borderRadius: '10px',
+          background: '#0f172a', fontFamily: '"JetBrains Mono", monospace',
+          border: '1px solid rgba(99, 102, 241, 0.3)',
+        }}>
+          <span style={{ fontSize: '11px', color: '#64748b', fontWeight: '600', minWidth: '36px', textTransform: 'uppercase' }}>pnpm</span>
+          <code style={{ fontSize: '13px', color: '#e2e8f0' }}>pnpm add @heejun-com/theme-eclipse @heejun-com/icons</code>
+          <span style={{ fontSize: '10px', color: '#6366f1', fontWeight: '600', marginLeft: 'auto', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Recommended</span>
+        </div>
+        <div style={{
+          display: 'flex', alignItems: 'center', gap: '12px',
+          padding: '12px 16px', borderRadius: '10px',
+          background: '#0f172a', fontFamily: '"JetBrains Mono", monospace',
+          border: '1px solid #1e293b',
+        }}>
+          <span style={{ fontSize: '11px', color: '#64748b', fontWeight: '600', minWidth: '36px', textTransform: 'uppercase' }}>npm</span>
+          <code style={{ fontSize: '13px', color: '#e2e8f0' }}>npm install @heejun-com/theme-eclipse @heejun-com/icons</code>
+        </div>
+        <div style={{
+          display: 'flex', alignItems: 'center', gap: '12px',
+          padding: '12px 16px', borderRadius: '10px',
+          background: '#0f172a', fontFamily: '"JetBrains Mono", monospace',
+          border: '1px solid #1e293b',
+        }}>
+          <span style={{ fontSize: '11px', color: '#64748b', fontWeight: '600', minWidth: '36px', textTransform: 'uppercase' }}>yarn</span>
+          <code style={{ fontSize: '13px', color: '#e2e8f0' }}>yarn add @heejun-com/theme-eclipse @heejun-com/icons</code>
+        </div>
       </div>
     </section>
 
@@ -85,7 +97,6 @@ function MyApp() {
         </pre>
       </div>
 
-      {/* Provider Options */}
       <div style={{ fontSize: '13px', fontWeight: '600', color: '#475569', marginBottom: '12px' }}>EclipseProvider Props</div>
       <div style={{ borderRadius: '12px', border: '1px solid #e2e8f0', overflow: 'hidden' }}>
         <table style={{ width: '100%', borderCollapse: 'collapse', margin: 0 }}>
@@ -137,12 +148,17 @@ function MyApp() {
       </div>
 
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
-        {[
-          { title: 'Pages Router', file: '_document.tsx', code: `import { getTheme } from '@heejun-com/theme-eclipse/server'
+        <div style={{ borderRadius: '12px', border: '1px solid #e2e8f0', overflow: 'hidden' }}>
+          <div style={{ padding: '8px 16px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <span style={{ fontSize: '12px', color: '#64748b', fontWeight: '600' }}>Pages Router</span>
+            <span style={{ fontSize: '11px', color: '#94a3b8' }}>_document.tsx</span>
+          </div>
+          <pre style={{ margin: 0, padding: '16px', background: '#0f172a', color: '#e2e8f0', fontSize: '11px', lineHeight: '1.7', fontFamily: '"JetBrains Mono", monospace', overflow: 'auto' }}>
+{`import { getTheme } from '@heejun-com/theme-eclipse/server'
 
 export default function Document() {
   return (
-    <Html lang='ko'>
+    <Html lang="ko">
       <Head />
       <body className={getTheme()}>
         <Main />
@@ -150,34 +166,31 @@ export default function Document() {
       </body>
     </Html>
   )
-}` },
-          { title: 'App Router', file: 'app/layout.tsx', code: `import { getTheme } from '@heejun-com/theme-eclipse/server'
+}`}
+          </pre>
+        </div>
+        <div style={{ borderRadius: '12px', border: '1px solid #e2e8f0', overflow: 'hidden' }}>
+          <div style={{ padding: '8px 16px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <span style={{ fontSize: '12px', color: '#64748b', fontWeight: '600' }}>App Router</span>
+            <span style={{ fontSize: '11px', color: '#94a3b8' }}>app/layout.tsx</span>
+          </div>
+          <pre style={{ margin: 0, padding: '16px', background: '#0f172a', color: '#e2e8f0', fontSize: '11px', lineHeight: '1.7', fontFamily: '"JetBrains Mono", monospace', overflow: 'auto' }}>
+{`import { getTheme } from '@heejun-com/theme-eclipse/server'
 import '@heejun-com/theme-eclipse/style.css'
 
 export default function RootLayout({
-  children
-}: {
-  children: React.ReactNode
-}) {
+  children,
+}: { children: React.ReactNode }) {
   return (
-    <html lang='ko'>
+    <html lang="ko">
       <body className={getTheme()}>
         {children}
       </body>
     </html>
   )
-}` },
-        ].map((example, i) => (
-          <div key={i} style={{ borderRadius: '12px', border: '1px solid #e2e8f0', overflow: 'hidden' }}>
-            <div style={{ padding: '8px 16px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-              <span style={{ fontSize: '12px', color: '#64748b', fontWeight: '600' }}>{example.title}</span>
-              <span style={{ fontSize: '11px', color: '#94a3b8' }}>{example.file}</span>
-            </div>
-            <pre style={{ margin: 0, padding: '16px', background: '#0f172a', color: '#e2e8f0', fontSize: '11px', lineHeight: '1.7', fontFamily: '"JetBrains Mono", monospace', overflow: 'auto' }}>
-              {example.code}
-            </pre>
-          </div>
-        ))}
+}`}
+          </pre>
+        </div>
       </div>
     </section>
 
@@ -200,11 +213,11 @@ import { BellIcon } from '@heejun-com/icons'
 function MyForm() {
   return (
     <div>
-      <TextField placeholder="이름을 입력하세요" />
-      <Toggle />
+      <TextField label="이름" placeholder="홍길동" />
+      <Toggle label="알림 수신" />
       <SolidButton>
         <SolidButton.Leading><BellIcon /></SolidButton.Leading>
-        <SolidButton.Center>알림 설정</SolidButton.Center>
+        <SolidButton.Center>저장하기</SolidButton.Center>
       </SolidButton>
     </div>
   )
@@ -212,642 +225,15 @@ function MyForm() {
         </pre>
       </div>
 
-      {/* Component Categories */}
-      <div style={{ fontSize: '13px', fontWeight: '600', color: '#475569', marginBottom: '12px' }}>Component Categories</div>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '8px' }}>
-        {[
-          { cat: 'Actions', items: 'Button, Chip, Tab, SegmentedControl', color: '#6366f1' },
-          { cat: 'Inputs', items: 'TextField, SearchBar, Checkbox, Radio, Toggle, Dropdown, Calendar, Slider', color: '#8b5cf6' },
-          { cat: 'Data Display', items: 'DataTable, Avatar, Badge, ListTile, Accordion, Carousel', color: '#3b82f6' },
-          { cat: 'Feedback', items: 'Toast, Modal, Alert, Progress, Skeleton, Popover, Tooltip', color: '#f59e0b' },
-          { cat: 'Navigation', items: 'AppBar, Breadcrumb, PageIndicator, PageNumber', color: '#10b981' },
-          { cat: 'Layout & Utils', items: 'Divider, Space, Flex, Animation, Presence', color: '#ef4444' },
-        ].map((c, i) => (
-          <div key={i} style={{
-            padding: '14px 16px', borderRadius: '10px', border: '1px solid #f1f5f9',
-            display: 'flex', flexDirection: 'column', gap: '4px',
-          }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: c.color }} />
-              <span style={{ fontSize: '13px', fontWeight: '700', color: '#1e293b' }}>{c.cat}</span>
-            </div>
-            <span style={{ fontSize: '12px', color: '#94a3b8', lineHeight: '1.5' }}>{c.items}</span>
-          </div>
-        ))}
+      <div style={{
+        padding: '16px 20px', borderRadius: '10px',
+        background: 'linear-gradient(90deg, rgba(99, 102, 241, 0.04) 0%, transparent 100%)',
+        borderLeft: '3px solid #6366f1',
+      }}>
+        <p style={{ fontSize: '14px', color: '#475569', margin: 0, lineHeight: '1.6' }}>
+          더 많은 컴포넌트와 사용 예시는 사이드바의 <strong>Eclipse</strong> 섹션에서 확인할 수 있습니다.
+        </p>
       </div>
-    </section>
-
-    {/* Migration Guide: MUI & Chakra UI */}
-    <section style={{ marginBottom: '48px' }}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '20px' }}>
-        <div style={{
-          width: '28px', height: '28px', borderRadius: '8px', background: '#6366f1',
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
-          color: '#ffffff', fontSize: '14px', fontWeight: '700', flexShrink: 0,
-        }}>5</div>
-        <h2 style={{ fontSize: '20px', fontWeight: '700', color: '#1e293b', margin: 0 }}>마이그레이션 가이드</h2>
-      </div>
-
-      <p style={{ fontSize: '14px', color: '#64748b', marginBottom: '24px', lineHeight: '1.6' }}>
-        Material UI(MUI) 또는 Chakra UI에서 마이그레이션하는 경우, 아래 대응 표를 참고하세요.
-      </p>
-
-      {/* MUI Migration */}
-      <div style={{ marginBottom: '32px' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '16px' }}>
-          <div style={{
-            padding: '4px 10px', borderRadius: '6px', fontSize: '12px', fontWeight: '700',
-            background: 'rgba(25, 118, 210, 0.1)', color: '#1976d2',
-          }}>
-            MUI
-          </div>
-          <span style={{ fontSize: '16px', fontWeight: '600', color: '#1e293b' }}>Material UI 사용자를 위한 가이드</span>
-        </div>
-
-        <div style={{ borderRadius: '12px', border: '1px solid #e2e8f0', overflow: 'hidden', marginBottom: '16px' }}>
-          <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px' }}>
-            <thead>
-              <tr style={{ background: '#f8fafc' }}>
-                {['MUI 컴포넌트', 'Orbit UI 대응', '주요 차이점'].map((col) => (
-                  <th key={col} style={{
-                    padding: '12px 16px', textAlign: 'left', fontWeight: '700',
-                    color: '#475569', borderBottom: '1px solid #e2e8f0', whiteSpace: 'nowrap',
-                  }}>{col}</th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {[
-                ['TextField (outlined)', 'TextField', 'error prop 동일, helperText는 별도 div로 구현'],
-                ['TextField (filled/standard)', 'TextField + theme prop', 'theme prop으로 배경색/언더라인 커스텀'],
-                ['Select', 'Dropdown', 'activated prop으로 open 상태 제어, onChange 대신 onClick'],
-                ['Checkbox', 'Checkbox', 'iconName="minus"로 indeterminate 상태 표현'],
-                ['Radio / RadioGroup', 'RadioButton', 'fieldset + name으로 그룹 관리 (동일 패턴)'],
-                ['Button (variant)', 'SolidButton / OutlineButton / GhostButton', 'variant prop 대신 별도 컴포넌트로 분리'],
-                ['ThemeProvider', 'EclipseProvider', 'mode="light|dark" + baseTextSize 지원'],
-                ['sx prop', 'theme prop + style prop', 'CSS-in-JS 대신 토큰 오버라이드 방식'],
-                ['FormControl / FormHelperText', '직접 div + span 구성', 'FormControl 컴포넌트 없음, 수동 조합'],
-              ].map((row, i) => (
-                <tr key={i} style={{ background: i % 2 === 0 ? '#fff' : '#fafafa' }}>
-                  {row.map((cell, j) => (
-                    <td key={j} style={{ padding: '11px 16px', borderBottom: '1px solid #f1f5f9', color: j === 0 ? '#1976d2' : j === 1 ? '#6366f1' : '#64748b', fontWeight: j === 0 || j === 1 ? '600' : '400' }}>
-                      {j === 0 ? <code style={{ background: 'rgba(25,118,210,0.06)', padding: '2px 6px', borderRadius: '4px', fontSize: '12px' }}>{cell}</code> : j === 1 ? <code style={{ background: 'rgba(99,102,241,0.06)', padding: '2px 6px', borderRadius: '4px', fontSize: '12px' }}>{cell}</code> : cell}
-                    </td>
-                  ))}
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-
-        <div style={{ borderRadius: '12px', border: '1px solid #e2e8f0', overflow: 'hidden' }}>
-          <div style={{ padding: '8px 16px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', gap: '6px' }}>
-            <span style={{ fontSize: '11px', color: '#94a3b8', fontWeight: '500' }}>MUI TextField → Orbit UI TextField (마이그레이션 예시)</span>
-          </div>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr' }}>
-            <pre style={{ margin: 0, padding: '16px', background: '#0f172a', color: '#94a3b8', fontSize: '12px', lineHeight: '1.7', fontFamily: '"JetBrains Mono", monospace', borderRight: '1px solid #1e293b' }}>
-{`// MUI (Before)
-import { TextField, FormControl,
-  FormHelperText } from '@mui/material'
-
-<FormControl error={hasError}>
-  <TextField
-    variant="outlined"
-    label="이메일"
-    value={email}
-    onChange={(e) => setEmail(e.target.value)}
-    error={hasError}
-    helperText={hasError
-      ? "올바른 이메일 형식이 아닙니다"
-      : "로그인에 사용됩니다"}
-  />
-</FormControl>`}
-            </pre>
-            <pre style={{ margin: 0, padding: '16px', background: '#0f172a', color: '#e2e8f0', fontSize: '12px', lineHeight: '1.7', fontFamily: '"JetBrains Mono", monospace' }}>
-{`// Orbit UI (After)
-import { TextField } from
-  '@heejun-com/theme-eclipse'
-
-<div style={{ display: 'flex',
-  flexDirection: 'column', gap: '6px' }}>
-  <label>이메일</label>
-  <TextField
-    value={email}
-    onChange={(e) => setEmail(e.target.value)}
-    error={hasError}
-    placeholder="이메일"
-  />
-  <span style={{ fontSize: '12px',
-    color: hasError ? '#ef4444' : '#94a3b8' }}>
-    {hasError
-      ? "올바른 이메일 형식이 아닙니다"
-      : "로그인에 사용됩니다"}
-  </span>
-</div>`}
-            </pre>
-          </div>
-        </div>
-      </div>
-
-      {/* Chakra UI Migration */}
-      <div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '16px' }}>
-          <div style={{
-            padding: '4px 10px', borderRadius: '6px', fontSize: '12px', fontWeight: '700',
-            background: 'rgba(49, 151, 149, 0.1)', color: '#319795',
-          }}>
-            Chakra UI
-          </div>
-          <span style={{ fontSize: '16px', fontWeight: '600', color: '#1e293b' }}>Chakra UI 사용자를 위한 가이드</span>
-        </div>
-
-        <div style={{ borderRadius: '12px', border: '1px solid #e2e8f0', overflow: 'hidden', marginBottom: '16px' }}>
-          <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px' }}>
-            <thead>
-              <tr style={{ background: '#f8fafc' }}>
-                {['Chakra UI 컴포넌트', 'Orbit UI 대응', '주요 차이점'].map((col) => (
-                  <th key={col} style={{
-                    padding: '12px 16px', textAlign: 'left', fontWeight: '700',
-                    color: '#475569', borderBottom: '1px solid #e2e8f0', whiteSpace: 'nowrap',
-                  }}>{col}</th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {[
-                ['Input / InputGroup', 'TextField', 'InputLeftElement는 Compound 패턴으로 미지원'],
-                ['Textarea', 'TextArea', 'minimumLine/maximumLine으로 높이 제어'],
-                ['Select', 'Dropdown', 'native select 아님, activated로 열림 제어'],
-                ['Checkbox', 'Checkbox', 'isIndeterminate 대신 iconName="minus"'],
-                ['Radio / RadioGroup', 'RadioButton', 'name attr으로 그룹 관리'],
-                ['Avatar / AvatarGroup', 'Avatar', 'AvatarGroup은 CSS margin 오버랩으로 구현'],
-                ['Switch', 'Switch', 'isChecked 대신 checked, onChange 동일'],
-                ['Slider', 'Slider', 'min/max/step/value 동일한 인터페이스'],
-                ['ChakraProvider', 'EclipseProvider', 'colorMode 대신 mode prop'],
-                ['useToast', 'Toast 컴포넌트', '훅 미제공, 직접 렌더링 방식'],
-              ].map((row, i) => (
-                <tr key={i} style={{ background: i % 2 === 0 ? '#fff' : '#fafafa' }}>
-                  {row.map((cell, j) => (
-                    <td key={j} style={{ padding: '11px 16px', borderBottom: '1px solid #f1f5f9', color: j === 0 ? '#319795' : j === 1 ? '#6366f1' : '#64748b', fontWeight: j === 0 || j === 1 ? '600' : '400' }}>
-                      {j === 0 ? <code style={{ background: 'rgba(49,151,149,0.06)', padding: '2px 6px', borderRadius: '4px', fontSize: '12px' }}>{cell}</code> : j === 1 ? <code style={{ background: 'rgba(99,102,241,0.06)', padding: '2px 6px', borderRadius: '4px', fontSize: '12px' }}>{cell}</code> : cell}
-                    </td>
-                  ))}
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-
-        <div style={{ borderRadius: '12px', border: '1px solid #e2e8f0', overflow: 'hidden' }}>
-          <div style={{ padding: '8px 16px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0' }}>
-            <span style={{ fontSize: '11px', color: '#94a3b8', fontWeight: '500' }}>Chakra UI Form → Orbit UI (마이그레이션 예시)</span>
-          </div>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr' }}>
-            <pre style={{ margin: 0, padding: '16px', background: '#0f172a', color: '#94a3b8', fontSize: '12px', lineHeight: '1.7', fontFamily: '"JetBrains Mono", monospace', borderRight: '1px solid #1e293b' }}>
-{`// Chakra UI (Before)
-import { FormControl, FormLabel,
-  Input, FormHelperText,
-  FormErrorMessage } from '@chakra-ui/react'
-
-<FormControl isInvalid={isError}>
-  <FormLabel>이메일</FormLabel>
-  <Input
-    value={email}
-    onChange={(e) => setEmail(e.target.value)}
-    placeholder="이메일을 입력하세요"
-  />
-  {isError
-    ? <FormErrorMessage>이메일 오류</FormErrorMessage>
-    : <FormHelperText>로그인에 사용</FormHelperText>
-  }
-</FormControl>`}
-            </pre>
-            <pre style={{ margin: 0, padding: '16px', background: '#0f172a', color: '#e2e8f0', fontSize: '12px', lineHeight: '1.7', fontFamily: '"JetBrains Mono", monospace' }}>
-{`// Orbit UI (After)
-import { TextField } from
-  '@heejun-com/theme-eclipse'
-
-<div style={{ display: 'flex',
-  flexDirection: 'column', gap: '6px' }}>
-  <label style={{ fontSize: '13px',
-    fontWeight: '600' }}>이메일</label>
-  <TextField
-    value={email}
-    onChange={(e) => setEmail(e.target.value)}
-    placeholder="이메일을 입력하세요"
-    error={isError}
-  />
-  <span style={{ fontSize: '12px',
-    color: isError ? '#ef4444' : '#94a3b8' }}>
-    {isError ? '이메일 오류' : '로그인에 사용'}
-  </span>
-</div>`}
-            </pre>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    {/* Step 6: Next.js App Router 세팅 가이드 */}
-    <section style={{ marginBottom: '48px' }}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '20px' }}>
-        <div style={{
-          width: '28px', height: '28px', borderRadius: '8px', background: '#6366f1',
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
-          color: '#ffffff', fontSize: '14px', fontWeight: '700', flexShrink: 0,
-        }}>6</div>
-        <h2 style={{ fontSize: '20px', fontWeight: '700', color: '#1e293b', margin: 0 }}>Next.js 13+ App Router 세팅</h2>
-      </div>
-
-      <p style={{ fontSize: '14px', color: '#64748b', marginBottom: '20px', lineHeight: '1.6' }}>
-        App Router 환경에서는 Server Component와 Client Component 경계를 명확히 구분해야 합니다.
-        EclipseProvider는 Client Component이므로 <code style={{ background: '#f1f5f9', color: '#6366f1', padding: '2px 6px', borderRadius: '4px', fontSize: '13px' }}>'use client'</code> 지시어가 필요합니다.
-      </p>
-
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-        {[
-          {
-            file: 'app/layout.tsx',
-            note: '루트 레이아웃 — SSR 깜빡임 방지 포함',
-            code: `import { EclipseProvider } from '@heejun-com/theme-eclipse'
-import { getTheme } from '@heejun-com/theme-eclipse/server'
-import '@heejun-com/theme-eclipse/style.css'
-
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
-  return (
-    <html lang="ko">
-      <body className={getTheme()}>
-        <EclipseProvider mode="light" platform="pc">
-          {children}
-        </EclipseProvider>
-      </body>
-    </html>
-  )
-}`,
-          },
-          {
-            file: 'app/providers.tsx',
-            note: '동적 다크모드 — 클라이언트 컴포넌트',
-            code: `'use client'
-
-import { useState } from 'react'
-import { EclipseProvider } from '@heejun-com/theme-eclipse'
-
-export function ThemeProviders({
-  children,
-}: {
-  children: React.ReactNode
-}) {
-  const [mode, setMode] = useState<'light' | 'dark'>('light')
-
-  return (
-    <EclipseProvider mode={mode}>
-      {children}
-    </EclipseProvider>
-  )
-}`,
-          },
-          {
-            file: 'next.config.ts',
-            note: 'transpilePackages 설정 (monorepo 사용 시)',
-            code: `import type { NextConfig } from 'next'
-
-const nextConfig: NextConfig = {
-  transpilePackages: [
-    '@heejun-com/theme-eclipse',
-    '@heejun-com/core',
-    '@heejun-com/icons',
-  ],
-}
-
-export default nextConfig`,
-          },
-        ].map((example) => (
-          <div key={example.file} style={{ borderRadius: '12px', border: '1px solid #e2e8f0', overflow: 'hidden' }}>
-            <div style={{
-              padding: '8px 16px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0',
-              display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-            }}>
-              <span style={{ fontSize: '12px', fontWeight: '600', color: '#475569', fontFamily: 'monospace' }}>{example.file}</span>
-              <span style={{ fontSize: '11px', color: '#94a3b8' }}>{example.note}</span>
-            </div>
-            <pre style={{ margin: 0, padding: '16px', background: '#0f172a', color: '#e2e8f0', fontSize: '12px', lineHeight: '1.7', fontFamily: '"JetBrains Mono", monospace', overflow: 'auto' }}>
-              {example.code}
-            </pre>
-          </div>
-        ))}
-      </div>
-    </section>
-
-    {/* Step 7: Vite + React 세팅 */}
-    <section style={{ marginBottom: '48px' }}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '20px' }}>
-        <div style={{
-          width: '28px', height: '28px', borderRadius: '8px', background: '#6366f1',
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
-          color: '#ffffff', fontSize: '14px', fontWeight: '700', flexShrink: 0,
-        }}>7</div>
-        <h2 style={{ fontSize: '20px', fontWeight: '700', color: '#1e293b', margin: 0 }}>Vite + React 세팅</h2>
-      </div>
-
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-        {[
-          {
-            file: 'vite.config.ts',
-            note: 'CSS 주입 순서 플러그인 포함',
-            code: `import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
-import { orbitCSSOrder } from '@orbit-ui/vite-plugin'
-
-export default defineConfig({
-  plugins: [
-    react(),
-    orbitCSSOrder(), // Orbit UI CSS 주입 순서 보장
-  ],
-})`,
-          },
-          {
-            file: 'src/main.tsx',
-            note: '진입점 설정',
-            code: `import React from 'react'
-import ReactDOM from 'react-dom/client'
-import { EclipseProvider } from '@heejun-com/theme-eclipse'
-import '@heejun-com/theme-eclipse/style.css'
-import App from './App'
-
-ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
-    <EclipseProvider mode="light">
-      <App />
-    </EclipseProvider>
-  </React.StrictMode>
-)`,
-          },
-        ].map((example) => (
-          <div key={example.file} style={{ borderRadius: '12px', border: '1px solid #e2e8f0', overflow: 'hidden' }}>
-            <div style={{
-              padding: '8px 16px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0',
-              display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-            }}>
-              <span style={{ fontSize: '12px', fontWeight: '600', color: '#475569', fontFamily: 'monospace' }}>{example.file}</span>
-              <span style={{ fontSize: '11px', color: '#94a3b8' }}>{example.note}</span>
-            </div>
-            <pre style={{ margin: 0, padding: '16px', background: '#0f172a', color: '#e2e8f0', fontSize: '12px', lineHeight: '1.7', fontFamily: '"JetBrains Mono", monospace', overflow: 'auto' }}>
-              {example.code}
-            </pre>
-          </div>
-        ))}
-      </div>
-    </section>
-
-    {/* Step 8: TypeScript 설정 가이드 */}
-    <section style={{ marginBottom: '48px' }}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '20px' }}>
-        <div style={{
-          width: '28px', height: '28px', borderRadius: '8px', background: '#6366f1',
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
-          color: '#ffffff', fontSize: '14px', fontWeight: '700', flexShrink: 0,
-        }}>8</div>
-        <h2 style={{ fontSize: '20px', fontWeight: '700', color: '#1e293b', margin: 0 }}>TypeScript 설정 가이드</h2>
-      </div>
-
-      <div style={{ borderRadius: '12px', border: '1px solid #e2e8f0', overflow: 'hidden', marginBottom: '16px' }}>
-        <div style={{ padding: '8px 16px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0' }}>
-          <span style={{ fontSize: '12px', fontWeight: '600', color: '#475569', fontFamily: 'monospace' }}>tsconfig.json</span>
-        </div>
-        <pre style={{ margin: 0, padding: '16px', background: '#0f172a', color: '#e2e8f0', fontSize: '12px', lineHeight: '1.7', fontFamily: '"JetBrains Mono", monospace', overflow: 'auto' }}>
-{`{
-  "compilerOptions": {
-    "target": "ES2020",
-    "lib": ["ES2020", "DOM", "DOM.Iterable"],
-    "module": "ESNext",
-    "moduleResolution": "bundler",
-    "jsx": "react-jsx",
-    "strict": true,
-    "skipLibCheck": true,
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true
-  }
-}`}
-        </pre>
-      </div>
-
-      <div style={{ fontSize: '13px', fontWeight: '600', color: '#475569', marginBottom: '12px' }}>컴포넌트 타입 활용 예시</div>
-      <div style={{ borderRadius: '12px', border: '1px solid #e2e8f0', overflow: 'hidden' }}>
-        <pre style={{ margin: 0, padding: '16px', background: '#0f172a', color: '#e2e8f0', fontSize: '12px', lineHeight: '1.7', fontFamily: '"JetBrains Mono", monospace', overflow: 'auto' }}>
-{`import type {
-  SolidButtonProps,
-  TextFieldProps,
-  EclipseProviderProps,
-} from '@heejun-com/theme-eclipse'
-
-// 버튼 색상 타입 추출
-type ButtonColor = SolidButtonProps['color']
-// 'black' | 'primary' | 'gray' | 'white'
-
-// 커스텀 컴포넌트에서 타입 확장
-type MyButtonProps = Omit<SolidButtonProps, 'color'> & {
-  color?: ButtonColor
-  label: string
-}
-
-function MyButton({ label, color = 'primary', ...props }: MyButtonProps) {
-  return (
-    <SolidButton color={color} {...props}>
-      <SolidButton.Center>{label}</SolidButton.Center>
-    </SolidButton>
-  )
-}`}
-        </pre>
-      </div>
-    </section>
-
-    {/* Step 9: Tailwind CSS 통합 */}
-    <section style={{ marginBottom: '48px' }}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '20px' }}>
-        <div style={{
-          width: '28px', height: '28px', borderRadius: '8px', background: '#6366f1',
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
-          color: '#ffffff', fontSize: '14px', fontWeight: '700', flexShrink: 0,
-        }}>9</div>
-        <h2 style={{ fontSize: '20px', fontWeight: '700', color: '#1e293b', margin: 0 }}>Tailwind CSS 통합</h2>
-      </div>
-
-      <p style={{ fontSize: '14px', color: '#64748b', marginBottom: '16px', lineHeight: '1.6' }}>
-        Orbit UI는 내부적으로 Tailwind CSS를 사용합니다. 프로젝트에서도 Tailwind를 함께 사용하는 경우,
-        content 경로에 Orbit UI 패키지를 포함해야 합니다.
-      </p>
-
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-        {[
-          {
-            file: 'tailwind.config.ts',
-            note: 'content 경로에 패키지 포함',
-            code: `import type { Config } from 'tailwindcss'
-
-const config: Config = {
-  content: [
-    './src/**/*.{ts,tsx}',
-    // Orbit UI 패키지 포함 (monorepo 사용 시)
-    './node_modules/@heejun-com/theme-eclipse/dist/**/*.js',
-    './node_modules/@heejun-com/core/dist/**/*.js',
-  ],
-  theme: {
-    extend: {
-      // Orbit UI CSS 변수와 충돌하지 않도록 주의
-    },
-  },
-  plugins: [],
-}
-
-export default config`,
-          },
-        ].map((example) => (
-          <div key={example.file} style={{ borderRadius: '12px', border: '1px solid #e2e8f0', overflow: 'hidden' }}>
-            <div style={{
-              padding: '8px 16px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0',
-              display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-            }}>
-              <span style={{ fontSize: '12px', fontWeight: '600', color: '#475569', fontFamily: 'monospace' }}>{example.file}</span>
-              <span style={{ fontSize: '11px', color: '#94a3b8' }}>{example.note}</span>
-            </div>
-            <pre style={{ margin: 0, padding: '16px', background: '#0f172a', color: '#e2e8f0', fontSize: '12px', lineHeight: '1.7', fontFamily: '"JetBrains Mono", monospace', overflow: 'auto' }}>
-              {example.code}
-            </pre>
-          </div>
-        ))}
-      </div>
-    </section>
-
-    {/* FAQ */}
-    <section style={{ marginBottom: '48px' }}>
-      <h2 style={{ fontSize: '20px', fontWeight: '700', color: '#1e293b', marginBottom: '16px' }}>FAQ</h2>
-
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-        {[
-          { q: '폰트는 별도 설치가 필요한가요?', a: '모바일 웹뷰에서는 시스템 폰트를 사용하므로 설치가 불필요합니다. 웹 환경에서는 Pretendard 폰트를 권장합니다. CDN으로 빠르게 적용하려면 pretendard.kr의 동적 서브셋을 사용하세요.' },
-          { q: 'Compound Component 패턴이란?', a: 'SolidButton.Leading, SolidButton.Center 처럼 서브 컴포넌트로 구성하는 패턴입니다. 내부 로직 변경 없이 유연한 조합이 가능합니다. 각 서브 컴포넌트는 Context를 통해 부모 상태를 공유합니다.' },
-          { q: 'TypeScript를 지원하나요?', a: '모든 컴포넌트는 완전한 TypeScript 타입을 제공합니다. import type { SolidButtonProps } from \'@heejun-com/theme-eclipse\' 형태로 타입을 임포트할 수 있으며, Generic 컴포넌트도 지원합니다.' },
-          { q: 'React Server Component(RSC)에서 사용할 수 있나요?', a: 'EclipseProvider는 내부적으로 Context API를 사용하므로 Client Component로 선언해야 합니다. 그러나 EclipseProvider 내부의 일부 컴포넌트는 RSC에서 사용 가능합니다. getTheme() 함수는 Server Component에서 사용할 수 있습니다.' },
-          { q: 'CSS-in-JS(styled-components, Emotion)와 함께 사용할 수 있나요?', a: 'vanilla-extract 기반의 CSS 변수를 사용하므로 CSS-in-JS와 충돌이 없습니다. 다만, 스타일 주입 순서에 주의해야 합니다. @orbit-ui/vite-plugin의 orbitCSSOrder() 플러그인이 이를 자동으로 처리합니다.' },
-          { q: '모바일(웹뷰)과 PC를 동시에 지원하려면?', a: 'EclipseProvider의 platform prop을 활용하세요. "mobile" 기본값으로 터치 최적화 스타일이 적용되고, "pc"로 설정하면 마우스 인터랙션 스타일이 적용됩니다. 미디어쿼리 없이 JS로 제어할 수 있습니다.' },
-          { q: '다크모드 자동 감지는 지원하나요?', a: 'EclipseProvider는 mode prop을 직접 제어하는 방식입니다. 시스템 다크모드를 자동으로 감지하려면 window.matchMedia(\'(prefers-color-scheme: dark)\') API를 활용하고 그 결과를 mode prop에 전달하세요.' },
-          { q: 'Storybook에서 Orbit UI를 미리보려면?', a: '.storybook/preview.tsx에 EclipseProvider를 decorator로 추가하세요. decorators: [(Story) => <EclipseProvider><Story /></EclipseProvider>] 형태로 전역 적용할 수 있습니다. 이 Storybook이 바로 그 예시입니다.' },
-        ].map((faq, i) => (
-          <div key={i} style={{
-            padding: '16px 20px', borderRadius: '10px', border: '1px solid #e2e8f0', background: '#fafafa',
-          }}>
-            <div style={{ fontSize: '14px', fontWeight: '600', color: '#1e293b', marginBottom: '6px' }}>{faq.q}</div>
-            <div style={{ fontSize: '13px', color: '#64748b', lineHeight: '1.6' }}>{faq.a}</div>
-          </div>
-        ))}
-      </div>
-    </section>
-
-    {/* Troubleshooting */}
-    <section style={{ marginBottom: '48px' }}>
-      <h2 style={{ fontSize: '20px', fontWeight: '700', color: '#1e293b', marginBottom: '16px' }}>Troubleshooting</h2>
-
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-        {[
-          {
-            problem: '스타일이 전혀 적용되지 않습니다',
-            solution: '@heejun-com/theme-eclipse/style.css import 여부를 확인하세요. 또한 EclipseProvider가 컴포넌트를 감싸고 있는지 확인하세요.',
-            code: `// style.css 반드시 import
-import '@heejun-com/theme-eclipse/style.css'
-
-// EclipseProvider로 래핑 확인
-<EclipseProvider mode="light">
-  <App />
-</EclipseProvider>`,
-            level: 'error',
-          },
-          {
-            problem: '다크모드에서 배경이 흰색으로 남아있습니다',
-            solution: 'mode="dark" 설정 외에도 body의 background-color를 CSS 변수로 지정해야 합니다. EclipseProvider는 클래스만 추가하며, 실제 배경 적용은 루트 요소에서 해야 합니다.',
-            code: `// globals.css 또는 layout.css
-body {
-  background-color: var(--sem-eclipse-color-backgroundPrimary);
-  color: var(--sem-eclipse-color-foregroundPrimary);
-}`,
-            level: 'warning',
-          },
-          {
-            problem: 'Next.js에서 "useState is not defined" 오류가 발생합니다',
-            solution: 'EclipseProvider 또는 상태를 사용하는 컴포넌트에 "use client" 지시어를 추가하세요.',
-            code: `'use client'  // 파일 최상단에 추가
-
-import { EclipseProvider } from '@heejun-com/theme-eclipse'
-
-export function Providers({ children }: { children: React.ReactNode }) {
-  return <EclipseProvider>{children}</EclipseProvider>
-}`,
-            level: 'error',
-          },
-          {
-            problem: 'pnpm monorepo에서 peer dependency 경고가 발생합니다',
-            solution: 'pnpm-workspace.yaml에서 shamefully-hoist 또는 .npmrc에 peer dependency 설정을 추가하세요.',
-            code: `# .npmrc
-auto-install-peers=true
-strict-peer-dependencies=false`,
-            level: 'warning',
-          },
-          {
-            problem: 'Compound Component 자동완성이 되지 않습니다',
-            solution: 'TypeScript path alias가 올바르게 설정되어 있는지 확인하고, node_modules 캐시를 초기화한 후 IDE를 재시작하세요.',
-            code: `# 캐시 초기화
-pnpm store prune
-rm -rf node_modules
-pnpm install`,
-            level: 'info',
-          },
-        ].map((item, i) => {
-          const levelColors: Record<string, string> = { error: '#ef4444', warning: '#f59e0b', info: '#3b82f6' }
-          const levelBg: Record<string, string> = { error: 'rgba(239,68,68,0.04)', warning: 'rgba(245,158,11,0.04)', info: 'rgba(59,130,246,0.04)' }
-          const levelBorder: Record<string, string> = { error: 'rgba(239,68,68,0.2)', warning: 'rgba(245,158,11,0.2)', info: 'rgba(59,130,246,0.2)' }
-          return (
-            <div key={i} style={{
-              borderRadius: '12px', border: `1px solid ${levelBorder[item.level]}`,
-              background: levelBg[item.level], overflow: 'hidden',
-            }}>
-              <div style={{
-                padding: '12px 16px', borderBottom: `1px solid ${levelBorder[item.level]}`,
-                display: 'flex', alignItems: 'center', gap: '8px',
-              }}>
-                <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: levelColors[item.level], flexShrink: 0 }} />
-                <span style={{ fontSize: '14px', fontWeight: '600', color: '#1e293b' }}>{item.problem}</span>
-              </div>
-              <div style={{ padding: '12px 16px' }}>
-                <p style={{ fontSize: '13px', color: '#64748b', margin: '0 0 12px', lineHeight: '1.6' }}>{item.solution}</p>
-                <pre style={{
-                  margin: 0, padding: '12px 14px', background: '#0f172a', color: '#e2e8f0',
-                  fontSize: '12px', lineHeight: '1.7', fontFamily: '"JetBrains Mono", monospace',
-                  borderRadius: '8px', overflow: 'auto',
-                }}>
-                  {item.code}
-                </pre>
-              </div>
-            </div>
-          )
-        })}
-      </div>
-    </section>
-
-    {/* Footer Links */}
-    <section style={{
-      padding: '24px', borderRadius: '12px',
-      background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.04), rgba(168, 85, 247, 0.04))',
-      border: '1px solid rgba(99, 102, 241, 0.1)',
-      display: 'flex', justifyContent: 'center', gap: '32px',
-    }}>
-      <a href="https://github.com/blue45f/ui-forge/issues" target="_blank" style={{ fontSize: '13px', color: '#6366f1', fontWeight: '600', textDecoration: 'none' }}>GitHub Issues</a>
-      <a href="https://github.com/blue45f/ui-forge/blob/main/CONTRIBUTING.md" target="_blank" style={{ fontSize: '13px', color: '#6366f1', fontWeight: '600', textDecoration: 'none' }}>Contributing Guide</a>
     </section>
 
   </div>
