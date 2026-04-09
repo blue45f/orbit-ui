@@ -6842,3 +6842,366 @@ export const FinanceDashboard: Story = {
   name: 'Finance Dashboard (Linear + Vercel 모노크롬 스타일)',
   render: () => <FinanceDashboardRender />,
 }
+
+/* --------------------------------------------------------------------------
+   EmailClient — Tailwind UI + Radix UI 벤치마크 기반
+   3-패널 레이아웃: 폴더 사이드바 / 메일 목록 / 메일 상세
+   Tailwind UI의 인박스 패턴 + Radix의 접근성 중심 상호작용
+-------------------------------------------------------------------------- */
+
+const EMAIL_FOLDERS = [
+  { id: 'inbox', label: '받은 편지함', count: 12, icon: '📥' },
+  { id: 'sent', label: '보낸 편지함', count: 0, icon: '📤' },
+  { id: 'drafts', label: '임시 보관함', count: 3, icon: '📝' },
+  { id: 'starred', label: '중요 메일', count: 5, icon: '⭐' },
+  { id: 'trash', label: '휴지통', count: 0, icon: '🗑️' },
+]
+
+const EMAIL_LIST = [
+  {
+    id: 1,
+    from: 'Heejun Kim',
+    fromInitial: 'HK',
+    fromColor: '#6366f1',
+    subject: '[Orbit UI] 사이클 33 완료 보고',
+    preview: 'Tailwind UI + Radix UI 벤치마크 기반 HoverCard, Breadcrumb, EmailClient 템플릿 추가가 완료되었습니다.',
+    time: '오전 10:42',
+    read: false,
+    starred: true,
+    tag: '개발',
+    tagColor: '#6366f1',
+  },
+  {
+    id: 2,
+    from: 'Sumin Lee',
+    fromInitial: 'SL',
+    fromColor: '#f59e0b',
+    subject: '디자인 리뷰 요청 — SegmentedControl 다크모드',
+    preview: '안녕하세요, SegmentedControl 컴포넌트의 다크모드 대응 디자인 리뷰를 요청드립니다. 피그마 링크 첨부합니다.',
+    time: '오전 9:15',
+    read: false,
+    starred: false,
+    tag: '디자인',
+    tagColor: '#f59e0b',
+  },
+  {
+    id: 3,
+    from: 'Jinho Park',
+    fromInitial: 'JP',
+    fromColor: '#10b981',
+    subject: 'DataTable 가상 스크롤 PR 머지 완료',
+    preview: '안녕하세요, DataTable 가상 스크롤 성능 개선 PR이 머지되었습니다. 스테이징 환경에서 확인 부탁드립니다.',
+    time: '어제',
+    read: true,
+    starred: true,
+    tag: '개발',
+    tagColor: '#6366f1',
+  },
+  {
+    id: 4,
+    from: 'Orbit CI Bot',
+    fromInitial: 'CI',
+    fromColor: '#94a3b8',
+    subject: '[성공] main 브랜치 빌드 완료 — orbit-ui@2.1.4',
+    preview: 'All checks passed. 12 packages built successfully. Storybook deployed to orbit-ui-pink.vercel.app.',
+    time: '어제',
+    read: true,
+    starred: false,
+    tag: '자동화',
+    tagColor: '#94a3b8',
+  },
+  {
+    id: 5,
+    from: 'Figma',
+    fromInitial: 'F',
+    fromColor: '#ef4444',
+    subject: '디자인 파일 공유: Orbit UI v2 Components',
+    preview: 'Sumin Lee가 Figma 파일 "Orbit UI v2 Components"을 공유했습니다. 파일을 열려면 링크를 클릭하세요.',
+    time: '2일 전',
+    read: true,
+    starred: false,
+    tag: '디자인',
+    tagColor: '#f59e0b',
+  },
+]
+
+function EmailClientRender() {
+  const [selectedFolder, setSelectedFolder] = useState('inbox')
+  const [selectedEmail, setSelectedEmail] = useState<typeof EMAIL_LIST[0] | null>(EMAIL_LIST[0])
+  const [searchQuery, setSearchQuery] = useState('')
+  const [composing, setComposing] = useState(false)
+
+  const filteredEmails = EMAIL_LIST.filter(
+    (e) =>
+      selectedFolder !== 'starred' ||
+      e.starred
+  ).filter(
+    (e) =>
+      !searchQuery ||
+      e.subject.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      e.from.toLowerCase().includes(searchQuery.toLowerCase())
+  )
+
+  return (
+    <div style={{ display: 'flex', height: '720px', background: tc.bg, fontFamily: 'inherit', overflow: 'hidden', borderRadius: 12, border: `1px solid ${tc.border}`, boxShadow: '0 8px 32px rgba(0,0,0,0.08)' }}>
+
+      {/* Sidebar — 폴더 목록 */}
+      <div style={{ width: 220, borderRight: `1px solid ${tc.border}`, display: 'flex', flexDirection: 'column', background: tc.surface, flexShrink: 0 }}>
+        {/* 로고 + 새 메일 */}
+        <div style={{ padding: '20px 16px 12px', borderBottom: `1px solid ${tc.border}` }}>
+          <div style={{ fontSize: 15, fontWeight: 800, color: tc.fg, marginBottom: 12 }}>Mail</div>
+          <SolidButton
+            color="primary"
+            size="small"
+            width="100%"
+            onClick={() => setComposing(true)}
+          >
+            <SolidButton.Center>+ 편지 쓰기</SolidButton.Center>
+          </SolidButton>
+        </div>
+
+        {/* 검색 */}
+        <div style={{ padding: '12px 12px 8px' }}>
+          <div style={{ position: 'relative' }}>
+            <input
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="메일 검색..."
+              style={{ width: '100%', padding: '6px 10px 6px 28px', borderRadius: 6, border: `1px solid ${tc.border}`, fontSize: 12, outline: 'none', background: tc.bg, color: tc.fg, boxSizing: 'border-box' }}
+            />
+            <span style={{ position: 'absolute', left: 8, top: '50%', transform: 'translateY(-50%)', fontSize: 12, color: tc.fgMuted }}>🔍</span>
+          </div>
+        </div>
+
+        {/* 폴더 목록 */}
+        <div style={{ flex: 1, overflowY: 'auto', padding: '4px 8px' }}>
+          {EMAIL_FOLDERS.map((folder) => {
+            const isActive = selectedFolder === folder.id
+            return (
+              <div
+                key={folder.id}
+                onClick={() => setSelectedFolder(folder.id)}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 8,
+                  padding: '8px 10px',
+                  borderRadius: 8,
+                  cursor: 'pointer',
+                  background: isActive ? tc.fillPrimary + '12' : 'transparent',
+                  marginBottom: 2,
+                  transition: 'background 0.1s',
+                }}
+              >
+                <span style={{ fontSize: 14 }}>{folder.icon}</span>
+                <span style={{ flex: 1, fontSize: 13, fontWeight: isActive ? 700 : 500, color: isActive ? tc.fillPrimary : tc.fg }}>
+                  {folder.label}
+                </span>
+                {folder.count > 0 && (
+                  <span style={{ fontSize: 11, fontWeight: 700, color: isActive ? '#fff' : tc.fgMuted, background: isActive ? tc.fillPrimary : tc.surfaceElevated, padding: '1px 6px', borderRadius: 10 }}>
+                    {folder.count}
+                  </span>
+                )}
+              </div>
+            )
+          })}
+
+          <div style={{ margin: '12px 10px 6px', fontSize: 10, fontWeight: 700, color: tc.fgMuted, textTransform: 'uppercase', letterSpacing: '0.06em' }}>태그</div>
+          {[{ label: '개발', color: '#6366f1' }, { label: '디자인', color: '#f59e0b' }, { label: '자동화', color: '#94a3b8' }].map((tag) => (
+            <div key={tag.label} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '6px 10px', borderRadius: 8, cursor: 'pointer', marginBottom: 2 }}>
+              <span style={{ width: 8, height: 8, borderRadius: '50%', background: tag.color, flexShrink: 0 }} />
+              <span style={{ fontSize: 12, color: tc.fgSub }}>{tag.label}</span>
+            </div>
+          ))}
+        </div>
+
+        {/* 프로필 */}
+        <div style={{ padding: '12px 14px', borderTop: `1px solid ${tc.border}`, display: 'flex', alignItems: 'center', gap: 10 }}>
+          <div style={{ width: 28, height: 28, borderRadius: '50%', background: '#6366f1', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: 11, fontWeight: 700, flexShrink: 0 }}>
+            HK
+          </div>
+          <div style={{ flex: 1, minWidth: 0 }}>
+            <div style={{ fontSize: 12, fontWeight: 600, color: tc.fg, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>Heejun Kim</div>
+            <div style={{ fontSize: 10, color: tc.fgMuted }}>heejun@orbit.dev</div>
+          </div>
+        </div>
+      </div>
+
+      {/* 메일 목록 */}
+      <div style={{ width: 300, borderRight: `1px solid ${tc.border}`, display: 'flex', flexDirection: 'column', flexShrink: 0 }}>
+        {/* 헤더 */}
+        <div style={{ padding: '16px 16px 12px', borderBottom: `1px solid ${tc.border}`, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <span style={{ fontSize: 14, fontWeight: 700, color: tc.fg }}>
+            {EMAIL_FOLDERS.find((f) => f.id === selectedFolder)?.label}
+          </span>
+          <span style={{ fontSize: 11, color: tc.fgMuted }}>{filteredEmails.length}개</span>
+        </div>
+
+        {/* 메일 항목들 */}
+        <div style={{ flex: 1, overflowY: 'auto' }}>
+          {filteredEmails.length === 0 ? (
+            <div style={{ padding: 32, textAlign: 'center', color: tc.fgMuted, fontSize: 13 }}>메일이 없습니다.</div>
+          ) : (
+            filteredEmails.map((email) => {
+              const isSelected = selectedEmail?.id === email.id
+              return (
+                <div
+                  key={email.id}
+                  onClick={() => setSelectedEmail(email)}
+                  style={{
+                    padding: '12px 14px',
+                    borderBottom: `1px solid ${tc.borderSub}`,
+                    cursor: 'pointer',
+                    background: isSelected ? tc.fillPrimary + '08' : email.read ? tc.bg : tc.surface,
+                    borderLeft: `3px solid ${isSelected ? tc.fillPrimary : 'transparent'}`,
+                    transition: 'all 0.1s',
+                  }}
+                >
+                  {/* 발신자 행 */}
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
+                    <div style={{ width: 24, height: 24, borderRadius: '50%', background: email.fromColor, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: 9, fontWeight: 700, flexShrink: 0 }}>
+                      {email.fromInitial}
+                    </div>
+                    <span style={{ flex: 1, fontSize: 12, fontWeight: email.read ? 500 : 700, color: tc.fg, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                      {email.from}
+                    </span>
+                    <span style={{ fontSize: 10, color: tc.fgMuted, flexShrink: 0 }}>{email.time}</span>
+                    {email.starred && <span style={{ fontSize: 10, flexShrink: 0 }}>⭐</span>}
+                  </div>
+
+                  {/* 제목 */}
+                  <div style={{ fontSize: 12, fontWeight: email.read ? 500 : 700, color: email.read ? tc.fgSub : tc.fg, marginBottom: 4, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                    {email.subject}
+                  </div>
+
+                  {/* 미리보기 + 태그 */}
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                    <span style={{ fontSize: 11, color: tc.fgMuted, flex: 1, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                      {email.preview}
+                    </span>
+                    <span style={{ fontSize: 9, fontWeight: 700, padding: '1px 5px', borderRadius: 8, background: email.tagColor + '15', color: email.tagColor, flexShrink: 0 }}>
+                      {email.tag}
+                    </span>
+                  </div>
+                </div>
+              )
+            })
+          )}
+        </div>
+      </div>
+
+      {/* 메일 상세 + 작성 패널 */}
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', minWidth: 0 }}>
+        {composing ? (
+          /* 편지 작성 패널 */
+          <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+            <div style={{ padding: '16px 20px', borderBottom: `1px solid ${tc.border}`, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+              <span style={{ fontSize: 14, fontWeight: 700, color: tc.fg }}>새 메일 작성</span>
+              <button onClick={() => setComposing(false)} style={{ background: 'none', border: 'none', fontSize: 16, color: tc.fgMuted, cursor: 'pointer' }}>×</button>
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 0, borderBottom: `1px solid ${tc.border}` }}>
+              {['받는 사람', '참조', '제목'].map((label) => (
+                <div key={label} style={{ display: 'flex', alignItems: 'center', borderBottom: `1px solid ${tc.borderSub}` }}>
+                  <span style={{ fontSize: 12, fontWeight: 600, color: tc.fgMuted, padding: '10px 16px', width: 80, flexShrink: 0 }}>{label}</span>
+                  <input style={{ flex: 1, border: 'none', outline: 'none', fontSize: 13, padding: '10px 0', background: 'transparent', color: tc.fg }} placeholder={label === '제목' ? '제목을 입력하세요' : '이메일 주소'} />
+                </div>
+              ))}
+            </div>
+            <textarea
+              style={{ flex: 1, border: 'none', outline: 'none', padding: 20, fontSize: 13, color: tc.fg, background: 'transparent', resize: 'none', lineHeight: 1.7 }}
+              placeholder="메일 내용을 입력하세요..."
+            />
+            <div style={{ padding: '12px 20px', borderTop: `1px solid ${tc.border}`, display: 'flex', gap: 8 }}>
+              <SolidButton color="primary" size="small" onClick={() => setComposing(false)}>
+                <SolidButton.Center>보내기</SolidButton.Center>
+              </SolidButton>
+              <OutlineButton color="black" size="small" onClick={() => setComposing(false)}>
+                <OutlineButton.Center>임시 저장</OutlineButton.Center>
+              </OutlineButton>
+            </div>
+          </div>
+        ) : selectedEmail ? (
+          /* 메일 상세 */
+          <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflowY: 'auto' }}>
+            {/* 헤더 */}
+            <div style={{ padding: '20px 24px 16px', borderBottom: `1px solid ${tc.border}` }}>
+              <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 16 }}>
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <h2 style={{ margin: '0 0 8px', fontSize: 16, fontWeight: 700, color: tc.fg, lineHeight: 1.4 }}>
+                    {selectedEmail.subject}
+                  </h2>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                    <div style={{ width: 28, height: 28, borderRadius: '50%', background: selectedEmail.fromColor, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: 10, fontWeight: 700, flexShrink: 0 }}>
+                      {selectedEmail.fromInitial}
+                    </div>
+                    <div>
+                      <span style={{ fontSize: 13, fontWeight: 700, color: tc.fg }}>{selectedEmail.from}</span>
+                      <span style={{ fontSize: 12, color: tc.fgMuted, marginLeft: 8 }}>{selectedEmail.time}</span>
+                    </div>
+                  </div>
+                </div>
+                <div style={{ display: 'flex', gap: 6, flexShrink: 0 }}>
+                  {['답장', '전달'].map((action) => (
+                    <OutlineButton key={action} color="black" size="small">
+                      <OutlineButton.Center>{action}</OutlineButton.Center>
+                    </OutlineButton>
+                  ))}
+                </div>
+              </div>
+
+              {/* 태그 + Progress */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginTop: 12 }}>
+                <LabelBadge color="gray">
+                  <LabelBadge.Label>{selectedEmail.tag}</LabelBadge.Label>
+                </LabelBadge>
+                {!selectedEmail.read && (
+                  <LabelBadge color="benefit">
+                    <LabelBadge.Label>새 메일</LabelBadge.Label>
+                  </LabelBadge>
+                )}
+              </div>
+            </div>
+
+            {/* 메일 본문 */}
+            <div style={{ flex: 1, padding: '24px', lineHeight: 1.8, fontSize: 14, color: tc.fg }}>
+              <p style={{ margin: '0 0 16px' }}>안녕하세요,</p>
+              <p style={{ margin: '0 0 16px' }}>{selectedEmail.preview}</p>
+              <p style={{ margin: '0 0 16px' }}>자세한 내용은 아래를 참고해 주세요:</p>
+              <ul style={{ margin: '0 0 16px', padding: '0 0 0 20px', color: tc.fgSub }}>
+                <li>HoverCard 컴포넌트 — Tailwind UI, Radix UI, shadcn/ui 패턴 각 1개 추가</li>
+                <li>Breadcrumb 컴포넌트 — 파일시스템, 설정 계층, 이커머스 패턴 추가</li>
+                <li>EmailClient 템플릿 — 3-패널 레이아웃, 폴더/목록/상세/작성 기능 포함</li>
+              </ul>
+              <p style={{ margin: 0, color: tc.fgMuted, fontSize: 13 }}>감사합니다.<br />Orbit UI 자동화 시스템</p>
+            </div>
+
+            {/* 답장 영역 */}
+            <div style={{ margin: '0 24px 24px', border: `1px solid ${tc.border}`, borderRadius: 10, overflow: 'hidden' }}>
+              <div style={{ padding: '10px 14px', background: tc.surface, borderBottom: `1px solid ${tc.border}`, fontSize: 12, color: tc.fgMuted }}>
+                {selectedEmail.from}에게 답장
+              </div>
+              <textarea
+                style={{ width: '100%', minHeight: 80, border: 'none', outline: 'none', padding: '12px 14px', fontSize: 13, color: tc.fg, background: tc.bg, resize: 'none', boxSizing: 'border-box', lineHeight: 1.6 }}
+                placeholder="답장 내용을 입력하세요..."
+              />
+              <div style={{ padding: '8px 12px', background: tc.surface, borderTop: `1px solid ${tc.border}`, display: 'flex', gap: 8 }}>
+                <SolidButton color="primary" size="small">
+                  <SolidButton.Center>보내기</SolidButton.Center>
+                </SolidButton>
+              </div>
+            </div>
+          </div>
+        ) : (
+          <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', color: tc.fgMuted, fontSize: 14 }}>
+            메일을 선택하세요
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+
+export const EmailClient: Story = {
+  name: 'Email Client (Tailwind UI + Radix UI 벤치마크)',
+  render: () => <EmailClientRender />,
+}

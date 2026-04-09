@@ -570,5 +570,481 @@ toast.success('저장되었습니다.')`}</pre>
       </div>
     </section>
 
+    {/* Chakra UI vs Orbit UI */}
+    <section style={{ marginBottom: '64px' }}>
+      <h2 style={{ fontSize: '22px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '8px' }}>Chakra UI vs Orbit UI</h2>
+      <p style={{ fontSize: '14px', color: '#64748b', lineHeight: '1.6', marginBottom: '24px' }}>
+        Chakra UI는 useColorMode, useToast, FormControl 등 React hook 중심의 API 설계로 개발 경험을 극대화합니다. Orbit UI가 이 패턴들을 어떻게 컴포넌트 중심으로 대응하는지 비교합니다.
+      </p>
+      <div style={{ overflowX: 'auto', borderRadius: '12px', border: '1.5px solid #e2e8f0', marginBottom: '32px' }}>
+        <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '14px' }}>
+          <thead>
+            <tr style={{ background: '#f8fafc' }}>
+              {['항목', 'Chakra UI', 'Orbit UI'].map((col, i) => (
+                <th key={col} style={{ padding: '14px 18px', textAlign: 'left', fontWeight: 700, color: i === 2 ? '#6366f1' : '#475569', borderBottom: '1.5px solid #e2e8f0', whiteSpace: 'nowrap' }}>{col}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {[
+              ['API 스타일', 'Hook 중심 (useColorMode, useToast)', '컴포넌트 중심 (Toggle, Toaster, toast())'],
+              ['테마 전환', 'ColorModeProvider + useColorMode', 'EclipseProvider + CSS 변수 기반'],
+              ['폼 유효성', 'FormControl + FormLabel + FormErrorMessage', 'FloatingTextField + 커스텀 helperText'],
+              ['알림 시스템', 'useToast hook, position 설정', 'toast() 함수 + Toaster 컴포넌트'],
+              ['버튼 변형', 'variant="ghost/link/solid/outline"', 'GhostButton/OutlineButton/SolidButton 분리'],
+              ['접근성', 'chakra-ui/a11y 패키지 통합', 'WAI-ARIA 패턴 직접 구현'],
+              ['Input 그룹', 'InputGroup + InputLeftAddon + InputRightAddon', 'TextField + FloatingTextField 조합'],
+              ['번들 크기', '~170KB gzip (core)', '트리쉐이킹 최적화 (컴포넌트별 분리)'],
+              ['커스텀 토큰', 'extendTheme()로 CSS 변수 확장', 'theme prop으로 컴포넌트 단위 오버라이드'],
+            ].map((row, i) => (
+              <tr key={i} style={{ background: i % 2 === 0 ? '#fff' : '#fafafa' }}>
+                {row.map((cell, j) => (
+                  <td key={j} style={{ padding: '12px 18px', color: j === 0 ? '#475569' : j === 2 ? '#6366f1' : '#64748b', fontWeight: j === 0 ? 600 : j === 2 ? 600 : 400, borderBottom: '1px solid #f1f5f9' }}>{cell}</td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <h3 style={{ fontSize: '16px', fontWeight: '700', color: '#1e293b', marginBottom: '16px' }}>Chakra UI 마이그레이션 Before/After</h3>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+        {/* useColorMode */}
+        <div>
+          <div style={{ fontSize: '14px', fontWeight: 700, color: '#1e293b', marginBottom: '12px' }}>
+            <span style={{ color: '#319795' }}>useColorMode</span> → Toggle + EclipseProvider
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+            <div style={{ borderRadius: '10px', overflow: 'hidden', border: '1.5px solid #e2e8f0' }}>
+              <div style={{ padding: '8px 14px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0', fontSize: '12px', fontWeight: 600, color: '#94a3b8' }}>Before (Chakra UI)</div>
+              <pre style={{ margin: 0, padding: '16px', fontSize: '12px', color: '#334155', background: '#fff', overflowX: 'auto', lineHeight: '1.6' }}>{`import { useColorMode, Switch } from '@chakra-ui/react'
+
+function ThemeToggle() {
+  const { colorMode, toggleColorMode } = useColorMode()
+  return (
+    <Switch
+      isChecked={colorMode === 'dark'}
+      onChange={toggleColorMode}
+    />
+  )
+}`}</pre>
+            </div>
+            <div style={{ borderRadius: '10px', overflow: 'hidden', border: '1.5px solid #6366f130' }}>
+              <div style={{ padding: '8px 14px', background: '#f0f4ff', borderBottom: '1px solid #6366f130', fontSize: '12px', fontWeight: 600, color: '#6366f1' }}>After (Orbit UI)</div>
+              <pre style={{ margin: 0, padding: '16px', fontSize: '12px', color: '#334155', background: '#fff', overflowX: 'auto', lineHeight: '1.6' }}>{`import { Toggle, EclipseProvider }
+  from '@heejun-com/theme-eclipse'
+
+function ThemeToggle() {
+  const [isDark, setIsDark] = useState(false)
+  return (
+    <EclipseProvider colorScheme={isDark ? 'dark' : 'light'}>
+      <Toggle
+        checked={isDark}
+        onCheckedChange={setIsDark}
+      />
+    </EclipseProvider>
+  )
+}`}</pre>
+            </div>
+          </div>
+        </div>
+
+        {/* useToast */}
+        <div>
+          <div style={{ fontSize: '14px', fontWeight: 700, color: '#1e293b', marginBottom: '12px' }}>
+            <span style={{ color: '#319795' }}>useToast</span> → toast() + Toaster
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+            <div style={{ borderRadius: '10px', overflow: 'hidden', border: '1.5px solid #e2e8f0' }}>
+              <div style={{ padding: '8px 14px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0', fontSize: '12px', fontWeight: 600, color: '#94a3b8' }}>Before (Chakra UI)</div>
+              <pre style={{ margin: 0, padding: '16px', fontSize: '12px', color: '#334155', background: '#fff', overflowX: 'auto', lineHeight: '1.6' }}>{`import { useToast } from '@chakra-ui/react'
+
+function SaveButton() {
+  const toast = useToast()
+  return (
+    <Button onClick={() =>
+      toast({
+        title: '저장 완료',
+        status: 'success',
+        position: 'top-right',
+        duration: 3000,
+      })
+    }>
+      저장
+    </Button>
+  )
+}`}</pre>
+            </div>
+            <div style={{ borderRadius: '10px', overflow: 'hidden', border: '1.5px solid #6366f130' }}>
+              <div style={{ padding: '8px 14px', background: '#f0f4ff', borderBottom: '1px solid #6366f130', fontSize: '12px', fontWeight: 600, color: '#6366f1' }}>After (Orbit UI)</div>
+              <pre style={{ margin: 0, padding: '16px', fontSize: '12px', color: '#334155', background: '#fff', overflowX: 'auto', lineHeight: '1.6' }}>{`import { SolidButton, Toaster, toast }
+  from '@heejun-com/theme-eclipse'
+
+// 앱 최상단: <Toaster position="top-right" />
+
+function SaveButton() {
+  return (
+    <SolidButton
+      color="black"
+      size="medium"
+      onClick={() => toast.success('저장 완료')}
+    >
+      <SolidButton.Center>저장</SolidButton.Center>
+    </SolidButton>
+  )
+}`}</pre>
+            </div>
+          </div>
+        </div>
+
+        {/* Button variant="ghost" */}
+        <div>
+          <div style={{ fontSize: '14px', fontWeight: 700, color: '#1e293b', marginBottom: '12px' }}>
+            <span style={{ color: '#319795' }}>Button variant="ghost/link"</span> → GhostButton
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+            <div style={{ borderRadius: '10px', overflow: 'hidden', border: '1.5px solid #e2e8f0' }}>
+              <div style={{ padding: '8px 14px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0', fontSize: '12px', fontWeight: 600, color: '#94a3b8' }}>Before (Chakra UI)</div>
+              <pre style={{ margin: 0, padding: '16px', fontSize: '12px', color: '#334155', background: '#fff', overflowX: 'auto', lineHeight: '1.6' }}>{`import { Button } from '@chakra-ui/react'
+
+// 고스트 버튼
+<Button variant="ghost" colorScheme="red">
+  삭제
+</Button>
+
+// 링크형 버튼
+<Button variant="link" colorScheme="blue">
+  자세히 보기
+</Button>`}</pre>
+            </div>
+            <div style={{ borderRadius: '10px', overflow: 'hidden', border: '1.5px solid #6366f130' }}>
+              <div style={{ padding: '8px 14px', background: '#f0f4ff', borderBottom: '1px solid #6366f130', fontSize: '12px', fontWeight: 600, color: '#6366f1' }}>After (Orbit UI)</div>
+              <pre style={{ margin: 0, padding: '16px', fontSize: '12px', color: '#334155', background: '#fff', overflowX: 'auto', lineHeight: '1.6' }}>{`import { GhostButton }
+  from '@heejun-com/theme-eclipse'
+import { DeleteLineIcon, ChevronRightLineIcon }
+  from '@heejun-com/icons'
+
+// 파괴적 액션 (인라인 컬러 오버라이드)
+<GhostButton color="black" size="large">
+  <GhostButton.Center>
+    <span style={{ color: '#dc2626' }}>삭제</span>
+  </GhostButton.Center>
+  <GhostButton.Trailing>
+    <DeleteLineIcon size={14} color="#dc2626" />
+  </GhostButton.Trailing>
+</GhostButton>
+
+// 링크형 버튼
+<GhostButton color="gray" size="small" as="a" href="#">
+  <GhostButton.Center>자세히 보기</GhostButton.Center>
+  <GhostButton.Trailing>
+    <ChevronRightLineIcon size={12} />
+  </GhostButton.Trailing>
+</GhostButton>`}</pre>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h3 style={{ fontSize: '16px', fontWeight: '700', color: '#1e293b', margin: '24px 0 16px' }}>Chakra UI 벤치마크 발견 3가지 (사이클 23)</h3>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+        {[
+          {
+            title: 'useColorMode → Toggle + EclipseProvider 패턴',
+            desc: 'Chakra의 hook 기반 컬러모드 전환을 Toggle 컴포넌트와 EclipseProvider 조합으로 대응합니다. CSS 변수 기반이므로 런타임 오버헤드 없이 즉각적인 테마 전환이 가능합니다.',
+            color: '#319795',
+          },
+          {
+            title: 'Button variant="ghost" → GhostButton 분리 설계',
+            desc: 'Chakra의 단일 Button에 variant prop을 주는 방식 대신, GhostButton을 별도 컴포넌트로 분리하여 타입 시스템이 자동으로 색상/크기를 제한합니다. Destructive 패턴은 인라인 color 스타일로 표현합니다.',
+            color: '#6366f1',
+          },
+          {
+            title: 'InputGroup Addon → TextField 조합 패턴',
+            desc: 'Chakra의 InputLeftAddon/InputRightAddon 조합 대신 FloatingTextField의 leading/trailing 슬롯과 span 래핑으로 URL 입력, 화폐 입력 등 Addon 패턴을 구현합니다.',
+            color: '#8b5cf6',
+          },
+        ].map(({ title, desc, color }) => (
+          <div key={title} style={{ display: 'flex', gap: '14px', padding: '16px 20px', borderRadius: '12px', border: '1.5px solid #e2e8f0', background: '#fff' }}>
+            <div style={{ width: '4px', borderRadius: '4px', background: color, flexShrink: 0 }} />
+            <div>
+              <div style={{ fontSize: '14px', fontWeight: '700', color: '#1e293b', marginBottom: '6px' }}>{title}</div>
+              <div style={{ fontSize: '13px', color: '#64748b', lineHeight: '1.6' }}>{desc}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    {/* MUI vs Orbit UI */}
+    <section style={{ marginBottom: '64px' }}>
+      <h2 style={{ fontSize: '22px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '8px' }}>MUI (Material UI) vs Orbit UI</h2>
+      <p style={{ fontSize: '14px', color: '#64748b', lineHeight: '1.6', marginBottom: '24px' }}>
+        MUI는 Material Design 3 기반의 포괄적인 컴포넌트 시스템으로, ThemeProvider와 sx prop을 통해 유연한 커스텀을 제공합니다. Orbit UI의 3-Tier 토큰 시스템과 컴파운드 컴포넌트 패턴과 비교합니다.
+      </p>
+      <div style={{ overflowX: 'auto', borderRadius: '12px', border: '1.5px solid #e2e8f0', marginBottom: '32px' }}>
+        <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '14px' }}>
+          <thead>
+            <tr style={{ background: '#f8fafc' }}>
+              {['항목', 'MUI', 'Orbit UI'].map((col, i) => (
+                <th key={col} style={{ padding: '14px 18px', textAlign: 'left', fontWeight: 700, color: i === 2 ? '#6366f1' : '#475569', borderBottom: '1.5px solid #e2e8f0', whiteSpace: 'nowrap' }}>{col}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {[
+              ['테마 시스템', 'ThemeProvider + createTheme()', 'EclipseProvider + 3-Tier CSS 변수'],
+              ['스타일 방식', 'Emotion (CSS-in-JS, 런타임)', 'Tailwind + vanilla-extract (빌드 타임)'],
+              ['variant', 'variant="contained/outlined/text"', 'SolidButton/OutlineButton/GhostButton 분리'],
+              ['ListItem 패턴', 'ListItem + ListItemIcon + ListItemText', 'ListTile + Leading/Title/Description/Trailing'],
+              ['sx prop', '임의 CSS를 컴포넌트에 인라인 적용', 'theme prop으로 토큰 오버라이드 (type-safe)'],
+              ['DataGrid', 'MUI X DataGrid (별도 라이선스)', 'DataTable (TanStack Table 기반, 오픈소스)'],
+              ['번들 크기', '~280KB gzip (전체)', '트리쉐이킹 완전 지원, 컴포넌트별 분리'],
+              ['TypeScript', '완전 지원 (복잡한 제네릭)', '완전 지원 (단순한 컴포넌트 타입)'],
+              ['접근성', 'WAI-ARIA 준수, 포커스 관리', 'WAI-ARIA 패턴 직접 구현'],
+            ].map((row, i) => (
+              <tr key={i} style={{ background: i % 2 === 0 ? '#fff' : '#fafafa' }}>
+                {row.map((cell, j) => (
+                  <td key={j} style={{ padding: '12px 18px', color: j === 0 ? '#475569' : j === 2 ? '#6366f1' : '#64748b', fontWeight: j === 0 ? 600 : j === 2 ? 600 : 400, borderBottom: '1px solid #f1f5f9' }}>{cell}</td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <h3 style={{ fontSize: '16px', fontWeight: '700', color: '#1e293b', marginBottom: '16px' }}>MUI 마이그레이션 Before/After</h3>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+        {/* ListItem */}
+        <div>
+          <div style={{ fontSize: '14px', fontWeight: 700, color: '#1e293b', marginBottom: '12px' }}>
+            <span style={{ color: '#007fff' }}>ListItem + ListItemIcon + ListItemText</span> → ListTile
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+            <div style={{ borderRadius: '10px', overflow: 'hidden', border: '1.5px solid #e2e8f0' }}>
+              <div style={{ padding: '8px 14px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0', fontSize: '12px', fontWeight: 600, color: '#94a3b8' }}>Before (MUI)</div>
+              <pre style={{ margin: 0, padding: '16px', fontSize: '12px', color: '#334155', background: '#fff', overflowX: 'auto', lineHeight: '1.6' }}>{`import {
+  List, ListItem, ListItemButton,
+  ListItemIcon, ListItemText,
+} from '@mui/material'
+import InboxIcon from '@mui/icons-material/Inbox'
+
+<List>
+  <ListItem disablePadding>
+    <ListItemButton>
+      <ListItemIcon>
+        <InboxIcon />
+      </ListItemIcon>
+      <ListItemText
+        primary="받은 편지함"
+        secondary="3개의 새 메시지"
+      />
+    </ListItemButton>
+  </ListItem>
+</List>`}</pre>
+            </div>
+            <div style={{ borderRadius: '10px', overflow: 'hidden', border: '1.5px solid #6366f130' }}>
+              <div style={{ padding: '8px 14px', background: '#f0f4ff', borderBottom: '1px solid #6366f130', fontSize: '12px', fontWeight: 600, color: '#6366f1' }}>After (Orbit UI)</div>
+              <pre style={{ margin: 0, padding: '16px', fontSize: '12px', color: '#334155', background: '#fff', overflowX: 'auto', lineHeight: '1.6' }}>{`import { ListTile }
+  from '@heejun-com/theme-eclipse'
+import { NotificationLineIcon }
+  from '@heejun-com/icons'
+
+<ListTile as="button" onClick={handleClick}>
+  <ListTile.Leading>
+    <NotificationLineIcon size={18} />
+  </ListTile.Leading>
+  <ListTile.Title>받은 편지함</ListTile.Title>
+  <ListTile.Description>
+    3개의 새 메시지
+  </ListTile.Description>
+</ListTile>`}</pre>
+            </div>
+          </div>
+        </div>
+
+        {/* ThemeProvider */}
+        <div>
+          <div style={{ fontSize: '14px', fontWeight: 700, color: '#1e293b', marginBottom: '12px' }}>
+            <span style={{ color: '#007fff' }}>ThemeProvider + createTheme()</span> → EclipseProvider
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+            <div style={{ borderRadius: '10px', overflow: 'hidden', border: '1.5px solid #e2e8f0' }}>
+              <div style={{ padding: '8px 14px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0', fontSize: '12px', fontWeight: 600, color: '#94a3b8' }}>Before (MUI)</div>
+              <pre style={{ margin: 0, padding: '16px', fontSize: '12px', color: '#334155', background: '#fff', overflowX: 'auto', lineHeight: '1.6' }}>{`import {
+  ThemeProvider, createTheme,
+} from '@mui/material'
+
+const theme = createTheme({
+  palette: {
+    primary: { main: '#6366f1' },
+    mode: 'dark',
+  },
+  typography: {
+    fontFamily: 'Pretendard, sans-serif',
+  },
+})
+
+<ThemeProvider theme={theme}>
+  <App />
+</ThemeProvider>`}</pre>
+            </div>
+            <div style={{ borderRadius: '10px', overflow: 'hidden', border: '1.5px solid #6366f130' }}>
+              <div style={{ padding: '8px 14px', background: '#f0f4ff', borderBottom: '1px solid #6366f130', fontSize: '12px', fontWeight: 600, color: '#6366f1' }}>After (Orbit UI)</div>
+              <pre style={{ margin: 0, padding: '16px', fontSize: '12px', color: '#334155', background: '#fff', overflowX: 'auto', lineHeight: '1.6' }}>{`import { EclipseProvider }
+  from '@heejun-com/theme-eclipse'
+
+// CSS 변수 기반 — 런타임 오버헤드 없음
+<EclipseProvider colorScheme="dark">
+  <App />
+</EclipseProvider>
+
+// 컴포넌트 단위 오버라이드 (theme prop)
+<SolidButton
+  color="black"
+  theme={{ fillEnabled: '#6366f1' }}
+>
+  <SolidButton.Center>저장</SolidButton.Center>
+</SolidButton>`}</pre>
+            </div>
+          </div>
+        </div>
+
+        {/* DataGrid */}
+        <div>
+          <div style={{ fontSize: '14px', fontWeight: 700, color: '#1e293b', marginBottom: '12px' }}>
+            <span style={{ color: '#007fff' }}>MUI X DataGrid</span> → DataTable (TanStack Table)
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+            <div style={{ borderRadius: '10px', overflow: 'hidden', border: '1.5px solid #e2e8f0' }}>
+              <div style={{ padding: '8px 14px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0', fontSize: '12px', fontWeight: 600, color: '#94a3b8' }}>Before (MUI X DataGrid)</div>
+              <pre style={{ margin: 0, padding: '16px', fontSize: '12px', color: '#334155', background: '#fff', overflowX: 'auto', lineHeight: '1.6' }}>{`import { DataGrid } from '@mui/x-data-grid'
+// 주의: 일부 기능은 Pro 라이선스 필요
+
+<DataGrid
+  rows={rows}
+  columns={columns}
+  pageSize={5}
+  checkboxSelection
+  disableSelectionOnClick
+/>`}</pre>
+            </div>
+            <div style={{ borderRadius: '10px', overflow: 'hidden', border: '1.5px solid #6366f130' }}>
+              <div style={{ padding: '8px 14px', background: '#f0f4ff', borderBottom: '1px solid #6366f130', fontSize: '12px', fontWeight: 600, color: '#6366f1' }}>After (Orbit UI)</div>
+              <pre style={{ margin: 0, padding: '16px', fontSize: '12px', color: '#334155', background: '#fff', overflowX: 'auto', lineHeight: '1.6' }}>{`import { DataTable }
+  from '@heejun-com/theme-eclipse'
+// TanStack Table 기반 — 100% 오픈소스
+
+<DataTable
+  columns={[
+    { accessorKey: 'name', header: 'Name' },
+    { accessorKey: 'status', header: 'Status',
+      cell: (info) => (
+        <LabelBadge color="benefit">
+          <LabelBadge.Label>
+            {String(info.getValue())}
+          </LabelBadge.Label>
+        </LabelBadge>
+      )
+    },
+  ]}
+  data={rows}
+/>`}</pre>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h3 style={{ fontSize: '16px', fontWeight: '700', color: '#1e293b', margin: '24px 0 16px' }}>MUI 벤치마크 발견 3가지 (사이클 23)</h3>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+        {[
+          {
+            title: 'ListItem 복잡성 → ListTile 단순화',
+            desc: 'MUI의 ListItem + ListItemButton + ListItemIcon + ListItemText 4단계 조합을 ListTile + Leading/Title/Description/Trailing 컴파운드 패턴으로 단순화합니다. 폴리모픽 as prop으로 button/a/label 전환이 자유롭습니다.',
+            color: '#007fff',
+          },
+          {
+            title: 'sx prop → theme prop (Type-safe 오버라이드)',
+            desc: 'MUI의 sx prop은 임의 CSS를 허용하지만 타입 안전성이 약합니다. Orbit UI의 theme prop은 컴포넌트 토큰만 허용하여 오버라이드 범위를 명확히 제한하고, 자동완성과 타입 오류 감지가 가능합니다.',
+            color: '#6366f1',
+          },
+          {
+            title: 'DataGrid 라이선스 → DataTable 오픈소스',
+            desc: 'MUI X DataGrid의 일부 기능(행 그룹화, Excel 내보내기 등)은 Pro 라이선스($)가 필요합니다. DataTable은 TanStack Table을 기반으로 정렬/필터/페이지네이션을 100% 오픈소스로 제공합니다.',
+            color: '#10b981',
+          },
+        ].map(({ title, desc, color }) => (
+          <div key={title} style={{ display: 'flex', gap: '14px', padding: '16px 20px', borderRadius: '12px', border: '1.5px solid #e2e8f0', background: '#fff' }}>
+            <div style={{ width: '4px', borderRadius: '4px', background: color, flexShrink: 0 }} />
+            <div>
+              <div style={{ fontSize: '14px', fontWeight: '700', color: '#1e293b', marginBottom: '6px' }}>{title}</div>
+              <div style={{ fontSize: '13px', color: '#64748b', lineHeight: '1.6' }}>{desc}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    {/* Tailwind UI Benchmark */}
+    <section style={{ marginBottom: '64px' }}>
+      <h2 style={{ fontSize: '22px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '8px' }}>Tailwind UI 벤치마크</h2>
+      <p style={{ fontSize: '14px', color: '#64748b', lineHeight: '1.7', marginBottom: '24px' }}>
+        Tailwind UI는 실무에서 즉시 사용 가능한 고품질 컴포넌트 조합 패턴을 제공하는 유료 컴포넌트 라이브러리입니다.
+        Orbit UI가 Tailwind UI에서 벤치마크한 3가지 핵심 패턴:
+      </p>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px', marginBottom: '24px' }}>
+        {[
+          { title: '3-패널 레이아웃', desc: '사이드바 + 목록 + 상세 패널 구조. EmailClient 템플릿에 적용하여 폴더/메일목록/본문 패널 구성.', icon: '⊞' },
+          { title: '카드형 선택 UI', desc: '라디오/체크박스를 카드 컨테이너로 감싸는 패턴. RadioButton 요금제 선택 스토리에 반영.', icon: '▣' },
+          { title: '연락처 호버 카드', desc: '아바타 위 호버 시 멤버 상세 팝업. HoverCard 팀 멤버 카드 스토리에 적용.', icon: '👤' },
+        ].map(({ title, desc, icon }) => (
+          <div key={title} style={{ padding: '16px 18px', borderRadius: '12px', border: '1.5px solid #e2e8f0', background: '#fff' }}>
+            <div style={{ fontSize: '20px', marginBottom: '8px' }}>{icon}</div>
+            <div style={{ fontSize: '14px', fontWeight: '700', color: '#1e293b', marginBottom: '6px' }}>{title}</div>
+            <div style={{ fontSize: '12px', color: '#64748b', lineHeight: '1.6' }}>{desc}</div>
+          </div>
+        ))}
+      </div>
+      <div style={{ padding: '16px 20px', borderRadius: '12px', background: '#f0f9ff', border: '1px solid #bae6fd' }}>
+        <div style={{ fontSize: '13px', fontWeight: '700', color: '#0369a1', marginBottom: '6px' }}>Orbit UI vs Tailwind UI</div>
+        <div style={{ fontSize: '13px', color: '#0c4a6e', lineHeight: '1.7' }}>
+          Tailwind UI는 복사-붙여넣기 방식으로 커스터마이징이 자유롭지만 디자인 시스템 일관성 유지가 어렵습니다.
+          Orbit UI는 3-Tier 토큰 시스템으로 브랜드 일관성을 보장하면서 Tailwind UI의 레이아웃 패턴을 컴포넌트 API로 제공합니다.
+        </div>
+      </div>
+    </section>
+
+    {/* Radix UI Benchmark */}
+    <section style={{ marginBottom: '64px' }}>
+      <h2 style={{ fontSize: '22px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '8px' }}>Radix UI 벤치마크</h2>
+      <p style={{ fontSize: '14px', color: '#64748b', lineHeight: '1.7', marginBottom: '24px' }}>
+        Radix UI는 무스타일(unstyled) Primitive 컴포넌트를 통해 완전한 접근성과 유연한 커스터마이징을 제공합니다.
+        Orbit UI가 Radix UI의 설계 철학에서 채택한 핵심 패턴:
+      </p>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '16px', marginBottom: '24px' }}>
+        {[
+          { title: 'Primitive + Compound 패턴', desc: 'Dialog.Trigger, Dialog.Content처럼 관심사를 분리한 Compound API. Orbit UI의 모든 Compound 컴포넌트가 이 패턴을 따릅니다.', color: '#6366f1' },
+          { title: 'asChild 패턴', desc: '트리거 엘리먼트를 교체할 수 있는 asChild prop. 자체 버튼/링크로 트리거를 대체할 때 사용합니다.', color: '#10b981' },
+          { title: '제어/비제어 이중 지원', desc: 'defaultValue(비제어) + value+onChange(제어)를 모두 지원하여 React 폼 패턴과 자연스럽게 연동됩니다.', color: '#f59e0b' },
+          { title: 'WAI-ARIA 완전 구현', desc: 'role, aria-expanded, aria-controls 등 ARIA 속성을 내부에서 자동 관리. 개발자가 별도로 추가하지 않아도 접근성이 보장됩니다.', color: '#ef4444' },
+        ].map(({ title, desc, color }) => (
+          <div key={title} style={{ display: 'flex', gap: '12px', padding: '16px 18px', borderRadius: '12px', border: '1.5px solid #e2e8f0', background: '#fff' }}>
+            <div style={{ width: '4px', borderRadius: '4px', background: color, flexShrink: 0 }} />
+            <div>
+              <div style={{ fontSize: '14px', fontWeight: '700', color: '#1e293b', marginBottom: '6px' }}>{title}</div>
+              <div style={{ fontSize: '12px', color: '#64748b', lineHeight: '1.6' }}>{desc}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+      <div style={{ padding: '16px 20px', borderRadius: '12px', background: '#f0fdf4', border: '1px solid #bbf7d0' }}>
+        <div style={{ fontSize: '13px', fontWeight: '700', color: '#166534', marginBottom: '6px' }}>Orbit UI vs Radix UI</div>
+        <div style={{ fontSize: '13px', color: '#14532d', lineHeight: '1.7' }}>
+          Radix UI는 무스타일 Primitive로 최대 유연성을 제공하지만, 모든 스타일링을 직접 구현해야 하는 부담이 있습니다.
+          Orbit UI는 Radix의 Primitive 위에 Eclipse 테마 토큰을 적용하여 디자인이 완성된 상태로 제공하면서도 theme prop으로 커스터마이징 진입점을 열어둡니다.
+        </div>
+      </div>
+    </section>
+
   </div>
 </Unstyled>
