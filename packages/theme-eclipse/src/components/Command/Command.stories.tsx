@@ -519,3 +519,299 @@ export const 멀티셀렉트_필터: Story = {
   },
   render: () => <MultiSelectFilterDemo />,
 }
+
+/* --------------------------------------------------------------------------
+   Raycast 스포트라이트 런처 패턴
+   앱/파일/액션을 빠르게 실행하는 macOS Spotlight 스타일
+-------------------------------------------------------------------------- */
+
+const spotlightItems = [
+  { category: '최근', icon: '🕒', label: '스탠드업 미팅', sub: '오늘 오전 10:00', action: '참여' },
+  { category: '최근', icon: '📄', label: 'Q4 리뷰 문서', sub: '어제 수정됨', action: '열기' },
+  { category: '앱', icon: '💬', label: 'Slack', sub: '메시지 앱', action: '실행' },
+  { category: '앱', icon: '🎨', label: 'Figma', sub: '디자인 도구', action: '실행' },
+  { category: '앱', icon: '🖥️', label: 'VS Code', sub: '코드 에디터', action: '실행' },
+  { category: '액션', icon: '📋', label: '클립보드 기록 보기', sub: 'Cmd+Shift+V', action: '실행' },
+  { category: '액션', icon: '🔍', label: '웹에서 검색', sub: 'Google 검색', action: '검색' },
+]
+
+const RaycastSpotlightDemo = () => {
+  const [result, setResult] = useState<string | null>(null)
+  return (
+    <div style={{ padding: '32px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 16 }}>
+      <div
+        style={{
+          width: 560,
+          borderRadius: 16,
+          overflow: 'hidden',
+          boxShadow: '0 32px 64px rgba(0,0,0,0.24)',
+          border: '1px solid rgba(255,255,255,0.08)',
+          background: '#1c1c1e',
+        }}
+      >
+        <Command style={{ background: 'transparent', color: '#f5f5f5' }}>
+          <Command.Input
+            placeholder="앱, 파일, 액션 검색..."
+            style={{ background: 'transparent', color: '#f5f5f5', borderBottom: '1px solid rgba(255,255,255,0.08)' }}
+          />
+          <Command.List style={{ maxHeight: 360 }}>
+            <Command.Empty style={{ color: '#888', textAlign: 'center', padding: '24px 0' }}>
+              결과 없음
+            </Command.Empty>
+            {['최근', '앱', '액션'].map((cat) => {
+              const items = spotlightItems.filter((i) => i.category === cat)
+              return (
+                <Command.Group
+                  key={cat}
+                  heading={cat}
+                  style={{ color: '#666' }}
+                >
+                  {items.map((item) => (
+                    <Command.Item
+                      key={item.label}
+                      onSelect={() => setResult(`${item.action}: ${item.label}`)}
+                      style={{ borderRadius: 8, margin: '1px 4px' }}
+                    >
+                      <span style={{ fontSize: 18, marginRight: 12, width: 28, textAlign: 'center' }}>{item.icon}</span>
+                      <span style={{ flex: 1 }}>
+                        <span style={{ display: 'block', fontSize: 13, fontWeight: 600, color: '#f5f5f5' }}>
+                          {item.label}
+                        </span>
+                        <span style={{ display: 'block', fontSize: 11, color: '#888', marginTop: 1 }}>
+                          {item.sub}
+                        </span>
+                      </span>
+                      <span
+                        style={{
+                          fontSize: 11,
+                          color: '#666',
+                          padding: '3px 8px',
+                          borderRadius: 6,
+                          border: '1px solid rgba(255,255,255,0.1)',
+                          background: 'rgba(255,255,255,0.05)',
+                        }}
+                      >
+                        {item.action}
+                      </span>
+                    </Command.Item>
+                  ))}
+                </Command.Group>
+              )
+            })}
+          </Command.List>
+          <div
+            style={{
+              display: 'flex',
+              gap: 16,
+              padding: '8px 16px',
+              borderTop: '1px solid rgba(255,255,255,0.06)',
+              fontSize: 11,
+              color: '#555',
+            }}
+          >
+            <span>↑↓ 탐색</span>
+            <span>↵ 실행</span>
+            <span>Esc 닫기</span>
+          </div>
+        </Command>
+      </div>
+      {result && (
+        <div style={{ fontSize: 12, color: '#6366f1', fontWeight: 600 }}>
+          ✓ {result}
+        </div>
+      )}
+    </div>
+  )
+}
+
+export const Raycast_스포트라이트_런처: Story = {
+  name: 'Raycast - 다크 스포트라이트 런처 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Raycast macOS 런처 스타일. 다크 배경 + 앱/파일/액션 카테고리 그룹 + 아이콘 + 서브 텍스트 + 단축키 힌트 ' +
+          '하단 푸터를 갖춘 풀 스포트라이트 UI입니다.',
+      },
+    },
+  },
+  render: () => <RaycastSpotlightDemo />,
+}
+
+/* --------------------------------------------------------------------------
+   Linear 퀵 스위처 패턴
+   프로젝트/팀 전환을 위한 Linear-style quick switcher
+-------------------------------------------------------------------------- */
+
+const workspaces = [
+  { type: '팀', icon: '🚀', label: 'Platform', sub: '12개 이슈', color: '#6366f1' },
+  { type: '팀', icon: '🎨', label: 'Design System', sub: '8개 이슈', color: '#8b5cf6' },
+  { type: '팀', icon: '📱', label: 'Mobile', sub: '23개 이슈', color: '#06b6d4' },
+  { type: '프로젝트', icon: '📌', label: 'Q4 OKR', sub: '완료 72%', color: '#10b981' },
+  { type: '프로젝트', icon: '🔧', label: 'Auth 리팩토링', sub: '진행 중', color: '#f59e0b' },
+  { type: '뷰', icon: '👁️', label: '내 이슈', sub: '5개', color: '#64748b' },
+  { type: '뷰', icon: '📅', label: '이번 주 마감', sub: '3개', color: '#ef4444' },
+]
+
+const LinearQuickSwitcherDemo = () => {
+  const [active, setActive] = useState('Design System')
+  return (
+    <div style={{ padding: '32px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12 }}>
+      <div style={{ fontSize: 12, color: '#94a3b8', marginBottom: 4 }}>
+        현재 워크스페이스: <strong style={{ color: '#6366f1' }}>{active}</strong>
+      </div>
+      <div style={{ width: 440, borderRadius: 12, overflow: 'hidden', boxShadow: '0 8px 32px rgba(0,0,0,0.12)', border: '1px solid #e2e8f0' }}>
+        <Command>
+          <Command.Input placeholder="팀, 프로젝트, 뷰 전환..." />
+          <Command.List style={{ maxHeight: 320 }}>
+            <Command.Empty>
+              <span style={{ color: '#94a3b8', fontSize: 13 }}>일치하는 워크스페이스 없음</span>
+            </Command.Empty>
+            {['팀', '프로젝트', '뷰'].map((type) => {
+              const items = workspaces.filter((w) => w.type === type)
+              return (
+                <Command.Group key={type} heading={type}>
+                  {items.map((ws) => (
+                    <Command.Item
+                      key={ws.label}
+                      onSelect={() => setActive(ws.label)}
+                    >
+                      <span
+                        style={{
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          width: 28,
+                          height: 28,
+                          borderRadius: 8,
+                          background: `${ws.color}1a`,
+                          marginRight: 10,
+                          fontSize: 14,
+                          flexShrink: 0,
+                        }}
+                      >
+                        {ws.icon}
+                      </span>
+                      <span style={{ flex: 1 }}>
+                        <span style={{ display: 'block', fontSize: 13, fontWeight: ws.label === active ? 700 : 500, color: ws.label === active ? ws.color : '#1e293b' }}>
+                          {ws.label}
+                        </span>
+                        <span style={{ display: 'block', fontSize: 11, color: '#94a3b8' }}>{ws.sub}</span>
+                      </span>
+                      {ws.label === active && (
+                        <CheckIcon className="h-4 w-4" style={{ color: ws.color }} />
+                      )}
+                    </Command.Item>
+                  ))}
+                </Command.Group>
+              )
+            })}
+          </Command.List>
+        </Command>
+      </div>
+    </div>
+  )
+}
+
+export const Linear_퀵_스위처: Story = {
+  name: 'Linear - 팀/프로젝트/뷰 퀵 스위처 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Linear 퀵 스위처 패턴. 팀·프로젝트·뷰를 그룹으로 분리, 선택된 항목은 컬러 체크 표시. ' +
+          '워크스페이스 컨텍스트 전환 UX에 최적화된 Command 활용법입니다.',
+      },
+    },
+  },
+  render: () => <LinearQuickSwitcherDemo />,
+}
+
+/* --------------------------------------------------------------------------
+   Vercel 글로벌 검색 패턴
+   배포/도메인/팀/프로젝트를 한 곳에서 검색하는 Vercel Dashboard 패턴
+-------------------------------------------------------------------------- */
+
+const vercelResults = [
+  { type: '배포', icon: '🚀', label: 'orbit-ui – main', sub: 'prod • 2분 전', status: 'READY', statusColor: '#10b981' },
+  { type: '배포', icon: '🚀', label: 'orbit-ui – feat/tokens', sub: 'preview • 10분 전', status: 'BUILDING', statusColor: '#f59e0b' },
+  { type: '프로젝트', icon: '📦', label: 'orbit-ui', sub: 'blue45fs-projects', status: '', statusColor: '' },
+  { type: '프로젝트', icon: '📦', label: 'orbit-landing', sub: 'blue45fs-projects', status: '', statusColor: '' },
+  { type: '도메인', icon: '🌐', label: 'orbit-ui.vercel.app', sub: '프로덕션 도메인', status: 'ACTIVE', statusColor: '#10b981' },
+]
+
+const VercelGlobalSearchDemo = () => {
+  const [picked, setPicked] = useState<string | null>(null)
+  return (
+    <div style={{ padding: '32px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12 }}>
+      <div style={{ width: 520, borderRadius: 12, overflow: 'hidden', boxShadow: '0 8px 24px rgba(0,0,0,0.1)', border: '1px solid #e5e7eb' }}>
+        <Command>
+          <Command.Input placeholder="배포, 프로젝트, 도메인 검색..." />
+          <Command.List style={{ maxHeight: 360 }}>
+            <Command.Empty>
+              <span style={{ color: '#94a3b8', fontSize: 13 }}>검색 결과 없음</span>
+            </Command.Empty>
+            {['배포', '프로젝트', '도메인'].map((type) => {
+              const items = vercelResults.filter((r) => r.type === type)
+              return (
+                <Command.Group key={type} heading={type}>
+                  {items.map((item) => (
+                    <Command.Item
+                      key={item.label}
+                      onSelect={() => setPicked(item.label)}
+                    >
+                      <span style={{ fontSize: 16, marginRight: 10, width: 24, textAlign: 'center' }}>{item.icon}</span>
+                      <span style={{ flex: 1 }}>
+                        <span style={{ display: 'block', fontSize: 13, fontWeight: 500, color: '#111827' }}>{item.label}</span>
+                        <span style={{ display: 'block', fontSize: 11, color: '#9ca3af' }}>{item.sub}</span>
+                      </span>
+                      {item.status && (
+                        <span
+                          style={{
+                            fontSize: 10,
+                            fontWeight: 700,
+                            color: item.statusColor,
+                            padding: '2px 8px',
+                            borderRadius: 20,
+                            background: `${item.statusColor}18`,
+                            border: `1px solid ${item.statusColor}44`,
+                            letterSpacing: '0.03em',
+                          }}
+                        >
+                          {item.status}
+                        </span>
+                      )}
+                    </Command.Item>
+                  ))}
+                </Command.Group>
+              )
+            })}
+          </Command.List>
+          <div style={{ padding: '8px 16px', borderTop: '1px solid #f3f4f6', display: 'flex', gap: 16, fontSize: 11, color: '#9ca3af' }}>
+            <span>↑↓ 탐색</span>
+            <span>↵ 선택</span>
+          </div>
+        </Command>
+      </div>
+      {picked && (
+        <div style={{ fontSize: 12, color: '#6366f1', fontWeight: 600 }}>
+          ✓ 선택됨: {picked}
+        </div>
+      )}
+    </div>
+  )
+}
+
+export const Vercel_글로벌_검색: Story = {
+  name: 'Vercel - 배포/프로젝트/도메인 글로벌 검색 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Vercel Dashboard 글로벌 검색 패턴. 배포 상태 뱃지(READY/BUILDING/ACTIVE)를 컬러 필로 표시, ' +
+          '프로젝트·도메인 그룹화, 간결한 결과 리스트가 특징입니다.',
+      },
+    },
+  },
+  render: () => <VercelGlobalSearchDemo />,
+}

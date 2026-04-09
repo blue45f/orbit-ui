@@ -731,5 +731,67 @@ function App() {
       </div>
     </section>
 
+    {/* Raycast / Linear Token Usage */}
+    <section style={{ marginBottom: '56px' }}>
+      <h2 style={{ fontSize: '22px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '8px' }}>실무 토큰 활용 패턴</h2>
+      <p style={{ fontSize: '14px', color: '#64748b', lineHeight: '1.6', marginBottom: '24px' }}>Raycast, Linear 등 세계 수준 디자인 시스템이 사용하는 토큰 활용 전략입니다.</p>
+
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '24px' }}>
+        <div style={{ borderRadius: '12px', border: '1px solid #e2e8f0', overflow: 'hidden' }}>
+          <div style={{ padding: '10px 16px', background: '#faf5ff', borderBottom: '1px solid #e2e8f0' }}>
+            <span style={{ fontSize: '12px', color: '#7c3aed', fontWeight: '700' }}>Raycast - 다크 모드 토큰</span>
+          </div>
+          <pre style={{ margin: 0, padding: '16px', background: '#1c1c1e', color: '#e5e5e5', fontSize: '11px', lineHeight: '1.8', fontFamily: '"JetBrains Mono", monospace', overflow: 'auto' }}>
+{`/* Raycast는 모든 색상을 
+   semantic token으로 정의 */
+:root[data-theme="dark"] {
+  --bg-primary: #1c1c1e;
+  --bg-elevated: #2c2c2e;
+  --fg-primary: #f5f5f5;
+  --fg-muted: #888888;
+  --border: rgba(255,255,255,0.08);
+  --accent: #6366f1;
+}`}
+          </pre>
+        </div>
+
+        <div style={{ borderRadius: '12px', border: '1px solid #e2e8f0', overflow: 'hidden' }}>
+          <div style={{ padding: '10px 16px', background: '#f0f4ff', borderBottom: '1px solid #e2e8f0' }}>
+            <span style={{ fontSize: '12px', color: '#4f46e5', fontWeight: '700' }}>Linear - 컴포넌트 토큰</span>
+          </div>
+          <pre style={{ margin: 0, padding: '16px', background: '#0f172a', color: '#e2e8f0', fontSize: '11px', lineHeight: '1.8', fontFamily: '"JetBrains Mono", monospace', overflow: 'auto' }}>
+{`/* Linear는 컴포넌트별 토큰을
+   명확하게 네이밍 */
+:root {
+  --issue-urgent: #ef4444;
+  --issue-high: #f59e0b;
+  --issue-medium: #6366f1;
+  --issue-low: #10b981;
+  --status-todo: #64748b;
+  --status-done: #22c55e;
+}`}
+          </pre>
+        </div>
+      </div>
+
+      <div style={{ padding: '20px', borderRadius: '12px', background: '#f8fafc', border: '1px solid #e2e8f0' }}>
+        <div style={{ fontSize: '13px', fontWeight: '700', color: '#1e293b', marginBottom: '12px' }}>Orbit UI 대응 패턴</div>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '12px', fontSize: '12px', color: '#64748b', lineHeight: '1.7' }}>
+          <div>
+            <div style={{ fontWeight: '700', color: '#6366f1', marginBottom: '4px' }}>Reference → 브랜드</div>
+            colorBlue500, colorGreen400 등 원시값으로 브랜드 팔레트를 정의합니다.
+          </div>
+          <div>
+            <div style={{ fontWeight: '700', color: '#8b5cf6', marginBottom: '4px' }}>Semantic → 의미</div>
+            fillPrimary, foregroundMuted처럼 의미 기반으로 참조하여 테마 전환을 지원합니다.
+          </div>
+          <div>
+            <div style={{ fontWeight: '700', color: '#06b6d4', marginBottom: '4px' }}>Component → 명세</div>
+            buttonEnabledFill처럼 컴포넌트별로 명세하여 세밀한 커스터마이징이 가능합니다.
+          </div>
+        </div>
+      </div>
+    </section>
+
   </div>
 </Unstyled>

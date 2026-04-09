@@ -7904,3 +7904,409 @@ export const PortfolioPage: Story = {
   name: 'Portfolio Page (shadcn/ui + Radix UI 벤치마크)',
   render: () => <PortfolioPageRender />,
 }
+
+/* ═══════════════════════════════════════════
+   26. Document Editor (Notion + Linear 벤치마크)
+   ═══════════════════════════════════════════ */
+const DocumentEditorRender = () => {
+  const [activeBlock, setActiveBlock] = useState<number | null>(null)
+  const [wordCount] = useState(1247)
+  const [saved, setSaved] = useState(true)
+  const [showOutline, setShowOutline] = useState(true)
+
+  const outline = [
+    { level: 1, label: 'Orbit UI 디자인 토큰 아키텍처', id: 'h1-1' },
+    { level: 2, label: '3단계 토큰 계층', id: 'h2-1' },
+    { level: 3, label: 'Reference Tokens', id: 'h3-1' },
+    { level: 3, label: 'Semantic Tokens', id: 'h3-2' },
+    { level: 2, label: '테마 적용 방법', id: 'h2-2' },
+    { level: 3, label: 'CSS Variables', id: 'h3-3' },
+    { level: 2, label: '마이그레이션 가이드', id: 'h2-3' },
+  ]
+
+  const blocks = [
+    { id: 1, type: 'h1', content: 'Orbit UI 디자인 토큰 아키텍처' },
+    { id: 2, type: 'meta', content: '작성자: Kim Heejun  •  최종 수정: 2026년 4월 10일  •  읽기 시간: 8분' },
+    { id: 3, type: 'callout', content: '이 문서는 Orbit UI의 3단계 토큰 시스템을 설명합니다. Reference → Semantic → Component 순서로 토큰이 계층화됩니다.' },
+    { id: 4, type: 'h2', content: '3단계 토큰 계층' },
+    { id: 5, type: 'p', content: '디자인 토큰은 세 단계로 나뉩니다. 각 단계는 명확한 역할을 가지며, 하위 단계의 값을 상위 단계가 참조합니다.' },
+    { id: 6, type: 'h3', content: 'Reference Tokens' },
+    { id: 7, type: 'p', content: 'Reference Token은 원시 값을 담습니다. colorBlue500, spacing8, radiusMd 같은 토큰이 여기에 해당합니다.' },
+    { id: 8, type: 'code', content: 'export const colorBlue500 = "#6366f1"\nexport const spacing8 = "8px"' },
+    { id: 9, type: 'h3', content: 'Semantic Tokens' },
+    { id: 10, type: 'p', content: 'Semantic Token은 의미 기반 이름을 사용합니다. fillPrimary, foregroundMuted처럼 용도가 명확합니다.' },
+    { id: 11, type: 'h2', content: '테마 적용 방법' },
+    { id: 12, type: 'p', content: 'EclipseProvider에 theme prop을 전달하거나 CSS Variables를 루트에서 오버라이드하면 전체 테마를 변경할 수 있습니다.' },
+    { id: 13, type: 'h2', content: '마이그레이션 가이드' },
+    { id: 14, type: 'p', content: 'Ant Design에서 Orbit UI로 마이그레이션할 때는 Modal.confirm → Alert, Button type="danger" → color="primary" 등의 변경이 필요합니다.' },
+  ]
+
+  const handleSave = () => {
+    setSaved(false)
+    setTimeout(() => setSaved(true), 800)
+  }
+
+  return (
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        height: '100vh',
+        background: tc.bg,
+        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+      }}
+    >
+      {/* Top bar */}
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: 12,
+          padding: '0 16px',
+          height: 48,
+          borderBottom: `1px solid ${tc.border}`,
+          background: tc.bg,
+          flexShrink: 0,
+        }}
+      >
+        <button
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 6,
+            padding: '4px 10px',
+            borderRadius: 6,
+            border: 'none',
+            background: 'none',
+            cursor: 'pointer',
+            color: tc.fgSub,
+            fontSize: 13,
+          }}
+        >
+          <ChevronLeftLineIcon style={{ width: 16, height: 16 }} />
+          <span>Docs</span>
+        </button>
+        <span style={{ color: tc.border }}>/</span>
+        <span style={{ fontSize: 13, fontWeight: 600, color: tc.fg }}>
+          Orbit UI 디자인 토큰 아키텍처
+        </span>
+        <div style={{ flex: 1 }} />
+        {/* Toolbar */}
+        <div style={{ display: 'flex', gap: 4, alignItems: 'center' }}>
+          {['B', 'I', 'U'].map((f) => (
+            <button
+              key={f}
+              style={{
+                width: 28,
+                height: 28,
+                borderRadius: 5,
+                border: '1px solid transparent',
+                background: 'none',
+                cursor: 'pointer',
+                fontWeight: f === 'B' ? 800 : f === 'I' ? 400 : 500,
+                fontStyle: f === 'I' ? 'italic' : 'normal',
+                textDecoration: f === 'U' ? 'underline' : 'none',
+                color: tc.fg,
+                fontSize: 13,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              {f}
+            </button>
+          ))}
+          <div style={{ width: 1, height: 18, background: tc.border, margin: '0 4px' }} />
+          {['H1', 'H2', 'H3'].map((h) => (
+            <button
+              key={h}
+              style={{
+                padding: '2px 6px',
+                borderRadius: 5,
+                border: '1px solid transparent',
+                background: 'none',
+                cursor: 'pointer',
+                color: tc.fgSub,
+                fontSize: 11,
+                fontWeight: 700,
+              }}
+            >
+              {h}
+            </button>
+          ))}
+          <div style={{ width: 1, height: 18, background: tc.border, margin: '0 4px' }} />
+          <button
+            style={{
+              padding: '4px 10px',
+              borderRadius: 6,
+              border: 'none',
+              background: saved ? '#f0fdf4' : '#fef3c7',
+              cursor: 'pointer',
+              fontSize: 11,
+              fontWeight: 600,
+              color: saved ? '#16a34a' : '#92400e',
+            }}
+            onClick={handleSave}
+          >
+            {saved ? '✓ 저장됨' : '저장 중...'}
+          </button>
+          <button
+            onClick={() => setShowOutline((v) => !v)}
+            style={{
+              padding: '4px 10px',
+              borderRadius: 6,
+              border: `1px solid ${tc.border}`,
+              background: showOutline ? tc.surface : 'none',
+              cursor: 'pointer',
+              fontSize: 11,
+              fontWeight: 600,
+              color: tc.fgSub,
+            }}
+          >
+            목차
+          </button>
+        </div>
+      </div>
+
+      {/* Body */}
+      <div style={{ display: 'flex', flex: 1, overflow: 'hidden' }}>
+        {/* Outline sidebar */}
+        {showOutline && (
+          <aside
+            style={{
+              width: 220,
+              padding: '24px 16px',
+              borderRight: `1px solid ${tc.border}`,
+              overflowY: 'auto',
+              flexShrink: 0,
+            }}
+          >
+            <p style={{ margin: '0 0 12px', fontSize: 11, fontWeight: 700, color: tc.fgMuted, textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+              목차
+            </p>
+            <nav>
+              {outline.map((item) => (
+                <button
+                  key={item.id}
+                  style={{
+                    display: 'block',
+                    width: '100%',
+                    textAlign: 'left',
+                    padding: `4px ${item.level === 1 ? 0 : item.level === 2 ? 12 : 24}px`,
+                    paddingLeft: item.level === 1 ? 0 : item.level === 2 ? 12 : 24,
+                    border: 'none',
+                    background: 'none',
+                    cursor: 'pointer',
+                    fontSize: item.level === 1 ? 12 : 11,
+                    fontWeight: item.level === 1 ? 700 : 500,
+                    color: item.level === 1 ? tc.fg : tc.fgSub,
+                    borderLeft: item.level > 1 ? `2px solid ${tc.border}` : 'none',
+                    marginLeft: item.level > 1 ? 0 : 0,
+                    lineHeight: 1.6,
+                  }}
+                >
+                  {item.label}
+                </button>
+              ))}
+            </nav>
+          </aside>
+        )}
+
+        {/* Editor */}
+        <div
+          style={{
+            flex: 1,
+            overflowY: 'auto',
+            padding: '40px',
+          }}
+        >
+          <div style={{ maxWidth: 720, margin: '0 auto' }}>
+            {blocks.map((block) => {
+              const isActive = activeBlock === block.id
+              return (
+                <div
+                  key={block.id}
+                  onClick={() => setActiveBlock(block.id)}
+                  style={{
+                    position: 'relative',
+                    marginBottom: block.type === 'h1' ? 4 : block.type.startsWith('h') ? 8 : 4,
+                    borderRadius: 6,
+                    padding: '2px 8px',
+                    background: isActive ? `${tc.fillPrimary}08` : 'transparent',
+                    cursor: 'text',
+                    outline: 'none',
+                  }}
+                >
+                  {block.type === 'h1' && (
+                    <h1 style={{ margin: '16px 0 4px', fontSize: 30, fontWeight: 800, color: tc.fg, letterSpacing: '-0.03em' }}>
+                      {block.content}
+                    </h1>
+                  )}
+                  {block.type === 'h2' && (
+                    <h2 style={{ margin: '28px 0 4px', fontSize: 20, fontWeight: 700, color: tc.fg, letterSpacing: '-0.02em' }}>
+                      {block.content}
+                    </h2>
+                  )}
+                  {block.type === 'h3' && (
+                    <h3 style={{ margin: '20px 0 4px', fontSize: 15, fontWeight: 700, color: tc.fg }}>
+                      {block.content}
+                    </h3>
+                  )}
+                  {block.type === 'meta' && (
+                    <p style={{ margin: '0 0 20px', fontSize: 12, color: tc.fgMuted }}>
+                      {block.content}
+                    </p>
+                  )}
+                  {block.type === 'callout' && (
+                    <div
+                      style={{
+                        display: 'flex',
+                        gap: 12,
+                        padding: '12px 16px',
+                        borderRadius: 8,
+                        background: `${tc.fillPrimary}10`,
+                        border: `1px solid ${tc.fillPrimary}30`,
+                        margin: '12px 0',
+                      }}
+                    >
+                      <span style={{ fontSize: 18, flexShrink: 0 }}>💡</span>
+                      <p style={{ margin: 0, fontSize: 13, color: tc.fg, lineHeight: 1.7 }}>{block.content}</p>
+                    </div>
+                  )}
+                  {block.type === 'p' && (
+                    <p style={{ margin: '6px 0', fontSize: 14, color: tc.fg, lineHeight: 1.8 }}>
+                      {block.content}
+                    </p>
+                  )}
+                  {block.type === 'code' && (
+                    <pre
+                      style={{
+                        margin: '8px 0',
+                        padding: '14px 16px',
+                        borderRadius: 8,
+                        background: '#1e1e2e',
+                        color: '#cdd6f4',
+                        fontSize: 12,
+                        fontFamily: 'monospace',
+                        lineHeight: 1.6,
+                        overflowX: 'auto',
+                      }}
+                    >
+                      {block.content}
+                    </pre>
+                  )}
+                  {isActive && (
+                    <div
+                      style={{
+                        position: 'absolute',
+                        left: -20,
+                        top: '50%',
+                        transform: 'translateY(-50%)',
+                        width: 16,
+                        height: 16,
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        color: tc.fgMuted,
+                        fontSize: 14,
+                        cursor: 'pointer',
+                      }}
+                    >
+                      +
+                    </div>
+                  )}
+                </div>
+              )
+            })}
+          </div>
+        </div>
+
+        {/* Right panel – doc stats */}
+        <aside
+          style={{
+            width: 200,
+            padding: '24px 16px',
+            borderLeft: `1px solid ${tc.border}`,
+            flexShrink: 0,
+          }}
+        >
+          <p style={{ margin: '0 0 16px', fontSize: 11, fontWeight: 700, color: tc.fgMuted, textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+            문서 정보
+          </p>
+          {[
+            { label: '단어 수', value: wordCount.toLocaleString() },
+            { label: '블록 수', value: blocks.length },
+            { label: '섹션', value: outline.filter((o) => o.level === 2).length },
+            { label: '최종 저장', value: saved ? '방금 전' : '저장 중...' },
+          ].map((stat) => (
+            <div key={stat.label} style={{ marginBottom: 16 }}>
+              <div style={{ fontSize: 11, color: tc.fgMuted, marginBottom: 2 }}>{stat.label}</div>
+              <div style={{ fontSize: 16, fontWeight: 700, color: tc.fg }}>{stat.value}</div>
+            </div>
+          ))}
+          <div style={{ marginTop: 24, padding: '12px', borderRadius: 8, background: tc.surface }}>
+            <p style={{ margin: '0 0 8px', fontSize: 11, fontWeight: 700, color: tc.fgSub }}>공유</p>
+            {['편집자', '댓글 가능', '읽기 전용'].map((role) => (
+              <div
+                key={role}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 6,
+                  padding: '4px 0',
+                }}
+              >
+                <div
+                  style={{
+                    width: 22,
+                    height: 22,
+                    borderRadius: '50%',
+                    background: `hsl(${role.length * 40}, 60%, 70%)`,
+                    fontSize: 10,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    color: '#fff',
+                    fontWeight: 700,
+                  }}
+                >
+                  {role[0]}
+                </div>
+                <span style={{ fontSize: 12, color: tc.fgSub }}>{role}</span>
+              </div>
+            ))}
+          </div>
+        </aside>
+      </div>
+
+      {/* Status bar */}
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: 16,
+          padding: '0 24px',
+          height: 32,
+          borderTop: `1px solid ${tc.border}`,
+          background: tc.surface,
+          flexShrink: 0,
+          fontSize: 11,
+          color: tc.fgMuted,
+        }}
+      >
+        <span>{wordCount.toLocaleString()}단어</span>
+        <span>•</span>
+        <span>{blocks.length}개 블록</span>
+        <span>•</span>
+        <span style={{ color: saved ? '#16a34a' : '#92400e' }}>{saved ? '저장됨' : '저장 중...'}</span>
+        <div style={{ flex: 1 }} />
+        <span>Notion + Linear 벤치마크</span>
+      </div>
+    </div>
+  )
+}
+
+export const DocumentEditor: Story = {
+  name: 'Document Editor (Notion + Linear 벤치마크)',
+  render: () => <DocumentEditorRender />,
+}
