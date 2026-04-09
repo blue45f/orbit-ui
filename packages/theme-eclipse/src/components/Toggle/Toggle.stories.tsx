@@ -153,3 +153,203 @@ const ControlledRender = () => {
 export const 제어컴포넌트: Story = {
   render: () => <ControlledRender />,
 }
+
+/* --------------------------------------------------------------------------
+   Linear 스타일: 컴팩트 뷰 옵션 패널
+   Linear의 Display settings 패널에서 영감받은 컴팩트 토글 그룹
+-------------------------------------------------------------------------- */
+const CompactViewOptionsRender = () => {
+  const [options, setOptions] = useState({
+    groupByPriority: true,
+    showSubIssues: false,
+    showEmptyGroups: false,
+    showCompletedIssues: true,
+    compactMode: false,
+  })
+
+  const toggle = (key: keyof typeof options) => {
+    setOptions((prev) => ({ ...prev, [key]: !prev[key] }))
+  }
+
+  const groups: Array<{
+    title: string
+    items: Array<{ key: keyof typeof options; label: string }>
+  }> = [
+    {
+      title: 'Grouping',
+      items: [
+        { key: 'groupByPriority', label: 'Group by priority' },
+        { key: 'showEmptyGroups', label: 'Show empty groups' },
+      ],
+    },
+    {
+      title: 'Display',
+      items: [
+        { key: 'showSubIssues', label: 'Show sub-issues' },
+        { key: 'showCompletedIssues', label: 'Show completed' },
+        { key: 'compactMode', label: 'Compact mode' },
+      ],
+    },
+  ]
+
+  return (
+    <div
+      style={{
+        width: '240px',
+        borderRadius: '10px',
+        border: '1px solid #e2e8f0',
+        background: '#fff',
+        boxShadow: '0 4px 16px rgba(0,0,0,0.06)',
+        overflow: 'hidden',
+      }}
+    >
+      <div
+        style={{
+          padding: '10px 14px',
+          borderBottom: '1px solid #f1f5f9',
+          fontSize: '12px',
+          fontWeight: 700,
+          color: '#0f172a',
+          letterSpacing: '-0.01em',
+        }}
+      >
+        Display
+      </div>
+      {groups.map((group, gi) => (
+        <div key={group.title}>
+          <div
+            style={{
+              padding: '8px 14px 4px',
+              fontSize: '10px',
+              fontWeight: 700,
+              color: '#94a3b8',
+              textTransform: 'uppercase',
+              letterSpacing: '0.06em',
+            }}
+          >
+            {group.title}
+          </div>
+          {group.items.map(({ key, label }) => (
+            <div
+              key={key}
+              style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                padding: '6px 14px',
+                cursor: 'pointer',
+              }}
+              onClick={() => toggle(key)}
+            >
+              <span style={{ fontSize: '12px', color: '#1e293b', fontWeight: 400 }}>{label}</span>
+              <Toggle
+                checked={options[key]}
+                onCheckedChange={() => toggle(key)}
+              />
+            </div>
+          ))}
+          {gi < groups.length - 1 && (
+            <div style={{ height: '1px', background: '#f1f5f9', margin: '4px 0' }} />
+          )}
+        </div>
+      ))}
+    </div>
+  )
+}
+
+export const Linear_뷰_옵션_패널: Story = {
+  render: () => <CompactViewOptionsRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Linear 스타일: 프로젝트 기능 플래그 토글
+   Linear의 프로젝트 설정에서 볼 수 있는 기능 활성화 토글 패턴
+-------------------------------------------------------------------------- */
+const FeatureFlagsRender = () => {
+  const [flags, setFlags] = useState({
+    cycles: true,
+    modules: false,
+    githubSync: true,
+    slackNotify: false,
+    aiSummary: false,
+    roadmap: true,
+  })
+
+  const toggle = (key: keyof typeof flags) => {
+    setFlags((prev) => ({ ...prev, [key]: !prev[key] }))
+  }
+
+  const features: Array<{
+    key: keyof typeof flags
+    label: string
+    desc: string
+    badge?: string
+  }> = [
+    { key: 'cycles', label: 'Cycles', desc: '스프린트 단위 이슈 관리를 활성화합니다.' },
+    { key: 'modules', label: 'Modules', desc: '이슈를 모듈별로 그룹화합니다.' },
+    { key: 'githubSync', label: 'GitHub Sync', desc: 'PR과 이슈를 자동으로 연결합니다.' },
+    { key: 'slackNotify', label: 'Slack Notifications', desc: 'Slack 채널에 알림을 전송합니다.' },
+    { key: 'aiSummary', label: 'AI Summary', desc: '이슈 내용을 AI가 자동 요약합니다.', badge: 'Beta' },
+    { key: 'roadmap', label: 'Roadmap', desc: '타임라인 뷰에서 로드맵을 확인합니다.' },
+  ]
+
+  const activeCount = Object.values(flags).filter(Boolean).length
+
+  return (
+    <div style={{ maxWidth: '480px' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+        <div>
+          <div style={{ fontSize: '15px', fontWeight: 700, color: '#0f172a' }}>기능 설정</div>
+          <div style={{ fontSize: '12px', color: '#94a3b8', marginTop: '2px' }}>
+            {activeCount}개 활성화
+          </div>
+        </div>
+      </div>
+      <div style={{ borderRadius: '12px', border: '1px solid #e2e8f0', overflow: 'hidden' }}>
+        {features.map(({ key, label, desc, badge }, i) => (
+          <div
+            key={key}
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              padding: '14px 18px',
+              borderBottom: i < features.length - 1 ? '1px solid #f8fafc' : 'none',
+              background: flags[key] ? 'rgba(99,102,241,0.02)' : '#fff',
+              transition: 'background 0.15s',
+            }}
+          >
+            <div style={{ flex: 1 }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '3px' }}>
+                <span style={{ fontSize: '13px', fontWeight: 500, color: '#1e293b' }}>{label}</span>
+                {badge && (
+                  <span
+                    style={{
+                      padding: '1px 6px',
+                      borderRadius: '4px',
+                      background: '#f0f0ff',
+                      color: '#6366f1',
+                      fontSize: '10px',
+                      fontWeight: 700,
+                    }}
+                  >
+                    {badge}
+                  </span>
+                )}
+              </div>
+              <div style={{ fontSize: '11px', color: '#94a3b8' }}>{desc}</div>
+            </div>
+            <Toggle
+              checked={flags[key]}
+              onCheckedChange={() => toggle(key)}
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+export const Linear_기능_플래그: Story = {
+  render: () => <FeatureFlagsRender />,
+}

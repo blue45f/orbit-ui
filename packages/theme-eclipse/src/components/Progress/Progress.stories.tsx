@@ -267,3 +267,192 @@ const StatusProgressRender = () => {
 export const 상태표현: Story = {
   render: () => <StatusProgressRender />,
 }
+
+/* --------------------------------------------------------------------------
+   Linear 스타일: 프로젝트 목록 진행률
+   Linear의 팀/프로젝트 뷰에서 보여주는 컴팩트 프로젝트 진행 목록
+-------------------------------------------------------------------------- */
+const LinearProjectListRender = () => {
+  const projects = [
+    { name: 'Orbit UI Design System', progress: 72, color: 'primary' as const, issues: 18, total: 25 },
+    { name: 'Dashboard Redesign', progress: 45, color: 'warning' as const, issues: 9, total: 20 },
+    { name: 'Authentication Flow', progress: 100, color: 'success' as const, issues: 12, total: 12 },
+    { name: 'Mobile App v2.0', progress: 28, color: 'primary' as const, issues: 7, total: 25 },
+    { name: 'API Integration Layer', progress: 60, color: 'primary' as const, issues: 15, total: 25 },
+  ]
+
+  return (
+    <div style={{ maxWidth: '520px', borderRadius: '12px', border: '1px solid #e2e8f0', overflow: 'hidden' }}>
+      <div
+        style={{
+          padding: '12px 16px',
+          background: '#f8fafc',
+          borderBottom: '1px solid #e2e8f0',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+        }}
+      >
+        <span style={{ fontSize: '12px', fontWeight: 700, color: '#64748b', letterSpacing: '-0.01em' }}>
+          Projects
+        </span>
+        <span style={{ fontSize: '11px', color: '#94a3b8' }}>{projects.length}개</span>
+      </div>
+      {projects.map((project, i) => (
+        <div
+          key={project.name}
+          style={{
+            padding: '12px 16px',
+            borderBottom: i < projects.length - 1 ? '1px solid #f8fafc' : 'none',
+          }}
+        >
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
+            <span
+              style={{
+                fontSize: '13px',
+                fontWeight: 500,
+                color: project.progress === 100 ? '#94a3b8' : '#1e293b',
+                textDecoration: project.progress === 100 ? 'line-through' : 'none',
+              }}
+            >
+              {project.name}
+            </span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <span style={{ fontSize: '11px', color: '#94a3b8' }}>
+                {project.issues}/{project.total}
+              </span>
+              <span
+                style={{
+                  fontSize: '11px',
+                  fontWeight: 700,
+                  color: project.progress === 100 ? '#10b981' : project.progress >= 60 ? '#6366f1' : '#f59e0b',
+                  minWidth: '32px',
+                  textAlign: 'right',
+                }}
+              >
+                {project.progress}%
+              </span>
+            </div>
+          </div>
+          <Progress value={project.progress} color={project.color} size="small" />
+        </div>
+      ))}
+    </div>
+  )
+}
+
+export const Linear_프로젝트_목록: Story = {
+  render: () => <LinearProjectListRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Linear 스타일: 사이클 번다운 차트 시뮬레이션
+   Linear의 Cycle 뷰에서 볼 수 있는 진행률 + 통계 조합 패턴
+-------------------------------------------------------------------------- */
+const CycleBurndownRender = () => {
+  const [day, setDay] = useState(5)
+  const totalDays = 14
+  const totalIssues = 32
+  const completedIssues = Math.round((day / totalDays) * totalIssues * (0.8 + Math.random() * 0.2))
+  const cycleProgress = Math.round((day / totalDays) * 100)
+  const issueProgress = Math.round((completedIssues / totalIssues) * 100)
+  const isOnTrack = issueProgress >= cycleProgress - 10
+
+  return (
+    <Flex flexDirection="column" gap="24px" style={{ maxWidth: '480px' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <span style={{ fontSize: '13px', fontWeight: 600, color: '#64748b' }}>사이클 경과</span>
+          <span style={{ fontSize: '13px', fontWeight: 700, color: '#1e293b' }}>
+            Day {day} / {totalDays}
+          </span>
+        </div>
+        <input
+          type="range"
+          min={1}
+          max={totalDays}
+          value={day}
+          onChange={(e) => setDay(Number(e.target.value))}
+          style={{ width: '100%', cursor: 'pointer' }}
+        />
+      </div>
+
+      <div
+        style={{
+          padding: '20px',
+          borderRadius: '12px',
+          border: '1px solid #e2e8f0',
+          background: '#fff',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '20px',
+        }}
+      >
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+          <div>
+            <div style={{ fontSize: '14px', fontWeight: 700, color: '#0f172a', marginBottom: '4px' }}>
+              Sprint 12
+            </div>
+            <div
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '4px',
+                padding: '3px 8px',
+                borderRadius: '6px',
+                background: isOnTrack ? 'rgba(16,185,129,0.08)' : 'rgba(245,158,11,0.08)',
+                fontSize: '11px',
+                fontWeight: 700,
+                color: isOnTrack ? '#10b981' : '#f59e0b',
+              }}
+            >
+              {isOnTrack ? 'On Track' : 'At Risk'}
+            </div>
+          </div>
+          <div style={{ textAlign: 'right' }}>
+            <div style={{ fontSize: '24px', fontWeight: 800, color: '#0f172a', lineHeight: 1 }}>
+              {completedIssues}
+            </div>
+            <div style={{ fontSize: '11px', color: '#94a3b8', marginTop: '4px' }}>
+              / {totalIssues} issues done
+            </div>
+          </div>
+        </div>
+
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+              <span style={{ fontSize: '12px', color: '#64748b', fontWeight: 500 }}>시간 경과</span>
+              <span style={{ fontSize: '12px', fontWeight: 700, color: '#6366f1' }}>{cycleProgress}%</span>
+            </div>
+            <Progress value={cycleProgress} color="primary" size="small" />
+          </div>
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+              <span style={{ fontSize: '12px', color: '#64748b', fontWeight: 500 }}>이슈 완료</span>
+              <span
+                style={{
+                  fontSize: '12px',
+                  fontWeight: 700,
+                  color: isOnTrack ? '#10b981' : '#f59e0b',
+                }}
+              >
+                {issueProgress}%
+              </span>
+            </div>
+            <Progress
+              value={issueProgress}
+              color={isOnTrack ? 'success' : 'warning'}
+              size="small"
+            />
+          </div>
+        </div>
+      </div>
+    </Flex>
+  )
+}
+
+export const Linear_사이클_번다운: Story = {
+  render: () => <CycleBurndownRender />,
+}
