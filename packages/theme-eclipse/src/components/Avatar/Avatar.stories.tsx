@@ -1,3 +1,4 @@
+import React from 'react'
 import type { Meta, StoryObj } from '@storybook/react'
 
 import { Avatar } from './Avatar'
@@ -227,6 +228,325 @@ export const 온라인_상태_표시: Story = {
       </div>
     )
   },
+}
+
+/* --------------------------------------------------------------------------
+   Notion 스타일: 멘션(Mention) UI 패턴
+   @사용자 멘션 드롭다운 리스트. Notion의 slash command 스타일로 아바타 + 이름 + 역할 표시.
+-------------------------------------------------------------------------- */
+const NotionMentionRender = () => {
+  const [query, setQuery] = React.useState('@')
+  const [selected, setSelected] = React.useState<string | null>(null)
+
+  const members = [
+    { id: 'KJ', name: 'Kim Jihye', role: 'Design Lead', color: '#6366f1' },
+    { id: 'PM', name: 'Park Minjun', role: 'Frontend Dev', color: '#10b981' },
+    { id: 'LS', name: 'Lee Soyeon', role: 'Product Manager', color: '#f59e0b' },
+    { id: 'CD', name: 'Choi Dongwook', role: 'Backend Dev', color: '#ef4444' },
+    { id: 'YH', name: 'Yoon Haerin', role: 'QA Engineer', color: '#8b5cf6' },
+  ]
+
+  const filtered = members.filter(
+    (m) =>
+      query === '@' ||
+      m.name.toLowerCase().includes(query.replace('@', '').toLowerCase())
+  )
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', maxWidth: '480px' }}>
+      {/* 에디터 영역 */}
+      <div
+        style={{
+          padding: '16px',
+          borderRadius: '10px',
+          border: '1.5px solid #e2e8f0',
+          background: '#fff',
+          fontSize: '14px',
+          color: '#1e293b',
+          lineHeight: '1.7',
+          minHeight: '64px',
+        }}
+      >
+        <span>다음 스프린트에서 </span>
+        {selected && (
+          <span
+            style={{
+              padding: '1px 6px',
+              borderRadius: '4px',
+              background: 'rgba(99,102,241,0.08)',
+              color: '#6366f1',
+              fontWeight: '600',
+              fontSize: '13px',
+              cursor: 'pointer',
+            }}
+          >
+            @{selected}
+          </span>
+        )}
+        {!selected && (
+          <input
+            value={query}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setQuery(e.target.value)}
+            style={{
+              border: 'none',
+              outline: 'none',
+              fontSize: '14px',
+              color: '#6366f1',
+              width: '120px',
+              background: 'transparent',
+            }}
+            aria-label="멘션 입력"
+          />
+        )}
+        <span> 님이 담당합니다.</span>
+      </div>
+
+      {/* 멘션 드롭다운 */}
+      {!selected && (
+        <div
+          style={{
+            borderRadius: '10px',
+            border: '1px solid #e2e8f0',
+            boxShadow: '0 4px 20px rgba(0,0,0,0.08)',
+            background: '#fff',
+            overflow: 'hidden',
+          }}
+        >
+          <div
+            style={{
+              padding: '8px 12px',
+              fontSize: '11px',
+              fontWeight: '700',
+              color: '#94a3b8',
+              textTransform: 'uppercase',
+              letterSpacing: '0.06em',
+              borderBottom: '1px solid #f1f5f9',
+            }}
+          >
+            People
+          </div>
+          {filtered.map((member) => (
+            <button
+              key={member.id}
+              onClick={() => setSelected(member.name)}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '10px',
+                width: '100%',
+                padding: '10px 12px',
+                background: 'none',
+                border: 'none',
+                cursor: 'pointer',
+                textAlign: 'left',
+                borderBottom: '1px solid #f8fafc',
+                transition: 'background 0.1s',
+              }}
+              onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.background = '#f8fafc' }}
+              onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.background = 'none' }}
+            >
+              <Avatar style={{ width: '28px', height: '28px', fontSize: '10px', background: member.color, flexShrink: 0 }}>
+                <Avatar.Fallback style={{ background: member.color, color: '#fff', fontWeight: '700' }}>
+                  {member.id}
+                </Avatar.Fallback>
+              </Avatar>
+              <div>
+                <div style={{ fontSize: '13px', fontWeight: '500', color: '#1e293b' }}>{member.name}</div>
+                <div style={{ fontSize: '11px', color: '#94a3b8' }}>{member.role}</div>
+              </div>
+              <div style={{ marginLeft: 'auto', fontSize: '11px', color: '#cbd5e1' }}>@{member.name.split(' ')[0].toLowerCase()}</div>
+            </button>
+          ))}
+          {filtered.length === 0 && (
+            <div style={{ padding: '20px', textAlign: 'center', fontSize: '13px', color: '#94a3b8' }}>
+              검색 결과 없음
+            </div>
+          )}
+        </div>
+      )}
+
+      {selected && (
+        <button
+          onClick={() => { setSelected(null); setQuery('@') }}
+          style={{
+            alignSelf: 'flex-start',
+            padding: '6px 12px',
+            borderRadius: '6px',
+            border: '1px solid #e2e8f0',
+            background: '#fff',
+            fontSize: '12px',
+            color: '#64748b',
+            cursor: 'pointer',
+          }}
+        >
+          멘션 초기화
+        </button>
+      )}
+    </div>
+  )
+}
+
+export const Notion_멘션_UI: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Notion 스타일 @멘션 드롭다운. 아바타 + 이름 + 역할 조합으로 팀원을 선택하는 패턴입니다.',
+      },
+    },
+  },
+  render: () => <NotionMentionRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Figma Plugin UI: 레이어 목록 패턴
+   Figma의 레이어 패널처럼 중첩 인덴트 + 타입 아이콘 + 아바타로 편집자 표시
+-------------------------------------------------------------------------- */
+const FigmaLayerListRender = () => {
+  const [activeLayer, setActiveLayer] = React.useState<string | null>('layer-btn-1')
+
+  type Layer = {
+    id: string
+    name: string
+    type: 'frame' | 'component' | 'text' | 'rect'
+    indent: number
+    editor?: { id: string; color: string }
+  }
+
+  const layers: Layer[] = [
+    { id: 'layer-frame-1', name: 'Dashboard Frame', type: 'frame', indent: 0 },
+    { id: 'layer-comp-1', name: 'Header', type: 'component', indent: 1, editor: { id: 'KJ', color: '#6366f1' } },
+    { id: 'layer-txt-1', name: 'Title / H1', type: 'text', indent: 2 },
+    { id: 'layer-rect-1', name: 'Divider', type: 'rect', indent: 2 },
+    { id: 'layer-comp-2', name: 'ButtonGroup', type: 'component', indent: 1, editor: { id: 'PM', color: '#10b981' } },
+    { id: 'layer-btn-1', name: 'Primary Button', type: 'component', indent: 2 },
+    { id: 'layer-btn-2', name: 'Ghost Button', type: 'component', indent: 2 },
+    { id: 'layer-frame-2', name: 'Content Area', type: 'frame', indent: 1 },
+    { id: 'layer-txt-2', name: 'Body Text', type: 'text', indent: 2, editor: { id: 'LS', color: '#f59e0b' } },
+  ]
+
+  const typeIcon = (type: Layer['type']) => {
+    const icons: Record<Layer['type'], React.ReactNode> = {
+      frame: (
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+          <rect x="1" y="1" width="10" height="10" rx="1" stroke="#94a3b8" strokeWidth="1.5" />
+          <line x1="1" y1="4" x2="11" y2="4" stroke="#94a3b8" strokeWidth="1" />
+          <line x1="4" y1="1" x2="4" y2="11" stroke="#94a3b8" strokeWidth="1" />
+        </svg>
+      ),
+      component: (
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+          <path d="M6 1L11 6L6 11L1 6L6 1Z" stroke="#8b5cf6" strokeWidth="1.5" />
+        </svg>
+      ),
+      text: (
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+          <text x="1" y="10" fontSize="10" fontWeight="700" fill="#3b82f6">T</text>
+        </svg>
+      ),
+      rect: (
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+          <rect x="1.5" y="1.5" width="9" height="9" rx="1" stroke="#94a3b8" strokeWidth="1.5" />
+        </svg>
+      ),
+    }
+    return icons[type]
+  }
+
+  return (
+    <div
+      style={{
+        width: '220px',
+        borderRadius: '10px',
+        border: '1px solid #e2e8f0',
+        background: '#fff',
+        overflow: 'hidden',
+        boxShadow: '0 2px 12px rgba(0,0,0,0.06)',
+        fontFamily: '"JetBrains Mono", "Fira Code", monospace',
+      }}
+    >
+      {/* 헤더 */}
+      <div
+        style={{
+          padding: '8px 12px',
+          background: '#f8fafc',
+          borderBottom: '1px solid #e2e8f0',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+        }}
+      >
+        <span style={{ fontSize: '11px', fontWeight: '700', color: '#64748b', letterSpacing: '-0.01em' }}>Layers</span>
+        <span style={{ fontSize: '10px', color: '#94a3b8' }}>{layers.length}</span>
+      </div>
+
+      {/* 레이어 목록 */}
+      {layers.map((layer) => {
+        const isActive = activeLayer === layer.id
+        return (
+          <button
+            key={layer.id}
+            onClick={() => setActiveLayer(isActive ? null : layer.id)}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '4px',
+              width: '100%',
+              padding: `5px 8px 5px ${8 + layer.indent * 14}px`,
+              background: isActive ? 'rgba(99,102,241,0.08)' : 'none',
+              border: 'none',
+              cursor: 'pointer',
+              textAlign: 'left',
+              borderBottom: '1px solid #f8fafc',
+              transition: 'background 0.1s',
+            }}
+          >
+            <span style={{ flexShrink: 0 }}>{typeIcon(layer.type)}</span>
+            <span
+              style={{
+                fontSize: '11px',
+                color: isActive ? '#6366f1' : '#374151',
+                fontWeight: isActive ? '600' : '400',
+                flex: 1,
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                whiteSpace: 'nowrap',
+              }}
+            >
+              {layer.name}
+            </span>
+            {layer.editor && (
+              <Avatar
+                style={{
+                  width: '16px',
+                  height: '16px',
+                  fontSize: '7px',
+                  background: layer.editor.color,
+                  flexShrink: 0,
+                }}
+              >
+                <Avatar.Fallback
+                  style={{ background: layer.editor.color, color: '#fff', fontWeight: '700' }}
+                >
+                  {layer.editor.id}
+                </Avatar.Fallback>
+              </Avatar>
+            )}
+          </button>
+        )
+      })}
+    </div>
+  )
+}
+
+export const Figma_레이어_목록: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Figma Plugin UI 레이어 패널 패턴. 중첩 인덴트 + 타입 아이콘 + 편집자 아바타 조합.',
+      },
+    },
+  },
+  render: () => <FigmaLayerListRender />,
 }
 
 export const 프로필_카드_패턴: Story = {
