@@ -22,15 +22,49 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 export const 기본: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Avatar.Image + Avatar.Fallback 조합 패턴. 이미지 로드 실패 시 Fallback이 자동으로 표시됩니다. ' +
+          '이미지는 inline SVG로 제공하여 외부 의존성 없이 동작합니다.',
+      },
+    },
+  },
   render: () => (
-    <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
-      <Avatar>
-        <Avatar.Image src="https://github.com/shadcn.png" alt="@shadcn" />
-        <Avatar.Fallback>CN</Avatar.Fallback>
-      </Avatar>
-      <Avatar>
-        <Avatar.Fallback>JD</Avatar.Fallback>
-      </Avatar>
+    <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
+      {/* SVG 이미지로 표시 */}
+      <div>
+        <p style={{ margin: '0 0 6px', fontSize: '11px', color: '#94a3b8', fontWeight: 600 }}>
+          이미지 성공
+        </p>
+        <Avatar>
+          <Avatar.Image
+            src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' fill='%236366f1'/%3E%3Ccircle cx='20' cy='16' r='8' fill='%23a5b4fc'/%3E%3Cellipse cx='20' cy='34' rx='13' ry='9' fill='%23a5b4fc'/%3E%3C/svg%3E"
+            alt="사용자 프로필"
+          />
+          <Avatar.Fallback>HJ</Avatar.Fallback>
+        </Avatar>
+      </div>
+      {/* 이미지 없이 Fallback만 */}
+      <div>
+        <p style={{ margin: '0 0 6px', fontSize: '11px', color: '#94a3b8', fontWeight: 600 }}>
+          Fallback 전용
+        </p>
+        <Avatar>
+          <Avatar.Fallback>JD</Avatar.Fallback>
+        </Avatar>
+      </div>
+      {/* 잘못된 src -> Fallback 표시 */}
+      <div>
+        <p style={{ margin: '0 0 6px', fontSize: '11px', color: '#94a3b8', fontWeight: 600 }}>
+          이미지 실패 (Fallback)
+        </p>
+        <Avatar>
+          <Avatar.Image src="/invalid-image.png" alt="실패 이미지" />
+          <Avatar.Fallback>FB</Avatar.Fallback>
+        </Avatar>
+      </div>
     </div>
   ),
 }

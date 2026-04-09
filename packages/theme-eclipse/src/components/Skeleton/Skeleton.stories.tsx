@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import type { Meta, StoryObj } from '@storybook/react'
 import { Flex } from '@heejun-com/core'
 
@@ -8,21 +8,35 @@ const meta = {
   title: 'eclipse/Feedback/Skeleton',
   component: Skeleton,
   tags: ['autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component:
+          'Skeleton은 콘텐츠 로딩 중 자리를 차지하는 플레이스홀더 컴포넌트입니다. ' +
+          'shadcn/ui 패턴을 참고해 카드, 리스트, 테이블 등 다양한 레이아웃에 조합 사용합니다.',
+      },
+    },
+  },
 } satisfies Meta<typeof Skeleton>
 
 export default meta
 type Story = StoryObj<typeof meta>
 
+/* --------------------------------------------------------------------------
+   기본 도형 + 카드 조합
+-------------------------------------------------------------------------- */
 const Card = ({ children }: { children: React.ReactNode }) => (
-  <div style={{ 
-    width: '300px', 
-    padding: '1.5rem', 
-    borderRadius: '16px', 
-    border: '1px solid var(--sem-eclipse-color-borderSecondary)',
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '1rem'
-  }}>
+  <div
+    style={{
+      width: '300px',
+      padding: '1.5rem',
+      borderRadius: '16px',
+      border: '1px solid var(--sem-eclipse-color-borderSecondary)',
+      display: 'flex',
+      flexDirection: 'column',
+      gap: '1rem',
+    }}
+  >
     {children}
   </div>
 )
@@ -31,7 +45,9 @@ export const 기본: Story = {
   render: () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '3rem' }}>
       <div>
-        <h4 style={{ marginBottom: '1.5rem', fontSize: '14px', opacity: 0.6, fontWeight: 600 }}>Simple Shapes</h4>
+        <h4 style={{ marginBottom: '1.5rem', fontSize: '14px', opacity: 0.6, fontWeight: 600 }}>
+          Simple Shapes
+        </h4>
         <Flex flexDirection="column" gap="12px">
           <Skeleton height={20} width="60%" />
           <Skeleton height={20} width="80%" />
@@ -41,7 +57,9 @@ export const 기본: Story = {
       </div>
 
       <div>
-        <h4 style={{ marginBottom: '1.5rem', fontSize: '14px', opacity: 0.6, fontWeight: 600 }}>Example Composition (Card)</h4>
+        <h4 style={{ marginBottom: '1.5rem', fontSize: '14px', opacity: 0.6, fontWeight: 600 }}>
+          Example Composition (Card)
+        </h4>
         <Card>
           <Skeleton height={150} width="100%" />
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
@@ -55,5 +73,388 @@ export const 기본: Story = {
         </Card>
       </div>
     </div>
+  ),
+}
+
+/* --------------------------------------------------------------------------
+   shadcn/ui 카드 그리드 스켈레톤 패턴
+   콘텐츠가 로드되기 전 그리드 레이아웃을 예약하는 패턴
+-------------------------------------------------------------------------- */
+export const 카드_그리드: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'shadcn/ui 공식 Skeleton 패턴. 3열 카드 그리드를 스켈레톤으로 표현합니다. ' +
+          '이미지 영역 + 아바타 + 텍스트 라인의 조합으로 실제 카드 레이아웃을 미리 잡아줍니다.',
+      },
+    },
+  },
+  render: () => (
+    <div
+      style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(3, 1fr)',
+        gap: '16px',
+        width: '720px',
+      }}
+    >
+      {[0, 1, 2].map((i) => (
+        <div
+          key={i}
+          style={{
+            borderRadius: '14px',
+            border: '1px solid #f1f5f9',
+            overflow: 'hidden',
+          }}
+        >
+          {/* 썸네일 */}
+          <Skeleton height={140} width="100%" style={{ borderRadius: 0 }} />
+          <div style={{ padding: '14px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+            {/* 제목 */}
+            <Skeleton height={14} width="75%" />
+            {/* 부제목 */}
+            <Skeleton height={12} width="55%" />
+            {/* 하단 메타 */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginTop: '4px' }}>
+              <Skeleton height={28} width={28} style={{ borderRadius: '50%' }} />
+              <Skeleton height={10} width="50%" />
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  ),
+}
+
+/* --------------------------------------------------------------------------
+   리스트 스켈레톤 패턴
+   메시지/알림 리스트 등에서 자주 사용되는 형태
+-------------------------------------------------------------------------- */
+export const 리스트_스켈레톤: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Radix/shadcn/ui ListItem 로딩 패턴. 아바타 + 텍스트 2줄 구조가 반복됩니다. ' +
+          '실무에서는 5~8개 행을 반복해 사용합니다.',
+      },
+    },
+  },
+  render: () => (
+    <div
+      style={{
+        width: '420px',
+        border: '1px solid #f1f5f9',
+        borderRadius: '14px',
+        overflow: 'hidden',
+      }}
+    >
+      {/* 헤더 */}
+      <div
+        style={{
+          padding: '14px 16px',
+          borderBottom: '1px solid #f1f5f9',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+        }}
+      >
+        <Skeleton height={14} width={80} />
+        <Skeleton height={24} width={60} style={{ borderRadius: 20 }} />
+      </div>
+      {/* 리스트 행 */}
+      {[80, 65, 90, 72, 55].map((w, i) => (
+        <div
+          key={i}
+          style={{
+            padding: '12px 16px',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '12px',
+            borderBottom: i < 4 ? '1px solid #f8fafc' : 'none',
+          }}
+        >
+          <Skeleton height={40} width={40} style={{ borderRadius: '50%', flexShrink: 0 }} />
+          <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '6px' }}>
+            <Skeleton height={12} width={`${w}%`} />
+            <Skeleton height={10} width={`${Math.max(w - 20, 30)}%`} />
+          </div>
+          <Skeleton height={20} width={50} style={{ borderRadius: 10 }} />
+        </div>
+      ))}
+    </div>
+  ),
+}
+
+/* --------------------------------------------------------------------------
+   테이블 스켈레톤 패턴
+   DataTable 로딩 상태 대응 패턴 (shadcn/ui DataTable 가이드라인)
+-------------------------------------------------------------------------- */
+export const 테이블_스켈레톤: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'shadcn/ui DataTable 로딩 상태 패턴. 헤더 행은 실선으로 구분하고 ' +
+          '각 셀을 다른 너비의 Skeleton으로 채워 실제 데이터 레이아웃을 예약합니다.',
+      },
+    },
+  },
+  render: () => {
+    const colWidths = ['40px', '15%', '25%', '20%', '15%', '80px']
+    return (
+      <div
+        style={{
+          width: '640px',
+          border: '1px solid #f1f5f9',
+          borderRadius: '12px',
+          overflow: 'hidden',
+        }}
+      >
+        {/* 헤더 */}
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: colWidths.join(' '),
+            gap: '0',
+            padding: '10px 16px',
+            background: '#f8fafc',
+            borderBottom: '1px solid #e2e8f0',
+          }}
+        >
+          {colWidths.map((_, i) => (
+            <Skeleton key={i} height={10} width="60%" />
+          ))}
+        </div>
+        {/* 데이터 행 */}
+        {[1, 2, 3, 4, 5, 6].map((row) => (
+          <div
+            key={row}
+            style={{
+              display: 'grid',
+              gridTemplateColumns: colWidths.join(' '),
+              gap: '0',
+              padding: '12px 16px',
+              borderBottom: row < 6 ? '1px solid #f8fafc' : 'none',
+              alignItems: 'center',
+            }}
+          >
+            <Skeleton height={14} width={14} style={{ borderRadius: 3 }} />
+            <Skeleton height={22} width="70%" style={{ borderRadius: 20 }} />
+            <Skeleton height={10} width="80%" />
+            <Skeleton height={10} width="60%" />
+            <Skeleton height={10} width="55%" />
+            <Skeleton height={24} width="100%" style={{ borderRadius: 6 }} />
+          </div>
+        ))}
+      </div>
+    )
+  },
+}
+
+/* --------------------------------------------------------------------------
+   로딩 -> 콘텐츠 전환 인터랙티브 데모
+   실무 패턴: isLoading 상태에 따라 Skeleton <-> 실제 컨텐츠 전환
+-------------------------------------------------------------------------- */
+
+type Article = {
+  title: string
+  author: string
+  date: string
+  tag: string
+  tagColor: string
+}
+
+const articles: Article[] = [
+  { title: 'Design Token 계층 구조 완전 정복', author: 'Heejun Kim', date: '2026-04-08', tag: 'Design', tagColor: '#6366f1' },
+  { title: 'Radix UI vs shadcn/ui 비교 분석', author: 'Park Minhye', date: '2026-04-07', tag: 'Dev', tagColor: '#10b981' },
+  { title: 'Storybook 8 마이그레이션 가이드', author: 'Lee Sujin', date: '2026-04-06', tag: 'Tool', tagColor: '#f59e0b' },
+]
+
+const LoadingTransitionDemo = () => {
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    const timer = setTimeout(() => setIsLoading(false), 2000)
+    return () => clearTimeout(timer)
+  }, [])
+
+  const reload = () => {
+    setIsLoading(true)
+    setTimeout(() => setIsLoading(false), 2000)
+  }
+
+  return (
+    <div style={{ padding: '24px' }}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 20 }}>
+        <div>
+          <p style={{ margin: '0 0 2px', fontSize: 15, fontWeight: 700, color: '#1e293b' }}>
+            최신 아티클
+          </p>
+          <p style={{ margin: 0, fontSize: 12, color: '#94a3b8' }}>
+            {isLoading ? '로딩 중...' : `${articles.length}개 로드됨`}
+          </p>
+        </div>
+        <button
+          onClick={reload}
+          style={{
+            padding: '6px 14px',
+            borderRadius: 8,
+            border: '1px solid #e2e8f0',
+            background: '#fff',
+            fontSize: 12,
+            fontWeight: 600,
+            color: '#64748b',
+            cursor: 'pointer',
+          }}
+        >
+          다시 로드
+        </button>
+      </div>
+
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 12, width: 480 }}>
+        {isLoading
+          ? [0, 1, 2].map((i) => (
+              <div
+                key={i}
+                style={{
+                  padding: '16px',
+                  borderRadius: '12px',
+                  border: '1px solid #f1f5f9',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '10px',
+                }}
+              >
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                  <Skeleton height={12} width="60%" />
+                  <Skeleton height={22} width={52} style={{ borderRadius: 20 }} />
+                </div>
+                <Skeleton height={10} width="40%" />
+              </div>
+            ))
+          : articles.map((article) => (
+              <div
+                key={article.title}
+                style={{
+                  padding: '16px',
+                  borderRadius: '12px',
+                  border: '1px solid #f1f5f9',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '6px',
+                }}
+              >
+                <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 8 }}>
+                  <p style={{ margin: 0, fontSize: 14, fontWeight: 600, color: '#1e293b', lineHeight: 1.4 }}>
+                    {article.title}
+                  </p>
+                  <span
+                    style={{
+                      flexShrink: 0,
+                      padding: '3px 10px',
+                      borderRadius: 20,
+                      fontSize: 11,
+                      fontWeight: 700,
+                      color: article.tagColor,
+                      background: `${article.tagColor}1a`,
+                    }}
+                  >
+                    {article.tag}
+                  </span>
+                </div>
+                <p style={{ margin: 0, fontSize: 12, color: '#94a3b8' }}>
+                  {article.author} · {article.date}
+                </p>
+              </div>
+            ))}
+      </div>
+    </div>
   )
+}
+
+export const 로딩_전환_인터랙티브: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          '실무 패턴: isLoading 상태에 따라 Skeleton과 실제 콘텐츠를 전환합니다. ' +
+          '2초 후 자동으로 콘텐츠가 나타납니다. "다시 로드" 버튼으로 반복 시연할 수 있습니다.',
+      },
+    },
+  },
+  render: () => <LoadingTransitionDemo />,
+}
+
+/* --------------------------------------------------------------------------
+   프로필 페이지 스켈레톤
+   shadcn/ui Profile page skeleton 패턴
+-------------------------------------------------------------------------- */
+export const 프로필_페이지: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'shadcn/ui 프로필 페이지 스켈레톤. 커버 이미지 + 아바타 + 이름/소개 + 스탯 + 버튼 행을 ' +
+          'Skeleton으로 재현합니다. 실제 프로필 카드 로딩 UX와 동일한 레이아웃을 예약합니다.',
+      },
+    },
+  },
+  render: () => (
+    <div
+      style={{
+        width: '320px',
+        borderRadius: '18px',
+        border: '1px solid #f1f5f9',
+        overflow: 'hidden',
+      }}
+    >
+      {/* 커버 이미지 */}
+      <Skeleton height={100} width="100%" style={{ borderRadius: 0 }} />
+      <div style={{ padding: '0 20px 20px' }}>
+        {/* 아바타 */}
+        <div style={{ marginTop: '-24px', marginBottom: '12px' }}>
+          <Skeleton
+            height={48}
+            width={48}
+            style={{
+              borderRadius: '50%',
+              border: '3px solid #fff',
+            }}
+          />
+        </div>
+        {/* 이름 + 역할 */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', marginBottom: '14px' }}>
+          <Skeleton height={16} width="55%" />
+          <Skeleton height={12} width="38%" />
+          <Skeleton height={10} width="80%" />
+          <Skeleton height={10} width="65%" />
+        </div>
+        {/* 스탯 */}
+        <div
+          style={{
+            display: 'flex',
+            gap: '20px',
+            padding: '10px 0',
+            borderTop: '1px solid #f1f5f9',
+            borderBottom: '1px solid #f1f5f9',
+            marginBottom: '14px',
+          }}
+        >
+          {[0, 1, 2].map((i) => (
+            <div key={i} style={{ display: 'flex', flexDirection: 'column', gap: '4px', alignItems: 'center' }}>
+              <Skeleton height={14} width={24} />
+              <Skeleton height={10} width={36} />
+            </div>
+          ))}
+        </div>
+        {/* 버튼 행 */}
+        <div style={{ display: 'flex', gap: '8px' }}>
+          <Skeleton height={34} width="100%" style={{ borderRadius: 8 }} />
+          <Skeleton height={34} width={80} style={{ borderRadius: 8 }} />
+        </div>
+      </div>
+    </div>
+  ),
 }
