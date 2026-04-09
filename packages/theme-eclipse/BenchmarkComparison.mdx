@@ -441,5 +441,134 @@ toast.success('저장되었습니다.')`}</pre>
       </div>
     </section>
 
+    {/* Arco Design vs Orbit UI */}
+    <section style={{ marginBottom: '64px' }}>
+      <h2 style={{ fontSize: '22px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '8px' }}>Arco Design vs Orbit UI</h2>
+      <p style={{ fontSize: '14px', color: '#64748b', marginBottom: '24px', lineHeight: '1.6' }}>
+        ByteDance의 Arco Design은 아시아권 대규모 서비스에 특화된 엔터프라이즈 컴포넌트 라이브러리입니다. 데이터 시각화와 복잡한 폼 패턴에 강점이 있으며, Orbit UI와 패턴을 비교합니다.
+      </p>
+      <div style={{ overflowX: 'auto', borderRadius: '12px', border: '1.5px solid #e2e8f0', marginBottom: '32px' }}>
+        <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '14px' }}>
+          <thead>
+            <tr style={{ background: '#f8fafc' }}>
+              {['항목', 'Arco Design', 'Orbit UI'].map((col) => (
+                <th key={col} style={{ padding: '14px 18px', textAlign: 'left', fontWeight: '700', color: '#64748b', fontSize: '12px', textTransform: 'uppercase', letterSpacing: '0.06em', borderBottom: '1.5px solid #e2e8f0', whiteSpace: 'nowrap' }}>{col}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {[
+              ['명확한 색상 Hierarchy', '5단계 primary → disabled 체계적 색상 토큰', '3-tier Reference → Semantic → Component 토큰'],
+              ['데이터 시각화', '차트 컴포넌트 내장, 대시보드 레이아웃 지원', 'DataTable + Progress 조합, 외부 차트 라이브러리 연동'],
+              ['폼 완성도', 'FormControl, Validation, 헬퍼텍스트 통합 패턴', 'FloatingTextField + 커스텀 에러 조합 패턴'],
+              ['태그/칩 패턴', 'Closeable Tag, Colored Tag, Group 패턴', 'Chip + ChipLink 분리 설계로 명확한 역할 구분'],
+              ['아시아권 UI 감각', '한/중/일 서비스에 최적화된 밀도와 여백', '한국 서비스 UX 패턴 우선, 모바일 친화적'],
+              ['캐러셀', 'Autoplay, dot indicator, thumbnail nav 내장', 'Embla 기반으로 커스텀 인디케이터, 자동재생 직접 구현'],
+              ['번들 크기', '대용량 (전체 import 시 ~500KB+)', '트리쉐이킹 완전 지원 (컴포넌트별 분리)'],
+            ].map(([feature, arco, orbit], i) => (
+              <tr key={feature} style={{ borderBottom: '1px solid #f1f5f9', background: i % 2 === 0 ? '#fff' : '#fafbfc' }}>
+                <td style={{ padding: '13px 18px', fontWeight: '600', color: '#1e293b', whiteSpace: 'nowrap' }}>{feature}</td>
+                <td style={{ padding: '13px 18px', color: '#64748b' }}>{arco}</td>
+                <td style={{ padding: '13px 18px', color: '#6366f1', fontWeight: '500' }}>{orbit}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <h3 style={{ fontSize: '16px', fontWeight: '700', color: '#1e293b', marginBottom: '16px' }}>Arco Design 벤치마크 발견 3가지</h3>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+        {[
+          {
+            title: '태그 컬렉션 패턴',
+            desc: 'Arco의 Tag 컴포넌트는 Closeable, Colored, Checkable 세 가지 변형을 체계적으로 지원합니다. Orbit UI의 Chip + ChipLink 분리 설계는 버튼형 인터랙션과 링크 내비게이션을 명확히 구분하는 더 강력한 패턴입니다.',
+            color: '#6366f1',
+          },
+          {
+            title: '카드 캐러셀 인디케이터',
+            desc: 'Arco Carousel은 dot indicator가 기본 내장되어 있습니다. Orbit UI Carousel은 Embla API를 활용해 pill 형태의 animated indicator를 자유롭게 구현할 수 있어 더 유연한 커스터마이징이 가능합니다.',
+            color: '#8b5cf6',
+          },
+          {
+            title: '폼 헬퍼텍스트 조합',
+            desc: 'Arco FormControl은 label, helperText, errorText를 통합 관리합니다. Orbit UI FloatingTextField는 floating label 자체가 상태를 표현하며, 조합 패턴으로 동일한 UX를 달성합니다.',
+            color: '#10b981',
+          },
+        ].map(({ title, desc, color }) => (
+          <div key={title} style={{ display: 'flex', gap: '14px', padding: '16px 20px', borderRadius: '12px', border: '1.5px solid #e2e8f0', background: '#fff' }}>
+            <div style={{ width: '4px', borderRadius: '4px', background: color, flexShrink: 0 }} />
+            <div>
+              <div style={{ fontSize: '14px', fontWeight: '700', color: '#1e293b', marginBottom: '6px' }}>{title}</div>
+              <div style={{ fontSize: '13px', color: '#64748b', lineHeight: '1.6' }}>{desc}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    {/* Figma Plugin UI vs Orbit UI */}
+    <section style={{ marginBottom: '64px' }}>
+      <h2 style={{ fontSize: '22px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '8px' }}>Figma Plugin UI vs Orbit UI</h2>
+      <p style={{ fontSize: '14px', color: '#64748b', marginBottom: '24px', lineHeight: '1.6' }}>
+        Figma Plugin UI는 극도로 컴팩트한 밀도의 도구 팔레트 레이아웃을 제공합니다. 패널 기반 레이아웃과 컴팩트 인터페이스 패턴을 Orbit UI와 비교합니다.
+      </p>
+      <div style={{ overflowX: 'auto', borderRadius: '12px', border: '1.5px solid #e2e8f0', marginBottom: '32px' }}>
+        <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '14px' }}>
+          <thead>
+            <tr style={{ background: '#f8fafc' }}>
+              {['항목', 'Figma Plugin UI', 'Orbit UI'].map((col) => (
+                <th key={col} style={{ padding: '14px 18px', textAlign: 'left', fontWeight: '700', color: '#64748b', fontSize: '12px', textTransform: 'uppercase', letterSpacing: '0.06em', borderBottom: '1.5px solid #e2e8f0', whiteSpace: 'nowrap' }}>{col}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {[
+              ['UI 밀도', '8px 기준 그리드, 극도로 컴팩트한 여백 (2-4px)', '모바일 친화적 여백 (8-16px 기준), 터치 대응'],
+              ['토글 패턴', '인라인 토글, 그룹 패널 내 컴팩트 배치', 'Toggle 컴포넌트 + 설정 패널 패턴으로 동일 UX'],
+              ['팔레트 패널', '컬러 스와치, 아이콘 그리드, 옵션 토글 조합', 'SegmentedControl + Toggle + Chip 조합으로 구현'],
+              ['테마 전환', '라이트/다크 실시간 미리보기', 'EclipseProvider 기반 시스템 테마 지원'],
+              ['진행 상태', '파일 저장, 플러그인 처리 중 인디케이터', 'Progress indeterminate + Toast 조합 패턴'],
+              ['대화상자', '확인/취소 2버튼 컴팩트 다이얼로그', 'AlertDialog + Dialog 분리로 목적 명확화'],
+            ].map(([feature, figma, orbit], i) => (
+              <tr key={feature} style={{ borderBottom: '1px solid #f1f5f9', background: i % 2 === 0 ? '#fff' : '#fafbfc' }}>
+                <td style={{ padding: '13px 18px', fontWeight: '600', color: '#1e293b', whiteSpace: 'nowrap' }}>{feature}</td>
+                <td style={{ padding: '13px 18px', color: '#64748b' }}>{figma}</td>
+                <td style={{ padding: '13px 18px', color: '#6366f1', fontWeight: '500' }}>{orbit}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <h3 style={{ fontSize: '16px', fontWeight: '700', color: '#1e293b', marginBottom: '16px' }}>Figma Plugin UI 벤치마크 발견 3가지</h3>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+        {[
+          {
+            title: '컴팩트 토글 그룹 패널',
+            desc: 'Figma Plugin UI의 Display 설정 패널은 10px 높이의 초밀도 레이아웃을 사용합니다. Toggle 컴포넌트를 그룹 패널 내에 조합하면 Linear 스타일의 뷰 옵션 패널(Display 스토리)처럼 동일한 컴팩트 UX를 달성할 수 있습니다.',
+            color: '#6366f1',
+          },
+          {
+            title: '기능 플래그 토글 패턴',
+            desc: 'Figma 플러그인 설정에서 볼 수 있는 기능 on/off 패턴은 Toggle 컴포넌트와 Badge 조합으로 구현됩니다. Beta 뱃지를 인라인으로 표시하는 패턴이 Feature Flags 스토리에 반영되었습니다.',
+            color: '#8b5cf6',
+          },
+          {
+            title: '자동재생 캐러셀 제어 UI',
+            desc: 'Figma Plugin의 슬라이드쇼 제어 UI처럼 재생/정지 토글이 있는 자동재생 캐러셀 패턴이 추가되었습니다. setInterval 기반으로 외부 플러그인 의존성 없이 동일한 UX를 구현합니다.',
+            color: '#10b981',
+          },
+        ].map(({ title, desc, color }) => (
+          <div key={title} style={{ display: 'flex', gap: '14px', padding: '16px 20px', borderRadius: '12px', border: '1.5px solid #e2e8f0', background: '#fff' }}>
+            <div style={{ width: '4px', borderRadius: '4px', background: color, flexShrink: 0 }} />
+            <div>
+              <div style={{ fontSize: '14px', fontWeight: '700', color: '#1e293b', marginBottom: '6px' }}>{title}</div>
+              <div style={{ fontSize: '13px', color: '#64748b', lineHeight: '1.6' }}>{desc}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
   </div>
 </Unstyled>
