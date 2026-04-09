@@ -208,3 +208,283 @@ export const 마케팅_동의_설정: Story = {
   name: '마케팅 동의 설정 (실전 패턴)',
   render: () => <PrivacySettingRender />,
 }
+
+/* --------------------------------------------------------------------------
+   Mantine 벤치마크: 앱 설정 패널 패턴
+   Mantine Switch 그룹 — 알림/외관/기능 설정 토글 목록
+-------------------------------------------------------------------------- */
+type SettingItem = {
+  id: string
+  label: string
+  desc: string
+  group: string
+  defaultOn: boolean
+}
+
+const SETTINGS: SettingItem[] = [
+  { id: 'notif_push', label: '푸시 알림', desc: '앱에서 실시간 알림 수신', group: '알림', defaultOn: true },
+  { id: 'notif_email', label: '이메일 알림', desc: '주간 요약 이메일 수신', group: '알림', defaultOn: false },
+  { id: 'notif_sound', label: '알림 소리', desc: '새 알림 수신 시 소리 재생', group: '알림', defaultOn: true },
+  { id: 'ui_dark', label: '다크 모드', desc: '시스템 설정에 따라 자동 전환', group: '외관', defaultOn: false },
+  { id: 'ui_compact', label: '컴팩트 보기', desc: '항목 간격을 줄여 더 많은 내용 표시', group: '외관', defaultOn: false },
+  { id: 'feat_beta', label: '베타 기능', desc: '실험적 기능 미리 체험', group: '기능', defaultOn: false },
+]
+
+function AppSettingsPanelRender() {
+  const [values, setValues] = useState<Record<string, boolean>>(
+    Object.fromEntries(SETTINGS.map((s) => [s.id, s.defaultOn]))
+  )
+
+  const toggle = (id: string) => setValues((prev) => ({ ...prev, [id]: !prev[id] }))
+
+  const groups = [...new Set(SETTINGS.map((s) => s.group))]
+
+  return (
+    <div style={{ maxWidth: 380, display: 'flex', flexDirection: 'column', gap: 24 }}>
+      {groups.map((group) => (
+        <div key={group}>
+          <div style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 10 }}>
+            {group}
+          </div>
+          <div style={{ borderRadius: 10, border: '1px solid #e2e8f0', overflow: 'hidden', background: '#fff' }}>
+            {SETTINGS.filter((s) => s.group === group).map((setting, i, arr) => (
+              <div
+                key={setting.id}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  padding: '12px 14px',
+                  borderBottom: i < arr.length - 1 ? '1px solid #f8fafc' : 'none',
+                }}
+              >
+                <div>
+                  <Typography textStyle="descriptionLarge" style={{ fontWeight: 600, color: '#1e293b' }}>
+                    {setting.label}
+                  </Typography>
+                  <Typography textStyle="descriptionSmall" style={{ color: '#94a3b8' }}>
+                    {setting.desc}
+                  </Typography>
+                </div>
+                <Switch
+                  checked={values[setting.id]}
+                  onCheckedChange={() => toggle(setting.id)}
+                  aria-label={setting.label}
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+      <div style={{ fontSize: 11, color: '#94a3b8' }}>
+        Mantine Switch 그룹 패턴 — 카테고리별 설정 토글 ({Object.values(values).filter(Boolean).length}/{SETTINGS.length} 활성)
+      </div>
+    </div>
+  )
+}
+
+export const Mantine_앱_설정_패널 = {
+  name: 'Mantine - 앱 설정 패널 패턴',
+  render: () => <AppSettingsPanelRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Ant Design 벤치마크: 알림 채널 설정 패턴
+   Ant Design Form + Switch 조합 — 채널 활성화 시 하위 옵션 표시
+-------------------------------------------------------------------------- */
+function NotificationChannelRender() {
+  const [channels, setChannels] = useState({
+    email: true,
+    sms: false,
+    push: true,
+    inapp: true,
+  })
+  const [emailFreq, setEmailFreq] = useState<'daily' | 'weekly' | 'realtime'>('weekly')
+
+  return (
+    <div style={{ maxWidth: 400 }}>
+      <div style={{ fontSize: 13, fontWeight: 700, color: '#1e293b', marginBottom: 16 }}>
+        알림 채널 설정
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+        {([
+          { id: 'email', label: '이메일', desc: '이메일로 알림 수신' },
+          { id: 'sms', label: 'SMS', desc: '문자로 알림 수신' },
+          { id: 'push', label: '푸시 알림', desc: '브라우저/앱 푸시' },
+          { id: 'inapp', label: '인앱 알림', desc: '앱 내 알림 센터' },
+        ] as const).map((ch) => (
+          <div key={ch.id}>
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                padding: '12px 14px',
+                borderRadius: 8,
+                border: '1px solid #e2e8f0',
+                background: channels[ch.id] ? '#fff' : '#f8fafc',
+                transition: 'background 0.15s',
+              }}
+            >
+              <div>
+                <div style={{ fontSize: 13, fontWeight: 600, color: channels[ch.id] ? '#1e293b' : '#94a3b8' }}>
+                  {ch.label}
+                </div>
+                <div style={{ fontSize: 11, color: '#94a3b8' }}>{ch.desc}</div>
+              </div>
+              <Switch
+                checked={channels[ch.id]}
+                onCheckedChange={(v) => setChannels((prev) => ({ ...prev, [ch.id]: v }))}
+                aria-label={ch.label}
+              />
+            </div>
+            {ch.id === 'email' && channels.email && (
+              <div
+                style={{
+                  marginTop: 6,
+                  padding: '10px 14px',
+                  borderRadius: 8,
+                  border: '1px solid #e8f0fe',
+                  background: 'rgba(99,102,241,0.04)',
+                  display: 'flex',
+                  gap: 8,
+                  alignItems: 'center',
+                }}
+              >
+                <span style={{ fontSize: 12, color: '#475569', flexShrink: 0 }}>수신 빈도:</span>
+                {(['realtime', 'daily', 'weekly'] as const).map((f) => (
+                  <button
+                    key={f}
+                    onClick={() => setEmailFreq(f)}
+                    style={{
+                      padding: '3px 10px',
+                      borderRadius: 20,
+                      border: '1px solid',
+                      borderColor: emailFreq === f ? '#6366f1' : '#e2e8f0',
+                      background: emailFreq === f ? '#6366f1' : '#fff',
+                      color: emailFreq === f ? '#fff' : '#64748b',
+                      fontSize: 11,
+                      fontWeight: 600,
+                      cursor: 'pointer',
+                    }}
+                  >
+                    {{ realtime: '실시간', daily: '일간', weekly: '주간' }[f]}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+      <div style={{ marginTop: 12, fontSize: 11, color: '#94a3b8' }}>
+        Ant Design Form + Switch 패턴 — 채널 활성화 시 하위 설정 조건부 표시
+      </div>
+    </div>
+  )
+}
+
+export const Ant_알림_채널_설정 = {
+  name: 'Ant Design - 알림 채널 설정 패턴',
+  render: () => <NotificationChannelRender />,
+}
+
+/* --------------------------------------------------------------------------
+   온보딩 기능 선택 패턴
+   기능 선택 + 최소 1개 이상 선택 시 버튼 활성화
+-------------------------------------------------------------------------- */
+const ONBOARDING_FEATURES = [
+  { id: 'analytics', label: '사용 통계 수집', desc: '제품 개선을 위한 익명 통계', default: true },
+  { id: 'personalize', label: '개인화 추천', desc: '사용 패턴 기반 맞춤 콘텐츠', default: true },
+  { id: 'notifications', label: '서비스 알림', desc: '새 기능 및 공지사항 수신', default: true },
+  { id: 'beta', label: '베타 프로그램 참여', desc: '출시 전 기능 미리 체험', default: false },
+  { id: 'data', label: '데이터 동기화', desc: '여러 기기에서 설정 동기화', default: false },
+]
+
+function OnboardingFeaturesRender() {
+  const [features, setFeatures] = useState<Record<string, boolean>>(
+    Object.fromEntries(ONBOARDING_FEATURES.map((f) => [f.id, f.default]))
+  )
+  const [done, setDone] = useState(false)
+  const activeCount = Object.values(features).filter(Boolean).length
+
+  if (done) {
+    return (
+      <div style={{ maxWidth: 360, textAlign: 'center', padding: 32 }}>
+        <div style={{ fontSize: 32, marginBottom: 12 }}>
+          <div style={{ width: 56, height: 56, borderRadius: '50%', background: '#10b981', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 12px', color: '#fff', fontSize: 24, fontWeight: 700 }}>
+            ✓
+          </div>
+        </div>
+        <div style={{ fontSize: 16, fontWeight: 700, color: '#1e293b', marginBottom: 6 }}>설정 완료!</div>
+        <div style={{ fontSize: 13, color: '#64748b', marginBottom: 20 }}>
+          {activeCount}개 기능이 활성화되었습니다.
+        </div>
+        <button
+          onClick={() => setDone(false)}
+          style={{ padding: '8px 20px', borderRadius: 8, border: '1px solid #e2e8f0', background: '#fff', fontSize: 13, cursor: 'pointer' }}
+        >
+          다시 설정
+        </button>
+      </div>
+    )
+  }
+
+  return (
+    <div style={{ maxWidth: 360 }}>
+      <div style={{ fontSize: 16, fontWeight: 700, color: '#1e293b', marginBottom: 4 }}>기능 선택</div>
+      <div style={{ fontSize: 13, color: '#64748b', marginBottom: 16 }}>
+        원하는 기능을 켜거나 끄세요. 나중에 설정에서 변경할 수 있습니다.
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 8, marginBottom: 20 }}>
+        {ONBOARDING_FEATURES.map((feat) => (
+          <div
+            key={feat.id}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              padding: '10px 12px',
+              borderRadius: 8,
+              border: `1px solid ${features[feat.id] ? '#c7d2fe' : '#e2e8f0'}`,
+              background: features[feat.id] ? 'rgba(99,102,241,0.04)' : '#fff',
+              transition: 'all 0.15s',
+            }}
+          >
+            <div>
+              <div style={{ fontSize: 13, fontWeight: 600, color: '#1e293b' }}>{feat.label}</div>
+              <div style={{ fontSize: 11, color: '#94a3b8' }}>{feat.desc}</div>
+            </div>
+            <Switch
+              checked={features[feat.id]}
+              onCheckedChange={(v) => setFeatures((prev) => ({ ...prev, [feat.id]: v }))}
+              aria-label={feat.label}
+            />
+          </div>
+        ))}
+      </div>
+      <button
+        disabled={activeCount === 0}
+        onClick={() => setDone(true)}
+        style={{
+          width: '100%',
+          padding: '11px',
+          borderRadius: 8,
+          border: 'none',
+          background: activeCount > 0 ? '#6366f1' : '#e2e8f0',
+          color: activeCount > 0 ? '#fff' : '#94a3b8',
+          fontSize: 14,
+          fontWeight: 600,
+          cursor: activeCount > 0 ? 'pointer' : 'not-allowed',
+          transition: 'background 0.15s',
+        }}
+      >
+        시작하기 ({activeCount}개 선택됨)
+      </button>
+    </div>
+  )
+}
+
+export const 온보딩_기능_선택 = {
+  name: '온보딩 기능 선택 패턴',
+  render: () => <OnboardingFeaturesRender />,
+}

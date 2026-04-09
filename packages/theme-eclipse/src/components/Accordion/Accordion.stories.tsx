@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { Accordion } from './Accordion'
 import { LabelBadge } from '../LabelBadge'
 import { Switch } from '../Switch'
+import { GhostButton } from '../GhostButton'
 
 const meta = {
   title: 'eclipse/Data Display/Accordion',
@@ -542,4 +543,321 @@ export const 플랜별_기능비교: Story = {
       </Accordion>
     </div>
   ),
+}
+
+/* --------------------------------------------------------------------------
+   Notion 벤치마크: 페이지 섹션 토글 블록 패턴
+   Notion 토글 블록 영감 — 문서/위키 섹션을 접을 수 있는 패턴
+-------------------------------------------------------------------------- */
+const PAGE_SECTIONS = [
+  {
+    title: '기술 스택',
+    badge: 'sale' as const,
+    content: (
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, paddingTop: 4 }}>
+        {['React 18', 'TypeScript 5.7', 'vanilla-extract', 'Vite', 'Storybook 8', 'pnpm'].map((tech) => (
+          <span
+            key={tech}
+            style={{
+              display: 'inline-block',
+              padding: '2px 10px',
+              borderRadius: 20,
+              background: '#f1f5f9',
+              border: '1px solid #e2e8f0',
+              fontSize: 12,
+              fontWeight: 600,
+              color: '#475569',
+            }}
+          >
+            {tech}
+          </span>
+        ))}
+      </div>
+    ),
+  },
+  {
+    title: '팀 소개',
+    badge: 'benefit' as const,
+    content: (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 10, paddingTop: 4 }}>
+        {[
+          { name: 'HJ Kim', role: 'Design System Lead', initial: 'H' },
+          { name: 'Frontend Team', role: 'Component Development', initial: 'F' },
+        ].map((member) => (
+          <div key={member.name} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+            <div
+              style={{
+                width: 32,
+                height: 32,
+                borderRadius: '50%',
+                background: '#6366f1',
+                color: '#fff',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: 13,
+                fontWeight: 700,
+                flexShrink: 0,
+              }}
+            >
+              {member.initial}
+            </div>
+            <div>
+              <div style={{ fontSize: 13, fontWeight: 600, color: '#1e293b' }}>{member.name}</div>
+              <div style={{ fontSize: 11, color: '#94a3b8' }}>{member.role}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+    ),
+  },
+  {
+    title: '로드맵',
+    badge: 'gray' as const,
+    content: (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 8, paddingTop: 4 }}>
+        {[
+          { q: 'Q1 2026', item: '3-Tier 토큰 시스템 완성', done: true },
+          { q: 'Q2 2026', item: '다크 모드 + 플랫폼 토큰', done: false },
+          { q: 'Q3 2026', item: '모션/애니메이션 토큰', done: false },
+        ].map((row) => (
+          <div key={row.q} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+            <div
+              style={{
+                width: 6,
+                height: 6,
+                borderRadius: '50%',
+                background: row.done ? '#10b981' : '#e2e8f0',
+                border: row.done ? 'none' : '1px solid #94a3b8',
+                flexShrink: 0,
+              }}
+            />
+            <span style={{ fontSize: 11, color: '#94a3b8', minWidth: 64 }}>{row.q}</span>
+            <span style={{ fontSize: 13, color: row.done ? '#1e293b' : '#64748b' }}>{row.item}</span>
+            {row.done && (
+              <LabelBadge color="benefit">
+                <LabelBadge.Label>완료</LabelBadge.Label>
+              </LabelBadge>
+            )}
+          </div>
+        ))}
+      </div>
+    ),
+  },
+]
+
+export const Notion_페이지_섹션_토글 = {
+  name: 'Notion - 페이지 섹션 토글 블록 패턴',
+  render: () => (
+    <div style={{ maxWidth: 480 }}>
+      <div style={{ fontSize: 14, fontWeight: 700, color: '#1e293b', marginBottom: 16 }}>
+        Orbit UI 프로젝트 개요
+      </div>
+      <Accordion type="multiple" defaultValue={['section-0']}>
+        {PAGE_SECTIONS.map((section, i) => (
+          <Accordion.Item key={i} value={`section-${i}`}>
+            <Accordion.Trigger>
+              <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                {section.title}
+                <LabelBadge color={section.badge}>
+                  <LabelBadge.Label>{section.badge === 'sale' ? '기술' : section.badge === 'benefit' ? '팀' : '계획'}</LabelBadge.Label>
+                </LabelBadge>
+              </span>
+            </Accordion.Trigger>
+            <Accordion.Content>
+              {section.content}
+            </Accordion.Content>
+          </Accordion.Item>
+        ))}
+      </Accordion>
+      <div style={{ marginTop: 12, fontSize: 11, color: '#94a3b8' }}>
+        Notion 토글 블록 패턴 — type=multiple로 여러 섹션 동시 열기 가능
+      </div>
+    </div>
+  ),
+}
+
+/* --------------------------------------------------------------------------
+   Figma Plugin 벤치마크: 컴팩트 설정 패널 패턴
+   Figma 플러그인 속성 패널 스타일 — 최소 간격, 컴팩트 밀도
+-------------------------------------------------------------------------- */
+export const Figma_플러그인_설정_패널 = {
+  name: 'Figma Plugin - 컴팩트 설정 패널 패턴',
+  render: function Render() {
+    const [settings, setSettings] = useState({
+      autoSync: true,
+      exportPNG: false,
+      exportSVG: true,
+      shortcutA: 'Cmd+Shift+A',
+      shortcutE: 'Cmd+Shift+E',
+    })
+
+    return (
+      <div
+        style={{
+          width: 280,
+          borderRadius: 8,
+          border: '1px solid #e2e8f0',
+          overflow: 'hidden',
+          fontFamily: '-apple-system, sans-serif',
+        }}
+      >
+        <div
+          style={{
+            padding: '8px 12px',
+            background: '#f8fafc',
+            borderBottom: '1px solid #e2e8f0',
+            fontSize: 11,
+            fontWeight: 700,
+            color: '#475569',
+            textTransform: 'uppercase',
+            letterSpacing: '0.05em',
+          }}
+        >
+          Orbit UI Plugin Settings
+        </div>
+        <Accordion type="multiple" defaultValue={['general']}>
+          <Accordion.Item value="general">
+            <Accordion.Trigger>
+              <span style={{ fontSize: 12 }}>일반 설정</span>
+            </Accordion.Trigger>
+            <Accordion.Content>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 8, padding: '4px 0' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <span style={{ fontSize: 12, color: '#475569' }}>자동 동기화</span>
+                  <Switch
+                    checked={settings.autoSync}
+                    onCheckedChange={(v) => setSettings((p) => ({ ...p, autoSync: v }))}
+                  />
+                </div>
+              </div>
+            </Accordion.Content>
+          </Accordion.Item>
+          <Accordion.Item value="export">
+            <Accordion.Trigger>
+              <span style={{ fontSize: 12 }}>내보내기</span>
+            </Accordion.Trigger>
+            <Accordion.Content>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 8, padding: '4px 0' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <span style={{ fontSize: 12, color: '#475569' }}>PNG 내보내기</span>
+                  <Switch
+                    checked={settings.exportPNG}
+                    onCheckedChange={(v) => setSettings((p) => ({ ...p, exportPNG: v }))}
+                  />
+                </div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <span style={{ fontSize: 12, color: '#475569' }}>SVG 내보내기</span>
+                  <Switch
+                    checked={settings.exportSVG}
+                    onCheckedChange={(v) => setSettings((p) => ({ ...p, exportSVG: v }))}
+                  />
+                </div>
+              </div>
+            </Accordion.Content>
+          </Accordion.Item>
+          <Accordion.Item value="shortcuts">
+            <Accordion.Trigger>
+              <span style={{ fontSize: 12 }}>단축키</span>
+            </Accordion.Trigger>
+            <Accordion.Content>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 8, padding: '4px 0' }}>
+                {[
+                  { label: '토큰 적용', key: settings.shortcutA },
+                  { label: '내보내기', key: settings.shortcutE },
+                ].map((sc) => (
+                  <div key={sc.label} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <span style={{ fontSize: 12, color: '#475569' }}>{sc.label}</span>
+                    <span
+                      style={{
+                        fontSize: 10,
+                        fontFamily: 'monospace',
+                        fontWeight: 700,
+                        padding: '2px 6px',
+                        borderRadius: 4,
+                        border: '1px solid #e2e8f0',
+                        background: '#f8fafc',
+                        color: '#475569',
+                      }}
+                    >
+                      {sc.key}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </Accordion.Content>
+          </Accordion.Item>
+        </Accordion>
+      </div>
+    )
+  },
+}
+
+/* --------------------------------------------------------------------------
+   FAQ 아코디언 패턴 (Exclusive 모드)
+   한 번에 하나만 열리는 FAQ 목록 — Controlled 방식
+-------------------------------------------------------------------------- */
+const FAQ_ITEMS = [
+  {
+    q: 'Orbit UI는 어떤 프레임워크를 지원하나요?',
+    a: 'React 18 이상을 지원합니다. Next.js App Router, Remix, Vite+React 등 모든 React 기반 환경에서 사용 가능합니다.',
+  },
+  {
+    q: '다크 모드는 어떻게 적용하나요?',
+    a: 'EclipseProvider의 mode prop을 "dark"로 설정하면 됩니다. 런타임에 mode를 변경하면 즉시 전체 테마가 전환됩니다.',
+  },
+  {
+    q: 'shadcn/ui에서 마이그레이션하는 방법은?',
+    a: 'Orbit UI는 Compound Component 패턴을 사용합니다. Button → SolidButton/OutlineButton/GhostButton으로 매핑되며, MigrationGuide.mdx를 참고하세요.',
+  },
+  {
+    q: '커스텀 테마는 어떻게 만드나요?',
+    a: '3-Tier 토큰 시스템을 통해 Reference → Semantic → Component 토큰을 순서대로 오버라이드합니다. CustomizationGuide.mdx에 단계별 가이드가 있습니다.',
+  },
+  {
+    q: '번들 크기는 얼마나 되나요?',
+    a: 'vanilla-extract zero-runtime CSS를 사용하여 런타임 오버헤드가 없습니다. Tree-shaking이 완전히 지원되어 사용한 컴포넌트만 포함됩니다.',
+  },
+]
+
+export const FAQ_아코디언_패턴 = {
+  name: 'FAQ 아코디언 (Exclusive 모드)',
+  render: function Render() {
+    const [openItem, setOpenItem] = useState<string>('')
+
+    return (
+      <div style={{ maxWidth: 520 }}>
+        <div style={{ fontSize: 14, fontWeight: 700, color: '#1e293b', marginBottom: 16 }}>
+          자주 묻는 질문
+        </div>
+        <Accordion
+          type="single"
+          value={openItem}
+          onValueChange={(val) => setOpenItem(val)}
+          collapsible
+        >
+          {FAQ_ITEMS.map((item, i) => (
+            <Accordion.Item key={i} value={`faq-${i}`}>
+              <Accordion.Trigger>
+                <span style={{ textAlign: 'left', fontWeight: openItem === `faq-${i}` ? 700 : 500 }}>
+                  {item.q}
+                </span>
+              </Accordion.Trigger>
+              <Accordion.Content>
+                <p style={{ fontSize: 13, color: '#475569', lineHeight: 1.7, marginBottom: 8 }}>
+                  {item.a}
+                </p>
+                <GhostButton color="black" size="small">
+                  <GhostButton.Center>자세히 보기</GhostButton.Center>
+                </GhostButton>
+              </Accordion.Content>
+            </Accordion.Item>
+          ))}
+        </Accordion>
+        <div style={{ marginTop: 12, fontSize: 11, color: '#94a3b8' }}>
+          type=single + collapsible — 한 번에 하나만 열림
+        </div>
+      </div>
+    )
+  },
 }

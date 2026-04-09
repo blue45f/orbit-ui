@@ -64,6 +64,156 @@ export const 범위선택: Story = {
   }
 }
 
+/* --------------------------------------------------------------------------
+   Mantine 벤치마크: 날짜 범위 선택 패턴
+   Mantine DatePicker range 패턴 — 시작/종료일 선택 UI
+-------------------------------------------------------------------------- */
+export const Mantine_날짜_범위_선택: Story = {
+  name: 'Mantine - 날짜 범위 선택 패턴',
+  render: function Render() {
+    type DateRange = { from: Date | undefined; to: Date | undefined }
+    const [range, setRange] = React.useState<DateRange>({ from: undefined, to: undefined })
+
+    const fmt = (d: Date | undefined) =>
+      d ? d.toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric' }) : '선택 안 됨'
+
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 20, alignItems: 'flex-start' }}>
+        <div style={{ fontSize: 13, fontWeight: 700, color: '#1e293b' }}>기간 선택</div>
+        <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap' }}>
+          <div>
+            <div style={{ fontSize: 11, fontWeight: 600, color: '#94a3b8', marginBottom: 8, textTransform: 'uppercase' }}>시작일</div>
+            <Calendar
+              mode="single"
+              selected={range.from}
+              onSelect={(d) => setRange((prev) => ({ ...prev, from: d }))}
+            />
+          </div>
+          <div>
+            <div style={{ fontSize: 11, fontWeight: 600, color: '#94a3b8', marginBottom: 8, textTransform: 'uppercase' }}>종료일</div>
+            <Calendar
+              mode="single"
+              selected={range.to}
+              onSelect={(d) => setRange((prev) => ({ ...prev, to: d }))}
+              disabled={range.from ? { before: range.from } : undefined}
+            />
+          </div>
+        </div>
+        <div
+          style={{
+            padding: '12px 16px',
+            borderRadius: 8,
+            border: '1px solid #e2e8f0',
+            background: '#f8fafc',
+            fontSize: 13,
+            color: '#475569',
+            width: '100%',
+          }}
+        >
+          <span style={{ fontWeight: 700 }}>선택된 기간: </span>
+          {range.from && range.to ? (
+            <span style={{ color: '#6366f1' }}>
+              {fmt(range.from)} ~ {fmt(range.to)}
+            </span>
+          ) : (
+            <span style={{ color: '#94a3b8' }}>
+              {fmt(range.from)} ~ {fmt(range.to)}
+            </span>
+          )}
+        </div>
+      </div>
+    )
+  },
+}
+
+/* --------------------------------------------------------------------------
+   Ant Design 벤치마크: 이벤트 마킹 달력 패턴
+   Ant Design Calendar + 이벤트 닷(dot) 표시 — 날짜별 일정 현황
+-------------------------------------------------------------------------- */
+export const Ant_이벤트_마킹_달력: Story = {
+  name: 'Ant Design - 이벤트 마킹 달력 패턴',
+  render: function Render() {
+    const today = new Date()
+    const [selected, setSelected] = React.useState<Date | undefined>(today)
+
+    const events: Record<string, { label: string; color: string }[]> = {
+      [new Date(today.getFullYear(), today.getMonth(), today.getDate() - 2).toDateString()]: [
+        { label: '팀 미팅', color: '#6366f1' },
+      ],
+      [new Date(today.getFullYear(), today.getMonth(), today.getDate()).toDateString()]: [
+        { label: '배포 예정', color: '#10b981' },
+        { label: '코드 리뷰', color: '#f59e0b' },
+      ],
+      [new Date(today.getFullYear(), today.getMonth(), today.getDate() + 3).toDateString()]: [
+        { label: '스프린트 종료', color: '#ef4444' },
+      ],
+      [new Date(today.getFullYear(), today.getMonth(), today.getDate() + 5).toDateString()]: [
+        { label: '회고 미팅', color: '#6366f1' },
+      ],
+    }
+
+    const selectedEvents = selected ? events[selected.toDateString()] || [] : []
+
+    return (
+      <div style={{ display: 'flex', gap: 24, flexWrap: 'wrap', alignItems: 'flex-start' }}>
+        <Calendar
+          mode="single"
+          selected={selected}
+          onSelect={setSelected}
+          modifiers={{
+            hasEvent: Object.keys(events).map((d) => new Date(d)),
+          }}
+          modifiersStyles={{
+            hasEvent: {
+              fontWeight: 700,
+              textDecoration: 'underline',
+              textDecorationColor: '#6366f1',
+              textUnderlineOffset: '3px',
+            },
+          }}
+        />
+        <div style={{ minWidth: 220 }}>
+          <div style={{ fontSize: 13, fontWeight: 700, color: '#1e293b', marginBottom: 10 }}>
+            {selected ? selected.toLocaleDateString('ko-KR', { month: 'long', day: 'numeric' }) : '날짜 선택'} 일정
+          </div>
+          {selectedEvents.length > 0 ? (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+              {selectedEvents.map((ev, i) => (
+                <div
+                  key={i}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 10,
+                    padding: '8px 12px',
+                    borderRadius: 8,
+                    border: `1px solid ${ev.color}33`,
+                    background: `${ev.color}0d`,
+                  }}
+                >
+                  <span
+                    style={{ width: 8, height: 8, borderRadius: '50%', background: ev.color, flexShrink: 0 }}
+                  />
+                  <span style={{ fontSize: 13, fontWeight: 600, color: '#1e293b' }}>{ev.label}</span>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div style={{ fontSize: 13, color: '#94a3b8', padding: '8px 0' }}>
+              {selected ? '일정이 없습니다.' : '날짜를 선택하세요.'}
+            </div>
+          )}
+          <div style={{ marginTop: 16, fontSize: 11, color: '#94a3b8' }}>
+            밑줄 표시된 날짜에 일정이 있습니다.
+          </div>
+        </div>
+      </div>
+    )
+  },
+}
+
+/* -------------------------------------------------------------------------- */
+
 /**
  * 모바일 풀스크린 달력 예시입니다.
  *
