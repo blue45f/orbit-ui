@@ -4,8 +4,8 @@ import {
   findComponent,
   setupContext,
   polymorphic,
-} from '@orbit-ui/core'
-import { IconPropsContext } from '@orbit-ui/icons'
+} from '@heejun-com/core'
+import { IconPropsContext } from '@heejun-com/icons'
 import { Children } from 'react'
 
 import { vars } from '../../styles/theme.css'

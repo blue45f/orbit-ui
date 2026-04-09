@@ -5,8 +5,8 @@ import {
   ComponentThemeProps,
   composeRefs,
   useFocus,
-} from '@orbit-ui/core'
-import { CircleCancelFillIcon, SearchIcon } from '@orbit-ui/icons'
+} from '@heejun-com/core'
+import { CircleCancelFillIcon, SearchIcon } from '@heejun-com/icons'
 import React, { AllHTMLAttributes, forwardRef, useState } from 'react'
 
 import { vars } from '../../styles/theme.css'
@@ -35,7 +35,7 @@ export type SearchBarProps = Omit<
  * @example
  * ### 👇 기본 사용법
  * ```tsx
- * import { SearchBar } from '@orbit-ui/theme-eclipse'
+ * import { SearchBar } from '@heejun-com/theme-eclipse'
  *
  * function App() {
  *   const [value, setValue] = useState('')

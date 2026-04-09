@@ -4,7 +4,7 @@ import {
   IndicatorBadgeProps,
   IndicatorBadgeSpecificProps,
   polymorphic,
-} from '@orbit-ui/core'
+} from '@heejun-com/core'
 
 import { vars } from '../../styles/theme.css'
 

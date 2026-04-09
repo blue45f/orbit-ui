@@ -67,7 +67,7 @@ importers:
 
   packages/core:
     dependencies:
-      '@orbit-ui/icons':
+      '@heejun-com/icons':
         specifier: workspace:*
         version: link:../icons
       '@radix-ui/react-accordion':
@@ -353,10 +353,10 @@ importers:
       '@babel/runtime':
         specifier: ^7.26.0
         version: 7.28.4
-      '@orbit-ui/core':
+      '@heejun-com/core':
         specifier: workspace:*
         version: link:../core
-      '@orbit-ui/icons':
+      '@heejun-com/icons':
         specifier: workspace:*
         version: link:../icons
       '@radix-ui/react-avatar':

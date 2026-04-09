@@ -34,7 +34,7 @@ import {
   NotificationLineIcon,
   ChevronRightLineIcon,
   ListLineIcon,
-} from '@orbit-ui/icons'
+} from '@heejun-com/icons'
 
 const meta: Meta = {
   title: 'Templates/Showcase',
@@ -601,7 +601,7 @@ const PcLandingRender = () => {
             border: '1px solid rgba(255, 255, 255, 0.12)',
             fontFamily: '"JetBrains Mono", monospace', fontSize: '14px', color: '#e2e8f0',
           }}>
-            pnpm add @orbit-ui/theme-eclipse
+            pnpm add @heejun-com/theme-eclipse
           </div>
         </section>
       </div>

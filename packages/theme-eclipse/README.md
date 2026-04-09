@@ -1,20 +1,20 @@
-# @orbit-ui/theme-eclipse
+# @heejun-com/theme-eclipse
 
-[![npm](https://img.shields.io/npm/v/@orbit-ui/theme-eclipse)](https://www.npmjs.com/package/@orbit-ui/theme-eclipse)
+[![npm](https://img.shields.io/npm/v/@heejun-com/theme-eclipse)](https://www.npmjs.com/package/@heejun-com/theme-eclipse)
 
 > Eclipse 테마 컴포넌트
 
 ## 설치
 
 ```bash
-pnpm add @orbit-ui/theme-eclipse
+pnpm add @heejun-com/theme-eclipse
 ```
 
 ## 사용법
 
 ```tsx
-import { SolidButton, OutlinedButton, ForgeRoot } from '@orbit-ui/theme-eclipse'
-import '@orbit-ui/theme-eclipse/style.css'
+import { SolidButton, OutlinedButton, ForgeRoot } from '@heejun-com/theme-eclipse'
+import '@heejun-com/theme-eclipse/style.css'
 
 function App() {
   return (
@@ -34,8 +34,8 @@ function App() {
 
 ```tsx
 // app/layout.tsx
-import { ForgeRoot } from '@orbit-ui/theme-eclipse/server'
-import '@orbit-ui/theme-eclipse/style.css'
+import { ForgeRoot } from '@heejun-com/theme-eclipse/server'
+import '@heejun-com/theme-eclipse/style.css'
 
 export default function RootLayout({ children }) {
   return (

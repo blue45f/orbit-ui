@@ -1,4 +1,4 @@
-import { CancelIcon, IconPropsContext } from '@orbit-ui/icons'
+import { CancelIcon, IconPropsContext } from '@heejun-com/icons'
 import React, { Children, HTMLAttributes, forwardRef, useCallback } from 'react'
 
 import { cn } from '../../styles'

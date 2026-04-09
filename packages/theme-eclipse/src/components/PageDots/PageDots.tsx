@@ -3,7 +3,7 @@ import {
   BasePageDots,
   BasePageDotsProps,
   BasePageDotsSpecificProps,
-} from '@orbit-ui/core'
+} from '@heejun-com/core'
 import { forwardRef } from 'react'
 
 import { vars } from '../../styles/theme.css'
@@ -20,7 +20,7 @@ export type PageDotsProps = Omit<BasePageDotsProps, keyof BasePageDotsSpecificPr
  * @example
  * ### 👇 기본 사용법
  * ```tsx
- * import { PageDots } from '@orbit-ui/theme-eclipse'
+ * import { PageDots } from '@heejun-com/theme-eclipse'
  *
  * function App() {
  *   const [selected, setSelected] = useState(false)

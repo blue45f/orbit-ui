@@ -1,4 +1,4 @@
-import { Slider as CoreSlider } from '@orbit-ui/core'
+import { Slider as CoreSlider } from '@heejun-com/core'
 import React, { forwardRef } from 'react'
 
 export type SliderProps = React.ComponentPropsWithoutRef<typeof CoreSlider>

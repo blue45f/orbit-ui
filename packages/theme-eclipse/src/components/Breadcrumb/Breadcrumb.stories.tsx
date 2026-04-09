@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
 import { Breadcrumb } from './Breadcrumb'
-import { ChevronRightLineIcon } from '@orbit-ui/icons'
+import { ChevronRightLineIcon } from '@heejun-com/icons'
 
 const meta = {
   title: 'eclipse/Navigation/Breadcrumb',

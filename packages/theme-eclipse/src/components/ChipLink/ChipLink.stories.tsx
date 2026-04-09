@@ -1,4 +1,4 @@
-import { CheckIcon } from '@orbit-ui/icons'
+import { CheckIcon } from '@heejun-com/icons'
 import { Meta, StoryObj } from '@storybook/react'
 
 import { ChipLink } from './ChipLink'

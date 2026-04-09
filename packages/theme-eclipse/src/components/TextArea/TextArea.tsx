@@ -3,7 +3,7 @@ import {
   TextFieldProps,
   TextFieldSpecificProps,
   ComponentThemeProps,
-} from '@orbit-ui/core'
+} from '@heejun-com/core'
 import { AllHTMLAttributes, forwardRef } from 'react'
 
 import { vars } from '../../styles/theme.css'
@@ -32,7 +32,7 @@ export type TextAreaProps = Omit<
  * @example
  * ### 👇 기본 사용법
  * ```tsx
- * import { TextArea } from '@orbit-ui/theme-eclipse'
+ * import { TextArea } from '@heejun-com/theme-eclipse'
  *
  * function App() {
  *   const [value, setValue] = useState('')
@@ -51,7 +51,7 @@ export type TextAreaProps = Omit<
  * @example
  * ### 👇 에러 상태
  * ```tsx
- * import { TextArea } from '@orbit-ui/theme-eclipse'
+ * import { TextArea } from '@heejun-com/theme-eclipse'
  *
  * function App() {
  *   const [value, setValue] = useState('')

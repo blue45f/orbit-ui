@@ -1,4 +1,4 @@
-import { AwesomeIcon } from '@orbit-ui/icons'
+import { AwesomeIcon } from '@heejun-com/icons'
 import { Meta, StoryObj } from '@storybook/react'
 import React from 'react'
 

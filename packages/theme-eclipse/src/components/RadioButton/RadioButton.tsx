@@ -3,7 +3,7 @@ import {
   RadioButtonButtonProps,
   RadioButtonButtonSpecificProps,
   ComponentThemeProps,
-} from '@orbit-ui/core'
+} from '@heejun-com/core'
 import { forwardRef } from 'react'
 
 import { vars } from '../../styles/theme.css'
@@ -27,7 +27,7 @@ export type RadioButtonProps = Omit<
  * - 그룹으로 묶으려면 같은 `name` prop을 지정해주세요.
  *
  * ```
- * import { RadioButton } from '@orbit-ui/theme-eclipse'
+ * import { RadioButton } from '@heejun-com/theme-eclipse'
  *
  * function App() {
  *   return (

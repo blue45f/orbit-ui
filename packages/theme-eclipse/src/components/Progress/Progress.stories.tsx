@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import type { Meta, StoryObj } from '@storybook/react'
-import { Flex } from '@orbit-ui/core'
+import { Flex } from '@heejun-com/core'
 
 import { Progress } from './Progress'
 

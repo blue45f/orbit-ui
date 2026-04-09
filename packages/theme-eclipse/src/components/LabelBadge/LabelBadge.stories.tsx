@@ -1,4 +1,4 @@
-import { StarFillIcon, CheckIcon } from '@orbit-ui/icons'
+import { StarFillIcon, CheckIcon } from '@heejun-com/icons'
 import { Meta, StoryObj } from '@storybook/react'
 
 import { LabelBadge } from './LabelBadge'

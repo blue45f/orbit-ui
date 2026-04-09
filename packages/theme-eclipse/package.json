@@ -1,5 +1,5 @@
 {
-  "name": "@orbit-ui/theme-eclipse",
+  "name": "@heejun-com/theme-eclipse",
   "version": "2.0.0-beta.16",
   "type": "module",
   "description": "Orbit UI Eclipse 테마 컴포넌트",
@@ -59,8 +59,8 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.26.0",
-    "@orbit-ui/core": "workspace:*",
-    "@orbit-ui/icons": "workspace:*",
+    "@heejun-com/core": "workspace:*",
+    "@heejun-com/icons": "workspace:*",
     "@radix-ui/react-avatar": "^1.1.11",
     "@radix-ui/react-dialog": "^1.1.15",
     "@radix-ui/react-hover-card": "^1.1.15",

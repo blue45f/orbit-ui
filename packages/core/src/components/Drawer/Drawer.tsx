@@ -1,6 +1,6 @@
 import * as React from 'react'
 import * as DialogPrimitive from '@radix-ui/react-dialog'
-import { CancelIcon } from '@orbit-ui/icons'
+import { CancelIcon } from '@heejun-com/icons'
 
 import { cn } from '../../styles'
 

@@ -1,4 +1,4 @@
-import { useUniqueID, errorDev } from '@orbit-ui/core'
+import { useUniqueID, errorDev } from '@heejun-com/core'
 import { assignInlineVars } from '@vanilla-extract/dynamic'
 import { forwardRef } from 'react'
 
@@ -30,7 +30,7 @@ type RadioButtonWithLabelProps = RadioProps & {
  * - 그룹으로 묶으려면 같은 `name` prop을 지정해주세요.
  *
  * ```
- * import { RadioButtonWithLabel, RadioGroup } from '@orbit-ui/theme-eclipse/composites'
+ * import { RadioButtonWithLabel, RadioGroup } from '@heejun-com/theme-eclipse/composites'
  *
  * function App() {
  *   return (

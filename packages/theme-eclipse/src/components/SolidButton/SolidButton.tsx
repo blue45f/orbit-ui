@@ -5,7 +5,7 @@ import {
   ButtonProps,
   ButtonSpecificProps,
   ComponentThemeProps,
-} from '@orbit-ui/core'
+} from '@heejun-com/core'
 import clsx from 'clsx'
 import React, { AllHTMLAttributes, Children, forwardRef, ReactNode } from 'react'
 

@@ -1,4 +1,4 @@
-import { reset } from '@orbit-ui/core'
+import { reset } from '@heejun-com/core'
 import { style } from '@vanilla-extract/css'
 
 export const fieldset = style([

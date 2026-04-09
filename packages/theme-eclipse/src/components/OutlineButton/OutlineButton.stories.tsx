@@ -1,5 +1,5 @@
-import { Flex } from '@orbit-ui/core'
-import { ChatLineIcon, ChevronRightLineIcon } from '@orbit-ui/icons'
+import { Flex } from '@heejun-com/core'
+import { ChatLineIcon, ChevronRightLineIcon } from '@heejun-com/icons'
 import { Meta, StoryObj } from '@storybook/react'
 
 import { OutlineButton, OutlineButtonProps } from '.'

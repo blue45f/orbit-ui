@@ -3,8 +3,8 @@ import {
   BaseTextFieldProps,
   BaseTextFieldSpecificProps,
   ComponentThemeProps,
-} from '@orbit-ui/core'
-import { CircleCancelFillIcon } from '@orbit-ui/icons'
+} from '@heejun-com/core'
+import { CircleCancelFillIcon } from '@heejun-com/icons'
 import { AllHTMLAttributes, forwardRef, ReactNode } from 'react'
 
 import { vars } from '../../styles/theme.css'
@@ -37,7 +37,7 @@ export type TextFieldProps = Omit<
  * @example
  * ### 👇 기본 사용법
  * ```tsx
- * import { TextField } from '@orbit-ui/theme-eclipse'
+ * import { TextField } from '@heejun-com/theme-eclipse'
  *
  * function App() {
  *   const [value, setValue] = useState('')
@@ -55,7 +55,7 @@ export type TextFieldProps = Omit<
  * @example
  * ### 👇 에러 상태
  * ```tsx
- * import { TextField } from '@orbit-ui/theme-eclipse'
+ * import { TextField } from '@heejun-com/theme-eclipse'
  *
  * function App() {
  *   const [value, setValue] = useState('')
@@ -75,7 +75,7 @@ export type TextFieldProps = Omit<
  * @example
  * ### 👇 Clear Button visibility 설정
  * ```tsx
- * import { TextField } from '@orbit-ui/theme-eclipse'
+ * import { TextField } from '@heejun-com/theme-eclipse'
  *
  * function App() {
  *   const [value, setValue] = useState('')

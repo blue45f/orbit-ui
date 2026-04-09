@@ -1,4 +1,4 @@
-import { Flex, TextStyleBaseSize } from '@orbit-ui/core'
+import { Flex, TextStyleBaseSize } from '@heejun-com/core'
 import { Meta, StoryObj } from '@storybook/react'
 
 import { vars } from '../../styles/theme.css'

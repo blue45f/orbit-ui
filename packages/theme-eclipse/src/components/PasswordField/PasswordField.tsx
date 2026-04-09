@@ -3,7 +3,7 @@ import {
   BasePasswordFieldProps,
   ComponentThemeProps,
   BasePasswordFieldSpecificProps,
-} from '@orbit-ui/core'
+} from '@heejun-com/core'
 import { AllHTMLAttributes, forwardRef } from 'react'
 
 import { vars } from '../../styles/theme.css'
@@ -52,7 +52,7 @@ PasswordFieldRoot.displayName = 'PasswordField'
  * @example
  * ### 👇 기본 사용법
  * ```tsx
- * import { PasswordField } from '@orbit-ui/theme-eclipse'
+ * import { PasswordField } from '@heejun-com/theme-eclipse'
  *
  * function App() {
  *   const [password, setPassword] = useState('')
@@ -70,7 +70,7 @@ PasswordFieldRoot.displayName = 'PasswordField'
  * @example
  * ### 👇 에러 상태
  * ```tsx
- * import { PasswordField } from '@orbit-ui/theme-eclipse'
+ * import { PasswordField } from '@heejun-com/theme-eclipse'
  *
  * function App() {
  *   const [password, setPassword] = useState('')

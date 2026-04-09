@@ -4,7 +4,7 @@ import {
   ForcedBaseTextStyle,
   BaseText,
   BaseTextContext,
-} from '@orbit-ui/core'
+} from '@heejun-com/core'
 import React, { JSX, useContext } from 'react'
 
 import { VAR_NAME as TEXT_STYLE_VAR_NAME } from '../../styles/text-style-token'

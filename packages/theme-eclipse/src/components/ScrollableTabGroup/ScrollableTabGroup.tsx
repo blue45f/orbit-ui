@@ -6,7 +6,7 @@ import {
   filterComponents,
   getReactElementRef,
   BaseScrollableTabGroup,
-} from '@orbit-ui/core'
+} from '@heejun-com/core'
 import {
   Children,
   ComponentProps,
@@ -103,7 +103,7 @@ type ScrollableTabGroupComponent = typeof ScrollableTabGroupRoot & {
  * @example
  * ### 👇 기본 사용법
  * ```
- * import { ScrollableTabGroup } from '@orbit-ui/theme-eclipse'
+ * import { ScrollableTabGroup } from '@heejun-com/theme-eclipse'
  *
  * function App() {
  *   return (

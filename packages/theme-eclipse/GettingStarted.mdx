@@ -29,9 +29,9 @@ import { Meta, Unstyled } from '@storybook/blocks'
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
         {[
-          { label: 'pnpm', cmd: 'pnpm add @orbit-ui/theme-eclipse @orbit-ui/icons', recommended: true },
-          { label: 'npm', cmd: 'npm install @orbit-ui/theme-eclipse @orbit-ui/icons' },
-          { label: 'yarn', cmd: 'yarn add @orbit-ui/theme-eclipse @orbit-ui/icons' },
+          { label: 'pnpm', cmd: 'pnpm add @heejun-com/theme-eclipse @heejun-com/icons', recommended: true },
+          { label: 'npm', cmd: 'npm install @heejun-com/theme-eclipse @heejun-com/icons' },
+          { label: 'yarn', cmd: 'yarn add @heejun-com/theme-eclipse @heejun-com/icons' },
         ].map((pkg, i) => (
           <div key={i} style={{
             display: 'flex', alignItems: 'center', gap: '12px',
@@ -72,8 +72,8 @@ import { Meta, Unstyled } from '@storybook/blocks'
           <span style={{ marginLeft: '8px', fontSize: '11px', color: '#94a3b8', fontWeight: '500' }}>App.tsx</span>
         </div>
         <pre style={{ margin: 0, padding: '20px', background: '#0f172a', color: '#e2e8f0', fontSize: '13px', lineHeight: '1.8', fontFamily: '"JetBrains Mono", monospace', overflow: 'auto' }}>
-{`import { EclipseProvider } from '@orbit-ui/theme-eclipse'
-import '@orbit-ui/theme-eclipse/style.css'
+{`import { EclipseProvider } from '@heejun-com/theme-eclipse'
+import '@heejun-com/theme-eclipse/style.css'
 
 function MyApp() {
   return (
@@ -138,7 +138,7 @@ function MyApp() {
 
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
         {[
-          { title: 'Pages Router', file: '_document.tsx', code: `import { getTheme } from '@orbit-ui/theme-eclipse/server'
+          { title: 'Pages Router', file: '_document.tsx', code: `import { getTheme } from '@heejun-com/theme-eclipse/server'
 
 export default function Document() {
   return (
@@ -151,8 +151,8 @@ export default function Document() {
     </Html>
   )
 }` },
-          { title: 'App Router', file: 'app/layout.tsx', code: `import { getTheme } from '@orbit-ui/theme-eclipse/server'
-import '@orbit-ui/theme-eclipse/style.css'
+          { title: 'App Router', file: 'app/layout.tsx', code: `import { getTheme } from '@heejun-com/theme-eclipse/server'
+import '@heejun-com/theme-eclipse/style.css'
 
 export default function RootLayout({
   children
@@ -194,8 +194,8 @@ export default function RootLayout({
 
       <div style={{ borderRadius: '12px', border: '1px solid #e2e8f0', overflow: 'hidden', marginBottom: '24px' }}>
         <pre style={{ margin: 0, padding: '20px', background: '#0f172a', color: '#e2e8f0', fontSize: '13px', lineHeight: '1.8', fontFamily: '"JetBrains Mono", monospace', overflow: 'auto' }}>
-{`import { SolidButton, TextField, Toggle } from '@orbit-ui/theme-eclipse'
-import { BellIcon } from '@orbit-ui/icons'
+{`import { SolidButton, TextField, Toggle } from '@heejun-com/theme-eclipse'
+import { BellIcon } from '@heejun-com/icons'
 
 function MyForm() {
   return (
@@ -245,7 +245,7 @@ function MyForm() {
         {[
           { q: '폰트는 별도 설치가 필요한가요?', a: '모바일 웹뷰에서는 시스템 폰트를 사용하므로 설치가 불필요합니다. 웹 환경에서는 Pretendard 폰트를 권장합니다.' },
           { q: 'Compound Component 패턴이란?', a: 'SolidButton.Leading, SolidButton.Center 처럼 서브 컴포넌트로 구성하는 패턴입니다. 내부 로직 변경 없이 유연한 조합이 가능합니다.' },
-          { q: 'TypeScript를 지원하나요?', a: '모든 컴포넌트는 완전한 TypeScript 타입을 제공합니다. import type { SolidButtonProps } from \'@orbit-ui/theme-eclipse\'' },
+          { q: 'TypeScript를 지원하나요?', a: '모든 컴포넌트는 완전한 TypeScript 타입을 제공합니다. import type { SolidButtonProps } from \'@heejun-com/theme-eclipse\'' },
         ].map((faq, i) => (
           <div key={i} style={{
             padding: '16px 20px', borderRadius: '10px', border: '1px solid #e2e8f0', background: '#fafafa',

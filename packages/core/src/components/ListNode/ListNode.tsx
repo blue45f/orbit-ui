@@ -1,5 +1,5 @@
 import { forwardRef, Children, ReactNode, createElement, useCallback, MouseEvent } from 'react'
-import { IconPropsContext } from '@orbit-ui/icons'
+import { IconPropsContext } from '@heejun-com/icons'
 
 import { cn } from '../../styles'
 import { filterComponents, useComposedRefs, useFocus, toCSSLength } from '../../libs'

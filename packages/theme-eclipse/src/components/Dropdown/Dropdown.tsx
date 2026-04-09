@@ -3,8 +3,8 @@ import {
   filterComponents,
   BaseDropdown,
   BaseDropdownProps,
-} from '@orbit-ui/core'
-import { IconPropsContext } from '@orbit-ui/icons'
+} from '@heejun-com/core'
+import { IconPropsContext } from '@heejun-com/icons'
 import { AllHTMLAttributes, Children, forwardRef, ReactNode, useMemo, useState } from 'react'
 
 import { vars } from '../../styles/theme.css'
@@ -138,7 +138,7 @@ type DropdownComponent = typeof DropdownRoot & {
  * @example
  * ### 👇 기본 사용법
  * ```tsx
- * import { Dropdown } from '@orbit-ui/theme-eclipse'
+ * import { Dropdown } from '@heejun-com/theme-eclipse'
  *
  * function App() {
  *   const [isOpen, setIsOpen] = useState(false)
@@ -157,7 +157,7 @@ type DropdownComponent = typeof DropdownRoot & {
  * @example
  * ### 👇 Leading 아이콘 추가
  * ```tsx
- * import { Dropdown, SearchIcon } from '@orbit-ui/theme-eclipse'
+ * import { Dropdown, SearchIcon } from '@heejun-com/theme-eclipse'
  *
  * function App() {
  *   return (

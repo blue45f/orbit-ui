@@ -1,4 +1,4 @@
-import { Calendar as CoreCalendar } from '@orbit-ui/core'
+import { Calendar as CoreCalendar } from '@heejun-com/core'
 
 export type CalendarProps = React.ComponentPropsWithoutRef<typeof CoreCalendar>
 

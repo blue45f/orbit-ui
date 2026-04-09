@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { ForwardIcon, MenuIcon } from '@orbit-ui/icons'
+import { ForwardIcon, MenuIcon } from '@heejun-com/icons'
 import type { Meta, StoryObj } from '@storybook/react'
 import { useState } from 'react'
 

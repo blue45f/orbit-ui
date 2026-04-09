@@ -1,4 +1,4 @@
-import { DataTable as CoreDataTable } from '@orbit-ui/core'
+import { DataTable as CoreDataTable } from '@heejun-com/core'
 import 'react'
 
 export const DataTable = CoreDataTable

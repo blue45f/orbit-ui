@@ -1,4 +1,4 @@
-import { AlertDialog as CoreAlertDialog } from '@orbit-ui/core'
+import { AlertDialog as CoreAlertDialog } from '@heejun-com/core'
 import React, { forwardRef, PropsWithChildren, Children, HTMLAttributes } from 'react'
 
 export type DialogProps = React.ComponentPropsWithoutRef<typeof CoreAlertDialog> & {

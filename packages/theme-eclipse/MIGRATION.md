@@ -91,7 +91,7 @@
 SSR 환경인 경우 body 요소 className을 직접 연결할 수 있어요. 신규 스페이싱 토큰을 사용하려면 tokenMode 옵션을 객체로 전달해주세요.
 
 ```tsx
-import { getTheme } from '@orbit-ui/theme-eclipse/server'
+import { getTheme } from '@heejun-com/theme-eclipse/server'
 
 // Before
 <body className={getTheme()}>
@@ -152,7 +152,7 @@ import { getTheme } from '@orbit-ui/theme-eclipse/server'
 아래 예제와 같이 radius 토큰을 직접 가져다 쓰는 코드가 있는지 확인 및 변경해주세요.
 
 ```ts
-import { vars } from '@orbit-ui/theme-eclipse/token'
+import { vars } from '@heejun-com/theme-eclipse/token'
 
 const someStyle = `
   border-radius: ${vars.radius.medium}; // <- vars.radius.small로 변경
@@ -166,7 +166,7 @@ const someStyle = `
 SSR 환경인 경우 body 요소 className을 직접 연결할 수 있어요. 신규 radius 토큰을 사용하려면 tokenMode 옵션을 객체로 전달해주세요.
 
 ```tsx
-import { getTheme } from '@orbit-ui/theme-eclipse/server'
+import { getTheme } from '@heejun-com/theme-eclipse/server'
 
 // Before
 <body className={getTheme()}>

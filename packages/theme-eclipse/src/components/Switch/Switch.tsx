@@ -1,4 +1,4 @@
-import { Switch as CoreSwitch } from '@orbit-ui/core'
+import { Switch as CoreSwitch } from '@heejun-com/core'
 import { forwardRef } from 'react'
 
 export type SwitchProps = React.ComponentPropsWithoutRef<typeof CoreSwitch>

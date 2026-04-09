@@ -1,4 +1,4 @@
-import { layerUtils, layerVars } from '@orbit-ui/core'
+import { layerUtils, layerVars } from '@heejun-com/core'
 import { style } from '@vanilla-extract/css'
 
 import { vars } from '../../styles'

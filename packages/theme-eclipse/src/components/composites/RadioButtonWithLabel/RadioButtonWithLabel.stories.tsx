@@ -1,4 +1,4 @@
-import { Flex } from '@orbit-ui/core'
+import { Flex } from '@heejun-com/core'
 import { Meta, StoryObj } from '@storybook/react'
 
 import { RadioGroup } from '../RadioGroup'

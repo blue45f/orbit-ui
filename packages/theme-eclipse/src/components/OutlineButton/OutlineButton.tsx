@@ -5,7 +5,7 @@ import {
   ButtonProps,
   ButtonSpecificProps,
   ComponentThemeProps,
-} from '@orbit-ui/core'
+} from '@heejun-com/core'
 import React, { AllHTMLAttributes, Children, forwardRef, ReactNode } from 'react'
 
 import { vars } from '../../styles/theme.css'
@@ -166,7 +166,7 @@ type OutlineButtonComponent = typeof OutlineButtonRoot & {
  * @example
  * ### 👇 기본 사용법
  * ```tsx
- * import { OutlineButton, ChatLineIcon, ChevronRightLineIcon } from '@orbit-ui/theme-eclipse'
+ * import { OutlineButton, ChatLineIcon, ChevronRightLineIcon } from '@heejun-com/theme-eclipse'
  *
  * function App() {
  *   return (

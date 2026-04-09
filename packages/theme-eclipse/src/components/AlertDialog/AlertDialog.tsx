@@ -1,4 +1,4 @@
-import { AlertDialog as CoreAlertDialog } from '@orbit-ui/core'
+import { AlertDialog as CoreAlertDialog } from '@heejun-com/core'
 import React, { forwardRef, PropsWithChildren, Children } from 'react'
 
 import { Typography } from '../Text'
@@ -94,7 +94,7 @@ type AlertComponent = typeof AlertRoot & {
  * @example
  * ### 👇 기본 사용법 (비제어)
  * ```tsx
- * import { Alert, Button } from '@orbit-ui/theme-eclipse'
+ * import { Alert, Button } from '@heejun-com/theme-eclipse'
  *
  * function App() {
  *   return (

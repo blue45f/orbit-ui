@@ -1,4 +1,4 @@
-import { ThemeProvider, LottieProvider, Portal, TextStyleBaseSize } from '@orbit-ui/core'
+import { ThemeProvider, LottieProvider, Portal, TextStyleBaseSize } from '@heejun-com/core'
 import clsx from 'clsx'
 import { PropsWithChildren } from 'react'
 
@@ -6,7 +6,7 @@ import { darkTheme, lightTheme, textStyleTheme } from '../../styles'
 
 import { ReusableSVG } from './ReusableSVG'
 
-import '@orbit-ui/core/style.css'
+import '@heejun-com/core/style.css'
 
 export type EclipseProviderProps = {
   /**
@@ -37,7 +37,7 @@ export type EclipseProviderProps = {
  * @example
  * ### 👇 기본 사용법
  * ```
- * import { EclipseProvider } from '@orbit-ui/theme-eclipse'
+ * import { EclipseProvider } from '@heejun-com/theme-eclipse'
  *
  * function MyApp() {
  *  return (

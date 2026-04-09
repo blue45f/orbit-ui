@@ -1,4 +1,4 @@
-import { Button, ButtonProps, ButtonSpecificProps, ComponentThemeProps } from '@orbit-ui/core'
+import { Button, ButtonProps, ButtonSpecificProps, ComponentThemeProps } from '@heejun-com/core'
 import React, { AllHTMLAttributes, forwardRef } from 'react'
 
 import { vars } from '../../styles/theme.css'
@@ -103,7 +103,7 @@ const OutlineIconButtonRoot: React.ForwardRefExoticComponent<
  * @example
  * ### 👇 기본 사용법
  * ```tsx
- * import { OutlineIconButton, PlusIcon } from '@orbit-ui/theme-eclipse'
+ * import { OutlineIconButton, PlusIcon } from '@heejun-com/theme-eclipse'
  *
  * function App() {
  *   return (

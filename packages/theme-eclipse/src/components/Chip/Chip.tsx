@@ -4,7 +4,7 @@ import {
   Chip as BaseChip,
   ChipSpecificProps,
   ChipPropsAsButton,
-} from '@orbit-ui/core'
+} from '@heejun-com/core'
 import { Children, forwardRef, ReactNode } from 'react'
 
 import { vars } from '../../styles/theme.css'
@@ -80,8 +80,8 @@ type ChipComponent = typeof ChipRoot & {
  * @example
  * ### 👇 기본 사용법
  * ```
- * import { Chip } from '@orbit-ui/theme-eclipse'
- * import { CheckIcon, ChevronDownLineIcon } from '@orbit-ui/icons'
+ * import { Chip } from '@heejun-com/theme-eclipse'
+ * import { CheckIcon, ChevronDownLineIcon } from '@heejun-com/icons'
  *
  * function App() {
  *   return (

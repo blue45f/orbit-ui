@@ -4,7 +4,7 @@ import {
   BasePageNumberProps,
   BasePageNumberSpecificProps,
   findComponent,
-} from '@orbit-ui/core'
+} from '@heejun-com/core'
 import { Children, forwardRef } from 'react'
 
 import { vars } from '../../styles/theme.css'
@@ -61,7 +61,7 @@ type PageNumberComponent = typeof PageNumberRoot & {
  * @example
  * ### 👇 기본 사용법
  * ```tsx
- * import { PageNumber } from '@orbit-ui/theme-eclipse'
+ * import { PageNumber } from '@heejun-com/theme-eclipse'
  *
  * function App() {
  *   return <PageNumber current={1} total={3} />
@@ -71,7 +71,7 @@ type PageNumberComponent = typeof PageNumberRoot & {
  * @example
  * ### 👇 아이콘과 함께
  * ```tsx
- * import { PageNumber, CloseIcon } from '@orbit-ui/theme-eclipse'
+ * import { PageNumber, CloseIcon } from '@heejun-com/theme-eclipse'
  *
  * function App() {
  *   return (

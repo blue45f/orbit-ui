@@ -1,4 +1,4 @@
-import { TextStyleBaseSize } from '@orbit-ui/core'
+import { TextStyleBaseSize } from '@heejun-com/core'
 import clsx from 'clsx'
 
 import { darkTheme, lightTheme, textStyleTheme } from '../styles/theme.css'

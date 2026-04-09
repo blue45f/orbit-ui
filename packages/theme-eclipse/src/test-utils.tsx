@@ -1,4 +1,4 @@
-import { ThemeProvider } from '@orbit-ui/core'
+import { ThemeProvider } from '@heejun-com/core'
 import { render, RenderOptions } from '@testing-library/react'
 import { vi } from 'vitest'
 

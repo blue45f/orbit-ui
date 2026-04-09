@@ -1,5 +1,5 @@
-import { Flex } from '@orbit-ui/core'
-import { ChevronRightLineIcon, CheckIcon, ChevronDownLineIcon } from '@orbit-ui/icons'
+import { Flex } from '@heejun-com/core'
+import { ChevronRightLineIcon, CheckIcon, ChevronDownLineIcon } from '@heejun-com/icons'
 import type { Meta, StoryObj } from '@storybook/react'
 
 import { ContainedCheckbox } from '../BoxedCheckbox'

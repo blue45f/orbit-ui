@@ -1,4 +1,4 @@
-import { reset } from '@orbit-ui/core'
+import { reset } from '@heejun-com/core'
 import { createVar, style } from '@vanilla-extract/css'
 import { recipe } from '@vanilla-extract/recipes'
 

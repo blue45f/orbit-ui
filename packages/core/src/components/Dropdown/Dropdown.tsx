@@ -1,5 +1,5 @@
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
-import { ChevronDownLineIcon } from '@orbit-ui/icons'
+import { ChevronDownLineIcon } from '@heejun-com/icons'
 import React, { AllHTMLAttributes, Children, HTMLAttributes, forwardRef, useCallback } from 'react'
 
 import { cn } from '../../styles'

@@ -1,4 +1,4 @@
-import { CheckIcon, ChevronDownLineIcon } from '@orbit-ui/icons'
+import { CheckIcon, ChevronDownLineIcon } from '@heejun-com/icons'
 import { Meta, StoryObj } from '@storybook/react'
 
 import { vars } from '../../styles'

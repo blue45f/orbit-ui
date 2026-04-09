@@ -4,7 +4,7 @@ import {
   Chip,
   ChipPropsAsAnchor,
   ChipSpecificProps,
-} from '@orbit-ui/core'
+} from '@heejun-com/core'
 import { Children, forwardRef, ReactNode } from 'react'
 
 import { vars } from '../../styles/theme.css'
@@ -53,8 +53,8 @@ type ChipLinkComponent = typeof ChipLinkRoot & {
  * @example
  * ### 👇 기본 사용법
  * ```
- * import { ChipLink } from '@orbit-ui/theme-eclipse'
- * import { CheckIcon } from '@orbit-ui/icons'
+ * import { ChipLink } from '@heejun-com/theme-eclipse'
+ * import { CheckIcon } from '@heejun-com/icons'
  *
  * function App() {
  *   return (

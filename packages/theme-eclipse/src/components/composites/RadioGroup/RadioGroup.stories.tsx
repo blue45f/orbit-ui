@@ -1,4 +1,4 @@
-import { useUniqueID } from '@orbit-ui/core'
+import { useUniqueID } from '@heejun-com/core'
 import { Meta, StoryObj } from '@storybook/react'
 import { useState } from 'react'
 

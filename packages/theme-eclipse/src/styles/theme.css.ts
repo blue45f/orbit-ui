@@ -1,4 +1,4 @@
-import { ref, referenceDarkTheme, referenceLightTheme, TextStyleBaseSize } from '@orbit-ui/core'
+import { ref, referenceDarkTheme, referenceLightTheme, TextStyleBaseSize } from '@heejun-com/core'
 import { style } from '@vanilla-extract/css'
 
 import { com, componentDarkTheme, componentLightTheme } from './component-token'

@@ -14,7 +14,7 @@ import { Meta, Unstyled } from '@storybook/blocks'
       <div style={{ fontSize: '12px', fontWeight: '700', color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '8px' }}>Design Tokens</div>
       <h1 style={{ fontSize: '36px', fontWeight: '800', color: '#1e293b', letterSpacing: '-0.03em', margin: '0 0 12px' }}>디자인 토큰</h1>
       <p style={{ fontSize: '16px', color: '#64748b', lineHeight: '1.6', margin: 0 }}>
-        Eclipse 테마의 디자인 토큰은 <code style={{ background: '#f1f5f9', color: '#6366f1', padding: '2px 6px', borderRadius: '4px', fontSize: '14px', fontWeight: '500' }}>@orbit-ui/theme-eclipse/token</code>에서 사용할 수 있습니다.
+        Eclipse 테마의 디자인 토큰은 <code style={{ background: '#f1f5f9', color: '#6366f1', padding: '2px 6px', borderRadius: '4px', fontSize: '14px', fontWeight: '500' }}>@heejun-com/theme-eclipse/token</code>에서 사용할 수 있습니다.
       </p>
     </div>
 
@@ -115,7 +115,7 @@ import { Meta, Unstyled } from '@storybook/blocks'
         {[
           {
             title: 'Inline Style',
-            code: `import { vars } from '@orbit-ui/theme-eclipse/token'
+            code: `import { vars } from '@heejun-com/theme-eclipse/token'
 
 const Component = () => (
   <div style={{
@@ -129,7 +129,7 @@ const Component = () => (
           },
           {
             title: 'CSS-in-JS',
-            code: `import { vars } from '@orbit-ui/theme-eclipse/token'
+            code: `import { vars } from '@heejun-com/theme-eclipse/token'
 import styled from 'styled-components'
 
 const Card = styled.div\`

@@ -6,7 +6,7 @@ import {
   TabItemsTabProps,
   filterComponents,
   getReactElementRef,
-} from '@orbit-ui/core'
+} from '@heejun-com/core'
 import {
   Children,
   ComponentProps,
@@ -93,7 +93,7 @@ type SegmentedControlComponent = typeof SegmentedControlRoot & {
  * @example
  * ### 👇 기본 사용법
  * ```
- * import { SegmentedControl } from '@orbit-ui/theme-eclipse'
+ * import { SegmentedControl } from '@heejun-com/theme-eclipse'
  *
  * function App() {
  *   return (

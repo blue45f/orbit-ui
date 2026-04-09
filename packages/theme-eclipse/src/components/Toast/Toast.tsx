@@ -1,4 +1,4 @@
-import { Toaster as CoreToaster, toast } from '@orbit-ui/core'
+import { Toaster as CoreToaster, toast } from '@heejun-com/core'
 import React from 'react'
 
 export type ToasterProps = React.ComponentProps<typeof CoreToaster>
@@ -11,7 +11,7 @@ export type ToasterProps = React.ComponentProps<typeof CoreToaster>
  * @example
  * ### 👇 기본 사용법
  * ```tsx
- * import { Toaster, toast, Button } from '@orbit-ui/theme-eclipse'
+ * import { Toaster, toast, Button } from '@heejun-com/theme-eclipse'
  *
  * function App() {
  *   return (

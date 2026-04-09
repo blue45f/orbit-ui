@@ -3,8 +3,8 @@ import {
   BaseFloatingTextFieldProps,
   BaseFloatingTextFieldSpecificProps,
   ComponentThemeProps,
-} from '@orbit-ui/core'
-import { CircleCancelFillIcon } from '@orbit-ui/icons'
+} from '@heejun-com/core'
+import { CircleCancelFillIcon } from '@heejun-com/icons'
 import React, { AllHTMLAttributes, forwardRef } from 'react'
 
 import { vars } from '../../styles/theme.css'
@@ -39,7 +39,7 @@ export type FloatingTextFieldProps = Omit<
  * @example
  * ### 👇 기본 사용법
  * ```tsx
- * import { FloatingTextField } from '@orbit-ui/theme-eclipse'
+ * import { FloatingTextField } from '@heejun-com/theme-eclipse'
  *
  * function App() {
  *   const [value, setValue] = useState('')
@@ -57,7 +57,7 @@ export type FloatingTextFieldProps = Omit<
  * @example
  * ### 👇 에러 상태
  * ```tsx
- * import { FloatingTextField } from '@orbit-ui/theme-eclipse'
+ * import { FloatingTextField } from '@heejun-com/theme-eclipse'
  *
  * function App() {
  *   const [value, setValue] = useState('')

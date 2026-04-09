@@ -1,4 +1,4 @@
-import { Spinner } from '@orbit-ui/core'
+import { Spinner } from '@heejun-com/core'
 import React from 'react'
 import { cn } from '../../styles'
 

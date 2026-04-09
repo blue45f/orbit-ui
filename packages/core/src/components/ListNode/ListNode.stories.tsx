@@ -1,4 +1,4 @@
-import { CheckIcon, ChevronRightLineIcon } from '@orbit-ui/icons'
+import { CheckIcon, ChevronRightLineIcon } from '@heejun-com/icons'
 import { Meta, StoryObj } from '@storybook/react'
 
 import { Checkbox } from '../Checkbox'

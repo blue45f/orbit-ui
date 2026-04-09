@@ -3,7 +3,7 @@ import {
   BasePageIndicator,
   BasePageIndicatorProps,
   BasePageIndicatorSpecificProps,
-} from '@orbit-ui/core'
+} from '@heejun-com/core'
 import { forwardRef } from 'react'
 
 import { vars } from '../../styles/theme.css'
@@ -24,7 +24,7 @@ export type PageIndicatorProps = Omit<
  * @example
  * ### 👇 기본 사용법
  * ```tsx
- * import { PageIndicator } from '@orbit-ui/theme-eclipse'
+ * import { PageIndicator } from '@heejun-com/theme-eclipse'
  *
  * function App() {
  *   const [current, setCurrent] = useState(0)

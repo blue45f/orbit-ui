@@ -4,7 +4,7 @@ import {
   ButtonProps,
   ButtonSpecificProps,
   ComponentThemeProps,
-} from '@orbit-ui/core'
+} from '@heejun-com/core'
 import React, { AllHTMLAttributes, Children, forwardRef, ReactNode } from 'react'
 
 import { vars } from '../../styles/theme.css'
@@ -111,7 +111,7 @@ type GhostButtonComponent = typeof GhostButtonRoot & {
  * @example
  * ### 👇 기본 사용법
  * ```tsx
- * import { GhostButton, ChevronRightLineIcon } from '@orbit-ui/theme-eclipse'
+ * import { GhostButton, ChevronRightLineIcon } from '@heejun-com/theme-eclipse'
  *
  * function App() {
  *   return (
