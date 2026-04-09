@@ -80,7 +80,7 @@ import { Meta, Unstyled } from '@storybook/blocks'
     }}>
       {[
         { value: '50+', label: 'Components' },
-        { value: '3-Tier', label: 'Architecture' },
+        { value: '3 PKG', label: 'npm 패키지' },
         { value: 'A11y', label: 'WAI-ARIA' },
         { value: 'TS', label: 'Type-safe' },
       ].map((stat, i) => (
@@ -265,6 +265,72 @@ import { Meta, Unstyled } from '@storybook/blocks'
       </div>
     </section>
 
+    {/* NPM Package Overview */}
+    <section style={{ marginBottom: '64px' }}>
+      <div style={{ marginBottom: '24px' }}>
+        <div style={{ fontSize: '12px', fontWeight: '700', color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '8px' }}>npm Packages</div>
+        <h2 style={{ fontSize: '28px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', margin: '0 0 8px' }}>3개 독립 패키지 구성</h2>
+        <p style={{ fontSize: '14px', color: '#64748b', lineHeight: '1.6', margin: 0 }}>
+          각 패키지는 독립적으로 설치하고 사용할 수 있어, 프로젝트 필요에 따라 선택적으로 도입할 수 있습니다.
+        </p>
+      </div>
+
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px' }}>
+        {[
+          {
+            name: '@heejun-com/icons',
+            badge: 'Zero-dep',
+            badgeColor: '#d97706',
+            badgeBg: 'rgba(245,158,11,0.1)',
+            border: '#fbbf24',
+            bg: 'rgba(245,158,11,0.04)',
+            desc: '순수 SVG 아이콘 컴포넌트. 어떤 프레임워크/테마와도 독립적으로 사용 가능.',
+            install: 'pnpm add @heejun-com/icons',
+            code: '#d97706',
+          },
+          {
+            name: '@heejun-com/core',
+            badge: 'Headless',
+            badgeColor: '#2563eb',
+            badgeBg: 'rgba(59,130,246,0.1)',
+            border: '#93c5fd',
+            bg: 'rgba(59,130,246,0.04)',
+            desc: 'Headless 컴포넌트. 접근성/상태 로직만 담고 theme prop으로 스타일 주입.',
+            install: 'pnpm add @heejun-com/core',
+            code: '#2563eb',
+          },
+          {
+            name: '@heejun-com/theme-eclipse',
+            badge: 'Recommended',
+            badgeColor: '#6366f1',
+            badgeBg: 'rgba(99,102,241,0.1)',
+            border: '#a5b4fc',
+            bg: 'rgba(99,102,241,0.04)',
+            desc: '디자인 토큰 적용 완성 컴포넌트. 대부분의 프로젝트에서 이것만 설치하면 됩니다.',
+            install: 'pnpm add @heejun-com/theme-eclipse @heejun-com/icons',
+            code: '#6366f1',
+          },
+        ].map((pkg, i) => (
+          <div key={i} style={{
+            borderRadius: '14px',
+            border: `1px solid ${pkg.border}`,
+            background: pkg.bg,
+            padding: '20px',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '10px',
+          }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '6px' }}>
+              <span style={{ fontSize: '11px', padding: '2px 8px', borderRadius: '100px', background: pkg.badgeBg, color: pkg.badgeColor, fontWeight: '700' }}>{pkg.badge}</span>
+            </div>
+            <code style={{ fontSize: '12px', fontWeight: '700', color: pkg.code, wordBreak: 'break-all' }}>{pkg.name}</code>
+            <p style={{ fontSize: '12px', color: '#64748b', lineHeight: '1.6', margin: 0, flexGrow: 1 }}>{pkg.desc}</p>
+            <pre style={{ margin: 0, padding: '8px 10px', background: '#0f172a', borderRadius: '6px', color: '#e2e8f0', fontSize: '10px', fontFamily: '"JetBrains Mono", monospace', wordBreak: 'break-all', whiteSpace: 'pre-wrap' }}>{pkg.install}</pre>
+          </div>
+        ))}
+      </div>
+    </section>
+
     {/* Quick Navigation */}
     <section style={{ marginBottom: '40px' }}>
       <div style={{ marginBottom: '24px' }}>
@@ -278,7 +344,7 @@ import { Meta, Unstyled } from '@storybook/blocks'
           { title: '컴포넌트 개요', desc: '전체 컴포넌트 목록', href: '?path=/docs/intro-컴포넌트-개요--docs' },
           { title: '디자인 토큰', desc: '컬러, 타이포그래피, 스페이싱', href: '?path=/docs/intro-디자인토큰--docs' },
           { title: '아이콘 카탈로그', desc: 'Line & Fill 아이콘 갤러리', href: '?path=/docs/intro-아이콘-카탈로그--docs' },
-          { title: '아키텍처', desc: '3-Tier 구조, Layer 시스템', href: '?path=/docs/intro-아키텍처--docs' },
+          { title: '아키텍처 & npm 패키지', desc: '3-Tier 구조, 3개 패키지 분리 이유', href: '?path=/docs/intro-아키텍처--docs' },
           { title: '테마 가이드', desc: 'Light/Dark 모드 시스템', href: '?path=/docs/intro-테마-가이드--docs' },
         ].map((item, i) => (
           <a key={i} href={item.href} style={{

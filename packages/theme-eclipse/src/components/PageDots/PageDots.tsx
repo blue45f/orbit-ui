@@ -13,7 +13,6 @@ export type PageDotsProps = Omit<BasePageDotsProps, keyof BasePageDotsSpecificPr
 
 /**
  * ### 💡 알아두기
- * [🔗 figma 디자인가이드라인 바로가기](https://www.figma.com/design/j83TJjvORWmdqQ1mBWc3uR/%F0%9F%98%8E--%ED%81%B4%EB%A0%88%EC%9D%B4--%EC%BD%94%EC%96%B4-0.30.1?node-id=24143-2229&m=dev)
  *
  * 페이지 인디케이터의 개별 도트 요소입니다. 선택/비선택 상태를 표현하며 클릭 가능한 버튼입니다.
  *

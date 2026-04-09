@@ -95,7 +95,6 @@ const SolidIconButtonRoot: React.ForwardRefExoticComponent<
 
 /**
  * ### 💡 알아두기
- * [🔗 figma 디자인가이드라인 바로가기](https://www.figma.com/design/nvbYsAN7MkMtI50gQpoWdk/-%EC%9E%91%EC%97%85%EC%A4%91--%F0%9F%A9%B5-%ED%81%B4%EB%A0%88%EC%9D%B4-%EB%AF%BC%ED%8A%B8-2.0?node-id=2221-37800&m=dev)
  *
  * 좁은 공간에서 직관적인 액션 버튼 제공이 필요할때 사용해요.
  *

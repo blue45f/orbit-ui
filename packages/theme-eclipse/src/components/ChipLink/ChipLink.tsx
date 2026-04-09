@@ -45,7 +45,6 @@ type ChipLinkComponent = typeof ChipLinkRoot & {
 
 /**
  * ### 💡 알아두기
- * [🔗 figma 디자인가이드라인 바로가기](https://www.figma.com/design/pDTX2coGNHcsL25Jy6vsRZ/0.10.12-Chip%2C-Badge%2C-Button?node-id=12166-1102&t=qSEdzclH9DZ1OLxr-4)
  *
  * ### 🧩 서브컴포넌트
  * - {@link Leading `ChipLink.Leading`} 시작 영역

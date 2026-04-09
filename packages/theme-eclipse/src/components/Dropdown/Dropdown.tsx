@@ -128,7 +128,6 @@ type DropdownComponent = typeof DropdownRoot & {
 
 /**
  * ### 💡 알아두기
- * [🔗 figma 디자인가이드라인 바로가기](https://www.figma.com/design/j83TJjvORWmdqQ1mBWc3uR/%F0%9F%98%8E-%5B%ED%81%B4%EB%A0%88%EC%9D%B4%5D-%EC%BD%94%EC%96%B4?node-id=22471-8272&m=dev)
  *
  * ### 🧩 서브컴포넌트
  * - {@link DropdownLeading `Dropdown.Leading`} 좌측 영역

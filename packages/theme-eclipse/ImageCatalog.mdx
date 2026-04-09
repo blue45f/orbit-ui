@@ -13,155 +13,190 @@ import { Meta, Unstyled } from '@storybook/blocks'
     <div style={{ marginBottom: '40px' }}>
       <div style={{ fontSize: '12px', fontWeight: '700', color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '8px' }}>Image Catalog</div>
       <h1 style={{ fontSize: '36px', fontWeight: '800', color: '#1e293b', letterSpacing: '-0.03em', margin: '0 0 12px' }}>이미지 카탈로그</h1>
-      <p style={{ fontSize: '16px', color: '#64748b', lineHeight: '1.6', margin: 0 }}>
-        Orbit UI에서 제공하는 비주얼 자산 모음입니다. 총 <strong style={{ color: '#1e293b' }}>28개</strong> 에셋을 6개 카테고리로 제공합니다.
+      <p style={{ fontSize: '16px', color: '#64748b', lineHeight: '1.6', margin: '0 0 16px' }}>
+        Orbit UI 컴포넌트에서 활용 가능한 오픈소스 이미지 자산 모음입니다.
+        이미지는 <strong>Lorem Picsum</strong> (MIT 라이선스, Unsplash 사진)과 인라인 SVG 일러스트레이션을 사용합니다.
       </p>
+      <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '8px 14px', borderRadius: '8px', background: 'rgba(99,102,241,0.06)', border: '1px solid rgba(99,102,241,0.15)', fontSize: '13px' }}>
+        <span style={{ color: '#6366f1', fontWeight: '600' }}>📸 Lorem Picsum</span>
+        <span style={{ color: '#94a3b8' }}>picsum.photos</span>
+        <span style={{ color: '#94a3b8' }}>·</span>
+        <span style={{ color: '#6366f1', fontWeight: '600' }}>🎨 Inline SVG</span>
+        <span style={{ color: '#94a3b8' }}>Copyright-free</span>
+      </div>
     </div>
 
-    {/* Hero Illustrations */}
+    {/* Photo Gallery — Landscape */}
     <section style={{ marginBottom: '48px' }}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '16px' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '20px' }}>
         <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#6366f1' }} />
-        <h2 style={{ fontSize: '18px', fontWeight: '700', color: '#1e293b', margin: 0 }}>Hero Illustrations</h2>
-        <span style={{ fontSize: '12px', color: '#94a3b8' }}>6 assets</span>
+        <h2 style={{ fontSize: '18px', fontWeight: '700', color: '#1e293b', margin: 0 }}>Hero / Banner 이미지</h2>
+        <span style={{ fontSize: '12px', color: '#94a3b8', padding: '2px 8px', borderRadius: '100px', background: '#f1f5f9' }}>picsum.photos · 8 assets</span>
       </div>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '16px' }}>
         {[
-          { name: 'Welcome', desc: '온보딩 환영 화면', bg: 'linear-gradient(135deg, #6366f1, #8b5cf6)', fg: '#fff' },
-          { name: 'Not Found 404', desc: '페이지 없음 안내', bg: 'linear-gradient(135deg, #0f172a, #1e293b)', fg: '#6366f1' },
-          { name: 'Maintenance', desc: '서버 점검 안내', bg: 'linear-gradient(135deg, #f59e0b, #f97316)', fg: '#fff' },
-          { name: 'Onboarding', desc: '사용법 튜토리얼', bg: 'linear-gradient(135deg, #3b82f6, #06b6d4)', fg: '#fff' },
-          { name: 'Upgrade Plan', desc: '플랜 업그레이드 유도', bg: 'linear-gradient(135deg, #8b5cf6, #ec4899)', fg: '#fff' },
-          { name: 'Complete Setup', desc: '설정 완료 축하', bg: 'linear-gradient(135deg, #10b981, #059669)', fg: '#fff' },
-        ].map((img) => (
-          <div key={img.name} style={{ borderRadius: '16px', overflow: 'hidden', border: '1px solid #e2e8f0' }}>
-            <div style={{
-              aspectRatio: '16/9', background: img.bg,
-              display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', gap: '6px',
-            }}>
-              <div style={{ fontSize: '24px', fontWeight: '800', color: img.fg, letterSpacing: '-0.02em' }}>{img.name}</div>
-              <div style={{ fontSize: '12px', color: `${img.fg}bb` }}>Orbit UI</div>
+          { seed: 'landscape1', label: 'Nature — Mountains', tag: 'Hero' },
+          { seed: 'city2', label: 'Urban — Cityscape', tag: 'Hero' },
+          { seed: 'abstract3', label: 'Abstract — Texture', tag: 'Background' },
+          { seed: 'tech4', label: 'Technology — Close-up', tag: 'Feature' },
+          { seed: 'people5', label: 'People — Team', tag: 'Team' },
+          { seed: 'arch6', label: 'Architecture — Modern', tag: 'Hero' },
+          { seed: 'forest7', label: 'Nature — Forest', tag: 'Background' },
+          { seed: 'ocean8', label: 'Ocean — Aerial', tag: 'Hero' },
+        ].map((img, i) => (
+          <div key={img.seed} style={{ borderRadius: '14px', overflow: 'hidden', border: '1px solid #e2e8f0', boxShadow: '0 1px 3px rgba(0,0,0,0.05)' }}>
+            <div style={{ position: 'relative', aspectRatio: '16/9' }}>
+              <img
+                src={`https://picsum.photos/seed/${img.seed}/800/450`}
+                alt={img.label}
+                loading="lazy"
+                style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+              />
+              <div style={{ position: 'absolute', top: '10px', right: '10px', padding: '3px 10px', borderRadius: '100px', background: 'rgba(0,0,0,0.4)', backdropFilter: 'blur(4px)', fontSize: '11px', fontWeight: '600', color: '#fff' }}>
+                {img.tag}
+              </div>
             </div>
-            <div style={{ padding: '12px 16px', background: '#ffffff' }}>
-              <div style={{ fontSize: '13px', fontWeight: '600', color: '#1e293b' }}>{img.name}</div>
-              <div style={{ fontSize: '11px', color: '#94a3b8', marginTop: '2px' }}>{img.desc}</div>
-            </div>
-          </div>
-        ))}
-      </div>
-    </section>
-
-    {/* Empty States */}
-    <section style={{ marginBottom: '48px' }}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '16px' }}>
-        <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#94a3b8' }} />
-        <h2 style={{ fontSize: '18px', fontWeight: '700', color: '#1e293b', margin: 0 }}>Empty States</h2>
-        <span style={{ fontSize: '12px', color: '#94a3b8' }}>6 assets</span>
-      </div>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '12px' }}>
-        {[
-          { name: 'Empty Inbox', icon: '\u2709', desc: '수신함 비어있음' },
-          { name: 'No Results', icon: '\uD83D\uDD0D', desc: '검색 결과 없음' },
-          { name: 'Empty Cart', icon: '\uD83D\uDED2', desc: '장바구니 비어있음' },
-          { name: 'No Data', icon: '\uD83D\uDCC1', desc: '데이터 없음' },
-          { name: 'No Notifications', icon: '\uD83D\uDD14', desc: '알림 없음' },
-          { name: 'No Connection', icon: '\uD83D\uDD17', desc: '연결 끊김' },
-        ].map((img) => (
-          <div key={img.name} style={{ borderRadius: '12px', overflow: 'hidden', border: '1px solid #e2e8f0' }}>
-            <div style={{
-              aspectRatio: '4/3', background: '#f8fafc',
-              display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', gap: '8px',
-            }}>
-              <div style={{ fontSize: '36px' }}>{img.icon}</div>
-              <div style={{ fontSize: '13px', fontWeight: '600', color: '#94a3b8' }}>{img.name}</div>
-            </div>
-            <div style={{ padding: '10px 14px', background: '#ffffff' }}>
-              <div style={{ fontSize: '12px', fontWeight: '600', color: '#1e293b' }}>{img.name}</div>
-              <div style={{ fontSize: '11px', color: '#94a3b8', marginTop: '1px' }}>{img.desc}</div>
+            <div style={{ padding: '10px 14px', background: '#ffffff', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <div>
+                <div style={{ fontSize: '13px', fontWeight: '600', color: '#1e293b' }}>{img.label}</div>
+                <div style={{ fontSize: '11px', color: '#94a3b8', marginTop: '1px' }}>picsum.photos/seed/{img.seed}</div>
+              </div>
+              <span style={{ fontSize: '10px', color: '#6366f1', fontWeight: '600', padding: '2px 8px', borderRadius: '100px', background: 'rgba(99,102,241,0.08)' }}>16:9</span>
             </div>
           </div>
         ))}
       </div>
     </section>
 
-    {/* Status Feedback */}
+    {/* Avatar / Profile Photos */}
     <section style={{ marginBottom: '48px' }}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '16px' }}>
-        <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#10b981' }} />
-        <h2 style={{ fontSize: '18px', fontWeight: '700', color: '#1e293b', margin: 0 }}>Status Feedback</h2>
-        <span style={{ fontSize: '12px', color: '#94a3b8' }}>4 assets</span>
-      </div>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '12px' }}>
-        {[
-          { name: 'Success', icon: '\u2713', bg: '#f0fdf4', fg: '#22c55e', border: '#bbf7d0' },
-          { name: 'Error', icon: '\u2717', bg: '#fef2f2', fg: '#ef4444', border: '#fecaca' },
-          { name: 'Warning', icon: '\u26A0', bg: '#fffbeb', fg: '#f59e0b', border: '#fde68a' },
-          { name: 'Info', icon: '\u2139', bg: '#eff6ff', fg: '#3b82f6', border: '#bfdbfe' },
-        ].map((s) => (
-          <div key={s.name} style={{ borderRadius: '12px', overflow: 'hidden', border: `1px solid ${s.border}` }}>
-            <div style={{
-              aspectRatio: '1/1', background: s.bg,
-              display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', gap: '6px',
-            }}>
-              <div style={{ fontSize: '32px', color: s.fg }}>{s.icon}</div>
-              <div style={{ fontSize: '13px', fontWeight: '600', color: s.fg }}>{s.name}</div>
-            </div>
-          </div>
-        ))}
-      </div>
-    </section>
-
-    {/* Avatars */}
-    <section style={{ marginBottom: '48px' }}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '16px' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '20px' }}>
         <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#8b5cf6' }} />
-        <h2 style={{ fontSize: '18px', fontWeight: '700', color: '#1e293b', margin: 0 }}>Avatars</h2>
-        <span style={{ fontSize: '12px', color: '#94a3b8' }}>8 assets</span>
+        <h2 style={{ fontSize: '18px', fontWeight: '700', color: '#1e293b', margin: 0 }}>Avatar / Profile 이미지</h2>
+        <span style={{ fontSize: '12px', color: '#94a3b8', padding: '2px 8px', borderRadius: '100px', background: '#f1f5f9' }}>picsum.photos · 12 assets</span>
       </div>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(8, 1fr)', gap: '12px' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(6, 1fr)', gap: '16px', alignItems: 'center' }}>
         {[
-          { bg: '#e2e8f0', fg: '#94a3b8', i: 'U' },
-          { bg: '#dbeafe', fg: '#3b82f6', i: 'A' },
-          { bg: '#ede9fe', fg: '#8b5cf6', i: 'B' },
-          { bg: '#d1fae5', fg: '#10b981', i: 'C' },
-          { bg: '#ffedd5', fg: '#f97316', i: 'D' },
-          { bg: '#ffe4e6', fg: '#f43f5e', i: 'E' },
-          { bg: '#fef3c7', fg: '#d97706', i: 'F' },
-          { bg: '#cffafe', fg: '#0891b2', i: 'G' },
-        ].map((a, idx) => (
-          <div key={idx} style={{ textAlign: 'center' }}>
-            <div style={{
-              width: '56px', height: '56px', borderRadius: '50%', background: a.bg,
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-              fontSize: '20px', fontWeight: '700', color: a.fg, margin: '0 auto 6px',
-            }}>{a.i}</div>
+          { seed: 'person1', label: 'User A', size: 80 },
+          { seed: 'person2', label: 'User B', size: 80 },
+          { seed: 'person3', label: 'User C', size: 80 },
+          { seed: 'person4', label: 'User D', size: 80 },
+          { seed: 'person5', label: 'User E', size: 80 },
+          { seed: 'person6', label: 'User F', size: 80 },
+          { seed: 'person7', label: 'User G', size: 80 },
+          { seed: 'person8', label: 'User H', size: 80 },
+          { seed: 'person9', label: 'User I', size: 80 },
+          { seed: 'person10', label: 'User J', size: 80 },
+          { seed: 'person11', label: 'User K', size: 80 },
+          { seed: 'person12', label: 'User L', size: 80 },
+        ].map((a) => (
+          <div key={a.seed} style={{ textAlign: 'center' }}>
+            <img
+              src={`https://picsum.photos/seed/${a.seed}/80/80`}
+              alt={a.label}
+              loading="lazy"
+              style={{ width: '72px', height: '72px', borderRadius: '50%', objectFit: 'cover', display: 'block', margin: '0 auto 6px', border: '2px solid #e2e8f0' }}
+            />
+            <div style={{ fontSize: '11px', color: '#94a3b8', fontWeight: '500' }}>{a.label}</div>
           </div>
         ))}
       </div>
     </section>
 
-    {/* Backgrounds & Gradients */}
+    {/* Product / Card Thumbnails */}
     <section style={{ marginBottom: '48px' }}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '16px' }}>
-        <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#f59e0b' }} />
-        <h2 style={{ fontSize: '18px', fontWeight: '700', color: '#1e293b', margin: 0 }}>Backgrounds & Gradients</h2>
-        <span style={{ fontSize: '12px', color: '#94a3b8' }}>8 assets</span>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '20px' }}>
+        <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#10b981' }} />
+        <h2 style={{ fontSize: '18px', fontWeight: '700', color: '#1e293b', margin: 0 }}>Card Thumbnail 이미지</h2>
+        <span style={{ fontSize: '12px', color: '#94a3b8', padding: '2px 8px', borderRadius: '100px', background: '#f1f5f9' }}>picsum.photos · 9 assets</span>
       </div>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '12px' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '14px' }}>
+        {[
+          { seed: 'card1', label: 'Design Article', cat: 'Design' },
+          { seed: 'card2', label: 'Tech Review', cat: 'Tech' },
+          { seed: 'card3', label: 'Travel Guide', cat: 'Travel' },
+          { seed: 'card4', label: 'Food & Lifestyle', cat: 'Food' },
+          { seed: 'card5', label: 'Product Showcase', cat: 'Product' },
+          { seed: 'card6', label: 'Event Highlight', cat: 'Event' },
+          { seed: 'card7', label: 'Interview Series', cat: 'Interview' },
+          { seed: 'card8', label: 'Tutorial Cover', cat: 'Tutorial' },
+          { seed: 'card9', label: 'Case Study', cat: 'Case Study' },
+        ].map((c) => (
+          <div key={c.seed} style={{ borderRadius: '12px', overflow: 'hidden', border: '1px solid #e2e8f0' }}>
+            <div style={{ position: 'relative', aspectRatio: '4/3' }}>
+              <img
+                src={`https://picsum.photos/seed/${c.seed}/400/300`}
+                alt={c.label}
+                loading="lazy"
+                style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+              />
+            </div>
+            <div style={{ padding: '10px 12px', background: '#fff' }}>
+              <div style={{ fontSize: '12px', color: '#6366f1', fontWeight: '600', marginBottom: '2px' }}>{c.cat}</div>
+              <div style={{ fontSize: '13px', fontWeight: '600', color: '#1e293b' }}>{c.label}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    {/* SVG Illustrations — Empty States */}
+    <section style={{ marginBottom: '48px' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '20px' }}>
+        <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#f59e0b' }} />
+        <h2 style={{ fontSize: '18px', fontWeight: '700', color: '#1e293b', margin: 0 }}>Empty State 일러스트</h2>
+        <span style={{ fontSize: '12px', color: '#94a3b8', padding: '2px 8px', borderRadius: '100px', background: '#f1f5f9' }}>Inline SVG · 6 assets</span>
+      </div>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '14px' }}>
+        {[
+          { icon: '📭', name: 'Empty Inbox', desc: '수신함 비어있음', bg: 'linear-gradient(135deg, #f0f9ff, #e0f2fe)' },
+          { icon: '🔍', name: 'No Results', desc: '검색 결과 없음', bg: 'linear-gradient(135deg, #faf5ff, #f3e8ff)' },
+          { icon: '🛒', name: 'Empty Cart', desc: '장바구니 비어있음', bg: 'linear-gradient(135deg, #f0fdf4, #dcfce7)' },
+          { icon: '📊', name: 'No Data', desc: '데이터 없음', bg: 'linear-gradient(135deg, #fffbeb, #fef3c7)' },
+          { icon: '🔔', name: 'No Notifications', desc: '알림 없음', bg: 'linear-gradient(135deg, #fff1f2, #ffe4e6)' },
+          { icon: '🌐', name: 'No Connection', desc: '연결 끊김', bg: 'linear-gradient(135deg, #f8fafc, #f1f5f9)' },
+        ].map((e) => (
+          <div key={e.name} style={{ borderRadius: '14px', overflow: 'hidden', border: '1px solid #e2e8f0' }}>
+            <div style={{
+              aspectRatio: '4/3', background: e.bg,
+              display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', gap: '10px',
+            }}>
+              <div style={{ fontSize: '40px' }}>{e.icon}</div>
+              <div style={{ fontSize: '13px', fontWeight: '600', color: '#64748b' }}>{e.name}</div>
+            </div>
+            <div style={{ padding: '10px 14px', background: '#fff' }}>
+              <div style={{ fontSize: '12px', fontWeight: '600', color: '#1e293b' }}>{e.name}</div>
+              <div style={{ fontSize: '11px', color: '#94a3b8', marginTop: '1px' }}>{e.desc}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    {/* Gradients & Backgrounds */}
+    <section style={{ marginBottom: '48px' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '20px' }}>
+        <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#ec4899' }} />
+        <h2 style={{ fontSize: '18px', fontWeight: '700', color: '#1e293b', margin: 0 }}>그라디언트 배경</h2>
+        <span style={{ fontSize: '12px', color: '#94a3b8', padding: '2px 8px', borderRadius: '100px', background: '#f1f5f9' }}>CSS Gradient · 10 assets</span>
+      </div>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: '10px' }}>
         {[
           { name: 'Indigo', bg: 'linear-gradient(135deg, #6366f1, #3b82f6)' },
-          { name: 'Purple Rose', bg: 'linear-gradient(135deg, #8b5cf6, #ec4899)' },
+          { name: 'Violet', bg: 'linear-gradient(135deg, #8b5cf6, #ec4899)' },
           { name: 'Ocean', bg: 'linear-gradient(135deg, #06b6d4, #3b82f6)' },
           { name: 'Sunset', bg: 'linear-gradient(135deg, #f97316, #f43f5e)' },
           { name: 'Forest', bg: 'linear-gradient(135deg, #10b981, #059669)' },
           { name: 'Midnight', bg: 'linear-gradient(135deg, #0f172a, #1e1b4b)' },
           { name: 'Dawn', bg: 'linear-gradient(135deg, #fbbf24, #f97316)' },
           { name: 'Aurora', bg: 'linear-gradient(135deg, #06b6d4, #8b5cf6, #ec4899)' },
-        ].map((p) => (
-          <div key={p.name} style={{ borderRadius: '12px', overflow: 'hidden', border: '1px solid #e2e8f0' }}>
-            <div style={{ aspectRatio: '16/10', background: p.bg }} />
-            <div style={{ padding: '8px 12px', background: '#ffffff' }}>
-              <div style={{ fontSize: '12px', fontWeight: '600', color: '#1e293b' }}>{p.name}</div>
+          { name: 'Rose', bg: 'linear-gradient(135deg, #fda4af, #f43f5e)' },
+          { name: 'Sage', bg: 'linear-gradient(135deg, #6ee7b7, #10b981)' },
+        ].map((g) => (
+          <div key={g.name} style={{ borderRadius: '10px', overflow: 'hidden', border: '1px solid #e2e8f0' }}>
+            <div style={{ aspectRatio: '1/1', background: g.bg }} />
+            <div style={{ padding: '6px 10px', background: '#fff' }}>
+              <div style={{ fontSize: '11px', fontWeight: '600', color: '#1e293b' }}>{g.name}</div>
             </div>
           </div>
         ))}
@@ -169,34 +204,20 @@ import { Meta, Unstyled } from '@storybook/blocks'
     </section>
 
     {/* Usage Guide */}
-    <section style={{ marginBottom: '40px' }}>
-      <h2 style={{ fontSize: '20px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '16px' }}>사용 가이드</h2>
+    <section style={{ marginBottom: '40px', padding: '28px', borderRadius: '16px', border: '1px solid #e2e8f0', background: '#f8fafc' }}>
+      <h2 style={{ fontSize: '18px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginTop: 0, marginBottom: '20px' }}>이미지 사용 가이드</h2>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '12px', marginBottom: '20px' }}>
         {[
-          { title: '파일명 규칙', desc: '{이름}@{스케일}.{확장자}', example: 'welcome@2x.webp' },
-          { title: '포맷 권장', desc: 'WebP 우선, PNG 폴백', example: '.webp / .png' },
-          { title: 'CDN 경로', desc: 'CDN 인프라 구축 예정', example: 'cdn.orbit-ui.com/assets/' },
+          { title: '📸 Lorem Picsum', desc: '오픈소스 Unsplash 사진. 운영 환경에서도 사용 가능하며 seed 기반 고정 이미지를 제공합니다.', code: 'picsum.photos/seed/{id}/w/h' },
+          { title: '🎨 인라인 SVG', desc: 'Empty State, 아이콘, 일러스트는 React 컴포넌트로 제공되어 색상 및 크기 커스터마이징이 가능합니다.', code: '<EmptyInbox color="#6366f1" />' },
+          { title: '⚡ 포맷 권장', desc: '실제 서비스에서는 WebP + PNG 폴백 사용 권장. next/image, nuxt/image 최적화 활용 가능합니다.', code: 'format: webp, fallback: png' },
         ].map((item, i) => (
-          <div key={i} style={{ padding: '16px', borderRadius: '10px', border: '1px solid #e2e8f0' }}>
-            <div style={{ fontSize: '13px', fontWeight: '700', color: '#1e293b', marginBottom: '4px' }}>{item.title}</div>
-            <div style={{ fontSize: '12px', color: '#64748b', marginBottom: '8px' }}>{item.desc}</div>
-            <code style={{ padding: '4px 8px', borderRadius: '4px', background: '#f8fafc', fontSize: '11px', color: '#6366f1', fontFamily: '"JetBrains Mono", monospace' }}>{item.example}</code>
+          <div key={i} style={{ padding: '16px', borderRadius: '10px', border: '1px solid #e2e8f0', background: '#fff' }}>
+            <div style={{ fontSize: '13px', fontWeight: '700', color: '#1e293b', marginBottom: '6px' }}>{item.title}</div>
+            <div style={{ fontSize: '12px', color: '#64748b', lineHeight: '1.6', marginBottom: '10px' }}>{item.desc}</div>
+            <code style={{ padding: '4px 8px', borderRadius: '4px', background: '#f8fafc', fontSize: '11px', color: '#6366f1', fontFamily: '"JetBrains Mono", monospace', display: 'block', wordBreak: 'break-all' }}>{item.code}</code>
           </div>
         ))}
-      </div>
-      <div style={{ borderRadius: '12px', border: '1px solid #e2e8f0', overflow: 'hidden' }}>
-        <div style={{ padding: '8px 16px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', gap: '6px' }}>
-          <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#f87171' }} />
-          <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#fbbf24' }} />
-          <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#34d399' }} />
-          <span style={{ marginLeft: '8px', fontSize: '11px', color: '#94a3b8', fontWeight: '500' }}>Responsive Image</span>
-        </div>
-        <pre style={{ margin: 0, padding: '16px', background: '#0f172a', color: '#e2e8f0', fontSize: '13px', lineHeight: '1.8', fontFamily: '"JetBrains Mono", monospace' }}>
-{`<picture>
-  <source srcSet="cdn.orbit-ui.com/welcome@2x.webp" type="image/webp" />
-  <img src="cdn.orbit-ui.com/welcome@2x.png" alt="Welcome" />
-</picture>`}
-        </pre>
       </div>
     </section>
 

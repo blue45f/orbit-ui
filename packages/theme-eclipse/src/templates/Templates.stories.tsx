@@ -8,18 +8,23 @@ import {
   Breadcrumb,
   Carousel,
   Chip,
+  CounterBadge,
   DataTable,
   Divider,
   LabelBadge,
+  Loading,
   PageDots,
   Progress,
   RadioButton,
+  ScrollableTabGroup,
+  Skeleton,
   Slider,
   SolidButton,
   SolidIconButton,
   Switch,
   Text,
   TextField,
+  Tooltip,
 } from '../index'
 
 import { OutlineButton } from '../components/OutlineButton'
@@ -1016,4 +1021,343 @@ const PcLandingRender = () => {
 
 export const PcLanding: Story = {
   render: () => <PcLandingRender />,
+}
+
+/* ═══════════════════════════════════════════
+   5. E-Commerce Product Listing (PC)
+   ═══════════════════════════════════════════ */
+const EcommerceRender = () => {
+  const [activeCategory, setActiveCategory] = useState(0)
+  const [priceRange, setPriceRange] = useState([20, 80])
+  const [cartCount, setCartCount] = useState(2)
+  const [wishlist, setWishlist] = useState<number[]>([2])
+  const [loadingId, setLoadingId] = useState<number | null>(null)
+  const [sortIdx, setSortIdx] = useState(0)
+
+  const categories = [
+    { label: 'All Products' },
+    { label: 'Design Tools' },
+    { label: 'Components' },
+    { label: 'Templates' },
+    { label: 'Icons' },
+    { label: 'Fonts' },
+    { label: 'Illustrations' },
+  ]
+
+  const sortOptions = [
+    { id: 'popular', label: '인기순' },
+    { id: 'newest', label: '최신순' },
+    { id: 'price_asc', label: '낮은 가격순' },
+    { id: 'price_desc', label: '높은 가격순' },
+  ]
+
+  const products = [
+    { id: 1, name: 'Orbit UI Component Kit', cat: 'Components', price: 49, original: 79, rating: 4.9, reviews: 284, badge: 'Best Seller', color: '#6366f1' },
+    { id: 2, name: 'Eclipse Dark Theme Pack', cat: 'Templates', price: 29, original: null, rating: 4.7, reviews: 142, badge: 'New', color: '#8b5cf6' },
+    { id: 3, name: 'Design Token System', cat: 'Design Tools', price: 0, original: null, rating: 4.8, reviews: 320, badge: 'Free', color: '#10b981' },
+    { id: 4, name: 'Orbit Icon Library', cat: 'Icons', price: 19, original: 35, rating: 4.6, reviews: 98, badge: null, color: '#3b82f6' },
+    { id: 5, name: 'Pretendard + JetBrains', cat: 'Fonts', price: 0, original: null, rating: 4.5, reviews: 210, badge: 'Free', color: '#f59e0b' },
+    { id: 6, name: '3-Tier Architecture Guide', cat: 'Templates', price: 15, original: null, rating: 4.9, reviews: 67, badge: 'Popular', color: '#ef4444' },
+  ]
+
+  const handleAddToCart = (id: number) => {
+    setLoadingId(id)
+    setTimeout(() => {
+      setCartCount(c => c + 1)
+      setLoadingId(null)
+    }, 800)
+  }
+
+  return (
+    <div style={{ background: tc.bg, minHeight: '100vh', fontFamily: 'inherit' }}>
+      {/* Header */}
+      <header style={{
+        height: '60px', background: tc.bg, borderBottom: `1px solid ${tc.border}`,
+        padding: '0 32px', display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+        position: 'sticky', top: 0, zIndex: 10,
+      }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '32px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <div style={{ width: '28px', height: '28px', borderRadius: '7px', background: 'linear-gradient(135deg, #6366f1, #8b5cf6)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: '12px', fontWeight: '800' }}>O</div>
+            <Text textStyle="titleSmall" style={{ fontWeight: '800' }}>Orbit Market</Text>
+          </div>
+          <div style={{ width: '280px' }}>
+            <TextField placeholder="Search components, templates..." />
+          </div>
+        </div>
+        <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
+          <GhostButton size="small" color="black">Sign In</GhostButton>
+          <div style={{ position: 'relative' }}>
+            <SolidButton size="small" color="black">
+              🛒 Cart
+            </SolidButton>
+            {cartCount > 0 && (
+              <CounterBadge style={{ position: 'absolute', top: '-8px', right: '-8px' }}>{cartCount}</CounterBadge>
+            )}
+          </div>
+        </div>
+      </header>
+
+      <div style={{ display: 'flex', minHeight: 'calc(100vh - 60px)' }}>
+        {/* Sidebar Filter */}
+        <aside style={{
+          width: '240px', flexShrink: 0, borderRight: `1px solid ${tc.border}`,
+          padding: '24px 20px', background: tc.bg,
+        }}>
+          <Text textStyle="labelLargeEmphasized" style={{ display: 'block', marginBottom: '16px', color: tc.fgMuted, textTransform: 'uppercase', letterSpacing: '0.07em', fontSize: '11px' }}>Filters</Text>
+
+          {/* Price Range */}
+          <div style={{ marginBottom: '24px' }}>
+            <Text textStyle="bodySmall" style={{ display: 'block', fontWeight: '700', marginBottom: '12px', color: tc.fg }}>Price Range</Text>
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px' }}>
+              <Text textStyle="bodySmall" style={{ color: tc.fgMuted }}>${priceRange[0]}</Text>
+              <Text textStyle="bodySmall" style={{ color: tc.fgMuted }}>${priceRange[1]}</Text>
+            </div>
+            <Slider value={priceRange} onValueChange={setPriceRange} min={0} max={100} step={5} />
+          </div>
+
+          <Divider />
+
+          {/* Rating */}
+          <div style={{ margin: '20px 0' }}>
+            <Text textStyle="bodySmall" style={{ display: 'block', fontWeight: '700', marginBottom: '12px', color: tc.fg }}>Minimum Rating</Text>
+            {[4.5, 4.0, 3.5].map((r) => (
+              <label key={r} style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer', marginBottom: '8px' }}>
+                <RadioButton name="rating" value={String(r)} />
+                <Text textStyle="bodySmall" style={{ color: tc.fgSub }}>⭐ {r}+ ({r === 4.5 ? '128' : r === 4.0 ? '246' : '312'})</Text>
+              </label>
+            ))}
+          </div>
+
+          <Divider />
+
+          {/* Availability */}
+          <div style={{ margin: '20px 0' }}>
+            <Text textStyle="bodySmall" style={{ display: 'block', fontWeight: '700', marginBottom: '12px', color: tc.fg }}>Availability</Text>
+            {[
+              { label: 'Free only', val: false },
+              { label: 'Include paid', val: true },
+            ].map((item, i) => (
+              <div key={i} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
+                <Text textStyle="bodySmall" style={{ color: tc.fgSub }}>{item.label}</Text>
+                <Switch checked={item.val} onChange={() => {}} />
+              </div>
+            ))}
+          </div>
+
+          <Divider />
+
+          <div style={{ marginTop: '20px' }}>
+            <SolidButton size="small" color="black" style={{ width: '100%', justifyContent: 'center' }}>Apply Filters</SolidButton>
+            <GhostButton size="small" color="black" style={{ width: '100%', justifyContent: 'center', marginTop: '6px' }}>Reset</GhostButton>
+          </div>
+        </aside>
+
+        {/* Main Content */}
+        <div style={{ flex: 1, padding: '24px', minWidth: 0 }}>
+          {/* Breadcrumb & Sort */}
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+            <Breadcrumb>
+              <Breadcrumb.Item>Home</Breadcrumb.Item>
+              <Breadcrumb.Item>Market</Breadcrumb.Item>
+              <Breadcrumb.Item>Components</Breadcrumb.Item>
+            </Breadcrumb>
+            <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+              {sortOptions.map((opt, i) => (
+                <button
+                  key={opt.id}
+                  onClick={() => setSortIdx(i)}
+                  style={{
+                    padding: '5px 12px', borderRadius: '8px', border: `1px solid ${sortIdx === i ? '#6366f1' : tc.border}`,
+                    background: sortIdx === i ? 'rgba(99,102,241,0.08)' : 'transparent',
+                    color: sortIdx === i ? '#6366f1' : tc.fgSub,
+                    fontSize: '12px', fontWeight: sortIdx === i ? '700' : '400', cursor: 'pointer',
+                  }}
+                >{opt.label}</button>
+              ))}
+            </div>
+          </div>
+
+          {/* Category Tabs */}
+          <div style={{ marginBottom: '20px' }}>
+            <ScrollableTabGroup selectedIndex={activeCategory} onTabChange={setActiveCategory}>
+              {categories.map((cat) => (
+                <ScrollableTabGroup.Tab key={cat.label} value={cat.label}>
+                  <ScrollableTabGroup.TabCenter>{cat.label}</ScrollableTabGroup.TabCenter>
+                </ScrollableTabGroup.Tab>
+              ))}
+            </ScrollableTabGroup>
+          </div>
+
+          {/* Product Grid */}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px' }}>
+            {products.map((product) => (
+              <div key={product.id} style={{
+                borderRadius: '14px', border: `1px solid ${tc.border}`,
+                background: tc.bg, overflow: 'hidden',
+                transition: 'box-shadow 0.2s ease',
+              }}>
+                {/* Product Image */}
+                <div style={{
+                  aspectRatio: '4/3', position: 'relative',
+                  background: `linear-gradient(135deg, ${product.color}15 0%, ${product.color}08 100%)`,
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                }}>
+                  <div style={{
+                    width: '64px', height: '64px', borderRadius: '16px',
+                    background: `linear-gradient(135deg, ${product.color}, ${product.color}bb)`,
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    fontSize: '24px', fontWeight: '800', color: '#fff',
+                    boxShadow: `0 8px 24px ${product.color}40`,
+                  }}>O</div>
+                  {product.badge && (
+                    <div style={{ position: 'absolute', top: '10px', left: '10px' }}>
+                      <LabelBadge color={product.badge === 'Free' ? 'benefit' : product.badge === 'New' ? 'gray' : 'gray'}>
+                        <LabelBadge.Label>{product.badge}</LabelBadge.Label>
+                      </LabelBadge>
+                    </div>
+                  )}
+                  <button
+                    onClick={() => setWishlist(w => w.includes(product.id) ? w.filter(x => x !== product.id) : [...w, product.id])}
+                    style={{
+                      position: 'absolute', top: '10px', right: '10px',
+                      width: '32px', height: '32px', borderRadius: '50%', border: 'none',
+                      background: 'rgba(255,255,255,0.9)', cursor: 'pointer',
+                      display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      fontSize: '16px',
+                    }}
+                  >
+                    {wishlist.includes(product.id) ? '❤️' : '🤍'}
+                  </button>
+                </div>
+
+                {/* Product Info */}
+                <div style={{ padding: '16px' }}>
+                  <div style={{ display: 'flex', gap: '6px', marginBottom: '8px' }}>
+                    <Chip>{product.cat}</Chip>
+                  </div>
+                  <Text textStyle="bodyLarge" style={{ display: 'block', fontWeight: '700', marginBottom: '6px', color: tc.fg }}>{product.name}</Text>
+
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '12px' }}>
+                    <span style={{ fontSize: '12px', color: '#f59e0b' }}>★ {product.rating}</span>
+                    <span style={{ fontSize: '12px', color: tc.fgMuted }}>({product.reviews} reviews)</span>
+                  </div>
+
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <div>
+                      <span style={{ fontSize: '18px', fontWeight: '800', color: product.price === 0 ? '#10b981' : tc.fg }}>
+                        {product.price === 0 ? 'Free' : `$${product.price}`}
+                      </span>
+                      {product.original && (
+                        <span style={{ fontSize: '13px', color: tc.fgMuted, textDecoration: 'line-through', marginLeft: '6px' }}>${product.original}</span>
+                      )}
+                    </div>
+                    <Tooltip>
+                      <Tooltip.Trigger asChild>
+                        {loadingId === product.id ? (
+                          <div style={{ width: '80px', display: 'flex', justifyContent: 'center' }}>
+                            <Loading size="small" />
+                          </div>
+                        ) : (
+                          <SolidButton size="small" color="black" onClick={() => handleAddToCart(product.id)}>
+                            Add to Cart
+                          </SolidButton>
+                        )}
+                      </Tooltip.Trigger>
+                      <Tooltip.Content>장바구니에 추가</Tooltip.Content>
+                    </Tooltip>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Featured Banner */}
+          <div style={{ marginTop: '24px', borderRadius: '16px', overflow: 'hidden' }}>
+            <Carousel>
+              <Carousel.Item>
+                <div style={{
+                  padding: '32px 40px',
+                  background: 'linear-gradient(135deg, #0f172a 0%, #1e1b4b 60%, #312e81 100%)',
+                  display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                }}>
+                  <div>
+                    <div style={{ fontSize: '11px', color: 'rgba(255,255,255,0.6)', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '8px' }}>Featured</div>
+                    <div style={{ fontSize: '24px', fontWeight: '800', color: '#fff', marginBottom: '8px', letterSpacing: '-0.02em' }}>Orbit UI Pro Bundle</div>
+                    <div style={{ fontSize: '14px', color: 'rgba(255,255,255,0.7)', marginBottom: '20px' }}>모든 컴포넌트 + 템플릿 + 아이콘 패키지 — 40% 할인</div>
+                    <SolidButton size="medium" color="black" style={{ background: '#6366f1', borderColor: '#6366f1' }}>번들 구매하기 — $89</SolidButton>
+                  </div>
+                  <div style={{ fontSize: '80px', opacity: 0.4 }}>🚀</div>
+                </div>
+              </Carousel.Item>
+              <Carousel.Item>
+                <div style={{
+                  padding: '32px 40px',
+                  background: 'linear-gradient(135deg, #064e3b 0%, #065f46 60%, #047857 100%)',
+                  display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                }}>
+                  <div>
+                    <div style={{ fontSize: '11px', color: 'rgba(255,255,255,0.6)', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '8px' }}>Limited Offer</div>
+                    <div style={{ fontSize: '24px', fontWeight: '800', color: '#fff', marginBottom: '8px' }}>Free Forever Plan</div>
+                    <div style={{ fontSize: '14px', color: 'rgba(255,255,255,0.7)', marginBottom: '20px' }}>핵심 컴포넌트 50개 무료 제공 — 가입 없이 즉시 사용 가능</div>
+                    <OutlineButton size="medium" color="black" style={{ borderColor: 'rgba(255,255,255,0.4)', color: '#fff' }}>무료로 시작하기</OutlineButton>
+                  </div>
+                  <div style={{ fontSize: '80px', opacity: 0.4 }}>🎁</div>
+                </div>
+              </Carousel.Item>
+            </Carousel>
+            <div style={{ display: 'flex', justifyContent: 'center', gap: '5px', padding: '12px 0', background: tc.surface }}>
+              <PageDots selected={true} />
+              <PageDots selected={false} />
+            </div>
+          </div>
+
+          {/* Skeleton Loading Demo */}
+          <div style={{ marginTop: '24px', padding: '20px', borderRadius: '14px', border: `1px solid ${tc.border}`, background: tc.bg }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+              <Text textStyle="titleSmall" style={{ fontWeight: '700' }}>Loading Preview</Text>
+              <Chip>Skeleton Demo</Chip>
+            </div>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '12px' }}>
+              {Array.from({ length: 3 }).map((_, i) => (
+                <div key={i} style={{ borderRadius: '10px', border: `1px solid ${tc.border}`, overflow: 'hidden' }}>
+                  <Skeleton width="100%" height="120px" />
+                  <div style={{ padding: '12px', display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                    <Skeleton width="70%" height="14px" />
+                    <Skeleton width="100%" height="12px" />
+                    <Skeleton width="50%" height="12px" />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Recently Viewed */}
+          <div style={{ marginTop: '24px' }}>
+            <Text textStyle="titleSmall" style={{ display: 'block', fontWeight: '700', marginBottom: '16px', color: tc.fg }}>최근 본 상품</Text>
+            <div style={{ display: 'flex', gap: '12px', overflowX: 'auto', paddingBottom: '4px' }}>
+              {products.slice(0, 4).map((p) => (
+                <div key={p.id} style={{
+                  flexShrink: 0, width: '140px', borderRadius: '10px',
+                  border: `1px solid ${tc.border}`, overflow: 'hidden', background: tc.bg,
+                }}>
+                  <div style={{ height: '80px', background: `linear-gradient(135deg, ${p.color}15, ${p.color}05)`, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <div style={{ width: '36px', height: '36px', borderRadius: '8px', background: p.color, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: '14px', fontWeight: '800' }}>O</div>
+                  </div>
+                  <div style={{ padding: '8px 10px' }}>
+                    <Text textStyle="labelSmall" style={{ display: 'block', fontWeight: '600', color: tc.fg, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{p.name}</Text>
+                    <Text textStyle="labelSmall" style={{ color: p.price === 0 ? '#10b981' : tc.fgSub, fontWeight: '700' }}>{p.price === 0 ? 'Free' : `$${p.price}`}</Text>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const EcommerceMarket: Story = {
+  render: () => <EcommerceRender />,
 }

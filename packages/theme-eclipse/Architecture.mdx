@@ -372,6 +372,7 @@ const SolidButton = ({ color, size, ...props }) => (
       padding: '24px 28px', borderRadius: '12px',
       background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.04), rgba(168, 85, 247, 0.04))',
       border: '1px solid rgba(99, 102, 241, 0.1)',
+      marginBottom: '56px',
     }}>
       <div style={{ fontSize: '14px', fontWeight: '600', color: '#1e293b', marginBottom: '8px' }}>Summary</div>
       <ul style={{ margin: 0, paddingLeft: '20px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
@@ -379,6 +380,280 @@ const SolidButton = ({ color, size, ...props }) => (
         <li style={{ fontSize: '13px', color: '#64748b', lineHeight: '1.6' }}><strong style={{ color: '#3b82f6' }}>Core</strong> — 스타일 없는 Headless 컴포넌트, 접근성/키보드/상태 로직 담당</li>
         <li style={{ fontSize: '13px', color: '#64748b', lineHeight: '1.6' }}><strong style={{ color: '#6366f1' }}>Theme (Eclipse)</strong> — 디자인 토큰이 적용된 최종 컴포넌트, 사용자가 직접 import</li>
       </ul>
+    </section>
+
+    {/* NPM Package Architecture */}
+    <section style={{ marginBottom: '56px' }}>
+      <div style={{ marginBottom: '32px' }}>
+        <div style={{ fontSize: '12px', fontWeight: '700', color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '8px' }}>NPM Package Design</div>
+        <h2 style={{ fontSize: '28px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', margin: '0 0 12px' }}>3개 패키지로 분리한 이유</h2>
+        <p style={{ fontSize: '15px', color: '#64748b', lineHeight: '1.7', margin: 0 }}>
+          Orbit UI는 하나의 모놀리식 패키지 대신 <strong style={{ color: '#1e293b' }}>3개의 독립적인 npm 패키지</strong>로 구성되어 있습니다.
+          각 패키지는 서로 다른 관심사를 분리하여 팀별 선택적 도입, 번들 최적화, 테마 확장을 가능하게 합니다.
+        </p>
+      </div>
+
+      {/* Package Cards */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginBottom: '40px' }}>
+
+        {/* @heejun-com/icons */}
+        <div style={{
+          borderRadius: '16px', border: '1px solid #e2e8f0', overflow: 'hidden',
+        }}>
+          <div style={{
+            padding: '20px 24px',
+            background: 'linear-gradient(135deg, rgba(245, 158, 11, 0.06), rgba(251, 191, 36, 0.04))',
+            borderBottom: '1px solid #fde68a',
+            display: 'flex', alignItems: 'flex-start', gap: '16px',
+          }}>
+            <div style={{
+              padding: '8px 12px', borderRadius: '10px', background: '#f59e0b', color: '#ffffff',
+              fontSize: '18px', fontWeight: '800', flexShrink: 0, fontFamily: '"JetBrains Mono", monospace',
+            }}>ico</div>
+            <div style={{ flex: 1 }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '4px' }}>
+                <code style={{ fontSize: '15px', fontWeight: '700', color: '#1e293b' }}>@heejun-com/icons</code>
+                <span style={{ fontSize: '11px', padding: '2px 8px', borderRadius: '100px', background: 'rgba(245, 158, 11, 0.12)', color: '#d97706', fontWeight: '600' }}>Zero-dependency</span>
+              </div>
+              <p style={{ fontSize: '13px', color: '#64748b', margin: '0 0 12px', lineHeight: '1.6' }}>
+                순수 SVG 기반 아이콘 컴포넌트 모음. React, CSS 프레임워크, 테마와 <strong style={{ color: '#475569' }}>완전히 무관하게</strong> 어떤 프로젝트에서도 사용 가능합니다.
+                별도의 Provider나 CSS import 없이 바로 사용합니다.
+              </p>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginBottom: '12px' }}>
+                {['Line variants', 'Fill variants', 'size prop', 'color prop', 'SVG 최적화', 'Tree-shakeable'].map(f => (
+                  <span key={f} style={{ padding: '3px 8px', borderRadius: '5px', fontSize: '11px', fontWeight: '500', background: 'rgba(245, 158, 11, 0.08)', color: '#d97706', border: '1px solid rgba(245, 158, 11, 0.15)' }}>{f}</span>
+                ))}
+              </div>
+            </div>
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', background: '#ffffff' }}>
+            <div style={{ padding: '16px 20px', borderRight: '1px solid #f1f5f9' }}>
+              <div style={{ fontSize: '11px', fontWeight: '600', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '8px' }}>독립 사용 (권장)</div>
+              <pre style={{ margin: 0, padding: '12px', background: '#0f172a', borderRadius: '8px', color: '#e2e8f0', fontSize: '11px', lineHeight: '1.7', fontFamily: '"JetBrains Mono", monospace', overflow: 'auto' }}>
+{`// 아이콘만 필요한 프로젝트
+import { HomeLineIcon, BellIcon } from '@heejun-com/icons'
+
+<HomeLineIcon size={24} color="#6366f1" />
+<BellIcon size={20} />`}
+              </pre>
+            </div>
+            <div style={{ padding: '16px 20px' }}>
+              <div style={{ fontSize: '11px', fontWeight: '600', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '8px' }}>왜 분리했나?</div>
+              <ul style={{ margin: 0, paddingLeft: '16px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                <li style={{ fontSize: '12px', color: '#64748b', lineHeight: '1.5' }}>기존 디자인 시스템 교체 없이 아이콘만 도입 가능</li>
+                <li style={{ fontSize: '12px', color: '#64748b', lineHeight: '1.5' }}>테마 패키지 없이도 번들에 포함 가능</li>
+                <li style={{ fontSize: '12px', color: '#64748b', lineHeight: '1.5' }}>vanilla-extract 의존성 제로로 경량 유지</li>
+                <li style={{ fontSize: '12px', color: '#64748b', lineHeight: '1.5' }}>Tree-shaking으로 사용한 아이콘만 번들링</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        {/* @heejun-com/core */}
+        <div style={{
+          borderRadius: '16px', border: '1px solid #e2e8f0', overflow: 'hidden',
+        }}>
+          <div style={{
+            padding: '20px 24px',
+            background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.06), rgba(6, 182, 212, 0.04))',
+            borderBottom: '1px solid #bfdbfe',
+            display: 'flex', alignItems: 'flex-start', gap: '16px',
+          }}>
+            <div style={{
+              padding: '8px 12px', borderRadius: '10px', background: '#3b82f6', color: '#ffffff',
+              fontSize: '18px', fontWeight: '800', flexShrink: 0, fontFamily: '"JetBrains Mono", monospace',
+            }}>{'{}'}</div>
+            <div style={{ flex: 1 }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '4px' }}>
+                <code style={{ fontSize: '15px', fontWeight: '700', color: '#1e293b' }}>@heejun-com/core</code>
+                <span style={{ fontSize: '11px', padding: '2px 8px', borderRadius: '100px', background: 'rgba(59, 130, 246, 0.10)', color: '#2563eb', fontWeight: '600' }}>Headless</span>
+              </div>
+              <p style={{ fontSize: '13px', color: '#64748b', margin: '0 0 12px', lineHeight: '1.6' }}>
+                스타일이 없는 Headless 컴포넌트 레이어. 접근성(WAI-ARIA), 키보드 인터랙션, 상태 관리, 애니메이션 로직을 제공합니다.
+                <strong style={{ color: '#475569' }}> theme prop</strong>으로 외부에서 CSS 토큰을 주입받아 자신만의 디자인 시스템을 구축할 수 있습니다.
+              </p>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginBottom: '12px' }}>
+                {['WAI-ARIA', '키보드 내비게이션', 'theme prop 주입', 'Tailwind CSS', 'Polymorphic', '상태 관리'].map(f => (
+                  <span key={f} style={{ padding: '3px 8px', borderRadius: '5px', fontSize: '11px', fontWeight: '500', background: 'rgba(59, 130, 246, 0.06)', color: '#2563eb', border: '1px solid rgba(59, 130, 246, 0.12)' }}>{f}</span>
+                ))}
+              </div>
+            </div>
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', background: '#ffffff' }}>
+            <div style={{ padding: '16px 20px', borderRight: '1px solid #f1f5f9' }}>
+              <div style={{ fontSize: '11px', fontWeight: '600', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '8px' }}>나만의 테마 제작</div>
+              <pre style={{ margin: 0, padding: '12px', background: '#0f172a', borderRadius: '8px', color: '#e2e8f0', fontSize: '11px', lineHeight: '1.7', fontFamily: '"JetBrains Mono", monospace', overflow: 'auto' }}>
+{`// Eclipse 대신 커스텀 테마 구축
+import { Button } from '@heejun-com/core'
+
+const MyButton = ({ children }) => (
+  <Button
+    theme={{
+      backgroundColor: 'var(--brand-primary)',
+      color: 'var(--brand-on-primary)',
+      borderRadius: 'var(--radius-full)',
+    }}
+  >
+    {children}
+  </Button>
+)`}
+              </pre>
+            </div>
+            <div style={{ padding: '16px 20px' }}>
+              <div style={{ fontSize: '11px', fontWeight: '600', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '8px' }}>왜 분리했나?</div>
+              <ul style={{ margin: 0, paddingLeft: '16px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                <li style={{ fontSize: '12px', color: '#64748b', lineHeight: '1.5' }}>Eclipse 외 다른 테마(Dark Mode Only 등) 구축 가능</li>
+                <li style={{ fontSize: '12px', color: '#64748b', lineHeight: '1.5' }}>vanilla-extract 의존성을 테마 레이어에만 격리</li>
+                <li style={{ fontSize: '12px', color: '#64748b', lineHeight: '1.5' }}>접근성/로직 코드를 재사용하면서 완전히 다른 비주얼 가능</li>
+                <li style={{ fontSize: '12px', color: '#64748b', lineHeight: '1.5' }}>사내 디자인 시스템 fork 시 Core만 유지하고 Theme 교체</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        {/* @heejun-com/theme-eclipse */}
+        <div style={{
+          borderRadius: '16px', border: '1px solid #e2e8f0', overflow: 'hidden',
+        }}>
+          <div style={{
+            padding: '20px 24px',
+            background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.06), rgba(168, 85, 247, 0.04))',
+            borderBottom: '1px solid #c7d2fe',
+            display: 'flex', alignItems: 'flex-start', gap: '16px',
+          }}>
+            <div style={{
+              padding: '8px 12px', borderRadius: '10px', background: '#6366f1', color: '#ffffff',
+              fontSize: '18px', fontWeight: '800', flexShrink: 0, fontFamily: '"JetBrains Mono", monospace',
+            }}>UI</div>
+            <div style={{ flex: 1 }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '4px' }}>
+                <code style={{ fontSize: '15px', fontWeight: '700', color: '#1e293b' }}>@heejun-com/theme-eclipse</code>
+                <span style={{ fontSize: '11px', padding: '2px 8px', borderRadius: '100px', background: 'rgba(99, 102, 241, 0.10)', color: '#6366f1', fontWeight: '600' }}>Production Ready</span>
+              </div>
+              <p style={{ fontSize: '13px', color: '#64748b', margin: '0 0 12px', lineHeight: '1.6' }}>
+                Core + Eclipse 디자인 토큰이 결합된 최종 컴포넌트. vanilla-extract로 CSS 변수를 관리하며,
+                EclipseProvider 하나로 Light/Dark 테마와 모바일/PC 플랫폼을 동시에 제어합니다.
+                <strong style={{ color: '#475569' }}>대부분의 프로젝트에서 이 패키지만 설치하면 됩니다.</strong>
+              </p>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginBottom: '12px' }}>
+                {['Light/Dark Mode', 'Mobile/PC 대응', 'vanilla-extract', '디자인 토큰', '50+ Components', 'SSR 지원'].map(f => (
+                  <span key={f} style={{ padding: '3px 8px', borderRadius: '5px', fontSize: '11px', fontWeight: '500', background: 'rgba(99, 102, 241, 0.06)', color: '#6366f1', border: '1px solid rgba(99, 102, 241, 0.12)' }}>{f}</span>
+                ))}
+              </div>
+            </div>
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', background: '#ffffff' }}>
+            <div style={{ padding: '16px 20px', borderRight: '1px solid #f1f5f9' }}>
+              <div style={{ fontSize: '11px', fontWeight: '600', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '8px' }}>일반적인 사용법</div>
+              <pre style={{ margin: 0, padding: '12px', background: '#0f172a', borderRadius: '8px', color: '#e2e8f0', fontSize: '11px', lineHeight: '1.7', fontFamily: '"JetBrains Mono", monospace', overflow: 'auto' }}>
+{`import { EclipseProvider, SolidButton, TextField }
+  from '@heejun-com/theme-eclipse'
+import '@heejun-com/theme-eclipse/style.css'
+
+<EclipseProvider mode="light">
+  <TextField placeholder="검색" />
+  <SolidButton color="black">
+    <SolidButton.Center>확인</SolidButton.Center>
+  </SolidButton>
+</EclipseProvider>`}
+              </pre>
+            </div>
+            <div style={{ padding: '16px 20px' }}>
+              <div style={{ fontSize: '11px', fontWeight: '600', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '8px' }}>왜 분리했나?</div>
+              <ul style={{ margin: 0, paddingLeft: '16px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                <li style={{ fontSize: '12px', color: '#64748b', lineHeight: '1.5' }}>vanilla-extract를 사용하지 않는 팀이 Core만 도입 가능</li>
+                <li style={{ fontSize: '12px', color: '#64748b', lineHeight: '1.5' }}>Eclipse 외 테마(예: Midnight, Coral)를 별도 패키지로 배포 가능</li>
+                <li style={{ fontSize: '12px', color: '#64748b', lineHeight: '1.5' }}>style.css 번들이 Core가 아닌 테마 패키지에만 존재</li>
+                <li style={{ fontSize: '12px', color: '#64748b', lineHeight: '1.5' }}>디자이너가 테마 토큰만 수정하여 새 테마 패키지 발행 가능</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      {/* Dependency Graph */}
+      <div style={{ marginBottom: '32px' }}>
+        <h3 style={{ fontSize: '18px', fontWeight: '700', color: '#1e293b', marginBottom: '16px', letterSpacing: '-0.01em' }}>패키지 의존 관계</h3>
+        <div style={{
+          padding: '28px', borderRadius: '16px', border: '1px solid #e2e8f0', background: '#fafafa',
+          fontFamily: '"JetBrains Mono", monospace',
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0', flexWrap: 'wrap', rowGap: '12px' }}>
+            {/* icons */}
+            <div style={{ textAlign: 'center', padding: '12px 20px', borderRadius: '12px', border: '2px solid #fbbf24', background: 'rgba(245, 158, 11, 0.05)' }}>
+              <div style={{ fontSize: '12px', fontWeight: '700', color: '#d97706' }}>@heejun-com/icons</div>
+              <div style={{ fontSize: '10px', color: '#94a3b8', marginTop: '2px' }}>No deps</div>
+            </div>
+            <div style={{ padding: '0 8px', color: '#cbd5e1', fontSize: '18px' }}>+</div>
+            {/* core */}
+            <div style={{ textAlign: 'center', padding: '12px 20px', borderRadius: '12px', border: '2px solid #93c5fd', background: 'rgba(59, 130, 246, 0.05)' }}>
+              <div style={{ fontSize: '12px', fontWeight: '700', color: '#2563eb' }}>@heejun-com/core</div>
+              <div style={{ fontSize: '10px', color: '#94a3b8', marginTop: '2px' }}>Tailwind + Radix</div>
+            </div>
+            <div style={{ padding: '0 12px', color: '#cbd5e1', fontSize: '18px' }}>→</div>
+            {/* theme-eclipse */}
+            <div style={{ textAlign: 'center', padding: '12px 20px', borderRadius: '12px', border: '2px solid #a5b4fc', background: 'rgba(99, 102, 241, 0.05)' }}>
+              <div style={{ fontSize: '12px', fontWeight: '700', color: '#6366f1' }}>@heejun-com/theme-eclipse</div>
+              <div style={{ fontSize: '10px', color: '#94a3b8', marginTop: '2px' }}>core + icons + vanilla-extract</div>
+            </div>
+            <div style={{ padding: '0 12px', color: '#cbd5e1', fontSize: '18px' }}>→</div>
+            {/* your app */}
+            <div style={{ textAlign: 'center', padding: '12px 20px', borderRadius: '12px', border: '2px dashed #e2e8f0', background: '#ffffff' }}>
+              <div style={{ fontSize: '12px', fontWeight: '700', color: '#475569' }}>Your App</div>
+              <div style={{ fontSize: '10px', color: '#94a3b8', marginTop: '2px' }}>import theme-eclipse</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Usage Scenarios */}
+      <h3 style={{ fontSize: '18px', fontWeight: '700', color: '#1e293b', marginBottom: '16px', letterSpacing: '-0.01em' }}>시나리오별 도입 방법</h3>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+        {[
+          {
+            scenario: '일반 React 웹앱 — 가장 일반적인 케이스',
+            install: 'pnpm add @heejun-com/theme-eclipse @heejun-com/icons',
+            note: 'theme-eclipse가 core를 내부적으로 포함합니다. icons를 추가로 설치하면 아이콘 컴포넌트 사용 가능.',
+            color: '#6366f1',
+          },
+          {
+            scenario: '아이콘만 필요한 프로젝트 (기존 UI 라이브러리 유지)',
+            install: 'pnpm add @heejun-com/icons',
+            note: '어떤 React 프레임워크와도 호환. Provider 불필요. 번들 충돌 없음.',
+            color: '#f59e0b',
+          },
+          {
+            scenario: '사내 커스텀 디자인 시스템 구축 (Core 기반)',
+            install: 'pnpm add @heejun-com/core @heejun-com/icons',
+            note: 'Core의 Headless 컴포넌트에 자체 CSS 변수나 Tailwind 클래스를 주입하여 고유한 테마를 만들 수 있습니다.',
+            color: '#3b82f6',
+          },
+          {
+            scenario: 'Next.js App Router / SSR 환경',
+            install: 'pnpm add @heejun-com/theme-eclipse @heejun-com/icons',
+            note: "getTheme()을 RootLayout에 적용하여 SSR 초기 렌더링 시 테마 깜빡임(FOUC)을 방지합니다.",
+            color: '#10b981',
+          },
+        ].map((s, i) => (
+          <div key={i} style={{
+            borderRadius: '12px', border: '1px solid #e2e8f0', overflow: 'hidden',
+          }}>
+            <div style={{
+              padding: '10px 16px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0',
+              display: 'flex', alignItems: 'center', gap: '8px',
+            }}>
+              <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: s.color, flexShrink: 0 }} />
+              <span style={{ fontSize: '13px', fontWeight: '600', color: '#1e293b' }}>{s.scenario}</span>
+            </div>
+            <div style={{ padding: '12px 16px', background: '#ffffff' }}>
+              <pre style={{ margin: '0 0 8px', padding: '10px 14px', background: '#0f172a', borderRadius: '8px', color: '#e2e8f0', fontSize: '12px', fontFamily: '"JetBrains Mono", monospace' }}>{s.install}</pre>
+              <p style={{ margin: 0, fontSize: '12px', color: '#64748b', lineHeight: '1.5' }}>{s.note}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+
     </section>
 
   </div>

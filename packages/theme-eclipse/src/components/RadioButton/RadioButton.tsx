@@ -16,7 +16,6 @@ export type RadioButtonProps = Omit<
 
 /**
  * ### 💡 알아두기
- * [🔗 figma 디자인가이드라인 바로가기](https://www.figma.com/design/nvbYsAN7MkMtI50gQpoWdk/-%EB%AF%BC%ED%8A%B8-2.0--%ED%81%B4%EB%A0%88%EC%9D%B4%EB%AF%BC%ED%8A%B8?node-id=3026-61762&m=dev)
  * - RadioButton는 제어 컴포넌트로만 작동하며, 비제어 방식은 RadioButtonGroup, RadioButtonWithLabel을 통해서만 지원합니다.
  *
  * 여러 옵션 중 하나만 선택할 때 사용해요. 레이블 없이 인풋만 있어요.
