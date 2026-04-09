@@ -1,5 +1,5 @@
 {
-  "installCommand": "cd ../.. && pnpm install && pnpm --filter @orbit-ui/vite-plugin build",
+  "installCommand": "cd ../.. && pnpm install && pnpm --filter @orbit-ui/vite-plugin build && pnpm --filter @heejun-com/icons build && pnpm --filter @heejun-com/core build",
   "buildCommand": "pnpm build:storybook",
   "outputDirectory": "storybook-static"
 }
