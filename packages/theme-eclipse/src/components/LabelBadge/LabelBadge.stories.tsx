@@ -1,5 +1,6 @@
 import { StarFillIcon, CheckIcon } from '@heejun-com/icons'
 import { Meta, StoryObj } from '@storybook/react'
+import { useState } from 'react'
 
 import { LabelBadge } from './LabelBadge'
 
@@ -225,6 +226,324 @@ export const Vercel_환경_배지_조합: Story = {
                 </LabelBadge>
               </div>
               <span style={{ fontSize: 11, color: '#94a3b8' }}>{env.url}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    )
+  },
+}
+
+/* --------------------------------------------------------------------------
+   Apple HIG 스타일: 세그먼트 필터 + 상태 배지 조합
+   Apple HIG의 Segmented Control + 인라인 배지 패턴.
+   상태별로 아이템을 분류하고 각 항목에 배지를 표시합니다.
+-------------------------------------------------------------------------- */
+const AppleHIGSegmentFilterRender = () => {
+  const segments = ['전체', '진행 중', '완료', '보류'] as const
+  type Segment = typeof segments[number]
+  const [active, setActive] = useState<Segment>('전체')
+
+  const items: Array<{ title: string; status: Segment; color: 'gray' | 'benefit' | 'sale'; tag: string }> = [
+    { title: 'Orbit UI 디자인 시스템 v2', status: '진행 중', color: 'benefit', tag: '진행 중' },
+    { title: 'AccessibilityGuide 문서 작성', status: '완료', color: 'benefit', tag: '완료' },
+    { title: '다크모드 토큰 정의', status: '보류', color: 'gray', tag: '보류' },
+    { title: 'Drawer 스토리 고도화', status: '진행 중', color: 'benefit', tag: '진행 중' },
+    { title: 'DataTable 페이지네이션', status: '완료', color: 'benefit', tag: '완료' },
+    { title: 'CommandPalette 템플릿', status: '보류', color: 'gray', tag: '보류' },
+  ]
+
+  const filtered = active === '전체' ? items : items.filter((i) => i.status === active)
+
+  return (
+    <div style={{ maxWidth: '480px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+      {/* Segmented Control (Apple HIG 스타일) */}
+      <div style={{
+        display: 'inline-flex',
+        background: '#f1f5f9',
+        borderRadius: '10px',
+        padding: '3px',
+        gap: '2px',
+      }}>
+        {segments.map((seg) => (
+          <button
+            key={seg}
+            onClick={() => setActive(seg)}
+            style={{
+              padding: '6px 14px',
+              borderRadius: '8px',
+              border: 'none',
+              background: active === seg ? '#ffffff' : 'transparent',
+              color: active === seg ? '#1e293b' : '#64748b',
+              fontWeight: active === seg ? 600 : 400,
+              fontSize: '13px',
+              cursor: 'pointer',
+              boxShadow: active === seg ? '0 1px 4px rgba(0,0,0,0.1)' : 'none',
+              transition: 'all 0.15s ease',
+            }}
+          >
+            {seg}
+          </button>
+        ))}
+      </div>
+
+      {/* 아이템 목록 */}
+      <div style={{ borderRadius: '12px', border: '1px solid #e2e8f0', overflow: 'hidden' }}>
+        {filtered.length === 0 ? (
+          <div style={{ padding: '24px', textAlign: 'center', color: '#94a3b8', fontSize: '13px' }}>
+            항목이 없습니다.
+          </div>
+        ) : (
+          filtered.map((item, i) => (
+            <div
+              key={item.title}
+              style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                padding: '13px 16px',
+                borderBottom: i < filtered.length - 1 ? '1px solid #f1f5f9' : 'none',
+              }}
+            >
+              <span style={{ fontSize: '13px', color: '#1e293b', fontWeight: 500 }}>{item.title}</span>
+              <LabelBadge color={item.color}>
+                <LabelBadge.Label>{item.tag}</LabelBadge.Label>
+              </LabelBadge>
+            </div>
+          ))
+        )}
+      </div>
+    </div>
+  )
+}
+
+export const Apple_HIG_세그먼트_필터: Story = {
+  render: () => <AppleHIGSegmentFilterRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Raycast 스타일: 퀵 액션 결과 목록 + 배지
+   Raycast의 Action List 패턴: 아이콘 + 제목 + 서브타이틀 + 단축키 배지.
+   키보드 내비게이션 시뮬레이션 포함.
+-------------------------------------------------------------------------- */
+const RaycastActionListRender = () => {
+  const [selectedIdx, setSelectedIdx] = useState(0)
+
+  const actions: Array<{
+    label: string
+    desc: string
+    shortcut: string
+    color: 'gray' | 'benefit' | 'sale'
+    tag: string
+    icon: string
+  }> = [
+    { label: '새 컴포넌트 생성', desc: 'pnpm gen 실행', shortcut: 'N', color: 'benefit', tag: 'Action', icon: '+' },
+    { label: '스토리북 시작', desc: 'pnpm dev', shortcut: 'D', color: 'benefit', tag: 'Dev', icon: '>' },
+    { label: '타입체크 실행', desc: 'pnpm typecheck', shortcut: 'T', color: 'gray', tag: 'QA', icon: 'T' },
+    { label: '린트 수정', desc: 'pnpm lint:fix', shortcut: 'L', color: 'gray', tag: 'QA', icon: 'L' },
+    { label: '빌드 실행', desc: 'pnpm build', shortcut: 'B', color: 'gray', tag: 'Build', icon: 'B' },
+    { label: '변경셋 생성', desc: 'pnpm changeset', shortcut: 'C', color: 'sale', tag: 'Release', icon: 'R' },
+  ]
+
+  return (
+    <div style={{
+      width: '480px',
+      borderRadius: '14px',
+      border: '1px solid #e2e8f0',
+      background: '#ffffff',
+      boxShadow: '0 8px 32px rgba(0,0,0,0.08)',
+      overflow: 'hidden',
+    }}>
+      {/* Raycast 헤더 */}
+      <div style={{
+        padding: '14px 16px',
+        borderBottom: '1px solid #f1f5f9',
+        background: '#f8fafc',
+        display: 'flex',
+        alignItems: 'center',
+        gap: '8px',
+      }}>
+        <div style={{
+          width: '8px', height: '8px', borderRadius: '50%',
+          background: '#6366f1', boxShadow: '0 0 0 3px rgba(99,102,241,0.15)',
+        }} />
+        <span style={{ fontSize: '13px', fontWeight: 700, color: '#1e293b' }}>Quick Actions</span>
+        <span style={{ fontSize: '11px', color: '#94a3b8', marginLeft: 'auto' }}>
+          {selectedIdx + 1} / {actions.length}
+        </span>
+      </div>
+
+      {/* 액션 목록 */}
+      <div>
+        {actions.map((action, i) => {
+          const isSelected = i === selectedIdx
+          return (
+            <div
+              key={action.label}
+              onClick={() => setSelectedIdx(i)}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '12px',
+                padding: '10px 16px',
+                background: isSelected ? 'rgba(99,102,241,0.06)' : '#fff',
+                borderBottom: i < actions.length - 1 ? '1px solid #f8fafc' : 'none',
+                cursor: 'pointer',
+                transition: 'background 0.1s',
+              }}
+            >
+              {/* 아이콘 */}
+              <div style={{
+                width: '32px', height: '32px', borderRadius: '8px',
+                background: isSelected ? '#6366f1' : '#f1f5f9',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                fontSize: '13px', fontWeight: 700,
+                color: isSelected ? '#fff' : '#64748b',
+                flexShrink: 0,
+                transition: 'all 0.15s',
+              }}>
+                {action.icon}
+              </div>
+
+              {/* 텍스트 */}
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <div style={{ fontSize: '13px', fontWeight: 500, color: '#1e293b' }}>{action.label}</div>
+                <div style={{ fontSize: '11px', color: '#94a3b8', marginTop: '1px' }}>{action.desc}</div>
+              </div>
+
+              {/* 태그 + 단축키 */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: '6px', flexShrink: 0 }}>
+                <LabelBadge color={action.color}>
+                  <LabelBadge.Label>{action.tag}</LabelBadge.Label>
+                </LabelBadge>
+                {action.shortcut && (
+                  <kbd style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    minWidth: '20px',
+                    height: '20px',
+                    padding: '0 5px',
+                    borderRadius: '4px',
+                    border: '1px solid #e2e8f0',
+                    background: '#f8fafc',
+                    fontSize: '10px',
+                    fontWeight: 700,
+                    color: '#64748b',
+                    fontFamily: 'monospace',
+                  }}>
+                    {action.shortcut}
+                  </kbd>
+                )}
+              </div>
+            </div>
+          )
+        })}
+      </div>
+
+      {/* 하단 힌트 */}
+      <div style={{
+        padding: '8px 16px',
+        background: '#f8fafc',
+        borderTop: '1px solid #f1f5f9',
+        display: 'flex',
+        gap: '16px',
+      }}>
+        {[
+          { key: 'Enter', label: '실행' },
+          { key: 'Esc', label: '닫기' },
+        ].map(({ key, label }) => (
+          <div key={key} style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+            <kbd style={{
+              padding: '2px 6px', borderRadius: '4px',
+              border: '1px solid #e2e8f0', background: '#fff',
+              fontSize: '10px', fontWeight: 700, color: '#64748b', fontFamily: 'monospace',
+            }}>{key}</kbd>
+            <span style={{ fontSize: '11px', color: '#94a3b8' }}>{label}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+export const Raycast_퀵액션_목록: Story = {
+  render: () => <RaycastActionListRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Apple HIG + Linear 조합: 이슈 우선순위 배지 목록
+   Apple HIG의 List 패턴 + Linear의 Priority indicator 조합.
+   각 이슈 항목에 우선순위, 상태, 레이블 배지를 복합적으로 표시합니다.
+-------------------------------------------------------------------------- */
+export const Apple_HIG_이슈_우선순위_목록: Story = {
+  render: () => {
+    const issues: Array<{
+      id: string
+      title: string
+      priority: string
+      status: 'benefit' | 'gray' | 'sale'
+      statusLabel: string
+      label: string
+      labelColor: 'gray' | 'benefit' | 'sale'
+      dot: string
+    }> = [
+      { id: 'ORB-101', title: 'DataTable 정렬 버그 수정', priority: 'Urgent', status: 'sale', statusLabel: 'In Progress', label: 'Bug', labelColor: 'sale', dot: '#ef4444' },
+      { id: 'ORB-102', title: 'Dark mode 토큰 보완', priority: 'High', status: 'benefit', statusLabel: 'In Review', label: 'Enhancement', labelColor: 'benefit', dot: '#f59e0b' },
+      { id: 'ORB-103', title: 'LabelBadge 접근성 개선', priority: 'Medium', status: 'gray', statusLabel: 'Todo', label: 'A11y', labelColor: 'gray', dot: '#6366f1' },
+      { id: 'ORB-104', title: 'CommandPalette 키보드 내비게이션', priority: 'Medium', status: 'gray', statusLabel: 'Todo', label: 'Feature', labelColor: 'gray', dot: '#6366f1' },
+      { id: 'ORB-105', title: 'Progress 애니메이션 성능 최적화', priority: 'Low', status: 'benefit', statusLabel: 'Done', label: 'Perf', labelColor: 'benefit', dot: '#10b981' },
+    ]
+
+    return (
+      <div style={{ maxWidth: '560px', borderRadius: '12px', border: '1px solid #e2e8f0', overflow: 'hidden' }}>
+        <div style={{
+          padding: '10px 16px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0',
+          display: 'flex', alignItems: 'center', gap: '8px',
+        }}>
+          <span style={{ fontSize: '13px', fontWeight: 700, color: '#1e293b' }}>Issues</span>
+          <span style={{
+            display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+            width: '18px', height: '18px', borderRadius: '50%',
+            background: '#6366f1', color: '#fff', fontSize: '10px', fontWeight: 700,
+          }}>
+            {issues.length}
+          </span>
+        </div>
+        {issues.map((issue, i) => (
+          <div
+            key={issue.id}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '12px',
+              padding: '11px 16px',
+              borderBottom: i < issues.length - 1 ? '1px solid #f8fafc' : 'none',
+            }}
+          >
+            {/* 우선순위 dot */}
+            <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: issue.dot, flexShrink: 0 }} />
+
+            {/* ID + Title */}
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '2px' }}>
+                <span style={{ fontSize: '11px', fontWeight: 600, color: '#94a3b8', fontFamily: 'monospace' }}>
+                  {issue.id}
+                </span>
+              </div>
+              <div style={{ fontSize: '13px', fontWeight: 500, color: '#1e293b', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                {issue.title}
+              </div>
+            </div>
+
+            {/* 배지 그룹 */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', flexShrink: 0 }}>
+              <LabelBadge color={issue.labelColor}>
+                <LabelBadge.Label>{issue.label}</LabelBadge.Label>
+              </LabelBadge>
+              <LabelBadge color={issue.status}>
+                <LabelBadge.Label>{issue.statusLabel}</LabelBadge.Label>
+              </LabelBadge>
             </div>
           </div>
         ))}

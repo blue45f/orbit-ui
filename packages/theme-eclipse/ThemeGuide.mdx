@@ -262,6 +262,337 @@ const CustomCard = () => (
       </div>
     </section>
 
+    {/* Runtime Theme Change */}
+    <section style={{ marginBottom: '56px' }}>
+      <h2 style={{ fontSize: '24px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '8px' }}>런타임 테마 변경</h2>
+      <p style={{ fontSize: '14px', color: '#64748b', lineHeight: '1.7', marginBottom: '20px' }}>
+        <code style={{ background: '#f1f5f9', color: '#6366f1', padding: '2px 6px', borderRadius: '4px', fontSize: '13px', fontWeight: '500' }}>EclipseProvider</code>의 <code style={{ background: '#f1f5f9', color: '#6366f1', padding: '2px 6px', borderRadius: '4px', fontSize: '13px', fontWeight: '500' }}>mode</code> prop을 상태로 관리하면 런타임에 즉시 테마를 전환할 수 있습니다.
+        CSS 변수가 자동으로 교체되므로 별도의 리렌더링 최적화 없이도 부드럽게 전환됩니다.
+      </p>
+
+      <div style={{ borderRadius: '16px', border: '1px solid #e2e8f0', overflow: 'hidden', marginBottom: '16px' }}>
+        <div style={{ padding: '10px 16px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0', fontSize: '12px', fontWeight: '600', color: '#475569' }}>
+          런타임 테마 전환 패턴 — useLocalStorage 활용
+        </div>
+        <pre style={{ margin: 0, padding: '20px', background: '#0f172a', color: '#e2e8f0', fontSize: '11px', lineHeight: '1.8', fontFamily: '"JetBrains Mono", monospace', overflow: 'auto' }}>
+{`// app/providers.tsx
+'use client'
+import { useState, useEffect } from 'react'
+import { EclipseProvider } from '@heejun-com/theme-eclipse'
+
+export function Providers({ children }: { children: React.ReactNode }) {
+  const [mode, setMode] = useState<'light' | 'dark'>('light')
+
+  // 시스템 다크모드 감지 + 로컬스토리지 동기화
+  useEffect(() => {
+    const saved = localStorage.getItem('theme') as 'light' | 'dark' | null
+    if (saved) {
+      setMode(saved)
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      setMode('dark')
+    }
+  }, [])
+
+  const toggleTheme = () => {
+    const next = mode === 'light' ? 'dark' : 'light'
+    setMode(next)
+    localStorage.setItem('theme', next)
+  }
+
+  return (
+    <EclipseProvider mode={mode}>
+      {/* toggleTheme을 Context로 하위에 전달 */}
+      {children}
+    </EclipseProvider>
+  )
+}`}
+        </pre>
+      </div>
+
+      <div style={{
+        padding: '16px 20px', borderRadius: '10px',
+        background: 'linear-gradient(90deg, rgba(99,102,241,0.04) 0%, transparent 100%)',
+        borderLeft: '3px solid #6366f1',
+      }}>
+        <p style={{ fontSize: '14px', color: '#475569', margin: 0, lineHeight: '1.6' }}>
+          <strong style={{ color: '#1e293b' }}>팁:</strong>{' '}
+          <code style={{ background: '#f1f5f9', color: '#6366f1', padding: '2px 6px', borderRadius: '4px', fontSize: '13px' }}>window.matchMedia('(prefers-color-scheme: dark)')</code>로 시스템 설정을 감지하고,
+          <code style={{ background: '#f1f5f9', color: '#6366f1', padding: '2px 6px', borderRadius: '4px', fontSize: '13px' }}>localStorage</code>로 사용자 선택을 유지합니다.
+        </p>
+      </div>
+    </section>
+
+    {/* CSS Variable Direct Override */}
+    <section style={{ marginBottom: '56px' }}>
+      <h2 style={{ fontSize: '24px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '8px' }}>CSS 변수 직접 Override</h2>
+      <p style={{ fontSize: '14px', color: '#64748b', lineHeight: '1.7', marginBottom: '20px' }}>
+        Orbit UI의 모든 시맨틱 토큰은 CSS 사용자 정의 속성(Custom Properties)으로 노출됩니다.
+        <code style={{ background: '#f1f5f9', color: '#6366f1', padding: '2px 6px', borderRadius: '4px', fontSize: '13px', fontWeight: '500' }}>:root</code>에서 직접 override하면 빌드 없이 즉시 적용됩니다.
+      </p>
+
+      <div style={{ borderRadius: '16px', border: '1px solid #e2e8f0', overflow: 'hidden', marginBottom: '16px' }}>
+        <div style={{ padding: '10px 16px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0', fontSize: '12px', fontWeight: '600', color: '#475569' }}>
+          CSS 변수 네이밍 규칙
+        </div>
+        <pre style={{ margin: 0, padding: '20px', background: '#0f172a', color: '#e2e8f0', fontSize: '11px', lineHeight: '1.8', fontFamily: '"JetBrains Mono", monospace', overflow: 'auto' }}>
+{`/* 네이밍 패턴: --{tier}-eclipse-{category}-{name} */
+
+/* 시맨틱 토큰 (Semantic) */
+--sem-eclipse-color-fillPrimary
+--sem-eclipse-color-foregroundPrimary
+--sem-eclipse-color-backgroundPrimary
+--sem-eclipse-color-surfaceContainer
+--sem-eclipse-color-borderPrimary
+
+/* 컴포넌트 토큰 (Component) */
+--comp-eclipse-solidButton-borderRadius
+--comp-eclipse-solidButton-paddingHorizontal
+--comp-eclipse-textField-borderRadius`}
+        </pre>
+      </div>
+
+      <div style={{ borderRadius: '16px', border: '1px solid #e2e8f0', overflow: 'hidden' }}>
+        <div style={{ padding: '10px 16px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0', fontSize: '12px', fontWeight: '600', color: '#475569' }}>
+          다크모드 커스터마이징 예시
+        </div>
+        <pre style={{ margin: 0, padding: '20px', background: '#0f172a', color: '#e2e8f0', fontSize: '11px', lineHeight: '1.8', fontFamily: '"JetBrains Mono", monospace', overflow: 'auto' }}>
+{`/* globals.css */
+
+/* 라이트모드: 브랜드 컬러를 파랑 계열로 교체 */
+:root {
+  --sem-eclipse-color-fillPrimary: #0ea5e9;
+  --sem-eclipse-color-fillSecondary: #e0f2fe;
+}
+
+/* 다크모드: 더 밝은 블루 계열 사용 */
+[data-theme="dark"] {
+  --sem-eclipse-color-fillPrimary: #38bdf8;
+  --sem-eclipse-color-fillSecondary: #0c4a6e;
+  --sem-eclipse-color-backgroundPrimary: #020617;
+  --sem-eclipse-color-surfaceContainer: #0f172a;
+}
+
+/* 컴포넌트 단위 커스터마이징 */
+:root {
+  --comp-eclipse-solidButton-borderRadius: 6px;
+}
+
+/* 모바일: 더 큰 탭 타겟 */
+@media (max-width: 768px) {
+  :root {
+    --comp-eclipse-solidButton-paddingVertical: 14px;
+  }
+}`}
+        </pre>
+      </div>
+    </section>
+
+    {/* Brand Color Step-by-Step */}
+    <section style={{ marginBottom: '56px' }}>
+      <h2 style={{ fontSize: '24px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '8px' }}>브랜드 컬러 교체 Step-by-Step</h2>
+      <p style={{ fontSize: '14px', color: '#64748b', lineHeight: '1.7', marginBottom: '20px' }}>
+        프로젝트 브랜드 컬러로 교체하는 단계별 가이드입니다. 예시는 Indigo(기본) → Sky Blue(커스텀) 교체입니다.
+      </p>
+
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+        {[
+          {
+            step: '1',
+            title: '브랜드 팔레트 결정',
+            desc: '5단계 이상의 명도 팔레트를 준비합니다. (50, 100, 200, 300, 400, 500, 600, 700, 800, 900)',
+            code: `/* brand-palette.css */
+:root {
+  --brand-50:  #f0f9ff;
+  --brand-100: #e0f2fe;
+  --brand-200: #bae6fd;
+  --brand-400: #38bdf8;
+  --brand-500: #0ea5e9;
+  --brand-600: #0284c7;
+  --brand-700: #0369a1;
+  --brand-900: #0c4a6e;
+}`,
+          },
+          {
+            step: '2',
+            title: '시맨틱 토큰에 팔레트 연결',
+            desc: '브랜드 컬러를 Orbit UI 시맨틱 토큰에 매핑합니다.',
+            code: `/* custom-theme.css */
+:root {
+  /* Primary fill — 버튼, 링크, 강조에 사용 */
+  --sem-eclipse-color-fillPrimary: var(--brand-500);
+
+  /* Secondary fill — 호버 배경, 선택 영역 */
+  --sem-eclipse-color-fillSecondary: var(--brand-100);
+
+  /* On-fill — Primary 위의 텍스트 색 (항상 대비 확보) */
+  --sem-eclipse-color-onFillPrimary: #ffffff;
+}
+
+[data-theme="dark"] {
+  --sem-eclipse-color-fillPrimary: var(--brand-400);
+  --sem-eclipse-color-fillSecondary: var(--brand-900);
+}`,
+          },
+          {
+            step: '3',
+            title: 'Next.js에 CSS 파일 로드',
+            desc: 'app/layout.tsx에서 순서대로 임포트합니다. theme-eclipse 스타일 다음에 override를 로드해야 합니다.',
+            code: `// app/layout.tsx
+import '@heejun-com/theme-eclipse/style.css'
+import './brand-palette.css'   // 1. 팔레트 변수 정의
+import './custom-theme.css'    // 2. 시맨틱 토큰 override`,
+          },
+          {
+            step: '4',
+            title: '접근성 대비 검증',
+            desc: 'WCAG 2.1 AA 기준: 일반 텍스트 4.5:1, 대형 텍스트 3:1. 브랜드 컬러 교체 후 반드시 검증합니다.',
+            code: `/* 빠른 대비 검증: 브라우저 DevTools에서 */
+/* Accessibility > Color Contrast 탭 확인 */
+
+/* 또는 CSS calc()로 수동 확인 */
+/* Lighter 배경(#f0f9ff)에 Darker 텍스트(#0c4a6e) */
+/* 대비비: ~12:1 — WCAG AAA 충족 */`,
+          },
+        ].map(({ step, title, desc, code }) => (
+          <div key={step} style={{ borderRadius: '12px', border: '1px solid #e2e8f0', overflow: 'hidden' }}>
+            <div style={{
+              padding: '12px 16px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0',
+              display: 'flex', alignItems: 'center', gap: '10px',
+            }}>
+              <div style={{
+                width: '24px', height: '24px', borderRadius: '50%',
+                background: '#6366f1', color: '#fff',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                fontSize: '12px', fontWeight: '700', flexShrink: 0,
+              }}>
+                {step}
+              </div>
+              <div>
+                <div style={{ fontSize: '13px', fontWeight: '700', color: '#1e293b' }}>{title}</div>
+                <div style={{ fontSize: '12px', color: '#94a3b8', marginTop: '2px' }}>{desc}</div>
+              </div>
+            </div>
+            <pre style={{ margin: 0, padding: '16px', background: '#0f172a', color: '#e2e8f0', fontSize: '11px', lineHeight: '1.8', fontFamily: '"JetBrains Mono", monospace', overflow: 'auto' }}>
+              {code}
+            </pre>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    {/* TypeScript Theme Type Extension */}
+    <section style={{ marginBottom: '56px' }}>
+      <h2 style={{ fontSize: '24px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '8px' }}>TypeScript로 테마 타입 확장</h2>
+      <p style={{ fontSize: '14px', color: '#64748b', lineHeight: '1.7', marginBottom: '20px' }}>
+        vanilla-extract의 <code style={{ background: '#f1f5f9', color: '#6366f1', padding: '2px 6px', borderRadius: '4px', fontSize: '13px', fontWeight: '500' }}>createTheme</code>과 TypeScript를 함께 사용하면
+        완전한 타입 안전성을 갖춘 커스텀 테마를 만들 수 있습니다. IDE 자동완성과 타입 에러 검출이 모두 동작합니다.
+      </p>
+
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+        <div style={{ borderRadius: '16px', border: '1px solid #e2e8f0', overflow: 'hidden' }}>
+          <div style={{ padding: '10px 16px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0', fontSize: '12px', fontWeight: '600', color: '#475569' }}>
+            커스텀 테마 생성 (my-theme.css.ts)
+          </div>
+          <pre style={{ margin: 0, padding: '16px', background: '#0f172a', color: '#e2e8f0', fontSize: '11px', lineHeight: '1.8', fontFamily: '"JetBrains Mono", monospace', overflow: 'auto' }}>
+{`// my-theme.css.ts
+import { createTheme } from '@vanilla-extract/css'
+import { vars } from '@heejun-com/theme-eclipse/vars'
+
+// vars의 타입을 그대로 상속 → 빠진 토큰은 타입 에러
+export const myThemeClass = createTheme(vars, {
+  sem: {
+    color: {
+      fillPrimary: '#0ea5e9',
+      fillSecondary: '#e0f2fe',
+      foregroundPrimary: '#0c4a6e',
+      backgroundPrimary: '#f0f9ff',
+      surfaceContainer: '#e0f2fe',
+      borderPrimary: '#bae6fd',
+      // ...나머지 토큰은 기본값 상속
+    },
+  },
+})`}
+          </pre>
+        </div>
+
+        <div style={{ borderRadius: '16px', border: '1px solid #e2e8f0', overflow: 'hidden' }}>
+          <div style={{ padding: '10px 16px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0', fontSize: '12px', fontWeight: '600', color: '#475569' }}>
+            테마 타입 확장 (theme-types.d.ts)
+          </div>
+          <pre style={{ margin: 0, padding: '16px', background: '#0f172a', color: '#e2e8f0', fontSize: '11px', lineHeight: '1.8', fontFamily: '"JetBrains Mono", monospace', overflow: 'auto' }}>
+{`// theme-types.d.ts — 프로젝트 전용 테마 타입 선언
+import type { lightThemeClass } from '@heejun-com/theme-eclipse'
+
+// 허용된 테마 클래스 목록 타입 정의
+export type ThemeClass =
+  | typeof lightThemeClass    // Eclipse 기본 라이트
+  | 'my-theme'                // 커스텀 브랜드 테마
+  | 'high-contrast-theme'     // 고대비 접근성 테마
+
+// EclipseProvider themeClass prop 확장
+declare module '@heejun-com/theme-eclipse' {
+  interface EclipseProviderProps {
+    themeClass?: ThemeClass
+  }
+}
+
+// 사용 예:
+// <EclipseProvider themeClass={myThemeClass}>
+//   — IDE에서 ThemeClass 타입 자동완성 제공
+// </EclipseProvider>`}
+          </pre>
+        </div>
+
+        <div style={{ borderRadius: '16px', border: '1px solid #e2e8f0', overflow: 'hidden', gridColumn: '1 / -1' }}>
+          <div style={{ padding: '10px 16px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0', fontSize: '12px', fontWeight: '600', color: '#475569' }}>
+            다중 테마 런타임 전환 (TypeScript 완전 타입 안전)
+          </div>
+          <pre style={{ margin: 0, padding: '16px', background: '#0f172a', color: '#e2e8f0', fontSize: '11px', lineHeight: '1.8', fontFamily: '"JetBrains Mono", monospace', overflow: 'auto' }}>
+{`// providers.tsx
+import { EclipseProvider } from '@heejun-com/theme-eclipse'
+import { myThemeClass } from './my-theme.css'
+import { highContrastClass } from './high-contrast.css'
+
+type ThemeMode = 'eclipse' | 'brand' | 'high-contrast'
+
+const themeClassMap: Record<ThemeMode, string | undefined> = {
+  eclipse: undefined,          // 기본 Eclipse 테마 (themeClass 없음)
+  brand: myThemeClass,         // 커스텀 브랜드 테마
+  'high-contrast': highContrastClass,  // 고대비 테마
+}
+
+export function AppProviders({ children }: { children: React.ReactNode }) {
+  const [theme, setTheme] = useState<ThemeMode>('eclipse')
+  const [mode, setMode] = useState<'light' | 'dark'>('light')
+
+  return (
+    <EclipseProvider
+      mode={mode}
+      themeClass={themeClassMap[theme]}
+    >
+      {children}
+    </EclipseProvider>
+  )
+}`}
+          </pre>
+        </div>
+      </div>
+
+      <div style={{
+        marginTop: '16px',
+        padding: '16px 20px', borderRadius: '10px',
+        background: 'linear-gradient(90deg, rgba(99, 102, 241, 0.04) 0%, transparent 100%)',
+        borderLeft: '3px solid #6366f1',
+      }}>
+        <p style={{ fontSize: '14px', color: '#475569', margin: 0, lineHeight: '1.6' }}>
+          <strong style={{ color: '#1e293b' }}>vanilla-extract 장점:</strong>{' '}
+          빌드 타임에 CSS가 생성되므로 런타임 오버헤드가 없습니다.
+          <code style={{ background: '#f1f5f9', color: '#6366f1', padding: '2px 6px', borderRadius: '4px', fontSize: '13px' }}>createTheme</code>은
+          CSS 변수 클래스만 교체하므로 테마 전환 시 리렌더링이 최소화됩니다.
+        </p>
+      </div>
+    </section>
+
     {/* Theme Extension */}
     <section style={{ marginBottom: '40px' }}>
       <h2 style={{ fontSize: '24px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '8px' }}>테마 확장 가이드</h2>

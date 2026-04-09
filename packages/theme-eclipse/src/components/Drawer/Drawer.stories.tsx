@@ -260,3 +260,272 @@ export const 필터_패널_드로어: Story = {
   name: '필터 패널 드로어 (Checkbox + RadioButton + SolidButton)',
   render: () => <DrawerFilterRender />,
 }
+
+// ─── Apple HIG 스타일: 바텀시트 스냅 포인트 시뮬레이션 ───────────────────────
+// Apple HIG의 iOS Sheet 패턴:
+// - 핸들 바 + 스냅 포인트 (collapsed / half / full)
+// - 스냅 버튼으로 시뮬레이션
+// - 배경 오버레이 딤처리
+
+const AppleHIGBottomSheetRender = () => {
+  const [snap, setSnap] = useState<'collapsed' | 'half' | 'full'>('half')
+
+  const snapHeights = {
+    collapsed: '80px',
+    half: '320px',
+    full: '560px',
+  }
+
+  const snapLabels = {
+    collapsed: 'Collapsed (핸들만)',
+    half: 'Half Sheet (기본)',
+    full: 'Full Sheet (전체)',
+  }
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', alignItems: 'flex-start' }}>
+      <div style={{ fontSize: '13px', color: '#64748b', lineHeight: '1.6' }}>
+        Apple HIG iOS Sheet 패턴: 스냅 포인트를 버튼으로 전환합니다.
+        실제 앱에서는 드래그 제스처로 스냅 포인트 간 이동이 가능합니다.
+      </div>
+
+      {/* 스냅 컨트롤 */}
+      <div style={{ display: 'flex', gap: '8px' }}>
+        {(['collapsed', 'half', 'full'] as const).map((s) => (
+          <button
+            key={s}
+            onClick={() => setSnap(s)}
+            style={{
+              padding: '6px 14px',
+              borderRadius: '8px',
+              border: `1.5px solid ${snap === s ? '#6366f1' : '#e2e8f0'}`,
+              background: snap === s ? 'rgba(99,102,241,0.08)' : '#fff',
+              color: snap === s ? '#6366f1' : '#64748b',
+              fontWeight: snap === s ? 600 : 400,
+              fontSize: '12px',
+              cursor: 'pointer',
+              transition: 'all 0.15s',
+            }}
+          >
+            {s}
+          </button>
+        ))}
+      </div>
+
+      {/* 바텀시트 시뮬레이션 */}
+      <div style={{
+        width: '360px',
+        height: '560px',
+        background: '#f8fafc',
+        borderRadius: '16px',
+        border: '1px solid #e2e8f0',
+        position: 'relative',
+        overflow: 'hidden',
+      }}>
+        {/* 배경 콘텐츠 */}
+        <div style={{ padding: '20px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+          <div style={{ height: '20px', borderRadius: '6px', background: '#e2e8f0' }} />
+          <div style={{ height: '16px', width: '70%', borderRadius: '6px', background: '#e2e8f0' }} />
+          <div style={{ height: '80px', borderRadius: '10px', background: '#e2e8f0' }} />
+          <div style={{ height: '16px', width: '85%', borderRadius: '6px', background: '#e2e8f0' }} />
+        </div>
+
+        {/* 딤 오버레이 */}
+        {snap !== 'collapsed' && (
+          <div style={{
+            position: 'absolute', inset: 0,
+            background: snap === 'full' ? 'rgba(0,0,0,0.4)' : 'rgba(0,0,0,0.2)',
+            transition: 'background 0.3s ease',
+          }} />
+        )}
+
+        {/* 바텀시트 */}
+        <div style={{
+          position: 'absolute',
+          bottom: 0,
+          left: 0,
+          right: 0,
+          height: snapHeights[snap],
+          background: '#fff',
+          borderRadius: '16px 16px 0 0',
+          boxShadow: '0 -4px 24px rgba(0,0,0,0.12)',
+          transition: 'height 0.35s cubic-bezier(0.32, 0.72, 0, 1)',
+          overflow: 'hidden',
+          display: 'flex',
+          flexDirection: 'column',
+        }}>
+          {/* 핸들 바 */}
+          <div style={{ display: 'flex', justifyContent: 'center', padding: '10px 0 6px', flexShrink: 0 }}>
+            <div style={{ width: '36px', height: '4px', borderRadius: '2px', background: '#e2e8f0' }} />
+          </div>
+
+          {/* 시트 콘텐츠 */}
+          {snap !== 'collapsed' && (
+            <div style={{ padding: '8px 20px 20px', flex: 1, overflow: 'auto', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+              <div style={{ fontSize: '15px', fontWeight: 700, color: '#1e293b' }}>{snapLabels[snap]}</div>
+              <div style={{ fontSize: '13px', color: '#64748b', lineHeight: '1.6' }}>
+                iOS Sheet는 사용자가 드래그하여 스냅 포인트 간 이동할 수 있습니다.
+                핸들 바를 위로 당기면 확장, 아래로 내리면 축소됩니다.
+              </div>
+              {snap === 'full' && (
+                <>
+                  {[1, 2, 3].map((n) => (
+                    <div
+                      key={n}
+                      style={{
+                        padding: '12px 14px',
+                        borderRadius: '10px',
+                        border: '1px solid #e2e8f0',
+                        fontSize: '13px',
+                        color: '#1e293b',
+                        fontWeight: 500,
+                      }}
+                    >
+                      추가 항목 {n}
+                    </div>
+                  ))}
+                </>
+              )}
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const Apple_HIG_바텀시트: Story = {
+  name: 'Apple HIG 바텀시트 스냅 포인트 시뮬레이션',
+  render: () => <AppleHIGBottomSheetRender />,
+}
+
+// ─── Raycast 스타일: 퀵 액션 사이드 패널 ────────────────────────────────────
+// Raycast의 Action Panel 패턴:
+// - 단축키 힌트 목록
+// - 카테고리별 그룹 분리
+// - 컴팩트 밀도
+
+const RaycastActionPanelRender = () => {
+  const [selected, setSelected] = useState<string | null>(null)
+
+  const actionGroups: Array<{
+    title: string
+    items: Array<{ id: string; label: string; shortcut: string; destructive?: boolean }>
+  }> = [
+    {
+      title: 'File',
+      items: [
+        { id: 'open', label: '파일 열기', shortcut: 'Cmd O' },
+        { id: 'save', label: '저장', shortcut: 'Cmd S' },
+        { id: 'saveas', label: '다른 이름으로 저장', shortcut: 'Cmd Shift S' },
+        { id: 'export', label: '내보내기', shortcut: 'Cmd E' },
+      ],
+    },
+    {
+      title: 'Edit',
+      items: [
+        { id: 'copy', label: '복사', shortcut: 'Cmd C' },
+        { id: 'paste', label: '붙여넣기', shortcut: 'Cmd V' },
+        { id: 'undo', label: '되돌리기', shortcut: 'Cmd Z' },
+      ],
+    },
+    {
+      title: 'Danger Zone',
+      items: [
+        { id: 'delete', label: '삭제', shortcut: 'Cmd Del', destructive: true },
+        { id: 'reset', label: '초기화', shortcut: '', destructive: true },
+      ],
+    },
+  ]
+
+  return (
+    <Drawer>
+      <Drawer.Trigger asChild>
+        <Button color="primary" size="medium">
+          <Button.Center>Raycast 액션 패널 열기</Button.Center>
+        </Button>
+      </Drawer.Trigger>
+      <Drawer.Content side="right">
+        <Drawer.Header>
+          <Drawer.Title>Quick Actions</Drawer.Title>
+          <Drawer.Description>
+            Raycast Action Panel 패턴: 단축키 힌트와 카테고리별 그룹 액션
+          </Drawer.Description>
+        </Drawer.Header>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '0', padding: '8px 0' }}>
+          {actionGroups.map((group, gi) => (
+            <div key={group.title}>
+              <div style={{
+                padding: '10px 16px 4px',
+                fontSize: '10px',
+                fontWeight: 700,
+                color: '#94a3b8',
+                textTransform: 'uppercase',
+                letterSpacing: '0.08em',
+              }}>
+                {group.title}
+              </div>
+              {group.items.map((item) => (
+                <div
+                  key={item.id}
+                  onClick={() => setSelected(item.id)}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    padding: '8px 16px',
+                    cursor: 'pointer',
+                    background: selected === item.id ? 'rgba(99,102,241,0.06)' : 'transparent',
+                    transition: 'background 0.1s',
+                  }}
+                >
+                  <span style={{
+                    fontSize: '13px',
+                    fontWeight: 500,
+                    color: item.destructive ? '#ef4444' : '#1e293b',
+                  }}>
+                    {item.label}
+                  </span>
+                  {item.shortcut && (
+                    <kbd style={{
+                      fontSize: '10px',
+                      fontWeight: 600,
+                      color: '#94a3b8',
+                      fontFamily: 'monospace',
+                      background: '#f1f5f9',
+                      padding: '2px 6px',
+                      borderRadius: '4px',
+                      border: '1px solid #e2e8f0',
+                    }}>
+                      {item.shortcut}
+                    </kbd>
+                  )}
+                </div>
+              ))}
+              {gi < actionGroups.length - 1 && (
+                <div style={{ height: '1px', background: '#f1f5f9', margin: '6px 0' }} />
+              )}
+            </div>
+          ))}
+        </div>
+        <Drawer.Footer>
+          {selected && (
+            <div style={{ fontSize: '12px', color: '#94a3b8', flex: 1 }}>
+              선택됨: <strong style={{ color: '#6366f1' }}>{selected}</strong>
+            </div>
+          )}
+          <Drawer.Close asChild>
+            <Button color="black" size="medium">
+              <Button.Center>닫기</Button.Center>
+            </Button>
+          </Drawer.Close>
+        </Drawer.Footer>
+      </Drawer.Content>
+    </Drawer>
+  )
+}
+
+export const Raycast_퀵액션_사이드패널: Story = {
+  name: 'Raycast 퀵 액션 사이드 패널',
+  render: () => <RaycastActionPanelRender />,
+}

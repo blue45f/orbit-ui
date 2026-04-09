@@ -5299,3 +5299,394 @@ const IssueTrackerRender = () => {
 export const IssueTracker: Story = {
   render: () => <IssueTrackerRender />,
 }
+
+/* ═══════════════════════════════════════════
+   DeveloperProfile Template (사이클 18 — Material 3 / Mantine 벤치마크)
+   ─ 프로필 헤더 + 통계 카드 + 탭 (활동/프로젝트/설정) + 설정 폼
+   포함 컴포넌트: SolidButton, OutlineButton, Switch, RadioButton
+   ═══════════════════════════════════════════ */
+
+// SVG 이니셜 아바타 — 외부 이미지 URL 없이 인라인으로 렌더링
+const UserInitialAvatar = ({ initials, size, bg }: { initials: string; size: number; bg: string }) => (
+  <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} xmlns="http://www.w3.org/2000/svg">
+    <circle cx={size / 2} cy={size / 2} r={size / 2} fill={bg} />
+    <text
+      x={size / 2}
+      y={size / 2 + size * 0.13}
+      textAnchor="middle"
+      fill="#fff"
+      fontFamily="system-ui, -apple-system, sans-serif"
+      fontSize={size * 0.38}
+      fontWeight="700"
+    >
+      {initials}
+    </text>
+  </svg>
+)
+
+const DeveloperProfileRender = () => {
+  const [activeTab, setActiveTab] = useState<'activity' | 'projects' | 'settings'>('activity')
+  const [notificationsOn, setNotificationsOn] = useState(true)
+  const [darkModeOn, setDarkModeOn] = useState(false)
+  const [privacy, setPrivacy] = useState<'public' | 'friends' | 'private'>('public')
+  const [followed, setFollowed] = useState(false)
+
+  const stats = [
+    { label: '프로젝트', value: '24' },
+    { label: '팔로워', value: '1.2K' },
+    { label: '팔로잉', value: '348' },
+  ]
+
+  const activities = [
+    { type: 'commit', message: 'feat: Material 3 컬러 시스템 적용', project: 'Orbit UI', time: '2시간 전', color: '#10b981' },
+    { type: 'review', message: 'PR #142 코드 리뷰 완료', project: 'Design System', time: '4시간 전', color: '#6366f1' },
+    { type: 'issue', message: 'Chip 컴포넌트 접근성 이슈 제보', project: 'Orbit UI', time: '어제', color: '#f59e0b' },
+    { type: 'release', message: 'v3.2.0 릴리즈 배포', project: 'Orbit UI', time: '3일 전', color: '#8b5cf6' },
+    { type: 'comment', message: '디자인 토큰 가이드 문서 작성', project: 'Docs', time: '5일 전', color: '#64748b' },
+  ]
+
+  const projects = [
+    { name: 'Orbit UI', desc: 'React 기반 디자인 시스템 라이브러리', lang: 'TypeScript', stars: 284, forks: 42, color: '#6366f1' },
+    { name: 'Eclipse Theme', desc: '다크/라이트 테마 패키지', lang: 'CSS', stars: 128, forks: 19, color: '#8b5cf6' },
+    { name: 'Figma Tokens Plugin', desc: '디자인 토큰 Figma 동기화 플러그인', lang: 'JavaScript', stars: 96, forks: 14, color: '#0ea5e9' },
+  ]
+
+  // 활동 타입별 아이콘 (인라인 SVG)
+  const activityIconNode = (type: string, color: string) => {
+    const stroke = color
+    if (type === 'commit') return (
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={stroke} strokeWidth="2" strokeLinecap="round">
+        <circle cx="12" cy="12" r="4" /><line x1="1.05" y1="12" x2="7" y2="12" /><line x1="17.01" y1="12" x2="22.96" y2="12" />
+      </svg>
+    )
+    if (type === 'review') return (
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={stroke} strokeWidth="2" strokeLinecap="round">
+        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" /><circle cx="12" cy="12" r="3" />
+      </svg>
+    )
+    if (type === 'issue') return (
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={stroke} strokeWidth="2" strokeLinecap="round">
+        <circle cx="12" cy="12" r="10" /><line x1="12" y1="8" x2="12" y2="12" /><line x1="12" y1="16" x2="12.01" y2="16" />
+      </svg>
+    )
+    if (type === 'release') return (
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={stroke} strokeWidth="2" strokeLinecap="round">
+        <polyline points="16 3 21 3 21 8" /><line x1="4" y1="20" x2="21" y2="3" />
+        <polyline points="21 16 21 21 16 21" /><line x1="15" y1="15" x2="21" y2="21" />
+      </svg>
+    )
+    return (
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={stroke} strokeWidth="2" strokeLinecap="round">
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+      </svg>
+    )
+  }
+
+  const tabLabels: Record<'activity' | 'projects' | 'settings', string> = {
+    activity: '활동',
+    projects: '프로젝트',
+    settings: '설정',
+  }
+
+  return (
+    <div style={{ minHeight: '100vh', background: tc.surface, fontFamily: 'inherit' }}>
+
+      {/* ── 프로필 헤더 ── */}
+      <div style={{ background: tc.bg, borderBottom: `1px solid ${tc.border}` }}>
+        {/* 커버 */}
+        <div style={{
+          height: '140px',
+          background: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 40%, #3b82f6 100%)',
+          position: 'relative', overflow: 'hidden',
+        }}>
+          <div style={{
+            position: 'absolute', inset: 0,
+            backgroundImage: 'radial-gradient(rgba(255,255,255,0.15) 1px, transparent 1px)',
+            backgroundSize: '20px 20px',
+          }} />
+        </div>
+
+        <div style={{ padding: '0 32px 24px', maxWidth: '800px', margin: '0 auto' }}>
+          {/* 아바타 + 이름 행 */}
+          <div style={{ display: 'flex', alignItems: 'flex-end', gap: '20px', marginTop: '-40px', marginBottom: '16px', flexWrap: 'wrap' }}>
+            <div style={{ borderRadius: '50%', border: '4px solid #fff', boxShadow: '0 4px 16px rgba(0,0,0,0.12)', flexShrink: 0, lineHeight: 0 }}>
+              <UserInitialAvatar initials="HK" size={80} bg="#6366f1" />
+            </div>
+            <div style={{ paddingBottom: '4px', flex: 1, minWidth: 0 }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
+                <span style={{ fontSize: '22px', fontWeight: '800', color: tc.fg, letterSpacing: '-0.02em' }}>Heejun Kim</span>
+                <span style={{ fontSize: '11px', fontWeight: '700', padding: '2px 8px', borderRadius: '99px', background: 'rgba(99,102,241,0.1)', color: '#6366f1' }}>
+                  Core Maintainer
+                </span>
+              </div>
+              <div style={{ fontSize: '14px', color: tc.fgSub, marginTop: '2px' }}>Frontend Engineer · Orbit UI 오픈소스 기여자</div>
+            </div>
+            {/* 액션 버튼 */}
+            <div style={{ display: 'flex', gap: '8px', paddingBottom: '4px' }}>
+              <OutlineButton color="black" size="small">
+                <OutlineButton.Center>메시지</OutlineButton.Center>
+              </OutlineButton>
+              <SolidButton
+                color={followed ? 'gray' : 'primary'}
+                size="small"
+                onClick={() => setFollowed((v) => !v)}
+              >
+                <SolidButton.Center>{followed ? '팔로잉' : '팔로우'}</SolidButton.Center>
+              </SolidButton>
+            </div>
+          </div>
+
+          {/* 통계 */}
+          <div style={{ display: 'flex', gap: '24px', marginBottom: '16px', flexWrap: 'wrap' }}>
+            {stats.map((s) => (
+              <div key={s.label} style={{ textAlign: 'center' }}>
+                <div style={{ fontSize: '20px', fontWeight: '800', color: tc.fg, letterSpacing: '-0.02em' }}>{s.value}</div>
+                <div style={{ fontSize: '12px', color: tc.fgMuted }}>{s.label}</div>
+              </div>
+            ))}
+          </div>
+
+          {/* 바이오 */}
+          <div style={{ fontSize: '13px', color: tc.fgSub, lineHeight: 1.6, marginBottom: '14px', maxWidth: '560px' }}>
+            디자인 시스템과 컴포넌트 라이브러리 개발에 열정을 가지고 있습니다. Orbit UI 오픈소스를 메인테이닝하며 접근성과 개발자 경험 개선에 집중합니다.
+          </div>
+
+          {/* 메타 정보 */}
+          <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap' }}>
+            {[
+              { icon: '📍', text: 'Seoul, South Korea' },
+              { icon: '🔗', text: 'orbit-ui.com' },
+              { icon: '📅', text: '2022년 4월 가입' },
+            ].map((meta) => (
+              <div key={meta.text} style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '13px', color: tc.fgSub }}>
+                <span>{meta.icon}</span>
+                <span>{meta.text}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* ── 탭 네비게이션 ── */}
+      <div style={{ background: tc.bg, borderBottom: `1px solid ${tc.border}`, position: 'sticky', top: 0, zIndex: 10 }}>
+        <div style={{ maxWidth: '800px', margin: '0 auto', padding: '0 32px', display: 'flex' }}>
+          {(['activity', 'projects', 'settings'] as const).map((tab) => {
+            const isActive = activeTab === tab
+            return (
+              <button
+                key={tab}
+                onClick={() => setActiveTab(tab)}
+                style={{
+                  padding: '14px 20px', border: 'none', background: 'transparent', cursor: 'pointer',
+                  fontSize: '14px', fontWeight: isActive ? '700' : '500',
+                  color: isActive ? '#6366f1' : tc.fgSub,
+                  borderBottom: isActive ? '2px solid #6366f1' : '2px solid transparent',
+                  transition: 'all 0.15s',
+                }}
+              >
+                {tabLabels[tab]}
+              </button>
+            )
+          })}
+        </div>
+      </div>
+
+      {/* ── 탭 콘텐츠 ── */}
+      <div style={{ maxWidth: '800px', margin: '0 auto', padding: '24px 32px' }}>
+
+        {/* 활동 탭 */}
+        {activeTab === 'activity' && (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+            <div style={{ fontSize: '15px', fontWeight: '700', color: tc.fg, marginBottom: '4px' }}>최근 활동</div>
+            {activities.map((act, idx) => (
+              <div
+                key={idx}
+                style={{
+                  display: 'flex', gap: '14px', alignItems: 'flex-start',
+                  padding: '16px', background: tc.bg, borderRadius: '12px',
+                  border: `1px solid ${tc.border}`,
+                }}
+              >
+                <div style={{
+                  width: '32px', height: '32px', borderRadius: '8px',
+                  background: `${act.color}18`, color: act.color,
+                  display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0,
+                }}>
+                  {activityIconNode(act.type, act.color)}
+                </div>
+                <div style={{ flex: 1 }}>
+                  <div style={{ fontSize: '14px', fontWeight: '500', color: tc.fg, marginBottom: '2px' }}>{act.message}</div>
+                  <div style={{ fontSize: '12px', color: tc.fgMuted }}>
+                    <span style={{ color: act.color, fontWeight: '600' }}>{act.project}</span>
+                    {' · '}
+                    {act.time}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* 프로젝트 탭 */}
+        {activeTab === 'projects' && (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+            <div style={{ fontSize: '15px', fontWeight: '700', color: tc.fg, marginBottom: '4px' }}>공개 저장소</div>
+            {projects.map((proj) => (
+              <div
+                key={proj.name}
+                style={{
+                  padding: '20px', background: tc.bg, borderRadius: '12px',
+                  border: `1px solid ${tc.border}`,
+                }}
+              >
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '6px' }}>
+                  <span style={{ fontSize: '15px', fontWeight: '700', color: '#6366f1' }}>{proj.name}</span>
+                  <span style={{ fontSize: '11px', padding: '1px 8px', borderRadius: '99px', border: `1px solid ${tc.border}`, color: tc.fgMuted }}>Public</span>
+                </div>
+                <div style={{ fontSize: '13px', color: tc.fgSub, marginBottom: '12px' }}>{proj.desc}</div>
+                <div style={{ display: 'flex', gap: '16px' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '5px', fontSize: '12px', color: tc.fgSub }}>
+                    <div style={{ width: '10px', height: '10px', borderRadius: '50%', background: proj.color }} />
+                    {proj.lang}
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '4px', fontSize: '12px', color: tc.fgSub }}>
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                    </svg>
+                    {proj.stars}
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '4px', fontSize: '12px', color: tc.fgSub }}>
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <circle cx="12" cy="18" r="3" /><circle cx="6" cy="6" r="3" /><circle cx="18" cy="6" r="3" />
+                      <path d="M18 9a9 9 0 0 1-9 9M6 9a9 9 0 0 0 9 9" />
+                    </svg>
+                    {proj.forks}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* 설정 탭 */}
+        {activeTab === 'settings' && (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+            <div style={{ fontSize: '15px', fontWeight: '700', color: tc.fg }}>계정 설정</div>
+
+            {/* 기본 정보 폼 */}
+            <div style={{ padding: '24px', background: tc.bg, borderRadius: '12px', border: `1px solid ${tc.border}` }}>
+              <div style={{ fontSize: '14px', fontWeight: '600', color: tc.fg, marginBottom: '20px' }}>기본 정보</div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                    <label style={{ fontSize: '12px', fontWeight: '600', color: tc.fgSub }}>표시 이름</label>
+                    <input defaultValue="Heejun Kim" style={{ padding: '10px 12px', borderRadius: '8px', border: `1px solid ${tc.border}`, fontSize: '14px', outline: 'none', background: tc.bg, color: tc.fg }} />
+                  </div>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                    <label style={{ fontSize: '12px', fontWeight: '600', color: tc.fgSub }}>사용자명</label>
+                    <input defaultValue="@hjunkim" style={{ padding: '10px 12px', borderRadius: '8px', border: `1px solid ${tc.border}`, fontSize: '14px', outline: 'none', background: tc.bg, color: tc.fg }} />
+                  </div>
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                  <label style={{ fontSize: '12px', fontWeight: '600', color: tc.fgSub }}>이메일</label>
+                  <input defaultValue="heejun@orbit-ui.com" style={{ padding: '10px 12px', borderRadius: '8px', border: `1px solid ${tc.border}`, fontSize: '14px', outline: 'none', background: tc.bg, color: tc.fg }} />
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                  <label style={{ fontSize: '12px', fontWeight: '600', color: tc.fgSub }}>소개</label>
+                  <textarea
+                    defaultValue="디자인 시스템과 컴포넌트 라이브러리 개발에 열정을 가지고 있습니다."
+                    rows={3}
+                    style={{ padding: '10px 12px', borderRadius: '8px', border: `1px solid ${tc.border}`, fontSize: '14px', outline: 'none', background: tc.bg, color: tc.fg, resize: 'vertical', fontFamily: 'inherit' }}
+                  />
+                </div>
+                <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '8px' }}>
+                  <OutlineButton color="gray" size="small">
+                    <OutlineButton.Center>취소</OutlineButton.Center>
+                  </OutlineButton>
+                  <SolidButton color="primary" size="small">
+                    <SolidButton.Center>저장</SolidButton.Center>
+                  </SolidButton>
+                </div>
+              </div>
+            </div>
+
+            {/* 알림 / 외관 설정 (Switch) */}
+            <div style={{ padding: '24px', background: tc.bg, borderRadius: '12px', border: `1px solid ${tc.border}` }}>
+              <div style={{ fontSize: '14px', fontWeight: '600', color: tc.fg, marginBottom: '20px' }}>알림 및 외관</div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0' }}>
+                {([
+                  { label: '이메일 알림', desc: '새 팔로워, 댓글, 멘션 알림을 이메일로 받습니다', value: notificationsOn, onChange: setNotificationsOn },
+                  { label: '다크 모드', desc: '어두운 색상 테마를 사용합니다', value: darkModeOn, onChange: setDarkModeOn },
+                ] as const).map((item, idx, arr) => (
+                  <div
+                    key={item.label}
+                    style={{
+                      display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                      padding: '14px 0', borderBottom: idx < arr.length - 1 ? `1px solid ${tc.borderSub}` : 'none',
+                    }}
+                  >
+                    <div>
+                      <div style={{ fontSize: '14px', fontWeight: '500', color: tc.fg }}>{item.label}</div>
+                      <div style={{ fontSize: '12px', color: tc.fgMuted, marginTop: '2px' }}>{item.desc}</div>
+                    </div>
+                    <Switch checked={item.value} onCheckedChange={item.onChange} />
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* 공개 범위 설정 (RadioButton) */}
+            <div style={{ padding: '24px', background: tc.bg, borderRadius: '12px', border: `1px solid ${tc.border}` }}>
+              <div style={{ fontSize: '14px', fontWeight: '600', color: tc.fg, marginBottom: '16px' }}>프로필 공개 범위</div>
+              <fieldset style={{ border: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                {([
+                  { value: 'public', label: '전체 공개', desc: '누구나 프로필을 볼 수 있습니다' },
+                  { value: 'friends', label: '팔로워 공개', desc: '팔로워만 프로필을 볼 수 있습니다' },
+                  { value: 'private', label: '비공개', desc: '나만 프로필을 볼 수 있습니다' },
+                ] as const).map((opt) => (
+                  <label
+                    key={opt.value}
+                    style={{
+                      display: 'flex', alignItems: 'flex-start', gap: '12px',
+                      padding: '12px 16px', borderRadius: '10px', cursor: 'pointer',
+                      border: `1.5px solid ${privacy === opt.value ? 'rgba(99,102,241,0.3)' : tc.border}`,
+                      background: privacy === opt.value ? 'rgba(99,102,241,0.04)' : 'transparent',
+                      transition: 'all 0.15s',
+                    }}
+                  >
+                    <RadioButton
+                      value={opt.value}
+                      name="privacy"
+                      checked={privacy === opt.value}
+                      onChange={() => setPrivacy(opt.value)}
+                    />
+                    <div>
+                      <div style={{ fontSize: '13px', fontWeight: privacy === opt.value ? '600' : '500', color: tc.fg }}>{opt.label}</div>
+                      <div style={{ fontSize: '11px', color: tc.fgMuted, marginTop: '2px' }}>{opt.desc}</div>
+                    </div>
+                  </label>
+                ))}
+              </fieldset>
+            </div>
+
+            {/* 위험 영역 */}
+            <div style={{ padding: '24px', background: tc.bg, borderRadius: '12px', border: '1px solid #fecaca' }}>
+              <div style={{ fontSize: '14px', fontWeight: '600', color: '#dc2626', marginBottom: '8px' }}>위험 구역</div>
+              <div style={{ fontSize: '13px', color: tc.fgSub, marginBottom: '16px' }}>
+                계정을 삭제하면 모든 데이터가 영구적으로 삭제되며 복구할 수 없습니다.
+              </div>
+              <OutlineButton color="black" size="small">
+                <OutlineButton.Center>계정 삭제</OutlineButton.Center>
+              </OutlineButton>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+
+export const DeveloperProfile: Story = {
+  name: 'DeveloperProfile',
+  render: () => <DeveloperProfileRender />,
+}
