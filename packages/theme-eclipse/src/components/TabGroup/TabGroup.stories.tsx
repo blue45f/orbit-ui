@@ -639,3 +639,308 @@ const LinearViewTabs = () => {
 export const Linear_뷰_전환탭: Story = {
   render: () => <LinearViewTabs />,
 }
+
+/* --------------------------------------------------------------------------
+   Arco Design 벤치마크: 통계 대시보드 탭
+   Arco Design의 Tabs + 데이터 카드 패턴 — 탭 전환 시 집계 지표 변경
+   B2B 대시보드에서 기간/카테고리 전환에 널리 쓰이는 패턴
+-------------------------------------------------------------------------- */
+const periodData = {
+  day: { visits: '2,841', bounce: '34.2%', duration: '2m 18s', conversions: '127', trend: '+12%' },
+  week: { visits: '18,294', bounce: '31.7%', duration: '2m 44s', conversions: '891', trend: '+8%' },
+  month: { visits: '74,120', bounce: '29.5%', duration: '3m 02s', conversions: '3,412', trend: '+21%' },
+  quarter: { visits: '218,540', bounce: '28.1%', duration: '3m 18s', conversions: '10,247', trend: '+35%' },
+}
+
+type PeriodKey = keyof typeof periodData
+
+const ArcoDashboardTabsRender = () => {
+  const [period, setPeriod] = useState<PeriodKey>('week')
+  const data = periodData[period]
+
+  const tabs: { id: PeriodKey; label: string }[] = [
+    { id: 'day', label: '오늘' },
+    { id: 'week', label: '주간' },
+    { id: 'month', label: '월간' },
+    { id: 'quarter', label: '분기' },
+  ]
+
+  const metrics = [
+    { label: '총 방문자', value: data.visits, sub: data.trend + ' vs 이전 기간', color: '#6366f1' },
+    { label: '이탈률', value: data.bounce, sub: '평균 대비 -4.2%', color: '#ef4444' },
+    { label: '평균 세션', value: data.duration, sub: '페이지 체류 시간', color: '#10b981' },
+    { label: '전환수', value: data.conversions, sub: '목표 달성 횟수', color: '#f59e0b' },
+  ]
+
+  return (
+    <div style={{ width: 560, border: '1px solid #e2e8f0', borderRadius: 12, overflow: 'hidden', background: '#fff' }}>
+      <div style={{ padding: '16px 20px 0', borderBottom: '1px solid #f1f5f9' }}>
+        <div style={{ fontSize: 15, fontWeight: 700, color: '#0f172a', marginBottom: 12 }}>트래픽 분석</div>
+        <FixedTabs
+          selectedIndex={tabs.findIndex((t) => t.id === period)}
+          onTabChange={(i) => setPeriod(tabs[i].id)}
+        >
+          {tabs.map((tab) => (
+            <FixedTabs.Tab key={tab.id} value={tab.id}>
+              <FixedTabs.TabCenter>{tab.label}</FixedTabs.TabCenter>
+            </FixedTabs.Tab>
+          ))}
+        </FixedTabs>
+      </div>
+
+      <div style={{ padding: '20px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+        {metrics.map((m) => (
+          <div key={m.label} style={{
+            padding: '16px', borderRadius: 10,
+            border: '1px solid #f1f5f9', background: '#f8fafc',
+          }}>
+            <div style={{ fontSize: 11, color: '#94a3b8', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 6 }}>
+              {m.label}
+            </div>
+            <div style={{ fontSize: 22, fontWeight: 800, color: m.color, letterSpacing: '-0.02em' }}>{m.value}</div>
+            <div style={{ fontSize: 11, color: '#64748b', marginTop: 4 }}>{m.sub}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+export const Arco_통계_대시보드_탭: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Arco Design의 Tabs + 데이터 카드 패턴. 기간 탭 전환 시 집계 지표가 변경됩니다. ' +
+          'B2B 어드민/대시보드에서 날짜 범위 필터 역할로 자주 쓰이는 패턴입니다.',
+      },
+    },
+  },
+  render: () => <ArcoDashboardTabsRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Google Material 3 벤치마크: Secondary Tabs (아이콘 + 레이블)
+   M3의 Secondary Tab 패턴 — 아이콘과 텍스트를 수직 배치하는 
+   탐색형 탭 UI, 하단 인디케이터와 Surface variant 색상
+-------------------------------------------------------------------------- */
+const M3SecondaryTabsRender = () => {
+  const [selected, setSelected] = useState(0)
+
+  const tabs = [
+    { icon: <HomeLineIcon className="h-5 w-5" />, label: '홈' },
+    { icon: <PeopleLineIcon className="h-5 w-5" />, label: '팀' },
+    { icon: <NotificationLineIcon className="h-5 w-5" />, label: '알림' },
+    { icon: <SettingLineIcon className="h-5 w-5" />, label: '설정' },
+  ]
+
+  const contents = [
+    {
+      title: '최근 활동',
+      items: ['Orbit UI v2.0 배포 완료', 'AlertDialog 스토리 3개 추가', 'Vercel 자동 배포 설정 완료'],
+    },
+    {
+      title: '팀 멤버',
+      items: ['Kim Heejun (FE Lead)', 'Park Jisoo (Designer)', 'Lee Minjae (BE)'],
+    },
+    {
+      title: '읽지 않은 알림',
+      items: ['빌드 성공 — main branch', '코드 리뷰 요청 — feat/cycle-35', '이슈 #124 할당됨'],
+    },
+    {
+      title: '환경 설정',
+      items: ['다크 모드: 시스템 설정 따름', '언어: 한국어', '알림: 켜짐'],
+    },
+  ]
+
+  return (
+    <div style={{ width: 400, background: '#FFFBFE', borderRadius: 16, overflow: 'hidden', border: '1px solid #E6E1E5' }}>
+      {/* M3 Secondary Tabs */}
+      <div style={{ background: '#ECE6F0', borderBottom: '1px solid #CAC4D0' }}>
+        <div style={{ display: 'flex' }}>
+          {tabs.map((tab, i) => (
+            <button
+              key={i}
+              onClick={() => setSelected(i)}
+              style={{
+                flex: 1, padding: '12px 8px', border: 'none', background: 'none', cursor: 'pointer',
+                display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4,
+                position: 'relative',
+                color: i === selected ? '#6750A4' : '#49454F',
+                transition: 'color 0.2s ease',
+              }}
+            >
+              {tab.icon}
+              <span style={{ fontSize: 11, fontWeight: i === selected ? 700 : 500, letterSpacing: '0.04em' }}>
+                {tab.label}
+              </span>
+              {/* M3 하단 인디케이터 */}
+              <div style={{
+                position: 'absolute', bottom: 0, left: '50%', transform: 'translateX(-50%)',
+                height: 3, borderRadius: '3px 3px 0 0', background: '#6750A4',
+                width: i === selected ? '100%' : 0, transition: 'width 0.25s ease',
+              }} />
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* 콘텐츠 영역 */}
+      <div style={{ padding: '20px' }}>
+        <div style={{ fontSize: 16, fontWeight: 500, color: '#1C1B1F', marginBottom: 12, letterSpacing: '0.015em' }}>
+          {contents[selected].title}
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+          {contents[selected].items.map((item, i) => (
+            <div key={i} style={{
+              padding: '10px 14px', borderRadius: 10,
+              background: '#F7F2FA', border: '1px solid #E6E1E5',
+              fontSize: 13, color: '#49454F', lineHeight: 1.5,
+            }}>
+              {item}
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div style={{ padding: '0 20px 16px', fontSize: 11, color: '#79747E', letterSpacing: '0.04em' }}>
+        Material Design 3 · Secondary Tabs · Surface Container Low
+      </div>
+    </div>
+  )
+}
+
+export const Material3_세컨더리_탭: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Google Material 3의 Secondary Tabs 패턴. 아이콘과 레이블을 수직 배치하고 하단 인디케이터(3px, 보라색)로 선택 상태를 표시합니다. ' +
+          'Surface Container Low(#ECE6F0) 배경을 사용하는 M3 가이드라인 준수 구현입니다.',
+      },
+    },
+  },
+  render: () => <M3SecondaryTabsRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Arco Design 벤치마크: 스크롤 가능한 콘텐츠 카테고리 탭
+   Arco Design의 Tabs + 리스트 패턴 — 많은 카테고리를 가진 콘텐츠 탐색
+   e커머스/뉴스 앱에서 카테고리 필터링에 사용되는 패턴
+-------------------------------------------------------------------------- */
+const categories = ['전체', '컴포넌트', '테마', '접근성', '성능', '타입스크립트', '스토리북', '배포', '마이그레이션']
+
+const categoryContent: Record<string, { title: string; count: number; latest: string }[]> = {
+  '전체': [
+    { title: 'Orbit UI v2.0 출시', count: 48, latest: '2시간 전' },
+    { title: '새 AlertDialog 스토리 추가', count: 12, latest: '3시간 전' },
+    { title: 'Vercel 자동 배포 수정', count: 7, latest: '5시간 전' },
+  ],
+  '컴포넌트': [
+    { title: 'Carousel 3종 스토리 추가', count: 31, latest: '방금 전' },
+    { title: 'TabGroup M3 패턴 반영', count: 18, latest: '1시간 전' },
+  ],
+  '테마': [
+    { title: 'Eclipse 다크 토큰 업데이트', count: 9, latest: '1일 전' },
+    { title: 'CSS 변수 오버라이드 가이드', count: 5, latest: '2일 전' },
+  ],
+  '접근성': [
+    { title: 'WAI-ARIA 가이드 MDX 추가', count: 14, latest: '3일 전' },
+  ],
+  '성능': [
+    { title: '번들 사이즈 최적화', count: 6, latest: '1주 전' },
+  ],
+  '타입스크립트': [
+    { title: 'forwardRef 타입 개선', count: 3, latest: '5일 전' },
+  ],
+  '스토리북': [
+    { title: '자동 배포 MDX 설정', count: 11, latest: '4일 전' },
+  ],
+  '배포': [
+    { title: 'Vercel vercel.json 추가', count: 8, latest: '오늘' },
+  ],
+  '마이그레이션': [
+    { title: 'Ant Design 마이그레이션 가이드', count: 22, latest: '오늘' },
+  ],
+}
+
+const ArcoScrollableTabsRender = () => {
+  const [selected, setSelected] = useState('전체')
+  const items = categoryContent[selected] ?? categoryContent['전체']
+
+  return (
+    <div style={{ width: 520, border: '1px solid #e2e8f0', borderRadius: 12, background: '#fff', overflow: 'hidden' }}>
+      {/* 스크롤 가능한 카테고리 탭 */}
+      <div style={{
+        display: 'flex', gap: 0,
+        overflowX: 'auto', padding: '12px 16px 0',
+        borderBottom: '1px solid #f1f5f9',
+        scrollbarWidth: 'none',
+      }}>
+        {categories.map((cat) => (
+          <button
+            key={cat}
+            onClick={() => setSelected(cat)}
+            style={{
+              flexShrink: 0, padding: '8px 14px', border: 'none', background: 'none',
+              fontSize: 13, fontWeight: selected === cat ? 700 : 500, cursor: 'pointer',
+              color: selected === cat ? '#6366f1' : '#64748b',
+              borderBottom: selected === cat ? '2px solid #6366f1' : '2px solid transparent',
+              transition: 'all 0.2s ease', whiteSpace: 'nowrap',
+            }}
+          >
+            {cat}
+          </button>
+        ))}
+      </div>
+
+      {/* 콘텐츠 리스트 */}
+      <div style={{ padding: '16px' }}>
+        {items.length === 0 ? (
+          <div style={{ padding: '32px', textAlign: 'center', color: '#94a3b8', fontSize: 13 }}>
+            이 카테고리에는 아직 게시물이 없습니다.
+          </div>
+        ) : (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+            {items.map((item, i) => (
+              <div key={i} style={{
+                padding: '14px 16px', borderRadius: 10,
+                border: '1px solid #f1f5f9', background: '#f8fafc',
+                display: 'flex', alignItems: 'center', gap: 12,
+              }}>
+                <div style={{ flex: 1 }}>
+                  <div style={{ fontSize: 13, fontWeight: 600, color: '#1e293b', marginBottom: 4 }}>{item.title}</div>
+                  <div style={{ fontSize: 11, color: '#94a3b8' }}>{item.latest}</div>
+                </div>
+                <div style={{
+                  display: 'flex', alignItems: 'center', gap: 4,
+                  fontSize: 11, color: '#6366f1', fontWeight: 700,
+                }}>
+                  <span>{item.count}</span>
+                  <span style={{ color: '#94a3b8', fontWeight: 400 }}>댓글</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+
+      <div style={{ padding: '0 16px 14px', fontSize: 11, color: '#94a3b8' }}>
+        Arco Design Tabs + List 패턴 · 카테고리 필터 탐색
+      </div>
+    </div>
+  )
+}
+
+export const Arco_카테고리_필터_탭: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Arco Design의 Tabs + 리스트 패턴. overflowX: auto로 많은 카테고리를 가로 스크롤 가능하게 처리합니다. ' +
+          'e커머스, 뉴스, 커뮤니티 앱의 카테고리 필터링 탐색에 널리 사용되는 실무 패턴입니다.',
+      },
+    },
+  },
+  render: () => <ArcoScrollableTabsRender />,
+}

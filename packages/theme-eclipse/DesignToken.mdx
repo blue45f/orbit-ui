@@ -639,5 +639,97 @@ function App() {
       </div>
     </section>
 
+    {/* Brand Color Customization */}
+    <section style={{ marginBottom: '64px' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '20px' }}>
+        <div style={{ width: '28px', height: '28px', borderRadius: '8px', background: '#6366f1', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <span style={{ color: '#fff', fontWeight: '700', fontSize: '14px' }}>B</span>
+        </div>
+        <h2 style={{ fontSize: '20px', fontWeight: '800', color: '#1e293b', margin: 0 }}>브랜드 컬러 적용</h2>
+      </div>
+
+      <p style={{ fontSize: '14px', color: '#64748b', lineHeight: '1.7', marginBottom: '24px' }}>
+        Orbit UI의 Reference Token을 재정의해 브랜드 고유 색상을 전역으로 적용할 수 있습니다.
+        Arco Design의 ConfigProvider, MUI의 createTheme과 같이 한 곳에서 전체 테마를 변경하는 패턴입니다.
+      </p>
+
+      <div style={{ borderRadius: '12px', border: '1px solid #e2e8f0', overflow: 'hidden', marginBottom: '24px' }}>
+        <div style={{ padding: '8px 16px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <span style={{ fontSize: '12px', color: '#6366f1', fontWeight: '700' }}>CSS Variables Override</span>
+          <span style={{ fontSize: '11px', color: '#94a3b8' }}>globals.css 또는 :root</span>
+        </div>
+        <pre style={{ margin: 0, padding: '20px', background: '#0f172a', color: '#e2e8f0', fontSize: '12px', lineHeight: '1.9', fontFamily: '"JetBrains Mono", monospace', overflow: 'auto' }}>
+{`:root {
+  /* Reference Token 재정의 — 브랜드 기본 색상 */
+  --ref-eclipse-color-blue500: #2563eb;   /* 기본: #6366f1 (인디고) */
+  --ref-eclipse-color-blue400: #3b82f6;
+  --ref-eclipse-color-blue600: #1d4ed8;
+
+  /* 다크모드 재정의는 .dark 클래스 또는 data-theme="dark" */
+}
+
+/* Semantic Token 직접 오버라이드 (더 세밀한 제어) */
+:root {
+  --sem-eclipse-color-fillPrimary: #2563eb;
+  --sem-eclipse-color-fillPrimaryHover: #1d4ed8;
+  --sem-eclipse-color-fillPrimaryActive: #1e40af;
+}`}
+        </pre>
+      </div>
+
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '24px' }}>
+        <div style={{ borderRadius: '12px', border: '1px solid #e2e8f0', overflow: 'hidden' }}>
+          <div style={{ padding: '8px 16px', background: '#fff8f0', borderBottom: '1px solid #e2e8f0' }}>
+            <span style={{ fontSize: '12px', color: '#f59e0b', fontWeight: '700' }}>기업 브랜드 예시</span>
+          </div>
+          <pre style={{ margin: 0, padding: '16px', background: '#0f172a', color: '#e2e8f0', fontSize: '11px', lineHeight: '1.8', fontFamily: '"JetBrains Mono", monospace', overflow: 'auto' }}>
+{`/* Kakao 스타일 (노란색 계열) */
+:root {
+  --sem-eclipse-color-fillPrimary: #FEE500;
+  --sem-eclipse-color-foregroundPrimary:
+    #000000;
+}
+
+/* Naver 스타일 (초록색 계열) */
+:root {
+  --sem-eclipse-color-fillPrimary: #03C75A;
+}`}
+          </pre>
+        </div>
+        <div style={{ borderRadius: '12px', border: '1px solid #e2e8f0', overflow: 'hidden' }}>
+          <div style={{ padding: '8px 16px', background: '#f0fdf4', borderBottom: '1px solid #e2e8f0' }}>
+            <span style={{ fontSize: '12px', color: '#10b981', fontWeight: '700' }}>EclipseProvider theme prop</span>
+          </div>
+          <pre style={{ margin: 0, padding: '16px', background: '#0f172a', color: '#e2e8f0', fontSize: '11px', lineHeight: '1.8', fontFamily: '"JetBrains Mono", monospace', overflow: 'auto' }}>
+{`/* 컴포넌트 레벨 토큰 오버라이드 */
+<SolidButton
+  theme={{
+    // component token 직접 주입
+    fill: '#FEE500',
+    fillHover: '#FFCB05',
+    foreground: '#000000',
+  }}
+>
+  카카오 로그인
+</SolidButton>`}
+          </pre>
+        </div>
+      </div>
+
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '12px' }}>
+        {[
+          { name: 'Arco Design', method: 'ConfigProvider theme', desc: '전역 컴포넌트에 theme 객체 주입, token 키-값으로 재정의' },
+          { name: 'MUI', method: 'createTheme()', desc: 'palette.primary.main 등 시맨틱 키로 색상 계층 구성' },
+          { name: 'Orbit UI', method: 'CSS Variables', desc: 'Reference/Semantic/Component 세 계층 중 원하는 곳에서 오버라이드' },
+        ].map((item) => (
+          <div key={item.name} style={{ padding: '16px', borderRadius: '10px', background: '#f8fafc', border: '1px solid #e2e8f0' }}>
+            <div style={{ fontSize: '12px', fontWeight: '700', color: '#6366f1', marginBottom: '4px' }}>{item.name}</div>
+            <div style={{ fontSize: '11px', fontWeight: '600', color: '#1e293b', marginBottom: '6px', fontFamily: 'monospace', background: '#f1f5f9', padding: '2px 6px', borderRadius: '4px', display: 'inline-block' }}>{item.method}</div>
+            <div style={{ fontSize: '12px', color: '#64748b', lineHeight: '1.6', marginTop: '6px' }}>{item.desc}</div>
+          </div>
+        ))}
+      </div>
+    </section>
+
   </div>
 </Unstyled>

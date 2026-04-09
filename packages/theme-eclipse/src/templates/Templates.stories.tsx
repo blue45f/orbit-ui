@@ -7578,3 +7578,329 @@ export const MonitoringDashboard: Story = {
   name: 'Monitoring Dashboard (Vercel + Linear 벤치마크)',
   render: () => <MonitoringDashboardRender />,
 }
+
+/* --------------------------------------------------------------------------
+   Portfolio Page — shadcn/ui + Radix UI 벤치마크
+   개발자/디자이너 포트폴리오 — 프로젝트 그리드, 기술 스택 태그,
+   경력 타임라인, 연락처 섹션을 포함한 개인 브랜딩 페이지
+-------------------------------------------------------------------------- */
+const PortfolioPageRender = () => {
+  const [activeFilter, setActiveFilter] = useState('all')
+  const [hoveredProject, setHoveredProject] = useState<string | null>(null)
+
+  const tc = {
+    bg: '#fafafa',
+    surface: '#ffffff',
+    border: '#e5e7eb',
+    fg: '#111827',
+    fgMuted: '#6b7280',
+    fgSubtle: '#9ca3af',
+    accent: '#6366f1',
+    accentBg: '#eef2ff',
+    accentBorder: '#c7d2fe',
+  }
+
+  const filters = ['all', 'web', 'mobile', 'design-system', 'open-source']
+
+  const projects = [
+    {
+      id: 'orbit-ui',
+      title: 'Orbit UI',
+      desc: 'React 기반 3-tier 디자인 시스템 — 50+ 컴포넌트, Storybook 통합, Vercel 자동 배포',
+      tags: ['React', 'TypeScript', 'Storybook', 'vanilla-extract'],
+      filter: 'design-system',
+      color: '#6366f1',
+      stars: 248,
+      year: '2024',
+    },
+    {
+      id: 'orbit-icons',
+      title: 'Orbit Icons',
+      desc: '200+ SVG 아이콘 라이브러리 — 라인/필드 variant, tree-shakeable ESM 번들',
+      tags: ['SVG', 'Vite', 'pnpm workspace'],
+      filter: 'open-source',
+      color: '#8b5cf6',
+      stars: 91,
+      year: '2024',
+    },
+    {
+      id: 'eclipse-theme',
+      title: 'Eclipse Theme',
+      desc: 'Orbit UI의 기본 테마 패키지 — 다크/라이트 모드, SSR 지원, 프리셋 토큰 시스템',
+      tags: ['CSS-in-JS', 'Dark Mode', 'SSR'],
+      filter: 'design-system',
+      color: '#10b981',
+      stars: 67,
+      year: '2025',
+    },
+    {
+      id: 'deploy-hub',
+      title: 'Deploy Hub',
+      desc: 'GitHub Actions + Vercel 통합 자동화 도구 — PR 미리보기, 배포 상태 알림',
+      tags: ['GitHub Actions', 'Vercel', 'Node.js'],
+      filter: 'web',
+      color: '#f59e0b',
+      stars: 142,
+      year: '2025',
+    },
+    {
+      id: 'mobile-kit',
+      title: 'Mobile Kit',
+      desc: 'React Native 컴포넌트 라이브러리 — Orbit UI 디자인 토큰 기반 크로스플랫폼 UI',
+      tags: ['React Native', 'Expo', 'TypeScript'],
+      filter: 'mobile',
+      color: '#ef4444',
+      stars: 38,
+      year: '2025',
+    },
+    {
+      id: 'figma-sync',
+      title: 'Figma Token Sync',
+      desc: 'Figma 토큰을 Orbit UI 디자인 토큰으로 자동 변환하는 CLI 도구',
+      tags: ['CLI', 'Figma API', 'JSON'],
+      filter: 'open-source',
+      color: '#06b6d4',
+      stars: 53,
+      year: '2024',
+    },
+  ]
+
+  const skills = [
+    { category: 'Frontend', items: ['React', 'TypeScript', 'Next.js', 'Tailwind CSS', 'Storybook'] },
+    { category: 'Design System', items: ['Figma', 'vanilla-extract', 'Design Tokens', 'Radix UI'] },
+    { category: 'Tooling', items: ['Vite', 'pnpm', 'Vitest', 'ESLint', 'GitHub Actions'] },
+    { category: 'Backend', items: ['Node.js', 'PostgreSQL', 'Vercel', 'Redis'] },
+  ]
+
+  const timeline = [
+    { year: '2025', role: 'Senior Frontend Engineer', company: 'Startup A', desc: 'Orbit UI 디자인 시스템 구축 및 전사 적용' },
+    { year: '2024', role: 'Frontend Engineer', company: 'Tech Corp', desc: '컴포넌트 라이브러리 설계 및 Storybook 인프라 구축' },
+    { year: '2023', role: 'Junior Developer', company: 'Agency B', desc: 'React 기반 웹 애플리케이션 개발 및 유지보수' },
+  ]
+
+  const filteredProjects = activeFilter === 'all' ? projects : projects.filter((p) => p.filter === activeFilter)
+
+  return (
+    <div style={{ minHeight: '100vh', background: tc.bg, fontFamily: '"Inter", system-ui, sans-serif' }}>
+      {/* Header */}
+      <header style={{ borderBottom: `1px solid ${tc.border}`, background: tc.surface, position: 'sticky', top: 0, zIndex: 10 }}>
+        <div style={{ maxWidth: 1000, margin: '0 auto', padding: '0 24px', height: 56, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+            <div style={{ width: 32, height: 32, borderRadius: '50%', background: tc.accent, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 14, fontWeight: 800, color: '#fff' }}>
+              K
+            </div>
+            <span style={{ fontSize: 15, fontWeight: 700, color: tc.fg }}>Kim Heejun</span>
+          </div>
+          <nav style={{ display: 'flex', gap: 24 }}>
+            {['Projects', 'Skills', 'Experience', 'Contact'].map((item) => (
+              <a key={item} href="#" style={{ fontSize: 13, color: tc.fgMuted, textDecoration: 'none', fontWeight: 500 }}>{item}</a>
+            ))}
+          </nav>
+          <SolidButton color="primary" size="small">
+            <SolidButton.Center>Resume</SolidButton.Center>
+          </SolidButton>
+        </div>
+      </header>
+
+      <main style={{ maxWidth: 1000, margin: '0 auto', padding: '48px 24px' }}>
+        {/* Hero */}
+        <section style={{ marginBottom: 72, display: 'flex', alignItems: 'center', gap: 48 }}>
+          <div style={{ flex: 1 }}>
+            <div style={{
+              display: 'inline-flex', alignItems: 'center', gap: 6, padding: '4px 12px',
+              borderRadius: 20, background: tc.accentBg, border: `1px solid ${tc.accentBorder}`,
+              fontSize: 12, fontWeight: 600, color: tc.accent, marginBottom: 20,
+            }}>
+              <span style={{ width: 7, height: 7, borderRadius: '50%', background: '#10b981' }} />
+              Available for work
+            </div>
+            <h1 style={{ fontSize: 44, fontWeight: 900, color: tc.fg, margin: '0 0 16px', lineHeight: 1.1, letterSpacing: '-0.03em' }}>
+              Frontend Engineer<br />
+              <span style={{ color: tc.accent }}>& Design Systems</span>
+            </h1>
+            <p style={{ fontSize: 16, color: tc.fgMuted, lineHeight: 1.7, margin: '0 0 28px', maxWidth: 480 }}>
+              React, TypeScript, 디자인 시스템 전문. Orbit UI 오픈소스 메인테이너.
+              확장 가능한 컴포넌트 라이브러리와 개발자 경험 향상에 집중합니다.
+            </p>
+            <div style={{ display: 'flex', gap: 12 }}>
+              <SolidButton color="primary" size="medium">
+                <SolidButton.Center>View Projects</SolidButton.Center>
+              </SolidButton>
+              <OutlineButton size="medium" color="black">
+                <OutlineButton.Center>Get in touch</OutlineButton.Center>
+              </OutlineButton>
+            </div>
+          </div>
+          <div style={{ flexShrink: 0, display: 'flex', flexDirection: 'column', gap: 12 }}>
+            {/* 미니 스탯 카드 */}
+            {[
+              { label: 'GitHub Stars', value: '639+', color: '#f59e0b' },
+              { label: 'Components', value: '50+', color: tc.accent },
+              { label: 'Open Source', value: '6 repos', color: '#10b981' },
+            ].map((stat) => (
+              <div key={stat.label} style={{
+                padding: '14px 20px', borderRadius: 12,
+                background: tc.surface, border: `1px solid ${tc.border}`,
+                minWidth: 160,
+              }}>
+                <div style={{ fontSize: 22, fontWeight: 800, color: stat.color, letterSpacing: '-0.02em' }}>{stat.value}</div>
+                <div style={{ fontSize: 11, color: tc.fgMuted, marginTop: 2, fontWeight: 500 }}>{stat.label}</div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Projects */}
+        <section style={{ marginBottom: 72 }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 24 }}>
+            <h2 style={{ fontSize: 22, fontWeight: 800, color: tc.fg, margin: 0, letterSpacing: '-0.02em' }}>Projects</h2>
+            <div style={{ display: 'flex', gap: 6 }}>
+              {filters.map((f) => (
+                <button
+                  key={f}
+                  onClick={() => setActiveFilter(f)}
+                  style={{
+                    padding: '5px 12px', borderRadius: 20, border: `1px solid ${activeFilter === f ? tc.accent : tc.border}`,
+                    background: activeFilter === f ? tc.accentBg : tc.surface,
+                    fontSize: 11, fontWeight: 600, cursor: 'pointer', color: activeFilter === f ? tc.accent : tc.fgMuted,
+                    textTransform: activeFilter === 'all' ? 'none' : 'none',
+                  }}
+                >
+                  {f === 'all' ? 'All' : f === 'design-system' ? 'Design System' : f === 'open-source' ? 'Open Source' : f.charAt(0).toUpperCase() + f.slice(1)}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16 }}>
+            {filteredProjects.map((project) => (
+              <div
+                key={project.id}
+                onMouseEnter={() => setHoveredProject(project.id)}
+                onMouseLeave={() => setHoveredProject(null)}
+                style={{
+                  padding: '20px', borderRadius: 12,
+                  background: tc.surface,
+                  border: `1.5px solid ${hoveredProject === project.id ? project.color + '44' : tc.border}`,
+                  boxShadow: hoveredProject === project.id ? `0 4px 20px ${project.color}18` : 'none',
+                  transition: 'all 0.2s ease', cursor: 'pointer',
+                }}
+              >
+                <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: 12 }}>
+                  <div style={{
+                    width: 36, height: 36, borderRadius: 10, background: project.color,
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    fontSize: 16, fontWeight: 900, color: '#fff',
+                  }}>
+                    {project.title[0]}
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 4, fontSize: 11, color: tc.fgMuted }}>
+                    <span>{'★'}</span>
+                    <span>{project.stars}</span>
+                  </div>
+                </div>
+                <div style={{ fontSize: 14, fontWeight: 700, color: tc.fg, marginBottom: 6 }}>{project.title}</div>
+                <div style={{ fontSize: 12, color: tc.fgMuted, lineHeight: 1.6, marginBottom: 14 }}>{project.desc}</div>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 4 }}>
+                  {project.tags.map((tag) => (
+                    <span key={tag} style={{
+                      fontSize: 10, padding: '2px 7px', borderRadius: 20,
+                      background: tc.bg, border: `1px solid ${tc.border}`,
+                      color: tc.fgMuted, fontWeight: 500,
+                    }}>
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Skills */}
+        <section style={{ marginBottom: 72 }}>
+          <h2 style={{ fontSize: 22, fontWeight: 800, color: tc.fg, margin: '0 0 24px', letterSpacing: '-0.02em' }}>Skills</h2>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 16 }}>
+            {skills.map((group) => (
+              <div key={group.category} style={{
+                padding: '20px', borderRadius: 12,
+                background: tc.surface, border: `1px solid ${tc.border}`,
+              }}>
+                <div style={{ fontSize: 11, fontWeight: 700, color: tc.accent, textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 12 }}>
+                  {group.category}
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+                  {group.items.map((skill) => (
+                    <div key={skill} style={{ fontSize: 13, color: tc.fg, display: 'flex', alignItems: 'center', gap: 6 }}>
+                      <div style={{ width: 5, height: 5, borderRadius: '50%', background: tc.accentBorder, flexShrink: 0 }} />
+                      {skill}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Experience Timeline */}
+        <section style={{ marginBottom: 72 }}>
+          <h2 style={{ fontSize: 22, fontWeight: 800, color: tc.fg, margin: '0 0 24px', letterSpacing: '-0.02em' }}>Experience</h2>
+          <div style={{ position: 'relative', paddingLeft: 32 }}>
+            <div style={{ position: 'absolute', left: 8, top: 8, bottom: 0, width: 2, background: tc.border, borderRadius: 2 }} />
+            {timeline.map((item, i) => (
+              <div key={i} style={{ position: 'relative', marginBottom: 32 }}>
+                <div style={{
+                  position: 'absolute', left: -28, top: 4, width: 12, height: 12, borderRadius: '50%',
+                  background: tc.accent, border: `3px solid ${tc.bg}`, zIndex: 1,
+                }} />
+                <div style={{
+                  padding: '18px 20px', borderRadius: 12,
+                  background: tc.surface, border: `1px solid ${tc.border}`,
+                }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 6 }}>
+                    <span style={{
+                      fontSize: 11, padding: '2px 8px', borderRadius: 20,
+                      background: tc.accentBg, color: tc.accent, fontWeight: 700,
+                    }}>
+                      {item.year}
+                    </span>
+                    <span style={{ fontSize: 14, fontWeight: 700, color: tc.fg }}>{item.role}</span>
+                    <span style={{ fontSize: 12, color: tc.fgMuted }}>@ {item.company}</span>
+                  </div>
+                  <div style={{ fontSize: 13, color: tc.fgMuted, lineHeight: 1.6 }}>{item.desc}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Contact CTA */}
+        <section style={{
+          padding: '40px', borderRadius: 20, textAlign: 'center',
+          background: `linear-gradient(135deg, ${tc.accentBg} 0%, #f5f3ff 100%)`,
+          border: `1.5px solid ${tc.accentBorder}`,
+        }}>
+          <div style={{ fontSize: 24, fontWeight: 800, color: tc.fg, marginBottom: 8, letterSpacing: '-0.02em' }}>
+            함께 만들고 싶은 것이 있나요?
+          </div>
+          <div style={{ fontSize: 14, color: tc.fgMuted, marginBottom: 24, lineHeight: 1.7 }}>
+            디자인 시스템, 컴포넌트 라이브러리, 또는 멋진 제품에 대해 이야기해 봐요.
+          </div>
+          <div style={{ display: 'flex', gap: 12, justifyContent: 'center' }}>
+            <SolidButton color="primary" size="medium">
+              <SolidButton.Center>연락하기</SolidButton.Center>
+            </SolidButton>
+            <OutlineButton size="medium" color="black">
+              <OutlineButton.Center>GitHub</OutlineButton.Center>
+            </OutlineButton>
+          </div>
+        </section>
+      </main>
+    </div>
+  )
+}
+
+export const PortfolioPage: Story = {
+  name: 'Portfolio Page (shadcn/ui + Radix UI 벤치마크)',
+  render: () => <PortfolioPageRender />,
+}
