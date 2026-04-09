@@ -274,8 +274,12 @@ export const useThemeRoot: Decorator = (Story, context) => {
 
   useLayoutEffect(() => {
     injectGlobalStyles()
-    document.documentElement.className = theme
-    document.body.className = theme
+    // Toggle light/dark class without overwriting vanilla-extract theme classes
+    const prev = theme === 'dark' ? 'light' : 'dark'
+    document.documentElement.classList.remove(prev)
+    document.documentElement.classList.add(theme)
+    document.body.classList.remove(prev)
+    document.body.classList.add(theme)
   }, [theme])
 
   return (
