@@ -7205,3 +7205,376 @@ export const EmailClient: Story = {
   name: 'Email Client (Tailwind UI + Radix UI 벤치마크)',
   render: () => <EmailClientRender />,
 }
+
+/* --------------------------------------------------------------------------
+   Monitoring Dashboard — Vercel/Linear 벤치마크
+   시스템 상태 모니터링 대시보드 — 실시간 서비스 헬스, 인시던트 타임라인,
+   배포 이력, 지역별 레이턴시 맵을 포함한 Vercel-style SRE 도구
+-------------------------------------------------------------------------- */
+const MonitoringDashboardRender = () => {
+  const [selectedRegion, setSelectedRegion] = useState<string>('all')
+  const [incidentOpen, setIncidentOpen] = useState(false)
+
+  const tc = {
+    bg: '#0a0a0a',
+    surface: '#111111',
+    surfaceElevated: '#1a1a1a',
+    border: '#2a2a2a',
+    borderSub: '#1e1e1e',
+    fg: '#ededed',
+    fgMuted: '#888888',
+    fgSubtle: '#555555',
+    green: '#22c55e',
+    greenBg: '#052e16',
+    greenBorder: '#15803d',
+    yellow: '#f59e0b',
+    yellowBg: '#2d1f00',
+    yellowBorder: '#b45309',
+    red: '#ef4444',
+    redBg: '#2d0d0d',
+    redBorder: '#b91c1c',
+    blue: '#6366f1',
+    blueBg: '#1a1a3e',
+    blueBorder: '#4338ca',
+  }
+
+  const services = [
+    { name: 'API Gateway', status: 'operational', p99: '42ms', uptime: '99.98%', region: 'iad1' },
+    { name: 'Edge Network', status: 'operational', p99: '8ms', uptime: '100%', region: 'all' },
+    { name: 'Build System', status: 'degraded', p99: '2100ms', uptime: '99.81%', region: 'sfo1' },
+    { name: 'Storage', status: 'operational', p99: '18ms', uptime: '99.99%', region: 'cdg1' },
+    { name: 'Auth Service', status: 'operational', p99: '67ms', uptime: '99.97%', region: 'iad1' },
+    { name: 'Analytics', status: 'operational', p99: '124ms', uptime: '99.95%', region: 'hkg1' },
+    { name: 'CDN Cache', status: 'operational', p99: '3ms', uptime: '100%', region: 'all' },
+    { name: 'Database Proxy', status: 'incident', p99: '8400ms', uptime: '99.23%', region: 'sfo1' },
+  ]
+
+  const regions = ['all', 'iad1', 'sfo1', 'cdg1', 'hkg1']
+
+  const filteredServices = selectedRegion === 'all'
+    ? services
+    : services.filter((s) => s.region === selectedRegion || s.region === 'all')
+
+  const deployments = [
+    { sha: '6138f84', branch: 'main', time: '2분 전', status: 'ready', duration: '1m 42s' },
+    { sha: '1b0d7a9', branch: 'main', time: '18분 전', status: 'error', duration: '32s' },
+    { sha: '32265de', branch: 'main', time: '34분 전', status: 'ready', duration: '2m 11s' },
+    { sha: 'ac7a6f3', branch: 'feat/cycle-33', time: '1시간 전', status: 'ready', duration: '1m 58s' },
+    { sha: 'bef6617', branch: 'main', time: '3시간 전', status: 'ready', duration: '1m 44s' },
+  ]
+
+  const incidents = [
+    {
+      id: 'INC-2847',
+      title: 'Database Proxy 응답 지연',
+      severity: 'critical',
+      started: '14분 전',
+      updates: [
+        { time: '14분 전', msg: '인시던트 감지 — sfo1 Database Proxy 응답 지연 시작' },
+        { time: '11분 전', msg: '조사 중 — 엔지니어링 팀 대응 시작' },
+        { time: '6분 전', msg: '원인 식별 — 연결 풀 소진으로 인한 지연 확인' },
+      ],
+    },
+  ]
+
+  const latencyData = [
+    { region: 'IAD (us-east-1)', p50: 12, p99: 42, color: tc.green },
+    { region: 'SFO (us-west-2)', p50: 18, p99: 2100, color: tc.yellow },
+    { region: 'CDG (eu-west-3)', p50: 24, p99: 89, color: tc.green },
+    { region: 'HKG (ap-east-1)', p50: 31, p99: 124, color: tc.green },
+    { region: 'SYD (ap-southeast-2)', p50: 45, p99: 167, color: tc.green },
+  ]
+
+  const statusColor = (s: string) => {
+    if (s === 'operational') return tc.green
+    if (s === 'degraded') return tc.yellow
+    return tc.red
+  }
+
+  const statusLabel = (s: string) => {
+    if (s === 'operational') return 'Operational'
+    if (s === 'degraded') return 'Degraded'
+    return 'Incident'
+  }
+
+  const overallStatus = services.some((s) => s.status === 'incident')
+    ? 'incident'
+    : services.some((s) => s.status === 'degraded')
+    ? 'degraded'
+    : 'operational'
+
+  return (
+    <div style={{ minHeight: '100vh', background: tc.bg, color: tc.fg, fontFamily: '"Geist", "Inter", system-ui, sans-serif' }}>
+      {/* Header */}
+      <div style={{ borderBottom: `1px solid ${tc.border}`, padding: '0 24px' }}>
+        <div style={{ maxWidth: 1200, margin: '0 auto', height: 52, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+              <div style={{ width: 20, height: 20, background: tc.fg, borderRadius: 4, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <div style={{ width: 10, height: 10, background: tc.bg, borderRadius: 2 }} />
+              </div>
+              <span style={{ fontWeight: 700, fontSize: 14 }}>orbit-ui</span>
+            </div>
+            <span style={{ color: tc.fgSubtle }}>/</span>
+            <span style={{ fontSize: 14, color: tc.fgMuted }}>Monitoring</span>
+          </div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+            <div style={{
+              display: 'inline-flex', alignItems: 'center', gap: 6,
+              padding: '4px 10px', borderRadius: 20,
+              background: overallStatus === 'incident' ? tc.redBg : overallStatus === 'degraded' ? tc.yellowBg : tc.greenBg,
+              border: `1px solid ${overallStatus === 'incident' ? tc.redBorder : overallStatus === 'degraded' ? tc.yellowBorder : tc.greenBorder}`,
+              fontSize: 12, fontWeight: 600,
+              color: overallStatus === 'incident' ? tc.red : overallStatus === 'degraded' ? tc.yellow : tc.green,
+            }}>
+              <span style={{
+                width: 7, height: 7, borderRadius: '50%',
+                background: overallStatus === 'incident' ? tc.red : overallStatus === 'degraded' ? tc.yellow : tc.green,
+              }} />
+              {overallStatus === 'incident' ? 'Service Disruption' : overallStatus === 'degraded' ? 'Partial Degradation' : 'All Systems Operational'}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style={{ maxWidth: 1200, margin: '0 auto', padding: '28px 24px' }}>
+        {/* Active Incident Banner */}
+        {overallStatus === 'incident' && (
+          <div style={{
+            marginBottom: 24, padding: '14px 18px', borderRadius: 10,
+            background: tc.redBg, border: `1px solid ${tc.redBorder}`,
+            display: 'flex', alignItems: 'flex-start', gap: 12,
+          }}>
+            <div style={{ width: 8, height: 8, borderRadius: '50%', background: tc.red, marginTop: 6, flexShrink: 0, animation: 'pulse 2s infinite' }} />
+            <div style={{ flex: 1 }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
+                <span style={{ fontSize: 13, fontWeight: 700, color: tc.red }}>{incidents[0].id}</span>
+                <span style={{ fontSize: 12, color: tc.fgMuted }}>{incidents[0].started} 시작</span>
+              </div>
+              <p style={{ margin: 0, fontSize: 13, color: tc.fg }}>{incidents[0].title}</p>
+            </div>
+            <button
+              onClick={() => setIncidentOpen(!incidentOpen)}
+              style={{ background: 'none', border: 'none', color: tc.fgMuted, cursor: 'pointer', fontSize: 12, padding: 0 }}
+            >
+              {incidentOpen ? '접기' : '상세 보기'}
+            </button>
+          </div>
+        )}
+
+        {/* Incident Timeline */}
+        {incidentOpen && (
+          <div style={{
+            marginBottom: 24, padding: '16px 18px', borderRadius: 10,
+            background: tc.surface, border: `1px solid ${tc.border}`,
+          }}>
+            <p style={{ margin: '0 0 14px', fontSize: 12, fontWeight: 700, color: tc.fgMuted, textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+              인시던트 타임라인
+            </p>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+              {incidents[0].updates.map((u, i) => (
+                <div key={i} style={{ display: 'flex', gap: 14 }}>
+                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 0, width: 16 }}>
+                    <div style={{ width: 8, height: 8, borderRadius: '50%', background: i === 0 ? tc.red : tc.fgSubtle, flexShrink: 0 }} />
+                    {i < incidents[0].updates.length - 1 && (
+                      <div style={{ width: 1, flex: 1, background: tc.border, minHeight: 20 }} />
+                    )}
+                  </div>
+                  <div style={{ paddingBottom: i < incidents[0].updates.length - 1 ? 12 : 0 }}>
+                    <span style={{ fontSize: 11, color: tc.fgMuted }}>{u.time}</span>
+                    <p style={{ margin: '2px 0 0', fontSize: 13, color: tc.fg }}>{u.msg}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Metrics Row */}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 12, marginBottom: 24 }}>
+          {[
+            { label: '전체 가용성', value: '99.94%', sub: '최근 30일', color: tc.green },
+            { label: '평균 응답 시간', value: '38ms', sub: 'P50 글로벌', color: tc.fg },
+            { label: '오늘 배포 수', value: '5', sub: '3 Ready / 1 Error', color: tc.fg },
+            { label: '활성 인시던트', value: '1', sub: '1 Critical', color: tc.red },
+          ].map((m, i) => (
+            <div key={i} style={{
+              padding: '16px 20px', borderRadius: 10,
+              background: tc.surface, border: `1px solid ${tc.border}`,
+            }}>
+              <p style={{ margin: '0 0 6px', fontSize: 12, color: tc.fgMuted }}>{m.label}</p>
+              <p style={{ margin: '0 0 2px', fontSize: 24, fontWeight: 700, color: m.color, letterSpacing: '-0.02em' }}>{m.value}</p>
+              <p style={{ margin: 0, fontSize: 11, color: tc.fgSubtle }}>{m.sub}</p>
+            </div>
+          ))}
+        </div>
+
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 380px', gap: 20 }}>
+          {/* Left: Services */}
+          <div>
+            {/* Region Filter */}
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 14 }}>
+              <p style={{ margin: 0, fontSize: 13, fontWeight: 600, color: tc.fg }}>서비스 상태</p>
+              <div style={{ display: 'flex', gap: 4 }}>
+                {regions.map((r) => (
+                  <button
+                    key={r}
+                    onClick={() => setSelectedRegion(r)}
+                    style={{
+                      padding: '4px 10px', borderRadius: 6, border: 'none', cursor: 'pointer',
+                      fontSize: 11, fontWeight: 600, textTransform: 'uppercase',
+                      background: selectedRegion === r ? tc.blue : tc.surface,
+                      color: selectedRegion === r ? '#fff' : tc.fgMuted,
+                      letterSpacing: '0.04em',
+                    }}
+                  >
+                    {r}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div style={{ borderRadius: 10, border: `1px solid ${tc.border}`, overflow: 'hidden' }}>
+              {filteredServices.map((svc, i) => (
+                <div key={svc.name} style={{
+                  display: 'flex', alignItems: 'center', gap: 16,
+                  padding: '12px 18px',
+                  borderBottom: i < filteredServices.length - 1 ? `1px solid ${tc.borderSub}` : 'none',
+                  background: tc.surface,
+                }}>
+                  <div style={{
+                    width: 8, height: 8, borderRadius: '50%', flexShrink: 0,
+                    background: statusColor(svc.status),
+                  }} />
+                  <div style={{ flex: 1 }}>
+                    <span style={{ fontSize: 13, fontWeight: 500, color: tc.fg }}>{svc.name}</span>
+                    <span style={{
+                      marginLeft: 8, fontSize: 10, padding: '1px 6px', borderRadius: 4,
+                      background: tc.surfaceElevated, color: tc.fgMuted,
+                      textTransform: 'uppercase', fontWeight: 600, letterSpacing: '0.05em',
+                    }}>
+                      {svc.region}
+                    </span>
+                  </div>
+                  <span style={{ fontSize: 12, color: tc.fgMuted, minWidth: 60, textAlign: 'right' }}>
+                    P99 {svc.p99}
+                  </span>
+                  <span style={{ fontSize: 12, color: tc.fgMuted, minWidth: 50, textAlign: 'right' }}>
+                    {svc.uptime}
+                  </span>
+                  <span style={{
+                    fontSize: 11, fontWeight: 600, minWidth: 72, textAlign: 'right',
+                    color: statusColor(svc.status),
+                  }}>
+                    {statusLabel(svc.status)}
+                  </span>
+                </div>
+              ))}
+            </div>
+
+            {/* Latency by Region */}
+            <div style={{ marginTop: 20 }}>
+              <p style={{ margin: '0 0 14px', fontSize: 13, fontWeight: 600, color: tc.fg }}>지역별 레이턴시</p>
+              <div style={{ borderRadius: 10, border: `1px solid ${tc.border}`, overflow: 'hidden' }}>
+                {latencyData.map((r, i) => (
+                  <div key={r.region} style={{
+                    display: 'flex', alignItems: 'center', gap: 12, padding: '10px 18px',
+                    borderBottom: i < latencyData.length - 1 ? `1px solid ${tc.borderSub}` : 'none',
+                    background: tc.surface,
+                  }}>
+                    <span style={{ fontSize: 12, color: tc.fgMuted, minWidth: 160 }}>{r.region}</span>
+                    <div style={{ flex: 1, height: 4, borderRadius: 2, background: tc.surfaceElevated, overflow: 'hidden' }}>
+                      <div style={{
+                        height: '100%', borderRadius: 2, background: r.color,
+                        width: `${Math.min((r.p99 / 8400) * 100, 100)}%`,
+                        transition: 'width 0.3s ease',
+                      }} />
+                    </div>
+                    <span style={{ fontSize: 11, fontWeight: 600, color: r.color, minWidth: 56, textAlign: 'right' }}>
+                      {r.p99}ms
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Right: Deployments */}
+          <div>
+            <p style={{ margin: '0 0 14px', fontSize: 13, fontWeight: 600, color: tc.fg }}>최근 배포</p>
+            <div style={{ borderRadius: 10, border: `1px solid ${tc.border}`, overflow: 'hidden' }}>
+              {deployments.map((d, i) => (
+                <div key={d.sha} style={{
+                  padding: '12px 16px',
+                  borderBottom: i < deployments.length - 1 ? `1px solid ${tc.borderSub}` : 'none',
+                  background: tc.surface,
+                }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 6 }}>
+                    <div style={{
+                      width: 8, height: 8, borderRadius: '50%', flexShrink: 0,
+                      background: d.status === 'ready' ? tc.green : tc.red,
+                    }} />
+                    <code style={{ fontSize: 12, color: tc.fg, fontFamily: 'monospace', fontWeight: 600 }}>
+                      {d.sha}
+                    </code>
+                    <span style={{
+                      fontSize: 10, padding: '1px 6px', borderRadius: 4,
+                      background: tc.surfaceElevated, color: tc.fgMuted,
+                      fontWeight: 600,
+                    }}>
+                      {d.branch}
+                    </span>
+                    <span style={{ fontSize: 11, color: tc.fgSubtle, marginLeft: 'auto' }}>{d.time}</span>
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingLeft: 16 }}>
+                    <span style={{
+                      fontSize: 11, fontWeight: 600,
+                      color: d.status === 'ready' ? tc.green : tc.red,
+                    }}>
+                      {d.status === 'ready' ? 'Ready' : 'Error'}
+                    </span>
+                    <span style={{ fontSize: 11, color: tc.fgSubtle }}>{d.duration}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Uptime Graph placeholder */}
+            <div style={{ marginTop: 20 }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
+                <p style={{ margin: 0, fontSize: 13, fontWeight: 600, color: tc.fg }}>가용성 (90일)</p>
+                <span style={{ fontSize: 12, color: tc.green, fontWeight: 600 }}>99.94%</span>
+              </div>
+              <div style={{ display: 'flex', gap: 2, height: 32, alignItems: 'flex-end' }}>
+                {Array.from({ length: 90 }, (_, i) => {
+                  const isIncident = i === 72 || i === 58
+                  const isDegraded = i === 61 || i === 71
+                  const h = isIncident ? 12 : isDegraded ? 20 : 28 + Math.sin(i * 0.4) * 4
+                  const bg = isIncident ? tc.red : isDegraded ? tc.yellow : tc.green
+                  return (
+                    <div
+                      key={i}
+                      style={{
+                        flex: 1, borderRadius: 1, background: bg,
+                        height: `${Math.max(h, 4)}px`, opacity: 0.8,
+                      }}
+                    />
+                  )
+                })}
+              </div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 4 }}>
+                <span style={{ fontSize: 10, color: tc.fgSubtle }}>90일 전</span>
+                <span style={{ fontSize: 10, color: tc.fgSubtle }}>오늘</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const MonitoringDashboard: Story = {
+  name: 'Monitoring Dashboard (Vercel + Linear 벤치마크)',
+  render: () => <MonitoringDashboardRender />,
+}
