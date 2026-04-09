@@ -284,8 +284,8 @@ export const useThemeRoot: Decorator = (Story, context) => {
         className="storybook-canvas-wrapper"
         style={{
           minHeight: '100vh',
-          backgroundColor: 'var(--sem-color-background-primary)',
-          color: 'var(--sem-color-foreground-primary)',
+          backgroundColor: 'var(--sem-eclipse-color-backgroundPrimary)',
+          color: 'var(--sem-eclipse-color-foregroundPrimary)',
           padding: '2rem',
           boxSizing: 'border-box'
         }}

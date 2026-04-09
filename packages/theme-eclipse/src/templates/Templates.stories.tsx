@@ -51,13 +51,15 @@ type Story = StoryObj
  * These fall back to light-mode values for safety.
  */
 const tc = {
-  bg: 'var(--sem-color-background-primary, #ffffff)',
-  surface: 'var(--sem-color-surface-container, #f8fafc)',
-  fg: 'var(--sem-color-foreground-primary, #1e293b)',
-  fgSub: 'var(--sem-color-foreground-secondary, #64748b)',
-  fgMuted: 'var(--sem-color-foreground-tertiary, #94a3b8)',
-  border: 'var(--sem-color-border-primary, #e2e8f0)',
-  borderSub: 'var(--sem-color-border-secondary, #f1f5f9)',
+  bg: 'var(--sem-eclipse-color-backgroundPrimary, #ffffff)',
+  surface: 'var(--sem-eclipse-color-surfaceContainer, #f8fafc)',
+  fg: 'var(--sem-eclipse-color-foregroundPrimary, #1e293b)',
+  fgSub: 'var(--sem-eclipse-color-foregroundSecondary, #64748b)',
+  fgMuted: 'var(--sem-eclipse-color-foregroundTertiary, #94a3b8)',
+  border: 'var(--sem-eclipse-color-borderPrimary, #e2e8f0)',
+  borderSub: 'var(--sem-eclipse-color-borderSecondary, #f1f5f9)',
+  separator: 'var(--sem-eclipse-color-separatorPrimary, #e2e8f0)',
+  fillPrimary: 'var(--sem-eclipse-color-fillPrimary, #6366f1)',
 }
 
 /* ═══════════════════════════════════════════

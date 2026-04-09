@@ -12,6 +12,22 @@ ContentLayer.displayName = 'ContentLayer'
 const meta = {
   title: 'Internal/Layer',
   component: ContainerLayer,
+  parameters: {
+    docs: {
+      description: {
+        component: `**Layer**는 Orbit UI 컴포넌트의 핵심 빌딩 블록입니다.
+
+버튼, 카드 같은 UI 요소를 **4개의 물리적 레이어**로 분리하여, 각 레이어의 스타일과 상태를 독립적으로 제어합니다.
+
+- **ContainerLayer** — 최외곽 래퍼. padding, border-radius, shadow 담당
+- **StateLayer** — hover/press 시 반투명 오버레이로 상태 피드백 제공 (absolute 위치)
+- **BorderLayer** — 테두리만 담당하는 전용 레이어
+- **ContentLayer** — 텍스트, 아이콘 등 실제 콘텐츠를 Flex로 배치
+
+예를 들어 \`SolidButton\`은 내부적으로 이 4개 레이어를 합성하여 구현됩니다.`,
+      },
+    },
+  },
   args: {
     children: '시작하기',
   },

@@ -11,6 +11,18 @@ OverlayContainerLayer.displayName = 'OverlayContainerLayer'
 const meta = {
   title: 'Utils/OverlayContainerLayer',
   component: OverlayContainerLayer,
+  parameters: {
+    docs: {
+      description: {
+        component: `**OverlayContainerLayer**는 모달, 드롭다운, 팝오버 등 오버레이 UI를 구현하기 위한 Primitive입니다.
+
+- **Escape 키** 닫기, **외부 클릭** 닫기, **포커스 이탈** 닫기를 옵션으로 제어
+- **중첩(Nested)** 오버레이를 지원하여 오버레이 안에서 또 다른 오버레이를 열 수 있음
+- **Protected** 영역을 설정하면 해당 영역 클릭 시 오버레이가 닫히지 않음
+- Theme Layer의 Modal, Drawer, Popover 등이 내부적으로 이 Primitive를 사용합니다.`,
+      },
+    },
+  },
 } satisfies Meta<typeof OverlayContainerLayer>
 
 type Story = StoryObj<typeof meta>
@@ -50,9 +62,12 @@ const Basic = () => {
 
   return (
     <div style={{ fontFamily: 'sans-serif', maxWidth: '600px' }}>
-      <Text as="h2" style={{ fontSize: '20px', fontWeight: '700', marginBottom: '20px' }}>
+      <Text as="h2" style={{ fontSize: '20px', fontWeight: '700', marginBottom: '8px' }}>
         OverlayContainerLayer
       </Text>
+      <p style={{ fontSize: '14px', color: '#64748b', lineHeight: 1.6, margin: '0 0 20px' }}>
+        오버레이 닫기 동작을 제어합니다. 아래 옵션을 켜고 오버레이를 열어 테스트해보세요.
+      </p>
 
       <div style={{
         padding: '16px 20px', borderRadius: '12px', border: '1px solid #e5e7eb',

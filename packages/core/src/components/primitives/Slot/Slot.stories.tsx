@@ -3,6 +3,19 @@ import { Plug, slotted } from './Slot'
 export default {
   args: {},
   title: 'Internal/Slot',
+  parameters: {
+    docs: {
+      description: {
+        component: `**Slot**은 컴포넌트 내부의 특정 위치에 콘텐츠를 주입하는 패턴입니다.
+
+\`slotted()\`로 슬롯 이름을 정의하고, \`<Plug>\`로 해당 위치에 콘텐츠를 배치합니다.
+
+- \`SolidButton.Leading\`, \`SolidButton.Center\`, \`SolidButton.Trailing\` 같은 **Compound Component 패턴**이 이 Slot 시스템 위에 구축되어 있습니다.
+- 슬롯은 선택적이며, 사용하지 않으면 해당 영역이 자동으로 숨겨집니다.
+- \`slots.default\`는 이름 없는 자식 요소를 모아서 렌더링합니다.`,
+      },
+    },
+  },
 }
 
 const codeStyle: React.CSSProperties = {
