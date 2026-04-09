@@ -131,6 +131,245 @@ export const 라벨_추가 = {
   },
 } satisfies Story
 
+// Tailwind UI 카드형 플랜 선택 패턴
+export const 플랜_선택_카드 = {
+  render: function Render(args) {
+    const [plan, setPlan] = useState('pro')
+
+    const plans = [
+      {
+        value: 'free',
+        name: 'Free',
+        price: '0',
+        period: '영구 무료',
+        features: ['컴포넌트 10개', '프로젝트 1개', '커뮤니티 지원'],
+        color: '#64748b',
+        badge: null,
+      },
+      {
+        value: 'pro',
+        name: 'Pro',
+        price: '29',
+        period: '월',
+        features: ['컴포넌트 무제한', '프로젝트 10개', '우선 지원', '피그마 플러그인'],
+        color: '#6366f1',
+        badge: '인기',
+      },
+      {
+        value: 'team',
+        name: 'Team',
+        price: '79',
+        period: '월',
+        features: ['모든 Pro 기능', '팀원 5명', '공유 토큰', '전담 지원'],
+        color: '#8b5cf6',
+        badge: null,
+      },
+    ]
+
+    return (
+      <fieldset style={{ border: 'none', padding: 0, margin: 0 }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+          {plans.map((p) => {
+            const selected = plan === p.value
+            return (
+              <label
+                key={p.value}
+                style={{
+                  display: 'flex', alignItems: 'flex-start', gap: 16, cursor: 'pointer',
+                  padding: '20px 22px', borderRadius: 14,
+                  border: `2px solid ${selected ? p.color : '#e2e8f0'}`,
+                  background: selected ? `${p.color}06` : '#fff',
+                  transition: 'all 0.15s', position: 'relative',
+                }}
+              >
+                <RadioButton
+                  {...args}
+                  value={p.value}
+                  name="plan"
+                  checked={selected}
+                  onChange={() => setPlan(p.value)}
+                />
+                <div style={{ flex: 1 }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
+                    <span style={{ fontSize: 15, fontWeight: 700, color: '#0f172a' }}>{p.name}</span>
+                    {p.badge && (
+                      <span style={{
+                        fontSize: 10, fontWeight: 800, padding: '2px 8px', borderRadius: 99,
+                        background: p.color, color: '#fff', textTransform: 'uppercase', letterSpacing: '0.06em',
+                      }}>
+                        {p.badge}
+                      </span>
+                    )}
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'baseline', gap: 4, marginBottom: 10 }}>
+                    <span style={{ fontSize: 24, fontWeight: 800, color: p.color }}>${p.price}</span>
+                    <span style={{ fontSize: 12, color: '#94a3b8' }}>/ {p.period}</span>
+                  </div>
+                  <ul style={{ margin: 0, padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 4 }}>
+                    {p.features.map((feat) => (
+                      <li key={feat} style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 12, color: '#64748b' }}>
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke={p.color} strokeWidth="3" strokeLinecap="round">
+                          <polyline points="20 6 9 17 4 12" />
+                        </svg>
+                        {feat}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </label>
+            )
+          })}
+        </div>
+        <div style={{ marginTop: 16, fontSize: 12, color: '#94a3b8', textAlign: 'center' }}>
+          선택된 플랜: <strong style={{ color: '#6366f1' }}>{plans.find((p) => p.value === plan)?.name}</strong>
+        </div>
+      </fieldset>
+    )
+  },
+} satisfies Story
+
+// Tailwind UI 인라인 라디오 그룹 — 배송 방법 선택
+export const 배송_방법_선택 = {
+  render: function Render(args) {
+    const [shipping, setShipping] = useState('standard')
+
+    const methods = [
+      { value: 'standard', label: '일반 배송', sub: '3-5 영업일', price: '무료' },
+      { value: 'express', label: '빠른 배송', sub: '1-2 영업일', price: '3,000원' },
+      { value: 'same_day', label: '당일 배송', sub: '오늘 도착', price: '5,000원' },
+    ]
+
+    return (
+      <div style={{ width: 400, padding: 28, background: '#fff', borderRadius: 16, boxShadow: '0 4px 24px rgba(0,0,0,0.08)' }}>
+        <div style={{ fontSize: 15, fontWeight: 700, color: '#0f172a', marginBottom: 16 }}>배송 방법 선택</div>
+        <fieldset style={{ border: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 8 }}>
+          {methods.map((m) => {
+            const selected = shipping === m.value
+            return (
+              <label
+                key={m.value}
+                style={{
+                  display: 'flex', alignItems: 'center', gap: 14, cursor: 'pointer',
+                  padding: '14px 16px', borderRadius: 10,
+                  border: `1.5px solid ${selected ? '#6366f1' : '#e2e8f0'}`,
+                  background: selected ? 'rgba(99,102,241,0.04)' : '#f8fafc',
+                  transition: 'all 0.15s',
+                }}
+              >
+                <RadioButton
+                  {...args}
+                  value={m.value}
+                  name="shipping"
+                  checked={selected}
+                  onChange={() => setShipping(m.value)}
+                />
+                <div style={{ flex: 1 }}>
+                  <div style={{ fontSize: 13, fontWeight: selected ? 700 : 500, color: '#0f172a' }}>{m.label}</div>
+                  <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 1 }}>{m.sub}</div>
+                </div>
+                <span style={{
+                  fontSize: 13, fontWeight: 700,
+                  color: m.price === '무료' ? '#10b981' : '#374151',
+                }}>
+                  {m.price}
+                </span>
+              </label>
+            )
+          })}
+        </fieldset>
+        <button style={{
+          marginTop: 20, width: '100%', padding: '13px', borderRadius: 12, border: 'none',
+          background: 'linear-gradient(135deg, #6366f1, #8b5cf6)', color: '#fff',
+          fontSize: 14, fontWeight: 700, cursor: 'pointer',
+        }}>
+          결제하기
+        </button>
+      </div>
+    )
+  },
+} satisfies Story
+
+// Mantine 팀 역할 선택 패턴
+export const 팀원_역할_선택 = {
+  render: function Render(args) {
+    const [role, setRole] = useState('editor')
+
+    const roles = [
+      {
+        value: 'viewer',
+        label: '뷰어',
+        desc: '읽기 전용. 프로젝트를 보고 댓글을 남길 수 있습니다.',
+        icon: (
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#64748b" strokeWidth="2" strokeLinecap="round">
+            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" /><circle cx="12" cy="12" r="3" />
+          </svg>
+        ),
+      },
+      {
+        value: 'editor',
+        label: '편집자',
+        desc: '편집 가능. 컴포넌트를 생성하고 수정할 수 있습니다.',
+        icon: (
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6366f1" strokeWidth="2" strokeLinecap="round">
+            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" /><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
+          </svg>
+        ),
+      },
+      {
+        value: 'admin',
+        label: '관리자',
+        desc: '전체 권한. 팀원 초대, 설정 변경이 가능합니다.',
+        icon: (
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" strokeWidth="2" strokeLinecap="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+          </svg>
+        ),
+      },
+    ]
+
+    return (
+      <div style={{ width: 400, padding: 28, background: '#fff', borderRadius: 16, boxShadow: '0 4px 24px rgba(0,0,0,0.08)' }}>
+        <div style={{ fontSize: 15, fontWeight: 700, color: '#0f172a', marginBottom: 4 }}>역할 지정</div>
+        <div style={{ fontSize: 12, color: '#94a3b8', marginBottom: 20 }}>팀원에게 부여할 권한 수준을 선택하세요.</div>
+        <fieldset style={{ border: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 8 }}>
+          {roles.map((r) => {
+            const selected = role === r.value
+            return (
+              <label
+                key={r.value}
+                style={{
+                  display: 'flex', alignItems: 'flex-start', gap: 14, cursor: 'pointer',
+                  padding: '14px 16px', borderRadius: 10,
+                  border: `1.5px solid ${selected ? '#6366f1' : '#e2e8f0'}`,
+                  background: selected ? 'rgba(99,102,241,0.04)' : '#fff',
+                  transition: 'all 0.15s',
+                }}
+              >
+                <div style={{ paddingTop: 2 }}>
+                  <RadioButton
+                    {...args}
+                    value={r.value}
+                    name="role"
+                    checked={selected}
+                    onChange={() => setRole(r.value)}
+                  />
+                </div>
+                <div style={{ display: 'flex', gap: 10, alignItems: 'flex-start', flex: 1 }}>
+                  <div style={{ marginTop: 1 }}>{r.icon}</div>
+                  <div>
+                    <div style={{ fontSize: 13, fontWeight: selected ? 700 : 600, color: '#0f172a', marginBottom: 2 }}>{r.label}</div>
+                    <div style={{ fontSize: 11, color: '#64748b', lineHeight: 1.5 }}>{r.desc}</div>
+                  </div>
+                </div>
+              </label>
+            )
+          })}
+        </fieldset>
+      </div>
+    )
+  },
+} satisfies Story
+
 // 설정 페이지 라디오 그룹 (Chakra UI 실무 패턴)
 export const 설정페이지라디오그룹 = {
   render: function Render(args) {

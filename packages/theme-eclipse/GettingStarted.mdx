@@ -237,6 +237,217 @@ function MyForm() {
       </div>
     </section>
 
+    {/* Migration Guide: MUI & Chakra UI */}
+    <section style={{ marginBottom: '48px' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '20px' }}>
+        <div style={{
+          width: '28px', height: '28px', borderRadius: '8px', background: '#6366f1',
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          color: '#ffffff', fontSize: '14px', fontWeight: '700', flexShrink: 0,
+        }}>5</div>
+        <h2 style={{ fontSize: '20px', fontWeight: '700', color: '#1e293b', margin: 0 }}>마이그레이션 가이드</h2>
+      </div>
+
+      <p style={{ fontSize: '14px', color: '#64748b', marginBottom: '24px', lineHeight: '1.6' }}>
+        Material UI(MUI) 또는 Chakra UI에서 마이그레이션하는 경우, 아래 대응 표를 참고하세요.
+      </p>
+
+      {/* MUI Migration */}
+      <div style={{ marginBottom: '32px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '16px' }}>
+          <div style={{
+            padding: '4px 10px', borderRadius: '6px', fontSize: '12px', fontWeight: '700',
+            background: 'rgba(25, 118, 210, 0.1)', color: '#1976d2',
+          }}>
+            MUI
+          </div>
+          <span style={{ fontSize: '16px', fontWeight: '600', color: '#1e293b' }}>Material UI 사용자를 위한 가이드</span>
+        </div>
+
+        <div style={{ borderRadius: '12px', border: '1px solid #e2e8f0', overflow: 'hidden', marginBottom: '16px' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px' }}>
+            <thead>
+              <tr style={{ background: '#f8fafc' }}>
+                {['MUI 컴포넌트', 'Orbit UI 대응', '주요 차이점'].map((col) => (
+                  <th key={col} style={{
+                    padding: '12px 16px', textAlign: 'left', fontWeight: '700',
+                    color: '#475569', borderBottom: '1px solid #e2e8f0', whiteSpace: 'nowrap',
+                  }}>{col}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {[
+                ['TextField (outlined)', 'TextField', 'error prop 동일, helperText는 별도 div로 구현'],
+                ['TextField (filled/standard)', 'TextField + theme prop', 'theme prop으로 배경색/언더라인 커스텀'],
+                ['Select', 'Dropdown', 'activated prop으로 open 상태 제어, onChange 대신 onClick'],
+                ['Checkbox', 'Checkbox', 'iconName="minus"로 indeterminate 상태 표현'],
+                ['Radio / RadioGroup', 'RadioButton', 'fieldset + name으로 그룹 관리 (동일 패턴)'],
+                ['Button (variant)', 'SolidButton / OutlineButton / GhostButton', 'variant prop 대신 별도 컴포넌트로 분리'],
+                ['ThemeProvider', 'EclipseProvider', 'mode="light|dark" + baseTextSize 지원'],
+                ['sx prop', 'theme prop + style prop', 'CSS-in-JS 대신 토큰 오버라이드 방식'],
+                ['FormControl / FormHelperText', '직접 div + span 구성', 'FormControl 컴포넌트 없음, 수동 조합'],
+              ].map((row, i) => (
+                <tr key={i} style={{ background: i % 2 === 0 ? '#fff' : '#fafafa' }}>
+                  {row.map((cell, j) => (
+                    <td key={j} style={{ padding: '11px 16px', borderBottom: '1px solid #f1f5f9', color: j === 0 ? '#1976d2' : j === 1 ? '#6366f1' : '#64748b', fontWeight: j === 0 || j === 1 ? '600' : '400' }}>
+                      {j === 0 ? <code style={{ background: 'rgba(25,118,210,0.06)', padding: '2px 6px', borderRadius: '4px', fontSize: '12px' }}>{cell}</code> : j === 1 ? <code style={{ background: 'rgba(99,102,241,0.06)', padding: '2px 6px', borderRadius: '4px', fontSize: '12px' }}>{cell}</code> : cell}
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        <div style={{ borderRadius: '12px', border: '1px solid #e2e8f0', overflow: 'hidden' }}>
+          <div style={{ padding: '8px 16px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', gap: '6px' }}>
+            <span style={{ fontSize: '11px', color: '#94a3b8', fontWeight: '500' }}>MUI TextField → Orbit UI TextField (마이그레이션 예시)</span>
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr' }}>
+            <pre style={{ margin: 0, padding: '16px', background: '#0f172a', color: '#94a3b8', fontSize: '12px', lineHeight: '1.7', fontFamily: '"JetBrains Mono", monospace', borderRight: '1px solid #1e293b' }}>
+{`// MUI (Before)
+import { TextField, FormControl,
+  FormHelperText } from '@mui/material'
+
+<FormControl error={hasError}>
+  <TextField
+    variant="outlined"
+    label="이메일"
+    value={email}
+    onChange={(e) => setEmail(e.target.value)}
+    error={hasError}
+    helperText={hasError
+      ? "올바른 이메일 형식이 아닙니다"
+      : "로그인에 사용됩니다"}
+  />
+</FormControl>`}
+            </pre>
+            <pre style={{ margin: 0, padding: '16px', background: '#0f172a', color: '#e2e8f0', fontSize: '12px', lineHeight: '1.7', fontFamily: '"JetBrains Mono", monospace' }}>
+{`// Orbit UI (After)
+import { TextField } from
+  '@heejun-com/theme-eclipse'
+
+<div style={{ display: 'flex',
+  flexDirection: 'column', gap: '6px' }}>
+  <label>이메일</label>
+  <TextField
+    value={email}
+    onChange={(e) => setEmail(e.target.value)}
+    error={hasError}
+    placeholder="이메일"
+  />
+  <span style={{ fontSize: '12px',
+    color: hasError ? '#ef4444' : '#94a3b8' }}>
+    {hasError
+      ? "올바른 이메일 형식이 아닙니다"
+      : "로그인에 사용됩니다"}
+  </span>
+</div>`}
+            </pre>
+          </div>
+        </div>
+      </div>
+
+      {/* Chakra UI Migration */}
+      <div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '16px' }}>
+          <div style={{
+            padding: '4px 10px', borderRadius: '6px', fontSize: '12px', fontWeight: '700',
+            background: 'rgba(49, 151, 149, 0.1)', color: '#319795',
+          }}>
+            Chakra UI
+          </div>
+          <span style={{ fontSize: '16px', fontWeight: '600', color: '#1e293b' }}>Chakra UI 사용자를 위한 가이드</span>
+        </div>
+
+        <div style={{ borderRadius: '12px', border: '1px solid #e2e8f0', overflow: 'hidden', marginBottom: '16px' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px' }}>
+            <thead>
+              <tr style={{ background: '#f8fafc' }}>
+                {['Chakra UI 컴포넌트', 'Orbit UI 대응', '주요 차이점'].map((col) => (
+                  <th key={col} style={{
+                    padding: '12px 16px', textAlign: 'left', fontWeight: '700',
+                    color: '#475569', borderBottom: '1px solid #e2e8f0', whiteSpace: 'nowrap',
+                  }}>{col}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {[
+                ['Input / InputGroup', 'TextField', 'InputLeftElement는 Compound 패턴으로 미지원'],
+                ['Textarea', 'TextArea', 'minimumLine/maximumLine으로 높이 제어'],
+                ['Select', 'Dropdown', 'native select 아님, activated로 열림 제어'],
+                ['Checkbox', 'Checkbox', 'isIndeterminate 대신 iconName="minus"'],
+                ['Radio / RadioGroup', 'RadioButton', 'name attr으로 그룹 관리'],
+                ['Avatar / AvatarGroup', 'Avatar', 'AvatarGroup은 CSS margin 오버랩으로 구현'],
+                ['Switch', 'Switch', 'isChecked 대신 checked, onChange 동일'],
+                ['Slider', 'Slider', 'min/max/step/value 동일한 인터페이스'],
+                ['ChakraProvider', 'EclipseProvider', 'colorMode 대신 mode prop'],
+                ['useToast', 'Toast 컴포넌트', '훅 미제공, 직접 렌더링 방식'],
+              ].map((row, i) => (
+                <tr key={i} style={{ background: i % 2 === 0 ? '#fff' : '#fafafa' }}>
+                  {row.map((cell, j) => (
+                    <td key={j} style={{ padding: '11px 16px', borderBottom: '1px solid #f1f5f9', color: j === 0 ? '#319795' : j === 1 ? '#6366f1' : '#64748b', fontWeight: j === 0 || j === 1 ? '600' : '400' }}>
+                      {j === 0 ? <code style={{ background: 'rgba(49,151,149,0.06)', padding: '2px 6px', borderRadius: '4px', fontSize: '12px' }}>{cell}</code> : j === 1 ? <code style={{ background: 'rgba(99,102,241,0.06)', padding: '2px 6px', borderRadius: '4px', fontSize: '12px' }}>{cell}</code> : cell}
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        <div style={{ borderRadius: '12px', border: '1px solid #e2e8f0', overflow: 'hidden' }}>
+          <div style={{ padding: '8px 16px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0' }}>
+            <span style={{ fontSize: '11px', color: '#94a3b8', fontWeight: '500' }}>Chakra UI Form → Orbit UI (마이그레이션 예시)</span>
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr' }}>
+            <pre style={{ margin: 0, padding: '16px', background: '#0f172a', color: '#94a3b8', fontSize: '12px', lineHeight: '1.7', fontFamily: '"JetBrains Mono", monospace', borderRight: '1px solid #1e293b' }}>
+{`// Chakra UI (Before)
+import { FormControl, FormLabel,
+  Input, FormHelperText,
+  FormErrorMessage } from '@chakra-ui/react'
+
+<FormControl isInvalid={isError}>
+  <FormLabel>이메일</FormLabel>
+  <Input
+    value={email}
+    onChange={(e) => setEmail(e.target.value)}
+    placeholder="이메일을 입력하세요"
+  />
+  {isError
+    ? <FormErrorMessage>이메일 오류</FormErrorMessage>
+    : <FormHelperText>로그인에 사용</FormHelperText>
+  }
+</FormControl>`}
+            </pre>
+            <pre style={{ margin: 0, padding: '16px', background: '#0f172a', color: '#e2e8f0', fontSize: '12px', lineHeight: '1.7', fontFamily: '"JetBrains Mono", monospace' }}>
+{`// Orbit UI (After)
+import { TextField } from
+  '@heejun-com/theme-eclipse'
+
+<div style={{ display: 'flex',
+  flexDirection: 'column', gap: '6px' }}>
+  <label style={{ fontSize: '13px',
+    fontWeight: '600' }}>이메일</label>
+  <TextField
+    value={email}
+    onChange={(e) => setEmail(e.target.value)}
+    placeholder="이메일을 입력하세요"
+    error={isError}
+  />
+  <span style={{ fontSize: '12px',
+    color: isError ? '#ef4444' : '#94a3b8' }}>
+    {isError ? '이메일 오류' : '로그인에 사용'}
+  </span>
+</div>`}
+            </pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
     {/* FAQ */}
     <section style={{ marginBottom: '48px' }}>
       <h2 style={{ fontSize: '20px', fontWeight: '700', color: '#1e293b', marginBottom: '16px' }}>FAQ</h2>

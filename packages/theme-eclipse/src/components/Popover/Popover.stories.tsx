@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
+import { useState } from 'react'
 
 import { Avatar } from '../Avatar'
 import { CounterBadge } from '../CounterBadge'
@@ -169,6 +170,253 @@ export const 사용자_프로필_카드: Story = {
       </Popover>
     </div>
   ),
+}
+
+// Color picker popover — Mantine ColorPicker pattern
+export const 컬러_피커_팝오버: Story = {
+  render: function Render() {
+    const [selectedColor, setSelectedColor] = useState('#6366f1')
+    const palette = [
+      '#ef4444', '#f97316', '#f59e0b', '#10b981',
+      '#06b6d4', '#3b82f6', '#6366f1', '#8b5cf6',
+      '#ec4899', '#64748b', '#0f172a', '#ffffff',
+    ]
+    return (
+      <div style={{ padding: '100px 80px', display: 'flex', justifyContent: 'center', gap: 24, alignItems: 'center' }}>
+        <Popover>
+          <Popover.Trigger asChild>
+            <button
+              style={{
+                display: 'flex', alignItems: 'center', gap: 10,
+                padding: '8px 14px', borderRadius: 10,
+                border: '1.5px solid #e2e8f0', background: '#fff',
+                cursor: 'pointer', fontSize: 13, fontWeight: 600, color: '#374151',
+              }}
+            >
+              <div style={{ width: 20, height: 20, borderRadius: 5, background: selectedColor, border: '1.5px solid rgba(0,0,0,0.1)' }} />
+              색상 선택
+            </button>
+          </Popover.Trigger>
+          <Popover.Content style={{ width: 220 }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+              <Typography textStyle="subheadingSmall" style={{ color: '#0f172a' }}>색상 팔레트</Typography>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 8 }}>
+                {palette.map((color) => (
+                  <button
+                    key={color}
+                    onClick={() => setSelectedColor(color)}
+                    style={{
+                      width: '100%', aspectRatio: '1', borderRadius: 8,
+                      background: color, border: selectedColor === color ? '3px solid #6366f1' : '2px solid rgba(0,0,0,0.08)',
+                      cursor: 'pointer', transition: 'transform 0.1s',
+                    }}
+                  />
+                ))}
+              </div>
+              <div style={{ display: 'flex', gap: 8, alignItems: 'center', padding: '8px 0', borderTop: '1px solid #f1f5f9' }}>
+                <div style={{ width: 32, height: 32, borderRadius: 8, background: selectedColor, border: '1.5px solid rgba(0,0,0,0.1)', flexShrink: 0 }} />
+                <code style={{ fontSize: 12, color: '#6366f1', fontFamily: 'monospace', flex: 1 }}>{selectedColor}</code>
+              </div>
+            </div>
+          </Popover.Content>
+        </Popover>
+        <div style={{ fontSize: 13, color: '#94a3b8' }}>선택됨:</div>
+        <div style={{ width: 36, height: 36, borderRadius: 10, background: selectedColor, border: '2px solid #e2e8f0', boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }} />
+      </div>
+    )
+  },
+}
+
+// Advanced filter panel — Tailwind UI filter pattern
+export const 고급_필터_패널: Story = {
+  render: function Render() {
+    const [status, setStatus] = useState<string[]>(['active'])
+    const [sortBy, setSortBy] = useState('newest')
+    const [activeCount, setActiveCount] = useState(0)
+
+    const statusOptions = [
+      { value: 'active', label: '활성', color: '#10b981' },
+      { value: 'pending', label: '대기 중', color: '#f59e0b' },
+      { value: 'inactive', label: '비활성', color: '#94a3b8' },
+      { value: 'archived', label: '보관됨', color: '#ef4444' },
+    ]
+    const sortOptions = [
+      { value: 'newest', label: '최신순' },
+      { value: 'oldest', label: '오래된순' },
+      { value: 'name', label: '이름순' },
+      { value: 'activity', label: '활동순' },
+    ]
+
+    const toggleStatus = (val: string) => {
+      setStatus((prev) => prev.includes(val) ? prev.filter((s) => s !== val) : [...prev, val])
+    }
+
+    const totalFilters = status.length + (sortBy !== 'newest' ? 1 : 0)
+
+    return (
+      <div style={{ padding: '100px 80px', display: 'flex', justifyContent: 'center' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+          <Popover>
+            <Popover.Trigger asChild>
+              <button
+                style={{
+                  display: 'flex', alignItems: 'center', gap: 8,
+                  padding: '8px 14px', borderRadius: 10,
+                  border: `1.5px solid ${totalFilters > 0 ? '#6366f1' : '#e2e8f0'}`,
+                  background: totalFilters > 0 ? 'rgba(99,102,241,0.04)' : '#fff',
+                  cursor: 'pointer', fontSize: 13, fontWeight: 600,
+                  color: totalFilters > 0 ? '#6366f1' : '#374151',
+                }}
+              >
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                  <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3" />
+                </svg>
+                필터
+                {totalFilters > 0 && (
+                  <span style={{ background: '#6366f1', color: '#fff', fontSize: 10, fontWeight: 800, padding: '1px 6px', borderRadius: 99 }}>
+                    {totalFilters}
+                  </span>
+                )}
+              </button>
+            </Popover.Trigger>
+            <Popover.Content style={{ width: 280 }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                  <Typography textStyle="subheadingSmall" style={{ color: '#0f172a' }}>필터 설정</Typography>
+                  {totalFilters > 0 && (
+                    <button
+                      onClick={() => { setStatus([]); setSortBy('newest') }}
+                      style={{ fontSize: 11, color: '#6366f1', background: 'none', border: 'none', cursor: 'pointer', fontWeight: 600 }}
+                    >
+                      초기화
+                    </button>
+                  )}
+                </div>
+
+                <div>
+                  <div style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 8 }}>상태</div>
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+                    {statusOptions.map((opt) => (
+                      <button
+                        key={opt.value}
+                        onClick={() => toggleStatus(opt.value)}
+                        style={{
+                          padding: '5px 12px', borderRadius: 99, fontSize: 12, fontWeight: 600, cursor: 'pointer',
+                          border: `1.5px solid ${status.includes(opt.value) ? opt.color : '#e2e8f0'}`,
+                          background: status.includes(opt.value) ? `${opt.color}18` : '#fff',
+                          color: status.includes(opt.value) ? opt.color : '#64748b',
+                          transition: 'all 0.1s',
+                        }}
+                      >
+                        {opt.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                <div>
+                  <div style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 8 }}>정렬</div>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+                    {sortOptions.map((opt) => (
+                      <button
+                        key={opt.value}
+                        onClick={() => setSortBy(opt.value)}
+                        style={{
+                          display: 'flex', alignItems: 'center', gap: 8,
+                          padding: '8px 10px', borderRadius: 8, fontSize: 13, cursor: 'pointer',
+                          border: 'none', textAlign: 'left',
+                          background: sortBy === opt.value ? 'rgba(99,102,241,0.06)' : 'transparent',
+                          color: sortBy === opt.value ? '#6366f1' : '#374151', fontWeight: sortBy === opt.value ? 600 : 400,
+                        }}
+                      >
+                        <div style={{
+                          width: 14, height: 14, borderRadius: '50%', border: `2px solid ${sortBy === opt.value ? '#6366f1' : '#d1d5db'}`,
+                          background: sortBy === opt.value ? '#6366f1' : 'transparent', flexShrink: 0,
+                          display: 'flex', alignItems: 'center', justifyContent: 'center',
+                        }}>
+                          {sortBy === opt.value && <div style={{ width: 5, height: 5, borderRadius: '50%', background: '#fff' }} />}
+                        </div>
+                        {opt.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                <Button color="primary" size="small" onClick={() => setActiveCount(totalFilters)}>
+                  <Button.Center>필터 적용</Button.Center>
+                </Button>
+              </div>
+            </Popover.Content>
+          </Popover>
+          {activeCount > 0 && (
+            <Typography textStyle="descriptionLarge" style={{ color: '#94a3b8' }}>
+              {activeCount}개 필터 적용됨
+            </Typography>
+          )}
+        </div>
+      </div>
+    )
+  },
+}
+
+// Quick action popover — Mantine floating action style
+export const 빠른_액션_팝오버: Story = {
+  render: function Render() {
+    const actions = [
+      { label: '댓글 달기', icon: 'M 3 3 h 18 v 14 H 3 z M 7 11 h 10 M 7 7 h 10', color: '#6366f1' },
+      { label: '공유하기', icon: 'M 4 12 v 8 h 16 v -8 M 12 15 V 3 M 8 7 l 4 -4 4 4', color: '#10b981' },
+      { label: '북마크', icon: 'M 19 21 l -7 -5 -7 5 V 5 a 2 2 0 0 1 2 -2 h 10 a 2 2 0 0 1 2 2 z', color: '#f59e0b' },
+      { label: '링크 복사', icon: 'M 10 13 a 5 5 0 0 0 7.54.54 l 3 -3 a 5 5 0 0 0 -7.07 -7.07 l -1.72 1.71 M 14 11 a 5 5 0 0 0 -7.54 -.54 l -3 3 a 5 5 0 0 0 7.07 7.07 l 1.71 -1.71', color: '#3b82f6' },
+      { label: '신고하기', icon: 'M 10.29 3.86 L 1.82 18 a 2 2 0 0 0 1.71 3 h 16.94 a 2 2 0 0 0 1.71 -3 L 13.71 3.86 a 2 2 0 0 0 -3.42 0 z M 12 9 v 4 M 12 17 h .01', color: '#ef4444' },
+    ]
+    return (
+      <div style={{ padding: '100px 80px', display: 'flex', justifyContent: 'center' }}>
+        <div style={{ position: 'relative', padding: '24px 28px', borderRadius: 14, border: '1.5px solid #e2e8f0', background: '#fff', boxShadow: '0 2px 12px rgba(0,0,0,0.06)' }}>
+          <Typography textStyle="descriptionLarge" style={{ color: '#374151', lineHeight: 1.6 }}>
+            Orbit UI는 Figma 기반의 React 디자인 시스템입니다. 3단계 토큰 아키텍처로 일관된 UI를 빠르게 구축할 수 있습니다.
+          </Typography>
+          <div style={{ position: 'absolute', top: 12, right: 12 }}>
+            <Popover>
+              <Popover.Trigger asChild>
+                <button
+                  style={{
+                    width: 28, height: 28, borderRadius: 8, border: '1.5px solid #e2e8f0',
+                    background: '#fff', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    color: '#94a3b8', fontSize: 16, fontWeight: 700, lineHeight: 1,
+                  }}
+                >
+                  ...
+                </button>
+              </Popover.Trigger>
+              <Popover.Content side="left" style={{ width: 180, padding: '6px' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+                  {actions.map((action) => (
+                    <button
+                      key={action.label}
+                      style={{
+                        display: 'flex', alignItems: 'center', gap: 10,
+                        padding: '8px 10px', borderRadius: 8, border: 'none',
+                        background: 'transparent', cursor: 'pointer', textAlign: 'left',
+                        fontSize: 13, color: action.label === '신고하기' ? '#ef4444' : '#374151', fontWeight: 500,
+                        transition: 'background 0.1s',
+                      }}
+                      onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.background = '#f8fafc' }}
+                      onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.background = 'transparent' }}
+                    >
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={action.color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d={action.icon} />
+                      </svg>
+                      {action.label}
+                    </button>
+                  ))}
+                </div>
+              </Popover.Content>
+            </Popover>
+          </div>
+        </div>
+      </div>
+    )
+  },
 }
 
 // Notification detail popover (Vercel deployment notification style)

@@ -197,3 +197,371 @@ export const 디자인QA = {
     )
   },
 }
+
+// MUI Select 패턴: 폼 내 드롭다운 조합
+const MUISelectFormDemo = () => {
+  const [country, setCountry] = useState('')
+  const [city, setCity] = useState('')
+  const [role, setRole] = useState('')
+  const [countryOpen, setCountryOpen] = useState(false)
+  const [cityOpen, setCityOpen] = useState(false)
+  const [roleOpen, setRoleOpen] = useState(false)
+  const [submitted, setSubmitted] = useState(false)
+
+  const countries = ['대한민국', '미국', '일본', '영국', '캐나다', '호주']
+  const citiesByCountry: Record<string, string[]> = {
+    '대한민국': ['서울', '부산', '대구', '인천', '광주'],
+    '미국': ['뉴욕', '로스앤젤레스', '시카고', '휴스턴'],
+    '일본': ['도쿄', '오사카', '교토', '삿포로'],
+    '영국': ['런던', '맨체스터', '버밍엄'],
+    '캐나다': ['토론토', '밴쿠버', '몬트리올'],
+    '호주': ['시드니', '멜버른', '브리즈번'],
+  }
+  const roles = ['프론트엔드 개발자', '백엔드 개발자', '풀스택 개발자', 'UI/UX 디자이너', '프로덕트 매니저', '데이터 사이언티스트']
+
+  const cities = country ? (citiesByCountry[country] ?? []) : []
+  const isFormValid = country && city && role
+
+  const handleCountrySelect = (c: string) => {
+    setCountry(c)
+    setCity('')
+    setCountryOpen(false)
+  }
+
+  const SimpleMenu = ({
+    isOpen,
+    items,
+    onSelect,
+  }: {
+    isOpen: boolean
+    items: string[]
+    onSelect: (item: string) => void
+    onClose?: () => void
+  }) => {
+    if (!isOpen) return null
+    return (
+      <div style={{
+        position: 'absolute', top: '100%', left: 0, right: 0, zIndex: 100,
+        marginTop: '4px', borderRadius: '12px',
+        background: '#fff', border: '1px solid #e2e8f0',
+        boxShadow: '0 8px 24px rgba(0,0,0,0.12)',
+        overflow: 'hidden',
+      }}>
+        {items.map((item) => (
+          <button
+            key={item}
+            onClick={() => onSelect(item)}
+            style={{
+              display: 'block', width: '100%', padding: '11px 16px',
+              textAlign: 'left', border: 'none', background: 'transparent',
+              fontSize: '14px', color: '#374151', cursor: 'pointer',
+              borderBottom: '1px solid #f8fafc',
+              transition: 'background 0.1s',
+            }}
+            onMouseEnter={(e) => { (e.target as HTMLButtonElement).style.background = '#f8fafc' }}
+            onMouseLeave={(e) => { (e.target as HTMLButtonElement).style.background = 'transparent' }}
+          >
+            {item}
+          </button>
+        ))}
+      </div>
+    )
+  }
+
+  return (
+    <div style={{
+      width: '460px', padding: '36px', background: '#fff',
+      borderRadius: '20px', boxShadow: '0 8px 40px rgba(0,0,0,0.1)',
+    }}>
+      <div style={{ marginBottom: '28px' }}>
+        <div style={{ fontSize: '11px', fontWeight: '700', color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '6px' }}>
+          MUI Select Pattern
+        </div>
+        <h2 style={{ margin: '0 0 6px', fontSize: '22px', fontWeight: '800', color: '#0f172a', letterSpacing: '-0.02em' }}>
+          프로필 설정
+        </h2>
+        <p style={{ margin: 0, fontSize: '13px', color: '#64748b' }}>
+          국가 선택 시 도시 목록이 자동으로 업데이트됩니다
+        </p>
+      </div>
+
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+        {/* 국가 선택 */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+          <label style={{ fontSize: '13px', fontWeight: '600', color: '#374151', display: 'flex', gap: '4px' }}>
+            국가 <span style={{ color: '#ef4444', fontSize: '12px' }}>*</span>
+          </label>
+          <div style={{ position: 'relative' }}>
+            <Dropdown
+              value={country}
+              placeholder="국가를 선택하세요"
+              activated={countryOpen}
+              onClick={() => setCountryOpen(!countryOpen)}
+            />
+            <SimpleMenu
+              isOpen={countryOpen}
+              items={countries}
+              onSelect={handleCountrySelect}
+            />
+          </div>
+        </div>
+
+        {/* 도시 선택 (국가 선택 후 활성화) */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+          <label style={{ fontSize: '13px', fontWeight: '600', color: country ? '#374151' : '#94a3b8', display: 'flex', gap: '4px' }}>
+            도시 <span style={{ color: '#ef4444', fontSize: '12px' }}>*</span>
+          </label>
+          <div style={{ position: 'relative' }}>
+            <Dropdown
+              value={city}
+              placeholder={country ? '도시를 선택하세요' : '국가를 먼저 선택하세요'}
+              activated={cityOpen}
+              disabled={!country}
+              onClick={() => country && setCityOpen(!cityOpen)}
+            />
+            <SimpleMenu
+              isOpen={cityOpen}
+              items={cities}
+              onSelect={(c) => { setCity(c); setCityOpen(false) }}
+            />
+          </div>
+          {country && (
+            <span style={{ fontSize: '12px', color: '#94a3b8' }}>
+              {country}의 {cities.length}개 도시 중 선택
+            </span>
+          )}
+        </div>
+
+        {/* 직무 선택 */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+          <label style={{ fontSize: '13px', fontWeight: '600', color: '#374151', display: 'flex', gap: '4px' }}>
+            직무 <span style={{ color: '#ef4444', fontSize: '12px' }}>*</span>
+          </label>
+          <div style={{ position: 'relative' }}>
+            <Dropdown
+              value={role}
+              placeholder="직무를 선택하세요"
+              activated={roleOpen}
+              onClick={() => setRoleOpen(!roleOpen)}
+            />
+            <SimpleMenu
+              isOpen={roleOpen}
+              items={roles}
+              onSelect={(r) => { setRole(r); setRoleOpen(false) }}
+            />
+          </div>
+        </div>
+      </div>
+
+      {submitted && isFormValid && (
+        <div style={{
+          marginTop: '16px', padding: '12px 16px', borderRadius: '10px',
+          background: 'rgba(16,185,129,0.05)', border: '1px solid rgba(16,185,129,0.2)',
+          fontSize: '13px', color: '#10b981',
+        }}>
+          프로필이 저장되었습니다: {country} / {city} / {role}
+        </div>
+      )}
+
+      <button
+        onClick={() => { if (isFormValid) setSubmitted(true) }}
+        style={{
+          marginTop: '24px', width: '100%', padding: '14px', borderRadius: '12px',
+          border: 'none', cursor: isFormValid ? 'pointer' : 'not-allowed',
+          background: isFormValid ? 'linear-gradient(135deg, #6366f1, #8b5cf6)' : '#e2e8f0',
+          color: isFormValid ? '#fff' : '#94a3b8',
+          fontSize: '14px', fontWeight: '700', transition: 'all 0.2s',
+        }}
+      >
+        저장하기
+      </button>
+    </div>
+  )
+}
+
+export const MUI_Select_폼패턴: Story = {
+  name: 'MUI Select 패턴 (종속 드롭다운 폼)',
+  render: () => <MUISelectFormDemo />,
+}
+
+// Chakra Menu 패턴: 다중 필터 드롭다운
+const ChakraFilterMenuDemo = () => {
+  const [statusOpen, setStatusOpen] = useState(false)
+  const [priorityOpen, setPriorityOpen] = useState(false)
+  const [assigneeOpen, setAssigneeOpen] = useState(false)
+  const [status, setStatus] = useState('')
+  const [priority, setPriority] = useState('')
+  const [assignee, setAssignee] = useState('')
+
+  const statusOptions = ['전체', '진행 중', '완료', '보류', '취소']
+  const priorityOptions = ['전체', '긴급', '높음', '보통', '낮음']
+  const assigneeOptions = ['전체', '김지혜', '박민준', '이수아', '최동훈']
+
+  const tasks = [
+    { id: 1, title: 'API 엔드포인트 설계', status: '진행 중', priority: '높음', assignee: '김지혜' },
+    { id: 2, title: '로그인 화면 구현', status: '완료', priority: '긴급', assignee: '박민준' },
+    { id: 3, title: '다크모드 지원', status: '보류', priority: '보통', assignee: '이수아' },
+    { id: 4, title: '성능 최적화', status: '진행 중', priority: '보통', assignee: '최동훈' },
+    { id: 5, title: '접근성 개선', status: '진행 중', priority: '낮음', assignee: '김지혜' },
+    { id: 6, title: '단위 테스트 작성', status: '취소', priority: '낮음', assignee: '박민준' },
+  ]
+
+  const filtered = tasks.filter((t) => {
+    const matchStatus = !status || status === '전체' || t.status === status
+    const matchPriority = !priority || priority === '전체' || t.priority === priority
+    const matchAssignee = !assignee || assignee === '전체' || t.assignee === assignee
+    return matchStatus && matchPriority && matchAssignee
+  })
+
+  const priorityColor: Record<string, string> = {
+    '긴급': '#ef4444', '높음': '#f59e0b', '보통': '#6366f1', '낮음': '#94a3b8',
+  }
+
+  const statusColor: Record<string, string> = {
+    '진행 중': '#6366f1', '완료': '#10b981', '보류': '#f59e0b', '취소': '#94a3b8',
+  }
+
+  const SimpleMenuDropdown = ({
+    isOpen,
+    items,
+    onSelect,
+  }: {
+    isOpen: boolean
+    items: string[]
+    onSelect: (item: string) => void
+  }) => {
+    if (!isOpen) return null
+    return (
+      <div style={{
+        position: 'absolute', top: '100%', left: 0, right: 0, zIndex: 100,
+        marginTop: '4px', borderRadius: '10px',
+        background: '#fff', border: '1px solid #e2e8f0',
+        boxShadow: '0 8px 24px rgba(0,0,0,0.12)',
+        overflow: 'hidden',
+      }}>
+        {items.map((item) => (
+          <button
+            key={item}
+            onClick={() => onSelect(item)}
+            style={{
+              display: 'block', width: '100%', padding: '9px 14px',
+              textAlign: 'left', border: 'none', background: 'transparent',
+              fontSize: '13px', color: '#374151', cursor: 'pointer',
+              borderBottom: '1px solid #f8fafc',
+            }}
+          >
+            {item}
+          </button>
+        ))}
+      </div>
+    )
+  }
+
+  return (
+    <div style={{ width: '600px' }}>
+      <div style={{ marginBottom: '20px' }}>
+        <div style={{ fontSize: '11px', fontWeight: '700', color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '6px' }}>
+          Chakra Menu Pattern
+        </div>
+        <h3 style={{ margin: '0 0 4px', fontSize: '18px', fontWeight: '700', color: '#0f172a' }}>
+          태스크 목록
+        </h3>
+      </div>
+
+      {/* 필터 드롭다운 그룹 */}
+      <div style={{ display: 'flex', gap: '10px', marginBottom: '20px' }}>
+        <div style={{ position: 'relative', flex: 1 }}>
+          <Dropdown
+            value={status && status !== '전체' ? status : ''}
+            placeholder="상태"
+            activated={statusOpen}
+            onClick={() => { setStatusOpen(!statusOpen); setPriorityOpen(false); setAssigneeOpen(false) }}
+          />
+          <SimpleMenuDropdown
+            isOpen={statusOpen}
+            items={statusOptions}
+            onSelect={(v) => { setStatus(v); setStatusOpen(false) }}
+          />
+        </div>
+        <div style={{ position: 'relative', flex: 1 }}>
+          <Dropdown
+            value={priority && priority !== '전체' ? priority : ''}
+            placeholder="우선순위"
+            activated={priorityOpen}
+            onClick={() => { setPriorityOpen(!priorityOpen); setStatusOpen(false); setAssigneeOpen(false) }}
+          />
+          <SimpleMenuDropdown
+            isOpen={priorityOpen}
+            items={priorityOptions}
+            onSelect={(v) => { setPriority(v); setPriorityOpen(false) }}
+          />
+        </div>
+        <div style={{ position: 'relative', flex: 1 }}>
+          <Dropdown
+            value={assignee && assignee !== '전체' ? assignee : ''}
+            placeholder="담당자"
+            activated={assigneeOpen}
+            onClick={() => { setAssigneeOpen(!assigneeOpen); setStatusOpen(false); setPriorityOpen(false) }}
+          />
+          <SimpleMenuDropdown
+            isOpen={assigneeOpen}
+            items={assigneeOptions}
+            onSelect={(v) => { setAssignee(v); setAssigneeOpen(false) }}
+          />
+        </div>
+      </div>
+
+      {/* 결과 카운트 */}
+      <div style={{ fontSize: '12px', color: '#64748b', marginBottom: '10px' }}>
+        {filtered.length}개의 태스크
+      </div>
+
+      {/* 태스크 목록 */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+        {filtered.map((task) => (
+          <div key={task.id} style={{
+            display: 'flex', alignItems: 'center', gap: '12px',
+            padding: '14px 16px', borderRadius: '10px',
+            background: '#fff', border: '1px solid #f1f5f9',
+            boxShadow: '0 1px 4px rgba(0,0,0,0.04)',
+          }}>
+            <div style={{ flex: 1, fontSize: '14px', fontWeight: '500', color: '#0f172a' }}>
+              {task.title}
+            </div>
+            <span style={{
+              padding: '3px 10px', borderRadius: '20px', fontSize: '11px', fontWeight: '600',
+              background: `${statusColor[task.status] ?? '#94a3b8'}18`,
+              color: statusColor[task.status] ?? '#94a3b8',
+            }}>
+              {task.status}
+            </span>
+            <span style={{
+              padding: '3px 10px', borderRadius: '20px', fontSize: '11px', fontWeight: '600',
+              background: `${priorityColor[task.priority] ?? '#94a3b8'}18`,
+              color: priorityColor[task.priority] ?? '#94a3b8',
+            }}>
+              {task.priority}
+            </span>
+            <span style={{ fontSize: '12px', color: '#64748b', minWidth: '48px', textAlign: 'right' }}>
+              {task.assignee.slice(0, 3)}
+            </span>
+          </div>
+        ))}
+        {filtered.length === 0 && (
+          <div style={{
+            padding: '32px', textAlign: 'center',
+            fontSize: '14px', color: '#94a3b8',
+            background: '#f8fafc', borderRadius: '12px',
+          }}>
+            해당 조건의 태스크가 없습니다
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+
+export const Chakra_Menu_필터패턴: Story = {
+  name: 'Chakra Menu 패턴 (다중 필터 드롭다운)',
+  render: () => <ChakraFilterMenuDemo />,
+}
