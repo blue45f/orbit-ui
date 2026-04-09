@@ -4,7 +4,7 @@ import type { Meta, StoryObj } from '@storybook/react'
 
 import { ContainedCheckbox } from '../BoxedCheckbox'
 import { Radio } from '../RadioButton'
-import { Switch } from '../Toggle'
+import { Switch } from '../Switch'
 
 import { ListTile } from './ListTile'
 
