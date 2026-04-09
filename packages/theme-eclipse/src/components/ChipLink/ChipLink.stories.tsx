@@ -28,7 +28,7 @@ export const 기본 = {
   // eslint-disable-next-line
   render: () => {
     return (
-      <ChipLink href="https://www.orbit-ui.dev" target="_blank">
+      <ChipLink href="https://github.com/blue45f/ui-forge" target="_blank">
         ChipLink
       </ChipLink>
     )
@@ -48,7 +48,7 @@ export const 모든상태: Story = {
         <tbody>
           <tr>
             <td>
-              <ChipLink href="https://www.orbit-ui.dev" target="_blank">
+              <ChipLink href="https://github.com/blue45f/ui-forge" target="_blank">
                 <ChipLink.Leading>
                   <CheckIcon />
                 </ChipLink.Leading>
@@ -56,7 +56,7 @@ export const 모든상태: Story = {
               </ChipLink>
             </td>
             <td>
-              <ChipLink href="https://www.orbit-ui.dev" target="_blank">
+              <ChipLink href="https://github.com/blue45f/ui-forge" target="_blank">
                 ChipLink
               </ChipLink>
             </td>
@@ -76,7 +76,7 @@ export const 디자인_QA = {
   // eslint-disable-next-line
   render: ({ leading, text, ...rest }: any) => {
     return (
-      <ChipLink {...rest} href="https://www.orbit-ui.dev" target="_blank">
+      <ChipLink {...rest} href="https://github.com/blue45f/ui-forge" target="_blank">
         {leading && (
           <ChipLink.Leading>
             <CheckIcon />
