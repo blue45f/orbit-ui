@@ -41,7 +41,11 @@ import {
   PeopleLineIcon,
   NotificationLineIcon,
   ListLineIcon,
+  StarLineIcon,
+  ArrowRightIcon,
 } from '@heejun-com/icons'
+
+import { Command } from '../components/Command'
 
 const meta: Meta = {
   title: 'Templates/Showcase',
@@ -2113,4 +2117,252 @@ const OnboardingRender = () => {
 
 export const Onboarding: Story = {
   render: () => <OnboardingRender />,
+}
+
+/* ═══════════════════════════════════════════
+   CommandPalette - Linear/Raycast 스타일 빠른 검색 UI
+   shadcn/ui Command + Radix Dialog 접근성 패턴 반영:
+   - cmdk 기반 실시간 필터링
+   - 카테고리별 그룹 + 키보드 단축키 표시
+   - aria-label, role="dialog" 시멘틱 구조
+   ═══════════════════════════════════════════ */
+const CommandPaletteRender = () => {
+  const [open, setOpen] = useState(false)
+  const [query, setQuery] = useState('')
+
+  const recentItems = [
+    { id: 'r1', label: '대시보드', group: '최근 항목', shortcut: '' },
+    { id: 'r2', label: '사용자 관리', group: '최근 항목', shortcut: '' },
+    { id: 'r3', label: '결제 내역', group: '최근 항목', shortcut: '' },
+  ]
+
+  const navigationItems = [
+    { id: 'n1', label: '홈', group: '페이지 이동', shortcut: 'G H' },
+    { id: 'n2', label: '설정', group: '페이지 이동', shortcut: 'G S' },
+    { id: 'n3', label: '프로필', group: '페이지 이동', shortcut: 'G P' },
+    { id: 'n4', label: '알림 센터', group: '페이지 이동', shortcut: 'G N' },
+  ]
+
+  const actionItems = [
+    { id: 'a1', label: '새 프로젝트 만들기', group: '액션', shortcut: 'C P' },
+    { id: 'a2', label: '초대 링크 복사', group: '액션', shortcut: 'C I' },
+    { id: 'a3', label: '내보내기 (CSV)', group: '액션', shortcut: '' },
+    { id: 'a4', label: '도움말 열기', group: '액션', shortcut: '?' },
+  ]
+
+  const allItems = [...recentItems, ...navigationItems, ...actionItems]
+  const filteredItems = query
+    ? allItems.filter((item) => item.label.toLowerCase().includes(query.toLowerCase()))
+    : allItems
+
+  const groupedItems = filteredItems.reduce<Record<string, typeof allItems>>((acc, item) => {
+    if (!acc[item.group]) acc[item.group] = []
+    acc[item.group].push(item)
+    return acc
+  }, {})
+
+  return (
+    <div
+      style={{
+        minHeight: '500px',
+        background: tc.surface,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexDirection: 'column',
+        gap: '16px',
+        padding: '32px',
+      }}
+    >
+      <div style={{ textAlign: 'center', marginBottom: '8px' }}>
+        <Text textStyle="body1" style={{ fontWeight: 700, color: tc.fg, display: 'block' }}>
+          Command Palette
+        </Text>
+        <Text textStyle="caption" style={{ color: tc.fgMuted }}>
+          Linear / Raycast 스타일 검색 UI
+        </Text>
+      </div>
+
+      <SolidButton
+        color="primary"
+        size="medium"
+        onClick={() => setOpen(true)}
+        aria-label="커맨드 팔레트 열기"
+      >
+        <SolidButton.Center>검색 열기 (Cmd+K)</SolidButton.Center>
+      </SolidButton>
+
+      {open && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label="커맨드 팔레트"
+          style={{
+            position: 'fixed',
+            inset: 0,
+            background: 'rgba(15,23,42,0.4)',
+            display: 'flex',
+            alignItems: 'flex-start',
+            justifyContent: 'center',
+            paddingTop: '120px',
+            zIndex: 1000,
+          }}
+          onClick={(e) => {
+            if (e.target === e.currentTarget) {
+              setOpen(false)
+              setQuery('')
+            }
+          }}
+          onKeyDown={(e) => {
+            if (e.key === 'Escape') {
+              setOpen(false)
+              setQuery('')
+            }
+          }}
+        >
+          <div
+            style={{
+              width: '100%',
+              maxWidth: '560px',
+              background: tc.bg,
+              borderRadius: '16px',
+              border: `1px solid ${tc.border}`,
+              boxShadow: '0 25px 50px rgba(15,23,42,0.25)',
+              overflow: 'hidden',
+            }}
+          >
+            <Command className="rounded-none border-none shadow-none">
+              <Command.Input
+                placeholder="명령어 또는 페이지 검색..."
+                value={query}
+                onValueChange={setQuery}
+                autoFocus
+              />
+              <Command.List style={{ maxHeight: '360px' }}>
+                {filteredItems.length === 0 && (
+                  <Command.Empty>
+                    <div style={{ padding: '24px', textAlign: 'center' }}>
+                      <div style={{ fontSize: '32px', marginBottom: '8px' }}>--</div>
+                      <div style={{ fontSize: '14px', color: tc.fgMuted }}>
+                        &quot;{query}&quot; 에 대한 결과가 없습니다
+                      </div>
+                    </div>
+                  </Command.Empty>
+                )}
+
+                {Object.entries(groupedItems).map(([group, items]) => (
+                  <Command.Group key={group} heading={group}>
+                    {items.map((item) => (
+                      <Command.Item
+                        key={item.id}
+                        onSelect={() => {
+                          setOpen(false)
+                          setQuery('')
+                        }}
+                        style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 12px' }}
+                      >
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                          {group === '최근 항목' && (
+                            <span style={{ fontSize: '14px', color: tc.fgMuted }}>H</span>
+                          )}
+                          {group === '페이지 이동' && (
+                            <ArrowRightIcon size={14} style={{ color: tc.fgMuted }} />
+                          )}
+                          {group === '액션' && (
+                            <StarLineIcon size={14} style={{ color: tc.fgMuted }} />
+                          )}
+                          <span style={{ fontSize: '14px', color: tc.fg }}>{item.label}</span>
+                        </div>
+                        {item.shortcut && (
+                          <div style={{ display: 'flex', gap: '4px' }}>
+                            {item.shortcut.split(' ').map((key, i) => (
+                              <kbd
+                                key={i}
+                                style={{
+                                  padding: '2px 6px',
+                                  borderRadius: '4px',
+                                  background: tc.surfaceElevated,
+                                  border: `1px solid ${tc.border}`,
+                                  fontSize: '11px',
+                                  fontFamily: 'monospace',
+                                  color: tc.fgSub,
+                                  fontWeight: 600,
+                                }}
+                              >
+                                {key}
+                              </kbd>
+                            ))}
+                          </div>
+                        )}
+                      </Command.Item>
+                    ))}
+                  </Command.Group>
+                ))}
+              </Command.List>
+
+              <div style={{
+                padding: '8px 12px',
+                borderTop: `1px solid ${tc.border}`,
+                display: 'flex',
+                gap: '16px',
+                background: tc.surface,
+              }}>
+                {[
+                  { key: 'Enter', label: '선택' },
+                  { key: 'Esc', label: '닫기' },
+                  { key: '↑↓', label: '이동' },
+                ].map(({ key, label }) => (
+                  <div key={key} style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                    <kbd style={{
+                      padding: '2px 6px',
+                      borderRadius: '4px',
+                      background: tc.bg,
+                      border: `1px solid ${tc.border}`,
+                      fontSize: '11px',
+                      fontFamily: 'monospace',
+                      color: tc.fgSub,
+                    }}>
+                      {key}
+                    </kbd>
+                    <span style={{ fontSize: '11px', color: tc.fgMuted }}>{label}</span>
+                  </div>
+                ))}
+              </div>
+            </Command>
+          </div>
+        </div>
+      )}
+
+      <div style={{
+        padding: '16px 20px',
+        borderRadius: '12px',
+        background: tc.bg,
+        border: `1px solid ${tc.border}`,
+        maxWidth: '560px',
+        width: '100%',
+      }}>
+        <Text textStyle="caption" style={{ color: tc.fgSub, display: 'block', marginBottom: '8px', fontWeight: 600 }}>
+          접근성 구현 포인트 (Radix Dialog 패턴 반영)
+        </Text>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+          {[
+            'role="dialog" + aria-modal="true" 로 모달 컨텍스트 선언',
+            'aria-label 으로 스크린리더에 목적 전달',
+            'Escape 키로 닫기 + 포커스 자동 복원',
+            'cmdk 기반 aria-selected 상태 자동 관리',
+            '오버레이 클릭 시 dismiss (Radix onInteractOutside 패턴)',
+          ].map((point) => (
+            <div key={point} style={{ display: 'flex', alignItems: 'flex-start', gap: '6px' }}>
+              <span style={{ color: '#10b981', flexShrink: 0, marginTop: '1px' }}>+</span>
+              <Text textStyle="caption" style={{ color: tc.fgSub }}>{point}</Text>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const CommandPalette: Story = {
+  render: () => <CommandPaletteRender />,
 }

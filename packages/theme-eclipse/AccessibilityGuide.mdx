@@ -1,0 +1,350 @@
+import { Meta, Unstyled } from '@storybook/blocks'
+
+<Meta title='Intro/접근성 가이드' />
+
+<Unstyled>
+  <div style={{
+    maxWidth: '960px',
+    margin: '0 auto',
+    fontFamily: '"Pretendard Variable", "Pretendard", -apple-system, BlinkMacSystemFont, system-ui, sans-serif',
+    padding: '0 24px',
+  }}>
+
+    <div style={{ marginBottom: '48px', paddingTop: '48px' }}>
+      <div style={{ fontSize: '12px', fontWeight: '700', color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '8px' }}>Accessibility Guide</div>
+      <h1 style={{ fontSize: '36px', fontWeight: '800', color: '#1e293b', letterSpacing: '-0.03em', margin: '0 0 12px' }}>접근성 가이드</h1>
+      <p style={{ fontSize: '16px', color: '#64748b', lineHeight: '1.6', margin: 0 }}>
+        WAI-ARIA 패턴, Radix UI 접근성 비교, 키보드 네비게이션 체크리스트, 스크린리더 테스트 가이드를 제공합니다.
+      </p>
+    </div>
+
+    <section style={{ marginBottom: '64px' }}>
+      <h2 style={{ fontSize: '22px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '8px' }}>Radix UI vs Orbit UI 접근성 비교</h2>
+      <p style={{ fontSize: '14px', color: '#64748b', marginBottom: '24px', lineHeight: '1.6' }}>
+        Radix UI는 접근성을 핵심 설계 원칙으로 삼습니다. Orbit UI는 동일한 WAI-ARIA 패턴을 따르며, 아래 표는 주요 구현 비교입니다.
+      </p>
+      <div style={{ overflowX: 'auto', borderRadius: '12px', border: '1.5px solid #e2e8f0' }}>
+        <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px' }}>
+          <thead>
+            <tr style={{ background: '#f8fafc' }}>
+              {['패턴', 'Radix UI', 'Orbit UI', '구현 상태'].map((col) => (
+                <th key={col} style={{ padding: '12px 16px', textAlign: 'left', fontWeight: '600', color: '#1e293b', borderBottom: '1px solid #e2e8f0' }}>{col}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {[
+              { pattern: 'Dialog (Modal)', radix: 'Focus trap, Escape dismiss, aria-modal', orbit: 'Dialog 컴포넌트, onOpenAutoFocus 지원', status: '완료', statusColor: '#10b981' },
+              { pattern: 'Combobox (Dropdown)', radix: 'aria-expanded, aria-activedescendant, listbox role', orbit: 'Dropdown + Popover 조합', status: '부분', statusColor: '#f59e0b' },
+              { pattern: 'Command Palette', radix: 'cmdk 기반 aria-selected 자동 관리', orbit: 'Command 컴포넌트 (cmdk 래핑)', status: '완료', statusColor: '#10b981' },
+              { pattern: 'Listbox (Select)', radix: 'role="listbox", aria-selected, keyboard nav', orbit: 'Popover + ListTile 조합', status: '부분', statusColor: '#f59e0b' },
+              { pattern: 'Toggle / Switch', radix: 'role="switch", aria-checked, aria-label', orbit: 'Toggle, Switch 컴포넌트', status: '완료', statusColor: '#10b981' },
+              { pattern: 'Accordion', radix: 'aria-expanded, aria-controls, aria-labelledby', orbit: 'Accordion 컴포넌트', status: '완료', statusColor: '#10b981' },
+              { pattern: 'Slider', radix: 'role="slider", aria-valuenow, aria-valuetext', orbit: 'Slider (Radix 직접 래핑)', status: '완료', statusColor: '#10b981' },
+              { pattern: 'Tooltip', radix: 'aria-describedby, hover/focus 트리거', orbit: 'Tooltip 컴포넌트', status: '완료', statusColor: '#10b981' },
+            ].map(({ pattern, radix, orbit, status, statusColor }, i) => (
+              <tr key={pattern} style={{ borderBottom: '1px solid #f1f5f9', background: i % 2 === 0 ? '#fff' : '#fafbfc' }}>
+                <td style={{ padding: '12px 16px', fontWeight: '600', color: '#1e293b' }}>{pattern}</td>
+                <td style={{ padding: '12px 16px', color: '#64748b', fontSize: '12px' }}>{radix}</td>
+                <td style={{ padding: '12px 16px', color: '#64748b', fontSize: '12px' }}>{orbit}</td>
+                <td style={{ padding: '12px 16px' }}>
+                  <span style={{
+                    padding: '2px 10px',
+                    borderRadius: '20px',
+                    fontSize: '11px',
+                    fontWeight: '700',
+                    background: `${statusColor}18`,
+                    color: statusColor,
+                  }}>{status}</span>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section style={{ marginBottom: '64px' }}>
+      <h2 style={{ fontSize: '22px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '8px' }}>WAI-ARIA 핵심 패턴</h2>
+      <p style={{ fontSize: '14px', color: '#64748b', marginBottom: '24px', lineHeight: '1.6' }}>
+        컴포넌트 구현 시 반드시 따라야 하는 WAI-ARIA 디자인 패턴입니다.
+      </p>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '16px' }}>
+        {[
+          {
+            title: 'Dialog (Modal)',
+            color: '#6366f1',
+            attrs: [
+              { name: 'role="dialog"', desc: '모달임을 스크린리더에 선언' },
+              { name: 'aria-modal="true"', desc: '배경 컨텐츠를 inert 처리' },
+              { name: 'aria-labelledby', desc: 'Dialog.Title 요소를 참조' },
+              { name: 'aria-describedby', desc: 'Dialog.Description 요소 참조' },
+            ],
+            keyboard: ['Escape: 닫기 + Trigger로 포커스 복원', 'Tab / Shift+Tab: 포커스 트랩 내 이동', 'Enter / Space: Trigger 실행'],
+          },
+          {
+            title: 'Listbox / Combobox',
+            color: '#8b5cf6',
+            attrs: [
+              { name: 'role="listbox"', desc: '옵션 목록 컨테이너' },
+              { name: 'role="option"', desc: '각 선택 항목' },
+              { name: 'aria-selected', desc: '현재 선택 상태 표시' },
+              { name: 'aria-expanded', desc: '드롭다운 열림 상태' },
+            ],
+            keyboard: ['Arrow Down / Up: 옵션 이동', 'Enter: 선택 확정', 'Escape: 닫기', 'Home / End: 첫/마지막 이동'],
+          },
+          {
+            title: 'Slider',
+            color: '#0ea5e9',
+            attrs: [
+              { name: 'role="slider"', desc: '슬라이더 thumb 요소' },
+              { name: 'aria-valuenow', desc: '현재 값 (숫자)' },
+              { name: 'aria-valuemin / max', desc: '최소/최대 범위' },
+              { name: 'aria-valuetext', desc: '값의 의미 있는 텍스트 표현' },
+            ],
+            keyboard: ['Arrow Left / Right: 1 단위 조절', 'Arrow Up / Down: 1 단위 조절', 'Home / End: 최소/최대', 'Page Up / Down: 10 단위 조절'],
+          },
+          {
+            title: 'Command Palette',
+            color: '#10b981',
+            attrs: [
+              { name: 'role="dialog" + aria-modal', desc: '팔레트는 모달로 동작' },
+              { name: 'aria-label', desc: '검색 목적을 설명' },
+              { name: 'aria-selected (cmdk 자동)', desc: '현재 포커스된 항목' },
+              { name: 'aria-live="polite"', desc: '검색 결과 수 실시간 알림' },
+            ],
+            keyboard: ['Arrow Up / Down: 항목 이동', 'Enter: 실행', 'Escape: 닫기', 'Cmd+K: 팔레트 열기 (관례)'],
+          },
+        ].map(({ title, color, attrs, keyboard }) => (
+          <div key={title} style={{
+            borderRadius: '12px',
+            border: '1.5px solid #e2e8f0',
+            overflow: 'hidden',
+          }}>
+            <div style={{ padding: '14px 18px', background: `${color}10`, borderBottom: '1px solid #e2e8f0' }}>
+              <span style={{ fontSize: '15px', fontWeight: '700', color }}>{title}</span>
+            </div>
+            <div style={{ padding: '16px 18px' }}>
+              <div style={{ marginBottom: '12px' }}>
+                <div style={{ fontSize: '11px', fontWeight: '700', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '8px' }}>ARIA 속성</div>
+                {attrs.map(({ name, desc }) => (
+                  <div key={name} style={{ display: 'flex', gap: '8px', marginBottom: '6px', alignItems: 'flex-start' }}>
+                    <code style={{
+                      fontSize: '11px',
+                      background: '#f1f5f9',
+                      padding: '2px 6px',
+                      borderRadius: '4px',
+                      color: color,
+                      fontFamily: 'monospace',
+                      whiteSpace: 'nowrap',
+                      flexShrink: 0,
+                    }}>{name}</code>
+                    <span style={{ fontSize: '12px', color: '#64748b', lineHeight: '1.4' }}>{desc}</span>
+                  </div>
+                ))}
+              </div>
+              <div>
+                <div style={{ fontSize: '11px', fontWeight: '700', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '8px' }}>키보드 네비게이션</div>
+                {keyboard.map((k) => (
+                  <div key={k} style={{ fontSize: '12px', color: '#64748b', marginBottom: '4px', display: 'flex', gap: '6px', alignItems: 'flex-start' }}>
+                    <span style={{ color: color, flexShrink: 0 }}>+</span>
+                    <span>{k}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section style={{ marginBottom: '64px' }}>
+      <h2 style={{ fontSize: '22px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '8px' }}>키보드 네비게이션 구현 체크리스트</h2>
+      <p style={{ fontSize: '14px', color: '#64748b', marginBottom: '24px', lineHeight: '1.6' }}>
+        새 컴포넌트 구현 또는 PR 리뷰 전 아래 항목을 확인하세요.
+      </p>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+        {[
+          { category: '포커스 관리', color: '#6366f1', items: [
+            '인터랙티브 요소는 Tab으로 접근 가능한가?',
+            '모달/오버레이는 포커스를 트랩하는가?',
+            '모달 닫힘 후 트리거 요소로 포커스가 복원되는가?',
+            'focus-visible 스타일이 적용되어 있는가? (outline 제거 금지)',
+            'disabled 요소는 Tab 순서에서 제외되는가?',
+          ]},
+          { category: 'ARIA 레이블', color: '#8b5cf6', items: [
+            '아이콘 전용 버튼에 aria-label이 있는가?',
+            '폼 입력 요소에 연결된 label이 있는가? (htmlFor 또는 aria-label)',
+            '이미지에 alt 텍스트가 있는가? (장식용은 alt="")',
+            '에러 메시지가 aria-describedby로 연결되어 있는가?',
+            '동적 콘텐츠 변경이 aria-live로 알려지는가?',
+          ]},
+          { category: '키보드 인터랙션', color: '#0ea5e9', items: [
+            'Enter / Space로 버튼/링크를 실행할 수 있는가?',
+            'Escape로 팝업/모달/드롭다운을 닫을 수 있는가?',
+            '리스트/메뉴는 화살표 키로 이동 가능한가?',
+            'Combobox에서 Enter로 선택, Escape로 닫기가 동작하는가?',
+            'Slider는 좌/우 방향키 및 Home/End가 동작하는가?',
+          ]},
+          { category: '색상 및 대비', color: '#10b981', items: [
+            '텍스트 대비가 WCAG AA 기준(4.5:1) 이상인가?',
+            '큰 텍스트 대비가 WCAG AA 기준(3:1) 이상인가?',
+            '색상만으로 상태를 전달하지 않는가? (아이콘/텍스트 보조)',
+            '포커스 인디케이터가 최소 3:1 대비를 충족하는가?',
+          ]},
+        ].map(({ category, color, items }) => (
+          <div key={category} style={{ borderRadius: '12px', border: '1.5px solid #e2e8f0', overflow: 'hidden' }}>
+            <div style={{ padding: '12px 18px', background: `${color}08`, borderBottom: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: color, flexShrink: 0 }} />
+              <span style={{ fontSize: '14px', fontWeight: '700', color: '#1e293b' }}>{category}</span>
+            </div>
+            <div style={{ padding: '12px 18px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+              {items.map((item) => (
+                <div key={item} style={{ display: 'flex', alignItems: 'flex-start', gap: '10px' }}>
+                  <div style={{
+                    width: '16px', height: '16px',
+                    borderRadius: '4px',
+                    border: `1.5px solid ${color}`,
+                    flexShrink: 0,
+                    marginTop: '2px',
+                  }} />
+                  <span style={{ fontSize: '13px', color: '#475569', lineHeight: '1.5' }}>{item}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section style={{ marginBottom: '64px' }}>
+      <h2 style={{ fontSize: '22px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '8px' }}>스크린리더 테스트 가이드</h2>
+      <p style={{ fontSize: '14px', color: '#64748b', marginBottom: '24px', lineHeight: '1.6' }}>
+        실제 스크린리더로 컴포넌트를 검증하는 방법입니다. 개발 환경별 권장 도구를 사용하세요.
+      </p>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '16px', marginBottom: '32px' }}>
+        {[
+          { tool: 'VoiceOver (macOS/iOS)', shortcut: 'Cmd + F5', color: '#6366f1', steps: ['Safari 브라우저 사용 권장', 'VO + U: 로터 메뉴 (링크/헤딩/폼 이동)', 'VO + Shift + Down: 컨테이너 진입', 'VO + 방향키: 요소 탐색', 'VO + Space: 선택/실행'] },
+          { tool: 'NVDA (Windows)', shortcut: 'Insert 키', color: '#8b5cf6', steps: ['Firefox 또는 Chrome 사용 권장', 'NVDA + F7: 요소 목록', 'H: 헤딩 이동 / B: 버튼 이동', 'F: 폼 필드 이동', 'NVDA + Space: 폼 모드 전환'] },
+          { tool: 'TalkBack (Android)', shortcut: '볼륨 Up+Down 동시', color: '#0ea5e9', steps: ['Chrome 브라우저 사용 권장', '스와이프로 요소 이동', '더블 탭: 선택/실행', '두 손가락 스와이프: 스크롤', '선형 탐색 모드 설정 권장'] },
+        ].map(({ tool, shortcut, color, steps }) => (
+          <div key={tool} style={{ borderRadius: '12px', border: '1.5px solid #e2e8f0', overflow: 'hidden' }}>
+            <div style={{ padding: '14px 18px', borderBottom: '1px solid #e2e8f0' }}>
+              <div style={{ fontSize: '14px', fontWeight: '700', color: '#1e293b', marginBottom: '4px' }}>{tool}</div>
+              <code style={{ fontSize: '12px', color, background: `${color}10`, padding: '2px 8px', borderRadius: '4px' }}>{shortcut}</code>
+            </div>
+            <div style={{ padding: '14px 18px' }}>
+              {steps.map((step, i) => (
+                <div key={i} style={{ display: 'flex', gap: '8px', marginBottom: '6px', alignItems: 'flex-start' }}>
+                  <span style={{ fontSize: '11px', color, fontWeight: '700', flexShrink: 0, marginTop: '2px' }}>{i + 1}</span>
+                  <span style={{ fontSize: '12px', color: '#64748b', lineHeight: '1.5' }}>{step}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div style={{ borderRadius: '12px', background: '#f0fdf4', border: '1.5px solid #10b981', padding: '20px 24px' }}>
+        <div style={{ fontSize: '14px', fontWeight: '700', color: '#10b981', marginBottom: '12px' }}>Dialog / Modal 스크린리더 테스트 시나리오</div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+          {[
+            '트리거 버튼에 포커스 이동 후 Enter로 모달 열기',
+            '모달 열림 시 제목(aria-labelledby)이 스크린리더에 읽히는가?',
+            '모달 내부에서 Tab 순환 시 배경 요소로 이탈하지 않는가?',
+            'Escape 키로 닫기 후 트리거 버튼으로 포커스가 돌아오는가?',
+            '닫기 버튼의 aria-label이 "닫기" 또는 의미 있는 텍스트인가?',
+          ].map((scenario, i) => (
+            <div key={i} style={{ display: 'flex', gap: '8px', alignItems: 'flex-start' }}>
+              <span style={{ color: '#10b981', fontWeight: '700', flexShrink: 0 }}>{i + 1}.</span>
+              <span style={{ fontSize: '13px', color: '#166534', lineHeight: '1.5' }}>{scenario}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section style={{ marginBottom: '64px' }}>
+      <h2 style={{ fontSize: '22px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '8px' }}>Orbit UI 컴포넌트 코드 예시</h2>
+      <p style={{ fontSize: '14px', color: '#64748b', marginBottom: '24px', lineHeight: '1.6' }}>
+        접근성 속성을 포함한 올바른 컴포넌트 사용 예시입니다.
+      </p>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+        {[
+          {
+            title: 'Slider - 접근성 완전 구현',
+            good: true,
+            code: `<Slider
+  value={[volume]}
+  onValueChange={([v]) => setVolume(v)}
+  min={0}
+  max={100}
+  step={1}
+  aria-label="볼륨 조절"
+  aria-valuetext={\`볼륨 \${volume}%\`}
+/>`,
+          },
+          {
+            title: 'SolidIconButton - aria-label 필수',
+            good: true,
+            code: `<SolidIconButton
+  aria-label="설정 열기"
+  onClick={openSettings}
+>
+  <SolidIconButton.Icon>
+    <SettingLineIcon />
+  </SolidIconButton.Icon>
+</SolidIconButton>`,
+          },
+          {
+            title: 'Dialog - 완전한 접근성 구조',
+            good: true,
+            code: `<Dialog>
+  <Dialog.Trigger asChild>
+    <SolidButton aria-haspopup="dialog">
+      <SolidButton.Center>열기</SolidButton.Center>
+    </SolidButton>
+  </Dialog.Trigger>
+  <Dialog.Top>
+    {/* Dialog.Title은 aria-labelledby로 자동 연결 */}
+    <Typography textStyle="subheadingSmall">
+      제목
+    </Typography>
+    <Typography textStyle="descriptionLarge">
+      설명 텍스트
+    </Typography>
+  </Dialog.Top>
+  <Dialog.Bottom direction="horizontal">
+    <Dialog.Close asChild>
+      <SolidButton>
+        <SolidButton.Center>확인</SolidButton.Center>
+      </SolidButton>
+    </Dialog.Close>
+  </Dialog.Bottom>
+</Dialog>`,
+          },
+        ].map(({ title, code }) => (
+          <div key={title} style={{ borderRadius: '12px', border: '1.5px solid #e2e8f0', overflow: 'hidden' }}>
+            <div style={{ padding: '12px 18px', background: '#f0fdf4', borderBottom: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <span style={{ color: '#10b981', fontWeight: '700' }}>GOOD</span>
+              <span style={{ fontSize: '13px', fontWeight: '600', color: '#1e293b' }}>{title}</span>
+            </div>
+            <pre style={{
+              margin: 0,
+              padding: '16px 18px',
+              background: '#0f172a',
+              color: '#e2e8f0',
+              fontSize: '12px',
+              lineHeight: '1.7',
+              overflowX: 'auto',
+              fontFamily: '"Fira Code", "Cascadia Code", monospace',
+            }}>
+              <code>{code}</code>
+            </pre>
+          </div>
+        ))}
+      </div>
+    </section>
+
+  </div>
+</Unstyled>
