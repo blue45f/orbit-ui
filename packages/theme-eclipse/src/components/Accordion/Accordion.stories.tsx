@@ -2,6 +2,8 @@ import type { Meta, StoryObj } from '@storybook/react'
 import { useState } from 'react'
 
 import { Accordion } from './Accordion'
+import { LabelBadge } from '../LabelBadge'
+import { Switch } from '../Switch'
 
 const meta = {
   title: 'eclipse/Data Display/Accordion',
@@ -235,6 +237,308 @@ export const 중첩Accordion: Story = {
             </Accordion>
           </Accordion.Content>
         </Accordion.Item>
+      </Accordion>
+    </div>
+  ),
+}
+
+/* --------------------------------------------------------------------------
+   Vercel 스타일: 프로젝트 설정 패널
+   Vercel Dashboard의 Project Settings처럼 섹션별 설정을 Accordion으로 구성
+-------------------------------------------------------------------------- */
+const VercelSettingsRender = () => {
+  const [domainEnabled, setDomainEnabled] = useState(true)
+  const [analyticsEnabled, setAnalyticsEnabled] = useState(false)
+  const [previewEnabled, setPreviewEnabled] = useState(true)
+
+  return (
+    <div style={{ width: '640px', fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' }}>
+      <div style={{ marginBottom: '24px' }}>
+        <h2 style={{ margin: '0 0 4px', fontSize: '20px', fontWeight: '700', color: '#0f172a' }}>
+          프로젝트 설정
+        </h2>
+        <p style={{ margin: 0, fontSize: '13px', color: '#64748b' }}>
+          Vercel Dashboard 스타일 - 섹션별 설정 그룹화 패턴
+        </p>
+      </div>
+      <Accordion type="multiple" className="w-full">
+        <Accordion.Item value="domains">
+          <Accordion.Trigger>
+            <span style={{ display: 'flex', alignItems: 'center', gap: '12px', width: '100%' }}>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="1.5" />
+                <path d="M2 12h20M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20" stroke="currentColor" strokeWidth="1.5" />
+              </svg>
+              <span style={{ flex: 1 }}>도메인</span>
+              <LabelBadge color="benefit"><LabelBadge.Label>3개 연결됨</LabelBadge.Label></LabelBadge>
+            </span>
+          </Accordion.Trigger>
+          <Accordion.Content>
+            <div style={{ padding: '4px 0 16px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+              {['orbit-ui.vercel.app', 'orbit-ui.com', 'www.orbit-ui.com'].map((domain, i) => (
+                <div
+                  key={domain}
+                  style={{
+                    display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                    padding: '12px 14px', borderRadius: '8px',
+                    border: '1px solid #e2e8f0', background: '#f8fafc',
+                  }}
+                >
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <span style={{
+                      width: '8px', height: '8px', borderRadius: '50%',
+                      background: i === 0 ? '#f59e0b' : '#22c55e', flexShrink: 0,
+                    }} />
+                    <code style={{ fontSize: '13px', color: '#1e293b', fontFamily: 'monospace' }}>{domain}</code>
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    {i === 0 && <LabelBadge color="gray"><LabelBadge.Label>기본</LabelBadge.Label></LabelBadge>}
+                    <Switch
+                      checked={domainEnabled}
+                      onChange={() => setDomainEnabled((v) => !v)}
+                    />
+                  </div>
+                </div>
+              ))}
+              <button style={{
+                display: 'flex', alignItems: 'center', gap: '6px',
+                padding: '10px 14px', borderRadius: '8px',
+                border: '1.5px dashed #cbd5e1', background: 'transparent',
+                color: '#6366f1', fontSize: '13px', fontWeight: '600', cursor: 'pointer',
+              }}>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                  <path d="M12 5v14M5 12h14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                </svg>
+                도메인 추가
+              </button>
+            </div>
+          </Accordion.Content>
+        </Accordion.Item>
+
+        <Accordion.Item value="analytics">
+          <Accordion.Trigger>
+            <span style={{ display: 'flex', alignItems: 'center', gap: '12px', width: '100%' }}>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <path d="M3 3v18h18" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                <path d="M18 9l-5 5-2-2-3 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+              <span style={{ flex: 1 }}>Analytics</span>
+              <LabelBadge color={analyticsEnabled ? 'benefit' : 'gray'}>
+                <LabelBadge.Label>{analyticsEnabled ? '활성화됨' : '비활성화'}</LabelBadge.Label>
+              </LabelBadge>
+            </span>
+          </Accordion.Trigger>
+          <Accordion.Content>
+            <div style={{ padding: '4px 0 16px' }}>
+              <div style={{
+                padding: '16px', borderRadius: '10px',
+                background: analyticsEnabled ? 'rgba(16,185,129,0.05)' : '#f8fafc',
+                border: `1px solid ${analyticsEnabled ? 'rgba(16,185,129,0.2)' : '#e2e8f0'}`,
+                marginBottom: '12px',
+              }}>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '4px' }}>
+                  <span style={{ fontSize: '14px', fontWeight: '600', color: '#1e293b' }}>
+                    Vercel Analytics 활성화
+                  </span>
+                  <Switch
+                    checked={analyticsEnabled}
+                    onChange={() => setAnalyticsEnabled((v) => !v)}
+                  />
+                </div>
+                <p style={{ margin: 0, fontSize: '12px', color: '#64748b', lineHeight: '1.5' }}>
+                  실시간 방문자 수, 페이지뷰, 성능 지표를 대시보드에서 확인하세요.
+                  무료 플랜은 월 2,500 이벤트를 제공합니다.
+                </p>
+              </div>
+            </div>
+          </Accordion.Content>
+        </Accordion.Item>
+
+        <Accordion.Item value="preview">
+          <Accordion.Trigger>
+            <span style={{ display: 'flex', alignItems: 'center', gap: '12px', width: '100%' }}>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" stroke="currentColor" strokeWidth="1.5" />
+                <path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" stroke="currentColor" strokeWidth="1.5" />
+              </svg>
+              <span style={{ flex: 1 }}>Preview 배포</span>
+            </span>
+          </Accordion.Trigger>
+          <Accordion.Content>
+            <div style={{ padding: '4px 0 16px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+              {[
+                { label: 'PR Preview 자동 생성', desc: 'PR 생성 시 Preview URL을 자동으로 배포합니다.' },
+                { label: 'Preview URL 비밀번호 보호', desc: 'Preview URL에 접근하려면 비밀번호가 필요합니다.' },
+              ].map((item, i) => (
+                <div key={i} style={{
+                  display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between',
+                  gap: '12px', padding: '12px 14px', borderRadius: '8px',
+                  border: '1px solid #e2e8f0', background: '#f8fafc',
+                }}>
+                  <div>
+                    <div style={{ fontSize: '13px', fontWeight: '600', color: '#1e293b', marginBottom: '2px' }}>{item.label}</div>
+                    <div style={{ fontSize: '12px', color: '#64748b' }}>{item.desc}</div>
+                  </div>
+                  <Switch
+                    checked={i === 0 ? previewEnabled : false}
+                    onChange={i === 0 ? () => setPreviewEnabled((v) => !v) : undefined}
+                  />
+                </div>
+              ))}
+            </div>
+          </Accordion.Content>
+        </Accordion.Item>
+
+        <Accordion.Item value="danger">
+          <Accordion.Trigger>
+            <span style={{ display: 'flex', alignItems: 'center', gap: '12px', color: '#ef4444' }}>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <path d="M12 9v4m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+              위험 영역
+            </span>
+          </Accordion.Trigger>
+          <Accordion.Content>
+            <div style={{ padding: '4px 0 16px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+              {['프로젝트 전송', '프로젝트 삭제'].map((action) => (
+                <div key={action} style={{
+                  display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                  padding: '12px 14px', borderRadius: '8px',
+                  border: '1px solid rgba(239,68,68,0.2)', background: 'rgba(239,68,68,0.03)',
+                }}>
+                  <span style={{ fontSize: '13px', fontWeight: '600', color: '#1e293b' }}>{action}</span>
+                  <button style={{
+                    padding: '6px 14px', borderRadius: '6px', border: '1px solid #ef4444',
+                    background: 'transparent', color: '#ef4444',
+                    fontSize: '12px', fontWeight: '600', cursor: 'pointer',
+                  }}>{action}</button>
+                </div>
+              ))}
+            </div>
+          </Accordion.Content>
+        </Accordion.Item>
+      </Accordion>
+    </div>
+  )
+}
+
+export const Vercel_설정패널: Story = {
+  args: { type: 'multiple' },
+  render: () => <VercelSettingsRender />,
+}
+
+/* --------------------------------------------------------------------------
+   shadcn/ui 스타일: 기능 비교표 Accordion
+   가격 플랜별 포함 기능을 Accordion으로 상세 설명하는 패턴
+-------------------------------------------------------------------------- */
+const featureSections = [
+  {
+    category: '핵심 기능',
+    icon: '⚡',
+    features: [
+      { name: '컴포넌트 라이브러리', free: true, pro: true, enterprise: true },
+      { name: '다크 모드 지원', free: true, pro: true, enterprise: true },
+      { name: '커스텀 테마', free: false, pro: true, enterprise: true },
+      { name: '피그마 연동', free: false, pro: true, enterprise: true },
+    ],
+  },
+  {
+    category: '팀 협업',
+    icon: '👥',
+    features: [
+      { name: '팀 멤버', free: '최대 3명', pro: '최대 15명', enterprise: '무제한' },
+      { name: '공유 라이브러리', free: false, pro: true, enterprise: true },
+      { name: '버전 관리', free: false, pro: true, enterprise: true },
+    ],
+  },
+  {
+    category: '지원 및 보안',
+    icon: '🛡️',
+    features: [
+      { name: '커뮤니티 지원', free: true, pro: true, enterprise: true },
+      { name: '우선 지원', free: false, pro: true, enterprise: true },
+      { name: 'SSO / SAML', free: false, pro: false, enterprise: true },
+      { name: 'SLA 보장', free: false, pro: false, enterprise: true },
+    ],
+  },
+]
+
+const CheckIcon = ({ checked }: { checked: boolean | string }) => {
+  if (typeof checked === 'string') {
+    return <span style={{ fontSize: '12px', color: '#6366f1', fontWeight: '600' }}>{checked}</span>
+  }
+  if (checked) {
+    return (
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+        <circle cx="12" cy="12" r="10" fill="#22c55e" />
+        <path d="M8 12l3 3 5-5" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    )
+  }
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+      <circle cx="12" cy="12" r="10" fill="#e2e8f0" />
+      <path d="M8 12h8" stroke="#94a3b8" strokeWidth="2" strokeLinecap="round" />
+    </svg>
+  )
+}
+
+export const 플랜별_기능비교: Story = {
+  args: { type: 'multiple' },
+  render: () => (
+    <div style={{ width: '640px' }}>
+      <div style={{ marginBottom: '24px' }}>
+        <h2 style={{ margin: '0 0 4px', fontSize: '20px', fontWeight: '700', color: '#0f172a' }}>
+          플랜별 기능 비교
+        </h2>
+        <p style={{ margin: '0 0 16px', fontSize: '13px', color: '#64748b' }}>
+          shadcn/ui 스타일 — 카테고리별 기능을 Accordion으로 그룹화
+        </p>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '0', padding: '10px 0', borderBottom: '2px solid #e2e8f0', marginLeft: 'auto', marginRight: '0', width: '55%', textAlign: 'center' }}>
+          {['Free', 'Pro', 'Enterprise'].map((plan) => (
+            <div key={plan} style={{ fontSize: '12px', fontWeight: '700', color: plan === 'Pro' ? '#6366f1' : '#64748b' }}>
+              {plan}
+            </div>
+          ))}
+        </div>
+      </div>
+      <Accordion type="multiple" defaultValue={['feat-0', 'feat-1', 'feat-2']} className="w-full">
+        {featureSections.map((section, si) => (
+          <Accordion.Item key={si} value={`feat-${si}`}>
+            <Accordion.Trigger>
+              <span style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <span style={{ fontSize: '16px' }}>{section.icon}</span>
+                {section.category}
+              </span>
+            </Accordion.Trigger>
+            <Accordion.Content>
+              <div style={{ paddingBottom: '8px' }}>
+                {section.features.map((feature, fi) => (
+                  <div
+                    key={fi}
+                    style={{
+                      display: 'flex', alignItems: 'center',
+                      padding: '10px 4px', borderBottom: '1px solid #f1f5f9',
+                    }}
+                  >
+                    <span style={{ flex: 1, fontSize: '13px', color: '#334155' }}>{feature.name}</span>
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', width: '55%', textAlign: 'center' }}>
+                      <div style={{ display: 'flex', justifyContent: 'center' }}>
+                        <CheckIcon checked={feature.free} />
+                      </div>
+                      <div style={{ display: 'flex', justifyContent: 'center' }}>
+                        <CheckIcon checked={feature.pro} />
+                      </div>
+                      <div style={{ display: 'flex', justifyContent: 'center' }}>
+                        <CheckIcon checked={feature.enterprise} />
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </Accordion.Content>
+          </Accordion.Item>
+        ))}
       </Accordion>
     </div>
   ),
