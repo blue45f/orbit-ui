@@ -360,3 +360,309 @@ const RaycastSettingsRender = () => {
 export const Raycast_설정패널: Story = {
   render: () => <RaycastSettingsRender />,
 }
+
+/* --------------------------------------------------------------------------
+   Mantine 가격 필터 패턴
+   Mantine RangeSlider: 최솟값/최댓값 입력 + 슬라이더 연동, 라이브 필터링
+-------------------------------------------------------------------------- */
+const MantinePriceFilterRender = () => {
+  const [price, setPrice] = useState([15000, 85000])
+  const [minInput, setMinInput] = useState(String(price[0]))
+  const [maxInput, setMaxInput] = useState(String(price[1]))
+
+  const applyInput = () => {
+    const min = Math.min(Number(minInput), price[1] - 1000)
+    const max = Math.max(Number(maxInput), price[0] + 1000)
+    const clamped: [number, number] = [
+      Math.max(0, Math.min(min, 99000)),
+      Math.max(1000, Math.min(max, 100000)),
+    ]
+    setPrice(clamped)
+    setMinInput(String(clamped[0]))
+    setMaxInput(String(clamped[1]))
+  }
+
+  const products = [
+    { name: '베이직 플랜', price: 9900 },
+    { name: '스탠다드 플랜', price: 29000 },
+    { name: '프로 플랜', price: 59000 },
+    { name: '엔터프라이즈', price: 99000 },
+    { name: '팀 플랜', price: 45000 },
+  ]
+  const filtered = products.filter((p) => p.price >= price[0] && p.price <= price[1])
+
+  return (
+    <div style={{ width: 340, display: 'flex', flexDirection: 'column', gap: 20 }}>
+      <div style={{ fontSize: 14, fontWeight: 700, color: '#1e293b' }}>가격 필터</div>
+
+      <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+        <input
+          type="number"
+          value={minInput}
+          onChange={(e) => setMinInput(e.target.value)}
+          onBlur={applyInput}
+          style={{
+            flex: 1, padding: '6px 10px', borderRadius: 8, border: '1px solid #e2e8f0',
+            fontSize: 13, fontWeight: 600, color: '#1e293b', outline: 'none',
+          }}
+          aria-label="최소 가격"
+        />
+        <span style={{ color: '#94a3b8', fontSize: 13 }}>~</span>
+        <input
+          type="number"
+          value={maxInput}
+          onChange={(e) => setMaxInput(e.target.value)}
+          onBlur={applyInput}
+          style={{
+            flex: 1, padding: '6px 10px', borderRadius: 8, border: '1px solid #e2e8f0',
+            fontSize: 13, fontWeight: 600, color: '#1e293b', outline: 'none',
+          }}
+          aria-label="최대 가격"
+        />
+      </div>
+
+      <Slider
+        value={price}
+        onValueChange={(v) => {
+          setPrice(v)
+          setMinInput(String(v[0]))
+          setMaxInput(String(v[1]))
+        }}
+        min={0}
+        max={100000}
+        step={1000}
+        aria-label="가격 범위"
+      />
+
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+        <div style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase' }}>
+          {filtered.length}개 상품 매칭
+        </div>
+        {filtered.map((p) => (
+          <div
+            key={p.name}
+            style={{
+              display: 'flex', justifyContent: 'space-between',
+              padding: '8px 12px', borderRadius: 8,
+              border: '1px solid #e2e8f0', background: '#f8fafc',
+            }}
+          >
+            <span style={{ fontSize: 13, color: '#1e293b', fontWeight: 500 }}>{p.name}</span>
+            <span style={{ fontSize: 13, fontWeight: 700, color: '#6366f1' }}>
+              {p.price.toLocaleString()}원
+            </span>
+          </div>
+        ))}
+        {filtered.length === 0 && (
+          <div style={{ fontSize: 13, color: '#94a3b8', textAlign: 'center', padding: '16px 0' }}>
+            해당 범위의 상품이 없습니다.
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+
+export const Mantine_가격_필터: Story = {
+  name: 'Mantine - 가격 범위 입력 + 라이브 필터링 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Mantine RangeSlider 패턴. 텍스트 입력과 슬라이더를 양방향으로 연동하여 가격 범위를 설정합니다. ' +
+          'blur 이벤트로 입력값 검증 후 슬라이더와 동기화합니다.',
+      },
+    },
+  },
+  render: () => <MantinePriceFilterRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Chakra UI 밝기/채도 조절 패턴
+   Chakra Slider: 여러 슬라이더를 쌓아 이미지 편집 도구처럼 구성
+-------------------------------------------------------------------------- */
+const ChakraImageEditRender = () => {
+  const [brightness, setBrightness] = useState([100])
+  const [contrast, setContrast] = useState([100])
+  const [saturation, setSaturation] = useState([100])
+
+  const filter = `brightness(${brightness[0]}%) contrast(${contrast[0]}%) saturate(${saturation[0]}%)`
+
+  const rows = [
+    { label: '밝기', value: brightness, onChange: setBrightness, min: 0, max: 200, color: '#f59e0b' },
+    { label: '대비', value: contrast, onChange: setContrast, min: 0, max: 200, color: '#6366f1' },
+    { label: '채도', value: saturation, onChange: setSaturation, min: 0, max: 200, color: '#10b981' },
+  ]
+
+  return (
+    <div style={{ width: 340, display: 'flex', flexDirection: 'column', gap: 20 }}>
+      {/* Image preview */}
+      <div
+        style={{
+          height: 160,
+          borderRadius: 12,
+          overflow: 'hidden',
+          border: '1px solid #e2e8f0',
+          filter,
+          transition: 'filter 0.1s',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          background: 'linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%)',
+        }}
+      >
+        <span style={{ fontSize: 40, filter: 'drop-shadow(0 2px 8px rgba(0,0,0,0.3))' }}>
+          {brightness[0] < 50 ? '🌑' : brightness[0] < 100 ? '🌒' : brightness[0] < 150 ? '🌕' : '☀️'}
+        </span>
+      </div>
+
+      {rows.map((row) => (
+        <div key={row.label}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
+            <span style={{ fontSize: 13, fontWeight: 600, color: '#1e293b' }}>{row.label}</span>
+            <span style={{ fontSize: 13, fontWeight: 700, color: row.color }}>{row.value[0]}%</span>
+          </div>
+          <Slider
+            value={row.value}
+            onValueChange={row.onChange}
+            min={row.min}
+            max={row.max}
+            step={1}
+            aria-label={row.label}
+          />
+        </div>
+      ))}
+
+      <button
+        onClick={() => { setBrightness([100]); setContrast([100]); setSaturation([100]) }}
+        style={{
+          padding: '8px 16px', borderRadius: 8, border: '1px solid #e2e8f0',
+          background: '#f8fafc', color: '#64748b', fontSize: 12, fontWeight: 600,
+          cursor: 'pointer', alignSelf: 'flex-end',
+        }}
+      >
+        초기화
+      </button>
+    </div>
+  )
+}
+
+export const Chakra_이미지_편집기: Story = {
+  name: 'Chakra UI - 이미지 필터 편집기 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Chakra UI Slider 다중 스택 패턴. 밝기/대비/채도를 각각 슬라이더로 제어하며 CSS filter를 실시간 반영합니다. ' +
+          '리셋 버튼으로 기본값 복귀를 지원합니다.',
+      },
+    },
+  },
+  render: () => <ChakraImageEditRender />,
+}
+
+/* --------------------------------------------------------------------------
+   MUI 단계별 시간 슬라이더 패턴
+   MUI Slider marks: 고정 스텝 구간에 레이블을 표시, 미팅 시간 조율 UI
+-------------------------------------------------------------------------- */
+const MuiTimeSliderRender = () => {
+  const [duration, setDuration] = useState([30])
+
+  const marks = [15, 30, 45, 60, 90, 120]
+  const formatTime = (min: number) =>
+    min >= 60 ? `${Math.floor(min / 60)}시간${min % 60 > 0 ? ` ${min % 60}분` : ''}` : `${min}분`
+
+  return (
+    <div style={{ width: 340, display: 'flex', flexDirection: 'column', gap: 20 }}>
+      <div>
+        <div style={{ fontSize: 14, fontWeight: 700, color: '#1e293b', marginBottom: 4 }}>
+          미팅 시간 설정
+        </div>
+        <div style={{ fontSize: 12, color: '#94a3b8' }}>
+          슬라이더를 드래그하거나 구간을 클릭하세요
+        </div>
+      </div>
+
+      <div
+        style={{
+          padding: '20px 24px 16px',
+          borderRadius: 12,
+          border: '1px solid #e2e8f0',
+          background: '#f8fafc',
+          textAlign: 'center',
+        }}
+      >
+        <div style={{ fontSize: 36, fontWeight: 800, color: '#6366f1', letterSpacing: '-0.03em', marginBottom: 4 }}>
+          {formatTime(duration[0])}
+        </div>
+        <div style={{ fontSize: 12, color: '#94a3b8' }}>미팅 소요 시간</div>
+      </div>
+
+      <div style={{ padding: '0 4px' }}>
+        <Slider
+          value={duration}
+          onValueChange={setDuration}
+          min={15}
+          max={120}
+          step={15}
+          aria-label="미팅 시간"
+          aria-valuetext={formatTime(duration[0])}
+        />
+        <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 6 }}>
+          {marks.map((m) => (
+            <span
+              key={m}
+              style={{
+                fontSize: '10px',
+                color: m === duration[0] ? '#6366f1' : '#cbd5e1',
+                fontWeight: m === duration[0] ? 700 : 400,
+                cursor: 'pointer',
+              }}
+              onClick={() => setDuration([m])}
+            >
+              {formatTime(m)}
+            </span>
+          ))}
+        </div>
+      </div>
+
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
+        {[
+          { label: '일반 미팅', duration: 30, color: '#6366f1' },
+          { label: '1:1 미팅', duration: 45, color: '#8b5cf6' },
+          { label: '스탠드업', duration: 15, color: '#10b981' },
+          { label: '전략 회의', duration: 90, color: '#f59e0b' },
+        ].map((preset) => (
+          <button
+            key={preset.label}
+            onClick={() => setDuration([preset.duration])}
+            style={{
+              padding: '8px 12px', borderRadius: 8,
+              border: `1.5px solid ${duration[0] === preset.duration ? preset.color : '#e2e8f0'}`,
+              background: duration[0] === preset.duration ? `${preset.color}10` : '#fff',
+              cursor: 'pointer', fontSize: 12, fontWeight: 600,
+              color: duration[0] === preset.duration ? preset.color : '#64748b',
+              transition: 'all 0.15s',
+            }}
+          >
+            {preset.label} ({formatTime(preset.duration)})
+          </button>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+export const MUI_시간_슬라이더: Story = {
+  name: 'MUI - 고정 구간 미팅 시간 설정 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'MUI Slider marks 패턴. 15분 단위 고정 스텝에 레이블을 표시하고 프리셋 버튼을 제공합니다. ' +
+          '구간 클릭 + 프리셋 버튼으로 빠른 값 설정을 지원합니다.',
+      },
+    },
+  },
+  render: () => <MuiTimeSliderRender />,
+}

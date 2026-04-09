@@ -8310,3 +8310,247 @@ export const DocumentEditor: Story = {
   name: 'Document Editor (Notion + Linear 벤치마크)',
   render: () => <DocumentEditorRender />,
 }
+
+/* ═══════════════════════════════════════════
+   27. Search Results (Mantine + Chakra UI 벤치마크)
+   ═══════════════════════════════════════════ */
+const SearchResultsRender = () => {
+  const [query, setQuery] = useState('design system')
+  const [activeFilter, setActiveFilter] = useState('전체')
+  const [sortBy, setSortBy] = useState<'관련도' | '최신' | '인기'>('관련도')
+  const [page, setPage] = useState(1)
+
+  const filters = ['전체', '컴포넌트', '문서', '스토리', '템플릿', 'MDX']
+  const results = [
+    { type: '컴포넌트', title: 'Button — SolidButton, OutlineButton, GhostButton', desc: '6가지 색상 variant, 3가지 크기, Leading/Center/Trailing 슬롯으로 구성된 버튼 컴포넌트 시리즈.', tags: ['actions', 'buttons', 'interactive'], updated: '2일 전', relevance: 98 },
+    { type: '문서', title: 'DesignToken — 3단계 토큰 시스템', desc: 'Reference → Semantic → Component 계층의 토큰 아키텍처 설명. CSS Variables 기반 런타임 테마 변경.', tags: ['tokens', 'theme', 'architecture'], updated: '5일 전', relevance: 92 },
+    { type: '템플릿', title: 'AdminDashboard — 관리자 대시보드', desc: '사이드바 네비게이션, 지표 카드, 데이터 테이블을 포함한 완성형 관리자 UI 레이아웃.', tags: ['template', 'dashboard', 'admin'], updated: '1주 전', relevance: 88 },
+    { type: '스토리', title: 'Command — Raycast 스포트라이트 패턴', desc: '다크 배경 스포트라이트 런처. 앱/파일/액션 카테고리 + 아이콘 + 서브텍스트 + 단축키 힌트.', tags: ['command', 'search', 'spotlight'], updated: '3일 전', relevance: 85 },
+    { type: 'MDX', title: 'GettingStarted — 시작 가이드', desc: 'pnpm 설치, Provider 설정, SSR 서버 컴포넌트 사용법, 첫 컴포넌트 렌더링 4단계 가이드.', tags: ['guide', 'setup', 'quickstart'], updated: '1주 전', relevance: 80 },
+    { type: '컴포넌트', title: 'TextField — 텍스트 입력 필드', desc: '레이블, 헬퍼 텍스트, 에러 상태, Leading/Trailing 아이콘 슬롯을 포함한 입력 컴포넌트.', tags: ['input', 'form', 'text'], updated: '4일 전', relevance: 76 },
+    { type: '문서', title: 'MigrationGuide — Ant Design 마이그레이션', desc: 'Ant Design에서 Orbit UI로 전환하는 방법. 컴포넌트 매핑, 코드 변환 예시 10개 포함.', tags: ['migration', 'antd', 'guide'], updated: '6일 전', relevance: 72 },
+    { type: '스토리', title: 'DataTable — 정렬/페이지네이션 인터랙션', desc: '헤더 클릭 정렬, 행 선택 체크박스, 페이지네이션 컨트롤을 포함한 데이터 테이블 인터랙션.', tags: ['table', 'sort', 'pagination'], updated: '2일 전', relevance: 68 },
+  ]
+
+  const typeColor: Record<string, string> = {
+    '컴포넌트': '#6366f1',
+    '문서': '#10b981',
+    '템플릿': '#8b5cf6',
+    '스토리': '#f59e0b',
+    'MDX': '#06b6d4',
+  }
+
+  const filtered = results
+    .filter((r) => activeFilter === '전체' || r.type === activeFilter)
+    .sort((a, b) => {
+      if (sortBy === '관련도') return b.relevance - a.relevance
+      return 0
+    })
+
+  const perPage = 5
+  const paged = filtered.slice((page - 1) * perPage, page * perPage)
+  const totalPages = Math.ceil(filtered.length / perPage)
+
+  return (
+    <div
+      style={{
+        minHeight: '100vh',
+        background: tc.bg,
+        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+      }}
+    >
+      {/* Search header */}
+      <div style={{ borderBottom: `1px solid ${tc.border}`, background: tc.bg }}>
+        <div style={{ maxWidth: 860, margin: '0 auto', padding: '20px 24px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+            <SearchIcon style={{ width: 18, height: 18, color: tc.fgMuted, flexShrink: 0 }} />
+            <input
+              type="search"
+              value={query}
+              onChange={(e) => { setQuery(e.target.value); setPage(1) }}
+              placeholder="검색어를 입력하세요..."
+              style={{
+                flex: 1, border: 'none', outline: 'none',
+                fontSize: 20, fontWeight: 600, color: tc.fg, background: 'transparent',
+              }}
+            />
+            <span style={{ fontSize: 12, color: tc.fgMuted }}>{filtered.length}개 결과</span>
+          </div>
+        </div>
+      </div>
+
+      <div style={{ maxWidth: 860, margin: '0 auto', padding: '24px', display: 'flex', gap: 24 }}>
+        {/* Left sidebar filters */}
+        <aside style={{ width: 180, flexShrink: 0 }}>
+          <div style={{ marginBottom: 24 }}>
+            <p style={{ margin: '0 0 10px', fontSize: 11, fontWeight: 700, color: tc.fgMuted, textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+              유형
+            </p>
+            {filters.map((f) => (
+              <button
+                key={f}
+                onClick={() => { setActiveFilter(f); setPage(1) }}
+                style={{
+                  display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                  width: '100%', padding: '6px 10px', borderRadius: 6, border: 'none',
+                  background: activeFilter === f ? `${tc.fillPrimary}12` : 'none',
+                  cursor: 'pointer', marginBottom: 2,
+                  fontSize: 13, fontWeight: activeFilter === f ? 700 : 500,
+                  color: activeFilter === f ? tc.fillPrimary : tc.fgSub,
+                  textAlign: 'left',
+                }}
+              >
+                <span>{f}</span>
+                <span style={{ fontSize: 11, color: tc.fgMuted }}>
+                  {f === '전체' ? results.length : results.filter((r) => r.type === f).length}
+                </span>
+              </button>
+            ))}
+          </div>
+
+          <div>
+            <p style={{ margin: '0 0 10px', fontSize: 11, fontWeight: 700, color: tc.fgMuted, textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+              정렬
+            </p>
+            {(['관련도', '최신', '인기'] as const).map((s) => (
+              <button
+                key={s}
+                onClick={() => setSortBy(s)}
+                style={{
+                  display: 'block', width: '100%', padding: '6px 10px', borderRadius: 6,
+                  border: 'none', background: sortBy === s ? `${tc.fillPrimary}12` : 'none',
+                  cursor: 'pointer', marginBottom: 2, fontSize: 13, textAlign: 'left',
+                  fontWeight: sortBy === s ? 700 : 500,
+                  color: sortBy === s ? tc.fillPrimary : tc.fgSub,
+                }}
+              >
+                {s}
+              </button>
+            ))}
+          </div>
+        </aside>
+
+        {/* Results list */}
+        <div style={{ flex: 1 }}>
+          {paged.length === 0 ? (
+            <div style={{ textAlign: 'center', padding: '60px 0', color: tc.fgMuted }}>
+              <div style={{ fontSize: 32, marginBottom: 12 }}>🔍</div>
+              <div style={{ fontSize: 15, fontWeight: 600 }}>검색 결과가 없습니다</div>
+              <div style={{ fontSize: 13, marginTop: 4 }}>다른 유형 필터를 선택해 보세요</div>
+            </div>
+          ) : (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+              {paged.map((result, idx) => (
+                <div
+                  key={idx}
+                  style={{
+                    padding: '18px 20px', borderRadius: 12,
+                    border: `1px solid ${tc.border}`,
+                    background: tc.bg,
+                    cursor: 'pointer',
+                    transition: 'border-color 0.15s, box-shadow 0.15s',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.borderColor = `${tc.fillPrimary}44`
+                    e.currentTarget.style.boxShadow = `0 2px 12px rgba(99,102,241,0.08)`
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.borderColor = tc.border
+                    e.currentTarget.style.boxShadow = 'none'
+                  }}
+                >
+                  <div style={{ display: 'flex', alignItems: 'flex-start', gap: 12 }}>
+                    <span
+                      style={{
+                        padding: '2px 8px', borderRadius: 4, fontSize: 10, fontWeight: 700,
+                        color: typeColor[result.type] || '#64748b',
+                        background: `${typeColor[result.type] || '#64748b'}14`,
+                        border: `1px solid ${typeColor[result.type] || '#64748b'}28`,
+                        flexShrink: 0, marginTop: 2,
+                      }}
+                    >
+                      {result.type}
+                    </span>
+                    <div style={{ flex: 1 }}>
+                      <div style={{ fontSize: 15, fontWeight: 700, color: tc.fg, marginBottom: 6 }}>
+                        {result.title}
+                      </div>
+                      <div style={{ fontSize: 13, color: tc.fgSub, lineHeight: 1.6, marginBottom: 10 }}>
+                        {result.desc}
+                      </div>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
+                        {result.tags.map((tag) => (
+                          <span
+                            key={tag}
+                            style={{
+                              padding: '1px 8px', borderRadius: 20,
+                              background: tc.surface, border: `1px solid ${tc.border}`,
+                              fontSize: 11, color: tc.fgSub, fontWeight: 500,
+                            }}
+                          >
+                            #{tag}
+                          </span>
+                        ))}
+                        <span style={{ marginLeft: 'auto', fontSize: 11, color: tc.fgMuted }}>
+                          {result.updated}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {/* Pagination */}
+          {totalPages > 1 && (
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6, marginTop: 28 }}>
+              <button
+                onClick={() => setPage((p) => Math.max(1, p - 1))}
+                disabled={page === 1}
+                style={{
+                  padding: '6px 12px', borderRadius: 6, border: `1px solid ${tc.border}`,
+                  background: 'none', cursor: page === 1 ? 'not-allowed' : 'pointer',
+                  color: page === 1 ? tc.fgMuted : tc.fgSub, fontSize: 13, fontWeight: 600,
+                }}
+              >
+                이전
+              </button>
+              {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => (
+                <button
+                  key={p}
+                  onClick={() => setPage(p)}
+                  style={{
+                    width: 34, height: 34, borderRadius: 6,
+                    border: `1px solid ${p === page ? tc.fillPrimary : tc.border}`,
+                    background: p === page ? tc.fillPrimary : 'none',
+                    cursor: 'pointer', fontSize: 13, fontWeight: 700,
+                    color: p === page ? '#fff' : tc.fgSub,
+                  }}
+                >
+                  {p}
+                </button>
+              ))}
+              <button
+                onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+                disabled={page === totalPages}
+                style={{
+                  padding: '6px 12px', borderRadius: 6, border: `1px solid ${tc.border}`,
+                  background: 'none', cursor: page === totalPages ? 'not-allowed' : 'pointer',
+                  color: page === totalPages ? tc.fgMuted : tc.fgSub, fontSize: 13, fontWeight: 600,
+                }}
+              >
+                다음
+              </button>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const SearchResults: Story = {
+  name: 'Search Results (Mantine + Chakra UI 벤치마크)',
+  render: () => <SearchResultsRender />,
+}

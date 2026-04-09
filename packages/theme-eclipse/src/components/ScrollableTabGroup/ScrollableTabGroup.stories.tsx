@@ -440,3 +440,193 @@ export const 메일함_탭패턴: typeof 기본 = {
     return <InboxTabsRender />
   },
 }
+
+/* --------------------------------------------------------------------------
+   Mantine 수평 스크롤 네비게이션 패턴
+   Mantine Tabs scrollable: 많은 탭을 좌우 스크롤로 탐색, 뱃지 카운트 포함
+-------------------------------------------------------------------------- */
+const MantineNavTabsRender = () => {
+  const [active, setActive] = useState(0)
+
+  const navItems = [
+    { label: '전체', count: 128 },
+    { label: '진행 중', count: 24 },
+    { label: '검토 중', count: 7 },
+    { label: '완료', count: 89 },
+    { label: '보류', count: 3 },
+    { label: '취소됨', count: 5 },
+    { label: '아카이브', count: 0 },
+    { label: '즐겨찾기', count: 12 },
+  ]
+
+  const statusColors: Record<string, string> = {
+    '진행 중': '#10b981',
+    '검토 중': '#f59e0b',
+    '완료': '#6366f1',
+    '보류': '#94a3b8',
+    '취소됨': '#ef4444',
+  }
+
+  return (
+    <div style={{ width: 380, border: '1px solid #e2e8f0', borderRadius: 12, overflow: 'hidden' }}>
+      <ScrollableTabGroup selectedIndex={active} onTabChange={setActive}>
+        {navItems.map((item) => (
+          <ScrollableTabGroup.Tab key={item.label} value={item.label}>
+            <ScrollableTabGroup.TabCenter>{item.label}</ScrollableTabGroup.TabCenter>
+            {item.count > 0 && (
+              <ScrollableTabGroup.TabTrailing>
+                <span style={{
+                  padding: '1px 6px', borderRadius: 100, fontSize: 10, fontWeight: 700,
+                  background: statusColors[item.label] ? `${statusColors[item.label]}18` : '#f1f5f9',
+                  color: statusColors[item.label] || '#64748b',
+                }}>
+                  {item.count}
+                </span>
+              </ScrollableTabGroup.TabTrailing>
+            )}
+          </ScrollableTabGroup.Tab>
+        ))}
+      </ScrollableTabGroup>
+      <div style={{ padding: 20 }}>
+        <div style={{ fontSize: 13, fontWeight: 700, color: '#1e293b', marginBottom: 8 }}>
+          {navItems[active].label} ({navItems[active].count}건)
+        </div>
+        <div style={{ fontSize: 12, color: '#94a3b8' }}>
+          Mantine Tabs scrollable 패턴 — 상태별 이슈 필터링
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const Mantine_상태별_이슈_필터: typeof 기본 = {
+  render() {
+    return <MantineNavTabsRender />
+  },
+}
+
+/* --------------------------------------------------------------------------
+   Chakra UI 제품 카테고리 탭 패턴
+   Chakra Tabs fitted: 각 탭이 동일 너비, 아이콘+텍스트 조합, 선택 강조
+-------------------------------------------------------------------------- */
+const ChakraCategoryTabsRender = () => {
+  const [active, setActive] = useState(1)
+
+  const categories = [
+    { label: '패션', icon: '👕', items: 2340 },
+    { label: '전자', icon: '📱', items: 1820 },
+    { label: '식품', icon: '🍎', items: 980 },
+    { label: '뷰티', icon: '💄', items: 1240 },
+    { label: '스포츠', icon: '⚽', items: 760 },
+    { label: '홈', icon: '🏠', items: 1100 },
+    { label: '도서', icon: '📚', items: 3400 },
+    { label: '여행', icon: '✈️', items: 520 },
+  ]
+
+  return (
+    <div style={{ width: 380, border: '1px solid #e2e8f0', borderRadius: 12, overflow: 'hidden', background: '#fff' }}>
+      <ScrollableTabGroup selectedIndex={active} onTabChange={setActive}>
+        {categories.map((cat) => (
+          <ScrollableTabGroup.Tab key={cat.label} value={cat.label}>
+            <ScrollableTabGroup.TabLeading>
+              <span style={{ fontSize: 14 }}>{cat.icon}</span>
+            </ScrollableTabGroup.TabLeading>
+            <ScrollableTabGroup.TabCenter>{cat.label}</ScrollableTabGroup.TabCenter>
+          </ScrollableTabGroup.Tab>
+        ))}
+      </ScrollableTabGroup>
+      <div style={{ padding: 20 }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div>
+            <div style={{ fontSize: 16, fontWeight: 700, color: '#1e293b' }}>
+              {categories[active].icon} {categories[active].label}
+            </div>
+            <div style={{ fontSize: 12, color: '#94a3b8', marginTop: 2 }}>
+              {categories[active].items.toLocaleString()}개 상품
+            </div>
+          </div>
+          <span style={{
+            padding: '4px 12px', borderRadius: 20,
+            background: '#6366f118', color: '#6366f1',
+            fontSize: 12, fontWeight: 700,
+          }}>
+            필터 적용
+          </span>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const Chakra_상품_카테고리_탭: typeof 기본 = {
+  render() {
+    return <ChakraCategoryTabsRender />
+  },
+}
+
+/* --------------------------------------------------------------------------
+   MUI 언어/로케일 선택 탭 패턴
+   MUI Tabs scrollButtons: 국제화 언어 선택 탭, 국기+이름 조합
+-------------------------------------------------------------------------- */
+const MuiLocaleTabsRender = () => {
+  const [active, setActive] = useState(0)
+
+  const locales = [
+    { code: 'ko', label: '한국어', flag: '🇰🇷', rtl: false },
+    { code: 'en', label: 'English', flag: '🇺🇸', rtl: false },
+    { code: 'ja', label: '日本語', flag: '🇯🇵', rtl: false },
+    { code: 'zh', label: '中文', flag: '🇨🇳', rtl: false },
+    { code: 'de', label: 'Deutsch', flag: '🇩🇪', rtl: false },
+    { code: 'fr', label: 'Français', flag: '🇫🇷', rtl: false },
+    { code: 'ar', label: 'العربية', flag: '🇸🇦', rtl: true },
+    { code: 'es', label: 'Español', flag: '🇪🇸', rtl: false },
+  ]
+
+  const sampleText: Record<string, string> = {
+    ko: '안녕하세요! Orbit UI에 오신 것을 환영합니다.',
+    en: 'Hello! Welcome to Orbit UI.',
+    ja: 'こんにちは！Orbit UIへようこそ。',
+    zh: '你好！欢迎使用 Orbit UI。',
+    de: 'Hallo! Willkommen bei Orbit UI.',
+    fr: 'Bonjour ! Bienvenue sur Orbit UI.',
+    ar: 'مرحبًا! أهلاً بك في Orbit UI.',
+    es: '¡Hola! Bienvenido a Orbit UI.',
+  }
+
+  const current = locales[active]
+
+  return (
+    <div style={{ width: 380, border: '1px solid #e2e8f0', borderRadius: 12, overflow: 'hidden', background: '#fff' }}>
+      <ScrollableTabGroup selectedIndex={active} onTabChange={setActive}>
+        {locales.map((loc) => (
+          <ScrollableTabGroup.Tab key={loc.code} value={loc.code}>
+            <ScrollableTabGroup.TabLeading>
+              <span style={{ fontSize: 14 }}>{loc.flag}</span>
+            </ScrollableTabGroup.TabLeading>
+            <ScrollableTabGroup.TabCenter>{loc.label}</ScrollableTabGroup.TabCenter>
+          </ScrollableTabGroup.Tab>
+        ))}
+      </ScrollableTabGroup>
+      <div
+        style={{
+          padding: 20,
+          direction: current.rtl ? 'rtl' : 'ltr',
+        }}
+      >
+        <div style={{ fontSize: 22, marginBottom: 8 }}>{current.flag}</div>
+        <div style={{ fontSize: 15, fontWeight: 600, color: '#1e293b', marginBottom: 8 }}>
+          {sampleText[current.code]}
+        </div>
+        <div style={{ fontSize: 11, color: '#94a3b8' }}>
+          MUI Tabs scrollButtons 패턴 — 국제화 로케일 탭{current.rtl ? ' (RTL)' : ''}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const MUI_국제화_로케일_탭: typeof 기본 = {
+  render() {
+    return <MuiLocaleTabsRender />
+  },
+}

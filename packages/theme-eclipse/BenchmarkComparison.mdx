@@ -1046,5 +1046,63 @@ const theme = createTheme({
       </div>
     </section>
 
+    <section style={{ marginBottom: '56px' }}>
+      <h2 style={{ fontSize: '22px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '24px' }}>Mantine & Chakra UI — 훅/접근성 패턴 분석</h2>
+
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '24px' }}>
+        <div style={{ borderRadius: '12px', border: '1px solid #e2e8f0', overflow: 'hidden' }}>
+          <div style={{ padding: '12px 16px', background: 'linear-gradient(135deg, #339af0, #1c7ed6)', color: '#fff' }}>
+            <div style={{ fontSize: '14px', fontWeight: '800' }}>Mantine 핵심 패턴</div>
+          </div>
+          <div style={{ padding: '16px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+            <div style={{ padding: '12px', borderRadius: '8px', background: '#f0f9ff', border: '1px solid #bae6fd', fontSize: '12px', color: '#0369a1' }}>
+              <strong>useDisclosure</strong> — 모달/드로어 열기/닫기 상태를 훅으로 캡슐화. opened, open(), close(), toggle() 제공.
+            </div>
+            <div style={{ padding: '12px', borderRadius: '8px', background: '#f0f9ff', border: '1px solid #bae6fd', fontSize: '12px', color: '#0369a1' }}>
+              <strong>RangeSlider</strong> — 최솟값/최댓값 입력과 슬라이더를 양방향 연동. Orbit UI에서는 useState + onBlur 패턴으로 동일 구현 가능.
+            </div>
+            <div style={{ padding: '12px', borderRadius: '8px', background: '#f0f9ff', border: '1px solid #bae6fd', fontSize: '12px', color: '#0369a1' }}>
+              <strong>DatePicker range</strong> — 시작/종료일 달력 두 개를 하나의 컴포넌트로 관리. Calendar 두 개 + useState로 동일 패턴 구현.
+            </div>
+          </div>
+        </div>
+
+        <div style={{ borderRadius: '12px', border: '1px solid #e2e8f0', overflow: 'hidden' }}>
+          <div style={{ padding: '12px 16px', background: 'linear-gradient(135deg, #319795, #2c7a7b)', color: '#fff' }}>
+            <div style={{ fontSize: '14px', fontWeight: '800' }}>Chakra UI 핵심 패턴</div>
+          </div>
+          <div style={{ padding: '16px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+            <div style={{ padding: '12px', borderRadius: '8px', background: '#f0fdfa', border: '1px solid #99f6e4', fontSize: '12px', color: '#0f766e' }}>
+              <strong>Slider 다중 스택</strong> — 밝기/대비/채도 등 여러 슬라이더를 세로로 쌓아 CSS filter를 실시간 제어. 이미지 편집 도구 패턴.
+            </div>
+            <div style={{ padding: '12px', borderRadius: '8px', background: '#f0fdfa', border: '1px solid #99f6e4', fontSize: '12px', color: '#0f766e' }}>
+              <strong>색상 시스템</strong> — 500단계 팔레트를 semantic 이름(success.500, brand.primary)으로 참조. Orbit UI의 Reference → Semantic 토큰과 동일 목적.
+            </div>
+            <div style={{ padding: '12px', borderRadius: '8px', background: '#f0fdfa', border: '1px solid #99f6e4', fontSize: '12px', color: '#0f766e' }}>
+              <strong>colorMode</strong> — useColorMode(), ColorModeProvider로 런타임 다크 모드 전환. Orbit UI는 CSS vars로 빌드 타임 처리하여 성능 우위.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style={{ padding: '20px', borderRadius: '12px', background: '#fafafa', border: '1px solid #e2e8f0' }}>
+        <div style={{ fontSize: '13px', fontWeight: '700', color: '#1e293b', marginBottom: '12px' }}>Orbit UI 대응 전략</div>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '12px', fontSize: '12px', color: '#64748b', lineHeight: '1.7' }}>
+          <div>
+            <div style={{ fontWeight: '700', color: '#339af0', marginBottom: '4px' }}>훅 패턴 대응</div>
+            Mantine의 useDisclosure 훅 패턴은 Orbit UI에서 컴포넌트 prop(isPresented, onIsPresentedChange)으로 제어합니다. 외부 상태 라이브러리(Zustand/Jotai)와 쉽게 연동됩니다.
+          </div>
+          <div>
+            <div style={{ fontWeight: '700', color: '#319795', marginBottom: '4px' }}>색상 시스템 대응</div>
+            Chakra의 500단계 팔레트는 Orbit UI Reference Token(colorBlue50~colorBlue950)으로 완전 대응됩니다. Semantic Token에서 역할 기반 이름으로 참조합니다.
+          </div>
+          <div>
+            <div style={{ fontWeight: '700', color: '#6366f1', marginBottom: '4px' }}>성능 우위</div>
+            두 시스템 모두 런타임 스타일 주입(CSS-in-JS)을 사용합니다. Orbit UI는 vanilla-extract로 빌드 타임에 CSS를 생성하여 런타임 오버헤드가 없습니다.
+          </div>
+        </div>
+      </div>
+    </section>
+
   </div>
 </Unstyled>
