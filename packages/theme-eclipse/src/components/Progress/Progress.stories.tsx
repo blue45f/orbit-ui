@@ -456,3 +456,148 @@ const CycleBurndownRender = () => {
 export const Linear_사이클_번다운: Story = {
   render: () => <CycleBurndownRender />,
 }
+
+/* --------------------------------------------------------------------------
+   Vercel 벤치마크: 빌드 파이프라인 진행 패턴
+   Vercel build pipeline — 스테이지별 순차 진행 Progress UI
+-------------------------------------------------------------------------- */
+const BUILD_STAGES = [
+  { id: 'install', label: '패키지 설치', duration: 2000 },
+  { id: 'build', label: '빌드 실행', duration: 3000 },
+  { id: 'optimize', label: '에셋 최적화', duration: 1500 },
+  { id: 'deploy', label: '배포 완료', duration: 1000 },
+]
+
+function BuildPipelineRender() {
+  const [stageProgress, setStageProgress] = useState<Record<string, number>>({})
+  const [currentStage, setCurrentStage] = useState<string | null>(null)
+  const [done, setDone] = useState(false)
+
+  const runBuild = () => {
+    setStageProgress({})
+    setDone(false)
+    let stageIdx = 0
+
+    const runStage = (idx: number) => {
+      if (idx >= BUILD_STAGES.length) { setDone(true); setCurrentStage(null); return }
+      const stage = BUILD_STAGES[idx]
+      setCurrentStage(stage.id)
+      const steps = 20
+      let step = 0
+      const interval = setInterval(() => {
+        step++
+        setStageProgress((prev) => ({ ...prev, [stage.id]: Math.round((step / steps) * 100) }))
+        if (step >= steps) {
+          clearInterval(interval)
+          stageIdx++
+          setTimeout(() => runStage(stageIdx), 200)
+        }
+      }, stage.duration / steps)
+    }
+
+    runStage(0)
+  }
+
+  return (
+    <div style={{ maxWidth: 420 }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
+        <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>빌드 파이프라인</div>
+        <button
+          onClick={runBuild}
+          disabled={currentStage !== null}
+          style={{ padding: '6px 14px', borderRadius: 6, border: 'none', background: currentStage ? '#e2e8f0' : '#6366f1', color: currentStage ? '#94a3b8' : '#fff', fontSize: 12, fontWeight: 600, cursor: currentStage ? 'not-allowed' : 'pointer' }}
+        >
+          {currentStage ? '빌드 중...' : done ? '재실행' : '빌드 시작'}
+        </button>
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+        {BUILD_STAGES.map((stage) => {
+          const progress = stageProgress[stage.id] ?? 0
+          const isActive = currentStage === stage.id
+          const isComplete = progress === 100
+          return (
+            <div key={stage.id}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 6 }}>
+                <span style={{ fontSize: 12, fontWeight: 600, color: isActive ? '#6366f1' : isComplete ? '#10b981' : '#94a3b8' }}>
+                  {isComplete ? '✓ ' : isActive ? '⟳ ' : '○ '}{stage.label}
+                </span>
+                <span style={{ fontSize: 11, color: '#94a3b8' }}>{progress}%</span>
+              </div>
+              <Progress
+                value={progress}
+                color={isComplete ? 'success' : isActive ? 'primary' : 'primary'}
+                size="small"
+              />
+            </div>
+          )
+        })}
+      </div>
+      {done && (
+        <div style={{ marginTop: 16, padding: '10px 14px', borderRadius: 8, background: '#f0fdf4', border: '1px solid #bbf7d0', fontSize: 13, color: '#16a34a', fontWeight: 600 }}>
+          ✓ 배포 완료 — Production에 반영되었습니다.
+        </div>
+      )}
+      <div style={{ marginTop: 12, fontSize: 11, color: '#94a3b8' }}>Vercel 빌드 파이프라인 패턴 — 스테이지별 순차 진행</div>
+    </div>
+  )
+}
+
+export const Vercel_빌드_파이프라인: Story = {
+  name: 'Vercel - 빌드 파이프라인 진행 패턴',
+  render: () => <BuildPipelineRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Notion 벤치마크: 페이지 완성도 트래커 패턴
+   Notion 체크리스트 진행률 — 섹션별 완성도 시각화 UI
+-------------------------------------------------------------------------- */
+const PAGE_SECTIONS = [
+  { id: 'intro', label: '소개', items: ['프로젝트 개요', '목표 설정', '팀 소개'], completed: [true, true, false] },
+  { id: 'design', label: '디자인', items: ['와이어프레임', '프로토타입', '디자인 토큰', '컴포넌트 정의'], completed: [true, true, true, false] },
+  { id: 'dev', label: '개발', items: ['환경 설정', '코어 컴포넌트', '테마 적용'], completed: [true, false, false] },
+  { id: 'docs', label: '문서화', items: ['Storybook', 'MDX 가이드'], completed: [true, false] },
+]
+
+export const Notion_페이지_완성도: Story = {
+  name: 'Notion - 페이지 완성도 트래커 패턴',
+  render: () => (
+    <div style={{ maxWidth: 420 }}>
+      <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a', marginBottom: 16 }}>프로젝트 완성도</div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+        {PAGE_SECTIONS.map((section) => {
+          const completedCount = section.completed.filter(Boolean).length
+          const pct = Math.round((completedCount / section.items.length) * 100)
+          return (
+            <div key={section.id} style={{ padding: '12px 14px', borderRadius: 10, border: '1px solid #f1f5f9', background: '#fafafa' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
+                <span style={{ fontSize: 13, fontWeight: 700, color: '#1e293b' }}>{section.label}</span>
+                <span style={{ fontSize: 11, fontWeight: 600, color: pct === 100 ? '#10b981' : '#94a3b8' }}>
+                  {completedCount}/{section.items.length}
+                </span>
+              </div>
+              <Progress value={pct} color={pct === 100 ? 'success' : pct > 50 ? 'primary' : 'warning'} size="small" />
+              <div style={{ marginTop: 8, display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+                {section.items.map((item, i) => (
+                  <span
+                    key={item}
+                    style={{
+                      fontSize: 11,
+                      padding: '2px 8px',
+                      borderRadius: 12,
+                      background: section.completed[i] ? '#6366f110' : '#f1f5f9',
+                      color: section.completed[i] ? '#6366f1' : '#94a3b8',
+                      fontWeight: section.completed[i] ? 600 : 400,
+                    }}
+                  >
+                    {section.completed[i] ? '✓ ' : ''}{item}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )
+        })}
+      </div>
+      <div style={{ marginTop: 12, fontSize: 11, color: '#94a3b8' }}>Notion 체크리스트 진행률 — 섹션별 완성도 시각화</div>
+    </div>
+  ),
+}
