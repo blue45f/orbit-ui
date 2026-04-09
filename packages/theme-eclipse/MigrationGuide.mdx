@@ -1,0 +1,484 @@
+import { Meta, Unstyled } from '@storybook/blocks'
+
+<Meta title='Intro/마이그레이션 가이드' />
+
+<Unstyled>
+  <div style={{
+    maxWidth: '960px',
+    margin: '0 auto',
+    fontFamily: '"Pretendard Variable", "Pretendard", -apple-system, BlinkMacSystemFont, system-ui, sans-serif',
+    padding: '0 24px',
+  }}>
+
+    {/* Header */}
+    <div style={{ marginBottom: '48px', paddingTop: '48px' }}>
+      <div style={{ fontSize: '12px', fontWeight: '700', color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '8px' }}>Migration Guide</div>
+      <h1 style={{ fontSize: '36px', fontWeight: '800', color: '#1e293b', letterSpacing: '-0.03em', margin: '0 0 12px' }}>마이그레이션 가이드</h1>
+      <p style={{ fontSize: '16px', color: '#64748b', lineHeight: '1.6', margin: 0 }}>
+        Chakra UI, shadcn/ui, MUI에서 Orbit UI로 마이그레이션하는 방법을 안내합니다.
+        각 라이브러리별 컴포넌트 대응표와 코드 예시를 제공합니다.
+      </p>
+    </div>
+
+    {/* Quick nav */}
+    <div style={{
+      display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '48px',
+      padding: '16px 20px', borderRadius: '12px',
+      background: '#f8fafc', border: '1px solid #e2e8f0',
+    }}>
+      {[
+        { label: 'Chakra UI', anchor: '#chakra' },
+        { label: 'shadcn/ui', anchor: '#shadcn' },
+        { label: 'MUI (Material UI)', anchor: '#mui' },
+      ].map((item) => (
+        <a key={item.anchor} href={item.anchor} style={{
+          padding: '6px 14px', borderRadius: '20px',
+          background: '#6366f1', color: '#fff',
+          fontSize: '13px', fontWeight: 600, textDecoration: 'none',
+        }}>
+          {item.label}
+        </a>
+      ))}
+    </div>
+
+    {/* ===== CHAKRA UI ===== */}
+    <section id="chakra" style={{ marginBottom: '64px' }}>
+      <h2 style={{ fontSize: '24px', fontWeight: '800', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '8px' }}>
+        Chakra UI &rarr; Orbit UI
+      </h2>
+      <p style={{ fontSize: '14px', color: '#64748b', marginBottom: '24px' }}>
+        Chakra UI의 FormControl 패턴, Button, Input 컴포넌트를 Orbit UI로 대체합니다.
+      </p>
+
+      {/* Correspondence table */}
+      <div style={{ overflowX: 'auto', borderRadius: '12px', border: '1.5px solid #e2e8f0', marginBottom: '32px' }}>
+        <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '14px' }}>
+          <thead>
+            <tr style={{ background: '#f8fafc' }}>
+              {['Chakra UI', 'Orbit UI', '설명'].map((col) => (
+                <th key={col} style={{ padding: '12px 16px', textAlign: 'left', fontWeight: 700, color: '#475569', borderBottom: '1.5px solid #e2e8f0' }}>{col}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {[
+              ['Button', 'SolidButton / OutlineButton / GhostButton', '버튼 변형(variant)은 별도 컴포넌트로 분리'],
+              ['Input', 'TextField / FloatingTextField', 'FloatingTextField: 플로팅 라벨 스타일'],
+              ['Textarea', 'TextArea', '동일 기능, prop 이름 일부 상이'],
+              ['Checkbox', 'Checkbox / BoxedCheckbox', 'BoxedCheckbox: 박스 형태 체크박스'],
+              ['Radio', 'RadioButton', 'RadioButton.Group 미제공, fieldset으로 구성'],
+              ['Switch', 'Switch', '동일 기능'],
+              ['Modal', 'Modal', 'Radix Dialog 기반으로 접근성 동일'],
+              ['Tooltip', 'Tooltip', 'Radix Tooltip 기반, Provider 필요'],
+              ['FormControl', '없음 (div + helper text 조합)', 'FormControl 래퍼 없이 직접 구성'],
+              ['FormLabel', '없음 (label 태그 직접 사용)', ''],
+              ['FormHelperText', '없음 (Typography/Text 컴포넌트 활용)', ''],
+              ['Avatar', 'Avatar', '동일 기능'],
+              ['Badge', 'LabelBadge / CounterBadge / AnimatedBadge', '뱃지 목적에 따라 컴포넌트 선택'],
+              ['Progress', 'Progress', '동일 기능'],
+              ['Skeleton', 'Skeleton', '동일 기능'],
+            ].map((row, i) => (
+              <tr key={i} style={{ background: i % 2 === 0 ? '#fff' : '#fafafa' }}>
+                {row.map((cell, j) => (
+                  <td key={j} style={{
+                    padding: '11px 16px', borderBottom: '1px solid #f1f5f9',
+                    fontSize: j === 0 || j === 1 ? '13px' : '12px',
+                    fontFamily: j < 2 ? 'monospace' : 'inherit',
+                    color: j === 0 ? '#0f172a' : j === 1 ? '#6366f1' : '#64748b',
+                    fontWeight: j < 2 ? 500 : 400,
+                  }}>{cell}</td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      {/* Code examples */}
+      <h3 style={{ fontSize: '18px', fontWeight: '700', color: '#1e293b', marginBottom: '16px' }}>코드 변환 예시</h3>
+
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '24px' }}>
+        <div>
+          <div style={{ fontSize: '12px', fontWeight: 700, color: '#ef4444', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.06em' }}>Before (Chakra UI)</div>
+          <pre style={{
+            background: '#0f172a', color: '#e2e8f0', padding: '16px', borderRadius: '10px',
+            fontSize: '12px', lineHeight: '1.7', margin: 0, overflowX: 'auto',
+          }}>{`import {
+  Button,
+  Input,
+  FormControl,
+  FormLabel,
+  FormHelperText,
+  FormErrorMessage,
+} from '@chakra-ui/react'
+
+<FormControl isInvalid={isError}>
+  <FormLabel>이메일</FormLabel>
+  <Input
+    type="email"
+    value={email}
+    onChange={e => setEmail(e.target.value)}
+  />
+  {!isError ? (
+    <FormHelperText>
+      유효한 이메일을 입력하세요
+    </FormHelperText>
+  ) : (
+    <FormErrorMessage>
+      이메일 형식이 올바르지 않습니다
+    </FormErrorMessage>
+  )}
+</FormControl>
+
+<Button colorScheme="purple" onClick={submit}>
+  제출
+</Button>`}</pre>
+        </div>
+        <div>
+          <div style={{ fontSize: '12px', fontWeight: 700, color: '#10b981', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.06em' }}>After (Orbit UI)</div>
+          <pre style={{
+            background: '#0f172a', color: '#e2e8f0', padding: '16px', borderRadius: '10px',
+            fontSize: '12px', lineHeight: '1.7', margin: 0, overflowX: 'auto',
+          }}>{`import {
+  FloatingTextField,
+  SolidButton,
+  Text,
+} from '@heejun-com/theme-eclipse'
+
+<div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+  <FloatingTextField
+    placeholder="이메일"
+    type="email"
+    value={email}
+    error={isError}
+    onChange={e => setEmail(e.target.value)}
+  />
+  <Text
+    textStyle="caption"
+    style={{ color: isError ? '#ef4444' : '#64748b' }}
+  >
+    {isError
+      ? '이메일 형식이 올바르지 않습니다'
+      : '유효한 이메일을 입력하세요'}
+  </Text>
+</div>
+
+<SolidButton color="primary" size="medium">
+  <SolidButton.Center>제출</SolidButton.Center>
+</SolidButton>`}</pre>
+        </div>
+      </div>
+    </section>
+
+    {/* ===== SHADCN/UI ===== */}
+    <section id="shadcn" style={{ marginBottom: '64px' }}>
+      <h2 style={{ fontSize: '24px', fontWeight: '800', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '8px' }}>
+        shadcn/ui &rarr; Orbit UI
+      </h2>
+      <p style={{ fontSize: '14px', color: '#64748b', marginBottom: '24px' }}>
+        shadcn/ui는 Radix UI 기반 컴포넌트입니다. Orbit UI도 동일하게 Radix UI를 사용하므로 접근성 패턴이 동일합니다.
+      </p>
+
+      <div style={{ overflowX: 'auto', borderRadius: '12px', border: '1.5px solid #e2e8f0', marginBottom: '32px' }}>
+        <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '14px' }}>
+          <thead>
+            <tr style={{ background: '#f8fafc' }}>
+              {['shadcn/ui', 'Orbit UI', '비고'].map((col) => (
+                <th key={col} style={{ padding: '12px 16px', textAlign: 'left', fontWeight: 700, color: '#475569', borderBottom: '1.5px solid #e2e8f0' }}>{col}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {[
+              ['Button', 'SolidButton / OutlineButton / GhostButton', 'variant prop 대신 컴포넌트 선택'],
+              ['Input', 'TextField / FloatingTextField', ''],
+              ['Textarea', 'TextArea', ''],
+              ['Checkbox', 'Checkbox', '동일 패턴'],
+              ['RadioGroup + RadioGroupItem', 'RadioButton (fieldset 조합)', 'Group 컴포넌트 없음'],
+              ['Switch', 'Switch / Toggle', ''],
+              ['Dialog', 'Modal', 'Radix Dialog 기반 동일'],
+              ['Select', 'Dropdown', ''],
+              ['Command', 'Command', 'cmdk 기반 동일'],
+              ['Tooltip', 'Tooltip', 'Provider 패턴 동일'],
+              ['Badge', 'LabelBadge / CounterBadge', ''],
+              ['Card', '없음 (div + 스타일 직접 구성)', ''],
+              ['Separator', 'Divider', ''],
+              ['Avatar', 'Avatar', ''],
+              ['Progress', 'Progress', ''],
+              ['Skeleton', 'Skeleton', ''],
+              ['Accordion', 'Accordion', ''],
+              ['Tabs', 'TabGroup + TabItem', ''],
+              ['Slider', 'Slider', ''],
+              ['HoverCard', 'HoverCard', ''],
+              ['Popover', 'Popover', ''],
+            ].map((row, i) => (
+              <tr key={i} style={{ background: i % 2 === 0 ? '#fff' : '#fafafa' }}>
+                {row.map((cell, j) => (
+                  <td key={j} style={{
+                    padding: '11px 16px', borderBottom: '1px solid #f1f5f9',
+                    fontSize: j === 0 || j === 1 ? '13px' : '12px',
+                    fontFamily: j < 2 ? 'monospace' : 'inherit',
+                    color: j === 0 ? '#0f172a' : j === 1 ? '#6366f1' : '#64748b',
+                    fontWeight: j < 2 ? 500 : 400,
+                  }}>{cell}</td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <h3 style={{ fontSize: '18px', fontWeight: '700', color: '#1e293b', marginBottom: '16px' }}>코드 변환 예시</h3>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+        <div>
+          <div style={{ fontSize: '12px', fontWeight: 700, color: '#ef4444', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.06em' }}>Before (shadcn/ui)</div>
+          <pre style={{
+            background: '#0f172a', color: '#e2e8f0', padding: '16px', borderRadius: '10px',
+            fontSize: '12px', lineHeight: '1.7', margin: 0, overflowX: 'auto',
+          }}>{`import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from '@/components/ui/dialog'
+import { Button } from '@/components/ui/button'
+
+<Dialog open={open} onOpenChange={setOpen}>
+  <DialogContent>
+    <DialogHeader>
+      <DialogTitle>확인</DialogTitle>
+      <DialogDescription>
+        정말 삭제하시겠습니까?
+      </DialogDescription>
+    </DialogHeader>
+    <Button variant="destructive">삭제</Button>
+    <Button variant="outline" onClick={() => setOpen(false)}>
+      취소
+    </Button>
+  </DialogContent>
+</Dialog>`}</pre>
+        </div>
+        <div>
+          <div style={{ fontSize: '12px', fontWeight: 700, color: '#10b981', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.06em' }}>After (Orbit UI)</div>
+          <pre style={{
+            background: '#0f172a', color: '#e2e8f0', padding: '16px', borderRadius: '10px',
+            fontSize: '12px', lineHeight: '1.7', margin: 0, overflowX: 'auto',
+          }}>{`import {
+  Modal,
+  SolidButton,
+  OutlineButton,
+  Text,
+} from '@heejun-com/theme-eclipse'
+
+<Modal open={open} onOpenChange={setOpen}>
+  <Modal.Content>
+    <Modal.Header>
+      <Text textStyle="heading2">확인</Text>
+      <Text textStyle="body2" style={{ color: '#64748b' }}>
+        정말 삭제하시겠습니까?
+      </Text>
+    </Modal.Header>
+    <Modal.Footer>
+      <SolidButton color="danger" size="medium">
+        <SolidButton.Center>삭제</SolidButton.Center>
+      </SolidButton>
+      <OutlineButton size="medium" onClick={() => setOpen(false)}>
+        <OutlineButton.Center>취소</OutlineButton.Center>
+      </OutlineButton>
+    </Modal.Footer>
+  </Modal.Content>
+</Modal>`}</pre>
+        </div>
+      </div>
+    </section>
+
+    {/* ===== MUI ===== */}
+    <section id="mui" style={{ marginBottom: '64px' }}>
+      <h2 style={{ fontSize: '24px', fontWeight: '800', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '8px' }}>
+        MUI (Material UI) &rarr; Orbit UI
+      </h2>
+      <p style={{ fontSize: '14px', color: '#64748b', marginBottom: '24px' }}>
+        MUI는 Material Design 기반입니다. Orbit UI는 Eclipse 테마를 사용하며 3-Tier 토큰 시스템으로 유연한 커스터마이징이 가능합니다.
+      </p>
+
+      <div style={{ overflowX: 'auto', borderRadius: '12px', border: '1.5px solid #e2e8f0', marginBottom: '32px' }}>
+        <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '14px' }}>
+          <thead>
+            <tr style={{ background: '#f8fafc' }}>
+              {['MUI', 'Orbit UI', '비고'].map((col) => (
+                <th key={col} style={{ padding: '12px 16px', textAlign: 'left', fontWeight: 700, color: '#475569', borderBottom: '1.5px solid #e2e8f0' }}>{col}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {[
+              ['Button (contained)', 'SolidButton', 'variant="contained" -> SolidButton'],
+              ['Button (outlined)', 'OutlineButton', 'variant="outlined" -> OutlineButton'],
+              ['Button (text)', 'GhostButton', 'variant="text" -> GhostButton'],
+              ['TextField (outlined)', 'TextField', ''],
+              ['TextField (filled)', 'FloatingTextField', '플로팅 라벨 스타일'],
+              ['Checkbox', 'Checkbox', ''],
+              ['Radio + RadioGroup', 'RadioButton (fieldset)', ''],
+              ['Switch', 'Switch / Toggle', ''],
+              ['Dialog', 'Modal', 'Radix 기반, MUI와 접근성 동일'],
+              ['Tooltip', 'Tooltip', 'Provider 필요'],
+              ['Chip', 'Chip / ChipLink', ''],
+              ['Avatar', 'Avatar', ''],
+              ['LinearProgress', 'Progress', ''],
+              ['Skeleton', 'Skeleton', ''],
+              ['Accordion', 'Accordion', ''],
+              ['Tabs + Tab', 'TabGroup + TabItem', ''],
+              ['Slider', 'Slider', ''],
+              ['DataGrid', 'DataTable', ''],
+              ['Snackbar', 'Toast', ''],
+              ['Breadcrumbs', 'Breadcrumb', ''],
+              ['Badge', 'CounterBadge / LabelBadge', ''],
+            ].map((row, i) => (
+              <tr key={i} style={{ background: i % 2 === 0 ? '#fff' : '#fafafa' }}>
+                {row.map((cell, j) => (
+                  <td key={j} style={{
+                    padding: '11px 16px', borderBottom: '1px solid #f1f5f9',
+                    fontSize: j === 0 || j === 1 ? '13px' : '12px',
+                    fontFamily: j < 2 ? 'monospace' : 'inherit',
+                    color: j === 0 ? '#0f172a' : j === 1 ? '#6366f1' : '#64748b',
+                    fontWeight: j < 2 ? 500 : 400,
+                  }}>{cell}</td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <h3 style={{ fontSize: '18px', fontWeight: '700', color: '#1e293b', marginBottom: '16px' }}>코드 변환 예시</h3>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+        <div>
+          <div style={{ fontSize: '12px', fontWeight: 700, color: '#ef4444', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.06em' }}>Before (MUI)</div>
+          <pre style={{
+            background: '#0f172a', color: '#e2e8f0', padding: '16px', borderRadius: '10px',
+            fontSize: '12px', lineHeight: '1.7', margin: 0, overflowX: 'auto',
+          }}>{`import {
+  Button,
+  TextField,
+  Checkbox,
+  FormControlLabel,
+} from '@mui/material'
+
+<TextField
+  label="이메일"
+  variant="outlined"
+  value={email}
+  onChange={e => setEmail(e.target.value)}
+  error={isError}
+  helperText={isError ? '이메일을 확인하세요' : ''}
+  fullWidth
+/>
+
+<FormControlLabel
+  control={<Checkbox checked={agreed} onChange={e => setAgreed(e.target.checked)} />}
+  label="약관에 동의합니다"
+/>
+
+<Button variant="contained" color="primary" fullWidth>
+  가입하기
+</Button>`}</pre>
+        </div>
+        <div>
+          <div style={{ fontSize: '12px', fontWeight: 700, color: '#10b981', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.06em' }}>After (Orbit UI)</div>
+          <pre style={{
+            background: '#0f172a', color: '#e2e8f0', padding: '16px', borderRadius: '10px',
+            fontSize: '12px', lineHeight: '1.7', margin: 0, overflowX: 'auto',
+          }}>{`import {
+  FloatingTextField,
+  Checkbox,
+  SolidButton,
+  Text,
+} from '@heejun-com/theme-eclipse'
+
+<div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+  <FloatingTextField
+    placeholder="이메일"
+    value={email}
+    error={isError}
+    onChange={e => setEmail(e.target.value)}
+    style={{ width: '100%' }}
+  />
+  {isError && (
+    <Text textStyle="caption" style={{ color: '#ef4444' }}>
+      이메일을 확인하세요
+    </Text>
+  )}
+</div>
+
+<div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+  <Checkbox
+    checked={agreed}
+    onChange={(checked) => setAgreed(checked)}
+  />
+  <label>약관에 동의합니다</label>
+</div>
+
+<SolidButton color="primary" size="medium" style={{ width: '100%' }}>
+  <SolidButton.Center>가입하기</SolidButton.Center>
+</SolidButton>`}</pre>
+        </div>
+      </div>
+    </section>
+
+    {/* Key differences */}
+    <section style={{ marginBottom: '64px' }}>
+      <h2 style={{ fontSize: '22px', fontWeight: '700', color: '#1e293b', marginBottom: '20px' }}>핵심 차이점 요약</h2>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '16px' }}>
+        {[
+          {
+            title: 'Compound Component 패턴',
+            color: '#6366f1',
+            bg: 'rgba(99,102,241,0.05)',
+            desc: 'SolidButton.Center, Modal.Content 처럼 서브 컴포넌트를 명시적으로 조합합니다. 더 명확한 구조와 유연한 조합이 가능합니다.',
+          },
+          {
+            title: '3-Tier 토큰 시스템',
+            color: '#8b5cf6',
+            bg: 'rgba(139,92,246,0.05)',
+            desc: 'Reference -> Semantic -> Component 토큰 계층으로 일관된 테마 커스터마이징이 가능합니다. theme prop으로 컴포넌트별 오버라이드를 지원합니다.',
+          },
+          {
+            title: 'FormControl 없음',
+            color: '#f59e0b',
+            bg: 'rgba(245,158,11,0.05)',
+            desc: 'Chakra/MUI의 FormControl 래퍼 대신 div와 Text 컴포넌트를 직접 조합합니다. 더 단순하고 예측 가능한 구조입니다.',
+          },
+          {
+            title: 'Radix UI 기반',
+            color: '#10b981',
+            bg: 'rgba(16,185,129,0.05)',
+            desc: 'Modal, Tooltip, Dropdown 등 복잡한 상호작용 컴포넌트는 Radix UI 기반으로 shadcn/ui와 동일한 접근성 패턴을 사용합니다.',
+          },
+        ].map((item) => (
+          <div key={item.title} style={{
+            padding: '20px', borderRadius: '12px',
+            background: item.bg, border: `1.5px solid ${item.color}30`,
+          }}>
+            <div style={{ fontSize: '14px', fontWeight: 700, color: item.color, marginBottom: '8px' }}>{item.title}</div>
+            <div style={{ fontSize: '13px', color: '#64748b', lineHeight: '1.6' }}>{item.desc}</div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    {/* Footer */}
+    <div style={{
+      padding: '24px', borderRadius: '12px',
+      background: 'linear-gradient(135deg, rgba(99,102,241,0.06), rgba(139,92,246,0.06))',
+      border: '1.5px solid rgba(99,102,241,0.15)',
+      marginBottom: '48px',
+    }}>
+      <div style={{ fontSize: '14px', fontWeight: 700, color: '#6366f1', marginBottom: '8px' }}>도움이 필요하신가요?</div>
+      <div style={{ fontSize: '13px', color: '#64748b', lineHeight: '1.7' }}>
+        마이그레이션 과정에서 문제가 발생하면 컴포넌트 스토리를 참고하거나 GitHub 이슈를 통해 문의해주세요.
+        각 컴포넌트의 Props와 사용 예시는 Storybook autodocs에서 확인할 수 있습니다.
+      </div>
+    </div>
+  </div>
+</Unstyled>

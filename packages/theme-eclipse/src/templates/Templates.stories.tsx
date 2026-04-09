@@ -22,6 +22,7 @@ import {
   Slider,
   SolidButton,
   SolidIconButton,
+  SpeechBadge,
   Switch,
   Text,
   TextArea,
@@ -43,6 +44,10 @@ import {
   ListLineIcon,
   StarLineIcon,
   ArrowRightIcon,
+  AttachmentIcon,
+  EmojiGoodLineIcon,
+  MoreHorizontalIcon,
+  VideoLineIcon,
 } from '@heejun-com/icons'
 
 import { Command } from '../components/Command'
@@ -2365,4 +2370,324 @@ const CommandPaletteRender = () => {
 
 export const CommandPalette: Story = {
   render: () => <CommandPaletteRender />,
+}
+
+/* ===================================================
+   ChatUI 템플릿: 메신저 스타일 UI
+   SpeechBadge, CounterBadge 컴포넌트 활용
+   =================================================== */
+type ChatMessage = {
+  id: number
+  senderId: string
+  text: string
+  time: string
+  isMe: boolean
+}
+
+type ChatRoom = {
+  id: string
+  name: string
+  lastMessage: string
+  time: string
+  unread: number
+  online: boolean
+  initial: string
+  color: string
+}
+
+const CHAT_ROOMS: ChatRoom[] = [
+  { id: '1', name: 'Design Team', lastMessage: '피그마 링크 공유드립니다', time: '10:42', unread: 3, online: true, initial: 'D', color: '#6366f1' },
+  { id: '2', name: 'Park Minjun', lastMessage: '내일 미팅 시간 확인해주세요', time: '9:15', unread: 1, online: true, initial: 'M', color: '#10b981' },
+  { id: '3', name: 'Product Sprint', lastMessage: '스프린트 리뷰 완료했습니다', time: '어제', unread: 0, online: false, initial: 'P', color: '#f59e0b' },
+  { id: '4', name: 'Lee Soyeon', lastMessage: '확인했습니다!', time: '월요일', unread: 0, online: false, initial: 'S', color: '#ef4444' },
+  { id: '5', name: 'Dev Crew', lastMessage: 'PR 리뷰 요청드립니다', time: '지난주', unread: 0, online: true, initial: 'C', color: '#8b5cf6' },
+]
+
+const INITIAL_MESSAGES: ChatMessage[] = [
+  { id: 1, senderId: 'other', text: '안녕하세요! 피그마 파일 확인하셨나요?', time: '10:30', isMe: false },
+  { id: 2, senderId: 'me', text: '네, 방금 확인했습니다. 디자인 토큰 구조가 훨씬 명확해졌네요!', time: '10:31', isMe: true },
+  { id: 3, senderId: 'other', text: '감사합니다 :) 컴포넌트 레벨 토큰도 추가했어요', time: '10:32', isMe: false },
+  { id: 4, senderId: 'me', text: '좋습니다. 버튼 컴포넌트에 먼저 적용해볼게요', time: '10:35', isMe: true },
+  { id: 5, senderId: 'other', text: '피그마 링크 공유드립니다', time: '10:42', isMe: false },
+]
+
+const ChatUIRender = () => {
+  const [activeRoom, setActiveRoom] = useState('1')
+  const [messages, setMessages] = useState<ChatMessage[]>(INITIAL_MESSAGES)
+  const [inputValue, setInputValue] = useState('')
+  const [isTyping, setIsTyping] = useState(false)
+  const activeRoomData = CHAT_ROOMS.find((r) => r.id === activeRoom) ?? CHAT_ROOMS[0]
+
+  const handleSend = () => {
+    if (!inputValue.trim()) return
+    const newMsg: ChatMessage = {
+      id: messages.length + 1,
+      senderId: 'me',
+      text: inputValue.trim(),
+      time: new Date().toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit' }),
+      isMe: true,
+    }
+    setMessages((prev) => [...prev, newMsg])
+    setInputValue('')
+
+    // 상대방 타이핑 시뮬레이션
+    setIsTyping(true)
+    setTimeout(() => {
+      setIsTyping(false)
+      setMessages((prev) => [
+        ...prev,
+        {
+          id: prev.length + 1,
+          senderId: 'other',
+          text: '메시지 받았습니다! 확인 후 답변드릴게요.',
+          time: new Date().toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit' }),
+          isMe: false,
+        },
+      ])
+    }, 1500)
+  }
+
+  return (
+    <div style={{ display: 'flex', height: '100vh', background: tc.bg, fontFamily: 'inherit', overflow: 'hidden' }}>
+      {/* Sidebar: 대화 목록 */}
+      <aside style={{
+        width: '300px', flexShrink: 0,
+        background: tc.bg, borderRight: `1px solid ${tc.border}`,
+        display: 'flex', flexDirection: 'column',
+      }}>
+        {/* Header */}
+        <div style={{ padding: '16px 16px 12px', borderBottom: `1px solid ${tc.borderSub}` }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '12px' }}>
+            <Text textStyle="body1" style={{ fontWeight: 700, color: tc.fg }}>Messages</Text>
+            <SolidIconButton size="small" color="black">
+              <MoreHorizontalIcon size={16} />
+            </SolidIconButton>
+          </div>
+          <div style={{ width: '100%' }}>
+            <TextField placeholder="대화 검색" />
+          </div>
+        </div>
+
+        {/* Chat list */}
+        <div style={{ flex: 1, overflowY: 'auto' }}>
+          {CHAT_ROOMS.map((room) => (
+            <button
+              key={room.id}
+              onClick={() => setActiveRoom(room.id)}
+              style={{
+                width: '100%', display: 'flex', alignItems: 'center', gap: '12px',
+                padding: '12px 16px', border: 'none', cursor: 'pointer', textAlign: 'left',
+                background: activeRoom === room.id ? 'rgba(99,102,241,0.06)' : 'transparent',
+                borderLeft: `3px solid ${activeRoom === room.id ? '#6366f1' : 'transparent'}`,
+                transition: 'all 0.15s',
+              }}
+            >
+              {/* Avatar with online indicator */}
+              <div style={{ position: 'relative', flexShrink: 0 }}>
+                <div style={{
+                  width: '44px', height: '44px', borderRadius: '50%',
+                  background: room.color, color: '#fff',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  fontSize: '16px', fontWeight: 700,
+                }}>
+                  {room.initial}
+                </div>
+                {room.online && (
+                  <div style={{
+                    position: 'absolute', bottom: '1px', right: '1px',
+                    width: '11px', height: '11px', borderRadius: '50%',
+                    background: '#10b981', border: '2px solid #fff',
+                  }} />
+                )}
+              </div>
+
+              {/* Text */}
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '3px' }}>
+                  <Text textStyle="body2" style={{ fontWeight: 600, color: tc.fg }}>{room.name}</Text>
+                  <Text textStyle="caption" style={{ color: tc.fgMuted, fontSize: '11px' }}>{room.time}</Text>
+                </div>
+                <Text textStyle="caption" style={{
+                  color: tc.fgSub, display: 'block',
+                  overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', fontSize: '12px',
+                }}>
+                  {room.lastMessage}
+                </Text>
+              </div>
+
+              {/* Unread badge */}
+              {room.unread > 0 && (
+                <CounterBadge style={{ flexShrink: 0 }}>
+                  {room.unread}
+                </CounterBadge>
+              )}
+            </button>
+          ))}
+        </div>
+
+        {/* My profile */}
+        <div style={{ padding: '12px 16px', borderTop: `1px solid ${tc.borderSub}`, display: 'flex', alignItems: 'center', gap: '10px' }}>
+          <Avatar />
+          <div style={{ flex: 1, minWidth: 0 }}>
+            <Text textStyle="body2" style={{ fontWeight: 600, color: tc.fg, display: 'block' }}>Admin User</Text>
+            <Text textStyle="caption" style={{ color: '#10b981', fontSize: '11px' }}>온라인</Text>
+          </div>
+        </div>
+      </aside>
+
+      {/* Main: 채팅 영역 */}
+      <main style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+        {/* Chat header */}
+        <div style={{
+          padding: '14px 20px', borderBottom: `1px solid ${tc.border}`,
+          display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+          background: tc.bg,
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+            <div style={{
+              width: '38px', height: '38px', borderRadius: '50%',
+              background: activeRoomData.color, color: '#fff',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              fontSize: '14px', fontWeight: 700,
+            }}>
+              {activeRoomData.initial}
+            </div>
+            <div>
+              <Text textStyle="body2" style={{ fontWeight: 700, color: tc.fg, display: 'block' }}>{activeRoomData.name}</Text>
+              <Text textStyle="caption" style={{ color: activeRoomData.online ? '#10b981' : tc.fgMuted, fontSize: '11px' }}>
+                {activeRoomData.online ? '온라인' : '오프라인'}
+              </Text>
+            </div>
+          </div>
+          <div style={{ display: 'flex', gap: '8px' }}>
+            <SolidIconButton size="small" color="black">
+              <VideoLineIcon size={16} />
+            </SolidIconButton>
+            <SolidIconButton size="small" color="black">
+              <SearchIcon size={16} />
+            </SolidIconButton>
+            <SolidIconButton size="small" color="black">
+              <MoreHorizontalIcon size={16} />
+            </SolidIconButton>
+          </div>
+        </div>
+
+        {/* Messages area */}
+        <div style={{
+          flex: 1, overflowY: 'auto', padding: '20px',
+          display: 'flex', flexDirection: 'column', gap: '12px',
+          background: tc.surface,
+        }}>
+          {/* Date separator */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px', margin: '4px 0 8px' }}>
+            <div style={{ flex: 1, height: '1px', background: tc.border }} />
+            <Text textStyle="caption" style={{ color: tc.fgMuted, fontSize: '11px', whiteSpace: 'nowrap' }}>오늘</Text>
+            <div style={{ flex: 1, height: '1px', background: tc.border }} />
+          </div>
+
+          {messages.map((msg) => (
+            <div
+              key={msg.id}
+              style={{
+                display: 'flex',
+                justifyContent: msg.isMe ? 'flex-end' : 'flex-start',
+                alignItems: 'flex-end',
+                gap: '8px',
+              }}
+            >
+              {/* Other's avatar */}
+              {!msg.isMe && (
+                <div style={{
+                  width: '32px', height: '32px', borderRadius: '50%',
+                  background: activeRoomData.color, color: '#fff',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  fontSize: '12px', fontWeight: 700, flexShrink: 0,
+                }}>
+                  {activeRoomData.initial}
+                </div>
+              )}
+
+              <div style={{ maxWidth: '65%', display: 'flex', flexDirection: 'column', gap: '3px', alignItems: msg.isMe ? 'flex-end' : 'flex-start' }}>
+                {/* SpeechBadge: 말풍선 스타일 메시지 */}
+                <SpeechBadge
+                  color={msg.isMe ? 'blue' : 'pink'}
+                  tailPosition={msg.isMe ? 'trailing' : 'leading'}
+                >
+                  <Text textStyle="body2" style={{ color: msg.isMe ? '#fff' : tc.fg, fontSize: '13px', lineHeight: '1.5' }}>
+                    {msg.text}
+                  </Text>
+                </SpeechBadge>
+                <Text textStyle="caption" style={{ color: tc.fgMuted, fontSize: '10px' }}>{msg.time}</Text>
+              </div>
+            </div>
+          ))}
+
+          {/* Typing indicator */}
+          {isTyping && (
+            <div style={{ display: 'flex', alignItems: 'flex-end', gap: '8px' }}>
+              <div style={{
+                width: '32px', height: '32px', borderRadius: '50%',
+                background: activeRoomData.color, color: '#fff',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                fontSize: '12px', fontWeight: 700, flexShrink: 0,
+              }}>
+                {activeRoomData.initial}
+              </div>
+              <div style={{
+                padding: '12px 16px', borderRadius: '18px 18px 18px 4px',
+                background: tc.bg, border: `1px solid ${tc.border}`,
+                display: 'flex', gap: '4px', alignItems: 'center',
+              }}>
+                {[0, 1, 2].map((i) => (
+                  <div key={i} style={{
+                    width: '6px', height: '6px', borderRadius: '50%',
+                    background: tc.fgMuted,
+                    animation: `bounce 1s ${i * 0.15}s infinite`,
+                  }} />
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* Input area */}
+        <div style={{
+          padding: '12px 16px', borderTop: `1px solid ${tc.border}`,
+          background: tc.bg, display: 'flex', gap: '8px', alignItems: 'center',
+        }}>
+          <SolidIconButton size="small" color="black">
+            <EmojiGoodLineIcon size={18} />
+          </SolidIconButton>
+          <SolidIconButton size="small" color="black">
+            <AttachmentIcon size={18} />
+          </SolidIconButton>
+          <div style={{ flex: 1 }}>
+            <TextField
+              placeholder="메시지를 입력하세요..."
+              value={inputValue}
+              onChange={(e) => setInputValue(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                  e.preventDefault()
+                  handleSend()
+                }
+              }}
+            />
+          </div>
+          <SolidIconButton
+            size="small"
+            color="black"
+            onClick={handleSend}
+            disabled={!inputValue.trim()}
+          >
+            <NotificationLineIcon size={18} />
+          </SolidIconButton>
+        </div>
+      </main>
+    </div>
+  )
+}
+
+export const ChatUI: Story = {
+  render: () => <ChatUIRender />,
 }

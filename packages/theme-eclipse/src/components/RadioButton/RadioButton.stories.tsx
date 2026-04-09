@@ -131,6 +131,147 @@ export const 라벨_추가 = {
   },
 } satisfies Story
 
+// 설정 페이지 라디오 그룹 (Chakra UI 실무 패턴)
+export const 설정페이지라디오그룹 = {
+  render: function Render(args) {
+    const [theme, setTheme] = useState<string>('system')
+    const [lang, setLang] = useState<string>('ko')
+    const [density, setDensity] = useState<string>('comfortable')
+
+    const themeOptions = [
+      { value: 'light', label: '라이트 모드', desc: '밝은 배경의 테마' },
+      { value: 'dark', label: '다크 모드', desc: '어두운 배경의 테마' },
+      { value: 'system', label: '시스템 설정 따름', desc: '운영체제 설정에 따라 자동 변경' },
+    ]
+
+    const langOptions = [
+      { value: 'ko', label: '한국어' },
+      { value: 'en', label: 'English' },
+      { value: 'ja', label: '日本語' },
+    ]
+
+    const densityOptions = [
+      { value: 'compact', label: '컴팩트', desc: '좁은 간격' },
+      { value: 'comfortable', label: '일반', desc: '기본 간격' },
+      { value: 'spacious', label: '여유롭게', desc: '넓은 간격' },
+    ]
+
+    const SectionTitle = ({ children }: { children: string }) => (
+      <div style={{ fontSize: '11px', fontWeight: 700, color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '12px' }}>
+        {children}
+      </div>
+    )
+
+    return (
+      <div style={{
+        width: '420px', padding: '28px', background: '#fff',
+        borderRadius: '16px', boxShadow: '0 4px 24px rgba(0,0,0,0.08)',
+        display: 'flex', flexDirection: 'column', gap: '28px',
+      }}>
+        <h3 style={{ margin: 0, fontSize: '18px', fontWeight: '700', color: '#0f172a' }}>환경 설정</h3>
+
+        {/* 테마 */}
+        <fieldset style={{ border: 'none', padding: 0, margin: 0 }}>
+          <SectionTitle>테마</SectionTitle>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+            {themeOptions.map((opt) => (
+              <label
+                key={opt.value}
+                style={{
+                  display: 'flex', alignItems: 'center', gap: '12px',
+                  padding: '12px 14px', borderRadius: '10px', cursor: 'pointer',
+                  background: theme === opt.value ? 'rgba(99,102,241,0.05)' : 'transparent',
+                  border: `1.5px solid ${theme === opt.value ? 'rgba(99,102,241,0.25)' : 'transparent'}`,
+                  transition: 'all 0.15s',
+                }}
+              >
+                <RadioButton
+                  {...args}
+                  value={opt.value}
+                  name="theme"
+                  checked={theme === opt.value}
+                  onChange={() => setTheme(opt.value)}
+                />
+                <div>
+                  <div style={{ fontSize: '13px', fontWeight: theme === opt.value ? 600 : 400, color: '#0f172a' }}>{opt.label}</div>
+                  <div style={{ fontSize: '11px', color: '#94a3b8', marginTop: '1px' }}>{opt.desc}</div>
+                </div>
+              </label>
+            ))}
+          </div>
+        </fieldset>
+
+        {/* 언어 */}
+        <fieldset style={{ border: 'none', padding: 0, margin: 0 }}>
+          <SectionTitle>언어</SectionTitle>
+          <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+            {langOptions.map((opt) => (
+              <label
+                key={opt.value}
+                style={{
+                  display: 'flex', alignItems: 'center', gap: '8px',
+                  padding: '8px 16px', borderRadius: '20px', cursor: 'pointer',
+                  background: lang === opt.value ? 'rgba(99,102,241,0.08)' : '#f8fafc',
+                  border: `1.5px solid ${lang === opt.value ? 'rgba(99,102,241,0.3)' : '#e2e8f0'}`,
+                  fontSize: '13px', fontWeight: lang === opt.value ? 600 : 400,
+                  color: lang === opt.value ? '#6366f1' : '#374151',
+                  transition: 'all 0.15s',
+                }}
+              >
+                <RadioButton
+                  {...args}
+                  value={opt.value}
+                  name="lang"
+                  checked={lang === opt.value}
+                  onChange={() => setLang(opt.value)}
+                />
+                {opt.label}
+              </label>
+            ))}
+          </div>
+        </fieldset>
+
+        {/* 밀도 */}
+        <fieldset style={{ border: 'none', padding: 0, margin: 0 }}>
+          <SectionTitle>화면 밀도</SectionTitle>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+            {densityOptions.map((opt) => (
+              <label
+                key={opt.value}
+                style={{
+                  display: 'flex', alignItems: 'center', gap: '12px',
+                  padding: '10px 14px', borderRadius: '8px', cursor: 'pointer',
+                  transition: 'background 0.1s',
+                }}
+              >
+                <RadioButton
+                  {...args}
+                  value={opt.value}
+                  name="density"
+                  checked={density === opt.value}
+                  onChange={() => setDensity(opt.value)}
+                />
+                <div>
+                  <div style={{ fontSize: '13px', fontWeight: density === opt.value ? 600 : 400, color: '#0f172a' }}>{opt.label}</div>
+                  <div style={{ fontSize: '11px', color: '#94a3b8' }}>{opt.desc}</div>
+                </div>
+              </label>
+            ))}
+          </div>
+        </fieldset>
+
+        <button style={{
+          padding: '12px', borderRadius: '10px', border: 'none', cursor: 'pointer',
+          background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
+          color: '#fff', fontSize: '14px', fontWeight: '700',
+        }}>
+          설정 저장
+        </button>
+      </div>
+    )
+  },
+} satisfies Story
+
 export const 디자인QA = {
   args: {
     disabledAll: false,
