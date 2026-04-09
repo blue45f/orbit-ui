@@ -14,11 +14,13 @@ import {
   DataTable,
   Divider,
   LabelBadge,
+  ListTile,
   Loading,
   PageDots,
   Progress,
   RadioButton,
   ScrollableTabGroup,
+  SectionTitle,
   Skeleton,
   Slider,
   SolidButton,
@@ -34,6 +36,7 @@ import {
 
 import { OutlineButton } from '../components/OutlineButton'
 import { GhostButton } from '../components/GhostButton'
+import { Calendar } from '../components/Calendar'
 
 import {
   MenuIcon,
@@ -49,6 +52,10 @@ import {
   EmojiGoodLineIcon,
   MoreHorizontalIcon,
   VideoLineIcon,
+  CalendarLineIcon,
+  ChevronLeftLineIcon,
+  ChevronRightLineIcon,
+  TimeLineIcon,
 } from '@heejun-com/icons'
 
 import { Command } from '../components/Command'
@@ -3419,4 +3426,302 @@ const NotificationCenterRender = () => {
 
 export const NotificationCenter: Story = {
   render: () => <NotificationCenterRender />,
+}
+
+/* ═══════════════════════════════════════════
+   12. CalendarApp (일정 관리 앱)
+   ═══════════════════════════════════════════ */
+
+type CalEvent = {
+  id: string
+  time: string
+  title: string
+  category: 'meeting' | 'personal' | 'deadline'
+  duration: string
+}
+
+const CALENDAR_EVENTS: Record<string, CalEvent[]> = {
+  '2026-04-07': [
+    { id: 'e1', time: '09:00', title: '팀 스탠드업', category: 'meeting', duration: '30분' },
+    { id: 'e2', time: '14:00', title: '디자인 리뷰', category: 'meeting', duration: '1시간' },
+  ],
+  '2026-04-09': [
+    { id: 'e3', time: '10:00', title: 'UI 컴포넌트 QA', category: 'deadline', duration: '2시간' },
+    { id: 'e4', time: '15:00', title: '스프린트 회고', category: 'meeting', duration: '1시간' },
+    { id: 'e5', time: '17:30', title: '헬스장', category: 'personal', duration: '1시간' },
+  ],
+  '2026-04-10': [
+    { id: 'e6', time: '09:30', title: '기획 회의', category: 'meeting', duration: '1시간' },
+    { id: 'e7', time: '11:00', title: '토큰 시스템 릴리즈', category: 'deadline', duration: '30분' },
+    { id: 'e8', time: '13:00', title: '점심 약속', category: 'personal', duration: '1시간' },
+    { id: 'e9', time: '16:00', title: 'PR 코드 리뷰', category: 'meeting', duration: '1시간 30분' },
+  ],
+  '2026-04-14': [
+    { id: 'e10', time: '10:00', title: '분기 목표 설정', category: 'meeting', duration: '2시간' },
+  ],
+  '2026-04-17': [
+    { id: 'e11', time: '14:00', title: '데모 데이 발표', category: 'deadline', duration: '1시간' },
+  ],
+}
+
+const UPCOMING = [
+  { date: '내일', title: 'UI 컴포넌트 QA', time: '10:00', category: 'deadline' as const },
+  { date: '내일', title: '스프린트 회고', time: '15:00', category: 'meeting' as const },
+  { date: '4월 14일', title: '분기 목표 설정', time: '10:00', category: 'meeting' as const },
+  { date: '4월 17일', title: '데모 데이 발표', time: '14:00', category: 'deadline' as const },
+]
+
+const EVENT_COLORS: Record<CalEvent['category'], { bg: string; border: string; label: string; labelColor: 'sale' | 'gray' | 'benefit' }> = {
+  meeting: { bg: 'rgba(99,102,241,0.08)', border: '#6366f1', label: '회의', labelColor: 'benefit' },
+  personal: { bg: 'rgba(16,185,129,0.08)', border: '#10b981', label: '개인', labelColor: 'gray' },
+  deadline: { bg: 'rgba(239,68,68,0.08)', border: '#ef4444', label: '마감', labelColor: 'sale' },
+}
+
+const CalendarAppRender: React.FC = () => {
+  const [selectedDate, setSelectedDate] = useState<Date>(new Date('2026-04-10'))
+
+  const dateKey = selectedDate
+    ? `${selectedDate.getFullYear()}-${String(selectedDate.getMonth() + 1).padStart(2, '0')}-${String(selectedDate.getDate()).padStart(2, '0')}`
+    : ''
+
+  const dayEvents = CALENDAR_EVENTS[dateKey] ?? []
+
+  const formatSelectedDate = (d: Date) => {
+    const days = ['일', '월', '화', '수', '목', '금', '토']
+    return `${d.getMonth() + 1}월 ${d.getDate()}일 (${days[d.getDay()]})`
+  }
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', height: '100vh', background: tc.bg }}>
+      {/* AppBar */}
+      <AppBar>
+        <AppBar.Leading>
+          <SolidIconButton color="black" size="small">
+            <MenuIcon />
+          </SolidIconButton>
+        </AppBar.Leading>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <CalendarLineIcon size={20} color={tc.fg} />
+          <Text textStyle="subheadingMedium">캘린더</Text>
+        </div>
+        <AppBar.Trailing>
+          <SolidIconButton color="black" size="small">
+            <NotificationLineIcon />
+          </SolidIconButton>
+        </AppBar.Trailing>
+      </AppBar>
+
+      {/* Main Content */}
+      <div style={{ flex: 1, display: 'flex', overflow: 'hidden' }}>
+        {/* Left Panel: Mini Calendar + Upcoming */}
+        <aside style={{
+          width: '300px',
+          borderRight: `1px solid ${tc.border}`,
+          display: 'flex',
+          flexDirection: 'column',
+          overflow: 'auto',
+          background: tc.surface,
+          padding: '16px',
+          gap: '24px',
+        }}>
+          {/* Mini Calendar */}
+          <div>
+            <Calendar
+              mode="single"
+              selected={selectedDate}
+              onSelect={(d) => d && setSelectedDate(d)}
+              defaultMonth={new Date('2026-04-01')}
+            />
+          </div>
+
+          <Divider />
+
+          {/* Upcoming Events */}
+          <div>
+            <SectionTitle>
+              <SectionTitle.Title>다가오는 일정</SectionTitle.Title>
+              <SectionTitle.Trailing>
+                <CounterBadge>{UPCOMING.length}</CounterBadge>
+              </SectionTitle.Trailing>
+            </SectionTitle>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginTop: '8px' }}>
+              {UPCOMING.map((ev, i) => (
+                <ListTile
+                  key={i}
+                  style={{
+                    borderRadius: '10px',
+                    background: tc.bg,
+                    border: `1px solid ${tc.border}`,
+                    padding: '10px 12px',
+                    cursor: 'pointer',
+                  }}
+                >
+                  <ListTile.Leading>
+                    <div style={{
+                      width: '32px',
+                      height: '32px',
+                      borderRadius: '8px',
+                      background: EVENT_COLORS[ev.category].bg,
+                      border: `1px solid ${EVENT_COLORS[ev.category].border}30`,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}>
+                      <TimeLineIcon size={14} color={EVENT_COLORS[ev.category].border} />
+                    </div>
+                  </ListTile.Leading>
+                  <ListTile.Title fontWeight="bold">{ev.title}</ListTile.Title>
+                  <ListTile.Description>{ev.date} · {ev.time}</ListTile.Description>
+                  <ListTile.Trailing>
+                    <LabelBadge color={EVENT_COLORS[ev.category].labelColor}>
+                      {EVENT_COLORS[ev.category].label}
+                    </LabelBadge>
+                  </ListTile.Trailing>
+                </ListTile>
+              ))}
+            </div>
+          </div>
+        </aside>
+
+        {/* Right Panel: Day Schedule */}
+        <main style={{ flex: 1, overflow: 'auto', padding: '24px' }}>
+          {/* Date Header */}
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            marginBottom: '24px',
+          }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+              <div style={{ display: 'flex', gap: '4px' }}>
+                <OutlineButton
+                  color="black"
+                  size="small"
+                  onClick={() => {
+                    const prev = new Date(selectedDate)
+                    prev.setDate(prev.getDate() - 1)
+                    setSelectedDate(prev)
+                  }}
+                >
+                  <OutlineButton.Center>
+                    <ChevronLeftLineIcon />
+                  </OutlineButton.Center>
+                </OutlineButton>
+                <OutlineButton
+                  color="black"
+                  size="small"
+                  onClick={() => {
+                    const next = new Date(selectedDate)
+                    next.setDate(next.getDate() + 1)
+                    setSelectedDate(next)
+                  }}
+                >
+                  <OutlineButton.Center>
+                    <ChevronRightLineIcon />
+                  </OutlineButton.Center>
+                </OutlineButton>
+              </div>
+              <Text textStyle="headingMedium">{formatSelectedDate(selectedDate)}</Text>
+              {dayEvents.length > 0 && (
+                <CounterBadge>{dayEvents.length}</CounterBadge>
+              )}
+            </div>
+            <SolidButton color="primary" size="small">
+              <SolidButton.Leading>
+                <CalendarLineIcon />
+              </SolidButton.Leading>
+              <SolidButton.Center>일정 추가</SolidButton.Center>
+            </SolidButton>
+          </div>
+
+          {/* Event Timeline */}
+          {dayEvents.length === 0 ? (
+            <div style={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+              height: '300px',
+              gap: '12px',
+            }}>
+              <CalendarLineIcon size={48} color={tc.fgMuted} />
+              <Text textStyle="subheadingSmall" style={{ color: tc.fgMuted }}>이 날에는 일정이 없습니다</Text>
+              <Text textStyle="descriptionMedium" style={{ color: tc.fgMuted }}>
+                일정 추가 버튼을 눌러 새 일정을 만들어보세요.
+              </Text>
+            </div>
+          ) : (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+              {dayEvents.map((ev) => {
+                const colors = EVENT_COLORS[ev.category]
+                return (
+                  <div
+                    key={ev.id}
+                    style={{
+                      display: 'flex',
+                      gap: '16px',
+                      alignItems: 'stretch',
+                    }}
+                  >
+                    {/* Time column */}
+                    <div style={{
+                      width: '56px',
+                      flexShrink: 0,
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'flex-end',
+                      paddingTop: '14px',
+                      gap: '4px',
+                    }}>
+                      <Text textStyle="descriptionLargeEmphasized" style={{ color: tc.fg }}>{ev.time}</Text>
+                      <Text textStyle="descriptionSmall" style={{ color: tc.fgMuted }}>{ev.duration}</Text>
+                    </div>
+
+                    {/* Color bar */}
+                    <div style={{
+                      width: '3px',
+                      borderRadius: '999px',
+                      background: colors.border,
+                      flexShrink: 0,
+                    }} />
+
+                    {/* Event card */}
+                    <div style={{
+                      flex: 1,
+                      padding: '14px 16px',
+                      borderRadius: '12px',
+                      background: colors.bg,
+                      border: `1px solid ${colors.border}30`,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      cursor: 'pointer',
+                      transition: 'box-shadow 0.15s',
+                    }}>
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                        <Text textStyle="subheadingSmall">{ev.title}</Text>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                          <TimeLineIcon size={12} color={tc.fgMuted} />
+                          <Text textStyle="descriptionSmall" style={{ color: tc.fgMuted }}>
+                            {ev.time} · {ev.duration}
+                          </Text>
+                        </div>
+                      </div>
+                      <LabelBadge color={colors.labelColor}>
+                        {colors.label}
+                      </LabelBadge>
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
+          )}
+        </main>
+      </div>
+    </div>
+  )
+}
+
+export const CalendarApp: Story = {
+  render: () => <CalendarAppRender />,
 }
