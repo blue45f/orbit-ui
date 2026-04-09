@@ -24,7 +24,7 @@ export const 기본 = {
     return (
       <SegmentedControl defaultValue="blue">
         <SegmentedControl.Tab value="blue">
-          <SegmentedControl.TabCenter>Blue</SegmentedControl.TabCenter>
+          <SegmentedControl.TabCenter>Indigo</SegmentedControl.TabCenter>
         </SegmentedControl.Tab>
         <SegmentedControl.Tab value="foundation">
           <SegmentedControl.TabCenter>Foundation</SegmentedControl.TabCenter>
@@ -64,7 +64,7 @@ export const 디자인_QA = {
   render: ({ tabCount, hasLeading, hasCenter, hasTrailing, defaultValue, ...rest }: any) => {
     const tabs = Array.from({ length: tabCount || 3 }, (_, i) => {
       const value = ['blue', 'foundation', 'ocean', 'green'][i] || `tab${i}`
-      const label = ['Blue', 'Foundation', 'Eclipse', 'Green'][i] || `Tab ${i + 1}`
+      const label = ['Indigo', 'Foundation', 'Eclipse', 'Green'][i] || `Tab ${i + 1}`
 
       return (
         <SegmentedControl.Tab key={value} value={value}>

@@ -102,7 +102,7 @@ export const 라벨_추가 = {
               checked={selected === 'blue'}
               onChange={() => setSelected('blue')}
             />
-            <label htmlFor="blue">블루</label>
+            <label htmlFor="blue">인디고</label>
           </Flex>
           <Flex columnGap="10px">
             <RadioButton

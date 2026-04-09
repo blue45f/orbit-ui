@@ -28,13 +28,13 @@ export const 기본 = {
       <RadioGroup defaultValue="foundation" name="color">
         <Flex rowGap="25px" flexDirection={'column'}>
           <RadioButtonWithLabel {...args} value="blue" alignItems="center">
-            블루
+            인디고
           </RadioButtonWithLabel>
           <RadioButtonWithLabel {...args} value="foundation" disabled>
             파운데이션
           </RadioButtonWithLabel>
           <RadioButtonWithLabel {...args} value="primary">
-            민트
+            에메랄드
           </RadioButtonWithLabel>
         </Flex>
       </RadioGroup>
@@ -96,7 +96,7 @@ export const 디자인QA = {
         </Flex>
         <Flex columnGap="10px">
           <RadioButtonWithLabel {...args} value="primary">
-            민트
+            에메랄드
           </RadioButtonWithLabel>
         </Flex>
       </Flex>

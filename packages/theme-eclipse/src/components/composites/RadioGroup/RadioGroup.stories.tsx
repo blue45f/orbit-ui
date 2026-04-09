@@ -66,13 +66,13 @@ export const 제어 = {
         }}
       >
         <Radio id="controlled-1" value="blue">
-          블루
+          인디고
         </Radio>
         <Radio id="controlled-2" value="foundation">
           코어
         </Radio>
         <Radio id="controlled-3" value="primary">
-          민트
+          에메랄드
         </Radio>
       </RadioGroup>
     )
@@ -84,13 +84,13 @@ export const 비제어 = {
     return (
       <RadioGroup name="pkg" defaultValue="blue" onChange={args.onChange}>
         <Radio id="uncontrolled-1" value="blue">
-          블루
+          인디고
         </Radio>
         <Radio id="uncontrolled-2" value="foundation">
           코어
         </Radio>
         <Radio id="uncontrolled-3" value="primary">
-          민트
+          에메랄드
         </Radio>
       </RadioGroup>
     )
