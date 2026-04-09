@@ -154,6 +154,60 @@ export const 전체너비 = {
   },
 } satisfies Story
 
+// ─── Apple HIG: 계층적 버튼 (Primary / Secondary / Tertiary) ────────────────
+// Apple HIG에서 버튼 계층은 화면에서의 시각적 중요도를 나타냅니다.
+// Primary(Filled) > Secondary(Outlined) > Tertiary(Ghost) 순으로 강조도가 낮아집니다.
+export const Apple_HIG_버튼_계층: Story = {
+  name: 'Apple HIG - 계층적 버튼 (Primary / Secondary / Tertiary)',
+  render: () => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '32px', width: '480px' }}>
+      <div>
+        <p style={{ margin: '0 0 8px', fontSize: '11px', fontWeight: 600, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+          단계별 강조도
+        </p>
+        <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
+          <SolidButton color="primary" size="medium">
+            <SolidButton.Center>Primary (Filled)</SolidButton.Center>
+          </SolidButton>
+        </div>
+      </div>
+      <div style={{ padding: '24px', background: '#f8fafc', borderRadius: '12px', border: '1px solid #e2e8f0' }}>
+        <p style={{ margin: '0 0 16px', fontSize: '14px', fontWeight: 600, color: '#0f172a' }}>
+          결제 플로우 예시
+        </p>
+        <p style={{ margin: '0 0 20px', fontSize: '13px', color: '#64748b' }}>
+          Primary 버튼은 페이지당 하나만 존재해야 합니다.
+          Secondary와 Tertiary는 보조 액션에 사용합니다.
+        </p>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+          <SolidButton color="primary" size="large">
+            <SolidButton.Center>구매하기 (Primary)</SolidButton.Center>
+          </SolidButton>
+          <SolidButton color="gray" size="large">
+            <SolidButton.Center>장바구니 담기 (Secondary)</SolidButton.Center>
+          </SolidButton>
+          <SolidButton color="white" size="large">
+            <SolidButton.Center>나중에 보기 (Tertiary)</SolidButton.Center>
+          </SolidButton>
+        </div>
+      </div>
+      <div style={{ padding: '24px', background: '#f8fafc', borderRadius: '12px', border: '1px solid #e2e8f0' }}>
+        <p style={{ margin: '0 0 16px', fontSize: '14px', fontWeight: 600, color: '#0f172a' }}>
+          모달 액션 예시 (파괴적 작업)
+        </p>
+        <div style={{ display: 'flex', gap: '10px', justifyContent: 'flex-end' }}>
+          <SolidButton color="gray" size="medium">
+            <SolidButton.Center>취소 (Tertiary)</SolidButton.Center>
+          </SolidButton>
+          <SolidButton color="black" size="medium">
+            <SolidButton.Center>삭제 (Primary)</SolidButton.Center>
+          </SolidButton>
+        </div>
+      </div>
+    </div>
+  ),
+} satisfies Story
+
 export const 디자인QA = {
   args: {
     color: 'primary',

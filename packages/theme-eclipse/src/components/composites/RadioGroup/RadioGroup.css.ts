@@ -1,9 +1,2 @@
-import { reset } from '@heejun-com/core'
-import { style } from '@vanilla-extract/css'
-
-export const fieldset = style([
-  reset.fieldset,
-  {
-    border: 'none',
-  },
-])
+// fieldset reset + no border
+export const fieldset = 'border-0 m-0 p-0 min-w-0'

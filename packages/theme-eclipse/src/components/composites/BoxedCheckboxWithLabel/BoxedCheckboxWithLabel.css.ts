@@ -1,53 +1,19 @@
-import { reset } from '@heejun-com/core'
-import { createVar, style } from '@vanilla-extract/css'
-import { recipe } from '@vanilla-extract/recipes'
+import clsx from 'clsx'
 
-export const alignItems = createVar()
+// CSS variable name for dynamic alignItems (used as inline style)
+export const alignItemsVar = '--boxed-checkbox-align-items'
 
-export const container = recipe({
-  base: [
-    reset.div,
-    {
-      display: 'inline-flex',
-      alignItems,
-    },
-  ],
-  variants: {
-    fullWidth: {
-      true: {
-        display: 'flex',
-      },
-    },
-  },
-})
+export const container = (opts: { fullWidth?: boolean }) =>
+  clsx('inline-flex', {
+    flex: opts.fullWidth,
+  })
 
-export const checkboxWrapper = style({
-  flexShrink: 0,
-})
+export const checkboxWrapper = 'shrink-0'
 
-export const label = recipe({
-  base: [
-    reset.label,
-    {
-      minHeight: 24,
-    },
-  ],
-  variants: {
-    fullWidth: {
-      true: {
-        width: '100%',
-      },
-    },
-    disabled: {
-      true: {
-        opacity: 0.3,
-      },
-    },
-  },
-})
+export const label = (opts: { fullWidth?: boolean; disabled?: boolean }) =>
+  clsx('inline-block min-h-[24px]', {
+    'w-full': opts.fullWidth,
+    'opacity-30': opts.disabled,
+  })
 
-export const labelText = style({
-  display: 'inline-block',
-  marginLeft: 4,
-  verticalAlign: 'middle',
-})
+export const labelText = 'inline-block ml-1 align-middle'

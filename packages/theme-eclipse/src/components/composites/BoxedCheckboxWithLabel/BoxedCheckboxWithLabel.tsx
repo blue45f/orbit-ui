@@ -1,5 +1,4 @@
 import { useUniqueID } from '@heejun-com/core'
-import { assignInlineVars } from '@vanilla-extract/dynamic'
 import { forwardRef } from 'react'
 
 import { BoxedCheckbox, BoxedCheckboxProps } from '../../BoxedCheckbox'
@@ -38,15 +37,10 @@ export type BoxedCheckboxWithLabelProps = BoxedCheckboxProps & {
 export const BoxedCheckboxWithLabel = forwardRef<HTMLButtonElement, BoxedCheckboxWithLabelProps>(
   (props, ref) => {
     const { id: idProp, fullWidth = false, children, alignItems = 'flex-start', ...rest } = props
-    const style = {
-      ...assignInlineVars({
-        [styles.alignItems]: alignItems,
-      }),
-    }
     const id = useUniqueID(idProp)
 
     return (
-      <div className={styles.container({ fullWidth })} style={style}>
+      <div className={styles.container({ fullWidth })} style={{ alignItems }}>
         <div className={styles.checkboxWrapper}>
           <BoxedCheckbox ref={ref} {...rest} id={id} />
         </div>

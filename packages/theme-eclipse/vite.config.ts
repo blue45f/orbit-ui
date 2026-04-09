@@ -4,11 +4,9 @@ import path from 'node:path'
 import {
   cssBangCommentPlugin,
   cssReorderPlugin,
-  removeVanillaExtractVirtualFilePlugin,
 } from '@orbit-ui/vite-plugin'
 import babel, { getBabelOutputPlugin } from '@rollup/plugin-babel'
 import dynamicImportVars from '@rollup/plugin-dynamic-import-vars'
-import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin'
 import react from '@vitejs/plugin-react-swc'
 import autoprefixer from 'autoprefixer'
 import { BuildOptions, Plugin, UserConfig, defineConfig } from 'vite'
@@ -29,9 +27,6 @@ const externalDependenciesRegExrs = [
 ].map((name) => new RegExp(`^${name}(/.*)?(?<!\\.css)$`))
 
 export default defineConfig(({ mode }) => {
-  // 매 빌드 고유 클래스명 생성에 활용되는 값
-  const infix = `m_${Date.now().toString(36).slice(-4)}`
-
   return {
     resolve: {
       alias: {
@@ -92,7 +87,7 @@ export default defineConfig(({ mode }) => {
             preserveModules: true,
             preserveModulesRoot: 'src',
             entryFileNames: (entry) => {
-              if (entry.name.endsWith('.css') && !entry.name.endsWith('.css.ts.vanilla.css')) {
+              if (entry.name.endsWith('.css')) {
                 return `${entry.name.replace(/\.css$/, '.style.js')}`
               }
 
@@ -111,29 +106,11 @@ export default defineConfig(({ mode }) => {
     },
     plugins: [
       react(),
-      vanillaExtractPlugin({
-        identifiers:
-          process.env.NODE_ENV === 'local' || process.env.NODE_ENV === 'development'
-            ? 'debug'
-            : ({ hash, filePath }) => {
-                // CSS 파일명은 컴포넌트명과 대응되지 않는 경우가 있으므로 컴포넌트 디렉토리명 추출
-                // e.g. /src/components/DatePicker/Day.css.ts -> DatePicker
-                const componentName = ((p) => {
-                  const s = p.split('/')
-                  const i = s.findIndex((v) => v === 'components')
-
-                  return i === -1 ? '' : s[i + 1] + '_'
-                })(filePath)
-
-                return `${componentName}${infix}_${hash}`
-              },
-      }),
       cssBangCommentPlugin(),
       cssReorderPlugin({
-        priorityList: ['foundation', 'theme.css.ts'],
+        priorityList: ['foundation', 'theme.css'],
         removeBangComment: true,
       }),
-      removeVanillaExtractVirtualFilePlugin(),
     ],
     // vite build 명령어 실행시 process.env.NODE_ENV 상관없이 production
     ...(mode === 'production' && productionConfig),

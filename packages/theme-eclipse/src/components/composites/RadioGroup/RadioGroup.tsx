@@ -1,4 +1,4 @@
-import { setupContext, styleProtected, StyleProtected, useControllableState } from '@heejun-com/core'
+import { setupContext, StyleProtected, styleProtected, useControllableState } from '@heejun-com/core'
 import { forwardRef } from 'react'
 
 import * as styles from './RadioGroup.css'

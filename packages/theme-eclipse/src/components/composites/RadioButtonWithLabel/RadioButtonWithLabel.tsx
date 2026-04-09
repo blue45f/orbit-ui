@@ -1,5 +1,4 @@
 import { useUniqueID, errorDev } from '@heejun-com/core'
-import { assignInlineVars } from '@vanilla-extract/dynamic'
 import { forwardRef } from 'react'
 
 import { RadioButton as Radio, RadioButtonProps as RadioProps } from '../../RadioButton'
@@ -54,11 +53,6 @@ export const RadioButtonWithLabel = forwardRef<HTMLButtonElement, RadioButtonWit
       ...rest
     } = props
     const { fullWidth = false, children, alignItems = 'flex-start' } = rest
-    const style = {
-      ...assignInlineVars({
-        [styles.alignItems]: alignItems,
-      }),
-    }
     const id = useUniqueID(idProp)
 
     const {
@@ -89,7 +83,7 @@ export const RadioButtonWithLabel = forwardRef<HTMLButtonElement, RadioButtonWit
     }
 
     return (
-      <div className={styles.container({ fullWidth })} style={style}>
+      <div className={styles.container({ fullWidth })} style={{ alignItems }}>
         <div className={styles.radioWrapper}>
           <Radio
             {...rest}

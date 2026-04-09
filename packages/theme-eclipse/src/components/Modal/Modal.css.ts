@@ -1,42 +1,5 @@
-import { globalStyle, style } from '@vanilla-extract/css'
-
-import { vars } from '../../styles'
-
-export const root = style({})
-
-export const top = style({
-  flexGrow: 1,
-  flexShrink: 0,
-  paddingTop: vars.ref.spacing[300],
-  paddingRight: vars.ref.spacing[250],
-  paddingBottom: vars.ref.spacing[200],
-  paddingLeft: vars.ref.spacing[250],
-  maxHeight: '568px',
-  overflowY: 'auto',
-})
-
-export const bottom = style({
-  flexGrow: 1,
-  flexShrink: 0,
-  width: '100%',
-})
-
-export const bottomWithGradient = style({
-  position: 'relative',
-  '::before': {
-    content: '""',
-    position: 'absolute',
-    top: 0,
-    right: 0,
-    left: 0,
-    zIndex: 1,
-    background:
-      'linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.8) 100%)',
-    pointerEvents: 'none',
-    height: '16px',
-  },
-})
-
-globalStyle(`${bottom} > *`, {
-  flexGrow: 1,
-})
+// Unused - styles were migrated to Tailwind or inline styles
+export const root = ''
+export const top = 'grow shrink-0 pt-6 px-[var(--ref-spacing-250)] pb-4 max-h-[568px] overflow-y-auto'
+export const bottom = 'grow shrink-0 w-full'
+export const bottomWithGradient = 'relative before:content-[""] before:absolute before:top-0 before:right-0 before:left-0 before:z-10 before:bg-gradient-to-b before:from-white/0 before:to-white/80 before:pointer-events-none before:h-4'
