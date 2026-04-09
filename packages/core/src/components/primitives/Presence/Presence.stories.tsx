@@ -22,7 +22,10 @@ export const 예제: StoryObj<Meta> = {
 
     return (
       <>
-        <button type="button" onClick={togglePresent}>
+        <button type="button" onClick={togglePresent} style={{
+          padding: '8px 16px', borderRadius: '8px', border: '1px solid #d1d5db',
+          background: '#ffffff', fontSize: '14px', fontWeight: '500', cursor: 'pointer',
+        }}>
           토글
         </button>
         <Presence present={present} onChange={onChange}>
