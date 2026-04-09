@@ -6646,3 +6646,199 @@ export const SocialFeedV2: Story = {
   name: 'SocialFeed (Arco + Tailwind UI 사이드바)',
   render: () => <SocialFeedV2Render />,
 }
+
+/* --------------------------------------------------------------------------
+   FinanceDashboard 템플릿
+   Linear + Vercel 스타일 모노크롬 금융 대시보드
+   SegmentedControl(selectedIndex/onTabChange), TextField, SolidButton, ListTile 조합
+-------------------------------------------------------------------------- */
+const FINANCE_TABS = ['전체', '수입', '지출']
+
+const TRANSACTIONS = [
+  { id: 1, desc: '월급 입금', amount: 3_200_000, type: 'income', date: '04-10', category: '급여' },
+  { id: 2, desc: '카페 결제', amount: -6_400, type: 'expense', date: '04-10', category: '식비' },
+  { id: 3, desc: '구독 서비스', amount: -9_900, type: 'expense', date: '04-09', category: '구독' },
+  { id: 4, desc: '프리랜서 수입', amount: 850_000, type: 'income', date: '04-08', category: '부업' },
+  { id: 5, desc: '식료품 구입', amount: -78_000, type: 'expense', date: '04-07', category: '식비' },
+  { id: 6, desc: '교통비', amount: -15_000, type: 'expense', date: '04-06', category: '교통' },
+]
+
+const SUMMARY_CARDS = [
+  { label: '총 잔액', value: '8,420,000', sub: '+3.2% 이번 달', color: '#1e293b', accent: '#10b981' },
+  { label: '총 수입', value: '4,050,000', sub: '이번 달', color: '#10b981', accent: '#10b981' },
+  { label: '총 지출', value: '1,209,300', sub: '이번 달', color: '#ef4444', accent: '#ef4444' },
+]
+
+function FinanceDashboardRender() {
+  const [tabIndex, setTabIndex] = useState(0)
+  const [transferAmount, setTransferAmount] = useState('')
+
+  const filtered = TRANSACTIONS.filter((t) => {
+    if (tabIndex === 0) return true
+    if (tabIndex === 1) return t.type === 'income'
+    return t.type === 'expense'
+  })
+
+  const fmt = (n: number) => Math.abs(n).toLocaleString('ko-KR')
+
+  return (
+    <div
+      style={{
+        maxWidth: 480,
+        margin: '0 auto',
+        fontFamily: '-apple-system, BlinkMacSystemFont, sans-serif',
+        background: '#f8fafc',
+        borderRadius: 16,
+        border: '1px solid #e2e8f0',
+        overflow: 'hidden',
+      }}
+    >
+      <div style={{ background: '#0f172a', padding: '24px 20px 20px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 20 }}>
+          <div>
+            <div style={{ fontSize: 11, color: '#64748b', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+              Orbit Finance
+            </div>
+            <div style={{ fontSize: 22, fontWeight: 800, color: '#fff', letterSpacing: '-0.03em', marginTop: 2 }}>
+              8,420,000원
+            </div>
+          </div>
+          <div
+            style={{
+              width: 40,
+              height: 40,
+              borderRadius: '50%',
+              background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              fontSize: 15,
+              fontWeight: 700,
+              color: '#fff',
+            }}
+          >
+            HJ
+          </div>
+        </div>
+
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 10 }}>
+          {SUMMARY_CARDS.map((card) => (
+            <div
+              key={card.label}
+              style={{
+                background: 'rgba(255,255,255,0.06)',
+                borderRadius: 10,
+                padding: '10px 12px',
+                border: '1px solid rgba(255,255,255,0.08)',
+              }}
+            >
+              <div style={{ fontSize: 10, color: '#64748b', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 4 }}>
+                {card.label}
+              </div>
+              <div style={{ fontSize: 14, fontWeight: 700, color: card.color === '#1e293b' ? '#fff' : card.color }}>
+                {card.value}
+              </div>
+              <div style={{ fontSize: 10, color: card.accent, marginTop: 2 }}>{card.sub}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div style={{ padding: '20px' }}>
+        <div style={{ marginBottom: 16 }}>
+          <div style={{ fontSize: 13, fontWeight: 700, color: '#1e293b', marginBottom: 10 }}>
+            빠른 이체
+          </div>
+          <div style={{ display: 'flex', gap: 8 }}>
+            <div style={{ flex: 1 }}>
+              <TextField
+                placeholder="이체 금액 입력"
+                value={transferAmount}
+                onChange={(e) => setTransferAmount(e.target.value)}
+              />
+            </div>
+            <SolidButton color="primary" size="medium">
+              <SolidButton.Center>이체</SolidButton.Center>
+            </SolidButton>
+          </div>
+        </div>
+
+        <div style={{ marginBottom: 12 }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
+            <div style={{ fontSize: 13, fontWeight: 700, color: '#1e293b' }}>거래 내역</div>
+            <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+              <LabelBadge color="gray">
+                <LabelBadge.Label>{filtered.length}건</LabelBadge.Label>
+              </LabelBadge>
+            </div>
+          </div>
+
+          <SegmentedControl selectedIndex={tabIndex} onTabChange={setTabIndex}>
+            {FINANCE_TABS.map((tab) => (
+              <SegmentedControl.Tab key={tab} value={tab}>
+                <SegmentedControl.TabCenter>{tab}</SegmentedControl.TabCenter>
+              </SegmentedControl.Tab>
+            ))}
+          </SegmentedControl>
+        </div>
+
+        <div
+          style={{
+            borderRadius: 10,
+            border: '1px solid #e2e8f0',
+            overflow: 'hidden',
+            background: '#fff',
+          }}
+        >
+          {filtered.map((tx, i) => (
+            <ListTile
+              key={tx.id}
+              style={{
+                borderBottom: i < filtered.length - 1 ? '1px solid #f8fafc' : 'none',
+              }}
+            >
+              <ListTile.Leading>
+                <div
+                  style={{
+                    width: 36,
+                    height: 36,
+                    borderRadius: 10,
+                    background: tx.type === 'income' ? 'rgba(16,185,129,0.08)' : 'rgba(239,68,68,0.08)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    fontSize: 14,
+                  }}
+                >
+                  {tx.type === 'income' ? '+' : '-'}
+                </div>
+              </ListTile.Leading>
+              <ListTile.Title>{tx.desc}</ListTile.Title>
+              <ListTile.Description>
+                {tx.date} · {tx.category}
+              </ListTile.Description>
+              <ListTile.Trailing>
+                <span
+                  style={{
+                    fontSize: 14,
+                    fontWeight: 700,
+                    color: tx.type === 'income' ? '#10b981' : '#ef4444',
+                    fontVariantNumeric: 'tabular-nums',
+                  }}
+                >
+                  {tx.type === 'income' ? '+' : '-'}
+                  {fmt(tx.amount)}
+                </span>
+              </ListTile.Trailing>
+            </ListTile>
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const FinanceDashboard: Story = {
+  name: 'Finance Dashboard (Linear + Vercel 모노크롬 스타일)',
+  render: () => <FinanceDashboardRender />,
+}
