@@ -294,6 +294,160 @@ toast('주의가 필요합니다.')`,
       </div>
     </section>
 
+    {/* Accessibility Checklist — Mantine style */}
+    <section style={{ marginBottom: '64px' }}>
+      <h2 style={{ fontSize: '22px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '8px' }}>접근성 체크리스트</h2>
+      <p style={{ fontSize: '14px', color: '#64748b', marginBottom: '24px' }}>Orbit UI 컴포넌트를 사용하기 전에 아래 체크리스트를 확인하세요. WAI-ARIA 패턴을 기반으로 작성되었습니다.</p>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '16px' }}>
+        {[
+          {
+            category: '키보드 내비게이션',
+            color: '#6366f1',
+            items: [
+              { label: 'Tab 키로 포커스 이동 가능', required: true },
+              { label: 'Enter / Space 키로 버튼·체크박스 활성화', required: true },
+              { label: '화살표 키로 라디오 그룹 탐색', required: true },
+              { label: 'Escape 키로 모달·팝오버 닫기', required: true },
+              { label: '포커스 트랩: 모달 내부에서만 Tab 순환', required: false },
+            ],
+          },
+          {
+            category: 'ARIA 속성',
+            color: '#3b82f6',
+            items: [
+              { label: 'aria-label 또는 aria-labelledby 지정', required: true },
+              { label: 'aria-disabled로 비활성 상태 표현', required: true },
+              { label: 'aria-expanded로 열림/닫힘 상태 표현', required: true },
+              { label: 'aria-live로 동적 콘텐츠 변경 알림', required: false },
+              { label: 'role="alert"로 에러 메시지 전달', required: false },
+            ],
+          },
+          {
+            category: '색상 및 대비',
+            color: '#10b981',
+            items: [
+              { label: '텍스트 대비율 4.5:1 이상 (WCAG AA)', required: true },
+              { label: '아이콘 대비율 3:1 이상', required: true },
+              { label: '색상만으로 상태를 구분하지 않음', required: true },
+              { label: '포커스 링 시각적으로 명확하게 표시', required: true },
+              { label: '고대비 모드(forced-colors) 지원', required: false },
+            ],
+          },
+          {
+            category: '폼 컴포넌트',
+            color: '#f59e0b',
+            items: [
+              { label: 'label 과 input이 htmlFor/id로 연결', required: true },
+              { label: '에러 메시지가 aria-describedby로 연결', required: true },
+              { label: '필수 항목에 aria-required 표시', required: true },
+              { label: '라디오 그룹에 fieldset + legend 사용', required: true },
+              { label: '체크박스 인터미디에이트에 aria-checked="mixed"', required: false },
+            ],
+          },
+        ].map((section, i) => (
+          <div key={i} style={{ borderRadius: '14px', border: '1.5px solid #e2e8f0', overflow: 'hidden' }}>
+            <div style={{
+              padding: '12px 18px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0',
+              display: 'flex', alignItems: 'center', gap: 8,
+            }}>
+              <div style={{ width: 10, height: 10, borderRadius: '50%', background: section.color, flexShrink: 0 }} />
+              <span style={{ fontSize: '13px', fontWeight: 700, color: '#475569' }}>{section.category}</span>
+            </div>
+            <div style={{ padding: '14px 18px', display: 'flex', flexDirection: 'column', gap: 8 }}>
+              {section.items.map((item, j) => (
+                <div key={j} style={{ display: 'flex', alignItems: 'flex-start', gap: 10 }}>
+                  <div style={{
+                    width: 16, height: 16, borderRadius: 4, flexShrink: 0, marginTop: 1,
+                    background: item.required ? section.color : 'transparent',
+                    border: `2px solid ${item.required ? section.color : '#d1d5db'}`,
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  }}>
+                    {item.required && (
+                      <svg width="9" height="9" viewBox="0 0 12 12" fill="none">
+                        <polyline points="2,6 5,9 10,3" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    )}
+                  </div>
+                  <div>
+                    <span style={{ fontSize: '12px', color: '#374151', lineHeight: '1.5' }}>{item.label}</span>
+                    {!item.required && (
+                      <span style={{ marginLeft: 6, fontSize: '10px', color: '#94a3b8', fontWeight: 600, background: '#f1f5f9', padding: '1px 5px', borderRadius: 4 }}>선택</span>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    {/* Component Composition Patterns — Tailwind UI style */}
+    <section style={{ marginBottom: '64px' }}>
+      <h2 style={{ fontSize: '22px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '8px' }}>컴포넌트 조합 패턴</h2>
+      <p style={{ fontSize: '14px', color: '#64748b', marginBottom: '24px' }}>실무에서 자주 사용되는 컴포넌트 조합과 권장 패턴을 안내합니다.</p>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+        {[
+          {
+            pattern: '검색 + 필터 헤더',
+            components: ['SearchBar', 'Dropdown', 'Chip', 'SolidButton'],
+            description: '목록 페이지 상단에서 검색과 필터를 함께 제공하는 패턴.',
+            useCase: '상품 목록, 사용자 관리, 데이터 탐색 화면',
+            color: '#6366f1',
+          },
+          {
+            pattern: '폼 입력 묶음',
+            components: ['TextField', 'RadioButton', 'Checkbox', 'Toggle', 'SolidButton'],
+            description: '회원가입, 설정 저장 등 데이터를 입력받는 폼 레이아웃.',
+            useCase: '회원가입, 프로필 편집, 환경 설정',
+            color: '#3b82f6',
+          },
+          {
+            pattern: '알림 + 피드백',
+            components: ['Toast', 'AlertDialog', 'Modal', 'Progress', 'Loading'],
+            description: '사용자 액션에 대한 즉각적인 피드백과 결과 표시 패턴.',
+            useCase: '파일 업로드, 결제 처리, 비동기 작업',
+            color: '#f59e0b',
+          },
+          {
+            pattern: '내비게이션 쉘',
+            components: ['AppBar', 'Breadcrumb', 'TabGroup', 'Drawer', 'Avatar'],
+            description: '앱 전체 레이아웃을 구성하는 내비게이션 컴포넌트 조합.',
+            useCase: '대시보드, 관리자 패널, SaaS 앱',
+            color: '#10b981',
+          },
+          {
+            pattern: '데이터 테이블 도구모음',
+            components: ['DataTable', 'Checkbox', 'Dropdown', 'Popover', 'CounterBadge'],
+            description: '행 선택, 필터, 액션 메뉴가 결합된 고급 데이터 테이블 패턴.',
+            useCase: '사용자 관리, 주문 목록, 컨텐츠 관리',
+            color: '#8b5cf6',
+          },
+          {
+            pattern: '컨텐츠 카드',
+            components: ['Avatar', 'LabelBadge', 'HoverCard', 'GhostButton', 'Skeleton'],
+            description: '사용자/컨텐츠 정보를 카드 형태로 표시하는 패턴.',
+            useCase: '팀 멤버 목록, 게시물 피드, 프로필 페이지',
+            color: '#ec4899',
+          },
+        ].map((item, i) => (
+          <div key={i} style={{ padding: '18px 20px', borderRadius: '12px', border: '1.5px solid #e2e8f0', background: '#fff', display: 'flex', gap: 20, alignItems: 'flex-start' }}>
+            <div style={{ width: 4, borderRadius: 99, background: item.color, alignSelf: 'stretch', flexShrink: 0 }} />
+            <div style={{ flex: 1 }}>
+              <div style={{ fontSize: '14px', fontWeight: 700, color: '#1e293b', marginBottom: 6 }}>{item.pattern}</div>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 5, marginBottom: 8 }}>
+                {item.components.map((comp) => (
+                  <code key={comp} style={{ fontSize: '11px', fontWeight: 600, color: item.color, background: `${item.color}12`, padding: '2px 8px', borderRadius: 5, fontFamily: 'monospace' }}>{comp}</code>
+                ))}
+              </div>
+              <div style={{ fontSize: '12px', color: '#64748b', lineHeight: '1.6', marginBottom: 4 }}>{item.description}</div>
+              <div style={{ fontSize: '11px', color: '#94a3b8' }}>사용 예시: {item.useCase}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
     {/* API Consistency */}
     <section style={{ marginBottom: '64px' }}>
       <h2 style={{ fontSize: '22px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '8px' }}>API 일관성</h2>
