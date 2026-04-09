@@ -191,6 +191,7 @@ const preview: Preview = {
     },
     options: {
       storySort: {
+        order: ['0. Intro', 'eclipse'],
         method: 'alphabetical',
       },
     },
