@@ -621,3 +621,194 @@ export const 프로필_카드_패턴: Story = {
     </div>
   ),
 }
+
+/* --------------------------------------------------------------------------
+   shadcn/ui 벤치마크: 팀 멤버 목록 패턴
+   shadcn/ui Avatar Group + AvatarStack — 멤버 오버레이 그룹 UI
+-------------------------------------------------------------------------- */
+const TEAM_MEMBERS = [
+  { name: 'Alice Kim', color: '#6366f1' },
+  { name: 'Bob Lee', color: '#f59e0b' },
+  { name: 'Carol Park', color: '#10b981' },
+  { name: 'David Choi', color: '#ef4444' },
+  { name: 'Emma Yoon', color: '#8b5cf6' },
+]
+
+export const shadcn_팀_멤버_그룹 = {
+  name: 'shadcn/ui - 팀 멤버 오버레이 그룹',
+  render: () => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 20, maxWidth: 340 }}>
+      <div style={{ fontSize: 13, fontWeight: 700, color: '#1e293b' }}>프로젝트 팀</div>
+      <div style={{ display: 'flex', alignItems: 'center' }}>
+        {/* Avatar stack — overlap */}
+        <div style={{ display: 'flex' }}>
+          {TEAM_MEMBERS.map((m, i) => (
+            <div
+              key={m.name}
+              title={m.name}
+              style={{
+                marginLeft: i === 0 ? 0 : -10,
+                zIndex: TEAM_MEMBERS.length - i,
+                position: 'relative',
+              }}
+            >
+              <Avatar style={{ width: 36, height: 36, fontSize: 12, border: '2px solid #fff' }}>
+                <Avatar.Fallback style={{ background: m.color, color: '#fff', fontSize: 12, fontWeight: 700 }}>
+                  {m.name.split(' ').map((n) => n[0]).join('')}
+                </Avatar.Fallback>
+              </Avatar>
+            </div>
+          ))}
+          <div
+            style={{
+              marginLeft: -10,
+              zIndex: 0,
+              position: 'relative',
+              width: 36,
+              height: 36,
+              borderRadius: '50%',
+              background: '#f1f5f9',
+              border: '2px solid #fff',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              fontSize: 11,
+              fontWeight: 700,
+              color: '#64748b',
+            }}
+          >
+            +3
+          </div>
+        </div>
+        <span style={{ marginLeft: 12, fontSize: 13, color: '#64748b' }}>8명 참여 중</span>
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+        {TEAM_MEMBERS.map((m) => (
+          <div key={m.name} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+            <Avatar style={{ width: 28, height: 28, fontSize: 11 }}>
+              <Avatar.Fallback style={{ background: m.color, color: '#fff', fontSize: 11, fontWeight: 700 }}>
+                {m.name.split(' ').map((n) => n[0]).join('')}
+              </Avatar.Fallback>
+            </Avatar>
+            <div>
+              <div style={{ fontSize: 13, fontWeight: 600, color: '#1e293b' }}>{m.name}</div>
+              <div style={{ fontSize: 11, color: '#94a3b8' }}>멤버</div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  ),
+}
+
+/* --------------------------------------------------------------------------
+   Linear 벤치마크: 이슈 담당자 할당 패턴
+   Linear assign member — 아바타 + 이름 + 역할 레이블 조합 UI
+-------------------------------------------------------------------------- */
+const ASSIGNEES = [
+  { name: 'Heejun Kim', role: 'Frontend', color: '#6366f1', issues: 5, status: '진행 중' },
+  { name: 'Sumin Lee', role: 'Design', color: '#f59e0b', issues: 3, status: '검토 중' },
+  { name: 'Jinho Park', role: 'Backend', color: '#10b981', issues: 8, status: '진행 중' },
+]
+
+export const Linear_담당자_할당_패널 = {
+  name: 'Linear - 이슈 담당자 할당 패널',
+  render: function Render() {
+    const [selected, setSelected] = React.useState<string | null>(null)
+    return (
+      <div style={{ maxWidth: 320 }}>
+        <div style={{ fontSize: 13, fontWeight: 700, color: '#1e293b', marginBottom: 12 }}>담당자 선택</div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+          {ASSIGNEES.map((a) => {
+            const isSelected = selected === a.name
+            return (
+              <div
+                key={a.name}
+                onClick={() => setSelected(isSelected ? null : a.name)}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 12,
+                  padding: '10px 12px',
+                  borderRadius: 8,
+                  cursor: 'pointer',
+                  border: `1px solid ${isSelected ? a.color + '40' : 'transparent'}`,
+                  background: isSelected ? a.color + '08' : 'transparent',
+                  transition: 'all 0.15s',
+                }}
+              >
+                <Avatar style={{ width: 28, height: 28, fontSize: 11 }}>
+                  <Avatar.Fallback style={{ background: a.color, color: '#fff', fontSize: 11, fontWeight: 700 }}>
+                    {a.name.split(' ').map((n) => n[0]).join('')}
+                  </Avatar.Fallback>
+                </Avatar>
+                <div style={{ flex: 1 }}>
+                  <div style={{ fontSize: 13, fontWeight: 600, color: '#1e293b' }}>{a.name}</div>
+                  <div style={{ fontSize: 11, color: '#94a3b8' }}>{a.role} · 이슈 {a.issues}개</div>
+                </div>
+                <span style={{
+                  fontSize: 10, fontWeight: 700, padding: '2px 7px', borderRadius: 12,
+                  background: a.status === '진행 중' ? '#6366f108' : '#f59e0b08',
+                  color: a.status === '진행 중' ? '#6366f1' : '#f59e0b',
+                  border: `1px solid ${a.status === '진행 중' ? '#6366f130' : '#f59e0b30'}`,
+                }}>
+                  {a.status}
+                </span>
+              </div>
+            )
+          })}
+        </div>
+        {selected && (
+          <div style={{ marginTop: 12, padding: '10px 12px', borderRadius: 8, background: '#f8fafc', border: '1px solid #e2e8f0', fontSize: 13, color: '#475569' }}>
+            <strong>{selected}</strong>이(가) 담당자로 지정되었습니다.
+          </div>
+        )}
+      </div>
+    )
+  },
+}
+
+/* --------------------------------------------------------------------------
+   Mantine 벤치마크: 사용자 프로필 카드 패턴
+   Mantine Avatar + Text + Badge — 소셜 프로필 카드 UI
+-------------------------------------------------------------------------- */
+export const Mantine_프로필_카드 = {
+  name: 'Mantine - 사용자 프로필 카드',
+  render: () => (
+    <div
+      style={{
+        maxWidth: 300,
+        borderRadius: 16,
+        border: '1px solid #e2e8f0',
+        overflow: 'hidden',
+        boxShadow: '0 4px 20px rgba(0,0,0,0.06)',
+      }}
+    >
+      {/* Cover */}
+      <div style={{ height: 80, background: 'linear-gradient(135deg, #6366f1, #8b5cf6)' }} />
+      {/* Profile */}
+      <div style={{ padding: '0 20px 20px', marginTop: -24 }}>
+        <div style={{ marginBottom: 12 }}>
+          <Avatar style={{ width: 56, height: 56, fontSize: 18, border: '3px solid #fff', boxSizing: 'border-box' }}>
+            <Avatar.Fallback style={{ background: '#6366f1', color: '#fff', fontSize: 18, fontWeight: 800 }}>
+              HJ
+            </Avatar.Fallback>
+          </Avatar>
+        </div>
+        <div style={{ fontSize: 16, fontWeight: 700, color: '#0f172a' }}>Heejun Kim</div>
+        <div style={{ fontSize: 12, color: '#64748b', marginTop: 2 }}>@heejun · Frontend Engineer</div>
+        <div style={{ fontSize: 13, color: '#475569', marginTop: 10, lineHeight: 1.6 }}>
+          Orbit UI 디자인 시스템을 만들고 있습니다. React, TypeScript, Vanilla-Extract 애호가.
+        </div>
+        <div style={{ display: 'flex', gap: 20, marginTop: 14 }}>
+          {[{ label: '팔로워', value: '1.2K' }, { label: '팔로잉', value: '384' }, { label: '프로젝트', value: '27' }].map((stat) => (
+            <div key={stat.label} style={{ textAlign: 'center' }}>
+              <div style={{ fontSize: 15, fontWeight: 700, color: '#0f172a' }}>{stat.value}</div>
+              <div style={{ fontSize: 11, color: '#94a3b8' }}>{stat.label}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  ),
+}

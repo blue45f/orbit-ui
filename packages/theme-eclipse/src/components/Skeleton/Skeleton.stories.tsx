@@ -458,3 +458,132 @@ export const 프로필_페이지: Story = {
     </div>
   ),
 }
+
+/* --------------------------------------------------------------------------
+   Notion 벤치마크: 페이지 리스트 로딩 스켈레톤
+   Notion sidebar page list — 계층 들여쓰기 + 아이콘 스켈레톤 패턴
+-------------------------------------------------------------------------- */
+export const Notion_페이지_리스트_스켈레톤 = {
+  name: 'Notion - 페이지 리스트 로딩',
+  render: () => (
+    <div style={{ width: 240, padding: '8px 0' }}>
+      {[0, 1, 2, 3, 4].map((i) => (
+        <div
+          key={i}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 8,
+            padding: '5px 12px',
+            paddingLeft: i > 1 ? 28 : 12,
+          }}
+        >
+          <Skeleton height={16} width={16} style={{ borderRadius: 4, flexShrink: 0 }} />
+          <Skeleton height={12} width={`${60 + Math.floor(i * 17) % 40}%`} />
+        </div>
+      ))}
+      <div style={{ margin: '8px 12px', height: 1, background: '#f1f5f9' }} />
+      {[0, 1, 2].map((i) => (
+        <div
+          key={i}
+          style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '5px 12px' }}
+        >
+          <Skeleton height={16} width={16} style={{ borderRadius: 4, flexShrink: 0 }} />
+          <Skeleton height={12} width={`${50 + i * 12}%`} />
+        </div>
+      ))}
+    </div>
+  ),
+}
+
+/* --------------------------------------------------------------------------
+   Linear 벤치마크: 이슈 리스트 테이블 스켈레톤
+   Linear issue list — 상태/우선순위/제목/담당자/날짜 컬럼 스켈레톤
+-------------------------------------------------------------------------- */
+export const Linear_이슈_리스트_스켈레톤 = {
+  name: 'Linear - 이슈 리스트 테이블 로딩',
+  render: () => (
+    <div style={{ width: '100%', maxWidth: 680 }}>
+      {/* 헤더 */}
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns: '24px 24px 1fr 80px 80px',
+          gap: 12,
+          padding: '8px 12px',
+          borderBottom: '2px solid #f1f5f9',
+          marginBottom: 4,
+        }}
+      >
+        {['상태', '우선순위', '제목', '담당자', '날짜'].map((col) => (
+          <div key={col} style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase' }}>
+            {col}
+          </div>
+        ))}
+      </div>
+      {/* 행 */}
+      {Array.from({ length: 6 }).map((_, i) => (
+        <div
+          key={i}
+          style={{
+            display: 'grid',
+            gridTemplateColumns: '24px 24px 1fr 80px 80px',
+            gap: 12,
+            padding: '10px 12px',
+            borderBottom: '1px solid #f8fafc',
+            alignItems: 'center',
+          }}
+        >
+          <Skeleton height={16} width={16} style={{ borderRadius: '50%' }} />
+          <Skeleton height={16} width={16} style={{ borderRadius: 4 }} />
+          <Skeleton height={12} width={`${50 + (i * 11) % 40}%`} />
+          <Skeleton height={20} width={20} style={{ borderRadius: '50%' }} />
+          <Skeleton height={12} width={60} />
+        </div>
+      ))}
+    </div>
+  ),
+}
+
+/* --------------------------------------------------------------------------
+   Vercel 벤치마크: 배포 대시보드 스켈레톤
+   Vercel deployments page — 프로젝트 카드 그리드 스켈레톤
+-------------------------------------------------------------------------- */
+export const Vercel_배포_대시보드_스켈레톤 = {
+  name: 'Vercel - 배포 대시보드 로딩',
+  render: () => (
+    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 16, maxWidth: 600 }}>
+      {Array.from({ length: 4 }).map((_, i) => (
+        <div
+          key={i}
+          style={{
+            borderRadius: 12,
+            border: '1px solid #e2e8f0',
+            padding: 16,
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 12,
+          }}
+        >
+          {/* 프로젝트명 + 상태 */}
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <Skeleton height={14} width="55%" />
+            <Skeleton height={20} width={60} style={{ borderRadius: 20 }} />
+          </div>
+          {/* 배포 URL */}
+          <Skeleton height={10} width="80%" />
+          {/* 메타 */}
+          <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+            <Skeleton height={20} width={20} style={{ borderRadius: '50%' }} />
+            <Skeleton height={10} width="50%" />
+          </div>
+          {/* 하단 구분선 + 액션 */}
+          <div style={{ borderTop: '1px solid #f1f5f9', paddingTop: 10, display: 'flex', gap: 8 }}>
+            <Skeleton height={28} width="50%" style={{ borderRadius: 6 }} />
+            <Skeleton height={28} width="50%" style={{ borderRadius: 6 }} />
+          </div>
+        </div>
+      ))}
+    </div>
+  ),
+}
