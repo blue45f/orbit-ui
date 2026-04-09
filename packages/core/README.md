@@ -1,20 +1,20 @@
-# @orbit-ui/core
+# @heejun-com/core
 
-[![npm](https://img.shields.io/npm/v/@orbit-ui/core)](https://www.npmjs.com/package/@orbit-ui/core)
+[![npm](https://img.shields.io/npm/v/@heejun-com/core)](https://www.npmjs.com/package/@heejun-com/core)
 
 > 스타일 미적용 Base 컴포넌트
 
 ## 설치
 
 ```bash
-pnpm add @orbit-ui/core
+pnpm add @heejun-com/core
 ```
 
 ## 사용법
 
 ```tsx
-import { Button, Provider } from '@orbit-ui/core'
-import '@orbit-ui/core/style.css'
+import { Button, Provider } from '@heejun-com/core'
+import '@heejun-com/core/style.css'
 
 function App() {
   return (

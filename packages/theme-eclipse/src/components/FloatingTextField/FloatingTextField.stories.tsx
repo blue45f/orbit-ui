@@ -5,7 +5,7 @@ import { useState } from 'react'
 import { FloatingTextField } from './FloatingTextField'
 
 const meta = {
-  title: 'eclipse/Text Fields/FloatingTextField',
+  title: 'eclipse/Inputs/Text Fields/FloatingTextField',
   component: FloatingTextField,
   parameters: {
     layout: 'centered',

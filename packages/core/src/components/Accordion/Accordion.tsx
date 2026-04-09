@@ -1,6 +1,6 @@
 import * as React from 'react'
 import * as AccordionPrimitive from '@radix-ui/react-accordion'
-import { ChevronDownLineIcon } from '@orbit-ui/icons'
+import { ChevronDownLineIcon } from '@heejun-com/icons'
 
 import { cn } from '../../styles'
 

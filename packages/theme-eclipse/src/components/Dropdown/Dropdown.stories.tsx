@@ -1,4 +1,4 @@
-import { ChevronRightLineIcon, SearchIcon } from '@orbit-ui/icons'
+import { ChevronRightLineIcon, SearchIcon } from '@heejun-com/icons'
 import type { Meta, StoryObj } from '@storybook/react'
 import { fn } from '@storybook/test'
 import { useState } from 'react'
@@ -6,7 +6,7 @@ import { useState } from 'react'
 import { Dropdown } from './Dropdown'
 
 const meta = {
-  title: 'eclipse/Inputs/Dropdown',
+  title: 'eclipse/Inputs/Pickers/Dropdown',
   component: Dropdown,
   parameters: {
     layout: 'centered',

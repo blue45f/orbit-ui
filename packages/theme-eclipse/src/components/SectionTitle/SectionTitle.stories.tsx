@@ -1,4 +1,4 @@
-import { ChevronRightLineIcon, CircleInfoLineIcon } from '@orbit-ui/icons'
+import { ChevronRightLineIcon, CircleInfoLineIcon } from '@heejun-com/icons'
 import type { Meta, StoryObj } from '@storybook/react'
 
 import { TextButton } from '../GhostButton'
@@ -12,7 +12,7 @@ SectionTitle.Description.displayName = 'SectionTitle.Description'
 SectionTitle.Trailing.displayName = 'SectionTitle.Trailing'
 
 const meta = {
-  title: 'eclipse/Lists/SectionTitle',
+  title: 'eclipse/Data Display/SectionTitle',
   component: SectionTitle,
   parameters: {
     layout: 'centered',

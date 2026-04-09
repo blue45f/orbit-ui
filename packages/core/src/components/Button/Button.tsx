@@ -1,4 +1,4 @@
-import { IconPropsContext } from '@orbit-ui/icons'
+import { IconPropsContext } from '@heejun-com/icons'
 import { Children, HTMLAttributes, ReactNode, forwardRef, useEffect, useReducer } from 'react'
 
 import { cn, stateClasses } from '../../styles'

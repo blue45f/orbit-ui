@@ -1,6 +1,6 @@
 import * as React from 'react'
 import useEmblaCarousel, { type UseEmblaCarouselType } from 'embla-carousel-react'
-import { ArrowLeftIcon, ArrowRightIcon } from '@orbit-ui/icons'
+import { ArrowLeftIcon, ArrowRightIcon } from '@heejun-com/icons'
 
 import { cn } from '../../styles'
 

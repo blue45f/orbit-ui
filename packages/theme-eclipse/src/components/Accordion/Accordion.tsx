@@ -1,4 +1,4 @@
-import { Accordion as CoreAccordion } from '@orbit-ui/core'
+import { Accordion as CoreAccordion } from '@heejun-com/core'
 import { forwardRef } from 'react'
 
 import { Typography } from '../Text'

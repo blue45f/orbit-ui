@@ -24,7 +24,7 @@ const externalDependenciesRegExrs = [
   ...Object.keys(packageInfo.dependencies),
   ...Object.keys(packageInfo.peerDependencies),
   // Next.js library css import 제약 https://nextjs.org/docs/messages/css-npm
-  // @orbit-ui/core의 style.css 등 CSS 디펜던시는 최종 번들에 포함
+  // @heejun-com/core의 style.css 등 CSS 디펜던시는 최종 번들에 포함
   // 나머지는 제외
 ].map((name) => new RegExp(`^${name}(/.*)?(?<!\\.css)$`))
 

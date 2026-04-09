@@ -19,19 +19,19 @@ Orbit UI (formerly Clay Kit) is a Figma-based React design system component libr
 ```
 orbit-ui/
 ├── packages/
-│   ├── core/                    # @orbit-ui/core - Base components (unstyled)
+│   ├── core/                    # @heejun-com/core - Base components (unstyled)
 │   │   └── src/
 │   │       ├── components/      # UI components
 │   │       ├── libs/            # Hooks, utilities, core functions
 │   │       └── styles/          # Tailwind utilities, design tokens
 │   │
-│   ├── theme-eclipse/             # @orbit-ui/theme-eclipse - Eclipse theme
+│   ├── theme-eclipse/             # @heejun-com/theme-eclipse - Eclipse theme
 │   │   └── src/
 │   │       ├── components/      # Themed component wrappers
 │   │       ├── styles/          # vanilla-extract styles
 │   │       └── server/          # Server components for Next.js
 │   │
-│   ├── icons/                   # @orbit-ui/icons - SVG icon components
+│   ├── icons/                   # @heejun-com/icons - SVG icon components
 │   ├── vite-plugin/             # @orbit-ui/vite-plugin - CSS ordering plugins
 │   ├── eslint-plugin/           # @orbit-ui/eslint-plugin - CSS property ordering
 │   └── generator/               # @orbit-ui/generator - Component scaffolding
@@ -72,7 +72,7 @@ ComponentName/
 
 ## Component Patterns
 
-### Base Components (@orbit-ui/core)
+### Base Components (@heejun-com/core)
 
 Base components are unstyled and use Tailwind CSS utilities:
 
@@ -103,13 +103,13 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 )
 ```
 
-### Theme Components (@orbit-ui/theme-eclipse)
+### Theme Components (@heejun-com/theme-eclipse)
 
 Theme components wrap base components with styled tokens using vanilla-extract:
 
 ```tsx
 import { forwardRef } from 'react'
-import { Button as BaseButton } from '@orbit-ui/core'
+import { Button as BaseButton } from '@heejun-com/core'
 import { eclipseTokens } from '../../styles'
 
 export const SolidButton = forwardRef<HTMLButtonElement, ButtonProps>(

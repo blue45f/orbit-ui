@@ -1,4 +1,4 @@
-import { Flex } from '@orbit-ui/core'
+import { Flex } from '@heejun-com/core'
 import { Meta, StoryObj } from '@storybook/react'
 
 import { BoxedCheckboxWithLabel } from './BoxedCheckboxWithLabel'
@@ -6,7 +6,7 @@ import { BoxedCheckboxWithLabel } from './BoxedCheckboxWithLabel'
 BoxedCheckboxWithLabel.displayName = 'BoxedCheckboxWithLabel'
 
 const meta = {
-  title: 'eclipse/Composites/BoxedCheckboxWithLabel',
+  title: 'eclipse/Inputs/Selection/BoxedCheckboxWithLabel',
   component: BoxedCheckboxWithLabel,
   args: {
     disabled: false,
@@ -25,13 +25,13 @@ export const 기본 = {
     return (
       <Flex rowGap="25px" flexDirection={'column'}>
         <BoxedCheckboxWithLabel {...args} value="blue" alignItems="center">
-          블루
+          인디고
         </BoxedCheckboxWithLabel>
         <BoxedCheckboxWithLabel {...args} value="foundation" disabled>
           파운데이션
         </BoxedCheckboxWithLabel>
         <BoxedCheckboxWithLabel {...args} value="primary">
-          민트
+          에메랄드
         </BoxedCheckboxWithLabel>
       </Flex>
     )
@@ -97,7 +97,7 @@ export const 디자인QA = {
         </Flex>
         <Flex columnGap="10px">
           <BoxedCheckboxWithLabel {...args} value="primary">
-            민트
+            에메랄드
           </BoxedCheckboxWithLabel>
         </Flex>
       </Flex>

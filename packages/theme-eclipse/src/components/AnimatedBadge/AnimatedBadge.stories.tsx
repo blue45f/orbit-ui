@@ -1,4 +1,4 @@
-import { StarFillIcon, CheckIcon } from '@orbit-ui/icons'
+import { StarFillIcon, CheckIcon } from '@heejun-com/icons'
 import { Meta, StoryObj } from '@storybook/react'
 
 import { AnimatedBadge } from './AnimatedBadge'
@@ -6,7 +6,7 @@ import { AnimatedBadge } from './AnimatedBadge'
 AnimatedBadge.displayName = 'AnimatedBadge'
 
 const meta = {
-  title: 'eclipse/Badges/AnimatedBadge',
+  title: 'eclipse/Data Display/AnimatedBadge',
   component: AnimatedBadge,
   args: {},
   argTypes: {

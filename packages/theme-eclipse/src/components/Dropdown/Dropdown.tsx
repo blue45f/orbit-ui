@@ -3,8 +3,8 @@ import {
   filterComponents,
   BaseDropdown,
   BaseDropdownProps,
-} from '@orbit-ui/core'
-import { IconPropsContext } from '@orbit-ui/icons'
+} from '@heejun-com/core'
+import { IconPropsContext } from '@heejun-com/icons'
 import { AllHTMLAttributes, Children, forwardRef, ReactNode, useMemo, useState } from 'react'
 
 import { vars } from '../../styles/theme.css'
@@ -128,7 +128,6 @@ type DropdownComponent = typeof DropdownRoot & {
 
 /**
  * ### 💡 알아두기
- * [🔗 figma 디자인가이드라인 바로가기](https://www.figma.com/design/j83TJjvORWmdqQ1mBWc3uR/%F0%9F%98%8E-%5B%ED%81%B4%EB%A0%88%EC%9D%B4%5D-%EC%BD%94%EC%96%B4?node-id=22471-8272&m=dev)
  *
  * ### 🧩 서브컴포넌트
  * - {@link DropdownLeading `Dropdown.Leading`} 좌측 영역
@@ -138,7 +137,7 @@ type DropdownComponent = typeof DropdownRoot & {
  * @example
  * ### 👇 기본 사용법
  * ```tsx
- * import { Dropdown } from '@orbit-ui/theme-eclipse'
+ * import { Dropdown } from '@heejun-com/theme-eclipse'
  *
  * function App() {
  *   const [isOpen, setIsOpen] = useState(false)
@@ -157,7 +156,7 @@ type DropdownComponent = typeof DropdownRoot & {
  * @example
  * ### 👇 Leading 아이콘 추가
  * ```tsx
- * import { Dropdown, SearchIcon } from '@orbit-ui/theme-eclipse'
+ * import { Dropdown, SearchIcon } from '@heejun-com/theme-eclipse'
  *
  * function App() {
  *   return (

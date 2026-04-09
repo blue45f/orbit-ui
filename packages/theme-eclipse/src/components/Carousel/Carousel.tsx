@@ -1,4 +1,4 @@
-import { Carousel as CoreCarousel } from '@orbit-ui/core'
+import { Carousel as CoreCarousel } from '@heejun-com/core'
 import type { ComponentPropsWithoutRef } from 'react'
 
 export type CarouselProps = ComponentPropsWithoutRef<typeof CoreCarousel>

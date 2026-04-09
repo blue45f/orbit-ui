@@ -1,4 +1,4 @@
-import { Drawer as CoreDrawer } from '@orbit-ui/core'
+import { Drawer as CoreDrawer } from '@heejun-com/core'
 import type { ComponentPropsWithoutRef } from 'react'
 
 export type DrawerProps = ComponentPropsWithoutRef<typeof CoreDrawer>

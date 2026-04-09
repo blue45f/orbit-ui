@@ -6,9 +6,9 @@ import {
   findComponent,
   Flex,
   polymorphic,
-} from '@orbit-ui/core'
-import { IconPropsContext } from '@orbit-ui/icons'
-import type { TypographyTheme } from '@orbit-ui/core'
+} from '@heejun-com/core'
+import { IconPropsContext } from '@heejun-com/icons'
+import type { TypographyTheme } from '@heejun-com/core'
 import { Children, createElement } from 'react'
 
 import { vars } from '../../token'
@@ -130,7 +130,7 @@ type SectionTitleComponent = typeof SectionTitleRoot & {
  * @example
  * ### 👇 기본 사용법
  * ```tsx
- * import { SectionTitle } from '@orbit-ui/theme-eclipse'
+ * import { SectionTitle } from '@heejun-com/theme-eclipse'
  *
  * function App() {
  *   return (
@@ -145,8 +145,8 @@ type SectionTitleComponent = typeof SectionTitleRoot & {
  * @example
  * ### 👇 툴팁 아이콘과 함께 사용
  * ```tsx
- * import { SectionTitle } from '@orbit-ui/theme-eclipse'
- * import { CircleInfoLineIcon } from '@orbit-ui/icons'
+ * import { SectionTitle } from '@heejun-com/theme-eclipse'
+ * import { CircleInfoLineIcon } from '@heejun-com/icons'
  *
  * function App() {
  *   return (
@@ -163,9 +163,9 @@ type SectionTitleComponent = typeof SectionTitleRoot & {
  * @example
  * ### 👇 텍스트 버튼과 함께 사용
  * ```tsx
- * import { SectionTitle } from '@orbit-ui/theme-eclipse'
- * import { TextButton } from '@orbit-ui/theme-eclipse'
- * import { ChevronRightLineIcon } from '@orbit-ui/icons'
+ * import { SectionTitle } from '@heejun-com/theme-eclipse'
+ * import { TextButton } from '@heejun-com/theme-eclipse'
+ * import { ChevronRightLineIcon } from '@heejun-com/icons'
  *
  * function App() {
  *   return (

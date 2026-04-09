@@ -1,4 +1,4 @@
-import { BaseDivider, BaseDividerProps } from '@orbit-ui/core'
+import { BaseDivider, BaseDividerProps } from '@heejun-com/core'
 import React from 'react'
 
 export type DividerProps = Omit<BaseDividerProps, 'thickness'> & {
@@ -30,7 +30,7 @@ export type DividerProps = Omit<BaseDividerProps, 'thickness'> & {
  * @example
  * ### 👇 가로
  * ```
- * import { Divider } from '@orbit-ui/theme-eclipse'
+ * import { Divider } from '@heejun-com/theme-eclipse'
  *
  * function App() {
  *   return (
@@ -41,7 +41,7 @@ export type DividerProps = Omit<BaseDividerProps, 'thickness'> & {
  *
  * ### 👇 세로
  * ```
- * import { Divider } from '@orbit-ui/theme-eclipse'
+ * import { Divider } from '@heejun-com/theme-eclipse'
  *
  * function App() {
  *   return (

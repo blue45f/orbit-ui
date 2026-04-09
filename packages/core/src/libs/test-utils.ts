@@ -1,5 +1,5 @@
 /**
- * Test utilities for @orbit-ui/core
+ * Test utilities for @heejun-com/core
  */
 import { render, screen, cleanup } from '@testing-library/react'
 

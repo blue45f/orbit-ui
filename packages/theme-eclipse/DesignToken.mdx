@@ -1,39 +1,248 @@
-import { Meta } from '@storybook/blocks'
+import { Meta, Unstyled } from '@storybook/blocks'
 
-<Meta title="intro/디자인토큰" />
+<Meta title="Intro/디자인토큰" />
 
-# 디자인 토큰
+<Unstyled>
+  <div style={{
+    maxWidth: '900px',
+    margin: '0 auto',
+    fontFamily: '"Pretendard Variable", "Pretendard", -apple-system, BlinkMacSystemFont, system-ui, sans-serif',
+  }}>
 
-Eclipse 테마의 디자인 토큰은 `@orbit-ui/theme-eclipse/token`에서 사용할 수 있어요.
+    {/* Header */}
+    <div style={{ marginBottom: '48px' }}>
+      <div style={{ fontSize: '12px', fontWeight: '700', color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '8px' }}>Design Tokens</div>
+      <h1 style={{ fontSize: '36px', fontWeight: '800', color: '#1e293b', letterSpacing: '-0.03em', margin: '0 0 12px' }}>디자인 토큰</h1>
+      <p style={{ fontSize: '16px', color: '#64748b', lineHeight: '1.6', margin: 0 }}>
+        Eclipse 테마의 디자인 토큰은 <code style={{ background: '#f1f5f9', color: '#6366f1', padding: '2px 6px', borderRadius: '4px', fontSize: '14px', fontWeight: '500' }}>@heejun-com/theme-eclipse/token</code>에서 사용할 수 있습니다.
+      </p>
+    </div>
 
-<br />
+    {/* Token Hierarchy Visual */}
+    <section style={{ marginBottom: '56px' }}>
+      <h2 style={{ fontSize: '22px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '24px' }}>Token Hierarchy</h2>
 
-## 토큰 계층 구조
+      <div style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(3, 1fr)',
+        gap: '0',
+        borderRadius: '16px',
+        overflow: 'hidden',
+        border: '1px solid #e2e8f0',
+      }}>
+        {[
+          {
+            level: 'Reference Token',
+            label: '원시 값',
+            example: 'colorBlue500',
+            value: '#3b82f6',
+            gradient: 'linear-gradient(135deg, #3b82f6, #6366f1)',
+            desc: '변하지 않는 원시 디자인 값',
+          },
+          {
+            level: 'Semantic Token',
+            label: '의미 기반',
+            example: 'fillPrimary',
+            value: 'var(--ref-blue-500)',
+            gradient: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
+            desc: '맥락에 따라 매핑되는 의미 토큰',
+          },
+          {
+            level: 'Component Token',
+            label: '컴포넌트 전용',
+            example: 'buttonEnabledFill',
+            value: 'var(--sem-fill-primary)',
+            gradient: 'linear-gradient(135deg, #8b5cf6, #a855f7)',
+            desc: '특정 컴포넌트에 바인딩된 토큰',
+          },
+        ].map((token, i) => (
+          <div key={i} style={{
+            padding: '28px 24px',
+            background: '#ffffff',
+            borderRight: i < 2 ? '1px solid #e2e8f0' : 'none',
+            position: 'relative',
+          }}>
+            <div style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              right: 0,
+              height: '3px',
+              background: token.gradient,
+            }} />
+            <div style={{ fontSize: '11px', fontWeight: '600', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '4px' }}>{token.label}</div>
+            <div style={{ fontSize: '16px', fontWeight: '700', color: '#1e293b', marginBottom: '8px' }}>{token.level}</div>
+            <div style={{
+              padding: '8px 12px',
+              background: '#f8fafc',
+              borderRadius: '8px',
+              marginBottom: '12px',
+              fontFamily: '"JetBrains Mono", monospace',
+              fontSize: '12px',
+              color: '#6366f1',
+              fontWeight: '500',
+            }}>{token.example}</div>
+            <div style={{ fontSize: '12px', color: '#64748b', lineHeight: '1.5' }}>{token.desc}</div>
+            {i < 2 && (
+              <div style={{
+                position: 'absolute',
+                right: '-10px',
+                top: '50%',
+                transform: 'translateY(-50%)',
+                width: '20px',
+                height: '20px',
+                background: '#ffffff',
+                border: '1px solid #e2e8f0',
+                borderRadius: '50%',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: '10px',
+                color: '#94a3b8',
+                zIndex: 1,
+              }}>{'\u2192'}</div>
+            )}
+          </div>
+        ))}
+      </div>
+    </section>
 
-```
-Reference Token  ->  Semantic Token  ->  Component Token
-   (원시 값)          (의미 기반)         (컴포넌트 전용)
+    {/* Usage */}
+    <section style={{ marginBottom: '56px' }}>
+      <h2 style={{ fontSize: '22px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '24px' }}>Usage</h2>
 
-예시:
-colorBlue500  ->  fillPrimary  ->  buttonEnabledFill
-```
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+        {[
+          {
+            title: 'Inline Style',
+            code: `import { vars } from '@heejun-com/theme-eclipse/token'
 
-<br />
+const Component = () => (
+  <div style={{
+    color: vars.sem.color.fg_brand_primary,
+    background: vars.sem.color.bg_primary,
+    padding: vars.sem.spacing.md,
+  }}>
+    토큰 기반 스타일링
+  </div>
+)`,
+          },
+          {
+            title: 'CSS-in-JS',
+            code: `import { vars } from '@heejun-com/theme-eclipse/token'
+import styled from 'styled-components'
 
-## 사용법
+const Card = styled.div\`
+  color: \${vars.sem.color.fg_brand_primary};
+  background: \${vars.sem.color.bg_primary};
+  border: 1px solid \${vars.sem.color.border_primary};
+  border-radius: \${vars.sem.radius.md};
+\``,
+          },
+        ].map((example, i) => (
+          <div key={i} style={{
+            borderRadius: '12px',
+            border: '1px solid #e2e8f0',
+            overflow: 'hidden',
+          }}>
+            <div style={{
+              padding: '8px 16px',
+              background: '#f8fafc',
+              borderBottom: '1px solid #e2e8f0',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '6px',
+            }}>
+              <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#f87171' }} />
+              <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#fbbf24' }} />
+              <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#34d399' }} />
+              <span style={{ marginLeft: '8px', fontSize: '11px', color: '#94a3b8', fontWeight: '500' }}>{example.title}</span>
+            </div>
+            <pre style={{
+              margin: 0,
+              padding: '16px',
+              background: '#0f172a',
+              color: '#e2e8f0',
+              fontSize: '12px',
+              lineHeight: '1.7',
+              fontFamily: '"JetBrains Mono", monospace',
+              overflow: 'auto',
+            }}>{example.code}</pre>
+          </div>
+        ))}
+      </div>
+    </section>
 
-```tsx
-import { vars } from '@orbit-ui/theme-eclipse/token'
+    {/* Token Categories */}
+    <section style={{ marginBottom: '56px' }}>
+      <h2 style={{ fontSize: '22px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '24px' }}>Token Categories</h2>
 
-// inline style
-const Component = () => {
-  return <div style={{ color: vars.sem.color.fg_brand_primary }}>텍스트</div>
-}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '12px' }}>
+        {[
+          {
+            name: 'Color',
+            desc: 'Foreground, Background, Border, Fill 컬러 토큰',
+            tokens: ['fg_brand_primary', 'bg_primary', 'border_primary', 'fill_primary'],
+            color: '#6366f1',
+          },
+          {
+            name: 'Typography',
+            desc: 'Font size, weight, line-height, letter-spacing 토큰',
+            tokens: ['font_size_h1', 'font_weight_bold', 'line_height_body'],
+            color: '#8b5cf6',
+          },
+          {
+            name: 'Spacing',
+            desc: 'Padding, margin, gap 간격 토큰 (8px grid)',
+            tokens: ['spacing_xs', 'spacing_sm', 'spacing_md', 'spacing_lg'],
+            color: '#3b82f6',
+          },
+          {
+            name: 'Radius & Shadow',
+            desc: 'Border-radius와 elevation 그림자 토큰',
+            tokens: ['radius_sm', 'radius_md', 'shadow_sm', 'shadow_lg'],
+            color: '#10b981',
+          },
+        ].map((cat, i) => (
+          <div key={i} style={{
+            padding: '20px',
+            borderRadius: '12px',
+            border: '1px solid #f1f5f9',
+          }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
+              <div style={{ width: '8px', height: '8px', borderRadius: '3px', background: cat.color }} />
+              <h3 style={{ fontSize: '15px', fontWeight: '700', color: '#1e293b', margin: 0 }}>{cat.name}</h3>
+            </div>
+            <p style={{ fontSize: '13px', color: '#64748b', margin: '0 0 12px', lineHeight: '1.5' }}>{cat.desc}</p>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px' }}>
+              {cat.tokens.map((t, j) => (
+                <code key={j} style={{
+                  padding: '3px 8px',
+                  borderRadius: '4px',
+                  background: '#f8fafc',
+                  fontSize: '11px',
+                  color: '#64748b',
+                  fontFamily: '"JetBrains Mono", monospace',
+                  border: '1px solid #f1f5f9',
+                }}>{t}</code>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
 
-// CSS-in-JS
-const Root = styled.div`
-  color: ${vars.sem.color.fg_brand_primary};
-`
-```
+    {/* Important Note */}
+    <div style={{
+      padding: '16px 20px',
+      borderRadius: '10px',
+      background: 'linear-gradient(90deg, rgba(99, 102, 241, 0.04) 0%, transparent 100%)',
+      borderLeft: '3px solid #6366f1',
+    }}>
+      <p style={{ fontSize: '14px', color: '#475569', margin: 0, lineHeight: '1.6' }}>
+        디자인 토큰 값은 <code style={{ background: '#f1f5f9', color: '#6366f1', padding: '2px 6px', borderRadius: '4px', fontSize: '13px', fontWeight: '500' }}>EclipseProvider</code>의 CSS Variable로 동작합니다. 반드시 Provider 하위에서 사용해주세요.
+      </p>
+    </div>
 
-디자인 토큰 값은 `EclipseProvider`의 theme에 포함된 CSS Variable입니다. 반드시 `EclipseProvider` 하위에서 사용해주세요.
+  </div>
+</Unstyled>

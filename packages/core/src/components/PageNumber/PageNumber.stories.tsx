@@ -1,4 +1,4 @@
-import { ChevronRightLineIcon, CancelIcon } from '@orbit-ui/icons'
+import { ChevronRightLineIcon, CancelIcon } from '@heejun-com/icons'
 import { Meta, StoryObj } from '@storybook/react'
 
 import { PageNumber } from './PageNumber'

@@ -1,4 +1,4 @@
-import { ComponentThemeProps, Style, Badge, polymorphic } from '@orbit-ui/core'
+import { ComponentThemeProps, Style, Badge, polymorphic } from '@heejun-com/core'
 
 import { vars } from '../../styles/theme.css'
 

@@ -1,5 +1,5 @@
-import { Flex } from '@orbit-ui/core'
-import { PlusIcon } from '@orbit-ui/icons'
+import { Flex } from '@heejun-com/core'
+import { PlusIcon } from '@heejun-com/icons'
 import { Meta, StoryObj } from '@storybook/react'
 import { ComponentProps } from 'react'
 
@@ -8,7 +8,7 @@ import { OutlineIconButton } from '.'
 OutlineIconButton.displayName = 'OutlineIconButton'
 
 const meta = {
-  title: 'eclipse/Buttons/OutlineIconButton',
+  title: 'eclipse/Actions/Buttons/OutlineIconButton',
   component: OutlineIconButton,
   args: { color: 'black', size: 'medium', disabled: false },
   argTypes: {

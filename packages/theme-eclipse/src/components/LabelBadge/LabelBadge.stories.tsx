@@ -1,4 +1,4 @@
-import { StarFillIcon, CheckIcon } from '@orbit-ui/icons'
+import { StarFillIcon, CheckIcon } from '@heejun-com/icons'
 import { Meta, StoryObj } from '@storybook/react'
 
 import { LabelBadge } from './LabelBadge'
@@ -6,7 +6,7 @@ import { LabelBadge } from './LabelBadge'
 LabelBadge.displayName = 'LabelBadge'
 
 const meta = {
-  title: 'eclipse/Badges/LabelBadge',
+  title: 'eclipse/Data Display/LabelBadge',
   component: LabelBadge,
   args: {},
   argTypes: {

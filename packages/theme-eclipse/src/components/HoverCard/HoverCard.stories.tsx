@@ -19,7 +19,7 @@ export const 기본: Story = {
       <HoverCard>
         <HoverCard.Trigger asChild>
           <a
-            href="https://github.com/blue45f/ui-forge"
+            href="https://github.com/heejun-com/orbit-ui"
             target="_blank"
             rel="noreferrer"
             className="text-sm font-semibold underline underline-offset-4 hover:text-slate-500"

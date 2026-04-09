@@ -1,8 +1,7 @@
 import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport'
 import type { Decorator, Preview } from '@storybook/react'
-import { useLayoutEffect } from 'react'
 
-import { ThemeProvider } from '../src/components/primitives'
+import { ThemeProvider, LottieProvider } from '../src/components/primitives'
 
 // Import global styles
 import '../src/styles/globals.css'
@@ -13,9 +12,11 @@ export const useThemeProvider: Decorator = (Story, context) => {
 
   return (
     <ThemeProvider mode={theme} themeClass={themeClass}>
-      <div style={{ margin: '1rem' }}>
-        <Story />
-      </div>
+      <LottieProvider>
+        <div style={{ margin: '1rem' }}>
+          <Story />
+        </div>
+      </LottieProvider>
     </ThemeProvider>
   )
 }

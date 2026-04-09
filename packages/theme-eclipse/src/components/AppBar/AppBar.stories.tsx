@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { TextField } from '@orbit-ui/core'
+import { TextField } from '@heejun-com/core'
 import {
   ArrowLeftIcon,
   ShopFillIcon,
@@ -7,7 +7,7 @@ import {
   CartLineIcon,
   HomeLineIcon,
   SearchIcon,
-} from '@orbit-ui/icons'
+} from '@heejun-com/icons'
 import { Meta, StoryObj } from '@storybook/react'
 import React, { useState } from 'react'
 

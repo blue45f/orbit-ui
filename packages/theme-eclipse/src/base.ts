@@ -1,1 +1,1 @@
-export * from '@orbit-ui/core/public'
+export * from '@heejun-com/core/public'

@@ -2,10 +2,10 @@ import { Meta, StoryObj } from '@storybook/react'
 import { useReducer } from 'react'
 
 import { Presence } from './Presence'
-import * as styles from './Presence.stories.css'
+
 
 const meta = {
-  title: 'utils/Presence',
+  title: 'Utils/Presence',
   component: Presence,
   tags: ['autodocs'],
 } satisfies Meta<typeof Presence>
@@ -22,11 +22,14 @@ export const 예제: StoryObj<Meta> = {
 
     return (
       <>
-        <button type="button" onClick={togglePresent}>
+        <button type="button" onClick={togglePresent} style={{
+          padding: '8px 16px', borderRadius: '8px', border: '1px solid #d1d5db',
+          background: '#ffffff', fontSize: '14px', fontWeight: '500', cursor: 'pointer',
+        }}>
           토글
         </button>
         <Presence present={present} onChange={onChange}>
-          <div className={styles.presentable}>I sense you!</div>
+          <div style={{ padding: "20px", background: "#f5f5f5", borderRadius: "8px" }}>I sense you!</div>
         </Presence>
       </>
     )

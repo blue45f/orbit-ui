@@ -1,12 +1,21 @@
 import { Meta, StoryObj } from '@storybook/react'
 
+import { LottieProvider } from '../Animation'
+
 import { Spinner } from './Spinner'
 
 Spinner.displayName = 'Spinner'
 
 const meta = {
-  title: 'utils/Spinner',
+  title: 'Utils/Spinner',
   component: Spinner,
+  decorators: [
+    (Story) => (
+      <LottieProvider>
+        <Story />
+      </LottieProvider>
+    ),
+  ],
   args: {
     color: 'primary',
   },

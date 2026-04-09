@@ -1,4 +1,4 @@
-import { BaseSpace, errorDev } from '@orbit-ui/core'
+import { BaseSpace, errorDev } from '@heejun-com/core'
 
 import { vars } from '../../styles/theme.css'
 
@@ -27,7 +27,7 @@ export type SpaceProps = {
  * @example
  * ### 👇 가로로 간격 주기
  * ```
- * import { Button, Space } from '@orbit-ui/theme-eclipse'
+ * import { Button, Space } from '@heejun-com/theme-eclipse'
  *
  * function App() {
  *   return (
@@ -42,7 +42,7 @@ export type SpaceProps = {
  *
  * ### 👇 세로로 간격 주기
  * ```
- * import { Button, Space } from '@orbit-ui/theme-eclipse'
+ * import { Button, Space } from '@heejun-com/theme-eclipse'
  *
  * function App() {
  *   return (

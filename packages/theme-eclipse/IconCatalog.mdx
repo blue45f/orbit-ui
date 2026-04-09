@@ -1,18 +1,74 @@
-import { Meta, Markdown } from '@storybook/blocks'
+import { Meta, IconGallery, IconItem, Unstyled } from '@storybook/blocks';
+import * as Icons from '@heejun-com/icons';
 
-<Meta title='Intro/아이콘 카탈로그' />
+<Meta title="Intro/아이콘 카탈로그" />
 
-# 아이콘 카탈로그
+<Unstyled>
+  <div style={{
+    maxWidth: '960px',
+    margin: '0 auto',
+    fontFamily: '"Pretendard Variable", "Pretendard", -apple-system, BlinkMacSystemFont, system-ui, sans-serif',
+  }}>
 
-별도 엔트리 포인트로 제공되는 아이콘 목록이에요.  
-기본 예제 코드는 다음과 같아요.
+    {/* Header */}
+    <div style={{ marginBottom: '32px' }}>
+      <div style={{ fontSize: '12px', fontWeight: '700', color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '8px' }}>Icon Catalog</div>
+      <h1 style={{ fontSize: '36px', fontWeight: '800', color: '#1e293b', letterSpacing: '-0.03em', margin: '0 0 12px' }}>아이콘 카탈로그</h1>
+      <p style={{ fontSize: '16px', color: '#64748b', lineHeight: '1.6', margin: '0 0 24px' }}>
+        Orbit UI에서 제공하는 전체 아이콘 목록입니다. 모든 아이콘은 <code style={{ background: '#f1f5f9', color: '#6366f1', padding: '2px 6px', borderRadius: '4px', fontSize: '14px', fontWeight: '500' }}>size</code>와 <code style={{ background: '#f1f5f9', color: '#6366f1', padding: '2px 6px', borderRadius: '4px', fontSize: '14px', fontWeight: '500' }}>color</code> 속성을 지원합니다.
+      </p>
 
-```tsx
-import { HomeLineIcon } from '@orbit-ui/themes/icons'
+      {/* Usage Example */}
+      <div style={{
+        borderRadius: '12px', border: '1px solid #e2e8f0', overflow: 'hidden',
+      }}>
+        <div style={{ padding: '8px 16px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', gap: '6px' }}>
+          <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#f87171' }} />
+          <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#fbbf24' }} />
+          <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#34d399' }} />
+          <span style={{ marginLeft: '8px', fontSize: '11px', color: '#94a3b8', fontWeight: '500' }}>Usage</span>
+        </div>
+        <pre style={{ margin: 0, padding: '16px', background: '#0f172a', color: '#e2e8f0', fontSize: '13px', lineHeight: '1.8', fontFamily: '"JetBrains Mono", monospace' }}>
+{`import { HomeLineIcon, SearchIcon } from '@heejun-com/icons'
 
-const App = () => {
-  return <HomeLineIcon size={24} color='fg_primary' />
-}
-```
+<HomeLineIcon size={24} color="primary" />`}
+        </pre>
+      </div>
+    </div>
 
-제공 중인 아이콘 목록은 [공식문서](https://atelier.claykit.com/docs/foundations/mint/iconography/overview#library)를 참고해주세요.
+    {/* Stats */}
+    <div style={{
+      display: 'flex', gap: '12px', marginBottom: '32px',
+    }}>
+      <div style={{
+        padding: '12px 20px', borderRadius: '10px',
+        background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.06), rgba(168, 85, 247, 0.06))',
+        border: '1px solid rgba(99, 102, 241, 0.1)',
+      }}>
+        <span style={{ fontSize: '18px', fontWeight: '800', color: '#6366f1' }}>
+          {Object.keys(Icons).filter(name => name.endsWith('Icon')).length}
+        </span>
+        <span style={{ fontSize: '13px', color: '#64748b', marginLeft: '8px' }}>Icons Available</span>
+      </div>
+      <div style={{
+        padding: '12px 20px', borderRadius: '10px',
+        background: 'rgba(16, 185, 129, 0.06)',
+        border: '1px solid rgba(16, 185, 129, 0.1)',
+      }}>
+        <span style={{ fontSize: '13px', color: '#10b981', fontWeight: '600' }}>Line & Fill variants supported</span>
+      </div>
+    </div>
+  </div>
+</Unstyled>
+
+{/* Icon Gallery */}
+<IconGallery>
+  {Object.entries(Icons)
+    .filter(([name]) => name.endsWith('Icon'))
+    .sort(([a], [b]) => a.localeCompare(b))
+    .map(([name, Icon]) => (
+      <IconItem name={name} key={name}>
+        <Icon size={24} />
+      </IconItem>
+    ))}
+</IconGallery>

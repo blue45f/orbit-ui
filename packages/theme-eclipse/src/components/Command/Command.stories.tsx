@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
 import { Command } from './Command'
-import { SettingLineIcon, StarLineIcon, NotificationLineIcon } from '@orbit-ui/icons'
+import { SettingLineIcon, StarLineIcon, NotificationLineIcon } from '@heejun-com/icons'
 
 const meta = {
   title: 'eclipse/Navigation/Command',

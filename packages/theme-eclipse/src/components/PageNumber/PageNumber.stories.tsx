@@ -1,10 +1,10 @@
-import { ChevronRightLineIcon } from '@orbit-ui/icons'
+import { ChevronRightLineIcon } from '@heejun-com/icons'
 import { Meta, StoryObj } from '@storybook/react'
 
 import { PageNumber } from './PageNumber'
 
 const meta = {
-  title: 'eclipse/Indicators/PageNumber',
+  title: 'eclipse/Navigation/PageNumber',
   component: PageNumber,
   args: {
     current: 1,

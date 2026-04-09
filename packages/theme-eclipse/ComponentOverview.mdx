@@ -1,128 +1,320 @@
-import { Meta } from '@storybook/blocks'
+import { Meta, Unstyled } from '@storybook/blocks'
 
-<Meta title='intro/컴포넌트 목록' />
+<Meta title='Intro/컴포넌트 개요' />
 
-# 컴포넌트 목록
+<Unstyled>
+  <div style={{
+    maxWidth: '960px',
+    margin: '0 auto',
+    fontFamily: '"Pretendard Variable", "Pretendard", -apple-system, BlinkMacSystemFont, system-ui, sans-serif',
+  }}>
 
-`@orbit-ui/theme-eclipse`에서 제공하는 컴포넌트 목록입니다.
+    {/* Header */}
+    <div style={{ marginBottom: '48px' }}>
+      <div style={{ fontSize: '12px', fontWeight: '700', color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '8px' }}>Component Overview</div>
+      <h1 style={{ fontSize: '36px', fontWeight: '800', color: '#1e293b', letterSpacing: '-0.03em', margin: '0 0 12px' }}>컴포넌트 개요</h1>
+      <p style={{ fontSize: '16px', color: '#64748b', lineHeight: '1.6', margin: 0 }}>50개 이상의 프로덕션 레디 컴포넌트로 구성된 완전한 디자인 시스템</p>
+    </div>
 
-<br />
+    {/* Design Principles */}
+    <section style={{ marginBottom: '64px' }}>
+      <h2 style={{ fontSize: '22px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '24px' }}>Design Principles</h2>
 
-## Buttons
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px' }}>
+        {[
+          {
+            title: 'Soft Elevation',
+            desc: '빛의 물리적 특성을 고려한 다층적 그림자 시스템으로 자연스러운 깊이감을 제공합니다.',
+            gradient: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)',
+          },
+          {
+            title: 'Micro-Interactions',
+            desc: '모든 상호작용에 물리 기반 애니메이션을 적용하여 생동감 있는 피드백을 전달합니다.',
+            gradient: 'linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%)',
+          },
+          {
+            title: 'Glassmorphism',
+            desc: '투명도와 블러 효과의 SurfaceGlass 토큰으로 배경과 콘텐츠의 깊이를 표현합니다.',
+            gradient: 'linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%)',
+          },
+        ].map((item, i) => (
+          <div key={i} style={{
+            borderRadius: '16px',
+            overflow: 'hidden',
+          }}>
+            <div style={{
+              height: '4px',
+              background: item.gradient,
+            }} />
+            <div style={{
+              padding: '24px',
+              border: '1px solid #e2e8f0',
+              borderTop: 'none',
+              borderRadius: '0 0 16px 16px',
+            }}>
+              <h3 style={{ fontSize: '16px', fontWeight: '700', color: '#1e293b', margin: '0 0 8px' }}>{item.title}</h3>
+              <p style={{ fontSize: '13px', color: '#64748b', lineHeight: '1.65', margin: 0 }}>{item.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
 
-| 컴포넌트 | 설명 |
-|----------|------|
-| `SolidButton` | 배경이 채워진 기본 버튼 |
-| `OutlineButton` | 테두리만 있는 아웃라인 버튼 |
-| `GhostButton` | 배경과 테두리가 없는 텍스트 버튼 |
-| `SolidIconButton` | 아이콘 전용 채워진 버튼 |
-| `OutlineIconButton` | 아이콘 전용 아웃라인 버튼 |
+    {/* Component Map */}
+    <section style={{ marginBottom: '64px' }}>
+      <h2 style={{ fontSize: '22px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '24px' }}>Component Map</h2>
 
-```tsx
-import { SolidButton, OutlineButton, GhostButton } from '@orbit-ui/theme-eclipse'
-import { SolidIconButton, OutlineIconButton } from '@orbit-ui/theme-eclipse'
-```
+      {[
+        {
+          category: 'Actions',
+          color: '#6366f1',
+          bg: 'rgba(99, 102, 241, 0.04)',
+          components: [
+            { name: 'SolidButton', desc: 'Primary CTA 버튼' },
+            { name: 'OutlineButton', desc: '보조 액션 버튼' },
+            { name: 'GhostButton', desc: '최소 스타일 버튼' },
+            { name: 'SolidIconButton', desc: '아이콘 전용 버튼' },
+            { name: 'Chip', desc: '필터/태그 칩' },
+            { name: 'TabGroup', desc: '탭 네비게이션' },
+            { name: 'SegmentedControl', desc: '분절 선택 컨트롤' },
+          ],
+        },
+        {
+          category: 'Inputs',
+          color: '#8b5cf6',
+          bg: 'rgba(139, 92, 246, 0.04)',
+          components: [
+            { name: 'TextField', desc: '텍스트 입력 필드' },
+            { name: 'FloatingTextField', desc: '플로팅 라벨 필드' },
+            { name: 'PasswordField', desc: '비밀번호 입력' },
+            { name: 'SearchBar', desc: '검색 입력바' },
+            { name: 'Checkbox', desc: '체크박스 선택' },
+            { name: 'RadioButton', desc: '라디오 선택' },
+            { name: 'Toggle / Switch', desc: '온오프 전환' },
+            { name: 'Dropdown', desc: '드롭다운 선택' },
+            { name: 'Slider', desc: '범위 슬라이더' },
+            { name: 'Calendar', desc: '날짜 선택기' },
+          ],
+        },
+        {
+          category: 'Data Display',
+          color: '#3b82f6',
+          bg: 'rgba(59, 130, 246, 0.04)',
+          components: [
+            { name: 'DataTable', desc: '정렬/선택/페이지네이션 테이블' },
+            { name: 'Avatar', desc: '사용자 아바타' },
+            { name: 'LabelBadge', desc: '상태 라벨 배지' },
+            { name: 'CounterBadge', desc: '수치 카운터 배지' },
+            { name: 'AnimatedBadge', desc: '애니메이션 배지' },
+            { name: 'ListTile', desc: '리스트 타일' },
+            { name: 'Accordion', desc: '접기/펼치기' },
+            { name: 'Carousel', desc: '캐러셀 슬라이더' },
+          ],
+        },
+        {
+          category: 'Feedback',
+          color: '#f59e0b',
+          bg: 'rgba(245, 158, 11, 0.04)',
+          components: [
+            { name: 'Modal', desc: '다이얼로그 모달' },
+            { name: 'AlertDialog', desc: '확인/경고 다이얼로그' },
+            { name: 'Toast', desc: '토스트 알림' },
+            { name: 'Tooltip', desc: '툴팁 오버레이' },
+            { name: 'HoverCard', desc: '호버 카드 팝업' },
+            { name: 'Popover', desc: '팝오버 컨텐츠' },
+            { name: 'Progress', desc: '진행률 표시' },
+            { name: 'Skeleton', desc: '로딩 스켈레톤' },
+            { name: 'Loading', desc: '로딩 스피너' },
+          ],
+        },
+        {
+          category: 'Navigation',
+          color: '#10b981',
+          bg: 'rgba(16, 185, 129, 0.04)',
+          components: [
+            { name: 'AppBar', desc: '앱 상단바' },
+            { name: 'Breadcrumb', desc: '경로 탐색' },
+            { name: 'ScrollableTabGroup', desc: '스크롤 탭' },
+            { name: 'PageIndicator', desc: '페이지 인디케이터' },
+            { name: 'PageNumber', desc: '페이지 번호' },
+            { name: 'PageDots', desc: '페이지 도트' },
+          ],
+        },
+      ].map((section, i) => (
+        <div key={i} style={{ marginBottom: '24px' }}>
+          <div style={{
+            display: 'flex', alignItems: 'center', gap: '10px',
+            marginBottom: '12px',
+          }}>
+            <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: section.color }} />
+            <h3 style={{ fontSize: '16px', fontWeight: '700', color: '#1e293b', margin: 0 }}>{section.category}</h3>
+            <span style={{ fontSize: '12px', color: '#94a3b8', fontWeight: '500' }}>{section.components.length} components</span>
+          </div>
 
-<br />
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
+            gap: '8px',
+          }}>
+            {section.components.map((comp, j) => (
+              <div key={j} style={{
+                padding: '12px 16px',
+                borderRadius: '8px',
+                border: '1px solid #f1f5f9',
+                background: section.bg,
+              }}>
+                <div style={{ fontSize: '13px', fontWeight: '600', color: '#1e293b' }}>{comp.name}</div>
+                <div style={{ fontSize: '11px', color: '#94a3b8', marginTop: '2px' }}>{comp.desc}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </section>
 
-## Form Controls
+    {/* Design Guidelines */}
+    <section style={{ marginBottom: '40px' }}>
+      <h2 style={{ fontSize: '22px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '24px' }}>Design Guidelines</h2>
 
-| 컴포넌트 | 설명 |
-|----------|------|
-| `TextField` | 텍스트 입력 필드 |
-| `FloatingTextField` | 플로팅 라벨이 있는 텍스트 필드 |
-| `TextArea` | 여러 줄 텍스트 입력 |
-| `PasswordField` | 비밀번호 입력 필드 |
-| `SearchBar` | 검색 입력 바 |
-| `Checkbox` | 체크박스 |
-| `BoxedCheckbox` | 박스형 체크박스 |
-| `RadioButton` | 라디오 버튼 |
-| `Toggle` | 토글 스위치 |
-| `Dropdown` | 드롭다운 선택 |
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '12px' }}>
+        {[
+          { title: '8px Grid', desc: '모든 간격과 크기는 8px 단위(0.5rem)로 설계', icon: '#' },
+          { title: 'Type-safe', desc: 'TypeScript로 강력한 타입 추론과 자동완성 제공', icon: 'TS' },
+          { title: 'Accessible', desc: 'WCAG AA 등급 준수, WAI-ARIA 패턴 적용', icon: 'A' },
+        ].map((item, i) => (
+          <div key={i} style={{
+            padding: '24px',
+            borderRadius: '12px',
+            background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.04), rgba(168, 85, 247, 0.04))',
+            border: '1px solid rgba(99, 102, 241, 0.08)',
+            textAlign: 'center',
+          }}>
+            <div style={{
+              width: '36px', height: '36px', borderRadius: '8px',
+              background: '#6366f1', color: '#ffffff',
+              display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+              fontSize: '13px', fontWeight: '800', marginBottom: '12px',
+              fontFamily: '"JetBrains Mono", monospace',
+            }}>{item.icon}</div>
+            <div style={{ fontSize: '15px', fontWeight: '700', color: '#1e293b', marginBottom: '4px' }}>{item.title}</div>
+            <div style={{ fontSize: '12px', color: '#64748b', lineHeight: '1.5' }}>{item.desc}</div>
+          </div>
+        ))}
+      </div>
+    </section>
 
-```tsx
-import { TextField, TextArea, Checkbox, RadioButton, Toggle } from '@orbit-ui/theme-eclipse'
-import { FloatingTextField, PasswordField, SearchBar } from '@orbit-ui/theme-eclipse'
-import { BoxedCheckbox, Dropdown } from '@orbit-ui/theme-eclipse'
-```
+    {/* Do / Don't */}
+    <section style={{ marginBottom: '64px' }}>
+      <h2 style={{ fontSize: '22px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '8px' }}>Do / Don't</h2>
+      <p style={{ fontSize: '14px', color: '#64748b', marginBottom: '28px' }}>컴포넌트를 올바르게 사용하는 방법과 피해야 할 패턴을 안내합니다.</p>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+        {[
+          {
+            topic: 'SolidButton — 컴파운드 패턴',
+            do: 'Center, Leading, Trailing 서브컴포넌트를 사용해 버튼 내부 레이아웃을 구성합니다.',
+            dont: '버튼 내부에 임의의 div나 span을 직접 삽입하면 스타일과 접근성이 깨질 수 있습니다.',
+            doCode: `<SolidButton color="primary" size="medium">
+  <SolidButton.Leading><PlusIcon /></SolidButton.Leading>
+  <SolidButton.Center>항목 추가</SolidButton.Center>
+</SolidButton>`,
+            dontCode: `<SolidButton color="primary" size="medium">
+  <div style={{ display: 'flex', gap: 8 }}>
+    <PlusIcon />
+    항목 추가
+  </div>
+</SolidButton>`,
+          },
+          {
+            topic: 'Toast — 피드백 타입 분리',
+            do: 'toast.success / toast.error / toast.warning / toast.info를 상황에 맞게 사용합니다.',
+            dont: '모든 피드백에 기본 toast()를 사용하면 사용자가 결과를 구분하기 어렵습니다.',
+            doCode: `// 저장 성공
+toast.success('변경사항이 저장되었습니다.')
 
-<br />
+// 네트워크 오류
+toast.error('요청에 실패했습니다.', {
+  description: '잠시 후 다시 시도해 주세요.',
+})`,
+            dontCode: `// 타입 구분 없이 모두 동일
+toast('저장되었습니다.')
+toast('실패했습니다.')
+toast('주의가 필요합니다.')`,
+          },
+          {
+            topic: 'Toggle — 제어 vs 비제어',
+            do: 'controlled(제어) 사용 시 checked + onCheckedChange를 함께 지정합니다.',
+            dont: 'checked만 지정하고 onCheckedChange를 생략하면 상태가 변경되지 않습니다.',
+            doCode: `const [enabled, setEnabled] = useState(false)
 
-## Navigation
+<Toggle
+  checked={enabled}
+  onCheckedChange={setEnabled}
+/>`,
+            dontCode: `// onCheckedChange 없으면 동작 안 함
+<Toggle checked={true} />`,
+          },
+          {
+            topic: 'API 일관성 — color / size / disabled',
+            do: '모든 인터랙티브 컴포넌트는 동일한 color, size, disabled 인터페이스를 따릅니다.',
+            dont: '컴포넌트마다 다른 prop 이름을 사용하거나 HTML 속성을 직접 조작하지 않습니다.',
+            doCode: `// 통일된 인터페이스
+<SolidButton color="primary" size="medium" disabled />
+<OutlineButton color="black" size="large" disabled />
+<GhostButton color="gray" size="small" disabled />`,
+            dontCode: `// 임의로 색상을 인라인 스타일로 변경
+<SolidButton style={{ background: '#ff0000' }}>
+  버튼
+</SolidButton>`,
+          },
+        ].map(({ topic, do: doText, dont, doCode, dontCode }, i) => (
+          <div key={i} style={{ borderRadius: '14px', border: '1.5px solid #e2e8f0', overflow: 'hidden' }}>
+            <div style={{ padding: '14px 20px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0' }}>
+              <span style={{ fontSize: '13px', fontWeight: 700, color: '#475569' }}>{topic}</span>
+            </div>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 0 }}>
+              <div style={{ padding: '20px', borderRight: '1px solid #e2e8f0' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '10px' }}>
+                  <div style={{ width: '20px', height: '20px', borderRadius: '50%', background: '#10b981', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '11px', fontWeight: 800, color: '#fff' }}>O</div>
+                  <span style={{ fontSize: '12px', fontWeight: 700, color: '#10b981' }}>Do</span>
+                </div>
+                <p style={{ fontSize: '13px', color: '#475569', lineHeight: '1.6', margin: '0 0 12px' }}>{doText}</p>
+                <pre style={{ margin: 0, padding: '12px', borderRadius: '8px', background: '#f0fdf4', border: '1px solid #bbf7d0', fontSize: '11px', color: '#15803d', lineHeight: '1.6', overflowX: 'auto' }}>{doCode}</pre>
+              </div>
+              <div style={{ padding: '20px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '10px' }}>
+                  <div style={{ width: '20px', height: '20px', borderRadius: '50%', background: '#ef4444', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '11px', fontWeight: 800, color: '#fff' }}>X</div>
+                  <span style={{ fontSize: '12px', fontWeight: 700, color: '#ef4444' }}>Don't</span>
+                </div>
+                <p style={{ fontSize: '13px', color: '#475569', lineHeight: '1.6', margin: '0 0 12px' }}>{dont}</p>
+                <pre style={{ margin: 0, padding: '12px', borderRadius: '8px', background: '#fef2f2', border: '1px solid #fecaca', fontSize: '11px', color: '#b91c1c', lineHeight: '1.6', overflowX: 'auto' }}>{dontCode}</pre>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
 
-| 컴포넌트 | 설명 |
-|----------|------|
-| `AppBar` | 상단 앱 바 |
-| `TabGroup` | 탭 그룹 |
-| `TabItem` | 탭 아이템 |
-| `ScrollableTabGroup` | 스크롤 가능한 탭 그룹 |
-| `SegmentedControl` | 세그먼트 컨트롤 |
-| `PageDots` | 페이지 도트 인디케이터 |
-| `PageIndicator` | 페이지 인디케이터 |
-| `PageNumber` | 페이지 번호 인디케이터 |
+    {/* API Consistency */}
+    <section style={{ marginBottom: '64px' }}>
+      <h2 style={{ fontSize: '22px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '8px' }}>API 일관성</h2>
+      <p style={{ fontSize: '14px', color: '#64748b', marginBottom: '24px' }}>Ant Design에서 영감을 받아 모든 컴포넌트가 예측 가능한 인터페이스를 따릅니다.</p>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '14px' }}>
+        {[
+          { prop: 'color', values: '"primary" | "black" | "gray" | "white"', desc: '시각적 색상 변형. 모든 버튼/입력 컴포넌트에 동일하게 적용.' },
+          { prop: 'size', values: '"small" | "medium" | "large"', desc: '컴포넌트 크기. 패딩, 폰트, 아이콘 크기가 연동하여 변경.' },
+          { prop: 'disabled', values: 'boolean', desc: '비활성화 상태. HTML aria-disabled와 cursor: not-allowed가 자동 적용.' },
+          { prop: 'theme', values: 'ComponentToken 부분 오버라이드', desc: 'CSS 변수 없이 TypeScript로 토큰을 직접 오버라이드.' },
+          { prop: 'ref', values: 'ForwardedRef', desc: '모든 루트 엘리먼트에 forwardRef가 적용되어 DOM 접근 가능.' },
+          { prop: 'as', values: '"button" | "a" | ...', desc: '렌더링 엘리먼트를 변경. 링크 버튼 구현 시 사용.' },
+        ].map(({ prop, values, desc }, i) => (
+          <div key={i} style={{ padding: '18px', borderRadius: '10px', border: '1.5px solid #e2e8f0', background: '#fff' }}>
+            <code style={{ fontSize: '13px', fontWeight: 700, color: '#6366f1', background: '#f0f4ff', padding: '2px 8px', borderRadius: '5px' }}>{prop}</code>
+            <div style={{ fontSize: '11px', color: '#94a3b8', marginTop: '8px', marginBottom: '6px', fontFamily: 'monospace' }}>{values}</div>
+            <div style={{ fontSize: '12px', color: '#64748b', lineHeight: '1.5' }}>{desc}</div>
+          </div>
+        ))}
+      </div>
+    </section>
 
-```tsx
-import { AppBar, TabGroup, TabItem, ScrollableTabGroup } from '@orbit-ui/theme-eclipse'
-import { SegmentedControl } from '@orbit-ui/theme-eclipse'
-import { PageDots, PageIndicator, PageNumber } from '@orbit-ui/theme-eclipse'
-```
-
-<br />
-
-## Feedback
-
-| 컴포넌트 | 설명 |
-|----------|------|
-| `AlertDialog` | 알림 다이얼로그 |
-| `Modal` | 모달 다이얼로그 |
-| `Toast` | 토스트 알림 |
-
-```tsx
-import { AlertDialog, Modal, Toast } from '@orbit-ui/theme-eclipse'
-```
-
-<br />
-
-## Badges & Chips
-
-| 컴포넌트 | 설명 |
-|----------|------|
-| `CounterBadge` | 숫자 카운터 뱃지 |
-| `LabelBadge` | 라벨 뱃지 |
-| `AnimatedBadge` | 애니메이션 뱃지 |
-| `SpeechBadge` | 말풍선 뱃지 |
-| `Chip` | 칩 |
-| `ChipLink` | 링크 칩 |
-
-```tsx
-import { CounterBadge, LabelBadge, AnimatedBadge, SpeechBadge } from '@orbit-ui/theme-eclipse'
-import { Chip, ChipLink } from '@orbit-ui/theme-eclipse'
-```
-
-<br />
-
-## Layout & Typography
-
-| 컴포넌트 | 설명 |
-|----------|------|
-| `Text` | 텍스트 컴포넌트 |
-| `SectionTitle` | 섹션 타이틀 |
-| `Divider` | 구분선 |
-| `Space` | 여백 컴포넌트 |
-| `ListTile` | 리스트 타일 |
-
-```tsx
-import { Text, SectionTitle, Divider, Space, ListTile } from '@orbit-ui/theme-eclipse'
-```
-
-<br />
-
-## Provider
-
-| 컴포넌트 | 설명 |
-|----------|------|
-| `EclipseProvider` | 테마 Provider (앱 최상단에 배치) |
-
-```tsx
-import { EclipseProvider } from '@orbit-ui/theme-eclipse'
-```
+  </div>
+</Unstyled>

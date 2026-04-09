@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { PageDots } from './PageDots'
 
 const meta = {
-  title: 'eclipse/Indicators/PageDots',
+  title: 'eclipse/Navigation/PageDots',
   component: PageDots,
   args: {
     selected: false,

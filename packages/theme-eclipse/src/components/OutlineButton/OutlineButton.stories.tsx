@@ -1,5 +1,5 @@
-import { Flex } from '@orbit-ui/core'
-import { ChatLineIcon, ChevronRightLineIcon } from '@orbit-ui/icons'
+import { Flex } from '@heejun-com/core'
+import { ChatLineIcon, ChevronRightLineIcon } from '@heejun-com/icons'
 import { Meta, StoryObj } from '@storybook/react'
 
 import { OutlineButton, OutlineButtonProps } from '.'
@@ -16,7 +16,7 @@ OutlineButton.Center.displayName = 'OutlineButton.Center'
 OutlineButton.Trailing.displayName = 'OutlineButton.Trailing'
 
 const meta = {
-  title: 'eclipse/Buttons/OutlineButton',
+  title: 'eclipse/Actions/Buttons/OutlineButton',
   component: OutlineButton,
   args: { color: 'black', size: 'medium', disabled: false },
   argTypes: {
@@ -47,17 +47,20 @@ export const 색상 = {
   },
   render: (prop: OutlineButtonProps) => {
     return (
-      <Flex columnGap="20px" alignItems="center">
-        <OutlineButton {...prop} color="black">
-          <OutlineButton.Center>Black</OutlineButton.Center>
-        </OutlineButton>
-        <OutlineButton {...prop} color="primary">
-          <OutlineButton.Center>Primary</OutlineButton.Center>
-        </OutlineButton>
-        <OutlineButton {...prop} color="gray">
-          <OutlineButton.Center>Gray</OutlineButton.Center>
-        </OutlineButton>
-      </Flex>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+        <h4 style={{ margin: 0, fontSize: '14px', color: '#888' }}>Outline Colors</h4>
+        <Flex columnGap="24px" alignItems="center" flexWrap="wrap" rowGap="16px">
+          <OutlineButton {...prop} color="black">
+            <OutlineButton.Center>Black</OutlineButton.Center>
+          </OutlineButton>
+          <OutlineButton {...prop} color="primary">
+            <OutlineButton.Center>Primary</OutlineButton.Center>
+          </OutlineButton>
+          <OutlineButton {...prop} color="gray">
+            <OutlineButton.Center>Gray</OutlineButton.Center>
+          </OutlineButton>
+        </Flex>
+      </div>
     )
   },
 } satisfies Story
@@ -68,56 +71,38 @@ export const 사이즈 = {
   },
   render: (prop: OutlineButtonProps) => {
     return (
-      <Flex columnGap="20px" alignItems="center">
-        <OutlineButton {...prop} size="small">
-          <OutlineButton.Leading>
-            <ChatLineIcon />
-          </OutlineButton.Leading>
-          <OutlineButton.Center>Small Button</OutlineButton.Center>
-          <OutlineButton.Trailing>
-            <ChevronRightLineIcon size={iconSize.small} />
-          </OutlineButton.Trailing>
-        </OutlineButton>
-        <OutlineButton {...prop} size="medium">
-          <OutlineButton.Leading>
-            <ChatLineIcon />
-          </OutlineButton.Leading>
-          <OutlineButton.Center>Medium Button</OutlineButton.Center>
-          <OutlineButton.Trailing>
-            <ChevronRightLineIcon size={iconSize.medium} />
-          </OutlineButton.Trailing>
-        </OutlineButton>
-        <OutlineButton {...prop} size="large">
-          <OutlineButton.Leading>
-            <ChatLineIcon />
-          </OutlineButton.Leading>
-          <OutlineButton.Center>Large Button</OutlineButton.Center>
-          <OutlineButton.Trailing>
-            <ChevronRightLineIcon size={iconSize.large} />
-          </OutlineButton.Trailing>
-        </OutlineButton>
-      </Flex>
-    )
-  },
-} satisfies Story
-
-export const 로딩 = {
-  args: {
-    loading: true,
-    color: 'black',
-    size: 'medium',
-  },
-  render: (prop: OutlineButtonProps) => {
-    return (
-      <OutlineButton {...prop}>
-        <OutlineButton.Leading>
-          <ChatLineIcon />
-        </OutlineButton.Leading>
-        <OutlineButton.Center>버튼입니다</OutlineButton.Center>
-        <OutlineButton.Trailing>
-          <ChevronRightLineIcon size={iconSize[prop.size]} />
-        </OutlineButton.Trailing>
-      </OutlineButton>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+        <h4 style={{ margin: 0, fontSize: '14px', color: '#888' }}>Outline Sizes</h4>
+        <Flex columnGap="24px" alignItems="flex-end" flexWrap="wrap" rowGap="16px">
+          <OutlineButton {...prop} size="small">
+            <OutlineButton.Leading>
+              <ChatLineIcon />
+            </OutlineButton.Leading>
+            <OutlineButton.Center>Small</OutlineButton.Center>
+            <OutlineButton.Trailing>
+              <ChevronRightLineIcon size={iconSize.small} />
+            </OutlineButton.Trailing>
+          </OutlineButton>
+          <OutlineButton {...prop} size="medium">
+            <OutlineButton.Leading>
+              <ChatLineIcon />
+            </OutlineButton.Leading>
+            <OutlineButton.Center>Medium</OutlineButton.Center>
+            <OutlineButton.Trailing>
+              <ChevronRightLineIcon size={iconSize.medium} />
+            </OutlineButton.Trailing>
+          </OutlineButton>
+          <OutlineButton {...prop} size="large">
+            <OutlineButton.Leading>
+              <ChatLineIcon />
+            </OutlineButton.Leading>
+            <OutlineButton.Center>Large</OutlineButton.Center>
+            <OutlineButton.Trailing>
+              <ChevronRightLineIcon size={iconSize.large} />
+            </OutlineButton.Trailing>
+          </OutlineButton>
+        </Flex>
+      </div>
     )
   },
 } satisfies Story
@@ -139,19 +124,22 @@ export const 디자인QA = {
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
   render: ({ leading, trailing, color, size, loading, ...rest }: any) => {
     return (
-      <OutlineButton {...rest} color={color} size={size} loading={loading}>
-        {leading && (
-          <OutlineButton.Leading>
-            <ChatLineIcon />
-          </OutlineButton.Leading>
-        )}
-        <OutlineButton.Center>Black</OutlineButton.Center>
-        {trailing && (
-          <OutlineButton.Trailing>
-            <ChevronRightLineIcon size={iconSize[size as OutlineButtonProps['size']]} />
-          </OutlineButton.Trailing>
-        )}
-      </OutlineButton>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', paddingBottom: '2rem' }}>
+        <h4 style={{ margin: 0, fontSize: '14px', color: '#888' }}>Interactive Playground</h4>
+        <OutlineButton {...rest} color={color} size={size} loading={loading}>
+          {leading && (
+            <OutlineButton.Leading>
+              <ChatLineIcon />
+            </OutlineButton.Leading>
+          )}
+          <OutlineButton.Center>Black</OutlineButton.Center>
+          {trailing && (
+            <OutlineButton.Trailing>
+              <ChevronRightLineIcon size={iconSize[size as OutlineButtonProps['size']]} />
+            </OutlineButton.Trailing>
+          )}
+        </OutlineButton>
+      </div>
     )
   },
 }

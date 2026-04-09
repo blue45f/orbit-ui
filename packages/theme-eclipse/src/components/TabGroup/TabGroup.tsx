@@ -6,7 +6,7 @@ import {
   TabItemsTabProps,
   filterComponents,
   getReactElementRef,
-} from '@orbit-ui/core'
+} from '@heejun-com/core'
 import {
   Children,
   ComponentProps,
@@ -92,7 +92,7 @@ type FixedTabsComponent = typeof FixedTabsRoot & {
  * @example
  * ### 👇 기본 사용법
  * ```
- * import { Tabs } from '@orbit-ui/theme-eclipse'
+ * import { Tabs } from '@heejun-com/theme-eclipse'
  *
  * function App() {
  *   return (

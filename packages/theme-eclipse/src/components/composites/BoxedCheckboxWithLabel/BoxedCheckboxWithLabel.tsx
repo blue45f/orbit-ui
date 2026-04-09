@@ -1,4 +1,4 @@
-import { useUniqueID } from '@orbit-ui/core'
+import { useUniqueID } from '@heejun-com/core'
 import { assignInlineVars } from '@vanilla-extract/dynamic'
 import { forwardRef } from 'react'
 
@@ -28,7 +28,7 @@ export type BoxedCheckboxWithLabelProps = BoxedCheckboxProps & {
  * - `id` prop을 전달하지 않으면 자동으로 생성돼요.
  *
  * ```
- * import { BoxedCheckboxWithLabel } from '@orbit-ui/theme-eclipse/composites'
+ * import { BoxedCheckboxWithLabel } from '@heejun-com/theme-eclipse/composites'
  *
  * function App() {
  *   return <BoxedCheckboxWithLabel>기본</BoxedCheckboxWithLabel>

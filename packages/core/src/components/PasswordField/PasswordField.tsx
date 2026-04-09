@@ -31,7 +31,7 @@ export type PasswordFieldProps = PasswordFieldSpecificProps & {
  * @example
  * ### 👇 기본 사용법
  * ```tsx
- * import { PasswordField } from '@orbit-ui/core'
+ * import { PasswordField } from '@heejun-com/core'
  *
  * function App() {
  *   const [password, setPassword] = useState('')
@@ -49,7 +49,7 @@ export type PasswordFieldProps = PasswordFieldSpecificProps & {
  * @example
  * ### 👇 ref로 input 요소 접근
  * ```tsx
- * import { PasswordField } from '@orbit-ui/core'
+ * import { PasswordField } from '@heejun-com/core'
  * import { useRef } from 'react'
  *
  * function App() {

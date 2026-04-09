@@ -5,7 +5,7 @@ import { useState } from 'react'
 import { TextField } from './TextField'
 
 const meta = {
-  title: 'eclipse/Text Fields/TextField',
+  title: 'eclipse/Inputs/Text Fields/TextField',
   component: TextField,
   parameters: {
     layout: 'centered',

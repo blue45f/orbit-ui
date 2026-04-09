@@ -11,7 +11,7 @@ import { PageIndicator } from './PageIndicator'
 const generateDots = (count: number) => Array.from({ length: count }, (_, i) => <span key={i} />)
 
 const meta = {
-  title: 'eclipse/Indicators/PageIndicator',
+  title: 'eclipse/Navigation/PageIndicator',
   component: PageIndicator,
   argTypes: {
     onPageChange: { action: 'page changed' },

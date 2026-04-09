@@ -1,19 +1,19 @@
-# @orbit-ui/icons
+# @heejun-com/icons
 
-[![npm](https://img.shields.io/npm/v/@orbit-ui/icons)](https://www.npmjs.com/package/@orbit-ui/icons)
+[![npm](https://img.shields.io/npm/v/@heejun-com/icons)](https://www.npmjs.com/package/@heejun-com/icons)
 
 > SVG 아이콘 컴포넌트
 
 ## 설치
 
 ```bash
-pnpm add @orbit-ui/icons
+pnpm add @heejun-com/icons
 ```
 
 ## 사용법
 
 ```tsx
-import { PlusIcon, CheckIcon, CloseIcon } from '@orbit-ui/icons'
+import { PlusIcon, CheckIcon, CloseIcon } from '@heejun-com/icons'
 
 function App() {
   return (
@@ -29,8 +29,8 @@ function App() {
 ## 버튼과 함께 사용
 
 ```tsx
-import { SolidButton } from '@orbit-ui/theme-eclipse'
-import { PlusIcon } from '@orbit-ui/icons'
+import { SolidButton } from '@heejun-com/theme-eclipse'
+import { PlusIcon } from '@heejun-com/icons'
 
 function App() {
   return (
@@ -56,7 +56,7 @@ function App() {
 ## 아이콘 컨텍스트
 
 ```tsx
-import { IconPropsContext } from '@orbit-ui/icons'
+import { IconPropsContext } from '@heejun-com/icons'
 ;<IconPropsContext.Provider value={{ size: 20, color: 'blue' }}>
   <PlusIcon /> {/* 20px, blue */}
   <MinusIcon /> {/* 20px, blue */}

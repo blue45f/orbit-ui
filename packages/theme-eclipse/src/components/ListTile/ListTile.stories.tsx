@@ -1,10 +1,10 @@
-import { Flex } from '@orbit-ui/core'
-import { ChevronRightLineIcon, CheckIcon, ChevronDownLineIcon } from '@orbit-ui/icons'
+import { Flex } from '@heejun-com/core'
+import { ChevronRightLineIcon, CheckIcon, ChevronDownLineIcon } from '@heejun-com/icons'
 import type { Meta, StoryObj } from '@storybook/react'
 
 import { ContainedCheckbox } from '../BoxedCheckbox'
 import { Radio } from '../RadioButton'
-import { Switch } from '../Toggle'
+import { Switch } from '../Switch'
 
 import { ListTile } from './ListTile'
 
@@ -15,7 +15,7 @@ ListTile.Description.displayName = 'ListTile.Description'
 ListTile.Trailing.displayName = 'ListTile.Trailing'
 
 const meta = {
-  title: 'eclipse/Lists/ListTile',
+  title: 'eclipse/Data Display/ListTile',
   component: ListTile,
   parameters: {
     layout: 'centered',

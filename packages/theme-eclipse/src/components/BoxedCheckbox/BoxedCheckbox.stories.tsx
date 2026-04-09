@@ -6,7 +6,7 @@ import { BoxedCheckbox } from './BoxedCheckbox'
 BoxedCheckbox.displayName = 'BoxedCheckbox'
 
 const meta = {
-  title: 'eclipse/Checkbox/BoxedCheckbox',
+  title: 'eclipse/Inputs/Selection/BoxedCheckbox',
   component: BoxedCheckbox,
   args: {
     disabled: false,

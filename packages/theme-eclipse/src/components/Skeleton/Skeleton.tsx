@@ -1,8 +1,22 @@
-import { Skeleton as CoreSkeleton } from '@orbit-ui/core'
-import type { ComponentPropsWithoutRef } from 'react'
+import React from 'react'
+import clsx from 'clsx'
+import * as styles from './Skeleton.css'
 
-export type SkeletonProps = ComponentPropsWithoutRef<typeof CoreSkeleton>
+export type SkeletonProps = React.HTMLAttributes<HTMLDivElement> & {
+  width?: string | number
+  height?: string | number
+}
 
-export const Skeleton = (props: SkeletonProps) => {
-  return <CoreSkeleton {...props} />
+export const Skeleton = ({ className, style, width, height, ...props }: SkeletonProps) => {
+  return (
+    <div
+      className={clsx(styles.skeleton, className)}
+      style={{
+        width: width ?? style?.width,
+        height: height ?? style?.height,
+        ...style,
+      }}
+      {...props}
+    />
+  )
 }

@@ -4,7 +4,7 @@ import {
   Chip,
   ChipPropsAsAnchor,
   ChipSpecificProps,
-} from '@orbit-ui/core'
+} from '@heejun-com/core'
 import { Children, forwardRef, ReactNode } from 'react'
 
 import { vars } from '../../styles/theme.css'
@@ -45,7 +45,6 @@ type ChipLinkComponent = typeof ChipLinkRoot & {
 
 /**
  * ### 💡 알아두기
- * [🔗 figma 디자인가이드라인 바로가기](https://www.figma.com/design/pDTX2coGNHcsL25Jy6vsRZ/0.10.12-Chip%2C-Badge%2C-Button?node-id=12166-1102&t=qSEdzclH9DZ1OLxr-4)
  *
  * ### 🧩 서브컴포넌트
  * - {@link Leading `ChipLink.Leading`} 시작 영역
@@ -53,12 +52,12 @@ type ChipLinkComponent = typeof ChipLinkRoot & {
  * @example
  * ### 👇 기본 사용법
  * ```
- * import { ChipLink } from '@orbit-ui/theme-eclipse'
- * import { CheckIcon } from '@orbit-ui/icons'
+ * import { ChipLink } from '@heejun-com/theme-eclipse'
+ * import { CheckIcon } from '@heejun-com/icons'
  *
  * function App() {
  *   return (
- *     <ChipLink href='https://www.orbit-ui.dev' target='_blank'>
+ *     <ChipLink href='https://github.com/blue45f/ui-forge' target='_blank'>
  *       <ChipLink.Leading>
  *         <CheckIcon size={24} />
  *       </ChipLink.Leading>

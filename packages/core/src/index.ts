@@ -1,5 +1,5 @@
 /* ========================================================================
- * @orbit-ui/core
+ * @heejun-com/core
  *
  * Foundation layer for Clay design system components.
  * Provides unstyled, accessible base components.

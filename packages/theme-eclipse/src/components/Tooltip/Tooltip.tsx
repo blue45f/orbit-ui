@@ -1,4 +1,4 @@
-import { Tooltip as CoreTooltip } from '@orbit-ui/core'
+import { Tooltip as CoreTooltip } from '@heejun-com/core'
 import React from 'react'
 
 export type TooltipProps = React.ComponentPropsWithoutRef<typeof CoreTooltip>

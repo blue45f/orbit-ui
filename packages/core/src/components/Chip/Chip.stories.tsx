@@ -1,4 +1,4 @@
-import { CancelIcon, CheckIcon, MinusIcon } from '@orbit-ui/icons'
+import { CancelIcon, CheckIcon, MinusIcon } from '@heejun-com/icons'
 import { Meta, StoryObj } from '@storybook/react'
 import { useState } from 'react'
 

@@ -1,4 +1,4 @@
-import { IconPropsContext } from '@orbit-ui/icons'
+import { IconPropsContext } from '@heejun-com/icons'
 import { Children, forwardRef, MouseEvent, ReactNode, useCallback } from 'react'
 
 import { cn } from '../../styles'

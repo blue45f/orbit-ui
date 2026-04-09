@@ -1,4 +1,4 @@
-import { useUniqueID } from '@orbit-ui/core'
+import { useUniqueID } from '@heejun-com/core'
 import { Meta, StoryObj } from '@storybook/react'
 import { useState } from 'react'
 
@@ -7,7 +7,7 @@ import { RadioGroup, useRadioGroupContext } from './RadioGroup'
 RadioGroup.displayName = 'RadioGroup'
 
 const meta = {
-  title: 'eclipse/Composites/RadioGroup',
+  title: 'eclipse/Inputs/Selection/RadioGroup',
   component: RadioGroup,
   args: {
     name: '',
@@ -66,13 +66,13 @@ export const 제어 = {
         }}
       >
         <Radio id="controlled-1" value="blue">
-          블루
+          인디고
         </Radio>
         <Radio id="controlled-2" value="foundation">
           코어
         </Radio>
         <Radio id="controlled-3" value="primary">
-          민트
+          에메랄드
         </Radio>
       </RadioGroup>
     )
@@ -84,13 +84,13 @@ export const 비제어 = {
     return (
       <RadioGroup name="pkg" defaultValue="blue" onChange={args.onChange}>
         <Radio id="uncontrolled-1" value="blue">
-          블루
+          인디고
         </Radio>
         <Radio id="uncontrolled-2" value="foundation">
           코어
         </Radio>
         <Radio id="uncontrolled-3" value="primary">
-          민트
+          에메랄드
         </Radio>
       </RadioGroup>
     )

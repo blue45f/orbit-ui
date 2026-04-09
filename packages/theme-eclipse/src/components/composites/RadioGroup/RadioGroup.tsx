@@ -1,4 +1,4 @@
-import { setupContext, styleProtected, StyleProtected, useControllableState } from '@orbit-ui/core'
+import { setupContext, styleProtected, StyleProtected, useControllableState } from '@heejun-com/core'
 import { forwardRef } from 'react'
 
 import * as styles from './RadioGroup.css'

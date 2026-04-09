@@ -3,8 +3,8 @@ import {
   BaseCheckbox,
   BaseCheckboxProps,
   BaseCheckboxSpecificProps,
-} from '@orbit-ui/core'
-import { CheckIcon, MinusIcon } from '@orbit-ui/icons'
+} from '@heejun-com/core'
+import { CheckIcon, MinusIcon } from '@heejun-com/icons'
 import { forwardRef } from 'react'
 
 import { vars } from '../../styles/theme.css'
@@ -22,7 +22,7 @@ export type CheckboxProps = Omit<BaseCheckboxProps, keyof BaseCheckboxSpecificPr
  * @example
  * ### 👇 기본 사용법
  * ```
- * import { Checkbox } from '@orbit-ui/theme-eclipse'
+ * import { Checkbox } from '@heejun-com/theme-eclipse'
  *
  * function App() {
  *   return (

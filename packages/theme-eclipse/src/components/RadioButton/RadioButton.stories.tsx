@@ -1,4 +1,4 @@
-import { Flex } from '@orbit-ui/core'
+import { Flex } from '@heejun-com/core'
 import { Meta, StoryObj } from '@storybook/react'
 import { useState } from 'react'
 
@@ -7,7 +7,7 @@ import { RadioButton } from './RadioButton'
 RadioButton.displayName = 'RadioButton'
 
 const meta = {
-  title: 'eclipse/Inputs/RadioButton',
+  title: 'eclipse/Inputs/Selection/RadioButton',
   component: RadioButton,
   args: {
     disabled: false,
@@ -102,7 +102,7 @@ export const 라벨_추가 = {
               checked={selected === 'blue'}
               onChange={() => setSelected('blue')}
             />
-            <label htmlFor="blue">블루</label>
+            <label htmlFor="blue">인디고</label>
           </Flex>
           <Flex columnGap="10px">
             <RadioButton

@@ -1,5 +1,5 @@
-import { ComponentThemeProps, Checkbox, CheckboxProps, CheckboxSpecificProps } from '@orbit-ui/core'
-import { CheckIcon, MinusIcon } from '@orbit-ui/icons'
+import { ComponentThemeProps, Checkbox, CheckboxProps, CheckboxSpecificProps } from '@heejun-com/core'
+import { CheckIcon, MinusIcon } from '@heejun-com/icons'
 import { forwardRef } from 'react'
 
 import { vars } from '../../styles/theme.css'
@@ -17,7 +17,7 @@ export type BoxedCheckboxProps = Omit<CheckboxProps, keyof CheckboxSpecificProps
  * @example
  * ### 👇 기본 사용법
  * ```
- * import { BoxedCheckbox } from '@orbit-ui/theme-eclipse'
+ * import { BoxedCheckbox } from '@heejun-com/theme-eclipse'
  *
  * function App() {
  *   return (

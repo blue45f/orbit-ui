@@ -5,8 +5,8 @@ import {
   ComponentThemeProps,
   composeRefs,
   useFocus,
-} from '@orbit-ui/core'
-import { CircleCancelFillIcon, SearchIcon } from '@orbit-ui/icons'
+} from '@heejun-com/core'
+import { CircleCancelFillIcon, SearchIcon } from '@heejun-com/icons'
 import React, { AllHTMLAttributes, forwardRef, useState } from 'react'
 
 import { vars } from '../../styles/theme.css'
@@ -26,7 +26,6 @@ export type SearchBarProps = Omit<
 
 /**
  * ### 💡 알아두기
- * [🔗 figma 디자인가이드라인 바로가기](https://www.figma.com/design/nvbYsAN7MkMtI50gQpoWdk/-%EB%AF%BC%ED%8A%B8-2.0--%ED%81%B4%EB%A0%88%EC%9D%B4%EB%AF%BC%ED%8A%B8?node-id=3690-51255&m=dev)
  *
  * 검색어 입력을 위한 컴포넌트예요.
  * TextField를 재사용하며, eclipse theme의 Component Token이 적용되어 있어요.
@@ -35,7 +34,7 @@ export type SearchBarProps = Omit<
  * @example
  * ### 👇 기본 사용법
  * ```tsx
- * import { SearchBar } from '@orbit-ui/theme-eclipse'
+ * import { SearchBar } from '@heejun-com/theme-eclipse'
  *
  * function App() {
  *   const [value, setValue] = useState('')

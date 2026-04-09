@@ -32,7 +32,7 @@ export type SpinnerProps = {
  * @example
  * ### 👇 기본 사용법
  * ```
- * import { Spinner } from '@orbit-ui/theme-eclipse'
+ * import { Spinner } from '@heejun-com/theme-eclipse'
  *
  * function App() {
  *  return (

@@ -5,8 +5,8 @@ import {
   ComponentThemeProps,
   findComponent,
   polymorphic,
-} from '@orbit-ui/core'
-import { IconPropsContext } from '@orbit-ui/icons'
+} from '@heejun-com/core'
+import { IconPropsContext } from '@heejun-com/icons'
 import { Children } from 'react'
 
 import { vars } from '../../styles/theme.css'
@@ -149,7 +149,7 @@ type ListTileComponent = typeof ListTileRoot & {
  * @example
  * ### 👇 기본 사용법
  * ```tsx
- * import { ListTile } from '@orbit-ui/theme-eclipse'
+ * import { ListTile } from '@heejun-com/theme-eclipse'
  *
  * function App() {
  *   return (
@@ -168,7 +168,7 @@ type ListTileComponent = typeof ListTileRoot & {
  * @example
  * ### 👇 인터랙티브한 List Item
  * ```tsx
- * import { ListTile } from '@orbit-ui/theme-eclipse'
+ * import { ListTile } from '@heejun-com/theme-eclipse'
  *
  * function App() {
  *   return (

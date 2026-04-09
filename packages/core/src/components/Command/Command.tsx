@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Command as CommandPrimitive } from 'cmdk'
-import { SearchIcon } from '@orbit-ui/icons'
+import { SearchIcon } from '@heejun-com/icons'
 
 import { cn } from '../../styles'
 

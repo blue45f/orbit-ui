@@ -5,7 +5,7 @@ import {
   ButtonProps,
   ButtonSpecificProps,
   ComponentThemeProps,
-} from '@orbit-ui/core'
+} from '@heejun-com/core'
 import React, { AllHTMLAttributes, Children, forwardRef, ReactNode } from 'react'
 
 import { vars } from '../../styles/theme.css'
@@ -154,7 +154,6 @@ type OutlineButtonComponent = typeof OutlineButtonRoot & {
 
 /**
  * ### 💡 알아두기
- * [🔗 figma 디자인가이드라인 바로가기](https://www.figma.com/design/nvbYsAN7MkMtI50gQpoWdk/-%EC%9E%91%EC%97%85%EC%A4%91--%F0%9F%A9%B5-%ED%81%B4%EB%A0%88%EC%9D%B4-%EB%AF%BC%ED%8A%B8-2.0?node-id=2221-37482&m=dev)
  *
  * 보조적인 액션에 사용되는 버튼이에요.
  *
@@ -166,7 +165,7 @@ type OutlineButtonComponent = typeof OutlineButtonRoot & {
  * @example
  * ### 👇 기본 사용법
  * ```tsx
- * import { OutlineButton, ChatLineIcon, ChevronRightLineIcon } from '@orbit-ui/theme-eclipse'
+ * import { OutlineButton, ChatLineIcon, ChevronRightLineIcon } from '@heejun-com/theme-eclipse'
  *
  * function App() {
  *   return (
