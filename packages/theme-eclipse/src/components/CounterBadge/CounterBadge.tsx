@@ -6,7 +6,7 @@ import {
   polymorphic,
 } from '@heejun-com/core'
 
-import { vars } from '../../styles/theme.css'
+import { vars } from '../../styles/theme-vars'
 
 const MAX_COUNT = 99
 

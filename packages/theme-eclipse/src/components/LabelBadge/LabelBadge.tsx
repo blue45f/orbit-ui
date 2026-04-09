@@ -2,7 +2,7 @@ import { ComponentThemeProps, Style, Badge, findComponent, polymorphic } from '@
 import { IconPropsContext } from '@heejun-com/icons'
 import { Children } from 'react'
 
-import { vars } from '../../styles/theme.css'
+import { vars } from '../../styles/theme-vars'
 
 export type LabelBadgeProps = {
   color?: 'gray' | 'benefit' | 'sale'

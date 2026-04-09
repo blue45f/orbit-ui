@@ -7,7 +7,7 @@ import {
 import { IconPropsContext } from '@heejun-com/icons'
 import { AllHTMLAttributes, Children, forwardRef, ReactNode, useMemo, useState } from 'react'
 
-import { vars } from '../../styles/theme.css'
+import { vars } from '../../styles/theme-vars'
 
 export type DropdownProps = Omit<BaseDropdownProps, 'theme' | 'height'> &
   ComponentThemeProps<Omit<typeof vars.com.select, 'variant'>> &

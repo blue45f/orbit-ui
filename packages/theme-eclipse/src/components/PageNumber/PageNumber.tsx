@@ -7,7 +7,7 @@ import {
 } from '@heejun-com/core'
 import { Children, forwardRef } from 'react'
 
-import { vars } from '../../styles/theme.css'
+import { vars } from '../../styles/theme-vars'
 
 export type PageNumberProps = Omit<BasePageNumberProps, keyof BasePageNumberSpecificProps> &
   ComponentThemeProps<typeof vars.com.pageCounter>

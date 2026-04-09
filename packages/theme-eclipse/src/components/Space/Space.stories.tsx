@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { Meta } from '@storybook/react'
 
-import { vars } from '../../styles/theme.css'
+import { vars } from '../../styles/theme-vars'
 import { OutlinedButton } from '../OutlineButton'
 
 import { Space, SpaceProps, Spacing } from './Space'

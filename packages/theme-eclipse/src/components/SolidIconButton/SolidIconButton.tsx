@@ -1,7 +1,7 @@
 import { Button, ButtonProps, ButtonSpecificProps, ComponentThemeProps } from '@heejun-com/core'
 import React, { AllHTMLAttributes, forwardRef } from 'react'
 
-import { vars } from '../../styles/theme.css'
+import { vars } from '../../styles/theme-vars'
 
 const FILLED_ICON_BUTTON_SIZE_MAP = {
   small: {

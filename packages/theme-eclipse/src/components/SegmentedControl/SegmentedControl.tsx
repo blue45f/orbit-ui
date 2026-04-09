@@ -16,7 +16,7 @@ import {
   ReactNode,
 } from 'react'
 
-import { vars } from '../../styles/theme.css'
+import { vars } from '../../styles/theme-vars'
 
 export type SegmentedControlProps = Omit<TabItemsProps, keyof TabItemsSpecificProps> &
   ComponentThemeProps<typeof vars.com.segmentedControl>

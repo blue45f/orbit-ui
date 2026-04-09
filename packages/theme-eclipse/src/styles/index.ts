@@ -1,2 +1,2 @@
-export * from './theme.css'
+export * from './theme-vars'
 export * from './cn'

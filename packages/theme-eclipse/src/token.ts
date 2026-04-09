@@ -1,1 +1,1 @@
-export { vars } from './styles/theme.css'
+export { vars } from './styles/theme-vars'

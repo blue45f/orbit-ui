@@ -1,7 +1,7 @@
 import { TextStyleBaseSize } from '@heejun-com/core'
 import clsx from 'clsx'
 
-import { darkTheme, lightTheme, textStyleTheme } from '../styles/theme.css'
+import { darkTheme, lightTheme, textStyleTheme } from '../styles/theme-vars'
 
 type Options = {
   /** @defaultValue `light` */

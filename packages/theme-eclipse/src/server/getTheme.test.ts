@@ -1,6 +1,6 @@
 import { expect, test } from 'vitest'
 
-import { lightTheme, darkTheme } from '../styles/theme.css'
+import { lightTheme, darkTheme } from '../styles/theme-vars'
 
 import { getTheme } from './getTheme'
 

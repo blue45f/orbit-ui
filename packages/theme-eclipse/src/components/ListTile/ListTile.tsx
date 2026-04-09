@@ -9,7 +9,7 @@ import {
 import { IconPropsContext } from '@heejun-com/icons'
 import { Children } from 'react'
 
-import { vars } from '../../styles/theme.css'
+import { vars } from '../../styles/theme-vars'
 import { Typography } from '../Text'
 
 export type ListTileProps = Omit<ListNodeProps, keyof ListNodeSpecificProps> &

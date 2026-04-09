@@ -7,7 +7,7 @@ import {
 } from '@heejun-com/core'
 import { Children, forwardRef, PropsWithChildren, ReactNode } from 'react'
 
-import { vars } from '../../styles/theme.css'
+import { vars } from '../../styles/theme-vars'
 
 export type TabProps = Omit<TabItemProps, keyof TabItemSpecificProps> &
   ComponentThemeProps<typeof vars.com.tab>

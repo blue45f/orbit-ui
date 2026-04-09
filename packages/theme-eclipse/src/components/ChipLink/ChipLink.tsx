@@ -7,7 +7,7 @@ import {
 } from '@heejun-com/core'
 import { Children, forwardRef, ReactNode } from 'react'
 
-import { vars } from '../../styles/theme.css'
+import { vars } from '../../styles/theme-vars'
 
 export type ChipLinkProps = Omit<ChipPropsAsAnchor, keyof ChipSpecificProps | 'as'> &
   ComponentThemeProps<typeof vars.com.chip>

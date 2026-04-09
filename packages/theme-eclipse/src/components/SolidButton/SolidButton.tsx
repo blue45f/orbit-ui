@@ -9,7 +9,7 @@ import {
 import clsx from 'clsx'
 import React, { AllHTMLAttributes, Children, forwardRef, ReactNode } from 'react'
 
-import { vars } from '../../styles/theme.css'
+import { vars } from '../../styles/theme-vars'
 
 import * as styles from './SolidButton.css'
 

@@ -1,7 +1,7 @@
 import { Flex, TextStyleBaseSize } from '@heejun-com/core'
 import { Meta, StoryObj } from '@storybook/react'
 
-import { vars } from '../../styles/theme.css'
+import { vars } from '../../styles/theme-vars'
 import { EclipseProvider } from '../EclipseProvider'
 
 import { ForcedTextStyle, Text } from './Text'

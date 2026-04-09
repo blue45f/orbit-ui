@@ -7,7 +7,7 @@ import {
 } from '@heejun-com/core'
 import { Children, forwardRef, ReactNode } from 'react'
 
-import { vars } from '../../styles/theme.css'
+import { vars } from '../../styles/theme-vars'
 
 import * as styles from './Chip.css'
 

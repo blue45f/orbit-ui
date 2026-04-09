@@ -7,7 +7,7 @@ import {
 import { CircleCancelFillIcon } from '@heejun-com/icons'
 import { AllHTMLAttributes, forwardRef, ReactNode } from 'react'
 
-import { vars } from '../../styles/theme.css'
+import { vars } from '../../styles/theme-vars'
 import { FilledIconButton } from '../SolidIconButton'
 
 import * as styles from './TextField.css'

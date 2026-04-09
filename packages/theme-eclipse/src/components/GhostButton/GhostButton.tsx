@@ -7,7 +7,7 @@ import {
 } from '@heejun-com/core'
 import React, { AllHTMLAttributes, Children, forwardRef, ReactNode } from 'react'
 
-import { vars } from '../../styles/theme.css'
+import { vars } from '../../styles/theme-vars'
 
 const TEXT_BUTTON_SIZE_MAP = {
   small: {

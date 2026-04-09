@@ -1,6 +1,6 @@
 import { ComponentThemeProps, Style, Badge, polymorphic } from '@heejun-com/core'
 
-import { vars } from '../../styles/theme.css'
+import { vars } from '../../styles/theme-vars'
 
 import * as styles from './SpeechBadge.css'
 

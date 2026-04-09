@@ -7,7 +7,7 @@ import {
 import { CircleCancelFillIcon } from '@heejun-com/icons'
 import React, { AllHTMLAttributes, forwardRef } from 'react'
 
-import { vars } from '../../styles/theme.css'
+import { vars } from '../../styles/theme-vars'
 import { FilledIconButton } from '../SolidIconButton'
 
 export type FloatingTextFieldProps = Omit<

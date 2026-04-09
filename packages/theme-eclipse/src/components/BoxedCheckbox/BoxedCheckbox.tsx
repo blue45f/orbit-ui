@@ -2,7 +2,7 @@ import { ComponentThemeProps, Checkbox, CheckboxProps, CheckboxSpecificProps } f
 import { CheckIcon, MinusIcon } from '@heejun-com/icons'
 import { forwardRef } from 'react'
 
-import { vars } from '../../styles/theme.css'
+import { vars } from '../../styles/theme-vars'
 
 export type BoxedCheckboxProps = Omit<CheckboxProps, keyof CheckboxSpecificProps> &
   ComponentThemeProps<typeof vars.com.containedCheckbox> & {

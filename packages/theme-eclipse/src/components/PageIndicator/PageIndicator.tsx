@@ -6,7 +6,7 @@ import {
 } from '@heejun-com/core'
 import { forwardRef } from 'react'
 
-import { vars } from '../../styles/theme.css'
+import { vars } from '../../styles/theme-vars'
 
 export type PageIndicatorProps = Omit<
   BasePageIndicatorProps,

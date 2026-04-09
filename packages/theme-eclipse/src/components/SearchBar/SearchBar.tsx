@@ -9,7 +9,7 @@ import {
 import { CircleCancelFillIcon, SearchIcon } from '@heejun-com/icons'
 import React, { AllHTMLAttributes, forwardRef, useState } from 'react'
 
-import { vars } from '../../styles/theme.css'
+import { vars } from '../../styles/theme-vars'
 import { FilledIconButton } from '../SolidIconButton'
 import { Typography } from '../Text'
 

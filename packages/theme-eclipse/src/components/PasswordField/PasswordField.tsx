@@ -6,7 +6,7 @@ import {
 } from '@heejun-com/core'
 import { AllHTMLAttributes, forwardRef } from 'react'
 
-import { vars } from '../../styles/theme.css'
+import { vars } from '../../styles/theme-vars'
 
 export type PasswordFieldProps = Omit<
   Omit<BasePasswordFieldProps, keyof BasePasswordFieldSpecificProps>,

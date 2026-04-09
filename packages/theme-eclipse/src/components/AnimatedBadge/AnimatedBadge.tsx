@@ -8,7 +8,7 @@ import {
 import { IconPropsContext } from '@heejun-com/icons'
 import { Children } from 'react'
 
-import { vars } from '../../styles/theme.css'
+import { vars } from '../../styles/theme-vars'
 
 import * as styles from './AnimatedBadge.css'
 

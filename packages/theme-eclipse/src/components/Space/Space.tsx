@@ -1,6 +1,6 @@
 import { BaseSpace, errorDev } from '@heejun-com/core'
 
-import { vars } from '../../styles/theme.css'
+import { vars } from '../../styles/theme-vars'
 
 export type Spacing = `${keyof typeof vars.ref.spacing}`
 

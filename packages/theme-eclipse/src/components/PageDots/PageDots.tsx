@@ -6,7 +6,7 @@ import {
 } from '@heejun-com/core'
 import { forwardRef } from 'react'
 
-import { vars } from '../../styles/theme.css'
+import { vars } from '../../styles/theme-vars'
 
 export type PageDotsProps = Omit<BasePageDotsProps, keyof BasePageDotsSpecificProps | 'size'> &
   ComponentThemeProps<typeof vars.com.dotIndicator>
