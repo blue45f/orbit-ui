@@ -1361,3 +1361,447 @@ const EcommerceRender = () => {
 export const EcommerceMarket: Story = {
   render: () => <EcommerceRender />,
 }
+
+/* =================================================================
+   6. SocialFeed (Mobile)
+   ================================================================= */
+const SocialFeedRender = () => {
+  const [likedPosts, setLikedPosts] = useState<Set<number>>(new Set([2]))
+  const [savedPosts, setSavedPosts] = useState<Set<number>>(new Set())
+  const [activeTab, setActiveTab] = useState('for-you')
+
+  const toggleLike = (id: number) => {
+    setLikedPosts((prev) => {
+      const next = new Set(prev)
+      if (next.has(id)) next.delete(id)
+      else next.add(id)
+      return next
+    })
+  }
+
+  const toggleSave = (id: number) => {
+    setSavedPosts((prev) => {
+      const next = new Set(prev)
+      if (next.has(id)) next.delete(id)
+      else next.add(id)
+      return next
+    })
+  }
+
+  const feedTabs = [
+    { id: 'for-you', label: '추천' },
+    { id: 'following', label: '팔로잉' },
+    { id: 'trending', label: '트렌딩' },
+  ]
+
+  const posts = [
+    {
+      id: 1,
+      author: { name: 'Kim Jihye', handle: '@jihye_k', initials: 'KJ', color: '#6366f1', verified: true },
+      time: '3분 전',
+      content: 'Design systems are not just about components — they are about shared language. When every team speaks the same visual grammar, shipping fast becomes the default.',
+      tag: '#디자인시스템',
+      likes: 142,
+      comments: 28,
+      reposts: 14,
+    },
+    {
+      id: 2,
+      author: { name: 'Park Minjun', handle: '@minjun_dev', initials: 'PM', color: '#10b981', verified: false },
+      time: '1시간 전',
+      content: 'Orbit UI로 컴포넌트 개발 속도가 3배 빨라졌습니다. 특히 3단계 토큰 시스템 덕분에 테마 전환이 매우 간편해졌어요.',
+      tag: '#OrbitUI',
+      likes: 89,
+      comments: 12,
+      reposts: 7,
+    },
+    {
+      id: 3,
+      author: { name: 'Lee Soyeon', handle: '@soyeon_ux', initials: 'LS', color: '#f59e0b', verified: true },
+      time: '2시간 전',
+      content: 'shadcn/ui에서 영감을 받아 Orbit UI에 복사-붙여넣기 방식의 스토리를 추가했습니다. 개발자가 바로 사용할 수 있는 코드 예시가 핵심입니다.',
+      tag: '#개발자경험',
+      likes: 213,
+      comments: 41,
+      reposts: 32,
+    },
+    {
+      id: 4,
+      author: { name: 'Choi Dongwook', handle: '@dongwook_eng', initials: 'CD', color: '#ef4444', verified: false },
+      time: '5시간 전',
+      content: 'TypeScript strict mode + vanilla-extract 조합은 런타임 오류를 거의 완전히 제거해줍니다. 컴파일 타임에 모든 CSS 타입을 검증하는 것이 게임 체인저.',
+      tag: '#TypeScript',
+      likes: 67,
+      comments: 9,
+      reposts: 5,
+    },
+  ]
+
+  const suggestions = [
+    { name: 'Yoon Haerin', handle: '@haerin_design', initials: 'YH', color: '#8b5cf6' },
+    { name: 'Oh Hyunjun', handle: '@hjunkim', initials: 'OH', color: '#06b6d4' },
+    { name: 'Han Jiyoung', handle: '@jiyoung_ux', initials: 'HJ', color: '#ec4899' },
+  ]
+
+  return (
+    <div
+      style={{
+        minHeight: '100vh',
+        background: tc.bg,
+        display: 'flex',
+        justifyContent: 'center',
+        padding: '0',
+      }}
+    >
+      <div style={{ width: '100%', maxWidth: '600px', display: 'flex', flexDirection: 'column' }}>
+        {/* AppBar */}
+        <div
+          style={{
+            position: 'sticky',
+            top: 0,
+            zIndex: 50,
+            background: tc.bg,
+            borderBottom: `1px solid ${tc.border}`,
+          }}
+        >
+          <AppBar>
+            <AppBar.Leading>
+              <div
+                style={{
+                  width: '32px',
+                  height: '32px',
+                  borderRadius: '50%',
+                  background: '#6366f1',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: '#fff',
+                  fontSize: '13px',
+                  fontWeight: '700',
+                }}
+              >
+                O
+              </div>
+            </AppBar.Leading>
+            <AppBar.Center>
+              <Text textStyle="subheadingMedium" style={{ color: tc.fg, fontWeight: '800' }}>
+                Orbit Feed
+              </Text>
+            </AppBar.Center>
+            <AppBar.Trailing>
+              <SolidIconButton color="black" size="small">
+                <NotificationLineIcon />
+              </SolidIconButton>
+            </AppBar.Trailing>
+          </AppBar>
+        </div>
+
+        {/* Feed Tabs */}
+        <div
+          style={{
+            display: 'flex',
+            borderBottom: `1px solid ${tc.border}`,
+            background: tc.bg,
+            position: 'sticky',
+            top: '56px',
+            zIndex: 40,
+          }}
+        >
+          {feedTabs.map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              style={{
+                flex: 1,
+                padding: '14px 0',
+                border: 'none',
+                background: 'transparent',
+                cursor: 'pointer',
+                fontSize: '14px',
+                fontWeight: activeTab === tab.id ? '700' : '500',
+                color: activeTab === tab.id ? tc.fillPrimary : tc.fgMuted,
+                borderBottom: activeTab === tab.id ? `2px solid ${tc.fillPrimary}` : '2px solid transparent',
+                transition: 'all 0.15s ease',
+              }}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </div>
+
+        {/* Feed Posts */}
+        <div style={{ flex: 1 }}>
+          {posts.map((post, index) => (
+            <div key={post.id}>
+              <div style={{ padding: '16px' }}>
+                {/* Post Header */}
+                <div style={{ display: 'flex', gap: '12px', marginBottom: '10px' }}>
+                  <div style={{ flexShrink: 0 }}>
+                    <div
+                      style={{
+                        width: '40px',
+                        height: '40px',
+                        borderRadius: '50%',
+                        background: post.author.color,
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        color: '#fff',
+                        fontSize: '13px',
+                        fontWeight: '700',
+                      }}
+                    >
+                      {post.author.initials}
+                    </div>
+                  </div>
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '4px', marginBottom: '2px' }}>
+                      <Text
+                        textStyle="subheadingSmall"
+                        style={{ color: tc.fg, fontWeight: '700' }}
+                      >
+                        {post.author.name}
+                      </Text>
+                      {post.author.verified && (
+                        <span
+                          style={{
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            width: '16px',
+                            height: '16px',
+                            borderRadius: '50%',
+                            background: '#6366f1',
+                            color: '#fff',
+                            fontSize: '9px',
+                            fontWeight: '800',
+                          }}
+                        >
+                          V
+                        </span>
+                      )}
+                      <Text textStyle="descriptionSmall" style={{ color: tc.fgMuted }}>
+                        {post.author.handle}
+                      </Text>
+                      <Text textStyle="descriptionSmall" style={{ color: tc.fgMuted, marginLeft: 'auto', flexShrink: 0 }}>
+                        {post.time}
+                      </Text>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Post Content */}
+                <div style={{ marginLeft: '52px' }}>
+                  <Text
+                    textStyle="bodyMedium"
+                    style={{ color: tc.fg, lineHeight: '1.6', display: 'block', marginBottom: '8px' }}
+                  >
+                    {post.content}
+                  </Text>
+                  <Chip>
+                    {post.tag}
+                  </Chip>
+
+                  {/* Post Actions */}
+                  <div
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '0',
+                      marginTop: '12px',
+                      marginLeft: '-8px',
+                    }}
+                  >
+                    {/* Like */}
+                    <button
+                      onClick={() => toggleLike(post.id)}
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '6px',
+                        padding: '6px 8px',
+                        border: 'none',
+                        background: 'transparent',
+                        cursor: 'pointer',
+                        borderRadius: '8px',
+                        color: likedPosts.has(post.id) ? '#ef4444' : tc.fgMuted,
+                        fontSize: '13px',
+                        fontWeight: likedPosts.has(post.id) ? '700' : '500',
+                        transition: 'all 0.15s ease',
+                      }}
+                    >
+                      <span style={{ fontSize: '16px' }}>{likedPosts.has(post.id) ? '❤️' : '🤍'}</span>
+                      {post.likes + (likedPosts.has(post.id) ? 1 : 0)}
+                    </button>
+
+                    {/* Comment */}
+                    <button
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '6px',
+                        padding: '6px 8px',
+                        border: 'none',
+                        background: 'transparent',
+                        cursor: 'pointer',
+                        borderRadius: '8px',
+                        color: tc.fgMuted,
+                        fontSize: '13px',
+                      }}
+                    >
+                      <span style={{ fontSize: '16px' }}>💬</span>
+                      {post.comments}
+                    </button>
+
+                    {/* Repost */}
+                    <button
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '6px',
+                        padding: '6px 8px',
+                        border: 'none',
+                        background: 'transparent',
+                        cursor: 'pointer',
+                        borderRadius: '8px',
+                        color: tc.fgMuted,
+                        fontSize: '13px',
+                      }}
+                    >
+                      <span style={{ fontSize: '16px' }}>🔁</span>
+                      {post.reposts}
+                    </button>
+
+                    {/* Save */}
+                    <button
+                      onClick={() => toggleSave(post.id)}
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '6px',
+                        padding: '6px 8px',
+                        border: 'none',
+                        background: 'transparent',
+                        cursor: 'pointer',
+                        borderRadius: '8px',
+                        color: savedPosts.has(post.id) ? tc.fillPrimary : tc.fgMuted,
+                        fontSize: '13px',
+                        marginLeft: 'auto',
+                      }}
+                    >
+                      <span style={{ fontSize: '16px' }}>{savedPosts.has(post.id) ? '🔖' : '🏷️'}</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              {index < posts.length - 1 && (
+                <Divider style={{ margin: 0 }} />
+              )}
+            </div>
+          ))}
+
+          {/* Suggestions Section */}
+          <div
+            style={{
+              margin: '16px',
+              padding: '16px',
+              borderRadius: '16px',
+              background: tc.surface,
+              border: `1px solid ${tc.border}`,
+            }}
+          >
+            <Text
+              textStyle="subheadingSmall"
+              style={{ color: tc.fg, fontWeight: '700', display: 'block', marginBottom: '16px' }}
+            >
+              팔로우 추천
+            </Text>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+              {suggestions.map((user) => (
+                <div key={user.handle} style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                  <div
+                    style={{
+                      width: '36px',
+                      height: '36px',
+                      borderRadius: '50%',
+                      background: user.color,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      color: '#fff',
+                      fontSize: '12px',
+                      fontWeight: '700',
+                      flexShrink: 0,
+                    }}
+                  >
+                    {user.initials}
+                  </div>
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <Text textStyle="labelMedium" style={{ color: tc.fg, fontWeight: '600', display: 'block' }}>
+                      {user.name}
+                    </Text>
+                    <Text textStyle="descriptionSmall" style={{ color: tc.fgMuted }}>
+                      {user.handle}
+                    </Text>
+                  </div>
+                  <OutlineButton color="primary" size="small">
+                    <OutlineButton.Center>팔로우</OutlineButton.Center>
+                  </OutlineButton>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Loading More */}
+          <div style={{ display: 'flex', justifyContent: 'center', padding: '24px' }}>
+            <Loading size="small" />
+          </div>
+        </div>
+
+        {/* Bottom Navigation */}
+        <div
+          style={{
+            position: 'sticky',
+            bottom: 0,
+            background: tc.bg,
+            borderTop: `1px solid ${tc.border}`,
+            display: 'flex',
+            padding: '8px 0',
+            zIndex: 50,
+          }}
+        >
+          {[
+            { icon: HomeLineIcon, label: '홈', active: true },
+            { icon: SearchIcon, label: '검색', active: false },
+            { icon: PeopleLineIcon, label: '팔로잉', active: false },
+            { icon: NotificationLineIcon, label: '알림', active: false },
+            { icon: SettingLineIcon, label: '설정', active: false },
+          ].map(({ icon: Icon, label, active }) => (
+            <button
+              key={label}
+              style={{
+                flex: 1,
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                gap: '4px',
+                padding: '6px 0',
+                border: 'none',
+                background: 'transparent',
+                cursor: 'pointer',
+                color: active ? tc.fillPrimary : tc.fgMuted,
+              }}
+            >
+              <Icon width={22} height={22} />
+              <span style={{ fontSize: '10px', fontWeight: active ? '700' : '500' }}>{label}</span>
+            </button>
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const SocialFeed: Story = {
+  render: () => <SocialFeedRender />,
+}

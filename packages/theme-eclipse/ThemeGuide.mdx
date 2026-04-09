@@ -262,5 +262,138 @@ const CustomCard = () => (
       </div>
     </section>
 
+    {/* Theme Extension */}
+    <section style={{ marginBottom: '40px' }}>
+      <h2 style={{ fontSize: '24px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '8px' }}>테마 확장 가이드</h2>
+      <p style={{ fontSize: '14px', color: '#64748b', lineHeight: '1.7', marginBottom: '24px' }}>
+        shadcn/ui의 CSS 변수 override 방식과 유사하게, Orbit UI도 CSS 변수를 직접 override하여 프로젝트별 커스텀 테마를 만들 수 있습니다.
+        <code style={{ background: '#f1f5f9', color: '#6366f1', padding: '2px 6px', borderRadius: '4px', fontSize: '13px', fontWeight: '500' }}>EclipseProvider</code> 없이도 CSS 레이어에서 직접 토큰을 재정의할 수 있습니다.
+      </p>
+
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '24px' }}>
+        {/* CSS override */}
+        <div style={{ borderRadius: '16px', border: '1px solid #e2e8f0', overflow: 'hidden' }}>
+          <div style={{ padding: '10px 16px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0', fontSize: '12px', fontWeight: '600', color: '#475569' }}>
+            방법 1: CSS 변수 직접 Override (글로벌 CSS)
+          </div>
+          <pre style={{ margin: 0, padding: '16px', background: '#0f172a', color: '#e2e8f0', fontSize: '11px', lineHeight: '1.8', fontFamily: '"JetBrains Mono", monospace', overflow: 'auto' }}>
+{`/* globals.css or custom-theme.css */
+:root {
+  /* fillPrimary를 브랜드 컬러로 교체 */
+  --sem-eclipse-color-fillPrimary: #0ea5e9;
+
+  /* 버튼 반경 조정 */
+  --comp-eclipse-solidButton-borderRadius: 4px;
+
+  /* 배경 커스텀 */
+  --sem-eclipse-color-backgroundPrimary: #fafafa;
+  --sem-eclipse-color-surfaceContainer: #f4f4f5;
+}
+
+/* 다크모드 override */
+[data-theme="dark"] {
+  --sem-eclipse-color-fillPrimary: #38bdf8;
+}`}
+          </pre>
+        </div>
+
+        {/* Token override via theme prop */}
+        <div style={{ borderRadius: '16px', border: '1px solid #e2e8f0', overflow: 'hidden' }}>
+          <div style={{ padding: '10px 16px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0', fontSize: '12px', fontWeight: '600', color: '#475569' }}>
+            방법 2: theme prop으로 컴포넌트 토큰 Override
+          </div>
+          <pre style={{ margin: 0, padding: '16px', background: '#0f172a', color: '#e2e8f0', fontSize: '11px', lineHeight: '1.8', fontFamily: '"JetBrains Mono", monospace', overflow: 'auto' }}>
+{`import { SolidButton } from '@heejun-com/theme-eclipse'
+
+// 컴포넌트 단위 토큰 override
+<SolidButton
+  theme={{
+    '--comp-fill': '#0ea5e9',
+    '--comp-fill-hovered': '#0284c7',
+    '--comp-fill-pressed': '#0369a1',
+    '--comp-on-fill': '#ffffff',
+    '--comp-border-radius': '4px',
+  }}
+  color="primary"
+  size="medium"
+>
+  <SolidButton.Center>커스텀 버튼</SolidButton.Center>
+</SolidButton>`}
+          </pre>
+        </div>
+
+        {/* vanilla-extract extend */}
+        <div style={{ borderRadius: '16px', border: '1px solid #e2e8f0', overflow: 'hidden' }}>
+          <div style={{ padding: '10px 16px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0', fontSize: '12px', fontWeight: '600', color: '#475569' }}>
+            방법 3: vanilla-extract로 새 테마 클래스 생성
+          </div>
+          <pre style={{ margin: 0, padding: '16px', background: '#0f172a', color: '#e2e8f0', fontSize: '11px', lineHeight: '1.8', fontFamily: '"JetBrains Mono", monospace', overflow: 'auto' }}>
+{`// my-brand-theme.css.ts
+import { createTheme } from '@vanilla-extract/css'
+import { vars } from '@heejun-com/theme-eclipse/vars'
+
+// Eclipse vars contract를 기반으로 새 테마 생성
+export const brandThemeClass = createTheme(vars, {
+  sem: {
+    color: {
+      fillPrimary: '#0ea5e9',
+      fillSecondary: '#e0f2fe',
+      foregroundPrimary: '#0c4a6e',
+      backgroundPrimary: '#f0f9ff',
+    },
+  },
+})
+
+// 사용 시:
+// <EclipseProvider themeClass={brandThemeClass}>
+//   <App />
+// </EclipseProvider>`}
+          </pre>
+        </div>
+
+        {/* Next.js integration */}
+        <div style={{ borderRadius: '16px', border: '1px solid #e2e8f0', overflow: 'hidden' }}>
+          <div style={{ padding: '10px 16px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0', fontSize: '12px', fontWeight: '600', color: '#475569' }}>
+            방법 4: Next.js App Router 설정
+          </div>
+          <pre style={{ margin: 0, padding: '16px', background: '#0f172a', color: '#e2e8f0', fontSize: '11px', lineHeight: '1.8', fontFamily: '"JetBrains Mono", monospace', overflow: 'auto' }}>
+{`// app/layout.tsx
+import '@heejun-com/theme-eclipse/style.css'
+import './globals.css'  // CSS 변수 override 파일
+import { EclipseProvider } from '@heejun-com/theme-eclipse'
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
+  return (
+    <html lang="ko">
+      <body>
+        <EclipseProvider mode="light" platform="pc">
+          {children}
+        </EclipseProvider>
+      </body>
+    </html>
+  )
+}`}
+          </pre>
+        </div>
+      </div>
+
+      <div style={{
+        padding: '16px 20px', borderRadius: '10px',
+        background: 'linear-gradient(90deg, rgba(16, 185, 129, 0.04) 0%, transparent 100%)',
+        borderLeft: '3px solid #10b981',
+      }}>
+        <p style={{ fontSize: '14px', color: '#475569', margin: 0, lineHeight: '1.6' }}>
+          <strong style={{ color: '#1e293b' }}>권장 순서:</strong>{' '}
+          단순 브랜드 색상 변경은 <strong>방법 1 (CSS 변수 override)</strong>,
+          컴포넌트별 미세 조정은 <strong>방법 2 (theme prop)</strong>,
+          완전히 다른 테마가 필요하면 <strong>방법 3 (vanilla-extract createTheme)</strong>을 사용하세요.
+        </p>
+      </div>
+    </section>
+
   </div>
 </Unstyled>
