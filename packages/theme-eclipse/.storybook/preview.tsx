@@ -5,7 +5,7 @@ import clsx from 'clsx'
 import { useLayoutEffect } from 'react'
 import '@orbit-ui/core/style.css'
 
-import { lightTheme, darkTheme, textStyleTheme, highDensityTheme } from '../src/styles'
+import { lightTheme, darkTheme, textStyleTheme } from '../src/styles'
 
 const injectGlobalStyles = () => {
   const styleId = 'storybook-modern-ui-fix'
@@ -101,12 +101,10 @@ const prependThemeStyles = () => {
 
 export const useThemeRoot: Decorator = (Story, context) => {
   const theme = context.globals.theme || 'light'
-  const density = context.globals.density || 'standard'
   
   const themeClass = clsx(textStyleTheme.medium, {
     [lightTheme]: theme === 'light',
     [darkTheme]: theme === 'dark',
-    [highDensityTheme]: density === 'high',
   })
 
   useLayoutEffect(() => {
@@ -166,19 +164,6 @@ const preview: Preview = {
         items: [
           { value: 'light', icon: 'circlehollow', title: 'Light' },
           { value: 'dark', icon: 'circle', title: 'Dark' },
-        ],
-        showName: true,
-      },
-    },
-    density: {
-      name: 'Density',
-      description: 'Global spacing density',
-      defaultValue: 'standard',
-      toolbar: {
-        icon: 'grid',
-        items: [
-          { value: 'standard', title: 'Standard' },
-          { value: 'high', title: 'High Density' },
         ],
         showName: true,
       },
