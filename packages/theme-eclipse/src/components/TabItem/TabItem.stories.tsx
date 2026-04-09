@@ -442,3 +442,322 @@ const LinearShortcutTabs = () => {
 export const Linear_단축키힌트_탭: Story = {
   render: () => <LinearShortcutTabs />,
 }
+
+/* --------------------------------------------------------------------------
+   Tailwind UI 언더라인 탭 패턴
+   Tailwind UI "Simple on dark" 스타일: 선택 탭 하단 2px 언더라인 + 상단 배경색 없음
+-------------------------------------------------------------------------- */
+const tailwindTabs = [
+  { value: 'overview', label: 'Overview', badge: null },
+  { value: 'repositories', label: 'Repositories', badge: '42' },
+  { value: 'projects', label: 'Projects', badge: '8' },
+  { value: 'packages', label: 'Packages', badge: null },
+  { value: 'stars', label: 'Stars', badge: '1.2k' },
+]
+
+const contentMap: Record<string, React.ReactNode> = {
+  overview: (
+    <div style={{ padding: '20px 0' }}>
+      <div style={{ fontSize: 14, fontWeight: 700, color: '#1e293b', marginBottom: 8 }}>활동 요약</div>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 12 }}>
+        {[
+          { label: '커밋', value: '1,247', color: '#6366f1' },
+          { label: 'PR', value: '89', color: '#10b981' },
+          { label: '이슈', value: '34', color: '#f59e0b' },
+          { label: '리뷰', value: '312', color: '#8b5cf6' },
+        ].map((stat) => (
+          <div key={stat.label} style={{ padding: '12px', borderRadius: 8, background: '#f8fafc', border: '1px solid #e2e8f0', textAlign: 'center' }}>
+            <div style={{ fontSize: 18, fontWeight: 800, color: stat.color }}>{stat.value}</div>
+            <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>{stat.label}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  ),
+  repositories: (
+    <div style={{ padding: '16px 0', display: 'flex', flexDirection: 'column', gap: 8 }}>
+      {['orbit-ui', 'react-hooks', 'design-tokens', 'storybook-addon'].map((repo) => (
+        <div key={repo} style={{ padding: '10px 12px', borderRadius: 8, border: '1px solid #e2e8f0', fontSize: 13, color: '#1e293b', fontWeight: 500 }}>
+          {repo}
+        </div>
+      ))}
+    </div>
+  ),
+  projects: (
+    <div style={{ padding: '16px 0', fontSize: 13, color: '#94a3b8' }}>8개의 프로젝트</div>
+  ),
+  packages: (
+    <div style={{ padding: '16px 0', fontSize: 13, color: '#94a3b8' }}>패키지 없음</div>
+  ),
+  stars: (
+    <div style={{ padding: '16px 0', fontSize: 13, color: '#94a3b8' }}>1,200개의 즐겨찾기 리포지토리</div>
+  ),
+}
+
+const TailwindUnderlineTabs = () => {
+  const [active, setActive] = useState('overview')
+
+  return (
+    <div style={{ width: 520, background: '#fff' }}>
+      {/* Tailwind UI "pills on gray" variant */}
+      <div style={{ borderBottom: '1px solid #e2e8f0' }}>
+        <div role="tablist" style={{ display: 'flex', gap: 0 }}>
+          {tailwindTabs.map((tab) => (
+            <Tab
+              key={tab.value}
+              value={tab.value}
+              selected={active === tab.value}
+              onClick={() => setActive(tab.value)}
+            >
+              <Tab.Center>{tab.label}</Tab.Center>
+              {tab.badge && (
+                <Tab.Trailing>
+                  <span style={{
+                    padding: '1px 6px', borderRadius: 20, fontSize: 10, fontWeight: 700,
+                    background: active === tab.value ? '#6366f1' : '#f1f5f9',
+                    color: active === tab.value ? '#fff' : '#64748b',
+                  }}>
+                    {tab.badge}
+                  </span>
+                </Tab.Trailing>
+              )}
+            </Tab>
+          ))}
+        </div>
+      </div>
+      <div style={{ minHeight: 120 }}>
+        {contentMap[active]}
+      </div>
+    </div>
+  )
+}
+
+export const TailwindUI_언더라인_탭: Story = {
+  name: 'Tailwind UI - 언더라인 + 카운트 뱃지 탭 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Tailwind UI "Simple" 탭 패턴. 하단 언더라인 선택 표시 + 카운트 뱃지. ' +
+          'GitHub 프로필 네비게이션과 동일한 UX 패턴입니다.',
+      },
+    },
+  },
+  render: () => <TailwindUnderlineTabs />,
+}
+
+/* --------------------------------------------------------------------------
+   Apple HIG 세그먼트형 탭 패턴
+   iOS의 UISegmentedControl처럼 동작: 컨테이너 내부에서 활성 탭이 흰색 카드로 부상
+-------------------------------------------------------------------------- */
+const appleSegments = [
+  { value: 'all', label: '전체' },
+  { value: 'unread', label: '읽지 않음' },
+  { value: 'mentions', label: '멘션' },
+]
+
+const appleSegmentContent: Record<string, string[]> = {
+  all: ['Orbit UI PR 머지됨', 'Token 시스템 업데이트', '새 스토리 15개 추가', 'Vercel 배포 완료'],
+  unread: ['Token 시스템 업데이트', 'Vercel 배포 완료'],
+  mentions: ['@heejun Token migration 리뷰 요청'],
+}
+
+const AppleSegmentTabs = () => {
+  const [active, setActive] = useState('all')
+  const items = appleSegmentContent[active] ?? []
+
+  return (
+    <div style={{ width: 360, display: 'flex', flexDirection: 'column', gap: 16 }}>
+      {/* Apple HIG Segmented Control wrapper */}
+      <div
+        style={{
+          display: 'flex',
+          background: '#f1f5f9',
+          borderRadius: 10,
+          padding: 3,
+          gap: 2,
+        }}
+        role="tablist"
+        aria-label="알림 필터"
+      >
+        {appleSegments.map((seg) => (
+          <button
+            key={seg.value}
+            role="tab"
+            aria-selected={active === seg.value}
+            onClick={() => setActive(seg.value)}
+            style={{
+              flex: 1,
+              padding: '7px 12px',
+              borderRadius: 8,
+              border: 'none',
+              cursor: 'pointer',
+              fontSize: 13,
+              fontWeight: active === seg.value ? 700 : 500,
+              color: active === seg.value ? '#1e293b' : '#64748b',
+              background: active === seg.value ? '#fff' : 'transparent',
+              boxShadow: active === seg.value ? '0 1px 4px rgba(0,0,0,0.12)' : 'none',
+              transition: 'all 0.18s cubic-bezier(0.4, 0, 0.2, 1)',
+            }}
+          >
+            {seg.label}
+            {seg.value === 'unread' && (
+              <span style={{
+                marginLeft: 5,
+                padding: '0 5px',
+                borderRadius: 20,
+                background: '#ef4444',
+                color: '#fff',
+                fontSize: 10,
+                fontWeight: 700,
+                verticalAlign: 'middle',
+              }}>2</span>
+            )}
+          </button>
+        ))}
+      </div>
+
+      {/* Notification list */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+        {items.length > 0 ? items.map((item, i) => (
+          <div
+            key={i}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 10,
+              padding: '10px 12px',
+              borderRadius: 10,
+              border: '1px solid #f1f5f9',
+              background: '#fafafa',
+              fontSize: 13,
+              color: '#1e293b',
+            }}
+          >
+            <div style={{ width: 8, height: 8, borderRadius: '50%', background: i < 2 ? '#6366f1' : '#e2e8f0', flexShrink: 0 }} />
+            {item}
+          </div>
+        )) : (
+          <div style={{ padding: '20px 0', textAlign: 'center', fontSize: 13, color: '#94a3b8' }}>
+            알림이 없습니다
+          </div>
+        )}
+      </div>
+
+      <div style={{ fontSize: 11, color: '#94a3b8', textAlign: 'center' }}>
+        Apple HIG UISegmentedControl 패턴 — 흰 카드 부상 효과
+      </div>
+    </div>
+  )
+}
+
+export const AppleHIG_세그먼트_탭: Story = {
+  name: 'Apple HIG - UISegmentedControl 스타일 탭 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Apple HIG UISegmentedControl 패턴. 활성 탭이 흰 카드로 부상하는 iOS 스타일. ' +
+          '150ms cubic-bezier 트랜지션으로 자연스러운 전환을 구현합니다.',
+      },
+    },
+  },
+  render: () => <AppleSegmentTabs />,
+}
+
+/* --------------------------------------------------------------------------
+   Vercel 콤팩트 탭 패턴
+   Vercel Dashboard의 소형 탭: Deployments / Settings / Logs 전환
+-------------------------------------------------------------------------- */
+const vercelTabs = [
+  { value: 'deployments', label: 'Deployments', count: 47 },
+  { value: 'settings', label: 'Settings' },
+  { value: 'logs', label: 'Logs' },
+  { value: 'analytics', label: 'Analytics' },
+]
+
+const vercelContent: Record<string, React.ReactNode> = {
+  deployments: (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+      {[
+        { branch: 'main', status: 'READY', time: '2분 전', color: '#10b981', bg: '#f0fdf4' },
+        { branch: 'feat/tokens', status: 'BUILDING', time: '8분 전', color: '#f59e0b', bg: '#fffbeb' },
+        { branch: 'fix/lint', status: 'READY', time: '1시간 전', color: '#10b981', bg: '#f0fdf4' },
+        { branch: 'feat/docs', status: 'ERROR', time: '2시간 전', color: '#ef4444', bg: '#fef2f2' },
+      ].map((dep) => (
+        <div
+          key={dep.branch}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 10,
+            padding: '8px 12px',
+            borderRadius: 6,
+            border: `1px solid ${dep.color}22`,
+            background: dep.bg,
+            fontSize: 12,
+          }}
+        >
+          <span style={{ fontWeight: 600, color: '#1e293b', flex: 1 }}>{dep.branch}</span>
+          <span style={{ fontWeight: 700, color: dep.color, fontSize: 10, letterSpacing: '0.04em' }}>
+            {dep.status}
+          </span>
+          <span style={{ color: '#94a3b8' }}>{dep.time}</span>
+        </div>
+      ))}
+    </div>
+  ),
+  settings: <div style={{ fontSize: 13, color: '#94a3b8', paddingTop: 8 }}>프로젝트 설정</div>,
+  logs: <div style={{ fontSize: 13, color: '#94a3b8', paddingTop: 8 }}>빌드 로그</div>,
+  analytics: <div style={{ fontSize: 13, color: '#94a3b8', paddingTop: 8 }}>웹 애널리틱스</div>,
+}
+
+const VercelCompactTabs = () => {
+  const [active, setActive] = useState('deployments')
+
+  return (
+    <div style={{ width: 460, border: '1px solid #e5e7eb', borderRadius: 10, overflow: 'hidden', background: '#fff' }}>
+      <div style={{ padding: '12px 16px', borderBottom: '1px solid #f3f4f6', display: 'flex', alignItems: 'center', gap: 8 }}>
+        <div style={{ width: 8, height: 8, borderRadius: '50%', background: '#10b981' }} />
+        <span style={{ fontSize: 13, fontWeight: 700, color: '#111827', flex: 1 }}>orbit-ui</span>
+        <LabelBadge color="benefit">
+          <LabelBadge.Label>Production</LabelBadge.Label>
+        </LabelBadge>
+      </div>
+      <div role="tablist" style={{ display: 'flex', borderBottom: '1px solid #f3f4f6', background: '#fafafa' }}>
+        {vercelTabs.map((tab) => (
+          <Tab
+            key={tab.value}
+            value={tab.value}
+            selected={active === tab.value}
+            onClick={() => setActive(tab.value)}
+          >
+            <Tab.Center>{tab.label}</Tab.Center>
+            {tab.count !== undefined && (
+              <Tab.Trailing>
+                <CounterBadge>{tab.count}</CounterBadge>
+              </Tab.Trailing>
+            )}
+          </Tab>
+        ))}
+      </div>
+      <div style={{ padding: 16 }}>
+        {vercelContent[active]}
+      </div>
+    </div>
+  )
+}
+
+export const Vercel_콤팩트_대시보드_탭: Story = {
+  name: 'Vercel - 콤팩트 배포 대시보드 탭 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Vercel Dashboard 탭 패턴. 배포 상태(READY/BUILDING/ERROR)를 색상으로 표현하고 ' +
+          '카운트 배지로 항목 수를 표시합니다.',
+      },
+    },
+  },
+  render: () => <VercelCompactTabs />,
+}

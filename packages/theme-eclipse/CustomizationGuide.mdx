@@ -491,5 +491,95 @@ export default function RootLayout({
       </div>
     </section>
 
+    <section style={{ marginBottom: '56px' }}>
+      <h2 style={{ fontSize: '22px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '8px' }}>Tailwind UI & Apple HIG 벤치마크 패턴</h2>
+      <p style={{ fontSize: '14px', color: '#64748b', lineHeight: '1.6', marginBottom: '24px' }}>Tailwind UI의 컴포넌트 조합 방식과 Apple HIG의 모바일 UX 원칙에서 학습한 커스터마이징 패턴을 정리합니다.</p>
+
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '24px' }}>
+        <div style={{ borderRadius: '12px', border: '1px solid #e2e8f0', overflow: 'hidden' }}>
+          <div style={{ padding: '12px 16px', background: 'linear-gradient(135deg, #0369a1, #0284c7)', color: '#fff' }}>
+            <div style={{ fontSize: '14px', fontWeight: '800' }}>Tailwind UI 핵심 패턴</div>
+          </div>
+          <div style={{ padding: '16px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+            <div>
+              <div style={{ fontSize: '12px', fontWeight: '700', color: '#0369a1', marginBottom: '4px' }}>1. 프리셋 + 캘린더 조합</div>
+              <div style={{ fontSize: '12px', color: '#374151', lineHeight: '1.7' }}>
+                DatePicker 우측 캘린더에 좌측 프리셋 사이드바를 추가. "오늘", "이번 달 말일" 등 빠른 선택을 제공합니다.
+                Orbit UI의 Calendar + useState로 동일하게 구현 가능합니다.
+              </div>
+            </div>
+            <div>
+              <div style={{ fontSize: '12px', fontWeight: '700', color: '#0369a1', marginBottom: '4px' }}>2. 언더라인 탭 + 카운트 뱃지</div>
+              <div style={{ fontSize: '12px', color: '#374151', lineHeight: '1.7' }}>
+                탭 선택 표시를 하단 2px 언더라인으로 표현. 카운트 뱃지는 활성 탭에서 브랜드 색상, 비활성은 회색 처리.
+              </div>
+            </div>
+            <div>
+              <div style={{ fontSize: '12px', fontWeight: '700', color: '#0369a1', marginBottom: '4px' }}>3. 2단계 예약 UX</div>
+              <div style={{ fontSize: '12px', color: '#374151', lineHeight: '1.7' }}>
+                날짜 선택 → 시간 슬롯 선택 → 확정 버튼의 순차적 단계. 각 단계 완료 전까지 다음 단계 CTA 비활성화.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div style={{ borderRadius: '12px', border: '1px solid #e2e8f0', overflow: 'hidden' }}>
+          <div style={{ padding: '12px 16px', background: 'linear-gradient(135deg, #374151, #1f2937)', color: '#fff' }}>
+            <div style={{ fontSize: '14px', fontWeight: '800' }}>Apple HIG 핵심 원칙</div>
+          </div>
+          <div style={{ padding: '16px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+            <div>
+              <div style={{ fontSize: '12px', fontWeight: '700', color: '#374151', marginBottom: '4px' }}>1. UISegmentedControl 패턴</div>
+              <div style={{ fontSize: '12px', color: '#374151', lineHeight: '1.7' }}>
+                활성 세그먼트가 흰 카드로 부상. 회색 컨테이너 내부에서 150-200ms cubic-bezier 트랜지션으로 자연스럽게 전환됩니다.
+              </div>
+            </div>
+            <div>
+              <div style={{ fontSize: '12px', fontWeight: '700', color: '#374151', marginBottom: '4px' }}>2. 인라인 입력 + 시각적 확인</div>
+              <div style={{ fontSize: '12px', color: '#374151', lineHeight: '1.7' }}>
+                텍스트 입력과 캘린더를 동시에 표시. 입력 포맷(YYYY-MM-DD)을 hint로 제공, blur 시 유효성 검사.
+              </div>
+            </div>
+            <div>
+              <div style={{ fontSize: '12px', fontWeight: '700', color: '#374151', marginBottom: '4px' }}>3. 진행 단계 표시</div>
+              <div style={{ fontSize: '12px', color: '#374151', lineHeight: '1.7' }}>
+                체크아웃처럼 순차적 UX는 스텝 인디케이터로 현재 위치를 명확히 표시. 완료 단계는 체크마크로 전환.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style={{ padding: '20px', borderRadius: '12px', background: '#f8fafc', border: '1px solid #e2e8f0' }}>
+        <div style={{ fontSize: '13px', fontWeight: '700', color: '#1e293b', marginBottom: '12px' }}>Orbit UI 컴포넌트 대응 조합</div>
+        <div style={{ overflowX: 'auto' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '12px' }}>
+            <thead>
+              <tr style={{ background: '#f1f5f9' }}>
+                <th style={{ padding: '8px 12px', textAlign: 'left', color: '#475569', fontWeight: '700', borderBottom: '1px solid #e2e8f0' }}>패턴</th>
+                <th style={{ padding: '8px 12px', textAlign: 'left', color: '#475569', fontWeight: '700', borderBottom: '1px solid #e2e8f0' }}>벤치마크 출처</th>
+                <th style={{ padding: '8px 12px', textAlign: 'left', color: '#6366f1', fontWeight: '700', borderBottom: '1px solid #e2e8f0' }}>Orbit UI 구현</th>
+              </tr>
+            </thead>
+            <tbody>
+              {[
+                { pattern: '프리셋 날짜 선택', source: 'Tailwind UI', impl: 'Calendar + useState(프리셋 key) + button 사이드바' },
+                { pattern: 'Segmented Tab', source: 'Apple HIG', impl: 'Tab 컴포넌트 또는 button role=tab + CSS boxShadow 부상 효과' },
+                { pattern: '2단계 예약', source: 'Tailwind UI + Apple HIG', impl: 'Calendar (날짜) + button 그리드 (시간) + SolidButton (확정)' },
+                { pattern: '생일 입력 검증', source: 'Apple HIG', impl: 'input + Calendar + useState(error) + disabled={{ after: today }}' },
+                { pattern: '모바일 체크아웃', source: 'Apple HIG', impl: 'step state + SolidButton CTA + Progress 또는 커스텀 스텝 인디케이터' },
+              ].map((row, i) => (
+                <tr key={row.pattern} style={{ background: i % 2 === 0 ? '#fff' : '#fafafa' }}>
+                  <td style={{ padding: '8px 12px', color: '#1e293b', fontWeight: '600', borderBottom: '1px solid #f1f5f9' }}>{row.pattern}</td>
+                  <td style={{ padding: '8px 12px', color: '#6366f1', borderBottom: '1px solid #f1f5f9' }}>{row.source}</td>
+                  <td style={{ padding: '8px 12px', color: '#374151', fontFamily: 'monospace', fontSize: '11px', borderBottom: '1px solid #f1f5f9' }}>{row.impl}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
   </div>
 </Unstyled>

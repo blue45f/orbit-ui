@@ -310,3 +310,302 @@ export const 모바일_풀스크린: Story = {
     )
   }
 }
+
+/* --------------------------------------------------------------------------
+   Tailwind UI 빠른 선택 사이드바 패턴
+   Tailwind UI DatePicker: 프리셋 버튼 + 캘린더 조합
+-------------------------------------------------------------------------- */
+export const TailwindUI_빠른_날짜_선택: Story = {
+  name: 'Tailwind UI - 프리셋 + 캘린더 조합 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Tailwind UI DatePicker 패턴. 좌측 프리셋 버튼(오늘/이번 주/이번 달 등)과 우측 캘린더를 ' +
+          '조합하여 빠른 날짜 선택을 지원합니다.',
+      },
+    },
+  },
+  render: function Render() {
+    const [date, setDate] = React.useState<Date | undefined>(new Date())
+    const [activePreset, setActivePreset] = React.useState<string>('today')
+
+    const presets = [
+      { key: 'today', label: '오늘', getDate: () => new Date() },
+      { key: 'tomorrow', label: '내일', getDate: () => { const d = new Date(); d.setDate(d.getDate() + 1); return d } },
+      { key: 'next7', label: '7일 후', getDate: () => { const d = new Date(); d.setDate(d.getDate() + 7); return d } },
+      { key: 'next30', label: '30일 후', getDate: () => { const d = new Date(); d.setDate(d.getDate() + 30); return d } },
+      { key: 'eom', label: '이번 달 말일', getDate: () => { const d = new Date(); d.setMonth(d.getMonth() + 1, 0); return d } },
+      { key: 'eoy', label: '연말', getDate: () => new Date(new Date().getFullYear(), 11, 31) },
+    ]
+
+    const handlePreset = (key: string, getDate: () => Date) => {
+      setActivePreset(key)
+      setDate(getDate())
+    }
+
+    return (
+      <div style={{ display: 'flex', gap: 0, border: '1px solid #e2e8f0', borderRadius: 12, overflow: 'hidden', background: '#fff', width: 'fit-content' }}>
+        {/* Preset sidebar */}
+        <div style={{ width: 120, borderRight: '1px solid #f1f5f9', background: '#f8fafc', padding: '12px 8px', display: 'flex', flexDirection: 'column', gap: 2 }}>
+          <div style={{ fontSize: 10, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 6, paddingLeft: 4 }}>
+            빠른 선택
+          </div>
+          {presets.map((p) => (
+            <button
+              key={p.key}
+              onClick={() => handlePreset(p.key, p.getDate)}
+              style={{
+                padding: '7px 10px',
+                borderRadius: 7,
+                border: 'none',
+                cursor: 'pointer',
+                fontSize: 12,
+                fontWeight: activePreset === p.key ? 700 : 500,
+                textAlign: 'left',
+                color: activePreset === p.key ? '#6366f1' : '#475569',
+                background: activePreset === p.key ? '#ede9fe' : 'transparent',
+                transition: 'all 0.12s',
+              }}
+            >
+              {p.label}
+            </button>
+          ))}
+        </div>
+
+        {/* Calendar */}
+        <div>
+          <Calendar
+            mode="single"
+            selected={date}
+            onSelect={(d) => { setDate(d); setActivePreset('') }}
+          />
+          {date && (
+            <div style={{ padding: '8px 16px', borderTop: '1px solid #f1f5f9', textAlign: 'center', fontSize: 12, color: '#6366f1', fontWeight: 600 }}>
+              {date.toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric', weekday: 'short' })}
+            </div>
+          )}
+        </div>
+      </div>
+    )
+  },
+}
+
+/* --------------------------------------------------------------------------
+   Apple HIG 인라인 생일 입력 패턴
+   iOS 생일 날짜 선택: 월/일/년 드럼롤 없이 타이핑 입력 + 캘린더 확인
+-------------------------------------------------------------------------- */
+export const AppleHIG_생일_날짜_입력: Story = {
+  name: 'Apple HIG - 생일 입력 + 캘린더 확인 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Apple HIG 생년월일 입력 패턴. 텍스트 입력(YYYY-MM-DD)과 캘린더를 연동하여 ' +
+          '날짜를 시각적으로 확인합니다. 미래 날짜는 비활성화됩니다.',
+      },
+    },
+  },
+  render: function Render() {
+    const [inputVal, setInputVal] = React.useState('')
+    const [date, setDate] = React.useState<Date | undefined>()
+    const [error, setError] = React.useState('')
+
+    const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+      const v = e.target.value
+      setInputVal(v)
+      setError('')
+      if (v.match(/^\d{4}-\d{2}-\d{2}$/)) {
+        const parsed = new Date(v)
+        if (isNaN(parsed.getTime())) {
+          setError('올바른 날짜를 입력해 주세요.')
+          setDate(undefined)
+        } else if (parsed > new Date()) {
+          setError('미래 날짜는 생년월일로 입력할 수 없습니다.')
+          setDate(undefined)
+        } else {
+          setDate(parsed)
+        }
+      } else {
+        setDate(undefined)
+      }
+    }
+
+    const today = new Date()
+
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 16, alignItems: 'flex-start', width: 'fit-content' }}>
+        <div style={{ width: '100%' }}>
+          <label style={{ display: 'block', fontSize: 12, fontWeight: 600, color: '#475569', marginBottom: 6 }}>
+            생년월일
+          </label>
+          <input
+            type="text"
+            value={inputVal}
+            onChange={handleInput}
+            placeholder="YYYY-MM-DD"
+            maxLength={10}
+            style={{
+              width: '100%',
+              padding: '10px 14px',
+              borderRadius: 10,
+              border: `1.5px solid ${error ? '#ef4444' : date ? '#6366f1' : '#e2e8f0'}`,
+              fontSize: 15,
+              fontWeight: 600,
+              color: '#1e293b',
+              outline: 'none',
+              transition: 'border-color 0.15s',
+              fontFamily: 'monospace',
+              boxSizing: 'border-box',
+            }}
+          />
+          {error && <div style={{ fontSize: 11, color: '#ef4444', marginTop: 4 }}>{error}</div>}
+          {date && !error && (
+            <div style={{ fontSize: 11, color: '#6366f1', fontWeight: 600, marginTop: 4 }}>
+              {date.toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' })}
+            </div>
+          )}
+        </div>
+
+        <Calendar
+          mode="single"
+          selected={date}
+          onSelect={(d) => {
+            setDate(d)
+            if (d) setInputVal(d.toISOString().slice(0, 10))
+          }}
+          disabled={{ after: today }}
+          defaultMonth={date ?? new Date(1995, 0, 1)}
+        />
+
+        <div style={{ padding: '10px 14px', borderRadius: 8, background: '#f8fafc', border: '1px solid #e2e8f0', fontSize: 12, color: '#64748b', width: '100%' }}>
+          <strong>나이:</strong>{' '}
+          {date
+            ? `${today.getFullYear() - date.getFullYear()}세`
+            : '날짜를 선택하거나 입력해 주세요'}
+        </div>
+      </div>
+    )
+  },
+}
+
+/* --------------------------------------------------------------------------
+   Tailwind UI 예약 예정일 선택 패턴
+   예약/스케줄링에서 사용: 오늘 이후만 선택 가능, 주말 비활성화, 확인 버튼
+-------------------------------------------------------------------------- */
+export const TailwindUI_예약_일정_선택: Story = {
+  name: 'Tailwind UI - 예약 스케줄링 + 시간 선택 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Tailwind UI 예약 캘린더 패턴. 오늘 이후만 선택 가능, 주말 비활성화. ' +
+          '날짜 선택 후 시간 슬롯 선택까지 이어지는 2단계 예약 UX입니다.',
+      },
+    },
+  },
+  render: function Render() {
+    const [date, setDate] = React.useState<Date | undefined>()
+    const [timeSlot, setTimeSlot] = React.useState<string | null>(null)
+    const [confirmed, setConfirmed] = React.useState(false)
+
+    const today = new Date()
+    today.setHours(0, 0, 0, 0)
+
+    const timeSlots = ['09:00', '10:00', '11:00', '13:00', '14:00', '15:00', '16:00']
+
+    const isWeekend = (d: Date) => d.getDay() === 0 || d.getDay() === 6
+
+    const handleConfirm = () => {
+      if (date && timeSlot) setConfirmed(true)
+    }
+
+    if (confirmed && date && timeSlot) {
+      return (
+        <div style={{ width: 320, padding: 24, borderRadius: 16, border: '1px solid #bbf7d0', background: '#f0fdf4', textAlign: 'center' }}>
+          <div style={{ fontSize: 32, marginBottom: 12 }}>✅</div>
+          <div style={{ fontSize: 16, fontWeight: 800, color: '#15803d', marginBottom: 4 }}>예약 완료</div>
+          <div style={{ fontSize: 14, color: '#166534', marginBottom: 16 }}>
+            {date.toLocaleDateString('ko-KR', { month: 'long', day: 'numeric', weekday: 'long' })} {timeSlot}
+          </div>
+          <button
+            onClick={() => { setConfirmed(false); setDate(undefined); setTimeSlot(null) }}
+            style={{ padding: '8px 20px', borderRadius: 8, border: '1px solid #16a34a', background: 'none', color: '#16a34a', fontSize: 13, fontWeight: 600, cursor: 'pointer' }}
+          >
+            다시 예약
+          </button>
+        </div>
+      )
+    }
+
+    return (
+      <div style={{ width: 320, border: '1px solid #e2e8f0', borderRadius: 14, overflow: 'hidden', background: '#fff' }}>
+        <div style={{ padding: '14px 16px', borderBottom: '1px solid #f1f5f9', background: '#fafafa' }}>
+          <div style={{ fontSize: 14, fontWeight: 700, color: '#1e293b' }}>날짜 선택</div>
+          <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>오늘 이후, 평일만 선택 가능합니다</div>
+        </div>
+
+        <div style={{ padding: '8px 0' }}>
+          <Calendar
+            mode="single"
+            selected={date}
+            onSelect={(d) => { setDate(d); setTimeSlot(null) }}
+            disabled={[{ before: new Date() }, isWeekend]}
+          />
+        </div>
+
+        {date && (
+          <div style={{ padding: '12px 16px', borderTop: '1px solid #f1f5f9' }}>
+            <div style={{ fontSize: 12, fontWeight: 600, color: '#475569', marginBottom: 8 }}>
+              {date.toLocaleDateString('ko-KR', { month: 'long', day: 'numeric', weekday: 'short' })} 시간 선택
+            </div>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+              {timeSlots.map((slot) => (
+                <button
+                  key={slot}
+                  onClick={() => setTimeSlot(slot)}
+                  style={{
+                    padding: '6px 12px',
+                    borderRadius: 6,
+                    border: `1.5px solid ${timeSlot === slot ? '#6366f1' : '#e2e8f0'}`,
+                    background: timeSlot === slot ? '#6366f1' : '#fff',
+                    color: timeSlot === slot ? '#fff' : '#475569',
+                    fontSize: 12,
+                    fontWeight: 600,
+                    cursor: 'pointer',
+                    transition: 'all 0.12s',
+                  }}
+                >
+                  {slot}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+
+        <div style={{ padding: '12px 16px', borderTop: '1px solid #f1f5f9' }}>
+          <button
+            onClick={handleConfirm}
+            disabled={!date || !timeSlot}
+            style={{
+              width: '100%',
+              padding: '11px',
+              borderRadius: 10,
+              border: 'none',
+              background: date && timeSlot ? '#6366f1' : '#f1f5f9',
+              color: date && timeSlot ? '#fff' : '#94a3b8',
+              fontSize: 13,
+              fontWeight: 700,
+              cursor: date && timeSlot ? 'pointer' : 'not-allowed',
+              transition: 'all 0.15s',
+            }}
+          >
+            {date && timeSlot
+              ? `${date.toLocaleDateString('ko-KR', { month: 'short', day: 'numeric' })} ${timeSlot} 예약 확정`
+              : '날짜와 시간을 선택해 주세요'}
+          </button>
+        </div>
+      </div>
+    )
+  },
+}

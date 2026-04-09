@@ -8554,3 +8554,204 @@ export const SearchResults: Story = {
   name: 'Search Results (Mantine + Chakra UI 벤치마크)',
   render: () => <SearchResultsRender />,
 }
+
+/* ═══════════════════════════════════════════
+   28. Mobile Checkout (Tailwind UI + Apple HIG 벤치마크)
+   ═══════════════════════════════════════════ */
+const MobileCheckoutRender = () => {
+  const [step, setStep] = useState<1 | 2 | 3>(1)
+  const [address, setAddress] = useState({ name: '김희준', phone: '010-1234-5678', addr: '서울시 강남구 테헤란로 123' })
+  const [payMethod, setPayMethod] = useState<'card' | 'kakao' | 'naver'>('card')
+  const [agreed, setAgreed] = useState(false)
+  const [ordered, setOrdered] = useState(false)
+
+  const items = [
+    { name: 'SolidButton 컴포넌트 팩', qty: 1, price: 29000 },
+    { name: 'Eclipse 테마 라이선스', qty: 2, price: 59000 },
+    { name: 'Storybook 스타터킷', qty: 1, price: 15000 },
+  ]
+  const subtotal = items.reduce((s, i) => s + i.price * i.qty, 0)
+  const shipping = 0
+  const total = subtotal + shipping
+
+  const payMethods = [
+    { key: 'card' as const, label: '신용카드', icon: '💳' },
+    { key: 'kakao' as const, label: '카카오페이', icon: '🟡' },
+    { key: 'naver' as const, label: '네이버페이', icon: '🟢' },
+  ]
+
+  if (ordered) {
+    return (
+      <div style={{ width: 390, minHeight: '100vh', background: tc.bg, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 16, padding: 32, fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' }}>
+        <div style={{ width: 64, height: 64, borderRadius: '50%', background: '#f0fdf4', border: '2px solid #86efac', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 28 }}>✓</div>
+        <div style={{ textAlign: 'center' }}>
+          <div style={{ fontSize: 20, fontWeight: 800, color: tc.fg, marginBottom: 8 }}>주문 완료!</div>
+          <div style={{ fontSize: 14, color: tc.fgSub, lineHeight: 1.6 }}>
+            주문이 성공적으로 접수되었습니다.<br />
+            배송은 2~3 영업일 이내에 시작됩니다.
+          </div>
+        </div>
+        <div style={{ padding: '16px 24px', borderRadius: 12, background: tc.surface, border: `1px solid ${tc.border}`, fontSize: 13, color: tc.fgSub, textAlign: 'center' }}>
+          <div style={{ fontWeight: 700, color: tc.fg, marginBottom: 4 }}>총 결제 금액</div>
+          <div style={{ fontSize: 22, fontWeight: 800, color: tc.fillPrimary }}>{total.toLocaleString()}원</div>
+        </div>
+        <button onClick={() => { setOrdered(false); setStep(1) }} style={{ padding: '12px 24px', borderRadius: 10, border: 'none', background: tc.fillPrimary, color: '#fff', fontWeight: 700, fontSize: 14, cursor: 'pointer' }}>
+          쇼핑 계속하기
+        </button>
+      </div>
+    )
+  }
+
+  return (
+    <div style={{ width: 390, minHeight: '100vh', background: tc.bg, display: 'flex', flexDirection: 'column', fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' }}>
+      {/* Header */}
+      <div style={{ position: 'sticky', top: 0, zIndex: 10, background: tc.bg, borderBottom: `1px solid ${tc.border}`, padding: '14px 16px', display: 'flex', alignItems: 'center', gap: 12 }}>
+        {step > 1 && (
+          <button onClick={() => setStep((s) => (s - 1) as 1 | 2 | 3)} style={{ background: 'none', border: 'none', cursor: 'pointer', color: tc.fgSub, fontSize: 14, display: 'flex', alignItems: 'center', gap: 4, padding: 0 }}>
+            <ChevronLeftLineIcon style={{ width: 16, height: 16 }} />
+            뒤로
+          </button>
+        )}
+        <span style={{ flex: 1, fontSize: 16, fontWeight: 700, color: tc.fg, textAlign: step > 1 ? 'center' : 'left' }}>
+          {step === 1 ? '장바구니' : step === 2 ? '배송 정보' : '결제'}
+        </span>
+      </div>
+
+      {/* Step indicator */}
+      <div style={{ padding: '12px 16px', display: 'flex', alignItems: 'center', gap: 4 }}>
+        {(['주문확인', '배송정보', '결제'] as const).map((label, i) => (
+          <React.Fragment key={label}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+              <div style={{ width: 20, height: 20, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 10, fontWeight: 700, background: i + 1 <= step ? tc.fillPrimary : tc.surface, color: i + 1 <= step ? '#fff' : tc.fgMuted, border: `1px solid ${i + 1 <= step ? tc.fillPrimary : tc.border}` }}>
+                {i + 1 < step ? '✓' : i + 1}
+              </div>
+              <span style={{ fontSize: 11, color: i + 1 <= step ? tc.fg : tc.fgMuted, fontWeight: i + 1 === step ? 700 : 400 }}>{label}</span>
+            </div>
+            {i < 2 && <div style={{ flex: 1, height: 1, background: i + 1 < step ? tc.fillPrimary : tc.border }} />}
+          </React.Fragment>
+        ))}
+      </div>
+
+      {/* Step 1: Cart */}
+      {step === 1 && (
+        <div style={{ flex: 1, overflowY: 'auto', padding: '0 16px 16px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 20 }}>
+            {items.map((item, i) => (
+              <div key={i} style={{ display: 'flex', gap: 12, padding: '12px', borderRadius: 12, border: `1px solid ${tc.border}`, background: tc.bg }}>
+                <div style={{ width: 56, height: 56, borderRadius: 8, background: `linear-gradient(135deg, hsl(${i * 60 + 220}, 70%, 85%), hsl(${i * 60 + 240}, 70%, 75%))`, flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 20 }}>
+                  {['🎨', '🎭', '📦'][i]}
+                </div>
+                <div style={{ flex: 1 }}>
+                  <div style={{ fontSize: 13, fontWeight: 600, color: tc.fg, marginBottom: 4 }}>{item.name}</div>
+                  <div style={{ fontSize: 12, color: tc.fgSub }}>수량 {item.qty}개</div>
+                </div>
+                <div style={{ fontSize: 14, fontWeight: 700, color: tc.fg }}>{(item.price * item.qty).toLocaleString()}원</div>
+              </div>
+            ))}
+          </div>
+
+          <div style={{ padding: '16px', borderRadius: 12, background: tc.surface, border: `1px solid ${tc.border}`, marginBottom: 20 }}>
+            {[{ label: '소계', value: subtotal }, { label: '배송비', value: shipping, isFree: true }].map((row) => (
+              <div key={row.label} style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8 }}>
+                <span style={{ fontSize: 13, color: tc.fgSub }}>{row.label}</span>
+                <span style={{ fontSize: 13, fontWeight: 600, color: 'isFree' in row && row.isFree ? '#10b981' : tc.fg }}>
+                  {'isFree' in row && row.isFree ? '무료' : `${row.value.toLocaleString()}원`}
+                </span>
+              </div>
+            ))}
+            <div style={{ borderTop: `1px solid ${tc.border}`, paddingTop: 10, marginTop: 4, display: 'flex', justifyContent: 'space-between' }}>
+              <span style={{ fontSize: 14, fontWeight: 700, color: tc.fg }}>합계</span>
+              <span style={{ fontSize: 18, fontWeight: 800, color: tc.fillPrimary }}>{total.toLocaleString()}원</span>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Step 2: Delivery */}
+      {step === 2 && (
+        <div style={{ flex: 1, overflowY: 'auto', padding: '16px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+            {[
+              { label: '수령인', key: 'name' as const, placeholder: '이름 입력' },
+              { label: '연락처', key: 'phone' as const, placeholder: '010-0000-0000' },
+              { label: '주소', key: 'addr' as const, placeholder: '주소 검색' },
+            ].map((field) => (
+              <div key={field.key}>
+                <label style={{ display: 'block', fontSize: 12, fontWeight: 600, color: tc.fgSub, marginBottom: 6 }}>{field.label}</label>
+                <input
+                  value={address[field.key]}
+                  onChange={(e) => setAddress((a) => ({ ...a, [field.key]: e.target.value }))}
+                  placeholder={field.placeholder}
+                  style={{ width: '100%', padding: '11px 14px', borderRadius: 10, border: `1.5px solid ${tc.border}`, fontSize: 14, color: tc.fg, outline: 'none', background: tc.bg, boxSizing: 'border-box' }}
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Step 3: Payment */}
+      {step === 3 && (
+        <div style={{ flex: 1, overflowY: 'auto', padding: '16px' }}>
+          <div style={{ marginBottom: 20 }}>
+            <div style={{ fontSize: 13, fontWeight: 700, color: tc.fg, marginBottom: 10 }}>결제 수단</div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+              {payMethods.map((pm) => (
+                <button
+                  key={pm.key}
+                  onClick={() => setPayMethod(pm.key)}
+                  style={{
+                    display: 'flex', alignItems: 'center', gap: 12,
+                    padding: '14px 16px', borderRadius: 12,
+                    border: `2px solid ${payMethod === pm.key ? tc.fillPrimary : tc.border}`,
+                    background: payMethod === pm.key ? `${tc.fillPrimary}08` : tc.bg,
+                    cursor: 'pointer', textAlign: 'left',
+                  }}
+                >
+                  <span style={{ fontSize: 20 }}>{pm.icon}</span>
+                  <span style={{ fontSize: 14, fontWeight: 600, color: tc.fg }}>{pm.label}</span>
+                  {payMethod === pm.key && <span style={{ marginLeft: 'auto', fontSize: 16, color: tc.fillPrimary }}>✓</span>}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div style={{ padding: '14px 16px', borderRadius: 12, background: tc.surface, border: `1px solid ${tc.border}`, marginBottom: 16 }}>
+            <div style={{ fontSize: 12, color: tc.fgSub, marginBottom: 4 }}>최종 결제 금액</div>
+            <div style={{ fontSize: 22, fontWeight: 800, color: tc.fillPrimary }}>{total.toLocaleString()}원</div>
+          </div>
+
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 8 }}>
+            <input type="checkbox" id="agree" checked={agreed} onChange={(e) => setAgreed(e.target.checked)} style={{ width: 16, height: 16, cursor: 'pointer' }} />
+            <label htmlFor="agree" style={{ fontSize: 13, color: tc.fgSub, cursor: 'pointer' }}>
+              구매 조건 및 개인정보 처리에 동의합니다
+            </label>
+          </div>
+        </div>
+      )}
+
+      {/* CTA button */}
+      <div style={{ padding: '12px 16px 32px', background: tc.bg, borderTop: `1px solid ${tc.border}` }}>
+        <SolidButton
+          color="primary"
+          size="medium"
+          style={{ width: '100%' }}
+          disabled={step === 3 && !agreed}
+          onClick={() => {
+            if (step < 3) setStep((s) => (s + 1) as 1 | 2 | 3)
+            else setOrdered(true)
+          }}
+        >
+          <SolidButton.Center>
+            {step === 1 ? `${total.toLocaleString()}원 · 배송 정보 입력` : step === 2 ? '결제 수단 선택' : `${payMethods.find((p) => p.key === payMethod)?.label}으로 결제`}
+          </SolidButton.Center>
+        </SolidButton>
+      </div>
+    </div>
+  )
+}
+
+export const MobileCheckout: Story = {
+  name: 'Mobile Checkout (Tailwind UI + Apple HIG 벤치마크)',
+  render: () => <MobileCheckoutRender />,
+}
