@@ -565,3 +565,168 @@ export const Chakra_Menu_필터패턴: Story = {
   name: 'Chakra Menu 패턴 (다중 필터 드롭다운)',
   render: () => <ChakraFilterMenuDemo />,
 }
+
+/* --------------------------------------------------------------------------
+   Figma 벤치마크: 레이어 속성 드롭다운 패턴
+   Figma 속성 패널 — 레이어 블렌드 모드 + 폰트 선택 드롭다운 UI
+-------------------------------------------------------------------------- */
+const BLEND_MODES = ['Normal', 'Multiply', 'Screen', 'Overlay', 'Darken', 'Lighten', 'Color Dodge', 'Color Burn']
+const FONT_FAMILIES = ['Inter', 'Pretendard', 'Noto Sans KR', 'Roboto', 'SF Pro', 'Helvetica']
+
+export const Figma_레이어_속성_드롭다운: Story = {
+  name: 'Figma - 레이어 속성 드롭다운 패턴',
+  render: function Render() {
+    const [blend, setBlend] = useState('Normal')
+    const [font, setFont] = useState('Inter')
+
+    return (
+      <div
+        style={{
+          width: 240,
+          borderRadius: 8,
+          border: '1px solid #e2e8f0',
+          background: '#fff',
+          overflow: 'hidden',
+        }}
+      >
+        {/* 헤더 */}
+        <div style={{ padding: '6px 12px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0', fontSize: 11, fontWeight: 700, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+          Layer Properties
+        </div>
+        {/* Blend mode */}
+        <div style={{ padding: '8px 12px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid #f1f5f9' }}>
+          <span style={{ fontSize: 12, color: '#64748b' }}>Blend</span>
+          <Dropdown
+            value={blend}
+            placeholder="Blend mode"
+            activated={false}
+            onClick={() => {}}
+            style={{ width: 120 }}
+          />
+        </div>
+        {/* 값 표시 목록 */}
+        <div style={{ padding: '6px 0' }}>
+          {BLEND_MODES.slice(0, 5).map((mode) => (
+            <div
+              key={mode}
+              onClick={() => setBlend(mode)}
+              style={{
+                padding: '6px 12px',
+                fontSize: 12,
+                cursor: 'pointer',
+                background: blend === mode ? '#6366f108' : 'transparent',
+                color: blend === mode ? '#6366f1' : '#1e293b',
+                fontWeight: blend === mode ? 600 : 400,
+              }}
+            >
+              {mode}
+            </div>
+          ))}
+        </div>
+        {/* Font family */}
+        <div style={{ padding: '8px 12px', borderTop: '1px solid #f1f5f9', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <span style={{ fontSize: 12, color: '#64748b' }}>Font</span>
+          <div style={{ fontSize: 12, fontWeight: 600, color: '#1e293b', display: 'flex', alignItems: 'center', gap: 4, cursor: 'pointer' }}
+            onClick={() => {
+              const idx = FONT_FAMILIES.indexOf(font)
+              setFont(FONT_FAMILIES[(idx + 1) % FONT_FAMILIES.length])
+            }}
+          >
+            {font}
+            <ChevronRightLineIcon width={12} height={12} style={{ color: '#94a3b8', transform: 'rotate(90deg)' }} />
+          </div>
+        </div>
+      </div>
+    )
+  },
+}
+
+/* --------------------------------------------------------------------------
+   Material 3 벤치마크: 노출된 드롭다운 메뉴 패턴
+   Material 3 ExposedDropdownMenu — outlined + filled 스타일 선택 UI
+-------------------------------------------------------------------------- */
+const COUNTRIES = ['대한민국', '미국', '일본', '영국', '프랑스', '독일', '캐나다', '호주']
+const LANGUAGES = ['한국어', 'English', '日本語', '中文', 'Español', 'Français']
+
+export const Material3_노출_드롭다운: Story = {
+  name: 'Material 3 - 노출된 드롭다운 메뉴 패턴',
+  render: function Render() {
+    const [country, setCountry] = useState('')
+    const [language, setLanguage] = useState('')
+
+    return (
+      <div style={{ maxWidth: 380, display: 'flex', flexDirection: 'column', gap: 20 }}>
+        <div style={{ fontSize: 13, fontWeight: 700, color: '#1e293b' }}>M3 ExposedDropdownMenu 패턴</div>
+
+        {/* Outlined style */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+          <label style={{ fontSize: 12, fontWeight: 600, color: '#475569' }}>국가 (Outlined)</label>
+          <Dropdown
+            value={country}
+            placeholder="국가를 선택하세요"
+            activated={false}
+            onClick={() => setCountry(COUNTRIES[0])}
+          />
+          {/* 선택 목록 미리보기 */}
+          <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+            {COUNTRIES.slice(0, 4).map((c) => (
+              <div
+                key={c}
+                onClick={() => setCountry(c)}
+                style={{
+                  padding: '4px 10px',
+                  borderRadius: 20,
+                  fontSize: 11,
+                  cursor: 'pointer',
+                  border: `1px solid ${country === c ? '#6366f1' : '#e2e8f0'}`,
+                  color: country === c ? '#6366f1' : '#64748b',
+                  background: country === c ? '#6366f108' : 'transparent',
+                  fontWeight: country === c ? 600 : 400,
+                }}
+              >
+                {c}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Filled style */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+          <label style={{ fontSize: 12, fontWeight: 600, color: '#475569' }}>언어 (Filled)</label>
+          <Dropdown
+            value={language}
+            placeholder="언어를 선택하세요"
+            activated={false}
+            onClick={() => setLanguage(LANGUAGES[0])}
+          />
+          <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+            {LANGUAGES.map((l) => (
+              <div
+                key={l}
+                onClick={() => setLanguage(l)}
+                style={{
+                  padding: '4px 10px',
+                  borderRadius: 20,
+                  fontSize: 11,
+                  cursor: 'pointer',
+                  border: `1px solid ${language === l ? '#10b981' : '#e2e8f0'}`,
+                  color: language === l ? '#10b981' : '#64748b',
+                  background: language === l ? '#10b98108' : 'transparent',
+                  fontWeight: language === l ? 600 : 400,
+                }}
+              >
+                {l}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {(country || language) && (
+          <div style={{ padding: '10px 14px', borderRadius: 8, background: '#f8fafc', border: '1px solid #e2e8f0', fontSize: 13, color: '#475569' }}>
+            선택: <strong>{country || '미선택'}</strong> · <strong>{language || '미선택'}</strong>
+          </div>
+        )}
+      </div>
+    )
+  },
+}

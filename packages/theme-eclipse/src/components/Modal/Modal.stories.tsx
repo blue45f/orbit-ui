@@ -591,3 +591,231 @@ const MultiStepDialogRender = (args: React.ComponentProps<typeof Dialog>) => {
 export const 멀티스텝: Story = {
   render: (args) => <MultiStepDialogRender {...args} />,
 }
+
+/* --------------------------------------------------------------------------
+   shadcn/ui 벤치마크: 삭제 확인 다이얼로그 패턴
+   shadcn/ui AlertDialog — 위험 작업 전 이중 확인 패턴
+-------------------------------------------------------------------------- */
+function DeleteConfirmRender() {
+  const [isOpen, setIsOpen] = useState(false)
+  const [deleted, setDeleted] = useState(false)
+
+  const handleDelete = () => {
+    setDeleted(true)
+    setIsOpen(false)
+  }
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 16, alignItems: 'flex-start' }}>
+      {deleted ? (
+        <div style={{ padding: '12px 16px', borderRadius: 8, background: '#fef2f2', border: '1px solid #fecaca', color: '#dc2626', fontSize: 14, fontWeight: 600 }}>
+          항목이 삭제되었습니다.
+        </div>
+      ) : (
+        <Dialog isPresented={isOpen} onIsPresentedChange={() => setIsOpen(false)}>
+          <Dialog.Trigger asChild>
+            <button
+              onClick={() => setIsOpen(true)}
+              style={{ padding: '10px 20px', borderRadius: 8, background: '#ef4444', color: '#fff', border: 'none', fontSize: 14, fontWeight: 600, cursor: 'pointer' }}
+            >
+              항목 삭제
+            </button>
+          </Dialog.Trigger>
+          <Dialog.Top>
+            <div style={{ padding: '4px 0' }}>
+              <div style={{ fontSize: 18, fontWeight: 700, color: '#0f172a', marginBottom: 8 }}>정말 삭제하시겠습니까?</div>
+              <div style={{ fontSize: 14, color: '#64748b', lineHeight: 1.6 }}>
+                이 작업은 되돌릴 수 없습니다. 해당 항목과 모든 관련 데이터가 영구적으로 삭제됩니다.
+              </div>
+            </div>
+          </Dialog.Top>
+          <Dialog.Bottom direction="horizontal">
+            <Dialog.Close asChild>
+              <OutlineButton color="black" size="medium" width="100%">
+                <OutlineButton.Center>취소</OutlineButton.Center>
+              </OutlineButton>
+            </Dialog.Close>
+            <Button
+              color="primary"
+              size="medium"
+              width="100%"
+              onClick={handleDelete}
+              style={{ background: '#ef4444' }}
+            >
+              <Button.Center>삭제 확인</Button.Center>
+            </Button>
+          </Dialog.Bottom>
+        </Dialog>
+      )}
+      <div style={{ fontSize: 11, color: '#94a3b8' }}>shadcn/ui AlertDialog 패턴 — 위험 작업 전 이중 확인</div>
+    </div>
+  )
+}
+
+export const shadcn_삭제_확인_다이얼로그: Story = {
+  name: 'shadcn/ui - 삭제 확인 다이얼로그 패턴',
+  render: () => <DeleteConfirmRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Mantine 벤치마크: 이미지 뷰어 모달 패턴
+   Mantine Modal — 전체화면 이미지 미리보기 lightbox 패턴
+-------------------------------------------------------------------------- */
+const GALLERY_ITEMS = [
+  { id: 1, title: 'Orbit UI Components', color: '#6366f1', label: 'Components' },
+  { id: 2, title: 'Design Tokens', color: '#f59e0b', label: 'Tokens' },
+  { id: 3, title: 'Typography Scale', color: '#10b981', label: 'Typography' },
+]
+
+function ImageViewerRender() {
+  const [selected, setSelected] = useState<typeof GALLERY_ITEMS[0] | null>(null)
+
+  return (
+    <div>
+      <div style={{ fontSize: 13, fontWeight: 700, color: '#1e293b', marginBottom: 12 }}>갤러리</div>
+      <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
+        {GALLERY_ITEMS.map((item) => (
+          <div
+            key={item.id}
+            onClick={() => setSelected(item)}
+            style={{
+              width: 140,
+              height: 100,
+              borderRadius: 12,
+              background: item.color + '20',
+              border: `1px solid ${item.color}40`,
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+              cursor: 'pointer',
+              gap: 6,
+            }}
+          >
+            <div style={{ width: 48, height: 48, borderRadius: 8, background: item.color, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontWeight: 700, fontSize: 13 }}>
+              {item.label[0]}
+            </div>
+            <div style={{ fontSize: 11, fontWeight: 600, color: item.color }}>{item.label}</div>
+          </div>
+        ))}
+      </div>
+      {selected && (
+        <Dialog isPresented={true} onIsPresentedChange={() => setSelected(null)}>
+          <Dialog.Top>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 16, padding: '8px 0' }}>
+              <div style={{ width: '100%', height: 200, borderRadius: 12, background: selected.color + '20', border: `2px solid ${selected.color}40`, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <div style={{ width: 80, height: 80, borderRadius: 16, background: selected.color, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontWeight: 800, fontSize: 24 }}>
+                  {selected.label[0]}
+                </div>
+              </div>
+              <div style={{ textAlign: 'center' }}>
+                <div style={{ fontSize: 16, fontWeight: 700, color: '#0f172a' }}>{selected.title}</div>
+                <div style={{ fontSize: 12, color: '#94a3b8', marginTop: 4 }}>{selected.label} · Orbit UI 2026</div>
+              </div>
+            </div>
+          </Dialog.Top>
+          <Dialog.Bottom direction="horizontal">
+            <Dialog.Close asChild>
+              <OutlineButton color="black" size="medium" width="100%">
+                <OutlineButton.Center>닫기</OutlineButton.Center>
+              </OutlineButton>
+            </Dialog.Close>
+          </Dialog.Bottom>
+        </Dialog>
+      )}
+      <div style={{ marginTop: 12, fontSize: 11, color: '#94a3b8' }}>Mantine Modal — 썸네일 클릭 시 라이트박스 미리보기</div>
+    </div>
+  )
+}
+
+export const Mantine_이미지_뷰어_모달: Story = {
+  name: 'Mantine - 이미지 뷰어 라이트박스 패턴',
+  render: () => <ImageViewerRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Ant Design 벤치마크: 폼 제출 다이얼로그 패턴
+   Ant Design Modal + Form — 인라인 폼 포함 모달 패턴
+-------------------------------------------------------------------------- */
+function FormModalRender() {
+  const [isOpen, setIsOpen] = useState(false)
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [submitted, setSubmitted] = useState(false)
+
+  const handleSubmit = () => {
+    if (name && email) {
+      setSubmitted(true)
+      setIsOpen(false)
+      setName('')
+      setEmail('')
+    }
+  }
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 16, alignItems: 'flex-start' }}>
+      {submitted && (
+        <div style={{ padding: '12px 16px', borderRadius: 8, background: '#f0fdf4', border: '1px solid #bbf7d0', color: '#16a34a', fontSize: 14, fontWeight: 600 }}>
+          초대가 발송되었습니다.
+        </div>
+      )}
+      <Dialog isPresented={isOpen} onIsPresentedChange={() => setIsOpen(false)}>
+        <Dialog.Trigger asChild>
+          <button
+            onClick={() => setIsOpen(true)}
+            style={{ padding: '10px 20px', borderRadius: 8, background: '#6366f1', color: '#fff', border: 'none', fontSize: 14, fontWeight: 600, cursor: 'pointer' }}
+          >
+            멤버 초대
+          </button>
+        </Dialog.Trigger>
+        <Dialog.Top>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+            <div style={{ fontSize: 18, fontWeight: 700, color: '#0f172a' }}>팀 멤버 초대</div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+              <div>
+                <label style={{ fontSize: 12, fontWeight: 600, color: '#475569', display: 'block', marginBottom: 6 }}>이름</label>
+                <input
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  placeholder="홍길동"
+                  style={{ width: '100%', padding: '8px 12px', borderRadius: 8, border: '1px solid #e2e8f0', fontSize: 14, outline: 'none', boxSizing: 'border-box' }}
+                />
+              </div>
+              <div>
+                <label style={{ fontSize: 12, fontWeight: 600, color: '#475569', display: 'block', marginBottom: 6 }}>이메일</label>
+                <input
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="hong@example.com"
+                  style={{ width: '100%', padding: '8px 12px', borderRadius: 8, border: '1px solid #e2e8f0', fontSize: 14, outline: 'none', boxSizing: 'border-box' }}
+                />
+              </div>
+            </div>
+          </div>
+        </Dialog.Top>
+        <Dialog.Bottom direction="horizontal">
+          <Dialog.Close asChild>
+            <OutlineButton color="black" size="medium" width="100%">
+              <OutlineButton.Center>취소</OutlineButton.Center>
+            </OutlineButton>
+          </Dialog.Close>
+          <Button
+            color="primary"
+            size="medium"
+            width="100%"
+            disabled={!name || !email}
+            onClick={handleSubmit}
+          >
+            <Button.Center>초대 발송</Button.Center>
+          </Button>
+        </Dialog.Bottom>
+      </Dialog>
+      <div style={{ fontSize: 11, color: '#94a3b8' }}>Ant Design Modal + Form 패턴 — 인라인 입력 폼이 포함된 모달</div>
+    </div>
+  )
+}
+
+export const Ant_폼_제출_다이얼로그: Story = {
+  name: 'Ant Design - 폼 제출 다이얼로그 패턴',
+  render: () => <FormModalRender />,
+}
