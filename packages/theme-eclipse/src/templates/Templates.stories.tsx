@@ -4437,3 +4437,533 @@ const DeploymentHubRender: React.FC = () => {
 export const DeploymentHub: Story = {
   render: () => <DeploymentHubRender />,
 }
+
+/* ═══════════════════════════════════════════
+   16. Pricing Page — Vercel/shadcn 벤치마크
+   ═══════════════════════════════════════════ */
+const PRICING_PLANS = [
+  {
+    id: 'free',
+    name: 'Free',
+    price: { monthly: 0, yearly: 0 },
+    description: '개인 프로젝트와 소규모 팀을 위한 플랜',
+    badge: null,
+    color: '#64748b',
+    features: [
+      '컴포넌트 라이브러리 (50+)',
+      '커뮤니티 테마 1개',
+      '월 1,000 빌드 분',
+      '팀 멤버 최대 3명',
+      '커뮤니티 지원',
+      '기본 Analytics',
+    ],
+    limits: ['커스텀 도메인 없음', 'SSO 미지원'],
+    cta: '무료로 시작하기',
+    ctaVariant: 'outline' as const,
+  },
+  {
+    id: 'pro',
+    name: 'Pro',
+    price: { monthly: 29000, yearly: 24000 },
+    description: '성장하는 팀과 프로덕션 서비스를 위한 플랜',
+    badge: 'POPULAR',
+    color: '#6366f1',
+    features: [
+      '컴포넌트 라이브러리 (150+)',
+      '모든 공식 테마',
+      '월 100,000 빌드 분',
+      '팀 멤버 최대 15명',
+      '우선 이메일 지원',
+      '고급 Analytics + 리포트',
+      '피그마 연동',
+      '커스텀 도메인',
+    ],
+    limits: ['SSO 미지원'],
+    cta: 'Pro로 업그레이드',
+    ctaVariant: 'solid' as const,
+  },
+  {
+    id: 'enterprise',
+    name: 'Enterprise',
+    price: { monthly: null, yearly: null },
+    description: '대규모 조직을 위한 맞춤형 엔터프라이즈 솔루션',
+    badge: null,
+    color: '#0f172a',
+    features: [
+      '모든 Pro 기능 포함',
+      '무제한 팀 멤버',
+      '무제한 빌드',
+      '전용 슬랙 채널 지원',
+      'SSO / SAML',
+      '99.99% SLA 보장',
+      'On-premise 옵션',
+      '맞춤 계약',
+    ],
+    limits: [],
+    cta: '영업팀에 문의',
+    ctaVariant: 'outline' as const,
+  },
+]
+
+const FAQ_ITEMS = [
+  {
+    id: 'faq-1',
+    question: '연간 구독과 월간 구독의 차이는 무엇인가요?',
+    answer: '연간 구독 시 월간 대비 약 17% 할인된 가격으로 이용하실 수 있습니다. 연간 구독은 선불로 결제되며, 구독 기간 중 언제든지 플랜을 업그레이드할 수 있습니다.',
+  },
+  {
+    id: 'faq-2',
+    question: '무료 플랜에서 Pro로 업그레이드하면 데이터가 유지되나요?',
+    answer: '네, 기존 프로젝트와 모든 데이터는 그대로 유지됩니다. 업그레이드 즉시 Pro 기능을 사용할 수 있으며, 기존 워크플로우에 영향을 주지 않습니다.',
+  },
+  {
+    id: 'faq-3',
+    question: '팀 멤버를 추가하려면 어떻게 하나요?',
+    answer: '설정 > 팀 관리에서 이메일로 초대할 수 있습니다. Pro 플랜은 최대 15명, Enterprise는 무제한으로 추가할 수 있습니다. 초대받은 멤버는 이메일 인증 후 즉시 합류됩니다.',
+  },
+  {
+    id: 'faq-4',
+    question: '환불 정책은 어떻게 되나요?',
+    answer: '결제 후 14일 이내에는 전액 환불을 보장합니다. 이후에는 남은 기간에 비례하여 부분 환불이 가능합니다. 환불 신청은 고객센터 또는 대시보드 설정에서 할 수 있습니다.',
+  },
+  {
+    id: 'faq-5',
+    question: 'Enterprise 플랜은 어떻게 시작하나요?',
+    answer: '영업팀(sales@orbit-ui.com)으로 문의하거나 아래 "영업팀에 문의" 버튼을 클릭하세요. 요구사항 파악 후 맞춤 견적을 제안드립니다. 보통 영업일 기준 24시간 내 답변드립니다.',
+  },
+]
+
+const TESTIMONIALS = [
+  {
+    quote: 'Orbit UI 도입 후 디자인-개발 협업 속도가 3배 향상됐습니다. 토큰 시스템이 특히 훌륭해요.',
+    author: 'Kim Jihye',
+    role: 'Lead Designer @ Kakao',
+    initials: 'KJ',
+    color: '#6366f1',
+  },
+  {
+    quote: 'shadcn/ui 대비 한국어 지원과 접근성이 압도적입니다. Pro 플랜 ROI가 확실합니다.',
+    author: 'Park Minjun',
+    role: 'Frontend Lead @ Naver',
+    initials: 'PM',
+    color: '#10b981',
+  },
+  {
+    quote: 'Enterprise 계약 후 온보딩부터 운영까지 전담 지원을 받고 있어 매우 만족스럽습니다.',
+    author: 'Lee Soyeon',
+    role: 'CTO @ Coupang',
+    initials: 'LS',
+    color: '#f59e0b',
+  },
+]
+
+const PricingPageRender: React.FC = () => {
+  const [isYearly, setIsYearly] = useState(false)
+  const [openFaq, setOpenFaq] = useState<string>('faq-1')
+
+  const formatPrice = (price: number | null) => {
+    if (price === null) return '견적 문의'
+    if (price === 0) return '무료'
+    return `₩${price.toLocaleString('ko-KR')}/월`
+  }
+
+  return (
+    <div style={{ minHeight: '100vh', background: tc.bg, fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' }}>
+      {/* Nav */}
+      <nav style={{
+        position: 'sticky', top: 0, zIndex: 50,
+        background: `${tc.bg}f0`, backdropFilter: 'blur(12px)',
+        borderBottom: `1px solid ${tc.border}`,
+        padding: '0 40px', height: '60px',
+        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+      }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+          <div style={{
+            width: '32px', height: '32px', borderRadius: '8px',
+            background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            color: '#fff', fontSize: '13px', fontWeight: '800',
+          }}>O</div>
+          <Text textStyle="body1" style={{ fontWeight: '800', color: tc.fg }}>Orbit UI</Text>
+        </div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '24px' }}>
+          {['제품', '문서', '블로그', '가격'].map((item) => (
+            <button key={item} style={{
+              fontSize: '14px', fontWeight: item === '가격' ? '700' : '400',
+              color: item === '가격' ? '#6366f1' : tc.fgSub,
+              border: 'none', background: 'transparent', cursor: 'pointer',
+            }}>{item}</button>
+          ))}
+        </div>
+        <div style={{ display: 'flex', gap: '8px' }}>
+          <OutlineButton size="small" color="black">로그인</OutlineButton>
+          <SolidButton size="small" color="black">무료로 시작하기</SolidButton>
+        </div>
+      </nav>
+
+      {/* Hero */}
+      <section style={{ textAlign: 'center', padding: '80px 40px 60px', maxWidth: '860px', margin: '0 auto' }}>
+        <LabelBadge color="benefit" style={{ display: 'inline-flex', marginBottom: '20px' }}>
+          <LabelBadge.Label>새로운 Enterprise 플랜 출시</LabelBadge.Label>
+        </LabelBadge>
+        <h1 style={{
+          fontSize: '52px', fontWeight: '900', color: tc.fg,
+          margin: '0 0 20px', lineHeight: 1.1, letterSpacing: '-0.03em',
+        }}>
+          팀을 위한 완벽한<br />
+          <span style={{ background: 'linear-gradient(135deg, #6366f1, #8b5cf6)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+            플랜을 선택하세요
+          </span>
+        </h1>
+        <p style={{ fontSize: '18px', color: tc.fgSub, margin: '0 0 36px', lineHeight: '1.6' }}>
+          모든 플랜은 무료 체험으로 시작합니다. 신용카드가 필요하지 않으며,<br />
+          언제든지 업그레이드하거나 취소할 수 있습니다.
+        </p>
+
+        {/* Billing Toggle */}
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px', marginBottom: '16px' }}>
+          <Text textStyle="body2" style={{ color: !isYearly ? tc.fg : tc.fgMuted, fontWeight: !isYearly ? '600' : '400' }}>월간 결제</Text>
+          <Switch
+            checked={isYearly}
+            onChange={() => setIsYearly((v) => !v)}
+          />
+          <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+            <Text textStyle="body2" style={{ color: isYearly ? tc.fg : tc.fgMuted, fontWeight: isYearly ? '600' : '400' }}>연간 결제</Text>
+            <span style={{
+              fontSize: '11px', fontWeight: '700', color: '#10b981',
+              background: 'rgba(16,185,129,0.1)', padding: '2px 8px', borderRadius: '100px',
+            }}>17% 절약</span>
+          </div>
+        </div>
+      </section>
+
+      {/* Pricing Cards */}
+      <section style={{ padding: '0 40px 80px', maxWidth: '1100px', margin: '0 auto' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '20px' }}>
+          {PRICING_PLANS.map((plan) => {
+            const price = isYearly ? plan.price.yearly : plan.price.monthly
+            const isPro = plan.id === 'pro'
+            return (
+              <div
+                key={plan.id}
+                style={{
+                  borderRadius: '20px',
+                  border: isPro ? '2px solid #6366f1' : `1px solid ${tc.border}`,
+                  background: isPro
+                    ? 'linear-gradient(180deg, rgba(99,102,241,0.04) 0%, #fff 100%)'
+                    : tc.bg,
+                  padding: '28px',
+                  position: 'relative',
+                  boxShadow: isPro ? '0 8px 32px rgba(99,102,241,0.12)' : 'none',
+                }}
+              >
+                {plan.badge && (
+                  <div style={{
+                    position: 'absolute', top: '-12px', left: '50%', transform: 'translateX(-50%)',
+                    background: '#6366f1', color: '#fff',
+                    fontSize: '11px', fontWeight: '800', letterSpacing: '0.08em',
+                    padding: '4px 14px', borderRadius: '100px',
+                  }}>
+                    {plan.badge}
+                  </div>
+                )}
+
+                {/* Plan Header */}
+                <div style={{ marginBottom: '20px' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
+                    <div style={{
+                      width: '32px', height: '32px', borderRadius: '8px',
+                      background: `${plan.color}14`,
+                      display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    }}>
+                      <div style={{ width: '14px', height: '14px', borderRadius: '3px', background: plan.color }} />
+                    </div>
+                    <Text textStyle="h4" style={{ fontWeight: '800', color: tc.fg }}>{plan.name}</Text>
+                  </div>
+                  <Text textStyle="caption" style={{ color: tc.fgSub, display: 'block', lineHeight: '1.5', marginBottom: '20px' }}>
+                    {plan.description}
+                  </Text>
+                  <div style={{ marginBottom: '8px' }}>
+                    <span style={{ fontSize: '42px', fontWeight: '900', color: tc.fg, letterSpacing: '-0.02em' }}>
+                      {price === null ? '—' : price === 0 ? '₩0' : `₩${(isYearly ? price * 12 : price).toLocaleString('ko-KR')}`}
+                    </span>
+                    {price !== null && price > 0 && (
+                      <span style={{ fontSize: '14px', color: tc.fgMuted, marginLeft: '4px' }}>
+                        /{isYearly ? '년' : '월'}
+                      </span>
+                    )}
+                  </div>
+                  {price !== null && price > 0 && isYearly && (
+                    <Text textStyle="caption" style={{ color: tc.fgMuted }}>
+                      월 {formatPrice(price)} 청구
+                    </Text>
+                  )}
+                  {price === null && (
+                    <Text textStyle="caption" style={{ color: tc.fgMuted }}>맞춤 견적 제공</Text>
+                  )}
+                </div>
+
+                {/* CTA */}
+                <div style={{ marginBottom: '24px' }}>
+                  {plan.ctaVariant === 'solid' ? (
+                    <SolidButton size="medium" color="black" style={{ width: '100%', justifyContent: 'center' }}>
+                      <SolidButton.Center>{plan.cta}</SolidButton.Center>
+                    </SolidButton>
+                  ) : (
+                    <OutlineButton size="medium" color="black" style={{ width: '100%', justifyContent: 'center' }}>
+                      {plan.cta}
+                    </OutlineButton>
+                  )}
+                </div>
+
+                <Divider />
+
+                {/* Features */}
+                <div style={{ marginTop: '20px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                  {plan.features.map((feature) => (
+                    <div key={feature} style={{ display: 'flex', alignItems: 'flex-start', gap: '10px' }}>
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style={{ marginTop: '1px', flexShrink: 0 }}>
+                        <circle cx="12" cy="12" r="10" fill={plan.color} opacity="0.15" />
+                        <path d="M8 12l3 3 5-5" stroke={plan.color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                      <Text textStyle="descriptionLarge" style={{ color: tc.fgSub, lineHeight: '1.4' }}>{feature}</Text>
+                    </div>
+                  ))}
+                  {plan.limits.map((limit) => (
+                    <div key={limit} style={{ display: 'flex', alignItems: 'flex-start', gap: '10px' }}>
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style={{ marginTop: '1px', flexShrink: 0 }}>
+                        <circle cx="12" cy="12" r="10" fill="#94a3b8" opacity="0.15" />
+                        <path d="M8 12h8" stroke="#94a3b8" strokeWidth="2" strokeLinecap="round" />
+                      </svg>
+                      <Text textStyle="descriptionLarge" style={{ color: tc.fgMuted, lineHeight: '1.4' }}>{limit}</Text>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )
+          })}
+        </div>
+      </section>
+
+      {/* Testimonials */}
+      <section style={{ padding: '40px 40px 80px', background: tc.surface, borderTop: `1px solid ${tc.border}`, borderBottom: `1px solid ${tc.border}` }}>
+        <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
+          <div style={{ textAlign: 'center', marginBottom: '48px' }}>
+            <Text textStyle="h3" style={{ display: 'block', fontWeight: '800', color: tc.fg, marginBottom: '8px' }}>
+              전 세계 5,000+ 팀이 신뢰합니다
+            </Text>
+            <Text textStyle="body2" style={{ color: tc.fgSub }}>
+              다양한 규모의 팀이 Orbit UI로 더 빠르게 제품을 출시합니다
+            </Text>
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '20px' }}>
+            {TESTIMONIALS.map((t) => (
+              <div key={t.author} style={{
+                padding: '24px', borderRadius: '16px',
+                background: tc.bg, border: `1px solid ${tc.border}`,
+              }}>
+                <div style={{ marginBottom: '16px' }}>
+                  {[1, 2, 3, 4, 5].map((s) => (
+                    <span key={s} style={{ color: '#f59e0b', fontSize: '14px' }}>★</span>
+                  ))}
+                </div>
+                <Text textStyle="body2" style={{ color: tc.fg, lineHeight: '1.6', display: 'block', marginBottom: '20px' }}>
+                  &ldquo;{t.quote}&rdquo;
+                </Text>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                  <Avatar style={{ width: '36px', height: '36px', background: t.color, fontSize: '12px' }}>
+                    <Avatar.Fallback style={{ background: t.color, color: '#fff', fontWeight: '700' }}>
+                      {t.initials}
+                    </Avatar.Fallback>
+                  </Avatar>
+                  <div>
+                    <Text textStyle="body2" style={{ display: 'block', fontWeight: '700', color: tc.fg }}>{t.author}</Text>
+                    <Text textStyle="caption" style={{ color: tc.fgMuted }}>{t.role}</Text>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Feature Comparison */}
+      <section style={{ padding: '80px 40px', maxWidth: '900px', margin: '0 auto' }}>
+        <div style={{ textAlign: 'center', marginBottom: '48px' }}>
+          <Text textStyle="h3" style={{ display: 'block', fontWeight: '800', color: tc.fg, marginBottom: '8px' }}>
+            플랜 상세 비교
+          </Text>
+          <Text textStyle="body2" style={{ color: tc.fgSub }}>모든 플랜의 기능을 자세히 비교해보세요</Text>
+        </div>
+
+        <Accordion type="multiple" defaultValue={['comp-core', 'comp-team', 'comp-support']} className="w-full">
+          {[
+            {
+              id: 'comp-core',
+              label: '핵심 기능',
+              icon: '⚡',
+              rows: [
+                { name: '컴포넌트 수', free: '50+', pro: '150+', enterprise: '무제한' },
+                { name: '공식 테마', free: '1개', pro: '전체', enterprise: '전체 + 커스텀' },
+                { name: '월 빌드 분', free: '1,000', pro: '100,000', enterprise: '무제한' },
+                { name: '피그마 연동', free: false, pro: true, enterprise: true },
+              ],
+            },
+            {
+              id: 'comp-team',
+              label: '팀 협업',
+              icon: '👥',
+              rows: [
+                { name: '팀 멤버', free: '최대 3명', pro: '최대 15명', enterprise: '무제한' },
+                { name: '공유 라이브러리', free: false, pro: true, enterprise: true },
+                { name: '역할 권한 관리', free: false, pro: true, enterprise: true },
+                { name: '감사 로그', free: false, pro: false, enterprise: true },
+              ],
+            },
+            {
+              id: 'comp-support',
+              label: '지원 및 보안',
+              icon: '🛡️',
+              rows: [
+                { name: '지원 채널', free: '커뮤니티', pro: '이메일 우선', enterprise: '전용 슬랙' },
+                { name: 'SLA', free: false, pro: false, enterprise: true },
+                { name: 'SSO / SAML', free: false, pro: false, enterprise: true },
+                { name: 'On-premise', free: false, pro: false, enterprise: true },
+              ],
+            },
+          ].map((section) => (
+            <Accordion.Item key={section.id} value={section.id}>
+              <Accordion.Trigger>
+                <span style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                  <span style={{ fontSize: '16px' }}>{section.icon}</span>
+                  {section.label}
+                </span>
+              </Accordion.Trigger>
+              <Accordion.Content>
+                <div style={{ paddingBottom: '8px' }}>
+                  <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr', padding: '8px 4px', borderBottom: `1px solid ${tc.border}` }}>
+                    <div />
+                    {['Free', 'Pro', 'Enterprise'].map((p) => (
+                      <div key={p} style={{ textAlign: 'center', fontSize: '11px', fontWeight: '700', color: p === 'Pro' ? '#6366f1' : tc.fgMuted, textTransform: 'uppercase', letterSpacing: '0.05em' }}>{p}</div>
+                    ))}
+                  </div>
+                  {section.rows.map((row, ri) => (
+                    <div key={ri} style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr', padding: '12px 4px', borderBottom: `1px solid ${tc.borderSub}`, alignItems: 'center' }}>
+                      <Text textStyle="descriptionLarge" style={{ color: tc.fgSub }}>{row.name}</Text>
+                      {[row.free, row.pro, row.enterprise].map((val, vi) => (
+                        <div key={vi} style={{ display: 'flex', justifyContent: 'center' }}>
+                          {typeof val === 'boolean' ? (
+                            val ? (
+                              <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                                <circle cx="12" cy="12" r="10" fill="#22c55e" />
+                                <path d="M8 12l3 3 5-5" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                              </svg>
+                            ) : (
+                              <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                                <circle cx="12" cy="12" r="10" fill="#e2e8f0" />
+                                <path d="M8 12h8" stroke="#94a3b8" strokeWidth="2" strokeLinecap="round" />
+                              </svg>
+                            )
+                          ) : (
+                            <Text textStyle="descriptionSmall" style={{ color: vi === 1 ? '#6366f1' : tc.fgSub, fontWeight: vi === 1 ? '600' : '400', textAlign: 'center' }}>{String(val)}</Text>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  ))}
+                </div>
+              </Accordion.Content>
+            </Accordion.Item>
+          ))}
+        </Accordion>
+      </section>
+
+      {/* FAQ */}
+      <section style={{ padding: '0 40px 80px', maxWidth: '720px', margin: '0 auto' }}>
+        <div style={{ textAlign: 'center', marginBottom: '48px' }}>
+          <Text textStyle="h3" style={{ display: 'block', fontWeight: '800', color: tc.fg, marginBottom: '8px' }}>
+            자주 묻는 질문
+          </Text>
+          <Text textStyle="body2" style={{ color: tc.fgSub }}>
+            더 궁금한 사항은{' '}
+            <span style={{ color: '#6366f1', cursor: 'pointer', fontWeight: '600' }}>고객센터</span>에서 확인하세요
+          </Text>
+        </div>
+        <Accordion
+          type="single"
+          collapsible
+          value={openFaq}
+          onValueChange={setOpenFaq}
+          className="w-full"
+        >
+          {FAQ_ITEMS.map((item) => (
+            <Accordion.Item key={item.id} value={item.id}>
+              <Accordion.Trigger>
+                <span style={{ color: openFaq === item.id ? '#6366f1' : tc.fg }}>{item.question}</span>
+              </Accordion.Trigger>
+              <Accordion.Content>{item.answer}</Accordion.Content>
+            </Accordion.Item>
+          ))}
+        </Accordion>
+      </section>
+
+      {/* CTA Banner */}
+      <section style={{
+        margin: '0 40px 80px',
+        borderRadius: '24px',
+        background: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #3b82f6 100%)',
+        padding: '60px 40px',
+        textAlign: 'center',
+        maxWidth: '1020px',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+      }}>
+        <Text textStyle="h3" style={{ display: 'block', fontWeight: '900', color: '#fff', marginBottom: '12px', letterSpacing: '-0.02em' }}>
+          지금 바로 시작하세요
+        </Text>
+        <Text textStyle="body1" style={{ color: 'rgba(255,255,255,0.8)', display: 'block', marginBottom: '32px' }}>
+          14일 무료 체험 · 신용카드 불필요 · 언제든 취소 가능
+        </Text>
+        <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
+          <button style={{
+            padding: '14px 32px', borderRadius: '12px',
+            background: '#fff', color: '#6366f1',
+            border: 'none', fontSize: '15px', fontWeight: '700', cursor: 'pointer',
+          }}>
+            무료로 시작하기
+          </button>
+          <button style={{
+            padding: '14px 32px', borderRadius: '12px',
+            background: 'transparent', color: '#fff',
+            border: '2px solid rgba(255,255,255,0.4)',
+            fontSize: '15px', fontWeight: '600', cursor: 'pointer',
+          }}>
+            데모 요청하기
+          </button>
+        </div>
+        <div style={{ display: 'flex', justifyContent: 'center', gap: '32px', marginTop: '32px' }}>
+          {['5,000+ 팀이 사용 중', 'WCAG AA 인증', 'SOC 2 Type II'].map((badge) => (
+            <div key={badge} style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                <circle cx="12" cy="12" r="10" stroke="rgba(255,255,255,0.6)" strokeWidth="1.5" />
+                <path d="M8 12l3 3 5-5" stroke="rgba(255,255,255,0.6)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+              <span style={{ fontSize: '13px', color: 'rgba(255,255,255,0.7)', fontWeight: '500' }}>{badge}</span>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer style={{ padding: '40px', borderTop: `1px solid ${tc.border}`, textAlign: 'center' }}>
+        <Text textStyle="caption" style={{ color: tc.fgMuted }}>
+          © 2025 Orbit UI · 문의: hello@orbit-ui.com
+        </Text>
+      </footer>
+    </div>
+  )
+}
+
+export const PricingPage: Story = {
+  render: () => <PricingPageRender />,
+}
