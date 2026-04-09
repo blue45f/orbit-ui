@@ -14,7 +14,7 @@ import { Meta, Unstyled } from '@storybook/blocks'
     <div style={{ marginBottom: '48px', paddingTop: '48px' }}>
       <div style={{ fontSize: '12px', fontWeight: '700', color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '8px' }}>Benchmark Comparison</div>
       <h1 style={{ fontSize: '36px', fontWeight: '800', color: '#1e293b', letterSpacing: '-0.03em', margin: '0 0 12px' }}>벤치마크 비교</h1>
-      <p style={{ fontSize: '16px', color: '#64748b', lineHeight: '1.6', margin: 0 }}>Mantine, Ant Design, shadcn/ui, MUI와 비교하여 Orbit UI가 채택한 패턴과 차별점을 설명합니다.</p>
+      <p style={{ fontSize: '16px', color: '#64748b', lineHeight: '1.6', margin: 0 }}>Vercel Design, Raycast, Mantine, Ant Design, shadcn/ui, MUI와 비교하여 Orbit UI가 채택한 패턴과 차별점을 설명합니다.</p>
     </div>
 
     {/* Comparison Table */}
@@ -215,6 +215,177 @@ toast.success('저장되었습니다.')`}</pre>
 <Progress value={60} color="primary" />`}</pre>
           </div>
         </div>
+      </div>
+    </section>
+
+    {/* Vercel Design vs Orbit UI */}
+    <section style={{ marginBottom: '64px' }}>
+      <h2 style={{ fontSize: '22px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '8px' }}>Vercel Design vs Orbit UI</h2>
+      <p style={{ fontSize: '14px', color: '#64748b', lineHeight: '1.6', marginBottom: '24px' }}>
+        Vercel Design은 모노크롬 팔레트, 컴팩트 밀도, 다크모드 우선 설계로 유명합니다. 아래 비교표에서 Orbit UI가 채택한 패턴과 차이점을 확인하세요.
+      </p>
+      <div style={{ overflowX: 'auto', borderRadius: '12px', border: '1.5px solid #e2e8f0', marginBottom: '24px' }}>
+        <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '14px' }}>
+          <thead>
+            <tr style={{ background: '#f8fafc' }}>
+              {['항목', 'Vercel Design', 'Orbit UI'].map((col, i) => (
+                <th key={col} style={{ padding: '14px 18px', textAlign: 'left', fontWeight: 700, color: i === 2 ? '#6366f1' : '#475569', borderBottom: '1.5px solid #e2e8f0', whiteSpace: 'nowrap' }}>{col}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {[
+              ['팔레트', '모노크롬 (흑/백 중심)', '6-포인트 컬러 시스템 (primary/gray/benefit/sale/info)'],
+              ['밀도', '컴팩트 (8px 기준 그리드)', '일반 밀도 (컴포넌트별 사이즈 variant)'],
+              ['다크모드', '다크 우선 설계', 'CSS 변수 기반 라이트/다크 지원'],
+              ['상태 표현', 'dot indicator + 컬러 레이블', 'LabelBadge + 컬러 매핑'],
+              ['코드 표현', '모노스페이스 해시/경로', 'Text + fontFamily 인라인 스타일'],
+              ['배포/현황', '배포 스테이터스 패턴 전용 컴포넌트', 'DataTable + LabelBadge 조합으로 동일 패턴 구현'],
+              ['마이그레이션', 'Vercel 전용 생태계 (geist-ui 등)', '표준 React + Tailwind, 의존성 최소'],
+            ].map((row, i) => (
+              <tr key={i} style={{ background: i % 2 === 0 ? '#fff' : '#fafafa' }}>
+                {row.map((cell, j) => (
+                  <td key={j} style={{ padding: '12px 18px', color: j === 0 ? '#475569' : j === 2 ? '#6366f1' : '#64748b', fontWeight: j === 0 ? 600 : j === 2 ? 600 : 400, borderBottom: '1px solid #f1f5f9' }}>{cell}</td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', marginBottom: '16px' }}>
+        <div style={{ borderRadius: '10px', overflow: 'hidden', border: '1.5px solid #e2e8f0' }}>
+          <div style={{ padding: '8px 14px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0', fontSize: '12px', fontWeight: 600, color: '#94a3b8' }}>Before (Vercel / geist-ui)</div>
+          <pre style={{ margin: 0, padding: '16px', fontSize: '12px', color: '#334155', background: '#fff', overflowX: 'auto', lineHeight: '1.6' }}>{`import { Badge, Text } from '@vercel/ui'
+
+// 배포 상태 표시
+<Badge variant="success">Ready</Badge>
+<Text mono size="sm" color="secondary">
+  a3f9b2c
+</Text>`}</pre>
+        </div>
+        <div style={{ borderRadius: '10px', overflow: 'hidden', border: '1.5px solid #6366f130' }}>
+          <div style={{ padding: '8px 14px', background: '#f0f4ff', borderBottom: '1px solid #6366f130', fontSize: '12px', fontWeight: 600, color: '#6366f1' }}>After (Orbit UI)</div>
+          <pre style={{ margin: 0, padding: '16px', fontSize: '12px', color: '#334155', background: '#fff', overflowX: 'auto', lineHeight: '1.6' }}>{`import { LabelBadge, Text }
+  from '@heejun-com/theme-eclipse'
+
+// 배포 상태 표시
+<LabelBadge color="benefit">
+  <LabelBadge.Label>Ready</LabelBadge.Label>
+</LabelBadge>
+<Text textStyle="bodyMedium" style={{ fontFamily: 'monospace' }}>
+  a3f9b2c
+</Text>`}</pre>
+        </div>
+      </div>
+    </section>
+
+    {/* Raycast UI vs Orbit UI */}
+    <section style={{ marginBottom: '64px' }}>
+      <h2 style={{ fontSize: '22px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '8px' }}>Raycast Extensions vs Orbit UI</h2>
+      <p style={{ fontSize: '14px', color: '#64748b', lineHeight: '1.6', marginBottom: '24px' }}>
+        Raycast는 커맨드 팔레트, 빠른 액션 UI, 키보드 중심 인터랙션으로 설계된 시스템입니다. Orbit UI가 이 패턴을 어떻게 구현하는지 비교합니다.
+      </p>
+      <div style={{ overflowX: 'auto', borderRadius: '12px', border: '1.5px solid #e2e8f0', marginBottom: '24px' }}>
+        <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '14px' }}>
+          <thead>
+            <tr style={{ background: '#f8fafc' }}>
+              {['항목', 'Raycast UI', 'Orbit UI'].map((col, i) => (
+                <th key={col} style={{ padding: '14px 18px', textAlign: 'left', fontWeight: 700, color: i === 2 ? '#6366f1' : '#475569', borderBottom: '1.5px solid #e2e8f0', whiteSpace: 'nowrap' }}>{col}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {[
+              ['커맨드 팔레트', 'List + Action + ActionPanel 구조', 'Command 컴포넌트 (cmdk 기반) + Keyboard shortcut'],
+              ['빠른 액션', 'Action.Push, Action.CopyToClipboard 등 선언형', 'Command.Item onClick + GhostButton 조합'],
+              ['키보드 탐색', 'Raycast 네이티브 단축키 시스템', 'Command 컴포넌트 내 키보드 이벤트 기본 제공'],
+              ['리스트 아이템', 'List.Item + accessories 패턴', 'ListTile + Tooltip + Badge 조합'],
+              ['설정 패널', 'Form.Dropdown, Form.TextField, Form.Checkbox', 'Toggle + Slider + TextField + RadioButton'],
+              ['검색', 'List.searchBarPlaceholder 내장', 'SearchBar + Command.Input'],
+              ['플랫폼', 'macOS 전용 네이티브 앱', 'Web (모든 플랫폼)'],
+            ].map((row, i) => (
+              <tr key={i} style={{ background: i % 2 === 0 ? '#fff' : '#fafafa' }}>
+                {row.map((cell, j) => (
+                  <td key={j} style={{ padding: '12px 18px', color: j === 0 ? '#475569' : j === 2 ? '#6366f1' : '#64748b', fontWeight: j === 0 ? 600 : j === 2 ? 600 : 400, borderBottom: '1px solid #f1f5f9' }}>{cell}</td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+        <div style={{ borderRadius: '10px', overflow: 'hidden', border: '1.5px solid #e2e8f0' }}>
+          <div style={{ padding: '8px 14px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0', fontSize: '12px', fontWeight: 600, color: '#94a3b8' }}>Before (Raycast Extensions API)</div>
+          <pre style={{ margin: 0, padding: '16px', fontSize: '12px', color: '#334155', background: '#fff', overflowX: 'auto', lineHeight: '1.6' }}>{`import { List, Action, ActionPanel }
+  from '@raycast/api'
+
+// 커맨드 리스트
+<List>
+  <List.Item
+    title="Open Dashboard"
+    actions={
+      <ActionPanel>
+        <Action title="Open" />
+      </ActionPanel>
+    }
+  />
+</List>`}</pre>
+        </div>
+        <div style={{ borderRadius: '10px', overflow: 'hidden', border: '1.5px solid #6366f130' }}>
+          <div style={{ padding: '8px 14px', background: '#f0f4ff', borderBottom: '1px solid #6366f130', fontSize: '12px', fontWeight: 600, color: '#6366f1' }}>After (Orbit UI)</div>
+          <pre style={{ margin: 0, padding: '16px', fontSize: '12px', color: '#334155', background: '#fff', overflowX: 'auto', lineHeight: '1.6' }}>{`import { Command, GhostButton }
+  from '@heejun-com/theme-eclipse'
+
+// 커맨드 팔레트
+<Command>
+  <Command.Input placeholder="Search..." />
+  <Command.List>
+    <Command.Item onSelect={() => {}}>
+      Open Dashboard
+    </Command.Item>
+  </Command.List>
+</Command>`}</pre>
+        </div>
+      </div>
+    </section>
+
+    {/* Vercel/Raycast에서 채택한 패턴 */}
+    <section style={{ marginBottom: '64px' }}>
+      <h2 style={{ fontSize: '22px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '24px' }}>Vercel/Raycast에서 채택한 패턴 (사이클 9)</h2>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '16px' }}>
+        {[
+          {
+            source: 'Vercel Design',
+            color: '#000000',
+            bg: '#f4f4f5',
+            items: [
+              '배포 상태 dot indicator: 색상 점 + 상태명으로 빠른 시각 피드백',
+              '모노스페이스 커밋 해시: fontFamily 인라인 + 배경 pill로 코드 구별',
+              '컴팩트 밀도 테이블: DataTable + LabelBadge 조합으로 Vercel 배포 리스트 재현',
+              '환경 변수 관리: key/value 그리드 + 암호화 안내 배너',
+            ],
+          },
+          {
+            source: 'Raycast UI',
+            color: '#FF6363',
+            bg: '#fff1f1',
+            items: [
+              'Appearance 설정 슬라이더: 투명도/폰트 크기/애니메이션 속도를 Slider로 조절',
+              '키보드 단축키 힌트: kbd 태그 스타일링으로 단축키 시각화',
+              '단계형 레이블 슬라이더: Off/Slow/Normal/Fast 디스크릿 값 + 컬러 피드백',
+              '컴팩트 설정 카드: 아이콘 헤더 + 항목별 구분선으로 Raycast 설정 패널 재현',
+            ],
+          },
+        ].map(({ source, color, bg, items }) => (
+          <div key={source} style={{ borderRadius: '12px', border: `1.5px solid ${color}30`, padding: '20px' }}>
+            <div style={{ display: 'inline-block', padding: '4px 10px', borderRadius: '6px', background: bg, color, fontSize: '12px', fontWeight: 700, marginBottom: '14px' }}>{source}</div>
+            <ul style={{ margin: 0, paddingLeft: '16px' }}>
+              {items.map((item, i) => (
+                <li key={i} style={{ fontSize: '13px', color: '#475569', lineHeight: '1.7', marginBottom: '6px' }}>{item}</li>
+              ))}
+            </ul>
+          </div>
+        ))}
       </div>
     </section>
 

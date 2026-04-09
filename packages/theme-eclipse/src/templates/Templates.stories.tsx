@@ -4106,3 +4106,334 @@ const FileManagerRender = () => {
 export const FileManager: Story = {
   render: () => <FileManagerRender />,
 }
+
+/* ═══════════════════════════════════════════
+   16. DeploymentHub (Vercel-inspired)
+   Vercel Design: 모노크롬 팔레트, 컴팩트 밀도, 배포 현황 대시보드
+   Components: SolidButton, OutlineButton, GhostButton, LabelBadge,
+               CounterBadge, Toggle, Text, Tooltip, Breadcrumb, Avatar
+   ═══════════════════════════════════════════ */
+
+type DeployStatus = 'ready' | 'building' | 'error' | 'canceled'
+
+const DEPLOY_STATUS_CFG: Record<DeployStatus, { color: string; label: string }> = {
+  ready:    { color: '#10b981', label: 'Ready' },
+  building: { color: '#f59e0b', label: 'Building' },
+  error:    { color: '#ef4444', label: 'Error' },
+  canceled: { color: '#94a3b8', label: 'Canceled' },
+}
+
+const DEPLOY_LIST = [
+  { id: 'dpl-8ax9', commit: 'a3f9b2c', message: 'feat: add Raycast slider story',    branch: 'main',           author: 'HJ', status: 'ready'    as DeployStatus, duration: '1m 24s', ago: '2m ago',  env: 'Production' },
+  { id: 'dpl-7kc3', commit: 'e71c4d8', message: 'fix: password strength meter',      branch: 'feat/password',  author: 'MJ', status: 'building' as DeployStatus, duration: '--',    ago: '8m ago',  env: 'Preview' },
+  { id: 'dpl-6rb1', commit: 'b50f912', message: 'chore: update dependencies',        branch: 'chore/deps',     author: 'SY', status: 'error'    as DeployStatus, duration: '0m 38s', ago: '32m ago', env: 'Preview' },
+  { id: 'dpl-5wq8', commit: 'd2a8e61', message: 'refactor: 3-tier token system',     branch: 'refactor/tok',   author: 'HJ', status: 'ready'    as DeployStatus, duration: '2m 05s', ago: '1h ago',  env: 'Production' },
+  { id: 'dpl-4mt6', commit: 'f9c3b47', message: 'test: add DataTable unit tests',    branch: 'test/datatable', author: 'DW', status: 'canceled' as DeployStatus, duration: '--',    ago: '3h ago',  env: 'Preview' },
+  { id: 'dpl-3xk2', commit: '77de021', message: 'docs: update BenchmarkComparison', branch: 'main',           author: 'HJ', status: 'ready'    as DeployStatus, duration: '1m 51s', ago: '6h ago',  env: 'Production' },
+]
+
+const HUB_INTEGRATIONS = [
+  { name: 'GitHub', connected: true,  lastSync: '1m ago' },
+  { name: 'Slack',  connected: true,  lastSync: '5m ago' },
+  { name: 'Sentry', connected: false, lastSync: 'Never' },
+]
+
+const HUB_ENV_VARS = [
+  { key: 'NEXT_PUBLIC_API_URL',    value: 'https://api.orbit-ui.dev',  env: 'Production' },
+  { key: 'NEXT_PUBLIC_SENTRY_DSN', value: 'https://...@sentry.io/123', env: 'All' },
+  { key: 'DATABASE_URL',           value: '•••••••••••••',             env: 'Production' },
+]
+
+const DeploymentHubRender: React.FC = () => {
+  const [activeTab, setActiveTab] = useState<'deployments' | 'settings' | 'env'>('deployments')
+  const [filterStatus, setFilterStatus] = useState<DeployStatus | 'all'>('all')
+  const [autoDeployEnabled, setAutoDeployEnabled] = useState(true)
+  const [previewEnabled, setPreviewEnabled] = useState(true)
+  const [searchQuery, setSearchQuery] = useState('')
+
+  const filtered = DEPLOY_LIST.filter((d) => {
+    const matchStatus = filterStatus === 'all' || d.status === filterStatus
+    const matchSearch = searchQuery === '' || d.message.toLowerCase().includes(searchQuery.toLowerCase()) || d.commit.includes(searchQuery)
+    return matchStatus && matchSearch
+  })
+
+  const errorCount = DEPLOY_LIST.filter((d) => d.status === 'error').length
+
+  return (
+    <div style={{ display: 'flex', height: '100vh', background: '#fafafa', fontFamily: 'system-ui, -apple-system, sans-serif' }}>
+      {/* Sidebar */}
+      <aside style={{ width: 220, background: tc.bg, borderRight: `1px solid ${tc.border}`, display: 'flex', flexDirection: 'column', flexShrink: 0 }}>
+        <div style={{ padding: '20px 20px 16px', borderBottom: `1px solid ${tc.borderSub}`, display: 'flex', alignItems: 'center', gap: '10px' }}>
+          <div style={{ width: '32px', height: '32px', borderRadius: '8px', background: '#000', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontWeight: 800, fontSize: '14px', flexShrink: 0 }}>O</div>
+          <div>
+            <Text textStyle="bodyMedium" style={{ fontWeight: 700, color: tc.fg, display: 'block', lineHeight: '1.2' }}>orbit-ui</Text>
+            <Text textStyle="descriptionSmall" style={{ color: tc.fgMuted, fontSize: '11px' }}>heejun / main</Text>
+          </div>
+        </div>
+        <nav style={{ flex: 1, padding: '12px 8px', display: 'flex', flexDirection: 'column', gap: '2px' }}>
+          {(['deployments', 'settings', 'env'] as const).map((id) => {
+            const isActive = activeTab === id
+            const label = id === 'deployments' ? 'Deployments' : id === 'settings' ? 'Settings' : 'Environment'
+            return (
+              <button
+                key={id}
+                onClick={() => setActiveTab(id)}
+                style={{
+                  display: 'flex', alignItems: 'center', gap: '8px',
+                  padding: '8px 10px', borderRadius: '6px', border: 'none', cursor: 'pointer',
+                  background: isActive ? '#f1f5f9' : 'transparent',
+                  color: isActive ? tc.fg : tc.fgSub,
+                  fontSize: '13px', fontWeight: isActive ? 600 : 400,
+                  textAlign: 'left', width: '100%',
+                }}
+              >
+                {label}
+                {id === 'deployments' && errorCount > 0 && (
+                  <CounterBadge style={{ marginLeft: 'auto', fontSize: '10px' }}>{errorCount}</CounterBadge>
+                )}
+              </button>
+            )
+          })}
+        </nav>
+        <div style={{ padding: '12px 16px', borderTop: `1px solid ${tc.borderSub}` }}>
+          {[
+            { label: 'Total deploys', value: String(DEPLOY_LIST.length) },
+            { label: 'Success rate', value: `${Math.round((DEPLOY_LIST.filter((d) => d.status === 'ready').length / DEPLOY_LIST.length) * 100)}%` },
+          ].map(({ label, value }) => (
+            <div key={label} style={{ display: 'flex', justifyContent: 'space-between', padding: '3px 0' }}>
+              <Text textStyle="descriptionSmall" style={{ color: tc.fgMuted }}>{label}</Text>
+              <Text textStyle="descriptionSmall" style={{ color: tc.fg, fontWeight: 600 }}>{value}</Text>
+            </div>
+          ))}
+        </div>
+      </aside>
+
+      {/* Main */}
+      <main style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+        <header style={{ height: 52, padding: '0 24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: tc.bg, borderBottom: `1px solid ${tc.border}`, flexShrink: 0 }}>
+          <Breadcrumb>
+            <Breadcrumb.Item>Orbit</Breadcrumb.Item>
+            <Breadcrumb.Item>orbit-ui</Breadcrumb.Item>
+            <Breadcrumb.Item>{activeTab === 'deployments' ? 'Deployments' : activeTab === 'settings' ? 'Settings' : 'Environment'}</Breadcrumb.Item>
+          </Breadcrumb>
+          <Avatar style={{ width: 28, height: 28 }}>
+            <Avatar.Fallback style={{ fontSize: '11px' }}>HJ</Avatar.Fallback>
+          </Avatar>
+        </header>
+
+        <div style={{ flex: 1, overflowY: 'auto', padding: '24px' }}>
+
+          {/* Deployments tab */}
+          {activeTab === 'deployments' && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', maxWidth: 900 }}>
+              <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }}>
+                <div>
+                  <Text textStyle="titleLarge" style={{ fontWeight: 700, color: tc.fg, display: 'block', marginBottom: '4px' }}>Deployments</Text>
+                  <Text textStyle="bodyMedium" style={{ color: tc.fgSub }}>All deployments for orbit-ui</Text>
+                </div>
+                <SolidButton color="primary" size="medium">
+                  <SolidButton.Center>Deploy</SolidButton.Center>
+                </SolidButton>
+              </div>
+
+              {/* Summary cards */}
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '12px' }}>
+                {(['all', 'ready', 'error', 'building'] as const).map((s) => {
+                  const count = s === 'all' ? DEPLOY_LIST.length : DEPLOY_LIST.filter((d) => d.status === s).length
+                  const cfg = s !== 'all' ? DEPLOY_STATUS_CFG[s] : null
+                  const isActive = filterStatus === s
+                  return (
+                    <button
+                      key={s}
+                      onClick={() => setFilterStatus(s)}
+                      style={{
+                        padding: '12px 14px', borderRadius: '8px',
+                        border: `1.5px solid ${isActive ? (cfg?.color ?? tc.fillPrimary) : tc.border}`,
+                        background: isActive ? `${cfg?.color ?? tc.fillPrimary}08` : tc.bg,
+                        cursor: 'pointer', textAlign: 'left',
+                      }}
+                    >
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '4px' }}>
+                        {cfg && <span style={{ width: '7px', height: '7px', borderRadius: '50%', background: cfg.color }} />}
+                        <Text textStyle="descriptionSmall" style={{ color: tc.fgSub, textTransform: 'capitalize' }}>{s}</Text>
+                      </div>
+                      <Text textStyle="titleLarge" style={{ fontWeight: 700, color: tc.fg, fontSize: '20px' }}>{String(count)}</Text>
+                    </button>
+                  )
+                })}
+              </div>
+
+              {/* Search */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <div style={{ position: 'relative', flex: 1, maxWidth: 360 }}>
+                  <input
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    placeholder="Search deployments..."
+                    aria-label="Search deployments"
+                    style={{ width: '100%', padding: '8px 12px 8px 32px', borderRadius: '8px', border: `1px solid ${tc.border}`, fontSize: '13px', outline: 'none', boxSizing: 'border-box', background: tc.bg }}
+                  />
+                  <svg style={{ position: 'absolute', left: '10px', top: '50%', transform: 'translateY(-50%)', color: tc.fgMuted }} width="14" height="14" viewBox="0 0 16 16" fill="none">
+                    <circle cx="7" cy="7" r="5" stroke="currentColor" strokeWidth="1.5" />
+                    <path d="M11 11l3 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                  </svg>
+                </div>
+                <Text textStyle="descriptionSmall" style={{ color: tc.fgMuted, marginLeft: 'auto' }}>
+                  {filtered.length} of {DEPLOY_LIST.length}
+                </Text>
+              </div>
+
+              {/* List */}
+              <div style={{ borderRadius: '8px', border: `1px solid ${tc.border}`, background: tc.bg, overflow: 'hidden' }}>
+                {filtered.map((deploy, idx) => {
+                  const cfg = DEPLOY_STATUS_CFG[deploy.status]
+                  return (
+                    <div key={deploy.id} style={{ display: 'flex', alignItems: 'center', gap: '16px', padding: '12px 16px', borderBottom: idx < filtered.length - 1 ? `1px solid ${tc.borderSub}` : 'none' }}>
+                      <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: cfg.color, flexShrink: 0, boxShadow: deploy.status === 'building' ? `0 0 0 3px ${cfg.color}25` : 'none' }} />
+                      <div style={{ flex: 1, minWidth: 0 }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '3px' }}>
+                          <code style={{ fontFamily: 'monospace', fontSize: '11px', color: tc.fillPrimary, background: `${tc.fillPrimary}12`, padding: '1px 5px', borderRadius: '3px' }}>{deploy.commit}</code>
+                          <Text textStyle="bodyMedium" style={{ color: tc.fg, fontWeight: 500, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{deploy.message}</Text>
+                        </div>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                          <Text textStyle="descriptionSmall" style={{ color: tc.fgMuted }}>{deploy.branch}</Text>
+                          <span style={{ width: '3px', height: '3px', borderRadius: '50%', background: tc.fgMuted }} />
+                          <Text textStyle="descriptionSmall" style={{ color: tc.fgMuted }}>{deploy.ago}</Text>
+                        </div>
+                      </div>
+                      <LabelBadge color={deploy.env === 'Production' ? 'benefit' : 'gray'}>
+                        <LabelBadge.Label>{deploy.env}</LabelBadge.Label>
+                      </LabelBadge>
+                      <Text textStyle="descriptionSmall" style={{ color: tc.fgMuted, fontFamily: 'monospace', minWidth: '56px', textAlign: 'right' }}>{deploy.duration}</Text>
+                      <Tooltip>
+                        <Tooltip.Trigger asChild>
+                          <div>
+                            <Avatar style={{ width: 24, height: 24, cursor: 'pointer' }}>
+                              <Avatar.Fallback style={{ fontSize: '9px' }}>{deploy.author}</Avatar.Fallback>
+                            </Avatar>
+                          </div>
+                        </Tooltip.Trigger>
+                        <Tooltip.Content>{deploy.author}</Tooltip.Content>
+                      </Tooltip>
+                    </div>
+                  )
+                })}
+                {filtered.length === 0 && (
+                  <div style={{ padding: '40px 24px', textAlign: 'center' }}>
+                    <Text textStyle="bodyMedium" style={{ color: tc.fgMuted }}>No deployments match your filters</Text>
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+
+          {/* Settings tab */}
+          {activeTab === 'settings' && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', maxWidth: 640 }}>
+              <div>
+                <Text textStyle="titleLarge" style={{ fontWeight: 700, color: tc.fg, display: 'block', marginBottom: '4px' }}>Project Settings</Text>
+                <Text textStyle="bodyMedium" style={{ color: tc.fgSub }}>Manage deployment configuration</Text>
+              </div>
+              <div style={{ background: tc.bg, borderRadius: '8px', border: `1px solid ${tc.border}`, overflow: 'hidden' }}>
+                <div style={{ padding: '16px 20px', borderBottom: `1px solid ${tc.borderSub}`, background: tc.surface }}>
+                  <Text textStyle="bodyMedium" style={{ fontWeight: 700, color: tc.fg }}>Git Integration</Text>
+                </div>
+                {[
+                  { key: 'auto',    label: 'Auto Deploy',         desc: 'Deploy automatically on every push to main branch', value: autoDeployEnabled, toggle: () => setAutoDeployEnabled((v) => !v) },
+                  { key: 'preview', label: 'Preview Deployments', desc: 'Deploy preview builds for every pull request',       value: previewEnabled,    toggle: () => setPreviewEnabled((v) => !v) },
+                ].map((item, i, arr) => (
+                  <div key={item.key} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '14px 20px', borderBottom: i < arr.length - 1 ? `1px solid ${tc.borderSub}` : 'none' }}>
+                    <div>
+                      <Text textStyle="bodyMedium" style={{ fontWeight: 500, color: tc.fg, display: 'block' }}>{item.label}</Text>
+                      <Text textStyle="descriptionSmall" style={{ color: tc.fgMuted, marginTop: '2px' }}>{item.desc}</Text>
+                    </div>
+                    <Toggle checked={item.value} onCheckedChange={item.toggle} />
+                  </div>
+                ))}
+              </div>
+              <div style={{ background: tc.bg, borderRadius: '8px', border: `1px solid ${tc.border}`, overflow: 'hidden' }}>
+                <div style={{ padding: '16px 20px', borderBottom: `1px solid ${tc.borderSub}`, background: tc.surface }}>
+                  <Text textStyle="bodyMedium" style={{ fontWeight: 700, color: tc.fg }}>Integrations</Text>
+                </div>
+                {HUB_INTEGRATIONS.map((item, i) => (
+                  <div key={item.name} style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '12px 20px', borderBottom: i < HUB_INTEGRATIONS.length - 1 ? `1px solid ${tc.borderSub}` : 'none' }}>
+                    <div style={{ width: '32px', height: '32px', borderRadius: '8px', background: item.connected ? '#f0fdf4' : tc.surface, border: `1px solid ${item.connected ? '#bbf7d0' : tc.border}`, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                      <Text textStyle="descriptionSmall" style={{ fontWeight: 700, color: item.connected ? '#10b981' : tc.fgMuted, fontSize: '11px' }}>{item.name.charAt(0)}</Text>
+                    </div>
+                    <div style={{ flex: 1 }}>
+                      <Text textStyle="bodyMedium" style={{ fontWeight: 500, color: tc.fg, display: 'block' }}>{item.name}</Text>
+                      <Text textStyle="descriptionSmall" style={{ color: tc.fgMuted }}>{item.connected ? `Synced ${item.lastSync}` : 'Not connected'}</Text>
+                    </div>
+                    {item.connected ? (
+                      <LabelBadge color="benefit"><LabelBadge.Label>Connected</LabelBadge.Label></LabelBadge>
+                    ) : (
+                      <OutlineButton color="black" size="small">Connect</OutlineButton>
+                    )}
+                  </div>
+                ))}
+              </div>
+              <div style={{ background: tc.bg, borderRadius: '8px', border: '1.5px solid #fecaca', overflow: 'hidden' }}>
+                <div style={{ padding: '16px 20px', borderBottom: '1px solid #fecaca', background: '#fff5f5' }}>
+                  <Text textStyle="bodyMedium" style={{ fontWeight: 700, color: '#dc2626' }}>Danger Zone</Text>
+                </div>
+                <div style={{ padding: '16px 20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <div>
+                    <Text textStyle="bodyMedium" style={{ fontWeight: 500, color: tc.fg, display: 'block' }}>Delete Project</Text>
+                    <Text textStyle="descriptionSmall" style={{ color: tc.fgMuted }}>Once deleted, this project cannot be recovered</Text>
+                  </div>
+                  <OutlineButton color="black" size="small" style={{ borderColor: '#ef4444', color: '#ef4444' }}>Delete</OutlineButton>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Environment tab */}
+          {activeTab === 'env' && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', maxWidth: 720 }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                <div>
+                  <Text textStyle="titleLarge" style={{ fontWeight: 700, color: tc.fg, display: 'block', marginBottom: '4px' }}>Environment Variables</Text>
+                  <Text textStyle="bodyMedium" style={{ color: tc.fgSub }}>Manage secrets and configuration</Text>
+                </div>
+                <SolidButton color="primary" size="medium">
+                  <SolidButton.Center>Add Variable</SolidButton.Center>
+                </SolidButton>
+              </div>
+              <div style={{ background: tc.bg, borderRadius: '8px', border: `1px solid ${tc.border}`, overflow: 'hidden' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: '2fr 3fr 1fr 80px', padding: '10px 16px', borderBottom: `1px solid ${tc.border}`, background: tc.surface }}>
+                  {['Key', 'Value', 'Environment', ''].map((h) => (
+                    <Text key={h} textStyle="descriptionSmall" style={{ fontWeight: 700, color: tc.fgSub, textTransform: 'uppercase', letterSpacing: '0.05em', fontSize: '11px' }}>{h}</Text>
+                  ))}
+                </div>
+                {HUB_ENV_VARS.map((ev, idx) => (
+                  <div key={ev.key} style={{ display: 'grid', gridTemplateColumns: '2fr 3fr 1fr 80px', padding: '12px 16px', alignItems: 'center', borderBottom: idx < HUB_ENV_VARS.length - 1 ? `1px solid ${tc.borderSub}` : 'none' }}>
+                    <code style={{ fontFamily: 'monospace', fontSize: '12px', color: tc.fg, fontWeight: 600 }}>{ev.key}</code>
+                    <code style={{ fontFamily: 'monospace', fontSize: '12px', color: tc.fgSub, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{ev.value}</code>
+                    <LabelBadge color={ev.env === 'Production' ? 'benefit' : 'gray'}>
+                      <LabelBadge.Label>{ev.env}</LabelBadge.Label>
+                    </LabelBadge>
+                    <GhostButton color="black" size="small" style={{ padding: '4px 8px' }}>Edit</GhostButton>
+                  </div>
+                ))}
+              </div>
+              <div style={{ padding: '14px 16px', borderRadius: '8px', background: 'rgba(99,102,241,0.05)', border: '1px solid rgba(99,102,241,0.15)', display: 'flex', gap: '10px', alignItems: 'flex-start' }}>
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style={{ marginTop: '1px', flexShrink: 0 }}>
+                  <circle cx="8" cy="8" r="7" stroke="#6366f1" strokeWidth="1.5" />
+                  <path d="M8 7v4" stroke="#6366f1" strokeWidth="1.5" strokeLinecap="round" />
+                  <circle cx="8" cy="5" r="0.75" fill="#6366f1" />
+                </svg>
+                <Text textStyle="descriptionSmall" style={{ color: '#6366f1' }}>
+                  Environment variables are encrypted at rest and only decrypted at runtime. Never commit secrets to git.
+                </Text>
+              </div>
+            </div>
+          )}
+        </div>
+      </main>
+    </div>
+  )
+}
+
+export const DeploymentHub: Story = {
+  render: () => <DeploymentHubRender />,
+}
