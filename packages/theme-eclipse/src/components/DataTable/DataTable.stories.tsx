@@ -710,3 +710,446 @@ const DeploymentTableRender = () => {
 export const Vercel_배포현황: Story = {
   render: () => <DeploymentTableRender />,
 }
+
+/* --------------------------------------------------------------------------
+   Notion 스타일: 인라인 프로퍼티 뷰 (view → edit 전환 패턴)
+   Notion의 데이터베이스 row 상세보기처럼 프로퍼티를 클릭하면 편집 가능한 필드로 전환.
+   Inspector panel + property list 조합 패턴.
+-------------------------------------------------------------------------- */
+type ProjectProperty = {
+  id: string
+  label: string
+  value: string
+  type: 'text' | 'status' | 'date' | 'person' | 'number'
+}
+
+const NotionPropertyViewRender = () => {
+  const [editingId, setEditingId] = React.useState<string | null>(null)
+  const [properties, setProperties] = React.useState<ProjectProperty[]>([
+    { id: 'name', label: 'Name', value: 'Orbit UI Design System', type: 'text' },
+    { id: 'status', label: 'Status', value: 'In Progress', type: 'status' },
+    { id: 'assignee', label: 'Assignee', value: 'Kim Jihye', type: 'person' },
+    { id: 'due', label: 'Due Date', value: '2026-05-30', type: 'date' },
+    { id: 'priority', label: 'Priority', value: 'High', type: 'text' },
+    { id: 'points', label: 'Story Points', value: '13', type: 'number' },
+  ])
+
+  const statusColors: Record<string, string> = {
+    'In Progress': '#6366f1',
+    'Done': '#10b981',
+    'Backlog': '#94a3b8',
+    'Blocked': '#ef4444',
+    'Review': '#f59e0b',
+  }
+
+  const handleSave = (id: string, newValue: string) => {
+    setProperties((prev) =>
+      prev.map((p) => (p.id === id ? { ...p, value: newValue } : p))
+    )
+    setEditingId(null)
+  }
+
+  const PropertyCell = ({ prop }: { prop: ProjectProperty }) => {
+    const isEditing = editingId === prop.id
+    const [localVal, setLocalVal] = React.useState(prop.value)
+
+    if (isEditing) {
+      return (
+        <div style={{ display: 'flex', alignItems: 'center', gap: '6px', flex: 1 }}>
+          <input
+            autoFocus
+            value={localVal}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setLocalVal(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') handleSave(prop.id, localVal)
+              if (e.key === 'Escape') setEditingId(null)
+            }}
+            style={{
+              flex: 1,
+              padding: '4px 8px',
+              border: '1.5px solid #6366f1',
+              borderRadius: '6px',
+              fontSize: '13px',
+              color: '#1e293b',
+              outline: 'none',
+              background: '#fff',
+            }}
+            aria-label={`${prop.label} 편집`}
+          />
+          <button
+            onClick={() => handleSave(prop.id, localVal)}
+            style={{
+              padding: '4px 10px',
+              borderRadius: '6px',
+              border: 'none',
+              background: '#6366f1',
+              color: '#fff',
+              fontSize: '12px',
+              fontWeight: '600',
+              cursor: 'pointer',
+            }}
+          >
+            저장
+          </button>
+          <button
+            onClick={() => setEditingId(null)}
+            style={{
+              padding: '4px 8px',
+              borderRadius: '6px',
+              border: '1px solid #e2e8f0',
+              background: '#fff',
+              color: '#64748b',
+              fontSize: '12px',
+              cursor: 'pointer',
+            }}
+          >
+            취소
+          </button>
+        </div>
+      )
+    }
+
+    if (prop.type === 'status') {
+      const color = statusColors[prop.value] ?? '#94a3b8'
+      return (
+        <button
+          onClick={() => setEditingId(prop.id)}
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '5px',
+            padding: '3px 10px',
+            borderRadius: '20px',
+            border: 'none',
+            background: `${color}14`,
+            color,
+            fontSize: '12px',
+            fontWeight: '700',
+            cursor: 'pointer',
+          }}
+        >
+          <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: color }} />
+          {prop.value}
+        </button>
+      )
+    }
+
+    if (prop.type === 'person') {
+      return (
+        <button
+          onClick={() => setEditingId(prop.id)}
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '6px',
+            background: 'none',
+            border: 'none',
+            padding: '2px 4px',
+            borderRadius: '6px',
+            cursor: 'pointer',
+          }}
+        >
+          <div
+            style={{
+              width: '20px',
+              height: '20px',
+              borderRadius: '50%',
+              background: '#6366f1',
+              color: '#fff',
+              fontSize: '8px',
+              fontWeight: '700',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              flexShrink: 0,
+            }}
+          >
+            {prop.value.split(' ').map((n) => n[0]).join('')}
+          </div>
+          <span style={{ fontSize: '13px', color: '#1e293b' }}>{prop.value}</span>
+        </button>
+      )
+    }
+
+    return (
+      <button
+        onClick={() => setEditingId(prop.id)}
+        style={{
+          background: 'none',
+          border: 'none',
+          padding: '2px 4px',
+          borderRadius: '4px',
+          fontSize: '13px',
+          color: '#1e293b',
+          cursor: 'pointer',
+          textAlign: 'left',
+          transition: 'background 0.1s',
+        }}
+        onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.background = '#f1f5f9' }}
+        onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.background = 'none' }}
+      >
+        {prop.value}
+      </button>
+    )
+  }
+
+  return (
+    <div style={{ maxWidth: '560px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+      <div style={{ fontSize: '12px', color: '#94a3b8', padding: '4px 0' }}>
+        Notion Database 패턴: 프로퍼티를 클릭하면 인라인 편집 모드로 전환됩니다 (Enter로 저장, Esc로 취소).
+      </div>
+
+      {/* 프로퍼티 패널 */}
+      <div
+        style={{
+          borderRadius: '12px',
+          border: '1px solid #e2e8f0',
+          background: '#fff',
+          overflow: 'hidden',
+        }}
+      >
+        {/* 페이지 제목 영역 */}
+        <div
+          style={{
+            padding: '20px 24px',
+            borderBottom: '1px solid #f1f5f9',
+            background: '#f8fafc',
+          }}
+        >
+          <div style={{ fontSize: '11px', fontWeight: '700', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '6px' }}>
+            Task
+          </div>
+          <div style={{ fontSize: '18px', fontWeight: '700', color: '#0f172a' }}>
+            {properties[0].value}
+          </div>
+        </div>
+
+        {/* 프로퍼티 목록 */}
+        {properties.slice(1).map((prop) => (
+          <div
+            key={prop.id}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              padding: '10px 24px',
+              borderBottom: '1px solid #f8fafc',
+              minHeight: '44px',
+            }}
+          >
+            <div
+              style={{
+                width: '120px',
+                fontSize: '12px',
+                fontWeight: '500',
+                color: '#94a3b8',
+                flexShrink: 0,
+              }}
+            >
+              {prop.label}
+            </div>
+            <div style={{ flex: 1 }}>
+              <PropertyCell prop={prop} />
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div style={{ fontSize: '11px', color: '#cbd5e1', textAlign: 'right' }}>
+        Notion Design 패턴: view to edit inline property panel
+      </div>
+    </div>
+  )
+}
+
+export const Notion_인라인_프로퍼티: Story = {
+  render: () => <NotionPropertyViewRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Figma Plugin UI: 인스펙터 패널 (Inspector Panel)
+   속성명 + 값 + 단위 선택기가 나란히 있는 컴팩트 디자인 도구 패턴.
+   선택된 레이어의 속성을 표시하고 편집하는 Figma 우측 패널 스타일.
+-------------------------------------------------------------------------- */
+type InspectorProp = {
+  id: string
+  label: string
+  value: string
+  unit?: string
+  units?: string[]
+}
+
+const FigmaInspectorRender = () => {
+  const [props, setProps] = React.useState<InspectorProp[]>([
+    { id: 'x', label: 'X', value: '120', unit: 'px' },
+    { id: 'y', label: 'Y', value: '80', unit: 'px' },
+    { id: 'w', label: 'W', value: '320', unit: 'px' },
+    { id: 'h', label: 'H', value: '48', unit: 'px' },
+    { id: 'r', label: 'R', value: '8', unit: 'px', units: ['px', '%'] },
+    { id: 'opacity', label: 'Opacity', value: '100', unit: '%' },
+  ])
+
+  const [fill, setFill] = React.useState('#6366F1')
+  const [editingFill, setEditingFill] = React.useState(false)
+  const [localFill, setLocalFill] = React.useState('#6366F1')
+
+  const updateProp = (id: string, newValue: string) => {
+    setProps((prev) =>
+      prev.map((p) => (p.id === id ? { ...p, value: newValue } : p))
+    )
+  }
+
+  return (
+    <div
+      style={{
+        width: '220px',
+        borderRadius: '10px',
+        border: '1px solid #e2e8f0',
+        background: '#fff',
+        overflow: 'hidden',
+        boxShadow: '0 2px 12px rgba(0,0,0,0.06)',
+        fontFamily: '"JetBrains Mono", "Fira Code", monospace',
+        fontSize: '12px',
+      }}
+    >
+      {/* 섹션: Transform */}
+      <div style={{ padding: '8px 12px', borderBottom: '1px solid #f1f5f9', background: '#f8fafc' }}>
+        <span style={{ fontSize: '10px', fontWeight: '700', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+          Transform
+        </span>
+      </div>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1px', background: '#f1f5f9', borderBottom: '1px solid #f1f5f9' }}>
+        {props.slice(0, 4).map((prop) => (
+          <div
+            key={prop.id}
+            style={{ background: '#fff', padding: '6px 10px', display: 'flex', alignItems: 'center', gap: '4px' }}
+          >
+            <span style={{ fontSize: '10px', color: '#94a3b8', width: '14px', flexShrink: 0 }}>{prop.label}</span>
+            <input
+              value={prop.value}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => updateProp(prop.id, e.target.value)}
+              style={{
+                flex: 1,
+                border: 'none',
+                outline: 'none',
+                fontSize: '12px',
+                color: '#1e293b',
+                background: 'transparent',
+                width: '40px',
+                fontFamily: 'inherit',
+              }}
+              aria-label={prop.label}
+            />
+            <span style={{ fontSize: '10px', color: '#cbd5e1' }}>{prop.unit}</span>
+          </div>
+        ))}
+      </div>
+
+      {/* 섹션: Appearance */}
+      <div style={{ padding: '8px 12px', borderBottom: '1px solid #f1f5f9', background: '#f8fafc' }}>
+        <span style={{ fontSize: '10px', fontWeight: '700', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+          Appearance
+        </span>
+      </div>
+      {props.slice(4).map((prop) => (
+        <div
+          key={prop.id}
+          style={{
+            padding: '6px 12px',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '6px',
+            borderBottom: '1px solid #f8fafc',
+          }}
+        >
+          <span style={{ fontSize: '10px', color: '#94a3b8', width: '52px', flexShrink: 0 }}>{prop.label}</span>
+          <input
+            value={prop.value}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => updateProp(prop.id, e.target.value)}
+            style={{
+              flex: 1,
+              border: 'none',
+              outline: 'none',
+              fontSize: '12px',
+              color: '#1e293b',
+              background: 'transparent',
+              fontFamily: 'inherit',
+            }}
+            aria-label={prop.label}
+          />
+          <span style={{ fontSize: '10px', color: '#cbd5e1' }}>{prop.unit}</span>
+        </div>
+      ))}
+
+      {/* 섹션: Fill */}
+      <div style={{ padding: '8px 12px', borderBottom: '1px solid #f1f5f9', background: '#f8fafc' }}>
+        <span style={{ fontSize: '10px', fontWeight: '700', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+          Fill
+        </span>
+      </div>
+      <div style={{ padding: '8px 12px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+        <button
+          style={{
+            width: '20px',
+            height: '20px',
+            borderRadius: '4px',
+            background: fill,
+            border: '1px solid rgba(0,0,0,0.12)',
+            cursor: 'pointer',
+            flexShrink: 0,
+          }}
+          aria-label="색상 선택"
+        />
+        {editingFill ? (
+          <input
+            autoFocus
+            value={localFill}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setLocalFill(e.target.value)}
+            onBlur={() => { setFill(localFill); setEditingFill(false) }}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') { setFill(localFill); setEditingFill(false) }
+              if (e.key === 'Escape') setEditingFill(false)
+            }}
+            style={{
+              flex: 1,
+              border: 'none',
+              borderBottom: '1px solid #6366f1',
+              outline: 'none',
+              fontSize: '12px',
+              color: '#1e293b',
+              background: 'transparent',
+              fontFamily: 'inherit',
+              textTransform: 'uppercase',
+            }}
+            aria-label="Fill 색상 입력"
+          />
+        ) : (
+          <button
+            onClick={() => { setLocalFill(fill); setEditingFill(true) }}
+            style={{
+              flex: 1,
+              border: 'none',
+              background: 'transparent',
+              fontSize: '12px',
+              color: '#1e293b',
+              cursor: 'text',
+              textAlign: 'left',
+              fontFamily: 'inherit',
+              textTransform: 'uppercase',
+            }}
+          >
+            {fill.replace('#', '')}
+          </button>
+        )}
+        <span style={{ fontSize: '10px', color: '#cbd5e1' }}>100%</span>
+      </div>
+
+      <div style={{ padding: '6px 12px', borderTop: '1px solid #f1f5f9' }}>
+        <span style={{ fontSize: '10px', color: '#cbd5e1' }}>Figma Inspector Panel Pattern</span>
+      </div>
+    </div>
+  )
+}
+
+export const Figma_인스펙터_패널: Story = {
+  render: () => <FigmaInspectorRender />,
+}
