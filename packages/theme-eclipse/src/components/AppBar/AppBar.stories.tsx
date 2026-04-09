@@ -11,6 +11,7 @@ import {
 import { Meta, StoryObj } from '@storybook/react'
 import React, { useState } from 'react'
 
+import { FilledButton as Button } from '../SolidButton'
 import { FilledIconButton } from '../SolidIconButton'
 import { Typography } from '../Text'
 
@@ -418,4 +419,96 @@ export const 디자인QA: Story = {
 
     return WrappedAppBar
   },
+}
+
+/* --------------------------------------------------------------------------
+   브레드크럼 + 액션버튼 (Ant Design PageHeader 패턴)
+   뒤로가기 + 현재 위치 경로 + 우측 액션 버튼
+-------------------------------------------------------------------------- */
+export const 브레드크럼_액션: Story = {
+  render: (args) => (
+    <AppBar {...args}>
+      <AppBar.Leading>
+        <FilledIconButton color="white" size="medium" onClick={() => { console.info('back') }}>
+          <ArrowLeftIcon size={24} />
+        </FilledIconButton>
+      </AppBar.Leading>
+      <AppBar.Center>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '1px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+            <span style={{ fontSize: '11px', color: '#94a3b8' }}>홈</span>
+            <span style={{ fontSize: '11px', color: '#94a3b8' }}>/</span>
+            <span style={{ fontSize: '11px', color: '#94a3b8' }}>상품 관리</span>
+            <span style={{ fontSize: '11px', color: '#94a3b8' }}>/</span>
+            <span style={{ fontSize: '11px', color: '#6366f1', fontWeight: 600 }}>상품 상세</span>
+          </div>
+          <Typography textStyle="titleLarge" maxLines={1}>
+            상품 상세 정보
+          </Typography>
+        </div>
+      </AppBar.Center>
+      <AppBar.Trailing>
+        <Button color="primary" size="small">
+          <Button.Center>저장</Button.Center>
+        </Button>
+      </AppBar.Trailing>
+    </AppBar>
+  ),
+}
+
+/* --------------------------------------------------------------------------
+   탭 내비게이션 AppBar (Ant Design Tabs + Header 패턴)
+   상단 AppBar 아래에 탭 내비게이션이 이어지는 패턴
+-------------------------------------------------------------------------- */
+const TabNavAppBarRender = (args: React.ComponentPropsWithoutRef<typeof AppBar>) => {
+  const tabs = ['전체', '진행 중', '완료', '취소'] as const
+  const [activeTab, setActiveTab] = useState<string>('전체')
+
+  return (
+    <div>
+      <AppBar {...args}>
+        <AppBar.Leading>
+          <FilledIconButton color="white" size="medium" onClick={() => { console.info('back') }}>
+            <ArrowLeftIcon size={24} />
+          </FilledIconButton>
+        </AppBar.Leading>
+        <AppBar.Center>주문 목록</AppBar.Center>
+        <AppBar.Trailing>
+          <SearchIcon size={24} />
+        </AppBar.Trailing>
+      </AppBar>
+      <div style={{ display: 'flex', borderBottom: '1px solid #e2e8f0', background: 'white' }}>
+        {tabs.map((tab) => (
+          <button
+            key={tab}
+            type="button"
+            onClick={() => setActiveTab(tab)}
+            style={{
+              flex: 1,
+              padding: '10px 0',
+              border: 'none',
+              background: 'none',
+              cursor: 'pointer',
+              fontSize: '13px',
+              fontWeight: activeTab === tab ? 700 : 400,
+              color: activeTab === tab ? '#6366f1' : '#64748b',
+              borderBottom: activeTab === tab ? '2px solid #6366f1' : '2px solid transparent',
+              transition: 'all 0.15s',
+            }}
+          >
+            {tab}
+          </button>
+        ))}
+      </div>
+      <div style={{ padding: '16px', background: '#f8fafc', minHeight: '120px' }}>
+        <Typography textStyle="descriptionLarge" style={{ color: '#94a3b8' }}>
+          [{activeTab}] 탭 콘텐츠 영역
+        </Typography>
+      </div>
+    </div>
+  )
+}
+
+export const 탭내비게이션: Story = {
+  render: (args) => <TabNavAppBarRender {...args} />,
 }

@@ -430,3 +430,164 @@ const LoadingDialogRender = (args: React.ComponentProps<typeof Dialog>) => {
 export const 로딩상태: Story = {
   render: (args) => <LoadingDialogRender {...args} />,
 }
+
+/* --------------------------------------------------------------------------
+   멀티스텝 다이얼로그 (Headless UI 단계별 진행 패턴)
+   단계 표시 인디케이터, 이전/다음 버튼, 단계별 콘텐츠
+-------------------------------------------------------------------------- */
+const STEPS = ['약관 동의', '기본 정보', '완료'] as const
+
+const MultiStepDialogRender = (args: React.ComponentProps<typeof Dialog>) => {
+  const [step, setStep] = useState(0)
+  const [agreed, setAgreed] = useState(false)
+  const [nickname, setNickname] = useState('')
+
+  const handleReset = () => {
+    setStep(0)
+    setAgreed(false)
+    setNickname('')
+  }
+
+  const canProceed = step === 0 ? agreed : step === 1 ? nickname.trim().length >= 2 : true
+
+  const renderStepContent = () => {
+    if (step === 0) {
+      return (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+          <div style={{
+            padding: '12px',
+            borderRadius: '8px',
+            border: '1px solid #e2e8f0',
+            background: '#f8fafc',
+            maxHeight: '120px',
+            overflowY: 'auto',
+          }}>
+            <Typography textStyle="descriptionLarge" style={{ color: '#64748b', lineHeight: '1.6' }}>
+              본 서비스 이용약관에 동의하시면 회원가입이 완료됩니다.
+              수집된 개인정보는 서비스 제공 목적으로만 사용되며,
+              제3자에게 제공되지 않습니다. 언제든지 탈퇴 및 정보 삭제를 요청할 수 있습니다.
+            </Typography>
+          </div>
+          <label style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}>
+            <input
+              type="checkbox"
+              checked={agreed}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setAgreed(e.target.checked)}
+              style={{ width: '16px', height: '16px', accentColor: '#6366f1' }}
+            />
+            <Typography textStyle="descriptionLarge">위 약관에 동의합니다</Typography>
+          </label>
+        </div>
+      )
+    }
+    if (step === 1) {
+      return (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', paddingTop: '4px' }}>
+          <Typography textStyle="descriptionLarge" style={{ color: '#64748b' }}>
+            서비스에서 사용할 닉네임을 입력해주세요. (2자 이상)
+          </Typography>
+          <FloatingTextField
+            placeholder="닉네임"
+            value={nickname}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setNickname(e.target.value)}
+            error={nickname.length > 0 && nickname.trim().length < 2}
+            style={{ width: '100%' }}
+          />
+          {nickname.length > 0 && nickname.trim().length < 2 && (
+            <span style={{ fontSize: '12px', color: '#ef4444' }}>닉네임은 2자 이상이어야 합니다</span>
+          )}
+        </div>
+      )
+    }
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px', padding: '8px 0' }}>
+        <div style={{
+          width: '52px', height: '52px', borderRadius: '50%',
+          background: 'rgba(99,102,241,0.1)', display: 'flex',
+          alignItems: 'center', justifyContent: 'center',
+        }}>
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
+            <path d="M5 13l4 4L19 7" stroke="#6366f1" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </div>
+        <Typography textStyle="descriptionLarge" style={{ textAlign: 'center' }}>
+          <strong>{nickname}</strong>님, 가입이 완료되었습니다!
+        </Typography>
+      </div>
+    )
+  }
+
+  return (
+    <Dialog {...args} onIsPresentedChange={handleReset}>
+      <Dialog.Trigger asChild>
+        <Button color="primary" size="medium">
+          <Button.Center>회원가입</Button.Center>
+        </Button>
+      </Dialog.Trigger>
+      <Dialog.Top>
+        {/* 단계 인디케이터 */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0', marginBottom: '4px' }}>
+          {STEPS.map((label, i) => (
+            <React.Fragment key={label}>
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px' }}>
+                <div style={{
+                  width: '24px', height: '24px', borderRadius: '50%',
+                  background: i <= step ? '#6366f1' : '#e2e8f0',
+                  color: i <= step ? 'white' : '#94a3b8',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  fontSize: '11px', fontWeight: 600, transition: 'background 0.2s',
+                }}>
+                  {i < step ? (
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
+                      <path d="M5 13l4 4L19 7" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  ) : i + 1}
+                </div>
+                <span style={{ fontSize: '10px', color: i <= step ? '#6366f1' : '#94a3b8', whiteSpace: 'nowrap' }}>
+                  {label}
+                </span>
+              </div>
+              {i < STEPS.length - 1 && (
+                <div style={{
+                  flex: 1, height: '2px', marginBottom: '16px', marginLeft: '4px', marginRight: '4px',
+                  background: i < step ? '#6366f1' : '#e2e8f0',
+                  transition: 'background 0.2s',
+                }} />
+              )}
+            </React.Fragment>
+          ))}
+        </div>
+        <Typography textStyle="subheadingSmall">{STEPS[step]}</Typography>
+        {renderStepContent()}
+      </Dialog.Top>
+      <Dialog.Bottom direction="horizontal">
+        {step > 0 && step < STEPS.length - 1 && (
+          <OutlineButton color="black" size="medium" width="100%" onClick={() => setStep((s) => s - 1)}>
+            <OutlineButton.Center>이전</OutlineButton.Center>
+          </OutlineButton>
+        )}
+        {step < STEPS.length - 1 ? (
+          <Button
+            color="primary"
+            size="medium"
+            width="100%"
+            disabled={!canProceed}
+            onClick={() => setStep((s) => s + 1)}
+          >
+            <Button.Center>다음</Button.Center>
+          </Button>
+        ) : (
+          <Dialog.Close asChild>
+            <Button color="primary" size="medium" width="100%" onClick={handleReset}>
+              <Button.Center>시작하기</Button.Center>
+            </Button>
+          </Dialog.Close>
+        )}
+      </Dialog.Bottom>
+    </Dialog>
+  )
+}
+
+export const 멀티스텝: Story = {
+  render: (args) => <MultiStepDialogRender {...args} />,
+}

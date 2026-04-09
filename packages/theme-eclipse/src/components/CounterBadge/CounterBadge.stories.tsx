@@ -1,4 +1,5 @@
 import { Meta, StoryObj } from '@storybook/react'
+import { useEffect, useState } from 'react'
 
 import { CounterBadge } from './CounterBadge'
 
@@ -110,4 +111,141 @@ export const 숫자_오버플로우_처리: Story = {
       </div>
     </div>
   ),
+}
+
+/* --------------------------------------------------------------------------
+   메일함 배지 (Gmail / Outlook 스타일)
+   폴더별 미읽음 수 표시
+-------------------------------------------------------------------------- */
+export const 메일함_배지: Story = {
+  render: () => {
+    const folders = [
+      { name: '받은편지함', count: 24, icon: '📥' },
+      { name: '중요', count: 3, icon: '⭐' },
+      { name: '보낸편지함', count: 0, icon: '📤' },
+      { name: '임시보관함', count: 1, icon: '📝' },
+      { name: '스팸', count: 102, icon: '🚫' },
+      { name: '휴지통', count: 0, icon: '🗑️' },
+    ]
+
+    return (
+      <div style={{ width: 220, background: 'white', borderRadius: 10, boxShadow: '0 1px 6px rgba(0,0,0,0.08)', overflow: 'hidden' }}>
+        <div style={{ padding: '12px 14px', borderBottom: '1px solid #f1f5f9' }}>
+          <span style={{ fontSize: 13, fontWeight: 700, color: '#0f172a' }}>메일</span>
+        </div>
+        {folders.map((folder) => (
+          <div
+            key={folder.name}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              padding: '9px 14px',
+              cursor: 'pointer',
+              transition: 'background 0.1s',
+              borderBottom: '1px solid #f8fafc',
+            }}
+          >
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+              <span style={{ fontSize: 14 }}>{folder.icon}</span>
+              <span style={{ fontSize: 13, color: folder.count > 0 ? '#0f172a' : '#64748b', fontWeight: folder.count > 0 ? 600 : 400 }}>
+                {folder.name}
+              </span>
+            </div>
+            {folder.count > 0 && <CounterBadge>{folder.count}</CounterBadge>}
+          </div>
+        ))}
+      </div>
+    )
+  },
+}
+
+/* --------------------------------------------------------------------------
+   실시간 업데이트 패턴 (setInterval로 카운터 증가)
+   알림 도착 시뮬레이션
+-------------------------------------------------------------------------- */
+const RealtimeBadgeComponent = () => {
+  const [notifCount, setNotifCount] = useState(0)
+  const [msgCount, setMsgCount] = useState(2)
+  const [isRunning, setIsRunning] = useState(false)
+
+  useEffect(() => {
+    if (!isRunning) return
+    const interval = setInterval(() => {
+      setNotifCount((prev) => (prev >= 99 ? prev : prev + 1))
+      if (Math.random() > 0.6) {
+        setMsgCount((prev) => (prev >= 99 ? prev : prev + 1))
+      }
+    }, 1200)
+    return () => clearInterval(interval)
+  }, [isRunning])
+
+  const handleReset = () => {
+    setIsRunning(false)
+    setNotifCount(0)
+    setMsgCount(2)
+  }
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 20, padding: 20 }}>
+      <div style={{ display: 'flex', gap: 12 }}>
+        <button
+          type="button"
+          onClick={() => setIsRunning(true)}
+          disabled={isRunning}
+          style={{
+            padding: '6px 14px', borderRadius: 6, border: 'none',
+            background: isRunning ? '#e2e8f0' : '#6366f1', color: isRunning ? '#94a3b8' : 'white',
+            fontSize: 13, cursor: isRunning ? 'not-allowed' : 'pointer',
+          }}
+        >
+          시작
+        </button>
+        <button
+          type="button"
+          onClick={handleReset}
+          style={{
+            padding: '6px 14px', borderRadius: 6, border: '1px solid #e2e8f0',
+            background: 'white', color: '#475569', fontSize: 13, cursor: 'pointer',
+          }}
+        >
+          초기화
+        </button>
+      </div>
+
+      <div style={{ display: 'flex', gap: 28 }}>
+        {/* 알림 아이콘 */}
+        <div style={{ position: 'relative', display: 'inline-flex', cursor: 'pointer' }}>
+          <div style={{ width: 44, height: 44, borderRadius: 10, background: '#f1f5f9', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <span style={{ fontSize: 20 }}>🔔</span>
+          </div>
+          {notifCount > 0 && (
+            <span style={{ position: 'absolute', top: -6, right: -6 }}>
+              <CounterBadge>{notifCount}</CounterBadge>
+            </span>
+          )}
+        </div>
+
+        {/* 메시지 아이콘 */}
+        <div style={{ position: 'relative', display: 'inline-flex', cursor: 'pointer' }}>
+          <div style={{ width: 44, height: 44, borderRadius: 10, background: '#f1f5f9', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <span style={{ fontSize: 20 }}>💬</span>
+          </div>
+          {msgCount > 0 && (
+            <span style={{ position: 'absolute', top: -6, right: -6 }}>
+              <CounterBadge>{msgCount}</CounterBadge>
+            </span>
+          )}
+        </div>
+      </div>
+
+      <div style={{ fontSize: 12, color: '#94a3b8' }}>
+        {isRunning ? '1.2초마다 새 알림이 도착합니다...' : '시작 버튼을 눌러 실시간 업데이트를 확인하세요.'}
+      </div>
+    </div>
+  )
+}
+
+export const 실시간_업데이트: Story = {
+  render: () => <RealtimeBadgeComponent />,
 }
