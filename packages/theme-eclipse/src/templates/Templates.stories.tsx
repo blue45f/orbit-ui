@@ -4967,3 +4967,335 @@ const PricingPageRender: React.FC = () => {
 export const PricingPage: Story = {
   render: () => <PricingPageRender />,
 }
+
+/* ==========================================================================
+   IssueTracker Template (사이클 17 — Linear/Radix 벤치마크)
+   Linear-inspired issue tracker combining:
+   - ScrollableTabGroup (뷰 전환)
+   - ListTile (컴팩트 이슈 목록 — Linear 32px density)
+   - LabelBadge (상태/우선순위 배지)
+   - CounterBadge (개수)
+   - SolidButton / GhostButton / OutlineButton (액션)
+   Fully interactive: search, filter by cycle/priority, multi-select
+========================================================================== */
+type ITIssue = {
+  id: string
+  title: string
+  status: 'todo' | 'in_progress' | 'in_review' | 'done' | 'cancelled'
+  priority: 'urgent' | 'high' | 'medium' | 'low'
+  assignee: string
+  label: string
+  cycle: string
+  createdAt: string
+}
+
+const IT_ISSUES: ITIssue[] = [
+  { id: 'ORB-301', title: 'Implement FixedTabs controlled/uncontrolled API', status: 'in_progress', priority: 'urgent', assignee: 'HJ', label: 'feat', cycle: 'C17', createdAt: '2h ago' },
+  { id: 'ORB-302', title: 'Add Linear-style compact density to ListTile', status: 'in_review', priority: 'high', assignee: 'KJ', label: 'feat', cycle: 'C17', createdAt: '4h ago' },
+  { id: 'ORB-303', title: 'Write Radix UI benchmark stories for TabGroup', status: 'done', priority: 'high', assignee: 'HJ', label: 'docs', cycle: 'C17', createdAt: '6h ago' },
+  { id: 'ORB-304', title: 'Fix CounterBadge number type constraint', status: 'done', priority: 'medium', assignee: 'LY', label: 'fix', cycle: 'C17', createdAt: '1d ago' },
+  { id: 'ORB-305', title: 'Migrate LabelBadge to semantic design tokens', status: 'todo', priority: 'medium', assignee: 'PM', label: 'refactor', cycle: 'C18', createdAt: '2d ago' },
+  { id: 'ORB-306', title: 'Add MigrationGuide for antd users', status: 'todo', priority: 'low', assignee: 'CD', label: 'docs', cycle: 'C18', createdAt: '2d ago' },
+  { id: 'ORB-307', title: 'Improve Tab keyboard navigation (Arrow keys)', status: 'in_progress', priority: 'high', assignee: 'HJ', label: 'a11y', cycle: 'C17', createdAt: '3h ago' },
+  { id: 'ORB-308', title: 'Deprecate legacy spacing tokens', status: 'cancelled', priority: 'low', assignee: 'KJ', label: 'chore', cycle: 'C16', createdAt: '5d ago' },
+  { id: 'ORB-309', title: 'Export DataTable column types from package', status: 'in_review', priority: 'medium', assignee: 'LY', label: 'feat', cycle: 'C17', createdAt: '5h ago' },
+  { id: 'ORB-310', title: 'Performance: memoize heavy token computations', status: 'todo', priority: 'high', assignee: 'HJ', label: 'perf', cycle: 'C18', createdAt: '1d ago' },
+]
+
+const IT_STATUS_CONFIG: Record<ITIssue['status'], { color: string; label: string; dot: string }> = {
+  todo:        { color: '#94a3b8', label: 'Todo',        dot: '#94a3b8' },
+  in_progress: { color: '#6366f1', label: 'In Progress', dot: '#6366f1' },
+  in_review:   { color: '#f59e0b', label: 'In Review',   dot: '#f59e0b' },
+  done:        { color: '#10b981', label: 'Done',        dot: '#10b981' },
+  cancelled:   { color: '#ef4444', label: 'Cancelled',   dot: '#ef4444' },
+}
+
+const IT_PRIORITY_COLOR: Record<ITIssue['priority'], 'gray' | 'benefit' | 'sale'> = {
+  urgent: 'sale',
+  high:   'benefit',
+  medium: 'gray',
+  low:    'gray',
+}
+
+const IT_LABEL_COLOR: Record<string, string> = {
+  feat:    '#6366f1',
+  fix:     '#ef4444',
+  docs:    '#0ea5e9',
+  refactor:'#8b5cf6',
+  a11y:    '#10b981',
+  chore:   '#94a3b8',
+  perf:    '#f59e0b',
+}
+
+const IssueTrackerRender = () => {
+  const [tabIndex, setTabIndex] = useState(0)
+  const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set())
+  const [activeCycle, setActiveCycle] = useState<string | null>(null)
+  const [activePriority, setActivePriority] = useState<ITIssue['priority'] | null>(null)
+  const [searchQuery, setSearchQuery] = useState('')
+
+  const tabs = [
+    { label: 'All', filter: (_i: ITIssue) => true },
+    { label: 'Active', filter: (i: ITIssue) => i.status === 'in_progress' || i.status === 'in_review' },
+    { label: 'Backlog', filter: (i: ITIssue) => i.status === 'todo' },
+    { label: 'Done', filter: (i: ITIssue) => i.status === 'done' },
+    { label: 'Cancelled', filter: (i: ITIssue) => i.status === 'cancelled' },
+  ]
+
+  const filtered = IT_ISSUES.filter((issue) => {
+    const tabFilter = tabs[tabIndex]?.filter ?? ((_i: ITIssue) => true)
+    if (!tabFilter(issue)) return false
+    if (activeCycle && issue.cycle !== activeCycle) return false
+    if (activePriority && issue.priority !== activePriority) return false
+    if (searchQuery && !issue.title.toLowerCase().includes(searchQuery.toLowerCase()) && !issue.id.toLowerCase().includes(searchQuery.toLowerCase())) return false
+    return true
+  })
+
+  const toggleSelect = (id: string) => {
+    setSelectedIds((prev) => {
+      const next = new Set(prev)
+      if (next.has(id)) next.delete(id)
+      else next.add(id)
+      return next
+    })
+  }
+
+  const cycles = Array.from(new Set(IT_ISSUES.map((i) => i.cycle))).sort()
+  const priorities: ITIssue['priority'][] = ['urgent', 'high', 'medium', 'low']
+
+  return (
+    <div style={{ minHeight: '100vh', background: tc.bg, display: 'flex', flexDirection: 'column', fontFamily: '"Pretendard Variable", "Pretendard", -apple-system, BlinkMacSystemFont, system-ui, sans-serif' }}>
+      {/* Top header */}
+      <header style={{ height: 52, borderBottom: `1px solid ${tc.border}`, display: 'flex', alignItems: 'center', padding: '0 20px', gap: 12, background: tc.bg, flexShrink: 0 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+          <div style={{ width: 24, height: 24, borderRadius: 6, background: 'linear-gradient(135deg, #6366f1, #8b5cf6)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+              <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </div>
+          <Text textStyle="descriptionLargeEmphasized" style={{ color: tc.fg }}>Orbit UI</Text>
+        </div>
+        <Divider orientation="vertical" style={{ height: 20, margin: '0 4px' }} />
+        <Text textStyle="descriptionMedium" style={{ color: tc.fgSub }}>Issues</Text>
+        <div style={{ flex: 1 }} />
+        <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
+          <SearchIcon style={{ position: 'absolute', left: 10, color: tc.fgMuted }} size={14} />
+          <input
+            placeholder="Search issues..."
+            value={searchQuery}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearchQuery(e.target.value)}
+            style={{
+              paddingLeft: 32, paddingRight: 12, paddingTop: 6, paddingBottom: 6,
+              borderRadius: 8, border: `1.5px solid ${tc.border}`, fontSize: 12,
+              width: 200, outline: 'none', background: tc.surface, color: tc.fg,
+            }}
+          />
+        </div>
+        <SolidButton color="primary" size="small">
+          <SolidButton.Center>New Issue</SolidButton.Center>
+        </SolidButton>
+      </header>
+
+      <div style={{ display: 'flex', flex: 1, overflow: 'hidden' }}>
+        {/* Sidebar */}
+        <aside style={{ width: 196, borderRight: `1px solid ${tc.border}`, background: tc.surface, padding: '12px 8px', display: 'flex', flexDirection: 'column', gap: 2, flexShrink: 0 }}>
+          <Text textStyle="descriptionSmall" style={{ color: tc.fgMuted, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em', padding: '2px 8px 6px' }}>Navigation</Text>
+          {[
+            { label: 'My Issues', icon: <HomeLineIcon size={14} />, count: IT_ISSUES.filter((i) => i.assignee === 'HJ').length, active: false },
+            { label: 'All Issues', icon: <ListLineIcon size={14} />, count: IT_ISSUES.length, active: true },
+            { label: 'Starred', icon: <StarLineIcon size={14} />, count: undefined, active: false },
+            { label: 'Inbox', icon: <NotificationLineIcon size={14} />, count: 3, active: false },
+          ].map((item) => (
+            <div
+              key={item.label}
+              style={{
+                display: 'flex', alignItems: 'center', gap: 8,
+                padding: '7px 10px', borderRadius: 8, cursor: 'pointer',
+                fontSize: 13, color: item.active ? '#6366f1' : tc.fgSub,
+                background: item.active ? 'rgba(99,102,241,0.08)' : 'transparent',
+                fontWeight: item.active ? 600 : 400,
+              }}
+            >
+              <span style={{ color: item.active ? '#6366f1' : tc.fgMuted }}>{item.icon}</span>
+              <span style={{ flex: 1 }}>{item.label}</span>
+              {item.count !== undefined && <CounterBadge>{item.count}</CounterBadge>}
+            </div>
+          ))}
+
+          <div style={{ borderTop: `1px solid ${tc.border}`, margin: '8px 0', paddingTop: 8 }}>
+            <Text textStyle="descriptionSmall" style={{ color: tc.fgMuted, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em', padding: '2px 8px 6px' }}>Cycles</Text>
+            {cycles.map((cycle) => (
+              <div
+                key={cycle}
+                onClick={() => setActiveCycle(activeCycle === cycle ? null : cycle)}
+                style={{
+                  display: 'flex', alignItems: 'center', gap: 8,
+                  padding: '6px 10px', borderRadius: 8, cursor: 'pointer',
+                  fontSize: 12,
+                  color: activeCycle === cycle ? '#6366f1' : tc.fgSub,
+                  background: activeCycle === cycle ? 'rgba(99,102,241,0.07)' : 'transparent',
+                }}
+              >
+                <div style={{ width: 6, height: 6, borderRadius: '50%', background: cycle === 'C17' ? '#6366f1' : '#94a3b8' }} />
+                <span style={{ flex: 1 }}>Cycle {cycle}</span>
+                <CounterBadge>{IT_ISSUES.filter((i) => i.cycle === cycle).length}</CounterBadge>
+              </div>
+            ))}
+          </div>
+
+          <div style={{ borderTop: `1px solid ${tc.border}`, margin: '4px 0', paddingTop: 8 }}>
+            <Text textStyle="descriptionSmall" style={{ color: tc.fgMuted, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em', padding: '2px 8px 6px' }}>Priority</Text>
+            {priorities.map((p) => (
+              <div
+                key={p}
+                onClick={() => setActivePriority(activePriority === p ? null : p)}
+                style={{
+                  display: 'flex', alignItems: 'center', gap: 8,
+                  padding: '6px 10px', borderRadius: 8, cursor: 'pointer',
+                  fontSize: 12,
+                  color: activePriority === p ? '#6366f1' : tc.fgSub,
+                  background: activePriority === p ? 'rgba(99,102,241,0.07)' : 'transparent',
+                }}
+              >
+                <LabelBadge color={IT_PRIORITY_COLOR[p]}>
+                  <LabelBadge.Label>{p}</LabelBadge.Label>
+                </LabelBadge>
+                <span style={{ flex: 1, textTransform: 'capitalize' }}>{p}</span>
+                <span style={{ fontSize: 11, color: tc.fgMuted }}>{IT_ISSUES.filter((i) => i.priority === p).length}</span>
+              </div>
+            ))}
+          </div>
+        </aside>
+
+        {/* Main content */}
+        <main style={{ flex: 1, overflow: 'auto', display: 'flex', flexDirection: 'column' }}>
+          {/* Toolbar */}
+          <div style={{ padding: '10px 16px', borderBottom: `1px solid ${tc.border}`, display: 'flex', alignItems: 'center', gap: 8, flexShrink: 0, background: tc.bg }}>
+            <Text textStyle="descriptionLargeEmphasized" style={{ color: tc.fg }}>
+              {activeCycle ? `Cycle ${activeCycle}` : 'All Issues'}
+            </Text>
+            <CounterBadge>{filtered.length}</CounterBadge>
+            {(activeCycle || activePriority || searchQuery) && (
+              <GhostButton
+                color="black"
+                size="small"
+                onClick={() => {
+                  setActiveCycle(null)
+                  setActivePriority(null)
+                  setSearchQuery('')
+                }}
+              >
+                <GhostButton.Center>Clear filters</GhostButton.Center>
+              </GhostButton>
+            )}
+          </div>
+
+          {/* Tab view switcher */}
+          <div style={{ borderBottom: `1px solid ${tc.border}`, flexShrink: 0 }}>
+            <ScrollableTabGroup selectedIndex={tabIndex} onTabChange={setTabIndex}>
+              {tabs.map((tab, i) => (
+                <ScrollableTabGroup.Tab key={i} value={`view-${i}`}>
+                  <ScrollableTabGroup.TabCenter>{tab.label}</ScrollableTabGroup.TabCenter>
+                  <ScrollableTabGroup.TabTrailing>
+                    <span style={{ fontSize: 10, color: tc.fgMuted, fontWeight: 600 }}>
+                      {IT_ISSUES.filter(tab.filter).length}
+                    </span>
+                  </ScrollableTabGroup.TabTrailing>
+                </ScrollableTabGroup.Tab>
+              ))}
+            </ScrollableTabGroup>
+          </div>
+
+          {/* Issue list — Linear compact density (32px rows) */}
+          <div style={{ flex: 1, overflow: 'auto' }}>
+            {filtered.length === 0 && (
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: 180, color: tc.fgMuted, fontSize: 13 }}>
+                No issues match the current filters
+              </div>
+            )}
+            {filtered.map((issue) => {
+              const cfg = IT_STATUS_CONFIG[issue.status]
+              const isSelected = selectedIds.has(issue.id)
+              return (
+                <ListTile
+                  key={issue.id}
+                  as="button"
+                  onClick={() => toggleSelect(issue.id)}
+                  style={{
+                    minHeight: 36,
+                    paddingTop: 0,
+                    paddingBottom: 0,
+                    paddingLeft: 16,
+                    paddingRight: 16,
+                    background: isSelected ? 'rgba(99,102,241,0.05)' : 'transparent',
+                    borderLeft: `3px solid ${isSelected ? '#6366f1' : 'transparent'}`,
+                    borderBottom: `1px solid ${tc.borderSub}`,
+                    textAlign: 'left',
+                    width: '100%',
+                    cursor: 'pointer',
+                    transition: 'background 0.1s, border-color 0.1s',
+                  }}
+                >
+                  <ListTile.Leading>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                      <div style={{ width: 8, height: 8, borderRadius: '50%', background: cfg.dot, flexShrink: 0 }} />
+                      <span style={{ fontSize: 11, color: tc.fgMuted, fontFamily: 'monospace', fontWeight: 500, flexShrink: 0 }}>{issue.id}</span>
+                    </div>
+                  </ListTile.Leading>
+                  <ListTile.Title>{issue.title}</ListTile.Title>
+                  <ListTile.Trailing>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                      <span style={{
+                        fontSize: 10, fontWeight: 700,
+                        color: IT_LABEL_COLOR[issue.label] ?? '#94a3b8',
+                        background: `${IT_LABEL_COLOR[issue.label] ?? '#94a3b8'}18`,
+                        padding: '2px 6px', borderRadius: 4,
+                        textTransform: 'uppercase', letterSpacing: '0.04em', flexShrink: 0,
+                      }}>
+                        {issue.label}
+                      </span>
+                      <LabelBadge color={IT_PRIORITY_COLOR[issue.priority]}>
+                        <LabelBadge.Label>{issue.priority}</LabelBadge.Label>
+                      </LabelBadge>
+                      <div style={{
+                        width: 20, height: 20, borderRadius: '50%',
+                        background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
+                        color: '#fff', fontSize: 9, fontWeight: 700,
+                        display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0,
+                      }}>
+                        {issue.assignee}
+                      </div>
+                      <Text textStyle="descriptionSmall" style={{ color: tc.fgMuted, fontSize: 11, flexShrink: 0 }}>{issue.createdAt}</Text>
+                    </div>
+                  </ListTile.Trailing>
+                </ListTile>
+              )
+            })}
+          </div>
+
+          {/* Multi-select status bar */}
+          {selectedIds.size > 0 && (
+            <div style={{ borderTop: `1px solid ${tc.border}`, padding: '10px 16px', display: 'flex', alignItems: 'center', gap: 12, background: tc.surface, flexShrink: 0 }}>
+              <Text textStyle="descriptionSmall" style={{ color: tc.fgSub, flex: 1 }}>
+                {selectedIds.size}개 선택됨
+              </Text>
+              <GhostButton color="black" size="small" onClick={() => setSelectedIds(new Set())}>
+                <GhostButton.Center>선택 해제</GhostButton.Center>
+              </GhostButton>
+              <OutlineButton color="black" size="small">
+                <OutlineButton.Center>상태 변경</OutlineButton.Center>
+              </OutlineButton>
+              <SolidButton color="primary" size="small">
+                <SolidButton.Center>일괄 처리</SolidButton.Center>
+              </SolidButton>
+            </div>
+          )}
+        </main>
+      </div>
+    </div>
+  )
+}
+
+export const IssueTracker: Story = {
+  render: () => <IssueTrackerRender />,
+}

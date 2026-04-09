@@ -238,3 +238,274 @@ export const 디자인QA = {
     )
   },
 }
+
+// ─── Material 3: 색상 역할 시스템 (Color Role System) ────────────────────────
+// M3는 Primary / Secondary / Tertiary / Error 4가지 색상 역할을 정의합니다.
+// 각 역할은 Container(배경)와 On-Container(텍스트/아이콘) 한 쌍으로 존재합니다.
+export const Material3_색상역할_시스템: Story = {
+  name: 'Material 3 - 색상 역할 시스템 (Primary/Secondary/Tertiary/Error)',
+  render: () => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '32px', maxWidth: '560px' }}>
+      <div>
+        <p style={{ margin: '0 0 6px', fontSize: '12px', fontWeight: 700, color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+          M3 Color Roles
+        </p>
+        <p style={{ margin: '0 0 20px', fontSize: '13px', color: '#64748b', lineHeight: 1.6 }}>
+          Material 3의 색상 역할 시스템입니다. SolidButton의 color prop을 M3 역할에 매핑하여 사용합니다.
+        </p>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+          {/* Primary Role */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+            <div style={{ width: '120px', fontSize: '12px', color: '#94a3b8', fontWeight: 600 }}>Primary</div>
+            <SolidButton color="primary" size="medium">
+              <SolidButton.Center>Filled Button</SolidButton.Center>
+            </SolidButton>
+            <span style={{ fontSize: '11px', color: '#94a3b8' }}>가장 강조되는 주요 액션</span>
+          </div>
+          {/* Secondary Role → black */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+            <div style={{ width: '120px', fontSize: '12px', color: '#94a3b8', fontWeight: 600 }}>Secondary</div>
+            <SolidButton color="black" size="medium">
+              <SolidButton.Center>Filled Button</SolidButton.Center>
+            </SolidButton>
+            <span style={{ fontSize: '11px', color: '#94a3b8' }}>보조 액션, 중간 강조</span>
+          </div>
+          {/* Tertiary Role → gray */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+            <div style={{ width: '120px', fontSize: '12px', color: '#94a3b8', fontWeight: 600 }}>Tertiary</div>
+            <SolidButton color="gray" size="medium">
+              <SolidButton.Center>Filled Button</SolidButton.Center>
+            </SolidButton>
+            <span style={{ fontSize: '11px', color: '#94a3b8' }}>3차 보조, 낮은 강조</span>
+          </div>
+          {/* Surface Role → white */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+            <div style={{ width: '120px', fontSize: '12px', color: '#94a3b8', fontWeight: 600 }}>Surface</div>
+            <div style={{ background: '#1e293b', padding: '8px 12px', borderRadius: '12px' }}>
+              <SolidButton color="white" size="medium">
+                <SolidButton.Center>Filled Button</SolidButton.Center>
+              </SolidButton>
+            </div>
+            <span style={{ fontSize: '11px', color: '#94a3b8' }}>어두운 배경 위 표면 버튼</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Color Role 실전 카드 */}
+      <div style={{ background: '#f8fafc', borderRadius: '16px', padding: '24px', border: '1px solid #e2e8f0' }}>
+        <p style={{ margin: '0 0 4px', fontSize: '14px', fontWeight: 700, color: '#0f172a' }}>M3 실전: 알림 다이얼로그</p>
+        <p style={{ margin: '0 0 20px', fontSize: '12px', color: '#64748b' }}>
+          위험한 액션에는 Error 역할(red), 확인에는 Primary, 취소에는 Surface를 권장합니다.
+        </p>
+        <div style={{ background: '#fff', borderRadius: '12px', padding: '24px', border: '1px solid #e2e8f0' }}>
+          <p style={{ margin: '0 0 6px', fontSize: '15px', fontWeight: 700, color: '#0f172a' }}>계정을 삭제하시겠습니까?</p>
+          <p style={{ margin: '0 0 20px', fontSize: '13px', color: '#64748b', lineHeight: 1.5 }}>
+            이 작업은 되돌릴 수 없습니다. 모든 데이터가 영구적으로 삭제됩니다.
+          </p>
+          <div style={{ display: 'flex', gap: '8px', justifyContent: 'flex-end' }}>
+            <SolidButton color="gray" size="medium">
+              <SolidButton.Center>취소</SolidButton.Center>
+            </SolidButton>
+            <SolidButton color="black" size="medium">
+              <SolidButton.Center>삭제</SolidButton.Center>
+            </SolidButton>
+          </div>
+        </div>
+      </div>
+    </div>
+  ),
+}
+
+// ─── Material 3: 밀도 시스템 (Density System) ────────────────────────────────
+// M3는 Compact(-2) / Default(0) / Comfortable(+2) 세 가지 밀도를 정의합니다.
+// SolidButton의 size prop (small/medium/large)으로 이를 표현합니다.
+export const Material3_밀도_시스템: Story = {
+  name: 'Material 3 - 밀도 시스템 (Compact / Default / Comfortable)',
+  render: () => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '32px', maxWidth: '600px' }}>
+      <div>
+        <p style={{ margin: '0 0 6px', fontSize: '12px', fontWeight: 700, color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+          M3 Density System
+        </p>
+        <p style={{ margin: '0 0 20px', fontSize: '13px', color: '#64748b', lineHeight: 1.6 }}>
+          정보 밀도가 높은 전문가용 앱(Compact)에서 소비자 앱(Comfortable)까지 밀도를 조절합니다.
+        </p>
+
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+          {/* Compact */}
+          <div style={{ padding: '20px', background: '#fff', borderRadius: '12px', border: '1px solid #e2e8f0' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '12px' }}>
+              <span style={{ fontSize: '11px', fontWeight: 700, padding: '2px 8px', borderRadius: '99px', background: '#f1f5f9', color: '#475569' }}>Compact (-2)</span>
+              <span style={{ fontSize: '12px', color: '#94a3b8' }}>정보 밀도 높음 · 데이터 대시보드, 툴바</span>
+            </div>
+            <div style={{ display: 'flex', gap: '8px', alignItems: 'center', flexWrap: 'wrap' }}>
+              <SolidButton color="primary" size="small">
+                <SolidButton.Center>저장</SolidButton.Center>
+              </SolidButton>
+              <SolidButton color="black" size="small">
+                <SolidButton.Center>편집</SolidButton.Center>
+              </SolidButton>
+              <SolidButton color="gray" size="small">
+                <SolidButton.Center>취소</SolidButton.Center>
+              </SolidButton>
+            </div>
+          </div>
+
+          {/* Default */}
+          <div style={{ padding: '20px', background: '#fff', borderRadius: '12px', border: '1px solid #e2e8f0' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '12px' }}>
+              <span style={{ fontSize: '11px', fontWeight: 700, padding: '2px 8px', borderRadius: '99px', background: '#ede9fe', color: '#7c3aed' }}>Default (0)</span>
+              <span style={{ fontSize: '12px', color: '#94a3b8' }}>기본값 · 대부분의 앱에 적합</span>
+            </div>
+            <div style={{ display: 'flex', gap: '8px', alignItems: 'center', flexWrap: 'wrap' }}>
+              <SolidButton color="primary" size="medium">
+                <SolidButton.Center>저장</SolidButton.Center>
+              </SolidButton>
+              <SolidButton color="black" size="medium">
+                <SolidButton.Center>편집</SolidButton.Center>
+              </SolidButton>
+              <SolidButton color="gray" size="medium">
+                <SolidButton.Center>취소</SolidButton.Center>
+              </SolidButton>
+            </div>
+          </div>
+
+          {/* Comfortable */}
+          <div style={{ padding: '20px', background: '#fff', borderRadius: '12px', border: '1px solid #e2e8f0' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '12px' }}>
+              <span style={{ fontSize: '11px', fontWeight: 700, padding: '2px 8px', borderRadius: '99px', background: '#dcfce7', color: '#16a34a' }}>Comfortable (+2)</span>
+              <span style={{ fontSize: '12px', color: '#94a3b8' }}>여유 있는 터치 타겟 · 모바일, 소비자 앱</span>
+            </div>
+            <div style={{ display: 'flex', gap: '8px', alignItems: 'center', flexWrap: 'wrap' }}>
+              <SolidButton color="primary" size="large">
+                <SolidButton.Center>저장</SolidButton.Center>
+              </SolidButton>
+              <SolidButton color="black" size="large">
+                <SolidButton.Center>편집</SolidButton.Center>
+              </SolidButton>
+              <SolidButton color="gray" size="large">
+                <SolidButton.Center>취소</SolidButton.Center>
+              </SolidButton>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* 실전: 폼 제출 패턴 */}
+      <div style={{ background: '#f8fafc', borderRadius: '16px', padding: '24px', border: '1px solid #e2e8f0' }}>
+        <p style={{ margin: '0 0 4px', fontSize: '14px', fontWeight: 700, color: '#0f172a' }}>M3 실전: 폼 + 버튼 밀도 매칭</p>
+        <p style={{ margin: '0 0 20px', fontSize: '12px', color: '#64748b' }}>
+          폼 필드의 크기와 버튼의 밀도를 일치시켜 일관된 레이아웃을 만듭니다.
+        </p>
+        <div style={{ background: '#fff', borderRadius: '12px', padding: '24px', border: '1px solid #e2e8f0', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+            <label style={{ fontSize: '13px', fontWeight: 600, color: '#374151' }}>이름</label>
+            <input style={{ padding: '10px 14px', borderRadius: '8px', border: '1px solid #e2e8f0', fontSize: '14px', outline: 'none' }} placeholder="홍길동" />
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+            <label style={{ fontSize: '13px', fontWeight: 600, color: '#374151' }}>이메일</label>
+            <input style={{ padding: '10px 14px', borderRadius: '8px', border: '1px solid #e2e8f0', fontSize: '14px', outline: 'none' }} placeholder="hong@example.com" />
+          </div>
+          <div style={{ display: 'flex', gap: '8px', justifyContent: 'flex-end', paddingTop: '8px' }}>
+            <SolidButton color="gray" size="medium">
+              <SolidButton.Center>초기화</SolidButton.Center>
+            </SolidButton>
+            <SolidButton color="primary" size="medium">
+              <SolidButton.Center>제출하기</SolidButton.Center>
+            </SolidButton>
+          </div>
+        </div>
+      </div>
+    </div>
+  ),
+}
+
+// ─── Material 3: FAB (Floating Action Button) 패턴 ───────────────────────────
+// FAB는 화면의 가장 중요한 액션을 위해 항상 떠 있는 버튼입니다.
+// M3에서는 Small FAB / Regular FAB / Large FAB / Extended FAB 4가지를 정의합니다.
+export const Material3_FAB_패턴: Story = {
+  name: 'Material 3 - FAB (Floating Action Button) 패턴',
+  render: () => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '32px', maxWidth: '560px' }}>
+      <div>
+        <p style={{ margin: '0 0 6px', fontSize: '12px', fontWeight: 700, color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+          M3 FAB Variants
+        </p>
+        <p style={{ margin: '0 0 20px', fontSize: '13px', color: '#64748b', lineHeight: 1.6 }}>
+          FAB는 SolidButton에 원형/확장 스타일을 추가하여 구현합니다.
+          페이지에서 가장 중요한 단일 액션에만 사용하세요.
+        </p>
+      </div>
+
+      {/* FAB 변형들 */}
+      <div style={{ display: 'flex', gap: '16px', alignItems: 'flex-end', flexWrap: 'wrap' }}>
+        {/* Small FAB */}
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
+          <span style={{ padding: '20px', background: 'rgba(99,102,241,0.1)', borderRadius: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 4px 16px rgba(99,102,241,0.25)' }}>
+            <SolidButton color="primary" size="small">
+              <SolidButton.Center>+</SolidButton.Center>
+            </SolidButton>
+          </span>
+          <span style={{ fontSize: '11px', color: '#94a3b8' }}>Small FAB</span>
+        </div>
+
+        {/* Regular FAB */}
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
+          <span style={{ padding: '20px', background: 'rgba(99,102,241,0.1)', borderRadius: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 4px 16px rgba(99,102,241,0.25)' }}>
+            <SolidButton color="primary" size="medium">
+              <SolidButton.Center>+</SolidButton.Center>
+            </SolidButton>
+          </span>
+          <span style={{ fontSize: '11px', color: '#94a3b8' }}>Regular FAB</span>
+        </div>
+
+        {/* Large FAB */}
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
+          <span style={{ padding: '20px', background: 'rgba(99,102,241,0.1)', borderRadius: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 4px 16px rgba(99,102,241,0.25)' }}>
+            <SolidButton color="primary" size="large">
+              <SolidButton.Center>+</SolidButton.Center>
+            </SolidButton>
+          </span>
+          <span style={{ fontSize: '11px', color: '#94a3b8' }}>Large FAB</span>
+        </div>
+
+        {/* Extended FAB */}
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
+          <span style={{ padding: '20px', background: 'rgba(99,102,241,0.1)', borderRadius: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 4px 16px rgba(99,102,241,0.25)' }}>
+            <SolidButton color="primary" size="large">
+              <SolidButton.Leading>
+                <ChatLineIcon />
+              </SolidButton.Leading>
+              <SolidButton.Center>새 메시지 작성</SolidButton.Center>
+            </SolidButton>
+          </span>
+          <span style={{ fontSize: '11px', color: '#94a3b8' }}>Extended FAB</span>
+        </div>
+      </div>
+
+      {/* FAB 실전 배치 예시 */}
+      <div style={{ position: 'relative', height: '280px', background: '#f8fafc', borderRadius: '16px', border: '1px solid #e2e8f0', overflow: 'hidden' }}>
+        <div style={{ padding: '20px' }}>
+          <p style={{ margin: '0 0 8px', fontSize: '14px', fontWeight: 700, color: '#0f172a' }}>M3 실전: FAB 배치 위치</p>
+          <p style={{ margin: 0, fontSize: '12px', color: '#64748b' }}>FAB는 우측 하단(모바일) 또는 우측 상단(태블릿/PC)에 배치합니다.</p>
+          <div style={{ marginTop: '16px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+            {['아티클 1 - Orbit UI 디자인 토큰 가이드', '아티클 2 - Material 3 컬러 시스템', '아티클 3 - Mantine v7 마이그레이션'].map((item) => (
+              <div key={item} style={{ padding: '12px 16px', background: '#fff', borderRadius: '8px', border: '1px solid #e2e8f0', fontSize: '13px', color: '#374151' }}>
+                {item}
+              </div>
+            ))}
+          </div>
+        </div>
+        {/* FAB 위치 */}
+        <div style={{ position: 'absolute', bottom: '20px', right: '20px', boxShadow: '0 6px 24px rgba(99,102,241,0.4)' }}>
+          <SolidButton color="primary" size="large">
+            <SolidButton.Leading>
+              <ChatLineIcon />
+            </SolidButton.Leading>
+            <SolidButton.Center>작성</SolidButton.Center>
+          </SolidButton>
+        </div>
+      </div>
+    </div>
+  ),
+}
