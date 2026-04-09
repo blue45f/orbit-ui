@@ -5,13 +5,84 @@ import clsx from 'clsx'
 import { useLayoutEffect } from 'react'
 import '@orbit-ui/core/style.css'
 
-import { lightTheme, darkTheme, textStyleTheme } from '../src/styles'
+import { lightTheme, darkTheme, textStyleTheme, highDensityTheme } from '../src/styles'
 
-// 스토리북 개발 환경과 빌드 환경에서 코어 스타일 우선순위가 달라지는 이슈를 우회하기 위함
+const injectGlobalStyles = () => {
+  const styleId = 'storybook-modern-ui-fix'
+  if (document.getElementById(styleId)) return
+
+  const style = document.createElement('style')
+  style.id = styleId
+  style.innerHTML = `
+    body {
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    
+    .sb-show-main {
+      background-color: transparent !important;
+    }
+
+    .sbdocs-wrapper {
+      background-color: #f8fafc !important; /* 부드러운 배경색 */
+    }
+
+    .sbdocs-content {
+      max-width: 1100px !important;
+      padding: 48px !important;
+    }
+
+    /* 스토리 블록 고도화 */
+    .docs-story {
+      background-color: #ffffff !important;
+      margin-bottom: 4rem !important;
+      border-radius: 16px !important;
+      overflow: hidden;
+      border: 1px solid rgba(0, 0, 0, 0.06) !important;
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.04), 0 4px 6px -2px rgba(0, 0, 0, 0.02) !important;
+    }
+
+    .dark .docs-story {
+      background-color: #1e1e1e !important;
+      border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    }
+
+    /* 표(Table) 가독성 극대화 */
+    .sbdocs table {
+      width: 100% !important;
+      border-collapse: separate !important;
+      border-spacing: 0 !important;
+      border-radius: 12px !important;
+      overflow: hidden;
+      border: 1px solid rgba(0, 0, 0, 0.08) !important;
+      margin: 2.5rem 0 !important;
+    }
+
+    .sbdocs th {
+      background-color: #f1f5f9 !important;
+      padding: 16px 20px !important;
+      font-weight: 600 !important;
+      color: #334155 !important;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.08) !important;
+    }
+
+    .sbdocs td {
+      padding: 14px 20px !important;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.04) !important;
+      color: #475569 !important;
+    }
+
+    /* 다크모드 대응 */
+    .dark .sbdocs-wrapper { background-color: #0f172a !important; }
+    .dark .sbdocs th { background-color: #1e293b !important; color: #cbd5e1 !important; border-color: rgba(255,255,255,0.1) !important; }
+    .dark .sbdocs td { color: #94a3b8 !important; border-color: rgba(255,255,255,0.05) !important; }
+    .dark .sbdocs table { border-color: rgba(255,255,255,0.1) !important; }
+  `
+  document.head.appendChild(style)
+}
+
 const prependThemeStyles = () => {
   const head = document.head
-  // NOTE: canary는 코어 패키지가 분리되지 않아 초기화 스타일 위치가 다름
-  // reset, shared 순으로 재배치
   const sharedStyles = head.querySelector('link[rel=stylesheet][href*="shared.css"]')
   const resetStyles = head.querySelector('link[rel=stylesheet][href*="reset.css"]')
 
@@ -29,22 +100,55 @@ const prependThemeStyles = () => {
 }
 
 export const useThemeRoot: Decorator = (Story, context) => {
-  const theme = context.globals.backgrounds?.value === '#333333' ? 'dark' : 'light'
+  const theme = context.globals.theme || 'light'
+  const density = context.globals.density || 'standard'
+  
   const themeClass = clsx(textStyleTheme.medium, {
     [lightTheme]: theme === 'light',
     [darkTheme]: theme === 'dark',
+    [highDensityTheme]: density === 'high',
   })
 
   useLayoutEffect(() => {
     prependThemeStyles()
-  }, [])
+    injectGlobalStyles()
+    
+    // HTML 태그에 테마 클래스 추가 (문서 배경색 대응)
+    document.documentElement.className = theme
+  }, [theme])
 
   return (
-    //NOTE: themeClass는 필수 prop 에러를 방지하기위해 의미없는 core라는 themeClass를 추가
     <ThemeProvider mode={theme} themeClass={themeClass}>
       <LottieProvider>
-        <div style={{ margin: '1rem' }}>
-          <Story />
+        <div 
+          className="storybook-canvas-wrapper" 
+          style={{ 
+            padding: '4rem 3rem', 
+            minHeight: '100vh', 
+            boxSizing: 'border-box',
+            backgroundColor: theme === 'dark' ? '#0f172a' : '#f8fafc',
+            backgroundImage: theme === 'light' 
+              ? 'radial-gradient(#e2e8f0 1px, transparent 1px)' 
+              : 'radial-gradient(#1e293b 1px, transparent 1px)',
+            backgroundSize: '24px 24px',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            gap: '3rem',
+            transition: 'all 0.3s ease'
+          }}
+        >
+          <div style={{ 
+            width: '100%', 
+            maxWidth: '1000px',
+            backgroundColor: theme === 'dark' ? '#1e293b' : '#ffffff',
+            padding: '3rem',
+            borderRadius: '24px',
+            boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.1)',
+            border: theme === 'dark' ? '1px solid rgba(255,255,255,0.1)' : '1px solid rgba(0,0,0,0.05)',
+          }}>
+            <Story />
+          </div>
         </div>
       </LottieProvider>
     </ThemeProvider>
@@ -52,32 +156,38 @@ export const useThemeRoot: Decorator = (Story, context) => {
 }
 
 const preview: Preview = {
+  globalTypes: {
+    theme: {
+      name: 'Theme',
+      description: 'Global theme for components',
+      defaultValue: 'light',
+      toolbar: {
+        icon: 'circlehollow',
+        items: [
+          { value: 'light', icon: 'circlehollow', title: 'Light' },
+          { value: 'dark', icon: 'circle', title: 'Dark' },
+        ],
+        showName: true,
+      },
+    },
+    density: {
+      name: 'Density',
+      description: 'Global spacing density',
+      defaultValue: 'standard',
+      toolbar: {
+        icon: 'grid',
+        items: [
+          { value: 'standard', title: 'Standard' },
+          { value: 'high', title: 'High Density' },
+        ],
+        showName: true,
+      },
+    },
+  },
   parameters: {
     layout: 'fullscreen',
-    controls: {
-      matchers: {
-        color: /(background|color)$/i,
-        date: /Date$/,
-      },
-      expanded: true,
-    },
     viewport: {
-      viewports: {
-        ...INITIAL_VIEWPORTS,
-        Fold: {
-          name: 'Galaxy Fold',
-          styles: {
-            height: '653px',
-            width: '280px',
-          },
-          type: 'mobile',
-        },
-      },
-    },
-    docs: {
-      source: {
-        excludeDecorators: true, // Show code 에서 <No Display Name /> 로 표시되는 문제 해결
-      },
+      viewports: INITIAL_VIEWPORTS,
     },
     options: {
       storySort: {

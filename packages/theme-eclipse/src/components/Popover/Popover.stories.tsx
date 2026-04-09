@@ -5,7 +5,7 @@ import { FilledButton as Button } from '../SolidButton'
 import { Typography } from '../Text'
 
 const meta = {
-  title: 'eclipse/Feedback/Popover',
+  title: 'eclipse/4. Feedback/Popover',
   component: Popover,
   tags: ['autodocs'],
 } satisfies Meta<typeof Popover>

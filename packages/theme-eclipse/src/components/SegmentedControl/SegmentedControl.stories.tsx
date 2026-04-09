@@ -10,7 +10,7 @@ SegmentedControl.TabCenter.displayName = 'SegmentedControl.TabCenter'
 SegmentedControl.TabTrailing.displayName = 'SegmentedControl.TabTrailing'
 
 const meta = {
-  title: 'eclipse/Inputs/SegmentedControl',
+  title: 'eclipse/2. Inputs/Selection/SegmentedControl',
   component: SegmentedControl,
   tags: ['autodocs'],
 } satisfies Meta<typeof SegmentedControl>

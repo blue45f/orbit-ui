@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react'
 import { Avatar } from './Avatar'
 
 const meta = {
-  title: 'eclipse/Data Display/Avatar',
+  title: 'eclipse/3. Data Display/Avatar',
   component: Avatar,
   tags: ['autodocs'],
 } satisfies Meta<typeof Avatar>

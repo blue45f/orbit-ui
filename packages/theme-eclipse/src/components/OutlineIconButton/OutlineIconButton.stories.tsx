@@ -8,7 +8,7 @@ import { OutlineIconButton } from '.'
 OutlineIconButton.displayName = 'OutlineIconButton'
 
 const meta = {
-  title: 'eclipse/Buttons/OutlineIconButton',
+  title: 'eclipse/1. Actions/Buttons/OutlineIconButton',
   component: OutlineIconButton,
   args: { color: 'black', size: 'medium', disabled: false },
   argTypes: {

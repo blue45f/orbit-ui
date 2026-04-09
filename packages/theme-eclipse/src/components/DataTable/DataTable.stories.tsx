@@ -4,9 +4,10 @@ import { ColumnDef } from '@tanstack/react-table'
 
 import { DataTable } from './DataTable'
 import { LabelBadge as Badge } from '../LabelBadge'
+import { Checkbox } from '../Checkbox'
 
 const meta = {
-  title: 'eclipse/Data Display/DataTable',
+  title: 'eclipse/3. Data Display/DataTable',
   component: DataTable,
   tags: ['autodocs'],
   args: {
@@ -60,6 +61,25 @@ const data: Payment[] = [
 
 const columns: ColumnDef<Payment>[] = [
   {
+    id: 'select',
+    header: ({ table }) => (
+      <Checkbox
+        checked={table.getIsAllPageRowsSelected() || (table.getIsSomePageRowsSelected() && 'indeterminate')}
+        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+        aria-label="Select all"
+      />
+    ),
+    cell: ({ row }) => (
+      <Checkbox
+        checked={row.getIsSelected()}
+        onCheckedChange={(value) => row.toggleSelected(!!value)}
+        aria-label="Select row"
+      />
+    ),
+    enableSorting: false,
+    enableHiding: false,
+  },
+  {
     accessorKey: 'status',
     header: '상태',
     cell: ({ row }) => {
@@ -94,6 +114,28 @@ export const 기본: Story = {
   args: {
     columns: columns as any,
     data: data as any,
+    enableSorting: true,
+    enableRowSelection: true,
+  },
+  render: (args) => <DataTable {...args} />,
+}
+
+export const 로딩_상태: Story = {
+  args: {
+    columns: columns as any,
+    data: [],
+    loading: true,
+    skeletonCount: 5,
+  },
+  render: (args) => <DataTable {...args} />,
+}
+
+export const 페이지네이션: Story = {
+  args: {
+    columns: columns as any,
+    data: [...data, ...data, ...data] as any,
+    enablePagination: true,
+    pageSize: 5,
   },
   render: (args) => <DataTable {...args} />,
 }

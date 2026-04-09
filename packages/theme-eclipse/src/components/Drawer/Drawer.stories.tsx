@@ -5,7 +5,7 @@ import { FilledButton as Button } from '../SolidButton'
 import { Typography } from '../Text'
 
 const meta = {
-  title: 'eclipse/Feedback/Drawer',
+  title: 'eclipse/4. Feedback/Drawer',
   component: Drawer,
   tags: ['autodocs'],
 } satisfies Meta<typeof Drawer>

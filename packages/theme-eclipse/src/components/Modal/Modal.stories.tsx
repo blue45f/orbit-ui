@@ -9,7 +9,7 @@ import { Typography } from '../Text'
 import { Dialog } from './Modal'
 
 const meta = {
-  title: 'eclipse/Feedback/Dialog',
+  title: 'eclipse/4. Feedback/Dialog',
   component: Dialog,
   tags: ['autodocs'],
   args: {

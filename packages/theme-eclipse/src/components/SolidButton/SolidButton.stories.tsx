@@ -16,7 +16,7 @@ const iconSize: Record<SolidButtonProps['size'], number> = {
 }
 
 const meta = {
-  title: 'eclipse/Buttons/SolidButton',
+  title: 'eclipse/1. Actions/Buttons/SolidButton',
   component: SolidButton,
   args: { color: 'black', size: 'medium', disabled: false },
   argTypes: {
@@ -47,20 +47,23 @@ export const 색상 = {
   },
   render: (prop: SolidButtonProps) => {
     return (
-      <Flex columnGap="20px" alignItems="center">
-        <SolidButton {...prop} color="black">
-          <SolidButton.Center>Black</SolidButton.Center>
-        </SolidButton>
-        <SolidButton {...prop} color="primary">
-          <SolidButton.Center>Primary</SolidButton.Center>
-        </SolidButton>
-        <SolidButton {...prop} color="gray">
-          <SolidButton.Center>Gray</SolidButton.Center>
-        </SolidButton>
-        <SolidButton {...prop} color="white">
-          <SolidButton.Center>White</SolidButton.Center>
-        </SolidButton>
-      </Flex>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+        <h4 style={{ margin: 0, fontSize: '14px', color: '#888' }}>Brand Colors</h4>
+        <Flex columnGap="24px" alignItems="center" flexWrap="wrap" rowGap="16px">
+          <SolidButton {...prop} color="black">
+            <SolidButton.Center>Black</SolidButton.Center>
+          </SolidButton>
+          <SolidButton {...prop} color="primary">
+            <SolidButton.Center>Primary</SolidButton.Center>
+          </SolidButton>
+          <SolidButton {...prop} color="gray">
+            <SolidButton.Center>Gray</SolidButton.Center>
+          </SolidButton>
+          <SolidButton {...prop} color="white">
+            <SolidButton.Center>White</SolidButton.Center>
+          </SolidButton>
+        </Flex>
+      </div>
     )
   },
 } satisfies Story
@@ -71,35 +74,38 @@ export const 사이즈 = {
   },
   render: (prop: SolidButtonProps) => {
     return (
-      <Flex columnGap="20px" alignItems="center">
-        <SolidButton {...prop} size="small">
-          <SolidButton.Leading>
-            <ChatLineIcon />
-          </SolidButton.Leading>
-          <SolidButton.Center>Small Button</SolidButton.Center>
-          <SolidButton.Trailing>
-            <ChevronRightLineIcon size={iconSize.small} />
-          </SolidButton.Trailing>
-        </SolidButton>
-        <SolidButton {...prop} size="medium">
-          <SolidButton.Leading>
-            <ChatLineIcon />
-          </SolidButton.Leading>
-          <SolidButton.Center>Medium Button</SolidButton.Center>
-          <SolidButton.Trailing>
-            <ChevronRightLineIcon size={iconSize.medium} />
-          </SolidButton.Trailing>
-        </SolidButton>
-        <SolidButton {...prop} size="large">
-          <SolidButton.Leading>
-            <ChatLineIcon />
-          </SolidButton.Leading>
-          <SolidButton.Center>Large Button</SolidButton.Center>
-          <SolidButton.Trailing>
-            <ChevronRightLineIcon size={iconSize.large} />
-          </SolidButton.Trailing>
-        </SolidButton>
-      </Flex>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+        <h4 style={{ margin: 0, fontSize: '14px', color: '#888' }}>Button Sizes</h4>
+        <Flex columnGap="24px" alignItems="flex-end" flexWrap="wrap" rowGap="16px">
+          <SolidButton {...prop} size="small">
+            <SolidButton.Leading>
+              <ChatLineIcon />
+            </SolidButton.Leading>
+            <SolidButton.Center>Small</SolidButton.Center>
+            <SolidButton.Trailing>
+              <ChevronRightLineIcon size={iconSize.small} />
+            </SolidButton.Trailing>
+          </SolidButton>
+          <SolidButton {...prop} size="medium">
+            <SolidButton.Leading>
+              <ChatLineIcon />
+            </SolidButton.Leading>
+            <SolidButton.Center>Medium</SolidButton.Center>
+            <SolidButton.Trailing>
+              <ChevronRightLineIcon size={iconSize.medium} />
+            </SolidButton.Trailing>
+          </SolidButton>
+          <SolidButton {...prop} size="large">
+            <SolidButton.Leading>
+              <ChatLineIcon />
+            </SolidButton.Leading>
+            <SolidButton.Center>Large</SolidButton.Center>
+            <SolidButton.Trailing>
+              <ChevronRightLineIcon size={iconSize.large} />
+            </SolidButton.Trailing>
+          </SolidButton>
+        </Flex>
+      </div>
     )
   },
 } satisfies Story
@@ -111,15 +117,18 @@ export const 로딩 = {
   },
   render: (prop: SolidButtonProps) => {
     return (
-      <SolidButton {...prop}>
-        <SolidButton.Leading>
-          <ChatLineIcon />
-        </SolidButton.Leading>
-        <SolidButton.Center>버튼입니다</SolidButton.Center>
-        <SolidButton.Trailing>
-          <ChevronRightLineIcon size={iconSize[prop.size]} />
-        </SolidButton.Trailing>
-      </SolidButton>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+        <h4 style={{ margin: 0, fontSize: '14px', color: '#888' }}>Loading State</h4>
+        <SolidButton {...prop}>
+          <SolidButton.Leading>
+            <ChatLineIcon />
+          </SolidButton.Leading>
+          <SolidButton.Center>불러오는 중...</SolidButton.Center>
+          <SolidButton.Trailing>
+            <ChevronRightLineIcon size={iconSize[prop.size]} />
+          </SolidButton.Trailing>
+        </SolidButton>
+      </div>
     )
   },
 } satisfies Story
@@ -130,17 +139,17 @@ export const 전체너비 = {
   },
   render: (prop: SolidButtonProps) => {
     return (
-      <Flex flexDirection="column" gap="8px" style={{ width: '400px' }}>
-        <SolidButton {...prop} color="black" width="100%">
-          <SolidButton.Center>첫 번째 버튼</SolidButton.Center>
-        </SolidButton>
-        <SolidButton {...prop} color="primary" width="100%">
-          <SolidButton.Center>두 번째 버튼</SolidButton.Center>
-        </SolidButton>
-        <SolidButton {...prop} color="gray" width="100%">
-          <SolidButton.Center>세 번째 버튼</SolidButton.Center>
-        </SolidButton>
-      </Flex>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+        <h4 style={{ margin: 0, fontSize: '14px', color: '#888' }}>Full Width</h4>
+        <Flex flexDirection="column" gap="12px" style={{ width: '100%', maxWidth: '400px' }}>
+          <SolidButton {...prop} color="black" width="100%">
+            <SolidButton.Center>Primary Action</SolidButton.Center>
+          </SolidButton>
+          <SolidButton {...prop} color="gray" width="100%">
+            <SolidButton.Center>Secondary Action</SolidButton.Center>
+          </SolidButton>
+        </Flex>
+      </div>
     )
   },
 } satisfies Story
@@ -149,26 +158,29 @@ export const 디자인QA = {
   args: {
     color: 'primary',
     size: 'medium',
-    text: '버튼입니다',
+    text: '디자인 확인용 버튼',
     leading: true,
     trailing: true,
   },
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
   render: ({ color, size, text, leading, trailing, ...rest }: any) => {
     return (
-      <SolidButton color={color} size={size} {...rest}>
-        {leading && (
-          <SolidButton.Leading>
-            <ChatLineIcon />
-          </SolidButton.Leading>
-        )}
-        <SolidButton.Center>{text}</SolidButton.Center>
-        {trailing && (
-          <SolidButton.Trailing>
-            <ChevronRightLineIcon size={iconSize[size as SolidButtonProps['size']]} />
-          </SolidButton.Trailing>
-        )}
-      </SolidButton>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', paddingBottom: '2rem' }}>
+        <h4 style={{ margin: 0, fontSize: '14px', color: '#888' }}>Interactive Playground</h4>
+        <SolidButton color={color} size={size} {...rest}>
+          {leading && (
+            <SolidButton.Leading>
+              <ChatLineIcon />
+            </SolidButton.Leading>
+          )}
+          <SolidButton.Center>{text}</SolidButton.Center>
+          {trailing && (
+            <SolidButton.Trailing>
+              <ChevronRightLineIcon size={iconSize[size as SolidButtonProps['size']]} />
+            </SolidButton.Trailing>
+          )}
+        </SolidButton>
+      </div>
     )
   },
 }

@@ -4,7 +4,7 @@ import { Command } from './Command'
 import { SettingLineIcon, StarLineIcon, NotificationLineIcon } from '@orbit-ui/icons'
 
 const meta = {
-  title: 'eclipse/Navigation/Command',
+  title: 'eclipse/5. Navigation/Command',
   component: Command,
   tags: ['autodocs'],
 } satisfies Meta<typeof Command>

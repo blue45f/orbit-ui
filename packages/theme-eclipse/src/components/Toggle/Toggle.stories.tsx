@@ -5,7 +5,7 @@ import { Toggle } from './Toggle'
 Toggle.displayName = 'Toggle'
 
 const meta = {
-  title: 'eclipse/Inputs/Toggle',
+  title: 'eclipse/2. Inputs/Selection/Toggle',
   component: Toggle,
   args: {},
   argTypes: {

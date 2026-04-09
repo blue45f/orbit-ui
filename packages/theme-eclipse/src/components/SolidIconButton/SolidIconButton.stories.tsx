@@ -8,7 +8,7 @@ import { SolidIconButton } from '.'
 SolidIconButton.displayName = 'SolidIconButton'
 
 const meta = {
-  title: 'eclipse/Buttons/SolidIconButton',
+  title: 'eclipse/1. Actions/Buttons/SolidIconButton',
   component: SolidIconButton,
   args: { color: 'black', size: 'medium', disabled: false },
   argTypes: {

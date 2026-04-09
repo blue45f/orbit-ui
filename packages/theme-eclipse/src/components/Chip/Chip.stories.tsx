@@ -11,7 +11,7 @@ Chip.Leading.displayName = 'Chip.Leading'
 Chip.Trailing.displayName = 'Chip.Trailing'
 
 const meta = {
-  title: 'eclipse/Chips/Chip',
+  title: 'eclipse/1. Actions/Chips/Chip',
   component: Chip,
   args: {},
   argTypes: {

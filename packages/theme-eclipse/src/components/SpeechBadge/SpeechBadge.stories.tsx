@@ -5,7 +5,7 @@ import { SpeechBadge } from './SpeechBadge'
 SpeechBadge.displayName = 'SpeechBadge'
 
 const meta = {
-  title: 'eclipse/Badges/SpeechBadge',
+  title: 'eclipse/3. Data Display/SpeechBadge',
   component: SpeechBadge,
   args: {},
   argTypes: {

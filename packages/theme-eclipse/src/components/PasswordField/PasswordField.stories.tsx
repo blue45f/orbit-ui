@@ -5,7 +5,7 @@ import { useState } from 'react'
 import { PasswordField } from './PasswordField'
 
 const meta = {
-  title: 'eclipse/Text Fields/PasswordField',
+  title: 'eclipse/2. Inputs/Text Fields/PasswordField',
   component: PasswordField,
   parameters: {
     layout: 'centered',

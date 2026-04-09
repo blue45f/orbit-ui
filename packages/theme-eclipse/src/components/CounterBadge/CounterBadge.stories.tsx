@@ -5,7 +5,7 @@ import { CounterBadge } from './CounterBadge'
 CounterBadge.displayName = 'CounterBadge'
 
 const meta = {
-  title: 'eclipse/Badges/CounterBadge',
+  title: 'eclipse/3. Data Display/CounterBadge',
   component: CounterBadge,
   args: {
     children: 99,

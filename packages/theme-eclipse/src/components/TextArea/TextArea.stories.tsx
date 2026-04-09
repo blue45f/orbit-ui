@@ -5,7 +5,7 @@ import { useState } from 'react'
 import { TextArea } from './TextArea'
 
 const meta = {
-  title: 'eclipse/Text Fields/TextArea',
+  title: 'eclipse/2. Inputs/Text Fields/TextArea',
   component: TextArea,
   parameters: {
     layout: 'centered',

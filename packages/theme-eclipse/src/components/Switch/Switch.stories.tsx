@@ -4,7 +4,7 @@ import { Switch } from './Switch'
 import { Typography } from '../Text'
 
 const meta = {
-  title: 'eclipse/Inputs/Switch',
+  title: 'eclipse/2. Inputs/Selection/Switch',
   component: Switch,
   tags: ['autodocs'],
 } satisfies Meta<typeof Switch>

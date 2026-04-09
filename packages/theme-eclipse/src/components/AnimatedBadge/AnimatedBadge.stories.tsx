@@ -6,7 +6,7 @@ import { AnimatedBadge } from './AnimatedBadge'
 AnimatedBadge.displayName = 'AnimatedBadge'
 
 const meta = {
-  title: 'eclipse/Badges/AnimatedBadge',
+  title: 'eclipse/3. Data Display/AnimatedBadge',
   component: AnimatedBadge,
   args: {},
   argTypes: {

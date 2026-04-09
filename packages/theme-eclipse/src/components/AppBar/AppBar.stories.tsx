@@ -21,7 +21,7 @@ import { AppBar as AppBarBase } from './AppBar'
 const AppBar = AppBarBase as typeof AppBarBase & React.FC<any>
 
 const meta = {
-  title: 'eclipse/Navigation/AppBar',
+  title: 'eclipse/5. Navigation/AppBar',
   component: AppBar,
   decorators: [
     (Story) => {

@@ -5,7 +5,7 @@ import { useState } from 'react'
 import { SearchBar } from './SearchBar'
 
 const meta = {
-  title: 'eclipse/Text Fields/SearchBar',
+  title: 'eclipse/2. Inputs/Text Fields/SearchBar',
   component: SearchBar,
   parameters: {
     layout: 'centered',

@@ -6,7 +6,7 @@ import { useState } from 'react'
 import { Dropdown } from './Dropdown'
 
 const meta = {
-  title: 'eclipse/Inputs/Dropdown',
+  title: 'eclipse/2. Inputs/Pickers/Dropdown',
   component: Dropdown,
   parameters: {
     layout: 'centered',

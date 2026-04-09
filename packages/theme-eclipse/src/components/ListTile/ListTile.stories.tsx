@@ -15,7 +15,7 @@ ListTile.Description.displayName = 'ListTile.Description'
 ListTile.Trailing.displayName = 'ListTile.Trailing'
 
 const meta = {
-  title: 'eclipse/Lists/ListTile',
+  title: 'eclipse/3. Data Display/ListTile',
   component: ListTile,
   parameters: {
     layout: 'centered',

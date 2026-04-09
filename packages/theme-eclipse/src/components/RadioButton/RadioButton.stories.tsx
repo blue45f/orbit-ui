@@ -7,7 +7,7 @@ import { RadioButton } from './RadioButton'
 RadioButton.displayName = 'RadioButton'
 
 const meta = {
-  title: 'eclipse/Inputs/RadioButton',
+  title: 'eclipse/2. Inputs/Selection/RadioButton',
   component: RadioButton,
   args: {
     disabled: false,

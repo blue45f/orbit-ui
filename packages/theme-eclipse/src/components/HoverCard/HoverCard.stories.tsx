@@ -5,7 +5,7 @@ import { Avatar } from '../Avatar'
 import { Typography } from '../Text'
 
 const meta = {
-  title: 'eclipse/Feedback/HoverCard',
+  title: 'eclipse/4. Feedback/HoverCard',
   component: HoverCard,
   tags: ['autodocs'],
 } satisfies Meta<typeof HoverCard>

@@ -1,128 +1,37 @@
 import { Meta } from '@storybook/blocks'
 
-<Meta title='intro/컴포넌트 목록' />
+<Meta title='Intro/컴포넌트 개요' />
 
-# 컴포넌트 목록
+# Orbit UI - Component Overview 🪐
 
-`@orbit-ui/theme-eclipse`에서 제공하는 컴포넌트 목록입니다.
+Orbit UI는 현대적인 감각과 높은 유연성을 가진 컴포넌트 라이브러리입니다.
 
-<br />
+## 🎨 Modern UI Patterns
 
-## Buttons
+### 1. Soft Shadows & Elevation
+모던한 인터페이스를 위해 다층적인 그림자(Layered Shadows)를 사용합니다. 단순히 짙은 그림자가 아닌, 빛의 물리적 특성을 고려한 부드러운 전이를 제공합니다.
 
-| 컴포넌트 | 설명 |
-|----------|------|
-| `SolidButton` | 배경이 채워진 기본 버튼 |
-| `OutlineButton` | 테두리만 있는 아웃라인 버튼 |
-| `GhostButton` | 배경과 테두리가 없는 텍스트 버튼 |
-| `SolidIconButton` | 아이콘 전용 채워진 버튼 |
-| `OutlineIconButton` | 아이콘 전용 아웃라인 버튼 |
+### 2. Micro-Interactions
+버튼 클릭, 토글 스위치 전환, 모달 열림 등 모든 상호작용에 미세한 애니메이션을 적용하여 사용자에게 생동감 있는 피드백을 전달합니다.
 
-```tsx
-import { SolidButton, OutlineButton, GhostButton } from '@orbit-ui/theme-eclipse'
-import { SolidIconButton, OutlineIconButton } from '@orbit-ui/theme-eclipse'
-```
+### 3. Glassmorphism & Translucency
+배경과 콘텐츠의 깊이감을 위해 투명도와 블러 효과가 적용된 `SurfaceGlass` 토큰을 지원합니다.
 
-<br />
+---
 
-## Form Controls
+## 🏗 핵심 컴포넌트
 
-| 컴포넌트 | 설명 |
-|----------|------|
-| `TextField` | 텍스트 입력 필드 |
-| `FloatingTextField` | 플로팅 라벨이 있는 텍스트 필드 |
-| `TextArea` | 여러 줄 텍스트 입력 |
-| `PasswordField` | 비밀번호 입력 필드 |
-| `SearchBar` | 검색 입력 바 |
-| `Checkbox` | 체크박스 |
-| `BoxedCheckbox` | 박스형 체크박스 |
-| `RadioButton` | 라디오 버튼 |
-| `Toggle` | 토글 스위치 |
-| `Dropdown` | 드롭다운 선택 |
+| 컴포넌트 | 카테고리 | 설명 |
+| :--- | :--- | :--- |
+| **Buttons** | Actions | Primary, Secondary, Ghost 등 다양한 타입 지원 |
+| **Inputs** | Inputs | 텍스트 필드, 검색바, 비밀번호 필드 등 |
+| **DataTable** | Data Display | 정렬, 선택, 페이지네이션이 내장된 고성능 테이블 |
+| **Feedback** | Feedback | Toast, Modal, Dialog 등 상황에 맞는 알림 |
 
-```tsx
-import { TextField, TextArea, Checkbox, RadioButton, Toggle } from '@orbit-ui/theme-eclipse'
-import { FloatingTextField, PasswordField, SearchBar } from '@orbit-ui/theme-eclipse'
-import { BoxedCheckbox, Dropdown } from '@orbit-ui/theme-eclipse'
-```
+---
 
-<br />
+## 🚀 디자인 가이드라인
 
-## Navigation
-
-| 컴포넌트 | 설명 |
-|----------|------|
-| `AppBar` | 상단 앱 바 |
-| `TabGroup` | 탭 그룹 |
-| `TabItem` | 탭 아이템 |
-| `ScrollableTabGroup` | 스크롤 가능한 탭 그룹 |
-| `SegmentedControl` | 세그먼트 컨트롤 |
-| `PageDots` | 페이지 도트 인디케이터 |
-| `PageIndicator` | 페이지 인디케이터 |
-| `PageNumber` | 페이지 번호 인디케이터 |
-
-```tsx
-import { AppBar, TabGroup, TabItem, ScrollableTabGroup } from '@orbit-ui/theme-eclipse'
-import { SegmentedControl } from '@orbit-ui/theme-eclipse'
-import { PageDots, PageIndicator, PageNumber } from '@orbit-ui/theme-eclipse'
-```
-
-<br />
-
-## Feedback
-
-| 컴포넌트 | 설명 |
-|----------|------|
-| `AlertDialog` | 알림 다이얼로그 |
-| `Modal` | 모달 다이얼로그 |
-| `Toast` | 토스트 알림 |
-
-```tsx
-import { AlertDialog, Modal, Toast } from '@orbit-ui/theme-eclipse'
-```
-
-<br />
-
-## Badges & Chips
-
-| 컴포넌트 | 설명 |
-|----------|------|
-| `CounterBadge` | 숫자 카운터 뱃지 |
-| `LabelBadge` | 라벨 뱃지 |
-| `AnimatedBadge` | 애니메이션 뱃지 |
-| `SpeechBadge` | 말풍선 뱃지 |
-| `Chip` | 칩 |
-| `ChipLink` | 링크 칩 |
-
-```tsx
-import { CounterBadge, LabelBadge, AnimatedBadge, SpeechBadge } from '@orbit-ui/theme-eclipse'
-import { Chip, ChipLink } from '@orbit-ui/theme-eclipse'
-```
-
-<br />
-
-## Layout & Typography
-
-| 컴포넌트 | 설명 |
-|----------|------|
-| `Text` | 텍스트 컴포넌트 |
-| `SectionTitle` | 섹션 타이틀 |
-| `Divider` | 구분선 |
-| `Space` | 여백 컴포넌트 |
-| `ListTile` | 리스트 타일 |
-
-```tsx
-import { Text, SectionTitle, Divider, Space, ListTile } from '@orbit-ui/theme-eclipse'
-```
-
-<br />
-
-## Provider
-
-| 컴포넌트 | 설명 |
-|----------|------|
-| `EclipseProvider` | 테마 Provider (앱 최상단에 배치) |
-
-```tsx
-import { EclipseProvider } from '@orbit-ui/theme-eclipse'
-```
+- **8px Grid**: 모든 간격과 크기는 8px 단위(0.5rem)로 설계되었습니다.
+- **Type-safe**: 모든 컴포넌트는 TypeScript로 작성되어 강력한 타입 추론을 제공합니다.
+- **Accessible**: WCAG AA 등급 준수를 목표로 설계되었습니다.

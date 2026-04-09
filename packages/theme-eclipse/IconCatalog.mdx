@@ -1,18 +1,27 @@
-import { Meta, Markdown } from '@storybook/blocks'
+import { Meta, Title, IconGallery, IconItem } from '@storybook/blocks';
+import * as Icons from '@orbit-ui/icons';
 
-<Meta title='Intro/아이콘 카탈로그' />
+<Meta title="Intro/아이콘 카탈로그" />
 
-# 아이콘 카탈로그
+# Icon Catalog 🪐
 
-별도 엔트리 포인트로 제공되는 아이콘 목록이에요.  
-기본 예제 코드는 다음과 같아요.
+Orbit UI에서 제공하는 전체 아이콘 목록입니다. 모든 아이콘은 `size`와 `color` 속성을 지원합니다.
 
 ```tsx
-import { HomeLineIcon } from '@orbit-ui/themes/icons'
+import { HomeLineIcon } from '@orbit-ui/icons';
 
-const App = () => {
-  return <HomeLineIcon size={24} color='fg_primary' />
-}
+<HomeLineIcon size={24} color="primary" />
 ```
 
-제공 중인 아이콘 목록은 [공식문서](https://atelier.claykit.com/docs/foundations/mint/iconography/overview#library)를 참고해주세요.
+<br />
+
+<IconGallery>
+  {Object.entries(Icons)
+    .filter(([name]) => name.endsWith('Icon'))
+    .sort(([a], [b]) => a.localeCompare(b))
+    .map(([name, Icon]) => (
+      <IconItem name={name} key={name}>
+        <Icon size={24} />
+      </IconItem>
+    ))}
+</IconGallery>
