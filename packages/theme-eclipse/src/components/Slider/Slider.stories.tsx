@@ -206,3 +206,157 @@ const StepLabelRender = () => {
 export const 단계별설정: Story = {
   render: () => <StepLabelRender />,
 }
+
+/* --------------------------------------------------------------------------
+   Raycast 스타일 키보드 단축키 설정
+   Raycast 패턴: 슬라이더로 수치를 조정하고 키보드 단축키로도 제어 가능.
+   Up/Down 화살표로 값 조정 + 슬라이더 조합. Compact UI 밀도.
+-------------------------------------------------------------------------- */
+const RaycastSettingsRender = () => {
+  const [windowOpacity, setWindowOpacity] = useState([90])
+  const [fontSize, setFontSize] = useState([14])
+  const [animationSpeed, setAnimationSpeed] = useState([2])
+
+  const animLabels = ['Off', 'Slow', 'Normal', 'Fast']
+  const animColors = ['#94a3b8', '#6366f1', '#10b981', '#f59e0b']
+
+  return (
+    <div style={{
+      width: '360px', borderRadius: '12px', border: '1px solid #e2e8f0',
+      background: '#fff', overflow: 'hidden',
+      boxShadow: '0 4px 24px rgba(0,0,0,0.08)',
+    }}>
+      {/* Header */}
+      <div style={{
+        padding: '14px 16px',
+        borderBottom: '1px solid #f1f5f9',
+        background: '#fafafa',
+        display: 'flex', alignItems: 'center', gap: '10px',
+      }}>
+        <div style={{
+          width: '28px', height: '28px', borderRadius: '7px',
+          background: 'linear-gradient(135deg, #0f172a 0%, #334155 100%)',
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          flexShrink: 0,
+        }}>
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+            <circle cx="8" cy="8" r="3" stroke="#fff" strokeWidth="1.5" />
+            <path d="M8 1v2M8 13v2M1 8h2M13 8h2M3.05 3.05l1.41 1.41M11.54 11.54l1.41 1.41M3.05 12.95l1.41-1.41M11.54 4.46l1.41-1.41" stroke="#fff" strokeWidth="1.2" strokeLinecap="round" />
+          </svg>
+        </div>
+        <div>
+          <div style={{ fontSize: '13px', fontWeight: 700, color: '#0f172a' }}>Appearance</div>
+          <div style={{ fontSize: '11px', color: '#94a3b8' }}>Raycast Settings</div>
+        </div>
+      </div>
+
+      {/* Settings rows */}
+      <div style={{ display: 'flex', flexDirection: 'column' }}>
+        {/* Window Opacity */}
+        <div style={{ padding: '14px 16px', borderBottom: '1px solid #f8fafc' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
+            <div>
+              <div style={{ fontSize: '13px', fontWeight: 500, color: '#0f172a' }}>Window Opacity</div>
+              <div style={{ fontSize: '11px', color: '#94a3b8', marginTop: '2px' }}>
+                Press{' '}
+                <kbd style={{ padding: '1px 4px', borderRadius: '3px', background: '#f1f5f9', border: '1px solid #e2e8f0', fontSize: '10px', fontFamily: 'monospace', color: '#475569' }}>
+                  Shift+Up/Down
+                </kbd>
+                {' '}to adjust
+              </div>
+            </div>
+            <span style={{
+              fontSize: '13px', fontWeight: 700, color: '#0f172a',
+              minWidth: '36px', textAlign: 'right',
+            }}>
+              {windowOpacity[0]}%
+            </span>
+          </div>
+          <Slider
+            value={windowOpacity}
+            onValueChange={setWindowOpacity}
+            min={60}
+            max={100}
+            step={5}
+            aria-label="Window opacity"
+          />
+          <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '4px' }}>
+            <span style={{ fontSize: '10px', color: '#cbd5e1' }}>60%</span>
+            <span style={{ fontSize: '10px', color: '#cbd5e1' }}>100%</span>
+          </div>
+        </div>
+
+        {/* Font Size */}
+        <div style={{ padding: '14px 16px', borderBottom: '1px solid #f8fafc' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
+            <div>
+              <div style={{ fontSize: '13px', fontWeight: 500, color: '#0f172a' }}>Font Size</div>
+              <div style={{ fontSize: '11px', color: '#94a3b8', marginTop: '2px' }}>
+                Preview:{' '}
+                <span style={{ fontSize: `${fontSize[0]}px`, fontWeight: 600, color: '#6366f1' }}>Aa</span>
+              </div>
+            </div>
+            <span style={{ fontSize: '13px', fontWeight: 700, color: '#0f172a', minWidth: '36px', textAlign: 'right' }}>
+              {fontSize[0]}px
+            </span>
+          </div>
+          <Slider
+            value={fontSize}
+            onValueChange={setFontSize}
+            min={11}
+            max={20}
+            step={1}
+            aria-label="Font size"
+          />
+          <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '4px' }}>
+            <span style={{ fontSize: '10px', color: '#cbd5e1' }}>11px</span>
+            <span style={{ fontSize: '10px', color: '#cbd5e1' }}>20px</span>
+          </div>
+        </div>
+
+        {/* Animation Speed */}
+        <div style={{ padding: '14px 16px' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
+            <div>
+              <div style={{ fontSize: '13px', fontWeight: 500, color: '#0f172a' }}>Animation Speed</div>
+              <div style={{ fontSize: '11px', color: '#94a3b8', marginTop: '2px' }}>Controls UI transition speed</div>
+            </div>
+            <span style={{
+              fontSize: '12px', fontWeight: 700,
+              color: animColors[animationSpeed[0]],
+              padding: '2px 8px', borderRadius: '4px',
+              background: `${animColors[animationSpeed[0]]}12`,
+            }}>
+              {animLabels[animationSpeed[0]]}
+            </span>
+          </div>
+          <Slider
+            value={animationSpeed}
+            onValueChange={setAnimationSpeed}
+            min={0}
+            max={3}
+            step={1}
+            aria-label="Animation speed"
+            aria-valuetext={animLabels[animationSpeed[0]]}
+          />
+          <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '6px' }}>
+            {animLabels.map((label, i) => (
+              <span key={label} style={{
+                fontSize: '10px',
+                color: i === animationSpeed[0] ? animColors[i] : '#cbd5e1',
+                fontWeight: i === animationSpeed[0] ? 700 : 400,
+                transition: 'color 0.2s',
+              }}>
+                {label}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const Raycast_설정패널: Story = {
+  render: () => <RaycastSettingsRender />,
+}

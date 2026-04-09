@@ -516,3 +516,197 @@ const StickyColumnTableRender = () => {
 export const 고정컬럼: Story = {
   render: () => <StickyColumnTableRender />,
 }
+
+/* --------------------------------------------------------------------------
+   Vercel 스타일 배포 현황 테이블
+   Vercel Design 패턴: 상태 dot indicator, 모노스페이스 해시, 시간 표시.
+   컴팩트 밀도 + 모노크롬 팔레트로 배포 목록을 표현합니다.
+-------------------------------------------------------------------------- */
+type Deployment = {
+  id: string
+  commit: string
+  branch: string
+  author: string
+  status: 'ready' | 'building' | 'error' | 'canceled'
+  duration: string
+  deployedAt: string
+}
+
+const deploymentData: Deployment[] = [
+  { id: 'dpl_001', commit: 'a3f9b2c', branch: 'main', author: 'heejun', status: 'ready', duration: '1m 24s', deployedAt: '2m ago' },
+  { id: 'dpl_002', commit: 'e71c4d8', branch: 'feat/slider', author: 'minji', status: 'building', duration: '--', deployedAt: '8m ago' },
+  { id: 'dpl_003', commit: 'b50f912', branch: 'fix/toast', author: 'soyeon', status: 'error', duration: '0m 38s', deployedAt: '32m ago' },
+  { id: 'dpl_004', commit: 'd2a8e61', branch: 'refactor/tokens', author: 'heejun', status: 'ready', duration: '2m 05s', deployedAt: '1h ago' },
+  { id: 'dpl_005', commit: 'f9c3b47', branch: 'chore/deps', author: 'dongwook', status: 'canceled', duration: '--', deployedAt: '3h ago' },
+  { id: 'dpl_006', commit: '77de021', branch: 'main', author: 'heejun', status: 'ready', duration: '1m 51s', deployedAt: '6h ago' },
+]
+
+const deployStatusConfig: Record<Deployment['status'], { color: string; label: string }> = {
+  ready:    { color: '#10b981', label: 'Ready' },
+  building: { color: '#f59e0b', label: 'Building' },
+  error:    { color: '#ef4444', label: 'Error' },
+  canceled: { color: '#94a3b8', label: 'Canceled' },
+}
+
+const DeploymentTableRender = () => {
+  const [selectedStatus, setSelectedStatus] = React.useState<Deployment['status'] | 'all'>('all')
+
+  const filtered = selectedStatus === 'all'
+    ? deploymentData
+    : deploymentData.filter((d) => d.status === selectedStatus)
+
+  const deploymentColumns: ColumnDef<Deployment>[] = [
+    {
+      accessorKey: 'status',
+      header: 'Status',
+      cell: ({ row }) => {
+        const status = row.getValue('status') as Deployment['status']
+        const cfg = deployStatusConfig[status]
+        return (
+          <span style={{
+            display: 'inline-flex', alignItems: 'center', gap: '6px',
+            fontSize: '12px', fontWeight: 600, color: cfg.color,
+          }}>
+            <span style={{
+              width: '7px', height: '7px', borderRadius: '50%',
+              background: cfg.color,
+              boxShadow: status === 'building' ? `0 0 0 2px ${cfg.color}30` : 'none',
+              flexShrink: 0,
+            }} />
+            {cfg.label}
+          </span>
+        )
+      },
+    },
+    {
+      accessorKey: 'commit',
+      header: 'Commit',
+      cell: ({ row }) => (
+        <code style={{
+          fontFamily: '"JetBrains Mono", "Fira Code", monospace',
+          fontSize: '12px',
+          color: '#6366f1',
+          background: 'rgba(99,102,241,0.08)',
+          padding: '2px 6px',
+          borderRadius: '4px',
+          letterSpacing: '0.05em',
+        }}>
+          {row.getValue('commit')}
+        </code>
+      ),
+    },
+    {
+      accessorKey: 'branch',
+      header: 'Branch',
+      cell: ({ row }) => (
+        <span style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', fontSize: '12px', color: '#475569' }}>
+          <svg width="12" height="12" viewBox="0 0 16 16" fill="currentColor">
+            <path d="M11.75 2.5a.75.75 0 100 1.5.75.75 0 000-1.5zm-2.25.75a2.25 2.25 0 113 2.122V6A2.5 2.5 0 019 8.5H7A1 1 0 006 9.5v1.378a2.251 2.251 0 11-1.5 0V9.5A2.5 2.5 0 017 7h2a1 1 0 001-1v-.628A2.25 2.25 0 019.5 3.25zM4.25 12a.75.75 0 100 1.5.75.75 0 000-1.5z" />
+          </svg>
+          {row.getValue('branch')}
+        </span>
+      ),
+    },
+    {
+      accessorKey: 'author',
+      header: 'Author',
+      cell: ({ row }) => (
+        <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', fontSize: '12px', color: '#1e293b', fontWeight: 500 }}>
+          <span style={{
+            width: '20px', height: '20px', borderRadius: '50%',
+            background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
+            color: '#fff', fontSize: '9px', fontWeight: 700,
+            display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+            flexShrink: 0,
+          }}>
+            {(row.getValue('author') as string).charAt(0).toUpperCase()}
+          </span>
+          {row.getValue('author')}
+        </span>
+      ),
+    },
+    {
+      accessorKey: 'duration',
+      header: 'Duration',
+      cell: ({ row }) => (
+        <span style={{ fontFamily: 'monospace', fontSize: '12px', color: '#64748b' }}>
+          {row.getValue('duration')}
+        </span>
+      ),
+    },
+    {
+      accessorKey: 'deployedAt',
+      header: 'Deployed',
+      cell: ({ row }) => (
+        <span style={{ fontSize: '12px', color: '#94a3b8' }}>
+          {row.getValue('deployedAt')}
+        </span>
+      ),
+    },
+  ]
+
+  const statusOptions: Array<{ value: Deployment['status'] | 'all'; label: string }> = [
+    { value: 'all', label: 'All' },
+    { value: 'ready', label: 'Ready' },
+    { value: 'building', label: 'Building' },
+    { value: 'error', label: 'Error' },
+    { value: 'canceled', label: 'Canceled' },
+  ]
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', width: '100%' }}>
+      {/* Header */}
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingBottom: '4px' }}>
+        <div>
+          <div style={{ fontSize: '14px', fontWeight: 700, color: '#1e293b' }}>Deployments</div>
+          <div style={{ fontSize: '12px', color: '#94a3b8', marginTop: '2px' }}>orbit-ui / main</div>
+        </div>
+        <div style={{ display: 'flex', gap: '4px' }}>
+          {statusOptions.map(({ value, label }) => {
+            const active = selectedStatus === value
+            const cfg = value !== 'all' ? deployStatusConfig[value] : null
+            return (
+              <button
+                key={value}
+                onClick={() => setSelectedStatus(value)}
+                style={{
+                  padding: '4px 10px',
+                  borderRadius: '6px',
+                  border: `1px solid ${active ? (cfg?.color ?? '#6366f1') : '#e2e8f0'}`,
+                  background: active ? `${(cfg?.color ?? '#6366f1')}10` : '#fff',
+                  color: active ? (cfg?.color ?? '#6366f1') : '#64748b',
+                  fontSize: '12px',
+                  fontWeight: active ? 600 : 400,
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '4px',
+                }}
+              >
+                {cfg && (
+                  <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: cfg.color }} />
+                )}
+                {label}
+              </button>
+            )
+          })}
+        </div>
+      </div>
+
+      <DataTable
+        columns={deploymentColumns as any}
+        data={filtered as any}
+        enableSorting={true}
+      />
+
+      {/* Footer hint */}
+      <div style={{ fontSize: '11px', color: '#cbd5e1', textAlign: 'right' }}>
+        Vercel Design 패턴: 상태 dot indicator + 모노스페이스 해시 + 컴팩트 밀도
+      </div>
+    </div>
+  )
+}
+
+export const Vercel_배포현황: Story = {
+  render: () => <DeploymentTableRender />,
+}

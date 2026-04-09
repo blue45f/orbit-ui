@@ -17,10 +17,13 @@ import {
   ListTile,
   Loading,
   PageDots,
+  PageIndicator,
+  PageNumber,
   Progress,
   RadioButton,
   ScrollableTabGroup,
   SectionTitle,
+  SegmentedControl,
   Skeleton,
   Slider,
   SolidButton,
@@ -37,6 +40,8 @@ import {
 import { OutlineButton } from '../components/OutlineButton'
 import { GhostButton } from '../components/GhostButton'
 import { Calendar } from '../components/Calendar'
+import { SearchBar } from '../components/SearchBar'
+import { Drawer } from '../components/Drawer'
 
 import {
   MenuIcon,
@@ -56,6 +61,12 @@ import {
   ChevronLeftLineIcon,
   ChevronRightLineIcon,
   TimeLineIcon,
+  FilterIcon,
+  GridViewLineIcon,
+  ChevronDownLineIcon,
+  ArrowUpIcon,
+  ArrowDownIcon,
+  ArrowSortIcon,
 } from '@heejun-com/icons'
 
 import { Command } from '../components/Command'
@@ -3724,4 +3735,374 @@ const CalendarAppRender: React.FC = () => {
 
 export const CalendarApp: Story = {
   render: () => <CalendarAppRender />,
+}
+
+/* ═══════════════════════════════════════════
+   14. Analytics Dashboard (PC)
+   미사용 컴포넌트: PageIndicator, PageNumber, SegmentedControl
+   ═══════════════════════════════════════════ */
+
+const KPI_DATA = [
+  { label: '총 방문자', value: '124,892', change: '+14.2%', positive: true, color: '#6366f1' },
+  { label: '전환율', value: '3.84%', change: '+0.6%', positive: true, color: '#10b981' },
+  { label: '이탈율', value: '42.1%', change: '-2.3%', positive: true, color: '#f59e0b' },
+  { label: '평균 세션', value: '4m 12s', change: '+18s', positive: true, color: '#8b5cf6' },
+]
+
+const TABLE_ROWS = [
+  { page: '/home', visitors: 48210, bounceRate: '38%', avgTime: '2m 14s', change: '+12%' },
+  { page: '/product', visitors: 31450, bounceRate: '29%', avgTime: '5m 41s', change: '+8%' },
+  { page: '/pricing', visitors: 18920, bounceRate: '52%', avgTime: '1m 38s', change: '-3%' },
+  { page: '/blog', visitors: 14300, bounceRate: '61%', avgTime: '6m 05s', change: '+22%' },
+  { page: '/contact', visitors: 8750, bounceRate: '44%', avgTime: '3m 19s', change: '+5%' },
+]
+
+const PAGES_TOTAL = 8
+
+const AnalyticsDashboardRender = () => {
+  const [_dateRange, _setDateRange] = React.useState(0)
+  const [channel, setChannel] = React.useState('all')
+  const [sortCol, setSortCol] = React.useState<string | null>(null)
+  const [sortAsc, setSortAsc] = React.useState(true)
+  const [currentPage, setCurrentPage] = React.useState(1)
+  const [indicatorPage, setIndicatorPage] = React.useState(0)
+
+  const handleSort = (col: string) => {
+    if (sortCol === col) {
+      setSortAsc((p) => !p)
+    } else {
+      setSortCol(col)
+      setSortAsc(true)
+    }
+  }
+
+  return (
+    <div style={{ display: 'flex', minHeight: '100vh', background: tc.surface, fontFamily: 'system-ui, sans-serif' }}>
+      <aside style={{ width: 220, background: tc.bg, borderRight: `1px solid ${tc.border}`, display: 'flex', flexDirection: 'column', padding: '24px 0' }}>
+        <div style={{ padding: '0 20px 24px', borderBottom: `1px solid ${tc.border}` }}>
+          <Text textStyle="titleLarge" style={{ color: tc.fillPrimary, fontWeight: 700 }}>Orbit Analytics</Text>
+        </div>
+        <nav style={{ display: 'flex', flexDirection: 'column', gap: '4px', padding: '16px 12px', flex: 1 }}>
+          {['대시보드', '트래픽', '전환', '사용자', '설정'].map((item, idx) => (
+            <button
+              key={item}
+              style={{
+                display: 'flex', alignItems: 'center', gap: '10px',
+                padding: '10px 12px', borderRadius: '8px', border: 'none', cursor: 'pointer',
+                background: idx === 0 ? 'rgba(99,102,241,0.08)' : 'transparent',
+                color: idx === 0 ? tc.fillPrimary : tc.fgSub,
+                fontWeight: idx === 0 ? 600 : 400, fontSize: '14px', textAlign: 'left',
+              }}
+            >
+              {[<HomeLineIcon key="h" size={16} />, <ListLineIcon key="l" size={16} />, <ArrowRightIcon key="a" size={16} />, <PeopleLineIcon key="p" size={16} />, <SettingLineIcon key="s" size={16} />][idx]}
+              {item}
+              {idx === 0 && (
+                <CounterBadge style={{ marginLeft: 'auto' }}>{3}</CounterBadge>
+              )}
+            </button>
+          ))}
+        </nav>
+      </aside>
+      <main style={{ flex: 1, padding: '32px', overflowY: 'auto', maxWidth: 'calc(100% - 220px)' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '28px' }}>
+          <div>
+            <Text textStyle="displaySmall" style={{ color: tc.fg, fontWeight: 700, display: 'block' }}>분석 대시보드</Text>
+            <Text textStyle="bodyMedium" style={{ color: tc.fgSub }}>사이트 성과 요약</Text>
+          </div>
+          <SegmentedControl selectedIndex={dateRange} onTabChange={setDateRange}>
+            <SegmentedControl.Tab value="7d"><SegmentedControl.TabCenter>7일</SegmentedControl.TabCenter></SegmentedControl.Tab>
+            <SegmentedControl.Tab value="30d"><SegmentedControl.TabCenter>30일</SegmentedControl.TabCenter></SegmentedControl.Tab>
+            <SegmentedControl.Tab value="90d"><SegmentedControl.TabCenter>90일</SegmentedControl.TabCenter></SegmentedControl.Tab>
+          </SegmentedControl>
+        </div>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '16px', marginBottom: '28px' }}>
+          {KPI_DATA.map((kpi) => (
+            <div key={kpi.label} style={{ background: tc.bg, borderRadius: '12px', padding: '20px', border: `1px solid ${tc.border}`, position: 'relative', overflow: 'hidden' }}>
+              <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '3px', background: kpi.color }} />
+              <Text textStyle="descriptionMedium" style={{ color: tc.fgSub, display: 'block', marginBottom: '8px' }}>{kpi.label}</Text>
+              <Text textStyle="displaySmall" style={{ color: tc.fg, fontWeight: 700, display: 'block', marginBottom: '8px', fontSize: '24px' }}>{kpi.value}</Text>
+              <LabelBadge color={kpi.positive ? 'benefit' : 'sale'}>{kpi.change}</LabelBadge>
+            </div>
+          ))}
+        </div>
+        <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '24px' }}>
+          <PageIndicator currentPage={indicatorPage} onPageChange={setIndicatorPage}>
+            {Array.from({ length: 4 }, (_, i) => <span key={i} />)}
+          </PageIndicator>
+        </div>
+        <div style={{ display: 'flex', gap: '12px', alignItems: 'center', marginBottom: '20px', background: tc.bg, padding: '16px', borderRadius: '12px', border: `1px solid ${tc.border}` }}>
+          <FilterIcon size={16} color={tc.fgSub} />
+          <Text textStyle="labelMedium" style={{ color: tc.fgSub, marginRight: '4px' }}>채널:</Text>
+          <div style={{ display: 'flex', gap: '8px' }}>
+            {['전체', '오가닉', '유료', '소셜'].map((ch, idx) => {
+              const isActive = channel === ['all', 'organic', 'paid', 'social'][idx]
+              return (
+                <button
+                  key={ch}
+                  onClick={() => setChannel(['all', 'organic', 'paid', 'social'][idx])}
+                  style={{
+                    padding: '4px 12px', borderRadius: '20px', cursor: 'pointer', fontSize: '13px', fontWeight: 500,
+                    background: isActive ? tc.fillPrimary : tc.surface,
+                    color: isActive ? '#fff' : tc.fgSub,
+                    border: `1px solid ${isActive ? tc.fillPrimary : tc.border}`,
+                  }}
+                >
+                  {ch}
+                </button>
+              )
+            })}
+          </div>
+          <div style={{ flex: 1 }} />
+          <div style={{ width: '200px' }}><SearchBar placeholder="페이지 검색..." /></div>
+        </div>
+        <div style={{ background: tc.bg, borderRadius: '12px', border: `1px solid ${tc.border}`, overflow: 'hidden', marginBottom: '20px' }}>
+          <div style={{ padding: '16px 20px', borderBottom: `1px solid ${tc.border}`, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <Text textStyle="titleSmall" style={{ fontWeight: 600, color: tc.fg }}>페이지별 트래픽</Text>
+            <LabelBadge color="gray">{TABLE_ROWS.length}개 페이지</LabelBadge>
+          </div>
+          <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+            <thead>
+              <tr style={{ background: tc.surface }}>
+                {[{ key: 'page', label: '페이지' }, { key: 'visitors', label: '방문자' }, { key: 'bounceRate', label: '이탈율' }, { key: 'avgTime', label: '평균 체류' }, { key: 'change', label: '변화율' }].map((col) => (
+                  <th key={col.key} onClick={() => handleSort(col.key)} style={{ padding: '12px 16px', textAlign: 'left', fontSize: '12px', fontWeight: 600, color: tc.fgSub, cursor: 'pointer', borderBottom: `1px solid ${tc.border}` }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                      {col.label}
+                      {sortCol === col.key ? (sortAsc ? <ArrowUpIcon size={12} /> : <ArrowDownIcon size={12} />) : <ArrowSortIcon size={12} color={tc.fgMuted} />}
+                    </div>
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {TABLE_ROWS.map((row, idx) => (
+                <tr key={row.page} style={{ borderBottom: idx < TABLE_ROWS.length - 1 ? `1px solid ${tc.borderSub}` : 'none' }}>
+                  <td style={{ padding: '14px 16px', fontSize: '13px', fontWeight: 500, color: tc.fg }}>{row.page}</td>
+                  <td style={{ padding: '14px 16px', fontSize: '13px', color: tc.fg }}>{row.visitors.toLocaleString()}</td>
+                  <td style={{ padding: '14px 16px', fontSize: '13px', color: tc.fgSub }}>{row.bounceRate}</td>
+                  <td style={{ padding: '14px 16px', fontSize: '13px', color: tc.fgSub }}>{row.avgTime}</td>
+                  <td style={{ padding: '14px 16px' }}><LabelBadge color={row.change.startsWith('+') ? 'benefit' : 'sale'}>{row.change}</LabelBadge></td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '4px 0' }}>
+          <Text textStyle="descriptionMedium" style={{ color: tc.fgSub }}>
+            총 {PAGES_TOTAL * TABLE_ROWS.length}개 중 {(currentPage - 1) * TABLE_ROWS.length + 1}-{currentPage * TABLE_ROWS.length}개
+          </Text>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+            <OutlineButton color="black" size="small" disabled={currentPage <= 1} onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}>
+              <OutlineButton.Leading><ChevronLeftLineIcon size={14} /></OutlineButton.Leading>
+              <OutlineButton.Center>이전</OutlineButton.Center>
+            </OutlineButton>
+            <PageNumber current={currentPage} total={PAGES_TOTAL} />
+            <OutlineButton color="black" size="small" disabled={currentPage >= PAGES_TOTAL} onClick={() => setCurrentPage((p) => Math.min(PAGES_TOTAL, p + 1))}>
+              <OutlineButton.Center>다음</OutlineButton.Center>
+              <OutlineButton.Trailing><ChevronRightLineIcon size={14} /></OutlineButton.Trailing>
+            </OutlineButton>
+          </div>
+        </div>
+      </main>
+    </div>
+  )
+}
+
+export const AnalyticsDashboard: Story = {
+  render: () => <AnalyticsDashboardRender />,
+}
+
+/* ═══════════════════════════════════════════
+   15. File Manager (PC)
+   미사용 컴포넌트: Space, SearchBar, Drawer (필터 패널)
+   ═══════════════════════════════════════════ */
+
+const FM_FOLDERS = [
+  { name: '디자인 시스템', count: 24, color: '#6366f1' },
+  { name: '마케팅 자료', count: 12, color: '#10b981' },
+  { name: '개발 문서', count: 38, color: '#f59e0b' },
+  { name: '스프린트 자료', count: 8, color: '#8b5cf6' },
+]
+
+const FM_FILES = [
+  { name: 'design-tokens.pdf', type: 'PDF', size: '2.4 MB', modified: '2일 전', color: '#ef4444' },
+  { name: 'orbit-ui-spec.figma', type: 'Figma', size: '18.7 MB', modified: '1일 전', color: '#6366f1' },
+  { name: 'component-list.xlsx', type: 'Excel', size: '524 KB', modified: '3일 전', color: '#10b981' },
+  { name: 'README.md', type: 'Markdown', size: '12 KB', modified: '오늘', color: '#64748b' },
+  { name: 'sprint-plan.pptx', type: 'PPT', size: '6.1 MB', modified: '5일 전', color: '#f59e0b' },
+  { name: 'user-research.pdf', type: 'PDF', size: '3.8 MB', modified: '1주일 전', color: '#ef4444' },
+]
+
+const FmFileIcon = ({ color }: { color: string }) => (
+  <svg width="32" height="40" viewBox="0 0 32 40" fill="none">
+    <rect width="32" height="40" rx="4" fill={color} fillOpacity="0.1" />
+    <rect x="0" y="0" width="32" height="40" rx="4" stroke={color} strokeOpacity="0.3" strokeWidth="1" />
+    <path d="M8 10 L20 10 L24 14 L24 32 L8 32 Z" fill={color} fillOpacity="0.2" />
+    <path d="M20 10 L20 14 L24 14" fill="none" stroke={color} strokeOpacity="0.5" strokeWidth="1" />
+  </svg>
+)
+
+const FmFolderIcon = ({ color }: { color: string }) => (
+  <svg width="40" height="32" viewBox="0 0 40 32" fill="none">
+    <path d="M2 8 C2 6 3.34 4 5.34 4 L15 4 L18 8 L35 8 C37 8 38 9 38 11 L38 27 C38 29 37 30 35 30 L5 30 C3 30 2 29 2 27 Z" fill={color} fillOpacity="0.2" stroke={color} strokeOpacity="0.4" strokeWidth="1.5" />
+  </svg>
+)
+
+const FileManagerRender = () => {
+  const [viewMode, _setViewMode] = React.useState('grid')
+  const [searchQuery, setSearchQuery] = React.useState('')
+  const [selectedFolder, setSelectedFolder] = React.useState('디자인 시스템')
+  const [filterOpen, setFilterOpen] = React.useState(false)
+  const [fileType, setFileType] = React.useState<string[]>([])
+
+  const filteredFiles = FM_FILES.filter(
+    (f) =>
+      f.name.toLowerCase().includes(searchQuery.toLowerCase()) &&
+      (fileType.length === 0 || fileType.includes(f.type))
+  )
+
+  return (
+    <div style={{ display: 'flex', height: '100vh', background: tc.surface, fontFamily: 'system-ui, sans-serif' }}>
+      <aside style={{ width: 240, background: tc.bg, borderRight: `1px solid ${tc.border}`, display: 'flex', flexDirection: 'column' }}>
+        <div style={{ padding: '20px 16px 12px', borderBottom: `1px solid ${tc.border}` }}>
+          <Text textStyle="titleMedium" style={{ color: tc.fg, fontWeight: 700 }}>파일 관리자</Text>
+        </div>
+        <nav style={{ flex: 1, padding: '12px', overflowY: 'auto' }}>
+          <Text textStyle="descriptionSmall" style={{ color: tc.fgMuted, textTransform: 'uppercase', fontSize: '10px', letterSpacing: '0.08em', padding: '0 8px', display: 'block', marginBottom: '8px' }}>
+            폴더
+          </Text>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
+            {FM_FOLDERS.map((folder) => (
+              <ListTile
+                key={folder.name}
+                onClick={() => setSelectedFolder(folder.name)}
+                style={{ background: selectedFolder === folder.name ? 'rgba(99,102,241,0.08)' : 'transparent', borderRadius: '8px', padding: '8px 10px' }}
+              >
+                <ListTile.Leading><FmFolderIcon color={folder.color} /></ListTile.Leading>
+                <ListTile.Title style={{ fontSize: '13px', fontWeight: selectedFolder === folder.name ? 600 : 400, color: selectedFolder === folder.name ? tc.fillPrimary : tc.fg }}>
+                  {folder.name}
+                </ListTile.Title>
+                <ListTile.Trailing>
+                  <CounterBadge>{folder.count}</CounterBadge>
+                </ListTile.Trailing>
+              </ListTile>
+            ))}
+          </div>
+        </nav>
+      </aside>
+      <main style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+        <AppBar>
+          <AppBar.Leading>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '13px' }}>
+              <Text textStyle="descriptionMedium" style={{ color: tc.fgMuted }}>파일 관리자</Text>
+              <ChevronDownLineIcon size={14} color={tc.fgMuted} />
+              <Text textStyle="descriptionMedium" style={{ color: tc.fg, fontWeight: 500 }}>{selectedFolder}</Text>
+            </div>
+          </AppBar.Leading>
+          <AppBar.Center>
+            <div style={{ width: '280px' }}>
+              <SearchBar
+                placeholder="파일 검색..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery((e.target as HTMLInputElement).value)}
+              />
+            </div>
+          </AppBar.Center>
+          <AppBar.Trailing>
+            <SegmentedControl defaultValue="grid">
+              <SegmentedControl.Tab value="grid"><SegmentedControl.TabCenter><GridViewLineIcon size={14} /></SegmentedControl.TabCenter></SegmentedControl.Tab>
+              <SegmentedControl.Tab value="list"><SegmentedControl.TabCenter><ListLineIcon size={14} /></SegmentedControl.TabCenter></SegmentedControl.Tab>
+            </SegmentedControl>
+            <Drawer open={filterOpen} onOpenChange={setFilterOpen}>
+              <Drawer.Trigger asChild>
+                <OutlineButton color="black" size="small">
+                  <OutlineButton.Leading><FilterIcon size={14} /></OutlineButton.Leading>
+                  <OutlineButton.Center>필터</OutlineButton.Center>
+                </OutlineButton>
+              </Drawer.Trigger>
+              <Drawer.Content side="right">
+                <Drawer.Header>
+                  <Drawer.Title>파일 필터</Drawer.Title>
+                  <Drawer.Description>파일 타입을 선택하여 필터링합니다.</Drawer.Description>
+                </Drawer.Header>
+                <div style={{ padding: '16px 0', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                  {['PDF', 'Figma', 'Excel', 'PPT', 'Markdown'].map((type) => (
+                    <div key={type} style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                      <Checkbox
+                        checked={fileType.includes(type)}
+                        onChange={() => setFileType((prev) => prev.includes(type) ? prev.filter((t) => t !== type) : [...prev, type])}
+                      />
+                      <Text textStyle="bodyMedium">{type}</Text>
+                    </div>
+                  ))}
+                </div>
+                <Drawer.Footer>
+                  <div style={{ display: 'flex', gap: '8px', width: '100%' }}>
+                    <OutlineButton color="gray" size="medium" style={{ flex: 1 }} onClick={() => setFileType([])}>
+                      <OutlineButton.Center>초기화</OutlineButton.Center>
+                    </OutlineButton>
+                    <Drawer.Close asChild>
+                      <SolidButton color="primary" size="medium" style={{ flex: 1 }}>
+                        <SolidButton.Center>적용{fileType.length > 0 ? ` (${fileType.length})` : ''}</SolidButton.Center>
+                      </SolidButton>
+                    </Drawer.Close>
+                  </div>
+                </Drawer.Footer>
+              </Drawer.Content>
+            </Drawer>
+          </AppBar.Trailing>
+        </AppBar>
+        <div style={{ padding: '12px 24px', borderBottom: `1px solid ${tc.border}`, background: tc.bg }}>
+          <Breadcrumb>
+            <Breadcrumb.Item>파일 관리자</Breadcrumb.Item>
+            <Breadcrumb.Item>{selectedFolder}</Breadcrumb.Item>
+          </Breadcrumb>
+        </div>
+        <div style={{ flex: 1, padding: '24px', overflowY: 'auto' }}>
+          {filteredFiles.length === 0 ? (
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '200px', gap: '12px' }}>
+              <Text textStyle="titleSmall" style={{ color: tc.fgMuted }}>검색 결과가 없습니다</Text>
+              <Text textStyle="bodyMedium" style={{ color: tc.fgMuted }}>{searchQuery}와 일치하는 파일이 없어요</Text>
+            </div>
+          ) : viewMode === 'grid' ? (
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(160px, 1fr))', gap: '16px' }}>
+              {filteredFiles.map((file) => (
+                <div key={file.name} style={{ background: tc.bg, borderRadius: '12px', border: `1px solid ${tc.border}`, padding: '20px 16px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px', cursor: 'pointer' }}>
+                  <FmFileIcon color={file.color} />
+                  <div style={{ textAlign: 'center' }}>
+                    <Text textStyle="labelSmall" style={{ color: tc.fg, fontWeight: 500, display: 'block', wordBreak: 'break-word', fontSize: '12px' }}>{file.name}</Text>
+                    <Text textStyle="descriptionSmall" style={{ color: tc.fgMuted, fontSize: '11px' }}>{file.size}</Text>
+                  </div>
+                  <span style={{ fontSize: '10px', padding: '2px 8px', borderRadius: '4px', background: 'rgba(99,102,241,0.1)', color: '#6366f1', fontWeight: 500 }}>{file.type}</span>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div style={{ background: tc.bg, borderRadius: '12px', border: `1px solid ${tc.border}`, overflow: 'hidden' }}>
+              {filteredFiles.map((file, idx) => (
+                <div key={file.name} style={{ display: 'flex', alignItems: 'center', gap: '16px', padding: '12px 20px', cursor: 'pointer', borderBottom: idx < filteredFiles.length - 1 ? `1px solid ${tc.borderSub}` : 'none' }}>
+                  <FmFileIcon color={file.color} />
+                  <div style={{ flex: 1 }}>
+                    <Text textStyle="bodyMedium" style={{ fontWeight: 500, color: tc.fg, display: 'block' }}>{file.name}</Text>
+                    <Text textStyle="descriptionSmall" style={{ color: tc.fgMuted }}>{file.modified} · {file.size}</Text>
+                  </div>
+                  <span style={{ padding: '2px 8px', borderRadius: '4px', background: 'rgba(99,102,241,0.1)', color: '#6366f1', fontWeight: 500, fontSize: '12px' }}>{file.type}</span>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+        <div style={{ padding: '10px 24px', borderTop: `1px solid ${tc.border}`, background: tc.bg, display: 'flex', gap: '8px', alignItems: 'center' }}>
+          <Text textStyle="descriptionSmall" style={{ color: tc.fgMuted }}>{filteredFiles.length}개 파일</Text>
+          <div style={{ flex: 1 }} />
+          {fileType.length > 0 && (
+            <LabelBadge color="sale">필터 적용: {fileType.join(', ')}</LabelBadge>
+          )}
+        </div>
+      </main>
+    </div>
+  )
+}
+
+export const FileManager: Story = {
+  render: () => <FileManagerRender />,
 }

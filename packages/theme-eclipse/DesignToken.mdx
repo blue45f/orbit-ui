@@ -346,5 +346,108 @@ const Card = styled.div\`
       </p>
     </div>
 
+    {/* Ant Design Token System Comparison */}
+    <section style={{ marginTop: '56px', marginBottom: '56px' }}>
+      <h2 style={{ fontSize: '22px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '8px' }}>Ant Design 토큰 시스템과 비교</h2>
+      <p style={{ fontSize: '14px', color: '#64748b', marginBottom: '28px', lineHeight: '1.6' }}>
+        Ant Design v5와 Orbit UI의 토큰 시스템은 유사한 3단계 구조를 가지지만, 적용 방식이 다릅니다.
+      </p>
+      <div style={{ overflowX: 'auto', marginBottom: '24px' }}>
+        <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px' }}>
+          <thead>
+            <tr style={{ background: '#f8fafc' }}>
+              <th style={{ padding: '12px 16px', textAlign: 'left', fontWeight: '600', color: '#475569', borderBottom: '2px solid #e2e8f0' }}>구분</th>
+              <th style={{ padding: '12px 16px', textAlign: 'left', fontWeight: '600', color: '#6366f1', borderBottom: '2px solid #e2e8f0' }}>Orbit UI (Eclipse)</th>
+              <th style={{ padding: '12px 16px', textAlign: 'left', fontWeight: '600', color: '#f59e0b', borderBottom: '2px solid #e2e8f0' }}>Ant Design v5</th>
+            </tr>
+          </thead>
+          <tbody>
+            {[
+              ['1계층 (원시값)', 'Reference Token (colorBlue500)', 'Seed Token (colorPrimary)'],
+              ['2계층 (의미값)', 'Semantic Token (fillPrimary)', 'Map Token (colorPrimaryBg)'],
+              ['3계층 (컴포넌트)', 'Component Token (button.fillColor)', 'Alias Token (colorBgContainer)'],
+              ['적용 방식', 'CSS Variable + vanilla-extract', 'CSS-in-JS (cssinjs)'],
+              ['Override 방법', 'EclipseProvider style prop', 'ConfigProvider theme prop'],
+              ['타입 안전성', 'TypeScript 완전 지원', 'TypeScript 완전 지원'],
+            ].map(([label, orbit, ant]) => (
+              <tr key={label} style={{ borderBottom: '1px solid #f1f5f9' }}>
+                <td style={{ padding: '12px 16px', fontWeight: '500', color: '#334155' }}>{label}</td>
+                <td style={{ padding: '12px 16px', color: '#475569' }}><code style={{ background: '#f1f5f9', color: '#6366f1', padding: '2px 6px', borderRadius: '4px', fontSize: '12px' }}>{orbit}</code></td>
+                <td style={{ padding: '12px 16px', color: '#475569' }}><code style={{ background: '#fefce8', color: '#92400e', padding: '2px 6px', borderRadius: '4px', fontSize: '12px' }}>{ant}</code></td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <div style={{ background: '#f8fafc', borderRadius: '12px', padding: '20px 24px' }}>
+        <h3 style={{ fontSize: '15px', fontWeight: '700', color: '#1e293b', margin: '0 0 12px' }}>Ant Design에서 마이그레이션 시</h3>
+        <pre style={{ background: '#1e293b', color: '#e2e8f0', borderRadius: '8px', padding: '16px 20px', fontSize: '13px', lineHeight: '1.7', overflow: 'auto', margin: '0' }}>{`// Ant Design 방식
+<ConfigProvider theme={{ token: { colorPrimary: '#6366f1' } }}>
+  <App />
+</ConfigProvider>
+
+// Orbit UI Eclipse 방식
+<EclipseProvider style={{ '--sem-eclipse-color-fillPrimary': '#6366f1' }}>
+  <App />
+</EclipseProvider>
+
+// 또는 CSS로 전역 override
+:root {
+  --sem-eclipse-color-fillPrimary: #6366f1;
+  --sem-eclipse-color-fillSecondary: #818cf8;
+}`}</pre>
+      </div>
+    </section>
+
+    {/* Brand Application Guide */}
+    <section style={{ marginBottom: '56px' }}>
+      <h2 style={{ fontSize: '22px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '8px' }}>실전 예제: 회사 브랜드 적용하기</h2>
+      <p style={{ fontSize: '14px', color: '#64748b', marginBottom: '24px', lineHeight: '1.6' }}>
+        EclipseProvider에 CSS 변수를 전달하여 브랜드 컬러를 적용합니다. 단 하나의 파일만 수정하면 됩니다.
+      </p>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '24px' }}>
+        {[
+          { brand: 'Kakao', primary: '#FEE500', secondary: '#FFEB3B', fg: '#191600' },
+          { brand: 'Naver', primary: '#03C75A', secondary: '#02B350', fg: '#FFFFFF' },
+          { brand: 'Toss', primary: '#0064FF', secondary: '#0057E3', fg: '#FFFFFF' },
+          { brand: 'Coupang', primary: '#EE2424', secondary: '#CC1F1F', fg: '#FFFFFF' },
+        ].map(({ brand, primary }) => (
+          <div key={brand} style={{ borderRadius: '10px', border: '1px solid #e2e8f0', overflow: 'hidden' }}>
+            <div style={{ padding: '14px 16px', background: primary, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+              <span style={{ fontWeight: '700', fontSize: '14px', color: brand === 'Kakao' ? '#191600' : '#fff' }}>{brand} 브랜드</span>
+              <span style={{ fontSize: '11px', color: brand === 'Kakao' ? 'rgba(25,22,0,0.6)' : 'rgba(255,255,255,0.7)', fontFamily: 'monospace' }}>{primary}</span>
+            </div>
+            <div style={{ padding: '12px 16px', background: '#f8fafc', fontSize: '12px', color: '#64748b', fontFamily: 'monospace' }}>
+              {'--sem-eclipse-color-fillPrimary: '}{primary}
+            </div>
+          </div>
+        ))}
+      </div>
+      <pre style={{ background: '#1e293b', color: '#e2e8f0', borderRadius: '12px', padding: '20px 24px', fontSize: '13px', lineHeight: '1.7', overflow: 'auto' }}>{`// theme/brand.ts - 브랜드별 토큰 파일
+export const kakaoBrand = {
+  '--sem-eclipse-color-fillPrimary': '#FEE500',
+  '--sem-eclipse-color-fillSecondary': '#FFEB3B',
+  '--sem-eclipse-color-foregroundOnFill': '#191600',
+}
+
+export const naverBrand = {
+  '--sem-eclipse-color-fillPrimary': '#03C75A',
+  '--sem-eclipse-color-fillSecondary': '#02B350',
+  '--sem-eclipse-color-foregroundOnFill': '#FFFFFF',
+}
+
+// App.tsx - 브랜드 적용
+import { EclipseProvider } from '@heejun-com/theme-eclipse'
+import { kakaoBrand } from './theme/brand'
+
+function App() {
+  return (
+    <EclipseProvider style={kakaoBrand}>
+      <YourApp />
+    </EclipseProvider>
+  )
+}`}</pre>
+    </section>
+
   </div>
 </Unstyled>
