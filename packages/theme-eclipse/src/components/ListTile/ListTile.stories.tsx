@@ -1,5 +1,18 @@
 import { Flex } from '@heejun-com/core'
-import { ChevronRightLineIcon, CheckIcon, ChevronDownLineIcon, StarFillIcon, MoreHorizontalIcon } from '@heejun-com/icons'
+import {
+  ChevronRightLineIcon,
+  CheckIcon,
+  ChevronDownLineIcon,
+  StarFillIcon,
+  MoreHorizontalIcon,
+  SettingLineIcon,
+  PeopleLineIcon,
+  NotificationLineIcon,
+  HomeLineIcon,
+  DeleteLineIcon,
+  CopyLineIcon,
+  ShareIcon,
+} from '@heejun-com/icons'
 import type { Meta, StoryObj } from '@storybook/react'
 import React, { useState } from 'react'
 
@@ -536,6 +549,330 @@ export const Linear_단축키_힌트: Story = {
             </ListTile.Trailing>
           </ListTile>
         ))}
+      </div>
+    )
+  },
+}
+
+/* --------------------------------------------------------------------------
+   MUI 벤치마크: ListItem + ListItemIcon + ListItemText 조합
+   MUI의 다단계 내비게이션 패턴 — 아이콘 + 라벨 + 서브라벨 + 뱃지 조합
+-------------------------------------------------------------------------- */
+const MUINavMenuRender = () => {
+  const [active, setActive] = useState('home')
+
+  const navItems: Array<{
+    id: string
+    label: string
+    sub: string
+    icon: React.FC<{ size?: number; color?: string }>
+    badge?: number
+  }> = [
+    { id: 'home', label: '홈', sub: '메인 대시보드', icon: HomeLineIcon },
+    { id: 'people', label: '팀원', sub: '멤버 관리', icon: PeopleLineIcon, badge: 3 },
+    { id: 'notifications', label: '알림', sub: '미확인 알림', icon: NotificationLineIcon, badge: 12 },
+    { id: 'settings', label: '설정', sub: '계정 및 환경설정', icon: SettingLineIcon },
+  ]
+
+  return (
+    <div
+      style={{
+        width: 300,
+        borderRadius: 12,
+        border: '1px solid #e2e8f0',
+        overflow: 'hidden',
+        background: '#fff',
+      }}
+    >
+      <div
+        style={{
+          padding: '12px 16px 8px',
+          borderBottom: '1px solid #f1f5f9',
+          fontSize: 11,
+          fontWeight: 700,
+          color: '#94a3b8',
+          textTransform: 'uppercase',
+          letterSpacing: '0.08em',
+        }}
+      >
+        Navigation
+      </div>
+      {navItems.map((item) => {
+        const Icon = item.icon
+        const isActive = active === item.id
+        return (
+          <ListTile
+            key={item.id}
+            as="button"
+            onClick={() => setActive(item.id)}
+            style={{
+              padding: '10px 16px',
+              background: isActive ? 'rgba(99,102,241,0.06)' : 'transparent',
+              borderLeft: isActive ? '3px solid #6366f1' : '3px solid transparent',
+              cursor: 'pointer',
+              textAlign: 'left',
+              width: '100%',
+              transition: 'background 0.12s, border-color 0.12s',
+            }}
+          >
+            <ListTile.Leading>
+              <Icon size={18} color={isActive ? '#6366f1' : '#94a3b8'} />
+            </ListTile.Leading>
+            <ListTile.Title fontWeight={isActive ? 'bold' : 'regular'}>
+              <span style={{ color: isActive ? '#6366f1' : '#1e293b' }}>{item.label}</span>
+            </ListTile.Title>
+            <ListTile.Description>{item.sub}</ListTile.Description>
+            {item.badge !== undefined && (
+              <ListTile.Trailing>
+                <div
+                  style={{
+                    minWidth: 20,
+                    height: 20,
+                    borderRadius: 10,
+                    background: isActive ? '#6366f1' : '#e2e8f0',
+                    color: isActive ? '#fff' : '#64748b',
+                    fontSize: 10,
+                    fontWeight: 700,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    padding: '0 5px',
+                  }}
+                >
+                  {item.badge}
+                </div>
+              </ListTile.Trailing>
+            )}
+          </ListTile>
+        )
+      })}
+    </div>
+  )
+}
+
+export const MUI_내비게이션_메뉴: Story = {
+  render: () => <MUINavMenuRender />,
+}
+
+/* --------------------------------------------------------------------------
+   MUI 벤치마크: 폼 validation 상태 (error/success/warning helperText)
+   MUI FormControl + helperText 조합을 ListTile로 구현
+   설정 폼의 필드별 상태 표시 패턴
+-------------------------------------------------------------------------- */
+type ValidationStatus = 'idle' | 'success' | 'error' | 'warning'
+
+const statusConfig: Record<
+  ValidationStatus,
+  { label: string; color: string; bg: string; border: string }
+> = {
+  idle: { label: '입력 대기', color: '#94a3b8', bg: '#f8fafc', border: '#e2e8f0' },
+  success: { label: '확인 완료', color: '#10b981', bg: '#f0fdf4', border: '#bbf7d0' },
+  error: { label: '오류 발생', color: '#ef4444', bg: '#fef2f2', border: '#fecaca' },
+  warning: { label: '주의 필요', color: '#f59e0b', bg: '#fffbeb', border: '#fde68a' },
+}
+
+const MUIFormValidationRender = () => {
+  const [statuses, setStatuses] = useState<Record<string, ValidationStatus>>({
+    username: 'success',
+    email: 'error',
+    password: 'warning',
+    phone: 'idle',
+  })
+
+  const fields: Array<{ key: string; label: string; helperText: Record<ValidationStatus, string> }> = [
+    {
+      key: 'username',
+      label: '사용자명',
+      helperText: {
+        idle: '영문, 숫자 조합 4-20자',
+        success: 'orbit_user_1234 사용 가능합니다',
+        error: '이미 사용 중인 이름입니다',
+        warning: '특수문자는 사용할 수 없습니다',
+      },
+    },
+    {
+      key: 'email',
+      label: '이메일',
+      helperText: {
+        idle: '유효한 이메일 주소를 입력하세요',
+        success: '사용 가능한 이메일입니다',
+        error: '이미 가입된 이메일입니다',
+        warning: '인증이 완료되지 않은 이메일입니다',
+      },
+    },
+    {
+      key: 'password',
+      label: '비밀번호',
+      helperText: {
+        idle: '8자 이상, 특수문자 포함',
+        success: '안전한 비밀번호입니다',
+        error: '비밀번호가 너무 짧습니다',
+        warning: '더 강력한 비밀번호를 권장합니다',
+      },
+    },
+    {
+      key: 'phone',
+      label: '전화번호',
+      helperText: {
+        idle: '010-0000-0000 형식',
+        success: '인증 완료',
+        error: '잘못된 번호 형식입니다',
+        warning: '인증 코드를 다시 확인하세요',
+      },
+    },
+  ]
+
+  const cycleStatus = (key: string) => {
+    const order: ValidationStatus[] = ['idle', 'success', 'error', 'warning']
+    setStatuses((prev) => {
+      const current = prev[key]
+      const next = order[(order.indexOf(current) + 1) % order.length]
+      return { ...prev, [key]: next }
+    })
+  }
+
+  return (
+    <div style={{ width: 380 }}>
+      <div
+        style={{
+          fontSize: 13,
+          color: '#94a3b8',
+          padding: '0 0 8px',
+          marginBottom: 4,
+        }}
+      >
+        클릭하면 상태가 전환됩니다 (idle / success / error / warning)
+      </div>
+      <div style={{ borderRadius: 12, border: '1px solid #e2e8f0', overflow: 'hidden' }}>
+        {fields.map((field, i) => {
+          const status = statuses[field.key]
+          const cfg = statusConfig[status]
+          return (
+            <ListTile
+              key={field.key}
+              as="button"
+              onClick={() => cycleStatus(field.key)}
+              style={{
+                padding: '12px 16px',
+                borderBottom: i < fields.length - 1 ? '1px solid #f1f5f9' : 'none',
+                background: cfg.bg,
+                cursor: 'pointer',
+                textAlign: 'left',
+                width: '100%',
+                transition: 'background 0.15s',
+                borderLeft: `3px solid ${cfg.border}`,
+              }}
+            >
+              <ListTile.Title>{field.label}</ListTile.Title>
+              <ListTile.Description>
+                <span style={{ color: cfg.color }}>{field.helperText[status]}</span>
+              </ListTile.Description>
+              <ListTile.Trailing>
+                <span
+                  style={{
+                    padding: '2px 8px',
+                    borderRadius: 100,
+                    background: cfg.border,
+                    color: cfg.color,
+                    fontSize: 10,
+                    fontWeight: 700,
+                    whiteSpace: 'nowrap',
+                  }}
+                >
+                  {cfg.label}
+                </span>
+              </ListTile.Trailing>
+            </ListTile>
+          )
+        })}
+      </div>
+    </div>
+  )
+}
+
+export const MUI_폼_유효성_상태: Story = {
+  render: () => <MUIFormValidationRender />,
+}
+
+/* --------------------------------------------------------------------------
+   MUI 벤치마크: 컨텍스트 메뉴 액션 패턴
+   MUI MenuItem + ListItemIcon + ListItemText — 우클릭 컨텍스트 메뉴,
+   Dropdown 메뉴 내 아이콘 + 레이블 + 단축키 조합
+-------------------------------------------------------------------------- */
+export const MUI_컨텍스트_메뉴_액션: Story = {
+  render: () => {
+    const actions: Array<{
+      label: string
+      sub?: string
+      icon: React.FC<{ size?: number; color?: string }>
+      shortcut?: string
+      danger?: boolean
+      divider?: boolean
+    }> = [
+      { label: '복사', sub: '클립보드에 복사', icon: CopyLineIcon, shortcut: 'Ctrl+C' },
+      { label: '공유', sub: '링크로 공유하기', icon: ShareIcon, shortcut: 'Ctrl+Shift+S', divider: true },
+      { label: '삭제', sub: '영구적으로 삭제', icon: DeleteLineIcon, danger: true },
+    ]
+
+    return (
+      <div
+        style={{
+          width: 280,
+          borderRadius: 10,
+          border: '1px solid #e2e8f0',
+          overflow: 'hidden',
+          background: '#fff',
+          boxShadow: '0 4px 20px rgba(0,0,0,0.08)',
+        }}
+      >
+        {actions.map((action, i) => {
+          const Icon = action.icon
+          return (
+            <React.Fragment key={action.label}>
+              <ListTile
+                as="button"
+                style={{
+                  padding: '10px 14px',
+                  cursor: 'pointer',
+                  textAlign: 'left',
+                  width: '100%',
+                  background: 'transparent',
+                  transition: 'background 0.1s',
+                }}
+              >
+                <ListTile.Leading>
+                  <Icon
+                    size={16}
+                    color={action.danger ? '#ef4444' : '#64748b'}
+                  />
+                </ListTile.Leading>
+                <ListTile.Title>
+                  <span style={{ color: action.danger ? '#ef4444' : '#1e293b' }}>
+                    {action.label}
+                  </span>
+                </ListTile.Title>
+                <ListTile.Description>{action.sub}</ListTile.Description>
+                {action.shortcut && (
+                  <ListTile.Trailing>
+                    <span
+                      style={{
+                        fontSize: 10,
+                        color: '#94a3b8',
+                        fontFamily: 'monospace',
+                        whiteSpace: 'nowrap',
+                      }}
+                    >
+                      {action.shortcut}
+                    </span>
+                  </ListTile.Trailing>
+                )}
+              </ListTile>
+              {action.divider && i < actions.length - 1 && (
+                <div style={{ height: 1, background: '#f1f5f9', margin: '2px 0' }} />
+              )}
+            </React.Fragment>
+          )
+        })}
       </div>
     )
   },
