@@ -274,12 +274,14 @@ import { Meta, Unstyled } from '@storybook/blocks'
 
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
         {[
-          { title: '시작하기', desc: '설치 및 환경 설정', href: '/docs/0-intro-2--시작하기--docs', icon: '\u2192' },
-          { title: '컴포넌트 개요', desc: '전체 컴포넌트 목록', href: '/docs/0-intro-3--컴포넌트-개요--docs', icon: '\u2192' },
-          { title: '디자인 토큰', desc: '컬러, 타이포그래피, 스페이싱', href: '/docs/0-intro-4--디자인토큰--docs', icon: '\u2192' },
-          { title: '아이콘 카탈로그', desc: 'Line & Fill 아이콘 갤러리', href: '/docs/0-intro-5--아이콘-카탈로그--docs', icon: '\u2192' },
+          { title: '시작하기', desc: '설치 및 환경 설정', href: '?path=/docs/intro-시작하기--docs' },
+          { title: '컴포넌트 개요', desc: '전체 컴포넌트 목록', href: '?path=/docs/intro-컴포넌트-개요--docs' },
+          { title: '디자인 토큰', desc: '컬러, 타이포그래피, 스페이싱', href: '?path=/docs/intro-디자인토큰--docs' },
+          { title: '아이콘 카탈로그', desc: 'Line & Fill 아이콘 갤러리', href: '?path=/docs/intro-아이콘-카탈로그--docs' },
+          { title: '아키텍처', desc: '3-Tier 구조, Layer 시스템', href: '?path=/docs/intro-아키텍처--docs' },
+          { title: '테마 가이드', desc: 'Light/Dark 모드 시스템', href: '?path=/docs/intro-테마-가이드--docs' },
         ].map((item, i) => (
-          <div key={i} style={{
+          <a key={i} href={item.href} style={{
             padding: '20px 24px',
             borderRadius: '12px',
             border: '1px solid #e2e8f0',
@@ -287,15 +289,15 @@ import { Meta, Unstyled } from '@storybook/blocks'
             justifyContent: 'space-between',
             alignItems: 'center',
             cursor: 'pointer',
-            transition: 'all 0.15s ease',
             background: '#ffffff',
+            textDecoration: 'none',
           }}>
             <div>
               <div style={{ fontSize: '15px', fontWeight: '600', color: '#1e293b' }}>{item.title}</div>
               <div style={{ fontSize: '13px', color: '#94a3b8', marginTop: '2px' }}>{item.desc}</div>
             </div>
-            <div style={{ fontSize: '18px', color: '#6366f1', fontWeight: '600' }}>{item.icon}</div>
-          </div>
+            <div style={{ fontSize: '18px', color: '#6366f1', fontWeight: '600' }}>{'\u2192'}</div>
+          </a>
         ))}
       </div>
     </section>

@@ -325,7 +325,7 @@ const preview: Preview = {
           ['소개', '시작하기', '컴포넌트 개요', '디자인토큰', '아이콘 카탈로그', '이미지 카탈로그', '아키텍처', '테마 가이드'],
           'Templates',
           'eclipse',
-          ['Actions', 'Inputs', 'Data Display', 'Feedback', 'Navigation'],
+          ['Actions', 'Inputs', 'Data Display', 'Feedback', 'Navigation', 'Layout'],
           'Utils',
           'Internal',
         ],

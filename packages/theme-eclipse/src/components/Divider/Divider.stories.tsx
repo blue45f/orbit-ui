@@ -6,7 +6,7 @@ import { Divider } from './Divider'
 Divider.displayName = 'Divider'
 
 const meta = {
-  title: 'eclipse/6. Layout/Divider',
+  title: 'eclipse/Layout/Divider',
   component: Divider,
   args: {
     orientation: 'horizontal',

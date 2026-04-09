@@ -11,7 +11,7 @@ Space.displayName = 'Space'
 const spacingKeys = Object.keys(vars.ref.spacing) as Spacing[]
 
 const meta = {
-  title: 'eclipse/6. Layout/Space',
+  title: 'eclipse/Layout/Space',
   component: Space,
   args: {},
   argTypes: {
