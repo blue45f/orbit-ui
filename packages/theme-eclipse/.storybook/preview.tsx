@@ -274,7 +274,7 @@ export const useThemeRoot: Decorator = (Story, context) => {
 
   useLayoutEffect(() => {
     injectGlobalStyles()
-    // Toggle light/dark class without overwriting vanilla-extract theme classes
+    // Toggle light/dark class on html and body elements
     const prev = theme === 'dark' ? 'light' : 'dark'
     document.documentElement.classList.remove(prev)
     document.documentElement.classList.add(theme)
@@ -340,6 +340,13 @@ const preview: Preview = {
       toc: {
         headingSelector: 'h2, h3',
         title: 'Table of Contents',
+      },
+      source: {
+        excludeDecorators: true,
+        type: 'code',
+      },
+      canvas: {
+        sourceState: 'shown',
       },
     },
   },
