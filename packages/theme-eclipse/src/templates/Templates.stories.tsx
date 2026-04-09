@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 
 import {
   Accordion,
+  AnimatedBadge,
   AppBar,
   Avatar,
   Breadcrumb,
@@ -1081,6 +1082,7 @@ const EcommerceRender = () => {
   }
 
   return (
+    <Tooltip.Provider>
     <div style={{ background: tc.bg, minHeight: '100vh', fontFamily: 'inherit' }}>
       {/* Header */}
       <header style={{
@@ -1367,12 +1369,14 @@ const EcommerceRender = () => {
         </div>
       </div>
     </div>
+    </Tooltip.Provider>
   )
 }
 
 export const EcommerceMarket: Story = {
   render: () => <EcommerceRender />,
 }
+
 
 /* =================================================================
    6. SocialFeed (Mobile)
@@ -2690,4 +2694,727 @@ const ChatUIRender = () => {
 
 export const ChatUI: Story = {
   render: () => <ChatUIRender />,
+}
+
+/* ═══════════════════════════════════════════
+   10. KanbanBoard (Linear-style)
+   ═══════════════════════════════════════════ */
+
+type KanbanPriority = 'urgent' | 'high' | 'medium' | 'low'
+type KanbanStatus = 'todo' | 'inprogress' | 'done'
+
+type KanbanCard = {
+  id: string
+  title: string
+  priority: KanbanPriority
+  assignee: string
+  tag: string
+  tagColor: 'gray' | 'benefit' | 'sale'
+}
+
+type KanbanColumn = {
+  id: KanbanStatus
+  title: string
+  color: string
+  cards: KanbanCard[]
+}
+
+const kanbanColumns: KanbanColumn[] = [
+  {
+    id: 'todo',
+    title: 'Todo',
+    color: '#94a3b8',
+    cards: [
+      { id: 'k1', title: 'Audit design token hierarchy', priority: 'high', assignee: 'HJ', tag: 'Design', tagColor: 'gray' },
+      { id: 'k2', title: 'Write MigrationGuide for Chakra users', priority: 'medium', assignee: 'KJ', tag: 'Docs', tagColor: 'gray' },
+      { id: 'k3', title: 'Add AnimatedBadge pulse variant', priority: 'low', assignee: 'LY', tag: 'Feature', tagColor: 'benefit' },
+      { id: 'k4', title: 'Update Storybook to v8', priority: 'urgent', assignee: 'PM', tag: 'Infra', tagColor: 'sale' },
+    ],
+  },
+  {
+    id: 'inprogress',
+    title: 'In Progress',
+    color: '#6366f1',
+    cards: [
+      { id: 'k5', title: 'Implement compact density mode for ListTile', priority: 'urgent', assignee: 'HJ', tag: 'Feature', tagColor: 'benefit' },
+      { id: 'k6', title: 'Refactor SpeechBadge CSS tokens', priority: 'high', assignee: 'CD', tag: 'Refactor', tagColor: 'gray' },
+      { id: 'k7', title: 'Fix Popover z-index in Modal context', priority: 'high', assignee: 'HJ', tag: 'Bug', tagColor: 'sale' },
+    ],
+  },
+  {
+    id: 'done',
+    title: 'Done',
+    color: '#10b981',
+    cards: [
+      { id: 'k8', title: 'KanbanBoard template story', priority: 'medium', assignee: 'HJ', tag: 'Docs', tagColor: 'gray' },
+      { id: 'k9', title: 'UserProfile template story', priority: 'medium', assignee: 'KJ', tag: 'Docs', tagColor: 'gray' },
+      { id: 'k10', title: 'Linear/Vercel benchmark analysis', priority: 'high', assignee: 'HJ', tag: 'Design', tagColor: 'benefit' },
+    ],
+  },
+]
+
+const priorityDots: Record<KanbanPriority, string> = {
+  urgent: '#ef4444',
+  high: '#f59e0b',
+  medium: '#6366f1',
+  low: '#94a3b8',
+}
+
+const KanbanAssigneeAvatar: React.FC<{ initials: string }> = ({ initials }) => (
+  <div style={{
+    width: 22,
+    height: 22,
+    borderRadius: '50%',
+    background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
+    color: '#fff',
+    fontSize: 9,
+    fontWeight: 700,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexShrink: 0,
+  }}>
+    {initials}
+  </div>
+)
+
+const KanbanBoardRender: React.FC = () => {
+  const [columns, setColumns] = React.useState<KanbanColumn[]>(kanbanColumns)
+
+  const moveCard = (cardId: string, targetColId: KanbanStatus) => {
+    setColumns((prev) => {
+      let movingCard: KanbanCard | null = null
+      const updated = prev.map((col) => ({
+        ...col,
+        cards: col.cards.filter((c) => {
+          if (c.id === cardId) { movingCard = c; return false }
+          return true
+        }),
+      }))
+      if (!movingCard) return prev
+      return updated.map((col) =>
+        col.id === targetColId ? { ...col, cards: [...col.cards, movingCard as KanbanCard] } : col
+      )
+    })
+  }
+
+  return (
+    <div style={{ display: 'flex', height: '100vh', flexDirection: 'column', background: tc.surface, fontFamily: 'inherit' }}>
+      {/* Topbar */}
+      <header style={{
+        height: 52, background: tc.bg, borderBottom: `1px solid ${tc.border}`,
+        padding: '0 20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexShrink: 0,
+      }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+          <div style={{
+            width: 28, height: 28, borderRadius: 8,
+            background: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            color: '#fff', fontSize: 12, fontWeight: 800,
+          }}>O</div>
+          <Text textStyle="body2" style={{ fontWeight: 700 }}>Orbit Board</Text>
+          <SpeechBadge color="blue" tailPosition="leading">Cycle 5</SpeechBadge>
+        </div>
+        <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+          <AnimatedBadge color="club" size="small">
+            <AnimatedBadge.Label>Live</AnimatedBadge.Label>
+          </AnimatedBadge>
+          <SolidButton size="small" color="black">
+            <SolidButton.Center>+ New Issue</SolidButton.Center>
+          </SolidButton>
+          <Avatar>
+            <Avatar.Fallback>HJ</Avatar.Fallback>
+          </Avatar>
+        </div>
+      </header>
+
+      {/* Board */}
+      <div style={{ flex: 1, display: 'flex', gap: 12, padding: '16px 20px', overflowX: 'auto' }}>
+        {columns.map((col) => (
+          <div
+            key={col.id}
+            style={{
+              flex: '0 0 300px',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 8,
+              background: tc.surfaceElevated,
+              borderRadius: 10,
+              padding: '12px',
+              border: `1px solid ${tc.border}`,
+              maxHeight: '100%',
+              overflow: 'hidden',
+            }}
+          >
+            {/* Column header */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8, paddingBottom: 8, borderBottom: `1px solid ${tc.border}` }}>
+              <div style={{ width: 8, height: 8, borderRadius: '50%', background: col.color, flexShrink: 0 }} />
+              <span style={{ fontSize: 12, fontWeight: 700, color: tc.fg }}>{col.title}</span>
+              <CounterBadge>{col.cards.length}</CounterBadge>
+            </div>
+
+            {/* Cards */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 6, overflowY: 'auto', flex: 1 }}>
+              {col.cards.map((card) => (
+                <div
+                  key={card.id}
+                  style={{
+                    background: tc.bg,
+                    borderRadius: 8,
+                    padding: '10px 12px',
+                    border: `1px solid ${tc.border}`,
+                    cursor: 'pointer',
+                  }}
+                >
+                  {/* Card header: priority + tag */}
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 6 }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                      <div style={{ width: 6, height: 6, borderRadius: '50%', background: priorityDots[card.priority] }} />
+                      <span style={{ fontSize: 10, color: tc.fgMuted, fontWeight: 500, textTransform: 'capitalize' }}>{card.priority}</span>
+                    </div>
+                    <LabelBadge color={card.tagColor}>
+                      <LabelBadge.Label>{card.tag}</LabelBadge.Label>
+                    </LabelBadge>
+                  </div>
+
+                  {/* Card title */}
+                  <div style={{ fontSize: 12, fontWeight: 600, color: tc.fg, lineHeight: 1.4, marginBottom: 8 }}>
+                    {card.title}
+                  </div>
+
+                  {/* Card footer: assignee + move actions */}
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                    <KanbanAssigneeAvatar initials={card.assignee} />
+                    <div style={{ display: 'flex', gap: 4 }}>
+                      {(['todo', 'inprogress', 'done'] as KanbanStatus[])
+                        .filter((s) => s !== col.id)
+                        .map((s) => (
+                          <button
+                            key={s}
+                            onClick={() => moveCard(card.id, s)}
+                            style={{
+                              fontSize: 9,
+                              padding: '2px 6px',
+                              borderRadius: 4,
+                              border: `1px solid ${tc.border}`,
+                              background: tc.surfaceElevated,
+                              cursor: 'pointer',
+                              color: tc.fgMuted,
+                              fontWeight: 600,
+                            }}
+                          >
+                            {s === 'todo' ? 'To Do' : s === 'inprogress' ? 'Start' : 'Done'}
+                          </button>
+                        ))}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+export const KanbanBoard: Story = {
+  render: () => <KanbanBoardRender />,
+}
+
+/* ═══════════════════════════════════════════
+   11. UserProfile (Vercel/GitHub-style)
+   ═══════════════════════════════════════════ */
+
+const profileProjects = [
+  { name: 'Orbit UI', desc: 'React design system with 3-tier token architecture', lang: 'TypeScript', stars: 142, color: '#6366f1' },
+  { name: 'Clay Kit', desc: 'Previous generation component library (archived)', lang: 'JavaScript', stars: 38, color: '#94a3b8' },
+  { name: 'Token Forge', desc: 'Design token transformation pipeline', lang: 'TypeScript', stars: 67, color: '#10b981' },
+  { name: 'Icon Pack', desc: 'SVG icon set optimized for React', lang: 'SVG', stars: 24, color: '#f59e0b' },
+]
+
+const activityFeed = [
+  { action: 'Pushed 3 commits to', target: 'feat/kanban-template', time: '2 hours ago' },
+  { action: 'Opened PR #47', target: 'Linear/Vercel benchmark stories', time: '4 hours ago' },
+  { action: 'Closed issue #42', target: 'ListTile compact density', time: 'Yesterday' },
+  { action: 'Released', target: 'v2.5.0', time: '3 days ago' },
+  { action: 'Created repository', target: 'token-forge', time: '1 week ago' },
+]
+
+const UserProfileRender: React.FC = () => {
+  const [activeTab, setActiveTab] = React.useState<'projects' | 'activity' | 'settings'>('projects')
+
+  return (
+    <div style={{ minHeight: '100vh', background: tc.surface, fontFamily: 'inherit' }}>
+      {/* Top nav */}
+      <nav style={{
+        height: 52, background: tc.bg, borderBottom: `1px solid ${tc.border}`,
+        padding: '0 24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+      }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+          <div style={{ width: 28, height: 28, borderRadius: 8, background: 'linear-gradient(135deg, #6366f1, #8b5cf6)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: 12, fontWeight: 800 }}>O</div>
+          <Text textStyle="body2" style={{ fontWeight: 700 }}>Orbit</Text>
+        </div>
+        <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+          <PageDots selected={true} />
+          <PageDots selected={false} />
+          <PageDots selected={false} />
+          <Avatar>
+            <Avatar.Fallback>HJ</Avatar.Fallback>
+          </Avatar>
+        </div>
+      </nav>
+
+      {/* Profile header */}
+      <div style={{ background: tc.bg, borderBottom: `1px solid ${tc.border}`, padding: '32px 40px 0' }}>
+        <div style={{ maxWidth: 960, margin: '0 auto' }}>
+          <div style={{ display: 'flex', gap: 24, alignItems: 'flex-start', marginBottom: 24 }}>
+            {/* Avatar */}
+            <Avatar style={{ width: 80, height: 80, flexShrink: 0 }}>
+              <Avatar.Fallback style={{ fontSize: 28, fontWeight: 800 }}>HJ</Avatar.Fallback>
+            </Avatar>
+
+            {/* Info */}
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <div style={{ display: 'flex', gap: 12, alignItems: 'center', marginBottom: 4 }}>
+                <Text textStyle="h3" style={{ fontWeight: 800 }}>Heejun Kim</Text>
+                <AnimatedBadge color="club" size="small">
+                  <AnimatedBadge.Label>Pro</AnimatedBadge.Label>
+                </AnimatedBadge>
+              </div>
+              <Text textStyle="body2" style={{ color: tc.fgSub, display: 'block', marginBottom: 8 }}>@heejun · Seoul, Korea</Text>
+              <Text textStyle="body2" style={{ color: tc.fgSub, display: 'block', marginBottom: 12, maxWidth: 480 }}>
+                Building Orbit UI — a React design system with 3-tier token architecture. Passionate about DX, accessibility, and component API design.
+              </Text>
+
+              {/* Stats */}
+              <div style={{ display: 'flex', gap: 20, marginBottom: 16 }}>
+                {[
+                  { label: 'Repositories', count: 14 },
+                  { label: 'Followers', count: 128 },
+                  { label: 'Following', count: 42 },
+                  { label: 'Stars', count: 271 },
+                ].map((s) => (
+                  <div key={s.label} style={{ display: 'flex', gap: 4, alignItems: 'baseline' }}>
+                    <span style={{ fontSize: 14, fontWeight: 700, color: tc.fg }}>{s.count}</span>
+                    <span style={{ fontSize: 12, color: tc.fgMuted }}>{s.label}</span>
+                  </div>
+                ))}
+              </div>
+
+              {/* Badges row */}
+              <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginBottom: 16 }}>
+                <SpeechBadge color="pink" tailPosition="leading">Available for work</SpeechBadge>
+                <LabelBadge color="benefit"><LabelBadge.Label>Open Source</LabelBadge.Label></LabelBadge>
+                <LabelBadge color="gray"><LabelBadge.Label>TypeScript</LabelBadge.Label></LabelBadge>
+                <LabelBadge color="gray"><LabelBadge.Label>React</LabelBadge.Label></LabelBadge>
+              </div>
+            </div>
+
+            {/* Action buttons */}
+            <div style={{ display: 'flex', gap: 8, flexShrink: 0 }}>
+              <SolidButton color="primary" size="small">
+                <SolidButton.Center>Follow</SolidButton.Center>
+              </SolidButton>
+              <OutlineButton color="black" size="small">Cancel</OutlineButton>
+            </div>
+          </div>
+
+          {/* Tabs */}
+          <div style={{ display: 'flex', gap: 0, borderTop: `1px solid ${tc.border}` }}>
+            {(['projects', 'activity', 'settings'] as const).map((tab) => {
+              const isActive = activeTab === tab
+              return (
+                <button
+                  key={tab}
+                  onClick={() => setActiveTab(tab)}
+                  style={{
+                    padding: '12px 16px',
+                    fontSize: 13,
+                    fontWeight: isActive ? 600 : 400,
+                    color: isActive ? tc.fg : tc.fgSub,
+                    background: 'none',
+                    border: 'none',
+                    borderBottom: isActive ? '2px solid #6366f1' : '2px solid transparent',
+                    cursor: 'pointer',
+                    textTransform: 'capitalize',
+                    transition: 'color 0.12s',
+                  }}
+                >
+                  {tab}
+                </button>
+              )
+            })}
+          </div>
+        </div>
+      </div>
+
+      {/* Tab content */}
+      <div style={{ maxWidth: 960, margin: '0 auto', padding: '24px 40px' }}>
+        {activeTab === 'projects' && (
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 16 }}>
+            {profileProjects.map((p) => (
+              <div key={p.name} style={{
+                background: tc.bg,
+                borderRadius: 10,
+                border: `1px solid ${tc.border}`,
+                padding: '16px 20px',
+              }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 8 }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                    <div style={{ width: 10, height: 10, borderRadius: '50%', background: p.color }} />
+                    <Text textStyle="body2" style={{ fontWeight: 700 }}>{p.name}</Text>
+                  </div>
+                  <LabelBadge color="gray"><LabelBadge.Label>{p.lang}</LabelBadge.Label></LabelBadge>
+                </div>
+                <Text textStyle="caption" style={{ color: tc.fgSub, display: 'block', marginBottom: 12, lineHeight: 1.5 }}>
+                  {p.desc}
+                </Text>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 4, fontSize: 12, color: tc.fgMuted }}>
+                    <StarLineIcon size={13} />
+                    <span>{p.stars}</span>
+                  </div>
+                  <GhostButton color="black" size="small">View</GhostButton>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {activeTab === 'activity' && (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
+            {activityFeed.map((item, i) => (
+              <React.Fragment key={i}>
+                <div style={{ display: 'flex', gap: 16, alignItems: 'flex-start', padding: '12px 0' }}>
+                  <div style={{ width: 32, height: 32, borderRadius: '50%', background: tc.surfaceElevated, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                    <Avatar style={{ width: 32, height: 32 }}>
+                      <Avatar.Fallback style={{ fontSize: 10 }}>HJ</Avatar.Fallback>
+                    </Avatar>
+                  </div>
+                  <div style={{ flex: 1 }}>
+                    <span style={{ fontSize: 13, color: tc.fgSub }}>{item.action} </span>
+                    <span style={{ fontSize: 13, fontWeight: 600, color: tc.fg }}>{item.target}</span>
+                    <Text textStyle="caption" style={{ display: 'block', color: tc.fgMuted, marginTop: 2 }}>{item.time}</Text>
+                  </div>
+                </div>
+                {i < activityFeed.length - 1 && <Divider />}
+              </React.Fragment>
+            ))}
+          </div>
+        )}
+
+        {activeTab === 'settings' && (
+          <div style={{ maxWidth: 480 }}>
+            <Text textStyle="h4" style={{ display: 'block', fontWeight: 700, marginBottom: 16 }}>Profile Settings</Text>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+              {['Display name', 'Username', 'Email', 'Bio', 'Location'].map((field) => (
+                <div key={field} style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+                  <Text textStyle="caption" style={{ fontWeight: 600, color: tc.fgSub }}>{field}</Text>
+                  <TextField placeholder={`Enter ${field.toLowerCase()}...`} />
+                </div>
+              ))}
+              <div style={{ display: 'flex', gap: 8, marginTop: 8 }}>
+                <SolidButton color="primary" size="small">
+                  <SolidButton.Center>Save changes</SolidButton.Center>
+                </SolidButton>
+                <OutlineButton color="black" size="small">Cancel</OutlineButton>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+
+export const UserProfile: Story = {
+  render: () => <UserProfileRender />,
+}
+
+/* ═══════════════════════════════════════════
+   NotificationCenter
+   헤더: 알림 제목 + 전체읽음 버튼 + 설정 아이콘버튼
+   필터 탭: 전체 / 읽지않음 / 언급
+   알림 목록: Avatar + 내용 + 시간 + LabelBadge(읽음/안읽음)
+   하단: 더보기 버튼 + PageDots 페이지네이션
+   활용 컴포넌트: AnimatedBadge, SpeechBadge, CounterBadge
+   ═══════════════════════════════════════════ */
+type NotifTab = 'all' | 'unread' | 'mention'
+
+type NotifItem = {
+  id: string
+  initial: string
+  name: string
+  action: string
+  target: string
+  time: string
+  isRead: boolean
+  isMention: boolean
+  type: 'comment' | 'like' | 'mention' | 'system'
+}
+
+const notifData: NotifItem[] = [
+  { id: 'n1', initial: 'K', name: '김지혜', action: '이 포스트에 댓글을 남겼습니다:', target: '"Orbit UI 릴리즈 노트 v2.0"', time: '2분 전', isRead: false, isMention: false, type: 'comment' },
+  { id: 'n2', initial: 'P', name: '박민준', action: '회원님을 언급했습니다:', target: '"@user 디자인 토큰 확인 부탁"', time: '15분 전', isRead: false, isMention: true, type: 'mention' },
+  { id: 'n3', initial: 'L', name: '이소연', action: '회원님의 컴포넌트를 즐겨찾기에 추가했습니다', target: '', time: '1시간 전', isRead: false, isMention: false, type: 'like' },
+  { id: 'n4', initial: 'C', name: '최동욱', action: '새 태스크를 할당했습니다:', target: '"DataTable 접근성 개선"', time: '3시간 전', isRead: true, isMention: false, type: 'system' },
+  { id: 'n5', initial: 'Y', name: '윤해린', action: '스프린트 보드에 댓글을 남겼습니다:', target: '"LGTM! 배포 준비 완료"', time: '5시간 전', isRead: true, isMention: false, type: 'comment' },
+  { id: 'n6', initial: 'S', name: '시스템', action: '예약된 유지보수가 오늘 자정에 시작됩니다', target: '', time: '어제', isRead: true, isMention: false, type: 'system' },
+]
+
+const notifInitialColors: Record<string, string> = {
+  K: '#6366f1', P: '#8b5cf6', L: '#ec4899', C: '#f59e0b', Y: '#10b981', S: '#64748b',
+}
+
+const notifTypeColorMap: Record<string, string> = {
+  comment: '#6366f1', like: '#ef4444', mention: '#f59e0b', system: '#10b981',
+}
+
+function NotifIcon({ type }: { type: string }) {
+  if (type === 'like') {
+    return (
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
+        <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    )
+  }
+  if (type === 'mention') {
+    return (
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
+        <circle cx="12" cy="12" r="4" stroke="currentColor" strokeWidth="2" />
+        <path d="M16 8v5a3 3 0 006 0v-1a10 10 0 10-3.92 7.94" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    )
+  }
+  if (type === 'system') {
+    return (
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
+        <path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    )
+  }
+  return (
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
+      <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  )
+}
+
+const NotificationCenterRender = () => {
+  const [activeTab, setActiveTab] = React.useState<NotifTab>('all')
+  const [items, setItems] = React.useState<NotifItem[]>(notifData)
+  const [page, setPage] = React.useState(0)
+
+  const tabDefs: { key: NotifTab; label: string }[] = [
+    { key: 'all', label: '전체' },
+    { key: 'unread', label: '읽지않음' },
+    { key: 'mention', label: '언급' },
+  ]
+
+  const filtered = items.filter((n) => {
+    if (activeTab === 'unread') return !n.isRead
+    if (activeTab === 'mention') return n.isMention
+    return true
+  })
+
+  const unreadCount = items.filter((n) => !n.isRead).length
+
+  const markAllRead = () => setItems((prev) => prev.map((n) => ({ ...n, isRead: true })))
+  const markRead = (id: string) => setItems((prev) => prev.map((n) => n.id === id ? { ...n, isRead: true } : n))
+
+  return (
+    <div style={{
+      width: '400px', minHeight: '600px',
+      background: tc.bg, border: `1px solid ${tc.border}`,
+      borderRadius: '16px', overflow: 'hidden',
+      display: 'flex', flexDirection: 'column',
+      boxShadow: '0 8px 32px rgba(0,0,0,0.12)',
+    }}>
+      {/* Header */}
+      <div style={{
+        padding: '16px 20px', borderBottom: `1px solid ${tc.border}`,
+        display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexShrink: 0,
+      }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+          <Text textStyle="body1" style={{ fontWeight: '700', color: tc.fg }}>알림</Text>
+          {unreadCount > 0 && <CounterBadge>{unreadCount}</CounterBadge>}
+        </div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+          {unreadCount > 0 && (
+            <button
+              onClick={markAllRead}
+              style={{
+                background: 'none', border: 'none', cursor: 'pointer',
+                fontSize: '12px', fontWeight: 600, color: tc.fillPrimary,
+                padding: '4px 8px', borderRadius: '6px',
+              }}
+            >
+              전체 읽음
+            </button>
+          )}
+          <SolidIconButton size="small" color="black">
+            <SettingLineIcon size={16} />
+          </SolidIconButton>
+        </div>
+      </div>
+
+      {/* Filter tabs */}
+      <div style={{
+        padding: '12px 20px', borderBottom: `1px solid ${tc.borderSub}`,
+        display: 'flex', gap: '4px', flexShrink: 0,
+      }}>
+        {tabDefs.map((tab) => {
+          const isActive = activeTab === tab.key
+          const count = tab.key === 'unread'
+            ? items.filter((n) => !n.isRead).length
+            : tab.key === 'mention'
+              ? items.filter((n) => n.isMention).length
+              : items.length
+          return (
+            <button
+              key={tab.key}
+              onClick={() => { setActiveTab(tab.key); setPage(0) }}
+              aria-pressed={isActive}
+              style={{
+                padding: '5px 12px', borderRadius: '20px', border: 'none', cursor: 'pointer',
+                background: isActive ? tc.fillPrimary : tc.surface,
+                color: isActive ? '#fff' : tc.fgSub,
+                fontSize: '12px', fontWeight: isActive ? 700 : 500,
+                transition: 'all 0.15s ease',
+                display: 'flex', alignItems: 'center', gap: '5px',
+              }}
+            >
+              {tab.label}
+              <span style={{
+                fontSize: '10px', fontWeight: 700,
+                background: isActive ? 'rgba(255,255,255,0.25)' : tc.surfaceElevated,
+                color: isActive ? '#fff' : tc.fgMuted,
+                borderRadius: '100px', padding: '1px 5px', lineHeight: '14px',
+              }}>
+                {count}
+              </span>
+            </button>
+          )
+        })}
+      </div>
+
+      {/* Notification list */}
+      <div style={{ flex: 1, overflowY: 'auto' }}>
+        {filtered.length === 0 ? (
+          <div style={{
+            display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
+            padding: '48px 24px', gap: '12px',
+          }}>
+            <NotificationLineIcon size={32} />
+            <Text textStyle="body2" style={{ color: tc.fgMuted, textAlign: 'center' as const }}>
+              {activeTab === 'unread' ? '읽지 않은 알림이 없습니다' : '언급된 알림이 없습니다'}
+            </Text>
+          </div>
+        ) : filtered.map((notif) => (
+          <div
+            key={notif.id}
+            onClick={() => markRead(notif.id)}
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) => { if (e.key === 'Enter') markRead(notif.id) }}
+            style={{
+              padding: '14px 20px 14px 28px',
+              display: 'flex', gap: '12px', alignItems: 'flex-start',
+              background: notif.isRead ? tc.bg : 'rgba(99,102,241,0.04)',
+              borderBottom: `1px solid ${tc.borderSub}`,
+              cursor: 'pointer', transition: 'background 0.15s',
+              position: 'relative' as const,
+            }}
+          >
+            {!notif.isRead && (
+              <div style={{
+                position: 'absolute' as const, top: '20px', left: '10px',
+                width: '6px', height: '6px', borderRadius: '50%', background: tc.fillPrimary,
+              }} />
+            )}
+            <div style={{ position: 'relative' as const, flexShrink: 0 }}>
+              <div style={{
+                width: '38px', height: '38px', borderRadius: '50%',
+                background: notifInitialColors[notif.initial] ?? '#64748b',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                color: '#fff', fontSize: '14px', fontWeight: 700,
+              }}>
+                {notif.initial}
+              </div>
+              <div style={{
+                position: 'absolute' as const, bottom: '-2px', right: '-2px',
+                width: '18px', height: '18px', borderRadius: '50%',
+                background: notifTypeColorMap[notif.type],
+                border: `2px solid ${tc.bg}`,
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                color: '#fff',
+              }}>
+                <NotifIcon type={notif.type} />
+              </div>
+            </div>
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '8px', marginBottom: '4px' }}>
+                <Text textStyle="body2" style={{ fontWeight: notif.isRead ? 500 : 700, color: tc.fg, fontSize: '13px' }}>
+                  {notif.name}
+                </Text>
+                <Text textStyle="caption" style={{ color: tc.fgMuted, fontSize: '11px', flexShrink: 0 }}>
+                  {notif.time}
+                </Text>
+              </div>
+              <Text textStyle="caption" style={{ color: tc.fgSub, fontSize: '12px', lineHeight: '1.5' }}>
+                {notif.action}
+                {notif.target && (
+                  <span style={{ color: tc.fillPrimary, fontWeight: 500 }}> {notif.target}</span>
+                )}
+              </Text>
+              {notif.isMention && (
+                <div style={{ marginTop: '8px' }}>
+                  <SpeechBadge color="blue" tailPosition="leading">
+                    <Text textStyle="caption" style={{ fontSize: '11px', color: '#fff' }}>
+                      {notif.target}
+                    </Text>
+                  </SpeechBadge>
+                </div>
+              )}
+              <div style={{ marginTop: '6px', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                <LabelBadge color={notif.isRead ? 'gray' : 'benefit'}>
+                  <LabelBadge.Label>{notif.isRead ? '읽음' : '안읽음'}</LabelBadge.Label>
+                </LabelBadge>
+                {notif.isMention && (
+                  <AnimatedBadge size="small" color="sale">
+                    <AnimatedBadge.Label>언급</AnimatedBadge.Label>
+                  </AnimatedBadge>
+                )}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Footer */}
+      {filtered.length > 0 && (
+        <div style={{
+          padding: '12px 20px', borderTop: `1px solid ${tc.border}`,
+          display: 'flex', flexDirection: 'column' as const, gap: '10px', flexShrink: 0,
+        }}>
+          <GhostButton
+            color="black"
+            size="medium"
+            width="100%"
+            onClick={() => setPage((p) => Math.min(p + 1, 2))}
+          >
+            <GhostButton.Center>더보기</GhostButton.Center>
+          </GhostButton>
+          <div style={{ display: 'flex', justifyContent: 'center' }}>
+            <PageDots total={3} current={page} />
+          </div>
+        </div>
+      )}
+    </div>
+  )
+}
+
+export const NotificationCenter: Story = {
+  render: () => <NotificationCenterRender />,
 }

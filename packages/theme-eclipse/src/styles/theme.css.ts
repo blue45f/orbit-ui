@@ -1,49 +1,25 @@
-import { ref, referenceDarkTheme, referenceLightTheme, TextStyleBaseSize } from '@heejun-com/core'
-import { style } from '@vanilla-extract/css'
+import { ref , TextStyleBaseSize } from '@heejun-com/core'
 
-import { com, componentDarkTheme, componentLightTheme } from './component-token'
-import { semanticColorVars, semanticDarkTheme, semanticLightTheme } from './semantic-token'
-import {
-  largeTextStyleTheme,
-  mediumTextStyleTheme,
-  smallTextStyleTheme,
-  textStyleVars,
-  xLargeTextStyleTheme,
-  xSmallTextStyleTheme,
-  xxLargeTextStyleTheme,
-  xxxLargeTextStyleTheme,
-} from './text-style-token'
+import { com } from './component-token'
+import { semanticColorVars } from './semantic-token'
+import { textStyleVars } from './text-style-token'
 
-export const darkTheme = style([
-  {
-    vars: {
-      ...referenceDarkTheme,
-      ...semanticDarkTheme,
-      ...componentDarkTheme,
-    },
-  },
-])
+// Theme class names (plain CSS classes defined in theme.css)
+export const lightTheme = 'eclipse-light'
+export const darkTheme = 'eclipse-dark'
 
-export const lightTheme = style([
-  {
-    vars: {
-      ...referenceLightTheme,
-      ...semanticLightTheme,
-      ...componentLightTheme,
-    },
-  },
-])
-
+// Text style theme classes
 export const textStyleTheme = {
-  xSmall: style(xSmallTextStyleTheme),
-  small: style(smallTextStyleTheme),
-  medium: style(mediumTextStyleTheme),
-  large: style(largeTextStyleTheme),
-  xLarge: style(xLargeTextStyleTheme),
-  xxLarge: style(xxLargeTextStyleTheme),
-  xxxLarge: style(xxxLargeTextStyleTheme),
+  xSmall: 'text-size-xSmall',
+  small: 'text-size-small',
+  medium: 'text-size-medium',
+  large: 'text-size-large',
+  xLarge: 'text-size-xLarge',
+  xxLarge: 'text-size-xxLarge',
+  xxxLarge: 'text-size-xxxLarge',
 } satisfies Record<TextStyleBaseSize, string>
 
+// Design token variables object (CSS variable references)
 export const vars = {
   ref,
   sem: { color: semanticColorVars, textStyle: textStyleVars },

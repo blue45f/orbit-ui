@@ -1,23 +1,7 @@
-import { recipe } from '@vanilla-extract/recipes'
+import clsx from 'clsx'
 
-import { vars } from '../../styles'
-
-export const center = recipe({
-  base: { display: 'inline-block' },
-  variants: {
-    size: {
-      small: {
-        paddingRight: vars.ref.spacing['25'],
-        paddingLeft: vars.ref.spacing['25'],
-      },
-      medium: {
-        paddingRight: vars.ref.spacing['50'],
-        paddingLeft: vars.ref.spacing['50'],
-      },
-      large: {
-        paddingRight: vars.ref.spacing['50'],
-        paddingLeft: vars.ref.spacing['50'],
-      },
-    },
-  },
-})
+export const center = (opts: { size: 'small' | 'medium' | 'large' }) =>
+  clsx('inline-block', {
+    'px-0.5': opts.size === 'small',
+    'px-1': opts.size === 'medium' || opts.size === 'large',
+  })

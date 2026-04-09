@@ -7,6 +7,7 @@ import { darkTheme, lightTheme, textStyleTheme } from '../../styles'
 import { ReusableSVG } from './ReusableSVG'
 
 import '@heejun-com/core/style.css'
+import '../../styles/theme.css'
 
 export type EclipseProviderProps = {
   /**
