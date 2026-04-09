@@ -594,3 +594,224 @@ export const 디자인QA = {
     )
   },
 }
+
+/* --------------------------------------------------------------------------
+   shadcn/ui 벤치마크: 요금제 선택 라디오 패턴
+   shadcn/ui RadioGroup — 박스형 요금제 카드 선택 UI
+-------------------------------------------------------------------------- */
+const PLANS = [
+  { id: 'starter', name: 'Starter', price: '무료', features: ['컴포넌트 50개', '프로젝트 3개', '커뮤니티 지원'] },
+  { id: 'pro', name: 'Pro', price: '₩29,000/월', features: ['컴포넌트 무제한', '프로젝트 무제한', '우선 지원', 'Figma 연동'] },
+  { id: 'team', name: 'Team', price: '₩79,000/월', features: ['Pro 모든 기능', '팀원 10명', '커스텀 테마', '전담 매니저'] },
+]
+
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export const shadcn_요금제_선택 = {
+  name: 'shadcn/ui - 박스형 요금제 선택 패턴',
+  render: function Render() {
+    const [plan, setPlan] = useState('pro')
+    return (
+      <div style={{ maxWidth: 480 }}>
+        <div style={{ fontSize: 13, fontWeight: 700, color: '#1e293b', marginBottom: 12 }}>요금제 선택</div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+          {PLANS.map((p) => {
+            const isSelected = plan === p.id
+            return (
+              <div
+                key={p.id}
+                onClick={() => setPlan(p.id)}
+                style={{
+                  display: 'flex',
+                  alignItems: 'flex-start',
+                  gap: 14,
+                  padding: '14px 16px',
+                  borderRadius: 10,
+                  border: `2px solid ${isSelected ? '#6366f1' : '#e2e8f0'}`,
+                  background: isSelected ? '#6366f108' : '#fff',
+                  cursor: 'pointer',
+                  transition: 'all 0.15s',
+                }}
+              >
+                <RadioButton
+                  name="plan"
+                  value={p.id}
+                  checked={isSelected}
+                  onChange={() => setPlan(p.id)}
+                />
+                <div style={{ flex: 1 }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
+                    <span style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>{p.name}</span>
+                    <span style={{ fontSize: 14, fontWeight: 700, color: isSelected ? '#6366f1' : '#0f172a' }}>{p.price}</span>
+                  </div>
+                  <ul style={{ margin: 0, padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 3 }}>
+                    {p.features.map((f) => (
+                      <li key={f} style={{ fontSize: 12, color: '#64748b', display: 'flex', alignItems: 'center', gap: 6 }}>
+                        <span style={{ color: isSelected ? '#6366f1' : '#94a3b8', fontSize: 10 }}>✓</span>
+                        {f}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            )
+          })}
+        </div>
+        <div style={{ marginTop: 12, fontSize: 11, color: '#94a3b8' }}>shadcn/ui RadioGroup — 카드형 선택 UI 패턴</div>
+      </div>
+    )
+  },
+}
+
+/* --------------------------------------------------------------------------
+   Linear 벤치마크: 이슈 우선순위 선택 패턴
+   Linear priority picker — 우선순위 레벨 라디오 선택 UI
+-------------------------------------------------------------------------- */
+const PRIORITIES = [
+  { id: 'urgent', label: '긴급', color: '#ef4444', desc: '즉시 처리 필요' },
+  { id: 'high', label: '높음', color: '#f59e0b', desc: '이번 스프린트 내 처리' },
+  { id: 'medium', label: '보통', color: '#6366f1', desc: '우선순위 기본값' },
+  { id: 'low', label: '낮음', color: '#94a3b8', desc: '여유 있을 때 처리' },
+  { id: 'none', label: '없음', color: '#e2e8f0', desc: '우선순위 미지정' },
+]
+
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export const Linear_우선순위_선택 = {
+  name: 'Linear - 이슈 우선순위 선택 패턴',
+  render: function Render() {
+    const [priority, setPriority] = useState('medium')
+    const selected = PRIORITIES.find((p) => p.id === priority)!
+    return (
+      <div style={{ maxWidth: 320 }}>
+        <div style={{ fontSize: 13, fontWeight: 700, color: '#1e293b', marginBottom: 12 }}>우선순위</div>
+        <div style={{ borderRadius: 10, border: '1px solid #e2e8f0', overflow: 'hidden' }}>
+          {PRIORITIES.map((p, i) => (
+            <div
+              key={p.id}
+              onClick={() => setPriority(p.id)}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 12,
+                padding: '10px 14px',
+                borderBottom: i < PRIORITIES.length - 1 ? '1px solid #f1f5f9' : 'none',
+                cursor: 'pointer',
+                background: priority === p.id ? p.color + '08' : '#fff',
+                transition: 'background 0.1s',
+              }}
+            >
+              <RadioButton
+                name="priority"
+                value={p.id}
+                checked={priority === p.id}
+                onChange={() => setPriority(p.id)}
+              />
+              <span style={{ width: 8, height: 8, borderRadius: '50%', background: p.color, flexShrink: 0 }} />
+              <div style={{ flex: 1 }}>
+                <div style={{ fontSize: 13, fontWeight: 600, color: '#0f172a' }}>{p.label}</div>
+                <div style={{ fontSize: 11, color: '#94a3b8' }}>{p.desc}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div style={{ marginTop: 12, padding: '8px 12px', borderRadius: 8, background: selected.color + '10', border: `1px solid ${selected.color}30`, fontSize: 13, color: '#475569' }}>
+          선택된 우선순위: <strong style={{ color: selected.color }}>{selected.label}</strong>
+        </div>
+      </div>
+    )
+  },
+}
+
+/* --------------------------------------------------------------------------
+   Ant Design 벤치마크: 설문 문항 라디오 패턴
+   Ant Design Radio.Group — 1~5점 척도 + 단일 선택 설문 UI
+-------------------------------------------------------------------------- */
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export const Ant_설문_척도_라디오 = {
+  name: 'Ant Design - 설문 문항 라디오 패턴',
+  render: function Render() {
+    const [satisfaction, setSatisfaction] = useState<string>('')
+    const [recommend, setRecommend] = useState<string>('')
+    const [submitted, setSubmitted] = useState(false)
+
+    return (
+      <div style={{ maxWidth: 400 }}>
+        <div style={{ fontSize: 14, fontWeight: 700, color: '#1e293b', marginBottom: 16 }}>사용자 만족도 조사</div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
+          {/* Q1 */}
+          <div>
+            <div style={{ fontSize: 13, fontWeight: 600, color: '#1e293b', marginBottom: 10 }}>
+              1. Orbit UI 사용 만족도는 어느 정도입니까?
+            </div>
+            <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+              {['매우 불만족', '불만족', '보통', '만족', '매우 만족'].map((label, i) => {
+                const val = String(i + 1)
+                return (
+                  <div
+                    key={val}
+                    onClick={() => setSatisfaction(val)}
+                    style={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                      gap: 6,
+                      padding: '8px 12px',
+                      borderRadius: 8,
+                      border: `1px solid ${satisfaction === val ? '#6366f1' : '#e2e8f0'}`,
+                      background: satisfaction === val ? '#6366f108' : '#fff',
+                      cursor: 'pointer',
+                      minWidth: 60,
+                    }}
+                  >
+                    <RadioButton name="satisfaction" value={val} checked={satisfaction === val} onChange={() => setSatisfaction(val)} />
+                    <span style={{ fontSize: 11, color: '#64748b', textAlign: 'center' }}>{label}</span>
+                  </div>
+                )
+              })}
+            </div>
+          </div>
+          {/* Q2 */}
+          <div>
+            <div style={{ fontSize: 13, fontWeight: 600, color: '#1e293b', marginBottom: 10 }}>
+              2. Orbit UI를 추천하시겠습니까?
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+              {['네, 적극 추천합니다', '네, 상황에 따라 추천합니다', '아니오, 추천하지 않습니다'].map((label) => (
+                <div
+                  key={label}
+                  onClick={() => setRecommend(label)}
+                  style={{ display: 'flex', alignItems: 'center', gap: 10, cursor: 'pointer' }}
+                >
+                  <RadioButton name="recommend" value={label} checked={recommend === label} onChange={() => setRecommend(label)} />
+                  <span style={{ fontSize: 13, color: recommend === label ? '#1e293b' : '#64748b' }}>{label}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+          {submitted ? (
+            <div style={{ padding: '12px 16px', borderRadius: 8, background: '#f0fdf4', border: '1px solid #bbf7d0', color: '#16a34a', fontSize: 14, fontWeight: 600 }}>
+              응답이 제출되었습니다. 감사합니다!
+            </div>
+          ) : (
+            <button
+              disabled={!satisfaction || !recommend}
+              onClick={() => setSubmitted(true)}
+              style={{
+                padding: '10px',
+                borderRadius: 8,
+                border: 'none',
+                background: satisfaction && recommend ? '#6366f1' : '#e2e8f0',
+                color: satisfaction && recommend ? '#fff' : '#94a3b8',
+                fontSize: 14,
+                fontWeight: 600,
+                cursor: satisfaction && recommend ? 'pointer' : 'not-allowed',
+              }}
+            >
+              제출하기
+            </button>
+          )}
+        </div>
+        <div style={{ marginTop: 8, fontSize: 11, color: '#94a3b8' }}>Ant Design Radio.Group — 척도형 + 객관식 설문 패턴</div>
+      </div>
+    )
+  },
+}
