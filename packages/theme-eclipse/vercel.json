@@ -1,0 +1,5 @@
+{
+  "installCommand": "cd ../.. && pnpm install && pnpm --filter @orbit-ui/vite-plugin build",
+  "buildCommand": "pnpm build:storybook",
+  "outputDirectory": "storybook-static"
+}
