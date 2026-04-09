@@ -1,6 +1,7 @@
 import { Flex } from '@heejun-com/core'
-import { ChatLineIcon, ChevronRightLineIcon } from '@heejun-com/icons'
+import { ArrowRightIcon, ChatLineIcon, ChevronRightLineIcon, NotificationLineIcon, SearchIcon, SettingLineIcon } from '@heejun-com/icons'
 import { Meta, StoryObj } from '@storybook/react'
+import { useState } from 'react'
 
 import { SolidButton, SolidButtonProps } from '.'
 
@@ -509,3 +510,158 @@ export const Material3_FAB_패턴: Story = {
     </div>
   ),
 }
+
+// ─── shadcn/ui: 아이콘 + 텍스트 조합 패턴 ────────────────────────────────────
+// shadcn/ui Button은 아이콘과 텍스트를 자유롭게 조합합니다.
+// SolidButton의 Compound 패턴으로 동일하게 구현합니다.
+export const shadcn_아이콘_조합_패턴: Story = {
+  name: 'shadcn/ui - 아이콘+텍스트 조합 패턴',
+  render: () => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', maxWidth: '560px' }}>
+      <div>
+        <p style={{ margin: '0 0 6px', fontSize: '12px', fontWeight: '700', color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+          shadcn/ui Icon+Text Patterns
+        </p>
+        <p style={{ margin: '0 0 16px', fontSize: '13px', color: '#64748b', lineHeight: 1.6 }}>
+          Leading(왼쪽 아이콘), Trailing(오른쪽 아이콘), 크기별 아이콘 스케일 패턴을 데모합니다.
+        </p>
+      </div>
+
+      <div style={{ padding: '20px', background: '#f8fafc', borderRadius: '12px', border: '1px solid #e2e8f0' }}>
+        <p style={{ margin: '0 0 12px', fontSize: '13px', fontWeight: '600', color: '#374151' }}>Leading Icon (아이콘 왼쪽)</p>
+        <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+          <SolidButton color="primary" size="medium">
+            <SolidButton.Leading><SearchIcon size={14} /></SolidButton.Leading>
+            <SolidButton.Center>검색</SolidButton.Center>
+          </SolidButton>
+          <SolidButton color="black" size="medium">
+            <SolidButton.Leading><NotificationLineIcon size={14} /></SolidButton.Leading>
+            <SolidButton.Center>알림 설정</SolidButton.Center>
+          </SolidButton>
+          <SolidButton color="gray" size="medium">
+            <SolidButton.Leading><SettingLineIcon size={14} /></SolidButton.Leading>
+            <SolidButton.Center>환경설정</SolidButton.Center>
+          </SolidButton>
+        </div>
+      </div>
+
+      <div style={{ padding: '20px', background: '#f8fafc', borderRadius: '12px', border: '1px solid #e2e8f0' }}>
+        <p style={{ margin: '0 0 12px', fontSize: '13px', fontWeight: '600', color: '#374151' }}>Trailing Icon (아이콘 오른쪽)</p>
+        <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+          <SolidButton color="primary" size="medium">
+            <SolidButton.Center>다음 단계</SolidButton.Center>
+            <SolidButton.Trailing><ArrowRightIcon size={14} /></SolidButton.Trailing>
+          </SolidButton>
+          <SolidButton color="black" size="medium">
+            <SolidButton.Center>계속하기</SolidButton.Center>
+            <SolidButton.Trailing><ChevronRightLineIcon size={14} /></SolidButton.Trailing>
+          </SolidButton>
+        </div>
+      </div>
+
+      <div style={{ padding: '20px', background: '#f8fafc', borderRadius: '12px', border: '1px solid #e2e8f0' }}>
+        <p style={{ margin: '0 0 12px', fontSize: '13px', fontWeight: '600', color: '#374151' }}>크기별 아이콘 스케일 (small / medium / large)</p>
+        <div style={{ display: 'flex', gap: '10px', alignItems: 'center', flexWrap: 'wrap' }}>
+          <SolidButton color="primary" size="small">
+            <SolidButton.Leading><ChatLineIcon size={12} /></SolidButton.Leading>
+            <SolidButton.Center>Small</SolidButton.Center>
+          </SolidButton>
+          <SolidButton color="primary" size="medium">
+            <SolidButton.Leading><ChatLineIcon size={14} /></SolidButton.Leading>
+            <SolidButton.Center>Medium</SolidButton.Center>
+          </SolidButton>
+          <SolidButton color="primary" size="large">
+            <SolidButton.Leading><ChatLineIcon size={16} /></SolidButton.Leading>
+            <SolidButton.Center>Large</SolidButton.Center>
+          </SolidButton>
+        </div>
+      </div>
+    </div>
+  ),
+} satisfies Story
+
+// ─── shadcn/ui: 인터랙티브 로딩 상태 패턴 ────────────────────────────────────
+// shadcn/ui에서 버튼 클릭 후 로딩 → 완료 상태를 전환하는 패턴입니다.
+// SolidButton의 loading prop과 disabled로 동일하게 구현합니다.
+function InteractiveLoadingRender() {
+  const [states, setStates] = useState<Record<string, 'idle' | 'loading' | 'done'>>({
+    save: 'idle',
+    submit: 'idle',
+    delete: 'idle',
+  })
+
+  const trigger = (key: string, duration = 1500) => {
+    setStates((prev) => ({ ...prev, [key]: 'loading' }))
+    setTimeout(() => {
+      setStates((prev) => ({ ...prev, [key]: 'done' }))
+      setTimeout(() => {
+        setStates((prev) => ({ ...prev, [key]: 'idle' }))
+      }, 1500)
+    }, duration)
+  }
+
+  const actions = [
+    { key: 'save', label: '변경사항 저장', loadingLabel: '저장 중...', doneLabel: '저장 완료', color: 'primary' as const },
+    { key: 'submit', label: '제출하기', loadingLabel: '처리 중...', doneLabel: '제출 완료', color: 'black' as const },
+    { key: 'delete', label: '계정 삭제', loadingLabel: '삭제 중...', doneLabel: '삭제됨', color: 'gray' as const },
+  ]
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', maxWidth: '480px' }}>
+      <div>
+        <p style={{ margin: '0 0 6px', fontSize: '12px', fontWeight: '700', color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+          shadcn/ui Interactive Loading Pattern
+        </p>
+        <p style={{ margin: '0 0 4px', fontSize: '13px', color: '#64748b', lineHeight: 1.6 }}>
+          버튼을 클릭하면 로딩 → 완료 상태 전환을 확인할 수 있습니다.
+        </p>
+      </div>
+
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+        {actions.map(({ key, label, loadingLabel, doneLabel, color }) => {
+          const state = states[key]
+          return (
+            <div key={key} style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+              <SolidButton
+                color={color}
+                size="medium"
+                loading={state === 'loading'}
+                disabled={state !== 'idle'}
+                onClick={() => trigger(key)}
+                style={{ minWidth: '160px' }}
+              >
+                <SolidButton.Center>
+                  {state === 'loading' ? loadingLabel : state === 'done' ? doneLabel : label}
+                </SolidButton.Center>
+              </SolidButton>
+              <span style={{
+                fontSize: '11px', fontWeight: '600', padding: '3px 10px', borderRadius: '99px',
+                background: state === 'idle' ? '#f1f5f9' : state === 'loading' ? 'rgba(99,102,241,0.08)' : 'rgba(16,185,129,0.08)',
+                color: state === 'idle' ? '#94a3b8' : state === 'loading' ? '#6366f1' : '#10b981',
+              }}>
+                {state}
+              </span>
+            </div>
+          )
+        })}
+      </div>
+
+      <div style={{ padding: '16px', borderRadius: '10px', background: '#f8fafc', border: '1px solid #e2e8f0' }}>
+        <p style={{ margin: '0 0 8px', fontSize: '12px', fontWeight: '600', color: '#475569' }}>shadcn/ui vs Orbit UI 로딩 패턴 비교</p>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
+          <div style={{ padding: '10px', borderRadius: '8px', background: '#0f172a', fontSize: '11px', color: '#94a3b8', fontFamily: 'monospace', lineHeight: 1.6 }}>
+            {'// shadcn/ui\n<Button disabled={isPending}>\n  {isPending && <Loader2 />}\n  Save\n</Button>'}
+          </div>
+          <div style={{ padding: '10px', borderRadius: '8px', background: '#0f172a', fontSize: '11px', color: '#e2e8f0', fontFamily: 'monospace', lineHeight: 1.6 }}>
+            {'// Orbit UI\n<SolidButton loading={isPending}>\n  <SolidButton.Loading />\n  <SolidButton.Center>Save\n  </SolidButton.Center>\n</SolidButton>'}
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const shadcn_인터랙티브_로딩_패턴: Story = {
+  name: 'shadcn/ui - 인터랙티브 로딩 상태 패턴',
+  render: () => <InteractiveLoadingRender />,
+} satisfies Story
