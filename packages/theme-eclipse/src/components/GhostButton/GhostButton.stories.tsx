@@ -1288,3 +1288,231 @@ export const Mantine_리치텍스트_서식_툴바: Story = {
   },
   render: () => <MantineRichTextToolbarRender />,
 }
+
+/* --------------------------------------------------------------------------
+   Mantine 벤치마크: 사이드바 내비게이션 메뉴 버튼 패턴
+   Mantine NavLink — 아이콘+레이블+뱃지 결합 사이드바 항목
+-------------------------------------------------------------------------- */
+const NAV_ITEMS = [
+  { label: '대시보드', icon: '◉', count: null, active: true },
+  { label: '이슈', icon: '⊡', count: 12, active: false },
+  { label: '프로젝트', icon: '◈', count: 3, active: false },
+  { label: '사이클', icon: '◎', count: null, active: false },
+  { label: '로드맵', icon: '◑', count: null, active: false },
+] as const
+
+function MantineNavMenuRender() {
+  const [active, setActive] = useState<string>('대시보드')
+
+  return (
+    <div style={{ width: 220, fontFamily: 'Inter, system-ui, sans-serif', display: 'flex', flexDirection: 'column', gap: 2 }}>
+      <div style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em', padding: '0 8px', marginBottom: 4 }}>
+        워크스페이스
+      </div>
+      {NAV_ITEMS.map((item) => (
+        <GhostButton
+          key={item.label}
+          color={active === item.label ? 'black' : 'gray'}
+          size="large"
+          style={{
+            width: '100%',
+            justifyContent: 'flex-start',
+            background: active === item.label ? '#f1f5f9' : 'transparent',
+            borderRadius: 8,
+            padding: '0 8px',
+          }}
+          onClick={() => setActive(item.label)}
+        >
+          <GhostButton.Center>
+            <span style={{ display: 'flex', alignItems: 'center', gap: 8, width: '100%' }}>
+              <span style={{ fontSize: 14 }}>{item.icon}</span>
+              <span style={{ flex: 1, textAlign: 'left', fontSize: 13, fontWeight: active === item.label ? 600 : 400 }}>{item.label}</span>
+              {item.count !== null && (
+                <span style={{ fontSize: 11, fontWeight: 700, color: '#6366f1', background: '#eef2ff', padding: '1px 6px', borderRadius: 999 }}>
+                  {item.count}
+                </span>
+              )}
+            </span>
+          </GhostButton.Center>
+        </GhostButton>
+      ))}
+    </div>
+  )
+}
+
+export const Mantine_사이드바_내비게이션_메뉴: Story = {
+  name: 'Mantine - 사이드바 내비게이션 메뉴 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Mantine NavLink 패턴. GhostButton을 사이드바 내비게이션 항목으로 활용합니다. ' +
+          '활성 항목 배경 강조, 아이콘+레이블+카운트 뱃지 조합, 클릭 상태 전환을 구현합니다.',
+      },
+    },
+  },
+  render: () => <MantineNavMenuRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Ant Design 벤치마크: 드롭다운 메뉴 액션 그룹 패턴
+   Ant Dropdown Menu — 섹션별 그룹화된 컨텍스트 액션 목록
+-------------------------------------------------------------------------- */
+const ACTION_GROUPS: Array<{ group: string; actions: Array<{ label: string; icon: string; shortcut: string; danger?: boolean }> }> = [
+  {
+    group: '보기',
+    actions: [
+      { label: '코드 복사', icon: '⎘', shortcut: '⌘C' },
+      { label: '링크 복사', icon: '⛓', shortcut: '⌘⇧C' },
+    ],
+  },
+  {
+    group: '편집',
+    actions: [
+      { label: '이름 변경', icon: '✎', shortcut: 'F2' },
+      { label: '복제', icon: '⊕', shortcut: '⌘D' },
+    ],
+  },
+  {
+    group: '위험',
+    actions: [
+      { label: '삭제', icon: '⊗', shortcut: '⌦', danger: true },
+    ],
+  },
+]
+
+export const Ant_드롭다운_액션_그룹_메뉴: Story = {
+  name: 'Ant Design - 드롭다운 액션 그룹 메뉴 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Ant Design Dropdown Menu 패턴. GhostButton을 그룹 섹션별 메뉴 항목으로 사용합니다. ' +
+          '보기/편집/위험 그룹으로 구분하고 각 항목에 아이콘 + 키보드 단축키를 배치합니다.',
+      },
+    },
+  },
+  render: () => (
+    <div style={{ width: 200, fontFamily: 'Inter, system-ui, sans-serif', border: '1px solid #e2e8f0', borderRadius: 10, overflow: 'hidden', boxShadow: '0 4px 16px rgba(0,0,0,0.08)' }}>
+      {ACTION_GROUPS.map((group, gi) => (
+        <div key={group.group}>
+          {gi > 0 && <div style={{ height: 1, background: '#f1f5f9' }} />}
+          <div style={{ padding: '4px 4px 0' }}>
+            <div style={{ fontSize: 10, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.05em', padding: '4px 10px 2px' }}>
+              {group.group}
+            </div>
+            {group.actions.map((action) => (
+              <GhostButton
+                key={action.label}
+                color={action.danger ? 'gray' : 'gray'}
+                size="small"
+                style={{
+                  width: '100%',
+                  justifyContent: 'flex-start',
+                  borderRadius: 6,
+                  color: action.danger ? '#ef4444' : undefined,
+                }}
+              >
+                <GhostButton.Center>
+                  <span style={{ display: 'flex', alignItems: 'center', gap: 8, width: '100%' }}>
+                    <span style={{ fontSize: 13 }}>{action.icon}</span>
+                    <span style={{ flex: 1, textAlign: 'left', fontSize: 12 }}>{action.label}</span>
+                    <span style={{ fontSize: 10, color: '#94a3b8' }}>{action.shortcut}</span>
+                  </span>
+                </GhostButton.Center>
+              </GhostButton>
+            ))}
+          </div>
+        </div>
+      ))}
+      <div style={{ height: 4 }} />
+    </div>
+  ),
+}
+
+/* --------------------------------------------------------------------------
+   Mantine + Ant Design 복합: 데이터 뷰 전환 + 내보내기 액션 바
+   뷰 토글(리스트/그리드/테이블) + 내보내기 메뉴 조합
+-------------------------------------------------------------------------- */
+function MantineAntViewActionBarRender() {
+  const [view, setView] = useState<'list' | 'grid' | 'table'>('list')
+  const [exporting, setExporting] = useState(false)
+
+  const views = [
+    { key: 'list' as const, label: '목록', icon: '☰' },
+    { key: 'grid' as const, label: '그리드', icon: '⊞' },
+    { key: 'table' as const, label: '테이블', icon: '⊟' },
+  ]
+
+  const handleExport = async (format: string) => {
+    setExporting(true)
+    await new Promise(r => setTimeout(r, 1000))
+    setExporting(false)
+    window.alert(`${format} 내보내기 완료`)
+  }
+
+  return (
+    <div style={{ width: 380, fontFamily: 'Inter, system-ui, sans-serif', display: 'flex', flexDirection: 'column', gap: 12 }}>
+      {/* 액션 바 */}
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 12px', background: '#f8fafc', borderRadius: 10, border: '1px solid #e2e8f0' }}>
+        {/* 뷰 전환 토글 */}
+        <div style={{ display: 'flex', gap: 2, background: '#fff', borderRadius: 8, border: '1px solid #e2e8f0', padding: 2 }}>
+          {views.map(v => (
+            <GhostButton
+              key={v.key}
+              color={view === v.key ? 'black' : 'gray'}
+              size="small"
+              style={{
+                borderRadius: 6,
+                background: view === v.key ? '#1e293b' : 'transparent',
+                color: view === v.key ? '#fff' : '#94a3b8',
+                minWidth: 56,
+              }}
+              onClick={() => setView(v.key)}
+            >
+              <GhostButton.Center>
+                <span style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+                  <span>{v.icon}</span>
+                  <span style={{ fontSize: 11 }}>{v.label}</span>
+                </span>
+              </GhostButton.Center>
+            </GhostButton>
+          ))}
+        </div>
+        {/* 내보내기 */}
+        <div style={{ display: 'flex', gap: 4 }}>
+          {['CSV', 'JSON', 'XLSX'].map(fmt => (
+            <GhostButton
+              key={fmt}
+              color="gray"
+              size="small"
+              disabled={exporting}
+              onClick={() => handleExport(fmt)}
+            >
+              <GhostButton.Center>{fmt}</GhostButton.Center>
+            </GhostButton>
+          ))}
+        </div>
+      </div>
+      {/* 콘텐츠 프리뷰 */}
+      <div style={{ padding: '12px', background: '#fff', borderRadius: 8, border: '1px solid #f1f5f9', minHeight: 80, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <span style={{ fontSize: 13, color: '#94a3b8' }}>현재 뷰: <strong style={{ color: '#1e293b' }}>{view}</strong></span>
+      </div>
+      <div style={{ fontSize: 11, color: '#94a3b8' }}>Mantine 뷰 토글 + Ant Design 내보내기 액션 바 패턴</div>
+    </div>
+  )
+}
+
+export const Mantine_Ant_뷰전환_내보내기_액션바: Story = {
+  name: 'Mantine + Ant Design - 데이터 뷰 전환 + 내보내기 액션 바',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Mantine + Ant Design 복합 패턴. 뷰 전환(목록/그리드/테이블)을 GhostButton 토글 그룹으로 구현하고, ' +
+          'CSV/JSON/XLSX 내보내기 액션 버튼을 조합합니다. 활성 뷰는 배경색 반전으로 강조합니다.',
+      },
+    },
+  },
+  render: () => <MantineAntViewActionBarRender />,
+}

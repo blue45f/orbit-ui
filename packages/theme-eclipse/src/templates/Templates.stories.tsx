@@ -30352,3 +30352,164 @@ export const LinearVercel128FileManager: StoryObj = {
   },
   render: () => <FileManager128Render />,
 }
+
+/* ============================================================
+   Cycle 129 Template: Mantine + Ant Design
+   칸반 보드 — GhostButton 액션 + SpeechBadge 코멘트 + LabelBadge 상태
+   ============================================================ */
+const KANBAN_COLUMNS_129 = [
+  {
+    id: 'backlog',
+    title: '백로그',
+    color: '#94a3b8',
+    cards: [
+      { id: 1, title: 'SpeechBadge 스트리밍 패턴 추가', priority: 'low', assignee: 'SL', comment: '복잡도 낮음' },
+      { id: 2, title: 'GhostButton 사이드바 패턴', priority: 'medium', assignee: 'HJ', comment: null },
+    ],
+  },
+  {
+    id: 'in_progress',
+    title: '진행 중',
+    color: '#6366f1',
+    cards: [
+      { id: 3, title: 'Cycle 129 스토리 추가', priority: 'high', assignee: 'HJ', comment: '마감 오늘' },
+      { id: 4, title: '타입 에러 수정', priority: 'high', assignee: 'SL', comment: null },
+    ],
+  },
+  {
+    id: 'review',
+    title: '리뷰 중',
+    color: '#f59e0b',
+    cards: [
+      { id: 5, title: 'BenchmarkComparison 업데이트', priority: 'medium', assignee: 'HJ', comment: 'LGTM' },
+    ],
+  },
+  {
+    id: 'done',
+    title: '완료',
+    color: '#22c55e',
+    cards: [
+      { id: 6, title: 'Cycle 128 배포', priority: 'low', assignee: 'HJ', comment: null },
+      { id: 7, title: 'Space 스토리 타입 수정', priority: 'low', assignee: 'SL', comment: '수정 완료!' },
+    ],
+  },
+]
+
+const PRIORITY_BADGE_129: Record<string, { label: string; color: 'gray' | 'benefit' | 'sale' }> = {
+  high: { label: 'High', color: 'sale' },
+  medium: { label: 'Med', color: 'gray' },
+  low: { label: 'Low', color: 'benefit' },
+}
+
+function KanbanBoard129Render() {
+  const [selected, setSelected] = useState<number | null>(null)
+
+  return (
+    <div style={{ fontFamily: 'Inter, system-ui, sans-serif', display: 'flex', flexDirection: 'column', gap: 16 }}>
+      {/* 헤더 */}
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <div style={{ fontSize: 16, fontWeight: 700, color: '#1e293b' }}>Cycle 129 칸반 보드</div>
+        <div style={{ display: 'flex', gap: 6 }}>
+          <GhostButton color="gray" size="small">
+            <GhostButton.Center>필터</GhostButton.Center>
+          </GhostButton>
+          <SolidButton color="black" size="small">
+            <SolidButton.Center>카드 추가</SolidButton.Center>
+          </SolidButton>
+        </div>
+      </div>
+
+      {/* 컬럼 그리드 */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 12, minWidth: 700 }}>
+        {KANBAN_COLUMNS_129.map(col => (
+          <div key={col.id} style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+            {/* 컬럼 헤더 */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '0 4px' }}>
+              <span style={{ width: 8, height: 8, borderRadius: '50%', background: col.color, flexShrink: 0 }} />
+              <span style={{ fontSize: 12, fontWeight: 700, color: '#1e293b', flex: 1 }}>{col.title}</span>
+              <span style={{ fontSize: 11, color: '#94a3b8', background: '#f1f5f9', padding: '1px 6px', borderRadius: 999 }}>{col.cards.length}</span>
+            </div>
+
+            {/* 카드 목록 */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+              {col.cards.map(card => {
+                const badge = PRIORITY_BADGE_129[card.priority]
+                const isSelected = selected === card.id
+                return (
+                  <div
+                    key={card.id}
+                    onClick={() => setSelected(isSelected ? null : card.id)}
+                    style={{
+                      padding: '10px 12px',
+                      background: isSelected ? '#f0f9ff' : '#fff',
+                      border: `1px solid ${isSelected ? '#bae6fd' : '#f1f5f9'}`,
+                      borderRadius: 10,
+                      cursor: 'pointer',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      gap: 8,
+                      boxShadow: '0 1px 3px rgba(0,0,0,0.04)',
+                    }}
+                  >
+                    {/* 카드 제목 */}
+                    <div style={{ fontSize: 12, fontWeight: 500, color: '#1e293b', lineHeight: 1.4 }}>{card.title}</div>
+
+                    {/* 하단: 배지 + 담당자 */}
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                      <LabelBadge color={badge.color}>
+                        <LabelBadge.Label>{badge.label}</LabelBadge.Label>
+                      </LabelBadge>
+                      <div style={{ width: 22, height: 22, borderRadius: '50%', background: '#e0e7ff', color: '#6366f1', fontSize: 9, fontWeight: 700, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        {card.assignee}
+                      </div>
+                    </div>
+
+                    {/* 코멘트 말풍선 */}
+                    {card.comment && (
+                      <SpeechBadge color="blue" tailPosition="leading" style={{ fontSize: 10, lineHeight: 1.4 }}>
+                        {card.comment}
+                      </SpeechBadge>
+                    )}
+
+                    {/* 선택 시 액션 버튼 */}
+                    {isSelected && (
+                      <div style={{ display: 'flex', gap: 4 }}>
+                        <GhostButton color="gray" size="small" style={{ flex: 1, fontSize: 10 }}>
+                          <GhostButton.Center>편집</GhostButton.Center>
+                        </GhostButton>
+                        <GhostButton color="gray" size="small" style={{ flex: 1, fontSize: 10 }}>
+                          <GhostButton.Center>이동</GhostButton.Center>
+                        </GhostButton>
+                      </div>
+                    )}
+                  </div>
+                )
+              })}
+            </div>
+
+            {/* 카드 추가 버튼 */}
+            <GhostButton color="gray" size="small" style={{ width: '100%', borderRadius: 8, border: '1px dashed #e2e8f0', color: '#94a3b8' }}>
+              <GhostButton.Center>+ 추가</GhostButton.Center>
+            </GhostButton>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+export const MantineAnt129KanbanBoard: StoryObj = {
+  name: 'Mantine + Ant Design — 칸반 보드 (Cycle 129)',
+  parameters: {
+    layout: 'centered',
+    docs: {
+      description: {
+        story:
+          'Mantine + Ant Design 벤치마크 — Cycle 129. ' +
+          'GhostButton 컬럼 액션 + SpeechBadge 코멘트 말풍선 + LabelBadge 우선순위 배지를 결합한 칸반 보드. ' +
+          '카드 클릭 시 편집/이동 액션 버튼이 펼쳐지는 인터랙티브 패턴.',
+      },
+    },
+  },
+  render: () => <KanbanBoard129Render />,
+}

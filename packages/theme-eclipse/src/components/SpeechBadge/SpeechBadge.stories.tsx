@@ -800,3 +800,217 @@ export const Shadcn_단계별_가이드_팁: Story = {
   },
   render: () => <ShadcnStepGuideRender />,
 }
+
+/* --------------------------------------------------------------------------
+   Mantine 벤치마크: AI 챗봇 응답 스트리밍 말풍선 패턴
+   Mantine Notification + 스트리밍 텍스트 효과
+-------------------------------------------------------------------------- */
+const BOT_RESPONSES = [
+  'Orbit UI는 3계층 아키텍처(Base → Theme → Custom)를 사용합니다.',
+  '컴포넌트를 확장하려면 vanilla-extract 스타일 파일을 수정하세요.',
+  '스토리북에서 autodocs 태그로 자동 문서가 생성됩니다.',
+]
+
+function MantineChatbotRender() {
+  const [messages, setMessages] = useState<{ from: 'user' | 'bot'; text: string }[]>([
+    { from: 'user', text: 'Orbit UI를 어떻게 확장하나요?' },
+    { from: 'bot', text: BOT_RESPONSES[0] },
+  ])
+  const [idx, setIdx] = useState(1)
+
+  const ask = () => {
+    if (idx >= BOT_RESPONSES.length) return
+    const nextQ = ['스타일 수정 방법은?', 'autodocs란?'][idx - 1]
+    setMessages(prev => [
+      ...prev,
+      { from: 'user', text: nextQ },
+      { from: 'bot', text: BOT_RESPONSES[idx] },
+    ])
+    setIdx(i => i + 1)
+  }
+
+  return (
+    <div style={{ width: 340, fontFamily: 'Inter, system-ui, sans-serif', display: 'flex', flexDirection: 'column', gap: 12 }}>
+      <div style={{ fontSize: 12, fontWeight: 700, color: '#64748b' }}>Orbit UI 챗봇</div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+        {messages.map((msg, i) => (
+          <div
+            key={i}
+            style={{ display: 'flex', justifyContent: msg.from === 'user' ? 'flex-end' : 'flex-start' }}
+          >
+            <SpeechBadge
+              color={msg.from === 'user' ? 'pink' : 'blue'}
+              tailPosition={msg.from === 'user' ? 'trailing' : 'leading'}
+              style={{ maxWidth: '80%', fontSize: 12, lineHeight: 1.5 }}
+            >
+              {msg.text}
+            </SpeechBadge>
+          </div>
+        ))}
+      </div>
+      {idx < BOT_RESPONSES.length && (
+        <button
+          onClick={ask}
+          style={{ alignSelf: 'flex-start', padding: '6px 14px', fontSize: 12, fontWeight: 600, background: '#f1f5f9', border: '1px solid #e2e8f0', borderRadius: 999, cursor: 'pointer', color: '#475569' }}
+        >
+          다음 질문하기
+        </button>
+      )}
+      <div style={{ fontSize: 11, color: '#94a3b8' }}>Mantine 챗봇 패턴 — 사용자/봇 말풍선 색상 구분</div>
+    </div>
+  )
+}
+
+export const Mantine_AI_챗봇_대화_패턴: Story = {
+  name: 'Mantine - AI 챗봇 대화 말풍선 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Mantine Notification + 채팅 패턴. 사용자(pink/trailing)와 봇(blue/leading)을 색상과 방향으로 구분합니다. ' +
+          '다음 질문 버튼으로 순차적 대화 시뮬레이션을 제공합니다.',
+      },
+    },
+  },
+  render: () => <MantineChatbotRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Ant Design 벤치마크: 인앱 공지 + 시스템 메시지 패턴
+   Ant Message — 시스템 알림/경고 말풍선 인라인 표시
+-------------------------------------------------------------------------- */
+const SYSTEM_NOTICES = [
+  { type: 'info' as const, text: '새 버전 v2.1.0이 출시되었습니다.', color: 'blue' as const, time: '방금 전' },
+  { type: 'warn' as const, text: '일일 배포 한도(100회)에 근접했습니다.', color: 'pink' as const, time: '5분 전' },
+  { type: 'info' as const, text: 'PR #152가 머지되었습니다.', color: 'blue' as const, time: '12분 전' },
+]
+
+export const Ant_인앱_시스템_공지_말풍선: Story = {
+  name: 'Ant Design - 인앱 시스템 공지 말풍선 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Ant Design Message 인라인 패턴. 시스템 공지/경고 메시지를 SpeechBadge 말풍선으로 표시합니다. ' +
+          'info 메시지는 blue, warn 메시지는 pink로 구분하며 타임스탬프를 함께 표시합니다.',
+      },
+    },
+  },
+  render: () => (
+    <div style={{ width: 320, fontFamily: 'Inter, system-ui, sans-serif', display: 'flex', flexDirection: 'column', gap: 10 }}>
+      <div style={{ fontSize: 12, fontWeight: 700, color: '#64748b' }}>시스템 공지</div>
+      {SYSTEM_NOTICES.map((notice, i) => (
+        <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: 8 }}>
+          <div style={{
+            width: 28, height: 28, borderRadius: '50%', flexShrink: 0,
+            background: notice.type === 'warn' ? '#fef3c7' : '#dbeafe',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            fontSize: 14,
+          }}>
+            {notice.type === 'warn' ? '⚠' : 'ℹ'}
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
+            <SpeechBadge
+              color={notice.color}
+              tailPosition="leading"
+              style={{ fontSize: 12, lineHeight: 1.4 }}
+            >
+              {notice.text}
+            </SpeechBadge>
+            <span style={{ fontSize: 10, color: '#94a3b8', marginLeft: 4 }}>{notice.time}</span>
+          </div>
+        </div>
+      ))}
+      <div style={{ fontSize: 11, color: '#94a3b8' }}>Ant Design Message 패턴 — 시스템 알림 말풍선</div>
+    </div>
+  ),
+}
+
+/* --------------------------------------------------------------------------
+   Mantine + Ant Design 복합: 고객 지원 채팅 위젯 패턴
+   실시간 상담원 대화 + 상태 표시 + 빠른 답변 버튼
+-------------------------------------------------------------------------- */
+const SUPPORT_CHAT = [
+  { from: 'agent' as const, text: '안녕하세요! Orbit UI 지원팀입니다. 무엇을 도와드릴까요?' },
+  { from: 'user' as const, text: 'TypeScript 에러가 발생했어요.' },
+  { from: 'agent' as const, text: '에러 메시지를 공유해주시면 빠르게 도와드리겠습니다.' },
+]
+
+const QUICK_REPLIES = ['에러 코드 공유', '문서 링크 요청', '담당자 연결']
+
+function MantineAntSupportChatRender() {
+  const [msgs, setMsgs] = useState(SUPPORT_CHAT)
+  const [typing, setTyping] = useState(false)
+
+  const sendQuick = async (reply: string) => {
+    setMsgs(prev => [...prev, { from: 'user', text: reply }])
+    setTyping(true)
+    await new Promise(r => setTimeout(r, 1200))
+    setTyping(false)
+    setMsgs(prev => [...prev, { from: 'agent', text: `"${reply}"를 처리하겠습니다. 잠시만 기다려주세요.` }])
+  }
+
+  return (
+    <div style={{ width: 320, fontFamily: 'Inter, system-ui, sans-serif', border: '1px solid #e2e8f0', borderRadius: 14, overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
+      {/* 헤더 */}
+      <div style={{ padding: '12px 16px', background: '#1e293b', color: '#fff', display: 'flex', alignItems: 'center', gap: 8 }}>
+        <div style={{ width: 32, height: 32, borderRadius: '50%', background: '#6366f1', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 12, fontWeight: 700 }}>OR</div>
+        <div>
+          <div style={{ fontSize: 13, fontWeight: 700 }}>Orbit UI 지원</div>
+          <div style={{ fontSize: 10, color: '#94a3b8', display: 'flex', alignItems: 'center', gap: 4 }}>
+            <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#22c55e', display: 'inline-block' }} />
+            온라인
+          </div>
+        </div>
+      </div>
+      {/* 메시지 목록 */}
+      <div style={{ padding: '12px', display: 'flex', flexDirection: 'column', gap: 8, minHeight: 180, background: '#f8fafc' }}>
+        {msgs.map((msg, i) => (
+          <div key={i} style={{ display: 'flex', justifyContent: msg.from === 'user' ? 'flex-end' : 'flex-start' }}>
+            <SpeechBadge
+              color={msg.from === 'user' ? 'pink' : 'blue'}
+              tailPosition={msg.from === 'user' ? 'trailing' : 'leading'}
+              style={{ fontSize: 11, lineHeight: 1.5, maxWidth: '85%' }}
+            >
+              {msg.text}
+            </SpeechBadge>
+          </div>
+        ))}
+        {typing && (
+          <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
+            <SpeechBadge color="blue" tailPosition="leading" style={{ fontSize: 11 }}>
+              입력 중...
+            </SpeechBadge>
+          </div>
+        )}
+      </div>
+      {/* 빠른 답변 */}
+      <div style={{ padding: '8px 12px', background: '#fff', borderTop: '1px solid #f1f5f9', display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+        {QUICK_REPLIES.map(reply => (
+          <button
+            key={reply}
+            onClick={() => sendQuick(reply)}
+            disabled={typing}
+            style={{ padding: '5px 10px', fontSize: 11, fontWeight: 500, background: '#f1f5f9', border: '1px solid #e2e8f0', borderRadius: 999, cursor: typing ? 'not-allowed' : 'pointer', color: '#475569', opacity: typing ? 0.5 : 1 }}
+          >
+            {reply}
+          </button>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+export const Mantine_Ant_고객지원_채팅_위젯: Story = {
+  name: 'Mantine + Ant Design - 고객 지원 채팅 위젯 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Mantine + Ant Design 복합 채팅 패턴. 고객(pink/trailing)과 상담원(blue/leading) 말풍선, ' +
+          '타이핑 인디케이터, 빠른 답변 버튼을 조합한 고객 지원 채팅 위젯입니다.',
+      },
+    },
+  },
+  render: () => <MantineAntSupportChatRender />,
+}
