@@ -810,3 +810,192 @@ export const Ant_다단계_확인_플로우: Story = {
   },
   render: () => <AntMultiStepConfirmDemo />,
 }
+
+/* --------------------------------------------------------------------------
+   Tailwind UI — 뉴스레터 구독 해지 확인
+   단순 두 버튼 패턴, 파괴적 액션에 빨간색 강조
+-------------------------------------------------------------------------- */
+export const Tailwind_구독_해지_확인: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Tailwind UI modal 패턴. 파괴적 액션(구독 해지)을 명확한 색상(red)으로 강조하고, 취소 버튼을 왼쪽에 배치해 실수를 방지합니다.',
+      },
+    },
+  },
+  render: (args: React.ComponentProps<typeof Alert>) => (
+    <div style={{ padding: '40px', display: 'flex', justifyContent: 'center' }}>
+      <Alert {...args}>
+        <Alert.Trigger asChild>
+          <Button color="gray" size="medium">
+            <Button.Center>구독 해지</Button.Center>
+          </Button>
+        </Alert.Trigger>
+        <Alert.Top>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 4 }}>
+            <span style={{ width: 36, height: 36, borderRadius: '50%', background: '#fee2e2', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+              <AlertLineIcon style={{ width: 18, height: 18, color: '#dc2626' }} />
+            </span>
+            <Alert.Title>뉴스레터 구독을 해지하시겠습니까?</Alert.Title>
+          </div>
+          <Alert.Description>
+            구독 해지 시 주간 업데이트, 제품 소식 등 모든 이메일 수신이 중단됩니다. 언제든지 다시 구독할 수 있습니다.
+          </Alert.Description>
+        </Alert.Top>
+        <Alert.Bottom direction="horizontal">
+          <Alert.Close asChild>
+            <Button color="gray" size="large" width="100%">
+              <Button.Center>취소</Button.Center>
+            </Button>
+          </Alert.Close>
+          <Alert.Action asChild>
+            <Button
+              color="black"
+              size="large"
+              width="100%"
+              style={{ background: '#dc2626', borderColor: '#dc2626' }}
+            >
+              <Button.Center>구독 해지</Button.Center>
+            </Button>
+          </Alert.Action>
+        </Alert.Bottom>
+      </Alert>
+    </div>
+  ),
+}
+
+/* --------------------------------------------------------------------------
+   Tailwind UI — 파일 영구 삭제 (입력 검증 패턴)
+   파일명 직접 입력으로 실수 방지
+-------------------------------------------------------------------------- */
+const FileDeleteDemo = () => {
+  const [inputVal, setInputVal] = React.useState('')
+  const TARGET = 'project-final'
+  const confirmed = inputVal === TARGET
+  return (
+    <div style={{ padding: '40px', display: 'flex', justifyContent: 'center' }}>
+      <Alert defaultIsPresented={false}>
+        <Alert.Trigger asChild>
+          <Button color="gray" size="medium">
+            <Button.Leading><DeleteLineIcon /></Button.Leading>
+            <Button.Center>파일 삭제</Button.Center>
+          </Button>
+        </Alert.Trigger>
+        <Alert.Top>
+          <Alert.Title>파일을 영구 삭제하시겠습니까?</Alert.Title>
+          <Alert.Description>
+            이 작업은 취소할 수 없습니다. <b style={{ color: '#dc2626' }}>project-final</b> 폴더와 모든 하위 파일이 영구 삭제됩니다.
+          </Alert.Description>
+          <div style={{ marginTop: 16 }}>
+            <p style={{ fontSize: 13, color: '#64748b', marginBottom: 6 }}>
+              확인을 위해 <b>project-final</b>을 입력하세요
+            </p>
+            <div style={{ width: '100%' }}>
+              <TextField
+                value={inputVal}
+                onChange={(e) => setInputVal(e.target.value)}
+                placeholder="project-final"
+              />
+            </div>
+          </div>
+        </Alert.Top>
+        <Alert.Bottom direction="horizontal">
+          <Alert.Close asChild>
+            <Button color="gray" size="large" width="100%">
+              <Button.Center>취소</Button.Center>
+            </Button>
+          </Alert.Close>
+          <Alert.Action asChild>
+            <Button
+              color="black"
+              size="large"
+              width="100%"
+              disabled={!confirmed}
+              style={confirmed ? { background: '#dc2626', borderColor: '#dc2626' } : {}}
+            >
+              <Button.Center>영구 삭제</Button.Center>
+            </Button>
+          </Alert.Action>
+        </Alert.Bottom>
+      </Alert>
+      <p style={{ marginLeft: 16, fontSize: 12, color: '#94a3b8', alignSelf: 'center' }}>
+        Tailwind UI 파일 삭제 패턴 — 텍스트 입력 검증으로 실수 방지
+      </p>
+    </div>
+  )
+}
+
+export const Tailwind_파일_영구_삭제: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Tailwind UI 파괴적 작업 확인 패턴. 사용자가 삭제 대상 이름을 직접 입력해야 삭제 버튼이 활성화됩니다. GitHub 저장소 삭제 등에 활용되는 높은 위험도 작업 UX.',
+      },
+    },
+  },
+  render: () => <FileDeleteDemo />,
+}
+
+/* --------------------------------------------------------------------------
+   Ant Design — 폼 저장 전 이탈 경고
+   변경 사항 저장 여부를 3개 버튼으로 제시
+-------------------------------------------------------------------------- */
+const LeaveWarningDemo = () => {
+  const [saved, setSaved] = React.useState<string | null>(null)
+  return (
+    <div style={{ padding: '40px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 16 }}>
+      {saved && (
+        <div style={{ padding: '10px 20px', borderRadius: 8, background: saved === 'saved' ? '#dcfce7' : '#fef9c3', fontSize: 13, color: saved === 'saved' ? '#15803d' : '#854d0e' }}>
+          {saved === 'saved' ? '변경 사항이 저장되었습니다.' : '변경 사항이 저장되지 않고 이동합니다.'}
+        </div>
+      )}
+      <Alert defaultIsPresented={false}>
+        <Alert.Trigger asChild>
+          <Button color="gray" size="medium">
+            <Button.Center>페이지 이탈 (변경 사항 있음)</Button.Center>
+          </Button>
+        </Alert.Trigger>
+        <Alert.Top>
+          <Alert.Title>변경 사항을 저장하시겠습니까?</Alert.Title>
+          <Alert.Description>
+            저장하지 않으면 이 페이지에서 변경한 내용이 모두 사라집니다. 계속 진행하기 전에 저장 여부를 선택해 주세요.
+          </Alert.Description>
+        </Alert.Top>
+        <Alert.Bottom direction="vertical">
+          <Alert.Action asChild>
+            <Button color="primary" size="large" width="100%" onClick={() => setSaved('saved')}>
+              <Button.Center>저장 후 이동</Button.Center>
+            </Button>
+          </Alert.Action>
+          <Alert.Action asChild>
+            <Button color="gray" size="large" width="100%" onClick={() => setSaved('discard')}>
+              <Button.Center>저장하지 않고 이동</Button.Center>
+            </Button>
+          </Alert.Action>
+          <Alert.Close asChild>
+            <Button color="gray" size="large" width="100%" style={{ background: 'transparent', borderColor: 'transparent', color: '#64748b' }}>
+              <Button.Center>계속 편집</Button.Center>
+            </Button>
+          </Alert.Close>
+        </Alert.Bottom>
+      </Alert>
+      <p style={{ fontSize: 12, color: '#94a3b8' }}>
+        Ant Design Leave Warning 패턴 — 3개 선택지로 사용자 의도 명확화
+      </p>
+    </div>
+  )
+}
+
+export const Ant_폼_이탈_경고: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Ant Design의 Leave Warning 패턴. 폼 편집 중 페이지를 이탈할 때 "저장 후 이동 / 저장하지 않고 이동 / 계속 편집" 세 가지 선택지를 제시해 사용자 데이터 손실을 방지합니다.',
+      },
+    },
+  },
+  render: () => <LeaveWarningDemo />,
+}

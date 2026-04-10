@@ -1244,3 +1244,183 @@ export const shadcn_제품_갤러리: Story = {
   },
   render: () => <ProductGalleryRender />,
 }
+
+/* --------------------------------------------------------------------------
+   Tailwind UI — 서비스 소개 히어로 슬라이더
+   텍스트 오버레이 + 배경 그라디언트 슬라이드
+-------------------------------------------------------------------------- */
+const HERO_SLIDES = [
+  {
+    label: '빠른 개발',
+    headline: '컴포넌트 라이브러리로\n개발 속도 3배',
+    sub: '60+ 프로덕션 레디 컴포넌트로 반복 작업을 제거하세요.',
+    bg: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)',
+    accent: '#c4b5fd',
+  },
+  {
+    label: '일관된 디자인',
+    headline: '3단계 토큰 시스템으로\n브랜드 일관성',
+    sub: 'Reference → Semantic → Component 토큰으로 테마를 자유롭게 확장하세요.',
+    bg: 'linear-gradient(135deg, #0ea5e9 0%, #6366f1 100%)',
+    accent: '#bae6fd',
+  },
+  {
+    label: '접근성',
+    headline: 'WAI-ARIA 기본 탑재\n모든 사용자를 위해',
+    sub: '키보드 탐색, 스크린 리더, 포커스 관리가 기본으로 제공됩니다.',
+    bg: 'linear-gradient(135deg, #10b981 0%, #0ea5e9 100%)',
+    accent: '#a7f3d0',
+  },
+]
+
+const HeroSliderRender = () => {
+  const [current, setCurrent] = React.useState(0)
+  React.useEffect(() => {
+    const t = setInterval(() => setCurrent((c) => (c + 1) % HERO_SLIDES.length), 3500)
+    return () => clearInterval(t)
+  }, [])
+  const slide = HERO_SLIDES[current]
+  return (
+    <div style={{ padding: '32px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 24 }}>
+      <div style={{ width: '100%', maxWidth: 560, borderRadius: 20, overflow: 'hidden', background: slide.bg, padding: '48px 40px', color: '#fff', position: 'relative', minHeight: 200, transition: 'background 0.6s' }}>
+        <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: slide.accent, display: 'block', marginBottom: 12 }}>{slide.label}</span>
+        <h2 style={{ fontSize: 28, fontWeight: 800, lineHeight: 1.25, marginBottom: 14, whiteSpace: 'pre-line', margin: '0 0 14px' }}>{slide.headline}</h2>
+        <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.85)', lineHeight: 1.6, margin: 0 }}>{slide.sub}</p>
+        <div style={{ position: 'absolute', bottom: 20, right: 24, display: 'flex', gap: 6 }}>
+          {HERO_SLIDES.map((_, i) => (
+            <button key={i} onClick={() => setCurrent(i)} style={{ width: i === current ? 20 : 6, height: 6, borderRadius: 3, background: i === current ? '#fff' : 'rgba(255,255,255,0.4)', border: 'none', cursor: 'pointer', transition: 'all 0.3s', padding: 0 }} />
+          ))}
+        </div>
+      </div>
+      <p style={{ fontSize: 11, color: '#94a3b8' }}>Tailwind UI Hero Slider — 자동 전환 + 도트 내비게이션</p>
+    </div>
+  )
+}
+
+export const Tailwind_히어로_슬라이더: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Tailwind UI 랜딩 페이지 히어로 섹션 패턴. 그라디언트 배경 + 텍스트 오버레이 슬라이드, 3.5초 자동 전환, 하단 도트 인디케이터로 서비스 핵심 가치를 순차 노출합니다.',
+      },
+    },
+  },
+  render: () => <HeroSliderRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Tailwind UI — 팀원 소개 캐러셀
+   카드형 팀원 프로필 슬라이드
+-------------------------------------------------------------------------- */
+const TEAM_MEMBERS = [
+  { name: '김지훈', role: 'Design Lead', initials: 'KJ', bg: '#6366f1', tags: ['Figma', 'Research', 'System'] },
+  { name: '이수연', role: 'Frontend Engineer', initials: 'LS', bg: '#10b981', tags: ['React', 'TypeScript', 'CSS'] },
+  { name: '박민준', role: 'Product Manager', initials: 'PM', bg: '#f59e0b', tags: ['Roadmap', 'OKR', 'UX'] },
+  { name: '최아름', role: 'Backend Engineer', initials: 'CA', bg: '#ec4899', tags: ['Node.js', 'DB', 'API'] },
+]
+
+const TeamCarouselRender = () => {
+  const [idx, setIdx] = React.useState(0)
+  return (
+    <div style={{ padding: '32px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 20 }}>
+      <Carousel className="w-full max-w-sm">
+        <Carousel.Content>
+          {TEAM_MEMBERS.map((m) => (
+            <Carousel.Item key={m.name}>
+              <div style={{ margin: '0 8px', padding: '28px', borderRadius: 16, border: '1px solid #e2e8f0', background: '#fff', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12, minHeight: 200 }}>
+                <div style={{ width: 72, height: 72, borderRadius: '50%', background: m.bg, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 22, fontWeight: 800, color: '#fff' }}>{m.initials}</div>
+                <div style={{ textAlign: 'center' }}>
+                  <div style={{ fontSize: 18, fontWeight: 700, color: '#0f172a', marginBottom: 4 }}>{m.name}</div>
+                  <div style={{ fontSize: 13, color: '#64748b' }}>{m.role}</div>
+                </div>
+                <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', justifyContent: 'center' }}>
+                  {m.tags.map((t) => (
+                    <span key={t} style={{ fontSize: 11, fontWeight: 600, padding: '3px 10px', borderRadius: 99, background: '#f1f5f9', color: '#475569' }}>{t}</span>
+                  ))}
+                </div>
+              </div>
+            </Carousel.Item>
+          ))}
+        </Carousel.Content>
+        <Carousel.Previous />
+        <Carousel.Next />
+      </Carousel>
+      <div style={{ display: 'flex', gap: 6 }}>
+        {TEAM_MEMBERS.map((_, i) => (
+          <button key={i} onClick={() => setIdx(i)} style={{ width: idx === i ? 16 : 6, height: 6, borderRadius: 3, background: idx === i ? '#6366f1' : '#e2e8f0', border: 'none', cursor: 'pointer', transition: 'all 0.3s', padding: 0 }} />
+        ))}
+      </div>
+      <p style={{ fontSize: 11, color: '#94a3b8' }}>Tailwind UI 팀 소개 패턴 — 아바타 + 역할 + 스킬 태그</p>
+    </div>
+  )
+}
+
+export const Tailwind_팀원_소개_캐러셀: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Tailwind UI About 페이지의 팀원 소개 캐러셀 패턴. 아바타 이니셜, 직책, 스킬 태그를 카드로 구성하고 Previous/Next 버튼과 도트 인디케이터로 탐색합니다.',
+      },
+    },
+  },
+  render: () => <TeamCarouselRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Ant Design — 공지/배너 슬라이더
+   배경 아이콘 + 알림 텍스트 + 배지 카운트 패턴
+-------------------------------------------------------------------------- */
+const ANT_NOTICES = [
+  { type: 'info', color: '#3b82f6', bg: '#eff6ff', border: '#bfdbfe', icon: 'i', title: '시스템 점검 안내', body: '2026년 4월 15일 02:00~04:00 정기 점검이 예정되어 있습니다. 해당 시간 동안 서비스 이용이 제한됩니다.', badge: '예정' },
+  { type: 'warning', color: '#f59e0b', bg: '#fffbeb', border: '#fde68a', icon: '!', title: 'API 요청 한도 80% 도달', body: '현재 월간 API 사용량이 80%에 도달했습니다. 한도 초과 방지를 위해 플랜 업그레이드를 권장합니다.', badge: '경고' },
+  { type: 'success', color: '#10b981', bg: '#f0fdf4', border: '#a7f3d0', icon: 'v', title: '새 버전 배포 완료', body: 'v3.2.0이 성공적으로 배포되었습니다. 개선된 컴포넌트 성능과 17개의 버그 수정 사항을 확인하세요.', badge: '완료' },
+]
+
+const AntNoticeBannerRender = () => {
+  const [cur, setCur] = React.useState(0)
+  React.useEffect(() => {
+    const t = setInterval(() => setCur((c) => (c + 1) % ANT_NOTICES.length), 4000)
+    return () => clearInterval(t)
+  }, [])
+  const n = ANT_NOTICES[cur]
+  return (
+    <div style={{ padding: '32px', display: 'flex', flexDirection: 'column', gap: 16, maxWidth: 560 }}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 4 }}>
+        <span style={{ fontSize: 13, fontWeight: 700, color: '#0f172a' }}>공지사항</span>
+        <span style={{ fontSize: 12, color: '#94a3b8' }}>{cur + 1} / {ANT_NOTICES.length}</span>
+      </div>
+      <div style={{ padding: '20px', borderRadius: 12, background: n.bg, border: `1px solid ${n.border}`, transition: 'all 0.4s', minHeight: 100 }}>
+        <div style={{ display: 'flex', gap: 12, alignItems: 'flex-start' }}>
+          <span style={{ width: 28, height: 28, borderRadius: '50%', background: n.color, color: '#fff', fontSize: 14, fontWeight: 800, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>{n.icon}</span>
+          <div style={{ flex: 1 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 6 }}>
+              <span style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>{n.title}</span>
+              <span style={{ fontSize: 10, fontWeight: 700, padding: '2px 8px', borderRadius: 99, background: n.color, color: '#fff' }}>{n.badge}</span>
+            </div>
+            <p style={{ fontSize: 13, color: '#475569', lineHeight: 1.6, margin: 0 }}>{n.body}</p>
+          </div>
+        </div>
+      </div>
+      <div style={{ display: 'flex', gap: 6, justifyContent: 'center' }}>
+        {ANT_NOTICES.map((_, i) => (
+          <button key={i} onClick={() => setCur(i)} style={{ width: 6, height: 6, borderRadius: '50%', background: i === cur ? '#0f172a' : '#e2e8f0', border: 'none', cursor: 'pointer', transition: 'background 0.3s', padding: 0 }} />
+        ))}
+      </div>
+      <p style={{ fontSize: 11, color: '#94a3b8', textAlign: 'center' }}>Ant Design 공지 배너 패턴 — 타입별 색상 코딩 + 배지 카운트</p>
+    </div>
+  )
+}
+
+export const Ant_공지_배너_슬라이더: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Ant Design의 Notice Banner 슬라이더 패턴. info/warning/success 타입별 색상 코딩, 배지 카운트, 4초 자동 전환으로 여러 공지사항을 컴팩트하게 노출합니다.',
+      },
+    },
+  },
+  render: () => <AntNoticeBannerRender />,
+}

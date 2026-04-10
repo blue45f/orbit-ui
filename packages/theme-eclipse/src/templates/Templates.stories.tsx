@@ -16977,3 +16977,160 @@ export const HabitTracker: Story = {
   },
   render: () => <HabitTrackerRender />,
 }
+
+/* ==========================================================================
+   Template #60 — NotificationCenter (알림 센터)
+   Tailwind UI + Ant Design 패턴: 읽음/안읽음 관리, 카테고리 필터, 일괄 액션
+   ========================================================================== */
+type NotiType = 'info' | 'success' | 'warning' | 'mention'
+type NotiCategory = 'all' | 'system' | 'team' | 'updates'
+
+type Notification = {
+  id: string
+  type: NotiType
+  category: Exclude<NotiCategory, 'all'>
+  title: string
+  body: string
+  time: string
+  read: boolean
+  avatar: string
+  avatarBg: string
+}
+
+const NOTI_TYPE_CFG: Record<NotiType, { label: string; color: string; dot: string }> = {
+  info:    { label: '정보',   color: '#3b82f6', dot: '#bfdbfe' },
+  success: { label: '완료',   color: '#10b981', dot: '#a7f3d0' },
+  warning: { label: '경고',   color: '#f59e0b', dot: '#fde68a' },
+  mention: { label: '멘션',   color: '#8b5cf6', dot: '#ddd6fe' },
+}
+
+const NOTI_CAT_LABELS: Record<NotiCategory, string> = {
+  all: '전체', system: '시스템', team: '팀', updates: '업데이트',
+}
+
+const INITIAL_NOTIS: Notification[] = [
+  { id: 'n1', type: 'mention', category: 'team', title: '김지훈님이 회원님을 멘션했습니다', body: '"@you 이 컴포넌트 API 리뷰해줄 수 있나요?"', time: '방금', read: false, avatar: 'KJ', avatarBg: '#6366f1' },
+  { id: 'n2', type: 'success', category: 'system', title: '배포 성공', body: 'production 브랜치가 성공적으로 배포되었습니다. v3.2.1', time: '5분 전', read: false, avatar: 'CD', avatarBg: '#10b981' },
+  { id: 'n3', type: 'warning', category: 'system', title: 'API 한도 90% 도달', body: '이번 달 API 요청이 90%에 도달했습니다. 플랜 업그레이드를 고려하세요.', time: '1시간 전', read: false, avatar: '!', avatarBg: '#f59e0b' },
+  { id: 'n4', type: 'info', category: 'updates', title: '새 기능 출시: 다크 모드', body: 'Eclipse 테마에 다크 모드 지원이 추가되었습니다. 설정에서 전환하세요.', time: '3시간 전', read: true, avatar: 'OR', avatarBg: '#0ea5e9' },
+  { id: 'n5', type: 'mention', category: 'team', title: '이수연님이 PR을 할당했습니다', body: 'PR #142: DataTable 성능 최적화를 검토해 주세요.', time: '어제', read: true, avatar: 'LS', avatarBg: '#ec4899' },
+  { id: 'n6', type: 'success', category: 'team', title: '코드 리뷰 승인', body: '박민준님이 PR #138 컴포넌트 접근성 개선을 승인했습니다.', time: '어제', read: true, avatar: 'PM', avatarBg: '#8b5cf6' },
+  { id: 'n7', type: 'info', category: 'updates', title: '주간 리포트 준비 완료', body: '지난 주 팀 활동 요약 리포트를 확인하세요. 47개 태스크 완료.', time: '2일 전', read: true, avatar: 'RP', avatarBg: '#64748b' },
+]
+
+const NotiCenterRender = () => {
+  const [notis, setNotis] = React.useState<Notification[]>(INITIAL_NOTIS)
+  const [cat, setCat] = React.useState<NotiCategory>('all')
+  const [showUnreadOnly, setShowUnreadOnly] = React.useState(false)
+
+  const filtered = notis.filter((n) => {
+    if (cat !== 'all' && n.category !== cat) return false
+    if (showUnreadOnly && n.read) return false
+    return true
+  })
+
+  const unreadCount = notis.filter((n) => !n.read).length
+
+  const markAllRead = () => setNotis((prev) => prev.map((n) => ({ ...n, read: true })))
+  const markRead = (id: string) => setNotis((prev) => prev.map((n) => n.id === id ? { ...n, read: true } : n))
+  const deleteNoti = (id: string) => setNotis((prev) => prev.filter((n) => n.id !== id))
+
+  return (
+    <div style={{ minHeight: '100vh', background: '#f8fafc', display: 'flex', justifyContent: 'center', padding: '24px 16px' }}>
+      <div style={{ width: '100%', maxWidth: 640 }}>
+        {/* 헤더 */}
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 20 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+            <span style={{ fontSize: 20, fontWeight: 800, color: '#0f172a' }}>알림</span>
+            {unreadCount > 0 && (
+              <span style={{ fontSize: 11, fontWeight: 700, padding: '2px 8px', borderRadius: 99, background: '#6366f1', color: '#fff' }}>{unreadCount}</span>
+            )}
+          </div>
+          <div style={{ display: 'flex', gap: 8 }}>
+            <GhostButton color="black" size="small" onClick={() => setShowUnreadOnly((v) => !v)}>
+              <GhostButton.Center>{showUnreadOnly ? '전체 보기' : '안읽음만'}</GhostButton.Center>
+            </GhostButton>
+            {unreadCount > 0 && (
+              <OutlineButton size="small" color="black" onClick={markAllRead}>
+                <OutlineButton.Center>모두 읽음</OutlineButton.Center>
+              </OutlineButton>
+            )}
+          </div>
+        </div>
+
+        {/* 카테고리 탭 */}
+        <div style={{ display: 'flex', gap: 4, marginBottom: 16, background: '#fff', borderRadius: 10, padding: 4, border: '1px solid #e2e8f0' }}>
+          {(Object.keys(NOTI_CAT_LABELS) as NotiCategory[]).map((c) => {
+            const cnt = c === 'all' ? notis.filter((n) => !n.read).length : notis.filter((n) => n.category === c && !n.read).length
+            return (
+              <button key={c} onClick={() => setCat(c)} style={{ flex: 1, padding: '7px 4px', borderRadius: 7, border: 'none', cursor: 'pointer', fontSize: 13, fontWeight: cat === c ? 700 : 400, background: cat === c ? '#0f172a' : 'transparent', color: cat === c ? '#fff' : '#64748b', transition: 'all 0.2s', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 4 }}>
+                {NOTI_CAT_LABELS[c]}
+                {cnt > 0 && <span style={{ fontSize: 10, fontWeight: 700, minWidth: 16, height: 16, borderRadius: 99, background: cat === c ? 'rgba(255,255,255,0.25)' : '#e0e7ff', color: cat === c ? '#fff' : '#6366f1', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', padding: '0 4px' }}>{cnt}</span>}
+              </button>
+            )
+          })}
+        </div>
+
+        {/* 알림 목록 */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+          {filtered.length === 0 ? (
+            <div style={{ textAlign: 'center', padding: '60px 0', color: '#94a3b8', fontSize: 14 }}>
+              알림이 없습니다
+            </div>
+          ) : (
+            filtered.map((n) => {
+              const cfg = NOTI_TYPE_CFG[n.type]
+              return (
+                <div key={n.id} onClick={() => markRead(n.id)} style={{ background: '#fff', borderRadius: 12, border: `1px solid ${n.read ? '#e2e8f0' : '#c7d2fe'}`, padding: '16px', display: 'flex', gap: 12, cursor: 'pointer', transition: 'all 0.2s', position: 'relative', opacity: n.read ? 0.75 : 1 }}>
+                  {/* 읽음 상태 도트 */}
+                  {!n.read && (
+                    <span style={{ position: 'absolute', top: 16, right: 16, width: 8, height: 8, borderRadius: '50%', background: cfg.color }} />
+                  )}
+                  {/* 아바타 */}
+                  <div style={{ width: 40, height: 40, borderRadius: '50%', background: n.avatarBg, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 13, fontWeight: 800, color: '#fff', flexShrink: 0 }}>
+                    {n.avatar}
+                  </div>
+                  {/* 콘텐츠 */}
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 4 }}>
+                      <span style={{ fontSize: 9, fontWeight: 700, padding: '2px 6px', borderRadius: 4, background: cfg.dot, color: cfg.color }}>{cfg.label}</span>
+                      <span style={{ fontSize: 12, color: '#94a3b8' }}>{n.time}</span>
+                    </div>
+                    <div style={{ fontSize: 14, fontWeight: n.read ? 400 : 700, color: '#0f172a', marginBottom: 4 }}>{n.title}</div>
+                    <div style={{ fontSize: 13, color: '#64748b', lineHeight: 1.5 }}>{n.body}</div>
+                  </div>
+                  {/* 삭제 버튼 */}
+                  <button onClick={(e) => { e.stopPropagation(); deleteNoti(n.id) }} style={{ position: 'absolute', top: 12, right: n.read ? 12 : 26, background: 'none', border: 'none', cursor: 'pointer', fontSize: 16, color: '#cbd5e1', lineHeight: 1, padding: '2px 4px', borderRadius: 4 }} title="삭제">x</button>
+                </div>
+              )
+            })
+          )}
+        </div>
+
+        {/* 하단 Progress */}
+        {unreadCount > 0 && (
+          <div style={{ marginTop: 24, padding: '16px', background: '#fff', borderRadius: 12, border: '1px solid #e2e8f0' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8, fontSize: 13 }}>
+              <span style={{ color: '#64748b' }}>읽음 완료</span>
+              <span style={{ fontWeight: 700, color: '#0f172a' }}>{notis.length - unreadCount} / {notis.length}</span>
+            </div>
+            <Progress value={Math.round((notis.length - unreadCount) / notis.length * 100)} />
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+
+export const TailwindNotificationCenter: Story = {
+  name: '알림 센터 (Tailwind UI + Ant Design 패턴)',
+  parameters: {
+    layout: 'fullscreen',
+    docs: {
+      description: {
+        story: 'Tailwind UI 알림 목록 패턴 + Ant Design 배지 카운트/일괄 액션 조합. 카테고리 탭 필터, 읽음/안읽음 토글, 개별 삭제, 모두 읽음 처리, Progress 바 진행률 포함.',
+      },
+    },
+  },
+  render: () => <NotiCenterRender />,
+}

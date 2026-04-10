@@ -792,4 +792,70 @@ const m3Scheme = {
     </section>
 
   </div>
+
+
+<section style={{ marginTop: '48px', padding: '32px', background: 'linear-gradient(135deg, #fff7ed 0%, #fef3c7 100%)', borderRadius: '16px', border: '1px solid #fed7aa' }}>
+  <h2 style={{ fontSize: '22px', fontWeight: '800', color: '#7c2d12', marginBottom: '8px' }}>Cycle 70 — Tailwind UI + Ant Design 커스텀 패턴</h2>
+  <p style={{ color: '#c2410c', fontSize: '14px', marginBottom: '24px', fontWeight: '600' }}>AlertDialog 위험 작업 UX + Carousel 콘텐츠 슬라이더 + 알림 센터 패턴</p>
+
+  <h3 style={{ fontSize: '17px', fontWeight: '700', color: '#334155', marginBottom: '16px' }}>Tailwind UI에서 배운 것</h3>
+  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '24px' }}>
+    <div style={{ padding: '16px', borderRadius: '10px', background: '#fff', border: '1px solid #fed7aa' }}>
+      <h4 style={{ fontSize: '14px', fontWeight: '700', color: '#ea580c', marginBottom: '8px' }}>파괴적 액션 확인 패턴</h4>
+      <p style={{ fontSize: '13px', color: '#475569', lineHeight: '1.6' }}>
+        단순한 "확인 / 취소"가 아닌, 삭제 대상 이름을 직접 입력하게 해서 실수를 원천 차단. GitHub 레포 삭제 등 고위험 작업에서 필수 UX 패턴.
+      </p>
+    </div>
+    <div style={{ padding: '16px', borderRadius: '10px', background: '#fff', border: '1px solid #fed7aa' }}>
+      <h4 style={{ fontSize: '14px', fontWeight: '700', color: '#ea580c', marginBottom: '8px' }}>히어로 슬라이더 구성</h4>
+      <p style={{ fontSize: '13px', color: '#475569', lineHeight: '1.6' }}>
+        랜딩 페이지 히어로에 그라디언트 배경 + 텍스트 오버레이 슬라이드 패턴. 3-4초 자동 전환, 하단 pill 도트 인디케이터, smooth transition.
+      </p>
+    </div>
+    <div style={{ padding: '16px', borderRadius: '10px', background: '#fff', border: '1px solid #fed7aa' }}>
+      <h4 style={{ fontSize: '14px', fontWeight: '700', color: '#ea580c', marginBottom: '8px' }}>팀원 소개 카드 캐러셀</h4>
+      <p style={{ fontSize: '13px', color: '#475569', lineHeight: '1.6' }}>
+        About 페이지 팀원 소개를 카드 캐러셀로 구성. 아바타 이니셜 + 직함 + 스킬 태그 조합. 모바일 반응형 핵심 패턴.
+      </p>
+    </div>
+    <div style={{ padding: '16px', borderRadius: '10px', background: '#fff', border: '1px solid #fed7aa' }}>
+      <h4 style={{ fontSize: '14px', fontWeight: '700', color: '#ea580c', marginBottom: '8px' }}>알림 센터 레이아웃</h4>
+      <p style={{ fontSize: '13px', color: '#475569', lineHeight: '1.6' }}>
+        카테고리 탭 필터 + 읽음/안읽음 배지 카운트 + 일괄 읽음 처리. 알림 항목은 타입별 색상 코딩(info/success/warning/mention).
+      </p>
+    </div>
+  </div>
+
+  <h3 style={{ fontSize: '17px', fontWeight: '700', color: '#334155', marginBottom: '16px' }}>Ant Design에서 배운 것</h3>
+  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '24px' }}>
+    <div style={{ padding: '16px', borderRadius: '10px', background: '#fff', border: '1px solid #fed7aa' }}>
+      <h4 style={{ fontSize: '14px', fontWeight: '700', color: '#92400e', marginBottom: '8px' }}>폼 이탈 경고 3선택지</h4>
+      <p style={{ fontSize: '13px', color: '#475569', lineHeight: '1.6' }}>
+        "저장 후 이동 / 저장하지 않고 이동 / 계속 편집" 세 가지 명시적 선택지. 단순 Yes/No보다 사용자 의도를 정확히 반영하여 데이터 손실 방지.
+      </p>
+    </div>
+    <div style={{ padding: '16px', borderRadius: '10px', background: '#fff', border: '1px solid #fed7aa' }}>
+      <h4 style={{ fontSize: '14px', fontWeight: '700', color: '#92400e', marginBottom: '8px' }}>공지 배너 타입별 색상</h4>
+      <p style={{ fontSize: '13px', color: '#475569', lineHeight: '1.6' }}>
+        info(blue)/warning(amber)/success(green) 타입별 색상 시스템 + 배지. 자동 슬라이더로 여러 공지를 컴팩트하게 순환 노출하는 대시보드 패턴.
+      </p>
+    </div>
+  </div>
+
+  <h3 style={{ fontSize: '17px', fontWeight: '700', color: '#334155', marginBottom: '12px' }}>이번 사이클 적용 결과</h3>
+  <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+    <div style={{ padding: '12px 16px', borderRadius: '8px', background: '#f8fafc', border: '1px solid #e2e8f0', fontSize: '13px' }}>
+      <span style={{ fontWeight: '700', color: '#ea580c' }}>AlertDialog +3:</span>
+      <span style={{ color: '#475569', marginLeft: '8px' }}>Tailwind 구독 해지 확인, Tailwind 파일 영구 삭제(입력 검증), Ant 폼 이탈 경고(3선택지)</span>
+    </div>
+    <div style={{ padding: '12px 16px', borderRadius: '8px', background: '#f8fafc', border: '1px solid #e2e8f0', fontSize: '13px' }}>
+      <span style={{ fontWeight: '700', color: '#0369a1' }}>Carousel +3:</span>
+      <span style={{ color: '#475569', marginLeft: '8px' }}>Tailwind 히어로 슬라이더, Tailwind 팀원 소개 캐러셀, Ant 공지 배너 슬라이더</span>
+    </div>
+    <div style={{ padding: '12px 16px', borderRadius: '8px', background: '#f8fafc', border: '1px solid #e2e8f0', fontSize: '13px' }}>
+      <span style={{ fontWeight: '700', color: '#059669' }}>Template #60:</span>
+      <span style={{ color: '#475569', marginLeft: '8px' }}>TailwindNotificationCenter — 알림 센터, 카테고리 탭, 읽음 관리, Progress 진행률 시각화</span>
+    </div>
+  </div>
+</section>
 </Unstyled>
