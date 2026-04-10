@@ -446,3 +446,297 @@ const LoginFormRender = () => {
 export const 로그인폼: Story = {
   render: () => <LoginFormRender />,
 }
+
+/* --------------------------------------------------------------------------
+   Tailwind UI 벤치마크: 결제 정보 입력 폼
+   Tailwind UI checkout form 패턴 — 카드 번호/만료일/CVV 인라인 그룹
+-------------------------------------------------------------------------- */
+function PaymentFormRender() {
+  const [cardNum, setCardNum] = useState('')
+  const [expiry, setExpiry] = useState('')
+  const [cvv, setCvv] = useState('')
+  const [name, setName] = useState('')
+
+  const formatCard = (val: string) =>
+    val.replace(/\D/g, '').slice(0, 16).replace(/(.{4})/g, '$1 ').trim()
+
+  const formatExpiry = (val: string) => {
+    const digits = val.replace(/\D/g, '').slice(0, 4)
+    if (digits.length >= 2) return `${digits.slice(0, 2)} / ${digits.slice(2)}`
+    return digits
+  }
+
+  const isCardValid = cardNum.replace(/\s/g, '').length === 16
+  const isExpiryValid = expiry.replace(/\s\/\s/g, '').length === 4
+  const isCvvValid = cvv.length === 3
+  const isNameValid = name.length >= 2
+  const canSubmit = isCardValid && isExpiryValid && isCvvValid && isNameValid
+
+  return (
+    <div style={{ width: 360, padding: '28px', background: '#fff', borderRadius: '16px', border: '1px solid #e2e8f0', display: 'flex', flexDirection: 'column', gap: 16, boxShadow: '0 2px 12px rgba(0,0,0,0.06)' }}>
+      <div style={{ fontSize: 16, fontWeight: 700, color: '#1e293b', marginBottom: 4 }}>결제 정보</div>
+
+      <FloatingTextField
+        placeholder="카드 소유자 이름"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+        error={name.length > 0 && !isNameValid}
+      />
+
+      <FloatingTextField
+        placeholder="카드 번호"
+        value={cardNum}
+        onChange={(e) => setCardNum(formatCard(e.target.value))}
+        error={cardNum.length > 0 && !isCardValid}
+      />
+
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+        <FloatingTextField
+          placeholder="MM / YY"
+          value={expiry}
+          onChange={(e) => setExpiry(formatExpiry(e.target.value))}
+          error={expiry.length > 0 && !isExpiryValid}
+        />
+        <FloatingTextField
+          placeholder="CVV"
+          value={cvv}
+          onChange={(e) => setCvv(e.target.value.replace(/\D/g, '').slice(0, 3))}
+          error={cvv.length > 0 && !isCvvValid}
+        />
+      </div>
+
+      <button
+        disabled={!canSubmit}
+        style={{
+          padding: '13px', borderRadius: '10px', border: 'none',
+          background: canSubmit ? 'linear-gradient(135deg, #6366f1, #8b5cf6)' : '#e2e8f0',
+          color: canSubmit ? '#fff' : '#94a3b8',
+          fontSize: '14px', fontWeight: '700', cursor: canSubmit ? 'pointer' : 'not-allowed',
+          transition: 'all 0.2s',
+        }}
+      >
+        {canSubmit ? '결제하기' : '정보를 입력해 주세요'}
+      </button>
+      <div style={{ fontSize: 11, color: '#94a3b8', textAlign: 'center' }}>
+        Tailwind UI checkout form 패턴 — 카드 번호 포맷팅 + 유효성 검사
+      </div>
+    </div>
+  )
+}
+
+export const Tailwind_결제_정보_폼: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Tailwind UI checkout form 패턴. 카드 번호 자동 포맷팅(4자리 공백 구분), MM/YY 마스킹, CVV 3자리 제한. 모든 필드가 유효할 때만 제출 버튼이 활성화됩니다.',
+      },
+    },
+  },
+  render: () => <PaymentFormRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Mantine 벤치마크: 문자 수 카운터 + 힌트 텍스트
+   Mantine TextInput rightSection + description 패턴 — 실시간 글자 수 표시
+-------------------------------------------------------------------------- */
+function CharCounterRender() {
+  const [bio, setBio] = useState('')
+  const [username, setUsername] = useState('')
+  const [website, setWebsite] = useState('')
+
+  const MAX_BIO = 160
+  const MAX_USERNAME = 20
+
+  const bioRemaining = MAX_BIO - bio.length
+  const usernameValid = /^[a-z0-9_]{3,20}$/.test(username) || username.length === 0
+  const websiteValid = website.length === 0 || website.startsWith('https://')
+
+  return (
+    <div style={{ width: 380, padding: '24px', background: '#fff', borderRadius: '16px', border: '1px solid #e2e8f0', display: 'flex', flexDirection: 'column', gap: 20 }}>
+      <div style={{ fontSize: 15, fontWeight: 700, color: '#1e293b' }}>프로필 편집</div>
+
+      {/* Username with counter */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+        <FloatingTextField
+          placeholder="사용자 이름 (영문, 숫자, _)"
+          value={username}
+          onChange={(e) => setUsername(e.target.value.slice(0, MAX_USERNAME))}
+          error={!usernameValid}
+        />
+        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <span style={{ fontSize: 11, color: usernameValid ? '#94a3b8' : '#ef4444' }}>
+            {!usernameValid ? '3~20자, 영문/숫자/_ 만 허용' : '고유한 URL로 사용됩니다'}
+          </span>
+          <span style={{ fontSize: 11, color: username.length >= MAX_USERNAME ? '#ef4444' : '#94a3b8' }}>
+            {username.length}/{MAX_USERNAME}
+          </span>
+        </div>
+      </div>
+
+      {/* Website */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+        <FloatingTextField
+          placeholder="웹사이트 URL"
+          value={website}
+          onChange={(e) => setWebsite(e.target.value)}
+          error={!websiteValid}
+        />
+        {!websiteValid && (
+          <span style={{ fontSize: 11, color: '#ef4444' }}>https:// 로 시작해야 합니다</span>
+        )}
+      </div>
+
+      {/* Bio with char counter */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+        <div style={{ position: 'relative' }}>
+          <textarea
+            placeholder="자기소개"
+            value={bio}
+            onChange={(e) => setBio(e.target.value.slice(0, MAX_BIO))}
+            rows={3}
+            style={{
+              width: '100%', padding: '14px 16px', borderRadius: '10px', resize: 'none',
+              border: `1.5px solid ${bioRemaining < 0 ? '#ef4444' : '#e2e8f0'}`,
+              fontSize: '14px', color: '#1e293b', boxSizing: 'border-box', outline: 'none',
+              fontFamily: 'inherit', lineHeight: 1.5,
+            }}
+          />
+        </div>
+        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <span style={{ fontSize: 11, color: '#94a3b8' }}>검색 프로필에 노출됩니다</span>
+          <span style={{ fontSize: 11, color: bioRemaining <= 20 ? (bioRemaining < 0 ? '#ef4444' : '#f59e0b') : '#94a3b8', fontWeight: bioRemaining <= 20 ? 700 : 400 }}>
+            {bioRemaining}자 남음
+          </span>
+        </div>
+      </div>
+      <div style={{ fontSize: 11, color: '#94a3b8', textAlign: 'center' }}>
+        Mantine TextInput description + rightSection 패턴 — 실시간 글자 수 카운터
+      </div>
+    </div>
+  )
+}
+
+export const Mantine_글자수_카운터: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Mantine TextInput의 description + rightSection 패턴 응용. 사용자 이름 포맷 검증, URL 형식 검사, 자기소개 글자 수 카운터를 조합한 프로필 편집 폼입니다.',
+      },
+    },
+  },
+  render: () => <CharCounterRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Tailwind UI + Mantine 벤치마크: 주소 입력 멀티 스텝 폼
+   Tailwind UI의 단계별 주소 입력 + Mantine autocomplete hint 조합
+-------------------------------------------------------------------------- */
+function AddressFormRender() {
+  const [step, setStep] = useState<0 | 1 | 2>(0)
+  const [addr, setAddr] = useState({ zipcode: '', city: '', street: '', detail: '' })
+
+  const update = (field: keyof typeof addr) => (e: React.ChangeEvent<HTMLInputElement>) =>
+    setAddr((prev) => ({ ...prev, [field]: e.target.value }))
+
+  const STEPS = [
+    { label: '우편번호', field: 'zipcode' as const, placeholder: '우편번호 (5자리)', hint: '우편번호 검색 후 자동 입력됩니다', type: 'text' },
+    { label: '도시 / 구', field: 'city' as const, placeholder: '서울시 강남구', hint: '광역시 및 구/군 단위 입력', type: 'text' },
+    { label: '도로명 주소', field: 'street' as const, placeholder: '테헤란로 152', hint: '건물명 또는 번지 포함', type: 'text' },
+  ]
+
+  const canNext = step === 0 ? /^\d{5}$/.test(addr.zipcode) : step === 1 ? addr.city.length >= 2 : addr.street.length >= 2
+
+  return (
+    <div style={{ width: 360, padding: '24px', background: '#fff', borderRadius: '16px', border: '1px solid #e2e8f0', display: 'flex', flexDirection: 'column', gap: 20, boxShadow: '0 2px 12px rgba(0,0,0,0.06)' }}>
+      <div style={{ fontSize: 15, fontWeight: 700, color: '#1e293b' }}>주소 입력</div>
+
+      {/* Progress */}
+      <div style={{ display: 'flex', gap: 6 }}>
+        {STEPS.map((_, i) => (
+          <div
+            key={i}
+            style={{
+              flex: 1, height: 4, borderRadius: 2,
+              background: i <= step ? '#6366f1' : '#e2e8f0',
+              transition: 'background 0.2s',
+            }}
+          />
+        ))}
+      </div>
+
+      {step < 3 ? (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+          <div style={{ fontSize: 12, fontWeight: 600, color: '#6366f1' }}>
+            단계 {step + 1}/3 — {STEPS[step].label}
+          </div>
+          <FloatingTextField
+            key={step}
+            placeholder={STEPS[step].placeholder}
+            value={addr[STEPS[step].field]}
+            onChange={update(STEPS[step].field)}
+            error={addr[STEPS[step].field].length > 0 && !canNext}
+          />
+          <div style={{ fontSize: 11, color: '#94a3b8' }}>{STEPS[step].hint}</div>
+          <div style={{ display: 'flex', gap: 8, marginTop: 4 }}>
+            {step > 0 && (
+              <button
+                onClick={() => setStep((s) => (s - 1) as 0 | 1 | 2)}
+                style={{ flex: 1, padding: '10px', borderRadius: '8px', border: '1px solid #e2e8f0', background: '#fff', color: '#374151', fontSize: '13px', fontWeight: 500, cursor: 'pointer' }}
+              >
+                이전
+              </button>
+            )}
+            <button
+              disabled={!canNext}
+              onClick={() => { if (canNext) setStep((s) => (s + 1) as 0 | 1 | 2) }}
+              style={{
+                flex: 2, padding: '10px', borderRadius: '8px', border: 'none',
+                background: canNext ? '#6366f1' : '#e2e8f0',
+                color: canNext ? '#fff' : '#94a3b8',
+                fontSize: '13px', fontWeight: 600, cursor: canNext ? 'pointer' : 'not-allowed',
+                transition: 'all 0.15s',
+              }}
+            >
+              다음
+            </button>
+          </div>
+        </div>
+      ) : (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+          <FloatingTextField
+            placeholder="상세 주소 (선택)"
+            value={addr.detail}
+            onChange={update('detail')}
+          />
+          <div style={{ padding: '12px 14px', borderRadius: '8px', background: '#f8fafc', border: '1px solid #e2e8f0', fontSize: 12, color: '#374151', lineHeight: 1.7 }}>
+            <div style={{ color: '#94a3b8', marginBottom: 4, fontSize: 11 }}>입력된 주소</div>
+            <strong>{addr.zipcode}</strong> {addr.city} {addr.street} {addr.detail}
+          </div>
+          <button
+            onClick={() => setStep(0)}
+            style={{ padding: '10px', borderRadius: '8px', border: '1px solid #6366f1', background: '#fff', color: '#6366f1', fontSize: '13px', fontWeight: 600, cursor: 'pointer' }}
+          >
+            다시 입력
+          </button>
+        </div>
+      )}
+      <div style={{ fontSize: 11, color: '#94a3b8', textAlign: 'center' }}>
+        Tailwind UI 다단계 폼 + Mantine 힌트 텍스트 조합 패턴
+      </div>
+    </div>
+  )
+}
+
+export const Tailwind_Mantine_주소_멀티스텝: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Tailwind UI 다단계 폼 + Mantine description hint 조합. 우편번호 → 도시 → 도로명 순서로 단계별 입력을 유도하며, 각 단계마다 유효성 검사와 힌트를 제공합니다.',
+      },
+    },
+  },
+  render: () => <AddressFormRender />,
+}

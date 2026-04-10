@@ -418,5 +418,75 @@ import { Meta, Unstyled } from '@storybook/blocks'
     </div>
   </section>
 
+  {/* ─────────────────────────────────────────────────────
+      Tailwind UI + Mantine 접근성 벤치마크 (Cycle 48)
+      ───────────────────────────────────────────────────── */}
+  <section style={{ marginTop: '48px' }}>
+    <div style={{ fontSize: '22px', fontWeight: '800', color: '#1e293b', marginBottom: '6px' }}>
+      Tailwind UI &amp; Mantine 접근성 벤치마크
+    </div>
+    <div style={{ fontSize: '14px', color: '#64748b', marginBottom: '24px', lineHeight: '1.6' }}>
+      Tailwind UI의 실무 접근성 패턴과 Mantine의 form 접근성 구현 방식을 Orbit UI와 비교합니다.
+    </div>
+
+    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '24px' }}>
+      {/* Tailwind UI */}
+      <div style={{ padding: '20px', borderRadius: '12px', background: '#f0fdf4', border: '2px solid #bbf7d0' }}>
+        <div style={{ fontWeight: '700', fontSize: '14px', color: '#1e293b', marginBottom: '14px' }}>Tailwind UI 접근성 강점</div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', fontSize: '13px', color: '#14532d' }}>
+          <div style={{ padding: '10px 12px', background: '#fff', borderRadius: '8px', border: '1px solid #bbf7d0' }}>
+            <div style={{ fontWeight: '700', marginBottom: '4px' }}>읽기 전용 체크박스 패턴</div>
+            pricing 비교표에서 disabled 체크박스로 기능 지원 여부를 시각적으로 표현. aria-readonly 속성으로 보조 기술에 상태 전달.
+          </div>
+          <div style={{ padding: '10px 12px', background: '#fff', borderRadius: '8px', border: '1px solid #bbf7d0' }}>
+            <div style={{ fontWeight: '700', marginBottom: '4px' }}>체크박스 카드 그리드</div>
+            label 요소로 체크박스와 텍스트를 묶어 클릭 영역을 카드 전체로 확장. 키보드로 탭 이동 후 Space로 토글 가능.
+          </div>
+          <div style={{ padding: '10px 12px', background: '#fff', borderRadius: '8px', border: '1px solid #bbf7d0' }}>
+            <div style={{ fontWeight: '700', marginBottom: '4px' }}>결제 폼 자동 포맷팅</div>
+            카드 번호 입력 시 inputmode="numeric"으로 모바일 숫자 키패드 자동 활성화. pattern 속성으로 유효성 힌트 제공.
+          </div>
+        </div>
+      </div>
+
+      {/* Mantine */}
+      <div style={{ padding: '20px', borderRadius: '12px', background: '#eff6ff', border: '2px solid #bfdbfe' }}>
+        <div style={{ fontWeight: '700', fontSize: '14px', color: '#1e293b', marginBottom: '14px' }}>Mantine 접근성 강점</div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', fontSize: '13px', color: '#1e3a5f' }}>
+          <div style={{ padding: '10px 12px', background: '#fff', borderRadius: '8px', border: '1px solid #bfdbfe' }}>
+            <div style={{ fontWeight: '700', marginBottom: '4px' }}>연동된 aria-describedby</div>
+            description 텍스트에 자동으로 id를 부여하고 input의 aria-describedby로 연결. 스크린 리더가 힌트 텍스트를 자동 읽음.
+          </div>
+          <div style={{ padding: '10px 12px', background: '#fff', borderRadius: '8px', border: '1px solid #bfdbfe' }}>
+            <div style={{ fontWeight: '700', marginBottom: '4px' }}>글자 수 카운터 라이브 리전</div>
+            남은 글자 수를 aria-live="polite"로 래핑해 스크린 리더가 실시간으로 안내. 시각적 색상 변화와 별개로 보조 기술도 지원.
+          </div>
+          <div style={{ padding: '10px 12px', background: '#fff', borderRadius: '8px', border: '1px solid #bfdbfe' }}>
+            <div style={{ fontWeight: '700', marginBottom: '4px' }}>disabled vs required 시각화</div>
+            필수 컬럼은 disabled + 시각적 텍스트 "필수" 레이블로 구분. aria-required + aria-disabled 조합으로 보조 기술 대응.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style={{ padding: '18px 20px', borderRadius: '12px', background: '#f8fafc', border: '1px solid #e2e8f0' }}>
+      <div style={{ fontSize: '13px', fontWeight: '700', color: '#1e293b', marginBottom: '10px' }}>Orbit UI 적용 패턴</div>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '12px', fontSize: '12px', color: '#374151', lineHeight: '1.7' }}>
+        <div>
+          <div style={{ fontWeight: '700', color: '#16a34a', marginBottom: '4px' }}>Checkbox 접근성</div>
+          disabled prop으로 읽기 전용 시각화, label 요소로 클릭 영역 확장, onChange 콜백으로 제어 상태 관리.
+        </div>
+        <div>
+          <div style={{ fontWeight: '700', color: '#1d4ed8', marginBottom: '4px' }}>FloatingTextField 접근성</div>
+          floating label로 placeholder 대체 (항상 표시), error prop으로 aria-invalid 자동 설정.
+        </div>
+        <div>
+          <div style={{ fontWeight: '700', color: '#6366f1', marginBottom: '4px' }}>Switch 접근성</div>
+          onCheckedChange로 제어 상태 관리, role="switch" + aria-checked 자동 설정으로 보조 기술 완전 지원.
+        </div>
+      </div>
+    </div>
+  </section>
+
   </div>
 </Unstyled>

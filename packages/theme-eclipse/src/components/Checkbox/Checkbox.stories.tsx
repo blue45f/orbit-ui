@@ -382,6 +382,251 @@ export const 약관동의그룹 = {
   },
 } satisfies Story
 
+/* --------------------------------------------------------------------------
+   Tailwind UI 벤치마크: 플랜 선택 카드 (feature list + checkbox)
+   Tailwind UI의 체크박스 카드 그리드 패턴 — 각 옵션에 설명 포함
+-------------------------------------------------------------------------- */
+const PLAN_FEATURES = [
+  { key: 'sso', label: 'SSO / SAML', desc: '엔터프라이즈 인증 연동', premium: false },
+  { key: 'api', label: 'API 접근', desc: 'REST/GraphQL 전체 접근', premium: false },
+  { key: 'analytics', label: '고급 Analytics', desc: '팀별 상세 리포트', premium: true },
+  { key: 'support', label: '전용 지원', desc: '24/7 전담 계정 매니저', premium: true },
+  { key: 'custom', label: '커스텀 도메인', desc: '브랜드 도메인 설정', premium: false },
+  { key: 'audit', label: '감사 로그', desc: '활동 이력 90일 보관', premium: true },
+]
+
+function TailwindPlanFeaturesRender() {
+  const [selected, setSelected] = useState<Set<string>>(new Set(['sso', 'api', 'custom']))
+
+  const toggle = (key: string) => {
+    setSelected((prev) => {
+      const next = new Set(prev)
+      if (next.has(key)) next.delete(key)
+      else next.add(key)
+      return next
+    })
+  }
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 16, padding: '20px', maxWidth: 480 }}>
+      <div style={{ fontSize: 14, fontWeight: 700, color: '#1e293b', marginBottom: 4 }}>
+        플랜 기능 선택
+      </div>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
+        {PLAN_FEATURES.map((feat) => {
+          const isOn = selected.has(feat.key)
+          return (
+            <label
+              key={feat.key}
+              style={{
+                display: 'flex', alignItems: 'flex-start', gap: 10,
+                padding: '12px 14px', borderRadius: '10px', cursor: 'pointer',
+                border: `2px solid ${isOn ? '#6366f1' : '#e2e8f0'}`,
+                background: isOn ? '#f5f3ff' : '#fff',
+                transition: 'all 0.15s',
+              }}
+            >
+              <div style={{ marginTop: 2, flexShrink: 0 }}>
+                <Checkbox
+                  checked={isOn}
+                  onChange={() => toggle(feat.key)}
+                />
+              </div>
+              <div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                  <span style={{ fontSize: 13, fontWeight: 600, color: '#1e293b' }}>{feat.label}</span>
+                  {feat.premium && (
+                    <span style={{ fontSize: 9, fontWeight: 700, padding: '1px 5px', borderRadius: 4, background: '#fef9c3', color: '#b45309' }}>
+                      PRO
+                    </span>
+                  )}
+                </div>
+                <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>{feat.desc}</div>
+              </div>
+            </label>
+          )
+        })}
+      </div>
+      <div style={{ fontSize: 12, color: '#6366f1', fontWeight: 600 }}>
+        {selected.size}개 기능 선택됨
+      </div>
+      <div style={{ fontSize: 11, color: '#94a3b8' }}>
+        Tailwind UI 체크박스 카드 그리드 패턴 — 기능 설명 포함 선택
+      </div>
+    </div>
+  )
+}
+
+export const Tailwind_플랜_기능_선택: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Tailwind UI의 체크박스 카드 그리드 패턴. 각 기능에 레이블 + 설명 + 프리미엄 배지를 포함하며, 선택 상태에 따라 카드 테두리와 배경이 변합니다.',
+      },
+    },
+  },
+  render: () => <TailwindPlanFeaturesRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Mantine 벤치마크: 컬럼 표시 설정 (DataTable 컬럼 토글)
+   Mantine DataTable columnVisibility 패턴 — 표시할 컬럼 선택
+-------------------------------------------------------------------------- */
+const DATA_COLUMNS = [
+  { key: 'name', label: '이름', required: true },
+  { key: 'email', label: '이메일', required: false },
+  { key: 'role', label: '역할', required: false },
+  { key: 'status', label: '상태', required: false },
+  { key: 'createdAt', label: '가입일', required: false },
+  { key: 'lastLogin', label: '최근 로그인', required: false },
+  { key: 'plan', label: '플랜', required: false },
+]
+
+function ManitneColumnVisibilityRender() {
+  const [visible, setVisible] = useState<Set<string>>(new Set(['name', 'email', 'role', 'status']))
+
+  const toggleCol = (key: string) => {
+    setVisible((prev) => {
+      const next = new Set(prev)
+      if (next.has(key)) next.delete(key)
+      else next.add(key)
+      return next
+    })
+  }
+
+  const allOn = DATA_COLUMNS.filter((c) => !c.required).every((c) => visible.has(c.key))
+
+  const toggleAll = () => {
+    if (allOn) {
+      setVisible(new Set(DATA_COLUMNS.filter((c) => c.required).map((c) => c.key)))
+    } else {
+      setVisible(new Set(DATA_COLUMNS.map((c) => c.key)))
+    }
+  }
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 14, padding: '20px', maxWidth: 320 }}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <div style={{ fontSize: 14, fontWeight: 700, color: '#1e293b' }}>컬럼 표시 설정</div>
+        <label style={{ display: 'flex', alignItems: 'center', gap: 6, cursor: 'pointer', fontSize: 12, color: '#6366f1', fontWeight: 600 }}>
+          <Checkbox
+            checked={allOn}
+            iconName={allOn ? 'check' : 'minus'}
+            onChange={toggleAll}
+          />
+          전체 선택
+        </label>
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+        {DATA_COLUMNS.map((col) => (
+          <label
+            key={col.key}
+            style={{
+              display: 'flex', alignItems: 'center', gap: 10,
+              padding: '8px 12px', borderRadius: '8px', cursor: col.required ? 'not-allowed' : 'pointer',
+              background: '#f8fafc',
+            }}
+          >
+            <Checkbox
+              checked={visible.has(col.key)}
+              disabled={col.required}
+              onChange={() => !col.required && toggleCol(col.key)}
+            />
+            <span style={{ fontSize: 13, color: col.required ? '#94a3b8' : '#1e293b', fontWeight: col.required ? 400 : 500 }}>
+              {col.label}
+            </span>
+            {col.required && (
+              <span style={{ marginLeft: 'auto', fontSize: 10, color: '#94a3b8' }}>필수</span>
+            )}
+          </label>
+        ))}
+      </div>
+      <div style={{ fontSize: 11, color: '#94a3b8' }}>
+        Mantine DataTable columnVisibility 패턴 — {visible.size}/{DATA_COLUMNS.length} 컬럼 표시
+      </div>
+    </div>
+  )
+}
+
+export const Mantine_컬럼_표시_설정: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Mantine DataTable의 columnVisibility 패턴. 필수 컬럼은 disabled 처리하고, 전체 선택/해제 제어와 개별 토글을 동시에 지원합니다.',
+      },
+    },
+  },
+  render: () => <ManitneColumnVisibilityRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Tailwind UI 벤치마크: 비교 체크리스트 (pricing 페이지 패턴)
+   Tailwind UI pricing table — Orbit UI vs 경쟁 시스템 기능 비교
+-------------------------------------------------------------------------- */
+const COMPARE_ITEMS = [
+  { feature: 'TypeScript 완전 지원', orbitUI: true, shadcn: true, mui: true },
+  { feature: '3-Tier 토큰 시스템', orbitUI: true, shadcn: false, mui: false },
+  { feature: '빌드타임 CSS (0 런타임)', orbitUI: true, shadcn: false, mui: false },
+  { feature: 'Compound 컴포넌트 API', orbitUI: true, shadcn: true, mui: false },
+  { feature: 'theme prop 오버라이드', orbitUI: true, shadcn: false, mui: true },
+  { feature: 'Storybook 자동 문서화', orbitUI: true, shadcn: false, mui: true },
+]
+
+export const Tailwind_비교_체크리스트: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Tailwind UI pricing table 비교 패턴. 체크박스를 읽기 전용 상태로 활용해 기능 지원 여부를 시각적으로 비교합니다.',
+      },
+    },
+  },
+  render: () => (
+    <div style={{ padding: '20px', maxWidth: 500 }}>
+      <div style={{ fontSize: 14, fontWeight: 700, color: '#1e293b', marginBottom: 16 }}>
+        디자인 시스템 기능 비교
+      </div>
+      <div style={{ background: '#fff', borderRadius: '12px', border: '1px solid #e2e8f0', overflow: 'hidden' }}>
+        {/* Header */}
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 80px 80px 80px', padding: '10px 16px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0' }}>
+          <div style={{ fontSize: 11, fontWeight: 700, color: '#64748b' }}>기능</div>
+          {['Orbit UI', 'shadcn', 'MUI'].map((name) => (
+            <div key={name} style={{ fontSize: 11, fontWeight: 700, color: name === 'Orbit UI' ? '#6366f1' : '#64748b', textAlign: 'center' }}>{name}</div>
+          ))}
+        </div>
+        {/* Rows */}
+        {COMPARE_ITEMS.map((item, i) => (
+          <div
+            key={item.feature}
+            style={{
+              display: 'grid', gridTemplateColumns: '1fr 80px 80px 80px',
+              padding: '10px 16px', alignItems: 'center',
+              background: i % 2 === 0 ? '#fff' : '#fafafa',
+              borderBottom: i < COMPARE_ITEMS.length - 1 ? '1px solid #f1f5f9' : 'none',
+            }}
+          >
+            <div style={{ fontSize: 12, color: '#374151' }}>{item.feature}</div>
+            {[item.orbitUI, item.shadcn, item.mui].map((val, ci) => (
+              <div key={ci} style={{ display: 'flex', justifyContent: 'center' }}>
+                <Checkbox
+                  checked={val}
+                  disabled
+                  onChange={() => {}}
+                />
+              </div>
+            ))}
+          </div>
+        ))}
+      </div>
+      <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 10 }}>
+        Tailwind UI pricing 비교 패턴 — 읽기 전용 체크박스로 기능 지원 표시
+      </div>
+    </div>
+  ),
+}
+
 export const 디자인_QA = {
   args: {
     disabled: false,

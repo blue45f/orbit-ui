@@ -10902,3 +10902,182 @@ export const DevProfile: Story = {
   render: () => <DevProfileRender />,
 }
 
+/* ═══════════════════════════════════════════
+   38. Notification Center (Tailwind UI + Mantine 벤치마크)
+   ═══════════════════════════════════════════ */
+type NotifCenterCategory = 'all' | 'mention' | 'system' | 'team'
+type NotifCenterItem = {
+  id: number
+  category: 'mention' | 'system' | 'team'
+  title: string
+  body: string
+  time: string
+  read: boolean
+  avatar: string
+  avatarColor: string
+}
+
+const NOTIF_CATEGORY_CONFIG = {
+  mention: { label: '멘션', color: '#6366f1', bg: '#eef2ff' },
+  system: { label: '시스템', color: '#f59e0b', bg: '#fffbeb' },
+  team: { label: '팀', color: '#10b981', bg: '#ecfdf5' },
+}
+
+const INITIAL_NOTIFS: NotifCenterItem[] = [
+  { id: 1, category: 'mention', title: '김민준님이 멘션했습니다', body: '@hjunkim PRJ-247 리뷰 부탁드립니다.', time: '2분 전', read: false, avatar: '김', avatarColor: '#6366f1' },
+  { id: 2, category: 'system', title: '빌드 성공', body: 'orbit-ui@2.0.0-beta.17 Storybook 빌드가 완료되었습니다.', time: '15분 전', read: false, avatar: '★', avatarColor: '#f59e0b' },
+  { id: 3, category: 'team', title: '이서연님이 PR을 오픈했습니다', body: 'feat: Carousel 스토리 3개 추가 (shadcn/ui + Radix 벤치마크)', time: '1시간 전', read: false, avatar: '이', avatarColor: '#10b981' },
+  { id: 4, category: 'mention', title: '박도현님이 댓글을 달았습니다', body: 'CounterBadge children 타입 이슈 재현 확인했습니다.', time: '3시간 전', read: true, avatar: '박', avatarColor: '#8b5cf6' },
+  { id: 5, category: 'system', title: '배포 완료', body: 'storybook-static → vercel.app 프로덕션 배포 성공 (19s)', time: '5시간 전', read: true, avatar: '▲', avatarColor: '#0ea5e9' },
+  { id: 6, category: 'team', title: '최지아님이 이슈를 배정했습니다', body: 'PRJ-251 Tailwind UI 벤치마크 적용 → @hjunkim', time: '어제', read: true, avatar: '최', avatarColor: '#ec4899' },
+]
+
+const NotifCenterRender = () => {
+  const [notifs, setNotifs] = useState<NotifCenterItem[]>(INITIAL_NOTIFS)
+  const [category, setCategory] = useState<NotifCenterCategory>('all')
+  const [showUnreadOnly, setShowUnreadOnly] = useState(false)
+
+  const unreadCount = notifs.filter((n) => !n.read).length
+
+  const filtered = notifs.filter((n) => {
+    if (category !== 'all' && n.category !== category) return false
+    if (showUnreadOnly && n.read) return false
+    return true
+  })
+
+  const markAllRead = () => setNotifs((prev) => prev.map((n) => ({ ...n, read: true })))
+  const markRead = (id: number) => setNotifs((prev) => prev.map((n) => n.id === id ? { ...n, read: true } : n))
+  const dismiss = (id: number) => setNotifs((prev) => prev.filter((n) => n.id !== id))
+
+  const categories: Array<{ key: NotifCenterCategory; label: string }> = [
+    { key: 'all', label: '전체' },
+    { key: 'mention', label: '멘션' },
+    { key: 'system', label: '시스템' },
+    { key: 'team', label: '팀' },
+  ]
+
+  return (
+    <div style={{ fontFamily: 'system-ui, sans-serif', background: tc.bg, borderRadius: 12, border: `1px solid ${tc.border}`, overflow: 'hidden', maxWidth: 520 }}>
+      {/* Header */}
+      <div style={{ padding: '14px 20px', borderBottom: `1px solid ${tc.border}`, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+          <SolidIconButton color="white" size="small" aria-label="알림">
+            <NotificationLineIcon />
+          </SolidIconButton>
+          <span style={{ fontWeight: 700, fontSize: 15, color: tc.fg }}>알림</span>
+          {unreadCount > 0 && <CounterBadge color="red">{unreadCount}</CounterBadge>}
+        </div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+          <label style={{ display: 'flex', alignItems: 'center', gap: 6, cursor: 'pointer', fontSize: 12, color: tc.fgSub }}>
+            <Switch
+              checked={showUnreadOnly}
+              onCheckedChange={(v) => setShowUnreadOnly(v)}
+            />
+            읽지 않은 것만
+          </label>
+          {unreadCount > 0 && (
+            <button
+              onClick={markAllRead}
+              style={{ fontSize: 12, color: '#6366f1', background: 'none', border: 'none', cursor: 'pointer', fontWeight: 600, padding: '2px 6px', borderRadius: 4 }}
+            >
+              모두 읽음
+            </button>
+          )}
+        </div>
+      </div>
+
+      {/* Category tabs */}
+      <div style={{ display: 'flex', gap: 0, padding: '0 16px', borderBottom: `1px solid ${tc.border}` }}>
+        {categories.map((cat) => (
+          <button
+            key={cat.key}
+            onClick={() => setCategory(cat.key)}
+            style={{
+              padding: '9px 14px', border: 'none', background: 'none', cursor: 'pointer',
+              fontSize: 12, fontWeight: category === cat.key ? 700 : 400,
+              color: category === cat.key ? tc.fg : tc.fgSub,
+              borderBottom: category === cat.key ? '2px solid #6366f1' : '2px solid transparent',
+              transition: 'all 0.15s',
+            }}
+          >
+            {cat.label}
+          </button>
+        ))}
+      </div>
+
+      {/* Notification list */}
+      <div style={{ maxHeight: 420, overflowY: 'auto' }}>
+        {filtered.length === 0 ? (
+          <div style={{ padding: 40, textAlign: 'center', color: tc.fgMuted, fontSize: 13 }}>
+            {showUnreadOnly ? '읽지 않은 알림이 없습니다' : '알림이 없습니다'}
+          </div>
+        ) : (
+          filtered.map((notif) => {
+            const catConf = NOTIF_CATEGORY_CONFIG[notif.category]
+            return (
+              <div
+                key={notif.id}
+                onClick={() => markRead(notif.id)}
+                style={{
+                  padding: '14px 20px', borderBottom: `1px solid ${tc.borderSub}`,
+                  display: 'flex', alignItems: 'flex-start', gap: 12,
+                  background: notif.read ? tc.bg : `${catConf.color}08`,
+                  cursor: 'pointer', transition: 'background 0.1s',
+                }}
+              >
+                {/* Avatar */}
+                <div style={{
+                  width: 36, height: 36, borderRadius: '50%', flexShrink: 0,
+                  background: notif.avatarColor,
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  color: '#fff', fontWeight: 700, fontSize: 14,
+                }}>
+                  {notif.avatar}
+                </div>
+                {/* Content */}
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 3 }}>
+                    {!notif.read && <div style={{ width: 7, height: 7, borderRadius: '50%', background: catConf.color, flexShrink: 0 }} />}
+                    <span style={{ fontSize: 12, fontWeight: notif.read ? 500 : 700, color: tc.fg, flex: 1, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                      {notif.title}
+                    </span>
+                    <span
+                      style={{ fontSize: 10, fontWeight: 600, padding: '1px 6px', borderRadius: 4, background: catConf.bg, color: catConf.color, flexShrink: 0 }}
+                    >
+                      {catConf.label}
+                    </span>
+                  </div>
+                  <div style={{ fontSize: 12, color: tc.fgSub, lineHeight: 1.4, marginBottom: 4, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                    {notif.body}
+                  </div>
+                  <div style={{ fontSize: 11, color: tc.fgMuted }}>{notif.time}</div>
+                </div>
+                {/* Dismiss */}
+                <button
+                  onClick={(e) => { e.stopPropagation(); dismiss(notif.id) }}
+                  style={{ background: 'none', border: 'none', cursor: 'pointer', color: tc.fgMuted, fontSize: 16, lineHeight: 1, padding: '2px 4px', borderRadius: 4, flexShrink: 0 }}
+                  aria-label="알림 삭제"
+                >
+                  ×
+                </button>
+              </div>
+            )
+          })
+        )}
+      </div>
+
+      {/* Footer */}
+      <div style={{ padding: '10px 20px', borderTop: `1px solid ${tc.border}`, display: 'flex', justifyContent: 'center' }}>
+        <button style={{ fontSize: 12, color: tc.fgSub, background: 'none', border: 'none', cursor: 'pointer' }}>
+          모든 알림 보기
+        </button>
+      </div>
+    </div>
+  )
+}
+
+export const NotifCenter: Story = {
+  name: 'Notification Center (Tailwind UI + Mantine 벤치마크)',
+  render: () => <NotifCenterRender />,
+}
+
