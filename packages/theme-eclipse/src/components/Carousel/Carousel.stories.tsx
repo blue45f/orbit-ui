@@ -1608,3 +1608,246 @@ export const MUI_Chakra_요금제_비교_슬라이더: Story = {
   },
   render: () => <MuiChakraPricingSliderRender />,
 }
+
+
+// ============================================================
+// Cycle 136 — Tailwind UI + Material UI 벤치마크 반영
+// ============================================================
+
+// Tailwind UI 스타일 — 기능 소개 슬라이드쇼
+const FEATURE_SLIDES_136 = [
+  { id: 1, icon: '◈', title: '3-Tier Token System', desc: 'Reference → Semantic → Component 토큰 계층으로 일관된 스타일 관리', color: '#6366f1', bg: '#eef2ff' },
+  { id: 2, icon: '◉', title: 'vanilla-extract 테마', desc: '빌드 타임 CSS-in-JS로 런타임 오버헤드 없이 완전한 타입 안전성 확보', color: '#0ea5e9', bg: '#e0f2fe' },
+  { id: 3, icon: '◎', title: 'Compound Component', desc: 'Context 기반 서브 컴포넌트 패턴으로 유연한 조합 및 레이아웃 구성 지원', color: '#10b981', bg: '#ecfdf5' },
+  { id: 4, icon: '◆', title: 'Storybook 8.6', desc: 'autodocs + 인터랙티브 Controls로 컴포넌트 문서 자동 생성', color: '#f59e0b', bg: '#fffbeb' },
+]
+
+type CarouselApi136 = Parameters<NonNullable<React.ComponentProps<typeof Carousel>['setApi']>>[0]
+
+function TailwindFeatureSlideshowRender() {
+  const [cur, setCur] = useState(0)
+  const [api, setApi] = useState<CarouselApi136>()
+
+  useEffect(() => {
+    if (!api) return
+    api.on('select', () => {
+      setCur(api.selectedScrollSnap())
+    })
+  }, [api])
+
+  useEffect(() => {
+    if (!api) return
+    const timer = setInterval(() => {
+      if (api.canScrollNext()) {
+        api.scrollNext()
+      } else {
+        api.scrollTo(0)
+      }
+    }, 3000)
+    return () => clearInterval(timer)
+  }, [api])
+
+  const slide = FEATURE_SLIDES_136[cur]
+
+  return (
+    <div style={{ width: 360, fontFamily: 'system-ui, sans-serif' }}>
+      <Carousel setApi={setApi} className="w-full">
+        <Carousel.Content>
+          {FEATURE_SLIDES_136.map((s) => (
+            <Carousel.Item key={s.id}>
+              <div style={{ background: s.bg, padding: '40px 32px', minHeight: 220, display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: 16, borderRadius: 16 }}>
+                <div style={{ width: 52, height: 52, borderRadius: 14, background: s.color, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 24, color: '#fff' }}>
+                  {s.icon}
+                </div>
+                <div>
+                  <div style={{ fontSize: 18, fontWeight: 700, color: '#0f172a', lineHeight: 1.3 }}>{s.title}</div>
+                  <div style={{ fontSize: 13, color: '#475569', marginTop: 6, lineHeight: 1.6 }}>{s.desc}</div>
+                </div>
+              </div>
+            </Carousel.Item>
+          ))}
+        </Carousel.Content>
+      </Carousel>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 12, padding: '0 4px' }}>
+        <span style={{ fontSize: 12, color: '#94a3b8' }}>{cur + 1} / {FEATURE_SLIDES_136.length}</span>
+        <div style={{ display: 'flex', gap: 6 }}>
+          {FEATURE_SLIDES_136.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => api?.scrollTo(i)}
+              style={{ width: i === cur ? 18 : 6, height: 6, borderRadius: 3, border: 'none', cursor: 'pointer', padding: 0, background: i === cur ? (slide?.color ?? '#6366f1') : '#e2e8f0', transition: 'all 250ms' }}
+            />
+          ))}
+        </div>
+        <button onClick={() => api?.scrollNext()} style={{ fontSize: 12, color: slide?.color ?? '#6366f1', fontWeight: 600, border: 'none', background: 'none', cursor: 'pointer' }}>다음 →</button>
+      </div>
+    </div>
+  )
+}
+
+export const Tailwind_기능_소개_슬라이드쇼: Story = {
+  name: 'Tailwind UI — 기능 소개 슬라이드쇼 (Cycle 136)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Tailwind UI Feature Section 슬라이드 패턴. 3초 자동 전환 + 진행 인디케이터 점. ' +
+          'Carousel setApi + api.on("select") 패턴으로 외부 상태 동기화. 아이콘 카드 + 제목/설명 구조.',
+      },
+    },
+  },
+  render: () => <TailwindFeatureSlideshowRender />,
+}
+
+// MUI 스타일 — 미디어 플레이어 큐 캐러셀
+const MEDIA_QUEUE_136 = [
+  { id: 1, title: 'Orbit 디자인 시스템 소개', artist: '김희준', duration: '12:34', genre: 'Tech', color: '#6366f1' },
+  { id: 2, title: 'Tailwind UI 컴포넌트 패턴', artist: '이재성', duration: '8:21', genre: 'Design', color: '#0ea5e9' },
+  { id: 3, title: 'vanilla-extract 심층 분석', artist: '박민주', duration: '15:07', genre: 'Dev', color: '#10b981' },
+]
+
+function MuiMediaQueueRender() {
+  const [cur, setCur] = useState(0)
+  const [api, setApi] = useState<CarouselApi136>()
+  const [playing, setPlaying] = useState(false)
+  const [progress, setProgress] = useState(32)
+  const track = MEDIA_QUEUE_136[cur]
+
+  useEffect(() => {
+    if (!api) return
+    api.on('select', () => {
+      setCur(api.selectedScrollSnap())
+      setProgress(0)
+      setPlaying(false)
+    })
+  }, [api])
+
+  useEffect(() => {
+    if (!playing) return
+    const timer = setInterval(() => setProgress((p) => (p >= 100 ? 0 : p + 1)), 300)
+    return () => clearInterval(timer)
+  }, [playing])
+
+  return (
+    <div style={{ width: 340, fontFamily: 'system-ui, sans-serif' }}>
+      <Carousel setApi={setApi} className="w-full">
+        <Carousel.Content>
+          {MEDIA_QUEUE_136.map((t) => (
+            <Carousel.Item key={t.id}>
+              <div style={{ background: t.color + '15', border: `1.5px solid ${t.color}30`, borderRadius: 14, padding: '28px 24px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12 }}>
+                <div style={{ width: 80, height: 80, borderRadius: 20, background: t.color, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 32 }}>♪</div>
+                <div style={{ textAlign: 'center' }}>
+                  <div style={{ fontSize: 15, fontWeight: 700, color: '#0f172a' }}>{t.title}</div>
+                  <div style={{ fontSize: 12, color: '#64748b', marginTop: 2 }}>{t.artist} · {t.genre}</div>
+                </div>
+              </div>
+            </Carousel.Item>
+          ))}
+        </Carousel.Content>
+      </Carousel>
+      <div style={{ margin: '14px 0 4px', height: 4, background: '#f1f5f9', borderRadius: 99, cursor: 'pointer' }}
+        onClick={(e) => {
+          const rect = (e.currentTarget as HTMLDivElement).getBoundingClientRect()
+          setProgress(Math.round(((e.clientX - rect.left) / rect.width) * 100))
+        }}>
+        <div style={{ height: '100%', width: `${progress}%`, background: track.color, borderRadius: 99, transition: 'width 300ms linear' }} />
+      </div>
+      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11, color: '#94a3b8', marginBottom: 12 }}>
+        <span>{Math.floor(progress * 0.12)}:{String(Math.floor(progress * 0.34) % 60).padStart(2, '0')}</span>
+        <span>{track.duration}</span>
+      </div>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 16 }}>
+        <button onClick={() => api?.scrollPrev()} style={{ width: 32, height: 32, borderRadius: '50%', border: '1px solid #e2e8f0', background: '#f8fafc', cursor: 'pointer', fontSize: 14 }}>◀</button>
+        <button onClick={() => setPlaying((p) => !p)} style={{ width: 44, height: 44, borderRadius: '50%', border: 'none', background: track.color, color: '#fff', cursor: 'pointer', fontSize: 18 }}>
+          {playing ? '⏸' : '▶'}
+        </button>
+        <button onClick={() => api?.scrollNext()} style={{ width: 32, height: 32, borderRadius: '50%', border: '1px solid #e2e8f0', background: '#f8fafc', cursor: 'pointer', fontSize: 14 }}>▶</button>
+      </div>
+    </div>
+  )
+}
+
+export const MUI_미디어_플레이어_큐: Story = {
+  name: 'MUI — 미디어 플레이어 큐 캐러셀 (Cycle 136)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Material UI AudioPlayer + Carousel 통합 패턴. 트랙 전환 시 진행 바/재생 상태 초기화. ' +
+          '클릭 가능한 진행 바, 재생/일시정지 토글 + 이전/다음 scrollPrev/scrollNext 컨트롤.',
+      },
+    },
+  },
+  render: () => <MuiMediaQueueRender />,
+}
+
+// Tailwind UI + MUI — 다크 컴포넌트 카탈로그 캐러셀
+const PRODUCT_CARDS_136 = [
+  { id: 1, name: 'SolidButton', tag: 'interaction', users: 1240, color: '#6366f1', desc: '클릭/호버/포커스/로딩 상태를 모두 지원하는 기본 CTA 버튼' },
+  { id: 2, name: 'DataTable', tag: 'data', users: 870, color: '#0ea5e9', desc: 'tanstack/table 기반 정렬/필터/페이지네이션 내장 데이터 테이블' },
+  { id: 3, name: 'Command', tag: 'navigation', users: 650, color: '#10b981', desc: 'Raycast/shadcn 스타일 명령 팔레트. 퍼지 검색 + 그룹 헤딩' },
+  { id: 4, name: 'Calendar', tag: 'input', users: 420, color: '#f59e0b', desc: '날짜 범위 선택 + 한국어 로케일 지원 인터랙티브 달력' },
+]
+
+function TailwindMuiProductCarouselRender() {
+  const [cur, setCur] = useState(0)
+  const [api, setApi] = useState<CarouselApi136>()
+  const card = PRODUCT_CARDS_136[cur]
+
+  useEffect(() => {
+    if (!api) return
+    api.on('select', () => {
+      setCur(api.selectedScrollSnap())
+    })
+  }, [api])
+
+  return (
+    <div style={{ width: 340, fontFamily: 'system-ui, sans-serif', background: '#0f172a', borderRadius: 18, padding: '20px', color: '#fff' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
+        <span style={{ fontSize: 12, fontWeight: 600, color: '#94a3b8', letterSpacing: 1 }}>인기 컴포넌트</span>
+        <span style={{ fontSize: 11, color: '#475569' }}>{cur + 1}/{PRODUCT_CARDS_136.length}</span>
+      </div>
+      <Carousel setApi={setApi} className="w-full">
+        <Carousel.Content>
+          {PRODUCT_CARDS_136.map((p) => (
+            <Carousel.Item key={p.id}>
+              <div style={{ background: '#1e293b', borderRadius: 14, padding: '20px', border: `1.5px solid ${p.color}40` }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 12 }}>
+                  <div style={{ width: 40, height: 40, borderRadius: 10, background: p.color + '22', border: `1.5px solid ${p.color}60`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 18, color: p.color }}>◈</div>
+                  <div>
+                    <div style={{ fontWeight: 700, fontSize: 15 }}>{p.name}</div>
+                    <div style={{ fontSize: 11, color: p.color, marginTop: 2 }}>#{p.tag}</div>
+                  </div>
+                </div>
+                <div style={{ fontSize: 12, color: '#94a3b8', lineHeight: 1.6 }}>{p.desc}</div>
+                <div style={{ marginTop: 12, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                  <span style={{ fontSize: 11, color: '#475569' }}>사용: {p.users.toLocaleString()}개 프로젝트</span>
+                  <span style={{ fontSize: 11, color: p.color, fontWeight: 600 }}>문서 보기 →</span>
+                </div>
+              </div>
+            </Carousel.Item>
+          ))}
+        </Carousel.Content>
+      </Carousel>
+      <div style={{ display: 'flex', gap: 5, justifyContent: 'center', marginTop: 14 }}>
+        {PRODUCT_CARDS_136.map((_, i) => (
+          <button key={i} onClick={() => api?.scrollTo(i)} style={{ width: 6, height: 6, borderRadius: '50%', border: 'none', cursor: 'pointer', padding: 0, background: i === cur ? (card?.color ?? '#6366f1') : '#334155', transition: 'background 200ms' }} />
+        ))}
+      </div>
+    </div>
+  )
+}
+
+export const Tailwind_MUI_다크_컴포넌트_카탈로그: Story = {
+  name: 'Tailwind UI + MUI — 다크 컴포넌트 카탈로그 (Cycle 136)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Tailwind UI + MUI 다크 카드 스타일 통합 패턴. 다크 배경 컴포넌트 카탈로그 캐러셀. ' +
+          '카드별 색상 테마 + 사용 통계 + 해시태그 레이블. 도트 인디케이터 클릭으로 scrollTo(i) 이동.',
+      },
+    },
+  },
+  render: () => <TailwindMuiProductCarouselRender />,
+}

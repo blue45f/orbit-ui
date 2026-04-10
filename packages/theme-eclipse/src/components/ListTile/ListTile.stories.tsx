@@ -1155,3 +1155,221 @@ export const Notion_사이드바_페이지_트리: Story = {
     )
   },
 }
+
+// ============================================================
+// Cycle 136 — Tailwind UI + Material UI 벤치마크 반영
+// ============================================================
+
+// Tailwind UI 스타일 — 연락처 목록 (밀도 높은 dense 패턴)
+const CONTACTS_136 = [
+  { id: 1, name: '김희준', role: '디자인 시스템 리드', dept: 'Engineering', avatar: 'HJ', color: '#6366f1', online: true },
+  { id: 2, name: '이재성', role: '프론트엔드 개발', dept: 'Engineering', avatar: 'JS', color: '#0ea5e9', online: true },
+  { id: 3, name: '박민주', role: 'UI/UX 디자이너', dept: 'Design', avatar: 'MJ', color: '#10b981', online: false },
+  { id: 4, name: '최수현', role: '프로덕트 매니저', dept: 'Product', avatar: 'SH', color: '#f59e0b', online: true },
+  { id: 5, name: '정다은', role: 'QA 엔지니어', dept: 'QA', avatar: 'DE', color: '#ec4899', online: false },
+]
+
+export const Tailwind_연락처_Dense_목록: Story = {
+  name: 'Tailwind UI — 연락처 Dense 목록 (Cycle 136)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Tailwind UI Contact List 패턴. 온라인 상태 인디케이터 + 역할/부서 이중 서브텍스트. ' +
+          '클릭 시 활성 행 하이라이트. 밀도 있는 dense 레이아웃으로 많은 항목을 효율적으로 표시.',
+      },
+    },
+  },
+  render: function TailwindContactListRender() {
+    const [activeId, setActiveId] = useState<number | null>(null)
+    return (
+      <div style={{ width: 380, fontFamily: 'system-ui, sans-serif', borderRadius: 12, border: '1px solid #e2e8f0', overflow: 'hidden' }}>
+        <div style={{ padding: '12px 16px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <span style={{ fontSize: 13, fontWeight: 700, color: '#0f172a' }}>팀 연락처</span>
+          <span style={{ fontSize: 11, color: '#94a3b8' }}>{CONTACTS_136.filter((c) => c.online).length}명 온라인</span>
+        </div>
+        {CONTACTS_136.map((c) => (
+          <ListTile
+            key={c.id}
+            onClick={() => setActiveId(c.id)}
+            style={{ background: activeId === c.id ? c.color + '10' : '#fff', borderBottom: '1px solid #f1f5f9', cursor: 'pointer' }}
+          >
+            <ListTile.Leading>
+              <div style={{ position: 'relative' }}>
+                <div style={{ width: 38, height: 38, borderRadius: '50%', background: c.color, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 13, fontWeight: 700, color: '#fff' }}>
+                  {c.avatar}
+                </div>
+                <div style={{ position: 'absolute', bottom: 0, right: 0, width: 10, height: 10, borderRadius: '50%', background: c.online ? '#22c55e' : '#cbd5e1', border: '2px solid #fff' }} />
+              </div>
+            </ListTile.Leading>
+            <ListTile.Title style={{ fontWeight: activeId === c.id ? 700 : 500, color: '#0f172a', fontSize: 13 }}>
+              {c.name}
+            </ListTile.Title>
+            <ListTile.Description style={{ fontSize: 11, color: '#64748b' }}>
+              {c.role} · {c.dept}
+            </ListTile.Description>
+            <ListTile.Trailing>
+              <ChevronRightLineIcon style={{ color: activeId === c.id ? c.color : '#cbd5e1', transition: 'color 200ms' }} />
+            </ListTile.Trailing>
+          </ListTile>
+        ))}
+      </div>
+    )
+  },
+}
+
+// MUI 스타일 — 알림 센터 목록 (읽음/안읽음 + 중요도)
+const NOTIFICATIONS_136 = [
+  { id: 1, type: 'deploy', title: 'orbit-ui 배포 완료', body: 'orbit-gtzymhbdp Production → Ready (2분 46초)', time: '방금 전', unread: true, level: 'success', color: '#22c55e' },
+  { id: 2, type: 'review', title: 'PR #48 리뷰 요청', body: 'feat(DataTable): 컬럼 핀고정 기능 추가', time: '5분 전', unread: true, level: 'info', color: '#3b82f6' },
+  { id: 3, type: 'warn', title: 'TypeScript 경고 발생', body: '3개 파일에서 unused import 경고 감지됨', time: '12분 전', unread: true, level: 'warning', color: '#f59e0b' },
+  { id: 4, type: 'mention', title: '@김희준 님이 언급했습니다', body: 'Templates.stories.tsx 리뷰 요청', time: '1시간 전', unread: false, level: 'info', color: '#6366f1' },
+  { id: 5, type: 'merge', title: 'main 브랜치 병합 완료', body: 'Cycle 135 스토리 22개 파일 → main', time: '2시간 전', unread: false, level: 'success', color: '#10b981' },
+]
+
+export const MUI_알림_센터_목록: Story = {
+  name: 'MUI — 알림 센터 목록 (Cycle 136)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Material UI Notification Center 패턴. 읽음/안읽음 상태별 배경 강조, 알림 유형별 색상 인디케이터. ' +
+          '클릭 시 읽음 처리(배경 리셋). 안읽은 알림 배지 카운터.',
+      },
+    },
+  },
+  render: function MuiNotificationCenterRender() {
+    const [items, setItems] = useState(NOTIFICATIONS_136)
+    const unreadCount = items.filter((n) => n.unread).length
+
+    function markRead(id: number) {
+      setItems((prev) => prev.map((n) => n.id === id ? { ...n, unread: false } : n))
+    }
+
+    function markAllRead() {
+      setItems((prev) => prev.map((n) => ({ ...n, unread: false })))
+    }
+
+    return (
+      <div style={{ width: 400, fontFamily: 'system-ui, sans-serif', borderRadius: 14, border: '1px solid #e2e8f0', overflow: 'hidden', boxShadow: '0 4px 16px rgba(0,0,0,0.06)' }}>
+        <div style={{ padding: '14px 16px', background: '#fff', borderBottom: '1px solid #e2e8f0', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            <span style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>알림</span>
+            {unreadCount > 0 && (
+              <CounterBadge color="primary">{unreadCount}</CounterBadge>
+            )}
+          </div>
+          <button onClick={markAllRead} style={{ fontSize: 11, color: '#6366f1', fontWeight: 600, border: 'none', background: 'none', cursor: 'pointer' }}>모두 읽음</button>
+        </div>
+        {items.map((n) => (
+          <ListTile
+            key={n.id}
+            onClick={() => markRead(n.id)}
+            style={{ background: n.unread ? n.color + '08' : '#fff', borderBottom: '1px solid #f1f5f9', cursor: 'pointer', transition: 'background 200ms' }}
+          >
+            <ListTile.Leading>
+              <div style={{ width: 10, height: 10, borderRadius: '50%', background: n.unread ? n.color : 'transparent', marginTop: 4, flexShrink: 0 }} />
+            </ListTile.Leading>
+            <ListTile.Title style={{ fontSize: 13, fontWeight: n.unread ? 700 : 500, color: '#0f172a' }}>
+              {n.title}
+            </ListTile.Title>
+            <ListTile.Description style={{ fontSize: 11, color: '#64748b' }}>
+              {n.body}
+            </ListTile.Description>
+            <ListTile.Trailing>
+              <span style={{ fontSize: 11, color: '#94a3b8', whiteSpace: 'nowrap' }}>{n.time}</span>
+            </ListTile.Trailing>
+          </ListTile>
+        ))}
+      </div>
+    )
+  },
+}
+
+// Tailwind UI + MUI — 검색 결과 목록 (하이라이트 + 카테고리 구분)
+const SEARCH_RESULTS_136 = [
+  { id: 1, title: 'SolidButton', category: '컴포넌트', desc: '기본 CTA 버튼. color / size / width / loading 지원', match: 'Solid' },
+  { id: 2, title: 'SolidIconButton', category: '컴포넌트', desc: '아이콘 전용 원형 버튼. 툴팁 연동 권장', match: 'Solid' },
+  { id: 3, title: 'OutlineButton', category: '컴포넌트', desc: '외곽선 스타일 보조 액션 버튼', match: 'Button' },
+  { id: 4, title: 'solidFill', category: '토큰', desc: 'Component Token — Solid 버튼 채움 색상', match: 'solid' },
+  { id: 5, title: 'SolidButton 사용 가이드', category: '문서', desc: 'Do/Dont, 조합 패턴, 접근성 체크리스트', match: 'Solid' },
+]
+
+export const Tailwind_MUI_검색_결과_목록: Story = {
+  name: 'Tailwind UI + MUI — 검색 결과 목록 (Cycle 136)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Tailwind UI + MUI Autocomplete 통합 검색 결과 패턴. 카테고리 구분선 + 매칭 키워드 볼드 하이라이트. ' +
+          '입력값 변경 시 실시간 필터링. 클릭 시 활성 항목 표시.',
+      },
+    },
+  },
+  render: function TailwindMuiSearchResultsRender() {
+    const [query, setQuery] = useState('Solid')
+    const [activeId, setActiveId] = useState<number | null>(null)
+
+    const filtered = SEARCH_RESULTS_136.filter(
+      (r) => query === '' || r.title.toLowerCase().includes(query.toLowerCase()) || r.desc.toLowerCase().includes(query.toLowerCase())
+    )
+
+    const categories = Array.from(new Set(filtered.map((r) => r.category)))
+
+    function highlight(text: string) {
+      if (!query) return text
+      const idx = text.toLowerCase().indexOf(query.toLowerCase())
+      if (idx === -1) return text
+      return (
+        <>
+          {text.slice(0, idx)}
+          <span style={{ background: '#fef9c3', color: '#854d0e', fontWeight: 700, borderRadius: 2 }}>{text.slice(idx, idx + query.length)}</span>
+          {text.slice(idx + query.length)}
+        </>
+      )
+    }
+
+    return (
+      <div style={{ width: 420, fontFamily: 'system-ui, sans-serif' }}>
+        <div style={{ marginBottom: 12, padding: '0 2px' }}>
+          <input
+            value={query}
+            onChange={(e) => setQuery((e.target as HTMLInputElement).value)}
+            placeholder="컴포넌트/토큰/문서 검색..."
+            style={{ width: '100%', padding: '10px 14px', borderRadius: 10, border: '1.5px solid #e2e8f0', fontSize: 13, outline: 'none', boxSizing: 'border-box' }}
+          />
+        </div>
+        <div style={{ borderRadius: 12, border: '1px solid #e2e8f0', overflow: 'hidden' }}>
+          {filtered.length === 0 && (
+            <div style={{ padding: '24px', textAlign: 'center', color: '#94a3b8', fontSize: 13 }}>검색 결과 없음</div>
+          )}
+          {categories.map((cat) => (
+            <div key={cat}>
+              <div style={{ padding: '8px 16px', background: '#f8fafc', fontSize: 11, fontWeight: 700, color: '#64748b', letterSpacing: 0.5, borderBottom: '1px solid #f1f5f9' }}>
+                {cat}
+              </div>
+              {filtered.filter((r) => r.category === cat).map((r) => (
+                <ListTile
+                  key={r.id}
+                  onClick={() => setActiveId(r.id)}
+                  style={{ background: activeId === r.id ? '#eff6ff' : '#fff', borderBottom: '1px solid #f1f5f9', cursor: 'pointer' }}
+                >
+                  <ListTile.Title style={{ fontSize: 13, fontWeight: 600, color: '#0f172a' }}>
+                    {highlight(r.title)}
+                  </ListTile.Title>
+                  <ListTile.Description style={{ fontSize: 11, color: '#64748b' }}>
+                    {highlight(r.desc)}
+                  </ListTile.Description>
+                  <ListTile.Trailing>
+                    <ChevronRightLineIcon style={{ color: activeId === r.id ? '#3b82f6' : '#cbd5e1' }} />
+                  </ListTile.Trailing>
+                </ListTile>
+              ))}
+            </div>
+          ))}
+        </div>
+        <div style={{ marginTop: 8, fontSize: 11, color: '#94a3b8', textAlign: 'right' }}>{filtered.length}개 결과</div>
+      </div>
+    )
+  },
+}

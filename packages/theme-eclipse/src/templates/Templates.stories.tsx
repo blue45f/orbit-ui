@@ -31581,3 +31581,196 @@ export const ShadcnAnt135DataMgmtDashboard: StoryObj = {
   },
   render: () => <DataMgmtDashboard135Render />,
 }
+
+// ============================================================
+// Cycle 136 — Tailwind UI + Material UI 벤치마크 반영
+// ============================================================
+// 알림 센터 + 활동 피드 대시보드
+// Tailwind UI Notification Feed + MUI Timeline 스타일
+
+const NOTIF_ITEMS_136 = [
+  { id: 1, type: 'deploy', actor: 'CI/CD', action: 'orbit-ui Storybook 배포 완료', detail: 'Production → Ready in 2m 46s', time: '방금 전', unread: true, color: '#22c55e' },
+  { id: 2, type: 'pr', actor: '이재성', action: 'PR #49 리뷰 요청', detail: 'feat(Carousel): 자동 슬라이드 + 미디어 플레이어 패턴', time: '3분 전', unread: true, color: '#6366f1' },
+  { id: 3, type: 'warn', actor: 'ESLint', action: 'max-warnings 초과 감지', detail: '2개 파일에서 unused import 경고', time: '11분 전', unread: true, color: '#f59e0b' },
+  { id: 4, type: 'merge', actor: '김희준', action: 'main 브랜치 병합', detail: 'Cycle 135 DataTable + Modal 스토리 반영', time: '32분 전', unread: false, color: '#0ea5e9' },
+  { id: 5, type: 'mention', actor: '박민주', action: '@김희준 님 멘션', detail: 'DesignToken.mdx 리뷰 부탁드립니다', time: '1시간 전', unread: false, color: '#ec4899' },
+  { id: 6, type: 'release', actor: 'changeset', action: 'v2.0.0-beta.17 릴리스', detail: 'theme-eclipse, core 패키지 업데이트', time: '3시간 전', unread: false, color: '#8b5cf6' },
+]
+
+const ACTIVITY_ITEMS_136 = [
+  { id: 1, label: '스토리 추가', value: 18, total: 20, color: '#6366f1' },
+  { id: 2, label: '타입 에러 수정', value: 7, total: 7, color: '#22c55e' },
+  { id: 3, label: '템플릿 작성', value: 6, total: 10, color: '#0ea5e9' },
+  { id: 4, label: 'MDX 문서화', value: 4, total: 6, color: '#f59e0b' },
+]
+
+function NotifDashboard136Render() {
+  const [items, setItems] = useState(NOTIF_ITEMS_136)
+  const [activeTab, setActiveTab] = useState<'all' | 'unread'>('all')
+  const [filterType, setFilterType] = useState<string>('전체')
+
+  const types = ['전체', 'deploy', 'pr', 'warn', 'merge']
+  const unreadCount = items.filter((n) => n.unread).length
+
+  const displayed = items
+    .filter((n) => activeTab === 'all' || n.unread)
+    .filter((n) => filterType === '전체' || n.type === filterType)
+
+  function markAllRead() {
+    setItems((prev) => prev.map((n) => ({ ...n, unread: false })))
+  }
+
+  function markRead(id: number) {
+    setItems((prev) => prev.map((n) => n.id === id ? { ...n, unread: false } : n))
+  }
+
+  return (
+    <div style={{ width: 760, fontFamily: 'system-ui, sans-serif', display: 'grid', gridTemplateColumns: '1fr 280px', gap: 20 }}>
+      {/* 왼쪽: 알림 피드 */}
+      <div style={{ background: '#fff', borderRadius: 16, border: '1px solid #e2e8f0', overflow: 'hidden' }}>
+        {/* 헤더 */}
+        <div style={{ padding: '16px 20px', borderBottom: '1px solid #f1f5f9', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+            <span style={{ fontSize: 15, fontWeight: 700, color: '#0f172a' }}>알림 센터</span>
+            {unreadCount > 0 && (
+              <CounterBadge color="primary">{unreadCount}</CounterBadge>
+            )}
+          </div>
+          <button onClick={markAllRead} style={{ fontSize: 12, color: '#6366f1', fontWeight: 600, border: 'none', background: 'none', cursor: 'pointer' }}>모두 읽음</button>
+        </div>
+        {/* 탭 */}
+        <div style={{ display: 'flex', borderBottom: '1px solid #f1f5f9' }}>
+          {(['all', 'unread'] as const).map((tab) => (
+            <button
+              key={tab}
+              onClick={() => setActiveTab(tab)}
+              style={{
+                flex: 1, padding: '10px', border: 'none', background: 'none', cursor: 'pointer',
+                fontSize: 12, fontWeight: 600,
+                color: activeTab === tab ? '#6366f1' : '#94a3b8',
+                borderBottom: activeTab === tab ? '2px solid #6366f1' : '2px solid transparent',
+                transition: 'all 150ms',
+              }}
+            >
+              {tab === 'all' ? '전체' : `안읽음 (${unreadCount})`}
+            </button>
+          ))}
+        </div>
+        {/* 타입 필터 */}
+        <div style={{ display: 'flex', gap: 6, padding: '10px 16px', borderBottom: '1px solid #f8fafc' }}>
+          {types.map((t) => (
+            <button
+              key={t}
+              onClick={() => setFilterType(t)}
+              style={{
+                padding: '3px 10px', borderRadius: 99, border: 'none', cursor: 'pointer', fontSize: 11, fontWeight: 500,
+                background: filterType === t ? '#0f172a' : '#f1f5f9',
+                color: filterType === t ? '#fff' : '#64748b',
+                transition: 'background 150ms',
+              }}
+            >
+              {t}
+            </button>
+          ))}
+        </div>
+        {/* 알림 목록 */}
+        <div>
+          {displayed.length === 0 && (
+            <div style={{ padding: '32px', textAlign: 'center', color: '#94a3b8', fontSize: 13 }}>알림이 없습니다.</div>
+          )}
+          {displayed.map((n) => (
+            <div
+              key={n.id}
+              onClick={() => markRead(n.id)}
+              style={{
+                display: 'flex', gap: 12, padding: '14px 20px', cursor: 'pointer',
+                background: n.unread ? n.color + '08' : '#fff',
+                borderBottom: '1px solid #f8fafc',
+                transition: 'background 150ms',
+              }}
+            >
+              <div style={{ width: 8, height: 8, borderRadius: '50%', background: n.unread ? n.color : 'transparent', marginTop: 6, flexShrink: 0 }} />
+              <div style={{ flex: 1 }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                  <div style={{ fontSize: 13, fontWeight: n.unread ? 700 : 500, color: '#0f172a' }}>
+                    <span style={{ color: n.color, marginRight: 4 }}>[{n.actor}]</span>
+                    {n.action}
+                  </div>
+                  <span style={{ fontSize: 11, color: '#94a3b8', flexShrink: 0, marginLeft: 8 }}>{n.time}</span>
+                </div>
+                <div style={{ fontSize: 11, color: '#64748b', marginTop: 2 }}>{n.detail}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* 오른쪽: 활동 요약 + 진행 바 */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+        {/* 사이클 진행도 */}
+        <div style={{ background: '#fff', borderRadius: 16, border: '1px solid #e2e8f0', padding: '20px' }}>
+          <div style={{ fontSize: 13, fontWeight: 700, color: '#0f172a', marginBottom: 16 }}>Cycle 136 진행도</div>
+          {ACTIVITY_ITEMS_136.map((a) => (
+            <div key={a.id} style={{ marginBottom: 14 }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, marginBottom: 5 }}>
+                <span style={{ color: '#475569', fontWeight: 500 }}>{a.label}</span>
+                <span style={{ color: a.color, fontWeight: 700 }}>{a.value}/{a.total}</span>
+              </div>
+              <div style={{ height: 6, background: '#f1f5f9', borderRadius: 99 }}>
+                <div style={{ height: '100%', width: `${(a.value / a.total) * 100}%`, background: a.color, borderRadius: 99, transition: 'width 400ms ease' }} />
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* 벤치마크 요약 */}
+        <div style={{ background: '#0f172a', borderRadius: 16, padding: '20px', color: '#fff' }}>
+          <div style={{ fontSize: 12, fontWeight: 700, color: '#94a3b8', marginBottom: 12, letterSpacing: 0.5 }}>CYCLE 136 벤치마크</div>
+          {[
+            { name: 'Tailwind UI', point: '슬라이드쇼 자동 전환 + 인디케이터', color: '#38bdf8' },
+            { name: 'MUI', point: '미디어 플레이어 큐 + 진행 바 인터랙션', color: '#818cf8' },
+          ].map((b) => (
+            <div key={b.name} style={{ marginBottom: 12, padding: '10px 12px', background: '#1e293b', borderRadius: 10, borderLeft: `3px solid ${b.color}` }}>
+              <div style={{ fontSize: 12, fontWeight: 700, color: b.color }}>{b.name}</div>
+              <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 3 }}>{b.point}</div>
+            </div>
+          ))}
+        </div>
+
+        {/* 통계 카드 */}
+        <div style={{ background: '#fff', borderRadius: 16, border: '1px solid #e2e8f0', padding: '16px' }}>
+          <div style={{ fontSize: 12, fontWeight: 700, color: '#64748b', marginBottom: 12 }}>오늘의 성과</div>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
+            {[
+              { label: '스토리', value: '6', unit: '개', color: '#6366f1' },
+              { label: '템플릿', value: '1', unit: '개', color: '#0ea5e9' },
+              { label: '커밋', value: '3', unit: '건', color: '#22c55e' },
+              { label: '에러 수정', value: '5', unit: '건', color: '#f59e0b' },
+            ].map((s) => (
+              <div key={s.label} style={{ padding: '10px', background: s.color + '0d', borderRadius: 10, textAlign: 'center' }}>
+                <div style={{ fontSize: 20, fontWeight: 800, color: s.color }}>{s.value}<span style={{ fontSize: 11, fontWeight: 400 }}>{s.unit}</span></div>
+                <div style={{ fontSize: 11, color: '#64748b', marginTop: 2 }}>{s.label}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const TailwindMUI136NotifDashboard: StoryObj = {
+  name: 'Tailwind UI + MUI — 알림 센터 대시보드 (Cycle 136)',
+  parameters: {
+    layout: 'centered',
+    docs: {
+      description: {
+        story:
+          'Tailwind UI + MUI 벤치마크 — Cycle 136. ' +
+          '탭(전체/안읽음) + 타입 필터 알림 피드 + 클릭 읽음 처리. ' +
+          '우측에 사이클 진행도 Progress Bar, 벤치마크 요약, 오늘의 성과 카드 배치.',
+      },
+    },
+  },
+  render: () => <NotifDashboard136Render />,
+}
