@@ -329,21 +329,36 @@ The `storybook-static/` directory is already linked to `orbit-ui` via `.vercel/p
 
 ### Correct Deploy Steps
 
+**CRITICAL**: The Vercel CLI auto-detects project names and may relink to `storybook-static`. Always use `--project orbit-ui` flag explicitly.
+
 ```bash
 # 1. Build Storybook
 cd /Users/hjunkim/WebstormProjects/orbit-ui/packages/theme-eclipse
 pnpm build:storybook
 
-# 2. Deploy to orbit-ui (already linked)
+# 2. Deploy to orbit-ui — MUST use --project flag
 cd storybook-static
-vercel deploy . -y --no-wait --scope blue45fs-projects
+vercel deploy . -y --no-wait --scope blue45fs-projects --project orbit-ui
 
-# 3. Check build status
+# 3. Check build status (use the URL from deploy output)
 vercel inspect <deployment-url> --scope blue45fs-projects
+# OR check via CLI:
+vercel ls --scope blue45fs-projects 2>&1 | head -5
+```
+
+### Verifying Deployment Success
+
+After deploying, always verify the deployment reached Ready state:
+
+```bash
+# Wait ~30-60s then check:
+vercel ls --scope blue45fs-projects 2>&1 | head -5
+# Look for "● Ready" status on orbit-ui project
 ```
 
 ### Notes
-- The `.vercel/project.json` in `storybook-static/` must always point to `projectId: prj_1nZ11Q8y0tY9kXxnVoML4zMWErBg`
+- **Always use `--project orbit-ui`** in every `vercel deploy` command — without it, the CLI will relink to `storybook-static`
+- The `.vercel/project.json` in `storybook-static/` should have `projectId: prj_1nZ11Q8y0tY9kXxnVoML4zMWErBg`
 - Free tier limit: 100 deployments/day — if limit hit, skip deploy and note it in the cycle report
-- After deploy, always check `vercel inspect` or `vercel ls --scope blue45fs-projects` to verify Ready status
-- Do NOT create a `storybook-static` project — use `orbit-ui` only
+- After deploy, check `vercel ls --scope blue45fs-projects | head -5` to verify Ready status
+- Do NOT create a `storybook-static` Vercel project — the correct project is `orbit-ui` only
