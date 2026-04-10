@@ -1336,3 +1336,191 @@ export const Arco_Apple_파일시스템_경로: Story = {
   },
   render: () => <ArcoAppleFilePathRender />,
 }
+
+/* --------------------------------------------------------------------------
+   Tailwind UI — 다단계 폼 진행 경로 (스텝 브레드크럼)
+-------------------------------------------------------------------------- */
+function TailwindFormStepBreadcrumbRender() {
+  const [currentStep, setCurrentStep] = useState(2)
+  const steps = ['기본 정보', '주소 입력', '결제 수단', '주문 확인', '완료']
+  return (
+    <div style={{ maxWidth: 560, fontFamily: 'system-ui, sans-serif' }}>
+      <p style={{ fontSize: 12, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginBottom: 10, textTransform: 'uppercase', letterSpacing: 0.8 }}>주문 진행 단계</p>
+      <Breadcrumb>
+        <Breadcrumb.List>
+          {steps.map((step, idx) => (
+            <React.Fragment key={step}>
+              <Breadcrumb.Item>
+                {idx < currentStep ? (
+                  <Breadcrumb.Link href="#" onClick={(e) => { e.preventDefault(); setCurrentStep(idx) }}>
+                    <span style={{ fontSize: 12, color: 'var(--sem-eclipse-color-fillPrimary)', fontWeight: 500 }}>{step}</span>
+                  </Breadcrumb.Link>
+                ) : idx === currentStep ? (
+                  <Breadcrumb.Page>
+                    <span style={{ fontSize: 12, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)', borderBottom: '2px solid var(--sem-eclipse-color-fillPrimary)', paddingBottom: 1 }}>{step}</span>
+                  </Breadcrumb.Page>
+                ) : (
+                  <span style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundDisabled)' }}>{step}</span>
+                )}
+              </Breadcrumb.Item>
+              {idx < steps.length - 1 && (
+                <Breadcrumb.Separator>
+                  <ChevronRightLineIcon />
+                </Breadcrumb.Separator>
+              )}
+            </React.Fragment>
+          ))}
+        </Breadcrumb.List>
+      </Breadcrumb>
+      <div style={{ marginTop: 16, padding: '16px', borderRadius: 10, border: '1px solid var(--sem-eclipse-color-borderSubtle)', background: 'var(--sem-eclipse-color-surfaceDefault)' }}>
+        <p style={{ fontSize: 13, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 4 }}>{steps[currentStep]}</p>
+        <p style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>단계 {currentStep + 1} / {steps.length} — 완료된 단계를 클릭하면 돌아갈 수 있습니다.</p>
+      </div>
+    </div>
+  )
+}
+
+export const Tailwind_다단계_폼_진행_브레드크럼: Story = {
+  name: 'Tailwind UI — 다단계 폼 진행 경로 (스텝 브레드크럼)',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Tailwind UI의 step indicator + breadcrumb 조합 패턴. 완료 단계는 링크로, 현재 단계는 bold underline으로, 미래 단계는 비활성으로 표현. 완료 단계 클릭 시 해당 단계로 이동.',
+      },
+    },
+  },
+  render: () => <TailwindFormStepBreadcrumbRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Ant Design — 코드 리뷰 파일 탐색 (동적 경로 + 파일 변경 수)
+-------------------------------------------------------------------------- */
+function AntCodeReviewBreadcrumbRender() {
+  const [path, setPath] = useState(['src', 'components', 'Button'])
+  const tree: Record<string, string[]> = {
+    '': ['src', 'docs', 'tests'],
+    src: ['components', 'hooks', 'styles'],
+    components: ['Button', 'Input', 'Modal'],
+    Button: ['Button.tsx', 'Button.test.tsx', 'index.ts'],
+    docs: ['getting-started.md', 'api.md'],
+    hooks: ['useModal.ts', 'useTheme.ts'],
+  }
+  const currentKey = path[path.length - 1] ?? ''
+  const children = tree[currentKey] ?? []
+  return (
+    <div style={{ maxWidth: 540, fontFamily: 'monospace, system-ui' }}>
+      <div style={{ background: 'var(--sem-eclipse-color-surfaceSubtle)', borderRadius: 8, padding: '10px 14px', marginBottom: 10, display: 'flex', alignItems: 'center', gap: 6 }}>
+        <Breadcrumb>
+          <Breadcrumb.List>
+            <Breadcrumb.Item>
+              <Breadcrumb.Link href="#" onClick={(e) => { e.preventDefault(); setPath([]) }}>
+                <HomeLineIcon style={{ width: 14, height: 14 }} />
+              </Breadcrumb.Link>
+            </Breadcrumb.Item>
+            {path.map((seg, idx) => (
+              <React.Fragment key={seg}>
+                <Breadcrumb.Separator><ChevronRightLineIcon /></Breadcrumb.Separator>
+                <Breadcrumb.Item>
+                  {idx === path.length - 1 ? (
+                    <Breadcrumb.Page>
+                      <span style={{ fontSize: 12, fontWeight: 600 }}>{seg}</span>
+                    </Breadcrumb.Page>
+                  ) : (
+                    <Breadcrumb.Link href="#" onClick={(e) => { e.preventDefault(); setPath(path.slice(0, idx + 1)) }}>
+                      <span style={{ fontSize: 12 }}>{seg}</span>
+                    </Breadcrumb.Link>
+                  )}
+                </Breadcrumb.Item>
+              </React.Fragment>
+            ))}
+          </Breadcrumb.List>
+        </Breadcrumb>
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+        {children.length > 0 ? children.map((child) => {
+          const isFile = child.includes('.')
+          return (
+            <div key={child} onClick={() => !isFile && setPath([...path, child])} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '6px 10px', borderRadius: 6, cursor: isFile ? 'default' : 'pointer', background: 'transparent', fontSize: 12, color: isFile ? 'var(--sem-eclipse-color-foregroundSecondary)' : 'var(--sem-eclipse-color-foregroundPrimary)' }}>
+              <span>{isFile ? '📄' : '📁'}</span>
+              <span>{child}</span>
+            </div>
+          )
+        }) : (
+          <p style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundDisabled)', padding: '8px 10px' }}>파일이 없습니다</p>
+        )}
+      </div>
+    </div>
+  )
+}
+
+export const Ant_코드_리뷰_파일_탐색: Story = {
+  name: 'Ant Design — 코드 리뷰 파일 탐색 (동적 경로)',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Ant Design 파일 탐색 Breadcrumb 패턴. 폴더 클릭 시 경로 추가, 상위 경로 클릭 시 되돌아가는 인터랙티브 파일 트리 탐색. 코드 리뷰 UI에서 자주 쓰이는 패턴.',
+      },
+    },
+  },
+  render: () => <AntCodeReviewBreadcrumbRender />,
+}
+
+/* --------------------------------------------------------------------------
+   MUI — 관리자 대시보드 컨텍스트 (섹션 + 아이콘 + 오버플로우)
+-------------------------------------------------------------------------- */
+function MUIAdminDashboardBreadcrumbRender() {
+  const sections = [
+    { label: '대시보드', icon: '🏠' },
+    { label: '사용자 관리', icon: '👥' },
+    { label: '권한 설정', icon: '🔐' },
+  ]
+  return (
+    <div style={{ maxWidth: 560, fontFamily: 'system-ui, sans-serif' }}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 16px', borderRadius: 8, background: 'var(--sem-eclipse-color-surfaceSubtle)', marginBottom: 14 }}>
+        <Breadcrumb>
+          <Breadcrumb.List>
+            {sections.map((sec, idx) => (
+              <React.Fragment key={sec.label}>
+                <Breadcrumb.Item>
+                  {idx === sections.length - 1 ? (
+                    <Breadcrumb.Page>
+                      <span style={{ display: 'flex', alignItems: 'center', gap: 4, fontSize: 12, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>
+                        <span>{sec.icon}</span>{sec.label}
+                      </span>
+                    </Breadcrumb.Page>
+                  ) : (
+                    <Breadcrumb.Link href="#">
+                      <span style={{ display: 'flex', alignItems: 'center', gap: 4, fontSize: 12, color: 'var(--sem-eclipse-color-foregroundSecondary)' }}>
+                        <span>{sec.icon}</span>{sec.label}
+                      </span>
+                    </Breadcrumb.Link>
+                  )}
+                </Breadcrumb.Item>
+                {idx < sections.length - 1 && (
+                  <Breadcrumb.Separator><ChevronRightLineIcon /></Breadcrumb.Separator>
+                )}
+              </React.Fragment>
+            ))}
+          </Breadcrumb.List>
+        </Breadcrumb>
+        <span style={{ fontSize: 10, color: 'var(--sem-eclipse-color-foregroundTertiary)', background: 'var(--sem-eclipse-color-surfaceDefault)', padding: '2px 8px', borderRadius: 20, border: '1px solid var(--sem-eclipse-color-borderSubtle)' }}>Admin</span>
+      </div>
+      <div style={{ padding: '16px', borderRadius: 10, border: '1px solid var(--sem-eclipse-color-borderSubtle)' }}>
+        <p style={{ fontSize: 14, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 4 }}>🔐 권한 설정</p>
+        <p style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>사용자 역할 및 접근 권한을 관리합니다. 변경 사항은 즉시 적용됩니다.</p>
+      </div>
+    </div>
+  )
+}
+
+export const MUI_관리자_대시보드_브레드크럼: Story = {
+  name: 'MUI — 관리자 대시보드 (섹션 + 아이콘)',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Material UI 관리자 UI의 아이콘 포함 Breadcrumb 패턴. 각 경로 항목에 섹션 아이콘을 추가하고 현재 섹션에 Admin 뱃지를 우측에 배치.',
+      },
+    },
+  },
+  render: () => <MUIAdminDashboardBreadcrumbRender />,
+}

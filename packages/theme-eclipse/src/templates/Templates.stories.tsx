@@ -33186,3 +33186,218 @@ export const LinearVercel144CommandPalette: StoryObj = {
   },
   render: () => <CommandPalette144Render />,
 }
+
+/* ==========================================================================
+   사이클 145 — TailwindUI + Ant Design
+   템플릿: 빌링 & 구독 대시보드
+========================================================================== */
+function TailwindAnt145BillingDashboardRender() {
+  const [plan, setPlan] = useState<'starter' | 'pro' | 'enterprise'>('pro')
+  const [billingCycle, setBillingCycle] = useState<'monthly' | 'yearly'>('monthly')
+  const [activeTab, setActiveTab] = useState<'overview' | 'invoices' | 'payment'>('overview')
+
+  const planDetails = {
+    starter: { name: 'Starter', monthlyPrice: 0, yearlyPrice: 0, color: '#6b7280', seats: 3, storage: '5GB', projects: 3 },
+    pro: { name: 'Pro', monthlyPrice: 29000, yearlyPrice: 23200, color: '#6366f1', seats: 10, storage: '50GB', projects: 999 },
+    enterprise: { name: 'Enterprise', monthlyPrice: 129000, yearlyPrice: 103200, color: '#0ea5e9', seats: 999, storage: '500GB', projects: 999 },
+  }
+
+  const currentPlan = planDetails[plan]
+  const currentPrice = billingCycle === 'monthly' ? currentPlan.monthlyPrice : currentPlan.yearlyPrice
+
+  const invoices = [
+    { id: 'INV-2024-012', date: '2024-12-01', amount: 29000, status: '완료' },
+    { id: 'INV-2024-011', date: '2024-11-01', amount: 29000, status: '완료' },
+    { id: 'INV-2024-010', date: '2024-10-01', amount: 29000, status: '완료' },
+    { id: 'INV-2024-009', date: '2024-09-01', amount: 0, status: '무료' },
+  ]
+
+  const usageItems = [
+    { label: '시트 사용', used: 7, total: currentPlan.seats === 999 ? 1000 : currentPlan.seats },
+    { label: '스토리지', used: 23, total: 50 },
+    { label: '프로젝트', used: 8, total: currentPlan.projects === 999 ? 1000 : currentPlan.projects },
+    { label: 'API 호출 (만/월)', used: 450, total: 1000 },
+  ]
+
+  const formatKRW = (amount: number) =>
+    amount === 0 ? '무료' : `₩${amount.toLocaleString('ko-KR')}`
+
+  return (
+    <div style={{ minHeight: '100vh', background: 'var(--sem-eclipse-color-backgroundDefault)', fontFamily: 'system-ui, -apple-system, sans-serif', padding: 24 }}>
+      {/* 헤더 */}
+      <div style={{ maxWidth: 900, margin: '0 auto' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 28 }}>
+          <div>
+            <h1 style={{ fontSize: 22, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)', margin: 0 }}>구독 & 결제</h1>
+            <p style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginTop: 4 }}>현재 플랜과 사용량을 관리합니다.</p>
+          </div>
+          <div style={{ display: 'flex', gap: 8 }}>
+            <button
+              onClick={() => setBillingCycle(billingCycle === 'monthly' ? 'yearly' : 'monthly')}
+              style={{ fontSize: 11, padding: '6px 14px', borderRadius: 20, border: '1px solid var(--sem-eclipse-color-borderDefault)', background: billingCycle === 'yearly' ? 'var(--sem-eclipse-color-fillPrimarySubtle)' : 'var(--sem-eclipse-color-surfaceDefault)', color: billingCycle === 'yearly' ? 'var(--sem-eclipse-color-fillPrimary)' : 'var(--sem-eclipse-color-foregroundSecondary)', cursor: 'pointer', fontWeight: 600 }}
+            >
+              {billingCycle === 'monthly' ? '연간 결제로 전환 (20% 할인)' : '월간 결제로 전환'}
+            </button>
+          </div>
+        </div>
+
+        {/* 탭 네비게이션 */}
+        <div style={{ display: 'flex', gap: 0, borderBottom: '1px solid var(--sem-eclipse-color-borderSubtle)', marginBottom: 24 }}>
+          {(['overview', 'invoices', 'payment'] as const).map((tab) => {
+            const labels = { overview: '개요', invoices: '청구서', payment: '결제 수단' }
+            return (
+              <button
+                key={tab}
+                onClick={() => setActiveTab(tab)}
+                style={{ padding: '10px 18px', fontSize: 13, fontWeight: activeTab === tab ? 600 : 400, color: activeTab === tab ? 'var(--sem-eclipse-color-foregroundPrimary)' : 'var(--sem-eclipse-color-foregroundTertiary)', background: 'none', border: 'none', borderBottom: activeTab === tab ? '2px solid var(--sem-eclipse-color-fillPrimary)' : '2px solid transparent', cursor: 'pointer', marginBottom: -1, transition: 'all 0.15s' }}
+              >
+                {labels[tab]}
+              </button>
+            )
+          })}
+        </div>
+
+        {/* 탭 콘텐츠 — Overview */}
+        {activeTab === 'overview' && (
+          <div>
+            {/* 현재 플랜 카드 */}
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 12, marginBottom: 24 }}>
+              {(['starter', 'pro', 'enterprise'] as const).map((p) => {
+                const pd = planDetails[p]
+                const isActive = plan === p
+                return (
+                  <div
+                    key={p}
+                    onClick={() => setPlan(p)}
+                    style={{ padding: '18px 16px', borderRadius: 12, border: `2px solid ${isActive ? pd.color : 'var(--sem-eclipse-color-borderSubtle)'}`, background: isActive ? `${pd.color}10` : 'var(--sem-eclipse-color-surfaceDefault)', cursor: 'pointer', transition: 'all 0.15s', position: 'relative' }}
+                  >
+                    {isActive && (
+                      <span style={{ position: 'absolute', top: 10, right: 10, fontSize: 9, fontWeight: 700, color: '#fff', background: pd.color, padding: '2px 7px', borderRadius: 10 }}>현재 플랜</span>
+                    )}
+                    <div style={{ fontSize: 14, fontWeight: 700, color: pd.color, marginBottom: 4 }}>{pd.name}</div>
+                    <div style={{ fontSize: 20, fontWeight: 800, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 2 }}>
+                      {formatKRW(billingCycle === 'monthly' ? pd.monthlyPrice : pd.yearlyPrice)}
+                    </div>
+                    <div style={{ fontSize: 10, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginBottom: 10 }}>
+                      {billingCycle === 'monthly' ? '/월' : '/월 (연간 청구)'}
+                    </div>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
+                      <div style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundSecondary)' }}>시트: {pd.seats === 999 ? '무제한' : `${pd.seats}명`}</div>
+                      <div style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundSecondary)' }}>스토리지: {pd.storage}</div>
+                      <div style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundSecondary)' }}>프로젝트: {pd.projects === 999 ? '무제한' : `${pd.projects}개`}</div>
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
+
+            {/* 사용량 카드 */}
+            <div style={{ background: 'var(--sem-eclipse-color-surfaceDefault)', borderRadius: 12, border: '1px solid var(--sem-eclipse-color-borderSubtle)', padding: 20 }}>
+              <p style={{ fontSize: 13, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 16 }}>사용량</p>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+                {usageItems.map((item) => {
+                  const pct = Math.round((item.used / item.total) * 100)
+                  const isWarn = pct >= 80
+                  return (
+                    <div key={item.label}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 5 }}>
+                        <span style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundSecondary)' }}>{item.label}</span>
+                        <span style={{ fontSize: 12, fontWeight: 600, color: isWarn ? '#f59e0b' : 'var(--sem-eclipse-color-foregroundPrimary)' }}>
+                          {item.used.toLocaleString()} / {item.total === 1000 && item.label.includes('시트') ? '무제한' : item.total.toLocaleString()}
+                        </span>
+                      </div>
+                      <div style={{ height: 6, borderRadius: 3, background: 'var(--sem-eclipse-color-surfaceSubtle)', overflow: 'hidden' }}>
+                        <div style={{ height: '100%', width: `${Math.min(pct, 100)}%`, borderRadius: 3, background: isWarn ? '#f59e0b' : currentPlan.color, transition: 'width 0.3s' }} />
+                      </div>
+                    </div>
+                  )
+                })}
+              </div>
+            </div>
+
+            {/* 다음 청구일 */}
+            <div style={{ marginTop: 16, display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '14px 18px', borderRadius: 10, border: '1px solid var(--sem-eclipse-color-borderSubtle)', background: 'var(--sem-eclipse-color-surfaceDefault)' }}>
+              <div>
+                <p style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginBottom: 2 }}>다음 청구일</p>
+                <p style={{ fontSize: 14, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>2025년 1월 1일</p>
+              </div>
+              <div style={{ textAlign: 'right' }}>
+                <p style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginBottom: 2 }}>예상 청구 금액</p>
+                <p style={{ fontSize: 18, fontWeight: 800, color: currentPlan.color }}>{formatKRW(currentPrice)}</p>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* 탭 콘텐츠 — Invoices */}
+        {activeTab === 'invoices' && (
+          <div style={{ background: 'var(--sem-eclipse-color-surfaceDefault)', borderRadius: 12, border: '1px solid var(--sem-eclipse-color-borderSubtle)', overflow: 'hidden' }}>
+            <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 12 }}>
+              <thead>
+                <tr style={{ background: 'var(--sem-eclipse-color-surfaceSubtle)' }}>
+                  {['청구서 번호', '날짜', '금액', '상태', ''].map((h) => (
+                    <th key={h} style={{ padding: '10px 16px', textAlign: 'left', fontSize: 11, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundTertiary)', textTransform: 'uppercase', letterSpacing: 0.6 }}>{h}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {invoices.map((inv) => (
+                  <tr key={inv.id} style={{ borderTop: '1px solid var(--sem-eclipse-color-borderSubtle)' }}>
+                    <td style={{ padding: '12px 16px', fontFamily: 'monospace', color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{inv.id}</td>
+                    <td style={{ padding: '12px 16px', color: 'var(--sem-eclipse-color-foregroundSecondary)' }}>{inv.date}</td>
+                    <td style={{ padding: '12px 16px', fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{formatKRW(inv.amount)}</td>
+                    <td style={{ padding: '12px 16px' }}>
+                      <span style={{ fontSize: 10, fontWeight: 600, padding: '2px 8px', borderRadius: 10, background: inv.status === '완료' ? '#d1fae5' : '#f3f4f6', color: inv.status === '완료' ? '#065f46' : '#6b7280' }}>{inv.status}</span>
+                    </td>
+                    <td style={{ padding: '12px 16px' }}>
+                      <button style={{ fontSize: 11, color: 'var(--sem-eclipse-color-fillPrimary)', background: 'none', border: 'none', cursor: 'pointer', fontWeight: 500 }}>PDF 다운로드</button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+
+        {/* 탭 콘텐츠 — Payment */}
+        {activeTab === 'payment' && (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+            <div style={{ padding: '18px 20px', borderRadius: 12, border: '1px solid var(--sem-eclipse-color-borderSubtle)', background: 'var(--sem-eclipse-color-surfaceDefault)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+                <div style={{ width: 48, height: 32, borderRadius: 6, background: '#1a1a2e', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 14 }}>💳</div>
+                <div>
+                  <p style={{ fontSize: 13, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>Visa •••• 4242</p>
+                  <p style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>만료: 12/2026</p>
+                </div>
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                <span style={{ fontSize: 10, fontWeight: 700, padding: '2px 8px', borderRadius: 10, background: '#d1fae5', color: '#065f46' }}>기본</span>
+                <button style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundSecondary)', background: 'none', border: '1px solid var(--sem-eclipse-color-borderDefault)', padding: '4px 10px', borderRadius: 6, cursor: 'pointer' }}>변경</button>
+              </div>
+            </div>
+            <button style={{ padding: '12px 16px', borderRadius: 10, border: '2px dashed var(--sem-eclipse-color-borderDefault)', background: 'none', color: 'var(--sem-eclipse-color-foregroundTertiary)', fontSize: 12, cursor: 'pointer', fontWeight: 500, transition: 'all 0.15s' }}>
+              + 결제 수단 추가
+            </button>
+          </div>
+        )}
+
+        <p style={{ fontSize: 10, color: 'var(--sem-eclipse-color-foregroundDisabled)', marginTop: 24, textAlign: 'center' }}>
+          Tailwind UI 구독 페이지 + Ant Design 폼/테이블 패턴 조합 — 사이클 145
+        </p>
+      </div>
+    </div>
+  )
+}
+
+export const TailwindAnt145BillingDashboard: StoryObj = {
+  name: 'Tailwind UI + Ant Design — 빌링 & 구독 대시보드',
+  parameters: {
+    layout: 'fullscreen',
+    docs: {
+      description: {
+        story: 'Tailwind UI 구독 플랜 카드 패턴 + Ant Design 테이블/폼 UX. 월간/연간 청구 전환, 플랜 선택, 사용량 Progress 바, 청구서 목록, 결제 수단 관리를 통합한 SaaS 빌링 대시보드.',
+      },
+    },
+  },
+  render: () => <TailwindAnt145BillingDashboardRender />,
+}

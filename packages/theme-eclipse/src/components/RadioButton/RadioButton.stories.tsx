@@ -1360,3 +1360,145 @@ export const Radix_Tailwind_요금제_선택: Story = {
   },
   render: () => <RadixTailwindPlanRadioRender />,
 }
+
+/* --------------------------------------------------------------------------
+   Tailwind UI — 구독 플랜 선택 (카드형 라디오)
+-------------------------------------------------------------------------- */
+function TailwindSubscriptionPlanRender() {
+  const [selected, setSelected] = useState('pro')
+  const plans = [
+    { id: 'starter', name: 'Starter', price: '무료', features: ['3개 프로젝트', '5GB 스토리지', '커뮤니티 지원'] },
+    { id: 'pro', name: 'Pro', price: '₩29,000/월', features: ['무제한 프로젝트', '50GB 스토리지', '우선 지원'] },
+    { id: 'enterprise', name: 'Enterprise', price: '문의', features: ['무제한 모든 것', '500GB 스토리지', '전담 매니저'] },
+  ]
+  return (
+    <div style={{ maxWidth: 480, fontFamily: 'system-ui, sans-serif' }}>
+      <p style={{ fontSize: 13, fontWeight: 600, marginBottom: 12, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>구독 플랜 선택</p>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+        {plans.map((plan) => (
+          <label key={plan.id} style={{ display: 'flex', alignItems: 'flex-start', gap: 12, padding: '14px 16px', borderRadius: 10, border: `2px solid ${selected === plan.id ? 'var(--sem-eclipse-color-fillPrimary)' : 'var(--sem-eclipse-color-borderSubtle)'}`, background: selected === plan.id ? 'var(--sem-eclipse-color-fillPrimarySubtle)' : 'var(--sem-eclipse-color-surfaceDefault)', cursor: 'pointer', transition: 'all 0.15s' }}>
+            <RadioButton
+              value={plan.id}
+              checked={selected === plan.id}
+              onChange={() => setSelected(plan.id)}
+            />
+            <div style={{ flex: 1 }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 4 }}>
+                <span style={{ fontSize: 13, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{plan.name}</span>
+                <span style={{ fontSize: 13, fontWeight: 700, color: selected === plan.id ? 'var(--sem-eclipse-color-fillPrimary)' : 'var(--sem-eclipse-color-foregroundSecondary)' }}>{plan.price}</span>
+              </div>
+              <ul style={{ margin: 0, padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 2 }}>
+                {plan.features.map((f) => (
+                  <li key={f} style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>• {f}</li>
+                ))}
+              </ul>
+            </div>
+          </label>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+export const Tailwind_구독_플랜_선택: Story = {
+  name: 'Tailwind UI — 구독 플랜 선택 (카드형)',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Tailwind UI의 card radio group 패턴. 각 라디오 옵션이 전체 카드 영역을 클릭 대상으로 삼아 선택 경험을 향상. 선택 시 border 컬러 + 배경 전환.',
+      },
+    },
+  },
+  render: () => <TailwindSubscriptionPlanRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Ant Design — 알림 주기 설정 (인라인 설명 라디오)
+-------------------------------------------------------------------------- */
+function AntNotificationFreqRender() {
+  const [freq, setFreq] = useState('daily')
+  const options = [
+    { value: 'realtime', label: '실시간', desc: '이벤트 발생 즉시 알림 전송' },
+    { value: 'hourly', label: '1시간마다', desc: '최근 1시간 이벤트를 묶어 전달' },
+    { value: 'daily', label: '하루 1회', desc: '오전 9시에 전날 이벤트 요약 전달' },
+    { value: 'weekly', label: '주 1회', desc: '매주 월요일 오전 주간 리포트 전달' },
+    { value: 'never', label: '수신 안 함', desc: '모든 알림 비활성화' },
+  ]
+  return (
+    <div style={{ maxWidth: 360, fontFamily: 'system-ui, sans-serif' }}>
+      <p style={{ fontSize: 13, fontWeight: 600, marginBottom: 8, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>알림 주기</p>
+      <p style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginBottom: 14 }}>이메일 알림을 받을 주기를 선택하세요.</p>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+        {options.map((opt) => (
+          <label key={opt.value} style={{ display: 'flex', alignItems: 'center', gap: 10, cursor: 'pointer', padding: '8px 0', borderBottom: '1px solid var(--sem-eclipse-color-borderSubtle)' }}>
+            <RadioButton value={opt.value} checked={freq === opt.value} onChange={() => setFreq(opt.value)} />
+            <div>
+              <span style={{ fontSize: 13, fontWeight: 500, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{opt.label}</span>
+              <span style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginLeft: 8 }}>{opt.desc}</span>
+            </div>
+          </label>
+        ))}
+      </div>
+      <div style={{ marginTop: 16, padding: '10px 14px', borderRadius: 8, background: 'var(--sem-eclipse-color-surfaceSubtle)', fontSize: 11, color: 'var(--sem-eclipse-color-foregroundSecondary)' }}>
+        현재 선택: <strong>{options.find((o) => o.value === freq)?.label}</strong>
+      </div>
+    </div>
+  )
+}
+
+export const Ant_알림_주기_설정: Story = {
+  name: 'Ant Design — 알림 주기 설정 (인라인 설명)',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Ant Design의 Radio.Group + 상세 설명 패턴. 각 옵션에 짧은 설명 텍스트를 인라인으로 배치하여 선택지 이해를 돕는 UX 패턴.',
+      },
+    },
+  },
+  render: () => <AntNotificationFreqRender />,
+}
+
+/* --------------------------------------------------------------------------
+   MUI — 결제 수단 선택 (아이콘 + 라디오 그리드)
+-------------------------------------------------------------------------- */
+function MUIPaymentMethodRender() {
+  const [method, setMethod] = useState('card')
+  const methods = [
+    { id: 'card', icon: '💳', label: '신용카드', sub: 'Visa, Mastercard, AMEX' },
+    { id: 'bank', icon: '🏦', label: '계좌이체', sub: '실시간 이체' },
+    { id: 'kakao', icon: '💛', label: '카카오페이', sub: '간편결제' },
+    { id: 'naver', icon: '🟢', label: '네이버페이', sub: '간편결제' },
+  ]
+  return (
+    <div style={{ maxWidth: 400, fontFamily: 'system-ui, sans-serif' }}>
+      <p style={{ fontSize: 13, fontWeight: 600, marginBottom: 12, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>결제 수단</p>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
+        {methods.map((m) => (
+          <label key={m.id} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '12px 14px', borderRadius: 10, border: `2px solid ${method === m.id ? 'var(--sem-eclipse-color-fillPrimary)' : 'var(--sem-eclipse-color-borderDefault)'}`, background: method === m.id ? 'var(--sem-eclipse-color-fillPrimarySubtle)' : 'transparent', cursor: 'pointer', transition: 'all 0.15s' }}>
+            <RadioButton value={m.id} checked={method === m.id} onChange={() => setMethod(m.id)} />
+            <div>
+              <div style={{ fontSize: 16 }}>{m.icon}</div>
+              <div style={{ fontSize: 12, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{m.label}</div>
+              <div style={{ fontSize: 10, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>{m.sub}</div>
+            </div>
+          </label>
+        ))}
+      </div>
+      <div style={{ marginTop: 14, fontSize: 12, color: 'var(--sem-eclipse-color-foregroundSecondary)', textAlign: 'center' }}>
+        선택된 결제 수단: <strong>{methods.find((m) => m.id === method)?.label}</strong>
+      </div>
+    </div>
+  )
+}
+
+export const MUI_결제_수단_선택: Story = {
+  name: 'MUI — 결제 수단 선택 (아이콘 + 그리드)',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Material UI의 Radio + Card 조합 패턴. 2열 그리드로 결제 수단을 시각적으로 배열. 아이콘과 짧은 설명으로 빠른 식별을 돕는 선택 UI.',
+      },
+    },
+  },
+  render: () => <MUIPaymentMethodRender />,
+}
