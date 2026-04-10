@@ -717,3 +717,284 @@ export const Arco_낙관적_업데이트_로딩: Story = {
   },
   render: () => <ArcoOptimisticUpdateRender />,
 }
+
+/* --------------------------------------------------------------------------
+   shadcn/ui 벤치마크: 카드 스켈레톤 그리드
+   shadcn/ui Skeleton 컴포넌트 데모 — 3열 카드 레이아웃 스켈레톤 패턴
+-------------------------------------------------------------------------- */
+const ShadcnCardSkeletonItem = () => (
+  <div style={{ borderRadius: 12, border: '1px solid #e2e8f0', overflow: 'hidden', background: '#fff' }}>
+    <Skeleton height={140} width="100%" style={{ borderRadius: 0, display: 'block' }} />
+    <div style={{ padding: '14px 16px 16px', display: 'flex', flexDirection: 'column', gap: 8 }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 2 }}>
+        <Skeleton height={32} width={32} style={{ borderRadius: '50%', flexShrink: 0 }} />
+        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 4 }}>
+          <Skeleton height={12} width="60%" style={{ borderRadius: 4 }} />
+          <Skeleton height={10} width="40%" style={{ borderRadius: 4 }} />
+        </div>
+      </div>
+      <Skeleton height={14} width="85%" style={{ borderRadius: 4 }} />
+      <Skeleton height={14} width="70%" style={{ borderRadius: 4 }} />
+      <div style={{ display: 'flex', gap: 6, marginTop: 4 }}>
+        <Skeleton height={22} width={52} style={{ borderRadius: 20 }} />
+        <Skeleton height={22} width={44} style={{ borderRadius: 20 }} />
+        <Skeleton height={22} width={60} style={{ borderRadius: 20 }} />
+      </div>
+    </div>
+  </div>
+)
+
+function ShadcnCardSkeletonGridRender() {
+  const [loaded, setLoaded] = useState(false)
+
+  return (
+    <div style={{ width: 540, display: 'flex', flexDirection: 'column', gap: 16 }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <span style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>최신 게시물</span>
+        <button
+          onClick={() => setLoaded((p) => !p)}
+          style={{ padding: '5px 14px', borderRadius: 8, border: '1.5px solid #e2e8f0', background: '#fff', fontSize: 12, fontWeight: 600, color: '#334155', cursor: 'pointer' }}
+        >
+          {loaded ? '스켈레톤 보기' : '콘텐츠 로드'}
+        </button>
+      </div>
+      {loaded ? (
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 12 }}>
+          {['디자인 토큰 가이드', '컴포넌트 설계 원칙', 'Storybook 고도화'].map((title, i) => (
+            <div key={i} style={{ borderRadius: 12, border: '1px solid #e2e8f0', overflow: 'hidden', background: '#fff' }}>
+              <div style={{ height: 140, background: ['#eef2ff', '#f0fdf4', '#fff7ed'][i], display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <span style={{ fontSize: 32 }}>{'📐📦📖'[i]}</span>
+              </div>
+              <div style={{ padding: '14px 16px 16px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8 }}>
+                  <div style={{ width: 32, height: 32, borderRadius: '50%', background: ['#6366f1', '#10b981', '#f59e0b'][i], display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 12, fontWeight: 700, color: '#fff', flexShrink: 0 }}>
+                    {['HJ', 'SY', 'JH'][i]}
+                  </div>
+                  <div>
+                    <div style={{ fontSize: 12, fontWeight: 600, color: '#0f172a' }}>{['김희준', '이서연', '박지호'][i]}</div>
+                    <div style={{ fontSize: 10, color: '#94a3b8' }}>2일 전</div>
+                  </div>
+                </div>
+                <div style={{ fontSize: 13, fontWeight: 600, color: '#0f172a', marginBottom: 6 }}>{title}</div>
+                <div style={{ fontSize: 12, color: '#64748b', marginBottom: 8, lineHeight: 1.5 }}>컴포넌트 설계의 핵심 원칙과 실무 활용 패턴을 소개합니다.</div>
+                <div style={{ display: 'flex', gap: 6 }}>
+                  {[['Design', '#eef2ff', '#6366f1'], ['Token', '#f0fdf4', '#10b981'], ['React', '#fff7ed', '#f59e0b']][i].map((c, j) => (
+                    j === 0 ? (
+                      <span key={j} style={{ padding: '2px 8px', borderRadius: 20, background: ['#eef2ff', '#f0fdf4', '#fff7ed'][i], color: ['#6366f1', '#10b981', '#f59e0b'][i], fontSize: 11, fontWeight: 600 }}>{c}</span>
+                    ) : null
+                  ))}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 12 }}>
+          <ShadcnCardSkeletonItem />
+          <ShadcnCardSkeletonItem />
+          <ShadcnCardSkeletonItem />
+        </div>
+      )}
+      <div style={{ fontSize: 11, color: '#94a3b8', textAlign: 'center' }}>
+        shadcn/ui Skeleton 패턴 — 버튼 클릭으로 스켈레톤 ↔ 콘텐츠 전환
+      </div>
+    </div>
+  )
+}
+
+export const Shadcn_카드_스켈레톤_그리드: Story = {
+  name: 'shadcn/ui - 3열 카드 스켈레톤 그리드 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'shadcn/ui Skeleton 컴포넌트 데모 패턴. Avatar + 텍스트 + 태그 영역으로 구성된 카드 스켈레톤을 ' +
+          '3열 그리드로 배치합니다. 버튼 클릭으로 스켈레톤과 실제 콘텐츠 사이를 전환합니다.',
+      },
+    },
+  },
+  render: () => <ShadcnCardSkeletonGridRender />,
+}
+
+/* --------------------------------------------------------------------------
+   shadcn/ui 벤치마크: 프로필 카드 스켈레톤
+   shadcn/ui의 대표 Skeleton 데모 — Avatar + 텍스트 라인 패턴
+-------------------------------------------------------------------------- */
+const ShadcnProfileSkeleton = () => (
+  <div style={{ display: 'flex', alignItems: 'center', gap: 14, padding: '16px 20px', borderRadius: 12, border: '1px solid #e2e8f0', background: '#fff', maxWidth: 360 }}>
+    <Skeleton height={56} width={56} style={{ borderRadius: '50%', flexShrink: 0 }} />
+    <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 8 }}>
+      <Skeleton height={16} width="55%" style={{ borderRadius: 4 }} />
+      <Skeleton height={12} width="80%" style={{ borderRadius: 4 }} />
+      <Skeleton height={12} width="65%" style={{ borderRadius: 4 }} />
+    </div>
+  </div>
+)
+
+function ShadcnProfileSkeletonRender() {
+  const [showReal, setShowReal] = useState(false)
+  const [loading, setLoading] = useState(false)
+
+  const loadProfile = () => {
+    setLoading(true)
+    setShowReal(false)
+    setTimeout(() => {
+      setLoading(false)
+      setShowReal(true)
+    }, 1800)
+  }
+
+  const profiles = [
+    { name: '김희준', role: 'Design Engineer @ Orbit UI', email: 'hjunkim@orbit.dev', color: '#6366f1' },
+    { name: '이서연', role: 'Frontend Developer', email: 'sylee@orbit.dev', color: '#10b981' },
+    { name: '박지호', role: 'Product Designer', email: 'jhpark@orbit.dev', color: '#f59e0b' },
+  ]
+
+  return (
+    <div style={{ width: 400, display: 'flex', flexDirection: 'column', gap: 14 }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <span style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>팀 프로필</span>
+        <button
+          onClick={loadProfile}
+          disabled={loading}
+          style={{ padding: '5px 14px', borderRadius: 8, border: 'none', background: loading ? '#e2e8f0' : '#0f172a', color: loading ? '#94a3b8' : '#fff', fontSize: 12, fontWeight: 600, cursor: loading ? 'not-allowed' : 'pointer', transition: 'all 0.2s' }}
+        >
+          {loading ? '로드 중...' : '프로필 불러오기'}
+        </button>
+      </div>
+      {!showReal || loading ? (
+        <>
+          <ShadcnProfileSkeleton />
+          <ShadcnProfileSkeleton />
+          <ShadcnProfileSkeleton />
+        </>
+      ) : (
+        profiles.map((p) => (
+          <div key={p.name} style={{ display: 'flex', alignItems: 'center', gap: 14, padding: '16px 20px', borderRadius: 12, border: '1px solid #e2e8f0', background: '#fff' }}>
+            <div style={{ width: 56, height: 56, borderRadius: '50%', background: p.color, flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 18, fontWeight: 800, color: '#fff' }}>
+              {p.name[0]}
+            </div>
+            <div>
+              <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a', marginBottom: 3 }}>{p.name}</div>
+              <div style={{ fontSize: 12, color: '#64748b', marginBottom: 2 }}>{p.role}</div>
+              <div style={{ fontSize: 12, color: '#94a3b8' }}>{p.email}</div>
+            </div>
+          </div>
+        ))
+      )}
+      {!loading && !showReal && (
+        <div style={{ fontSize: 11, color: '#94a3b8', textAlign: 'center' }}>
+          버튼을 클릭해 shadcn/ui 프로필 스켈레톤 → 실제 데이터 전환을 확인하세요
+        </div>
+      )}
+    </div>
+  )
+}
+
+export const Shadcn_프로필_스켈레톤: Story = {
+  name: 'shadcn/ui - Avatar + 텍스트 라인 프로필 스켈레톤 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'shadcn/ui의 대표 Skeleton 데모 패턴. 원형 Avatar 스켈레톤 + 3줄 텍스트 라인 스켈레톤으로 ' +
+          '프로필 카드 로딩 상태를 표현합니다. 1.8초 후 실제 프로필 데이터로 전환됩니다.',
+      },
+    },
+  },
+  render: () => <ShadcnProfileSkeletonRender />,
+}
+
+/* --------------------------------------------------------------------------
+   shadcn/ui 벤치마크: 무한 스크롤 로딩 트리거
+   shadcn/ui의 Table + Pagination 패턴 — 리스트 하단 점진적 로딩 시뮬레이션
+-------------------------------------------------------------------------- */
+type FeedItem = { id: number; title: string; author: string; date: string; tag: string; tagColor: string }
+
+const INITIAL_FEED: FeedItem[] = [
+  { id: 1, title: '디자인 토큰 3단계 계층 구조 이해하기', author: '김희준', date: '2025-04-01', tag: 'Design', tagColor: '#eef2ff' },
+  { id: 2, title: 'Storybook 8.x 마이그레이션 완전 가이드', author: '이서연', date: '2025-04-02', tag: 'Storybook', tagColor: '#f0fdf4' },
+  { id: 3, title: 'vanilla-extract로 타입 안전 CSS 작성', author: '박지호', date: '2025-04-03', tag: 'CSS', tagColor: '#fff7ed' },
+  { id: 4, title: 'React 19 Actions 패턴 실전 활용', author: '최은아', date: '2025-04-04', tag: 'React', tagColor: '#fef3c7' },
+]
+
+const MORE_FEED: FeedItem[] = [
+  { id: 5, title: 'WAI-ARIA 접근성 컴포넌트 설계 원칙', author: '김희준', date: '2025-04-05', tag: 'A11y', tagColor: '#fce7f3' },
+  { id: 6, title: 'pnpm 모노레포 워크스페이스 최적화', author: '이서연', date: '2025-04-06', tag: 'DevOps', tagColor: '#ede9fe' },
+  { id: 7, title: 'TypeScript 5.7 satisfies 연산자 활용', author: '박지호', date: '2025-04-07', tag: 'TypeScript', tagColor: '#dbeafe' },
+]
+
+function ShadcnInfiniteScrollRender() {
+  const [items, setItems] = useState<FeedItem[]>(INITIAL_FEED)
+  const [loadingMore, setLoadingMore] = useState(false)
+  const [allLoaded, setAllLoaded] = useState(false)
+
+  const loadMore = () => {
+    if (loadingMore || allLoaded) return
+    setLoadingMore(true)
+    setTimeout(() => {
+      setItems((prev) => [...prev, ...MORE_FEED])
+      setLoadingMore(false)
+      setAllLoaded(true)
+    }, 1600)
+  }
+
+  return (
+    <div style={{ width: 480, display: 'flex', flexDirection: 'column', gap: 12 }}>
+      <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>
+        아티클 피드 <span style={{ fontSize: 12, fontWeight: 400, color: '#94a3b8' }}>({items.length}개)</span>
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+        {items.map((item) => (
+          <div key={item.id} style={{ display: 'flex', alignItems: 'flex-start', gap: 12, padding: '12px 14px', borderRadius: 10, border: '1px solid #e2e8f0', background: '#fff' }}>
+            <div style={{ width: 36, height: 36, borderRadius: 8, background: item.tagColor, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 11, fontWeight: 800, color: '#334155', flexShrink: 0 }}>
+              {item.id}
+            </div>
+            <div style={{ flex: 1 }}>
+              <div style={{ fontSize: 13, fontWeight: 600, color: '#0f172a', marginBottom: 4, lineHeight: 1.4 }}>{item.title}</div>
+              <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+                <span style={{ fontSize: 11, color: '#64748b' }}>{item.author}</span>
+                <span style={{ fontSize: 11, color: '#d1d5db' }}>·</span>
+                <span style={{ fontSize: 11, color: '#94a3b8' }}>{item.date}</span>
+                <span style={{ padding: '1px 8px', borderRadius: 20, background: item.tagColor, fontSize: 10, fontWeight: 700, color: '#334155', marginLeft: 'auto' }}>{item.tag}</span>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+      {!allLoaded ? (
+        <button
+          onClick={loadMore}
+          disabled={loadingMore}
+          style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, padding: '10px', borderRadius: 10, border: '1.5px dashed #e2e8f0', background: '#fafafa', cursor: loadingMore ? 'not-allowed' : 'pointer', fontSize: 13, fontWeight: 600, color: loadingMore ? '#94a3b8' : '#334155' }}
+        >
+          {loadingMore ? (
+            <>
+              <Loading size="small" />
+              <span>불러오는 중...</span>
+            </>
+          ) : '더 보기'}
+        </button>
+      ) : (
+        <div style={{ padding: '10px', textAlign: 'center', fontSize: 12, color: '#94a3b8', border: '1px solid #f1f5f9', borderRadius: 10, background: '#fafafa' }}>
+          모든 아티클을 불러왔습니다.
+        </div>
+      )}
+    </div>
+  )
+}
+
+export const Shadcn_무한_스크롤_로딩: Story = {
+  name: 'shadcn/ui - 피드 더 보기 인라인 로딩 트리거 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'shadcn/ui Table + Pagination 패턴을 피드 더 보기에 응용. ' +
+          '하단 버튼 클릭 시 Loading 스피너와 함께 1.6초 후 추가 항목을 로드합니다. ' +
+          '모든 항목 로드 후 완료 메시지로 전환됩니다.',
+      },
+    },
+  },
+  render: () => <ShadcnInfiniteScrollRender />,
+}

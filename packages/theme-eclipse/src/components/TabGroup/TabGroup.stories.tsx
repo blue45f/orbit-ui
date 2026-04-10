@@ -1190,3 +1190,328 @@ export const Chakra_설정_패널_탭: Story = {
   },
   render: () => <ChakraSettingsPanelRender />,
 }
+
+/* --------------------------------------------------------------------------
+   shadcn/ui 벤치마크: 컴포넌트 문서 탭 패턴
+   shadcn/ui의 Preview/Code/CLI 3탭 패턴 — 컴포넌트 설치·미리보기·코드 전환
+-------------------------------------------------------------------------- */
+type ShadcnDocTab = 'preview' | 'code' | 'cli'
+
+const SHADCN_DOC_TABS: Array<{ id: ShadcnDocTab; label: string }> = [
+  { id: 'preview', label: 'Preview' },
+  { id: 'code', label: 'Code' },
+  { id: 'cli', label: 'CLI' },
+]
+
+const CODE_SNIPPET = `import { SolidButton } from '@heejun-com/theme-eclipse'
+
+export function Example() {
+  return (
+    <SolidButton variant="primary">
+      Click me
+    </SolidButton>
+  )
+}`
+
+const CLI_SNIPPET = `# pnpm
+pnpm add @heejun-com/theme-eclipse
+
+# npm
+npm install @heejun-com/theme-eclipse
+
+# yarn
+yarn add @heejun-com/theme-eclipse`
+
+function ShadcnDocTabsRender() {
+  const [activeIdx, setActiveIdx] = useState(0)
+  const tabs: ShadcnDocTab[] = ['preview', 'code', 'cli']
+  const activeId = tabs[activeIdx]
+
+  return (
+    <div style={{ width: 480, fontFamily: 'system-ui, sans-serif', border: '1px solid #e2e8f0', borderRadius: 12, overflow: 'hidden' }}>
+      <div style={{ padding: '14px 16px', borderBottom: '1px solid #f1f5f9', background: '#fafafa' }}>
+        <div style={{ fontSize: 13, fontWeight: 700, color: '#0f172a', marginBottom: 2 }}>SolidButton</div>
+        <div style={{ fontSize: 12, color: '#64748b' }}>Displays a button or a component that looks like a button.</div>
+      </div>
+      <div style={{ borderBottom: '1px solid #e2e8f0', padding: '0 16px' }}>
+        <FixedTabs selectedIndex={activeIdx} onTabChange={setActiveIdx}>
+          {SHADCN_DOC_TABS.map((tab) => (
+            <FixedTabs.Tab key={tab.id} value={tab.id}>
+              <FixedTabs.TabCenter>{tab.label}</FixedTabs.TabCenter>
+            </FixedTabs.Tab>
+          ))}
+        </FixedTabs>
+      </div>
+      <div style={{ padding: 20, minHeight: 140 }}>
+        {activeId === 'preview' && (
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: 100, background: 'repeating-linear-gradient(45deg,#f8fafc,#f8fafc 10px,#fff 10px,#fff 20px)', borderRadius: 8, border: '1px solid #f1f5f9' }}>
+            <LabelBadge color="benefit">Primary</LabelBadge>
+          </div>
+        )}
+        {activeId === 'code' && (
+          <pre style={{ margin: 0, padding: '14px 16px', background: '#0f172a', borderRadius: 8, fontSize: 12, color: '#e2e8f0', overflowX: 'auto', lineHeight: 1.7 }}>
+            <code>{CODE_SNIPPET}</code>
+          </pre>
+        )}
+        {activeId === 'cli' && (
+          <pre style={{ margin: 0, padding: '14px 16px', background: '#0f172a', borderRadius: 8, fontSize: 12, color: '#e2e8f0', overflowX: 'auto', lineHeight: 1.7 }}>
+            <code>{CLI_SNIPPET}</code>
+          </pre>
+        )}
+      </div>
+      <div style={{ padding: '10px 16px', borderTop: '1px solid #f1f5f9', background: '#fafafa', fontSize: 11, color: '#94a3b8', textAlign: 'right' }}>
+        shadcn/ui docs 패턴 — Preview / Code / CLI 전환 탭
+      </div>
+    </div>
+  )
+}
+
+export const Shadcn_컴포넌트_문서_탭: Story = {
+  name: 'shadcn/ui - 컴포넌트 문서 Preview/Code/CLI 탭 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'shadcn/ui 공식 문서의 컴포넌트 페이지 패턴. Preview·Code·CLI 세 탭으로 ' +
+          '컴포넌트 미리보기, 소스코드, 설치 CLI 명령어를 전환합니다. ' +
+          'FixedTabs로 탭을 구현하고 탭별로 다른 콘텐츠 렌더링 유형을 보여줍니다.',
+      },
+    },
+  },
+  render: () => <ShadcnDocTabsRender />,
+}
+
+/* --------------------------------------------------------------------------
+   shadcn/ui 벤치마크: 인증 탭 패턴
+   shadcn/ui의 Card + Tabs 조합 — 로그인/회원가입 탭 전환
+-------------------------------------------------------------------------- */
+type ShadcnAuthTab = 'login' | 'signup'
+
+function ShadcnAuthTabsRender() {
+  const [activeIdx, setActiveIdx] = useState(0)
+  const tabs: ShadcnAuthTab[] = ['login', 'signup']
+  const activeId = tabs[activeIdx]
+
+  const [loginForm, setLoginForm] = useState({ email: '', password: '' })
+  const [signupForm, setSignupForm] = useState({ name: '', email: '', password: '' })
+  const [submitted, setSubmitted] = useState(false)
+
+  const handleSubmit = () => {
+    setSubmitted(true)
+    setTimeout(() => setSubmitted(false), 2000)
+  }
+
+  const inputStyle: React.CSSProperties = {
+    width: '100%',
+    padding: '8px 12px',
+    borderRadius: 8,
+    border: '1.5px solid #e2e8f0',
+    fontSize: 13,
+    color: '#0f172a',
+    outline: 'none',
+    boxSizing: 'border-box',
+    background: '#fff',
+  }
+
+  return (
+    <div style={{ width: 360, fontFamily: 'system-ui, sans-serif' }}>
+      <div style={{ textAlign: 'center', marginBottom: 20 }}>
+        <div style={{ fontSize: 22, fontWeight: 700, color: '#0f172a', marginBottom: 4 }}>Orbit UI</div>
+        <div style={{ fontSize: 13, color: '#64748b' }}>계정에 로그인하거나 새 계정을 만드세요.</div>
+      </div>
+      <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: 12, overflow: 'hidden' }}>
+        <div style={{ padding: '0 16px', borderBottom: '1px solid #e2e8f0' }}>
+          <FixedTabs selectedIndex={activeIdx} onTabChange={setActiveIdx}>
+            <FixedTabs.Tab value="login">
+              <FixedTabs.TabCenter>로그인</FixedTabs.TabCenter>
+            </FixedTabs.Tab>
+            <FixedTabs.Tab value="signup">
+              <FixedTabs.TabCenter>회원가입</FixedTabs.TabCenter>
+            </FixedTabs.Tab>
+          </FixedTabs>
+        </div>
+        <div style={{ padding: 20 }}>
+          {activeId === 'login' && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+              <div>
+                <label style={{ fontSize: 12, fontWeight: 600, color: '#334155', display: 'block', marginBottom: 4 }}>이메일</label>
+                <input
+                  type="email"
+                  placeholder="name@example.com"
+                  value={loginForm.email}
+                  onChange={(e) => setLoginForm((p) => ({ ...p, email: e.target.value }))}
+                  style={inputStyle}
+                />
+              </div>
+              <div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 4 }}>
+                  <label style={{ fontSize: 12, fontWeight: 600, color: '#334155' }}>비밀번호</label>
+                  <span style={{ fontSize: 11, color: '#6366f1', cursor: 'pointer' }}>비밀번호 찾기</span>
+                </div>
+                <input
+                  type="password"
+                  placeholder="••••••••"
+                  value={loginForm.password}
+                  onChange={(e) => setLoginForm((p) => ({ ...p, password: e.target.value }))}
+                  style={inputStyle}
+                />
+              </div>
+              <button
+                onClick={handleSubmit}
+                style={{ width: '100%', padding: '10px', borderRadius: 8, border: 'none', background: submitted ? '#10b981' : '#0f172a', color: '#fff', fontSize: 13, fontWeight: 700, cursor: 'pointer', transition: 'background 0.2s', marginTop: 4 }}
+              >
+                {submitted ? '로그인 완료!' : '로그인'}
+              </button>
+            </div>
+          )}
+          {activeId === 'signup' && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+              <div>
+                <label style={{ fontSize: 12, fontWeight: 600, color: '#334155', display: 'block', marginBottom: 4 }}>이름</label>
+                <input
+                  type="text"
+                  placeholder="홍길동"
+                  value={signupForm.name}
+                  onChange={(e) => setSignupForm((p) => ({ ...p, name: e.target.value }))}
+                  style={inputStyle}
+                />
+              </div>
+              <div>
+                <label style={{ fontSize: 12, fontWeight: 600, color: '#334155', display: 'block', marginBottom: 4 }}>이메일</label>
+                <input
+                  type="email"
+                  placeholder="name@example.com"
+                  value={signupForm.email}
+                  onChange={(e) => setSignupForm((p) => ({ ...p, email: e.target.value }))}
+                  style={inputStyle}
+                />
+              </div>
+              <div>
+                <label style={{ fontSize: 12, fontWeight: 600, color: '#334155', display: 'block', marginBottom: 4 }}>비밀번호</label>
+                <input
+                  type="password"
+                  placeholder="••••••••"
+                  value={signupForm.password}
+                  onChange={(e) => setSignupForm((p) => ({ ...p, password: e.target.value }))}
+                  style={inputStyle}
+                />
+              </div>
+              <button
+                onClick={handleSubmit}
+                style={{ width: '100%', padding: '10px', borderRadius: 8, border: 'none', background: submitted ? '#10b981' : '#6366f1', color: '#fff', fontSize: 13, fontWeight: 700, cursor: 'pointer', transition: 'background 0.2s', marginTop: 4 }}
+              >
+                {submitted ? '가입 완료!' : '계정 만들기'}
+              </button>
+              <div style={{ fontSize: 11, color: '#94a3b8', textAlign: 'center', lineHeight: 1.5 }}>
+                가입 시 이용약관 및 개인정보처리방침에 동의합니다.
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const Shadcn_인증_탭: Story = {
+  name: 'shadcn/ui - 로그인/회원가입 Card + Tabs 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'shadcn/ui의 Authentication Card + Tabs 패턴. FixedTabs로 로그인/회원가입을 전환하며 ' +
+          '각 탭마다 독립적인 폼 상태를 유지합니다. 제출 버튼 클릭 시 2초간 완료 상태로 전환됩니다.',
+      },
+    },
+  },
+  render: () => <ShadcnAuthTabsRender />,
+}
+
+/* --------------------------------------------------------------------------
+   shadcn/ui 벤치마크: 메트릭 대시보드 탭
+   shadcn/ui의 Dashboard Overview 패턴 — 기간별 지표를 탭으로 전환
+-------------------------------------------------------------------------- */
+type ShadcnPeriod = '7d' | '30d' | '90d'
+
+const SHADCN_PERIODS: Array<{ id: ShadcnPeriod; label: string }> = [
+  { id: '7d', label: '7일' },
+  { id: '30d', label: '30일' },
+  { id: '90d', label: '90일' },
+]
+
+const SHADCN_METRICS: Record<ShadcnPeriod, Array<{ label: string; value: string; change: string; up: boolean }>> = {
+  '7d':  [
+    { label: '총 방문자', value: '12,340', change: '+8.2%', up: true },
+    { label: '신규 가입', value: '284', change: '+12.1%', up: true },
+    { label: '이탈률', value: '42.3%', change: '-2.4%', up: false },
+    { label: '전환율', value: '3.1%', change: '+0.5%', up: true },
+  ],
+  '30d': [
+    { label: '총 방문자', value: '48,921', change: '+5.7%', up: true },
+    { label: '신규 가입', value: '1,042', change: '+9.3%', up: true },
+    { label: '이탈률', value: '39.8%', change: '-4.1%', up: false },
+    { label: '전환율', value: '3.6%', change: '+0.8%', up: true },
+  ],
+  '90d': [
+    { label: '총 방문자', value: '142,087', change: '+14.5%', up: true },
+    { label: '신규 가입', value: '3,289', change: '+22.4%', up: true },
+    { label: '이탈률', value: '37.2%', change: '-6.7%', up: false },
+    { label: '전환율', value: '4.1%', change: '+1.4%', up: true },
+  ],
+}
+
+function ShadcnMetricDashboardRender() {
+  const [activeIdx, setActiveIdx] = useState(0)
+  const periods: ShadcnPeriod[] = ['7d', '30d', '90d']
+  const metrics = SHADCN_METRICS[periods[activeIdx]]
+
+  return (
+    <div style={{ width: 440, fontFamily: 'system-ui, sans-serif' }}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 16 }}>
+        <div>
+          <div style={{ fontSize: 16, fontWeight: 700, color: '#0f172a' }}>Analytics Overview</div>
+          <div style={{ fontSize: 12, color: '#64748b', marginTop: 2 }}>서비스 핵심 지표를 기간별로 확인합니다.</div>
+        </div>
+        <FixedTabs selectedIndex={activeIdx} onTabChange={setActiveIdx}>
+          {SHADCN_PERIODS.map((p) => (
+            <FixedTabs.Tab key={p.id} value={p.id}>
+              <FixedTabs.TabCenter>{p.label}</FixedTabs.TabCenter>
+            </FixedTabs.Tab>
+          ))}
+        </FixedTabs>
+      </div>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
+        {metrics.map((m) => (
+          <div key={m.label} style={{ padding: '16px', borderRadius: 12, border: '1px solid #e2e8f0', background: '#fff' }}>
+            <div style={{ fontSize: 11, fontWeight: 600, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: 8 }}>{m.label}</div>
+            <div style={{ fontSize: 22, fontWeight: 800, color: '#0f172a', marginBottom: 4 }}>{m.value}</div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+              <span style={{ fontSize: 10, fontWeight: 700, color: m.up ? '#10b981' : '#ef4444' }}>
+                {m.up ? '▲' : '▼'}
+              </span>
+              <span style={{ fontSize: 11, fontWeight: 600, color: m.up ? '#10b981' : '#ef4444' }}>{m.change}</span>
+              <span style={{ fontSize: 11, color: '#94a3b8' }}>vs 이전 기간</span>
+            </div>
+          </div>
+        ))}
+      </div>
+      <div style={{ marginTop: 12, padding: '10px 14px', borderRadius: 8, background: '#f8fafc', border: '1px solid #f1f5f9', fontSize: 11, color: '#94a3b8', textAlign: 'center' }}>
+        shadcn/ui Dashboard Overview 패턴 — 기간 탭으로 지표 데이터 전환
+      </div>
+    </div>
+  )
+}
+
+export const Shadcn_메트릭_대시보드_탭: Story = {
+  name: 'shadcn/ui - Analytics 기간 필터 탭 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'shadcn/ui Dashboard Overview 패턴. FixedTabs를 상단 우측에 배치해 7일/30일/90일 기간을 전환하고, ' +
+          '2×2 그리드 메트릭 카드에 증감률과 방향 표시를 포함합니다. 기간 변경 시 모든 지표가 즉시 업데이트됩니다.',
+      },
+    },
+  },
+  render: () => <ShadcnMetricDashboardRender />,
+}

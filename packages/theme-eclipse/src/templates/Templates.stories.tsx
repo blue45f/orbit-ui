@@ -22663,3 +22663,309 @@ export const RadixSocialFeed: Story = {
   },
   render: () => <Radix92SocialFeedRender />,
 }
+
+/* ==========================================================================
+   Cycle 93 — shadcn/ui 벤치마크: Team Dashboard
+   shadcn/ui의 DataTable + Command + Card 패턴
+   멤버 관리 대시보드: 검색, 역할 필터, DataTable, Skeleton 로딩, Badge
+   ========================================================================== */
+type Shadcn93Role = '전체' | '관리자' | '디자이너' | '개발자' | '기획자'
+type Shadcn93MemberStatus = 'active' | 'inactive' | 'invited'
+
+interface Shadcn93Member {
+  id: number
+  name: string
+  role: Shadcn93Role
+  email: string
+  status: Shadcn93MemberStatus
+  joinedAt: string
+  taskCount: number
+}
+
+const SHADCN93_MEMBERS: Shadcn93Member[] = [
+  { id: 1, name: '김희준', role: '관리자', email: 'hjunkim@orbit.dev', status: 'active', joinedAt: '2024-01-10', taskCount: 24 },
+  { id: 2, name: '이서연', role: '개발자', email: 'sylee@orbit.dev', status: 'active', joinedAt: '2024-02-14', taskCount: 18 },
+  { id: 3, name: '박지호', role: '디자이너', email: 'jhpark@orbit.dev', status: 'active', joinedAt: '2024-03-08', taskCount: 31 },
+  { id: 4, name: '최은아', role: '기획자', email: 'eachoi@orbit.dev', status: 'active', joinedAt: '2024-04-22', taskCount: 15 },
+  { id: 5, name: '정민수', role: '개발자', email: 'msjung@orbit.dev', status: 'inactive', joinedAt: '2024-05-01', taskCount: 7 },
+  { id: 6, name: '윤하늘', role: '디자이너', email: 'hnyoon@orbit.dev', status: 'invited', joinedAt: '2025-04-05', taskCount: 0 },
+  { id: 7, name: '강다연', role: '개발자', email: 'dygang@orbit.dev', status: 'active', joinedAt: '2024-06-12', taskCount: 22 },
+]
+
+const SHADCN93_ROLE_FILTERS: Shadcn93Role[] = ['전체', '관리자', '개발자', '디자이너', '기획자']
+
+const SHADCN93_STATUS_META: Record<Shadcn93MemberStatus, { label: string; color: string; bg: string }> = {
+  active:   { label: '활성', color: '#10b981', bg: '#f0fdf4' },
+  inactive: { label: '비활성', color: '#94a3b8', bg: '#f8fafc' },
+  invited:  { label: '초대됨', color: '#f59e0b', bg: '#fffbeb' },
+}
+
+const SHADCN93_ROLE_COLOR: Record<string, string> = {
+  '관리자': '#6366f1',
+  '개발자': '#0ea5e9',
+  '디자이너': '#ec4899',
+  '기획자': '#f59e0b',
+}
+
+function Shadcn93TeamDashboardRender() {
+  const [search, setSearch] = React.useState('')
+  const [roleFilter, setRoleFilter] = React.useState<Shadcn93Role>('전체')
+  const [loading, setLoading] = React.useState(false)
+  const [sortKey, setSortKey] = React.useState<'name' | 'taskCount' | 'joinedAt'>('name')
+  const [sortAsc, setSortAsc] = React.useState(true)
+  const [selectedIds, setSelectedIds] = React.useState<Set<number>>(new Set())
+  const [page, setPage] = React.useState(1)
+  const PAGE_SIZE = 5
+
+  const handleSort = (key: typeof sortKey) => {
+    if (sortKey === key) setSortAsc((a) => !a)
+    else { setSortKey(key); setSortAsc(true) }
+  }
+
+  const filtered = SHADCN93_MEMBERS
+    .filter((m) => roleFilter === '전체' || m.role === roleFilter)
+    .filter((m) => search === '' || m.name.includes(search) || m.email.includes(search))
+    .sort((a, b) => {
+      const v = sortKey === 'taskCount' ? (a.taskCount - b.taskCount) : a[sortKey].localeCompare(b[sortKey])
+      return sortAsc ? v : -v
+    })
+
+  const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE))
+  const paged = filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE)
+
+  const allSelected = paged.length > 0 && paged.every((m) => selectedIds.has(m.id))
+  const toggleAll = () => {
+    setSelectedIds((prev) => {
+      const next = new Set(prev)
+      if (allSelected) paged.forEach((m) => next.delete(m.id))
+      else paged.forEach((m) => next.add(m.id))
+      return next
+    })
+  }
+
+  const refresh = () => {
+    setLoading(true)
+    setTimeout(() => setLoading(false), 1400)
+  }
+
+  const SortIcon = ({ col }: { col: typeof sortKey }) => (
+    <span style={{ marginLeft: 3, fontSize: 10, color: sortKey === col ? '#6366f1' : '#d1d5db' }}>
+      {sortKey === col ? (sortAsc ? '▲' : '▼') : '⇅'}
+    </span>
+  )
+
+  const stats = [
+    { label: '전체 멤버', value: SHADCN93_MEMBERS.length, color: '#6366f1', bg: '#eef2ff' },
+    { label: '활성', value: SHADCN93_MEMBERS.filter((m) => m.status === 'active').length, color: '#10b981', bg: '#f0fdf4' },
+    { label: '총 태스크', value: SHADCN93_MEMBERS.reduce((s, m) => s + m.taskCount, 0), color: '#0ea5e9', bg: '#f0f9ff' },
+    { label: '초대 대기', value: SHADCN93_MEMBERS.filter((m) => m.status === 'invited').length, color: '#f59e0b', bg: '#fffbeb' },
+  ]
+
+  return (
+    <div style={{ minHeight: '100vh', background: '#f8fafc', fontFamily: 'system-ui, sans-serif', padding: 0 }}>
+      {/* Header */}
+      <div style={{ background: '#fff', borderBottom: '1px solid #e2e8f0', padding: '14px 32px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+          <div style={{ width: 28, height: 28, borderRadius: 6, background: '#6366f1', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <PeopleLineIcon size={14} color="#fff" />
+          </div>
+          <span style={{ fontSize: 15, fontWeight: 700, color: '#0f172a' }}>팀 대시보드</span>
+          <LabelBadge color="benefit"><LabelBadge.Label>shadcn/ui 패턴</LabelBadge.Label></LabelBadge>
+        </div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+          <SolidButton
+            onClick={refresh}
+            color="gray"
+            size="small"
+          >
+            <SolidButton.Center>{loading ? '새로고침 중...' : '새로고침'}</SolidButton.Center>
+          </SolidButton>
+          <SolidButton color="black" size="small">
+            <SolidButton.Center>+ 멤버 초대</SolidButton.Center>
+          </SolidButton>
+        </div>
+      </div>
+
+      <div style={{ padding: '24px 32px', maxWidth: 1100, margin: '0 auto' }}>
+        {/* Stats row */}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 12, marginBottom: 24 }}>
+          {stats.map((s) => (
+            <div key={s.label} style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: 12, padding: '16px 20px', display: 'flex', alignItems: 'center', gap: 14 }}>
+              <div style={{ width: 42, height: 42, borderRadius: 10, background: s.bg, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                <span style={{ fontSize: 18, fontWeight: 800, color: s.color }}>{s.value}</span>
+              </div>
+              <span style={{ fontSize: 12, fontWeight: 600, color: '#64748b' }}>{s.label}</span>
+            </div>
+          ))}
+        </div>
+
+        {/* Table card */}
+        <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: 14, overflow: 'hidden' }}>
+          {/* Toolbar */}
+          <div style={{ padding: '14px 20px', borderBottom: '1px solid #f1f5f9', display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
+            <div style={{ position: 'relative', flex: 1, minWidth: 180 }}>
+              <SearchIcon size={14} color="#94a3b8" style={{ position: 'absolute', left: 10, top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none' }} />
+              <input
+                value={search}
+                onChange={(e) => { setSearch(e.target.value); setPage(1) }}
+                placeholder="이름·이메일 검색..."
+                style={{ width: '100%', padding: '7px 10px 7px 32px', borderRadius: 8, border: '1.5px solid #e2e8f0', fontSize: 12, color: '#0f172a', outline: 'none', boxSizing: 'border-box' }}
+              />
+            </div>
+            <div style={{ display: 'flex', gap: 4 }}>
+              {SHADCN93_ROLE_FILTERS.map((r) => (
+                <button
+                  key={r}
+                  onClick={() => { setRoleFilter(r); setPage(1) }}
+                  style={{ padding: '6px 12px', borderRadius: 8, border: `1.5px solid ${roleFilter === r ? '#6366f1' : '#e2e8f0'}`, background: roleFilter === r ? '#eef2ff' : '#fff', color: roleFilter === r ? '#6366f1' : '#64748b', fontSize: 12, fontWeight: 600, cursor: 'pointer', transition: 'all 0.15s' }}
+                >
+                  {r}
+                </button>
+              ))}
+            </div>
+            {selectedIds.size > 0 && (
+              <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: 8 }}>
+                <LabelBadge color="sale"><LabelBadge.Label>{selectedIds.size}명 선택</LabelBadge.Label></LabelBadge>
+                <button onClick={() => setSelectedIds(new Set())} style={{ fontSize: 11, color: '#94a3b8', background: 'none', border: 'none', cursor: 'pointer' }}>선택 해제</button>
+              </div>
+            )}
+          </div>
+
+          {/* Table */}
+          {loading ? (
+            <div style={{ padding: '32px', display: 'flex', flexDirection: 'column', gap: 14 }}>
+              {Array.from({ length: 5 }).map((_, i) => (
+                <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                  <Skeleton height={16} width={16} style={{ borderRadius: 3, flexShrink: 0 }} />
+                  <Skeleton height={32} width={32} style={{ borderRadius: '50%', flexShrink: 0 }} />
+                  <Skeleton height={14} width="20%" style={{ borderRadius: 4 }} />
+                  <Skeleton height={14} width="25%" style={{ borderRadius: 4 }} />
+                  <Skeleton height={20} width={52} style={{ borderRadius: 10 }} />
+                  <Skeleton height={20} width={48} style={{ borderRadius: 10 }} />
+                  <Skeleton height={14} width="10%" style={{ borderRadius: 4, marginLeft: 'auto' }} />
+                </div>
+              ))}
+            </div>
+          ) : (
+            <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13 }}>
+              <thead>
+                <tr style={{ background: '#f8fafc' }}>
+                  <th style={{ padding: '10px 20px', textAlign: 'left', width: 40 }}>
+                    <input type="checkbox" checked={allSelected} onChange={toggleAll} style={{ cursor: 'pointer', accentColor: '#6366f1' }} />
+                  </th>
+                  <th style={{ padding: '10px 12px', textAlign: 'left', fontWeight: 700, color: '#475569', cursor: 'pointer' }} onClick={() => handleSort('name')}>
+                    이름 <SortIcon col="name" />
+                  </th>
+                  <th style={{ padding: '10px 12px', textAlign: 'left', fontWeight: 700, color: '#475569' }}>역할</th>
+                  <th style={{ padding: '10px 12px', textAlign: 'left', fontWeight: 700, color: '#475569' }}>상태</th>
+                  <th style={{ padding: '10px 12px', textAlign: 'left', fontWeight: 700, color: '#475569', cursor: 'pointer' }} onClick={() => handleSort('joinedAt')}>
+                    가입일 <SortIcon col="joinedAt" />
+                  </th>
+                  <th style={{ padding: '10px 20px', textAlign: 'right', fontWeight: 700, color: '#475569', cursor: 'pointer' }} onClick={() => handleSort('taskCount')}>
+                    태스크 <SortIcon col="taskCount" />
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {paged.length === 0 ? (
+                  <tr>
+                    <td colSpan={6} style={{ padding: '32px', textAlign: 'center', color: '#94a3b8', fontSize: 13 }}>
+                      검색 결과가 없습니다
+                    </td>
+                  </tr>
+                ) : (
+                  paged.map((m) => {
+                    const st = SHADCN93_STATUS_META[m.status]
+                    const isSelected = selectedIds.has(m.id)
+                    return (
+                      <tr
+                        key={m.id}
+                        style={{ borderTop: '1px solid #f1f5f9', background: isSelected ? '#f8f8ff' : '#fff', transition: 'background 0.1s' }}
+                      >
+                        <td style={{ padding: '12px 20px' }}>
+                          <input
+                            type="checkbox"
+                            checked={isSelected}
+                            onChange={() => setSelectedIds((prev) => { const n = new Set(prev); if (isSelected) { n.delete(m.id) } else { n.add(m.id) } return n })}
+                            style={{ cursor: 'pointer', accentColor: '#6366f1' }}
+                          />
+                        </td>
+                        <td style={{ padding: '12px 12px' }}>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                            <div style={{ width: 32, height: 32, borderRadius: '50%', background: SHADCN93_ROLE_COLOR[m.role] ?? '#6366f1', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 12, fontWeight: 700, color: '#fff', flexShrink: 0 }}>
+                              {m.name[0]}
+                            </div>
+                            <div>
+                              <div style={{ fontWeight: 600, color: '#0f172a' }}>{m.name}</div>
+                              <div style={{ fontSize: 11, color: '#94a3b8' }}>{m.email}</div>
+                            </div>
+                          </div>
+                        </td>
+                        <td style={{ padding: '12px 12px' }}>
+                          <span style={{ padding: '2px 10px', borderRadius: 20, background: (SHADCN93_ROLE_COLOR[m.role] ?? '#6366f1') + '18', color: SHADCN93_ROLE_COLOR[m.role] ?? '#6366f1', fontSize: 11, fontWeight: 700 }}>{m.role}</span>
+                        </td>
+                        <td style={{ padding: '12px 12px' }}>
+                          <span style={{ padding: '2px 10px', borderRadius: 20, background: st.bg, color: st.color, fontSize: 11, fontWeight: 700 }}>{st.label}</span>
+                        </td>
+                        <td style={{ padding: '12px 12px', color: '#64748b', fontSize: 12 }}>{m.joinedAt}</td>
+                        <td style={{ padding: '12px 20px', textAlign: 'right', fontWeight: 700, color: m.taskCount > 20 ? '#6366f1' : '#334155' }}>{m.taskCount}</td>
+                      </tr>
+                    )
+                  })
+                )}
+              </tbody>
+            </table>
+          )}
+
+          {/* Pagination */}
+          <div style={{ padding: '12px 20px', borderTop: '1px solid #f1f5f9', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <span style={{ fontSize: 12, color: '#94a3b8' }}>
+              {filtered.length}명 중 {Math.min((page - 1) * PAGE_SIZE + 1, filtered.length)}-{Math.min(page * PAGE_SIZE, filtered.length)} 표시
+            </span>
+            <div style={{ display: 'flex', gap: 4 }}>
+              <button
+                onClick={() => setPage((p) => Math.max(1, p - 1))}
+                disabled={page === 1}
+                style={{ padding: '5px 12px', borderRadius: 7, border: '1px solid #e2e8f0', background: '#fff', fontSize: 12, fontWeight: 600, color: page === 1 ? '#d1d5db' : '#334155', cursor: page === 1 ? 'not-allowed' : 'pointer' }}
+              >
+                이전
+              </button>
+              {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => (
+                <button
+                  key={p}
+                  onClick={() => setPage(p)}
+                  style={{ padding: '5px 10px', borderRadius: 7, border: `1px solid ${page === p ? '#6366f1' : '#e2e8f0'}`, background: page === p ? '#eef2ff' : '#fff', fontSize: 12, fontWeight: page === p ? 700 : 400, color: page === p ? '#6366f1' : '#334155', cursor: 'pointer' }}
+                >
+                  {p}
+                </button>
+              ))}
+              <button
+                onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+                disabled={page === totalPages}
+                style={{ padding: '5px 12px', borderRadius: 7, border: '1px solid #e2e8f0', background: '#fff', fontSize: 12, fontWeight: 600, color: page === totalPages ? '#d1d5db' : '#334155', cursor: page === totalPages ? 'not-allowed' : 'pointer' }}
+              >
+                다음
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const ShadcnTeamDashboard: Story = {
+  name: 'shadcn/ui — Team Dashboard',
+  parameters: {
+    layout: 'fullscreen',
+    docs: {
+      description: {
+        story:
+          'shadcn/ui 벤치마크: DataTable + Command + Card 패턴. ' +
+          '멤버 검색·역할 필터·정렬·체크박스 선택·페이지네이션 완전 구현. ' +
+          'Skeleton 로딩 오버레이, LabelBadge(역할/상태), SolidButton(액션) 통합.',
+      },
+    },
+  },
+  render: () => <Shadcn93TeamDashboardRender />,
+}
