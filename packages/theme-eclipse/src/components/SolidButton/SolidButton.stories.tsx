@@ -915,3 +915,227 @@ export const Chakra_확인_다이얼로그_액션: Story = {
   },
   render: () => <ChakraConfirmDialogRender />,
 } satisfies Story
+
+/* --------------------------------------------------------------------------
+   Vercel — 배포 액션 버튼 패턴 (Cycle 120)
+   Vercel Design의 compact action button 패턴 — 배포/롤백/취소
+-------------------------------------------------------------------------- */
+function VercelDeployActionsRender() {
+  const [status, setStatus] = useState<'idle' | 'deploying' | 'done' | 'error'>('idle')
+
+  function deploy() {
+    setStatus('deploying')
+    setTimeout(() => setStatus('done'), 2000)
+  }
+
+  function rollback() {
+    setStatus('deploying')
+    setTimeout(() => setStatus('idle'), 1500)
+  }
+
+  const statusConfig = {
+    idle: { label: '대기', color: '#94a3b8' },
+    deploying: { label: '배포 중', color: '#f59e0b' },
+    done: { label: '완료', color: '#10b981' },
+    error: { label: '실패', color: '#ef4444' },
+  }
+
+  return (
+    <div style={{ width: 420, display: 'flex', flexDirection: 'column', gap: 16, padding: 20 }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '12px 14px', borderRadius: 8, border: '1px solid #e2e8f0', background: '#fff' }}>
+        <div style={{ width: 10, height: 10, borderRadius: '50%', background: statusConfig[status].color, flexShrink: 0 }} />
+        <div style={{ flex: 1 }}>
+          <div style={{ fontSize: 13, fontWeight: 600, color: '#0f172a' }}>orbit-ui / main</div>
+          <div style={{ fontSize: 11, color: '#94a3b8' }}>상태: {statusConfig[status].label}</div>
+        </div>
+        <code style={{ fontSize: 11, color: '#94a3b8', fontFamily: 'monospace' }}>232bae7</code>
+      </div>
+
+      <div style={{ display: 'flex', gap: 8 }}>
+        <SolidButton color="primary" size="medium" disabled={status === 'deploying'} onClick={deploy}>
+          <SolidButton.Center>{status === 'deploying' ? '배포 중...' : '배포'}</SolidButton.Center>
+        </SolidButton>
+        <SolidButton color="black" size="medium" disabled={status !== 'done'} onClick={rollback}>
+          <SolidButton.Center>롤백</SolidButton.Center>
+        </SolidButton>
+        <SolidButton color="black" size="medium" disabled={status !== 'deploying'} onClick={() => setStatus('error')}>
+          <SolidButton.Center>취소</SolidButton.Center>
+        </SolidButton>
+      </div>
+
+      {status === 'done' && (
+        <div style={{ padding: '10px 14px', borderRadius: 8, background: '#f0fdf4', border: '1px solid #bbf7d0', fontSize: 12, color: '#16a34a' }}>
+          배포 완료 — storybook-static.vercel.app 에서 확인 가능합니다.
+        </div>
+      )}
+      {status === 'error' && (
+        <div style={{ padding: '10px 14px', borderRadius: 8, background: '#fef2f2', border: '1px solid #fecaca', fontSize: 12, color: '#dc2626' }}>
+          배포가 취소되었습니다. 다시 시도하려면 배포 버튼을 클릭하세요.
+        </div>
+      )}
+    </div>
+  )
+}
+
+export const Vercel_배포_액션_버튼: Story = {
+  name: 'Vercel — 배포 액션 버튼 패턴 (Cycle 120)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Vercel Design의 compact action button 패턴. 배포/롤백/취소 상태에 따라 버튼 활성화 제어, 상태 인디케이터 및 결과 메시지 표시.',
+      },
+    },
+  },
+  render: () => <VercelDeployActionsRender />,
+} satisfies Story
+
+/* --------------------------------------------------------------------------
+   shadcn/ui — 폼 제출 버튼 상태 (Cycle 120)
+   shadcn의 button + form validation 패턴 — 유효성 기반 제어
+-------------------------------------------------------------------------- */
+function ShadcnFormSubmitRender() {
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [submitted, setSubmitted] = useState(false)
+  const [loading, setLoading] = useState(false)
+
+  const isValid = name.trim().length >= 2 && email.includes('@')
+
+  function handleSubmit() {
+    if (!isValid) return
+    setLoading(true)
+    setTimeout(() => {
+      setLoading(false)
+      setSubmitted(true)
+    }, 1200)
+  }
+
+  if (submitted) {
+    return (
+      <div style={{ width: 360, padding: '32px 24px', textAlign: 'center', border: '1px solid #bbf7d0', borderRadius: 10, background: '#f0fdf4' }}>
+        <div style={{ fontSize: 20, marginBottom: 8 }}>✓</div>
+        <div style={{ fontSize: 15, fontWeight: 700, color: '#16a34a', marginBottom: 4 }}>등록 완료</div>
+        <div style={{ fontSize: 13, color: '#4ade80' }}>{email} 로 확인 메일을 발송했습니다.</div>
+        <div style={{ marginTop: 16 }}>
+          <SolidButton color="primary" size="small" onClick={() => { setSubmitted(false); setName(''); setEmail('') }}>
+            <SolidButton.Center>다시 시도</SolidButton.Center>
+          </SolidButton>
+        </div>
+      </div>
+    )
+  }
+
+  return (
+    <div style={{ width: 360, display: 'flex', flexDirection: 'column', gap: 12, padding: 20, border: '1px solid #e2e8f0', borderRadius: 10 }}>
+      <div style={{ fontSize: 15, fontWeight: 700, color: '#0f172a' }}>회원 등록</div>
+      <input
+        placeholder="이름 (최소 2자)"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+        style={{ padding: '8px 12px', borderRadius: 6, border: `1px solid ${name && name.trim().length < 2 ? '#fca5a5' : '#e2e8f0'}`, fontSize: 13, outline: 'none' }}
+      />
+      <input
+        placeholder="이메일"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        style={{ padding: '8px 12px', borderRadius: 6, border: `1px solid ${email && !email.includes('@') ? '#fca5a5' : '#e2e8f0'}`, fontSize: 13, outline: 'none' }}
+      />
+      <SolidButton color="primary" size="medium" disabled={!isValid || loading} onClick={handleSubmit}>
+        <SolidButton.Center>{loading ? '처리 중...' : '등록하기'}</SolidButton.Center>
+        {!loading && isValid && <SolidButton.Trailing><ArrowRightIcon style={{ width: 14, height: 14 }} /></SolidButton.Trailing>}
+      </SolidButton>
+      {!isValid && (name || email) && (
+        <div style={{ fontSize: 11, color: '#f59e0b' }}>이름과 올바른 이메일을 입력해야 제출 버튼이 활성화됩니다.</div>
+      )}
+    </div>
+  )
+}
+
+export const shadcn_폼_제출_버튼_상태: Story = {
+  name: 'shadcn/ui — 폼 제출 버튼 상태 (Cycle 120)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'shadcn/ui의 form submit button 패턴. 유효성 검사 기반 버튼 활성화, 로딩 상태, 완료 피드백. 이름 2자+ + 이메일 @ 포함 시 제출 버튼 활성화.',
+      },
+    },
+  },
+  render: () => <ShadcnFormSubmitRender />,
+} satisfies Story
+
+/* --------------------------------------------------------------------------
+   Vercel + shadcn — 위험 영역 액션 버튼 (Cycle 120)
+   삭제/초기화 등 destructive action 확인 패턴
+-------------------------------------------------------------------------- */
+function VercelShadcnDestructiveRender() {
+  const [confirmStep, setConfirmStep] = useState<'idle' | 'confirm' | 'done'>('idle')
+  const [inputVal, setInputVal] = useState('')
+  const projectName = 'orbit-ui'
+
+  function reset() {
+    setConfirmStep('idle')
+    setInputVal('')
+  }
+
+  return (
+    <div style={{ width: 420, display: 'flex', flexDirection: 'column', gap: 12, padding: 20 }}>
+      <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a', marginBottom: 4 }}>위험 영역</div>
+
+      <div style={{ padding: '16px', borderRadius: 8, border: '1.5px solid #fecaca', background: '#fff' }}>
+        <div style={{ fontSize: 13, fontWeight: 600, color: '#dc2626', marginBottom: 4 }}>프로젝트 삭제</div>
+        <div style={{ fontSize: 12, color: '#64748b', marginBottom: 12 }}>
+          이 작업은 되돌릴 수 없습니다. 모든 배포, 환경 변수, 설정이 영구 삭제됩니다.
+        </div>
+
+        {confirmStep === 'idle' && (
+          <SolidButton color="primary" size="small" onClick={() => setConfirmStep('confirm')}>
+            <SolidButton.Center>프로젝트 삭제</SolidButton.Center>
+          </SolidButton>
+        )}
+
+        {confirmStep === 'confirm' && (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+            <div style={{ fontSize: 12, color: '#475569' }}>
+              확인을 위해 <code style={{ background: '#f1f5f9', padding: '1px 4px', borderRadius: 3 }}>{projectName}</code> 를 입력하세요:
+            </div>
+            <input
+              placeholder={projectName}
+              value={inputVal}
+              onChange={(e) => setInputVal(e.target.value)}
+              style={{ padding: '7px 10px', borderRadius: 6, border: '1px solid #e2e8f0', fontSize: 13, outline: 'none', fontFamily: 'monospace' }}
+            />
+            <div style={{ display: 'flex', gap: 8 }}>
+              <SolidButton color="primary" size="small" disabled={inputVal !== projectName} onClick={() => setConfirmStep('done')}>
+                <SolidButton.Center>영구 삭제</SolidButton.Center>
+              </SolidButton>
+              <SolidButton color="black" size="small" onClick={reset}>
+                <SolidButton.Center>취소</SolidButton.Center>
+              </SolidButton>
+            </div>
+          </div>
+        )}
+
+        {confirmStep === 'done' && (
+          <div style={{ fontSize: 12, color: '#16a34a', fontWeight: 600 }}>
+            프로젝트가 삭제되었습니다. (데모)
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+
+export const Vercel_shadcn_위험_영역_액션: Story = {
+  name: 'Vercel + shadcn — 위험 영역 destructive 버튼 (Cycle 120)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Vercel Design + shadcn/ui의 destructive action 확인 패턴. 삭제 버튼 → 프로젝트명 재입력 확인 → 영구 삭제 3단계 플로우.',
+      },
+    },
+  },
+  render: () => <VercelShadcnDestructiveRender />,
+} satisfies Story

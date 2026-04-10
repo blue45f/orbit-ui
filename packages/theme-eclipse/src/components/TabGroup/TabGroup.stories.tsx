@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 
 import { CounterBadge } from '../CounterBadge'
 import { LabelBadge } from '../LabelBadge'
+import { SolidButton } from '../SolidButton'
 
 import { FixedTabs } from './TabGroup'
 
@@ -1514,4 +1515,247 @@ export const Shadcn_메트릭_대시보드_탭: Story = {
     },
   },
   render: () => <ShadcnMetricDashboardRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Vercel — 프로젝트 탭 네비게이션 (Cycle 120)
+   Vercel Design의 compact project navigation 패턴
+-------------------------------------------------------------------------- */
+function VercelProjectNavRender() {
+  const [tab, setTab] = React.useState(0)
+
+  const tabs = [
+    { label: '개요', count: null },
+    { label: '배포', count: 119 },
+    { label: '도메인', count: 2 },
+    { label: '로그', count: null },
+    { label: '설정', count: null },
+  ]
+
+  const panels = [
+    <div key="overview" style={{ padding: '16px 0' }}>
+      <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 8 }}>orbit-ui</div>
+      <div style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>
+        프레임워크: Vite + React · 마지막 배포: 방금 전
+      </div>
+    </div>,
+    <div key="deploys" style={{ padding: '16px 0', display: 'flex', flexDirection: 'column', gap: 6 }}>
+      {[{ id: 'dpl_119', status: 'ready', time: '방금 전' }, { id: 'dpl_118', status: 'ready', time: '3시간 전' }, { id: 'dpl_117', status: 'error', time: '어제' }].map((d) => (
+        <div key={d.id} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '8px 12px', borderRadius: 6, background: 'var(--sem-eclipse-color-backgroundSecondary)', border: '1px solid var(--sem-eclipse-color-borderSubtle)' }}>
+          <div style={{ width: 8, height: 8, borderRadius: '50%', background: d.status === 'ready' ? '#10b981' : '#ef4444' }} />
+          <code style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)', fontFamily: 'monospace' }}>{d.id}</code>
+          <span style={{ marginLeft: 'auto', fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>{d.time}</span>
+        </div>
+      ))}
+    </div>,
+    <div key="domains" style={{ padding: '16px 0', display: 'flex', flexDirection: 'column', gap: 8 }}>
+      {['storybook-static.vercel.app', 'orbit-ui.vercel.app'].map((domain) => (
+        <div key={domain} style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 13, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>
+          <div style={{ width: 6, height: 6, borderRadius: '50%', background: '#10b981' }} />
+          {domain}
+        </div>
+      ))}
+    </div>,
+    <div key="logs" style={{ padding: '16px 0', fontFamily: 'monospace', fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>
+      <div>[2026-04-10 11:32:12] Build completed in 27.5s</div>
+      <div>[2026-04-10 11:31:44] Installing dependencies...</div>
+      <div>[2026-04-10 11:31:30] Cloning repository...</div>
+    </div>,
+    <div key="settings" style={{ padding: '16px 0', fontSize: 13, color: 'var(--sem-eclipse-color-foregroundSecondary)' }}>
+      프로젝트 설정: 빌드 명령, 출력 디렉토리, 환경 변수를 관리합니다.
+    </div>,
+  ]
+
+  return (
+    <div style={{ width: 480 }}>
+      <FixedTabs selectedIndex={tab} onTabChange={setTab}>
+        {tabs.map((t) => (
+          <FixedTabs.Tab key={t.label}>
+            <FixedTabs.TabCenter>{t.label}</FixedTabs.TabCenter>
+            {t.count !== null && (
+              <FixedTabs.TabTrailing>
+                <CounterBadge>{t.count}</CounterBadge>
+              </FixedTabs.TabTrailing>
+            )}
+          </FixedTabs.Tab>
+        ))}
+      </FixedTabs>
+      {panels[tab]}
+    </div>
+  )
+}
+
+export const Vercel_프로젝트_탭_네비게이션: Story = {
+  name: 'Vercel — 프로젝트 탭 네비게이션 (Cycle 120)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Vercel Design의 project navigation 탭 패턴. 배포/도메인에 CounterBadge 카운트 표시, 각 탭별 실제 콘텐츠 패널 전환.',
+      },
+    },
+  },
+  render: () => <VercelProjectNavRender />,
+}
+
+/* --------------------------------------------------------------------------
+   shadcn/ui — 문서 사이드 탭 (Cycle 120)
+   shadcn의 docs page tab 패턴 — 코드/미리보기 전환
+-------------------------------------------------------------------------- */
+function ShadcnDocsTabRender() {
+  const [tab, setTab] = React.useState(0)
+  const [copied, setCopied] = React.useState(false)
+
+  const codeSnippet = `import { SolidButton } from '@heejun-com/theme-eclipse'
+
+export function Example() {
+  return (
+    <SolidButton color="primary" size="medium">
+      <SolidButton.Center>Click me</SolidButton.Center>
+    </SolidButton>
+  )
+}`
+
+  function handleCopy() {
+    setCopied(true)
+    setTimeout(() => setCopied(false), 2000)
+  }
+
+  return (
+    <div style={{ width: 500, border: '1px solid var(--sem-eclipse-color-borderDefault)', borderRadius: 10, overflow: 'hidden' }}>
+      <FixedTabs selectedIndex={tab} onTabChange={setTab}>
+        <FixedTabs.Tab>
+          <FixedTabs.TabCenter>미리보기</FixedTabs.TabCenter>
+        </FixedTabs.Tab>
+        <FixedTabs.Tab>
+          <FixedTabs.TabCenter>코드</FixedTabs.TabCenter>
+        </FixedTabs.Tab>
+      </FixedTabs>
+      {tab === 0 ? (
+        <div style={{ padding: '32px', display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: 100, background: 'var(--sem-eclipse-color-backgroundSecondary)' }}>
+          <SolidButton color="primary" size="medium">
+            <SolidButton.Center>Click me</SolidButton.Center>
+          </SolidButton>
+        </div>
+      ) : (
+        <div style={{ position: 'relative', background: '#0f172a' }}>
+          <pre style={{ margin: 0, padding: '20px 16px', fontSize: 12, color: '#e2e8f0', fontFamily: 'monospace', overflowX: 'auto', lineHeight: 1.6 }}>
+            {codeSnippet}
+          </pre>
+          <button
+            onClick={handleCopy}
+            style={{ position: 'absolute', top: 10, right: 10, padding: '4px 10px', fontSize: 11, borderRadius: 5, border: 'none', background: copied ? '#10b981' : '#334155', color: '#e2e8f0', cursor: 'pointer', fontWeight: 600 }}
+          >
+            {copied ? '복사됨' : '복사'}
+          </button>
+        </div>
+      )}
+    </div>
+  )
+}
+
+export const shadcn_문서_코드_프리뷰_탭: Story = {
+  name: 'shadcn/ui — 문서 코드/미리보기 탭 (Cycle 120)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'shadcn/ui의 docs page preview/code 탭 패턴. 미리보기와 코드 스니펫 전환, 복사 버튼 포함.',
+      },
+    },
+  },
+  render: () => <ShadcnDocsTabRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Vercel + shadcn — 설정 카테고리 탭 (Cycle 120)
+   프로젝트 설정을 카테고리 탭으로 구성하는 패턴
+-------------------------------------------------------------------------- */
+function VercelShadcnSettingsTabRender() {
+  const [tab, setTab] = React.useState(0)
+  const [saved, setSaved] = React.useState(false)
+
+  function save() {
+    setSaved(true)
+    setTimeout(() => setSaved(false), 2000)
+  }
+
+  const settingGroups = [
+    {
+      label: '일반',
+      icon: <SettingLineIcon style={{ width: 13, height: 13 }} />,
+      fields: [
+        { label: '프로젝트 이름', value: 'orbit-ui', type: 'text' },
+        { label: '설명', value: 'React 디자인 시스템', type: 'text' },
+        { label: '공개 여부', value: '공개', type: 'select' },
+      ],
+    },
+    {
+      label: '알림',
+      icon: <NotificationLineIcon style={{ width: 13, height: 13 }} />,
+      fields: [
+        { label: '배포 성공 알림', value: '활성화', type: 'toggle' },
+        { label: '배포 실패 알림', value: '활성화', type: 'toggle' },
+        { label: '이메일 수신 주소', value: 'admin@orbit-ui.dev', type: 'text' },
+      ],
+    },
+    {
+      label: '팀',
+      icon: <PeopleLineIcon style={{ width: 13, height: 13 }} />,
+      fields: [
+        { label: '팀 이름', value: 'blue45fs-projects', type: 'text' },
+        { label: '멤버 수', value: '3명', type: 'readonly' },
+        { label: '플랜', value: 'Hobby (Free)', type: 'readonly' },
+      ],
+    },
+  ]
+
+  const group = settingGroups[tab]
+
+  return (
+    <div style={{ width: 480 }}>
+      <FixedTabs selectedIndex={tab} onTabChange={setTab}>
+        {settingGroups.map((g) => (
+          <FixedTabs.Tab key={g.label}>
+            <FixedTabs.TabLeading>{g.icon}</FixedTabs.TabLeading>
+            <FixedTabs.TabCenter>{g.label}</FixedTabs.TabCenter>
+          </FixedTabs.Tab>
+        ))}
+      </FixedTabs>
+      <div style={{ padding: '16px 0', display: 'flex', flexDirection: 'column', gap: 12 }}>
+        {group.fields.map((f) => (
+          <div key={f.label} style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+            <span style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundSecondary)', width: 140, flexShrink: 0 }}>{f.label}</span>
+            {f.type === 'readonly' ? (
+              <span style={{ fontSize: 13, color: 'var(--sem-eclipse-color-foregroundTertiary)', fontStyle: 'italic' }}>{f.value}</span>
+            ) : (
+              <input
+                defaultValue={f.value}
+                readOnly={f.type === 'select'}
+                style={{ flex: 1, padding: '6px 10px', borderRadius: 6, border: '1px solid var(--sem-eclipse-color-borderDefault)', fontSize: 13, color: 'var(--sem-eclipse-color-foregroundPrimary)', background: 'var(--sem-eclipse-color-backgroundPrimary)', outline: 'none' }}
+              />
+            )}
+          </div>
+        ))}
+        <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: 4 }}>
+          <SolidButton color="primary" size="small" onClick={save}>
+            <SolidButton.Center>{saved ? '저장됨' : '변경사항 저장'}</SolidButton.Center>
+          </SolidButton>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const Vercel_shadcn_설정_카테고리_탭: Story = {
+  name: 'Vercel + shadcn — 설정 카테고리 탭 (Cycle 120)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Vercel Design + shadcn/ui의 project settings 탭 패턴. 일반/알림/팀 카테고리 탭, 아이콘 + 텍스트 조합, 인라인 입력 필드 + 저장 버튼.',
+      },
+    },
+  },
+  render: () => <VercelShadcnSettingsTabRender />,
 }

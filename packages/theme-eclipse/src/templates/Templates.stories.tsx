@@ -28555,3 +28555,168 @@ export const M3Linear119AnalyticsDashboard: StoryObj = {
   },
   render: () => <AnalyticsDashboard119Render />,
 }
+/* --------------------------------------------------------------------------
+   Cycle 120 — shadcn/ui + Vercel Design
+   템플릿: KanbanBoard — 칸반 보드
+   Components: Avatar, LabelBadge, CounterBadge, SolidButton, OutlineButton,
+               GhostButton, SectionTitle, Divider, Progress, TextField
+-------------------------------------------------------------------------- */
+function KanbanBoard120Render() {
+  const [search, setSearch] = React.useState('')
+  const [expandedCard, setExpandedCard] = React.useState<string | null>(null)
+
+  type CardStatus = 'backlog' | 'todo' | 'in_progress' | 'done'
+
+  const [cards, setCards] = React.useState<Array<{
+    id: string
+    title: string
+    priority: 'high' | 'medium' | 'low'
+    assignee: string
+    assigneeColor: string
+    status: CardStatus
+    progress: number
+    label: string
+  }>>([
+    { id: 'ORB-051', title: 'DataTable 정렬 기능 구현', priority: 'high', assignee: 'KJ', assigneeColor: '#6366f1', status: 'backlog', progress: 0, label: 'feature' },
+    { id: 'ORB-050', title: 'Calendar 이벤트 드래그', priority: 'medium', assignee: 'PM', assigneeColor: '#8b5cf6', status: 'todo', progress: 0, label: 'feature' },
+    { id: 'ORB-049', title: 'AnalyticsDashboard 템플릿', priority: 'high', assignee: 'LS', assigneeColor: '#10b981', status: 'in_progress', progress: 75, label: 'template' },
+    { id: 'ORB-048', title: 'ChatUI 템플릿 완성', priority: 'medium', assignee: 'KJ', assigneeColor: '#6366f1', status: 'in_progress', progress: 40, label: 'template' },
+    { id: 'ORB-047', title: 'Breadcrumb 파일 탐색기', priority: 'low', assignee: 'PM', assigneeColor: '#8b5cf6', status: 'done', progress: 100, label: 'story' },
+    { id: 'ORB-046', title: 'Slider 컨트롤 센터', priority: 'low', assignee: 'LS', assigneeColor: '#10b981', status: 'done', progress: 100, label: 'story' },
+  ])
+
+  const columns: { id: CardStatus; label: string; color: string }[] = [
+    { id: 'backlog', label: '백로그', color: '#94a3b8' },
+    { id: 'todo', label: '할 일', color: '#6366f1' },
+    { id: 'in_progress', label: '진행 중', color: '#f59e0b' },
+    { id: 'done', label: '완료', color: '#10b981' },
+  ]
+
+  const priorityColor = { high: '#ef4444', medium: '#f59e0b', low: '#10b981' }
+  const priorityLabel = { high: '높음', medium: '중간', low: '낮음' }
+
+  function moveCard(id: string, direction: 'forward' | 'back') {
+    const order: CardStatus[] = ['backlog', 'todo', 'in_progress', 'done']
+    setCards((prev) => prev.map((c) => {
+      if (c.id !== id) return c
+      const idx = order.indexOf(c.status)
+      const next = direction === 'forward' ? order[Math.min(idx + 1, order.length - 1)] : order[Math.max(idx - 1, 0)]
+      return { ...c, status: next, progress: next === 'done' ? 100 : next === 'in_progress' ? Math.max(c.progress, 10) : c.progress }
+    }))
+  }
+
+  const filtered = cards.filter((c) => !search || c.title.toLowerCase().includes(search.toLowerCase()) || c.id.includes(search))
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 16, padding: '20px', minWidth: 920 }}>
+      {/* Header */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+        <SectionTitle>
+          <SectionTitle.Title>Orbit UI Kanban</SectionTitle.Title>
+        </SectionTitle>
+        <CounterBadge>{cards.length}</CounterBadge>
+        <div style={{ marginLeft: 'auto', display: 'flex', gap: 8, alignItems: 'center' }}>
+          <TextField
+            placeholder="이슈 검색..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+          <SolidButton color="primary" size="small">
+            <SolidButton.Center>+ 이슈 추가</SolidButton.Center>
+          </SolidButton>
+        </div>
+      </div>
+
+      {/* Board */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 12, alignItems: 'start' }}>
+        {columns.map((col) => {
+          const colCards = filtered.filter((c) => c.status === col.id)
+          return (
+            <div key={col.id} style={{ background: 'var(--sem-eclipse-color-backgroundSecondary)', borderRadius: 10, overflow: 'hidden' }}>
+              {/* Column header */}
+              <div style={{ padding: '10px 12px', borderBottom: '1px solid var(--sem-eclipse-color-borderSubtle)', display: 'flex', alignItems: 'center', gap: 8 }}>
+                <div style={{ width: 8, height: 8, borderRadius: '50%', background: col.color, flexShrink: 0 }} />
+                <span style={{ fontSize: 12, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)', flex: 1 }}>{col.label}</span>
+                <CounterBadge>{colCards.length}</CounterBadge>
+              </div>
+
+              {/* Cards */}
+              <div style={{ padding: '8px', display: 'flex', flexDirection: 'column', gap: 6, minHeight: 60 }}>
+                {colCards.map((card) => (
+                  <div
+                    key={card.id}
+                    onClick={() => setExpandedCard(expandedCard === card.id ? null : card.id)}
+                    style={{
+                      padding: '10px', borderRadius: 8,
+                      background: 'var(--sem-eclipse-color-backgroundPrimary)',
+                      border: `1px solid ${expandedCard === card.id ? col.color : 'var(--sem-eclipse-color-borderSubtle)'}`,
+                      cursor: 'pointer',
+                    }}
+                  >
+                    <div style={{ display: 'flex', alignItems: 'flex-start', gap: 6, marginBottom: 6 }}>
+                      <div style={{ flex: 1 }}>
+                        <code style={{ fontSize: 10, color: 'var(--sem-eclipse-color-foregroundTertiary)', fontFamily: 'monospace' }}>{card.id}</code>
+                        <div style={{ fontSize: 12, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginTop: 2, lineHeight: 1.4 }}>{card.title}</div>
+                      </div>
+                      <div style={{ width: 24, height: 24, borderRadius: '50%', background: card.assigneeColor, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 9, fontWeight: 700, color: '#fff', flexShrink: 0 }}>
+                        {card.assignee}
+                      </div>
+                    </div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                      <LabelBadge color="gray"><LabelBadge.Label>{card.label}</LabelBadge.Label></LabelBadge>
+                      <span style={{ fontSize: 10, fontWeight: 700, color: priorityColor[card.priority] }}>{priorityLabel[card.priority]}</span>
+                    </div>
+                    {card.progress > 0 && (
+                      <div style={{ marginTop: 6 }}>
+                        <Progress value={card.progress} />
+                      </div>
+                    )}
+                    {expandedCard === card.id && (
+                      <div style={{ marginTop: 8, display: 'flex', gap: 4 }} onClick={(e) => e.stopPropagation()}>
+                        <GhostButton color="black" size="small" disabled={col.id === 'backlog'} onClick={() => moveCard(card.id, 'back')}>
+                          <GhostButton.Center>←</GhostButton.Center>
+                        </GhostButton>
+                        <GhostButton color="black" size="small" disabled={col.id === 'done'} onClick={() => moveCard(card.id, 'forward')}>
+                          <GhostButton.Center>→</GhostButton.Center>
+                        </GhostButton>
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+          )
+        })}
+      </div>
+
+      <Divider />
+      <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap' }}>
+        {[
+          { label: '완료율', value: `${Math.round((cards.filter((c) => c.status === 'done').length / cards.length) * 100)}%` },
+          { label: '진행 중', value: `${cards.filter((c) => c.status === 'in_progress').length}개` },
+          { label: '높은 우선순위', value: `${cards.filter((c) => c.priority === 'high').length}개` },
+        ].map((stat) => (
+          <div key={stat.label} style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
+            <span style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>{stat.label}:</span>
+            <span style={{ fontSize: 13, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{stat.value}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+export const ShadcnVercel120KanbanBoard: StoryObj = {
+  name: 'shadcn/ui + Vercel — 칸반 보드 (Cycle 120)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'shadcn/ui + Vercel Design 벤치마크 — Cycle 120. ' +
+          '칸반 보드: 4열 컬럼(백로그/할일/진행중/완료) + 카드 이동(GhostButton) + 검색(TextField) + 진행률(Progress). ' +
+          'LabelBadge, CounterBadge, Avatar 이니셜, SectionTitle, Divider 복합 활용.',
+      },
+    },
+  },
+  render: () => <KanbanBoard120Render />,
+}
