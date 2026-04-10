@@ -17134,3 +17134,171 @@ export const TailwindNotificationCenter: Story = {
   },
   render: () => <NotiCenterRender />,
 }
+
+/* ==========================================================================
+   Template #61 — OnboardingFlow (온보딩 플로우)
+   Radix UI + Chakra UI 패턴: 단계별 진행, 역할 선택, 완료 화면
+   ========================================================================== */
+type OBRole = 'designer' | 'developer' | 'pm' | 'other'
+type OBStep = 0 | 1 | 2 | 3
+
+const OB_ROLES: { id: OBRole; label: string; desc: string; color: string; bg: string }[] = [
+  { id: 'designer', label: 'Designer', desc: 'UI/UX 디자인 및 프로토타이핑', color: '#8b5cf6', bg: '#f5f3ff' },
+  { id: 'developer', label: 'Developer', desc: '프론트엔드/백엔드 개발', color: '#3b82f6', bg: '#eff6ff' },
+  { id: 'pm', label: 'Product Manager', desc: '제품 기획 및 로드맵 관리', color: '#10b981', bg: '#f0fdf4' },
+  { id: 'other', label: 'Other', desc: '그 외 역할', color: '#64748b', bg: '#f8fafc' },
+]
+
+const OB_GOALS = ['더 빠른 UI 개발', '일관된 디자인 시스템', '팀 협업 효율화', '접근성 기준 충족', '다크모드 지원']
+
+const OB_STEPS = ['환영', '역할 선택', '목표 설정', '완료']
+
+const RadixOnboardingRender = () => {
+  const [step, setStep] = React.useState<OBStep>(0)
+  const [role, setRole] = React.useState<OBRole | null>(null)
+  const [goals, setGoals] = React.useState<string[]>([])
+  const [name, setName] = React.useState('')
+
+  const toggleGoal = (g: string) => setGoals((prev) => prev.includes(g) ? prev.filter((x) => x !== g) : [...prev, g])
+
+  return (
+    <div style={{ minHeight: '100vh', background: 'linear-gradient(135deg, #f0f7ff 0%, #faf5ff 100%)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 24 }}>
+      <div style={{ width: '100%', maxWidth: 480, background: '#fff', borderRadius: 20, boxShadow: '0 8px 40px rgba(0,0,0,0.10)', overflow: 'hidden' }}>
+        {/* 진행률 바 */}
+        <div style={{ height: 4, background: '#f1f5f9' }}>
+          <div style={{ height: '100%', width: `${((step) / 3) * 100}%`, background: 'linear-gradient(90deg, #6366f1, #8b5cf6)', transition: 'width 0.4s' }} />
+        </div>
+
+        {/* 단계 표시 */}
+        <div style={{ display: 'flex', justifyContent: 'space-between', padding: '16px 24px 0', marginBottom: 8 }}>
+          {OB_STEPS.map((s, i) => (
+            <div key={s} style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+              <div style={{ width: 24, height: 24, borderRadius: '50%', background: i <= step ? '#6366f1' : '#e2e8f0', color: i <= step ? '#fff' : '#94a3b8', fontSize: 11, fontWeight: 700, display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'all 0.3s' }}>{i < step ? 'v' : i + 1}</div>
+              <span style={{ fontSize: 11, color: i === step ? '#6366f1' : '#94a3b8', fontWeight: i === step ? 700 : 400, display: 'none' }}>{s}</span>
+            </div>
+          ))}
+        </div>
+
+        <div style={{ padding: '20px 32px 32px' }}>
+          {/* Step 0: 환영 */}
+          {step === 0 && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
+              <div style={{ textAlign: 'center', paddingTop: 8 }}>
+                <div style={{ width: 64, height: 64, borderRadius: 16, background: 'linear-gradient(135deg, #6366f1, #8b5cf6)', margin: '0 auto 16px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 28 }}>{'<>'}</div>
+                <h1 style={{ fontSize: 24, fontWeight: 800, color: '#0f172a', margin: '0 0 8px' }}>Orbit UI에 오신 것을 환영합니다</h1>
+                <p style={{ fontSize: 14, color: '#64748b', lineHeight: 1.6, margin: 0 }}>빠르고 일관된 UI를 만드는 데 도움드리겠습니다. 몇 가지 질문에 답해주시면 최적의 환경을 세팅해 드립니다.</p>
+              </div>
+              <div>
+                <label style={{ fontSize: 13, fontWeight: 600, color: '#374151', display: 'block', marginBottom: 8 }}>이름을 알려주세요</label>
+                <TextField value={name} onChange={(e) => setName(e.target.value)} placeholder="홍길동" />
+              </div>
+              <SolidButton color="primary" size="large" disabled={!name} onClick={() => setStep(1)}>
+                <SolidButton.Center>시작하기</SolidButton.Center>
+              </SolidButton>
+            </div>
+          )}
+
+          {/* Step 1: 역할 선택 */}
+          {step === 1 && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+              <div>
+                <h2 style={{ fontSize: 20, fontWeight: 800, color: '#0f172a', margin: '0 0 4px' }}>{name}님의 역할은 무엇인가요?</h2>
+                <p style={{ fontSize: 13, color: '#64748b', margin: 0 }}>역할에 맞는 컴포넌트와 예시를 추천해 드립니다.</p>
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                {OB_ROLES.map((r) => (
+                  <button key={r.id} onClick={() => setRole(r.id)} style={{ display: 'flex', alignItems: 'center', gap: 14, padding: '14px 16px', borderRadius: 12, border: `2px solid ${role === r.id ? r.color : '#e2e8f0'}`, background: role === r.id ? r.bg : '#fff', cursor: 'pointer', textAlign: 'left', transition: 'all 0.2s' }}>
+                    <div style={{ width: 40, height: 40, borderRadius: 10, background: r.color, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 16, color: '#fff', fontWeight: 800, flexShrink: 0 }}>{r.label[0]}</div>
+                    <div>
+                      <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>{r.label}</div>
+                      <div style={{ fontSize: 12, color: '#64748b' }}>{r.desc}</div>
+                    </div>
+                    {role === r.id && <span style={{ marginLeft: 'auto', color: r.color, fontWeight: 800, fontSize: 16 }}>v</span>}
+                  </button>
+                ))}
+              </div>
+              <div style={{ display: 'flex', gap: 8 }}>
+                <OutlineButton color="black" size="large" onClick={() => setStep(0)} style={{ flex: 1 }}>
+                  <OutlineButton.Center>이전</OutlineButton.Center>
+                </OutlineButton>
+                <SolidButton color="primary" size="large" disabled={!role} onClick={() => setStep(2)} style={{ flex: 1 }}>
+                  <SolidButton.Center>다음</SolidButton.Center>
+                </SolidButton>
+              </div>
+            </div>
+          )}
+
+          {/* Step 2: 목표 설정 */}
+          {step === 2 && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+              <div>
+                <h2 style={{ fontSize: 20, fontWeight: 800, color: '#0f172a', margin: '0 0 4px' }}>사용 목표를 선택해주세요</h2>
+                <p style={{ fontSize: 13, color: '#64748b', margin: 0 }}>복수 선택 가능합니다.</p>
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                {OB_GOALS.map((g) => {
+                  const sel = goals.includes(g)
+                  return (
+                    <button key={g} onClick={() => toggleGoal(g)} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '12px 14px', borderRadius: 10, border: `1px solid ${sel ? '#6366f1' : '#e2e8f0'}`, background: sel ? '#eef2ff' : '#fff', cursor: 'pointer', textAlign: 'left', transition: 'all 0.2s', fontSize: 14, fontWeight: sel ? 600 : 400, color: '#0f172a' }}>
+                      <span style={{ width: 20, height: 20, borderRadius: 5, border: `2px solid ${sel ? '#6366f1' : '#cbd5e1'}`, background: sel ? '#6366f1' : '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, fontSize: 11, color: '#fff', fontWeight: 800 }}>{sel ? 'v' : ''}</span>
+                      {g}
+                    </button>
+                  )
+                })}
+              </div>
+              <Progress value={Math.round((goals.length / OB_GOALS.length) * 100)} />
+              <div style={{ fontSize: 12, color: '#64748b', textAlign: 'right' }}>{goals.length} / {OB_GOALS.length} 선택</div>
+              <div style={{ display: 'flex', gap: 8 }}>
+                <OutlineButton color="black" size="large" onClick={() => setStep(1)} style={{ flex: 1 }}>
+                  <OutlineButton.Center>이전</OutlineButton.Center>
+                </OutlineButton>
+                <SolidButton color="primary" size="large" disabled={goals.length === 0} onClick={() => setStep(3)} style={{ flex: 1 }}>
+                  <SolidButton.Center>완료</SolidButton.Center>
+                </SolidButton>
+              </div>
+            </div>
+          )}
+
+          {/* Step 3: 완료 */}
+          {step === 3 && (
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 20, textAlign: 'center', paddingTop: 8 }}>
+              <div style={{ width: 72, height: 72, borderRadius: '50%', background: '#dcfce7', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 32 }}>{'ok'}</div>
+              <div>
+                <h2 style={{ fontSize: 22, fontWeight: 800, color: '#0f172a', margin: '0 0 8px' }}>모든 설정 완료!</h2>
+                <p style={{ fontSize: 14, color: '#64748b', lineHeight: 1.6, margin: 0 }}>
+                  <b>{name}</b>님, 환영합니다.<br />
+                  역할: <b>{OB_ROLES.find((r) => r.id === role)?.label}</b><br />
+                  목표 {goals.length}개 선택됨
+                </p>
+              </div>
+              <SegmentedControl defaultValue="light">
+                <SegmentedControl.Tab value="light"><SegmentedControl.TabCenter>라이트 모드</SegmentedControl.TabCenter></SegmentedControl.Tab>
+                <SegmentedControl.Tab value="dark"><SegmentedControl.TabCenter>다크 모드</SegmentedControl.TabCenter></SegmentedControl.Tab>
+                <SegmentedControl.Tab value="system"><SegmentedControl.TabCenter>시스템</SegmentedControl.TabCenter></SegmentedControl.Tab>
+              </SegmentedControl>
+              <SolidButton color="primary" size="large" onClick={() => { setStep(0); setRole(null); setGoals([]); setName('') }} style={{ width: '100%' }}>
+                <SolidButton.Center>대시보드로 이동</SolidButton.Center>
+              </SolidButton>
+              <GhostButton color="black" size="small" onClick={() => setStep(0)}>
+                <GhostButton.Center>처음부터 다시</GhostButton.Center>
+              </GhostButton>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const RadixChakraOnboarding: Story = {
+  name: '온보딩 플로우 (Radix UI + Chakra UI 패턴)',
+  parameters: {
+    layout: 'fullscreen',
+    docs: {
+      description: {
+        story: 'Radix UI 단계 관리 + Chakra UI 단순 props 패턴 조합. 4단계 온보딩: 이름 입력 → 역할 선택 → 목표 설정(복수 선택) → 완료. Progress 바, SegmentedControl 테마 설정 포함.',
+      },
+    },
+  },
+  render: () => <RadixOnboardingRender />,
+}

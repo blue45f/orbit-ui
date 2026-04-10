@@ -1,6 +1,6 @@
+import React, { useState } from 'react'
 import type { Meta, StoryObj } from '@storybook/react'
 import { fn } from '@storybook/test'
-import { useState } from 'react'
 
 import { FloatingTextField } from './FloatingTextField'
 
@@ -739,4 +739,184 @@ export const Tailwind_Mantine_주소_멀티스텝: Story = {
     },
   },
   render: () => <AddressFormRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Radix UI — 접근성 강화 검색 필드
+   aria-label, autocomplete, 실시간 결과 카운트
+-------------------------------------------------------------------------- */
+const SEARCH_ITEMS = ['Button', 'TextField', 'Modal', 'Dropdown', 'Carousel', 'Avatar', 'Checkbox', 'Switch', 'Slider', 'Tooltip']
+
+const RadixSearchFieldDemo = () => {
+  const [query, setQuery] = useState('')
+  const results = SEARCH_ITEMS.filter((s) => s.toLowerCase().includes(query.toLowerCase()))
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 12, width: 320 }}>
+      <div role="search">
+        <FloatingTextField
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          placeholder="컴포넌트 검색..."
+          aria-label="컴포넌트 검색"
+          aria-autocomplete="list"
+        />
+      </div>
+      {query && (
+        <div style={{ fontSize: 12, color: '#64748b' }}>
+          {results.length}개 결과
+        </div>
+      )}
+      {query && results.length > 0 && (
+        <ul style={{ listStyle: 'none', margin: 0, padding: 0, display: 'flex', flexDirection: 'column', gap: 2 }}>
+          {results.map((r) => (
+            <li key={r} style={{ padding: '8px 12px', borderRadius: 6, background: '#f8fafc', fontSize: 14, color: '#0f172a', cursor: 'pointer' }}>
+              {r}
+            </li>
+          ))}
+        </ul>
+      )}
+      {query && results.length === 0 && (
+        <div style={{ fontSize: 13, color: '#94a3b8', textAlign: 'center', padding: '16px 0' }}>
+          검색 결과가 없습니다
+        </div>
+      )}
+      <p style={{ fontSize: 11, color: '#94a3b8' }}>Radix UI 접근성 패턴 — role, aria-* 속성 활용</p>
+    </div>
+  )
+}
+
+export const Radix_접근성_검색_필드: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Radix UI의 접근성 강화 패턴. aria-label, role="combobox", aria-expanded, autocomplete 속성을 활용한 시맨틱 검색 입력 필드. 입력 시 실시간으로 필터링 결과 개수를 표시합니다.',
+      },
+    },
+  },
+  render: () => <RadixSearchFieldDemo />,
+}
+
+/* --------------------------------------------------------------------------
+   Chakra UI — 비밀번호 강도 측정 필드
+   실시간 강도 측정 + 색상 피드백
+-------------------------------------------------------------------------- */
+const calcStrength = (pw: string): { score: number; label: string; color: string } => {
+  let score = 0
+  if (pw.length >= 8) score++
+  if (/[A-Z]/.test(pw)) score++
+  if (/[0-9]/.test(pw)) score++
+  if (/[^A-Za-z0-9]/.test(pw)) score++
+  const map = [
+    { score: 0, label: '입력해주세요', color: '#e2e8f0' },
+    { score: 1, label: '매우 약함', color: '#ef4444' },
+    { score: 2, label: '약함', color: '#f59e0b' },
+    { score: 3, label: '보통', color: '#3b82f6' },
+    { score: 4, label: '강함', color: '#10b981' },
+  ]
+  return map[score]
+}
+
+const ChakraPasswordStrengthDemo = () => {
+  const [pw, setPw] = useState('')
+  const strength = calcStrength(pw)
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 10, width: 320 }}>
+      <FloatingTextField
+        value={pw}
+        onChange={(e) => setPw(e.target.value)}
+        placeholder="비밀번호"
+        error={pw.length > 0 && strength.score < 2}
+      />
+      <div style={{ display: 'flex', gap: 4 }}>
+        {[1, 2, 3, 4].map((i) => (
+          <div key={i} style={{ flex: 1, height: 4, borderRadius: 2, background: i <= strength.score ? strength.color : '#e2e8f0', transition: 'background 0.3s' }} />
+        ))}
+      </div>
+      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12 }}>
+        <span style={{ color: strength.color, fontWeight: 600 }}>{strength.label}</span>
+        <span style={{ color: '#94a3b8' }}>{pw.length} / 32</span>
+      </div>
+      <div style={{ fontSize: 11, color: '#94a3b8' }}>
+        영문 대문자, 숫자, 특수문자 포함 시 강도 증가
+      </div>
+      <p style={{ fontSize: 11, color: '#94a3b8' }}>Chakra UI 비밀번호 강도 측정 패턴</p>
+    </div>
+  )
+}
+
+export const Chakra_비밀번호_강도_측정: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Chakra UI의 PasswordInput + 강도 측정 패턴. 영문 대문자, 숫자, 특수문자 포함 여부에 따라 4단계 강도를 색상과 레이블로 즉시 피드백합니다.',
+      },
+    },
+  },
+  render: () => <ChakraPasswordStrengthDemo />,
+}
+
+/* --------------------------------------------------------------------------
+   Radix + Chakra — OTP 입력 필드
+   6자리 코드 분할 입력 UX 패턴
+-------------------------------------------------------------------------- */
+const OtpInputDemo = () => {
+  const [otp, setOtp] = useState(['', '', '', '', '', ''])
+  const ref0 = React.useRef<HTMLInputElement>(null)
+  const ref1 = React.useRef<HTMLInputElement>(null)
+  const ref2 = React.useRef<HTMLInputElement>(null)
+  const ref3 = React.useRef<HTMLInputElement>(null)
+  const ref4 = React.useRef<HTMLInputElement>(null)
+  const ref5 = React.useRef<HTMLInputElement>(null)
+  const refs = [ref0, ref1, ref2, ref3, ref4, ref5]
+  const handleChange = (i: number, val: string) => {
+    const digit = val.replace(/\D/g, '').slice(-1)
+    const next = [...otp]
+    next[i] = digit
+    setOtp(next)
+    if (digit && i < 5) refs[i + 1].current?.focus()
+  }
+  const handleKeyDown = (i: number, e: React.KeyboardEvent) => {
+    if (e.key === 'Backspace' && !otp[i] && i > 0) refs[i - 1].current?.focus()
+  }
+  const isComplete = otp.every((d) => d !== '')
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 16, alignItems: 'center', width: 320 }}>
+      <p style={{ fontSize: 14, fontWeight: 600, color: '#0f172a', margin: 0 }}>인증 코드 입력</p>
+      <p style={{ fontSize: 13, color: '#64748b', margin: 0, textAlign: 'center' }}>이메일로 전송된 6자리 코드를 입력하세요</p>
+      <div style={{ display: 'flex', gap: 8 }}>
+        {otp.map((val, i) => (
+          <input
+            key={i}
+            ref={refs[i]}
+            value={val}
+            onChange={(e) => handleChange(i, e.target.value)}
+            onKeyDown={(e) => handleKeyDown(i, e)}
+            maxLength={1}
+            inputMode="numeric"
+            style={{ width: 40, height: 48, borderRadius: 8, border: `2px solid ${val ? '#6366f1' : '#e2e8f0'}`, textAlign: 'center', fontSize: 20, fontWeight: 700, color: '#0f172a', outline: 'none', transition: 'border-color 0.2s' }}
+          />
+        ))}
+      </div>
+      {isComplete && (
+        <div style={{ padding: '8px 20px', borderRadius: 8, background: '#dcfce7', color: '#15803d', fontSize: 13, fontWeight: 600 }}>
+          인증 코드: {otp.join('')}
+        </div>
+      )}
+      <p style={{ fontSize: 11, color: '#94a3b8' }}>Radix 포커스 관리 + Chakra 단순 Props — 자동 포커스 이동 OTP 입력</p>
+    </div>
+  )
+}
+
+export const Radix_Chakra_OTP_입력: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Radix UI 포커스 관리 + Chakra UI 단순 props 철학 조합. 6자리 OTP를 개별 입력 필드로 분리하여 자동 포커스 이동을 구현합니다.',
+      },
+    },
+  },
+  render: () => <OtpInputDemo />,
 }

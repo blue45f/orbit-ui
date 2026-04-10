@@ -819,3 +819,196 @@ export const Ant_폼_제출_다이얼로그: Story = {
   name: 'Ant Design - 폼 제출 다이얼로그 패턴',
   render: () => <FormModalRender />,
 }
+
+/* --------------------------------------------------------------------------
+   Radix UI — 이미지 미리보기 라이트박스
+   비제어 모달 패턴 + ESC/배경 클릭 닫기
+-------------------------------------------------------------------------- */
+const LIGHTBOX_ITEMS = [
+  { id: 'g1', label: 'Dashboard Overview', w: 320, h: 200, bg: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)' },
+  { id: 'g2', label: 'Analytics Report', w: 320, h: 200, bg: 'linear-gradient(135deg, #0ea5e9 0%, #6366f1 100%)' },
+  { id: 'g3', label: 'Settings Panel', w: 320, h: 200, bg: 'linear-gradient(135deg, #10b981 0%, #0ea5e9 100%)' },
+]
+
+const LightboxRender = () => {
+  const [selected, setSelected] = React.useState<typeof LIGHTBOX_ITEMS[0] | null>(null)
+  return (
+    <div style={{ padding: 32, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 24 }}>
+      <div style={{ display: 'flex', gap: 12 }}>
+        {LIGHTBOX_ITEMS.map((item) => (
+          <button key={item.id} onClick={() => setSelected(item)} style={{ border: 'none', padding: 0, cursor: 'pointer', borderRadius: 10, overflow: 'hidden', background: item.bg, width: 100, height: 64, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: 11, fontWeight: 600, transition: 'transform 0.2s', boxShadow: '0 2px 8px rgba(0,0,0,0.15)' }}>
+            {item.label}
+          </button>
+        ))}
+      </div>
+      {selected && (
+        <Dialog defaultIsPresented={true}>
+          <Dialog.Top>
+            <Typography style={{ fontWeight: 700, marginBottom: 12 }}>{selected.label}</Typography>
+            <div style={{ width: '100%', height: 160, borderRadius: 10, background: selected.bg, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: 18, fontWeight: 700 }}>
+              {selected.label}
+            </div>
+          </Dialog.Top>
+          <Dialog.Bottom direction="horizontal">
+            <Dialog.Close asChild>
+              <Button color="gray" size="large" width="100%" onClick={() => setSelected(null)}>
+                <Button.Center>닫기</Button.Center>
+              </Button>
+            </Dialog.Close>
+          </Dialog.Bottom>
+        </Dialog>
+      )}
+      <p style={{ fontSize: 12, color: '#94a3b8' }}>Radix UI Dialog — 비제어 라이트박스, 썸네일 클릭으로 미리보기</p>
+    </div>
+  )
+}
+
+export const Radix_라이트박스_이미지_미리보기: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Radix UI의 비제어(uncontrolled) Dialog 패턴. 썸네일 클릭 시 라이트박스 모달 오픈. ESC 키 또는 배경 클릭으로 닫기를 지원합니다.',
+      },
+    },
+  },
+  render: () => <LightboxRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Chakra UI — 사용자 프로필 편집 모달
+   단순하고 직관적인 폼 UX 패턴
+-------------------------------------------------------------------------- */
+const ProfileEditRender = () => {
+  const [name, setName] = React.useState('김지훈')
+  const [bio, setBio] = React.useState('Design Systems Engineer')
+  const [saved, setSaved] = React.useState(false)
+  return (
+    <div style={{ padding: 40, display: 'flex', justifyContent: 'center' }}>
+      <Dialog defaultIsPresented={false}>
+        <Dialog.Trigger asChild>
+          <Button color="gray" size="medium">
+            <Button.Center>프로필 편집</Button.Center>
+          </Button>
+        </Dialog.Trigger>
+        <Dialog.Top>
+          <Typography style={{ fontWeight: 700, marginBottom: 16 }}>프로필 편집</Typography>
+          {saved && (
+            <div style={{ padding: '8px 12px', borderRadius: 8, background: '#dcfce7', color: '#15803d', fontSize: 13, marginBottom: 12 }}>
+              변경 사항이 저장되었습니다.
+            </div>
+          )}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+            <div>
+              <label style={{ fontSize: 13, fontWeight: 600, color: '#374151', display: 'block', marginBottom: 4 }}>이름</label>
+              <FloatingTextField value={name} onChange={(e) => { setName(e.target.value); setSaved(false) }} placeholder="이름을 입력하세요" />
+            </div>
+            <div>
+              <label style={{ fontSize: 13, fontWeight: 600, color: '#374151', display: 'block', marginBottom: 4 }}>직함</label>
+              <FloatingTextField value={bio} onChange={(e) => { setBio(e.target.value); setSaved(false) }} placeholder="직함을 입력하세요" />
+            </div>
+          </div>
+        </Dialog.Top>
+        <Dialog.Bottom direction="horizontal">
+          <Dialog.Close asChild>
+            <Button color="gray" size="large" width="100%">
+              <Button.Center>취소</Button.Center>
+            </Button>
+          </Dialog.Close>
+          <Dialog.Close asChild>
+            <Button color="primary" size="large" width="100%" onClick={() => setSaved(true)}>
+              <Button.Center>저장</Button.Center>
+            </Button>
+          </Dialog.Close>
+        </Dialog.Bottom>
+      </Dialog>
+      <p style={{ marginLeft: 16, fontSize: 12, color: '#94a3b8', alignSelf: 'center' }}>Chakra UI 프로필 편집 패턴 — 심플 폼, 즉시 피드백</p>
+    </div>
+  )
+}
+
+export const Chakra_프로필_편집_모달: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Chakra UI Modal의 단순 폼 패턴. 이름, 직함을 인라인 편집하고 저장 시 성공 배너를 즉시 표시합니다. props API의 단순함과 즉각적인 사용자 피드백이 특징입니다.',
+      },
+    },
+  },
+  render: () => <ProfileEditRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Radix + Chakra — 권한 설정 모달
+   체크박스 목록 + 역할 선택 패턴
+-------------------------------------------------------------------------- */
+const PERM_LIST = [
+  { id: 'read', label: '읽기', desc: '데이터 조회 권한' },
+  { id: 'write', label: '쓰기', desc: '데이터 수정 권한' },
+  { id: 'delete', label: '삭제', desc: '데이터 삭제 권한' },
+  { id: 'admin', label: '관리자', desc: '모든 설정 변경 권한' },
+]
+
+const PermModalRender = () => {
+  const [perms, setPerms] = React.useState<string[]>(['read'])
+  const toggle = (id: string) => setPerms((p) => p.includes(id) ? p.filter((x) => x !== id) : [...p, id])
+  return (
+    <div style={{ padding: 40, display: 'flex', justifyContent: 'center' }}>
+      <Dialog defaultIsPresented={false}>
+        <Dialog.Trigger asChild>
+          <Button color="gray" size="medium">
+            <Button.Center>권한 설정</Button.Center>
+          </Button>
+        </Dialog.Trigger>
+        <Dialog.Top>
+          <Typography style={{ fontWeight: 700, marginBottom: 4 }}>사용자 권한 설정</Typography>
+          <Typography style={{ fontSize: 13, color: '#64748b', marginBottom: 16 }}>
+            이 사용자에게 부여할 권한을 선택하세요.
+          </Typography>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+            {PERM_LIST.map((p) => {
+              const checked = perms.includes(p.id)
+              return (
+                <button key={p.id} onClick={() => toggle(p.id)} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '10px 12px', borderRadius: 8, border: `1px solid ${checked ? '#6366f1' : '#e2e8f0'}`, background: checked ? '#eef2ff' : '#fff', cursor: 'pointer', textAlign: 'left', transition: 'all 0.2s' }}>
+                  <span style={{ width: 18, height: 18, borderRadius: 4, border: `2px solid ${checked ? '#6366f1' : '#cbd5e1'}`, background: checked ? '#6366f1' : '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, fontSize: 11, color: '#fff', fontWeight: 700 }}>{checked ? 'v' : ''}</span>
+                  <span style={{ flex: 1 }}>
+                    <span style={{ fontSize: 14, fontWeight: 600, color: '#0f172a', display: 'block' }}>{p.label}</span>
+                    <span style={{ fontSize: 12, color: '#64748b' }}>{p.desc}</span>
+                  </span>
+                </button>
+              )
+            })}
+          </div>
+        </Dialog.Top>
+        <Dialog.Bottom direction="horizontal">
+          <Dialog.Close asChild>
+            <Button color="gray" size="large" width="100%">
+              <Button.Center>취소</Button.Center>
+            </Button>
+          </Dialog.Close>
+          <Dialog.Close asChild>
+            <Button color="primary" size="large" width="100%">
+              <Button.Center>권한 저장 ({perms.length})</Button.Center>
+            </Button>
+          </Dialog.Close>
+        </Dialog.Bottom>
+      </Dialog>
+      <p style={{ marginLeft: 16, fontSize: 12, color: '#94a3b8', alignSelf: 'center' }}>
+        Radix + Chakra — 권한 체크리스트 + 카운트 표시
+      </p>
+    </div>
+  )
+}
+
+export const Radix_Chakra_권한_설정_모달: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Radix UI Dialog + Chakra UI Checkbox 패턴 조합. 권한 목록을 토글 카드로 표현하고, 선택된 권한 수를 버튼에 실시간으로 표시합니다.',
+      },
+    },
+  },
+  render: () => <PermModalRender />,
+}

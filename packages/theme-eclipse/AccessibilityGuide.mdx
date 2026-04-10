@@ -900,3 +900,68 @@ import { Meta, Unstyled } from '@storybook/blocks'
     </div>
   </div>
 </section>
+
+<section style={{ marginTop: '48px', padding: '32px', background: 'linear-gradient(135deg, #ecfdf5 0%, #eff6ff 100%)', borderRadius: '16px', border: '1px solid #a7f3d0' }}>
+  <h2 style={{ fontSize: '22px', fontWeight: '800', color: '#064e3b', marginBottom: '8px' }}>Cycle 71 — Radix UI + Chakra UI 접근성 패턴</h2>
+  <p style={{ color: '#047857', fontSize: '14px', marginBottom: '24px', fontWeight: '600' }}>Modal 비제어 컴포넌트 + FloatingTextField 포커스 관리 + OTP 입력 접근성</p>
+
+  <h3 style={{ fontSize: '17px', fontWeight: '700', color: '#334155', marginBottom: '16px' }}>Radix UI 접근성 원칙</h3>
+  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '24px' }}>
+    <div style={{ padding: '16px', borderRadius: '10px', background: '#fff', border: '1px solid #a7f3d0' }}>
+      <h4 style={{ fontSize: '14px', fontWeight: '700', color: '#047857', marginBottom: '8px' }}>비제어/제어 컴포넌트 패턴</h4>
+      <p style={{ fontSize: '13px', color: '#475569', lineHeight: '1.6' }}>
+        Radix는 <code>defaultIsPresented</code>(비제어)와 <code>isPresented</code>(제어) 두 가지 모두 지원. 비제어 모드는 내부 상태를 자동 관리해 코드량을 줄이고, 제어 모드는 외부에서 완전한 상태 제어를 제공합니다.
+      </p>
+    </div>
+    <div style={{ padding: '16px', borderRadius: '10px', background: '#fff', border: '1px solid #a7f3d0' }}>
+      <h4 style={{ fontSize: '14px', fontWeight: '700', color: '#047857', marginBottom: '8px' }}>포커스 트래핑 & 복귀</h4>
+      <p style={{ fontSize: '13px', color: '#475569', lineHeight: '1.6' }}>
+        Radix Dialog는 열릴 때 첫 포커스 가능 요소로 포커스를 이동하고, 닫힐 때 트리거 요소로 복귀합니다. Tab/Shift+Tab으로 모달 내 포커스를 순환하여 WAI-ARIA Dialog 패턴을 완전히 구현합니다.
+      </p>
+    </div>
+    <div style={{ padding: '16px', borderRadius: '10px', background: '#fff', border: '1px solid #a7f3d0' }}>
+      <h4 style={{ fontSize: '14px', fontWeight: '700', color: '#047857', marginBottom: '8px' }}>aria-* 시맨틱 속성</h4>
+      <p style={{ fontSize: '13px', color: '#475569', lineHeight: '1.6' }}>
+        검색 필드에 <code>role="search"</code>, <code>aria-label</code>, <code>aria-autocomplete="list"</code>를 추가하면 스크린 리더가 "검색 영역" 진입을 알리고 자동완성 지원 여부를 안내합니다.
+      </p>
+    </div>
+    <div style={{ padding: '16px', borderRadius: '10px', background: '#fff', border: '1px solid #a7f3d0' }}>
+      <h4 style={{ fontSize: '14px', fontWeight: '700', color: '#047857', marginBottom: '8px' }}>OTP 입력 포커스 관리</h4>
+      <p style={{ fontSize: '13px', color: '#475569', lineHeight: '1.6' }}>
+        OTP 6자리 분할 입력에서 숫자 입력 시 다음 칸으로 자동 포커스 이동, Backspace 입력 시 이전 칸으로 복귀. <code>inputMode="numeric"</code>으로 모바일 숫자 키패드를 표시합니다.
+      </p>
+    </div>
+  </div>
+
+  <h3 style={{ fontSize: '17px', fontWeight: '700', color: '#334155', marginBottom: '16px' }}>Chakra UI 접근성 원칙</h3>
+  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '24px' }}>
+    <div style={{ padding: '16px', borderRadius: '10px', background: '#fff', border: '1px solid #bfdbfe' }}>
+      <h4 style={{ fontSize: '14px', fontWeight: '700', color: '#1d4ed8', marginBottom: '8px' }}>즉각적 시각 피드백</h4>
+      <p style={{ fontSize: '13px', color: '#475569', lineHeight: '1.6' }}>
+        Chakra의 <code>error</code> prop은 입력 즉시 색상과 아이콘을 변경해 에러를 인지시킵니다. 비밀번호 강도 측정은 입력 중에 실시간 색상 바와 텍스트 레이블로 강도를 표시합니다.
+      </p>
+    </div>
+    <div style={{ padding: '16px', borderRadius: '10px', background: '#fff', border: '1px solid #bfdbfe' }}>
+      <h4 style={{ fontSize: '14px', fontWeight: '700', color: '#1d4ed8', marginBottom: '8px' }}>단순한 props API</h4>
+      <p style={{ fontSize: '13px', color: '#475569', lineHeight: '1.6' }}>
+        Chakra는 <code>isDisabled</code>, <code>isInvalid</code>, <code>isRequired</code> 같은 단순 boolean props로 접근성 속성을 자동 매핑합니다. Orbit UI도 이 패턴을 차용해 <code>disabled</code>, <code>error</code> props가 aria 속성을 자동으로 설정합니다.
+      </p>
+    </div>
+  </div>
+
+  <h3 style={{ fontSize: '17px', fontWeight: '700', color: '#334155', marginBottom: '12px' }}>이번 사이클 적용 결과</h3>
+  <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+    <div style={{ padding: '12px 16px', borderRadius: '8px', background: '#f8fafc', border: '1px solid #e2e8f0', fontSize: '13px' }}>
+      <span style={{ fontWeight: '700', color: '#047857' }}>Modal +3:</span>
+      <span style={{ color: '#475569', marginLeft: '8px' }}>Radix 라이트박스 이미지 미리보기, Chakra 프로필 편집 모달, Radix+Chakra 권한 설정 체크리스트 모달</span>
+    </div>
+    <div style={{ padding: '12px 16px', borderRadius: '8px', background: '#f8fafc', border: '1px solid #e2e8f0', fontSize: '13px' }}>
+      <span style={{ fontWeight: '700', color: '#1d4ed8' }}>FloatingTextField +3:</span>
+      <span style={{ color: '#475569', marginLeft: '8px' }}>Radix 접근성 검색 필드(aria-*), Chakra 비밀번호 강도 측정, Radix+Chakra OTP 6자리 포커스 이동</span>
+    </div>
+    <div style={{ padding: '12px 16px', borderRadius: '8px', background: '#f8fafc', border: '1px solid #e2e8f0', fontSize: '13px' }}>
+      <span style={{ fontWeight: '700', color: '#7c3aed' }}>Template #61:</span>
+      <span style={{ color: '#475569', marginLeft: '8px' }}>RadixChakraOnboarding — 4단계 온보딩 (이름 입력 → 역할 선택 → 목표 체크리스트 → 완료), SegmentedControl 테마 설정</span>
+    </div>
+  </div>
+</section>
