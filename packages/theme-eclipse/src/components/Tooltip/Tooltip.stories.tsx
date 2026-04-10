@@ -971,3 +971,224 @@ export const Linear_단축키_레퍼런스_툴팁: Story = {
     </Tooltip.Provider>
   ),
 }
+
+/* --------------------------------------------------------------------------
+   MUI 벤치마크: 비활성 버튼 설명 툴팁
+   MUI Tooltip의 disabled button wrapper 패턴 — span으로 래핑하여 비활성 엘리먼트에 툴팁 적용
+-------------------------------------------------------------------------- */
+export const MUI_비활성_버튼_툴팁: Story = {
+  name: 'MUI - 비활성 버튼 설명 툴팁',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'MUI Tooltip의 disabled element 지원 패턴. ' +
+          '비활성 버튼은 hover 이벤트를 발생시키지 않으므로 span으로 래핑하여 툴팁을 표시합니다. ' +
+          '권한 부족, 조건 미충족 상태를 사용자에게 명확히 설명하는 UX 패턴입니다.',
+      },
+    },
+  },
+  render: () => (
+    <Tooltip.Provider delayDuration={200}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 24, padding: '60px 40px', fontFamily: 'system-ui, sans-serif', maxWidth: 420 }}>
+        <div style={{ fontSize: 13, fontWeight: 700, color: '#1e293b', marginBottom: -8 }}>권한 / 상태 안내 툴팁</div>
+        {[
+          { label: '배포하기', reason: 'CI 검사가 아직 완료되지 않았습니다. 모든 검사 통과 후 배포 가능합니다.', disabled: true },
+          { label: '삭제하기', reason: '이 리소스를 삭제하려면 Admin 권한이 필요합니다.', disabled: true },
+          { label: '내보내기', reason: '엑셀 파일로 내보냅니다. 최대 10,000행까지 지원합니다.', disabled: false },
+        ].map(({ label, reason, disabled }) => (
+          <Tooltip key={label}>
+            <Tooltip.Trigger asChild>
+              <span style={{ display: 'inline-block', cursor: disabled ? 'not-allowed' : 'default' }}>
+                <button
+                  disabled={disabled}
+                  style={{
+                    padding: '8px 18px', borderRadius: 8,
+                    border: disabled ? '1px solid #e2e8f0' : '1px solid #6366f1',
+                    background: disabled ? '#f8fafc' : '#6366f1',
+                    color: disabled ? '#94a3b8' : '#fff',
+                    fontSize: 13, fontWeight: 600,
+                    cursor: disabled ? 'not-allowed' : 'pointer',
+                    pointerEvents: 'none',
+                  }}
+                >
+                  {label}
+                </button>
+              </span>
+            </Tooltip.Trigger>
+            <Tooltip.Content side="right" style={{ maxWidth: 220 }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 4, padding: '2px 0' }}>
+                {disabled && (
+                  <span style={{ fontSize: 10, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.06em', color: '#fbbf24' }}>
+                    비활성 이유
+                  </span>
+                )}
+                <Typography textStyle="descriptionSmall" style={{ lineHeight: 1.6 }} className="text-white">
+                  {reason}
+                </Typography>
+              </div>
+            </Tooltip.Content>
+          </Tooltip>
+        ))}
+      </div>
+    </Tooltip.Provider>
+  ),
+}
+
+/* --------------------------------------------------------------------------
+   Chakra UI 벤치마크: 색상 선택기 스와치 툴팁
+   Chakra UI ColorPicker 패턴 — 각 스와치 hover 시 색상명 표시
+-------------------------------------------------------------------------- */
+const CHAKRA_PALETTE = [
+  { name: 'Indigo', hex: '#6366f1' },
+  { name: 'Violet', hex: '#8b5cf6' },
+  { name: 'Emerald', hex: '#10b981' },
+  { name: 'Amber', hex: '#f59e0b' },
+  { name: 'Rose', hex: '#f43f5e' },
+  { name: 'Cyan', hex: '#06b6d4' },
+  { name: 'Slate', hex: '#64748b' },
+  { name: 'Zinc', hex: '#71717a' },
+]
+
+const ChakraColorSwatchRender = () => {
+  const [selected, setSelected] = useState<string | null>(null)
+  return (
+    <Tooltip.Provider delayDuration={100}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 16, padding: '40px 32px', fontFamily: 'system-ui, sans-serif' }}>
+        <div style={{ fontSize: 13, fontWeight: 700, color: '#1e293b' }}>테마 색상 선택</div>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10 }}>
+          {CHAKRA_PALETTE.map(({ name, hex }) => (
+            <Tooltip key={name}>
+              <Tooltip.Trigger asChild>
+                <button
+                  onClick={() => setSelected(hex)}
+                  aria-label={name}
+                  style={{
+                    width: 36, height: 36, borderRadius: '50%', background: hex,
+                    border: selected === hex ? `3px solid ${hex}` : '3px solid transparent',
+                    outline: selected === hex ? '2px solid #fff' : 'none',
+                    outlineOffset: selected === hex ? 1 : 0,
+                    cursor: 'pointer', boxShadow: '0 1px 4px rgba(0,0,0,0.12)',
+                  }}
+                />
+              </Tooltip.Trigger>
+              <Tooltip.Content side="top">
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '2px 0' }}>
+                  <span style={{ width: 10, height: 10, borderRadius: '50%', background: hex, display: 'inline-block', flexShrink: 0 }} />
+                  <Typography textStyle="descriptionLarge" className="text-white" style={{ fontWeight: 700 }}>
+                    {name}
+                  </Typography>
+                  <Typography textStyle="descriptionSmall" className="text-white" style={{ opacity: 0.6, fontFamily: 'monospace' }}>
+                    {hex}
+                  </Typography>
+                </div>
+              </Tooltip.Content>
+            </Tooltip>
+          ))}
+        </div>
+        {selected && (
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 14px', borderRadius: 8, background: '#f8fafc', border: '1px solid #e2e8f0' }}>
+            <span style={{ width: 20, height: 20, borderRadius: 4, background: selected, flexShrink: 0 }} />
+            <span style={{ fontSize: 12, color: '#475569' }}>
+              선택된 색상: <strong style={{ fontFamily: 'monospace', color: '#1e293b' }}>{selected}</strong>
+            </span>
+          </div>
+        )}
+      </div>
+    </Tooltip.Provider>
+  )
+}
+
+export const Chakra_색상_스와치_툴팁: Story = {
+  name: 'Chakra UI - 색상 선택기 스와치 툴팁',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Chakra UI ColorPicker 패턴. 색상 스와치 위에 hover하면 색상명과 HEX 값을 툴팁으로 표시합니다. ' +
+          '선택된 색상은 링 아웃라인으로 강조, 아래 영역에 선택 결과를 반영합니다.',
+      },
+    },
+  },
+  render: () => <ChakraColorSwatchRender />,
+}
+
+/* --------------------------------------------------------------------------
+   MUI 벤치마크: 사용자 아바타 호버 카드 툴팁
+   MUI Tooltip + Avatar 조합 — 사용자 정보 호버 카드 패턴
+-------------------------------------------------------------------------- */
+const MUI_MEMBERS = [
+  { initials: 'AK', name: 'Alice Kim', role: 'Product Designer', color: '#6366f1', online: true },
+  { initials: 'BL', name: 'Bob Lee', role: 'Frontend Engineer', color: '#10b981', online: false },
+  { initials: 'CJ', name: 'Clara Jung', role: 'UX Researcher', color: '#f59e0b', online: true },
+  { initials: 'DJ', name: 'Daniel Jo', role: 'Backend Engineer', color: '#ef4444', online: true },
+]
+
+export const MUI_아바타_호버카드_툴팁: Story = {
+  name: 'MUI - 사용자 아바타 호버카드 툴팁',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'MUI Tooltip + Avatar 패턴. 아바타 hover 시 이름/역할/온라인 상태를 호버 카드로 표시합니다. ' +
+          'delayDuration=300으로 의도치 않은 툴팁 노출을 방지합니다.',
+      },
+    },
+  },
+  render: () => (
+    <Tooltip.Provider delayDuration={300}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 28, padding: '40px 32px', fontFamily: 'system-ui, sans-serif' }}>
+        <div>
+          <div style={{ fontSize: 12, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 14 }}>
+            팀 멤버
+          </div>
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            {MUI_MEMBERS.map((m, i) => (
+              <Tooltip key={m.initials}>
+                <Tooltip.Trigger asChild>
+                  <div
+                    style={{
+                      width: 40, height: 40, borderRadius: '50%',
+                      background: m.color, border: '2px solid #fff',
+                      display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      color: '#fff', fontSize: 13, fontWeight: 700,
+                      cursor: 'pointer', zIndex: MUI_MEMBERS.length - i,
+                      marginLeft: i > 0 ? -10 : 0,
+                      position: 'relative', boxShadow: '0 0 0 2px #fff',
+                    }}
+                  >
+                    {m.initials}
+                    {m.online && (
+                      <span style={{ position: 'absolute', bottom: 1, right: 1, width: 10, height: 10, borderRadius: '50%', background: '#22c55e', border: '2px solid #fff' }} />
+                    )}
+                  </div>
+                </Tooltip.Trigger>
+                <Tooltip.Content side="top">
+                  <div style={{ display: 'flex', gap: 10, alignItems: 'flex-start', padding: '2px 0' }}>
+                    <div style={{ width: 32, height: 32, borderRadius: '50%', background: m.color, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: 12, fontWeight: 700, flexShrink: 0 }}>
+                      {m.initials}
+                    </div>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+                      <Typography textStyle="descriptionLarge" className="text-white" style={{ fontWeight: 700 }}>
+                        {m.name}
+                      </Typography>
+                      <Typography textStyle="descriptionSmall" className="text-white" style={{ opacity: 0.7 }}>
+                        {m.role}
+                      </Typography>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 5, marginTop: 2 }}>
+                        <span style={{ width: 7, height: 7, borderRadius: '50%', background: m.online ? '#22c55e' : '#94a3b8', flexShrink: 0 }} />
+                        <Typography textStyle="descriptionSmall" className="text-white" style={{ opacity: 0.6 }}>
+                          {m.online ? '온라인' : '오프라인'}
+                        </Typography>
+                      </div>
+                    </div>
+                  </div>
+                </Tooltip.Content>
+              </Tooltip>
+            ))}
+          </div>
+        </div>
+      </div>
+    </Tooltip.Provider>
+  ),
+}

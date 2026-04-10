@@ -24440,3 +24440,216 @@ export const TW100AnalyticsDashboard: StoryObj = {
   },
   render: () => <TW100AnalyticsDashRender />,
 }
+
+/* ============================================================================
+   Cycle 101 — MUI + Chakra UI 벤치마크
+   Team Activity Dashboard: Skeleton 로딩 → 팀 활동 피드 + Tooltip 아바타 그룹
+============================================================================ */
+const MUI101_MEMBERS = [
+  { initials: 'HJ', name: 'Heejun Kim', role: 'Lead Designer', color: '#6366f1', online: true },
+  { initials: 'SR', name: 'Sora Ryu', role: 'Frontend Eng', color: '#10b981', online: true },
+  { initials: 'JP', name: 'Jaewon Park', role: 'Backend Eng', color: '#f59e0b', online: false },
+  { initials: 'ML', name: 'Minji Lee', role: 'UX Researcher', color: '#ef4444', online: true },
+  { initials: 'TK', name: 'Taeho Kim', role: 'DevOps', color: '#8b5cf6', online: false },
+]
+
+type MUI101Activity = {
+  id: number
+  memberIdx: number
+  action: string
+  target: string
+  time: string
+  badge: 'sale' | 'benefit' | 'gray'
+  badgeText: string
+}
+
+const MUI101_ACTIVITIES: MUI101Activity[] = [
+  { id: 1, memberIdx: 0, action: '컴포넌트 배포', target: 'SolidButton v2.1.0', time: '2분 전', badge: 'sale', badgeText: 'Deploy' },
+  { id: 2, memberIdx: 1, action: '스토리 추가', target: 'Skeleton — MUI 패턴', time: '14분 전', badge: 'benefit', badgeText: 'Story' },
+  { id: 3, memberIdx: 3, action: '이슈 완료', target: 'Tooltip 다크모드 지원', time: '28분 전', badge: 'gray', badgeText: 'Fix' },
+  { id: 4, memberIdx: 2, action: 'PR 리뷰 요청', target: 'DataTable 정렬 기능', time: '1시간 전', badge: 'benefit', badgeText: 'PR' },
+  { id: 5, memberIdx: 4, action: 'CI/CD 파이프라인 업데이트', target: 'vercel-deploy.yml', time: '2시간 전', badge: 'gray', badgeText: 'Infra' },
+]
+
+const MUI101TeamActivityRender = () => {
+  const [isLoading, setIsLoading] = React.useState(true)
+
+  React.useEffect(() => {
+    const t = setTimeout(() => setIsLoading(false), 1800)
+    return () => clearTimeout(t)
+  }, [])
+
+  const reload = () => {
+    setIsLoading(true)
+    setTimeout(() => setIsLoading(false), 1800)
+  }
+
+  return (
+    <div style={{ fontFamily: 'system-ui, sans-serif', width: 520, display: 'flex', flexDirection: 'column', gap: 20 }}>
+      {/* 헤더 */}
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <div>
+          <SectionTitle>팀 활동 피드</SectionTitle>
+          <div style={{ fontSize: 12, color: '#94a3b8', marginTop: 2 }}>
+            {isLoading ? '불러오는 중...' : `${MUI101_ACTIVITIES.length}건의 최근 활동`}
+          </div>
+        </div>
+        {/* Tooltip 아바타 그룹 */}
+        <Tooltip.Provider delayDuration={200}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+              {MUI101_MEMBERS.map((m, i) => (
+                <Tooltip key={m.initials}>
+                  <Tooltip.Trigger asChild>
+                    <div
+                      style={{
+                        width: 32, height: 32, borderRadius: '50%',
+                        background: m.color, border: '2px solid #fff',
+                        display: 'flex', alignItems: 'center', justifyContent: 'center',
+                        color: '#fff', fontSize: 11, fontWeight: 700, cursor: 'pointer',
+                        marginLeft: i > 0 ? -8 : 0, position: 'relative',
+                        zIndex: MUI101_MEMBERS.length - i, boxShadow: '0 0 0 2px #fff',
+                      }}
+                    >
+                      {m.initials}
+                      {m.online && (
+                        <span style={{
+                          position: 'absolute', bottom: 0, right: 0,
+                          width: 8, height: 8, borderRadius: '50%',
+                          background: '#22c55e', border: '1.5px solid #fff',
+                        }} />
+                      )}
+                    </div>
+                  </Tooltip.Trigger>
+                  <Tooltip.Content side="bottom">
+                    <div style={{ display: 'flex', gap: 8, alignItems: 'center', padding: '2px 0' }}>
+                      <div style={{
+                        width: 24, height: 24, borderRadius: '50%', background: m.color,
+                        display: 'flex', alignItems: 'center', justifyContent: 'center',
+                        color: '#fff', fontSize: 10, fontWeight: 700, flexShrink: 0,
+                      }}>
+                        {m.initials}
+                      </div>
+                      <div>
+                        <div style={{ fontWeight: 700, fontSize: 12 }}>{m.name}</div>
+                        <div style={{ opacity: 0.65, fontSize: 11 }}>{m.role} · {m.online ? '🟢 온라인' : '⚫ 오프라인'}</div>
+                      </div>
+                    </div>
+                  </Tooltip.Content>
+                </Tooltip>
+              ))}
+            </div>
+            <button
+              onClick={reload}
+              style={{
+                padding: '5px 12px', borderRadius: 6, border: '1px solid #e2e8f0',
+                background: '#fff', fontSize: 11, fontWeight: 600, color: '#64748b', cursor: 'pointer',
+              }}
+            >
+              새로고침
+            </button>
+          </div>
+        </Tooltip.Provider>
+      </div>
+
+      <Divider />
+
+      {/* 활동 피드 */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+        {isLoading
+          ? Array.from({ length: 5 }).map((_, i) => (
+              <div
+                key={i}
+                style={{
+                  display: 'flex', alignItems: 'center', gap: 12,
+                  padding: '12px 14px', borderRadius: 10, border: '1px solid #f1f5f9',
+                }}
+              >
+                <Skeleton height={36} width={36} style={{ borderRadius: '50%', flexShrink: 0 }} />
+                <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 7 }}>
+                  <Skeleton height={12} width={`${55 + (i * 13) % 30}%`} />
+                  <Skeleton height={10} width={`${35 + (i * 7) % 25}%`} />
+                </div>
+                <Skeleton height={20} width={52} style={{ borderRadius: 20, flexShrink: 0 }} />
+              </div>
+            ))
+          : MUI101_ACTIVITIES.map((act) => {
+              const member = MUI101_MEMBERS[act.memberIdx]
+              return (
+                <div
+                  key={act.id}
+                  style={{
+                    display: 'flex', alignItems: 'center', gap: 12,
+                    padding: '12px 14px', borderRadius: 10, border: '1px solid #f1f5f9',
+                    background: '#fff',
+                  }}
+                >
+                  {/* 아바타 */}
+                  <div
+                    style={{
+                      width: 36, height: 36, borderRadius: '50%', background: member.color,
+                      display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      color: '#fff', fontSize: 12, fontWeight: 700, flexShrink: 0,
+                      position: 'relative',
+                    }}
+                  >
+                    {member.initials}
+                    {member.online && (
+                      <span style={{
+                        position: 'absolute', bottom: 0, right: 0,
+                        width: 9, height: 9, borderRadius: '50%',
+                        background: '#22c55e', border: '1.5px solid #fff',
+                      }} />
+                    )}
+                  </div>
+                  {/* 텍스트 */}
+                  <div style={{ flex: 1 }}>
+                    <div style={{ fontSize: 13, fontWeight: 600, color: '#1e293b' }}>
+                      {member.name}
+                      <span style={{ fontWeight: 400, color: '#64748b' }}> — {act.action}</span>
+                    </div>
+                    <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>
+                      {act.target} · {act.time}
+                    </div>
+                  </div>
+                  {/* 배지 */}
+                  <LabelBadge color={act.badge}>{act.badgeText}</LabelBadge>
+                </div>
+              )
+            })}
+      </div>
+
+      {/* 하단 요약 */}
+      {!isLoading && (
+        <div style={{
+          padding: '12px 16px', borderRadius: 10, background: '#f8fafc',
+          border: '1px solid #e2e8f0', display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+        }}>
+          <div style={{ fontSize: 12, color: '#64748b' }}>
+            온라인 멤버: <strong style={{ color: '#22c55e' }}>{MUI101_MEMBERS.filter(m => m.online).length}</strong> / {MUI101_MEMBERS.length}명
+          </div>
+          <div style={{ display: 'flex', gap: 8 }}>
+            <LabelBadge color="sale">Deploy ×1</LabelBadge>
+            <LabelBadge color="benefit">Story+PR ×2</LabelBadge>
+            <LabelBadge color="gray">Fix+Infra ×2</LabelBadge>
+          </div>
+        </div>
+      )}
+    </div>
+  )
+}
+
+export const MUI101TeamActivityDashboard: StoryObj = {
+  name: 'MUI + Chakra UI — Team Activity Dashboard (Cycle 101)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'MUI + Chakra UI 벤치마크 — Cycle 101. ' +
+          'Skeleton 로딩(1.8초) → 팀 활동 피드로 전환. ' +
+          'Tooltip 아바타 그룹(hover 시 멤버 정보), LabelBadge 활동 분류, Divider, SectionTitle, Skeleton 로딩 패턴을 복합 활용합니다.',
+      },
+    },
+  },
+  render: () => <MUI101TeamActivityRender />,
+}

@@ -702,3 +702,182 @@ export const Ant_폼_스켈레톤: Story = {
     </div>
   ),
 }
+
+/* --------------------------------------------------------------------------
+   MUI 벤치마크: 웨이브 애니메이션 콘텐츠 로딩
+   MUI Skeleton의 wave variant — 가로 방향 shimmer 애니메이션 패턴
+-------------------------------------------------------------------------- */
+export const MUI_웨이브_애니메이션_스켈레톤: Story = {
+  name: 'MUI - 웨이브 애니메이션 콘텐츠 로딩',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'MUI Skeleton wave variant 패턴. MUI는 pulse(기본)와 wave 두 가지 애니메이션을 제공합니다. ' +
+          '뉴스피드, 블로그, 소셜 카드 로딩에 적합하며 shimmer 효과가 시각적으로 진행 중임을 나타냅니다.',
+      },
+    },
+  },
+  render: () => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 16, width: 400, fontFamily: 'system-ui, sans-serif' }}>
+      <div style={{ fontSize: 12, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 4 }}>
+        MUI Wave Skeleton — 뉴스피드 로딩
+      </div>
+      {[1, 2, 3].map((i) => (
+        <div
+          key={i}
+          style={{
+            display: 'flex', gap: 14, padding: '14px',
+            borderRadius: 12, border: '1px solid #f1f5f9', background: '#fff',
+          }}
+        >
+          {/* 썸네일 */}
+          <Skeleton
+            height={72}
+            width={72}
+            style={{ borderRadius: 8, flexShrink: 0 }}
+          />
+          {/* 텍스트 블록 */}
+          <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 8, justifyContent: 'center' }}>
+            <Skeleton height={13} width="85%" />
+            <Skeleton height={11} width="70%" />
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginTop: 2 }}>
+              <Skeleton height={20} width={20} style={{ borderRadius: '50%' }} />
+              <Skeleton height={10} width="35%" />
+              <Skeleton height={18} width={48} style={{ borderRadius: 20, marginLeft: 'auto' }} />
+            </div>
+          </div>
+        </div>
+      ))}
+      {/* MUI-style 인라인 텍스트 스켈레톤 */}
+      <div
+        style={{
+          padding: '14px 16px', borderRadius: 12, border: '1px solid #f1f5f9',
+          background: '#fafafa', display: 'flex', flexDirection: 'column', gap: 8,
+        }}
+      >
+        <div style={{ fontSize: 11, fontWeight: 600, color: '#cbd5e1', marginBottom: 2 }}>Typography Skeleton</div>
+        <Skeleton height={18} width="45%" style={{ borderRadius: 4 }} />
+        <Skeleton height={12} width="100%" />
+        <Skeleton height={12} width="92%" />
+        <Skeleton height={12} width="78%" />
+      </div>
+    </div>
+  ),
+}
+
+/* --------------------------------------------------------------------------
+   Chakra UI 벤치마크: 대시보드 위젯 스켈레톤
+   Chakra UI SkeletonText + SkeletonCircle 조합 패턴
+-------------------------------------------------------------------------- */
+export const Chakra_대시보드_위젯_스켈레톤: Story = {
+  name: 'Chakra UI - 대시보드 위젯 스켈레톤',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Chakra UI SkeletonText + SkeletonCircle 조합 패턴. ' +
+          '대시보드 위젯의 아이콘/수치/설명 영역을 Skeleton으로 예약합니다. ' +
+          'startColor/endColor 그라데이션 효과를 simulate합니다.',
+      },
+    },
+  },
+  render: () => (
+    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 14, width: 460, fontFamily: 'system-ui, sans-serif' }}>
+      {[
+        { accent: '#6366f1', label: '총 사용자' },
+        { accent: '#10b981', label: '이번 달 매출' },
+        { accent: '#f59e0b', label: '대기 중인 이슈' },
+        { accent: '#ef4444', label: '에러율' },
+      ].map(({ accent, label }) => (
+        <div
+          key={label}
+          style={{
+            padding: '16px', borderRadius: 12, border: '1px solid #e2e8f0',
+            background: '#fff', display: 'flex', flexDirection: 'column', gap: 12,
+          }}
+        >
+          {/* 아이콘 + 레이블 행 */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+            <Skeleton
+              height={36}
+              width={36}
+              style={{ borderRadius: 8, flexShrink: 0, background: `${accent}22` }}
+            />
+            <Skeleton height={11} width="60%" />
+          </div>
+          {/* 큰 수치 */}
+          <Skeleton height={28} width="55%" style={{ borderRadius: 6 }} />
+          {/* 트렌드 */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+            <Skeleton height={16} width={16} style={{ borderRadius: '50%', background: `${accent}33` }} />
+            <Skeleton height={10} width="50%" />
+          </div>
+          {/* 미니 프로그레스 */}
+          <Skeleton height={4} width="100%" style={{ borderRadius: 100 }} />
+        </div>
+      ))}
+    </div>
+  ),
+}
+
+/* --------------------------------------------------------------------------
+   MUI 벤치마크: 미디어 카드 비율 보존 스켈레톤
+   MUI Skeleton variant="rectangular" — 종횡비를 유지하는 이미지 플레이스홀더
+-------------------------------------------------------------------------- */
+export const MUI_미디어_카드_스켈레톤: Story = {
+  name: 'MUI - 미디어 카드 비율 보존 스켈레톤',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'MUI Skeleton rectangular variant 패턴. ' +
+          '이미지/비디오 영역은 실제 비율(16:9, 4:3, 1:1)을 미리 잡아 레이아웃 시프트를 방지합니다. ' +
+          'MUI 공식 가이드에서 권장하는 CLS(Cumulative Layout Shift) 방지 패턴입니다.',
+      },
+    },
+  },
+  render: () => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 20, width: 420, fontFamily: 'system-ui, sans-serif' }}>
+      <div style={{ fontSize: 12, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+        비율 보존 미디어 스켈레톤
+      </div>
+      {/* 16:9 비디오 카드 */}
+      <div style={{ borderRadius: 14, border: '1px solid #f1f5f9', overflow: 'hidden' }}>
+        <div style={{ position: 'relative', width: '100%', paddingTop: '56.25%' }}>
+          <div style={{ position: 'absolute', inset: 0 }}>
+            <Skeleton height="100%" width="100%" style={{ borderRadius: 0 }} />
+          </div>
+          {/* 재생 버튼 오버레이 스켈레톤 */}
+          <div style={{
+            position: 'absolute', inset: 0,
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+          }}>
+            <Skeleton height={44} width={44} style={{ borderRadius: '50%', opacity: 0.6 }} />
+          </div>
+        </div>
+        <div style={{ padding: '14px 16px', display: 'flex', flexDirection: 'column', gap: 8 }}>
+          <Skeleton height={14} width="75%" />
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            <Skeleton height={24} width={24} style={{ borderRadius: '50%' }} />
+            <Skeleton height={10} width="40%" />
+            <Skeleton height={18} width={50} style={{ borderRadius: 20, marginLeft: 'auto' }} />
+          </div>
+        </div>
+      </div>
+      {/* 4:3 이미지 갤러리 그리드 */}
+      <div>
+        <div style={{ fontSize: 11, fontWeight: 600, color: '#cbd5e1', marginBottom: 8 }}>4:3 갤러리 그리드</div>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 8 }}>
+          {[0, 1, 2, 3, 4, 5].map((i) => (
+            <div key={i} style={{ position: 'relative', paddingTop: '75%', borderRadius: 8, overflow: 'hidden' }}>
+              <div style={{ position: 'absolute', inset: 0 }}>
+                <Skeleton height="100%" width="100%" style={{ borderRadius: 0 }} />
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  ),
+}
