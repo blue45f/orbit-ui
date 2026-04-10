@@ -41627,3 +41627,204 @@ export const RadixAnt186FormCenter: StoryObj = {
   },
   render: () => <RadixAnt186Render />,
 }
+
+/* --------------------------------------------------------------------------
+   Cycle 187 — Linear Design + shadcn/ui
+-------------------------------------------------------------------------- */
+const SHADCN_187_ISSUE_COLS = [
+  { id: 'backlog', label: 'Backlog', color: '#6b7280', count: 24 },
+  { id: 'todo', label: 'Todo', color: '#f59e0b', count: 8 },
+  { id: 'inprogress', label: 'In Progress', color: '#3b82f6', count: 5 },
+  { id: 'done', label: 'Done', color: '#10b981', count: 42 },
+]
+
+const SHADCN_187_ISSUES = [
+  { id: 1, title: 'Storybook 다크모드 지원', col: 'inprogress', assignee: 'K', priority: 'high' },
+  { id: 2, title: 'TextField 접근성 개선', col: 'inprogress', assignee: 'J', priority: 'urgent' },
+  { id: 3, title: 'CounterBadge 스타일 토큰', col: 'todo', assignee: 'H', priority: 'medium' },
+  { id: 4, title: 'RadioButton 그룹 컴포넌트', col: 'todo', assignee: 'J', priority: 'low' },
+  { id: 5, title: 'Vercel 배포 자동화', col: 'done', assignee: 'K', priority: 'medium' },
+  { id: 6, title: 'Typography 가이드라인', col: 'backlog', assignee: 'H', priority: 'low' },
+  { id: 7, title: 'EclipseProvider 테마 확장', col: 'backlog', assignee: 'J', priority: 'medium' },
+]
+
+const PRIORITY_STYLE_187: Record<string, { label: string; color: string; bg: string }> = {
+  urgent: { label: '긴급', color: '#ef4444', bg: '#fef2f2' },
+  high:   { label: '높음', color: '#f59e0b', bg: '#fffbeb' },
+  medium: { label: '중간', color: '#3b82f6', bg: '#eff6ff' },
+  low:    { label: '낮음', color: '#6b7280', bg: '#f9fafb' },
+}
+
+const LINEAR_187_NAV = ['수신함', '내 이슈', '팀', '프로젝트']
+const LINEAR_187_NAV_COUNTS = [12, 5, 48, 3]
+
+function ShadcnLinear187Render() {
+  const [activeNav, setActiveNav] = React.useState('내 이슈')
+  const [issues, setIssues] = React.useState(SHADCN_187_ISSUES)
+  const [selected, setSelected] = React.useState<number | null>(null)
+  const [searchVal, setSearchVal] = React.useState('')
+  const [activeCol, setActiveCol] = React.useState<string | null>(null)
+
+  const filtered = issues.filter((i) =>
+    (!activeCol || i.col === activeCol) &&
+    (searchVal === '' || i.title.toLowerCase().includes(searchVal.toLowerCase()))
+  )
+
+  const complete = (id: number) => {
+    setIssues((prev) => prev.map((i) => i.id === id ? { ...i, col: 'done' } : i))
+    setSelected(null)
+  }
+
+  const colCount = (colId: string) => issues.filter((i) => i.col === colId).length
+
+  return (
+    <div style={{ minHeight: '100vh', display: 'flex', fontFamily: '"Inter", system-ui, sans-serif', background: '#0d1117' }}>
+      {/* Sidebar */}
+      <div style={{ width: 210, background: '#111827', display: 'flex', flexDirection: 'column', borderRight: '1px solid #1f2937', flexShrink: 0 }}>
+        <div style={{ padding: '18px 14px 12px', borderBottom: '1px solid #1f2937' }}>
+          <div style={{ fontSize: 13, fontWeight: 700, color: '#f9fafb', marginBottom: 2 }}>Orbit UI</div>
+          <div style={{ fontSize: 10, color: '#374151' }}>main · Cycle 187</div>
+        </div>
+        <div style={{ flex: 1, padding: '8px 0' }}>
+          {LINEAR_187_NAV.map((item, i) => (
+            <div
+              key={item}
+              onClick={() => setActiveNav(item)}
+              style={{
+                display: 'flex', alignItems: 'center', gap: 8, padding: '7px 14px',
+                cursor: 'pointer', transition: 'background 0.1s',
+                background: activeNav === item ? '#1f2937' : 'transparent',
+                borderLeft: `2px solid ${activeNav === item ? '#6366f1' : 'transparent'}`,
+              }}
+            >
+              <span style={{ fontSize: 12, color: activeNav === item ? '#f3f4f6' : '#6b7280', flex: 1, fontWeight: activeNav === item ? 600 : 400 }}>{item}</span>
+              {LINEAR_187_NAV_COUNTS[i] > 0 && (
+                <span style={{ fontSize: 9, fontWeight: 600, color: activeNav === item ? '#a5b4fc' : '#374151', background: activeNav === item ? '#1e1b4b' : '#1f2937', padding: '1px 6px', borderRadius: 10, minWidth: 20, textAlign: 'center' }}>
+                  {LINEAR_187_NAV_COUNTS[i]}
+                </span>
+              )}
+            </div>
+          ))}
+          <div style={{ padding: '12px 14px 6px', marginTop: 8, borderTop: '1px solid #1f2937' }}>
+            <div style={{ fontSize: 10, color: '#374151', fontWeight: 600, letterSpacing: '0.05em', marginBottom: 6 }}>상태 필터</div>
+            {SHADCN_187_ISSUE_COLS.map((col) => (
+              <div
+                key={col.id}
+                onClick={() => setActiveCol(activeCol === col.id ? null : col.id)}
+                style={{
+                  display: 'flex', alignItems: 'center', gap: 6, padding: '5px 4px',
+                  cursor: 'pointer', borderRadius: 5,
+                  background: activeCol === col.id ? '#1f2937' : 'transparent',
+                }}
+              >
+                <div style={{ width: 6, height: 6, borderRadius: '50%', background: col.color, flexShrink: 0 }} />
+                <span style={{ fontSize: 11, color: activeCol === col.id ? '#f3f4f6' : '#6b7280', flex: 1 }}>{col.label}</span>
+                <span style={{ fontSize: 9, color: '#374151' }}>{colCount(col.id)}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Main */}
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden', background: '#0d1117' }}>
+        {/* Header */}
+        <div style={{ padding: '12px 20px', borderBottom: '1px solid #21262d', background: '#161b22', display: 'flex', alignItems: 'center', gap: 12 }}>
+          <div style={{ flex: 1 }}>
+            <span style={{ fontSize: 14, fontWeight: 700, color: '#f0f6fc' }}>{activeNav}</span>
+            <span style={{ fontSize: 11, color: '#30363d', marginLeft: 8 }}>{filtered.length}개 이슈</span>
+          </div>
+          <input
+            value={searchVal}
+            onChange={(e) => setSearchVal(e.target.value)}
+            placeholder="이슈 검색..."
+            style={{ padding: '5px 10px', fontSize: 11, borderRadius: 6, border: '1px solid #30363d', background: '#0d1117', color: '#c9d1d9', outline: 'none', width: 160 }}
+          />
+          <div style={{ display: 'flex', gap: 4 }}>
+            {SHADCN_187_ISSUE_COLS.slice(0, 4).map((col) => (
+              <div key={col.id} style={{ display: 'flex', alignItems: 'center', gap: 4, padding: '4px 8px', borderRadius: 5, background: '#161b22', border: '1px solid #21262d' }}>
+                <div style={{ width: 5, height: 5, borderRadius: '50%', background: col.color }} />
+                <span style={{ fontSize: 10, color: '#8b949e' }}>{colCount(col.id)}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Issue list */}
+        <div style={{ flex: 1, overflowY: 'auto' }}>
+          {filtered.length === 0 && (
+            <div style={{ padding: 40, textAlign: 'center', color: '#30363d', fontSize: 12 }}>이슈가 없습니다</div>
+          )}
+          {SHADCN_187_ISSUE_COLS.map((col) => {
+            const colIssues = filtered.filter((i) => i.col === col.id)
+            if (colIssues.length === 0) return null
+            return (
+              <div key={col.id}>
+                <div style={{ padding: '10px 20px 6px', display: 'flex', alignItems: 'center', gap: 8, position: 'sticky', top: 0, background: '#0d1117', zIndex: 1 }}>
+                  <div style={{ width: 8, height: 8, borderRadius: '50%', background: col.color }} />
+                  <span style={{ fontSize: 11, fontWeight: 600, color: '#8b949e' }}>{col.label}</span>
+                  <span style={{ fontSize: 10, color: '#30363d', background: '#161b22', padding: '1px 6px', borderRadius: 8 }}>{colIssues.length}</span>
+                </div>
+                {colIssues.map((issue) => {
+                  const pStyle = PRIORITY_STYLE_187[issue.priority]
+                  const isSelected = selected === issue.id
+                  return (
+                    <div
+                      key={issue.id}
+                      onClick={() => setSelected(isSelected ? null : issue.id)}
+                      style={{
+                        padding: '10px 20px', cursor: 'pointer',
+                        background: isSelected ? '#161b22' : 'transparent',
+                        borderLeft: `3px solid ${isSelected ? col.color : 'transparent'}`,
+                        transition: 'all 0.1s',
+                        display: 'flex', alignItems: 'center', gap: 10,
+                      }}
+                    >
+                      <div style={{ width: 6, height: 6, borderRadius: '50%', background: col.color, flexShrink: 0 }} />
+                      <span style={{ fontSize: 12, color: '#c9d1d9', flex: 1, fontWeight: isSelected ? 600 : 400 }}>{issue.title}</span>
+                      <span style={{ fontSize: 9, fontWeight: 600, color: pStyle.color, background: pStyle.bg, padding: '2px 6px', borderRadius: 8, flexShrink: 0 }}>{pStyle.label}</span>
+                      <div style={{ width: 22, height: 22, borderRadius: '50%', background: '#21262d', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 10, color: '#8b949e', fontWeight: 700, flexShrink: 0 }}>{issue.assignee}</div>
+                      {isSelected && issue.col !== 'done' && (
+                        <button
+                          onClick={(e) => { e.stopPropagation(); complete(issue.id) }}
+                          style={{ padding: '3px 8px', fontSize: 10, borderRadius: 5, border: 'none', background: '#238636', color: '#fff', cursor: 'pointer', fontWeight: 600, flexShrink: 0 }}
+                        >
+                          완료
+                        </button>
+                      )}
+                    </div>
+                  )
+                })}
+              </div>
+            )
+          })}
+        </div>
+
+        {/* Footer */}
+        <div style={{ padding: '8px 20px', borderTop: '1px solid #21262d', background: '#161b22', display: 'flex', gap: 12, alignItems: 'center' }}>
+          {SHADCN_187_ISSUE_COLS.map((col) => (
+            <div key={col.id} style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+              <div style={{ width: 6, height: 6, borderRadius: '50%', background: col.color }} />
+              <span style={{ fontSize: 10, color: '#484f58' }}>{col.label}: {colCount(col.id)}</span>
+            </div>
+          ))}
+          <div style={{ flex: 1 }} />
+          <span style={{ fontSize: 10, color: '#21262d' }}>Linear Design + shadcn/ui Cycle 187</span>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const ShadcnLinear187IssueDashboard: StoryObj = {
+  name: 'shadcn/ui + Linear — 이슈 대시보드 (Cycle 187)',
+  parameters: {
+    layout: 'fullscreen',
+    docs: {
+      description: {
+        story: 'Linear Design + shadcn/ui 복합 패턴. 좌측: Linear 다크 사이드바(내비게이션 카운터 + 상태 필터) / 우측: 이슈 목록(상태 그룹핑 + 우선순위 배지 + 완료 인라인 액션 + 이슈 검색). RadioButtonWithLabel + CounterBadge 컴포넌트 활용.',
+      },
+    },
+  },
+  render: () => <ShadcnLinear187Render />,
+}

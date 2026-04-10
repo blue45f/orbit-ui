@@ -893,3 +893,207 @@ export const Vercel_노드_버전_선택: Story = {
   },
   render: () => <VercelNodeVersionDemo />,
 }
+
+/* --------------------------------------------------------------------------
+   Cycle 187 — Linear Design + shadcn/ui
+-------------------------------------------------------------------------- */
+const MEMBER_ROLES_187 = [
+  { value: 'owner', label: 'Owner', desc: '모든 설정 및 멤버 관리 권한', icon: '👑' },
+  { value: 'admin', label: 'Admin', desc: '프로젝트 및 통합 설정 관리', icon: '🛡' },
+  { value: 'member', label: 'Member', desc: '이슈 생성 및 코멘트 작성', icon: '👤' },
+  { value: 'viewer', label: 'Viewer', desc: '읽기 전용 접근', icon: '👁' },
+]
+
+function ShadcnRoleSelectRender() {
+  const [role, setRole] = useState('member')
+  return (
+    <div style={{ width: 420, fontFamily: 'system-ui, sans-serif' }}>
+      <div style={{ marginBottom: 12 }}>
+        <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>멤버 역할 선택</div>
+        <div style={{ fontSize: 12, color: '#64748b', marginTop: 2 }}>shadcn/ui 카드형 라디오 선택 패턴</div>
+      </div>
+      <RadioGroup value={role} onChange={(e) => setRole(e.target.value)} name="member-role">
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+          {MEMBER_ROLES_187.map((r) => (
+            <div
+              key={r.value}
+              onClick={() => setRole(r.value)}
+              style={{
+                display: 'flex', alignItems: 'center', gap: 12,
+                padding: '12px 14px', borderRadius: 8,
+                border: `1.5px solid ${role === r.value ? '#0f172a' : '#e2e8f0'}`,
+                background: role === r.value ? '#f8fafc' : '#fff',
+                cursor: 'pointer', transition: 'all 0.12s',
+              }}
+            >
+              <RadioButtonWithLabel value={r.value} alignItems="center" />
+              <span style={{ fontSize: 18, flexShrink: 0 }}>{r.icon}</span>
+              <div style={{ flex: 1 }}>
+                <div style={{ fontSize: 13, fontWeight: role === r.value ? 700 : 500, color: '#0f172a' }}>{r.label}</div>
+                <div style={{ fontSize: 11, color: '#64748b', marginTop: 1 }}>{r.desc}</div>
+              </div>
+              {role === r.value && (
+                <span style={{ fontSize: 10, fontWeight: 600, color: '#0f172a', padding: '2px 8px', borderRadius: 12, background: '#e2e8f0' }}>선택됨</span>
+              )}
+            </div>
+          ))}
+        </div>
+      </RadioGroup>
+      <div style={{ marginTop: 16, padding: '10px 14px', borderRadius: 8, background: '#f1f5f9', fontSize: 12, color: '#475569' }}>
+        현재 역할: <strong>{MEMBER_ROLES_187.find((r) => r.value === role)?.label}</strong> — {MEMBER_ROLES_187.find((r) => r.value === role)?.desc}
+      </div>
+    </div>
+  )
+}
+
+export const Shadcn_카드형_역할_선택: Story = {
+  name: 'shadcn/ui — 카드형 멤버 역할 선택',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'shadcn/ui 카드형 RadioGroup 패턴. 각 옵션을 카드로 표현하고 선택 시 테두리·배경 강조. ' +
+          '아이콘 + 제목 + 설명 3단 레이아웃으로 역할을 명확하게 전달합니다.',
+      },
+    },
+  },
+  render: () => <ShadcnRoleSelectRender />,
+}
+
+const LINEAR_ISSUE_TYPES_187 = [
+  { value: 'bug', label: '버그', shortcut: 'B', color: '#ef4444' },
+  { value: 'feature', label: '기능', shortcut: 'F', color: '#3b82f6' },
+  { value: 'improvement', label: '개선', shortcut: 'I', color: '#10b981' },
+  { value: 'docs', label: '문서', shortcut: 'D', color: '#8b5cf6' },
+]
+
+function LinearIssueTypeRender() {
+  const [type, setType] = useState('feature')
+  return (
+    <div style={{ width: 340, fontFamily: '"Inter", system-ui, sans-serif' }}>
+      <div style={{ fontSize: 11, fontWeight: 600, color: '#6b7280', letterSpacing: '0.05em', marginBottom: 10, textTransform: 'uppercase' }}>이슈 유형</div>
+      <RadioGroup value={type} onChange={(e) => setType(e.target.value)} name="issue-type">
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 6 }}>
+          {LINEAR_ISSUE_TYPES_187.map((t) => (
+            <div
+              key={t.value}
+              onClick={() => setType(t.value)}
+              style={{
+                display: 'flex', alignItems: 'center', gap: 8,
+                padding: '8px 10px', borderRadius: 6,
+                border: `1px solid ${type === t.value ? t.color : '#e5e7eb'}`,
+                background: type === t.value ? `${t.color}10` : '#fff',
+                cursor: 'pointer', transition: 'all 0.1s',
+              }}
+            >
+              <RadioButtonWithLabel value={t.value} alignItems="center" />
+              <div style={{ width: 8, height: 8, borderRadius: '50%', background: t.color, flexShrink: 0 }} />
+              <span style={{ fontSize: 12, fontWeight: type === t.value ? 600 : 400, color: type === t.value ? t.color : '#374151', flex: 1 }}>{t.label}</span>
+              <kbd style={{ fontSize: 9, padding: '1px 5px', borderRadius: 4, border: '1px solid #e5e7eb', background: '#f9fafb', color: '#6b7280', fontFamily: 'monospace' }}>{t.shortcut}</kbd>
+            </div>
+          ))}
+        </div>
+      </RadioGroup>
+      <div style={{ marginTop: 12, padding: '7px 10px', borderRadius: 6, background: '#f9fafb', border: '1px solid #f3f4f6', fontSize: 11, color: '#374151', display: 'flex', alignItems: 'center', gap: 6 }}>
+        <div style={{ width: 6, height: 6, borderRadius: '50%', background: LINEAR_ISSUE_TYPES_187.find((t) => t.value === type)?.color }} />
+        <span>{LINEAR_ISSUE_TYPES_187.find((t) => t.value === type)?.label} 유형으로 생성됩니다</span>
+      </div>
+    </div>
+  )
+}
+
+export const Linear_이슈_유형_선택: Story = {
+  name: 'Linear — 이슈 유형 컴팩트 그리드 선택',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Linear Design 컴팩트 라디오 그리드 패턴. 2열 그리드 배치 + 키보드 단축키 뱃지 + 색상 도트로 ' +
+          '이슈 유형을 고밀도 UI로 표현합니다. 선택 시 해당 색상으로 테두리와 배경이 변경됩니다.',
+      },
+    },
+  },
+  render: () => <LinearIssueTypeRender />,
+}
+
+const SHADCN_LINEAR_PLANS_187 = [
+  { value: 'hobby', label: 'Hobby', price: '무료', features: ['3개 프로젝트', '1명', '기본 스토리지'], highlight: false },
+  { value: 'pro', label: 'Pro', price: '₩15,000/월', features: ['무제한 프로젝트', '10명', '50GB 스토리지'], highlight: true },
+  { value: 'team', label: 'Team', price: '₩45,000/월', features: ['무제한 프로젝트', '무제한', '200GB 스토리지'], highlight: false },
+]
+
+function ShadcnLinearPricingRender() {
+  const [plan, setPlan] = useState('pro')
+  const [billing, setBilling] = useState('yearly')
+  return (
+    <div style={{ width: 440, fontFamily: 'system-ui, sans-serif' }}>
+      <div style={{ display: 'flex', gap: 4, padding: 3, background: '#f1f5f9', borderRadius: 8, marginBottom: 16, width: 'fit-content' }}>
+        <RadioGroup value={billing} onChange={(e) => setBilling(e.target.value)} name="billing">
+          {(['monthly', 'yearly'] as const).map((b) => (
+            <div
+              key={b}
+              onClick={() => setBilling(b)}
+              style={{
+                padding: '5px 14px', borderRadius: 6, cursor: 'pointer', fontSize: 12, fontWeight: 500,
+                background: billing === b ? '#fff' : 'transparent',
+                color: billing === b ? '#0f172a' : '#64748b',
+                boxShadow: billing === b ? '0 1px 3px rgba(0,0,0,0.1)' : 'none',
+                transition: 'all 0.15s', display: 'flex', alignItems: 'center', gap: 6,
+              }}
+            >
+              <RadioButtonWithLabel value={b} alignItems="center" />
+              {b === 'monthly' ? '월간' : '연간'}
+              {b === 'yearly' && (
+                <span style={{ fontSize: 9, fontWeight: 700, color: '#10b981', background: '#d1fae5', padding: '1px 5px', borderRadius: 10 }}>20% 할인</span>
+              )}
+            </div>
+          ))}
+        </RadioGroup>
+      </div>
+      <RadioGroup value={plan} onChange={(e) => setPlan(e.target.value)} name="pricing-plan">
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+          {SHADCN_LINEAR_PLANS_187.map((p) => (
+            <div
+              key={p.value}
+              onClick={() => setPlan(p.value)}
+              style={{
+                padding: '14px 16px', borderRadius: 10,
+                border: `1.5px solid ${plan === p.value ? (p.highlight ? '#6366f1' : '#0f172a') : '#e2e8f0'}`,
+                background: plan === p.value ? (p.highlight ? '#eef2ff' : '#f8fafc') : '#fff',
+                cursor: 'pointer', transition: 'all 0.12s', position: 'relative',
+              }}
+            >
+              {p.highlight && <div style={{ position: 'absolute', top: -10, right: 14, fontSize: 10, fontWeight: 700, color: '#fff', background: '#6366f1', padding: '2px 10px', borderRadius: 10 }}>인기</div>}
+              <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 8 }}>
+                <RadioButtonWithLabel value={p.value} alignItems="center" />
+                <span style={{ fontSize: 14, fontWeight: 700, color: '#0f172a', flex: 1 }}>{p.label}</span>
+                <span style={{ fontSize: 13, fontWeight: 600, color: p.highlight ? '#6366f1' : '#374151' }}>
+                  {billing === 'yearly' && p.price !== '무료' ? p.price.replace('월', '월 × 0.8') : p.price}
+                </span>
+              </div>
+              <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', paddingLeft: 24 }}>
+                {p.features.map((f, i) => (
+                  <span key={i} style={{ fontSize: 10, color: '#64748b', background: '#f1f5f9', padding: '2px 8px', borderRadius: 10 }}>{f}</span>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </RadioGroup>
+    </div>
+  )
+}
+
+export const Shadcn_Linear_가격_플랜_선택: Story = {
+  name: 'shadcn/ui + Linear — 가격 플랜 선택 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'shadcn/ui + Linear Design 복합 패턴. 월간/연간 청구 주기 토글 + 3단계 가격 플랜 카드 선택. ' +
+          '연간 선택 시 할인 배지 노출, 추천 플랜에 강조 테두리와 "인기" 뱃지를 표시합니다.',
+      },
+    },
+  },
+  render: () => <ShadcnLinearPricingRender />,
+}

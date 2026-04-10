@@ -1333,3 +1333,236 @@ export const Mantine_MUI_이커머스_장바구니_뱃지: Story = {
     )
   },
 }
+
+/* --------------------------------------------------------------------------
+   Cycle 187 — Linear Design + shadcn/ui
+-------------------------------------------------------------------------- */
+const LINEAR_NAV_ITEMS_187 = [
+  { id: 'inbox', label: '수신함', count: 12 },
+  { id: 'my', label: '내 이슈', count: 5 },
+  { id: 'team', label: '팀 이슈', count: 48 },
+  { id: 'all', label: '전체', count: 234 },
+  { id: 'reviews', label: '리뷰 요청', count: 3 },
+]
+
+function LinearSidebarNavRender() {
+  const [active, setActive] = useState('inbox')
+  return (
+    <div style={{ width: 220, background: '#111827', borderRadius: 12, padding: '16px 0', fontFamily: '"Inter", system-ui, sans-serif' }}>
+      <div style={{ padding: '0 14px 12px', borderBottom: '1px solid #1f2937', marginBottom: 8 }}>
+        <div style={{ fontSize: 13, fontWeight: 700, color: '#f9fafb' }}>My Workspace</div>
+        <div style={{ fontSize: 10, color: '#4b5563', marginTop: 1 }}>orbit-ui / main</div>
+      </div>
+      {LINEAR_NAV_ITEMS_187.map((item) => (
+        <div
+          key={item.id}
+          onClick={() => setActive(item.id)}
+          style={{
+            display: 'flex', alignItems: 'center', gap: 8,
+            padding: '7px 14px', cursor: 'pointer',
+            background: active === item.id ? '#1f2937' : 'transparent',
+            borderLeft: `2px solid ${active === item.id ? '#6366f1' : 'transparent'}`,
+            transition: 'all 0.1s',
+          }}
+        >
+          <span style={{ fontSize: 12, color: active === item.id ? '#f9fafb' : '#6b7280', flex: 1, fontWeight: active === item.id ? 600 : 400 }}>
+            {item.label}
+          </span>
+          {item.count > 0 && (
+            <CounterBadge style={{ background: active === item.id ? '#6366f1' : '#374151', color: '#fff', minWidth: 20, height: 18, fontSize: 10, borderRadius: 10 }}>
+              {item.count > 99 ? 99 : item.count}
+            </CounterBadge>
+          )}
+        </div>
+      ))}
+      <div style={{ padding: '12px 14px 0', marginTop: 8, borderTop: '1px solid #1f2937' }}>
+        <div style={{ fontSize: 10, color: '#374151', fontWeight: 600, letterSpacing: '0.06em', marginBottom: 6 }}>PROJECTS</div>
+        {[{ name: 'Orbit UI', count: 8 }, { name: 'Design System', count: 2 }].map((p) => (
+          <div key={p.name} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '5px 0', cursor: 'pointer' }}>
+            <div style={{ width: 6, height: 6, borderRadius: '50%', background: '#6366f1', flexShrink: 0 }} />
+            <span style={{ fontSize: 11, color: '#9ca3af', flex: 1 }}>{p.name}</span>
+            <CounterBadge style={{ background: '#1f2937', color: '#6b7280', minWidth: 18, height: 16, fontSize: 9, borderRadius: 8 }}>
+              {p.count}
+            </CounterBadge>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+export const Linear_사이드바_내비게이션_카운터: Story = {
+  name: 'Linear — 사이드바 내비게이션 카운터 배지',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Linear Design 사이드바 패턴. 다크 배경 네비게이션에 CounterBadge로 이슈 수를 표시. ' +
+          '활성 항목에는 인디고 색상 배지, 비활성에는 어두운 배지를 적용합니다.',
+      },
+    },
+  },
+  render: () => <LinearSidebarNavRender />,
+}
+
+const SHADCN_KANBAN_COLS_187 = [
+  { id: 'backlog', label: 'Backlog', count: 24, color: '#6b7280' },
+  { id: 'todo', label: 'Todo', count: 8, color: '#f59e0b' },
+  { id: 'inprogress', label: 'In Progress', count: 5, color: '#3b82f6' },
+  { id: 'review', label: 'Review', count: 3, color: '#8b5cf6' },
+  { id: 'done', label: 'Done', count: 42, color: '#10b981' },
+]
+
+function ShadcnKanbanHeaderRender() {
+  const [cols, setCols] = useState(SHADCN_KANBAN_COLS_187)
+  const [collapsed, setCollapsed] = useState<string[]>([])
+
+  const toggle = (id: string) => {
+    setCollapsed((prev) => prev.includes(id) ? prev.filter((c) => c !== id) : [...prev, id])
+  }
+
+  const addItem = (id: string) => {
+    setCols((prev) => prev.map((c) => c.id === id ? { ...c, count: c.count + 1 } : c))
+  }
+
+  return (
+    <div style={{ fontFamily: 'system-ui, sans-serif', display: 'flex', gap: 8, alignItems: 'flex-start' }}>
+      {cols.map((col) => (
+        <div
+          key={col.id}
+          style={{
+            width: collapsed.includes(col.id) ? 40 : 140,
+            transition: 'width 0.2s',
+            background: '#fff',
+            border: '1px solid #e5e7eb',
+            borderRadius: 10,
+            overflow: 'hidden',
+          }}
+        >
+          <div
+            style={{
+              display: 'flex', alignItems: 'center', gap: 6, padding: '10px 10px',
+              borderBottom: '1px solid #f3f4f6', cursor: 'pointer',
+              background: collapsed.includes(col.id) ? '#f9fafb' : '#fff',
+            }}
+            onClick={() => toggle(col.id)}
+          >
+            <div style={{ width: 8, height: 8, borderRadius: '50%', background: col.color, flexShrink: 0 }} />
+            {!collapsed.includes(col.id) && (
+              <>
+                <span style={{ fontSize: 11, fontWeight: 600, color: '#374151', flex: 1, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{col.label}</span>
+                <CounterBadge style={{ background: `${col.color}20`, color: col.color, minWidth: 20, height: 18, fontSize: 10, borderRadius: 10 }}>
+                  {col.count}
+                </CounterBadge>
+              </>
+            )}
+          </div>
+          {!collapsed.includes(col.id) && (
+            <div style={{ padding: '8px 10px' }}>
+              <div style={{ fontSize: 10, color: '#9ca3af', marginBottom: 6 }}>이슈 {col.count}개</div>
+              <button
+                onClick={() => addItem(col.id)}
+                style={{ width: '100%', padding: '5px', fontSize: 10, borderRadius: 6, border: '1px dashed #e5e7eb', background: 'transparent', color: '#9ca3af', cursor: 'pointer' }}
+              >
+                + 추가
+              </button>
+            </div>
+          )}
+        </div>
+      ))}
+    </div>
+  )
+}
+
+export const Shadcn_칸반_컬럼_헤더_카운터: Story = {
+  name: 'shadcn/ui — 칸반 컬럼 헤더 카운터 배지',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'shadcn/ui 칸반 보드 패턴. 각 컬럼 상태별 CounterBadge 표시 + 컬럼 접기/펼치기 + 이슈 추가 시 카운터 증가. ' +
+          '상태 색상에 맞는 반투명 배지 배경을 적용합니다.',
+      },
+    },
+  },
+  render: () => <ShadcnKanbanHeaderRender />,
+}
+
+const SHADCN_LINEAR_NOTIFICATION_TYPES_187 = [
+  { id: 'mentions', label: '멘션', count: 4, urgent: true },
+  { id: 'comments', label: '댓글', count: 18, urgent: false },
+  { id: 'status', label: '상태 변경', count: 7, urgent: false },
+  { id: 'assigned', label: '담당자 지정', count: 2, urgent: true },
+]
+
+function ShadcnLinearNotifRender() {
+  const [notifs, setNotifs] = useState(SHADCN_LINEAR_NOTIFICATION_TYPES_187)
+  const [filter, setFilter] = useState('all')
+
+  const markRead = (id: string) => {
+    setNotifs((prev) => prev.map((n) => n.id === id ? { ...n, count: 0 } : n))
+  }
+
+  const totalUnread = notifs.reduce((sum, n) => sum + n.count, 0)
+  const filtered = filter === 'urgent' ? notifs.filter((n) => n.urgent) : notifs
+
+  return (
+    <div style={{ width: 320, fontFamily: 'system-ui, sans-serif', border: '1px solid #e5e7eb', borderRadius: 12, overflow: 'hidden' }}>
+      <div style={{ padding: '12px 16px', background: '#fff', borderBottom: '1px solid #f3f4f6', display: 'flex', alignItems: 'center', gap: 8 }}>
+        <span style={{ fontSize: 13, fontWeight: 700, color: '#111827', flex: 1 }}>알림</span>
+        {totalUnread > 0 && (
+          <CounterBadge style={{ background: '#ef4444', color: '#fff', minWidth: 22, height: 20, fontSize: 11, borderRadius: 10 }}>
+            {totalUnread}
+          </CounterBadge>
+        )}
+        <button onClick={() => setNotifs((prev) => prev.map((n) => ({ ...n, count: 0 })))} style={{ fontSize: 10, padding: '3px 8px', borderRadius: 5, border: '1px solid #e5e7eb', background: '#fff', color: '#6b7280', cursor: 'pointer' }}>
+          모두 읽음
+        </button>
+      </div>
+      <div style={{ display: 'flex', gap: 4, padding: '8px 12px', background: '#f9fafb', borderBottom: '1px solid #f3f4f6' }}>
+        {(['all', 'urgent'] as const).map((f) => (
+          <button
+            key={f}
+            onClick={() => setFilter(f)}
+            style={{ padding: '3px 10px', fontSize: 10, borderRadius: 5, border: `1px solid ${filter === f ? '#0f172a' : '#e5e7eb'}`, background: filter === f ? '#0f172a' : '#fff', color: filter === f ? '#fff' : '#6b7280', cursor: 'pointer', fontWeight: 500 }}
+          >
+            {f === 'all' ? '전체' : '긴급'}
+          </button>
+        ))}
+      </div>
+      <div>
+        {filtered.map((n) => (
+          <div key={n.id} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 16px', borderBottom: '1px solid #f9fafb', background: n.count > 0 ? '#fff' : '#f9fafb' }}>
+            {n.urgent && <div style={{ width: 6, height: 6, borderRadius: '50%', background: '#ef4444', flexShrink: 0 }} />}
+            {!n.urgent && <div style={{ width: 6, height: 6, flexShrink: 0 }} />}
+            <span style={{ fontSize: 12, color: n.count > 0 ? '#111827' : '#9ca3af', flex: 1, fontWeight: n.count > 0 ? 500 : 400 }}>{n.label}</span>
+            {n.count > 0 ? (
+              <CounterBadge style={{ background: n.urgent ? '#fef2f2' : '#eff6ff', color: n.urgent ? '#ef4444' : '#3b82f6', minWidth: 22, height: 20, fontSize: 10, borderRadius: 10 }}>
+                {n.count}
+              </CounterBadge>
+            ) : (
+              <span style={{ fontSize: 10, color: '#d1d5db' }}>읽음</span>
+            )}
+            {n.count > 0 && (
+              <button onClick={() => markRead(n.id)} style={{ fontSize: 9, padding: '2px 6px', borderRadius: 4, border: '1px solid #e5e7eb', background: '#fff', color: '#9ca3af', cursor: 'pointer' }}>읽음</button>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+export const Shadcn_Linear_알림_타입_카운터: Story = {
+  name: 'shadcn/ui + Linear — 알림 유형별 카운터 패널',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'shadcn/ui + Linear 복합 패턴. 알림 유형(멘션·댓글·상태변경·담당)별 CounterBadge + 긴급 필터 + 읽음 처리. ' +
+          '긴급 알림은 빨간 배지, 일반은 파란 배지로 구분합니다.',
+      },
+    },
+  },
+  render: () => <ShadcnLinearNotifRender />,
+}
