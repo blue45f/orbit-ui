@@ -23522,3 +23522,190 @@ export const VercelUsageBilling: Story = {
   },
   render: () => <Vercel95UsageBillingRender />,
 }
+
+// ─── Cycle 96: Figma Design 벤치마크 ──────────────────────────────────────────
+
+type Figma96Section = 'design' | 'prototype' | 'inspect'
+type Figma96TokenType = 'color' | 'typography' | 'spacing' | 'effect'
+
+interface Figma96DesignToken {
+  id: string
+  name: string
+  type: Figma96TokenType
+  value: string
+  hex?: string
+}
+
+interface Figma96PropertyItem {
+  id: string
+  label: string
+  value: string
+  editable: boolean
+}
+
+const FIGMA96_TOKENS: Figma96DesignToken[] = [
+  { id: 'c1', name: 'Primary/500', type: 'color', value: '#7C3AED', hex: '#7C3AED' },
+  { id: 'c2', name: 'Primary/100', type: 'color', value: '#EDE9FE', hex: '#EDE9FE' },
+  { id: 'c3', name: 'Neutral/900', type: 'color', value: '#111827', hex: '#111827' },
+  { id: 'c4', name: 'Neutral/50', type: 'color', value: '#F9FAFB', hex: '#F9FAFB' },
+  { id: 't1', name: 'Heading/XL', type: 'typography', value: '24px / Bold' },
+  { id: 't2', name: 'Body/SM', type: 'typography', value: '14px / Regular' },
+  { id: 's1', name: 'Spacing/4', type: 'spacing', value: '16px' },
+  { id: 's2', name: 'Spacing/6', type: 'spacing', value: '24px' },
+  { id: 'e1', name: 'Shadow/MD', type: 'effect', value: '0 4px 12px rgba(0,0,0,0.1)' },
+]
+
+const FIGMA96_DESIGN_PROPS: Figma96PropertyItem[] = [
+  { id: 'w', label: 'W', value: '320', editable: true },
+  { id: 'h', label: 'H', value: '240', editable: true },
+  { id: 'x', label: 'X', value: '0', editable: true },
+  { id: 'y', label: 'Y', value: '0', editable: true },
+  { id: 'r', label: 'Corner radius', value: '8', editable: true },
+  { id: 'opacity', label: 'Opacity', value: '100%', editable: true },
+]
+
+const TOKEN_TYPE_COLOR: Record<Figma96TokenType, string> = {
+  color: '#7C3AED',
+  typography: '#0EA5E9',
+  spacing: '#10B981',
+  effect: '#F59E0B',
+}
+
+const Figma96InspectPanelRender = () => {
+  const [activeSection, setActiveSection] = useState<Figma96Section>('design')
+  const [selectedToken, setSelectedToken] = useState<string | null>(null)
+  const [filterType, setFilterType] = useState<Figma96TokenType | 'all'>('all')
+
+  const filteredTokens = filterType === 'all' ? FIGMA96_TOKENS : FIGMA96_TOKENS.filter(t => t.type === filterType)
+
+  return (
+    <div style={{ display: 'flex', height: 520, fontFamily: 'Inter, system-ui, sans-serif', background: '#f8fafc', gap: 0, borderRadius: 12, overflow: 'hidden', border: '1px solid #e5e7eb' }}>
+      {/* Left: Canvas Preview */}
+      <div style={{ flex: 1, background: '#e5e7eb', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative' }}>
+        <div style={{ background: '#fff', borderRadius: 8, width: 200, height: 140, boxShadow: '0 4px 12px rgba(0,0,0,0.1)', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+          <div style={{ height: 6, background: '#7C3AED' }} />
+          <div style={{ padding: '12px 14px', flex: 1 }}>
+            <div style={{ fontSize: 11, fontWeight: 700, color: '#111827', marginBottom: 4 }}>Card Component</div>
+            <div style={{ height: 8, background: '#f0f0f0', borderRadius: 4, marginBottom: 6, width: '80%' }} />
+            <div style={{ height: 8, background: '#f0f0f0', borderRadius: 4, width: '60%' }} />
+          </div>
+          <div style={{ padding: '8px 14px', borderTop: '1px solid #f0f0f0', display: 'flex', gap: 6 }}>
+            <div style={{ height: 20, flex: 1, background: '#7C3AED', borderRadius: 4 }} />
+            <div style={{ height: 20, flex: 1, background: '#f0f0f0', borderRadius: 4 }} />
+          </div>
+        </div>
+        <div style={{ position: 'absolute', bottom: 10, left: '50%', transform: 'translateX(-50%)', fontSize: 10, color: '#94a3b8', background: '#fff', padding: '3px 8px', borderRadius: 20, border: '1px solid #e5e7eb' }}>
+          Card Component · 320 × 240
+        </div>
+      </div>
+
+      {/* Right: Inspect Panel */}
+      <div style={{ width: 260, background: '#fff', borderLeft: '1px solid #e5e7eb', display: 'flex', flexDirection: 'column' }}>
+        {/* Section tabs */}
+        <div style={{ display: 'flex', borderBottom: '1px solid #f0f0f0' }}>
+          {(['design', 'prototype', 'inspect'] as Figma96Section[]).map(sec => (
+            <button
+              key={sec}
+              onClick={() => setActiveSection(sec)}
+              style={{ flex: 1, padding: '9px 0', fontSize: 11, fontWeight: activeSection === sec ? 700 : 400, color: activeSection === sec ? '#7C3AED' : '#9ca3af', background: 'none', border: 'none', borderBottom: activeSection === sec ? '2px solid #7C3AED' : '2px solid transparent', cursor: 'pointer', textTransform: 'capitalize' }}
+            >
+              {sec}
+            </button>
+          ))}
+        </div>
+
+        <div style={{ flex: 1, overflowY: 'auto', padding: '12px' }}>
+          {activeSection === 'design' && (
+            <div>
+              <SectionTitle>레이아웃</SectionTitle>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 6, marginTop: 8, marginBottom: 14 }}>
+                {FIGMA96_DESIGN_PROPS.map(prop => (
+                  <div key={prop.id} style={{ background: '#f9fafb', borderRadius: 6, padding: '6px 8px', border: '1px solid #f0f0f0' }}>
+                    <div style={{ fontSize: 9, color: '#9ca3af', marginBottom: 2 }}>{prop.label}</div>
+                    <div style={{ fontSize: 12, fontWeight: 600, color: '#111827' }}>{prop.value}</div>
+                  </div>
+                ))}
+              </div>
+              <SectionTitle>Fill</SectionTitle>
+              <div style={{ marginTop: 8, display: 'flex', alignItems: 'center', gap: 8, padding: '6px 8px', background: '#f9fafb', borderRadius: 6, border: '1px solid #f0f0f0' }}>
+                <div style={{ width: 20, height: 20, borderRadius: 4, background: '#7C3AED', border: '1px solid #e5e7eb' }} />
+                <span style={{ fontSize: 12, color: '#374151', fontWeight: 500 }}>Primary/500</span>
+                <span style={{ fontSize: 11, color: '#9ca3af', marginLeft: 'auto' }}>100%</span>
+              </div>
+            </div>
+          )}
+
+          {activeSection === 'prototype' && (
+            <div>
+              <SectionTitle>인터랙션</SectionTitle>
+              <div style={{ marginTop: 10, padding: '10px 12px', background: '#f5f3ff', borderRadius: 8, border: '1px solid #ede9fe' }}>
+                <div style={{ fontSize: 11, fontWeight: 600, color: '#7C3AED', marginBottom: 4 }}>On Click</div>
+                <div style={{ fontSize: 11, color: '#6b7280' }}>Navigate to → Detail Page</div>
+                <div style={{ fontSize: 10, color: '#9ca3af', marginTop: 2 }}>Ease Out · 300ms</div>
+              </div>
+              <div style={{ marginTop: 8, display: 'flex', alignItems: 'center', gap: 8 }}>
+                <Toggle />
+                <span style={{ fontSize: 12, color: '#374151' }}>스크롤 오버플로우</span>
+              </div>
+              <div style={{ marginTop: 6, display: 'flex', alignItems: 'center', gap: 8 }}>
+                <Toggle />
+                <span style={{ fontSize: 12, color: '#374151' }}>오버레이 배경 클릭 시 닫기</span>
+              </div>
+            </div>
+          )}
+
+          {activeSection === 'inspect' && (
+            <div>
+              <SectionTitle>디자인 토큰</SectionTitle>
+              <div style={{ display: 'flex', gap: 4, flexWrap: 'wrap', marginTop: 8, marginBottom: 10 }}>
+                {(['all', 'color', 'typography', 'spacing', 'effect'] as const).map(type => (
+                  <button
+                    key={type}
+                    onClick={() => setFilterType(type)}
+                    style={{ fontSize: 10, padding: '2px 8px', borderRadius: 10, border: `1px solid ${filterType === type ? TOKEN_TYPE_COLOR[type as Figma96TokenType] ?? '#7C3AED' : '#e5e7eb'}`, background: filterType === type ? (TOKEN_TYPE_COLOR[type as Figma96TokenType] ?? '#7C3AED') : '#fff', color: filterType === type ? '#fff' : '#6b7280', cursor: 'pointer', fontWeight: filterType === type ? 600 : 400 }}
+                  >
+                    {type}
+                  </button>
+                ))}
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+                {filteredTokens.map(token => (
+                  <div
+                    key={token.id}
+                    onClick={() => setSelectedToken(selectedToken === token.id ? null : token.id)}
+                    style={{ padding: '7px 8px', borderRadius: 6, border: `1px solid ${selectedToken === token.id ? TOKEN_TYPE_COLOR[token.type] : '#f0f0f0'}`, background: selectedToken === token.id ? '#f5f3ff' : '#fafafa', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 8 }}
+                  >
+                    {token.hex ? (
+                      <div style={{ width: 16, height: 16, borderRadius: 3, background: token.hex, border: '1px solid #e5e7eb', flexShrink: 0 }} />
+                    ) : (
+                      <div style={{ width: 16, height: 16, borderRadius: 3, background: TOKEN_TYPE_COLOR[token.type], opacity: 0.2, flexShrink: 0 }} />
+                    )}
+                    <div style={{ flex: 1 }}>
+                      <div style={{ fontSize: 11, fontWeight: 600, color: '#374151' }}>{token.name}</div>
+                      <div style={{ fontSize: 10, color: '#9ca3af' }}>{token.value}</div>
+                    </div>
+                    <LabelBadge color={token.type === 'color' ? 'sale' : token.type === 'typography' ? 'benefit' : 'gray'}>
+                      {token.type}
+                    </LabelBadge>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const Figma96ComponentInspect: StoryObj = {
+  name: 'Figma - 컴포넌트 인스펙터 패널 (Cycle 96)',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Figma Design 벤치마크 — Design/Prototype/Inspect 3탭 인스펙터 패널. 레이아웃 속성, 프로토타입 인터랙션, 디자인 토큰 뷰어를 통합한 Figma 우측 패널 패턴입니다. SectionTitle, Toggle, LabelBadge 컴포넌트를 활용합니다.',
+      },
+    },
+  },
+  render: () => <Figma96InspectPanelRender />,
+}

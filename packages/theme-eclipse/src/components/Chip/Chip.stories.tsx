@@ -850,3 +850,170 @@ export const MUI_상태_필터_칩_툴바: Story = {
   },
   render: () => <MuiFilterChipToolbarRender />,
 }
+
+const FIGMA_PROPERTY_OPTIONS = [
+  { id: 'variant', label: 'Variant' },
+  { id: 'size', label: 'Size' },
+  { id: 'state', label: 'State' },
+  { id: 'color', label: 'Color' },
+  { id: 'icon', label: 'Icon' },
+  { id: 'label', label: 'Label' },
+]
+
+const FigmaPropertyFilterRender = () => {
+  const [active, setActive] = useState<Set<string>>(new Set(['variant', 'size']))
+
+  const toggle = (id: string) => {
+    setActive(prev => {
+      const next = new Set(prev)
+      if (next.has(id)) next.delete(id)
+      else next.add(id)
+      return next
+    })
+  }
+
+  return (
+    <div style={{ width: 340, fontFamily: 'Inter, system-ui, sans-serif', background: '#fff', border: '1px solid #e5e7eb', borderRadius: 10, padding: 16 }}>
+      <div style={{ fontSize: 12, fontWeight: 700, color: '#111', marginBottom: 10 }}>Component Properties</div>
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+        {FIGMA_PROPERTY_OPTIONS.map(opt => {
+          const isOn = active.has(opt.id)
+          return (
+            <Chip key={opt.id} selected={isOn} onClick={() => toggle(opt.id)}>
+              {isOn && <Chip.Leading><CheckIcon /></Chip.Leading>}
+              {opt.label}
+            </Chip>
+          )
+        })}
+      </div>
+      <div style={{ marginTop: 12, fontSize: 11, color: '#9ca3af' }}>
+        {active.size}개 속성 표시 중 · Figma Property Filter 패턴
+      </div>
+    </div>
+  )
+}
+
+export const Figma_컴포넌트_속성_필터: Story = {
+  name: 'Figma - 컴포넌트 속성 필터 칩',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Figma Component Properties 패널의 속성 필터 칩 패턴. Variant/Size/State/Color 등 속성을 Chip으로 다중 선택하여 인스펙터에 표시할 항목을 제어합니다.',
+      },
+    },
+  },
+  render: () => <FigmaPropertyFilterRender />,
+}
+
+const FIGMA_PLUGIN_CATEGORIES = [
+  { id: 'all', label: '전체' },
+  { id: 'productivity', label: '생산성' },
+  { id: 'design', label: '디자인' },
+  { id: 'developer', label: '개발자' },
+  { id: 'accessibility', label: '접근성' },
+  { id: 'icons', label: '아이콘' },
+]
+
+const FigmaPluginCategoryRender = () => {
+  const [selected, setSelected] = useState('all')
+
+  return (
+    <div style={{ width: 360, fontFamily: 'Inter, system-ui, sans-serif', background: '#fff', border: '1px solid #e5e7eb', borderRadius: 10, overflow: 'hidden' }}>
+      <div style={{ padding: '12px 16px', borderBottom: '1px solid #f0f0f0', background: '#f9fafb' }}>
+        <div style={{ fontSize: 13, fontWeight: 700, color: '#111' }}>Figma Plugins</div>
+        <div style={{ fontSize: 11, color: '#6b7280', marginTop: 2 }}>카테고리를 선택하세요</div>
+      </div>
+      <div style={{ padding: '10px 16px', display: 'flex', flexWrap: 'wrap', gap: 6, borderBottom: '1px solid #f0f0f0' }}>
+        {FIGMA_PLUGIN_CATEGORIES.map(cat => (
+          <Chip key={cat.id} selected={selected === cat.id} onClick={() => setSelected(cat.id)}>
+            {cat.label}
+          </Chip>
+        ))}
+      </div>
+      <div style={{ padding: '12px 16px' }}>
+        <div style={{ fontSize: 11, color: '#9ca3af', marginBottom: 8 }}>
+          {selected === 'all' ? '모든 플러그인' : `${FIGMA_PLUGIN_CATEGORIES.find(c => c.id === selected)?.label} 플러그인`}
+        </div>
+        {[1, 2, 3].map(i => (
+          <div key={i} style={{ display: 'flex', gap: 10, alignItems: 'center', padding: '8px 0', borderBottom: i < 3 ? '1px solid #f0f0f0' : 'none' }}>
+            <div style={{ width: 36, height: 36, borderRadius: 8, background: `hsl(${i * 80 + 200}, 70%, 60%)`, flexShrink: 0 }} />
+            <div>
+              <div style={{ fontSize: 12, fontWeight: 600, color: '#111' }}>Plugin Name {i}</div>
+              <div style={{ fontSize: 11, color: '#9ca3af' }}>플러그인 설명 텍스트</div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+export const Figma_플러그인_카테고리_필터: Story = {
+  name: 'Figma - 플러그인 카테고리 단일 선택 필터',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Figma Plugins 브라우저의 카테고리 필터 패턴. 단일 선택 Chip 그룹으로 플러그인 카테고리를 필터링하며, 선택된 카테고리에 맞는 플러그인 목록을 보여줍니다.',
+      },
+    },
+  },
+  render: () => <FigmaPluginCategoryRender />,
+}
+
+const FIGMA_FRAME_TYPES = [
+  { id: 'mobile', label: 'Mobile', icon: '📱' },
+  { id: 'tablet', label: 'Tablet', icon: '⬜' },
+  { id: 'desktop', label: 'Desktop', icon: '🖥' },
+  { id: 'watch', label: 'Watch', icon: '⌚' },
+  { id: 'tv', label: 'TV', icon: '📺' },
+]
+
+const FigmaFrameTypeSelectorRender = () => {
+  const [selected, setSelected] = useState<Set<string>>(new Set(['mobile', 'desktop']))
+
+  const toggle = (id: string) => {
+    setSelected(prev => {
+      const next = new Set(prev)
+      if (next.has(id)) next.delete(id)
+      else next.add(id)
+      return next
+    })
+  }
+
+  return (
+    <div style={{ width: 340, fontFamily: 'Inter, system-ui, sans-serif', background: '#1e1e1e', borderRadius: 10, padding: 16 }}>
+      <div style={{ fontSize: 12, fontWeight: 700, color: '#e5e5e5', marginBottom: 4 }}>Frame Presets</div>
+      <div style={{ fontSize: 11, color: '#888', marginBottom: 12 }}>디자인할 디바이스 유형을 선택하세요</div>
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+        {FIGMA_FRAME_TYPES.map(type => {
+          const isOn = selected.has(type.id)
+          return (
+            <Chip key={type.id} selected={isOn} onClick={() => toggle(type.id)}>
+              <Chip.Leading>
+                <span style={{ fontSize: 12 }}>{type.icon}</span>
+              </Chip.Leading>
+              {type.label}
+            </Chip>
+          )
+        })}
+      </div>
+      <div style={{ marginTop: 12, padding: '8px 10px', background: '#2d2d2d', borderRadius: 6, fontSize: 11, color: '#888' }}>
+        {selected.size > 0
+          ? `${[...selected].map(id => FIGMA_FRAME_TYPES.find(t => t.id === id)?.label).join(', ')} 프레임 생성 예정`
+          : '하나 이상의 디바이스를 선택하세요'}
+      </div>
+    </div>
+  )
+}
+
+export const Figma_프레임_프리셋_선택: Story = {
+  name: 'Figma - 다크 테마 프레임 프리셋 선택 칩',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Figma 새 프레임 생성 시 디바이스 프리셋 선택 패턴. 다크 UI 배경에서 Chip으로 Mobile/Tablet/Desktop 등 다중 선택. 아이콘 + 텍스트 조합의 Chip.Leading을 활용합니다.',
+      },
+    },
+  },
+  render: () => <FigmaFrameTypeSelectorRender />,
+}

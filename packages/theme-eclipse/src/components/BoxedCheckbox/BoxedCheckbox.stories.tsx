@@ -1004,3 +1004,217 @@ export const Material3_기술스택_필터_칩 = {
   },
   render: () => <Material3FilterChipRender />,
 }
+
+const FIGMA_LAYERS = [
+  { id: 'frame1', name: 'Card Component', type: 'frame', depth: 0 },
+  { id: 'group1', name: 'Content Group', type: 'group', depth: 1 },
+  { id: 'text1', name: 'Title Text', type: 'text', depth: 2 },
+  { id: 'text2', name: 'Body Text', type: 'text', depth: 2 },
+  { id: 'rect1', name: 'Background', type: 'rectangle', depth: 1 },
+  { id: 'icon1', name: 'Icon / Arrow', type: 'component', depth: 1 },
+]
+
+const FIGMA_TYPE_ICON: Record<string, string> = {
+  frame: '▣',
+  group: '◱',
+  text: 'T',
+  rectangle: '□',
+  component: '◈',
+}
+
+const FigmaLayerVisibilityRender = () => {
+  const [visible, setVisible] = useState<Set<string>>(new Set(FIGMA_LAYERS.map(l => l.id)))
+
+  const toggle = (id: string) => {
+    setVisible(prev => {
+      const next = new Set(prev)
+      if (next.has(id)) next.delete(id)
+      else next.add(id)
+      return next
+    })
+  }
+
+  return (
+    <div style={{ width: 260, fontFamily: 'Inter, system-ui, sans-serif', background: '#2c2c2c', borderRadius: 8, overflow: 'hidden' }}>
+      <div style={{ padding: '8px 12px', borderBottom: '1px solid #3d3d3d', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <span style={{ fontSize: 11, fontWeight: 600, color: '#999', letterSpacing: '0.08em', textTransform: 'uppercase' }}>Layers</span>
+        <span style={{ fontSize: 10, color: '#666' }}>{visible.size}/{FIGMA_LAYERS.length} visible</span>
+      </div>
+      <div style={{ padding: '4px 0' }}>
+        {FIGMA_LAYERS.map((layer) => {
+          const isVisible = visible.has(layer.id)
+          return (
+            <div
+              key={layer.id}
+              style={{ display: 'flex', alignItems: 'center', gap: 6, padding: `6px 12px 6px ${12 + layer.depth * 16}px`, cursor: 'pointer', background: 'transparent', opacity: isVisible ? 1 : 0.4, transition: 'opacity 0.15s' }}
+              onClick={() => toggle(layer.id)}
+            >
+              <BoxedCheckbox checked={isVisible} onChange={() => toggle(layer.id)} />
+              <span style={{ fontSize: 11, color: '#a78bfa', minWidth: 14, textAlign: 'center' }}>{FIGMA_TYPE_ICON[layer.type]}</span>
+              <span style={{ fontSize: 12, color: isVisible ? '#e5e5e5' : '#888', flex: 1 }}>{layer.name}</span>
+              {!isVisible && <span style={{ fontSize: 9, color: '#555', fontStyle: 'italic' }}>hidden</span>}
+            </div>
+          )
+        })}
+      </div>
+      <div style={{ padding: '8px 12px', borderTop: '1px solid #3d3d3d', fontSize: 11, color: '#666', textAlign: 'center' }}>
+        Figma Layers Panel 패턴
+      </div>
+    </div>
+  )
+}
+
+export const Figma_레이어_가시성_패널 = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Figma 레이어 패널의 가시성 토글 패턴. 다크 테마 UI에서 레이어별 BoxedCheckbox로 표시/숨김을 제어합니다. 중첩 depth에 따른 들여쓰기와 레이어 타입 아이콘을 포함합니다.',
+      },
+    },
+  },
+  render: () => <FigmaLayerVisibilityRender />,
+}
+
+const FIGMA_EXPORT_FORMATS = [
+  { id: 'png1x', label: 'PNG 1x', desc: '일반 해상도', selected: true },
+  { id: 'png2x', label: 'PNG 2x', desc: 'Retina 디스플레이', selected: true },
+  { id: 'svg', label: 'SVG', desc: '벡터 포맷', selected: false },
+  { id: 'pdf', label: 'PDF', desc: '인쇄용', selected: false },
+  { id: 'webp', label: 'WebP', desc: '웹 최적화', selected: false },
+]
+
+const FigmaExportSettingsRender = () => {
+  const [formats, setFormats] = useState(FIGMA_EXPORT_FORMATS)
+  const [includeBackground, setIncludeBackground] = useState(false)
+  const [trimWhitespace, setTrimWhitespace] = useState(true)
+
+  const toggleFormat = (id: string) => {
+    setFormats(prev => prev.map(f => f.id === id ? { ...f, selected: !f.selected } : f))
+  }
+
+  const selectedCount = formats.filter(f => f.selected).length
+
+  return (
+    <div style={{ width: 300, fontFamily: 'Inter, system-ui, sans-serif', border: '1px solid #e5e7eb', borderRadius: 10, overflow: 'hidden', background: '#fff' }}>
+      <div style={{ padding: '12px 16px', borderBottom: '1px solid #f0f0f0', background: '#f9fafb' }}>
+        <div style={{ fontSize: 13, fontWeight: 700, color: '#111' }}>내보내기 설정</div>
+        <div style={{ fontSize: 11, color: '#6b7280', marginTop: 2 }}>포맷을 선택하세요 ({selectedCount}개 선택됨)</div>
+      </div>
+      <div style={{ padding: '8px 0' }}>
+        {formats.map((fmt) => (
+          <div
+            key={fmt.id}
+            onClick={() => toggleFormat(fmt.id)}
+            style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '8px 16px', cursor: 'pointer', background: fmt.selected ? '#f5f3ff' : 'transparent', transition: 'background 0.1s' }}
+          >
+            <BoxedCheckbox checked={fmt.selected} onChange={() => toggleFormat(fmt.id)} />
+            <div style={{ flex: 1 }}>
+              <div style={{ fontSize: 12, fontWeight: 600, color: fmt.selected ? '#7c3aed' : '#374151' }}>{fmt.label}</div>
+              <div style={{ fontSize: 10, color: '#9ca3af' }}>{fmt.desc}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+      <div style={{ padding: '10px 16px', borderTop: '1px solid #f0f0f0', display: 'flex', flexDirection: 'column', gap: 8 }}>
+        <div onClick={() => setIncludeBackground(p => !p)} style={{ display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer' }}>
+          <BoxedCheckbox checked={includeBackground} onChange={() => setIncludeBackground(p => !p)} />
+          <span style={{ fontSize: 12, color: '#374151' }}>배경 포함</span>
+        </div>
+        <div onClick={() => setTrimWhitespace(p => !p)} style={{ display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer' }}>
+          <BoxedCheckbox checked={trimWhitespace} onChange={() => setTrimWhitespace(p => !p)} />
+          <span style={{ fontSize: 12, color: '#374151' }}>여백 자르기</span>
+        </div>
+      </div>
+      <div style={{ padding: '10px 16px', background: '#f9fafb', borderTop: '1px solid #f0f0f0' }}>
+        <button
+          disabled={selectedCount === 0}
+          style={{ width: '100%', padding: '8px', borderRadius: 6, border: 'none', background: selectedCount > 0 ? '#7c3aed' : '#e5e7eb', color: selectedCount > 0 ? '#fff' : '#9ca3af', fontSize: 12, fontWeight: 600, cursor: selectedCount > 0 ? 'pointer' : 'not-allowed' }}
+        >
+          {selectedCount > 0 ? `${selectedCount}개 포맷 내보내기` : '포맷을 선택하세요'}
+        </button>
+      </div>
+    </div>
+  )
+}
+
+export const Figma_내보내기_설정 = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Figma 내보내기 패널 패턴. 다양한 이미지 포맷(PNG 1x/2x, SVG, PDF, WebP)을 BoxedCheckbox로 다중 선택하고, 배경 포함/여백 자르기 옵션을 추가로 설정합니다.',
+      },
+    },
+  },
+  render: () => <FigmaExportSettingsRender />,
+}
+
+const FIGMA_PROPERTIES = [
+  { id: 'auto_layout', label: 'Auto Layout', category: 'layout', active: true },
+  { id: 'constraints', label: 'Constraints', category: 'layout', active: false },
+  { id: 'fill', label: 'Fill', category: 'design', active: true },
+  { id: 'stroke', label: 'Stroke', category: 'design', active: false },
+  { id: 'effects', label: 'Effects', category: 'design', active: true },
+  { id: 'prototype', label: 'Prototype Links', category: 'prototype', active: false },
+]
+
+const FigmaComponentPropertiesRender = () => {
+  const [props, setProps] = useState(FIGMA_PROPERTIES)
+  const [viewMode, setViewMode] = useState<'all' | 'active'>('all')
+
+  const toggleProp = (id: string) => {
+    setProps(prev => prev.map(p => p.id === id ? { ...p, active: !p.active } : p))
+  }
+
+  const displayed = viewMode === 'all' ? props : props.filter(p => p.active)
+  const categories = [...new Set(displayed.map(p => p.category))]
+
+  return (
+    <div style={{ width: 280, fontFamily: 'Inter, system-ui, sans-serif', border: '1px solid #e5e7eb', borderRadius: 10, overflow: 'hidden', background: '#fff' }}>
+      <div style={{ padding: '10px 14px', background: '#1e1e1e', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <span style={{ fontSize: 12, fontWeight: 600, color: '#fff' }}>Component Properties</span>
+        <div style={{ display: 'flex', gap: 4 }}>
+          {(['all', 'active'] as const).map(mode => (
+            <button
+              key={mode}
+              onClick={() => setViewMode(mode)}
+              style={{ fontSize: 10, padding: '2px 8px', borderRadius: 4, border: 'none', background: viewMode === mode ? '#7c3aed' : '#3d3d3d', color: viewMode === mode ? '#fff' : '#aaa', cursor: 'pointer' }}
+            >
+              {mode === 'all' ? '전체' : '활성'}
+            </button>
+          ))}
+        </div>
+      </div>
+      <div style={{ padding: '6px 0' }}>
+        {categories.map(cat => (
+          <div key={cat}>
+            <div style={{ padding: '4px 14px 2px', fontSize: 10, fontWeight: 700, color: '#9ca3af', textTransform: 'uppercase', letterSpacing: '0.08em' }}>{cat}</div>
+            {displayed.filter(p => p.category === cat).map(prop => (
+              <div
+                key={prop.id}
+                onClick={() => toggleProp(prop.id)}
+                style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '6px 14px', cursor: 'pointer', background: prop.active ? '#f5f3ff' : 'transparent' }}
+              >
+                <BoxedCheckbox checked={prop.active} onChange={() => toggleProp(prop.id)} />
+                <span style={{ fontSize: 12, color: prop.active ? '#7c3aed' : '#374151', fontWeight: prop.active ? 600 : 400 }}>{prop.label}</span>
+              </div>
+            ))}
+          </div>
+        ))}
+      </div>
+      <div style={{ padding: '8px 14px', borderTop: '1px solid #f0f0f0', fontSize: 11, color: '#9ca3af' }}>
+        {props.filter(p => p.active).length}개 속성 활성화됨
+      </div>
+    </div>
+  )
+}
+
+export const Figma_컴포넌트_속성_설정 = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Figma 컴포넌트 속성 패널 패턴. Layout/Design/Prototype 카테고리별로 속성을 BoxedCheckbox로 활성화/비활성화하고, 전체/활성 뷰 전환을 지원합니다.',
+      },
+    },
+  },
+  render: () => <FigmaComponentPropertiesRender />,
+}
