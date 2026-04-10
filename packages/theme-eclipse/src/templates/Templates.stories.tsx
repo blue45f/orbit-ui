@@ -37695,3 +37695,164 @@ export const MUIMantine167Kanban: StoryObj = {
   },
   render: () => <MUIMantine167KanbanRender />,
 }
+
+// ──────────────────────────────────────────────────────────────────────────────
+// Cycle 168: Vercel Design + shadcn/ui — 알림 센터
+// ──────────────────────────────────────────────────────────────────────────────
+
+function VercelShadcn168NotificationCenterRender() {
+  type Tab = 'all' | 'unread' | 'mentions'
+  type NotifType = 'deploy' | 'mention' | 'assign' | 'review' | 'alert'
+
+  const [activeTab, setActiveTab] = useState<Tab>('all')
+  const [notifications, setNotifications] = useState<{
+    id: number; type: NotifType; title: string; body: string; time: string; read: boolean; project: string
+  }[]>([
+    { id: 1, type: 'deploy', title: '배포 완료', body: 'orbit-ui main → Production 배포가 완료되었습니다.', time: '2분 전', read: false, project: 'orbit-ui' },
+    { id: 2, type: 'mention', title: '멘션', body: '김민준님이 PR #142에서 회원님을 멘션했습니다: "이 패턴 어떻게 생각해?"', time: '15분 전', read: false, project: 'orbit-ui' },
+    { id: 3, type: 'review', title: '리뷰 요청', body: '이지수님이 PR #139 리뷰를 요청했습니다.', time: '1시간 전', read: false, project: 'orbit-core' },
+    { id: 4, type: 'assign', title: '이슈 배정', body: 'ORB-144 DataTable 정렬 버그가 회원님에게 배정되었습니다.', time: '3시간 전', read: true, project: 'orbit-ui' },
+    { id: 5, type: 'alert', title: '빌드 실패', body: 'orbit-feature-branch 빌드가 실패했습니다. 로그를 확인하세요.', time: '5시간 전', read: true, project: 'orbit-ui' },
+    { id: 6, type: 'deploy', title: '미리보기 배포', body: 'PR #138 미리보기 배포가 완료되었습니다.', time: '어제', read: true, project: 'orbit-core' },
+  ])
+
+  const [selectedProject, setSelectedProject] = useState<string>('all')
+  const projects = ['all', 'orbit-ui', 'orbit-core']
+
+  const typeIcon: Record<NotifType, string> = {
+    deploy: '🚀', mention: '💬', assign: '📋', review: '👁', alert: '⚠',
+  }
+  const typeColor: Record<NotifType, string> = {
+    deploy: '#10b981', mention: '#3b82f6', assign: '#8b5cf6', review: '#f59e0b', alert: '#ef4444',
+  }
+
+  const markAllRead = () => setNotifications((prev) => prev.map((n) => ({ ...n, read: true })))
+  const markRead = (id: number) => setNotifications((prev) => prev.map((n) => n.id === id ? { ...n, read: true } : n))
+  const dismiss = (id: number) => setNotifications((prev) => prev.filter((n) => n.id !== id))
+
+  const filtered = notifications.filter((n) => {
+    const matchTab = activeTab === 'all' || (activeTab === 'unread' && !n.read) || (activeTab === 'mentions' && n.type === 'mention')
+    const matchProject = selectedProject === 'all' || n.project === selectedProject
+    return matchTab && matchProject
+  })
+
+  const unreadCount = notifications.filter((n) => !n.read).length
+
+  const tabs: { key: Tab; label: string }[] = [
+    { key: 'all', label: '전체' },
+    { key: 'unread', label: `읽지 않음 (${unreadCount})` },
+    { key: 'mentions', label: '멘션' },
+  ]
+
+  return (
+    <div style={{ width: '100%', minHeight: '100vh', background: '#f8fafc', fontFamily: 'system-ui, sans-serif', display: 'flex' }}>
+      {/* Sidebar */}
+      <div style={{ width: 220, background: '#0f172a', display: 'flex', flexDirection: 'column', padding: '20px 0' }}>
+        <div style={{ padding: '0 16px 16px', borderBottom: '1px solid #1e293b' }}>
+          <div style={{ fontSize: 16, fontWeight: 800, color: '#f8fafc' }}>알림 센터</div>
+          <div style={{ fontSize: 11, color: '#475569', marginTop: 2 }}>{unreadCount}개 읽지 않음</div>
+        </div>
+        <div style={{ padding: '12px 0' }}>
+          <div style={{ padding: '6px 16px', fontSize: 10, fontWeight: 700, color: '#475569', letterSpacing: 1 }}>프로젝트</div>
+          {projects.map((p) => (
+            <div
+              key={p}
+              onClick={() => setSelectedProject(p)}
+              style={{
+                padding: '8px 16px', cursor: 'pointer', fontSize: 12,
+                background: selectedProject === p ? '#1e293b' : 'transparent',
+                color: selectedProject === p ? '#e2e8f0' : '#64748b',
+                borderLeft: selectedProject === p ? '3px solid #3b82f6' : '3px solid transparent',
+                fontWeight: selectedProject === p ? 600 : 400,
+              }}
+            >
+              {p === 'all' ? '전체 프로젝트' : p}
+            </div>
+          ))}
+        </div>
+        <div style={{ marginTop: 'auto', padding: '0 12px' }}>
+          {unreadCount > 0 && (
+            <OutlineButton color="gray" size="small" onClick={markAllRead}>
+              <OutlineButton.Center>모두 읽음</OutlineButton.Center>
+            </OutlineButton>
+          )}
+        </div>
+      </div>
+
+      {/* Main */}
+      <div style={{ flex: 1, padding: 24, display: 'flex', flexDirection: 'column', gap: 16 }}>
+        {/* Header */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+          {tabs.map((tab, idx) => (
+            <React.Fragment key={tab.key}>
+              <button
+                onClick={() => setActiveTab(tab.key)}
+                style={{
+                  padding: '6px 14px', borderRadius: 20, border: 'none', cursor: 'pointer', fontSize: 12, fontWeight: 600,
+                  background: activeTab === tab.key ? '#0f172a' : '#e2e8f0',
+                  color: activeTab === tab.key ? '#fff' : '#64748b',
+                }}
+              >
+                {tab.label}
+              </button>
+              {idx < tabs.length - 1 && <Divider orientation="vertical" length="16px" />}
+            </React.Fragment>
+          ))}
+        </div>
+
+        {/* List */}
+        <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: 14, overflow: 'hidden' }}>
+          {filtered.length === 0 ? (
+            <div style={{ padding: 48, textAlign: 'center', color: '#9ca3af' }}>
+              <div style={{ fontSize: 32, marginBottom: 8 }}>🔔</div>
+              <div style={{ fontSize: 14 }}>알림이 없습니다</div>
+            </div>
+          ) : (
+            filtered.map((notif, idx) => (
+              <div key={notif.id}>
+                <div style={{ display: 'flex', gap: 14, padding: '16px 20px', background: notif.read ? '#fff' : '#f0f9ff' }}>
+                  <div style={{ width: 36, height: 36, borderRadius: '50%', background: typeColor[notif.type] + '22', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 16, flexShrink: 0 }}>
+                    {typeIcon[notif.type]}
+                  </div>
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
+                      <span style={{ fontSize: 13, fontWeight: notif.read ? 500 : 700, color: '#111827' }}>{notif.title}</span>
+                      <span style={{ fontSize: 10, fontWeight: 600, padding: '1px 6px', borderRadius: 4, background: '#f1f5f9', color: '#64748b' }}>{notif.project}</span>
+                      {!notif.read && <div style={{ width: 6, height: 6, borderRadius: '50%', background: '#3b82f6', flexShrink: 0 }} />}
+                    </div>
+                    <div style={{ fontSize: 12, color: '#6b7280', lineHeight: 1.5, marginBottom: 6 }}>{notif.body}</div>
+                    <div style={{ fontSize: 11, color: '#9ca3af' }}>{notif.time}</div>
+                  </div>
+                  <div style={{ display: 'flex', gap: 6, flexShrink: 0, alignItems: 'flex-start' }}>
+                    {!notif.read && (
+                      <OutlineButton color="primary" size="small" onClick={() => markRead(notif.id)}>
+                        <OutlineButton.Center>읽음</OutlineButton.Center>
+                      </OutlineButton>
+                    )}
+                    <OutlineButton color="gray" size="small" onClick={() => dismiss(notif.id)}>
+                      <OutlineButton.Center>닫기</OutlineButton.Center>
+                    </OutlineButton>
+                  </div>
+                </div>
+                {idx < filtered.length - 1 && <Divider orientation="horizontal" length="100%" />}
+              </div>
+            ))
+          )}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const VercelShadcn168NotificationCenter: StoryObj = {
+  name: 'Vercel + shadcn/ui — 알림 센터 (Divider + OutlineButton)',
+  parameters: {
+    layout: 'fullscreen',
+    docs: {
+      description: {
+        story: 'Vercel + shadcn/ui 복합 패턴. 탭 구분에 수직 Divider, 알림 항목 구분에 수평 Divider. OutlineButton으로 읽음/닫기/모두읽음 액션 구현.',
+      },
+    },
+  },
+  render: () => <VercelShadcn168NotificationCenterRender />,
+}

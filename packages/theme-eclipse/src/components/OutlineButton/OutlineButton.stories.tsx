@@ -1495,3 +1495,207 @@ export const Raycast_Figma_필터_바: Story = {
   },
   render: () => <RaycastFigma141FilterBar141Render />,
 }
+
+// ──────────────────────────────────────────────────────────────────────────────
+// Cycle 168: Vercel Design + shadcn/ui
+// ──────────────────────────────────────────────────────────────────────────────
+
+export const Vercel_배포_액션_버튼_그룹: Story = {
+  name: 'Vercel — 배포 액션 버튼 그룹 (Cycle 168)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Vercel Dashboard 액션 버튼 패턴. 주요 액션은 SolidButton, 보조 액션은 OutlineButton. ' +
+          '상태(Ready/Building/Failed)에 따라 버튼 활성/비활성 변경.',
+      },
+    },
+  },
+  render: function VercelDeployActionRender() {
+    type DeployStatus = 'ready' | 'building' | 'failed'
+    const [status, setStatus] = useState<DeployStatus>('ready')
+
+    const statusConfig: Record<DeployStatus, { label: string; color: string; dot: string }> = {
+      ready: { label: 'Ready', color: '#10b981', dot: '#10b981' },
+      building: { label: 'Building...', color: '#f59e0b', dot: '#f59e0b' },
+      failed: { label: 'Failed', color: '#ef4444', dot: '#ef4444' },
+    }
+
+    const sc = statusConfig[status]
+
+    return (
+      <div style={{ width: 420, fontFamily: 'system-ui, sans-serif', background: '#09090b', borderRadius: 14, padding: 20, border: '1px solid #27272a' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 16 }}>
+          <div>
+            <div style={{ fontSize: 13, fontWeight: 700, color: '#e4e4e7' }}>orbit-ui → main</div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginTop: 4 }}>
+              <div style={{ width: 6, height: 6, borderRadius: '50%', background: sc.dot }} />
+              <span style={{ fontSize: 11, color: sc.color }}>{sc.label}</span>
+            </div>
+          </div>
+          <div style={{ display: 'flex', gap: 6 }}>
+            {(['ready', 'building', 'failed'] as DeployStatus[]).map((s) => (
+              <button
+                key={s}
+                onClick={() => setStatus(s)}
+                style={{ padding: '3px 8px', borderRadius: 6, border: `1px solid ${status === s ? statusConfig[s].color : '#27272a'}`, background: 'transparent', color: status === s ? statusConfig[s].color : '#52525b', fontSize: 10, cursor: 'pointer' }}
+              >
+                {s}
+              </button>
+            ))}
+          </div>
+        </div>
+        <div style={{ display: 'flex', gap: 8 }}>
+          <OutlineButton color="gray" size="medium" disabled={status === 'building'}>
+            <OutlineButton.Center>로그 보기</OutlineButton.Center>
+          </OutlineButton>
+          <OutlineButton color="gray" size="medium" disabled={status === 'building'}>
+            <OutlineButton.Center>도메인</OutlineButton.Center>
+          </OutlineButton>
+          <OutlineButton color={status === 'failed' ? 'primary' : 'gray'} size="medium">
+            <OutlineButton.Center>{status === 'failed' ? '재배포' : '방문'}</OutlineButton.Center>
+          </OutlineButton>
+          <OutlineButton color="black" size="medium" disabled={status === 'building'}>
+            <OutlineButton.Center>설정</OutlineButton.Center>
+          </OutlineButton>
+        </div>
+      </div>
+    )
+  },
+}
+
+export const Shadcn_태그_선택_칩_버튼: Story = {
+  name: 'shadcn/ui — 태그 선택 칩 버튼 (Cycle 168)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'shadcn/ui Toggle Group 패턴을 OutlineButton으로 구현. 다중 선택 가능한 태그 칩. ' +
+          '선택된 항목은 primary 색상으로 강조.',
+      },
+    },
+  },
+  render: function ShadcnTagChipRender() {
+    const tags = ['React', 'TypeScript', 'Tailwind', 'shadcn', 'Radix', 'Zod', 'tRPC', 'Prisma', 'Next.js', 'Remix']
+    const [selected, setSelected] = useState<string[]>(['React', 'TypeScript'])
+
+    const toggle = (tag: string) => {
+      setSelected((prev) => prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag])
+    }
+
+    return (
+      <div style={{ width: 420, fontFamily: 'system-ui, sans-serif' }}>
+        <div style={{ fontSize: 13, fontWeight: 600, color: '#374151', marginBottom: 10 }}>기술 스택 선택</div>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginBottom: 16 }}>
+          {tags.map((tag) => {
+            const isSelected = selected.includes(tag)
+            return (
+              <OutlineButton
+                key={tag}
+                color={isSelected ? 'primary' : 'gray'}
+                size="small"
+                onClick={() => toggle(tag)}
+              >
+                <OutlineButton.Center>{tag}</OutlineButton.Center>
+              </OutlineButton>
+            )
+          })}
+        </div>
+        {selected.length > 0 && (
+          <div style={{ padding: '10px 12px', background: '#eff6ff', borderRadius: 8, fontSize: 12, color: '#1d4ed8' }}>
+            선택됨: {selected.join(', ')}
+          </div>
+        )}
+        {selected.length === 0 && (
+          <div style={{ padding: '10px 12px', background: '#f9fafb', borderRadius: 8, fontSize: 12, color: '#9ca3af' }}>
+            태그를 선택하세요
+          </div>
+        )}
+      </div>
+    )
+  },
+}
+
+export const Vercel_Shadcn_페이지_액션_바: Story = {
+  name: 'Vercel + shadcn/ui — 페이지 액션 바 (Cycle 168)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Vercel + shadcn/ui 페이지 상단 액션 바 패턴. 뒤로가기 + 제목 + OutlineButton 액션 조합. ' +
+          '선택 상태에서 일괄 액션 버튼 표시.',
+      },
+    },
+  },
+  render: function VercelShadcnActionBarRender() {
+    const [selected, setSelected] = useState<number[]>([])
+    const items = [
+      { id: 1, name: 'orbit-preview-deploy', date: '2025-04-09' },
+      { id: 2, name: 'orbit-feature-branch', date: '2025-04-08' },
+      { id: 3, name: 'orbit-hotfix-auth', date: '2025-04-07' },
+      { id: 4, name: 'orbit-refactor-tokens', date: '2025-04-06' },
+    ]
+
+    const toggleItem = (id: number) => {
+      setSelected((prev) => prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id])
+    }
+
+    return (
+      <div style={{ width: 480, fontFamily: 'system-ui, sans-serif' }}>
+        {/* Action bar */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '10px 0', marginBottom: 12 }}>
+          {selected.length === 0 ? (
+            <>
+              <OutlineButton color="gray" size="small">
+                <OutlineButton.Center>필터</OutlineButton.Center>
+              </OutlineButton>
+              <OutlineButton color="gray" size="small">
+                <OutlineButton.Center>정렬</OutlineButton.Center>
+              </OutlineButton>
+              <div style={{ flex: 1 }} />
+              <OutlineButton color="primary" size="small">
+                <OutlineButton.Center>+ 새 배포</OutlineButton.Center>
+              </OutlineButton>
+            </>
+          ) : (
+            <>
+              <span style={{ fontSize: 13, fontWeight: 600, color: '#374151' }}>{selected.length}개 선택됨</span>
+              <div style={{ flex: 1 }} />
+              <OutlineButton color="gray" size="small" onClick={() => setSelected([])}>
+                <OutlineButton.Center>선택 해제</OutlineButton.Center>
+              </OutlineButton>
+              <OutlineButton color="black" size="small">
+                <OutlineButton.Center>일괄 삭제</OutlineButton.Center>
+              </OutlineButton>
+            </>
+          )}
+        </div>
+
+        {/* List */}
+        <div style={{ border: '1px solid #e5e7eb', borderRadius: 10, overflow: 'hidden' }}>
+          {items.map((item) => {
+            const isSelected = selected.includes(item.id)
+            return (
+              <div
+                key={item.id}
+                onClick={() => toggleItem(item.id)}
+                style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 16px', borderBottom: '1px solid #f3f4f6', cursor: 'pointer', background: isSelected ? '#eff6ff' : '#fff' }}
+              >
+                <div style={{ width: 16, height: 16, borderRadius: 4, border: `2px solid ${isSelected ? '#3b82f6' : '#d1d5db'}`, background: isSelected ? '#3b82f6' : '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  {isSelected && <span style={{ fontSize: 9, color: '#fff', fontWeight: 900 }}>✓</span>}
+                </div>
+                <div style={{ flex: 1 }}>
+                  <div style={{ fontSize: 13, fontWeight: 500, color: '#111827', fontFamily: 'monospace' }}>{item.name}</div>
+                  <div style={{ fontSize: 11, color: '#9ca3af' }}>{item.date}</div>
+                </div>
+                <OutlineButton color="gray" size="small" onClick={(e: React.MouseEvent) => e.stopPropagation()}>
+                  <OutlineButton.Center>방문</OutlineButton.Center>
+                </OutlineButton>
+              </div>
+            )
+          })}
+        </div>
+      </div>
+    )
+  },
+}

@@ -1043,3 +1043,186 @@ export const MUI_Chakra_대시보드_복합_구분선: StoryObj = {
     </div>
   ),
 }
+
+// ──────────────────────────────────────────────────────────────────────────────
+// Cycle 168: Vercel Design + shadcn/ui
+// ──────────────────────────────────────────────────────────────────────────────
+
+export const Vercel_배포_로그_타임라인_구분선: StoryObj = {
+  name: 'Vercel — 배포 로그 타임라인 구분선 (Cycle 168)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Vercel 배포 로그 패턴. 단계별 로그 섹션을 Divider로 구분. ' +
+          '타임라인 라인 + 단계 레이블이 결합된 수직/수평 구분선 활용.',
+      },
+    },
+  },
+  render: function VercelDeployLogRender() {
+    const stages = [
+      { label: 'Build', status: 'done', time: '00:12', logs: ['Installing dependencies...', 'pnpm install done (1.2s)', 'Running build...', 'Build complete (38.4s)'] },
+      { label: 'Deploy', status: 'done', time: '00:05', logs: ['Uploading artifacts...', 'CDN propagation...', 'Edge functions deployed'] },
+      { label: 'Ready', status: 'active', time: '00:01', logs: ['Health check passed', 'Deployment URL assigned'] },
+    ]
+
+    const statusColor: Record<string, string> = {
+      done: '#10b981',
+      active: '#3b82f6',
+      pending: '#94a3b8',
+    }
+
+    return (
+      <div style={{ width: 440, fontFamily: 'monospace, system-ui', background: '#09090b', borderRadius: 14, padding: 20, border: '1px solid #27272a' }}>
+        <div style={{ fontSize: 12, fontWeight: 700, color: '#71717a', letterSpacing: 1, marginBottom: 16 }}>DEPLOYMENT LOG</div>
+        {stages.map((stage, idx) => (
+          <div key={stage.label}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 10 }}>
+              <div style={{ width: 8, height: 8, borderRadius: '50%', background: statusColor[stage.status], flexShrink: 0 }} />
+              <span style={{ fontSize: 12, fontWeight: 700, color: '#e4e4e7' }}>{stage.label}</span>
+              <div style={{ flex: 1 }}>
+                <Divider orientation="horizontal" length="100%" />
+              </div>
+              <span style={{ fontSize: 10, color: '#52525b' }}>{stage.time}s</span>
+            </div>
+            <div style={{ paddingLeft: 18, marginBottom: 6 }}>
+              {stage.logs.map((log) => (
+                <div key={log} style={{ fontSize: 11, color: '#71717a', lineHeight: 1.8 }}>
+                  <span style={{ color: '#3b82f6', marginRight: 6 }}>›</span>{log}
+                </div>
+              ))}
+            </div>
+            {idx < stages.length - 1 && (
+              <div style={{ display: 'flex', gap: 10, marginBottom: 10, paddingLeft: 4 }}>
+                <div style={{ width: 1, height: 12, background: '#27272a', marginLeft: 3 }} />
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+    )
+  },
+}
+
+export const Shadcn_설정_패널_섹션_구분: StoryObj = {
+  name: 'shadcn/ui — 설정 패널 섹션 구분 (Cycle 168)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'shadcn/ui Settings Page 패턴. 섹션 헤더 + Divider 조합으로 설정 그룹 분리. ' +
+          '라벨 내장 Divider 활용.',
+      },
+    },
+  },
+  render: function ShadcnSettingsPanelRender() {
+    const sections = [
+      {
+        title: '계정',
+        desc: '이름, 이메일, 아바타를 관리합니다',
+        fields: ['이름', '이메일', '사용자명'],
+      },
+      {
+        title: '보안',
+        desc: '비밀번호 및 2단계 인증을 설정합니다',
+        fields: ['비밀번호 변경', '2FA 설정', '세션 관리'],
+      },
+      {
+        title: '알림',
+        desc: '알림 수신 방식을 선택합니다',
+        fields: ['이메일 알림', '푸시 알림', '마케팅 수신'],
+      },
+    ]
+
+    return (
+      <div style={{ width: 400, fontFamily: 'system-ui, sans-serif' }}>
+        {sections.map((section, idx) => (
+          <div key={section.title}>
+            <div style={{ marginBottom: 14 }}>
+              <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a', marginBottom: 2 }}>{section.title}</div>
+              <div style={{ fontSize: 12, color: '#6b7280' }}>{section.desc}</div>
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 2, marginBottom: 16 }}>
+              {section.fields.map((field, fi) => (
+                <div key={field}>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 0' }}>
+                    <span style={{ fontSize: 13, color: '#374151' }}>{field}</span>
+                    <button style={{ fontSize: 12, color: '#3b82f6', background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>편집</button>
+                  </div>
+                  {fi < section.fields.length - 1 && <Divider orientation="horizontal" length="100%" />}
+                </div>
+              ))}
+            </div>
+            {idx < sections.length - 1 && (
+              <div style={{ marginBottom: 20 }}>
+                <Divider orientation="horizontal" length="100%" />
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+    )
+  },
+}
+
+export const Vercel_Shadcn_프로필_카드_구분선: StoryObj = {
+  name: 'Vercel + shadcn/ui — 프로필 카드 구분선 (Cycle 168)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Vercel + shadcn/ui 프로필 카드 패턴. 수평 Divider로 헤더/본문/푸터 구분. ' +
+          '수직 Divider로 통계 항목 구분.',
+      },
+    },
+  },
+  render: function VercelShadcnProfileCardRender() {
+    const stats = [
+      { label: '커밋', value: '1,204' },
+      { label: 'PR', value: '87' },
+      { label: '리뷰', value: '342' },
+    ]
+
+    return (
+      <div style={{ width: 360, fontFamily: 'system-ui, sans-serif', background: '#fff', border: '1px solid #e5e7eb', borderRadius: 16, overflow: 'hidden' }}>
+        {/* Header */}
+        <div style={{ background: 'linear-gradient(135deg, #0f172a 0%, #1e3a5f 100%)', padding: '20px 20px 12px', display: 'flex', alignItems: 'center', gap: 14 }}>
+          <div style={{ width: 52, height: 52, borderRadius: '50%', background: '#3b82f6', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 20, fontWeight: 800, color: '#fff' }}>
+            KM
+          </div>
+          <div>
+            <div style={{ fontSize: 16, fontWeight: 700, color: '#f8fafc' }}>김민준</div>
+            <div style={{ fontSize: 12, color: '#94a3b8', marginTop: 2 }}>Frontend Engineer @ Orbit</div>
+          </div>
+        </div>
+        <Divider orientation="horizontal" length="100%" />
+
+        {/* Stats */}
+        <div style={{ padding: '14px 20px', display: 'flex', alignItems: 'center', justifyContent: 'space-around' }}>
+          {stats.map((stat, idx) => (
+            <div key={stat.label} style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+              <div style={{ textAlign: 'center' }}>
+                <div style={{ fontSize: 18, fontWeight: 800, color: '#0f172a' }}>{stat.value}</div>
+                <div style={{ fontSize: 11, color: '#6b7280' }}>{stat.label}</div>
+              </div>
+              {idx < stats.length - 1 && (
+                <Divider orientation="vertical" length="32px" />
+              )}
+            </div>
+          ))}
+        </div>
+        <Divider orientation="horizontal" length="100%" />
+
+        {/* Footer */}
+        <div style={{ padding: '12px 20px', display: 'flex', gap: 8 }}>
+          <button style={{ flex: 1, padding: '8px', borderRadius: 8, border: '1px solid #e5e7eb', background: '#fff', fontSize: 12, fontWeight: 600, color: '#374151', cursor: 'pointer' }}>
+            팔로우
+          </button>
+          <button style={{ flex: 1, padding: '8px', borderRadius: 8, border: 'none', background: '#0f172a', fontSize: 12, fontWeight: 600, color: '#fff', cursor: 'pointer' }}>
+            메시지
+          </button>
+        </div>
+      </div>
+    )
+  },
+}
