@@ -8755,3 +8755,221 @@ export const MobileCheckout: Story = {
   name: 'Mobile Checkout (Tailwind UI + Apple HIG 벤치마크)',
   render: () => <MobileCheckoutRender />,
 }
+
+// ─── Cycle 39: Radix UI + Google Material 3 — Activity Feed ──────────────
+
+type FeedCategory = 'all' | 'mentions' | 'updates' | 'alerts'
+type FeedItem = {
+  id: number
+  category: 'mentions' | 'updates' | 'alerts'
+  title: string
+  body: string
+  time: string
+  read: boolean
+  avatar: string
+  color: string
+}
+
+const FEED_ITEMS: FeedItem[] = [
+  { id: 1, category: 'mentions', title: '김민준이 멘션했습니다', body: '@you 이 PR 리뷰 부탁드립니다 — auth 모듈 리팩토링', time: '방금 전', read: false, avatar: '김', color: '#6366f1' },
+  { id: 2, category: 'alerts', title: '빌드 실패', body: 'main 브랜치 CI 파이프라인이 실패했습니다. 확인이 필요합니다.', time: '3분 전', read: false, avatar: '!', color: '#ef4444' },
+  { id: 3, category: 'updates', title: '디자인 시스템 v2.1 릴리즈', body: 'GhostButton, TextArea 컴포넌트가 업데이트되었습니다.', time: '1시간 전', read: false, avatar: '✦', color: '#8b5cf6' },
+  { id: 4, category: 'mentions', title: '이서연이 댓글을 남겼습니다', body: '토큰 시스템 정말 좋네요! Reference → Semantic → Component 구조가 명확해요.', time: '2시간 전', read: true, avatar: '이', color: '#0ea5e9' },
+  { id: 5, category: 'updates', title: '스프린트 리뷰 일정', body: '다음 주 금요일 오후 3시 스프린트 리뷰 미팅이 확정되었습니다.', time: '5시간 전', read: true, avatar: '📅', color: '#f59e0b' },
+  { id: 6, category: 'alerts', title: '스토리지 90% 사용', body: '프로젝트 스토리지가 90%에 도달했습니다. 정리가 필요합니다.', time: '어제', read: true, avatar: '⚠', color: '#f97316' },
+  { id: 7, category: 'mentions', title: '박지호가 태그했습니다', body: '@you 컴포넌트 문서 업데이트 확인 부탁드립니다.', time: '어제', read: true, avatar: '박', color: '#10b981' },
+  { id: 8, category: 'updates', title: 'Storybook 배포 완료', body: 'Storybook이 Vercel에 성공적으로 배포되었습니다. 미리보기 링크를 확인하세요.', time: '2일 전', read: true, avatar: '✓', color: '#6366f1' },
+]
+
+const FEED_CATEGORIES: { key: FeedCategory; label: string }[] = [
+  { key: 'all', label: '전체' },
+  { key: 'mentions', label: '멘션' },
+  { key: 'updates', label: '업데이트' },
+  { key: 'alerts', label: '알림' },
+]
+
+function ActivityFeedRender() {
+  const [activeCategory, setActiveCategory] = useState<FeedCategory>('all')
+  const [feedItems, setFeedItems] = useState<FeedItem[]>(FEED_ITEMS)
+  const [showUnreadOnly, setShowUnreadOnly] = useState(false)
+
+  const unreadCount = feedItems.filter((n) => !n.read).length
+
+  const filtered = feedItems.filter((n) => {
+    const catMatch = activeCategory === 'all' || n.category === activeCategory
+    const readMatch = !showUnreadOnly || !n.read
+    return catMatch && readMatch
+  })
+
+  const markAllRead = () => setFeedItems((prev) => prev.map((n) => ({ ...n, read: true })))
+  const markRead = (id: number) => setFeedItems((prev) => prev.map((n) => n.id === id ? { ...n, read: true } : n))
+  const dismiss = (id: number) => setFeedItems((prev) => prev.filter((n) => n.id !== id))
+
+  return (
+    <div style={{ display: 'flex', width: '100%', minHeight: 680, fontFamily: 'system-ui, sans-serif', background: '#f8fafc' }}>
+      {/* 사이드바 */}
+      <div style={{ width: 220, background: '#fff', borderRight: '1px solid #e2e8f0', padding: '24px 0', flexShrink: 0 }}>
+        <div style={{ padding: '0 16px 20px', borderBottom: '1px solid #f1f5f9' }}>
+          <div style={{ fontWeight: 700, fontSize: 15, color: '#1e293b', marginBottom: 4 }}>활동 피드</div>
+          <div style={{ fontSize: 12, color: '#64748b' }}>{unreadCount > 0 ? `읽지 않은 알림 ${unreadCount}개` : '모두 읽음'}</div>
+        </div>
+        <nav style={{ padding: '12px 8px' }}>
+          {FEED_CATEGORIES.map((cat) => {
+            const catUnread = cat.key === 'all' ? unreadCount : feedItems.filter((n) => n.category === cat.key && !n.read).length
+            return (
+              <button
+                key={cat.key}
+                onClick={() => setActiveCategory(cat.key)}
+                style={{
+                  width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                  padding: '8px 12px', borderRadius: 8, border: 'none', cursor: 'pointer',
+                  background: activeCategory === cat.key ? '#eff6ff' : 'transparent',
+                  color: activeCategory === cat.key ? '#2563eb' : '#475569',
+                  fontWeight: activeCategory === cat.key ? 600 : 400, fontSize: 13,
+                  marginBottom: 2, transition: 'background 0.15s',
+                }}
+              >
+                <span>{cat.label}</span>
+                {catUnread > 0 && (
+                  <span style={{ background: '#ef4444', color: '#fff', borderRadius: 10, fontSize: 10, fontWeight: 700, padding: '1px 6px', minWidth: 18, textAlign: 'center' }}>
+                    {catUnread}
+                  </span>
+                )}
+              </button>
+            )
+          })}
+        </nav>
+
+        {/* Radix UI 스타일 필터 토글 */}
+        <div style={{ margin: '12px 16px 0', padding: '12px', background: '#f8fafc', borderRadius: 10, border: '1px solid #e2e8f0' }}>
+          <label style={{ display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer', fontSize: 12, color: '#64748b', fontWeight: 500 }}>
+            <div
+              role="switch"
+              aria-checked={showUnreadOnly}
+              onClick={() => setShowUnreadOnly((v) => !v)}
+              style={{
+                width: 32, height: 18, borderRadius: 9, border: 'none', cursor: 'pointer',
+                background: showUnreadOnly ? '#6366f1' : '#cbd5e1', transition: 'background 0.2s',
+                position: 'relative', flexShrink: 0,
+              }}
+            >
+              <div style={{
+                width: 14, height: 14, borderRadius: '50%', background: '#fff',
+                position: 'absolute', top: 2, transition: 'left 0.2s',
+                left: showUnreadOnly ? 16 : 2, boxShadow: '0 1px 3px rgba(0,0,0,0.2)',
+              }} />
+            </div>
+            읽지 않음만
+          </label>
+        </div>
+      </div>
+
+      {/* 메인 콘텐츠 */}
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+        {/* 헤더 */}
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '20px 24px', background: '#fff', borderBottom: '1px solid #e2e8f0' }}>
+          <div>
+            <h2 style={{ margin: 0, fontSize: 18, fontWeight: 700, color: '#0f172a' }}>
+              {FEED_CATEGORIES.find((c) => c.key === activeCategory)?.label} 알림
+            </h2>
+            <p style={{ margin: '2px 0 0', fontSize: 12, color: '#94a3b8' }}>{filtered.length}개의 알림</p>
+          </div>
+          <div style={{ display: 'flex', gap: 8 }}>
+            <GhostButton size="small" color="black" onClick={markAllRead} disabled={unreadCount === 0}>
+              <GhostButton.Center>모두 읽음 처리</GhostButton.Center>
+            </GhostButton>
+          </div>
+        </div>
+
+        {/* 알림 목록 */}
+        <div style={{ flex: 1, overflowY: 'auto', padding: '16px 24px' }}>
+          {filtered.length === 0 ? (
+            <div style={{ textAlign: 'center', padding: '60px 24px', color: '#94a3b8' }}>
+              <div style={{ fontSize: 40, marginBottom: 12 }}>🔔</div>
+              <div style={{ fontSize: 15, fontWeight: 600, color: '#64748b', marginBottom: 6 }}>알림이 없습니다</div>
+              <div style={{ fontSize: 13 }}>모든 알림을 확인했습니다.</div>
+            </div>
+          ) : (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+              {filtered.map((item) => (
+                <div
+                  key={item.id}
+                  style={{
+                    display: 'flex', gap: 14, padding: '14px 16px', borderRadius: 12,
+                    background: item.read ? '#fff' : '#f0f4ff',
+                    border: `1px solid ${item.read ? '#e2e8f0' : '#c7d7fd'}`,
+                    transition: 'box-shadow 0.15s', cursor: 'pointer',
+                  }}
+                  onClick={() => markRead(item.id)}
+                >
+                  {/* 아바타 */}
+                  <div style={{
+                    width: 40, height: 40, borderRadius: '50%', background: item.color,
+                    color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    fontSize: 14, fontWeight: 700, flexShrink: 0,
+                  }}>
+                    {item.avatar}
+                  </div>
+
+                  {/* 콘텐츠 */}
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, marginBottom: 3 }}>
+                      <span style={{ fontSize: 13, fontWeight: item.read ? 500 : 700, color: '#1e293b' }}>{item.title}</span>
+                      {!item.read && (
+                        <span style={{ width: 7, height: 7, borderRadius: '50%', background: '#6366f1', flexShrink: 0, display: 'inline-block' }} />
+                      )}
+                    </div>
+                    <p style={{ margin: 0, fontSize: 12, color: '#64748b', lineHeight: 1.5, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                      {item.body}
+                    </p>
+                    <div style={{ marginTop: 6, display: 'flex', alignItems: 'center', gap: 8 }}>
+                      <span style={{ fontSize: 11, color: '#94a3b8' }}>{item.time}</span>
+                      <span style={{
+                        fontSize: 10, fontWeight: 600, padding: '1px 7px', borderRadius: 10,
+                        background: item.category === 'alerts' ? '#fef2f2' : item.category === 'mentions' ? '#eff6ff' : '#f0fdf4',
+                        color: item.category === 'alerts' ? '#ef4444' : item.category === 'mentions' ? '#2563eb' : '#16a34a',
+                      }}>
+                        {item.category === 'alerts' ? '알림' : item.category === 'mentions' ? '멘션' : '업데이트'}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* 삭제 버튼 */}
+                  <GhostButton
+                    size="small"
+                    color="gray"
+                    onClick={(e: React.MouseEvent) => { e.stopPropagation(); dismiss(item.id) }}
+                  >
+                    <GhostButton.Center>✕</GhostButton.Center>
+                  </GhostButton>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* M3 스타일 하단 요약 바 */}
+        <div style={{ padding: '12px 24px', background: '#fff', borderTop: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', gap: 16 }}>
+          <div style={{ display: 'flex', gap: 16, flex: 1 }}>
+            {[
+              { label: '멘션', count: feedItems.filter((n) => n.category === 'mentions').length, color: '#2563eb' },
+              { label: '업데이트', count: feedItems.filter((n) => n.category === 'updates').length, color: '#16a34a' },
+              { label: '알림', count: feedItems.filter((n) => n.category === 'alerts').length, color: '#ef4444' },
+            ].map((stat) => (
+              <div key={stat.label} style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                <div style={{ width: 8, height: 8, borderRadius: '50%', background: stat.color }} />
+                <span style={{ fontSize: 12, color: '#64748b' }}>{stat.label}: <strong style={{ color: '#334155' }}>{stat.count}</strong></span>
+              </div>
+            ))}
+          </div>
+          <span style={{ fontSize: 11, color: '#94a3b8' }}>Radix UI + Material 3 패턴 적용</span>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const ActivityFeed: Story = {
+  name: 'Activity Feed (Radix UI + Google Material 3 벤치마크)',
+  render: () => <ActivityFeedRender />,
+}

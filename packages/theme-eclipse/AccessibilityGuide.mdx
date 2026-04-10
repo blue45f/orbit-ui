@@ -347,4 +347,78 @@ import { Meta, Unstyled } from '@storybook/blocks'
     </section>
 
   </div>
+
+  {/* ─── Cycle 39: Radix UI + Google Material 3 접근성 벤치마크 ─── */}
+  <section style={{ marginTop: '48px', padding: '32px', background: 'linear-gradient(135deg, #faf5ff 0%, #eff6ff 100%)', borderRadius: '20px', border: '1.5px solid #e9d5ff' }}>
+    <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px' }}>
+      <span style={{ fontSize: '28px' }}>♿</span>
+      <div>
+        <h2 style={{ margin: 0, fontSize: '22px', fontWeight: '800', color: '#1e1b4b' }}>Radix UI + Google Material 3 접근성 패턴</h2>
+        <p style={{ margin: '4px 0 0', fontSize: '13px', color: '#7c3aed' }}>Cycle 39 벤치마크 — 접근성 우수 사례 비교 분석</p>
+      </div>
+    </div>
+
+    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '28px' }}>
+      {[
+        {
+          lib: 'Radix UI',
+          icon: '⬡',
+          color: '#6366f1',
+          bg: '#eff6ff',
+          border: '#c7d2fe',
+          principles: [
+            'WAI-ARIA 명세 100% 준수 — 모든 Primitive에 role, aria-* 자동 적용',
+            'Focus 관리 — Dialog/Popover 열릴 때 first focusable로 이동, 닫힐 때 trigger로 복원',
+            'Escape 키 처리 — Popover, Dialog, DropdownMenu 전역 일관성',
+            'asChild 패턴 — 시맨틱 HTML 유지하면서 Radix 접근성 레이어 합성',
+            'Screen reader 친화적 — aria-expanded, aria-controls 자동 연결',
+          ],
+        },
+        {
+          lib: 'Google Material 3',
+          icon: 'M',
+          color: '#059669',
+          bg: '#f0fdf4',
+          border: '#a7f3d0',
+          principles: [
+            'Color contrast — 최소 4.5:1 (AA), 핵심 콘텐츠 7:1 (AAA) 보장',
+            'Touch target — 최소 48dp × 48dp 터치 영역 (모바일 접근성)',
+            'Motion sensitivity — prefers-reduced-motion 자동 감지 및 애니메이션 제거',
+            'State layer — hover/focus/pressed 상태를 색상 레이어로 표현',
+            'Typography scale — 유동적 텍스트 크기로 저시력 사용자 지원',
+          ],
+        },
+      ].map(({ lib, icon, color, bg, border, principles }) => (
+        <div key={lib} style={{ background: bg, borderRadius: '14px', border: `1.5px solid ${border}`, padding: '20px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '16px' }}>
+            <div style={{ width: 36, height: 36, borderRadius: '10px', background: color, color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: '800', fontSize: '16px' }}>{icon}</div>
+            <span style={{ fontWeight: '700', fontSize: '15px', color: '#1e293b' }}>{lib}</span>
+          </div>
+          <ul style={{ margin: 0, padding: '0 0 0 18px' }}>
+            {principles.map((p) => (
+              <li key={p} style={{ fontSize: '12px', color: '#374151', lineHeight: '1.7', marginBottom: '4px' }}>{p}</li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+
+    <h3 style={{ fontSize: '16px', fontWeight: '700', color: '#1e293b', margin: '0 0 16px' }}>Orbit UI에 적용된 접근성 패턴</h3>
+    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '14px' }}>
+      {[
+        { pattern: 'GhostButton Toolbar', from: 'Radix UI', aria: 'role="toolbar" + aria-pressed', desc: '토글 가능한 버튼 그룹에 role="toolbar"와 aria-pressed로 상태 표현', color: '#6366f1' },
+        { pattern: 'TextArea 유효성', from: 'Material 3', aria: 'aria-invalid + aria-describedby', desc: 'error 상태를 aria-invalid로 표현, 오류 메시지를 aria-describedby로 연결', color: '#059669' },
+        { pattern: 'Activity Feed', from: 'Radix UI + M3', aria: 'role="switch" + aria-checked', desc: '필터 토글을 role="switch"로 구현, 읽지 않은 상태를 시각+스크린리더로 이중 표현', color: '#8b5cf6' },
+      ].map(({ pattern, from, aria, desc, color }) => (
+        <div key={pattern} style={{ background: '#fff', borderRadius: '12px', border: '1.5px solid #e2e8f0', padding: '16px' }}>
+          <div style={{ fontSize: '10px', fontWeight: '700', color, textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '6px' }}>{from}</div>
+          <div style={{ fontSize: '13px', fontWeight: '700', color: '#1e293b', marginBottom: '6px' }}>{pattern}</div>
+          <code style={{ display: 'block', fontSize: '11px', background: '#f1f5f9', color: '#7c3aed', padding: '6px 10px', borderRadius: '7px', marginBottom: '10px', fontFamily: 'monospace' }}>{aria}</code>
+          <p style={{ margin: 0, fontSize: '11px', color: '#64748b', lineHeight: '1.6' }}>{desc}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  </div>
 </Unstyled>

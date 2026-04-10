@@ -379,3 +379,320 @@ const LikeToggleRender = () => {
 export const Chakra_좋아요_토글_버튼: Story = {
   render: () => <LikeToggleRender />,
 }
+
+/* --------------------------------------------------------------------------
+   Radix UI 아이콘 액션 툴바 패턴
+   Radix Toolbar: 아이콘 버튼을 그룹화, 그룹 사이 구분선, hover 강조
+-------------------------------------------------------------------------- */
+const RadixIconToolbarRender = () => {
+  const [bold, setBold] = useState(false)
+  const [italic, setItalic] = useState(false)
+  const [underline, setUnderline] = useState(false)
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
+      {/* Text formatting toolbar */}
+      <div>
+        <div style={{ fontSize: 12, fontWeight: 600, color: '#94a3b8', marginBottom: 8, textTransform: 'uppercase', letterSpacing: '0.06em' }}>서식 툴바</div>
+        <div
+          role="toolbar"
+          aria-label="텍스트 서식"
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: 2,
+            padding: '4px',
+            borderRadius: 10,
+            border: '1px solid #e2e8f0',
+            background: '#f8fafc',
+          }}
+        >
+          {/* Format group */}
+          {[
+            { label: 'Bold', icon: 'B', active: bold, toggle: () => setBold((v) => !v), style: { fontWeight: 800 } },
+            { label: 'Italic', icon: 'I', active: italic, toggle: () => setItalic((v) => !v), style: { fontStyle: 'italic' } },
+            { label: 'Underline', icon: 'U', active: underline, toggle: () => setUnderline((v) => !v), style: { textDecoration: 'underline' } },
+          ].map((btn) => (
+            <GhostButton
+              key={btn.label}
+              color="black"
+              size="small"
+              aria-pressed={btn.active}
+              aria-label={btn.label}
+              onClick={btn.toggle}
+              style={{ background: btn.active ? '#ede9fe' : 'transparent' }}
+            >
+              <GhostButton.Center>
+                <span style={{ ...btn.style, color: btn.active ? '#6366f1' : '#475569', fontSize: 13 }}>
+                  {btn.icon}
+                </span>
+              </GhostButton.Center>
+            </GhostButton>
+          ))}
+
+          {/* Divider */}
+          <div style={{ width: 1, height: 20, background: '#e2e8f0', margin: '0 4px' }} />
+
+          {/* Action group */}
+          {[
+            { label: '링크 복사', icon: <LinkIcon size={15} /> },
+            { label: '복사', icon: <CopyLineIcon size={15} /> },
+            { label: '공유', icon: <ShareIcon size={15} /> },
+          ].map((btn) => (
+            <GhostButton key={btn.label} color="black" size="small" aria-label={btn.label}>
+              <GhostButton.Center>{btn.icon}</GhostButton.Center>
+            </GhostButton>
+          ))}
+
+          {/* Divider */}
+          <div style={{ width: 1, height: 20, background: '#e2e8f0', margin: '0 4px' }} />
+
+          {/* Destructive */}
+          <GhostButton color="black" size="small" aria-label="삭제">
+            <GhostButton.Center>
+              <DeleteLineIcon size={15} style={{ color: '#ef4444' }} />
+            </GhostButton.Center>
+          </GhostButton>
+        </div>
+      </div>
+
+      {/* Preview */}
+      <div style={{
+        padding: '12px 16px',
+        borderRadius: 8,
+        border: '1px solid #e2e8f0',
+        fontSize: 14,
+        color: '#1e293b',
+        fontWeight: bold ? 700 : 400,
+        fontStyle: italic ? 'italic' : 'normal',
+        textDecoration: underline ? 'underline' : 'none',
+        background: '#fff',
+      }}>
+        Orbit UI 디자인 시스템 — Radix Toolbar 패턴 미리보기
+      </div>
+      <div style={{ fontSize: 11, color: '#94a3b8' }}>
+        Radix UI Toolbar 패턴 — aria-pressed로 토글 상태, role=&quot;toolbar&quot;로 접근성 구현
+      </div>
+    </div>
+  )
+}
+
+export const Radix_아이콘_툴바: Story = {
+  name: 'Radix UI - 아이콘 액션 툴바 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Radix Toolbar 패턴. role="toolbar" + aria-label, aria-pressed로 접근성 구현. ' +
+          '그룹 구분선, 토글 버튼(B/I/U), 액션 버튼, 위험 버튼을 조합한 에디터 툴바입니다.',
+      },
+    },
+  },
+  render: () => <RadixIconToolbarRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Google Material 3 Outlined Button 패턴
+   M3 Outlined variant: 외곽선 + 투명 배경, hover 시 Primary 색상 얇게 채움
+-------------------------------------------------------------------------- */
+const M3OutlinedButtonsRender = () => {
+  const actions = [
+    { label: '저장', color: '#6750A4', bgHover: 'rgba(103,80,164,0.08)' },
+    { label: '공유', color: '#006E1C', bgHover: 'rgba(0,110,28,0.08)' },
+    { label: '삭제', color: '#B3261E', bgHover: 'rgba(179,38,30,0.08)' },
+    { label: '보관', color: '#006A6A', bgHover: 'rgba(0,106,106,0.08)' },
+  ]
+
+  const [hovered, setHovered] = useState<string | null>(null)
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
+      <div>
+        <div style={{ fontSize: 12, fontWeight: 700, color: '#94a3b8', marginBottom: 12, textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+          M3 Outlined Button (역할별 색상)
+        </div>
+        <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+          {actions.map((action) => (
+            <button
+              key={action.label}
+              onMouseEnter={() => setHovered(action.label)}
+              onMouseLeave={() => setHovered(null)}
+              style={{
+                padding: '10px 24px',
+                borderRadius: 100,
+                border: `1.5px solid ${action.color}`,
+                background: hovered === action.label ? action.bgHover : 'transparent',
+                color: action.color,
+                fontSize: 13,
+                fontWeight: 600,
+                cursor: 'pointer',
+                letterSpacing: '0.01em',
+                transition: 'background 0.15s, transform 0.1s',
+                transform: hovered === action.label ? 'scale(1.02)' : 'scale(1)',
+              }}
+            >
+              {action.label}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div>
+        <div style={{ fontSize: 12, fontWeight: 700, color: '#94a3b8', marginBottom: 12, textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+          GhostButton — Orbit UI 동일 패턴
+        </div>
+        <Flex columnGap="8px" rowGap="8px" flexWrap="wrap">
+          <GhostButton color="black" size="large">
+            <GhostButton.Center>저장</GhostButton.Center>
+            <GhostButton.Trailing><ChevronRightLineIcon size={16} /></GhostButton.Trailing>
+          </GhostButton>
+          <GhostButton color="black" size="large">
+            <GhostButton.Center>공유</GhostButton.Center>
+            <GhostButton.Trailing><ShareIcon size={16} /></GhostButton.Trailing>
+          </GhostButton>
+          <GhostButton color="black" size="large" disabled>
+            <GhostButton.Center>비활성</GhostButton.Center>
+          </GhostButton>
+        </Flex>
+      </div>
+
+      <div style={{ fontSize: 11, color: '#94a3b8' }}>
+        Google M3: 역할별 시맨틱 색상(Primary/Secondary/Error/Tertiary) 적용 Outlined 버튼
+      </div>
+    </div>
+  )
+}
+
+export const M3_Outlined_버튼_패턴: Story = {
+  name: 'Google Material 3 - 역할별 색상 Outlined 버튼 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Google Material 3 Outlined Button. 역할에 따라 Primary/Secondary/Error/Tertiary 색상을 적용하고 ' +
+          'hover 시 해당 색상을 8% opacity로 배경에 채웁니다. Orbit UI GhostButton으로 동일 표현 가능합니다.',
+      },
+    },
+  },
+  render: () => <M3OutlinedButtonsRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Radix UI DropdownMenu 스타일 컨텍스트 메뉴 패턴
+   GhostButton을 트리거로 사용, 오버레이 드롭다운 목록 시연
+-------------------------------------------------------------------------- */
+const RadixContextMenuRender = () => {
+  const [open, setOpen] = useState(false)
+  const [selected, setSelected] = useState<string | null>(null)
+
+  const menuItems = [
+    { label: '편집', icon: '✏️', shortcut: 'Cmd+E' },
+    { label: '복제', icon: '📋', shortcut: 'Cmd+D' },
+    { label: '공유', icon: '🔗', shortcut: 'Cmd+Shift+S' },
+    null,
+    { label: '이름 변경', icon: '🏷️', shortcut: 'F2' },
+    { label: '이동', icon: '📁', shortcut: '' },
+    null,
+    { label: '삭제', icon: '🗑️', shortcut: 'Del', danger: true },
+  ]
+
+  return (
+    <div style={{ position: 'relative', display: 'inline-block' }}>
+      <GhostButton
+        color="black"
+        size="large"
+        onClick={() => setOpen((v) => !v)}
+        aria-haspopup="menu"
+        aria-expanded={open}
+        aria-label="더보기 메뉴"
+      >
+        <GhostButton.Center>••• 더보기</GhostButton.Center>
+      </GhostButton>
+
+      {open && (
+        <>
+          <div
+            style={{ position: 'fixed', inset: 0, zIndex: 9 }}
+            onClick={() => setOpen(false)}
+          />
+          <div
+            role="menu"
+            aria-label="컨텍스트 메뉴"
+            style={{
+              position: 'absolute',
+              top: '100%',
+              left: 0,
+              marginTop: 4,
+              zIndex: 10,
+              minWidth: 200,
+              borderRadius: 10,
+              border: '1px solid #e2e8f0',
+              background: '#fff',
+              boxShadow: '0 8px 24px rgba(0,0,0,0.12)',
+              overflow: 'hidden',
+              padding: '4px',
+            }}
+          >
+            {menuItems.map((item, i) =>
+              item === null ? (
+                <div key={i} style={{ height: 1, background: '#f1f5f9', margin: '4px 0' }} />
+              ) : (
+                <button
+                  key={item.label}
+                  role="menuitem"
+                  onClick={() => { setSelected(item.label); setOpen(false) }}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 10,
+                    width: '100%',
+                    padding: '8px 10px',
+                    borderRadius: 6,
+                    border: 'none',
+                    background: 'none',
+                    cursor: 'pointer',
+                    fontSize: 13,
+                    fontWeight: 500,
+                    color: item.danger ? '#ef4444' : '#1e293b',
+                    textAlign: 'left',
+                    transition: 'background 0.1s',
+                  }}
+                  onMouseEnter={(e) => { e.currentTarget.style.background = item.danger ? '#fef2f2' : '#f8fafc' }}
+                  onMouseLeave={(e) => { e.currentTarget.style.background = 'none' }}
+                >
+                  <span style={{ width: 18, textAlign: 'center', fontSize: 14 }}>{item.icon}</span>
+                  <span style={{ flex: 1 }}>{item.label}</span>
+                  {item.shortcut && (
+                    <span style={{ fontSize: 10, color: '#94a3b8', fontFamily: 'monospace', fontWeight: 500 }}>
+                      {item.shortcut}
+                    </span>
+                  )}
+                </button>
+              )
+            )}
+          </div>
+        </>
+      )}
+
+      {selected && (
+        <div style={{ marginTop: 12, fontSize: 12, color: '#6366f1', fontWeight: 600 }}>
+          선택: {selected}
+        </div>
+      )}
+    </div>
+  )
+}
+
+export const Radix_컨텍스트_메뉴_트리거: Story = {
+  name: 'Radix UI - GhostButton 트리거 컨텍스트 메뉴 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Radix DropdownMenu 패턴. GhostButton을 트리거로 사용, aria-haspopup="menu"와 aria-expanded로 ' +
+          '접근성 구현. 구분선, 단축키 힌트, 위험 항목 색상 구분을 포함합니다.',
+      },
+    },
+  },
+  render: () => <RadixContextMenuRender />,
+}

@@ -526,3 +526,282 @@ export const Chakra_피드백폼패턴: Story = {
   name: 'Chakra Textarea 패턴 (피드백/리뷰 폼)',
   render: () => <FeedbackFormDemo />,
 }
+
+/* --------------------------------------------------------------------------
+   Radix UI 글자수 카운터 + 미리보기 패턴
+   Radix Primitive TextArea: 잔여 글자수 색상 피드백 + 입력 내용 실시간 미리보기
+-------------------------------------------------------------------------- */
+const RadixCharCounterRender = () => {
+  const [value, setValue] = useState('')
+  const maxChars = 500
+  const remaining = maxChars - value.length
+
+  return (
+    <div style={{ width: 400, display: 'flex', flexDirection: 'column', gap: 8 }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <label style={{ fontSize: 13, fontWeight: 600, color: '#1e293b' }}>소개글</label>
+        <span style={{
+          fontSize: 11,
+          fontWeight: 600,
+          color: remaining < 50 ? '#ef4444' : remaining < 100 ? '#f59e0b' : '#94a3b8',
+        }}>
+          {remaining}자 남음
+        </span>
+      </div>
+      <TextArea
+        value={value}
+        onChange={(e) => { if (e.target.value.length <= maxChars) setValue(e.target.value) }}
+        placeholder="자신을 소개해 보세요. 팀원들이 볼 수 있습니다..."
+        minimumLine={3}
+        maximumLine={10}
+      />
+      <div style={{ fontSize: 11, color: '#94a3b8' }}>
+        {value.length > 0 ? `${value.length}자 입력됨` : '선택 사항입니다. 최대 500자까지 입력할 수 있습니다.'}
+      </div>
+      {value.length > 0 && (
+        <div style={{
+          padding: '10px 14px',
+          borderRadius: 8,
+          background: '#f8fafc',
+          border: '1px solid #e2e8f0',
+          fontSize: 13,
+          color: '#475569',
+          whiteSpace: 'pre-wrap',
+          lineHeight: 1.6,
+        }}>
+          <span style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', display: 'block', marginBottom: 4 }}>미리보기</span>
+          {value}
+        </div>
+      )}
+    </div>
+  )
+}
+
+export const Radix_글자수_카운터_미리보기: Story = {
+  name: 'Radix UI - 글자수 카운터 + 실시간 미리보기 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Radix Primitive autosize 패턴. 잔여 글자수를 색상(정상/경고/위험)으로 표시하고 ' +
+          '입력 내용을 하단 미리보기 영역에 실시간 반영합니다.',
+      },
+    },
+  },
+  render: () => <RadixCharCounterRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Google Material 3 인라인 유효성 검사 패턴
+   M3 TextField: 입력 즉시 error boolean + 안내 텍스트 전환으로 피드백
+-------------------------------------------------------------------------- */
+const M3InlineValidationRender = () => {
+  const [email, setEmail] = useState('')
+  const [url, setUrl] = useState('')
+  const [bio, setBio] = useState('')
+
+  const emailHasError = email.length > 0 && !email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)
+  const urlHasError = url.length > 0 && !url.match(/^https?:\/\//)
+
+  return (
+    <div style={{ width: 400, display: 'flex', flexDirection: 'column', gap: 20 }}>
+      <div style={{ fontSize: 14, fontWeight: 700, color: '#1e293b' }}>프로필 설정</div>
+
+      <div>
+        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 6 }}>
+          <label style={{ fontSize: 12, fontWeight: 600, color: emailHasError ? '#ef4444' : '#475569' }}>이메일</label>
+        </div>
+        <TextArea
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="hello@example.com"
+          error={emailHasError}
+          minimumLine={1}
+          maximumLine={1}
+        />
+        <div style={{ fontSize: 11, marginTop: 4, color: emailHasError ? '#ef4444' : '#94a3b8' }}>
+          {emailHasError ? '올바른 이메일 형식을 입력해 주세요.' : '계정 알림을 받을 이메일 주소입니다.'}
+        </div>
+      </div>
+
+      <div>
+        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 6 }}>
+          <label style={{ fontSize: 12, fontWeight: 600, color: urlHasError ? '#ef4444' : '#475569' }}>웹사이트 URL</label>
+        </div>
+        <TextArea
+          value={url}
+          onChange={(e) => setUrl(e.target.value)}
+          placeholder="https://your-site.com"
+          error={urlHasError}
+          minimumLine={1}
+          maximumLine={1}
+        />
+        <div style={{ fontSize: 11, marginTop: 4, color: urlHasError ? '#ef4444' : '#94a3b8' }}>
+          {urlHasError ? 'URL은 http:// 또는 https://로 시작해야 합니다.' : '포트폴리오나 블로그 주소를 입력하세요.'}
+        </div>
+      </div>
+
+      <div>
+        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 6 }}>
+          <label style={{ fontSize: 12, fontWeight: 600, color: '#475569' }}>자기소개</label>
+          <span style={{ fontSize: 11, color: '#94a3b8' }}>{bio.length}/200</span>
+        </div>
+        <TextArea
+          value={bio}
+          onChange={(e) => { if (e.target.value.length <= 200) setBio(e.target.value) }}
+          placeholder="간단한 소개를 작성해 주세요..."
+          minimumLine={3}
+          maximumLine={6}
+        />
+      </div>
+
+      <div style={{ display: 'flex', gap: 8, justifyContent: 'flex-end' }}>
+        <button
+          style={{ padding: '8px 16px', borderRadius: 8, border: '1px solid #e2e8f0', background: 'none', cursor: 'pointer', fontSize: 13, color: '#64748b', fontWeight: 500 }}
+          onClick={() => { setEmail(''); setUrl(''); setBio('') }}
+        >
+          초기화
+        </button>
+        <button
+          disabled={emailHasError || urlHasError}
+          style={{
+            padding: '8px 20px', borderRadius: 8, border: 'none',
+            background: emailHasError || urlHasError ? '#f1f5f9' : '#6366f1',
+            color: emailHasError || urlHasError ? '#94a3b8' : '#fff',
+            cursor: emailHasError || urlHasError ? 'not-allowed' : 'pointer',
+            fontSize: 13, fontWeight: 700,
+          }}
+        >
+          저장
+        </button>
+      </div>
+    </div>
+  )
+}
+
+export const M3_인라인_유효성_검사: Story = {
+  name: 'Google Material 3 - 인라인 유효성 검사 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Google Material 3 TextField 패턴. 안내 텍스트가 에러 발생 시 빨간 에러 메시지로 ' +
+          '전환됩니다. error prop(boolean)으로 TextArea 스타일을 제어합니다.',
+      },
+    },
+  },
+  render: () => <M3InlineValidationRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Radix UI 코드 에디터 스타일 입력 패턴
+   JSON 코드 입력: monospace 폰트 + 라인 번호 오버레이 + 유효성 검증
+-------------------------------------------------------------------------- */
+const RadixCodeEditorRender = () => {
+  const defaultJson = `{
+  "name": "orbit-ui",
+  "version": "2.0.0",
+  "description": "Eclipse theme for Orbit UI"
+}`
+  const [code, setCode] = useState(defaultJson)
+  const [isValid, setIsValid] = useState<boolean | null>(null)
+
+  const validate = () => {
+    try {
+      JSON.parse(code)
+      setIsValid(true)
+    } catch {
+      setIsValid(false)
+    }
+  }
+
+  const lineCount = code.split('\n').length
+
+  return (
+    <div style={{ width: 440, display: 'flex', flexDirection: 'column', gap: 12 }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <div>
+          <span style={{ fontSize: 13, fontWeight: 700, color: '#1e293b' }}>JSON 설정</span>
+          <span style={{ fontSize: 11, color: '#94a3b8', marginLeft: 8 }}>{lineCount}줄</span>
+        </div>
+        {isValid !== null && (
+          <span style={{
+            fontSize: 11, fontWeight: 700,
+            color: isValid ? '#10b981' : '#ef4444',
+            padding: '2px 8px', borderRadius: 20,
+            background: isValid ? '#f0fdf4' : '#fef2f2',
+          }}>
+            {isValid ? '유효한 JSON' : 'JSON 오류'}
+          </span>
+        )}
+      </div>
+
+      <div style={{ position: 'relative' }}>
+        <div
+          aria-hidden="true"
+          style={{
+            position: 'absolute',
+            left: 0,
+            top: 0,
+            padding: '10px 8px',
+            width: 32,
+            textAlign: 'right',
+            fontSize: 11,
+            fontFamily: 'monospace',
+            color: '#94a3b8',
+            lineHeight: '20px',
+            userSelect: 'none',
+            pointerEvents: 'none',
+          }}
+        >
+          {Array.from({ length: lineCount }, (_, i) => (
+            <div key={i}>{i + 1}</div>
+          ))}
+        </div>
+
+        <div style={{ fontFamily: 'monospace', fontSize: 13 }}>
+          <TextArea
+            value={code}
+            onChange={(e) => { setCode(e.target.value); setIsValid(null) }}
+            placeholder="{}"
+            error={isValid === false}
+            minimumLine={8}
+            maximumLine={20}
+          />
+        </div>
+      </div>
+
+      <div style={{ display: 'flex', gap: 8 }}>
+        <button
+          onClick={validate}
+          style={{ padding: '7px 14px', borderRadius: 7, border: 'none', background: '#6366f1', color: '#fff', fontSize: 12, fontWeight: 700, cursor: 'pointer' }}
+        >
+          JSON 검증
+        </button>
+        <button
+          onClick={() => { setCode(defaultJson); setIsValid(null) }}
+          style={{ padding: '7px 14px', borderRadius: 7, border: '1px solid #e2e8f0', background: 'none', color: '#64748b', fontSize: 12, fontWeight: 500, cursor: 'pointer' }}
+        >
+          초기화
+        </button>
+      </div>
+      <div style={{ fontSize: 11, color: '#94a3b8' }}>
+        Radix UI Primitive 패턴 — monospace 폰트, 라인 번호, JSON 유효성 검증
+      </div>
+    </div>
+  )
+}
+
+export const Radix_코드_에디터_입력: Story = {
+  name: 'Radix UI - 코드 에디터 스타일 입력 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Radix Primitive TextArea를 코드 에디터처럼 활용. monospace 폰트, 라인 번호 오버레이, ' +
+          'JSON 유효성 검사 버튼을 조합한 설정 편집 UI 패턴입니다.',
+      },
+    },
+  },
+  render: () => <RadixCodeEditorRender />,
+}
