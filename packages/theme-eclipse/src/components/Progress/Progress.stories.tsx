@@ -558,6 +558,293 @@ const PAGE_SECTIONS = [
   { id: 'docs', label: '문서화', items: ['Storybook', 'MDX 가이드'], completed: [true, false] },
 ]
 
+/* --------------------------------------------------------------------------
+   Tailwind UI 벤치마크: 파일 배치 업로드 진행
+   Tailwind UI의 multi-file upload 패턴 — 각 파일별 독립 Progress + 취소 버튼
+-------------------------------------------------------------------------- */
+type UploadFile = {
+  id: string
+  name: string
+  size: string
+  progress: number
+  status: 'uploading' | 'done' | 'error'
+}
+
+const INITIAL_FILES: UploadFile[] = [
+  { id: 'f1', name: 'design-tokens.json', size: '24 KB', progress: 100, status: 'done' },
+  { id: 'f2', name: 'component-lib.zip', size: '3.2 MB', progress: 62, status: 'uploading' },
+  { id: 'f3', name: 'storybook-export.tar', size: '18 MB', progress: 28, status: 'uploading' },
+  { id: 'f4', name: 'icons-sprite.svg', size: '148 KB', progress: 0, status: 'error' },
+]
+
+const BatchUploadRender = () => {
+  const [files, setFiles] = React.useState<UploadFile[]>(INITIAL_FILES)
+
+  React.useEffect(() => {
+    const timer = setInterval(() => {
+      setFiles((prev) =>
+        prev.map((f) =>
+          f.status === 'uploading' && f.progress < 100
+            ? { ...f, progress: Math.min(100, f.progress + Math.floor(Math.random() * 8) + 2) }
+            : f.progress >= 100 && f.status === 'uploading'
+              ? { ...f, status: 'done' }
+              : f
+        )
+      )
+    }, 600)
+    return () => clearInterval(timer)
+  }, [])
+
+  const total = files.length
+  const done = files.filter((f) => f.status === 'done').length
+  const overallPct = Math.round(files.reduce((sum, f) => sum + f.progress, 0) / total)
+
+  return (
+    <div style={{ maxWidth: 460, display: 'flex', flexDirection: 'column', gap: 20 }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <span style={{ fontSize: 13, fontWeight: 700, color: '#0f172a' }}>전체 업로드</span>
+          <span style={{ fontSize: 12, fontWeight: 600, color: '#6366f1' }}>{done}/{total} 완료</span>
+        </div>
+        <Progress value={overallPct} color="primary" size="medium" />
+      </div>
+
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+        {files.map((file) => (
+          <div
+            key={file.id}
+            style={{
+              padding: '12px 14px',
+              borderRadius: 10,
+              border: `1px solid ${file.status === 'error' ? '#fca5a5' : '#e2e8f0'}`,
+              background: file.status === 'error' ? '#fff7f7' : '#fafafa',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 8,
+            }}
+          >
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+                <span style={{ fontSize: 13, fontWeight: 600, color: '#1e293b' }}>{file.name}</span>
+                <span style={{ fontSize: 11, color: '#94a3b8' }}>{file.size}</span>
+              </div>
+              <span
+                style={{
+                  fontSize: 11,
+                  fontWeight: 700,
+                  padding: '2px 8px',
+                  borderRadius: 6,
+                  background:
+                    file.status === 'done' ? '#f0fdf4' :
+                    file.status === 'error' ? '#fee2e2' : '#eff6ff',
+                  color:
+                    file.status === 'done' ? '#16a34a' :
+                    file.status === 'error' ? '#dc2626' : '#3b82f6',
+                }}
+              >
+                {file.status === 'done' ? '완료' : file.status === 'error' ? '실패' : `${file.progress}%`}
+              </span>
+            </div>
+            {file.status !== 'error' && (
+              <Progress
+                value={file.progress}
+                color={file.status === 'done' ? 'success' : 'primary'}
+                size="small"
+              />
+            )}
+            {file.status === 'error' && (
+              <div style={{ fontSize: 12, color: '#ef4444' }}>
+                업로드 실패 — 파일 형식 또는 크기를 확인하세요.
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+      <div style={{ fontSize: 11, color: '#94a3b8' }}>Tailwind UI 배치 업로드 패턴 — 파일별 독립 Progress + 상태 표시</div>
+    </div>
+  )
+}
+
+export const Tailwind_파일_업로드_배치: Story = {
+  name: 'Tailwind UI - 파일 배치 업로드 진행',
+  render: () => <BatchUploadRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Ant Design 벤치마크: 역량 평가 차트
+   Ant Design Progress + Label 패턴 — 스킬/역량 시각화 대시보드
+-------------------------------------------------------------------------- */
+type SkillEntry = {
+  label: string
+  value: number
+  color: 'primary' | 'success' | 'warning'
+  category: string
+}
+
+const SKILLS: SkillEntry[] = [
+  { label: 'TypeScript', value: 92, color: 'success', category: '언어' },
+  { label: 'React', value: 88, color: 'success', category: '프레임워크' },
+  { label: 'CSS / Tailwind', value: 80, color: 'primary', category: '스타일' },
+  { label: 'Figma', value: 65, color: 'primary', category: '디자인' },
+  { label: 'Node.js', value: 58, color: 'warning', category: '백엔드' },
+  { label: 'GraphQL', value: 42, color: 'warning', category: '백엔드' },
+]
+
+export const Ant_역량_평가_차트: Story = {
+  name: 'Ant Design - 역량 평가 차트',
+  render: () => (
+    <div style={{ maxWidth: 460 }}>
+      <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a', marginBottom: 4 }}>팀원 기술 역량</div>
+      <div style={{ fontSize: 12, color: '#94a3b8', marginBottom: 20 }}>김지수 — Senior Frontend Engineer</div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+        {SKILLS.map((skill) => (
+          <div key={skill.label}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                <span style={{ fontSize: 13, fontWeight: 600, color: '#1e293b' }}>{skill.label}</span>
+                <span
+                  style={{
+                    fontSize: 10,
+                    padding: '1px 6px',
+                    borderRadius: 4,
+                    background: '#f1f5f9',
+                    color: '#64748b',
+                    fontWeight: 500,
+                  }}
+                >
+                  {skill.category}
+                </span>
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                <span
+                  style={{
+                    fontSize: 11,
+                    fontWeight: 700,
+                    color:
+                      skill.value >= 80 ? '#10b981' :
+                      skill.value >= 60 ? '#6366f1' : '#f59e0b',
+                  }}
+                >
+                  {skill.value >= 80 ? '전문가' : skill.value >= 60 ? '숙련' : '개발중'}
+                </span>
+                <span style={{ fontSize: 12, fontWeight: 800, color: '#0f172a', minWidth: 30, textAlign: 'right' }}>
+                  {skill.value}
+                </span>
+              </div>
+            </div>
+            <Progress value={skill.value} color={skill.color} size="small" />
+          </div>
+        ))}
+      </div>
+      <div style={{ marginTop: 20, display: 'flex', gap: 16 }}>
+        {[
+          { label: '전문가 (80+)', color: '#10b981', count: SKILLS.filter((s) => s.value >= 80).length },
+          { label: '숙련 (60-79)', color: '#6366f1', count: SKILLS.filter((s) => s.value >= 60 && s.value < 80).length },
+          { label: '개발중 (~59)', color: '#f59e0b', count: SKILLS.filter((s) => s.value < 60).length },
+        ].map((item) => (
+          <div key={item.label} style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+            <div style={{ width: 8, height: 8, borderRadius: '50%', background: item.color }} />
+            <span style={{ fontSize: 11, color: '#64748b' }}>{item.label} ({item.count})</span>
+          </div>
+        ))}
+      </div>
+      <div style={{ marginTop: 12, fontSize: 11, color: '#94a3b8' }}>Ant Design Progress + Label 패턴 — 스킬 역량 시각화</div>
+    </div>
+  ),
+}
+
+/* --------------------------------------------------------------------------
+   Tailwind UI + Ant Design: 리소스 쿼터 대시보드
+   API 호출 / 스토리지 / 시트 등의 사용량을 한 눈에 표시하는 엔터프라이즈 패턴
+-------------------------------------------------------------------------- */
+type QuotaItem = {
+  label: string
+  used: number
+  total: number
+  unit: string
+  color: 'primary' | 'success' | 'warning'
+}
+
+const QUOTAS: QuotaItem[] = [
+  { label: 'API 호출', used: 84200, total: 100000, unit: '건', color: 'warning' },
+  { label: '스토리지', used: 7.4, total: 20, unit: 'GB', color: 'primary' },
+  { label: '팀 시트', used: 8, total: 10, unit: '명', color: 'warning' },
+  { label: '빌드 분', used: 280, total: 2000, unit: 'min', color: 'success' },
+]
+
+export const Tailwind_Ant_리소스_쿼터: Story = {
+  name: 'Tailwind UI + Ant Design - 리소스 쿼터 대시보드',
+  render: () => (
+    <div style={{ maxWidth: 500 }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
+        <div>
+          <div style={{ fontSize: 15, fontWeight: 700, color: '#0f172a' }}>플랜 사용량</div>
+          <div style={{ fontSize: 12, color: '#94a3b8', marginTop: 2 }}>Pro Plan — 갱신일: 2026-05-01</div>
+        </div>
+        <div
+          style={{
+            padding: '5px 12px',
+            borderRadius: 20,
+            background: '#eff6ff',
+            fontSize: 12,
+            fontWeight: 700,
+            color: '#3b82f6',
+          }}
+        >
+          Pro
+        </div>
+      </div>
+
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+        {QUOTAS.map((quota) => {
+          const pct = Math.round((quota.used / quota.total) * 100)
+          const isHigh = pct >= 80
+          return (
+            <div
+              key={quota.label}
+              style={{
+                padding: '16px',
+                borderRadius: 12,
+                border: `1px solid ${isHigh ? '#fde68a' : '#e2e8f0'}`,
+                background: isHigh ? '#fffbeb' : '#fafafa',
+              }}
+            >
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 10 }}>
+                <span style={{ fontSize: 12, fontWeight: 600, color: '#64748b' }}>{quota.label}</span>
+                {isHigh && (
+                  <span style={{ fontSize: 10, fontWeight: 700, color: '#d97706', background: '#fef3c7', padding: '1px 6px', borderRadius: 4 }}>
+                    경고
+                  </span>
+                )}
+              </div>
+              <div style={{ fontSize: 20, fontWeight: 800, color: '#0f172a', marginBottom: 2, lineHeight: 1 }}>
+                {typeof quota.used === 'number' && quota.used >= 1000
+                  ? (quota.used / 1000).toFixed(0) + 'K'
+                  : quota.used}
+                <span style={{ fontSize: 12, fontWeight: 400, color: '#94a3b8', marginLeft: 3 }}>{quota.unit}</span>
+              </div>
+              <div style={{ fontSize: 11, color: '#94a3b8', marginBottom: 8 }}>
+                / {quota.total}{quota.unit}
+              </div>
+              <Progress value={pct} color={quota.color} size="small" />
+              <div style={{ marginTop: 6, fontSize: 11, fontWeight: 600, color: pct >= 80 ? '#d97706' : '#94a3b8', textAlign: 'right' }}>
+                {pct}% 사용
+              </div>
+            </div>
+          )
+        })}
+      </div>
+
+      <div style={{ marginTop: 16, padding: '12px 14px', borderRadius: 10, background: '#eff6ff', border: '1px solid #bfdbfe', fontSize: 12, color: '#1d4ed8' }}>
+        API 호출 및 팀 시트가 한도에 근접했습니다.{' '}
+        <span style={{ fontWeight: 700, cursor: 'pointer', textDecoration: 'underline' }}>플랜 업그레이드</span>
+        를 고려해보세요.
+      </div>
+      <div style={{ marginTop: 10, fontSize: 11, color: '#94a3b8' }}>Tailwind UI + Ant Design 엔터프라이즈 쿼터 대시보드 패턴</div>
+    </div>
+  ),
+}
+
 export const Notion_페이지_완성도: Story = {
   name: 'Notion - 페이지 완성도 트래커 패턴',
   render: () => (

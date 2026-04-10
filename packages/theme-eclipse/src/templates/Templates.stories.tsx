@@ -18378,3 +18378,287 @@ export const ReleaseManager: Story = {
   },
   render: () => <ReleaseManagerRender />,
 }
+
+/* ═══════════════════════════════════════════
+   66. Sales Dashboard (Tailwind UI + Ant Design 패턴)
+   Tailwind UI의 stacked list + summary 패턴과 Ant Design의
+   엔터프라이즈 데이터 밀도를 결합한 매출 대시보드 템플릿.
+   DataTable, Progress, LabelBadge, SectionTitle, Breadcrumb 활용.
+   ═══════════════════════════════════════════ */
+type SDProduct = {
+  id: string
+  name: string
+  category: string
+  units: number
+  revenue: number
+  margin: number
+  trend: 'up' | 'down' | 'flat'
+  quota: number
+}
+
+type SDChannel = {
+  label: string
+  pct: number
+  revenue: number
+  color: 'primary' | 'success' | 'warning'
+}
+
+const SD_PRODUCTS: SDProduct[] = [
+  { id: 'p1', name: 'Orbit Pro 라이선스', category: 'SaaS', units: 142, revenue: 4259800, margin: 78, trend: 'up', quota: 84 },
+  { id: 'p2', name: 'Design Token Pack', category: '에셋', units: 89, revenue: 2661100, margin: 92, trend: 'up', quota: 61 },
+  { id: 'p3', name: 'Storybook 플러그인', category: '플러그인', units: 54, revenue: 1077300, margin: 85, trend: 'flat', quota: 72 },
+  { id: 'p4', name: 'Component Library', category: 'SaaS', units: 33, revenue: 2970900, margin: 71, trend: 'down', quota: 43 },
+  { id: 'p5', name: 'Support 플랜', category: '서비스', units: 21, revenue: 1890000, margin: 62, trend: 'up', quota: 91 },
+]
+
+const SD_CHANNELS: SDChannel[] = [
+  { label: '직접 판매', pct: 48, revenue: 6167100, color: 'primary' },
+  { label: '파트너', pct: 31, revenue: 3979820, color: 'success' },
+  { label: '인바운드', pct: 21, revenue: 2701240, color: 'warning' },
+]
+
+const SD_KPI = [
+  { label: '총 매출', value: '₩12.8M', sub: '목표 대비 +14%', positive: true },
+  { label: '총 판매', value: '339건', sub: '전월 대비 +23건', positive: true },
+  { label: '평균 마진', value: '77.6%', sub: '업계 평균 +12%', positive: true },
+  { label: '이탈 고객', value: '4명', sub: '전월 대비 -2명', positive: true },
+]
+
+const SalesDashboardRender = () => {
+  const [period, setPeriod] = useState<'week' | 'month' | 'quarter'>('quarter')
+
+  const trendIcon = (t: SDProduct['trend']) => {
+    if (t === 'up') return <span style={{ color: '#10b981', fontSize: 11 }}>▲</span>
+    if (t === 'down') return <span style={{ color: '#ef4444', fontSize: 11 }}>▼</span>
+    return <span style={{ color: '#94a3b8', fontSize: 11 }}>─</span>
+  }
+
+  return (
+    <div style={{ minHeight: '100vh', background: tc.surface, display: 'flex', flexDirection: 'column' }}>
+      {/* AppBar */}
+      <AppBar>
+        <AppBar.Leading>
+          <SolidIconButton color="black" size="small" aria-label="메뉴">
+            <MenuIcon />
+          </SolidIconButton>
+        </AppBar.Leading>
+        <AppBar.Center>
+          <span style={{ fontSize: 15, fontWeight: 700, color: tc.fg }}>Orbit Analytics</span>
+        </AppBar.Center>
+        <AppBar.Trailing>
+          <OutlineButton color="black" size="small">내보내기</OutlineButton>
+        </AppBar.Trailing>
+      </AppBar>
+
+      <div style={{ flex: 1, padding: '24px 24px 40px', display: 'flex', flexDirection: 'column', gap: 24, maxWidth: 960, margin: '0 auto', width: '100%' }}>
+        {/* Breadcrumb + period selector */}
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <Breadcrumb>
+            <Breadcrumb.Item>Analytics</Breadcrumb.Item>
+            <Breadcrumb.Item>매출 대시보드</Breadcrumb.Item>
+            <Breadcrumb.Item>2026 Q1</Breadcrumb.Item>
+          </Breadcrumb>
+          <div style={{ display: 'flex', gap: 4 }}>
+            {(['week', 'month', 'quarter'] as const).map((p) => (
+              <button
+                key={p}
+                onClick={() => setPeriod(p)}
+                style={{
+                  padding: '5px 12px', borderRadius: 7, fontSize: 12, fontWeight: 600, cursor: 'pointer',
+                  border: `1.5px solid ${period === p ? tc.fillPrimary : tc.border}`,
+                  background: period === p ? tc.fillPrimary : tc.bg,
+                  color: period === p ? '#fff' : tc.fgSub,
+                  transition: 'all 0.15s',
+                }}
+              >
+                {p === 'week' ? '주간' : p === 'month' ? '월간' : '분기'}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* KPI Cards */}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 12 }}>
+          {SD_KPI.map((kpi) => (
+            <div
+              key={kpi.label}
+              style={{
+                background: tc.bg,
+                borderRadius: 12,
+                border: `1px solid ${tc.border}`,
+                padding: '16px 20px',
+              }}
+            >
+              <div style={{ fontSize: 11, color: tc.fgMuted, fontWeight: 500, marginBottom: 6 }}>{kpi.label}</div>
+              <div style={{ fontSize: 22, fontWeight: 800, color: tc.fg, lineHeight: 1, marginBottom: 6 }}>{kpi.value}</div>
+              <div style={{
+                fontSize: 11, fontWeight: 600,
+                color: kpi.positive ? '#10b981' : '#ef4444',
+              }}>
+                {kpi.sub}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: 20 }}>
+          {/* Product table */}
+          <div style={{ background: tc.bg, borderRadius: 12, border: `1px solid ${tc.border}`, overflow: 'hidden' }}>
+            <div style={{ padding: '16px 20px', borderBottom: `1px solid ${tc.border}`, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <SectionTitle>제품별 매출</SectionTitle>
+              <LabelBadge color="benefit">
+                <LabelBadge.Label>Q1 집계</LabelBadge.Label>
+              </LabelBadge>
+            </div>
+            <div style={{ overflowX: 'auto' }}>
+              <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                <thead>
+                  <tr style={{ background: tc.surface }}>
+                    {['제품', '판매', '매출', '마진', '목표달성'].map((h) => (
+                      <th
+                        key={h}
+                        style={{
+                          padding: '10px 16px',
+                          fontSize: 11,
+                          fontWeight: 700,
+                          color: tc.fgMuted,
+                          textAlign: h === '제품' ? 'left' : 'right',
+                          whiteSpace: 'nowrap',
+                        }}
+                      >
+                        {h}
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {SD_PRODUCTS.map((p, i) => (
+                    <tr
+                      key={p.id}
+                      style={{
+                        borderTop: `1px solid ${tc.borderSub}`,
+                        background: i % 2 === 0 ? tc.bg : tc.surface,
+                      }}
+                    >
+                      <td style={{ padding: '12px 16px' }}>
+                        <div style={{ fontSize: 13, fontWeight: 600, color: tc.fg }}>{p.name}</div>
+                        <div style={{ fontSize: 10, color: tc.fgMuted, marginTop: 2 }}>{p.category}</div>
+                      </td>
+                      <td style={{ padding: '12px 16px', textAlign: 'right' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: 4 }}>
+                          {trendIcon(p.trend)}
+                          <span style={{ fontSize: 13, fontWeight: 600, color: tc.fg }}>{p.units}</span>
+                        </div>
+                      </td>
+                      <td style={{ padding: '12px 16px', textAlign: 'right', fontSize: 13, fontWeight: 700, color: tc.fg }}>
+                        ₩{p.revenue >= 1000000 ? (p.revenue / 1000000).toFixed(1) + 'M' : (p.revenue / 1000).toFixed(0) + 'K'}
+                      </td>
+                      <td style={{ padding: '12px 16px', textAlign: 'right' }}>
+                        <span style={{
+                          fontSize: 12, fontWeight: 700,
+                          color: p.margin >= 80 ? '#10b981' : p.margin >= 65 ? tc.fillPrimary : '#f59e0b',
+                        }}>
+                          {p.margin}%
+                        </span>
+                      </td>
+                      <td style={{ padding: '12px 16px', minWidth: 100 }}>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: 4, alignItems: 'flex-end' }}>
+                          <span style={{ fontSize: 11, fontWeight: 700, color: p.quota >= 80 ? '#10b981' : p.quota >= 60 ? tc.fillPrimary : '#f59e0b' }}>
+                            {p.quota}%
+                          </span>
+                          <Progress
+                            value={p.quota}
+                            color={p.quota >= 80 ? 'success' : p.quota >= 60 ? 'primary' : 'warning'}
+                            size="small"
+                          />
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+                <tfoot>
+                  <tr style={{ borderTop: `2px solid ${tc.fg}` }}>
+                    <td style={{ padding: '12px 16px', fontSize: 13, fontWeight: 700, color: tc.fg }}>합계</td>
+                    <td style={{ padding: '12px 16px', textAlign: 'right', fontSize: 13, fontWeight: 800, color: tc.fg }}>
+                      {SD_PRODUCTS.reduce((s, p) => s + p.units, 0)}
+                    </td>
+                    <td style={{ padding: '12px 16px', textAlign: 'right', fontSize: 13, fontWeight: 800, color: tc.fg }}>
+                      ₩{(SD_PRODUCTS.reduce((s, p) => s + p.revenue, 0) / 1000000).toFixed(1)}M
+                    </td>
+                    <td style={{ padding: '12px 16px', textAlign: 'right', fontSize: 12, fontWeight: 800, color: '#10b981' }}>
+                      {Math.round(SD_PRODUCTS.reduce((s, p) => s + p.margin, 0) / SD_PRODUCTS.length)}%
+                    </td>
+                    <td />
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+          </div>
+
+          {/* Channel breakdown */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+            <div style={{ background: tc.bg, borderRadius: 12, border: `1px solid ${tc.border}`, padding: 20 }}>
+              <SectionTitle style={{ marginBottom: 16 }}>채널별 매출 비중</SectionTitle>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+                {SD_CHANNELS.map((ch) => (
+                  <div key={ch.label}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 6 }}>
+                      <span style={{ fontSize: 12, fontWeight: 600, color: tc.fg }}>{ch.label}</span>
+                      <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+                        <span style={{ fontSize: 11, color: tc.fgMuted }}>
+                          ₩{(ch.revenue / 1000000).toFixed(1)}M
+                        </span>
+                        <span style={{ fontSize: 12, fontWeight: 800, color: tc.fg }}>{ch.pct}%</span>
+                      </div>
+                    </div>
+                    <Progress value={ch.pct} color={ch.color} size="small" />
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div style={{ background: tc.bg, borderRadius: 12, border: `1px solid ${tc.border}`, padding: 20 }}>
+              <SectionTitle style={{ marginBottom: 16 }}>목표 달성 현황</SectionTitle>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+                {[
+                  { label: '매출 목표', value: 88, color: 'success' as const },
+                  { label: '신규 고객', value: 73, color: 'primary' as const },
+                  { label: '갱신율', value: 91, color: 'success' as const },
+                  { label: 'NPS 목표', value: 54, color: 'warning' as const },
+                ].map((item) => (
+                  <div key={item.label}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 5 }}>
+                      <span style={{ fontSize: 12, color: tc.fgSub }}>{item.label}</span>
+                      <span style={{
+                        fontSize: 11, fontWeight: 700,
+                        color: item.value >= 80 ? '#10b981' : item.value >= 60 ? tc.fillPrimary : '#f59e0b',
+                      }}>
+                        {item.value}%
+                      </span>
+                    </div>
+                    <Progress value={item.value} color={item.color} size="small" />
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const SalesDashboard: Story = {
+  name: '매출 대시보드 (Tailwind UI + Ant Design 패턴)',
+  parameters: {
+    layout: 'fullscreen',
+    docs: {
+      description: {
+        story:
+          'Tailwind UI 요약 통계 행 패턴 + Ant Design 엔터프라이즈 데이터 밀도를 결합한 매출 대시보드. ' +
+          'DataTable 대신 native table + Progress로 목표 달성률 시각화. KPI 카드, 채널별 매출 분석, LabelBadge, Breadcrumb 포함.',
+      },
+    },
+  },
+  render: () => <SalesDashboardRender />,
+}

@@ -1153,3 +1153,320 @@ const FigmaInspectorRender = () => {
 export const Figma_인스펙터_패널: Story = {
   render: () => <FigmaInspectorRender />,
 }
+
+/* --------------------------------------------------------------------------
+   Ant Design 벤치마크: 배치 액션 테이블
+   Ant Design Table 패턴: 다중 선택 후 하단 배치 액션 바가 나타나는 엔터프라이즈 패턴
+-------------------------------------------------------------------------- */
+type TeamMember = {
+  id: string
+  name: string
+  role: string
+  team: string
+  status: 'active' | 'inactive' | 'pending'
+  joinedAt: string
+}
+
+const TEAM_DATA: TeamMember[] = [
+  { id: 'u1', name: '김민지', role: 'Frontend Engineer', team: 'Design System', status: 'active', joinedAt: '2024-01' },
+  { id: 'u2', name: '이동욱', role: 'Backend Engineer', team: 'Platform', status: 'active', joinedAt: '2023-06' },
+  { id: 'u3', name: '박소연', role: 'Product Designer', team: 'Design System', status: 'pending', joinedAt: '2024-03' },
+  { id: 'u4', name: '최준호', role: 'DevOps Engineer', team: 'Infra', status: 'active', joinedAt: '2022-11' },
+  { id: 'u5', name: '정하은', role: 'Frontend Engineer', team: 'Platform', status: 'inactive', joinedAt: '2023-02' },
+  { id: 'u6', name: '황태양', role: 'QA Engineer', team: 'QA', status: 'active', joinedAt: '2024-02' },
+]
+
+const memberStatusCfg: Record<TeamMember['status'], { color: string; label: string; bg: string }> = {
+  active:   { color: '#10b981', label: '재직', bg: '#f0fdf4' },
+  inactive: { color: '#94a3b8', label: '퇴직', bg: '#f8fafc' },
+  pending:  { color: '#f59e0b', label: '대기', bg: '#fffbeb' },
+}
+
+const BatchActionTableRender = () => {
+  const [selected, setSelected] = React.useState<Set<string>>(new Set())
+  const [data, setData] = React.useState(TEAM_DATA)
+
+  const toggleAll = () => {
+    if (selected.size === data.length) {
+      setSelected(new Set())
+    } else {
+      setSelected(new Set(data.map((m) => m.id)))
+    }
+  }
+
+  const toggle = (id: string) => {
+    setSelected((prev) => {
+      const next = new Set(prev)
+      if (next.has(id)) next.delete(id)
+      else next.add(id)
+      return next
+    })
+  }
+
+  const handleBulkDeactivate = () => {
+    setData((prev) =>
+      prev.map((m) => selected.has(m.id) ? { ...m, status: 'inactive' as const } : m)
+    )
+    setSelected(new Set())
+  }
+
+  const handleBulkDelete = () => {
+    setData((prev) => prev.filter((m) => !selected.has(m.id)))
+    setSelected(new Set())
+  }
+
+  const memberColumns: ColumnDef<TeamMember>[] = [
+    {
+      id: 'select',
+      header: () => (
+        <Checkbox
+          checked={selected.size === data.length && data.length > 0}
+          onChange={toggleAll}
+          aria-label="전체 선택"
+        />
+      ),
+      cell: ({ row }) => (
+        <Checkbox
+          checked={selected.has(row.original.id)}
+          onChange={() => toggle(row.original.id)}
+          aria-label={`${row.original.name} 선택`}
+        />
+      ),
+      enableSorting: false,
+    },
+    {
+      accessorKey: 'name',
+      header: '이름',
+      cell: ({ row }) => (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+          <span style={{ fontSize: 13, fontWeight: 600, color: '#1e293b' }}>{row.original.name}</span>
+          <span style={{ fontSize: 11, color: '#94a3b8' }}>{row.original.role}</span>
+        </div>
+      ),
+    },
+    { accessorKey: 'team', header: '팀' },
+    {
+      accessorKey: 'status',
+      header: '상태',
+      cell: ({ row }) => {
+        const cfg = memberStatusCfg[row.original.status]
+        return (
+          <span style={{
+            display: 'inline-flex', alignItems: 'center', gap: 5,
+            padding: '2px 8px', borderRadius: 6, fontSize: 11, fontWeight: 600,
+            color: cfg.color, background: cfg.bg,
+          }}>
+            <span style={{ width: 6, height: 6, borderRadius: '50%', background: cfg.color }} />
+            {cfg.label}
+          </span>
+        )
+      },
+    },
+    { accessorKey: 'joinedAt', header: '입사일' },
+  ]
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 0, width: '100%' }}>
+      <div style={{ padding: '12px 0', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <span style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>팀원 관리</span>
+        <span style={{ fontSize: 12, color: '#94a3b8' }}>총 {data.length}명</span>
+      </div>
+      <DataTable
+        columns={memberColumns as any}
+        data={data as any}
+        enableSorting={true}
+      />
+      {selected.size > 0 && (
+        <div
+          style={{
+            marginTop: 12,
+            padding: '12px 16px',
+            borderRadius: 10,
+            border: '1.5px solid #6366f1',
+            background: '#f5f3ff',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            gap: 12,
+          }}
+        >
+          <span style={{ fontSize: 13, fontWeight: 600, color: '#4f46e5' }}>
+            {selected.size}명 선택됨
+          </span>
+          <div style={{ display: 'flex', gap: 8 }}>
+            <button
+              onClick={handleBulkDeactivate}
+              style={{
+                padding: '6px 14px', borderRadius: 7, border: '1.5px solid #a5b4fc',
+                background: '#fff', color: '#4f46e5', fontSize: 12, fontWeight: 600, cursor: 'pointer',
+              }}
+            >
+              비활성화
+            </button>
+            <button
+              onClick={handleBulkDelete}
+              style={{
+                padding: '6px 14px', borderRadius: 7, border: 'none',
+                background: '#ef4444', color: '#fff', fontSize: 12, fontWeight: 600, cursor: 'pointer',
+              }}
+            >
+              삭제
+            </button>
+            <button
+              onClick={() => setSelected(new Set())}
+              style={{
+                padding: '6px 14px', borderRadius: 7, border: '1.5px solid #e2e8f0',
+                background: '#fff', color: '#64748b', fontSize: 12, fontWeight: 600, cursor: 'pointer',
+              }}
+            >
+              취소
+            </button>
+          </div>
+        </div>
+      )}
+      <div style={{ marginTop: 12, fontSize: 11, color: '#94a3b8' }}>
+        Ant Design 배치 액션 패턴 — 다중 선택 후 배치 액션 바 표시
+      </div>
+    </div>
+  )
+}
+
+export const Ant_배치_액션_테이블: Story = {
+  name: 'Ant Design - 배치 액션 테이블',
+  render: () => <BatchActionTableRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Tailwind UI 벤치마크: 요약 통계 행 포함 테이블
+   Tailwind UI의 stacked list + summary row 패턴 — 집계 통계를 하단에 표시
+-------------------------------------------------------------------------- */
+type SalesEntry = {
+  id: string
+  product: string
+  category: string
+  units: number
+  revenue: number
+  margin: number
+  trend: 'up' | 'down' | 'flat'
+}
+
+const SALES_DATA: SalesEntry[] = [
+  { id: 's1', product: 'Orbit Pro 라이선스', category: 'SaaS', units: 142, revenue: 4259800, margin: 78, trend: 'up' },
+  { id: 's2', product: 'Design Token Pack', category: '에셋', units: 89, revenue: 2661100, margin: 92, trend: 'up' },
+  { id: 's3', product: 'Storybook 플러그인', category: '플러그인', units: 54, revenue: 1077300, margin: 85, trend: 'flat' },
+  { id: 's4', product: 'Component Library', category: 'SaaS', units: 33, revenue: 2970900, margin: 71, trend: 'down' },
+  { id: 's5', product: 'Support 플랜', category: '서비스', units: 21, revenue: 1890000, margin: 62, trend: 'up' },
+]
+
+const trendIcon = (trend: SalesEntry['trend']) => {
+  if (trend === 'up') return <span style={{ color: '#10b981', fontSize: 12 }}>▲</span>
+  if (trend === 'down') return <span style={{ color: '#ef4444', fontSize: 12 }}>▼</span>
+  return <span style={{ color: '#94a3b8', fontSize: 12 }}>─</span>
+}
+
+const formatKRW = (n: number) =>
+  n >= 1000000
+    ? `${(n / 1000000).toFixed(1)}M`
+    : `${(n / 1000).toFixed(0)}K`
+
+const SalesSummaryTableRender = () => {
+  const totals = {
+    units: SALES_DATA.reduce((s, r) => s + r.units, 0),
+    revenue: SALES_DATA.reduce((s, r) => s + r.revenue, 0),
+    margin: Math.round(SALES_DATA.reduce((s, r) => s + r.margin, 0) / SALES_DATA.length),
+  }
+
+  const salesColumns: ColumnDef<SalesEntry>[] = [
+    {
+      accessorKey: 'product',
+      header: '제품',
+      cell: ({ row }) => (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+          <span style={{ fontSize: 13, fontWeight: 600, color: '#1e293b' }}>{row.original.product}</span>
+          <span
+            style={{
+              fontSize: 10, padding: '1px 6px', borderRadius: 4,
+              background: '#f1f5f9', color: '#64748b', display: 'inline-block',
+              width: 'fit-content',
+            }}
+          >
+            {row.original.category}
+          </span>
+        </div>
+      ),
+    },
+    {
+      accessorKey: 'units',
+      header: () => <div style={{ textAlign: 'right' }}>판매</div>,
+      cell: ({ row }) => (
+        <div style={{ textAlign: 'right', display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: 4 }}>
+          {trendIcon(row.original.trend)}
+          <span style={{ fontSize: 13, fontWeight: 600 }}>{row.original.units}</span>
+        </div>
+      ),
+    },
+    {
+      accessorKey: 'revenue',
+      header: () => <div style={{ textAlign: 'right' }}>매출</div>,
+      cell: ({ row }) => (
+        <div style={{ textAlign: 'right', fontSize: 13, fontWeight: 700, color: '#0f172a' }}>
+          ₩{formatKRW(row.original.revenue)}
+        </div>
+      ),
+    },
+    {
+      accessorKey: 'margin',
+      header: () => <div style={{ textAlign: 'right' }}>마진</div>,
+      cell: ({ row }) => {
+        const m = row.original.margin
+        const color = m >= 80 ? '#10b981' : m >= 65 ? '#6366f1' : '#f59e0b'
+        return (
+          <div style={{ textAlign: 'right' }}>
+            <span style={{ fontSize: 12, fontWeight: 700, color }}>{m}%</span>
+          </div>
+        )
+      },
+    },
+  ]
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 0, width: '100%', maxWidth: 600 }}>
+      <div style={{ padding: '12px 0', display: 'flex', justifyContent: 'space-between' }}>
+        <span style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>제품별 매출 현황</span>
+        <span style={{ fontSize: 12, color: '#94a3b8' }}>2026 Q1</span>
+      </div>
+      <DataTable columns={salesColumns as any} data={SALES_DATA as any} enableSorting={true} />
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns: '1fr 1fr 1fr',
+          gap: 0,
+          borderTop: '2px solid #0f172a',
+          padding: '12px 0',
+          marginTop: 4,
+        }}
+      >
+        <div style={{ textAlign: 'center' }}>
+          <div style={{ fontSize: 11, color: '#94a3b8', fontWeight: 500, marginBottom: 4 }}>총 판매</div>
+          <div style={{ fontSize: 18, fontWeight: 800, color: '#0f172a' }}>{totals.units}</div>
+        </div>
+        <div style={{ textAlign: 'center', borderLeft: '1px solid #e2e8f0', borderRight: '1px solid #e2e8f0' }}>
+          <div style={{ fontSize: 11, color: '#94a3b8', fontWeight: 500, marginBottom: 4 }}>총 매출</div>
+          <div style={{ fontSize: 18, fontWeight: 800, color: '#0f172a' }}>₩{formatKRW(totals.revenue)}</div>
+        </div>
+        <div style={{ textAlign: 'center' }}>
+          <div style={{ fontSize: 11, color: '#94a3b8', fontWeight: 500, marginBottom: 4 }}>평균 마진</div>
+          <div style={{ fontSize: 18, fontWeight: 800, color: '#10b981' }}>{totals.margin}%</div>
+        </div>
+      </div>
+      <div style={{ marginTop: 6, fontSize: 11, color: '#94a3b8' }}>
+        Tailwind UI 요약 통계 행 패턴 — 집계 지표를 테이블 하단에 표시
+      </div>
+    </div>
+  )
+}
+
+export const Tailwind_매출_요약_테이블: Story = {
+  name: 'Tailwind UI - 요약 통계 행 포함 매출 테이블',
+  render: () => <SalesSummaryTableRender />,
+}
