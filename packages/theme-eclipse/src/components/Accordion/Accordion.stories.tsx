@@ -1829,3 +1829,214 @@ export const MUI_Chakra_이슈_트래커_아코디언: Story = {
   },
   render: () => <MuiChakraIssueTrackerRender />,
 }
+
+// Cycle 142 - Apple HIG + Google Material 3 benchmark
+
+function AppleHIGSettingsGroup142Render() {
+  const [enabled, setEnabled] = useState<Record<string, boolean>>({
+    darkMode: true,
+    pushNotif: false,
+    biometric: true,
+    autoUpdate: true,
+    analytics: false,
+  })
+
+  const toggle = (key: string) => setEnabled((e) => ({ ...e, [key]: !e[key] }))
+
+  const groups = [
+    {
+      title: '화면 및 디스플레이',
+      items: [
+        { key: 'darkMode', label: '다크 모드', desc: '어두운 테마 사용' },
+      ],
+    },
+    {
+      title: '알림',
+      items: [
+        { key: 'pushNotif', label: '푸시 알림', desc: '앱 알림 수신 허용' },
+      ],
+    },
+    {
+      title: '보안',
+      items: [
+        { key: 'biometric', label: '생체 인증', desc: 'Face ID / Touch ID 사용' },
+      ],
+    },
+    {
+      title: '시스템',
+      items: [
+        { key: 'autoUpdate', label: '자동 업데이트', desc: '앱 자동 업데이트 허용' },
+        { key: 'analytics', label: '사용 분석 공유', desc: '익명 사용 통계 전송' },
+      ],
+    },
+  ]
+
+  return (
+    <div style={{ width: 360, fontFamily: 'system-ui, sans-serif' }}>
+      <div style={{ marginBottom: 14 }}>
+        <div style={{ fontSize: 22, fontWeight: 700, color: '#0f172a' }}>설정</div>
+        <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>Apple HIG — 설정 그룹 아코디언</div>
+      </div>
+      <Accordion type="multiple" defaultValue={['화면 및 디스플레이', '보안', '시스템']}>
+        {groups.map((group) => (
+          <Accordion.Item key={group.title} value={group.title}>
+            <Accordion.Trigger>{group.title}</Accordion.Trigger>
+            <Accordion.Content>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
+                {group.items.map((item, i) => (
+                  <div
+                    key={item.key}
+                    style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px 0', borderBottom: i < group.items.length - 1 ? '1px solid var(--sem-eclipse-color-borderSubtle)' : 'none' }}
+                  >
+                    <div>
+                      <div style={{ fontSize: 13, color: 'var(--sem-eclipse-color-foregroundPrimary)', fontWeight: 500 }}>{item.label}</div>
+                      <div style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginTop: 2 }}>{item.desc}</div>
+                    </div>
+                    <Switch
+                      checked={enabled[item.key]}
+                      onCheckedChange={() => toggle(item.key)}
+                    />
+                  </div>
+                ))}
+              </div>
+            </Accordion.Content>
+          </Accordion.Item>
+        ))}
+      </Accordion>
+    </div>
+  )
+}
+
+export const Apple_HIG_설정_그룹_아코디언: Story = {
+  name: 'Apple HIG — 설정 그룹 아코디언 (Cycle 142)',
+  args: { type: 'multiple' },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Apple HIG 설정 화면 패턴. multiple 타입 아코디언으로 카테고리 그룹화, Switch 토글로 옵션 제어. iOS 설정 앱 UX.',
+      },
+    },
+  },
+  render: () => <AppleHIGSettingsGroup142Render />,
+}
+
+function M3ExpansionPanel142Render() {
+  const [openItem, setOpenItem] = useState<string | null>('design')
+
+  const panels = [
+    {
+      id: 'design',
+      title: 'Design Tokens',
+      subtitle: '3단계 토큰 시스템',
+      badge: '완료',
+      color: '#6750a4',
+      content: '레퍼런스 → 시맨틱 → 컴포넌트 토큰의 3단계 계층 구조. vanilla-extract CSS-in-JS로 완전한 타입 안전성 보장. 런타임 오버헤드 없는 제로-런타임 스타일링.',
+    },
+    {
+      id: 'components',
+      title: 'Core Components',
+      subtitle: '기반 컴포넌트 세트',
+      badge: '개발 중',
+      color: '#0284c7',
+      content: '비스타일 기반 컴포넌트(core 패키지)와 Eclipse 테마 컴포넌트의 분리. forwardRef, compound component 패턴 전면 적용. WAI-ARIA 접근성 기본 탑재.',
+    },
+    {
+      id: 'theming',
+      title: 'Eclipse Theme',
+      subtitle: '프로덕션 레디 테마',
+      badge: 'v2 Beta',
+      color: '#059669',
+      content: 'Figma 디자인 시스템과 1:1 매핑. 다크모드 CSS 변수 기반 자동 전환. 커스텀 테마 확장 API 제공. Storybook 141+ 사이클 스토리 포함.',
+    },
+  ]
+
+  const badgeColor: Record<string, string> = { '완료': '#10b981', '개발 중': '#f59e0b', 'v2 Beta': '#6750a4' }
+
+  return (
+    <div style={{ width: 400, fontFamily: 'system-ui, sans-serif' }}>
+      <div style={{ marginBottom: 14, fontSize: 11, color: '#64748b' }}>Google Material 3 — Expansion Panel 패턴</div>
+      <Accordion type="single" value={openItem ?? ''} onValueChange={(v) => setOpenItem(v || null)}>
+        {panels.map((panel) => (
+          <Accordion.Item key={panel.id} value={panel.id} style={{ marginBottom: 8, border: `1px solid ${openItem === panel.id ? panel.color + '40' : 'var(--sem-eclipse-color-borderDefault)'}`, borderRadius: 12, overflow: 'hidden', transition: 'border-color 0.2s' }}>
+            <Accordion.Trigger style={{ background: openItem === panel.id ? `${panel.color}08` : 'transparent' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 10, flex: 1 }}>
+                <div style={{ width: 8, height: 8, borderRadius: '50%', background: panel.color, flexShrink: 0 }} />
+                <div>
+                  <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)', textAlign: 'left' }}>{panel.title}</div>
+                  <div style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)', textAlign: 'left' }}>{panel.subtitle}</div>
+                </div>
+                <span style={{ marginLeft: 'auto', marginRight: 8, fontSize: 10, fontWeight: 700, color: badgeColor[panel.badge], background: `${badgeColor[panel.badge]}15`, padding: '2px 8px', borderRadius: 10 }}>
+                  {panel.badge}
+                </span>
+              </div>
+            </Accordion.Trigger>
+            <Accordion.Content>
+              <div style={{ fontSize: 13, color: 'var(--sem-eclipse-color-foregroundSecondary)', lineHeight: 1.7, padding: '4px 0 8px' }}>
+                {panel.content}
+              </div>
+            </Accordion.Content>
+          </Accordion.Item>
+        ))}
+      </Accordion>
+    </div>
+  )
+}
+
+export const M3_익스팬션_패널: Story = {
+  name: 'Material 3 — Expansion Panel (Cycle 142)',
+  args: { type: 'single' },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Google Material 3 Expansion Panel 패턴. single 타입으로 하나만 열림. 활성 패널 테마 색상 보더/배경 강조, 배지 상태 표시.',
+      },
+    },
+  },
+  render: () => <M3ExpansionPanel142Render />,
+}
+
+function AppleM3FAQ142Render() {
+  const faqs = [
+    { q: 'Orbit UI는 Next.js에서 사용할 수 있나요?', a: '네. theme-eclipse 패키지의 server/ 디렉토리에 서버 컴포넌트 래퍼가 포함되어 있습니다. Next.js 13+ App Router와 완전히 호환됩니다.' },
+    { q: '기존 Tailwind CSS 프로젝트에 적용하려면?', a: 'pnpm add @heejun-com/theme-eclipse 후, tailwind.config.ts에 orbit-ui 프리셋을 추가하세요. 기존 클래스와 충돌 없이 사용할 수 있습니다.' },
+    { q: '커스텀 테마를 만들려면 어떻게 하나요?', a: 'EclipseProvider에 theme prop으로 토큰 오버라이드 객체를 전달하세요. CSS 변수 기반이라 런타임에서도 동적 변경이 가능합니다.' },
+    { q: 'TypeScript 없이도 사용 가능한가요?', a: 'JavaScript로도 import 가능하나, 타입 추론과 자동완성의 이점을 위해 TypeScript 사용을 권장합니다.' },
+    { q: '아이콘은 어떻게 사용하나요?', a: '@heejun-com/icons 패키지를 별도 설치하세요. 모든 아이콘은 SVG 기반 React 컴포넌트로 tree-shaking을 지원합니다.' },
+  ]
+
+  return (
+    <div style={{ width: 420, fontFamily: 'system-ui, sans-serif' }}>
+      <div style={{ marginBottom: 16 }}>
+        <div style={{ fontSize: 18, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>자주 묻는 질문</div>
+        <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 3 }}>Apple HIG + M3 — FAQ 아코디언 패턴</div>
+      </div>
+      <Accordion type="single">
+        {faqs.map((faq, i) => (
+          <Accordion.Item key={i} value={String(i)}>
+            <Accordion.Trigger>
+              <span style={{ textAlign: 'left', fontSize: 13, fontWeight: 500 }}>{faq.q}</span>
+            </Accordion.Trigger>
+            <Accordion.Content>
+              <div style={{ fontSize: 13, color: 'var(--sem-eclipse-color-foregroundSecondary)', lineHeight: 1.7, padding: '4px 0 8px' }}>
+                {faq.a}
+              </div>
+            </Accordion.Content>
+          </Accordion.Item>
+        ))}
+      </Accordion>
+    </div>
+  )
+}
+
+export const Apple_M3_FAQ_아코디언: Story = {
+  name: 'Apple HIG + Material 3 — FAQ 아코디언 (Cycle 142)',
+  args: { type: 'single' },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Apple HIG + Material 3 FAQ 패턴. single 타입 아코디언으로 하나만 펼쳐지는 표준 FAQ UI. Orbit UI 실제 사용법 Q&A로 구성.',
+      },
+    },
+  },
+  render: () => <AppleM3FAQ142Render />,
+}

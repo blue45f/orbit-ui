@@ -32682,3 +32682,184 @@ export const RaycastFigma141CalendarApp: StoryObj = {
   },
   render: () => <CalendarApp141Render />,
 }
+
+// ─── Cycle 142: Apple HIG + Material 3 — 소셜 피드 ─────────────────────────
+function SocialFeed142Render() {
+  const [liked, setLiked] = React.useState<Record<number, boolean>>({})
+  const [bookmarked, setBookmarked] = React.useState<Record<number, boolean>>({})
+  const [openFaq, setOpenFaq] = React.useState<string | null>(null)
+
+  const toggleLike = (id: number) => setLiked((l) => ({ ...l, [id]: !l[id] }))
+  const toggleBookmark = (id: number) => setBookmarked((b) => ({ ...b, [id]: !b[id] }))
+
+  const posts = [
+    {
+      id: 1,
+      author: 'hjunkim',
+      handle: '@hjunkim',
+      initials: 'HJ',
+      avatarColor: '#3b82f6',
+      time: '2분 전',
+      body: 'Orbit UI Cycle 142 완료! Apple HIG + Material 3 벤치마크 적용. PageIndicator onPageChange API, Accordion compound 패턴, SocialFeed 템플릿 추가.',
+      likes: 24,
+      comments: 7,
+      tag: 'design-system',
+    },
+    {
+      id: 2,
+      author: 'design_bot',
+      handle: '@design_bot',
+      initials: 'DB',
+      avatarColor: '#8b5cf6',
+      time: '18분 전',
+      body: 'M3 Expansion Panel 패턴은 단일 열림(single)과 다중 열림(multiple) 두 모드를 모두 지원. Orbit UI Accordion의 type prop으로 동일하게 구현 가능.',
+      likes: 12,
+      comments: 3,
+      tag: 'tip',
+    },
+    {
+      id: 3,
+      author: 'orbit_ui',
+      handle: '@orbit_ui',
+      initials: 'OU',
+      avatarColor: '#10b981',
+      time: '1시간 전',
+      body: 'Apple HIG Page Control 패턴 → Orbit UI PageIndicator. onPageChange prop으로 제어 가능. 온보딩, 카드 캐러셀, 미디어 슬라이더 모두 지원.',
+      likes: 38,
+      comments: 11,
+      tag: 'orbit-ui',
+    },
+    {
+      id: 4,
+      author: 'a11y_tips',
+      handle: '@a11y_tips',
+      initials: 'A1',
+      avatarColor: '#f59e0b',
+      time: '3시간 전',
+      body: 'Accordion은 WAI-ARIA Disclosure 패턴 기반. Trigger는 button, Content는 region role. 키보드 Space/Enter로 토글, Tab 포커스 이동 지원.',
+      likes: 51,
+      comments: 9,
+      tag: 'accessibility',
+    },
+  ]
+
+  const faqs = [
+    { id: 'f1', q: '좋아요를 취소할 수 있나요?', a: '하트 버튼을 다시 클릭하면 좋아요가 취소됩니다.' },
+    { id: 'f2', q: '북마크는 어디서 확인하나요?', a: '프로필 탭 > 저장됨에서 확인할 수 있습니다.' },
+  ]
+
+  const tagColor: Record<string, string> = {
+    'design-system': '#3b82f6',
+    tip: '#8b5cf6',
+    'orbit-ui': '#10b981',
+    accessibility: '#f59e0b',
+  }
+
+  return (
+    <div style={{ width: 600, fontFamily: 'system-ui, sans-serif', background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 12, overflow: 'hidden' }}>
+      {/* 헤더 */}
+      <div style={{ padding: '14px 20px', background: '#fff', borderBottom: '1px solid #e2e8f0', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <Text style={{ fontSize: 16, fontWeight: 700, color: '#0f172a' }}>피드</Text>
+        <div style={{ display: 'flex', gap: 8 }}>
+          <SolidButton color="black" size="small">새 게시물</SolidButton>
+        </div>
+      </div>
+
+      <div style={{ display: 'flex', gap: 0 }}>
+        {/* 피드 */}
+        <div style={{ flex: 1, overflowY: 'auto', maxHeight: 520 }}>
+          {posts.map((post) => (
+            <div key={post.id} style={{ padding: '16px 20px', background: '#fff', borderBottom: '1px solid #f1f5f9' }}>
+              {/* 저자 */}
+              <div style={{ display: 'flex', gap: 10, marginBottom: 10 }}>
+                <div style={{ width: 36, height: 36, borderRadius: '50%', background: post.avatarColor, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: 13, fontWeight: 700, flexShrink: 0 }}>
+                  {post.initials}
+                </div>
+                <div style={{ flex: 1 }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                    <Text style={{ fontSize: 13, fontWeight: 700, color: '#0f172a' }}>{post.author}</Text>
+                    <Text style={{ fontSize: 12, color: '#94a3b8' }}>{post.handle}</Text>
+                    <Text style={{ fontSize: 11, color: '#94a3b8', marginLeft: 'auto' }}>{post.time}</Text>
+                  </div>
+                  <div style={{ marginTop: 2 }}>
+                    <LabelBadge color="gray"><LabelBadge.Label>#{post.tag}</LabelBadge.Label></LabelBadge>
+                  </div>
+                </div>
+              </div>
+
+              {/* 본문 */}
+              <Text style={{ fontSize: 13, color: '#334155', lineHeight: 1.7, display: 'block', marginBottom: 12 }}>
+                {post.body}
+              </Text>
+
+              {/* 액션 */}
+              <div style={{ display: 'flex', gap: 16, alignItems: 'center' }}>
+                <button
+                  onClick={() => toggleLike(post.id)}
+                  style={{ display: 'flex', gap: 5, alignItems: 'center', border: 'none', background: 'none', cursor: 'pointer', padding: '4px 8px', borderRadius: 6, color: liked[post.id] ? '#ef4444' : '#64748b', fontSize: 12, fontWeight: liked[post.id] ? 700 : 400 }}
+                >
+                  <span style={{ fontSize: 14 }}>{liked[post.id] ? '♥' : '♡'}</span>
+                  {post.likes + (liked[post.id] ? 1 : 0)}
+                </button>
+                <button style={{ display: 'flex', gap: 5, alignItems: 'center', border: 'none', background: 'none', cursor: 'pointer', padding: '4px 8px', borderRadius: 6, color: '#64748b', fontSize: 12 }}>
+                  <span style={{ fontSize: 14 }}>◎</span>
+                  {post.comments}
+                </button>
+                <button
+                  onClick={() => toggleBookmark(post.id)}
+                  style={{ marginLeft: 'auto', display: 'flex', gap: 5, alignItems: 'center', border: 'none', background: 'none', cursor: 'pointer', padding: '4px 8px', borderRadius: 6, color: bookmarked[post.id] ? '#f59e0b' : '#64748b', fontSize: 12 }}
+                >
+                  <span style={{ fontSize: 14 }}>{bookmarked[post.id] ? '★' : '☆'}</span>
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* 사이드 패널 */}
+        <div style={{ width: 200, borderLeft: '1px solid #e2e8f0', background: '#fff', flexShrink: 0 }}>
+          <div style={{ padding: '12px 14px', borderBottom: '1px solid #f1f5f9' }}>
+            <Text style={{ fontSize: 12, fontWeight: 700, color: '#0f172a' }}>태그</Text>
+          </div>
+          <div style={{ padding: '8px' }}>
+            {Object.entries(tagColor).map(([tag, color]) => (
+              <div key={tag} style={{ padding: '6px 8px', borderRadius: 6, marginBottom: 2 }}>
+                <span style={{ fontSize: 12, color, fontWeight: 500 }}>#{tag}</span>
+              </div>
+            ))}
+          </div>
+          <Divider />
+          <div style={{ padding: '12px 14px', borderBottom: '1px solid #f1f5f9' }}>
+            <Text style={{ fontSize: 12, fontWeight: 700, color: '#0f172a' }}>도움말</Text>
+          </div>
+          <Accordion type="single" value={openFaq ?? ''} onValueChange={(v) => setOpenFaq(v || null)}>
+            {faqs.map((faq) => (
+              <Accordion.Item key={faq.id} value={faq.id}>
+                <Accordion.Trigger style={{ fontSize: 11, padding: '8px 14px' }}>{faq.q}</Accordion.Trigger>
+                <Accordion.Content>
+                  <div style={{ fontSize: 11, color: '#64748b', padding: '0 14px 8px', lineHeight: 1.6 }}>{faq.a}</div>
+                </Accordion.Content>
+              </Accordion.Item>
+            ))}
+          </Accordion>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const AppleM3142SocialFeed: StoryObj = {
+  name: 'Apple HIG + Material 3 — 소셜 피드 (Cycle 142)',
+  parameters: {
+    layout: 'centered',
+    docs: {
+      description: {
+        story:
+          'Apple HIG + Google Material 3 벤치마크 — Cycle 142. ' +
+          '소셜 피드: 게시물 목록(좋아요/북마크 토글), 사이드 태그 패널 + Accordion FAQ. ' +
+          'Text 타이포 계층, LabelBadge 태그, SolidButton 게시물 작성.',
+      },
+    },
+  },
+  render: () => <SocialFeed142Render />,
+}

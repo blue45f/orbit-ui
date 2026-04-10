@@ -1086,3 +1086,201 @@ export const shadcn_Linear_파일_업로드_스텝: Story = {
   },
   render: () => <ShadcnLinearUploadStepRender />,
 }
+
+// Cycle 142 - Apple HIG + Google Material 3 benchmark
+function AppleHIGPageControl142Render() {
+  const [current, setCurrent] = useState(0)
+  const slides = [
+    { title: '모든 기기에서 이어서', desc: 'iPhone, iPad, Mac 어디서나 끊김없이 이어서 작업하세요. iCloud가 자동으로 동기화합니다.', bg: '#1d4ed8' },
+    { title: '집중 모드', desc: '업무 집중, 개인 시간, 취침 등 상황에 맞게 알림을 자동으로 조절하세요.', bg: '#7c3aed' },
+    { title: '프라이버시 우선', desc: '앱이 카메라, 마이크, 위치에 접근할 때 언제나 투명하게 알려드립니다.', bg: '#0f766e' },
+    { title: '시작하기', desc: '지금 바로 시작해보세요. 설정은 언제든지 변경할 수 있습니다.', bg: '#b45309' },
+  ]
+
+  const prev = () => setCurrent((c) => Math.max(0, c - 1))
+  const next = () => setCurrent((c) => Math.min(slides.length - 1, c + 1))
+
+  const slide = slides[current]
+
+  return (
+    <div style={{ width: 360, fontFamily: 'system-ui, sans-serif' }}>
+      <div style={{ background: slide.bg, borderRadius: 20, padding: '32px 28px 24px', marginBottom: 20, minHeight: 200, display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', transition: 'background 0.4s ease' }}>
+        <div style={{ fontSize: 20, fontWeight: 700, color: '#fff', marginBottom: 10, lineHeight: 1.3 }}>{slide.title}</div>
+        <div style={{ fontSize: 14, color: 'rgba(255,255,255,0.8)', lineHeight: 1.6 }}>{slide.desc}</div>
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 16 }}>
+        <PageIndicator currentPage={current} onPageChange={setCurrent}>
+          {generateDots(slides.length)}
+        </PageIndicator>
+        <div style={{ display: 'flex', gap: 10, width: '100%' }}>
+          <button onClick={prev} disabled={current === 0} style={{ flex: 1, padding: '11px 0', borderRadius: 12, border: '1px solid #e2e8f0', background: '#fff', fontSize: 14, fontWeight: 600, cursor: current === 0 ? 'not-allowed' : 'pointer', color: current === 0 ? '#94a3b8' : '#0f172a', opacity: current === 0 ? 0.5 : 1 }}>
+            이전
+          </button>
+          <button onClick={next} disabled={current === slides.length - 1} style={{ flex: 1, padding: '11px 0', borderRadius: 12, border: 'none', background: slide.bg, fontSize: 14, fontWeight: 600, cursor: current === slides.length - 1 ? 'not-allowed' : 'pointer', color: '#fff', opacity: current === slides.length - 1 ? 0.5 : 1, transition: 'background 0.4s ease' }}>
+            {current === slides.length - 2 ? '시작' : '다음'}
+          </button>
+        </div>
+        <div style={{ fontSize: 11, color: '#94a3b8' }}>Apple HIG — Page Control 온보딩 패턴</div>
+      </div>
+    </div>
+  )
+}
+
+export const Apple_HIG_온보딩_페이지_컨트롤: Story = {
+  name: 'Apple HIG — 온보딩 페이지 컨트롤 (Cycle 142)',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Apple HIG Page Control 온보딩 패턴. 슬라이드 배경색 전환, dot 클릭 직접 이동, 이전/다음 버튼. 마지막 슬라이드 전 버튼 "시작"으로 전환.',
+      },
+    },
+  },
+  render: () => <AppleHIGPageControl142Render />,
+}
+
+function M3StepperIndicator142Render() {
+  const [step, setStep] = useState(0)
+  const steps = ['계정 생성', '프로필 설정', '알림 설정', '완료']
+  const [completed, setCompleted] = useState<boolean[]>([false, false, false, false])
+
+  const advance = () => {
+    if (step >= steps.length - 1) return
+    setCompleted((c) => { const n = [...c]; n[step] = true; return n })
+    setStep((s) => s + 1)
+  }
+
+  const goTo = (i: number) => {
+    if (completed[i] || i === 0 || completed[i - 1]) setStep(i)
+  }
+
+  return (
+    <div style={{ width: 380, fontFamily: 'system-ui, sans-serif' }}>
+      <div style={{ marginBottom: 10, fontSize: 11, color: '#64748b' }}>Google Material 3 — Stepper + PageIndicator</div>
+
+      {/* M3 스타일 스텝 헤더 */}
+      <div style={{ display: 'flex', alignItems: 'center', marginBottom: 24 }}>
+        {steps.map((s, i) => (
+          <div key={s} style={{ display: 'flex', alignItems: 'center', flex: i < steps.length - 1 ? 1 : 'none' }}>
+            <button
+              onClick={() => goTo(i)}
+              style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4, background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}
+            >
+              <div style={{ width: 28, height: 28, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 12, fontWeight: 700, background: completed[i] ? '#10b981' : i === step ? '#6750a4' : '#f1f5f9', color: completed[i] || i === step ? '#fff' : '#94a3b8', transition: 'all 0.2s', border: `2px solid ${i === step ? '#6750a4' : 'transparent'}` }}>
+                {completed[i] ? '✓' : i + 1}
+              </div>
+              <div style={{ fontSize: 10, fontWeight: i === step ? 600 : 400, color: i === step ? '#6750a4' : '#94a3b8', whiteSpace: 'nowrap' }}>{s}</div>
+            </button>
+            {i < steps.length - 1 && (
+              <div style={{ flex: 1, height: 2, background: completed[i] ? '#10b981' : '#e2e8f0', margin: '0 4px', marginBottom: 14, transition: 'background 0.3s' }} />
+            )}
+          </div>
+        ))}
+      </div>
+
+      {/* PageIndicator 동기화 */}
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 16 }}>
+        <PageIndicator currentPage={step} onPageChange={(i) => goTo(i)}>
+          {generateDots(steps.length)}
+        </PageIndicator>
+        <div style={{ width: '100%', padding: '20px', background: '#f8fafc', borderRadius: 12, border: '1px solid #e2e8f0', textAlign: 'center' }}>
+          <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a', marginBottom: 6 }}>{steps[step]}</div>
+          <div style={{ fontSize: 12, color: '#64748b' }}>단계 {step + 1} / {steps.length}</div>
+        </div>
+        <button
+          onClick={advance}
+          disabled={step >= steps.length - 1}
+          style={{ width: '100%', padding: '11px 0', borderRadius: 20, border: 'none', background: step >= steps.length - 1 ? '#e2e8f0' : '#6750a4', color: step >= steps.length - 1 ? '#94a3b8' : '#fff', fontSize: 13, fontWeight: 600, cursor: step >= steps.length - 1 ? 'not-allowed' : 'pointer', letterSpacing: 0.3 }}
+        >
+          {step === steps.length - 1 ? '완료됨' : '다음 단계'}
+        </button>
+      </div>
+    </div>
+  )
+}
+
+export const M3_스텝퍼_인디케이터: Story = {
+  name: 'Material 3 — Stepper + PageIndicator 연동 (Cycle 142)',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Google Material 3 Stepper 패턴 + PageIndicator 동기화. 완료 단계 체크 표시, M3 보라색 팔레트, 스텝 연결선 완료 시 그린 전환.',
+      },
+    },
+  },
+  render: () => <M3StepperIndicator142Render />,
+}
+
+function AppleM3MediaCarousel142Render() {
+  const [current, setCurrent] = useState(0)
+  const [autoPlay, setAutoPlay] = useState(false)
+  const runRef = React.useRef<ReturnType<typeof setInterval> | null>(null)
+
+  const items = [
+    { label: 'Orbit UI v2.0', sub: '컴포넌트 라이브러리', icon: '◈', color: '#3b82f6' },
+    { label: 'Design Tokens', sub: '3단계 토큰 시스템', icon: '◇', color: '#8b5cf6' },
+    { label: 'Storybook 8', sub: '컴포넌트 문서화', icon: '◉', color: '#10b981' },
+    { label: 'Vanilla Extract', sub: '타입 안전 CSS', icon: '◆', color: '#f59e0b' },
+    { label: 'Tailwind CSS', sub: '유틸리티 퍼스트', icon: '◎', color: '#06b6d4' },
+  ]
+
+  const toggleAuto = () => {
+    if (autoPlay) {
+      if (runRef.current) clearInterval(runRef.current)
+      runRef.current = null
+      setAutoPlay(false)
+    } else {
+      setAutoPlay(true)
+      runRef.current = setInterval(() => {
+        setCurrent((c) => (c + 1) % items.length)
+      }, 1200)
+    }
+  }
+
+  useEffect(() => () => { if (runRef.current) clearInterval(runRef.current) }, [])
+
+  const item = items[current]
+
+  return (
+    <div style={{ width: 340, fontFamily: 'system-ui, sans-serif' }}>
+      <div style={{ marginBottom: 10, fontSize: 11, color: '#64748b' }}>Apple HIG + M3 — 미디어 캐러셀 PageIndicator</div>
+      <div style={{ borderRadius: 16, border: '1px solid #e2e8f0', overflow: 'hidden' }}>
+        <div style={{ padding: '40px 24px', textAlign: 'center', background: `${item.color}0f`, borderBottom: '1px solid #f1f5f9', transition: 'background 0.3s' }}>
+          <div style={{ fontSize: 48, color: item.color, marginBottom: 12 }}>{item.icon}</div>
+          <div style={{ fontSize: 18, fontWeight: 700, color: '#0f172a', marginBottom: 4 }}>{item.label}</div>
+          <div style={{ fontSize: 13, color: '#64748b' }}>{item.sub}</div>
+        </div>
+        <div style={{ padding: '16px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12, background: '#fff' }}>
+          <PageIndicator currentPage={current} onPageChange={setCurrent}>
+            {generateDots(items.length)}
+          </PageIndicator>
+          <div style={{ display: 'flex', gap: 8 }}>
+            <button onClick={() => setCurrent((c) => Math.max(0, c - 1))} style={{ padding: '6px 14px', borderRadius: 8, border: '1px solid #e2e8f0', background: '#fff', fontSize: 12, cursor: 'pointer', color: '#374151' }}>
+              이전
+            </button>
+            <button
+              onClick={toggleAuto}
+              style={{ padding: '6px 14px', borderRadius: 8, border: 'none', background: autoPlay ? item.color : '#f1f5f9', fontSize: 12, cursor: 'pointer', color: autoPlay ? '#fff' : '#374151', fontWeight: autoPlay ? 600 : 400, transition: 'background 0.3s' }}
+            >
+              {autoPlay ? '정지' : '자동'}
+            </button>
+            <button onClick={() => setCurrent((c) => Math.min(items.length - 1, c + 1))} style={{ padding: '6px 14px', borderRadius: 8, border: '1px solid #e2e8f0', background: '#fff', fontSize: 12, cursor: 'pointer', color: '#374151' }}>
+              다음
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const Apple_M3_미디어_캐러셀_인디케이터: Story = {
+  name: 'Apple HIG + Material 3 — 미디어 캐러셀 (Cycle 142)',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Apple HIG 카드 캐러셀 + M3 색상 역할 시스템. 자동 재생 토글, PageIndicator dot 직접 클릭, 아이템 색상 동적 변환 (배경/버튼).',
+      },
+    },
+  },
+  render: () => <AppleM3MediaCarousel142Render />,
+}
