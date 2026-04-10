@@ -23873,3 +23873,228 @@ export const Raycast97NotificationCenter: StoryObj = {
   },
   render: () => <Raycast97NotificationCenterRender />,
 }
+
+// ─── Cycle 98: Ant Design + Mantine 벤치마크 ────────────────────────────────────
+
+type Ant98FormStep = 'basic' | 'security' | 'profile' | 'done'
+type Ant98ValidationState = 'idle' | 'valid' | 'error'
+
+interface Ant98FieldState {
+  value: string
+  validation: Ant98ValidationState
+  message: string
+}
+
+const Ant98FormStepOrder: Ant98FormStep[] = ['basic', 'security', 'profile', 'done']
+
+const Ant98StepMeta: Record<Ant98FormStep, { title: string; desc: string }> = {
+  basic: { title: '기본 정보', desc: '이름과 이메일을 입력하세요' },
+  security: { title: '보안 설정', desc: '비밀번호를 설정하세요' },
+  profile: { title: '프로필 설정', desc: '팀과 역할을 선택하세요' },
+  done: { title: '완료', desc: '계정이 성공적으로 생성되었습니다' },
+}
+
+const ROLES98 = ['개발자', '디자이너', 'PM', 'QA', '기획자']
+const TEAMS98 = ['플랫폼팀', '디자인시스템팀', '프론트엔드팀', '백엔드팀']
+
+const validateEmail = (v: string): Ant98ValidationState =>
+  v === '' ? 'idle' : /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) ? 'valid' : 'error'
+
+const validatePassword = (v: string): Ant98ValidationState =>
+  v === '' ? 'idle' : v.length >= 8 ? 'valid' : 'error'
+
+const Ant98MultiStepFormRender = () => {
+  const [step, setStep] = useState<Ant98FormStep>('basic')
+  const [name, setName] = useState<Ant98FieldState>({ value: '', validation: 'idle', message: '' })
+  const [email, setEmail] = useState<Ant98FieldState>({ value: '', validation: 'idle', message: '' })
+  const [password, setPassword] = useState<Ant98FieldState>({ value: '', validation: 'idle', message: '' })
+  const [selectedRole, setSelectedRole] = useState('')
+  const [selectedTeam, setSelectedTeam] = useState('')
+
+  const stepIndex = Ant98FormStepOrder.indexOf(step)
+
+  const updateName = (v: string) => setName({
+    value: v,
+    validation: v === '' ? 'idle' : v.length >= 2 ? 'valid' : 'error',
+    message: v.length > 0 && v.length < 2 ? '이름은 2자 이상 입력하세요' : '',
+  })
+
+  const updateEmail = (v: string) => setEmail({
+    value: v,
+    validation: validateEmail(v),
+    message: validateEmail(v) === 'error' ? '올바른 이메일 주소를 입력하세요' : '',
+  })
+
+  const updatePassword = (v: string) => setPassword({
+    value: v,
+    validation: validatePassword(v),
+    message: validatePassword(v) === 'error' ? '비밀번호는 8자 이상이어야 합니다' : '',
+  })
+
+  const canNext = () => {
+    if (step === 'basic') return name.validation === 'valid' && email.validation === 'valid'
+    if (step === 'security') return password.validation === 'valid'
+    if (step === 'profile') return selectedRole !== '' && selectedTeam !== ''
+    return false
+  }
+
+  const fieldStyle = (state: Ant98ValidationState): React.CSSProperties => ({
+    width: '100%',
+    padding: '8px 10px',
+    border: `1px solid ${state === 'error' ? '#ff4d4f' : state === 'valid' ? '#52c41a' : '#d9d9d9'}`,
+    borderRadius: 6,
+    fontSize: 13,
+    outline: 'none',
+    boxSizing: 'border-box',
+    transition: 'border-color 0.2s',
+  })
+
+  return (
+    <div style={{ width: 480, fontFamily: 'Inter, system-ui, sans-serif' }}>
+      {/* Step indicator */}
+      <div style={{ display: 'flex', alignItems: 'center', marginBottom: 24 }}>
+        {Ant98FormStepOrder.filter(s => s !== 'done').map((s, idx) => {
+          const currentIdx = Ant98FormStepOrder.indexOf(step)
+          const isComplete = idx < currentIdx
+          const isCurrent = idx === currentIdx
+          return (
+            <React.Fragment key={s}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                <div style={{ width: 24, height: 24, borderRadius: '50%', background: isComplete ? '#52c41a' : isCurrent ? '#1677ff' : '#f0f0f0', color: isComplete || isCurrent ? '#fff' : '#bfbfbf', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 11, fontWeight: 700, transition: 'all 0.2s' }}>
+                  {isComplete ? '✓' : idx + 1}
+                </div>
+                <span style={{ fontSize: 12, color: isCurrent ? '#1677ff' : isComplete ? '#52c41a' : '#8c8c8c', fontWeight: isCurrent ? 700 : 400 }}>{Ant98StepMeta[s].title}</span>
+              </div>
+              {idx < 2 && <div style={{ flex: 1, height: 1, background: isComplete ? '#52c41a' : '#f0f0f0', margin: '0 8px', transition: 'background 0.3s' }} />}
+            </React.Fragment>
+          )
+        })}
+      </div>
+
+      {/* Form card */}
+      <div style={{ border: '1px solid #f0f0f0', borderRadius: 12, padding: '24px', background: '#fff', boxShadow: '0 2px 8px rgba(0,0,0,0.04)' }}>
+        {step !== 'done' && (
+          <div style={{ marginBottom: 20 }}>
+            <div style={{ fontSize: 16, fontWeight: 700, color: '#262626' }}>{Ant98StepMeta[step].title}</div>
+            <div style={{ fontSize: 13, color: '#8c8c8c', marginTop: 4 }}>{Ant98StepMeta[step].desc}</div>
+          </div>
+        )}
+
+        {step === 'basic' && (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+            <div>
+              <label style={{ fontSize: 12, fontWeight: 600, color: '#262626', display: 'block', marginBottom: 4 }}>이름 <span style={{ color: '#ff4d4f' }}>*</span></label>
+              <input value={name.value} onChange={e => updateName(e.target.value)} placeholder="홍길동" style={fieldStyle(name.validation)} />
+              {name.message && <div style={{ fontSize: 11, color: '#ff4d4f', marginTop: 3 }}>{name.message}</div>}
+              {name.validation === 'valid' && <div style={{ fontSize: 11, color: '#52c41a', marginTop: 3 }}>사용 가능한 이름입니다</div>}
+            </div>
+            <div>
+              <label style={{ fontSize: 12, fontWeight: 600, color: '#262626', display: 'block', marginBottom: 4 }}>이메일 <span style={{ color: '#ff4d4f' }}>*</span></label>
+              <input value={email.value} onChange={e => updateEmail(e.target.value)} placeholder="hong@example.com" type="email" style={fieldStyle(email.validation)} />
+              {email.message && <div style={{ fontSize: 11, color: '#ff4d4f', marginTop: 3 }}>{email.message}</div>}
+              {email.validation === 'valid' && <div style={{ fontSize: 11, color: '#52c41a', marginTop: 3 }}>사용 가능한 이메일입니다</div>}
+            </div>
+          </div>
+        )}
+
+        {step === 'security' && (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+            <div>
+              <label style={{ fontSize: 12, fontWeight: 600, color: '#262626', display: 'block', marginBottom: 4 }}>비밀번호 <span style={{ color: '#ff4d4f' }}>*</span></label>
+              <input value={password.value} onChange={e => updatePassword(e.target.value)} type="password" placeholder="8자 이상 입력" style={fieldStyle(password.validation)} />
+              {password.message && <div style={{ fontSize: 11, color: '#ff4d4f', marginTop: 3 }}>{password.message}</div>}
+              {password.validation === 'valid' && (
+                <div style={{ marginTop: 6 }}>
+                  <Progress value={password.value.length >= 12 ? 100 : password.value.length >= 10 ? 66 : 33} />
+                  <div style={{ fontSize: 11, color: password.value.length >= 12 ? '#52c41a' : password.value.length >= 10 ? '#fa8c16' : '#1677ff', marginTop: 3 }}>
+                    강도: {password.value.length >= 12 ? '강함' : password.value.length >= 10 ? '보통' : '약함'}
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+
+        {step === 'profile' && (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+            <div>
+              <label style={{ fontSize: 12, fontWeight: 600, color: '#262626', display: 'block', marginBottom: 6 }}>역할</label>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+                {ROLES98.map(role => (
+                  <button
+                    key={role}
+                    onClick={() => setSelectedRole(role)}
+                    style={{ padding: '6px 12px', borderRadius: 6, border: `1px solid ${selectedRole === role ? '#1677ff' : '#d9d9d9'}`, background: selectedRole === role ? '#e6f4ff' : '#fff', color: selectedRole === role ? '#1677ff' : '#595959', fontSize: 12, cursor: 'pointer', fontWeight: selectedRole === role ? 600 : 400 }}
+                  >
+                    {role}
+                  </button>
+                ))}
+              </div>
+            </div>
+            <div>
+              <label style={{ fontSize: 12, fontWeight: 600, color: '#262626', display: 'block', marginBottom: 6 }}>팀</label>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+                {TEAMS98.map(team => (
+                  <div
+                    key={team}
+                    onClick={() => setSelectedTeam(team)}
+                    style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '8px 10px', borderRadius: 6, border: `1px solid ${selectedTeam === team ? '#1677ff' : '#f0f0f0'}`, background: selectedTeam === team ? '#e6f4ff' : '#fafafa', cursor: 'pointer' }}
+                  >
+                    <div style={{ width: 14, height: 14, borderRadius: '50%', border: `2px solid ${selectedTeam === team ? '#1677ff' : '#d9d9d9'}`, background: selectedTeam === team ? '#1677ff' : '#fff', flexShrink: 0 }} />
+                    <span style={{ fontSize: 13, color: selectedTeam === team ? '#1677ff' : '#262626', fontWeight: selectedTeam === team ? 600 : 400 }}>{team}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {step === 'done' && (
+          <div style={{ textAlign: 'center', padding: '16px 0' }}>
+            <div style={{ width: 56, height: 56, borderRadius: '50%', background: '#f6ffed', border: '2px solid #52c41a', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 14px', fontSize: 24 }}>✓</div>
+            <div style={{ fontSize: 16, fontWeight: 700, color: '#262626', marginBottom: 6 }}>계정 생성 완료</div>
+            <div style={{ fontSize: 13, color: '#8c8c8c', marginBottom: 16 }}>
+              <strong>{name.value}</strong>님의 계정이 생성되었습니다.<br />
+              {selectedRole} · {selectedTeam}
+            </div>
+            <LabelBadge color="benefit"><LabelBadge.Label>{email.value}</LabelBadge.Label></LabelBadge>
+          </div>
+        )}
+
+        {/* Navigation */}
+        {step !== 'done' && (
+          <div style={{ display: 'flex', gap: 8, marginTop: 24 }}>
+            {stepIndex > 0 && (
+              <OutlineButton color="gray" size="medium" style={{ flex: 1 }} onClick={() => setStep(Ant98FormStepOrder[stepIndex - 1])}>
+                <OutlineButton.Center>이전</OutlineButton.Center>
+              </OutlineButton>
+            )}
+            <SolidButton
+              color={canNext() ? 'primary' : 'gray'}
+              size="medium"
+              style={{ flex: 2 }}
+              disabled={!canNext()}
+              onClick={() => { if (canNext()) setStep(Ant98FormStepOrder[stepIndex + 1]) }}
+            >
+              <SolidButton.Center>{step === 'profile' ? '완료' : '다음'}</SolidButton.Center>
+            </SolidButton>
+          </div>
+        )}
+      </div>
+
+      <div style={{ marginTop: 10, fontSize: 11, color: '#8c8c8c', textAlign: 'center' }}>Ant Design Form + Steps 패턴 — 단계별 폼 유효성 검사</div>
+    </div>
+  )
+}
+
+export const Ant98MultiStepFormTemplate: StoryObj = {
+  name: 'Ant Design + Mantine — 멀티스텝 폼 유효성 검사 (Cycle 98)',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Ant Design Form + Steps 벤치마크 — 3단계 회원가입 폼. 기본 정보/보안 설정/프로필 설정 단계별 유효성 검사(실시간 에러/성공 피드백), 비밀번호 강도 Progress 바, 역할/팀 선택. SolidButton disabled 연동, LabelBadge, Progress 컴포넌트 활용.',
+      },
+    },
+  },
+  render: () => <Ant98MultiStepFormRender />,
+}

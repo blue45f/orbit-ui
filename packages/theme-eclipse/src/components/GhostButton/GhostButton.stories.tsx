@@ -1069,3 +1069,222 @@ export const Linear_뷰_전환_액션_툴바: Story = {
   },
   render: () => <LinearViewToolbarRender />,
 }
+
+const ANT_OPERATION_ACTIONS = [
+  { id: 'edit', label: '편집', color: '#1677ff' },
+  { id: 'delete', label: '삭제', color: '#ff4d4f' },
+  { id: 'share', label: '공유', color: '#1677ff' },
+]
+
+const AntTableOperationsRender = () => {
+  const [records] = useState([
+    { id: 1, name: '김철수', email: 'kim@example.com', role: 'Admin', status: '활성' },
+    { id: 2, name: '이영희', email: 'lee@example.com', role: 'Editor', status: '활성' },
+    { id: 3, name: '박민준', email: 'park@example.com', role: 'Viewer', status: '비활성' },
+  ])
+  const [deletedId, setDeletedId] = useState<number | null>(null)
+  const [editedId, setEditedId] = useState<number | null>(null)
+
+  return (
+    <div style={{ width: 520, fontFamily: 'Inter, system-ui, sans-serif' }}>
+      <div style={{ fontSize: 13, fontWeight: 700, color: '#111', marginBottom: 12 }}>사용자 목록</div>
+      <div style={{ border: '1px solid #f0f0f0', borderRadius: 8, overflow: 'hidden' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.5fr 1fr 0.8fr 1fr', padding: '8px 12px', background: '#fafafa', borderBottom: '1px solid #f0f0f0' }}>
+          {['이름', '이메일', '역할', '상태', '작업'].map(h => (
+            <span key={h} style={{ fontSize: 11, fontWeight: 700, color: '#8c8c8c', textTransform: 'uppercase', letterSpacing: '0.04em' }}>{h}</span>
+          ))}
+        </div>
+        {records.map((rec, idx) => (
+          <div
+            key={rec.id}
+            style={{ display: 'grid', gridTemplateColumns: '1fr 1.5fr 1fr 0.8fr 1fr', padding: '10px 12px', borderBottom: idx < records.length - 1 ? '1px solid #f5f5f5' : 'none', background: deletedId === rec.id ? '#fff2f0' : editedId === rec.id ? '#f0f5ff' : '#fff', transition: 'background 0.2s', alignItems: 'center' }}
+          >
+            <span style={{ fontSize: 13, color: '#262626', fontWeight: 600 }}>{rec.name}</span>
+            <span style={{ fontSize: 12, color: '#595959' }}>{rec.email}</span>
+            <span style={{ fontSize: 12, color: '#595959' }}>{rec.role}</span>
+            <span style={{ fontSize: 11, padding: '2px 6px', borderRadius: 4, background: rec.status === '활성' ? '#f6ffed' : '#fff1f0', color: rec.status === '활성' ? '#52c41a' : '#ff4d4f', fontWeight: 600 }}>{rec.status}</span>
+            <div style={{ display: 'flex', gap: 0 }}>
+              {ANT_OPERATION_ACTIONS.map(action => (
+                <GhostButton
+                  key={action.id}
+                  size="small"
+                  color="gray"
+                  onClick={() => {
+                    if (action.id === 'delete') setDeletedId(rec.id)
+                    else setEditedId(rec.id)
+                    setTimeout(() => { setDeletedId(null); setEditedId(null) }, 1200)
+                  }}
+                  style={{ color: action.color, fontSize: 12, padding: '2px 6px' }}
+                >
+                  {action.label}
+                </GhostButton>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+      <div style={{ marginTop: 8, fontSize: 11, color: '#8c8c8c' }}>Ant Design Table Operation 패턴 — 행별 GhostButton 액션</div>
+    </div>
+  )
+}
+
+export const Ant_테이블_행_작업_버튼: Story = {
+  name: 'Ant Design - 테이블 행 작업(Operation) 버튼 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Ant Design Table의 Operation 컬럼 패턴. 각 행에 편집/삭제/공유 GhostButton을 나란히 배치합니다. 클릭 시 행 배경색으로 시각적 피드백을 제공하며, 색상 구분으로 위험 액션(삭제)을 강조합니다.',
+      },
+    },
+  },
+  render: () => <AntTableOperationsRender />,
+}
+
+const MANTINE_TABS = [
+  { id: 'recent', label: '최근 항목' },
+  { id: 'starred', label: '즐겨찾기' },
+  { id: 'shared', label: '공유됨' },
+]
+
+const MANTINE_ITEMS = {
+  recent: ['프로젝트 계획서.docx', '디자인 명세.figma', '스프린트 보드.notion'],
+  starred: ['분기 OKR.sheet', '컴포넌트 가이드.md'],
+  shared: ['팀 회의록.doc', '기술 스펙.pdf', '온보딩 자료.pptx', '릴리스 노트.md'],
+}
+
+const MantineContextMenuRender = () => {
+  const [activeTab, setActiveTab] = useState<'recent' | 'starred' | 'shared'>('recent')
+  const [hoveredItem, setHoveredItem] = useState<string | null>(null)
+  const [copiedItem, setCopiedItem] = useState<string | null>(null)
+
+  const copyLink = (item: string) => {
+    setCopiedItem(item)
+    setTimeout(() => setCopiedItem(null), 1500)
+  }
+
+  return (
+    <div style={{ width: 360, fontFamily: 'Inter, system-ui, sans-serif', border: '1px solid #dee2e6', borderRadius: 10, overflow: 'hidden' }}>
+      {/* Tab row */}
+      <div style={{ display: 'flex', borderBottom: '1px solid #dee2e6', background: '#f8f9fa' }}>
+        {MANTINE_TABS.map(tab => (
+          <GhostButton
+            key={tab.id}
+            size="small"
+            color={activeTab === tab.id ? 'black' : 'gray'}
+            onClick={() => setActiveTab(tab.id as typeof activeTab)}
+            style={{ flex: 1, padding: '10px 0', borderRadius: 0, borderBottom: activeTab === tab.id ? '2px solid #339af0' : '2px solid transparent', fontSize: 12, fontWeight: activeTab === tab.id ? 700 : 400 }}
+          >
+            {tab.label}
+          </GhostButton>
+        ))}
+      </div>
+      {/* List */}
+      <div style={{ padding: '8px 0' }}>
+        {MANTINE_ITEMS[activeTab].map(item => (
+          <div
+            key={item}
+            style={{ display: 'flex', alignItems: 'center', padding: '8px 14px', background: hoveredItem === item ? '#f8f9fa' : '#fff', transition: 'background 0.1s', cursor: 'default' }}
+            onMouseEnter={() => setHoveredItem(item)}
+            onMouseLeave={() => setHoveredItem(null)}
+          >
+            <span style={{ flex: 1, fontSize: 13, color: '#212529' }}>{item}</span>
+            {hoveredItem === item && (
+              <GhostButton size="small" color="gray" onClick={() => copyLink(item)} style={{ fontSize: 11, color: copiedItem === item ? '#40c057' : '#868e96' }}>
+                {copiedItem === item ? '복사됨!' : '링크 복사'}
+              </GhostButton>
+            )}
+          </div>
+        ))}
+      </div>
+      <div style={{ padding: '8px 14px', borderTop: '1px solid #f0f0f0', fontSize: 11, color: '#adb5bd' }}>Mantine Tabs + hover 액션 패턴</div>
+    </div>
+  )
+}
+
+export const Mantine_탭_컨텍스트_액션: Story = {
+  name: 'Mantine - 탭 + hover 컨텍스트 액션 버튼',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Mantine Tabs 패턴과 hover 시 드러나는 컨텍스트 액션을 GhostButton으로 구현. 최근/즐겨찾기/공유 탭 전환에 GhostButton을 탭 헤더로 활용하고, 리스트 항목 hover 시 링크 복사 버튼을 표시합니다.',
+      },
+    },
+  },
+  render: () => <MantineContextMenuRender />,
+}
+
+const MANTINE_TOOLBAR_ACTIONS = [
+  { id: 'bold', label: 'B', title: '굵게', active: false },
+  { id: 'italic', label: 'I', title: '기울임', active: false },
+  { id: 'underline', label: 'U', title: '밑줄', active: false },
+  { id: 'strike', label: 'S', title: '취소선', active: false },
+] as const
+
+type ToolbarActionId = typeof MANTINE_TOOLBAR_ACTIONS[number]['id']
+
+const MantineRichTextToolbarRender = () => {
+  const [activeFormats, setActiveFormats] = useState<Set<ToolbarActionId>>(new Set())
+  const [align, setAlign] = useState<'left' | 'center' | 'right'>('left')
+
+  const toggleFormat = (id: ToolbarActionId) => {
+    setActiveFormats(prev => {
+      const next = new Set(prev)
+      if (next.has(id)) next.delete(id)
+      else next.add(id)
+      return next
+    })
+  }
+
+  const ALIGN_OPTIONS = [
+    { id: 'left' as const, label: '≡' },
+    { id: 'center' as const, label: '≡' },
+    { id: 'right' as const, label: '≡' },
+  ]
+
+  return (
+    <div style={{ width: 400, fontFamily: 'Inter, system-ui, sans-serif' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 2, padding: '6px 8px', border: '1px solid #dee2e6', borderBottom: 'none', borderRadius: '8px 8px 0 0', background: '#f8f9fa' }}>
+        {MANTINE_TOOLBAR_ACTIONS.map(action => (
+          <GhostButton
+            key={action.id}
+            size="small"
+            color={activeFormats.has(action.id) ? 'black' : 'gray'}
+            onClick={() => toggleFormat(action.id)}
+            style={{ minWidth: 28, fontSize: 13, fontWeight: 700, fontStyle: action.id === 'italic' ? 'italic' : 'normal', textDecoration: action.id === 'underline' ? 'underline' : action.id === 'strike' ? 'line-through' : 'none', padding: '4px 8px', background: activeFormats.has(action.id) ? '#e8f4fd' : 'transparent', borderRadius: 4 }}
+          >
+            {action.label}
+          </GhostButton>
+        ))}
+        <div style={{ width: 1, height: 18, background: '#dee2e6', margin: '0 4px' }} />
+        {ALIGN_OPTIONS.map((opt, idx) => (
+          <GhostButton
+            key={opt.id}
+            size="small"
+            color={align === opt.id ? 'black' : 'gray'}
+            onClick={() => setAlign(opt.id)}
+            style={{ minWidth: 28, fontSize: 14, padding: '4px 8px', background: align === opt.id ? '#e8f4fd' : 'transparent', borderRadius: 4, letterSpacing: idx === 0 ? '0' : idx === 1 ? '2px' : '-2px' }}
+          >
+            {opt.label}
+          </GhostButton>
+        ))}
+      </div>
+      <div style={{ padding: '12px 14px', border: '1px solid #dee2e6', borderRadius: '0 0 8px 8px', minHeight: 80, fontSize: 13, color: '#495057', lineHeight: 1.6 }}>
+        <span style={{ fontWeight: activeFormats.has('bold') ? 700 : 400, fontStyle: activeFormats.has('italic') ? 'italic' : 'normal', textDecoration: activeFormats.has('underline') ? 'underline' : activeFormats.has('strike') ? 'line-through' : 'none', textAlign: align, display: 'block' }}>
+          Mantine RichTextEditor 툴바 패턴 — GhostButton으로 서식 버튼 구현. 활성 포맷은 배경색 강조로 표시됩니다.
+        </span>
+      </div>
+    </div>
+  )
+}
+
+export const Mantine_리치텍스트_서식_툴바: Story = {
+  name: 'Mantine - 리치텍스트 서식 툴바 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Mantine RichTextEditor의 서식 툴바 패턴. Bold/Italic/Underline/Strikethrough 토글과 텍스트 정렬 컨트롤을 GhostButton으로 구현합니다. 활성 상태는 배경색으로 강조되며 실제 텍스트 스타일이 실시간 반영됩니다.',
+      },
+    },
+  },
+  render: () => <MantineRichTextToolbarRender />,
+}

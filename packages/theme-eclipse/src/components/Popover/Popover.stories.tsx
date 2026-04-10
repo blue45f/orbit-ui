@@ -1106,3 +1106,232 @@ export const Notion_슬래시_커맨드_블록_선택기: Story = {
     )
   },
 }
+
+const ANT_MEMBER_OPTIONS = [
+  { id: 'u1', name: '김철수', role: 'Admin', avatar: '김' },
+  { id: 'u2', name: '이영희', role: 'Editor', avatar: '이' },
+  { id: 'u3', name: '박민준', role: 'Viewer', avatar: '박' },
+  { id: 'u4', name: '최수진', role: 'Viewer', avatar: '최' },
+]
+
+const AntMemberSelectPopoverRender = () => {
+  const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set(['u1']))
+  const [search, setSearch] = useState('')
+
+  const toggle = (id: string) => {
+    setSelectedIds(prev => {
+      const next = new Set(prev)
+      if (next.has(id)) next.delete(id)
+      else next.add(id)
+      return next
+    })
+  }
+
+  const filtered = ANT_MEMBER_OPTIONS.filter(m =>
+    search === '' || m.name.includes(search)
+  )
+
+  return (
+    <div style={{ display: 'flex', gap: 12, alignItems: 'flex-start', fontFamily: 'Inter, system-ui, sans-serif' }}>
+      <Popover>
+        <Popover.Trigger asChild>
+          <OutlineButton color="gray" size="medium">
+            <OutlineButton.Center>담당자 선택 ({selectedIds.size})</OutlineButton.Center>
+          </OutlineButton>
+        </Popover.Trigger>
+        <Popover.Content style={{ padding: 0, width: 220, overflow: 'hidden' }}>
+          <div style={{ padding: '8px 10px', borderBottom: '1px solid #f0f0f0' }}>
+            <input
+              value={search}
+              onChange={e => setSearch(e.target.value)}
+              placeholder="멤버 검색..."
+              style={{ width: '100%', border: '1px solid #d9d9d9', borderRadius: 4, padding: '4px 8px', fontSize: 12, outline: 'none', boxSizing: 'border-box' }}
+            />
+          </div>
+          <div style={{ maxHeight: 200, overflowY: 'auto' }}>
+            {filtered.map(member => {
+              const isSelected = selectedIds.has(member.id)
+              return (
+                <div
+                  key={member.id}
+                  onClick={() => toggle(member.id)}
+                  style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '8px 10px', cursor: 'pointer', background: isSelected ? '#e6f4ff' : '#fff', borderBottom: '1px solid #fafafa' }}
+                >
+                  <Avatar>{member.avatar}</Avatar>
+                  <div style={{ flex: 1 }}>
+                    <div style={{ fontSize: 12, fontWeight: 600, color: '#262626' }}>{member.name}</div>
+                    <div style={{ fontSize: 10, color: '#8c8c8c' }}>{member.role}</div>
+                  </div>
+                  {isSelected && <span style={{ fontSize: 13, color: '#1677ff', fontWeight: 700 }}>✓</span>}
+                </div>
+              )
+            })}
+          </div>
+          <div style={{ padding: '8px 10px', borderTop: '1px solid #f0f0f0', fontSize: 11, color: '#8c8c8c', display: 'flex', justifyContent: 'space-between' }}>
+            <span>{selectedIds.size}명 선택됨</span>
+            <span style={{ color: '#ff4d4f', cursor: 'pointer' }} onClick={() => setSelectedIds(new Set())}>초기화</span>
+          </div>
+        </Popover.Content>
+      </Popover>
+      <div style={{ display: 'flex', gap: 4, flexWrap: 'wrap', maxWidth: 200 }}>
+        {[...selectedIds].map(id => {
+          const m = ANT_MEMBER_OPTIONS.find(o => o.id === id)
+          if (!m) return null
+          return <LabelBadge key={id}><LabelBadge.Label>{m.name}</LabelBadge.Label></LabelBadge>
+        })}
+      </div>
+    </div>
+  )
+}
+
+export const Ant_담당자_선택_팝오버: Story = {
+  name: 'Ant Design - 담당자 다중 선택 팝오버',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Ant Design Select 컴포넌트의 다중 선택 팝오버 패턴. 검색 필터 + Avatar 멤버 목록 + 체크 표시로 다중 선택하며, 선택된 멤버는 외부 LabelBadge로 표시됩니다. 이슈 담당자, 팀원 배정 UI에 적합합니다.',
+      },
+    },
+  },
+  render: () => <AntMemberSelectPopoverRender />,
+}
+
+const MANTINE_COLOR_SWATCHES = [
+  '#e03131', '#c2255c', '#9c36b5', '#6741d9', '#3b5bdb',
+  '#1971c2', '#0c8599', '#087f5b', '#2f9e44', '#66a80f',
+  '#f08c00', '#e8590c', '#868e96', '#343a40', '#f1f3f5',
+]
+
+const MantineColorSwatchRender = () => {
+  const [pickedColor, setPickedColor] = useState('#3b5bdb')
+  const [customColor, setCustomColor] = useState('')
+
+  return (
+    <div style={{ display: 'flex', gap: 10, alignItems: 'center', fontFamily: 'Inter, system-ui, sans-serif' }}>
+      <Popover>
+        <Popover.Trigger asChild>
+          <OutlineButton color="gray" size="medium">
+            <OutlineButton.Leading>
+              <div style={{ width: 14, height: 14, borderRadius: 3, background: pickedColor, border: '1px solid rgba(0,0,0,0.1)' }} />
+            </OutlineButton.Leading>
+            <OutlineButton.Center>색상 선택</OutlineButton.Center>
+          </OutlineButton>
+        </Popover.Trigger>
+        <Popover.Content style={{ width: 210, padding: '12px' }}>
+          <div style={{ fontSize: 11, fontWeight: 700, color: '#868e96', marginBottom: 8, textTransform: 'uppercase', letterSpacing: '0.05em' }}>스와치</div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: 5, marginBottom: 10 }}>
+            {MANTINE_COLOR_SWATCHES.map(color => (
+              <div
+                key={color}
+                onClick={() => setPickedColor(color)}
+                style={{ width: 28, height: 28, borderRadius: 5, background: color, cursor: 'pointer', border: pickedColor === color ? '2px solid #000' : '2px solid transparent', transition: 'transform 0.1s', boxSizing: 'border-box' }}
+              />
+            ))}
+          </div>
+          <div style={{ fontSize: 11, fontWeight: 700, color: '#868e96', marginBottom: 6, textTransform: 'uppercase', letterSpacing: '0.05em' }}>HEX 입력</div>
+          <div style={{ display: 'flex', gap: 6 }}>
+            <input
+              value={customColor}
+              onChange={e => setCustomColor(e.target.value)}
+              placeholder="#000000"
+              style={{ flex: 1, border: '1px solid #dee2e6', borderRadius: 4, padding: '5px 8px', fontSize: 12, fontFamily: 'monospace', outline: 'none' }}
+            />
+            <Button
+              color="primary"
+              size="small"
+              onClick={() => { if (/^#[0-9A-Fa-f]{6}$/.test(customColor)) setPickedColor(customColor) }}
+            >
+              <Button.Center>적용</Button.Center>
+            </Button>
+          </div>
+        </Popover.Content>
+      </Popover>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+        <div style={{ width: 24, height: 24, borderRadius: 6, background: pickedColor, border: '1px solid rgba(0,0,0,0.1)' }} />
+        <span style={{ fontSize: 12, fontFamily: 'monospace', color: '#495057' }}>{pickedColor}</span>
+      </div>
+    </div>
+  )
+}
+
+export const Mantine_색상_스와치_팝오버: Story = {
+  name: 'Mantine - 색상 스와치 선택 팝오버',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Mantine ColorPicker의 스와치 팝오버 패턴. 프리셋 색상 팔레트(5열 그리드) + HEX 직접 입력을 Popover 안에 구현합니다. 선택한 색상은 트리거 버튼의 Leading 색상 도트와 외부 미리보기에 실시간 반영됩니다.',
+      },
+    },
+  },
+  render: () => <MantineColorSwatchRender />,
+}
+
+const ANT_CONFIRM_ITEMS = [
+  { id: 'i1', title: '스프린트 계획서.pdf', size: '2.4 MB' },
+  { id: 'i2', title: '디자인 에셋.zip', size: '18.7 MB' },
+  { id: 'i3', title: '미팅 영상.mp4', size: '340 MB' },
+]
+
+const AntDeleteConfirmRender = () => {
+  const [confirmId, setConfirmId] = useState<string | null>(null)
+  const [deletedIds, setDeletedIds] = useState<Set<string>>(new Set())
+
+  const handleDelete = (id: string) => {
+    setDeletedIds(prev => new Set([...prev, id]))
+    setConfirmId(null)
+  }
+
+  return (
+    <div style={{ width: 360, fontFamily: 'Inter, system-ui, sans-serif' }}>
+      <div style={{ fontSize: 13, fontWeight: 700, color: '#262626', marginBottom: 10 }}>파일 목록</div>
+      <div style={{ border: '1px solid #f0f0f0', borderRadius: 8, overflow: 'hidden' }}>
+        {ANT_CONFIRM_ITEMS.filter(i => !deletedIds.has(i.id)).map((item, idx, arr) => (
+          <div key={item.id} style={{ display: 'flex', alignItems: 'center', padding: '10px 14px', borderBottom: idx < arr.length - 1 ? '1px solid #f5f5f5' : 'none' }}>
+            <div style={{ flex: 1 }}>
+              <div style={{ fontSize: 13, color: '#262626' }}>{item.title}</div>
+              <div style={{ fontSize: 11, color: '#bfbfbf' }}>{item.size}</div>
+            </div>
+            <Popover open={confirmId === item.id} onOpenChange={open => setConfirmId(open ? item.id : null)}>
+              <Popover.Trigger asChild>
+                <GhostButton size="small" color="gray" style={{ color: '#ff4d4f', fontSize: 12 }}>
+                  삭제
+                </GhostButton>
+              </Popover.Trigger>
+              <Popover.Content style={{ width: 200, padding: '12px' }}>
+                <div style={{ fontSize: 13, fontWeight: 600, color: '#262626', marginBottom: 6 }}>삭제 확인</div>
+                <div style={{ fontSize: 12, color: '#8c8c8c', marginBottom: 12 }}>이 파일을 삭제하시겠습니까? 복구할 수 없습니다.</div>
+                <div style={{ display: 'flex', gap: 6 }}>
+                  <OutlineButton color="gray" size="small" style={{ flex: 1 }} onClick={() => setConfirmId(null)}>
+                    <OutlineButton.Center>취소</OutlineButton.Center>
+                  </OutlineButton>
+                  <Button color="primary" size="small" style={{ flex: 1, background: '#ff4d4f', borderColor: '#ff4d4f' }} onClick={() => handleDelete(item.id)}>
+                    <Button.Center>삭제</Button.Center>
+                  </Button>
+                </div>
+              </Popover.Content>
+            </Popover>
+          </div>
+        ))}
+        {ANT_CONFIRM_ITEMS.every(i => deletedIds.has(i.id)) && (
+          <div style={{ padding: '24px', textAlign: 'center', color: '#bfbfbf', fontSize: 13 }}>파일이 없습니다</div>
+        )}
+      </div>
+      {deletedIds.size > 0 && (
+        <div style={{ marginTop: 8, fontSize: 11, color: '#52c41a' }}>{deletedIds.size}개 파일 삭제됨</div>
+      )}
+      <div style={{ marginTop: 4, fontSize: 11, color: '#8c8c8c' }}>Ant Design Popconfirm 패턴 — 삭제 전 팝오버 확인</div>
+    </div>
+  )
+}
+
+export const Ant_삭제_확인_팝컨펌: Story = {
+  name: 'Ant Design - Popconfirm 삭제 확인 팝오버',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Ant Design Popconfirm 패턴. 위험한 작업(삭제) 전 Popover 안에 확인/취소 버튼을 표시하여 실수를 방지합니다. 삭제 버튼 클릭 시 해당 행에 확인 팝오버가 나타나고 확인 시 목록에서 제거됩니다.',
+      },
+    },
+  },
+  render: () => <AntDeleteConfirmRender />,
+}
