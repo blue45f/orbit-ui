@@ -726,5 +726,88 @@ export default function RootLayout({
       </div>
     </section>
 
+    {/* Tailwind UI + Chakra UI 테마 벤치마크 */}
+    <section style={{ marginBottom: '64px' }}>
+      <h2 style={{ fontSize: '22px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '8px' }}>
+        테마 시스템 벤치마크
+      </h2>
+      <p style={{ fontSize: '14px', color: '#64748b', marginBottom: '24px' }}>
+        Tailwind UI와 Chakra UI의 테마 접근법과 Orbit UI의 차별점을 비교합니다. (Cycle 43 벤치마크)
+      </p>
+
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px', marginBottom: '28px' }}>
+        {[
+          {
+            name: 'Tailwind UI',
+            color: '#06b6d4',
+            approach: 'Config 기반',
+            pros: ['tailwind.config.js 단일 진입점', '유틸리티 클래스 조합', 'JIT 컴파일 최적화'],
+            cons: ['런타임 테마 변경 불가', '타입 안전성 미흡', 'CSS 클래스 문자열 의존'],
+          },
+          {
+            name: 'Chakra UI',
+            color: '#319795',
+            approach: 'Recipe 기반',
+            pros: ['ColorSchemeProvider로 다크모드', 'extendTheme() 간편 확장', 'semantic tokens 지원'],
+            cons: ['번들 크기 큼', 'Emotion 의존성', '커스텀 컴포넌트 복잡'],
+          },
+          {
+            name: 'Orbit UI',
+            color: '#6366f1',
+            approach: 'vanilla-extract',
+            pros: ['빌드 타임 타입 안전', '3단계 토큰 계층', 'Figma 변수 직접 연동'],
+            cons: ['초기 설정 필요', '빌드 플러그인 의존', '학습 곡선 존재'],
+          },
+        ].map(({ name, color, approach, pros, cons }) => (
+          <div key={name} style={{ padding: '20px', borderRadius: '14px', border: `2px solid ${color}25`, background: `${color}08` }}>
+            <div style={{ fontSize: '14px', fontWeight: '800', color, marginBottom: '4px' }}>{name}</div>
+            <div style={{ fontSize: '11px', fontWeight: '700', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.07em', marginBottom: '14px' }}>
+              {approach}
+            </div>
+            <div style={{ marginBottom: '12px' }}>
+              <div style={{ fontSize: '11px', fontWeight: '700', color: '#10b981', marginBottom: '6px' }}>장점</div>
+              {pros.map((p) => (
+                <div key={p} style={{ display: 'flex', gap: '6px', alignItems: 'flex-start', marginBottom: '4px' }}>
+                  <span style={{ color: '#10b981', fontSize: '10px', marginTop: '2px' }}>✓</span>
+                  <span style={{ fontSize: '12px', color: '#374151' }}>{p}</span>
+                </div>
+              ))}
+            </div>
+            <div>
+              <div style={{ fontSize: '11px', fontWeight: '700', color: '#f59e0b', marginBottom: '6px' }}>고려사항</div>
+              {cons.map((c) => (
+                <div key={c} style={{ display: 'flex', gap: '6px', alignItems: 'flex-start', marginBottom: '4px' }}>
+                  <span style={{ color: '#f59e0b', fontSize: '10px', marginTop: '2px' }}>!</span>
+                  <span style={{ fontSize: '12px', color: '#64748b' }}>{c}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div style={{ padding: '20px 24px', borderRadius: '12px', background: '#f0fdf4', border: '1.5px solid #bbf7d0' }}>
+        <div style={{ fontSize: '13px', fontWeight: '700', color: '#15803d', marginBottom: '8px' }}>
+          Orbit UI의 핵심 차별점
+        </div>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '12px' }}>
+          {[
+            { title: 'TypeScript 완전 지원', desc: 'theme prop에서 토큰 키 자동완성 및 타입 오류 감지' },
+            { title: '제로 런타임 CSS', desc: 'vanilla-extract로 빌드 타임 CSS 생성, 런타임 오버헤드 없음' },
+            { title: 'Figma 토큰 동기화', desc: 'Reference → Semantic → Component 3단계로 Figma 변수 직접 매핑' },
+            { title: '컴포넌트별 격리', desc: 'theme prop으로 단일 인스턴스만 변경, 전역 영향 없음' },
+          ].map(({ title, desc }) => (
+            <div key={title} style={{ display: 'flex', gap: '10px', alignItems: 'flex-start' }}>
+              <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#10b981', marginTop: '5px', flexShrink: 0 }} />
+              <div>
+                <div style={{ fontSize: '13px', fontWeight: '600', color: '#1e293b', marginBottom: '2px' }}>{title}</div>
+                <div style={{ fontSize: '12px', color: '#64748b' }}>{desc}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
   </div>
 </Unstyled>

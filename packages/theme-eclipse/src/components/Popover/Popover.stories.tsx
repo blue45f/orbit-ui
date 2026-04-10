@@ -482,3 +482,275 @@ export const 알림_상세_팝오버: Story = {
     </div>
   ),
 }
+
+/* --------------------------------------------------------------------------
+   Tailwind UI 벤치마크: 공유 옵션 팝오버
+   Tailwind UI Share/Export popover 패턴 — 링크 복사 + 권한 설정
+-------------------------------------------------------------------------- */
+export const Tailwind_공유_팝오버: Story = {
+  render: function Render() {
+    const [copied, setCopied] = useState(false)
+    const [access, setAccess] = useState<'private' | 'team' | 'public'>('team')
+
+    const shareUrl = 'https://orbit-ui.vercel.app/story/eclipse-actions'
+
+    const handleCopy = () => {
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    }
+
+    const accessOptions: { value: 'private' | 'team' | 'public'; label: string; desc: string }[] = [
+      { value: 'private', label: '비공개', desc: '나만 볼 수 있음' },
+      { value: 'team', label: '팀 공유', desc: '팀원만 볼 수 있음' },
+      { value: 'public', label: '전체 공개', desc: '링크 있는 누구나' },
+    ]
+
+    return (
+      <div style={{ padding: '100px 80px', display: 'flex', justifyContent: 'center' }}>
+        <Popover>
+          <Popover.Trigger asChild>
+            <button style={{
+              display: 'flex', alignItems: 'center', gap: 8,
+              padding: '8px 16px', borderRadius: 10,
+              border: '1.5px solid #e2e8f0', background: '#fff',
+              cursor: 'pointer', fontSize: 13, fontWeight: 600, color: '#374151',
+            }}>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="18" cy="5" r="3" /><circle cx="6" cy="12" r="3" /><circle cx="18" cy="19" r="3" />
+                <line x1="8.59" y1="13.51" x2="15.42" y2="17.49" /><line x1="15.41" y1="6.51" x2="8.59" y2="10.49" />
+              </svg>
+              공유
+            </button>
+          </Popover.Trigger>
+          <Popover.Content style={{ width: 300 }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+              <Typography textStyle="subheadingSmall" style={{ color: '#0f172a' }}>공유 설정</Typography>
+
+              <div>
+                <div style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.07em', marginBottom: 8 }}>
+                  접근 권한
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+                  {accessOptions.map((opt) => (
+                    <button
+                      key={opt.value}
+                      onClick={() => setAccess(opt.value)}
+                      style={{
+                        display: 'flex', alignItems: 'center', gap: 10,
+                        padding: '8px 10px', borderRadius: 8, border: 'none',
+                        background: access === opt.value ? 'rgba(99,102,241,0.07)' : 'transparent',
+                        cursor: 'pointer', textAlign: 'left',
+                      }}
+                    >
+                      <div style={{
+                        width: 14, height: 14, borderRadius: '50%',
+                        border: `2px solid ${access === opt.value ? '#6366f1' : '#d1d5db'}`,
+                        display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0,
+                      }}>
+                        {access === opt.value && <div style={{ width: 5, height: 5, borderRadius: '50%', background: '#6366f1' }} />}
+                      </div>
+                      <div>
+                        <div style={{ fontSize: 12, fontWeight: 600, color: '#0f172a' }}>{opt.label}</div>
+                        <div style={{ fontSize: 11, color: '#94a3b8' }}>{opt.desc}</div>
+                      </div>
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <div style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.07em', marginBottom: 8 }}>
+                  링크
+                </div>
+                <div style={{ display: 'flex', gap: 6 }}>
+                  <input
+                    readOnly
+                    value={shareUrl}
+                    style={{ flex: 1, padding: '7px 10px', borderRadius: 8, border: '1px solid #e2e8f0', fontSize: 12, color: '#64748b', background: '#f8fafc', outline: 'none', overflow: 'hidden', textOverflow: 'ellipsis' }}
+                  />
+                  <button
+                    onClick={handleCopy}
+                    style={{
+                      padding: '7px 12px', borderRadius: 8,
+                      border: `1px solid ${copied ? '#10b981' : '#6366f1'}`,
+                      background: copied ? '#10b981' : '#6366f1',
+                      color: '#fff', fontSize: 12, fontWeight: 600, cursor: 'pointer',
+                      whiteSpace: 'nowrap', transition: 'all 0.2s',
+                    }}
+                  >
+                    {copied ? '복사됨!' : '복사'}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </Popover.Content>
+        </Popover>
+      </div>
+    )
+  },
+}
+
+/* --------------------------------------------------------------------------
+   Chakra UI 벤치마크: 단축키 참조 팝오버
+   Chakra UI Popover 활용 패턴 — 인라인 도움말, 키보드 단축키 목록
+-------------------------------------------------------------------------- */
+const SHORTCUT_GROUPS = [
+  {
+    category: '편집',
+    shortcuts: [
+      { keys: ['⌘', 'Z'], label: '실행 취소' },
+      { keys: ['⌘', '⇧', 'Z'], label: '다시 실행' },
+      { keys: ['⌘', 'D'], label: '복제' },
+    ],
+  },
+  {
+    category: '보기',
+    shortcuts: [
+      { keys: ['⌘', '+'], label: '확대' },
+      { keys: ['⌘', '-'], label: '축소' },
+      { keys: ['⌘', '0'], label: '비율 초기화' },
+    ],
+  },
+]
+
+export const Chakra_단축키_팝오버: Story = {
+  render: () => (
+    <div style={{ padding: '100px 80px', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 16 }}>
+      <Typography textStyle="descriptionLarge" style={{ color: '#475569' }}>
+        캔버스를 편집할 수 있습니다.
+      </Typography>
+      <Popover>
+        <Popover.Trigger asChild>
+          <button style={{
+            width: 22, height: 22, borderRadius: '50%',
+            border: '1.5px solid #d1d5db', background: '#fff',
+            cursor: 'pointer', fontSize: 12, fontWeight: 700, color: '#94a3b8',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+          }}>
+            ?
+          </button>
+        </Popover.Trigger>
+        <Popover.Content style={{ width: 260 }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+            <Typography textStyle="subheadingSmall" style={{ color: '#0f172a' }}>키보드 단축키</Typography>
+
+            {SHORTCUT_GROUPS.map((group) => (
+              <div key={group.category}>
+                <div style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.07em', marginBottom: 8 }}>
+                  {group.category}
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+                  {group.shortcuts.map((sc) => (
+                    <div key={sc.label} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                      <span style={{ fontSize: 12, color: '#374151' }}>{sc.label}</span>
+                      <div style={{ display: 'flex', gap: 3 }}>
+                        {sc.keys.map((key) => (
+                          <kbd
+                            key={key}
+                            style={{
+                              display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+                              minWidth: 22, height: 22, padding: '0 6px',
+                              borderRadius: 5, border: '1px solid #d1d5db',
+                              background: '#f8fafc', fontSize: 11, fontWeight: 700,
+                              color: '#374151', fontFamily: 'system-ui',
+                              boxShadow: '0 1px 0 #d1d5db',
+                            }}
+                          >
+                            {key}
+                          </kbd>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+
+            <div style={{ fontSize: 11, color: '#94a3b8', paddingTop: 8, borderTop: '1px solid #f1f5f9' }}>
+              Chakra UI Popover 도움말 패턴 — 인라인 ?버튼으로 컨텍스트 도움말 제공
+            </div>
+          </div>
+        </Popover.Content>
+      </Popover>
+    </div>
+  ),
+}
+
+/* --------------------------------------------------------------------------
+   Tailwind + Chakra 벤치마크: 인라인 태그 편집 팝오버
+   콘텐츠 인라인 편집 패턴 — 클릭 시 팝오버로 태그 추가/제거
+-------------------------------------------------------------------------- */
+const ALL_TAGS = ['디자인', 'React', 'TypeScript', 'UI', '접근성', 'Storybook', '토큰', '피그마']
+
+export const Tailwind_태그_편집_팝오버: Story = {
+  render: function Render() {
+    const [tags, setTags] = useState<string[]>(['디자인', 'React'])
+
+    const toggleTag = (tag: string) => {
+      setTags((prev) => prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag])
+    }
+
+    return (
+      <div style={{ padding: '100px 60px', display: 'flex', justifyContent: 'center' }}>
+        <div style={{ maxWidth: 480, width: '100%' }}>
+          <div style={{ fontSize: 15, fontWeight: 800, color: '#0f172a', marginBottom: 4 }}>
+            Orbit UI 소개
+          </div>
+          <div style={{ fontSize: 13, color: '#475569', marginBottom: 16, lineHeight: 1.6 }}>
+            React 기반 3-tier 아키텍처 디자인 시스템. vanilla-extract로 타입 안전한 스타일링을 제공합니다.
+          </div>
+
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
+            {tags.map((tag) => (
+              <LabelBadge key={tag} color="gray">
+                <LabelBadge.Label>{tag}</LabelBadge.Label>
+              </LabelBadge>
+            ))}
+
+            <Popover>
+              <Popover.Trigger asChild>
+                <button style={{
+                  display: 'inline-flex', alignItems: 'center', gap: 4,
+                  padding: '3px 10px', borderRadius: 99,
+                  border: '1.5px dashed #d1d5db', background: 'transparent',
+                  cursor: 'pointer', fontSize: 12, color: '#94a3b8', fontWeight: 500,
+                }}>
+                  + 태그 편집
+                </button>
+              </Popover.Trigger>
+              <Popover.Content style={{ width: 260 }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+                  <Typography textStyle="subheadingSmall" style={{ color: '#0f172a' }}>태그 선택</Typography>
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+                    {ALL_TAGS.map((tag) => {
+                      const selected = tags.includes(tag)
+                      return (
+                        <button
+                          key={tag}
+                          onClick={() => toggleTag(tag)}
+                          style={{
+                            padding: '4px 12px', borderRadius: 99, fontSize: 12, fontWeight: 600, cursor: 'pointer',
+                            border: `1.5px solid ${selected ? '#6366f1' : '#e2e8f0'}`,
+                            background: selected ? 'rgba(99,102,241,0.08)' : '#fff',
+                            color: selected ? '#6366f1' : '#64748b',
+                            transition: 'all 0.1s',
+                          }}
+                        >
+                          {selected && <span style={{ marginRight: 4 }}>✓</span>}
+                          {tag}
+                        </button>
+                      )
+                    })}
+                  </div>
+                  <div style={{ fontSize: 11, color: '#94a3b8', borderTop: '1px solid #f1f5f9', paddingTop: 8 }}>
+                    {tags.length}개 선택됨 · 클릭으로 토글
+                  </div>
+                </div>
+              </Popover.Content>
+            </Popover>
+          </div>
+        </div>
+      </div>
+    )
+  },
+}

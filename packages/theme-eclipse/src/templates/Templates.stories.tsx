@@ -9667,3 +9667,291 @@ export const VideoPlayer: Story = {
   render: () => <VideoPlayerRender />,
 }
 
+/* --------------------------------------------------------------------------
+   Subscription Page (Tailwind UI + Chakra UI 벤치마크)
+   플랜 비교 + 결제 폼 + 특징 체크리스트가 통합된 구독 페이지
+-------------------------------------------------------------------------- */
+const SUBSCRIPTION_PLANS = [
+  {
+    id: 'starter',
+    name: 'Starter',
+    monthly: 0,
+    annual: 0,
+    color: '#64748b',
+    accentBg: '#f8fafc',
+    description: '개인 프로젝트와 학습용',
+    features: [
+      { label: '컴포넌트 50개+', included: true },
+      { label: 'Storybook 문서', included: true },
+      { label: '커뮤니티 지원', included: true },
+      { label: '피그마 키트', included: false },
+      { label: '우선 지원', included: false },
+      { label: '테마 빌더', included: false },
+    ],
+  },
+  {
+    id: 'pro',
+    name: 'Pro',
+    monthly: 29000,
+    annual: 23000,
+    color: '#6366f1',
+    accentBg: '#eef2ff',
+    description: '전문 개발자와 소규모 팀',
+    badge: '인기',
+    features: [
+      { label: '컴포넌트 200개+', included: true },
+      { label: 'Storybook 문서', included: true },
+      { label: '이메일 지원', included: true },
+      { label: '피그마 키트', included: true },
+      { label: '우선 지원', included: true },
+      { label: '테마 빌더', included: false },
+    ],
+  },
+  {
+    id: 'enterprise',
+    name: 'Enterprise',
+    monthly: 89000,
+    annual: 71000,
+    color: '#0ea5e9',
+    accentBg: '#f0f9ff',
+    description: '대규모 팀과 엔터프라이즈',
+    features: [
+      { label: '컴포넌트 무제한', included: true },
+      { label: 'Storybook 문서', included: true },
+      { label: '전용 슬랙 채널', included: true },
+      { label: '피그마 키트', included: true },
+      { label: '우선 지원 + SLA', included: true },
+      { label: '테마 빌더', included: true },
+    ],
+  },
+]
+
+const SubscriptionPageRender = () => {
+  const [billing, setBilling] = useState<'monthly' | 'annual'>('annual')
+  const [selectedPlan, setSelectedPlan] = useState('pro')
+  const [step, setStep] = useState<'plan' | 'payment'>('plan')
+  const [agreed, setAgreed] = useState(false)
+
+  const plan = SUBSCRIPTION_PLANS.find((p) => p.id === selectedPlan) ?? SUBSCRIPTION_PLANS[1]
+  const price = billing === 'annual' ? plan.annual : plan.monthly
+
+  return (
+    <div style={{ maxWidth: 960, fontFamily: 'system-ui, sans-serif', padding: '0 16px' }}>
+      {/* 헤더 */}
+      <div style={{ textAlign: 'center', marginBottom: 40 }}>
+        <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: '#eef2ff', padding: '4px 14px', borderRadius: 99, marginBottom: 12 }}>
+          <div style={{ width: 6, height: 6, borderRadius: '50%', background: '#6366f1' }} />
+          <span style={{ fontSize: 12, fontWeight: 700, color: '#6366f1' }}>Orbit UI 구독</span>
+        </div>
+        <div style={{ fontSize: 32, fontWeight: 900, color: '#0f172a', letterSpacing: '-0.03em', marginBottom: 8 }}>
+          올바른 플랜을 선택하세요
+        </div>
+        <div style={{ fontSize: 15, color: '#64748b', marginBottom: 24 }}>
+          언제든지 업그레이드하거나 취소할 수 있습니다.
+        </div>
+
+        {/* 빌링 토글 */}
+        <div style={{ display: 'inline-flex', background: '#f1f5f9', borderRadius: 10, padding: 4, gap: 2 }}>
+          {(['monthly', 'annual'] as const).map((b) => (
+            <button
+              key={b}
+              onClick={() => setBilling(b)}
+              style={{
+                padding: '6px 16px', borderRadius: 7, fontSize: 13, fontWeight: 600, cursor: 'pointer',
+                border: 'none',
+                background: billing === b ? '#fff' : 'transparent',
+                color: billing === b ? '#0f172a' : '#64748b',
+                boxShadow: billing === b ? '0 1px 4px rgba(0,0,0,0.08)' : 'none',
+                transition: 'all 0.15s',
+              }}
+            >
+              {b === 'monthly' ? '월간' : '연간'}
+              {b === 'annual' && (
+                <span style={{ marginLeft: 6, fontSize: 10, fontWeight: 700, color: '#10b981', background: '#dcfce7', padding: '1px 6px', borderRadius: 99 }}>
+                  -20%
+                </span>
+              )}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {step === 'plan' ? (
+        <>
+          {/* 플랜 카드 그리드 */}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16, marginBottom: 32 }}>
+            {SUBSCRIPTION_PLANS.map((p) => {
+              const isSelected = selectedPlan === p.id
+              const displayPrice = billing === 'annual' ? p.annual : p.monthly
+              return (
+                <div
+                  key={p.id}
+                  onClick={() => setSelectedPlan(p.id)}
+                  style={{
+                    borderRadius: 16,
+                    border: `2px solid ${isSelected ? p.color : '#e2e8f0'}`,
+                    background: isSelected ? p.accentBg : '#fff',
+                    padding: 24,
+                    cursor: 'pointer',
+                    transition: 'all 0.15s',
+                    position: 'relative',
+                  }}
+                >
+                  {p.badge && (
+                    <div style={{ position: 'absolute', top: -10, left: '50%', transform: 'translateX(-50%)', background: p.color, color: '#fff', fontSize: 10, fontWeight: 800, padding: '3px 12px', borderRadius: 99 }}>
+                      {p.badge}
+                    </div>
+                  )}
+
+                  <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: 16 }}>
+                    <div>
+                      <div style={{ fontSize: 16, fontWeight: 800, color: isSelected ? p.color : '#0f172a', marginBottom: 4 }}>
+                        {p.name}
+                      </div>
+                      <div style={{ fontSize: 12, color: '#64748b' }}>{p.description}</div>
+                    </div>
+                    <div style={{
+                      width: 20, height: 20, borderRadius: '50%',
+                      border: `2px solid ${isSelected ? p.color : '#d1d5db'}`,
+                      background: isSelected ? p.color : 'transparent',
+                      display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0,
+                    }}>
+                      {isSelected && <div style={{ width: 7, height: 7, borderRadius: '50%', background: '#fff' }} />}
+                    </div>
+                  </div>
+
+                  <div style={{ marginBottom: 20 }}>
+                    <span style={{ fontSize: 28, fontWeight: 900, color: '#0f172a' }}>
+                      {displayPrice === 0 ? '무료' : `₩${displayPrice.toLocaleString('ko-KR')}`}
+                    </span>
+                    {displayPrice > 0 && <span style={{ fontSize: 13, color: '#94a3b8', marginLeft: 4 }}>/월</span>}
+                  </div>
+
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                    {p.features.map((feat) => (
+                      <div key={feat.label} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                        <div style={{
+                          width: 16, height: 16, borderRadius: '50%', flexShrink: 0,
+                          background: feat.included ? `${p.color}20` : '#f1f5f9',
+                          display: 'flex', alignItems: 'center', justifyContent: 'center',
+                        }}>
+                          <span style={{ fontSize: 9, color: feat.included ? p.color : '#cbd5e1' }}>
+                            {feat.included ? '✓' : '×'}
+                          </span>
+                        </div>
+                        <span style={{ fontSize: 12, color: feat.included ? '#374151' : '#94a3b8', textDecoration: feat.included ? 'none' : 'line-through' }}>
+                          {feat.label}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+
+          <div style={{ display: 'flex', justifyContent: 'center' }}>
+            <SolidButton
+              color="primary"
+              size="large"
+              onClick={() => plan.id !== 'starter' && setStep('payment')}
+              style={{ minWidth: 240 }}
+            >
+              <SolidButton.Center>
+                {plan.id === 'starter' ? '무료로 시작하기' : `${plan.name} 플랜 시작하기`}
+              </SolidButton.Center>
+            </SolidButton>
+          </div>
+        </>
+      ) : (
+        /* 결제 폼 */
+        <div style={{ maxWidth: 520, margin: '0 auto' }}>
+          <button
+            onClick={() => setStep('plan')}
+            style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 13, color: '#6366f1', background: 'none', border: 'none', cursor: 'pointer', marginBottom: 24, padding: 0, fontWeight: 600 }}
+          >
+            ← 플랜 선택으로 돌아가기
+          </button>
+
+          <div style={{ background: plan.accentBg, border: `1.5px solid ${plan.color}30`, borderRadius: 14, padding: '16px 20px', marginBottom: 28, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div>
+              <div style={{ fontSize: 14, fontWeight: 700, color: plan.color }}>{plan.name} 플랜</div>
+              <div style={{ fontSize: 12, color: '#64748b' }}>{billing === 'annual' ? '연간 결제 (-20%)' : '월간 결제'}</div>
+            </div>
+            <div style={{ fontSize: 20, fontWeight: 900, color: '#0f172a' }}>
+              ₩{price.toLocaleString('ko-KR')}<span style={{ fontSize: 12, fontWeight: 400, color: '#94a3b8' }}>/월</span>
+            </div>
+          </div>
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 16, marginBottom: 24 }}>
+            {[
+              { label: '카드 번호', placeholder: '0000 0000 0000 0000', type: 'text' },
+              { label: '카드 소유자명', placeholder: '홍길동', type: 'text' },
+            ].map(({ label, placeholder, type }) => (
+              <div key={label}>
+                <label style={{ fontSize: 12, fontWeight: 700, color: '#374151', display: 'block', marginBottom: 6 }}>{label}</label>
+                <input
+                  type={type}
+                  placeholder={placeholder}
+                  style={{ width: '100%', padding: '10px 12px', borderRadius: 10, border: '1.5px solid #e2e8f0', fontSize: 14, outline: 'none', boxSizing: 'border-box' }}
+                />
+              </div>
+            ))}
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+              {[
+                { label: '유효기간', placeholder: 'MM / YY' },
+                { label: 'CVC', placeholder: '000' },
+              ].map(({ label, placeholder }) => (
+                <div key={label}>
+                  <label style={{ fontSize: 12, fontWeight: 700, color: '#374151', display: 'block', marginBottom: 6 }}>{label}</label>
+                  <input
+                    placeholder={placeholder}
+                    style={{ width: '100%', padding: '10px 12px', borderRadius: 10, border: '1.5px solid #e2e8f0', fontSize: 14, outline: 'none', boxSizing: 'border-box' }}
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div style={{ display: 'flex', alignItems: 'flex-start', gap: 10, marginBottom: 24, padding: '12px 14px', borderRadius: 10, background: '#f8fafc', border: '1px solid #e2e8f0' }}>
+            <Switch
+              checked={agreed}
+              onCheckedChange={setAgreed}
+            />
+            <div style={{ fontSize: 12, color: '#64748b', lineHeight: 1.6 }}>
+              <span style={{ fontWeight: 600, color: '#374151' }}>이용약관</span> 및{' '}
+              <span style={{ fontWeight: 600, color: '#374151' }}>개인정보 처리방침</span>에 동의하며,
+              구독이 자동 갱신된다는 것을 이해합니다.
+            </div>
+          </div>
+
+          <SolidButton
+            color="primary"
+            size="large"
+            style={{ width: '100%' }}
+            disabled={!agreed}
+          >
+            <SolidButton.Center>
+              {agreed ? `₩${price.toLocaleString('ko-KR')}/월 결제하기` : '약관 동의 후 결제 가능'}
+            </SolidButton.Center>
+          </SolidButton>
+
+          <div style={{ display: 'flex', justifyContent: 'center', gap: 16, marginTop: 16 }}>
+            {['SSL 암호화', '언제든 취소 가능', '환불 보장'].map((item) => (
+              <div key={item} style={{ display: 'flex', alignItems: 'center', gap: 4, fontSize: 11, color: '#94a3b8' }}>
+                <span style={{ color: '#10b981' }}>✓</span>
+                {item}
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  )
+}
+
+export const SubscriptionPage: Story = {
+  name: 'Subscription Page (Tailwind UI + Chakra UI 벤치마크)',
+  render: () => <SubscriptionPageRender />,
+}
+
