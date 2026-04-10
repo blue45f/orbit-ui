@@ -658,3 +658,266 @@ export const Shadcn_댓글_스레드_페이지네이션: Story = {
   },
   render: () => <ShadcnCommentPaginationRender />,
 }
+
+// ============================================================
+// Cycle 132 — Linear Design + Vercel Design 벤치마크 반영
+// ============================================================
+
+// Linear 스타일 — 이슈 목록 컴팩트 페이지네이션 (미니멀, 밀도 높은 UI)
+const LINEAR_ISSUES = Array.from({ length: 48 }, (_, i) => ({
+  id: `ORB-${1024 - i}`,
+  title: ['Button 토큰 시스템 리팩터링', 'Tooltip 접근성 개선', 'DataTable 정렬 버그', 'Modal 포커스 트랩', 'Space 컴포넌트 문서화', 'Carousel 터치 지원', 'Badge 색상 확장', 'Select 키보드 내비게이션', 'Form 유효성 검사 패턴', 'Icon 사이즈 스펙 정리'][i % 10],
+  priority: (['urgent', 'high', 'medium', 'low'] as const)[i % 4],
+  status: (['backlog', 'todo', 'in-progress', 'done'] as const)[i % 4],
+}))
+
+const PRIORITY_DOT: Record<string, string> = {
+  urgent: '#ef4444', high: '#f97316', medium: '#3b82f6', low: '#94a3b8',
+}
+
+const STATUS_LABEL: Record<string, { label: string; color: string }> = {
+  backlog: { label: '백로그', color: '#94a3b8' },
+  todo: { label: '할 일', color: '#3b82f6' },
+  'in-progress': { label: '진행 중', color: '#f59e0b' },
+  done: { label: '완료', color: '#22c55e' },
+}
+
+const PAGE_SIZE_LINEAR = 8
+
+function LinearIssueListPaginationRender() {
+  const [page, setPage] = useState(1)
+  const total = Math.ceil(LINEAR_ISSUES.length / PAGE_SIZE_LINEAR)
+  const items = LINEAR_ISSUES.slice((page - 1) * PAGE_SIZE_LINEAR, page * PAGE_SIZE_LINEAR)
+  return (
+    <div style={{ width: 520, fontFamily: 'system-ui, sans-serif' }}>
+      {/* 헤더 */}
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
+        <span style={{ fontSize: 13, fontWeight: 600, color: '#0f172a' }}>이슈 목록</span>
+        <span style={{ fontSize: 12, color: '#94a3b8' }}>{LINEAR_ISSUES.length}개</span>
+      </div>
+      {/* 이슈 목록 */}
+      <div style={{ border: '1px solid #e2e8f0', borderRadius: 8, overflow: 'hidden' }}>
+        {items.map((issue, i) => (
+          <div key={issue.id} style={{
+            display: 'flex', alignItems: 'center', gap: 10, padding: '8px 12px',
+            borderBottom: i < items.length - 1 ? '1px solid #f1f5f9' : 'none',
+            background: '#fff',
+          }}>
+            <span style={{ width: 7, height: 7, borderRadius: '50%', background: PRIORITY_DOT[issue.priority], flexShrink: 0 }} />
+            <span style={{ fontSize: 11, color: '#94a3b8', fontFamily: 'monospace', width: 70, flexShrink: 0 }}>{issue.id}</span>
+            <span style={{ flex: 1, fontSize: 13, color: '#1e293b', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{issue.title}</span>
+            <span style={{
+              fontSize: 11, padding: '2px 7px', borderRadius: 99, fontWeight: 500,
+              background: STATUS_LABEL[issue.status].color + '18',
+              color: STATUS_LABEL[issue.status].color,
+            }}>
+              {STATUS_LABEL[issue.status].label}
+            </span>
+          </div>
+        ))}
+      </div>
+      {/* 페이지네이션 */}
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: 10 }}>
+        <span style={{ fontSize: 11, color: '#94a3b8' }}>
+          {(page - 1) * PAGE_SIZE_LINEAR + 1}–{Math.min(page * PAGE_SIZE_LINEAR, LINEAR_ISSUES.length)} / {LINEAR_ISSUES.length}
+        </span>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+          <button
+            onClick={() => setPage((p) => Math.max(1, p - 1))}
+            disabled={page === 1}
+            style={{ padding: '4px 8px', fontSize: 11, borderRadius: 5, border: '1px solid #e2e8f0', background: '#fff', cursor: page === 1 ? 'not-allowed' : 'pointer', opacity: page === 1 ? 0.4 : 1 }}
+          >
+            ‹
+          </button>
+          {Array.from({ length: total }, (_, i) => i + 1).map((n) => (
+            <div key={n} onClick={() => setPage(n)} style={{ cursor: 'pointer' }}>
+              <PageNumber current={n === page ? 1 : 0} total={1}>{n}</PageNumber>
+            </div>
+          ))}
+          <button
+            onClick={() => setPage((p) => Math.min(total, p + 1))}
+            disabled={page === total}
+            style={{ padding: '4px 8px', fontSize: 11, borderRadius: 5, border: '1px solid #e2e8f0', background: '#fff', cursor: page === total ? 'not-allowed' : 'pointer', opacity: page === total ? 0.4 : 1 }}
+          >
+            ›
+          </button>
+        </div>
+        <PageNumber current={page} total={total} />
+      </div>
+    </div>
+  )
+}
+
+export const Linear_이슈_목록_컴팩트_페이지네이션: Story = {
+  name: 'Linear - 이슈 목록 컴팩트 페이지네이션',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Linear의 컴팩트 밀도 UI 패턴. 48개 이슈를 8개씩 페이지 분할. ' +
+          '우선순위 색상 도트 + ID + 제목 + 상태 배지 조합. PageNumber current/total 동시 활용.',
+      },
+    },
+  },
+  render: () => <LinearIssueListPaginationRender />,
+}
+
+// Vercel 스타일 — 배포 이력 무한 스크롤 페이지네이션
+const VERCEL_DEPLOYS = Array.from({ length: 30 }, (_, i) => ({
+  id: `dpl_${Math.random().toString(36).slice(2, 10)}`,
+  branch: ['main', 'feat/tokens', 'fix/tooltip', 'chore/deps', 'feat/carousel'][i % 5],
+  sha: Math.random().toString(16).slice(2, 9),
+  time: `${i * 3 + 1}분 전`,
+  status: (['ready', 'ready', 'ready', 'error', 'building'] as const)[i % 5],
+  duration: `${20 + (i % 8) * 7}s`,
+}))
+
+const DEPLOY_STATUS_COLOR: Record<string, string> = {
+  ready: '#22c55e', error: '#ef4444', building: '#f59e0b',
+}
+
+function VercelDeployHistoryRender() {
+  const [page, setPage] = useState(1)
+  const pageSize = 6
+  const total = Math.ceil(VERCEL_DEPLOYS.length / pageSize)
+  const items = VERCEL_DEPLOYS.slice((page - 1) * pageSize, page * pageSize)
+  return (
+    <div style={{ width: 540, fontFamily: 'system-ui, sans-serif' }}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12 }}>
+        <span style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>배포 이력</span>
+        <PageNumber current={page} total={total} />
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+        {items.map((d) => (
+          <div key={d.id} style={{
+            display: 'flex', alignItems: 'center', gap: 12, padding: '10px 14px',
+            borderRadius: 8, border: '1px solid #e2e8f0', background: '#fff',
+          }}>
+            <span style={{ width: 8, height: 8, borderRadius: '50%', background: DEPLOY_STATUS_COLOR[d.status], flexShrink: 0 }} />
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <div style={{ fontSize: 13, fontWeight: 600, color: '#0f172a' }}>{d.branch}</div>
+              <div style={{ fontSize: 11, color: '#94a3b8', fontFamily: 'monospace', marginTop: 1 }}>{d.sha}</div>
+            </div>
+            <span style={{ fontSize: 11, color: '#64748b' }}>{d.duration}</span>
+            <span style={{ fontSize: 11, color: '#94a3b8' }}>{d.time}</span>
+          </div>
+        ))}
+      </div>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6, marginTop: 16 }}>
+        <button
+          onClick={() => setPage((p) => Math.max(1, p - 1))}
+          disabled={page === 1}
+          style={{ padding: '6px 14px', fontSize: 12, borderRadius: 6, border: '1px solid #e2e8f0', background: page === 1 ? '#f8fafc' : '#fff', color: page === 1 ? '#94a3b8' : '#0f172a', cursor: page === 1 ? 'not-allowed' : 'pointer' }}
+        >
+          이전
+        </button>
+        {Array.from({ length: Math.min(total, 5) }, (_, i) => {
+          const n = Math.max(1, Math.min(page - 2, total - 4)) + i
+          return n <= total ? (
+            <div key={n} onClick={() => setPage(n)} style={{ cursor: 'pointer' }}>
+              <PageNumber current={n === page ? 1 : 0} total={1}>{n}</PageNumber>
+            </div>
+          ) : null
+        })}
+        <button
+          onClick={() => setPage((p) => Math.min(total, p + 1))}
+          disabled={page === total}
+          style={{ padding: '6px 14px', fontSize: 12, borderRadius: 6, border: '1px solid #e2e8f0', background: page === total ? '#f8fafc' : '#fff', color: page === total ? '#94a3b8' : '#0f172a', cursor: page === total ? 'not-allowed' : 'pointer' }}
+        >
+          다음
+        </button>
+      </div>
+    </div>
+  )
+}
+
+export const Vercel_배포_이력_페이지네이션: Story = {
+  name: 'Vercel Design - 배포 이력 페이지네이션',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Vercel 대시보드 스타일. 30개 배포 이력을 6개씩 분할. ' +
+          '상태 도트 + 브랜치 + SHA + 소요시간 카드. 슬라이딩 윈도우 페이지 번호.',
+      },
+    },
+  },
+  render: () => <VercelDeployHistoryRender />,
+}
+
+// Linear + Vercel — 프로젝트 파일 탐색기 페이지네이션
+type FileItem132 = { name: string; type: 'folder' | 'file'; ext: string; size: string; modified: string }
+const REPO_FILES_132: FileItem132[] = [
+  { name: 'packages', type: 'folder', ext: '', size: '—', modified: '2시간 전' },
+  { name: 'config', type: 'folder', ext: '', size: '—', modified: '1일 전' },
+  { name: '.storybook', type: 'folder', ext: '', size: '—', modified: '3일 전' },
+  { name: 'package.json', type: 'file', ext: 'json', size: '2.1 KB', modified: '2시간 전' },
+  { name: 'pnpm-workspace.yaml', type: 'file', ext: 'yaml', size: '0.4 KB', modified: '5일 전' },
+  { name: 'tsconfig.json', type: 'file', ext: 'json', size: '1.2 KB', modified: '1주 전' },
+  { name: 'CLAUDE.md', type: 'file', ext: 'md', size: '8.7 KB', modified: '3시간 전' },
+  { name: 'BenchmarkComparison.mdx', type: 'file', ext: 'mdx', size: '12.4 KB', modified: '1시간 전' },
+  { name: '.eslintrc.js', type: 'file', ext: 'js', size: '0.8 KB', modified: '2주 전' },
+  { name: '.prettierrc', type: 'file', ext: '', size: '0.2 KB', modified: '2주 전' },
+  { name: 'turbo.json', type: 'file', ext: 'json', size: '1.0 KB', modified: '1일 전' },
+  { name: 'vitest.config.ts', type: 'file', ext: 'ts', size: '0.6 KB', modified: '4일 전' },
+]
+
+const EXT_COLOR: Record<string, string> = {
+  json: '#22c55e', ts: '#3b82f6', js: '#f59e0b', yaml: '#8b5cf6', md: '#6366f1', mdx: '#ec4899',
+}
+
+function LinearVercelFileBrowserRender() {
+  const [page, setPage] = useState(1)
+  const pageSize = 5
+  const total = Math.ceil(REPO_FILES_132.length / pageSize)
+  const items = REPO_FILES_132.slice((page - 1) * pageSize, page * pageSize)
+  return (
+    <div style={{ width: 480, fontFamily: 'system-ui, sans-serif', border: '1px solid #e2e8f0', borderRadius: 10, overflow: 'hidden' }}>
+      {/* 헤더 */}
+      <div style={{ padding: '10px 14px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <span style={{ fontSize: 13, fontWeight: 600, color: '#0f172a' }}>orbit-ui / root</span>
+        <PageNumber current={page} total={total} />
+      </div>
+      {/* 파일 목록 */}
+      {items.map((f, i) => (
+        <div key={f.name} style={{
+          display: 'flex', alignItems: 'center', gap: 10, padding: '9px 14px',
+          borderBottom: i < items.length - 1 ? '1px solid #f8fafc' : 'none',
+          background: '#fff',
+        }}>
+          <span style={{ fontSize: 16 }}>{f.type === 'folder' ? '📁' : '📄'}</span>
+          <span style={{ flex: 1, fontSize: 13, color: '#0f172a', fontWeight: f.type === 'folder' ? 600 : 400 }}>{f.name}</span>
+          {f.ext && (
+            <span style={{ fontSize: 10, padding: '1px 6px', borderRadius: 4, background: (EXT_COLOR[f.ext] || '#94a3b8') + '18', color: EXT_COLOR[f.ext] || '#94a3b8', fontFamily: 'monospace', fontWeight: 600 }}>
+              {f.ext}
+            </span>
+          )}
+          <span style={{ fontSize: 11, color: '#94a3b8', width: 48, textAlign: 'right' }}>{f.size}</span>
+          <span style={{ fontSize: 11, color: '#94a3b8', width: 64, textAlign: 'right' }}>{f.modified}</span>
+        </div>
+      ))}
+      {/* 페이지네이션 */}
+      <div style={{ padding: '8px 14px', background: '#f8fafc', borderTop: '1px solid #e2e8f0', display: 'flex', justifyContent: 'center', gap: 4 }}>
+        {Array.from({ length: total }, (_, i) => i + 1).map((n) => (
+          <div key={n} onClick={() => setPage(n)} style={{ cursor: 'pointer' }}>
+            <PageNumber current={n === page ? 1 : 0} total={1}>{n}</PageNumber>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+export const Linear_Vercel_파일_탐색기_페이지네이션: Story = {
+  name: 'Linear + Vercel - 파일 탐색기 페이지네이션',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Linear 컴팩트 + Vercel 모노크롬 스타일 결합. 12개 파일을 5개씩 분할. ' +
+          '폴더/파일 타입 구분, 확장자 컬러 배지, 수정 시간 표시. PageNumber 헤더+푸터 동시 사용.',
+      },
+    },
+  },
+  render: () => <LinearVercelFileBrowserRender />,
+}

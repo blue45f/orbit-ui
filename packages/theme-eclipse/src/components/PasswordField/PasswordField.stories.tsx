@@ -1357,3 +1357,279 @@ export const Radix_위험_작업_비밀번호_확인: Story = {
   },
   render: () => <RadixDangerConfirmRender />,
 }
+
+// ============================================================
+// Cycle 132 — Linear Design + Vercel Design 벤치마크 반영
+// ============================================================
+
+// Linear 스타일 — 팀 멤버 초대 + 비밀번호 설정 온보딩
+function LinearTeamOnboardingRender() {
+  const [step, setStep] = useState<'invite' | 'password' | 'done'>('invite')
+  const [email, setEmail] = useState('')
+  const [pw, setPw] = useState('')
+  const [confirm, setConfirm] = useState('')
+  const pwStrength = pw.length === 0 ? 0 : pw.length < 6 ? 1 : pw.length < 10 ? 2 : pw.length < 14 ? 3 : 4
+  const strengthLabel = ['', '약함', '보통', '강함', '매우 강함']
+  const strengthColor = ['', '#ef4444', '#f97316', '#22c55e', '#16a34a']
+  const isMatch = pw === confirm && confirm.length > 0
+  const canNext = step === 'invite' ? email.includes('@') : pwStrength >= 2 && isMatch
+  return (
+    <div style={{ width: 360, fontFamily: 'system-ui, sans-serif' }}>
+      {/* 진행 단계 */}
+      <div style={{ display: 'flex', gap: 6, marginBottom: 24 }}>
+        {(['invite', 'password', 'done'] as const).map((s, i) => (
+          <div key={s} style={{ flex: 1, height: 3, borderRadius: 99, background: i <= (['invite', 'password', 'done'] as const).indexOf(step) ? '#0f172a' : '#e2e8f0', transition: 'background 250ms' }} />
+        ))}
+      </div>
+      {step === 'invite' && (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+          <div style={{ fontSize: 18, fontWeight: 700, color: '#0f172a' }}>팀 워크스페이스 참가</div>
+          <div style={{ fontSize: 13, color: '#64748b' }}>초대 이메일 주소를 입력하세요.</div>
+          <input
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="you@company.com"
+            style={{ padding: '9px 12px', fontSize: 13, borderRadius: 8, border: '1px solid #e2e8f0', outline: 'none', color: '#0f172a' }}
+          />
+          <button
+            onClick={() => setStep('password')}
+            disabled={!canNext}
+            style={{ padding: '10px', fontSize: 13, fontWeight: 600, borderRadius: 8, border: 'none', background: canNext ? '#0f172a' : '#f1f5f9', color: canNext ? '#fff' : '#94a3b8', cursor: canNext ? 'pointer' : 'not-allowed', transition: 'all 150ms' }}
+          >
+            계속
+          </button>
+        </div>
+      )}
+      {step === 'password' && (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+          <div style={{ fontSize: 18, fontWeight: 700, color: '#0f172a' }}>비밀번호 설정</div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+            <PasswordField
+              value={pw}
+              onChange={(e) => setPw((e.target as HTMLInputElement).value)}
+              placeholder="새 비밀번호"
+            />
+            {pw.length > 0 && (
+              <div style={{ display: 'flex', gap: 4, alignItems: 'center' }}>
+                {[1, 2, 3, 4].map((n) => (
+                  <div key={n} style={{ flex: 1, height: 3, borderRadius: 99, background: n <= pwStrength ? strengthColor[pwStrength] : '#e2e8f0', transition: 'background 200ms' }} />
+                ))}
+                <span style={{ fontSize: 11, color: strengthColor[pwStrength], marginLeft: 4, minWidth: 52 }}>{strengthLabel[pwStrength]}</span>
+              </div>
+            )}
+          </div>
+          <PasswordField
+            value={confirm}
+            onChange={(e) => setConfirm((e.target as HTMLInputElement).value)}
+            placeholder="비밀번호 확인"
+            error={confirm.length > 0 && !isMatch}
+          />
+          {confirm.length > 0 && !isMatch && (
+            <span style={{ fontSize: 11, color: '#ef4444', marginTop: -8 }}>비밀번호가 일치하지 않습니다</span>
+          )}
+          <button
+            onClick={() => setStep('done')}
+            disabled={!canNext}
+            style={{ padding: '10px', fontSize: 13, fontWeight: 600, borderRadius: 8, border: 'none', background: canNext ? '#0f172a' : '#f1f5f9', color: canNext ? '#fff' : '#94a3b8', cursor: canNext ? 'pointer' : 'not-allowed', transition: 'all 150ms' }}
+          >
+            완료
+          </button>
+        </div>
+      )}
+      {step === 'done' && (
+        <div style={{ textAlign: 'center', padding: '32px 0' }}>
+          <div style={{ fontSize: 32, marginBottom: 12 }}>✓</div>
+          <div style={{ fontSize: 18, fontWeight: 700, color: '#0f172a', marginBottom: 8 }}>설정 완료!</div>
+          <div style={{ fontSize: 13, color: '#64748b' }}>{email} 으로 로그인하세요.</div>
+          <button onClick={() => { setStep('invite'); setEmail(''); setPw(''); setConfirm('') }} style={{ marginTop: 20, fontSize: 12, color: '#6366f1', border: 'none', background: 'none', cursor: 'pointer' }}>
+            다시 시작
+          </button>
+        </div>
+      )}
+    </div>
+  )
+}
+
+export const Linear_팀_온보딩_비밀번호_설정: Story = {
+  name: 'Linear - 팀 온보딩 비밀번호 설정',
+  parameters: {
+    layout: 'centered',
+    docs: {
+      description: {
+        story:
+          'Linear 온보딩 UI 패턴. 이메일 확인 → 비밀번호 설정 → 완료 3단계. ' +
+          '비밀번호 강도 게이지(4단계 색상)와 일치 검증, 진행 바 포함.',
+      },
+    },
+  },
+  render: () => <LinearTeamOnboardingRender />,
+}
+
+// Vercel 스타일 — API 토큰 생성 보안 폼
+type TokenScope132 = 'read' | 'write' | 'admin'
+
+function VercelTokenCreateRender() {
+  const [name, setName] = useState('')
+  const [scope, setScope] = useState<TokenScope132>('read')
+  const [pw, setPw] = useState('')
+  const [created, setCreated] = useState<string | null>(null)
+  const [error, setPwError] = useState(false)
+  const SCOPES: Array<{ key: TokenScope132; label: string; desc: string }> = [
+    { key: 'read', label: '읽기', desc: '데이터 조회만 허용' },
+    { key: 'write', label: '읽기/쓰기', desc: '데이터 조회 및 수정' },
+    { key: 'admin', label: '전체 권한', desc: '삭제 포함 모든 작업' },
+  ]
+  const handleCreate = () => {
+    if (pw.length < 6) { setPwError(true); return }
+    setPwError(false)
+    const token = `tok_${Math.random().toString(36).slice(2, 18)}`
+    setCreated(token)
+  }
+  return (
+    <div style={{ width: 380, fontFamily: 'system-ui, sans-serif' }}>
+      {!created ? (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+          <div style={{ fontSize: 16, fontWeight: 700, color: '#0f172a' }}>새 API 토큰 생성</div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+            <label style={{ fontSize: 12, fontWeight: 600, color: '#475569' }}>토큰 이름</label>
+            <input
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              placeholder="my-ci-token"
+              style={{ padding: '8px 12px', fontSize: 13, borderRadius: 7, border: '1px solid #e2e8f0', outline: 'none', color: '#0f172a' }}
+            />
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+            <label style={{ fontSize: 12, fontWeight: 600, color: '#475569' }}>권한 범위</label>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+              {SCOPES.map((s) => (
+                <label key={s.key} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '8px 12px', borderRadius: 7, border: `1.5px solid ${scope === s.key ? '#0f172a' : '#e2e8f0'}`, cursor: 'pointer', background: scope === s.key ? '#f8fafc' : '#fff' }} onClick={() => setScope(s.key)}>
+                  <div style={{ width: 14, height: 14, borderRadius: '50%', border: `2px solid ${scope === s.key ? '#0f172a' : '#cbd5e1'}`, background: scope === s.key ? '#0f172a' : '#fff', flexShrink: 0 }} />
+                  <div>
+                    <div style={{ fontSize: 13, fontWeight: 600, color: '#0f172a' }}>{s.label}</div>
+                    <div style={{ fontSize: 11, color: '#64748b' }}>{s.desc}</div>
+                  </div>
+                </label>
+              ))}
+            </div>
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+            <label style={{ fontSize: 12, fontWeight: 600, color: '#475569' }}>계정 비밀번호 확인</label>
+            <PasswordField
+              value={pw}
+              onChange={(e) => { setPw((e.target as HTMLInputElement).value); setPwError(false) }}
+              placeholder="비밀번호 입력"
+              error={error}
+            />
+            {error && <span style={{ fontSize: 11, color: '#ef4444' }}>비밀번호를 입력해 주세요</span>}
+          </div>
+          <button
+            onClick={handleCreate}
+            disabled={!name.trim()}
+            style={{ padding: '10px', fontSize: 13, fontWeight: 600, borderRadius: 8, border: 'none', background: name.trim() ? '#0f172a' : '#f1f5f9', color: name.trim() ? '#fff' : '#94a3b8', cursor: name.trim() ? 'pointer' : 'not-allowed' }}
+          >
+            토큰 생성
+          </button>
+        </div>
+      ) : (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+          <div style={{ fontSize: 16, fontWeight: 700, color: '#0f172a' }}>토큰이 생성되었습니다</div>
+          <div style={{ fontSize: 13, color: '#ef4444', fontWeight: 500 }}>이 화면을 벗어나면 다시 볼 수 없습니다.</div>
+          <div style={{ padding: '10px 14px', background: '#f8fafc', borderRadius: 8, border: '1px solid #e2e8f0', fontFamily: 'monospace', fontSize: 12, wordBreak: 'break-all', color: '#0f172a' }}>
+            {created}
+          </div>
+          <button onClick={() => { setCreated(null); setName(''); setPw(''); setScope('read') }} style={{ fontSize: 12, color: '#6366f1', border: 'none', background: 'none', cursor: 'pointer' }}>
+            다시 생성
+          </button>
+        </div>
+      )}
+    </div>
+  )
+}
+
+export const Vercel_API_토큰_생성_보안_폼: Story = {
+  name: 'Vercel Design - API 토큰 생성 보안 폼',
+  parameters: {
+    layout: 'centered',
+    docs: {
+      description: {
+        story:
+          'Vercel 토큰 생성 UI 패턴. 이름 + 권한 범위 선택(라디오) + 비밀번호 재확인. ' +
+          '생성 후 일회성 토큰 표시 + 복사 경고 메시지.',
+      },
+    },
+  },
+  render: () => <VercelTokenCreateRender />,
+}
+
+// Linear + Vercel — 보안 설정 비밀번호 변경 + 세션 관리
+type Session132 = { device: string; location: string; time: string; current: boolean }
+
+const SESSIONS_132: Session132[] = [
+  { device: 'MacBook Pro (Chrome)', location: '서울, KR', time: '지금', current: true },
+  { device: 'iPhone 16 (Safari)', location: '서울, KR', time: '2시간 전', current: false },
+  { device: 'Windows PC (Edge)', location: '부산, KR', time: '1일 전', current: false },
+]
+
+function LinearVercelSecurityPanelRender() {
+  const [current, setCurrent] = useState('')
+  const [next, setNext] = useState('')
+  const [sessions, setSessions] = useState<Session132[]>(SESSIONS_132)
+  const [saved, setSaved] = useState(false)
+  const canSave = current.length >= 6 && next.length >= 8
+  const handleSave = () => { if (!canSave) return; setSaved(true); setTimeout(() => setSaved(false), 2000); setCurrent(''); setNext('') }
+  return (
+    <div style={{ width: 420, fontFamily: 'system-ui, sans-serif', display: 'flex', flexDirection: 'column', gap: 24 }}>
+      {/* 비밀번호 변경 */}
+      <div style={{ borderRadius: 10, border: '1px solid #e2e8f0', overflow: 'hidden' }}>
+        <div style={{ padding: '14px 18px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0', fontSize: 13, fontWeight: 700, color: '#0f172a' }}>비밀번호 변경</div>
+        <div style={{ padding: '18px', display: 'flex', flexDirection: 'column', gap: 12 }}>
+          <PasswordField value={current} onChange={(e) => setCurrent((e.target as HTMLInputElement).value)} placeholder="현재 비밀번호" />
+          <PasswordField value={next} onChange={(e) => setNext((e.target as HTMLInputElement).value)} placeholder="새 비밀번호 (8자 이상)" />
+          <button
+            onClick={handleSave}
+            disabled={!canSave}
+            style={{ padding: '9px', fontSize: 13, fontWeight: 600, borderRadius: 7, border: 'none', background: saved ? '#22c55e' : canSave ? '#0f172a' : '#f1f5f9', color: canSave ? '#fff' : '#94a3b8', cursor: canSave ? 'pointer' : 'not-allowed', transition: 'background 200ms' }}
+          >
+            {saved ? '저장됨' : '저장'}
+          </button>
+        </div>
+      </div>
+      {/* 세션 목록 */}
+      <div style={{ borderRadius: 10, border: '1px solid #e2e8f0', overflow: 'hidden' }}>
+        <div style={{ padding: '14px 18px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0', fontSize: 13, fontWeight: 700, color: '#0f172a' }}>활성 세션</div>
+        {sessions.map((s, i) => (
+          <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 18px', borderBottom: i < sessions.length - 1 ? '1px solid #f1f5f9' : 'none' }}>
+            <span style={{ fontSize: 18 }}>{s.device.includes('iPhone') ? '📱' : s.device.includes('Windows') ? '🖥️' : '💻'}</span>
+            <div style={{ flex: 1 }}>
+              <div style={{ fontSize: 13, fontWeight: 600, color: '#0f172a' }}>{s.device}</div>
+              <div style={{ fontSize: 11, color: '#94a3b8' }}>{s.location} · {s.time}</div>
+            </div>
+            {s.current ? (
+              <span style={{ fontSize: 11, padding: '2px 8px', background: '#dcfce7', color: '#16a34a', borderRadius: 99, fontWeight: 500 }}>현재</span>
+            ) : (
+              <button onClick={() => setSessions((prev) => prev.filter((_, j) => j !== i))} style={{ fontSize: 11, color: '#ef4444', border: '1px solid #fca5a5', background: '#fff', borderRadius: 5, padding: '2px 8px', cursor: 'pointer' }}>
+                종료
+              </button>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+export const Linear_Vercel_보안_설정_패널: Story = {
+  name: 'Linear + Vercel - 보안 설정 비밀번호 + 세션 관리',
+  parameters: {
+    layout: 'centered',
+    docs: {
+      description: {
+        story:
+          'Linear 컴팩트 + Vercel 모노크롬 결합. 비밀번호 변경(현재/새 비밀번호 + 저장 피드백) + ' +
+          '활성 세션 목록(디바이스/위치/시간 + 세션 종료 버튼).',
+      },
+    },
+  },
+  render: () => <LinearVercelSecurityPanelRender />,
+}

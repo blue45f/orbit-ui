@@ -30857,3 +30857,167 @@ export const ShadcnRadix131ActivityDashboard: StoryObj = {
   },
   render: () => <ActivityDashboard131Render />,
 }
+
+/* ============================================================
+   Cycle 132 Template: Linear Design + Vercel Design 벤치마크
+   개발자 프로필 설정 — PasswordField 보안 + PageNumber 페이지 내비게이션
+   ============================================================ */
+
+type DevRepo132 = { name: string; lang: string; stars: number; updated: string }
+const DEV_REPOS_132: DevRepo132[] = [
+  { name: 'orbit-ui', lang: 'TypeScript', stars: 142, updated: '2시간 전' },
+  { name: 'vite-plugin-tokens', lang: 'TypeScript', stars: 58, updated: '1일 전' },
+  { name: 'eslint-plugin-css', lang: 'JavaScript', stars: 34, updated: '3일 전' },
+  { name: 'react-hooks-kit', lang: 'TypeScript', stars: 91, updated: '5일 전' },
+  { name: 'figma-token-bridge', lang: 'TypeScript', stars: 27, updated: '1주 전' },
+  { name: 'vanilla-extract-utils', lang: 'TypeScript', stars: 19, updated: '2주 전' },
+  { name: 'storybook-preset', lang: 'JavaScript', stars: 44, updated: '3주 전' },
+  { name: 'design-token-cli', lang: 'Go', stars: 76, updated: '1달 전' },
+]
+
+const LANG_COLOR_132: Record<string, string> = {
+  TypeScript: '#3b82f6', JavaScript: '#f59e0b', Go: '#00add8',
+}
+
+type ProfileTab132 = 'repos' | 'security'
+
+function DevProfile132Render() {
+  const [tab, setTab] = useState<ProfileTab132>('repos')
+  const [page, setPage] = useState(1)
+  const pageSize = 4
+  const total = Math.ceil(DEV_REPOS_132.length / pageSize)
+  const repos = DEV_REPOS_132.slice((page - 1) * pageSize, page * pageSize)
+  const [currentPw, setCurrentPw] = useState('')
+  const [newPw, setNewPw] = useState('')
+  const [saved, setSaved] = useState(false)
+  const canSave = currentPw.length >= 6 && newPw.length >= 8
+  const handleSave = () => {
+    if (!canSave) return
+    setSaved(true)
+    setTimeout(() => { setSaved(false); setCurrentPw(''); setNewPw('') }, 2000)
+  }
+  return (
+    <div style={{ width: 500, fontFamily: 'system-ui, sans-serif', background: '#fff', borderRadius: 14, border: '1px solid #e2e8f0', overflow: 'hidden' }}>
+      {/* 프로필 헤더 */}
+      <div style={{ padding: '24px', background: '#0f172a', display: 'flex', alignItems: 'center', gap: 16 }}>
+        <div style={{ width: 56, height: 56, borderRadius: '50%', background: '#6366f1', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 22, fontWeight: 700, color: '#fff', flexShrink: 0 }}>
+          HJ
+        </div>
+        <div>
+          <div style={{ fontSize: 16, fontWeight: 700, color: '#fff' }}>김희준</div>
+          <div style={{ fontSize: 12, color: '#94a3b8', marginTop: 2 }}>@hjunkim · Senior Frontend Engineer</div>
+          <div style={{ display: 'flex', gap: 16, marginTop: 6 }}>
+            <span style={{ fontSize: 11, color: '#64748b' }}>{DEV_REPOS_132.length}개 레포</span>
+            <span style={{ fontSize: 11, color: '#64748b' }}>142 스타</span>
+          </div>
+        </div>
+      </div>
+
+      {/* 탭 */}
+      <div style={{ display: 'flex', borderBottom: '1px solid #e2e8f0' }}>
+        {([['repos', '레포지토리'], ['security', '보안']] as const).map(([key, label]) => (
+          <button
+            key={key}
+            onClick={() => { setTab(key); setPage(1) }}
+            style={{
+              padding: '12px 20px', fontSize: 13, fontWeight: tab === key ? 600 : 400,
+              border: 'none', background: 'none', cursor: 'pointer',
+              color: tab === key ? '#0f172a' : '#64748b',
+              borderBottom: tab === key ? '2px solid #0f172a' : '2px solid transparent',
+              transition: 'all 150ms',
+            }}
+          >
+            {label}
+          </button>
+        ))}
+      </div>
+
+      {/* 컨텐츠 */}
+      {tab === 'repos' && (
+        <div>
+          <div style={{ display: 'flex', flexDirection: 'column' }}>
+            {repos.map((r, i) => (
+              <div key={r.name} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 20px', borderBottom: i < repos.length - 1 ? '1px solid #f1f5f9' : 'none' }}>
+                <div style={{ flex: 1 }}>
+                  <div style={{ fontSize: 13, fontWeight: 600, color: '#6366f1', marginBottom: 2 }}>{r.name}</div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                    <span style={{ width: 10, height: 10, borderRadius: '50%', background: LANG_COLOR_132[r.lang] || '#94a3b8' }} />
+                    <span style={{ fontSize: 11, color: '#64748b' }}>{r.lang}</span>
+                    <span style={{ fontSize: 11, color: '#94a3b8' }}>·</span>
+                    <span style={{ fontSize: 11, color: '#94a3b8' }}>★ {r.stars}</span>
+                    <span style={{ fontSize: 11, color: '#94a3b8' }}>·</span>
+                    <span style={{ fontSize: 11, color: '#94a3b8' }}>{r.updated}</span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+          <div style={{ padding: '12px 20px', borderTop: '1px solid #f1f5f9', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <PageNumber current={page} total={total} />
+            <div style={{ display: 'flex', gap: 4 }}>
+              {Array.from({ length: total }, (_, i) => i + 1).map((n) => (
+                <div key={n} onClick={() => setPage(n)} style={{ cursor: 'pointer' }}>
+                  <PageNumber current={n === page ? 1 : 0} total={1}>{n}</PageNumber>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {tab === 'security' && (
+        <div style={{ padding: '20px' }}>
+          <div style={{ fontSize: 13, fontWeight: 600, color: '#0f172a', marginBottom: 14 }}>비밀번호 변경</div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+            <PasswordField
+              value={currentPw}
+              onChange={(e) => setCurrentPw((e.target as HTMLInputElement).value)}
+              placeholder="현재 비밀번호"
+            />
+            <PasswordField
+              value={newPw}
+              onChange={(e) => setNewPw((e.target as HTMLInputElement).value)}
+              placeholder="새 비밀번호 (8자 이상)"
+            />
+            <button
+              onClick={handleSave}
+              disabled={!canSave}
+              style={{
+                padding: '10px', fontSize: 13, fontWeight: 600, borderRadius: 8, border: 'none',
+                background: saved ? '#22c55e' : canSave ? '#0f172a' : '#f1f5f9',
+                color: canSave ? '#fff' : '#94a3b8',
+                cursor: canSave ? 'pointer' : 'not-allowed', transition: 'background 200ms',
+              }}
+            >
+              {saved ? '저장됨' : '저장'}
+            </button>
+          </div>
+          <div style={{ marginTop: 24, padding: '14px', borderRadius: 8, background: '#fef9c3', border: '1px solid #fef08a' }}>
+            <div style={{ fontSize: 12, fontWeight: 600, color: '#92400e', marginBottom: 4 }}>보안 권장사항</div>
+            <ul style={{ margin: 0, paddingLeft: 16, fontSize: 12, color: '#78350f', lineHeight: 1.7 }}>
+              <li>8자 이상, 대소문자 + 숫자 + 특수문자 포함</li>
+              <li>다른 서비스와 다른 비밀번호 사용 권장</li>
+              <li>주기적 변경 (90일마다)</li>
+            </ul>
+          </div>
+        </div>
+      )}
+    </div>
+  )
+}
+
+export const LinearVercel132DeveloperProfile: StoryObj = {
+  name: 'Linear + Vercel — 개발자 프로필 설정 (Cycle 132)',
+  parameters: {
+    layout: 'centered',
+    docs: {
+      description: {
+        story:
+          'Linear 컴팩트 + Vercel 모노크롬 벤치마크 — Cycle 132. ' +
+          'PageNumber 페이지네이션 레포 목록 + PasswordField 보안 탭. ' +
+          '탭 전환, 레포 페이지네이션, 비밀번호 변경 + 저장 피드백 결합.',
+      },
+    },
+  },
+  render: () => <DevProfile132Render />,
+}
