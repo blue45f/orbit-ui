@@ -1368,3 +1368,197 @@ export const Shadcn_Tailwind_커밋_히스토리_호버: Story = {
   },
   render: () => <ShadcnTailwindCommit143Render />,
 }
+
+// ──────────────────────────────────────────────────────────────────────────────
+// Cycle 175: Notion Design + Figma Plugin UI
+// ──────────────────────────────────────────────────────────────────────────────
+
+function NotionPagePreviewHoverRender() {
+  const pages = [
+    { title: 'Orbit UI Architecture', icon: '◉', updated: '3시간 전', author: 'HJ', content: '3계층 아키텍처: Core → Theme → Custom. vanilla-extract 기반 토큰 시스템.' },
+    { title: 'Component Roadmap', icon: '📋', updated: '1일 전', author: 'SW', content: 'Cycle 175까지 완성 목표. 60+ 컴포넌트, 900+ 스토리 달성 계획.' },
+    { title: 'Design Token Guide', icon: '🎨', updated: '2일 전', author: 'JW', content: 'Reference → Semantic → Component 3단계 토큰 체계. CSS 변수 기반 런타임 전환.' },
+  ]
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 4, width: 360 }}>
+      <div style={{ fontSize: 11, color: '#94a3b8', marginBottom: 8, fontWeight: 600 }}>최근 페이지</div>
+      {pages.map((page) => (
+        <HoverCard key={page.title} openDelay={200} closeDelay={100}>
+          <HoverCard.Trigger asChild>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '6px 10px', borderRadius: 6, cursor: 'pointer', background: 'var(--sem-eclipse-color-surfaceContainer, #f8fafc)', border: '1px solid transparent' }}>
+              <span style={{ fontSize: 14 }}>{page.icon}</span>
+              <span style={{ flex: 1, fontSize: 13, color: 'var(--sem-eclipse-color-foregroundPrimary, #0f172a)' }}>{page.title}</span>
+              <span style={{ fontSize: 10, color: '#94a3b8' }}>{page.updated}</span>
+            </div>
+          </HoverCard.Trigger>
+          <HoverCard.Content style={{ width: 280 }}>
+            <div style={{ padding: 14 }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8 }}>
+                <span style={{ fontSize: 18 }}>{page.icon}</span>
+                <div>
+                  <div style={{ fontSize: 13, fontWeight: 700, color: '#0f172a' }}>{page.title}</div>
+                  <div style={{ fontSize: 11, color: '#94a3b8' }}>작성자: {page.author} · {page.updated}</div>
+                </div>
+              </div>
+              <Divider />
+              <p style={{ fontSize: 12, color: '#64748b', lineHeight: 1.6, marginTop: 8 }}>{page.content}</p>
+              <div style={{ marginTop: 10, display: 'flex', gap: 6 }}>
+                <SolidButton color="primary" size="small">
+                  <SolidButton.Center>열기</SolidButton.Center>
+                </SolidButton>
+                <SolidButton color="gray" size="small">
+                  <SolidButton.Center>즐겨찾기</SolidButton.Center>
+                </SolidButton>
+              </div>
+            </div>
+          </HoverCard.Content>
+        </HoverCard>
+      ))}
+    </div>
+  )
+}
+
+export const Notion_페이지_미리보기_호버: Story = {
+  name: 'Notion Design — 페이지 목록 미리보기 HoverCard',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Notion 사이드바 페이지 목록 hover preview 패턴. 아이콘 + 제목 + 수정 시간 표시, 호버 시 콘텐츠 미리보기 + 작성자 + 빠른 액션 버튼.',
+      },
+    },
+  },
+  render: () => <NotionPagePreviewHoverRender />,
+}
+
+function FigmaComponentInspectHoverRender() {
+  const components = [
+    { name: 'SolidButton', type: 'Component', props: ['color', 'size', 'disabled'], instances: 142, variant: 'primary/medium' },
+    { name: 'TextField', type: 'Component Set', props: ['label', 'placeholder', 'error'], instances: 87, variant: 'filled/default' },
+    { name: 'Avatar.Image', type: 'Instance', props: ['src', 'alt', 'fallback'], instances: 56, variant: 'circle/medium' },
+  ]
+
+  return (
+    <div style={{ background: '#1e1e1e', borderRadius: 10, padding: 16, width: 360 }}>
+      <div style={{ fontSize: 11, color: '#8e8e93', marginBottom: 10, fontWeight: 600 }}>LAYERS — Components</div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
+        {components.map((comp) => (
+          <HoverCard key={comp.name} openDelay={150}>
+            <HoverCard.Trigger asChild>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '6px 10px', borderRadius: 6, cursor: 'pointer', background: '#2c2c2c' }}>
+                <span style={{ fontSize: 10, color: comp.type === 'Component Set' ? '#22c55e' : comp.type === 'Instance' ? '#8b5cf6' : '#3b82f6' }}>
+                  {comp.type === 'Component Set' ? '◈' : comp.type === 'Instance' ? '◇' : '●'}
+                </span>
+                <span style={{ flex: 1, fontSize: 12, color: '#f2f2f2', fontFamily: 'monospace' }}>{comp.name}</span>
+                <span style={{ fontSize: 9, color: '#8e8e93' }}>{comp.instances}</span>
+              </div>
+            </HoverCard.Trigger>
+            <HoverCard.Content style={{ width: 260 }}>
+              <div style={{ padding: 14 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 10 }}>
+                  <span style={{ fontSize: 16, color: comp.type === 'Component Set' ? '#22c55e' : comp.type === 'Instance' ? '#8b5cf6' : '#3b82f6' }}>
+                    {comp.type === 'Component Set' ? '◈' : comp.type === 'Instance' ? '◇' : '●'}
+                  </span>
+                  <div>
+                    <div style={{ fontSize: 13, fontWeight: 700 }}>{comp.name}</div>
+                    <div style={{ fontSize: 10, color: '#64748b' }}>{comp.type}</div>
+                  </div>
+                </div>
+                <div style={{ fontSize: 11, color: '#64748b', marginBottom: 4 }}>Variant: <span style={{ color: '#0f172a', fontFamily: 'monospace' }}>{comp.variant}</span></div>
+                <div style={{ fontSize: 11, color: '#64748b', marginBottom: 8 }}>인스턴스: <span style={{ color: '#6366f1', fontWeight: 600 }}>{comp.instances}개</span></div>
+                <div style={{ fontSize: 11, color: '#64748b', marginBottom: 4 }}>Props:</div>
+                <div style={{ display: 'flex', gap: 4, flexWrap: 'wrap' }}>
+                  {comp.props.map((p) => (
+                    <span key={p} style={{ fontSize: 10, padding: '2px 7px', borderRadius: 99, background: '#f1f5f9', color: '#475569', fontFamily: 'monospace' }}>{p}</span>
+                  ))}
+                </div>
+                <Divider style={{ margin: '10px 0' }} />
+                <Progress value={Math.round((comp.instances / 150) * 100)} color="primary" />
+                <div style={{ fontSize: 10, color: '#94a3b8', marginTop: 4 }}>전체 사용률 {Math.round((comp.instances / 150) * 100)}%</div>
+              </div>
+            </HoverCard.Content>
+          </HoverCard>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+export const Figma_컴포넌트_인스펙트_호버: Story = {
+  name: 'Figma Plugin — 컴포넌트 레이어 인스펙트 HoverCard',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Figma 플러그인 레이어 패널 컴포넌트 inspect 패턴. 다크 배경 레이어 목록, hover 시 type/variant/props/인스턴스 수/사용률 Progress 표시.',
+      },
+    },
+  },
+  render: () => <FigmaComponentInspectHoverRender />,
+}
+
+function NotionFigmaReferenceHoverRender() {
+  const tokens = [
+    { name: 'colorPrimary', value: '#6366f1', type: 'color', usedIn: ['SolidButton', 'Progress', 'Switch', 'CounterBadge'], semantic: 'fillPrimary' },
+    { name: 'spacing8', value: '8px', type: 'spacing', usedIn: ['Button padding', 'Card gap', 'Form margin'], semantic: 'paddingSmall' },
+    { name: 'fontSizeMd', value: '14px', type: 'typography', usedIn: ['Body text', 'Label', 'Input value'], semantic: 'textBodyMedium' },
+  ]
+
+  return (
+    <div style={{ width: 420, background: 'var(--sem-eclipse-color-backgroundPrimary, #fff)', borderRadius: 10, border: '1px solid var(--sem-eclipse-color-borderPrimary, #e2e8f0)', padding: 16 }}>
+      <div style={{ fontSize: 13, fontWeight: 700, color: '#0f172a', marginBottom: 12 }}>디자인 토큰 레퍼런스</div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+        {tokens.map((token) => (
+          <HoverCard key={token.name} openDelay={200}>
+            <HoverCard.Trigger asChild>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '8px 12px', borderRadius: 8, background: 'var(--sem-eclipse-color-surfaceContainer, #f8fafc)', cursor: 'pointer', border: '1px solid var(--sem-eclipse-color-borderPrimary, #e2e8f0)' }}>
+                {token.type === 'color' ? (
+                  <div style={{ width: 20, height: 20, borderRadius: 4, background: token.value, flexShrink: 0 }} />
+                ) : (
+                  <div style={{ width: 20, height: 20, borderRadius: 4, background: '#f1f5f9', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 9, color: '#64748b', fontWeight: 700 }}>{token.type === 'spacing' ? '↔' : 'T'}</div>
+                )}
+                <span style={{ flex: 1, fontSize: 12, fontFamily: 'monospace', color: '#0f172a' }}>{token.name}</span>
+                <span style={{ fontSize: 11, color: '#94a3b8', fontFamily: 'monospace' }}>{token.value}</span>
+                <LabelBadge color={token.type === 'color' ? undefined : undefined}>
+                  <LabelBadge.Label>{token.type}</LabelBadge.Label>
+                </LabelBadge>
+              </div>
+            </HoverCard.Trigger>
+            <HoverCard.Content style={{ width: 280 }}>
+              <div style={{ padding: 14 }}>
+                <div style={{ marginBottom: 10 }}>
+                  <div style={{ fontSize: 13, fontWeight: 700, color: '#0f172a', fontFamily: 'monospace' }}>{token.name}</div>
+                  <div style={{ fontSize: 11, color: '#64748b', marginTop: 2 }}>시맨틱: <span style={{ fontFamily: 'monospace', color: '#6366f1' }}>{token.semantic}</span></div>
+                </div>
+                {token.type === 'color' && (
+                  <div style={{ width: '100%', height: 40, borderRadius: 8, background: token.value, marginBottom: 10 }} />
+                )}
+                <div style={{ fontSize: 11, color: '#64748b', marginBottom: 6 }}>사용 컴포넌트:</div>
+                <div style={{ display: 'flex', gap: 4, flexWrap: 'wrap', marginBottom: 10 }}>
+                  {token.usedIn.map((c) => (
+                    <span key={c} style={{ fontSize: 10, padding: '2px 7px', borderRadius: 99, background: '#eff6ff', color: '#3b82f6' }}>{c}</span>
+                  ))}
+                </div>
+                <Divider />
+                <div style={{ marginTop: 8, fontFamily: 'monospace', fontSize: 11, color: '#64748b' }}>
+                  <span style={{ color: '#94a3b8' }}>var(--</span>{token.semantic}<span style={{ color: '#94a3b8' }}>)</span>
+                </div>
+              </div>
+            </HoverCard.Content>
+          </HoverCard>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+export const Notion_Figma_디자인_토큰_호버: Story = {
+  name: 'Notion + Figma — 디자인 토큰 레퍼런스 HoverCard',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Notion + Figma 토큰 레퍼런스 패턴. 토큰 목록 hover 시 시맨틱 이름 / 컬러 프리뷰 / 사용 컴포넌트 / CSS 변수명 표시. LabelBadge로 타입 구분.',
+      },
+    },
+  },
+  render: () => <NotionFigmaReferenceHoverRender />,
+}

@@ -1524,3 +1524,228 @@ export const MUI_관리자_대시보드_브레드크럼: Story = {
   },
   render: () => <MUIAdminDashboardBreadcrumbRender />,
 }
+
+// ──────────────────────────────────────────────────────────────────────────────
+// Cycle 175: Notion Design + Figma Plugin UI
+// ──────────────────────────────────────────────────────────────────────────────
+
+function NotionPageHierarchyRender() {
+  const [selected, setSelected] = useState(2)
+  const pages = [
+    { label: 'Orbit UI', icon: '◉' },
+    { label: '컴포넌트 문서', icon: '📋' },
+    { label: 'Breadcrumb', icon: '🔗' },
+    { label: 'Cycle 175 스토리', icon: '✏️' },
+  ]
+  const activePath = pages.slice(0, selected + 1)
+
+  return (
+    <div style={{ width: 520, background: 'var(--sem-eclipse-color-backgroundPrimary, #fff)', borderRadius: 10, border: '1px solid var(--sem-eclipse-color-borderPrimary, #e2e8f0)', overflow: 'hidden' }}>
+      {/* Notion-style page header */}
+      <div style={{ padding: '8px 16px', borderBottom: '1px solid var(--sem-eclipse-color-borderPrimary, #e2e8f0)', display: 'flex', alignItems: 'center' }}>
+        <Breadcrumb>
+          {activePath.map((page, i) => (
+            <Breadcrumb.Item key={page.label}>
+              <button
+                onClick={() => setSelected(i)}
+                style={{ display: 'flex', alignItems: 'center', gap: 4, background: 'none', border: 'none', cursor: i === activePath.length - 1 ? 'default' : 'pointer', padding: '2px 4px', borderRadius: 4, color: i === activePath.length - 1 ? 'var(--sem-eclipse-color-foregroundPrimary, #0f172a)' : '#64748b', fontSize: 13 }}
+              >
+                <span style={{ fontSize: 12 }}>{page.icon}</span>
+                {page.label}
+              </button>
+            </Breadcrumb.Item>
+          ))}
+        </Breadcrumb>
+        <div style={{ marginLeft: 'auto', display: 'flex', gap: 6 }}>
+          {pages.slice(activePath.length).map((p) => (
+            <button
+              key={p.label}
+              onClick={() => setSelected(pages.indexOf(p))}
+              style={{ padding: '2px 8px', borderRadius: 5, background: '#f1f5f9', border: 'none', fontSize: 11, color: '#64748b', cursor: 'pointer' }}
+            >
+              {p.label}
+            </button>
+          ))}
+        </div>
+      </div>
+      <div style={{ padding: '20px 24px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 8 }}>
+          <span style={{ fontSize: 28 }}>{activePath[activePath.length - 1].icon}</span>
+          <h2 style={{ fontSize: 22, fontWeight: 700, color: '#0f172a', margin: 0 }}>{activePath[activePath.length - 1].label}</h2>
+        </div>
+        <div style={{ fontSize: 13, color: '#64748b', lineHeight: 1.7 }}>
+          Notion 스타일 페이지 계층 탐색. 브레드크럼 클릭으로 상위 페이지 이동, 아이콘 + 제목 패턴.
+        </div>
+        <div style={{ marginTop: 12, display: 'flex', gap: 6 }}>
+          {['하위 페이지 추가', '공유', '내보내기'].map((action) => (
+            <button key={action} style={{ padding: '4px 10px', borderRadius: 6, background: '#f8fafc', border: '1px solid #e2e8f0', fontSize: 11, color: '#64748b', cursor: 'pointer' }}>
+              {action}
+            </button>
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const Notion_페이지_계층_브레드크럼: Story = {
+  name: 'Notion Design — 페이지 계층 브레드크럼 (아이콘 + 클릭 탐색)',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Notion 사이드바 페이지 계층 Breadcrumb 패턴. 아이콘 + 텍스트 조합, 클릭으로 상위 계층 이동, 현재 위치 아이콘 헤더 표시. 페이지 액션 버튼 연동.',
+      },
+    },
+  },
+  render: () => <NotionPageHierarchyRender />,
+}
+
+function FigmaLayerBreadcrumbRender() {
+  const layers = [
+    { name: 'Page 1', type: 'page' },
+    { name: 'Frame 1', type: 'frame' },
+    { name: 'Navigation', type: 'group' },
+    { name: 'Breadcrumb', type: 'component' },
+    { name: 'Item / Active', type: 'instance' },
+  ]
+  const [active, setActive] = useState(4)
+  const visible = layers.slice(0, active + 1)
+  const typeIcon: Record<string, string> = { page: '▤', frame: '▣', group: '⊞', component: '◈', instance: '◇' }
+  const typeColor: Record<string, string> = { page: '#64748b', frame: '#6366f1', group: '#f59e0b', component: '#22c55e', instance: '#8b5cf6' }
+
+  return (
+    <div style={{ width: 480, background: '#1e1e1e', borderRadius: 10, overflow: 'hidden' }}>
+      {/* Figma-style toolbar */}
+      <div style={{ padding: '8px 12px', background: '#2c2c2c', borderBottom: '1px solid #3c3c3c', display: 'flex', alignItems: 'center', gap: 6 }}>
+        <Breadcrumb>
+          {visible.map((layer, i) => (
+            <Breadcrumb.Item key={layer.name}>
+              <button
+                onClick={() => setActive(i)}
+                style={{ display: 'flex', alignItems: 'center', gap: 4, background: 'none', border: 'none', cursor: i === visible.length - 1 ? 'default' : 'pointer', color: i === visible.length - 1 ? '#f2f2f2' : '#8e8e93', fontSize: 11, padding: '2px 4px', borderRadius: 3 }}
+              >
+                <span style={{ fontSize: 10, color: typeColor[layer.type] }}>{typeIcon[layer.type]}</span>
+                {layer.name}
+              </button>
+            </Breadcrumb.Item>
+          ))}
+        </Breadcrumb>
+      </div>
+      {/* Layer info panel */}
+      <div style={{ padding: '14px 16px' }}>
+        <div style={{ fontSize: 11, color: '#8e8e93', marginBottom: 10 }}>선택된 레이어</div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 10 }}>
+          <span style={{ fontSize: 14, color: typeColor[layers[active].type] }}>{typeIcon[layers[active].type]}</span>
+          <span style={{ fontSize: 13, fontWeight: 600, color: '#f2f2f2' }}>{layers[active].name}</span>
+          <span style={{ fontSize: 10, padding: '1px 6px', borderRadius: 99, background: `${typeColor[layers[active].type]}30`, color: typeColor[layers[active].type], fontWeight: 600 }}>{layers[active].type}</span>
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+          {[{ label: 'W', value: '320' }, { label: 'H', value: '36' }, { label: 'X', value: '120' }, { label: 'Y', value: '48' }].map((p) => (
+            <div key={p.label} style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+              <span style={{ fontSize: 10, color: '#8e8e93', width: 14 }}>{p.label}</span>
+              <div style={{ flex: 1, padding: '4px 8px', borderRadius: 5, background: '#2c2c2c', border: '1px solid #3c3c3c', fontSize: 11, color: '#f2f2f2', fontFamily: 'monospace' }}>{p.value}</div>
+            </div>
+          ))}
+        </div>
+        <div style={{ marginTop: 12, display: 'flex', gap: 4 }}>
+          {layers.slice(active + 1).map((l) => (
+            <button key={l.name} onClick={() => setActive(layers.indexOf(l))} style={{ padding: '2px 6px', borderRadius: 4, background: '#2c2c2c', border: '1px solid #3c3c3c', fontSize: 10, color: '#8e8e93', cursor: 'pointer' }}>
+              ↳ {l.name}
+            </button>
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const Figma_레이어_계층_브레드크럼: Story = {
+  name: 'Figma Plugin UI — 레이어 계층 브레드크럼 (타입 아이콘 + 속성 패널)',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Figma 플러그인 레이어 탐색 Breadcrumb. Page→Frame→Group→Component→Instance 계층 표시, 타입별 컬러 아이콘, 클릭 시 선택 레이어 변경, 하위 레이어 접근 버튼.',
+      },
+    },
+  },
+  render: () => <FigmaLayerBreadcrumbRender />,
+}
+
+function NotionFigmaDocBreadcrumbRender() {
+  const [docPath, setDocPath] = useState(['Orbit UI Docs', 'Components', 'Navigation'])
+  const allSections = ['Overview', 'Getting Started', 'Components', 'Design Tokens', 'Customization', 'Migration']
+  const subsections: Record<string, string[]> = {
+    Components: ['Actions', 'Inputs', 'Feedback', 'Navigation', 'Data Display'],
+    'Getting Started': ['Installation', 'Setup', 'Theming'],
+    'Design Tokens': ['Reference', 'Semantic', 'Component'],
+  }
+
+  const currentSection = docPath[docPath.length - 1]
+
+  return (
+    <div style={{ width: 540, background: 'var(--sem-eclipse-color-backgroundPrimary, #fff)', borderRadius: 10, border: '1px solid var(--sem-eclipse-color-borderPrimary, #e2e8f0)', overflow: 'hidden' }}>
+      <div style={{ padding: '8px 16px', borderBottom: '1px solid var(--sem-eclipse-color-borderPrimary, #e2e8f0)', background: '#fafafa', display: 'flex', alignItems: 'center', gap: 8 }}>
+        <Breadcrumb>
+          {docPath.map((segment, i) => (
+            <Breadcrumb.Item key={segment}>
+              <button
+                onClick={() => setDocPath(docPath.slice(0, i + 1))}
+                style={{ background: 'none', border: 'none', cursor: i === docPath.length - 1 ? 'default' : 'pointer', color: i === docPath.length - 1 ? '#0f172a' : '#64748b', fontSize: 12, padding: '1px 4px', borderRadius: 3, fontWeight: i === docPath.length - 1 ? 600 : 400 }}
+              >
+                {segment}
+              </button>
+            </Breadcrumb.Item>
+          ))}
+        </Breadcrumb>
+      </div>
+      <div style={{ display: 'flex', minHeight: 200 }}>
+        <div style={{ width: 160, borderRight: '1px solid var(--sem-eclipse-color-borderPrimary, #e2e8f0)', padding: '12px 8px' }}>
+          {allSections.map((s) => (
+            <button
+              key={s}
+              onClick={() => setDocPath(['Orbit UI Docs', s])}
+              style={{ display: 'block', width: '100%', textAlign: 'left', padding: '5px 10px', borderRadius: 6, background: docPath.includes(s) ? '#f1f5f9' : 'none', border: 'none', fontSize: 12, color: docPath.includes(s) ? '#0f172a' : '#64748b', cursor: 'pointer', fontWeight: docPath.includes(s) ? 600 : 400, marginBottom: 2 }}
+            >
+              {s}
+            </button>
+          ))}
+        </div>
+        <div style={{ flex: 1, padding: '14px 16px' }}>
+          {subsections[currentSection] ? (
+            <div>
+              <div style={{ fontSize: 11, color: '#94a3b8', marginBottom: 8, fontWeight: 600, textTransform: 'uppercase', letterSpacing: 1 }}>{currentSection}</div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+                {subsections[currentSection].map((sub) => (
+                  <button
+                    key={sub}
+                    onClick={() => setDocPath(['Orbit UI Docs', currentSection, sub])}
+                    style={{ textAlign: 'left', padding: '6px 10px', borderRadius: 6, background: docPath.includes(sub) ? '#eff6ff' : 'var(--sem-eclipse-color-surfaceContainer, #f8fafc)', border: 'none', fontSize: 13, color: docPath.includes(sub) ? '#3b82f6' : '#475569', cursor: 'pointer', fontWeight: docPath.includes(sub) ? 600 : 400 }}
+                  >
+                    {sub}
+                  </button>
+                ))}
+              </div>
+            </div>
+          ) : (
+            <div style={{ fontSize: 13, color: '#64748b' }}>
+              <strong style={{ color: '#0f172a' }}>{currentSection}</strong> 문서 페이지.
+              <br />Notion + Figma 스타일 브레드크럼 네비게이션 예시.
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const Notion_Figma_문서_사이드바_브레드크럼: Story = {
+  name: 'Notion + Figma — 문서 사이드바 브레드크럼 (섹션 → 서브섹션 탐색)',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Notion 문서 + Figma 플러그인 네비게이션 패턴. 좌측 섹션 메뉴 클릭 → 브레드크럼 동적 업데이트 → 서브섹션 선택 → 3단계 경로 표시. 실제 문서 사이트 탐색 UX.',
+      },
+    },
+  },
+  render: () => <NotionFigmaDocBreadcrumbRender />,
+}
