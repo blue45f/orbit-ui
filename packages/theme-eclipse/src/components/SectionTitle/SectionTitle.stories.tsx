@@ -740,3 +740,253 @@ export const Tailwind_필터링_섹션_헤더: Story = {
   },
   render: () => <TailwindFilterSectionDemo />,
 }
+
+/* --------------------------------------------------------------------------
+   Vercel 벤치마크: 환경변수 섹션 헤더
+   Vercel Project Settings > Environment Variables 패턴
+   SectionTitle 트레일링에 추가 버튼 + 아이템 카운트 배지 배치
+-------------------------------------------------------------------------- */
+type EnvVar = { key: string; env: 'Production' | 'Preview' | 'Development'; secret: boolean }
+
+function VercelEnvSectionRender() {
+  const [vars, setVars] = React.useState<EnvVar[]>([
+    { key: 'NEXT_PUBLIC_API_URL',    env: 'Production',   secret: false },
+    { key: 'DATABASE_URL',            env: 'Production',   secret: true  },
+    { key: 'NEXT_PUBLIC_SITE_URL',    env: 'Preview',      secret: false },
+    { key: 'STRIPE_SECRET_KEY',       env: 'Development',  secret: true  },
+  ])
+  const [adding, setAdding] = React.useState(false)
+  const [newKey, setNewKey] = React.useState('')
+
+  const handleAdd = () => {
+    if (!newKey.trim()) return
+    setVars((prev) => [...prev, { key: newKey.toUpperCase().replace(/ /g, '_'), env: 'Production', secret: false }])
+    setNewKey('')
+    setAdding(false)
+  }
+
+  const ENV_COLOR: Record<EnvVar['env'], string> = {
+    Production:  '#10b981',
+    Preview:     '#6366f1',
+    Development: '#f59e0b',
+  }
+
+  return (
+    <div style={{ width: 480, fontFamily: 'system-ui, sans-serif' }}>
+      <SectionTitle>
+        <SectionTitle.Title>환경변수</SectionTitle.Title>
+        <SectionTitle.Description>프로덕션·프리뷰·개발 환경별로 설정값을 관리합니다</SectionTitle.Description>
+        <SectionTitle.Trailing>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            <CounterBadge>{vars.length}</CounterBadge>
+            <TextButton color="black" size="small" onClick={() => setAdding((p) => !p)}>
+              <TextButton.Center>+ 추가</TextButton.Center>
+            </TextButton>
+          </div>
+        </SectionTitle.Trailing>
+      </SectionTitle>
+
+      {adding && (
+        <div style={{ display: 'flex', gap: 8, margin: '8px 0 12px', alignItems: 'center' }}>
+          <input
+            autoFocus
+            value={newKey}
+            onChange={(e) => setNewKey(e.target.value)}
+            onKeyDown={(e) => e.key === 'Enter' && handleAdd()}
+            placeholder="VARIABLE_NAME"
+            style={{ flex: 1, padding: '7px 10px', borderRadius: 8, border: '1.5px solid #6366f1', fontSize: 12, fontFamily: 'monospace', outline: 'none' }}
+          />
+          <button onClick={handleAdd} style={{ padding: '7px 14px', borderRadius: 8, border: 'none', background: '#0f172a', color: '#fff', fontSize: 12, fontWeight: 700, cursor: 'pointer' }}>저장</button>
+          <button onClick={() => setAdding(false)} style={{ padding: '7px 10px', borderRadius: 8, border: '1px solid #e2e8f0', background: '#fff', fontSize: 12, color: '#64748b', cursor: 'pointer' }}>취소</button>
+        </div>
+      )}
+
+      <div style={{ borderRadius: 10, border: '1px solid #e2e8f0', overflow: 'hidden' }}>
+        {vars.map((v, i) => (
+          <div key={v.key} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '10px 14px', borderBottom: i < vars.length - 1 ? '1px solid #f8fafc' : 'none', background: '#fff' }}>
+            <code style={{ flex: 1, fontSize: 12, fontFamily: 'monospace', color: '#0f172a', fontWeight: 600 }}>{v.key}</code>
+            <span style={{ padding: '2px 8px', borderRadius: 6, background: ENV_COLOR[v.env] + '18', color: ENV_COLOR[v.env], fontSize: 11, fontWeight: 700, flexShrink: 0 }}>{v.env}</span>
+            {v.secret && <span style={{ fontSize: 11, color: '#94a3b8', flexShrink: 0 }}>●●●●●●</span>}
+            <button onClick={() => setVars((prev) => prev.filter((_, j) => j !== i))} style={{ padding: '3px 8px', borderRadius: 6, border: '1px solid #e2e8f0', background: '#fff', fontSize: 11, color: '#ef4444', cursor: 'pointer', flexShrink: 0 }}>삭제</button>
+          </div>
+        ))}
+        {vars.length === 0 && (
+          <div style={{ padding: '24px', textAlign: 'center', color: '#94a3b8', fontSize: 13 }}>환경변수가 없습니다</div>
+        )}
+      </div>
+    </div>
+  )
+}
+
+export const Vercel_환경변수_섹션: Story = {
+  name: 'Vercel - 환경변수 관리 섹션 헤더 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Vercel Project Settings의 환경변수 관리 패턴. SectionTitle 트레일링에 CounterBadge + 추가 버튼을 배치하고, ' +
+          '인라인 입력으로 새 변수를 즉시 추가합니다. 환경별 색상 배지와 삭제 기능을 포함합니다.',
+      },
+    },
+  },
+  render: () => <VercelEnvSectionRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Vercel 벤치마크: 도메인 관리 섹션 헤더
+   Vercel Domains 패턴 — 도메인 목록을 섹션 헤더 + 상태 배지로 그룹화
+-------------------------------------------------------------------------- */
+type DomainStatus95 = 'valid' | 'invalid' | 'pending'
+
+interface Domain95 { host: string; status: DomainStatus95; primary: boolean }
+
+const DOMAIN_STATUS_META: Record<DomainStatus95, { label: string; color: string; bg: string }> = {
+  valid:   { label: 'Valid',   color: '#10b981', bg: '#f0fdf4' },
+  invalid: { label: 'Invalid', color: '#ef4444', bg: '#fef2f2' },
+  pending: { label: 'Pending', color: '#f59e0b', bg: '#fffbeb' },
+}
+
+const VercelDomainSectionRender = () => {
+  const [domains] = React.useState<Domain95[]>([
+    { host: 'orbit-ui.vercel.app',      status: 'valid',   primary: false },
+    { host: 'orbit-ui-git-main.vercel.app', status: 'valid', primary: false },
+    { host: 'orbitui.dev',               status: 'pending', primary: true  },
+    { host: 'storybook.orbitui.dev',     status: 'invalid', primary: false },
+  ])
+
+  const validCount = domains.filter((d) => d.status === 'valid').length
+
+  return (
+    <div style={{ width: 480, fontFamily: 'system-ui, sans-serif' }}>
+      <SectionTitle>
+        <SectionTitle.Title>도메인</SectionTitle.Title>
+        <SectionTitle.Description>프로젝트에 연결된 모든 도메인을 관리합니다</SectionTitle.Description>
+        <SectionTitle.Trailing>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            <LabelBadge color="benefit">
+              <LabelBadge.Label>{validCount} Active</LabelBadge.Label>
+            </LabelBadge>
+            <TextButton color="black" size="small">
+              <TextButton.Center>+ 도메인 추가</TextButton.Center>
+            </TextButton>
+          </div>
+        </SectionTitle.Trailing>
+      </SectionTitle>
+      <div style={{ borderRadius: 10, border: '1px solid #e2e8f0', overflow: 'hidden', marginTop: 8 }}>
+        {domains.map((d, i) => {
+          const st = DOMAIN_STATUS_META[d.status]
+          return (
+            <div key={d.host} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 16px', borderBottom: i < domains.length - 1 ? '1px solid #f8fafc' : 'none', background: '#fff' }}>
+              <div style={{ width: 8, height: 8, borderRadius: '50%', background: st.color, flexShrink: 0 }} />
+              <div style={{ flex: 1 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                  <span style={{ fontSize: 13, fontWeight: 600, color: '#0f172a', fontFamily: 'monospace' }}>{d.host}</span>
+                  {d.primary && <span style={{ padding: '1px 6px', borderRadius: 4, background: '#eef2ff', color: '#6366f1', fontSize: 10, fontWeight: 700 }}>Primary</span>}
+                </div>
+                {d.status === 'invalid' && (
+                  <div style={{ fontSize: 11, color: '#ef4444', marginTop: 2 }}>DNS 레코드 설정이 필요합니다</div>
+                )}
+                {d.status === 'pending' && (
+                  <div style={{ fontSize: 11, color: '#f59e0b', marginTop: 2 }}>DNS 전파 대기 중 (최대 48시간)</div>
+                )}
+              </div>
+              <span style={{ padding: '2px 10px', borderRadius: 20, background: st.bg, color: st.color, fontSize: 11, fontWeight: 700, flexShrink: 0 }}>{st.label}</span>
+            </div>
+          )
+        })}
+      </div>
+    </div>
+  )
+}
+
+export const Vercel_도메인_섹션: Story = {
+  name: 'Vercel - 도메인 관리 섹션 헤더 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Vercel Domains 패턴. SectionTitle 트레일링에 활성 도메인 수 배지를 표시하고, ' +
+          'Valid/Invalid/Pending 상태를 색상 도트와 설명으로 명확히 구분합니다. ' +
+          'Primary 도메인에는 강조 태그를 추가합니다.',
+      },
+    },
+  },
+  render: () => <VercelDomainSectionRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Vercel 벤치마크: 사용량 제한 섹션
+   Vercel Usage 패턴 — 리소스 사용량을 시각적 미터로 표시하는 섹션
+-------------------------------------------------------------------------- */
+type UsageMeter = { label: string; used: number; limit: number; unit: string; color: string }
+
+const USAGE_METERS: UsageMeter[] = [
+  { label: '대역폭', used: 78,  limit: 100, unit: 'GB',  color: '#6366f1' },
+  { label: '빌드 시간', used: 340, limit: 600, unit: 'min', color: '#0ea5e9' },
+  { label: '함수 호출', used: 42,  limit: 100, unit: '만 회', color: '#10b981' },
+  { label: '이미지 최적화', used: 9, limit: 10, unit: '만 건', color: '#f59e0b' },
+]
+
+const VercelUsageSectionRender = () => {
+  const nearLimit = USAGE_METERS.filter((m) => m.used / m.limit >= 0.8)
+
+  return (
+    <div style={{ width: 480, fontFamily: 'system-ui, sans-serif' }}>
+      <SectionTitle>
+        <SectionTitle.Title>사용량</SectionTitle.Title>
+        <SectionTitle.Description>이번 달 리소스 사용 현황 (2025년 4월)</SectionTitle.Description>
+        <SectionTitle.Trailing>
+          {nearLimit.length > 0 && (
+            <LabelBadge color="sale">
+              <LabelBadge.Label>{nearLimit.length}개 한도 근접</LabelBadge.Label>
+            </LabelBadge>
+          )}
+        </SectionTitle.Trailing>
+      </SectionTitle>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 14, marginTop: 12 }}>
+        {USAGE_METERS.map((m) => {
+          const pct = Math.round((m.used / m.limit) * 100)
+          const isNear = pct >= 80
+          return (
+            <div key={m.label} style={{ padding: '14px 16px', borderRadius: 10, border: `1.5px solid ${isNear ? '#fecaca' : '#e2e8f0'}`, background: isNear ? '#fff5f5' : '#fff' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8 }}>
+                <span style={{ fontSize: 13, fontWeight: 600, color: '#0f172a' }}>{m.label}</span>
+                <span style={{ fontSize: 12, color: isNear ? '#ef4444' : '#94a3b8' }}>
+                  {m.used}/{m.limit} {m.unit} ({pct}%)
+                </span>
+              </div>
+              <div style={{ height: 6, borderRadius: 3, background: '#f1f5f9', overflow: 'hidden' }}>
+                <div style={{
+                  width: `${pct}%`,
+                  height: '100%',
+                  borderRadius: 3,
+                  background: isNear ? '#ef4444' : m.color,
+                  transition: 'width 0.3s',
+                }} />
+              </div>
+              {isNear && (
+                <div style={{ marginTop: 6, fontSize: 11, color: '#ef4444' }}>
+                  한도에 근접했습니다. 플랜을 업그레이드하거나 사용량을 줄이세요.
+                </div>
+              )}
+            </div>
+          )
+        })}
+      </div>
+    </div>
+  )
+}
+
+export const Vercel_사용량_섹션: Story = {
+  name: 'Vercel - 리소스 사용량 미터 섹션 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Vercel Usage 패턴. SectionTitle 트레일링에 한도 근접 경고 배지를 표시하고, ' +
+          '각 리소스 사용량을 진행률 바와 수치로 시각화합니다. 80% 이상 시 경고 색상으로 전환됩니다.',
+      },
+    },
+  },
+  render: () => <VercelUsageSectionRender />,
+}

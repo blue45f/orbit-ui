@@ -23240,3 +23240,285 @@ export const LinearRoadmap: Story = {
   },
   render: () => <Linear94RoadmapRender />,
 }
+
+/* ==========================================================================
+   Cycle 95 — Vercel Design 벤치마크: Usage & Billing Dashboard
+   Vercel 사용량·결제 대시보드 — 리소스 미터, 플랜 카드, 청구 내역
+   Progress, Slider, Toggle, SectionTitle, LabelBadge, Divider 통합
+   ========================================================================== */
+type Vercel95Plan = 'hobby' | 'pro' | 'enterprise'
+type Vercel95UsageItem = { label: string; used: number; limit: number | null; unit: string; color: string; icon: string }
+type Vercel95Invoice = { id: string; date: string; amount: string; status: 'paid' | 'pending' | 'failed' }
+
+const VERCEL95_PLANS: Array<{ id: Vercel95Plan; name: string; price: string; features: string[]; color: string; popular: boolean }> = [
+  {
+    id: 'hobby',
+    name: 'Hobby',
+    price: '무료',
+    features: ['100GB 대역폭/월', '100시간 빌드/월', '서버리스 함수 12개'],
+    color: '#64748b',
+    popular: false,
+  },
+  {
+    id: 'pro',
+    name: 'Pro',
+    price: '$20/월',
+    features: ['1TB 대역폭/월', '6,000분 빌드/월', '서버리스 함수 무제한', '팀 협업'],
+    color: '#6366f1',
+    popular: true,
+  },
+  {
+    id: 'enterprise',
+    name: 'Enterprise',
+    price: '문의',
+    features: ['무제한 대역폭', 'SLA 보장', '전담 지원', 'SSO/SAML'],
+    color: '#0f172a',
+    popular: false,
+  },
+]
+
+const VERCEL95_USAGE: Vercel95UsageItem[] = [
+  { label: '대역폭',       used: 78,  limit: 100,  unit: 'GB',   color: '#6366f1', icon: '↕' },
+  { label: '빌드 시간',   used: 340, limit: 600,  unit: '분',   color: '#0ea5e9', icon: '⚙' },
+  { label: '함수 호출',   used: 4.2, limit: null, unit: '백만',  color: '#10b981', icon: 'λ' },
+  { label: '이미지 최적화', used: 9.1, limit: 10,   unit: '만',   color: '#f59e0b', icon: '◻' },
+]
+
+const VERCEL95_INVOICES: Vercel95Invoice[] = [
+  { id: 'inv-2504', date: '2025-04-01', amount: '$20.00', status: 'paid'    },
+  { id: 'inv-2503', date: '2025-03-01', amount: '$20.00', status: 'paid'    },
+  { id: 'inv-2502', date: '2025-02-01', amount: '$24.50', status: 'paid'    },
+  { id: 'inv-2501', date: '2025-01-01', amount: '$20.00', status: 'pending' },
+]
+
+const INV_STATUS: Record<Vercel95Invoice['status'], { label: string; color: string; bg: string }> = {
+  paid:    { label: 'Paid',    color: '#10b981', bg: '#f0fdf4' },
+  pending: { label: 'Pending', color: '#f59e0b', bg: '#fffbeb' },
+  failed:  { label: 'Failed',  color: '#ef4444', bg: '#fef2f2' },
+}
+
+function Vercel95UsageBillingRender() {
+  const [currentPlan] = React.useState<Vercel95Plan>('hobby')
+  const [billingEmail, setBillingEmail] = React.useState('hjunkim@orbit.dev')
+  const [autoRenew, setAutoRenew] = React.useState(true)
+  const [activeTab, setActiveTab] = React.useState<'usage' | 'billing' | 'plans'>('usage')
+
+  const nearLimitCount = VERCEL95_USAGE.filter((u) => u.limit !== null && u.used / u.limit >= 0.8).length
+
+  return (
+    <div style={{ minHeight: '100vh', background: '#f8fafc', fontFamily: 'system-ui, sans-serif' }}>
+      {/* Header */}
+      <div style={{ background: '#fff', borderBottom: '1px solid #e2e8f0', padding: '0 32px', display: 'flex', alignItems: 'center', gap: 0 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '14px 0', marginRight: 28, borderRight: '1px solid #f1f5f9', paddingRight: 24 }}>
+          <div style={{ width: 22, height: 22, borderRadius: 4, background: '#0f172a', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <span style={{ color: '#fff', fontSize: 10, fontWeight: 900 }}>▲</span>
+          </div>
+          <span style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>orbit-ui</span>
+        </div>
+        <div style={{ display: 'flex', gap: 0 }}>
+          {(['usage', 'billing', 'plans'] as const).map((t) => (
+            <button
+              key={t}
+              onClick={() => setActiveTab(t)}
+              style={{ padding: '14px 16px', background: 'none', border: 'none', borderBottom: `2px solid ${activeTab === t ? '#0f172a' : 'transparent'}`, fontSize: 13, fontWeight: activeTab === t ? 700 : 500, color: activeTab === t ? '#0f172a' : '#64748b', cursor: 'pointer', transition: 'all 0.15s' }}
+            >
+              {t === 'usage' ? '사용량' : t === 'billing' ? '결제' : '플랜'}
+              {t === 'usage' && nearLimitCount > 0 && (
+                <span style={{ marginLeft: 5, padding: '1px 5px', borderRadius: 8, background: '#fef2f2', color: '#ef4444', fontSize: 10, fontWeight: 700 }}>{nearLimitCount}</span>
+              )}
+            </button>
+          ))}
+        </div>
+        <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: 8 }}>
+          <LabelBadge color="gray"><LabelBadge.Label>Hobby Plan</LabelBadge.Label></LabelBadge>
+          <LabelBadge color="benefit"><LabelBadge.Label>Vercel 패턴</LabelBadge.Label></LabelBadge>
+        </div>
+      </div>
+
+      <div style={{ padding: '28px 32px', maxWidth: 900, margin: '0 auto' }}>
+
+        {/* === USAGE TAB === */}
+        {activeTab === 'usage' && (
+          <div>
+            <SectionTitle>
+              <SectionTitle.Title>사용량 현황</SectionTitle.Title>
+              <SectionTitle.Description>2025년 4월 1일 ~ 4월 30일 기준</SectionTitle.Description>
+              {nearLimitCount > 0 && (
+                <SectionTitle.Trailing>
+                  <LabelBadge color="sale"><LabelBadge.Label>{nearLimitCount}개 한도 근접</LabelBadge.Label></LabelBadge>
+                </SectionTitle.Trailing>
+              )}
+            </SectionTitle>
+
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14, marginTop: 16 }}>
+              {VERCEL95_USAGE.map((item) => {
+                const pct = item.limit !== null ? Math.round((item.used / item.limit) * 100) : null
+                const isNear = pct !== null && pct >= 80
+                return (
+                  <div key={item.label} style={{ background: '#fff', border: `1.5px solid ${isNear ? '#fecaca' : '#e2e8f0'}`, borderRadius: 12, padding: '18px 20px' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 12 }}>
+                      <div style={{ width: 32, height: 32, borderRadius: 8, background: item.color + '18', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 14, fontWeight: 800, color: item.color }}>
+                        {item.icon}
+                      </div>
+                      <div>
+                        <div style={{ fontSize: 13, fontWeight: 700, color: '#0f172a' }}>{item.label}</div>
+                        {isNear && <div style={{ fontSize: 10, color: '#ef4444', fontWeight: 700 }}>한도 근접</div>}
+                      </div>
+                      {pct !== null && (
+                        <span style={{ marginLeft: 'auto', fontSize: 18, fontWeight: 800, color: isNear ? '#ef4444' : item.color }}>{pct}%</span>
+                      )}
+                    </div>
+                    <Progress value={pct ?? 50} />
+                    <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 8 }}>
+                      <span style={{ fontSize: 12, color: '#334155', fontWeight: 600 }}>{item.used} {item.unit} 사용</span>
+                      <span style={{ fontSize: 12, color: '#94a3b8' }}>
+                        {item.limit !== null ? `/ ${item.limit} ${item.unit}` : '무제한'}
+                      </span>
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
+
+            {nearLimitCount > 0 && (
+              <div style={{ marginTop: 16, padding: '14px 18px', borderRadius: 10, background: '#fff5f5', border: '1.5px solid #fecaca', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                <div>
+                  <div style={{ fontSize: 13, fontWeight: 700, color: '#0f172a', marginBottom: 3 }}>사용량 한도에 근접했습니다</div>
+                  <div style={{ fontSize: 12, color: '#64748b' }}>Pro 플랜으로 업그레이드하면 더 많은 리소스를 이용할 수 있습니다.</div>
+                </div>
+                <button style={{ padding: '8px 16px', borderRadius: 8, border: 'none', background: '#0f172a', color: '#fff', fontSize: 12, fontWeight: 700, cursor: 'pointer', flexShrink: 0, marginLeft: 16 }}>
+                  업그레이드
+                </button>
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* === BILLING TAB === */}
+        {activeTab === 'billing' && (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
+            <SectionTitle>
+              <SectionTitle.Title>결제 정보</SectionTitle.Title>
+              <SectionTitle.Description>청구서 수신 이메일 및 자동 갱신 설정</SectionTitle.Description>
+            </SectionTitle>
+
+            <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: 12, overflow: 'hidden' }}>
+              <div style={{ padding: '16px 20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid #f1f5f9' }}>
+                <div>
+                  <div style={{ fontSize: 13, fontWeight: 600, color: '#0f172a' }}>청구서 이메일</div>
+                  <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>결제 영수증을 받을 이메일 주소</div>
+                </div>
+                <input
+                  value={billingEmail}
+                  onChange={(e) => setBillingEmail(e.target.value)}
+                  style={{ padding: '7px 12px', borderRadius: 8, border: '1.5px solid #e2e8f0', fontSize: 12, color: '#0f172a', outline: 'none', width: 220 }}
+                />
+              </div>
+              <div style={{ padding: '16px 20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                <div>
+                  <div style={{ fontSize: 13, fontWeight: 600, color: '#0f172a' }}>자동 갱신</div>
+                  <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>매월 자동으로 플랜을 갱신합니다</div>
+                </div>
+                <Toggle checked={autoRenew} onCheckedChange={setAutoRenew} />
+              </div>
+            </div>
+
+            <Divider />
+
+            <SectionTitle>
+              <SectionTitle.Title>청구 내역</SectionTitle.Title>
+              <SectionTitle.Description>최근 4개월 청구서</SectionTitle.Description>
+              <SectionTitle.Trailing>
+                <CounterBadge>{VERCEL95_INVOICES.length}</CounterBadge>
+              </SectionTitle.Trailing>
+            </SectionTitle>
+
+            <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: 12, overflow: 'hidden' }}>
+              {VERCEL95_INVOICES.map((inv, i) => {
+                const st = INV_STATUS[inv.status]
+                return (
+                  <div key={inv.id} style={{ display: 'flex', alignItems: 'center', gap: 14, padding: '12px 20px', borderBottom: i < VERCEL95_INVOICES.length - 1 ? '1px solid #f8fafc' : 'none' }}>
+                    <div style={{ flex: 1 }}>
+                      <div style={{ fontSize: 13, fontWeight: 600, color: '#0f172a' }}>{inv.id}</div>
+                      <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 1 }}>{inv.date}</div>
+                    </div>
+                    <span style={{ fontSize: 13, fontWeight: 700, color: '#0f172a' }}>{inv.amount}</span>
+                    <span style={{ padding: '2px 10px', borderRadius: 20, background: st.bg, color: st.color, fontSize: 11, fontWeight: 700, width: 64, textAlign: 'center' }}>{st.label}</span>
+                    <button style={{ padding: '5px 12px', borderRadius: 7, border: '1px solid #e2e8f0', background: '#fff', fontSize: 11, color: '#64748b', cursor: 'pointer' }}>PDF</button>
+                  </div>
+                )
+              })}
+            </div>
+          </div>
+        )}
+
+        {/* === PLANS TAB === */}
+        {activeTab === 'plans' && (
+          <div>
+            <SectionTitle>
+              <SectionTitle.Title>플랜 선택</SectionTitle.Title>
+              <SectionTitle.Description>현재 Hobby Plan 사용 중입니다</SectionTitle.Description>
+              <SectionTitle.Trailing>
+                <LabelBadge color="gray"><LabelBadge.Label>Hobby</LabelBadge.Label></LabelBadge>
+              </SectionTitle.Trailing>
+            </SectionTitle>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 14, marginTop: 16 }}>
+              {VERCEL95_PLANS.map((plan) => {
+                const isActive = plan.id === currentPlan
+                return (
+                  <div key={plan.id} style={{ background: '#fff', border: `2px solid ${plan.popular ? plan.color : isActive ? '#0f172a' : '#e2e8f0'}`, borderRadius: 14, padding: '22px 20px', position: 'relative', display: 'flex', flexDirection: 'column', gap: 14 }}>
+                    {plan.popular && (
+                      <div style={{ position: 'absolute', top: -12, left: '50%', transform: 'translateX(-50%)', padding: '3px 12px', borderRadius: 20, background: plan.color, color: '#fff', fontSize: 11, fontWeight: 700, whiteSpace: 'nowrap' }}>
+                        Most Popular
+                      </div>
+                    )}
+                    {isActive && (
+                      <div style={{ position: 'absolute', top: 12, right: 12, padding: '2px 8px', borderRadius: 20, background: '#f0fdf4', color: '#10b981', fontSize: 10, fontWeight: 700 }}>
+                        현재 플랜
+                      </div>
+                    )}
+                    <div>
+                      <div style={{ fontSize: 16, fontWeight: 800, color: plan.color, marginBottom: 4 }}>{plan.name}</div>
+                      <div style={{ fontSize: 22, fontWeight: 800, color: '#0f172a' }}>{plan.price}</div>
+                    </div>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+                      {plan.features.map((f) => (
+                        <div key={f} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                          <span style={{ color: plan.color, fontSize: 12, fontWeight: 900 }}>✓</span>
+                          <span style={{ fontSize: 12, color: '#334155' }}>{f}</span>
+                        </div>
+                      ))}
+                    </div>
+                    <button
+                      disabled={isActive}
+                      style={{ marginTop: 'auto', padding: '10px', borderRadius: 8, border: `1.5px solid ${isActive ? '#e2e8f0' : plan.color}`, background: isActive ? '#f8fafc' : plan.id === 'enterprise' ? '#0f172a' : plan.color, color: isActive ? '#94a3b8' : '#fff', fontSize: 13, fontWeight: 700, cursor: isActive ? 'not-allowed' : 'pointer', transition: 'opacity 0.15s' }}
+                    >
+                      {isActive ? '현재 사용 중' : plan.id === 'enterprise' ? '문의하기' : '업그레이드'}
+                    </button>
+                  </div>
+                )
+              })}
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+
+export const VercelUsageBilling: Story = {
+  name: 'Vercel Design — Usage & Billing Dashboard',
+  parameters: {
+    layout: 'fullscreen',
+    docs: {
+      description: {
+        story:
+          'Vercel Design 벤치마크: 사용량/결제/플랜 3탭 대시보드. ' +
+          'Progress(사용량 미터), Toggle(자동갱신), Slider 없이도 풍부한 인터랙션 구현. ' +
+          'SectionTitle, LabelBadge, CounterBadge, Divider, Toggle 통합. ' +
+          '한도 근접 경고, 청구 내역, 플랜 비교 카드 완전 구현.',
+      },
+    },
+  },
+  render: () => <Vercel95UsageBillingRender />,
+}

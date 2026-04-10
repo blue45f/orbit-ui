@@ -661,3 +661,235 @@ export const Ant_카드형_선택_그리드: Story = {
   name: 'Ant Design — 카드형 선택 그리드',
   render: () => <AntCardSelectDemo />,
 }
+
+/* --------------------------------------------------------------------------
+   Vercel 벤치마크: 배포 리전 선택
+   Vercel Serverless Functions Region 설정 패턴
+-------------------------------------------------------------------------- */
+type DeployRegion95 = { value: string; label: string; location: string; latency: string; recommended: boolean }
+
+const DEPLOY_REGIONS: DeployRegion95[] = [
+  { value: 'iad1',  label: 'Washington, D.C., USA',       location: 'US East',       latency: '35ms',  recommended: true  },
+  { value: 'sfo1',  label: 'San Francisco, USA',           location: 'US West',       latency: '180ms', recommended: false },
+  { value: 'cdg1',  label: 'Paris, France',                location: 'EU West',       latency: '210ms', recommended: false },
+  { value: 'sin1',  label: 'Singapore',                    location: 'Asia Pacific',  latency: '170ms', recommended: false },
+  { value: 'icn1',  label: 'Seoul, South Korea',           location: 'Asia Pacific',  latency: '25ms',  recommended: false },
+]
+
+const VercelRegionSelectDemo = () => {
+  const [region, setRegion] = useState('iad1')
+
+  return (
+    <div style={{ maxWidth: 460 }}>
+      <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 6 }}>
+        서버리스 함수 리전
+      </div>
+      <div style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginBottom: 14 }}>
+        가장 가까운 리전을 선택하면 지연 시간을 최소화할 수 있습니다.
+      </div>
+      <RadioGroup value={region} onChange={(e) => setRegion(e.target.value)} name="deploy-region">
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+          {DEPLOY_REGIONS.map((r) => (
+            <div
+              key={r.value}
+              onClick={() => setRegion(r.value)}
+              style={{
+                display: 'flex', alignItems: 'center', gap: 12, padding: '11px 14px',
+                borderRadius: 8, cursor: 'pointer',
+                border: `1.5px solid ${region === r.value ? '#6366f1' : 'var(--sem-eclipse-color-borderSubtle)'}`,
+                background: region === r.value ? '#6366f108' : 'var(--sem-eclipse-color-backgroundPrimary)',
+                transition: 'border-color 0.15s',
+              }}
+            >
+              <RadioButtonWithLabel value={r.value} alignItems="center" />
+              <div style={{ flex: 1 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                  <span style={{ fontSize: 13, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{r.label}</span>
+                  {r.recommended && (
+                    <span style={{ padding: '1px 6px', borderRadius: 4, background: '#eef2ff', color: '#6366f1', fontSize: 10, fontWeight: 700 }}>권장</span>
+                  )}
+                </div>
+                <div style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginTop: 1 }}>{r.location}</div>
+              </div>
+              <span style={{ fontSize: 11, fontFamily: 'monospace', color: region === r.value ? '#6366f1' : 'var(--sem-eclipse-color-foregroundTertiary)', fontWeight: 600, flexShrink: 0 }}>{r.latency}</span>
+            </div>
+          ))}
+        </div>
+      </RadioGroup>
+      <div style={{ marginTop: 12, padding: '10px 14px', borderRadius: 8, background: 'var(--sem-eclipse-color-backgroundSecondary)', fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>
+        선택된 리전: <strong style={{ color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>
+          {DEPLOY_REGIONS.find((r) => r.value === region)?.label}
+        </strong>
+      </div>
+    </div>
+  )
+}
+
+export const Vercel_배포_리전_선택: Story = {
+  name: 'Vercel - 서버리스 함수 배포 리전 선택 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Vercel Serverless Functions Region 설정 패턴. 각 리전에 위치, 지연 시간, 권장 태그를 함께 표시하고 ' +
+          '선택 시 카드 전체에 강조 테두리를 적용합니다.',
+      },
+    },
+  },
+  render: () => <VercelRegionSelectDemo />,
+}
+
+/* --------------------------------------------------------------------------
+   Vercel 벤치마크: 빌드 전략 선택
+   Vercel Build & Development Settings 패턴 — 빌드 방식 라디오 선택
+-------------------------------------------------------------------------- */
+type BuildStrategy95 = { value: string; label: string; desc: string; icon: string; recommended: boolean }
+
+const BUILD_STRATEGIES: BuildStrategy95[] = [
+  { value: 'auto',     label: '자동 감지',       desc: '프레임워크를 자동으로 감지하고 최적 설정을 적용합니다.', icon: '⚡', recommended: true  },
+  { value: 'custom',   label: '커스텀 빌드',      desc: '직접 빌드 명령어와 출력 디렉토리를 지정합니다.',         icon: '⚙', recommended: false },
+  { value: 'skip',     label: '빌드 건너뛰기',    desc: '이미 빌드된 정적 파일을 직접 배포합니다.',              icon: '⏭', recommended: false },
+]
+
+const VercelBuildStrategyDemo = () => {
+  const [strategy, setStrategy] = useState('auto')
+
+  return (
+    <div style={{ maxWidth: 440 }}>
+      <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 6 }}>
+        빌드 전략
+      </div>
+      <RadioGroup value={strategy} onChange={(e) => setStrategy(e.target.value)} name="build-strategy">
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+          {BUILD_STRATEGIES.map((s) => (
+            <div
+              key={s.value}
+              onClick={() => setStrategy(s.value)}
+              style={{
+                display: 'flex', alignItems: 'flex-start', gap: 12, padding: '14px 16px',
+                borderRadius: 10, cursor: 'pointer',
+                border: `1.5px solid ${strategy === s.value ? '#6366f1' : 'var(--sem-eclipse-color-borderSubtle)'}`,
+                background: strategy === s.value ? '#6366f108' : 'var(--sem-eclipse-color-backgroundPrimary)',
+                transition: 'all 0.15s',
+              }}
+            >
+              <div style={{ paddingTop: 1 }}>
+                <RadioButtonWithLabel value={s.value} alignItems="center" />
+              </div>
+              <div style={{ flex: 1 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
+                  <span style={{ fontSize: 16 }}>{s.icon}</span>
+                  <span style={{ fontSize: 13, fontWeight: 700, color: strategy === s.value ? '#6366f1' : 'var(--sem-eclipse-color-foregroundPrimary)' }}>{s.label}</span>
+                  {s.recommended && (
+                    <span style={{ padding: '1px 6px', borderRadius: 4, background: '#f0fdf4', color: '#10b981', fontSize: 10, fontWeight: 700 }}>권장</span>
+                  )}
+                </div>
+                <div style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundSecondary)', lineHeight: 1.5 }}>{s.desc}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </RadioGroup>
+    </div>
+  )
+}
+
+export const Vercel_빌드_전략_선택: Story = {
+  name: 'Vercel - 빌드 전략 라디오 선택 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Vercel Build & Development Settings 패턴. 아이콘 + 제목 + 설명으로 구성된 카드형 라디오 옵션으로 ' +
+          '빌드 방식을 선택합니다. 선택 시 전체 카드에 강조 효과를 적용합니다.',
+      },
+    },
+  },
+  render: () => <VercelBuildStrategyDemo />,
+}
+
+/* --------------------------------------------------------------------------
+   Vercel 벤치마크: 노드 런타임 버전 선택
+   Vercel Node.js Version 설정 패턴 — 버전별 지원 기간 표시 라디오 선택
+-------------------------------------------------------------------------- */
+type NodeVersion95 = { value: string; label: string; lts: boolean; eol: string; status: 'recommended' | 'lts' | 'deprecated' }
+
+const NODE_VERSIONS: NodeVersion95[] = [
+  { value: '20.x', label: 'Node.js 20.x', lts: true,  eol: '2026-04-30', status: 'recommended' },
+  { value: '18.x', label: 'Node.js 18.x', lts: true,  eol: '2025-04-30', status: 'lts'         },
+  { value: '16.x', label: 'Node.js 16.x', lts: false, eol: '2023-09-11', status: 'deprecated'  },
+]
+
+const STATUS_BADGE_STYLE: Record<NodeVersion95['status'], { label: string; color: string; bg: string }> = {
+  recommended: { label: 'Recommended', color: '#10b981', bg: '#f0fdf4' },
+  lts:         { label: 'LTS',         color: '#6366f1', bg: '#eef2ff' },
+  deprecated:  { label: 'Deprecated',  color: '#ef4444', bg: '#fef2f2' },
+}
+
+const VercelNodeVersionDemo = () => {
+  const [version, setVersion] = useState('20.x')
+
+  return (
+    <div style={{ maxWidth: 420 }}>
+      <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 6 }}>
+        Node.js 버전
+      </div>
+      <div style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginBottom: 14 }}>
+        서버리스 함수 및 빌드에 사용할 Node.js 런타임 버전을 선택합니다.
+      </div>
+      <RadioGroup value={version} onChange={(e) => setVersion(e.target.value)} name="node-version">
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+          {NODE_VERSIONS.map((v) => {
+            const badge = STATUS_BADGE_STYLE[v.status]
+            const isDeprecated = v.status === 'deprecated'
+            return (
+              <div
+                key={v.value}
+                onClick={() => !isDeprecated && setVersion(v.value)}
+                style={{
+                  display: 'flex', alignItems: 'center', gap: 12, padding: '11px 14px',
+                  borderRadius: 8,
+                  cursor: isDeprecated ? 'not-allowed' : 'pointer',
+                  border: `1.5px solid ${version === v.value ? '#6366f1' : isDeprecated ? '#f1f5f9' : 'var(--sem-eclipse-color-borderSubtle)'}`,
+                  background: isDeprecated ? '#fafafa' : version === v.value ? '#6366f108' : 'var(--sem-eclipse-color-backgroundPrimary)',
+                  opacity: isDeprecated ? 0.6 : 1,
+                  transition: 'all 0.15s',
+                }}
+              >
+                <RadioButtonWithLabel value={v.value} alignItems="center" disabled={isDeprecated} />
+                <div style={{ flex: 1 }}>
+                  <span style={{ fontSize: 13, fontWeight: 600, color: isDeprecated ? 'var(--sem-eclipse-color-foregroundTertiary)' : 'var(--sem-eclipse-color-foregroundPrimary)' }}>
+                    {v.label}
+                  </span>
+                  <div style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginTop: 1 }}>
+                    EOL: {v.eol}
+                  </div>
+                </div>
+                <span style={{ padding: '2px 8px', borderRadius: 20, background: badge.bg, color: badge.color, fontSize: 10, fontWeight: 700, flexShrink: 0 }}>{badge.label}</span>
+              </div>
+            )
+          })}
+        </div>
+      </RadioGroup>
+      {version === '18.x' && (
+        <div style={{ marginTop: 10, padding: '10px 14px', borderRadius: 8, background: '#fffbeb', border: '1px solid #fef3c7', fontSize: 12, color: '#92400e' }}>
+          Node.js 18.x는 2025년 4월에 EOL이 됩니다. 20.x로 업그레이드를 권장합니다.
+        </div>
+      )}
+    </div>
+  )
+}
+
+export const Vercel_노드_버전_선택: Story = {
+  name: 'Vercel - Node.js 런타임 버전 선택 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Vercel Node.js Version 설정 패턴. LTS/권장/지원종료 상태 배지를 각 버전에 표시하고, ' +
+          'Deprecated 버전은 비활성화합니다. 특정 선택 시 업그레이드 경고 메시지를 인라인 표시합니다.',
+      },
+    },
+  },
+  render: () => <VercelNodeVersionDemo />,
+}
