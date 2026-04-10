@@ -1279,3 +1279,165 @@ export const Vercel_Radix_배포_태그_필터: Story = {
     )
   },
 }
+
+// ─── Cycle 155: Arco Design + Raycast Extensions ───────────────────────────
+
+const ARCO_TAGS = [
+  { id: 'all', label: '전체' },
+  { id: 'frontend', label: '프론트엔드' },
+  { id: 'backend', label: '백엔드' },
+  { id: 'design', label: '디자인' },
+  { id: 'infra', label: '인프라' },
+  { id: 'docs', label: '문서' },
+]
+
+function ArcoTagFilterRender() {
+  const [selected, setSelected] = useState<string[]>(['all'])
+  const toggle = (id: string) => {
+    if (id === 'all') { setSelected(['all']); return }
+    setSelected(prev => {
+      const without = prev.filter(s => s !== 'all')
+      const next = without.includes(id) ? without.filter(s => s !== id) : [...without, id]
+      return next.length === 0 ? ['all'] : next
+    })
+  }
+  return (
+    <div style={{ width: 360, fontFamily: 'Inter, system-ui, sans-serif' }}>
+      <div style={{ fontSize: 12, fontWeight: 700, color: '#6b7280', marginBottom: 10 }}>Arco Design 태그 필터 패턴</div>
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+        {ARCO_TAGS.map(tag => (
+          <Chip
+            key={tag.id}
+            onClick={() => toggle(tag.id)}
+            theme={{ enabledSelectedFillColor: selected.includes(tag.id) ? '#E8F3FF' : undefined, enabledSelectedForegroundColor: selected.includes(tag.id) ? '#165DFF' : undefined, enabledSelectedBorderColor: selected.includes(tag.id) ? '#165DFF' : undefined }}
+          >
+            {selected.includes(tag.id) && (
+              <Chip.Leading><CheckIcon size={12} /></Chip.Leading>
+            )}
+            {tag.label}
+          </Chip>
+        ))}
+      </div>
+      <div style={{ marginTop: 10, fontSize: 11, color: '#94a3b8' }}>
+        선택됨: {selected.join(', ')} — Arco Design Tag.CheckableTag 패턴
+      </div>
+    </div>
+  )
+}
+
+export const Arco_데이터_태그_필터: Story = {
+  name: 'Arco Design - 데이터 시각화 태그 필터',
+  render: () => <ArcoTagFilterRender />,
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Arco Design Tag.CheckableTag 패턴. 선택된 태그는 파란 배경+테두리로 강조되고 체크 아이콘이 등장합니다. ' +
+          '"전체" 선택 시 개별 선택이 초기화되는 Arco 태그 그룹 동작을 재현합니다.',
+      },
+    },
+  },
+}
+
+const RAYCAST_COMMANDS = [
+  { id: 'search', label: '빠른 검색', keys: ['⌘', 'K'] },
+  { id: 'new', label: '새 항목 생성', keys: ['⌘', 'N'] },
+  { id: 'copy', label: '링크 복사', keys: ['⌘', 'C'] },
+  { id: 'open', label: '새 탭에서 열기', keys: ['⌘', 'T'] },
+]
+
+function RaycastShortcutChipRender() {
+  const [active, setActive] = useState<string | null>(null)
+  return (
+    <div style={{ width: 320, fontFamily: 'Inter, system-ui, sans-serif', background: '#1c1c1e', borderRadius: 12, padding: 12 }}>
+      <div style={{ fontSize: 11, fontWeight: 600, color: '#8e8e93', marginBottom: 8, padding: '0 4px' }}>COMMANDS</div>
+      {RAYCAST_COMMANDS.map(cmd => (
+        <div
+          key={cmd.id}
+          onClick={() => setActive(cmd.id)}
+          style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 10px', borderRadius: 8, cursor: 'pointer', background: active === cmd.id ? '#2c2c2e' : 'transparent', marginBottom: 2 }}
+        >
+          <span style={{ fontSize: 13, color: '#f2f2f7' }}>{cmd.label}</span>
+          <div style={{ display: 'flex', gap: 3 }}>
+            {cmd.keys.map((k, i) => (
+              <span key={i} style={{ fontSize: 10, color: '#8e8e93', padding: '2px 6px', background: '#3a3a3c', border: '1px solid #48484a', borderRadius: 4, fontWeight: 500 }}>
+                {k}
+              </span>
+            ))}
+          </div>
+        </div>
+      ))}
+      <div style={{ marginTop: 6, padding: '0 4px', fontSize: 11, color: '#6d6d72' }}>Raycast 단축키 칩 — 다크 팔레트</div>
+    </div>
+  )
+}
+
+export const Raycast_커맨드_팔레트_칩: Story = {
+  name: 'Raycast - 커맨드 팔레트 단축키 칩',
+  render: () => <RaycastShortcutChipRender />,
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Raycast Extensions 커맨드 팔레트 단축키 표시 패턴. 다크 배경에 키보드 단축키를 소형 뱃지로 표현합니다. ' +
+          'Raycast의 KeyboardShortcut 컴포넌트 패턴과 Chip 테마 오버라이드를 조합해 구현합니다.',
+      },
+    },
+  },
+}
+
+const ISSUE_LABELS = [
+  { id: 'bug', text: '버그', color: '#F53F3F', selected: true },
+  { id: 'feat', text: '기능', color: '#165DFF', selected: false },
+  { id: 'docs', text: '문서', color: '#00B42A', selected: true },
+  { id: 'perf', text: '성능', color: '#FF7D00', selected: false },
+  { id: 'test', text: '테스트', color: '#722ED1', selected: false },
+]
+
+function ArcoRaycastLabelChipRender() {
+  const [labels, setLabels] = useState(ISSUE_LABELS)
+  const toggle = (id: string) => setLabels(prev => prev.map(l => l.id === id ? { ...l, selected: !l.selected } : l))
+  const selected = labels.filter(l => l.selected)
+  return (
+    <div style={{ width: 340, fontFamily: 'Inter, system-ui, sans-serif' }}>
+      <div style={{ fontSize: 12, fontWeight: 700, color: '#6b7280', marginBottom: 10 }}>Arco + Raycast 이슈 레이블 칩</div>
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginBottom: 12 }}>
+        {labels.map(label => (
+          <Chip
+            key={label.id}
+            onClick={() => toggle(label.id)}
+            theme={{ enabledSelectedFillColor: label.color + '18', enabledSelectedForegroundColor: label.color, enabledSelectedBorderColor: label.color + '60', enabledUnselectedBorderColor: '#e5e6eb' }}
+          >
+            <Chip.Leading>
+              <div style={{ width: 8, height: 8, borderRadius: '50%', background: label.selected ? label.color : '#c9cdd4' }} />
+            </Chip.Leading>
+            {label.text}
+            {label.selected && (
+              <Chip.Trailing>
+                <CancelIcon size={12} />
+              </Chip.Trailing>
+            )}
+          </Chip>
+        ))}
+      </div>
+      <div style={{ padding: '8px 12px', background: '#f7f8fa', borderRadius: 8, fontSize: 12, color: '#4e5969' }}>
+        선택된 레이블: {selected.length > 0 ? selected.map(l => l.text).join(', ') : '없음'}
+      </div>
+      <div style={{ marginTop: 8, fontSize: 11, color: '#94a3b8' }}>Arco Tag + Raycast 이슈 레이블 토글 패턴</div>
+    </div>
+  )
+}
+
+export const Arco_Raycast_이슈_레이블_칩: Story = {
+  name: 'Arco Design + Raycast - 이슈 레이블 칩 시스템',
+  render: () => <ArcoRaycastLabelChipRender />,
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Arco Design + Raycast 복합 패턴. 컬러 도트·텍스트·삭제 아이콘 구성의 레이블 칩을 토글하며 이슈에 레이블을 할당합니다. ' +
+          'Arco Tag closable 패턴과 Raycast 이슈 레이블 UI를 Chip 테마 오버라이드로 구현합니다.',
+      },
+    },
+  },
+}

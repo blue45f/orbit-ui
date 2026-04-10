@@ -1199,3 +1199,158 @@ export const Shadcn_Linear_실시간_활동_배지: Story = {
     )
   },
 }
+
+// ─── Cycle 155: Arco Design + Raycast Extensions ───────────────────────────
+
+function ArcoNotificationBadgeRender() {
+  const [counts, setCounts] = useState({ message: 3, task: 12, alert: 1, system: 0 })
+  const channels = [
+    { key: 'message' as const, label: '메시지', color: '#165DFF' },
+    { key: 'task' as const, label: '작업', color: '#00B42A' },
+    { key: 'alert' as const, label: '경고', color: '#FF7D00' },
+    { key: 'system' as const, label: '시스템', color: '#F53F3F' },
+  ]
+  const addCount = (key: keyof typeof counts) => setCounts(prev => ({ ...prev, [key]: prev[key] + 1 }))
+  const clearAll = () => setCounts({ message: 0, task: 0, alert: 0, system: 0 })
+  return (
+    <div style={{ width: 300, fontFamily: 'Inter, system-ui, sans-serif', color: '#1d2129' }}>
+      <div style={{ fontSize: 12, fontWeight: 700, color: '#6b7280', marginBottom: 10 }}>Arco Design 알림 배지 시스템</div>
+      {channels.map(ch => (
+        <div key={ch.key} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 0', borderBottom: '1px solid #f2f3f5' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            <div style={{ width: 8, height: 8, borderRadius: '50%', background: ch.color }} />
+            <span style={{ fontSize: 13, color: '#1d2129' }}>{ch.label}</span>
+          </div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            <AnimatedBadge style={{ background: ch.color, color: '#fff', minWidth: 20, height: 20, fontSize: 11, fontWeight: 700, borderRadius: 10, padding: '0 6px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              {counts[ch.key] > 0 ? counts[ch.key] : null}
+            </AnimatedBadge>
+            <button onClick={() => addCount(ch.key)} style={{ fontSize: 11, padding: '2px 8px', border: '1px solid #e5e6eb', borderRadius: 4, cursor: 'pointer', background: '#fff' }}>+1</button>
+          </div>
+        </div>
+      ))}
+      <button onClick={clearAll} style={{ marginTop: 10, width: '100%', padding: '6px', fontSize: 12, border: '1px solid #e5e6eb', borderRadius: 6, cursor: 'pointer', background: '#f7f8fa' }}>전체 초기화</button>
+      <div style={{ marginTop: 8, fontSize: 11, color: '#9ca3af' }}>Arco Design Badge 채널별 색상 분리 패턴</div>
+    </div>
+  )
+}
+
+export const Arco_채널별_알림_배지: Story = {
+  name: 'Arco Design - 채널별 알림 배지 (색상 분리)',
+  render: () => <ArcoNotificationBadgeRender />,
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Arco Design Badge 컴포넌트 패턴. 메시지·작업·경고·시스템 채널별로 배지 색상을 분리해 알림 유형을 직관적으로 구분합니다. ' +
+          'Arco의 color prop을 AnimatedBadge 인라인 스타일로 재현합니다.',
+      },
+    },
+  },
+}
+
+function RaycastCommandBadgeRender() {
+  const [activeExt, setActiveExt] = useState<string | null>(null)
+  const extensions = [
+    { id: 'github', name: 'GitHub', badge: 5, icon: '⌥G', desc: 'PR 리뷰 대기' },
+    { id: 'linear', name: 'Linear', badge: 3, icon: '⌥L', desc: '할당된 이슈' },
+    { id: 'notion', name: 'Notion', badge: 0, icon: '⌥N', desc: '업데이트 없음' },
+    { id: 'slack', name: 'Slack', badge: 12, icon: '⌥S', desc: '미읽은 메시지' },
+  ]
+  return (
+    <div style={{ width: 300, fontFamily: 'Inter, system-ui, sans-serif', background: '#1c1c1e', borderRadius: 12, padding: 12, boxShadow: '0 20px 40px rgba(0,0,0,0.4)' }}>
+      <div style={{ fontSize: 11, fontWeight: 600, color: '#8e8e93', marginBottom: 8, padding: '0 4px' }}>EXTENSIONS</div>
+      {extensions.map(ext => (
+        <div
+          key={ext.id}
+          onClick={() => setActiveExt(ext.id)}
+          style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '8px 10px', borderRadius: 8, cursor: 'pointer', background: activeExt === ext.id ? '#2c2c2e' : 'transparent', marginBottom: 2 }}
+        >
+          <div style={{ width: 28, height: 28, borderRadius: 8, background: '#3a3a3c', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 10, color: '#8e8e93', fontWeight: 700, flexShrink: 0 }}>
+            {ext.icon}
+          </div>
+          <div style={{ flex: 1 }}>
+            <div style={{ fontSize: 13, color: '#f2f2f7', fontWeight: 500 }}>{ext.name}</div>
+            <div style={{ fontSize: 11, color: '#8e8e93', marginTop: 1 }}>{ext.desc}</div>
+          </div>
+          {ext.badge > 0 && (
+            <AnimatedBadge style={{ background: '#0a84ff', color: '#fff', minWidth: 18, height: 18, fontSize: 10, fontWeight: 700, borderRadius: 9, padding: '0 5px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              {ext.badge}
+            </AnimatedBadge>
+          )}
+        </div>
+      ))}
+      <div style={{ marginTop: 8, padding: '0 4px', fontSize: 11, color: '#6d6d72' }}>Raycast 확장 목록 + 뱃지 패턴</div>
+    </div>
+  )
+}
+
+export const Raycast_익스텐션_알림_배지: Story = {
+  name: 'Raycast - 익스텐션 알림 배지 (다크 팔레트)',
+  render: () => <RaycastCommandBadgeRender />,
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Raycast Extensions 목록 UI 패턴. 다크 배경에 파란 강조 배지를 사용해 확장별 미처리 항목 수를 표시합니다. ' +
+          'Raycast의 컴팩트 밀도와 iOS스러운 배지 스타일을 재현합니다.',
+      },
+    },
+  },
+}
+
+function ArcoRaycastStatusBadgeRender() {
+  const [phase, setPhase] = useState<'idle' | 'running' | 'done' | 'error'>('idle')
+  const phaseConfig = {
+    idle: { label: '대기', color: '#86909C', bg: '#F7F8FA', count: null },
+    running: { label: '실행 중', color: '#165DFF', bg: '#E8F3FF', count: 3 },
+    done: { label: '완료', color: '#00B42A', bg: '#E8FFEA', count: 0 },
+    error: { label: '오류', color: '#F53F3F', bg: '#FFECE8', count: 2 },
+  }
+  const cfg = phaseConfig[phase]
+  return (
+    <div style={{ width: 320, fontFamily: 'Inter, system-ui, sans-serif', color: '#1d2129' }}>
+      <div style={{ fontSize: 12, fontWeight: 700, color: '#6b7280', marginBottom: 12 }}>Arco + Raycast 상태 배지 전환</div>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '14px 16px', background: cfg.bg, borderRadius: 10, border: `1.5px solid ${cfg.color}25` }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+          <div style={{ width: 36, height: 36, borderRadius: 10, background: cfg.color + '20', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <StarFillIcon size={16} style={{ color: cfg.color }} />
+          </div>
+          <div>
+            <div style={{ fontSize: 13, fontWeight: 600, color: '#1d2129' }}>빌드 파이프라인</div>
+            <div style={{ fontSize: 11, color: '#86909c', marginTop: 2 }}>orbit-ui / main</div>
+          </div>
+        </div>
+        {cfg.count !== null && cfg.count > 0 ? (
+          <AnimatedBadge style={{ background: cfg.color, color: '#fff', minWidth: 20, height: 20, fontSize: 11, fontWeight: 700, borderRadius: 10, padding: '0 6px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>
+            {cfg.count}
+          </AnimatedBadge>
+        ) : (
+          <span style={{ fontSize: 12, fontWeight: 600, color: cfg.color, padding: '3px 8px', background: cfg.color + '18', borderRadius: 6 }}>{cfg.label}</span>
+        )}
+      </div>
+      <div style={{ display: 'flex', gap: 6, marginTop: 10 }}>
+        {(['idle', 'running', 'done', 'error'] as const).map(p => (
+          <button key={p} onClick={() => setPhase(p)} style={{ flex: 1, padding: '5px', fontSize: 11, border: `1px solid ${phase === p ? phaseConfig[p].color : '#e5e6eb'}`, borderRadius: 6, cursor: 'pointer', background: phase === p ? phaseConfig[p].bg : '#fff', color: phase === p ? phaseConfig[p].color : '#86909c', fontWeight: phase === p ? 700 : 400 }}>
+            {phaseConfig[p].label}
+          </button>
+        ))}
+      </div>
+      <div style={{ marginTop: 8, fontSize: 11, color: '#9ca3af' }}>Arco Design + Raycast — 파이프라인 상태 배지 패턴</div>
+    </div>
+  )
+}
+
+export const Arco_Raycast_파이프라인_상태_배지: Story = {
+  name: 'Arco Design + Raycast - 파이프라인 상태 배지 전환',
+  render: () => <ArcoRaycastStatusBadgeRender />,
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Arco Design + Raycast 복합 패턴. 대기·실행중·완료·오류 4단계 상태에 따라 배지 색상과 레이아웃이 전환됩니다. ' +
+          'Arco의 Badge status prop과 Raycast 명령 상태 표시 UI를 AnimatedBadge로 재현합니다.',
+      },
+    },
+  },
+}

@@ -35140,3 +35140,169 @@ export const MuiChakra154DesignSystemPortal: StoryObj = {
   },
   render: () => <MuiChakra154DesignSystemPortalRender />,
 }
+
+// ─── Cycle 155: Arco Design + Raycast Extensions ───────────────────────────
+
+const R155_COMMANDS = [
+  { id: 'search-issues', label: '이슈 검색', group: '검색', keys: ['⌘', 'K'], badge: 0 },
+  { id: 'create-pr', label: 'PR 생성', group: '작업', keys: ['⌘', 'N'], badge: 0 },
+  { id: 'my-assigned', label: '내 할당 이슈', group: '필터', keys: ['⌘', '1'], badge: 7 },
+  { id: 'review-queue', label: 'PR 리뷰 대기', group: '필터', keys: ['⌘', '2'], badge: 3 },
+  { id: 'open-settings', label: '설정 열기', group: '시스템', keys: ['⌘', ','], badge: 0 },
+  { id: 'copy-branch', label: '브랜치 이름 복사', group: '작업', keys: ['⌘', 'B'], badge: 0 },
+]
+
+const R155_LABELS = [
+  { id: 'bug', text: '버그', color: '#F53F3F' },
+  { id: 'feat', text: '기능', color: '#165DFF' },
+  { id: 'urgent', text: '긴급', color: '#FF7D00' },
+  { id: 'design', text: '디자인', color: '#722ED1' },
+  { id: 'docs', text: '문서', color: '#00B42A' },
+]
+
+function ArcoRaycast155CommandPaletteRender() {
+  const [query, setQuery] = useState('')
+  const [selectedCmd, setSelectedCmd] = useState<string | null>(null)
+  const [selectedLabels, setSelectedLabels] = useState<Set<string>>(new Set(['bug']))
+  const [activeGroup, setActiveGroup] = useState<string>('전체')
+
+  const groups = ['전체', ...Array.from(new Set(R155_COMMANDS.map(c => c.group)))]
+  const filtered = R155_COMMANDS.filter(c =>
+    (activeGroup === '전체' || c.group === activeGroup) &&
+    c.label.toLowerCase().includes(query.toLowerCase())
+  )
+
+  const toggleLabel = (id: string) => setSelectedLabels(prev => {
+    const next = new Set(prev)
+    if (next.has(id)) { next.delete(id) } else { next.add(id) }
+    return next
+  })
+
+  return (
+    <div style={{ display: 'flex', height: 560, fontFamily: 'Inter, system-ui, sans-serif', background: '#fff', border: '1px solid #e2e8f0', borderRadius: 8, overflow: 'hidden' }}>
+      {/* Left: Command Palette (Raycast dark panel) */}
+      <div style={{ width: 280, background: '#1c1c1e', display: 'flex', flexDirection: 'column', borderRight: '1px solid #2c2c2e' }}>
+        <div style={{ padding: 12, borderBottom: '1px solid #2c2c2e' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '6px 10px', background: '#2c2c2e', borderRadius: 8 }}>
+            <span style={{ fontSize: 14, color: '#8e8e93' }}>⌘</span>
+            <input
+              value={query}
+              onChange={e => setQuery(e.target.value)}
+              placeholder="명령 검색..."
+              style={{ flex: 1, background: 'transparent', border: 'none', outline: 'none', fontSize: 13, color: '#f2f2f7', fontFamily: 'Inter, system-ui, sans-serif' }}
+            />
+          </div>
+        </div>
+        <div style={{ display: 'flex', gap: 4, padding: '8px 12px', borderBottom: '1px solid #2c2c2e', flexWrap: 'wrap' }}>
+          {groups.map(g => (
+            <span
+              key={g}
+              onClick={() => setActiveGroup(g)}
+              style={{ fontSize: 10, cursor: 'pointer', padding: '2px 8px', borderRadius: 20, border: `1px solid ${activeGroup === g ? '#48484a' : '#3a3a3c'}`, background: activeGroup === g ? '#3a3a3c' : 'transparent', color: activeGroup === g ? '#f2f2f7' : '#8e8e93', display: 'inline-flex', alignItems: 'center' }}
+            >
+              {g}
+            </span>
+          ))}
+        </div>
+        <div style={{ flex: 1, overflowY: 'auto', padding: '8px 0' }}>
+          {filtered.map(cmd => (
+            <div
+              key={cmd.id}
+              onClick={() => setSelectedCmd(cmd.id)}
+              style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 14px', cursor: 'pointer', background: selectedCmd === cmd.id ? '#2c2c2e' : 'transparent' }}
+            >
+              <span style={{ fontSize: 13, color: '#f2f2f7' }}>{cmd.label}</span>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+                {cmd.badge > 0 && (
+                  <AnimatedBadge style={{ background: '#0a84ff', color: '#fff', minWidth: 16, height: 16, fontSize: 10, fontWeight: 700, borderRadius: 8, padding: '0 4px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>
+                    {cmd.badge}
+                  </AnimatedBadge>
+                )}
+                <div style={{ display: 'flex', gap: 2 }}>
+                  {cmd.keys.map((k, i) => (
+                    <span key={i} style={{ fontSize: 10, color: '#8e8e93', padding: '1px 5px', background: '#3a3a3c', borderRadius: 4 }}>{k}</span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div style={{ padding: '10px 14px', borderTop: '1px solid #2c2c2e', fontSize: 11, color: '#6d6d72' }}>
+          Raycast 커맨드 팔레트 패턴
+        </div>
+      </div>
+
+      {/* Right: Arco-style issue panel */}
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+        <div style={{ padding: '16px 20px', borderBottom: '1px solid #e5e6eb', background: '#f7f8fa' }}>
+          <div style={{ fontSize: 14, fontWeight: 700, color: '#1d2129' }}>
+            {selectedCmd ? R155_COMMANDS.find(c => c.id === selectedCmd)?.label ?? '이슈 상세' : '이슈 선택'}
+          </div>
+          <div style={{ fontSize: 12, color: '#86909c', marginTop: 2 }}>Arco Design 이슈 패널</div>
+        </div>
+
+        <div style={{ flex: 1, padding: '16px 20px', overflowY: 'auto' }}>
+          {/* Label chips */}
+          <div style={{ marginBottom: 16 }}>
+            <div style={{ fontSize: 11, fontWeight: 700, color: '#86909c', marginBottom: 8, textTransform: 'uppercase' }}>레이블</div>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+              {R155_LABELS.map(label => (
+                <Chip
+                  key={label.id}
+                  onClick={() => toggleLabel(label.id)}
+                  theme={{ enabledSelectedFillColor: label.color + '18', enabledSelectedForegroundColor: label.color, enabledSelectedBorderColor: label.color + '60', enabledUnselectedBorderColor: '#e5e6eb' }}
+                >
+                  <Chip.Leading>
+                    <div style={{ width: 6, height: 6, borderRadius: '50%', background: selectedLabels.has(label.id) ? label.color : '#c9cdd4' }} />
+                  </Chip.Leading>
+                  {label.text}
+                </Chip>
+              ))}
+            </div>
+          </div>
+
+          {/* Notification badges */}
+          <div style={{ marginBottom: 16 }}>
+            <div style={{ fontSize: 11, fontWeight: 700, color: '#86909c', marginBottom: 8, textTransform: 'uppercase' }}>알림 현황</div>
+            <div style={{ display: 'flex', gap: 8 }}>
+              {[
+                { label: '할당', count: 7, color: '#165DFF' },
+                { label: '리뷰', count: 3, color: '#FF7D00' },
+                { label: '댓글', count: 12, color: '#00B42A' },
+              ].map(item => (
+                <div key={item.label} style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '8px 12px', background: item.color + '10', borderRadius: 8, border: `1px solid ${item.color}25` }}>
+                  <AnimatedBadge style={{ background: item.color, color: '#fff', minWidth: 20, height: 20, fontSize: 11, fontWeight: 700, borderRadius: 10, padding: '0 5px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>
+                    {item.count}
+                  </AnimatedBadge>
+                  <span style={{ fontSize: 12, color: '#4e5969' }}>{item.label}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div style={{ padding: '12px', background: '#f7f8fa', borderRadius: 8, fontSize: 12, color: '#86909c' }}>
+            <span style={{ fontWeight: 600, color: '#4e5969' }}>선택된 레이블: </span>
+            {selectedLabels.size > 0 ? Array.from(selectedLabels).join(', ') : '없음'}
+          </div>
+        </div>
+
+        <div style={{ padding: '10px 20px', borderTop: '1px solid #e5e6eb', fontSize: 11, color: '#86909c' }}>
+          Arco Design + Raycast — 커맨드 팔레트 + 이슈 레이블 패널
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const ArcoRaycast155CommandPalette: StoryObj = {
+  name: 'Arco Design + Raycast — 커맨드 팔레트 + 이슈 레이블 패널',
+  parameters: {
+    layout: 'fullscreen',
+    docs: {
+      description: {
+        story: 'Arco Design + Raycast 복합 패턴. 좌: Raycast 스타일 다크 커맨드 팔레트(검색+그룹필터+단축키 Chip+AnimatedBadge), 우: Arco 스타일 이슈 패널(컬러 도트 레이블 Chip+알림 배지). 실무 이슈 관리 도구 레이아웃.',
+      },
+    },
+  },
+  render: () => <ArcoRaycast155CommandPaletteRender />,
+}
