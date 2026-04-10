@@ -973,3 +973,169 @@ export const Radix_Vercel_빈상태_에러_타이포: StoryObj<typeof meta> = {
   },
   render: () => <RadixVercelEmptyStateRender />,
 }
+
+// Cycle 141 - Raycast Extensions + Figma Plugin UI benchmark
+function RaycastResultItem141Render() {
+  const [selected, setSelected] = React.useState(1)
+
+  const results = [
+    { id: 1, category: 'Storybook', title: 'Progress Component', desc: 'Cycle 140에 추가된 업로드 진행률 컴포넌트', shortcut: '⌘1' },
+    { id: 2, category: 'Issue', title: 'ORB-241 TextField focus ring', desc: 'a11y: focus visible 개선', shortcut: '⌘2' },
+    { id: 3, category: 'Doc', title: 'BenchmarkComparison.mdx', desc: 'Cycle 141 Raycast 섹션 추가', shortcut: '⌘3' },
+    { id: 4, category: 'Component', title: 'OutlineButton', desc: '16종 스토리 포함 — 액션 패널, 필터 바', shortcut: '⌘4' },
+  ]
+
+  const categoryColor: Record<string, string> = {
+    Storybook: '#7c3aed',
+    Issue: '#dc2626',
+    Doc: '#0284c7',
+    Component: '#059669',
+  }
+
+  return (
+    <div style={{ width: 420, fontFamily: 'system-ui, sans-serif' }}>
+      <div style={{ marginBottom: 10, fontSize: 11, color: '#64748b' }}>Raycast — 검색 결과 타이포그래피 패턴</div>
+      <div style={{ border: '1px solid #e2e8f0', borderRadius: 12, overflow: 'hidden', boxShadow: '0 4px 20px rgba(0,0,0,0.08)' }}>
+        {results.map((r) => (
+          <div
+            key={r.id}
+            onClick={() => setSelected(r.id)}
+            style={{ padding: '10px 16px', background: selected === r.id ? '#f0f9ff' : '#fff', borderBottom: '1px solid #f1f5f9', cursor: 'pointer', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}
+          >
+            <div style={{ flex: 1 }}>
+              <div style={{ display: 'flex', gap: 6, alignItems: 'center', marginBottom: 3 }}>
+                <span style={{ fontSize: 9, fontWeight: 700, textTransform: 'uppercase', letterSpacing: 0.6, color: categoryColor[r.category], background: `${categoryColor[r.category]}12`, padding: '1px 5px', borderRadius: 3 }}>
+                  {r.category}
+                </span>
+                <Text textStyle="labelMedium">{r.title}</Text>
+              </div>
+              <Text textStyle="bodySmall" color="onSurfaceVariant">{r.desc}</Text>
+            </div>
+            <span style={{ fontSize: 10, color: '#94a3b8', fontFamily: 'monospace', flexShrink: 0, marginLeft: 12, background: '#f8fafc', padding: '2px 5px', borderRadius: 4, border: '1px solid #e2e8f0' }}>
+              {r.shortcut}
+            </span>
+          </div>
+        ))}
+        <div style={{ padding: '8px 16px', background: '#fafafa', borderTop: '1px solid #f1f5f9' }}>
+          <Text textStyle="labelSmall" color="onSurfaceVariant">
+            {results.length}개 결과 · ↑↓ 탐색 · Enter 열기
+          </Text>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const Raycast_검색결과_타이포: StoryObj<typeof meta> = {
+  name: 'Raycast — 검색 결과 타이포그래피 (Cycle 141)',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Raycast 검색 결과 패턴. 카테고리 뱃지 + labelMedium 제목 + bodySmall 설명. 선택 상태 배경 변화, 단축키 키캡.',
+      },
+    },
+  },
+  render: () => <RaycastResultItem141Render />,
+}
+
+function FigmaPropertyPanel141Render() {
+  const props = [
+    { label: 'Width', value: '360px', token: 'spacing-90' },
+    { label: 'Height', value: 'auto', token: 'auto' },
+    { label: 'Font Size', value: '14px', token: 'text-body-md' },
+    { label: 'Line Height', value: '1.5 (21px)', token: 'leading-normal' },
+    { label: 'Font Weight', value: '400 Regular', token: 'font-regular' },
+    { label: 'Letter Spacing', value: '0em', token: 'tracking-normal' },
+    { label: 'Color', value: '#1E293B', token: 'color.foreground.primary' },
+  ]
+
+  return (
+    <div style={{ width: 280, fontFamily: 'system-ui, sans-serif', background: '#fff', border: '1px solid #e2e8f0', borderRadius: 8, overflow: 'hidden' }}>
+      <div style={{ padding: '8px 12px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0' }}>
+        <Text textStyle="labelMedium">속성 패널</Text>
+        <div style={{ marginTop: 1 }}>
+          <Text textStyle="labelSmall" color="onSurfaceVariant">Figma Plugin UI 타이포그래피</Text>
+        </div>
+      </div>
+      <div style={{ padding: 4 }}>
+        {props.map((p) => (
+          <div key={p.label} style={{ padding: '7px 10px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 4, alignItems: 'start', borderBottom: '1px solid #f8fafc' }}>
+            <Text textStyle="labelSmall" color="onSurfaceVariant">{p.label}</Text>
+            <div>
+              <Text textStyle="labelSmall">{p.value}</Text>
+              <div style={{ marginTop: 1 }}>
+                <Text textStyle="labelSmall" color="onSurfaceVariant" style={{ fontFamily: 'monospace', fontSize: 9 }}>{p.token}</Text>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+export const Figma_속성_패널_타이포: StoryObj<typeof meta> = {
+  name: 'Figma Plugin UI — 속성 패널 타이포그래피 (Cycle 141)',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Figma 속성 패널 UI 타이포그래피. labelMedium 헤더, labelSmall 키/값 쌍, monospace 토큰 레퍼런스. 컴팩트 밀도.',
+      },
+    },
+  },
+  render: () => <FigmaPropertyPanel141Render />,
+}
+
+function RaycastFigmaChangeLog141Render() {
+  const changes = [
+    { version: 'v2.1.0', date: '2026-04-10', tag: 'minor', items: ['Cycle 141: OutlineButton 액션 패널 스토리', 'Text 속성 패널 타이포 패턴', 'Templates: CalendarApp 추가'] },
+    { version: 'v2.0.9', date: '2026-04-09', tag: 'patch', items: ['Cycle 140: Progress 업로드 진행률', 'FloatingTextField 멀티스텝 폼', 'Mantine + Arco 분석 대시보드'] },
+    { version: 'v2.0.8', date: '2026-04-08', tag: 'patch', items: ['Toggle 서식 도구바', 'SearchBar 전역 검색', 'AI 글쓰기 스튜디오 템플릿'] },
+  ]
+
+  const tagColor: Record<string, string> = { minor: '#7c3aed', patch: '#0284c7', major: '#dc2626' }
+
+  return (
+    <div style={{ width: 440, fontFamily: 'system-ui, sans-serif' }}>
+      <div style={{ marginBottom: 12 }}>
+        <Text textStyle="titleMedium">변경 이력</Text>
+        <div style={{ marginTop: 2 }}>
+          <Text textStyle="bodySmall" color="onSurfaceVariant">Raycast + Figma — 릴리스 노트 타이포 패턴</Text>
+        </div>
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+        {changes.map((ch) => (
+          <div key={ch.version} style={{ borderLeft: '2px solid #e2e8f0', paddingLeft: 16 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 6 }}>
+              <Text textStyle="labelLarge">{ch.version}</Text>
+              <span style={{ fontSize: 10, fontWeight: 700, color: tagColor[ch.tag], background: `${tagColor[ch.tag]}12`, padding: '1px 7px', borderRadius: 10, textTransform: 'uppercase', letterSpacing: 0.5 }}>
+                {ch.tag}
+              </span>
+              <Text textStyle="labelSmall" color="onSurfaceVariant">{ch.date}</Text>
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+              {ch.items.map((item) => (
+                <div key={item} style={{ display: 'flex', gap: 6 }}>
+                  <span style={{ color: '#94a3b8', flexShrink: 0, marginTop: 1 }}>·</span>
+                  <Text textStyle="bodySmall">{item}</Text>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+export const Raycast_Figma_변경이력_타이포: StoryObj<typeof meta> = {
+  name: 'Raycast + Figma — 변경 이력 타이포그래피 (Cycle 141)',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Raycast 릴리스 노트 + Figma UI 타이포. titleMedium 헤더, labelLarge 버전, labelSmall 날짜/태그, bodySmall 항목. 수직 타임라인 레이아웃.',
+      },
+    },
+  },
+  render: () => <RaycastFigmaChangeLog141Render />,
+}

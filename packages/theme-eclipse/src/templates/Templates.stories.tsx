@@ -32500,3 +32500,185 @@ export const MantiineArco140ProductAnalytics: StoryObj = {
   },
   render: () => <ProductAnalytics140Render />,
 }
+
+// ─── Cycle 141: Raycast + Figma — 캘린더 앱 ────────────────────────────────
+function CalendarApp141Render() {
+  const today = new Date(2026, 3, 10)
+  const [viewDate, setViewDate] = React.useState(today)
+  const [selected, setSelected] = React.useState<number | null>(today.getDate())
+  const [eventType, setEventType] = React.useState('all')
+
+  const year = viewDate.getFullYear()
+  const month = viewDate.getMonth()
+  const monthName = viewDate.toLocaleString('ko-KR', { month: 'long', year: 'numeric' })
+
+  const firstDay = new Date(year, month, 1).getDay()
+  const daysInMonth = new Date(year, month + 1, 0).getDate()
+
+  const events: Record<number, { title: string; type: string; time: string }[]> = {
+    7: [{ title: '디자인 시스템 리뷰', type: 'meeting', time: '10:00' }, { title: '팀 런치', type: 'personal', time: '12:30' }],
+    10: [{ title: '스프린트 플래닝', type: 'meeting', time: '09:00' }, { title: 'Orbit UI Cycle 141', type: 'task', time: '14:00' }, { title: '코드 리뷰', type: 'task', time: '16:00' }],
+    14: [{ title: '분기 OKR 발표', type: 'meeting', time: '13:00' }],
+    17: [{ title: '1:1 미팅', type: 'meeting', time: '15:00' }, { title: '릴리스 배포', type: 'task', time: '18:00' }],
+    21: [{ title: '스프린트 회고', type: 'meeting', time: '10:00' }],
+    24: [{ title: '디자인 핸드오프', type: 'task', time: '11:00' }],
+    28: [{ title: '월간 리뷰', type: 'meeting', time: '14:00' }, { title: '팀 워크샵', type: 'personal', time: '17:00' }],
+  }
+
+  const typeColors: Record<string, string> = { meeting: '#3b82f6', task: '#8b5cf6', personal: '#10b981', all: '#64748b' }
+
+  const selectedEvents = selected ? (events[selected] ?? []) : []
+  const filteredEvents = eventType === 'all' ? selectedEvents : selectedEvents.filter((e) => e.type === eventType)
+
+  const prevMonth = () => setViewDate(new Date(year, month - 1, 1))
+  const nextMonth = () => setViewDate(new Date(year, month + 1, 1))
+
+  const cells: (number | null)[] = [...Array(firstDay).fill(null), ...Array.from({ length: daysInMonth }, (_, i) => i + 1)]
+  while (cells.length % 7 !== 0) cells.push(null)
+
+  const weeks = Array.from({ length: cells.length / 7 }, (_, i) => cells.slice(i * 7, i * 7 + 7))
+
+  return (
+    <div style={{ width: 880, height: 580, display: 'flex', fontFamily: 'system-ui, sans-serif', background: '#fff', border: '1px solid #e2e8f0', borderRadius: 12, overflow: 'hidden' }}>
+      {/* 왼쪽: 미니 사이드바 */}
+      <div style={{ width: 200, borderRight: '1px solid #e2e8f0', background: '#f8fafc', display: 'flex', flexDirection: 'column' }}>
+        <div style={{ padding: '16px 14px 12px' }}>
+          <Text style={{ fontWeight: 700, fontSize: 15, color: '#0f172a' }}>내 캘린더</Text>
+        </div>
+        <Divider />
+        <div style={{ padding: '10px 8px', display: 'flex', flexDirection: 'column', gap: 4 }}>
+          {['all', 'meeting', 'task', 'personal'].map((t) => (
+            <div
+              key={t}
+              onClick={() => setEventType(t)}
+              style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '6px 8px', borderRadius: 6, cursor: 'pointer', background: eventType === t ? '#eff6ff' : 'transparent' }}
+            >
+              <span style={{ width: 8, height: 8, borderRadius: '50%', background: typeColors[t], flexShrink: 0 }} />
+              <Text style={{ fontSize: 12, color: eventType === t ? '#2563eb' : '#475569', fontWeight: eventType === t ? 600 : 400 }}>
+                {t === 'all' ? '전체' : t === 'meeting' ? '미팅' : t === 'task' ? '태스크' : '개인'}
+              </Text>
+            </div>
+          ))}
+        </div>
+        <Divider />
+        <div style={{ padding: '10px 8px', flex: 1, overflowY: 'auto' }}>
+          <Text style={{ fontSize: 10, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: 0.6, fontWeight: 600, padding: '0 8px', marginBottom: 6, display: 'block' }}>
+            예정된 일정
+          </Text>
+          {Object.entries(events).sort(([a], [b]) => Number(a) - Number(b)).map(([day, evts]) => (
+            <div
+              key={day}
+              onClick={() => setSelected(Number(day))}
+              style={{ padding: '6px 8px', borderRadius: 6, cursor: 'pointer', background: selected === Number(day) ? '#eff6ff' : 'transparent', marginBottom: 2 }}
+            >
+              <Text style={{ fontSize: 11, fontWeight: 600, color: selected === Number(day) ? '#2563eb' : '#64748b' }}>
+                4월 {day}일
+              </Text>
+              {evts.slice(0, 1).map((e) => (
+                <Text key={e.title} style={{ fontSize: 10, color: '#94a3b8', display: 'block', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                  {e.title}
+                </Text>
+              ))}
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* 오른쪽: 캘린더 본문 */}
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+        {/* 헤더 */}
+        <div style={{ padding: '12px 20px', borderBottom: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <Text style={{ fontSize: 16, fontWeight: 700, color: '#0f172a' }}>{monthName}</Text>
+          <div style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
+            <SolidIconButton color="black" size="small" onClick={prevMonth}><ChevronLeftLineIcon /></SolidIconButton>
+            <SolidButton color="black" size="small" onClick={() => { setViewDate(today); setSelected(today.getDate()) }}>오늘</SolidButton>
+            <SolidIconButton color="black" size="small" onClick={nextMonth}><ChevronRightLineIcon /></SolidIconButton>
+          </div>
+        </div>
+
+        {/* 요일 헤더 */}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', borderBottom: '1px solid #e2e8f0' }}>
+          {['일', '월', '화', '수', '목', '금', '토'].map((d) => (
+            <div key={d} style={{ padding: '8px 0', textAlign: 'center', fontSize: 11, fontWeight: 600, color: d === '일' ? '#ef4444' : d === '토' ? '#3b82f6' : '#64748b' }}>
+              {d}
+            </div>
+          ))}
+        </div>
+
+        {/* 날짜 그리드 */}
+        <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+          {weeks.map((week, wi) => (
+            <div key={wi} style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', flex: 1, borderBottom: '1px solid #f1f5f9' }}>
+              {week.map((day, di) => {
+                const isToday = day === today.getDate() && month === today.getMonth() && year === today.getFullYear()
+                const isSelected = day === selected
+                const dayEvents = day ? (events[day] ?? []) : []
+                const isWeekend = di === 0 || di === 6
+                return (
+                  <div
+                    key={di}
+                    onClick={() => day && setSelected(day)}
+                    style={{ borderRight: di < 6 ? '1px solid #f1f5f9' : 'none', padding: '4px 4px 2px', cursor: day ? 'pointer' : 'default', background: isSelected ? '#eff6ff' : 'transparent', minHeight: 72 }}
+                  >
+                    {day && (
+                      <>
+                        <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 2 }}>
+                          <span style={{ width: 22, height: 22, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 11, fontWeight: isToday ? 700 : 400, background: isToday ? '#3b82f6' : 'transparent', color: isToday ? '#fff' : isWeekend ? (di === 0 ? '#ef4444' : '#3b82f6') : '#374151' }}>
+                            {day}
+                          </span>
+                        </div>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+                          {dayEvents.slice(0, 2).map((e) => (
+                            <div key={e.title} style={{ borderRadius: 3, padding: '1px 4px', background: `${typeColors[e.type]}20`, fontSize: 9, color: typeColors[e.type], overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', fontWeight: 500 }}>
+                              {e.time} {e.title}
+                            </div>
+                          ))}
+                          {dayEvents.length > 2 && (
+                            <div style={{ fontSize: 9, color: '#94a3b8', padding: '0 4px' }}>+{dayEvents.length - 2}개</div>
+                          )}
+                        </div>
+                      </>
+                    )}
+                  </div>
+                )
+              })}
+            </div>
+          ))}
+        </div>
+
+        {/* 하단 이벤트 상세 */}
+        {selected && (
+          <div style={{ borderTop: '1px solid #e2e8f0', padding: '10px 16px', background: '#fafafa', display: 'flex', gap: 10, flexWrap: 'wrap', maxHeight: 80, overflowY: 'auto' }}>
+            {filteredEvents.length === 0 ? (
+              <Text style={{ fontSize: 12, color: '#94a3b8' }}>4월 {selected}일 — 일정 없음</Text>
+            ) : (
+              filteredEvents.map((e) => (
+                <div key={e.title} style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '4px 10px', borderRadius: 16, background: `${typeColors[e.type]}12`, border: `1px solid ${typeColors[e.type]}30` }}>
+                  <span style={{ fontSize: 10, color: typeColors[e.type], fontWeight: 600 }}>{e.time}</span>
+                  <Text style={{ fontSize: 11, color: '#374151' }}>{e.title}</Text>
+                </div>
+              ))
+            )}
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+
+export const RaycastFigma141CalendarApp: StoryObj = {
+  name: 'Raycast + Figma — 캘린더 앱 (Cycle 141)',
+  parameters: {
+    layout: 'centered',
+    docs: {
+      description: {
+        story:
+          'Raycast + Figma Plugin UI 벤치마크 — Cycle 141. ' +
+          '2패널 캘린더 앱: 사이드바(이벤트 타입 필터, 예정 일정), ' +
+          '메인 그리드(월 달력, 날짜 이벤트 인라인, 하단 상세). ' +
+          'SolidButton/SolidIconButton 네비, Divider, Text 계층.',
+      },
+    },
+  },
+  render: () => <CalendarApp141Render />,
+}

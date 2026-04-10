@@ -1293,3 +1293,205 @@ export const MUI_Chakra_PR_리뷰_액션_버튼_바: Story = {
   },
   render: () => <MuiChakraReviewActionsRender />,
 }
+
+// Cycle 141 - Raycast Extensions + Figma Plugin UI benchmark
+function RaycastActionPanel141Render() {
+  const [active, setActive] = React.useState<string | null>(null)
+  const [copied, setCopied] = React.useState(false)
+
+  const actions = [
+    { key: 'open', label: '새 탭에서 열기', shortcut: '⌘O', group: 'primary' },
+    { key: 'copy', label: 'URL 복사', shortcut: '⌘C', group: 'primary' },
+    { key: 'share', label: '공유하기', shortcut: '⌘S', group: 'primary' },
+    { key: 'bookmark', label: '북마크 추가', shortcut: '⌘B', group: 'secondary' },
+    { key: 'pin', label: '핀 고정', shortcut: '⌘P', group: 'secondary' },
+    { key: 'delete', label: '삭제', shortcut: '⌘⌫', group: 'danger' },
+  ]
+
+  const colorFor = (group: string) => (group === 'danger' ? 'black' : group === 'primary' ? 'primary' : 'gray') as OutlineButtonProps['color']
+
+  const handle = (key: string) => {
+    setActive(key)
+    if (key === 'copy') {
+      setCopied(true)
+      setTimeout(() => setCopied(false), 1500)
+    }
+  }
+
+  const groups = ['primary', 'secondary', 'danger']
+
+  return (
+    <div style={{ width: 320, fontFamily: 'system-ui, sans-serif', background: '#fff', border: '1px solid #e2e8f0', borderRadius: 12, padding: 4, boxShadow: '0 8px 32px rgba(0,0,0,0.12)' }}>
+      <div style={{ padding: '8px 12px 4px', fontSize: 10, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: 0.8, fontWeight: 600 }}>
+        액션 패널
+      </div>
+      {groups.map((g) => {
+        const groupActions = actions.filter((a) => a.group === g)
+        if (!groupActions.length) return null
+        return (
+          <div key={g}>
+            {g !== 'primary' && <div style={{ height: 1, background: '#f1f5f9', margin: '4px 0' }} />}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 2, padding: '4px' }}>
+              {groupActions.map((a) => (
+                <div key={a.key} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                  <OutlineButton
+                    color={colorFor(a.group) as OutlineButtonProps["color"]}
+                    size="small"
+                    style={{ flex: 1, justifyContent: 'flex-start' }}
+                    onClick={() => handle(a.key)}
+                  >
+                    <OutlineButton.Center>
+                      {a.key === 'copy' && copied ? '복사됨!' : a.label}
+                    </OutlineButton.Center>
+                  </OutlineButton>
+                  <span style={{ fontSize: 10, color: '#94a3b8', fontFamily: 'monospace', flexShrink: 0, background: '#f8fafc', padding: '2px 5px', borderRadius: 4, border: '1px solid #e2e8f0' }}>
+                    {a.shortcut}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+        )
+      })}
+      {active && (
+        <div style={{ padding: '6px 12px', borderTop: '1px solid #f1f5f9', fontSize: 10, color: '#94a3b8' }}>
+          마지막 액션: <strong>{actions.find((a) => a.key === active)?.label}</strong>
+        </div>
+      )}
+    </div>
+  )
+}
+
+export const Raycast_액션_패널: Story = {
+  name: 'Raycast — 액션 패널 (Cycle 141)',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Raycast Action Panel 패턴. 그룹별 구분선, 키보드 단축키 표시, 위험 액션 red 강조. Copy 액션 클릭 시 "복사됨!" 피드백.',
+      },
+    },
+  },
+  render: () => <RaycastActionPanel141Render />,
+}
+
+function FigmaToolPalette141Render() {
+  type Tool = 'move' | 'frame' | 'pen' | 'text' | 'shape' | 'component'
+  const [selected, setSelected] = React.useState<Tool>('move')
+
+  const tools: { key: Tool; label: string; shortcut: string; icon: string }[] = [
+    { key: 'move', label: '이동', shortcut: 'V', icon: '↖' },
+    { key: 'frame', label: '프레임', shortcut: 'F', icon: '▢' },
+    { key: 'pen', label: '펜', shortcut: 'P', icon: '✏' },
+    { key: 'text', label: '텍스트', shortcut: 'T', icon: 'T' },
+    { key: 'shape', label: '도형', shortcut: 'R', icon: '◯' },
+    { key: 'component', label: '컴포넌트', shortcut: 'K', icon: '◈' },
+  ]
+
+  return (
+    <div style={{ fontFamily: 'system-ui, sans-serif' }}>
+      <div style={{ marginBottom: 12, fontSize: 11, color: '#64748b' }}>Figma Plugin UI — 도구 팔레트</div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 4, width: 160 }}>
+        {tools.map((tool) => (
+          <div key={tool.key} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            <OutlineButton
+              color={selected === tool.key ? 'primary' : 'gray'}
+              size="small"
+              style={{ flex: 1 }}
+              onClick={() => setSelected(tool.key)}
+            >
+              <OutlineButton.Leading>
+                <span style={{ fontSize: 12, fontFamily: 'monospace' }}>{tool.icon}</span>
+              </OutlineButton.Leading>
+              <OutlineButton.Center>{tool.label}</OutlineButton.Center>
+            </OutlineButton>
+            <span style={{ fontSize: 10, color: '#94a3b8', fontFamily: 'monospace', background: '#f1f5f9', padding: '2px 5px', borderRadius: 3, border: '1px solid #e2e8f0' }}>
+              {tool.shortcut}
+            </span>
+          </div>
+        ))}
+      </div>
+      <div style={{ marginTop: 12, padding: '8px 10px', background: '#f8fafc', borderRadius: 6, border: '1px solid #e2e8f0', fontSize: 11, color: '#475569' }}>
+        현재 도구: <strong>{tools.find((t) => t.key === selected)?.label}</strong>
+      </div>
+    </div>
+  )
+}
+
+export const Figma_도구_팔레트: Story = {
+  name: 'Figma Plugin UI — 도구 팔레트 (Cycle 141)',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Figma Plugin UI 도구 팔레트 패턴. 선택된 도구는 primary 강조, 단축키 키캡 표시. 아이콘 Leading 슬롯 활용.',
+      },
+    },
+  },
+  render: () => <FigmaToolPalette141Render />,
+}
+
+function RaycastFigma141FilterBar141Render() {
+  const [filters, setFilters] = React.useState({
+    status: 'all',
+    priority: 'all',
+    assignee: 'all',
+  })
+  const [count, setCount] = React.useState(47)
+
+  const OPTIONS = {
+    status: [{ v: 'all', l: '전체' }, { v: 'open', l: '열림' }, { v: 'closed', l: '닫힘' }, { v: 'draft', l: '초안' }],
+    priority: [{ v: 'all', l: '전체' }, { v: 'urgent', l: '긴급' }, { v: 'high', l: '높음' }, { v: 'low', l: '낮음' }],
+    assignee: [{ v: 'all', l: '전체' }, { v: 'me', l: '나' }, { v: 'team', l: '팀' }, { v: 'none', l: '미배정' }],
+  }
+
+  const apply = (key: string, val: string) => {
+    const next = { ...filters, [key]: val }
+    setFilters(next)
+    const activeFilters = Object.values(next).filter((v) => v !== 'all').length
+    setCount(Math.max(3, 47 - activeFilters * 12))
+  }
+
+  const reset = () => { setFilters({ status: 'all', priority: 'all', assignee: 'all' }); setCount(47) }
+  const hasActive = Object.values(filters).some((v) => v !== 'all')
+
+  return (
+    <div style={{ width: 460, fontFamily: 'system-ui, sans-serif' }}>
+      <div style={{ marginBottom: 10, fontSize: 11, color: '#64748b' }}>Raycast + Figma — 필터 바 패턴</div>
+      <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 10 }}>
+        {(Object.entries(OPTIONS) as [string, { v: string; l: string }[]][]).map(([key, opts]) => (
+          <div key={key} style={{ display: 'flex', gap: 2 }}>
+            {opts.map((o) => (
+              <OutlineButton
+                key={o.v}
+                color={filters[key as keyof typeof filters] === o.v ? 'primary' : 'gray'}
+                size="small"
+                onClick={() => apply(key, o.v)}
+              >
+                <OutlineButton.Center>{o.l}</OutlineButton.Center>
+              </OutlineButton>
+            ))}
+          </div>
+        ))}
+        {hasActive && (
+          <OutlineButton color="black" size="small" onClick={reset}>
+            <OutlineButton.Center>초기화</OutlineButton.Center>
+          </OutlineButton>
+        )}
+      </div>
+      <div style={{ padding: '10px 14px', borderRadius: 8, background: '#f8fafc', border: '1px solid #e2e8f0', fontSize: 12, color: '#475569' }}>
+        <strong style={{ color: '#0f172a' }}>{count}개</strong>의 이슈 · {hasActive ? `${Object.values(filters).filter(v => v !== 'all').length}개 필터 적용` : '필터 없음'}
+      </div>
+    </div>
+  )
+}
+
+export const Raycast_Figma_필터_바: Story = {
+  name: 'Raycast + Figma — 이슈 필터 바 (Cycle 141)',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Raycast 필터 UI + Figma 컴팩트 패턴. 상태/우선순위/담당자 필터 토글. 활성 필터 적용 시 결과 카운트 변경, 초기화 버튼 동적 노출.',
+      },
+    },
+  },
+  render: () => <RaycastFigma141FilterBar141Render />,
+}
