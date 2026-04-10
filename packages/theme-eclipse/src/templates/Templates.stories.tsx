@@ -14968,3 +14968,254 @@ export const TravelBooking: Story = {
   },
   render: () => <TravelBookingRender />,
 }
+
+/* ========================================================================
+   Template 51: ProductCatalog
+   shadcn/ui + Vercel Design 벤치마크 — 상품 카탈로그 앱
+   컴포넌트: Chip, LabelBadge, SolidButton, OutlineButton, Toggle, Slider, Progress, SectionTitle, SearchBar
+   ======================================================================== */
+type PCCategory = '전체' | '의류' | '전자기기' | '도서' | '스포츠'
+type PCSortKey = 'price-asc' | 'price-desc' | 'rating' | 'newest'
+
+type PCProduct = {
+  id: string
+  name: string
+  brand: string
+  price: number
+  originalPrice: number
+  rating: number
+  reviewCount: number
+  category: Exclude<PCCategory, '전체'>
+  tag: 'new' | 'sale' | 'hot' | null
+  tagColor: 'sale' | 'benefit' | 'gray'
+  initial: string
+  color: string
+}
+
+const PC_PRODUCTS: PCProduct[] = [
+  { id: 'p1', name: 'Premium 후드티', brand: 'UrbanWear', price: 89000, originalPrice: 120000, rating: 4.8, reviewCount: 312, category: '의류', tag: 'sale', tagColor: 'sale', initial: 'UW', color: '#6366f1' },
+  { id: 'p2', name: 'ANC 이어폰', brand: 'SoundCore', price: 159000, originalPrice: 159000, rating: 4.6, reviewCount: 198, category: '전자기기', tag: 'hot', tagColor: 'sale', initial: 'SC', color: '#0ea5e9' },
+  { id: 'p3', name: 'React 완벽 가이드', brand: 'TechBook', price: 32000, originalPrice: 38000, rating: 4.9, reviewCount: 87, category: '도서', tag: 'new', tagColor: 'benefit', initial: 'TB', color: '#10b981' },
+  { id: 'p4', name: '요가 매트 Pro', brand: 'FitLife', price: 48000, originalPrice: 55000, rating: 4.5, reviewCount: 156, category: '스포츠', tag: 'sale', tagColor: 'sale', initial: 'FL', color: '#f97316' },
+  { id: 'p5', name: '린넨 셔츠', brand: 'UrbanWear', price: 65000, originalPrice: 65000, rating: 4.3, reviewCount: 241, category: '의류', tag: null, tagColor: 'gray', initial: 'UW', color: '#6366f1' },
+  { id: 'p6', name: '스마트 워치', brand: 'TechWear', price: 299000, originalPrice: 329000, rating: 4.7, reviewCount: 423, category: '전자기기', tag: 'hot', tagColor: 'sale', initial: 'TW', color: '#8b5cf6' },
+]
+
+const PC_SORT_OPTIONS: { key: PCSortKey; label: string }[] = [
+  { key: 'newest', label: '최신순' },
+  { key: 'price-asc', label: '낮은가격' },
+  { key: 'price-desc', label: '높은가격' },
+  { key: 'rating', label: '평점순' },
+]
+
+const pcColors = { bg: '#f8fafc', card: '#ffffff', border: '#e2e8f0', text: '#1e293b', textSub: '#64748b', textMuted: '#94a3b8' }
+
+function ProductCatalogRender() {
+  const [category, setCategory] = useState<PCCategory>('전체')
+  const [sort, setSort] = useState<PCSortKey>('newest')
+  const [maxPrice, setMaxPrice] = useState(300)
+  const [saleOnly, setSaleOnly] = useState(false)
+  const [wishlist, setWishlist] = useState<Set<string>>(new Set())
+
+  const filtered = PC_PRODUCTS
+    .filter((p) => category === '전체' || p.category === category)
+    .filter((p) => p.price <= maxPrice * 1000)
+    .filter((p) => !saleOnly || p.tag === 'sale')
+    .sort((a, b) => {
+      if (sort === 'price-asc') return a.price - b.price
+      if (sort === 'price-desc') return b.price - a.price
+      if (sort === 'rating') return b.rating - a.rating
+      return 0
+    })
+
+  const toggleWishlist = (id: string) =>
+    setWishlist((prev) => {
+      const next = new Set(prev)
+      if (next.has(id)) next.delete(id)
+      else next.add(id)
+      return next
+    })
+
+  const fmt = (n: number) => n.toLocaleString('ko-KR') + '원'
+
+  return (
+    <div style={{ width: 840, display: 'flex', gap: 16, background: pcColors.bg, borderRadius: 20, padding: 20, border: `1px solid ${pcColors.border}` }}>
+      {/* Sidebar Filter */}
+      <div style={{ width: 200, display: 'flex', flexDirection: 'column', gap: 20, flexShrink: 0 }}>
+        <SectionTitle>필터</SectionTitle>
+
+        {/* Category */}
+        <div>
+          <div style={{ fontSize: 11, fontWeight: 700, color: pcColors.textMuted, textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 8 }}>카테고리</div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+            {(['전체', '의류', '전자기기', '도서', '스포츠'] as PCCategory[]).map((cat) => (
+              <button
+                key={cat}
+                onClick={() => setCategory(cat)}
+                style={{
+                  padding: '7px 10px', borderRadius: 8, border: 'none', textAlign: 'left', cursor: 'pointer',
+                  background: category === cat ? '#ede9fe' : 'transparent',
+                  color: category === cat ? '#6366f1' : pcColors.textSub,
+                  fontSize: 13, fontWeight: category === cat ? 700 : 500,
+                  transition: 'all 0.1s',
+                }}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Price range */}
+        <div>
+          <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11, fontWeight: 700, color: pcColors.textMuted, textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 8 }}>
+            <span>최대 가격</span>
+            <span style={{ color: '#6366f1', textTransform: 'none' }}>{fmt(maxPrice * 1000)}</span>
+          </div>
+          <Slider
+            value={[maxPrice]}
+            min={30}
+            max={300}
+            step={10}
+            onValueChange={(v) => setMaxPrice(v[0])}
+          />
+        </div>
+
+        {/* Sale only toggle */}
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <span style={{ fontSize: 13, color: pcColors.textSub }}>할인 상품만</span>
+          <Toggle checked={saleOnly} onCheckedChange={() => setSaleOnly(!saleOnly)} />
+        </div>
+
+        <Divider />
+
+        {/* Wishlist count */}
+        <div style={{ padding: '10px 12px', background: pcColors.card, borderRadius: 10, border: `1px solid ${pcColors.border}` }}>
+          <div style={{ fontSize: 11, color: pcColors.textMuted, marginBottom: 2 }}>찜 목록</div>
+          <div style={{ fontSize: 16, fontWeight: 800, color: '#6366f1' }}>{wishlist.size}개</div>
+        </div>
+      </div>
+
+      {/* Main Content */}
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 16 }}>
+        {/* Header */}
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div>
+            <SectionTitle>{category} ({filtered.length}개)</SectionTitle>
+          </div>
+          <div style={{ display: 'flex', gap: 4 }}>
+            {PC_SORT_OPTIONS.map((opt) => (
+              <Chip
+                key={opt.key}
+                selected={sort === opt.key}
+                onClick={() => setSort(opt.key)}
+              >
+                {opt.label}
+              </Chip>
+            ))}
+          </div>
+        </div>
+
+        {/* Product Grid */}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 12 }}>
+          {filtered.map((prod) => {
+            const discountPct = prod.originalPrice > prod.price
+              ? Math.round(((prod.originalPrice - prod.price) / prod.originalPrice) * 100)
+              : 0
+            const inWishlist = wishlist.has(prod.id)
+            return (
+              <div
+                key={prod.id}
+                style={{
+                  background: pcColors.card, borderRadius: 14,
+                  border: `1px solid ${pcColors.border}`,
+                  overflow: 'hidden',
+                  boxShadow: '0 1px 4px rgba(0,0,0,0.04)',
+                  transition: 'box-shadow 0.15s',
+                }}
+              >
+                {/* Product image placeholder */}
+                <div style={{
+                  height: 100, background: `${prod.color}18`,
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  position: 'relative',
+                }}>
+                  <span style={{ fontSize: 32, fontWeight: 800, color: prod.color, opacity: 0.4 }}>{prod.initial}</span>
+                  {prod.tag && (
+                    <div style={{ position: 'absolute', top: 8, left: 8 }}>
+                      <LabelBadge color={prod.tagColor}>
+                        <LabelBadge.Label>{prod.tag.toUpperCase()}</LabelBadge.Label>
+                      </LabelBadge>
+                    </div>
+                  )}
+                  <button
+                    onClick={() => toggleWishlist(prod.id)}
+                    style={{
+                      position: 'absolute', top: 6, right: 6,
+                      width: 28, height: 28, borderRadius: '50%',
+                      background: inWishlist ? '#fee2e2' : 'rgba(255,255,255,0.8)',
+                      border: `1px solid ${inWishlist ? '#fca5a5' : 'transparent'}`,
+                      cursor: 'pointer', fontSize: 14,
+                      display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      color: inWishlist ? '#ef4444' : '#94a3b8',
+                    }}
+                  >
+                    {inWishlist ? '♥' : '♡'}
+                  </button>
+                </div>
+
+                <div style={{ padding: '10px 12px', display: 'flex', flexDirection: 'column', gap: 6 }}>
+                  <div style={{ fontSize: 10, color: pcColors.textMuted }}>{prod.brand}</div>
+                  <div style={{ fontSize: 13, fontWeight: 700, color: pcColors.text, lineHeight: 1.3 }}>{prod.name}</div>
+
+                  {/* Rating */}
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+                    <StarLineIcon size={11} style={{ color: '#f59e0b' }} />
+                    <span style={{ fontSize: 11, fontWeight: 700, color: pcColors.text }}>{prod.rating}</span>
+                    <span style={{ fontSize: 10, color: pcColors.textMuted }}>({prod.reviewCount})</span>
+                  </div>
+
+                  {/* Price */}
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                    <span style={{ fontSize: 14, fontWeight: 800, color: pcColors.text }}>{fmt(prod.price)}</span>
+                    {discountPct > 0 && (
+                      <>
+                        <span style={{ fontSize: 11, color: pcColors.textMuted, textDecoration: 'line-through' }}>{fmt(prod.originalPrice)}</span>
+                        <span style={{ fontSize: 11, fontWeight: 700, color: '#ef4444' }}>-{discountPct}%</span>
+                      </>
+                    )}
+                  </div>
+
+                  <SolidButton color="primary" size="small">
+                    장바구니
+                  </SolidButton>
+                </div>
+              </div>
+            )
+          })}
+        </div>
+
+        {filtered.length === 0 && (
+          <div style={{ padding: '48px', textAlign: 'center', fontSize: 13, color: pcColors.textMuted, border: `1px dashed ${pcColors.border}`, borderRadius: 14 }}>
+            조건에 맞는 상품이 없습니다
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+
+export const ProductCatalog: Story = {
+  name: 'Product Catalog (shadcn/ui + Vercel Design 벤치마크)',
+  parameters: {
+    layout: 'centered',
+    docs: {
+      description: {
+        story:
+          'shadcn/ui의 카탈로그 레이아웃 + Vercel의 컴팩트 필터 패턴 결합. ' +
+          'SectionTitle, Chip, Slider, Toggle, LabelBadge, SolidButton, Divider 조합 상품 카탈로그.',
+      },
+    },
+  },
+  render: () => <ProductCatalogRender />,
+}

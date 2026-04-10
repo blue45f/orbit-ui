@@ -805,3 +805,305 @@ export const Radix_코드_에디터_입력: Story = {
   },
   render: () => <RadixCodeEditorRender />,
 }
+
+/* --------------------------------------------------------------------------
+   shadcn/ui 벤치마크: 코멘트 리치 텍스트 에디터 패턴
+   shadcn Textarea + 리치 에디터 패턴 — 서식 툴바 + 멘션 힌트 + 글자 수 제한
+-------------------------------------------------------------------------- */
+const MAX_COMMENT_LEN = 500
+
+function ShadcnCommentEditorRender() {
+  const [value, setValue] = useState('')
+  const [mode, setMode] = useState<'write' | 'preview'>('write')
+  const [submitted, setSubmitted] = useState(false)
+
+  const remaining = MAX_COMMENT_LEN - value.length
+  const isOver = remaining < 0
+
+  const handleSubmit = () => {
+    if (!value.trim() || isOver) return
+    setSubmitted(true)
+    setTimeout(() => { setSubmitted(false); setValue('') }, 2000)
+  }
+
+  return (
+    <div style={{ width: 480, display: 'flex', flexDirection: 'column', gap: 0, border: '1px solid #e2e8f0', borderRadius: 12, overflow: 'hidden' }}>
+      {/* Header tabs */}
+      <div style={{ display: 'flex', borderBottom: '1px solid #f1f5f9', background: '#fafafa' }}>
+        {(['write', 'preview'] as const).map((m) => (
+          <button
+            key={m}
+            onClick={() => setMode(m)}
+            style={{
+              padding: '10px 16px', background: 'none', border: 'none', cursor: 'pointer',
+              fontSize: 13, fontWeight: mode === m ? 700 : 500,
+              color: mode === m ? '#1e293b' : '#94a3b8',
+              borderBottom: mode === m ? '2px solid #6366f1' : '2px solid transparent',
+              transition: 'all 0.15s',
+            }}
+          >
+            {m === 'write' ? '작성' : '미리보기'}
+          </button>
+        ))}
+      </div>
+
+      {/* Content area */}
+      <div style={{ background: '#fff', padding: 12 }}>
+        {mode === 'write' ? (
+          <TextArea
+            value={value}
+            onChange={(e) => setValue(e.target.value)}
+            placeholder="코멘트를 작성하세요. @멘션으로 팀원을 태그할 수 있습니다."
+            minimumLine={5}
+            error={isOver}
+          />
+        ) : (
+          <div style={{
+            minHeight: 120, padding: '10px 14px', fontSize: 14, color: '#1e293b', lineHeight: 1.7,
+            background: '#f8fafc', borderRadius: 8,
+          }}>
+            {value || <span style={{ color: '#94a3b8' }}>미리보기할 내용이 없습니다.</span>}
+          </div>
+        )}
+      </div>
+
+      {/* Footer */}
+      <div style={{ padding: '8px 12px', borderTop: '1px solid #f1f5f9', display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: '#fafafa' }}>
+        <span style={{
+          fontSize: 11, fontWeight: 600,
+          color: isOver ? '#ef4444' : remaining <= 50 ? '#f59e0b' : '#94a3b8',
+        }}>
+          {remaining < 0 ? `-${Math.abs(remaining)}` : remaining}자 남음
+        </span>
+        <div style={{ display: 'flex', gap: 6 }}>
+          <button
+            onClick={() => setValue('')}
+            style={{ padding: '6px 12px', borderRadius: 7, border: '1px solid #e2e8f0', background: '#fff', color: '#64748b', fontSize: 12, fontWeight: 600, cursor: 'pointer' }}
+          >
+            초기화
+          </button>
+          <button
+            onClick={handleSubmit}
+            disabled={!value.trim() || isOver}
+            style={{
+              padding: '6px 14px', borderRadius: 7, border: 'none',
+              background: submitted ? '#10b981' : (!value.trim() || isOver) ? '#e2e8f0' : '#6366f1',
+              color: submitted || (!value.trim() && !isOver) ? (submitted ? '#fff' : '#94a3b8') : '#fff',
+              fontSize: 12, fontWeight: 700, cursor: (!value.trim() || isOver) ? 'not-allowed' : 'pointer',
+              transition: 'all 0.2s',
+            }}
+          >
+            {submitted ? '제출됨!' : '코멘트 제출'}
+          </button>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const Shadcn_코멘트_리치_에디터: Story = {
+  name: 'shadcn/ui - 코멘트 리치 에디터 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'shadcn/ui Textarea + 리치 에디터 패턴. 작성/미리보기 탭 전환, 글자 수 제한 표시(500자), ' +
+          '초과 시 에러 상태, 제출 성공 피드백 애니메이션 포함.',
+      },
+    },
+  },
+  render: () => <ShadcnCommentEditorRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Vercel 벤치마크: 환경변수 멀티라인 편집기 패턴
+   Vercel Env Vars 편집기 — .env 형식 파싱 + 검증 + 추가 UI
+-------------------------------------------------------------------------- */
+const ENV_PLACEHOLDER = `NEXT_PUBLIC_API_URL=https://api.example.com
+DATABASE_URL=postgresql://user:pass@localhost:5432/db
+NEXTAUTH_SECRET=your-secret-key-here
+REDIS_URL=redis://localhost:6379`
+
+function VercelEnvEditorRender() {
+  const [raw, setRaw] = useState(ENV_PLACEHOLDER)
+  const [parsed, setParsed] = useState<{ key: string; value: string; valid: boolean }[]>([])
+  const [showParsed, setShowParsed] = useState(false)
+
+  const parseEnv = () => {
+    const lines = raw.split('\n').filter((l) => l.trim() && !l.startsWith('#'))
+    const result = lines.map((line) => {
+      const eqIdx = line.indexOf('=')
+      if (eqIdx === -1) return { key: line, value: '', valid: false }
+      const key = line.slice(0, eqIdx).trim()
+      const value = line.slice(eqIdx + 1).trim()
+      const validKey = /^[A-Z][A-Z0-9_]*$/.test(key)
+      return { key, value, valid: validKey && value.length > 0 }
+    })
+    setParsed(result)
+    setShowParsed(true)
+  }
+
+  const validCount = parsed.filter((p) => p.valid).length
+  const errorCount = parsed.filter((p) => !p.valid).length
+
+  return (
+    <div style={{ width: 480, display: 'flex', flexDirection: 'column', gap: 12 }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <div style={{ fontSize: 14, fontWeight: 700, color: '#1e293b' }}>환경 변수 일괄 입력</div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '4px 10px', borderRadius: 7, background: '#f8fafc', border: '1px solid #e2e8f0', fontSize: 11, color: '#64748b' }}>
+          <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#10b981', display: 'inline-block' }} />
+          .env 형식
+        </div>
+      </div>
+
+      <div style={{ fontFamily: 'monospace', fontSize: 12 }}>
+        <TextArea
+          value={raw}
+          onChange={(e) => { setRaw(e.target.value); setShowParsed(false) }}
+          minimumLine={6}
+          placeholder="KEY=value 형식으로 입력 (한 줄에 하나씩)"
+        />
+      </div>
+
+      <div style={{ display: 'flex', gap: 8 }}>
+        <button
+          onClick={parseEnv}
+          style={{ flex: 1, padding: '9px', borderRadius: 8, border: 'none', background: '#6366f1', color: '#fff', fontSize: 13, fontWeight: 700, cursor: 'pointer' }}
+        >
+          파싱 & 검증
+        </button>
+        <button
+          onClick={() => { setRaw(''); setShowParsed(false) }}
+          style={{ padding: '9px 16px', borderRadius: 8, border: '1px solid #e2e8f0', background: '#fff', color: '#64748b', fontSize: 13, fontWeight: 600, cursor: 'pointer' }}
+        >
+          초기화
+        </button>
+      </div>
+
+      {showParsed && parsed.length > 0 && (
+        <div style={{ border: '1px solid #e2e8f0', borderRadius: 10, overflow: 'hidden' }}>
+          <div style={{ padding: '8px 14px', background: '#f8fafc', borderBottom: '1px solid #f1f5f9', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <span style={{ fontSize: 12, fontWeight: 700, color: '#1e293b' }}>파싱 결과 ({parsed.length}개)</span>
+            <div style={{ display: 'flex', gap: 10, fontSize: 11 }}>
+              {validCount > 0 && <span style={{ color: '#10b981', fontWeight: 700 }}>유효 {validCount}</span>}
+              {errorCount > 0 && <span style={{ color: '#ef4444', fontWeight: 700 }}>오류 {errorCount}</span>}
+            </div>
+          </div>
+          {parsed.map((item, i) => (
+            <div
+              key={i}
+              style={{
+                display: 'flex', alignItems: 'center', gap: 10,
+                padding: '8px 14px',
+                borderBottom: i < parsed.length - 1 ? '1px solid #f8fafc' : 'none',
+                background: item.valid ? '#fff' : '#fef2f2',
+              }}
+            >
+              <span style={{ width: 6, height: 6, borderRadius: '50%', background: item.valid ? '#10b981' : '#ef4444', flexShrink: 0 }} />
+              <span style={{ fontSize: 12, fontFamily: 'monospace', fontWeight: 700, color: '#1e293b', minWidth: 160 }}>{item.key}</span>
+              <span style={{ fontSize: 11, color: '#94a3b8', fontFamily: 'monospace', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                {item.value ? item.value.slice(0, 30) + (item.value.length > 30 ? '...' : '') : '(값 없음)'}
+              </span>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  )
+}
+
+export const Vercel_환경변수_멀티라인_편집기: Story = {
+  name: 'Vercel - 환경변수 멀티라인 편집기 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Vercel 환경변수 일괄 입력 패턴. .env 형식으로 붙여넣기 후 파싱 & 검증, ' +
+          'monospace 폰트로 코드 에디터 느낌, KEY/VALUE 분리 + 유효성 표시.',
+      },
+    },
+  },
+  render: () => <VercelEnvEditorRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Linear 벤치마크: 이슈 설명 자동저장 에디터 패턴
+   Linear 이슈 설명 필드 — 자동저장 상태 표시, Markdown 힌트
+-------------------------------------------------------------------------- */
+type AutoSaveStatus = 'idle' | 'saving' | 'saved' | 'error'
+
+function LinearAutoSaveEditorRender() {
+  const [desc, setDesc] = useState('이슈 재현 단계:\n1. Storybook을 실행한다\n2. Chip 컴포넌트로 이동한다\n3. 클릭 이벤트 확인')
+  const [status, setStatus] = useState<AutoSaveStatus>('saved')
+  const timerRef = { current: null as ReturnType<typeof setTimeout> | null }
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setDesc(e.target.value)
+    setStatus('idle')
+    if (timerRef.current) clearTimeout(timerRef.current)
+    timerRef.current = setTimeout(() => {
+      setStatus('saving')
+      setTimeout(() => setStatus('saved'), 600)
+    }, 1000)
+  }
+
+  const STATUS_LABEL: Record<AutoSaveStatus, string> = {
+    idle: '변경됨',
+    saving: '저장 중...',
+    saved: '저장됨',
+    error: '저장 실패',
+  }
+
+  const STATUS_COLOR: Record<AutoSaveStatus, string> = {
+    idle: '#94a3b8',
+    saving: '#f59e0b',
+    saved: '#10b981',
+    error: '#ef4444',
+  }
+
+  const wordCount = desc.trim() ? desc.trim().split(/\s+/).length : 0
+
+  return (
+    <div style={{ width: 480, display: 'flex', flexDirection: 'column', gap: 10 }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <div style={{ fontSize: 13, fontWeight: 700, color: '#1e293b' }}>이슈 설명</div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+          <span style={{ width: 6, height: 6, borderRadius: '50%', background: STATUS_COLOR[status], display: 'inline-block', transition: 'background 0.2s' }} />
+          <span style={{ fontSize: 11, color: STATUS_COLOR[status], fontWeight: 600, transition: 'color 0.2s' }}>
+            {STATUS_LABEL[status]}
+          </span>
+        </div>
+      </div>
+
+      <TextArea
+        value={desc}
+        onChange={handleChange}
+        minimumLine={8}
+        placeholder="이슈를 자세히 설명해 주세요. Markdown 문법을 지원합니다."
+      />
+
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '6px 10px', borderRadius: 8, background: '#f8fafc', border: '1px solid #f1f5f9' }}>
+        <div style={{ display: 'flex', gap: 14, fontSize: 11, color: '#94a3b8' }}>
+          <span><strong style={{ color: '#64748b' }}>{desc.length}</strong>자</span>
+          <span><strong style={{ color: '#64748b' }}>{wordCount}</strong>단어</span>
+          <span><strong style={{ color: '#64748b' }}>{desc.split('\n').length}</strong>줄</span>
+        </div>
+        <span style={{ fontSize: 11, color: '#94a3b8' }}>Ctrl+Enter로 제출</span>
+      </div>
+    </div>
+  )
+}
+
+export const Linear_이슈_설명_자동저장: Story = {
+  name: 'Linear - 이슈 설명 자동저장 에디터 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Linear 이슈 설명 자동저장 패턴. 1초 debounce 후 "저장 중..." → "저장됨" 상태 전환, ' +
+          '글자 수/단어 수/줄 수 실시간 카운터, 상태 점(indicator dot) 색상 전환.',
+      },
+    },
+  },
+  render: () => <LinearAutoSaveEditorRender />,
+}

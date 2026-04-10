@@ -692,3 +692,282 @@ export const 리치_컨텐츠_툴팁: Story = {
     </Tooltip.Provider>
   ),
 }
+
+/* --------------------------------------------------------------------------
+   shadcn/ui 벤치마크: 데이터 시각화 레이블 툴팁 패턴
+   shadcn Chart Tooltip 패턴 — 차트 바/원소 hover 시 데이터 레이블 표시
+-------------------------------------------------------------------------- */
+const CHART_DATA = [
+  { month: '1월', value: 42, prev: 38 },
+  { month: '2월', value: 68, prev: 51 },
+  { month: '3월', value: 55, prev: 62 },
+  { month: '4월', value: 87, prev: 71 },
+  { month: '5월', value: 73, prev: 68 },
+  { month: '6월', value: 91, prev: 79 },
+]
+
+export const Shadcn_데이터_시각화_레이블: Story = {
+  name: 'shadcn/ui - 데이터 시각화 차트 레이블 툴팁 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'shadcn Chart Tooltip 패턴. 막대 차트의 각 바에 Tooltip을 연결, ' +
+          '현재 값과 전월 대비를 리치 컨텐츠로 표시합니다.',
+      },
+    },
+  },
+  render: () => (
+    <Tooltip.Provider delayDuration={100}>
+      <div style={{ width: 480, display: 'flex', flexDirection: 'column', gap: 20 }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div style={{ fontSize: 14, fontWeight: 700, color: '#1e293b' }}>월별 활성 사용자</div>
+          <div style={{ display: 'flex', gap: 14, fontSize: 11, color: '#94a3b8' }}>
+            <span style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+              <span style={{ width: 8, height: 8, borderRadius: 2, background: '#6366f1', display: 'inline-block' }} />이번 달
+            </span>
+            <span style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+              <span style={{ width: 8, height: 8, borderRadius: 2, background: '#e2e8f0', display: 'inline-block' }} />전월
+            </span>
+          </div>
+        </div>
+        <div style={{ display: 'flex', alignItems: 'flex-end', gap: 8, height: 140, paddingBottom: 0 }}>
+          {CHART_DATA.map((d) => {
+            const maxVal = Math.max(...CHART_DATA.map((x) => Math.max(x.value, x.prev)))
+            const diff = d.value - d.prev
+            return (
+              <div key={d.month} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4, flex: 1 }}>
+                <Tooltip>
+                  <Tooltip.Trigger asChild>
+                    <div style={{ width: '100%', display: 'flex', gap: 3, alignItems: 'flex-end', cursor: 'pointer' }}>
+                      <div style={{
+                        flex: 1, borderRadius: '4px 4px 0 0',
+                        height: `${(d.prev / maxVal) * 100}px`,
+                        background: '#e2e8f0',
+                        transition: 'background 0.15s',
+                      }} />
+                      <div style={{
+                        flex: 1, borderRadius: '4px 4px 0 0',
+                        height: `${(d.value / maxVal) * 100}px`,
+                        background: '#6366f1',
+                        transition: 'background 0.15s',
+                      }} />
+                    </div>
+                  </Tooltip.Trigger>
+                  <Tooltip.Content side="top">
+                    <div style={{ padding: '4px 2px', minWidth: 100 }}>
+                      <div style={{ fontWeight: 700, marginBottom: 6, fontSize: 12 }}>{d.month}</div>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11, marginBottom: 2 }}>
+                        <span style={{ opacity: 0.7 }}>이번 달</span>
+                        <span style={{ fontWeight: 700 }}>{d.value}명</span>
+                      </div>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11, marginBottom: 6 }}>
+                        <span style={{ opacity: 0.7 }}>전월</span>
+                        <span>{d.prev}명</span>
+                      </div>
+                      <div style={{
+                        fontSize: 11, fontWeight: 700,
+                        color: diff >= 0 ? '#10b981' : '#ef4444',
+                        paddingTop: 4, borderTop: '1px solid rgba(255,255,255,0.2)',
+                      }}>
+                        {diff >= 0 ? '+' : ''}{diff}명 ({diff >= 0 ? '+' : ''}{Math.round((diff / d.prev) * 100)}%)
+                      </div>
+                    </div>
+                  </Tooltip.Content>
+                </Tooltip>
+                <span style={{ fontSize: 10, color: '#94a3b8', fontWeight: 600 }}>{d.month}</span>
+              </div>
+            )
+          })}
+        </div>
+      </div>
+    </Tooltip.Provider>
+  ),
+}
+
+/* --------------------------------------------------------------------------
+   Vercel 벤치마크: 컴팩트 액션 힌트 툴팁 패턴
+   Vercel Dashboard 아이콘 버튼 툴팁 — 단축키 포함 컴팩트 힌트
+-------------------------------------------------------------------------- */
+const VERCEL_ACTIONS: { key: string; label: string; shortcut: string; Icon: React.FC<{ size?: number }> }[] = [
+  { key: 'search', label: '검색', shortcut: '⌘K', Icon: SearchIcon },
+  { key: 'notif', label: '알림', shortcut: '⌘N', Icon: NotificationLineIcon },
+  { key: 'star', label: '즐겨찾기', shortcut: '⌘S', Icon: StarLineIcon },
+  { key: 'settings', label: '설정', shortcut: '⌘,', Icon: SettingLineIcon },
+  { key: 'info', label: '도움말', shortcut: '⌘/', Icon: CircleInfoLineIcon },
+]
+
+export const Vercel_컴팩트_액션_힌트: Story = {
+  name: 'Vercel - 컴팩트 아이콘 버튼 액션 힌트 툴팁 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Vercel Dashboard 툴팁 패턴. 아이콘 버튼 위 hover 시 레이블 + 단축키를 함께 표시. ' +
+          'delayDuration=300, 컴팩트 레이아웃으로 밀도 있는 네비게이션 표현.',
+      },
+    },
+  },
+  render: () => (
+    <Tooltip.Provider delayDuration={300}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 32, alignItems: 'center' }}>
+        {/* Dark nav bar */}
+        <div style={{
+          display: 'flex', gap: 4, padding: '8px 12px', borderRadius: 12,
+          background: '#0f172a', border: '1px solid #1e293b',
+          boxShadow: '0 4px 16px rgba(0,0,0,0.2)',
+        }}>
+          {VERCEL_ACTIONS.map(({ key, label, shortcut, Icon }) => (
+            <Tooltip key={key}>
+              <Tooltip.Trigger asChild>
+                <SolidIconButton
+                  color="black"
+                  size="small"
+                  style={{
+                    background: 'transparent',
+                    color: '#94a3b8',
+                    border: 'none',
+                  }}
+                >
+                  <Icon size={16} />
+                </SolidIconButton>
+              </Tooltip.Trigger>
+              <Tooltip.Content side="bottom">
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '2px 4px' }}>
+                  <span style={{ fontWeight: 600 }}>{label}</span>
+                  <kbd style={{
+                    padding: '1px 5px', borderRadius: 4,
+                    background: 'rgba(255,255,255,0.15)',
+                    fontSize: 10, fontFamily: 'monospace',
+                    border: '1px solid rgba(255,255,255,0.2)',
+                  }}>
+                    {shortcut}
+                  </kbd>
+                </div>
+              </Tooltip.Content>
+            </Tooltip>
+          ))}
+        </div>
+
+        {/* Light version */}
+        <div style={{
+          display: 'flex', gap: 4, padding: '6px 10px', borderRadius: 10,
+          background: '#fff', border: '1px solid #e2e8f0',
+        }}>
+          {VERCEL_ACTIONS.slice(0, 3).map(({ key, label, shortcut, Icon }) => (
+            <Tooltip key={key}>
+              <Tooltip.Trigger asChild>
+                <SolidIconButton color="black" size="small">
+                  <Icon size={15} />
+                </SolidIconButton>
+              </Tooltip.Trigger>
+              <Tooltip.Content side="top">
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '2px 4px' }}>
+                  <span style={{ fontWeight: 600 }}>{label}</span>
+                  <kbd style={{
+                    padding: '1px 5px', borderRadius: 4,
+                    background: 'rgba(255,255,255,0.15)',
+                    fontSize: 10, fontFamily: 'monospace',
+                  }}>
+                    {shortcut}
+                  </kbd>
+                </div>
+              </Tooltip.Content>
+            </Tooltip>
+          ))}
+        </div>
+      </div>
+    </Tooltip.Provider>
+  ),
+}
+
+/* --------------------------------------------------------------------------
+   Linear 벤치마크: 단축키 레퍼런스 카드 툴팁 패턴
+   Linear 단축키 힌트 — 복수 단축키를 카드 형태로 그룹화
+-------------------------------------------------------------------------- */
+type ShortcutGroup = {
+  group: string
+  items: { action: string; keys: string[] }[]
+}
+
+const LINEAR_SHORTCUTS: ShortcutGroup[] = [
+  {
+    group: '이슈',
+    items: [
+      { action: '새 이슈 생성', keys: ['C'] },
+      { action: '이슈 완료', keys: ['⌘', 'Enter'] },
+      { action: '담당자 배정', keys: ['A'] },
+    ],
+  },
+  {
+    group: '뷰',
+    items: [
+      { action: '목록 뷰', keys: ['L'] },
+      { action: '보드 뷰', keys: ['B'] },
+      { action: '타임라인', keys: ['T'] },
+    ],
+  },
+]
+
+export const Linear_단축키_레퍼런스_툴팁: Story = {
+  name: 'Linear - 단축키 레퍼런스 카드 툴팁 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Linear 단축키 힌트 패턴. 기능 설명 버튼에 hover 시 관련 단축키 그룹을 카드로 표시. ' +
+          '여러 단축키 항목을 그룹화하여 컨텍스트 기반 단축키 레퍼런스를 제공합니다.',
+      },
+    },
+  },
+  render: () => (
+    <Tooltip.Provider delayDuration={200}>
+      <div style={{ display: 'flex', gap: 32, flexWrap: 'wrap', justifyContent: 'center' }}>
+        {LINEAR_SHORTCUTS.map((group) => (
+          <Tooltip key={group.group}>
+            <Tooltip.Trigger asChild>
+              <Button color="gray" size="medium" style={{ minWidth: 120 }}>
+                {group.group} 단축키
+              </Button>
+            </Tooltip.Trigger>
+            <Tooltip.Content side="top" style={{ padding: 0, overflow: 'hidden' }}>
+              <div style={{ padding: '10px 14px', minWidth: 200 }}>
+                <div style={{
+                  fontSize: 10, fontWeight: 700, textTransform: 'uppercase',
+                  letterSpacing: '0.08em', opacity: 0.6, marginBottom: 10,
+                }}>
+                  {group.group} 단축키
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                  {group.items.map((item) => (
+                    <div
+                      key={item.action}
+                      style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 16 }}
+                    >
+                      <span style={{ fontSize: 12, opacity: 0.9 }}>{item.action}</span>
+                      <div style={{ display: 'flex', gap: 3 }}>
+                        {item.keys.map((key) => (
+                          <kbd
+                            key={key}
+                            style={{
+                              padding: '2px 6px', borderRadius: 4, fontSize: 10,
+                              background: 'rgba(255,255,255,0.15)',
+                              border: '1px solid rgba(255,255,255,0.25)',
+                              fontFamily: 'monospace', fontWeight: 600,
+                            }}
+                          >
+                            {key}
+                          </kbd>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </Tooltip.Content>
+          </Tooltip>
+        ))}
+      </div>
+    </Tooltip.Provider>
+  ),
+}

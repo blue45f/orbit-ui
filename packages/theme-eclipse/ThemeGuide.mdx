@@ -994,3 +994,86 @@ export default function RootLayout({
 
   </div>
 </Unstyled>
+
+{/* ========== CYCLE 61: shadcn/ui + Vercel Design ========== */}
+<section style={{ marginBottom: '48px' }}>
+  <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '20px' }}>
+    <div style={{ width: '36px', height: '36px', borderRadius: '10px', background: 'linear-gradient(135deg, #09090b, #18181b)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontWeight: '800', fontSize: '15px' }}>S</div>
+    <div>
+      <div style={{ fontSize: '22px', fontWeight: '800', color: '#09090b', letterSpacing: '-0.5px' }}>Cycle 61 — shadcn/ui + Vercel Design 벤치마크</div>
+      <div style={{ fontSize: '13px', color: '#71717a', marginTop: '2px' }}>다크 모드 퍼스트 디자인과 컴팩트 인터랙션 패턴 분석</div>
+    </div>
+  </div>
+
+  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '16px', marginBottom: '24px' }}>
+    <div style={{ padding: '20px', borderRadius: '12px', background: '#09090b', border: '1px solid #27272a' }}>
+      <div style={{ fontSize: '14px', fontWeight: '700', color: '#f4f4f5', marginBottom: '12px' }}>shadcn/ui 핵심 패턴</div>
+      <ul style={{ margin: 0, padding: '0 0 0 16px', fontSize: '13px', color: '#a1a1aa', lineHeight: '1.8' }}>
+        <li>Radix UI 기반 비스타일 프리미티브</li>
+        <li>copy-paste 설치 방식 (소유권 이전)</li>
+        <li>CSS 변수 기반 다크 모드 토글</li>
+        <li>Tooltip.Provider delayDuration 전역 설정</li>
+        <li>write/preview 탭 에디터 분리 패턴</li>
+      </ul>
+    </div>
+    <div style={{ padding: '20px', borderRadius: '12px', background: '#09090b', border: '1px solid #27272a' }}>
+      <div style={{ fontSize: '14px', fontWeight: '700', color: '#f4f4f5', marginBottom: '12px' }}>Vercel Design 핵심 패턴</div>
+      <ul style={{ margin: 0, padding: '0 0 0 16px', fontSize: '13px', color: '#a1a1aa', lineHeight: '1.8' }}>
+        <li>정보 밀도 최적화 — 컴팩트 액션 힌트</li>
+        <li>kbd 단축키 레이블로 전문가 UX 강화</li>
+        <li>배포 상태 실시간 파이프라인 시각화</li>
+        <li>환경변수 멀티라인 편집기 패턴</li>
+        <li>dark #09090b 배경 + zinc 계열 팔레트</li>
+      </ul>
+    </div>
+  </div>
+
+  <div style={{ overflowX: 'auto', borderRadius: '12px', border: '1.5px solid #e4e4e7', marginBottom: '24px' }}>
+    <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px' }}>
+      <thead>
+        <tr style={{ background: '#fafafa' }}>
+          {['기준', 'shadcn/ui', 'Vercel Design', 'Orbit UI 반영'].map((col, i) => (
+            <th key={col} style={{ padding: '12px 16px', textAlign: 'left', fontWeight: 700, color: i === 3 ? '#6366f1' : '#09090b', borderBottom: '1.5px solid #e4e4e7', whiteSpace: 'nowrap' }}>{col}</th>
+          ))}
+        </tr>
+      </thead>
+      <tbody>
+        {[
+          ['색상 모드', 'CSS 변수 즉시 스위치', 'dark 퍼스트 단일 팔레트', 'Tooltip·TextArea 다크 테마 스토리'],
+          ['툴팁', 'Provider delayDuration 전역', '컴팩트 액션힌트 + kbd', 'Shadcn 차트·Vercel 힌트·Linear 단축키'],
+          ['텍스트 에디터', 'write/preview 탭 분리', '멀티라인 ENV 편집', 'Comment·EnvVar·AutoSave 3패턴'],
+          ['상태 표시', '남은글자·제출 애니메이션', '파싱 결과 유효성 표시', '실시간 카운터 + debounce 저장'],
+          ['제품 카탈로그', '사이드바 필터 + 그리드', '컴팩트 리스트 뷰', 'Slider 가격·Toggle 세일·Chip 카테고리'],
+        ].map((row, i) => (
+          <tr key={i} style={{ background: i % 2 === 0 ? '#fff' : '#fafafa' }}>
+            {row.map((cell, j) => (
+              <td key={j} style={{ padding: '11px 16px', color: j === 3 ? '#4f46e5' : '#09090b', borderBottom: '1px solid #f4f4f5', fontWeight: j === 0 ? 600 : 400 }}>{cell}</td>
+            ))}
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <div style={{ padding: '20px', borderRadius: '12px', background: 'linear-gradient(135deg, #faf5ff, #f0f9ff)', border: '2px solid #e9d5ff' }}>
+    <div style={{ fontSize: '13px', fontWeight: '700', color: '#6d28d9', marginBottom: '12px' }}>Orbit UI 반영 결과 (Cycle 61)</div>
+    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '12px', fontSize: '12px', color: '#374151', lineHeight: '1.7' }}>
+      <div>
+        <div style={{ fontWeight: '700', color: '#7c3aed', marginBottom: '4px' }}>Tooltip 고도화</div>
+        shadcn 차트 데이터 레이블, Vercel 컴팩트 액션 힌트(kbd), Linear 단축키 레퍼런스 카드 3개 스토리 추가.
+      </div>
+      <div>
+        <div style={{ fontWeight: '700', color: '#7c3aed', marginBottom: '4px' }}>TextArea 고도화</div>
+        shadcn 코멘트 에디터(write/preview), Vercel 환경변수 편집기(parseEnv), Linear 자동저장(debounce) 3개 스토리 추가.
+      </div>
+      <div>
+        <div style={{ fontWeight: '700', color: '#7c3aed', marginBottom: '4px' }}>Template 51: ProductCatalog</div>
+        사이드바 카테고리 필터, 가격 Slider, 세일 Toggle, 3열 상품 그리드, LabelBadge 태그, 찜하기 토글.
+      </div>
+      <div>
+        <div style={{ fontWeight: '700', color: '#7c3aed', marginBottom: '4px' }}>다크 모드 패턴 확립</div>
+        #09090b 배경 + zinc 팔레트 일관 적용. kbd 단축키 UI, 멀티라인 파서, debounce 자동저장 레시피 정착.
+      </div>
+    </div>
+  </div>
+</section>
