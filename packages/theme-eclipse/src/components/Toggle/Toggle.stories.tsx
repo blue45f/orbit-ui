@@ -767,3 +767,279 @@ export const Material3_온보딩_기능_토글: Story = {
   },
   render: () => <M3OnboardingFeaturesRender />,
 }
+
+// --- Cycle 73: Mantine + Raycast benchmark ---
+
+const MantineSettingsGroupRender = () => {
+  const [vals, setVals] = useState<Record<string, boolean>>({
+    email_digest: true,
+    push_mobile: false,
+    slack_sync: true,
+    auto_archive: false,
+    two_fa: true,
+    api_access: false,
+  })
+
+  const GROUPS = [
+    {
+      title: '알림',
+      desc: '수신 방법과 빈도를 제어합니다',
+      items: [
+        { id: 'email_digest', label: '이메일 다이제스트', desc: '매주 활동 요약을 이메일로 받기' },
+        { id: 'push_mobile', label: '모바일 푸시', desc: '모바일 앱 알림 허용' },
+        { id: 'slack_sync', label: 'Slack 동기화', desc: 'Slack 채널로 알림 전달' },
+      ],
+    },
+    {
+      title: '자동화',
+      desc: '워크플로우 자동화 설정',
+      items: [
+        { id: 'auto_archive', label: '자동 보관', desc: '30일 미사용 항목 자동 보관' },
+      ],
+    },
+    {
+      title: '보안',
+      desc: '계정 보안을 강화합니다',
+      items: [
+        { id: 'two_fa', label: '2단계 인증', desc: '로그인 시 OTP 인증 요구' },
+        { id: 'api_access', label: 'API 키 접근', desc: '외부 API 요청 허용' },
+      ],
+    },
+  ]
+
+  const toggle = (id: string) => setVals((prev) => ({ ...prev, [id]: !prev[id] }))
+  const activeCount = Object.values(vals).filter(Boolean).length
+
+  return (
+    <div style={{ width: 440, fontFamily: 'system-ui, sans-serif' }}>
+      <div style={{ marginBottom: 14, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <div>
+          <div style={{ fontSize: 15, fontWeight: 700, color: '#0f172a' }}>환경설정</div>
+          <div style={{ fontSize: 12, color: '#94a3b8', marginTop: 2 }}>{activeCount}개 활성화됨</div>
+        </div>
+        <button
+          onClick={() => setVals(Object.fromEntries(Object.keys(vals).map((k) => [k, false])))}
+          style={{ fontSize: 11, color: '#64748b', background: 'none', border: '1px solid #e2e8f0', borderRadius: 6, padding: '4px 10px', cursor: 'pointer' }}
+        >
+          모두 끄기
+        </button>
+      </div>
+      {GROUPS.map((g) => (
+        <div key={g.title} style={{ marginBottom: 16, background: '#fff', borderRadius: 10, border: '1px solid #f1f5f9', overflow: 'hidden' }}>
+          <div style={{ padding: '10px 14px', borderBottom: '1px solid #f8fafc', background: '#f8fafc' }}>
+            <div style={{ fontSize: 12, fontWeight: 600, color: '#475569' }}>{g.title}</div>
+            <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 1 }}>{g.desc}</div>
+          </div>
+          {g.items.map((item, idx) => (
+            <div
+              key={item.id}
+              style={{
+                padding: '12px 14px',
+                display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                borderBottom: idx < g.items.length - 1 ? '1px solid #f8fafc' : 'none',
+              }}
+            >
+              <div>
+                <div style={{ fontSize: 13, fontWeight: 500, color: '#1e293b' }}>{item.label}</div>
+                <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>{item.desc}</div>
+              </div>
+              <Toggle checked={vals[item.id]} onCheckedChange={() => toggle(item.id)} />
+            </div>
+          ))}
+        </div>
+      ))}
+    </div>
+  )
+}
+
+export const Mantine_설정_그룹_패널: Story = {
+  name: 'Mantine - 설정 그룹 패널 (카드 구조)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Mantine Switch + Card 조합 패턴 벤치마크. 카드로 묶인 설정 그룹, 그룹별 제목/설명, 전체 비활성화 버튼, 활성화 카운터 포함.',
+      },
+    },
+  },
+  render: () => <MantineSettingsGroupRender />,
+}
+
+const RaycastExtensionTogglesRender = () => {
+  const [extensions, setExtensions] = useState<Record<string, boolean>>({
+    clipboard: true,
+    window_mgr: true,
+    browser_hist: false,
+    calculator: true,
+    file_search: false,
+    snippets: true,
+  })
+
+  const EXTENSIONS = [
+    { id: 'clipboard', name: '클립보드 히스토리', author: 'Raycast', category: '생산성', color: '#f59e0b' },
+    { id: 'window_mgr', name: '창 관리', author: 'Raycast', category: '유틸리티', color: '#6366f1' },
+    { id: 'browser_hist', name: '브라우저 히스토리', author: 'Community', category: '브라우저', color: '#0ea5e9' },
+    { id: 'calculator', name: '계산기', author: 'Raycast', category: '유틸리티', color: '#22c55e' },
+    { id: 'file_search', name: '파일 검색', author: 'Community', category: '파일', color: '#ec4899' },
+    { id: 'snippets', name: '텍스트 스니펫', author: 'Raycast', category: '생산성', color: '#8b5cf6' },
+  ]
+
+  const toggle = (id: string) => setExtensions((prev) => ({ ...prev, [id]: !prev[id] }))
+
+  return (
+    <div style={{
+      width: 400, fontFamily: 'system-ui, sans-serif',
+      background: '#1c1c1e', borderRadius: 12, overflow: 'hidden',
+      border: '1px solid #2c2c2e', padding: '0 0 8px',
+    }}>
+      <div style={{ padding: '14px 16px 10px', borderBottom: '1px solid #2c2c2e' }}>
+        <div style={{ fontSize: 13, fontWeight: 700, color: '#f5f5f7' }}>확장 프로그램</div>
+        <div style={{ fontSize: 11, color: '#636366', marginTop: 2 }}>
+          {Object.values(extensions).filter(Boolean).length} / {EXTENSIONS.length} 활성화
+        </div>
+      </div>
+      {EXTENSIONS.map((ext) => (
+        <div
+          key={ext.id}
+          style={{
+            padding: '10px 16px',
+            display: 'flex', alignItems: 'center', gap: 12,
+            borderBottom: '1px solid #2c2c2e',
+            opacity: extensions[ext.id] ? 1 : 0.5,
+            transition: 'opacity 0.2s',
+          }}
+        >
+          <div style={{
+            width: 32, height: 32, borderRadius: 8, flexShrink: 0,
+            background: extensions[ext.id] ? ext.color : '#3a3a3c',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            fontSize: 14, transition: 'background 0.2s',
+          }}>
+            {ext.name[0]}
+          </div>
+          <div style={{ flex: 1 }}>
+            <div style={{ fontSize: 12, fontWeight: 600, color: '#f5f5f7' }}>{ext.name}</div>
+            <div style={{ fontSize: 10, color: '#636366', marginTop: 1 }}>
+              {ext.category} · {ext.author}
+            </div>
+          </div>
+          <Toggle checked={extensions[ext.id]} onCheckedChange={() => toggle(ext.id)} />
+        </div>
+      ))}
+    </div>
+  )
+}
+
+export const Raycast_확장_토글_패널: Story = {
+  name: 'Raycast - 확장 프로그램 토글 패널 (다크)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Raycast Extensions 토글 패널 벤치마크. 다크 배경, 컬러 아이콘 아바타, 비활성화 시 투명도 처리, 작성자/카테고리 메타 정보 패턴.',
+      },
+    },
+  },
+  render: () => <RaycastExtensionTogglesRender />,
+}
+
+const MantineFeatureFlagsDashRender = () => {
+  const [flags, setFlags] = useState<Record<string, boolean>>({
+    new_dashboard: true,
+    beta_editor: false,
+    ai_suggestions: true,
+    bulk_actions: false,
+    dark_mode_v2: true,
+    analytics_v3: false,
+  })
+  const [filter, setFilter] = useState<'all' | 'on' | 'off'>('all')
+
+  const FLAG_DEFS = [
+    { id: 'new_dashboard', label: '새 대시보드', env: 'production', risk: 'low' as const, rollout: 100 },
+    { id: 'beta_editor', label: '베타 에디터', env: 'staging', risk: 'high' as const, rollout: 10 },
+    { id: 'ai_suggestions', label: 'AI 제안', env: 'production', risk: 'medium' as const, rollout: 50 },
+    { id: 'bulk_actions', label: '일괄 작업', env: 'staging', risk: 'medium' as const, rollout: 25 },
+    { id: 'dark_mode_v2', label: '다크모드 v2', env: 'production', risk: 'low' as const, rollout: 80 },
+    { id: 'analytics_v3', label: '애널리틱스 v3', env: 'development', risk: 'high' as const, rollout: 5 },
+  ]
+
+  const RISK_COLOR = { low: '#22c55e', medium: '#f59e0b', high: '#ef4444' } as const
+
+  const toggle = (id: string) => setFlags((prev) => ({ ...prev, [id]: !prev[id] }))
+  const filtered = FLAG_DEFS.filter((f) =>
+    filter === 'all' ? true : filter === 'on' ? flags[f.id] : !flags[f.id]
+  )
+
+  return (
+    <div style={{ width: 480, fontFamily: 'system-ui, sans-serif' }}>
+      <div style={{ marginBottom: 12, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>기능 플래그</div>
+        <div style={{ display: 'flex', gap: 4 }}>
+          {(['all', 'on', 'off'] as const).map((f) => (
+            <button
+              key={f}
+              onClick={() => setFilter(f)}
+              style={{
+                padding: '3px 10px', borderRadius: 6, border: '1px solid #e2e8f0',
+                background: filter === f ? '#0f172a' : '#fff',
+                color: filter === f ? '#fff' : '#64748b',
+                fontSize: 11, cursor: 'pointer', fontWeight: filter === f ? 600 : 400,
+              }}
+            >
+              {f === 'all' ? '전체' : f === 'on' ? '활성' : '비활성'}
+            </button>
+          ))}
+        </div>
+      </div>
+      <div style={{ borderRadius: 10, border: '1px solid #e2e8f0', overflow: 'hidden' }}>
+        {filtered.map((f, idx) => (
+          <div
+            key={f.id}
+            style={{
+              padding: '11px 14px',
+              display: 'flex', alignItems: 'center', gap: 12,
+              borderBottom: idx < filtered.length - 1 ? '1px solid #f1f5f9' : 'none',
+              background: flags[f.id] ? '#fff' : '#fafafa',
+            }}
+          >
+            <div style={{
+              width: 8, height: 8, borderRadius: '50%', flexShrink: 0,
+              background: flags[f.id] ? '#22c55e' : '#e2e8f0',
+            }} />
+            <div style={{ flex: 1 }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                <span style={{ fontSize: 13, fontWeight: 500, color: '#1e293b' }}>{f.label}</span>
+                <span style={{
+                  fontSize: 9, padding: '1px 5px', borderRadius: 3,
+                  background: RISK_COLOR[f.risk] + '20', color: RISK_COLOR[f.risk], fontWeight: 600,
+                }}>
+                  {f.risk}
+                </span>
+              </div>
+              <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 1 }}>
+                {f.env} · rollout {f.rollout}%
+              </div>
+            </div>
+            <Toggle checked={flags[f.id]} onCheckedChange={() => toggle(f.id)} />
+          </div>
+        ))}
+      </div>
+      <div style={{ marginTop: 8, fontSize: 11, color: '#94a3b8', textAlign: 'right' }}>
+        {Object.values(flags).filter(Boolean).length}개 활성 / {FLAG_DEFS.length}개 전체
+      </div>
+    </div>
+  )
+}
+
+export const Mantine_기능_플래그_대시보드: Story = {
+  name: 'Mantine - 기능 플래그 대시보드 (risk + rollout)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Mantine Switch 기반 Feature Flag 관리 패턴. risk 레벨 배지(low/medium/high), rollout 비율, 환경 태그, 활성/비활성 필터 포함.',
+      },
+    },
+  },
+  render: () => <MantineFeatureFlagsDashRender />,
+}

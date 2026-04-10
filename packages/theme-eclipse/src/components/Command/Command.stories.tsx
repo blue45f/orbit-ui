@@ -1199,3 +1199,367 @@ export const shadcn_드릴다운_팔레트: Story = {
   name: 'shadcn/ui - pages 패턴 드릴다운 팔레트',
   render: () => <CommandDrilldownDemo />,
 }
+
+// --- Cycle 73: Mantine + Raycast benchmark ---
+
+const MantineSpotlightRender = () => {
+  const [query, setQuery] = useState('')
+  const [selected, setSelected] = useState<string | null>(null)
+
+  const RECENT = ['대시보드', '사용자 관리', '알림 설정']
+  const ALL_ACTIONS = [
+    { group: '페이지', icon: <HomeLineIcon className="h-4 w-4" />, label: '대시보드', desc: '메인 대시보드로 이동', shortcut: 'G D' },
+    { group: '페이지', icon: <OnePersonLineIcon className="h-4 w-4" />, label: '사용자 관리', desc: '팀 멤버 관리', shortcut: 'G U' },
+    { group: '페이지', icon: <SettingLineIcon className="h-4 w-4" />, label: '설정', desc: '계정 및 환경설정', shortcut: 'G S' },
+    { group: '작업', icon: <StarLineIcon className="h-4 w-4" />, label: '즐겨찾기 추가', desc: '현재 페이지를 즐겨찾기', shortcut: 'Ctrl F' },
+    { group: '작업', icon: <NotificationLineIcon className="h-4 w-4" />, label: '알림 설정', desc: '알림 환경설정 열기', shortcut: 'Ctrl N' },
+    { group: '도움말', icon: <CircleInfoLineIcon className="h-4 w-4" />, label: '문서 보기', desc: 'Orbit UI 공식 문서', shortcut: '?' },
+  ]
+
+  const filtered = query
+    ? ALL_ACTIONS.filter((a) =>
+        a.label.toLowerCase().includes(query.toLowerCase()) ||
+        a.desc.toLowerCase().includes(query.toLowerCase())
+      )
+    : ALL_ACTIONS
+
+  const groups: Record<string, typeof ALL_ACTIONS> = {}
+  for (const a of filtered) {
+    if (!groups[a.group]) groups[a.group] = []
+    groups[a.group].push(a)
+  }
+
+  return (
+    <div style={{ width: 520, fontFamily: 'system-ui, sans-serif' }}>
+      <Command className="rounded-xl border shadow-xl overflow-hidden">
+        <div style={{ padding: '12px 16px 0', borderBottom: '1px solid #f1f5f9' }}>
+          <Command.Input
+            placeholder="작업 또는 페이지 검색..."
+            value={query}
+            onValueChange={setQuery}
+            style={{ fontSize: 16, fontWeight: 500 }}
+          />
+        </div>
+        <Command.List style={{ maxHeight: 380 }}>
+          <Command.Empty>
+            <div style={{ padding: '24px 0', textAlign: 'center', color: '#94a3b8', fontSize: 13 }}>
+              검색 결과 없음
+            </div>
+          </Command.Empty>
+          {!query && (
+            <Command.Group heading="최근 방문">
+              {RECENT.map((r) => (
+                <Command.Item key={r} onSelect={() => setSelected(r)} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                  <span style={{ fontSize: 12, color: '#94a3b8' }}>↺</span>
+                  <span>{r}</span>
+                </Command.Item>
+              ))}
+            </Command.Group>
+          )}
+          {Object.entries(groups).map(([groupName, items]) => (
+            <Command.Group key={groupName} heading={groupName}>
+              {items.map((a) => (
+                <Command.Item
+                  key={a.label}
+                  onSelect={() => setSelected(a.label)}
+                  style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}
+                >
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                    <div style={{
+                      width: 30, height: 30, borderRadius: 7, background: '#f8fafc',
+                      border: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      color: '#475569',
+                    }}>
+                      {a.icon}
+                    </div>
+                    <div>
+                      <div style={{ fontSize: 13, fontWeight: 500 }}>{a.label}</div>
+                      <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 1 }}>{a.desc}</div>
+                    </div>
+                  </div>
+                  <kbd style={{
+                    fontSize: 10, fontFamily: 'monospace', background: '#f1f5f9',
+                    border: '1px solid #e2e8f0', borderRadius: 4, padding: '2px 5px', color: '#64748b',
+                  }}>
+                    {a.shortcut}
+                  </kbd>
+                </Command.Item>
+              ))}
+            </Command.Group>
+          ))}
+        </Command.List>
+        {selected && (
+          <div style={{
+            padding: '8px 16px', borderTop: '1px solid #f1f5f9',
+            fontSize: 12, color: '#64748b', display: 'flex', alignItems: 'center', gap: 6,
+          }}>
+            <CheckIcon className="h-3 w-3" style={{ color: '#22c55e' }} />
+            <span>선택됨: <strong>{selected}</strong></span>
+          </div>
+        )}
+      </Command>
+      <p style={{ marginTop: 10, fontSize: 11, color: '#94a3b8' }}>
+        Mantine Spotlight — 그룹별 단축키 + 최근 방문 패턴
+      </p>
+    </div>
+  )
+}
+
+export const Mantine_Spotlight_팔레트: Story = {
+  name: 'Mantine - Spotlight 그룹별 단축키 팔레트',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Mantine Spotlight 컴포넌트 벤치마크. 그룹별 액션 분류, 키보드 단축키 배지, 최근 방문 섹션을 조합한 생산성 팔레트 패턴.',
+      },
+    },
+  },
+  render: () => <MantineSpotlightRender />,
+}
+
+type RaycastActionCategory = 'all' | 'clipboard' | 'window' | 'system'
+
+const RaycastActionPanelRender = () => {
+  const [searchVal, setSearchVal] = useState('')
+  const [activeCategory, setActiveCategory] = useState<RaycastActionCategory>('all')
+  const [pinned, setPinned] = useState<string[]>(['클립보드 히스토리', '창 크기 조절'])
+
+  const CATEGORIES: { id: RaycastActionCategory; label: string }[] = [
+    { id: 'all', label: '전체' },
+    { id: 'clipboard', label: '클립보드' },
+    { id: 'window', label: '창 관리' },
+    { id: 'system', label: '시스템' },
+  ]
+
+  const ACTIONS: { id: string; category: RaycastActionCategory; label: string; desc: string; shortcut: string }[] = [
+    { id: 'clip-hist', category: 'clipboard', label: '클립보드 히스토리', desc: '최근 복사 항목 보기', shortcut: '⌘⇧V' },
+    { id: 'clip-clear', category: 'clipboard', label: '클립보드 지우기', desc: '클립보드 내용 삭제', shortcut: '⌘⌥C' },
+    { id: 'win-resize', category: 'window', label: '창 크기 조절', desc: '좌/우/전체 분할', shortcut: '⌃⌥→' },
+    { id: 'win-focus', category: 'window', label: '다음 창으로 이동', desc: 'App 간 포커스 이동', shortcut: '⌘`' },
+    { id: 'sys-sleep', category: 'system', label: '화면 잠금', desc: '화면을 즉시 잠금', shortcut: '⌃⌘Q' },
+    { id: 'sys-vol', category: 'system', label: '볼륨 조절', desc: '시스템 볼륨 제어', shortcut: 'F10-12' },
+  ]
+
+  const filtered = ACTIONS
+    .filter((a) => activeCategory === 'all' || a.category === activeCategory)
+    .filter((a) =>
+      !searchVal ||
+      a.label.toLowerCase().includes(searchVal.toLowerCase()) ||
+      a.desc.toLowerCase().includes(searchVal.toLowerCase())
+    )
+
+  const togglePin = (label: string) => {
+    setPinned((prev) => prev.includes(label) ? prev.filter((p) => p !== label) : [...prev, label])
+  }
+
+  return (
+    <div style={{ width: 480, fontFamily: 'system-ui, sans-serif' }}>
+      <div style={{
+        background: '#0f172a', borderRadius: 12, overflow: 'hidden',
+        border: '1px solid #1e293b', boxShadow: '0 25px 50px rgba(0,0,0,0.5)',
+      }}>
+        <div style={{ padding: '10px 14px', borderBottom: '1px solid #1e293b', display: 'flex', gap: 8 }}>
+          {CATEGORIES.map((c) => (
+            <button
+              key={c.id}
+              onClick={() => setActiveCategory(c.id)}
+              style={{
+                padding: '3px 10px', borderRadius: 6, border: 'none', cursor: 'pointer', fontSize: 11,
+                background: activeCategory === c.id ? '#3b82f6' : 'transparent',
+                color: activeCategory === c.id ? '#fff' : '#94a3b8',
+                fontWeight: activeCategory === c.id ? 600 : 400,
+              }}
+            >
+              {c.label}
+            </button>
+          ))}
+        </div>
+        <Command style={{ background: 'transparent' }}>
+          <Command.Input
+            placeholder="액션 검색..."
+            value={searchVal}
+            onValueChange={setSearchVal}
+            style={{ background: 'transparent', color: '#f8fafc', fontSize: 14 }}
+          />
+          <Command.List style={{ maxHeight: 320 }}>
+            <Command.Empty>
+              <div style={{ padding: '20px 0', textAlign: 'center', color: '#475569', fontSize: 12 }}>
+                액션 없음
+              </div>
+            </Command.Empty>
+            {pinned.length > 0 && (
+              <Command.Group heading="고정됨" style={{ color: '#475569' }}>
+                {pinned.map((p) => (
+                  <Command.Item key={p} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', color: '#f1f5f9' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                      <StarLineIcon className="h-3 w-3" style={{ color: '#f59e0b' }} />
+                      <span style={{ fontSize: 13 }}>{p}</span>
+                    </div>
+                    <button onClick={() => togglePin(p)} style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#475569', fontSize: 11 }}>해제</button>
+                  </Command.Item>
+                ))}
+              </Command.Group>
+            )}
+            <Command.Group heading="액션" style={{ color: '#475569' }}>
+              {filtered.map((a) => (
+                <Command.Item key={a.id} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', color: '#f1f5f9' }}>
+                  <div>
+                    <div style={{ fontSize: 13, fontWeight: 500 }}>{a.label}</div>
+                    <div style={{ fontSize: 11, color: '#475569', marginTop: 1 }}>{a.desc}</div>
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                    <button
+                      onClick={() => togglePin(a.label)}
+                      style={{
+                        background: 'none', border: 'none', cursor: 'pointer', fontSize: 10,
+                        color: pinned.includes(a.label) ? '#f59e0b' : '#475569',
+                      }}
+                    >
+                      {pinned.includes(a.label) ? '★' : '☆'}
+                    </button>
+                    <kbd style={{ fontSize: 10, fontFamily: 'monospace', color: '#64748b' }}>{a.shortcut}</kbd>
+                  </div>
+                </Command.Item>
+              ))}
+            </Command.Group>
+          </Command.List>
+        </Command>
+      </div>
+      <p style={{ marginTop: 10, fontSize: 11, color: '#94a3b8' }}>
+        Raycast Action Panel — 다크 팔레트, 카테고리 필터, 핀 고정 패턴
+      </p>
+    </div>
+  )
+}
+
+export const Raycast_액션_패널: Story = {
+  name: 'Raycast - 액션 패널 (다크 + 카테고리 필터)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Raycast Extension Action Panel 벤치마크. 다크 팔레트, 카테고리 탭 필터, 핀 고정(즐겨찾기), 단축키 오버레이 패턴.',
+      },
+    },
+  },
+  render: () => <RaycastActionPanelRender />,
+}
+
+const MantineCommandHistoryRender = () => {
+  const [query, setQuery] = useState('')
+  const [history, setHistory] = useState(['사용자 초대', '프로젝트 생성', '결제 내역 조회'])
+  const [lastRun, setLastRun] = useState<string | null>(null)
+
+  const COMMANDS = [
+    { label: '새 프로젝트 생성', icon: <StarLineIcon className="h-3.5 w-3.5" />, tag: '빠른 작업', color: '#6366f1' },
+    { label: '사용자 초대', icon: <OnePersonLineIcon className="h-3.5 w-3.5" />, tag: '팀', color: '#0ea5e9' },
+    { label: '알림 일괄 읽음', icon: <NotificationLineIcon className="h-3.5 w-3.5" />, tag: '알림', color: '#f59e0b' },
+    { label: '결제 내역 조회', icon: <SearchIcon className="h-3.5 w-3.5" />, tag: '관리', color: '#22c55e' },
+    { label: '접근성 보고서', icon: <CircleInfoLineIcon className="h-3.5 w-3.5" />, tag: '분석', color: '#8b5cf6' },
+    { label: '캐시 지우기', icon: <DeleteLineIcon className="h-3.5 w-3.5" />, tag: '시스템', color: '#ef4444' },
+  ]
+
+  const filtered = COMMANDS.filter((c) =>
+    !query || c.label.toLowerCase().includes(query.toLowerCase())
+  )
+
+  const runCommand = (label: string) => {
+    setLastRun(label)
+    setHistory((prev) => [label, ...prev.filter((h) => h !== label)].slice(0, 5))
+  }
+
+  const historyFiltered = history.filter((h) => COMMANDS.some((c) => c.label === h))
+
+  return (
+    <div style={{ width: 460, fontFamily: 'system-ui, sans-serif' }}>
+      <Command className="rounded-xl border shadow-lg">
+        <Command.Input
+          placeholder="명령 실행..."
+          value={query}
+          onValueChange={setQuery}
+        />
+        <Command.List style={{ maxHeight: 360 }}>
+          <Command.Empty>
+            <div style={{ padding: '20px 0', textAlign: 'center', color: '#94a3b8', fontSize: 13 }}>
+              명령을 찾을 수 없습니다
+            </div>
+          </Command.Empty>
+          {!query && historyFiltered.length > 0 && (
+            <Command.Group heading="최근 실행">
+              {historyFiltered.map((h) => {
+                const cmd = COMMANDS.find((c) => c.label === h)
+                if (!cmd) return null
+                return (
+                  <Command.Item key={h} onSelect={() => runCommand(h)} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                    <span style={{ fontSize: 11, color: '#94a3b8' }}>↺</span>
+                    <span style={{ fontSize: 13 }}>{h}</span>
+                    <span style={{
+                      marginLeft: 'auto', fontSize: 10, padding: '1px 6px', borderRadius: 4,
+                      background: '#f1f5f9', color: '#64748b',
+                    }}>
+                      {cmd.tag}
+                    </span>
+                  </Command.Item>
+                )
+              })}
+            </Command.Group>
+          )}
+          <Command.Group heading="모든 명령">
+            {filtered.map((c) => (
+              <Command.Item
+                key={c.label}
+                onSelect={() => runCommand(c.label)}
+                style={{ display: 'flex', alignItems: 'center', gap: 10 }}
+              >
+                <div style={{
+                  width: 26, height: 26, borderRadius: 6,
+                  background: c.color + '15', display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  color: c.color, flexShrink: 0,
+                }}>
+                  {c.icon}
+                </div>
+                <span style={{ fontSize: 13 }}>{c.label}</span>
+                <span style={{
+                  marginLeft: 'auto', fontSize: 10, padding: '1px 6px', borderRadius: 4,
+                  background: '#f1f5f9', color: '#64748b',
+                }}>
+                  {c.tag}
+                </span>
+              </Command.Item>
+            ))}
+          </Command.Group>
+        </Command.List>
+        <div style={{
+          padding: '8px 14px', borderTop: '1px solid #f1f5f9',
+          display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+          fontSize: 11, color: '#94a3b8',
+        }}>
+          <span>↑↓ 이동 · Enter 실행 · Esc 닫기</span>
+          {lastRun && (
+            <span style={{ color: '#22c55e', display: 'flex', alignItems: 'center', gap: 4 }}>
+              <CheckIcon className="h-3 w-3" />
+              {lastRun} 실행됨
+            </span>
+          )}
+        </div>
+      </Command>
+      <p style={{ marginTop: 10, fontSize: 11, color: '#94a3b8' }}>
+        Mantine — 실행 히스토리 자동 업데이트 + 태그 배지 패턴
+      </p>
+    </div>
+  )
+}
+
+export const Mantine_실행_히스토리_팔레트: Story = {
+  name: 'Mantine - 실행 히스토리 자동 업데이트 팔레트',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Mantine useHotkeys + Spotlight history 벤치마크. 명령 실행 시 히스토리에 자동 추가되며 최근 실행 섹션에 표시. 태그 배지로 명령 분류.',
+      },
+    },
+  },
+  render: () => <MantineCommandHistoryRender />,
+}

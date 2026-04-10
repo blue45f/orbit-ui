@@ -17488,3 +17488,329 @@ export const TeamSettings: Story = {
   },
   render: () => <TeamSettingsRender />,
 }
+
+// --- Cycle 73: Mantine + Raycast 벤치마크 — Template #63 ---
+
+type CPWorkspace = {
+  id: string
+  name: string
+  plan: 'free' | 'pro' | 'enterprise'
+  members: number
+}
+
+type CPFeatureFlag = {
+  id: string
+  label: string
+  enabled: boolean
+  category: 'ui' | 'ai' | 'dev'
+}
+
+const CP_WORKSPACES: CPWorkspace[] = [
+  { id: 'ws1', name: 'Design System', plan: 'pro', members: 8 },
+  { id: 'ws2', name: 'Marketing Site', plan: 'free', members: 3 },
+  { id: 'ws3', name: 'Enterprise App', plan: 'enterprise', members: 24 },
+]
+
+const INITIAL_FLAGS: CPFeatureFlag[] = [
+  { id: 'cmd_palette', label: '커맨드 팔레트', enabled: true, category: 'ui' },
+  { id: 'ai_complete', label: 'AI 자동완성', enabled: false, category: 'ai' },
+  { id: 'dark_v2', label: '다크모드 v2', enabled: true, category: 'ui' },
+  { id: 'api_v3', label: 'API v3', enabled: false, category: 'dev' },
+  { id: 'smart_search', label: '스마트 검색', enabled: true, category: 'ai' },
+  { id: 'debug_panel', label: '디버그 패널', enabled: false, category: 'dev' },
+]
+
+const CP_QUICK_ACTIONS = [
+  { label: '새 워크스페이스', shortcut: '⌘N', color: '#6366f1', icon: '+' },
+  { label: '설정 열기', shortcut: '⌘,', color: '#0ea5e9', icon: '⚙' },
+  { label: '팀원 초대', shortcut: '⌘I', color: '#22c55e', icon: '→' },
+  { label: '문서 보기', shortcut: '?', color: '#f59e0b', icon: '?' },
+]
+
+const CP_PLAN_COLOR = {
+  free: { label: 'Free', bg: '#f1f5f9', color: '#64748b' },
+  pro: { label: 'Pro', bg: '#ede9fe', color: '#7c3aed' },
+  enterprise: { label: 'Enterprise', bg: '#dcfce7', color: '#16a34a' },
+} as const
+
+const CommandCenterRender = () => {
+  const [query, setQuery] = useState('')
+  const [activeWs, setActiveWs] = useState('ws1')
+  const [flags, setFlags] = useState<CPFeatureFlag[]>(INITIAL_FLAGS)
+  const [lastAction, setLastAction] = useState<string | null>(null)
+  const [flagFilter, setFlagFilter] = useState<'all' | 'ui' | 'ai' | 'dev'>('all')
+
+  const ws = CP_WORKSPACES.find((w) => w.id === activeWs) ?? CP_WORKSPACES[0]
+
+  const filteredWs = CP_WORKSPACES.filter((w) =>
+    !query || w.name.toLowerCase().includes(query.toLowerCase())
+  )
+
+  const filteredFlags = flags.filter((f) =>
+    flagFilter === 'all' || f.category === flagFilter
+  )
+
+  const toggleFlag = (id: string) => {
+    setFlags((prev) => prev.map((f) => (f.id === id ? { ...f, enabled: !f.enabled } : f)))
+  }
+
+  const runAction = (label: string) => {
+    setLastAction(label)
+    setTimeout(() => setLastAction(null), 2000)
+  }
+
+  const activeFlags = flags.filter((f) => f.enabled).length
+
+  return (
+    <div style={{
+      minHeight: '100vh', background: '#f8fafc', fontFamily: 'system-ui, sans-serif',
+      display: 'grid', gridTemplateColumns: '240px 1fr', gap: 0,
+    }}>
+      {/* Sidebar */}
+      <div style={{
+        background: '#0f172a', padding: '20px 0',
+        display: 'flex', flexDirection: 'column',
+      }}>
+        <div style={{ padding: '0 16px 16px', borderBottom: '1px solid #1e293b' }}>
+          <div style={{ fontSize: 14, fontWeight: 700, color: '#f8fafc', letterSpacing: '-0.3px' }}>
+            Orbit Control
+          </div>
+          <div style={{ fontSize: 11, color: '#475569', marginTop: 2 }}>커맨드 센터</div>
+        </div>
+        <div style={{ padding: '12px 8px', flex: 1 }}>
+          <div style={{ fontSize: 10, fontWeight: 600, color: '#475569', padding: '0 8px 6px', letterSpacing: '0.05em', textTransform: 'uppercase' }}>
+            워크스페이스
+          </div>
+          {CP_WORKSPACES.map((w) => (
+            <button
+              key={w.id}
+              onClick={() => setActiveWs(w.id)}
+              style={{
+                display: 'flex', alignItems: 'center', gap: 8, width: '100%',
+                padding: '8px 10px', borderRadius: 7, border: 'none', cursor: 'pointer',
+                background: activeWs === w.id ? '#1e293b' : 'transparent',
+                color: activeWs === w.id ? '#f8fafc' : '#64748b',
+                marginBottom: 2, textAlign: 'left',
+              }}
+            >
+              <div style={{
+                width: 24, height: 24, borderRadius: 6, background: '#334155',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                fontSize: 11, fontWeight: 700, color: '#94a3b8', flexShrink: 0,
+              }}>
+                {w.name[0]}
+              </div>
+              <div style={{ flex: 1, overflow: 'hidden' }}>
+                <div style={{ fontSize: 12, fontWeight: 500, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                  {w.name}
+                </div>
+                <div style={{ fontSize: 10, color: '#475569', marginTop: 1 }}>{w.members}명</div>
+              </div>
+              <span style={{
+                fontSize: 9, padding: '1px 5px', borderRadius: 3,
+                background: CP_PLAN_COLOR[w.plan].bg, color: CP_PLAN_COLOR[w.plan].color, fontWeight: 600,
+              }}>
+                {CP_PLAN_COLOR[w.plan].label}
+              </span>
+            </button>
+          ))}
+        </div>
+        <div style={{ padding: '12px 16px', borderTop: '1px solid #1e293b' }}>
+          <div style={{ fontSize: 11, color: '#475569' }}>기능 플래그: {activeFlags}개 활성</div>
+        </div>
+      </div>
+
+      {/* Main */}
+      <div style={{ padding: 28, overflow: 'auto' }}>
+        {/* Breadcrumb */}
+        <div style={{ marginBottom: 20 }}>
+          <Breadcrumb>
+            <Breadcrumb.Item>홈</Breadcrumb.Item>
+            <Breadcrumb.Item>{ws.name}</Breadcrumb.Item>
+            <Breadcrumb.Item>커맨드 센터</Breadcrumb.Item>
+          </Breadcrumb>
+        </div>
+
+        {/* Header */}
+        <div style={{ marginBottom: 24 }}>
+          <div style={{ fontSize: 20, fontWeight: 700, color: '#0f172a', letterSpacing: '-0.5px' }}>
+            {ws.name}
+          </div>
+          <div style={{ fontSize: 13, color: '#64748b', marginTop: 4 }}>
+            멤버 {ws.members}명 ·{' '}
+            <span style={{
+              fontSize: 11, padding: '2px 7px', borderRadius: 4,
+              background: CP_PLAN_COLOR[ws.plan].bg, color: CP_PLAN_COLOR[ws.plan].color,
+              fontWeight: 600,
+            }}>
+              {CP_PLAN_COLOR[ws.plan].label}
+            </span>
+          </div>
+        </div>
+
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20, marginBottom: 24 }}>
+          {/* Command Palette */}
+          <div style={{ background: '#fff', borderRadius: 12, border: '1px solid #e2e8f0', padding: 16, gridColumn: '1 / -1' }}>
+            <div style={{ fontSize: 13, fontWeight: 600, color: '#0f172a', marginBottom: 12 }}>
+              커맨드 팔레트
+            </div>
+            <Command className="rounded-lg border">
+              <Command.Input
+                placeholder="명령 또는 워크스페이스 검색... (⌘K)"
+                value={query}
+                onValueChange={setQuery}
+              />
+              <Command.List style={{ maxHeight: 260 }}>
+                <Command.Empty>
+                  <div style={{ padding: 16, textAlign: 'center', color: '#94a3b8', fontSize: 12 }}>
+                    검색 결과 없음
+                  </div>
+                </Command.Empty>
+                {!query && (
+                  <Command.Group heading="빠른 작업">
+                    {CP_QUICK_ACTIONS.map((a) => (
+                      <Command.Item
+                        key={a.label}
+                        onSelect={() => runAction(a.label)}
+                        style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}
+                      >
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                          <div style={{
+                            width: 26, height: 26, borderRadius: 6, background: a.color + '20',
+                            display: 'flex', alignItems: 'center', justifyContent: 'center',
+                            color: a.color, fontSize: 12, fontWeight: 700,
+                          }}>
+                            {a.icon}
+                          </div>
+                          <span style={{ fontSize: 13 }}>{a.label}</span>
+                        </div>
+                        <kbd style={{
+                          fontSize: 10, fontFamily: 'monospace', background: '#f8fafc',
+                          border: '1px solid #e2e8f0', borderRadius: 4, padding: '2px 6px', color: '#64748b',
+                        }}>
+                          {a.shortcut}
+                        </kbd>
+                      </Command.Item>
+                    ))}
+                  </Command.Group>
+                )}
+                <Command.Group heading="워크스페이스">
+                  {filteredWs.map((w) => (
+                    <Command.Item
+                      key={w.id}
+                      onSelect={() => { setActiveWs(w.id); setQuery('') }}
+                      style={{ display: 'flex', alignItems: 'center', gap: 10 }}
+                    >
+                      <div style={{
+                        width: 26, height: 26, borderRadius: 6, background: '#f1f5f9',
+                        display: 'flex', alignItems: 'center', justifyContent: 'center',
+                        fontSize: 12, fontWeight: 700, color: '#475569',
+                      }}>
+                        {w.name[0]}
+                      </div>
+                      <div>
+                        <div style={{ fontSize: 13 }}>{w.name}</div>
+                        <div style={{ fontSize: 10, color: '#94a3b8' }}>{w.members}명 · {w.plan}</div>
+                      </div>
+                    </Command.Item>
+                  ))}
+                </Command.Group>
+              </Command.List>
+            </Command>
+            {lastAction && (
+              <div style={{ marginTop: 8, fontSize: 12, color: '#22c55e', display: 'flex', alignItems: 'center', gap: 6 }}>
+                <span>✓</span> {lastAction} 실행됨
+              </div>
+            )}
+          </div>
+
+          {/* Feature Flags */}
+          <div style={{ background: '#fff', borderRadius: 12, border: '1px solid #e2e8f0', padding: 16 }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12 }}>
+              <div style={{ fontSize: 13, fontWeight: 600, color: '#0f172a' }}>기능 플래그</div>
+              <div style={{ display: 'flex', gap: 3 }}>
+                {(['all', 'ui', 'ai', 'dev'] as const).map((cat) => (
+                  <button
+                    key={cat}
+                    onClick={() => setFlagFilter(cat)}
+                    style={{
+                      padding: '2px 8px', borderRadius: 5, border: '1px solid #e2e8f0',
+                      background: flagFilter === cat ? '#0f172a' : 'transparent',
+                      color: flagFilter === cat ? '#fff' : '#64748b',
+                      fontSize: 10, cursor: 'pointer', fontWeight: flagFilter === cat ? 600 : 400,
+                    }}
+                  >
+                    {cat}
+                  </button>
+                ))}
+              </div>
+            </div>
+            {filteredFlags.map((f) => (
+              <div
+                key={f.id}
+                style={{
+                  display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                  padding: '8px 0', borderBottom: '1px solid #f8fafc',
+                }}
+              >
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                  <div style={{
+                    width: 7, height: 7, borderRadius: '50%',
+                    background: f.enabled ? '#22c55e' : '#e2e8f0',
+                    transition: 'background 0.2s',
+                  }} />
+                  <span style={{ fontSize: 12, color: '#1e293b' }}>{f.label}</span>
+                </div>
+                <Toggle checked={f.enabled} onCheckedChange={() => toggleFlag(f.id)} />
+              </div>
+            ))}
+          </div>
+
+          {/* Quick Stats */}
+          <div style={{ background: '#fff', borderRadius: 12, border: '1px solid #e2e8f0', padding: 16 }}>
+            <div style={{ fontSize: 13, fontWeight: 600, color: '#0f172a', marginBottom: 12 }}>워크스페이스 현황</div>
+            {[
+              { label: '활성 멤버', value: ws.members, color: '#6366f1' },
+              { label: '기능 플래그 활성', value: activeFlags, color: '#22c55e' },
+              { label: '총 플래그', value: flags.length, color: '#64748b' },
+            ].map((stat) => (
+              <div key={stat.label} style={{
+                display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                padding: '8px 0', borderBottom: '1px solid #f8fafc',
+              }}>
+                <span style={{ fontSize: 12, color: '#64748b' }}>{stat.label}</span>
+                <span style={{ fontSize: 14, fontWeight: 700, color: stat.color }}>{stat.value}</span>
+              </div>
+            ))}
+            <div style={{ marginTop: 12 }}>
+              <div style={{ fontSize: 11, color: '#94a3b8', marginBottom: 6 }}>플래그 활성률</div>
+              <div style={{ height: 6, background: '#f1f5f9', borderRadius: 3, overflow: 'hidden' }}>
+                <div style={{
+                  height: '100%', borderRadius: 3, background: '#22c55e',
+                  width: `${(activeFlags / flags.length) * 100}%`,
+                  transition: 'width 0.3s',
+                }} />
+              </div>
+              <div style={{ fontSize: 10, color: '#94a3b8', marginTop: 4, textAlign: 'right' }}>
+                {Math.round((activeFlags / flags.length) * 100)}%
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const CommandCenter: Story = {
+  name: '커맨드 센터 (Mantine + Raycast 패턴)',
+  parameters: {
+    layout: 'fullscreen',
+    docs: {
+      description: {
+        story: 'Mantine Spotlight + Raycast Extension 패턴 조합 템플릿. Command 팔레트로 워크스페이스 전환 및 빠른 작업 실행, Toggle로 기능 플래그 관리, Breadcrumb 네비게이션 포함.',
+      },
+    },
+  },
+  render: () => <CommandCenterRender />,
+}
