@@ -26891,3 +26891,217 @@ export const ArcoShadcn110DeveloperPortal: StoryObj = {
   },
   render: () => <DP110Render />,
 }
+
+/* --------------------------------------------------------------------------
+   MUI + Chakra UI — Cycle 111: 디자인 리뷰 대시보드
+   PR 리뷰 통계 + 컴포넌트 커버리지 + 팀 활동 피드
+-------------------------------------------------------------------------- */
+type ReviewStatus111 = 'approved' | 'changes' | 'pending'
+
+interface PR111 {
+  id: number
+  title: string
+  author: string
+  status: ReviewStatus111
+  comments: number
+  files: number
+  age: string
+}
+
+const PR_LIST_111: PR111[] = [
+  { id: 2041, title: 'feat: Progress 스토리 고도화', author: 'HJ', status: 'approved', comments: 3, files: 2, age: '2h' },
+  { id: 2038, title: 'fix: Toggle onCheckedChange 타입 수정', author: 'SY', status: 'changes', comments: 7, files: 1, age: '5h' },
+  { id: 2035, title: 'feat: Carousel 요금제 슬라이더 추가', author: 'JW', status: 'pending', comments: 0, files: 3, age: '1d' },
+  { id: 2031, title: 'refactor: DataTable 정렬 로직 개선', author: 'MK', status: 'approved', comments: 5, files: 4, age: '2d' },
+  { id: 2028, title: 'feat: OutlineButton 세그먼트 토글', author: 'HJ', status: 'pending', comments: 1, files: 2, age: '3d' },
+]
+
+const STATUS_META_111: Record<ReviewStatus111, { label: string; color: string; bg: string }> = {
+  approved: { label: '승인됨', color: '#10b981', bg: '#f0fdf4' },
+  changes: { label: '수정 요청', color: '#ef4444', bg: '#fef2f2' },
+  pending: { label: '검토 중', color: '#f59e0b', bg: '#fffbeb' },
+}
+
+interface ComponentCoverage111 {
+  name: string
+  stories: number
+  maxStories: number
+  hasTest: boolean
+}
+
+const COVERAGE_111: ComponentCoverage111[] = [
+  { name: 'DataTable', stories: 16, maxStories: 20, hasTest: true },
+  { name: 'Progress', stories: 16, maxStories: 20, hasTest: true },
+  { name: 'Toggle', stories: 16, maxStories: 20, hasTest: false },
+  { name: 'Carousel', stories: 16, maxStories: 20, hasTest: false },
+  { name: 'OutlineButton', stories: 16, maxStories: 20, hasTest: true },
+  { name: 'AlertDialog', stories: 16, maxStories: 20, hasTest: false },
+]
+
+function ReviewDashboard111Render() {
+  const [activeTab, setActiveTab] = useState<'prs' | 'coverage' | 'activity'>('prs')
+  const [selectedPR, setSelectedPR] = useState<PR111 | null>(null)
+  const [filterStatus, setFilterStatus] = useState<ReviewStatus111 | 'all'>('all')
+  const [reviewAction, setReviewAction] = useState<'approve' | 'request' | null>(null)
+
+  const filteredPRs = PR_LIST_111.filter((pr) => filterStatus === 'all' || pr.status === filterStatus)
+
+  const approvedCount = PR_LIST_111.filter((pr) => pr.status === 'approved').length
+  const pendingCount = PR_LIST_111.filter((pr) => pr.status === 'pending').length
+  const changesCount = PR_LIST_111.filter((pr) => pr.status === 'changes').length
+
+  return (
+    <div style={{ fontFamily: 'system-ui, sans-serif', maxWidth: 760, margin: '0 auto' }}>
+      {/* AppBar */}
+      <AppBar>
+        <AppBar.Leading>
+          <div style={{ width: 28, height: 28, borderRadius: 8, background: '#6366f1', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: 13, fontWeight: 800 }}>O</div>
+          <span style={{ fontWeight: 700, fontSize: 15, marginLeft: 8, color: '#0f172a' }}>Orbit UI Review</span>
+        </AppBar.Leading>
+        <AppBar.Trailing>
+          <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+            <CounterBadge>{pendingCount}</CounterBadge>
+            <Avatar>HJ</Avatar>
+          </div>
+        </AppBar.Trailing>
+      </AppBar>
+
+      <div style={{ padding: '20px 24px' }}>
+        {/* KPI Cards */}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 12, marginBottom: 20 }}>
+          {[
+            { label: '승인됨', value: approvedCount, color: '#10b981', bg: '#f0fdf4' },
+            { label: '수정 요청', value: changesCount, color: '#ef4444', bg: '#fef2f2' },
+            { label: '검토 중', value: pendingCount, color: '#f59e0b', bg: '#fffbeb' },
+          ].map((kpi) => (
+            <div key={kpi.label} style={{ padding: '16px', borderRadius: 12, background: kpi.bg, border: `1px solid ${kpi.color}20` }}>
+              <div style={{ fontSize: 24, fontWeight: 800, color: kpi.color }}>{kpi.value}</div>
+              <div style={{ fontSize: 12, color: '#64748b', marginTop: 2 }}>{kpi.label}</div>
+            </div>
+          ))}
+        </div>
+
+        {/* Tabs */}
+        <div style={{ display: 'flex', gap: 0, marginBottom: 20, borderBottom: '1px solid #e2e8f0' }}>
+          {([['prs', 'PR 목록'], ['coverage', '커버리지'], ['activity', '활동 피드']] as const).map(([tab, label]) => (
+            <button key={tab} onClick={() => setActiveTab(tab)} style={{ padding: '10px 18px', border: 'none', background: 'none', cursor: 'pointer', fontSize: 13, fontWeight: activeTab === tab ? 700 : 400, color: activeTab === tab ? '#6366f1' : '#64748b', borderBottom: activeTab === tab ? '2px solid #6366f1' : '2px solid transparent', transition: 'all 0.2s' }}>
+              {label}
+            </button>
+          ))}
+        </div>
+
+        {/* PR List Tab */}
+        {activeTab === 'prs' && (
+          <div style={{ display: 'flex', gap: 16 }}>
+            <div style={{ flex: 1 }}>
+              {/* Filter chips */}
+              <div style={{ display: 'flex', gap: 8, marginBottom: 12 }}>
+                {(['all', 'approved', 'changes', 'pending'] as const).map((s) => (
+                  <Chip key={s} selected={filterStatus === s} onClick={() => setFilterStatus(s)}>
+                    {s === 'all' ? '전체' : STATUS_META_111[s].label}
+                  </Chip>
+                ))}
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                {filteredPRs.map((pr) => {
+                  const meta = STATUS_META_111[pr.status]
+                  return (
+                    <div key={pr.id} onClick={() => setSelectedPR(selectedPR?.id === pr.id ? null : pr)} style={{ padding: '12px 14px', borderRadius: 10, border: `1px solid ${selectedPR?.id === pr.id ? '#6366f1' : '#e2e8f0'}`, background: selectedPR?.id === pr.id ? '#f5f3ff' : '#fff', cursor: 'pointer', transition: 'all 0.15s' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                        <span style={{ fontSize: 11, fontWeight: 700, color: '#6366f1' }}>#{pr.id}</span>
+                        <span style={{ flex: 1, fontSize: 13, fontWeight: 600, color: '#0f172a' }}>{pr.title}</span>
+                        <span style={{ fontSize: 10, fontWeight: 700, padding: '2px 8px', borderRadius: 99, background: meta.bg, color: meta.color }}>{meta.label}</span>
+                      </div>
+                      <div style={{ display: 'flex', gap: 12, marginTop: 6, fontSize: 11, color: '#94a3b8' }}>
+                        <span>@{pr.author}</span>
+                        <span>💬 {pr.comments}</span>
+                        <span>📄 {pr.files}개 파일</span>
+                        <span>{pr.age} 전</span>
+                      </div>
+                    </div>
+                  )
+                })}
+              </div>
+            </div>
+
+            {/* PR Detail Panel */}
+            {selectedPR && (
+              <div style={{ width: 220, padding: '16px', borderRadius: 12, background: '#f8fafc', border: '1px solid #e2e8f0', flexShrink: 0 }}>
+                <div style={{ fontSize: 13, fontWeight: 700, color: '#0f172a', marginBottom: 12 }}>PR #{selectedPR.id}</div>
+                <div style={{ fontSize: 12, color: '#64748b', marginBottom: 16, lineHeight: 1.5 }}>{selectedPR.title}</div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 8, marginBottom: 16 }}>
+                  {(['approve', 'request'] as const).map((a) => (
+                    <OutlineButton key={a} color={reviewAction === a ? 'primary' : 'gray'} size="small" onClick={() => setReviewAction(reviewAction === a ? null : a)}>
+                      <OutlineButton.Center>{a === 'approve' ? '✓ 승인' : '⚠ 수정 요청'}</OutlineButton.Center>
+                    </OutlineButton>
+                  ))}
+                </div>
+                <SolidButton color="primary" size="small" disabled={!reviewAction}>
+                  <SolidButton.Center>리뷰 제출</SolidButton.Center>
+                </SolidButton>
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Coverage Tab */}
+        {activeTab === 'coverage' && (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+            <div style={{ fontSize: 12, color: '#64748b', marginBottom: 4 }}>컴포넌트별 스토리 커버리지 현황</div>
+            {COVERAGE_111.map((comp) => {
+              const pct = Math.round((comp.stories / comp.maxStories) * 100)
+              return (
+                <div key={comp.name} style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                  <div style={{ width: 100, fontSize: 12, fontWeight: 600, color: '#0f172a', flexShrink: 0 }}>{comp.name}</div>
+                  <Progress value={pct} max={100} style={{ flex: 1 }} />
+                  <div style={{ width: 40, fontSize: 11, color: '#64748b', textAlign: 'right', flexShrink: 0 }}>{comp.stories}/{comp.maxStories}</div>
+                  <LabelBadge color={comp.hasTest ? 'benefit' : 'gray'}>{comp.hasTest ? '테스트' : '미작성'}</LabelBadge>
+                </div>
+              )
+            })}
+          </div>
+        )}
+
+        {/* Activity Tab */}
+        {activeTab === 'activity' && (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+            {[
+              { actor: 'HJ', action: 'PR #2041 승인', time: '2시간 전', type: 'approve' },
+              { actor: 'SY', action: 'PR #2038 수정 요청 코멘트 7개', time: '5시간 전', type: 'comment' },
+              { actor: 'JW', action: 'PR #2035 생성: Carousel 요금제 슬라이더', time: '1일 전', type: 'create' },
+              { actor: 'MK', action: 'PR #2031 머지 완료', time: '2일 전', type: 'merge' },
+              { actor: 'HJ', action: 'PR #2028 생성: OutlineButton 세그먼트', time: '3일 전', type: 'create' },
+            ].map((event, i) => {
+              const iconMap: Record<string, string> = { approve: '✓', comment: '💬', create: '+', merge: '⎇' }
+              const colorMap: Record<string, string> = { approve: '#10b981', comment: '#6366f1', create: '#3b82f6', merge: '#8b5cf6' }
+              return (
+                <div key={i} style={{ display: 'flex', gap: 12, alignItems: 'flex-start' }}>
+                  <div style={{ width: 28, height: 28, borderRadius: '50%', background: colorMap[event.type], color: '#fff', fontSize: 12, fontWeight: 700, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>{iconMap[event.type]}</div>
+                  <div style={{ flex: 1 }}>
+                    <div style={{ fontSize: 13, color: '#0f172a' }}><strong>{event.actor}</strong> — {event.action}</div>
+                    <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>{event.time}</div>
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+
+export const MuiChakra111ReviewDashboard: StoryObj = {
+  name: 'MUI + Chakra UI — 디자인 리뷰 대시보드 (Cycle 111)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'MUI + Chakra UI 벤치마크 — Cycle 111. ' +
+          '디자인 리뷰 대시보드: KPI 카드(승인/수정요청/검토중) + PR 목록(Chip 필터 + 상태뱃지 + 슬라이드 리뷰 패널) + 컴포넌트 커버리지(Progress 바 + LabelBadge) + 팀 활동 피드. ' +
+          'AppBar, CounterBadge, Avatar, Chip, OutlineButton, SolidButton, Progress, LabelBadge 복합 활용.',
+      },
+    },
+  },
+  render: () => <ReviewDashboard111Render />,
+}

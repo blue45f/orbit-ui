@@ -1424,3 +1424,187 @@ export const Ant_공지_배너_슬라이더: Story = {
   },
   render: () => <AntNoticeBannerRender />,
 }
+
+/* --------------------------------------------------------------------------
+   MUI — 온보딩 스텝 캐러셀
+   진행 단계 표시 + 완료 체크 패턴
+-------------------------------------------------------------------------- */
+const ONBOARDING_STEPS = [
+  { step: 1, title: '프로젝트 생성', desc: 'Orbit UI 프로젝트를 초기화하고 기본 설정을 완료합니다.', action: '프로젝트 만들기', done: true },
+  { step: 2, title: '팀원 초대', desc: '협업할 팀원의 이메일을 입력하여 프로젝트에 초대합니다.', action: '팀원 초대하기', done: true },
+  { step: 3, title: '컴포넌트 탐색', desc: 'Storybook에서 사용 가능한 모든 컴포넌트를 확인합니다.', action: '스토리북 열기', done: false },
+  { step: 4, title: '첫 배포', desc: '완성된 UI를 Vercel에 배포하고 팀과 공유합니다.', action: '배포 시작', done: false },
+]
+
+const MuiOnboardingStepRender = () => {
+  const [cur, setCur] = React.useState(0)
+  const _s = ONBOARDING_STEPS[cur]
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 16, maxWidth: 500, padding: 24 }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+        {ONBOARDING_STEPS.map((step, i) => (
+          <React.Fragment key={step.step}>
+            <button onClick={() => setCur(i)} style={{ width: 28, height: 28, borderRadius: '50%', border: 'none', cursor: 'pointer', fontSize: 12, fontWeight: 700, background: i === cur ? '#6366f1' : step.done ? '#10b981' : '#e2e8f0', color: i === cur || step.done ? '#fff' : '#94a3b8', transition: 'all 0.2s' }}>
+              {step.done && i !== cur ? '✓' : step.step}
+            </button>
+            {i < ONBOARDING_STEPS.length - 1 && <div style={{ flex: 1, height: 2, background: ONBOARDING_STEPS[i].done ? '#10b981' : '#e2e8f0', transition: 'background 0.3s' }} />}
+          </React.Fragment>
+        ))}
+      </div>
+      <Carousel className="w-full">
+        <Carousel.Content style={{ marginLeft: 0 }}>
+          {ONBOARDING_STEPS.map((step) => (
+            <Carousel.Item key={step.step} style={{ paddingLeft: 0 }}>
+              <div style={{ padding: '24px', borderRadius: 12, background: '#f8fafc', border: '1px solid #e2e8f0', minHeight: 140 }}>
+                <div style={{ fontSize: 12, fontWeight: 600, color: '#6366f1', marginBottom: 8 }}>STEP {step.step} / {ONBOARDING_STEPS.length}</div>
+                <div style={{ fontSize: 18, fontWeight: 700, color: '#0f172a', marginBottom: 8 }}>{step.title}</div>
+                <p style={{ fontSize: 13, color: '#64748b', lineHeight: 1.6, margin: '0 0 16px' }}>{step.desc}</p>
+                <button style={{ padding: '8px 18px', borderRadius: 8, border: 'none', background: step.done ? '#10b981' : '#6366f1', color: '#fff', fontSize: 13, fontWeight: 600, cursor: 'pointer' }}>
+                  {step.done ? '완료됨 ✓' : step.action}
+                </button>
+              </div>
+            </Carousel.Item>
+          ))}
+        </Carousel.Content>
+        <Carousel.Previous onClick={() => setCur((c) => Math.max(0, c - 1))} />
+        <Carousel.Next onClick={() => setCur((c) => Math.min(ONBOARDING_STEPS.length - 1, c + 1))} />
+      </Carousel>
+      <p style={{ fontSize: 11, color: '#94a3b8' }}>MUI Stepper 패턴 — 진행 단계 표시 + 완료 체크</p>
+    </div>
+  )
+}
+
+export const MUI_온보딩_스텝_캐러셀: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'MUI Stepper에서 영감을 받은 온보딩 캐러셀. 단계별 완료 상태를 색상으로 구분하고, 상단 스텝 인디케이터를 클릭하여 원하는 단계로 이동합니다.',
+      },
+    },
+  },
+  render: () => <MuiOnboardingStepRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Chakra UI — 이미지 갤러리 줌 뷰어
+   썸네일 스트립 + 선택 슬라이드 확대 패턴
+-------------------------------------------------------------------------- */
+const GALLERY_ITEMS = [
+  { id: 1, label: 'Mountain', emoji: '🏔️', bg: '#dbeafe', accent: '#3b82f6' },
+  { id: 2, label: 'Forest', emoji: '🌲', bg: '#dcfce7', accent: '#22c55e' },
+  { id: 3, label: 'Desert', emoji: '🏜️', bg: '#fef3c7', accent: '#f59e0b' },
+  { id: 4, label: 'Ocean', emoji: '🌊', bg: '#e0f2fe', accent: '#0ea5e9' },
+  { id: 5, label: 'City', emoji: '🌆', bg: '#f3e8ff', accent: '#a855f7' },
+]
+
+const ChakraGalleryViewerRender = () => {
+  const [selected, setSelected] = React.useState(0)
+  const [zoom, setZoom] = React.useState(false)
+  const item = GALLERY_ITEMS[selected]
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 12, maxWidth: 420, padding: 20 }}>
+      <div
+        onClick={() => setZoom((z) => !z)}
+        style={{ height: zoom ? 280 : 200, borderRadius: 16, background: item.bg, display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'zoom-in', transition: 'all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1)', border: `2px solid ${item.accent}30`, position: 'relative', overflow: 'hidden' }}
+      >
+        <span style={{ fontSize: zoom ? 80 : 56, transition: 'font-size 0.35s cubic-bezier(0.34, 1.56, 0.64, 1)' }}>{item.emoji}</span>
+        <span style={{ position: 'absolute', bottom: 10, right: 12, fontSize: 11, color: item.accent, fontWeight: 600 }}>{zoom ? '클릭하여 축소' : '클릭하여 확대'}</span>
+        <span style={{ position: 'absolute', top: 10, left: 12, fontSize: 13, fontWeight: 700, color: item.accent }}>{item.label}</span>
+      </div>
+      <Carousel className="w-full">
+        <Carousel.Content style={{ marginLeft: 0 }}>
+          {GALLERY_ITEMS.map((g, i) => (
+            <Carousel.Item key={g.id} style={{ paddingLeft: 0, flex: '0 0 20%' }}>
+              <button
+                onClick={() => { setSelected(i); setZoom(false) }}
+                style={{ width: '100%', aspectRatio: '1', borderRadius: 8, border: `2px solid ${i === selected ? g.accent : 'transparent'}`, background: g.bg, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 22, cursor: 'pointer', transition: 'all 0.2s', transform: i === selected ? 'scale(1.05)' : 'scale(1)' }}
+              >
+                {g.emoji}
+              </button>
+            </Carousel.Item>
+          ))}
+        </Carousel.Content>
+      </Carousel>
+      <p style={{ fontSize: 11, color: '#94a3b8' }}>Chakra UI 갤러리 패턴 — 썸네일 스트립 + 줌 토글</p>
+    </div>
+  )
+}
+
+export const Chakra_이미지_갤러리_줌_뷰어: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Chakra UI 이미지 갤러리 뷰어 패턴. 하단 썸네일 Carousel로 이미지를 선택하고, 메인 뷰를 클릭하여 줌인/아웃합니다. spring 애니메이션으로 자연스러운 확대 효과를 연출합니다.',
+      },
+    },
+  },
+  render: () => <ChakraGalleryViewerRender />,
+}
+
+/* --------------------------------------------------------------------------
+   MUI + Chakra UI — 요금제 비교 슬라이더
+   플랜 카드 스와이프 + 인기 뱃지 패턴
+-------------------------------------------------------------------------- */
+const PRICING_PLANS = [
+  { name: 'Starter', price: '무료', priceNum: 0, color: '#64748b', badge: null, features: ['컴포넌트 10개', '스토리 50개', '팀원 1명', '커뮤니티 지원'] },
+  { name: 'Pro', price: '₩29,000', priceNum: 29000, color: '#6366f1', badge: '인기', features: ['컴포넌트 무제한', '스토리 무제한', '팀원 5명', '이메일 지원', '고급 테마'] },
+  { name: 'Enterprise', price: '문의', priceNum: -1, color: '#0f172a', badge: 'NEW', features: ['모든 Pro 기능', '팀원 무제한', '전담 지원', 'SLA 보장', '커스텀 통합'] },
+]
+
+const MuiChakraPricingSliderRender = () => {
+  const [cur, setCur] = React.useState(1)
+  const plan = PRICING_PLANS[cur]
+  return (
+    <div style={{ maxWidth: 360, padding: 20, display: 'flex', flexDirection: 'column', gap: 16 }}>
+      <div style={{ textAlign: 'center' }}>
+        <div style={{ fontSize: 18, fontWeight: 800, color: '#0f172a' }}>요금제 선택</div>
+        <div style={{ fontSize: 12, color: '#94a3b8', marginTop: 4 }}>좌우로 스와이프하여 비교하세요</div>
+      </div>
+      <Carousel className="w-full">
+        <Carousel.Content style={{ marginLeft: 0 }}>
+          {PRICING_PLANS.map((p, i) => (
+            <Carousel.Item key={p.name} style={{ paddingLeft: 0 }}>
+              <div
+                onClick={() => setCur(i)}
+                style={{ padding: '24px 20px', borderRadius: 16, border: `2px solid ${i === cur ? p.color : '#e2e8f0'}`, background: i === cur ? `${p.color}08` : '#fff', cursor: 'pointer', position: 'relative', transition: 'all 0.2s', minHeight: 240 }}
+              >
+                {p.badge && <span style={{ position: 'absolute', top: -10, right: 16, fontSize: 10, fontWeight: 700, padding: '3px 10px', borderRadius: 99, background: p.color, color: '#fff' }}>{p.badge}</span>}
+                <div style={{ fontSize: 16, fontWeight: 700, color: p.color, marginBottom: 4 }}>{p.name}</div>
+                <div style={{ fontSize: 24, fontWeight: 800, color: '#0f172a', marginBottom: 16 }}>{p.price}<span style={{ fontSize: 12, fontWeight: 400, color: '#94a3b8' }}>{p.priceNum > 0 ? '/월' : ''}</span></div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+                  {p.features.map((f) => (
+                    <div key={f} style={{ display: 'flex', gap: 8, alignItems: 'center', fontSize: 12, color: '#475569' }}>
+                      <span style={{ color: p.color, fontWeight: 700 }}>✓</span>{f}
+                    </div>
+                  ))}
+                </div>
+                <button style={{ width: '100%', marginTop: 20, padding: '10px', borderRadius: 8, border: 'none', background: i === cur ? p.color : '#f1f5f9', color: i === cur ? '#fff' : '#64748b', fontSize: 13, fontWeight: 700, cursor: 'pointer', transition: 'all 0.2s' }}>
+                  {p.priceNum === -1 ? '영업팀 문의' : '시작하기'}
+                </button>
+              </div>
+            </Carousel.Item>
+          ))}
+        </Carousel.Content>
+        <Carousel.Previous onClick={() => setCur((c) => Math.max(0, c - 1))} />
+        <Carousel.Next onClick={() => setCur((c) => Math.min(PRICING_PLANS.length - 1, c + 1))} />
+      </Carousel>
+      <div style={{ display: 'flex', gap: 6, justifyContent: 'center' }}>
+        {PRICING_PLANS.map((p, i) => (
+          <button key={p.name} onClick={() => setCur(i)} style={{ width: i === cur ? 20 : 6, height: 6, borderRadius: 3, border: 'none', cursor: 'pointer', background: i === cur ? plan.color : '#e2e8f0', transition: 'all 0.3s', padding: 0 }} />
+        ))}
+      </div>
+      <p style={{ fontSize: 11, color: '#94a3b8', textAlign: 'center' }}>MUI + Chakra UI 요금제 카드 패턴 — 인기 뱃지 + 클릭 선택</p>
+    </div>
+  )
+}
+
+export const MUI_Chakra_요금제_비교_슬라이더: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'MUI Card + Chakra UI Carousel을 결합한 요금제 비교 슬라이더. 카드 클릭으로 선택하고 Previous/Next로 탐색합니다. 인기 뱃지와 선택 테두리 강조로 시각적 계층을 표현합니다.',
+      },
+    },
+  },
+  render: () => <MuiChakraPricingSliderRender />,
+}

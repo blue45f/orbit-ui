@@ -1,7 +1,7 @@
 import { Flex } from '@heejun-com/core'
 import { ChatLineIcon, ChevronRightLineIcon } from '@heejun-com/icons'
 import { Meta, StoryObj } from '@storybook/react'
-import { useState } from 'react'
+import React, { useState } from 'react'
 
 import { OutlineButton, OutlineButtonProps } from '.'
 
@@ -1097,4 +1097,199 @@ export const Mantine_useForm_단계별_제출: Story = {
     },
   },
   render: () => <MantineFormStepsRender />,
+}
+
+/* --------------------------------------------------------------------------
+   MUI — 버튼 그룹 세그먼트 토글
+   ToggleButtonGroup 패턴 — 단일 선택
+-------------------------------------------------------------------------- */
+const VIEW_OPTIONS = ['리스트', '그리드', '캘린더'] as const
+type ViewOption = (typeof VIEW_OPTIONS)[number]
+
+const MuiSegmentToggleRender = () => {
+  const [view, setView] = useState<ViewOption>('그리드')
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+      <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>보기 방식 선택</div>
+      <div style={{ display: 'flex', gap: 0 }}>
+        {VIEW_OPTIONS.map((opt, i) => (
+          <OutlineButton
+            key={opt}
+            color={view === opt ? 'primary' : 'gray'}
+            size="medium"
+            onClick={() => setView(opt)}
+            style={{
+              borderRadius: i === 0 ? '8px 0 0 8px' : i === VIEW_OPTIONS.length - 1 ? '0 8px 8px 0' : '0',
+              marginLeft: i > 0 ? -1 : 0,
+              zIndex: view === opt ? 1 : 0,
+              position: 'relative',
+            }}
+          >
+            <OutlineButton.Center>{opt}</OutlineButton.Center>
+          </OutlineButton>
+        ))}
+      </div>
+      <div style={{ padding: '14px 18px', borderRadius: 8, background: 'var(--sem-eclipse-color-backgroundSecondary)', fontSize: 13, color: 'var(--sem-eclipse-color-foregroundSecondary)' }}>
+        현재 선택: <strong style={{ color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{view}</strong> 보기
+      </div>
+      <p style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundDisabled)' }}>MUI ToggleButtonGroup 패턴 — 세그먼트 단일 선택</p>
+    </div>
+  )
+}
+
+export const MUI_세그먼트_토글_버튼_그룹: Story = {
+  name: 'MUI - 세그먼트 토글 버튼 그룹 (ToggleButtonGroup)',
+  parameters: {
+    docs: {
+      description: {
+        story: 'MUI ToggleButtonGroup에서 영감을 받은 세그먼트 컨트롤. 좌/중/우 borderRadius를 조합하여 연결된 버튼 그룹을 구성하고, 선택된 항목은 primary 색상으로 강조합니다.',
+      },
+    },
+  },
+  render: () => <MuiSegmentToggleRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Chakra UI — 아이콘 액션 버튼 도구 모음
+   Toolbar 패턴 — 텍스트 에디터 스타일
+-------------------------------------------------------------------------- */
+const TOOLBAR_ACTIONS = [
+  { key: 'bold', label: 'B', title: '굵게', group: 'format' },
+  { key: 'italic', label: 'I', title: '기울임', group: 'format' },
+  { key: 'underline', label: 'U', title: '밑줄', group: 'format' },
+  { key: 'left', label: '≡', title: '왼쪽 정렬', group: 'align' },
+  { key: 'center', label: '≡', title: '가운데 정렬', group: 'align' },
+  { key: 'right', label: '≡', title: '오른쪽 정렬', group: 'align' },
+]
+
+const ChakraToolbarRender = () => {
+  const [active, setActive] = useState<Set<string>>(new Set(['bold', 'left']))
+  const toggle = (key: string, group: string) => {
+    setActive((prev) => {
+      const next = new Set(prev)
+      if (group === 'align') {
+        TOOLBAR_ACTIONS.filter((a) => a.group === 'align').forEach((a) => next.delete(a.key))
+        next.add(key)
+      } else {
+        if (next.has(key)) next.delete(key)
+        else next.add(key)
+      }
+      return next
+    })
+  }
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+      <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>텍스트 에디터 도구 모음</div>
+      <div style={{ display: 'flex', gap: 4, padding: '8px 12px', borderRadius: 10, background: 'var(--sem-eclipse-color-backgroundSecondary)', border: '1px solid var(--sem-eclipse-color-borderSubtle)', alignItems: 'center' }}>
+        {TOOLBAR_ACTIONS.map((action, i) => (
+          <React.Fragment key={action.key}>
+            {i === 3 && <div style={{ width: 1, height: 20, background: 'var(--sem-eclipse-color-borderDefault)', margin: '0 4px' }} />}
+            <OutlineButton
+              color={active.has(action.key) ? 'primary' : 'gray'}
+              size="small"
+              onClick={() => toggle(action.key, action.group)}
+              title={action.title}
+            >
+              <OutlineButton.Center>{action.label}</OutlineButton.Center>
+            </OutlineButton>
+          </React.Fragment>
+        ))}
+      </div>
+      <div
+        style={{ padding: '12px 14px', borderRadius: 8, border: '1px solid var(--sem-eclipse-color-borderDefault)', fontSize: 14, color: 'var(--sem-eclipse-color-foregroundPrimary)', lineHeight: 1.7,
+          fontWeight: active.has('bold') ? 700 : 400, fontStyle: active.has('italic') ? 'italic' : 'normal', textDecoration: active.has('underline') ? 'underline' : 'none',
+          textAlign: active.has('center') ? 'center' : active.has('right') ? 'right' : 'left' }}
+      >
+        Orbit UI 디자인 시스템 — 컴포넌트 라이브러리
+      </div>
+      <p style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundDisabled)' }}>Chakra UI Toolbar 패턴 — 서식/정렬 토글 액션</p>
+    </div>
+  )
+}
+
+export const Chakra_텍스트_에디터_도구_모음: Story = {
+  name: 'Chakra UI - 텍스트 에디터 도구 모음 (Toolbar)',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Chakra UI Toolbar에서 영감을 받은 텍스트 에디터 액션 버튼 도구 모음. 서식(Bold/Italic/Underline)은 다중 선택, 정렬은 단일 선택으로 동작하며 실시간으로 미리보기 텍스트에 반영됩니다.',
+      },
+    },
+  },
+  render: () => <ChakraToolbarRender />,
+}
+
+/* --------------------------------------------------------------------------
+   MUI + Chakra UI — 워크플로우 액션 버튼 바
+   PR 리뷰 스타일 Approve / Request Changes / Comment 패턴
+-------------------------------------------------------------------------- */
+type ReviewAction = 'approve' | 'request' | 'comment' | null
+
+const MuiChakraReviewActionsRender = () => {
+  const [action, setAction] = useState<ReviewAction>(null)
+  const [submitted, setSubmitted] = useState(false)
+  const [comment, setComment] = useState('')
+
+  const submit = async () => {
+    setSubmitted(true)
+    await new Promise((r) => setTimeout(r, 1200))
+    setSubmitted(false)
+    setAction(null)
+    setComment('')
+  }
+
+  const ACTION_META: Record<NonNullable<ReviewAction>, { label: string; color: string; bg: string; desc: string }> = {
+    approve: { label: '승인', color: '#10b981', bg: '#f0fdf4', desc: '변경 사항을 승인합니다.' },
+    request: { label: '수정 요청', color: '#ef4444', bg: '#fef2f2', desc: '수정이 필요한 사항을 명시하세요.' },
+    comment: { label: '코멘트', color: '#6366f1', bg: '#f5f3ff', desc: '승인/거절 없이 의견을 남깁니다.' },
+  }
+
+  return (
+    <div style={{ maxWidth: 420, display: 'flex', flexDirection: 'column', gap: 14 }}>
+      <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>리뷰 제출</div>
+      <div style={{ display: 'flex', gap: 8 }}>
+        {(['approve', 'request', 'comment'] as const).map((a) => {
+          const meta = ACTION_META[a]
+          return (
+            <OutlineButton key={a} color={action === a ? 'primary' : 'gray'} size="small" onClick={() => setAction(action === a ? null : a)}>
+              <OutlineButton.Center>{meta.label}</OutlineButton.Center>
+            </OutlineButton>
+          )
+        })}
+      </div>
+      {action && (
+        <div style={{ padding: '12px 14px', borderRadius: 8, background: ACTION_META[action].bg, border: `1px solid ${ACTION_META[action].color}30` }}>
+          <div style={{ fontSize: 12, color: ACTION_META[action].color, fontWeight: 600, marginBottom: 8 }}>{ACTION_META[action].desc}</div>
+          <textarea
+            value={comment}
+            onChange={(e) => setComment(e.target.value)}
+            placeholder="코멘트 입력 (선택)..."
+            rows={3}
+            style={{ width: '100%', padding: '8px 10px', borderRadius: 6, border: `1px solid ${ACTION_META[action].color}40`, fontSize: 12, resize: 'none', outline: 'none', background: 'transparent', color: 'var(--sem-eclipse-color-foregroundPrimary)', boxSizing: 'border-box' }}
+          />
+        </div>
+      )}
+      <div style={{ display: 'flex', gap: 8 }}>
+        <OutlineButton color="primary" size="medium" disabled={!action || submitted} onClick={submit}>
+          <OutlineButton.Center>{submitted ? '제출 중...' : '리뷰 제출'}</OutlineButton.Center>
+        </OutlineButton>
+        <OutlineButton color="gray" size="medium" onClick={() => { setAction(null); setComment('') }} disabled={!action}>
+          <OutlineButton.Center>취소</OutlineButton.Center>
+        </OutlineButton>
+      </div>
+      <p style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundDisabled)' }}>MUI + Chakra UI GitHub PR 리뷰 액션 패턴</p>
+    </div>
+  )
+}
+
+export const MUI_Chakra_PR_리뷰_액션_버튼_바: Story = {
+  name: 'MUI + Chakra UI - PR 리뷰 액션 버튼 바',
+  parameters: {
+    docs: {
+      description: {
+        story: 'MUI ButtonGroup + Chakra UI 스타일의 GitHub PR 리뷰 액션 바. Approve / Request Changes / Comment 중 하나를 선택하면 코멘트 영역이 나타나고, 리뷰 제출 버튼이 활성화됩니다.',
+      },
+    },
+  },
+  render: () => <MuiChakraReviewActionsRender />,
 }
