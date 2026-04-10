@@ -28208,3 +28208,166 @@ export const MuiChakra117SocialFeed: StoryObj = {
   },
   render: () => <SocialFeed117Render />,
 }
+/* --------------------------------------------------------------------------
+   Cycle 118 — Arco Design + Apple HIG
+   템플릿: ChatUI — 채팅 인터페이스
+   Components: Avatar, TextField, SolidButton, OutlineButton, GhostButton,
+               CounterBadge, LabelBadge, Divider, ScrollableTabGroup,
+               SectionTitle, Slider
+-------------------------------------------------------------------------- */
+function ChatUI118Render() {
+  const [activeRoom, setActiveRoom] = React.useState('orbit-general')
+  const [message, setMessage] = React.useState('')
+  const [messages, setMessages] = React.useState([
+    { id: 1, from: 'KJ', color: '#6366f1', name: 'Kim Jihye', time: '10:24', text: 'EclipseProvider 다크모드 전환 확인했어요! Toggle 하나로 전체 테마가 적용되네요.', me: false },
+    { id: 2, from: 'PM', color: '#8b5cf6', name: 'Park Minjun', time: '10:26', text: '시맨틱 토큰 설계 덕분인 것 같아요. vanilla-extract 기반이라 런타임 오버헤드도 없고요.', me: false },
+    { id: 3, from: 'ME', color: '#10b981', name: 'Me', time: '10:28', text: 'Cycle 117에서 MUI + Chakra UI 벤치마크 완료했습니다. Avatar 그룹, Accordion 이슈 트래커 추가했어요.', me: true },
+    { id: 4, from: 'LS', color: '#f59e0b', name: 'Lee Soyeon', time: '10:30', text: 'SocialFeed 템플릿도 꽤 잘 나왔네요! 좋아요 토글 인터랙션이 자연스럽습니다 👍', me: false },
+  ])
+
+  const rooms = [
+    { id: 'orbit-general', name: '# orbit-general', unread: 0 },
+    { id: 'orbit-stories', name: '# orbit-stories', unread: 3 },
+    { id: 'orbit-deploy', name: '# orbit-deploy', unread: 1 },
+    { id: 'orbit-review', name: '# orbit-review', unread: 0 },
+  ]
+
+  const onlineMembers = [
+    { initials: 'KJ', color: '#6366f1', name: 'Kim Jihye' },
+    { initials: 'PM', color: '#8b5cf6', name: 'Park Minjun' },
+    { initials: 'LS', color: '#f59e0b', name: 'Lee Soyeon' },
+  ]
+
+  function sendMessage() {
+    if (!message.trim()) return
+    setMessages((prev) => [
+      ...prev,
+      {
+        id: prev.length + 1,
+        from: 'ME', color: '#10b981', name: 'Me',
+        time: new Date().toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit' }),
+        text: message.trim(), me: true,
+      },
+    ])
+    setMessage('')
+  }
+
+  return (
+    <div style={{ display: 'flex', height: 520, width: 820, border: '1px solid var(--sem-eclipse-color-borderDefault)', borderRadius: 12, overflow: 'hidden' }}>
+      {/* Sidebar */}
+      <div style={{ width: 220, borderRight: '1px solid var(--sem-eclipse-color-borderDefault)', background: 'var(--sem-eclipse-color-backgroundSecondary)', display: 'flex', flexDirection: 'column' }}>
+        <div style={{ padding: '14px 16px', borderBottom: '1px solid var(--sem-eclipse-color-borderSubtle)' }}>
+          <SectionTitle>
+            <SectionTitle.Title>Orbit UI</SectionTitle.Title>
+          </SectionTitle>
+        </div>
+        <div style={{ flex: 1, overflowY: 'auto', padding: '8px 0' }}>
+          <div style={{ padding: '4px 12px 2px', fontSize: 10, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundTertiary)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>채널</div>
+          {rooms.map((room) => (
+            <button
+              key={room.id}
+              onClick={() => setActiveRoom(room.id)}
+              style={{
+                width: 'calc(100% - 8px)', display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                padding: '6px 12px', background: activeRoom === room.id ? 'var(--sem-eclipse-color-backgroundPrimary)' : 'transparent',
+                border: 'none', cursor: 'pointer', borderRadius: 6, margin: '0 4px',
+              }}
+            >
+              <span style={{ fontSize: 13, color: activeRoom === room.id ? 'var(--sem-eclipse-color-foregroundPrimary)' : 'var(--sem-eclipse-color-foregroundSecondary)' }}>{room.name}</span>
+              {room.unread > 0 && <CounterBadge>{room.unread}</CounterBadge>}
+            </button>
+          ))}
+          <Divider />
+          <div style={{ padding: '4px 12px 6px', fontSize: 10, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundTertiary)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>온라인 ({onlineMembers.length})</div>
+          {onlineMembers.map((m) => (
+            <div key={m.name} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '5px 12px' }}>
+              <div style={{ position: 'relative' }}>
+                <Avatar style={{ width: 24, height: 24 }}>
+                  <Avatar.Fallback style={{ background: m.color, color: '#fff', fontSize: 9, fontWeight: 700 }}>{m.initials}</Avatar.Fallback>
+                </Avatar>
+                <span style={{ position: 'absolute', bottom: 0, right: 0, width: 7, height: 7, borderRadius: '50%', background: '#10b981', border: '1.5px solid var(--sem-eclipse-color-backgroundSecondary)' }} />
+              </div>
+              <span style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundSecondary)' }}>{m.name}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Chat area */}
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+        {/* Header */}
+        <div style={{ padding: '12px 18px', borderBottom: '1px solid var(--sem-eclipse-color-borderSubtle)', display: 'flex', alignItems: 'center', gap: 10 }}>
+          <span style={{ fontSize: 15, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>
+            {rooms.find((r) => r.id === activeRoom)?.name}
+          </span>
+          <LabelBadge color="gray">
+            <LabelBadge.Label>public</LabelBadge.Label>
+          </LabelBadge>
+          <div style={{ marginLeft: 'auto', display: 'flex', gap: 6 }}>
+            <GhostButton color="black" size="small">
+              <GhostButton.Center>검색</GhostButton.Center>
+            </GhostButton>
+            <OutlineButton color="black" size="small">
+              <OutlineButton.Center>멤버</OutlineButton.Center>
+            </OutlineButton>
+          </div>
+        </div>
+
+        {/* Messages */}
+        <div style={{ flex: 1, overflowY: 'auto', padding: '16px 18px', display: 'flex', flexDirection: 'column', gap: 12 }}>
+          {messages.map((msg) => (
+            <div key={msg.id} style={{ display: 'flex', gap: 10, flexDirection: msg.me ? 'row-reverse' : 'row' }}>
+              <Avatar style={{ width: 32, height: 32, flexShrink: 0 }}>
+                <Avatar.Fallback style={{ background: msg.color, color: '#fff', fontSize: 10, fontWeight: 700 }}>{msg.from}</Avatar.Fallback>
+              </Avatar>
+              <div style={{ maxWidth: '68%', display: 'flex', flexDirection: 'column', gap: 2, alignItems: msg.me ? 'flex-end' : 'flex-start' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                  {!msg.me && <span style={{ fontSize: 12, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{msg.name}</span>}
+                  <span style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>{msg.time}</span>
+                </div>
+                <div style={{
+                  padding: '8px 12px', borderRadius: msg.me ? '12px 2px 12px 12px' : '2px 12px 12px 12px',
+                  background: msg.me ? '#6366f1' : 'var(--sem-eclipse-color-backgroundSecondary)',
+                  fontSize: 13, color: msg.me ? '#fff' : 'var(--sem-eclipse-color-foregroundPrimary)',
+                  lineHeight: 1.5,
+                }}>
+                  {msg.text}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Input */}
+        <div style={{ padding: '12px 18px', borderTop: '1px solid var(--sem-eclipse-color-borderSubtle)', display: 'flex', gap: 10, alignItems: 'center' }}>
+          <TextField
+            placeholder={`#${activeRoom.replace('orbit-', '')} 에 메시지 보내기`}
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            onKeyDown={(e) => { if (e.key === 'Enter') onMessage() }}
+          />
+          <SolidButton color="primary" size="medium" onClick={sendMessage} disabled={!message.trim()}>
+            <SolidButton.Center>전송</SolidButton.Center>
+          </SolidButton>
+        </div>
+      </div>
+    </div>
+  )
+
+  function onMessage() { sendMessage() }
+}
+
+export const ArcoApple118ChatUI: StoryObj = {
+  name: 'Arco + Apple HIG — 채팅 UI (Cycle 118)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Arco Design + Apple HIG 벤치마크 — Cycle 118. ' +
+          '채팅 UI: 채널 사이드바(CounterBadge) + 온라인 멤버(Avatar 상태 배지) + 메시지 버블 + 메시지 입력(TextField). ' +
+          'GhostButton, OutlineButton, SolidButton, LabelBadge, Divider, SectionTitle 복합 활용.',
+      },
+    },
+  },
+  render: () => <ChatUI118Render />,
+}

@@ -1105,3 +1105,247 @@ export const Tailwind_가격_범위_필터: Story = {
   name: 'Tailwind UI — 다중 범위 가격 필터',
   render: () => <PriceRangeDemo />,
 }
+
+/* --------------------------------------------------------------------------
+   Arco Design — 데이터 시각화 임계값 슬라이더 (Cycle 118)
+   Arco의 데이터 차트 임계값 설정 UI 패턴
+-------------------------------------------------------------------------- */
+function ArcoThresholdSliderRender() {
+  const [cpuThreshold, setCpuThreshold] = useState([70])
+  const [memThreshold, setMemThreshold] = useState([80])
+  const [diskThreshold, setDiskThreshold] = useState([90])
+
+  function getSeverity(val: number) {
+    if (val >= 90) return { label: '위험', color: '#ef4444' }
+    if (val >= 70) return { label: '경고', color: '#f59e0b' }
+    return { label: '정상', color: '#10b981' }
+  }
+
+  const metrics = [
+    { label: 'CPU 사용률', value: cpuThreshold, onChange: setCpuThreshold, current: 58 },
+    { label: '메모리 사용률', value: memThreshold, onChange: setMemThreshold, current: 74 },
+    { label: '디스크 I/O', value: diskThreshold, onChange: setDiskThreshold, current: 33 },
+  ]
+
+  return (
+    <div style={{ width: 400, display: 'flex', flexDirection: 'column', gap: 20, padding: 20 }}>
+      <div style={{ fontSize: 13, fontWeight: 700, color: '#0f172a' }}>알림 임계값 설정</div>
+      {metrics.map((m) => {
+        const severity = getSeverity(m.value[0])
+        const isAlert = m.current >= m.value[0]
+        return (
+          <div key={m.label} style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <span style={{ fontSize: 13, color: '#475569', fontWeight: 600 }}>{m.label}</span>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                <span style={{ fontSize: 11, color: '#94a3b8' }}>현재: {m.current}%</span>
+                <span style={{ fontSize: 11, fontWeight: 700, padding: '1px 6px', borderRadius: 4, background: isAlert ? '#fef2f2' : '#f0fdf4', color: isAlert ? '#ef4444' : '#10b981' }}>
+                  {isAlert ? '알림 발생' : '정상'}
+                </span>
+              </div>
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+              <Slider
+                value={m.value}
+                onValueChange={m.onChange}
+                min={0}
+                max={100}
+                step={5}
+              />
+              <span style={{ fontSize: 13, fontWeight: 700, color: severity.color, minWidth: 42 }}>
+                {m.value[0]}%
+              </span>
+            </div>
+            <div style={{ height: 3, borderRadius: 2, background: '#f1f5f9', overflow: 'hidden' }}>
+              <div style={{ height: '100%', width: `${m.current}%`, background: isAlert ? '#ef4444' : '#10b981', transition: 'width 0.3s, background 0.3s' }} />
+            </div>
+          </div>
+        )
+      })}
+    </div>
+  )
+}
+
+export const Arco_임계값_알림_슬라이더: Story = {
+  name: 'Arco Design — 임계값 알림 슬라이더 (Cycle 118)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Arco Design의 모니터링 대시보드 임계값 설정 패턴. CPU/메모리/디스크 알림 임계값을 Slider로 조정, 현재 사용률과 비교하여 알림 상태 실시간 표시.',
+      },
+    },
+  },
+  render: () => <ArcoThresholdSliderRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Apple HIG — iOS 스타일 컨트롤 슬라이더 (Cycle 118)
+   HIG의 볼륨/밝기/색온도 컨트롤 패턴
+-------------------------------------------------------------------------- */
+function AppleHIGControlSliderRender() {
+  const [brightness, setBrightness] = useState([70])
+  const [volume, setVolume] = useState([55])
+  const [colorTemp, setColorTemp] = useState([50])
+
+  const controls = [
+    {
+      id: 'brightness',
+      label: '밝기',
+      iconMin: '🔅',
+      iconMax: '🔆',
+      value: brightness,
+      onChange: setBrightness,
+      formatValue: (v: number) => `${v}%`,
+    },
+    {
+      id: 'volume',
+      label: '볼륨',
+      iconMin: '🔈',
+      iconMax: '🔊',
+      value: volume,
+      onChange: setVolume,
+      formatValue: (v: number) => `${v}%`,
+    },
+    {
+      id: 'colorTemp',
+      label: '색온도',
+      iconMin: '🌡',
+      iconMax: '☀️',
+      value: colorTemp,
+      onChange: setColorTemp,
+      formatValue: (v: number) => v < 50 ? `차가움 ${50 - v}` : v > 50 ? `따뜻함 ${v - 50}` : '중립',
+    },
+  ]
+
+  return (
+    <div style={{
+      width: 320, padding: 20, borderRadius: 16,
+      background: 'linear-gradient(135deg, #1c1c1e, #2c2c2e)',
+      display: 'flex', flexDirection: 'column', gap: 18,
+    }}>
+      <div style={{ fontSize: 12, fontWeight: 600, color: '#8e8e93', textTransform: 'uppercase', letterSpacing: '0.08em' }}>제어 센터</div>
+      {controls.map((ctrl) => (
+        <div key={ctrl.id} style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <span style={{ fontSize: 13, color: '#f5f5f7', fontWeight: 500 }}>{ctrl.label}</span>
+            <span style={{ fontSize: 12, color: '#8e8e93' }}>{ctrl.formatValue(ctrl.value[0])}</span>
+          </div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+            <span style={{ fontSize: 16 }}>{ctrl.iconMin}</span>
+            <div style={{ flex: 1 }}>
+              <Slider
+                value={ctrl.value}
+                onValueChange={ctrl.onChange}
+                min={0}
+                max={100}
+                step={1}
+              />
+            </div>
+            <span style={{ fontSize: 16 }}>{ctrl.iconMax}</span>
+          </div>
+        </div>
+      ))}
+    </div>
+  )
+}
+
+export const Apple_HIG_컨트롤_센터_슬라이더: Story = {
+  name: 'Apple HIG — 컨트롤 센터 슬라이더 (Cycle 118)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Apple HIG의 iOS 컨트롤 센터 UI 패턴. 밝기/볼륨/색온도를 Slider로 조정, 아이콘과 현재 값 표시, 다크 배경의 제어 패널 스타일.',
+      },
+    },
+  },
+  render: () => <AppleHIGControlSliderRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Arco + Apple — 시간대 범위 슬라이더 (Cycle 118)
+   일정/예약 시스템의 시간 범위 선택 패턴
+-------------------------------------------------------------------------- */
+function ArcoAppleTimeRangeRender() {
+  const [timeRange, setTimeRange] = useState([9, 18])
+  const [days, setDays] = useState<Set<string>>(new Set(['Mon', 'Tue', 'Wed', 'Thu', 'Fri']))
+
+  function formatHour(h: number) {
+    const period = h < 12 ? 'AM' : 'PM'
+    const hour = h % 12 === 0 ? 12 : h % 12
+    return `${hour}:00 ${period}`
+  }
+
+  const weekdays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+  const labels = ['월', '화', '수', '목', '금', '토', '일']
+
+  function toggleDay(d: string) {
+    setDays((prev) => {
+      const next = new Set(prev)
+      if (next.has(d)) next.delete(d)
+      else next.add(d)
+      return next
+    })
+  }
+
+  const totalHours = timeRange[1] - timeRange[0]
+
+  return (
+    <div style={{ width: 380, display: 'flex', flexDirection: 'column', gap: 16, padding: 20 }}>
+      <div style={{ fontSize: 13, fontWeight: 700, color: '#0f172a' }}>근무 시간 설정</div>
+      <div style={{ display: 'flex', gap: 6 }}>
+        {weekdays.map((d, i) => (
+          <button
+            key={d}
+            onClick={() => toggleDay(d)}
+            style={{
+              flex: 1, padding: '6px 0', fontSize: 11, fontWeight: 600, borderRadius: 6, cursor: 'pointer',
+              background: days.has(d) ? '#6366f1' : '#f1f5f9',
+              color: days.has(d) ? '#fff' : '#94a3b8',
+              border: 'none',
+            }}
+          >
+            {labels[i]}
+          </button>
+        ))}
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <span style={{ fontSize: 13, color: '#475569', fontWeight: 600 }}>시간 범위</span>
+          <span style={{ fontSize: 13, color: '#6366f1', fontWeight: 700 }}>
+            {formatHour(timeRange[0])} - {formatHour(timeRange[1])}
+          </span>
+        </div>
+        <Slider
+          value={timeRange}
+          onValueChange={setTimeRange}
+          min={0}
+          max={24}
+          step={1}
+        />
+        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 10, color: '#94a3b8' }}>
+          {[0, 6, 12, 18, 24].map((h) => <span key={h}>{h}시</span>)}
+        </div>
+      </div>
+      <div style={{ padding: '10px 14px', background: '#f0f4ff', borderRadius: 8, border: '1px solid #c7d2fe' }}>
+        <div style={{ fontSize: 12, color: '#6366f1' }}>
+          주 {days.size}일 · 하루 {totalHours}시간 = 주 {days.size * totalHours}시간
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const Arco_Apple_시간대_범위_슬라이더: Story = {
+  name: 'Arco + Apple — 시간대 범위 슬라이더 (Cycle 118)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Arco Design + Apple HIG의 시간 범위 선택 패턴. 근무 요일 토글 + Slider 범위 선택 + 자동 계산(주 총 근무 시간). 실무 스케줄러 UI.',
+      },
+    },
+  },
+  render: () => <ArcoAppleTimeRangeRender />,
+}

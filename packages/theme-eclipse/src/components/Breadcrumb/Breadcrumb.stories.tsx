@@ -1115,3 +1115,224 @@ export const Linear_워크스페이스_네비게이션: Story = {
   name: 'Linear — 워크스페이스 네비게이션',
   render: () => <WorkspaceNavDemo />,
 }
+
+/* --------------------------------------------------------------------------
+   Arco Design — 데이터 탐색 계층 경로 (Cycle 118)
+   Arco의 데이터 시각화 탐색 패턴 — 드릴다운 네비게이션
+-------------------------------------------------------------------------- */
+function ArcoDataDrilldownRender() {
+  const paths = [
+    [
+      { label: '데이터 센터', href: '#' },
+      { label: '서울 리전', href: '#' },
+    ],
+    [
+      { label: '데이터 센터', href: '#' },
+      { label: '서울 리전', href: '#' },
+      { label: '클러스터 A', href: '#' },
+    ],
+    [
+      { label: '데이터 센터', href: '#' },
+      { label: '서울 리전', href: '#' },
+      { label: '클러스터 A', href: '#' },
+      { label: '노드 K8S-001', href: '#' },
+    ],
+  ]
+  const [selectedPath, setSelectedPath] = useState(0)
+  const labels = ['리전', '클러스터', '노드']
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 16, padding: 16 }}>
+      <div style={{ display: 'flex', gap: 6 }}>
+        {labels.map((l, i) => (
+          <button
+            key={l}
+            onClick={() => setSelectedPath(i)}
+            style={{
+              padding: '4px 12px', fontSize: 12, borderRadius: 6, cursor: 'pointer',
+              background: selectedPath === i ? '#6366f1' : 'transparent',
+              color: selectedPath === i ? '#fff' : '#64748b',
+              border: `1px solid ${selectedPath === i ? '#6366f1' : '#e2e8f0'}`,
+            }}
+          >
+            {l} 뎁스
+          </button>
+        ))}
+      </div>
+      <Breadcrumb separator={<ChevronRightLineIcon style={{ width: 14, height: 14, color: '#94a3b8' }} />}>
+        <Breadcrumb.Item>
+          <HomeLineIcon style={{ width: 14, height: 14 }} />
+        </Breadcrumb.Item>
+        {paths[selectedPath].map((item) => (
+          <Breadcrumb.Item key={item.label}>{item.label}</Breadcrumb.Item>
+        ))}
+      </Breadcrumb>
+      <div style={{ padding: '12px 16px', background: '#f8fafc', borderRadius: 8, border: '1px solid #e2e8f0' }}>
+        <div style={{ fontSize: 12, color: '#64748b', marginBottom: 4 }}>현재 위치</div>
+        <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>
+          {paths[selectedPath][paths[selectedPath].length - 1].label}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const Arco_데이터_드릴다운_경로: Story = {
+  name: 'Arco Design — 데이터 드릴다운 경로 (Cycle 118)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Arco Design의 데이터 탐색 드릴다운 패턴. 뎁스 레벨 선택으로 계층 경로가 동적으로 변하며 현재 위치를 강조합니다.',
+      },
+    },
+  },
+  render: () => <ArcoDataDrilldownRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Apple HIG — 설정 앱 계층 탐색 고도화 (Cycle 118)
+   HIG의 back-navigation 패턴 — 전체 계층 표시 + 현재 위치 컨텍스트
+-------------------------------------------------------------------------- */
+function AppleHIGNavigationRender() {
+  const tree: Record<string, { label: string; parent: string | null; children: string[] }> = {
+    root: { label: '설정', parent: null, children: ['privacy', 'accessibility', 'display'] },
+    privacy: { label: '개인 정보 보호', parent: 'root', children: ['location', 'camera'] },
+    accessibility: { label: '손쉬운 사용', parent: 'root', children: ['vision', 'motor'] },
+    display: { label: '디스플레이', parent: 'root', children: ['brightness', 'textsize'] },
+    location: { label: '위치 서비스', parent: 'privacy', children: [] },
+    camera: { label: '카메라', parent: 'privacy', children: [] },
+    vision: { label: '시각 접근성', parent: 'accessibility', children: [] },
+    motor: { label: '동작 및 터치', parent: 'accessibility', children: [] },
+    brightness: { label: '밝기 및 텍스트 크기', parent: 'display', children: [] },
+    textsize: { label: '텍스트 크기', parent: 'display', children: [] },
+  }
+  const [current, setCurrent] = useState<string>('privacy')
+
+  function getPath(id: string): string[] {
+    const path: string[] = []
+    let node: string | null = id
+    while (node) {
+      path.unshift(node)
+      node = tree[node].parent
+    }
+    return path
+  }
+
+  const path = getPath(current)
+  const node = tree[current]
+
+  return (
+    <div style={{ width: 360, display: 'flex', flexDirection: 'column', gap: 12 }}>
+      <Breadcrumb separator={<ChevronRightLineIcon style={{ width: 12, height: 12, color: '#94a3b8' }} />}>
+        {path.map((id) => (
+          <Breadcrumb.Item key={id} onClick={() => setCurrent(id)} style={{ cursor: 'pointer' }}>
+            {id === 'root' ? <HomeLineIcon style={{ width: 13, height: 13 }} /> : tree[id].label}
+          </Breadcrumb.Item>
+        ))}
+      </Breadcrumb>
+      <div style={{ border: '1px solid #e2e8f0', borderRadius: 12, overflow: 'hidden' }}>
+        {(node.children.length > 0 ? node.children : path.slice(0, -1).map((p) => tree[p].children).flat()).map((childId, i, arr) => (
+          <button
+            key={childId}
+            onClick={() => setCurrent(childId)}
+            style={{
+              width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+              padding: '13px 16px', background: '#fff',
+              borderBottom: i < arr.length - 1 ? '1px solid #f1f5f9' : 'none',
+              border: 'none', cursor: 'pointer', textAlign: 'left',
+            }}
+          >
+            <span style={{ fontSize: 14, color: '#0f172a' }}>{tree[childId].label}</span>
+            <ChevronRightLineIcon style={{ width: 14, height: 14, color: '#94a3b8' }} />
+          </button>
+        ))}
+        {node.children.length === 0 && (
+          <div style={{ padding: '32px 16px', textAlign: 'center', color: '#94a3b8', fontSize: 13 }}>
+            최하위 설정 항목
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+
+export const Apple_HIG_계층_설정_탐색: Story = {
+  name: 'Apple HIG — 계층 설정 탐색 (Cycle 118)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Apple HIG의 settings navigation 패턴. Breadcrumb으로 현재 위치 표시, 하위 항목 클릭으로 드릴다운, 경로 클릭으로 역탐색.',
+      },
+    },
+  },
+  render: () => <AppleHIGNavigationRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Arco + Apple — 파일시스템 경로 브레드크럼 (Cycle 118)
+   파일 탐색기 경로 + 말줄임 처리 패턴
+-------------------------------------------------------------------------- */
+function ArcoAppleFilePathRender() {
+  const [path, setPath] = useState(['Users', 'heejun', 'Projects', 'orbit-ui', 'packages', 'theme-eclipse', 'src'])
+  function navigateTo(index: number) {
+    setPath((prev) => prev.slice(0, index + 1))
+  }
+  function goUp() {
+    setPath((prev) => (prev.length > 1 ? prev.slice(0, -1) : prev))
+  }
+  const MAX_VISIBLE = 4
+  const isCollapsed = path.length > MAX_VISIBLE
+  const visiblePath = isCollapsed ? [path[0], '...', ...path.slice(-MAX_VISIBLE + 2)] : path
+  const actualIndices = isCollapsed
+    ? [0, -1, ...Array.from({ length: MAX_VISIBLE - 2 }, (_, i) => path.length - MAX_VISIBLE + 2 + i)]
+    : Array.from({ length: path.length }, (_, i) => i)
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 12, padding: 16 }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+        <button onClick={goUp} disabled={path.length <= 1} style={{ padding: '4px 8px', fontSize: 12, borderRadius: 6, border: '1px solid #e2e8f0', background: '#fff', cursor: path.length > 1 ? 'pointer' : 'not-allowed', color: path.length > 1 ? '#0f172a' : '#94a3b8' }}>
+          ← 상위
+        </button>
+        <Breadcrumb separator="/">
+          {visiblePath.map((segment, i) => (
+            <Breadcrumb.Item
+              key={`${segment}-${i}`}
+              onClick={actualIndices[i] !== -1 ? () => navigateTo(actualIndices[i]) : undefined}
+              style={{ cursor: actualIndices[i] !== -1 ? 'pointer' : 'default', color: segment === '...' ? '#94a3b8' : undefined }}
+            >
+              {i === 0 ? <HomeLineIcon style={{ width: 13, height: 13 }} /> : segment}
+            </Breadcrumb.Item>
+          ))}
+        </Breadcrumb>
+      </div>
+      <div style={{ padding: '10px 14px', background: '#f8fafc', borderRadius: 8, border: '1px solid #e2e8f0' }}>
+        <div style={{ fontSize: 11, color: '#94a3b8', marginBottom: 2 }}>절대 경로</div>
+        <code style={{ fontSize: 12, color: '#475569', fontFamily: 'monospace' }}>/{path.join('/')}</code>
+      </div>
+      <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+        {['components', 'styles', 'templates', 'server'].map((sub) => (
+          <button
+            key={sub}
+            onClick={() => setPath((prev) => [...prev, sub])}
+            style={{ padding: '4px 10px', fontSize: 12, borderRadius: 6, border: '1px solid #e2e8f0', background: '#fff', cursor: 'pointer', color: '#475569' }}
+          >
+            + {sub}/
+          </button>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+export const Arco_Apple_파일시스템_경로: Story = {
+  name: 'Arco + Apple — 파일시스템 경로 (Cycle 118)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Arco Design + Apple HIG의 파일탐색기 경로 패턴. 긴 경로 말줄임 처리, 상위 이동, 하위 폴더 추가 인터랙션 포함.',
+      },
+    },
+  },
+  render: () => <ArcoAppleFilePathRender />,
+}
