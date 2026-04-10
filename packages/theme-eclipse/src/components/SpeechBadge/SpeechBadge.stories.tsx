@@ -632,3 +632,171 @@ export const Linear_온보딩_가이드_핀: Story = {
   },
   render: () => <LinearOnboardingGuideRender />,
 }
+
+const SHADCN_TOOLTIP_ITEMS = [
+  { id: 'save', label: '저장', shortcut: '⌘S', tailPosition: 'trailing' as const, color: 'pink' as const },
+  { id: 'copy', label: '복사', shortcut: '⌘C', tailPosition: 'leading' as const, color: 'blue' as const },
+  { id: 'share', label: '공유', shortcut: '⌘⇧S', tailPosition: 'trailing' as const, color: 'pink' as const },
+  { id: 'delete', label: '삭제', shortcut: '⌘⌫', tailPosition: 'leading' as const, color: 'blue' as const },
+]
+
+const ShadcnTooltipPatternRender = () => {
+  const [hoveredId, setHoveredId] = useState<string | null>(null)
+
+  return (
+    <div style={{ width: 380, fontFamily: 'Inter, system-ui, sans-serif', padding: '24px', display: 'flex', flexDirection: 'column', gap: 20 }}>
+      <div style={{ fontSize: 12, fontWeight: 700, color: '#6b7280', marginBottom: 4 }}>shadcn/ui Tooltip 패턴 — SpeechBadge 활용</div>
+      <div style={{ display: 'flex', justifyContent: 'center', gap: 20, flexWrap: 'wrap' }}>
+        {SHADCN_TOOLTIP_ITEMS.map(item => (
+          <div
+            key={item.id}
+            style={{ position: 'relative', display: 'inline-block' }}
+            onMouseEnter={() => setHoveredId(item.id)}
+            onMouseLeave={() => setHoveredId(null)}
+          >
+            <button style={{ width: 36, height: 36, borderRadius: 8, border: '1px solid #e5e7eb', background: '#fff', cursor: 'pointer', fontSize: 13, color: '#374151' }}>
+              {item.id === 'save' ? 'S' : item.id === 'copy' ? 'C' : item.id === 'share' ? 'U' : 'D'}
+            </button>
+            {hoveredId === item.id && (
+              <div style={{ position: 'absolute', bottom: '110%', left: '50%', transform: 'translateX(-50%)', zIndex: 10 }}>
+                <SpeechBadge color={item.color} tailPosition={item.tailPosition}>
+                  <span style={{ whiteSpace: 'nowrap' }}>{item.label} {item.shortcut}</span>
+                </SpeechBadge>
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+      <div style={{ fontSize: 11, color: '#9ca3af', textAlign: 'center' }}>hover 시 SpeechBadge 툴팁 표시 — leading/trailing 꼬리 방향 변형</div>
+    </div>
+  )
+}
+
+export const Shadcn_툴팁_말풍선_패턴: Story = {
+  name: 'shadcn/ui - Tooltip 말풍선 4방향 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story: 'shadcn/ui Tooltip 컴포넌트 패턴을 SpeechBadge로 구현. 버튼 hover 시 상/하/좌/우 4방향으로 키보드 단축키 포함 툴팁을 표시합니다. 단축키는 kbd 스타일로 강조합니다.',
+      },
+    },
+  },
+  render: () => <ShadcnTooltipPatternRender />,
+}
+
+const TW_STATUS_MESSAGES = [
+  { id: 'online', status: '온라인', color: 'pink' as const, tailPosition: 'leading' as const, desc: '지금 접속 중' },
+  { id: 'away', status: '자리 비움', color: 'blue' as const, tailPosition: 'leading' as const, desc: '15분째 비활성' },
+  { id: 'busy', status: '바쁨', color: 'pink' as const, tailPosition: 'trailing' as const, desc: 'DND 모드 활성화' },
+]
+
+const TW_USER_AVATARS = [
+  { id: 'u1', initial: 'HJ', color: '#6366f1', statusId: 'online' },
+  { id: 'u2', initial: 'SJ', color: '#10b981', statusId: 'away' },
+  { id: 'u3', initial: 'MJ', color: '#f59e0b', statusId: 'busy' },
+]
+
+const TailwindAvatarStatusRender = () => {
+  const [hoveredUser, setHoveredUser] = useState<string | null>(null)
+
+  return (
+    <div style={{ width: 320, fontFamily: 'Inter, system-ui, sans-serif', padding: '20px', border: '1px solid #e5e7eb', borderRadius: 12, background: '#fff' }}>
+      <div style={{ fontSize: 13, fontWeight: 700, color: '#111', marginBottom: 16 }}>팀원 상태</div>
+      <div style={{ display: 'flex', gap: 20, justifyContent: 'center' }}>
+        {TW_USER_AVATARS.map(user => {
+          const status = TW_STATUS_MESSAGES.find(s => s.id === user.statusId)!
+          const dotColor = user.statusId === 'online' ? '#10b981' : user.statusId === 'away' ? '#f59e0b' : '#ef4444'
+          return (
+            <div
+              key={user.id}
+              style={{ position: 'relative', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6 }}
+              onMouseEnter={() => setHoveredUser(user.id)}
+              onMouseLeave={() => setHoveredUser(null)}
+            >
+              <div style={{ position: 'relative' }}>
+                <div style={{ width: 40, height: 40, borderRadius: '50%', background: user.color, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 13, fontWeight: 700, color: '#fff' }}>{user.initial}</div>
+                <div style={{ position: 'absolute', bottom: 0, right: 0, width: 12, height: 12, borderRadius: '50%', background: dotColor, border: '2px solid #fff' }} />
+              </div>
+              <span style={{ fontSize: 11, color: '#374151' }}>{user.initial}</span>
+              {hoveredUser === user.id && (
+                <div style={{ position: 'absolute', bottom: '110%', left: '50%', transform: 'translateX(-50%)', zIndex: 10 }}>
+                  <SpeechBadge color={status.color} tailPosition={status.tailPosition}>
+                    <span style={{ whiteSpace: 'nowrap', fontSize: 10 }}>{status.status} — {status.desc}</span>
+                  </SpeechBadge>
+                </div>
+              )}
+            </div>
+          )
+        })}
+      </div>
+      <div style={{ marginTop: 12, fontSize: 11, color: '#9ca3af', textAlign: 'center' }}>Tailwind UI Avatar + Status Tooltip 패턴</div>
+    </div>
+  )
+}
+
+export const Tailwind_아바타_상태_툴팁: Story = {
+  name: 'Tailwind UI - 아바타 상태 툴팁 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Tailwind UI Avatar + Status Tooltip 패턴. 팀원 아바타 위에 온라인/자리 비움/바쁨 상태를 색상 도트로 표시하고, hover 시 SpeechBadge로 상세 상태 정보를 보여줍니다. 협업 도구, 팀 대시보드 UI에 적합합니다.',
+      },
+    },
+  },
+  render: () => <TailwindAvatarStatusRender />,
+}
+
+const SHADCN_STEPS = [
+  { id: 1, title: '코드 복사', desc: '컴포넌트 코드를 클립보드에 복사합니다', tip: '⌘C로 빠르게 복사!' },
+  { id: 2, title: '프로젝트에 추가', desc: 'src/components/ 폴더에 파일을 붙여넣습니다', tip: '파일명은 컴포넌트명과 동일하게' },
+  { id: 3, title: '임포트 및 사용', desc: 'import { Component } from "./Component"', tip: 'autodocs로 Props 확인 가능' },
+]
+
+const ShadcnStepGuideRender = () => {
+  const [activeStep, setActiveStep] = useState(0)
+
+  return (
+    <div style={{ width: 380, fontFamily: 'Inter, system-ui, sans-serif' }}>
+      <div style={{ fontSize: 13, fontWeight: 700, color: '#111', marginBottom: 16 }}>shadcn/ui Copy-paste 가이드</div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
+        {SHADCN_STEPS.map((step, idx) => (
+          <div key={step.id} style={{ position: 'relative' }}>
+            <div
+              onClick={() => setActiveStep(idx)}
+              style={{ display: 'flex', gap: 12, padding: '12px 0', cursor: 'pointer', alignItems: 'flex-start' }}
+            >
+              <div style={{ width: 28, height: 28, borderRadius: '50%', background: activeStep >= idx ? '#111' : '#f0f0f0', color: activeStep >= idx ? '#fff' : '#9ca3af', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 12, fontWeight: 700, flexShrink: 0, transition: 'all 0.2s' }}>{step.id}</div>
+              <div style={{ flex: 1, paddingTop: 3 }}>
+                <div style={{ fontSize: 13, fontWeight: 600, color: '#111' }}>{step.title}</div>
+                <div style={{ fontSize: 11, color: '#9ca3af', marginTop: 2 }}>{step.desc}</div>
+              </div>
+              {activeStep === idx && (
+                <div style={{ flexShrink: 0, paddingTop: 2 }}>
+                  <SpeechBadge color="pink" tailPosition="trailing">
+                    <span style={{ fontSize: 10, whiteSpace: 'nowrap' }}>{step.tip}</span>
+                  </SpeechBadge>
+                </div>
+              )}
+            </div>
+            {idx < SHADCN_STEPS.length - 1 && (
+              <div style={{ position: 'absolute', left: 13, top: 40, width: 2, height: 20, background: activeStep > idx ? '#111' : '#f0f0f0', transition: 'background 0.2s' }} />
+            )}
+          </div>
+        ))}
+      </div>
+      <div style={{ marginTop: 8, fontSize: 11, color: '#9ca3af' }}>shadcn/ui 단계별 가이드 + SpeechBadge 팁 패턴</div>
+    </div>
+  )
+}
+
+export const Shadcn_단계별_가이드_팁: Story = {
+  name: 'shadcn/ui - 단계별 가이드 SpeechBadge 팁',
+  parameters: {
+    docs: {
+      description: {
+        story: 'shadcn/ui Copy-paste 가이드 패턴. 3단계 설치 과정을 스텝 UI로 표시하고, 활성 단계에 SpeechBadge로 추가 팁을 말풍선으로 안내합니다. 온보딩 플로우, 튜토리얼, 설치 가이드 UI에 적합합니다.',
+      },
+    },
+  },
+  render: () => <ShadcnStepGuideRender />,
+}

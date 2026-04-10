@@ -24282,3 +24282,161 @@ export const Linear99IssueBoard: StoryObj = {
   },
   render: () => <Linear99IssueBoardRender />,
 }
+
+// ─── Cycle 100: Tailwind UI + shadcn/ui 벤치마크 ─────────────────────────────────
+
+type TW100MetricTrend = 'up' | 'down' | 'neutral'
+type TW100PeriodKey = '7d' | '30d' | '90d'
+
+interface TW100Metric {
+  id: string
+  label: string
+  value: string
+  change: string
+  trend: TW100MetricTrend
+  sparkData: number[]
+}
+
+interface TW100TopItem {
+  id: string
+  name: string
+  category: string
+  views: number
+  convRate: number
+}
+
+const TW100_PERIODS: Array<{ key: TW100PeriodKey; label: string }> = [
+  { key: '7d', label: '7일' },
+  { key: '30d', label: '30일' },
+  { key: '90d', label: '90일' },
+]
+
+const TW100_METRICS: Record<TW100PeriodKey, TW100Metric[]> = {
+  '7d': [
+    { id: 'visits', label: '방문자 수', value: '12,482', change: '+8.3%', trend: 'up', sparkData: [40, 52, 48, 61, 75, 68, 82] },
+    { id: 'conv', label: '전환율', value: '3.24%', change: '+0.41%', trend: 'up', sparkData: [2.8, 3.0, 2.9, 3.1, 3.2, 3.1, 3.24] },
+    { id: 'bounce', label: '이탈률', value: '41.2%', change: '-2.1%', trend: 'down', sparkData: [46, 44, 43, 42, 41, 41, 41] },
+    { id: 'revenue', label: '매출', value: '₩8.4M', change: '+12.7%', trend: 'up', sparkData: [60, 65, 70, 72, 78, 80, 84] },
+  ],
+  '30d': [
+    { id: 'visits', label: '방문자 수', value: '52,140', change: '+14.1%', trend: 'up', sparkData: [30, 38, 45, 52, 58, 62, 68] },
+    { id: 'conv', label: '전환율', value: '3.12%', change: '+0.28%', trend: 'up', sparkData: [2.7, 2.8, 2.9, 3.0, 3.0, 3.1, 3.12] },
+    { id: 'bounce', label: '이탈률', value: '43.8%', change: '+0.5%', trend: 'neutral', sparkData: [43, 43, 44, 44, 43, 44, 44] },
+    { id: 'revenue', label: '매출', value: '₩34.2M', change: '+9.3%', trend: 'up', sparkData: [55, 60, 65, 70, 74, 78, 82] },
+  ],
+  '90d': [
+    { id: 'visits', label: '방문자 수', value: '148,920', change: '+22.5%', trend: 'up', sparkData: [20, 28, 35, 42, 50, 58, 68] },
+    { id: 'conv', label: '전환율', value: '2.98%', change: '-0.12%', trend: 'down', sparkData: [3.1, 3.0, 2.95, 2.9, 2.95, 2.98, 2.98] },
+    { id: 'bounce', label: '이탈률', value: '44.6%', change: '-1.2%', trend: 'down', sparkData: [47, 46, 45, 45, 44, 44, 44] },
+    { id: 'revenue', label: '매출', value: '₩98.7M', change: '+18.4%', trend: 'up', sparkData: [40, 48, 56, 64, 72, 80, 90] },
+  ],
+}
+
+const TW100_TOP_ITEMS: TW100TopItem[] = [
+  { id: 'p1', name: 'SolidButton', category: 'Actions', views: 4820, convRate: 4.2 },
+  { id: 'p2', name: 'DataTable', category: 'Data', views: 3910, convRate: 3.8 },
+  { id: 'p3', name: 'Popover', category: 'Feedback', views: 3240, convRate: 5.1 },
+  { id: 'p4', name: 'Toggle', category: 'Inputs', views: 2870, convRate: 2.9 },
+  { id: 'p5', name: 'Skeleton', category: 'Feedback', views: 2340, convRate: 3.3 },
+]
+
+const TW100AnalyticsDashRender = () => {
+  const [period, setPeriod] = useState<TW100PeriodKey>('7d')
+  const metrics = TW100_METRICS[period]
+
+  const renderSparkline = (data: number[]) => {
+    const max = Math.max(...data)
+    const min = Math.min(...data)
+    const range = max - min || 1
+    const w = 60
+    const h = 28
+    const points = data.map((v, i) => {
+      const x = (i / (data.length - 1)) * w
+      const y = h - ((v - min) / range) * h
+      return `${x},${y}`
+    }).join(' ')
+    return (
+      <svg width={w} height={h} style={{ display: 'block' }}>
+        <polyline points={points} fill="none" stroke="#6366f1" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    )
+  }
+
+  return (
+    <div style={{ width: 600, fontFamily: 'Inter, system-ui, sans-serif', background: '#f8fafc', borderRadius: 12, padding: '20px', border: '1px solid #e5e7eb' }}>
+      {/* Header */}
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 20 }}>
+        <div>
+          <div style={{ fontSize: 16, fontWeight: 700, color: '#111' }}>Analytics Dashboard</div>
+          <div style={{ fontSize: 12, color: '#9ca3af', marginTop: 2 }}>Tailwind UI + shadcn/ui 벤치마크 패턴</div>
+        </div>
+        <div style={{ display: 'flex', gap: 4, background: '#fff', border: '1px solid #e5e7eb', borderRadius: 8, padding: 3 }}>
+          {TW100_PERIODS.map(p => (
+            <button
+              key={p.key}
+              onClick={() => setPeriod(p.key)}
+              style={{ padding: '5px 12px', borderRadius: 6, border: 'none', background: period === p.key ? '#111' : 'transparent', color: period === p.key ? '#fff' : '#6b7280', fontSize: 12, fontWeight: 600, cursor: 'pointer', transition: 'all 0.15s' }}
+            >
+              {p.label}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Metric cards */}
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr 1fr', gap: 10, marginBottom: 20 }}>
+        {metrics.map(metric => (
+          <div key={metric.id} style={{ background: '#fff', borderRadius: 10, padding: '12px', border: '1px solid #f0f0f0' }}>
+            <div style={{ fontSize: 11, color: '#9ca3af', marginBottom: 4 }}>{metric.label}</div>
+            <div style={{ fontSize: 18, fontWeight: 700, color: '#111', marginBottom: 4 }}>{metric.value}</div>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
+              <span style={{ fontSize: 11, fontWeight: 600, color: metric.trend === 'up' ? '#10b981' : metric.trend === 'down' ? '#ef4444' : '#6b7280' }}>
+                {metric.trend === 'up' ? '+' : ''}{metric.change}
+              </span>
+              {renderSparkline(metric.sparkData)}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Top components table */}
+      <div style={{ background: '#fff', borderRadius: 10, border: '1px solid #f0f0f0', overflow: 'hidden' }}>
+        <div style={{ padding: '10px 14px', borderBottom: '1px solid #f9fafb', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <SectionTitle>인기 컴포넌트</SectionTitle>
+          <LabelBadge color="benefit"><LabelBadge.Label>Top 5</LabelBadge.Label></LabelBadge>
+        </div>
+        <div>
+          {TW100_TOP_ITEMS.map((item, idx) => (
+            <div key={item.id} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '8px 14px', borderBottom: idx < TW100_TOP_ITEMS.length - 1 ? '1px solid #f9fafb' : 'none' }}>
+              <span style={{ width: 18, fontSize: 12, color: '#9ca3af', fontWeight: 700, textAlign: 'right' }}>{idx + 1}</span>
+              <div style={{ flex: 1 }}>
+                <div style={{ fontSize: 12, fontWeight: 600, color: '#111' }}>{item.name}</div>
+                <div style={{ fontSize: 10, color: '#9ca3af' }}>{item.category}</div>
+              </div>
+              <div style={{ textAlign: 'right' }}>
+                <div style={{ fontSize: 12, color: '#374151', fontWeight: 600 }}>{item.views.toLocaleString()}</div>
+                <div style={{ fontSize: 10, color: '#9ca3af' }}>조회수</div>
+              </div>
+              <div style={{ width: 60 }}>
+                <Progress value={item.convRate * 10} />
+                <div style={{ fontSize: 10, color: '#6366f1', marginTop: 2, fontWeight: 600 }}>{item.convRate}%</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const TW100AnalyticsDashboard: StoryObj = {
+  name: 'Tailwind UI + shadcn/ui — Analytics Dashboard (Cycle 100)',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Tailwind UI + shadcn/ui 벤치마크 — 100번째 사이클 기념 Analytics Dashboard. 기간 전환(7일/30일/90일) + 4개 지표 카드(SVG 스파크라인 포함) + 인기 컴포넌트 Top 5 테이블. SectionTitle, LabelBadge, Progress 컴포넌트를 복합 활용합니다.',
+      },
+    },
+  },
+  render: () => <TW100AnalyticsDashRender />,
+}

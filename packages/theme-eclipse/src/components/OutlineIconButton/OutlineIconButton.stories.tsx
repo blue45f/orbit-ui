@@ -883,3 +883,207 @@ export const M3_Extended_FAB_패턴 = {
   },
   render: () => <M3ExtendedFabRender />,
 }
+
+const TW_EDITOR_TOOLS = [
+  { id: 'bold', icon: WriteLineIcon, label: '굵게', active: false },
+  { id: 'list', icon: ListLineIcon, label: '목록', active: false },
+  { id: 'link', icon: ShareIcon, label: '링크', active: false },
+  { id: 'more', icon: MoreHorizontalIcon, label: '더보기', active: false },
+]
+
+type TwToolId = 'bold' | 'list' | 'link' | 'more'
+
+const TailwindEditorToolbarRender = () => {
+  const [active, setActive] = useState<Set<TwToolId>>(new Set())
+  const [saved, setSaved] = useState(false)
+
+  const toggle = (id: TwToolId) => {
+    setActive(prev => {
+      const next = new Set(prev)
+      if (next.has(id)) next.delete(id)
+      else next.add(id)
+      return next
+    })
+  }
+
+  const handleSave = () => {
+    setSaved(true)
+    setTimeout(() => setSaved(false), 2000)
+  }
+
+  return (
+    <div style={{ width: 420, fontFamily: 'Inter, system-ui, sans-serif' }}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 10px', border: '1px solid #e5e7eb', borderBottom: 'none', borderRadius: '8px 8px 0 0', background: '#f9fafb' }}>
+        <div style={{ display: 'flex', gap: 4 }}>
+          {TW_EDITOR_TOOLS.map(tool => {
+            const Icon = tool.icon
+            const isActive = active.has(tool.id as TwToolId)
+            return (
+              <OutlineIconButton
+                key={tool.id}
+                color={isActive ? 'black' : 'gray'}
+                size="small"
+                onClick={() => toggle(tool.id as TwToolId)}
+                aria-label={tool.label}
+                style={{ background: isActive ? '#111' : 'transparent', border: 'none' }}
+              >
+                <Icon size={14} />
+              </OutlineIconButton>
+            )
+          })}
+        </div>
+        <div style={{ display: 'flex', gap: 4 }}>
+          <OutlineIconButton color="gray" size="small" onClick={handleSave} aria-label="저장">
+            <DownloadIcon size={14} />
+          </OutlineIconButton>
+          <OutlineIconButton color="gray" size="small" aria-label="설정">
+            <SettingLineIcon size={14} />
+          </OutlineIconButton>
+        </div>
+      </div>
+      <div style={{ border: '1px solid #e5e7eb', borderRadius: '0 0 8px 8px', padding: '12px 14px', minHeight: 100, fontSize: 13, color: '#374151', lineHeight: 1.6 }}>
+        <p style={{ margin: 0, fontWeight: active.has('bold') ? 700 : 400 }}>
+          Tailwind UI Editor 툴바 패턴 — OutlineIconButton으로 서식 도구를 구현합니다. 활성 버튼은 배경색 반전으로 상태를 표시합니다.
+        </p>
+      </div>
+      {saved && <div style={{ marginTop: 8, fontSize: 11, color: '#10b981', fontWeight: 600 }}>저장 완료!</div>}
+    </div>
+  )
+}
+
+export const Tailwind_에디터_서식_툴바 = {
+  name: 'Tailwind UI - 에디터 서식 툴바 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Tailwind UI 에디터 툴바 패턴. Bold/List/Link/More 서식 도구를 OutlineIconButton으로 배치하고, 저장/설정 액션을 우측에 배치합니다. 활성 포맷 버튼은 배경 반전으로 시각적 피드백을 제공합니다.',
+      },
+    },
+  },
+  render: () => <TailwindEditorToolbarRender />,
+}
+
+const SHADCN_PAGINATION_ITEMS = [1, 2, 3, 4, 5]
+
+const ShadcnPaginationRender = () => {
+  const [page, setPage] = useState(1)
+  const totalPages = 5
+
+  return (
+    <div style={{ fontFamily: 'Inter, system-ui, sans-serif', display: 'flex', flexDirection: 'column', gap: 16 }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+        <OutlineIconButton
+          color="gray"
+          size="small"
+          onClick={() => setPage(p => Math.max(1, p - 1))}
+          disabled={page === 1}
+          aria-label="이전 페이지"
+        >
+          <ChevronRightLineIcon size={14} style={{ transform: 'rotate(180deg)' }} />
+        </OutlineIconButton>
+        {SHADCN_PAGINATION_ITEMS.map(p => (
+          <button
+            key={p}
+            onClick={() => setPage(p)}
+            style={{ width: 32, height: 32, borderRadius: 6, border: `1px solid ${page === p ? '#111' : '#e5e7eb'}`, background: page === p ? '#111' : '#fff', color: page === p ? '#fff' : '#374151', fontSize: 13, fontWeight: page === p ? 700 : 400, cursor: 'pointer', transition: 'all 0.1s' }}
+          >
+            {p}
+          </button>
+        ))}
+        <OutlineIconButton
+          color="gray"
+          size="small"
+          onClick={() => setPage(p => Math.min(totalPages, p + 1))}
+          disabled={page === totalPages}
+          aria-label="다음 페이지"
+        >
+          <ChevronRightLineIcon size={14} />
+        </OutlineIconButton>
+      </div>
+      <div style={{ fontSize: 12, color: '#9ca3af' }}>
+        {totalPages}페이지 중 {page}페이지 · shadcn/ui Pagination 패턴
+      </div>
+    </div>
+  )
+}
+
+export const Shadcn_페이지네이션_컨트롤 = {
+  name: 'shadcn/ui - 페이지네이션 이전/다음 컨트롤',
+  parameters: {
+    docs: {
+      description: {
+        story: 'shadcn/ui Pagination 컴포넌트 패턴. 이전/다음 방향 아이콘을 OutlineIconButton으로 구현하고, 페이지 번호 버튼과 함께 배치합니다. disabled 상태에서 자동 비활성화되며, 현재 페이지는 반전 스타일로 강조합니다.',
+      },
+    },
+  },
+  render: () => <ShadcnPaginationRender />,
+}
+
+
+const TW_ARTICLE_CARDS = [
+  { id: 1, title: 'Tailwind UI 컴포넌트 패턴 분석', category: '기술', date: '2026.04.10', starred: false },
+  { id: 2, title: 'shadcn/ui와 Orbit UI 비교 연구', category: '디자인', date: '2026.04.08', starred: true },
+  { id: 3, title: 'Storybook 8.x 마이그레이션 가이드', category: '도구', date: '2026.04.05', starred: false },
+]
+
+const TailwindCardActionGroupRender = () => {
+  const [cards, setCards] = useState(TW_ARTICLE_CARDS)
+  const [refreshing, setRefreshing] = useState<number | null>(null)
+
+  const toggleStar = (id: number) => setCards(prev => prev.map(c => c.id === id ? { ...c, starred: !c.starred } : c))
+
+  const handleRefresh = async (id: number) => {
+    setRefreshing(id)
+    await new Promise(res => setTimeout(res, 1000))
+    setRefreshing(null)
+  }
+
+  return (
+    <div style={{ width: 380, fontFamily: 'Inter, system-ui, sans-serif', display: 'flex', flexDirection: 'column', gap: 8 }}>
+      {cards.map(card => (
+        <div key={card.id} style={{ border: '1px solid #f0f0f0', borderRadius: 10, padding: '12px 14px', background: '#fff', display: 'flex', alignItems: 'flex-start', gap: 10 }}>
+          <div style={{ flex: 1 }}>
+            <div style={{ fontSize: 11, color: '#9ca3af', marginBottom: 3 }}>{card.category} · {card.date}</div>
+            <div style={{ fontSize: 13, fontWeight: 600, color: '#111', lineHeight: 1.4 }}>{card.title}</div>
+          </div>
+          <div style={{ display: 'flex', gap: 2, flexShrink: 0 }}>
+            <OutlineIconButton
+              color={card.starred ? 'black' : 'gray'}
+              size="small"
+              onClick={() => toggleStar(card.id)}
+              aria-label="즐겨찾기"
+              style={{ background: card.starred ? '#fef9c3' : 'transparent', borderColor: card.starred ? '#fbbf24' : undefined }}
+            >
+              <StarLineIcon size={14} />
+            </OutlineIconButton>
+            <OutlineIconButton
+              color="gray"
+              size="small"
+              onClick={() => { void handleRefresh(card.id) }}
+              aria-label="새로고침"
+              style={{ animation: refreshing === card.id ? 'spin 0.8s linear infinite' : 'none' }}
+            >
+              <RefreshLineIcon size={14} />
+            </OutlineIconButton>
+            <OutlineIconButton color="gray" size="small" aria-label="더보기">
+              <MoreHorizontalIcon size={14} />
+            </OutlineIconButton>
+          </div>
+        </div>
+      ))}
+      <div style={{ fontSize: 11, color: '#9ca3af', marginTop: 2 }}>Tailwind UI Card Action Group 패턴</div>
+    </div>
+  )
+}
+
+export const Tailwind_카드_액션_그룹 = {
+  name: 'Tailwind UI - 카드 액션 버튼 그룹 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Tailwind UI Card의 액션 버튼 그룹 패턴. 즐겨찾기(토글 상태)/새로고침(로딩 애니메이션)/더보기 OutlineIconButton을 카드 우측에 배치합니다. 즐겨찾기 활성 상태는 노란 배경으로 시각화합니다.',
+      },
+    },
+  },
+  render: () => <TailwindCardActionGroupRender />,
+}
