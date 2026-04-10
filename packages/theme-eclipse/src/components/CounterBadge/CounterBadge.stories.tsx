@@ -1095,3 +1095,241 @@ export const MUI_Chakra_소셜_피드_반응_카운터: Story = {
   },
   render: () => <MuiChakraSocialFeedRender />,
 }
+
+// ──────────────────────────────────────────────────────────────────────────────
+// Cycle 167: MUI + Mantine
+// ──────────────────────────────────────────────────────────────────────────────
+
+export const Mantine_파일_트리_변경사항_배지: Story = {
+  name: 'Mantine — 파일 트리 변경사항 배지 (Cycle 167)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Mantine FileTree 변경사항 카운터 패턴. 폴더별 수정/추가/삭제 파일 수를 ' +
+          'CounterBadge로 표시. 색상 구분 + 펼치기/접기 인터랙션.',
+      },
+    },
+  },
+  render: function MantinaFileTreeRender() {
+    type ChangeType = 'modified' | 'added' | 'deleted'
+    type TreeNode = { name: string; type: ChangeType; count: number; expanded?: boolean; children?: { name: string; type: ChangeType }[] }
+
+    const [tree, setTree] = useState<TreeNode[]>([
+      { name: 'src/components', type: 'modified', count: 8, expanded: true, children: [
+        { name: 'Button.tsx', type: 'modified' },
+        { name: 'TextField.tsx', type: 'modified' },
+        { name: 'NewComponent.tsx', type: 'added' },
+      ]},
+      { name: 'src/styles', type: 'added', count: 3, expanded: false, children: [
+        { name: 'tokens.css.ts', type: 'added' },
+        { name: 'variables.ts', type: 'added' },
+      ]},
+      { name: 'src/docs', type: 'deleted', count: 2, expanded: false, children: [
+        { name: 'OldGuide.mdx', type: 'deleted' },
+      ]},
+    ])
+
+    const changeColor: Record<ChangeType, string> = {
+      modified: '#f59e0b',
+      added: '#10b981',
+      deleted: '#ef4444',
+    }
+
+    const changeLabel: Record<ChangeType, string> = {
+      modified: 'M',
+      added: 'A',
+      deleted: 'D',
+    }
+
+    const toggle = (idx: number) => {
+      setTree((prev) => prev.map((node, i) => i === idx ? { ...node, expanded: !node.expanded } : node))
+    }
+
+    return (
+      <div style={{ width: 320, fontFamily: 'monospace, system-ui, sans-serif', background: '#1e1e2e', borderRadius: 12, padding: 16, border: '1px solid #313244' }}>
+        <div style={{ fontSize: 11, fontWeight: 700, color: '#585b70', letterSpacing: 1, marginBottom: 12 }}>SOURCE CONTROL</div>
+        {tree.map((node, idx) => (
+          <div key={node.name} style={{ marginBottom: 4 }}>
+            <div
+              onClick={() => toggle(idx)}
+              style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '6px 8px', borderRadius: 6, cursor: 'pointer', background: '#313244' }}
+            >
+              <span style={{ fontSize: 10, color: '#6c7086', userSelect: 'none' }}>{node.expanded ? '▾' : '▸'}</span>
+              <span style={{ flex: 1, fontSize: 12, color: '#cdd6f4' }}>{node.name}</span>
+              <span style={{ fontSize: 9, fontWeight: 700, padding: '1px 5px', borderRadius: 3, background: changeColor[node.type] + '22', color: changeColor[node.type] }}>
+                {changeLabel[node.type]}
+              </span>
+              <CounterBadge>{node.count}</CounterBadge>
+            </div>
+            {node.expanded && node.children && (
+              <div style={{ marginLeft: 20, marginTop: 2, display: 'flex', flexDirection: 'column', gap: 2 }}>
+                {node.children.map((child) => (
+                  <div key={child.name} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '4px 8px', borderRadius: 4 }}>
+                    <span style={{ flex: 1, fontSize: 11, color: '#a6adc8' }}>{child.name}</span>
+                    <span style={{ fontSize: 9, fontWeight: 700, padding: '1px 5px', borderRadius: 3, background: changeColor[child.type] + '22', color: changeColor[child.type] }}>
+                      {changeLabel[child.type]}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        ))}
+        <div style={{ marginTop: 12, padding: '8px', background: '#313244', borderRadius: 8, display: 'flex', justifyContent: 'space-between' }}>
+          <span style={{ fontSize: 10, color: '#6c7086' }}>총 변경사항</span>
+          <CounterBadge>{tree.reduce((acc, n) => acc + n.count, 0)}</CounterBadge>
+        </div>
+      </div>
+    )
+  },
+}
+
+export const MUI_데이터_테이블_필터_배지: Story = {
+  name: 'MUI — 데이터 테이블 필터 배지 (Cycle 167)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'MUI DataGrid 필터 활성 표시 패턴. 활성 필터 수를 CounterBadge로 표시. ' +
+          '필터 항목 토글 + 전체 초기화 기능.',
+      },
+    },
+  },
+  render: function MUIDataTableFilterRender() {
+    type FilterKey = 'status' | 'priority' | 'assignee' | 'label' | 'milestone'
+    const [activeFilters, setActiveFilters] = useState<FilterKey[]>(['status', 'priority'])
+
+    const allFilters: { key: FilterKey; label: string; value: string }[] = [
+      { key: 'status', label: '상태', value: '진행 중' },
+      { key: 'priority', label: '우선순위', value: '높음' },
+      { key: 'assignee', label: '담당자', value: '김민준' },
+      { key: 'label', label: '레이블', value: '버그' },
+      { key: 'milestone', label: '마일스톤', value: 'v2.0' },
+    ]
+
+    const toggle = (key: FilterKey) => {
+      setActiveFilters((prev) => prev.includes(key) ? prev.filter((k) => k !== key) : [...prev, key])
+    }
+
+    return (
+      <div style={{ width: 380, fontFamily: 'system-ui, sans-serif', background: '#fff', border: '1px solid #e5e7eb', borderRadius: 12, overflow: 'hidden' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '12px 16px', borderBottom: '1px solid #f3f4f6' }}>
+          <span style={{ fontSize: 13, fontWeight: 700, color: '#111827' }}>필터</span>
+          {activeFilters.length > 0 && (
+            <>
+              <CounterBadge>{activeFilters.length}</CounterBadge>
+              <button
+                onClick={() => setActiveFilters([])}
+                style={{ marginLeft: 'auto', fontSize: 11, color: '#6b7280', background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}
+              >
+                초기화
+              </button>
+            </>
+          )}
+        </div>
+        {allFilters.map((f) => {
+          const isActive = activeFilters.includes(f.key)
+          return (
+            <div
+              key={f.key}
+              onClick={() => toggle(f.key)}
+              style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '10px 16px', cursor: 'pointer', borderBottom: '1px solid #f9fafb', background: isActive ? '#eff6ff' : '#fff' }}
+            >
+              <div style={{ width: 16, height: 16, borderRadius: 4, border: `2px solid ${isActive ? '#3b82f6' : '#d1d5db'}`, background: isActive ? '#3b82f6' : '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                {isActive && <span style={{ fontSize: 9, color: '#fff', fontWeight: 900 }}>✓</span>}
+              </div>
+              <div style={{ flex: 1 }}>
+                <div style={{ fontSize: 12, fontWeight: 600, color: '#374151' }}>{f.label}</div>
+                <div style={{ fontSize: 11, color: '#9ca3af' }}>{f.value}</div>
+              </div>
+            </div>
+          )
+        })}
+        <div style={{ padding: '10px 16px', background: '#f9fafb', fontSize: 11, color: '#6b7280', display: 'flex', justifyContent: 'space-between' }}>
+          <span>적용된 필터</span>
+          <CounterBadge>{activeFilters.length}</CounterBadge>
+        </div>
+      </div>
+    )
+  },
+}
+
+export const Mantine_MUI_이커머스_장바구니_뱃지: Story = {
+  name: 'Mantine + MUI — 이커머스 장바구니 뱃지 (Cycle 167)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Mantine + MUI 쇼핑 카트 배지 패턴. 상품 추가/제거 + 수량 CounterBadge. ' +
+          '카테고리별 상품 리스트 + 장바구니 요약 패널.',
+      },
+    },
+  },
+  render: function MantineMUICartRender() {
+    const PRODUCTS = [
+      { id: 1, name: 'React 완전 정복', category: '도서', price: 35000 },
+      { id: 2, name: 'TypeScript 핸드북', category: '도서', price: 28000 },
+      { id: 3, name: '무선 키보드', category: '전자기기', price: 89000 },
+      { id: 4, name: 'USB-C 허브', category: '전자기기', price: 45000 },
+    ]
+
+    const [cart, setCart] = useState<Record<number, number>>({})
+
+    const add = (id: number) => setCart((prev) => ({ ...prev, [id]: (prev[id] ?? 0) + 1 }))
+    const remove = (id: number) => setCart((prev) => {
+      const next = { ...prev }
+      if (next[id] <= 1) { delete next[id] } else { next[id]-- }
+      return next
+    })
+
+    const totalItems = Object.values(cart).reduce((a, b) => a + b, 0)
+    const totalPrice = PRODUCTS.reduce((acc, p) => acc + p.price * (cart[p.id] ?? 0), 0)
+
+    const categories = [...new Set(PRODUCTS.map((p) => p.category))]
+
+    return (
+      <div style={{ width: 400, fontFamily: 'system-ui, sans-serif' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 16 }}>
+          <span style={{ fontSize: 14, fontWeight: 700, color: '#111827' }}>상품 목록</span>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+            <span style={{ fontSize: 13, color: '#374151' }}>장바구니</span>
+            <CounterBadge>{totalItems}</CounterBadge>
+          </div>
+        </div>
+        {categories.map((cat) => (
+          <div key={cat} style={{ marginBottom: 16 }}>
+            <div style={{ fontSize: 11, fontWeight: 700, color: '#9ca3af', letterSpacing: 1, marginBottom: 8 }}>{cat.toUpperCase()}</div>
+            {PRODUCTS.filter((p) => p.category === cat).map((p) => {
+              const qty = cart[p.id] ?? 0
+              return (
+                <div key={p.id} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '10px 14px', background: qty > 0 ? '#eff6ff' : '#fff', border: '1px solid #e5e7eb', borderRadius: 10, marginBottom: 8 }}>
+                  <div style={{ flex: 1 }}>
+                    <div style={{ fontSize: 13, fontWeight: 600, color: '#111827' }}>{p.name}</div>
+                    <div style={{ fontSize: 12, color: '#6b7280' }}>{p.price.toLocaleString()}원</div>
+                  </div>
+                  {qty > 0 && <CounterBadge>{qty}</CounterBadge>}
+                  <div style={{ display: 'flex', gap: 4 }}>
+                    {qty > 0 && (
+                      <button onClick={() => remove(p.id)} style={{ width: 26, height: 26, borderRadius: 6, border: '1px solid #e5e7eb', background: '#fff', cursor: 'pointer', fontSize: 14, color: '#374151', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>−</button>
+                    )}
+                    <button onClick={() => add(p.id)} style={{ width: 26, height: 26, borderRadius: 6, border: 'none', background: '#3b82f6', cursor: 'pointer', fontSize: 14, color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>+</button>
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+        ))}
+        {totalItems > 0 && (
+          <div style={{ padding: '12px 14px', background: '#f9fafb', border: '1px solid #e5e7eb', borderRadius: 10, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div>
+              <div style={{ fontSize: 12, color: '#6b7280' }}>총 {totalItems}개 상품</div>
+              <div style={{ fontSize: 14, fontWeight: 700, color: '#111827' }}>{totalPrice.toLocaleString()}원</div>
+            </div>
+            <CounterBadge>{totalItems}</CounterBadge>
+          </div>
+        )}
+      </div>
+    )
+  },
+}

@@ -37525,3 +37525,173 @@ export const TailwindLinear166IssueTracker: StoryObj = {
   },
   render: () => <TailwindLinear166IssueTrackerRender />,
 }
+
+// ──────────────────────────────────────────────────────────────────────────────
+// Cycle 167: MUI + Mantine — 칸반 보드
+// ──────────────────────────────────────────────────────────────────────────────
+
+function MUIMantine167KanbanRender() {
+  type Status = 'backlog' | 'todo' | 'in-progress' | 'done'
+
+  const [columnVisibility, setColumnVisibility] = useState<Record<Status, boolean>>({
+    backlog: true,
+    todo: true,
+    'in-progress': true,
+    done: true,
+  })
+
+  const toggleCol = (col: Status) => setColumnVisibility((prev) => ({ ...prev, [col]: !prev[col] }))
+
+  const [cards, setCards] = useState<{ id: number; title: string; status: Status; priority: 'low' | 'medium' | 'high'; tag: string }[]>([
+    { id: 1, title: 'Button ripple 효과', status: 'in-progress', priority: 'high', tag: 'feat' },
+    { id: 2, title: 'TextField 자동완성', status: 'todo', priority: 'medium', tag: 'feat' },
+    { id: 3, title: 'AccessibilityGuide 작성', status: 'in-progress', priority: 'medium', tag: 'docs' },
+    { id: 4, title: 'DataTable 가상 스크롤', status: 'backlog', priority: 'low', tag: 'feat' },
+    { id: 5, title: '다크모드 토큰 정비', status: 'done', priority: 'high', tag: 'refactor' },
+    { id: 6, title: 'Dropdown 경계 처리', status: 'todo', priority: 'low', tag: 'bug' },
+    { id: 7, title: 'CounterBadge 99+ 처리', status: 'done', priority: 'medium', tag: 'bug' },
+    { id: 8, title: 'Toggle 키보드 접근성', status: 'backlog', priority: 'medium', tag: 'a11y' },
+  ])
+
+  const [newCardTitle, setNewCardTitle] = useState('')
+  const [addingTo, setAddingTo] = useState<Status | null>(null)
+
+  const columns: { key: Status; label: string; color: string }[] = [
+    { key: 'backlog', label: 'Backlog', color: '#94a3b8' },
+    { key: 'todo', label: 'To Do', color: '#3b82f6' },
+    { key: 'in-progress', label: '진행 중', color: '#f59e0b' },
+    { key: 'done', label: '완료', color: '#10b981' },
+  ]
+
+  const priorityColor: Record<string, string> = { low: '#94a3b8', medium: '#f59e0b', high: '#ef4444' }
+  const tagStyle: Record<string, { bg: string; color: string }> = {
+    feat: { bg: '#dbeafe', color: '#1d4ed8' },
+    bug: { bg: '#fee2e2', color: '#dc2626' },
+    docs: { bg: '#ede9fe', color: '#7c3aed' },
+    refactor: { bg: '#f0fdf4', color: '#16a34a' },
+    a11y: { bg: '#fef3c7', color: '#d97706' },
+  }
+
+  const moveCard = (id: number, direction: 'left' | 'right') => {
+    const statusOrder: Status[] = ['backlog', 'todo', 'in-progress', 'done']
+    setCards((prev) => prev.map((card) => {
+      if (card.id !== id) return card
+      const idx = statusOrder.indexOf(card.status)
+      const newIdx = direction === 'right' ? Math.min(idx + 1, 3) : Math.max(idx - 1, 0)
+      return { ...card, status: statusOrder[newIdx] }
+    }))
+  }
+
+  const addCard = (status: Status) => {
+    if (!newCardTitle.trim()) return
+    setCards((prev) => [...prev, { id: Date.now(), title: newCardTitle.trim(), status, priority: 'medium', tag: 'feat' }])
+    setNewCardTitle('')
+    setAddingTo(null)
+  }
+
+  return (
+    <div style={{ width: '100%', minHeight: '100vh', background: '#f1f5f9', fontFamily: 'system-ui, sans-serif', display: 'flex', flexDirection: 'column' }}>
+      {/* Header */}
+      <div style={{ background: '#fff', borderBottom: '1px solid #e2e8f0', padding: '14px 24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <div>
+          <div style={{ fontSize: 18, fontWeight: 800, color: '#0f172a' }}>Orbit UI 칸반</div>
+          <div style={{ fontSize: 12, color: '#64748b' }}>{cards.length}개 카드</div>
+        </div>
+        <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
+          <div style={{ display: 'flex', gap: 8, alignItems: 'center', padding: '8px 12px', background: '#f8fafc', borderRadius: 10, border: '1px solid #e2e8f0' }}>
+            <span style={{ fontSize: 11, fontWeight: 700, color: '#64748b' }}>컬럼 표시</span>
+            {columns.map((col) => (
+              <div key={col.key} style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+                <Toggle
+                  checked={columnVisibility[col.key]}
+                  onCheckedChange={() => toggleCol(col.key)}
+                />
+                <span style={{ fontSize: 11, color: col.color, fontWeight: 600 }}>{col.label}</span>
+              </div>
+            ))}
+          </div>
+          <SolidButton color="primary" size="small" onClick={() => setAddingTo('todo')}>
+            <SolidButton.Center>+ 새 카드</SolidButton.Center>
+          </SolidButton>
+        </div>
+      </div>
+
+      {/* Board */}
+      <div style={{ flex: 1, padding: 24, display: 'flex', gap: 16, overflowX: 'auto' }}>
+        {columns.filter((col) => columnVisibility[col.key]).map((col) => {
+          const colCards = cards.filter((c) => c.status === col.key)
+          return (
+            <div key={col.key} style={{ width: 280, minWidth: 280, display: 'flex', flexDirection: 'column', gap: 12 }}>
+              {/* Column header */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '10px 14px', background: '#fff', borderRadius: 10, border: `1px solid ${col.color}33` }}>
+                <div style={{ width: 8, height: 8, borderRadius: '50%', background: col.color }} />
+                <span style={{ fontSize: 13, fontWeight: 700, color: '#374151', flex: 1 }}>{col.label}</span>
+                <CounterBadge>{colCards.length}</CounterBadge>
+              </div>
+
+              {/* Cards */}
+              {colCards.map((card) => {
+                const ts = tagStyle[card.tag] ?? { bg: '#f1f5f9', color: '#64748b' }
+                return (
+                  <div key={card.id} style={{ background: '#fff', borderRadius: 10, padding: 14, border: '1px solid #e2e8f0', display: 'flex', flexDirection: 'column', gap: 10 }}>
+                    <div style={{ display: 'flex', alignItems: 'flex-start', gap: 8 }}>
+                      <div style={{ width: 8, height: 8, borderRadius: '50%', background: priorityColor[card.priority], marginTop: 4, flexShrink: 0 }} />
+                      <span style={{ fontSize: 13, fontWeight: 600, color: '#111827', flex: 1, lineHeight: 1.4 }}>{card.title}</span>
+                    </div>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                      <span style={{ fontSize: 10, fontWeight: 700, padding: '2px 7px', borderRadius: 5, background: ts.bg, color: ts.color }}>{card.tag}</span>
+                      <div style={{ display: 'flex', gap: 4 }}>
+                        <button onClick={() => moveCard(card.id, 'left')} style={{ width: 22, height: 22, borderRadius: 5, border: '1px solid #e2e8f0', background: '#fff', cursor: 'pointer', fontSize: 11, color: '#6b7280', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>←</button>
+                        <button onClick={() => moveCard(card.id, 'right')} style={{ width: 22, height: 22, borderRadius: 5, border: '1px solid #e2e8f0', background: '#fff', cursor: 'pointer', fontSize: 11, color: '#6b7280', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>→</button>
+                      </div>
+                    </div>
+                  </div>
+                )
+              })}
+
+              {/* Add card */}
+              {addingTo === col.key ? (
+                <div style={{ background: '#fff', borderRadius: 10, padding: 12, border: '1px solid #dbeafe' }}>
+                  <TextField
+                    placeholder="카드 제목..."
+                    value={newCardTitle}
+                    onChange={(e) => setNewCardTitle((e.target as HTMLInputElement).value)}
+                    onKeyDown={(e: React.KeyboardEvent) => { if (e.key === 'Enter') addCard(col.key); if (e.key === 'Escape') setAddingTo(null) }}
+                  />
+                  <div style={{ display: 'flex', gap: 8, marginTop: 8 }}>
+                    <SolidButton color="primary" size="small" onClick={() => addCard(col.key)}>
+                      <SolidButton.Center>추가</SolidButton.Center>
+                    </SolidButton>
+                    <OutlineButton color="gray" size="small" onClick={() => { setAddingTo(null); setNewCardTitle('') }}>
+                      <OutlineButton.Center>취소</OutlineButton.Center>
+                    </OutlineButton>
+                  </div>
+                </div>
+              ) : (
+                <button
+                  onClick={() => setAddingTo(col.key)}
+                  style={{ padding: '10px', borderRadius: 10, border: '2px dashed #e2e8f0', background: 'transparent', color: '#94a3b8', fontSize: 12, cursor: 'pointer', fontFamily: 'system-ui' }}
+                >
+                  + 카드 추가
+                </button>
+              )}
+            </div>
+          )
+        })}
+      </div>
+    </div>
+  )
+}
+
+export const MUIMantine167Kanban: StoryObj = {
+  name: 'MUI + Mantine — 칸반 보드 (Toggle + CounterBadge)',
+  parameters: {
+    layout: 'fullscreen',
+    docs: {
+      description: {
+        story: 'MUI + Mantine 복합 패턴. Toggle로 컬럼 표시/숨김 제어, CounterBadge로 각 컬럼 카드 수 표시. 카드 이동 + 인라인 추가 기능.',
+      },
+    },
+  },
+  render: () => <MUIMantine167KanbanRender />,
+}

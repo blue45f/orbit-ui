@@ -1659,3 +1659,217 @@ export const Shadcn_Notion_에디터_패널_토글: Story = {
     )
   },
 }
+
+// ──────────────────────────────────────────────────────────────────────────────
+// Cycle 167: MUI + Mantine
+// ──────────────────────────────────────────────────────────────────────────────
+
+export const MUI_테이블_컬럼_가시성_토글: Story = {
+  name: 'MUI — 테이블 컬럼 가시성 토글 (Cycle 167)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'MUI DataGrid Column Visibility 패턴. 테이블 컬럼 표시/숨김을 Toggle로 제어. ' +
+          '컬럼 그룹화 + 전체 선택/해제 지원.',
+      },
+    },
+  },
+  render: function MUIColumnVisibilityRender() {
+    const columns = [
+      { id: 'id', label: 'ID', group: '기본', required: true },
+      { id: 'name', label: '이름', group: '기본', required: true },
+      { id: 'email', label: '이메일', group: '연락처', required: false },
+      { id: 'phone', label: '전화번호', group: '연락처', required: false },
+      { id: 'role', label: '역할', group: '권한', required: false },
+      { id: 'createdAt', label: '가입일', group: '날짜', required: false },
+      { id: 'lastLogin', label: '마지막 로그인', group: '날짜', required: false },
+    ]
+
+    const [visible, setVisible] = useState<Record<string, boolean>>(
+      Object.fromEntries(columns.map((c) => [c.id, true]))
+    )
+
+    const toggleCol = (id: string) => setVisible((prev) => ({ ...prev, [id]: !prev[id] }))
+
+    const groups = [...new Set(columns.map((c) => c.group))]
+    const visibleCount = Object.values(visible).filter(Boolean).length
+
+    return (
+      <div style={{ width: 320, fontFamily: 'system-ui, sans-serif', background: '#fff', border: '1px solid #e5e7eb', borderRadius: 12, overflow: 'hidden' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px 16px', borderBottom: '1px solid #f3f4f6', background: '#f9fafb' }}>
+          <span style={{ fontSize: 13, fontWeight: 700, color: '#111827' }}>컬럼 표시</span>
+          <span style={{ fontSize: 11, color: '#6b7280' }}>{visibleCount}/{columns.length}</span>
+        </div>
+        {groups.map((group) => (
+          <div key={group}>
+            <div style={{ padding: '8px 16px 4px', fontSize: 10, fontWeight: 700, color: '#9ca3af', letterSpacing: 1 }}>{group.toUpperCase()}</div>
+            {columns.filter((c) => c.group === group).map((col) => (
+              <div
+                key={col.id}
+                style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 16px', borderBottom: '1px solid #f9fafb' }}
+              >
+                <div>
+                  <span style={{ fontSize: 13, color: '#374151' }}>{col.label}</span>
+                  {col.required && <span style={{ fontSize: 10, color: '#9ca3af', marginLeft: 6 }}>필수</span>}
+                </div>
+                <Toggle
+                  checked={visible[col.id]}
+                  onCheckedChange={() => !col.required && toggleCol(col.id)}
+                  disabled={col.required}
+                />
+              </div>
+            ))}
+          </div>
+        ))}
+        <div style={{ padding: '10px 16px', background: '#f9fafb', fontSize: 11, color: '#6b7280' }}>
+          {visibleCount}개 컬럼 표시됨
+        </div>
+      </div>
+    )
+  },
+}
+
+export const Mantine_대시보드_위젯_토글_패널: Story = {
+  name: 'Mantine — 대시보드 위젯 토글 패널 (Cycle 167)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Mantine Dashboard Widget Visibility 패턴. 대시보드 위젯 표시/숨김 관리. ' +
+          '드래그 핸들 힌트 + 카테고리 그룹 + 미리보기 카운트.',
+      },
+    },
+  },
+  render: function MantineWidgetPanelRender() {
+    const widgets = [
+      { id: 'kpi', label: 'KPI 요약', category: '분석', desc: '핵심 지표 4개' },
+      { id: 'chart', label: '방문자 추이', category: '분석', desc: '라인 차트' },
+      { id: 'activity', label: '최근 활동', category: '활동', desc: '피드 리스트' },
+      { id: 'tasks', label: '나의 태스크', category: '활동', desc: '할 일 목록' },
+      { id: 'notifications', label: '알림 센터', category: '커뮤니케이션', desc: '읽지 않은 알림' },
+      { id: 'calendar', label: '캘린더', category: '커뮤니케이션', desc: '이번 주 일정' },
+    ]
+
+    const [enabled, setEnabled] = useState<Record<string, boolean>>(
+      Object.fromEntries(widgets.map((w) => [w.id, true]))
+    )
+
+    const toggle = (id: string) => setEnabled((prev) => ({ ...prev, [id]: !prev[id] }))
+
+    const categories = [...new Set(widgets.map((w) => w.category))]
+    const activeCount = Object.values(enabled).filter(Boolean).length
+
+    return (
+      <div style={{ width: 360, fontFamily: 'system-ui, sans-serif', background: '#f8fafc', borderRadius: 14, overflow: 'hidden', border: '1px solid #e2e8f0' }}>
+        <div style={{ padding: '14px 18px', background: 'linear-gradient(135deg, #1d4ed8, #4f46e5)', color: '#fff' }}>
+          <div style={{ fontSize: 14, fontWeight: 700 }}>위젯 관리</div>
+          <div style={{ fontSize: 12, opacity: 0.8, marginTop: 2 }}>{activeCount}/{widgets.length}개 활성화</div>
+        </div>
+        <div style={{ padding: '8px 0' }}>
+          {categories.map((cat) => (
+            <div key={cat}>
+              <div style={{ padding: '10px 18px 4px', fontSize: 10, fontWeight: 700, color: '#94a3b8', letterSpacing: 1 }}>{cat.toUpperCase()}</div>
+              {widgets.filter((w) => w.category === cat).map((widget) => (
+                <div
+                  key={widget.id}
+                  style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 18px', borderBottom: '1px solid #f1f5f9', background: enabled[widget.id] ? '#fff' : '#f9fafb' }}
+                >
+                  <span style={{ fontSize: 14, color: '#d1d5db', cursor: 'grab', userSelect: 'none' }}>⠿</span>
+                  <div style={{ flex: 1 }}>
+                    <div style={{ fontSize: 13, fontWeight: 600, color: enabled[widget.id] ? '#111827' : '#9ca3af' }}>{widget.label}</div>
+                    <div style={{ fontSize: 11, color: '#9ca3af' }}>{widget.desc}</div>
+                  </div>
+                  <Toggle checked={enabled[widget.id]} onCheckedChange={() => toggle(widget.id)} />
+                </div>
+              ))}
+            </div>
+          ))}
+        </div>
+        <div style={{ padding: '10px 18px', fontSize: 11, color: '#6b7280', borderTop: '1px solid #e2e8f0', background: '#fff' }}>
+          대시보드에 {activeCount}개 위젯이 표시됩니다
+        </div>
+      </div>
+    )
+  },
+}
+
+export const MUI_Mantine_실험실_기능_플래그: Story = {
+  name: 'MUI + Mantine — 실험실 기능 플래그 (Cycle 167)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'MUI + Mantine Labs/Experimental 기능 플래그 패턴. 실험 단계별(알파/베타/RC) ' +
+          '기능 활성화 + 위험도 표시 + 의존성 경고.',
+      },
+    },
+  },
+  render: function MUIMantineLabsFlagsRender() {
+    type Stage = 'alpha' | 'beta' | 'rc'
+
+    const features: { id: string; label: string; desc: string; stage: Stage; risky: boolean; deps?: string[] }[] = [
+      { id: 'concurrent', label: 'Concurrent Mode', desc: 'React 18 동시성 렌더링', stage: 'rc', risky: false },
+      { id: 'virtual', label: 'Virtual Scroll', desc: '대용량 리스트 가상화', stage: 'beta', risky: false, deps: ['concurrent'] },
+      { id: 'ai-suggest', label: 'AI 자동 완성', desc: '입력 필드 AI 제안 기능', stage: 'alpha', risky: true },
+      { id: 'canvas', label: 'Canvas 렌더러', desc: '실험적 Canvas 기반 렌더링', stage: 'alpha', risky: true, deps: ['concurrent'] },
+      { id: 'fluid', label: 'Fluid Typography', desc: '반응형 폰트 크기 자동 조정', stage: 'beta', risky: false },
+    ]
+
+    const [flags, setFlags] = useState<Record<string, boolean>>(
+      Object.fromEntries(features.map((f) => [f.id, false]))
+    )
+
+    const stageStyle: Record<Stage, { bg: string; color: string }> = {
+      alpha: { bg: '#fee2e2', color: '#dc2626' },
+      beta: { bg: '#fef3c7', color: '#d97706' },
+      rc: { bg: '#dcfce7', color: '#16a34a' },
+    }
+
+    const toggle = (id: string) => {
+      const feature = features.find((f) => f.id === id)
+      if (!feature) return
+      setFlags((prev) => {
+        const next = { ...prev, [id]: !prev[id] }
+        if (next[id] && feature.deps) {
+          feature.deps.forEach((dep) => { next[dep] = true })
+        }
+        return next
+      })
+    }
+
+    return (
+      <div style={{ width: 400, fontFamily: 'system-ui, sans-serif', background: '#0f172a', borderRadius: 14, overflow: 'hidden', border: '1px solid #1e293b' }}>
+        <div style={{ padding: '14px 18px', borderBottom: '1px solid #1e293b', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <span style={{ fontSize: 13, fontWeight: 700, color: '#f8fafc' }}>실험 기능 Labs</span>
+          <span style={{ fontSize: 11, color: '#475569' }}>{Object.values(flags).filter(Boolean).length} 활성</span>
+        </div>
+        {features.map((f) => {
+          const ss = stageStyle[f.stage]
+          const isOn = flags[f.id]
+          const hasDeps = f.deps && f.deps.some((d) => !flags[d]) && isOn
+          return (
+            <div key={f.id} style={{ padding: '12px 18px', borderBottom: '1px solid #1e293b' }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 10 }}>
+                <div style={{ flex: 1 }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
+                    <span style={{ fontSize: 13, fontWeight: 600, color: '#e2e8f0' }}>{f.label}</span>
+                    <span style={{ fontSize: 9, fontWeight: 700, padding: '1px 6px', borderRadius: 4, background: ss.bg, color: ss.color }}>{f.stage.toUpperCase()}</span>
+                    {f.risky && <span style={{ fontSize: 9, fontWeight: 700, padding: '1px 6px', borderRadius: 4, background: '#fee2e2', color: '#dc2626' }}>위험</span>}
+                  </div>
+                  <div style={{ fontSize: 11, color: '#64748b' }}>{f.desc}</div>
+                  {hasDeps && (
+                    <div style={{ fontSize: 10, color: '#fbbf24', marginTop: 4 }}>
+                      의존성 자동 활성화: {f.deps?.join(', ')}
+                    </div>
+                  )}
+                </div>
+                <Toggle checked={isOn} onCheckedChange={() => toggle(f.id)} />
+              </div>
+            </div>
+          )
+        })}
+      </div>
+    )
+  },
+}
