@@ -20162,3 +20162,307 @@ export const TaskBoard: Story = {
   },
   render: () => <TaskBoardRender />,
 }
+
+/* ══════════════════════════════════════════════════════════════════════════
+   Template #72 — PricingPage (Radix UI 벤치마크)
+   Radix UI의 핵심 패턴을 Orbit UI로 구현한 요금제 비교 페이지:
+   · 조합 패턴(Compound) → SolidButton + OutlineButton + LabelBadge 조합
+   · 제어/비제어 이중 API → Toggle(연간/월간), Switch(기능 토글)
+   · 데이터 속성 상태 표현 → data-recommended, data-selected
+   · 충돌 인식 포지셔닝 → Tooltip.Content 자동 위치 조정
+   ══════════════════════════════════════════════════════════════════════════ */
+
+type PricingTier = 'free' | 'pro' | 'team' | 'enterprise'
+type BillingCycle = 'monthly' | 'annual'
+
+interface PricingPlan {
+  key: PricingTier
+  name: string
+  monthly: number | null
+  annual: number | null
+  description: string
+  badge?: string
+  features: { label: string; tooltip?: string; included: boolean }[]
+  cta: string
+  ctaStyle: 'solid' | 'outline'
+}
+
+const PLANS: PricingPlan[] = [
+  {
+    key: 'free',
+    name: 'Free',
+    monthly: 0,
+    annual: 0,
+    description: '개인 프로젝트와 학습에 최적',
+    features: [
+      { label: '컴포넌트 50개', included: true },
+      { label: '프로젝트 1개', included: true },
+      { label: '커뮤니티 지원', included: true },
+      { label: '다크모드', tooltip: '시스템 테마 자동 감지 포함', included: false },
+      { label: '커스텀 토큰', included: false },
+      { label: '팀 협업', included: false },
+      { label: 'SSO / SAML', included: false },
+      { label: 'SLA 보장', included: false },
+    ],
+    cta: '무료 시작',
+    ctaStyle: 'outline',
+  },
+  {
+    key: 'pro',
+    name: 'Pro',
+    monthly: 29000,
+    annual: 23000,
+    description: '전문 개발자와 디자이너를 위한 플랜',
+    badge: '인기',
+    features: [
+      { label: '컴포넌트 전체', included: true },
+      { label: '프로젝트 무제한', included: true },
+      { label: '우선 지원', included: true },
+      { label: '다크모드', tooltip: '시스템 테마 자동 감지 포함', included: true },
+      { label: '커스텀 토큰', included: true },
+      { label: '팀 협업', included: false },
+      { label: 'SSO / SAML', included: false },
+      { label: 'SLA 보장', included: false },
+    ],
+    cta: 'Pro 시작',
+    ctaStyle: 'solid',
+  },
+  {
+    key: 'team',
+    name: 'Team',
+    monthly: 79000,
+    annual: 63000,
+    description: '빠르게 성장하는 팀을 위한 플랜',
+    features: [
+      { label: '컴포넌트 전체', included: true },
+      { label: '프로젝트 무제한', included: true },
+      { label: '전담 지원', included: true },
+      { label: '다크모드', tooltip: '시스템 테마 자동 감지 포함', included: true },
+      { label: '커스텀 토큰', included: true },
+      { label: '팀 협업', included: true },
+      { label: 'SSO / SAML', included: false },
+      { label: 'SLA 보장', included: false },
+    ],
+    cta: 'Team 시작',
+    ctaStyle: 'outline',
+  },
+  {
+    key: 'enterprise',
+    name: 'Enterprise',
+    monthly: null,
+    annual: null,
+    description: '대규모 조직을 위한 맞춤형 솔루션',
+    features: [
+      { label: '컴포넌트 전체', included: true },
+      { label: '프로젝트 무제한', included: true },
+      { label: '전담 매니저', included: true },
+      { label: '다크모드', tooltip: '시스템 테마 자동 감지 포함', included: true },
+      { label: '커스텀 토큰', included: true },
+      { label: '팀 협업', included: true },
+      { label: 'SSO / SAML', included: true },
+      { label: 'SLA 보장', included: true },
+    ],
+    cta: '영업팀 문의',
+    ctaStyle: 'outline',
+  },
+]
+
+const PRICING72_FAQ = [
+  { q: '무료 플랜에서 유료 플랜으로 업그레이드하면 어떻게 되나요?', a: '즉시 업그레이드됩니다. 남은 기간은 일할 계산으로 처리됩니다.' },
+  { q: '연간 결제 시 할인은 어떻게 적용되나요?', a: '월간 금액 대비 약 20% 할인됩니다. 결제 주기 변경은 언제든 가능합니다.' },
+  { q: '팀 플랜에서 멤버 수에 제한이 있나요?', a: 'Team 플랜은 최대 25명, Enterprise 플랜은 무제한입니다.' },
+]
+
+const PricingPage72Render = () => {
+  const [billing, setBilling] = React.useState<BillingCycle>('monthly')
+  const [selectedPlan, setSelectedPlan] = React.useState<PricingTier>('pro')
+  const [openFaq, setOpenFaq] = React.useState<number | null>(null)
+
+  const formatPrice = (price: number | null) => {
+    if (price === null) return '문의'
+    if (price === 0) return '무료'
+    return `₩${price.toLocaleString()}`
+  }
+
+  const getPrice = (plan: PricingPlan) =>
+    billing === 'annual' ? plan.annual : plan.monthly
+
+  return (
+    <div style={{ minHeight: '100vh', background: 'var(--sem-eclipse-color-backgroundPrimary)', display: 'flex', flexDirection: 'column' }}>
+      {/* Nav */}
+      <nav style={{ display: 'flex', alignItems: 'center', padding: '14px 40px', borderBottom: '1px solid var(--sem-eclipse-color-borderSubtle)', flexShrink: 0 }}>
+        <span style={{ fontSize: 16, fontWeight: 800, color: 'var(--sem-eclipse-color-foregroundPrimary)', letterSpacing: '-0.03em' }}>Orbit UI</span>
+        <div style={{ flex: 1 }} />
+        <div style={{ display: 'flex', gap: 8 }}>
+          <OutlineButton color="gray" size="small" onClick={() => {}}>
+            <OutlineButton.Center>로그인</OutlineButton.Center>
+          </OutlineButton>
+          <SolidButton color="primary" size="small" onClick={() => {}}>
+            <SolidButton.Center>무료 시작</SolidButton.Center>
+          </SolidButton>
+        </div>
+      </nav>
+
+      {/* Hero */}
+      <div style={{ textAlign: 'center', padding: '56px 40px 40px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12 }}>
+        <LabelBadge color="benefit">Radix UI 조합 패턴 벤치마크</LabelBadge>
+        <h1 style={{ margin: 0, fontSize: 36, fontWeight: 800, color: 'var(--sem-eclipse-color-foregroundPrimary)', letterSpacing: '-0.03em', lineHeight: 1.15 }}>
+          단순하고 투명한 요금제
+        </h1>
+        <p style={{ margin: 0, fontSize: 16, color: 'var(--sem-eclipse-color-foregroundTertiary)', maxWidth: 480 }}>
+          팀 규모에 맞게 시작하고, 성장에 따라 언제든 업그레이드하세요.
+        </p>
+
+        {/* Billing toggle — Radix 제어/비제어 패턴 */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginTop: 8, padding: '8px 16px', borderRadius: 24, background: 'var(--sem-eclipse-color-backgroundSecondary)', border: '1px solid var(--sem-eclipse-color-borderSubtle)' }}>
+          <span style={{ fontSize: 13, fontWeight: billing === 'monthly' ? 700 : 400, color: billing === 'monthly' ? 'var(--sem-eclipse-color-foregroundPrimary)' : 'var(--sem-eclipse-color-foregroundTertiary)', transition: 'all 0.15s' }}>
+            월간
+          </span>
+          <Toggle
+            checked={billing === 'annual'}
+            onCheckedChange={(checked) => setBilling(checked ? 'annual' : 'monthly')}
+          />
+          <span style={{ fontSize: 13, fontWeight: billing === 'annual' ? 700 : 400, color: billing === 'annual' ? 'var(--sem-eclipse-color-foregroundPrimary)' : 'var(--sem-eclipse-color-foregroundTertiary)', transition: 'all 0.15s' }}>
+            연간
+          </span>
+          {billing === 'annual' && (
+            <span style={{ fontSize: 11, fontWeight: 700, padding: '1px 8px', borderRadius: 10, background: '#10b98120', color: '#10b981' }}>20% 절약</span>
+          )}
+        </div>
+      </div>
+
+      {/* Plan cards */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 12, padding: '0 40px 40px', flex: 1 }}>
+        {PLANS.map((plan) => {
+          const isSelected = selectedPlan === plan.key
+          const isRecommended = plan.badge === '인기'
+          const price = getPrice(plan)
+
+          return (
+            <div
+              key={plan.key}
+              data-recommended={isRecommended || undefined}
+              data-selected={isSelected || undefined}
+              onClick={() => setSelectedPlan(plan.key)}
+              style={{
+                position: 'relative',
+                borderRadius: 12,
+                border: `2px solid ${isSelected ? 'var(--sem-eclipse-color-fillPrimary)' : isRecommended ? '#6366f1' : 'var(--sem-eclipse-color-borderSubtle)'}`,
+                padding: '20px',
+                background: isSelected ? 'color-mix(in srgb, var(--sem-eclipse-color-fillPrimary) 5%, var(--sem-eclipse-color-backgroundPrimary))' : 'var(--sem-eclipse-color-backgroundPrimary)',
+                cursor: 'pointer',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 0,
+                transition: 'border-color 0.15s, background 0.15s, box-shadow 0.15s',
+                boxShadow: isSelected ? '0 0 0 3px color-mix(in srgb, var(--sem-eclipse-color-fillPrimary) 15%, transparent)' : 'none',
+              }}
+            >
+              {isRecommended && (
+                <div style={{ position: 'absolute', top: -12, left: '50%', transform: 'translateX(-50%)' }}>
+                  <LabelBadge color="benefit">{plan.badge}</LabelBadge>
+                </div>
+              )}
+
+              <div style={{ marginBottom: 16 }}>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 6 }}>
+                  <span style={{ fontSize: 14, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{plan.name}</span>
+                  {isSelected && <span style={{ fontSize: 10, fontWeight: 700, color: 'var(--sem-eclipse-color-fillPrimary)' }}>선택됨</span>}
+                </div>
+                <div style={{ fontSize: 24, fontWeight: 800, color: 'var(--sem-eclipse-color-foregroundPrimary)', letterSpacing: '-0.03em', marginBottom: 2 }}>
+                  {formatPrice(price)}
+                  {price !== null && price > 0 && (
+                    <span style={{ fontSize: 12, fontWeight: 400, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginLeft: 4 }}>/월</span>
+                  )}
+                </div>
+                <div style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)', lineHeight: 1.4 }}>{plan.description}</div>
+              </div>
+
+              <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 6, marginBottom: 16 }}>
+                {plan.features.map((feat) => (
+                  <Tooltip.Provider key={feat.label} delayDuration={300}>
+                    <Tooltip>
+                      <Tooltip.Trigger asChild>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 8, cursor: feat.tooltip ? 'help' : 'default' }}>
+                          <span style={{ fontSize: 12, fontWeight: 700, color: feat.included ? '#10b981' : 'var(--sem-eclipse-color-foregroundQuaternary)', minWidth: 14 }}>
+                            {feat.included ? '✓' : '—'}
+                          </span>
+                          <span style={{ fontSize: 12, color: feat.included ? 'var(--sem-eclipse-color-foregroundPrimary)' : 'var(--sem-eclipse-color-foregroundQuaternary)', textDecoration: feat.tooltip ? 'underline dotted' : 'none' }}>
+                            {feat.label}
+                          </span>
+                        </div>
+                      </Tooltip.Trigger>
+                      {feat.tooltip && <Tooltip.Content>{feat.tooltip}</Tooltip.Content>}
+                    </Tooltip>
+                  </Tooltip.Provider>
+                ))}
+              </div>
+
+              <div onClick={(e) => e.stopPropagation()}>
+                {plan.ctaStyle === 'solid' ? (
+                  <SolidButton color="primary" size="small" onClick={() => {}}>
+                    <SolidButton.Center>{plan.cta}</SolidButton.Center>
+                  </SolidButton>
+                ) : (
+                  <OutlineButton color="gray" size="small" onClick={() => {}}>
+                    <OutlineButton.Center>{plan.cta}</OutlineButton.Center>
+                  </OutlineButton>
+                )}
+              </div>
+            </div>
+          )
+        })}
+      </div>
+
+      {/* Feature comparison bar */}
+      <div style={{ margin: '0 40px 40px', padding: '16px 20px', borderRadius: 10, background: 'var(--sem-eclipse-color-backgroundSecondary)', border: '1px solid var(--sem-eclipse-color-borderSubtle)' }}>
+        <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginBottom: 10 }}>선택된 플랜 비교</div>
+        <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap' }}>
+          {PLANS.find((p) => p.key === selectedPlan)?.features.filter((f) => f.included).map((f) => (
+            <span key={f.label} style={{ fontSize: 12, color: '#10b981', fontWeight: 600 }}>✓ {f.label}</span>
+          ))}
+        </div>
+      </div>
+
+      {/* FAQ */}
+      <div style={{ padding: '0 40px 48px', maxWidth: 720, width: '100%', margin: '0 auto' }}>
+        <div style={{ fontSize: 18, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 16, textAlign: 'center' }}>자주 묻는 질문</div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 0, borderRadius: 10, border: '1px solid var(--sem-eclipse-color-borderSubtle)', overflow: 'hidden' }}>
+          {PRICING72_FAQ.map((faq, i) => (
+            <div key={i} style={{ borderBottom: i < PRICING72_FAQ.length - 1 ? '1px solid var(--sem-eclipse-color-borderSubtle)' : 'none' }}>
+              <button
+                onClick={() => setOpenFaq(openFaq === i ? null : i)}
+                style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '14px 18px', background: 'none', border: 'none', cursor: 'pointer', textAlign: 'left', gap: 12 }}
+                aria-expanded={openFaq === i}
+              >
+                <span style={{ fontSize: 13, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{faq.q}</span>
+                <span style={{ fontSize: 16, color: 'var(--sem-eclipse-color-foregroundTertiary)', flexShrink: 0, transform: openFaq === i ? 'rotate(45deg)' : 'none', transition: 'transform 0.2s' }}>+</span>
+              </button>
+              {openFaq === i && (
+                <div style={{ padding: '0 18px 14px', fontSize: 13, color: 'var(--sem-eclipse-color-foregroundSecondary)', lineHeight: 1.6 }}>
+                  {faq.a}
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const PricingComparison: Story = {
+  name: '요금제 비교 페이지 (Radix UI 벤치마크)',
+  parameters: {
+    layout: 'fullscreen',
+    docs: {
+      description: {
+        story:
+          'Radix UI 조합 패턴을 Orbit UI로 구현한 요금제 비교 페이지. ' +
+          'Toggle(연간/월간 청구), Tooltip(기능 설명), SolidButton/OutlineButton(CTA), ' +
+          'LabelBadge(인기 배지), data-recommended/data-selected 속성 패턴을 활용합니다.',
+      },
+    },
+  },
+  render: () => <PricingPage72Render />,
+}
