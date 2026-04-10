@@ -12713,3 +12713,400 @@ export const ReviewPortal: Story = {
   render: () => <ReviewPortalRender />,
 }
 
+/* ============================================================
+   Template 43: ApiPlayground — Mantine + Ant Design 벤치마크
+   API 플레이그라운드: HTTP 요청 테스트 + 응답 뷰어
+   ============================================================ */
+type ApiMethod = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH'
+type ApiTab = 'params' | 'headers' | 'body' | 'auth'
+type ApiEnvKey = 'dev' | 'staging' | 'prod'
+
+type ApiParam = { id: string; key: string; value: string; enabled: boolean }
+type ApiHistoryItem = { method: ApiMethod; url: string; status: number; time: string }
+
+const API_METHOD_COLORS: Record<ApiMethod, { color: string; bg: string }> = {
+  GET: { color: '#10b981', bg: '#f0fdf4' },
+  POST: { color: '#6366f1', bg: '#f0f1ff' },
+  PUT: { color: '#f59e0b', bg: '#fffbeb' },
+  DELETE: { color: '#ef4444', bg: '#fef2f2' },
+  PATCH: { color: '#8b5cf6', bg: '#faf5ff' },
+}
+
+const API_ENVS: Record<ApiEnvKey, { label: string; base: string }> = {
+  dev: { label: 'Development', base: 'https://api-dev.example.com' },
+  staging: { label: 'Staging', base: 'https://api-staging.example.com' },
+  prod: { label: 'Production', base: 'https://api.example.com' },
+}
+
+const API_HISTORY: ApiHistoryItem[] = [
+  { method: 'GET', url: '/users', status: 200, time: '42ms' },
+  { method: 'POST', url: '/users', status: 201, time: '128ms' },
+  { method: 'GET', url: '/users/42', status: 200, time: '38ms' },
+  { method: 'DELETE', url: '/users/41', status: 204, time: '55ms' },
+  { method: 'PUT', url: '/users/42', status: 200, time: '91ms' },
+]
+
+const pgColors = {
+  bg: '#0f172a',
+  sidebar: '#1e293b',
+  card: '#1e293b',
+  cardInner: '#0f172a',
+  border: '#334155',
+  fg: '#f1f5f9',
+  fgSub: '#94a3b8',
+  accent: '#6366f1',
+  success: '#10b981',
+  error: '#ef4444',
+  input: '#0f172a',
+}
+
+const ApiPlaygroundRender = () => {
+  const [method, setMethod] = useState<ApiMethod>('GET')
+  const [endpoint, setEndpoint] = useState('/users')
+  const [env, setEnv] = useState<ApiEnvKey>('dev')
+  const [activeTab, setActiveTab] = useState<ApiTab>('params')
+  const [params, setParams] = useState<ApiParam[]>([
+    { id: 'p1', key: 'page', value: '1', enabled: true },
+    { id: 'p2', key: 'limit', value: '20', enabled: true },
+    { id: 'p3', key: 'sort', value: 'created_at', enabled: false },
+  ])
+  const [loading, setLoading] = useState(false)
+  const [response, setResponse] = useState<{ status: number; time: string; body: string } | null>(null)
+
+  const tabs: { key: ApiTab; label: string }[] = [
+    { key: 'params', label: 'Params' },
+    { key: 'headers', label: 'Headers' },
+    { key: 'body', label: 'Body' },
+    { key: 'auth', label: 'Auth' },
+  ]
+
+  const mockResponses: Partial<Record<ApiMethod, { status: number; body: string }>> = {
+    GET: { status: 200, body: '{\n  "data": [\n    { "id": 1, "name": "김희준", "role": "admin" },\n    { "id": 2, "name": "이디자인", "role": "editor" }\n  ],\n  "total": 2,\n  "page": 1\n}' },
+    POST: { status: 201, body: '{\n  "id": 3,\n  "name": "박개발",\n  "role": "viewer",\n  "createdAt": "2026-04-10"\n}' },
+    DELETE: { status: 204, body: '' },
+    PUT: { status: 200, body: '{\n  "id": 1,\n  "name": "김희준",\n  "role": "superadmin",\n  "updatedAt": "2026-04-10"\n}' },
+    PATCH: { status: 200, body: '{\n  "id": 1,\n  "name": "김희준 (수정됨)"\n}' },
+  }
+
+  const sendRequest = () => {
+    setLoading(true)
+    setResponse(null)
+    setTimeout(() => {
+      const mock = mockResponses[method] ?? { status: 200, body: '{}' }
+      setResponse({ ...mock, time: `${Math.floor(Math.random() * 150) + 30}ms` })
+      setLoading(false)
+    }, 800)
+  }
+
+  const toggleParam = (id: string) => {
+    setParams((prev) => prev.map((p) => p.id === id ? { ...p, enabled: !p.enabled } : p))
+  }
+
+  return (
+    <div style={{
+      width: 960,
+      height: 640,
+      background: pgColors.bg,
+      borderRadius: 16,
+      border: `1px solid ${pgColors.border}`,
+      overflow: 'hidden',
+      display: 'flex',
+      fontFamily: '"Fira Code", "Cascadia Code", monospace',
+    }}>
+      {/* Sidebar: History */}
+      <div style={{
+        width: 220,
+        borderRight: `1px solid ${pgColors.border}`,
+        background: pgColors.sidebar,
+        display: 'flex',
+        flexDirection: 'column',
+        overflow: 'hidden',
+      }}>
+        <div style={{ padding: '12px 14px', borderBottom: `1px solid ${pgColors.border}` }}>
+          <div style={{ fontSize: 10, fontWeight: 700, color: pgColors.fgSub, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: 6 }}>
+            History
+          </div>
+          {/* Env selector */}
+          <div style={{ display: 'flex', gap: 4 }}>
+            {(Object.keys(API_ENVS) as ApiEnvKey[]).map((e) => (
+              <button
+                key={e}
+                onClick={() => setEnv(e)}
+                style={{
+                  flex: 1,
+                  padding: '3px 0',
+                  borderRadius: 4,
+                  border: 'none',
+                  background: env === e ? pgColors.accent : pgColors.input,
+                  color: env === e ? '#fff' : pgColors.fgSub,
+                  fontSize: 9,
+                  fontWeight: 700,
+                  cursor: 'pointer',
+                  textTransform: 'uppercase',
+                }}
+              >
+                {e}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div style={{ flex: 1, overflowY: 'auto', padding: 8 }}>
+          {API_HISTORY.map((item, i) => {
+            const cfg = API_METHOD_COLORS[item.method]
+            return (
+              <div
+                key={i}
+                onClick={() => { setMethod(item.method); setEndpoint(item.url) }}
+                style={{
+                  padding: '8px 10px',
+                  borderRadius: 6,
+                  marginBottom: 4,
+                  cursor: 'pointer',
+                  background: pgColors.input,
+                  border: `1px solid ${pgColors.border}`,
+                }}
+              >
+                <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 2 }}>
+                  <span style={{
+                    fontSize: 9, fontWeight: 800, padding: '1px 5px', borderRadius: 3,
+                    background: cfg.bg, color: cfg.color,
+                  }}>
+                    {item.method}
+                  </span>
+                  <span style={{
+                    fontSize: 9,
+                    color: item.status < 300 ? pgColors.success : pgColors.error,
+                    fontWeight: 700,
+                  }}>
+                    {item.status}
+                  </span>
+                </div>
+                <div style={{ fontSize: 11, color: pgColors.fgSub, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                  {item.url}
+                </div>
+                <div style={{ fontSize: 10, color: '#475569', marginTop: 2 }}>{item.time}</div>
+              </div>
+            )
+          })}
+        </div>
+      </div>
+
+      {/* Main area */}
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+        {/* URL bar */}
+        <div style={{
+          padding: '12px 16px',
+          borderBottom: `1px solid ${pgColors.border}`,
+          display: 'flex',
+          gap: 8,
+          alignItems: 'center',
+        }}>
+          {/* Method selector */}
+          <div style={{ display: 'flex', gap: 4 }}>
+            {(['GET', 'POST', 'PUT', 'DELETE', 'PATCH'] as ApiMethod[]).map((m) => (
+              <button
+                key={m}
+                onClick={() => setMethod(m)}
+                style={{
+                  padding: '4px 8px',
+                  borderRadius: 4,
+                  border: 'none',
+                  background: method === m ? API_METHOD_COLORS[m].bg : pgColors.input,
+                  color: method === m ? API_METHOD_COLORS[m].color : pgColors.fgSub,
+                  fontSize: 10,
+                  fontWeight: 800,
+                  cursor: 'pointer',
+                  letterSpacing: '0.02em',
+                }}
+              >
+                {m}
+              </button>
+            ))}
+          </div>
+
+          {/* Endpoint input */}
+          <div style={{
+            flex: 1,
+            display: 'flex',
+            alignItems: 'center',
+            background: pgColors.input,
+            border: `1px solid ${pgColors.border}`,
+            borderRadius: 6,
+            overflow: 'hidden',
+          }}>
+            <span style={{ padding: '0 8px', fontSize: 11, color: pgColors.fgSub, borderRight: `1px solid ${pgColors.border}`, whiteSpace: 'nowrap' }}>
+              {API_ENVS[env].base}
+            </span>
+            <input
+              value={endpoint}
+              onChange={(e) => setEndpoint(e.target.value)}
+              style={{
+                flex: 1,
+                padding: '7px 10px',
+                background: 'transparent',
+                border: 'none',
+                outline: 'none',
+                fontSize: 13,
+                color: pgColors.fg,
+                fontFamily: 'inherit',
+              }}
+            />
+          </div>
+
+          {/* Send button */}
+          <OutlineButton
+            color="primary"
+            size="small"
+            loading={loading}
+            onClick={sendRequest}
+          >
+            <OutlineButton.Center>
+              {loading ? '전송 중...' : 'Send'}
+            </OutlineButton.Center>
+          </OutlineButton>
+        </div>
+
+        {/* Request config + Response */}
+        <div style={{ flex: 1, display: 'grid', gridTemplateRows: '1fr 1fr', overflow: 'hidden' }}>
+          {/* Request config */}
+          <div style={{ borderBottom: `1px solid ${pgColors.border}`, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+            {/* Tabs */}
+            <div style={{ display: 'flex', borderBottom: `1px solid ${pgColors.border}`, padding: '0 16px' }}>
+              {tabs.map((tab) => (
+                <button
+                  key={tab.key}
+                  onClick={() => setActiveTab(tab.key)}
+                  style={{
+                    padding: '8px 14px',
+                    background: 'none',
+                    border: 'none',
+                    borderBottom: `2px solid ${activeTab === tab.key ? pgColors.accent : 'transparent'}`,
+                    color: activeTab === tab.key ? pgColors.fg : pgColors.fgSub,
+                    fontSize: 12,
+                    fontWeight: 600,
+                    cursor: 'pointer',
+                    marginBottom: -1,
+                  }}
+                >
+                  {tab.label}
+                  {tab.key === 'params' && (
+                    <span style={{
+                      marginLeft: 6, fontSize: 10,
+                      background: pgColors.accent, color: '#fff',
+                      padding: '1px 5px', borderRadius: 10,
+                    }}>
+                      {params.filter((p) => p.enabled).length}
+                    </span>
+                  )}
+                </button>
+              ))}
+            </div>
+
+            {/* Tab content */}
+            <div style={{ flex: 1, overflowY: 'auto', padding: '8px 16px' }}>
+              {activeTab === 'params' && (
+                <div>
+                  <div style={{ display: 'grid', gridTemplateColumns: '24px 1fr 1fr 60px', gap: 4, marginBottom: 6, fontSize: 10, fontWeight: 700, color: pgColors.fgSub, padding: '0 4px' }}>
+                    <span></span><span>Key</span><span>Value</span><span></span>
+                  </div>
+                  {params.map((param) => (
+                    <div key={param.id} style={{ display: 'grid', gridTemplateColumns: '24px 1fr 1fr 60px', gap: 4, marginBottom: 4, alignItems: 'center' }}>
+                      <Switch
+                        checked={param.enabled}
+                        onCheckedChange={() => toggleParam(param.id)}
+                        aria-label={param.key}
+                      />
+                      <div style={{ padding: '4px 8px', background: pgColors.input, borderRadius: 4, border: `1px solid ${pgColors.border}`, fontSize: 12, color: param.enabled ? pgColors.fg : pgColors.fgSub }}>
+                        {param.key}
+                      </div>
+                      <div style={{ padding: '4px 8px', background: pgColors.input, borderRadius: 4, border: `1px solid ${pgColors.border}`, fontSize: 12, color: param.enabled ? '#10b981' : pgColors.fgSub }}>
+                        {param.value}
+                      </div>
+                      <span style={{ fontSize: 10, color: pgColors.fgSub, paddingLeft: 4 }}>
+                        {param.enabled ? 'active' : 'off'}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              )}
+              {activeTab === 'headers' && (
+                <div style={{ fontSize: 12, color: pgColors.fgSub, padding: '8px 0' }}>
+                  {[
+                    { key: 'Authorization', value: 'Bearer eyJhbGci...' },
+                    { key: 'Content-Type', value: 'application/json' },
+                    { key: 'Accept', value: 'application/json' },
+                  ].map((h) => (
+                    <div key={h.key} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 4, marginBottom: 4 }}>
+                      <div style={{ padding: '4px 8px', background: pgColors.input, borderRadius: 4, border: `1px solid ${pgColors.border}`, color: '#f59e0b' }}>{h.key}</div>
+                      <div style={{ padding: '4px 8px', background: pgColors.input, borderRadius: 4, border: `1px solid ${pgColors.border}`, color: '#10b981', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{h.value}</div>
+                    </div>
+                  ))}
+                </div>
+              )}
+              {activeTab === 'body' && (
+                <div style={{ fontSize: 12, color: '#10b981', background: pgColors.input, borderRadius: 6, border: `1px solid ${pgColors.border}`, padding: 12, fontFamily: 'inherit' }}>
+                  {method === 'POST' || method === 'PUT' || method === 'PATCH'
+                    ? '{\n  "name": "새 사용자",\n  "role": "viewer"\n}'
+                    : <span style={{ color: pgColors.fgSub }}>{`// Body is not used for ${method} requests`}</span>}
+                </div>
+              )}
+              {activeTab === 'auth' && (
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 8, padding: '4px 0' }}>
+                  <div style={{ fontSize: 11, color: pgColors.fgSub }}>Bearer Token</div>
+                  <div style={{ padding: '6px 10px', background: pgColors.input, borderRadius: 4, border: `1px solid ${pgColors.border}`, fontSize: 12, color: '#f59e0b', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                    eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6Iuqxi...
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Response */}
+          <div style={{ display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+            <div style={{ padding: '8px 16px', borderBottom: `1px solid ${pgColors.border}`, display: 'flex', alignItems: 'center', gap: 10 }}>
+              <span style={{ fontSize: 11, fontWeight: 700, color: pgColors.fgSub }}>Response</span>
+              {response && (
+                <>
+                  <span style={{
+                    fontSize: 11, fontWeight: 800, padding: '1px 6px', borderRadius: 4,
+                    background: response.status < 300 ? '#f0fdf4' : '#fef2f2',
+                    color: response.status < 300 ? pgColors.success : pgColors.error,
+                  }}>
+                    {response.status}
+                  </span>
+                  <span style={{ fontSize: 11, color: pgColors.fgSub }}>{response.time}</span>
+                  <span style={{ marginLeft: 'auto', fontSize: 10, color: pgColors.fgSub }}>JSON</span>
+                </>
+              )}
+            </div>
+            <div style={{ flex: 1, overflowY: 'auto', padding: '10px 16px' }}>
+              {loading && (
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8, color: pgColors.fgSub, fontSize: 12 }}>
+                  <Loading size="small" />
+                  요청 전송 중...
+                </div>
+              )}
+              {!loading && response && (
+                <pre style={{ margin: 0, fontSize: 12, color: '#10b981', fontFamily: 'inherit', whiteSpace: 'pre-wrap', lineHeight: 1.6 }}>
+                  {response.body || <span style={{ color: pgColors.fgSub }}>{'// 204 No Content'}</span>}
+                </pre>
+              )}
+              {!loading && !response && (
+                <div style={{ fontSize: 12, color: pgColors.fgSub }}>
+                  Send 버튼을 클릭해 요청을 전송하세요.
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const ApiPlayground: Story = {
+  name: 'API Playground (Mantine + Ant Design 벤치마크)',
+  render: () => <ApiPlaygroundRender />,
+}
+

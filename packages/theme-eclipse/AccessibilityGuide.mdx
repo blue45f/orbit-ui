@@ -488,5 +488,100 @@ import { Meta, Unstyled } from '@storybook/blocks'
     </div>
   </section>
 
+    {/* Mantine + Ant Design 접근성 벤치마크 */}
+    <section style={{ marginBottom: '64px' }}>
+      <h2 style={{ fontSize: '22px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '8px' }}>
+        Mantine + Ant Design 접근성 벤치마크
+      </h2>
+      <p style={{ fontSize: '14px', color: '#64748b', marginBottom: '24px', lineHeight: '1.6' }}>
+        Mantine과 Ant Design의 접근성 구현 방식에서 Orbit UI가 배울 수 있는 패턴을 분석합니다. (Cycle 53 벤치마크)
+      </p>
+
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '28px' }}>
+        {/* Mantine */}
+        <div style={{ borderRadius: '14px', border: '1.5px solid #339af020', background: '#f0f9ff', overflow: 'hidden' }}>
+          <div style={{ padding: '14px 18px', background: '#1971c2', display: 'flex', alignItems: 'center', gap: 8 }}>
+            <span style={{ fontSize: '12px', fontWeight: '800', color: '#fff', letterSpacing: '0.02em' }}>Mantine</span>
+            <span style={{ fontSize: '11px', color: '#a5d8ff', fontWeight: '600' }}>v7 Accessibility</span>
+          </div>
+          <div style={{ padding: '16px 18px' }}>
+            {[
+              { title: 'useMove + useHover 훅', desc: 'Slider/ColorPicker 마우스 이벤트를 키보드로 동일하게 처리하는 커스텀 훅 제공' },
+              { title: 'Switch role="switch"', desc: 'aria-checked + aria-label 자동 설정, label prop으로 연동 — htmlFor 수동 설정 불필요' },
+              { title: 'FocusTrap 컴포넌트', desc: '모달/팝오버 내 포커스 트랩을 독립 컴포넌트로 재사용 가능 — 커스텀 오버레이에 적용' },
+              { title: 'Accessible announcements', desc: '@mantine/notifications는 role="alert" + aria-live="polite"로 스크린리더 자동 읽기' },
+            ].map(({ title, desc }) => (
+              <div key={title} style={{ marginBottom: '12px' }}>
+                <div style={{ fontSize: '12px', fontWeight: '700', color: '#1971c2', marginBottom: '3px' }}>{title}</div>
+                <div style={{ fontSize: '12px', color: '#374151', lineHeight: '1.5' }}>{desc}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Ant Design */}
+        <div style={{ borderRadius: '14px', border: '1.5px solid #1677ff20', background: '#f0f5ff', overflow: 'hidden' }}>
+          <div style={{ padding: '14px 18px', background: '#1677ff', display: 'flex', alignItems: 'center', gap: 8 }}>
+            <span style={{ fontSize: '12px', fontWeight: '800', color: '#fff', letterSpacing: '0.02em' }}>Ant Design</span>
+            <span style={{ fontSize: '11px', color: '#bae0ff', fontWeight: '600' }}>v5 Accessibility</span>
+          </div>
+          <div style={{ padding: '16px 18px' }}>
+            {[
+              { title: 'Form + aria-describedby', desc: 'Form.Item의 help prop이 자동으로 aria-describedby를 인풋에 연결 — 에러 메시지 스크린리더 읽기 보장' },
+              { title: 'Table + 키보드 탐색', desc: 'rowKey로 각 행을 구분, Tab으로 셀 이동, Enter로 편집 모드 진입 — 데이터 테이블 접근성 기준' },
+              { title: 'ConfigProvider locale', desc: '날짜 형식, 레이블, 버튼 텍스트를 일괄 번역 — 스크린리더가 올바른 언어로 읽기 위해 중요' },
+              { title: 'Disabled vs ReadOnly 구분', desc: 'disabled는 포커스 불가, readOnly는 포커스 가능 — Tab 키보드 흐름 유지를 위한 올바른 사용법 명확화' },
+            ].map(({ title, desc }) => (
+              <div key={title} style={{ marginBottom: '12px' }}>
+                <div style={{ fontSize: '12px', fontWeight: '700', color: '#1677ff', marginBottom: '3px' }}>{title}</div>
+                <div style={{ fontSize: '12px', color: '#374151', lineHeight: '1.5' }}>{desc}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Switch 접근성 실전 가이드 */}
+      <div style={{ padding: '20px 24px', borderRadius: '12px', background: '#fff', border: '1.5px solid #e2e8f0', marginBottom: '16px' }}>
+        <div style={{ fontSize: '14px', fontWeight: '700', color: '#1e293b', marginBottom: '12px' }}>Switch 컴포넌트 접근성 체크리스트</div>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '10px' }}>
+          {[
+            { ok: true, item: 'role="switch" 자동 설정', detail: 'Radix Switch primitive 래핑으로 자동 적용' },
+            { ok: true, item: 'aria-checked 상태 반영', detail: 'checked prop이 변경될 때 즉시 업데이트' },
+            { ok: true, item: 'Space/Enter 키 토글', detail: 'Radix 기본 동작으로 키보드 토글 지원' },
+            { ok: true, item: 'aria-label 명시 권장', detail: 'label 텍스트만으로 의미 전달이 불명확할 때' },
+            { ok: false, item: 'disabled + aria-disabled 병행', detail: 'disabled prop 시 aria-disabled도 함께 설정 필요' },
+            { ok: false, item: 'aria-describedby 연결', detail: '설명 텍스트를 id로 연결해 스크린리더에 제공 필요' },
+          ].map(({ ok, item, detail }) => (
+            <div key={item} style={{ display: 'flex', gap: '8px', padding: '10px 12px', borderRadius: '8px', background: ok ? '#f0fdf4' : '#fffbeb', border: `1px solid ${ok ? '#bbf7d0' : '#fde68a'}` }}>
+              <span style={{ color: ok ? '#10b981' : '#f59e0b', fontWeight: '700', fontSize: '13px', flexShrink: 0 }}>{ok ? '✓' : '!'}</span>
+              <div>
+                <div style={{ fontSize: '12px', fontWeight: '700', color: '#1e293b', marginBottom: '2px' }}>{item}</div>
+                <div style={{ fontSize: '11px', color: '#64748b' }}>{detail}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* OutlineButton 접근성 */}
+      <div style={{ padding: '20px 24px', borderRadius: '12px', background: '#fff', border: '1.5px solid #e2e8f0' }}>
+        <div style={{ fontSize: '14px', fontWeight: '700', color: '#1e293b', marginBottom: '12px' }}>OutlineButton 접근성 모범 사례 (Ant Design 패턴)</div>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '12px', fontSize: '12px' }}>
+          {[
+            { label: '로딩 상태', code: 'loading={true}', desc: 'aria-busy="true" 자동 설정, 버튼 텍스트에 "처리 중..." 추가로 스크린리더에 상태 전달' },
+            { label: '아이콘 전용 버튼', code: 'aria-label="저장"', desc: '텍스트 없는 아이콘 버튼은 aria-label 필수 — Mantine의 ActionIcon처럼 명확한 레이블 제공' },
+            { label: '버튼 그룹', code: 'role="group"', desc: '연관된 버튼을 묶을 때 wrapper에 role="group" + aria-label="페이지 네비게이션" 추가' },
+          ].map(({ label, code, desc }) => (
+            <div key={label} style={{ padding: '12px', borderRadius: '8px', background: '#f8fafc', border: '1px solid #f1f5f9' }}>
+              <div style={{ fontSize: '11px', fontWeight: '700', color: '#6366f1', marginBottom: '4px' }}>{label}</div>
+              <code style={{ display: 'block', fontSize: '11px', color: '#1e293b', background: '#f0f1ff', padding: '3px 6px', borderRadius: '4px', marginBottom: '6px', fontFamily: 'monospace' }}>{code}</code>
+              <div style={{ color: '#64748b', lineHeight: '1.5' }}>{desc}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
   </div>
 </Unstyled>

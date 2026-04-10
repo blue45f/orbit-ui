@@ -488,3 +488,337 @@ export const 온보딩_기능_선택 = {
   name: '온보딩 기능 선택 패턴',
   render: () => <OnboardingFeaturesRender />,
 }
+
+/* --------------------------------------------------------------------------
+   Mantine 벤치마크: 테마 전환 스위치 패턴
+   Mantine의 ColorSchemeProvider + Switch 조합 — 테마 선택 시 미리보기 반영
+-------------------------------------------------------------------------- */
+type ThemeMode = 'light' | 'dark' | 'system'
+
+function ThemeSwitcherRender() {
+  const [mode, setMode] = useState<ThemeMode>('light')
+  const isDark = mode === 'dark' || (mode === 'system' && false)
+
+  const themeOptions: { key: ThemeMode; label: string; desc: string }[] = [
+    { key: 'light', label: '라이트 모드', desc: '밝은 배경의 기본 테마' },
+    { key: 'dark', label: '다크 모드', desc: '어두운 배경의 고대비 테마' },
+    { key: 'system', label: '시스템 설정 따르기', desc: 'OS 설정에 맞게 자동 전환' },
+  ]
+
+  const bg = isDark ? '#1e293b' : '#ffffff'
+  const cardBg = isDark ? '#0f172a' : '#f8fafc'
+  const fg = isDark ? '#f1f5f9' : '#0f172a'
+  const fgSub = isDark ? '#94a3b8' : '#64748b'
+  const border = isDark ? '#334155' : '#e2e8f0'
+
+  return (
+    <div style={{ maxWidth: 400 }}>
+      <div style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 14 }}>
+        Mantine ColorSchemeProvider 패턴
+      </div>
+
+      {/* Preview card */}
+      <div style={{
+        borderRadius: 12,
+        border: `1px solid ${border}`,
+        background: bg,
+        padding: 16,
+        marginBottom: 16,
+        transition: 'all 0.2s',
+      }}>
+        <div style={{ fontSize: 13, fontWeight: 700, color: fg, marginBottom: 8 }}>미리보기</div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+          <div style={{ padding: '10px 12px', borderRadius: 8, background: cardBg, border: `1px solid ${border}` }}>
+            <div style={{ fontSize: 12, fontWeight: 600, color: fg }}>컴포넌트 카드</div>
+            <div style={{ fontSize: 11, color: fgSub, marginTop: 2 }}>현재 {mode === 'light' ? '라이트' : mode === 'dark' ? '다크' : '시스템'} 테마 적용 중</div>
+          </div>
+          <div style={{ display: 'flex', gap: 6 }}>
+            {['Primary', 'Secondary', 'Ghost'].map((label) => (
+              <div
+                key={label}
+                style={{
+                  flex: 1,
+                  padding: '6px',
+                  borderRadius: 6,
+                  fontSize: 11,
+                  fontWeight: 600,
+                  textAlign: 'center',
+                  background: label === 'Primary' ? '#6366f1' : label === 'Secondary' ? 'transparent' : 'transparent',
+                  border: label === 'Ghost' ? 'none' : `1px solid ${label === 'Primary' ? '#6366f1' : border}`,
+                  color: label === 'Primary' ? '#fff' : fg,
+                }}
+              >
+                {label}
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Theme options */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+        {themeOptions.map((opt) => (
+          <div
+            key={opt.key}
+            onClick={() => setMode(opt.key)}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              padding: '12px 14px',
+              borderRadius: 10,
+              border: `1.5px solid ${mode === opt.key ? '#6366f1' : '#e2e8f0'}`,
+              background: mode === opt.key ? 'rgba(99,102,241,0.04)' : '#fff',
+              cursor: 'pointer',
+              transition: 'all 0.15s',
+            }}
+          >
+            <div>
+              <div style={{ fontSize: 13, fontWeight: 600, color: '#1e293b' }}>{opt.label}</div>
+              <div style={{ fontSize: 11, color: '#94a3b8' }}>{opt.desc}</div>
+            </div>
+            <Switch
+              checked={mode === opt.key}
+              onCheckedChange={() => setMode(opt.key)}
+              aria-label={opt.label}
+              onClick={(e) => e.stopPropagation()}
+            />
+          </div>
+        ))}
+      </div>
+      <div style={{ marginTop: 10, fontSize: 11, color: '#94a3b8' }}>
+        Mantine ColorSchemeProvider — 테마 선택 + 실시간 미리보기 패턴
+      </div>
+    </div>
+  )
+}
+
+export const Mantine_테마_전환_스위치 = {
+  name: 'Mantine - 테마 전환 스위치 (미리보기 반영)',
+  render: () => <ThemeSwitcherRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Ant Design 벤치마크: 역할 기반 접근 제어 패턴
+   Ant Design Form + Switch — 역할에 따라 스위치 활성화/비활성화
+-------------------------------------------------------------------------- */
+type RoleType = 'admin' | 'editor' | 'viewer'
+
+const PERMISSION_MATRIX: Record<string, { admin: boolean; editor: boolean; viewer: boolean; locked?: RoleType[] }> = {
+  '콘텐츠 작성': { admin: true, editor: true, viewer: false, locked: ['admin'] },
+  '콘텐츠 수정': { admin: true, editor: true, viewer: false },
+  '콘텐츠 삭제': { admin: true, editor: false, viewer: false, locked: ['admin'] },
+  '사용자 관리': { admin: true, editor: false, viewer: false, locked: ['admin'] },
+  '설정 변경': { admin: true, editor: false, viewer: false, locked: ['admin'] },
+  '통계 조회': { admin: true, editor: true, viewer: true },
+}
+
+function RoleBasedAccessRender() {
+  const [role, setRole] = useState<RoleType>('editor')
+  const [overrides, setOverrides] = useState<Record<string, boolean>>({})
+
+  const roles: { key: RoleType; label: string; color: string }[] = [
+    { key: 'admin', label: '관리자', color: '#ef4444' },
+    { key: 'editor', label: '편집자', color: '#6366f1' },
+    { key: 'viewer', label: '열람자', color: '#94a3b8' },
+  ]
+
+  const getPermission = (perm: string): boolean => {
+    if (perm in overrides) return overrides[perm]
+    return PERMISSION_MATRIX[perm]?.[role] ?? false
+  }
+
+  const isLocked = (perm: string): boolean => {
+    const matrix = PERMISSION_MATRIX[perm]
+    return matrix?.locked?.includes(role) ?? false
+  }
+
+  return (
+    <div style={{ maxWidth: 420 }}>
+      <div style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 14 }}>
+        Ant Design Form + Switch — 역할 기반 접근 제어
+      </div>
+
+      {/* Role selector */}
+      <div style={{ display: 'flex', gap: 6, marginBottom: 16 }}>
+        {roles.map((r) => (
+          <button
+            key={r.key}
+            onClick={() => { setRole(r.key); setOverrides({}) }}
+            style={{
+              flex: 1,
+              padding: '8px',
+              borderRadius: 8,
+              border: `1.5px solid ${role === r.key ? r.color : '#e2e8f0'}`,
+              background: role === r.key ? `${r.color}12` : '#fff',
+              color: role === r.key ? r.color : '#64748b',
+              fontSize: 12,
+              fontWeight: 700,
+              cursor: 'pointer',
+              transition: 'all 0.15s',
+            }}
+          >
+            {r.label}
+          </button>
+        ))}
+      </div>
+
+      {/* Permission list */}
+      <div style={{ borderRadius: 10, border: '1px solid #e2e8f0', overflow: 'hidden', background: '#fff' }}>
+        {Object.keys(PERMISSION_MATRIX).map((perm, i, arr) => {
+          const locked = isLocked(perm)
+          const checked = getPermission(perm)
+          return (
+            <div
+              key={perm}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                padding: '11px 14px',
+                borderBottom: i < arr.length - 1 ? '1px solid #f8fafc' : 'none',
+                background: locked ? '#fafafa' : '#fff',
+              }}
+            >
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                {locked && (
+                  <div style={{
+                    fontSize: 9, padding: '1px 5px', borderRadius: 4,
+                    background: '#fef2f2', color: '#ef4444', fontWeight: 700,
+                  }}>
+                    LOCK
+                  </div>
+                )}
+                <span style={{ fontSize: 13, fontWeight: 500, color: locked ? '#94a3b8' : '#1e293b' }}>
+                  {perm}
+                </span>
+              </div>
+              <Switch
+                checked={locked ? true : checked}
+                disabled={locked}
+                onCheckedChange={(v) => !locked && setOverrides((prev) => ({ ...prev, [perm]: v }))}
+                aria-label={perm}
+              />
+            </div>
+          )
+        })}
+      </div>
+      <div style={{ marginTop: 10, fontSize: 11, color: '#94a3b8' }}>
+        Ant Design — 역할별 권한 자동 설정 + 잠금 항목은 변경 불가
+      </div>
+    </div>
+  )
+}
+
+export const Ant_역할_기반_접근_제어 = {
+  name: 'Ant Design - 역할 기반 접근 제어 (권한 매트릭스)',
+  render: () => <RoleBasedAccessRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Mantine 벤치마크: 전체 선택 스위치 패턴
+   Mantine Checkbox.Group의 "전체 선택" 패턴을 Switch로 구현
+-------------------------------------------------------------------------- */
+const FEATURE_LIST = [
+  { id: 'realtime', label: '실시간 동기화', group: '데이터' },
+  { id: 'backup', label: '자동 백업', group: '데이터' },
+  { id: 'compress', label: '데이터 압축', group: '데이터' },
+  { id: 'email_notif', label: '이메일 알림', group: '알림' },
+  { id: 'push_notif', label: '푸시 알림', group: '알림' },
+  { id: 'sms_notif', label: 'SMS 알림', group: '알림' },
+]
+
+function BulkToggleRender() {
+  const [enabled, setEnabled] = useState<Set<string>>(new Set(['realtime', 'email_notif']))
+
+  const allOn = enabled.size === FEATURE_LIST.length
+  const someOn = enabled.size > 0 && !allOn
+
+  const toggleAll = (on: boolean) => {
+    if (on) setEnabled(new Set(FEATURE_LIST.map((f) => f.id)))
+    else setEnabled(new Set())
+  }
+
+  const toggleOne = (id: string) => {
+    setEnabled((prev) => {
+      const next = new Set(prev)
+      if (next.has(id)) next.delete(id)
+      else next.add(id)
+      return next
+    })
+  }
+
+  const groups = [...new Set(FEATURE_LIST.map((f) => f.group))]
+
+  return (
+    <div style={{ maxWidth: 380 }}>
+      <div style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 14 }}>
+        Mantine Checkbox.Group — 전체 선택 패턴을 Switch로
+      </div>
+
+      {/* Global toggle */}
+      <div style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        padding: '12px 14px',
+        borderRadius: 10,
+        border: '1.5px solid #6366f1',
+        background: 'rgba(99,102,241,0.04)',
+        marginBottom: 12,
+      }}>
+        <div>
+          <div style={{ fontSize: 13, fontWeight: 700, color: '#1e293b' }}>전체 기능 활성화</div>
+          <div style={{ fontSize: 11, color: '#94a3b8' }}>
+            {allOn ? '모두 켜짐' : someOn ? `${enabled.size}/${FEATURE_LIST.length}개 켜짐` : '모두 꺼짐'}
+          </div>
+        </div>
+        <Switch
+          checked={allOn}
+          onCheckedChange={toggleAll}
+          aria-label="전체 선택"
+        />
+      </div>
+
+      {/* Per group */}
+      {groups.map((group) => (
+        <div key={group} style={{ marginBottom: 10 }}>
+          <div style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 6, paddingLeft: 4 }}>
+            {group}
+          </div>
+          <div style={{ borderRadius: 10, border: '1px solid #e2e8f0', overflow: 'hidden', background: '#fff' }}>
+            {FEATURE_LIST.filter((f) => f.group === group).map((feat, i, arr) => (
+              <div
+                key={feat.id}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  padding: '10px 14px',
+                  borderBottom: i < arr.length - 1 ? '1px solid #f8fafc' : 'none',
+                }}
+              >
+                <span style={{ fontSize: 13, color: enabled.has(feat.id) ? '#1e293b' : '#94a3b8', fontWeight: enabled.has(feat.id) ? 500 : 400 }}>
+                  {feat.label}
+                </span>
+                <Switch
+                  checked={enabled.has(feat.id)}
+                  onCheckedChange={() => toggleOne(feat.id)}
+                  aria-label={feat.label}
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+      <div style={{ fontSize: 11, color: '#94a3b8' }}>
+        Mantine — 전체 선택 마스터 토글 + 개별 항목 동기화 패턴
+      </div>
+    </div>
+  )
+}
+
+export const Mantine_전체_선택_토글 = {
+  name: 'Mantine - 전체 선택 토글 (마스터 Switch + 개별 동기화)',
+  render: () => <BulkToggleRender />,
+}

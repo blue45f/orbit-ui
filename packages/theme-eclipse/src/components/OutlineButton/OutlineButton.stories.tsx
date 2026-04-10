@@ -548,3 +548,311 @@ export const Tailwind_폼_레이아웃_보조_액션: Story = {
   name: 'Tailwind UI - 3열 폼 레이아웃 내 보조 액션 패턴',
   render: () => <FormLayoutRender />,
 }
+
+// ─── Mantine: 로딩 상태 패턴 ─────────────────────────────────────────────────
+// Mantine의 Button loading prop 패턴: 비동기 작업 실행 중 버튼 비활성 + 스피너 표시
+// OutlineButton의 loading prop으로 동일한 UX를 구현합니다.
+function LoadingPatternRender() {
+  const [loadingKey, setLoadingKey] = useState<string | null>(null)
+
+  const simulateAction = (key: string, delay: number) => {
+    setLoadingKey(key)
+    setTimeout(() => setLoadingKey(null), delay)
+  }
+
+  const actions: { key: string; label: string; desc: string; color: OutlineButtonProps['color']; delay: number }[] = [
+    { key: 'export', label: '내보내기', desc: 'CSV/JSON 파일 생성', color: 'black', delay: 2000 },
+    { key: 'sync', label: '동기화', desc: '원격 서버와 데이터 동기화', color: 'primary', delay: 1500 },
+    { key: 'validate', label: '유효성 검사', desc: '폼 데이터 서버 검증', color: 'gray', delay: 1000 },
+  ]
+
+  return (
+    <div style={{ maxWidth: 400 }}>
+      <div style={{ fontSize: 11, fontWeight: 700, color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 16 }}>
+        Mantine Button loading prop 패턴
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+        {actions.map((action) => {
+          const isLoading = loadingKey === action.key
+          return (
+            <div
+              key={action.key}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 16,
+                padding: '14px 16px',
+                borderRadius: 10,
+                border: '1px solid #e2e8f0',
+                background: '#fff',
+              }}
+            >
+              <div style={{ flex: 1 }}>
+                <div style={{ fontSize: 13, fontWeight: 600, color: '#1e293b' }}>{action.label}</div>
+                <div style={{ fontSize: 11, color: '#94a3b8' }}>{action.desc}</div>
+              </div>
+              <OutlineButton
+                color={action.color}
+                size="small"
+                loading={isLoading}
+                onClick={() => simulateAction(action.key, action.delay)}
+                disabled={loadingKey !== null && loadingKey !== action.key}
+              >
+                <OutlineButton.Center>
+                  {isLoading ? '처리 중...' : action.label}
+                </OutlineButton.Center>
+              </OutlineButton>
+            </div>
+          )
+        })}
+      </div>
+      <div style={{ marginTop: 12, fontSize: 11, color: '#94a3b8' }}>
+        Mantine — loading prop으로 버튼 스피너 + 비활성화 동시 처리
+      </div>
+    </div>
+  )
+}
+
+export const Mantine_로딩_상태_패턴: Story = {
+  name: 'Mantine - 로딩 상태 패턴 (비동기 액션 피드백)',
+  render: () => <LoadingPatternRender />,
+}
+
+// ─── Ant Design: 뷰 전환 도구 모음 ───────────────────────────────────────────
+// Ant Design의 Radio.Group + Button 조합: 목록/그리드/표 뷰 전환
+// OutlineButton을 선택 그룹처럼 사용하는 Segmented-like 패턴
+type ViewMode = 'list' | 'grid' | 'table'
+
+function ViewSwitcherRender() {
+  const [view, setView] = useState<ViewMode>('grid')
+  const [sort, setSort] = useState<string>('newest')
+
+  const views: { key: ViewMode; icon: string; label: string }[] = [
+    { key: 'list', icon: '≡', label: '목록' },
+    { key: 'grid', icon: '⊞', label: '그리드' },
+    { key: 'table', icon: '⊟', label: '표' },
+  ]
+
+  const sortOptions = ['newest', 'oldest', 'name', 'size']
+  const sortLabels: Record<string, string> = { newest: '최신순', oldest: '오래된순', name: '이름순', size: '크기순' }
+
+  const mockItems = Array.from({ length: 6 }, (_, i) => ({ id: i + 1, name: `컴포넌트 ${i + 1}`, type: i % 3 === 0 ? 'Layout' : i % 3 === 1 ? 'Input' : 'Display' }))
+
+  return (
+    <div style={{ maxWidth: 520 }}>
+      <div style={{ fontSize: 11, fontWeight: 700, color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 14 }}>
+        Ant Design Radio.Group — 뷰 전환 패턴
+      </div>
+
+      {/* Toolbar */}
+      <div style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        marginBottom: 16,
+        padding: '10px 14px',
+        borderRadius: 10,
+        border: '1px solid #e2e8f0',
+        background: '#f8fafc',
+      }}>
+        {/* View toggle */}
+        <div style={{ display: 'flex', gap: 0 }}>
+          {views.map((v, i) => (
+            <OutlineButton
+              key={v.key}
+              color={view === v.key ? 'primary' : 'black'}
+              size="small"
+              onClick={() => setView(v.key)}
+              style={{
+                borderRadius: i === 0 ? '8px 0 0 8px' : i === views.length - 1 ? '0 8px 8px 0' : '0',
+                borderRight: i < views.length - 1 ? 'none' : undefined,
+              }}
+            >
+              <OutlineButton.Leading>
+                <span style={{ fontSize: 12 }}>{v.icon}</span>
+              </OutlineButton.Leading>
+              <OutlineButton.Center>{v.label}</OutlineButton.Center>
+            </OutlineButton>
+          ))}
+        </div>
+
+        {/* Sort select */}
+        <div style={{ display: 'flex', gap: 4 }}>
+          {sortOptions.map((s) => (
+            <button
+              key={s}
+              onClick={() => setSort(s)}
+              style={{
+                padding: '4px 8px',
+                borderRadius: 6,
+                border: 'none',
+                background: sort === s ? '#6366f1' : 'transparent',
+                color: sort === s ? '#fff' : '#64748b',
+                fontSize: 11,
+                fontWeight: 600,
+                cursor: 'pointer',
+              }}
+            >
+              {sortLabels[s]}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Content area */}
+      {view === 'grid' && (
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 8 }}>
+          {mockItems.map((item) => (
+            <div key={item.id} style={{ padding: '14px', borderRadius: 8, border: '1px solid #e2e8f0', background: '#fff' }}>
+              <div style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', marginBottom: 4 }}>{item.type}</div>
+              <div style={{ fontSize: 13, fontWeight: 600, color: '#1e293b' }}>{item.name}</div>
+            </div>
+          ))}
+        </div>
+      )}
+      {view === 'list' && (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+          {mockItems.map((item) => (
+            <div key={item.id} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '10px 14px', borderRadius: 8, border: '1px solid #e2e8f0', background: '#fff' }}>
+              <div style={{ width: 32, height: 32, borderRadius: 6, background: '#f0f1ff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 11, fontWeight: 700, color: '#6366f1' }}>{item.id}</div>
+              <span style={{ fontSize: 13, fontWeight: 600, color: '#1e293b', flex: 1 }}>{item.name}</span>
+              <span style={{ fontSize: 11, color: '#94a3b8' }}>{item.type}</span>
+            </div>
+          ))}
+        </div>
+      )}
+      {view === 'table' && (
+        <div style={{ borderRadius: 8, border: '1px solid #e2e8f0', overflow: 'hidden' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: '40px 1fr 100px', background: '#f8fafc', padding: '8px 14px', fontSize: 11, fontWeight: 700, color: '#64748b', borderBottom: '1px solid #e2e8f0' }}>
+            <span>#</span><span>이름</span><span>유형</span>
+          </div>
+          {mockItems.map((item, i) => (
+            <div key={item.id} style={{ display: 'grid', gridTemplateColumns: '40px 1fr 100px', padding: '9px 14px', fontSize: 13, color: '#1e293b', borderBottom: i < mockItems.length - 1 ? '1px solid #f8fafc' : 'none', background: '#fff' }}>
+              <span style={{ color: '#94a3b8' }}>{item.id}</span>
+              <span style={{ fontWeight: 500 }}>{item.name}</span>
+              <span style={{ color: '#64748b' }}>{item.type}</span>
+            </div>
+          ))}
+        </div>
+      )}
+      <div style={{ marginTop: 10, fontSize: 11, color: '#94a3b8' }}>
+        Ant Design — 버튼 그룹으로 뷰 전환 + 정렬 옵션 패턴
+      </div>
+    </div>
+  )
+}
+
+export const Ant_뷰_전환_도구모음: Story = {
+  name: 'Ant Design - 뷰 전환 도구 모음 (목록/그리드/표)',
+  render: () => <ViewSwitcherRender />,
+}
+
+// ─── Mantine: 알림 액션 카드 패턴 ───────────────────────────────────────────
+// Mantine의 Notification 컴포넌트처럼 알림 카드에 OutlineButton 액션 배치
+function NotificationActionsRender() {
+  const [dismissed, setDismissed] = useState<number[]>([])
+
+  const notifications = [
+    {
+      id: 1,
+      type: 'update',
+      title: '업데이트 가능',
+      message: 'Orbit UI 3.3.0이 출시되었습니다. 새 기능과 버그 수정이 포함됩니다.',
+      actions: [
+        { label: '지금 업데이트', color: 'primary' as const },
+        { label: '나중에', color: 'gray' as const },
+      ],
+    },
+    {
+      id: 2,
+      type: 'invite',
+      title: '팀 초대',
+      message: '김디자인님이 "Orbit UI Team"에 초대했습니다.',
+      actions: [
+        { label: '수락', color: 'primary' as const },
+        { label: '거절', color: 'black' as const },
+      ],
+    },
+    {
+      id: 3,
+      type: 'warning',
+      title: '저장 공간 부족',
+      message: '저장 공간의 90%가 사용 중입니다. 불필요한 파일을 삭제하세요.',
+      actions: [
+        { label: '관리하기', color: 'black' as const },
+        { label: '무시', color: 'gray' as const },
+      ],
+    },
+  ]
+
+  const typeConfig: Record<string, { bg: string; border: string; dot: string }> = {
+    update: { bg: '#f0f1ff', border: '#c7d2fe', dot: '#6366f1' },
+    invite: { bg: '#f0fdf4', border: '#bbf7d0', dot: '#10b981' },
+    warning: { bg: '#fffbeb', border: '#fde68a', dot: '#f59e0b' },
+  }
+
+  return (
+    <div style={{ maxWidth: 400 }}>
+      <div style={{ fontSize: 11, fontWeight: 700, color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 14 }}>
+        Mantine Notification — 인라인 액션 OutlineButton 패턴
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+        {notifications
+          .filter((n) => !dismissed.includes(n.id))
+          .map((notif) => {
+            const cfg = typeConfig[notif.type]
+            return (
+              <div
+                key={notif.id}
+                style={{
+                  padding: '14px 16px',
+                  borderRadius: 12,
+                  border: `1px solid ${cfg.border}`,
+                  background: cfg.bg,
+                }}
+              >
+                <div style={{ display: 'flex', alignItems: 'flex-start', gap: 10, marginBottom: 10 }}>
+                  <div style={{ width: 8, height: 8, borderRadius: '50%', background: cfg.dot, marginTop: 4, flexShrink: 0 }} />
+                  <div>
+                    <div style={{ fontSize: 13, fontWeight: 700, color: '#1e293b', marginBottom: 2 }}>{notif.title}</div>
+                    <div style={{ fontSize: 12, color: '#64748b', lineHeight: 1.5 }}>{notif.message}</div>
+                  </div>
+                </div>
+                <div style={{ display: 'flex', gap: 6, paddingLeft: 18 }}>
+                  {notif.actions.map((action) => (
+                    <OutlineButton
+                      key={action.label}
+                      color={action.color}
+                      size="small"
+                      onClick={() => setDismissed((prev) => [...prev, notif.id])}
+                    >
+                      <OutlineButton.Center>{action.label}</OutlineButton.Center>
+                    </OutlineButton>
+                  ))}
+                </div>
+              </div>
+            )
+          })}
+        {dismissed.length === notifications.length && (
+          <div style={{ padding: '24px', textAlign: 'center', fontSize: 13, color: '#94a3b8' }}>
+            모든 알림을 처리했습니다.
+            <button
+              onClick={() => setDismissed([])}
+              style={{ display: 'block', margin: '8px auto 0', fontSize: 12, color: '#6366f1', background: 'none', border: 'none', cursor: 'pointer' }}
+            >
+              초기화
+            </button>
+          </div>
+        )}
+      </div>
+      <div style={{ marginTop: 10, fontSize: 11, color: '#94a3b8' }}>
+        Mantine Notification — 알림 카드 인라인 OutlineButton 액션 패턴
+      </div>
+    </div>
+  )
+}
+
+export const Mantine_알림_액션_카드: Story = {
+  name: 'Mantine - 알림 카드 인라인 액션 OutlineButton 패턴',
+  render: () => <NotificationActionsRender />,
+}
