@@ -82,6 +82,7 @@ import {
   CheckIcon,
   ShareIcon,
   RefreshLineIcon,
+  CancelIcon,
 } from '@heejun-com/icons'
 
 import { Command } from '../components/Command'
@@ -40068,4 +40069,195 @@ export const TailwindVercel179ActivityFeed: StoryObj = {
     },
   },
   render: () => <TailwindVercel179ActivityFeedRender />,
+}
+
+// ─── Cycle 180 — shadcn/ui + Apple HIG ───────────────────────────────────────
+
+function ShadcnApple180AIPromptBuilderRender() {
+  const [selectedFilters, setSelectedFilters] = useState<string[]>([])
+  const [prompt, setPrompt] = useState('')
+  const [promptChips, setPromptChips] = useState([
+    '간결하게', '전문적으로', '한국어로', '예시 포함', '단계별 설명',
+    '요약 버전', '코드 포함', '비교 분석', '초보자용',
+  ])
+  const [activeModel, setActiveModel] = useState('GPT-4o')
+
+  const domainFilters = ['개발', '디자인', '마케팅', '데이터', '법률', '의료']
+  const styleFilters = ['격식체', '비격식체', '간결', '상세', '창의적']
+
+  const toggleFilter = (f: string) => {
+    setSelectedFilters((prev) => prev.includes(f) ? prev.filter((x) => x !== f) : [...prev, f])
+  }
+
+  const addChipToPrompt = (chip: string) => {
+    setPrompt((prev) => prev ? `${prev} ${chip}` : chip)
+    setPromptChips((prev) => prev.filter((c) => c !== chip))
+  }
+
+  const models = ['GPT-4o', 'Claude 3.5', 'Gemini 1.5', 'Llama 3']
+
+  const toolbarActions = [
+    { icon: '◈', label: '템플릿 저장', shortcut: ['⌘', 'S'] },
+    { icon: '◇', label: '이력 보기', shortcut: ['⌘', 'H'] },
+    { icon: '▣', label: '비교 모드', shortcut: ['⌘', 'B'] },
+    { icon: '◉', label: '설정', shortcut: ['⌘', ','] },
+  ]
+
+  return (
+    <div style={{ minHeight: '100vh', background: '#f8fafc', fontFamily: 'system-ui, sans-serif', display: 'flex', flexDirection: 'column' }}>
+      {/* Header */}
+      <div style={{ background: '#111827', padding: '0 24px', height: 52, display: 'flex', alignItems: 'center', gap: 16 }}>
+        <div style={{ fontSize: 14, fontWeight: 700, color: '#fff' }}>AI 프롬프트 빌더</div>
+        <div style={{ fontSize: 11, color: '#6b7280' }}>shadcn/ui + Apple HIG</div>
+        <div style={{ flex: 1 }} />
+        {/* Toolbar with shortcut tooltips */}
+        <Tooltip.Provider>
+          <div style={{ display: 'flex', gap: 2 }}>
+            {toolbarActions.map((action) => (
+              <Tooltip key={action.label}>
+                <Tooltip.Trigger asChild>
+                  <button style={{ width: 32, height: 32, borderRadius: 6, background: 'none', border: 'none', cursor: 'pointer', color: '#9ca3af', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 13 }}>
+                    {action.icon}
+                  </button>
+                </Tooltip.Trigger>
+                <Tooltip.Content sideOffset={8}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                    <span style={{ fontSize: 11 }}>{action.label}</span>
+                    <div style={{ display: 'flex', gap: 2 }}>
+                      {action.shortcut.map((k) => (
+                        <span key={k} style={{ fontSize: 10, padding: '1px 4px', borderRadius: 3, background: 'rgba(255,255,255,0.2)', fontFamily: 'monospace', fontWeight: 600 }}>{k}</span>
+                      ))}
+                    </div>
+                  </div>
+                </Tooltip.Content>
+              </Tooltip>
+            ))}
+          </div>
+        </Tooltip.Provider>
+      </div>
+
+      <div style={{ display: 'flex', flex: 1, overflow: 'hidden' }}>
+        {/* Left panel — filters */}
+        <div style={{ width: 220, background: '#fff', borderRight: '1px solid #e5e7eb', padding: '20px 16px', overflowY: 'auto' }}>
+          <div style={{ fontSize: 11, fontWeight: 700, color: '#9ca3af', textTransform: 'uppercase', letterSpacing: 0.8, marginBottom: 10 }}>도메인</div>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 5, marginBottom: 16 }}>
+            {domainFilters.map((f) => (
+              <Chip
+                key={f}
+                selected={selectedFilters.includes(f)}
+                onClick={() => toggleFilter(f)}
+              >
+                {selectedFilters.includes(f) && <Chip.Leading><CheckIcon size={10} /></Chip.Leading>}
+                {f}
+              </Chip>
+            ))}
+          </div>
+          <div style={{ fontSize: 11, fontWeight: 700, color: '#9ca3af', textTransform: 'uppercase', letterSpacing: 0.8, marginBottom: 10 }}>문체</div>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 5, marginBottom: 16 }}>
+            {styleFilters.map((f) => (
+              <Chip
+                key={f}
+                selected={selectedFilters.includes(f)}
+                onClick={() => toggleFilter(f)}
+              >
+                {selectedFilters.includes(f) && <Chip.Leading><CheckIcon size={10} /></Chip.Leading>}
+                {f}
+              </Chip>
+            ))}
+          </div>
+          {selectedFilters.length > 0 && (
+            <button onClick={() => setSelectedFilters([])} style={{ fontSize: 11, color: '#6366f1', background: 'none', border: 'none', cursor: 'pointer', padding: 0, fontFamily: 'system-ui' }}>
+              필터 전체 해제
+            </button>
+          )}
+
+          <div style={{ marginTop: 20, paddingTop: 16, borderTop: '1px solid #f3f4f6' }}>
+            <div style={{ fontSize: 11, fontWeight: 700, color: '#9ca3af', textTransform: 'uppercase', letterSpacing: 0.8, marginBottom: 10 }}>AI 모델</div>
+            {models.map((m) => (
+              <div key={m} onClick={() => setActiveModel(m)} style={{ padding: '7px 10px', borderRadius: 7, marginBottom: 2, cursor: 'pointer', background: activeModel === m ? '#ede9fe' : 'transparent', color: activeModel === m ? '#7c3aed' : '#6b7280', fontSize: 12, fontWeight: activeModel === m ? 600 : 400 }}>
+                {m}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Main panel */}
+        <div style={{ flex: 1, padding: 24, overflow: 'auto' }}>
+          {/* Prompt input */}
+          <div style={{ marginBottom: 20 }}>
+            <div style={{ fontSize: 13, fontWeight: 600, color: '#374151', marginBottom: 8 }}>프롬프트 작성</div>
+            <textarea
+              value={prompt}
+              onChange={(e) => setPrompt(e.target.value)}
+              placeholder="AI에게 요청할 내용을 입력하거나 아래 제안 태그를 클릭해 빠르게 구성하세요..."
+              style={{ width: '100%', minHeight: 100, padding: '12px 14px', borderRadius: 10, border: '1px solid #e5e7eb', fontSize: 13, color: '#374151', resize: 'vertical', fontFamily: 'system-ui', boxSizing: 'border-box', outline: 'none', lineHeight: 1.6 }}
+            />
+          </div>
+
+          {/* Suggestion chips */}
+          {promptChips.length > 0 && (
+            <div style={{ marginBottom: 20 }}>
+              <div style={{ fontSize: 12, color: '#9ca3af', marginBottom: 8 }}>제안 태그 (클릭하면 프롬프트에 추가)</div>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+                {promptChips.map((chip) => (
+                  <Chip key={chip} selected={false} onClick={() => addChipToPrompt(chip)}>
+                    <Chip.Leading><span style={{ fontSize: 10 }}>+</span></Chip.Leading>
+                    {chip}
+                  </Chip>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Active filters summary */}
+          {selectedFilters.length > 0 && (
+            <div style={{ marginBottom: 20, padding: '10px 14px', borderRadius: 8, background: '#ede9fe', display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
+              <span style={{ fontSize: 11, color: '#7c3aed', fontWeight: 600 }}>적용된 컨텍스트:</span>
+              {selectedFilters.map((f) => (
+                <Chip key={f} selected onClick={() => toggleFilter(f)}>
+                  {f}
+                  <Chip.Trailing><CancelIcon size={10} /></Chip.Trailing>
+                </Chip>
+              ))}
+            </div>
+          )}
+
+          {/* Submit */}
+          <div style={{ display: 'flex', gap: 8 }}>
+            <SolidButton color="primary" size="medium">
+              <SolidButton.Center>{activeModel}에 전송</SolidButton.Center>
+            </SolidButton>
+            <Tooltip.Provider>
+              <Tooltip>
+                <Tooltip.Trigger asChild>
+                  <SolidIconButton color="black" size="medium" aria-label="프롬프트 저장">
+                    <StarLineIcon size={16} />
+                  </SolidIconButton>
+                </Tooltip.Trigger>
+                <Tooltip.Content sideOffset={6}>
+                  <div style={{ padding: '1px 0' }}>
+                    <div style={{ fontSize: 11, fontWeight: 700, marginBottom: 2 }}>프롬프트 저장</div>
+                    <div style={{ fontSize: 10, color: 'rgba(255,255,255,0.75)' }}>자주 쓰는 프롬프트를 저장해 빠르게 재사용합니다.</div>
+                  </div>
+                </Tooltip.Content>
+              </Tooltip>
+            </Tooltip.Provider>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const ShadcnApple180AIPromptBuilder: StoryObj = {
+  name: 'shadcn/ui + Apple HIG — AI 프롬프트 빌더 (Cycle 180)',
+  parameters: {
+    layout: 'fullscreen',
+    docs: {
+      description: {
+        story: 'shadcn/ui 필터 Chip + Apple HIG 소비형 제안 칩 + Tooltip 단축키 힌트 조합. 도메인/문체 멀티셀렉트 필터 Chip, 클릭 시 소비되는 제안 태그, 툴바 단축키 Tooltip, 저장 버튼 rich Tooltip.',
+      },
+    },
+  },
+  render: () => <ShadcnApple180AIPromptBuilderRender />,
 }

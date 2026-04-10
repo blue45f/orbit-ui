@@ -1535,3 +1535,218 @@ export const MUI_Chakra_대시보드_카드_툴팁: Story = {
     },
   },
 }
+
+/* --------------------------------------------------------------------------
+   Cycle 180 — shadcn/ui + Apple HIG
+   Benchmark:
+   1. shadcn/ui: 툴팁 내부에 아이콘 + 제목 + 설명 구조적 콘텐츠 배치
+   2. Apple HIG: 기능 설명 중심 툴팁 — 단순 레이블이 아닌 "무엇을 하는지" 설명
+   3. shadcn + Apple: 키보드 단축키 조합을 툴팁으로 표시하는 패턴
+-------------------------------------------------------------------------- */
+
+function ShadcnRichContentTooltipRender() {
+  const actions = [
+    {
+      icon: <StarLineIcon size={18} />,
+      label: '즐겨찾기',
+      title: '즐겨찾기에 추가',
+      desc: '이 컴포넌트를 즐겨찾기 목록에 추가합니다. 언제든지 빠르게 접근할 수 있습니다.',
+    },
+    {
+      icon: <SearchIcon size={18} />,
+      label: '검색',
+      title: '전체 검색',
+      desc: '컴포넌트명, props, 스토리 이름으로 전체 스토리북을 검색합니다.',
+    },
+    {
+      icon: <SettingLineIcon size={18} />,
+      label: '설정',
+      title: '스토리북 설정',
+      desc: '패널 레이아웃, 배경색, 뷰포트 등 스토리북 환경을 커스텀합니다.',
+    },
+    {
+      icon: <NotificationLineIcon size={18} />,
+      label: '알림',
+      title: '업데이트 알림',
+      desc: '새 컴포넌트 배포, 버전 업데이트, 브레이킹 체인지를 알려드립니다.',
+    },
+  ]
+
+  return (
+    <div style={{ padding: '80px 40px', display: 'flex', justifyContent: 'center' }}>
+      <Tooltip.Provider>
+        <div style={{ display: 'flex', gap: 12 }}>
+          {actions.map((action) => (
+            <Tooltip key={action.label}>
+              <Tooltip.Trigger asChild>
+                <SolidIconButton color="black" size="medium" aria-label={action.label}>
+                  {action.icon}
+                </SolidIconButton>
+              </Tooltip.Trigger>
+              <Tooltip.Content sideOffset={8} style={{ maxWidth: 220 }}>
+                <div style={{ padding: '2px 0' }}>
+                  <div style={{ fontWeight: 700, fontSize: 12, marginBottom: 4, color: '#fff' }}>{action.title}</div>
+                  <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.75)', lineHeight: 1.5 }}>{action.desc}</div>
+                </div>
+              </Tooltip.Content>
+            </Tooltip>
+          ))}
+        </div>
+      </Tooltip.Provider>
+    </div>
+  )
+}
+
+export const Shadcn_구조화된_콘텐츠_툴팁: Story = {
+  name: 'shadcn/ui — 구조화된 콘텐츠 툴팁 (제목 + 설명 2단 구조)',
+  parameters: {
+    layout: 'centered',
+    docs: {
+      description: {
+        story: 'shadcn/ui 툴팁의 rich content 패턴. Tooltip.Content 내부에 제목(bold)+설명(muted) 2단 구조 배치. Apple HIG "기능을 설명하는 툴팁" 원칙에 따라 레이블만 보여주는 대신 구체적인 동작 설명 포함.',
+      },
+    },
+  },
+  render: () => <ShadcnRichContentTooltipRender />,
+}
+
+function AppleContextualHintTooltipRender() {
+  const [progress, setProgress] = useState(65)
+
+  const fields = [
+    {
+      label: '프로젝트명',
+      value: 'Orbit UI',
+      hint: '영문, 숫자, 하이픈만 허용됩니다. 공백은 사용할 수 없습니다.',
+      side: 'right' as const,
+    },
+    {
+      label: '공개 범위',
+      value: '팀 내부',
+      hint: '팀 내부: 워크스페이스 멤버만 접근 가능. 공개: 누구든 열람 가능.',
+      side: 'right' as const,
+    },
+    {
+      label: '빌드 캐시',
+      value: '활성화',
+      hint: '이전 빌드 아티팩트를 재사용해 빌드 시간을 단축합니다. 캐시 무효화는 수동으로 실행하세요.',
+      side: 'right' as const,
+    },
+  ]
+
+  return (
+    <div style={{ padding: '40px', display: 'flex', justifyContent: 'center' }}>
+      <div style={{ width: 360, fontFamily: 'system-ui, sans-serif' }}>
+        <div style={{ fontSize: 14, fontWeight: 700, color: '#111827', marginBottom: 16 }}>프로젝트 설정</div>
+        <Tooltip.Provider>
+          {fields.map((field) => (
+            <div key={field.label} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 0', borderBottom: '1px solid #f3f4f6' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                <span style={{ fontSize: 12, color: '#374151' }}>{field.label}</span>
+                <Tooltip>
+                  <Tooltip.Trigger asChild>
+                    <button style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0, display: 'flex', alignItems: 'center', color: '#9ca3af' }}>
+                      <CircleInfoLineIcon size={14} />
+                    </button>
+                  </Tooltip.Trigger>
+                  <Tooltip.Content side={field.side} sideOffset={6} style={{ maxWidth: 200 }}>
+                    <span style={{ fontSize: 11, lineHeight: 1.5 }}>{field.hint}</span>
+                  </Tooltip.Content>
+                </Tooltip>
+              </div>
+              <span style={{ fontSize: 12, color: '#6366f1', fontWeight: 500 }}>{field.value}</span>
+            </div>
+          ))}
+          <div style={{ marginTop: 16 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 8 }}>
+              <span style={{ fontSize: 12, color: '#374151' }}>빌드 진행률</span>
+              <Tooltip>
+                <Tooltip.Trigger asChild>
+                  <button style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0, color: '#9ca3af' }}>
+                    <CircleInfoLineIcon size={14} />
+                  </button>
+                </Tooltip.Trigger>
+                <Tooltip.Content sideOffset={6} style={{ maxWidth: 200 }}>
+                  <span style={{ fontSize: 11 }}>현재 빌드 사이클의 완료율입니다. 100%에 도달하면 배포가 시작됩니다.</span>
+                </Tooltip.Content>
+              </Tooltip>
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+              <div style={{ flex: 1, height: 6, borderRadius: 3, background: '#f3f4f6', overflow: 'hidden' }}>
+                <div style={{ height: '100%', width: `${progress}%`, background: '#6366f1', borderRadius: 3, transition: 'width 0.3s' }} />
+              </div>
+              <span style={{ fontSize: 12, fontWeight: 600, color: '#374151', flexShrink: 0 }}>{progress}%</span>
+            </div>
+            <input type="range" min={0} max={100} value={progress} onChange={(e) => setProgress(Number(e.target.value))} style={{ width: '100%', marginTop: 6 }} />
+          </div>
+        </Tooltip.Provider>
+      </div>
+    </div>
+  )
+}
+
+export const Apple_HIG_컨텍스트_힌트_툴팁: Story = {
+  name: 'Apple HIG — 컨텍스트 힌트 툴팁 (설정 필드 정보 아이콘)',
+  parameters: {
+    layout: 'centered',
+    docs: {
+      description: {
+        story: 'Apple HIG 컨텍스트 힌트 원칙 적용. 설정 폼 각 필드 옆 정보(i) 아이콘에 툴팁으로 제약 조건/동작 설명을 제공. 단순 레이블 대신 "왜 이 설정이 있는지"를 설명하는 Apple 스타일 UX.',
+      },
+    },
+  },
+  render: () => <AppleContextualHintTooltipRender />,
+}
+
+function ShadcnAppleShortcutTooltipRender() {
+  const toolbarItems = [
+    { icon: <StarLineIcon size={16} />, label: '즐겨찾기', keys: ['⌘', 'D'] },
+    { icon: <SearchIcon size={16} />, label: '검색', keys: ['⌘', 'K'] },
+    { icon: <SettingLineIcon size={16} />, label: '설정', keys: ['⌘', ','] },
+    { icon: <NotificationLineIcon size={16} />, label: '알림', keys: ['⌘', 'N'] },
+    { icon: <CircleInfoLineIcon size={16} />, label: '도움말', keys: ['?'] },
+  ]
+
+  return (
+    <div style={{ padding: '80px 40px', display: 'flex', justifyContent: 'center' }}>
+      <Tooltip.Provider>
+        <div style={{ display: 'flex', gap: 4, padding: '6px 8px', background: '#111827', borderRadius: 10 }}>
+          {toolbarItems.map((item) => (
+            <Tooltip key={item.label}>
+              <Tooltip.Trigger asChild>
+                <button style={{ width: 34, height: 34, borderRadius: 7, background: 'none', border: 'none', cursor: 'pointer', color: '#9ca3af', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  {item.icon}
+                </button>
+              </Tooltip.Trigger>
+              <Tooltip.Content sideOffset={10}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                  <span style={{ fontSize: 12, color: '#fff' }}>{item.label}</span>
+                  <div style={{ display: 'flex', gap: 2 }}>
+                    {item.keys.map((key) => (
+                      <span key={key} style={{ fontSize: 10, padding: '1px 5px', borderRadius: 4, background: 'rgba(255,255,255,0.15)', color: '#e5e7eb', fontFamily: 'monospace', fontWeight: 600, border: '1px solid rgba(255,255,255,0.2)' }}>
+                        {key}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </Tooltip.Content>
+            </Tooltip>
+          ))}
+        </div>
+      </Tooltip.Provider>
+    </div>
+  )
+}
+
+export const Shadcn_Apple_단축키_툴팁: Story = {
+  name: 'shadcn/ui + Apple HIG — 키보드 단축키 툴팁 (다크 툴바)',
+  parameters: {
+    layout: 'centered',
+    docs: {
+      description: {
+        story: 'shadcn/ui 툴팁 + Apple HIG 단축키 힌트 패턴. 다크 툴바 아이콘에 hover 시 기능명 + kbd 스타일 단축키 조합 표시. Notion/Linear/Figma의 툴바 단축키 힌트 UX를 Orbit UI Tooltip으로 구현.',
+      },
+    },
+  },
+  render: () => <ShadcnAppleShortcutTooltipRender />,
+}

@@ -1441,3 +1441,222 @@ export const Arco_Raycast_이슈_레이블_칩: Story = {
     },
   },
 }
+
+/* --------------------------------------------------------------------------
+   Cycle 180 — shadcn/ui + Apple HIG
+   Benchmark:
+   1. shadcn/ui Badge/Chip: 인터랙티브 필터 필 — 멀티셀렉트 + 전체 해제
+   2. Apple HIG: 터치 친화적 크기 + 탭 타겟 최소 44×44pt 권고
+   3. Apple HIG: Chip을 "제안 태그"로 활용해 클릭 시 사라지는 패턴
+-------------------------------------------------------------------------- */
+
+function ShadcnFilterChipGroupRender() {
+  const [selected, setSelected] = useState<string[]>([])
+
+  const filterGroups = [
+    {
+      label: '카테고리',
+      chips: ['컴포넌트', '토큰', '패턴', '가이드', '예시'],
+    },
+    {
+      label: '상태',
+      chips: ['안정', '베타', '실험적', '사용 중단'],
+    },
+    {
+      label: '프레임워크',
+      chips: ['React', 'Next.js', 'Remix', 'Vue', 'Svelte'],
+    },
+  ]
+
+  const toggle = (chip: string) => {
+    setSelected((prev) => prev.includes(chip) ? prev.filter((c) => c !== chip) : [...prev, chip])
+  }
+
+  const clearAll = () => setSelected([])
+
+  return (
+    <div style={{ width: 380, fontFamily: 'system-ui, sans-serif' }}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 14 }}>
+        <div style={{ fontSize: 13, fontWeight: 700, color: '#111827' }}>문서 필터</div>
+        {selected.length > 0 && (
+          <button onClick={clearAll} style={{ fontSize: 11, color: '#6366f1', background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'system-ui', padding: '2px 6px', borderRadius: 4 }}>
+            전체 해제 ({selected.length})
+          </button>
+        )}
+      </div>
+      {filterGroups.map((group) => (
+        <div key={group.label} style={{ marginBottom: 12 }}>
+          <div style={{ fontSize: 10, fontWeight: 600, color: '#9ca3af', textTransform: 'uppercase', letterSpacing: 0.8, marginBottom: 6 }}>{group.label}</div>
+          <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+            {group.chips.map((chip) => (
+              <Chip
+                key={chip}
+                selected={selected.includes(chip)}
+                onClick={() => toggle(chip)}
+              >
+                {selected.includes(chip) && (
+                  <Chip.Leading>
+                    <CheckIcon size={12} />
+                  </Chip.Leading>
+                )}
+                {chip}
+                {selected.includes(chip) && (
+                  <Chip.Trailing>
+                    <CancelIcon size={10} />
+                  </Chip.Trailing>
+                )}
+              </Chip>
+            ))}
+          </div>
+        </div>
+      ))}
+      {selected.length > 0 && (
+        <div style={{ marginTop: 8, padding: '8px 12px', borderRadius: 8, background: '#ede9fe', fontSize: 11, color: '#7c3aed' }}>
+          필터 적용 중: {selected.join(', ')}
+        </div>
+      )}
+    </div>
+  )
+}
+
+export const Shadcn_필터_칩_그룹: Story = {
+  name: 'shadcn/ui — 멀티셀렉트 필터 칩 그룹 (전체 해제)',
+  parameters: {
+    layout: 'centered',
+    docs: {
+      description: {
+        story: 'shadcn/ui Badge 필터 패턴 적용. 카테고리/상태/프레임워크 3그룹 멀티셀렉트 칩, 선택 시 체크 아이콘+취소 아이콘 추가. 선택된 수 표시 + 전체 해제 버튼. 문서 필터링 UX.',
+      },
+    },
+  },
+  render: () => <ShadcnFilterChipGroupRender />,
+}
+
+function AppleHIGTechStackChipRender() {
+  const [selected, setSelected] = useState<string[]>(['React', 'TypeScript'])
+
+  const techStacks = [
+    { name: 'React', color: '#61dafb', bg: '#e8f8fd' },
+    { name: 'TypeScript', color: '#3178c6', bg: '#e8f0fb' },
+    { name: 'Tailwind', color: '#38bdf8', bg: '#e0f7fe' },
+    { name: 'Next.js', color: '#000000', bg: '#f3f4f6' },
+    { name: 'Vite', color: '#646cff', bg: '#eeefff' },
+    { name: 'Vitest', color: '#6e9f18', bg: '#f0f7e6' },
+    { name: 'Storybook', color: '#ff4785', bg: '#feeef5' },
+    { name: 'ESLint', color: '#4b32c3', bg: '#eeeafb' },
+    { name: 'pnpm', color: '#f69220', bg: '#fef3e6' },
+    { name: 'vanilla-extract', color: '#e17ab6', bg: '#fdeef8' },
+  ]
+
+  const toggle = (name: string) => {
+    setSelected((prev) => prev.includes(name) ? prev.filter((n) => n !== name) : [...prev, name])
+  }
+
+  return (
+    <div style={{ width: 380, fontFamily: 'system-ui, sans-serif' }}>
+      <div style={{ fontSize: 13, fontWeight: 700, color: '#111827', marginBottom: 4 }}>기술 스택 선택</div>
+      <div style={{ fontSize: 11, color: '#9ca3af', marginBottom: 12 }}>Apple HIG 스타일 태그 칩 — 최소 터치 타겟 적용</div>
+      <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+        {techStacks.map((tech) => (
+          <Chip
+            key={tech.name}
+            selected={selected.includes(tech.name)}
+            onClick={() => toggle(tech.name)}
+            theme={selected.includes(tech.name) ? {
+              enabledSelectedFillColor: tech.bg,
+              enabledSelectedForegroundColor: tech.color,
+              enabledSelectedBorderColor: tech.color + '60',
+            } : undefined}
+          >
+            <Chip.Leading>
+              <div style={{ width: 8, height: 8, borderRadius: '50%', background: tech.color }} />
+            </Chip.Leading>
+            {tech.name}
+          </Chip>
+        ))}
+      </div>
+      <div style={{ marginTop: 12, fontSize: 11, color: '#6b7280' }}>
+        선택됨 ({selected.length}): {selected.length > 0 ? selected.join(' · ') : '없음'}
+      </div>
+    </div>
+  )
+}
+
+export const Apple_HIG_기술_스택_태그_칩: Story = {
+  name: 'Apple HIG — 기술 스택 컬러 태그 칩 (브랜드 색상 오버라이드)',
+  parameters: {
+    layout: 'centered',
+    docs: {
+      description: {
+        story: 'Apple HIG 터치 친화적 컴포넌트 원칙 + shadcn/ui Badge 스타일 적용. 각 기술 스택 고유 브랜드 색상으로 theme 오버라이드. 선택 시 배경+테두리+텍스트 색상이 해당 기술 색상으로 변경.',
+      },
+    },
+  },
+  render: () => <AppleHIGTechStackChipRender />,
+}
+
+function ShadcnAppleAISuggestionChipRender() {
+  const [prompt, setPrompt] = useState('')
+  const [suggestions, setSuggestions] = useState([
+    '회의 요약 작성', '이메일 초안 작성', '코드 리뷰', '버그 분석',
+    '문서 번역', '아이디어 브레인스토밍', '데이터 요약', '일정 정리',
+  ])
+
+  const addToPrompt = (suggestion: string) => {
+    setPrompt((prev) => prev ? `${prev}, ${suggestion}` : suggestion)
+    setSuggestions((prev) => prev.filter((s) => s !== suggestion))
+  }
+
+  const reset = () => {
+    setPrompt('')
+    setSuggestions([
+      '회의 요약 작성', '이메일 초안 작성', '코드 리뷰', '버그 분석',
+      '문서 번역', '아이디어 브레인스토밍', '데이터 요약', '일정 정리',
+    ])
+  }
+
+  return (
+    <div style={{ width: 380, fontFamily: 'system-ui, sans-serif' }}>
+      <div style={{ fontSize: 13, fontWeight: 700, color: '#111827', marginBottom: 12 }}>AI 프롬프트 빌더</div>
+      <div style={{ padding: '10px 12px', borderRadius: 10, border: '1px solid #e5e7eb', background: '#f9fafb', minHeight: 60, marginBottom: 12, fontSize: 13, color: prompt ? '#111827' : '#9ca3af' }}>
+        {prompt || '아래 제안 칩을 클릭해 프롬프트를 구성하세요...'}
+      </div>
+      {suggestions.length > 0 && (
+        <>
+          <div style={{ fontSize: 10, fontWeight: 600, color: '#9ca3af', marginBottom: 6 }}>제안 (클릭 시 추가)</div>
+          <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+            {suggestions.map((s) => (
+              <Chip key={s} selected={false} onClick={() => addToPrompt(s)}>
+                <Chip.Leading>
+                  <span style={{ fontSize: 10 }}>+</span>
+                </Chip.Leading>
+                {s}
+              </Chip>
+            ))}
+          </div>
+        </>
+      )}
+      {suggestions.length === 0 && (
+        <div style={{ fontSize: 12, color: '#6b7280', padding: '8px 0' }}>모든 제안이 추가되었습니다.</div>
+      )}
+      {prompt && (
+        <button onClick={reset} style={{ marginTop: 10, fontSize: 11, color: '#6366f1', background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'system-ui', padding: 0 }}>
+          초기화
+        </button>
+      )}
+    </div>
+  )
+}
+
+export const Shadcn_Apple_AI_프롬프트_제안_칩: Story = {
+  name: 'shadcn/ui + Apple HIG — AI 프롬프트 제안 칩 (클릭 시 소비)',
+  parameters: {
+    layout: 'centered',
+    docs: {
+      description: {
+        story: 'shadcn/ui Command 제안 패턴 + Apple HIG 소비형 인터랙션. 제안 칩 클릭 시 칩은 사라지고 텍스트가 프롬프트에 추가됨. AI 어시스턴트의 빠른 프롬프트 구성 UX 패턴.',
+      },
+    },
+  },
+  render: () => <ShadcnAppleAISuggestionChipRender />,
+}
