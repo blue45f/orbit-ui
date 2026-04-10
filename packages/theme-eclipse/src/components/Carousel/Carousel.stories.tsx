@@ -1851,3 +1851,239 @@ export const Tailwind_MUI_다크_컴포넌트_카탈로그: Story = {
   },
   render: () => <TailwindMuiProductCarouselRender />,
 }
+
+/* --------------------------------------------------------------------------
+   Cycle 161 — Chakra UI + Arco Design
+   Chakra: 색상 테마 선택 캐러셀 패턴 (Color Theme Picker Carousel)
+-------------------------------------------------------------------------- */
+const CHAKRA_THEMES = [
+  { name: 'Ocean', primary: '#0ea5e9', secondary: '#38bdf8', bg: '#f0f9ff', text: '#0c4a6e' },
+  { name: 'Sunset', primary: '#f97316', secondary: '#fb923c', bg: '#fff7ed', text: '#7c2d12' },
+  { name: 'Forest', primary: '#22c55e', secondary: '#4ade80', bg: '#f0fdf4', text: '#14532d' },
+  { name: 'Violet', primary: '#8b5cf6', secondary: '#a78bfa', bg: '#f5f3ff', text: '#4c1d95' },
+  { name: 'Rose', primary: '#f43f5e', secondary: '#fb7185', bg: '#fff1f2', text: '#881337' },
+]
+
+type ChakraCarouselApi = Parameters<NonNullable<React.ComponentProps<typeof Carousel>['setApi']>>[0]
+
+function ChakraThemePickerCarouselRender() {
+  const [current, setCurrent] = useState(0)
+  const [api, setApi] = useState<ChakraCarouselApi>()
+  const theme = CHAKRA_THEMES[current]
+
+  React.useEffect(() => {
+    if (!api) return
+    api.on('select', () => { setCurrent(api.selectedScrollSnap()) })
+  }, [api])
+
+  return (
+    <div style={{ width: 320, fontFamily: 'system-ui, sans-serif' }}>
+      <p style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 12 }}>Chakra UI — 테마 선택 캐러셀</p>
+      <Carousel setApi={setApi} opts={{ loop: true }} className="w-full">
+        {CHAKRA_THEMES.map((t) => (
+          <Carousel.Item key={t.name} style={{ width: '100%' }}>
+            <div style={{ padding: '24px', borderRadius: 14, background: t.bg, border: `2px solid ${t.primary}`, minHeight: 140, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 12, textAlign: 'center' }}>
+              <div style={{ display: 'flex', gap: 8 }}>
+                <div style={{ width: 40, height: 40, borderRadius: '50%', background: t.primary }} />
+                <div style={{ width: 40, height: 40, borderRadius: '50%', background: t.secondary }} />
+              </div>
+              <div>
+                <div style={{ fontSize: 16, fontWeight: 800, color: t.text, letterSpacing: '-0.02em' }}>{t.name}</div>
+                <div style={{ fontSize: 11, color: t.primary, fontFamily: 'monospace', marginTop: 2 }}>{t.primary}</div>
+              </div>
+              <div style={{ padding: '6px 16px', borderRadius: 999, background: t.primary, color: '#fff', fontSize: 11, fontWeight: 700 }}>이 테마 적용</div>
+            </div>
+          </Carousel.Item>
+        ))}
+      </Carousel>
+      <div style={{ display: 'flex', justifyContent: 'center', gap: 6, marginTop: 12 }}>
+        {CHAKRA_THEMES.map((_, i) => (
+          <button key={i} onClick={() => api?.scrollTo(i)} style={{ width: i === current ? 20 : 6, height: 6, borderRadius: 3, border: 'none', background: i === current ? CHAKRA_THEMES[current].primary : '#e2e8f0', cursor: 'pointer', transition: 'all 0.2s', padding: 0 }} />
+        ))}
+      </div>
+      <div style={{ marginTop: 10, textAlign: 'center', fontSize: 12, color: '#94a3b8' }}>
+        {current + 1} / {CHAKRA_THEMES.length} — {theme.name}
+      </div>
+    </div>
+  )
+}
+
+export const Chakra_테마_선택_캐러셀: Story = {
+  name: 'Chakra UI — 색상 테마 선택 캐러셀 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Chakra UI의 Color Mode Picker 패턴. 5가지 색상 테마를 캐러셀로 탐색하고 선택할 수 있는 인터랙티브 데모입니다.',
+      },
+    },
+  },
+  render: () => <ChakraThemePickerCarouselRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Arco Design: 데이터 시각화 스탯 카드 캐러셀 패턴
+-------------------------------------------------------------------------- */
+const ARCO_STATS = [
+  { label: '총 이슈', value: 1284, change: +12.5, unit: '건', color: '#6366f1', period: '이번 달' },
+  { label: '해결된 이슈', value: 1072, change: +8.3, unit: '건', color: '#22c55e', period: '이번 달' },
+  { label: '평균 해결 시간', value: 2.4, change: -18.2, unit: '일', color: '#f59e0b', period: '이번 주' },
+  { label: '팀 속도', value: 87, change: +5.1, unit: 'pt', color: '#ec4899', period: '이번 스프린트' },
+  { label: '코드 커버리지', value: 78.4, change: +3.2, unit: '%', color: '#14b8a6', period: '전체' },
+  { label: '배포 성공률', value: 99.1, change: +0.8, unit: '%', color: '#8b5cf6', period: '30일' },
+]
+
+function ArcoStatCardCarouselRender() {
+  const [idx, setIdx] = useState(0)
+  const VISIBLE = 3
+
+  const visibleStats = ARCO_STATS.slice(idx, idx + VISIBLE)
+
+  return (
+    <div style={{ width: 400, fontFamily: 'system-ui, sans-serif' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12 }}>
+        <p style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', letterSpacing: '0.06em', textTransform: 'uppercase', margin: 0 }}>Arco Design — 통계 카드 캐러셀</p>
+        <span style={{ marginLeft: 'auto', fontSize: 11, color: '#94a3b8' }}>{idx + 1}–{Math.min(idx + VISIBLE, ARCO_STATS.length)} / {ARCO_STATS.length}</span>
+      </div>
+      <Carousel className="w-full">
+        <Carousel.Item style={{ width: '100%' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 8 }}>
+            {visibleStats.map(stat => {
+              const isUp = stat.change >= 0
+              return (
+                <div key={stat.label} style={{ padding: '14px 12px', borderRadius: 12, border: `1.5px solid ${stat.color}30`, background: `${stat.color}08` }}>
+                  <div style={{ fontSize: 10, color: '#94a3b8', marginBottom: 6 }}>{stat.label}</div>
+                  <div style={{ fontSize: 20, fontWeight: 800, color: stat.color, letterSpacing: '-0.03em' }}>
+                    {stat.value}{stat.unit}
+                  </div>
+                  <div style={{ fontSize: 10, color: isUp ? '#22c55e' : '#ef4444', marginTop: 4 }}>
+                    {isUp ? '▲' : '▼'} {Math.abs(stat.change)}%
+                  </div>
+                  <div style={{ fontSize: 9, color: '#cbd5e1', marginTop: 2 }}>{stat.period}</div>
+                </div>
+              )
+            })}
+          </div>
+        </Carousel.Item>
+      </Carousel>
+      <div style={{ display: 'flex', justifyContent: 'center', gap: 8, marginTop: 12 }}>
+        <button onClick={() => setIdx(i => Math.max(0, i - VISIBLE))} disabled={idx === 0} style={{ padding: '5px 14px', fontSize: 11, borderRadius: 7, border: '1px solid #e2e8f0', background: '#fff', color: '#475569', cursor: idx === 0 ? 'not-allowed' : 'pointer', opacity: idx === 0 ? 0.4 : 1 }}>이전</button>
+        <button onClick={() => setIdx(i => Math.min(ARCO_STATS.length - VISIBLE, i + VISIBLE))} disabled={idx + VISIBLE >= ARCO_STATS.length} style={{ padding: '5px 14px', fontSize: 11, borderRadius: 7, border: '1px solid #e2e8f0', background: '#fff', color: '#475569', cursor: idx + VISIBLE >= ARCO_STATS.length ? 'not-allowed' : 'pointer', opacity: idx + VISIBLE >= ARCO_STATS.length ? 0.4 : 1 }}>다음</button>
+      </div>
+    </div>
+  )
+}
+
+export const Arco_통계_카드_캐러셀: Story = {
+  name: 'Arco Design — 데이터 통계 카드 캐러셀 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Arco Design의 Statistic Card 패턴. 팀 성과 지표를 3개씩 그룹화해 캐러셀로 탐색합니다. 이전/다음 버튼으로 페이지 단위 전환.',
+      },
+    },
+  },
+  render: () => <ArcoStatCardCarouselRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Chakra + Arco: 제품 온보딩 투어 캐러셀 복합 패턴
+-------------------------------------------------------------------------- */
+const ONBOARDING_GUIDE_STEPS = [
+  {
+    step: 1,
+    title: '컴포넌트 설치',
+    desc: 'npm install @heejun-com/theme-eclipse 명령어로 패키지를 설치합니다.',
+    icon: '📦',
+    code: 'npm install @heejun-com/theme-eclipse',
+    color: '#6366f1',
+  },
+  {
+    step: 2,
+    title: '프로바이더 설정',
+    desc: 'EclipseProvider로 앱을 감싸 테마를 활성화합니다.',
+    icon: '🎨',
+    code: '<EclipseProvider>\n  <App />\n</EclipseProvider>',
+    color: '#f59e0b',
+  },
+  {
+    step: 3,
+    title: '컴포넌트 임포트',
+    desc: '원하는 컴포넌트를 임포트해 바로 사용합니다.',
+    icon: '🧩',
+    code: "import { SolidButton } from '@heejun-com/theme-eclipse'",
+    color: '#22c55e',
+  },
+  {
+    step: 4,
+    title: '테마 커스터마이징',
+    desc: 'theme prop으로 디자인 토큰을 재정의합니다.',
+    icon: '✨',
+    code: '<Button theme={{ fillColor: "#your-brand" }}>',
+    color: '#ec4899',
+  },
+]
+
+type OnboardingCarouselApi = Parameters<NonNullable<React.ComponentProps<typeof Carousel>['setApi']>>[0]
+
+function ChakraArcoOnboardingCarouselRender() {
+  const [step, setStep] = useState(0)
+  const [api, setApi] = useState<OnboardingCarouselApi>()
+  const current = ONBOARDING_GUIDE_STEPS[step]
+
+  React.useEffect(() => {
+    if (!api) return
+    api.on('select', () => { setStep(api.selectedScrollSnap()) })
+  }, [api])
+
+  return (
+    <div style={{ width: 380, fontFamily: 'system-ui, sans-serif', border: '1px solid #e2e8f0', borderRadius: 16, overflow: 'hidden', background: '#fff' }}>
+      <div style={{ padding: '14px 18px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', gap: 8 }}>
+        <span style={{ fontSize: 13, fontWeight: 700, color: '#1e293b' }}>Orbit UI 시작하기</span>
+        <span style={{ marginLeft: 'auto', fontSize: 11, color: '#94a3b8' }}>{step + 1}/{ONBOARDING_GUIDE_STEPS.length}</span>
+      </div>
+      <Carousel setApi={setApi} className="w-full">
+        {ONBOARDING_GUIDE_STEPS.map((s) => (
+          <Carousel.Item key={s.step} style={{ width: '100%' }}>
+            <div style={{ padding: '24px 20px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 14 }}>
+                <div style={{ width: 40, height: 40, borderRadius: 12, background: `${s.color}15`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 20 }}>{s.icon}</div>
+                <div>
+                  <div style={{ fontSize: 13, fontWeight: 700, color: '#1e293b' }}>Step {s.step}: {s.title}</div>
+                </div>
+              </div>
+              <p style={{ fontSize: 12, color: '#64748b', lineHeight: 1.6, margin: '0 0 14px' }}>{s.desc}</p>
+              <div style={{ background: '#0f172a', borderRadius: 10, padding: '12px 14px' }}>
+                <pre style={{ margin: 0, fontSize: 11, color: '#e2e8f0', fontFamily: 'monospace', lineHeight: 1.6, whiteSpace: 'pre-wrap' }}>{s.code}</pre>
+              </div>
+            </div>
+          </Carousel.Item>
+        ))}
+      </Carousel>
+      <div style={{ padding: '12px 18px', borderTop: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', gap: 8 }}>
+        <div style={{ display: 'flex', gap: 5, flex: 1 }}>
+          {ONBOARDING_GUIDE_STEPS.map((_, i) => (
+            <button key={i} onClick={() => api?.scrollTo(i)} style={{ flex: 1, height: 4, borderRadius: 2, border: 'none', background: i <= step ? current.color : '#e2e8f0', cursor: 'pointer', transition: 'background 0.2s', padding: 0 }} />
+          ))}
+        </div>
+        <div style={{ display: 'flex', gap: 6 }}>
+          <button onClick={() => api?.scrollTo(Math.max(0, step - 1))} disabled={step === 0} style={{ padding: '6px 12px', fontSize: 11, borderRadius: 7, border: '1px solid #e2e8f0', background: '#fff', color: '#475569', cursor: step === 0 ? 'not-allowed' : 'pointer', opacity: step === 0 ? 0.4 : 1 }}>이전</button>
+          <button onClick={() => api?.scrollTo(Math.min(ONBOARDING_GUIDE_STEPS.length - 1, step + 1))} style={{ padding: '6px 12px', fontSize: 11, borderRadius: 7, border: 'none', background: step === ONBOARDING_GUIDE_STEPS.length - 1 ? '#22c55e' : current.color, color: '#fff', cursor: 'pointer', fontWeight: 600 }}>
+            {step === ONBOARDING_GUIDE_STEPS.length - 1 ? '완료' : '다음'}
+          </button>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const Chakra_Arco_온보딩_투어_캐러셀: Story = {
+  name: 'Chakra + Arco Design — 제품 온보딩 투어 캐러셀 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Chakra UI + Arco Design 복합 패턴. Orbit UI 설치/설정/사용 4단계 온보딩을 캐러셀로 가이드합니다. 진행 바 + 이전/다음 네비게이션.',
+      },
+    },
+  },
+  render: () => <ChakraArcoOnboardingCarouselRender />,
+}

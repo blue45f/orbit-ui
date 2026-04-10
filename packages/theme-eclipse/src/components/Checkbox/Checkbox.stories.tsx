@@ -1546,3 +1546,296 @@ export const Linear_Radix_스프린트_체크리스트: Story = {
     )
   },
 }
+
+/* --------------------------------------------------------------------------
+   Cycle 161 — Chakra UI + Arco Design
+   Chakra: 중첩 체크박스 그룹 패턴 (Nested Checkbox Group)
+-------------------------------------------------------------------------- */
+type TreeNode = { id: string; label: string; children?: TreeNode[] }
+
+const CHAKRA_TREE: TreeNode[] = [
+  {
+    id: 'frontend', label: '프론트엔드', children: [
+      { id: 'react', label: 'React' },
+      { id: 'ts', label: 'TypeScript' },
+      { id: 'css', label: 'CSS/Tailwind' },
+    ]
+  },
+  {
+    id: 'backend', label: '백엔드', children: [
+      { id: 'node', label: 'Node.js' },
+      { id: 'go', label: 'Go' },
+      { id: 'db', label: 'Database' },
+    ]
+  },
+  {
+    id: 'devops', label: 'DevOps', children: [
+      { id: 'docker', label: 'Docker' },
+      { id: 'k8s', label: 'Kubernetes' },
+    ]
+  },
+]
+
+function ChakraNestedCheckboxRender() {
+  const [checked, setChecked] = useState<Set<string>>(new Set(['react', 'ts']))
+
+  const toggleLeaf = (id: string) => {
+    setChecked(prev => {
+      const next = new Set(prev)
+      if (next.has(id)) { next.delete(id) } else { next.add(id) }
+      return next
+    })
+  }
+
+  const toggleGroup = (node: TreeNode) => {
+    const leafIds = (node.children ?? []).map(c => c.id)
+    const allChecked = leafIds.every(id => checked.has(id))
+    setChecked(prev => {
+      const next = new Set(prev)
+      if (allChecked) { leafIds.forEach(id => next.delete(id)) } else { leafIds.forEach(id => next.add(id)) }
+      return next
+    })
+  }
+
+  const getGroupState = (node: TreeNode): 'checked' | 'indeterminate' | 'unchecked' => {
+    const leafIds = (node.children ?? []).map(c => c.id)
+    const checkedCount = leafIds.filter(id => checked.has(id)).length
+    if (checkedCount === 0) { return 'unchecked' }
+    if (checkedCount === leafIds.length) { return 'checked' }
+    return 'indeterminate'
+  }
+
+  return (
+    <div style={{ width: 280, fontFamily: 'system-ui, sans-serif' }}>
+      <p style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 12 }}>기술 스택 선택</p>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+        {CHAKRA_TREE.map(group => {
+          const state = getGroupState(group)
+          return (
+            <div key={group.id} style={{ border: '1px solid #f1f5f9', borderRadius: 10, overflow: 'hidden' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 12px', background: '#f8fafc', cursor: 'pointer' }} onClick={() => toggleGroup(group)}>
+                <Checkbox
+                  checked={state === 'checked'}
+                  iconName={state === 'indeterminate' ? 'minus' : 'check'}
+                  onChange={() => toggleGroup(group)}
+                  onClick={e => e.stopPropagation()}
+                />
+                <span style={{ fontSize: 13, fontWeight: 700, color: '#1e293b' }}>{group.label}</span>
+                <span style={{ marginLeft: 'auto', fontSize: 10, color: '#94a3b8' }}>
+                  {(group.children ?? []).filter(c => checked.has(c.id)).length}/{(group.children ?? []).length}
+                </span>
+              </div>
+              <div style={{ padding: '6px 12px 10px 36px', display: 'flex', flexDirection: 'column', gap: 6 }}>
+                {(group.children ?? []).map(child => (
+                  <div key={child.id} style={{ display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer' }} onClick={() => toggleLeaf(child.id)}>
+                    <Checkbox checked={checked.has(child.id)} onChange={() => toggleLeaf(child.id)} onClick={e => e.stopPropagation()} />
+                    <span style={{ fontSize: 12, color: '#475569' }}>{child.label}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )
+        })}
+      </div>
+      <div style={{ marginTop: 12, padding: '8px 12px', borderRadius: 8, background: '#f0eeff', fontSize: 11, color: '#6366f1', fontWeight: 600 }}>
+        {checked.size}개 선택됨
+      </div>
+    </div>
+  )
+}
+
+export const Chakra_중첩_체크박스_그룹: Story = {
+  name: 'Chakra UI — 중첩 트리 체크박스 그룹 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Chakra UI의 Nested Checkbox Group 패턴. 부모-자식 계층 구조에서 부분 선택(indeterminate)을 iconName="minus"로 표현합니다.',
+      },
+    },
+  },
+  render: () => <ChakraNestedCheckboxRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Arco Design: 데이터 테이블 행 선택 체크박스 패턴
+-------------------------------------------------------------------------- */
+const ARCO_ROWS = [
+  { id: '1', name: '사용자_분석_보고서.csv', size: '2.4 MB', type: 'CSV', modified: '오늘' },
+  { id: '2', name: '컴포넌트_디자인_v2.fig', size: '18.7 MB', type: 'Figma', modified: '어제' },
+  { id: '3', name: '온보딩_플로우.pdf', size: '1.2 MB', type: 'PDF', modified: '2일 전' },
+  { id: '4', name: 'orbit-ui-theme.ts', size: '45 KB', type: 'TypeScript', modified: '3일 전' },
+  { id: '5', name: '스프린트_회고.md', size: '12 KB', type: 'Markdown', modified: '1주 전' },
+]
+
+const FILE_TYPE_COLOR: Record<string, string> = { CSV: '#22c55e', Figma: '#8b5cf6', PDF: '#ef4444', TypeScript: '#3b82f6', Markdown: '#64748b' }
+
+function ArcoTableRowSelectRender() {
+  const [selected, setSelected] = useState<Set<string>>(new Set())
+
+  const allSelected = selected.size === ARCO_ROWS.length
+  const someSelected = selected.size > 0 && !allSelected
+
+  const toggleAll = () => {
+    if (allSelected) { setSelected(new Set()) } else { setSelected(new Set(ARCO_ROWS.map(r => r.id))) }
+  }
+
+  const toggleRow = (id: string) => {
+    setSelected(prev => {
+      const next = new Set(prev)
+      if (next.has(id)) { next.delete(id) } else { next.add(id) }
+      return next
+    })
+  }
+
+  return (
+    <div style={{ width: 460, fontFamily: 'system-ui, sans-serif' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 10 }}>
+        <span style={{ fontSize: 13, fontWeight: 700, color: '#1e293b' }}>파일 목록</span>
+        {selected.size > 0 && (
+          <span style={{ fontSize: 11, padding: '2px 8px', borderRadius: 6, background: '#f0eeff', color: '#6366f1', fontWeight: 700 }}>{selected.size}개 선택됨</span>
+        )}
+        {selected.size > 0 && (
+          <button onClick={() => setSelected(new Set())} style={{ marginLeft: 'auto', padding: '4px 10px', fontSize: 11, borderRadius: 6, border: '1px solid #fca5a5', background: '#fff', color: '#ef4444', cursor: 'pointer' }}>선택 항목 삭제</button>
+        )}
+      </div>
+      <div style={{ border: '1px solid #e2e8f0', borderRadius: 10, overflow: 'hidden' }}>
+        <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+          <thead>
+            <tr style={{ background: '#f8fafc' }}>
+              <th style={{ width: 40, padding: '10px 12px', textAlign: 'center', borderBottom: '1px solid #e2e8f0' }}>
+                <Checkbox
+                  checked={allSelected}
+                  iconName={someSelected ? 'minus' : 'check'}
+                  onChange={toggleAll}
+                />
+              </th>
+              {['이름', '크기', '형식', '수정일'].map(h => (
+                <th key={h} style={{ padding: '10px 12px', textAlign: 'left', fontSize: 11, fontWeight: 700, color: '#64748b', borderBottom: '1px solid #e2e8f0' }}>{h}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {ARCO_ROWS.map(row => (
+              <tr key={row.id} onClick={() => toggleRow(row.id)} style={{ borderBottom: '1px solid #f1f5f9', background: selected.has(row.id) ? '#f5f3ff' : '#fff', cursor: 'pointer', transition: 'background 0.1s' }}>
+                <td style={{ padding: '8px 12px', textAlign: 'center' }}>
+                  <Checkbox checked={selected.has(row.id)} onChange={() => toggleRow(row.id)} onClick={e => e.stopPropagation()} />
+                </td>
+                <td style={{ padding: '8px 12px', fontSize: 12, color: '#1e293b', fontWeight: 500 }}>{row.name}</td>
+                <td style={{ padding: '8px 12px', fontSize: 11, color: '#94a3b8' }}>{row.size}</td>
+                <td style={{ padding: '8px 12px' }}>
+                  <span style={{ fontSize: 10, padding: '2px 6px', borderRadius: 4, background: `${FILE_TYPE_COLOR[row.type]}15`, color: FILE_TYPE_COLOR[row.type], fontWeight: 600 }}>{row.type}</span>
+                </td>
+                <td style={{ padding: '8px 12px', fontSize: 11, color: '#94a3b8' }}>{row.modified}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  )
+}
+
+export const Arco_테이블_행_선택_체크박스: Story = {
+  name: 'Arco Design — 파일 목록 테이블 행 선택 체크박스 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Arco Design의 Table Row Selection 패턴. 헤더 체크박스로 전체 선택/해제, 부분 선택 시 indeterminate(iconName="minus") 상태 표현.',
+      },
+    },
+  },
+  render: () => <ArcoTableRowSelectRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Chakra + Arco: 권한 설정 매트릭스 + 역할별 체크박스 패턴
+-------------------------------------------------------------------------- */
+const ROLES_161 = ['관리자', '개발자', '디자이너', '뷰어']
+const PERMISSIONS_161 = [
+  { id: 'read', label: '읽기', desc: '데이터 조회' },
+  { id: 'write', label: '쓰기', desc: '데이터 수정' },
+  { id: 'delete', label: '삭제', desc: '데이터 삭제' },
+  { id: 'admin', label: '관리', desc: '설정 변경' },
+  { id: 'deploy', label: '배포', desc: '프로덕션 배포' },
+]
+
+type Matrix = Record<string, Record<string, boolean>>
+
+const DEFAULT_MATRIX: Matrix = {
+  '관리자': { read: true, write: true, delete: true, admin: true, deploy: true },
+  '개발자': { read: true, write: true, delete: false, admin: false, deploy: true },
+  '디자이너': { read: true, write: true, delete: false, admin: false, deploy: false },
+  '뷰어': { read: true, write: false, delete: false, admin: false, deploy: false },
+}
+
+function ChakraArcoPermissionMatrixRender() {
+  const [matrix, setMatrix] = useState<Matrix>(DEFAULT_MATRIX)
+  const [saved, setSaved] = useState(false)
+
+  const toggle = (role: string, perm: string) => {
+    setMatrix(prev => ({
+      ...prev,
+      [role]: { ...prev[role], [perm]: !prev[role][perm] }
+    }))
+  }
+
+  const handleSave = () => {
+    setSaved(true)
+    setTimeout(() => setSaved(false), 2000)
+  }
+
+  return (
+    <div style={{ fontFamily: 'system-ui, sans-serif', width: 480 }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 14 }}>
+        <span style={{ fontSize: 14, fontWeight: 700, color: '#1e293b' }}>역할별 권한 설정</span>
+        <span style={{ marginLeft: 'auto' }}>
+          <button onClick={handleSave} style={{ padding: '6px 14px', fontSize: 12, borderRadius: 8, border: 'none', background: saved ? '#22c55e' : '#6366f1', color: '#fff', cursor: 'pointer', fontWeight: 600, transition: 'background 0.2s' }}>{saved ? '저장 완료' : '저장'}</button>
+        </span>
+      </div>
+      <div style={{ border: '1px solid #e2e8f0', borderRadius: 12, overflow: 'hidden' }}>
+        <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+          <thead>
+            <tr style={{ background: '#f8fafc' }}>
+              <th style={{ padding: '10px 14px', textAlign: 'left', fontSize: 11, fontWeight: 700, color: '#64748b', borderBottom: '1px solid #e2e8f0' }}>권한</th>
+              {ROLES_161.map(role => (
+                <th key={role} style={{ padding: '10px 12px', fontSize: 11, fontWeight: 700, color: '#64748b', borderBottom: '1px solid #e2e8f0', textAlign: 'center' }}>{role}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {PERMISSIONS_161.map(perm => (
+              <tr key={perm.id} style={{ borderBottom: '1px solid #f1f5f9' }}>
+                <td style={{ padding: '10px 14px' }}>
+                  <div style={{ fontSize: 12, fontWeight: 600, color: '#1e293b' }}>{perm.label}</div>
+                  <div style={{ fontSize: 10, color: '#94a3b8', marginTop: 1 }}>{perm.desc}</div>
+                </td>
+                {ROLES_161.map(role => (
+                  <td key={role} style={{ padding: '10px 12px', textAlign: 'center', background: matrix[role][perm.id] ? '#f5f3ff' : 'transparent' }}>
+                    <Checkbox
+                      checked={matrix[role][perm.id]}
+                      onChange={() => toggle(role, perm.id)}
+                      disabled={role === '관리자'}
+                    />
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p style={{ fontSize: 10, color: '#94a3b8', marginTop: 8 }}>관리자 역할의 권한은 변경할 수 없습니다</p>
+    </div>
+  )
+}
+
+export const Chakra_Arco_권한_매트릭스_체크박스: Story = {
+  name: 'Chakra + Arco Design — 역할별 권한 매트릭스 체크박스 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Chakra UI + Arco Design 복합 패턴. 역할-권한 2차원 매트릭스를 Checkbox 그리드로 구현하며 관리자 역할은 disabled 처리합니다.',
+      },
+    },
+  },
+  render: () => <ChakraArcoPermissionMatrixRender />,
+}

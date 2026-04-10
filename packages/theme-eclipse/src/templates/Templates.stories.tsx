@@ -36277,3 +36277,220 @@ export const MuiMantine160SecurityCenter: StoryObj = {
   },
   render: () => <MuiMantine160SecurityCenterRender />,
 }
+
+/* ==========================================================================
+   Cycle 161 — Chakra UI + Arco Design
+   ChakraArco161ProductOnboarding: 제품 온보딩 + 권한 설정 템플릿
+   ========================================================================== */
+const ONBOARD_SLIDES = [
+  { title: '환영합니다!', desc: 'Orbit UI로 강력한 디자인 시스템을 구축하세요. 접근성과 확장성을 모두 갖춘 컴포넌트를 제공합니다.', icon: '🚀', color: '#6366f1', bg: '#f5f3ff' },
+  { title: '3계층 아키텍처', desc: 'Base(무스타일) → Theme(토큰 스타일) → Custom(프로젝트 확장) 구조로 유연한 커스터마이징이 가능합니다.', icon: '🏗️', color: '#f59e0b', bg: '#fffbeb' },
+  { title: 'vanilla-extract 테마', desc: '타입 안전한 CSS-in-JS로 런타임 오버헤드 없이 테마를 구현합니다. 다크 모드도 완벽 지원합니다.', icon: '🎨', color: '#22c55e', bg: '#f0fdf4' },
+  { title: '바로 시작하기', desc: 'npm install @heejun-com/theme-eclipse로 설치 후 EclipseProvider로 감싸면 모든 준비가 완료됩니다.', icon: '✅', color: '#ec4899', bg: '#fdf2f8' },
+]
+
+const TEAM_ROLES_161 = ['관리자', '개발자', '디자이너', '뷰어']
+const TEAM_PERMS_161 = [
+  { id: 'read', label: '읽기' },
+  { id: 'write', label: '쓰기' },
+  { id: 'deploy', label: '배포' },
+  { id: 'admin', label: '관리' },
+]
+
+type TeamMatrix = Record<string, Record<string, boolean>>
+
+const INIT_MATRIX: TeamMatrix = {
+  '관리자': { read: true, write: true, deploy: true, admin: true },
+  '개발자': { read: true, write: true, deploy: true, admin: false },
+  '디자이너': { read: true, write: true, deploy: false, admin: false },
+  '뷰어': { read: true, write: false, deploy: false, admin: false },
+}
+
+const FEATURE_LIST = [
+  { id: 'analytics', label: '사용 분석', desc: '컴포넌트 사용 통계 수집' },
+  { id: 'darkmode', label: '다크 모드', desc: '시스템 테마 자동 감지' },
+  { id: 'a11y', label: '접근성 리포트', desc: 'WCAG 위반 사항 알림' },
+  { id: 'perf', label: '성능 모니터링', desc: '렌더링 성능 측정' },
+  { id: 'collab', label: '팀 협업', desc: '실시간 디자인 토큰 공유' },
+]
+
+type OnboardCarouselApi = Parameters<NonNullable<React.ComponentProps<typeof Carousel>['setApi']>>[0]
+
+function ChakraArco161ProductOnboardingRender() {
+  const [slide, setSlide] = useState(0)
+  const [carouselApi, setCarouselApi] = useState<OnboardCarouselApi>()
+  const [onboardDone, setOnboardDone] = useState(false)
+
+  React.useEffect(() => {
+    if (!carouselApi) return
+    carouselApi.on('select', () => { setSlide(carouselApi.selectedScrollSnap()) })
+  }, [carouselApi])
+  const [matrix, setMatrix] = useState<TeamMatrix>(INIT_MATRIX)
+  const [features, setFeatures] = useState<Set<string>>(new Set(['analytics', 'darkmode']))
+  const [setupSaved, setSetupSaved] = useState(false)
+
+  const togglePerm = (role: string, perm: string) => {
+    if (role === '관리자') { return }
+    setMatrix(prev => ({ ...prev, [role]: { ...prev[role], [perm]: !prev[role][perm] } }))
+  }
+
+  const toggleFeature = (id: string) => {
+    setFeatures(prev => {
+      const next = new Set(prev)
+      if (next.has(id)) { next.delete(id) } else { next.add(id) }
+      return next
+    })
+  }
+
+  const handleSave = () => {
+    setSetupSaved(true)
+    setTimeout(() => setSetupSaved(false), 2000)
+  }
+
+  const currentSlide = ONBOARD_SLIDES[slide]
+
+  return (
+    <div style={{ display: 'flex', height: '100vh', fontFamily: 'system-ui, sans-serif', background: '#f8fafc' }}>
+      {/* Left: Onboarding Carousel */}
+      <div style={{ width: 380, display: 'flex', flexDirection: 'column', background: '#fff', borderRight: '1px solid #e2e8f0' }}>
+        <div style={{ padding: '20px 20px 14px', borderBottom: '1px solid #f1f5f9' }}>
+          <div style={{ fontSize: 15, fontWeight: 800, color: '#0f172a', letterSpacing: '-0.02em' }}>Orbit UI 시작하기</div>
+          <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>Chakra UI + Arco Design 온보딩 패턴</div>
+        </div>
+
+        {/* Carousel */}
+        <div style={{ flex: 1, padding: '20px', display: 'flex', flexDirection: 'column' }}>
+          {!onboardDone ? (
+            <>
+              <Carousel setApi={setCarouselApi} className="w-full">
+                {ONBOARD_SLIDES.map((s, i) => (
+                  <Carousel.Item key={i} style={{ width: '100%' }}>
+                    <div style={{ padding: '28px 20px', borderRadius: 16, background: s.bg, border: `1.5px solid ${s.color}30`, minHeight: 200, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', gap: 14 }}>
+                      <div style={{ fontSize: 40 }}>{s.icon}</div>
+                      <div>
+                        <div style={{ fontSize: 16, fontWeight: 800, color: s.color, letterSpacing: '-0.02em', marginBottom: 8 }}>{s.title}</div>
+                        <div style={{ fontSize: 12, color: '#475569', lineHeight: 1.7 }}>{s.desc}</div>
+                      </div>
+                    </div>
+                  </Carousel.Item>
+                ))}
+              </Carousel>
+
+              {/* Progress */}
+              <div style={{ marginTop: 16, display: 'flex', gap: 5 }}>
+                {ONBOARD_SLIDES.map((_, i) => (
+                  <button key={i} onClick={() => carouselApi?.scrollTo(i)} style={{ flex: 1, height: 4, borderRadius: 2, border: 'none', background: i <= slide ? currentSlide.color : '#e2e8f0', cursor: 'pointer', transition: 'background 0.2s', padding: 0 }} />
+                ))}
+              </div>
+
+              {/* Nav buttons */}
+              <div style={{ marginTop: 14, display: 'flex', gap: 8 }}>
+                <button onClick={() => carouselApi?.scrollTo(Math.max(0, slide - 1))} disabled={slide === 0} style={{ flex: 1, padding: '9px', fontSize: 12, borderRadius: 8, border: '1px solid #e2e8f0', background: '#fff', color: '#475569', cursor: slide === 0 ? 'not-allowed' : 'pointer', opacity: slide === 0 ? 0.4 : 1 }}>이전</button>
+                <button
+                  onClick={() => {
+                    if (slide < ONBOARD_SLIDES.length - 1) { carouselApi?.scrollTo(slide + 1) } else { setOnboardDone(true) }
+                  }}
+                  style={{ flex: 2, padding: '9px', fontSize: 12, borderRadius: 8, border: 'none', background: slide === ONBOARD_SLIDES.length - 1 ? '#22c55e' : currentSlide.color, color: '#fff', cursor: 'pointer', fontWeight: 700, transition: 'background 0.2s' }}
+                >
+                  {slide === ONBOARD_SLIDES.length - 1 ? '설정 시작' : '다음'}
+                </button>
+              </div>
+
+              <div style={{ marginTop: 12, textAlign: 'center', fontSize: 11, color: '#94a3b8' }}>{slide + 1} / {ONBOARD_SLIDES.length}</div>
+            </>
+          ) : (
+            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 12, textAlign: 'center' }}>
+              <div style={{ fontSize: 48 }}>🎉</div>
+              <div style={{ fontSize: 16, fontWeight: 800, color: '#1e293b' }}>온보딩 완료!</div>
+              <div style={{ fontSize: 12, color: '#64748b', lineHeight: 1.6 }}>오른쪽에서 팀 권한과<br/>기능 설정을 완료하세요</div>
+              <button onClick={() => { setSlide(0); setOnboardDone(false) }} style={{ padding: '7px 16px', fontSize: 11, borderRadius: 8, border: '1px solid #e2e8f0', background: '#fff', color: '#475569', cursor: 'pointer' }}>다시 보기</button>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Right: Permission Matrix + Feature Checkboxes */}
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflowY: 'auto' }}>
+        <div style={{ padding: '20px 24px 14px', background: '#fff', borderBottom: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', gap: 10 }}>
+          <span style={{ fontSize: 15, fontWeight: 800, color: '#0f172a' }}>워크스페이스 설정</span>
+          <button onClick={handleSave} style={{ marginLeft: 'auto', padding: '7px 16px', fontSize: 12, borderRadius: 8, border: 'none', background: setupSaved ? '#22c55e' : '#6366f1', color: '#fff', cursor: 'pointer', fontWeight: 700, transition: 'background 0.2s' }}>
+            {setupSaved ? '저장 완료' : '설정 저장'}
+          </button>
+        </div>
+
+        <div style={{ padding: '20px 24px', display: 'flex', flexDirection: 'column', gap: 24 }}>
+          {/* Permission Matrix */}
+          <div>
+            <p style={{ fontSize: 12, fontWeight: 700, color: '#0f172a', marginBottom: 12 }}>역할별 권한 설정 (Arco Design 패턴)</p>
+            <div style={{ border: '1px solid #e2e8f0', borderRadius: 12, overflow: 'hidden' }}>
+              <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                <thead>
+                  <tr style={{ background: '#f8fafc' }}>
+                    <th style={{ padding: '10px 14px', textAlign: 'left', fontSize: 11, fontWeight: 700, color: '#64748b', borderBottom: '1px solid #e2e8f0' }}>권한</th>
+                    {TEAM_ROLES_161.map(role => (
+                      <th key={role} style={{ padding: '10px', fontSize: 11, fontWeight: 700, color: '#64748b', borderBottom: '1px solid #e2e8f0', textAlign: 'center' }}>{role}</th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {TEAM_PERMS_161.map(perm => (
+                    <tr key={perm.id} style={{ borderBottom: '1px solid #f1f5f9' }}>
+                      <td style={{ padding: '9px 14px', fontSize: 12, fontWeight: 500, color: '#1e293b' }}>{perm.label}</td>
+                      {TEAM_ROLES_161.map(role => (
+                        <td key={role} style={{ padding: '9px 10px', textAlign: 'center', background: matrix[role][perm.id] ? '#f5f3ff' : 'transparent' }}>
+                          <Checkbox
+                            checked={matrix[role][perm.id]}
+                            onChange={() => togglePerm(role, perm.id)}
+                            disabled={role === '관리자'}
+                          />
+                        </td>
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          {/* Feature Toggles (Checkboxes) */}
+          <div>
+            <p style={{ fontSize: 12, fontWeight: 700, color: '#0f172a', marginBottom: 12 }}>기능 설정 (Chakra UI 패턴)</p>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+              {FEATURE_LIST.map(feat => (
+                <div
+                  key={feat.id}
+                  onClick={() => toggleFeature(feat.id)}
+                  style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '11px 14px', borderRadius: 10, border: `1.5px solid ${features.has(feat.id) ? '#6366f1' : '#e2e8f0'}`, background: features.has(feat.id) ? '#f5f3ff' : '#fff', cursor: 'pointer', transition: 'all 0.15s' }}
+                >
+                  <Checkbox
+                    checked={features.has(feat.id)}
+                    onChange={() => toggleFeature(feat.id)}
+                    onClick={e => e.stopPropagation()}
+                  />
+                  <div style={{ flex: 1 }}>
+                    <div style={{ fontSize: 12, fontWeight: 600, color: '#1e293b' }}>{feat.label}</div>
+                    <div style={{ fontSize: 10, color: '#94a3b8', marginTop: 1 }}>{feat.desc}</div>
+                  </div>
+                  <span style={{ fontSize: 10, color: features.has(feat.id) ? '#6366f1' : '#94a3b8', fontWeight: 700 }}>{features.has(feat.id) ? 'ON' : 'OFF'}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const ChakraArco161ProductOnboarding: StoryObj = {
+  name: 'Chakra + Arco Design — 제품 온보딩 투어 + 권한/기능 설정 (Carousel + Checkbox)',
+  parameters: {
+    layout: 'fullscreen',
+    docs: {
+      description: {
+        story: 'Chakra UI + Arco Design 복합 패턴. 좌: Carousel 온보딩 투어(4단계 슬라이드+진행 바+네비게이션), 우: Checkbox 역할별 권한 매트릭스(Arco) + 기능 카드 선택(Chakra). 실무 SaaS 온보딩+설정 레이아웃.',
+      },
+    },
+  },
+  render: () => <ChakraArco161ProductOnboardingRender />,
+}
