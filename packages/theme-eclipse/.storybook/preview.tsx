@@ -271,10 +271,10 @@ const injectGlobalStyles = () => {
 
 export const useThemeRoot: Decorator = (Story, context) => {
   const theme = context.globals.theme || 'light'
+  const isFullscreen = context.parameters.layout === 'fullscreen'
 
   useLayoutEffect(() => {
     injectGlobalStyles()
-    // Toggle light/dark class on html and body elements
     const prev = theme === 'dark' ? 'light' : 'dark'
     document.documentElement.classList.remove(prev)
     document.documentElement.classList.add(theme)
@@ -290,7 +290,7 @@ export const useThemeRoot: Decorator = (Story, context) => {
           minHeight: '100vh',
           backgroundColor: 'var(--sem-eclipse-color-backgroundPrimary)',
           color: 'var(--sem-eclipse-color-foregroundPrimary)',
-          padding: '2rem',
+          padding: isFullscreen ? '0' : '1.25rem',
           boxSizing: 'border-box'
         }}
       >

@@ -326,6 +326,7 @@ const AdminDashboardRender = () => {
 
 export const AdminDashboard: Story = {
   render: () => <AdminDashboardRender />,
+  parameters: { layout: 'fullscreen' },
 }
 
 /* ═══════════════════════════════════════════
@@ -1398,6 +1399,7 @@ const EcommerceRender = () => {
 
 export const EcommerceMarket: Story = {
   render: () => <EcommerceRender />,
+  parameters: { layout: 'fullscreen' },
 }
 
 
@@ -3153,6 +3155,7 @@ const UserProfileRender: React.FC = () => {
 
 export const UserProfile: Story = {
   render: () => <UserProfileRender />,
+  parameters: { layout: 'fullscreen' },
 }
 
 /* ═══════════════════════════════════════════
@@ -3442,6 +3445,7 @@ const NotificationCenterRender = () => {
 
 export const NotificationCenter: Story = {
   render: () => <NotificationCenterRender />,
+  parameters: { layout: 'fullscreen' },
 }
 
 /* ═══════════════════════════════════════════
@@ -3740,6 +3744,7 @@ const CalendarAppRender: React.FC = () => {
 
 export const CalendarApp: Story = {
   render: () => <CalendarAppRender />,
+  parameters: { layout: 'fullscreen' },
 }
 
 /* ═══════════════════════════════════════════
@@ -3914,6 +3919,7 @@ const AnalyticsDashboardRender = () => {
 
 export const AnalyticsDashboard: Story = {
   render: () => <AnalyticsDashboardRender />,
+  parameters: { layout: 'fullscreen' },
 }
 
 /* ═══════════════════════════════════════════
@@ -4310,16 +4316,18 @@ const DeploymentHubRender: React.FC = () => {
                         <LabelBadge.Label>{deploy.env}</LabelBadge.Label>
                       </LabelBadge>
                       <Text textStyle="descriptionSmall" style={{ color: tc.fgMuted, fontFamily: 'monospace', minWidth: '56px', textAlign: 'right' }}>{deploy.duration}</Text>
-                      <Tooltip>
-                        <Tooltip.Trigger asChild>
-                          <div>
-                            <Avatar style={{ width: 24, height: 24, cursor: 'pointer' }}>
-                              <Avatar.Fallback style={{ fontSize: '9px' }}>{deploy.author}</Avatar.Fallback>
-                            </Avatar>
-                          </div>
-                        </Tooltip.Trigger>
-                        <Tooltip.Content>{deploy.author}</Tooltip.Content>
-                      </Tooltip>
+                      <Tooltip.Provider delayDuration={300}>
+                        <Tooltip>
+                          <Tooltip.Trigger asChild>
+                            <div>
+                              <Avatar style={{ width: 24, height: 24, cursor: 'pointer' }}>
+                                <Avatar.Fallback style={{ fontSize: '9px' }}>{deploy.author}</Avatar.Fallback>
+                              </Avatar>
+                            </div>
+                          </Tooltip.Trigger>
+                          <Tooltip.Content>{deploy.author}</Tooltip.Content>
+                        </Tooltip>
+                      </Tooltip.Provider>
                     </div>
                   )
                 })}
@@ -4441,6 +4449,7 @@ const DeploymentHubRender: React.FC = () => {
 
 export const DeploymentHub: Story = {
   render: () => <DeploymentHubRender />,
+  parameters: { layout: 'fullscreen' },
 }
 
 /* ═══════════════════════════════════════════
@@ -5694,6 +5703,7 @@ const DeveloperProfileRender = () => {
 export const DeveloperProfile: Story = {
   name: 'DeveloperProfile',
   render: () => <DeveloperProfileRender />,
+  parameters: { layout: 'fullscreen' },
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
