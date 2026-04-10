@@ -1275,5 +1275,87 @@ const theme = createTheme({
       </div>
     </section>
 
+    {/* ================================================================
+        Cycle 59: Mantine + Ant Design
+        ================================================================ */}
+    <section style={{ marginBottom: '64px' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '32px' }}>
+        <div style={{ width: '4px', height: '48px', borderRadius: '2px', background: 'linear-gradient(180deg, #22c55e, #16a34a)' }} />
+        <div>
+          <div style={{ fontSize: '22px', fontWeight: '800', color: '#0f172a' }}>Mantine + Ant Design</div>
+          <div style={{ fontSize: '13px', color: '#64748b', marginTop: '4px' }}>Cycle 59 — 날짜 컴포넌트 / 알림 센터 / 칸반 보드 패턴</div>
+        </div>
+      </div>
+
+      {/* Cards */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '20px', marginBottom: '32px' }}>
+        <div style={{ padding: '24px', borderRadius: '16px', background: '#0c4a6e', border: '1px solid #0369a1' }}>
+          <div style={{ fontSize: '11px', fontWeight: '700', color: '#38bdf8', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '12px' }}>Mantine</div>
+          <div style={{ fontSize: '16px', fontWeight: '700', color: '#f0f9ff', marginBottom: '14px' }}>훅 기반 상태 + 풍부한 날짜 컴포넌트</div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '13px', color: '#bae6fd', lineHeight: '1.6' }}>
+            <div>useDisclosure, useDebouncedValue 등 UI 훅을 컴포넌트와 함께 제공</div>
+            <div>DatePicker, DateRangePicker, Calendar, MonthPicker, YearPicker 완성도 높음</div>
+            <div>Notification 시스템이 내장되어 카테고리별 그룹화, 자동소멸 지원</div>
+          </div>
+        </div>
+        <div style={{ padding: '24px', borderRadius: '16px', background: '#052e16', border: '1px solid #166534' }}>
+          <div style={{ fontSize: '11px', fontWeight: '700', color: '#4ade80', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '12px' }}>Ant Design</div>
+          <div style={{ fontSize: '16px', fontWeight: '700', color: '#f0fdf4', marginBottom: '14px' }}>기업급 완성도와 데이터 집약 컴포넌트</div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '13px', color: '#86efac', lineHeight: '1.6' }}>
+            <div>Steps 컴포넌트로 CI/CD 파이프라인, 온보딩 흐름 등 시각화 탁월</div>
+            <div>Table, Form, Transfer, Tree 등 복잡한 데이터 편집 컴포넌트 완비</div>
+            <div>Calendar에 dateCellRender로 커스텀 이벤트 렌더링, 한국어 로케일 기본 지원</div>
+          </div>
+        </div>
+      </div>
+
+      {/* Comparison Table */}
+      <div style={{ borderRadius: '12px', border: '1px solid #e2e8f0', overflow: 'hidden', marginBottom: '24px' }}>
+        <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px' }}>
+          <thead>
+            <tr style={{ background: '#f8fafc' }}>
+              {['항목', 'Mantine', 'Ant Design', 'Orbit UI'].map((h) => (
+                <th key={h} style={{ padding: '12px 16px', textAlign: 'left', fontWeight: '700', color: '#475569', borderBottom: '2px solid #e2e8f0' }}>{h}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {[
+              ['날짜 선택기', 'DatePicker 전용 컴포넌트 (5종)', 'DatePicker + Calendar (통합)', 'Calendar (react-day-picker 기반)'],
+              ['알림 시스템', 'Notifications Provider + useNotifications', 'message / notification API', 'Toast + AnimatedBadge 조합'],
+              ['칸반/태스크', '없음 (별도 라이브러리)', 'DnD Board 제공 안 함', 'KanbanBoard 템플릿으로 구현'],
+              ['CI 상태 시각화', 'Steps + Badge', 'Steps + Tag (색상 풍부)', 'AnimatedBadge 단계별 시각화'],
+              ['다중 날짜', 'DateMultiplePicker', '없음', 'Calendar mode="multiple" + max prop'],
+            ].map((row, i) => (
+              <tr key={i} style={{ background: i % 2 === 0 ? '#fff' : '#fafafa' }}>
+                {row.map((cell, j) => (
+                  <td key={j} style={{ padding: '11px 16px', color: j === 3 ? '#4f46e5' : '#334155', borderBottom: '1px solid #f1f5f9', fontWeight: j === 0 ? 600 : 400 }}>{cell}</td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      {/* Results */}
+      <div style={{ padding: '20px', borderRadius: '12px', background: 'linear-gradient(135deg, #f0fdf4, #ecfdf5)', border: '2px solid #bbf7d0' }}>
+        <div style={{ fontSize: '13px', fontWeight: '700', color: '#065f46', marginBottom: '12px' }}>Orbit UI 반영 결과</div>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '12px', fontSize: '12px', color: '#374151', lineHeight: '1.7' }}>
+          <div>
+            <div style={{ fontWeight: '700', color: '#059669', marginBottom: '4px' }}>Calendar +3 스토리</div>
+            Radix 접근성 다중 선택기, Notion 태스크 마감일 설정, shadcn 월별 지출 추적기 추가.
+          </div>
+          <div>
+            <div style={{ fontWeight: '700', color: '#059669', marginBottom: '4px' }}>AnimatedBadge +3 스토리</div>
+            Mantine 알림 센터, Ant Design CI/CD 파이프라인 상태, Vercel 배포 상태 대시보드 추가.
+          </div>
+          <div>
+            <div style={{ fontWeight: '700', color: '#059669', marginBottom: '4px' }}>KanbanBoard 템플릿 신규</div>
+            Chip 필터, LabelBadge, Avatar, CounterBadge, Progress 조합 칸반 보드. 드래그 이동 지원.
+          </div>
+        </div>
+      </div>
+    </section>
+
   </div>
 </Unstyled>

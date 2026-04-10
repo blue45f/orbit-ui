@@ -14537,3 +14537,198 @@ export const ContentCMS: Story = {
   name: 'Content CMS (MUI + Chakra UI 벤치마크)',
   render: () => <ContentCMSRender />,
 }
+
+
+/* ========================================================================
+   Template 49: InvoiceApp
+   Mantine + Ant Design 벤치마크 — 인보이스 관리 앱 UI
+   컴포넌트: LabelBadge, SolidButton, OutlineButton, TextField, DataTable, Progress, Chip, Avatar
+   ======================================================================== */
+type InvStatus = 'draft' | 'sent' | 'paid' | 'overdue'
+
+type InvItem = {
+  id: string
+  client: string
+  initial: string
+  amount: number
+  dueDate: string
+  status: InvStatus
+  items: number
+}
+
+const INV_STATUS_CFG: Record<InvStatus, { label: string; badgeColor: 'gray' | 'benefit' | 'sale'; color: string }> = {
+  draft: { label: '초안', badgeColor: 'gray', color: '#94a3b8' },
+  sent: { label: '발송됨', badgeColor: 'benefit', color: '#6366f1' },
+  paid: { label: '결제완료', badgeColor: 'sale', color: '#10b981' },
+  overdue: { label: '기한초과', badgeColor: 'sale', color: '#ef4444' },
+}
+
+const INV_ITEMS: InvItem[] = [
+  { id: 'INV-2026-001', client: 'Orbit Design', initial: 'OD', amount: 4800000, dueDate: '04/15', status: 'paid', items: 5 },
+  { id: 'INV-2026-002', client: 'TechCorp KR', initial: 'TC', amount: 2350000, dueDate: '04/20', status: 'sent', items: 3 },
+  { id: 'INV-2026-003', client: 'StartupXYZ', initial: 'SX', amount: 780000, dueDate: '04/10', status: 'overdue', items: 2 },
+  { id: 'INV-2026-004', client: 'BlueSky Inc', initial: 'BS', amount: 1200000, dueDate: '04/30', status: 'draft', items: 4 },
+  { id: 'INV-2026-005', client: 'NovaMobile', initial: 'NM', amount: 3600000, dueDate: '04/28', status: 'sent', items: 8 },
+]
+
+const invColors = { bg: '#f8fafc', card: '#ffffff', border: '#e2e8f0', text: '#1e293b', textSub: '#64748b', textMuted: '#94a3b8' }
+
+function InvoiceAppRender() {
+  const [filter, setFilter] = useState<InvStatus | 'all'>('all')
+  const [selected, setSelected] = useState<string | null>(null)
+
+  const visible = filter === 'all' ? INV_ITEMS : INV_ITEMS.filter((i) => i.status === filter)
+  const detail = INV_ITEMS.find((i) => i.id === selected)
+
+  const fmt = (n: number) => n.toLocaleString('ko-KR') + '원'
+  const total = INV_ITEMS.reduce((s, i) => s + i.amount, 0)
+  const paid = INV_ITEMS.filter((i) => i.status === 'paid').reduce((s, i) => s + i.amount, 0)
+  const paidPct = Math.round((paid / total) * 100)
+
+  return (
+    <div style={{ width: 780, display: 'flex', gap: 16, background: invColors.bg, borderRadius: 16, padding: 20, border: `1px solid ${invColors.border}` }}>
+      {/* Left Panel */}
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 14 }}>
+        {/* Stats */}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 10 }}>
+          {[
+            { label: '총 청구액', value: fmt(total), color: '#6366f1' },
+            { label: '수금 완료', value: fmt(paid), color: '#10b981' },
+            { label: '미수금', value: fmt(total - paid), color: '#f59e0b' },
+          ].map((stat) => (
+            <div key={stat.label} style={{ padding: '12px', background: invColors.card, borderRadius: 10, border: `1px solid ${invColors.border}` }}>
+              <div style={{ fontSize: 10, color: invColors.textMuted, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>{stat.label}</div>
+              <div style={{ fontSize: 14, fontWeight: 800, color: stat.color, marginTop: 4 }}>{stat.value}</div>
+            </div>
+          ))}
+        </div>
+
+        {/* Progress */}
+        <div style={{ padding: '12px 14px', background: invColors.card, borderRadius: 10, border: `1px solid ${invColors.border}` }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, fontWeight: 600, color: invColors.textSub, marginBottom: 8 }}>
+            <span>수금 현황</span>
+            <span style={{ color: '#10b981' }}>{paidPct}% 완료</span>
+          </div>
+          <Progress value={paidPct} />
+        </div>
+
+        {/* Filter Chips */}
+        <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', alignItems: 'center' }}>
+          <span style={{ fontSize: 11, color: invColors.textMuted, fontWeight: 700 }}>필터:</span>
+          {(['all', 'draft', 'sent', 'paid', 'overdue'] as const).map((f) => (
+            <Chip key={f} selected={filter === f} onClick={() => setFilter(f)}>
+              {f === 'all' ? '전체' : INV_STATUS_CFG[f].label}
+            </Chip>
+          ))}
+        </div>
+
+        {/* Invoice List */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+          {visible.map((inv) => {
+            const cfg = INV_STATUS_CFG[inv.status]
+            const isSelected = selected === inv.id
+            return (
+              <div
+                key={inv.id}
+                onClick={() => setSelected(isSelected ? null : inv.id)}
+                style={{
+                  display: 'flex', alignItems: 'center', gap: 12,
+                  padding: '12px 14px', borderRadius: 10,
+                  background: isSelected ? '#eff6ff' : invColors.card,
+                  border: `2px solid ${isSelected ? '#6366f1' : invColors.border}`,
+                  cursor: 'pointer', transition: 'all 0.15s',
+                }}
+              >
+                <Avatar>
+                  <Avatar.Fallback>{inv.initial}</Avatar.Fallback>
+                </Avatar>
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <span style={{ fontSize: 13, fontWeight: 700, color: invColors.text }}>{inv.client}</span>
+                    <span style={{ fontSize: 13, fontWeight: 700, color: cfg.color }}>{fmt(inv.amount)}</span>
+                  </div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 4 }}>
+                    <span style={{ fontSize: 11, color: invColors.textMuted, fontFamily: 'monospace' }}>{inv.id}</span>
+                    <LabelBadge color={cfg.badgeColor}>
+                      <LabelBadge.Label>{cfg.label}</LabelBadge.Label>
+                    </LabelBadge>
+                  </div>
+                </div>
+              </div>
+            )
+          })}
+        </div>
+
+        {/* Add Button */}
+        <SolidButton color="primary" size="medium">
+          + 새 인보이스
+        </SolidButton>
+      </div>
+
+      {/* Right Panel — Detail */}
+      <div style={{ width: 240, background: invColors.card, borderRadius: 12, border: `1px solid ${invColors.border}`, padding: '16px', display: 'flex', flexDirection: 'column', gap: 14 }}>
+        {detail ? (
+          <>
+            <div>
+              <div style={{ fontSize: 11, color: invColors.textMuted, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 6 }}>인보이스 상세</div>
+              <div style={{ fontSize: 15, fontWeight: 800, color: invColors.text }}>{detail.client}</div>
+              <div style={{ fontSize: 11, color: invColors.textMuted, fontFamily: 'monospace', marginTop: 2 }}>{detail.id}</div>
+            </div>
+            <Divider />
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+              {[
+                { label: '청구 금액', value: fmt(detail.amount) },
+                { label: '마감일', value: detail.dueDate },
+                { label: '항목 수', value: `${detail.items}건` },
+              ].map(({ label, value }) => (
+                <div key={label} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <span style={{ fontSize: 12, color: invColors.textSub }}>{label}</span>
+                  <span style={{ fontSize: 12, fontWeight: 700, color: invColors.text }}>{value}</span>
+                </div>
+              ))}
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <span style={{ fontSize: 12, color: invColors.textSub }}>상태</span>
+                <LabelBadge color={INV_STATUS_CFG[detail.status].badgeColor}>
+                  <LabelBadge.Label>{INV_STATUS_CFG[detail.status].label}</LabelBadge.Label>
+                </LabelBadge>
+              </div>
+            </div>
+            <Divider />
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+              {detail.status !== 'paid' && (
+                <SolidButton color="primary" size="small">
+                  결제 요청 발송
+                </SolidButton>
+              )}
+              <OutlineButton color="gray" size="small">
+                PDF 다운로드
+              </OutlineButton>
+              <OutlineButton color="gray" size="small">
+                상태 변경
+              </OutlineButton>
+            </div>
+          </>
+        ) : (
+          <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', gap: 10 }}>
+            <div style={{ fontSize: 11, color: invColors.textMuted, lineHeight: 1.6 }}>인보이스를 선택하면<br />상세 정보가 표시됩니다</div>
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+
+export const InvoiceApp: Story = {
+  name: 'Invoice App (Mantine + Ant Design 벤치마크)',
+  parameters: {
+    layout: 'centered',
+    docs: {
+      description: {
+        story:
+          'Mantine의 Stats/Progress 조합 + Ant Design의 List/Tag 패턴 결합. ' +
+          'LabelBadge, Chip 필터, Avatar, Progress, SolidButton, OutlineButton을 활용한 인보이스 관리 앱.',
+      },
+    },
+  },
+  render: () => <InvoiceAppRender />,
+}

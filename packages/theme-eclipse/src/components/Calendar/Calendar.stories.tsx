@@ -609,3 +609,338 @@ export const TailwindUI_예약_일정_선택: Story = {
     )
   },
 }
+
+/* --------------------------------------------------------------------------
+   Radix UI 벤치마크: 접근성 다중 날짜 선택기
+   Radix 패턴: 명시적 label, aria-live 영역, 키보드 네비게이션 힌트
+-------------------------------------------------------------------------- */
+export const Radix_접근성_다중_날짜_선택기: Story = {
+  name: 'Radix UI - 접근성 다중 날짜 선택기 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Radix UI의 접근성 우선 패턴 적용. aria-live 영역으로 선택 상태를 스크린리더에 전달하고, ' +
+          '키보드 단축키 힌트를 제공합니다. 프로젝트 휴일/마감일 다중 선택 시나리오입니다.',
+      },
+    },
+  },
+  render: function Render() {
+    const [dates, setDates] = React.useState<Date[]>([])
+    const maxSelect = 5
+
+    const fmt = (d: Date) =>
+      d.toLocaleDateString('ko-KR', { month: 'short', day: 'numeric', weekday: 'short' })
+
+    const sortedDates = [...dates].sort((a, b) => a.getTime() - b.getTime())
+
+    return (
+      <div style={{ display: 'flex', gap: 24, flexWrap: 'wrap', alignItems: 'flex-start' }}>
+        <div>
+          <div
+            style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 8 }}
+            id="cal-label"
+          >
+            프로젝트 마감일 선택 ({dates.length}/{maxSelect})
+          </div>
+          <Calendar
+            mode="multiple"
+            selected={dates}
+            onSelect={(d) => setDates(d ?? [])}
+            max={maxSelect}
+            aria-labelledby="cal-label"
+          />
+          <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 6, display: 'flex', gap: 12 }}>
+            <span>Space/Enter: 선택</span>
+            <span>Arrow: 이동</span>
+            <span>최대 {maxSelect}일</span>
+          </div>
+        </div>
+        <div style={{ minWidth: 200 }}>
+          <div
+            aria-live="polite"
+            style={{ fontSize: 13, fontWeight: 700, color: '#1e293b', marginBottom: 10 }}
+          >
+            선택된 마감일 {dates.length > 0 ? `(${dates.length}개)` : '없음'}
+          </div>
+          {sortedDates.length > 0 ? (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+              {sortedDates.map((d, i) => (
+                <div
+                  key={d.toISOString()}
+                  style={{
+                    display: 'flex', alignItems: 'center', gap: 8,
+                    padding: '8px 12px', borderRadius: 8,
+                    border: '1px solid #e2e8f0', background: '#fafafa',
+                  }}
+                >
+                  <span
+                    style={{
+                      width: 20, height: 20, borderRadius: '50%',
+                      background: '#6366f1', color: '#fff',
+                      fontSize: 10, fontWeight: 700,
+                      display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      flexShrink: 0,
+                    }}
+                  >
+                    {i + 1}
+                  </span>
+                  <span style={{ fontSize: 13, color: '#1e293b' }}>{fmt(d)}</span>
+                </div>
+              ))}
+              <button
+                onClick={() => setDates([])}
+                style={{
+                  marginTop: 4, padding: '6px 12px', borderRadius: 7,
+                  border: '1px solid #fee2e2', background: '#fff5f5',
+                  color: '#ef4444', fontSize: 12, fontWeight: 600, cursor: 'pointer',
+                }}
+              >
+                전체 해제
+              </button>
+            </div>
+          ) : (
+            <div style={{ fontSize: 13, color: '#94a3b8' }}>날짜를 클릭해 마감일을 추가하세요.</div>
+          )}
+        </div>
+      </div>
+    )
+  },
+}
+
+/* --------------------------------------------------------------------------
+   Notion 벤치마크: 태스크 마감일 인라인 설정 패턴
+   Notion DB에서 Date 속성을 인라인 편집하는 UX — 태스크 리스트 + 달력
+-------------------------------------------------------------------------- */
+type NotionTask = {
+  id: string
+  title: string
+  deadline: Date | undefined
+  done: boolean
+}
+
+const NOTION_TASKS_INIT: NotionTask[] = [
+  { id: 't1', title: '디자인 토큰 가이드 문서화', deadline: undefined, done: false },
+  { id: 't2', title: 'Storybook autodocs 보강', deadline: undefined, done: false },
+  { id: 't3', title: '접근성 키보드 테스트', deadline: undefined, done: false },
+  { id: 't4', title: '다크모드 색상 검수', deadline: undefined, done: false },
+]
+
+function NotionDeadlineRender() {
+  const [tasks, setTasks] = React.useState<NotionTask[]>(NOTION_TASKS_INIT)
+  const [openId, setOpenId] = React.useState<string | null>(null)
+
+  const setDeadline = (id: string, d: Date | undefined) => {
+    setTasks((prev) => prev.map((t) => (t.id === id ? { ...t, deadline: d } : t)))
+    setOpenId(null)
+  }
+
+  const toggleDone = (id: string) =>
+    setTasks((prev) => prev.map((t) => (t.id === id ? { ...t, done: !t.done } : t)))
+
+  const today = new Date()
+  today.setHours(0, 0, 0, 0)
+
+  return (
+    <div style={{ width: 420, border: '1px solid #e2e8f0', borderRadius: 12, overflow: 'visible', background: '#fff' }}>
+      <div style={{ padding: '12px 16px', borderBottom: '1px solid #f1f5f9', background: '#fafafa', fontSize: 14, fontWeight: 700, color: '#1e293b' }}>
+        태스크 마감일 설정
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column' }}>
+        {tasks.map((task) => {
+          const isOverdue = task.deadline && task.deadline < today && !task.done
+          return (
+            <div key={task.id} style={{ position: 'relative' }}>
+              <div
+                style={{
+                  display: 'flex', alignItems: 'center', gap: 10,
+                  padding: '10px 16px',
+                  borderBottom: '1px solid #f8fafc',
+                  background: task.done ? '#f8fafc' : '#fff',
+                }}
+              >
+                <input
+                  type="checkbox"
+                  checked={task.done}
+                  onChange={() => toggleDone(task.id)}
+                  style={{ width: 15, height: 15, accentColor: '#6366f1', cursor: 'pointer', flexShrink: 0 }}
+                />
+                <span style={{
+                  flex: 1, fontSize: 13, color: task.done ? '#94a3b8' : '#1e293b',
+                  textDecoration: task.done ? 'line-through' : 'none',
+                }}>
+                  {task.title}
+                </span>
+                <button
+                  onClick={() => setOpenId(openId === task.id ? null : task.id)}
+                  style={{
+                    padding: '3px 10px', borderRadius: 6,
+                    border: `1px solid ${isOverdue ? '#fecaca' : '#e2e8f0'}`,
+                    background: isOverdue ? '#fef2f2' : '#f8fafc',
+                    color: isOverdue ? '#ef4444' : task.deadline ? '#6366f1' : '#94a3b8',
+                    fontSize: 11, fontWeight: 600, cursor: 'pointer', whiteSpace: 'nowrap',
+                  }}
+                >
+                  {task.deadline
+                    ? task.deadline.toLocaleDateString('ko-KR', { month: 'short', day: 'numeric' })
+                    : '날짜 설정'}
+                </button>
+              </div>
+              {openId === task.id && (
+                <div style={{
+                  position: 'absolute', right: 12, top: '100%', zIndex: 10,
+                  border: '1px solid #e2e8f0', borderRadius: 12,
+                  background: '#fff', boxShadow: '0 8px 24px rgba(0,0,0,0.12)', padding: 4,
+                }}>
+                  <Calendar
+                    mode="single"
+                    selected={task.deadline}
+                    onSelect={(d) => setDeadline(task.id, d)}
+                    disabled={{ before: today }}
+                  />
+                  {task.deadline && (
+                    <div style={{ padding: '4px 8px', borderTop: '1px solid #f1f5f9' }}>
+                      <button
+                        onClick={() => setDeadline(task.id, undefined)}
+                        style={{ width: '100%', padding: '6px', borderRadius: 6, border: 'none', background: '#fef2f2', color: '#ef4444', fontSize: 11, fontWeight: 600, cursor: 'pointer' }}
+                      >
+                        날짜 제거
+                      </button>
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
+          )
+        })}
+      </div>
+    </div>
+  )
+}
+
+export const Notion_태스크_마감일_설정: Story = {
+  name: 'Notion - 태스크 마감일 인라인 설정 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Notion Database Date 속성 인라인 편집 패턴. 각 태스크 행에서 날짜 버튼을 클릭해 ' +
+          '달력 팝오버로 마감일을 설정합니다. 오늘 이전 날짜 비활성화, 기한 초과 시 경고 표시.',
+      },
+    },
+  },
+  render: () => <NotionDeadlineRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Shadcn/ui 벤치마크: 월별 지출 추적기 패턴
+   shadcn Calendar + 데이터 입력 조합 — 날짜별 지출 기록 및 월합계
+-------------------------------------------------------------------------- */
+function ShadcnExpenseTrackerRender() {
+  const [selected, setSelected] = React.useState<Date | undefined>(new Date())
+  const [expenses, setExpenses] = React.useState<Record<string, number>>({})
+  const [input, setInput] = React.useState('')
+
+  const key = (d: Date) => d.toDateString()
+
+  const addExpense = () => {
+    if (!selected || !input) return
+    const val = parseFloat(input)
+    if (isNaN(val) || val <= 0) return
+    setExpenses((prev) => ({ ...prev, [key(selected)]: (prev[key(selected)] || 0) + val }))
+    setInput('')
+  }
+
+  const total = Object.values(expenses).reduce((s, v) => s + v, 0)
+  const expenseDates = Object.keys(expenses).map((k) => new Date(k))
+
+  const fmt = (n: number) => n.toLocaleString('ko-KR', { style: 'currency', currency: 'KRW' })
+
+  return (
+    <div style={{ display: 'flex', gap: 24, flexWrap: 'wrap', alignItems: 'flex-start' }}>
+      <div>
+        <Calendar
+          mode="single"
+          selected={selected}
+          onSelect={setSelected}
+          modifiers={{ hasExpense: expenseDates }}
+          modifiersStyles={{
+            hasExpense: {
+              fontWeight: 800,
+              color: '#059669',
+              textDecoration: 'underline',
+              textDecorationColor: '#059669',
+              textUnderlineOffset: '3px',
+            },
+          }}
+        />
+      </div>
+      <div style={{ minWidth: 220, display: 'flex', flexDirection: 'column', gap: 14 }}>
+        <div style={{ padding: '12px 16px', borderRadius: 10, border: '1px solid #e2e8f0', background: '#fafafa' }}>
+          <div style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: 4 }}>
+            {selected
+              ? selected.toLocaleDateString('ko-KR', { month: 'long', day: 'numeric' })
+              : '날짜 선택'} 지출
+          </div>
+          <div style={{ fontSize: 20, fontWeight: 800, color: '#1e293b' }}>
+            {selected && expenses[key(selected)] ? fmt(expenses[key(selected)]) : fmt(0)}
+          </div>
+        </div>
+        {selected && (
+          <div style={{ display: 'flex', gap: 6 }}>
+            <input
+              type="number"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              onKeyDown={(e) => e.key === 'Enter' && addExpense()}
+              placeholder="금액 (원)"
+              min={0}
+              style={{
+                flex: 1, padding: '8px 12px', borderRadius: 8,
+                border: '1.5px solid #e2e8f0', fontSize: 13, color: '#1e293b',
+                outline: 'none',
+              }}
+            />
+            <button
+              onClick={addExpense}
+              style={{
+                padding: '8px 14px', borderRadius: 8,
+                border: 'none', background: '#6366f1',
+                color: '#fff', fontSize: 13, fontWeight: 700, cursor: 'pointer',
+              }}
+            >
+              추가
+            </button>
+          </div>
+        )}
+        <div style={{ padding: '12px 16px', borderRadius: 10, border: '1px solid #d1fae5', background: '#f0fdf4' }}>
+          <div style={{ fontSize: 11, fontWeight: 700, color: '#059669', textTransform: 'uppercase', marginBottom: 4 }}>이번 달 총 지출</div>
+          <div style={{ fontSize: 18, fontWeight: 800, color: '#047857' }}>{fmt(total)}</div>
+          <div style={{ fontSize: 11, color: '#6ee7b7', marginTop: 2 }}>{Object.keys(expenses).length}일 기록됨</div>
+        </div>
+        {Object.keys(expenses).length > 0 && (
+          <button
+            onClick={() => setExpenses({})}
+            style={{ padding: '6px 12px', borderRadius: 7, border: '1px solid #fecaca', background: '#fff5f5', color: '#ef4444', fontSize: 11, fontWeight: 600, cursor: 'pointer' }}
+          >
+            기록 초기화
+          </button>
+        )}
+      </div>
+    </div>
+  )
+}
+
+export const Shadcn_월별_지출_추적기: Story = {
+  name: 'shadcn/ui - 월별 지출 추적 달력 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'shadcn/ui Calendar + 데이터 입력 조합 패턴. 날짜 선택 후 지출 금액을 입력하면 ' +
+          '달력에 기록 표시(초록 밑줄)되고 월합계를 집계합니다.',
+      },
+    },
+  },
+  render: () => <ShadcnExpenseTrackerRender />,
+}
