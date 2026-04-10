@@ -42,6 +42,7 @@ import { GhostButton } from '../components/GhostButton'
 import { Calendar } from '../components/Calendar'
 import { SearchBar } from '../components/SearchBar'
 import { Drawer } from '../components/Drawer'
+import { PasswordField } from '../components/PasswordField'
 
 import {
   MenuIcon,
@@ -14006,4 +14007,239 @@ function ProjectRoadmapRender() {
 export const ProjectRoadmap: Story = {
   name: 'Project Roadmap (Tailwind UI + Arco Design 벤치마크)',
   render: () => <ProjectRoadmapRender />,
+}
+
+// ============================================================
+// Template 47: SecurityCenter (Google M3 + Figma Plugin UI 벤치마크)
+// ============================================================
+
+type SCSession = { id: string; device: string; location: string; ip: string; lastActive: string; current: boolean }
+type SCActivity = { id: string; action: string; time: string; risk: 'low' | 'medium' | 'high' }
+type SC2FAMethod = 'authenticator' | 'sms' | 'email' | 'hardware'
+
+const SC_SESSIONS: SCSession[] = [
+  { id: 's1', device: 'MacBook Pro (Safari)', location: '서울, KR', ip: '121.167.xxx.xxx', lastActive: '현재 세션', current: true },
+  { id: 's2', device: 'iPhone 16 (앱)', location: '서울, KR', ip: '121.167.xxx.xxx', lastActive: '2시간 전', current: false },
+  { id: 's3', device: 'Windows 11 (Chrome)', location: '부산, KR', ip: '210.94.xxx.xxx', lastActive: '3일 전', current: false },
+  { id: 's4', device: 'Unknown Device', location: '싱가포르, SG', ip: '13.212.xxx.xxx', lastActive: '5일 전', current: false },
+]
+
+const SC_ACTIVITIES: SCActivity[] = [
+  { id: 'a1', action: '로그인 성공 (MacBook Pro)', time: '오늘 09:41', risk: 'low' },
+  { id: 'a2', action: 'API 키 생성 (Figma Token)', time: '어제 18:22', risk: 'medium' },
+  { id: 'a3', action: '알 수 없는 위치에서 로그인 시도', time: '3일 전 02:15', risk: 'high' },
+  { id: 'a4', action: '비밀번호 변경', time: '1주일 전', risk: 'low' },
+]
+
+const SC_RISK_CFG: Record<SCActivity['risk'], { color: string; label: string }> = {
+  low: { color: '#10b981', label: '정상' },
+  medium: { color: '#f59e0b', label: '주의' },
+  high: { color: '#ef4444', label: '위험' },
+}
+
+const SC_2FA_METHODS: { key: SC2FAMethod; label: string; desc: string; enabled: boolean }[] = [
+  { key: 'authenticator', label: '인증 앱 (TOTP)', desc: 'Google Authenticator, Authy 등', enabled: true },
+  { key: 'sms', label: 'SMS 인증', desc: '등록된 휴대폰으로 코드 전송', enabled: true },
+  { key: 'email', label: '이메일 인증', desc: '계정 이메일로 코드 전송', enabled: false },
+  { key: 'hardware', label: '하드웨어 키 (FIDO2)', desc: 'YubiKey 등 물리적 보안 키', enabled: false },
+]
+
+const scColors = {
+  bg: '#f8fafc',
+  card: '#ffffff',
+  border: '#e2e8f0',
+  text: '#1e293b',
+  textSub: '#64748b',
+  accent: '#6366f1',
+  accentBg: '#eef2ff',
+  danger: '#ef4444',
+  dangerBg: '#fee2e2',
+  success: '#10b981',
+  successBg: '#dcfce7',
+}
+
+function SecurityCenterRender() {
+  const [activeTab, setActiveTab] = useState<'overview' | 'sessions' | '2fa' | 'activity'>('overview')
+  const [sessions, setSessions] = useState(SC_SESSIONS)
+  const [methods, setMethods] = useState(SC_2FA_METHODS)
+  const [currentPassword, setCurrentPassword] = useState('')
+  const [newPassword, setNewPassword] = useState('')
+
+  const revokeSession = (id: string) => setSessions((prev) => prev.filter((s) => s.id !== id))
+  const toggle2FA = (key: SC2FAMethod) => setMethods((prev) => prev.map((m) => m.key === key ? { ...m, enabled: !m.enabled } : m))
+
+  const enabledCount = methods.filter((m) => m.enabled).length
+  const highRiskCount = SC_ACTIVITIES.filter((a) => a.risk === 'high').length
+  const unknownSessions = sessions.filter((s) => !s.current && s.location.includes('SG')).length
+
+  const securityScore = Math.max(0, 100 - highRiskCount * 20 - (3 - enabledCount) * 10)
+
+  return (
+    <div style={{ display: 'flex', height: '640px', background: scColors.bg, borderRadius: 12, overflow: 'hidden', border: `1px solid ${scColors.border}` }}>
+      {/* Left sidebar */}
+      <div style={{ width: 220, background: scColors.card, borderRight: `1px solid ${scColors.border}`, display: 'flex', flexDirection: 'column' }}>
+        <div style={{ padding: '20px 16px 12px', borderBottom: `1px solid ${scColors.border}` }}>
+          <div style={{ fontSize: 14, fontWeight: 700, color: scColors.text }}>보안 센터</div>
+          <div style={{ marginTop: 12 }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 6 }}>
+              <span style={{ fontSize: 11, color: scColors.textSub }}>보안 점수</span>
+              <span style={{ fontSize: 11, fontWeight: 800, color: securityScore >= 80 ? scColors.success : securityScore >= 60 ? '#f59e0b' : scColors.danger }}>{securityScore}점</span>
+            </div>
+            <Progress value={securityScore} />
+          </div>
+        </div>
+        {([
+          { key: 'overview', label: '개요', badge: null },
+          { key: 'sessions', label: '로그인 세션', badge: unknownSessions > 0 ? unknownSessions : null },
+          { key: '2fa', label: '2단계 인증', badge: null },
+          { key: 'activity', label: '활동 로그', badge: highRiskCount > 0 ? highRiskCount : null },
+        ] as const).map(({ key, label, badge }) => (
+          <div
+            key={key}
+            onClick={() => setActiveTab(key)}
+            style={{
+              padding: '12px 16px',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              background: activeTab === key ? scColors.accentBg : 'transparent',
+              borderLeft: `3px solid ${activeTab === key ? scColors.accent : 'transparent'}`,
+              transition: 'all 0.15s',
+            }}
+          >
+            <span style={{ fontSize: 13, fontWeight: activeTab === key ? 700 : 400, color: activeTab === key ? scColors.accent : scColors.text }}>{label}</span>
+            {badge !== null && (
+              <span style={{ padding: '1px 7px', borderRadius: 10, fontSize: 11, fontWeight: 700, background: scColors.dangerBg, color: scColors.danger }}>{badge}</span>
+            )}
+          </div>
+        ))}
+      </div>
+
+      {/* Main content */}
+      <div style={{ flex: 1, overflowY: 'auto', padding: '20px 24px', display: 'flex', flexDirection: 'column', gap: 16 }}>
+        {activeTab === 'overview' && (
+          <>
+            <div style={{ fontSize: 15, fontWeight: 700, color: scColors.text }}>보안 현황</div>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 12 }}>
+              {[
+                { label: '활성 세션', value: `${sessions.length}개`, color: scColors.accent },
+                { label: '2FA 수단', value: `${enabledCount}/${methods.length}`, color: scColors.success },
+                { label: '위험 이벤트', value: `${highRiskCount}건`, color: highRiskCount > 0 ? scColors.danger : scColors.success },
+              ].map((m) => (
+                <div key={m.label} style={{ padding: 16, background: scColors.card, borderRadius: 10, border: `1px solid ${scColors.border}`, textAlign: 'center' }}>
+                  <div style={{ fontSize: 22, fontWeight: 800, color: m.color, marginBottom: 4 }}>{m.value}</div>
+                  <div style={{ fontSize: 11, color: scColors.textSub }}>{m.label}</div>
+                </div>
+              ))}
+            </div>
+            {highRiskCount > 0 && (
+              <div style={{ padding: '14px 16px', background: scColors.dangerBg, borderRadius: 10, border: `1.5px solid ${scColors.danger}30`, display: 'flex', alignItems: 'flex-start', gap: 12 }}>
+                <div style={{ width: 8, height: 8, borderRadius: '50%', background: scColors.danger, marginTop: 3, flexShrink: 0 }} />
+                <div>
+                  <div style={{ fontSize: 13, fontWeight: 700, color: scColors.danger, marginBottom: 4 }}>위험 활동 감지</div>
+                  <div style={{ fontSize: 12, color: '#9b1c1c' }}>알 수 없는 위치(싱가포르)에서 로그인 시도가 확인되었습니다. 세션을 검토하고 의심스러운 세션을 취소하세요.</div>
+                </div>
+              </div>
+            )}
+            <div style={{ padding: 16, background: scColors.card, borderRadius: 10, border: `1px solid ${scColors.border}` }}>
+              <div style={{ fontSize: 13, fontWeight: 700, color: scColors.text, marginBottom: 10 }}>비밀번호 변경</div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+                <PasswordField
+                  value={currentPassword}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setCurrentPassword(e.target.value)}
+                  placeholder="현재 비밀번호"
+                />
+                <PasswordField
+                  value={newPassword}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setNewPassword(e.target.value)}
+                  placeholder="새 비밀번호 (8자 이상)"
+                  error={newPassword.length > 0 && newPassword.length < 8}
+                />
+                <SolidButton color="primary" size="small" disabled={!currentPassword || newPassword.length < 8}>
+                  비밀번호 변경
+                </SolidButton>
+              </div>
+            </div>
+          </>
+        )}
+
+        {activeTab === 'sessions' && (
+          <>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <div style={{ fontSize: 15, fontWeight: 700, color: scColors.text }}>로그인 세션 ({sessions.length}개)</div>
+              <OutlineButton color="black" size="small" onClick={() => setSessions((prev) => prev.filter((s) => s.current))}>
+                다른 세션 모두 종료
+              </OutlineButton>
+            </div>
+            {sessions.map((session) => (
+              <div key={session.id} style={{ padding: 16, background: scColors.card, borderRadius: 10, border: `1.5px solid ${session.location.includes('SG') ? scColors.danger : scColors.border}` }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                  <div>
+                    <div style={{ fontSize: 13, fontWeight: 700, color: scColors.text, marginBottom: 4 }}>
+                      {session.device}
+                      {session.current && <span style={{ marginLeft: 8, padding: '1px 8px', borderRadius: 10, fontSize: 11, background: scColors.successBg, color: scColors.success, fontWeight: 700 }}>현재</span>}
+                      {session.location.includes('SG') && <span style={{ marginLeft: 8, padding: '1px 8px', borderRadius: 10, fontSize: 11, background: scColors.dangerBg, color: scColors.danger, fontWeight: 700 }}>의심</span>}
+                    </div>
+                    <div style={{ fontSize: 12, color: scColors.textSub }}>{session.location} · {session.ip}</div>
+                    <div style={{ fontSize: 12, color: scColors.textSub }}>{session.lastActive}</div>
+                  </div>
+                  {!session.current && (
+                    <OutlineButton color="black" size="small" onClick={() => revokeSession(session.id)}>
+                      종료
+                    </OutlineButton>
+                  )}
+                </div>
+              </div>
+            ))}
+          </>
+        )}
+
+        {activeTab === '2fa' && (
+          <>
+            <div style={{ fontSize: 15, fontWeight: 700, color: scColors.text }}>2단계 인증 설정</div>
+            <div style={{ padding: '12px 16px', background: scColors.accentBg, borderRadius: 10, fontSize: 13, color: scColors.accent }}>
+              2개 이상의 인증 수단을 활성화하면 계정 보안이 크게 강화됩니다.
+            </div>
+            {methods.map((method) => (
+              <div key={method.key} style={{ padding: 16, background: scColors.card, borderRadius: 10, border: `1.5px solid ${method.enabled ? scColors.accent : scColors.border}`, display: 'flex', alignItems: 'center', gap: 14 }}>
+                <div style={{ flex: 1 }}>
+                  <div style={{ fontSize: 13, fontWeight: 700, color: scColors.text }}>{method.label}</div>
+                  <div style={{ fontSize: 12, color: scColors.textSub }}>{method.desc}</div>
+                </div>
+                <Toggle
+                  checked={method.enabled}
+                  onCheckedChange={() => toggle2FA(method.key)}
+                />
+              </div>
+            ))}
+          </>
+        )}
+
+        {activeTab === 'activity' && (
+          <>
+            <div style={{ fontSize: 15, fontWeight: 700, color: scColors.text }}>최근 활동 로그</div>
+            {SC_ACTIVITIES.map((activity) => {
+              const rc = SC_RISK_CFG[activity.risk]
+              return (
+                <div key={activity.id} style={{ padding: '12px 16px', background: scColors.card, borderRadius: 10, border: `1px solid ${scColors.border}`, display: 'flex', alignItems: 'center', gap: 12 }}>
+                  <div style={{ width: 10, height: 10, borderRadius: '50%', background: rc.color, flexShrink: 0 }} />
+                  <div style={{ flex: 1 }}>
+                    <div style={{ fontSize: 13, fontWeight: 500, color: scColors.text }}>{activity.action}</div>
+                    <div style={{ fontSize: 11, color: scColors.textSub, marginTop: 2 }}>{activity.time}</div>
+                  </div>
+                  <span style={{ padding: '2px 8px', borderRadius: 10, fontSize: 11, fontWeight: 700, background: rc.color + '18', color: rc.color }}>{rc.label}</span>
+                </div>
+              )
+            })}
+          </>
+        )}
+      </div>
+    </div>
+  )
+}
+
+export const SecurityCenter: Story = {
+  name: 'Security Center (Google M3 + Figma Plugin UI 벤치마크)',
+  render: () => <SecurityCenterRender />,
 }

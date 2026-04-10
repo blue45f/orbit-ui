@@ -700,5 +700,96 @@ const m3Scheme = {
       </div>
     </section>
 
+    {/* Google M3 + Figma Plugin UI 커스터마이징 섹션 */}
+    <section style={{ marginBottom: '64px' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px' }}>
+        <h2 style={{ fontSize: '22px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', margin: 0 }}>Google M3 + Figma Plugin UI 커스터마이징 패턴</h2>
+        <span style={{ padding: '3px 10px', background: '#f1f5f9', borderRadius: '20px', fontSize: '12px', fontWeight: '600', color: '#6366f1' }}>Cycle 57</span>
+      </div>
+
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '20px', marginBottom: '28px' }}>
+        <div style={{ padding: '24px', borderRadius: '14px', background: '#fff8f1', border: '1.5px solid #fed7aa' }}>
+          <div style={{ fontSize: '11px', fontWeight: '700', color: '#ea580c', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '8px' }}>Google Material 3</div>
+          <div style={{ fontSize: '18px', fontWeight: '700', color: '#9a3412', marginBottom: '10px' }}>Dynamic Color System</div>
+          <p style={{ fontSize: '13px', color: '#c2410c', lineHeight: '1.7', margin: '0 0 16px' }}>
+            M3의 동적 색상은 하나의 "seed color"에서 전체 색상 팔레트를 자동 생성합니다. Primary, Secondary, Tertiary, Error의 4개 역할과 각각의 Container, On- 색상으로 체계적인 색상 커스터마이징을 제공합니다.
+          </p>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '12px' }}>
+            {[
+              ['Icon Button Variant', 'Filled / Tonal / Outlined / Standard 4가지 역할 → OutlineIconButton color + style 조합으로 구현'],
+              ['Supporting Text', '입력 필드 하단 조건 체크리스트 → PasswordField error prop + 조건 피드백 UI'],
+              ['Extended FAB', '스크롤 반응 확장/축소 FAB → max-width + opacity 트랜지션 패턴'],
+            ].map(([k, v]) => (
+              <div key={k} style={{ padding: '8px 12px', background: '#fff', borderRadius: '8px', border: '1px solid #fed7aa' }}>
+                <div style={{ color: '#ea580c', fontWeight: '700', marginBottom: '2px' }}>{k}</div>
+                <div style={{ color: '#9a3412' }}>{v}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div style={{ padding: '24px', borderRadius: '14px', background: '#1e1e1e', border: '1px solid #3f3f46' }}>
+          <div style={{ fontSize: '11px', fontWeight: '700', color: '#71717a', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '8px' }}>Figma Plugin UI</div>
+          <div style={{ fontSize: '18px', fontWeight: '700', color: '#e4e4e7', marginBottom: '10px' }}>Compact Dark Canvas</div>
+          <p style={{ fontSize: '13px', color: '#a1a1aa', lineHeight: '1.7', margin: '0 0 16px' }}>
+            Figma 플러그인은 240~320px 너비의 컴팩트 다크 패널에 최대 밀도로 컨트롤을 배치합니다. #1e1e1e 배경, 9-11px 레이블, 4px 간격의 아이콘 그룹이 핵심 패턴입니다.
+          </p>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '12px' }}>
+            {[
+              ['도구 팔레트', '그룹별 OutlineIconButton + 활성 도구 border+color 강조, 9px 레이블'],
+              ['API 키 마스킹', 'PasswordField + 부분 마스킹(앞6자+뒤4자) + 클립보드 복사'],
+              ['색상 팔레트', '#1e1e1e / #27272a / #3f3f46 3단계 배경 계층'],
+            ].map(([k, v]) => (
+              <div key={k} style={{ padding: '8px 12px', background: '#27272a', borderRadius: '8px', border: '1px solid #3f3f46' }}>
+                <div style={{ color: '#a5b4fc', fontWeight: '700', marginBottom: '2px' }}>{k}</div>
+                <div style={{ color: '#71717a' }}>{v}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div style={{ overflowX: 'auto', borderRadius: '12px', border: '1.5px solid #e2e8f0', marginBottom: '24px' }}>
+        <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px' }}>
+          <thead>
+            <tr style={{ background: '#f8fafc' }}>
+              {['커스터마이징 기준', 'Google M3', 'Figma Plugin UI', 'Orbit UI 반영'].map((col, i) => (
+                <th key={col} style={{ padding: '12px 16px', textAlign: 'left', fontWeight: 700, color: i === 3 ? '#6366f1' : '#475569', borderBottom: '1.5px solid #e2e8f0', whiteSpace: 'nowrap' }}>{col}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {[
+              ['아이콘 버튼 역할', '4가지 variant 체계', '단일 컴팩트 스타일', 'color+size+style 조합으로 구현'],
+              ['비밀번호 입력', '조건 체크리스트 Supporting Text', 'API 키 마스킹 패널', 'PasswordField error+강도지표'],
+              ['다크 테마', 'Dynamic Color 자동생성', '수동 #1e1e1e 팔레트', 'EclipseProvider mode="dark"'],
+              ['밀도', 'Touch-friendly 48dp 최소', '8-10px 컴팩트', 'size="small" prop'],
+              ['상호작용', 'Ripple 효과', '즉각 상태 변경', 'transition 0.15s 일관 적용'],
+            ].map((row, i) => (
+              <tr key={i} style={{ background: i % 2 === 0 ? '#fff' : '#fafafa' }}>
+                {row.map((cell, j) => (
+                  <td key={j} style={{ padding: '11px 16px', color: j === 3 ? '#4f46e5' : '#334155', borderBottom: '1px solid #f1f5f9', fontWeight: j === 0 ? 600 : 400 }}>{cell}</td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <div style={{ padding: '20px', borderRadius: '12px', background: 'linear-gradient(135deg, #f0fdf4, #ecfdf5)', border: '2px solid #bbf7d0' }}>
+        <div style={{ fontSize: '13px', fontWeight: '700', color: '#065f46', marginBottom: '12px' }}>Orbit UI 반영 결과</div>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '12px', fontSize: '12px', color: '#374151', lineHeight: '1.7' }}>
+          <div>
+            <div style={{ fontWeight: '700', color: '#059669', marginBottom: '4px' }}>OutlineIconButton 고도화</div>
+            M3 Tonal 토글 그룹, Figma 컴팩트 도구 팔레트, M3 Extended FAB 스크롤 반응 3개 스토리 추가.
+          </div>
+          <div>
+            <div style={{ fontWeight: '700', color: '#059669', marginBottom: '4px' }}>PasswordField 고도화</div>
+            M3 비밀번호 강도 체크리스트, Figma API 키 마스킹 패널, M3 비밀번호 재설정 단계폼 3개 스토리 추가.
+          </div>
+        </div>
+      </div>
+    </section>
+
   </div>
 </Unstyled>

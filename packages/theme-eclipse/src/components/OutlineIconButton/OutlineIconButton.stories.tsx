@@ -602,3 +602,283 @@ export const 비활성화_상태_비교 = {
     </div>
   ),
 }
+
+/* --------------------------------------------------------------------------
+   Google Material 3 벤치마크: Tonal Icon Button 그룹
+   M3의 Icon Button variant — Filled/Tonal/Outlined/Standard 4가지 역할 구분
+-------------------------------------------------------------------------- */
+const M3_ACTIONS = [
+  { icon: <StarLineIcon />, label: '즐겨찾기', key: 'star' },
+  { icon: <ShareIcon />, label: '공유', key: 'share' },
+  { icon: <DownloadIcon />, label: '다운로드', key: 'dl' },
+  { icon: <MoreHorizontalIcon />, label: '더보기', key: 'more' },
+]
+
+function M3TonalGroupRender() {
+  const [active, setActive] = useState<Set<string>>(new Set(['star']))
+
+  const toggle = (key: string) =>
+    setActive((prev) => {
+      const next = new Set(prev)
+      if (next.has(key)) next.delete(key)
+      else next.add(key)
+      return next
+    })
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 24, alignItems: 'flex-start' }}>
+      <div>
+        <div style={{ fontSize: 12, fontWeight: 700, color: '#475569', marginBottom: 10 }}>Tonal (토글 가능 · M3 Filled Tonal 패턴)</div>
+        <div style={{ display: 'flex', gap: 8 }}>
+          {M3_ACTIONS.map(({ icon, label, key }) => {
+            const isOn = active.has(key)
+            return (
+              <div key={key} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6 }}>
+                <div
+                  onClick={() => toggle(key)}
+                  style={{
+                    width: 48,
+                    height: 48,
+                    borderRadius: 16,
+                    background: isOn ? '#eef2ff' : '#f8fafc',
+                    border: `2px solid ${isOn ? '#6366f1' : '#e2e8f0'}`,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    cursor: 'pointer',
+                    color: isOn ? '#6366f1' : '#64748b',
+                    transition: 'all 0.15s',
+                  }}
+                >
+                  {icon}
+                </div>
+                <span style={{ fontSize: 11, color: isOn ? '#6366f1' : '#94a3b8', fontWeight: isOn ? 700 : 400 }}>{label}</span>
+              </div>
+            )
+          })}
+        </div>
+      </div>
+      <div>
+        <div style={{ fontSize: 12, fontWeight: 700, color: '#475569', marginBottom: 10 }}>Outlined (기본 · M3 Outlined Icon Button)</div>
+        <Flex gap="md">
+          {M3_ACTIONS.map(({ icon, key }) => (
+            <OutlineIconButton key={key} color="black" size="medium">
+              {icon}
+            </OutlineIconButton>
+          ))}
+        </Flex>
+      </div>
+      <div>
+        <div style={{ fontSize: 12, fontWeight: 700, color: '#475569', marginBottom: 10 }}>Standard (최소 크기 · M3 Standard Icon Button)</div>
+        <Flex gap="sm">
+          {M3_ACTIONS.map(({ icon, key }) => (
+            <OutlineIconButton key={key} color="gray" size="small">
+              {icon}
+            </OutlineIconButton>
+          ))}
+        </Flex>
+      </div>
+    </div>
+  )
+}
+
+export const M3_아이콘버튼_그룹_변형 = {
+  name: 'Google M3 - Tonal / Outlined / Standard 아이콘 버튼 변형',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Google Material 3 Icon Button variant 체계. Filled Tonal(토글 강조), Outlined(기본 경계선), ' +
+          'Standard(최소 크기) 3가지 역할을 OutlineIconButton으로 구현합니다.',
+      },
+    },
+  },
+  render: () => <M3TonalGroupRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Figma Plugin UI 벤치마크: 컴팩트 도구 팔레트
+   Figma 플러그인 패널의 도구 팔레트 — 좁은 공간에 최대 밀도로 아이콘 버튼 배치
+-------------------------------------------------------------------------- */
+type FigmaTool = 'select' | 'move' | 'grid' | 'list' | 'sort' | 'filter' | 'refresh' | 'setting'
+
+const FIGMA_TOOL_GROUPS: { group: string; tools: { key: FigmaTool; icon: React.ReactElement; label: string }[] }[] = [
+  {
+    group: '보기',
+    tools: [
+      { key: 'grid', icon: <GridViewLineIcon />, label: '그리드' },
+      { key: 'list', icon: <ListLineIcon />, label: '리스트' },
+    ],
+  },
+  {
+    group: '정렬',
+    tools: [
+      { key: 'sort', icon: <ArrowSortIcon />, label: '정렬' },
+      { key: 'filter', icon: <FilterIcon />, label: '필터' },
+    ],
+  },
+  {
+    group: '작업',
+    tools: [
+      { key: 'refresh', icon: <RefreshLineIcon />, label: '새로고침' },
+      { key: 'setting', icon: <SettingLineIcon />, label: '설정' },
+    ],
+  },
+]
+
+function FigmaToolPaletteRender() {
+  const [activeTool, setActiveTool] = useState<FigmaTool>('grid')
+  const [disabled, setDisabled] = useState(false)
+
+  return (
+    <div style={{ width: 240, display: 'flex', flexDirection: 'column', gap: 16, padding: 16, background: '#1e1e1e', borderRadius: 12 }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <span style={{ fontSize: 11, fontWeight: 700, color: '#a1a1aa', textTransform: 'uppercase', letterSpacing: '0.06em' }}>도구 팔레트</span>
+        <label style={{ display: 'flex', alignItems: 'center', gap: 6, cursor: 'pointer' }}>
+          <input type="checkbox" checked={disabled} onChange={(e) => setDisabled(e.target.checked)} style={{ margin: 0 }} />
+          <span style={{ fontSize: 11, color: '#71717a' }}>비활성화</span>
+        </label>
+      </div>
+      {FIGMA_TOOL_GROUPS.map(({ group, tools }) => (
+        <div key={group}>
+          <div style={{ fontSize: 10, fontWeight: 700, color: '#52525b', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: 6 }}>{group}</div>
+          <div style={{ display: 'flex', gap: 4 }}>
+            {tools.map(({ key, icon, label }) => {
+              const isActive = activeTool === key
+              return (
+                <div key={key} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4 }}>
+                  <OutlineIconButton
+                    color={isActive ? 'black' : 'gray'}
+                    size="small"
+                    disabled={disabled}
+                    onClick={() => setActiveTool(key)}
+                    style={{
+                      background: isActive ? '#3f3f46' : 'transparent',
+                      borderColor: isActive ? '#6366f1' : '#3f3f46',
+                      color: isActive ? '#a5b4fc' : '#71717a',
+                    }}
+                  >
+                    {icon}
+                  </OutlineIconButton>
+                  <span style={{ fontSize: 9, color: isActive ? '#a5b4fc' : '#52525b', fontWeight: isActive ? 700 : 400 }}>{label}</span>
+                </div>
+              )
+            })}
+          </div>
+        </div>
+      ))}
+      <div style={{ padding: '8px 10px', background: '#27272a', borderRadius: 8, fontSize: 11, color: '#71717a' }}>
+        활성 도구: <span style={{ color: '#a5b4fc', fontWeight: 700 }}>{activeTool}</span>
+      </div>
+    </div>
+  )
+}
+
+export const Figma_컴팩트_도구_팔레트 = {
+  name: 'Figma Plugin UI - 컴팩트 도구 팔레트 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Figma 플러그인 패널의 컴팩트 도구 팔레트 패턴. 다크 배경(#1e1e1e)에 최소 간격으로 ' +
+          '아이콘 버튼을 그룹화하고, 활성 도구에 강조 border + 색상을 적용합니다.',
+      },
+    },
+  },
+  render: () => <FigmaToolPaletteRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Google Material 3 벤치마크: 플로팅 액션 버튼 연장 패턴
+   M3 FAB → Extended FAB 전환 패턴 — 스크롤 방향에 따라 버튼이 확장/축소
+-------------------------------------------------------------------------- */
+function M3ExtendedFabRender() {
+  const [extended, setExtended] = useState(true)
+  const [scrollDir, setScrollDir] = useState<'down' | 'up'>('up')
+  const [lastScrollY, setLastScrollY] = useState(0)
+
+  const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
+    const current = e.currentTarget.scrollTop
+    if (current > lastScrollY + 5) {
+      setScrollDir('down')
+      setExtended(false)
+    } else if (current < lastScrollY - 5) {
+      setScrollDir('up')
+      setExtended(true)
+    }
+    setLastScrollY(current)
+  }
+
+  const FAKE_ITEMS = Array.from({ length: 20 }, (_, i) => ({
+    id: i + 1,
+    text: `항목 ${i + 1} — 스크롤을 내리면 FAB가 축소되고 올리면 확장됩니다`,
+  }))
+
+  return (
+    <div style={{ width: 360, height: 480, position: 'relative', borderRadius: 14, overflow: 'hidden', border: '1.5px solid #e2e8f0', background: '#f8fafc' }}>
+      <div
+        onScroll={handleScroll}
+        style={{ height: '100%', overflowY: 'auto', padding: '16px' }}
+      >
+        <div style={{ fontSize: 13, fontWeight: 700, color: '#1e293b', marginBottom: 12 }}>리스트 ({FAKE_ITEMS.length}개)</div>
+        {FAKE_ITEMS.map((item) => (
+          <div key={item.id} style={{ padding: '10px 14px', marginBottom: 8, borderRadius: 8, background: '#fff', border: '1px solid #f1f5f9', fontSize: 13, color: '#334155' }}>
+            {item.text}
+          </div>
+        ))}
+      </div>
+
+      <div style={{ position: 'absolute', bottom: 20, right: 20, display: 'flex', gap: 8, alignItems: 'center' }}>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: extended ? 10 : 0,
+            padding: `14px ${extended ? '20px' : '14px'}`,
+            borderRadius: 16,
+            background: '#6366f1',
+            color: '#fff',
+            cursor: 'pointer',
+            boxShadow: '0 4px 12px rgba(99,102,241,0.4)',
+            transition: 'all 0.25s cubic-bezier(0.4, 0, 0.2, 1)',
+            userSelect: 'none' as const,
+            overflow: 'hidden',
+            maxWidth: extended ? 180 : 52,
+          }}
+          onClick={() => setExtended((v) => !v)}
+        >
+          <PlusIcon style={{ flexShrink: 0 }} />
+          <span style={{
+            fontSize: 14,
+            fontWeight: 700,
+            whiteSpace: 'nowrap' as const,
+            opacity: extended ? 1 : 0,
+            maxWidth: extended ? 120 : 0,
+            overflow: 'hidden',
+            transition: 'opacity 0.2s, max-width 0.25s',
+          }}>
+            항목 추가
+          </span>
+        </div>
+      </div>
+
+      <div style={{ position: 'absolute', top: 12, left: '50%', transform: 'translateX(-50%)', background: 'rgba(0,0,0,0.6)', color: '#fff', padding: '4px 12px', borderRadius: 20, fontSize: 11, whiteSpace: 'nowrap' as const }}>
+        스크롤 {scrollDir === 'down' ? '아래' : '위'} — FAB {extended ? '확장됨' : '축소됨'}
+      </div>
+    </div>
+  )
+}
+
+export const M3_Extended_FAB_패턴 = {
+  name: 'Google M3 - Extended FAB 스크롤 반응 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Google Material 3 Extended FAB 패턴. 스크롤 다운 시 텍스트 레이블이 숨겨져 원형 FAB로 축소되고, ' +
+          '스크롤 업 시 다시 "항목 추가" 텍스트가 확장됩니다. cubic-bezier 트랜지션으로 자연스러운 전환을 구현합니다.',
+      },
+    },
+  },
+  render: () => <M3ExtendedFabRender />,
+}

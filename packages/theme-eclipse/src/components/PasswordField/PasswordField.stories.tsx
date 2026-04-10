@@ -714,3 +714,320 @@ const SocialLoginRender = () => {
 export const MUI_소셜_로그인_조합: Story = {
   render: () => <SocialLoginRender />,
 }
+
+/* --------------------------------------------------------------------------
+   Google Material 3 벤치마크: 비밀번호 강도 + 조건 체크리스트
+   M3의 지원 텍스트(Supporting Text) 패턴 — 입력 하단에 구체적 조건 피드백 표시
+-------------------------------------------------------------------------- */
+const M3_PASSWORD_RULES = [
+  { key: 'length', label: '8자 이상', test: (v: string) => v.length >= 8 },
+  { key: 'upper', label: '대문자 포함', test: (v: string) => /[A-Z]/.test(v) },
+  { key: 'lower', label: '소문자 포함', test: (v: string) => /[a-z]/.test(v) },
+  { key: 'digit', label: '숫자 포함', test: (v: string) => /[0-9]/.test(v) },
+  { key: 'special', label: '특수문자 포함 (!@#$%)', test: (v: string) => /[!@#$%^&*]/.test(v) },
+]
+
+function M3PasswordStrengthRender() {
+  const [value, setValue] = useState('')
+
+  const passedCount = M3_PASSWORD_RULES.filter((r) => r.test(value)).length
+  const strength = passedCount <= 1 ? 'weak' : passedCount <= 3 ? 'fair' : passedCount === 4 ? 'good' : 'strong'
+  const strengthCfg: Record<string, { label: string; color: string; width: string }> = {
+    weak: { label: '취약', color: '#ef4444', width: '20%' },
+    fair: { label: '보통', color: '#f59e0b', width: '50%' },
+    good: { label: '양호', color: '#3b82f6', width: '75%' },
+    strong: { label: '강함', color: '#10b981', width: '100%' },
+  }
+  const sc = strengthCfg[strength]
+
+  return (
+    <div style={{ width: 340, display: 'flex', flexDirection: 'column', gap: 14 }}>
+      <div style={{ fontSize: 14, fontWeight: 700, color: '#1e293b' }}>비밀번호 설정</div>
+      <PasswordField
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+        placeholder="새 비밀번호를 입력하세요"
+        error={value.length > 0 && passedCount < 3}
+      />
+      {value.length > 0 && (
+        <>
+          <div>
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 6 }}>
+              <span style={{ fontSize: 12, fontWeight: 700, color: '#475569' }}>강도 지표</span>
+              <span style={{ fontSize: 12, fontWeight: 700, color: sc.color }}>{sc.label}</span>
+            </div>
+            <div style={{ height: 6, borderRadius: 3, background: '#f1f5f9', overflow: 'hidden' }}>
+              <div style={{ height: '100%', width: sc.width, background: sc.color, borderRadius: 3, transition: 'width 0.3s, background 0.3s' }} />
+            </div>
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+            {M3_PASSWORD_RULES.map((rule) => {
+              const passed = rule.test(value)
+              return (
+                <div key={rule.key} style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 12 }}>
+                  <div style={{ width: 16, height: 16, borderRadius: '50%', background: passed ? '#10b981' : '#f1f5f9', border: `2px solid ${passed ? '#10b981' : '#e2e8f0'}`, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, transition: 'all 0.15s' }}>
+                    {passed && <span style={{ fontSize: 9, color: '#fff', fontWeight: 900 }}>✓</span>}
+                  </div>
+                  <span style={{ color: passed ? '#10b981' : '#94a3b8', fontWeight: passed ? 600 : 400, transition: 'color 0.15s' }}>{rule.label}</span>
+                </div>
+              )
+            })}
+          </div>
+        </>
+      )}
+    </div>
+  )
+}
+
+export const M3_비밀번호_강도_조건_체크리스트: Story = {
+  name: 'Google M3 - 비밀번호 강도 + 조건 체크리스트 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Google Material 3 Supporting Text 패턴. 비밀번호 입력 하단에 실시간 조건 체크리스트와 ' +
+          '강도 프로그레스 바를 표시합니다. 조건 충족 시 초록색 체크로 즉각 피드백을 제공합니다.',
+      },
+    },
+  },
+  render: () => <M3PasswordStrengthRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Figma Plugin UI 벤치마크: API 키 입력 마스킹 패턴
+   Figma 플러그인의 토큰/키 입력 UI — 저장 후 부분 마스킹 표시 + 복사 기능
+-------------------------------------------------------------------------- */
+type ApiKeyEntry = { id: string; name: string; value: string; created: string; masked: boolean }
+
+function FigmaApiKeyPanelRender() {
+  const [keys, setKeys] = useState<ApiKeyEntry[]>([
+    { id: 'k1', name: 'Figma API Token', value: 'figd_KbXqwA-3pnR9mLvJ', created: '2026-01-15', masked: true },
+    { id: 'k2', name: 'OpenAI API Key', value: 'sk-proj-ABCD1234efgh5678', created: '2026-03-02', masked: true },
+  ])
+  const [newKeyName, setNewKeyName] = useState('')
+  const [newKeyValue, setNewKeyValue] = useState('')
+  const [copied, setCopied] = useState<string | null>(null)
+
+  const maskValue = (val: string) => `${val.slice(0, 6)}${'*'.repeat(val.length - 10)}${val.slice(-4)}`
+
+  const toggleMask = (id: string) => {
+    setKeys((prev) => prev.map((k) => (k.id === id ? { ...k, masked: !k.masked } : k)))
+  }
+
+  const copyKey = (id: string, val: string) => {
+    void navigator.clipboard.writeText(val)
+    setCopied(id)
+    setTimeout(() => setCopied(null), 2000)
+  }
+
+  const addKey = () => {
+    if (!newKeyName.trim() || !newKeyValue.trim()) return
+    setKeys((prev) => [
+      ...prev,
+      { id: `k${Date.now()}`, name: newKeyName, value: newKeyValue, created: new Date().toISOString().slice(0, 10), masked: true },
+    ])
+    setNewKeyName('')
+    setNewKeyValue('')
+  }
+
+  return (
+    <div style={{ width: 380, display: 'flex', flexDirection: 'column', gap: 14, padding: 20, background: '#18181b', borderRadius: 12, border: '1px solid #27272a' }}>
+      <div style={{ fontSize: 13, fontWeight: 700, color: '#e4e4e7', marginBottom: 4 }}>API 키 관리</div>
+      {keys.map((key) => (
+        <div key={key.id} style={{ padding: '12px 14px', background: '#27272a', borderRadius: 8, border: '1px solid #3f3f46' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
+            <span style={{ fontSize: 12, fontWeight: 700, color: '#a1a1aa' }}>{key.name}</span>
+            <span style={{ fontSize: 10, color: '#52525b' }}>{key.created}</span>
+          </div>
+          <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+            <code style={{ flex: 1, fontSize: 11, color: '#d4d4d8', fontFamily: 'monospace', background: '#18181b', padding: '4px 8px', borderRadius: 6, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+              {key.masked ? maskValue(key.value) : key.value}
+            </code>
+            <button
+              onClick={() => toggleMask(key.id)}
+              style={{ padding: '4px 8px', borderRadius: 6, border: '1px solid #3f3f46', background: 'transparent', color: '#71717a', fontSize: 11, cursor: 'pointer' }}
+            >
+              {key.masked ? '표시' : '숨김'}
+            </button>
+            <button
+              onClick={() => copyKey(key.id, key.value)}
+              style={{ padding: '4px 8px', borderRadius: 6, border: '1px solid #3f3f46', background: copied === key.id ? '#166534' : 'transparent', color: copied === key.id ? '#4ade80' : '#71717a', fontSize: 11, cursor: 'pointer', transition: 'all 0.15s' }}
+            >
+              {copied === key.id ? '복사됨' : '복사'}
+            </button>
+          </div>
+        </div>
+      ))}
+      <div style={{ borderTop: '1px solid #27272a', paddingTop: 12, display: 'flex', flexDirection: 'column', gap: 8 }}>
+        <div style={{ fontSize: 11, fontWeight: 700, color: '#71717a' }}>새 키 추가</div>
+        <input
+          value={newKeyName}
+          onChange={(e) => setNewKeyName(e.target.value)}
+          placeholder="키 이름 (예: Figma API Token)"
+          style={{ padding: '7px 10px', borderRadius: 6, border: '1px solid #3f3f46', background: '#27272a', color: '#e4e4e7', fontSize: 12, outline: 'none' }}
+        />
+        <PasswordField
+          value={newKeyValue}
+          onChange={(e) => setNewKeyValue(e.target.value)}
+          placeholder="API 키 또는 토큰 값"
+        />
+        <button
+          onClick={addKey}
+          disabled={!newKeyName.trim() || !newKeyValue.trim()}
+          style={{ padding: '8px', borderRadius: 8, border: 'none', background: newKeyName && newKeyValue ? '#6366f1' : '#27272a', color: newKeyName && newKeyValue ? '#fff' : '#52525b', fontSize: 12, fontWeight: 700, cursor: newKeyName && newKeyValue ? 'pointer' : 'not-allowed', transition: 'all 0.15s' }}
+        >
+          키 저장
+        </button>
+      </div>
+    </div>
+  )
+}
+
+export const Figma_API키_마스킹_패널: Story = {
+  name: 'Figma Plugin UI - API 키 마스킹 입력 패널 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Figma 플러그인 패널 스타일의 API 키 관리 UI. PasswordField로 신규 키를 입력하고 ' +
+          '저장 후 부분 마스킹(앞 6자 + 뒤 4자)으로 표시합니다. 표시/숨김 토글과 클립보드 복사 기능을 포함합니다.',
+      },
+    },
+  },
+  render: () => <FigmaApiKeyPanelRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Google Material 3 벤치마크: 비밀번호 재설정 단계 폼
+   M3의 Text Field + Button 조합 패턴 — 이메일 인증 → 새 비밀번호 2단계 플로우
+-------------------------------------------------------------------------- */
+type ResetStep = 'email' | 'code' | 'newpass' | 'done'
+
+function M3PasswordResetRender() {
+  const [step, setStep] = useState<ResetStep>('email')
+  const [email, setEmail] = useState('')
+  const [code, setCode] = useState('')
+  const [newPass, setNewPass] = useState('')
+  const [confirm, setConfirm] = useState('')
+
+  const STEPS: Record<ResetStep, number> = { email: 1, code: 2, newpass: 3, done: 4 }
+  const currentStep = STEPS[step]
+
+  const canNext = () => {
+    if (step === 'email') return email.includes('@')
+    if (step === 'code') return code.length === 6
+    if (step === 'newpass') return newPass.length >= 8 && newPass === confirm
+    return false
+  }
+
+  const next = () => {
+    if (step === 'email') setStep('code')
+    else if (step === 'code') setStep('newpass')
+    else if (step === 'newpass') setStep('done')
+  }
+
+  return (
+    <div style={{ width: 360, display: 'flex', flexDirection: 'column', gap: 20, padding: 24, background: '#fff', borderRadius: 14, border: '1.5px solid #e2e8f0' }}>
+      <div>
+        <div style={{ fontSize: 16, fontWeight: 800, color: '#1e293b', marginBottom: 4 }}>비밀번호 재설정</div>
+        <div style={{ display: 'flex', gap: 4 }}>
+          {[1, 2, 3].map((n) => (
+            <div
+              key={n}
+              style={{ height: 4, flex: 1, borderRadius: 2, background: n <= currentStep - 1 || (n === currentStep && step !== 'done') ? '#6366f1' : '#f1f5f9', transition: 'background 0.3s' }}
+            />
+          ))}
+        </div>
+        <div style={{ fontSize: 12, color: '#94a3b8', marginTop: 6 }}>
+          {step === 'email' && '1단계: 계정 이메일 입력'}
+          {step === 'code' && '2단계: 인증 코드 확인 (이메일로 전송됨)'}
+          {step === 'newpass' && '3단계: 새 비밀번호 설정'}
+          {step === 'done' && '완료!'}
+        </div>
+      </div>
+
+      {step === 'email' && (
+        <input
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="이메일 주소"
+          style={{ padding: '10px 14px', borderRadius: 8, border: `1.5px solid ${email && !email.includes('@') ? '#ef4444' : '#e2e8f0'}`, fontSize: 13, outline: 'none', color: '#1e293b' }}
+        />
+      )}
+
+      {step === 'code' && (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+          <div style={{ fontSize: 12, color: '#64748b' }}>{email}로 6자리 코드를 전송했습니다</div>
+          <input
+            value={code}
+            onChange={(e) => setCode(e.target.value.replace(/\D/g, '').slice(0, 6))}
+            placeholder="123456"
+            style={{ padding: '10px 14px', borderRadius: 8, border: `1.5px solid ${code.length > 0 && code.length < 6 ? '#f59e0b' : '#e2e8f0'}`, fontSize: 20, fontFamily: 'monospace', letterSpacing: '0.3em', textAlign: 'center', outline: 'none', color: '#1e293b' }}
+          />
+        </div>
+      )}
+
+      {step === 'newpass' && (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+          <PasswordField
+            value={newPass}
+            onChange={(e) => setNewPass(e.target.value)}
+            placeholder="새 비밀번호 (8자 이상)"
+            error={newPass.length > 0 && newPass.length < 8}
+          />
+          <PasswordField
+            value={confirm}
+            onChange={(e) => setConfirm(e.target.value)}
+            placeholder="비밀번호 확인"
+            error={confirm.length > 0 && confirm !== newPass}
+          />
+          {confirm.length > 0 && confirm !== newPass && (
+            <div style={{ fontSize: 12, color: '#ef4444' }}>비밀번호가 일치하지 않습니다</div>
+          )}
+        </div>
+      )}
+
+      {step === 'done' && (
+        <div style={{ textAlign: 'center', padding: '12px 0' }}>
+          <div style={{ fontSize: 40, marginBottom: 8 }}>&#10003;</div>
+          <div style={{ fontSize: 14, fontWeight: 700, color: '#10b981', marginBottom: 4 }}>비밀번호 재설정 완료</div>
+          <div style={{ fontSize: 12, color: '#64748b' }}>새 비밀번호로 로그인하세요</div>
+        </div>
+      )}
+
+      {step !== 'done' && (
+        <button
+          onClick={next}
+          disabled={!canNext()}
+          style={{ padding: '12px', borderRadius: 10, border: 'none', background: canNext() ? '#6366f1' : '#f1f5f9', color: canNext() ? '#fff' : '#94a3b8', fontSize: 14, fontWeight: 700, cursor: canNext() ? 'pointer' : 'not-allowed', transition: 'all 0.15s' }}
+        >
+          {step === 'email' ? '인증 코드 전송' : step === 'code' ? '코드 확인' : '비밀번호 변경'}
+        </button>
+      )}
+
+      {step !== 'email' && step !== 'done' && (
+        <button
+          onClick={() => setStep('email')}
+          style={{ background: 'none', border: 'none', fontSize: 12, color: '#94a3b8', cursor: 'pointer', textDecoration: 'underline' }}
+        >
+          처음으로
+        </button>
+      )}
+    </div>
+  )
+}
+
+export const M3_비밀번호_재설정_단계폼: Story = {
+  name: 'Google M3 - 비밀번호 재설정 다단계 폼 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Google Material 3 Text Field + 단계 진행 패턴. 이메일 입력 → 인증 코드 → 새 비밀번호 3단계 플로우를 ' +
+          '구현합니다. PasswordField의 error 상태로 실시간 유효성 피드백을 제공합니다.',
+      },
+    },
+  },
+  render: () => <M3PasswordResetRender />,
+}
