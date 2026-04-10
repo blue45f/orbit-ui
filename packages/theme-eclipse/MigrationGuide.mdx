@@ -691,5 +691,101 @@ function DeleteProjectButton() {
         각 컴포넌트의 Props와 사용 예시는 Storybook autodocs에서 확인할 수 있습니다.
       </div>
     </div>
+
+    {/* MUI + Chakra UI 마이그레이션 섹션 */}
+    <section style={{ marginBottom: '64px' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px' }}>
+        <h2 style={{ fontSize: '22px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', margin: 0 }}>MUI + Chakra UI 마이그레이션 가이드</h2>
+        <span style={{ padding: '3px 10px', background: '#f1f5f9', borderRadius: '20px', fontSize: '12px', fontWeight: '600', color: '#6366f1' }}>Cycle 58</span>
+      </div>
+
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '20px', marginBottom: '28px' }}>
+        {/* MUI → Orbit UI */}
+        <div style={{ padding: '24px', borderRadius: '14px', background: '#f0f7ff', border: '1.5px solid #bfdbfe' }}>
+          <div style={{ fontSize: '11px', fontWeight: '700', color: '#1d4ed8', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '8px' }}>MUI → Orbit UI</div>
+          <div style={{ fontSize: '14px', fontWeight: '700', color: '#1e3a8a', marginBottom: '12px' }}>Chip + Badge 마이그레이션</div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', fontSize: '12px' }}>
+            {[
+              { from: '<MuiChip label="React" onDelete={fn} />', to: '<Chip onClick={fn}><Chip.Trailing><CancelIcon /></Chip.Trailing>React</Chip>' },
+              { from: '<MuiChip variant="outlined" />', to: 'Chip은 기본 outlined 스타일 (variant 불필요)' },
+              { from: '<MuiChip color="primary" />', to: 'selected prop으로 활성 상태 강조' },
+              { from: '<Badge badgeContent={4} />', to: '<CounterBadge>{4}</CounterBadge>' },
+              { from: '<Chip size="small" />', to: '<Chip size="small"> (동일 API)' },
+            ].map(({ from, to }) => (
+              <div key={from} style={{ background: '#fff', borderRadius: '8px', padding: '10px', border: '1px solid #bfdbfe' }}>
+                <div style={{ fontFamily: 'monospace', fontSize: '11px', color: '#ef4444', marginBottom: '4px', wordBreak: 'break-all' }}>{from}</div>
+                <div style={{ fontSize: '11px', color: '#94a3b8', marginBottom: '4px' }}>→</div>
+                <div style={{ fontFamily: 'monospace', fontSize: '11px', color: '#10b981', wordBreak: 'break-all' }}>{to}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Chakra → Orbit UI */}
+        <div style={{ padding: '24px', borderRadius: '14px', background: '#f0fdf4', border: '1.5px solid #bbf7d0' }}>
+          <div style={{ fontSize: '11px', fontWeight: '700', color: '#15803d', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '8px' }}>Chakra UI → Orbit UI</div>
+          <div style={{ fontSize: '14px', fontWeight: '700', color: '#14532d', marginBottom: '12px' }}>Tag + Badge 마이그레이션</div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', fontSize: '12px' }}>
+            {[
+              { from: '<Tag colorScheme="green">태그</Tag>', to: '<LabelBadge color="benefit"><LabelBadge.Label>태그</LabelBadge.Label></LabelBadge>' },
+              { from: '<Tag colorScheme="red">오류</Tag>', to: '<LabelBadge color="sale"><LabelBadge.Label>오류</LabelBadge.Label></LabelBadge>' },
+              { from: '<TagCloseButton />', to: 'Chip + <Chip.Trailing><CancelIcon /></Chip.Trailing> 패턴 사용' },
+              { from: '<Badge variant="solid" />', to: '<LabelBadge>로 교체 (variant 불필요)' },
+              { from: '<Wrap spacing={2}>', to: 'div + flexWrap으로 동일 효과 구현' },
+            ].map(({ from, to }) => (
+              <div key={from} style={{ background: '#fff', borderRadius: '8px', padding: '10px', border: '1px solid #bbf7d0' }}>
+                <div style={{ fontFamily: 'monospace', fontSize: '11px', color: '#ef4444', marginBottom: '4px', wordBreak: 'break-all' }}>{from}</div>
+                <div style={{ fontSize: '11px', color: '#94a3b8', marginBottom: '4px' }}>→</div>
+                <div style={{ fontFamily: 'monospace', fontSize: '11px', color: '#10b981', wordBreak: 'break-all' }}>{to}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Chip API 비교표 */}
+      <div style={{ overflowX: 'auto', borderRadius: '12px', border: '1.5px solid #e2e8f0', marginBottom: '24px' }}>
+        <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px' }}>
+          <thead>
+            <tr style={{ background: '#f8fafc' }}>
+              {['기능', 'MUI Chip', 'Chakra Tag', 'Orbit UI Chip'].map((col, i) => (
+                <th key={col} style={{ padding: '12px 16px', textAlign: 'left', fontWeight: 700, color: i === 3 ? '#6366f1' : '#475569', borderBottom: '1.5px solid #e2e8f0', whiteSpace: 'nowrap' }}>{col}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {[
+              ['삭제 버튼', 'onDelete prop', 'TagCloseButton', 'Chip.Trailing + CancelIcon'],
+              ['아이콘', 'icon prop', 'TagLeftIcon', 'Chip.Leading + 아이콘 컴포넌트'],
+              ['색상', 'color="primary"', 'colorScheme="green"', 'selected prop (단일 활성 색상)'],
+              ['크기', 'size="small/medium"', 'size="sm/md/lg"', 'size="small/medium/large"'],
+              ['비활성화', 'disabled prop', 'isDisabled prop', 'disabled prop (동일)'],
+              ['클릭 가능', 'onClick prop', 'onClick prop', 'onClick prop (동일)'],
+            ].map((row, i) => (
+              <tr key={i} style={{ background: i % 2 === 0 ? '#fff' : '#fafafa' }}>
+                {row.map((cell, j) => (
+                  <td key={j} style={{ padding: '10px 16px', color: j === 3 ? '#4f46e5' : '#334155', borderBottom: '1px solid #f1f5f9', fontWeight: j === 0 ? 600 : 400, fontFamily: j === 0 ? 'inherit' : 'inherit' }}>{cell}</td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <div style={{ padding: '20px', borderRadius: '12px', background: 'linear-gradient(135deg, #f0fdf4, #ecfdf5)', border: '2px solid #bbf7d0' }}>
+        <div style={{ fontSize: '13px', fontWeight: '700', color: '#065f46', marginBottom: '12px' }}>Orbit UI 반영 결과</div>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '12px', fontSize: '12px', color: '#374151', lineHeight: '1.7' }}>
+          <div>
+            <div style={{ fontWeight: '700', color: '#059669', marginBottom: '4px' }}>Chip 고도화</div>
+            MUI Autocomplete 태그 선택기, Chakra 태그 클라우드(인기도 기반 크기), MUI 상태 필터 칩 툴바 3개 스토리 추가.
+          </div>
+          <div>
+            <div style={{ fontWeight: '700', color: '#059669', marginBottom: '4px' }}>LabelBadge 고도화</div>
+            MUI 서비스 상태 대시보드, Chakra 알림 유형 분류 배지, Chakra 카테고리 멀티 배지 필터 3개 스토리 추가.
+          </div>
+        </div>
+      </div>
+    </section>
+
   </div>
 </Unstyled>

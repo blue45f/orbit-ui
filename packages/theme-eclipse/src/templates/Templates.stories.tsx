@@ -14243,3 +14243,297 @@ export const SecurityCenter: Story = {
   name: 'Security Center (Google M3 + Figma Plugin UI 벤치마크)',
   render: () => <SecurityCenterRender />,
 }
+
+// ============================================================
+// Template 48: ContentCMS (MUI + Chakra UI 벤치마크)
+// ============================================================
+
+type CMSStatus = 'published' | 'draft' | 'review' | 'archived'
+type CMSContentType = 'article' | 'page' | 'component' | 'asset'
+
+type CMSPost = {
+  id: string
+  title: string
+  slug: string
+  status: CMSStatus
+  type: CMSContentType
+  author: string
+  tags: string[]
+  updatedAt: string
+  views: number
+  wordCount: number
+}
+
+const CMS_STATUS_CFG: Record<CMSStatus, { label: string; color: string; bg: string }> = {
+  published: { label: '게시됨', color: '#10b981', bg: '#dcfce7' },
+  draft: { label: '초안', color: '#6366f1', bg: '#eef2ff' },
+  review: { label: '검토 중', color: '#f59e0b', bg: '#fef3c7' },
+  archived: { label: '보관됨', color: '#94a3b8', bg: '#f1f5f9' },
+}
+
+const CMS_TYPE_CFG: Record<CMSContentType, { label: string; color: string }> = {
+  article: { label: '아티클', color: '#6366f1' },
+  page: { label: '페이지', color: '#3b82f6' },
+  component: { label: '컴포넌트', color: '#8b5cf6' },
+  asset: { label: '에셋', color: '#64748b' },
+}
+
+const CMS_POSTS: CMSPost[] = [
+  { id: 'p1', title: 'React 18 Concurrent Mode 완전 정복', slug: 'react-18-concurrent-mode', status: 'published', type: 'article', author: '김희준', tags: ['React', 'Performance'], updatedAt: '2026-04-09', views: 4821, wordCount: 3200 },
+  { id: 'p2', title: 'Orbit UI 디자인 토큰 시스템 가이드', slug: 'orbit-ui-design-tokens', status: 'published', type: 'article', author: '이서연', tags: ['Design System', 'Tokens'], updatedAt: '2026-04-08', views: 2341, wordCount: 2100 },
+  { id: 'p3', title: 'TypeScript 5.5 새로운 기능', slug: 'typescript-5-5-features', status: 'draft', type: 'article', author: '박지호', tags: ['TypeScript'], updatedAt: '2026-04-07', views: 0, wordCount: 800 },
+  { id: 'p4', title: '서비스 홈페이지 리뉴얼', slug: 'homepage-renewal', status: 'review', type: 'page', author: '최은아', tags: ['Landing', 'Marketing'], updatedAt: '2026-04-06', views: 0, wordCount: 500 },
+  { id: 'p5', title: 'Button 컴포넌트 가이드라인', slug: 'button-component-guide', status: 'published', type: 'component', author: '김희준', tags: ['Component', 'Design'], updatedAt: '2026-04-05', views: 1102, wordCount: 1400 },
+  { id: 'p6', title: '2024 연간 보고서 자료', slug: 'annual-report-2024', status: 'archived', type: 'asset', author: '정민수', tags: ['Report'], updatedAt: '2026-01-01', views: 230, wordCount: 0 },
+]
+
+const cmsColors = {
+  bg: '#f8fafc',
+  sidebar: '#ffffff',
+  card: '#ffffff',
+  border: '#e2e8f0',
+  text: '#1e293b',
+  textSub: '#64748b',
+  accent: '#6366f1',
+  accentBg: '#eef2ff',
+}
+
+function ContentCMSRender() {
+  const [filterStatus, setFilterStatus] = useState<CMSStatus | 'all'>('all')
+  const [filterType, setFilterType] = useState<CMSContentType | 'all'>('all')
+  const [searchQuery, setSearchQuery] = useState('')
+  const [selectedId, setSelectedId] = useState<string | null>('p1')
+  const [activeTab, setActiveTab] = useState<'content' | 'seo' | 'settings'>('content')
+
+  const filtered = CMS_POSTS.filter((p) => {
+    const matchStatus = filterStatus === 'all' || p.status === filterStatus
+    const matchType = filterType === 'all' || p.type === filterType
+    const matchSearch = searchQuery === '' || p.title.toLowerCase().includes(searchQuery.toLowerCase())
+    return matchStatus && matchType && matchSearch
+  })
+
+  const selected = CMS_POSTS.find((p) => p.id === selectedId)
+
+  const statusCounts = Object.keys(CMS_STATUS_CFG).reduce((acc, k) => {
+    acc[k as CMSStatus] = CMS_POSTS.filter((p) => p.status === k).length
+    return acc
+  }, {} as Record<CMSStatus, number>)
+
+  return (
+    <div style={{ display: 'flex', height: '640px', background: cmsColors.bg, borderRadius: 12, overflow: 'hidden', border: `1px solid ${cmsColors.border}` }}>
+      {/* Left sidebar */}
+      <div style={{ width: 260, background: cmsColors.sidebar, borderRight: `1px solid ${cmsColors.border}`, display: 'flex', flexDirection: 'column' }}>
+        <div style={{ padding: '16px 16px 10px', borderBottom: `1px solid ${cmsColors.border}` }}>
+          <div style={{ fontSize: 14, fontWeight: 700, color: cmsColors.text, marginBottom: 10 }}>콘텐츠 관리</div>
+          <TextField
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder="콘텐츠 검색..."
+          />
+        </div>
+
+        {/* Status filter */}
+        <div style={{ padding: '10px 16px', borderBottom: `1px solid ${cmsColors.border}` }}>
+          <div style={{ fontSize: 11, fontWeight: 700, color: cmsColors.textSub, textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 8 }}>상태</div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+            {([['all', '전체', CMS_POSTS.length], ...Object.entries(CMS_STATUS_CFG).map(([k, v]) => [k, v.label, statusCounts[k as CMSStatus]])] as [string, string, number][]).map(([key, label, count]) => (
+              <div
+                key={key}
+                onClick={() => setFilterStatus(key as CMSStatus | 'all')}
+                style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  padding: '6px 10px',
+                  borderRadius: 8,
+                  cursor: 'pointer',
+                  background: filterStatus === key ? cmsColors.accentBg : 'transparent',
+                  transition: 'background 0.15s',
+                }}
+              >
+                <span style={{ fontSize: 12, fontWeight: filterStatus === key ? 700 : 400, color: filterStatus === key ? cmsColors.accent : cmsColors.text }}>{label}</span>
+                <span style={{ fontSize: 11, fontWeight: 700, color: filterStatus === key ? cmsColors.accent : cmsColors.textSub }}>{count}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Type filter chips */}
+        <div style={{ padding: '10px 16px', borderBottom: `1px solid ${cmsColors.border}` }}>
+          <div style={{ fontSize: 11, fontWeight: 700, color: cmsColors.textSub, textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 8 }}>유형</div>
+          <div style={{ display: 'flex', gap: 4, flexWrap: 'wrap' }}>
+            {(['all', 'article', 'page', 'component', 'asset'] as const).map((t) => {
+              const typeCfg = t !== 'all' ? CMS_TYPE_CFG[t] : null
+              return (
+                <button
+                  key={t}
+                  onClick={() => setFilterType(t)}
+                  style={{
+                    padding: '3px 10px', borderRadius: 10, border: 'none', cursor: 'pointer', fontSize: 11, fontWeight: 600,
+                    background: filterType === t ? cmsColors.accent : cmsColors.border,
+                    color: filterType === t ? '#fff' : cmsColors.textSub,
+                    transition: 'all 0.15s',
+                  }}
+                >
+                  {t === 'all' ? '전체' : typeCfg?.label}
+                </button>
+              )
+            })}
+          </div>
+        </div>
+
+        {/* Post list */}
+        <div style={{ flex: 1, overflowY: 'auto' }}>
+          {filtered.length === 0 && (
+            <div style={{ padding: 24, textAlign: 'center', fontSize: 13, color: cmsColors.textSub }}>검색 결과 없음</div>
+          )}
+          {filtered.map((post) => {
+            const st = CMS_STATUS_CFG[post.status]
+            const isActive = post.id === selectedId
+            return (
+              <div
+                key={post.id}
+                onClick={() => setSelectedId(post.id)}
+                style={{
+                  padding: '10px 16px',
+                  cursor: 'pointer',
+                  background: isActive ? cmsColors.accentBg : 'transparent',
+                  borderLeft: `3px solid ${isActive ? cmsColors.accent : 'transparent'}`,
+                  transition: 'all 0.15s',
+                }}
+              >
+                <div style={{ fontSize: 12, fontWeight: 600, color: isActive ? cmsColors.accent : cmsColors.text, lineHeight: 1.4, marginBottom: 4 }}>{post.title}</div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                  <span style={{ padding: '1px 7px', borderRadius: 10, fontSize: 10, fontWeight: 700, background: st.bg, color: st.color }}>{st.label}</span>
+                  <span style={{ fontSize: 11, color: cmsColors.textSub }}>{post.updatedAt}</span>
+                </div>
+              </div>
+            )
+          })}
+        </div>
+
+        <div style={{ padding: '12px 16px', borderTop: `1px solid ${cmsColors.border}` }}>
+          <SolidButton color="primary" size="small" style={{ width: '100%' }}>
+            새 콘텐츠 작성
+          </SolidButton>
+        </div>
+      </div>
+
+      {/* Main editor area */}
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+        {selected ? (
+          <>
+            {/* Header */}
+            <div style={{ padding: '16px 24px', borderBottom: `1px solid ${cmsColors.border}`, background: cmsColors.card }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 10 }}>
+                <div>
+                  <div style={{ fontSize: 16, fontWeight: 700, color: cmsColors.text, marginBottom: 4, lineHeight: 1.3 }}>{selected.title}</div>
+                  <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+                    <span style={{ padding: '2px 8px', borderRadius: 10, fontSize: 11, fontWeight: 700, background: CMS_STATUS_CFG[selected.status].bg, color: CMS_STATUS_CFG[selected.status].color }}>{CMS_STATUS_CFG[selected.status].label}</span>
+                    <span style={{ padding: '2px 8px', borderRadius: 10, fontSize: 11, fontWeight: 700, background: '#f1f5f9', color: CMS_TYPE_CFG[selected.type].color }}>{CMS_TYPE_CFG[selected.type].label}</span>
+                    <span style={{ fontSize: 11, color: cmsColors.textSub }}>{selected.author} · {selected.updatedAt}</span>
+                  </div>
+                </div>
+                <div style={{ display: 'flex', gap: 8 }}>
+                  {selected.status === 'draft' && <SolidButton color="primary" size="small">게시</SolidButton>}
+                  {selected.status === 'review' && <SolidButton color="primary" size="small">승인</SolidButton>}
+                  {selected.status === 'published' && <OutlineButton color="black" size="small">수정</OutlineButton>}
+                  <OutlineButton color="black" size="small">미리보기</OutlineButton>
+                </div>
+              </div>
+              <div style={{ display: 'flex', gap: 0 }}>
+                {(['content', 'seo', 'settings'] as const).map((tab) => (
+                  <button
+                    key={tab}
+                    onClick={() => setActiveTab(tab)}
+                    style={{
+                      padding: '7px 14px', background: 'none', border: 'none', cursor: 'pointer', fontSize: 12,
+                      fontWeight: activeTab === tab ? 700 : 400,
+                      color: activeTab === tab ? cmsColors.accent : cmsColors.textSub,
+                      borderBottom: `2px solid ${activeTab === tab ? cmsColors.accent : 'transparent'}`,
+                      transition: 'all 0.15s',
+                    }}
+                  >
+                    {tab === 'content' ? '콘텐츠' : tab === 'seo' ? 'SEO' : '설정'}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Tab content */}
+            <div style={{ flex: 1, overflowY: 'auto', padding: '20px 24px', display: 'flex', flexDirection: 'column', gap: 16 }}>
+              {activeTab === 'content' && (
+                <>
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 12 }}>
+                    {[
+                      { label: '조회수', value: selected.views.toLocaleString(), color: cmsColors.accent },
+                      { label: '단어 수', value: `${selected.wordCount.toLocaleString()}자`, color: cmsColors.text },
+                      { label: '슬러그', value: `/${selected.slug}`, color: '#10b981' },
+                    ].map((m) => (
+                      <div key={m.label} style={{ padding: 14, background: cmsColors.card, borderRadius: 10, border: `1px solid ${cmsColors.border}` }}>
+                        <div style={{ fontSize: 12, color: cmsColors.textSub, marginBottom: 4 }}>{m.label}</div>
+                        <div style={{ fontSize: 14, fontWeight: 700, color: m.color, wordBreak: 'break-all' }}>{m.value}</div>
+                      </div>
+                    ))}
+                  </div>
+                  <div style={{ padding: 16, background: cmsColors.card, borderRadius: 10, border: `1px solid ${cmsColors.border}` }}>
+                    <div style={{ fontSize: 12, fontWeight: 700, color: cmsColors.text, marginBottom: 10 }}>태그</div>
+                    <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+                      {selected.tags.map((tag) => (
+                        <span key={tag} style={{ padding: '3px 10px', borderRadius: 10, fontSize: 12, fontWeight: 600, background: cmsColors.accentBg, color: cmsColors.accent }}>{tag}</span>
+                      ))}
+                    </div>
+                  </div>
+                  <div style={{ padding: 16, background: cmsColors.card, borderRadius: 10, border: `1px solid ${cmsColors.border}` }}>
+                    <div style={{ fontSize: 12, fontWeight: 700, color: cmsColors.text, marginBottom: 8 }}>본문 편집</div>
+                    <TextArea placeholder="콘텐츠를 입력하세요..." rows={5} />
+                  </div>
+                </>
+              )}
+              {activeTab === 'seo' && (
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+                  {[
+                    { label: 'Meta Title', placeholder: 'SEO 제목 (60자 이내)', value: selected.title },
+                    { label: 'Meta Description', placeholder: 'SEO 설명 (160자 이내)', value: '' },
+                  ].map((field) => (
+                    <div key={field.label} style={{ padding: 14, background: cmsColors.card, borderRadius: 10, border: `1px solid ${cmsColors.border}` }}>
+                      <div style={{ fontSize: 12, fontWeight: 700, color: cmsColors.text, marginBottom: 8 }}>{field.label}</div>
+                      <TextField defaultValue={field.value} placeholder={field.placeholder} />
+                    </div>
+                  ))}
+                  <div style={{ padding: 14, background: '#f0fdf4', borderRadius: 10, border: '1px solid #bbf7d0', fontSize: 12, color: '#15803d' }}>
+                    SEO 점수: <strong>양호</strong> — 제목 길이와 슬러그가 적절합니다.
+                  </div>
+                </div>
+              )}
+              {activeTab === 'settings' && (
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+                  {[
+                    { label: '댓글 허용', checked: true },
+                    { label: '공개 공유 허용', checked: selected.status === 'published' },
+                    { label: '뉴스레터 포함', checked: false },
+                    { label: '소셜 미리보기 활성화', checked: true },
+                  ].map((setting) => (
+                    <div key={setting.label} style={{ padding: '12px 16px', background: cmsColors.card, borderRadius: 10, border: `1px solid ${cmsColors.border}`, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                      <span style={{ fontSize: 13, color: cmsColors.text }}>{setting.label}</span>
+                      <Toggle checked={setting.checked} onCheckedChange={() => {}} />
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          </>
+        ) : (
+          <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <div style={{ textAlign: 'center', color: cmsColors.textSub, fontSize: 13 }}>콘텐츠를 선택하세요</div>
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+
+export const ContentCMS: Story = {
+  name: 'Content CMS (MUI + Chakra UI 벤치마크)',
+  render: () => <ContentCMSRender />,
+}

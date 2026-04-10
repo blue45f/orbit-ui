@@ -551,3 +551,235 @@ export const Apple_HIG_이슈_우선순위_목록: Story = {
     )
   },
 }
+
+/* --------------------------------------------------------------------------
+   MUI 벤치마크: 뱃지 그룹 상태 대시보드
+   MUI Badge + Chip 조합 패턴 — 서비스 상태를 LabelBadge로 시각화
+-------------------------------------------------------------------------- */
+
+const MUI_SERVICES = [
+  { name: 'API Gateway', status: 'benefit' as const, uptime: '99.98%', latency: '12ms', region: 'ap-northeast-2' },
+  { name: 'Database (RDS)', status: 'benefit' as const, uptime: '99.95%', latency: '4ms', region: 'ap-northeast-2' },
+  { name: 'CDN', status: 'sale' as const, uptime: '97.20%', latency: '89ms', region: 'global' },
+  { name: 'Auth Service', status: 'benefit' as const, uptime: '99.99%', latency: '8ms', region: 'ap-northeast-2' },
+  { name: 'Cache (Redis)', status: 'gray' as const, uptime: 'N/A', latency: 'N/A', region: 'ap-northeast-2' },
+]
+
+const STATUS_LABEL: Record<'benefit' | 'sale' | 'gray', string> = {
+  benefit: '정상',
+  sale: '지연',
+  gray: '점검',
+}
+
+export const MUI_서비스_상태_대시보드: Story = {
+  name: 'MUI - 서비스 상태 배지 대시보드 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'MUI Badge 상태 표시 패턴. LabelBadge color를 benefit(정상)/sale(지연)/gray(점검)로 ' +
+          '매핑해 서비스 상태를 시각화합니다. 각 서비스의 가동률과 레이턴시를 함께 표시합니다.',
+      },
+    },
+  },
+  render: () => (
+    <div style={{ width: 440, display: 'flex', flexDirection: 'column', gap: 10 }}>
+      <div style={{ fontSize: 13, fontWeight: 700, color: '#1e293b', marginBottom: 4 }}>서비스 상태 (MUI Badge 패턴)</div>
+      {MUI_SERVICES.map((svc) => (
+        <div key={svc.name} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 16px', borderRadius: 10, border: '1px solid #f1f5f9', background: '#fff' }}>
+          <div style={{ flex: 1 }}>
+            <div style={{ fontSize: 13, fontWeight: 600, color: '#1e293b', marginBottom: 2 }}>{svc.name}</div>
+            <div style={{ fontSize: 11, color: '#94a3b8' }}>{svc.region}</div>
+          </div>
+          <div style={{ textAlign: 'right', marginRight: 12 }}>
+            <div style={{ fontSize: 12, fontWeight: 700, color: '#1e293b' }}>{svc.uptime}</div>
+            <div style={{ fontSize: 11, color: '#94a3b8' }}>{svc.latency}</div>
+          </div>
+          <LabelBadge color={svc.status}>
+            <LabelBadge.Visual>
+              <StarFillIcon />
+            </LabelBadge.Visual>
+            <LabelBadge.Label>{STATUS_LABEL[svc.status]}</LabelBadge.Label>
+          </LabelBadge>
+        </div>
+      ))}
+    </div>
+  ),
+}
+
+/* --------------------------------------------------------------------------
+   Chakra UI 벤치마크: 알림 유형 분류 배지
+   Chakra Badge colorScheme 패턴 — 알림 종류별 LabelBadge + 읽음 상태 관리
+-------------------------------------------------------------------------- */
+type NotifItem = { id: number; title: string; desc: string; type: 'benefit' | 'sale' | 'gray'; time: string; read: boolean }
+
+function ChakraNotifBadgeRender() {
+  const [notifs, setNotifs] = useState<NotifItem[]>([
+    { id: 1, title: '배포 완료', desc: 'production 브랜치 배포가 성공적으로 완료되었습니다.', type: 'benefit', time: '5분 전', read: false },
+    { id: 2, title: '빌드 실패', desc: 'main 브랜치 PR #143 빌드가 실패했습니다.', type: 'sale', time: '23분 전', read: false },
+    { id: 3, title: '정기 점검', desc: '2026-04-15 02:00 ~ 04:00 서버 점검이 예정되어 있습니다.', type: 'gray', time: '2시간 전', read: true },
+    { id: 4, title: '보안 업데이트', desc: '중요 보안 패치가 적용되었습니다. 즉시 재시작이 필요합니다.', type: 'benefit', time: '3시간 전', read: false },
+  ])
+
+  const markRead = (id: number) => setNotifs((prev) => prev.map((n) => (n.id === id ? { ...n, read: true } : n)))
+  const markAllRead = () => setNotifs((prev) => prev.map((n) => ({ ...n, read: true })))
+
+  const unreadCount = notifs.filter((n) => !n.read).length
+  const TYPE_LABEL: Record<NotifItem['type'], string> = { benefit: '성공', sale: '오류', gray: '정보' }
+
+  return (
+    <div style={{ width: 420, display: 'flex', flexDirection: 'column', gap: 10 }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 4 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+          <span style={{ fontSize: 13, fontWeight: 700, color: '#1e293b' }}>알림</span>
+          {unreadCount > 0 && (
+            <LabelBadge color="sale">
+              <LabelBadge.Label>{unreadCount}</LabelBadge.Label>
+            </LabelBadge>
+          )}
+        </div>
+        {unreadCount > 0 && (
+          <button onClick={markAllRead} style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: 12, color: '#6366f1', fontWeight: 600 }}>모두 읽음</button>
+        )}
+      </div>
+      {notifs.map((notif) => (
+        <div
+          key={notif.id}
+          onClick={() => markRead(notif.id)}
+          style={{
+            padding: '12px 14px',
+            borderRadius: 10,
+            border: `1.5px solid ${notif.read ? '#f1f5f9' : '#e0e7ff'}`,
+            background: notif.read ? '#fff' : '#f5f3ff',
+            cursor: 'pointer',
+            transition: 'all 0.15s',
+          }}
+        >
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 4 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+              {!notif.read && <div style={{ width: 6, height: 6, borderRadius: '50%', background: '#6366f1', flexShrink: 0 }} />}
+              <span style={{ fontSize: 13, fontWeight: notif.read ? 500 : 700, color: '#1e293b' }}>{notif.title}</span>
+            </div>
+            <LabelBadge color={notif.type}>
+              <LabelBadge.Label>{TYPE_LABEL[notif.type]}</LabelBadge.Label>
+            </LabelBadge>
+          </div>
+          <div style={{ fontSize: 12, color: '#64748b', lineHeight: 1.5, marginBottom: 4, paddingLeft: notif.read ? 0 : 14 }}>{notif.desc}</div>
+          <div style={{ fontSize: 11, color: '#94a3b8', paddingLeft: notif.read ? 0 : 14 }}>{notif.time}</div>
+        </div>
+      ))}
+    </div>
+  )
+}
+
+export const Chakra_알림_유형_배지: Story = {
+  name: 'Chakra UI - 알림 유형 분류 배지 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Chakra UI Badge colorScheme 패턴. LabelBadge color(benefit/sale/gray)로 알림 유형을 분류합니다. ' +
+          '읽지 않은 알림에 보라색 도트를 표시하고 클릭 시 읽음 처리합니다.',
+      },
+    },
+  },
+  render: () => <ChakraNotifBadgeRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Chakra UI 벤치마크: 카테고리 멀티 배지 필터
+   Chakra의 Wrap + Badge 패턴 — 선택한 카테고리를 배지로 표시하는 필터 UI
+-------------------------------------------------------------------------- */
+const CHAKRA_CATEGORIES = [
+  { id: 'design', label: 'Design', color: 'benefit' as const },
+  { id: 'frontend', label: 'Frontend', color: 'benefit' as const },
+  { id: 'backend', label: 'Backend', color: 'gray' as const },
+  { id: 'devops', label: 'DevOps', color: 'gray' as const },
+  { id: 'security', label: 'Security', color: 'sale' as const },
+  { id: 'data', label: 'Data', color: 'gray' as const },
+  { id: 'mobile', label: 'Mobile', color: 'benefit' as const },
+  { id: 'ai', label: 'AI/ML', color: 'sale' as const },
+]
+
+const CHAKRA_ARTICLES = [
+  { title: 'React 18 Concurrent Features', cats: ['frontend'] },
+  { title: 'Figma Auto Layout 심화', cats: ['design'] },
+  { title: 'Terraform으로 AWS 인프라 관리', cats: ['devops', 'backend'] },
+  { title: 'OWASP Top 10 실전 방어', cats: ['security', 'backend'] },
+  { title: 'LLM Fine-tuning 가이드', cats: ['ai'] },
+  { title: 'Flutter vs React Native 2026', cats: ['mobile', 'frontend'] },
+]
+
+function ChakraCategoryBadgeFilterRender() {
+  const [selected, setSelected] = useState<Set<string>>(new Set())
+
+  const toggle = (id: string) =>
+    setSelected((prev) => {
+      const next = new Set(prev)
+      if (next.has(id)) next.delete(id)
+      else next.add(id)
+      return next
+    })
+
+  const filtered = selected.size === 0
+    ? CHAKRA_ARTICLES
+    : CHAKRA_ARTICLES.filter((a) => a.cats.some((c) => selected.has(c)))
+
+  return (
+    <div style={{ width: 440, display: 'flex', flexDirection: 'column', gap: 14 }}>
+      <div style={{ fontSize: 13, fontWeight: 700, color: '#1e293b' }}>카테고리 배지 필터 (Chakra Wrap + Badge)</div>
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+        {CHAKRA_CATEGORIES.map((cat) => {
+          const isOn = selected.has(cat.id)
+          return (
+            <div
+              key={cat.id}
+              onClick={() => toggle(cat.id)}
+              style={{ cursor: 'pointer', opacity: !isOn && selected.size > 0 ? 0.5 : 1, transform: isOn ? 'scale(1.05)' : 'scale(1)', transition: 'all 0.15s' }}
+            >
+              <LabelBadge color={isOn ? cat.color : 'gray'}>
+                {isOn && (
+                  <LabelBadge.Visual>
+                    <CheckIcon />
+                  </LabelBadge.Visual>
+                )}
+                <LabelBadge.Label>{cat.label}</LabelBadge.Label>
+              </LabelBadge>
+            </div>
+          )
+        })}
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+        {filtered.map((article) => (
+          <div key={article.title} style={{ padding: '10px 14px', borderRadius: 8, background: '#f8fafc', border: '1px solid #f1f5f9', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <span style={{ fontSize: 13, fontWeight: 500, color: '#1e293b' }}>{article.title}</span>
+            <div style={{ display: 'flex', gap: 4 }}>
+              {article.cats.map((c) => {
+                const cat = CHAKRA_CATEGORIES.find((x) => x.id === c)
+                return cat ? (
+                  <LabelBadge key={c} color={cat.color}>
+                    <LabelBadge.Label>{cat.label}</LabelBadge.Label>
+                  </LabelBadge>
+                ) : null
+              })}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+export const Chakra_카테고리_멀티_배지_필터: Story = {
+  name: 'Chakra UI - 카테고리 멀티 배지 필터 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Chakra UI Wrap + Badge 패턴. LabelBadge를 클릭 가능한 필터로 활용합니다. ' +
+          '선택한 카테고리에 해당하는 아티클만 필터링하여 보여주는 실무 패턴입니다.',
+      },
+    },
+  },
+  render: () => <ChakraCategoryBadgeFilterRender />,
+}

@@ -542,3 +542,310 @@ export const Material3_필터칩_상태레이어: Story = {
   name: 'Material 3 - 필터 칩 + 상태 레이어 시스템',
   render: () => <Material3FilterChipRender />,
 }
+
+/* --------------------------------------------------------------------------
+   MUI 벤치마크: Autocomplete 태그 선택기
+   MUI Autocomplete + Chip의 핵심 패턴 — 입력창에서 검색 후 Chip으로 선택 항목 추가
+-------------------------------------------------------------------------- */
+const MUI_SKILL_OPTIONS = [
+  'React', 'TypeScript', 'Next.js', 'Tailwind CSS', 'GraphQL',
+  'Node.js', 'PostgreSQL', 'Docker', 'AWS', 'Figma',
+  'Storybook', 'Vitest', 'Playwright', 'ESLint', 'Prettier',
+]
+
+function MuiAutocompleteChipsRender() {
+  const [selected, setSelected] = useState<string[]>(['React', 'TypeScript'])
+  const [query, setQuery] = useState('')
+  const [open, setOpen] = useState(false)
+
+  const filtered = MUI_SKILL_OPTIONS.filter(
+    (opt) => opt.toLowerCase().includes(query.toLowerCase()) && !selected.includes(opt),
+  )
+
+  const addItem = (item: string) => {
+    setSelected((prev) => [...prev, item])
+    setQuery('')
+    setOpen(false)
+  }
+
+  const removeItem = (item: string) => setSelected((prev) => prev.filter((s) => s !== item))
+
+  return (
+    <div style={{ width: 420, display: 'flex', flexDirection: 'column', gap: 12 }}>
+      <div style={{ fontSize: 13, fontWeight: 700, color: '#1e293b', marginBottom: 4 }}>기술 스택 선택 (MUI Autocomplete 패턴)</div>
+      <div
+        style={{
+          minHeight: 44,
+          padding: '6px 12px',
+          borderRadius: 10,
+          border: `1.5px solid ${open ? '#6366f1' : '#e2e8f0'}`,
+          display: 'flex',
+          flexWrap: 'wrap',
+          gap: 6,
+          alignItems: 'center',
+          background: '#fff',
+          cursor: 'text',
+          transition: 'border-color 0.15s',
+        }}
+        onClick={() => setOpen(true)}
+      >
+        {selected.map((item) => (
+          <Chip key={item} selected>
+            <Chip.Leading>
+              <CheckIcon />
+            </Chip.Leading>
+            <Chip.Trailing>
+              <CancelIcon onClick={() => removeItem(item)} />
+            </Chip.Trailing>
+            {item}
+          </Chip>
+        ))}
+        <input
+          value={query}
+          onChange={(e) => { setQuery(e.target.value); setOpen(true) }}
+          onFocus={() => setOpen(true)}
+          onBlur={() => setTimeout(() => setOpen(false), 150)}
+          placeholder={selected.length === 0 ? '기술 스택 검색...' : ''}
+          style={{ border: 'none', outline: 'none', fontSize: 13, color: '#1e293b', minWidth: 120, flex: 1, background: 'transparent' }}
+        />
+      </div>
+      {open && filtered.length > 0 && (
+        <div style={{ borderRadius: 10, border: '1.5px solid #e2e8f0', background: '#fff', boxShadow: '0 4px 12px rgba(0,0,0,0.08)', overflow: 'hidden' }}>
+          {filtered.slice(0, 6).map((opt) => (
+            <div
+              key={opt}
+              onMouseDown={() => addItem(opt)}
+              style={{ padding: '10px 14px', cursor: 'pointer', fontSize: 13, color: '#334155', transition: 'background 0.1s' }}
+              onMouseEnter={(e) => { (e.currentTarget as HTMLDivElement).style.background = '#f8fafc' }}
+              onMouseLeave={(e) => { (e.currentTarget as HTMLDivElement).style.background = 'transparent' }}
+            >
+              {opt}
+            </div>
+          ))}
+        </div>
+      )}
+      <div style={{ fontSize: 12, color: '#94a3b8' }}>
+        선택됨: {selected.length}개 / {MUI_SKILL_OPTIONS.length}개
+      </div>
+    </div>
+  )
+}
+
+export const MUI_Autocomplete_태그_선택기: Story = {
+  name: 'MUI - Autocomplete 태그 선택기 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'MUI Autocomplete + Chip 핵심 패턴. 입력창에 텍스트를 입력하면 드롭다운에서 옵션을 선택해 ' +
+          'Chip으로 추가합니다. Chip의 Trailing 아이콘으로 개별 항목을 제거합니다.',
+      },
+    },
+  },
+  render: () => <MuiAutocompleteChipsRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Chakra UI 벤치마크: 태그 클라우드 인터랙션
+   Chakra의 Tag 컴포넌트 패턴 — 인기도 가중치 기반 크기 변화 + 호버 강조
+-------------------------------------------------------------------------- */
+type TagItem = { label: string; count: number; selected: boolean }
+
+const CHAKRA_TAGS: TagItem[] = [
+  { label: 'React', count: 1240, selected: false },
+  { label: 'TypeScript', count: 980, selected: false },
+  { label: 'UI Design', count: 756, selected: true },
+  { label: 'Next.js', count: 612, selected: false },
+  { label: 'Tailwind', count: 540, selected: true },
+  { label: 'Figma', count: 480, selected: false },
+  { label: 'Node.js', count: 390, selected: false },
+  { label: 'GraphQL', count: 280, selected: false },
+  { label: 'Testing', count: 210, selected: false },
+  { label: 'Docker', count: 180, selected: false },
+  { label: 'CSS', count: 150, selected: false },
+  { label: 'Git', count: 120, selected: false },
+]
+
+function ChakraTagCloudRender() {
+  const [tags, setTags] = useState(CHAKRA_TAGS)
+
+  const toggle = (label: string) =>
+    setTags((prev) => prev.map((t) => (t.label === label ? { ...t, selected: !t.selected } : t)))
+
+  const _maxCount = Math.max(...tags.map((t) => t.count))
+
+  const selectedCount = tags.filter((t) => t.selected).length
+
+  return (
+    <div style={{ width: 420, display: 'flex', flexDirection: 'column', gap: 16 }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <div style={{ fontSize: 13, fontWeight: 700, color: '#1e293b' }}>관심 태그 선택</div>
+        <span style={{ fontSize: 12, color: '#6366f1', fontWeight: 700 }}>{selectedCount}개 선택됨</span>
+      </div>
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+        {tags.map((tag) => (
+          <Chip
+            key={tag.label}
+            selected={tag.selected}
+            onClick={() => toggle(tag.label)}
+          >
+            {tag.selected && (
+              <Chip.Leading>
+                <CheckIcon />
+              </Chip.Leading>
+            )}
+            {tag.label}
+            <Chip.Trailing>
+              <span style={{ fontSize: 10, fontWeight: 700, opacity: 0.7 }}>{(tag.count / 1000).toFixed(1)}k</span>
+            </Chip.Trailing>
+          </Chip>
+        ))}
+      </div>
+      <div style={{ padding: '10px 14px', background: '#f8fafc', borderRadius: 8, fontSize: 12, color: '#64748b' }}>
+        인기도에 따라 칩 크기가 달라집니다. 클릭해서 관심 태그를 선택하세요.
+      </div>
+    </div>
+  )
+}
+
+export const Chakra_태그_클라우드: Story = {
+  name: 'Chakra UI - 태그 클라우드 인터랙션 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Chakra UI Tag 컴포넌트 패턴. 인기도(count) 값에 따라 Chip의 size를 small/medium/large로 ' +
+          '자동 매핑합니다. 선택 시 Leading에 CheckIcon을 삽입하고 Trailing에 카운트를 표시합니다.',
+      },
+    },
+  },
+  render: () => <ChakraTagCloudRender />,
+}
+
+/* --------------------------------------------------------------------------
+   MUI 벤치마크: 상태 기반 필터 칩 툴바
+   MUI Chip variant="outlined/filled" + clickable 패턴 — 복수 필터 조합 적용
+-------------------------------------------------------------------------- */
+type FilterGroup = { id: string; label: string; options: { value: string; label: string }[] }
+
+const MUI_FILTER_GROUPS: FilterGroup[] = [
+  {
+    id: 'status',
+    label: '상태',
+    options: [
+      { value: 'active', label: '활성' },
+      { value: 'inactive', label: '비활성' },
+      { value: 'pending', label: '대기 중' },
+    ],
+  },
+  {
+    id: 'role',
+    label: '역할',
+    options: [
+      { value: 'admin', label: '관리자' },
+      { value: 'member', label: '멤버' },
+      { value: 'guest', label: '게스트' },
+    ],
+  },
+  {
+    id: 'plan',
+    label: '플랜',
+    options: [
+      { value: 'free', label: 'Free' },
+      { value: 'pro', label: 'Pro' },
+      { value: 'enterprise', label: 'Enterprise' },
+    ],
+  },
+]
+
+const MOCK_USERS = [
+  { name: '김희준', status: 'active', role: 'admin', plan: 'enterprise' },
+  { name: '이서연', status: 'active', role: 'member', plan: 'pro' },
+  { name: '박지호', status: 'inactive', role: 'member', plan: 'free' },
+  { name: '최은아', status: 'pending', role: 'guest', plan: 'free' },
+  { name: '정민수', status: 'active', role: 'member', plan: 'pro' },
+  { name: '한지우', status: 'active', role: 'admin', plan: 'enterprise' },
+]
+
+function MuiFilterChipToolbarRender() {
+  const [activeFilters, setActiveFilters] = useState<Record<string, string | null>>({ status: null, role: null, plan: null })
+
+  const toggleFilter = (groupId: string, value: string) => {
+    setActiveFilters((prev) => ({
+      ...prev,
+      [groupId]: prev[groupId] === value ? null : value,
+    }))
+  }
+
+  const clearAll = () => setActiveFilters({ status: null, role: null, plan: null })
+
+  const filteredUsers = MOCK_USERS.filter((user) =>
+    Object.entries(activeFilters).every(([key, val]) => !val || user[key as keyof typeof user] === val),
+  )
+
+  const hasFilters = Object.values(activeFilters).some(Boolean)
+
+  return (
+    <div style={{ width: 460, display: 'flex', flexDirection: 'column', gap: 14 }}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <div style={{ fontSize: 13, fontWeight: 700, color: '#1e293b' }}>사용자 필터 (MUI Chip 패턴)</div>
+        {hasFilters && (
+          <button onClick={clearAll} style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: 12, color: '#ef4444', fontWeight: 600 }}>
+            필터 초기화
+          </button>
+        )}
+      </div>
+      {MUI_FILTER_GROUPS.map((group) => (
+        <div key={group.id}>
+          <div style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 8 }}>{group.label}</div>
+          <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+            {group.options.map((opt) => {
+              const isActive = activeFilters[group.id] === opt.value
+              return (
+                <Chip
+                  key={opt.value}
+                  selected={isActive}
+                  onClick={() => toggleFilter(group.id, opt.value)}
+                >
+                  {isActive && (
+                    <Chip.Leading>
+                      <CheckIcon />
+                    </Chip.Leading>
+                  )}
+                  {opt.label}
+                </Chip>
+              )
+            })}
+          </div>
+        </div>
+      ))}
+      <div style={{ borderTop: '1px solid #f1f5f9', paddingTop: 12 }}>
+        <div style={{ fontSize: 11, color: '#94a3b8', marginBottom: 8 }}>결과: {filteredUsers.length}명</div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+          {filteredUsers.map((user) => (
+            <div key={user.name} style={{ display: 'flex', gap: 8, alignItems: 'center', padding: '8px 12px', background: '#f8fafc', borderRadius: 8 }}>
+              <span style={{ flex: 1, fontSize: 13, fontWeight: 600, color: '#1e293b' }}>{user.name}</span>
+              {[user.status, user.role, user.plan].map((val, i) => (
+                <span key={i} style={{ fontSize: 11, padding: '1px 8px', borderRadius: 10, background: '#eef2ff', color: '#6366f1', fontWeight: 600 }}>{val}</span>
+              ))}
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const MUI_상태_필터_칩_툴바: Story = {
+  name: 'MUI - 상태 기반 복수 필터 칩 툴바 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'MUI Chip clickable + variant 패턴. 그룹별 단일 선택 필터를 Chip으로 구현합니다. ' +
+          '활성 필터는 selected 상태로 강조하고 초기화 버튼으로 전체 필터를 리셋합니다.',
+      },
+    },
+  },
+  render: () => <MuiFilterChipToolbarRender />,
+}
