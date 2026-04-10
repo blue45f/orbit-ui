@@ -1,5 +1,6 @@
 import { CheckIcon, StarLineIcon, HeartLineIcon, SearchIcon, LinkIcon, SettingLineIcon } from '@heejun-com/icons'
 import { Meta, StoryObj } from '@storybook/react'
+import { useState } from 'react'
 
 import { ChipLink } from './ChipLink'
 import * as styles from './ChipLink.stories.css'
@@ -221,7 +222,6 @@ const FilterTagsRender = () => {
   )
 }
 
-import React from 'react'
 
 export const 인터랙티브_필터_태그: Story = {
   render: () => <FilterTagsRender />,
@@ -501,4 +501,217 @@ const SearchTagsRender = () => {
 
 export const Mantine_검색_태그: Story = {
   render: () => <SearchTagsRender />,
+}
+
+// ─── Cycle 64: Linear Design + Figma Plugin UI ─────────────────────────────
+
+type LinearLabel = {
+  id: string
+  name: string
+  color: string
+  count: number
+}
+
+const LINEAR_LABELS: LinearLabel[] = [
+  { id: 'bug', name: 'Bug', color: '#ef4444', count: 3 },
+  { id: 'feature', name: 'Feature', color: '#6366f1', count: 8 },
+  { id: 'improvement', name: 'Improvement', color: '#22c55e', count: 5 },
+  { id: 'docs', name: 'Documentation', color: '#f59e0b', count: 2 },
+  { id: 'design', name: 'Design', color: '#ec4899', count: 4 },
+]
+
+const LinearIssueLabelRender = () => {
+  const [active, setActive] = useState<Set<string>>(new Set(['bug', 'feature']))
+
+  const toggle = (id: string) => {
+    setActive(prev => {
+      const next = new Set(prev)
+      if (next.has(id)) next.delete(id)
+      else next.add(id)
+      return next
+    })
+  }
+
+  return (
+    <div style={{ width: 360, fontFamily: 'system-ui, sans-serif' }}>
+      <div style={{ fontSize: 12, fontWeight: 700, color: '#94a3b8', marginBottom: 10, textTransform: 'uppercase', letterSpacing: '0.06em' }}>이슈 레이블 필터</div>
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginBottom: 14 }}>
+        {LINEAR_LABELS.map((label) => {
+          const _isOn = active.has(label.id)
+          return (
+            <ChipLink
+              key={label.id}
+              href="#"
+              onClick={(e: React.MouseEvent) => { e.preventDefault(); toggle(label.id) }}
+
+            >
+              <ChipLink.Leading>
+                <div style={{ width: 8, height: 8, borderRadius: '50%', background: label.color }} />
+              </ChipLink.Leading>
+              {label.name}
+            </ChipLink>
+          )
+        })}
+      </div>
+      <div style={{ fontSize: 12, color: '#64748b' }}>
+        선택된 레이블: <strong style={{ color: '#0f172a' }}>{active.size}개</strong> ·
+        표시 이슈: <strong style={{ color: '#6366f1' }}>{LINEAR_LABELS.filter(l => active.has(l.id)).reduce((s, l) => s + l.count, 0)}개</strong>
+      </div>
+      <div style={{ marginTop: 6, fontSize: 11, color: '#94a3b8' }}>Linear 이슈 레이블 필터 패턴</div>
+    </div>
+  )
+}
+
+export const Linear_이슈_레이블_필터: Story = {
+  name: 'Linear - 이슈 레이블 필터 ChipLink',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Linear의 이슈 레이블 필터 패턴. ChipLink에 color dot Leading을 배치하고, 선택 여부에 따라 투명도로 활성 상태를 표현합니다. 선택된 레이블에 해당하는 이슈 수가 실시간으로 집계됩니다.',
+      },
+    },
+  },
+  render: () => <LinearIssueLabelRender />,
+}
+
+type FigmaComponent = {
+  id: string
+  name: string
+  library: string
+  category: string
+  href: string
+}
+
+const FIGMA_COMPONENTS: FigmaComponent[] = [
+  { id: 'btn', name: 'SolidButton', library: 'Orbit UI', category: 'Actions', href: '#' },
+  { id: 'inp', name: 'TextField', library: 'Orbit UI', category: 'Inputs', href: '#' },
+  { id: 'bdg', name: 'LabelBadge', library: 'Orbit UI', category: 'Display', href: '#' },
+  { id: 'tab', name: 'TabGroup', library: 'Orbit UI', category: 'Navigation', href: '#' },
+  { id: 'mdl', name: 'Drawer', library: 'Orbit UI', category: 'Overlay', href: '#' },
+]
+
+const FigmaComponentLinkRender = () => {
+  const [filter, setFilter] = useState('전체')
+  const categories = ['전체', ...Array.from(new Set(FIGMA_COMPONENTS.map(c => c.category)))]
+
+  const filtered = FIGMA_COMPONENTS.filter(c => filter === '전체' || c.category === filter)
+
+  return (
+    <div style={{ width: 360, fontFamily: 'system-ui, sans-serif' }}>
+      <div style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', marginBottom: 10, textTransform: 'uppercase', letterSpacing: '0.06em' }}>Figma 컴포넌트 소스 링크</div>
+      {/* Category filter */}
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginBottom: 14 }}>
+        {categories.map((cat) => (
+          <ChipLink
+            key={cat}
+            href="#"
+            onClick={(e: React.MouseEvent) => { e.preventDefault(); setFilter(cat) }}
+
+          >
+            {cat}
+          </ChipLink>
+        ))}
+      </div>
+      {/* Component list */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+        {filtered.map((comp) => (
+          <div key={comp.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 12px', borderRadius: 8, border: '1px solid #e2e8f0', background: '#fff' }}>
+            <div>
+              <div style={{ fontSize: 13, fontWeight: 600, color: '#0f172a' }}>{comp.name}</div>
+              <div style={{ fontSize: 11, color: '#94a3b8' }}>{comp.category}</div>
+            </div>
+            <ChipLink href={comp.href} target="_blank">
+              <ChipLink.Leading>
+                <div style={{ width: 8, height: 8, borderRadius: 2, background: '#f24e1e' }} />
+              </ChipLink.Leading>
+              {comp.library}
+            </ChipLink>
+          </div>
+        ))}
+      </div>
+      <div style={{ marginTop: 8, fontSize: 11, color: '#94a3b8' }}>Figma 컴포넌트 라이브러리 링크 패턴</div>
+    </div>
+  )
+}
+
+export const Figma_컴포넌트_라이브러리_링크: Story = {
+  name: 'Figma Plugin - 컴포넌트 라이브러리 링크 태그',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Figma Plugin UI의 컴포넌트 소스 링크 패턴. 카테고리 필터 ChipLink + 컴포넌트별 라이브러리 출처 ChipLink를 조합합니다. Leading에 Figma 아이콘 색상 도트를 배치해 라이브러리 출처를 표현합니다.',
+      },
+    },
+  },
+  render: () => <FigmaComponentLinkRender />,
+}
+
+type LinearProject = {
+  id: string
+  name: string
+  status: 'active' | 'paused' | 'completed'
+  statusColor: string
+  count: number
+}
+
+const LINEAR_PROJECTS: LinearProject[] = [
+  { id: 'orbit', name: 'Orbit UI v2', status: 'active', statusColor: '#22c55e', count: 14 },
+  { id: 'token', name: '토큰 시스템 재설계', status: 'active', statusColor: '#22c55e', count: 7 },
+  { id: 'storybook', name: 'Storybook 고도화', status: 'paused', statusColor: '#f59e0b', count: 3 },
+  { id: 'icons', name: 'Icon 확장 팩', status: 'completed', statusColor: '#6366f1', count: 0 },
+  { id: 'docs', name: 'MDX 문서화', status: 'active', statusColor: '#22c55e', count: 9 },
+]
+
+const LinearProjectTagRender = () => {
+  const [selectedId, setSelectedId] = useState<string | null>(null)
+
+  return (
+    <div style={{ width: 380, fontFamily: 'system-ui, sans-serif' }}>
+      <div style={{ fontSize: 12, fontWeight: 700, color: '#94a3b8', marginBottom: 10, textTransform: 'uppercase', letterSpacing: '0.06em' }}>프로젝트 태그 탐색</div>
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginBottom: 16 }}>
+        {LINEAR_PROJECTS.map((proj) => (
+          <ChipLink
+            key={proj.id}
+            href="#"
+            onClick={(e: React.MouseEvent) => { e.preventDefault(); setSelectedId(selectedId === proj.id ? null : proj.id) }}
+
+          >
+            <ChipLink.Leading>
+              <div style={{ width: 6, height: 6, borderRadius: '50%', background: proj.statusColor }} />
+            </ChipLink.Leading>
+            {proj.name}
+            {proj.count > 0 && (
+              <span style={{ marginLeft: 4, fontSize: 10, fontWeight: 700, color: proj.statusColor }}>({proj.count})</span>
+            )}
+          </ChipLink>
+        ))}
+      </div>
+      {selectedId && (() => {
+        const proj = LINEAR_PROJECTS.find(p => p.id === selectedId)
+        if (!proj) return null
+        return (
+          <div style={{ padding: '12px 14px', borderRadius: 10, border: `1px solid ${proj.statusColor}30`, background: proj.statusColor + '08' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 6 }}>
+              <div style={{ fontSize: 13, fontWeight: 700, color: '#0f172a' }}>{proj.name}</div>
+              <span style={{ fontSize: 11, padding: '2px 8px', borderRadius: 100, background: proj.statusColor + '20', color: proj.statusColor, fontWeight: 600 }}>{proj.status}</span>
+            </div>
+            <div style={{ fontSize: 12, color: '#64748b' }}>진행 중 이슈 {proj.count}개</div>
+          </div>
+        )
+      })()}
+      <div style={{ marginTop: 8, fontSize: 11, color: '#94a3b8' }}>Linear 프로젝트 태그 링크 탐색 패턴</div>
+    </div>
+  )
+}
+
+export const Linear_프로젝트_태그_탐색: Story = {
+  name: 'Linear - 프로젝트 태그 탐색 링크',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Linear의 프로젝트 태그 탐색 패턴. ChipLink에 상태 색상 Leading 도트를 배치하고 선택 시 상세 정보 카드를 인라인으로 표시합니다. 프로젝트 탐색, 빠른 필터 링크 UI에 활용됩니다.',
+      },
+    },
+  },
+  render: () => <LinearProjectTagRender />,
 }

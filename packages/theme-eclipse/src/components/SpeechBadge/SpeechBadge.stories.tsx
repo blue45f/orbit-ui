@@ -406,3 +406,221 @@ export const 알림_말풍선: Story = {
     </div>
   ),
 }
+
+// ─── Cycle 64: Linear Design + Figma Plugin UI ─────────────────────────────
+
+type LinearComment = {
+  id: number
+  author: string
+  initials: string
+  color: string
+  text: string
+  time: string
+  side: 'left' | 'right'
+}
+
+const LINEAR_COMMENTS: LinearComment[] = [
+  { id: 1, author: 'Heejun', initials: 'HJ', color: '#6366f1', text: 'Button 컴포넌트 PR 리뷰 부탁드립니다', time: '10:24', side: 'right' },
+  { id: 2, author: 'Soobin', initials: 'SB', color: '#22c55e', text: 'LGTM! 타입 정의 부분만 확인해 주세요', time: '10:31', side: 'left' },
+  { id: 3, author: 'Heejun', initials: 'HJ', color: '#6366f1', text: '수정했어요. 다시 한번 봐주세요!', time: '10:45', side: 'right' },
+  { id: 4, author: 'Soobin', initials: 'SB', color: '#22c55e', text: '완벽해요. Merge 진행하겠습니다', time: '10:52', side: 'left' },
+]
+
+const LinearCommentThreadRender = () => {
+  const [input, setInput] = useState('')
+  const [msgs, setMsgs] = useState(LINEAR_COMMENTS)
+  const [count, setCount] = useState(LINEAR_COMMENTS.length + 1)
+
+  const send = () => {
+    if (!input.trim()) return
+    setMsgs(prev => [...prev, { id: count, author: 'Heejun', initials: 'HJ', color: '#6366f1', text: input.trim(), time: '지금', side: 'right' }])
+    setCount(c => c + 1)
+    setInput('')
+  }
+
+  return (
+    <div style={{ width: 360, border: '1px solid #e2e8f0', borderRadius: 14, overflow: 'hidden', fontFamily: 'system-ui, sans-serif' }}>
+      {/* Linear-style issue header */}
+      <div style={{ padding: '12px 16px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <div style={{ fontSize: 12, fontWeight: 700, color: '#0f172a' }}>ORB-142 · Button PR 리뷰</div>
+        <div style={{ fontSize: 11, padding: '2px 8px', borderRadius: 100, background: '#dbeafe', color: '#1d4ed8', fontWeight: 600 }}>In Review</div>
+      </div>
+      {/* Thread */}
+      <div style={{ padding: '16px', display: 'flex', flexDirection: 'column', gap: 12, background: '#fff' }}>
+        {msgs.map((msg) => (
+          <div key={msg.id} style={{ display: 'flex', flexDirection: msg.side === 'right' ? 'row-reverse' : 'row', alignItems: 'flex-end', gap: 8 }}>
+            <div style={{ width: 28, height: 28, borderRadius: '50%', background: msg.color + '20', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 10, fontWeight: 700, color: msg.color, flexShrink: 0 }}>
+              {msg.initials}
+            </div>
+            <SpeechBadge
+              color={msg.side === 'right' ? 'blue' : 'pink'}
+              tailPosition={msg.side === 'right' ? 'trailing' : 'leading'}
+            >
+              {msg.text}
+            </SpeechBadge>
+          </div>
+        ))}
+      </div>
+      {/* Input */}
+      <div style={{ padding: '10px 14px', borderTop: '1px solid #e2e8f0', display: 'flex', gap: 8 }}>
+        <input
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          onKeyDown={(e) => e.key === 'Enter' && send()}
+          placeholder="코멘트 작성..."
+          style={{ flex: 1, border: '1px solid #e2e8f0', borderRadius: 8, padding: '7px 10px', fontSize: 12, outline: 'none', color: '#334155' }}
+        />
+        <button
+          onClick={send}
+          style={{ padding: '7px 12px', borderRadius: 8, border: 'none', background: '#6366f1', color: '#fff', fontSize: 12, fontWeight: 600, cursor: 'pointer' }}
+        >
+          전송
+        </button>
+      </div>
+    </div>
+  )
+}
+
+export const Linear_이슈_코멘트_스레드: Story = {
+  name: 'Linear - 이슈 코멘트 스레드',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Linear의 이슈 코멘트 스레드 패턴. SpeechBadge의 color와 tailPosition을 활용해 발신/수신 메시지를 구분합니다. Enter 키로 새 메시지를 추가할 수 있는 인터랙티브 데모입니다.',
+      },
+    },
+  },
+  render: () => <LinearCommentThreadRender />,
+}
+
+type FigmaAnnotation = {
+  id: number
+  x: number
+  y: number
+  label: string
+  note: string
+  color: 'pink' | 'blue'
+}
+
+const FIGMA_ANNOTATIONS: FigmaAnnotation[] = [
+  { id: 1, x: 60, y: 30, label: '1', note: 'Primary 색상: #6366f1', color: 'blue' },
+  { id: 2, x: 200, y: 80, label: '2', note: '폰트: 14px / 700', color: 'pink' },
+  { id: 3, x: 100, y: 140, label: '3', note: '패딩: 12px 16px', color: 'blue' },
+]
+
+const FigmaAnnotationPinRender = () => {
+  const [active, setActive] = useState<number | null>(1)
+
+  return (
+    <div style={{ width: 340, fontFamily: 'system-ui, sans-serif' }}>
+      <div style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', marginBottom: 8, textTransform: 'uppercase', letterSpacing: '0.06em' }}>Figma 어노테이션 핀</div>
+      {/* Canvas mockup */}
+      <div style={{ position: 'relative', width: '100%', height: 200, background: '#f0f2f4', borderRadius: 12, border: '1px solid #e2e8f0' }}>
+        {/* Mocked component */}
+        <div style={{ position: 'absolute', top: 60, left: 80, width: 160, height: 60, background: '#6366f1', borderRadius: 10, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: 14, fontWeight: 700 }}>
+          Solid Button
+        </div>
+        {/* Annotation pins */}
+        {FIGMA_ANNOTATIONS.map((ann) => (
+          <div key={ann.id} style={{ position: 'absolute', top: ann.y, left: ann.x }}>
+            <div
+              onClick={() => setActive(active === ann.id ? null : ann.id)}
+              style={{ width: 20, height: 20, borderRadius: '50%', background: ann.color === 'blue' ? '#6366f1' : '#ec4899', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 10, fontWeight: 800, cursor: 'pointer', zIndex: 2, position: 'relative' }}
+            >
+              {ann.label}
+            </div>
+            {active === ann.id && (
+              <div style={{ position: 'absolute', top: 24, left: 0, zIndex: 10 }}>
+                <SpeechBadge color={ann.color} tailPosition="leading">
+                  {ann.note}
+                </SpeechBadge>
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+      <div style={{ marginTop: 8, fontSize: 11, color: '#94a3b8' }}>핀을 클릭하면 어노테이션이 표시됩니다</div>
+    </div>
+  )
+}
+
+export const Figma_어노테이션_핀_팝업: Story = {
+  name: 'Figma Plugin - 어노테이션 핀 팝업',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Figma의 어노테이션 핀 팝업 패턴. 클릭 시 SpeechBadge가 말풍선 형태로 속성 정보를 표시합니다. 디자인 스펙 문서화, 레이어 설명 패턴에 활용됩니다.',
+      },
+    },
+  },
+  render: () => <FigmaAnnotationPinRender />,
+}
+
+const ONBOARDING_STEPS = [
+  { id: 0, target: '컴포넌트 라이브러리', hint: '여기서 UI 컴포넌트를 찾을 수 있어요', color: 'pink' as const, x: 40, y: 20 },
+  { id: 1, target: '토큰 편집기', hint: '디자인 토큰을 커스터마이즈 해보세요!', color: 'blue' as const, x: 160, y: 60 },
+  { id: 2, target: '스토리북 연동', hint: '완성! 스토리북으로 확인하세요', color: 'pink' as const, x: 80, y: 120 },
+]
+
+const LinearOnboardingGuideRender = () => {
+  const [step, setStep] = useState(0)
+  const _current = ONBOARDING_STEPS[step]
+
+  return (
+    <div style={{ width: 320, fontFamily: 'system-ui, sans-serif' }}>
+      <div style={{ fontSize: 12, fontWeight: 700, color: '#0f172a', marginBottom: 4 }}>온보딩 가이드</div>
+      <div style={{ fontSize: 11, color: '#64748b', marginBottom: 14 }}>단계 {step + 1} / {ONBOARDING_STEPS.length}</div>
+      {/* Progress */}
+      <div style={{ display: 'flex', gap: 4, marginBottom: 16 }}>
+        {ONBOARDING_STEPS.map((_, i) => (
+          <div key={i} style={{ flex: 1, height: 3, borderRadius: 2, background: i <= step ? '#6366f1' : '#e2e8f0', transition: 'background 0.3s' }} />
+        ))}
+      </div>
+      {/* Canvas area */}
+      <div style={{ position: 'relative', height: 180, background: '#09090b', borderRadius: 12, marginBottom: 14, overflow: 'visible' }}>
+        {ONBOARDING_STEPS.map((s) => (
+          <div key={s.id} style={{ position: 'absolute', top: s.y, left: s.x, opacity: s.id === step ? 1 : 0.3, transition: 'opacity 0.3s' }}>
+            <div style={{ padding: '6px 12px', borderRadius: 6, background: s.id === step ? '#6366f1' : '#27272a', color: '#fff', fontSize: 11, fontWeight: 600, whiteSpace: 'nowrap' }}>
+              {s.target}
+            </div>
+            {s.id === step && (
+              <div style={{ marginTop: 6 }}>
+                <SpeechBadge color={s.color} tailPosition="leading">
+                  {s.hint}
+                </SpeechBadge>
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+      <div style={{ display: 'flex', gap: 8 }}>
+        <button
+          onClick={() => setStep(s => Math.max(0, s - 1))}
+          disabled={step === 0}
+          style={{ flex: 1, padding: '8px', borderRadius: 8, border: '1px solid #e2e8f0', background: '#fff', fontSize: 12, fontWeight: 600, cursor: step === 0 ? 'not-allowed' : 'pointer', opacity: step === 0 ? 0.4 : 1 }}
+        >
+          이전
+        </button>
+        <button
+          onClick={() => setStep(s => Math.min(ONBOARDING_STEPS.length - 1, s + 1))}
+          disabled={step === ONBOARDING_STEPS.length - 1}
+          style={{ flex: 1, padding: '8px', borderRadius: 8, border: 'none', background: '#6366f1', color: '#fff', fontSize: 12, fontWeight: 600, cursor: step === ONBOARDING_STEPS.length - 1 ? 'not-allowed' : 'pointer', opacity: step === ONBOARDING_STEPS.length - 1 ? 0.5 : 1 }}
+        >
+          다음
+        </button>
+      </div>
+    </div>
+  )
+}
+
+export const Linear_온보딩_가이드_핀: Story = {
+  name: 'Linear - 온보딩 가이드 말풍선 핀',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Linear의 온보딩 UI 패턴. 단계별 SpeechBadge 힌트를 어두운 배경 위에 표시하고, 진행 표시줄로 현재 단계를 나타냅니다. 피처 투어, 기능 안내 팝업 패턴에 활용됩니다.',
+      },
+    },
+  },
+  render: () => <LinearOnboardingGuideRender />,
+}

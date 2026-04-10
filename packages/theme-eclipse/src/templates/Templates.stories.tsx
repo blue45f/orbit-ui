@@ -15585,3 +15585,203 @@ export const CourseTracker: Story = {
   },
   render: () => <CourseTrackerRender />,
 }
+
+// ─── Template 54: PluginMarketplace (Linear Design + Figma Plugin UI 벤치마크) ─
+
+type PMCategory = '전체' | '생산성' | '디자인' | '개발' | '협업'
+type PMPlugin = {
+  id: number
+  name: string
+  desc: string
+  author: string
+  category: PMCategory
+  rating: number
+  installs: string
+  tag: '추천' | '신규' | '인기' | null
+  tagColor: 'benefit' | 'sale' | 'gray'
+  initial: string
+  color: string
+}
+
+const PM_PLUGINS: PMPlugin[] = [
+  { id: 1, name: 'Token Inspector', desc: '디자인 토큰을 실시간으로 검사하고 편집합니다', author: 'orbit-ui', category: '디자인', rating: 4.8, installs: '24K', tag: '추천', tagColor: 'benefit', initial: 'T', color: '#6366f1' },
+  { id: 2, name: 'Batch Rename', desc: '레이어와 컴포넌트를 일괄 이름 변경합니다', author: 'layer-tools', category: '생산성', rating: 4.6, installs: '51K', tag: '인기', tagColor: 'gray', initial: 'B', color: '#22c55e' },
+  { id: 3, name: 'Code Export', desc: 'React/Vue/HTML 코드를 즉시 내보냅니다', author: 'devtools', category: '개발', rating: 4.5, installs: '38K', tag: '신규', tagColor: 'sale', initial: 'C', color: '#f59e0b' },
+  { id: 4, name: 'Markup Notes', desc: '디자인에 마크업 코멘트를 추가합니다', author: 'collab-io', category: '협업', rating: 4.3, installs: '12K', tag: null, tagColor: 'gray', initial: 'M', color: '#0ea5e9' },
+  { id: 5, name: 'Icon Search', desc: '500+ 아이콘 라이브러리를 즉시 검색합니다', author: 'orbit-ui', category: '디자인', rating: 4.7, installs: '67K', tag: '인기', tagColor: 'gray', initial: 'I', color: '#ec4899' },
+  { id: 6, name: 'A11y Checker', desc: '접근성 규칙 준수 여부를 자동 검사합니다', author: 'a11y-lab', category: '개발', rating: 4.9, installs: '19K', tag: '추천', tagColor: 'benefit', initial: 'A', color: '#8b5cf6' },
+]
+
+const PM_CATEGORIES: PMCategory[] = ['전체', '생산성', '디자인', '개발', '협업']
+
+const PluginMarketplaceRender = () => {
+  const [category, setCategory] = useState<PMCategory>('전체')
+  const [search, setSearch] = useState('')
+  const [installed, setInstalled] = useState<Set<number>>(new Set([1]))
+  const [selectedId, setSelectedId] = useState<number | null>(null)
+
+  const filtered = PM_PLUGINS.filter((p) => {
+    if (category !== '전체' && p.category !== category) return false
+    if (search && !p.name.toLowerCase().includes(search.toLowerCase()) && !p.desc.toLowerCase().includes(search.toLowerCase())) return false
+    return true
+  })
+
+  const selected = PM_PLUGINS.find(p => p.id === selectedId)
+
+  const toggleInstall = (id: number) => {
+    setInstalled(prev => {
+      const next = new Set(prev)
+      if (next.has(id)) next.delete(id)
+      else next.add(id)
+      return next
+    })
+  }
+
+  return (
+    <div style={{ width: 860, display: 'flex', gap: 20, fontFamily: 'system-ui, sans-serif', minHeight: 520 }}>
+      {/* Left: list */}
+      <div style={{ flex: 1, minWidth: 0 }}>
+        {/* Header */}
+        <div style={{ marginBottom: 16 }}>
+          <SectionTitle>
+            <SectionTitle.Title>플러그인 마켓플레이스</SectionTitle.Title>
+            <SectionTitle.Trailing>
+              <CounterBadge>{filtered.length}</CounterBadge>
+            </SectionTitle.Trailing>
+          </SectionTitle>
+        </div>
+
+        {/* Search */}
+        <div style={{ marginBottom: 12 }}>
+          <TextField
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="플러그인 검색..."
+          />
+        </div>
+
+        {/* Category chips */}
+        <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginBottom: 16 }}>
+          {PM_CATEGORIES.map((cat) => (
+            <Chip
+              key={cat}
+              selected={category === cat}
+              onClick={() => setCategory(cat)}
+            >
+              {cat}
+            </Chip>
+          ))}
+        </div>
+
+        {/* Plugin list */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+          {filtered.length === 0 && (
+            <div style={{ textAlign: 'center', padding: 40, color: '#94a3b8', fontSize: 13 }}>검색 결과가 없습니다.</div>
+          )}
+          {filtered.map((plugin) => {
+            const isInstalled = installed.has(plugin.id)
+            const isSelected = selectedId === plugin.id
+            return (
+              <div
+                key={plugin.id}
+                onClick={() => setSelectedId(isSelected ? null : plugin.id)}
+                style={{ padding: '14px 16px', borderRadius: 12, border: `1.5px solid ${isSelected ? '#6366f1' : '#e2e8f0'}`, background: isSelected ? '#fafaff' : '#fff', cursor: 'pointer', transition: 'border-color 0.15s' }}
+              >
+                <div style={{ display: 'flex', gap: 12, alignItems: 'flex-start' }}>
+                  <Avatar>
+                    <Avatar.Fallback style={{ background: plugin.color + '20', color: plugin.color }}>{plugin.initial}</Avatar.Fallback>
+                  </Avatar>
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 4 }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                        <span style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>{plugin.name}</span>
+                        {plugin.tag && <LabelBadge color={plugin.tagColor}><LabelBadge.Label>{plugin.tag}</LabelBadge.Label></LabelBadge>}
+                      </div>
+                      <SolidButton
+                        color={isInstalled ? 'gray' : 'primary'}
+                        size="small"
+                        onClick={(e: React.MouseEvent) => { e.stopPropagation(); toggleInstall(plugin.id) }}
+                      >
+                        <SolidButton.Center>{isInstalled ? '제거' : '설치'}</SolidButton.Center>
+                      </SolidButton>
+                    </div>
+                    <div style={{ fontSize: 12, color: '#64748b', marginBottom: 6 }}>{plugin.desc}</div>
+                    <div style={{ display: 'flex', gap: 12, fontSize: 11, color: '#94a3b8' }}>
+                      <span>by {plugin.author}</span>
+                      <span>★ {plugin.rating}</span>
+                      <span>{plugin.installs} 설치</span>
+                      <span style={{ marginLeft: 'auto', color: '#6366f1', fontWeight: 600 }}>{plugin.category}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )
+          })}
+        </div>
+      </div>
+
+      {/* Right: detail */}
+      <div style={{ width: 260, border: '1px solid #e2e8f0', borderRadius: 14, padding: 20, background: '#fafafa', flexShrink: 0 }}>
+        {selected ? (
+          <>
+            <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 14 }}>
+              <Avatar>
+                <Avatar.Fallback style={{ background: selected.color + '20', color: selected.color, width: 56, height: 56, fontSize: 22, fontWeight: 800 }}>{selected.initial}</Avatar.Fallback>
+              </Avatar>
+            </div>
+            <div style={{ textAlign: 'center', marginBottom: 16 }}>
+              <div style={{ fontSize: 16, fontWeight: 800, color: '#0f172a', marginBottom: 4 }}>{selected.name}</div>
+              <div style={{ fontSize: 12, color: '#64748b' }}>{selected.desc}</div>
+            </div>
+            <Divider />
+            <div style={{ margin: '14px 0', display: 'flex', flexDirection: 'column', gap: 10 }}>
+              {[
+                ['제작자', selected.author],
+                ['카테고리', selected.category],
+                ['평점', `★ ${selected.rating}`],
+                ['설치 수', selected.installs],
+              ].map(([k, v]) => (
+                <div key={k} style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13 }}>
+                  <span style={{ color: '#94a3b8', fontWeight: 600 }}>{k}</span>
+                  <span style={{ color: '#334155', fontWeight: 500 }}>{v}</span>
+                </div>
+              ))}
+            </div>
+            <Progress value={selected.rating * 20} />
+            <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 4, marginBottom: 16, textAlign: 'right' }}>평점 {selected.rating}/5.0</div>
+            <SolidButton
+              color={installed.has(selected.id) ? 'gray' : 'primary'}
+              size="medium"
+              onClick={() => toggleInstall(selected.id)}
+              style={{ width: '100%' }}
+            >
+              <SolidButton.Center>{installed.has(selected.id) ? '제거하기' : '설치하기'}</SolidButton.Center>
+            </SolidButton>
+          </>
+        ) : (
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%', minHeight: 200, gap: 12 }}>
+            <div style={{ width: 48, height: 48, borderRadius: 12, background: '#f1f5f9', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <div style={{ width: 24, height: 24, borderRadius: 4, border: '2px solid #cbd5e1' }} />
+            </div>
+            <div style={{ fontSize: 13, color: '#94a3b8', textAlign: 'center' }}>플러그인을 선택하면<br />상세 정보가 표시됩니다</div>
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+
+export const PluginMarketplace: Story = {
+  name: 'Plugin Marketplace (Linear Design + Figma Plugin UI 벤치마크)',
+  parameters: {
+    layout: 'centered',
+    docs: {
+      description: {
+        story:
+          'Linear의 컴팩트 리스트 레이아웃 + Figma Plugin UI의 마켓플레이스 패턴 결합. ' +
+          'TextField 검색, Chip 카테고리, Avatar, LabelBadge, SolidButton 설치/제거, Progress 평점, Divider 조합.',
+      },
+    },
+  },
+  render: () => <PluginMarketplaceRender />,
+}

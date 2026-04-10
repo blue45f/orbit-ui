@@ -789,3 +789,82 @@ function DeleteProjectButton() {
 
   </div>
 </Unstyled>
+
+{/* ========== CYCLE 64: Linear Design + Figma Plugin UI ========== */}
+<section style={{ marginBottom: '48px' }}>
+  <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '20px' }}>
+    <div style={{ width: '36px', height: '36px', borderRadius: '10px', background: 'linear-gradient(135deg, #5e6ad2, #f24e1e)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontWeight: '800', fontSize: '15px' }}>L</div>
+    <div>
+      <div style={{ fontSize: '22px', fontWeight: '800', color: '#0f172a', letterSpacing: '-0.5px' }}>Cycle 64 — Linear Design + Figma Plugin UI 벤치마크</div>
+      <div style={{ fontSize: '13px', color: '#64748b', marginTop: '2px' }}>컴팩트 이슈 UI, 말풍선 어노테이션, 플러그인 마켓플레이스 패턴 분석</div>
+    </div>
+  </div>
+
+  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '16px', marginBottom: '24px' }}>
+    <div style={{ padding: '20px', borderRadius: '12px', background: 'linear-gradient(135deg, #f0f0ff, #e8e8ff)', border: '1px solid #c7c7ff' }}>
+      <div style={{ fontSize: '14px', fontWeight: '700', color: '#3730a3', marginBottom: '12px' }}>Linear Design 핵심 패턴</div>
+      <ul style={{ margin: 0, padding: '0 0 0 16px', fontSize: '13px', color: '#312e81', lineHeight: '1.8' }}>
+        <li>컴팩트 이슈 리스트 + 사이드 상세 패널</li>
+        <li>레이블 색상 코딩으로 즉각적 상태 인식</li>
+        <li>키보드 우선 인터랙션 패턴</li>
+        <li>이슈 코멘트 스레드 말풍선 UI</li>
+        <li>프로젝트 태그 링크 필터 탐색</li>
+      </ul>
+    </div>
+    <div style={{ padding: '20px', borderRadius: '12px', background: 'linear-gradient(135deg, #fff5f0, #ffe8e0)', border: '1px solid #ffc9b5' }}>
+      <div style={{ fontSize: '14px', fontWeight: '700', color: '#c2410c', marginBottom: '12px' }}>Figma Plugin UI 핵심 패턴</div>
+      <ul style={{ margin: 0, padding: '0 0 0 16px', fontSize: '13px', color: '#9a3412', lineHeight: '1.8' }}>
+        <li>컴팩트 도구 팔레트 (아이콘 밀도 높음)</li>
+        <li>어노테이션 핀 팝업 (클릭 → 말풍선)</li>
+        <li>컴포넌트 소스 라이브러리 링크 태그</li>
+        <li>플러그인 마켓플레이스 설치/제거 UX</li>
+        <li>#09090b 다크 + Figma 오렌지 브랜드 색상</li>
+      </ul>
+    </div>
+  </div>
+
+  <div style={{ overflowX: 'auto', borderRadius: '12px', border: '1.5px solid #e2e8f0', marginBottom: '24px' }}>
+    <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px' }}>
+      <thead>
+        <tr style={{ background: '#f8fafc' }}>
+          {['기준', 'Linear Design', 'Figma Plugin UI', 'Orbit UI 반영'].map((col, i) => (
+            <th key={col} style={{ padding: '12px 16px', textAlign: 'left', fontWeight: 700, color: i === 3 ? '#6366f1' : '#475569', borderBottom: '1.5px solid #e2e8f0', whiteSpace: 'nowrap' }}>{col}</th>
+          ))}
+        </tr>
+      </thead>
+      <tbody>
+        {[
+          ['코멘트 UI', '이슈 스레드 말풍선', '어노테이션 핀 팝업', 'SpeechBadge 스레드·핀·온보딩 3패턴'],
+          ['링크 태그', '레이블/프로젝트 ChipLink', '컴포넌트 소스 링크', 'ChipLink 레이블·라이브러리·프로젝트 3패턴'],
+          ['마켓플레이스', '이슈 리스트 + 사이드패널', '플러그인 설치/제거', 'PluginMarketplace 복합 템플릿'],
+          ['밀도', '컴팩트 이슈 행 (36px)', '툴바 아이콘 밀집', 'Avatar + LabelBadge 인라인 배치'],
+          ['색상 코딩', '레이블 color dot', '라이브러리 브랜드 색상', 'Leading 도트로 출처/상태 즉각 인식'],
+        ].map((row, i) => (
+          <tr key={i} style={{ background: i % 2 === 0 ? '#fff' : '#fafafa' }}>
+            {row.map((cell, j) => (
+              <td key={j} style={{ padding: '11px 16px', color: j === 3 ? '#4f46e5' : '#334155', borderBottom: '1px solid #f1f5f9', fontWeight: j === 0 ? 600 : 400 }}>{cell}</td>
+            ))}
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <div style={{ padding: '20px', borderRadius: '12px', background: 'linear-gradient(135deg, #f0f0ff, #fff5f0)', border: '2px solid #c7c7ff' }}>
+    <div style={{ fontSize: '13px', fontWeight: '700', color: '#3730a3', marginBottom: '12px' }}>Orbit UI 반영 결과 (Cycle 64)</div>
+    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '12px', fontSize: '12px', color: '#374151', lineHeight: '1.7' }}>
+      <div>
+        <div style={{ fontWeight: '700', color: '#5e6ad2', marginBottom: '4px' }}>SpeechBadge +3</div>
+        Linear 이슈 코멘트 스레드(실시간 입력), Figma 어노테이션 핀 팝업(클릭 토글), Linear 온보딩 가이드 핀(단계별) 추가.
+      </div>
+      <div>
+        <div style={{ fontWeight: '700', color: '#f24e1e', marginBottom: '4px' }}>ChipLink +3</div>
+        Linear 이슈 레이블 필터(color dot), Figma 컴포넌트 라이브러리 링크, Linear 프로젝트 태그 탐색 3패턴 추가.
+      </div>
+      <div>
+        <div style={{ fontWeight: '700', color: '#5e6ad2', marginBottom: '4px' }}>Template 54: PluginMarketplace</div>
+        TextField 검색, Chip 카테고리, Avatar, LabelBadge 태그, SolidButton 설치/제거, Progress 평점, Divider 조합.
+      </div>
+    </div>
+  </div>
+</section>
