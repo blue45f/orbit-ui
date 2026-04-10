@@ -734,6 +734,326 @@ export const Linear_우선순위_선택 = {
    Ant Design Radio.Group — 1~5점 척도 + 단일 선택 설문 UI
 -------------------------------------------------------------------------- */
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+/* --------------------------------------------------------------------------
+   Chakra UI 벤치마크: 테마 색상 모드 선택
+   Chakra UI의 colorScheme prop 패턴 — 색상 역할별 시각적 미리보기가 있는 라디오 그룹
+-------------------------------------------------------------------------- */
+export const Chakra_테마_색상_모드: Story = {
+  name: 'Chakra UI - 테마 색상 모드 선택',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Chakra UI colorScheme 패턴. 각 라디오 옵션에 색상 미리보기 스와치가 포함되어 선택 전에 결과를 확인할 수 있습니다.',
+      },
+    },
+  },
+  render: function Render(args) {
+    const themes = [
+      { value: 'indigo', label: 'Indigo', primary: '#6366f1', secondary: '#8b5cf6', accent: '#c7d2fe' },
+      { value: 'emerald', label: 'Emerald', primary: '#10b981', secondary: '#059669', accent: '#a7f3d0' },
+      { value: 'amber', label: 'Amber', primary: '#f59e0b', secondary: '#d97706', accent: '#fde68a' },
+      { value: 'rose', label: 'Rose', primary: '#f43f5e', secondary: '#e11d48', accent: '#fecdd3' },
+      { value: 'slate', label: 'Slate', primary: '#475569', secondary: '#334155', accent: '#cbd5e1' },
+    ]
+    const [selected, setSelected] = useState('indigo')
+    const current = themes.find((t) => t.value === selected)!
+
+    return (
+      <div style={{ maxWidth: 380, display: 'flex', flexDirection: 'column', gap: 16 }}>
+        <div style={{ fontSize: 13, fontWeight: 700, color: '#0f172a' }}>테마 색상 선택</div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+          {themes.map((theme) => (
+            <div
+              key={theme.value}
+              onClick={() => setSelected(theme.value)}
+              style={{
+                display: 'flex', alignItems: 'center', gap: 12, padding: '12px 14px',
+                borderRadius: 10, cursor: 'pointer',
+                border: `1.5px solid ${selected === theme.value ? theme.primary : '#e2e8f0'}`,
+                background: selected === theme.value ? theme.accent + '30' : '#fff',
+                transition: 'all 0.15s',
+              }}
+            >
+              <RadioButton
+                {...args}
+                value={theme.value}
+                name="theme-color"
+                checked={selected === theme.value}
+                onChange={() => setSelected(theme.value)}
+              />
+              <div style={{ display: 'flex', gap: 6, flex: 1 }}>
+                {[theme.primary, theme.secondary, theme.accent].map((color) => (
+                  <div
+                    key={color}
+                    style={{
+                      width: 20, height: 20, borderRadius: 4, background: color,
+                      border: '1px solid rgba(0,0,0,0.08)',
+                    }}
+                  />
+                ))}
+              </div>
+              <span style={{ fontSize: 13, fontWeight: selected === theme.value ? 700 : 500, color: '#1e293b' }}>
+                {theme.label}
+              </span>
+            </div>
+          ))}
+        </div>
+        <div style={{
+          padding: '14px 16px', borderRadius: 10,
+          background: current.accent + '40', border: `1px solid ${current.accent}`,
+        }}>
+          <div style={{ fontSize: 11, color: '#64748b', marginBottom: 6 }}>미리보기</div>
+          <div style={{ display: 'flex', gap: 8 }}>
+            <div style={{ padding: '8px 16px', borderRadius: 7, background: current.primary, color: '#fff', fontSize: 13, fontWeight: 700 }}>
+              Primary
+            </div>
+            <div style={{
+              padding: '8px 16px', borderRadius: 7,
+              background: 'transparent', border: `1.5px solid ${current.primary}`,
+              color: current.primary, fontSize: 13, fontWeight: 700,
+            }}>
+              Outline
+            </div>
+          </div>
+        </div>
+        <div style={{ fontSize: 11, color: '#94a3b8' }}>
+          Chakra UI colorScheme 패턴 — 색상 스와치 미리보기 + 라디오 선택
+        </div>
+      </div>
+    )
+  },
+}
+
+/* --------------------------------------------------------------------------
+   Material 3 벤치마크: 버튼 변형 역할 선택
+   M3의 filled / tonal / outlined / text 버튼 변형을 라디오로 선택하는 패턴
+   각 변형의 시각적 차이를 명확하게 보여주는 UI 설정 패널
+-------------------------------------------------------------------------- */
+export const M3_버튼_변형_선택: Story = {
+  name: 'Material 3 - 버튼 변형 역할 선택',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'M3의 filled/tonal/outlined/text 버튼 변형을 라디오 그룹으로 선택하는 설정 패널 패턴. ' +
+          '각 변형의 시각적 샘플과 사용 용도 설명이 함께 표시됩니다.',
+      },
+    },
+  },
+  render: function Render(args) {
+    const variants = [
+      {
+        value: 'filled',
+        label: 'Filled',
+        desc: '가장 중요한 CTA. 화면당 1개만 사용.',
+        preview: { bg: '#6366f1', color: '#fff', border: 'none' },
+        badge: '높은 강조',
+      },
+      {
+        value: 'tonal',
+        label: 'Tonal',
+        desc: '보조 액션. Filled보다 낮은 강조.',
+        preview: { bg: '#eef2ff', color: '#4f46e5', border: '1px solid #c7d2fe' },
+        badge: '중간 강조',
+      },
+      {
+        value: 'outlined',
+        label: 'Outlined',
+        desc: '주요 경계선 버튼. 중립적 액션.',
+        preview: { bg: 'transparent', color: '#475569', border: '1.5px solid #e2e8f0' },
+        badge: '낮은 강조',
+      },
+      {
+        value: 'text',
+        label: 'Text',
+        desc: '최소 강조. 보완적인 보조 액션.',
+        preview: { bg: 'transparent', color: '#6366f1', border: 'none' },
+        badge: '최소 강조',
+      },
+    ]
+    const [selected, setSelected] = useState('filled')
+
+    return (
+      <div style={{ maxWidth: 400 }}>
+        <div style={{ fontSize: 13, fontWeight: 700, color: '#0f172a', marginBottom: 16 }}>
+          기본 버튼 변형 설정
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+          {variants.map((v) => (
+            <div
+              key={v.value}
+              onClick={() => setSelected(v.value)}
+              style={{
+                display: 'flex', alignItems: 'center', gap: 12, padding: '12px 16px',
+                borderRadius: 10, cursor: 'pointer',
+                border: `1.5px solid ${selected === v.value ? '#6366f1' : '#e2e8f0'}`,
+                background: selected === v.value ? '#f5f3ff' : '#fff',
+                transition: 'all 0.15s',
+              }}
+            >
+              <RadioButton
+                {...args}
+                value={v.value}
+                name="btn-variant"
+                checked={selected === v.value}
+                onChange={() => setSelected(v.value)}
+              />
+              <div
+                style={{
+                  padding: '6px 14px', borderRadius: 7, fontSize: 12, fontWeight: 700,
+                  minWidth: 72, textAlign: 'center',
+                  background: v.preview.bg, color: v.preview.color, border: v.preview.border,
+                }}
+              >
+                {v.label}
+              </div>
+              <div style={{ flex: 1 }}>
+                <div style={{ fontSize: 13, fontWeight: 600, color: '#1e293b' }}>{v.label}</div>
+                <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>{v.desc}</div>
+              </div>
+              <span style={{
+                fontSize: 10, fontWeight: 700, padding: '2px 7px', borderRadius: 5,
+                background: selected === v.value ? '#6366f1' : '#f1f5f9',
+                color: selected === v.value ? '#fff' : '#64748b',
+              }}>
+                {v.badge}
+              </span>
+            </div>
+          ))}
+        </div>
+        <div style={{ marginTop: 12, fontSize: 11, color: '#94a3b8' }}>
+          M3 버튼 변형 시스템 — filled / tonal / outlined / text 강조 계층
+        </div>
+      </div>
+    )
+  },
+}
+
+/* --------------------------------------------------------------------------
+   Chakra + M3 조합: 구독 플랜 선택 카드
+   Chakra UI의 시각적 피드백 + M3의 컨테이너 색상 역할을 결합한
+   가격 플랜 선택 UI — 각 플랜이 M3 컨테이너 토큰으로 시각 구분
+-------------------------------------------------------------------------- */
+export const Chakra_M3_구독_플랜_선택: Story = {
+  name: 'Chakra + M3 - 구독 플랜 선택 카드',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Chakra UI 시각적 피드백 + M3 container color role 조합. ' +
+          '선택된 플랜은 M3 primaryContainer 색상으로 강조되며, 각 플랜의 특성이 명확히 구분됩니다.',
+      },
+    },
+  },
+  render: function Render(args) {
+    const plans = [
+      {
+        value: 'free',
+        name: 'Free',
+        price: '₩0',
+        period: '영원히 무료',
+        features: ['컴포넌트 5개', 'Storybook 공유', '커뮤니티 지원'],
+        containerBg: '#f8fafc',
+        selectedBg: '#eef2ff',
+        borderSelected: '#6366f1',
+        accent: '#6366f1',
+      },
+      {
+        value: 'pro',
+        name: 'Pro',
+        price: '₩19,000',
+        period: '/ 월',
+        features: ['컴포넌트 무제한', '팀 10명', 'API 100K', '우선 지원'],
+        containerBg: '#f8fafc',
+        selectedBg: '#f0fdf4',
+        borderSelected: '#10b981',
+        accent: '#10b981',
+        recommended: true,
+      },
+      {
+        value: 'enterprise',
+        name: 'Enterprise',
+        price: '₩89,000',
+        period: '/ 월',
+        features: ['모든 Pro 기능', '팀 무제한', 'SLA 99.9%', '전담 지원'],
+        containerBg: '#f8fafc',
+        selectedBg: '#fffbeb',
+        borderSelected: '#f59e0b',
+        accent: '#f59e0b',
+      },
+    ]
+    const [selected, setSelected] = useState('pro')
+
+    return (
+      <div style={{ maxWidth: 420, display: 'flex', flexDirection: 'column', gap: 10 }}>
+        <div style={{ fontSize: 13, fontWeight: 700, color: '#0f172a', marginBottom: 4 }}>플랜 선택</div>
+        {plans.map((plan) => {
+          const isSelected = selected === plan.value
+          return (
+            <div
+              key={plan.value}
+              onClick={() => setSelected(plan.value)}
+              style={{
+                padding: '16px 18px', borderRadius: 12, cursor: 'pointer',
+                border: `2px solid ${isSelected ? plan.borderSelected : '#e2e8f0'}`,
+                background: isSelected ? plan.selectedBg : plan.containerBg,
+                transition: 'all 0.15s',
+                position: 'relative',
+              }}
+            >
+              {plan.recommended && (
+                <span style={{
+                  position: 'absolute', top: -10, right: 16,
+                  fontSize: 10, fontWeight: 700, padding: '3px 10px', borderRadius: 99,
+                  background: '#10b981', color: '#fff',
+                }}>
+                  추천
+                </span>
+              )}
+              <div style={{ display: 'flex', alignItems: 'flex-start', gap: 12 }}>
+                <div style={{ paddingTop: 2 }}>
+                  <RadioButton
+                    {...args}
+                    value={plan.value}
+                    name="subscription-plan"
+                    checked={isSelected}
+                    onChange={() => setSelected(plan.value)}
+                  />
+                </div>
+                <div style={{ flex: 1 }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 8 }}>
+                    <div>
+                      <span style={{ fontSize: 14, fontWeight: 800, color: '#0f172a' }}>{plan.name}</span>
+                    </div>
+                    <div style={{ textAlign: 'right' }}>
+                      <span style={{ fontSize: 18, fontWeight: 800, color: isSelected ? plan.accent : '#0f172a' }}>
+                        {plan.price}
+                      </span>
+                      <span style={{ fontSize: 11, color: '#94a3b8', marginLeft: 2 }}>{plan.period}</span>
+                    </div>
+                  </div>
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+                    {plan.features.map((feature) => (
+                      <span key={feature} style={{ fontSize: 11, color: '#64748b', display: 'flex', alignItems: 'center', gap: 4 }}>
+                        <span style={{ color: isSelected ? plan.accent : '#cbd5e1', fontSize: 10 }}>✓</span>
+                        {feature}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          )
+        })}
+        <div style={{ marginTop: 4, fontSize: 11, color: '#94a3b8' }}>
+          Chakra UI 시각적 피드백 + M3 container color role 패턴
+        </div>
+      </div>
+    )
+  },
+}
+
 export const Ant_설문_척도_라디오 = {
   name: 'Ant Design - 설문 문항 라디오 패턴',
   render: function Render() {

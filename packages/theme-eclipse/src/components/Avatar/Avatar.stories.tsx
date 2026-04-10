@@ -772,6 +772,279 @@ export const Linear_담당자_할당_패널 = {
    Mantine 벤치마크: 사용자 프로필 카드 패턴
    Mantine Avatar + Text + Badge — 소셜 프로필 카드 UI
 -------------------------------------------------------------------------- */
+/* --------------------------------------------------------------------------
+   Chakra UI 벤치마크: 색상 스키마 아바타 그리드
+   Chakra UI의 colorScheme prop 시스템 — semantic colors × size 매트릭스
+   각 배경 색상이 의미론적 역할을 가지는 아바타 그리드 패턴
+-------------------------------------------------------------------------- */
+const CHAKRA_COLORS = [
+  { label: 'primary', bg: '#6366f1', text: '#fff', initials: 'PR' },
+  { label: 'success', bg: '#10b981', text: '#fff', initials: 'SC' },
+  { label: 'warning', bg: '#f59e0b', text: '#fff', initials: 'WN' },
+  { label: 'error', bg: '#ef4444', text: '#fff', initials: 'ER' },
+  { label: 'secondary', bg: '#8b5cf6', text: '#fff', initials: 'SD' },
+  { label: 'neutral', bg: '#64748b', text: '#fff', initials: 'NT' },
+]
+
+const CHAKRA_SIZES = [
+  { label: 'sm', size: 28, fontSize: 10 },
+  { label: 'md', size: 40, fontSize: 14 },
+  { label: 'lg', size: 56, fontSize: 20 },
+]
+
+export const Chakra_색상_스키마_아바타: Story = {
+  name: 'Chakra UI - colorScheme × size 매트릭스',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Chakra UI colorScheme × size prop 매트릭스 패턴. ' +
+          '시맨틱 색상 역할(primary/success/warning/error/secondary/neutral)과 크기(sm/md/lg)의 9가지 조합을 시각화합니다.',
+      },
+    },
+  },
+  render: () => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
+      {CHAKRA_SIZES.map((size) => (
+        <div key={size.label}>
+          <div style={{ fontSize: 11, fontWeight: 700, color: '#64748b', marginBottom: 10, letterSpacing: '0.05em' }}>
+            SIZE — {size.label.toUpperCase()}
+          </div>
+          <div style={{ display: 'flex', gap: 12, alignItems: 'center', flexWrap: 'wrap' }}>
+            {CHAKRA_COLORS.map((color) => (
+              <div key={color.label} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6 }}>
+                <Avatar
+                  style={{
+                    width: size.size, height: size.size,
+                    borderRadius: '50%',
+                    backgroundColor: color.bg,
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  }}
+                >
+                  <Avatar.Fallback
+                    style={{
+                      background: color.bg, color: color.text,
+                      fontSize: size.fontSize, fontWeight: 800,
+                    }}
+                  >
+                    {color.initials}
+                  </Avatar.Fallback>
+                </Avatar>
+                <span style={{ fontSize: 9, color: '#94a3b8', fontWeight: 500 }}>{color.label}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+      <div style={{ fontSize: 11, color: '#94a3b8' }}>
+        Chakra UI colorScheme prop 패턴 — semantic color × size 매트릭스
+      </div>
+    </div>
+  ),
+}
+
+/* --------------------------------------------------------------------------
+   Material 3 벤치마크: 상태 레이어 + 프레즌스 인디케이터
+   M3의 state layer 시스템(idle/hover/active) + 프레즌스 상태 표시 패턴
+   아바타 호버 시 8% → 16% 오버레이로 상태를 표현하는 M3 패턴
+-------------------------------------------------------------------------- */
+type PresenceStatus = 'online' | 'away' | 'busy' | 'offline'
+
+const presenceConfig: Record<PresenceStatus, { color: string; label: string }> = {
+  online:  { color: '#10b981', label: '온라인' },
+  away:    { color: '#f59e0b', label: '자리비움' },
+  busy:    { color: '#ef4444', label: '방해금지' },
+  offline: { color: '#94a3b8', label: '오프라인' },
+}
+
+const M3_TEAM: { initials: string; name: string; role: string; bg: string; status: PresenceStatus }[] = [
+  { initials: 'KM', name: '김민지', role: 'Frontend', bg: '#6366f1', status: 'online' },
+  { initials: 'LD', name: '이동욱', role: 'Backend', bg: '#8b5cf6', status: 'busy' },
+  { initials: 'PS', name: '박소연', role: 'Design', bg: '#ec4899', status: 'away' },
+  { initials: 'CJ', name: '최준호', role: 'DevOps', bg: '#10b981', status: 'online' },
+  { initials: 'JH', name: '정하은', role: 'QA', bg: '#f59e0b', status: 'offline' },
+]
+
+export const M3_상태_레이어_프레즌스: Story = {
+  name: 'Material 3 - 상태 레이어 + 프레즌스 인디케이터',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Material 3 state layer 시스템. 아바타 hover 시 8% 오버레이, active 시 16% 오버레이로 상태를 시각화합니다. ' +
+          '프레즌스 인디케이터(online/away/busy/offline)로 실시간 상태를 표시합니다.',
+      },
+    },
+  },
+  render: function Render() {
+    const [hovered, setHovered] = React.useState<string | null>(null)
+
+    return (
+      <div style={{ maxWidth: 380, display: 'flex', flexDirection: 'column', gap: 20 }}>
+        <div style={{ fontSize: 13, fontWeight: 700, color: '#0f172a' }}>팀원 현황</div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+          {M3_TEAM.map((member) => {
+            const pCfg = presenceConfig[member.status]
+            const isHover = hovered === member.initials
+            return (
+              <div
+                key={member.initials}
+                onMouseEnter={() => setHovered(member.initials)}
+                onMouseLeave={() => setHovered(null)}
+                style={{
+                  display: 'flex', alignItems: 'center', gap: 12, padding: '10px 14px',
+                  borderRadius: 12,
+                  background: isHover ? 'rgba(99,102,241,0.08)' : '#fff',
+                  border: '1px solid #f1f5f9',
+                  cursor: 'pointer', transition: 'all 0.15s',
+                }}
+              >
+                <div style={{ position: 'relative' }}>
+                  <Avatar
+                    style={{
+                      width: 44, height: 44, borderRadius: '50%',
+                      background: member.bg,
+                      display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      position: 'relative', overflow: 'hidden',
+                    }}
+                  >
+                    <Avatar.Fallback
+                      style={{ background: member.bg, color: '#fff', fontSize: 15, fontWeight: 800 }}
+                    >
+                      {member.initials}
+                    </Avatar.Fallback>
+                    {/* M3 state layer */}
+                    <div style={{
+                      position: 'absolute', inset: 0,
+                      background: `rgba(255,255,255,${isHover ? 0.16 : 0})`,
+                      transition: 'background 0.15s',
+                      borderRadius: '50%',
+                    }} />
+                  </Avatar>
+                  {/* Presence dot */}
+                  <div style={{
+                    position: 'absolute', bottom: 1, right: 1,
+                    width: 12, height: 12, borderRadius: '50%',
+                    background: pCfg.color, border: '2px solid #fff',
+                  }} />
+                </div>
+                <div style={{ flex: 1 }}>
+                  <div style={{ fontSize: 13, fontWeight: 600, color: '#1e293b' }}>{member.name}</div>
+                  <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 1 }}>{member.role}</div>
+                </div>
+                <span style={{
+                  fontSize: 10, fontWeight: 700, padding: '2px 8px', borderRadius: 99,
+                  background: pCfg.color + '15', color: pCfg.color,
+                }}>
+                  {pCfg.label}
+                </span>
+              </div>
+            )
+          })}
+        </div>
+        <div style={{ fontSize: 11, color: '#94a3b8' }}>
+          M3 state layer 패턴 — hover 8%, active 16% 오버레이 + 프레즌스 인디케이터
+        </div>
+      </div>
+    )
+  },
+}
+
+/* --------------------------------------------------------------------------
+   Chakra + M3 조합: 팀 디렉토리 부서별 그룹
+   Chakra UI의 Stack composition + M3의 컨테이너 색상 역할을 결합한
+   부서별로 그룹화된 팀 디렉토리 패턴
+-------------------------------------------------------------------------- */
+type DeptMember = { initials: string; name: string; role: string; bg: string }
+
+const DEPT_DATA: { dept: string; containerBg: string; borderColor: string; members: DeptMember[] }[] = [
+  {
+    dept: 'Design System',
+    containerBg: '#eef2ff',
+    borderColor: '#c7d2fe',
+    members: [
+      { initials: 'KM', name: '김민지', role: 'Lead', bg: '#6366f1' },
+      { initials: 'PS', name: '박소연', role: 'Designer', bg: '#8b5cf6' },
+    ],
+  },
+  {
+    dept: 'Platform',
+    containerBg: '#f0fdf4',
+    borderColor: '#bbf7d0',
+    members: [
+      { initials: 'LD', name: '이동욱', role: 'Lead', bg: '#10b981' },
+      { initials: 'JH', name: '정하은', role: 'Engineer', bg: '#059669' },
+      { initials: 'HW', name: '황태양', role: 'Intern', bg: '#34d399' },
+    ],
+  },
+  {
+    dept: 'Infrastructure',
+    containerBg: '#fffbeb',
+    borderColor: '#fde68a',
+    members: [
+      { initials: 'CJ', name: '최준호', role: 'Lead', bg: '#f59e0b' },
+    ],
+  },
+]
+
+export const Chakra_M3_팀_디렉토리: Story = {
+  name: 'Chakra + M3 - 팀 디렉토리 부서별 그룹',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Chakra UI Stack composition + M3 container color role 패턴. ' +
+          '각 부서가 M3의 컨테이너 색상(primaryContainer/secondaryContainer/tertiaryContainer)으로 시각적으로 구분됩니다.',
+      },
+    },
+  },
+  render: () => (
+    <div style={{ maxWidth: 420, display: 'flex', flexDirection: 'column', gap: 16 }}>
+      <div style={{ fontSize: 13, fontWeight: 700, color: '#0f172a' }}>팀 디렉토리</div>
+      {DEPT_DATA.map((dept) => (
+        <div
+          key={dept.dept}
+          style={{
+            borderRadius: 12,
+            background: dept.containerBg,
+            border: `1px solid ${dept.borderColor}`,
+            padding: '14px 16px',
+          }}
+        >
+          <div style={{ fontSize: 11, fontWeight: 700, color: '#475569', marginBottom: 12, letterSpacing: '0.05em' }}>
+            {dept.dept.toUpperCase()} · {dept.members.length}명
+          </div>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10 }}>
+            {dept.members.map((m) => (
+              <div key={m.initials} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                <Avatar
+                  style={{
+                    width: 36, height: 36, borderRadius: '50%', background: m.bg,
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  }}
+                >
+                  <Avatar.Fallback
+                    style={{ background: m.bg, color: '#fff', fontSize: 12, fontWeight: 800 }}
+                  >
+                    {m.initials}
+                  </Avatar.Fallback>
+                </Avatar>
+                <div>
+                  <div style={{ fontSize: 12, fontWeight: 600, color: '#1e293b' }}>{m.name}</div>
+                  <div style={{ fontSize: 10, color: '#64748b' }}>{m.role}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+      <div style={{ fontSize: 11, color: '#94a3b8' }}>
+        Chakra Stack composition + M3 container color role 패턴
+      </div>
+    </div>
+  ),
+}
+
 export const Mantine_프로필_카드 = {
   name: 'Mantine - 사용자 프로필 카드',
   render: () => (
