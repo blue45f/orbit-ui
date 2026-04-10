@@ -29859,3 +29859,172 @@ export const MUITailwind125IssueTracker: StoryObj = {
   },
   render: () => <IssueTracker125Render />,
 }
+
+/* ============================================================
+   Cycle 126 Template: Chakra UI + Arco Design
+   알림 센터 — Skeleton 로딩 + Toast 액션 피드백
+   ============================================================ */
+import { Toaster, toast } from '../components/Toast'
+
+const NOTIFICATIONS_126 = [
+  { id: 1, type: 'deploy', avatar: 'VR', name: 'Vercel', message: 'orbit-ui 프리뷰 배포 완료', time: '방금 전', read: false },
+  { id: 2, type: 'mention', avatar: 'JK', name: '김준혁', message: '@hjunkim 이슈 #312를 리뷰해주세요', time: '3분 전', read: false },
+  { id: 3, type: 'pr', avatar: 'SL', name: 'Sarah Lee', message: 'PR #148 Cycle 125 스토리 머지됨', time: '15분 전', read: true },
+  { id: 4, type: 'ci', avatar: 'CI', name: 'GitHub Actions', message: 'pnpm test 전체 통과 ✓ 58/58', time: '1시간 전', read: true },
+  { id: 5, type: 'comment', avatar: 'MJ', name: '박민정', message: 'Skeleton 컴포넌트에 댓글을 남겼습니다', time: '2시간 전', read: true },
+]
+
+const TYPE_COLORS_126: Record<string, string> = {
+  deploy: '#7c3aed',
+  mention: '#2563eb',
+  pr: '#16a34a',
+  ci: '#0891b2',
+  comment: '#d97706',
+}
+
+function NotificationCenter126Render() {
+  const [loading, setLoading] = React.useState(false)
+  const [notifications, setNotifications] = React.useState(NOTIFICATIONS_126)
+  const [filter, setFilter] = React.useState<'all' | 'unread'>('all')
+
+  const shown = filter === 'unread' ? notifications.filter(n => !n.read) : notifications
+
+  const markAllRead = () => {
+    setNotifications(prev => prev.map(n => ({ ...n, read: true })))
+    toast.success('모든 알림을 읽음으로 표시했습니다')
+  }
+
+  const dismiss = (id: number) => {
+    setNotifications(prev => prev.filter(n => n.id !== id))
+    toast.info('알림이 삭제되었습니다', {
+      action: {
+        label: '실행 취소',
+        onClick: () => setNotifications(NOTIFICATIONS_126),
+      },
+    })
+  }
+
+  const refresh = async () => {
+    setLoading(true)
+    toast.loading('알림을 새로고침 중...', { id: 'refresh' })
+    await new Promise(r => setTimeout(r, 1500))
+    setNotifications(NOTIFICATIONS_126)
+    setLoading(false)
+    toast.success('알림을 새로고침했습니다', { id: 'refresh' })
+  }
+
+  return (
+    <div style={{ width: 420, fontFamily: 'Inter, system-ui, sans-serif', display: 'flex', flexDirection: 'column', gap: 0 }}>
+      <Toaster position="top-right" />
+      {/* 헤더 */}
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '16px 20px', borderBottom: '1px solid #f1f5f9' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+          <span style={{ fontSize: 16, fontWeight: 700, color: '#1e293b' }}>알림</span>
+          <CounterBadge style={{ background: '#2563eb', color: '#fff' }}>{notifications.filter(n => !n.read).length}</CounterBadge>
+        </div>
+        <div style={{ display: 'flex', gap: 6 }}>
+          <OutlineButton color="black" size="small" onClick={markAllRead}>
+            <OutlineButton.Center>모두 읽음</OutlineButton.Center>
+          </OutlineButton>
+          <SolidButton color="black" size="small" onClick={refresh}>
+            <SolidButton.Center>새로고침</SolidButton.Center>
+          </SolidButton>
+        </div>
+      </div>
+      {/* 필터 탭 */}
+      <div style={{ display: 'flex', borderBottom: '1px solid #f1f5f9', padding: '0 20px' }}>
+        {(['all', 'unread'] as const).map(f => (
+          <button
+            key={f}
+            onClick={() => setFilter(f)}
+            style={{
+              padding: '10px 14px',
+              fontSize: 13,
+              fontWeight: filter === f ? 700 : 400,
+              color: filter === f ? '#1e293b' : '#94a3b8',
+              background: 'none',
+              border: 'none',
+              borderBottom: filter === f ? '2px solid #1e293b' : '2px solid transparent',
+              cursor: 'pointer',
+            }}
+          >
+            {f === 'all' ? '전체' : '읽지 않음'}
+          </button>
+        ))}
+      </div>
+      {/* 알림 목록 or 스켈레톤 */}
+      <div style={{ display: 'flex', flexDirection: 'column' }}>
+        {loading
+          ? Array.from({ length: 4 }).map((_, i) => (
+              <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: 12, padding: '14px 20px', borderBottom: '1px solid #f8fafc' }}>
+                <Skeleton height={36} width={36} style={{ borderRadius: '50%', flexShrink: 0 }} />
+                <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 7 }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <Skeleton height={12} width="45%" />
+                    <Skeleton height={10} width={48} />
+                  </div>
+                  <Skeleton height={11} width="85%" />
+                  <Skeleton height={10} width="60%" />
+                </div>
+              </div>
+            ))
+          : shown.map(n => (
+              <div key={n.id} style={{
+                display: 'flex', alignItems: 'flex-start', gap: 12, padding: '14px 20px',
+                borderBottom: '1px solid #f8fafc',
+                background: n.read ? 'transparent' : '#f0f9ff',
+              }}>
+                {/* 아바타 */}
+                <div style={{
+                  width: 36, height: 36, borderRadius: '50%', flexShrink: 0,
+                  background: TYPE_COLORS_126[n.type] ?? '#94a3b8',
+                  color: '#fff', fontSize: 11, fontWeight: 700,
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                }}>
+                  {n.avatar}
+                </div>
+                <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 3 }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <span style={{ fontSize: 12, fontWeight: 600, color: '#1e293b' }}>{n.name}</span>
+                    <span style={{ fontSize: 11, color: '#94a3b8' }}>{n.time}</span>
+                  </div>
+                  <span style={{ fontSize: 12, color: '#475569', lineHeight: 1.4 }}>{n.message}</span>
+                  {!n.read && (
+                    <span style={{ fontSize: 10, fontWeight: 600, color: '#2563eb', marginTop: 2 }}>● 새 알림</span>
+                  )}
+                </div>
+                <button
+                  onClick={() => dismiss(n.id)}
+                  style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#cbd5e1', fontSize: 14, padding: 4, flexShrink: 0 }}
+                >
+                  ✕
+                </button>
+              </div>
+            ))
+        }
+      </div>
+      {/* 빈 상태 */}
+      {!loading && shown.length === 0 && (
+        <div style={{ padding: '40px 20px', textAlign: 'center', color: '#94a3b8', fontSize: 13 }}>
+          읽지 않은 알림이 없습니다
+        </div>
+      )}
+    </div>
+  )
+}
+
+export const ChakraArco126NotificationCenter: StoryObj = {
+  name: 'Chakra UI + Arco Design — 알림 센터 (Cycle 126)',
+  parameters: {
+    layout: 'centered',
+    docs: {
+      description: {
+        story:
+          'Chakra UI + Arco Design 벤치마크 — Cycle 126. ' +
+          'Skeleton 로딩 플레이스홀더 + Toast 액션 피드백이 결합된 알림 센터 템플릿. ' +
+          '새로고침 시 Skeleton → 실제 콘텐츠 전환, 삭제/읽음 처리에 Toast 피드백을 제공합니다.',
+      },
+    },
+  },
+  render: () => <NotificationCenter126Render />,
+}

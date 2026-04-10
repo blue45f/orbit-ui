@@ -1066,3 +1066,180 @@ export const Linear_커밋_배포_알림: Story = {
     },
   },
 }
+
+/* --------------------------------------------------------------------------
+   Chakra UI 벤치마크: 상태 기반 알림 패턴
+   Chakra useToast — 커스텀 상태 전환(대기/진행/완료/오류) Toast 시퀀스
+-------------------------------------------------------------------------- */
+function ChakraStatusToastRender(args: React.ComponentProps<typeof Toaster>) {
+  const [status, setStatus] = React.useState<'idle' | 'loading' | 'done'>('idle')
+
+  const runFlow = async () => {
+    setStatus('loading')
+    toast.loading('파일 업로드 중...', { id: 'upload', description: '최대 5MB까지 업로드 가능합니다.' })
+    await new Promise(r => setTimeout(r, 1800))
+    toast.success('업로드 완료', {
+      id: 'upload',
+      description: 'profile-photo.png 저장됨',
+      action: { label: '보기', onClick: () => toast.info('파일 뷰어 열림') },
+    })
+    setStatus('done')
+  }
+
+  const showError = () => {
+    toast.error('업로드 실패', {
+      description: '파일 크기가 5MB를 초과합니다.',
+      action: { label: '재시도', onClick: () => runFlow() },
+      duration: 6000,
+    })
+    setStatus('idle')
+  }
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 10, fontFamily: 'Inter, system-ui, sans-serif' }}>
+      <Toaster {...args} />
+      <div style={{ fontSize: 12, fontWeight: 700, color: '#6b7280' }}>파일 업로드 상태 Toast</div>
+      <div style={{ display: 'flex', gap: 8 }}>
+        <Button color="black" size="small" onClick={runFlow} disabled={status === 'loading'}>
+          <Button.Center>업로드 시작</Button.Center>
+        </Button>
+        <Button color="gray" size="small" onClick={showError}>
+          <Button.Center>오류 시뮬레이션</Button.Center>
+        </Button>
+      </div>
+      <div style={{ fontSize: 11, color: '#9ca3af' }}>loading → success id 재사용 + error action 재시도 버튼</div>
+    </div>
+  )
+}
+
+export const Chakra_파일_업로드_상태_알림: Story = {
+  name: 'Chakra UI - 파일 업로드 상태 알림 패턴',
+  render: (args) => <ChakraStatusToastRender {...args} />,
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Chakra UI useToast 패턴. 파일 업로드의 loading → success 상태 전환을 동일 Toast id로 관리합니다. ' +
+          '오류 발생 시 action 버튼으로 재시도 흐름을 제공합니다.',
+      },
+    },
+  },
+}
+
+/* --------------------------------------------------------------------------
+   Arco Design 벤치마크: 글로벌 알림 위치 제어 패턴
+   Arco Message maxCount & position — 다중 알림 위치별 표시 데모
+-------------------------------------------------------------------------- */
+function ArcoPositionToastRender(args: React.ComponentProps<typeof Toaster>) {
+  const positions = [
+    { pos: 'top-left' as const, label: '좌상단' },
+    { pos: 'top-center' as const, label: '상단 중앙' },
+    { pos: 'top-right' as const, label: '우상단' },
+    { pos: 'bottom-left' as const, label: '좌하단' },
+    { pos: 'bottom-center' as const, label: '하단 중앙' },
+    { pos: 'bottom-right' as const, label: '우하단' },
+  ] as const
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 10, fontFamily: 'Inter, system-ui, sans-serif' }}>
+      <Toaster {...args} />
+      <div style={{ fontSize: 12, fontWeight: 700, color: '#6b7280' }}>알림 위치 선택</div>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 6 }}>
+        {positions.map(({ pos, label }) => (
+          <Button
+            key={pos}
+            color="gray"
+            size="small"
+            onClick={() => toast.info(`${label} 알림`, { description: pos, position: pos })}
+          >
+            <Button.Center>{label}</Button.Center>
+          </Button>
+        ))}
+      </div>
+      <div style={{ fontSize: 11, color: '#9ca3af' }}>Arco Design Message position 옵션 대응 — 6방향 위치 선택</div>
+    </div>
+  )
+}
+
+export const Arco_알림_위치_제어_패턴: Story = {
+  name: 'Arco Design - 알림 위치 제어 패턴',
+  render: (args) => <ArcoPositionToastRender {...args} />,
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Arco Design Message position 옵션 패턴. 6방향(top-left/center/right, bottom-left/center/right)에서 알림을 표시합니다. ' +
+          'Sonner의 position 파라미터를 활용해 Arco의 글로벌 알림 위치 제어를 재현합니다.',
+      },
+    },
+  },
+}
+
+/* --------------------------------------------------------------------------
+   Chakra + Arco 복합: 다단계 폼 제출 알림 워크플로우
+   폼 유효성 검사 → 저장 중 → 완료/오류 다단계 Toast 체인
+-------------------------------------------------------------------------- */
+function ChakraArcoFormToastRender(args: React.ComponentProps<typeof Toaster>) {
+  const [step, setStep] = React.useState<'idle' | 'validating' | 'saving' | 'done'>('idle')
+
+  const submitForm = async () => {
+    setStep('validating')
+    toast.loading('입력값 검증 중...', { id: 'form', duration: Infinity })
+    await new Promise(r => setTimeout(r, 1000))
+
+    toast.loading('서버에 저장 중...', { id: 'form', duration: Infinity })
+    setStep('saving')
+    await new Promise(r => setTimeout(r, 1500))
+
+    toast.success('프로필이 저장되었습니다', {
+      id: 'form',
+      description: '변경사항이 즉시 반영됩니다.',
+      action: { label: '확인', onClick: () => toast.dismiss() },
+      duration: 4000,
+    })
+    setStep('done')
+  }
+
+  const reset = () => {
+    toast.dismiss()
+    setStep('idle')
+  }
+
+  const stepLabels: Record<typeof step, string> = {
+    idle: '대기',
+    validating: '검증 중',
+    saving: '저장 중',
+    done: '완료',
+  }
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 10, fontFamily: 'Inter, system-ui, sans-serif' }}>
+      <Toaster {...args} />
+      <div style={{ fontSize: 12, fontWeight: 700, color: '#6b7280' }}>다단계 폼 저장 워크플로우</div>
+      <div style={{ fontSize: 11, color: '#6b7280' }}>현재 단계: <strong>{stepLabels[step]}</strong></div>
+      <div style={{ display: 'flex', gap: 8 }}>
+        <Button color="black" size="small" onClick={submitForm} disabled={step !== 'idle' && step !== 'done'}>
+          <Button.Center>폼 제출</Button.Center>
+        </Button>
+        <Button color="gray" size="small" onClick={reset}>
+          <Button.Center>초기화</Button.Center>
+        </Button>
+      </div>
+      <div style={{ fontSize: 11, color: '#9ca3af' }}>검증 → 저장 → 완료 3단계 Toast 체인 (동일 id 재사용)</div>
+    </div>
+  )
+}
+
+export const Chakra_Arco_다단계_폼_제출_알림: Story = {
+  name: 'Chakra UI + Arco Design - 다단계 폼 제출 알림 워크플로우',
+  render: (args) => <ChakraArcoFormToastRender {...args} />,
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Chakra UI + Arco Design 복합 패턴. 폼 제출 시 유효성 검증 → 서버 저장 → 완료의 3단계 Toast 체인을 동일 id로 관리합니다. ' +
+          'Chakra useToast의 update 패턴과 Arco Message.loading의 비동기 처리 방식을 Sonner API로 재현합니다.',
+      },
+    },
+  },
+}

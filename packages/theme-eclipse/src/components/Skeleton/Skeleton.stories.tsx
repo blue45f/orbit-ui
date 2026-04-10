@@ -881,3 +881,187 @@ export const MUI_미디어_카드_스켈레톤: Story = {
     </div>
   ),
 }
+
+/* --------------------------------------------------------------------------
+   Chakra UI 벤치마크: 아바타 그룹 + 소셜 피드 스켈레톤
+   Chakra SkeletonCircle/SkeletonText — 소셜 카드 로딩 플레이스홀더
+-------------------------------------------------------------------------- */
+export const Chakra_소셜_피드_스켈레톤: Story = {
+  name: 'Chakra UI - 소셜 피드 스켈레톤',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Chakra UI SkeletonCircle + SkeletonText 조합 패턴. ' +
+          '소셜 미디어 피드의 아바타(원형) + 이름/날짜(텍스트 라인) + 본문 이미지(직사각형) 구조를 재현합니다. ' +
+          '각 카드는 서로 다른 너비의 텍스트 라인으로 자연스러운 로딩 상태를 연출합니다.',
+      },
+    },
+  },
+  render: () => {
+    const cards = [
+      { lines: ['85%', '60%', '90%', '45%'] },
+      { lines: ['70%', '55%'] },
+      { lines: ['80%', '65%', '78%'] },
+    ]
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 16, width: 380, fontFamily: 'system-ui, sans-serif' }}>
+        <div style={{ fontSize: 12, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+          소셜 피드 로딩
+        </div>
+        {cards.map((card, i) => (
+          <div key={i} style={{ borderRadius: 14, border: '1px solid #f1f5f9', padding: '14px 16px', display: 'flex', flexDirection: 'column', gap: 12 }}>
+            {/* 아바타 + 유저 정보 헤더 */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+              <Skeleton height={40} width={40} style={{ borderRadius: '50%', flexShrink: 0 }} />
+              <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 6 }}>
+                <Skeleton height={12} width="55%" />
+                <Skeleton height={10} width="35%" />
+              </div>
+              <Skeleton height={28} width={60} style={{ borderRadius: 20 }} />
+            </div>
+            {/* 본문 텍스트 라인들 */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 7 }}>
+              {card.lines.map((w, j) => (
+                <Skeleton key={j} height={11} width={w} />
+              ))}
+            </div>
+            {/* 이미지 플레이스홀더 */}
+            {i === 0 && (
+              <Skeleton height={180} width="100%" style={{ borderRadius: 10 }} />
+            )}
+            {/* 액션 바 */}
+            <div style={{ display: 'flex', gap: 16, paddingTop: 4 }}>
+              {[48, 36, 40].map((w, j) => (
+                <Skeleton key={j} height={10} width={w} />
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    )
+  },
+}
+
+/* --------------------------------------------------------------------------
+   Arco Design 벤치마크: 테이블 + 페이지네이션 스켈레톤
+   Arco Table 로딩 상태 — 행/열 고정 그리드 플레이스홀더
+-------------------------------------------------------------------------- */
+export const Arco_테이블_페이지네이션_스켈레톤: Story = {
+  name: 'Arco Design - 테이블 + 페이지네이션 스켈레톤',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Arco Design Table loading 패턴. ' +
+          '헤더 행을 굵게 처리하고 데이터 행을 균등한 높이로 반복해 실제 테이블 구조를 모방합니다. ' +
+          '하단에 페이지네이션 컨트롤(이전/번호/다음) 스켈레톤을 배치해 완전한 테이블 로딩 UI를 구성합니다.',
+      },
+    },
+  },
+  render: () => {
+    const cols = ['20%', '30%', '20%', '15%', '10%']
+    const rows = 6
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 0, width: 560, fontFamily: 'system-ui, sans-serif', border: '1px solid #f1f5f9', borderRadius: 12, overflow: 'hidden' }}>
+        {/* 헤더 */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 16px', background: '#f8fafc', borderBottom: '1px solid #f1f5f9' }}>
+          {cols.map((w, i) => (
+            <Skeleton key={i} height={13} width={w} style={{ flexShrink: 0 }} />
+          ))}
+        </div>
+        {/* 데이터 행 */}
+        {Array.from({ length: rows }).map((_, r) => (
+          <div
+            key={r}
+            style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '11px 16px', borderBottom: r < rows - 1 ? '1px solid #f8fafc' : 'none' }}
+          >
+            {cols.map((w, c) => (
+              <Skeleton key={c} height={11} width={c === 0 ? '18%' : w} style={{ opacity: 1 - r * 0.06 }} />
+            ))}
+          </div>
+        ))}
+        {/* 페이지네이션 */}
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px 16px', background: '#fafafa', borderTop: '1px solid #f1f5f9' }}>
+          <Skeleton height={10} width={80} />
+          <div style={{ display: 'flex', gap: 6 }}>
+            {[28, 28, 28, 28, 28, 28, 28].map((s, i) => (
+              <Skeleton key={i} height={s} width={s} style={{ borderRadius: 6 }} />
+            ))}
+          </div>
+          <Skeleton height={10} width={60} />
+        </div>
+      </div>
+    )
+  },
+}
+
+/* --------------------------------------------------------------------------
+   Chakra + Arco 복합: 대시보드 통계 위젯 스켈레톤
+   실시간 데이터 로딩 대기 상태 — KPI + 차트 + 최근 활동 조합
+-------------------------------------------------------------------------- */
+export const Chakra_Arco_대시보드_위젯_스켈레톤: Story = {
+  name: 'Chakra UI + Arco Design - 대시보드 통계 위젯 스켈레톤',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Chakra UI + Arco Design 복합 대시보드 로딩 패턴. ' +
+          'KPI 카드 4개(숫자 + 트렌드 라인), 미니 바차트, 최근 활동 리스트를 스켈레톤으로 구성합니다. ' +
+          '실제 대시보드 레이아웃을 그대로 모방해 로딩 중 레이아웃 시프트를 방지합니다.',
+      },
+    },
+  },
+  render: () => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 16, width: 540, fontFamily: 'system-ui, sans-serif' }}>
+      {/* KPI 카드 4개 */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 10 }}>
+        {[0, 1, 2, 3].map((i) => (
+          <div key={i} style={{ borderRadius: 12, border: '1px solid #f1f5f9', padding: '12px 14px', display: 'flex', flexDirection: 'column', gap: 8 }}>
+            <Skeleton height={10} width="70%" />
+            <Skeleton height={26} width="60%" style={{ borderRadius: 6 }} />
+            <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+              <Skeleton height={10} width={14} style={{ borderRadius: '50%' }} />
+              <Skeleton height={9} width="55%" />
+            </div>
+          </div>
+        ))}
+      </div>
+      {/* 중단: 바 차트 + 최근 활동 */}
+      <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: 12 }}>
+        {/* 바 차트 */}
+        <div style={{ borderRadius: 12, border: '1px solid #f1f5f9', padding: '14px 16px', display: 'flex', flexDirection: 'column', gap: 10 }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <Skeleton height={12} width="45%" />
+            <Skeleton height={22} width={64} style={{ borderRadius: 20 }} />
+          </div>
+          {/* 바 차트 막대 */}
+          <div style={{ display: 'flex', alignItems: 'flex-end', gap: 8, height: 80, paddingTop: 8 }}>
+            {[60, 45, 80, 35, 70, 55, 90].map((h, j) => (
+              <Skeleton key={j} height={h} width="100%" style={{ borderRadius: '4px 4px 0 0', flex: 1 }} />
+            ))}
+          </div>
+          {/* X축 레이블 */}
+          <div style={{ display: 'flex', gap: 8 }}>
+            {[0, 1, 2, 3, 4, 5, 6].map((j) => (
+              <Skeleton key={j} height={8} width="100%" style={{ flex: 1 }} />
+            ))}
+          </div>
+        </div>
+        {/* 최근 활동 리스트 */}
+        <div style={{ borderRadius: 12, border: '1px solid #f1f5f9', padding: '14px 16px', display: 'flex', flexDirection: 'column', gap: 10 }}>
+          <Skeleton height={12} width="55%" />
+          {[0, 1, 2, 3, 4].map((i) => (
+            <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+              <Skeleton height={28} width={28} style={{ borderRadius: '50%', flexShrink: 0 }} />
+              <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 5 }}>
+                <Skeleton height={10} width={`${65 - i * 5}%`} />
+                <Skeleton height={8} width={`${45 - i * 3}%`} />
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  ),
+}
