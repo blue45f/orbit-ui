@@ -998,3 +998,267 @@ export const Shadcn_무한_스크롤_로딩: Story = {
   },
   render: () => <ShadcnInfiniteScrollRender />,
 }
+
+/* --------------------------------------------------------------------------
+   Google M3 — 선형 진행 지표 로딩 (Cycle 119)
+   Material 3의 LinearProgressIndicator 패턴 — 버퍼/확정/불확정 모드
+-------------------------------------------------------------------------- */
+function M3LinearProgressRender() {
+  const [progress, setProgress] = React.useState(0)
+  const [running, setRunning] = React.useState(false)
+
+  React.useEffect(() => {
+    if (!running) return
+    if (progress >= 100) {
+      setRunning(false)
+      return
+    }
+    const timer = setTimeout(() => setProgress((p) => Math.min(p + 7, 100)), 200)
+    return () => clearTimeout(timer)
+  }, [running, progress])
+
+  function restart() {
+    setProgress(0)
+    setRunning(true)
+  }
+
+  const stages = [
+    { label: '파일 업로드', threshold: 30 },
+    { label: '바이러스 검사', threshold: 60 },
+    { label: '처리 완료', threshold: 100 },
+  ]
+  const currentStage = stages.find((s) => progress < s.threshold) ?? stages[stages.length - 1]
+
+  return (
+    <div style={{ width: 420, display: 'flex', flexDirection: 'column', gap: 24, padding: 20 }}>
+      <div style={{ fontSize: 13, fontWeight: 700, color: '#0f172a' }}>M3 LinearProgressIndicator 패턴</div>
+
+      {/* Determinate */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <span style={{ fontSize: 12, color: '#475569', fontWeight: 600 }}>확정 (Determinate) — {currentStage.label}</span>
+          <span style={{ fontSize: 12, fontWeight: 700, color: '#6366f1' }}>{progress}%</span>
+        </div>
+        <div style={{ height: 6, borderRadius: 3, background: '#e2e8f0', overflow: 'hidden' }}>
+          <div style={{ height: '100%', width: `${progress}%`, background: '#6366f1', borderRadius: 3, transition: 'width 0.2s ease' }} />
+        </div>
+        <div style={{ display: 'flex', gap: 0 }}>
+          {stages.map((s, i) => (
+            <div key={s.label} style={{ flex: 1, borderLeft: i > 0 ? '1px solid #e2e8f0' : 'none', paddingLeft: i > 0 ? 8 : 0 }}>
+              <div style={{ fontSize: 10, color: progress >= s.threshold ? '#6366f1' : '#94a3b8', fontWeight: progress >= s.threshold ? 700 : 400 }}>
+                {progress >= s.threshold ? '✓ ' : ''}{s.label}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Indeterminate */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+        <span style={{ fontSize: 12, color: '#475569', fontWeight: 600 }}>불확정 (Indeterminate)</span>
+        {running || progress > 0 ? (
+          <Loading size="small" />
+        ) : (
+          <div style={{ height: 6, borderRadius: 3, background: '#e2e8f0' }} />
+        )}
+      </div>
+
+      <div style={{ display: 'flex', gap: 8 }}>
+        <button onClick={restart} style={{ padding: '6px 14px', fontSize: 12, borderRadius: 6, background: '#6366f1', color: '#fff', border: 'none', cursor: 'pointer', fontWeight: 600 }}>
+          시작
+        </button>
+        <button onClick={() => { setProgress(0); setRunning(false) }} style={{ padding: '6px 14px', fontSize: 12, borderRadius: 6, background: '#f1f5f9', color: '#475569', border: 'none', cursor: 'pointer' }}>
+          초기화
+        </button>
+      </div>
+    </div>
+  )
+}
+
+export const M3_선형_진행_지표: Story = {
+  name: 'Google M3 — 선형 진행 지표 (Cycle 119)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Material 3의 LinearProgressIndicator 패턴. 확정(단계별 진행바) + 불확정(Loading spinner) 모드, 파일 업로드/검사/처리 완료 단계 표시.',
+      },
+    },
+  },
+  render: () => <M3LinearProgressRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Linear — 이슈 처리 로딩 상태 (Cycle 119)
+   Linear의 optimistic UI 패턴 — 즉각 피드백 + 백그라운드 동기화
+-------------------------------------------------------------------------- */
+function LinearIssueLoadingRender() {
+  const [issues, setIssues] = React.useState<{ id: string; title: string; status: 'todo' | 'in_progress' }[]>([
+    { id: 'ORB-042', title: 'HoverCard 열림 지연 개선', status: 'todo' },
+    { id: 'ORB-041', title: 'TextField 자동완성 드롭다운', status: 'todo' },
+    { id: 'ORB-040', title: 'EclipseProvider SSR 지원', status: 'todo' },
+  ])
+  const [loading, setLoading] = React.useState<string | null>(null)
+
+  function updateStatus(id: string) {
+    setLoading(id)
+    setTimeout(() => {
+      setIssues((prev) =>
+        prev.map((issue) =>
+          issue.id === id ? { ...issue, status: 'in_progress' as const } : issue
+        )
+      )
+      setLoading(null)
+    }, 1200)
+  }
+
+  const statusColor = { todo: '#94a3b8', in_progress: '#6366f1', done: '#10b981' }
+  const statusLabel = { todo: '대기', in_progress: '진행 중', done: '완료' }
+
+  return (
+    <div style={{ width: 400, display: 'flex', flexDirection: 'column', gap: 6 }}>
+      <div style={{ fontSize: 12, fontWeight: 700, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 4 }}>
+        이슈 목록 — Linear Optimistic UI
+      </div>
+      {issues.map((issue) => (
+        <div key={issue.id} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 12px', borderRadius: 8, border: '1px solid #e2e8f0', background: '#fff' }}>
+          {loading === issue.id ? (
+            <Loading size="small" />
+          ) : (
+            <div style={{ width: 12, height: 12, borderRadius: '50%', background: statusColor[issue.status], flexShrink: 0 }} />
+          )}
+          <div style={{ flex: 1 }}>
+            <div style={{ fontSize: 13, color: '#0f172a', fontWeight: 500 }}>{issue.id}</div>
+            <div style={{ fontSize: 12, color: '#64748b' }}>{issue.title}</div>
+          </div>
+          <span style={{ fontSize: 11, fontWeight: 600, color: statusColor[issue.status], padding: '2px 8px', borderRadius: 4, background: `${statusColor[issue.status]}15` }}>
+            {statusLabel[issue.status]}
+          </span>
+          {issue.status === 'todo' && (
+            <button
+              onClick={() => updateStatus(issue.id)}
+              disabled={loading !== null}
+              style={{ fontSize: 11, padding: '3px 10px', borderRadius: 5, border: '1px solid #e2e8f0', background: '#f8fafc', cursor: loading !== null ? 'not-allowed' : 'pointer', color: '#475569' }}
+            >
+              시작
+            </button>
+          )}
+        </div>
+      ))}
+    </div>
+  )
+}
+
+export const Linear_이슈_낙관적_로딩: Story = {
+  name: 'Linear — 이슈 낙관적 업데이트 로딩 (Cycle 119)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Linear의 Optimistic UI 패턴. 이슈 상태 변경 시 즉각 Loading 스피너 표시 후 백그라운드 업데이트 반영. 사용자 인터랙션이 즉각적으로 느껴집니다.',
+      },
+    },
+  },
+  render: () => <LinearIssueLoadingRender />,
+}
+
+/* --------------------------------------------------------------------------
+   M3 + Linear — 단계적 온보딩 로딩 (Cycle 119)
+   M3 스텝 인디케이터 + Linear 미니멀 스켈레톤 조합
+-------------------------------------------------------------------------- */
+function M3LinearOnboardingRender() {
+  const [step, setStep] = React.useState(0)
+  const [loading, setLoading] = React.useState(false)
+
+  const steps = [
+    { title: '계정 설정', desc: '프로필 정보를 확인합니다', duration: 800 },
+    { title: '워크스페이스 생성', desc: '팀 환경을 구성합니다', duration: 1200 },
+    { title: '컴포넌트 로드', desc: 'Orbit UI 시스템을 초기화합니다', duration: 1000 },
+    { title: '완료', desc: '모든 설정이 준비되었습니다', duration: 0 },
+  ]
+
+  function nextStep() {
+    if (step >= steps.length - 1) return
+    setLoading(true)
+    setTimeout(() => {
+      setLoading(false)
+      setStep((s) => s + 1)
+    }, steps[step].duration)
+  }
+
+  const isComplete = step === steps.length - 1
+
+  return (
+    <div style={{ width: 400, padding: 24, border: '1px solid #e2e8f0', borderRadius: 12, background: '#fff' }}>
+      {/* Step indicators */}
+      <div style={{ display: 'flex', alignItems: 'center', marginBottom: 24 }}>
+        {steps.map((s, i) => (
+          <React.Fragment key={s.title}>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4 }}>
+              <div style={{
+                width: 28, height: 28, borderRadius: '50%',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                fontSize: 12, fontWeight: 700,
+                background: i < step ? '#10b981' : i === step ? '#6366f1' : '#f1f5f9',
+                color: i <= step ? '#fff' : '#94a3b8',
+                transition: 'all 0.3s',
+              }}>
+                {i < step ? '✓' : i + 1}
+              </div>
+              <span style={{ fontSize: 9, color: i === step ? '#6366f1' : '#94a3b8', fontWeight: i === step ? 700 : 400, whiteSpace: 'nowrap' }}>
+                {s.title}
+              </span>
+            </div>
+            {i < steps.length - 1 && (
+              <div style={{ flex: 1, height: 2, background: i < step ? '#10b981' : '#e2e8f0', marginBottom: 18, transition: 'background 0.3s' }} />
+            )}
+          </React.Fragment>
+        ))}
+      </div>
+
+      {/* Content */}
+      <div style={{ minHeight: 80, display: 'flex', flexDirection: 'column', gap: 12, alignItems: 'center', justifyContent: 'center', textAlign: 'center' }}>
+        {loading ? (
+          <>
+            <Loading size="medium" />
+            <div style={{ fontSize: 13, color: '#64748b' }}>{steps[step].desc}</div>
+          </>
+        ) : isComplete ? (
+          <>
+            <div style={{ fontSize: 32 }}>🎉</div>
+            <div style={{ fontSize: 14, fontWeight: 700, color: '#10b981' }}>모든 설정 완료!</div>
+            <div style={{ fontSize: 12, color: '#64748b' }}>Orbit UI를 사용할 준비가 되었습니다.</div>
+          </>
+        ) : (
+          <>
+            <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>{steps[step].title}</div>
+            <div style={{ fontSize: 12, color: '#64748b' }}>{steps[step].desc}</div>
+          </>
+        )}
+      </div>
+
+      <div style={{ marginTop: 20, display: 'flex', justifyContent: 'center' }}>
+        <button
+          onClick={nextStep}
+          disabled={loading || isComplete}
+          style={{ padding: '8px 24px', fontSize: 13, fontWeight: 700, borderRadius: 8, border: 'none', cursor: loading || isComplete ? 'not-allowed' : 'pointer', background: isComplete ? '#10b981' : '#6366f1', color: '#fff', opacity: loading ? 0.7 : 1 }}
+        >
+          {isComplete ? '시작하기' : loading ? '처리 중...' : '다음 단계'}
+        </button>
+      </div>
+    </div>
+  )
+}
+
+export const M3_Linear_단계적_온보딩_로딩: Story = {
+  name: 'M3 + Linear — 단계적 온보딩 로딩 (Cycle 119)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Material 3 step indicator + Linear 미니멀 스타일 조합. 온보딩 4단계 진행, 각 단계별 Loading 스피너, 완료 시 축하 메시지.',
+      },
+    },
+  },
+  render: () => <M3LinearOnboardingRender />,
+}

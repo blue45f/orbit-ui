@@ -28371,3 +28371,187 @@ export const ArcoApple118ChatUI: StoryObj = {
   },
   render: () => <ChatUI118Render />,
 }
+/* --------------------------------------------------------------------------
+   Cycle 119 — Google Material 3 + Linear Design
+   템플릿: AnalyticsDashboard — 분석 대시보드
+   Components: SegmentedControl, Progress, CounterBadge, LabelBadge, Loading,
+               SolidButton, OutlineButton, SectionTitle, Divider, Slider
+-------------------------------------------------------------------------- */
+function AnalyticsDashboard119Render() {
+  const [period, setPeriod] = React.useState(1)
+  const [view, setView] = React.useState(0)
+  const [loading, setLoading] = React.useState(false)
+
+  const periods = ['일', '주', '월', '분기']
+  const views = ['개요', '컴포넌트', '배포']
+
+  function refresh() {
+    setLoading(true)
+    setTimeout(() => setLoading(false), 1000)
+  }
+
+  const kpis = [
+    { label: '총 컴포넌트', value: '47', change: '+3', up: true, color: '#6366f1' },
+    { label: '스토리 수', value: '612', change: '+18', up: true, color: '#10b981' },
+    { label: '배포 횟수', value: '119', change: '+2', up: true, color: '#8b5cf6' },
+    { label: '평균 빌드(s)', value: '32', change: '-4', up: false, color: '#f59e0b' },
+  ]
+
+  const components = [
+    { name: 'SolidButton', stories: 17, coverage: 94 },
+    { name: 'TextField', stories: 16, coverage: 88 },
+    { name: 'Avatar', stories: 17, coverage: 91 },
+    { name: 'HoverCard', stories: 17, coverage: 86 },
+    { name: 'Accordion', stories: 17, coverage: 92 },
+  ]
+
+  const barData = [
+    { label: 'Mon', stories: 4, deploys: 2 },
+    { label: 'Tue', stories: 7, deploys: 3 },
+    { label: 'Wed', stories: 3, deploys: 1 },
+    { label: 'Thu', stories: 9, deploys: 4 },
+    { label: 'Fri', stories: 6, deploys: 2 },
+    { label: 'Sat', stories: 2, deploys: 0 },
+    { label: 'Sun', stories: 1, deploys: 1 },
+  ]
+  const maxBar = Math.max(...barData.map((d) => d.stories + d.deploys))
+
+  return (
+    <div style={{ width: 860, padding: '24px', display: 'flex', flexDirection: 'column', gap: 20 }}>
+      {/* Header */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+        <SectionTitle>
+          <SectionTitle.Title>Orbit UI Analytics</SectionTitle.Title>
+        </SectionTitle>
+        <CounterBadge>{119}</CounterBadge>
+        <div style={{ marginLeft: 'auto', display: 'flex', gap: 8, alignItems: 'center' }}>
+          <SegmentedControl selectedIndex={period} onTabChange={setPeriod}>
+            {periods.map((p) => (
+              <SegmentedControl.Tab key={p}>
+                <SegmentedControl.TabCenter>{p}</SegmentedControl.TabCenter>
+              </SegmentedControl.Tab>
+            ))}
+          </SegmentedControl>
+          <OutlineButton color="black" size="small" onClick={refresh}>
+            <OutlineButton.Center>{loading ? '...' : '새로고침'}</OutlineButton.Center>
+          </OutlineButton>
+        </div>
+      </div>
+
+      {/* View tabs */}
+      <SegmentedControl selectedIndex={view} onTabChange={setView}>
+        {views.map((v) => (
+          <SegmentedControl.Tab key={v}>
+            <SegmentedControl.TabCenter>{v}</SegmentedControl.TabCenter>
+          </SegmentedControl.Tab>
+        ))}
+      </SegmentedControl>
+
+      {loading ? (
+        <div style={{ display: 'flex', justifyContent: 'center', padding: '40px 0' }}>
+          <Loading size="large" />
+        </div>
+      ) : (
+        <>
+          {/* KPI cards */}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 12 }}>
+            {kpis.map((kpi) => (
+              <div key={kpi.label} style={{ padding: '16px', borderRadius: 10, border: '1px solid var(--sem-eclipse-color-borderDefault)', background: 'var(--sem-eclipse-color-backgroundPrimary)' }}>
+                <div style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginBottom: 6 }}>{kpi.label}</div>
+                <div style={{ fontSize: 24, fontWeight: 800, color: kpi.color }}>{kpi.value}</div>
+                <div style={{ fontSize: 11, marginTop: 4, color: kpi.up ? '#10b981' : '#ef4444', fontWeight: 600 }}>
+                  {kpi.change} 이번 {periods[period]}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+            {/* Bar chart */}
+            <div style={{ padding: '16px', borderRadius: 10, border: '1px solid var(--sem-eclipse-color-borderDefault)', background: 'var(--sem-eclipse-color-backgroundPrimary)' }}>
+              <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 12 }}>일별 활동</div>
+              <div style={{ display: 'flex', alignItems: 'flex-end', gap: 6, height: 100 }}>
+                {barData.map((d) => (
+                  <div key={d.label} style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4 }}>
+                    <div style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: 2, justifyContent: 'flex-end', height: 84 }}>
+                      <div style={{ height: `${(d.stories / maxBar) * 60}px`, background: '#6366f1', borderRadius: '2px 2px 0 0', opacity: 0.9 }} />
+                      <div style={{ height: `${(d.deploys / maxBar) * 24}px`, background: '#10b981', borderRadius: '0 0 2px 2px', opacity: 0.8 }} />
+                    </div>
+                    <span style={{ fontSize: 9, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>{d.label}</span>
+                  </div>
+                ))}
+              </div>
+              <div style={{ display: 'flex', gap: 12, marginTop: 8 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+                  <div style={{ width: 8, height: 8, borderRadius: 2, background: '#6366f1' }} />
+                  <span style={{ fontSize: 10, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>스토리</span>
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+                  <div style={{ width: 8, height: 8, borderRadius: 2, background: '#10b981' }} />
+                  <span style={{ fontSize: 10, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>배포</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Component coverage */}
+            <div style={{ padding: '16px', borderRadius: 10, border: '1px solid var(--sem-eclipse-color-borderDefault)', background: 'var(--sem-eclipse-color-backgroundPrimary)' }}>
+              <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 12 }}>컴포넌트 커버리지</div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+                {components.map((comp) => (
+                  <div key={comp.name} style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                      <span style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundPrimary)', fontWeight: 500 }}>{comp.name}</span>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                        <CounterBadge>{comp.stories}</CounterBadge>
+                        <span style={{ fontSize: 11, fontWeight: 700, color: comp.coverage >= 90 ? '#10b981' : '#f59e0b' }}>{comp.coverage}%</span>
+                      </div>
+                    </div>
+                    <Progress value={comp.coverage} />
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Recent deploys */}
+          <div style={{ padding: '16px', borderRadius: 10, border: '1px solid var(--sem-eclipse-color-borderDefault)', background: 'var(--sem-eclipse-color-backgroundPrimary)' }}>
+            <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 12 }}>최근 배포</div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
+              {[
+                { id: 'dpl_118', branch: 'main', status: 'ready', time: '45분 전', cycle: 118 },
+                { id: 'dpl_117', branch: 'main', status: 'ready', time: '3시간 전', cycle: 117 },
+                { id: 'dpl_116', branch: 'main', status: 'error', time: '6시간 전', cycle: 116 },
+              ].map((d, i) => (
+                <div key={d.id}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '8px 0' }}>
+                    <div style={{ width: 8, height: 8, borderRadius: '50%', background: d.status === 'ready' ? '#10b981' : '#ef4444', flexShrink: 0 }} />
+                    <code style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)', fontFamily: 'monospace' }}>{d.id}</code>
+                    <LabelBadge color="gray"><LabelBadge.Label>{d.branch}</LabelBadge.Label></LabelBadge>
+                    <span style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundSecondary)', flex: 1 }}>Cycle {d.cycle}</span>
+                    <span style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>{d.time}</span>
+                  </div>
+                  {i < 2 && <Divider />}
+                </div>
+              ))}
+            </div>
+          </div>
+        </>
+      )}
+    </div>
+  )
+}
+
+export const M3Linear119AnalyticsDashboard: StoryObj = {
+  name: 'M3 + Linear — 분석 대시보드 (Cycle 119)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Google Material 3 + Linear Design 벤치마크 — Cycle 119. ' +
+          '분석 대시보드: KPI 카드 + 일별 활동 바 차트 + 컴포넌트 커버리지(Progress) + 최근 배포 목록. ' +
+          'SegmentedControl(기간/뷰) + Loading + CounterBadge + LabelBadge + Progress + Divider 복합 활용.',
+      },
+    },
+  },
+  render: () => <AnalyticsDashboard119Render />,
+}

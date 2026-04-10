@@ -1100,3 +1100,222 @@ export const Mantine_useListState_필터_파이프라인: Story = {
   },
   render: () => <MantineListStateFilterRender />,
 }
+
+/* --------------------------------------------------------------------------
+   Google M3 — 색상 역할 기반 세그먼트 (Cycle 119)
+   M3의 color role 시스템을 SegmentedControl에 적용
+-------------------------------------------------------------------------- */
+function M3ColorRoleSegmentRender() {
+  const [appearance, setAppearance] = useState(0)
+  const [density, setDensity] = useState(0)
+  const [motion, setMotion] = useState(1)
+
+  const appearances = ['시스템', '라이트', '다크']
+  const densities = ['기본', '컴팩트', '넓음']
+  const motions = ['없음', '줄임', '보통', '전체']
+
+  return (
+    <div style={{ width: 380, display: 'flex', flexDirection: 'column', gap: 24, padding: 20 }}>
+      <div style={{ fontSize: 13, fontWeight: 700, color: '#0f172a' }}>M3 외관 설정 (Color Role 기반)</div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+        <div>
+          <div style={{ fontSize: 11, color: '#64748b', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 8 }}>색상 테마</div>
+          <SegmentedControl selectedIndex={appearance} onTabChange={setAppearance}>
+            {appearances.map((label) => (
+              <SegmentedControl.Tab key={label}>
+                <SegmentedControl.TabCenter>{label}</SegmentedControl.TabCenter>
+              </SegmentedControl.Tab>
+            ))}
+          </SegmentedControl>
+        </div>
+        <div>
+          <div style={{ fontSize: 11, color: '#64748b', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 8 }}>밀도</div>
+          <SegmentedControl selectedIndex={density} onTabChange={setDensity}>
+            {densities.map((label) => (
+              <SegmentedControl.Tab key={label}>
+                <SegmentedControl.TabCenter>{label}</SegmentedControl.TabCenter>
+              </SegmentedControl.Tab>
+            ))}
+          </SegmentedControl>
+        </div>
+        <div>
+          <div style={{ fontSize: 11, color: '#64748b', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 8 }}>모션</div>
+          <SegmentedControl selectedIndex={motion} onTabChange={setMotion}>
+            {motions.map((label) => (
+              <SegmentedControl.Tab key={label}>
+                <SegmentedControl.TabCenter>{label}</SegmentedControl.TabCenter>
+              </SegmentedControl.Tab>
+            ))}
+          </SegmentedControl>
+        </div>
+      </div>
+      <div style={{ padding: '10px 14px', background: '#f0f4ff', borderRadius: 8, border: '1px solid #c7d2fe', fontSize: 12, color: '#6366f1' }}>
+        테마: {appearances[appearance]} · 밀도: {densities[density]} · 모션: {motions[motion]}
+      </div>
+    </div>
+  )
+}
+
+export const M3_색상_역할_기반_세그먼트: Story = {
+  name: 'Google M3 — 색상 역할 기반 세그먼트 (Cycle 119)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Material 3의 color role 시스템을 SegmentedControl 설정 UI에 적용. 테마/밀도/모션 3가지 설정을 독립 세그먼트로 제어, 선택 상태 실시간 표시.',
+      },
+    },
+  },
+  render: () => <M3ColorRoleSegmentRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Linear — 이슈 뷰 전환 세그먼트 (Cycle 119)
+   Linear의 compact issue view switcher 패턴
+-------------------------------------------------------------------------- */
+function LinearIssueViewRender() {
+  const [viewMode, setViewMode] = useState(0)
+  const [groupBy, setGroupBy] = useState(0)
+
+  const viewModes = [
+    { label: '보드', icon: <GridViewLineIcon style={{ width: 14, height: 14 }} /> },
+    { label: '목록', icon: <ListLineIcon style={{ width: 14, height: 14 }} /> },
+    { label: '캘린더', icon: <CalendarLineIcon style={{ width: 14, height: 14 }} /> },
+  ]
+  const groupBys = ['상태별', '담당자별', '우선순위별', '스프린트별']
+
+  const issues = [
+    { id: 'ORB-048', title: 'DataTable 정렬 기능', status: 'todo', priority: 'high', assignee: 'KJ' },
+    { id: 'ORB-047', title: 'SearchBar 자동완성', status: 'in_progress', priority: 'medium', assignee: 'PM' },
+    { id: 'ORB-046', title: 'Calendar 이벤트 드래그', status: 'todo', priority: 'low', assignee: 'LS' },
+    { id: 'ORB-045', title: 'Tooltip 애니메이션', status: 'done', priority: 'low', assignee: 'KJ' },
+  ]
+
+  const priorityColor: Record<string, string> = { high: '#ef4444', medium: '#f59e0b', low: '#10b981' }
+  const statusColor: Record<string, string> = { todo: '#94a3b8', in_progress: '#6366f1', done: '#10b981' }
+  const avatarColor: Record<string, string> = { KJ: '#6366f1', PM: '#8b5cf6', LS: '#10b981' }
+
+  return (
+    <div style={{ width: 440, display: 'flex', flexDirection: 'column', gap: 12 }}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12 }}>
+        <SegmentedControl selectedIndex={viewMode} onTabChange={setViewMode}>
+          {viewModes.map((m) => (
+            <SegmentedControl.Tab key={m.label}>
+              <SegmentedControl.TabLeading>{m.icon}</SegmentedControl.TabLeading>
+              <SegmentedControl.TabCenter>{m.label}</SegmentedControl.TabCenter>
+            </SegmentedControl.Tab>
+          ))}
+        </SegmentedControl>
+        <SegmentedControl selectedIndex={groupBy} onTabChange={setGroupBy}>
+          {groupBys.map((g) => (
+            <SegmentedControl.Tab key={g}>
+              <SegmentedControl.TabCenter>{g}</SegmentedControl.TabCenter>
+            </SegmentedControl.Tab>
+          ))}
+        </SegmentedControl>
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+        {issues.map((issue) => (
+          <div key={issue.id} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '8px 12px', borderRadius: 7, border: '1px solid #e2e8f0', background: '#fff' }}>
+            <div style={{ width: 10, height: 10, borderRadius: '50%', background: statusColor[issue.status], flexShrink: 0 }} />
+            <code style={{ fontSize: 11, color: '#94a3b8', fontFamily: 'monospace', flexShrink: 0 }}>{issue.id}</code>
+            <span style={{ fontSize: 13, color: '#0f172a', flex: 1 }}>{issue.title}</span>
+            <div style={{ width: 6, height: 6, borderRadius: 1, background: priorityColor[issue.priority], flexShrink: 0 }} />
+            <div style={{ width: 22, height: 22, borderRadius: '50%', background: avatarColor[issue.assignee], display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 9, fontWeight: 700, color: '#fff', flexShrink: 0 }}>
+              {issue.assignee}
+            </div>
+          </div>
+        ))}
+      </div>
+      <div style={{ fontSize: 11, color: '#94a3b8' }}>
+        뷰: {viewModes[viewMode].label} · 그룹: {groupBys[groupBy]}
+      </div>
+    </div>
+  )
+}
+
+export const Linear_이슈_뷰_전환: Story = {
+  name: 'Linear — 이슈 뷰 전환 세그먼트 (Cycle 119)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Linear의 issue view switcher 패턴. 보드/목록/캘린더 뷰 전환 + 그룹화 기준 선택을 SegmentedControl로 구현. 아이콘과 텍스트 조합.',
+      },
+    },
+  },
+  render: () => <LinearIssueViewRender />,
+}
+
+/* --------------------------------------------------------------------------
+   M3 + Linear — 분석 기간 세그먼트 (Cycle 119)
+   대시보드 기간 필터 패턴 — 일/주/월/분기/연간
+-------------------------------------------------------------------------- */
+function M3LinearPeriodSegmentRender() {
+  const [period, setPeriod] = useState(1)
+  const [metric, setMetric] = useState(0)
+
+  const periods = ['일', '주', '월', '분기', '연간']
+  const metrics = ['스토리 수', '배포 수', '에러율']
+
+  const data: Record<number, number[]> = {
+    0: [12, 19, 15, 22, 18, 25, 17],
+    1: [84, 97, 112, 89, 134, 108, 125],
+    2: [5, 4, 7, 3, 6, 4, 5],
+  }
+
+  const barData = data[metric].slice(0, period === 0 ? 7 : period === 1 ? 7 : period === 2 ? 6 : period === 3 ? 4 : 5)
+  const maxVal = Math.max(...barData)
+  const periodLabels: Record<number, string[]> = {
+    0: ['월', '화', '수', '목', '금', '토', '일'],
+    1: ['1주', '2주', '3주', '4주', '5주', '6주', '7주'],
+    2: ['1월', '2월', '3월', '4월', '5월', '6월'],
+    3: ['Q1', 'Q2', 'Q3', 'Q4'],
+    4: ['2022', '2023', '2024', '2025', '2026'],
+  }
+
+  return (
+    <div style={{ width: 420, display: 'flex', flexDirection: 'column', gap: 16, padding: 20 }}>
+      <div style={{ display: 'flex', gap: 10, flexDirection: 'column' }}>
+        <SegmentedControl selectedIndex={period} onTabChange={setPeriod}>
+          {periods.map((p) => (
+            <SegmentedControl.Tab key={p}>
+              <SegmentedControl.TabCenter>{p}</SegmentedControl.TabCenter>
+            </SegmentedControl.Tab>
+          ))}
+        </SegmentedControl>
+        <SegmentedControl selectedIndex={metric} onTabChange={setMetric}>
+          {metrics.map((m) => (
+            <SegmentedControl.Tab key={m}>
+              <SegmentedControl.TabCenter>{m}</SegmentedControl.TabCenter>
+            </SegmentedControl.Tab>
+          ))}
+        </SegmentedControl>
+      </div>
+      <div style={{ display: 'flex', alignItems: 'flex-end', gap: 6, height: 100, padding: '0 4px' }}>
+        {barData.map((val, i) => (
+          <div key={i} style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4 }}>
+            <div style={{ width: '100%', background: '#6366f1', borderRadius: '3px 3px 0 0', height: `${(val / maxVal) * 80}px`, transition: 'height 0.3s ease', opacity: 0.8 + (i / barData.length) * 0.2 }} />
+            <span style={{ fontSize: 9, color: '#94a3b8' }}>{(periodLabels[period] ?? [])[i]}</span>
+          </div>
+        ))}
+      </div>
+      <div style={{ fontSize: 11, color: '#64748b' }}>
+        {metrics[metric]} — {periods[period]} 단위
+      </div>
+    </div>
+  )
+}
+
+export const M3_Linear_분석_기간_세그먼트: Story = {
+  name: 'M3 + Linear — 분석 기간 세그먼트 (Cycle 119)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Material 3 + Linear의 분석 대시보드 기간 필터 패턴. 기간(일/주/월/분기/연간) + 지표 선택을 SegmentedControl로 조합, 막대 차트로 데이터 시각화.',
+      },
+    },
+  },
+  render: () => <M3LinearPeriodSegmentRender />,
+}
