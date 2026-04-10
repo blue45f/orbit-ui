@@ -501,3 +501,200 @@ export const 대시보드_섹션 = {
     </Flex>
   ),
 } satisfies Story
+
+/* --------------------------------------------------------------------------
+   Cycle 69: Linear Design + Google Material 3 벤치마크
+-------------------------------------------------------------------------- */
+
+/* Linear — 미니멀 섹션 구분선
+   Linear 앱의 리스트 섹션 구분 패턴. 얇은 구분선 + 섹션 헤더 텍스트 조합.
+   사이드바 그룹 구분, 설정 패널 섹션 분리에 활용되는 극도로 절제된 스타일.
+-------------------------------------------------------------------------- */
+export const Linear_미니멀_섹션_구분선 = {
+  name: 'Linear — 미니멀 섹션 구분선',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Linear 앱 사이드바 섹션 분리 패턴. 구분선 위 소문자 섹션 헤더(9-10px, 회색, 자간 넓음)와 함께 사용. 최소한의 시각적 노이즈로 계층 구분.',
+      },
+    },
+  },
+  render: () => {
+    const sectionStyle = {
+      fontSize: '10px' as const,
+      fontWeight: 700 as const,
+      color: '#94a3b8',
+      textTransform: 'uppercase' as const,
+      letterSpacing: '0.08em',
+      padding: '12px 0 6px',
+      fontFamily: 'system-ui, sans-serif',
+    }
+    const itemStyle = {
+      padding: '7px 0',
+      fontSize: '13px' as const,
+      color: '#374151',
+      cursor: 'pointer',
+      fontFamily: 'system-ui, sans-serif',
+      display: 'flex',
+      alignItems: 'center' as const,
+      gap: '8px',
+    }
+
+    return (
+      <div style={{ width: 220, background: '#fff', padding: '8px 0', fontFamily: 'system-ui, sans-serif' }}>
+        {/* 섹션 1 */}
+        <div style={{ padding: '0 12px' }}>
+          <div style={sectionStyle}>내 팀</div>
+          <Divider />
+        </div>
+        <div style={{ padding: '4px 12px 8px' }}>
+          {['Issues', 'Cycles', 'Backlog'].map((item) => (
+            <div key={item} style={itemStyle}>
+              <div style={{ width: 6, height: 6, borderRadius: '50%', background: '#6366f1' }} />
+              {item}
+            </div>
+          ))}
+        </div>
+
+        {/* 섹션 2 */}
+        <div style={{ padding: '0 12px' }}>
+          <div style={sectionStyle}>프로젝트</div>
+          <Divider />
+        </div>
+        <div style={{ padding: '4px 12px 8px' }}>
+          {['Orbit UI v2', 'Design System', 'Storybook'].map((item) => (
+            <div key={item} style={itemStyle}>
+              <div style={{ width: 6, height: 6, borderRadius: '50%', background: '#10b981' }} />
+              {item}
+            </div>
+          ))}
+        </div>
+
+        {/* 섹션 3 */}
+        <div style={{ padding: '0 12px' }}>
+          <div style={sectionStyle}>보기</div>
+          <Divider />
+        </div>
+        <div style={{ padding: '4px 12px 8px' }}>
+          {['All Issues', 'Active', 'My Issues'].map((item) => (
+            <div key={item} style={itemStyle}>
+              <div style={{ width: 6, height: 6, borderRadius: 2, background: '#f59e0b' }} />
+              {item}
+            </div>
+          ))}
+        </div>
+      </div>
+    )
+  },
+}
+
+/* Google Material 3 — 인셋 Divider (Inset Divider)
+   Material 3의 Inset Divider 패턴. 리스트 아이템에서 아바타/아이콘 영역 아래에는
+   구분선을 그리지 않고 텍스트 시작점부터 그리는 패턴. 연속성 유지 + 시각 분리.
+-------------------------------------------------------------------------- */
+export const Material3_인셋_Divider = {
+  name: 'Google Material 3 — 인셋 Divider (리드 오프셋)',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Material Design 3 Inset Divider 패턴. 아이콘/아바타 좌측 영역을 건너뛰고 텍스트 시작점부터 구분선을 시작. 리스트 연속성을 유지하면서 항목 분리.',
+      },
+    },
+  },
+  render: () => {
+    const CONTACTS = [
+      { initial: 'AK', name: 'Alice Kim', status: '온라인', statusColor: '#22c55e', bg: '#6366f1' },
+      { initial: 'BL', name: 'Bob Lee', status: '자리 비움', statusColor: '#f59e0b', bg: '#0ea5e9' },
+      { initial: 'CP', name: 'Carol Park', status: '오프라인', statusColor: '#94a3b8', bg: '#10b981' },
+      { initial: 'DO', name: 'David Oh', status: '방해 금지', statusColor: '#ef4444', bg: '#f59e0b' },
+    ]
+
+    return (
+      <div style={{ width: 300, background: '#fff', borderRadius: 12, border: '1px solid #e2e8f0', overflow: 'hidden', fontFamily: 'system-ui, sans-serif' }}>
+        <div style={{ padding: '12px 16px', fontSize: 13, fontWeight: 700, color: '#374151', borderBottom: '1px solid #f1f5f9', background: '#f8fafc' }}>
+          연락처 목록 (M3 Inset Divider)
+        </div>
+        {CONTACTS.map((contact, i) => (
+          <div key={contact.name}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 16px' }}>
+              {/* 아바타 */}
+              <div style={{ width: 40, height: 40, borderRadius: '50%', background: contact.bg, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 13, fontWeight: 700, color: '#fff', flexShrink: 0 }}>
+                {contact.initial}
+              </div>
+              {/* 텍스트 */}
+              <div style={{ flex: 1 }}>
+                <div style={{ fontSize: 13, fontWeight: 600, color: '#0f172a' }}>{contact.name}</div>
+                <div style={{ fontSize: 11, color: contact.statusColor, fontWeight: 500, marginTop: 2 }}>{contact.status}</div>
+              </div>
+            </div>
+            {/* 인셋 Divider: 아바타(40px) + gap(12px) + padding(16px) = 68px offset */}
+            {i < CONTACTS.length - 1 && (
+              <div style={{ paddingLeft: 68 }}>
+                <Divider />
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+    )
+  },
+}
+
+/* Linear + Material 3 — 텍스트 레이블 구분선
+   Linear의 타임라인 날짜 구분 + Material 3의 중앙 텍스트 divider 패턴.
+   구분선 가운데에 날짜/라벨 텍스트를 삽입하는 "OR 구분선"의 발전형.
+-------------------------------------------------------------------------- */
+export const Linear_Material3_타임라인_날짜_구분선 = {
+  name: 'Linear + M3 — 타임라인 날짜 구분선',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Linear 타임라인 날짜 구분 + Material 3 텍스트 Divider 조합. 날짜 레이블을 가운데 배치하고 양쪽에 구분선을 늘여 시각적 타임라인 구성. 이슈 로그, 채팅, 활동 피드에 적합.',
+      },
+    },
+  },
+  render: () => {
+    const TIMELINE_EVENTS = [
+      { date: '오늘', events: [
+        { time: '14:32', text: 'Alice Kim이 이슈를 완료로 변경했습니다', type: 'success' },
+        { time: '11:15', text: '코드 리뷰 댓글 3개 추가됨', type: 'info' },
+      ]},
+      { date: '어제', events: [
+        { time: '18:42', text: 'PR #89가 main에 병합됐습니다', type: 'success' },
+        { time: '09:00', text: '스프린트 계획 회의 시작', type: 'neutral' },
+      ]},
+      { date: '4월 8일', events: [
+        { time: '16:20', text: '버그 #142 생성됨 — 우선순위: 높음', type: 'warning' },
+      ]},
+    ]
+
+    const typeColor: Record<string, string> = {
+      success: '#22c55e', info: '#6366f1', neutral: '#94a3b8', warning: '#f59e0b',
+    }
+
+    return (
+      <div style={{ width: 380, fontFamily: 'system-ui, sans-serif', padding: '8px 0' }}>
+        {TIMELINE_EVENTS.map((group) => (
+          <div key={group.date} style={{ marginBottom: 16 }}>
+            {/* 날짜 레이블 구분선 */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 10 }}>
+              <Divider />
+              <span style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', whiteSpace: 'nowrap', letterSpacing: '0.04em', textTransform: 'uppercase' as const }}>
+                {group.date}
+              </span>
+              <Divider />
+            </div>
+            {/* 이벤트 목록 */}
+            {group.events.map((ev, i) => (
+              <div key={i} style={{ display: 'flex', gap: 10, padding: '6px 0', alignItems: 'flex-start' }}>
+                <span style={{ fontSize: 11, color: '#94a3b8', flexShrink: 0, minWidth: 40 }}>{ev.time}</span>
+                <div style={{ width: 6, height: 6, borderRadius: '50%', background: typeColor[ev.type], marginTop: 4, flexShrink: 0 }} />
+                <span style={{ fontSize: 13, color: '#374151', lineHeight: 1.5 }}>{ev.text}</span>
+              </div>
+            ))}
+          </div>
+        ))}
+      </div>
+    )
+  },
+}

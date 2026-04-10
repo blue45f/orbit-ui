@@ -16730,3 +16730,250 @@ export const KnowledgeBase: Story = {
   },
   render: () => <KnowledgeBaseRender />,
 }
+
+/* ==========================================================================
+   Template #59: HabitTracker — 습관 추적 & 목표 관리 대시보드
+   Linear Design + Google Material 3 벤치마크 기반
+   ========================================================================== */
+type HabitFreq = 'daily' | 'weekly'
+type HabitStatus = 'active' | 'paused'
+
+type Habit = {
+  id: number
+  name: string
+  freq: HabitFreq
+  streak: number
+  target: number
+  completedToday: boolean
+  status: HabitStatus
+  color: string
+  weekHistory: boolean[]
+}
+
+const INITIAL_HABITS: Habit[] = [
+  { id: 1, name: '물 2L 마시기', freq: 'daily', streak: 12, target: 30, completedToday: true, status: 'active', color: '#0ea5e9', weekHistory: [true, true, false, true, true, true, true] },
+  { id: 2, name: '30분 운동', freq: 'daily', streak: 5, target: 21, completedToday: false, status: 'active', color: '#22c55e', weekHistory: [true, false, true, true, false, true, false] },
+  { id: 3, name: '독서 20페이지', freq: 'daily', streak: 3, target: 14, completedToday: true, status: 'active', color: '#6366f1', weekHistory: [false, true, true, false, true, false, true] },
+  { id: 4, name: '주간 프로젝트 리뷰', freq: 'weekly', streak: 8, target: 12, completedToday: false, status: 'active', color: '#f59e0b', weekHistory: [false, false, false, false, false, false, true] },
+  { id: 5, name: '명상 10분', freq: 'daily', streak: 0, target: 7, completedToday: false, status: 'paused', color: '#94a3b8', weekHistory: [false, false, false, false, false, false, false] },
+]
+
+const WEEK_LABELS = ['월', '화', '수', '목', '금', '토', '일']
+
+const HabitTrackerRender = () => {
+  const [habits, setHabits] = useState<Habit[]>(INITIAL_HABITS)
+  const [filter, setFilter] = useState<'all' | 'daily' | 'weekly'>('all')
+  const [showNewForm, setShowNewForm] = useState(false)
+  const [newHabitName, setNewHabitName] = useState('')
+
+  const toggleComplete = (id: number) => {
+    setHabits((prev) =>
+      prev.map((h) =>
+        h.id === id
+          ? {
+              ...h,
+              completedToday: !h.completedToday,
+              streak: !h.completedToday ? h.streak + 1 : Math.max(0, h.streak - 1),
+            }
+          : h,
+      ),
+    )
+  }
+
+  const addHabit = () => {
+    if (!newHabitName.trim()) return
+    const colors = ['#6366f1', '#10b981', '#f59e0b', '#ef4444', '#0ea5e9']
+    const newHabit: Habit = {
+      id: Date.now(),
+      name: newHabitName.trim(),
+      freq: 'daily',
+      streak: 0,
+      target: 21,
+      completedToday: false,
+      status: 'active',
+      color: colors[habits.length % colors.length],
+      weekHistory: [false, false, false, false, false, false, false],
+    }
+    setHabits((prev) => [...prev, newHabit])
+    setNewHabitName('')
+    setShowNewForm(false)
+  }
+
+  const filtered = habits.filter((h) => filter === 'all' || h.freq === filter)
+  const completedCount = filtered.filter((h) => h.completedToday && h.status === 'active').length
+  const activeCount = filtered.filter((h) => h.status === 'active').length
+  const todayPct = activeCount > 0 ? Math.round((completedCount / activeCount) * 100) : 0
+
+  return (
+    <div style={{ minHeight: '100vh', background: '#f8fafc', fontFamily: 'system-ui, sans-serif' }}>
+      {/* 헤더 */}
+      <div style={{ background: '#fff', borderBottom: '1px solid #e2e8f0', padding: '16px 28px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <div>
+          <div style={{ fontSize: 18, fontWeight: 800, color: '#0f172a' }}>습관 트래커</div>
+          <div style={{ fontSize: 12, color: '#94a3b8', marginTop: 2 }}>2026년 4월 10일 · 목요일</div>
+        </div>
+        <SolidButton color="primary" size="small" onClick={() => setShowNewForm(true)}>
+          <SolidButton.Center>새 습관 추가</SolidButton.Center>
+        </SolidButton>
+      </div>
+
+      <div style={{ padding: '24px 28px', maxWidth: 900, margin: '0 auto' }}>
+        {/* 오늘의 요약 */}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 14, marginBottom: 28 }}>
+          <div style={{ background: '#fff', borderRadius: 14, border: '1px solid #e2e8f0', padding: '20px 20px', gridColumn: 'span 2' }}>
+            <div style={{ fontSize: 12, fontWeight: 600, color: '#94a3b8', marginBottom: 12 }}>오늘의 진행률</div>
+            <div style={{ fontSize: 32, fontWeight: 900, color: todayPct === 100 ? '#22c55e' : '#0f172a', marginBottom: 10 }}>
+              {todayPct}%
+            </div>
+            <Progress value={todayPct} max={100} />
+            <div style={{ fontSize: 12, color: '#64748b', marginTop: 8 }}>
+              {completedCount}/{activeCount} 완료
+            </div>
+          </div>
+          {[
+            { label: '최장 연속 달성', value: `${Math.max(...habits.map((h) => h.streak))}일`, color: '#6366f1' },
+            { label: '활성 습관', value: `${habits.filter((h) => h.status === 'active').length}개`, color: '#0ea5e9' },
+          ].map((stat) => (
+            <div key={stat.label} style={{ background: '#fff', borderRadius: 14, border: '1px solid #e2e8f0', padding: '20px 20px' }}>
+              <div style={{ fontSize: 12, fontWeight: 600, color: '#94a3b8', marginBottom: 12 }}>{stat.label}</div>
+              <div style={{ fontSize: 28, fontWeight: 800, color: stat.color }}>{stat.value}</div>
+            </div>
+          ))}
+        </div>
+
+        {/* 필터 탭 */}
+        <div style={{ display: 'flex', gap: 4, marginBottom: 20 }}>
+          {(['all', 'daily', 'weekly'] as const).map((f) => (
+            <button
+              key={f}
+              onClick={() => setFilter(f)}
+              style={{
+                padding: '7px 16px', borderRadius: 8, fontSize: 13, fontWeight: 600, border: 'none',
+                background: filter === f ? '#0f172a' : '#f1f5f9',
+                color: filter === f ? '#fff' : '#64748b',
+                cursor: 'pointer', transition: 'all 0.15s',
+              }}
+            >
+              {f === 'all' ? '전체' : f === 'daily' ? '매일' : '매주'}
+            </button>
+          ))}
+        </div>
+
+        {/* 새 습관 폼 */}
+        {showNewForm && (
+          <div style={{ background: '#fff', borderRadius: 14, border: '2px solid #6366f1', padding: '16px 20px', marginBottom: 16, display: 'flex', gap: 10 }}>
+            <input
+              value={newHabitName}
+              onChange={(e) => setNewHabitName(e.target.value)}
+              onKeyDown={(e) => { if (e.key === 'Enter') addHabit() }}
+              placeholder="새 습관 이름 입력..."
+              autoFocus
+              style={{ flex: 1, padding: '8px 12px', borderRadius: 8, border: '1px solid #e2e8f0', fontSize: 13, outline: 'none' }}
+            />
+            <SolidButton color="primary" size="small" onClick={addHabit}>
+              <SolidButton.Center>추가</SolidButton.Center>
+            </SolidButton>
+            <OutlineButton color="gray" size="small" onClick={() => setShowNewForm(false)}>
+              <OutlineButton.Center>취소</OutlineButton.Center>
+            </OutlineButton>
+          </div>
+        )}
+
+        {/* 습관 목록 */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+          {filtered.map((habit, idx) => {
+            const pct = Math.round((habit.streak / habit.target) * 100)
+            return (
+              <div key={habit.id}>
+                <div style={{
+                  background: habit.status === 'paused' ? '#f8fafc' : '#fff',
+                  borderRadius: 14, border: '1px solid #e2e8f0', padding: '16px 20px',
+                  display: 'flex', alignItems: 'center', gap: 16,
+                  opacity: habit.status === 'paused' ? 0.6 : 1,
+                }}>
+                  {/* 완료 토글 */}
+                  <button
+                    onClick={() => habit.status === 'active' && toggleComplete(habit.id)}
+                    disabled={habit.status === 'paused'}
+                    style={{
+                      width: 28, height: 28, borderRadius: '50%', flexShrink: 0,
+                      border: `2px solid ${habit.completedToday ? habit.color : '#e2e8f0'}`,
+                      background: habit.completedToday ? habit.color : '#fff',
+                      cursor: habit.status === 'active' ? 'pointer' : 'not-allowed',
+                      display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      transition: 'all 0.2s', color: '#fff', fontSize: 12,
+                    }}
+                  >
+                    {habit.completedToday && '✓'}
+                  </button>
+
+                  {/* 정보 */}
+                  <div style={{ flex: 1 }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 6 }}>
+                      <span style={{ fontSize: 14, fontWeight: 600, color: '#0f172a', textDecoration: habit.completedToday ? 'line-through' : 'none' }}>
+                        {habit.name}
+                      </span>
+                      <span style={{ fontSize: 10, padding: '1px 6px', borderRadius: 99, background: habit.freq === 'daily' ? '#eff6ff' : '#fef3c7', color: habit.freq === 'daily' ? '#3730a3' : '#92400e', fontWeight: 600 }}>
+                        {habit.freq === 'daily' ? '매일' : '매주'}
+                      </span>
+                      {habit.status === 'paused' && (
+                        <span style={{ fontSize: 10, padding: '1px 6px', borderRadius: 99, background: '#f1f5f9', color: '#94a3b8', fontWeight: 600 }}>일시정지</span>
+                      )}
+                    </div>
+
+                    {/* 주간 히스토리 */}
+                    <div style={{ display: 'flex', gap: 4, alignItems: 'center' }}>
+                      {WEEK_LABELS.map((day, i) => (
+                        <div key={day} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2 }}>
+                          <div style={{
+                            width: 20, height: 20, borderRadius: 4,
+                            background: habit.weekHistory[i] ? habit.color : '#f1f5f9',
+                            transition: 'background 0.2s',
+                          }} />
+                          <span style={{ fontSize: 9, color: '#94a3b8' }}>{day}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* 스트릭 + 진행률 */}
+                  <div style={{ textAlign: 'right', flexShrink: 0, minWidth: 80 }}>
+                    <div style={{ fontSize: 20, fontWeight: 800, color: habit.color }}>{habit.streak}일</div>
+                    <div style={{ fontSize: 10, color: '#94a3b8', marginBottom: 6 }}>목표 {habit.target}일 중</div>
+                    <div style={{ height: 4, background: '#f1f5f9', borderRadius: 2, width: 80 }}>
+                      <div style={{ height: '100%', width: `${Math.min(100, pct)}%`, background: habit.color, borderRadius: 2, transition: 'width 0.3s' }} />
+                    </div>
+                  </div>
+                </div>
+                {/* Linear 스타일 구분선 (마지막 제외) */}
+                {idx < filtered.length - 1 && (
+                  <div style={{ height: 1, background: 'transparent', margin: '0 20px' }} />
+                )}
+              </div>
+            )
+          })}
+        </div>
+
+        {/* PageDots 페이지 인디케이터 */}
+        <div style={{ display: 'flex', justifyContent: 'center', gap: 8, marginTop: 28 }}>
+          {[0, 1, 2].map((i) => (
+            <PageDots key={i} selected={i === 0} onClick={() => {}} />
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const HabitTracker: Story = {
+  name: '습관 트래커 & 목표 관리 (Linear + M3 패턴)',
+  parameters: {
+    layout: 'fullscreen',
+    docs: {
+      description: {
+        story: 'Linear 상태 관리 패턴 + Material 3 진행률 시각화 기반 습관 추적 대시보드. 완료 토글, 주간 히트맵, 연속 달성일, Progress 바, PageDots 인디케이터 포함.',
+      },
+    },
+  },
+  render: () => <HabitTrackerRender />,
+}

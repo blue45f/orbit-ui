@@ -730,3 +730,231 @@ export const Material3_노출_드롭다운: Story = {
     )
   },
 }
+
+/* --------------------------------------------------------------------------
+   Cycle 69: Linear Design + Google Material 3 벤치마크
+-------------------------------------------------------------------------- */
+
+/* Linear — 이슈 상태 선택 드롭다운
+   Linear의 이슈 상태 선택기 패턴. 상태 아이콘 + 레이블 + 색상 도트로
+   현재 상태를 직관적으로 표시. 컴팩트하고 밀도 높은 상태 관리 UX.
+-------------------------------------------------------------------------- */
+const LINEAR_STATUSES = [
+  { value: 'backlog', label: '백로그', color: '#94a3b8', dot: '○' },
+  { value: 'todo', label: '할 일', color: '#64748b', dot: '◐' },
+  { value: 'in_progress', label: '진행 중', color: '#f59e0b', dot: '◑' },
+  { value: 'in_review', label: '검토 중', color: '#6366f1', dot: '◕' },
+  { value: 'done', label: '완료', color: '#22c55e', dot: '●' },
+  { value: 'cancelled', label: '취소됨', color: '#ef4444', dot: '✕' },
+]
+
+export const Linear_이슈_상태_선택기: Story = {
+  name: 'Linear — 이슈 상태 선택기',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Linear 이슈 상태 선택 패턴. 색상 도트 + 상태 레이블로 현재 상태를 표시. 상태별 시맨틱 색상으로 한눈에 진행 상황 파악. 컴팩트 밀도의 상태 드롭다운.',
+      },
+    },
+  },
+  render: function LinearStatusSelector() {
+    const [status, setStatus] = useState('in_progress')
+    const current = LINEAR_STATUSES.find((s) => s.value === status) ?? LINEAR_STATUSES[0]
+
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 16, padding: '8px 0', fontFamily: 'system-ui, sans-serif', width: 360 }}>
+        <div style={{ fontSize: 13, color: '#64748b' }}>Linear 스타일 이슈 상태 선택기</div>
+
+        {/* 드롭다운 트리거 */}
+        <div style={{ position: 'relative' }}>
+          <Dropdown
+            value={current.label}
+            activated={false}
+            onClick={() => {}}
+          >
+            <Dropdown.Leading>
+              <span style={{ fontSize: 14, color: current.color }}>{current.dot}</span>
+            </Dropdown.Leading>
+          </Dropdown>
+
+          {/* 커스텀 옵션 목록 */}
+          <div style={{ marginTop: 4, background: '#fff', borderRadius: 10, border: '1px solid #e2e8f0', boxShadow: '0 4px 16px rgba(0,0,0,0.08)', overflow: 'hidden' }}>
+            {LINEAR_STATUSES.map((s) => (
+              <div
+                key={s.value}
+                onClick={() => setStatus(s.value)}
+                style={{
+                  display: 'flex', alignItems: 'center', gap: 10, padding: '8px 14px',
+                  cursor: 'pointer', background: status === s.value ? '#f8fafc' : '#fff',
+                  borderLeft: `3px solid ${status === s.value ? s.color : 'transparent'}`,
+                  transition: 'all 0.1s',
+                }}
+              >
+                <span style={{ fontSize: 13, color: s.color, minWidth: 16, textAlign: 'center' }}>{s.dot}</span>
+                <span style={{ fontSize: 13, color: status === s.value ? '#0f172a' : '#374151', fontWeight: status === s.value ? 600 : 400 }}>
+                  {s.label}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div style={{ fontSize: 12, color: '#94a3b8', textAlign: 'center' }}>
+          선택된 상태: <strong style={{ color: current.color }}>{current.label}</strong>
+        </div>
+      </div>
+    )
+  },
+}
+
+/* Linear — 우선순위 선택 드롭다운
+   Linear의 이슈 우선순위 선택기. 4단계 우선순위를 아이콘과 색상으로 구분.
+   긴급/높음/보통/낮음/없음의 명확한 시각적 계층.
+-------------------------------------------------------------------------- */
+const LINEAR_PRIORITIES = [
+  { value: 'urgent', label: '긴급', icon: '!!', color: '#ef4444' },
+  { value: 'high', label: '높음', icon: '!', color: '#f59e0b' },
+  { value: 'medium', label: '보통', icon: '~', color: '#6366f1' },
+  { value: 'low', label: '낮음', icon: '↓', color: '#94a3b8' },
+  { value: 'none', label: '없음', icon: '-', color: '#cbd5e1' },
+]
+
+export const Linear_우선순위_선택_드롭다운: Story = {
+  name: 'Linear — 우선순위 선택 드롭다운',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Linear 이슈 우선순위 선택 패턴. 긴급/높음/보통/낮음/없음 5단계를 아이콘+색상으로 구분. Dropdown.Leading에 우선순위 아이콘 배치.',
+      },
+    },
+  },
+  render: function LinearPriorityDropdown() {
+    const [priority, setPriority] = useState('medium')
+    const [open, setOpen] = useState(false)
+    const current = LINEAR_PRIORITIES.find((p) => p.value === priority) ?? LINEAR_PRIORITIES[2]
+
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 12, fontFamily: 'system-ui, sans-serif', width: 300 }}>
+        <div style={{ fontSize: 12, color: '#94a3b8' }}>Linear 우선순위 선택기</div>
+        <div style={{ position: 'relative' }}>
+          <div onClick={() => setOpen((o) => !o)}>
+            <Dropdown
+              value={current.label}
+              activated={open}
+              onClick={() => {}}
+            >
+              <Dropdown.Leading>
+                <span style={{ fontSize: 12, fontWeight: 800, color: current.color, minWidth: 16, textAlign: 'center', fontFamily: 'monospace' }}>
+                  {current.icon}
+                </span>
+              </Dropdown.Leading>
+            </Dropdown>
+          </div>
+          {open && (
+            <div style={{ position: 'absolute', top: 'calc(100% + 4px)', left: 0, right: 0, background: '#fff', borderRadius: 10, border: '1px solid #e2e8f0', boxShadow: '0 8px 24px rgba(0,0,0,0.1)', zIndex: 10, overflow: 'hidden' }}>
+              {LINEAR_PRIORITIES.map((p) => (
+                <div
+                  key={p.value}
+                  onClick={() => { setPriority(p.value); setOpen(false) }}
+                  style={{
+                    display: 'flex', alignItems: 'center', gap: 10, padding: '9px 14px',
+                    cursor: 'pointer', transition: 'background 0.1s',
+                  }}
+                  onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = '#f8fafc' }}
+                  onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = '#fff' }}
+                >
+                  <span style={{ fontSize: 12, fontWeight: 800, color: p.color, minWidth: 16, textAlign: 'center', fontFamily: 'monospace' }}>{p.icon}</span>
+                  <span style={{ fontSize: 13, color: priority === p.value ? '#0f172a' : '#374151', fontWeight: priority === p.value ? 600 : 400 }}>{p.label}</span>
+                  {priority === p.value && <span style={{ marginLeft: 'auto', fontSize: 10, color: '#6366f1' }}>선택됨</span>}
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+    )
+  },
+}
+
+/* Google Material 3 — 노출 드롭다운 (Exposed Dropdown Menu)
+   Material 3의 Exposed Dropdown Menu 패턴. 아웃라인 필드처럼 생긴 선택기.
+   선택 시 레이블이 상단으로 올라가는 floating label 효과 + 옵션 목록.
+-------------------------------------------------------------------------- */
+const M3_SORT_OPTIONS = [
+  { value: 'latest', label: '최신순' },
+  { value: 'popular', label: '인기순' },
+  { value: 'price_asc', label: '가격 낮은순' },
+  { value: 'price_desc', label: '가격 높은순' },
+  { value: 'rating', label: '평점순' },
+]
+
+export const Material3_Exposed_드롭다운_메뉴: Story = {
+  name: 'Google Material 3 — Exposed Dropdown Menu',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Material Design 3 Exposed Dropdown Menu 패턴. 아웃라인 필드에 chevron 트리거를 조합. 선택된 값이 필드 내부에 표시. 폼 내 정렬/분류 선택에 적합.',
+      },
+    },
+  },
+  render: function M3ExposedDropdown() {
+    const [sort, setSort] = useState('')
+    const [open, setOpen] = useState(false)
+    const current = M3_SORT_OPTIONS.find((o) => o.value === sort)
+
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 16, fontFamily: 'system-ui, sans-serif', width: 320 }}>
+        <div style={{ fontSize: 13, fontWeight: 700, color: '#374151' }}>검색 결과 설정</div>
+
+        {/* M3 Exposed Dropdown */}
+        <div style={{ position: 'relative' }}>
+          <div
+            onClick={() => setOpen((o) => !o)}
+            style={{
+              display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+              padding: '12px 14px', borderRadius: 8,
+              border: `1.5px solid ${open ? '#6366f1' : '#e2e8f0'}`,
+              background: '#fff', cursor: 'pointer', transition: 'border-color 0.15s',
+            }}
+          >
+            <div>
+              {sort ? (
+                <>
+                  <div style={{ fontSize: 10, fontWeight: 600, color: '#6366f1', marginBottom: 2 }}>정렬 기준</div>
+                  <div style={{ fontSize: 13, color: '#0f172a', fontWeight: 500 }}>{current?.label}</div>
+                </>
+              ) : (
+                <div style={{ fontSize: 13, color: '#94a3b8' }}>정렬 기준 선택...</div>
+              )}
+            </div>
+            <ChevronRightLineIcon />
+          </div>
+          {open && (
+            <div style={{ position: 'absolute', top: 'calc(100% + 4px)', left: 0, right: 0, background: '#fff', borderRadius: 10, border: '1px solid #e2e8f0', boxShadow: '0 4px 16px rgba(0,0,0,0.08)', zIndex: 10, overflow: 'hidden' }}>
+              {M3_SORT_OPTIONS.map((opt) => (
+                <div
+                  key={opt.value}
+                  onClick={() => { setSort(opt.value); setOpen(false) }}
+                  style={{
+                    padding: '10px 16px', cursor: 'pointer', fontSize: 13,
+                    color: sort === opt.value ? '#6366f1' : '#374151',
+                    fontWeight: sort === opt.value ? 600 : 400,
+                    background: sort === opt.value ? '#eff6ff' : '#fff',
+                    borderLeft: `3px solid ${sort === opt.value ? '#6366f1' : 'transparent'}`,
+                    transition: 'all 0.1s',
+                  }}
+                >
+                  {opt.label}
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+
+        <div style={{ padding: '10px 14px', borderRadius: 8, background: '#f8fafc', border: '1px solid #e2e8f0', fontSize: 12, color: '#64748b' }}>
+          선택된 정렬: <strong style={{ color: '#0f172a' }}>{current?.label ?? '없음'}</strong>
+        </div>
+      </div>
+    )
+  },
+}
