@@ -593,7 +593,7 @@ export const Vercel_기능_투어_슬라이더: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Vercel 신기능 소개 슬라이더 패턴. 4가지 주요 기능을 카드 형태로 순차 소개. PageDots로 현재 위치 표시. 키보드 화살표로도 이동 가능.',
+        story: 'Vercel 신기능 소개 슬라이더 패턴. 4가지 주요 기능을 카드 형태로 순차 소개. PageDots로 현재 위치 표시.',
       },
     },
   },
@@ -652,6 +652,329 @@ export const Vercel_기능_투어_슬라이더: Story = {
           >
             {current === total - 1 ? '다시 보기' : '다음'}
           </button>
+        </div>
+      </div>
+    )
+  },
+}
+
+/* --------------------------------------------------------------------------
+   Radix UI 벤치마크: 다이얼로그 스텝 인디케이터
+   Radix Dialog 내 멀티스텝 플로우 — PageDots로 진행 단계 표시
+-------------------------------------------------------------------------- */
+const RADIX_DIALOG_STEPS = [
+  { title: '사용 목적', desc: '어떤 용도로 사용하실 예정인가요?' },
+  { title: '팀 규모', desc: '팀원이 몇 명인가요?' },
+  { title: '플랜 선택', desc: '적합한 플랜을 선택하세요.' },
+  { title: '결제 정보', desc: '카드 또는 청구 정보를 입력하세요.' },
+  { title: '완료', desc: '설정이 완료되었습니다!' },
+]
+
+const RADIX_PURPOSE_OPTIONS = ['개인 프로젝트', '스타트업', '엔터프라이즈', '오픈소스']
+const RADIX_TEAM_SIZES = ['1~5명', '6~20명', '21~100명', '100명+']
+const RADIX_PLANS = [
+  { name: 'Free', price: '₩0/월', highlight: false },
+  { name: 'Pro', price: '₩29,000/월', highlight: true },
+  { name: 'Team', price: '₩79,000/월', highlight: false },
+]
+
+export const Radix_다이얼로그_스텝_인디케이터: Story = {
+  name: 'Radix UI - 다이얼로그 멀티스텝 인디케이터',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Radix UI Dialog 내 멀티스텝 플로우 패턴. ' +
+          'PageDots로 현재 단계 표시, 각 단계별 선택 UI 포함. ' +
+          '가입/온보딩 플로우에 활용됩니다.',
+      },
+    },
+  },
+  render: function RadixDialogSteps() {
+    const [step, setStep] = useState(0)
+    const [selections, setSelections] = useState({ purpose: '', size: '', plan: '' })
+    const total = RADIX_DIALOG_STEPS.length
+    const current = RADIX_DIALOG_STEPS[step]
+
+    return (
+      <div style={{
+        width: 420, padding: '28px 32px', borderRadius: 20, border: '1px solid #e2e8f0',
+        background: '#fff', boxShadow: '0 8px 32px rgba(0,0,0,0.06)', fontFamily: 'system-ui, sans-serif',
+      }}>
+        {/* 스텝 도트 */}
+        <div style={{ display: 'flex', justifyContent: 'center', gap: 8, marginBottom: 24 }}>
+          {RADIX_DIALOG_STEPS.map((_, i) => (
+            <PageDots key={i} selected={i <= step} onClick={() => i < step && setStep(i)} />
+          ))}
+        </div>
+
+        {/* 헤더 */}
+        <div style={{ marginBottom: 20, textAlign: 'center' }}>
+          <div style={{ fontSize: 18, fontWeight: 800, color: '#0f172a', marginBottom: 4 }}>{current.title}</div>
+          <div style={{ fontSize: 13, color: '#64748b' }}>{current.desc}</div>
+        </div>
+
+        {/* 콘텐츠 */}
+        <div style={{ minHeight: 120, marginBottom: 24 }}>
+          {step === 0 && (
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
+              {RADIX_PURPOSE_OPTIONS.map((opt) => (
+                <button
+                  key={opt}
+                  onClick={() => setSelections((s) => ({ ...s, purpose: opt }))}
+                  style={{
+                    padding: '10px 8px', borderRadius: 8, fontSize: 12, fontWeight: 600, cursor: 'pointer',
+                    border: `2px solid ${selections.purpose === opt ? '#6366f1' : '#e2e8f0'}`,
+                    background: selections.purpose === opt ? '#eff6ff' : '#fff',
+                    color: selections.purpose === opt ? '#3730a3' : '#475569',
+                    transition: 'all 0.15s',
+                  }}
+                >
+                  {opt}
+                </button>
+              ))}
+            </div>
+          )}
+          {step === 1 && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+              {RADIX_TEAM_SIZES.map((size) => (
+                <button
+                  key={size}
+                  onClick={() => setSelections((s) => ({ ...s, size }))}
+                  style={{
+                    padding: '10px 16px', borderRadius: 8, fontSize: 13, fontWeight: 500, cursor: 'pointer', textAlign: 'left',
+                    border: `2px solid ${selections.size === size ? '#6366f1' : '#e2e8f0'}`,
+                    background: selections.size === size ? '#eff6ff' : '#fff',
+                    color: selections.size === size ? '#3730a3' : '#374151',
+                    transition: 'all 0.15s',
+                  }}
+                >
+                  {size}
+                </button>
+              ))}
+            </div>
+          )}
+          {step === 2 && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+              {RADIX_PLANS.map((plan) => (
+                <button
+                  key={plan.name}
+                  onClick={() => setSelections((s) => ({ ...s, plan: plan.name }))}
+                  style={{
+                    padding: '12px 16px', borderRadius: 8, cursor: 'pointer', textAlign: 'left',
+                    display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+                    border: `2px solid ${selections.plan === plan.name ? '#6366f1' : plan.highlight ? '#e0e7ff' : '#e2e8f0'}`,
+                    background: selections.plan === plan.name ? '#eff6ff' : plan.highlight ? '#f5f3ff' : '#fff',
+                  }}
+                >
+                  <span style={{ fontSize: 13, fontWeight: 700, color: '#1e293b' }}>{plan.name}</span>
+                  <span style={{ fontSize: 12, color: '#64748b' }}>{plan.price}</span>
+                </button>
+              ))}
+            </div>
+          )}
+          {step === 3 && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+              <input placeholder="카드 번호" style={{ padding: '10px 14px', borderRadius: 8, border: '1.5px solid #e2e8f0', fontSize: 13, outline: 'none' }} />
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
+                <input placeholder="만료일 MM/YY" style={{ padding: '10px 14px', borderRadius: 8, border: '1.5px solid #e2e8f0', fontSize: 13, outline: 'none' }} />
+                <input placeholder="CVC" style={{ padding: '10px 14px', borderRadius: 8, border: '1.5px solid #e2e8f0', fontSize: 13, outline: 'none' }} />
+              </div>
+            </div>
+          )}
+          {step === 4 && (
+            <div style={{ textAlign: 'center', paddingTop: 8 }}>
+              <div style={{ width: 60, height: 60, borderRadius: '50%', background: '#dcfce7', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 12px' }}>
+                <span style={{ fontSize: 24, color: '#22c55e', fontWeight: 800 }}>✓</span>
+              </div>
+              <div style={{ fontSize: 13, color: '#64748b' }}>
+                {selections.plan || 'Free'} 플랜으로 시작합니다.
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* 내비게이션 */}
+        <div style={{ display: 'flex', gap: 8 }}>
+          {step > 0 && step < total - 1 && (
+            <button
+              onClick={() => setStep((s) => s - 1)}
+              style={{ flex: 1, padding: '10px 0', borderRadius: 8, border: '1px solid #e2e8f0', background: '#fff', fontSize: 13, cursor: 'pointer' }}
+            >
+              이전
+            </button>
+          )}
+          <button
+            onClick={() => step < total - 1 ? setStep((s) => s + 1) : setStep(0)}
+            style={{ flex: 2, padding: '10px 0', borderRadius: 8, border: 'none', background: '#6366f1', color: '#fff', fontSize: 13, fontWeight: 700, cursor: 'pointer' }}
+          >
+            {step === total - 1 ? '처음으로' : step === total - 2 ? '완료' : '다음'}
+          </button>
+        </div>
+      </div>
+    )
+  },
+}
+
+/* --------------------------------------------------------------------------
+   Linear 벤치마크: 이슈 상태 전환 흐름 표시
+   Linear 이슈 상세 — 상태 전환 히스토리를 dot으로 시각화
+-------------------------------------------------------------------------- */
+const LINEAR_STATES = [
+  { label: '접수', color: '#94a3b8', done: true },
+  { label: '검토 중', color: '#6366f1', done: true },
+  { label: '개발 중', color: '#f59e0b', done: false },
+  { label: '리뷰', color: '#8b5cf6', done: false },
+  { label: '완료', color: '#22c55e', done: false },
+]
+
+export const Linear_이슈_상태_플로우: Story = {
+  name: 'Linear - 이슈 상태 전환 흐름',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Linear 이슈 상태 전환 히스토리 패턴. ' +
+          'PageDots로 이슈의 현재 상태와 이전/이후 상태를 시각화합니다. ' +
+          '완료된 단계는 활성 dot, 미완료 단계는 비활성으로 표시됩니다.',
+      },
+    },
+  },
+  render: function LinearIssueFlow() {
+    const [activeStep, setActiveStep] = useState(1)
+
+    return (
+      <div style={{ width: 420, fontFamily: 'system-ui, sans-serif', padding: '20px 0' }}>
+        {/* 이슈 헤더 */}
+        <div style={{ padding: '14px 16px', borderRadius: 12, border: '1px solid #f1f5f9', background: '#fff', marginBottom: 20 }}>
+          <div style={{ fontSize: 11, color: '#94a3b8', fontFamily: 'monospace', marginBottom: 4 }}>ORB-412</div>
+          <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a', marginBottom: 8 }}>
+            Tooltip 다크모드 배경색 토큰 누락 수정
+          </div>
+          <div style={{ display: 'flex', gap: 6 }}>
+            <span style={{ fontSize: 10, padding: '2px 8px', borderRadius: 20, background: '#fef9c3', color: '#92400e', fontWeight: 600 }}>Bug</span>
+            <span style={{ fontSize: 10, padding: '2px 8px', borderRadius: 20, background: '#eff6ff', color: '#1d4ed8', fontWeight: 600 }}>P1</span>
+          </div>
+        </div>
+
+        {/* 상태 흐름 */}
+        <div style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 12 }}>
+          상태 전환 이력
+        </div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 0, marginBottom: 20 }}>
+          {LINEAR_STATES.map((state, i) => (
+            <div key={state.label} style={{ display: 'flex', alignItems: 'center', flex: i < LINEAR_STATES.length - 1 ? 1 : 'none' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6 }}>
+                <PageDots
+                  selected={i <= activeStep}
+                  onClick={() => setActiveStep(i)}
+                />
+                <div style={{ fontSize: 10, fontWeight: i === activeStep ? 700 : 400, color: i <= activeStep ? state.color : '#cbd5e1', whiteSpace: 'nowrap' }}>
+                  {state.label}
+                </div>
+              </div>
+              {i < LINEAR_STATES.length - 1 && (
+                <div style={{ flex: 1, height: 2, margin: '0 4px', marginBottom: 18, background: i < activeStep ? '#e2e8f0' : '#f1f5f9' }} />
+              )}
+            </div>
+          ))}
+        </div>
+
+        {/* 현재 상태 카드 */}
+        <div style={{
+          padding: '14px 16px', borderRadius: 10, border: `1.5px solid ${LINEAR_STATES[activeStep].color}33`,
+          background: `${LINEAR_STATES[activeStep].color}0a`,
+        }}>
+          <div style={{ fontSize: 12, fontWeight: 700, color: LINEAR_STATES[activeStep].color, marginBottom: 4 }}>
+            현재: {LINEAR_STATES[activeStep].label}
+          </div>
+          <div style={{ fontSize: 11, color: '#64748b' }}>
+            {activeStep < LINEAR_STATES.length - 1
+              ? `다음 단계: ${LINEAR_STATES[activeStep + 1].label}`
+              : '이슈가 완료되었습니다.'}
+          </div>
+        </div>
+
+        <div style={{ display: 'flex', gap: 8, marginTop: 14 }}>
+          <button
+            onClick={() => setActiveStep((s) => Math.max(0, s - 1))}
+            disabled={activeStep === 0}
+            style={{ flex: 1, padding: '8px 0', borderRadius: 6, border: '1px solid #e2e8f0', background: '#fff', fontSize: 12, cursor: activeStep === 0 ? 'not-allowed' : 'pointer', opacity: activeStep === 0 ? 0.4 : 1 }}
+          >
+            이전 상태
+          </button>
+          <button
+            onClick={() => setActiveStep((s) => Math.min(LINEAR_STATES.length - 1, s + 1))}
+            disabled={activeStep === LINEAR_STATES.length - 1}
+            style={{ flex: 1, padding: '8px 0', borderRadius: 6, border: 'none', background: activeStep < LINEAR_STATES.length - 1 ? '#0f172a' : '#e2e8f0', color: activeStep < LINEAR_STATES.length - 1 ? '#fff' : '#94a3b8', fontSize: 12, fontWeight: 600, cursor: activeStep === LINEAR_STATES.length - 1 ? 'not-allowed' : 'pointer' }}
+          >
+            다음 상태
+          </button>
+        </div>
+      </div>
+    )
+  },
+}
+
+/* --------------------------------------------------------------------------
+   Linear 벤치마크: 툴팁 포지셔닝 데모 인디케이터
+   LinearUI 문서 스타일 — 인터랙티브 예제 슬라이드 내비게이션
+-------------------------------------------------------------------------- */
+const LINEAR_EXAMPLES = [
+  { title: '기본 PageDot', desc: 'selected=false/true 두 가지 상태', bg: '#f8fafc' },
+  { title: '캐러셀 인디케이터', desc: '콘텐츠 슬라이더의 현재 위치 표시', bg: '#f0f9ff' },
+  { title: '스텝 인디케이터', desc: '멀티스텝 폼/온보딩 진행률 표시', bg: '#faf5ff' },
+]
+
+export const Linear_문서_예제_슬라이드: Story = {
+  name: 'Linear - 문서 인터랙티브 예제 슬라이드',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Linear 컴포넌트 문서 스타일. 예제 카드들을 슬라이드로 순환하며 PageDots로 위치를 나타냅니다. ' +
+          '컴포넌트 사용법 문서의 인터랙티브 예제 패턴입니다.',
+      },
+    },
+  },
+  render: function LinearDocSlides() {
+    const [current, setCurrent] = useState(0)
+    const example = LINEAR_EXAMPLES[current]
+
+    return (
+      <div style={{ width: 380, fontFamily: 'system-ui, sans-serif' }}>
+        {/* 예제 카드 */}
+        <div style={{
+          padding: '28px 24px', borderRadius: 14, background: example.bg,
+          border: '1px solid #e2e8f0', marginBottom: 16, minHeight: 120,
+          display: 'flex', flexDirection: 'column', justifyContent: 'center',
+          transition: 'background 0.2s',
+        }}>
+          <div style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 8 }}>
+            예제 {current + 1} / {LINEAR_EXAMPLES.length}
+          </div>
+          <div style={{ fontSize: 17, fontWeight: 800, color: '#0f172a', marginBottom: 6 }}>
+            {example.title}
+          </div>
+          <div style={{ fontSize: 13, color: '#64748b', lineHeight: 1.6 }}>
+            {example.desc}
+          </div>
+          {/* 실제 PageDots 데모 */}
+          <div style={{ marginTop: 16, display: 'flex', gap: 6 }}>
+            {LINEAR_EXAMPLES.map((_, i) => (
+              <PageDots key={i} selected={i === current} />
+            ))}
+          </div>
+        </div>
+
+        {/* 외부 컨트롤 도트 */}
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8 }}>
+          {LINEAR_EXAMPLES.map((_, i) => (
+            <PageDots key={i} selected={i === current} onClick={() => setCurrent(i)} />
+          ))}
+        </div>
+        <div style={{ textAlign: 'center', fontSize: 11, color: '#94a3b8', marginTop: 8 }}>
+          dot을 클릭해 전환하세요
         </div>
       </div>
     )

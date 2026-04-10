@@ -24653,3 +24653,229 @@ export const MUI101TeamActivityDashboard: StoryObj = {
   },
   render: () => <MUI101TeamActivityRender />,
 }
+
+/* ============================================================================
+   Cycle 102 — Radix UI + Linear Design 벤치마크
+   User Onboarding Flow: 멀티스텝 회원가입 + PasswordField 검증 + PageDots 진행 표시
+============================================================================ */
+type Radix102Step = 'profile' | 'password' | 'plan' | 'done'
+
+const RADIX102_STEPS: Radix102Step[] = ['profile', 'password', 'plan', 'done']
+const RADIX102_LABELS: Record<Radix102Step, string> = {
+  profile: '프로필',
+  password: '비밀번호',
+  plan: '플랜 선택',
+  done: '완료',
+}
+const RADIX102_PLANS = [
+  { id: 'free', name: 'Free', price: '₩0', desc: '개인 프로젝트용', highlight: false },
+  { id: 'pro', name: 'Pro', price: '₩29,000/월', desc: '소규모 팀용', highlight: true },
+  { id: 'team', name: 'Team', price: '₩79,000/월', desc: '엔터프라이즈용', highlight: false },
+]
+
+const RADIX102_PW_RULES = [
+  { id: 'length', label: '8자 이상', test: (v: string) => v.length >= 8 },
+  { id: 'upper', label: '대문자 포함', test: (v: string) => /[A-Z]/.test(v) },
+  { id: 'number', label: '숫자 포함', test: (v: string) => /\d/.test(v) },
+]
+
+const Radix102OnboardingRender = () => {
+  const [stepIdx, setStepIdx] = useState(0)
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [pw, setPw] = useState('')
+  const [selectedPlan, setSelectedPlan] = useState('pro')
+
+  const step = RADIX102_STEPS[stepIdx]
+  const pwPassed = RADIX102_PW_RULES.filter((r) => r.test(pw)).length
+  const pwStrength = pwPassed === 0 ? 0 : pwPassed === 1 ? 33 : pwPassed === 2 ? 66 : 100
+  const pwColor = pwStrength === 100 ? '#22c55e' : pwStrength >= 66 ? '#f59e0b' : '#ef4444'
+
+  const canNext =
+    step === 'profile' ? name.trim().length > 0 && email.includes('@') :
+    step === 'password' ? pwPassed >= 3 :
+    step === 'plan' ? !!selectedPlan :
+    false
+
+  return (
+    <div style={{ fontFamily: 'system-ui, sans-serif', width: 440, display: 'flex', flexDirection: 'column', gap: 0 }}>
+      {/* 상단 헤더 */}
+      <div style={{ padding: '24px 28px 20px', borderBottom: '1px solid #f1f5f9', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <div style={{ fontSize: 16, fontWeight: 800, color: '#0f172a' }}>Orbit UI 가입</div>
+        <div style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
+          {RADIX102_STEPS.map((s, i) => (
+            <PageDots key={s} selected={i <= stepIdx} onClick={() => i < stepIdx && setStepIdx(i)} />
+          ))}
+        </div>
+      </div>
+
+      {/* 스텝 레이블 */}
+      <div style={{ display: 'flex', padding: '0 28px', gap: 0, borderBottom: '1px solid #f8fafc' }}>
+        {RADIX102_STEPS.map((s, i) => (
+          <div
+            key={s}
+            style={{
+              flex: 1, textAlign: 'center', padding: '10px 0', fontSize: 11,
+              fontWeight: i === stepIdx ? 700 : 400,
+              color: i < stepIdx ? '#22c55e' : i === stepIdx ? '#6366f1' : '#94a3b8',
+              borderBottom: i === stepIdx ? '2px solid #6366f1' : '2px solid transparent',
+              cursor: i < stepIdx ? 'pointer' : 'default',
+              transition: 'color 0.15s',
+            }}
+            onClick={() => i < stepIdx && setStepIdx(i)}
+          >
+            {RADIX102_LABELS[s]}
+          </div>
+        ))}
+      </div>
+
+      {/* 콘텐츠 */}
+      <div style={{ padding: '24px 28px', minHeight: 260 }}>
+        {step === 'profile' && (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+            <SectionTitle>기본 정보</SectionTitle>
+            <TextField
+              placeholder="이름"
+              value={name}
+              onChange={(e) => setName((e.target as HTMLInputElement).value)}
+            />
+            <TextField
+              placeholder="이메일 주소"
+              value={email}
+              onChange={(e) => setEmail((e.target as HTMLInputElement).value)}
+            />
+          </div>
+        )}
+
+        {step === 'password' && (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+            <SectionTitle>비밀번호 설정</SectionTitle>
+            <PasswordField
+              placeholder="비밀번호 입력"
+              value={pw}
+              onChange={(e) => setPw(e.target.value)}
+              error={pw.length > 0 && pwPassed < 3}
+            />
+            {pw.length > 0 && (
+              <div>
+                <div style={{ height: 4, background: '#f1f5f9', borderRadius: 2, overflow: 'hidden', marginBottom: 8 }}>
+                  <div style={{ height: '100%', width: `${pwStrength}%`, background: pwColor, borderRadius: 2, transition: 'width 0.2s' }} />
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 5 }}>
+                  {RADIX102_PW_RULES.map((rule) => {
+                    const ok = rule.test(pw)
+                    return (
+                      <div key={rule.id} style={{ display: 'flex', alignItems: 'center', gap: 7 }}>
+                        <span style={{ width: 14, height: 14, borderRadius: '50%', background: ok ? '#dcfce7' : '#f1f5f9', border: `1.5px solid ${ok ? '#22c55e' : '#e2e8f0'}`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 8, color: ok ? '#22c55e' : '#94a3b8', fontWeight: 800, flexShrink: 0 }}>
+                          {ok ? '✓' : ''}
+                        </span>
+                        <span style={{ fontSize: 11, color: ok ? '#166534' : '#94a3b8', fontWeight: ok ? 600 : 400 }}>{rule.label}</span>
+                      </div>
+                    )
+                  })}
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
+        {step === 'plan' && (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+            <SectionTitle>플랜 선택</SectionTitle>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+              {RADIX102_PLANS.map((plan) => (
+                <div
+                  key={plan.id}
+                  onClick={() => setSelectedPlan(plan.id)}
+                  style={{
+                    padding: '14px 16px', borderRadius: 10, cursor: 'pointer',
+                    display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+                    border: `2px solid ${selectedPlan === plan.id ? '#6366f1' : plan.highlight ? '#e0e7ff' : '#e2e8f0'}`,
+                    background: selectedPlan === plan.id ? '#eff6ff' : plan.highlight ? '#fafafe' : '#fff',
+                    transition: 'all 0.15s',
+                  }}
+                >
+                  <div>
+                    <div style={{ fontSize: 13, fontWeight: 700, color: '#0f172a', marginBottom: 2 }}>{plan.name}</div>
+                    <div style={{ fontSize: 11, color: '#94a3b8' }}>{plan.desc}</div>
+                  </div>
+                  <div style={{ fontSize: 13, fontWeight: 700, color: selectedPlan === plan.id ? '#6366f1' : '#475569' }}>
+                    {plan.price}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {step === 'done' && (
+          <div style={{ textAlign: 'center', paddingTop: 20 }}>
+            <div style={{ width: 64, height: 64, borderRadius: '50%', background: '#dcfce7', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 16px' }}>
+              <span style={{ fontSize: 28, color: '#22c55e', fontWeight: 800 }}>✓</span>
+            </div>
+            <div style={{ fontSize: 18, fontWeight: 800, color: '#0f172a', marginBottom: 8 }}>가입 완료!</div>
+            <div style={{ fontSize: 13, color: '#64748b', lineHeight: 1.7, marginBottom: 20 }}>
+              <strong>{name || '사용자'}</strong>님, {RADIX102_PLANS.find(p => p.id === selectedPlan)?.name} 플랜으로<br />
+              Orbit UI를 시작합니다.
+            </div>
+            <LabelBadge color="benefit">
+              {RADIX102_PLANS.find(p => p.id === selectedPlan)?.name} 플랜 활성화됨
+            </LabelBadge>
+          </div>
+        )}
+      </div>
+
+      {/* 하단 내비게이션 */}
+      {step !== 'done' && (
+        <div style={{ padding: '0 28px 24px', display: 'flex', gap: 8 }}>
+          {stepIdx > 0 && (
+            <button
+              onClick={() => setStepIdx((s) => s - 1)}
+              style={{ flex: 1, padding: '11px 0', borderRadius: 8, border: '1px solid #e2e8f0', background: '#fff', fontSize: 13, cursor: 'pointer', color: '#475569' }}
+            >
+              이전
+            </button>
+          )}
+          <button
+            onClick={() => canNext && setStepIdx((s) => s + 1)}
+            disabled={!canNext}
+            style={{
+              flex: 2, padding: '11px 0', borderRadius: 8, border: 'none',
+              background: canNext ? '#6366f1' : '#e2e8f0',
+              color: canNext ? '#fff' : '#94a3b8',
+              fontSize: 13, fontWeight: 700, cursor: canNext ? 'pointer' : 'not-allowed',
+              transition: 'background 0.2s',
+            }}
+          >
+            {stepIdx === RADIX102_STEPS.length - 2 ? '가입 완료' : '다음'}
+          </button>
+        </div>
+      )}
+      {step === 'done' && (
+        <div style={{ padding: '0 28px 24px' }}>
+          <button
+            onClick={() => { setStepIdx(0); setName(''); setEmail(''); setPw(''); setSelectedPlan('pro') }}
+            style={{ width: '100%', padding: '11px 0', borderRadius: 8, border: '1px solid #e2e8f0', background: '#fff', fontSize: 13, cursor: 'pointer', color: '#475569' }}
+          >
+            처음으로
+          </button>
+        </div>
+      )}
+    </div>
+  )
+}
+
+export const Radix102OnboardingFlow: StoryObj = {
+  name: 'Radix UI + Linear — User Onboarding Flow (Cycle 102)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Radix UI + Linear Design 벤치마크 — Cycle 102. ' +
+          '4단계 회원가입 플로우: 프로필 → 비밀번호(실시간 강도 검증) → 플랜 선택 → 완료. ' +
+          'PageDots 진행 표시, PasswordField 실시간 검증, TextField, SectionTitle, LabelBadge 복합 활용.',
+      },
+    },
+  },
+  render: () => <Radix102OnboardingRender />,
+}

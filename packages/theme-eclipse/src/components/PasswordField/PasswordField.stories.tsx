@@ -1031,3 +1031,329 @@ export const M3_비밀번호_재설정_단계폼: Story = {
   },
   render: () => <M3PasswordResetRender />,
 }
+
+/* --------------------------------------------------------------------------
+   Radix UI 벤치마크: 실시간 비밀번호 규칙 검증
+   Radix Form + PasswordField — 비밀번호 조건 실시간 체크 패턴
+-------------------------------------------------------------------------- */
+const RADIX_PW_RULES = [
+  { id: 'length', label: '최소 8자 이상', test: (v: string) => v.length >= 8 },
+  { id: 'upper', label: '대문자 포함', test: (v: string) => /[A-Z]/.test(v) },
+  { id: 'number', label: '숫자 포함', test: (v: string) => /\d/.test(v) },
+  { id: 'special', label: '특수문자 포함 (!@#$...)', test: (v: string) => /[^A-Za-z0-9]/.test(v) },
+]
+
+const RadixPwValidationRender = () => {
+  const [pw, setPw] = useState('')
+  const [confirm, setConfirm] = useState('')
+
+  const passed = RADIX_PW_RULES.filter((r) => r.test(pw)).length
+  const strength = passed === 0 ? 0 : passed <= 1 ? 25 : passed <= 2 ? 50 : passed <= 3 ? 75 : 100
+  const strengthColor = strength === 100 ? '#22c55e' : strength >= 50 ? '#f59e0b' : '#ef4444'
+  const strengthLabel = strength === 100 ? '매우 강함' : strength >= 75 ? '강함' : strength >= 50 ? '보통' : strength > 0 ? '약함' : ''
+  const matchOk = confirm.length > 0 && pw === confirm
+
+  return (
+    <div style={{ width: 360, fontFamily: 'system-ui, sans-serif', display: 'flex', flexDirection: 'column', gap: 20, padding: 28, borderRadius: 16, border: '1px solid #e2e8f0' }}>
+      <div>
+        <div style={{ fontSize: 16, fontWeight: 800, color: '#0f172a', marginBottom: 4 }}>새 비밀번호 설정</div>
+        <div style={{ fontSize: 12, color: '#94a3b8' }}>Radix UI Form validation 패턴</div>
+      </div>
+
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+        <label style={{ fontSize: 12, fontWeight: 600, color: '#374151' }}>비밀번호</label>
+        <PasswordField
+          placeholder="새 비밀번호 입력"
+          value={pw}
+          onChange={(e) => setPw(e.target.value)}
+          error={pw.length > 0 && passed < 4}
+        />
+        {/* 강도 바 */}
+        {pw.length > 0 && (
+          <div>
+            <div style={{ height: 4, background: '#f1f5f9', borderRadius: 2, overflow: 'hidden', marginBottom: 4 }}>
+              <div style={{ height: '100%', width: `${strength}%`, background: strengthColor, borderRadius: 2, transition: 'width 0.2s, background 0.2s' }} />
+            </div>
+            <div style={{ fontSize: 11, color: strengthColor, fontWeight: 600 }}>{strengthLabel}</div>
+          </div>
+        )}
+      </div>
+
+      {/* 조건 체크리스트 */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+        {RADIX_PW_RULES.map((rule) => {
+          const ok = rule.test(pw)
+          return (
+            <div key={rule.id} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+              <span style={{
+                width: 16, height: 16, borderRadius: '50%', flexShrink: 0,
+                background: ok ? '#dcfce7' : '#f1f5f9',
+                border: `1.5px solid ${ok ? '#22c55e' : '#e2e8f0'}`,
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                fontSize: 9, color: ok ? '#22c55e' : '#94a3b8', fontWeight: 800,
+              }}>
+                {ok ? '✓' : ''}
+              </span>
+              <span style={{ fontSize: 12, color: ok ? '#166534' : '#94a3b8', fontWeight: ok ? 600 : 400 }}>
+                {rule.label}
+              </span>
+            </div>
+          )
+        })}
+      </div>
+
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+        <label style={{ fontSize: 12, fontWeight: 600, color: '#374151' }}>비밀번호 확인</label>
+        <PasswordField
+          placeholder="비밀번호 재입력"
+          value={confirm}
+          onChange={(e) => setConfirm(e.target.value)}
+          error={confirm.length > 0 && !matchOk}
+        />
+        {confirm.length > 0 && (
+          <div style={{ fontSize: 11, color: matchOk ? '#22c55e' : '#ef4444', fontWeight: 600 }}>
+            {matchOk ? '비밀번호가 일치합니다.' : '비밀번호가 일치하지 않습니다.'}
+          </div>
+        )}
+      </div>
+
+      <button
+        disabled={passed < 4 || !matchOk}
+        style={{
+          padding: '11px 0', borderRadius: 8, border: 'none',
+          background: passed === 4 && matchOk ? '#6366f1' : '#e2e8f0',
+          color: passed === 4 && matchOk ? '#fff' : '#94a3b8',
+          fontSize: 14, fontWeight: 700, cursor: passed === 4 && matchOk ? 'pointer' : 'not-allowed',
+          transition: 'background 0.2s',
+        }}
+      >
+        비밀번호 변경
+      </button>
+    </div>
+  )
+}
+
+export const Radix_비밀번호_실시간_검증: Story = {
+  name: 'Radix UI - 실시간 비밀번호 조건 검증',
+  parameters: {
+    layout: 'centered',
+    docs: {
+      description: {
+        story:
+          'Radix UI Form 패턴. 비밀번호 입력 시 4가지 규칙(길이/대문자/숫자/특수문자)을 실시간으로 체크합니다. ' +
+          '강도 바 + 조건 리스트 + 확인 입력 일치 여부를 복합 표시합니다.',
+      },
+    },
+  },
+  render: () => <RadixPwValidationRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Linear 벤치마크: 보안 설정 패널 비밀번호 변경
+   Linear Settings → Security 패턴 — 현재/새 비밀번호 + 2FA 설정 섹션
+-------------------------------------------------------------------------- */
+const LinearSecurityPanelRender = () => {
+  const [current, setCurrent] = useState('')
+  const [next, setNext] = useState('')
+  const [saved, setSaved] = useState(false)
+
+  const canSave = current.length >= 1 && next.length >= 8
+
+  const handleSave = () => {
+    if (!canSave) return
+    setSaved(true)
+    setTimeout(() => setSaved(false), 2000)
+    setCurrent('')
+    setNext('')
+  }
+
+  return (
+    <div style={{ width: 440, fontFamily: 'system-ui, sans-serif' }}>
+      {/* 섹션 헤더 */}
+      <div style={{ marginBottom: 20, paddingBottom: 16, borderBottom: '1px solid #f1f5f9' }}>
+        <div style={{ fontSize: 15, fontWeight: 700, color: '#0f172a', marginBottom: 2 }}>보안</div>
+        <div style={{ fontSize: 12, color: '#94a3b8' }}>비밀번호 및 인증 설정을 관리합니다.</div>
+      </div>
+
+      {/* 비밀번호 변경 */}
+      <div style={{ padding: '18px 0', borderBottom: '1px solid #f8fafc' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 16 }}>
+          <div>
+            <div style={{ fontSize: 13, fontWeight: 600, color: '#1e293b', marginBottom: 2 }}>비밀번호 변경</div>
+            <div style={{ fontSize: 11, color: '#94a3b8' }}>마지막 변경: 30일 전</div>
+          </div>
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+          <div>
+            <div style={{ fontSize: 11, fontWeight: 600, color: '#64748b', marginBottom: 6 }}>현재 비밀번호</div>
+            <PasswordField
+              placeholder="현재 비밀번호"
+              value={current}
+              onChange={(e) => setCurrent(e.target.value)}
+            />
+          </div>
+          <div>
+            <div style={{ fontSize: 11, fontWeight: 600, color: '#64748b', marginBottom: 6 }}>새 비밀번호</div>
+            <PasswordField
+              placeholder="새 비밀번호 (8자 이상)"
+              value={next}
+              onChange={(e) => setNext(e.target.value)}
+              error={next.length > 0 && next.length < 8}
+            />
+            {next.length > 0 && next.length < 8 && (
+              <div style={{ fontSize: 11, color: '#ef4444', marginTop: 4 }}>최소 8자 이상 입력하세요.</div>
+            )}
+          </div>
+          <div style={{ display: 'flex', gap: 8, marginTop: 4 }}>
+            <button
+              onClick={handleSave}
+              disabled={!canSave}
+              style={{
+                padding: '7px 16px', borderRadius: 6, border: 'none',
+                background: canSave ? '#0f172a' : '#f1f5f9',
+                color: canSave ? '#fff' : '#94a3b8',
+                fontSize: 12, fontWeight: 600, cursor: canSave ? 'pointer' : 'not-allowed',
+              }}
+            >
+              {saved ? '저장 완료' : '비밀번호 변경'}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* 2FA 섹션 */}
+      <div style={{ padding: '18px 0' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div>
+            <div style={{ fontSize: 13, fontWeight: 600, color: '#1e293b', marginBottom: 2 }}>2단계 인증 (2FA)</div>
+            <div style={{ fontSize: 11, color: '#94a3b8' }}>계정 보안을 강화합니다.</div>
+          </div>
+          <div style={{
+            padding: '3px 10px', borderRadius: 20, fontSize: 11, fontWeight: 700,
+            background: '#fef9c3', color: '#92400e',
+          }}>
+            미설정
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const Linear_보안_설정_패널: Story = {
+  name: 'Linear - 보안 설정 패널',
+  parameters: {
+    layout: 'centered',
+    docs: {
+      description: {
+        story:
+          'Linear Settings Security 패턴. 현재/새 비밀번호 변경 폼 + 2FA 상태 표시. ' +
+          '비밀번호 최소 길이 실시간 검증, 조건 충족 시 저장 버튼 활성화.',
+      },
+    },
+  },
+  render: () => <LinearSecurityPanelRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Radix UI 벤치마크: 계정 삭제 확인 비밀번호 입력
+   Radix AlertDialog + PasswordField — 위험 작업 전 비밀번호 재확인 패턴
+-------------------------------------------------------------------------- */
+const RadixDangerConfirmRender = () => {
+  const [pw, setPw] = useState('')
+  const [confirmed, setConfirmed] = useState(false)
+  const [open, setOpen] = useState(false)
+
+  const CORRECT = 'delete123'
+
+  if (confirmed) {
+    return (
+      <div style={{ padding: 28, borderRadius: 12, background: '#fef2f2', border: '1px solid #fecaca', maxWidth: 360, textAlign: 'center', fontFamily: 'system-ui, sans-serif' }}>
+        <div style={{ fontSize: 20, marginBottom: 8 }}>삭제 완료</div>
+        <div style={{ fontSize: 13, color: '#ef4444', marginBottom: 12 }}>계정이 삭제되었습니다.</div>
+        <button
+          onClick={() => { setConfirmed(false); setPw(''); setOpen(false) }}
+          style={{ padding: '7px 16px', borderRadius: 6, border: '1px solid #fca5a5', background: '#fff', fontSize: 12, color: '#ef4444', cursor: 'pointer' }}
+        >
+          초기화
+        </button>
+      </div>
+    )
+  }
+
+  return (
+    <div style={{ width: 360, fontFamily: 'system-ui, sans-serif' }}>
+      <button
+        onClick={() => setOpen(true)}
+        style={{
+          padding: '9px 18px', borderRadius: 8, border: '1px solid #fca5a5',
+          background: '#fff', color: '#ef4444', fontSize: 13, fontWeight: 600, cursor: 'pointer',
+        }}
+      >
+        계정 삭제
+      </button>
+
+      {open && (
+        <div style={{
+          marginTop: 16, padding: '20px 24px', borderRadius: 12,
+          border: '1.5px solid #fca5a5', background: '#fff',
+          boxShadow: '0 4px 24px rgba(0,0,0,0.08)',
+        }}>
+          <div style={{ fontSize: 15, fontWeight: 800, color: '#0f172a', marginBottom: 6 }}>계정을 삭제하시겠습니까?</div>
+          <div style={{ fontSize: 12, color: '#64748b', marginBottom: 16, lineHeight: 1.6 }}>
+            이 작업은 취소할 수 없습니다. 계속하려면 비밀번호를 입력하세요.
+            <br />
+            <span style={{ fontSize: 11, color: '#94a3b8' }}>(데모용: <code>delete123</code>)</span>
+          </div>
+          <div style={{ marginBottom: 14 }}>
+            <PasswordField
+              placeholder="비밀번호 입력"
+              value={pw}
+              onChange={(e) => setPw(e.target.value)}
+              error={pw.length > 0 && pw !== CORRECT}
+            />
+            {pw.length > 0 && pw !== CORRECT && (
+              <div style={{ fontSize: 11, color: '#ef4444', marginTop: 4 }}>비밀번호가 올바르지 않습니다.</div>
+            )}
+          </div>
+          <div style={{ display: 'flex', gap: 8 }}>
+            <button
+              onClick={() => { setOpen(false); setPw('') }}
+              style={{ flex: 1, padding: '9px 0', borderRadius: 8, border: '1px solid #e2e8f0', background: '#fff', fontSize: 13, cursor: 'pointer', color: '#64748b' }}
+            >
+              취소
+            </button>
+            <button
+              onClick={() => pw === CORRECT && setConfirmed(true)}
+              disabled={pw !== CORRECT}
+              style={{
+                flex: 1, padding: '9px 0', borderRadius: 8, border: 'none',
+                background: pw === CORRECT ? '#ef4444' : '#f1f5f9',
+                color: pw === CORRECT ? '#fff' : '#94a3b8',
+                fontSize: 13, fontWeight: 700, cursor: pw === CORRECT ? 'pointer' : 'not-allowed',
+              }}
+            >
+              계정 삭제
+            </button>
+          </div>
+        </div>
+      )}
+    </div>
+  )
+}
+
+export const Radix_위험_작업_비밀번호_확인: Story = {
+  name: 'Radix UI - 위험 작업 비밀번호 재확인',
+  parameters: {
+    layout: 'centered',
+    docs: {
+      description: {
+        story:
+          'Radix AlertDialog 패턴. 계정 삭제 등 위험한 작업 전 비밀번호 재확인 UI. ' +
+          '잘못된 입력 시 error 상태, 정확한 입력 시 삭제 버튼 활성화. ' +
+          '데모용 비밀번호: delete123',
+      },
+    },
+  },
+  render: () => <RadixDangerConfirmRender />,
+}
