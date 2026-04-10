@@ -809,5 +809,97 @@ export default function RootLayout({
       </div>
     </section>
 
+    {/* Notion + Apple HIG 벤치마크 섹션 */}
+    <section style={{ marginBottom: '56px' }}>
+      <h2 style={{ fontSize: '24px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '8px' }}>
+        Notion Design + Apple HIG 벤치마크
+      </h2>
+      <p style={{ fontSize: '14px', color: '#64748b', marginBottom: '28px' }}>
+        Notion의 컨텍스트 기반 테마와 Apple HIG의 플랫폼 적응형 색상 시스템에서 배우는 Orbit UI 적용 패턴입니다. (Cycle 52 벤치마크)
+      </p>
+
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '28px' }}>
+        {/* Notion */}
+        <div style={{ borderRadius: '14px', border: '2px solid #0000001a', background: '#fff', overflow: 'hidden' }}>
+          <div style={{ padding: '16px 20px', background: '#0f0f0f', display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <div style={{ width: '20px', height: '20px', borderRadius: '4px', background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '11px', fontWeight: '800', color: '#0f0f0f' }}>N</div>
+            <span style={{ fontSize: '13px', fontWeight: '700', color: '#fff' }}>Notion Design System</span>
+          </div>
+          <div style={{ padding: '20px' }}>
+            <div style={{ fontSize: '11px', fontWeight: '700', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.07em', marginBottom: '12px' }}>핵심 패턴</div>
+            {[
+              { pattern: '컨텍스트 기반 색상', desc: '페이지 유형(문서/DB/보드)에 따라 동적으로 테마 적용' },
+              { pattern: '인라인 편집 토글', desc: '클릭 시 input 활성화, blur 시 저장 — 최소 UI 원칙' },
+              { pattern: '계층형 Breadcrumb', desc: '페이지 경로를 실시간 반영, 클릭으로 이동 가능' },
+              { pattern: '속성 패널 레이아웃', desc: '라벨 120px 고정 + 값 영역 가변 2-column 그리드' },
+            ].map(({ pattern, desc }) => (
+              <div key={pattern} style={{ marginBottom: '10px', padding: '10px 12px', borderRadius: '8px', background: '#f8fafc', border: '1px solid #f1f5f9' }}>
+                <div style={{ fontSize: '12px', fontWeight: '700', color: '#1e293b', marginBottom: '2px' }}>{pattern}</div>
+                <div style={{ fontSize: '11px', color: '#64748b' }}>{desc}</div>
+              </div>
+            ))}
+          </div>
+          <div style={{ padding: '12px 20px', background: '#f8fafc', borderTop: '1px solid #f1f5f9' }}>
+            <div style={{ fontSize: '11px', fontWeight: '700', color: '#64748b', marginBottom: '6px' }}>Orbit UI 매핑</div>
+            <code style={{ fontSize: '11px', color: '#6366f1', background: '#f0f1ff', padding: '4px 8px', borderRadius: '4px', display: 'block' }}>
+              {'TextField onChange + onBlur → 인라인 편집'}
+            </code>
+          </div>
+        </div>
+
+        {/* Apple HIG */}
+        <div style={{ borderRadius: '14px', border: '2px solid #0000001a', background: '#fff', overflow: 'hidden' }}>
+          <div style={{ padding: '16px 20px', background: '#1c1c1e', display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <div style={{ width: '20px', height: '20px', borderRadius: '50%', background: 'linear-gradient(135deg, #e8e8e8, #b0b0b0)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '11px', fontWeight: '800', color: '#1c1c1e' }}>A</div>
+            <span style={{ fontSize: '13px', fontWeight: '700', color: '#fff' }}>Apple HIG</span>
+          </div>
+          <div style={{ padding: '20px' }}>
+            <div style={{ fontSize: '11px', fontWeight: '700', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.07em', marginBottom: '12px' }}>핵심 패턴</div>
+            {[
+              { pattern: '플랫폼 적응형 색상', desc: '#007aff (iOS Blue) 시스템 색상, 다크모드 자동 전환' },
+              { pattern: 'Clear 버튼 패턴', desc: 'Search Field에 입력값 있을 때만 표시되는 x 버튼' },
+              { pattern: '드릴다운 네비게이션', desc: '< Back 버튼 + Breadcrumb 병행, 계층 탐색 명확화' },
+              { pattern: '섹션 그룹 리스트', desc: 'rounded-2xl 카드 내 divider로 항목 구분, 끝은 rounded' },
+            ].map(({ pattern, desc }) => (
+              <div key={pattern} style={{ marginBottom: '10px', padding: '10px 12px', borderRadius: '8px', background: '#f8fafc', border: '1px solid #f1f5f9' }}>
+                <div style={{ fontSize: '12px', fontWeight: '700', color: '#1e293b', marginBottom: '2px' }}>{pattern}</div>
+                <div style={{ fontSize: '11px', color: '#64748b' }}>{desc}</div>
+              </div>
+            ))}
+          </div>
+          <div style={{ padding: '12px 20px', background: '#f8fafc', borderTop: '1px solid #f1f5f9' }}>
+            <div style={{ fontSize: '11px', fontWeight: '700', color: '#64748b', marginBottom: '6px' }}>Orbit UI 매핑</div>
+            <code style={{ fontSize: '11px', color: '#6366f1', background: '#f0f1ff', padding: '4px 8px', borderRadius: '4px', display: 'block' }}>
+              {'Breadcrumb + TextField + SolidButton → 계층 탐색'}
+            </code>
+          </div>
+        </div>
+      </div>
+
+      {/* 비교표 */}
+      <div style={{ borderRadius: '12px', border: '1px solid #e2e8f0', overflow: 'hidden' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1.5fr 1fr 1fr 1fr', background: '#f8fafc', padding: '10px 16px', borderBottom: '1px solid #e2e8f0', fontSize: '11px', fontWeight: '700', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+          <span>패턴</span>
+          <span>Notion</span>
+          <span>Apple HIG</span>
+          <span>Orbit UI</span>
+        </div>
+        {[
+          { pattern: '색상 철학', notion: '페이지 컨텍스트 기반', apple: '시스템 semantic 색상', orbit: '3단계 토큰 계층' },
+          { pattern: '텍스트 입력', notion: '클릭-편집 인라인', apple: 'SF Symbol 아이콘 + Clear', orbit: 'TextField + onBlur 저장' },
+          { pattern: '탐색 패턴', notion: 'Breadcrumb 경로 추적', apple: '< Back + Breadcrumb', orbit: 'Breadcrumb 컴포넌트' },
+          { pattern: '다크 모드', notion: 'CSS 변수 자동 전환', apple: 'UIColor semantic 자동', orbit: 'EclipseProvider 토글' },
+          { pattern: '상태 피드백', notion: '인라인 상태 도트', apple: 'SF Symbol 상태 아이콘', orbit: 'LabelBadge + CounterBadge' },
+        ].map(({ pattern, notion, apple, orbit }, i) => (
+          <div key={pattern} style={{ display: 'grid', gridTemplateColumns: '1.5fr 1fr 1fr 1fr', padding: '10px 16px', borderBottom: i < 4 ? '1px solid #f1f5f9' : 'none', fontSize: '12px', background: i % 2 === 0 ? '#fff' : '#fafafa' }}>
+            <span style={{ fontWeight: '600', color: '#1e293b' }}>{pattern}</span>
+            <span style={{ color: '#64748b' }}>{notion}</span>
+            <span style={{ color: '#64748b' }}>{apple}</span>
+            <span style={{ color: '#6366f1', fontWeight: '600' }}>{orbit}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+
   </div>
 </Unstyled>

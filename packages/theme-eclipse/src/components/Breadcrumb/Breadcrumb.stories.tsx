@@ -512,6 +512,393 @@ export const Radix_설정_계층_탐색: Story = {
 }
 
 /* --------------------------------------------------------------------------
+   Apple HIG: 파일 앱 폴더 계층 탐색 패턴
+   Apple Files.app의 폴더 드릴다운 Breadcrumb 패턴
+-------------------------------------------------------------------------- */
+type AppleFolder = {
+  name: string
+  items: AppleFolder[]
+}
+
+const APPLE_FS: AppleFolder = {
+  name: 'iCloud Drive',
+  items: [
+    {
+      name: 'Documents',
+      items: [
+        { name: 'Design', items: [{ name: 'Orbit UI', items: [] }, { name: 'Figma', items: [] }] },
+        { name: 'Code', items: [{ name: 'orbit-ui', items: [] }, { name: 'next-app', items: [] }] },
+      ],
+    },
+    {
+      name: 'Desktop',
+      items: [{ name: 'Screenshots', items: [] }, { name: 'Recordings', items: [] }],
+    },
+  ],
+}
+
+const AppleFilesDemo = () => {
+  const [path, setPath] = useState<string[]>([])
+
+  const getFolder = (p: string[]): AppleFolder => {
+    let node = APPLE_FS
+    for (const name of p) {
+      const found = node.items.find((f) => f.name === name)
+      if (found) node = found
+    }
+    return node
+  }
+
+  const current = getFolder(path)
+  const breadcrumb = ['iCloud Drive', ...path]
+
+  return (
+    <div style={{
+      width: 360,
+      background: '#f2f2f7',
+      borderRadius: 16,
+      overflow: 'hidden',
+      fontFamily: '-apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif',
+    }}>
+      {/* Top bar */}
+      <div style={{ background: '#fff', padding: '10px 16px', borderBottom: '1px solid #e5e5ea' }}>
+        <Breadcrumb>
+          <Breadcrumb.List>
+            {breadcrumb.map((name, i) => (
+              <>
+                <Breadcrumb.Item key={name}>
+                  {i < breadcrumb.length - 1 ? (
+                    <Breadcrumb.Link
+                      href="#"
+                      onClick={(e) => { e.preventDefault(); setPath(breadcrumb.slice(1, i + 1)) }}
+                      style={{ fontSize: 13, color: '#007aff' }}
+                    >
+                      {name}
+                    </Breadcrumb.Link>
+                  ) : (
+                    <Breadcrumb.Page style={{ fontSize: 13, fontWeight: 600, color: '#1c1c1e' }}>
+                      {name}
+                    </Breadcrumb.Page>
+                  )}
+                </Breadcrumb.Item>
+                {i < breadcrumb.length - 1 && (
+                  <Breadcrumb.Separator key={`sep-${name}`}>
+                    <ChevronRightLineIcon size={10} />
+                  </Breadcrumb.Separator>
+                )}
+              </>
+            ))}
+          </Breadcrumb.List>
+        </Breadcrumb>
+      </div>
+
+      {/* Folder contents */}
+      <div style={{ padding: 8, display: 'flex', flexDirection: 'column', gap: 2 }}>
+        {current.items.length > 0 ? current.items.map((folder) => (
+          <div
+            key={folder.name}
+            onClick={() => setPath([...path, folder.name])}
+            style={{
+              display: 'flex', alignItems: 'center', gap: 10,
+              padding: '10px 12px', borderRadius: 10,
+              background: '#fff', cursor: 'pointer',
+              fontSize: 14, color: '#1c1c1e',
+            }}
+          >
+            <span style={{ fontSize: 18 }}>
+              {folder.items.length > 0 ? '📁' : '📄'}
+            </span>
+            <span style={{ flex: 1 }}>{folder.name}</span>
+            {folder.items.length > 0 && (
+              <ChevronRightLineIcon size={12} />
+            )}
+          </div>
+        )) : (
+          <div style={{ padding: '24px', textAlign: 'center', fontSize: 13, color: '#8e8e93' }}>
+            이 폴더는 비어있습니다
+          </div>
+        )}
+      </div>
+      <div style={{ padding: '8px 16px', fontSize: 11, color: '#8e8e93' }}>
+        Apple HIG — Files.app 폴더 계층 Breadcrumb
+      </div>
+    </div>
+  )
+}
+
+export const Apple_HIG_파일_앱_경로: Story = {
+  name: 'Apple HIG — Files.app 폴더 계층 탐색 패턴',
+  render: () => <AppleFilesDemo />,
+}
+
+/* --------------------------------------------------------------------------
+   Notion 스타일: 공유 모달 페이지 경로
+   Notion share modal에서 페이지 경로를 표시하는 패턴
+-------------------------------------------------------------------------- */
+const NotionShareModalDemo = () => {
+  const [copied, setCopied] = useState(false)
+  const shareLinks = [
+    { label: '뷰어', icon: '👁' },
+    { label: '댓글 허용', icon: '💬' },
+    { label: '편집 허용', icon: '✏️' },
+  ]
+  const [permission, setPermission] = useState('뷰어')
+
+  return (
+    <div style={{
+      width: 420,
+      background: '#fff',
+      borderRadius: 12,
+      border: '1px solid #e2e8f0',
+      boxShadow: '0 8px 32px rgba(0,0,0,0.1)',
+      overflow: 'hidden',
+      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+    }}>
+      {/* Header */}
+      <div style={{ padding: '16px 20px 0' }}>
+        <div style={{ fontSize: 13, fontWeight: 700, color: '#1e293b', marginBottom: 8 }}>공유 및 권한</div>
+        <div style={{ padding: '8px 12px', background: '#f8fafc', borderRadius: 8, marginBottom: 12 }}>
+          <Breadcrumb>
+            <Breadcrumb.List>
+              <Breadcrumb.Item>
+                <Breadcrumb.Link href="#" onClick={(e) => e.preventDefault()} style={{ fontSize: 12, color: '#94a3b8' }}>
+                  워크스페이스
+                </Breadcrumb.Link>
+              </Breadcrumb.Item>
+              <Breadcrumb.Separator>
+                <ChevronRightLineIcon size={10} />
+              </Breadcrumb.Separator>
+              <Breadcrumb.Item>
+                <Breadcrumb.Link href="#" onClick={(e) => e.preventDefault()} style={{ fontSize: 12, color: '#94a3b8' }}>
+                  디자인 시스템
+                </Breadcrumb.Link>
+              </Breadcrumb.Item>
+              <Breadcrumb.Separator>
+                <ChevronRightLineIcon size={10} />
+              </Breadcrumb.Separator>
+              <Breadcrumb.Item>
+                <Breadcrumb.Page style={{ fontSize: 12, fontWeight: 600, color: '#374151' }}>
+                  컴포넌트 가이드
+                </Breadcrumb.Page>
+              </Breadcrumb.Item>
+            </Breadcrumb.List>
+          </Breadcrumb>
+        </div>
+      </div>
+
+      {/* Permission select */}
+      <div style={{ padding: '0 20px 12px', borderBottom: '1px solid #f1f5f9' }}>
+        <div style={{ fontSize: 11, color: '#94a3b8', fontWeight: 600, marginBottom: 8 }}>링크 공유 권한</div>
+        <div style={{ display: 'flex', gap: 6 }}>
+          {shareLinks.map(({ label, icon }) => (
+            <button
+              key={label}
+              onClick={() => setPermission(label)}
+              style={{
+                flex: 1,
+                padding: '8px 4px',
+                borderRadius: 8,
+                border: `1.5px solid ${permission === label ? '#6366f1' : '#e2e8f0'}`,
+                background: permission === label ? '#f0f1ff' : '#fff',
+                color: permission === label ? '#6366f1' : '#64748b',
+                fontSize: 12,
+                fontWeight: 600,
+                cursor: 'pointer',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                gap: 4,
+              }}
+            >
+              <span style={{ fontSize: 16 }}>{icon}</span>
+              {label}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Link copy */}
+      <div style={{ padding: '12px 20px' }}>
+        <div style={{ display: 'flex', gap: 8 }}>
+          <div style={{
+            flex: 1, padding: '8px 12px', borderRadius: 8,
+            border: '1px solid #e2e8f0', background: '#f8fafc',
+            fontSize: 12, color: '#94a3b8', overflow: 'hidden',
+            textOverflow: 'ellipsis', whiteSpace: 'nowrap',
+          }}>
+            https://notion.so/workspace/component-guide-abc123
+          </div>
+          <button
+            onClick={() => { setCopied(true); setTimeout(() => setCopied(false), 1500) }}
+            style={{
+              padding: '8px 14px', borderRadius: 8,
+              border: 'none',
+              background: copied ? '#10b981' : '#6366f1',
+              color: '#fff', fontSize: 12, fontWeight: 600,
+              cursor: 'pointer', whiteSpace: 'nowrap',
+              transition: 'background 0.2s',
+            }}
+          >
+            {copied ? '복사됨' : '링크 복사'}
+          </button>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const Notion_공유_모달_경로: Story = {
+  name: 'Notion 공유 모달 — 페이지 경로 표시 패턴',
+  render: () => <NotionShareModalDemo />,
+}
+
+/* --------------------------------------------------------------------------
+   Apple HIG: 설정 앱 스타일 섹션 탐색
+   Apple Settings.app의 단계별 뒤로가기 Breadcrumb + 그룹 섹션 패턴
+-------------------------------------------------------------------------- */
+type SettingSection = {
+  title: string
+  items: { label: string; value?: string; detail?: boolean }[]
+}
+
+const SETTING_SECTIONS: Record<string, SettingSection> = {
+  root: {
+    title: '설정',
+    items: [
+      { label: '계정', detail: true },
+      { label: '알림', detail: true },
+      { label: '접근성', detail: true },
+    ],
+  },
+  계정: {
+    title: '계정',
+    items: [
+      { label: '이름', value: '김희준' },
+      { label: '이메일', value: 'hjunkim@example.com' },
+      { label: '비밀번호 변경', detail: true },
+    ],
+  },
+  알림: {
+    title: '알림',
+    items: [
+      { label: '모두 허용', value: '켬' },
+      { label: '방해 금지 모드', value: '끔' },
+      { label: '알림 스타일', value: '배너' },
+    ],
+  },
+  접근성: {
+    title: '접근성',
+    items: [
+      { label: '큰 텍스트', value: '꺼짐' },
+      { label: '고대비 모드', value: '꺼짐' },
+      { label: '동작 줄이기', value: '꺼짐' },
+    ],
+  },
+}
+
+const AppleSettingsDemo = () => {
+  const [stack, setStack] = useState<string[]>(['root'])
+  const currentKey = stack[stack.length - 1]
+  const section = SETTING_SECTIONS[currentKey] ?? SETTING_SECTIONS.root
+
+  return (
+    <div style={{
+      width: 320,
+      background: '#f2f2f7',
+      borderRadius: 16,
+      overflow: 'hidden',
+      fontFamily: '-apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif',
+    }}>
+      {/* Nav bar */}
+      <div style={{
+        background: '#fff', padding: '10px 16px',
+        borderBottom: '1px solid #e5e5ea',
+        display: 'flex', alignItems: 'center', gap: 8,
+      }}>
+        {stack.length > 1 && (
+          <button
+            onClick={() => setStack((s) => s.slice(0, -1))}
+            style={{
+              background: 'none', border: 'none', cursor: 'pointer',
+              color: '#007aff', fontSize: 13, fontWeight: 500,
+              display: 'flex', alignItems: 'center', gap: 2, padding: 0,
+            }}
+          >
+            {'<'} {SETTING_SECTIONS[stack[stack.length - 2]]?.title}
+          </button>
+        )}
+        <Breadcrumb style={{ flex: 1 }}>
+          <Breadcrumb.List>
+            {stack.map((key, i) => (
+              <>
+                <Breadcrumb.Item key={key}>
+                  {i < stack.length - 1 ? (
+                    <Breadcrumb.Link
+                      href="#"
+                      onClick={(e) => { e.preventDefault(); setStack(stack.slice(0, i + 1)) }}
+                      style={{ fontSize: 12, color: '#007aff' }}
+                    >
+                      {SETTING_SECTIONS[key]?.title}
+                    </Breadcrumb.Link>
+                  ) : (
+                    <Breadcrumb.Page style={{ fontSize: 14, fontWeight: 700, color: '#1c1c1e' }}>
+                      {section.title}
+                    </Breadcrumb.Page>
+                  )}
+                </Breadcrumb.Item>
+                {i < stack.length - 1 && (
+                  <Breadcrumb.Separator key={`sep-${key}`}>
+                    <ChevronRightLineIcon size={10} />
+                  </Breadcrumb.Separator>
+                )}
+              </>
+            ))}
+          </Breadcrumb.List>
+        </Breadcrumb>
+      </div>
+
+      {/* Settings list */}
+      <div style={{ padding: 12, display: 'flex', flexDirection: 'column', gap: 2 }}>
+        {section.items.map((item, i) => (
+          <div
+            key={item.label}
+            onClick={() => {
+              if (item.detail && SETTING_SECTIONS[item.label]) {
+                setStack((s) => [...s, item.label])
+              }
+            }}
+            style={{
+              display: 'flex', alignItems: 'center',
+              padding: '11px 14px',
+              background: '#fff',
+              borderRadius: i === 0 ? '10px 10px 2px 2px' : i === section.items.length - 1 ? '2px 2px 10px 10px' : 2,
+              cursor: item.detail && SETTING_SECTIONS[item.label] ? 'pointer' : 'default',
+              borderBottom: i < section.items.length - 1 ? '1px solid #f2f2f7' : 'none',
+            }}
+          >
+            <span style={{ fontSize: 14, color: '#1c1c1e', flex: 1 }}>{item.label}</span>
+            {item.value && (
+              <span style={{ fontSize: 13, color: '#8e8e93', marginRight: 4 }}>{item.value}</span>
+            )}
+            {item.detail && SETTING_SECTIONS[item.label] && (
+              <ChevronRightLineIcon size={12} />
+            )}
+          </div>
+        ))}
+      </div>
+      <div style={{ padding: '8px 16px', fontSize: 11, color: '#8e8e93' }}>
+        Apple HIG — Settings.app 계층 탐색 패턴
+      </div>
+    </div>
+  )
+}
+
+export const Apple_HIG_설정_앱_경로: Story = {
+  name: 'Apple HIG — Settings.app 계층 탐색 패턴',
+  render: () => <AppleSettingsDemo />,
+}
+
+/* --------------------------------------------------------------------------
    shadcn/ui 벤치마크: 전자상거래 카테고리 탐색 패턴
    shadcn/ui Breadcrumb — 쇼핑몰 카테고리 계층 + 공유 버튼 패턴
 -------------------------------------------------------------------------- */

@@ -12266,3 +12266,450 @@ export const DataImportWizard: Story = {
   render: () => <DataImportWizardRender />,
 }
 
+/* ============================================================
+   Template 42: ReviewPortal — Notion + Apple HIG 벤치마크
+   디자인 리뷰 포털: 피드백 수집 + 승인 플로우
+   ============================================================ */
+type RPStatus = 'pending' | 'approved' | 'rejected' | 'revision'
+type RPPriority = 'low' | 'medium' | 'high' | 'critical'
+type RPCategory = 'design' | 'content' | 'technical' | 'accessibility'
+
+type RPReview = {
+  id: string
+  title: string
+  author: string
+  authorInitial: string
+  status: RPStatus
+  priority: RPPriority
+  category: RPCategory
+  createdAt: string
+  commentCount: number
+  description: string
+}
+
+const RP_STATUS_CONFIG: Record<RPStatus, { label: string; color: string; bg: string }> = {
+  pending: { label: '검토 대기', color: '#f59e0b', bg: '#fffbeb' },
+  approved: { label: '승인됨', color: '#10b981', bg: '#f0fdf4' },
+  rejected: { label: '반려됨', color: '#ef4444', bg: '#fef2f2' },
+  revision: { label: '수정 필요', color: '#6366f1', bg: '#f0f1ff' },
+}
+
+const RP_PRIORITY_CONFIG: Record<RPPriority, { label: string; color: string }> = {
+  low: { label: 'Low', color: '#94a3b8' },
+  medium: { label: 'Medium', color: '#f59e0b' },
+  high: { label: 'High', color: '#ef4444' },
+  critical: { label: 'Critical', color: '#dc2626' },
+}
+
+const RP_CATEGORY_CONFIG: Record<RPCategory, { label: string; icon: string }> = {
+  design: { label: '디자인', icon: 'D' },
+  content: { label: '콘텐츠', icon: 'C' },
+  technical: { label: '기술', icon: 'T' },
+  accessibility: { label: '접근성', icon: 'A' },
+}
+
+const RP_REVIEWS: RPReview[] = [
+  {
+    id: 'rv-001',
+    title: 'Button 컴포넌트 hover 상태 색상 수정',
+    author: '김디자인',
+    authorInitial: '김',
+    status: 'pending',
+    priority: 'high',
+    category: 'design',
+    createdAt: '2026-04-09',
+    commentCount: 3,
+    description: 'Primary 버튼의 hover 색상이 Figma 스펙과 다릅니다. #6366f1 → #4f46e5로 수정이 필요합니다.',
+  },
+  {
+    id: 'rv-002',
+    title: 'TextField 에러 메시지 접근성 개선',
+    author: '이접근',
+    authorInitial: '이',
+    status: 'revision',
+    priority: 'critical',
+    category: 'accessibility',
+    createdAt: '2026-04-08',
+    commentCount: 7,
+    description: 'aria-describedby가 에러 메시지 요소와 연결되지 않아 스크린 리더에서 에러를 읽지 못합니다.',
+  },
+  {
+    id: 'rv-003',
+    title: 'GettingStarted.mdx 설치 가이드 업데이트',
+    author: '박문서',
+    authorInitial: '박',
+    status: 'approved',
+    priority: 'medium',
+    category: 'content',
+    createdAt: '2026-04-07',
+    commentCount: 2,
+    description: 'pnpm 설치 명령어가 최신 버전으로 업데이트되었습니다. 가이드를 함께 수정합니다.',
+  },
+  {
+    id: 'rv-004',
+    title: 'Accordion 키보드 네비게이션 버그 수정',
+    author: '최개발',
+    authorInitial: '최',
+    status: 'rejected',
+    priority: 'medium',
+    category: 'technical',
+    createdAt: '2026-04-06',
+    commentCount: 5,
+    description: 'Escape 키로 Accordion이 닫히지 않는 문제가 있었으나, 현재 스펙에서는 지원하지 않는 동작입니다.',
+  },
+  {
+    id: 'rv-005',
+    title: '다크 모드 토큰 색상 일괄 검토',
+    author: '김디자인',
+    authorInitial: '김',
+    status: 'pending',
+    priority: 'low',
+    category: 'design',
+    createdAt: '2026-04-05',
+    commentCount: 0,
+    description: '다크 모드의 Surface 토큰이 일부 컴포넌트에서 일관되지 않게 적용되고 있습니다.',
+  },
+]
+
+const rpColors = {
+  bg: '#f8fafc',
+  card: '#ffffff',
+  border: '#e2e8f0',
+  fg: '#0f172a',
+  fgSub: '#64748b',
+  accent: '#6366f1',
+  sidebar: '#fff',
+}
+
+type RPFilterKey = RPStatus | 'all'
+
+const ReviewPortalRender = () => {
+  const [activeFilter, setActiveFilter] = useState<RPFilterKey>('all')
+  const [selected, setSelected] = useState<RPReview | null>(RP_REVIEWS[0])
+  const [comment, setComment] = useState('')
+  const [comments, setComments] = useState<{ text: string; time: string }[]>([
+    { text: '색상 코드를 Figma 링크와 함께 첨부해 주시겠어요?', time: '10분 전' },
+    { text: '다음 스프린트 내에 처리 예정입니다.', time: '5분 전' },
+  ])
+
+  const filterOptions: { key: RPFilterKey; label: string }[] = [
+    { key: 'all', label: '전체' },
+    { key: 'pending', label: '대기' },
+    { key: 'revision', label: '수정 필요' },
+    { key: 'approved', label: '승인됨' },
+    { key: 'rejected', label: '반려됨' },
+  ]
+
+  const filtered = activeFilter === 'all'
+    ? RP_REVIEWS
+    : RP_REVIEWS.filter((r) => r.status === activeFilter)
+
+  const addComment = () => {
+    if (comment.trim()) {
+      setComments((prev) => [...prev, { text: comment.trim(), time: '방금 전' }])
+      setComment('')
+    }
+  }
+
+  return (
+    <div style={{
+      width: 960,
+      height: 640,
+      background: rpColors.bg,
+      borderRadius: 16,
+      border: `1px solid ${rpColors.border}`,
+      overflow: 'hidden',
+      display: 'flex',
+      flexDirection: 'column',
+      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+    }}>
+      {/* Header */}
+      <div style={{
+        background: rpColors.card,
+        borderBottom: `1px solid ${rpColors.border}`,
+        padding: '12px 20px',
+        display: 'flex',
+        alignItems: 'center',
+        gap: 12,
+      }}>
+        <div style={{
+          width: 28, height: 28, borderRadius: 8,
+          background: rpColors.accent,
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          fontSize: 12, color: '#fff', fontWeight: 800,
+        }}>R</div>
+        <Breadcrumb>
+          <Breadcrumb.List>
+            <Breadcrumb.Item>
+              <Breadcrumb.Link href="#" onClick={(e) => e.preventDefault()} style={{ fontSize: 13, color: rpColors.fgSub }}>
+                Orbit UI
+              </Breadcrumb.Link>
+            </Breadcrumb.Item>
+            <Breadcrumb.Separator />
+            <Breadcrumb.Item>
+              <Breadcrumb.Link href="#" onClick={(e) => e.preventDefault()} style={{ fontSize: 13, color: rpColors.fgSub }}>
+                리뷰
+              </Breadcrumb.Link>
+            </Breadcrumb.Item>
+            <Breadcrumb.Separator />
+            <Breadcrumb.Item>
+              <Breadcrumb.Page style={{ fontSize: 13, fontWeight: 600, color: rpColors.fg }}>
+                {selected ? selected.title : '항목을 선택하세요'}
+              </Breadcrumb.Page>
+            </Breadcrumb.Item>
+          </Breadcrumb.List>
+        </Breadcrumb>
+        <div style={{ marginLeft: 'auto', display: 'flex', gap: 8 }}>
+          <CounterBadge>{RP_REVIEWS.filter((r) => r.status === 'pending').length}</CounterBadge>
+          <span style={{ fontSize: 12, color: rpColors.fgSub }}>대기 중</span>
+        </div>
+      </div>
+
+      {/* Body */}
+      <div style={{ flex: 1, display: 'flex', overflow: 'hidden' }}>
+        {/* Sidebar: Review list */}
+        <div style={{
+          width: 320,
+          borderRight: `1px solid ${rpColors.border}`,
+          background: rpColors.sidebar,
+          display: 'flex',
+          flexDirection: 'column',
+          overflow: 'hidden',
+        }}>
+          {/* Filter tabs */}
+          <div style={{
+            padding: '10px 12px',
+            borderBottom: `1px solid ${rpColors.border}`,
+            display: 'flex',
+            gap: 4,
+            flexWrap: 'wrap',
+          }}>
+            {filterOptions.map((opt) => (
+              <button
+                key={opt.key}
+                onClick={() => setActiveFilter(opt.key)}
+                style={{
+                  padding: '4px 10px',
+                  borderRadius: 6,
+                  border: 'none',
+                  fontSize: 11,
+                  fontWeight: 600,
+                  cursor: 'pointer',
+                  background: activeFilter === opt.key ? rpColors.accent : '#f1f5f9',
+                  color: activeFilter === opt.key ? '#fff' : rpColors.fgSub,
+                  transition: 'all 0.15s',
+                }}
+              >
+                {opt.label}
+              </button>
+            ))}
+          </div>
+
+          {/* Review list */}
+          <div style={{ flex: 1, overflowY: 'auto', padding: 8, display: 'flex', flexDirection: 'column', gap: 4 }}>
+            {filtered.map((review) => {
+              const statusCfg = RP_STATUS_CONFIG[review.status]
+              const catCfg = RP_CATEGORY_CONFIG[review.category]
+              const isSelected = selected?.id === review.id
+              return (
+                <div
+                  key={review.id}
+                  onClick={() => setSelected(review)}
+                  style={{
+                    padding: '10px 12px',
+                    borderRadius: 10,
+                    border: `1.5px solid ${isSelected ? rpColors.accent : rpColors.border}`,
+                    background: isSelected ? '#f0f1ff' : rpColors.card,
+                    cursor: 'pointer',
+                    transition: 'all 0.15s',
+                  }}
+                >
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 4 }}>
+                    <div style={{
+                      width: 18, height: 18, borderRadius: 4,
+                      background: rpColors.accent,
+                      display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      fontSize: 9, color: '#fff', fontWeight: 700, flexShrink: 0,
+                    }}>
+                      {catCfg.icon}
+                    </div>
+                    <span style={{
+                      fontSize: 11, padding: '1px 6px', borderRadius: 4,
+                      background: statusCfg.bg, color: statusCfg.color, fontWeight: 600,
+                    }}>
+                      {statusCfg.label}
+                    </span>
+                  </div>
+                  <div style={{ fontSize: 12, fontWeight: 600, color: rpColors.fg, marginBottom: 4, lineHeight: 1.4 }}>
+                    {review.title}
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 11, color: rpColors.fgSub }}>
+                    <span>{review.author}</span>
+                    <span style={{ color: rpColors.border }}>·</span>
+                    <span>{review.createdAt}</span>
+                    {review.commentCount > 0 && (
+                      <>
+                        <span style={{ color: rpColors.border }}>·</span>
+                        <span>댓글 {review.commentCount}</span>
+                      </>
+                    )}
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+        </div>
+
+        {/* Main: Review detail */}
+        {selected ? (
+          <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+            {/* Detail header */}
+            <div style={{
+              padding: '16px 20px',
+              borderBottom: `1px solid ${rpColors.border}`,
+              background: rpColors.card,
+            }}>
+              <div style={{ display: 'flex', alignItems: 'flex-start', gap: 12 }}>
+                <div style={{
+                  width: 36, height: 36, borderRadius: '50%',
+                  background: rpColors.accent, color: '#fff',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  fontSize: 14, fontWeight: 700, flexShrink: 0,
+                }}>
+                  {selected.authorInitial}
+                </div>
+                <div style={{ flex: 1 }}>
+                  <div style={{ fontSize: 15, fontWeight: 700, color: rpColors.fg, marginBottom: 4 }}>
+                    {selected.title}
+                  </div>
+                  <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+                    <span style={{
+                      fontSize: 11, padding: '2px 8px', borderRadius: 4,
+                      background: RP_STATUS_CONFIG[selected.status].bg,
+                      color: RP_STATUS_CONFIG[selected.status].color, fontWeight: 600,
+                    }}>
+                      {RP_STATUS_CONFIG[selected.status].label}
+                    </span>
+                    <span style={{
+                      fontSize: 11, padding: '2px 8px', borderRadius: 4,
+                      background: '#f1f5f9', color: RP_PRIORITY_CONFIG[selected.priority].color,
+                      fontWeight: 700,
+                    }}>
+                      {RP_PRIORITY_CONFIG[selected.priority].label}
+                    </span>
+                    <span style={{
+                      fontSize: 11, padding: '2px 8px', borderRadius: 4,
+                      background: '#f1f5f9', color: rpColors.fgSub, fontWeight: 600,
+                    }}>
+                      {RP_CATEGORY_CONFIG[selected.category].label}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Approve / Reject */}
+                <div style={{ display: 'flex', gap: 6 }}>
+                  <SolidButton
+                    color="primary"
+                    onClick={() => setSelected({ ...selected, status: 'approved' })}
+                    size="small"
+                  >
+                    승인
+                  </SolidButton>
+                  <OutlineButton
+                    color="black"
+                    onClick={() => setSelected({ ...selected, status: 'rejected' })}
+                    size="small"
+                  >
+                    반려
+                  </OutlineButton>
+                </div>
+              </div>
+            </div>
+
+            {/* Description */}
+            <div style={{ padding: '16px 20px', borderBottom: `1px solid ${rpColors.border}`, background: rpColors.card, marginBottom: 1 }}>
+              <div style={{ fontSize: 12, fontWeight: 600, color: rpColors.fgSub, marginBottom: 8 }}>설명</div>
+              <div style={{ fontSize: 13, color: rpColors.fg, lineHeight: 1.6 }}>
+                {selected.description}
+              </div>
+            </div>
+
+            {/* Progress */}
+            <div style={{ padding: '12px 20px', borderBottom: `1px solid ${rpColors.border}`, background: rpColors.card }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 6 }}>
+                <span style={{ fontSize: 12, fontWeight: 600, color: rpColors.fgSub }}>처리 진행률</span>
+                <span style={{ fontSize: 12, color: rpColors.fgSub }}>
+                  {selected.status === 'approved' ? '100%' : selected.status === 'rejected' ? '100%' : selected.status === 'revision' ? '50%' : '10%'}
+                </span>
+              </div>
+              <Progress
+                value={selected.status === 'approved' ? 100 : selected.status === 'rejected' ? 100 : selected.status === 'revision' ? 50 : 10}
+                max={100}
+              />
+            </div>
+
+            {/* Comments */}
+            <div style={{ flex: 1, padding: '12px 20px', overflowY: 'auto', background: rpColors.bg }}>
+              <div style={{ fontSize: 12, fontWeight: 600, color: rpColors.fgSub, marginBottom: 10 }}>
+                댓글 {comments.length}개
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                {comments.map((c, i) => (
+                  <div
+                    key={i}
+                    style={{
+                      padding: '10px 14px',
+                      borderRadius: 10,
+                      background: rpColors.card,
+                      border: `1px solid ${rpColors.border}`,
+                      fontSize: 13,
+                      color: rpColors.fg,
+                      lineHeight: 1.5,
+                    }}
+                  >
+                    <div style={{ fontSize: 11, color: rpColors.fgSub, marginBottom: 4 }}>{c.time}</div>
+                    {c.text}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Comment input */}
+            <div style={{
+              padding: '12px 20px',
+              borderTop: `1px solid ${rpColors.border}`,
+              background: rpColors.card,
+              display: 'flex',
+              gap: 8,
+            }}>
+              <div style={{ flex: 1 }}>
+                <TextField
+                  placeholder="댓글을 입력하세요..."
+                  value={comment}
+                  onChange={(e) => setComment(e.target.value)}
+                  onKeyDown={(e) => { if (e.key === 'Enter') addComment() }}
+                />
+              </div>
+              <SolidButton color="primary" onClick={addComment} size="small">
+                전송
+              </SolidButton>
+            </div>
+          </div>
+        ) : (
+          <div style={{
+            flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center',
+            color: rpColors.fgSub, fontSize: 14,
+          }}>
+            왼쪽에서 리뷰 항목을 선택하세요
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+
+export const ReviewPortal: Story = {
+  name: 'Review Portal (Notion + Apple HIG 벤치마크)',
+  render: () => <ReviewPortalRender />,
+}
+

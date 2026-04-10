@@ -492,3 +492,297 @@ export const Chakra_검색필터패턴: Story = {
   name: 'Chakra Input Group 패턴 (검색 + 필터)',
   render: () => <InlineSearchDemo />,
 }
+
+// Notion 인라인 편집 패턴: 클릭하면 입력 활성화, blur 시 저장
+const NotionInlineEditDemo = () => {
+  const properties = [
+    { key: 'assignee', label: '담당자', value: '김희준' },
+    { key: 'status', label: '상태', value: '진행 중' },
+    { key: 'priority', label: '우선순위', value: 'P1 — 긴급' },
+    { key: 'due', label: '마감일', value: '2026-04-30' },
+    { key: 'sprint', label: '스프린트', value: 'Sprint 12' },
+  ]
+
+  const [editing, setEditing] = useState<string | null>(null)
+  const [values, setValues] = useState<Record<string, string>>(
+    Object.fromEntries(properties.map((p) => [p.key, p.value]))
+  )
+
+  return (
+    <div style={{
+      width: 440,
+      background: '#fff',
+      borderRadius: 12,
+      border: '1px solid #e2e8f0',
+      overflow: 'hidden',
+      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+    }}>
+      <div style={{
+        padding: '12px 20px',
+        borderBottom: '1px solid #f1f5f9',
+        display: 'flex',
+        alignItems: 'center',
+        gap: 8,
+      }}>
+        <div style={{
+          width: 20, height: 20, borderRadius: 4,
+          background: '#6366f1', display: 'flex',
+          alignItems: 'center', justifyContent: 'center',
+          fontSize: 11, color: '#fff', fontWeight: 700,
+        }}>N</div>
+        <span style={{ fontSize: 13, fontWeight: 600, color: '#1e293b' }}>데이터베이스 속성 편집</span>
+        <span style={{ marginLeft: 'auto', fontSize: 11, color: '#94a3b8' }}>클릭해서 편집</span>
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column' }}>
+        {properties.map((prop) => (
+          <div
+            key={prop.key}
+            style={{
+              display: 'grid',
+              gridTemplateColumns: '120px 1fr',
+              alignItems: 'center',
+              padding: '0 20px',
+              borderBottom: '1px solid #f8fafc',
+              minHeight: 44,
+            }}
+          >
+            <span style={{ fontSize: 12, color: '#94a3b8', fontWeight: 500 }}>{prop.label}</span>
+            <div style={{ padding: '4px 0' }}>
+              {editing === prop.key ? (
+                <TextField
+                  value={values[prop.key]}
+                  onChange={(e) => setValues((v) => ({ ...v, [prop.key]: e.target.value }))}
+                  onBlur={() => setEditing(null)}
+                  autoFocus
+                />
+              ) : (
+                <div
+                  onClick={() => setEditing(prop.key)}
+                  style={{
+                    fontSize: 13,
+                    color: '#1e293b',
+                    padding: '6px 8px',
+                    borderRadius: 6,
+                    cursor: 'pointer',
+                    background: 'transparent',
+                    transition: 'background 0.1s',
+                  }}
+                  onMouseEnter={(e) => { (e.currentTarget as HTMLDivElement).style.background = '#f8fafc' }}
+                  onMouseLeave={(e) => { (e.currentTarget as HTMLDivElement).style.background = 'transparent' }}
+                >
+                  {values[prop.key]}
+                </div>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+      <div style={{ padding: '10px 20px', background: '#fafafa', borderTop: '1px solid #f1f5f9' }}>
+        <span style={{ fontSize: 11, color: '#94a3b8' }}>Notion — 인라인 편집 패턴</span>
+      </div>
+    </div>
+  )
+}
+
+export const Notion_인라인_편집_필드: Story = {
+  name: 'Notion 인라인 편집 패턴 (클릭-편집-저장)',
+  render: () => <NotionInlineEditDemo />,
+}
+
+// Apple HIG 검색 필드 패턴: 포커스 시 레이블 축소, clear 버튼
+const AppleHIGSearchDemo = () => {
+  const [query, setQuery] = useState('')
+  const [focused, setFocused] = useState(false)
+  const suggestions = ['Button', 'Checkbox', 'DataTable', 'Dropdown', 'Modal', 'Progress', 'Slider', 'TextField', 'Toggle']
+
+  const filtered = query.length > 0
+    ? suggestions.filter((s) => s.toLowerCase().startsWith(query.toLowerCase()))
+    : []
+
+  return (
+    <div style={{
+      width: 380,
+      background: '#f2f2f7',
+      borderRadius: 16,
+      padding: 20,
+      fontFamily: '-apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif',
+    }}>
+      <div style={{ fontSize: 11, fontWeight: 700, color: '#8e8e93', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 12 }}>
+        Apple HIG — Search Field
+      </div>
+      <div style={{ position: 'relative', marginBottom: filtered.length > 0 ? 4 : 0 }}>
+        <div style={{
+          position: 'absolute', left: 10, top: '50%', transform: 'translateY(-50%)',
+          fontSize: 14, color: '#8e8e93', pointerEvents: 'none', zIndex: 1,
+        }}>
+          {focused || query ? '' : ''}
+        </div>
+        <TextField
+          placeholder={focused ? '' : '컴포넌트 검색...'}
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          onFocus={() => setFocused(true)}
+          onBlur={() => setFocused(false)}
+        />
+        {query.length > 0 && (
+          <button
+            onClick={() => setQuery('')}
+            style={{
+              position: 'absolute', right: 10, top: '50%', transform: 'translateY(-50%)',
+              width: 18, height: 18, borderRadius: '50%',
+              background: '#c7c7cc', border: 'none', cursor: 'pointer',
+              fontSize: 10, color: '#fff', fontWeight: 700,
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              lineHeight: 1, padding: 0,
+            }}
+          >
+            x
+          </button>
+        )}
+      </div>
+
+      {filtered.length > 0 && (
+        <div style={{
+          background: '#fff',
+          borderRadius: 12,
+          overflow: 'hidden',
+          boxShadow: '0 2px 12px rgba(0,0,0,0.08)',
+          marginTop: 8,
+        }}>
+          {filtered.map((item, i) => (
+            <div
+              key={item}
+              onClick={() => { setQuery(item); setFocused(false) }}
+              style={{
+                padding: '10px 14px',
+                fontSize: 14,
+                color: '#1c1c1e',
+                borderBottom: i < filtered.length - 1 ? '1px solid #f2f2f7' : 'none',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                gap: 10,
+              }}
+              onMouseEnter={(e) => { (e.currentTarget as HTMLDivElement).style.background = '#f2f2f7' }}
+              onMouseLeave={(e) => { (e.currentTarget as HTMLDivElement).style.background = '#fff' }}
+            >
+              <span style={{ fontSize: 12, color: '#6366f1', width: 20, textAlign: 'center' }}>C</span>
+              <span>{item}</span>
+            </div>
+          ))}
+        </div>
+      )}
+
+      <div style={{ marginTop: 16, fontSize: 11, color: '#8e8e93' }}>
+        Apple HIG — 검색 필드 + 자동완성 + 지우기 버튼 패턴
+      </div>
+    </div>
+  )
+}
+
+export const Apple_HIG_검색_필드: Story = {
+  name: 'Apple HIG 검색 필드 (자동완성 + Clear 버튼)',
+  render: () => <AppleHIGSearchDemo />,
+}
+
+// Notion 빠른 캡처 패턴: 단일 입력 → 엔터 → 항목 추가
+const NotionQuickCaptureDemo = () => {
+  const [input, setInput] = useState('')
+  const [items, setItems] = useState([
+    '디자인 시스템 문서 업데이트',
+    'TextField 스토리 추가',
+    'Breadcrumb 리뷰 요청',
+  ])
+
+  const addItem = () => {
+    if (input.trim()) {
+      setItems((prev) => [input.trim(), ...prev])
+      setInput('')
+    }
+  }
+
+  return (
+    <div style={{
+      width: 440,
+      background: '#fff',
+      borderRadius: 12,
+      border: '1px solid #e2e8f0',
+      overflow: 'hidden',
+      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+    }}>
+      <div style={{
+        padding: '14px 20px',
+        borderBottom: '1px solid #f1f5f9',
+      }}>
+        <div style={{ fontSize: 13, fontWeight: 700, color: '#1e293b', marginBottom: 10 }}>
+          빠른 캡처 — 받은 편지함
+        </div>
+        <div style={{ display: 'flex', gap: 8 }}>
+          <div style={{ flex: 1 }}>
+            <TextField
+              placeholder="할 일 추가 (Enter로 저장)..."
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              onKeyDown={(e) => { if (e.key === 'Enter') addItem() }}
+            />
+          </div>
+          <button
+            onClick={addItem}
+            style={{
+              padding: '0 16px',
+              borderRadius: 8,
+              border: 'none',
+              background: input.trim() ? '#6366f1' : '#e2e8f0',
+              color: input.trim() ? '#fff' : '#94a3b8',
+              fontSize: 13,
+              fontWeight: 600,
+              cursor: input.trim() ? 'pointer' : 'default',
+              transition: 'all 0.15s',
+              whiteSpace: 'nowrap',
+            }}
+          >
+            추가
+          </button>
+        </div>
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column', maxHeight: 240, overflowY: 'auto' }}>
+        {items.map((item, i) => (
+          <div
+            key={i}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 10,
+              padding: '10px 20px',
+              borderBottom: i < items.length - 1 ? '1px solid #f8fafc' : 'none',
+            }}
+          >
+            <div style={{
+              width: 16, height: 16, borderRadius: 4,
+              border: '1.5px solid #cbd5e1', flexShrink: 0,
+            }} />
+            <span style={{ fontSize: 13, color: '#1e293b', flex: 1 }}>{item}</span>
+            <button
+              onClick={() => setItems((prev) => prev.filter((_, j) => j !== i))}
+              style={{
+                background: 'none', border: 'none', cursor: 'pointer',
+                color: '#cbd5e1', fontSize: 16, lineHeight: 1,
+                padding: '0 4px',
+              }}
+            >
+              x
+            </button>
+          </div>
+        ))}
+      </div>
+      <div style={{ padding: '10px 20px', background: '#fafafa', borderTop: '1px solid #f1f5f9' }}>
+        <span style={{ fontSize: 11, color: '#94a3b8' }}>Notion — 빠른 캡처 받은 편지함 패턴</span>
+      </div>
+    </div>
+  )
+}
+
+export const Notion_빠른_캡처_받은편지함: Story = {
+  name: 'Notion 빠른 캡처 (받은 편지함 패턴)',
+  render: () => <NotionQuickCaptureDemo />,
+}
