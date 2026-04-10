@@ -25272,3 +25272,309 @@ export const Mantine104TeamWorkspace: StoryObj = {
   },
   render: () => <Mantine104WorkspaceRender />,
 }
+
+// ─── Cycle 105: Tailwind UI + Ant Design ─────────────────────────────────────
+
+type TW105FileType = 'all' | 'document' | 'image' | 'archive'
+type TW105SortKey = 'name' | 'date' | 'size'
+
+type TW105File = {
+  id: number
+  name: string
+  type: TW105FileType
+  size: string
+  modified: string
+  owner: string
+  ownerColor: string
+  status: 'ready' | 'processing' | 'error'
+}
+
+const TW105_FILES: TW105File[] = [
+  { id: 1, name: 'design-system-v2.figma', type: 'document', size: '12.4 MB', modified: '2026-04-10', owner: '김지수', ownerColor: '#3b82f6', status: 'ready' },
+  { id: 2, name: 'orbit-ui-cover.png', type: 'image', size: '2.1 MB', modified: '2026-04-09', owner: '이민준', ownerColor: '#8b5cf6', status: 'ready' },
+  { id: 3, name: 'storybook-archive.zip', type: 'archive', size: '84.6 MB', modified: '2026-04-08', owner: '박서연', ownerColor: '#10b981', status: 'processing' },
+  { id: 4, name: 'sprint-notes.md', type: 'document', size: '38 KB', modified: '2026-04-07', owner: '최현우', ownerColor: '#f59e0b', status: 'ready' },
+  { id: 5, name: 'component-tokens.json', type: 'document', size: '156 KB', modified: '2026-04-06', owner: '김지수', ownerColor: '#3b82f6', status: 'error' },
+  { id: 6, name: 'brand-assets.zip', type: 'archive', size: '44.2 MB', modified: '2026-04-05', owner: '이민준', ownerColor: '#8b5cf6', status: 'ready' },
+  { id: 7, name: 'preview-screenshot.png', type: 'image', size: '1.8 MB', modified: '2026-04-04', owner: '박서연', ownerColor: '#10b981', status: 'ready' },
+  { id: 8, name: 'release-v2.0.0.pdf', type: 'document', size: '920 KB', modified: '2026-04-03', owner: '최현우', ownerColor: '#f59e0b', status: 'ready' },
+]
+
+const TW105_FILE_ICONS: Record<TW105FileType, string> = {
+  all: '📁',
+  document: '📄',
+  image: '🖼',
+  archive: '🗜',
+}
+
+const TW105_STATUS_COLOR: Record<TW105File['status'], string> = {
+  ready: '#10b981',
+  processing: '#f59e0b',
+  error: '#ef4444',
+}
+
+const TW105_STATUS_LABEL: Record<TW105File['status'], string> = {
+  ready: '완료',
+  processing: '처리 중',
+  error: '오류',
+}
+
+function TW105FileManagerRender() {
+  const [filterType, setFilterType] = useState<TW105FileType>('all')
+  const [sortKey, setSortKey] = useState<TW105SortKey>('date')
+  const [selected, setSelected] = useState<number[]>([])
+  const [query, setQuery] = useState('')
+  const [gridView, setGridView] = useState(false)
+  const [bulkDone, setBulkDone] = useState(false)
+
+  const filtered = TW105_FILES.filter((f) => {
+    const typeMatch = filterType === 'all' || f.type === filterType
+    const queryMatch = f.name.toLowerCase().includes(query.toLowerCase())
+    return typeMatch && queryMatch
+  }).sort((a, b) => {
+    if (sortKey === 'name') return a.name.localeCompare(b.name)
+    if (sortKey === 'size') return parseFloat(a.size) - parseFloat(b.size)
+    return b.modified.localeCompare(a.modified)
+  })
+
+  const toggleSelect = (id: number) => {
+    if (selected.includes(id)) {
+      setSelected(selected.filter((s) => s !== id))
+    } else {
+      setSelected([...selected, id])
+    }
+  }
+
+  const toggleAll = () => {
+    if (selected.length === filtered.length) {
+      setSelected([])
+    } else {
+      setSelected(filtered.map((f) => f.id))
+    }
+  }
+
+  const handleBulkDelete = () => {
+    setBulkDone(true)
+    setSelected([])
+    setTimeout(() => setBulkDone(false), 2000)
+  }
+
+  const FILE_TYPES: { id: TW105FileType; label: string }[] = [
+    { id: 'all', label: '전체' },
+    { id: 'document', label: '문서' },
+    { id: 'image', label: '이미지' },
+    { id: 'archive', label: '압축' },
+  ]
+
+  return (
+    <div style={{ width: '100%', minHeight: '100vh', background: '#f8fafc', fontFamily: 'system-ui, sans-serif' }}>
+      {/* AppBar */}
+      <AppBar>
+        <AppBar.Leading>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+            <div style={{ width: 28, height: 28, borderRadius: 8, background: '#6366f1', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 14 }}>
+              📁
+            </div>
+            <span style={{ fontWeight: 700, fontSize: 15 }}>파일 관리자</span>
+          </div>
+        </AppBar.Leading>
+        <AppBar.Trailing>
+          <SearchBar
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="파일 검색..."
+          />
+        </AppBar.Trailing>
+      </AppBar>
+
+      <div style={{ padding: '20px 24px', maxWidth: 900, margin: '0 auto' }}>
+        {/* 툴바 */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 16 }}>
+          {/* 타입 필터 */}
+          <div style={{ display: 'flex', gap: 6 }}>
+            {FILE_TYPES.map((t) => (
+              <Chip
+                key={t.id}
+                selected={filterType === t.id}
+                onClick={() => { setFilterType(t.id); setSelected([]) }}
+              >
+                {t.label}
+              </Chip>
+            ))}
+          </div>
+
+          <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: 8 }}>
+            {/* 정렬 */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: 4, fontSize: 12, color: '#64748b' }}>
+              <ArrowSortIcon />
+              {(['name', 'date', 'size'] as TW105SortKey[]).map((s) => (
+                <button
+                  key={s}
+                  onClick={() => setSortKey(s)}
+                  style={{
+                    padding: '3px 8px', borderRadius: 4, border: `1px solid ${sortKey === s ? '#6366f1' : '#e2e8f0'}`,
+                    background: sortKey === s ? '#eff6ff' : '#fff',
+                    color: sortKey === s ? '#6366f1' : '#64748b',
+                    fontSize: 11, fontWeight: sortKey === s ? 600 : 400, cursor: 'pointer',
+                  }}
+                >
+                  {{ name: '이름', date: '날짜', size: '크기' }[s]}
+                </button>
+              ))}
+            </div>
+
+            {/* 뷰 토글 */}
+            <Toggle
+              checked={gridView}
+              onCheckedChange={(v) => setGridView(v)}
+            />
+            <span style={{ fontSize: 11, color: '#94a3b8' }}>{gridView ? '그리드' : '목록'}</span>
+          </div>
+        </div>
+
+        {/* 일괄 작업 바 */}
+        {selected.length > 0 && (
+          <div style={{
+            display: 'flex', alignItems: 'center', gap: 10,
+            padding: '10px 16px', borderRadius: 10, marginBottom: 12,
+            background: '#eff6ff', border: '1px solid #c7d2fe',
+          }}>
+            <span style={{ fontSize: 13, fontWeight: 600, color: '#4f46e5' }}>{selected.length}개 선택됨</span>
+            <div style={{ marginLeft: 'auto', display: 'flex', gap: 6 }}>
+              <GhostButton color="gray" size="small" onClick={() => setSelected([])}>
+                <GhostButton.Center>선택 해제</GhostButton.Center>
+              </GhostButton>
+              <OutlineButton color="primary" size="small">
+                <OutlineButton.Center>다운로드</OutlineButton.Center>
+              </OutlineButton>
+              <SolidButton color="primary" size="small" onClick={handleBulkDelete}>
+                <SolidButton.Center>삭제</SolidButton.Center>
+              </SolidButton>
+            </div>
+          </div>
+        )}
+
+        {bulkDone && (
+          <div style={{ padding: '10px 14px', borderRadius: 8, background: '#f0fdf4', border: '1px solid #bbf7d0', fontSize: 12, color: '#15803d', marginBottom: 12 }}>
+            ✓ 선택한 파일이 삭제되었습니다.
+          </div>
+        )}
+
+        {/* 파일 목록/그리드 */}
+        {gridView ? (
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 12 }}>
+            {filtered.map((file) => {
+              const isSelected = selected.includes(file.id)
+              return (
+                <div
+                  key={file.id}
+                  onClick={() => toggleSelect(file.id)}
+                  style={{
+                    padding: '16px 14px', borderRadius: 12, border: `1.5px solid ${isSelected ? '#6366f1' : '#e2e8f0'}`,
+                    background: isSelected ? '#eff6ff' : '#fff', cursor: 'pointer',
+                    display: 'flex', flexDirection: 'column', gap: 8,
+                    transition: 'border-color 0.15s, background 0.15s',
+                  }}
+                >
+                  <div style={{ fontSize: 28, textAlign: 'center' }}>{TW105_FILE_ICONS[file.type]}</div>
+                  <div style={{ fontSize: 12, fontWeight: 600, color: '#0f172a', textAlign: 'center', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{file.name}</div>
+                  <div style={{ textAlign: 'center' }}>
+                    <LabelBadge color={file.status === 'error' ? 'sale' : file.status === 'processing' ? 'gray' : 'benefit'}>
+                      {TW105_STATUS_LABEL[file.status]}
+                    </LabelBadge>
+                  </div>
+                  <div style={{ fontSize: 10, color: '#94a3b8', textAlign: 'center' }}>{file.size}</div>
+                </div>
+              )
+            })}
+          </div>
+        ) : (
+          <div style={{ borderRadius: 12, border: '1px solid #e2e8f0', overflow: 'hidden', background: '#fff' }}>
+            {/* 테이블 헤더 */}
+            <div style={{ display: 'grid', gridTemplateColumns: '32px 1fr 80px 100px 80px 80px', alignItems: 'center', padding: '10px 16px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0' }}>
+              <input
+                type="checkbox"
+                checked={selected.length === filtered.length && filtered.length > 0}
+                onChange={toggleAll}
+                style={{ cursor: 'pointer' }}
+              />
+              <span style={{ fontSize: 11, fontWeight: 700, color: '#64748b', letterSpacing: 0.5 }}>파일명</span>
+              <span style={{ fontSize: 11, fontWeight: 700, color: '#64748b' }}>크기</span>
+              <span style={{ fontSize: 11, fontWeight: 700, color: '#64748b' }}>수정일</span>
+              <span style={{ fontSize: 11, fontWeight: 700, color: '#64748b' }}>담당자</span>
+              <span style={{ fontSize: 11, fontWeight: 700, color: '#64748b' }}>상태</span>
+            </div>
+
+            {filtered.map((file, idx) => {
+              const isSelected = selected.includes(file.id)
+              return (
+                <div
+                  key={file.id}
+                  onClick={() => toggleSelect(file.id)}
+                  style={{
+                    display: 'grid', gridTemplateColumns: '32px 1fr 80px 100px 80px 80px',
+                    alignItems: 'center', padding: '12px 16px',
+                    borderTop: idx === 0 ? 'none' : '1px solid #f1f5f9',
+                    background: isSelected ? '#eff6ff' : '#fff',
+                    cursor: 'pointer', transition: 'background 0.1s',
+                  }}
+                >
+                  <input
+                    type="checkbox"
+                    checked={isSelected}
+                    onChange={() => toggleSelect(file.id)}
+                    onClick={(e) => e.stopPropagation()}
+                    style={{ cursor: 'pointer' }}
+                  />
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 8, overflow: 'hidden' }}>
+                    <span style={{ fontSize: 16, flexShrink: 0 }}>{TW105_FILE_ICONS[file.type]}</span>
+                    <span style={{ fontSize: 13, color: '#0f172a', fontWeight: 500, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{file.name}</span>
+                  </div>
+                  <span style={{ fontSize: 12, color: '#64748b' }}>{file.size}</span>
+                  <span style={{ fontSize: 12, color: '#94a3b8' }}>{file.modified}</span>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
+                    <div style={{ width: 22, height: 22, borderRadius: '50%', background: file.ownerColor, color: '#fff', fontSize: 9, fontWeight: 700, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                      {file.owner[0]}
+                    </div>
+                    <span style={{ fontSize: 11, color: '#64748b' }}>{file.owner}</span>
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+                    <span style={{ width: 6, height: 6, borderRadius: '50%', background: TW105_STATUS_COLOR[file.status], flexShrink: 0, display: 'inline-block' }} />
+                    <span style={{ fontSize: 11, color: TW105_STATUS_COLOR[file.status], fontWeight: 600 }}>{TW105_STATUS_LABEL[file.status]}</span>
+                  </div>
+                </div>
+              )
+            })}
+
+            {filtered.length === 0 && (
+              <div style={{ padding: '40px 0', textAlign: 'center', color: '#94a3b8', fontSize: 13 }}>
+                파일이 없습니다.
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* 하단 요약 */}
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 12, padding: '8px 4px', fontSize: 11, color: '#94a3b8' }}>
+          <span>{filtered.length}개 파일</span>
+          <span>총 용량: {TW105_FILES.reduce((sum, f) => sum + parseFloat(f.size), 0).toFixed(1)} MB</span>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const TailwindUI105FileManager: StoryObj = {
+  name: 'Tailwind UI + Ant Design — File Manager (Cycle 105)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Tailwind UI + Ant Design 벤치마크 — Cycle 105. ' +
+          '파일 관리자: 타입 필터(Chip) + 정렬 + 목록/그리드 Toggle + 다중 선택 + 일괄 삭제. ' +
+          'AppBar, SearchBar, Chip, Toggle, LabelBadge, GhostButton, OutlineButton, SolidButton 복합 활용.',
+      },
+    },
+  },
+  render: () => <TW105FileManagerRender />,
+}

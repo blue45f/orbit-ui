@@ -958,3 +958,402 @@ export const Material3_Exposed_드롭다운_메뉴: Story = {
     )
   },
 }
+
+/* --------------------------------------------------------------------------
+   Tailwind UI 벤치마크: 태그 멀티 선택 드롭다운
+   여러 항목을 선택해 인라인 태그로 표시하는 패턴
+-------------------------------------------------------------------------- */
+const TW_TAG_OPTIONS = [
+  { value: 'react', label: 'React' },
+  { value: 'typescript', label: 'TypeScript' },
+  { value: 'tailwind', label: 'Tailwind CSS' },
+  { value: 'nextjs', label: 'Next.js' },
+  { value: 'storybook', label: 'Storybook' },
+  { value: 'vitest', label: 'Vitest' },
+  { value: 'playwright', label: 'Playwright' },
+  { value: 'figma', label: 'Figma' },
+]
+
+export const TailwindUI_태그_멀티선택_드롭다운: Story = {
+  name: 'Tailwind UI — 태그 멀티 선택 드롭다운',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Tailwind UI Combobox(Multi) 패턴. 선택한 항목이 인라인 태그(chip)으로 트리거 내부에 표시되고, ' +
+          '태그별 삭제 버튼으로 개별 제거 가능. 검색 필터로 옵션 실시간 탐색.',
+      },
+    },
+  },
+  render: function TwTagMultiSelect() {
+    const [selected, setSelected] = useState<string[]>([])
+    const [open, setOpen] = useState(false)
+    const [query, setQuery] = useState('')
+
+    const toggle = (value: string) => {
+      if (selected.includes(value)) {
+        setSelected(selected.filter((v) => v !== value))
+      } else {
+        setSelected([...selected, value])
+      }
+    }
+
+    const filtered = TW_TAG_OPTIONS.filter((opt) =>
+      opt.label.toLowerCase().includes(query.toLowerCase())
+    )
+
+    return (
+      <div style={{ width: 360, fontFamily: 'system-ui, sans-serif', position: 'relative' }}>
+        <div style={{ fontSize: 12, fontWeight: 600, color: '#374151', marginBottom: 6 }}>기술 스택 선택</div>
+
+        {/* Trigger */}
+        <div
+          onClick={() => setOpen((o) => !o)}
+          style={{
+            minHeight: 42, padding: '6px 10px', borderRadius: 8,
+            border: `1.5px solid ${open ? '#6366f1' : '#e2e8f0'}`,
+            background: '#fff', cursor: 'pointer', display: 'flex', flexWrap: 'wrap', gap: 4, alignItems: 'center',
+            transition: 'border-color 0.15s',
+          }}
+        >
+          {selected.length === 0 && (
+            <span style={{ fontSize: 13, color: '#94a3b8' }}>기술 스택을 선택하세요...</span>
+          )}
+          {selected.map((v) => {
+            const opt = TW_TAG_OPTIONS.find((o) => o.value === v)
+            return (
+              <span
+                key={v}
+                style={{
+                  display: 'inline-flex', alignItems: 'center', gap: 4,
+                  padding: '2px 8px', borderRadius: 20,
+                  background: '#eff6ff', color: '#3b82f6', fontSize: 11, fontWeight: 600,
+                }}
+              >
+                {opt?.label}
+                <span
+                  onClick={(e) => { e.stopPropagation(); toggle(v) }}
+                  style={{ cursor: 'pointer', fontSize: 13, lineHeight: 1, color: '#6366f1' }}
+                >
+                  ×
+                </span>
+              </span>
+            )
+          })}
+          <span style={{ marginLeft: 'auto', color: '#94a3b8', fontSize: 14 }}>
+            <ChevronRightLineIcon />
+          </span>
+        </div>
+
+        {/* Dropdown */}
+        {open && (
+          <div style={{
+            position: 'absolute', top: 'calc(100% + 4px)', left: 0, right: 0,
+            background: '#fff', borderRadius: 10, border: '1px solid #e2e8f0',
+            boxShadow: '0 8px 24px rgba(0,0,0,0.08)', zIndex: 20, overflow: 'hidden',
+          }}>
+            <div style={{ padding: '8px 10px', borderBottom: '1px solid #f1f5f9' }}>
+              <input
+                placeholder="검색..."
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                onClick={(e) => e.stopPropagation()}
+                style={{ width: '100%', border: 'none', outline: 'none', fontSize: 12, color: '#374151' }}
+              />
+            </div>
+            {filtered.length === 0 ? (
+              <div style={{ padding: '12px 14px', fontSize: 12, color: '#94a3b8' }}>검색 결과 없음</div>
+            ) : (
+              filtered.map((opt) => {
+                const isSelected = selected.includes(opt.value)
+                return (
+                  <div
+                    key={opt.value}
+                    onClick={(e) => { e.stopPropagation(); toggle(opt.value) }}
+                    style={{
+                      padding: '9px 14px', cursor: 'pointer', fontSize: 13,
+                      display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                      background: isSelected ? '#eff6ff' : '#fff',
+                      color: isSelected ? '#3b82f6' : '#374151',
+                      fontWeight: isSelected ? 600 : 400,
+                    }}
+                  >
+                    {opt.label}
+                    {isSelected && <span style={{ fontSize: 11, color: '#6366f1' }}>✓</span>}
+                  </div>
+                )
+              })
+            )}
+            <div style={{ padding: '8px 12px', borderTop: '1px solid #f1f5f9', display: 'flex', justifyContent: 'space-between' }}>
+              <span style={{ fontSize: 11, color: '#94a3b8' }}>{selected.length}개 선택됨</span>
+              <button
+                onClick={(e) => { e.stopPropagation(); setSelected([]); setQuery('') }}
+                style={{ fontSize: 11, color: '#ef4444', background: 'none', border: 'none', cursor: 'pointer' }}
+              >
+                전체 해제
+              </button>
+            </div>
+          </div>
+        )}
+      </div>
+    )
+  },
+}
+
+/* --------------------------------------------------------------------------
+   Ant Design 벤치마크: 계층형 카테고리 선택기
+   Ant Design Cascader 패턴 — 부모-자식 카테고리 2단 선택
+-------------------------------------------------------------------------- */
+type AntCategory = { value: string; label: string; children?: { value: string; label: string }[] }
+const ANT_CATEGORIES: AntCategory[] = [
+  {
+    value: 'frontend', label: '프론트엔드',
+    children: [
+      { value: 'react', label: 'React' },
+      { value: 'vue', label: 'Vue' },
+      { value: 'svelte', label: 'Svelte' },
+    ],
+  },
+  {
+    value: 'backend', label: '백엔드',
+    children: [
+      { value: 'node', label: 'Node.js' },
+      { value: 'python', label: 'Python' },
+      { value: 'go', label: 'Go' },
+    ],
+  },
+  {
+    value: 'design', label: '디자인',
+    children: [
+      { value: 'ui', label: 'UI 디자인' },
+      { value: 'ux', label: 'UX 리서치' },
+      { value: 'motion', label: '모션 디자인' },
+    ],
+  },
+  {
+    value: 'devops', label: 'DevOps',
+    children: [
+      { value: 'docker', label: 'Docker' },
+      { value: 'k8s', label: 'Kubernetes' },
+      { value: 'ci', label: 'CI/CD' },
+    ],
+  },
+]
+
+export const Ant_계층형_카테고리_선택기: Story = {
+  name: 'Ant Design — 계층형 카테고리 Cascader',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Ant Design Cascader 패턴. 1단계 카테고리 선택 시 오른쪽에 하위 항목 컬럼이 펼쳐지는 ' +
+          '2단 계층형 선택 UI. 선택 경로를 breadcrumb 형태로 표시.',
+      },
+    },
+  },
+  render: function AntCascader() {
+    const [open, setOpen] = useState(false)
+    const [parent, setParent] = useState<string | null>(null)
+    const [selected, setSelected] = useState<{ parent: string; child: string } | null>(null)
+
+    const parentItem = ANT_CATEGORIES.find((c) => c.value === parent)
+    const displayLabel = selected
+      ? `${ANT_CATEGORIES.find((c) => c.value === selected.parent)?.label} / ${parentItem?.children?.find((c) => c.value === selected.child)?.label ?? ''}`
+      : ''
+
+    return (
+      <div style={{ width: 320, fontFamily: 'system-ui, sans-serif', position: 'relative' }}>
+        <div style={{ fontSize: 12, fontWeight: 600, color: '#374151', marginBottom: 6 }}>직무 카테고리</div>
+
+        <div
+          onClick={() => setOpen((o) => !o)}
+          style={{
+            padding: '10px 14px', borderRadius: 8, border: `1.5px solid ${open ? '#6366f1' : '#e2e8f0'}`,
+            background: '#fff', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+            transition: 'border-color 0.15s',
+          }}
+        >
+          <span style={{ fontSize: 13, color: selected ? '#0f172a' : '#94a3b8', fontWeight: selected ? 500 : 400 }}>
+            {displayLabel || '카테고리를 선택하세요'}
+          </span>
+          <ChevronRightLineIcon />
+        </div>
+
+        {open && (
+          <div style={{
+            position: 'absolute', top: 'calc(100% + 4px)', left: 0,
+            display: 'flex', borderRadius: 10, border: '1px solid #e2e8f0',
+            boxShadow: '0 8px 24px rgba(0,0,0,0.08)', zIndex: 20, overflow: 'hidden',
+          }}>
+            {/* 1단계 */}
+            <div style={{ width: 140, background: '#fff', borderRight: '1px solid #f1f5f9' }}>
+              {ANT_CATEGORIES.map((cat) => (
+                <div
+                  key={cat.value}
+                  onMouseEnter={() => setParent(cat.value)}
+                  onClick={(e) => e.stopPropagation()}
+                  style={{
+                    padding: '9px 14px', cursor: 'pointer', fontSize: 13,
+                    display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                    background: parent === cat.value ? '#eff6ff' : '#fff',
+                    color: parent === cat.value ? '#6366f1' : '#374151',
+                    fontWeight: parent === cat.value ? 600 : 400,
+                  }}
+                >
+                  {cat.label}
+                  <span style={{ fontSize: 10, color: '#94a3b8' }}>›</span>
+                </div>
+              ))}
+            </div>
+
+            {/* 2단계 */}
+            {parentItem && (
+              <div style={{ width: 140, background: '#fff' }}>
+                {parentItem.children?.map((child) => (
+                  <div
+                    key={child.value}
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      setSelected({ parent: parentItem.value, child: child.value })
+                      setOpen(false)
+                    }}
+                    style={{
+                      padding: '9px 14px', cursor: 'pointer', fontSize: 13,
+                      background: selected?.child === child.value && selected?.parent === parentItem.value ? '#eff6ff' : '#fff',
+                      color: selected?.child === child.value && selected?.parent === parentItem.value ? '#6366f1' : '#374151',
+                      fontWeight: selected?.child === child.value && selected?.parent === parentItem.value ? 600 : 400,
+                    }}
+                  >
+                    {child.label}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
+
+        {selected && (
+          <div style={{ marginTop: 8, padding: '6px 10px', borderRadius: 6, background: '#eff6ff', border: '1px solid #c7d2fe', fontSize: 11, color: '#4f46e5' }}>
+            선택: {displayLabel}
+          </div>
+        )}
+      </div>
+    )
+  },
+}
+
+/* --------------------------------------------------------------------------
+   Tailwind UI 벤치마크: 인원 배정 선택기
+   Tailwind UI Combobox(with avatar) 패턴
+-------------------------------------------------------------------------- */
+type TwAssignee = { id: number; name: string; role: string; initials: string; color: string }
+const TW_ASSIGNEES: TwAssignee[] = [
+  { id: 1, name: '김지수', role: '디자이너', initials: '김', color: '#3b82f6' },
+  { id: 2, name: '이민준', role: '프론트엔드', initials: '이', color: '#8b5cf6' },
+  { id: 3, name: '박서연', role: '백엔드', initials: '박', color: '#10b981' },
+  { id: 4, name: '최현우', role: '프로덕트 매니저', initials: '최', color: '#f59e0b' },
+  { id: 5, name: '정유나', role: 'QA 엔지니어', initials: '정', color: '#ef4444' },
+]
+
+export const TailwindUI_인원_배정_드롭다운: Story = {
+  name: 'Tailwind UI — 인원 배정 아바타 Combobox',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Tailwind UI Combobox with Avatar 패턴. 아바타 + 이름 + 직책으로 구성된 인원 목록에서 ' +
+          '담당자를 배정하는 드롭다운. 선택된 인원이 트리거에 아바타로 표시됩니다.',
+      },
+    },
+  },
+  render: function TwAssigneeDropdown() {
+    const [open, setOpen] = useState(false)
+    const [assignee, setAssignee] = useState<TwAssignee | null>(null)
+    const [query, setQuery] = useState('')
+
+    const filtered = TW_ASSIGNEES.filter((a) =>
+      a.name.includes(query) || a.role.toLowerCase().includes(query.toLowerCase())
+    )
+
+    return (
+      <div style={{ width: 300, fontFamily: 'system-ui, sans-serif', position: 'relative' }}>
+        <div style={{ fontSize: 12, fontWeight: 600, color: '#374151', marginBottom: 6 }}>담당자 배정</div>
+
+        <div
+          onClick={() => setOpen((o) => !o)}
+          style={{
+            padding: '8px 12px', borderRadius: 8,
+            border: `1.5px solid ${open ? '#6366f1' : '#e2e8f0'}`,
+            background: '#fff', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 10,
+            transition: 'border-color 0.15s',
+          }}
+        >
+          {assignee ? (
+            <>
+              <div style={{ width: 28, height: 28, borderRadius: '50%', background: assignee.color, color: '#fff', fontSize: 11, fontWeight: 700, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                {assignee.initials}
+              </div>
+              <div style={{ flex: 1 }}>
+                <div style={{ fontSize: 13, fontWeight: 600, color: '#0f172a' }}>{assignee.name}</div>
+                <div style={{ fontSize: 11, color: '#64748b' }}>{assignee.role}</div>
+              </div>
+            </>
+          ) : (
+            <span style={{ fontSize: 13, color: '#94a3b8', flex: 1 }}>담당자를 선택하세요</span>
+          )}
+          <ChevronRightLineIcon />
+        </div>
+
+        {open && (
+          <div style={{
+            position: 'absolute', top: 'calc(100% + 4px)', left: 0, right: 0,
+            background: '#fff', borderRadius: 10, border: '1px solid #e2e8f0',
+            boxShadow: '0 8px 24px rgba(0,0,0,0.1)', zIndex: 20, overflow: 'hidden',
+          }}>
+            <div style={{ padding: '8px 10px', borderBottom: '1px solid #f1f5f9', display: 'flex', alignItems: 'center', gap: 6 }}>
+              <SearchIcon />
+              <input
+                placeholder="이름 또는 직책 검색"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                onClick={(e) => e.stopPropagation()}
+                style={{ border: 'none', outline: 'none', fontSize: 12, flex: 1, color: '#374151' }}
+              />
+            </div>
+            {filtered.map((a) => (
+              <div
+                key={a.id}
+                onClick={(e) => { e.stopPropagation(); setAssignee(a); setOpen(false); setQuery('') }}
+                style={{
+                  padding: '10px 12px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 10,
+                  background: assignee?.id === a.id ? '#eff6ff' : '#fff',
+                  borderLeft: `3px solid ${assignee?.id === a.id ? '#6366f1' : 'transparent'}`,
+                  transition: 'background 0.1s',
+                }}
+              >
+                <div style={{ width: 32, height: 32, borderRadius: '50%', background: a.color, color: '#fff', fontSize: 12, fontWeight: 700, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                  {a.initials}
+                </div>
+                <div>
+                  <div style={{ fontSize: 13, fontWeight: 600, color: '#0f172a' }}>{a.name}</div>
+                  <div style={{ fontSize: 11, color: '#64748b' }}>{a.role}</div>
+                </div>
+                {assignee?.id === a.id && <span style={{ marginLeft: 'auto', fontSize: 12, color: '#6366f1' }}>✓</span>}
+              </div>
+            ))}
+            {assignee && (
+              <div style={{ padding: '8px 12px', borderTop: '1px solid #f1f5f9' }}>
+                <button
+                  onClick={(e) => { e.stopPropagation(); setAssignee(null); setOpen(false) }}
+                  style={{ width: '100%', padding: '6px', borderRadius: 6, border: '1px solid #e2e8f0', background: '#fff', fontSize: 11, color: '#64748b', cursor: 'pointer' }}
+                >
+                  배정 해제
+                </button>
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+    )
+  },
+}

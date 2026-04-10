@@ -1012,3 +1012,428 @@ export const Radix_Chakra_권한_설정_모달: Story = {
   },
   render: () => <PermModalRender />,
 }
+
+/* --------------------------------------------------------------------------
+   Tailwind UI 벤치마크: 알림 설정 모달
+   Tailwind UI Notification preferences dialog 패턴
+-------------------------------------------------------------------------- */
+type TwNotifKey = 'email' | 'push' | 'slack' | 'sms'
+type TwNotifCategory = 'mentions' | 'comments' | 'releases' | 'billing'
+
+const TW_NOTIF_CHANNELS: { id: TwNotifKey; label: string; icon: string }[] = [
+  { id: 'email', label: '이메일', icon: '✉' },
+  { id: 'push', label: '푸시 알림', icon: '🔔' },
+  { id: 'slack', label: 'Slack', icon: '#' },
+  { id: 'sms', label: 'SMS', icon: '💬' },
+]
+
+const TW_NOTIF_CATEGORIES: { id: TwNotifCategory; label: string; desc: string }[] = [
+  { id: 'mentions', label: '멘션', desc: '나를 태그하거나 언급한 경우' },
+  { id: 'comments', label: '댓글', desc: '내 게시물에 댓글이 달린 경우' },
+  { id: 'releases', label: '릴리즈', desc: '새로운 버전이 배포된 경우' },
+  { id: 'billing', label: '결제', desc: '청구 및 결제 관련 알림' },
+]
+
+const TwNotifRender = () => {
+  const [prefs, setPrefs] = React.useState<Record<TwNotifCategory, TwNotifKey[]>>({
+    mentions: ['email', 'push'],
+    comments: ['email'],
+    releases: ['slack'],
+    billing: ['email', 'sms'],
+  })
+  const [saved, setSaved] = React.useState(false)
+
+  const toggle = (category: TwNotifCategory, channel: TwNotifKey) => {
+    setSaved(false)
+    setPrefs((prev) => {
+      const current = prev[category]
+      if (current.includes(channel)) {
+        return { ...prev, [category]: current.filter((c) => c !== channel) }
+      } else {
+        return { ...prev, [category]: [...current, channel] }
+      }
+    })
+  }
+
+  return (
+    <div style={{ padding: 40, display: 'flex', justifyContent: 'center' }}>
+      <Dialog defaultIsPresented={false}>
+        <Dialog.Trigger asChild>
+          <Button color="primary" size="medium">
+            <Button.Center>알림 설정</Button.Center>
+          </Button>
+        </Dialog.Trigger>
+        <Dialog.Top>
+          <Typography style={{ fontWeight: 700, fontSize: 15, marginBottom: 4 }}>알림 환경설정</Typography>
+          <Typography style={{ fontSize: 12, color: '#64748b', marginBottom: 16 }}>
+            카테고리별로 수신할 알림 채널을 선택하세요
+          </Typography>
+
+          {/* 채널 헤더 */}
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr repeat(4, 48px)', gap: 0, marginBottom: 4 }}>
+            <div />
+            {TW_NOTIF_CHANNELS.map((ch) => (
+              <div key={ch.id} style={{ textAlign: 'center', fontSize: 10, fontWeight: 700, color: '#94a3b8', letterSpacing: 0.5 }}>
+                {ch.icon}
+              </div>
+            ))}
+          </div>
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+            {TW_NOTIF_CATEGORIES.map((cat) => (
+              <div key={cat.id} style={{ display: 'grid', gridTemplateColumns: '1fr repeat(4, 48px)', alignItems: 'center', padding: '10px 8px', borderRadius: 8, background: '#f8fafc' }}>
+                <div>
+                  <div style={{ fontSize: 13, fontWeight: 600, color: '#0f172a' }}>{cat.label}</div>
+                  <div style={{ fontSize: 11, color: '#94a3b8' }}>{cat.desc}</div>
+                </div>
+                {TW_NOTIF_CHANNELS.map((ch) => {
+                  const isOn = prefs[cat.id].includes(ch.id)
+                  return (
+                    <div key={ch.id} style={{ display: 'flex', justifyContent: 'center' }}>
+                      <button
+                        onClick={() => toggle(cat.id, ch.id)}
+                        style={{
+                          width: 20, height: 20, borderRadius: 4, border: `2px solid ${isOn ? '#6366f1' : '#cbd5e1'}`,
+                          background: isOn ? '#6366f1' : '#fff', cursor: 'pointer',
+                          display: 'flex', alignItems: 'center', justifyContent: 'center',
+                          fontSize: 10, color: '#fff', fontWeight: 700, transition: 'all 0.15s',
+                        }}
+                      >
+                        {isOn ? '✓' : ''}
+                      </button>
+                    </div>
+                  )
+                })}
+              </div>
+            ))}
+          </div>
+
+          {saved && (
+            <div style={{ marginTop: 12, padding: '8px 12px', borderRadius: 8, background: '#f0fdf4', border: '1px solid #bbf7d0', fontSize: 12, color: '#15803d', textAlign: 'center' }}>
+              ✓ 알림 설정이 저장되었습니다
+            </div>
+          )}
+        </Dialog.Top>
+        <Dialog.Bottom direction="horizontal">
+          <Dialog.Close asChild>
+            <Button color="gray" size="large" width="100%">
+              <Button.Center>취소</Button.Center>
+            </Button>
+          </Dialog.Close>
+          <Button color="primary" size="large" width="100%" onClick={() => setSaved(true)}>
+            <Button.Center>설정 저장</Button.Center>
+          </Button>
+        </Dialog.Bottom>
+      </Dialog>
+    </div>
+  )
+}
+
+export const TailwindUI_알림_설정_모달: Story = {
+  name: 'Tailwind UI — 알림 채널 환경설정 모달',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Tailwind UI Notification preferences dialog 패턴. ' +
+          '카테고리(멘션/댓글/릴리즈/결제) × 채널(이메일/푸시/Slack/SMS) 체크박스 매트릭스로 ' +
+          '세밀한 알림 설정을 지원. 저장 시 인라인 성공 배너 표시.',
+      },
+    },
+  },
+  render: () => <TwNotifRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Ant Design 벤치마크: 일괄 작업 확인 모달
+   Ant Design Popconfirm / Modal.confirm 패턴
+-------------------------------------------------------------------------- */
+type AntBulkItem = { id: number; name: string; status: string; checked: boolean }
+
+const AntBulkRender = () => {
+  const [items, setItems] = React.useState<AntBulkItem[]>([
+    { id: 1, name: 'user_data_2023.csv', status: '업로드 완료', checked: true },
+    { id: 2, name: 'analytics_report.pdf', status: '처리 중', checked: true },
+    { id: 3, name: 'legacy_backup.zip', status: '오류', checked: false },
+    { id: 4, name: 'config_snapshot.json', status: '업로드 완료', checked: true },
+  ])
+  const [step, setStep] = React.useState<'idle' | 'confirm' | 'done'>('idle')
+
+  const checkedItems = items.filter((i) => i.checked)
+
+  const toggleItem = (id: number) => {
+    setItems((prev) => prev.map((item) => item.id === id ? { ...item, checked: !item.checked } : item))
+  }
+
+  const handleDelete = () => {
+    setItems((prev) => prev.filter((i) => !i.checked))
+    setStep('done')
+  }
+
+  const statusColor: Record<string, string> = {
+    '업로드 완료': '#10b981',
+    '처리 중': '#f59e0b',
+    '오류': '#ef4444',
+  }
+
+  return (
+    <div style={{ padding: 40, display: 'flex', justifyContent: 'center' }}>
+      <Dialog defaultIsPresented={false}>
+        <Dialog.Trigger asChild>
+          <Button color="primary" size="medium">
+            <Button.Center>파일 관리</Button.Center>
+          </Button>
+        </Dialog.Trigger>
+        <Dialog.Top>
+          {step === 'done' ? (
+            <div style={{ padding: '20px 0', textAlign: 'center' }}>
+              <div style={{ fontSize: 36, marginBottom: 12 }}>🗑</div>
+              <div style={{ fontSize: 15, fontWeight: 700, color: '#0f172a', marginBottom: 4 }}>삭제 완료</div>
+              <div style={{ fontSize: 12, color: '#64748b' }}>선택한 파일이 삭제되었습니다.</div>
+            </div>
+          ) : step === 'confirm' ? (
+            <div>
+              <div style={{ fontSize: 15, fontWeight: 700, color: '#dc2626', marginBottom: 8 }}>
+                ⚠ 일괄 삭제 확인
+              </div>
+              <div style={{ fontSize: 13, color: '#475569', marginBottom: 16, lineHeight: 1.6 }}>
+                선택한 <strong>{checkedItems.length}개</strong> 파일을 삭제하시겠습니까?<br />
+                이 작업은 되돌릴 수 없습니다.
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+                {checkedItems.map((item) => (
+                  <div key={item.id} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '8px 10px', borderRadius: 6, background: '#fef2f2', border: '1px solid #fecaca' }}>
+                    <span style={{ fontSize: 14 }}>📄</span>
+                    <span style={{ fontSize: 12, color: '#7f1d1d', flex: 1 }}>{item.name}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ) : (
+            <div>
+              <Typography style={{ fontWeight: 700, fontSize: 15, marginBottom: 4 }}>파일 목록</Typography>
+              <Typography style={{ fontSize: 12, color: '#64748b', marginBottom: 14 }}>
+                삭제할 파일을 선택하세요
+              </Typography>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+                {items.map((item) => (
+                  <div
+                    key={item.id}
+                    onClick={() => toggleItem(item.id)}
+                    style={{
+                      display: 'flex', alignItems: 'center', gap: 10, padding: '10px 12px', borderRadius: 8,
+                      border: `1px solid ${item.checked ? '#fecaca' : '#e2e8f0'}`,
+                      background: item.checked ? '#fff5f5' : '#fff', cursor: 'pointer',
+                    }}
+                  >
+                    <span style={{ width: 16, height: 16, borderRadius: 3, border: `2px solid ${item.checked ? '#ef4444' : '#cbd5e1'}`, background: item.checked ? '#ef4444' : '#fff', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: 9, color: '#fff', fontWeight: 700, flexShrink: 0 }}>
+                      {item.checked ? '✓' : ''}
+                    </span>
+                    <div style={{ flex: 1 }}>
+                      <div style={{ fontSize: 13, color: '#0f172a', fontWeight: 500 }}>{item.name}</div>
+                    </div>
+                    <span style={{ fontSize: 10, fontWeight: 600, color: statusColor[item.status] ?? '#94a3b8' }}>{item.status}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </Dialog.Top>
+        <Dialog.Bottom direction="horizontal">
+          {step === 'idle' && (
+            <>
+              <Dialog.Close asChild>
+                <Button color="gray" size="large" width="100%">
+                  <Button.Center>닫기</Button.Center>
+                </Button>
+              </Dialog.Close>
+              <Button
+                color="primary" size="large" width="100%"
+                disabled={checkedItems.length === 0}
+                onClick={() => setStep('confirm')}
+              >
+                <Button.Center>
+                  {checkedItems.length > 0 ? `${checkedItems.length}개 삭제` : '항목 선택 필요'}
+                </Button.Center>
+              </Button>
+            </>
+          )}
+          {step === 'confirm' && (
+            <>
+              <Button color="gray" size="large" width="100%" onClick={() => setStep('idle')}>
+                <Button.Center>돌아가기</Button.Center>
+              </Button>
+              <Button color="primary" size="large" width="100%" onClick={handleDelete}>
+                <Button.Center>삭제 확인</Button.Center>
+              </Button>
+            </>
+          )}
+          {step === 'done' && (
+            <Dialog.Close asChild>
+              <Button color="primary" size="large" width="100%">
+                <Button.Center>완료</Button.Center>
+              </Button>
+            </Dialog.Close>
+          )}
+        </Dialog.Bottom>
+      </Dialog>
+    </div>
+  )
+}
+
+export const Ant_일괄_삭제_확인_모달: Story = {
+  name: 'Ant Design — 일괄 작업 확인 Modal.confirm 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Ant Design Modal.confirm 패턴. 파일 목록에서 다중 선택 후 삭제 확인 단계를 거치는 ' +
+          '3단계 플로우(선택→확인→완료). 위험 작업의 이중 확인 UX를 구현합니다.',
+      },
+    },
+  },
+  render: () => <AntBulkRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Tailwind UI 벤치마크: 공유 설정 모달
+   Tailwind UI Share dialog 패턴 — 링크 공유 + 권한 관리
+-------------------------------------------------------------------------- */
+type TwShareRole = 'viewer' | 'editor' | 'admin'
+
+const TW_SHARE_ROLE_LABELS: Record<TwShareRole, string> = {
+  viewer: '보기만 가능',
+  editor: '편집 가능',
+  admin: '관리자',
+}
+
+type TwShareMember = { id: number; name: string; email: string; role: TwShareRole; initials: string; color: string }
+
+const TwShareRender = () => {
+  const [members, setMembers] = React.useState<TwShareMember[]>([
+    { id: 1, name: '김지수', email: 'jisu@orbit.dev', role: 'admin', initials: '김', color: '#3b82f6' },
+    { id: 2, name: '이민준', email: 'minjun@orbit.dev', role: 'editor', initials: '이', color: '#8b5cf6' },
+    { id: 3, name: '박서연', email: 'seoyeon@orbit.dev', role: 'viewer', initials: '박', color: '#10b981' },
+  ])
+  const [linkCopied, setLinkCopied] = React.useState(false)
+  const [inviteEmail, setInviteEmail] = React.useState('')
+
+  const changeRole = (id: number, role: TwShareRole) => {
+    setMembers((prev) => prev.map((m) => m.id === id ? { ...m, role } : m))
+  }
+
+  const handleCopy = () => {
+    setLinkCopied(true)
+    setTimeout(() => setLinkCopied(false), 2000)
+  }
+
+  const handleInvite = () => {
+    if (inviteEmail.trim() && inviteEmail.includes('@')) {
+      const parts = inviteEmail.split('@')
+      setMembers((prev) => [...prev, {
+        id: Date.now(), name: parts[0], email: inviteEmail,
+        role: 'viewer', initials: parts[0][0].toUpperCase(), color: '#94a3b8',
+      }])
+      setInviteEmail('')
+    }
+  }
+
+  return (
+    <div style={{ padding: 40, display: 'flex', justifyContent: 'center' }}>
+      <Dialog defaultIsPresented={false}>
+        <Dialog.Trigger asChild>
+          <Button color="primary" size="medium">
+            <Button.Center>공유</Button.Center>
+          </Button>
+        </Dialog.Trigger>
+        <Dialog.Top>
+          <Typography style={{ fontWeight: 700, fontSize: 15, marginBottom: 14 }}>접근 권한 관리</Typography>
+
+          {/* 초대 */}
+          <div style={{ display: 'flex', gap: 6, marginBottom: 16 }}>
+            <input
+              value={inviteEmail}
+              onChange={(e) => setInviteEmail(e.target.value)}
+              onKeyDown={(e) => { if (e.key === 'Enter') { handleInvite() } }}
+              placeholder="이메일로 초대..."
+              style={{ flex: 1, padding: '8px 12px', borderRadius: 8, border: '1px solid #e2e8f0', fontSize: 12, outline: 'none' }}
+            />
+            <button
+              onClick={handleInvite}
+              disabled={!inviteEmail.includes('@')}
+              style={{
+                padding: '8px 14px', borderRadius: 8, border: 'none', fontSize: 12, fontWeight: 600, cursor: inviteEmail.includes('@') ? 'pointer' : 'not-allowed',
+                background: inviteEmail.includes('@') ? '#6366f1' : '#e2e8f0',
+                color: inviteEmail.includes('@') ? '#fff' : '#94a3b8',
+              }}
+            >
+              초대
+            </button>
+          </div>
+
+          {/* 멤버 목록 */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 6, marginBottom: 16 }}>
+            {members.map((m) => (
+              <div key={m.id} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                <div style={{ width: 30, height: 30, borderRadius: '50%', background: m.color, color: '#fff', fontSize: 11, fontWeight: 700, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                  {m.initials}
+                </div>
+                <div style={{ flex: 1 }}>
+                  <div style={{ fontSize: 13, fontWeight: 600, color: '#0f172a' }}>{m.name}</div>
+                  <div style={{ fontSize: 11, color: '#94a3b8' }}>{m.email}</div>
+                </div>
+                <select
+                  value={m.role}
+                  onChange={(e) => changeRole(m.id, e.target.value as TwShareRole)}
+                  style={{ fontSize: 11, border: '1px solid #e2e8f0', borderRadius: 6, padding: '3px 6px', color: '#374151', background: '#fff', cursor: 'pointer' }}
+                >
+                  {(Object.keys(TW_SHARE_ROLE_LABELS) as TwShareRole[]).map((role) => (
+                    <option key={role} value={role}>{TW_SHARE_ROLE_LABELS[role]}</option>
+                  ))}
+                </select>
+              </div>
+            ))}
+          </div>
+
+          {/* 링크 공유 */}
+          <div style={{ padding: '10px 12px', borderRadius: 8, background: '#f8fafc', border: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', gap: 8 }}>
+            <span style={{ fontSize: 12, color: '#64748b', flex: 1 }}>https://orbit.dev/share/abc123</span>
+            <button
+              onClick={handleCopy}
+              style={{ padding: '4px 10px', borderRadius: 6, border: 'none', background: linkCopied ? '#10b981' : '#6366f1', color: '#fff', fontSize: 11, fontWeight: 600, cursor: 'pointer', transition: 'background 0.2s' }}
+            >
+              {linkCopied ? '복사됨 ✓' : '링크 복사'}
+            </button>
+          </div>
+        </Dialog.Top>
+        <Dialog.Bottom direction="horizontal">
+          <Dialog.Close asChild>
+            <Button color="gray" size="large" width="100%">
+              <Button.Center>닫기</Button.Center>
+            </Button>
+          </Dialog.Close>
+          <Dialog.Close asChild>
+            <Button color="primary" size="large" width="100%">
+              <Button.Center>완료</Button.Center>
+            </Button>
+          </Dialog.Close>
+        </Dialog.Bottom>
+      </Dialog>
+    </div>
+  )
+}
+
+export const TailwindUI_공유_권한_모달: Story = {
+  name: 'Tailwind UI — 공유 권한 관리 Share Dialog',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Tailwind UI Share dialog 패턴. 이메일 초대 + 멤버별 역할 선택(드롭다운) + ' +
+          '링크 복사 기능이 통합된 공유 권한 관리 모달. ' +
+          '초대 즉시 목록에 추가되며 역할은 인라인에서 변경 가능합니다.',
+      },
+    },
+  },
+  render: () => <TwShareRender />,
+}
