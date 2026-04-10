@@ -25578,3 +25578,203 @@ export const TailwindUI105FileManager: StoryObj = {
   },
   render: () => <TW105FileManagerRender />,
 }
+
+// ─── Cycle 106: Raycast + Notion Design ──────────────────────────────────────
+
+type RC106NotifType = 'mention' | 'comment' | 'pr' | 'deploy' | 'alert'
+
+type RC106Notification = {
+  id: number
+  type: RC106NotifType
+  title: string
+  body: string
+  time: string
+  read: boolean
+  source: string
+  sourceColor: string
+}
+
+const RC106_NOTIFICATIONS: RC106Notification[] = [
+  { id: 1, type: 'mention', title: '이민준이 멘션했습니다', body: '@hjunkim Orbit UI v2 PR 리뷰 부탁드립니다', time: '2분 전', read: false, source: 'GitHub', sourceColor: '#0f172a' },
+  { id: 2, type: 'pr', title: 'PR #142 병합됨', body: 'feat(stories): Cycle 105 변경사항이 main에 병합되었습니다', time: '18분 전', read: false, source: 'GitHub', sourceColor: '#0f172a' },
+  { id: 3, type: 'deploy', title: '배포 완료', body: 'orbit-ui Storybook이 Vercel에 성공적으로 배포되었습니다', time: '35분 전', read: false, source: 'Vercel', sourceColor: '#000' },
+  { id: 4, type: 'comment', title: '새 댓글', body: '김지수: Space 컴포넌트 반응형 지원 방향 논의 필요합니다', time: '1시간 전', read: false, source: 'Notion', sourceColor: '#000' },
+  { id: 5, type: 'alert', title: '빌드 오류', body: 'TypeScript 타입 에러 발견 — packages/theme-eclipse', time: '2시간 전', read: true, source: 'CI/CD', sourceColor: '#ef4444' },
+  { id: 6, type: 'mention', title: '박서연이 멘션했습니다', body: '@hjunkim LabelBadge color prop 확장 관련 의견 구합니다', time: '3시간 전', read: true, source: 'Linear', sourceColor: '#5e6ad2' },
+  { id: 7, type: 'pr', title: 'PR #138 리뷰 요청', body: 'fix(toggle): onCheckedChange prop 정상화 요청', time: '5시간 전', read: true, source: 'GitHub', sourceColor: '#0f172a' },
+  { id: 8, type: 'deploy', title: '배포 실패', body: 'storybook-static 빌드가 100/day 제한으로 실패했습니다', time: '어제', read: true, source: 'Vercel', sourceColor: '#000' },
+]
+
+const RC106_TYPE_ICON: Record<RC106NotifType, string> = {
+  mention: '@',
+  comment: '💬',
+  pr: '⇄',
+  deploy: '🚀',
+  alert: '⚠',
+}
+
+const RC106_TYPE_COLOR: Record<RC106NotifType, string> = {
+  mention: '#3b82f6',
+  comment: '#8b5cf6',
+  pr: '#10b981',
+  deploy: '#0f172a',
+  alert: '#ef4444',
+}
+
+type RC106FilterTab = 'all' | 'unread' | RC106NotifType
+
+function RC106NotificationCenterRender() {
+  const [notifications, setNotifications] = useState(RC106_NOTIFICATIONS)
+  const [activeTab, setActiveTab] = useState<RC106FilterTab>('all')
+
+  const unreadCount = notifications.filter((n) => !n.read).length
+
+  const markAllRead = () => {
+    setNotifications((prev) => prev.map((n) => ({ ...n, read: true })))
+  }
+
+  const markRead = (id: number) => {
+    setNotifications((prev) => prev.map((n) => n.id === id ? { ...n, read: true } : n))
+  }
+
+  const dismiss = (id: number) => {
+    setNotifications((prev) => prev.filter((n) => n.id !== id))
+  }
+
+  const filtered = notifications.filter((n) => {
+    if (activeTab === 'all') return true
+    if (activeTab === 'unread') return !n.read
+    return n.type === activeTab
+  })
+
+  const TABS: { id: RC106FilterTab; label: string }[] = [
+    { id: 'all', label: '전체' },
+    { id: 'unread', label: '안 읽음' },
+    { id: 'mention', label: '멘션' },
+    { id: 'pr', label: 'PR' },
+    { id: 'deploy', label: '배포' },
+    { id: 'alert', label: '알림' },
+  ]
+
+  return (
+    <div style={{ width: '100%', minHeight: '100vh', background: '#f8fafc', fontFamily: 'system-ui, sans-serif' }}>
+      <AppBar>
+        <AppBar.Leading>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+            <NotificationLineIcon />
+            <span style={{ fontWeight: 700, fontSize: 15 }}>알림 센터</span>
+            {unreadCount > 0 && (
+              <CounterBadge>{unreadCount}</CounterBadge>
+            )}
+          </div>
+        </AppBar.Leading>
+        <AppBar.Trailing>
+          {unreadCount > 0 && (
+            <GhostButton color="gray" size="small" onClick={markAllRead}>
+              <GhostButton.Center>모두 읽음</GhostButton.Center>
+            </GhostButton>
+          )}
+        </AppBar.Trailing>
+      </AppBar>
+
+      <div style={{ padding: '16px 20px', maxWidth: 680, margin: '0 auto' }}>
+        {/* 탭 필터 */}
+        <div style={{ display: 'flex', gap: 6, marginBottom: 16, overflowX: 'auto', paddingBottom: 2 }}>
+          {TABS.map((tab) => (
+            <Chip
+              key={tab.id}
+              selected={activeTab === tab.id}
+              onClick={() => setActiveTab(tab.id)}
+            >
+              {tab.label}
+              {tab.id === 'unread' && unreadCount > 0 && ` (${unreadCount})`}
+            </Chip>
+          ))}
+        </div>
+
+        {/* 알림 목록 */}
+        {filtered.length === 0 ? (
+          <div style={{ padding: '60px 0', textAlign: 'center', color: '#94a3b8' }}>
+            <div style={{ fontSize: 32, marginBottom: 12 }}>🔔</div>
+            <div style={{ fontSize: 14, fontWeight: 600, color: '#475569', marginBottom: 4 }}>알림 없음</div>
+            <div style={{ fontSize: 12 }}>이 필터에 해당하는 알림이 없습니다</div>
+          </div>
+        ) : (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 0, borderRadius: 12, border: '1px solid #e2e8f0', overflow: 'hidden', background: '#fff' }}>
+            {filtered.map((notif, idx) => (
+              <div
+                key={notif.id}
+                onClick={() => markRead(notif.id)}
+                style={{
+                  display: 'flex', alignItems: 'flex-start', gap: 12, padding: '14px 16px',
+                  borderTop: idx === 0 ? 'none' : '1px solid #f1f5f9',
+                  background: notif.read ? '#fff' : '#f0f6ff',
+                  cursor: 'pointer', transition: 'background 0.1s',
+                }}
+              >
+                {/* 타입 아이콘 */}
+                <div style={{
+                  width: 36, height: 36, borderRadius: '50%',
+                  background: RC106_TYPE_COLOR[notif.type] + '15',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  fontSize: 14, fontWeight: 700, color: RC106_TYPE_COLOR[notif.type],
+                  flexShrink: 0,
+                }}>
+                  {RC106_TYPE_ICON[notif.type]}
+                </div>
+
+                {/* 내용 */}
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 2 }}>
+                    <span style={{ fontSize: 13, fontWeight: notif.read ? 400 : 700, color: '#0f172a', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                      {notif.title}
+                    </span>
+                    {!notif.read && (
+                      <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#3b82f6', flexShrink: 0, display: 'inline-block' }} />
+                    )}
+                  </div>
+                  <div style={{ fontSize: 12, color: '#64748b', lineHeight: 1.5, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                    {notif.body}
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginTop: 6 }}>
+                    <LabelBadge color="gray">{notif.source}</LabelBadge>
+                    <span style={{ fontSize: 10, color: '#94a3b8' }}>{notif.time}</span>
+                  </div>
+                </div>
+
+                {/* 닫기 */}
+                <button
+                  onClick={(e) => { e.stopPropagation(); dismiss(notif.id) }}
+                  style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#cbd5e1', fontSize: 16, lineHeight: 1, flexShrink: 0, padding: 2 }}
+                >
+                  ×
+                </button>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {notifications.length > 0 && (
+          <div style={{ marginTop: 12, textAlign: 'center', fontSize: 11, color: '#94a3b8' }}>
+            {notifications.length}개 알림 · {unreadCount}개 읽지 않음
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+
+export const Raycast106NotificationCenter: StoryObj = {
+  name: 'Raycast + Notion — Notification Center (Cycle 106)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Raycast + Notion 벤치마크 — Cycle 106. ' +
+          '알림 센터: 타입별 Chip 필터 + 읽음/미읽음 구분 + 클릭 읽음 처리 + 개별 닫기 + 전체 읽음. ' +
+          'AppBar, CounterBadge, GhostButton, Chip, LabelBadge 복합 활용.',
+      },
+    },
+  },
+  render: () => <RC106NotificationCenterRender />,
+}

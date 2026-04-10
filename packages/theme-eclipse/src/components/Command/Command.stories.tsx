@@ -1563,3 +1563,446 @@ export const Mantine_실행_히스토리_팔레트: Story = {
   },
   render: () => <MantineCommandHistoryRender />,
 }
+
+/* --------------------------------------------------------------------------
+   Notion 벤치마크: /command 블록 유형 선택기
+   Notion 슬래시 명령 메뉴 — 블록 타입을 키보드로 빠르게 선택
+-------------------------------------------------------------------------- */
+type NotionBlockType = {
+  key: string
+  label: string
+  desc: string
+  icon: string
+  group: string
+  shortcut: string
+}
+
+const NOTION_BLOCK_TYPES: NotionBlockType[] = [
+  { key: 'h1', label: '제목 1', desc: '큰 섹션 제목', icon: 'H1', group: '기본 블록', shortcut: '#' },
+  { key: 'h2', label: '제목 2', desc: '중간 섹션 제목', icon: 'H2', group: '기본 블록', shortcut: '##' },
+  { key: 'h3', label: '제목 3', desc: '작은 섹션 제목', icon: 'H3', group: '기본 블록', shortcut: '###' },
+  { key: 'todo', label: '할 일 목록', desc: '체크박스 목록', icon: '☑', group: '기본 블록', shortcut: '[]' },
+  { key: 'bullet', label: '글머리 목록', desc: '순서 없는 목록', icon: '•', group: '기본 블록', shortcut: '-' },
+  { key: 'numbered', label: '번호 목록', desc: '순서 있는 목록', icon: '1.', group: '기본 블록', shortcut: '1.' },
+  { key: 'quote', label: '인용', desc: '인용 블록', icon: '"', group: '기본 블록', shortcut: '>' },
+  { key: 'code', label: '코드', desc: '코드 블록', icon: '<>', group: '기본 블록', shortcut: '```' },
+  { key: 'divider', label: '구분선', desc: '시각적 구분선', icon: '—', group: '기본 블록', shortcut: '---' },
+  { key: 'callout', label: '콜아웃', desc: '강조 박스', icon: '!', group: '미디어', shortcut: '' },
+  { key: 'image', label: '이미지', desc: '이미지 업로드 또는 URL', icon: 'IMG', group: '미디어', shortcut: '' },
+  { key: 'table', label: '표', desc: '데이터 테이블', icon: '⊞', group: '미디어', shortcut: '' },
+]
+
+function NotionBlockSelectorRender() {
+  const [blockQuery, setBlockQuery] = useState('')
+  const [selected, setSelected] = useState('')
+
+  const groups = Array.from(new Set(NOTION_BLOCK_TYPES.map((b) => b.group)))
+
+  const filtered = NOTION_BLOCK_TYPES.filter(
+    (b) => b.label.toLowerCase().includes(blockQuery.toLowerCase()) || b.shortcut.includes(blockQuery)
+  )
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12, fontFamily: 'system-ui, sans-serif' }}>
+      {selected ? (
+        <div style={{ padding: '10px 16px', borderRadius: 8, background: '#eff6ff', border: '1px solid #c7d2fe', fontSize: 13, color: '#4f46e5', display: 'flex', alignItems: 'center', gap: 8 }}>
+          <span>✓ 선택된 블록 유형:</span>
+          <strong>{NOTION_BLOCK_TYPES.find((b) => b.key === selected)?.label}</strong>
+          <button onClick={() => setSelected('')} style={{ marginLeft: 8, fontSize: 11, color: '#6366f1', background: 'none', border: 'none', cursor: 'pointer' }}>
+            초기화
+          </button>
+        </div>
+      ) : null}
+
+      <Command style={{ width: 340, borderRadius: 12, boxShadow: '0 8px 32px rgba(0,0,0,0.12)', border: '1px solid #e2e8f0' }}>
+        <Command.Input
+          value={blockQuery}
+          onValueChange={setBlockQuery}
+          placeholder="블록 유형 검색 또는 '/' + 단축키..."
+        />
+        <Command.List>
+          <Command.Empty>일치하는 블록 유형이 없습니다</Command.Empty>
+          {groups.map((group) => {
+            const items = filtered.filter((b) => b.group === group)
+            if (items.length === 0) return null
+            return (
+              <Command.Group key={group} heading={group}>
+                {items.map((block) => (
+                  <Command.Item
+                    key={block.key}
+                    onSelect={() => setSelected(block.key)}
+                    style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '8px 12px' }}
+                  >
+                    <div style={{
+                      width: 32, height: 32, borderRadius: 6, background: '#f1f5f9',
+                      display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      fontSize: 12, fontWeight: 700, color: '#475569', flexShrink: 0, fontFamily: 'monospace',
+                    }}>
+                      {block.icon}
+                    </div>
+                    <div style={{ flex: 1, minWidth: 0 }}>
+                      <div style={{ fontSize: 13, fontWeight: 500, color: '#0f172a' }}>{block.label}</div>
+                      <div style={{ fontSize: 11, color: '#94a3b8' }}>{block.desc}</div>
+                    </div>
+                    {block.shortcut && (
+                      <kbd style={{ fontSize: 10, padding: '2px 6px', borderRadius: 4, background: '#f8fafc', border: '1px solid #e2e8f0', color: '#64748b', fontFamily: 'monospace', flexShrink: 0 }}>
+                        {block.shortcut}
+                      </kbd>
+                    )}
+                  </Command.Item>
+                ))}
+              </Command.Group>
+            )
+          })}
+        </Command.List>
+        <div style={{ padding: '6px 12px', borderTop: '1px solid #f1f5f9', fontSize: 10, color: '#94a3b8', display: 'flex', gap: 10 }}>
+          <span>↑↓ 이동</span><span>Enter 선택</span><span>Esc 닫기</span>
+        </div>
+      </Command>
+      <p style={{ fontSize: 11, color: '#94a3b8', textAlign: 'center' }}>
+        Notion — 슬래시(/) 명령으로 블록 유형 선택
+      </p>
+    </div>
+  )
+}
+
+export const Notion_블록_유형_선택기: Story = {
+  name: 'Notion — /command 블록 유형 선택기',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Notion 슬래시(/) 명령 메뉴 패턴. 블록 유형(제목/목록/코드/미디어)을 ' +
+          '이름 또는 Markdown 단축키로 검색해 선택. 그룹 헤더, 단축키 kbd 배지, ' +
+          '아이콘 + 설명 2줄 구조.',
+      },
+    },
+  },
+  render: () => <NotionBlockSelectorRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Raycast 벤치마크: 파일 빠른 열기
+   Raycast File Search — 파일명, 경로, 수정일, 유형으로 빠른 탐색
+-------------------------------------------------------------------------- */
+type RaycastFile = {
+  name: string
+  path: string
+  ext: string
+  modified: string
+  size: string
+  pinned: boolean
+}
+
+const RAYCAST_FILES: RaycastFile[] = [
+  { name: 'design-system-v2.fig', path: '~/Design/Orbit UI', ext: 'fig', modified: '방금', size: '12.4 MB', pinned: true },
+  { name: 'CLAUDE.md', path: '~/WebstormProjects/orbit-ui', ext: 'md', modified: '1시간 전', size: '8.2 KB', pinned: true },
+  { name: 'index.ts', path: '~/orbit-ui/packages/theme-eclipse/src', ext: 'ts', modified: '2시간 전', size: '3.1 KB', pinned: false },
+  { name: 'package.json', path: '~/orbit-ui', ext: 'json', modified: '어제', size: '1.8 KB', pinned: false },
+  { name: 'Templates.stories.tsx', path: '~/orbit-ui/packages/theme-eclipse/src/templates', ext: 'tsx', modified: '어제', size: '284 KB', pinned: false },
+  { name: 'sprint-notes.md', path: '~/Documents/Team', ext: 'md', modified: '3일 전', size: '24 KB', pinned: false },
+  { name: 'orbit-ui-cover.png', path: '~/Design/Assets', ext: 'png', modified: '1주 전', size: '2.1 MB', pinned: false },
+]
+
+const RAYCAST_EXT_COLOR: Record<string, string> = {
+  fig: '#a259ff',
+  md: '#0ea5e9',
+  ts: '#3178c6',
+  tsx: '#61dafb',
+  json: '#f59e0b',
+  png: '#10b981',
+  default: '#64748b',
+}
+
+function RaycastFileSearchRender() {
+  const [fileQuery, setFileQuery] = useState('')
+  const [opened, setOpened] = useState<string | null>(null)
+
+  const filtered = RAYCAST_FILES.filter(
+    (f) => f.name.toLowerCase().includes(fileQuery.toLowerCase()) || f.path.toLowerCase().includes(fileQuery.toLowerCase())
+  )
+
+  const pinned = filtered.filter((f) => f.pinned)
+  const recent = filtered.filter((f) => !f.pinned)
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12, fontFamily: 'system-ui, sans-serif' }}>
+      {opened && (
+        <div style={{ padding: '8px 14px', borderRadius: 8, background: '#0f172a', color: '#94a3b8', fontSize: 12, display: 'flex', gap: 8, alignItems: 'center' }}>
+          <span style={{ color: '#22c55e' }}>✓</span>
+          <span style={{ color: '#f8fafc', fontWeight: 600 }}>{opened}</span>
+          <span>파일 열기됨</span>
+          <button onClick={() => setOpened(null)} style={{ marginLeft: 6, background: 'none', border: 'none', cursor: 'pointer', color: '#64748b', fontSize: 11 }}>닫기</button>
+        </div>
+      )}
+
+      <Command style={{ width: 480, borderRadius: 12, boxShadow: '0 16px 48px rgba(0,0,0,0.18)', border: '1px solid #e2e8f0', background: '#fff' }}>
+        <div style={{ display: 'flex', alignItems: 'center', padding: '10px 14px', gap: 8, borderBottom: '1px solid #f1f5f9' }}>
+          <SearchIcon />
+          <Command.Input
+            value={fileQuery}
+            onValueChange={setFileQuery}
+            placeholder="파일 이름 또는 경로 검색..."
+            style={{ border: 'none', outline: 'none', flex: 1, fontSize: 14 }}
+          />
+          {fileQuery && (
+            <button onClick={() => setFileQuery('')} style={{ fontSize: 12, color: '#94a3b8', background: 'none', border: 'none', cursor: 'pointer' }}>×</button>
+          )}
+        </div>
+        <Command.List style={{ maxHeight: 320 }}>
+          <Command.Empty>파일을 찾을 수 없습니다</Command.Empty>
+          {pinned.length > 0 && (
+            <Command.Group heading="즐겨찾기">
+              {pinned.map((file) => (
+                <Command.Item
+                  key={file.path + file.name}
+                  onSelect={() => setOpened(file.name)}
+                  style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '9px 14px' }}
+                >
+                  <div style={{
+                    width: 28, height: 28, borderRadius: 6,
+                    background: (RAYCAST_EXT_COLOR[file.ext] ?? RAYCAST_EXT_COLOR['default']) + '18',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    fontSize: 9, fontWeight: 800, color: RAYCAST_EXT_COLOR[file.ext] ?? RAYCAST_EXT_COLOR['default'],
+                    flexShrink: 0, letterSpacing: -0.5,
+                  }}>
+                    .{file.ext.toUpperCase()}
+                  </div>
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <div style={{ fontSize: 13, fontWeight: 600, color: '#0f172a' }}>{file.name}</div>
+                    <div style={{ fontSize: 11, color: '#94a3b8', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{file.path}</div>
+                  </div>
+                  <div style={{ textAlign: 'right', flexShrink: 0 }}>
+                    <div style={{ fontSize: 10, color: '#94a3b8' }}>{file.modified}</div>
+                    <div style={{ fontSize: 10, color: '#cbd5e1' }}>{file.size}</div>
+                  </div>
+                </Command.Item>
+              ))}
+            </Command.Group>
+          )}
+          {recent.length > 0 && (
+            <Command.Group heading="최근 파일">
+              {recent.map((file) => (
+                <Command.Item
+                  key={file.path + file.name}
+                  onSelect={() => setOpened(file.name)}
+                  style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '9px 14px' }}
+                >
+                  <div style={{
+                    width: 28, height: 28, borderRadius: 6,
+                    background: (RAYCAST_EXT_COLOR[file.ext] ?? RAYCAST_EXT_COLOR['default']) + '18',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    fontSize: 9, fontWeight: 800, color: RAYCAST_EXT_COLOR[file.ext] ?? RAYCAST_EXT_COLOR['default'],
+                    flexShrink: 0, letterSpacing: -0.5,
+                  }}>
+                    .{file.ext.toUpperCase()}
+                  </div>
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <div style={{ fontSize: 13, color: '#0f172a' }}>{file.name}</div>
+                    <div style={{ fontSize: 11, color: '#94a3b8', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{file.path}</div>
+                  </div>
+                  <div style={{ textAlign: 'right', flexShrink: 0 }}>
+                    <div style={{ fontSize: 10, color: '#94a3b8' }}>{file.modified}</div>
+                    <div style={{ fontSize: 10, color: '#cbd5e1' }}>{file.size}</div>
+                  </div>
+                </Command.Item>
+              ))}
+            </Command.Group>
+          )}
+        </Command.List>
+        <div style={{ padding: '7px 14px', borderTop: '1px solid #f1f5f9', display: 'flex', justifyContent: 'space-between', fontSize: 10, color: '#94a3b8' }}>
+          <div style={{ display: 'flex', gap: 10 }}>
+            <span>↑↓ 탐색</span><span>Enter 열기</span>
+          </div>
+          <span>{filtered.length}개 파일</span>
+        </div>
+      </Command>
+      <p style={{ fontSize: 11, color: '#94a3b8' }}>Raycast — 파일 빠른 열기 (즐겨찾기 우선 표시)</p>
+    </div>
+  )
+}
+
+export const Raycast_파일_빠른_열기: Story = {
+  name: 'Raycast — 파일 빠른 열기 File Search',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Raycast File Search 패턴. 파일명/경로 실시간 필터링, 즐겨찾기(pinned) 섹션 우선 표시, ' +
+          '확장자별 색상 배지, 수정 시각·파일 크기 메타 표시.',
+      },
+    },
+  },
+  render: () => <RaycastFileSearchRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Notion 벤치마크: 데이터베이스 속성 필터 팔레트
+   Notion Filter — 속성별 필터 조건 설정 Command
+-------------------------------------------------------------------------- */
+type NotionFilterProp = { key: string; label: string; type: 'text' | 'select' | 'date' | 'checkbox' }
+type NotionFilterOp = { key: string; label: string }
+
+const NOTION_FILTER_PROPS: NotionFilterProp[] = [
+  { key: 'name', label: '이름', type: 'text' },
+  { key: 'status', label: '상태', type: 'select' },
+  { key: 'assignee', label: '담당자', type: 'select' },
+  { key: 'due', label: '마감일', type: 'date' },
+  { key: 'done', label: '완료', type: 'checkbox' },
+  { key: 'priority', label: '우선순위', type: 'select' },
+  { key: 'created', label: '생성일', type: 'date' },
+  { key: 'tags', label: '태그', type: 'select' },
+]
+
+const NOTION_TEXT_OPS: NotionFilterOp[] = [
+  { key: 'contains', label: '포함' },
+  { key: 'not_contains', label: '포함 안 함' },
+  { key: 'starts_with', label: '시작 문자' },
+  { key: 'is_empty', label: '비어 있음' },
+]
+
+const NOTION_SELECT_OPS: NotionFilterOp[] = [
+  { key: 'is', label: '일치' },
+  { key: 'is_not', label: '일치 안 함' },
+  { key: 'is_empty', label: '비어 있음' },
+]
+
+const NOTION_DATE_OPS: NotionFilterOp[] = [
+  { key: 'is', label: '날짜가' },
+  { key: 'before', label: '이전' },
+  { key: 'after', label: '이후' },
+  { key: 'is_empty', label: '비어 있음' },
+]
+
+const NOTION_CHECKBOX_OPS: NotionFilterOp[] = [
+  { key: 'is_checked', label: '체크됨' },
+  { key: 'is_unchecked', label: '체크 안됨' },
+]
+
+type NotionFilterStep = 'property' | 'operator'
+
+function NotionFilterPaletteRender() {
+  const [filterStep, setFilterStep] = useState<NotionFilterStep>('property')
+  const [propQuery, setPropQuery] = useState('')
+  const [selectedProp, setSelectedProp] = useState<NotionFilterProp | null>(null)
+  const [filters, setFilters] = useState<{ prop: string; op: string }[]>([])
+
+  const filteredProps = NOTION_FILTER_PROPS.filter((p) =>
+    p.label.toLowerCase().includes(propQuery.toLowerCase())
+  )
+
+  const getOpsForType = (type: NotionFilterProp['type']): NotionFilterOp[] => {
+    if (type === 'text') return NOTION_TEXT_OPS
+    if (type === 'date') return NOTION_DATE_OPS
+    if (type === 'checkbox') return NOTION_CHECKBOX_OPS
+    return NOTION_SELECT_OPS
+  }
+
+  const handlePropSelect = (prop: NotionFilterProp) => {
+    setSelectedProp(prop)
+    setFilterStep('operator')
+    setPropQuery('')
+  }
+
+  const handleOpSelect = (op: NotionFilterOp) => {
+    if (selectedProp) {
+      setFilters((prev) => [...prev, { prop: selectedProp.label, op: op.label }])
+    }
+    setSelectedProp(null)
+    setFilterStep('property')
+  }
+
+  const TYPE_LABEL: Record<NotionFilterProp['type'], string> = {
+    text: 'Aa', select: '☰', date: 'cal', checkbox: '☑',
+  }
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12, fontFamily: 'system-ui, sans-serif' }}>
+      {filters.length > 0 && (
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, padding: '8px 12px', borderRadius: 8, background: '#f8fafc', border: '1px solid #e2e8f0', maxWidth: 400 }}>
+          {filters.map((f, i) => (
+            <span key={i} style={{ padding: '3px 10px', borderRadius: 20, background: '#eff6ff', color: '#4f46e5', fontSize: 11, fontWeight: 600, display: 'flex', alignItems: 'center', gap: 4 }}>
+              {f.prop}: <em style={{ fontStyle: 'normal', color: '#6366f1' }}>{f.op}</em>
+              <button
+                onClick={() => setFilters((prev) => prev.filter((_, idx) => idx !== i))}
+                style={{ marginLeft: 4, background: 'none', border: 'none', cursor: 'pointer', fontSize: 12, color: '#a5b4fc', lineHeight: 1 }}
+              >×</button>
+            </span>
+          ))}
+          <button onClick={() => setFilters([])} style={{ fontSize: 10, color: '#94a3b8', background: 'none', border: 'none', cursor: 'pointer' }}>전체 제거</button>
+        </div>
+      )}
+
+      <Command style={{ width: 340, borderRadius: 12, boxShadow: '0 8px 32px rgba(0,0,0,0.1)', border: '1px solid #e2e8f0' }}>
+        <div style={{ padding: '8px 12px', borderBottom: '1px solid #f1f5f9', display: 'flex', alignItems: 'center', gap: 6, fontSize: 11, color: '#94a3b8' }}>
+          {filterStep === 'operator' && selectedProp ? (
+            <>
+              <button onClick={() => { setFilterStep('property'); setSelectedProp(null) }} style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: 12, color: '#6366f1' }}>←</button>
+              <span style={{ color: '#0f172a', fontWeight: 600 }}>{selectedProp.label}</span>
+              <span>›</span>
+              <span>조건 선택</span>
+            </>
+          ) : (
+            <span style={{ color: '#0f172a', fontWeight: 600 }}>필터 추가</span>
+          )}
+        </div>
+
+        <Command.Input
+          value={propQuery}
+          onValueChange={setPropQuery}
+          placeholder={filterStep === 'property' ? '속성 검색...' : '조건 검색...'}
+        />
+
+        <Command.List>
+          <Command.Empty>결과 없음</Command.Empty>
+          {filterStep === 'property' && (
+            <Command.Group heading="속성 선택">
+              {filteredProps.map((prop) => (
+                <Command.Item
+                  key={prop.key}
+                  onSelect={() => handlePropSelect(prop)}
+                  style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '8px 12px' }}
+                >
+                  <span style={{ width: 24, height: 24, borderRadius: 4, background: '#f1f5f9', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 10, color: '#64748b', fontFamily: 'monospace', flexShrink: 0 }}>
+                    {TYPE_LABEL[prop.type]}
+                  </span>
+                  <span style={{ fontSize: 13, color: '#0f172a' }}>{prop.label}</span>
+                  <span style={{ marginLeft: 'auto', fontSize: 10, color: '#94a3b8' }}>{prop.type}</span>
+                </Command.Item>
+              ))}
+            </Command.Group>
+          )}
+          {filterStep === 'operator' && selectedProp && (
+            <Command.Group heading="조건 선택">
+              {getOpsForType(selectedProp.type).map((op) => (
+                <Command.Item
+                  key={op.key}
+                  onSelect={() => handleOpSelect(op)}
+                  style={{ padding: '8px 12px', fontSize: 13 }}
+                >
+                  {op.label}
+                </Command.Item>
+              ))}
+            </Command.Group>
+          )}
+        </Command.List>
+      </Command>
+      <p style={{ fontSize: 11, color: '#94a3b8' }}>Notion — 속성 선택 → 조건 선택 드릴다운 필터</p>
+    </div>
+  )
+}
+
+export const Notion_데이터베이스_필터_팔레트: Story = {
+  name: 'Notion — 데이터베이스 속성 필터 팔레트',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Notion Database Filter 드릴다운 패턴. 속성 선택 → 조건 선택 2단계 Command 플로우. ' +
+          '속성 유형별 조건 목록(텍스트/선택/날짜/체크박스) 자동 전환, ' +
+          '적용된 필터 태그 칩으로 표시 및 개별 제거.',
+      },
+    },
+  },
+  render: () => <NotionFilterPaletteRender />,
+}

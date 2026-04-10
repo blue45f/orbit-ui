@@ -800,6 +800,7 @@ export const MUI_폼_유효성_상태: Story = {
    Dropdown 메뉴 내 아이콘 + 레이블 + 단축키 조합
 -------------------------------------------------------------------------- */
 export const MUI_컨텍스트_메뉴_액션: Story = {
+  name: 'MUI — 컨텍스트 메뉴 액션 패턴',
   render: () => {
     const actions: Array<{
       label: string
@@ -873,6 +874,283 @@ export const MUI_컨텍스트_메뉴_액션: Story = {
             </React.Fragment>
           )
         })}
+      </div>
+    )
+  },
+}
+
+/* --------------------------------------------------------------------------
+   Notion 벤치마크: 페이지 속성 패널
+   Notion Page Properties — 키/값 속성 인라인 편집 ListTile 패턴
+-------------------------------------------------------------------------- */
+type NotionPropType = { key: string; label: string; value: string; icon: string; editable: boolean }
+
+const NOTION_PAGE_PROPS: NotionPropType[] = [
+  { key: 'status', label: '상태', value: '진행 중', icon: '●', editable: true },
+  { key: 'assignee', label: '담당자', value: '김지수', icon: '👤', editable: true },
+  { key: 'due', label: '마감일', value: '2026-04-30', icon: '📅', editable: true },
+  { key: 'priority', label: '우선순위', value: '높음', icon: '↑', editable: true },
+  { key: 'created', label: '생성일', value: '2026-04-01', icon: '⊕', editable: false },
+  { key: 'tags', label: '태그', value: 'Design System, UI', icon: '#', editable: true },
+]
+
+const NOTION_STATUS_COLOR: Record<string, string> = {
+  '진행 중': '#3b82f6',
+  '완료': '#10b981',
+  '검토 중': '#f59e0b',
+  '중단': '#ef4444',
+}
+
+export const Notion_페이지_속성_패널: Story = {
+  name: 'Notion — 페이지 속성 인라인 편집 패널',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Notion Page Properties 패턴. 속성 키/값을 ListTile로 표현하고, ' +
+          '편집 가능 항목 클릭 시 인라인 입력 전환. 상태 속성은 색상 점으로 구분, ' +
+          '읽기 전용 속성은 비활성화 스타일 적용.',
+      },
+    },
+  },
+  render: function NotionPagePropsPanel() {
+    const [editingKey, setEditingKey] = useState<string | null>(null)
+    const [propValues, setPropValues] = useState<Record<string, string>>(
+      Object.fromEntries(NOTION_PAGE_PROPS.map((p) => [p.key, p.value]))
+    )
+
+    return (
+      <div style={{ width: 340, borderRadius: 12, border: '1px solid #e2e8f0', overflow: 'hidden', background: '#fff', fontFamily: 'system-ui, sans-serif' }}>
+        <div style={{ padding: '10px 16px', borderBottom: '1px solid #f1f5f9', fontSize: 11, fontWeight: 700, color: '#94a3b8', letterSpacing: 0.5, textTransform: 'uppercase' }}>
+          페이지 속성
+        </div>
+
+        {NOTION_PAGE_PROPS.map((prop) => (
+          <ListTile
+            key={prop.key}
+            as={prop.editable ? 'button' : 'div'}
+            disabled={!prop.editable}
+            onClick={() => {
+              if (prop.editable) {
+                setEditingKey(editingKey === prop.key ? null : prop.key)
+              }
+            }}
+            style={{
+              padding: '9px 16px',
+              cursor: prop.editable ? 'pointer' : 'default',
+              textAlign: 'left',
+              width: '100%',
+              background: editingKey === prop.key ? '#f8fafc' : 'transparent',
+              borderBottom: '1px solid #f8fafc',
+              transition: 'background 0.1s',
+            }}
+          >
+            <ListTile.Leading>
+              <span style={{ fontSize: 14, width: 20, textAlign: 'center' }}>{prop.icon}</span>
+            </ListTile.Leading>
+            <ListTile.Title>
+              <span style={{ fontSize: 12, color: '#64748b', fontWeight: 500 }}>{prop.label}</span>
+            </ListTile.Title>
+            <ListTile.Trailing>
+              {editingKey === prop.key ? (
+                <input
+                  autoFocus
+                  value={propValues[prop.key]}
+                  onChange={(e) => setPropValues((prev) => ({ ...prev, [prop.key]: e.target.value }))}
+                  onBlur={() => setEditingKey(null)}
+                  onClick={(e) => e.stopPropagation()}
+                  style={{ fontSize: 12, border: 'none', outline: 'none', background: 'transparent', color: '#0f172a', width: 120, textAlign: 'right' }}
+                />
+              ) : (
+                <span style={{
+                  fontSize: 12, color: prop.editable ? '#0f172a' : '#94a3b8',
+                  display: 'flex', alignItems: 'center', gap: 4,
+                }}>
+                  {prop.key === 'status' && (
+                    <span style={{ width: 6, height: 6, borderRadius: '50%', background: NOTION_STATUS_COLOR[propValues[prop.key]] ?? '#94a3b8', display: 'inline-block' }} />
+                  )}
+                  {propValues[prop.key]}
+                </span>
+              )}
+            </ListTile.Trailing>
+          </ListTile>
+        ))}
+      </div>
+    )
+  },
+}
+
+/* --------------------------------------------------------------------------
+   Raycast 벤치마크: 확장 프로그램 목록
+   Raycast Extensions List — 확장명 + 설명 + 활성화 토글 패턴
+-------------------------------------------------------------------------- */
+type RaycastExt = { id: string; name: string; desc: string; author: string; enabled: boolean; category: string }
+
+const RAYCAST_EXTENSIONS: RaycastExt[] = [
+  { id: 'github', name: 'GitHub', desc: 'PR, 이슈, 알림 빠른 접근', author: 'Raycast', enabled: true, category: '개발' },
+  { id: 'linear', name: 'Linear', desc: '이슈 생성 및 검색', author: 'Linear', enabled: true, category: '개발' },
+  { id: 'figma', name: 'Figma', desc: 'Figma 파일 빠른 열기', author: 'Figma', enabled: false, category: '디자인' },
+  { id: 'notion', name: 'Notion', desc: '페이지 검색 및 생성', author: 'Notion', enabled: true, category: '생산성' },
+  { id: 'slack', name: 'Slack', desc: '채널 및 DM 빠른 열기', author: 'Slack', enabled: false, category: '커뮤니케이션' },
+  { id: 'vercel', name: 'Vercel', desc: '배포 현황 모니터링', author: 'Vercel', enabled: true, category: '개발' },
+]
+
+export const Raycast_확장_프로그램_목록: Story = {
+  name: 'Raycast — 확장 프로그램 관리 목록',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Raycast Extensions List 패턴. 확장 프로그램명/설명/제작자 + 활성화 Switch 토글. ' +
+          '카테고리별 그룹, 활성/비활성 상태 시각적 구분.',
+      },
+    },
+  },
+  render: function RaycastExtList() {
+    const [extensions, setExtensions] = useState(RAYCAST_EXTENSIONS)
+
+    const toggle = (id: string) => {
+      setExtensions((prev) =>
+        prev.map((ext) => ext.id === id ? { ...ext, enabled: !ext.enabled } : ext)
+      )
+    }
+
+    const categories = Array.from(new Set(extensions.map((e) => e.category)))
+
+    return (
+      <div style={{ width: 360, borderRadius: 12, border: '1px solid #e2e8f0', overflow: 'hidden', background: '#fff', fontFamily: 'system-ui, sans-serif' }}>
+        <div style={{ padding: '12px 16px', background: '#0f172a', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <span style={{ fontSize: 13, fontWeight: 700, color: '#f8fafc' }}>확장 프로그램</span>
+          <span style={{ fontSize: 11, color: '#64748b' }}>{extensions.filter((e) => e.enabled).length}/{extensions.length} 활성화</span>
+        </div>
+
+        {categories.map((category) => (
+          <React.Fragment key={category}>
+            <div style={{ padding: '8px 16px 4px', fontSize: 10, fontWeight: 700, color: '#94a3b8', letterSpacing: 0.5, textTransform: 'uppercase', background: '#f8fafc' }}>
+              {category}
+            </div>
+            {extensions.filter((e) => e.category === category).map((ext) => (
+              <ListTile
+                key={ext.id}
+                style={{
+                  padding: '10px 16px',
+                  opacity: ext.enabled ? 1 : 0.5,
+                  transition: 'opacity 0.2s',
+                  borderBottom: '1px solid #f8fafc',
+                }}
+              >
+                <ListTile.Leading>
+                  <div style={{ width: 32, height: 32, borderRadius: 8, background: ext.enabled ? '#0f172a' : '#e2e8f0', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 13, fontWeight: 800, color: ext.enabled ? '#f8fafc' : '#94a3b8', flexShrink: 0, transition: 'background 0.2s' }}>
+                    {ext.name[0]}
+                  </div>
+                </ListTile.Leading>
+                <ListTile.Title>
+                  <span style={{ fontSize: 13, fontWeight: 600, color: '#0f172a' }}>{ext.name}</span>
+                </ListTile.Title>
+                <ListTile.Description>
+                  {ext.desc} · <span style={{ color: '#94a3b8' }}>{ext.author}</span>
+                </ListTile.Description>
+                <ListTile.Trailing>
+                  <Switch
+                    checked={ext.enabled}
+                    onCheckedChange={() => toggle(ext.id)}
+                  />
+                </ListTile.Trailing>
+              </ListTile>
+            ))}
+          </React.Fragment>
+        ))}
+      </div>
+    )
+  },
+}
+
+/* --------------------------------------------------------------------------
+   Notion 벤치마크: 사이드바 페이지 트리
+   Notion Sidebar — 페이지 계층 구조, 중첩 들여쓰기, 즐겨찾기 패턴
+-------------------------------------------------------------------------- */
+type NotionPageNode = {
+  id: string
+  title: string
+  icon: string
+  depth: number
+  hasChildren: boolean
+  pinned: boolean
+}
+
+const NOTION_PAGES: NotionPageNode[] = [
+  { id: 'root1', title: 'Orbit UI 설계', icon: '📐', depth: 0, hasChildren: true, pinned: true },
+  { id: 'child1', title: '컴포넌트 목록', icon: '📋', depth: 1, hasChildren: false, pinned: false },
+  { id: 'child2', title: '토큰 시스템', icon: '🎨', depth: 1, hasChildren: true, pinned: false },
+  { id: 'child2a', title: '색상 팔레트', icon: '○', depth: 2, hasChildren: false, pinned: false },
+  { id: 'child2b', title: '타이포그래피', icon: '○', depth: 2, hasChildren: false, pinned: false },
+  { id: 'root2', title: '스프린트 노트', icon: '📝', depth: 0, hasChildren: false, pinned: true },
+  { id: 'root3', title: '팀 회의록', icon: '👥', depth: 0, hasChildren: true, pinned: false },
+  { id: 'child3', title: '2026-04 킥오프', icon: '○', depth: 1, hasChildren: false, pinned: false },
+]
+
+export const Notion_사이드바_페이지_트리: Story = {
+  name: 'Notion — 사이드바 페이지 트리 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Notion Sidebar 페이지 계층 트리 패턴. depth에 따른 들여쓰기, 즐겨찾기(pinned) 별 표시, ' +
+          '하위 항목 보유 여부 chevron 표시. ListTile의 padding + Leading 조합으로 계층 구현.',
+      },
+    },
+  },
+  render: function NotionSidebarTree() {
+    const [pinnedMap, setPinnedMap] = useState<Record<string, boolean>>(
+      Object.fromEntries(NOTION_PAGES.map((p) => [p.id, p.pinned]))
+    )
+    const [activeId, setActiveId] = useState<string>('root1')
+
+    const togglePin = (id: string) => {
+      setPinnedMap((prev) => ({ ...prev, [id]: !prev[id] }))
+    }
+
+    return (
+      <div style={{ width: 260, borderRadius: 12, border: '1px solid #e2e8f0', overflow: 'hidden', background: '#fff', fontFamily: 'system-ui, sans-serif' }}>
+        <div style={{ padding: '10px 14px', borderBottom: '1px solid #f1f5f9', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <span style={{ fontSize: 12, fontWeight: 700, color: '#0f172a' }}>Orbit UI 워크스페이스</span>
+        </div>
+
+        {NOTION_PAGES.map((page) => (
+          <ListTile
+            key={page.id}
+            as="button"
+            onClick={() => setActiveId(page.id)}
+            style={{
+              padding: `8px 12px 8px ${12 + page.depth * 16}px`,
+              cursor: 'pointer',
+              textAlign: 'left',
+              width: '100%',
+              background: activeId === page.id ? '#eff6ff' : 'transparent',
+              borderLeft: `2px solid ${activeId === page.id ? '#6366f1' : 'transparent'}`,
+              transition: 'background 0.1s, border-color 0.1s',
+            }}
+          >
+            <ListTile.Leading>
+              <span style={{ fontSize: 13, width: 18, textAlign: 'center' }}>
+                {page.hasChildren ? <ChevronRightLineIcon /> : page.icon}
+              </span>
+            </ListTile.Leading>
+            <ListTile.Title>
+              <span style={{ fontSize: 13, color: activeId === page.id ? '#4f46e5' : '#374151', fontWeight: activeId === page.id ? 600 : 400, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                {!page.hasChildren && page.depth > 0 ? '' : ''}{page.title}
+              </span>
+            </ListTile.Title>
+            <ListTile.Trailing>
+              <button
+                onClick={(e) => { e.stopPropagation(); togglePin(page.id) }}
+                style={{ background: 'none', border: 'none', cursor: 'pointer', opacity: pinnedMap[page.id] ? 1 : 0.2, fontSize: 11, transition: 'opacity 0.15s', color: '#f59e0b' }}
+              >
+                ★
+              </button>
+            </ListTile.Trailing>
+          </ListTile>
+        ))}
       </div>
     )
   },
