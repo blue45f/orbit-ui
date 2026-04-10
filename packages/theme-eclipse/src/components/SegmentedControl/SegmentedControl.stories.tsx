@@ -1319,3 +1319,223 @@ export const M3_Linear_분석_기간_세그먼트: Story = {
   },
   render: () => <M3LinearPeriodSegmentRender />,
 }
+
+/* --------------------------------------------------------------------------
+   Chakra UI — 콘텐츠 보기 모드 전환 (카드/리스트/컴팩트)
+-------------------------------------------------------------------------- */
+function ChakraViewModeSegmentRender() {
+  const [modeIdx, setModeIdx] = useState(0)
+  const modes = ['card', 'list', 'compact'] as const
+  const mode = modes[modeIdx]
+
+  const items = [
+    { title: 'Button 컴포넌트', desc: '다양한 variant와 크기를 지원하는 버튼', count: 24, tag: 'UI' },
+    { title: 'TextField 입력', desc: '레이블 애니메이션이 있는 플로팅 텍스트 필드', count: 18, tag: 'Form' },
+    { title: 'Modal 다이얼로그', desc: '접근성을 갖춘 모달 컴포넌트', count: 15, tag: 'Overlay' },
+  ]
+
+  return (
+    <div style={{ maxWidth: 540, fontFamily: 'system-ui, sans-serif' }}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 14 }}>
+        <span style={{ fontSize: 13, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>컴포넌트 목록</span>
+        <SegmentedControl selectedIndex={modeIdx} onTabChange={setModeIdx}>
+          <SegmentedControl.Tab value="card">
+            <SegmentedControl.TabLeading><GridViewLineIcon /></SegmentedControl.TabLeading>
+          </SegmentedControl.Tab>
+          <SegmentedControl.Tab value="list">
+            <SegmentedControl.TabLeading><ListLineIcon /></SegmentedControl.TabLeading>
+          </SegmentedControl.Tab>
+          <SegmentedControl.Tab value="compact">
+            <SegmentedControl.TabLeading><CheckIcon /></SegmentedControl.TabLeading>
+          </SegmentedControl.Tab>
+        </SegmentedControl>
+      </div>
+
+      {mode === 'card' && (
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 10 }}>
+          {items.map((item) => (
+            <div key={item.title} style={{ padding: '14px', borderRadius: 10, border: '1px solid var(--sem-eclipse-color-borderSubtle)', background: 'var(--sem-eclipse-color-surfaceDefault)', cursor: 'pointer', transition: 'box-shadow 0.15s' }}>
+              <span style={{ fontSize: 9, fontWeight: 700, background: 'var(--sem-eclipse-color-fillPrimarySubtle)', color: 'var(--sem-eclipse-color-fillPrimary)', padding: '2px 6px', borderRadius: 4 }}>{item.tag}</span>
+              <p style={{ fontSize: 12, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginTop: 6, marginBottom: 3 }}>{item.title}</p>
+              <p style={{ fontSize: 10, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>{item.desc}</p>
+              <p style={{ fontSize: 10, color: 'var(--sem-eclipse-color-foregroundSecondary)', marginTop: 8 }}>스토리 {item.count}개</p>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {mode === 'list' && (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+          {items.map((item) => (
+            <div key={item.title} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '10px 14px', borderRadius: 8, border: '1px solid var(--sem-eclipse-color-borderSubtle)', background: 'var(--sem-eclipse-color-surfaceDefault)', cursor: 'pointer' }}>
+              <span style={{ fontSize: 9, fontWeight: 700, background: 'var(--sem-eclipse-color-fillPrimarySubtle)', color: 'var(--sem-eclipse-color-fillPrimary)', padding: '2px 6px', borderRadius: 4, flexShrink: 0 }}>{item.tag}</span>
+              <div style={{ flex: 1 }}>
+                <span style={{ fontSize: 12, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{item.title}</span>
+                <span style={{ fontSize: 10, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginLeft: 8 }}>{item.desc}</span>
+              </div>
+              <span style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundSecondary)', flexShrink: 0 }}>{item.count}개</span>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {mode === 'compact' && (
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
+          {items.map((item, idx) => (
+            <div key={item.title} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '6px 10px', borderBottom: idx < items.length - 1 ? '1px solid var(--sem-eclipse-color-borderSubtle)' : 'none', cursor: 'pointer' }}>
+              <span style={{ fontSize: 10, color: 'var(--sem-eclipse-color-foregroundTertiary)', width: 40, flexShrink: 0 }}>{item.tag}</span>
+              <span style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundPrimary)', flex: 1 }}>{item.title}</span>
+              <span style={{ fontSize: 10, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>{item.count}</span>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  )
+}
+
+export const Chakra_콘텐츠_보기_모드_전환: Story = {
+  name: 'Chakra UI — 콘텐츠 보기 모드 전환 (카드/리스트/컴팩트)',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Chakra UI ButtonGroup 대신 SegmentedControl로 보기 모드 전환. 아이콘만 있는 Trigger로 컴팩트하게 구성. 카드/리스트/컴팩트 레이아웃을 실시간으로 전환하는 패턴.',
+      },
+    },
+  },
+  render: () => <ChakraViewModeSegmentRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Mantine — 데이터 집계 단위 전환 (실시간/5분/1시간/1일)
+-------------------------------------------------------------------------- */
+function MantineDataAggregationSegmentRender() {
+  const [intervalIdx, setIntervalIdx] = useState(2)
+  const intervalKeys = ['realtime', '5m', '1h', '1d'] as const
+  const interval = intervalKeys[intervalIdx]
+
+  const dataPoints: Record<string, number[]> = {
+    realtime: [42, 67, 55, 89, 73, 61, 95, 48, 82, 70],
+    '5m': [120, 145, 132, 167, 155, 143, 178, 165, 190, 175],
+    '1h': [980, 1120, 1045, 1230, 1180, 1095, 1310, 1260, 1400, 1350],
+    '1d': [12400, 13800, 12900, 15200, 14600, 13500, 16100, 15800, 17200, 16700],
+  }
+
+  const points = dataPoints[interval]
+  const max = Math.max(...points)
+  const labels = { realtime: '실시간', '5m': '5분', '1h': '1시간', '1d': '1일' }
+
+  return (
+    <div style={{ maxWidth: 500, fontFamily: 'system-ui, sans-serif' }}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 14 }}>
+        <span style={{ fontSize: 13, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>API 요청 수</span>
+        <SegmentedControl selectedIndex={intervalIdx} onTabChange={setIntervalIdx}>
+          {intervalKeys.map((v) => (
+            <SegmentedControl.Tab key={v} value={v}>
+              <SegmentedControl.TabCenter><span style={{ fontSize: 11, padding: '0 2px' }}>{labels[v]}</span></SegmentedControl.TabCenter>
+            </SegmentedControl.Tab>
+          ))}
+        </SegmentedControl>
+      </div>
+      <div style={{ background: 'var(--sem-eclipse-color-surfaceSubtle)', borderRadius: 10, padding: '14px', marginBottom: 10 }}>
+        <div style={{ display: 'flex', alignItems: 'flex-end', gap: 5, height: 80 }}>
+          {points.map((val, idx) => (
+            <div key={idx} style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 3 }}>
+              <div style={{ width: '100%', height: `${(val / max) * 70}px`, borderRadius: '3px 3px 0 0', background: 'var(--sem-eclipse-color-fillPrimary)', opacity: 0.7 + (idx / points.length) * 0.3, transition: 'height 0.3s ease' }} />
+            </div>
+          ))}
+        </div>
+        <div style={{ borderTop: '1px solid var(--sem-eclipse-color-borderSubtle)', marginTop: 6, paddingTop: 6, display: 'flex', justifyContent: 'space-between', fontSize: 9, color: 'var(--sem-eclipse-color-foregroundDisabled)' }}>
+          <span>-9</span><span>-5</span><span>현재</span>
+        </div>
+      </div>
+      <div style={{ display: 'flex', gap: 12 }}>
+        {[{ label: '평균', val: Math.round(points.reduce((a, b) => a + b, 0) / points.length) }, { label: '최대', val: max }, { label: '최소', val: Math.min(...points) }].map((s) => (
+          <div key={s.label} style={{ flex: 1, textAlign: 'center', padding: '8px', background: 'var(--sem-eclipse-color-surfaceDefault)', borderRadius: 8, border: '1px solid var(--sem-eclipse-color-borderSubtle)' }}>
+            <p style={{ fontSize: 10, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginBottom: 2 }}>{s.label}</p>
+            <p style={{ fontSize: 14, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{s.val.toLocaleString()}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+export const Mantine_데이터_집계_단위_전환: Story = {
+  name: 'Mantine — 데이터 집계 단위 전환 (실시간/5분/1시간/1일)',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Mantine SegmentedControl 패턴 — 실시간/5분/1시간/1일 집계 단위를 선택해 차트 데이터를 전환. 선택값에 따라 막대 높이와 통계값이 즉시 업데이트됩니다.',
+      },
+    },
+  },
+  render: () => <MantineDataAggregationSegmentRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Radix UI — 에디터 정렬 툴바 (텍스트 정렬 + 줄 간격)
+-------------------------------------------------------------------------- */
+function RadixEditorAlignSegmentRender() {
+  const [alignIdx, setAlignIdx] = useState(0)
+  const [spacingIdx, setSpacingIdx] = useState(1)
+  const alignKeys = ['left', 'center', 'right', 'justify'] as const
+  const spacingKeys = ['tight', 'normal', 'relaxed'] as const
+  const align = alignKeys[alignIdx]
+  const spacing = spacingKeys[spacingIdx]
+
+  const spacingMap = { tight: 1.3, normal: 1.6, relaxed: 2.0 }
+  const sampleText = '텍스트 정렬과 줄 간격은 가독성에 큰 영향을 미칩니다. Orbit UI의 SegmentedControl로 에디터 옵션을 직관적으로 제어할 수 있습니다.'
+  const textAlignValue: 'left' | 'center' | 'right' | 'justify' = align
+
+  return (
+    <div style={{ maxWidth: 460, fontFamily: 'system-ui, sans-serif' }}>
+      <div style={{ display: 'flex', gap: 12, marginBottom: 14, flexWrap: 'wrap' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+          <span style={{ fontSize: 10, color: 'var(--sem-eclipse-color-foregroundTertiary)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: 0.6 }}>정렬</span>
+          <SegmentedControl selectedIndex={alignIdx} onTabChange={setAlignIdx}>
+            {alignKeys.map((v) => {
+              const icons = { left: '⬅', center: '↔', right: '➡', justify: '⬌' }
+              return (
+                <SegmentedControl.Tab key={v} value={v}>
+                  <SegmentedControl.TabCenter><span style={{ fontSize: 12 }}>{icons[v]}</span></SegmentedControl.TabCenter>
+                </SegmentedControl.Tab>
+              )
+            })}
+          </SegmentedControl>
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+          <span style={{ fontSize: 10, color: 'var(--sem-eclipse-color-foregroundTertiary)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: 0.6 }}>줄 간격</span>
+          <SegmentedControl selectedIndex={spacingIdx} onTabChange={setSpacingIdx}>
+            {spacingKeys.map((v) => {
+              const labels = { tight: '좁게', normal: '보통', relaxed: '넓게' }
+              return (
+                <SegmentedControl.Tab key={v} value={v}>
+                  <SegmentedControl.TabCenter><span style={{ fontSize: 11 }}>{labels[v]}</span></SegmentedControl.TabCenter>
+                </SegmentedControl.Tab>
+              )
+            })}
+          </SegmentedControl>
+        </div>
+      </div>
+      <div style={{ padding: '16px', borderRadius: 10, border: '1px solid var(--sem-eclipse-color-borderSubtle)', background: 'var(--sem-eclipse-color-surfaceDefault)', fontSize: 13, color: 'var(--sem-eclipse-color-foregroundPrimary)', textAlign: textAlignValue, lineHeight: spacingMap[spacing], transition: 'all 0.2s' }}>
+        {sampleText}
+      </div>
+      <p style={{ fontSize: 10, color: 'var(--sem-eclipse-color-foregroundDisabled)', marginTop: 8, textAlign: 'center' }}>
+        정렬: {align} | 줄 간격: {spacingMap[spacing]}
+      </p>
+    </div>
+  )
+}
+
+export const Radix_에디터_정렬_툴바: Story = {
+  name: 'Radix UI — 에디터 정렬 툴바 (텍스트 정렬 + 줄 간격)',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Radix UI ToggleGroup 대신 SegmentedControl 두 개를 나란히 배치해 에디터 텍스트 정렬 + 줄 간격을 동시에 제어. 미리보기 텍스트에 실시간 반영.',
+      },
+    },
+  },
+  render: () => <RadixEditorAlignSegmentRender />,
+}

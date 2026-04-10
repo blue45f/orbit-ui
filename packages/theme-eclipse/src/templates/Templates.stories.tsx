@@ -33401,3 +33401,226 @@ export const TailwindAnt145BillingDashboard: StoryObj = {
   },
   render: () => <TailwindAnt145BillingDashboardRender />,
 }
+
+/* ==========================================================================
+   사이클 146 — Chakra UI + Mantine
+   템플릿: 팀 설정 & 멤버 관리 페이지
+========================================================================== */
+function ChakraMantine146TeamSettingsRender() {
+  const [activeSection, setActiveSection] = useState<'general' | 'members' | 'roles' | 'danger'>('general')
+  const [teamName, setTeamName] = useState('Orbit Design Team')
+  const [visibility, setVisibility] = useState<'public' | 'private'>('private')
+  const [inviteEmail, setInviteEmail] = useState('')
+  const [inviteSent, setInviteSent] = useState(false)
+  const [searchQuery, setSearchQuery] = useState('')
+
+  const members = [
+    { id: 1, name: '김희준', email: 'hjunkim@orbit.io', role: 'Owner', avatar: 'HJ', color: '#6366f1', joined: '2023-01-15', status: 'active' },
+    { id: 2, name: '이서연', email: 'suyeon@orbit.io', role: 'Admin', avatar: 'SY', color: '#0ea5e9', joined: '2023-03-22', status: 'active' },
+    { id: 3, name: '박지호', email: 'jiho@orbit.io', role: 'Member', avatar: 'JH', color: '#10b981', joined: '2023-06-10', status: 'active' },
+    { id: 4, name: '최아린', email: 'arin@orbit.io', role: 'Member', avatar: 'AR', color: '#f59e0b', joined: '2023-09-01', status: 'inactive' },
+    { id: 5, name: '정민준', email: 'minjun@orbit.io', role: 'Viewer', avatar: 'MJ', color: '#ec4899', joined: '2024-01-08', status: 'active' },
+  ]
+
+  const filteredMembers = members.filter(
+    (m) => m.name.includes(searchQuery) || m.email.includes(searchQuery)
+  )
+
+  const roleColors: Record<string, string> = {
+    Owner: '#6366f1', Admin: '#0ea5e9', Member: '#10b981', Viewer: '#94a3b8',
+  }
+
+  const sections = [
+    { id: 'general', label: '일반' },
+    { id: 'members', label: '멤버' },
+    { id: 'roles', label: '역할 & 권한' },
+    { id: 'danger', label: '위험 구역' },
+  ] as const
+
+  return (
+    <div style={{ minHeight: '100vh', background: 'var(--sem-eclipse-color-backgroundDefault)', fontFamily: 'system-ui, -apple-system, sans-serif', display: 'flex' }}>
+      {/* 사이드 네비 */}
+      <div style={{ width: 200, borderRight: '1px solid var(--sem-eclipse-color-borderSubtle)', padding: '24px 0', flexShrink: 0 }}>
+        <div style={{ padding: '0 16px 20px' }}>
+          <p style={{ fontSize: 11, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundTertiary)', textTransform: 'uppercase', letterSpacing: 0.8, marginBottom: 8 }}>팀 설정</p>
+        </div>
+        {sections.map((sec) => (
+          <button
+            key={sec.id}
+            onClick={() => setActiveSection(sec.id)}
+            style={{ width: '100%', textAlign: 'left', padding: '8px 16px', fontSize: 13, fontWeight: activeSection === sec.id ? 600 : 400, color: activeSection === sec.id ? 'var(--sem-eclipse-color-fillPrimary)' : (sec.id === 'danger' ? '#ef4444' : 'var(--sem-eclipse-color-foregroundSecondary)'), background: activeSection === sec.id ? 'var(--sem-eclipse-color-fillPrimarySubtle)' : 'transparent', border: 'none', cursor: 'pointer', borderLeft: activeSection === sec.id ? '3px solid var(--sem-eclipse-color-fillPrimary)' : '3px solid transparent', transition: 'all 0.15s' }}
+          >
+            {sec.label}
+          </button>
+        ))}
+      </div>
+
+      {/* 메인 콘텐츠 */}
+      <div style={{ flex: 1, padding: '32px', maxWidth: 680, overflowY: 'auto' }}>
+
+        {/* 일반 설정 */}
+        {activeSection === 'general' && (
+          <div>
+            <h2 style={{ fontSize: 18, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 4 }}>일반 설정</h2>
+            <p style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginBottom: 24 }}>팀의 기본 정보를 관리합니다.</p>
+
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
+              {/* 팀 이름 */}
+              <div style={{ padding: '20px', borderRadius: 12, border: '1px solid var(--sem-eclipse-color-borderSubtle)', background: 'var(--sem-eclipse-color-surfaceDefault)' }}>
+                <label style={{ display: 'block', fontSize: 12, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 8 }}>팀 이름</label>
+                <input
+                  value={teamName}
+                  onChange={(e) => setTeamName(e.target.value)}
+                  style={{ width: '100%', padding: '8px 12px', borderRadius: 8, border: '1px solid var(--sem-eclipse-color-borderDefault)', background: 'var(--sem-eclipse-color-backgroundDefault)', fontSize: 13, color: 'var(--sem-eclipse-color-foregroundPrimary)', boxSizing: 'border-box', outline: 'none' }}
+                />
+                <p style={{ fontSize: 10, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginTop: 6 }}>팀 URL: orbit.io/team/{teamName.toLowerCase().replace(/\s+/g, '-')}</p>
+              </div>
+
+              {/* 공개 여부 */}
+              <div style={{ padding: '20px', borderRadius: 12, border: '1px solid var(--sem-eclipse-color-borderSubtle)', background: 'var(--sem-eclipse-color-surfaceDefault)' }}>
+                <label style={{ display: 'block', fontSize: 12, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 12 }}>공개 설정</label>
+                <div style={{ display: 'flex', gap: 10 }}>
+                  {(['public', 'private'] as const).map((v) => (
+                    <label key={v} style={{ flex: 1, display: 'flex', alignItems: 'center', gap: 10, padding: '12px', borderRadius: 8, border: `2px solid ${visibility === v ? 'var(--sem-eclipse-color-fillPrimary)' : 'var(--sem-eclipse-color-borderSubtle)'}`, background: visibility === v ? 'var(--sem-eclipse-color-fillPrimarySubtle)' : 'transparent', cursor: 'pointer', transition: 'all 0.15s' }}>
+                      <input type="radio" name="visibility" value={v} checked={visibility === v} onChange={() => setVisibility(v)} style={{ accentColor: 'var(--sem-eclipse-color-fillPrimary)' }} />
+                      <div>
+                        <p style={{ fontSize: 12, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{v === 'public' ? '공개' : '비공개'}</p>
+                        <p style={{ fontSize: 10, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>{v === 'public' ? '누구나 검색 가능' : '초대된 멤버만 접근'}</p>
+                      </div>
+                    </label>
+                  ))}
+                </div>
+              </div>
+
+              <button style={{ alignSelf: 'flex-start', padding: '9px 20px', borderRadius: 8, border: 'none', background: 'var(--sem-eclipse-color-fillPrimary)', color: '#fff', fontSize: 13, fontWeight: 600, cursor: 'pointer' }}>
+                변경 사항 저장
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* 멤버 관리 */}
+        {activeSection === 'members' && (
+          <div>
+            <h2 style={{ fontSize: 18, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 4 }}>멤버 관리</h2>
+            <p style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginBottom: 20 }}>총 {members.length}명의 멤버가 있습니다.</p>
+
+            {/* 초대 */}
+            <div style={{ padding: '16px', borderRadius: 10, border: '1px solid var(--sem-eclipse-color-borderSubtle)', background: 'var(--sem-eclipse-color-surfaceDefault)', marginBottom: 16 }}>
+              <p style={{ fontSize: 12, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 10 }}>이메일로 초대</p>
+              <div style={{ display: 'flex', gap: 8 }}>
+                <input
+                  value={inviteEmail}
+                  onChange={(e) => setInviteEmail(e.target.value)}
+                  placeholder="teammate@company.com"
+                  style={{ flex: 1, padding: '8px 12px', borderRadius: 8, border: '1px solid var(--sem-eclipse-color-borderDefault)', background: 'var(--sem-eclipse-color-backgroundDefault)', fontSize: 12, color: 'var(--sem-eclipse-color-foregroundPrimary)', outline: 'none' }}
+                />
+                <button
+                  onClick={() => { if (inviteEmail) { setInviteSent(true); setInviteEmail(''); setTimeout(() => setInviteSent(false), 3000) } }}
+                  style={{ padding: '8px 16px', borderRadius: 8, border: 'none', background: 'var(--sem-eclipse-color-fillPrimary)', color: '#fff', fontSize: 12, fontWeight: 600, cursor: 'pointer', whiteSpace: 'nowrap' }}
+                >
+                  {inviteSent ? '초대 완료!' : '초대 전송'}
+                </button>
+              </div>
+            </div>
+
+            {/* 검색 */}
+            <input
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="이름 또는 이메일 검색..."
+              style={{ width: '100%', padding: '8px 12px', borderRadius: 8, border: '1px solid var(--sem-eclipse-color-borderDefault)', background: 'var(--sem-eclipse-color-surfaceDefault)', fontSize: 12, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 10, boxSizing: 'border-box', outline: 'none' }}
+            />
+
+            {/* 멤버 목록 */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+              {filteredMembers.map((member) => (
+                <div key={member.id} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 14px', borderRadius: 10, border: '1px solid var(--sem-eclipse-color-borderSubtle)', background: 'var(--sem-eclipse-color-surfaceDefault)' }}>
+                  <div style={{ width: 36, height: 36, borderRadius: '50%', background: member.color, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: 12, fontWeight: 700, flexShrink: 0 }}>
+                    {member.avatar}
+                  </div>
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                      <span style={{ fontSize: 13, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{member.name}</span>
+                      {member.status === 'inactive' && <span style={{ fontSize: 9, color: '#94a3b8', background: '#f1f5f9', padding: '1px 5px', borderRadius: 4 }}>비활성</span>}
+                    </div>
+                    <span style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>{member.email}</span>
+                  </div>
+                  <span style={{ fontSize: 10, fontWeight: 700, padding: '2px 8px', borderRadius: 10, background: `${roleColors[member.role]}20`, color: roleColors[member.role] }}>{member.role}</span>
+                  {member.role !== 'Owner' && (
+                    <button style={{ fontSize: 11, color: '#ef4444', background: 'none', border: '1px solid #fca5a5', padding: '3px 8px', borderRadius: 6, cursor: 'pointer' }}>제거</button>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* 역할 & 권한 */}
+        {activeSection === 'roles' && (
+          <div>
+            <h2 style={{ fontSize: 18, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 4 }}>역할 & 권한</h2>
+            <p style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginBottom: 20 }}>각 역할의 권한 범위를 확인합니다.</p>
+            {[
+              { role: 'Owner', color: '#6366f1', perms: ['전체 설정 변경', '멤버 초대/제거', '역할 변경', '팀 삭제', '결제 관리'] },
+              { role: 'Admin', color: '#0ea5e9', perms: ['멤버 초대/제거', '역할 변경 (Admin 미만)', '프로젝트 생성/삭제', '설정 변경'] },
+              { role: 'Member', color: '#10b981', perms: ['프로젝트 생성', '이슈 관리', '코멘트 작성'] },
+              { role: 'Viewer', color: '#94a3b8', perms: ['읽기 전용 접근'] },
+            ].map((r) => (
+              <div key={r.role} style={{ marginBottom: 12, padding: '16px', borderRadius: 10, border: '1px solid var(--sem-eclipse-color-borderSubtle)', background: 'var(--sem-eclipse-color-surfaceDefault)' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8 }}>
+                  <span style={{ fontSize: 11, fontWeight: 700, padding: '2px 8px', borderRadius: 10, background: `${r.color}20`, color: r.color }}>{r.role}</span>
+                </div>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 5 }}>
+                  {r.perms.map((p) => (
+                    <span key={p} style={{ fontSize: 10, color: 'var(--sem-eclipse-color-foregroundSecondary)', background: 'var(--sem-eclipse-color-surfaceSubtle)', padding: '2px 8px', borderRadius: 4 }}>✓ {p}</span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* 위험 구역 */}
+        {activeSection === 'danger' && (
+          <div>
+            <h2 style={{ fontSize: 18, fontWeight: 700, color: '#ef4444', marginBottom: 4 }}>위험 구역</h2>
+            <p style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginBottom: 20 }}>되돌릴 수 없는 작업입니다. 신중히 진행하세요.</p>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+              {[
+                { action: '팀 이름 변경', desc: '팀 URL이 변경됩니다. 기존 링크가 작동하지 않을 수 있습니다.', btn: '이름 변경' },
+                { action: '팀 보관', desc: '팀을 보관하면 멤버가 접근할 수 없습니다. 복구는 가능합니다.', btn: '팀 보관' },
+                { action: '팀 삭제', desc: '팀의 모든 데이터가 영구 삭제됩니다. 이 작업은 되돌릴 수 없습니다.', btn: '팀 삭제' },
+              ].map((item) => (
+                <div key={item.action} style={{ padding: '16px', borderRadius: 10, border: '1px solid #fca5a5', background: '#fff5f5', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 16 }}>
+                  <div>
+                    <p style={{ fontSize: 13, fontWeight: 600, color: '#dc2626', marginBottom: 3 }}>{item.action}</p>
+                    <p style={{ fontSize: 11, color: '#ef4444' }}>{item.desc}</p>
+                  </div>
+                  <button style={{ padding: '7px 14px', borderRadius: 8, border: '1px solid #ef4444', background: 'transparent', color: '#ef4444', fontSize: 12, fontWeight: 600, cursor: 'pointer', whiteSpace: 'nowrap', flexShrink: 0 }}>{item.btn}</button>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        <p style={{ fontSize: 10, color: 'var(--sem-eclipse-color-foregroundDisabled)', marginTop: 32, textAlign: 'center' }}>
+          Chakra UI 설정 패널 + Mantine 멤버 관리 패턴 — 사이클 146
+        </p>
+      </div>
+    </div>
+  )
+}
+
+export const ChakraMantine146TeamSettings: StoryObj = {
+  name: 'Chakra UI + Mantine — 팀 설정 & 멤버 관리',
+  parameters: {
+    layout: 'fullscreen',
+    docs: {
+      description: {
+        story: 'Chakra UI 설정 패널 레이아웃 + Mantine 멤버 관리 패턴. 사이드 네비로 일반/멤버/역할/위험구역을 전환. 이메일 초대, 멤버 검색, 역할 권한 매트릭스, 위험 구역 액션을 포함.',
+      },
+    },
+  },
+  render: () => <ChakraMantine146TeamSettingsRender />,
+}

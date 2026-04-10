@@ -520,3 +520,199 @@ const TabNavAppBarRender = (args: React.ComponentPropsWithoutRef<typeof AppBar>)
 export const 탭내비게이션: Story = {
   render: (args) => <TabNavAppBarRender {...args} />,
 }
+
+/* --------------------------------------------------------------------------
+   Chakra UI — 다크 사이드바 토글 앱바 (접기/펼치기 + 사용자 정보)
+-------------------------------------------------------------------------- */
+function ChakraSidebarToggleAppBarRender() {
+  const [sidebarOpen, setSidebarOpen] = useState(true)
+  const [darkMode, setDarkMode] = useState(false)
+
+  const bg = darkMode ? '#0f172a' : '#ffffff'
+  const border = darkMode ? '#1e293b' : '#e2e8f0'
+  const textPrimary = darkMode ? '#f1f5f9' : '#0f172a'
+  const textSecondary = darkMode ? '#94a3b8' : '#64748b'
+  const iconBg = darkMode ? '#1e293b' : '#f1f5f9'
+
+  return (
+    <div style={{ width: '100%', fontFamily: 'system-ui, sans-serif' }}>
+      <div style={{ background: bg, borderBottom: `1px solid ${border}`, display: 'flex', alignItems: 'center', height: 52, padding: '0 16px', gap: 10, transition: 'background 0.2s' }}>
+        <button
+          onClick={() => setSidebarOpen(!sidebarOpen)}
+          style={{ width: 32, height: 32, borderRadius: 8, border: 'none', background: iconBg, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 16, transition: 'all 0.15s' }}
+          aria-label="사이드바 토글"
+        >
+          {sidebarOpen ? '◀' : '▶'}
+        </button>
+        <div style={{ flex: 1, display: 'flex', alignItems: 'center', gap: 8 }}>
+          <span style={{ fontSize: 15, fontWeight: 700, color: textPrimary }}>Orbit</span>
+          <span style={{ fontSize: 11, color: textSecondary, background: iconBg, padding: '1px 7px', borderRadius: 10 }}>Beta</span>
+        </div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+          <button
+            onClick={() => setDarkMode(!darkMode)}
+            style={{ width: 32, height: 32, borderRadius: 8, border: 'none', background: iconBg, cursor: 'pointer', fontSize: 15 }}
+            aria-label="다크모드 전환"
+          >
+            {darkMode ? '☀️' : '🌙'}
+          </button>
+          <div style={{ width: 32, height: 32, borderRadius: '50%', background: 'linear-gradient(135deg, #6366f1, #8b5cf6)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: 12, fontWeight: 700, cursor: 'pointer' }}>
+            HJ
+          </div>
+        </div>
+      </div>
+      <div style={{ display: 'flex', height: 180 }}>
+        <div style={{ width: sidebarOpen ? 200 : 52, background: darkMode ? '#1e293b' : '#f8fafc', borderRight: `1px solid ${border}`, overflow: 'hidden', transition: 'width 0.2s ease', flexShrink: 0 }}>
+          {['홈', '프로젝트', '팀', '설정'].map((item) => (
+            <div key={item} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 14px', cursor: 'pointer', fontSize: 13, color: textPrimary, whiteSpace: 'nowrap' }}>
+              <span style={{ fontSize: 15, flexShrink: 0 }}>{'●'}</span>
+              {sidebarOpen && <span>{item}</span>}
+            </div>
+          ))}
+        </div>
+        <div style={{ flex: 1, padding: 20, display: 'flex', alignItems: 'center', justifyContent: 'center', color: textSecondary, fontSize: 13 }}>
+          {sidebarOpen ? '사이드바 열림 — 메인 콘텐츠' : '사이드바 닫힘 — 콘텐츠 영역 최대화'}
+        </div>
+      </div>
+      <p style={{ fontSize: 10, color: '#94a3b8', padding: '4px 16px', textAlign: 'center' }}>Chakra UI 다크모드 + 사이드바 토글 AppBar 패턴</p>
+    </div>
+  )
+}
+
+export const Chakra_다크_사이드바_토글_앱바: Story = {
+  name: 'Chakra UI — 다크 사이드바 토글 앱바',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Chakra UI의 다크모드 토글 + 사이드바 접기/펼치기 패턴. AppBar를 중심으로 다크/라이트 전환 및 사이드바 너비 트랜지션을 연동. SaaS 앱 레이아웃의 전형적인 패턴.',
+      },
+    },
+  },
+  render: () => <ChakraSidebarToggleAppBarRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Mantine — 다단계 마법사 앱바 (단계 표시 + 뒤로/다음 버튼)
+-------------------------------------------------------------------------- */
+function MantineWizardAppBarRender() {
+  const [step, setStep] = useState(1)
+  const totalSteps = 4
+  const stepLabels = ['계정 설정', '프로필 입력', '팀 초대', '검토 & 완료']
+
+  return (
+    <div style={{ width: '100%', fontFamily: 'system-ui, sans-serif' }}>
+      <div style={{ background: 'var(--sem-eclipse-color-surfaceDefault)', borderBottom: '1px solid var(--sem-eclipse-color-borderSubtle)', padding: '0 16px', height: 56, display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12 }}>
+        <button
+          onClick={() => setStep(Math.max(1, step - 1))}
+          disabled={step === 1}
+          style={{ display: 'flex', alignItems: 'center', gap: 4, fontSize: 13, color: step === 1 ? 'var(--sem-eclipse-color-foregroundDisabled)' : 'var(--sem-eclipse-color-foregroundPrimary)', background: 'none', border: 'none', cursor: step === 1 ? 'not-allowed' : 'pointer', padding: '6px 10px', borderRadius: 6 }}
+        >
+          ← 이전
+        </button>
+        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6 }}>
+          <span style={{ fontSize: 11, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{stepLabels[step - 1]}</span>
+          <div style={{ display: 'flex', gap: 6 }}>
+            {Array.from({ length: totalSteps }, (_, i) => (
+              <div
+                key={i}
+                style={{ width: i < step ? 24 : 8, height: 4, borderRadius: 2, background: i < step ? 'var(--sem-eclipse-color-fillPrimary)' : 'var(--sem-eclipse-color-borderDefault)', transition: 'all 0.25s ease' }}
+              />
+            ))}
+          </div>
+          <span style={{ fontSize: 10, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>{step} / {totalSteps}</span>
+        </div>
+        <button
+          onClick={() => setStep(Math.min(totalSteps, step + 1))}
+          disabled={step === totalSteps}
+          style={{ display: 'flex', alignItems: 'center', gap: 4, fontSize: 13, fontWeight: 600, color: step === totalSteps ? 'var(--sem-eclipse-color-foregroundDisabled)' : 'var(--sem-eclipse-color-fillPrimary)', background: step === totalSteps ? 'transparent' : 'var(--sem-eclipse-color-fillPrimarySubtle)', border: 'none', cursor: step === totalSteps ? 'not-allowed' : 'pointer', padding: '6px 10px', borderRadius: 6, transition: 'all 0.15s' }}
+        >
+          {step === totalSteps ? '완료' : '다음 →'}
+        </button>
+      </div>
+      <div style={{ padding: '24px 20px', textAlign: 'center', color: 'var(--sem-eclipse-color-foregroundSecondary)', fontSize: 13 }}>
+        <p style={{ fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 6 }}>Step {step}: {stepLabels[step - 1]}</p>
+        <p>이 영역에 해당 단계의 폼 컨텐츠가 표시됩니다.</p>
+      </div>
+    </div>
+  )
+}
+
+export const Mantine_마법사_스텝_앱바: Story = {
+  name: 'Mantine — 다단계 마법사 앱바 (단계 표시)',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Mantine Stepper + AppBar 조합 패턴. 온보딩/마법사 플로우에서 현재 단계를 AppBar 내 진행 막대와 단계 레이블로 표현. 이전/다음 버튼이 AppBar 양 끝에 배치.',
+      },
+    },
+  },
+  render: () => <MantineWizardAppBarRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Arco Design — 다중 환경 전환 앱바 (환경 드롭다운 + 배포 상태)
+-------------------------------------------------------------------------- */
+function ArcoEnvSwitchAppBarRender() {
+  const [env, setEnv] = useState<'production' | 'staging' | 'development'>('production')
+  const envConfig = {
+    production: { label: 'Production', color: '#10b981', dot: '#059669' },
+    staging: { label: 'Staging', color: '#f59e0b', dot: '#d97706' },
+    development: { label: 'Development', color: '#6366f1', dot: '#4f46e5' },
+  }
+  const [open, setOpen] = useState(false)
+  const current = envConfig[env]
+
+  return (
+    <div style={{ width: '100%', fontFamily: 'system-ui, sans-serif', position: 'relative' }}>
+      <div style={{ background: 'var(--sem-eclipse-color-surfaceDefault)', borderBottom: '1px solid var(--sem-eclipse-color-borderSubtle)', display: 'flex', alignItems: 'center', height: 48, padding: '0 16px', gap: 12 }}>
+        <span style={{ fontSize: 14, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>orbit-app</span>
+        <div style={{ width: 1, height: 20, background: 'var(--sem-eclipse-color-borderSubtle)' }} />
+        <div style={{ position: 'relative' }}>
+          <button
+            onClick={() => setOpen(!open)}
+            style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '4px 10px', borderRadius: 6, border: '1px solid var(--sem-eclipse-color-borderDefault)', background: 'var(--sem-eclipse-color-surfaceSubtle)', cursor: 'pointer', fontSize: 12, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}
+          >
+            <span style={{ width: 7, height: 7, borderRadius: '50%', background: current.dot, display: 'inline-block' }} />
+            {current.label}
+            <span style={{ fontSize: 10 }}>▼</span>
+          </button>
+          {open && (
+            <div style={{ position: 'absolute', top: '110%', left: 0, zIndex: 100, background: 'var(--sem-eclipse-color-surfaceDefault)', border: '1px solid var(--sem-eclipse-color-borderDefault)', borderRadius: 8, boxShadow: '0 4px 16px rgba(0,0,0,0.12)', minWidth: 160, overflow: 'hidden' }}>
+              {(Object.keys(envConfig) as Array<keyof typeof envConfig>).map((key) => (
+                <button
+                  key={key}
+                  onClick={() => { setEnv(key); setOpen(false) }}
+                  style={{ width: '100%', display: 'flex', alignItems: 'center', gap: 8, padding: '8px 12px', background: env === key ? 'var(--sem-eclipse-color-surfaceSubtle)' : 'none', border: 'none', cursor: 'pointer', fontSize: 12, color: 'var(--sem-eclipse-color-foregroundPrimary)', textAlign: 'left' }}
+                >
+                  <span style={{ width: 7, height: 7, borderRadius: '50%', background: envConfig[key].dot, flexShrink: 0 }} />
+                  {envConfig[key].label}
+                  {env === key && <span style={{ marginLeft: 'auto', fontSize: 10, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>현재</span>}
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+        <div style={{ flex: 1 }} />
+        <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 11, color: current.color, background: `${current.color}18`, padding: '3px 10px', borderRadius: 20, fontWeight: 600 }}>
+          <span style={{ width: 6, height: 6, borderRadius: '50%', background: current.dot, display: 'inline-block', animation: env === 'production' ? 'none' : undefined }} />
+          {env === 'production' ? '운영 중' : env === 'staging' ? '검증 중' : '개발 중'}
+        </div>
+      </div>
+      <div style={{ padding: '16px 20px', fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)', background: 'var(--sem-eclipse-color-surfaceSubtle)', borderBottom: '1px solid var(--sem-eclipse-color-borderSubtle)' }}>
+        선택된 환경: <strong style={{ color: current.color }}>{current.label}</strong> — URL: {env === 'production' ? 'app.orbit-ui.com' : env === 'staging' ? 'staging.orbit-ui.com' : 'localhost:3000'}
+      </div>
+    </div>
+  )
+}
+
+export const Arco_다중_환경_전환_앱바: Story = {
+  name: 'Arco Design — 다중 환경 전환 앱바 (환경 드롭다운)',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Arco Design의 환경 전환 패턴. Production/Staging/Development를 AppBar 내 드롭다운으로 전환, 각 환경에 색상 상태 도트와 뱃지를 표시. DevOps/SaaS 대시보드에서 자주 쓰이는 패턴.',
+      },
+    },
+  },
+  render: () => <ArcoEnvSwitchAppBarRender />,
+}
