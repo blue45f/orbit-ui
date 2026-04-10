@@ -1748,3 +1748,244 @@ export const Ant_Radix_권한_관리_토글_패널: Story = {
     )
   },
 }
+
+// ─── Cycle 191: Raycast Extensions + Mantine ─────────────────────────────────
+
+const MANTINE_FEATURE_FLAGS_191 = [
+  { id: 'betaDashboard', label: '베타 대시보드', description: '새로운 분석 대시보드 레이아웃 미리 체험', badge: 'Beta' },
+  { id: 'aiSuggestions', label: 'AI 제안', description: '컴포넌트 조합을 AI가 자동 추천', badge: 'New' },
+  { id: 'darkMode', label: '다크 모드', description: '시스템 다크 모드 자동 감지 및 전환', badge: null },
+  { id: 'compactView', label: '컴팩트 뷰', description: '테이블/리스트의 행 높이를 줄여 더 많은 데이터 표시', badge: null },
+  { id: 'experimentalGrid', label: '실험적 그리드', description: '12컬럼 반응형 그리드 시스템 (실험 단계)', badge: 'Experimental' },
+]
+
+const BADGE_STYLE_191: Record<string, { bg: string; color: string }> = {
+  Beta: { bg: '#eff6ff', color: '#2563eb' },
+  New: { bg: '#f0fdf4', color: '#16a34a' },
+  Experimental: { bg: '#fefce8', color: '#92400e' },
+}
+
+function MantineFeatureFlagsRender() {
+  const [flags, setFlags] = useState<Record<string, boolean>>({
+    betaDashboard: false,
+    aiSuggestions: true,
+    darkMode: false,
+    compactView: false,
+    experimentalGrid: false,
+  })
+
+  function toggle(id: string) {
+    setFlags((prev) => ({ ...prev, [id]: !prev[id] }))
+  }
+
+  const enabledCount = Object.values(flags).filter(Boolean).length
+
+  return (
+    <div style={{ width: 420, fontFamily: 'system-ui, sans-serif', border: '1px solid #e2e8f0', borderRadius: 14, overflow: 'hidden', background: '#fff' }}>
+      <div style={{ padding: '14px 20px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <div style={{ flex: 1 }}>
+          <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>피처 플래그</div>
+          <div style={{ fontSize: 11, color: '#64748b', marginTop: 2 }}>Mantine Switch 그룹 패턴</div>
+        </div>
+        <div style={{ fontSize: 11, fontWeight: 600, color: '#6366f1', background: '#eef2ff', padding: '3px 10px', borderRadius: 20 }}>
+          {enabledCount}/{MANTINE_FEATURE_FLAGS_191.length} 활성화
+        </div>
+      </div>
+      <div style={{ padding: '12px 20px', display: 'flex', flexDirection: 'column', gap: 0 }}>
+        {MANTINE_FEATURE_FLAGS_191.map((flag, i) => {
+          const badgeStyle = flag.badge ? BADGE_STYLE_191[flag.badge] : null
+          return (
+            <div
+              key={flag.id}
+              style={{ display: 'flex', alignItems: 'center', gap: 14, padding: '12px 0', borderBottom: i < MANTINE_FEATURE_FLAGS_191.length - 1 ? '1px solid #f1f5f9' : 'none' }}
+            >
+              <div style={{ flex: 1 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                  <span style={{ fontSize: 13, fontWeight: 500, color: '#0f172a' }}>{flag.label}</span>
+                  {badgeStyle && flag.badge && (
+                    <span style={{ fontSize: 9, padding: '1px 6px', borderRadius: 6, background: badgeStyle.bg, color: badgeStyle.color, fontWeight: 700 }}>{flag.badge}</span>
+                  )}
+                </div>
+                <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>{flag.description}</div>
+              </div>
+              <Switch
+                checked={flags[flag.id]}
+                onChange={() => toggle(flag.id)}
+              />
+            </div>
+          )
+        })}
+      </div>
+    </div>
+  )
+}
+
+export const Mantine_피처_플래그_스위치_그룹: Story = {
+  name: 'Mantine — 피처 플래그 Switch 그룹',
+  render: () => <MantineFeatureFlagsRender />,
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Mantine Switch 그룹 패턴. 피처 플래그별 beta/new/experimental 배지 + 설명 2단 레이아웃. ' +
+          '활성 개수 카운터, 경계선 구분 행 패턴. Mantine Settings 페이지 토글 UX.',
+      },
+    },
+  },
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+
+const RAYCAST_SHORTCUT_PREFS_191 = [
+  { category: '글로벌', items: [
+    { id: 'cmdSpace', label: 'Raycast 열기', shortcut: '⌘Space', enabled: true },
+    { id: 'cmdH', label: '클립보드 히스토리', shortcut: '⌘⇧H', enabled: true },
+  ]},
+  { category: '확장 기능', items: [
+    { id: 'github', label: 'GitHub 빠른 접근', shortcut: '⌃G', enabled: false },
+    { id: 'notion', label: 'Notion 검색', shortcut: '⌃N', enabled: true },
+    { id: 'figma', label: 'Figma 파일 열기', shortcut: '⌃F', enabled: false },
+  ]},
+]
+
+type RaycastPrefs = Record<string, boolean>
+
+function RaycastShortcutPrefRender() {
+  const initPrefs: RaycastPrefs = {}
+  RAYCAST_SHORTCUT_PREFS_191.forEach((cat) => {
+    cat.items.forEach((item) => {
+      initPrefs[item.id] = item.enabled
+    })
+  })
+  const [prefs, setPrefs] = useState<RaycastPrefs>(initPrefs)
+
+  function toggle(id: string) {
+    setPrefs((prev) => ({ ...prev, [id]: !prev[id] }))
+  }
+
+  return (
+    <div style={{ width: 400, fontFamily: 'system-ui, sans-serif', background: '#18181b', borderRadius: 14, overflow: 'hidden' }}>
+      <div style={{ padding: '14px 18px', borderBottom: '1px solid #27272a', display: 'flex', alignItems: 'center', gap: 8 }}>
+        <span style={{ fontSize: 16, fontWeight: 900, color: '#fff', letterSpacing: '-0.05em' }}>⚡</span>
+        <span style={{ fontSize: 13, fontWeight: 700, color: '#fff' }}>단축키 환경설정</span>
+        <span style={{ marginLeft: 'auto', fontSize: 10, color: '#71717a', background: '#27272a', padding: '2px 8px', borderRadius: 6 }}>Raycast 패턴</span>
+      </div>
+      {RAYCAST_SHORTCUT_PREFS_191.map((cat) => (
+        <div key={cat.category}>
+          <div style={{ padding: '10px 18px 4px', fontSize: 10, fontWeight: 700, color: '#71717a', textTransform: 'uppercase', letterSpacing: '0.07em' }}>
+            {cat.category}
+          </div>
+          {cat.items.map((item, i) => (
+            <div key={item.id} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '10px 18px', borderTop: i === 0 ? 'none' : '1px solid #27272a' }}>
+              <div style={{ flex: 1 }}>
+                <div style={{ fontSize: 12, fontWeight: 500, color: prefs[item.id] ? '#fff' : '#71717a' }}>{item.label}</div>
+                <div style={{ fontSize: 10, color: '#52525b', marginTop: 1, fontFamily: 'monospace' }}>{item.shortcut}</div>
+              </div>
+              <Switch
+                checked={prefs[item.id]}
+                onChange={() => toggle(item.id)}
+              />
+            </div>
+          ))}
+        </div>
+      ))}
+      <div style={{ padding: '10px 18px', borderTop: '1px solid #27272a', fontSize: 10, color: '#52525b', textAlign: 'right' }}>
+        {Object.values(prefs).filter(Boolean).length}개 단축키 활성화
+      </div>
+    </div>
+  )
+}
+
+export const Raycast_단축키_환경설정_다크_패널: Story = {
+  name: 'Raycast — 단축키 환경설정 다크 패널',
+  render: () => <RaycastShortcutPrefRender />,
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Raycast 설정 패널 다크 테마 패턴. 카테고리별 단축키 활성화 토글, 모노스페이스 키 표시. ' +
+          '다크 배경(#18181b)에 비활성 레이블 페이드아웃 효과. Raycast Preferences UX.',
+      },
+    },
+  },
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+
+const MANTINE_RAYCAST_NOTIF_191 = [
+  { id: 'deploy', label: '배포 완료', desc: 'Vercel 배포 성공/실패 알림', channel: '이메일 + 슬랙' },
+  { id: 'review', label: 'PR 리뷰 요청', desc: 'GitHub Pull Request 새 리뷰어 추가', channel: 'Slack' },
+  { id: 'mention', label: '멘션', desc: '이슈/PR/댓글에서 나를 언급한 경우', channel: '이메일' },
+  { id: 'release', label: '릴리스 알림', desc: '새 패키지 버전 출시 알림', channel: 'Raycast' },
+]
+
+function MantineRaycastNotifRender() {
+  const [enabled, setEnabled] = useState<Record<string, boolean>>({
+    deploy: true, review: true, mention: false, release: false,
+  })
+  const [globalEnabled, setGlobalEnabled] = useState(true)
+
+  function toggleGlobal() {
+    const next = !globalEnabled
+    setGlobalEnabled(next)
+    const newEnabled: Record<string, boolean> = {}
+    MANTINE_RAYCAST_NOTIF_191.forEach((n) => { newEnabled[n.id] = next })
+    setEnabled(newEnabled)
+  }
+
+  function toggleItem(id: string) {
+    setEnabled((prev) => ({ ...prev, [id]: !prev[id] }))
+  }
+
+  return (
+    <div style={{ width: 400, fontFamily: 'system-ui, sans-serif', border: '1px solid #e2e8f0', borderRadius: 14, overflow: 'hidden', background: '#fff' }}>
+      {/* Global toggle header */}
+      <div style={{ padding: '14px 20px', background: globalEnabled ? '#f0fdf4' : '#f8fafc', borderBottom: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', gap: 12, transition: 'background 200ms' }}>
+        <div style={{ flex: 1 }}>
+          <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>알림 설정</div>
+          <div style={{ fontSize: 11, color: '#64748b', marginTop: 2 }}>Mantine + Raycast 패턴</div>
+        </div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+          <span style={{ fontSize: 11, color: globalEnabled ? '#16a34a' : '#94a3b8', fontWeight: 600 }}>
+            {globalEnabled ? '전체 켜짐' : '전체 꺼짐'}
+          </span>
+          <Switch checked={globalEnabled} onChange={toggleGlobal} />
+        </div>
+      </div>
+      {/* Individual items */}
+      <div style={{ padding: '8px 20px' }}>
+        {MANTINE_RAYCAST_NOTIF_191.map((notif, i) => (
+          <div
+            key={notif.id}
+            style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '11px 0', borderBottom: i < MANTINE_RAYCAST_NOTIF_191.length - 1 ? '1px solid #f1f5f9' : 'none', opacity: globalEnabled ? 1 : 0.4, transition: 'opacity 200ms' }}
+          >
+            <div style={{ flex: 1 }}>
+              <div style={{ fontSize: 13, fontWeight: 500, color: '#0f172a' }}>{notif.label}</div>
+              <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 1 }}>{notif.desc}</div>
+              <div style={{ fontSize: 10, color: '#6366f1', marginTop: 3 }}>채널: {notif.channel}</div>
+            </div>
+            <Switch
+              checked={enabled[notif.id] && globalEnabled}
+              onChange={() => toggleItem(notif.id)}
+              disabled={!globalEnabled}
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+export const Mantine_Raycast_알림_글로벌_토글_패턴: Story = {
+  name: 'Mantine + Raycast — 알림 글로벌/개별 토글',
+  render: () => <MantineRaycastNotifRender />,
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Mantine Switch + Raycast 알림 설정 복합 패턴. 글로벌 토글이 개별 항목 전체를 제어 + disabled 시 opacity 페이드아웃. ' +
+          '채널 레이블(이메일/Slack/Raycast) 3단 행 레이아웃. 전체 켜짐/꺼짐 상태 동기화.',
+      },
+    },
+  },
+}

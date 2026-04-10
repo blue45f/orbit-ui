@@ -2538,3 +2538,295 @@ export const Figma_Apple_컴포넌트_속성_에디터: Story = {
   },
   render: () => <FigmaAppleComponentEditorRender />,
 }
+
+// ─── Cycle 191: Raycast Extensions + Mantine ─────────────────────────────────
+
+const RAYCAST_ACTIONS_191 = [
+  { label: '새 브라우저 탭 열기', shortcut: '⌘T', group: '브라우저', icon: '🌐' },
+  { label: '스크린샷 캡처', shortcut: '⌘⇧4', group: '시스템', icon: '📸' },
+  { label: '클립보드 히스토리', shortcut: '⌘⇧V', group: '클립보드', icon: '📋' },
+  { label: 'GitHub PR 열기', shortcut: '⌘P', group: 'GitHub', icon: '🔀' },
+  { label: 'Notion 페이지 생성', shortcut: '⌘N', group: 'Notion', icon: '📝' },
+  { label: 'Slack DM 보내기', shortcut: '⌘D', group: 'Slack', icon: '💬' },
+  { label: '타이머 설정 — 25분', shortcut: '⌘⌥T', group: '생산성', icon: '⏱' },
+  { label: 'Figma 파일 열기', shortcut: '⌘F', group: 'Figma', icon: '🎨' },
+]
+
+const RAYCAST_GROUPS_191 = ['브라우저', '시스템', '클립보드', 'GitHub', 'Notion', 'Slack', '생산성', 'Figma']
+
+function RaycastCommandPaletteRender() {
+  const [q, setQ] = React.useState('')
+  const [selected, setSelected] = React.useState<string | null>(null)
+  const [recentCmds, setRecentCmds] = React.useState<string[]>(['클립보드 히스토리', 'GitHub PR 열기'])
+
+  const filtered = RAYCAST_ACTIONS_191.filter(
+    (a) => a.label.toLowerCase().includes(q.toLowerCase()) || a.group.toLowerCase().includes(q.toLowerCase())
+  )
+
+  const grouped = RAYCAST_GROUPS_191.reduce<Record<string, typeof RAYCAST_ACTIONS_191>>((acc, g) => {
+    const items = filtered.filter((a) => a.group === g)
+    if (items.length > 0) acc[g] = items
+    return acc
+  }, {})
+
+  function handleSelect(label: string) {
+    setSelected(label)
+    setRecentCmds((prev) => [label, ...prev.filter((r) => r !== label)].slice(0, 3))
+    setTimeout(() => setSelected(null), 1200)
+  }
+
+  return (
+    <div style={{ width: 540, fontFamily: 'system-ui, sans-serif' }}>
+      {selected && (
+        <div style={{ marginBottom: 8, padding: '6px 14px', background: '#f0fdf4', border: '1px solid #bbf7d0', borderRadius: 8, fontSize: 12, color: '#16a34a', fontWeight: 600 }}>
+          실행: {selected}
+        </div>
+      )}
+      <Command className="rounded-xl border shadow-xl" style={{ maxWidth: 540 }}>
+        <div style={{ padding: '10px 14px 0', display: 'flex', alignItems: 'center', gap: 8 }}>
+          <span style={{ fontSize: 13, fontWeight: 800, color: '#0f172a', letterSpacing: '-0.02em' }}>Raycast</span>
+          <span style={{ fontSize: 10, color: '#94a3b8', background: '#f1f5f9', padding: '2px 7px', borderRadius: 6 }}>⌘Space</span>
+        </div>
+        <Command.Input
+          placeholder="앱, 파일, 명령어 검색..."
+          value={q}
+          onValueChange={setQ}
+        />
+        <Command.List>
+          <Command.Empty>일치하는 명령어 없음</Command.Empty>
+          {/* Recent */}
+          {q.length === 0 && recentCmds.length > 0 && (
+            <Command.Group heading="최근 실행">
+              {recentCmds.map((r) => {
+                const action = RAYCAST_ACTIONS_191.find((a) => a.label === r)
+                return action ? (
+                  <Command.Item key={r} onSelect={() => handleSelect(r)}>
+                    <span style={{ marginRight: 8 }}>{action.icon}</span>
+                    <span style={{ flex: 1 }}>{r}</span>
+                    <span style={{ fontSize: 10, color: '#94a3b8' }}>{action.shortcut}</span>
+                  </Command.Item>
+                ) : null
+              })}
+            </Command.Group>
+          )}
+          {/* All groups */}
+          {Object.entries(grouped).map(([group, items]) => (
+            <Command.Group key={group} heading={group}>
+              {items.map((a) => (
+                <Command.Item key={a.label} onSelect={() => handleSelect(a.label)}>
+                  <span style={{ marginRight: 8 }}>{a.icon}</span>
+                  <span style={{ flex: 1 }}>{a.label}</span>
+                  <span style={{ fontSize: 10, color: '#94a3b8' }}>{a.shortcut}</span>
+                </Command.Item>
+              ))}
+            </Command.Group>
+          ))}
+        </Command.List>
+        <div style={{ padding: '8px 14px', borderTop: '1px solid #f1f5f9', display: 'flex', gap: 12, fontSize: 10, color: '#94a3b8' }}>
+          <span>↑↓ 탐색</span>
+          <span>↵ 실행</span>
+          <span>ESC 닫기</span>
+        </div>
+      </Command>
+    </div>
+  )
+}
+
+export const Raycast_커맨드_팔레트_액션_런처: Story = {
+  name: 'Raycast — 액션 런처 커맨드 팔레트',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Raycast Extensions 패턴 구현. 그룹별 명령어 분류, 키보드 단축키 표시, 최근 실행 히스토리. ' +
+          '실행 시 최근 목록 업데이트, 성공 피드백 토스트. Raycast의 빠른 액션 런처 UX.',
+      },
+    },
+  },
+  render: () => <RaycastCommandPaletteRender />,
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+
+const MANTINE_SPOTLIGHT_ITEMS_191 = [
+  { label: '홈 대시보드', description: '메인 대시보드로 이동', icon: '🏠', href: '/dashboard' },
+  { label: '컴포넌트 라이브러리', description: 'Orbit UI 컴포넌트 전체 목록', icon: '🧩', href: '/components' },
+  { label: '디자인 토큰', description: '색상, 타이포그래피, 간격 토큰', icon: '🎨', href: '/tokens' },
+  { label: '접근성 가이드', description: 'WAI-ARIA 구현 가이드', icon: '♿', href: '/a11y' },
+  { label: '마이그레이션 가이드', description: 'shadcn → Orbit UI 이전 방법', icon: '🔄', href: '/migration' },
+  { label: 'Changelog', description: '최신 변경사항 확인', icon: '📋', href: '/changelog' },
+  { label: '테마 에디터', description: 'Eclipse 테마 커스텀', icon: '✏', href: '/theme' },
+]
+
+function ManteineSpotlightSearchRender() {
+  const [q, setQ] = React.useState('')
+  const [pinned, setPinned] = React.useState<string[]>(['홈 대시보드'])
+
+  const filtered = MANTINE_SPOTLIGHT_ITEMS_191.filter(
+    (item) =>
+      item.label.toLowerCase().includes(q.toLowerCase()) ||
+      item.description.toLowerCase().includes(q.toLowerCase())
+  )
+
+  function togglePin(label: string) {
+    if (pinned.includes(label)) {
+      setPinned(pinned.filter((p) => p !== label))
+    } else {
+      setPinned([...pinned, label])
+    }
+  }
+
+  return (
+    <div style={{ width: 520, fontFamily: 'system-ui, sans-serif' }}>
+      <Command className="rounded-xl border shadow-2xl" style={{ maxWidth: 520 }}>
+        <div style={{ padding: '12px 16px 0', display: 'flex', alignItems: 'center', gap: 8 }}>
+          <span style={{ fontSize: 18, fontWeight: 900, color: '#6366f1' }}>✦</span>
+          <span style={{ fontSize: 13, fontWeight: 700, color: '#0f172a' }}>Orbit Spotlight</span>
+          <span style={{ marginLeft: 'auto', fontSize: 10, color: '#94a3b8' }}>Mantine Spotlight 패턴</span>
+        </div>
+        <Command.Input
+          placeholder="페이지, 문서, 설정 검색..."
+          value={q}
+          onValueChange={setQ}
+        />
+        <Command.List>
+          <Command.Empty>페이지를 찾을 수 없습니다</Command.Empty>
+          {pinned.length > 0 && q.length === 0 && (
+            <Command.Group heading="즐겨찾기">
+              {MANTINE_SPOTLIGHT_ITEMS_191.filter((item) => pinned.includes(item.label)).map((item) => (
+                <Command.Item key={item.label}>
+                  <span style={{ marginRight: 8 }}>{item.icon}</span>
+                  <div style={{ flex: 1 }}>
+                    <div style={{ fontSize: 13, fontWeight: 500 }}>{item.label}</div>
+                    <div style={{ fontSize: 11, color: '#94a3b8' }}>{item.description}</div>
+                  </div>
+                  <button
+                    onClick={(e) => { e.stopPropagation(); togglePin(item.label) }}
+                    style={{ fontSize: 10, padding: '2px 6px', borderRadius: 5, border: '1px solid #e2e8f0', background: '#fef9c3', color: '#92400e', cursor: 'pointer' }}
+                  >
+                    고정 해제
+                  </button>
+                </Command.Item>
+              ))}
+            </Command.Group>
+          )}
+          <Command.Group heading={q.length === 0 ? '전체 페이지' : '검색 결과'}>
+            {filtered.map((item) => (
+              <Command.Item key={item.label}>
+                <span style={{ marginRight: 8 }}>{item.icon}</span>
+                <div style={{ flex: 1 }}>
+                  <div style={{ fontSize: 13, fontWeight: 500 }}>{item.label}</div>
+                  <div style={{ fontSize: 11, color: '#94a3b8' }}>{item.description}</div>
+                </div>
+                <button
+                  onClick={(e) => { e.stopPropagation(); togglePin(item.label) }}
+                  style={{ fontSize: 10, padding: '2px 6px', borderRadius: 5, border: '1px solid #e2e8f0', background: pinned.includes(item.label) ? '#fef9c3' : '#f1f5f9', color: pinned.includes(item.label) ? '#92400e' : '#64748b', cursor: 'pointer' }}
+                >
+                  {pinned.includes(item.label) ? '★ 고정됨' : '☆ 고정'}
+                </button>
+              </Command.Item>
+            ))}
+          </Command.Group>
+        </Command.List>
+      </Command>
+    </div>
+  )
+}
+
+export const Mantine_Spotlight_탐색_검색_패널: Story = {
+  name: 'Mantine — Spotlight 탐색 검색 패널',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Mantine Spotlight 컴포넌트 패턴 구현. 즐겨찾기 고정/해제, 전체/필터 이원 그룹 표시. ' +
+          '아이콘 + 설명 2단 라벨 레이아웃, 실시간 검색 필터링. Mantine의 탐색 UX 패턴.',
+      },
+    },
+  },
+  render: () => <ManteineSpotlightSearchRender />,
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+
+const RAYCAST_MANTINE_THEMES_191 = [
+  { id: 'eclipse', name: 'Eclipse (기본)', preview: ['#0f172a', '#6366f1', '#fff'], tags: ['다크', '공식'] },
+  { id: 'aurora', name: 'Aurora', preview: ['#0d1117', '#22d3ee', '#f0fdf4'], tags: ['다크', '사이언'] },
+  { id: 'sunset', name: 'Sunset', preview: ['#fff', '#f59e0b', '#ef4444'], tags: ['라이트', '웜'] },
+  { id: 'mint', name: 'Mint', preview: ['#f0fdf4', '#10b981', '#064e3b'], tags: ['라이트', '그린'] },
+  { id: 'slate', name: 'Slate', preview: ['#0f172a', '#94a3b8', '#e2e8f0'], tags: ['다크', '중립'] },
+]
+
+function RaycastMantineThemeSwitcherRender() {
+  const [q, setQ] = React.useState('')
+  const [active, setActive] = React.useState('eclipse')
+
+  const filtered = RAYCAST_MANTINE_THEMES_191.filter(
+    (t) =>
+      t.name.toLowerCase().includes(q.toLowerCase()) ||
+      t.tags.some((tag) => tag.includes(q))
+  )
+
+  return (
+    <div style={{ width: 480, fontFamily: 'system-ui, sans-serif' }}>
+      <div style={{ marginBottom: 8, display: 'flex', alignItems: 'center', gap: 8 }}>
+        <span style={{ fontSize: 11, color: '#64748b' }}>활성 테마:</span>
+        <span style={{ fontSize: 12, fontWeight: 700, color: '#6366f1' }}>
+          {RAYCAST_MANTINE_THEMES_191.find((t) => t.id === active)?.name}
+        </span>
+      </div>
+      <Command className="rounded-xl border shadow-lg" style={{ maxWidth: 480 }}>
+        <Command.Input
+          placeholder="테마 이름 또는 태그 검색..."
+          value={q}
+          onValueChange={setQ}
+        />
+        <Command.List>
+          <Command.Empty>일치하는 테마 없음</Command.Empty>
+          <Command.Group heading="테마 선택 (Raycast + Mantine 패턴)">
+            {filtered.map((theme) => (
+              <Command.Item key={theme.id} onSelect={() => setActive(theme.id)}>
+                {/* Color preview dots */}
+                <div style={{ display: 'flex', gap: 3, marginRight: 10 }}>
+                  {theme.preview.map((c, i) => (
+                    <div key={i} style={{ width: 12, height: 12, borderRadius: '50%', background: c, border: '1px solid #e2e8f0' }} />
+                  ))}
+                </div>
+                <span style={{ flex: 1, fontSize: 13, fontWeight: theme.id === active ? 700 : 400, color: theme.id === active ? '#6366f1' : '#0f172a' }}>
+                  {theme.name}
+                </span>
+                {/* Tags */}
+                <div style={{ display: 'flex', gap: 4 }}>
+                  {theme.tags.map((tag) => (
+                    <span key={tag} style={{ fontSize: 9, padding: '2px 6px', borderRadius: 5, background: '#f1f5f9', color: '#475569', fontWeight: 500 }}>{tag}</span>
+                  ))}
+                </div>
+                {theme.id === active && (
+                  <span style={{ marginLeft: 8, fontSize: 10, color: '#6366f1', fontWeight: 700 }}>✓</span>
+                )}
+              </Command.Item>
+            ))}
+          </Command.Group>
+        </Command.List>
+        <div style={{ padding: '8px 14px', borderTop: '1px solid #f1f5f9', fontSize: 10, color: '#94a3b8', display: 'flex', justifyContent: 'space-between' }}>
+          <span>Raycast 테마 전환 + Mantine ColorScheme 패턴</span>
+          <span>{filtered.length}개 테마</span>
+        </div>
+      </Command>
+    </div>
+  )
+}
+
+export const Raycast_Mantine_테마_전환_커맨드: Story = {
+  name: 'Raycast + Mantine — 테마 전환 커맨드 팔레트',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Raycast 테마 스위처 + Mantine ColorScheme 전환 복합 패턴. 컬러 팔레트 미리보기 dots + 태그 분류 + 체크마크 활성 표시. ' +
+          '테마 이름/태그 검색 필터링. Raycast 빠른 선택 + Mantine 테마 관리 UX.',
+      },
+    },
+  },
+  render: () => <RaycastMantineThemeSwitcherRender />,
+}

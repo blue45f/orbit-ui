@@ -42493,3 +42493,180 @@ export const VercelNotion190Dashboard: StoryObj = {
   },
   render: () => <VercelNotion190Render />,
 }
+
+// ─── Cycle 191: Raycast Extensions + Mantine ────────────────────────────────
+
+const RAYCAST_191_COMMANDS = [
+  { label: '새 프로젝트 생성', shortcut: '⌘N', icon: '✦', tag: '프로젝트' },
+  { label: 'Git 브랜치 전환', shortcut: '⌘B', icon: '🔀', tag: 'Git' },
+  { label: '배포 파이프라인 실행', shortcut: '⌘⇧D', icon: '🚀', tag: '배포' },
+  { label: '컴포넌트 스토리 열기', shortcut: '⌘S', icon: '🧩', tag: 'Storybook' },
+  { label: '디자인 토큰 편집', shortcut: '⌘T', icon: '🎨', tag: '디자인' },
+  { label: '접근성 감사 실행', shortcut: '⌘A', icon: '♿', tag: '품질' },
+  { label: 'PR 리뷰 열기', shortcut: '⌘P', icon: '👁', tag: 'GitHub' },
+]
+
+const MANTINE_191_FEATURES = [
+  { id: 'autoSave', label: '자동 저장', desc: '30초마다 변경사항 저장', on: true },
+  { id: 'livePreview', label: '실시간 미리보기', desc: '코드 변경 즉시 반영', on: true },
+  { id: 'aiHint', label: 'AI 힌트', desc: 'prop 자동완성 AI 제안', on: false },
+  { id: 'darkTheme', label: '다크 테마', desc: '어두운 에디터 색상', on: false },
+]
+
+function RaycastMantine191Render() {
+  const [cmdQ, setCmdQ] = React.useState('')
+  const [cmdOpen, setCmdOpen] = React.useState(false)
+  const [lastCmd, setLastCmd] = React.useState<string | null>(null)
+  const [features, setFeatures] = React.useState<Record<string, boolean>>(
+    Object.fromEntries(MANTINE_191_FEATURES.map((f) => [f.id, f.on]))
+  )
+
+  const filteredCmds = RAYCAST_191_COMMANDS.filter(
+    (c) => c.label.toLowerCase().includes(cmdQ.toLowerCase()) || c.tag.toLowerCase().includes(cmdQ.toLowerCase())
+  )
+
+  function runCmd(label: string) {
+    setLastCmd(label)
+    setCmdOpen(false)
+    setCmdQ('')
+    setTimeout(() => setLastCmd(null), 2000)
+  }
+
+  function toggleFeature(id: string) {
+    setFeatures((prev) => ({ ...prev, [id]: !prev[id] }))
+  }
+
+  return (
+    <div style={{ display: 'flex', height: '100vh', fontFamily: 'system-ui, sans-serif', background: '#f8fafc' }}>
+      {/* Sidebar — Raycast dark */}
+      <div style={{ width: 230, background: '#111', color: '#fff', display: 'flex', flexDirection: 'column', flexShrink: 0 }}>
+        <div style={{ padding: '18px 16px 10px', display: 'flex', alignItems: 'center', gap: 8 }}>
+          <span style={{ fontSize: 18, fontWeight: 900, color: '#fff', letterSpacing: '-0.05em' }}>⚡</span>
+          <span style={{ fontSize: 14, fontWeight: 800 }}>Orbit Dev Tools</span>
+        </div>
+        <div style={{ padding: '0 10px', flex: 1 }}>
+          {['커맨드 팔레트', '설정', '컴포넌트', '배포'].map((label, i) => (
+            <div key={i} style={{ padding: '8px 10px', borderRadius: 8, fontSize: 12, color: i === 0 ? '#fff' : '#71717a', background: i === 0 ? '#1f1f1f' : 'transparent', marginBottom: 2, cursor: 'pointer' }}>
+              {label}
+            </div>
+          ))}
+        </div>
+        {/* Feature flag switches in sidebar */}
+        <div style={{ padding: '12px 14px', borderTop: '1px solid #1f1f1f' }}>
+          <div style={{ fontSize: 9, fontWeight: 700, color: '#52525b', textTransform: 'uppercase', letterSpacing: '0.07em', marginBottom: 8 }}>Mantine 피처 플래그</div>
+          {MANTINE_191_FEATURES.map((f) => (
+            <div key={f.id} style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 6 }}>
+              <span style={{ fontSize: 10, color: features[f.id] ? '#d4d4d8' : '#52525b', flex: 1 }}>{f.label}</span>
+              <Switch checked={features[f.id]} onChange={() => toggleFeature(f.id)} />
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Main area */}
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+        {/* Top bar */}
+        <div style={{ padding: '14px 24px', background: '#fff', borderBottom: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', gap: 12 }}>
+          <div style={{ flex: 1, fontSize: 16, fontWeight: 800, color: '#0f172a' }}>커맨드 팔레트 & 설정</div>
+          <button
+            onClick={() => setCmdOpen((v) => !v)}
+            style={{ padding: '7px 14px', borderRadius: 8, border: '1px solid #e2e8f0', background: cmdOpen ? '#0f172a' : '#fff', color: cmdOpen ? '#fff' : '#0f172a', fontSize: 12, fontWeight: 600, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 6 }}
+          >
+            <span>⌘K</span><span>커맨드</span>
+          </button>
+        </div>
+
+        <div style={{ flex: 1, overflowY: 'auto', padding: '24px' }}>
+          {/* Success toast */}
+          {lastCmd && (
+            <div style={{ marginBottom: 16, padding: '10px 16px', background: '#f0fdf4', border: '1px solid #bbf7d0', borderRadius: 10, fontSize: 12, color: '#16a34a', fontWeight: 600 }}>
+              실행 완료: {lastCmd}
+            </div>
+          )}
+
+          {/* Command palette (inline) */}
+          {cmdOpen && (
+            <div style={{ marginBottom: 24, boxShadow: '0 8px 32px rgba(0,0,0,0.12)', borderRadius: 14, overflow: 'hidden' }}>
+              <Command>
+                <Command.Input
+                  placeholder="명령어 검색... (Raycast 패턴)"
+                  value={cmdQ}
+                  onValueChange={setCmdQ}
+                />
+                <Command.List>
+                  <Command.Empty>일치하는 명령어 없음</Command.Empty>
+                  <Command.Group heading="개발 도구 명령어">
+                    {filteredCmds.map((cmd) => (
+                      <Command.Item key={cmd.label} onSelect={() => runCmd(cmd.label)}>
+                        <span style={{ marginRight: 8, fontSize: 14 }}>{cmd.icon}</span>
+                        <span style={{ flex: 1, fontSize: 13 }}>{cmd.label}</span>
+                        <span style={{ fontSize: 9, padding: '2px 6px', borderRadius: 5, background: '#f1f5f9', color: '#64748b' }}>{cmd.tag}</span>
+                        <span style={{ marginLeft: 8, fontSize: 10, color: '#94a3b8', fontFamily: 'monospace' }}>{cmd.shortcut}</span>
+                      </Command.Item>
+                    ))}
+                  </Command.Group>
+                </Command.List>
+              </Command>
+            </div>
+          )}
+
+          {/* Feature flag cards — Mantine pattern */}
+          <div style={{ marginBottom: 24 }}>
+            <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a', marginBottom: 4 }}>Mantine 피처 플래그 설정</div>
+            <div style={{ fontSize: 11, color: '#64748b', marginBottom: 16 }}>에디터 동작을 피처 플래그로 제어합니다</div>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+              {MANTINE_191_FEATURES.map((f) => (
+                <div
+                  key={f.id}
+                  style={{ background: '#fff', border: `1px solid ${features[f.id] ? '#bbf7d0' : '#e2e8f0'}`, borderRadius: 12, padding: '14px 16px', transition: 'border-color 200ms' }}
+                >
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 6 }}>
+                    <span style={{ fontSize: 13, fontWeight: 600, color: '#0f172a', flex: 1 }}>{f.label}</span>
+                    <Switch checked={features[f.id]} onChange={() => toggleFeature(f.id)} />
+                  </div>
+                  <div style={{ fontSize: 11, color: '#94a3b8' }}>{f.desc}</div>
+                  <div style={{ marginTop: 8, fontSize: 10, fontWeight: 600, color: features[f.id] ? '#16a34a' : '#94a3b8' }}>
+                    {features[f.id] ? '● 활성화됨' : '○ 비활성화'}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Quick commands grid */}
+          <div>
+            <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a', marginBottom: 12 }}>빠른 명령어</div>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 8 }}>
+              {RAYCAST_191_COMMANDS.map((cmd) => (
+                <button
+                  key={cmd.label}
+                  onClick={() => runCmd(cmd.label)}
+                  style={{ padding: '12px 14px', background: '#fff', border: '1px solid #e2e8f0', borderRadius: 10, cursor: 'pointer', textAlign: 'left', transition: 'all 150ms' }}
+                  onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.borderColor = '#6366f1'; (e.currentTarget as HTMLButtonElement).style.background = '#f5f3ff' }}
+                  onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.borderColor = '#e2e8f0'; (e.currentTarget as HTMLButtonElement).style.background = '#fff' }}
+                >
+                  <div style={{ fontSize: 16, marginBottom: 4 }}>{cmd.icon}</div>
+                  <div style={{ fontSize: 11, fontWeight: 500, color: '#0f172a', lineHeight: 1.3 }}>{cmd.label}</div>
+                  <div style={{ fontSize: 9, color: '#94a3b8', marginTop: 4, fontFamily: 'monospace' }}>{cmd.shortcut}</div>
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const RaycastMantine191DevToolsDashboard: StoryObj = {
+  name: 'Raycast + Mantine — 개발 도구 대시보드 (Cycle 191)',
+  parameters: {
+    layout: 'fullscreen',
+    docs: {
+      description: {
+        story: 'Raycast 커맨드 팔레트 + Mantine 피처 플래그 스위치 통합 개발 도구 대시보드. Raycast 다크 사이드바 + Command 인라인 팔레트 + Switch 기반 피처 카드 그리드. ⌘K 토글로 커맨드 팔레트 열기/닫기.',
+      },
+    },
+  },
+  render: () => <RaycastMantine191Render />,
+}
