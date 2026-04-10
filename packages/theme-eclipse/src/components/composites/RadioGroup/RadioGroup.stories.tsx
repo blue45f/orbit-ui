@@ -261,3 +261,304 @@ export const Vercel_빌드_출력_설정: Story = {
   name: 'Vercel — 빌드 출력 유형 선택 (그리드형)',
   render: () => <BuildOutputDemo />,
 }
+
+/* --------------------------------------------------------------------------
+   Google Material 3 벤치마크: 제안 칩 RadioGroup 패턴
+   M3의 Suggestion Chip은 시스템이 추천하는 옵션을 제공합니다.
+   RadioGroup과 결합해 "빠른 선택" UX를 구현합니다.
+-------------------------------------------------------------------------- */
+const M3SuggestionChipDemo = () => {
+  const [selected, setSelected] = useState<string>('')
+  const [customInput, setCustomInput] = useState('')
+
+  const SUGGESTIONS = [
+    { value: '15min', label: '15분 후' },
+    { value: '1hr', label: '1시간 후' },
+    { value: '3hr', label: '3시간 후' },
+    { value: 'tomorrow', label: '내일' },
+    { value: 'nextweek', label: '다음 주' },
+  ]
+
+  return (
+    <div style={{ maxWidth: 440, display: 'flex', flexDirection: 'column', gap: 14 }}>
+      <div>
+        <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 4 }}>알림 미루기</div>
+        <div style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>M3 Suggestion Chip — 시스템 추천 옵션 패턴</div>
+      </div>
+
+      {/* M3 Suggestion Chip 스타일 빠른 선택 */}
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+        {SUGGESTIONS.map((s) => (
+          <button
+            key={s.value}
+            onClick={() => { setSelected(s.value); setCustomInput('') }}
+            style={{
+              padding: '6px 16px',
+              borderRadius: 8,
+              fontSize: 13,
+              fontWeight: selected === s.value ? 700 : 400,
+              border: `1px solid ${selected === s.value ? 'var(--sem-eclipse-color-fillPrimary)' : 'var(--sem-eclipse-color-borderDefault)'}`,
+              background: selected === s.value ? 'color-mix(in srgb, var(--sem-eclipse-color-fillPrimary) 10%, var(--sem-eclipse-color-backgroundPrimary))' : 'var(--sem-eclipse-color-backgroundPrimary)',
+              color: selected === s.value ? 'var(--sem-eclipse-color-fillPrimary)' : 'var(--sem-eclipse-color-foregroundSecondary)',
+              cursor: 'pointer',
+              transition: 'all 0.15s',
+            }}
+          >
+            {s.label}
+          </button>
+        ))}
+      </div>
+
+      <div style={{ borderTop: '1px solid var(--sem-eclipse-color-borderSubtle)', paddingTop: 12 }}>
+        <div style={{ fontSize: 12, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginBottom: 10 }}>또는 시간 직접 선택:</div>
+        <RadioGroup value={selected} onChange={(e) => { setSelected(e.target.value); setCustomInput('') }} name="snooze">
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+            {[
+              { value: '30min', label: '30분 후' },
+              { value: '2hr', label: '2시간 후' },
+              { value: 'weekend', label: '주말' },
+              { value: 'custom', label: '직접 입력' },
+            ].map((opt) => (
+              <div key={opt.value} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                <RadioButtonWithLabel value={opt.value} alignItems="center">
+                  <span style={{ fontSize: 13, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{opt.label}</span>
+                </RadioButtonWithLabel>
+                {opt.value === 'custom' && selected === 'custom' && (
+                  <input
+                    type="datetime-local"
+                    value={customInput}
+                    onChange={(e) => setCustomInput(e.target.value)}
+                    style={{ padding: '4px 8px', borderRadius: 6, border: '1px solid var(--sem-eclipse-color-borderDefault)', fontSize: 12, color: 'var(--sem-eclipse-color-foregroundPrimary)', background: 'var(--sem-eclipse-color-backgroundPrimary)' }}
+                  />
+                )}
+              </div>
+            ))}
+          </div>
+        </RadioGroup>
+      </div>
+
+      {selected && (
+        <div style={{ padding: '8px 12px', borderRadius: 6, background: 'var(--sem-eclipse-color-backgroundSecondary)', fontSize: 12, color: 'var(--sem-eclipse-color-foregroundSecondary)' }}>
+          선택됨: <strong style={{ color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>
+            {[...SUGGESTIONS, { value: '30min', label: '30분 후' }, { value: '2hr', label: '2시간 후' }, { value: 'weekend', label: '주말' }, { value: 'custom', label: '직접 입력' }].find((s) => s.value === selected)?.label}
+          </strong>
+          {selected === 'custom' && customInput && ` — ${customInput}`}
+        </div>
+      )}
+    </div>
+  )
+}
+
+export const M3_제안_칩_RadioGroup: Story = {
+  name: 'Material 3 — Suggestion Chip + RadioGroup 빠른 선택',
+  render: () => <M3SuggestionChipDemo />,
+}
+
+/* --------------------------------------------------------------------------
+   Google Material 3 벤치마크: 동적 색상 체계 선택 패턴
+   M3의 Dynamic Color — Primary/Secondary/Tertiary/Neutral 역할 체계로
+   앱 테마를 동적으로 변경합니다.
+-------------------------------------------------------------------------- */
+const M3DynamicColorDemo = () => {
+  const [scheme, setScheme] = useState<string>('indigo')
+
+  const SCHEMES = [
+    {
+      value: 'indigo',
+      label: 'Indigo',
+      primary: '#6366f1',
+      secondary: '#818cf8',
+      tertiary: '#a5b4fc',
+      surface: '#eef2ff',
+      onPrimary: '#fff',
+    },
+    {
+      value: 'emerald',
+      label: 'Emerald',
+      primary: '#10b981',
+      secondary: '#34d399',
+      tertiary: '#6ee7b7',
+      surface: '#ecfdf5',
+      onPrimary: '#fff',
+    },
+    {
+      value: 'amber',
+      label: 'Amber',
+      primary: '#f59e0b',
+      secondary: '#fbbf24',
+      tertiary: '#fcd34d',
+      surface: '#fffbeb',
+      onPrimary: '#000',
+    },
+    {
+      value: 'rose',
+      label: 'Rose',
+      primary: '#f43f5e',
+      secondary: '#fb7185',
+      tertiary: '#fda4af',
+      surface: '#fff1f2',
+      onPrimary: '#fff',
+    },
+  ]
+
+  const active = SCHEMES.find((s) => s.value === scheme)!
+
+  return (
+    <div style={{ maxWidth: 460, display: 'flex', flexDirection: 'column', gap: 16 }}>
+      <div>
+        <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 4 }}>M3 동적 색상 체계</div>
+        <div style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>Primary / Secondary / Tertiary / Surface 역할 기반 색상 시스템</div>
+      </div>
+
+      <RadioGroup value={scheme} onChange={(e) => setScheme(e.target.value)} name="color-scheme">
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
+          {SCHEMES.map((s) => (
+            <div
+              key={s.value}
+              onClick={() => setScheme(s.value)}
+              style={{
+                padding: '10px 12px',
+                borderRadius: 8,
+                border: `1.5px solid ${scheme === s.value ? s.primary : 'var(--sem-eclipse-color-borderSubtle)'}`,
+                background: scheme === s.value ? s.surface : 'var(--sem-eclipse-color-backgroundPrimary)',
+                cursor: 'pointer',
+                transition: 'all 0.15s',
+              }}
+            >
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8 }}>
+                <RadioButtonWithLabel value={s.value} alignItems="center" />
+                <span style={{ fontSize: 13, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{s.label}</span>
+              </div>
+              <div style={{ display: 'flex', gap: 4 }}>
+                {[s.primary, s.secondary, s.tertiary].map((color, i) => (
+                  <div key={i} style={{ flex: 1, height: 8, borderRadius: 4, background: color }} />
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </RadioGroup>
+
+      {/* Preview panel */}
+      <div style={{ padding: '16px', borderRadius: 10, background: active.surface, border: `1px solid ${active.primary}30` }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 12 }}>
+          <div style={{ width: 32, height: 32, borderRadius: '50%', background: active.primary, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <span style={{ fontSize: 14, color: active.onPrimary, fontWeight: 700 }}>A</span>
+          </div>
+          <div>
+            <div style={{ fontSize: 13, fontWeight: 700, color: active.primary }}>{active.label} Theme 미리보기</div>
+            <div style={{ fontSize: 11, color: active.secondary }}>Primary · Secondary · Tertiary</div>
+          </div>
+        </div>
+        <div style={{ display: 'flex', gap: 6 }}>
+          <div style={{ flex: 1, padding: '8px', borderRadius: 6, background: active.primary, fontSize: 11, fontWeight: 700, color: active.onPrimary, textAlign: 'center' }}>Primary</div>
+          <div style={{ flex: 1, padding: '8px', borderRadius: 6, background: active.secondary, fontSize: 11, fontWeight: 700, color: active.onPrimary, textAlign: 'center' }}>Secondary</div>
+          <div style={{ flex: 1, padding: '8px', borderRadius: 6, background: active.tertiary, fontSize: 11, fontWeight: 700, color: active.onPrimary, textAlign: 'center' }}>Tertiary</div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const M3_동적_색상_체계: Story = {
+  name: 'Material 3 — 동적 색상 체계 선택 (Primary/Secondary/Tertiary 역할)',
+  render: () => <M3DynamicColorDemo />,
+}
+
+/* --------------------------------------------------------------------------
+   Google Material 3 벤치마크: 어시스트 칩 RadioGroup — 빠른 액션
+   M3의 Assist Chip은 시스템이 제안하는 행동을 나타냅니다.
+   RadioGroup으로 인보이스 상태를 선택하면 어시스트 칩이 다음 권장 액션을 제안합니다.
+-------------------------------------------------------------------------- */
+const M3AssistChipDemo = () => {
+  const [status, setStatus] = useState<string>('draft')
+
+  const STATUSES = [
+    { value: 'draft', label: '초안', color: '#94a3b8', bg: '#f1f5f9' },
+    { value: 'sent', label: '발송됨', color: '#6366f1', bg: '#eef2ff' },
+    { value: 'viewed', label: '열람됨', color: '#f59e0b', bg: '#fffbeb' },
+    { value: 'paid', label: '결제됨', color: '#10b981', bg: '#ecfdf5' },
+    { value: 'overdue', label: '연체됨', color: '#ef4444', bg: '#fef2f2' },
+  ]
+
+  const ASSIST_ACTIONS: Record<string, { label: string; icon: string }[]> = {
+    draft:   [{ label: '발송하기', icon: '→' }, { label: '미리보기', icon: '👁' }, { label: '복사', icon: '⎘' }],
+    sent:    [{ label: '리마인더 전송', icon: '🔔' }, { label: '상태 확인', icon: '✓' }, { label: '취소', icon: '✕' }],
+    viewed:  [{ label: '후속 연락', icon: '📞' }, { label: '리마인더', icon: '🔔' }, { label: '수정', icon: '✏' }],
+    paid:    [{ label: '영수증 발행', icon: '🧾' }, { label: '감사 메일', icon: '✉' }, { label: '아카이브', icon: '📁' }],
+    overdue: [{ label: '독촉장 발송', icon: '⚠' }, { label: '연장 허용', icon: '⏱' }, { label: '법적 조치', icon: '⚖' }],
+  }
+
+  const currentStatus = STATUSES.find((s) => s.value === status)!
+  const actions = ASSIST_ACTIONS[status]
+
+  return (
+    <div style={{ maxWidth: 460, display: 'flex', flexDirection: 'column', gap: 14 }}>
+      <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: -4 }}>인보이스 상태 관리</div>
+      <div style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>M3 Assist Chip — 상태에 따른 권장 액션 제안</div>
+
+      <RadioGroup value={status} onChange={(e) => setStatus(e.target.value)} name="invoice-status">
+        <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+          {STATUSES.map((s) => (
+            <div
+              key={s.value}
+              onClick={() => setStatus(s.value)}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 6,
+                padding: '6px 12px',
+                borderRadius: 20,
+                border: `1px solid ${status === s.value ? s.color : 'var(--sem-eclipse-color-borderSubtle)'}`,
+                background: status === s.value ? s.bg : 'var(--sem-eclipse-color-backgroundPrimary)',
+                cursor: 'pointer',
+                transition: 'all 0.15s',
+              }}
+            >
+              <RadioButtonWithLabel value={s.value} alignItems="center" />
+              <span style={{ fontSize: 12, fontWeight: status === s.value ? 700 : 400, color: status === s.value ? s.color : 'var(--sem-eclipse-color-foregroundSecondary)' }}>
+                {s.label}
+              </span>
+            </div>
+          ))}
+        </div>
+      </RadioGroup>
+
+      {/* Assist Chips */}
+      <div style={{ padding: '12px 14px', borderRadius: 8, background: currentStatus.bg, border: `1px solid ${currentStatus.color}30` }}>
+        <div style={{ fontSize: 11, fontWeight: 700, color: currentStatus.color, marginBottom: 8, textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+          권장 액션 — {currentStatus.label}
+        </div>
+        <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+          {actions.map((action) => (
+            <button
+              key={action.label}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 6,
+                padding: '6px 12px',
+                borderRadius: 8,
+                fontSize: 12,
+                fontWeight: 500,
+                border: `1px solid ${currentStatus.color}60`,
+                background: 'var(--sem-eclipse-color-backgroundPrimary)',
+                color: currentStatus.color,
+                cursor: 'pointer',
+                transition: 'background 0.1s',
+              }}
+            >
+              <span>{action.icon}</span>
+              {action.label}
+            </button>
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const M3_어시스트_칩_RadioGroup: Story = {
+  name: 'Material 3 — Assist Chip + RadioGroup 상태별 권장 액션',
+  render: () => <M3AssistChipDemo />,
+}

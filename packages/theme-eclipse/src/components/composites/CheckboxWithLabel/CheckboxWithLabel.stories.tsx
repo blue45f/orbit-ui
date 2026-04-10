@@ -316,3 +316,345 @@ export const 디자인QA = {
     </>
   ),
 }
+
+/* --------------------------------------------------------------------------
+   Google Material 3 벤치마크: 컨테이너 색상 역할 패턴
+   M3의 Primary Container + On Primary Container 이중 색상 역할.
+   선택된 체크박스 항목에 컨테이너 배경색을 적용해 강조합니다.
+-------------------------------------------------------------------------- */
+const M3ContainerColorRoleDemo = () => {
+  type ColorRole = 'primary' | 'secondary' | 'tertiary'
+  const [selected, setSelected] = useState<Set<string>>(new Set(['design']))
+
+  const COLOR_ROLES: Record<ColorRole, { container: string; onContainer: string; label: string }> = {
+    primary:   { container: '#eef2ff', onContainer: '#4338ca', label: 'Primary Container' },
+    secondary: { container: '#f0fdf4', onContainer: '#15803d', label: 'Secondary Container' },
+    tertiary:  { container: '#fff7ed', onContainer: '#c2410c', label: 'Tertiary Container' },
+  }
+
+  const ITEMS: { key: string; label: string; desc: string; role: ColorRole }[] = [
+    { key: 'design', label: '디자인 시스템', desc: '3단계 토큰 아키텍처 적용', role: 'primary' },
+    { key: 'a11y', label: '접근성', desc: 'WCAG AA 대비비 준수', role: 'secondary' },
+    { key: 'motion', label: '모션 디자인', desc: '150-300ms 자연스러운 트랜지션', role: 'tertiary' },
+    { key: 'dark', label: '다크모드', desc: '시스템 테마 자동 감지', role: 'primary' },
+    { key: 'icons', label: '아이콘 시스템', desc: '일관된 선형 아이콘 세트', role: 'secondary' },
+  ]
+
+  const toggle = (key: string) =>
+    setSelected((prev) => {
+      const next = new Set(prev)
+      if (next.has(key)) { next.delete(key) } else { next.add(key) }
+      return next
+    })
+
+  return (
+    <div style={{ maxWidth: 460, display: 'flex', flexDirection: 'column', gap: 14 }}>
+      <div>
+        <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 4 }}>M3 컨테이너 색상 역할</div>
+        <div style={{ fontSize: 11, fontFamily: 'monospace', padding: '6px 10px', borderRadius: 4, background: 'var(--sem-eclipse-color-backgroundSecondary)', color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>
+          {`// M3: PrimaryContainer + OnPrimaryContainer 이중 색상 역할`}
+        </div>
+      </div>
+
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+        {ITEMS.map((item) => {
+          const role = COLOR_ROLES[item.role]
+          const isChecked = selected.has(item.key)
+          return (
+            <div
+              key={item.key}
+              onClick={() => toggle(item.key)}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 12,
+                padding: '10px 14px',
+                borderRadius: 8,
+                border: `1px solid ${isChecked ? role.onContainer : 'var(--sem-eclipse-color-borderSubtle)'}`,
+                background: isChecked ? role.container : 'var(--sem-eclipse-color-backgroundPrimary)',
+                cursor: 'pointer',
+                transition: 'background 0.15s, border-color 0.15s',
+              }}
+            >
+              <CheckboxWithLabel
+                value={item.key}
+                checked={isChecked}
+                onChange={() => toggle(item.key)}
+                alignItems="center"
+              />
+              <div style={{ flex: 1 }}>
+                <div style={{ fontSize: 13, fontWeight: 600, color: isChecked ? role.onContainer : 'var(--sem-eclipse-color-foregroundPrimary)' }}>{item.label}</div>
+                <div style={{ fontSize: 11, color: isChecked ? role.onContainer + 'aa' : 'var(--sem-eclipse-color-foregroundTertiary)' }}>{item.desc}</div>
+              </div>
+              {isChecked && (
+                <span style={{ fontSize: 10, padding: '1px 6px', borderRadius: 10, background: role.onContainer, color: '#fff', fontWeight: 700 }}>{role.label}</span>
+              )}
+            </div>
+          )
+        })}
+      </div>
+
+      <div style={{ display: 'flex', gap: 8 }}>
+        {(Object.entries(COLOR_ROLES) as [ColorRole, typeof COLOR_ROLES[ColorRole]][]).map(([key, role]) => (
+          <div key={key} style={{ flex: 1, padding: '6px 8px', borderRadius: 6, background: role.container, border: `1px solid ${role.onContainer}40`, textAlign: 'center' }}>
+            <div style={{ fontSize: 10, fontWeight: 700, color: role.onContainer }}>{role.label}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+export const M3_컨테이너_색상_역할: Story = {
+  name: 'Material 3 — 컨테이너 색상 역할 (Primary/Secondary/Tertiary Container)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Google Material 3의 이중 색상 역할 시스템. ' +
+          'Primary/Secondary/Tertiary Container는 배경색, On*Container는 텍스트/아이콘 색으로 짝을 이룹니다. ' +
+          '선택된 항목이 컨테이너 역할에 따라 시맨틱하게 강조됩니다.',
+      },
+    },
+  },
+  render: () => <M3ContainerColorRoleDemo />,
+}
+
+/* --------------------------------------------------------------------------
+   Google Material 3 벤치마크: 상태 레이어 오버레이 패턴
+   M3의 state layer는 별도 hover 색상 토큰 없이 반투명 오버레이로 상태 표현.
+   체크박스가 상태(idle/hover/pressed/focused)를 오버레이로 시각화합니다.
+-------------------------------------------------------------------------- */
+const M3StateLayerDemo = () => {
+  const [activeStates, setActiveStates] = useState<Record<string, string>>({})
+
+  const STACK_ITEMS = [
+    { key: 'notifications', label: '푸시 알림 허용', desc: '새 메시지와 업데이트를 즉시 받아요' },
+    { key: 'analytics', label: '사용 데이터 수집', desc: '서비스 개선에 사용됩니다' },
+    { key: 'personalize', label: '개인화 추천', desc: '관심사 기반 콘텐츠 추천' },
+    { key: 'backup', label: '자동 백업', desc: 'Wi-Fi 연결 시 매일 백업됩니다' },
+  ]
+
+  const [checked, setChecked] = useState<Set<string>>(new Set(['notifications']))
+
+  const toggle = (key: string) =>
+    setChecked((prev) => {
+      const next = new Set(prev)
+      if (next.has(key)) { next.delete(key) } else { next.add(key) }
+      return next
+    })
+
+  return (
+    <div style={{ maxWidth: 440, display: 'flex', flexDirection: 'column', gap: 14 }}>
+      <div>
+        <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 4 }}>M3 상태 레이어 오버레이</div>
+        <div style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginBottom: 8 }}>
+          호버 시 8% 오버레이, 프레스 시 12% 오버레이 — 별도 색상 토큰 불필요
+        </div>
+        <div style={{ fontSize: 11, fontFamily: 'monospace', padding: '6px 10px', borderRadius: 4, background: 'var(--sem-eclipse-color-backgroundSecondary)', color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>
+          {`// state layer = base-color + rgba(onSurface, 0.08|0.12)`}
+        </div>
+      </div>
+
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+        {STACK_ITEMS.map((item) => {
+          const isHovered = activeStates[item.key] === 'hover'
+          const isPressed = activeStates[item.key] === 'pressed'
+          const isFocused = activeStates[item.key] === 'focused'
+          const isChecked = checked.has(item.key)
+
+          const stateOverlay = isPressed
+            ? 'rgba(99,102,241,0.12)'
+            : isHovered
+            ? 'rgba(99,102,241,0.08)'
+            : isFocused
+            ? 'rgba(99,102,241,0.10)'
+            : 'transparent'
+
+          return (
+            <div
+              key={item.key}
+              onMouseEnter={() => setActiveStates((s) => ({ ...s, [item.key]: 'hover' }))}
+              onMouseLeave={() => setActiveStates((s) => ({ ...s, [item.key]: 'idle' }))}
+              onMouseDown={() => setActiveStates((s) => ({ ...s, [item.key]: 'pressed' }))}
+              onMouseUp={() => setActiveStates((s) => ({ ...s, [item.key]: 'hover' }))}
+              onFocus={() => setActiveStates((s) => ({ ...s, [item.key]: 'focused' }))}
+              onBlur={() => setActiveStates((s) => ({ ...s, [item.key]: 'idle' }))}
+              onClick={() => toggle(item.key)}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 12,
+                padding: '12px 14px',
+                borderRadius: 8,
+                background: `var(--sem-eclipse-color-backgroundPrimary)`,
+                boxShadow: `inset 0 0 0 1000px ${stateOverlay}`,
+                cursor: 'pointer',
+                transition: 'box-shadow 0.1s ease',
+                userSelect: 'none',
+              }}
+            >
+              <CheckboxWithLabel
+                value={item.key}
+                checked={isChecked}
+                onChange={() => {}}
+                alignItems="center"
+              />
+              <div style={{ flex: 1 }}>
+                <div style={{ fontSize: 13, fontWeight: 500, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{item.label}</div>
+                <div style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>{item.desc}</div>
+              </div>
+              <span style={{ fontSize: 10, color: 'var(--sem-eclipse-color-foregroundQuaternary)', fontFamily: 'monospace', minWidth: 50, textAlign: 'right' }}>
+                {activeStates[item.key] === 'hover' ? '+8%' : activeStates[item.key] === 'pressed' ? '+12%' : activeStates[item.key] === 'focused' ? '+10%' : '0%'}
+              </span>
+            </div>
+          )
+        })}
+      </div>
+
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr 1fr', gap: 6 }}>
+        {[
+          { label: 'Idle', overlay: 'transparent', text: '0%' },
+          { label: 'Hover', overlay: 'rgba(99,102,241,0.08)', text: '+8%' },
+          { label: 'Focus', overlay: 'rgba(99,102,241,0.10)', text: '+10%' },
+          { label: 'Press', overlay: 'rgba(99,102,241,0.12)', text: '+12%' },
+        ].map((s) => (
+          <div key={s.label} style={{ padding: '6px 8px', borderRadius: 6, background: s.overlay === 'transparent' ? 'var(--sem-eclipse-color-backgroundSecondary)' : s.overlay, border: '1px solid var(--sem-eclipse-color-borderSubtle)', textAlign: 'center' }}>
+            <div style={{ fontSize: 10, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundSecondary)' }}>{s.label}</div>
+            <div style={{ fontSize: 10, color: 'var(--sem-eclipse-color-foregroundTertiary)', fontFamily: 'monospace' }}>{s.text}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+export const M3_상태_레이어_오버레이: Story = {
+  name: 'Material 3 — 상태 레이어 오버레이 (hover +8%, pressed +12%)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Google Material 3의 상태 레이어 시스템. hover/pressed 상태를 별도 색상 토큰 없이 ' +
+          '반투명 오버레이(8%/12%)로 표현합니다. boxShadow inset으로 구현했으며, ' +
+          '각 상태별 오버레이 강도가 실시간으로 표시됩니다.',
+      },
+    },
+  },
+  render: () => <M3StateLayerDemo />,
+}
+
+/* --------------------------------------------------------------------------
+   Google Material 3 벤치마크: 에러 컨테이너 폼 유효성 검사 패턴
+   M3의 Error Container(#FFDAD6) + On Error Container(#410002) 색상 역할로
+   폼 에러 상태를 시맨틱하게 표현합니다.
+-------------------------------------------------------------------------- */
+const M3ErrorContainerDemo = () => {
+  const [submitted, setSubmitted] = useState(false)
+  const [values, setValues] = useState({ terms: false, age: false, privacy: false })
+
+  const errors = submitted
+    ? {
+        terms: !values.terms,
+        age: !values.age,
+        privacy: !values.privacy,
+      }
+    : { terms: false, age: false, privacy: false }
+
+  const allValid = values.terms && values.age && values.privacy
+
+  const ITEMS: { key: keyof typeof values; label: string; required: boolean }[] = [
+    { key: 'terms', label: '서비스 이용약관에 동의합니다 (필수)', required: true },
+    { key: 'age', label: '만 14세 이상입니다 (필수)', required: true },
+    { key: 'privacy', label: '개인정보 처리방침에 동의합니다 (필수)', required: true },
+  ]
+
+  return (
+    <div style={{ maxWidth: 420, display: 'flex', flexDirection: 'column', gap: 16 }}>
+      <div>
+        <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 4 }}>M3 에러 컨테이너 패턴</div>
+        <div style={{ fontSize: 11, fontFamily: 'monospace', padding: '6px 10px', borderRadius: 4, background: 'var(--sem-eclipse-color-backgroundSecondary)', color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>
+          {`// M3: ErrorContainer(#FFDAD6) + OnErrorContainer(#410002)`}
+        </div>
+      </div>
+
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+        {ITEMS.map((item) => {
+          const hasError = errors[item.key]
+          return (
+            <div
+              key={item.key}
+              style={{
+                padding: '10px 14px',
+                borderRadius: 8,
+                border: `1px solid ${hasError ? '#ef4444' : 'var(--sem-eclipse-color-borderSubtle)'}`,
+                background: hasError ? '#fef2f2' : 'var(--sem-eclipse-color-backgroundPrimary)',
+                transition: 'background 0.15s, border-color 0.15s',
+              }}
+            >
+              <CheckboxWithLabel
+                value={item.key}
+                checked={values[item.key]}
+                onChange={() => setValues((v) => ({ ...v, [item.key]: !v[item.key] }))}
+                alignItems="center"
+              >
+                <span style={{ fontSize: 13, color: hasError ? '#b91c1c' : 'var(--sem-eclipse-color-foregroundPrimary)', fontWeight: hasError ? 600 : 400 }}>
+                  {item.label}
+                </span>
+              </CheckboxWithLabel>
+              {hasError && (
+                <div style={{ marginTop: 6, marginLeft: 28, fontSize: 11, color: '#b91c1c', fontWeight: 600 }}>
+                  이 항목은 필수입니다
+                </div>
+              )}
+            </div>
+          )
+        })}
+      </div>
+
+      <button
+        onClick={() => setSubmitted(true)}
+        disabled={submitted && allValid}
+        style={{
+          padding: '10px 0',
+          borderRadius: 8,
+          border: 'none',
+          background: 'var(--sem-eclipse-color-fillPrimary)',
+          color: '#fff',
+          fontSize: 14,
+          fontWeight: 600,
+          cursor: 'pointer',
+          width: '100%',
+        }}
+      >
+        가입 완료
+      </button>
+
+      {submitted && allValid && (
+        <div style={{ padding: '10px 14px', borderRadius: 8, background: '#ecfdf5', border: '1px solid #10b981', fontSize: 13, fontWeight: 600, color: '#065f46' }}>
+          가입이 완료되었습니다.
+        </div>
+      )}
+      {submitted && !allValid && (
+        <div style={{ padding: '10px 14px', borderRadius: 8, background: '#fef2f2', border: '1px solid #ef4444', fontSize: 13, color: '#b91c1c' }}>
+          필수 항목을 모두 체크해주세요.
+        </div>
+      )}
+    </div>
+  )
+}
+
+export const M3_에러_컨테이너_폼_검증: Story = {
+  name: 'Material 3 — 에러 컨테이너 폼 유효성 검사 (ErrorContainer + OnErrorContainer)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Google Material 3의 Error Container 색상 역할. ' +
+          '에러 상태 항목에 ErrorContainer 배경(#fef2f2)과 OnErrorContainer 텍스트(#b91c1c)를 적용합니다. ' +
+          '별도 에러 컴포넌트 없이 색상 역할만으로 시맨틱 에러 UX를 구현합니다.',
+      },
+    },
+  },
+  render: () => <M3ErrorContainerDemo />,
+}

@@ -45,6 +45,8 @@ import { Calendar } from '../components/Calendar'
 import { SearchBar } from '../components/SearchBar'
 import { Drawer } from '../components/Drawer'
 import { PasswordField } from '../components/PasswordField'
+import { RadioGroup } from '../components/composites/RadioGroup'
+import { RadioButtonWithLabel } from '../components/composites/RadioButtonWithLabel'
 
 import {
   MenuIcon,
@@ -20465,4 +20467,381 @@ export const PricingComparison: Story = {
     },
   },
   render: () => <PricingPage72Render />,
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   Template #73 — OnboardingFlow (Google Material 3 벤치마크)
+   M3 색상 역할 시스템을 Orbit UI로 구현한 단계별 온보딩 플로우:
+   · M3 컨테이너 색상 역할 → 단계별 강조 배경
+   · M3 상태 레이어 → 선택 항목 시각적 피드백
+   · M3 Suggestion Chip 패턴 → 빠른 선택 옵션
+   · M3 어시스트 칩 → 각 단계별 도움말 CTA
+   ══════════════════════════════════════════════════════════════════════════ */
+
+type OnboardingStep = 0 | 1 | 2 | 3 | 4
+
+interface OnboardingState {
+  role: string
+  teamSize: string
+  goals: Set<string>
+  theme: string
+  notifications: Set<string>
+}
+
+const ONBOARDING_STEPS = [
+  { title: '역할 선택', subtitle: '어떤 역할로 사용하실 예정인가요?' },
+  { title: '팀 규모', subtitle: '함께 사용할 팀의 규모를 선택해주세요.' },
+  { title: '목표 설정', subtitle: '주요 사용 목적을 선택해주세요. (복수 선택 가능)' },
+  { title: '테마 설정', subtitle: '선호하는 인터페이스 테마를 고르세요.' },
+  { title: '알림 설정', subtitle: '받고 싶은 알림을 선택해주세요.' },
+]
+
+const M3_ROLES = [
+  { value: 'designer', label: '디자이너', desc: 'UI/UX 설계 및 프로토타입', icon: '◈' },
+  { value: 'developer', label: '개발자', desc: '컴포넌트 구현 및 통합', icon: '⌨' },
+  { value: 'pm', label: '프로덕트 매니저', desc: '기획 및 요구사항 정의', icon: '◉' },
+  { value: 'other', label: '기타', desc: '위에 해당 없음', icon: '◌' },
+]
+
+const M3_TEAM_SIZES = [
+  { value: 'solo', label: '개인', desc: '혼자 사용' },
+  { value: 'small', label: '소규모', desc: '2–10명' },
+  { value: 'medium', label: '중규모', desc: '11–50명' },
+  { value: 'large', label: '대규모', desc: '50명 이상' },
+]
+
+const M3_GOALS = [
+  { value: 'consistency', label: '디자인 일관성', color: '#6366f1' },
+  { value: 'speed', label: '개발 속도 향상', color: '#10b981' },
+  { value: 'a11y', label: '접근성 개선', color: '#f59e0b' },
+  { value: 'dark', label: '다크모드 지원', color: '#8b5cf6' },
+  { value: 'tokens', label: '디자인 토큰 관리', color: '#ec4899' },
+  { value: 'storybook', label: '컴포넌트 문서화', color: '#06b6d4' },
+]
+
+const M3_THEMES = [
+  { value: 'light', label: '라이트', desc: '밝은 배경 (기본)', primary: '#6366f1', surface: '#eef2ff' },
+  { value: 'dark', label: '다크', desc: '어두운 배경', primary: '#818cf8', surface: '#1e1b4b' },
+  { value: 'system', label: '시스템', desc: 'OS 설정 따름', primary: '#94a3b8', surface: '#f8fafc' },
+]
+
+const M3_NOTIFICATIONS = [
+  { value: 'updates', label: '업데이트 알림', desc: '새 컴포넌트 및 기능 출시' },
+  { value: 'tips', label: '팁 & 트릭', desc: '효율적 사용법 안내' },
+  { value: 'newsletter', label: '뉴스레터', desc: '월간 디자인 시스템 트렌드' },
+]
+
+const M3OnboardingFlowRender = () => {
+  const [step, setStep] = React.useState<OnboardingStep>(0)
+  const [state, setState] = React.useState<OnboardingState>({
+    role: '',
+    teamSize: '',
+    goals: new Set(),
+    theme: 'system',
+    notifications: new Set(['updates']),
+  })
+
+  const canProceed = () => {
+    if (step === 0) return !!state.role
+    if (step === 1) return !!state.teamSize
+    if (step === 2) return state.goals.size > 0
+    if (step === 3) return !!state.theme
+    return true
+  }
+
+  const toggleGoal = (key: string) =>
+    setState((s) => {
+      const next = new Set(s.goals)
+      if (next.has(key)) { next.delete(key) } else { next.add(key) }
+      return { ...s, goals: next }
+    })
+
+  const toggleNotif = (key: string) =>
+    setState((s) => {
+      const next = new Set(s.notifications)
+      if (next.has(key)) { next.delete(key) } else { next.add(key) }
+      return { ...s, notifications: next }
+    })
+
+  const M3_STEP_COLORS = [
+    { primary: '#6366f1', container: '#eef2ff', onContainer: '#4338ca' },
+    { primary: '#10b981', container: '#ecfdf5', onContainer: '#065f46' },
+    { primary: '#f59e0b', container: '#fffbeb', onContainer: '#92400e' },
+    { primary: '#8b5cf6', container: '#f5f3ff', onContainer: '#5b21b6' },
+    { primary: '#ec4899', container: '#fdf2f8', onContainer: '#9d174d' },
+  ]
+
+  const stepColor = M3_STEP_COLORS[step]
+
+  return (
+    <div style={{ minHeight: '100vh', background: 'var(--sem-eclipse-color-backgroundPrimary)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '24px 20px' }}>
+      {step < 4 ? (
+        <div style={{ width: '100%', maxWidth: 520, display: 'flex', flexDirection: 'column', gap: 0 }}>
+          {/* Progress bar — M3 Linear Indicator */}
+          <div style={{ height: 4, borderRadius: 2, background: 'var(--sem-eclipse-color-backgroundSecondary)', overflow: 'hidden', marginBottom: 32 }}>
+            <div style={{ height: '100%', width: `${((step + 1) / 5) * 100}%`, background: stepColor.primary, borderRadius: 2, transition: 'width 0.4s ease, background 0.3s ease' }} />
+          </div>
+
+          {/* Step indicators */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 24 }}>
+            {ONBOARDING_STEPS.map((s, i) => (
+              <React.Fragment key={i}>
+                <div style={{
+                  width: i === step ? 28 : 8,
+                  height: 8,
+                  borderRadius: 4,
+                  background: i < step ? '#94a3b8' : i === step ? stepColor.primary : 'var(--sem-eclipse-color-backgroundSecondary)',
+                  transition: 'all 0.3s ease',
+                }} />
+              </React.Fragment>
+            ))}
+            <span style={{ marginLeft: 'auto', fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)', fontWeight: 600 }}>
+              {step + 1} / {ONBOARDING_STEPS.length}
+            </span>
+          </div>
+
+          {/* Content card */}
+          <div style={{ borderRadius: 16, border: `2px solid ${stepColor.primary}30`, background: 'var(--sem-eclipse-color-backgroundPrimary)', overflow: 'hidden' }}>
+            {/* Header — M3 Primary Container */}
+            <div style={{ padding: '20px 24px', background: stepColor.container }}>
+              <div style={{ fontSize: 11, fontWeight: 700, color: stepColor.primary, textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 4 }}>
+                단계 {step + 1}
+              </div>
+              <div style={{ fontSize: 20, fontWeight: 800, color: stepColor.onContainer, marginBottom: 4, letterSpacing: '-0.02em' }}>
+                {ONBOARDING_STEPS[step].title}
+              </div>
+              <div style={{ fontSize: 13, color: stepColor.onContainer, opacity: 0.7 }}>
+                {ONBOARDING_STEPS[step].subtitle}
+              </div>
+            </div>
+
+            {/* Step content */}
+            <div style={{ padding: '20px 24px' }}>
+              {/* Step 0: Role */}
+              {step === 0 && (
+                <RadioGroup value={state.role} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setState((s) => ({ ...s, role: e.target.value }))} name="role">
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
+                    {M3_ROLES.map((r) => (
+                      <div
+                        key={r.value}
+                        onClick={() => setState((s) => ({ ...s, role: r.value }))}
+                        style={{
+                          padding: '12px 14px',
+                          borderRadius: 10,
+                          border: `1.5px solid ${state.role === r.value ? stepColor.primary : 'var(--sem-eclipse-color-borderSubtle)'}`,
+                          background: state.role === r.value ? stepColor.container : 'var(--sem-eclipse-color-backgroundPrimary)',
+                          cursor: 'pointer',
+                          transition: 'all 0.15s',
+                        }}
+                      >
+                        <div style={{ fontSize: 18, marginBottom: 6 }}>{r.icon}</div>
+                        <div style={{ fontSize: 13, fontWeight: 700, color: state.role === r.value ? stepColor.onContainer : 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 2 }}>{r.label}</div>
+                        <div style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>{r.desc}</div>
+                      </div>
+                    ))}
+                  </div>
+                </RadioGroup>
+              )}
+
+              {/* Step 1: Team size */}
+              {step === 1 && (
+                <RadioGroup value={state.teamSize} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setState((s) => ({ ...s, teamSize: e.target.value }))} name="teamsize">
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                    {M3_TEAM_SIZES.map((t) => (
+                      <div
+                        key={t.value}
+                        onClick={() => setState((s) => ({ ...s, teamSize: t.value }))}
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: 12,
+                          padding: '12px 16px',
+                          borderRadius: 10,
+                          border: `1.5px solid ${state.teamSize === t.value ? stepColor.primary : 'var(--sem-eclipse-color-borderSubtle)'}`,
+                          background: state.teamSize === t.value ? stepColor.container : 'var(--sem-eclipse-color-backgroundPrimary)',
+                          cursor: 'pointer',
+                          transition: 'all 0.15s',
+                        }}
+                      >
+                        <RadioButtonWithLabel value={t.value} alignItems="center" />
+                        <div>
+                          <div style={{ fontSize: 13, fontWeight: 600, color: state.teamSize === t.value ? stepColor.onContainer : 'var(--sem-eclipse-color-foregroundPrimary)' }}>{t.label}</div>
+                          <div style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>{t.desc}</div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </RadioGroup>
+              )}
+
+              {/* Step 2: Goals — M3 Filter Chip multi-select */}
+              {step === 2 && (
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+                  {M3_GOALS.map((g) => {
+                    const isSelected = state.goals.has(g.value)
+                    return (
+                      <button
+                        key={g.value}
+                        onClick={() => toggleGoal(g.value)}
+                        style={{
+                          padding: '8px 14px',
+                          borderRadius: 8,
+                          fontSize: 13,
+                          fontWeight: isSelected ? 700 : 400,
+                          border: `1.5px solid ${isSelected ? g.color : 'var(--sem-eclipse-color-borderDefault)'}`,
+                          background: isSelected ? `${g.color}15` : 'var(--sem-eclipse-color-backgroundPrimary)',
+                          color: isSelected ? g.color : 'var(--sem-eclipse-color-foregroundSecondary)',
+                          cursor: 'pointer',
+                          transition: 'all 0.15s',
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: 6,
+                        }}
+                      >
+                        {isSelected && <span style={{ fontSize: 11 }}>✓</span>}
+                        {g.label}
+                      </button>
+                    )
+                  })}
+                  {state.goals.size > 0 && (
+                    <div style={{ width: '100%', marginTop: 4, fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>
+                      {state.goals.size}개 선택됨
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {/* Step 3: Theme */}
+              {step === 3 && (
+                <RadioGroup value={state.theme} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setState((s) => ({ ...s, theme: e.target.value }))} name="theme">
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 8 }}>
+                    {M3_THEMES.map((t) => (
+                      <div
+                        key={t.value}
+                        onClick={() => setState((s) => ({ ...s, theme: t.value }))}
+                        style={{
+                          padding: '12px',
+                          borderRadius: 10,
+                          border: `2px solid ${state.theme === t.value ? t.primary : 'var(--sem-eclipse-color-borderSubtle)'}`,
+                          background: state.theme === t.value ? t.surface : 'var(--sem-eclipse-color-backgroundPrimary)',
+                          cursor: 'pointer',
+                          textAlign: 'center',
+                          transition: 'all 0.15s',
+                        }}
+                      >
+                        <div style={{ width: 32, height: 32, borderRadius: '50%', background: t.primary, margin: '0 auto 8px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                          <span style={{ fontSize: 14, color: '#fff' }}>{t.value === 'light' ? '☀' : t.value === 'dark' ? '☾' : '⬡'}</span>
+                        </div>
+                        <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 2 }}>{t.label}</div>
+                        <div style={{ fontSize: 10, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>{t.desc}</div>
+                      </div>
+                    ))}
+                  </div>
+                </RadioGroup>
+              )}
+
+              {/* Step 4: Notifications */}
+              {step === 4 && (
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                  {M3_NOTIFICATIONS.map((n) => {
+                    const isChecked = state.notifications.has(n.value)
+                    return (
+                      <div
+                        key={n.value}
+                        onClick={() => toggleNotif(n.value)}
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: 12,
+                          padding: '12px 16px',
+                          borderRadius: 10,
+                          border: `1px solid ${isChecked ? stepColor.primary : 'var(--sem-eclipse-color-borderSubtle)'}`,
+                          background: isChecked ? stepColor.container : 'var(--sem-eclipse-color-backgroundPrimary)',
+                          cursor: 'pointer',
+                          transition: 'all 0.15s',
+                        }}
+                      >
+                        <Toggle checked={isChecked} onCheckedChange={() => toggleNotif(n.value)} />
+                        <div>
+                          <div style={{ fontSize: 13, fontWeight: 600, color: isChecked ? stepColor.onContainer : 'var(--sem-eclipse-color-foregroundPrimary)' }}>{n.label}</div>
+                          <div style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>{n.desc}</div>
+                        </div>
+                      </div>
+                    )
+                  })}
+                </div>
+              )}
+            </div>
+
+            {/* Navigation */}
+            <div style={{ display: 'flex', gap: 8, padding: '16px 24px', borderTop: '1px solid var(--sem-eclipse-color-borderSubtle)' }}>
+              {step > 0 && (
+                <OutlineButton color="gray" size="small" onClick={() => setStep((s) => (s - 1) as OnboardingStep)}>
+                  <OutlineButton.Center>이전</OutlineButton.Center>
+                </OutlineButton>
+              )}
+              <div style={{ flex: 1 }} />
+              {step < 4 ? (
+                <SolidButton
+                  color="primary"
+                  size="small"
+                  disabled={!canProceed()}
+                  onClick={() => { if (canProceed()) setStep((s) => (s + 1) as OnboardingStep) }}
+                >
+                  <SolidButton.Center>다음</SolidButton.Center>
+                </SolidButton>
+              ) : (
+                <SolidButton color="primary" size="small" onClick={() => setStep(0)}>
+                  <SolidButton.Center>시작하기</SolidButton.Center>
+                </SolidButton>
+              )}
+            </div>
+          </div>
+        </div>
+      ) : (
+        /* Done screen */
+        <div style={{ width: '100%', maxWidth: 480, textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 16 }}>
+          <div style={{ width: 64, height: 64, borderRadius: '50%', background: '#ecfdf5', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 28, border: '2px solid #10b981' }}>
+            ✓
+          </div>
+          <div>
+            <div style={{ fontSize: 22, fontWeight: 800, color: 'var(--sem-eclipse-color-foregroundPrimary)', letterSpacing: '-0.02em', marginBottom: 6 }}>설정 완료!</div>
+            <div style={{ fontSize: 14, color: 'var(--sem-eclipse-color-foregroundTertiary)', maxWidth: 360 }}>
+              {M3_ROLES.find((r) => r.value === state.role)?.label} 역할로 {M3_TEAM_SIZES.find((t) => t.value === state.teamSize)?.label} 팀에서 사용을 시작합니다.
+            </div>
+          </div>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, justifyContent: 'center' }}>
+            {[...state.goals].map((g) => {
+              const goal = M3_GOALS.find((x) => x.value === g)!
+              return (
+                <span key={g} style={{ fontSize: 12, padding: '3px 10px', borderRadius: 12, background: `${goal.color}15`, color: goal.color, fontWeight: 600, border: `1px solid ${goal.color}40` }}>
+                  {goal.label}
+                </span>
+              )
+            })}
+          </div>
+          <Progress value={100} size="small" />
+          <button onClick={() => setStep(0)} style={{ padding: '10px 24px', borderRadius: 8, border: 'none', background: '#6366f1', color: '#fff', fontSize: 14, fontWeight: 600, cursor: 'pointer' }}>
+            다시 시작
+          </button>
+        </div>
+      )}
+    </div>
+  )
+}
+
+export const M3OnboardingFlow: Story = {
+  name: 'M3 온보딩 플로우 (Material 3 벤치마크)',
+  parameters: {
+    layout: 'fullscreen',
+    docs: {
+      description: {
+        story:
+          'Google Material 3 색상 역할 시스템을 Orbit UI로 구현한 5단계 온보딩 플로우. ' +
+          '각 단계마다 M3 컨테이너 색상 역할이 변경되며, ' +
+          'RadioGroup(역할/팀규모/테마), Toggle(알림), Filter Chip 패턴(목표)이 통합됩니다.',
+      },
+    },
+  },
+  render: () => <M3OnboardingFlowRender />,
 }
