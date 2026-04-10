@@ -28029,3 +28029,182 @@ export const RaycastFigma116CommandPalette: StoryObj = {
   },
   render: () => <CommandPalette116Render />,
 }
+/* --------------------------------------------------------------------------
+   Cycle 117 — MUI + Chakra UI
+   템플릿: SocialFeed — 소셜 피드 UI
+   Components: Avatar, LabelBadge, CounterBadge, Divider, SectionTitle,
+               TextField, SolidButton, OutlineButton, GhostButton
+-------------------------------------------------------------------------- */
+function SocialFeed117Render() {
+  const [liked, setLiked] = React.useState<Set<number>>(new Set())
+  const [commentText, setCommentText] = React.useState('')
+  const [activeTab, setActiveTab] = React.useState<'trending' | 'following'>('trending')
+
+  function toggleLike(id: number) {
+    setLiked((prev) => {
+      const next = new Set(prev)
+      if (next.has(id)) next.delete(id)
+      else next.add(id)
+      return next
+    })
+  }
+
+  const posts = [
+    {
+      id: 1,
+      initials: 'KJ', color: '#6366f1', name: 'Kim Jihye', handle: '@jihye_k',
+      time: '2시간 전',
+      content: 'Orbit UI v2.0 출시! EclipseProvider를 통한 다크모드 지원, 3단계 토큰 시스템, 40+ 컴포넌트가 새롭게 업데이트되었습니다. 지금 바로 사용해보세요 🎉',
+      tags: ['React', 'DesignSystem'],
+      likes: 124, comments: 18, reposts: 32,
+    },
+    {
+      id: 2,
+      initials: 'PM', color: '#8b5cf6', name: 'Park Minjun', handle: '@minjun_dev',
+      time: '4시간 전',
+      content: 'Accordion + HoverCard 조합으로 레이어드 정보 구조를 만들었더니 UX가 훨씬 자연스러워졌습니다. Orbit UI의 Compound Component 패턴 덕분에 구현도 간편했어요.',
+      tags: ['UX', 'Components'],
+      likes: 87, comments: 11, reposts: 15,
+    },
+    {
+      id: 3,
+      initials: 'LS', color: '#10b981', name: 'Lee Soyeon', handle: '@soyeon_ux',
+      time: '6시간 전',
+      content: 'MUI에서 Orbit UI로 마이그레이션 완료! 번들 사이즈 40% 감소, 타입 안전성 대폭 향상. vanilla-extract 기반 zero-runtime CSS-in-JS의 성능이 인상적입니다.',
+      tags: ['Migration', 'Performance'],
+      likes: 203, comments: 34, reposts: 67,
+    },
+  ]
+
+  return (
+    <div style={{ display: 'flex', gap: 24, padding: '24px', maxWidth: 900, margin: '0 auto' }}>
+      {/* Feed */}
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 0 }}>
+        {/* Tab bar */}
+        <div style={{ display: 'flex', borderBottom: '1px solid var(--sem-eclipse-color-borderDefault)', marginBottom: 16 }}>
+          {(['trending', 'following'] as const).map((tab) => (
+            <button
+              key={tab}
+              onClick={() => setActiveTab(tab)}
+              style={{
+                padding: '10px 20px', fontSize: 14, fontWeight: activeTab === tab ? 700 : 400,
+                color: activeTab === tab ? 'var(--sem-eclipse-color-foregroundPrimary)' : 'var(--sem-eclipse-color-foregroundTertiary)',
+                borderBottom: activeTab === tab ? '2px solid #6366f1' : '2px solid transparent',
+                background: 'none', border: 'none', cursor: 'pointer', marginBottom: -1,
+              }}
+            >
+              {tab === 'trending' ? '트렌딩' : '팔로잉'}
+            </button>
+          ))}
+        </div>
+
+        {/* Compose */}
+        <div style={{ display: 'flex', gap: 12, padding: '0 0 16px', borderBottom: '1px solid var(--sem-eclipse-color-borderSubtle)', marginBottom: 16 }}>
+          <Avatar style={{ width: 40, height: 40, flexShrink: 0 }}>
+            <Avatar.Fallback style={{ background: '#6366f1', color: '#fff', fontSize: 13, fontWeight: 700 }}>ME</Avatar.Fallback>
+          </Avatar>
+          <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 10 }}>
+            <TextField
+              placeholder="무슨 생각을 하고 계신가요?"
+              value={commentText}
+              onChange={(e) => setCommentText(e.target.value)}
+            />
+            <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+              <SolidButton color="primary" size="small" disabled={!commentText}>
+                <SolidButton.Center>게시</SolidButton.Center>
+              </SolidButton>
+            </div>
+          </div>
+        </div>
+
+        {/* Posts */}
+        {posts.map((post) => (
+          <div key={post.id} style={{ paddingBottom: 16, marginBottom: 16, borderBottom: '1px solid var(--sem-eclipse-color-borderSubtle)' }}>
+            <div style={{ display: 'flex', gap: 12 }}>
+              <Avatar style={{ width: 44, height: 44, flexShrink: 0 }}>
+                <Avatar.Fallback style={{ background: post.color, color: '#fff', fontSize: 14, fontWeight: 700 }}>
+                  {post.initials}
+                </Avatar.Fallback>
+              </Avatar>
+              <div style={{ flex: 1 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
+                  <span style={{ fontSize: 14, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{post.name}</span>
+                  <span style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>{post.handle} · {post.time}</span>
+                </div>
+                <p style={{ margin: '8px 0', fontSize: 14, color: 'var(--sem-eclipse-color-foregroundSecondary)', lineHeight: 1.6 }}>
+                  {post.content}
+                </p>
+                <div style={{ display: 'flex', gap: 6, marginBottom: 12, flexWrap: 'wrap' }}>
+                  {post.tags.map((tag) => (
+                    <LabelBadge key={tag} color="gray">
+                      <LabelBadge.Label>#{tag}</LabelBadge.Label>
+                    </LabelBadge>
+                  ))}
+                </div>
+                <div style={{ display: 'flex', gap: 16, alignItems: 'center' }}>
+                  <button
+                    onClick={() => toggleLike(post.id)}
+                    style={{ display: 'flex', alignItems: 'center', gap: 5, background: 'none', border: 'none', cursor: 'pointer', fontSize: 13, color: liked.has(post.id) ? '#ef4444' : 'var(--sem-eclipse-color-foregroundTertiary)' }}
+                  >
+                    {liked.has(post.id) ? '♥' : '♡'} {post.likes + (liked.has(post.id) ? 1 : 0)}
+                  </button>
+                  <span style={{ fontSize: 13, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>💬 {post.comments}</span>
+                  <span style={{ fontSize: 13, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>↻ {post.reposts}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Sidebar */}
+      <div style={{ width: 240, flexShrink: 0, display: 'flex', flexDirection: 'column', gap: 16 }}>
+        <SectionTitle>
+          <SectionTitle.Title>트렌딩 태그</SectionTitle.Title>
+        </SectionTitle>
+        {['#OrbitUI', '#React', '#DesignSystem', '#TypeScript', '#OpenSource'].map((tag, i) => (
+          <div key={tag} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <span style={{ fontSize: 13, color: '#6366f1', fontWeight: 600 }}>{tag}</span>
+            <CounterBadge>{(5 - i) * 12 + i * 3}</CounterBadge>
+          </div>
+        ))}
+        <Divider />
+        <SectionTitle>
+          <SectionTitle.Title>추천 팔로우</SectionTitle.Title>
+        </SectionTitle>
+        {[
+          { initials: 'CH', color: '#f59e0b', name: 'Choi Hyunsoo', role: 'Design Engineer' },
+          { initials: 'YR', color: '#ef4444', name: 'Yun Rina', role: 'Frontend Architect' },
+        ].map((u) => (
+          <div key={u.name} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+            <Avatar style={{ width: 36, height: 36 }}>
+              <Avatar.Fallback style={{ background: u.color, color: '#fff', fontSize: 11, fontWeight: 700 }}>{u.initials}</Avatar.Fallback>
+            </Avatar>
+            <div style={{ flex: 1 }}>
+              <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{u.name}</div>
+              <div style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>{u.role}</div>
+            </div>
+            <OutlineButton color="black" size="small">
+              <OutlineButton.Center>팔로우</OutlineButton.Center>
+            </OutlineButton>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+export const MuiChakra117SocialFeed: StoryObj = {
+  name: 'MUI + Chakra UI — 소셜 피드 (Cycle 117)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'MUI + Chakra UI 벤치마크 — Cycle 117. ' +
+          '소셜 피드: Avatar 오버랩 그룹 + 좋아요 토글(useState) + 탭(trending/following) + 게시 입력(TextField) + 사이드바(트렌딩 태그, 추천 팔로우). ' +
+          'CounterBadge, LabelBadge, Divider, SectionTitle, OutlineButton, SolidButton 복합 활용.',
+      },
+    },
+  },
+  render: () => <SocialFeed117Render />,
+}

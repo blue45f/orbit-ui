@@ -1566,3 +1566,266 @@ export const shadcn_Vercel_플랜_선택_아코디언: Story = {
   },
   render: () => <ShadcnVercelPricingRender />,
 }
+
+/* --------------------------------------------------------------------------
+   MUI — 확장 패널 설정 그룹 (Cycle 117)
+   MUI Accordion의 controlled expansion panel 패턴
+-------------------------------------------------------------------------- */
+function MuiExpansionPanelSettingsRender() {
+  const [expanded, setExpanded] = useState<string | false>('panel-general')
+  function toggle(panel: string) {
+    return () => setExpanded((prev) => (prev === panel ? false : panel))
+  }
+  const sections = [
+    {
+      id: 'panel-general',
+      title: '일반 설정',
+      icon: '⚙️',
+      fields: [
+        { label: '프로젝트 이름', value: 'Orbit UI' },
+        { label: '설명', value: 'React 디자인 시스템' },
+        { label: '표시 언어', value: '한국어' },
+      ],
+    },
+    {
+      id: 'panel-security',
+      title: '보안',
+      icon: '🔒',
+      fields: [
+        { label: '2단계 인증', value: '활성화됨' },
+        { label: '세션 타임아웃', value: '30분' },
+        { label: '로그인 기록', value: '최근 10회' },
+      ],
+    },
+    {
+      id: 'panel-billing',
+      title: '결제 정보',
+      icon: '💳',
+      fields: [
+        { label: '플랜', value: 'Pro' },
+        { label: '청구 주기', value: '연간' },
+        { label: '다음 결제일', value: '2026-05-01' },
+      ],
+    },
+  ]
+  return (
+    <div style={{ width: 480 }}>
+      <div style={{ marginBottom: 16, fontSize: 14, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>설정 패널 (MUI Expansion Pattern)</div>
+      <Accordion type="single" value={expanded || undefined} className="w-full">
+        {sections.map((sec) => (
+          <Accordion.Item key={sec.id} value={sec.id} onClick={toggle(sec.id)}>
+            <Accordion.Trigger>
+              <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                <span>{sec.icon}</span>
+                <span>{sec.title}</span>
+              </span>
+            </Accordion.Trigger>
+            <Accordion.Content>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+                {sec.fields.map((f) => (
+                  <div key={f.label} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <span style={{ fontSize: 13, color: 'var(--sem-eclipse-color-foregroundSecondary)' }}>{f.label}</span>
+                    <span style={{ fontSize: 13, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{f.value}</span>
+                  </div>
+                ))}
+                <div style={{ marginTop: 4, display: 'flex', justifyContent: 'flex-end', gap: 8 }}>
+                  <GhostButton size="small" color="black">
+                    <GhostButton.Center>취소</GhostButton.Center>
+                  </GhostButton>
+                  <GhostButton size="small" color="black">
+                    <GhostButton.Center>저장</GhostButton.Center>
+                  </GhostButton>
+                </div>
+              </div>
+            </Accordion.Content>
+          </Accordion.Item>
+        ))}
+      </Accordion>
+    </div>
+  )
+}
+
+export const MUI_확장_패널_설정_그룹: Story = {
+  name: 'MUI — 확장 패널 설정 그룹 (Cycle 117)',
+  args: { type: 'single' },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'MUI Accordion의 controlled expansion panel 패턴. 설정 섹션을 아코디언으로 그룹화하여 한 번에 하나씩 펼침. 필드-값 쌍, 인라인 액션 버튼 포함.',
+      },
+    },
+  },
+  render: () => <MuiExpansionPanelSettingsRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Chakra UI — 스텝 가이드 아코디언 (Cycle 117)
+   Chakra의 step-by-step accordion guide 패턴
+-------------------------------------------------------------------------- */
+function ChakraStepGuideRender() {
+  const [completedSteps, setCompletedSteps] = useState<Set<string>>(new Set(['step-1']))
+  function toggleStep(step: string) {
+    setCompletedSteps((prev) => {
+      const next = new Set(prev)
+      if (next.has(step)) next.delete(step)
+      else next.add(step)
+      return next
+    })
+  }
+  const steps = [
+    { id: 'step-1', title: '프로젝트 생성', desc: '새 Orbit UI 프로젝트를 초기화합니다.', code: 'pnpm create orbit-app my-app' },
+    { id: 'step-2', title: 'EclipseProvider 설정', desc: '앱 루트에 EclipseProvider를 추가합니다.', code: '<EclipseProvider mode="light">' },
+    { id: 'step-3', title: '컴포넌트 임포트', desc: '필요한 컴포넌트를 임포트합니다.', code: "import { SolidButton } from '@heejun-com/theme-eclipse'" },
+    { id: 'step-4', title: '스토리북 실행', desc: 'Storybook을 실행해 컴포넌트를 확인합니다.', code: 'pnpm dev' },
+  ]
+  return (
+    <div style={{ width: 500 }}>
+      <div style={{ marginBottom: 12, fontSize: 13, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>
+        완료: {completedSteps.size}/{steps.length}단계
+      </div>
+      <Accordion type="multiple" className="w-full">
+        {steps.map((step, i) => (
+          <Accordion.Item key={step.id} value={step.id}>
+            <Accordion.Trigger>
+              <span style={{ display: 'flex', alignItems: 'center', gap: 10, width: '100%' }}>
+                <span style={{
+                  width: 22, height: 22, borderRadius: '50%', flexShrink: 0,
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  fontSize: 11, fontWeight: 700,
+                  background: completedSteps.has(step.id) ? '#10b981' : 'var(--sem-eclipse-color-backgroundSecondary)',
+                  color: completedSteps.has(step.id) ? '#fff' : 'var(--sem-eclipse-color-foregroundSecondary)',
+                  border: '1.5px solid',
+                  borderColor: completedSteps.has(step.id) ? '#10b981' : 'var(--sem-eclipse-color-borderDefault)',
+                }}>
+                  {completedSteps.has(step.id) ? '✓' : i + 1}
+                </span>
+                <span>{step.title}</span>
+                {completedSteps.has(step.id) && (
+                  <LabelBadge color="sale" style={{ marginLeft: 'auto' }}>
+                    <LabelBadge.Label>완료</LabelBadge.Label>
+                  </LabelBadge>
+                )}
+              </span>
+            </Accordion.Trigger>
+            <Accordion.Content>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                <p style={{ margin: 0, fontSize: 13, color: 'var(--sem-eclipse-color-foregroundSecondary)' }}>{step.desc}</p>
+                <code style={{ display: 'block', padding: '8px 12px', borderRadius: 6, background: 'var(--sem-eclipse-color-backgroundSecondary)', fontSize: 12, fontFamily: 'monospace', color: 'var(--sem-eclipse-color-foregroundPrimary)', border: '1px solid var(--sem-eclipse-color-borderSubtle)' }}>
+                  {step.code}
+                </code>
+                <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                  <Switch checked={completedSteps.has(step.id)} onCheckedChange={() => toggleStep(step.id)} />
+                  <span style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginLeft: 8 }}>완료로 표시</span>
+                </div>
+              </div>
+            </Accordion.Content>
+          </Accordion.Item>
+        ))}
+      </Accordion>
+    </div>
+  )
+}
+
+export const Chakra_스텝_가이드_아코디언: Story = {
+  name: 'Chakra UI — 스텝 가이드 아코디언 (Cycle 117)',
+  args: { type: 'multiple' },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Chakra UI의 step-by-step 아코디언 가이드 패턴. 완료 상태 인디케이터, 코드 블록, Switch로 완료 표시, LabelBadge로 상태 시각화.',
+      },
+    },
+  },
+  render: () => <ChakraStepGuideRender />,
+}
+
+/* --------------------------------------------------------------------------
+   MUI + Chakra — 이슈 트래커 아코디언 (Cycle 117)
+   이슈를 카테고리로 그룹화하는 프로젝트 관리 패턴
+-------------------------------------------------------------------------- */
+function MuiChakraIssueTrackerRender() {
+  const categories = [
+    {
+      id: 'bug',
+      label: '버그',
+      color: '#ef4444',
+      badge: 3,
+      issues: [
+        { id: 'BUG-042', title: 'Toggle 다크모드 색상 오류', priority: '높음' },
+        { id: 'BUG-041', title: 'TextField placeholder 클리핑', priority: '중간' },
+        { id: 'BUG-039', title: 'Accordion 중첩 렌더 문제', priority: '낮음' },
+      ],
+    },
+    {
+      id: 'feature',
+      label: '기능 요청',
+      color: '#6366f1',
+      badge: 2,
+      issues: [
+        { id: 'FEAT-018', title: 'DatePicker 컴포넌트 추가', priority: '높음' },
+        { id: 'FEAT-016', title: 'Combobox 다중 선택 지원', priority: '중간' },
+      ],
+    },
+    {
+      id: 'improvement',
+      label: '개선',
+      color: '#f59e0b',
+      badge: 4,
+      issues: [
+        { id: 'IMP-027', title: 'SolidButton 로딩 애니메이션', priority: '중간' },
+        { id: 'IMP-025', title: 'HoverCard 지연 시간 옵션', priority: '낮음' },
+        { id: 'IMP-023', title: 'ScrollableTabGroup 스크롤 인디케이터', priority: '낮음' },
+        { id: 'IMP-021', title: 'Avatar 그룹 오버랩 옵션', priority: '낮음' },
+      ],
+    },
+  ]
+  const priorityColor: Record<string, string> = {
+    높음: '#ef4444', 중간: '#f59e0b', 낮음: '#94a3b8',
+  }
+  return (
+    <div style={{ width: 480 }}>
+      <Accordion type="multiple" defaultValue={['bug']} className="w-full">
+        {categories.map((cat) => (
+          <Accordion.Item key={cat.id} value={cat.id}>
+            <Accordion.Trigger>
+              <span style={{ display: 'flex', alignItems: 'center', gap: 8, width: '100%' }}>
+                <span style={{ width: 10, height: 10, borderRadius: '50%', background: cat.color, flexShrink: 0 }} />
+                <span>{cat.label}</span>
+                <LabelBadge color="gray" style={{ marginLeft: 'auto' }}>
+                  <LabelBadge.Label>{cat.badge}</LabelBadge.Label>
+                </LabelBadge>
+              </span>
+            </Accordion.Trigger>
+            <Accordion.Content>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+                {cat.issues.map((issue) => (
+                  <div key={issue.id} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '8px 10px', borderRadius: 6, background: 'var(--sem-eclipse-color-backgroundSecondary)', border: '1px solid var(--sem-eclipse-color-borderSubtle)' }}>
+                    <code style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)', fontFamily: 'monospace', flexShrink: 0 }}>{issue.id}</code>
+                    <span style={{ fontSize: 13, color: 'var(--sem-eclipse-color-foregroundPrimary)', flex: 1 }}>{issue.title}</span>
+                    <span style={{ fontSize: 11, fontWeight: 700, color: priorityColor[issue.priority], flexShrink: 0 }}>{issue.priority}</span>
+                  </div>
+                ))}
+              </div>
+            </Accordion.Content>
+          </Accordion.Item>
+        ))}
+      </Accordion>
+    </div>
+  )
+}
+
+export const MUI_Chakra_이슈_트래커_아코디언: Story = {
+  name: 'MUI + Chakra — 이슈 트래커 아코디언 (Cycle 117)',
+  args: { type: 'multiple' },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'MUI + Chakra UI의 그룹 아코디언 패턴을 이슈 트래커에 적용. 카테고리(버그/기능/개선) 그룹화, LabelBadge 카운트, 우선순위 색상 코딩.',
+      },
+    },
+  },
+  render: () => <MuiChakraIssueTrackerRender />,
+}

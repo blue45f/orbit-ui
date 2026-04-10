@@ -1085,3 +1085,211 @@ export const Mantine_프로필_카드 = {
     </div>
   ),
 }
+
+/* --------------------------------------------------------------------------
+   MUI — 배지 아바타 그룹 (Cycle 117)
+   MUI AvatarGroup + Badge 패턴 — 온라인 상태 인디케이터
+-------------------------------------------------------------------------- */
+export const MUI_배지_아바타_그룹: Story = {
+  name: 'MUI — 배지 아바타 그룹 (Cycle 117)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'MUI AvatarGroup + Badge 패턴. 온라인/오프라인/자리비움 상태 인디케이터, 오버랩 그룹, +N 더보기 표시.',
+      },
+    },
+  },
+  render: () => {
+    const members = [
+      { initials: 'KJ', color: '#6366f1', status: 'online' as const },
+      { initials: 'PM', color: '#8b5cf6', status: 'online' as const },
+      { initials: 'LS', color: '#10b981', status: 'away' as const },
+      { initials: 'CH', color: '#f59e0b', status: 'offline' as const },
+      { initials: 'YR', color: '#ef4444', status: 'online' as const },
+    ]
+    const statusColor = { online: '#10b981', away: '#f59e0b', offline: '#94a3b8' }
+    const statusLabel = { online: '온라인', away: '자리비움', offline: '오프라인' }
+    const maxVisible = 4
+    const visible = members.slice(0, maxVisible)
+    const extra = members.length - maxVisible
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 24, padding: 24 }}>
+        {/* Overlapping group */}
+        <div>
+          <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginBottom: 8, textTransform: 'uppercase', letterSpacing: '0.06em' }}>팀 멤버 ({members.length}명)</div>
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            {visible.map((m, i) => (
+              <div key={m.initials} style={{ position: 'relative', marginLeft: i === 0 ? 0 : -10, zIndex: visible.length - i }}>
+                <Avatar style={{ width: 40, height: 40, border: '2px solid var(--sem-eclipse-color-backgroundPrimary)' }}>
+                  <Avatar.Fallback style={{ background: m.color, color: '#fff', fontSize: 13, fontWeight: 700 }}>
+                    {m.initials}
+                  </Avatar.Fallback>
+                </Avatar>
+                <span style={{ position: 'absolute', bottom: 0, right: 0, width: 11, height: 11, borderRadius: '50%', background: statusColor[m.status], border: '2px solid var(--sem-eclipse-color-backgroundPrimary)' }} />
+              </div>
+            ))}
+            {extra > 0 && (
+              <div style={{ marginLeft: -10, width: 40, height: 40, borderRadius: '50%', background: 'var(--sem-eclipse-color-backgroundSecondary)', border: '2px solid var(--sem-eclipse-color-backgroundPrimary)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 12, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundSecondary)' }}>
+                +{extra}
+              </div>
+            )}
+          </div>
+        </div>
+        {/* Status list */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+          {members.map((m) => (
+            <div key={m.initials} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+              <div style={{ position: 'relative' }}>
+                <Avatar style={{ width: 32, height: 32 }}>
+                  <Avatar.Fallback style={{ background: m.color, color: '#fff', fontSize: 11, fontWeight: 700 }}>
+                    {m.initials}
+                  </Avatar.Fallback>
+                </Avatar>
+                <span style={{ position: 'absolute', bottom: 0, right: 0, width: 9, height: 9, borderRadius: '50%', background: statusColor[m.status], border: '2px solid var(--sem-eclipse-color-backgroundPrimary)' }} />
+              </div>
+              <span style={{ fontSize: 13, color: 'var(--sem-eclipse-color-foregroundPrimary)', flex: 1 }}>{m.initials}</span>
+              <span style={{ fontSize: 11, fontWeight: 600, color: statusColor[m.status] }}>{statusLabel[m.status]}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    )
+  },
+}
+
+/* --------------------------------------------------------------------------
+   Chakra UI — 사이즈 변형 아바타 쇼케이스 (Cycle 117)
+   Chakra Avatar의 size variant 시스템 — xs/sm/md/lg/xl
+-------------------------------------------------------------------------- */
+export const Chakra_사이즈_변형_아바타: Story = {
+  name: 'Chakra UI — 사이즈 변형 아바타 (Cycle 117)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Chakra UI Avatar의 size variant 패턴. xs(24px)~xl(72px) 크기 계층, 각 사이즈에 적절한 폰트 크기 비율 적용.',
+      },
+    },
+  },
+  render: () => {
+    const sizes = [
+      { label: 'xs', px: 24, font: 10 },
+      { label: 'sm', px: 32, font: 12 },
+      { label: 'md', px: 40, font: 14 },
+      { label: 'lg', px: 52, font: 17 },
+      { label: 'xl', px: 72, font: 22 },
+    ]
+    return (
+      <div style={{ padding: 24 }}>
+        <div style={{ display: 'flex', alignItems: 'flex-end', gap: 16 }}>
+          {sizes.map((s) => (
+            <div key={s.label} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6 }}>
+              <Avatar style={{ width: s.px, height: s.px }}>
+                <Avatar.Fallback style={{ background: '#6366f1', color: '#fff', fontSize: s.font, fontWeight: 700 }}>
+                  OR
+                </Avatar.Fallback>
+              </Avatar>
+              <span style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)', fontFamily: 'monospace' }}>{s.label}</span>
+              <span style={{ fontSize: 10, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>{s.px}px</span>
+            </div>
+          ))}
+        </div>
+        {/* With image fallback showcase */}
+        <div style={{ marginTop: 24, display: 'flex', alignItems: 'flex-end', gap: 16 }}>
+          {sizes.map((s) => (
+            <div key={s.label} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6 }}>
+              <Avatar style={{ width: s.px, height: s.px }}>
+                <Avatar.Image src="broken-url.jpg" alt={`avatar-${s.label}`} />
+                <Avatar.Fallback style={{ background: 'linear-gradient(135deg, #8b5cf6, #06b6d4)', color: '#fff', fontSize: s.font, fontWeight: 700 }}>
+                  UI
+                </Avatar.Fallback>
+              </Avatar>
+              <span style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)', fontFamily: 'monospace' }}>{s.label}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    )
+  },
+}
+
+/* --------------------------------------------------------------------------
+   MUI + Chakra — 댓글 스레드 아바타 패턴 (Cycle 117)
+   아바타를 활용한 소셜 댓글 UI 구성
+-------------------------------------------------------------------------- */
+export const MUI_Chakra_댓글_스레드: Story = {
+  name: 'MUI + Chakra — 댓글 스레드 (Cycle 117)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'MUI + Chakra의 comment thread 패턴. Avatar + timestamp + 좋아요 카운트 조합. 중첩 댓글 구조, 입력 영역 포함.',
+      },
+    },
+  },
+  render: () => {
+    const comments = [
+      {
+        initials: 'KJ', color: '#6366f1', name: 'Kim Jihye', time: '2시간 전',
+        text: 'EclipseProvider의 다크모드 전환이 정말 자연스럽네요! Toggle 하나로 전체 테마가 바뀌는 게 인상적입니다.',
+        likes: 12,
+        replies: [
+          { initials: 'PM', color: '#8b5cf6', name: 'Park Minjun', time: '1시간 전', text: '동의해요. 시맨틱 토큰 설계가 탄탄해서 가능한 것 같아요.', likes: 5 },
+        ],
+      },
+      {
+        initials: 'LS', color: '#10b981', name: 'Lee Soyeon', time: '45분 전',
+        text: 'HoverCard 컴포넌트 패턴이 Radix UI와 유사한데 Orbit UI만의 토큰 시스템이 더해져서 훨씬 편리합니다.',
+        likes: 8,
+        replies: [],
+      },
+    ]
+    return (
+      <div style={{ width: 480, display: 'flex', flexDirection: 'column', gap: 16, padding: 16 }}>
+        {comments.map((c) => (
+          <div key={c.name}>
+            <div style={{ display: 'flex', gap: 10 }}>
+              <Avatar style={{ width: 36, height: 36, flexShrink: 0 }}>
+                <Avatar.Fallback style={{ background: c.color, color: '#fff', fontSize: 12, fontWeight: 700 }}>
+                  {c.initials}
+                </Avatar.Fallback>
+              </Avatar>
+              <div style={{ flex: 1 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
+                  <span style={{ fontSize: 13, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{c.name}</span>
+                  <span style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>{c.time}</span>
+                </div>
+                <p style={{ margin: 0, fontSize: 13, color: 'var(--sem-eclipse-color-foregroundSecondary)', lineHeight: 1.6 }}>{c.text}</p>
+                <div style={{ marginTop: 8, fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>
+                  ♡ {c.likes} · 답글
+                </div>
+              </div>
+            </div>
+            {c.replies.length > 0 && (
+              <div style={{ marginLeft: 46, marginTop: 10, paddingLeft: 14, borderLeft: '2px solid var(--sem-eclipse-color-borderSubtle)', display: 'flex', flexDirection: 'column', gap: 10 }}>
+                {c.replies.map((r) => (
+                  <div key={r.name} style={{ display: 'flex', gap: 8 }}>
+                    <Avatar style={{ width: 28, height: 28, flexShrink: 0 }}>
+                      <Avatar.Fallback style={{ background: r.color, color: '#fff', fontSize: 10, fontWeight: 700 }}>
+                        {r.initials}
+                      </Avatar.Fallback>
+                    </Avatar>
+                    <div>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 2 }}>
+                        <span style={{ fontSize: 12, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{r.name}</span>
+                        <span style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>{r.time}</span>
+                      </div>
+                      <p style={{ margin: 0, fontSize: 12, color: 'var(--sem-eclipse-color-foregroundSecondary)', lineHeight: 1.6 }}>{r.text}</p>
+                      <div style={{ marginTop: 4, fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>♡ {r.likes}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+    )
+  },
+}
