@@ -39891,3 +39891,181 @@ export const RadixLinear178DesignSystemDocs: StoryObj = {
   },
   render: () => <RadixLinear178DesignSystemDocsRender />,
 }
+
+// ─── Cycle 179 — Tailwind UI + Vercel Design ─────────────────────────────────
+
+const PIPELINE_STEPS_179 = [
+  { id: 'typecheck', label: '타입 체크', icon: '◈' },
+  { id: 'lint', label: 'ESLint', icon: '◇' },
+  { id: 'build', label: '빌드', icon: '▣' },
+  { id: 'deploy', label: '배포', icon: '◉' },
+]
+
+function TailwindVercel179ActivityFeedRender() {
+  const [deployments, setDeployments] = useState([
+    { id: 1, branch: 'feat/cycle-179', commit: 'feat: AnimatedBadge 고도화', status: 'ready' as const, duration: 38, ago: '2분 전', author: 'HJ' },
+    { id: 2, branch: 'fix/toast-batch', commit: 'fix: Toast 일괄 알림 순서 수정', status: 'ready' as const, duration: 41, ago: '18분 전', author: 'MK' },
+    { id: 3, branch: 'feat/cycle-178', commit: 'feat: Popover 색상 피커 추가', status: 'error' as const, duration: 23, ago: '1시간 전', author: 'SY' },
+    { id: 4, branch: 'chore/deps', commit: 'chore: pnpm 의존성 업데이트', status: 'ready' as const, duration: 52, ago: '3시간 전', author: 'JH' },
+    { id: 5, branch: 'feat/cycle-177', commit: 'feat: SectionTitle Mantine 패턴', status: 'ready' as const, duration: 39, ago: '5시간 전', author: 'YR' },
+  ])
+  const [activeFilter, setActiveFilter] = useState<'all' | 'ready' | 'error'>('all')
+  const [pipelinePhase, setPipelinePhase] = useState<'idle' | 'running' | 'done'>('idle')
+  const [currentStep, setCurrentStep] = useState(-1)
+  const [toastMsg, setToastMsg] = useState<string | null>(null)
+
+  const filtered = deployments.filter((d) => activeFilter === 'all' || d.status === activeFilter)
+
+  const statusStyle: Record<string, { bg: string; color: string; label: string }> = {
+    ready: { bg: '#dcfce7', color: '#16a34a', label: '완료' },
+    building: { bg: '#dbeafe', color: '#2563eb', label: '빌드 중' },
+    error: { bg: '#fee2e2', color: '#dc2626', label: '오류' },
+    queued: { bg: '#f3f4f6', color: '#6b7280', label: '대기' },
+  }
+
+  const triggerDeploy = () => {
+    if (pipelinePhase === 'running') return
+    setPipelinePhase('running')
+    setCurrentStep(0)
+    setToastMsg('새 배포가 시작되었습니다...')
+
+    let step = 0
+    const advance = () => {
+      step++
+      setCurrentStep(step)
+      if (step < PIPELINE_STEPS_179.length) {
+        setTimeout(advance, 1000)
+      } else {
+        setPipelinePhase('done')
+        setCurrentStep(-1)
+        setToastMsg('배포 완료! orbit-ui-preview.vercel.app')
+        setDeployments((prev) => [
+          {
+            id: prev.length + 1,
+            branch: 'feat/new-deploy',
+            commit: '새 배포 트리거',
+            status: 'ready',
+            duration: 38,
+            ago: '방금',
+            author: 'HJ',
+          },
+          ...prev.slice(0, 4),
+        ])
+        setTimeout(() => setToastMsg(null), 3000)
+      }
+    }
+    setTimeout(advance, 1000)
+  }
+
+  return (
+    <div style={{ minHeight: '100vh', background: '#fafafa', fontFamily: 'system-ui, sans-serif', display: 'flex', flexDirection: 'column' }}>
+      {/* Toast notification */}
+      {toastMsg && (
+        <div style={{ position: 'fixed', bottom: 20, left: '50%', transform: 'translateX(-50%)', zIndex: 100, background: '#111827', color: '#fff', padding: '10px 20px', borderRadius: 10, fontSize: 12, fontWeight: 500, boxShadow: '0 4px 20px rgba(0,0,0,0.3)', display: 'flex', alignItems: 'center', gap: 8 }}>
+          <span>{pipelinePhase === 'running' ? '●' : '✓'}</span>
+          {toastMsg}
+        </div>
+      )}
+
+      {/* Header */}
+      <div style={{ background: '#111827', padding: '0 24px', display: 'flex', alignItems: 'center', height: 52, gap: 16, borderBottom: '1px solid #1f2937' }}>
+        <div style={{ fontSize: 14, fontWeight: 700, color: '#fff' }}>Orbit UI</div>
+        <div style={{ fontSize: 11, color: '#6b7280' }}>Deployments</div>
+        <div style={{ flex: 1 }} />
+        <SolidButton color="primary" size="small" onClick={triggerDeploy}>
+          <SolidButton.Center>{pipelinePhase === 'running' ? '배포 중...' : '새 배포'}</SolidButton.Center>
+        </SolidButton>
+      </div>
+
+      <div style={{ display: 'flex', flex: 1 }}>
+        {/* Sidebar */}
+        <div style={{ width: 200, background: '#fff', borderRight: '1px solid #e5e7eb', padding: '20px 12px' }}>
+          <div style={{ fontSize: 10, fontWeight: 700, color: '#6b7280', textTransform: 'uppercase', letterSpacing: 0.8, marginBottom: 8 }}>프로젝트</div>
+          {['orbit-ui', 'core', 'theme-eclipse', 'icons', 'generator'].map((proj, i) => (
+            <div key={proj} style={{ padding: '7px 10px', borderRadius: 7, marginBottom: 1, background: i === 0 ? '#ede9fe' : 'transparent', color: i === 0 ? '#7c3aed' : '#6b7280', fontSize: 12, fontWeight: i === 0 ? 600 : 400, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+              {proj}
+              {i === 0 && <AnimatedBadge color="club" size="small"><AnimatedBadge.Label>활성</AnimatedBadge.Label></AnimatedBadge>}
+            </div>
+          ))}
+
+          <div style={{ fontSize: 10, fontWeight: 700, color: '#6b7280', textTransform: 'uppercase', letterSpacing: 0.8, marginBottom: 8, marginTop: 16 }}>통계</div>
+          {[
+            { label: '이번 달 배포', value: '47', trend: 'up' },
+            { label: '평균 빌드', value: '41초', trend: 'down' },
+            { label: '성공률', value: '96.8%', trend: 'up' },
+          ].map((s) => (
+            <div key={s.label} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '5px 10px', marginBottom: 2 }}>
+              <span style={{ fontSize: 10, color: '#9ca3af' }}>{s.label}</span>
+              <AnimatedBadge color={s.trend === 'up' ? 'club' : 'white'} size="small">
+                <AnimatedBadge.Label>{s.value}</AnimatedBadge.Label>
+              </AnimatedBadge>
+            </div>
+          ))}
+        </div>
+
+        {/* Main */}
+        <div style={{ flex: 1, overflow: 'auto' }}>
+          {/* Pipeline status */}
+          {pipelinePhase === 'running' && (
+            <div style={{ background: '#fff', borderBottom: '1px solid #e5e7eb', padding: '12px 20px' }}>
+              <div style={{ fontSize: 11, color: '#6b7280', marginBottom: 8 }}>파이프라인 진행 중</div>
+              <div style={{ display: 'flex', gap: 8 }}>
+                {PIPELINE_STEPS_179.map((step, i) => (
+                  <div key={step.id} style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '5px 10px', borderRadius: 20, background: i < currentStep ? '#dcfce7' : i === currentStep ? '#dbeafe' : '#f3f4f6', fontSize: 11, color: i < currentStep ? '#16a34a' : i === currentStep ? '#2563eb' : '#9ca3af', fontWeight: i <= currentStep ? 600 : 400 }}>
+                    <span style={{ fontSize: 10 }}>{i < currentStep ? '✓' : step.icon}</span>
+                    {step.label}
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Filter bar */}
+          <div style={{ background: '#fff', borderBottom: '1px solid #e5e7eb', padding: '10px 20px', display: 'flex', gap: 8, alignItems: 'center' }}>
+            <span style={{ fontSize: 12, color: '#6b7280' }}>상태 필터:</span>
+            {(['all', 'ready', 'error'] as const).map((f) => (
+              <button key={f} onClick={() => setActiveFilter(f)} style={{ fontSize: 11, padding: '4px 10px', borderRadius: 20, border: 'none', background: activeFilter === f ? '#111827' : '#f3f4f6', color: activeFilter === f ? '#fff' : '#6b7280', cursor: 'pointer', fontWeight: activeFilter === f ? 600 : 400, fontFamily: 'system-ui' }}>
+                {{ all: '전체', ready: '완료', error: '오류' }[f]}
+              </button>
+            ))}
+            <div style={{ flex: 1 }} />
+            <span style={{ fontSize: 11, color: '#9ca3af' }}>{filtered.length}개 배포</span>
+          </div>
+
+          {/* Deployment list */}
+          <div style={{ padding: '12px 20px', display: 'flex', flexDirection: 'column', gap: 8 }}>
+            {filtered.map((dep) => (
+              <div key={dep.id} style={{ background: '#fff', border: '1px solid #e5e7eb', borderRadius: 10, padding: '14px 16px', display: 'flex', alignItems: 'center', gap: 12 }}>
+                <div style={{ width: 32, height: 32, borderRadius: '50%', background: '#6366f1', color: '#fff', fontSize: 11, fontWeight: 700, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>{dep.author}</div>
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <div style={{ fontSize: 13, fontWeight: 600, color: '#111827', marginBottom: 2 }}>{dep.commit}</div>
+                  <div style={{ fontSize: 11, color: '#9ca3af', display: 'flex', gap: 10 }}>
+                    <span style={{ fontFamily: 'monospace', color: '#6366f1' }}>{dep.branch}</span>
+                    <span>{dep.ago}</span>
+                    <span>{dep.duration}초</span>
+                  </div>
+                </div>
+                <AnimatedBadge color={dep.status === 'ready' ? 'club' : 'sale'} size="small">
+                  <AnimatedBadge.Label>{statusStyle[dep.status]?.label}</AnimatedBadge.Label>
+                </AnimatedBadge>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const TailwindVercel179ActivityFeed: StoryObj = {
+  name: 'Tailwind UI + Vercel — 배포 활동 피드 대시보드 (Cycle 179)',
+  parameters: {
+    layout: 'fullscreen',
+    docs: {
+      description: {
+        story: 'Tailwind UI Activity Feed + Vercel Deployments 대시보드. AnimatedBadge로 배포 상태/KPI/사이드바 통계 시각화. 새 배포 버튼 클릭 시 파이프라인 단계별 진행 애니메이션 + Toast 피드백. 상태 필터(전체/완료/오류) 탭.',
+      },
+    },
+  },
+  render: () => <TailwindVercel179ActivityFeedRender />,
+}

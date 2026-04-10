@@ -1354,3 +1354,185 @@ export const Arco_Raycast_파이프라인_상태_배지: Story = {
     },
   },
 }
+
+/* --------------------------------------------------------------------------
+   Cycle 179 — Tailwind UI + Vercel Design
+   Benchmark:
+   1. Tailwind UI: 활동 피드 타임스탬프 배지 — 상대적 시간 표시 + 색상 분류
+   2. Vercel Design: 배포 상태 펄스 애니메이션 배지 — 실시간 진행 표시
+   3. Tailwind + Vercel: KPI 카드 트렌드 배지 — up/down 인디케이터
+-------------------------------------------------------------------------- */
+
+function TailwindActivityFeedBadgeRender() {
+  const [now, setNow] = useState(Date.now())
+
+  useEffect(() => {
+    const timer = setInterval(() => setNow(Date.now()), 10000)
+    return () => clearInterval(timer)
+  }, [])
+
+  const activities = [
+    { id: 1, actor: 'HJ', action: '컴포넌트 배포 완료', type: 'success', ts: now - 45000 },
+    { id: 2, actor: 'MK', action: '풀 리퀘스트 생성', type: 'info', ts: now - 180000 },
+    { id: 3, actor: 'SY', action: '빌드 오류 감지', type: 'error', ts: now - 600000 },
+    { id: 4, actor: 'JH', action: '스토리북 업데이트', type: 'default', ts: now - 3600000 },
+    { id: 5, actor: 'YR', action: '타입 오류 수정', type: 'warning', ts: now - 7200000 },
+  ]
+
+  const typeConfig = {
+    success: { color: 'club' as const, icon: '✓' },
+    info: { color: 'white' as const, icon: '●' },
+    error: { color: 'sale' as const, icon: '✕' },
+    default: { color: 'white' as const, icon: '○' },
+    warning: { color: 'sale' as const, icon: '△' },
+  }
+
+  const relTime = (ts: number) => {
+    const diff = Math.floor((now - ts) / 1000)
+    if (diff < 60) return `${diff}초 전`
+    if (diff < 3600) return `${Math.floor(diff / 60)}분 전`
+    return `${Math.floor(diff / 3600)}시간 전`
+  }
+
+  return (
+    <div style={{ width: 380, fontFamily: 'system-ui, sans-serif' }}>
+      <div style={{ fontSize: 12, fontWeight: 700, color: '#374151', marginBottom: 12 }}>팀 활동 피드</div>
+      {activities.map((act) => (
+        <div key={act.id} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '8px 0', borderBottom: '1px solid #f3f4f6' }}>
+          <div style={{ width: 28, height: 28, borderRadius: '50%', background: '#6366f1', color: '#fff', fontSize: 10, fontWeight: 700, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>{act.actor}</div>
+          <div style={{ flex: 1, fontSize: 12, color: '#374151' }}>{act.action}</div>
+          <AnimatedBadge color={typeConfig[act.type as keyof typeof typeConfig].color} size="small">
+            <AnimatedBadge.Label>{relTime(act.ts)}</AnimatedBadge.Label>
+          </AnimatedBadge>
+        </div>
+      ))}
+    </div>
+  )
+}
+
+export const Tailwind_활동_피드_타임스탬프_배지: Story = {
+  name: 'Tailwind UI — 활동 피드 타임스탬프 배지 (상대 시간)',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Tailwind UI Activity Feed 패턴 적용. 팀 활동 로그 각 항목에 AnimatedBadge로 상대 시간(45초 전, 3분 전)을 표시하고 활동 유형(success/error/info)별 색상 분류. 10초마다 타임스탬프 자동 갱신.',
+      },
+    },
+  },
+  render: () => <TailwindActivityFeedBadgeRender />,
+}
+
+function VercelDeployStatusBadgeRender() {
+  const [deployPhase, setDeployPhase] = useState<'queued' | 'building' | 'ready' | 'error'>('queued')
+  const [progress, setProgress] = useState(0)
+
+  useEffect(() => {
+    if (deployPhase !== 'building') return
+    const timer = setInterval(() => {
+      setProgress((prev) => {
+        if (prev >= 100) {
+          clearInterval(timer)
+          setDeployPhase('ready')
+          return 100
+        }
+        return prev + 8
+      })
+    }, 200)
+    return () => clearInterval(timer)
+  }, [deployPhase])
+
+  const phaseMap = {
+    queued: { color: 'white' as const, label: '대기 중', icon: '○' },
+    building: { color: 'club' as const, label: '빌드 중', icon: '●' },
+    ready: { color: 'club' as const, label: '배포 완료', icon: '✓' },
+    error: { color: 'sale' as const, label: '빌드 실패', icon: '✕' },
+  }
+
+  const phase = phaseMap[deployPhase]
+
+  return (
+    <div style={{ width: 340, fontFamily: 'system-ui, sans-serif' }}>
+      <div style={{ padding: '16px', border: '1px solid #e5e7eb', borderRadius: 12, background: '#fff' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12 }}>
+          <div style={{ fontSize: 13, fontWeight: 600, color: '#111827' }}>orbit-ui · main</div>
+          <AnimatedBadge color={phase.color} size="small">
+            <AnimatedBadge.Leading>
+              <span style={{ fontSize: 10 }}>{phase.icon}</span>
+            </AnimatedBadge.Leading>
+            <AnimatedBadge.Label>{phase.label}</AnimatedBadge.Label>
+          </AnimatedBadge>
+        </div>
+        {deployPhase === 'building' && (
+          <div style={{ marginBottom: 10 }}>
+            <div style={{ height: 4, borderRadius: 2, background: '#f3f4f6', overflow: 'hidden' }}>
+              <div style={{ height: '100%', width: `${progress}%`, background: '#6366f1', transition: 'width 0.2s', borderRadius: 2 }} />
+            </div>
+            <div style={{ fontSize: 10, color: '#9ca3af', marginTop: 4 }}>{progress}% 완료</div>
+          </div>
+        )}
+        <div style={{ fontSize: 11, color: '#6b7280', marginBottom: 12 }}>
+          {deployPhase === 'ready' ? 'https://orbit-ui-preview.vercel.app' : `커밋: feat/cycle-179 · ${new Date().toLocaleDateString('ko-KR')}`}
+        </div>
+        <div style={{ display: 'flex', gap: 6 }}>
+          {(['queued', 'building', 'ready', 'error'] as const).map((p) => (
+            <button key={p} onClick={() => { setDeployPhase(p); if (p === 'building') setProgress(0) }} style={{ flex: 1, padding: '5px', fontSize: 10, border: `1px solid ${deployPhase === p ? '#6366f1' : '#e5e7eb'}`, borderRadius: 6, cursor: 'pointer', background: deployPhase === p ? '#ede9fe' : '#fff', color: deployPhase === p ? '#6366f1' : '#9ca3af', fontWeight: deployPhase === p ? 600 : 400, fontFamily: 'system-ui' }}>
+              {p}
+            </button>
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const Vercel_배포_상태_배지: Story = {
+  name: 'Vercel Design — 배포 상태 배지 (Queued/Building/Ready/Error)',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Vercel 배포 상태 UI 패턴 구현. AnimatedBadge로 대기/빌드/완료/오류 4단계 상태를 색상+아이콘으로 표시. Building 상태에서 프로그레스 바 애니메이션 동반. 각 버튼으로 상태 전환 가능.',
+      },
+    },
+  },
+  render: () => <VercelDeployStatusBadgeRender />,
+}
+
+function TailwindVercelKPITrendBadgeRender() {
+  const kpis = [
+    { label: '월간 활성 사용자', value: '24,831', change: +12.4, unit: '%', period: '지난달 대비' },
+    { label: '컴포넌트 커버리지', value: '94.2', change: +2.1, unit: '%', period: '전 사이클 대비' },
+    { label: '빌드 성공률', value: '98.7', change: -0.5, unit: '%', period: '지난 주 대비' },
+    { label: '평균 번들 사이즈', value: '82.3', change: -8.2, unit: 'kB', period: '전 버전 대비' },
+  ]
+
+  return (
+    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10, width: 380, fontFamily: 'system-ui, sans-serif' }}>
+      {kpis.map((kpi) => (
+        <div key={kpi.label} style={{ padding: '14px 16px', border: '1px solid #e5e7eb', borderRadius: 10, background: '#fff' }}>
+          <div style={{ fontSize: 10, color: '#9ca3af', marginBottom: 6 }}>{kpi.label}</div>
+          <div style={{ fontSize: 20, fontWeight: 700, color: '#111827', marginBottom: 6 }}>
+            {kpi.value}<span style={{ fontSize: 11, fontWeight: 400, color: '#9ca3af' }}>{kpi.unit}</span>
+          </div>
+          <AnimatedBadge color={kpi.change > 0 ? 'club' : 'sale'} size="small">
+            <AnimatedBadge.Leading>
+              <span style={{ fontSize: 9 }}>{kpi.change > 0 ? '▲' : '▼'}</span>
+            </AnimatedBadge.Leading>
+            <AnimatedBadge.Label>{Math.abs(kpi.change)}{kpi.unit} {kpi.period}</AnimatedBadge.Label>
+          </AnimatedBadge>
+        </div>
+      ))}
+    </div>
+  )
+}
+
+export const Tailwind_Vercel_KPI_트렌드_배지: Story = {
+  name: 'Tailwind UI + Vercel — KPI 카드 트렌드 배지 (증감 인디케이터)',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Tailwind UI Stats 컴포넌트 + Vercel 메트릭 카드 패턴. AnimatedBadge로 KPI 수치의 증감 트렌드(▲/▼ + %)를 시각화. 양수는 club(녹색), 음수는 sale(적색)로 자동 색상 분류. 번들 사이즈 감소는 긍정적이어도 sale로 표시해 맥락 파악 가능.',
+      },
+    },
+  },
+  render: () => <TailwindVercelKPITrendBadgeRender />,
+}

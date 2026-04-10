@@ -1384,3 +1384,176 @@ export const Mantine_Notion_실시간_협업_알림: Story = {
     },
   },
 }
+
+/* --------------------------------------------------------------------------
+   Cycle 179 — Tailwind UI + Vercel Design
+   Benchmark:
+   1. Tailwind UI: 폼 저장 패턴 — 저장 완료 + 실행 취소 액션 토스트
+   2. Vercel Design: 배포 완료/실패 알림 — URL 링크 + 상태 색상
+   3. Tailwind + Vercel: 일괄 작업 순차 토스트 — 진행 단계별 알림 시퀀스
+-------------------------------------------------------------------------- */
+
+function TailwindFormSaveToastRender(args: React.ComponentProps<typeof Toaster>) {
+  const [saved, setSaved] = useState(false)
+
+  const handleSave = () => {
+    setSaved(true)
+    toast.success('설정이 저장되었습니다.', {
+      description: '변경 사항이 적용되기까지 약 30초가 소요됩니다.',
+      action: {
+        label: '실행 취소',
+        onClick: () => {
+          setSaved(false)
+          toast('설정 변경이 취소되었습니다.')
+        },
+      },
+      duration: 5000,
+    })
+  }
+
+  return (
+    <div style={{ width: 360, padding: '20px', border: '1px solid #e5e7eb', borderRadius: 12, fontFamily: 'system-ui, sans-serif' }}>
+      <Toaster {...args} />
+      <div style={{ fontSize: 13, fontWeight: 700, color: '#111827', marginBottom: 16 }}>계정 설정</div>
+      {[
+        { label: '표시 이름', value: 'Orbit UI Team' },
+        { label: '이메일 알림', value: '활성화됨' },
+        { label: '언어', value: '한국어' },
+      ].map((field) => (
+        <div key={field.label} style={{ display: 'flex', justifyContent: 'space-between', padding: '8px 0', borderBottom: '1px solid #f3f4f6' }}>
+          <span style={{ fontSize: 12, color: '#6b7280' }}>{field.label}</span>
+          <span style={{ fontSize: 12, color: '#111827', fontWeight: 500 }}>{field.value}</span>
+        </div>
+      ))}
+      <div style={{ marginTop: 16 }}>
+        <Button color={saved ? 'black' : 'primary'} size="medium" onClick={handleSave}>
+          <Button.Center>{saved ? '저장됨' : '변경사항 저장'}</Button.Center>
+        </Button>
+      </div>
+    </div>
+  )
+}
+
+export const Tailwind_폼_저장_알림: Story = {
+  name: 'Tailwind UI — 폼 저장 완료 토스트 (실행 취소 액션)',
+  render: (args) => <TailwindFormSaveToastRender {...args} />,
+  parameters: {
+    docs: {
+      description: {
+        story: 'Tailwind UI Form 저장 패턴 구현. 저장 성공 시 toast.success() + 실행 취소 액션 버튼. 취소 클릭 시 상태를 되돌리고 취소 확인 토스트를 추가 표시. 5초 자동 닫기.',
+      },
+    },
+  },
+}
+
+function VercelDeployToastRender(args: React.ComponentProps<typeof Toaster>) {
+  const triggerDeploy = (success: boolean) => {
+    const id = toast.loading('배포 시작 중...')
+    setTimeout(() => {
+      if (success) {
+        toast.success('배포가 완료되었습니다.', {
+          id,
+          description: 'orbit-ui-preview.vercel.app — 빌드 시간: 38초',
+          action: { label: '사이트 열기', onClick: () => undefined },
+          duration: 6000,
+        })
+      } else {
+        toast.error('배포에 실패했습니다.', {
+          id,
+          description: 'ESLint 오류 3개 발견. 로그를 확인하세요.',
+          action: { label: '로그 보기', onClick: () => undefined },
+          duration: 8000,
+        })
+      }
+    }, 2000)
+  }
+
+  return (
+    <div style={{ display: 'flex', gap: 8, padding: '20px', fontFamily: 'system-ui, sans-serif' }}>
+      <Toaster {...args} />
+      <Button color="primary" size="medium" onClick={() => triggerDeploy(true)}>
+        <Button.Center>배포 성공 시뮬레이션</Button.Center>
+      </Button>
+      <Button color="black" size="medium" onClick={() => triggerDeploy(false)}>
+        <Button.Center>배포 실패 시뮬레이션</Button.Center>
+      </Button>
+    </div>
+  )
+}
+
+export const Vercel_배포_완료_알림: Story = {
+  name: 'Vercel Design — 배포 완료/실패 토스트 (로딩 → 결과)',
+  render: (args) => <VercelDeployToastRender {...args} />,
+  parameters: {
+    docs: {
+      description: {
+        story: 'Vercel 배포 UI 패턴 구현. toast.loading()으로 배포 시작 알림 후 2초 뒤 동일 id로 성공/실패 토스트로 업데이트. 성공 시 사이트 URL + 빌드 시간, 실패 시 오류 수 + 로그 보기 액션.',
+      },
+    },
+  },
+}
+
+const BATCH_STEPS = [
+  { msg: '컴포넌트 타입 체크 중...', type: 'loading' as const },
+  { msg: 'ESLint 검사 완료 (0 경고)', type: 'success' as const },
+  { msg: '스토리북 빌드 중...', type: 'loading' as const },
+  { msg: '스토리북 빌드 완료 (38초)', type: 'success' as const },
+  { msg: 'Vercel 배포 업로드 중...', type: 'loading' as const },
+  { msg: '모든 작업이 완료되었습니다.', type: 'success' as const },
+]
+
+function TailwindVercelBatchToastRender(args: React.ComponentProps<typeof Toaster>) {
+  const [running, setRunning] = useState(false)
+  const [step, setStep] = useState(0)
+
+  const runBatch = () => {
+    setRunning(true)
+    setStep(0)
+    let current = 0
+    const run = () => {
+      if (current >= BATCH_STEPS.length) {
+        setRunning(false)
+        return
+      }
+      const s = BATCH_STEPS[current]
+      if (s.type === 'loading') {
+        toast.loading(s.msg, { duration: 1200 })
+      } else {
+        toast.success(s.msg)
+      }
+      setStep(current + 1)
+      current++
+      setTimeout(run, 1300)
+    }
+    run()
+  }
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 12, padding: '20px', fontFamily: 'system-ui, sans-serif' }}>
+      <Toaster {...args} />
+      <div style={{ fontSize: 13, fontWeight: 700, color: '#111827' }}>일괄 배포 파이프라인</div>
+      <div style={{ fontSize: 11, color: '#9ca3af' }}>typecheck → lint → build → deploy 순차 실행</div>
+      <div style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
+        {BATCH_STEPS.map((s, i) => (
+          <div key={i} style={{ width: 8, height: 8, borderRadius: '50%', background: i < step ? '#10b981' : '#e5e7eb', transition: 'background 0.3s' }} />
+        ))}
+        <span style={{ fontSize: 10, color: '#9ca3af', marginLeft: 4 }}>{step}/{BATCH_STEPS.length}</span>
+      </div>
+      <Button color="primary" size="medium" onClick={runBatch} disabled={running}>
+        <Button.Center>{running ? '실행 중...' : '파이프라인 실행'}</Button.Center>
+      </Button>
+    </div>
+  )
+}
+
+export const Tailwind_Vercel_일괄_작업_알림: Story = {
+  name: 'Tailwind UI + Vercel — 일괄 작업 순차 토스트 (파이프라인)',
+  render: (args) => <TailwindVercelBatchToastRender {...args} />,
+  parameters: {
+    docs: {
+      description: {
+        story: 'Tailwind UI 진행 피드백 + Vercel CI/CD 파이프라인 패턴. typecheck→lint→build→deploy 6단계 작업을 1.3초 간격으로 토스트 스트림으로 표시. loading→success 전환, 단계 진행 도트 인디케이터 동반.',
+      },
+    },
+  },
+}
