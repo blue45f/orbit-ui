@@ -944,3 +944,249 @@ export const Arco_카테고리_필터_탭: Story = {
   },
   render: () => <ArcoScrollableTabsRender />,
 }
+
+// ─── Cycle 63: Chakra UI + Google Material 3 ───────────────────────────────
+
+const CHAKRA_PROFILE_TABS = [
+  {
+    id: 'posts',
+    label: '게시물',
+    count: 42,
+    content: [
+      { title: 'Orbit UI 릴리즈 v2.0', date: '2시간 전', views: 312 },
+      { title: 'vanilla-extract 마이그레이션 후기', date: '1일 전', views: 891 },
+      { title: '디자인 토큰 시스템 구축기', date: '3일 전', views: 1240 },
+    ],
+  },
+  {
+    id: 'comments',
+    label: '댓글',
+    count: 128,
+    content: [
+      { title: '"정말 유용한 글이네요. 감사합니다!"', date: '5분 전', views: null },
+      { title: '"vanilla-extract 예제 더 부탁드려요"', date: '2시간 전', views: null },
+      { title: '"탁월한 접근 방식입니다"', date: '어제', views: null },
+    ],
+  },
+  {
+    id: 'saved',
+    label: '저장됨',
+    count: 19,
+    content: [
+      { title: 'React 19 신기능 정리', date: '저장: 2일 전', views: 4500 },
+      { title: 'Storybook 8 마이그레이션', date: '저장: 1주 전', views: 2100 },
+      { title: 'pnpm workspaces 완전 가이드', date: '저장: 2주 전', views: 3800 },
+    ],
+  },
+  {
+    id: 'following',
+    label: '팔로잉',
+    count: 7,
+    content: [
+      { title: '@shadcn', date: '팔로우: 1개월 전', views: null },
+      { title: '@t3dotgg', date: '팔로우: 2개월 전', views: null },
+      { title: '@leeerob', date: '팔로우: 3개월 전', views: null },
+    ],
+  },
+]
+
+const ChakraUserProfileTabsRender = () => {
+  const [activeIdx, setActiveIdx] = useState(0)
+  const current = CHAKRA_PROFILE_TABS[activeIdx]
+
+  return (
+    <div style={{ width: 400, fontFamily: 'system-ui, sans-serif' }}>
+      {/* Profile header */}
+      <div style={{ display: 'flex', gap: 14, alignItems: 'center', marginBottom: 20, padding: '0 4px' }}>
+        <div style={{ width: 56, height: 56, borderRadius: '50%', background: 'linear-gradient(135deg, #6366f1, #8b5cf6)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontWeight: 800, fontSize: 22 }}>HJ</div>
+        <div>
+          <div style={{ fontSize: 16, fontWeight: 700, color: '#0f172a' }}>hjunkim</div>
+          <div style={{ fontSize: 13, color: '#64748b', marginTop: 2 }}>UI 엔지니어 · Orbit UI 메인테이너</div>
+        </div>
+      </div>
+      {/* Tabs */}
+      <FixedTabs selectedIndex={activeIdx} onTabChange={setActiveIdx}>
+        {CHAKRA_PROFILE_TABS.map((tab) => (
+          <FixedTabs.Tab key={tab.id} value={tab.id}>
+            <FixedTabs.TabCenter>{tab.label}</FixedTabs.TabCenter>
+            <FixedTabs.TabTrailing>
+              <CounterBadge>{tab.count}</CounterBadge>
+            </FixedTabs.TabTrailing>
+          </FixedTabs.Tab>
+        ))}
+      </FixedTabs>
+      {/* Content */}
+      <div style={{ paddingTop: 16, display: 'flex', flexDirection: 'column', gap: 8 }}>
+        {current.content.map((item, i) => (
+          <div key={i} style={{ padding: '12px 14px', borderRadius: 10, border: '1px solid #e2e8f0', background: '#fff', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div>
+              <div style={{ fontSize: 13, fontWeight: 600, color: '#1e293b' }}>{item.title}</div>
+              <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 3 }}>{item.date}</div>
+            </div>
+            {item.views !== null && (
+              <div style={{ fontSize: 11, color: '#6366f1', fontWeight: 700 }}>{item.views.toLocaleString()} 뷰</div>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+export const Chakra_유저_프로필_탭: Story = {
+  name: 'Chakra UI - 유저 프로필 섹션 탭',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Chakra UI의 Tabs 컴포넌트를 벤치마크한 유저 프로필 탭 패턴. ' +
+          '게시물/댓글/저장/팔로잉 탭에 CounterBadge를 함께 표시하며 활성 탭 콘텐츠가 즉시 전환됩니다.',
+      },
+    },
+  },
+  render: () => <ChakraUserProfileTabsRender />,
+}
+
+type M3TabId = 'home' | 'explore' | 'library' | 'profile'
+
+const M3_TABS: Array<{ id: M3TabId; label: string; icon: string }> = [
+  { id: 'home', label: 'Home', icon: 'H' },
+  { id: 'explore', label: 'Explore', icon: 'E' },
+  { id: 'library', label: 'Library', icon: 'L' },
+  { id: 'profile', label: 'Profile', icon: 'P' },
+]
+
+const M3_CONTENT: Record<M3TabId, { headline: string; items: string[] }> = {
+  home:    { headline: '추천 콘텐츠', items: ['Design Tokens Deep Dive', 'React 19 Actions', 'CSS Layers 완전 이해'] },
+  explore: { headline: '탐색하기', items: ['Figma 플러그인 모음', 'Storybook 8 신기능', 'Tailwind v4 미리보기'] },
+  library: { headline: '내 라이브러리', items: ['북마크 24개', '다운로드 8개', '최근 열람 12개'] },
+  profile: { headline: '내 프로필', items: ['작성 게시물 42개', '팔로워 320명', '팔로잉 17명'] },
+}
+
+const Material3SecondaryTabsRender = () => {
+  const [activeIdx, setActiveIdx] = useState(0)
+  const activeId = M3_TABS[activeIdx].id
+  const content = M3_CONTENT[activeId]
+
+  return (
+    <div style={{ width: 380, border: '1px solid #e2e8f0', borderRadius: 16, overflow: 'hidden', background: '#fffbfe', fontFamily: 'system-ui, sans-serif' }}>
+      {/* M3 Top app bar */}
+      <div style={{ padding: '16px 20px 12px', background: '#fffbfe', borderBottom: '1px solid #e7e0ec' }}>
+        <div style={{ fontSize: 22, fontWeight: 400, color: '#1c1b1f', letterSpacing: 0 }}>Orbit Library</div>
+      </div>
+      {/* M3 Secondary Tabs — filled indicator */}
+      <div style={{ borderBottom: '1px solid #e7e0ec' }}>
+        <FixedTabs selectedIndex={activeIdx} onTabChange={setActiveIdx}>
+          {M3_TABS.map((tab) => (
+            <FixedTabs.Tab key={tab.id} value={tab.id}>
+              <FixedTabs.TabLeading>
+                <div style={{ width: 16, height: 16, borderRadius: 4, background: '#6750a4', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 9, fontWeight: 700 }}>{tab.icon}</div>
+              </FixedTabs.TabLeading>
+              <FixedTabs.TabCenter>{tab.label}</FixedTabs.TabCenter>
+            </FixedTabs.Tab>
+          ))}
+        </FixedTabs>
+      </div>
+      {/* Content */}
+      <div style={{ padding: 20 }}>
+        <div style={{ fontSize: 12, fontWeight: 600, color: '#6750a4', marginBottom: 12, textTransform: 'uppercase', letterSpacing: '0.08em' }}>{content.headline}</div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+          {content.items.map((item, i) => (
+            <div key={i} style={{ padding: '12px 14px', borderRadius: 12, background: '#f4eff4', fontSize: 13, color: '#1c1b1f', fontWeight: 500 }}>{item}</div>
+          ))}
+        </div>
+      </div>
+      <div style={{ padding: '0 20px 14px', fontSize: 11, color: '#79747e' }}>
+        Material 3 Secondary Tabs — filled indicator + leading icon 패턴
+      </div>
+    </div>
+  )
+}
+
+export const Material3_세컨더리_아이콘_탭: Story = {
+  name: 'Google Material 3 - Secondary Tabs with Icon',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Google Material Design 3의 Secondary Tabs 패턴. ' +
+          'Leading 아이콘 슬롯에 M3 색상 역할(primary) 아이콘을 배치하고, ' +
+          '#fffbfe 서피스와 #6750a4 primary 팔레트로 M3 컬러 시스템을 표현합니다.',
+      },
+    },
+  },
+  render: () => <Material3SecondaryTabsRender />,
+}
+
+type ChakraSettingSection = 'account' | 'notifications' | 'privacy' | 'integrations'
+
+const CHAKRA_SETTING_TABS: Array<{ id: ChakraSettingSection; label: string; desc: string }> = [
+  { id: 'account', label: '계정', desc: '프로필, 이메일, 비밀번호를 관리합니다.' },
+  { id: 'notifications', label: '알림', desc: '이메일, 푸시, 인앱 알림 설정을 조정합니다.' },
+  { id: 'privacy', label: '개인정보', desc: '공개 범위와 데이터 수집 동의를 설정합니다.' },
+  { id: 'integrations', label: '연동', desc: '외부 서비스와의 연동을 관리합니다.' },
+]
+
+const CHAKRA_SETTINGS_FIELDS: Record<ChakraSettingSection, Array<{ label: string; value: string; type: 'text' | 'toggle' | 'select' }>> = {
+  account:       [{ label: '이름', value: 'Heejun Kim', type: 'text' }, { label: '이메일', value: 'hjunkim@orbit.dev', type: 'text' }, { label: '언어', value: '한국어', type: 'select' }],
+  notifications: [{ label: '이메일 알림', value: 'on', type: 'toggle' }, { label: '푸시 알림', value: 'off', type: 'toggle' }, { label: '주간 요약', value: 'on', type: 'toggle' }],
+  privacy:       [{ label: '프로필 공개', value: 'on', type: 'toggle' }, { label: '활동 공개', value: 'off', type: 'toggle' }, { label: '광고 개인화', value: 'off', type: 'toggle' }],
+  integrations:  [{ label: 'GitHub', value: '연결됨', type: 'select' }, { label: 'Figma', value: '미연결', type: 'select' }, { label: 'Slack', value: '연결됨', type: 'select' }],
+}
+
+const ChakraSettingsPanelRender = () => {
+  const [activeIdx, setActiveIdx] = useState(0)
+  const activeId = CHAKRA_SETTING_TABS[activeIdx].id
+  const fields = CHAKRA_SETTINGS_FIELDS[activeId]
+  const [toggles, setToggles] = useState<Record<string, boolean>>({ '이메일 알림': true, '주간 요약': true, '프로필 공개': true })
+
+  return (
+    <div style={{ width: 420, fontFamily: 'system-ui, sans-serif' }}>
+      <div style={{ fontSize: 16, fontWeight: 700, color: '#0f172a', marginBottom: 16, padding: '0 4px' }}>설정</div>
+      {/* Vertical-style fixed tabs */}
+      <FixedTabs selectedIndex={activeIdx} onTabChange={setActiveIdx}>
+        {CHAKRA_SETTING_TABS.map((tab) => (
+          <FixedTabs.Tab key={tab.id} value={tab.id}>
+            <FixedTabs.TabCenter>{tab.label}</FixedTabs.TabCenter>
+          </FixedTabs.Tab>
+        ))}
+      </FixedTabs>
+      <div style={{ marginTop: 20, padding: '0 2px' }}>
+        <div style={{ fontSize: 13, color: '#64748b', marginBottom: 16, lineHeight: 1.5 }}>
+          {CHAKRA_SETTING_TABS[activeIdx].desc}
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+          {fields.map((field) => (
+            <div key={field.label} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px 14px', borderRadius: 10, border: '1px solid #e2e8f0', background: '#fff' }}>
+              <span style={{ fontSize: 13, fontWeight: 600, color: '#334155' }}>{field.label}</span>
+              {field.type === 'toggle' ? (
+                <div
+                  onClick={() => setToggles(prev => ({ ...prev, [field.label]: !prev[field.label] }))}
+                  style={{ width: 36, height: 20, borderRadius: 10, background: toggles[field.label] ? '#6366f1' : '#e2e8f0', cursor: 'pointer', position: 'relative', transition: 'background 0.2s' }}
+                >
+                  <div style={{ position: 'absolute', top: 2, left: toggles[field.label] ? 18 : 2, width: 16, height: 16, borderRadius: '50%', background: '#fff', transition: 'left 0.2s', boxShadow: '0 1px 3px rgba(0,0,0,0.2)' }} />
+                </div>
+              ) : (
+                <span style={{ fontSize: 12, color: '#64748b', background: '#f8fafc', padding: '3px 10px', borderRadius: 6, border: '1px solid #e2e8f0' }}>{field.value}</span>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const Chakra_설정_패널_탭: Story = {
+  name: 'Chakra UI - 설정 패널 섹션 탭',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Chakra UI의 설정 페이지 탭 패턴. 계정/알림/개인정보/연동 탭 전환으로 설정 영역을 분리하고, ' +
+          '토글/텍스트/선택 세 가지 설정 필드 유형을 인라인으로 관리할 수 있습니다.',
+      },
+    },
+  },
+  render: () => <ChakraSettingsPanelRender />,
+}

@@ -6,6 +6,7 @@ import {
   AnimatedBadge,
   AppBar,
   Avatar,
+  BoxedCheckbox,
   Breadcrumb,
   Carousel,
   Checkbox,
@@ -13,6 +14,7 @@ import {
   CounterBadge,
   DataTable,
   Divider,
+  FixedTabs,
   LabelBadge,
   ListTile,
   Loading,
@@ -15356,4 +15358,230 @@ export const RecruitmentTracker: Story = {
     },
   },
   render: () => <RecruitmentTrackerRender />,
+}
+
+
+// ─── Template 53: CourseTracker (Chakra UI + Google Material 3 벤치마크) ────
+
+type CTLesson = {
+  id: number
+  title: string
+  duration: string
+  completed: boolean
+  locked: boolean
+}
+
+type CTModule = {
+  id: string
+  title: string
+  lessons: CTLesson[]
+  color: string
+}
+
+const CT_MODULES: CTModule[] = [
+  {
+    id: 'foundations',
+    title: '기초: 디자인 시스템 이해',
+    color: '#6366f1',
+    lessons: [
+      { id: 1, title: '디자인 토큰이란?', duration: '12분', completed: true, locked: false },
+      { id: 2, title: '3-tier 아키텍처', duration: '18분', completed: true, locked: false },
+      { id: 3, title: 'vanilla-extract 기초', duration: '24분', completed: false, locked: false },
+    ],
+  },
+  {
+    id: 'components',
+    title: '컴포넌트 설계',
+    color: '#f59e0b',
+    lessons: [
+      { id: 4, title: 'Compound 패턴', duration: '20분', completed: false, locked: false },
+      { id: 5, title: 'forwardRef 활용', duration: '15분', completed: false, locked: true },
+      { id: 6, title: '접근성 구현', duration: '30분', completed: false, locked: true },
+    ],
+  },
+  {
+    id: 'advanced',
+    title: '고급: 테마 확장',
+    color: '#22c55e',
+    lessons: [
+      { id: 7, title: '런타임 테마 변경', duration: '35분', completed: false, locked: true },
+      { id: 8, title: 'CSS 변수 override', duration: '22분', completed: false, locked: true },
+    ],
+  },
+]
+
+const CT_TABS = [
+  { id: 'curriculum', label: '커리큘럼', count: 8 },
+  { id: 'progress', label: '진도', count: 0 },
+  { id: 'resources', label: '자료', count: 5 },
+]
+
+type CTTabId = 'curriculum' | 'progress' | 'resources'
+
+const CT_RESOURCES = [
+  { name: 'Orbit UI 공식 문서', type: 'LINK' },
+  { name: 'vanilla-extract 가이드', type: 'PDF' },
+  { name: 'Figma 컴포넌트 파일', type: 'FIGMA' },
+  { name: 'GitHub 예제 코드', type: 'CODE' },
+  { name: 'Storybook 데모', type: 'DEMO' },
+]
+
+const CourseTrackerRender = () => {
+  const [activeTabIdx, setActiveTabIdx] = useState(0)
+  const activeTabId = CT_TABS[activeTabIdx].id as CTTabId
+  const [completedIds, setCompletedIds] = useState<Set<number>>(new Set([1, 2]))
+
+  const toggleLesson = (id: number, locked: boolean) => {
+    if (locked) return
+    setCompletedIds(prev => {
+      const next = new Set(prev)
+      if (next.has(id)) next.delete(id)
+      else next.add(id)
+      return next
+    })
+  }
+
+  const totalLessons = CT_MODULES.reduce((sum, m) => sum + m.lessons.length, 0)
+  const completedCount = completedIds.size
+  const progressPct = Math.round((completedCount / totalLessons) * 100)
+
+  return (
+    <div style={{ width: 820, display: 'flex', gap: 24, fontFamily: 'system-ui, sans-serif', alignItems: 'flex-start' }}>
+      {/* Left: course info */}
+      <div style={{ width: 220, flexShrink: 0 }}>
+        <div style={{ padding: '20px', border: '1px solid #e2e8f0', borderRadius: 14, background: '#fff', marginBottom: 12 }}>
+          <div style={{ width: '100%', height: 80, borderRadius: 10, background: 'linear-gradient(135deg, #6366f1, #8b5cf6)', marginBottom: 14, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 24 }}>
+            <div style={{ color: '#fff', fontWeight: 800, fontSize: 13, textAlign: 'center', lineHeight: 1.3 }}>Orbit UI<br />마스터</div>
+          </div>
+          <div style={{ fontSize: 12, fontWeight: 700, color: '#0f172a', marginBottom: 8 }}>전체 진도</div>
+          <Progress value={progressPct} />
+          <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11, color: '#64748b', marginTop: 6 }}>
+            <span>{completedCount}/{totalLessons} 완료</span>
+            <span style={{ fontWeight: 700, color: '#6366f1' }}>{progressPct}%</span>
+          </div>
+        </div>
+        <div style={{ padding: '14px', border: '1px solid #e2e8f0', borderRadius: 12, background: '#fff' }}>
+          <div style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', marginBottom: 10, textTransform: 'uppercase', letterSpacing: '0.06em' }}>모듈 진도</div>
+          {CT_MODULES.map((m) => {
+            const done = m.lessons.filter(l => completedIds.has(l.id)).length
+            const pct = Math.round((done / m.lessons.length) * 100)
+            return (
+              <div key={m.id} style={{ marginBottom: 10 }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11, color: '#475569', marginBottom: 4 }}>
+                  <span style={{ fontWeight: 600 }}>{m.title.split(':')[0]}</span>
+                  <span style={{ color: m.color, fontWeight: 700 }}>{pct}%</span>
+                </div>
+                <Progress value={pct} />
+              </div>
+            )
+          })}
+        </div>
+      </div>
+
+      {/* Right: content */}
+      <div style={{ flex: 1, minWidth: 0 }}>
+        <div style={{ marginBottom: 20 }}>
+          <FixedTabs selectedIndex={activeTabIdx} onTabChange={setActiveTabIdx}>
+            {CT_TABS.map((tab) => (
+              <FixedTabs.Tab key={tab.id} value={tab.id}>
+                <FixedTabs.TabCenter>{tab.label}</FixedTabs.TabCenter>
+                {tab.count > 0 && (
+                  <FixedTabs.TabTrailing>
+                    <CounterBadge>{tab.count}</CounterBadge>
+                  </FixedTabs.TabTrailing>
+                )}
+              </FixedTabs.Tab>
+            ))}
+          </FixedTabs>
+        </div>
+
+        {/* Curriculum */}
+        {activeTabId === 'curriculum' && (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+            {CT_MODULES.map((module) => (
+              <div key={module.id}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 10 }}>
+                  <div style={{ width: 10, height: 10, borderRadius: '50%', background: module.color, flexShrink: 0 }} />
+                  <div style={{ fontSize: 13, fontWeight: 700, color: '#0f172a' }}>{module.title}</div>
+                  <LabelBadge color="gray"><LabelBadge.Label>{module.lessons.length}강</LabelBadge.Label></LabelBadge>
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+                  {module.lessons.map((lesson) => {
+                    const done = completedIds.has(lesson.id)
+                    return (
+                      <div
+                        key={lesson.id}
+                        onClick={() => toggleLesson(lesson.id, lesson.locked)}
+                        style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 14px', borderRadius: 10, border: `1px solid ${done ? module.color + '40' : '#e2e8f0'}`, background: done ? module.color + '08' : (lesson.locked ? '#fafafa' : '#fff'), cursor: lesson.locked ? 'not-allowed' : 'pointer', opacity: lesson.locked ? 0.5 : 1 }}
+                      >
+                        <BoxedCheckbox
+                          checked={done}
+                          disabled={lesson.locked}
+                          onChange={() => toggleLesson(lesson.id, lesson.locked)}
+                        />
+                        <span style={{ flex: 1, fontSize: 13, color: lesson.locked ? '#94a3b8' : '#334155', fontWeight: done ? 600 : 400 }}>{lesson.title}</span>
+                        <span style={{ fontSize: 11, color: '#94a3b8', flexShrink: 0 }}>{lesson.duration}</span>
+                        {lesson.locked && <span style={{ fontSize: 10, color: '#94a3b8' }}>잠금</span>}
+                      </div>
+                    )
+                  })}
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* Progress */}
+        {activeTabId === 'progress' && (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+            <div style={{ padding: '20px', borderRadius: 12, background: 'linear-gradient(135deg, #f8faff, #f0f4ff)', border: '1px solid #e0e7ff', textAlign: 'center' }}>
+              <div style={{ fontSize: 48, fontWeight: 800, color: '#6366f1' }}>{progressPct}%</div>
+              <div style={{ fontSize: 13, color: '#64748b', marginTop: 4 }}>전체 완료율</div>
+            </div>
+            {CT_MODULES.map((m) => {
+              const done = m.lessons.filter(l => completedIds.has(l.id)).length
+              return (
+                <div key={m.id} style={{ padding: '14px 16px', borderRadius: 10, border: '1px solid #e2e8f0', background: '#fff' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8 }}>
+                    <span style={{ fontSize: 13, fontWeight: 600, color: '#0f172a' }}>{m.title}</span>
+                    <span style={{ fontSize: 12, color: m.color, fontWeight: 700 }}>{done}/{m.lessons.length}</span>
+                  </div>
+                  <Progress value={Math.round((done / m.lessons.length) * 100)} />
+                </div>
+              )
+            })}
+          </div>
+        )}
+
+        {/* Resources */}
+        {activeTabId === 'resources' && (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+            {CT_RESOURCES.map((res, i) => (
+              <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 16px', borderRadius: 10, border: '1px solid #e2e8f0', background: '#fff' }}>
+                <LabelBadge color={res.type === 'PDF' ? 'sale' : res.type === 'FIGMA' ? 'benefit' : 'gray'}>
+                  <LabelBadge.Label>{res.type}</LabelBadge.Label>
+                </LabelBadge>
+                <span style={{ fontSize: 13, color: '#334155', fontWeight: 500 }}>{res.name}</span>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+
+export const CourseTracker: Story = {
+  name: 'Course Tracker (Chakra UI + Google Material 3 벤치마크)',
+  parameters: {
+    layout: 'centered',
+    docs: {
+      description: {
+        story:
+          'Chakra UI의 탭 + 진도 패턴 + Google Material 3의 색상 역할 시스템 결합. ' +
+          'FixedTabs(커리큘럼/진도/자료), BoxedCheckbox 레슨 완료 체크, Progress 모듈별 진도, LabelBadge 리소스 타입.',
+      },
+    },
+  },
+  render: () => <CourseTrackerRender />,
 }

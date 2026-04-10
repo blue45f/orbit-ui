@@ -796,3 +796,203 @@ export const Tailwind_테이블_행_선택 = {
   },
   render: () => <TableRowSelectionRender />,
 }
+
+// ─── Cycle 63: Chakra UI + Google Material 3 ───────────────────────────────
+
+const CHAKRA_PLAN_FEATURES = [
+  { id: 'components', label: '무제한 컴포넌트', desc: '모든 Orbit UI 컴포넌트 접근', included: true },
+  { id: 'themes', label: '커스텀 테마', desc: '브랜드 토큰 시스템 커스터마이즈', included: true },
+  { id: 'icons', label: 'Icon 라이브러리', desc: '500+ SVG 아이콘 제공', included: false },
+  { id: 'figma', label: 'Figma 파일', desc: '컴포넌트 원본 Figma 소스', included: false },
+  { id: 'priority', label: '우선 지원', desc: '24시간 내 응답 보장', included: false },
+]
+
+const ChakraPlanFeatureRender = () => {
+  const [selected, setSelected] = useState<Set<string>>(new Set(['components', 'themes']))
+  const total = selected.size
+
+  const toggle = (id: string) => {
+    setSelected(prev => {
+      const next = new Set(prev)
+      if (next.has(id)) next.delete(id)
+      else next.add(id)
+      return next
+    })
+  }
+
+  return (
+    <div style={{ width: 360, fontFamily: 'system-ui, sans-serif' }}>
+      <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a', marginBottom: 4 }}>플랜 기능 선택</div>
+      <div style={{ fontSize: 12, color: '#64748b', marginBottom: 16 }}>필요한 기능만 골라 플랜을 구성하세요.</div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+        {CHAKRA_PLAN_FEATURES.map((feat) => {
+          const checked = selected.has(feat.id)
+          return (
+            <div
+              key={feat.id}
+              onClick={() => toggle(feat.id)}
+              style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 14px', borderRadius: 10, border: `1.5px solid ${checked ? '#6366f1' : '#e2e8f0'}`, background: checked ? '#fafaff' : '#fff', cursor: 'pointer', transition: 'border-color 0.15s, background 0.15s' }}
+            >
+              <BoxedCheckbox checked={checked} onChange={() => toggle(feat.id)} />
+              <div style={{ flex: 1 }}>
+                <div style={{ fontSize: 13, fontWeight: 600, color: '#0f172a', display: 'flex', alignItems: 'center', gap: 6 }}>
+                  {feat.label}
+                  {feat.included && <span style={{ fontSize: 10, background: '#dcfce7', color: '#15803d', padding: '1px 6px', borderRadius: 100, fontWeight: 700 }}>기본 포함</span>}
+                </div>
+                <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>{feat.desc}</div>
+              </div>
+            </div>
+          )
+        })}
+      </div>
+      <div style={{ marginTop: 14, padding: '12px 14px', borderRadius: 10, background: '#f8fafc', border: '1px solid #e2e8f0', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <span style={{ fontSize: 13, color: '#64748b' }}>선택된 기능</span>
+        <span style={{ fontSize: 14, fontWeight: 700, color: '#6366f1' }}>{total}개</span>
+      </div>
+      <div style={{ marginTop: 6, fontSize: 11, color: '#94a3b8' }}>Chakra UI Checkbox 카드 선택 패턴</div>
+    </div>
+  )
+}
+
+export const Chakra_플랜_기능_선택 = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Chakra UI의 CheckboxGroup 카드 패턴. 각 항목이 체크박스 + 설명 카드로 표현되며, 선택 시 보더와 배경이 즉시 변경됩니다. SaaS 플랜 기능 선택, 옵션 구성 화면에 활용됩니다.',
+      },
+    },
+  },
+  render: () => <ChakraPlanFeatureRender />,
+}
+
+const M3_CONSENT_ITEMS = [
+  { id: 'service', label: '[필수] 서비스 이용약관 동의', required: true },
+  { id: 'privacy', label: '[필수] 개인정보 수집 및 이용 동의', required: true },
+  { id: 'marketing', label: '[선택] 마케팅 정보 수신 동의', required: false },
+  { id: 'thirdparty', label: '[선택] 제3자 정보 제공 동의', required: false },
+]
+
+const Material3ConsentRender = () => {
+  const [checked, setChecked] = useState<Record<string, boolean>>({ service: false, privacy: false, marketing: false, thirdparty: false })
+  const allChecked = Object.values(checked).every(Boolean)
+  const someChecked = Object.values(checked).some(Boolean)
+  const allRequiredChecked = checked.service && checked.privacy
+
+  const toggleAll = () => {
+    const next = !allChecked
+    setChecked({ service: next, privacy: next, marketing: next, thirdparty: next })
+  }
+
+  const toggle = (id: string) => {
+    setChecked(prev => ({ ...prev, [id]: !prev[id] }))
+  }
+
+  return (
+    <div style={{ width: 360, fontFamily: 'system-ui, sans-serif', background: '#fffbfe', borderRadius: 16, padding: 20, border: '1px solid #e7e0ec' }}>
+      <div style={{ fontSize: 16, fontWeight: 500, color: '#1c1b1f', marginBottom: 4 }}>약관 동의</div>
+      <div style={{ fontSize: 13, color: '#49454f', marginBottom: 16 }}>서비스 이용을 위해 아래 약관에 동의해 주세요.</div>
+      {/* 전체 동의 */}
+      <div
+        onClick={toggleAll}
+        style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 14px', borderRadius: 12, background: '#f4eff4', marginBottom: 12, cursor: 'pointer' }}
+      >
+        <BoxedCheckbox
+          checked={allChecked}
+          iconName={someChecked && !allChecked ? 'minus' : 'check'}
+          onChange={toggleAll}
+        />
+        <span style={{ fontSize: 14, fontWeight: 600, color: '#1c1b1f' }}>전체 동의</span>
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 8, marginBottom: 16 }}>
+        {M3_CONSENT_ITEMS.map((item) => (
+          <div
+            key={item.id}
+            onClick={() => toggle(item.id)}
+            style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '10px 14px', cursor: 'pointer' }}
+          >
+            <BoxedCheckbox checked={checked[item.id]} onChange={() => toggle(item.id)} />
+            <span style={{ fontSize: 13, color: item.required ? '#1c1b1f' : '#49454f' }}>{item.label}</span>
+          </div>
+        ))}
+      </div>
+      <button
+        disabled={!allRequiredChecked}
+        style={{ width: '100%', padding: '12px', borderRadius: 100, border: 'none', background: allRequiredChecked ? '#6750a4' : '#e7e0ec', color: allRequiredChecked ? '#fff' : '#79747e', fontSize: 14, fontWeight: 600, cursor: allRequiredChecked ? 'pointer' : 'not-allowed', transition: 'all 0.2s' }}
+      >
+        동의하고 시작하기
+      </button>
+      <div style={{ marginTop: 10, fontSize: 11, color: '#79747e', textAlign: 'center' }}>Material 3 Checkbox + 전체 동의 패턴</div>
+    </div>
+  )
+}
+
+export const Material3_약관_동의_체크박스 = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Google Material 3 디자인의 약관 동의 체크박스 패턴. 전체 동의 체크박스는 indeterminate(minus) 상태를 지원하고, 필수 항목이 모두 선택되어야 확인 버튼이 활성화됩니다.',
+      },
+    },
+  },
+  render: () => <Material3ConsentRender />,
+}
+
+const M3_FILTER_TAGS = [
+  { id: 'react', label: 'React', color: '#61dafb' },
+  { id: 'typescript', label: 'TypeScript', color: '#3178c6' },
+  { id: 'tailwind', label: 'Tailwind', color: '#38bdf8' },
+  { id: 'figma', label: 'Figma', color: '#f24e1e' },
+  { id: 'storybook', label: 'Storybook', color: '#ff4785' },
+  { id: 'vite', label: 'Vite', color: '#bd34fe' },
+]
+
+const Material3FilterChipRender = () => {
+  const [active, setActive] = useState<Set<string>>(new Set(['react', 'typescript']))
+
+  const toggle = (id: string) => {
+    setActive(prev => {
+      const next = new Set(prev)
+      if (next.has(id)) next.delete(id)
+      else next.add(id)
+      return next
+    })
+  }
+
+  return (
+    <div style={{ width: 380, fontFamily: 'system-ui, sans-serif' }}>
+      <div style={{ fontSize: 13, fontWeight: 600, color: '#49454f', marginBottom: 12 }}>기술 스택 필터</div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+        {M3_FILTER_TAGS.map((tag) => {
+          const isOn = active.has(tag.id)
+          return (
+            <div
+              key={tag.id}
+              onClick={() => toggle(tag.id)}
+              style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '10px 14px', borderRadius: 10, background: isOn ? '#f4f0ff' : '#fafafa', border: `1px solid ${isOn ? '#6750a4' : '#e7e0ec'}`, cursor: 'pointer', transition: 'all 0.15s' }}
+            >
+              <BoxedCheckbox checked={isOn} onChange={() => toggle(tag.id)} />
+              <div style={{ width: 10, height: 10, borderRadius: '50%', background: tag.color, flexShrink: 0 }} />
+              <span style={{ fontSize: 13, fontWeight: isOn ? 600 : 400, color: isOn ? '#4a3f9f' : '#1c1b1f', flex: 1 }}>{tag.label}</span>
+              {isOn && <span style={{ fontSize: 10, background: '#6750a4', color: '#fff', borderRadius: 100, padding: '1px 7px', fontWeight: 700 }}>ON</span>}
+            </div>
+          )
+        })}
+      </div>
+      <div style={{ marginTop: 12, fontSize: 12, color: '#49454f', textAlign: 'right' }}>
+        {active.size}개 선택됨
+      </div>
+      <div style={{ marginTop: 4, fontSize: 11, color: '#79747e' }}>Material 3 Filter Chip 패턴 — BoxedCheckbox 조합</div>
+    </div>
+  )
+}
+
+export const Material3_기술스택_필터_칩 = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Google Material 3의 Filter Chip 패턴을 BoxedCheckbox로 구현. 기술 스택 색상 도트와 ON/OFF 배지로 선택 상태를 시각화합니다. M3 팔레트(#6750a4 primary, #fffbfe surface)를 적용합니다.',
+      },
+    },
+  },
+  render: () => <Material3FilterChipRender />,
+}
