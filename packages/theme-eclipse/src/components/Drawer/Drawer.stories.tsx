@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { useState } from 'react'
+import React, { useState } from 'react'
 
 import { Drawer } from './Drawer'
 import { FilledButton as Button } from '../SolidButton'
@@ -1261,4 +1261,251 @@ export const Vercel_팀_멤버_초대_드로어: Story = {
     },
   },
   render: () => <VercelInviteRender />,
+}
+
+const RAYCAST_SETTINGS_SECTIONS = [
+  {
+    id: 'general',
+    title: '일반',
+    items: [
+      { id: 'hotkey', label: '핫키', value: '⌘Space' },
+      { id: 'launch', label: '시작 시 실행', value: '켜짐' },
+      { id: 'window', label: '윈도우 위치', value: '중앙' },
+    ],
+  },
+  {
+    id: 'appearance',
+    title: '외관',
+    items: [
+      { id: 'theme', label: '테마', value: '시스템' },
+      { id: 'font', label: '폰트 크기', value: '14px' },
+      { id: 'accent', label: '액센트 색상', value: '퍼플' },
+    ],
+  },
+]
+
+const RaycastExtensionSettingsRender = () => {
+  const [open, setOpen] = useState(false)
+  const [editingId, setEditingId] = useState<string | null>(null)
+
+  return (
+    <Drawer open={open} onOpenChange={setOpen}>
+      <Drawer.Trigger asChild>
+        <Button color="black" size="medium">
+          <Button.Center>Extension Settings</Button.Center>
+        </Button>
+      </Drawer.Trigger>
+      <Drawer.Content side="right" style={{ width: 360 }}>
+        <Drawer.Header>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+            <div style={{ width: 32, height: 32, borderRadius: 8, background: '#7c3aed', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <span style={{ color: '#fff', fontSize: 16 }}>⚡</span>
+            </div>
+            <div>
+              <Drawer.Title>QuickSearch 설정</Drawer.Title>
+              <div style={{ fontSize: 11, color: '#6b7280', marginTop: 1 }}>Raycast Extension v1.4.2</div>
+            </div>
+          </div>
+        </Drawer.Header>
+        <div style={{ flex: 1, overflowY: 'auto', padding: '0 16px 16px' }}>
+          {RAYCAST_SETTINGS_SECTIONS.map(section => (
+            <div key={section.id} style={{ marginBottom: 20 }}>
+              <div style={{ fontSize: 11, fontWeight: 700, color: '#9ca3af', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 8 }}>{section.title}</div>
+              <div style={{ border: '1px solid #f0f0f0', borderRadius: 10, overflow: 'hidden' }}>
+                {section.items.map((item, idx) => (
+                  <div
+                    key={item.id}
+                    style={{ display: 'flex', alignItems: 'center', padding: '10px 14px', borderBottom: idx < section.items.length - 1 ? '1px solid #f9fafb' : 'none', cursor: 'pointer', background: editingId === item.id ? '#f5f3ff' : '#fff' }}
+                    onClick={() => setEditingId(editingId === item.id ? null : item.id)}
+                  >
+                    <span style={{ flex: 1, fontSize: 13, color: '#374151' }}>{item.label}</span>
+                    <span style={{ fontSize: 12, color: '#7c3aed', fontWeight: 600 }}>{item.value}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+          <div style={{ padding: '12px 14px', background: '#f9fafb', borderRadius: 10, border: '1px solid #f0f0f0' }}>
+            <div style={{ fontSize: 12, fontWeight: 600, color: '#374151', marginBottom: 4 }}>Extension 정보</div>
+            <div style={{ fontSize: 11, color: '#9ca3af' }}>Raycast Extension Settings 패턴 — 섹션별 설정 목록 + 인라인 편집</div>
+          </div>
+        </div>
+        <Drawer.Footer>
+          <div style={{ display: 'flex', gap: 8 }}>
+            <Drawer.Close asChild>
+              <OutlineButton color="gray" size="medium" style={{ flex: 1 }}>
+                <OutlineButton.Center>닫기</OutlineButton.Center>
+              </OutlineButton>
+            </Drawer.Close>
+            <Button color="primary" size="medium" style={{ flex: 2 }}>
+              <Button.Center>변경사항 저장</Button.Center>
+            </Button>
+          </div>
+        </Drawer.Footer>
+      </Drawer.Content>
+    </Drawer>
+  )
+}
+
+export const Raycast_확장_설정_드로어: Story = {
+  name: 'Raycast - Extension 설정 드로어',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Raycast Extension Settings 패턴. 다크 배경 Extension 아이콘 + 이름 헤더, 섹션별 설정 목록(일반/외관), 항목 클릭 시 인라인 강조. 작은 우측 드로어에 집약적 설정 UI를 구현합니다.',
+      },
+    },
+  },
+  render: () => <RaycastExtensionSettingsRender />,
+}
+
+const NOTION_PAGE_PROPERTIES = [
+  { id: 'status', label: 'Status', type: 'select', value: 'In Progress', color: '#6366f1' },
+  { id: 'assignee', label: 'Assignee', type: 'person', value: 'hjunkim' },
+  { id: 'priority', label: 'Priority', type: 'select', value: 'High', color: '#ef4444' },
+  { id: 'due', label: 'Due Date', type: 'date', value: '2026-04-20' },
+  { id: 'tags', label: 'Tags', type: 'multi', value: 'Design, Dev' },
+  { id: 'estimate', label: 'Estimate', type: 'number', value: '3 points' },
+]
+
+const NotionPagePropertiesRender = () => {
+  const [open, setOpen] = useState(false)
+
+  return (
+    <Drawer open={open} onOpenChange={setOpen}>
+      <Drawer.Trigger asChild>
+        <OutlineButton color="gray" size="medium">
+          <OutlineButton.Center>페이지 속성 보기</OutlineButton.Center>
+        </OutlineButton>
+      </Drawer.Trigger>
+      <Drawer.Content side="right" style={{ width: 320 }}>
+        <Drawer.Header>
+          <Drawer.Title>페이지 속성</Drawer.Title>
+          <span style={{ fontSize: 12, color: '#6b7280', marginTop: 2 }}>Notion 페이지 속성 패널 패턴</span>
+        </Drawer.Header>
+        <div style={{ flex: 1, overflowY: 'auto', padding: '0 16px 16px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+            {NOTION_PAGE_PROPERTIES.map(prop => (
+              <div key={prop.id} style={{ display: 'flex', alignItems: 'center', padding: '8px 10px', borderRadius: 6, cursor: 'pointer' }} onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = '#f9fafb' }} onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = '' }}>
+                <span style={{ width: 100, fontSize: 12, color: '#9ca3af', flexShrink: 0 }}>{prop.label}</span>
+                {prop.color ? (
+                  <span style={{ fontSize: 12, padding: '2px 8px', borderRadius: 4, background: prop.color + '20', color: prop.color, fontWeight: 600 }}>{prop.value}</span>
+                ) : (
+                  <span style={{ fontSize: 12, color: '#374151' }}>{prop.value}</span>
+                )}
+              </div>
+            ))}
+          </div>
+          <div style={{ marginTop: 16, padding: '10px', border: '1px dashed #e5e7eb', borderRadius: 8, textAlign: 'center', cursor: 'pointer', color: '#9ca3af', fontSize: 12 }}>
+            + 속성 추가
+          </div>
+        </div>
+        <Drawer.Footer>
+          <Drawer.Close asChild>
+            <OutlineButton color="gray" size="medium" style={{ width: '100%' }}>
+              <OutlineButton.Center>닫기</OutlineButton.Center>
+            </OutlineButton>
+          </Drawer.Close>
+        </Drawer.Footer>
+      </Drawer.Content>
+    </Drawer>
+  )
+}
+
+export const Notion_페이지_속성_드로어: Story = {
+  name: 'Notion - 페이지 속성 패널 드로어',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Notion 페이지 속성 패널 패턴. Status/Assignee/Priority/Due Date 등 메타데이터를 레이블-값 행으로 표시합니다. 색상 배지로 선택 속성 타입을 강조하고 hover 시 배경을 강조합니다.',
+      },
+    },
+  },
+  render: () => <NotionPagePropertiesRender />,
+}
+
+const SHADCN_KEYBOARD_SHORTCUTS = [
+  { category: '탐색', shortcuts: [
+    { key: '⌘K', desc: '커맨드 팔레트 열기' },
+    { key: '⌘/', desc: '사이드바 토글' },
+    { key: 'G H', desc: '홈으로 이동' },
+    { key: 'G I', desc: '이슈 목록' },
+  ]},
+  { category: '액션', shortcuts: [
+    { key: '⌘N', desc: '새 항목 만들기' },
+    { key: '⌘Enter', desc: '저장 및 닫기' },
+    { key: 'Esc', desc: '취소/닫기' },
+    { key: '⌘.', desc: '설정 열기' },
+  ]},
+]
+
+const ShadcnKeyboardShortcutsRender = () => {
+  const [open, setOpen] = useState(false)
+  const [query, setQuery] = useState('')
+
+  const filteredShortcuts = SHADCN_KEYBOARD_SHORTCUTS.map(cat => ({
+    ...cat,
+    shortcuts: cat.shortcuts.filter(s =>
+      query === '' || s.desc.toLowerCase().includes(query.toLowerCase()) || s.key.toLowerCase().includes(query.toLowerCase())
+    ),
+  })).filter(cat => cat.shortcuts.length > 0)
+
+  return (
+    <Drawer open={open} onOpenChange={setOpen}>
+      <Drawer.Trigger asChild>
+        <Button color="black" size="medium">
+          <Button.Center>키보드 단축키</Button.Center>
+        </Button>
+      </Drawer.Trigger>
+      <Drawer.Content side="bottom" style={{ maxHeight: '70vh' }}>
+        <Drawer.Header>
+          <Drawer.Title>키보드 단축키</Drawer.Title>
+          <div style={{ marginTop: 10 }}>
+            <FloatingTextField
+              placeholder="단축키 검색"
+              value={query}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setQuery(e.target.value)}
+            />
+          </div>
+        </Drawer.Header>
+        <div style={{ flex: 1, overflowY: 'auto', padding: '0 20px 20px' }}>
+          {filteredShortcuts.map(cat => (
+            <div key={cat.category} style={{ marginBottom: 20 }}>
+              <div style={{ fontSize: 12, fontWeight: 700, color: '#6b7280', marginBottom: 8, textTransform: 'uppercase', letterSpacing: '0.05em' }}>{cat.category}</div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+                {cat.shortcuts.map(s => (
+                  <div key={s.key} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 12px', background: '#f9fafb', borderRadius: 8 }}>
+                    <span style={{ fontSize: 13, color: '#374151' }}>{s.desc}</span>
+                    <kbd style={{ fontSize: 11, padding: '2px 8px', background: '#fff', border: '1px solid #e5e7eb', borderRadius: 4, fontFamily: 'monospace', color: '#374151', boxShadow: '0 1px 2px rgba(0,0,0,0.05)' }}>{s.key}</kbd>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+          {filteredShortcuts.length === 0 && (
+            <div style={{ textAlign: 'center', color: '#9ca3af', fontSize: 13, padding: '24px 0' }}>검색 결과가 없습니다</div>
+          )}
+        </div>
+        <Drawer.Footer>
+          <Drawer.Close asChild>
+            <OutlineButton color="gray" size="medium" style={{ width: '100%' }}>
+              <OutlineButton.Center>닫기</OutlineButton.Center>
+            </OutlineButton>
+          </Drawer.Close>
+        </Drawer.Footer>
+      </Drawer.Content>
+    </Drawer>
+  )
+}
+
+export const Shadcn_키보드_단축키_드로어: Story = {
+  name: 'shadcn/ui - 키보드 단축키 바텀 드로어',
+  parameters: {
+    docs: {
+      description: {
+        story: 'shadcn/ui 스타일의 키보드 단축키 참고 드로어. 카테고리별 단축키 목록을 바텀 시트로 표시하며 실시간 검색 필터를 지원합니다. FloatingTextField로 단축키를 실시간으로 필터링합니다.',
+      },
+    },
+  },
+  render: () => <ShadcnKeyboardShortcutsRender />,
 }

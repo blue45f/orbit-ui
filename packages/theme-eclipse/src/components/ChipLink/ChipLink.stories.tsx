@@ -1,6 +1,6 @@
 import { CheckIcon, StarLineIcon, HeartLineIcon, SearchIcon, LinkIcon, SettingLineIcon } from '@heejun-com/icons'
 import { Meta, StoryObj } from '@storybook/react'
-import { useState } from 'react'
+import React, { useState } from 'react'
 
 import { ChipLink } from './ChipLink'
 import * as styles from './ChipLink.stories.css'
@@ -715,4 +715,141 @@ export const Linear_프로젝트_태그_탐색: Story = {
     },
   },
   render: () => <LinearProjectTagRender />,
+}
+
+const RAYCAST_ACTIONS = [
+  { id: 'copy', label: 'Copy Link', shortcut: '⌘C', icon: '⌘' },
+  { id: 'open', label: 'Open in Browser', shortcut: '⌘O', icon: '↗' },
+  { id: 'share', label: 'Share', shortcut: '⌘S', icon: '↑' },
+  { id: 'bookmark', label: 'Add Bookmark', shortcut: '⌘D', icon: '★' },
+  { id: 'preview', label: 'Quick Look', shortcut: '⌘Space', icon: '⎵' },
+]
+
+const RaycastQuickActionLinksRender = () => {
+  const [activeId, setActiveId] = useState<string | null>(null)
+
+  return (
+    <div style={{ width: 320, fontFamily: 'Inter, system-ui, sans-serif', background: '#1c1c1e', borderRadius: 12, padding: '12px 0', boxShadow: '0 8px 32px rgba(0,0,0,0.4)' }}>
+      <div style={{ padding: '4px 12px 10px', fontSize: 11, fontWeight: 600, color: '#8e8e93', textTransform: 'uppercase', letterSpacing: '0.06em' }}>Quick Actions</div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 2, padding: '0 6px' }}>
+        {RAYCAST_ACTIONS.map(action => (
+          <div key={action.id} style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+            <ChipLink
+              href="#"
+              onClick={(e: React.MouseEvent) => { e.preventDefault(); setActiveId(action.id) }}
+              selected={activeId === action.id}
+            >
+              <ChipLink.Leading>
+                <span style={{ fontSize: 13, opacity: 0.7 }}>{action.icon}</span>
+              </ChipLink.Leading>
+              {action.label}
+            </ChipLink>
+            <span style={{ marginLeft: 'auto', fontSize: 11, color: '#636366', background: '#2c2c2e', padding: '1px 6px', borderRadius: 4 }}>{action.shortcut}</span>
+          </div>
+        ))}
+      </div>
+      <div style={{ padding: '10px 12px 4px', fontSize: 10, color: '#48484a', textAlign: 'center' }}>Raycast Quick Action 패턴</div>
+    </div>
+  )
+}
+
+export const Raycast_퀵액션_링크: Story = {
+  name: 'Raycast - 퀵 액션 링크 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Raycast 커맨드 팔레트의 액션 목록 패턴. 다크 배경에 ChipLink를 세로로 배치하고 키보드 단축키를 우측에 표시합니다. 커맨드 팔레트, 컨텍스트 메뉴, 퀵 액션 UI에 적합합니다.',
+      },
+    },
+  },
+  render: () => <RaycastQuickActionLinksRender />,
+}
+
+const SHADCN_BREADCRUMB_ITEMS = [
+  { id: 'home', label: 'Home', href: '/' },
+  { id: 'components', label: 'Components', href: '/docs/components' },
+  { id: 'chip', label: 'ChipLink', href: '/docs/components/chip-link' },
+]
+
+const ShadcnBreadcrumbRender = () => (
+  <div style={{ width: 360, fontFamily: 'Inter, system-ui, sans-serif' }}>
+    <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+      {SHADCN_BREADCRUMB_ITEMS.map((item, idx) => (
+        <React.Fragment key={item.id}>
+          <ChipLink href={item.href} onClick={(e: React.MouseEvent) => e.preventDefault()}>
+            {item.label}
+          </ChipLink>
+          {idx < SHADCN_BREADCRUMB_ITEMS.length - 1 && (
+            <span style={{ fontSize: 12, color: '#94a3b8' }}>/</span>
+          )}
+        </React.Fragment>
+      ))}
+    </div>
+    <div style={{ marginTop: 12, padding: '12px 14px', background: '#f8fafc', borderRadius: 8, fontSize: 12, color: '#64748b' }}>
+      shadcn/ui 브레드크럼 네비게이션 패턴 — 계층적 경로를 ChipLink로 구현
+    </div>
+  </div>
+)
+
+export const Shadcn_브레드크럼_네비게이션: Story = {
+  name: 'shadcn/ui - 브레드크럼 네비게이션',
+  parameters: {
+    docs: {
+      description: {
+        story: 'shadcn/ui Breadcrumb 컴포넌트 패턴을 ChipLink로 구현. 계층적 경로를 구분자(/)와 함께 수평으로 나열합니다. 문서 사이트, 관리자 대시보드, 파일 탐색기 UI에 적합합니다.',
+      },
+    },
+  },
+  render: () => <ShadcnBreadcrumbRender />,
+}
+
+const NOTION_BLOCK_TYPES = [
+  { id: 'text', label: 'Text', icon: 'T', desc: '일반 텍스트' },
+  { id: 'heading', label: 'Heading 1', icon: 'H1', desc: '대형 제목' },
+  { id: 'list', label: 'Bulleted List', icon: '•', desc: '순서 없는 목록' },
+  { id: 'todo', label: 'To-do', icon: '☑', desc: '체크리스트' },
+  { id: 'callout', label: 'Callout', icon: '💡', desc: '강조 블록' },
+  { id: 'code', label: 'Code', icon: '</>', desc: '코드 블록' },
+]
+
+const NotionBlockTypeLinkRender = () => {
+  const [selected, setSelected] = useState<string>('text')
+
+  return (
+    <div style={{ width: 320, fontFamily: 'Inter, system-ui, sans-serif', border: '1px solid #e5e7eb', borderRadius: 10, overflow: 'hidden', boxShadow: '0 4px 16px rgba(0,0,0,0.08)' }}>
+      <div style={{ padding: '10px 14px', borderBottom: '1px solid #f0f0f0', background: '#f9fafb' }}>
+        <div style={{ fontSize: 12, fontWeight: 700, color: '#111' }}>블록 유형 전환</div>
+        <div style={{ fontSize: 11, color: '#9ca3af' }}>Notion 블록 타입 선택 패턴</div>
+      </div>
+      <div style={{ padding: 8 }}>
+        {NOTION_BLOCK_TYPES.map(block => (
+          <div key={block.id} style={{ marginBottom: 2 }}>
+            <ChipLink
+              href="#"
+              onClick={(e: React.MouseEvent) => { e.preventDefault(); setSelected(block.id) }}
+              selected={selected === block.id}
+            >
+              <ChipLink.Leading>
+                <span style={{ fontSize: 12, fontWeight: 700, width: 20, textAlign: 'center', color: selected === block.id ? undefined : '#6b7280' }}>{block.icon}</span>
+              </ChipLink.Leading>
+              {block.label}
+              <span style={{ fontSize: 10, color: '#9ca3af', marginLeft: 4 }}>— {block.desc}</span>
+            </ChipLink>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+export const Notion_블록_타입_전환: Story = {
+  name: 'Notion - 블록 타입 전환 링크 메뉴',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Notion 블록 타입 전환 팝업 패턴. 아이콘 + 이름 + 설명을 가진 ChipLink 목록으로 콘텐츠 블록 유형(Text/Heading/List/To-do 등)을 선택합니다. 인라인 슬래시 커맨드 메뉴에 적합합니다.',
+      },
+    },
+  },
+  render: () => <NotionBlockTypeLinkRender />,
 }

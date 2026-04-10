@@ -23709,3 +23709,167 @@ export const Figma96ComponentInspect: StoryObj = {
   },
   render: () => <Figma96InspectPanelRender />,
 }
+
+// ─── Cycle 97: Raycast + shadcn/ui 벤치마크 ────────────────────────────────────
+
+type Raycast97NotifType = 'mention' | 'deploy' | 'alert' | 'update' | 'invite'
+type Raycast97NotifPriority = 'high' | 'normal' | 'low'
+
+interface Raycast97Notification {
+  id: string
+  type: Raycast97NotifType
+  title: string
+  body: string
+  time: string
+  read: boolean
+  priority: Raycast97NotifPriority
+  source: string
+}
+
+const RAYCAST97_NOTIFICATIONS: Raycast97Notification[] = [
+  { id: 'n1', type: 'mention', title: '@hjunkim 멘션됨', body: 'Storybook 배포 완료 확인 부탁드립니다', time: '방금', read: false, priority: 'high', source: 'Slack' },
+  { id: 'n2', type: 'deploy', title: 'orbit-ui 배포 완료', body: 'preview: orbit-ui-pink.vercel.app', time: '2분 전', read: false, priority: 'normal', source: 'Vercel' },
+  { id: 'n3', type: 'alert', title: 'TypeScript 에러 감지', body: 'Templates.stories.tsx — TS2322 타입 불일치 3건', time: '5분 전', read: false, priority: 'high', source: 'CI/CD' },
+  { id: 'n4', type: 'update', title: 'Storybook 8.7 릴리스', body: '새로운 Controls UI, 성능 개선 포함', time: '1시간 전', read: true, priority: 'low', source: 'GitHub' },
+  { id: 'n5', type: 'invite', title: '디자인 리뷰 초대', body: 'Eclipse Theme v2 컴포넌트 검토 미팅', time: '2시간 전', read: true, priority: 'normal', source: 'Figma' },
+  { id: 'n6', type: 'deploy', title: 'PR #142 머지됨', body: 'feat(stories): Figma Design 벤치마크 스토리 추가', time: '어제', read: true, priority: 'normal', source: 'GitHub' },
+]
+
+const RAYCAST97_TYPE_META: Record<Raycast97NotifType, { icon: string; color: string }> = {
+  mention: { icon: '@', color: '#7c3aed' },
+  deploy: { icon: '↑', color: '#10b981' },
+  alert: { icon: '!', color: '#ef4444' },
+  update: { icon: '↻', color: '#6366f1' },
+  invite: { icon: '✉', color: '#f59e0b' },
+}
+
+const Raycast97NotificationCenterRender = () => {
+  const [notifications, setNotifications] = useState(RAYCAST97_NOTIFICATIONS)
+  const [filter, setFilter] = useState<'all' | 'unread'>('all')
+  const [selectedType, setSelectedType] = useState<Raycast97NotifType | 'all'>('all')
+
+  const markAllRead = () => setNotifications(prev => prev.map(n => ({ ...n, read: true })))
+  const markRead = (id: string) => setNotifications(prev => prev.map(n => n.id === id ? { ...n, read: true } : n))
+  const dismiss = (id: string) => setNotifications(prev => prev.filter(n => n.id !== id))
+
+  const unreadCount = notifications.filter(n => !n.read).length
+
+  const filtered = notifications.filter(n => {
+    if (filter === 'unread' && n.read) return false
+    if (selectedType !== 'all' && n.type !== selectedType) return false
+    return true
+  })
+
+  const filterTypes: Array<Raycast97NotifType | 'all'> = ['all', 'mention', 'deploy', 'alert', 'update', 'invite']
+
+  return (
+    <div style={{ width: 420, fontFamily: 'Inter, system-ui, sans-serif', background: '#fff', borderRadius: 12, border: '1px solid #e5e7eb', boxShadow: '0 8px 32px rgba(0,0,0,0.08)', overflow: 'hidden' }}>
+      {/* Header */}
+      <div style={{ padding: '14px 16px', borderBottom: '1px solid #f0f0f0', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+          <span style={{ fontSize: 15, fontWeight: 700, color: '#111' }}>알림</span>
+          {unreadCount > 0 && (
+            <CounterBadge>{unreadCount}</CounterBadge>
+          )}
+        </div>
+        <div style={{ display: 'flex', gap: 6 }}>
+          {(['all', 'unread'] as const).map(f => (
+            <button
+              key={f}
+              onClick={() => setFilter(f)}
+              style={{ fontSize: 11, padding: '4px 10px', borderRadius: 6, border: 'none', background: filter === f ? '#111' : '#f3f4f6', color: filter === f ? '#fff' : '#6b7280', cursor: 'pointer', fontWeight: 600 }}
+            >
+              {f === 'all' ? '전체' : '읽지 않음'}
+            </button>
+          ))}
+          {unreadCount > 0 && (
+            <button
+              onClick={markAllRead}
+              style={{ fontSize: 11, padding: '4px 10px', borderRadius: 6, border: 'none', background: '#f3f4f6', color: '#6b7280', cursor: 'pointer' }}
+            >
+              모두 읽음
+            </button>
+          )}
+        </div>
+      </div>
+
+      {/* Type filter */}
+      <div style={{ padding: '10px 16px', borderBottom: '1px solid #f9fafb', display: 'flex', gap: 6, overflowX: 'auto' }}>
+        {filterTypes.map(type => (
+          <button
+            key={type}
+            onClick={() => setSelectedType(type)}
+            style={{ fontSize: 11, padding: '3px 10px', borderRadius: 10, border: `1px solid ${selectedType === type ? '#7c3aed' : '#e5e7eb'}`, background: selectedType === type ? '#7c3aed' : '#fff', color: selectedType === type ? '#fff' : '#6b7280', cursor: 'pointer', fontWeight: selectedType === type ? 600 : 400, whiteSpace: 'nowrap', flexShrink: 0 }}
+          >
+            {type === 'all' ? '전체' : type}
+          </button>
+        ))}
+      </div>
+
+      {/* List */}
+      <div style={{ maxHeight: 400, overflowY: 'auto' }}>
+        {filtered.length === 0 ? (
+          <div style={{ padding: '32px 16px', textAlign: 'center', color: '#9ca3af', fontSize: 13 }}>알림이 없습니다</div>
+        ) : (
+          filtered.map(notif => {
+            const meta = RAYCAST97_TYPE_META[notif.type]
+            return (
+              <div
+                key={notif.id}
+                style={{ display: 'flex', gap: 12, padding: '12px 16px', borderBottom: '1px solid #f9fafb', background: notif.read ? '#fff' : '#fafaf9', cursor: 'pointer', transition: 'background 0.1s' }}
+                onClick={() => markRead(notif.id)}
+              >
+                {/* Icon */}
+                <div style={{ width: 36, height: 36, borderRadius: 10, background: meta.color + '15', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                  <span style={{ fontSize: 14, color: meta.color, fontWeight: 700 }}>{meta.icon}</span>
+                </div>
+
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 2 }}>
+                    {!notif.read && <div style={{ width: 6, height: 6, borderRadius: '50%', background: '#7c3aed', flexShrink: 0 }} />}
+                    <span style={{ fontSize: 12, fontWeight: notif.read ? 500 : 700, color: '#111', flex: 1, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{notif.title}</span>
+                    <span style={{ fontSize: 10, color: '#9ca3af', flexShrink: 0 }}>{notif.time}</span>
+                  </div>
+                  <div style={{ fontSize: 11, color: '#6b7280', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{notif.body}</div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginTop: 4 }}>
+                    <LabelBadge color={notif.priority === 'high' ? 'sale' : notif.priority === 'normal' ? 'benefit' : 'gray'}>
+                      <LabelBadge.Label>{notif.source}</LabelBadge.Label>
+                    </LabelBadge>
+                    {notif.priority === 'high' && (
+                      <AnimatedBadge color="sale">긴급</AnimatedBadge>
+                    )}
+                  </div>
+                </div>
+
+                <button
+                  onClick={(e) => { e.stopPropagation(); dismiss(notif.id) }}
+                  style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#9ca3af', fontSize: 14, padding: '2px 4px', borderRadius: 4, flexShrink: 0, alignSelf: 'flex-start' }}
+                >
+                  ×
+                </button>
+              </div>
+            )
+          })
+        )}
+      </div>
+
+      {/* Footer */}
+      <div style={{ padding: '10px 16px', borderTop: '1px solid #f0f0f0', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <span style={{ fontSize: 11, color: '#9ca3af' }}>Raycast + shadcn/ui 알림 센터 패턴</span>
+        <SectionTitle>알림 설정</SectionTitle>
+      </div>
+    </div>
+  )
+}
+
+export const Raycast97NotificationCenter: StoryObj = {
+  name: 'Raycast + shadcn — 알림 센터 (Cycle 97)',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Raycast Extensions + shadcn/ui 벤치마크 — 통합 알림 센터 패널. 타입 필터(mention/deploy/alert/update/invite), 읽음/안읽음 필터, 우선순위 배지를 갖춘 알림 목록. CounterBadge, AnimatedBadge, LabelBadge, SectionTitle 컴포넌트를 복합 활용합니다.',
+      },
+    },
+  },
+  render: () => <Raycast97NotificationCenterRender />,
+}
