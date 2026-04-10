@@ -699,3 +699,145 @@ export const Linear_Material3_타임라인_날짜_구분선 = {
     )
   },
 }
+
+/* --------------------------------------------------------------------------
+   Tailwind UI — 폼 섹션 구분선 + 레이블
+   섹션 제목 인라인 Divider 패턴
+-------------------------------------------------------------------------- */
+export const Tailwind_폼_섹션_구분선: Story = {
+  name: 'Tailwind UI — 폼 섹션 구분선 + 레이블',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Tailwind UI Form 패턴. "기본 정보", "보안 설정" 등 섹션 제목을 Divider와 인라인으로 배치하여 시각적 계층을 표현합니다. 레이블 좌측/우측 Divider 조합.',
+      },
+    },
+  },
+  render: () => {
+    const SECTIONS = [
+      { label: '기본 정보', fields: ['이름', '이메일'] },
+      { label: '보안 설정', fields: ['비밀번호', '2단계 인증'] },
+      { label: '알림 설정', fields: ['이메일 알림', '푸시 알림'] },
+    ]
+    return (
+      <div style={{ width: 360, display: 'flex', flexDirection: 'column', gap: 20, fontFamily: 'system-ui, sans-serif' }}>
+        {SECTIONS.map((section) => (
+          <div key={section.label} style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+            {/* 인라인 Divider + 섹션 제목 */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+              <span style={{ fontSize: 11, fontWeight: 700, color: '#6366f1', whiteSpace: 'nowrap', textTransform: 'uppercase' as const, letterSpacing: '0.06em' }}>{section.label}</span>
+              <Divider />
+            </div>
+            {/* 필드 목록 */}
+            {section.fields.map((field) => (
+              <div key={field} style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                <span style={{ width: 100, fontSize: 12, color: '#64748b', flexShrink: 0 }}>{field}</span>
+                <div style={{ flex: 1, height: 32, borderRadius: 6, border: '1px solid #e2e8f0', background: '#f8fafc' }} />
+              </div>
+            ))}
+          </div>
+        ))}
+        <p style={{ fontSize: 11, color: '#94a3b8', margin: '4px 0 0' }}>Tailwind UI 폼 섹션 구분 패턴 — 레이블 + Divider 인라인</p>
+      </div>
+    )
+  },
+}
+
+/* --------------------------------------------------------------------------
+   Ant Design — 콘텐츠 구분 + OR 텍스트
+   로그인 폼 소셜/이메일 구분 패턴
+-------------------------------------------------------------------------- */
+export const Ant_OR_구분선_로그인: Story = {
+  name: 'Ant Design — OR 텍스트 구분선 (로그인 폼)',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Ant Design Divider with text 패턴. 소셜 로그인과 이메일 로그인 사이의 OR 텍스트 구분선. 양쪽 Divider + 중앙 텍스트 배치로 시각적 흐름을 자연스럽게 분리.',
+      },
+    },
+  },
+  render: () => {
+    const SOCIAL = [
+      { name: 'GitHub', color: '#0f172a', icon: 'G' },
+      { name: 'Google', color: '#ef4444', icon: 'G+' },
+    ]
+    return (
+      <div style={{ width: 320, display: 'flex', flexDirection: 'column', gap: 12, fontFamily: 'system-ui, sans-serif', padding: '24px 0' }}>
+        <div style={{ fontSize: 18, fontWeight: 800, color: '#0f172a', textAlign: 'center', marginBottom: 4 }}>로그인</div>
+        {/* 소셜 로그인 버튼 */}
+        {SOCIAL.map((s) => (
+          <button key={s.name} style={{ width: '100%', padding: '10px', borderRadius: 8, border: '1px solid #e2e8f0', background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, fontSize: 13, fontWeight: 600, color: s.color, cursor: 'pointer' }}>
+            <span style={{ width: 20, height: 20, borderRadius: '50%', background: s.color, color: '#fff', fontSize: 10, fontWeight: 800, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>{s.icon}</span>
+            {s.name}로 계속하기
+          </button>
+        ))}
+        {/* OR 구분선 */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12, margin: '4px 0' }}>
+          <Divider />
+          <span style={{ fontSize: 12, fontWeight: 600, color: '#94a3b8', whiteSpace: 'nowrap', padding: '0 4px' }}>OR</span>
+          <Divider />
+        </div>
+        {/* 이메일 입력 */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+          <input placeholder="이메일" style={{ padding: '10px 12px', borderRadius: 8, border: '1px solid #e2e8f0', fontSize: 13, outline: 'none' }} />
+          <input placeholder="비밀번호" type="password" style={{ padding: '10px 12px', borderRadius: 8, border: '1px solid #e2e8f0', fontSize: 13, outline: 'none' }} />
+          <button style={{ padding: '10px', borderRadius: 8, border: 'none', background: '#0f172a', color: '#fff', fontSize: 13, fontWeight: 700, cursor: 'pointer' }}>로그인</button>
+        </div>
+        <p style={{ fontSize: 11, color: '#94a3b8', textAlign: 'center', marginTop: 4 }}>Ant Design OR 텍스트 구분선 패턴</p>
+      </div>
+    )
+  },
+}
+
+/* --------------------------------------------------------------------------
+   Tailwind UI + Ant Design — 메뉴 그룹 구분 Divider
+   드롭다운 메뉴 섹션 분리 패턴
+-------------------------------------------------------------------------- */
+export const Tailwind_Ant_메뉴_그룹_구분: Story = {
+  name: 'Tailwind UI + Ant Design — 드롭다운 메뉴 그룹 구분',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Tailwind UI Dropdown + Ant Design Menu 패턴. 메뉴 아이템을 기능별 그룹으로 나누고 Divider로 시각적으로 구분. 마지막 그룹(위험 액션)은 빨간색으로 강조.',
+      },
+    },
+  },
+  render: () => {
+    const MENU_GROUPS = [
+      {
+        items: [
+          { icon: '◻', label: '프로필 보기' },
+          { icon: '⚙', label: '설정' },
+        ],
+      },
+      {
+        items: [
+          { icon: '▤', label: '문서' },
+          { icon: '?', label: '도움말' },
+          { icon: '⌨', label: '단축키' },
+        ],
+      },
+      {
+        items: [
+          { icon: '⊘', label: '로그아웃', danger: true },
+        ],
+      },
+    ]
+    return (
+      <div style={{ width: 200, borderRadius: 10, border: '1px solid #e2e8f0', background: '#fff', padding: '6px 0', boxShadow: '0 4px 16px rgba(0,0,0,0.1)', fontFamily: 'system-ui, sans-serif' }}>
+        {MENU_GROUPS.map((group, gi) => (
+          <div key={gi}>
+            {gi > 0 && <div style={{ margin: '4px 0' }}><Divider /></div>}
+            {group.items.map((item) => (
+              <div key={item.label} style={{ display: 'flex', gap: 10, alignItems: 'center', padding: '8px 14px', cursor: 'pointer', fontSize: 13, color: (item as { danger?: boolean }).danger ? '#ef4444' : '#0f172a', fontWeight: (item as { danger?: boolean }).danger ? 600 : 400, transition: 'background 0.1s' }} onMouseEnter={(e) => (e.currentTarget.style.background = (item as { danger?: boolean }).danger ? '#fef2f2' : '#f8fafc')} onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}>
+                <span style={{ fontSize: 14, color: (item as { danger?: boolean }).danger ? '#ef4444' : '#94a3b8' }}>{item.icon}</span>
+                {item.label}
+              </div>
+            ))}
+          </div>
+        ))}
+        <p style={{ fontSize: 11, color: '#94a3b8', margin: '8px 14px 4px', textAlign: 'center' }}>Tailwind + Ant Design 메뉴 그룹 Divider 패턴</p>
+      </div>
+    )
+  },
+}

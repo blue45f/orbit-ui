@@ -705,3 +705,201 @@ export const MUI_Figma_장바구니_배지: Story = {
   },
   render: () => <ShoppingCartBadgeDemo />,
 }
+
+/* --------------------------------------------------------------------------
+   Tailwind UI — 알림 벨 + 채널별 배지
+   헤더 아이콘 배지 + 카테고리별 카운트 패턴
+-------------------------------------------------------------------------- */
+const TAILWIND_CHANNELS = [
+  { name: '받은편지함', unread: 12 },
+  { name: 'PR 리뷰', unread: 3 },
+  { name: '멘션', unread: 7 },
+  { name: '배포 알림', unread: 0 },
+]
+
+function TailwindNotifyBellRender() {
+  const [open, setOpen] = useState(false)
+  const [counts, setCounts] = useState(TAILWIND_CHANNELS.map((c) => c.unread))
+  const total = counts.reduce((s, n) => s + n, 0)
+  const markRead = (i: number) => setCounts((prev) => prev.map((c, idx) => idx === i ? 0 : c))
+
+  return (
+    <div style={{ position: 'relative', display: 'inline-block' }}>
+      {/* 알림 벨 버튼 */}
+      <button
+        onClick={() => setOpen((v) => !v)}
+        style={{ position: 'relative', width: 40, height: 40, borderRadius: '50%', border: '1px solid var(--sem-eclipse-color-borderSubtle)', background: 'var(--sem-eclipse-color-backgroundPrimary)', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 18 }}
+      >
+        🔔
+        {total > 0 && (
+          <span style={{ position: 'absolute', top: -4, right: -4 }}>
+            <CounterBadge>{total}</CounterBadge>
+          </span>
+        )}
+      </button>
+      {/* 드롭다운 */}
+      {open && (
+        <div style={{ position: 'absolute', top: '110%', right: 0, width: 240, borderRadius: 10, border: '1px solid var(--sem-eclipse-color-borderSubtle)', background: 'var(--sem-eclipse-color-backgroundPrimary)', boxShadow: '0 4px 20px rgba(0,0,0,0.12)', zIndex: 10, overflow: 'hidden' }}>
+          <div style={{ padding: '10px 14px', borderBottom: '1px solid var(--sem-eclipse-color-borderSubtle)', fontSize: 13, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            알림
+            <span style={{ fontSize: 11, color: '#6366f1', cursor: 'pointer', fontWeight: 400 }} onClick={() => setCounts(counts.map(() => 0))}>모두 읽음</span>
+          </div>
+          {TAILWIND_CHANNELS.map((ch, i) => (
+            <div key={ch.name} onClick={() => markRead(i)} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 14px', cursor: 'pointer', borderBottom: '1px solid var(--sem-eclipse-color-borderSubtle)', transition: 'background 0.1s' }} onMouseEnter={(e) => (e.currentTarget.style.background = 'var(--sem-eclipse-color-backgroundSecondary)')} onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}>
+              <span style={{ flex: 1, fontSize: 12, color: counts[i] > 0 ? 'var(--sem-eclipse-color-foregroundPrimary)' : 'var(--sem-eclipse-color-foregroundTertiary)', fontWeight: counts[i] > 0 ? 600 : 400 }}>{ch.name}</span>
+              {counts[i] > 0 && <CounterBadge>{counts[i]}</CounterBadge>}
+            </div>
+          ))}
+        </div>
+      )}
+      <p style={{ marginTop: 56, fontSize: 11, color: 'var(--sem-eclipse-color-foregroundDisabled)' }}>Tailwind UI 알림 벨 + 채널별 배지 패턴</p>
+    </div>
+  )
+}
+
+export const Tailwind_알림_벨_채널_배지: Story = {
+  name: 'Tailwind UI — 알림 벨 + 채널별 CounterBadge',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Tailwind UI 헤더 알림 패턴. 벨 버튼에 총 미읽음 CounterBadge, 드롭다운에서 채널별 카운트 표시 및 클릭 읽음 처리. 모두 읽음 일괄 처리.',
+      },
+    },
+  },
+  render: () => <TailwindNotifyBellRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Ant Design — 탭 + 배지 카운트 패턴
+   리뷰/이슈/PR 탭 카운터 패턴
+-------------------------------------------------------------------------- */
+const ANT_TABS = [
+  { key: 'issues', label: '이슈', count: 24, color: '#ef4444' },
+  { key: 'prs', label: 'Pull Request', count: 8, color: '#6366f1' },
+  { key: 'reviews', label: '리뷰 요청', count: 3, color: '#f59e0b' },
+  { key: 'actions', label: '배포 액션', count: 0, color: '#10b981' },
+]
+
+function AntTabBadgeRender() {
+  const [active, setActive] = useState('issues')
+  const activeTab = ANT_TABS.find((t) => t.key === active)!
+
+  return (
+    <div style={{ maxWidth: 480, display: 'flex', flexDirection: 'column', gap: 0 }}>
+      {/* 탭 헤더 */}
+      <div style={{ display: 'flex', borderBottom: '1px solid var(--sem-eclipse-color-borderSubtle)' }}>
+        {ANT_TABS.map((tab) => (
+          <button
+            key={tab.key}
+            onClick={() => setActive(tab.key)}
+            style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '10px 16px', border: 'none', borderBottom: `2px solid ${active === tab.key ? activeTab.color : 'transparent'}`, marginBottom: -1, background: 'transparent', cursor: 'pointer', fontSize: 12, fontWeight: active === tab.key ? 700 : 400, color: active === tab.key ? activeTab.color : 'var(--sem-eclipse-color-foregroundTertiary)', transition: 'all 0.15s' }}
+          >
+            {tab.label}
+            {tab.count > 0 && <CounterBadge>{tab.count}</CounterBadge>}
+          </button>
+        ))}
+      </div>
+      {/* 탭 콘텐츠 */}
+      <div style={{ padding: '20px 0', display: 'flex', flexDirection: 'column', gap: 10 }}>
+        {Array.from({ length: Math.min(activeTab.count || 1, 4) }, (_, i) => (
+          <div key={i} style={{ display: 'flex', gap: 10, alignItems: 'flex-start', padding: '10px 0', borderBottom: '1px solid var(--sem-eclipse-color-borderSubtle)' }}>
+            <div style={{ width: 8, height: 8, borderRadius: '50%', background: activeTab.color, marginTop: 5, flexShrink: 0 }} />
+            <div>
+              <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{activeTab.label} #{1000 + i} — Orbit UI 항목 {i + 1}</div>
+              <div style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginTop: 2 }}>hjunkim · 3시간 전</div>
+            </div>
+            <span style={{ marginLeft: 'auto', flexShrink: 0 }}>
+              <CounterBadge>{i + 1}</CounterBadge>
+            </span>
+          </div>
+        ))}
+        {activeTab.count === 0 && (
+          <div style={{ padding: '24px 0', textAlign: 'center', fontSize: 13, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>항목이 없습니다</div>
+        )}
+      </div>
+      <p style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundDisabled)' }}>Ant Design 탭 + CounterBadge 패턴 — GitHub 레포지터리 스타일</p>
+    </div>
+  )
+}
+
+export const Ant_탭_배지_카운터: Story = {
+  name: 'Ant Design — 탭 + CounterBadge 카운터 (GitHub 스타일)',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Ant Design Tabs + Badge 패턴. 탭 레이블 옆에 CounterBadge로 항목 수를 표시하고 선택된 탭 컬러와 동기화. GitHub 레포지터리 탭 UI와 동일한 패턴.',
+      },
+    },
+  },
+  render: () => <AntTabBadgeRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Tailwind UI + Ant Design — 쇼핑 카트 + 재고 배지
+   상품 목록 재고 경고 + 장바구니 카운터 패턴
+-------------------------------------------------------------------------- */
+const PRODUCTS = [
+  { id: 1, name: 'Orbit UI Pro 라이선스', price: 29000, stock: 99, inCart: 0 },
+  { id: 2, name: '디자인 토큰 에디터', price: 15000, stock: 3, inCart: 0 },
+  { id: 3, name: 'Storybook 테마 팩', price: 9000, stock: 1, inCart: 0 },
+  { id: 4, name: 'CLI 도구 번들', price: 19000, stock: 0, inCart: 0 },
+]
+
+function TailwindAntCartRender() {
+  const [cart, setCart] = useState<Record<number, number>>(Object.fromEntries(PRODUCTS.map((p) => [p.id, 0])))
+  const totalItems = Object.values(cart).reduce((s, n) => s + n, 0)
+
+  const add = (id: number) => setCart((prev) => ({ ...prev, [id]: prev[id] + 1 }))
+  const remove = (id: number) => setCart((prev) => ({ ...prev, [id]: Math.max(0, prev[id] - 1) }))
+
+  return (
+    <div style={{ maxWidth: 400, display: 'flex', flexDirection: 'column', gap: 12 }}>
+      {/* 카트 헤더 */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
+        <span style={{ fontSize: 14, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>상품 목록</span>
+        <span style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: 6, fontSize: 12, color: 'var(--sem-eclipse-color-foregroundSecondary)' }}>
+          장바구니
+          {totalItems > 0 && <CounterBadge>{totalItems}</CounterBadge>}
+        </span>
+      </div>
+      {/* 상품 리스트 */}
+      {PRODUCTS.map((p) => {
+        const stockColor = p.stock === 0 ? '#94a3b8' : p.stock <= 3 ? '#ef4444' : '#10b981'
+        return (
+          <div key={p.id} style={{ display: 'flex', gap: 10, alignItems: 'center', padding: '10px 12px', borderRadius: 8, border: '1px solid var(--sem-eclipse-color-borderSubtle)', background: p.stock === 0 ? 'var(--sem-eclipse-color-backgroundSecondary)' : 'var(--sem-eclipse-color-backgroundPrimary)', opacity: p.stock === 0 ? 0.6 : 1 }}>
+            <div style={{ flex: 1 }}>
+              <div style={{ fontSize: 12, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{p.name}</div>
+              <div style={{ display: 'flex', gap: 8, marginTop: 3, alignItems: 'center' }}>
+                <span style={{ fontSize: 11, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>₩{p.price.toLocaleString()}</span>
+                <span style={{ fontSize: 10, color: stockColor, fontWeight: 600 }}>
+                  {p.stock === 0 ? '품절' : p.stock <= 3 ? `잔여 ${p.stock}개` : '재고 있음'}
+                </span>
+                {p.stock > 0 && p.stock <= 3 && <CounterBadge>{p.stock}</CounterBadge>}
+              </div>
+            </div>
+            {p.stock > 0 && (
+              <div style={{ display: 'flex', gap: 4, alignItems: 'center' }}>
+                <button onClick={() => remove(p.id)} disabled={cart[p.id] === 0} style={{ width: 24, height: 24, borderRadius: '50%', border: '1px solid var(--sem-eclipse-color-borderDefault)', background: 'var(--sem-eclipse-color-backgroundPrimary)', fontSize: 14, cursor: cart[p.id] > 0 ? 'pointer' : 'not-allowed', color: cart[p.id] > 0 ? 'var(--sem-eclipse-color-foregroundPrimary)' : 'var(--sem-eclipse-color-foregroundDisabled)' }}>-</button>
+                {cart[p.id] > 0 && <CounterBadge>{cart[p.id]}</CounterBadge>}
+                <button onClick={() => add(p.id)} style={{ width: 24, height: 24, borderRadius: '50%', border: '1px solid var(--sem-eclipse-color-borderDefault)', background: 'var(--sem-eclipse-color-backgroundPrimary)', fontSize: 14, cursor: 'pointer', color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>+</button>
+              </div>
+            )}
+          </div>
+        )
+      })}
+      <p style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundDisabled)' }}>Tailwind + Ant Design 쇼핑 카트 + 재고 CounterBadge 패턴</p>
+    </div>
+  )
+}
+
+export const Tailwind_Ant_장바구니_재고_배지: Story = {
+  name: 'Tailwind UI + Ant Design — 쇼핑 카트 + 재고 배지',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Tailwind UI 쇼핑 카트 + Ant Design Badge 조합. 재고 수량 CounterBadge, 장바구니 담기 카운터, 품절 비활성화, 총 장바구니 항목 수 표시 패턴.',
+      },
+    },
+  },
+  render: () => <TailwindAntCartRender />,
+}

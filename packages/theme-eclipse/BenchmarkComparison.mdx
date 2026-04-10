@@ -1751,3 +1751,36 @@ const theme = createTheme({
     <span style={{ color: '#475569', marginLeft: '8px' }}>ShadcnLinear113FileManager — 파일 관리자, 사이드바 트리, 그리드/리스트, 미리보기</span>
   </div>
 </section>
+
+<section style={{ marginBottom: '32px', padding: '20px', background: '#f8fafc', borderRadius: '10px', border: '1px solid #e2e8f0' }}>
+  <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '14px' }}>
+    <span style={{ fontSize: '11px', fontWeight: '700', padding: '3px 10px', borderRadius: '99px', background: '#f59e0b', color: '#fff' }}>Cycle 114</span>
+    <h3 style={{ fontSize: '15px', fontWeight: '700', color: '#0f172a', margin: '0' }}>Tailwind UI + Ant Design</h3>
+  </div>
+
+  <h4 style={{ fontSize: '13px', fontWeight: '600', color: '#334155', margin: '0 0 8px' }}>Tailwind UI 장점 분석</h4>
+  <ul style={{ fontSize: '12px', color: '#475569', margin: '0 0 12px', paddingLeft: '18px', lineHeight: '1.8' }}>
+    <li><strong>알림 벨 드롭다운 패턴</strong>: 채널별 CounterBadge + 총 합산 배지를 벨 아이콘에 중첩 배치. 드롭다운 내 채널 클릭으로 읽음 처리, 모두 읽음 일괄 처리.</li>
+    <li><strong>폼 섹션 구분선</strong>: 섹션 제목과 Divider를 인라인으로 배치해 긴 폼을 시각적으로 분리. 레이블 컬러와 Divider를 동일 라인에 배치하는 최소 공간 패턴.</li>
+    <li><strong>캘린더 이벤트 레이어</strong>: 날짜 셀 내에 이벤트 컬러 바를 중첩, 2개 초과 시 +N 처리, 선택 날짜 강조 테두리. 월 네비게이션 + 이벤트 사이드바 분리 레이아웃.</li>
+  </ul>
+
+  <h4 style={{ fontSize: '13px', fontWeight: '600', color: '#334155', margin: '0 0 8px' }}>Ant Design 장점 분석</h4>
+  <ul style={{ fontSize: '12px', color: '#475569', margin: '0 0 12px', paddingLeft: '18px', lineHeight: '1.8' }}>
+    <li><strong>탭 + 배지 카운터</strong>: GitHub 레포지터리 탭 스타일 — 탭 레이블 옆 CounterBadge, 활성 탭 컬러와 하단 선 동기화, 카운트 0인 탭 배지 숨김.</li>
+    <li><strong>OR 구분선 패턴</strong>: 소셜/이메일 로그인 섹션 분리. 양쪽 Divider + 중앙 텍스트 flex 배치, 최소 마진으로 시각적 흐름 유지.</li>
+    <li><strong>메뉴 그룹 구분</strong>: 드롭다운 메뉴 기능별 그룹화 + Divider 분리, 마지막 그룹(위험 액션)은 빨간색으로 강조. hover 배경색 변화로 인터랙션 표현.</li>
+  </ul>
+
+  <h4 style={{ fontSize: '13px', fontWeight: '600', color: '#334155', margin: '0 0 8px' }}>Orbit UI 반영 사항</h4>
+  <ul style={{ fontSize: '12px', color: '#475569', margin: '0 0 12px', paddingLeft: '18px', lineHeight: '1.8' }}>
+    <li>CounterBadge: Tailwind 알림 벨 채널 배지, Ant Design 탭 카운터, Tailwind+Ant 쇼핑 카트 재고 배지 +3 스토리</li>
+    <li>Divider: Tailwind 폼 섹션 구분선, Ant Design OR 구분선(로그인), Tailwind+Ant 메뉴 그룹 구분 +3 스토리</li>
+    <li>Template CalendarApp: 월별 캘린더 그리드 + 이벤트 사이드바 + 이벤트 추가 다이얼로그</li>
+  </ul>
+
+  <div style={{ borderTop: '1px solid #e2e8f0', paddingTop: '10px', marginTop: '4px' }}>
+    <span style={{ fontWeight: '700', color: '#f59e0b' }}>Template Cycle114:</span>
+    <span style={{ color: '#475569', marginLeft: '8px' }}>TailwindAnt114CalendarApp — 캘린더 앱, 이벤트 그리드, 사이드바, 추가 다이얼로그</span>
+  </div>
+</section>

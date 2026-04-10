@@ -27483,3 +27483,211 @@ export const ShadcnLinear113FileManager: StoryObj = {
   },
   render: () => <FileManager113Render />,
 }
+
+/* --------------------------------------------------------------------------
+   Tailwind UI + Ant Design — Cycle 114: 캘린더 앱 (CalendarApp)
+   월별 뷰 + 이벤트 목록 + 이벤트 추가 다이얼로그
+-------------------------------------------------------------------------- */
+interface CalEvent114 {
+  id: number
+  title: string
+  date: number
+  color: string
+  time: string
+}
+
+const INIT_EVENTS_114: CalEvent114[] = [
+  { id: 1, title: '스프린트 플래닝', date: 8, color: '#6366f1', time: '10:00' },
+  { id: 2, title: 'Orbit UI 배포', date: 10, color: '#10b981', time: '14:00' },
+  { id: 3, title: 'UI 리뷰 미팅', date: 10, color: '#f59e0b', time: '16:30' },
+  { id: 4, title: '스프린트 리뷰', date: 15, color: '#6366f1', time: '11:00' },
+  { id: 5, title: 'Design Sync', date: 18, color: '#ec4899', time: '13:00' },
+  { id: 6, title: '분기 OKR 점검', date: 22, color: '#ef4444', time: '09:00' },
+  { id: 7, title: '팀 회식', date: 25, color: '#10b981', time: '19:00' },
+]
+
+const DAYS_OF_WEEK = ['일', '월', '화', '수', '목', '금', '토']
+const MONTHS = ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월']
+
+function CalendarApp114Render() {
+  const [year, setYear] = useState(2026)
+  const [month, setMonth] = useState(3) // 0-indexed: 3 = April
+  const [events, setEvents] = useState<CalEvent114[]>(INIT_EVENTS_114)
+  const [selectedDate, setSelectedDate] = useState<number | null>(10)
+  const [showAddDialog, setShowAddDialog] = useState(false)
+  const [newTitle, setNewTitle] = useState('')
+  const [newTime, setNewTime] = useState('09:00')
+  const [newColor, setNewColor] = useState('#6366f1')
+
+  // Build calendar grid
+  const firstDay = new Date(year, month, 1).getDay()
+  const daysInMonth = new Date(year, month + 1, 0).getDate()
+  const cells = Array.from({ length: firstDay + daysInMonth }, (_, i) => i < firstDay ? null : i - firstDay + 1)
+  while (cells.length % 7 !== 0) cells.push(null)
+
+  const eventsForDate = (d: number | null) => d ? events.filter((e) => e.date === d) : []
+  const selectedEvents = selectedDate ? eventsForDate(selectedDate) : []
+
+  const addEvent = () => {
+    if (!newTitle.trim() || !selectedDate) return
+    setEvents((prev) => [...prev, { id: Date.now(), title: newTitle, date: selectedDate, color: newColor, time: newTime }])
+    setNewTitle('')
+    setShowAddDialog(false)
+  }
+
+  const prevMonth = () => { if (month === 0) { setMonth(11); setYear((y) => y - 1) } else setMonth((m) => m - 1) }
+  const nextMonth = () => { if (month === 11) { setMonth(0); setYear((y) => y + 1) } else setMonth((m) => m + 1) }
+
+  const COLOR_OPTIONS = ['#6366f1', '#10b981', '#f59e0b', '#ef4444', '#ec4899', '#06b6d4']
+
+  return (
+    <div style={{ fontFamily: 'system-ui, sans-serif', maxWidth: 720, margin: '0 auto' }}>
+      {/* AppBar */}
+      <AppBar>
+        <AppBar.Leading>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            <button onClick={prevMonth} style={{ width: 28, height: 28, borderRadius: 6, border: '1px solid var(--sem-eclipse-color-borderSubtle)', background: 'transparent', cursor: 'pointer', fontSize: 14, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>‹</button>
+            <span style={{ fontSize: 15, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)', minWidth: 80, textAlign: 'center' }}>{year}년 {MONTHS[month]}</span>
+            <button onClick={nextMonth} style={{ width: 28, height: 28, borderRadius: 6, border: '1px solid var(--sem-eclipse-color-borderSubtle)', background: 'transparent', cursor: 'pointer', fontSize: 14, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>›</button>
+          </div>
+        </AppBar.Leading>
+        <AppBar.Trailing>
+          <div style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
+            <CounterBadge>{events.length}</CounterBadge>
+            <SolidButton color="primary" size="small" onClick={() => { if (selectedDate) setShowAddDialog(true) }} disabled={!selectedDate}>
+              <SolidButton.Center>+ 이벤트 추가</SolidButton.Center>
+            </SolidButton>
+          </div>
+        </AppBar.Trailing>
+      </AppBar>
+
+      <div style={{ display: 'flex', gap: 0 }}>
+        {/* Calendar Grid */}
+        <div style={{ flex: 1, padding: '16px 20px' }}>
+          {/* Day headers */}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', marginBottom: 6 }}>
+            {DAYS_OF_WEEK.map((d, i) => (
+              <div key={d} style={{ textAlign: 'center', fontSize: 11, fontWeight: 700, color: i === 0 ? '#ef4444' : i === 6 ? '#6366f1' : 'var(--sem-eclipse-color-foregroundTertiary)', padding: '4px 0' }}>{d}</div>
+            ))}
+          </div>
+          {/* Cells */}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', gap: 2 }}>
+            {cells.map((day, idx) => {
+              const dayEvents = eventsForDate(day)
+              const isSelected = day === selectedDate
+              const isToday = day === 10 && month === 3 && year === 2026
+              return (
+                <div
+                  key={idx}
+                  onClick={() => day && setSelectedDate(day)}
+                  style={{ minHeight: 56, padding: '4px', borderRadius: 8, border: `1.5px solid ${isSelected ? '#6366f1' : 'transparent'}`, background: isSelected ? '#f5f3ff' : isToday ? '#eff6ff' : 'transparent', cursor: day ? 'pointer' : 'default', transition: 'all 0.1s' }}
+                >
+                  {day && (
+                    <>
+                      <div style={{ fontSize: 12, fontWeight: isToday ? 800 : 400, color: isToday ? '#6366f1' : idx % 7 === 0 ? '#ef4444' : idx % 7 === 6 ? '#6366f1' : 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 3, textAlign: 'center' }}>{day}</div>
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+                        {dayEvents.slice(0, 2).map((ev) => (
+                          <div key={ev.id} style={{ fontSize: 9, fontWeight: 600, color: '#fff', background: ev.color, borderRadius: 3, padding: '1px 4px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{ev.title}</div>
+                        ))}
+                        {dayEvents.length > 2 && <div style={{ fontSize: 9, color: 'var(--sem-eclipse-color-foregroundTertiary)', paddingLeft: 4 }}>+{dayEvents.length - 2}</div>}
+                      </div>
+                    </>
+                  )}
+                </div>
+              )
+            })}
+          </div>
+        </div>
+
+        {/* Event List Sidebar */}
+        <div style={{ width: 200, borderLeft: '1px solid var(--sem-eclipse-color-borderSubtle)', padding: '16px 14px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 12 }}>
+            <SectionTitle>{selectedDate ? `${selectedDate}일 이벤트` : '날짜 선택'}</SectionTitle>
+            {selectedEvents.length > 0 && <CounterBadge>{selectedEvents.length}</CounterBadge>}
+          </div>
+          {selectedDate && selectedEvents.length === 0 && (
+            <div style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)', textAlign: 'center', padding: '20px 0' }}>이벤트 없음</div>
+          )}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+            {selectedEvents.map((ev) => (
+              <div key={ev.id} style={{ padding: '8px 10px', borderRadius: 8, border: `1px solid ${ev.color}30`, background: `${ev.color}08` }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                  <div style={{ width: 8, height: 8, borderRadius: '50%', background: ev.color, flexShrink: 0 }} />
+                  <div style={{ fontSize: 12, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)', flex: 1, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{ev.title}</div>
+                </div>
+                <div style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginTop: 3, paddingLeft: 14 }}>{ev.time}</div>
+              </div>
+            ))}
+          </div>
+          {/* 미니 통계 */}
+          {!selectedDate && (
+            <div style={{ marginTop: 16 }}>
+              <Divider />
+              <div style={{ marginTop: 12, display: 'flex', flexDirection: 'column', gap: 6 }}>
+                <div style={{ fontSize: 11, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundTertiary)', textTransform: 'uppercase' as const, letterSpacing: '0.04em' }}>이번 달</div>
+                {[['총 이벤트', events.length], ['이번 주', 3]].map(([k, v]) => (
+                  <div key={String(k)} style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12 }}>
+                    <span style={{ color: 'var(--sem-eclipse-color-foregroundSecondary)' }}>{k}</span>
+                    <CounterBadge>{Number(v)}</CounterBadge>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Add Event Dialog */}
+      {showAddDialog && (
+        <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.4)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 100 }}>
+          <div style={{ width: 320, borderRadius: 16, background: 'var(--sem-eclipse-color-backgroundPrimary)', padding: '24px', boxShadow: '0 8px 40px rgba(0,0,0,0.2)' }}>
+            <div style={{ fontSize: 15, fontWeight: 800, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 16 }}>{selectedDate}일 이벤트 추가</div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+              <TextField
+                label="이벤트 제목"
+                value={newTitle}
+                onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setNewTitle(e.target.value)}
+                placeholder="예: 스프린트 미팅"
+              />
+              <div>
+                <div style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginBottom: 6 }}>시간</div>
+                <input type="time" value={newTime} onChange={(e) => setNewTime(e.target.value)} style={{ width: '100%', padding: '8px 12px', borderRadius: 8, border: '1px solid var(--sem-eclipse-color-borderDefault)', fontSize: 13, outline: 'none', background: 'var(--sem-eclipse-color-backgroundPrimary)', color: 'var(--sem-eclipse-color-foregroundPrimary)', boxSizing: 'border-box' as const }} />
+              </div>
+              <div>
+                <div style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginBottom: 6 }}>색상</div>
+                <div style={{ display: 'flex', gap: 8 }}>
+                  {COLOR_OPTIONS.map((c) => (
+                    <button key={c} onClick={() => setNewColor(c)} style={{ width: 24, height: 24, borderRadius: '50%', border: `2px solid ${newColor === c ? '#0f172a' : 'transparent'}`, background: c, cursor: 'pointer', transition: 'border-color 0.1s' }} />
+                  ))}
+                </div>
+              </div>
+            </div>
+            <div style={{ display: 'flex', gap: 8, marginTop: 20 }}>
+              <SolidButton color="primary" size="small" onClick={addEvent} disabled={!newTitle.trim()}>
+                <SolidButton.Center>추가</SolidButton.Center>
+              </SolidButton>
+              <OutlineButton color="gray" size="small" onClick={() => setShowAddDialog(false)}>
+                <OutlineButton.Center>취소</OutlineButton.Center>
+              </OutlineButton>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  )
+}
+
+export const TailwindAnt114CalendarApp: StoryObj = {
+  name: 'Tailwind UI + Ant Design — 캘린더 앱 (Cycle 114)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Tailwind UI + Ant Design 벤치마크 — Cycle 114. ' +
+          '캘린더 앱: 월별 그리드 뷰 + 이벤트 사이드바 + 이벤트 추가 다이얼로그(TextField + 시간입력 + 색상선택). ' +
+          'AppBar, SolidButton, OutlineButton, CounterBadge, Divider, SectionTitle, TextField 복합 활용.',
+      },
+    },
+  },
+  render: () => <CalendarApp114Render />,
+}
