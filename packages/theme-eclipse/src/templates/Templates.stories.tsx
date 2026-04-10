@@ -24098,3 +24098,187 @@ export const Ant98MultiStepFormTemplate: StoryObj = {
   },
   render: () => <Ant98MultiStepFormRender />,
 }
+
+// ─── Cycle 99: Linear Design + Arco Design 벤치마크 ───────────────────────────
+
+type Linear99IssueStatus = 'todo' | 'inprogress' | 'review' | 'done' | 'cancelled'
+type Linear99IssuePriority = 'urgent' | 'high' | 'medium' | 'low'
+
+interface Linear99Issue {
+  id: string
+  title: string
+  status: Linear99IssueStatus
+  priority: Linear99IssuePriority
+  assignee: string
+  label: string
+  estimate: number
+  dueDate: string
+}
+
+const LINEAR99_ISSUES: Linear99Issue[] = [
+  { id: 'ENG-101', title: '버튼 hover 상태 색상 수정', status: 'done', priority: 'high', assignee: 'HJ', label: 'Bug', estimate: 1, dueDate: '04/08' },
+  { id: 'ENG-102', title: 'DataTable 가상 스크롤 최적화', status: 'inprogress', priority: 'urgent', assignee: 'SJ', label: 'Feature', estimate: 5, dueDate: '04/12' },
+  { id: 'ENG-103', title: 'Toast 포지션 prop 추가', status: 'review', priority: 'medium', assignee: 'MJ', label: 'Enhancement', estimate: 2, dueDate: '04/10' },
+  { id: 'ENG-104', title: '접근성 키보드 탐색 개선', status: 'inprogress', priority: 'high', assignee: 'HJ', label: 'Accessibility', estimate: 3, dueDate: '04/15' },
+  { id: 'ENG-105', title: '다크모드 색상 토큰 문서화', status: 'todo', priority: 'low', assignee: 'YH', label: 'Docs', estimate: 2, dueDate: '04/20' },
+  { id: 'ENG-106', title: 'Storybook 빌드 속도 최적화', status: 'todo', priority: 'medium', assignee: 'SJ', label: 'Performance', estimate: 3, dueDate: '04/18' },
+  { id: 'ENG-107', title: 'Carousel 무한 루프 버그 수정', status: 'cancelled', priority: 'low', assignee: 'MJ', label: 'Bug', estimate: 1, dueDate: '04/05' },
+]
+
+const L99_STATUS_META: Record<Linear99IssueStatus, { label: string; color: string; dot: string }> = {
+  todo: { label: 'Todo', color: '#9ca3af', dot: '#d1d5db' },
+  inprogress: { label: 'In Progress', color: '#6366f1', dot: '#6366f1' },
+  review: { label: 'In Review', color: '#f59e0b', dot: '#f59e0b' },
+  done: { label: 'Done', color: '#10b981', dot: '#10b981' },
+  cancelled: { label: 'Cancelled', color: '#9ca3af', dot: '#e5e7eb' },
+}
+
+const L99_PRIORITY_META: Record<Linear99IssuePriority, { label: string; color: 'sale' | 'benefit' | 'gray' }> = {
+  urgent: { label: 'Urgent', color: 'sale' },
+  high: { label: 'High', color: 'benefit' },
+  medium: { label: 'Medium', color: 'gray' },
+  low: { label: 'Low', color: 'gray' },
+}
+
+const L99_LABEL_COLOR: Record<string, string> = {
+  Bug: '#ef4444',
+  Feature: '#6366f1',
+  Enhancement: '#8b5cf6',
+  Accessibility: '#10b981',
+  Docs: '#6b7280',
+  Performance: '#f59e0b',
+}
+
+const Linear99IssueBoardRender = () => {
+  const [statusFilter, setStatusFilter] = useState<Linear99IssueStatus | 'all'>('all')
+  const [priorityFilter, setPriorityFilter] = useState<Linear99IssuePriority | 'all'>('all')
+  const [selectedId, setSelectedId] = useState<string | null>(null)
+
+  const filtered = LINEAR99_ISSUES.filter(i => {
+    if (statusFilter !== 'all' && i.status !== statusFilter) return false
+    if (priorityFilter !== 'all' && i.priority !== priorityFilter) return false
+    return true
+  })
+
+  const selectedIssue = LINEAR99_ISSUES.find(i => i.id === selectedId)
+
+  return (
+    <div style={{ display: 'flex', gap: 0, height: 480, fontFamily: 'Inter, system-ui, sans-serif', border: '1px solid #f0f0f0', borderRadius: 12, overflow: 'hidden', background: '#fff' }}>
+      {/* Left: Issue list */}
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', borderRight: selectedId ? '1px solid #f0f0f0' : 'none' }}>
+        {/* Toolbar */}
+        <div style={{ padding: '10px 12px', borderBottom: '1px solid #f5f5f5', display: 'flex', gap: 6, flexWrap: 'wrap', background: '#fafafa' }}>
+          <select
+            value={statusFilter}
+            onChange={e => setStatusFilter(e.target.value as typeof statusFilter)}
+            style={{ fontSize: 11, padding: '4px 8px', borderRadius: 6, border: '1px solid #e5e7eb', background: '#fff', color: '#374151', cursor: 'pointer', outline: 'none' }}
+          >
+            <option value="all">모든 상태</option>
+            {Object.entries(L99_STATUS_META).map(([k, v]) => (
+              <option key={k} value={k}>{v.label}</option>
+            ))}
+          </select>
+          <select
+            value={priorityFilter}
+            onChange={e => setPriorityFilter(e.target.value as typeof priorityFilter)}
+            style={{ fontSize: 11, padding: '4px 8px', borderRadius: 6, border: '1px solid #e5e7eb', background: '#fff', color: '#374151', cursor: 'pointer', outline: 'none' }}
+          >
+            <option value="all">모든 우선순위</option>
+            {(['urgent', 'high', 'medium', 'low'] as Linear99IssuePriority[]).map(p => (
+              <option key={p} value={p}>{L99_PRIORITY_META[p].label}</option>
+            ))}
+          </select>
+          <span style={{ marginLeft: 'auto', fontSize: 11, color: '#9ca3af', alignSelf: 'center' }}>{filtered.length}개 이슈</span>
+        </div>
+
+        {/* Issue rows */}
+        <div style={{ flex: 1, overflowY: 'auto' }}>
+          {filtered.length === 0 ? (
+            <div style={{ padding: '32px 16px', textAlign: 'center', color: '#9ca3af', fontSize: 13 }}>이슈가 없습니다</div>
+          ) : (
+            filtered.map(issue => {
+              const status = L99_STATUS_META[issue.status]
+              const priority = L99_PRIORITY_META[issue.priority]
+              const isSelected = selectedId === issue.id
+              return (
+                <div
+                  key={issue.id}
+                  onClick={() => setSelectedId(isSelected ? null : issue.id)}
+                  style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '8px 12px', borderBottom: '1px solid #f9fafb', cursor: 'pointer', background: isSelected ? '#f5f3ff' : '#fff', transition: 'background 0.1s' }}
+                >
+                  <div style={{ width: 8, height: 8, borderRadius: '50%', background: status.dot, border: `2px solid ${status.color}`, flexShrink: 0 }} />
+                  <span style={{ fontSize: 10, fontFamily: 'monospace', color: '#9ca3af', flexShrink: 0 }}>{issue.id}</span>
+                  <span style={{ flex: 1, fontSize: 12, color: issue.status === 'cancelled' ? '#9ca3af' : '#111', textDecoration: issue.status === 'cancelled' ? 'line-through' : 'none', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', fontWeight: isSelected ? 600 : 400 }}>{issue.title}</span>
+                  <LabelBadge color={priority.color}>
+                    <LabelBadge.Label>{priority.label}</LabelBadge.Label>
+                  </LabelBadge>
+                  <span style={{ fontSize: 10, color: '#9ca3af' }}>{issue.dueDate}</span>
+                  <div style={{ width: 20, height: 20, borderRadius: '50%', background: '#f0f0f0', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 9, fontWeight: 700, color: '#6b7280', flexShrink: 0 }}>{issue.assignee}</div>
+                </div>
+              )
+            })
+          )}
+        </div>
+      </div>
+
+      {/* Right: Detail panel */}
+      {selectedIssue && (
+        <div style={{ width: 260, padding: '14px', overflowY: 'auto', background: '#fafafa' }}>
+          <div style={{ fontSize: 11, fontFamily: 'monospace', color: '#9ca3af', marginBottom: 6 }}>{selectedIssue.id}</div>
+          <div style={{ fontSize: 14, fontWeight: 700, color: '#111', marginBottom: 12, lineHeight: 1.4 }}>{selectedIssue.title}</div>
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+              <span style={{ width: 70, fontSize: 11, color: '#9ca3af' }}>상태</span>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+                <div style={{ width: 8, height: 8, borderRadius: '50%', background: L99_STATUS_META[selectedIssue.status].dot }} />
+                <span style={{ fontSize: 12, color: L99_STATUS_META[selectedIssue.status].color, fontWeight: 600 }}>{L99_STATUS_META[selectedIssue.status].label}</span>
+              </div>
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+              <span style={{ width: 70, fontSize: 11, color: '#9ca3af' }}>우선순위</span>
+              <LabelBadge color={L99_PRIORITY_META[selectedIssue.priority].color}>
+                <LabelBadge.Label>{L99_PRIORITY_META[selectedIssue.priority].label}</LabelBadge.Label>
+              </LabelBadge>
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+              <span style={{ width: 70, fontSize: 11, color: '#9ca3af' }}>담당자</span>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                <div style={{ width: 22, height: 22, borderRadius: '50%', background: '#e8f4fd', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 10, fontWeight: 700, color: '#1677ff' }}>{selectedIssue.assignee}</div>
+                <span style={{ fontSize: 12, color: '#374151' }}>{selectedIssue.assignee}</span>
+              </div>
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+              <span style={{ width: 70, fontSize: 11, color: '#9ca3af' }}>마감일</span>
+              <span style={{ fontSize: 12, color: '#374151' }}>{selectedIssue.dueDate}</span>
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+              <span style={{ width: 70, fontSize: 11, color: '#9ca3af' }}>예상</span>
+              <span style={{ fontSize: 12, color: '#374151' }}>{selectedIssue.estimate}pt</span>
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+              <span style={{ width: 70, fontSize: 11, color: '#9ca3af' }}>레이블</span>
+              <span style={{ fontSize: 11, padding: '2px 8px', borderRadius: 4, background: (L99_LABEL_COLOR[selectedIssue.label] ?? '#6b7280') + '20', color: L99_LABEL_COLOR[selectedIssue.label] ?? '#6b7280', fontWeight: 600 }}>{selectedIssue.label}</span>
+            </div>
+          </div>
+
+          <Divider style={{ margin: '12px 0' }} />
+          <SectionTitle>활동</SectionTitle>
+          <div style={{ marginTop: 8, fontSize: 11, color: '#9ca3af', fontStyle: 'italic' }}>최근 활동이 없습니다</div>
+        </div>
+      )}
+    </div>
+  )
+}
+
+export const Linear99IssueBoard: StoryObj = {
+  name: 'Linear - 이슈 보드 + 상세 패널 (Cycle 99)',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Linear Design + Arco Design 벤치마크 — 이슈 목록과 우측 상세 패널. 상태/우선순위 필터 드롭다운, 이슈 클릭 시 슬라이드인 상세 패널, LabelBadge 우선순위 표시, SectionTitle/Divider 활용. Linear의 미니멀 이슈 트래커 UI 패턴을 구현합니다.',
+      },
+    },
+  },
+  render: () => <Linear99IssueBoardRender />,
+}

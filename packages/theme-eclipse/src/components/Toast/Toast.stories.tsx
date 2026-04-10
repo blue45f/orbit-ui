@@ -884,3 +884,185 @@ export const Arco_배치_작업_진행_알림: Story = {
   },
   render: (args) => <ArcoBatchRender {...args} />,
 }
+
+export const Linear_이슈_상태_변경_알림: Story = {
+  name: 'Linear - 이슈 상태 변경 Toast 패턴',
+  render: (args) => {
+    const showStatusChange = () => {
+      toast.success('ENG-101 상태 변경됨', {
+        description: 'Backlog → In Progress',
+        action: {
+          label: '실행 취소',
+          onClick: () => toast.info('변경이 취소되었습니다'),
+        },
+        duration: 4000,
+      })
+    }
+
+    const showIssueCreate = () => {
+      toast('새 이슈 생성됨', {
+        description: 'ENG-142: 다크모드 색상 토큰 최종 검토',
+        action: {
+          label: '이슈 열기',
+          onClick: () => toast.info('이슈 페이지로 이동합니다'),
+        },
+      })
+    }
+
+    const showIssueClose = () => {
+      toast.success('이슈 완료 처리됨', {
+        description: 'ENG-99: 접근성 키보드 탐색 개선 완료',
+        duration: 3000,
+      })
+    }
+
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 10, fontFamily: 'Inter, system-ui, sans-serif' }}>
+        <Toaster {...args} />
+        <div style={{ fontSize: 12, fontWeight: 700, color: '#6b7280', marginBottom: 4 }}>Linear 이슈 Toast 패턴</div>
+        <div style={{ display: 'flex', gap: 8 }}>
+          <Button color="black" size="small" onClick={showStatusChange}>
+            <Button.Center>상태 변경</Button.Center>
+          </Button>
+          <Button color="black" size="small" onClick={showIssueCreate}>
+            <Button.Center>이슈 생성</Button.Center>
+          </Button>
+          <Button color="black" size="small" onClick={showIssueClose}>
+            <Button.Center>이슈 완료</Button.Center>
+          </Button>
+        </div>
+        <div style={{ fontSize: 11, color: '#9ca3af' }}>Linear의 이슈 액션 Toast — 실행 취소 액션 버튼 포함</div>
+      </div>
+    )
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Linear 이슈 상태 변경 Toast 패턴. 상태 변경/이슈 생성/완료 처리 시 action 버튼(실행 취소/이슈 열기)을 포함한 Toast를 표시합니다. Linear 특유의 간결한 피드백 + 즉시 실행 취소 UX를 구현합니다.',
+      },
+    },
+  },
+}
+
+const ArcoAsyncToastRender = (args: React.ComponentProps<typeof Toaster>) => {
+  const [running, setRunning] = useState(false)
+
+  const simulateImport = async () => {
+    setRunning(true)
+    const id = toast.loading('파일 임포트 중...')
+    await new Promise<void>(res => setTimeout(res, 1500))
+    toast.success('임포트 완료', {
+      id,
+      description: '총 1,248건의 레코드가 추가되었습니다',
+      action: {
+        label: '결과 보기',
+        onClick: () => toast.info('임포트 결과 페이지로 이동'),
+      },
+    })
+    setRunning(false)
+  }
+
+  const simulateError = async () => {
+    setRunning(true)
+    const id = toast.loading('데이터 동기화 중...')
+    await new Promise<void>(res => setTimeout(res, 1500))
+    toast.error('동기화 실패', {
+      id,
+      description: 'API 연결 시간이 초과되었습니다 (timeout: 30s)',
+      action: {
+        label: '재시도',
+        onClick: () => { void simulateError() },
+      },
+    })
+    setRunning(false)
+  }
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 10, fontFamily: 'Inter, system-ui, sans-serif' }}>
+      <Toaster {...args} />
+      <div style={{ fontSize: 12, fontWeight: 700, color: '#6b7280', marginBottom: 4 }}>Arco Design 비동기 작업 알림</div>
+      <div style={{ display: 'flex', gap: 8 }}>
+        <Button color="black" size="small" onClick={() => { void simulateImport() }} disabled={running}>
+          <Button.Center>임포트 시뮬레이션</Button.Center>
+        </Button>
+        <Button color="black" size="small" onClick={() => { void simulateError() }} disabled={running}>
+          <Button.Center>에러 시뮬레이션</Button.Center>
+        </Button>
+      </div>
+      <div style={{ fontSize: 11, color: '#9ca3af' }}>loading → success/error 전환 + 동일 id Toast 업데이트</div>
+    </div>
+  )
+}
+
+export const Arco_작업_결과_알림_패턴: Story = {
+  name: 'Arco Design - 비동기 작업 결과 알림 패턴',
+  render: (args) => <ArcoAsyncToastRender {...args} />,
+  parameters: {
+    docs: {
+      description: {
+        story: 'Arco Design Message 패턴. 비동기 작업(임포트/동기화)의 loading 상태를 먼저 표시하고 완료 시 동일 Toast id를 success/error로 전환합니다. 재시도 액션 버튼으로 오류 복구 흐름을 지원합니다.',
+      },
+    },
+  },
+}
+
+export const Linear_커밋_배포_알림: Story = {
+  name: 'Linear + Vercel - 커밋 배포 완료 알림 패턴',
+  render: (args) => {
+    const deployStages = [
+      { label: '빌드 시작', type: 'info' as const },
+      { label: '빌드 완료', type: 'success' as const },
+      { label: '배포 시작', type: 'info' as const },
+      { label: '배포 완료', type: 'success' as const },
+    ]
+
+    const runDeployPipeline = async () => {
+      for (const stage of deployStages) {
+        await new Promise(res => setTimeout(res, 800))
+        if (stage.type === 'success') {
+          toast.success(stage.label, {
+            description: stage.label.includes('배포') ? 'orbit-ui.vercel.app' : '0 errors · 2 warnings',
+          })
+        } else {
+          toast(stage.label, {
+            description: stage.label.includes('빌드') ? 'pnpm build:storybook' : 'vercel deploy --scope blue45fs-projects',
+          })
+        }
+      }
+    }
+
+    const showMerge = () => {
+      toast.success('PR #148 머지됨', {
+        description: 'feat(stories): Cycle 99 스토리 추가 by hjunkim',
+        action: {
+          label: 'PR 보기',
+          onClick: () => toast.info('GitHub PR 페이지로 이동'),
+        },
+        duration: 5000,
+      })
+    }
+
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 10, fontFamily: 'Inter, system-ui, sans-serif' }}>
+        <Toaster {...args} />
+        <div style={{ fontSize: 12, fontWeight: 700, color: '#6b7280', marginBottom: 4 }}>커밋 + 배포 파이프라인 알림</div>
+        <div style={{ display: 'flex', gap: 8 }}>
+          <Button color="black" size="small" onClick={runDeployPipeline}>
+            <Button.Center>배포 파이프라인 시뮬레이션</Button.Center>
+          </Button>
+          <Button color="black" size="small" onClick={showMerge}>
+            <Button.Center>PR 머지 알림</Button.Center>
+          </Button>
+        </div>
+        <div style={{ fontSize: 11, color: '#9ca3af' }}>순차적 Toast 시퀀스 — 배포 단계별 피드백</div>
+      </div>
+    )
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Linear + Vercel 배포 파이프라인 Toast 패턴. 빌드 시작 → 빌드 완료 → 배포 시작 → 배포 완료의 4단계 순차적 Toast 시퀀스로 CI/CD 진행 상황을 실시간 알립니다. PR 머지 알림에는 action 버튼을 포함합니다.',
+      },
+    },
+  },
+}

@@ -791,3 +791,207 @@ export const Chakra_카테고리_멀티_배지_필터: Story = {
   },
   render: () => <ChakraCategoryBadgeFilterRender />,
 }
+
+const LINEAR_ISSUE_STATUS = [
+  { id: 'backlog', label: 'Backlog', color: 'gray' as const },
+  { id: 'todo', label: 'Todo', color: 'gray' as const },
+  { id: 'inprogress', label: 'In Progress', color: 'benefit' as const },
+  { id: 'done', label: 'Done', color: 'benefit' as const },
+  { id: 'cancelled', label: 'Cancelled', color: 'gray' as const },
+]
+
+const LINEAR_ISSUES_DATA = [
+  { id: 'ENG-101', title: '버튼 컴포넌트 호버 상태 수정', status: 'inprogress', priority: 'high' },
+  { id: 'ENG-102', title: 'DataTable 정렬 버그 수정', status: 'todo', priority: 'urgent' },
+  { id: 'ENG-103', title: 'Toast 자동 닫힘 타이밍 조정', status: 'done', priority: 'medium' },
+  { id: 'ENG-104', title: '다크모드 색상 토큰 적용', status: 'backlog', priority: 'low' },
+  { id: 'ENG-105', title: '접근성 키보드 탐색 개선', status: 'inprogress', priority: 'high' },
+]
+
+const PRIORITY_META: Record<string, { label: string; color: 'sale' | 'benefit' | 'gray' }> = {
+  urgent: { label: 'Urgent', color: 'sale' },
+  high: { label: 'High', color: 'benefit' },
+  medium: { label: 'Medium', color: 'gray' },
+  low: { label: 'Low', color: 'gray' },
+}
+
+const LinearIssueStatusBadgeRender = () => {
+  const [filterStatus, setFilterStatus] = useState<string | null>(null)
+
+  const filtered = LINEAR_ISSUES_DATA.filter(i => filterStatus === null || i.status === filterStatus)
+
+  return (
+    <div style={{ width: 440, fontFamily: 'Inter, system-ui, sans-serif' }}>
+      <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginBottom: 14 }}>
+        <button
+          onClick={() => setFilterStatus(null)}
+          style={{ fontSize: 11, padding: '3px 10px', borderRadius: 6, border: '1px solid #e5e7eb', background: filterStatus === null ? '#111' : '#fff', color: filterStatus === null ? '#fff' : '#6b7280', cursor: 'pointer', fontWeight: 600 }}
+        >
+          전체
+        </button>
+        {LINEAR_ISSUE_STATUS.map(s => (
+          <button
+            key={s.id}
+            onClick={() => setFilterStatus(filterStatus === s.id ? null : s.id)}
+            style={{ fontSize: 11, padding: '3px 10px', borderRadius: 6, border: '1px solid #e5e7eb', background: filterStatus === s.id ? '#111' : '#fff', color: filterStatus === s.id ? '#fff' : '#6b7280', cursor: 'pointer' }}
+          >
+            {s.label}
+          </button>
+        ))}
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+        {filtered.map(issue => {
+          const statusMeta = LINEAR_ISSUE_STATUS.find(s => s.id === issue.status)
+          const priorityMeta = PRIORITY_META[issue.priority]
+          return (
+            <div key={issue.id} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '8px 10px', borderRadius: 8, background: '#f9fafb', border: '1px solid #f0f0f0' }}>
+              <span style={{ fontSize: 10, fontFamily: 'monospace', color: '#9ca3af', flexShrink: 0 }}>{issue.id}</span>
+              <span style={{ flex: 1, fontSize: 13, color: '#111', fontWeight: 500, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{issue.title}</span>
+              <LabelBadge color={priorityMeta.color}>
+                <LabelBadge.Label>{priorityMeta.label}</LabelBadge.Label>
+              </LabelBadge>
+              <LabelBadge color={statusMeta?.color ?? 'gray'}>
+                <LabelBadge.Label>{statusMeta?.label ?? issue.status}</LabelBadge.Label>
+              </LabelBadge>
+            </div>
+          )
+        })}
+      </div>
+      <div style={{ marginTop: 8, fontSize: 11, color: '#9ca3af' }}>Linear 이슈 상태 + 우선순위 배지 패턴</div>
+    </div>
+  )
+}
+
+export const Linear_이슈_상태_우선순위_배지: Story = {
+  name: 'Linear - 이슈 상태 + 우선순위 배지 필터 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Linear 이슈 목록의 상태(Backlog/Todo/In Progress/Done)와 우선순위(Urgent/High/Medium/Low) 배지 패턴. 필터 버튼으로 상태별 이슈를 필터링하며 LabelBadge 색상으로 중요도를 시각화합니다.',
+      },
+    },
+  },
+  render: () => <LinearIssueStatusBadgeRender />,
+}
+
+const ARCO_TECH_TAGS = [
+  { id: 'react', label: 'React', group: 'frontend' },
+  { id: 'vue', label: 'Vue', group: 'frontend' },
+  { id: 'angular', label: 'Angular', group: 'frontend' },
+  { id: 'node', label: 'Node.js', group: 'backend' },
+  { id: 'python', label: 'Python', group: 'backend' },
+  { id: 'go', label: 'Go', group: 'backend' },
+  { id: 'mysql', label: 'MySQL', group: 'database' },
+  { id: 'redis', label: 'Redis', group: 'database' },
+]
+
+const ARCO_GROUP_COLOR: Record<string, 'gray' | 'benefit' | 'sale'> = {
+  frontend: 'benefit',
+  backend: 'sale',
+  database: 'gray',
+}
+
+const ArcoTagGroupRender = () => {
+  const [selected, setSelected] = useState<Set<string>>(new Set(['react', 'node']))
+
+  const toggle = (id: string) => {
+    setSelected(prev => {
+      const next = new Set(prev)
+      if (next.has(id)) next.delete(id)
+      else next.add(id)
+      return next
+    })
+  }
+
+  const groups = ['frontend', 'backend', 'database']
+
+  return (
+    <div style={{ width: 380, fontFamily: 'Inter, system-ui, sans-serif', border: '1px solid #e5e7eb', borderRadius: 10, padding: '14px', background: '#fff' }}>
+      <div style={{ fontSize: 13, fontWeight: 700, color: '#111', marginBottom: 12 }}>기술 스택 선택</div>
+      {groups.map(group => (
+        <div key={group} style={{ marginBottom: 10 }}>
+          <div style={{ fontSize: 10, fontWeight: 700, color: '#9ca3af', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 6 }}>{group}</div>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 5 }}>
+            {ARCO_TECH_TAGS.filter(t => t.group === group).map(tag => (
+              <div
+                key={tag.id}
+                onClick={() => toggle(tag.id)}
+                style={{ cursor: 'pointer', opacity: selected.has(tag.id) ? 1 : 0.4, transition: 'opacity 0.15s', transform: selected.has(tag.id) ? 'scale(1.05)' : 'scale(1)', display: 'inline-block' }}
+              >
+                <LabelBadge color={ARCO_GROUP_COLOR[group]}>
+                  <LabelBadge.Label>{tag.label}</LabelBadge.Label>
+                </LabelBadge>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+      <div style={{ marginTop: 8, fontSize: 11, color: '#9ca3af' }}>
+        {selected.size}개 선택됨 — Arco Design Tag Group 패턴
+      </div>
+    </div>
+  )
+}
+
+export const Arco_기술스택_태그_그룹: Story = {
+  name: 'Arco Design - 기술 스택 태그 그룹 선택 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Arco Design Tag Group 패턴. Frontend/Backend/Database 카테고리별로 기술 스택 LabelBadge를 그룹핑하고 클릭 선택/해제를 지원합니다. 선택 상태는 opacity와 scale 트랜지션으로 시각화합니다.',
+      },
+    },
+  },
+  render: () => <ArcoTagGroupRender />,
+}
+
+const LINEAR_PROJECT_HEALTH = [
+  { id: 'p1', name: 'Eclipse Theme v2', health: 'on_track', progress: 72, lead: 'HJ', color: '#7c3aed' },
+  { id: 'p2', name: 'Core Components', health: 'at_risk', progress: 43, lead: 'SJ', color: '#ef4444' },
+  { id: 'p3', name: 'Storybook 고도화', health: 'on_track', progress: 91, lead: 'MJ', color: '#10b981' },
+  { id: 'p4', name: 'Design Token 정리', health: 'off_track', progress: 18, lead: 'YH', color: '#f59e0b' },
+]
+
+const HEALTH_BADGE: Record<string, { label: string; color: 'sale' | 'benefit' | 'gray' }> = {
+  on_track: { label: 'On Track', color: 'benefit' },
+  at_risk: { label: 'At Risk', color: 'sale' },
+  off_track: { label: 'Off Track', color: 'gray' },
+}
+
+const LinearProjectHealthRender = () => (
+  <div style={{ width: 400, fontFamily: 'Inter, system-ui, sans-serif', display: 'flex', flexDirection: 'column', gap: 6 }}>
+    <div style={{ fontSize: 12, fontWeight: 700, color: '#6b7280', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 4 }}>프로젝트 헬스</div>
+    {LINEAR_PROJECT_HEALTH.map(proj => {
+      const health = HEALTH_BADGE[proj.health]
+      return (
+        <div key={proj.id} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 12px', borderRadius: 8, border: '1px solid #f0f0f0', background: '#fff' }}>
+          <div style={{ width: 8, height: 8, borderRadius: '50%', background: proj.color, flexShrink: 0 }} />
+          <span style={{ flex: 1, fontSize: 13, color: '#111', fontWeight: 500 }}>{proj.name}</span>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+            <div style={{ width: 60, height: 4, borderRadius: 2, background: '#f0f0f0', overflow: 'hidden' }}>
+              <div style={{ width: `${proj.progress}%`, height: '100%', background: proj.color, transition: 'width 0.3s' }} />
+            </div>
+            <span style={{ fontSize: 10, color: '#9ca3af', minWidth: 28 }}>{proj.progress}%</span>
+          </div>
+          <LabelBadge color={health.color}>
+            <LabelBadge.Label>{health.label}</LabelBadge.Label>
+          </LabelBadge>
+          <div style={{ width: 22, height: 22, borderRadius: '50%', background: proj.color + '20', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 10, fontWeight: 700, color: proj.color }}>{proj.lead}</div>
+        </div>
+      )
+    })}
+    <div style={{ fontSize: 11, color: '#9ca3af', marginTop: 2 }}>Linear 프로젝트 헬스 배지 패턴</div>
+  </div>
+)
+
+export const Linear_프로젝트_헬스_대시보드: Story = {
+  name: 'Linear - 프로젝트 헬스 대시보드 배지',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Linear 프로젝트 상태 대시보드 패턴. On Track/At Risk/Off Track 헬스를 LabelBadge로 표시하고, 진행률 바와 담당자 아바타를 함께 배치합니다. 각 프로젝트의 건강 상태를 한눈에 파악할 수 있는 복합 UI입니다.',
+      },
+    },
+  },
+  render: () => <LinearProjectHealthRender />,
+}
