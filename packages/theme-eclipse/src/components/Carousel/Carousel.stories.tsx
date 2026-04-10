@@ -894,3 +894,353 @@ export const Arco_리뷰_캐러셀: Story = {
   },
   render: () => <TestimonialCarouselRender />,
 }
+
+/* --------------------------------------------------------------------------
+   shadcn/ui 벤치마크: 피처 하이라이트 캐러셀
+   shadcn/ui 랜딩페이지 feature showcase 패턴 — 아이콘 + 제목 + 설명
+-------------------------------------------------------------------------- */
+const FEATURES = [
+  {
+    icon: '★',
+    title: '3-Tier 토큰 시스템',
+    desc: 'Reference → Semantic → Component 3단계 토큰 구조로 브랜드 일관성과 커스터마이징 유연성을 동시에 달성합니다.',
+    color: '#6366f1',
+    bg: '#eef2ff',
+  },
+  {
+    icon: '◈',
+    title: 'vanilla-extract 기반',
+    desc: '빌드 타임 CSS 생성으로 런타임 오버헤드 없이 완전한 타입 안전성을 제공합니다.',
+    color: '#06b6d4',
+    bg: '#ecfeff',
+  },
+  {
+    icon: '◉',
+    title: 'Compound 컴포넌트',
+    desc: 'Button.Leading, Button.Center 등 서브 컴포넌트로 유연한 조합 API를 제공합니다.',
+    color: '#8b5cf6',
+    bg: '#f5f3ff',
+  },
+  {
+    icon: '⬡',
+    title: 'WAI-ARIA 완전 지원',
+    desc: 'aria-*, role, keyboard navigation을 기본 내장해 접근성을 추가 작업 없이 달성합니다.',
+    color: '#10b981',
+    bg: '#ecfdf5',
+  },
+]
+
+function FeatureCarouselRender() {
+  const [current, setCurrent] = useState(0)
+  const [api, setApi] = useState<Parameters<NonNullable<React.ComponentProps<typeof Carousel>['setApi']>>[0] | null>(null)
+
+  useEffect(() => {
+    if (!api) return
+    api.on('select', () => setCurrent(api.selectedScrollSnap()))
+  }, [api])
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 20, padding: '20px' }}>
+      <Carousel
+        className="w-full"
+        style={{ maxWidth: 380 }}
+        setApi={setApi}
+      >
+        <Carousel.Content>
+          {FEATURES.map((f) => (
+            <Carousel.Item key={f.title}>
+              <div style={{
+                margin: '0 8px', padding: '32px 24px',
+                background: f.bg, borderRadius: '16px',
+                border: `1px solid ${f.color}30`,
+                display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 14,
+                textAlign: 'center', minHeight: 200,
+              }}>
+                <div style={{
+                  width: 52, height: 52, borderRadius: '14px',
+                  background: f.color, color: '#fff',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  fontSize: '22px', fontWeight: 700,
+                }}>
+                  {f.icon}
+                </div>
+                <div style={{ fontSize: 15, fontWeight: 700, color: '#1e293b' }}>{f.title}</div>
+                <div style={{ fontSize: 13, color: '#64748b', lineHeight: 1.6 }}>{f.desc}</div>
+              </div>
+            </Carousel.Item>
+          ))}
+        </Carousel.Content>
+        <Carousel.Previous />
+        <Carousel.Next />
+      </Carousel>
+
+      {/* Dot indicators */}
+      <div style={{ display: 'flex', gap: 6 }}>
+        {FEATURES.map((f, i) => (
+          <button
+            key={f.title}
+            onClick={() => api?.scrollTo(i)}
+            style={{
+              width: i === current ? 20 : 8, height: 8, borderRadius: 4, border: 'none', padding: 0,
+              background: i === current ? FEATURES[current].color : '#e2e8f0',
+              cursor: 'pointer', transition: 'all 0.2s ease',
+            }}
+          />
+        ))}
+      </div>
+      <div style={{ fontSize: 11, color: '#94a3b8' }}>
+        shadcn/ui feature showcase 패턴 — {current + 1}/{FEATURES.length}
+      </div>
+    </div>
+  )
+}
+
+export const shadcn_피처_하이라이트: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'shadcn/ui 랜딩페이지 feature showcase 패턴. 아이콘 + 제목 + 설명으로 제품의 핵심 가치를 순서대로 소개합니다. 도트 인디케이터는 현재 슬라이드 색상에 맞게 동적으로 변경됩니다.',
+      },
+    },
+  },
+  render: () => <FeatureCarouselRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Radix UI 벤치마크: 수직 스크롤 스텝 캐러셀
+   Radix ScrollArea + Carousel 조합 패턴 — 단계별 가이드 플로우
+-------------------------------------------------------------------------- */
+const STEPS = [
+  { step: 1, title: '패키지 설치', code: 'pnpm add @heejun-com/theme-eclipse', color: '#6366f1' },
+  { step: 2, title: 'Provider 설정', code: 'import { EclipseProvider } from "@heejun-com/theme-eclipse"', color: '#8b5cf6' },
+  { step: 3, title: '컴포넌트 임포트', code: 'import { SolidButton } from "@heejun-com/theme-eclipse"', color: '#06b6d4' },
+  { step: 4, title: '완료!', code: '<SolidButton color="primary">시작하기</SolidButton>', color: '#10b981' },
+]
+
+function StepCarouselRender() {
+  const [current, setCurrent] = useState(0)
+  const [api, setApi] = useState<Parameters<NonNullable<React.ComponentProps<typeof Carousel>['setApi']>>[0] | null>(null)
+  const [completed, setCompleted] = useState<Set<number>>(new Set())
+
+  useEffect(() => {
+    if (!api) return
+    api.on('select', () => setCurrent(api.selectedScrollSnap()))
+  }, [api])
+
+  const handleNext = () => {
+    setCompleted((prev) => new Set([...prev, current]))
+    api?.scrollNext()
+  }
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 16, padding: '20px', maxWidth: 420 }}>
+      {/* Step progress bar */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: 0 }}>
+        {STEPS.map((s, i) => (
+          <React.Fragment key={s.step}>
+            <div style={{
+              width: 28, height: 28, borderRadius: '50%', flexShrink: 0,
+              background: completed.has(i) ? '#10b981' : i === current ? s.color : '#e2e8f0',
+              color: completed.has(i) || i === current ? '#fff' : '#94a3b8',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              fontSize: '12px', fontWeight: 700, transition: 'all 0.2s',
+            }}>
+              {completed.has(i) ? '✓' : s.step}
+            </div>
+            {i < STEPS.length - 1 && (
+              <div style={{
+                flex: 1, height: 2,
+                background: completed.has(i) ? '#10b981' : '#e2e8f0',
+                transition: 'background 0.3s',
+              }} />
+            )}
+          </React.Fragment>
+        ))}
+      </div>
+
+      <Carousel setApi={setApi} className="w-full">
+        <Carousel.Content>
+          {STEPS.map((s) => (
+            <Carousel.Item key={s.step}>
+              <div style={{
+                margin: '0 4px', padding: '20px',
+                background: '#fff', borderRadius: '12px',
+                border: `1px solid ${s.color}30`,
+                boxShadow: '0 2px 8px rgba(0,0,0,0.06)',
+              }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 12 }}>
+                  <div style={{
+                    width: 32, height: 32, borderRadius: '8px',
+                    background: s.color, color: '#fff',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    fontSize: '13px', fontWeight: 700, flexShrink: 0,
+                  }}>
+                    {s.step}
+                  </div>
+                  <div style={{ fontSize: 14, fontWeight: 700, color: '#1e293b' }}>{s.title}</div>
+                </div>
+                <pre style={{
+                  margin: 0, padding: '12px 14px', borderRadius: '8px',
+                  background: '#0f172a', color: '#e2e8f0',
+                  fontSize: '12px', lineHeight: 1.6, whiteSpace: 'pre-wrap', wordBreak: 'break-all',
+                  fontFamily: 'monospace',
+                }}>
+                  {s.code}
+                </pre>
+              </div>
+            </Carousel.Item>
+          ))}
+        </Carousel.Content>
+      </Carousel>
+
+      <div style={{ display: 'flex', gap: 8 }}>
+        <button
+          onClick={() => api?.scrollPrev()}
+          disabled={current === 0}
+          style={{
+            flex: 1, padding: '9px', borderRadius: '8px',
+            border: '1px solid #e2e8f0', background: '#fff', color: '#374151',
+            fontSize: '13px', fontWeight: 500, cursor: current === 0 ? 'not-allowed' : 'pointer',
+            opacity: current === 0 ? 0.4 : 1,
+          }}
+        >
+          이전
+        </button>
+        {current < STEPS.length - 1 ? (
+          <button
+            onClick={handleNext}
+            style={{
+              flex: 2, padding: '9px', borderRadius: '8px',
+              border: 'none', background: STEPS[current].color, color: '#fff',
+              fontSize: '13px', fontWeight: 600, cursor: 'pointer',
+            }}
+          >
+            다음 단계
+          </button>
+        ) : (
+          <button
+            onClick={() => setCompleted((prev) => new Set([...prev, current]))}
+            style={{
+              flex: 2, padding: '9px', borderRadius: '8px',
+              border: 'none', background: '#10b981', color: '#fff',
+              fontSize: '13px', fontWeight: 600, cursor: 'pointer',
+            }}
+          >
+            완료!
+          </button>
+        )}
+      </div>
+      <div style={{ fontSize: 11, color: '#94a3b8', textAlign: 'center' }}>
+        Radix ScrollArea + Carousel 조합 — 단계별 온보딩 가이드
+      </div>
+    </div>
+  )
+}
+
+export const Radix_스텝_가이드_캐러셀: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Radix UI ScrollArea + Carousel 조합 패턴. 설치/설정을 단계별로 안내하는 온보딩 가이드입니다. 상단 진행 바가 완료된 단계를 시각적으로 추적합니다.',
+      },
+    },
+  },
+  render: () => <StepCarouselRender />,
+}
+
+/* --------------------------------------------------------------------------
+   shadcn/ui + Radix 벤치마크: 제품 이미지 갤러리 (썸네일 네비게이션)
+   shadcn/ui Carousel + 썸네일 트랙 패턴 — 이커머스 제품 상세 이미지
+-------------------------------------------------------------------------- */
+const PRODUCT_SLIDES = [
+  { id: 1, bg: 'linear-gradient(135deg, #6366f1, #8b5cf6)', label: 'Front View', caption: '전면' },
+  { id: 2, bg: 'linear-gradient(135deg, #06b6d4, #0284c7)', label: 'Side View', caption: '측면' },
+  { id: 3, bg: 'linear-gradient(135deg, #10b981, #059669)', label: 'Back View', caption: '후면' },
+  { id: 4, bg: 'linear-gradient(135deg, #f59e0b, #d97706)', label: 'Detail View', caption: '디테일' },
+]
+
+function ProductGalleryRender() {
+  const [current, setCurrent] = useState(0)
+  const [api, setApi] = useState<Parameters<NonNullable<React.ComponentProps<typeof Carousel>['setApi']>>[0] | null>(null)
+
+  useEffect(() => {
+    if (!api) return
+    api.on('select', () => setCurrent(api.selectedScrollSnap()))
+  }, [api])
+
+  const handleThumbClick = (i: number) => {
+    api?.scrollTo(i)
+  }
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 12, padding: '20px', maxWidth: 360 }}>
+      {/* Main carousel */}
+      <Carousel setApi={setApi} className="w-full">
+        <Carousel.Content>
+          {PRODUCT_SLIDES.map((slide) => (
+            <Carousel.Item key={slide.id}>
+              <div style={{
+                margin: '0 4px', height: 220, borderRadius: '12px',
+                background: slide.bg,
+                display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 8,
+              }}>
+                <div style={{ fontSize: 13, fontWeight: 600, color: 'rgba(255,255,255,0.9)', letterSpacing: '0.05em' }}>
+                  {slide.label}
+                </div>
+                <div style={{
+                  width: 80, height: 80, borderRadius: '50%',
+                  background: 'rgba(255,255,255,0.2)',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  fontSize: '30px',
+                }}>
+                  ◈
+                </div>
+              </div>
+            </Carousel.Item>
+          ))}
+        </Carousel.Content>
+        <Carousel.Previous />
+        <Carousel.Next />
+      </Carousel>
+
+      {/* Thumbnail track */}
+      <div style={{ display: 'flex', gap: 8 }}>
+        {PRODUCT_SLIDES.map((slide, i) => (
+          <button
+            key={slide.id}
+            onClick={() => handleThumbClick(i)}
+            style={{
+              flex: 1, height: 52, borderRadius: '8px',
+              background: slide.bg, border: 'none', cursor: 'pointer', padding: 0,
+              outline: i === current ? '2px solid #1e293b' : '2px solid transparent',
+              outlineOffset: '2px',
+              opacity: i === current ? 1 : 0.55,
+              transition: 'all 0.15s',
+            }}
+          >
+            <div style={{ fontSize: 9, color: 'rgba(255,255,255,0.9)', fontWeight: 600 }}>
+              {slide.caption}
+            </div>
+          </button>
+        ))}
+      </div>
+      <div style={{ fontSize: 11, color: '#94a3b8', textAlign: 'center' }}>
+        shadcn/ui 제품 갤러리 패턴 — 썸네일 트랙으로 빠른 이미지 전환
+      </div>
+    </div>
+  )
+}
+
+export const shadcn_제품_갤러리: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'shadcn/ui Carousel의 제품 이미지 갤러리 패턴. 메인 슬라이드 + 하단 썸네일 트랙으로 이커머스 제품 상세 이미지 탐색 UX를 구현합니다.',
+      },
+    },
+  },
+  render: () => <ProductGalleryRender />,
+}

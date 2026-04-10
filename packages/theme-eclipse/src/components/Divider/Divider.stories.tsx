@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Flex } from '@heejun-com/core'
 import { Meta, StoryObj } from '@storybook/react'
 
@@ -204,6 +205,247 @@ export const 텍스트_섹션_구분 = {
    대시보드 섹션 구분 패턴 (Ant Design Dashboard 레이아웃)
    카드 그리드 사이의 섹션 구분
 -------------------------------------------------------------------------- */
+/* --------------------------------------------------------------------------
+   shadcn/ui 벤치마크: OR/AND 라벨 구분선 (로그인 폼 패턴)
+   shadcn/ui LoginForm 패턴 — 소셜 로그인과 이메일 로그인 사이의 분리선
+-------------------------------------------------------------------------- */
+export const shadcn_OR_구분선 = {
+  render: () => (
+    <Flex flexDirection="column" rowGap="24px" style={{ width: '360px', padding: '24px', background: '#fff', borderRadius: '12px', border: '1px solid #e2e8f0' }}>
+      <Typography textStyle="subheadingSmall" style={{ textAlign: 'center', color: '#1e293b' }}>
+        로그인
+      </Typography>
+      {/* 소셜 로그인 버튼들 */}
+      <Flex flexDirection="column" rowGap="8px">
+        {[
+          { label: 'GitHub으로 계속하기', bg: '#24292f', color: '#fff' },
+          { label: 'Google로 계속하기', bg: '#fff', color: '#374151', border: '1px solid #e2e8f0' },
+        ].map((btn) => (
+          <button
+            key={btn.label}
+            style={{
+              width: '100%', padding: '10px 16px', borderRadius: '8px',
+              border: btn.border ?? 'none', background: btn.bg, color: btn.color,
+              fontSize: '14px', fontWeight: 500, cursor: 'pointer',
+            }}
+          >
+            {btn.label}
+          </button>
+        ))}
+      </Flex>
+
+      {/* shadcn/ui OR 구분선 */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+        <Divider />
+        <span style={{ fontSize: '12px', fontWeight: 500, color: '#94a3b8', whiteSpace: 'nowrap', letterSpacing: '0.05em' }}>
+          또는
+        </span>
+        <Divider />
+      </div>
+
+      {/* 이메일 로그인 */}
+      <Flex flexDirection="column" rowGap="10px">
+        <input
+          type="email"
+          placeholder="이메일"
+          style={{
+            width: '100%', padding: '9px 12px', borderRadius: '8px',
+            border: '1px solid #e2e8f0', fontSize: '14px', boxSizing: 'border-box',
+            outline: 'none',
+          }}
+        />
+        <input
+          type="password"
+          placeholder="비밀번호"
+          style={{
+            width: '100%', padding: '9px 12px', borderRadius: '8px',
+            border: '1px solid #e2e8f0', fontSize: '14px', boxSizing: 'border-box',
+            outline: 'none',
+          }}
+        />
+        <button
+          style={{
+            width: '100%', padding: '10px', borderRadius: '8px',
+            background: '#1e293b', color: '#fff', border: 'none',
+            fontSize: '14px', fontWeight: 600, cursor: 'pointer',
+          }}
+        >
+          이메일로 로그인
+        </button>
+      </Flex>
+      <Typography textStyle="descriptionSmall" style={{ textAlign: 'center', color: '#94a3b8' }}>
+        shadcn/ui 로그인 폼 패턴 — OR 구분선으로 인증 방식 분리
+      </Typography>
+    </Flex>
+  ),
+} satisfies Story
+
+/* --------------------------------------------------------------------------
+   Radix UI 벤치마크: 컨텍스트 메뉴 구분선 패턴
+   Radix UI ContextMenu.Separator 패턴 — 메뉴 항목 그룹 사이 구분
+-------------------------------------------------------------------------- */
+function ContextMenuDividerDemo() {
+  const [selected, setSelected] = useState<string | null>(null)
+
+  const menuGroups: Array<Array<{ key: string; label: string; shortcut: string; danger?: boolean }>> = [
+    [
+      { key: 'copy', label: '복사', shortcut: '⌘C' },
+      { key: 'cut', label: '잘라내기', shortcut: '⌘X' },
+      { key: 'paste', label: '붙여넣기', shortcut: '⌘V' },
+    ],
+    [
+      { key: 'duplicate', label: '복제', shortcut: '⌘D' },
+      { key: 'rename', label: '이름 바꾸기', shortcut: 'F2' },
+    ],
+    [
+      { key: 'delete', label: '삭제', shortcut: '⌫', danger: true },
+    ],
+  ]
+
+  return (
+    <Flex flexDirection="column" rowGap="16px" style={{ alignItems: 'flex-start', padding: '20px' }}>
+      <Typography textStyle="descriptionSmall" style={{ color: '#94a3b8' }}>
+        항목을 선택하면 아래에 표시됩니다.
+      </Typography>
+      <div
+        style={{
+          width: 220, background: '#fff', borderRadius: '10px',
+          border: '1px solid #e2e8f0', boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
+          overflow: 'hidden', padding: '4px 0',
+        }}
+      >
+        {menuGroups.map((group, gi) => (
+          <div key={gi}>
+            {gi > 0 && (
+              <div style={{ padding: '4px 0' }}>
+                <Divider />
+              </div>
+            )}
+            {group.map((item) => (
+              <button
+                key={item.key}
+                onClick={() => setSelected(item.label)}
+                style={{
+                  display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                  width: '100%', padding: '7px 14px', border: 'none', background: 'none',
+                  cursor: 'pointer', fontSize: '13px',
+                  color: item.danger ? '#ef4444' : '#1e293b',
+                  textAlign: 'left',
+                }}
+              >
+                <span>{item.label}</span>
+                <kbd style={{
+                  fontSize: '11px', color: '#94a3b8', background: '#f1f5f9',
+                  padding: '1px 5px', borderRadius: '4px', fontFamily: 'monospace',
+                }}>
+                  {item.shortcut}
+                </kbd>
+              </button>
+            ))}
+          </div>
+        ))}
+      </div>
+      {selected && (
+        <Typography textStyle="descriptionSmall" style={{ color: '#6366f1', fontWeight: 600 }}>
+          선택됨: {selected}
+        </Typography>
+      )}
+      <Typography textStyle="descriptionSmall" style={{ color: '#94a3b8' }}>
+        Radix UI ContextMenu.Separator 패턴 — 그룹 사이 Divider로 시각적 계층 형성
+      </Typography>
+    </Flex>
+  )
+}
+
+export const Radix_컨텍스트_메뉴_구분선 = {
+  render: () => <ContextMenuDividerDemo />,
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Radix UI ContextMenu.Separator 패턴. 메뉴 항목을 기능 그룹별로 Divider로 구분합니다. 삭제 등 파괴적 액션은 별도 그룹에 분리해 실수를 방지합니다.',
+      },
+    },
+  },
+} satisfies Story
+
+/* --------------------------------------------------------------------------
+   shadcn/ui 벤치마크: 프로필 카드 내부 구분선
+   shadcn/ui Card 패턴 — 사용자 정보와 통계 섹션을 Divider로 분리
+-------------------------------------------------------------------------- */
+export const shadcn_프로필_카드_구분선 = {
+  render: () => (
+    <div
+      style={{
+        width: 300, background: '#fff', borderRadius: '14px',
+        border: '1px solid #e2e8f0', overflow: 'hidden',
+        boxShadow: '0 2px 12px rgba(0,0,0,0.06)',
+      }}
+    >
+      {/* 프로필 헤더 */}
+      <div style={{ padding: '20px', textAlign: 'center' }}>
+        <div style={{
+          width: 56, height: 56, borderRadius: '50%', margin: '0 auto 10px',
+          background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          color: '#fff', fontWeight: 700, fontSize: '22px',
+        }}>
+          K
+        </div>
+        <Typography textStyle="subheadingSmall" style={{ color: '#1e293b', display: 'block', marginBottom: '2px' }}>
+          김민준
+        </Typography>
+        <Typography textStyle="descriptionSmall" style={{ color: '#64748b' }}>
+          Senior Frontend Engineer
+        </Typography>
+      </div>
+
+      {/* Divider */}
+      <Divider />
+
+      {/* 통계 */}
+      <div style={{ display: 'flex', padding: '16px 0' }}>
+        {[
+          { label: '프로젝트', value: '24' },
+          { label: '커밋', value: '1.2k' },
+          { label: '팔로워', value: '318' },
+        ].map((stat, i) => (
+          <div key={stat.label} style={{ flex: 1, textAlign: 'center', display: 'flex', alignItems: 'stretch' }}>
+            {i > 0 && <Divider orientation="vertical" length="100%" />}
+            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '2px' }}>
+              <Typography textStyle="subheadingSmall" style={{ color: '#1e293b', fontWeight: 700 }}>
+                {stat.value}
+              </Typography>
+              <Typography textStyle="descriptionSmall" style={{ color: '#94a3b8', fontSize: '11px' }}>
+                {stat.label}
+              </Typography>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Divider */}
+      <Divider />
+
+      {/* 액션 */}
+      <div style={{ padding: '12px 16px', display: 'flex', gap: '8px' }}>
+        <button style={{
+          flex: 1, padding: '8px', borderRadius: '7px', border: '1px solid #e2e8f0',
+          background: '#fff', color: '#374151', fontSize: '13px', fontWeight: 500, cursor: 'pointer',
+        }}>
+          팔로우
+        </button>
+        <button style={{
+          flex: 1, padding: '8px', borderRadius: '7px', border: 'none',
+          background: '#1e293b', color: '#fff', fontSize: '13px', fontWeight: 500, cursor: 'pointer',
+        }}>
+          메시지
+        </button>
+      </div>
+    </div>
+  ),
+} satisfies Story
+
 export const 대시보드_섹션 = {
   render: () => (
     <Flex flexDirection="column" rowGap="0" style={{ width: '520px', padding: '20px', background: '#f1f5f9', borderRadius: '12px' }}>

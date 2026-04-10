@@ -10709,3 +10709,196 @@ export const SprintBoard: Story = {
   render: () => <SprintBoardRender />,
 }
 
+/* ═══════════════════════════════════════════
+   37. Dev Profile (shadcn/ui + Radix UI 벤치마크)
+   ═══════════════════════════════════════════ */
+type ProfileTab = 'overview' | 'activity' | 'settings'
+
+const PROFILE_ACTIVITY = [
+  { id: 1, action: 'SolidIconButton 스토리 3개 추가', time: '5분 전', type: 'commit' },
+  { id: 2, action: 'Cycle 46 PR 병합 완료', time: '1시간 전', type: 'merge' },
+  { id: 3, action: 'TypeScript 오류 3건 수정', time: '3시간 전', type: 'fix' },
+  { id: 4, action: 'BenchmarkComparison.mdx 보강', time: '어제', type: 'docs' },
+  { id: 5, action: 'Templates SprintBoard 추가', time: '어제', type: 'feat' },
+]
+
+const ACTIVITY_TYPE_CONFIG = {
+  commit: { label: 'commit', bg: '#e0e7ff', color: '#4338ca' },
+  merge: { label: 'merge', bg: '#dcfce7', color: '#16a34a' },
+  fix: { label: 'fix', bg: '#fef2f2', color: '#dc2626' },
+  docs: { label: 'docs', bg: '#fef9c3', color: '#b45309' },
+  feat: { label: 'feat', bg: '#f0fdf4', color: '#15803d' },
+}
+
+const SKILL_BADGES = ['React', 'TypeScript', 'Storybook', 'Figma', 'vanilla-extract', 'Tailwind CSS']
+
+const DevProfileRender = () => {
+  const [activeTab, setActiveTab] = useState<ProfileTab>('overview')
+  const [following, setFollowing] = useState(false)
+  const [notifOn, setNotifOn] = useState(true)
+
+  const tabs: Array<{ key: ProfileTab; label: string }> = [
+    { key: 'overview', label: '개요' },
+    { key: 'activity', label: '활동' },
+    { key: 'settings', label: '설정' },
+  ]
+
+  return (
+    <div style={{ fontFamily: 'system-ui, sans-serif', background: tc.bg, borderRadius: 12, border: `1px solid ${tc.border}`, overflow: 'hidden' }}>
+      {/* Cover */}
+      <div style={{ height: 120, background: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #06b6d4 100%)' }} />
+
+      {/* Profile header */}
+      <div style={{ padding: '0 24px 16px', position: 'relative' }}>
+        {/* Avatar */}
+        <div style={{
+          width: 72, height: 72, borderRadius: '50%',
+          background: 'linear-gradient(135deg, #1e293b, #334155)',
+          border: `4px solid ${tc.bg}`,
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          color: '#fff', fontWeight: 800, fontSize: 26,
+          marginTop: -36, marginBottom: 10,
+        }}>
+          K
+        </div>
+        <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }}>
+          <div>
+            <div style={{ fontWeight: 800, fontSize: 18, color: tc.fg }}>김민준</div>
+            <div style={{ fontSize: 13, color: tc.fgSub, marginTop: 2 }}>@minkim · Senior Frontend Engineer</div>
+            <div style={{ fontSize: 12, color: tc.fgMuted, marginTop: 4 }}>Orbit UI 컨트리뷰터 · Seoul, Korea</div>
+          </div>
+          <div style={{ display: 'flex', gap: 8, paddingTop: 4 }}>
+            <SolidIconButton
+              color={notifOn ? 'black' : 'white'}
+              size="small"
+              onClick={() => setNotifOn((p) => !p)}
+              aria-label="알림"
+              aria-pressed={notifOn}
+            >
+              <NotificationLineIcon />
+            </SolidIconButton>
+            <SolidButton
+              color={following ? 'black' : 'primary'}
+              size="small"
+              onClick={() => setFollowing((p) => !p)}
+            >
+              <SolidButton.Center>{following ? '팔로잉' : '팔로우'}</SolidButton.Center>
+            </SolidButton>
+          </div>
+        </div>
+
+        {/* Stats row */}
+        <div style={{ display: 'flex', gap: 20, marginTop: 14 }}>
+          {[
+            { label: '프로젝트', value: '24' },
+            { label: '커밋', value: '1.2k' },
+            { label: '팔로워', value: following ? '319' : '318' },
+            { label: '팔로잉', value: '47' },
+          ].map((stat) => (
+            <div key={stat.label} style={{ textAlign: 'center' }}>
+              <div style={{ fontWeight: 700, fontSize: 15, color: tc.fg }}>{stat.value}</div>
+              <div style={{ fontSize: 11, color: tc.fgMuted }}>{stat.label}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Tabs */}
+      <div style={{ borderBottom: `1px solid ${tc.border}`, display: 'flex', padding: '0 24px', gap: 0 }}>
+        {tabs.map((tab) => (
+          <button
+            key={tab.key}
+            onClick={() => setActiveTab(tab.key)}
+            style={{
+              padding: '10px 16px', border: 'none', background: 'none', cursor: 'pointer',
+              fontSize: 13, fontWeight: activeTab === tab.key ? 700 : 400,
+              color: activeTab === tab.key ? tc.fg : tc.fgSub,
+              borderBottom: activeTab === tab.key ? '2px solid #6366f1' : '2px solid transparent',
+              transition: 'all 0.15s',
+            }}
+          >
+            {tab.label}
+          </button>
+        ))}
+      </div>
+
+      {/* Tab content */}
+      <div style={{ padding: 24 }}>
+        {activeTab === 'overview' && (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
+            <div>
+              <div style={{ fontSize: 12, fontWeight: 700, color: tc.fgSub, textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 10 }}>기술 스택</div>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+                {SKILL_BADGES.map((skill) => (
+                  <Chip key={skill} color="outlined">
+                    {skill}
+                  </Chip>
+                ))}
+              </div>
+            </div>
+            <div>
+              <div style={{ fontSize: 12, fontWeight: 700, color: tc.fgSub, textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 10 }}>주요 프로젝트</div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                {[
+                  { name: 'orbit-ui', desc: '3-Tier 토큰 기반 React 디자인 시스템', stars: 42 },
+                  { name: 'storybook-utils', desc: 'Storybook 스토리 자동화 유틸리티', stars: 18 },
+                ].map((proj) => (
+                  <div key={proj.name} style={{ padding: '12px 14px', borderRadius: 8, border: `1px solid ${tc.border}`, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                    <div>
+                      <div style={{ fontSize: 13, fontWeight: 600, color: '#6366f1', marginBottom: 2 }}>{proj.name}</div>
+                      <div style={{ fontSize: 12, color: tc.fgSub }}>{proj.desc}</div>
+                    </div>
+                    <div style={{ fontSize: 12, color: tc.fgMuted, display: 'flex', alignItems: 'center', gap: 3 }}>
+                      ★ {proj.stars}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {activeTab === 'activity' && (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+            {PROFILE_ACTIVITY.map((item) => {
+              const typeConf = ACTIVITY_TYPE_CONFIG[item.type as keyof typeof ACTIVITY_TYPE_CONFIG]
+              return (
+                <div key={item.id} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '10px 12px', borderRadius: 8, border: `1px solid ${tc.border}` }}>
+                  <span style={{ fontSize: 10, fontWeight: 700, padding: '2px 7px', borderRadius: 4, background: typeConf.bg, color: typeConf.color, flexShrink: 0 }}>
+                    {typeConf.label}
+                  </span>
+                  <span style={{ fontSize: 13, color: tc.fg, flex: 1 }}>{item.action}</span>
+                  <span style={{ fontSize: 11, color: tc.fgMuted, flexShrink: 0 }}>{item.time}</span>
+                </div>
+              )
+            })}
+          </div>
+        )}
+
+        {activeTab === 'settings' && (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+            {[
+              { label: '이메일 알림', desc: '새 댓글, 멘션 시 이메일 수신', defaultOn: true },
+              { label: '푸시 알림', desc: '브라우저 푸시 알림 허용', defaultOn: false },
+              { label: '공개 프로필', desc: '누구나 프로필 열람 가능', defaultOn: true },
+            ].map((setting) => (
+              <div key={setting.label} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px 14px', borderRadius: 8, border: `1px solid ${tc.border}` }}>
+                <div>
+                  <div style={{ fontSize: 13, fontWeight: 600, color: tc.fg }}>{setting.label}</div>
+                  <div style={{ fontSize: 11, color: tc.fgMuted, marginTop: 2 }}>{setting.desc}</div>
+                </div>
+                <Switch defaultChecked={setting.defaultOn} />
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+
+export const DevProfile: Story = {
+  name: 'Dev Profile (shadcn/ui + Radix UI 벤치마크)',
+  render: () => <DevProfileRender />,
+}
+

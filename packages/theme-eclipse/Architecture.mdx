@@ -893,5 +893,97 @@ export default function RootLayout({ children }) {
     </div>
   </section>
 
+  {/* ─────────────────────────────────────────────────────
+      shadcn/ui + Radix UI 벤치마크 (Cycle 47)
+      ───────────────────────────────────────────────────── */}
+  <section style={{ marginTop: '48px' }}>
+    <div style={{ fontSize: '22px', fontWeight: '800', color: '#1e293b', marginBottom: '6px' }}>
+      shadcn/ui &amp; Radix UI 아키텍처 벤치마크
+    </div>
+    <div style={{ fontSize: '14px', color: '#64748b', marginBottom: '24px', lineHeight: '1.6' }}>
+      shadcn/ui의 Copy-paste 친화적 API 설계와 Radix UI의 Primitive 기반 접근성 아키텍처를 Orbit UI와 비교합니다.
+    </div>
+
+    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '14px', marginBottom: '24px' }}>
+      {/* shadcn/ui */}
+      <div style={{ padding: '18px', borderRadius: '12px', background: '#fafaf9', border: '2px solid #e7e5e4' }}>
+        <div style={{ fontWeight: '700', fontSize: '14px', color: '#1e293b', marginBottom: '12px' }}>shadcn/ui</div>
+        <ul style={{ listStyle: 'none', padding: 0, margin: 0, fontSize: '12px', color: '#44403c', lineHeight: '1.9' }}>
+          <li>Radix Primitive 위에 Tailwind CSS 스타일 레이어</li>
+          <li>소스 코드 직접 복사 (dependency-free)</li>
+          <li>레지스트리 기반 컴포넌트 추가</li>
+          <li>OR/AND 구분선, 피처 캐러셀 등 실무 패턴 포함</li>
+          <li>New York / Default 두 가지 스타일 테마</li>
+        </ul>
+      </div>
+
+      {/* Radix UI */}
+      <div style={{ padding: '18px', borderRadius: '12px', background: '#f5f3ff', border: '2px solid #ede9fe' }}>
+        <div style={{ fontWeight: '700', fontSize: '14px', color: '#1e293b', marginBottom: '12px' }}>Radix UI</div>
+        <ul style={{ listStyle: 'none', padding: 0, margin: 0, fontSize: '12px', color: '#4c1d95', lineHeight: '1.9' }}>
+          <li>스타일 없는 Primitive — 완전 커스텀 가능</li>
+          <li>WAI-ARIA 완전 구현 (focus trap, keyboard nav)</li>
+          <li>비제어/제어 패턴 모두 지원</li>
+          <li>ContextMenu, Tooltip 등 접근성 복잡 컴포넌트</li>
+          <li>포털 기반 오버레이 (z-index 자동 관리)</li>
+        </ul>
+      </div>
+
+      {/* Orbit UI */}
+      <div style={{ padding: '18px', borderRadius: '12px', background: '#f0fdf4', border: '2px solid #bbf7d0' }}>
+        <div style={{ fontWeight: '700', fontSize: '14px', color: '#1e293b', marginBottom: '12px' }}>Orbit UI</div>
+        <ul style={{ listStyle: 'none', padding: 0, margin: 0, fontSize: '12px', color: '#14532d', lineHeight: '1.9' }}>
+          <li>Radix Primitive 기반 + vanilla-extract 타입 안전 스타일</li>
+          <li>3-Tier 토큰으로 브랜드 테마 전환</li>
+          <li>Compound 컴포넌트로 유연한 조합 API</li>
+          <li>theme prop으로 런타임 토큰 오버라이드</li>
+          <li>shadcn/ui 패턴 + Radix 접근성 = Orbit UI 장점</li>
+        </ul>
+      </div>
+    </div>
+
+    <div style={{ padding: '20px', borderRadius: '12px', background: '#f8fafc', border: '1px solid #e2e8f0' }}>
+      <div style={{ fontSize: '13px', fontWeight: '700', color: '#1e293b', marginBottom: '14px' }}>주요 아키텍처 비교</div>
+      <div style={{ overflowX: 'auto' }}>
+        <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '12px' }}>
+          <thead>
+            <tr style={{ background: '#f1f5f9' }}>
+              <th style={{ padding: '9px 12px', textAlign: 'left', color: '#475569', fontWeight: '700', borderBottom: '2px solid #e2e8f0' }}>특성</th>
+              <th style={{ padding: '9px 12px', textAlign: 'left', color: '#44403c', fontWeight: '700', borderBottom: '2px solid #e2e8f0' }}>shadcn/ui</th>
+              <th style={{ padding: '9px 12px', textAlign: 'left', color: '#4c1d95', fontWeight: '700', borderBottom: '2px solid #e2e8f0' }}>Radix UI</th>
+              <th style={{ padding: '9px 12px', textAlign: 'left', color: '#14532d', fontWeight: '700', borderBottom: '2px solid #e2e8f0' }}>Orbit UI</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style={{ padding: '9px 12px', fontWeight: '600', color: '#374151', borderBottom: '1px solid #e2e8f0' }}>스타일 방식</td>
+              <td style={{ padding: '9px 12px', color: '#44403c', borderBottom: '1px solid #e2e8f0' }}>Tailwind CSS</td>
+              <td style={{ padding: '9px 12px', color: '#4c1d95', borderBottom: '1px solid #e2e8f0' }}>스타일 없음</td>
+              <td style={{ padding: '9px 12px', color: '#14532d', fontWeight: '600', borderBottom: '1px solid #e2e8f0' }}>vanilla-extract (빌드타임)</td>
+            </tr>
+            <tr style={{ background: '#f8fafc' }}>
+              <td style={{ padding: '9px 12px', fontWeight: '600', color: '#374151', borderBottom: '1px solid #e2e8f0' }}>설치 방식</td>
+              <td style={{ padding: '9px 12px', color: '#44403c', borderBottom: '1px solid #e2e8f0' }}>소스 복사</td>
+              <td style={{ padding: '9px 12px', color: '#4c1d95', borderBottom: '1px solid #e2e8f0' }}>npm 패키지</td>
+              <td style={{ padding: '9px 12px', color: '#14532d', fontWeight: '600', borderBottom: '1px solid #e2e8f0' }}>npm 패키지 (monorepo)</td>
+            </tr>
+            <tr>
+              <td style={{ padding: '9px 12px', fontWeight: '600', color: '#374151', borderBottom: '1px solid #e2e8f0' }}>테마 커스텀</td>
+              <td style={{ padding: '9px 12px', color: '#44403c', borderBottom: '1px solid #e2e8f0' }}>CSS 변수 + 소스 수정</td>
+              <td style={{ padding: '9px 12px', color: '#4c1d95', borderBottom: '1px solid #e2e8f0' }}>직접 스타일 작성</td>
+              <td style={{ padding: '9px 12px', color: '#14532d', fontWeight: '600', borderBottom: '1px solid #e2e8f0' }}>theme prop 오버라이드</td>
+            </tr>
+            <tr style={{ background: '#f8fafc' }}>
+              <td style={{ padding: '9px 12px', fontWeight: '600', color: '#374151', borderBottom: '1px solid #e2e8f0' }}>타입 안전성</td>
+              <td style={{ padding: '9px 12px', color: '#44403c', borderBottom: '1px solid #e2e8f0' }}>부분적</td>
+              <td style={{ padding: '9px 12px', color: '#4c1d95', borderBottom: '1px solid #e2e8f0' }}>완전</td>
+              <td style={{ padding: '9px 12px', color: '#14532d', fontWeight: '600', borderBottom: '1px solid #e2e8f0' }}>완전 (vanilla-extract)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
   </div>
 </Unstyled>
