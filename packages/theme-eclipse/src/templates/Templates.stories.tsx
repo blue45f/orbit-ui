@@ -27105,3 +27105,178 @@ export const MuiChakra111ReviewDashboard: StoryObj = {
   },
   render: () => <ReviewDashboard111Render />,
 }
+
+/* --------------------------------------------------------------------------
+   Radix UI + Vercel — Cycle 112: 알림 센터 (NotificationCenter)
+   필터 탭 + 알림 목록 + 일괄 액션 + 설정 패널
+-------------------------------------------------------------------------- */
+type NotifType112 = 'all' | 'deploy' | 'comment' | 'alert'
+type NotifItem112 = {
+  id: number
+  type: Exclude<NotifType112, 'all'>
+  title: string
+  body: string
+  time: string
+  read: boolean
+  color: string
+}
+
+const NOTIFS_112: NotifItem112[] = [
+  { id: 1, type: 'deploy', title: '배포 성공', body: 'orbit-ui main → production 배포 완료 (cb60c3e)', time: '2분 전', read: false, color: '#10b981' },
+  { id: 2, type: 'comment', title: '코드 리뷰 요청', body: 'SY님이 PR #2038에서 Toggle 타입 오류를 지적했습니다.', time: '15분 전', read: false, color: '#6366f1' },
+  { id: 3, type: 'alert', title: 'API 사용량 경고', body: '이번 달 API 호출 횟수가 80%에 도달했습니다.', time: '1시간 전', read: false, color: '#f59e0b' },
+  { id: 4, type: 'deploy', title: '빌드 실패', body: 'orbit-ui feat/fix-toggle TypeScript 에러 1건 발생', time: '2시간 전', read: true, color: '#ef4444' },
+  { id: 5, type: 'comment', title: '멘션', body: '@hjunkim DataTable PR에 새 댓글이 달렸습니다.', time: '3시간 전', read: true, color: '#6366f1' },
+  { id: 6, type: 'alert', title: '보안 경고', body: '알 수 없는 위치에서 로그인 시도가 감지되었습니다.', time: '1일 전', read: true, color: '#ef4444' },
+]
+
+const TYPE_META_112: Record<Exclude<NotifType112, 'all'>, { label: string; icon: string }> = {
+  deploy: { label: '배포', icon: '▲' },
+  comment: { label: '코멘트', icon: '💬' },
+  alert: { label: '경고', icon: '⚠' },
+}
+
+function NotificationCenter112Render() {
+  const [filter, setFilter] = useState<NotifType112>('all')
+  const [notifs, setNotifs] = useState<NotifItem112[]>(NOTIFS_112)
+  const [settingsOpen, setSettingsOpen] = useState(false)
+  const [pushEnabled, setPushEnabled] = useState(true)
+  const [emailEnabled, setEmailEnabled] = useState(false)
+  const [quietHours, setQuietHours] = useState(true)
+
+  const filtered = filter === 'all' ? notifs : notifs.filter((n) => n.type === filter)
+  const unreadCount = notifs.filter((n) => !n.read).length
+
+  const markAllRead = () => setNotifs((prev) => prev.map((n) => ({ ...n, read: true })))
+  const markRead = (id: number) => setNotifs((prev) => prev.map((n) => n.id === id ? { ...n, read: true } : n))
+  const dismiss = (id: number) => setNotifs((prev) => prev.filter((n) => n.id !== id))
+
+  return (
+    <div style={{ fontFamily: 'system-ui, sans-serif', maxWidth: 640, margin: '0 auto' }}>
+      {/* AppBar */}
+      <AppBar>
+        <AppBar.Leading>
+          <span style={{ fontSize: 15, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>알림 센터</span>
+        </AppBar.Leading>
+        <AppBar.Trailing>
+          <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+            {unreadCount > 0 && <CounterBadge>{unreadCount}</CounterBadge>}
+            <SolidIconButton color="black" size="small" onClick={() => setSettingsOpen((v) => !v)}>
+              <span style={{ fontSize: 14 }}>⚙</span>
+            </SolidIconButton>
+          </div>
+        </AppBar.Trailing>
+      </AppBar>
+
+      <div style={{ padding: '16px 20px' }}>
+        {/* Filter tabs + 일괄 읽음 */}
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 14 }}>
+          <ScrollableTabGroup
+            selectedIndex={(['all', 'deploy', 'comment', 'alert'] as const).indexOf(filter)}
+            onTabChange={(idx) => setFilter((['all', 'deploy', 'comment', 'alert'] as const)[idx])}
+          >
+            {(['all', 'deploy', 'comment', 'alert'] as const).map((t) => (
+              <ScrollableTabGroup.Tab key={t} value={t}>
+                <ScrollableTabGroup.TabCenter>{t === 'all' ? '전체' : t === 'deploy' ? '배포' : t === 'comment' ? '코멘트' : '경고'}</ScrollableTabGroup.TabCenter>
+              </ScrollableTabGroup.Tab>
+            ))}
+          </ScrollableTabGroup>
+          {unreadCount > 0 && (
+            <button onClick={markAllRead} style={{ fontSize: 11, color: '#6366f1', fontWeight: 600, background: 'none', border: 'none', cursor: 'pointer', flexShrink: 0 }}>
+              모두 읽음
+            </button>
+          )}
+        </div>
+
+        {/* Settings Panel */}
+        {settingsOpen && (
+          <div style={{ marginBottom: 16, padding: '16px', borderRadius: 12, background: 'var(--sem-eclipse-color-backgroundSecondary)', border: '1px solid var(--sem-eclipse-color-borderSubtle)' }}>
+            <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 12 }}>알림 설정</div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+              {[
+                { label: '푸시 알림', desc: '기기로 즉시 전송', value: pushEnabled, setter: setPushEnabled },
+                { label: '이메일 요약', desc: '1일 1회 다이제스트', value: emailEnabled, setter: setEmailEnabled },
+                { label: '방해 금지 시간', desc: '22:00 ~ 08:00', value: quietHours, setter: setQuietHours },
+              ].map((item) => (
+                <div key={item.label} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                  <div>
+                    <div style={{ fontSize: 12, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{item.label}</div>
+                    <div style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>{item.desc}</div>
+                  </div>
+                  <Toggle
+                    checked={item.value}
+                    onCheckedChange={(checked) => item.setter(checked)}
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Notification List */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+          {filtered.length === 0 ? (
+            <div style={{ padding: '48px 0', textAlign: 'center', color: 'var(--sem-eclipse-color-foregroundTertiary)', fontSize: 13 }}>
+              알림이 없습니다
+            </div>
+          ) : (
+            filtered.map((n) => {
+              const typeMeta = TYPE_META_112[n.type]
+              return (
+                <div
+                  key={n.id}
+                  onClick={() => markRead(n.id)}
+                  style={{ display: 'flex', gap: 12, padding: '12px 14px', borderRadius: 10, border: `1px solid ${n.read ? 'var(--sem-eclipse-color-borderSubtle)' : n.color + '40'}`, background: n.read ? 'var(--sem-eclipse-color-backgroundPrimary)' : `${n.color}08`, cursor: 'pointer', transition: 'all 0.15s', position: 'relative' }}
+                >
+                  {/* 읽지 않은 점 */}
+                  {!n.read && <div style={{ position: 'absolute', top: 12, left: -4, width: 8, height: 8, borderRadius: '50%', background: n.color }} />}
+                  <div style={{ width: 32, height: 32, borderRadius: 8, background: `${n.color}18`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 14, flexShrink: 0 }}>
+                    {typeMeta.icon}
+                  </div>
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 8, justifyContent: 'space-between' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                        <span style={{ fontSize: 13, fontWeight: n.read ? 400 : 700, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{n.title}</span>
+                        <LabelBadge color={n.type === 'alert' ? 'sale' : n.type === 'deploy' ? 'benefit' : 'gray'}>{typeMeta.label}</LabelBadge>
+                      </div>
+                      <span style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)', flexShrink: 0 }}>{n.time}</span>
+                    </div>
+                    <div style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundSecondary)', marginTop: 3, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{n.body}</div>
+                  </div>
+                  <button
+                    onClick={(e) => { e.stopPropagation(); dismiss(n.id) }}
+                    style={{ background: 'none', border: 'none', color: 'var(--sem-eclipse-color-foregroundTertiary)', cursor: 'pointer', fontSize: 14, padding: 4, lineHeight: 1, flexShrink: 0 }}
+                  >
+                    ×
+                  </button>
+                </div>
+              )
+            })
+          )}
+        </div>
+
+        {/* Footer */}
+        <div style={{ marginTop: 16, textAlign: 'center' }}>
+          <button style={{ fontSize: 12, color: '#6366f1', background: 'none', border: 'none', cursor: 'pointer', fontWeight: 600 }}>
+            모든 알림 보기 →
+          </button>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const RadixVercel112NotificationCenter: StoryObj = {
+  name: 'Radix UI + Vercel — 알림 센터 (Cycle 112)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Radix UI + Vercel 벤치마크 — Cycle 112. ' +
+          '알림 센터: ScrollableTabGroup 필터 + 알림 목록(읽음/미읽음 상태 + LabelBadge 타입) + 모두 읽음 일괄 처리 + 설정 패널(Toggle 3종) + 개별 닫기. ' +
+          'AppBar, CounterBadge, SolidIconButton, ScrollableTabGroup, Toggle, LabelBadge 복합 활용.',
+      },
+    },
+  },
+  render: () => <NotificationCenter112Render />,
+}

@@ -1,6 +1,6 @@
 import { useUniqueID } from '@heejun-com/core'
 import { Meta, StoryObj } from '@storybook/react'
-import { useState } from 'react'
+import React, { useState } from 'react'
 
 import { RadioButtonWithLabel } from '../RadioButtonWithLabel'
 import { RadioGroup, useRadioGroupContext } from './RadioGroup'
@@ -753,4 +753,193 @@ const SubscriptionSwitchDemo = () => {
 export const Tailwind_구독_플랜_전환: Story = {
   name: 'Tailwind UI — 구독 플랜 전환 (월간/연간)',
   render: () => <SubscriptionSwitchDemo />,
+}
+
+/* --------------------------------------------------------------------------
+   Radix UI — 알림 전달 채널 설정
+   섹션별 그룹 + 아이콘 레이블 + 설명 텍스트 패턴
+-------------------------------------------------------------------------- */
+const NOTIFY_CHANNELS = [
+  { value: 'push', label: '푸시 알림', desc: '기기 잠금 화면 및 알림 센터에 즉시 표시', icon: '🔔' },
+  { value: 'email', label: '이메일', desc: '등록된 이메일 주소로 발송 (최대 5분 지연)', icon: '✉️' },
+  { value: 'slack', label: 'Slack', desc: '연결된 Slack 워크스페이스 채널로 전송', icon: '⚡' },
+  { value: 'none', label: '알림 끄기', desc: '선택한 이벤트의 알림을 모두 수신 안 함', icon: '🔕' },
+]
+
+const RadixNotifyChannelDemo = () => {
+  const [channel, setChannel] = useState('push')
+  const [urgentOnly, setUrgentOnly] = useState(false)
+  return (
+    <div style={{ maxWidth: 400, display: 'flex', flexDirection: 'column', gap: 16 }}>
+      <div>
+        <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 4 }}>알림 채널</div>
+        <div style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>이벤트 발생 시 알림을 받을 방법을 선택하세요</div>
+      </div>
+      <RadioGroup value={channel} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setChannel(e.target.value)} name="notify-channel">
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+          {NOTIFY_CHANNELS.map((c) => (
+            <label
+              key={c.value}
+              onClick={() => setChannel(c.value)}
+              style={{ display: 'flex', gap: 12, alignItems: 'flex-start', padding: '12px 14px', borderRadius: 10, border: `1.5px solid ${channel === c.value ? '#6366f1' : 'var(--sem-eclipse-color-borderSubtle)'}`, background: channel === c.value ? '#6366f108' : 'var(--sem-eclipse-color-backgroundPrimary)', cursor: 'pointer', transition: 'border-color 0.15s' }}
+            >
+              <span style={{ fontSize: 20, lineHeight: 1, marginTop: 1, flexShrink: 0 }}>{c.icon}</span>
+              <div style={{ flex: 1 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                  <RadioButtonWithLabel value={c.value} alignItems="center" />
+                  <span style={{ fontSize: 13, fontWeight: 600, color: channel === c.value ? '#6366f1' : 'var(--sem-eclipse-color-foregroundPrimary)' }}>{c.label}</span>
+                </div>
+                <div style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginTop: 2, paddingLeft: 22 }}>{c.desc}</div>
+              </div>
+            </label>
+          ))}
+        </div>
+      </RadioGroup>
+      {channel !== 'none' && (
+        <label style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 14px', borderRadius: 8, background: 'var(--sem-eclipse-color-backgroundSecondary)', cursor: 'pointer' }}>
+          <input type="checkbox" checked={urgentOnly} onChange={(e) => setUrgentOnly(e.target.checked)} style={{ width: 16, height: 16, accentColor: '#6366f1' }} />
+          <div>
+            <div style={{ fontSize: 12, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>긴급 알림만 수신</div>
+            <div style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>우선순위 높음 이상 이벤트만 전달</div>
+          </div>
+        </label>
+      )}
+      <div style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundDisabled)' }}>Radix UI Radio 패턴 — 아이콘 + 설명 텍스트 선택지</div>
+    </div>
+  )
+}
+
+export const Radix_알림_채널_설정: Story = {
+  name: 'Radix UI — 알림 채널 설정 (아이콘 + 설명)',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Radix UI RadioGroup에서 영감을 받은 알림 채널 선택 UI. 아이콘 + 레이블 + 설명 텍스트 패턴, 선택 시 테두리 강조, 긴급 알림 필터 체크박스 연동.',
+      },
+    },
+  },
+  render: () => <RadixNotifyChannelDemo />,
+}
+
+/* --------------------------------------------------------------------------
+   Vercel Design — 배포 환경 선택
+   프로덕션 / 프리뷰 / 개발 타깃 선택 + 메타 뱃지 패턴
+-------------------------------------------------------------------------- */
+type DeployTarget = 'production' | 'preview' | 'development'
+
+const DEPLOY_TARGETS: { value: DeployTarget; label: string; badge: string; badgeColor: string; desc: string; branch: string }[] = [
+  { value: 'production', label: 'Production', badge: 'main', badgeColor: '#10b981', desc: '실제 사용자에게 노출되는 프로덕션 환경입니다.', branch: 'main' },
+  { value: 'preview', label: 'Preview', badge: 'PR', badgeColor: '#6366f1', desc: 'PR 브랜치별로 자동 생성되는 미리보기 환경입니다.', branch: 'feat/*' },
+  { value: 'development', label: 'Development', badge: 'local', badgeColor: '#f59e0b', desc: '로컬 개발 서버 연동 환경입니다. 외부 노출 없음.', branch: 'localhost' },
+]
+
+const VercelDeployTargetDemo = () => {
+  const [target, setTarget] = useState<DeployTarget>('preview')
+  const selected = DEPLOY_TARGETS.find((t) => t.value === target)!
+  return (
+    <div style={{ maxWidth: 420, display: 'flex', flexDirection: 'column', gap: 16 }}>
+      <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>배포 환경 선택</div>
+      <RadioGroup value={target} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setTarget(e.target.value as DeployTarget)} name="deploy-target">
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+          {DEPLOY_TARGETS.map((t) => (
+            <div
+              key={t.value}
+              onClick={() => setTarget(t.value)}
+              style={{ padding: '12px 16px', borderRadius: 10, border: `1.5px solid ${target === t.value ? t.badgeColor : 'var(--sem-eclipse-color-borderSubtle)'}`, background: target === t.value ? `${t.badgeColor}08` : 'var(--sem-eclipse-color-backgroundPrimary)', cursor: 'pointer', transition: 'all 0.15s' }}
+            >
+              <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                <RadioButtonWithLabel value={t.value} alignItems="center" />
+                <span style={{ fontSize: 13, fontWeight: 700, color: target === t.value ? t.badgeColor : 'var(--sem-eclipse-color-foregroundPrimary)', flex: 1 }}>{t.label}</span>
+                <span style={{ fontSize: 10, fontWeight: 700, padding: '2px 8px', borderRadius: 99, background: `${t.badgeColor}18`, color: t.badgeColor, fontFamily: 'monospace' }}>{t.badge}</span>
+              </div>
+              {target === t.value && (
+                <div style={{ marginTop: 8, paddingLeft: 22, display: 'flex', flexDirection: 'column', gap: 4 }}>
+                  <div style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundSecondary)' }}>{t.desc}</div>
+                  <div style={{ fontSize: 11, fontFamily: 'monospace', color: t.badgeColor }}>branch: {t.branch}</div>
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      </RadioGroup>
+      <div style={{ padding: '10px 14px', borderRadius: 8, background: 'var(--sem-eclipse-color-backgroundSecondary)', border: `1px solid ${selected.badgeColor}30`, fontSize: 12, color: 'var(--sem-eclipse-color-foregroundSecondary)' }}>
+        선택됨: <span style={{ fontWeight: 700, color: selected.badgeColor }}>{selected.label}</span> — {selected.desc}
+      </div>
+      <div style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundDisabled)' }}>Vercel Design 배포 환경 선택 패턴 — 컬러 코딩 + 상태 확장</div>
+    </div>
+  )
+}
+
+export const Vercel_배포_환경_선택_Cycle112: Story = {
+  name: 'Vercel Design — 배포 환경 선택 (Production/Preview/Dev)',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Vercel 대시보드 배포 환경 선택 UI. Production/Preview/Development를 RadioGroup으로 선택하고, 선택 시 브랜치 패턴과 설명이 확장되어 노출됩니다. 환경별 컬러 코딩 패턴.',
+      },
+    },
+  },
+  render: () => <VercelDeployTargetDemo />,
+}
+
+/* --------------------------------------------------------------------------
+   Radix UI + Vercel — 보안 인증 방식 선택
+   MFA / SSO / 비밀번호 방식 + 보안 레벨 시각화
+-------------------------------------------------------------------------- */
+type AuthMethod = 'password' | 'sso' | 'mfa'
+
+const AUTH_METHODS: { value: AuthMethod; label: string; level: number; color: string; hint: string }[] = [
+  { value: 'password', label: '비밀번호 인증', level: 1, color: '#ef4444', hint: '기본 보안. 강력한 비밀번호 정책 별도 설정 권장.' },
+  { value: 'sso', label: 'SSO (OAuth 2.0)', level: 2, color: '#f59e0b', hint: 'Google / GitHub 계정으로 로그인. 팀 계정 관리 편리.' },
+  { value: 'mfa', label: 'MFA + SSO', level: 3, color: '#10b981', hint: '최고 보안. OTP 앱 또는 하드웨어 키 2단계 인증 필수.' },
+]
+
+const RadixVercelAuthMethodDemo = () => {
+  const [method, setMethod] = useState<AuthMethod>('sso')
+  const selected = AUTH_METHODS.find((m) => m.value === method)!
+  return (
+    <div style={{ maxWidth: 380, display: 'flex', flexDirection: 'column', gap: 16 }}>
+      <div>
+        <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 2 }}>인증 방식</div>
+        <div style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>보안 수준이 높을수록 계정 탈취 위험이 낮아집니다</div>
+      </div>
+      <RadioGroup value={method} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setMethod(e.target.value as AuthMethod)} name="auth-method">
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+          {AUTH_METHODS.map((m) => (
+            <div
+              key={m.value}
+              onClick={() => setMethod(m.value)}
+              style={{ padding: '12px 14px', borderRadius: 10, border: `1.5px solid ${method === m.value ? m.color : 'var(--sem-eclipse-color-borderSubtle)'}`, cursor: 'pointer', transition: 'all 0.15s' }}
+            >
+              <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                <RadioButtonWithLabel value={m.value} alignItems="center" />
+                <span style={{ flex: 1, fontSize: 13, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{m.label}</span>
+                <div style={{ display: 'flex', gap: 3 }}>
+                  {[1, 2, 3].map((i) => (
+                    <div key={i} style={{ width: 10, height: 10, borderRadius: 2, background: i <= m.level ? m.color : 'var(--sem-eclipse-color-borderSubtle)', transition: 'background 0.2s' }} />
+                  ))}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </RadioGroup>
+      <div style={{ padding: '10px 14px', borderRadius: 8, background: `${selected.color}10`, border: `1px solid ${selected.color}30`, fontSize: 12, color: 'var(--sem-eclipse-color-foregroundSecondary)' }}>
+        <span style={{ fontWeight: 700, color: selected.color }}>보안 레벨 {selected.level}/3</span> — {selected.hint}
+      </div>
+      <div style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundDisabled)' }}>Radix UI + Vercel — 보안 레벨 시각화 선택지 패턴</div>
+    </div>
+  )
+}
+
+export const Radix_Vercel_보안_인증_방식: Story = {
+  name: 'Radix UI + Vercel — 보안 인증 방식 선택 (레벨 시각화)',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Radix UI RadioGroup + Vercel 보안 설정 UI 조합. 인증 방식별 보안 레벨을 3단계 블록으로 시각화하고, 선택 시 힌트 텍스트가 하단에 표시됩니다.',
+      },
+    },
+  },
+  render: () => <RadixVercelAuthMethodDemo />,
 }

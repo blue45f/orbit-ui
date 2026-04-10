@@ -791,3 +791,185 @@ export const Arco_Linear_README_타이포: StoryObj<typeof meta> = {
   },
   render: () => <ArcoLinearReadmeTextRender />,
 }
+
+/* --------------------------------------------------------------------------
+   Radix UI — 컴포넌트 API 문서 타이포그래피
+   PropTable + 설명 계층 패턴
+-------------------------------------------------------------------------- */
+const RADIX_PROPS = [
+  { name: 'textStyle', type: 'TextStyle', default: 'bodyMedium', desc: 'Material Design 3 타입 스케일 키' },
+  { name: 'color', type: 'ColorToken', default: 'onSurface', desc: '시맨틱 색상 토큰 이름' },
+  { name: 'as', type: 'ElementType', default: 'span', desc: '렌더링할 HTML 태그 (polymorphic)' },
+  { name: 'truncate', type: 'boolean', default: 'false', desc: '텍스트 말줄임 적용 여부' },
+]
+
+function RadixApiDocRender() {
+  return (
+    <div style={{ maxWidth: 600, display: 'flex', flexDirection: 'column', gap: 20 }}>
+      {/* 컴포넌트 헤더 */}
+      <div style={{ borderBottom: '1px solid var(--sem-eclipse-color-borderSubtle)', paddingBottom: 16 }}>
+        <div style={{ display: 'flex', alignItems: 'baseline', gap: 12, marginBottom: 6 }}>
+          <Text textStyle="headlineMedium">Text</Text>
+          <code style={{ fontSize: 12, padding: '2px 8px', borderRadius: 4, background: '#f1f5f9', color: '#6366f1', fontFamily: 'monospace' }}>@heejun-com/theme-eclipse</code>
+        </div>
+        <Text textStyle="bodyMedium" color="onSurfaceVariant">
+          Material Design 3 타입 스케일을 기반으로 한 타이포그래피 컴포넌트. displayLarge부터 labelSmall까지 13가지 스타일을 지원합니다.
+        </Text>
+      </div>
+
+      {/* Props 테이블 */}
+      <div>
+        <Text textStyle="titleSmall">Props</Text>
+        <div style={{ marginTop: 10, borderRadius: 8, overflow: 'hidden', border: '1px solid var(--sem-eclipse-color-borderSubtle)' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 80px 1fr', background: 'var(--sem-eclipse-color-backgroundSecondary)', padding: '8px 12px', gap: 8 }}>
+            {['이름', '타입', '기본값', '설명'].map((h) => (
+              <Text key={h} textStyle="labelSmall" color="onSurfaceVariant">{h}</Text>
+            ))}
+          </div>
+          {RADIX_PROPS.map((p, i) => (
+            <div key={p.name} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 80px 1fr', padding: '10px 12px', gap: 8, background: i % 2 === 0 ? 'var(--sem-eclipse-color-backgroundPrimary)' : 'var(--sem-eclipse-color-backgroundSecondary)', alignItems: 'start' }}>
+              <code style={{ fontFamily: 'monospace', fontSize: 12, color: '#6366f1' }}>{p.name}</code>
+              <code style={{ fontFamily: 'monospace', fontSize: 11, color: '#10b981' }}>{p.type}</code>
+              <code style={{ fontFamily: 'monospace', fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>{p.default}</code>
+              <Text textStyle="bodySmall" color="onSurfaceVariant">{p.desc}</Text>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* 사용 예시 */}
+      <div>
+        <Text textStyle="titleSmall">사용 예시</Text>
+        <div style={{ marginTop: 8, padding: '12px 16px', borderRadius: 8, background: '#0f172a', fontFamily: 'monospace', fontSize: 12, color: '#e2e8f0', lineHeight: 1.8 }}>
+          <span style={{ color: '#94a3b8' }}>{'// 기본 사용'}</span><br />
+          <span style={{ color: '#f472b6' }}>{'<Text'}</span> <span style={{ color: '#34d399' }}>textStyle</span><span style={{ color: '#e2e8f0' }}>{'="headlineMedium"'}</span> <span style={{ color: '#34d399' }}>color</span><span style={{ color: '#e2e8f0' }}>{'="onSurface"'}</span><span style={{ color: '#f472b6' }}>{'>'}</span><br />
+          <span style={{ color: '#e2e8f0', paddingLeft: 16 }}>{'Orbit UI 타이포그래피'}</span><br />
+          <span style={{ color: '#f472b6' }}>{'</Text>'}</span>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const Radix_API_문서_타이포그래피: StoryObj<typeof meta> = {
+  name: 'Radix UI — 컴포넌트 API 문서 타이포그래피',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Radix UI 공식 문서 스타일의 PropTable + 헤더 계층 패턴. headlineMedium 컴포넌트 타이틀, bodyMedium 설명, titleSmall 섹션 구분, bodySmall + labelSmall 테이블 내용 계층 실전 적용.',
+      },
+    },
+  },
+  render: () => <RadixApiDocRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Vercel Design — 배포 상태 알림 타이포그래피
+   상태 뱃지 + 메시지 계층 + 타임스탬프 패턴
+-------------------------------------------------------------------------- */
+const VERCEL_EVENTS = [
+  { type: 'success', icon: '●', color: '#10b981', title: '배포 성공', message: 'orbit-ui feat/cycle-112 → production 8분 전에 완료되었습니다.', meta: 'a9fa67f · by hjunkim', time: '8m ago' },
+  { type: 'building', icon: '○', color: '#f59e0b', title: '빌드 진행 중', message: 'orbit-ui main → preview 빌드 중입니다. 평균 소요 시간 약 2분.', meta: 'cb60c3e · by hjunkim', time: '2m ago' },
+  { type: 'error', icon: '✕', color: '#ef4444', title: '빌드 실패', message: 'orbit-ui feat/fix-toggle → preview TypeScript 오류 1건이 발생했습니다.', meta: 'd5fd051 · by hjunkim', time: '23m ago' },
+  { type: 'queued', icon: '◌', color: '#94a3b8', title: '대기 중', message: 'orbit-ui chore/deps-update → preview 빌드 대기열에서 처리를 기다리고 있습니다.', meta: '0bcdcd1 · by hjunkim', time: '1h ago' },
+]
+
+function VercelDeployNotifyRender() {
+  return (
+    <div style={{ maxWidth: 560, display: 'flex', flexDirection: 'column', gap: 12 }}>
+      <div style={{ marginBottom: 4 }}>
+        <Text textStyle="titleMedium">배포 알림 센터</Text>
+        <div style={{ marginTop: 2 }}>
+          <Text textStyle="bodySmall" color="onSurfaceVariant">최근 배포 이벤트 4건</Text>
+        </div>
+      </div>
+      {VERCEL_EVENTS.map((event, i) => (
+        <div key={i} style={{ display: 'flex', gap: 14, padding: '14px 16px', borderRadius: 10, border: '1px solid var(--sem-eclipse-color-borderSubtle)', background: 'var(--sem-eclipse-color-backgroundPrimary)' }}>
+          <div style={{ display: 'flex', alignItems: 'flex-start', paddingTop: 2 }}>
+            <span style={{ fontSize: 18, color: event.color, lineHeight: 1, fontWeight: 700 }}>{event.icon}</span>
+          </div>
+          <div style={{ flex: 1, minWidth: 0 }}>
+            <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, justifyContent: 'space-between' }}>
+              <Text textStyle="labelMedium">{event.title}</Text>
+              <Text textStyle="labelSmall" color="onSurfaceVariant">{event.time}</Text>
+            </div>
+            <div style={{ marginTop: 3 }}>
+              <Text textStyle="bodySmall" color="onSurfaceVariant">{event.message}</Text>
+            </div>
+            <div style={{ marginTop: 6 }}>
+              <code style={{ fontFamily: 'monospace', fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)', background: 'var(--sem-eclipse-color-backgroundSecondary)', padding: '2px 6px', borderRadius: 4 }}>{event.meta}</code>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  )
+}
+
+export const Vercel_배포_상태_알림_타이포: StoryObj<typeof meta> = {
+  name: 'Vercel Design — 배포 상태 알림 타이포그래피',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Vercel 대시보드 배포 알림 UI 타이포그래피 패턴. titleMedium 섹션 제목, labelMedium 이벤트 타입, bodySmall 메시지, labelSmall 타임스탬프, monospace 커밋 해시 계층 구현.',
+      },
+    },
+  },
+  render: () => <VercelDeployNotifyRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Radix UI + Vercel — 에러 상태 타이포그래피
+   빈 상태 / 오류 / 권한 없음 메시지 패턴
+-------------------------------------------------------------------------- */
+type EmptyState = 'empty' | 'error' | 'forbidden' | 'notfound'
+
+const EMPTY_STATES: Record<EmptyState, { icon: string; title: string; body: string; action: string; color: string }> = {
+  empty: { icon: '○', title: '아직 데이터가 없습니다', body: '첫 번째 컴포넌트 스토리를 추가하면 여기에 표시됩니다.', action: '스토리 추가하기', color: '#94a3b8' },
+  error: { icon: '⚠', title: '오류가 발생했습니다', body: '서버에서 데이터를 불러오는 중 예기치 않은 오류가 발생했습니다. 잠시 후 다시 시도하세요.', action: '다시 시도', color: '#ef4444' },
+  forbidden: { icon: '⊘', title: '접근 권한이 없습니다', body: '이 리소스에 접근하려면 관리자 권한이 필요합니다.', action: '권한 요청', color: '#f59e0b' },
+  notfound: { icon: '∅', title: '페이지를 찾을 수 없습니다', body: 'URL을 확인하거나 돌아가기 버튼으로 이전 페이지로 이동하세요.', action: '홈으로 돌아가기', color: '#6366f1' },
+}
+
+function RadixVercelEmptyStateRender() {
+  const [state, setState] = React.useState<EmptyState>('empty')
+  const s = EMPTY_STATES[state]
+  return (
+    <div style={{ maxWidth: 460, display: 'flex', flexDirection: 'column', gap: 20 }}>
+      {/* 상태 선택 탭 */}
+      <div style={{ display: 'flex', gap: 6 }}>
+        {(Object.keys(EMPTY_STATES) as EmptyState[]).map((key) => (
+          <button key={key} onClick={() => setState(key)} style={{ padding: '4px 12px', borderRadius: 20, border: `1px solid ${state === key ? EMPTY_STATES[key].color : 'var(--sem-eclipse-color-borderSubtle)'}`, background: state === key ? `${EMPTY_STATES[key].color}12` : 'transparent', color: state === key ? EMPTY_STATES[key].color : 'var(--sem-eclipse-color-foregroundTertiary)', fontSize: 11, fontWeight: 600, cursor: 'pointer', transition: 'all 0.15s' }}>
+            {key}
+          </button>
+        ))}
+      </div>
+      {/* 빈 상태 카드 */}
+      <div style={{ padding: '48px 32px', borderRadius: 16, border: '1px dashed var(--sem-eclipse-color-borderDefault)', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12, textAlign: 'center' }}>
+        <span style={{ fontSize: 48, color: s.color, lineHeight: 1 }}>{s.icon}</span>
+        <div>
+          <Text textStyle="titleMedium">{s.title}</Text>
+        </div>
+        <div style={{ maxWidth: 300 }}>
+          <Text textStyle="bodySmall" color="onSurfaceVariant">{s.body}</Text>
+        </div>
+        <button style={{ marginTop: 8, padding: '8px 20px', borderRadius: 8, border: `1px solid ${s.color}`, background: `${s.color}10`, color: s.color, fontSize: 13, fontWeight: 600, cursor: 'pointer' }}>
+          {s.action}
+        </button>
+      </div>
+      <div style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundDisabled)' }}>Radix UI + Vercel — 빈 상태 / 에러 / 권한없음 메시지 타이포</div>
+    </div>
+  )
+}
+
+export const Radix_Vercel_빈상태_에러_타이포: StoryObj<typeof meta> = {
+  name: 'Radix UI + Vercel — 빈 상태 / 에러 타이포그래피 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Radix UI + Vercel의 Empty State / Error 메시지 UI 타이포그래피 패턴. titleMedium 제목, bodySmall 설명 텍스트, 상태별 색상 코딩, 4가지 상태(empty/error/forbidden/notfound) 전환.',
+      },
+    },
+  },
+  render: () => <RadixVercelEmptyStateRender />,
+}
