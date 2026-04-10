@@ -1262,3 +1262,253 @@ export const M3_Linear_단계적_온보딩_로딩: Story = {
   },
   render: () => <M3LinearOnboardingRender />,
 }
+
+// Cycle 144 - Linear Design + Vercel Design benchmark
+function LinearDataFetch144Render() {
+  const [state, setState] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
+  const [retryCount, setRetryCount] = useState(0)
+
+  const fetch = () => {
+    setState('loading')
+    const willFail = retryCount === 0
+    setTimeout(() => {
+      setState(willFail ? 'error' : 'success')
+    }, 1800)
+  }
+
+  const retry = () => {
+    setRetryCount((c) => c + 1)
+    setState('loading')
+    setTimeout(() => setState('success'), 1600)
+  }
+
+  const reset = () => { setState('idle'); setRetryCount(0) }
+
+  const stateMap = {
+    idle: { label: '데이터 없음', color: '#94a3b8', desc: '조회 버튼을 클릭하세요' },
+    loading: { label: '로딩 중...', color: '#3b82f6', desc: '이슈 목록을 가져오는 중' },
+    success: { label: '완료', color: '#10b981', desc: '127개 이슈 로드됨' },
+    error: { label: '오류 발생', color: '#ef4444', desc: '네트워크 오류 — 다시 시도하세요' },
+  }
+
+  const current = stateMap[state]
+
+  return (
+    <div style={{ width: 360, fontFamily: 'system-ui, sans-serif', border: '1px solid #e2e8f0', borderRadius: 10, padding: 20, background: '#fff' }}>
+      <div style={{ marginBottom: 16 }}>
+        <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>이슈 목록</div>
+        <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>Linear Design — 데이터 패치 로딩 상태</div>
+      </div>
+
+      <div style={{ padding: '32px 20px', textAlign: 'center', border: '1px dashed #e2e8f0', borderRadius: 8, marginBottom: 16 }}>
+        {state === 'loading' ? (
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 10 }}>
+            <Loading size="large" />
+            <div style={{ fontSize: 12, color: '#64748b' }}>{current.desc}</div>
+          </div>
+        ) : (
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8 }}>
+            <div style={{ fontSize: 28, color: current.color }}>{state === 'success' ? '✓' : state === 'error' ? '✕' : '○'}</div>
+            <div style={{ fontSize: 13, fontWeight: 600, color: current.color }}>{current.label}</div>
+            <div style={{ fontSize: 11, color: '#64748b' }}>{current.desc}</div>
+          </div>
+        )}
+      </div>
+
+      <div style={{ display: 'flex', gap: 8 }}>
+        {state === 'idle' && (
+          <button onClick={fetch} style={{ flex: 1, padding: '9px 0', borderRadius: 8, border: 'none', background: '#0f172a', color: '#fff', fontSize: 12, fontWeight: 600, cursor: 'pointer' }}>
+            데이터 조회
+          </button>
+        )}
+        {state === 'error' && (
+          <>
+            <button onClick={retry} style={{ flex: 1, padding: '9px 0', borderRadius: 8, border: 'none', background: '#3b82f6', color: '#fff', fontSize: 12, fontWeight: 600, cursor: 'pointer' }}>
+              다시 시도
+            </button>
+            <button onClick={reset} style={{ flex: 1, padding: '9px 0', borderRadius: 8, border: '1px solid #e2e8f0', background: '#fff', fontSize: 12, cursor: 'pointer', color: '#475569' }}>
+              취소
+            </button>
+          </>
+        )}
+        {state === 'success' && (
+          <button onClick={reset} style={{ flex: 1, padding: '9px 0', borderRadius: 8, border: '1px solid #e2e8f0', background: '#fff', fontSize: 12, cursor: 'pointer', color: '#475569' }}>
+            초기화
+          </button>
+        )}
+      </div>
+    </div>
+  )
+}
+
+export const Linear_데이터_패치_로딩: Story = {
+  name: 'Linear — 데이터 패치 로딩 상태 (Cycle 144)',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Linear Design 데이터 패치 패턴. idle→loading→success/error 상태 전환. 첫 조회는 오류 유도, 재시도 성공. Loading 스피너 + 상태별 피드백.',
+      },
+    },
+  },
+  render: () => <LinearDataFetch144Render />,
+}
+
+function VercelDeployLoading144Render() {
+  const [phase, setPhase] = useState(0)
+  const [running, setRunning] = useState(false)
+
+  const phases = [
+    { label: 'Initializing', icon: '◎', color: '#64748b' },
+    { label: 'Building', icon: '◈', color: '#3b82f6' },
+    { label: 'Deploying', icon: '◇', color: '#8b5cf6' },
+    { label: 'Ready', icon: '✓', color: '#10b981' },
+  ]
+
+  const start = () => {
+    if (running) return
+    setRunning(true)
+    setPhase(0)
+    let current = 0
+    const id = setInterval(() => {
+      current += 1
+      if (current >= phases.length) {
+        clearInterval(id)
+        setRunning(false)
+        setPhase(phases.length - 1)
+      } else {
+        setPhase(current)
+      }
+    }, 1000)
+  }
+
+  const reset = () => { setPhase(0); setRunning(false) }
+
+  return (
+    <div style={{ width: 360, fontFamily: 'system-ui, sans-serif', background: '#0a0a0a', border: '1px solid #27272a', borderRadius: 10, padding: 20 }}>
+      <div style={{ marginBottom: 16 }}>
+        <div style={{ fontSize: 13, fontWeight: 700, color: '#e2e8f0' }}>배포 파이프라인</div>
+        <div style={{ fontSize: 10, color: '#52525b', marginTop: 2 }}>Vercel Design — 배포 진행 로딩</div>
+      </div>
+
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 16 }}>
+        {phases.map((p, i) => {
+          const isDone = i < phase
+          const isCurrent = i === phase
+          return (
+            <div key={p.label} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+              <div style={{ width: 28, height: 28, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', background: isDone ? '#10b98120' : isCurrent ? `${p.color}20` : '#18181b', border: `1px solid ${isDone ? '#10b981' : isCurrent ? p.color : '#27272a'}`, flexShrink: 0 }}>
+                {isCurrent && running ? (
+                  <Loading size="small" />
+                ) : (
+                  <span style={{ fontSize: 12, color: isDone ? '#10b981' : isCurrent ? p.color : '#52525b' }}>{isDone ? '✓' : p.icon}</span>
+                )}
+              </div>
+              <div style={{ flex: 1 }}>
+                <div style={{ fontSize: 12, color: isDone ? '#10b981' : isCurrent ? '#e2e8f0' : '#52525b', fontWeight: isCurrent ? 600 : 400 }}>{p.label}</div>
+                {isCurrent && running && (
+                  <div style={{ fontSize: 10, color: '#52525b', marginTop: 1 }}>처리 중...</div>
+                )}
+                {isDone && (
+                  <div style={{ fontSize: 10, color: '#10b98180', marginTop: 1 }}>완료</div>
+                )}
+              </div>
+              {isDone && <span style={{ fontSize: 10, color: '#10b981', fontWeight: 600 }}>✓</span>}
+            </div>
+          )
+        })}
+      </div>
+
+      <div style={{ display: 'flex', gap: 8 }}>
+        <button onClick={start} disabled={running} style={{ flex: 1, padding: '8px 0', borderRadius: 6, border: 'none', background: running ? '#27272a' : '#fff', color: running ? '#52525b' : '#0a0a0a', fontSize: 12, fontWeight: 600, cursor: running ? 'not-allowed' : 'pointer' }}>
+          {running ? '배포 중...' : '배포 시작'}
+        </button>
+        <button onClick={reset} style={{ padding: '8px 14px', borderRadius: 6, border: '1px solid #27272a', background: 'transparent', color: '#71717a', fontSize: 12, cursor: 'pointer' }}>
+          초기화
+        </button>
+      </div>
+    </div>
+  )
+}
+
+export const Vercel_배포_파이프라인_로딩: Story = {
+  name: 'Vercel — 배포 파이프라인 로딩 (Cycle 144)',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Vercel 다크 테마 배포 파이프라인. 4단계(Init/Build/Deploy/Ready) 순서 전환, 현재 단계 Loading 스피너, 완료 단계 초록 체크. 모노크롬 팔레트.',
+      },
+    },
+  },
+  render: () => <VercelDeployLoading144Render />,
+}
+
+function LinearVercelTableLoad144Render() {
+  const [page, setPage] = useState(1)
+  const [loading, setLoading] = useState(false)
+
+  const allRows = Array.from({ length: 20 }, (_, i) => ({
+    id: `ORB-${200 + i}`,
+    title: ['TextField 포커스 링 개선', 'DataTable 정렬 최적화', 'Avatar 그룹 스택 추가', 'Slider 범위 선택 버그', 'Modal 접근성 보완', 'SearchBar 글로벌 검색', 'Toggle 서식 도구바', 'Dropdown API 문서화', 'Progress 업로드 패턴', 'HoverCard 프로필 호버'][i % 10],
+    priority: ['urgent', 'high', 'medium', 'low'][i % 4],
+    status: ['todo', 'in-progress', 'done'][i % 3],
+  }))
+
+  const perPage = 5
+  const totalPages = Math.ceil(allRows.length / perPage)
+  const rows = loading ? [] : allRows.slice((page - 1) * perPage, page * perPage)
+
+  const goPage = (p: number) => {
+    setLoading(true)
+    setTimeout(() => { setPage(p); setLoading(false) }, 600)
+  }
+
+  const priorityColor: Record<string, string> = { urgent: '#ef4444', high: '#f59e0b', medium: '#3b82f6', low: '#94a3b8' }
+  const statusColor: Record<string, string> = { todo: '#94a3b8', 'in-progress': '#3b82f6', done: '#10b981' }
+
+  return (
+    <div style={{ width: 440, fontFamily: 'system-ui, sans-serif' }}>
+      <div style={{ marginBottom: 10, fontSize: 11, color: '#64748b' }}>Linear + Vercel — 테이블 페이지 로딩</div>
+      <div style={{ border: '1px solid #e2e8f0', borderRadius: 10, overflow: 'hidden' }}>
+        <div style={{ padding: '10px 14px', borderBottom: '1px solid #e2e8f0', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <span style={{ fontSize: 12, fontWeight: 700, color: '#0f172a' }}>이슈 목록</span>
+          <span style={{ fontSize: 11, color: '#94a3b8' }}>{allRows.length}개</span>
+        </div>
+        <div style={{ minHeight: 220 }}>
+          {loading ? (
+            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: 220 }}>
+              <Loading size="large" />
+            </div>
+          ) : (
+            rows.map((row) => (
+              <div key={row.id} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 14px', borderBottom: '1px solid #f8fafc' }}>
+                <code style={{ fontSize: 10, color: '#64748b', fontFamily: 'monospace', width: 56, flexShrink: 0 }}>{row.id}</code>
+                <span style={{ flex: 1, fontSize: 12, color: '#1e293b', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{row.title}</span>
+                <span style={{ fontSize: 10, fontWeight: 700, color: priorityColor[row.priority], width: 40, flexShrink: 0 }}>{row.priority}</span>
+                <span style={{ fontSize: 10, color: statusColor[row.status], width: 60, flexShrink: 0, textAlign: 'right' }}>{row.status}</span>
+              </div>
+            ))
+          )}
+        </div>
+        <div style={{ padding: '10px 14px', borderTop: '1px solid #e2e8f0', display: 'flex', gap: 4, justifyContent: 'center' }}>
+          {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => (
+            <button key={p} onClick={() => goPage(p)} style={{ width: 28, height: 28, borderRadius: 6, border: `1px solid ${p === page ? '#3b82f6' : '#e2e8f0'}`, background: p === page ? '#eff6ff' : '#fff', color: p === page ? '#2563eb' : '#64748b', fontSize: 11, fontWeight: p === page ? 700 : 400, cursor: 'pointer' }}>
+              {p}
+            </button>
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const Linear_Vercel_테이블_페이지_로딩: Story = {
+  name: 'Linear + Vercel — 테이블 페이지 로딩 (Cycle 144)',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Linear 이슈 목록 + Vercel 컴팩트 스타일. 페이지 전환 시 Loading 스피너, 우선순위 색상 코딩, 상태 인디케이터. 페이지네이션 버튼.',
+      },
+    },
+  },
+  render: () => <LinearVercelTableLoad144Render />,
+}

@@ -33029,3 +33029,160 @@ export const ShadcnTailwind143ChatUI: StoryObj = {
   },
   render: () => <ChatUI143Render />,
 }
+
+// ─── Cycle 144: Linear + Vercel — 커맨드 팔레트 ────────────────────────────
+function CommandPalette144Render() {
+  const [query, setQuery] = React.useState('')
+  const [selected, setSelected] = React.useState(0)
+  const [recentUsed, setRecentUsed] = React.useState<string[]>([])
+  const [open, setOpen] = React.useState(true)
+
+  type CmdItem = { id: string; label: string; group: string; shortcut?: string; icon: string; action: string }
+
+  const commands: CmdItem[] = [
+    { id: 'new-issue', label: '새 이슈 만들기', group: '생성', icon: '+', shortcut: 'C', action: 'create-issue' },
+    { id: 'new-project', label: '새 프로젝트', group: '생성', icon: '◈', shortcut: 'P', action: 'create-project' },
+    { id: 'deploy', label: '배포 시작', group: '배포', icon: '▶', shortcut: '⌘D', action: 'deploy' },
+    { id: 'preview', label: '미리보기 URL 열기', group: '배포', icon: '◎', action: 'preview' },
+    { id: 'rollback', label: '이전 배포로 롤백', group: '배포', icon: '↩', action: 'rollback' },
+    { id: 'team', label: '팀 설정', group: '설정', icon: '◇', shortcut: '⌘,', action: 'team-settings' },
+    { id: 'tokens', label: '디자인 토큰 편집', group: '설정', icon: '◆', action: 'edit-tokens' },
+    { id: 'dark', label: '다크 모드 전환', group: '뷰', icon: '◑', shortcut: '⌘T', action: 'toggle-dark' },
+    { id: 'focus', label: '집중 모드', group: '뷰', icon: '◉', action: 'focus-mode' },
+    { id: 'shortcut', label: '단축키 보기', group: '도움말', icon: '?', shortcut: '⌘K', action: 'shortcuts' },
+  ]
+
+  const recentItems = commands.filter((c) => recentUsed.includes(c.id))
+  const filteredCmds = query.trim()
+    ? commands.filter((c) => c.label.toLowerCase().includes(query.toLowerCase()) || c.group.toLowerCase().includes(query.toLowerCase()))
+    : commands
+
+  const displayList = query.trim() ? filteredCmds : [...recentItems.slice(0, 2), ...commands.filter((c) => !recentUsed.includes(c.id))]
+
+  const groups = [...new Set(displayList.map((c) => c.group))]
+
+  const handleSelect = (cmd: CmdItem) => {
+    setRecentUsed((r) => [cmd.id, ...r.filter((x) => x !== cmd.id)].slice(0, 3))
+    setOpen(false)
+    setTimeout(() => setOpen(true), 400)
+  }
+
+  React.useEffect(() => {
+    setSelected(0)
+  }, [query])
+
+  const flatList = groups.flatMap((g) => displayList.filter((c) => c.group === g))
+  const currentItem = flatList[selected]
+
+  return (
+    <div style={{ width: 680, fontFamily: 'system-ui, sans-serif', background: '#f8fafc', minHeight: 500, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 20, border: '1px solid #e2e8f0', borderRadius: 12, padding: 32 }}>
+      <div style={{ width: '100%', maxWidth: 540 }}>
+        <Text style={{ fontSize: 13, color: '#94a3b8', marginBottom: 12, display: 'block', textAlign: 'center' }}>
+          커맨드 팔레트 — Linear + Vercel 패턴 (⌘K)
+        </Text>
+
+        {open ? (
+          <div style={{ background: '#fff', borderRadius: 12, border: '1px solid #e2e8f0', boxShadow: '0 8px 40px rgba(0,0,0,0.12)', overflow: 'hidden' }}>
+            {/* 검색 입력 */}
+            <div style={{ padding: '12px 16px', borderBottom: '1px solid #f1f5f9', display: 'flex', alignItems: 'center', gap: 10 }}>
+              <span style={{ fontSize: 14, color: '#94a3b8', flexShrink: 0 }}>⌘</span>
+              <SearchBar
+                placeholder="명령어 검색..."
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+              />
+              {query && (
+                <button onClick={() => setQuery('')} style={{ border: 'none', background: 'none', cursor: 'pointer', color: '#94a3b8', fontSize: 14, padding: '2px 4px', flexShrink: 0 }}>
+                  ✕
+                </button>
+              )}
+            </div>
+
+            {/* 명령어 목록 */}
+            <div style={{ maxHeight: 320, overflowY: 'auto' }}>
+              {groups.length === 0 ? (
+                <div style={{ padding: '24px', textAlign: 'center', fontSize: 13, color: '#94a3b8' }}>결과 없음</div>
+              ) : (
+                groups.map((group) => {
+                  const groupItems = displayList.filter((c) => c.group === group)
+                  return (
+                    <div key={group}>
+                      <div style={{ padding: '8px 16px 4px', fontSize: 10, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: 0.8, fontWeight: 600 }}>
+                        {!query.trim() && recentItems.some((r) => groupItems.some((g) => g.id === r.id)) ? '최근 사용' : group}
+                      </div>
+                      {groupItems.map((cmd, _i) => {
+                        const globalIdx = flatList.findIndex((f) => f.id === cmd.id)
+                        const isSelected = globalIdx === selected
+                        return (
+                          <div
+                            key={cmd.id}
+                            onMouseEnter={() => setSelected(globalIdx)}
+                            onClick={() => handleSelect(cmd)}
+                            style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '8px 16px', cursor: 'pointer', background: isSelected ? '#f0f9ff' : 'transparent', borderLeft: `2px solid ${isSelected ? '#3b82f6' : 'transparent'}` }}
+                          >
+                            <span style={{ width: 24, height: 24, borderRadius: 6, background: isSelected ? '#3b82f610' : '#f8fafc', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 13, color: isSelected ? '#3b82f6' : '#64748b', flexShrink: 0 }}>{cmd.icon}</span>
+                            <span style={{ flex: 1, fontSize: 13, color: isSelected ? '#0f172a' : '#334155', fontWeight: isSelected ? 500 : 400 }}>{cmd.label}</span>
+                            {cmd.shortcut && (
+                              <span style={{ fontSize: 10, color: '#94a3b8', fontFamily: 'monospace', background: '#f1f5f9', padding: '2px 6px', borderRadius: 4, border: '1px solid #e2e8f0' }}>{cmd.shortcut}</span>
+                            )}
+                          </div>
+                        )
+                      })}
+                    </div>
+                  )
+                })
+              )}
+            </div>
+
+            {/* 하단 힌트 */}
+            <div style={{ padding: '8px 16px', borderTop: '1px solid #f1f5f9', display: 'flex', gap: 16, background: '#fafafa' }}>
+              {[{ key: '↑↓', desc: '탐색' }, { key: 'Enter', desc: '실행' }, { key: 'Esc', desc: '닫기' }].map((hint) => (
+                <div key={hint.key} style={{ display: 'flex', gap: 4, alignItems: 'center' }}>
+                  <span style={{ fontSize: 10, color: '#94a3b8', fontFamily: 'monospace', background: '#f1f5f9', padding: '1px 5px', borderRadius: 3, border: '1px solid #e2e8f0' }}>{hint.key}</span>
+                  <Text style={{ fontSize: 10, color: '#94a3b8' }}>{hint.desc}</Text>
+                </div>
+              ))}
+              {currentItem && (
+                <div style={{ marginLeft: 'auto' }}>
+                  <LabelBadge color="gray"><LabelBadge.Label>{currentItem.group}</LabelBadge.Label></LabelBadge>
+                </div>
+              )}
+            </div>
+          </div>
+        ) : (
+          <div style={{ background: '#fff', borderRadius: 12, border: '1px solid #e2e8f0', padding: '20px', textAlign: 'center' }}>
+            <Loading size="medium" />
+            <Text style={{ fontSize: 12, color: '#94a3b8', display: 'block', marginTop: 8 }}>실행 중...</Text>
+          </div>
+        )}
+
+        {recentUsed.length > 0 && (
+          <div style={{ marginTop: 12, display: 'flex', gap: 6, justifyContent: 'center' }}>
+            <Text style={{ fontSize: 11, color: '#94a3b8' }}>최근:</Text>
+            {recentUsed.slice(0, 3).map((id) => {
+              const cmd = commands.find((c) => c.id === id)
+              return cmd ? <LabelBadge key={id} color="gray"><LabelBadge.Label>{cmd.label}</LabelBadge.Label></LabelBadge> : null
+            })}
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+
+export const LinearVercel144CommandPalette: StoryObj = {
+  name: 'Linear + Vercel — 커맨드 팔레트 (Cycle 144)',
+  parameters: {
+    layout: 'centered',
+    docs: {
+      description: {
+        story:
+          'Linear + Vercel Design 벤치마크 — Cycle 144. ' +
+          '커맨드 팔레트: SearchBar 검색 필터, 그룹별 명령어 목록, hover 선택, ' +
+          '실행 후 Loading 피드백, 최근 사용 LabelBadge. ' +
+          '단축키 키캡 힌트 바, 결과 없음 상태.',
+      },
+    },
+  },
+  render: () => <CommandPalette144Render />,
+}

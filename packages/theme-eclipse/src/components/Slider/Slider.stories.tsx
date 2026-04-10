@@ -1349,3 +1349,207 @@ export const Arco_Apple_시간대_범위_슬라이더: Story = {
   },
   render: () => <ArcoAppleTimeRangeRender />,
 }
+
+// Cycle 144 - Linear Design + Vercel Design benchmark
+function LinearIssuePriority144Render() {
+  const [urgency, setUrgency] = useState(50)
+  const [impact, setImpact] = useState(70)
+  const [effort, setEffort] = useState(30)
+
+  const score = Math.round((urgency * 0.4 + impact * 0.4 + (100 - effort) * 0.2))
+  const priority = score >= 75 ? 'urgent' : score >= 55 ? 'high' : score >= 35 ? 'medium' : 'low'
+  const priorityColor: Record<string, string> = { urgent: '#ef4444', high: '#f59e0b', medium: '#3b82f6', low: '#94a3b8' }
+
+  const metrics = [
+    { key: 'urgency', label: '긴급도', value: urgency, setValue: setUrgency, color: '#ef4444' },
+    { key: 'impact', label: '영향도', value: impact, setValue: setImpact, color: '#8b5cf6' },
+    { key: 'effort', label: '작업량', value: effort, setValue: setEffort, color: '#f59e0b' },
+  ]
+
+  return (
+    <div style={{ width: 360, fontFamily: 'system-ui, sans-serif', border: '1px solid #e2e8f0', borderRadius: 10, padding: 20, background: '#fff' }}>
+      <div style={{ marginBottom: 16 }}>
+        <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>이슈 우선순위 계산기</div>
+        <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>Linear Design — RICE 스코어링 패턴</div>
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 18, marginBottom: 20 }}>
+        {metrics.map((m) => (
+          <div key={m.key}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
+              <span style={{ fontSize: 12, color: '#475569', fontWeight: 500 }}>{m.label}</span>
+              <span style={{ fontSize: 12, fontWeight: 700, color: m.color }}>{m.value}</span>
+            </div>
+            <Slider
+              value={[m.value]}
+              onValueChange={(v) => m.setValue(v[0])}
+              min={0}
+              max={100}
+              step={5}
+            />
+          </div>
+        ))}
+      </div>
+      <div style={{ padding: '12px 16px', borderRadius: 8, background: `${priorityColor[priority]}10`, border: `1px solid ${priorityColor[priority]}30`, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <div>
+          <div style={{ fontSize: 11, color: '#64748b', marginBottom: 2 }}>RICE 점수</div>
+          <div style={{ fontSize: 22, fontWeight: 800, color: priorityColor[priority] }}>{score}</div>
+        </div>
+        <div style={{ textAlign: 'right' }}>
+          <div style={{ fontSize: 10, color: '#94a3b8', marginBottom: 2 }}>우선순위</div>
+          <div style={{ fontSize: 14, fontWeight: 700, color: priorityColor[priority], textTransform: 'uppercase', letterSpacing: 0.5 }}>{priority}</div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const Linear_이슈_우선순위_계산기: Story = {
+  name: 'Linear — 이슈 우선순위 계산기 (Cycle 144)',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Linear RICE 스코어링 패턴. 긴급도/영향도/작업량 3개 Slider로 우선순위 자동 계산. 점수에 따라 urgent/high/medium/low 동적 판정.',
+      },
+    },
+  },
+  render: () => <LinearIssuePriority144Render />,
+}
+
+function VercelBandwidthSlider144Render() {
+  const [bandwidth, setBandwidth] = useState([100])
+  const [cache, setCache] = useState([72])
+  const [functions, setFunctions] = useState([40])
+
+  const total = bandwidth[0] + cache[0] + functions[0]
+  const limit = 400
+  const pct = Math.min(100, Math.round((total / limit) * 100))
+  const isOver = total > limit
+
+  return (
+    <div style={{ width: 360, fontFamily: 'system-ui, sans-serif', border: '1px solid #e2e8f0', borderRadius: 10, padding: 20, background: '#fff' }}>
+      <div style={{ marginBottom: 16 }}>
+        <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>리소스 할당</div>
+        <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>Vercel Design — 사용량 슬라이더</div>
+      </div>
+
+      {[
+        { label: '대역폭', value: bandwidth, set: setBandwidth, unit: 'GB', color: '#3b82f6', max: 200 },
+        { label: '캐시', value: cache, set: setCache, unit: 'GB', color: '#8b5cf6', max: 150 },
+        { label: '함수 실행', value: functions, set: setFunctions, unit: 'k', color: '#10b981', max: 100 },
+      ].map((r) => (
+        <div key={r.label} style={{ marginBottom: 16 }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 6 }}>
+            <span style={{ fontSize: 12, color: '#475569' }}>{r.label}</span>
+            <span style={{ fontSize: 12, fontWeight: 600, color: r.color }}>{r.value[0]}{r.unit}</span>
+          </div>
+          <Slider
+            value={r.value}
+            onValueChange={(v) => r.set(v)}
+            min={0}
+            max={r.max}
+            step={10}
+          />
+        </div>
+      ))}
+
+      <div style={{ padding: '10px 14px', borderRadius: 8, background: isOver ? '#fef2f2' : '#f8fafc', border: `1px solid ${isOver ? '#fecaca' : '#e2e8f0'}` }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 6 }}>
+          <span style={{ fontSize: 11, color: '#64748b' }}>총 사용량</span>
+          <span style={{ fontSize: 12, fontWeight: 700, color: isOver ? '#ef4444' : '#0f172a' }}>{total} / {limit}GB</span>
+        </div>
+        <div style={{ height: 4, borderRadius: 2, background: '#e2e8f0', overflow: 'hidden' }}>
+          <div style={{ height: '100%', width: `${pct}%`, background: isOver ? '#ef4444' : '#3b82f6', borderRadius: 2, transition: 'width 0.2s, background 0.2s' }} />
+        </div>
+        {isOver && <div style={{ fontSize: 10, color: '#ef4444', marginTop: 5 }}>한도 초과 — 플랜을 업그레이드하세요</div>}
+      </div>
+    </div>
+  )
+}
+
+export const Vercel_리소스_할당_슬라이더: Story = {
+  name: 'Vercel — 리소스 할당 슬라이더 (Cycle 144)',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Vercel 리소스 할당 패턴. 대역폭/캐시/함수 실행량 3개 Slider 합산, 한도 초과 시 경고 표시 및 게이지 빨간색 전환.',
+      },
+    },
+  },
+  render: () => <VercelBandwidthSlider144Render />,
+}
+
+function LinearVercelABTest144Render() {
+  const [splitA, setSplitA] = useState([60])
+  const [confidence, setConfidence] = useState([95])
+  const [duration, setDuration] = useState([14])
+
+  const splitB = 100 - splitA[0]
+
+  const visitorA = Math.round(10000 * (splitA[0] / 100))
+  const visitorB = 10000 - visitorA
+
+  const statusColor = confidence[0] >= 95 ? '#10b981' : confidence[0] >= 80 ? '#f59e0b' : '#ef4444'
+  const statusLabel = confidence[0] >= 95 ? '통계적으로 유의함' : confidence[0] >= 80 ? '보통' : '신뢰도 부족'
+
+  return (
+    <div style={{ width: 380, fontFamily: 'system-ui, sans-serif', border: '1px solid #e2e8f0', borderRadius: 10, padding: 20, background: '#fff' }}>
+      <div style={{ marginBottom: 16 }}>
+        <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>A/B 테스트 설정</div>
+        <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>Linear + Vercel — 실험 파라미터</div>
+      </div>
+
+      <div style={{ marginBottom: 14 }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 6 }}>
+          <span style={{ fontSize: 12, color: '#475569' }}>트래픽 분배</span>
+          <span style={{ fontSize: 11, color: '#64748b' }}>A: {splitA[0]}% / B: {splitB}%</span>
+        </div>
+        <div style={{ display: 'flex', gap: 6, alignItems: 'center', marginBottom: 8 }}>
+          <div style={{ flex: splitA[0], height: 16, background: '#3b82f6', borderRadius: '4px 0 0 4px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <span style={{ fontSize: 9, color: '#fff', fontWeight: 700 }}>A</span>
+          </div>
+          <div style={{ flex: splitB, height: 16, background: '#8b5cf6', borderRadius: '0 4px 4px 0', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <span style={{ fontSize: 9, color: '#fff', fontWeight: 700 }}>B</span>
+          </div>
+        </div>
+        <Slider value={splitA} onValueChange={setSplitA} min={10} max={90} step={5} />
+        <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 4, fontSize: 10, color: '#94a3b8' }}>
+          <span>방문자 A: {visitorA.toLocaleString()}명</span>
+          <span>방문자 B: {visitorB.toLocaleString()}명</span>
+        </div>
+      </div>
+
+      <div style={{ marginBottom: 14 }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 6 }}>
+          <span style={{ fontSize: 12, color: '#475569' }}>신뢰도 임계값</span>
+          <span style={{ fontSize: 12, fontWeight: 700, color: statusColor }}>{confidence[0]}%</span>
+        </div>
+        <Slider value={confidence} onValueChange={setConfidence} min={70} max={99} step={5} />
+      </div>
+
+      <div style={{ marginBottom: 16 }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 6 }}>
+          <span style={{ fontSize: 12, color: '#475569' }}>실험 기간</span>
+          <span style={{ fontSize: 12, color: '#64748b' }}>{duration[0]}일</span>
+        </div>
+        <Slider value={duration} onValueChange={setDuration} min={3} max={30} step={1} />
+      </div>
+
+      <div style={{ padding: '10px 14px', borderRadius: 8, background: `${statusColor}10`, border: `1px solid ${statusColor}30`, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <span style={{ fontSize: 12, color: statusColor, fontWeight: 600 }}>{statusLabel}</span>
+        <span style={{ fontSize: 11, color: '#64748b' }}>{duration[0]}일 후 결론</span>
+      </div>
+    </div>
+  )
+}
+
+export const Linear_Vercel_AB_테스트_설정: Story = {
+  name: 'Linear + Vercel — A/B 테스트 설정 (Cycle 144)',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Linear + Vercel A/B 실험 파라미터 슬라이더. 트래픽 분배 / 신뢰도 임계값 / 기간 3개 Slider. 분배 시각화 바, 신뢰도 상태 색상 동적 변환.',
+      },
+    },
+  },
+  render: () => <LinearVercelABTest144Render />,
+}
