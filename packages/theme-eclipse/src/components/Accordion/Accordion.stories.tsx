@@ -820,6 +820,386 @@ const FAQ_ITEMS = [
   },
 ]
 
+// ─── MUI 벤치마크: Accordion + Summary 요약 표시 패턴 ─────────────────────────
+// MUI Accordion은 닫힌 상태에서 AccordionSummary에 핵심 정보를 표시합니다.
+// 설정 패널에서 현재 값을 요약으로 보여주는 패턴을 구현합니다.
+
+const MUI_SETTINGS = [
+  {
+    id: 'appearance',
+    title: '외관',
+    icon: (
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+        <path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z" stroke="#6366f1" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    ),
+    summary: '다크 모드 · 컴팩트 밀도',
+    fields: [
+      { label: '테마', value: '다크 모드' },
+      { label: '밀도', value: '컴팩트' },
+      { label: '폰트 크기', value: '14px' },
+    ],
+  },
+  {
+    id: 'notifications',
+    title: '알림',
+    icon: (
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+        <path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0" stroke="#10b981" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    ),
+    summary: '푸시 켜짐 · 이메일 꺼짐',
+    fields: [
+      { label: '푸시 알림', value: '켜짐' },
+      { label: '이메일', value: '꺼짐' },
+      { label: '소리', value: '켜짐' },
+    ],
+  },
+  {
+    id: 'security',
+    title: '보안',
+    icon: (
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="#f59e0b" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    ),
+    summary: '2FA 활성화 · 세션 14일',
+    fields: [
+      { label: '2단계 인증', value: '활성화' },
+      { label: '세션 만료', value: '14일' },
+      { label: '로그인 알림', value: '켜짐' },
+    ],
+  },
+]
+
+function MuiSummaryAccordionRender() {
+  const [open, setOpen] = useState<string | null>(null)
+  return (
+    <div style={{ width: 480, fontFamily: 'system-ui, sans-serif' }}>
+      <div style={{ fontSize: 13, fontWeight: 700, color: '#1e293b', marginBottom: 14 }}>
+        계정 설정 — MUI Summary 패턴
+      </div>
+      <Accordion
+        type="single"
+        collapsible
+        value={open ?? ''}
+        onValueChange={(v) => setOpen(v || null)}
+        className="w-full"
+      >
+        {MUI_SETTINGS.map((setting) => (
+          <Accordion.Item key={setting.id} value={setting.id}>
+            <Accordion.Trigger>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%', paddingRight: 8 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                  {setting.icon}
+                  <span style={{ fontSize: 14, fontWeight: 600, color: '#0f172a' }}>{setting.title}</span>
+                </div>
+                {open !== setting.id && (
+                  <span style={{ fontSize: 11, color: '#94a3b8', fontFamily: 'monospace' }}>
+                    {setting.summary}
+                  </span>
+                )}
+              </div>
+            </Accordion.Trigger>
+            <Accordion.Content>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 10, padding: '4px 0 8px' }}>
+                {setting.fields.map((field) => (
+                  <div key={field.label} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <span style={{ fontSize: 13, color: '#64748b' }}>{field.label}</span>
+                    <span style={{ fontSize: 13, fontWeight: 600, color: '#0f172a' }}>{field.value}</span>
+                  </div>
+                ))}
+                <button
+                  style={{
+                    marginTop: 4,
+                    alignSelf: 'flex-end',
+                    padding: '5px 12px',
+                    borderRadius: 6,
+                    border: '1px solid #e2e8f0',
+                    background: '#fff',
+                    fontSize: 12,
+                    fontWeight: 600,
+                    color: '#6366f1',
+                    cursor: 'pointer',
+                  }}
+                >
+                  편집
+                </button>
+              </div>
+            </Accordion.Content>
+          </Accordion.Item>
+        ))}
+      </Accordion>
+    </div>
+  )
+}
+
+export const MUI_요약_표시_아코디언 = {
+  name: 'MUI - Summary 요약 표시 패턴 (닫힌 상태에서 현재 값 표시)',
+  render: () => <MuiSummaryAccordionRender />,
+}
+
+// ─── Raycast 벤치마크: 커맨드 섹션 그루핑 패턴 ────────────────────────────────
+// Raycast Extensions UI: 커맨드들을 섹션별로 묶고 섹션을 Accordion으로 접을 수 있음.
+// 키보드 단축키가 우측에 표시되는 컴팩트 리스트가 특징입니다.
+
+const RAYCAST_SECTIONS = [
+  {
+    id: 'recent',
+    title: '최근 사용',
+    count: 3,
+    commands: [
+      { label: 'Toggle Dark Mode', shortcut: 'D', desc: '다크/라이트 전환' },
+      { label: 'Open Storybook', shortcut: 'S', desc: '로컬 Storybook 열기' },
+      { label: 'Run Typecheck', shortcut: 'T', desc: 'tsc --noEmit 실행' },
+    ],
+  },
+  {
+    id: 'dev',
+    title: '개발 도구',
+    count: 4,
+    commands: [
+      { label: 'Git Status', shortcut: 'G S', desc: '변경사항 확인' },
+      { label: 'Git Commit', shortcut: 'G C', desc: '커밋 생성' },
+      { label: 'Build Storybook', shortcut: 'B', desc: 'pnpm build:storybook' },
+      { label: 'Deploy Vercel', shortcut: 'V D', desc: 'Vercel 배포' },
+    ],
+  },
+  {
+    id: 'navigation',
+    title: '네비게이션',
+    count: 3,
+    commands: [
+      { label: 'Go to Components', shortcut: 'C', desc: 'src/components 열기' },
+      { label: 'Go to Templates', shortcut: 'T', desc: 'Templates.stories.tsx' },
+      { label: 'Go to MDX Docs', shortcut: 'M', desc: 'MDX 문서 폴더' },
+    ],
+  },
+]
+
+function RaycastSectionsRender() {
+  const [openSections, setOpenSections] = useState<string[]>(['recent', 'dev'])
+
+  return (
+    <div
+      style={{
+        width: 400,
+        background: '#1c1c27',
+        borderRadius: 12,
+        border: '1px solid #2a2a3e',
+        overflow: 'hidden',
+        fontFamily: 'system-ui, sans-serif',
+      }}
+    >
+      <div
+        style={{
+          padding: '10px 14px',
+          borderBottom: '1px solid #2a2a3e',
+          display: 'flex',
+          alignItems: 'center',
+          gap: 8,
+        }}
+      >
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+          <circle cx="11" cy="11" r="8" stroke="#64748b" strokeWidth="2" />
+          <path d="m21 21-4.35-4.35" stroke="#64748b" strokeWidth="2" strokeLinecap="round" />
+        </svg>
+        <span style={{ fontSize: 13, color: '#64748b' }}>명령어 검색...</span>
+      </div>
+      <Accordion
+        type="multiple"
+        value={openSections}
+        onValueChange={setOpenSections}
+        className="w-full"
+        style={{ background: 'transparent' }}
+      >
+        {RAYCAST_SECTIONS.map((section) => (
+          <Accordion.Item key={section.id} value={section.id} style={{ border: 'none', borderBottom: '1px solid #2a2a3e' }}>
+            <Accordion.Trigger style={{ padding: '6px 14px', background: '#252535', fontSize: 11 }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%', paddingRight: 6 }}>
+                <span style={{ fontSize: 10, fontWeight: 700, color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+                  {section.title}
+                </span>
+                <span
+                  style={{
+                    fontSize: 9,
+                    color: '#5e6ad2',
+                    background: '#2d2d4e',
+                    padding: '1px 5px',
+                    borderRadius: 4,
+                    fontWeight: 700,
+                  }}
+                >
+                  {section.count}
+                </span>
+              </div>
+            </Accordion.Trigger>
+            <Accordion.Content>
+              <div style={{ background: '#1c1c27' }}>
+                {section.commands.map((cmd) => (
+                  <div
+                    key={cmd.label}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      padding: '8px 14px',
+                      cursor: 'pointer',
+                    }}
+                    onMouseEnter={(e) => { (e.currentTarget as HTMLDivElement).style.background = '#252535' }}
+                    onMouseLeave={(e) => { (e.currentTarget as HTMLDivElement).style.background = 'transparent' }}
+                  >
+                    <div>
+                      <div style={{ fontSize: 13, color: '#e2e8f0', fontWeight: 500 }}>{cmd.label}</div>
+                      <div style={{ fontSize: 11, color: '#475569' }}>{cmd.desc}</div>
+                    </div>
+                    <div style={{ display: 'flex', gap: 3 }}>
+                      {cmd.shortcut.split(' ').map((key) => (
+                        <span
+                          key={key}
+                          style={{
+                            fontSize: 11,
+                            fontFamily: 'monospace',
+                            color: '#94a3b8',
+                            background: '#2a2a3e',
+                            border: '1px solid #3a3a4e',
+                            borderRadius: 4,
+                            padding: '2px 5px',
+                          }}
+                        >
+                          {key}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </Accordion.Content>
+          </Accordion.Item>
+        ))}
+      </Accordion>
+    </div>
+  )
+}
+
+export const Raycast_커맨드_섹션_그루핑 = {
+  name: 'Raycast - 커맨드 섹션 그루핑 패턴 (단축키 포함)',
+  render: () => <RaycastSectionsRender />,
+}
+
+// ─── MUI 벤치마크: Dense 아코디언 릴리즈 노트 ────────────────────────────────
+// MUI dense 모드처럼 줄간격을 줄이고 tight한 레이아웃으로 많은 항목을 표시합니다.
+// LabelBadge를 활용해 변경 유형(feat/fix/docs)을 시각적으로 구분합니다.
+
+const RELEASE_ITEMS = [
+  {
+    version: 'v2.0.0-beta.16',
+    date: '2026-04-10',
+    type: 'major' as const,
+    changes: [
+      { kind: 'feat' as const, text: 'FileBrowser 템플릿 추가' },
+      { kind: 'feat' as const, text: 'SearchBar Chakra/M3 패턴 스토리' },
+      { kind: 'feat' as const, text: 'ChangelogPage 템플릿 추가' },
+    ],
+  },
+  {
+    version: 'v2.0.0-beta.15',
+    date: '2026-04-09',
+    type: 'minor' as const,
+    changes: [
+      { kind: 'feat' as const, text: 'NotifCenter 템플릿' },
+      { kind: 'fix' as const, text: 'Toggle onChange 타입 수정' },
+    ],
+  },
+  {
+    version: 'v2.0.0-beta.14',
+    date: '2026-04-08',
+    type: 'patch' as const,
+    changes: [
+      { kind: 'fix' as const, text: 'TextArea style prop 제거' },
+      { kind: 'docs' as const, text: 'AccessibilityGuide 추가' },
+    ],
+  },
+]
+
+const KIND_COLOR = { feat: '#10b981', fix: '#ef4444', docs: '#3b82f6' } as const
+const KIND_LABEL = { feat: 'FEAT', fix: 'FIX', docs: 'DOCS' } as const
+const TYPE_BADGE = { major: { bg: '#eff6ff', color: '#6366f1', label: 'MAJOR' }, minor: { bg: '#f0fdf4', color: '#10b981', label: 'MINOR' }, patch: { bg: '#fefce8', color: '#f59e0b', label: 'PATCH' } } as const
+
+export const MUI_Dense_릴리즈_노트 = {
+  name: 'MUI Dense - 릴리즈 노트 아코디언 (LabelBadge 조합)',
+  render: function Render() {
+    const [open, setOpen] = useState<string>('v2.0.0-beta.16')
+    return (
+      <div style={{ width: 480 }}>
+        <div style={{ fontSize: 13, fontWeight: 700, color: '#1e293b', marginBottom: 12 }}>
+          릴리즈 노트
+        </div>
+        <Accordion
+          type="single"
+          collapsible
+          value={open}
+          onValueChange={(v) => setOpen(v)}
+          className="w-full"
+        >
+          {RELEASE_ITEMS.map((release) => {
+            const badge = TYPE_BADGE[release.type]
+            return (
+              <Accordion.Item key={release.version} value={release.version}>
+                <Accordion.Trigger>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%', paddingRight: 8 }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                      <span style={{ fontSize: 12, fontFamily: 'monospace', fontWeight: 700, color: '#0f172a' }}>
+                        {release.version}
+                      </span>
+                      <span
+                        style={{
+                          fontSize: 9,
+                          padding: '1px 6px',
+                          borderRadius: 4,
+                          fontWeight: 800,
+                          background: badge.bg,
+                          color: badge.color,
+                          letterSpacing: '0.05em',
+                        }}
+                      >
+                        {badge.label}
+                      </span>
+                    </div>
+                    <span style={{ fontSize: 11, color: '#94a3b8' }}>{release.date}</span>
+                  </div>
+                </Accordion.Trigger>
+                <Accordion.Content>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: 6, padding: '4px 0 8px' }}>
+                    {release.changes.map((change, i) => (
+                      <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                        <span
+                          style={{
+                            fontSize: 9,
+                            padding: '1px 5px',
+                            borderRadius: 3,
+                            fontWeight: 800,
+                            background: `${KIND_COLOR[change.kind]}18`,
+                            color: KIND_COLOR[change.kind],
+                            letterSpacing: '0.05em',
+                          }}
+                        >
+                          {KIND_LABEL[change.kind]}
+                        </span>
+                        <LabelBadge>{change.text}</LabelBadge>
+                      </div>
+                    ))}
+                  </div>
+                </Accordion.Content>
+              </Accordion.Item>
+            )
+          })}
+        </Accordion>
+      </div>
+    )
+  },
+}
+
 export const FAQ_아코디언_패턴 = {
   name: 'FAQ 아코디언 (Exclusive 모드)',
   render: function Render() {

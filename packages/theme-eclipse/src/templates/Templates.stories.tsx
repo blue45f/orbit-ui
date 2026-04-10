@@ -11865,3 +11865,404 @@ export const ChangelogPage: Story = {
   render: () => <ChangelogPageRender />,
 }
 
+// ─── DataImportWizard Template (MUI + Raycast 벤치마크) ──────────────────────
+// MUI Stepper + Raycast 컴팩트 UI 패턴으로 구현한 데이터 임포트 위자드
+
+type ImportStep = 'upload' | 'map' | 'validate' | 'confirm'
+type ImportFormat = 'csv' | 'json' | 'xlsx'
+type FieldMapping = { source: string; target: string; matched: boolean }
+
+const IMPORT_STEPS: { key: ImportStep; title: string; sub: string }[] = [
+  { key: 'upload', title: '파일 업로드', sub: '데이터 파일을 선택하세요' },
+  { key: 'map', title: '필드 매핑', sub: '컬럼을 연결하세요' },
+  { key: 'validate', title: '데이터 검증', sub: '오류를 확인하세요' },
+  { key: 'confirm', title: '가져오기', sub: '최종 확인 후 실행' },
+]
+
+const FIELD_MAPPINGS: FieldMapping[] = [
+  { source: 'user_name', target: '사용자명', matched: true },
+  { source: 'email_address', target: '이메일', matched: true },
+  { source: 'phone_num', target: '전화번호', matched: true },
+  { source: 'dept', target: '부서', matched: false },
+  { source: 'join_date', target: '입사일', matched: true },
+]
+
+const IMPORT_FORMATS: { key: ImportFormat; label: string; desc: string }[] = [
+  { key: 'csv', label: 'CSV', desc: '쉼표 구분 텍스트 파일' },
+  { key: 'json', label: 'JSON', desc: 'JavaScript Object Notation' },
+  { key: 'xlsx', label: 'Excel', desc: 'Microsoft Excel 파일' },
+]
+
+const wizColors = {
+  bg: '#f8fafc',
+  card: '#fff',
+  border: '#e2e8f0',
+  accent: '#6366f1',
+  success: '#10b981',
+  warning: '#f59e0b',
+  error: '#ef4444',
+  fg: '#0f172a',
+  fgSub: '#64748b',
+}
+
+function DataImportWizardRender() {
+  const [stepIdx, setStepIdx] = useState(0)
+  const [format, setFormat] = useState<ImportFormat>('csv')
+  const [fileName, setFileName] = useState<string | null>(null)
+  const [mappings, setMappings] = useState<FieldMapping[]>(FIELD_MAPPINGS)
+  const [done, setDone] = useState(false)
+
+  const currentStep = IMPORT_STEPS[stepIdx]
+  const unmatchedCount = mappings.filter((m) => !m.matched).length
+
+  const generateDots = (count: number) =>
+    Array.from({ length: count }, (_, i) => <span key={i} />)
+
+  const handleUploadSim = () => {
+    setFileName(`employees_2026.${format}`)
+  }
+
+  const toggleMapping = (idx: number) => {
+    setMappings((prev) =>
+      prev.map((m, i) => (i === idx ? { ...m, matched: !m.matched } : m)),
+    )
+  }
+
+  if (done) {
+    return (
+      <div
+        style={{
+          width: 680,
+          background: wizColors.card,
+          borderRadius: 16,
+          border: `1px solid ${wizColors.border}`,
+          padding: '60px 40px',
+          textAlign: 'center',
+          fontFamily: 'system-ui, sans-serif',
+        }}
+      >
+        <div
+          style={{
+            width: 64,
+            height: 64,
+            borderRadius: '50%',
+            background: '#f0fdf4',
+            border: `2px solid ${wizColors.success}`,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            margin: '0 auto 20px',
+            fontSize: 28,
+            color: wizColors.success,
+          }}
+        >
+          ✓
+        </div>
+        <div style={{ fontSize: 20, fontWeight: 800, color: wizColors.fg, marginBottom: 8 }}>
+          데이터 가져오기 완료
+        </div>
+        <div style={{ fontSize: 14, color: wizColors.fgSub, marginBottom: 28 }}>
+          {mappings.filter((m) => m.matched).length}개 필드 · {format.toUpperCase()} 형식으로 성공적으로 임포트되었습니다.
+        </div>
+        <button
+          onClick={() => { setDone(false); setStepIdx(0); setFileName(null) }}
+          style={{
+            padding: '10px 24px',
+            borderRadius: 8,
+            border: `1px solid ${wizColors.border}`,
+            background: wizColors.card,
+            fontSize: 14,
+            cursor: 'pointer',
+            color: wizColors.fg,
+          }}
+        >
+          새로 시작
+        </button>
+      </div>
+    )
+  }
+
+  return (
+    <div
+      style={{
+        width: 680,
+        background: wizColors.bg,
+        borderRadius: 16,
+        border: `1px solid ${wizColors.border}`,
+        overflow: 'hidden',
+        fontFamily: 'system-ui, sans-serif',
+      }}
+    >
+      {/* Header */}
+      <div
+        style={{
+          background: wizColors.card,
+          borderBottom: `1px solid ${wizColors.border}`,
+          padding: '18px 24px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+        }}
+      >
+        <div>
+          <div style={{ fontSize: 16, fontWeight: 700, color: wizColors.fg }}>데이터 가져오기</div>
+          <div style={{ fontSize: 12, color: wizColors.fgSub }}>{currentStep.sub}</div>
+        </div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+          <span style={{ fontSize: 12, color: wizColors.fgSub }}>
+            {stepIdx + 1} / {IMPORT_STEPS.length}
+          </span>
+          <PageIndicator currentPage={stepIdx} onPageChange={setStepIdx}>
+            {generateDots(IMPORT_STEPS.length)}
+          </PageIndicator>
+        </div>
+      </div>
+
+      {/* Step labels */}
+      <div
+        style={{
+          display: 'flex',
+          background: wizColors.card,
+          borderBottom: `1px solid ${wizColors.border}`,
+        }}
+      >
+        {IMPORT_STEPS.map((step, i) => (
+          <div
+            key={step.key}
+            onClick={() => setStepIdx(i)}
+            style={{
+              flex: 1,
+              padding: '10px 0',
+              textAlign: 'center',
+              cursor: 'pointer',
+              borderBottom: i === stepIdx ? `2px solid ${wizColors.accent}` : '2px solid transparent',
+              background: i === stepIdx ? `${wizColors.accent}06` : 'transparent',
+            }}
+          >
+            <div
+              style={{
+                fontSize: 11,
+                fontWeight: i === stepIdx ? 700 : 400,
+                color: i === stepIdx ? wizColors.accent : wizColors.fgSub,
+              }}
+            >
+              {i + 1}. {step.title}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Content area */}
+      <div style={{ padding: '24px', minHeight: 280 }}>
+        {stepIdx === 0 && (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+            <div style={{ fontSize: 13, fontWeight: 600, color: wizColors.fg }}>파일 형식 선택</div>
+            <div style={{ display: 'flex', gap: 10 }}>
+              {IMPORT_FORMATS.map((fmt) => (
+                <div
+                  key={fmt.key}
+                  onClick={() => setFormat(fmt.key)}
+                  style={{
+                    flex: 1,
+                    padding: '12px',
+                    borderRadius: 8,
+                    border: `1.5px solid ${format === fmt.key ? wizColors.accent : wizColors.border}`,
+                    background: format === fmt.key ? `${wizColors.accent}06` : wizColors.card,
+                    cursor: 'pointer',
+                    textAlign: 'center',
+                  }}
+                >
+                  <div style={{ fontSize: 14, fontWeight: 700, color: format === fmt.key ? wizColors.accent : wizColors.fg }}>
+                    {fmt.label}
+                  </div>
+                  <div style={{ fontSize: 11, color: wizColors.fgSub, marginTop: 2 }}>{fmt.desc}</div>
+                </div>
+              ))}
+            </div>
+            <div
+              onClick={handleUploadSim}
+              style={{
+                border: `2px dashed ${fileName ? wizColors.success : wizColors.border}`,
+                borderRadius: 10,
+                padding: '32px 20px',
+                textAlign: 'center',
+                cursor: 'pointer',
+                background: fileName ? '#f0fdf4' : wizColors.card,
+              }}
+            >
+              {fileName ? (
+                <div>
+                  <div style={{ fontSize: 14, fontWeight: 600, color: wizColors.success }}>{fileName}</div>
+                  <div style={{ fontSize: 11, color: wizColors.fgSub, marginTop: 4 }}>파일이 선택되었습니다</div>
+                </div>
+              ) : (
+                <div>
+                  <div style={{ fontSize: 14, color: wizColors.fgSub }}>클릭하여 파일 선택 (시뮬레이션)</div>
+                  <div style={{ fontSize: 11, color: '#cbd5e1', marginTop: 4 }}>또는 파일을 드래그하세요</div>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+
+        {stepIdx === 1 && (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+            <div style={{ fontSize: 13, fontWeight: 600, color: wizColors.fg, marginBottom: 6 }}>
+              필드 매핑 확인 — {mappings.filter((m) => m.matched).length}/{mappings.length} 연결됨
+            </div>
+            {mappings.map((mapping, i) => (
+              <div
+                key={mapping.source}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 10,
+                  padding: '10px 14px',
+                  borderRadius: 8,
+                  border: `1px solid ${mapping.matched ? wizColors.success + '44' : wizColors.error + '44'}`,
+                  background: mapping.matched ? '#f0fdf4' : '#fef2f2',
+                }}
+              >
+                <span
+                  style={{
+                    width: 8,
+                    height: 8,
+                    borderRadius: '50%',
+                    background: mapping.matched ? wizColors.success : wizColors.error,
+                    flexShrink: 0,
+                  }}
+                />
+                <span style={{ flex: 1, fontSize: 12, fontFamily: 'monospace', color: '#475569' }}>
+                  {mapping.source}
+                </span>
+                <span style={{ fontSize: 12, color: '#94a3b8' }}>→</span>
+                <span style={{ flex: 1, fontSize: 12, color: wizColors.fg, fontWeight: 500 }}>
+                  {mapping.target}
+                </span>
+                <Checkbox
+                  checked={mapping.matched}
+                  onChange={() => toggleMapping(i)}
+                  aria-label={mapping.source}
+                />
+              </div>
+            ))}
+          </div>
+        )}
+
+        {stepIdx === 2 && (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+            <div style={{ fontSize: 13, fontWeight: 600, color: wizColors.fg }}>검증 결과</div>
+            <div
+              style={{
+                padding: '14px 16px',
+                borderRadius: 8,
+                background: unmatchedCount > 0 ? '#fefce8' : '#f0fdf4',
+                border: `1px solid ${unmatchedCount > 0 ? wizColors.warning + '44' : wizColors.success + '44'}`,
+              }}
+            >
+              <div style={{ fontSize: 13, fontWeight: 600, color: unmatchedCount > 0 ? '#92400e' : '#065f46' }}>
+                {unmatchedCount > 0 ? `경고: ${unmatchedCount}개 필드 미연결` : '모든 필드 연결 완료'}
+              </div>
+              <div style={{ fontSize: 12, color: wizColors.fgSub, marginTop: 4 }}>
+                {mappings.filter((m) => m.matched).length}개 필드가 매핑되었습니다.
+              </div>
+            </div>
+            <Progress value={(mappings.filter((m) => m.matched).length / mappings.length) * 100} />
+            <div style={{ display: 'flex', gap: 24, marginTop: 4 }}>
+              {[
+                { label: '총 레코드', value: '1,234' },
+                { label: '유효', value: '1,198' },
+                { label: '오류', value: '36' },
+              ].map((stat) => (
+                <div key={stat.label} style={{ textAlign: 'center' }}>
+                  <div style={{ fontSize: 18, fontWeight: 800, color: wizColors.fg }}>{stat.value}</div>
+                  <div style={{ fontSize: 11, color: wizColors.fgSub }}>{stat.label}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {stepIdx === 3 && (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+            <div style={{ fontSize: 13, fontWeight: 600, color: wizColors.fg }}>최종 확인</div>
+            {[
+              { label: '파일', value: fileName ?? '미선택' },
+              { label: '형식', value: format.toUpperCase() },
+              { label: '매핑된 필드', value: `${mappings.filter((m) => m.matched).length}/${mappings.length}` },
+              { label: '가져올 레코드', value: '1,198건' },
+            ].map((item) => (
+              <div
+                key={item.label}
+                style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  padding: '10px 0',
+                  borderBottom: `1px solid ${wizColors.border}`,
+                }}
+              >
+                <span style={{ fontSize: 13, color: wizColors.fgSub }}>{item.label}</span>
+                <span style={{ fontSize: 13, fontWeight: 600, color: wizColors.fg }}>{item.value}</span>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+
+      {/* Footer */}
+      <div
+        style={{
+          padding: '14px 24px',
+          background: wizColors.card,
+          borderTop: `1px solid ${wizColors.border}`,
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+        }}
+      >
+        <button
+          onClick={() => setStepIdx((s) => Math.max(s - 1, 0))}
+          disabled={stepIdx === 0}
+          style={{
+            padding: '8px 16px',
+            borderRadius: 6,
+            border: `1px solid ${wizColors.border}`,
+            background: wizColors.card,
+            fontSize: 13,
+            cursor: stepIdx === 0 ? 'not-allowed' : 'pointer',
+            color: stepIdx === 0 ? '#cbd5e1' : wizColors.fg,
+          }}
+        >
+          이전
+        </button>
+        <button
+          onClick={() => {
+            if (stepIdx < IMPORT_STEPS.length - 1) {
+              setStepIdx((s) => s + 1)
+            } else {
+              setDone(true)
+            }
+          }}
+          style={{
+            padding: '8px 20px',
+            borderRadius: 6,
+            border: 'none',
+            background: stepIdx === IMPORT_STEPS.length - 1 ? wizColors.success : wizColors.accent,
+            color: '#fff',
+            fontSize: 13,
+            fontWeight: 600,
+            cursor: 'pointer',
+          }}
+        >
+          {stepIdx === IMPORT_STEPS.length - 1 ? '가져오기 실행' : '다음'}
+        </button>
+      </div>
+    </div>
+  )
+}
+
+export const DataImportWizard: Story = {
+  name: 'Data Import Wizard (MUI Stepper + Raycast 벤치마크)',
+  render: () => <DataImportWizardRender />,
+}
+
