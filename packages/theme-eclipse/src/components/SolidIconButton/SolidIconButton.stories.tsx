@@ -8,6 +8,13 @@ import {
   TextItalicIcon,
   TextUnderlineIcon,
   AlignLeftIcon,
+  StarLineIcon,
+  ShareIcon,
+  ChevronLeftLineIcon,
+  ChevronRightLineIcon,
+  WriteLineIcon,
+  MoreHorizontalIcon,
+  CheckIcon,
 } from '@heejun-com/icons'
 import { Meta, StoryObj } from '@storybook/react'
 import { ComponentProps, useState } from 'react'
@@ -388,6 +395,269 @@ function NotificationBadgeRender() {
       </div>
     </div>
   )
+}
+
+/* --------------------------------------------------------------------------
+   Linear Design 벤치마크: 페이지 헤더 빠른 액션 클러스터
+   Linear의 이슈 헤더 우측 액션 버튼군 — 즐겨찾기·공유·수정·더보기
+-------------------------------------------------------------------------- */
+function QuickActionClusterRender() {
+  const [starred, setStarred] = useState(false)
+  const [shared, setShared] = useState(false)
+  const [editMode, setEditMode] = useState(false)
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          padding: '12px 16px',
+          background: '#fff',
+          borderRadius: 10,
+          border: '1px solid #e2e8f0',
+        }}
+      >
+        <div style={{ fontWeight: 600, fontSize: 14, color: '#1e293b' }}>PRJ-247 · API 레이트리밋 구현</div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+          <SolidIconButton
+            color={starred ? 'black' : 'white'}
+            size="small"
+            onClick={() => setStarred((p) => !p)}
+            aria-label="즐겨찾기"
+            aria-pressed={starred}
+          >
+            <StarLineIcon />
+          </SolidIconButton>
+          <SolidIconButton
+            color={shared ? 'black' : 'white'}
+            size="small"
+            onClick={() => setShared((p) => !p)}
+            aria-label="공유"
+            aria-pressed={shared}
+          >
+            <ShareIcon />
+          </SolidIconButton>
+          <SolidIconButton
+            color={editMode ? 'black' : 'white'}
+            size="small"
+            onClick={() => setEditMode((p) => !p)}
+            aria-label="수정"
+            aria-pressed={editMode}
+          >
+            <WriteLineIcon />
+          </SolidIconButton>
+          <div style={{ width: 1, height: 16, background: '#e2e8f0', margin: '0 2px' }} />
+          <SolidIconButton color="white" size="small" aria-label="더보기">
+            <MoreHorizontalIcon />
+          </SolidIconButton>
+        </div>
+      </div>
+      <div style={{ fontSize: 11, color: '#94a3b8' }}>
+        Linear 이슈 헤더 패턴 — 즐겨찾기: {starred ? 'ON' : 'OFF'} / 공유: {shared ? 'ON' : 'OFF'} / 수정: {editMode ? 'ON' : 'OFF'}
+      </div>
+    </div>
+  )
+}
+
+export const Linear_빠른_액션_클러스터 = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Linear 이슈 헤더의 빠른 액션 버튼 클러스터 패턴. 즐겨찾기·공유·수정 버튼이 각각 독립적인 토글 상태를 가지며, color prop으로 활성/비활성을 시각화합니다.',
+      },
+    },
+  },
+  render: () => <QuickActionClusterRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Notion Design 벤치마크: 페이지 탐색 이전/다음 버튼
+   Notion의 문서 탐색 이전/다음 — 히스토리 기반 방향 네비게이션
+-------------------------------------------------------------------------- */
+const PAGES = ['개요', '설치 가이드', '컴포넌트 구조', '토큰 시스템', '기여 가이드']
+
+function PageNavigationRender() {
+  const [index, setIndex] = useState(0)
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          padding: '16px 20px',
+          background: '#f8fafc',
+          borderRadius: 10,
+          border: '1px solid #e2e8f0',
+          minHeight: 80,
+        }}
+      >
+        <SolidIconButton
+          color="white"
+          size="medium"
+          disabled={index === 0}
+          onClick={() => setIndex((p) => Math.max(0, p - 1))}
+          aria-label="이전 페이지"
+        >
+          <ChevronLeftLineIcon />
+        </SolidIconButton>
+        <div style={{ textAlign: 'center' }}>
+          <div style={{ fontSize: 12, color: '#94a3b8', marginBottom: 4 }}>
+            {index + 1} / {PAGES.length}
+          </div>
+          <div style={{ fontWeight: 600, fontSize: 16, color: '#1e293b' }}>{PAGES[index]}</div>
+        </div>
+        <SolidIconButton
+          color="white"
+          size="medium"
+          disabled={index === PAGES.length - 1}
+          onClick={() => setIndex((p) => Math.min(PAGES.length - 1, p + 1))}
+          aria-label="다음 페이지"
+        >
+          <ChevronRightLineIcon />
+        </SolidIconButton>
+      </div>
+      <div style={{ display: 'flex', justifyContent: 'center', gap: 6 }}>
+        {PAGES.map((page, i) => (
+          <button
+            key={page}
+            onClick={() => setIndex(i)}
+            style={{
+              width: 8,
+              height: 8,
+              borderRadius: '50%',
+              background: i === index ? '#1e293b' : '#e2e8f0',
+              border: 'none',
+              cursor: 'pointer',
+              padding: 0,
+            }}
+            aria-label={page}
+          />
+        ))}
+      </div>
+      <div style={{ fontSize: 11, color: '#94a3b8', textAlign: 'center' }}>
+        Notion 문서 탐색 패턴 — disabled 상태로 경계 처리
+      </div>
+    </div>
+  )
+}
+
+export const Notion_페이지_탐색_내비게이션 = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Notion 문서 탐색 패턴. 이전/다음 SolidIconButton이 페이지 경계에서 disabled 처리되며, 하단 닷 인디케이터로 현재 위치를 표시합니다.',
+      },
+    },
+  },
+  render: () => <PageNavigationRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Linear + Notion 벤치마크: 완료 체크 액션 버튼
+   Linear 이슈 완료 체크 + Notion 체크박스 블록 완료 패턴
+-------------------------------------------------------------------------- */
+type TaskStatus = 'todo' | 'inprogress' | 'done'
+
+const STATUS_CONFIG: Record<TaskStatus, { label: string; color: 'black' | 'white'; next: TaskStatus }> = {
+  todo: { label: '할 일', color: 'white', next: 'inprogress' },
+  inprogress: { label: '진행 중', color: 'white', next: 'done' },
+  done: { label: '완료', color: 'black', next: 'todo' },
+}
+
+const TASK_LIST = [
+  { id: 1, title: 'SolidIconButton 스토리 추가' },
+  { id: 2, title: 'TypeScript 타입 검사 통과' },
+  { id: 3, title: 'ESLint 오류 수정' },
+  { id: 4, title: 'Storybook 빌드 확인' },
+]
+
+function TaskStatusRender() {
+  const [statuses, setStatuses] = useState<Record<number, TaskStatus>>({
+    1: 'done',
+    2: 'inprogress',
+    3: 'todo',
+    4: 'todo',
+  })
+
+  const advance = (id: number) => {
+    setStatuses((prev) => ({ ...prev, [id]: STATUS_CONFIG[prev[id]].next }))
+  }
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+      {TASK_LIST.map((task) => {
+        const status = statuses[task.id]
+        const config = STATUS_CONFIG[status]
+        return (
+          <div
+            key={task.id}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 12,
+              padding: '10px 14px',
+              background: status === 'done' ? '#f0fdf4' : '#fff',
+              borderRadius: 8,
+              border: `1px solid ${status === 'done' ? '#bbf7d0' : '#e2e8f0'}`,
+              transition: 'all 0.15s',
+            }}
+          >
+            <SolidIconButton
+              color={config.color}
+              size="small"
+              onClick={() => advance(task.id)}
+              aria-label={`${task.title} 상태 변경: ${config.label}`}
+            >
+              <CheckIcon />
+            </SolidIconButton>
+            <span
+              style={{
+                fontSize: 14,
+                color: status === 'done' ? '#16a34a' : '#1e293b',
+                textDecoration: status === 'done' ? 'line-through' : 'none',
+                flex: 1,
+              }}
+            >
+              {task.title}
+            </span>
+            <span
+              style={{
+                fontSize: 11,
+                fontWeight: 600,
+                color: status === 'done' ? '#16a34a' : status === 'inprogress' ? '#f59e0b' : '#94a3b8',
+                background: status === 'done' ? '#dcfce7' : status === 'inprogress' ? '#fef9c3' : '#f1f5f9',
+                padding: '2px 8px',
+                borderRadius: 10,
+              }}
+            >
+              {config.label}
+            </span>
+          </div>
+        )
+      })}
+      <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 4 }}>
+        버튼 클릭으로 할 일 → 진행 중 → 완료 순서로 상태 전환
+      </div>
+    </div>
+  )
+}
+
+export const Linear_Notion_태스크_상태_전환 = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Linear 이슈 완료 체크 + Notion 체크박스 패턴 조합. SolidIconButton의 color prop을 상태에 따라 전환하며, 완료 시 카드 배경과 텍스트 스타일도 함께 변화합니다.',
+      },
+    },
+  },
+  render: () => <TaskStatusRender />,
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

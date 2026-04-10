@@ -67,6 +67,8 @@ import {
   ArrowUpIcon,
   ArrowDownIcon,
   ArrowSortIcon,
+  CheckIcon,
+  ShareIcon,
 } from '@heejun-com/icons'
 
 import { Command } from '../components/Command'
@@ -10261,5 +10263,252 @@ const JobBoardRender = () => {
 export const JobBoard: Story = {
   name: 'Job Board (MUI + Raycast 벤치마크)',
   render: () => <JobBoardRender />,
+}
+
+/* ═══════════════════════════════════════════
+   35. Inbox View (Linear + Notion 벤치마크)
+   ═══════════════════════════════════════════ */
+type InboxItem = {
+  id: number
+  from: string
+  subject: string
+  preview: string
+  time: string
+  unread: boolean
+  tag: 'mention' | 'assigned' | 'comment' | 'update'
+}
+
+const TAG_CONFIG = {
+  mention: { label: '멘션', bg: '#ede9fe', color: '#7c3aed' },
+  assigned: { label: '배정됨', bg: '#dbeafe', color: '#1d4ed8' },
+  comment: { label: '댓글', bg: '#dcfce7', color: '#16a34a' },
+  update: { label: '업데이트', bg: '#fef9c3', color: '#b45309' },
+}
+
+const INBOX_ITEMS: InboxItem[] = [
+  { id: 1, from: '김민준', subject: 'SolidIconButton 코드 리뷰 요청', preview: '새 스토리 3개 추가했습니다. 검토 부탁드립니다.', time: '5분 전', unread: true, tag: 'mention' },
+  { id: 2, from: '이서연', subject: 'PRJ-247 이슈 배정', preview: 'API 레이트리밋 구현 이슈가 배정되었습니다.', time: '23분 전', unread: true, tag: 'assigned' },
+  { id: 3, from: '박도현', subject: 'TypeScript 타입 오류 댓글', preview: 'CounterBadge children 타입 문제 확인해 주세요.', time: '1시간 전', unread: false, tag: 'comment' },
+  { id: 4, from: '최지아', subject: 'Storybook 빌드 완료', preview: '스테이징 환경 배포가 완료되었습니다.', time: '2시간 전', unread: false, tag: 'update' },
+  { id: 5, from: '정우성', subject: '디자인 토큰 업데이트', preview: '컬러 시스템 3.0 리뷰를 요청합니다.', time: '3시간 전', unread: false, tag: 'mention' },
+]
+
+const InboxViewRender = () => {
+  const [items, setItems] = useState<InboxItem[]>(INBOX_ITEMS)
+  const [selectedId, setSelectedId] = useState<number | null>(1)
+  const [filter, setFilter] = useState<InboxItem['tag'] | 'all'>('all')
+
+  const filtered = filter === 'all' ? items : items.filter((i) => i.tag === filter)
+  const selected = items.find((i) => i.id === selectedId) ?? null
+  const unreadCount = items.filter((i) => i.unread).length
+
+  const markRead = (id: number) => {
+    setItems((prev) => prev.map((i) => (i.id === id ? { ...i, unread: false } : i)))
+    setSelectedId(id)
+  }
+
+  const markAllRead = () => setItems((prev) => prev.map((i) => ({ ...i, unread: false })))
+
+  const filterTags: Array<{ key: InboxItem['tag'] | 'all'; label: string }> = [
+    { key: 'all', label: '전체' },
+    { key: 'mention', label: '멘션' },
+    { key: 'assigned', label: '배정됨' },
+    { key: 'comment', label: '댓글' },
+    { key: 'update', label: '업데이트' },
+  ]
+
+  return (
+    <div
+      style={{
+        display: 'flex',
+        height: 560,
+        background: tc.bg,
+        borderRadius: 12,
+        border: `1px solid ${tc.border}`,
+        overflow: 'hidden',
+        fontFamily: 'system-ui, sans-serif',
+      }}
+    >
+      {/* Left Panel */}
+      <div style={{ width: 320, borderRight: `1px solid ${tc.border}`, display: 'flex', flexDirection: 'column' }}>
+        {/* Header */}
+        <div
+          style={{
+            padding: '14px 16px',
+            borderBottom: `1px solid ${tc.border}`,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+          }}
+        >
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            <span style={{ fontWeight: 700, fontSize: 15, color: tc.fg }}>받은 알림</span>
+            {unreadCount > 0 && (
+              <CounterBadge color="red">
+                {unreadCount}
+              </CounterBadge>
+            )}
+          </div>
+          <SolidIconButton color="white" size="small" onClick={markAllRead} aria-label="모두 읽음">
+            <CheckIcon />
+          </SolidIconButton>
+        </div>
+        {/* Filter Tabs */}
+        <div
+          style={{
+            display: 'flex',
+            gap: 4,
+            padding: '8px 12px',
+            borderBottom: `1px solid ${tc.border}`,
+            flexWrap: 'wrap',
+          }}
+        >
+          {filterTags.map((f) => (
+            <button
+              key={f.key}
+              onClick={() => setFilter(f.key)}
+              style={{
+                padding: '3px 10px',
+                borderRadius: 20,
+                border: 'none',
+                cursor: 'pointer',
+                fontSize: 11,
+                fontWeight: 600,
+                background: filter === f.key ? '#1e293b' : tc.surface,
+                color: filter === f.key ? '#fff' : tc.fgSub,
+                transition: 'all 0.15s',
+              }}
+            >
+              {f.label}
+            </button>
+          ))}
+        </div>
+        {/* List */}
+        <div style={{ flex: 1, overflowY: 'auto' }}>
+          {filtered.map((item) => {
+            const tag = TAG_CONFIG[item.tag]
+            return (
+              <div
+                key={item.id}
+                onClick={() => markRead(item.id)}
+                style={{
+                  padding: '12px 16px',
+                  borderBottom: `1px solid ${tc.borderSub}`,
+                  cursor: 'pointer',
+                  background: selectedId === item.id ? tc.surface : 'transparent',
+                  borderLeft: item.unread ? '3px solid #6366f1' : '3px solid transparent',
+                  transition: 'background 0.1s',
+                }}
+              >
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 4 }}>
+                  <span style={{ fontWeight: item.unread ? 700 : 500, fontSize: 13, color: tc.fg }}>{item.from}</span>
+                  <span style={{ fontSize: 10, color: tc.fgMuted }}>{item.time}</span>
+                </div>
+                <div style={{ fontSize: 12, fontWeight: item.unread ? 600 : 400, color: tc.fg, marginBottom: 4 }}>{item.subject}</div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                  <span
+                    style={{
+                      fontSize: 10,
+                      fontWeight: 600,
+                      padding: '1px 6px',
+                      borderRadius: 4,
+                      background: tag.bg,
+                      color: tag.color,
+                    }}
+                  >
+                    {tag.label}
+                  </span>
+                  <span style={{ fontSize: 11, color: tc.fgMuted, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', flex: 1 }}>
+                    {item.preview}
+                  </span>
+                </div>
+              </div>
+            )
+          })}
+          {filtered.length === 0 && (
+            <div style={{ padding: 32, textAlign: 'center', color: tc.fgMuted, fontSize: 13 }}>알림 없음</div>
+          )}
+        </div>
+      </div>
+
+      {/* Right Panel */}
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+        {selected ? (
+          <>
+            <div
+              style={{
+                padding: '14px 20px',
+                borderBottom: `1px solid ${tc.border}`,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+              }}
+            >
+              <div>
+                <div style={{ fontWeight: 700, fontSize: 15, color: tc.fg, marginBottom: 2 }}>{selected.subject}</div>
+                <div style={{ fontSize: 12, color: tc.fgSub }}>
+                  {selected.from} · {selected.time}
+                </div>
+              </div>
+              <div style={{ display: 'flex', gap: 4 }}>
+                <SolidIconButton color="white" size="small" aria-label="공유">
+                  <ShareIcon />
+                </SolidIconButton>
+                <SolidIconButton color="white" size="small" aria-label="더보기">
+                  <MoreHorizontalIcon />
+                </SolidIconButton>
+              </div>
+            </div>
+            <div style={{ flex: 1, padding: '24px 28px', overflowY: 'auto' }}>
+              <div
+                style={{
+                  background: tc.surface,
+                  borderRadius: 10,
+                  padding: '16px 20px',
+                  fontSize: 14,
+                  color: tc.fg,
+                  lineHeight: 1.7,
+                  border: `1px solid ${tc.border}`,
+                }}
+              >
+                {selected.preview}
+              </div>
+              <div
+                style={{
+                  marginTop: 20,
+                  padding: '14px 18px',
+                  background: tc.bg,
+                  borderRadius: 8,
+                  border: `1px solid ${tc.border}`,
+                }}
+              >
+                <div style={{ fontSize: 12, color: tc.fgSub, marginBottom: 10 }}>빠른 회신</div>
+                <div style={{ width: '100%', marginBottom: 10 }}>
+                  <TextArea
+                    rows={3}
+                    placeholder="회신 내용을 입력하세요..."
+                  />
+                </div>
+                <div style={{ display: 'flex', justifyContent: 'flex-end', gap: 8 }}>
+                  <SolidButton color="primary" size="small">
+                    <SolidButton.Center>회신 보내기</SolidButton.Center>
+                  </SolidButton>
+                </div>
+              </div>
+            </div>
+          </>
+        ) : (
+          <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', color: tc.fgMuted, fontSize: 14 }}>
+            알림을 선택하세요
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+
+export const InboxView: Story = {
+  name: 'Inbox View (Linear + Notion 벤치마크)',
+  render: () => <InboxViewRender />,
 }
 
