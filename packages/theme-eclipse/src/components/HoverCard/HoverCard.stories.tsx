@@ -1168,3 +1168,203 @@ export const Raycast_Figma_컴포넌트_속성_프리뷰: Story = {
   name: 'Raycast + Figma — 컴포넌트 속성 프리뷰',
   render: () => <ComponentPropertyHoverRender />,
 }
+
+// Cycle 143 - shadcn/ui + Tailwind UI benchmark
+
+function ShadcnUserProfile143Render() {
+  const users = [
+    { handle: '@hjunkim', name: '김희준', initials: 'HJ', color: '#3b82f6', bio: 'Design Systems Engineer. Orbit UI 메인테이너. shadcn/ui 팬.', followers: 284, following: 112, repos: 47 },
+    { handle: '@orbit_ui', name: 'Orbit UI', initials: 'OU', color: '#10b981', bio: '3-tier 컴포넌트 라이브러리. React + TS + vanilla-extract.', followers: 1203, following: 42, repos: 18 },
+    { handle: '@design_bot', name: 'DesignBot', initials: 'DB', color: '#8b5cf6', bio: '디자인 시스템 자동화 봇. Cycle 143 진행 중.', followers: 89, following: 203, repos: 6 },
+  ]
+
+  return (
+    <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12, fontFamily: 'system-ui, sans-serif' }}>
+      {users.map((user) => (
+        <HoverCard key={user.handle}>
+          <HoverCard.Trigger>
+            <span style={{ fontSize: 13, color: '#3b82f6', textDecoration: 'underline', cursor: 'pointer', fontWeight: 500 }}>{user.handle}</span>
+          </HoverCard.Trigger>
+          <HoverCard.Content>
+            <div style={{ width: 260 }}>
+              <div style={{ display: 'flex', gap: 10, marginBottom: 10, alignItems: 'flex-start' }}>
+                <Avatar style={{ width: 48, height: 48 }}>
+                  <Avatar.Fallback style={{ background: user.color, color: '#fff', fontWeight: 700 }}>{user.initials}</Avatar.Fallback>
+                </Avatar>
+                <div>
+                  <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{user.name}</div>
+                  <div style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>{user.handle}</div>
+                </div>
+              </div>
+              <div style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundSecondary)', lineHeight: 1.6, marginBottom: 10 }}>{user.bio}</div>
+              <div style={{ display: 'flex', gap: 16 }}>
+                {[{ label: '팔로워', val: user.followers }, { label: '팔로잉', val: user.following }, { label: '저장소', val: user.repos }].map((stat) => (
+                  <div key={stat.label} style={{ textAlign: 'center' }}>
+                    <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{stat.val}</div>
+                    <div style={{ fontSize: 10, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>{stat.label}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </HoverCard.Content>
+        </HoverCard>
+      ))}
+    </div>
+  )
+}
+
+export const Shadcn_사용자_프로필_호버: Story = {
+  name: 'shadcn/ui — 사용자 프로필 호버 카드 (Cycle 143)',
+  parameters: {
+    docs: {
+      description: {
+        story: 'shadcn/ui HoverCard 패턴. 핸들 텍스트 hover 시 Avatar + 이름/바이오 + 팔로워/저장소 통계 표시. GitHub 프로필 호버 UX.',
+      },
+    },
+  },
+  render: () => <ShadcnUserProfile143Render />,
+}
+
+function TailwindPricingHover143Render() {
+  const plans = [
+    {
+      name: 'Hobby',
+      price: '무료',
+      desc: '개인 프로젝트, 학습',
+      color: '#64748b',
+      features: ['월 100회 배포', '1 팀원', '커뮤니티 지원', '1GB 스토리지'],
+    },
+    {
+      name: 'Pro',
+      price: '$20/월',
+      desc: '소규모 팀, 프로덕션',
+      color: '#3b82f6',
+      features: ['무제한 배포', '팀원 최대 10명', '우선 지원', '50GB 스토리지', '커스텀 도메인'],
+    },
+    {
+      name: 'Enterprise',
+      price: '문의',
+      desc: '대규모 조직, SLA 보장',
+      color: '#8b5cf6',
+      features: ['무제한 모든 기능', '무제한 팀원', '전담 지원', '무제한 스토리지', 'SSO/SAML', 'SLA 99.99%'],
+    },
+  ]
+
+  return (
+    <div style={{ display: 'flex', gap: 10, fontFamily: 'system-ui, sans-serif' }}>
+      {plans.map((plan) => (
+        <HoverCard key={plan.name}>
+          <HoverCard.Trigger>
+            <div style={{ padding: '10px 16px', borderRadius: 8, border: `1px solid ${plan.color}40`, background: `${plan.color}08`, cursor: 'pointer', minWidth: 100, textAlign: 'center' }}>
+              <div style={{ fontSize: 12, fontWeight: 700, color: plan.color }}>{plan.name}</div>
+              <div style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginTop: 2 }}>{plan.price}</div>
+            </div>
+          </HoverCard.Trigger>
+          <HoverCard.Content>
+            <div style={{ width: 220 }}>
+              <div style={{ marginBottom: 10 }}>
+                <Typography textStyle="labelLarge">{plan.name}</Typography>
+                <div style={{ marginTop: 2 }}>
+                  <Typography textStyle="bodySmall" color="foregroundTertiary">{plan.desc}</Typography>
+                </div>
+              </div>
+              <Divider />
+              <div style={{ marginTop: 8, display: 'flex', flexDirection: 'column', gap: 5 }}>
+                {plan.features.map((f) => (
+                  <div key={f} style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
+                    <span style={{ color: '#10b981', fontSize: 12, flexShrink: 0 }}>✓</span>
+                    <Typography textStyle="bodySmall">{f}</Typography>
+                  </div>
+                ))}
+              </div>
+              <div style={{ marginTop: 12 }}>
+                <SolidButton color="black" size="small" style={{ width: '100%' }}>선택</SolidButton>
+              </div>
+            </div>
+          </HoverCard.Content>
+        </HoverCard>
+      ))}
+    </div>
+  )
+}
+
+export const Tailwind_플랜_비교_호버: Story = {
+  name: 'Tailwind UI — 요금제 비교 호버 (Cycle 143)',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Tailwind UI Pricing Card + HoverCard 조합. 플랜 카드 hover 시 기능 목록 전체 표시. Typography 계층, Divider, SolidButton 포함.',
+      },
+    },
+  },
+  render: () => <TailwindPricingHover143Render />,
+}
+
+function ShadcnTailwindCommit143Render() {
+  const commits = [
+    { sha: '3aa9cbe', msg: 'feat: Cycle 142 Apple HIG + M3', author: 'HJ', color: '#3b82f6', date: '2시간 전', additions: 590, deletions: 0 },
+    { sha: '03c1a69', msg: 'feat: Cycle 141 Raycast + Figma', author: 'DS', color: '#8b5cf6', date: '5시간 전', additions: 550, deletions: 12 },
+    { sha: '7347e9d', msg: 'feat: Cycle 140 Mantine + Arco', author: 'HJ', color: '#3b82f6', date: '어제', additions: 596, deletions: 0 },
+  ]
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 8, width: 420, fontFamily: 'system-ui, sans-serif' }}>
+      <div style={{ fontSize: 11, color: '#64748b', marginBottom: 4 }}>shadcn/ui + Tailwind — 커밋 히스토리 호버</div>
+      {commits.map((commit) => (
+        <HoverCard key={commit.sha}>
+          <HoverCard.Trigger>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '9px 12px', border: '1px solid #e2e8f0', borderRadius: 8, background: '#fff', cursor: 'pointer' }}>
+              <code style={{ fontSize: 11, color: '#3b82f6', fontFamily: 'monospace', background: '#eff6ff', padding: '2px 6px', borderRadius: 4, flexShrink: 0 }}>
+                {commit.sha}
+              </code>
+              <span style={{ fontSize: 12, color: '#334155', flex: 1, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{commit.msg}</span>
+              <span style={{ fontSize: 11, color: '#94a3b8', flexShrink: 0 }}>{commit.date}</span>
+            </div>
+          </HoverCard.Trigger>
+          <HoverCard.Content>
+            <div style={{ width: 260 }}>
+              <div style={{ display: 'flex', gap: 8, marginBottom: 10, alignItems: 'center' }}>
+                <Avatar style={{ width: 28, height: 28 }}>
+                  <Avatar.Fallback style={{ background: commit.color, color: '#fff', fontWeight: 700 }}>{commit.author}</Avatar.Fallback>
+                </Avatar>
+                <div>
+                  <Typography textStyle="labelSmall">{commit.msg}</Typography>
+                  <Typography textStyle="labelSmall" color="foregroundTertiary">{commit.date}</Typography>
+                </div>
+              </div>
+              <Divider />
+              <div style={{ marginTop: 8, display: 'flex', gap: 16 }}>
+                <div>
+                  <span style={{ fontSize: 11, color: '#10b981', fontWeight: 700 }}>+{commit.additions}</span>
+                  <span style={{ fontSize: 10, color: '#94a3b8', marginLeft: 3 }}>추가</span>
+                </div>
+                <div>
+                  <span style={{ fontSize: 11, color: '#ef4444', fontWeight: 700 }}>-{commit.deletions}</span>
+                  <span style={{ fontSize: 10, color: '#94a3b8', marginLeft: 3 }}>삭제</span>
+                </div>
+                <div style={{ marginLeft: 'auto' }}>
+                  <LabelBadge color="gray"><LabelBadge.Label>{commit.sha.slice(0, 7)}</LabelBadge.Label></LabelBadge>
+                </div>
+              </div>
+              <div style={{ marginTop: 10 }}>
+                <Progress value={Math.round((commit.additions / 600) * 100)} size="small" color="success" />
+              </div>
+            </div>
+          </HoverCard.Content>
+        </HoverCard>
+      ))}
+    </div>
+  )
+}
+
+export const Shadcn_Tailwind_커밋_히스토리_호버: Story = {
+  name: 'shadcn/ui + Tailwind UI — 커밋 히스토리 호버 (Cycle 143)',
+  parameters: {
+    docs: {
+      description: {
+        story: 'shadcn/ui + Tailwind UI 커밋 목록 + HoverCard. 커밋 hover 시 Author Avatar + 추가/삭제 통계 + Progress 바. Avatar, LabelBadge, Progress, Divider 조합.',
+      },
+    },
+  },
+  render: () => <ShadcnTailwindCommit143Render />,
+}

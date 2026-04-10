@@ -1293,3 +1293,162 @@ export const MUI_Chakra_댓글_스레드: Story = {
     )
   },
 }
+
+// Cycle 143 - shadcn/ui + Tailwind UI benchmark
+export const Shadcn_아바타_그룹_스택: Story = {
+  name: 'shadcn/ui — 아바타 그룹 스택 (Cycle 143)',
+  parameters: {
+    docs: {
+      description: {
+        story: 'shadcn/ui AvatarGroup 패턴. 겹치는 스택 레이아웃, +N 오버플로우 표시. 팀 구성원, PR 리뷰어, 협업자 목록 표시에 활용.',
+      },
+    },
+  },
+  render: () => {
+    const members = [
+      { initials: 'HJ', color: '#3b82f6' },
+      { initials: 'DS', color: '#8b5cf6' },
+      { initials: 'JW', color: '#10b981' },
+      { initials: 'KM', color: '#f59e0b' },
+      { initials: 'PL', color: '#ef4444' },
+      { initials: 'SY', color: '#06b6d4' },
+    ]
+    const visible = 4
+    const overflow = members.length - visible
+
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 24, fontFamily: 'system-ui, sans-serif' }}>
+        {(['large', 'medium', 'small'] as const).map((size) => (
+          <div key={size}>
+            <div style={{ fontSize: 11, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: 0.6, fontWeight: 600, marginBottom: 8 }}>{size}</div>
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+              {members.slice(0, visible).map((m, i) => (
+                <div key={m.initials} style={{ marginLeft: i === 0 ? 0 : size === 'large' ? -12 : size === 'medium' ? -8 : -6, zIndex: visible - i, border: '2px solid #fff', borderRadius: '50%' }}>
+                  <Avatar style={{ width: size === "large" ? 48 : size === "medium" ? 36 : 24, height: size === "large" ? 48 : size === "medium" ? 36 : 24 }}>
+                    <Avatar.Fallback style={{ background: m.color, color: '#fff', fontWeight: 700 }}>{m.initials}</Avatar.Fallback>
+                  </Avatar>
+                </div>
+              ))}
+              {overflow > 0 && (
+                <div style={{ marginLeft: size === 'large' ? -12 : size === 'medium' ? -8 : -6, zIndex: 0, border: '2px solid #fff', borderRadius: '50%' }}>
+                  <Avatar style={{ width: size === "large" ? 48 : size === "medium" ? 36 : 24, height: size === "large" ? 48 : size === "medium" ? 36 : 24 }}>
+                    <Avatar.Fallback style={{ background: '#f1f5f9', color: '#64748b', fontWeight: 700, fontSize: 11 }}>+{overflow}</Avatar.Fallback>
+                  </Avatar>
+                </div>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+    )
+  },
+}
+
+export const Tailwind_사용자_프로필_카드: Story = {
+  name: 'Tailwind UI — 사용자 프로필 카드 (Cycle 143)',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Tailwind UI User Card 패턴. Avatar + 이름/역할 + 소속 배지. 팔로우/메시지 액션. 팀 디렉토리, 저자 소개에 활용.',
+      },
+    },
+  },
+  render: () => {
+    const users = [
+      { initials: 'HJ', color: '#3b82f6', name: '김희준', role: '시니어 엔지니어', team: 'Design Systems', status: 'online' },
+      { initials: 'DS', color: '#8b5cf6', name: '박다솔', role: '프로덕트 디자이너', team: 'UX Platform', status: 'away' },
+      { initials: 'JW', color: '#10b981', name: '이재원', role: '테크 리드', team: 'Core Infra', status: 'offline' },
+    ]
+
+    const statusColor: Record<string, string> = { online: '#10b981', away: '#f59e0b', offline: '#94a3b8' }
+
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 10, width: 320, fontFamily: 'system-ui, sans-serif' }}>
+        {users.map((user) => (
+          <div key={user.initials} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 16px', border: '1px solid #e2e8f0', borderRadius: 10, background: '#fff' }}>
+            <div style={{ position: 'relative', flexShrink: 0 }}>
+              <Avatar style={{ width: 48, height: 48 }}>
+                <Avatar.Fallback style={{ background: user.color, color: '#fff', fontWeight: 700 }}>{user.initials}</Avatar.Fallback>
+              </Avatar>
+              <span style={{ position: 'absolute', bottom: 0, right: 0, width: 10, height: 10, borderRadius: '50%', background: statusColor[user.status], border: '2px solid #fff' }} />
+            </div>
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <div style={{ fontSize: 13, fontWeight: 700, color: '#0f172a', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{user.name}</div>
+              <div style={{ fontSize: 11, color: '#64748b', marginTop: 1 }}>{user.role}</div>
+              <div style={{ fontSize: 10, color: '#94a3b8', marginTop: 1 }}>{user.team}</div>
+            </div>
+            <button style={{ padding: '5px 10px', borderRadius: 6, border: '1px solid #e2e8f0', background: '#f8fafc', fontSize: 11, cursor: 'pointer', color: '#475569', flexShrink: 0 }}>
+              팔로우
+            </button>
+          </div>
+        ))}
+      </div>
+    )
+  },
+}
+
+export const Shadcn_Tailwind_리뷰어_선택기: Story = {
+  name: 'shadcn/ui + Tailwind UI — PR 리뷰어 선택기 (Cycle 143)',
+  parameters: {
+    docs: {
+      description: {
+        story: 'shadcn/ui + Tailwind UI PR 리뷰어 선택 패턴. 팀원 목록에서 리뷰어 추가/제거, 선택된 아바타 그룹 표시.',
+      },
+    },
+  },
+  render: () => <ReviewerPickerRender143 />,
+}
+
+function ReviewerPickerRender143() {
+  const [selected, setSelected] = React.useState<string[]>(['HJ', 'DS'])
+
+  const candidates = [
+    { initials: 'HJ', color: '#3b82f6', name: '김희준' },
+    { initials: 'DS', color: '#8b5cf6', name: '박다솔' },
+    { initials: 'JW', color: '#10b981', name: '이재원' },
+    { initials: 'KM', color: '#f59e0b', name: '고민준' },
+    { initials: 'PL', color: '#ef4444', name: '박리나' },
+  ]
+
+  const toggle = (initials: string) => {
+    setSelected((s) => s.includes(initials) ? s.filter((x) => x !== initials) : [...s, initials])
+  }
+
+  const selectedMembers = candidates.filter((c) => selected.includes(c.initials))
+
+  return (
+    <div style={{ width: 320, fontFamily: 'system-ui, sans-serif', border: '1px solid #e2e8f0', borderRadius: 10, padding: 16, background: '#fff' }}>
+      <div style={{ fontSize: 13, fontWeight: 700, color: '#0f172a', marginBottom: 12 }}>리뷰어 선택</div>
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginBottom: 14 }}>
+        {candidates.map((c) => {
+          const isSelected = selected.includes(c.initials)
+          return (
+            <button
+              key={c.initials}
+              onClick={() => toggle(c.initials)}
+              style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '5px 10px 5px 6px', borderRadius: 20, border: `1px solid ${isSelected ? c.color : '#e2e8f0'}`, background: isSelected ? `${c.color}10` : '#fff', cursor: 'pointer', transition: 'all 0.15s' }}
+            >
+              <Avatar style={{ width: 28, height: 28 }}>
+                <Avatar.Fallback style={{ background: isSelected ? c.color : '#f1f5f9', color: isSelected ? '#fff' : '#94a3b8', fontWeight: 700, fontSize: 9 }}>{c.initials}</Avatar.Fallback>
+              </Avatar>
+              <span style={{ fontSize: 11, color: isSelected ? c.color : '#64748b', fontWeight: isSelected ? 600 : 400 }}>{c.name}</span>
+            </button>
+          )
+        })}
+      </div>
+      <div style={{ padding: '10px 12px', background: '#f8fafc', borderRadius: 8, display: 'flex', alignItems: 'center', gap: 10 }}>
+        <span style={{ fontSize: 11, color: '#64748b' }}>선택된 리뷰어:</span>
+        <div style={{ display: 'flex' }}>
+          {selectedMembers.map((m, i) => (
+            <div key={m.initials} style={{ marginLeft: i === 0 ? 0 : -6, border: '2px solid #f8fafc', borderRadius: '50%' }}>
+              <Avatar style={{ width: 28, height: 28 }}>
+                <Avatar.Fallback style={{ background: m.color, color: '#fff', fontWeight: 700, fontSize: 9 }}>{m.initials}</Avatar.Fallback>
+              </Avatar>
+            </div>
+          ))}
+        </div>
+        {selectedMembers.length === 0 && <span style={{ fontSize: 11, color: '#94a3b8' }}>없음</span>}
+      </div>
+    </div>
+  )
+}

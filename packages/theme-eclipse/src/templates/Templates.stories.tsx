@@ -49,6 +49,7 @@ import { PasswordField } from '../components/PasswordField'
 import { RadioGroup } from '../components/composites/RadioGroup'
 import { RadioButtonWithLabel } from '../components/composites/RadioButtonWithLabel'
 import { CheckboxWithLabel } from '../components/composites/CheckboxWithLabel'
+import { HoverCard } from '../components/HoverCard'
 
 import {
   MenuIcon,
@@ -32862,4 +32863,169 @@ export const AppleM3142SocialFeed: StoryObj = {
     },
   },
   render: () => <SocialFeed142Render />,
+}
+
+// ─── Cycle 143: shadcn/ui + Tailwind UI — 채팅 UI ──────────────────────────
+function ChatUI143Render() {
+  const [messages, setMessages] = React.useState([
+    { id: 1, sender: 'HJ', senderName: '김희준', color: '#3b82f6', text: 'Cycle 143 진행 중! shadcn/ui + Tailwind UI 벤치마크 완료했어.', time: '14:02', mine: false },
+    { id: 2, sender: 'DS', senderName: '박다솔', color: '#8b5cf6', text: 'HoverCard에 Avatar + 프로필 호버 패턴 추가한 거 봤어? 완성도 높다.', time: '14:03', mine: true },
+    { id: 3, sender: 'HJ', senderName: '김희준', color: '#3b82f6', text: '응, Avatar 그룹 스택이랑 PR 리뷰어 선택기도 추가했어. size prop 없는 게 함정이었다 ㅋㅋ', time: '14:04', mine: false },
+    { id: 4, sender: 'JW', senderName: '이재원', color: '#10b981', text: '커밋 히스토리 호버카드 패턴도 Progress 바 넣은 거 좋던데. 실제 git 화면 같아.', time: '14:05', mine: false },
+    { id: 5, sender: 'DS', senderName: '박다솔', color: '#8b5cf6', text: '다음 사이클은 뭐 할 거야?', time: '14:06', mine: true },
+  ])
+  const [input, setInput] = React.useState('')
+  const [activeRoom, setActiveRoom] = React.useState('orbit-team')
+  const [searchQuery, setSearchQuery] = React.useState('')
+
+  const rooms = [
+    { id: 'orbit-team', name: 'orbit-team', unread: 3, icon: '#' },
+    { id: 'design-review', name: 'design-review', unread: 0, icon: '#' },
+    { id: 'general', name: 'general', unread: 1, icon: '#' },
+    { id: 'releases', name: 'releases', unread: 0, icon: '📣' },
+  ]
+
+  const members = [
+    { initials: 'HJ', color: '#3b82f6', name: '김희준', status: 'online' },
+    { initials: 'DS', color: '#8b5cf6', name: '박다솔', status: 'online' },
+    { initials: 'JW', color: '#10b981', name: '이재원', status: 'away' },
+    { initials: 'KM', color: '#f59e0b', name: '고민준', status: 'offline' },
+  ]
+
+  const statusColor: Record<string, string> = { online: '#10b981', away: '#f59e0b', offline: '#94a3b8' }
+
+  const send = () => {
+    if (!input.trim()) return
+    setMessages((m) => [...m, { id: Date.now(), sender: 'DS', senderName: '박다솔', color: '#8b5cf6', text: input.trim(), time: new Date().toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit' }), mine: true }])
+    setInput('')
+  }
+
+  const filteredRooms = searchQuery ? rooms.filter((r) => r.name.includes(searchQuery)) : rooms
+
+  return (
+    <div style={{ width: 860, height: 560, display: 'flex', fontFamily: 'system-ui, sans-serif', background: '#fff', border: '1px solid #e2e8f0', borderRadius: 12, overflow: 'hidden' }}>
+      {/* 사이드바 */}
+      <div style={{ width: 220, background: '#1e1e2e', display: 'flex', flexDirection: 'column', flexShrink: 0 }}>
+        <div style={{ padding: '14px 14px 10px' }}>
+          <Text style={{ fontSize: 14, fontWeight: 700, color: '#e2e8f0' }}>Orbit UI Workspace</Text>
+        </div>
+        <div style={{ padding: '0 10px 8px' }}>
+          <SearchBar
+            placeholder="채널 검색..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+        </div>
+        <div style={{ flex: 1, overflowY: 'auto', padding: '4px 0' }}>
+          <div style={{ padding: '4px 14px 4px', fontSize: 10, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: 0.8, fontWeight: 600 }}>채널</div>
+          {filteredRooms.map((room) => (
+            <div
+              key={room.id}
+              onClick={() => setActiveRoom(room.id)}
+              style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '6px 14px', cursor: 'pointer', background: activeRoom === room.id ? '#3b82f620' : 'transparent', borderLeft: `2px solid ${activeRoom === room.id ? '#3b82f6' : 'transparent'}` }}
+            >
+              <span style={{ fontSize: 13, color: '#94a3b8' }}>{room.icon}</span>
+              <span style={{ fontSize: 12, color: activeRoom === room.id ? '#e2e8f0' : '#94a3b8', flex: 1, fontWeight: activeRoom === room.id ? 600 : 400 }}>{room.name}</span>
+              {room.unread > 0 && (
+                <span style={{ fontSize: 10, fontWeight: 700, background: '#3b82f6', color: '#fff', borderRadius: 10, padding: '1px 5px' }}>{room.unread}</span>
+              )}
+            </div>
+          ))}
+
+          <div style={{ padding: '8px 14px 4px', fontSize: 10, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: 0.8, fontWeight: 600, marginTop: 8 }}>팀원</div>
+          {members.map((m) => (
+            <div key={m.initials} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '5px 14px' }}>
+              <div style={{ position: 'relative', flexShrink: 0 }}>
+                <div style={{ width: 24, height: 24, borderRadius: '50%', background: m.color, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: 9, fontWeight: 700 }}>
+                  {m.initials}
+                </div>
+                <span style={{ position: 'absolute', bottom: -1, right: -1, width: 7, height: 7, borderRadius: '50%', background: statusColor[m.status], border: '1px solid #1e1e2e' }} />
+              </div>
+              <span style={{ fontSize: 11, color: m.status === 'offline' ? '#64748b' : '#94a3b8' }}>{m.name}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* 채팅 영역 */}
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+        {/* 헤더 */}
+        <div style={{ padding: '12px 20px', borderBottom: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', gap: 8 }}>
+          <span style={{ fontSize: 16, color: '#64748b' }}>#</span>
+          <Text style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>{activeRoom}</Text>
+          <Text style={{ fontSize: 12, color: '#94a3b8', marginLeft: 4 }}>— {members.length}명 참여 중</Text>
+          <div style={{ marginLeft: 'auto', display: 'flex', gap: 6 }}>
+            {members.slice(0, 3).map((m, i) => (
+              <HoverCard key={m.initials}>
+                <HoverCard.Trigger>
+                  <div style={{ width: 28, height: 28, borderRadius: '50%', background: m.color, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: 10, fontWeight: 700, cursor: 'pointer', position: 'relative', marginLeft: i === 0 ? 0 : -8, border: '2px solid #fff' }}>
+                    {m.initials}
+                    <span style={{ position: 'absolute', bottom: -1, right: -1, width: 8, height: 8, borderRadius: '50%', background: statusColor[m.status], border: '1px solid #fff' }} />
+                  </div>
+                </HoverCard.Trigger>
+                <HoverCard.Content>
+                  <div>
+                    <Text style={{ fontSize: 12, fontWeight: 700 }}>{m.name}</Text>
+                    <div style={{ marginTop: 2 }}>
+                      <LabelBadge color="gray"><LabelBadge.Label>{m.status}</LabelBadge.Label></LabelBadge>
+                    </div>
+                  </div>
+                </HoverCard.Content>
+              </HoverCard>
+            ))}
+          </div>
+        </div>
+
+        {/* 메시지 */}
+        <div style={{ flex: 1, overflowY: 'auto', padding: '16px 20px', display: 'flex', flexDirection: 'column', gap: 14 }}>
+          {messages.map((msg) => (
+            <div key={msg.id} style={{ display: 'flex', gap: 10, flexDirection: msg.mine ? 'row-reverse' : 'row' }}>
+              <div style={{ width: 32, height: 32, borderRadius: '50%', background: msg.color, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: 11, fontWeight: 700, flexShrink: 0 }}>
+                {msg.sender}
+              </div>
+              <div style={{ maxWidth: '70%' }}>
+                <div style={{ display: 'flex', gap: 6, alignItems: 'baseline', flexDirection: msg.mine ? 'row-reverse' : 'row', marginBottom: 4 }}>
+                  <Text style={{ fontSize: 12, fontWeight: 700, color: '#0f172a' }}>{msg.senderName}</Text>
+                  <Text style={{ fontSize: 10, color: '#94a3b8' }}>{msg.time}</Text>
+                </div>
+                <div style={{ padding: '8px 12px', borderRadius: msg.mine ? '12px 4px 12px 12px' : '4px 12px 12px 12px', background: msg.mine ? '#3b82f6' : '#f1f5f9', display: 'inline-block', maxWidth: '100%' }}>
+                  <Text style={{ fontSize: 13, color: msg.mine ? '#fff' : '#334155', lineHeight: 1.6 }}>{msg.text}</Text>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* 입력창 */}
+        <div style={{ padding: '12px 20px', borderTop: '1px solid #e2e8f0', display: 'flex', gap: 8 }}>
+          <div style={{ flex: 1 }}>
+            <TextField
+              placeholder={`#${activeRoom}에 메시지 입력...`}
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              onKeyDown={(e) => { if (e.key === 'Enter') send() }}
+            />
+          </div>
+          <SolidButton color="black" size="medium" onClick={send} disabled={!input.trim()}>전송</SolidButton>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const ShadcnTailwind143ChatUI: StoryObj = {
+  name: 'shadcn/ui + Tailwind UI — 채팅 UI (Cycle 143)',
+  parameters: {
+    layout: 'centered',
+    docs: {
+      description: {
+        story:
+          'shadcn/ui + Tailwind UI 벤치마크 — Cycle 143. ' +
+          '3패널 채팅 UI: 사이드바(채널 목록 SearchBar 필터 + 팀원 상태), ' +
+          '메시지 피드(HoverCard 프로필 호버), 입력창(TextField + SolidButton). ' +
+          'Text/LabelBadge 조합, Avatar 이니셜 표시.',
+      },
+    },
+  },
+  render: () => <ChatUI143Render />,
 }
