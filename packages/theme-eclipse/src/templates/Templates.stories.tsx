@@ -39218,3 +39218,276 @@ export const NotionFigma175KnowledgeBase: StoryObj = {
   },
   render: () => <NotionFigma175KnowledgeBaseRender />,
 }
+
+// ─── Cycle 176 — Chakra UI + Arco Design ─────────────────────────────────────
+
+function ChakraArco176BookingDashboardRender() {
+  const today = new Date()
+  const [selectedDate, setSelectedDate] = React.useState<Date | undefined>(undefined)
+  const [exportFormat, setExportFormat] = React.useState('csv')
+  const [notifFreq, setNotifFreq] = React.useState('daily')
+  const [activeTab, setActiveTab] = React.useState(0)
+
+  const bookedDays = [
+    new Date(today.getFullYear(), today.getMonth(), 5),
+    new Date(today.getFullYear(), today.getMonth(), 12),
+    new Date(today.getFullYear(), today.getMonth(), 18),
+    new Date(today.getFullYear(), today.getMonth(), 25),
+  ]
+  const availableDays = [
+    new Date(today.getFullYear(), today.getMonth(), 7),
+    new Date(today.getFullYear(), today.getMonth(), 14),
+    new Date(today.getFullYear(), today.getMonth(), 21),
+    new Date(today.getFullYear(), today.getMonth(), 28),
+  ]
+
+  const tabs = ['예약 달력', '내보내기 설정', '알림 설정']
+
+  const bookingSummary = [
+    { label: '이번 달 예약', count: 4, color: '#7c3aed' },
+    { label: '가용 슬롯', count: 4, color: '#059669' },
+    { label: '대기 중', count: 2, color: '#d97706' },
+    { label: '취소됨', count: 1, color: '#dc2626' },
+  ]
+
+  const exportFormats = [
+    { value: 'csv', label: 'CSV', desc: 'Excel 호환 형식' },
+    { value: 'json', label: 'JSON', desc: 'API/개발자용' },
+    { value: 'excel', label: 'Excel (.xlsx)', desc: '스프레드시트' },
+    { value: 'ical', label: 'iCal (.ics)', desc: '캘린더 앱 동기화' },
+  ]
+
+  const notifOptions = [
+    { value: 'realtime', label: '실시간', desc: '예약 즉시 알림' },
+    { value: 'daily', label: '일간 요약', desc: '매일 오전 9시' },
+    { value: 'weekly', label: '주간 보고', desc: '매주 월요일' },
+    { value: 'none', label: '알림 없음', desc: '수동 확인' },
+  ]
+
+  return (
+    <div style={{ minHeight: '100vh', background: '#fafafa', fontFamily: 'system-ui, sans-serif', display: 'flex' }}>
+      {/* Sidebar */}
+      <div style={{ width: 220, background: '#fff', borderRight: '1px solid #e5e7eb', padding: '24px 0', display: 'flex', flexDirection: 'column' }}>
+        <div style={{ padding: '0 16px 20px', borderBottom: '1px solid #f3f4f6' }}>
+          <div style={{ fontSize: 15, fontWeight: 700, color: '#1f2937' }}>예약 관리</div>
+          <div style={{ fontSize: 11, color: '#9ca3af', marginTop: 2 }}>Chakra UI + Arco Design</div>
+        </div>
+        <div style={{ padding: '12px 8px', flex: 1 }}>
+          {['대시보드', '예약 목록', '고객 관리', '통계 리포트', '설정'].map((m, i) => (
+            <div
+              key={m}
+              style={{
+                padding: '8px 12px',
+                borderRadius: 8,
+                marginBottom: 2,
+                cursor: 'pointer',
+                background: i === 0 ? '#f5f3ff' : 'transparent',
+                color: i === 0 ? '#7c3aed' : '#6b7280',
+                fontSize: 13,
+                fontWeight: i === 0 ? 600 : 400,
+                display: 'flex',
+                alignItems: 'center',
+                gap: 8,
+              }}
+            >
+              <span>{['📊', '📋', '👥', '📈', '⚙️'][i]}</span>
+              {m}
+            </div>
+          ))}
+        </div>
+        <div style={{ padding: '16px', borderTop: '1px solid #f3f4f6' }}>
+          {bookingSummary.map((s) => (
+            <div key={s.label} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
+              <span style={{ fontSize: 11, color: '#6b7280' }}>{s.label}</span>
+              <span style={{ fontSize: 12, fontWeight: 700, color: s.color, background: s.color + '15', padding: '1px 8px', borderRadius: 99 }}>{s.count}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Main Content */}
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+        {/* Header */}
+        <div style={{ background: '#fff', borderBottom: '1px solid #e5e7eb', padding: '16px 24px', display: 'flex', alignItems: 'center', gap: 12 }}>
+          <div style={{ flex: 1 }}>
+            <div style={{ fontSize: 18, fontWeight: 700, color: '#111827' }}>예약 대시보드</div>
+            <div style={{ fontSize: 12, color: '#9ca3af' }}>날짜 선택 · 데이터 내보내기 · 알림 설정</div>
+          </div>
+          <SolidButton color="primary" size="medium">
+            <SolidButton.Center>새 예약 추가</SolidButton.Center>
+          </SolidButton>
+        </div>
+
+        {/* Tab Navigation */}
+        <div style={{ background: '#fff', borderBottom: '1px solid #e5e7eb', padding: '0 24px', display: 'flex', gap: 0 }}>
+          {tabs.map((tab, i) => (
+            <button
+              key={tab}
+              onClick={() => setActiveTab(i)}
+              style={{
+                padding: '12px 20px',
+                border: 'none',
+                background: 'transparent',
+                cursor: 'pointer',
+                fontSize: 13,
+                fontWeight: activeTab === i ? 600 : 400,
+                color: activeTab === i ? '#7c3aed' : '#6b7280',
+                borderBottom: activeTab === i ? '2px solid #7c3aed' : '2px solid transparent',
+                marginBottom: -1,
+                transition: 'all 0.15s',
+              }}
+            >
+              {tab}
+            </button>
+          ))}
+        </div>
+
+        {/* Tab Content */}
+        <div style={{ flex: 1, padding: 24, overflow: 'auto' }}>
+          {activeTab === 0 && (
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 340px', gap: 20 }}>
+              {/* Calendar Panel */}
+              <div style={{ background: '#fff', borderRadius: 12, padding: 24, border: '1px solid #e5e7eb' }}>
+                <div style={{ fontSize: 14, fontWeight: 600, color: '#374151', marginBottom: 16 }}>예약 달력</div>
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                  <Calendar
+                    mode="single"
+                    selected={selectedDate}
+                    onSelect={setSelectedDate}
+                    modifiers={{ booked: bookedDays, available: availableDays }}
+                    modifiersStyles={{
+                      booked: { background: '#f5f3ff', color: '#7c3aed', fontWeight: 700, borderRadius: '50%' },
+                      available: { background: '#ecfdf5', color: '#059669', fontWeight: 600, borderRadius: '50%' },
+                    }}
+                  />
+                </div>
+                <div style={{ display: 'flex', gap: 12, marginTop: 16, justifyContent: 'center' }}>
+                  {[{ color: '#7c3aed', bg: '#f5f3ff', label: '예약됨' }, { color: '#059669', bg: '#ecfdf5', label: '가용' }, { color: '#d97706', bg: '#fef3c7', label: '선택됨' }].map((l) => (
+                    <div key={l.label} style={{ display: 'flex', alignItems: 'center', gap: 4, fontSize: 11, color: '#6b7280' }}>
+                      <div style={{ width: 10, height: 10, borderRadius: '50%', background: l.bg, border: `1.5px solid ${l.color}` }} />
+                      {l.label}
+                    </div>
+                  ))}
+                </div>
+                {selectedDate && (
+                  <div style={{ marginTop: 16, padding: '10px 14px', background: '#f5f3ff', borderRadius: 8, fontSize: 12, color: '#7c3aed', fontWeight: 500 }}>
+                    선택된 날짜: {selectedDate.toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric' })}
+                  </div>
+                )}
+              </div>
+
+              {/* Upcoming Bookings */}
+              <div style={{ background: '#fff', borderRadius: 12, padding: 24, border: '1px solid #e5e7eb' }}>
+                <div style={{ fontSize: 14, fontWeight: 600, color: '#374151', marginBottom: 16 }}>이번 달 예약</div>
+                {bookedDays.map((d, i) => (
+                  <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 0', borderBottom: i < bookedDays.length - 1 ? '1px solid #f3f4f6' : 'none' }}>
+                    <div style={{ width: 36, height: 36, borderRadius: 8, background: '#f5f3ff', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+                      <span style={{ fontSize: 9, color: '#9ca3af', lineHeight: 1 }}>{d.toLocaleDateString('ko-KR', { month: 'short' })}</span>
+                      <span style={{ fontSize: 14, fontWeight: 700, color: '#7c3aed', lineHeight: 1 }}>{d.getDate()}</span>
+                    </div>
+                    <div style={{ flex: 1 }}>
+                      <div style={{ fontSize: 12, fontWeight: 600, color: '#111827' }}>예약 #{i + 1001}</div>
+                      <div style={{ fontSize: 11, color: '#9ca3af' }}>오후 2:00 · 60분</div>
+                    </div>
+                    <div style={{ fontSize: 10, padding: '2px 8px', borderRadius: 99, background: '#ecfdf5', color: '#059669', fontWeight: 600 }}>확정</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {activeTab === 1 && (
+            <div style={{ maxWidth: 560, background: '#fff', borderRadius: 12, padding: 28, border: '1px solid #e5e7eb' }}>
+              <div style={{ fontSize: 14, fontWeight: 600, color: '#374151', marginBottom: 4 }}>데이터 내보내기 형식</div>
+              <div style={{ fontSize: 12, color: '#9ca3af', marginBottom: 20 }}>Arco Design 스타일 라디오 선택</div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+                {exportFormats.map((fmt) => (
+                  <label
+                    key={fmt.value}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 12,
+                      padding: '14px 16px',
+                      borderRadius: 10,
+                      border: `2px solid ${exportFormat === fmt.value ? '#7c3aed' : '#e5e7eb'}`,
+                      background: exportFormat === fmt.value ? '#f5f3ff' : '#fff',
+                      cursor: 'pointer',
+                      transition: 'all 0.15s',
+                    }}
+                  >
+                    <RadioButton
+                      value={fmt.value}
+                      checked={exportFormat === fmt.value}
+                      onChange={() => setExportFormat(fmt.value)}
+                    />
+                    <div>
+                      <div style={{ fontSize: 13, fontWeight: 600, color: exportFormat === fmt.value ? '#7c3aed' : '#374151' }}>{fmt.label}</div>
+                      <div style={{ fontSize: 11, color: '#9ca3af' }}>{fmt.desc}</div>
+                    </div>
+                  </label>
+                ))}
+              </div>
+              <div style={{ marginTop: 20 }}>
+                <SolidButton color="primary" size="medium">
+                  <SolidButton.Center>{exportFormat.toUpperCase()} 내보내기</SolidButton.Center>
+                </SolidButton>
+              </div>
+            </div>
+          )}
+
+          {activeTab === 2 && (
+            <div style={{ maxWidth: 560, background: '#fff', borderRadius: 12, padding: 28, border: '1px solid #e5e7eb' }}>
+              <div style={{ fontSize: 14, fontWeight: 600, color: '#374151', marginBottom: 4 }}>알림 빈도 설정</div>
+              <div style={{ fontSize: 12, color: '#9ca3af', marginBottom: 20 }}>Chakra UI 스타일 알림 설정</div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+                {notifOptions.map((opt) => (
+                  <label
+                    key={opt.value}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 12,
+                      padding: '14px 16px',
+                      borderRadius: 10,
+                      border: `2px solid ${notifFreq === opt.value ? '#059669' : '#e5e7eb'}`,
+                      background: notifFreq === opt.value ? '#ecfdf5' : '#fff',
+                      cursor: 'pointer',
+                      transition: 'all 0.15s',
+                    }}
+                  >
+                    <RadioButton
+                      value={opt.value}
+                      checked={notifFreq === opt.value}
+                      onChange={() => setNotifFreq(opt.value)}
+                    />
+                    <div>
+                      <div style={{ fontSize: 13, fontWeight: 600, color: notifFreq === opt.value ? '#059669' : '#374151' }}>{opt.label}</div>
+                      <div style={{ fontSize: 11, color: '#9ca3af' }}>{opt.desc}</div>
+                    </div>
+                  </label>
+                ))}
+              </div>
+              <div style={{ marginTop: 20, padding: '12px 16px', background: '#f0fdf4', borderRadius: 8, fontSize: 12, color: '#059669' }}>
+                현재 설정: <strong>{notifOptions.find((o) => o.value === notifFreq)?.label}</strong> — {notifOptions.find((o) => o.value === notifFreq)?.desc}
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const ChakraArco176BookingDashboard: StoryObj = {
+  name: 'Chakra UI + Arco Design — 예약 관리 대시보드 (Cycle 176)',
+  parameters: {
+    layout: 'fullscreen',
+    docs: {
+      description: {
+        story: 'Chakra UI 달력 예약 시스템 + Arco Design 데이터 내보내기 패턴. Calendar 모디파이어 기반 예약 현황 시각화 + RadioButton 형식 선택 + 알림 빈도 설정.',
+      },
+    },
+  },
+  render: () => <ChakraArco176BookingDashboardRender />,
+}

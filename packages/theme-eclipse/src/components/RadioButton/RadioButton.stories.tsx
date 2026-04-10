@@ -1502,3 +1502,198 @@ export const MUI_결제_수단_선택: Story = {
   },
   render: () => <MUIPaymentMethodRender />,
 }
+
+// ──────────────────────────────────────────────────────────────────────────────
+// Cycle 176: Chakra UI + Arco Design
+// ──────────────────────────────────────────────────────────────────────────────
+
+function ChakraThemeSelectionRender() {
+  const [selected, setSelected] = useState('system')
+  const themes = [
+    { value: 'light', label: '라이트', desc: '흰 배경의 기본 테마', preview: { bg: '#fff', text: '#0f172a', accent: '#6366f1' } },
+    { value: 'dark', label: '다크', desc: '눈의 피로를 줄이는 어두운 테마', preview: { bg: '#0f172a', text: '#f1f5f9', accent: '#818cf8' } },
+    { value: 'system', label: '시스템', desc: 'OS 설정에 자동 동기화', preview: { bg: 'linear-gradient(90deg, #fff 50%, #0f172a 50%)', text: '#64748b', accent: '#8b5cf6' } },
+  ]
+
+  return (
+    <div style={{ width: 400 }}>
+      <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary, #0f172a)', marginBottom: 12 }}>테마 설정</div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+        {themes.map((theme) => (
+          <label
+            key={theme.value}
+            style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 14px', borderRadius: 10, border: `2px solid ${selected === theme.value ? '#6366f1' : 'var(--sem-eclipse-color-borderPrimary, #e2e8f0)'}`, cursor: 'pointer', background: selected === theme.value ? '#eff6ff' : 'var(--sem-eclipse-color-backgroundPrimary, #fff)', transition: 'all 150ms' }}
+          >
+            <RadioButton
+              value={theme.value}
+              checked={selected === theme.value}
+              onChange={() => setSelected(theme.value)}
+            />
+            <div style={{ width: 36, height: 24, borderRadius: 5, background: theme.preview.bg, border: '1px solid #e2e8f0', flexShrink: 0 }} />
+            <div style={{ flex: 1 }}>
+              <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary, #0f172a)' }}>{theme.label}</div>
+              <div style={{ fontSize: 11, color: '#64748b' }}>{theme.desc}</div>
+            </div>
+          </label>
+        ))}
+      </div>
+      <div style={{ marginTop: 12, padding: '8px 12px', borderRadius: 8, background: 'var(--sem-eclipse-color-surfaceContainer, #f8fafc)', fontSize: 12, color: '#64748b' }}>
+        현재 선택: <strong style={{ color: '#6366f1' }}>{themes.find((t) => t.value === selected)?.label}</strong>
+      </div>
+    </div>
+  )
+}
+
+export const Chakra_테마_선택_라디오: Story = {
+  name: 'Chakra UI — 테마 선택 RadioButton (라이트/다크/시스템)',
+  args: { disabled: false },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Chakra UI 테마 설정 패턴. 라이트/다크/시스템 3가지 RadioButton, 선택 시 카드 border 강조 + 배경 변화. 미리보기 컬러 스와치 동반.',
+      },
+    },
+  },
+  render: () => <ChakraThemeSelectionRender />,
+}
+
+function ArcoDataExportRadioRender() {
+  const [format, setFormat] = useState('csv')
+  const [encoding, setEncoding] = useState('utf8')
+  const formats = [
+    { value: 'csv', label: 'CSV', desc: '스프레드시트 호환', size: '~2.4MB' },
+    { value: 'json', label: 'JSON', desc: 'API/개발자용', size: '~3.1MB' },
+    { value: 'xlsx', label: 'Excel', desc: '서식 포함 스프레드시트', size: '~1.8MB' },
+    { value: 'parquet', label: 'Parquet', desc: '대용량 분석 최적화', size: '~0.9MB' },
+  ]
+  const encodings = [
+    { value: 'utf8', label: 'UTF-8' },
+    { value: 'euc-kr', label: 'EUC-KR' },
+    { value: 'utf16', label: 'UTF-16' },
+  ]
+
+  return (
+    <div style={{ width: 440 }}>
+      <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary, #0f172a)', marginBottom: 14 }}>데이터 내보내기 설정</div>
+      <div style={{ marginBottom: 16 }}>
+        <div style={{ fontSize: 12, fontWeight: 600, color: '#64748b', marginBottom: 8 }}>파일 형식</div>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
+          {formats.map((f) => (
+            <label
+              key={f.value}
+              style={{ display: 'flex', alignItems: 'flex-start', gap: 8, padding: '10px 12px', borderRadius: 8, border: `1px solid ${format === f.value ? '#6366f1' : '#e2e8f0'}`, cursor: 'pointer', background: format === f.value ? '#eff6ff' : '#fff', transition: 'all 150ms' }}
+            >
+              <RadioButton value={f.value} checked={format === f.value} onChange={() => setFormat(f.value)} />
+              <div>
+                <div style={{ fontSize: 12, fontWeight: 700, color: '#0f172a' }}>{f.label}</div>
+                <div style={{ fontSize: 10, color: '#64748b' }}>{f.desc}</div>
+                <div style={{ fontSize: 10, color: '#94a3b8', marginTop: 2 }}>{f.size}</div>
+              </div>
+            </label>
+          ))}
+        </div>
+      </div>
+      <div style={{ marginBottom: 16 }}>
+        <div style={{ fontSize: 12, fontWeight: 600, color: '#64748b', marginBottom: 8 }}>인코딩</div>
+        <Flex gap="small">
+          {encodings.map((e) => (
+            <label key={e.value} style={{ display: 'flex', alignItems: 'center', gap: 6, cursor: 'pointer' }}>
+              <RadioButton value={e.value} checked={encoding === e.value} onChange={() => setEncoding(e.value)} />
+              <span style={{ fontSize: 12, color: '#475569' }}>{e.label}</span>
+            </label>
+          ))}
+        </Flex>
+      </div>
+      <div style={{ padding: '10px 14px', borderRadius: 8, background: '#f8fafc', border: '1px solid #e2e8f0', fontSize: 12, color: '#64748b' }}>
+        내보낼 파일: <strong style={{ color: '#0f172a' }}>export.{format}</strong> ({encodings.find((e) => e.value === encoding)?.label})
+      </div>
+    </div>
+  )
+}
+
+export const Arco_데이터_내보내기_형식_라디오: Story = {
+  name: 'Arco Design — 데이터 내보내기 형식 선택 (CSV/JSON/Excel/Parquet)',
+  args: { disabled: false },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Arco Design 데이터 내보내기 폼 패턴. 파일 형식 4가지 카드형 RadioButton + 인코딩 3가지 인라인 RadioButton. 선택값으로 파일명 동적 생성.',
+      },
+    },
+  },
+  render: () => <ArcoDataExportRadioRender />,
+}
+
+function ChakraArcoNotificationRadioRender() {
+  const [frequency, setFrequency] = useState('realtime')
+  const [channel, setChannel] = useState('push')
+  const [priority, setPriority] = useState('all')
+
+  const frequencies = [
+    { value: 'realtime', label: '실시간', desc: '이벤트 발생 즉시', icon: '⚡' },
+    { value: 'hourly', label: '매시간', desc: '1시간마다 요약', icon: '🕐' },
+    { value: 'daily', label: '매일', desc: '하루 1회 다이제스트', icon: '📅' },
+    { value: 'off', label: '끄기', desc: '알림 비활성화', icon: '🔕' },
+  ]
+  const channels = [{ value: 'push', label: '푸시' }, { value: 'email', label: '이메일' }, { value: 'slack', label: 'Slack' }]
+  const priorities = [{ value: 'all', label: '전체' }, { value: 'important', label: '중요만' }, { value: 'urgent', label: '긴급만' }]
+
+  return (
+    <div style={{ width: 420 }}>
+      <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary, #0f172a)', marginBottom: 14 }}>알림 설정</div>
+      <div style={{ marginBottom: 14 }}>
+        <div style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: 1, marginBottom: 8 }}>발송 주기</div>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 6 }}>
+          {frequencies.map((f) => (
+            <label key={f.value} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '8px 12px', borderRadius: 8, border: `1px solid ${frequency === f.value ? '#6366f1' : '#e2e8f0'}`, cursor: 'pointer', background: frequency === f.value ? '#eff6ff' : '#fff', transition: 'all 150ms' }}>
+              <RadioButton value={f.value} checked={frequency === f.value} onChange={() => setFrequency(f.value)} />
+              <span style={{ fontSize: 14 }}>{f.icon}</span>
+              <div>
+                <div style={{ fontSize: 12, fontWeight: 600, color: '#0f172a' }}>{f.label}</div>
+                <div style={{ fontSize: 10, color: '#64748b' }}>{f.desc}</div>
+              </div>
+            </label>
+          ))}
+        </div>
+      </div>
+      <div style={{ marginBottom: 14 }}>
+        <div style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: 1, marginBottom: 8 }}>채널</div>
+        <Flex gap="medium">
+          {channels.map((c) => (
+            <label key={c.value} style={{ display: 'flex', alignItems: 'center', gap: 6, cursor: 'pointer' }}>
+              <RadioButton value={c.value} checked={channel === c.value} onChange={() => setChannel(c.value)} />
+              <span style={{ fontSize: 12, color: '#475569' }}>{c.label}</span>
+            </label>
+          ))}
+        </Flex>
+      </div>
+      <div style={{ marginBottom: 14 }}>
+        <div style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: 1, marginBottom: 8 }}>우선순위 필터</div>
+        <Flex gap="medium">
+          {priorities.map((p) => (
+            <label key={p.value} style={{ display: 'flex', alignItems: 'center', gap: 6, cursor: 'pointer' }}>
+              <RadioButton value={p.value} checked={priority === p.value} onChange={() => setPriority(p.value)} />
+              <span style={{ fontSize: 12, color: '#475569' }}>{p.label}</span>
+            </label>
+          ))}
+        </Flex>
+      </div>
+      <div style={{ padding: '10px 14px', borderRadius: 8, background: '#f8fafc', border: '1px solid #e2e8f0', fontSize: 11, color: '#64748b', lineHeight: 1.6 }}>
+        {frequencies.find((f) => f.value === frequency)?.label} · {channels.find((c) => c.value === channel)?.label} · {priorities.find((p) => p.value === priority)?.label} 알림
+      </div>
+    </div>
+  )
+}
+
+export const Chakra_Arco_알림_설정_라디오: Story = {
+  name: 'Chakra + Arco — 알림 설정 RadioButton (주기 + 채널 + 우선순위)',
+  args: { disabled: false },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Chakra UI + Arco Design 알림 환경설정 패턴. 발송 주기(카드형) + 채널 + 우선순위 3개 RadioButton 그룹 독립 제어. 선택 조합 요약 문구 실시간 생성.',
+      },
+    },
+  },
+  render: () => <ChakraArcoNotificationRadioRender />,
+}

@@ -1683,3 +1683,188 @@ export const Shadcn_Linear_반복_이벤트_스케줄러: Story = {
     )
   },
 }
+
+// ──────────────────────────────────────────────────────────────────────────────
+// Cycle 176: Chakra UI + Arco Design
+// ──────────────────────────────────────────────────────────────────────────────
+
+export const Chakra_생일_기념일_달력: Story = {
+  name: 'Chakra UI — 생일/기념일 마킹 달력 (이벤트 하이라이트)',
+  render: function ChakraBirthdayCalendarRender() {
+    const today = new Date()
+    const [selected, setSelected] = React.useState<Date | undefined>(undefined)
+    const anniversaries = [3, 8, 14, 21, 28].map((d) => new Date(today.getFullYear(), today.getMonth(), d))
+    const birthdays = [5, 12, 19, 26].map((d) => new Date(today.getFullYear(), today.getMonth(), d))
+
+    const isAnniversary = (d: Date) => anniversaries.some((a) => a.toDateString() === d.toDateString())
+    const isBirthday = (d: Date) => birthdays.some((b) => b.toDateString() === d.toDateString())
+
+    const selectedLabel = selected
+      ? isAnniversary(selected) ? '기념일' : isBirthday(selected) ? '생일' : '일반 날짜'
+      : '날짜를 선택하세요'
+
+    return (
+      <div style={{ display: 'flex', gap: 20, alignItems: 'flex-start' }}>
+        <Calendar
+          mode="single"
+          selected={selected}
+          onSelect={setSelected}
+          modifiers={{ anniversary: anniversaries, birthday: birthdays }}
+          modifiersStyles={{
+            anniversary: { background: '#fef3c720', border: '2px solid #f59e0b', borderRadius: 4 },
+            birthday: { background: '#eff6ff', border: '2px solid #3b82f6', borderRadius: 4 },
+          }}
+        />
+        <div style={{ width: 180, background: 'var(--sem-eclipse-color-surfaceContainer, #f8fafc)', borderRadius: 10, border: '1px solid var(--sem-eclipse-color-borderPrimary, #e2e8f0)', padding: 14 }}>
+          <div style={{ fontSize: 12, fontWeight: 700, color: '#0f172a', marginBottom: 10 }}>범례</div>
+          {[{ color: '#f59e0b', bg: '#fef3c7', label: '기념일' }, { color: '#3b82f6', bg: '#eff6ff', label: '생일' }].map((item) => (
+            <div key={item.label} style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 6 }}>
+              <div style={{ width: 14, height: 14, borderRadius: 3, background: item.bg, border: `2px solid ${item.color}` }} />
+              <span style={{ fontSize: 12, color: '#64748b' }}>{item.label}</span>
+            </div>
+          ))}
+          <div style={{ marginTop: 12, padding: '8px 10px', borderRadius: 7, background: '#fff', border: '1px solid var(--sem-eclipse-color-borderPrimary, #e2e8f0)' }}>
+            <div style={{ fontSize: 11, color: '#94a3b8' }}>선택:</div>
+            <div style={{ fontSize: 12, color: '#0f172a', fontWeight: 600, marginTop: 2 }}>{selected?.toLocaleDateString('ko-KR') ?? '—'}</div>
+            <div style={{ fontSize: 11, color: selected ? (isAnniversary(selected) ? '#f59e0b' : isBirthday(selected) ? '#3b82f6' : '#64748b') : '#94a3b8' }}>{selectedLabel}</div>
+          </div>
+        </div>
+      </div>
+    )
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Chakra UI date picker 이벤트 마킹 패턴. 기념일(주황)/생일(파랑) 날짜 custom modifier로 하이라이트. 선택 날짜 이벤트 타입 자동 분류.',
+      },
+    },
+  },
+}
+
+export const Arco_다중_달력_비교_뷰: Story = {
+  name: 'Arco Design — 이전/다음 월 비교 달력 (기간 선택)',
+  render: function ArcoRangeCalendarRender() {
+    const [range, setRange] = React.useState<{ from?: Date; to?: Date }>({})
+    const now = new Date()
+    const prevMonth = new Date(now.getFullYear(), now.getMonth() - 1, 1)
+    const nextMonth = new Date(now.getFullYear(), now.getMonth() + 1, 1)
+
+    const handleSelect = (d: Date | undefined) => {
+      if (!d) return
+      if (!range.from || (range.from && range.to)) {
+        setRange({ from: d, to: undefined })
+      } else {
+        const [start, end] = d < range.from ? [d, range.from] : [range.from, d]
+        setRange({ from: start, to: end })
+      }
+    }
+
+    const daysBetween = range.from && range.to
+      ? Math.round((range.to.getTime() - range.from.getTime()) / 86400000)
+      : 0
+
+    return (
+      <div>
+        <div style={{ display: 'flex', gap: 16 }}>
+          <Calendar
+            mode="single"
+            selected={range.from}
+            onSelect={handleSelect}
+            defaultMonth={prevMonth}
+            modifiers={range.from && range.to
+              ? { inRange: { from: range.from, to: range.to } }
+              : undefined
+            }
+          />
+          <Calendar
+            mode="single"
+            selected={range.to}
+            onSelect={handleSelect}
+            defaultMonth={nextMonth}
+          />
+        </div>
+        <div style={{ marginTop: 12, padding: '10px 14px', borderRadius: 8, background: 'var(--sem-eclipse-color-surfaceContainer, #f8fafc)', border: '1px solid var(--sem-eclipse-color-borderPrimary, #e2e8f0)', display: 'flex', gap: 16, fontSize: 12 }}>
+          <div><span style={{ color: '#94a3b8' }}>시작:</span> <strong>{range.from?.toLocaleDateString('ko-KR') ?? '—'}</strong></div>
+          <div><span style={{ color: '#94a3b8' }}>종료:</span> <strong>{range.to?.toLocaleDateString('ko-KR') ?? '—'}</strong></div>
+          {daysBetween > 0 && <div style={{ color: '#6366f1', fontWeight: 700 }}>{daysBetween}일 선택됨</div>}
+        </div>
+      </div>
+    )
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Arco Design 이중 달력 범위 선택 패턴. 이전월/다음월 나란히 표시, 클릭 두 번으로 시작-종료 날짜 설정, 선택 기간 일수 자동 계산.',
+      },
+    },
+  },
+}
+
+export const Chakra_Arco_예약_일정_달력: Story = {
+  name: 'Chakra + Arco — 예약/일정 달력 (불가 날짜 + 카운트 표시)',
+  render: function ChakraArcoBookingCalendarRender() {
+    const today = new Date()
+    const [selected, setSelected] = React.useState<Date | undefined>(undefined)
+
+    const bookedDates = [2, 5, 9, 13, 16, 22, 27].map(
+      (d) => new Date(today.getFullYear(), today.getMonth(), d)
+    )
+    const unavailableDates = [1, 6, 7, 14, 15, 20, 21, 28].map(
+      (d) => new Date(today.getFullYear(), today.getMonth(), d)
+    )
+    const highDemandDates = [10, 11, 17, 18, 24, 25].map(
+      (d) => new Date(today.getFullYear(), today.getMonth(), d)
+    )
+
+    const isBooked = (d: Date) => bookedDates.some((b) => b.toDateString() === d.toDateString())
+    const _isUnavailable = (d: Date) => unavailableDates.some((u) => u.toDateString() === d.toDateString())
+    const isHighDemand = (d: Date) => highDemandDates.some((h) => h.toDateString() === d.toDateString())
+
+    const available = 31 - bookedDates.length - unavailableDates.length - highDemandDates.length
+
+    return (
+      <div style={{ display: 'flex', gap: 20, alignItems: 'flex-start' }}>
+        <Calendar
+          mode="single"
+          selected={selected}
+          onSelect={setSelected}
+          disabled={unavailableDates}
+          modifiers={{ booked: bookedDates, highDemand: highDemandDates }}
+          modifiersStyles={{
+            booked: { background: '#dcfce7', color: '#16a34a', fontWeight: 700 },
+            highDemand: { background: '#fef3c7', color: '#92400e' },
+          }}
+        />
+        <div style={{ width: 200, display: 'flex', flexDirection: 'column', gap: 8 }}>
+          {[
+            { color: '#16a34a', bg: '#dcfce7', label: '예약 가능', count: bookedDates.length },
+            { color: '#92400e', bg: '#fef3c7', label: '인기', count: highDemandDates.length },
+            { color: '#94a3b8', bg: '#f1f5f9', label: '이용 불가', count: unavailableDates.length },
+            { color: '#6366f1', bg: '#eff6ff', label: '잔여 가능', count: available },
+          ].map((item) => (
+            <div key={item.label} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '8px 10px', borderRadius: 8, background: item.bg, border: `1px solid ${item.color}30` }}>
+              <div style={{ flex: 1, fontSize: 12, color: '#475569' }}>{item.label}</div>
+              <span style={{ fontSize: 14, fontWeight: 800, color: item.color }}>{item.count}</span>
+            </div>
+          ))}
+          {selected && (
+            <div style={{ marginTop: 4, padding: '10px 12px', borderRadius: 8, background: '#f8fafc', border: '1px solid #e2e8f0' }}>
+              <div style={{ fontSize: 11, color: '#94a3b8' }}>선택 날짜</div>
+              <div style={{ fontSize: 13, fontWeight: 700, color: '#0f172a', marginTop: 2 }}>{selected.toLocaleDateString('ko-KR')}</div>
+              <div style={{ fontSize: 11, color: isBooked(selected) ? '#16a34a' : isHighDemand(selected) ? '#f59e0b' : '#64748b', marginTop: 2 }}>
+                {isBooked(selected) ? '예약 가능' : isHighDemand(selected) ? '인기 날짜' : '일반'}
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    )
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Chakra UI + Arco Design 예약 달력 패턴. 예약 가능(초록)/인기(노랑)/불가(회색) 3상태 modifier 적용. 날짜 유형별 카운트 사이드 패널 표시.',
+      },
+    },
+  },
+}
