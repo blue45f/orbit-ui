@@ -32188,3 +32188,188 @@ export const VercelChakra138KanbanBoard: StoryObj = {
   },
   render: () => <KanbanBoard138Render />,
 }
+
+
+// ─── Cycle 139: Shadcn + Notion — AI 글쓰기 스튜디오 ───────────────────────
+function AIWritingStudio139Render() {
+  const [activeDoc, setActiveDoc] = useState(0)
+  const [fmtBold, setFmtBold] = useState(false)
+  const [fmtItalic, setFmtItalic] = useState(false)
+  const [fmtUnderline, setFmtUnderline] = useState(false)
+  const [fmtCode, setFmtCode] = useState(false)
+  const [searchQuery, setSearchQuery] = useState('')
+  const [sidebarOpen, setSidebarOpen] = useState(true)
+  const [outlineOpen, setOutlineOpen] = useState(true)
+  const [isPreview, setIsPreview] = useState(false)
+
+  const docs = [
+    { id: 1, title: '제품 로드맵 2026', icon: '📋', tag: '전략', updated: '방금 전', wordCount: 1240 },
+    { id: 2, title: '온보딩 가이드라인', icon: '📖', tag: '문서', updated: '2시간 전', wordCount: 3580 },
+    { id: 3, title: 'Q2 회고 노트', icon: '🔍', tag: '회고', updated: '어제', wordCount: 860 },
+    { id: 4, title: 'API 설계 스펙', icon: '⚙️', tag: '기술', updated: '3일 전', wordCount: 2100 },
+  ]
+
+  const outline = [
+    { level: 1, text: '개요' },
+    { level: 2, text: '배경 및 목적' },
+    { level: 2, text: '핵심 기능' },
+    { level: 3, text: '사용자 인터페이스' },
+    { level: 3, text: '백엔드 구조' },
+    { level: 2, text: '일정 및 마일스톤' },
+    { level: 2, text: '팀 구성' },
+  ]
+
+  const filteredDocs = searchQuery
+    ? docs.filter((d) => d.title.toLowerCase().includes(searchQuery.toLowerCase()))
+    : docs
+
+  return (
+    <div style={{ width: 960, height: 620, display: 'flex', flexDirection: 'column', fontFamily: 'system-ui,sans-serif', background: '#fff', border: '1px solid #e2e8f0', borderRadius: 12, overflow: 'hidden' }}>
+      {/* 상단 AppBar */}
+      <AppBar>
+        <AppBar.Leading>
+          <SolidIconButton color="black" size="medium" onClick={() => setSidebarOpen((v) => !v)}><MenuIcon /></SolidIconButton>
+        </AppBar.Leading>
+        <AppBar.Center>
+          <Text style={{ fontWeight: 700, fontSize: 15 }}>AI 글쓰기 스튜디오</Text>
+        </AppBar.Center>
+        <AppBar.Trailing>
+          <div style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
+            <Toggle checked={outlineOpen} onCheckedChange={() => setOutlineOpen((v) => !v)}>
+              <Text style={{ fontSize: 12 }}>목차</Text>
+            </Toggle>
+            <Toggle checked={isPreview} onCheckedChange={() => setIsPreview((v) => !v)}>
+              <Text style={{ fontSize: 12 }}>{isPreview ? '미리보기' : '편집'}</Text>
+            </Toggle>
+          </div>
+        </AppBar.Trailing>
+      </AppBar>
+
+      {/* 본문 영역 */}
+      <div style={{ flex: 1, display: 'flex', overflow: 'hidden' }}>
+        {/* 사이드바 */}
+        {sidebarOpen && (
+          <div style={{ width: 220, borderRight: '1px solid #e2e8f0', display: 'flex', flexDirection: 'column', background: '#f8fafc', flexShrink: 0 }}>
+            <div style={{ padding: '10px 10px 6px' }}>
+              <SearchBar
+                placeholder="문서 검색..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
+            </div>
+            <div style={{ flex: 1, overflowY: 'auto' }}>
+              {filteredDocs.map((doc, i) => (
+                <div
+                  key={doc.id}
+                  onClick={() => setActiveDoc(i)}
+                  style={{ padding: '8px 12px', cursor: 'pointer', background: activeDoc === i ? '#eff6ff' : 'transparent', borderLeft: activeDoc === i ? '3px solid #3b82f6' : '3px solid transparent' }}
+                >
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 2 }}>
+                    <span style={{ fontSize: 14 }}>{doc.icon}</span>
+                    <Text style={{ fontSize: 12, fontWeight: activeDoc === i ? 600 : 400, color: '#1e293b', flex: 1 }}>{doc.title}</Text>
+                  </div>
+                  <div style={{ display: 'flex', gap: 6, paddingLeft: 20, alignItems: 'center' }}>
+                    <LabelBadge color="gray"><LabelBadge.Label>{doc.tag}</LabelBadge.Label></LabelBadge>
+                    <Text style={{ fontSize: 10, color: '#94a3b8' }}>{doc.updated}</Text>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div style={{ padding: '8px 12px', borderTop: '1px solid #e2e8f0' }}>
+              <SolidButton color="black" size="small" style={{ width: '100%' }}>+ 새 문서</SolidButton>
+            </div>
+          </div>
+        )}
+
+        {/* 에디터 */}
+        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+          {/* 서식 툴바 */}
+          <div style={{ padding: '6px 16px', borderBottom: '1px solid #e2e8f0', display: 'flex', gap: 4, alignItems: 'center', flexWrap: 'wrap', background: '#fafafa' }}>
+            <Toggle checked={fmtBold} onCheckedChange={() => setFmtBold((v) => !v)}>
+              <Text style={{ fontWeight: 700, fontSize: 13 }}>B</Text>
+            </Toggle>
+            <Toggle checked={fmtItalic} onCheckedChange={() => setFmtItalic((v) => !v)}>
+              <Text style={{ fontStyle: 'italic', fontSize: 13 }}>I</Text>
+            </Toggle>
+            <Toggle checked={fmtUnderline} onCheckedChange={() => setFmtUnderline((v) => !v)}>
+              <Text style={{ textDecoration: 'underline', fontSize: 13 }}>U</Text>
+            </Toggle>
+            <Toggle checked={fmtCode} onCheckedChange={() => setFmtCode((v) => !v)}>
+              <Text style={{ fontFamily: 'monospace', fontSize: 13 }}>&lt;&gt;</Text>
+            </Toggle>
+            <div style={{ width: 1, height: 20, background: '#e2e8f0', margin: '0 4px' }} />
+            <Text style={{ fontSize: 12, color: '#64748b' }}>단어: <strong>{docs[activeDoc]?.wordCount ?? 0}</strong></Text>
+          </div>
+
+          {/* 문서 본문 */}
+          <div style={{ flex: 1, overflowY: 'auto', padding: '24px 32px' }}>
+            <div style={{ maxWidth: 640, margin: '0 auto' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 16 }}>
+                <span style={{ fontSize: 28 }}>{docs[activeDoc]?.icon}</span>
+                <Text style={{ fontSize: 22, fontWeight: 700, color: '#0f172a' }}>{docs[activeDoc]?.title}</Text>
+              </div>
+              {isPreview ? (
+                <div style={{ padding: '16px', background: '#f8fafc', borderRadius: 8, minHeight: 320, fontSize: 14, lineHeight: 1.7, color: '#334155' }}>
+                  미리보기 모드입니다. 편집 탭에서 내용을 작성하세요.
+                </div>
+              ) : (
+                <textarea
+                  placeholder="여기에 내용을 입력하세요..."
+                  style={{
+                    width: '100%', minHeight: 320, border: 'none', outline: 'none', resize: 'none',
+                    fontSize: 14, lineHeight: 1.7, color: '#334155', background: 'transparent',
+                    fontWeight: fmtBold ? 700 : 400, fontStyle: fmtItalic ? 'italic' : 'normal',
+                    textDecoration: fmtUnderline ? 'underline' : 'none',
+                    fontFamily: fmtCode ? 'monospace' : 'inherit',
+                  }}
+                />
+              )}
+            </div>
+          </div>
+
+          {/* 하단 상태바 */}
+          <div style={{ padding: '6px 16px', borderTop: '1px solid #e2e8f0', display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: '#f8fafc' }}>
+            <div style={{ display: 'flex', gap: 6 }}>
+              {fmtBold && <LabelBadge color="gray"><LabelBadge.Label>굵게</LabelBadge.Label></LabelBadge>}
+              {fmtItalic && <LabelBadge color="gray"><LabelBadge.Label>기울임</LabelBadge.Label></LabelBadge>}
+              {fmtUnderline && <LabelBadge color="gray"><LabelBadge.Label>밑줄</LabelBadge.Label></LabelBadge>}
+              {fmtCode && <LabelBadge color="gray"><LabelBadge.Label>코드</LabelBadge.Label></LabelBadge>}
+            </div>
+            <Text style={{ fontSize: 11, color: '#94a3b8' }}>자동 저장됨</Text>
+          </div>
+        </div>
+
+        {/* 목차 패널 */}
+        {outlineOpen && (
+          <div style={{ width: 180, borderLeft: '1px solid #e2e8f0', background: '#f8fafc', flexShrink: 0, overflowY: 'auto' }}>
+            <div style={{ padding: '12px', borderBottom: '1px solid #e2e8f0' }}>
+              <Text style={{ fontSize: 11, fontWeight: 600, color: '#64748b', textTransform: 'uppercase', letterSpacing: 0.5 }}>목차</Text>
+            </div>
+            {outline.map((item, i) => (
+              <div key={i} style={{ padding: `5px 12px 5px ${12 + (item.level - 1) * 12}px`, cursor: 'pointer' }}>
+                <Text style={{ fontSize: 11, color: item.level === 1 ? '#1e293b' : '#475569', fontWeight: item.level === 1 ? 600 : 400 }}>{item.text}</Text>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+
+export const ShadcnNotion139AIWritingStudio: StoryObj = {
+  name: 'Shadcn + Notion — AI 글쓰기 스튜디오 (Cycle 139)',
+  parameters: {
+    layout: 'centered',
+    docs: {
+      description: {
+        story:
+          'Shadcn UI + Notion Design 벤치마크 — Cycle 139. ' +
+          '3패널 AI 글쓰기 스튜디오: 사이드바(SearchBar 문서검색/문서목록), ' +
+          '에디터(Toggle 서식도구바 Bold/Italic/Underline/Code, 편집·미리보기 Toggle), ' +
+          '목차 패널(Toggle 토글). AppBar + LabelBadge 서식 상태 표시.',
+      },
+    },
+  },
+  render: () => <AIWritingStudio139Render />,
+}

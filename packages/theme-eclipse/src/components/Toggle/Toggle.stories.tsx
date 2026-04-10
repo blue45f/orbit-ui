@@ -1384,3 +1384,278 @@ export const Tailwind_API_권한_스코프: Story = {
   },
   render: () => <TailwindApiScopeRender />,
 }
+
+// ============================================================
+// Cycle 139 — shadcn/ui + Notion Design 벤치마크 반영
+// ============================================================
+
+// shadcn/ui 스타일 — 텍스트 서식 도구바 (Bold/Italic/Underline/Strike)
+type FormatKey139 = 'bold' | 'italic' | 'underline' | 'strike' | 'code'
+
+export const Shadcn_텍스트_서식_도구바: Story = {
+  name: 'shadcn/ui — 텍스트 서식 도구바 (Cycle 139)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'shadcn/ui ToggleGroup 텍스트 서식 도구바 패턴. Bold/Italic/Underline/Strike/Code 독립 토글. ' +
+          '미리보기 영역에 실시간 서식 반영. 활성 토글은 배경 강조.',
+      },
+    },
+  },
+  render: function ShadcnFormatToolbarRender() {
+    const [formats, setFormats] = useState<Record<FormatKey139, boolean>>({
+      bold: false, italic: false, underline: false, strike: false, code: false,
+    })
+    const [text, setText] = useState('Orbit UI 디자인 시스템 — 3-tier 토큰 아키텍처로 완전한 커스터마이징 지원')
+
+    function toggleFormat(key: FormatKey139) {
+      setFormats((prev) => ({ ...prev, [key]: !prev[key] }))
+    }
+
+    const TOOLS: { key: FormatKey139; label: string; title: string }[] = [
+      { key: 'bold', label: 'B', title: '굵게' },
+      { key: 'italic', label: 'I', title: '기울임' },
+      { key: 'underline', label: 'U', title: '밑줄' },
+      { key: 'strike', label: 'S', title: '취소선' },
+      { key: 'code', label: '<>', title: '코드' },
+    ]
+
+    const previewStyle: React.CSSProperties = {
+      fontWeight: formats.bold ? 700 : 400,
+      fontStyle: formats.italic ? 'italic' : 'normal',
+      textDecoration: [formats.underline ? 'underline' : '', formats.strike ? 'line-through' : ''].filter(Boolean).join(' ') || 'none',
+      fontFamily: formats.code ? 'monospace' : 'system-ui, sans-serif',
+      fontSize: formats.code ? 13 : 15,
+      background: formats.code ? '#f1f5f9' : 'transparent',
+      padding: formats.code ? '2px 6px' : 0,
+      borderRadius: formats.code ? 4 : 0,
+    }
+
+    return (
+      <div style={{ width: 400, fontFamily: 'system-ui, sans-serif' }}>
+        {/* 도구바 */}
+        <div style={{ display: 'flex', gap: 2, padding: '6px 8px', background: '#f8fafc', borderRadius: '10px 10px 0 0', border: '1px solid #e2e8f0', borderBottom: 'none' }}>
+          {TOOLS.map((t) => (
+            <Toggle
+              key={t.key}
+              checked={formats[t.key]}
+              onCheckedChange={() => toggleFormat(t.key)}
+            >
+              <span style={{ fontWeight: t.key === 'bold' ? 800 : 400, fontStyle: t.key === 'italic' ? 'italic' : 'normal', fontSize: 13, color: '#0f172a', minWidth: 24, textAlign: 'center' }} title={t.title}>
+                {t.label}
+              </span>
+            </Toggle>
+          ))}
+          <div style={{ width: 1, background: '#e2e8f0', margin: '4px 4px' }} />
+          <span style={{ fontSize: 11, color: '#94a3b8', alignSelf: 'center', marginLeft: 2 }}>
+            {Object.values(formats).filter(Boolean).length > 0
+              ? `${Object.entries(formats).filter(([, v]) => v).map(([k]) => k).join(', ')} 활성`
+              : '서식 없음'
+            }
+          </span>
+        </div>
+        {/* 에디터 영역 */}
+        <div style={{ padding: '16px', border: '1px solid #e2e8f0', borderRadius: '0 0 10px 10px', minHeight: 80 }}>
+          <span style={previewStyle}>{text}</span>
+          <input
+            value={text}
+            onChange={(e) => setText(e.target.value)}
+            style={{ display: 'block', width: '100%', marginTop: 12, padding: '6px 8px', border: '1px solid #f1f5f9', borderRadius: 6, fontSize: 12, color: '#94a3b8', outline: 'none', boxSizing: 'border-box' }}
+            placeholder="미리보기 텍스트를 수정하세요..."
+          />
+        </div>
+      </div>
+    )
+  },
+}
+
+// Notion 스타일 — 블록 뷰 전환 토글 (Table/Board/Gallery/List)
+type NotionView139 = 'table' | 'board' | 'gallery' | 'list'
+
+const NOTION_VIEWS_139: { key: NotionView139; label: string; desc: string }[] = [
+  { key: 'table', label: '표', desc: '모든 속성을 열로 표시' },
+  { key: 'board', label: '보드', desc: '그룹별 카드 레이아웃' },
+  { key: 'gallery', label: '갤러리', desc: '카드 이미지 그리드' },
+  { key: 'list', label: '목록', desc: '인라인 속성 라인' },
+]
+
+const NOTION_ITEMS_139 = [
+  { id: 1, title: 'SolidButton 스토리 추가', status: '완료', priority: '높음' },
+  { id: 2, title: 'DataTable 컬럼 필터링', status: '진행 중', priority: '높음' },
+  { id: 3, title: 'ThemeGuide.mdx 업데이트', status: '대기', priority: '보통' },
+  { id: 4, title: 'Toggle 스토리 3개', status: '완료', priority: '보통' },
+]
+
+export const Notion_데이터베이스_뷰_전환: Story = {
+  name: 'Notion — 데이터베이스 뷰 전환 Toggle (Cycle 139)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Notion Database View Switcher 패턴. 표/보드/갤러리/목록 4가지 뷰를 Toggle로 전환. ' +
+          '선택된 뷰에 따라 데이터 레이아웃이 실시간으로 변경. 뷰 이름 + 설명 서브텍스트.',
+      },
+    },
+  },
+  render: function NotionViewSwitcherRender() {
+    const [view, setView] = useState<NotionView139>('table')
+
+    return (
+      <div style={{ width: 480, fontFamily: 'system-ui, sans-serif' }}>
+        {/* 뷰 탭 */}
+        <div style={{ display: 'flex', gap: 4, marginBottom: 14, padding: '0 2px' }}>
+          {NOTION_VIEWS_139.map((v) => (
+            <Toggle
+              key={v.key}
+              checked={view === v.key}
+              onCheckedChange={() => setView(v.key)}
+            >
+              <span style={{ fontSize: 12, fontWeight: view === v.key ? 700 : 400, padding: '2px 8px', color: view === v.key ? '#0f172a' : '#64748b' }}>
+                {v.label}
+              </span>
+            </Toggle>
+          ))}
+        </div>
+
+        {/* 선택된 뷰 설명 */}
+        <div style={{ fontSize: 11, color: '#94a3b8', marginBottom: 10 }}>
+          {NOTION_VIEWS_139.find((v) => v.key === view)?.desc}
+        </div>
+
+        {/* 데이터 렌더링 */}
+        {view === 'table' && (
+          <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 12 }}>
+            <thead>
+              <tr style={{ background: '#f8fafc' }}>
+                {['제목', '상태', '우선순위'].map((h) => (
+                  <th key={h} style={{ padding: '8px 12px', textAlign: 'left', fontWeight: 600, color: '#64748b', borderBottom: '1px solid #e2e8f0' }}>{h}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {NOTION_ITEMS_139.map((item) => (
+                <tr key={item.id} style={{ borderBottom: '1px solid #f1f5f9' }}>
+                  <td style={{ padding: '8px 12px', color: '#0f172a' }}>{item.title}</td>
+                  <td style={{ padding: '8px 12px', color: '#64748b' }}>{item.status}</td>
+                  <td style={{ padding: '8px 12px', color: '#64748b' }}>{item.priority}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
+        {view === 'board' && (
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 8 }}>
+            {NOTION_ITEMS_139.map((item) => (
+              <div key={item.id} style={{ padding: '10px 12px', borderRadius: 10, border: '1px solid #e2e8f0', background: '#fff' }}>
+                <div style={{ fontSize: 12, fontWeight: 600, color: '#0f172a', marginBottom: 4 }}>{item.title}</div>
+                <div style={{ display: 'flex', gap: 6, fontSize: 11 }}>
+                  <span style={{ color: '#64748b' }}>{item.status}</span>
+                  <span style={{ color: '#94a3b8' }}>·</span>
+                  <span style={{ color: '#64748b' }}>{item.priority}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+        {view === 'gallery' && (
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 8 }}>
+            {NOTION_ITEMS_139.map((item) => (
+              <div key={item.id} style={{ borderRadius: 10, border: '1px solid #e2e8f0', overflow: 'hidden' }}>
+                <div style={{ height: 64, background: `hsl(${item.id * 70}, 60%, 92%)`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 20 }}>
+                  {item.id === 1 ? '◈' : item.id === 2 ? '◉' : item.id === 3 ? '◎' : '◆'}
+                </div>
+                <div style={{ padding: '8px 10px', fontSize: 12, fontWeight: 600, color: '#0f172a' }}>{item.title}</div>
+              </div>
+            ))}
+          </div>
+        )}
+        {view === 'list' && (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+            {NOTION_ITEMS_139.map((item) => (
+              <div key={item.id} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '6px 10px', borderRadius: 6, background: '#f8fafc' }}>
+                <span style={{ fontSize: 11, color: '#94a3b8', width: 16, textAlign: 'right', flexShrink: 0 }}>{item.id}.</span>
+                <span style={{ fontSize: 12, fontWeight: 500, color: '#0f172a', flex: 1 }}>{item.title}</span>
+                <span style={{ fontSize: 11, color: '#64748b' }}>{item.status}</span>
+                <span style={{ fontSize: 11, color: '#94a3b8' }}>{item.priority}</span>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    )
+  },
+}
+
+// shadcn/ui + Notion — 에디터 레이아웃 패널 토글 (사이드바 + 아웃라인 + 미리보기)
+export const Shadcn_Notion_에디터_패널_토글: Story = {
+  name: 'shadcn/ui + Notion — 에디터 패널 토글 (Cycle 139)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'shadcn/ui + Notion 에디터 레이아웃 패널 토글. 사이드바/아웃라인/미리보기를 독립 토글로 제어. ' +
+          '활성 패널 수에 따라 에디터 너비가 동적으로 조정되는 시뮬레이션.',
+      },
+    },
+  },
+  render: function ShadcnNotionEditorPanelRender() {
+    const [sidebar, setSidebar] = useState(true)
+    const [outline, setOutline] = useState(false)
+    const [preview, setPreview] = useState(false)
+
+    const panelCount = [sidebar, outline, preview].filter(Boolean).length
+    const editorWidth = panelCount === 0 ? '100%' : panelCount === 1 ? '70%' : '50%'
+
+    return (
+      <div style={{ fontFamily: 'system-ui, sans-serif', width: 520 }}>
+        {/* 툴바 */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '8px 12px', background: '#f8fafc', borderRadius: '10px 10px 0 0', border: '1px solid #e2e8f0', borderBottom: 'none' }}>
+          <span style={{ fontSize: 12, fontWeight: 600, color: '#64748b', marginRight: 4 }}>패널:</span>
+          {[
+            { label: '사이드바', value: sidebar, set: setSidebar },
+            { label: '아웃라인', value: outline, set: setOutline },
+            { label: '미리보기', value: preview, set: setPreview },
+          ].map((p) => (
+            <Toggle key={p.label} checked={p.value} onCheckedChange={() => p.set((v) => !v)}>
+              <span style={{ fontSize: 11, fontWeight: p.value ? 700 : 400, padding: '2px 8px', color: p.value ? '#0f172a' : '#94a3b8' }}>
+                {p.label}
+              </span>
+            </Toggle>
+          ))}
+          <span style={{ marginLeft: 'auto', fontSize: 11, color: '#94a3b8' }}>에디터 {editorWidth}</span>
+        </div>
+
+        {/* 에디터 레이아웃 시뮬레이션 */}
+        <div style={{ display: 'flex', border: '1px solid #e2e8f0', borderRadius: '0 0 10px 10px', overflow: 'hidden', height: 180 }}>
+          {sidebar && (
+            <div style={{ width: '20%', background: '#f1f5f9', borderRight: '1px solid #e2e8f0', padding: '10px 8px', fontSize: 11, color: '#64748b' }}>
+              <div style={{ fontWeight: 700, color: '#0f172a', marginBottom: 8 }}>사이드바</div>
+              {['소개', '설치', '컴포넌트', '토큰', 'MDX 문서'].map((item) => (
+                <div key={item} style={{ padding: '4px 6px', borderRadius: 4, marginBottom: 2, cursor: 'pointer' }}>{item}</div>
+              ))}
+            </div>
+          )}
+          <div style={{ flex: 1, padding: '12px', background: '#fff', fontSize: 12, color: '#0f172a', lineHeight: 1.7 }}>
+            <div style={{ fontWeight: 700, fontSize: 15, marginBottom: 6 }}>Orbit UI 문서</div>
+            <div style={{ color: '#475569', fontSize: 12 }}>이 영역에서 마크다운 콘텐츠를 편집합니다. 좌측 패널은 문서 탐색, 우측은 아웃라인과 미리보기를 제공합니다.</div>
+          </div>
+          {outline && (
+            <div style={{ width: '18%', background: '#f8fafc', borderLeft: '1px solid #e2e8f0', padding: '10px 8px', fontSize: 11, color: '#64748b' }}>
+              <div style={{ fontWeight: 700, color: '#0f172a', marginBottom: 8 }}>아웃라인</div>
+              {['# 소개', '## 설치', '### pnpm', '## 사용법'].map((h) => (
+                <div key={h} style={{ padding: '2px 4px', paddingLeft: h.startsWith('###') ? 16 : h.startsWith('##') ? 8 : 0, color: '#64748b', cursor: 'pointer' }}>{h}</div>
+              ))}
+            </div>
+          )}
+          {preview && (
+            <div style={{ width: '28%', background: '#fff7ed', borderLeft: '1px solid #fed7aa', padding: '10px 8px', fontSize: 11 }}>
+              <div style={{ fontWeight: 700, color: '#c2410c', marginBottom: 8 }}>미리보기</div>
+              <div style={{ color: '#9a3412', lineHeight: 1.6 }}>렌더링된 결과가 이 영역에 표시됩니다.</div>
+            </div>
+          )}
+        </div>
+      </div>
+    )
+  },
+}

@@ -1503,3 +1503,279 @@ export const shadcn_Arco_퍼지_하이라이트_검색: Story = {
   },
   render: () => <ShadcnArcoFuzzySearchRender />,
 }
+
+// ============================================================
+// Cycle 139 — shadcn/ui + Notion Design 벤치마크 반영
+// ============================================================
+
+// shadcn/ui 스타일 — 문서 내 검색 (find in page 패턴)
+export const Shadcn_문서_내_검색: Story = {
+  name: 'shadcn/ui — 문서 내 검색 (Cycle 139)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'shadcn/ui Find in Page 패턴. 검색어 입력 시 문서 내 매칭 위치를 강조 표시. ' +
+          '이전/다음 버튼으로 매칭 간 이동 + 현재 위치 카운터 표시. 대소문자 무시.',
+      },
+    },
+  },
+  render: function ShadcnFindInPageRender() {
+    const CONTENT_139 = [
+      '컴포넌트 기반 개발 — Orbit UI는 재사용 가능한 컴포넌트를 중심으로 설계됩니다.',
+      '3-tier 토큰 시스템으로 Reference Token, Semantic Token, Component Token을 계층화합니다.',
+      '각 컴포넌트는 Storybook으로 문서화되며 TypeScript 타입이 완전히 지원됩니다.',
+      'vanilla-extract 기반 테마 시스템으로 빌드 타임에 안전한 CSS-in-JS를 제공합니다.',
+      '컴포넌트 API는 Compound Component 패턴으로 유연한 조합을 지원합니다.',
+    ]
+
+    const [query, setQuery] = useState('')
+    const [cursor, setCursor] = useState(0)
+
+    const matches: { lineIdx: number; matchIdx: number }[] = []
+    if (query) {
+      CONTENT_139.forEach((line, lineIdx) => {
+        let searchFrom = 0
+        for (;;) {
+          const pos = line.toLowerCase().indexOf(query.toLowerCase(), searchFrom)
+          if (pos === -1) break
+          matches.push({ lineIdx, matchIdx: pos })
+          searchFrom = pos + 1
+        }
+      })
+    }
+
+    const totalMatches = matches.length
+    const safeIdx = totalMatches > 0 ? cursor % totalMatches : 0
+
+    function highlight(line: string, lineIdx: number) {
+      if (!query) return <span>{line}</span>
+      const parts: React.ReactNode[] = []
+      let last = 0
+      let matchCount = 0
+      let searchFrom = 0
+      for (;;) {
+        const pos = line.toLowerCase().indexOf(query.toLowerCase(), searchFrom)
+        if (pos === -1) break
+        const globalIdx = matches.findIndex((m, i) => m.lineIdx === lineIdx && i >= matchCount)
+        parts.push(<span key={last}>{line.slice(last, pos)}</span>)
+        const isCurrent = matches[safeIdx]?.lineIdx === lineIdx && matches.findIndex((m) => m.lineIdx === lineIdx && m.matchIdx === pos) === safeIdx
+        parts.push(<mark key={pos} style={{ background: isCurrent ? '#fbbf24' : '#fef9c3', borderRadius: 2, padding: '0 1px' }}>{line.slice(pos, pos + query.length)}</mark>)
+        last = pos + query.length
+        searchFrom = pos + 1
+        matchCount++
+        void globalIdx
+      }
+      parts.push(<span key="last">{line.slice(last)}</span>)
+      return <>{parts}</>
+    }
+
+    return (
+      <div style={{ width: 460, fontFamily: 'system-ui, sans-serif' }}>
+        {/* 검색 바 */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 12 }}>
+          <div style={{ flex: 1 }}>
+            <SearchBar
+              value={query}
+              placeholder="문서에서 검색..."
+              onChange={(e) => { setQuery((e.target as HTMLInputElement).value); setCursor(0) }}
+            />
+          </div>
+          {totalMatches > 0 && (
+            <>
+              <span style={{ fontSize: 11, color: '#64748b', whiteSpace: 'nowrap' }}>{safeIdx + 1}/{totalMatches}</span>
+              <button onClick={() => setCursor((c) => (c - 1 + totalMatches) % totalMatches)} style={{ padding: '4px 8px', borderRadius: 6, border: '1px solid #e2e8f0', background: '#fff', fontSize: 12, cursor: 'pointer' }}>↑</button>
+              <button onClick={() => setCursor((c) => (c + 1) % totalMatches)} style={{ padding: '4px 8px', borderRadius: 6, border: '1px solid #e2e8f0', background: '#fff', fontSize: 12, cursor: 'pointer' }}>↓</button>
+            </>
+          )}
+          {query && totalMatches === 0 && (
+            <span style={{ fontSize: 11, color: '#ef4444', whiteSpace: 'nowrap' }}>결과 없음</span>
+          )}
+        </div>
+        {/* 문서 내용 */}
+        <div style={{ border: '1px solid #e2e8f0', borderRadius: 10, overflow: 'hidden' }}>
+          {CONTENT_139.map((line, idx) => (
+            <div key={idx} style={{ padding: '10px 14px', borderBottom: idx < CONTENT_139.length - 1 ? '1px solid #f1f5f9' : 'none', fontSize: 13, lineHeight: 1.7, color: '#0f172a' }}>
+              {highlight(line, idx)}
+            </div>
+          ))}
+        </div>
+      </div>
+    )
+  },
+}
+
+// Notion 스타일 — 블록 타입 필터 검색
+const NOTION_BLOCKS_139 = [
+  { type: 'text', label: '텍스트', desc: '일반 텍스트 블록', icon: 'T' },
+  { type: 'heading1', label: '제목 1', desc: '큰 섹션 헤딩', icon: 'H1' },
+  { type: 'heading2', label: '제목 2', desc: '중간 섹션 헤딩', icon: 'H2' },
+  { type: 'bullet', label: '글머리 기호', desc: '순서 없는 목록', icon: '•' },
+  { type: 'numbered', label: '번호 목록', desc: '순서 있는 목록', icon: '1.' },
+  { type: 'toggle', label: '토글', desc: '접을 수 있는 콘텐츠', icon: '▶' },
+  { type: 'quote', label: '인용', desc: '인용문 블록', icon: '"' },
+  { type: 'code', label: '코드', desc: '코드 블록 (구문 강조)', icon: '</>' },
+  { type: 'divider', label: '구분선', desc: '수평선으로 분리', icon: '—' },
+  { type: 'callout', label: '콜아웃', desc: '아이콘과 함께 강조', icon: '!' },
+  { type: 'table', label: '표', desc: '행과 열로 구성된 테이블', icon: '⊞' },
+  { type: 'image', label: '이미지', desc: '이미지 업로드 또는 URL', icon: '▣' },
+]
+
+export const Notion_블록_타입_검색: Story = {
+  name: 'Notion — 블록 타입 필터 검색 (Cycle 139)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Notion Block Selector 패턴. 블록 타입(텍스트/제목/목록/코드/표/이미지 등) 검색 필터링. ' +
+          '아이콘 + 이름 + 설명 3줄 구조. 검색어 매칭 하이라이트. 키보드 Enter로 선택.',
+      },
+    },
+  },
+  render: function NotionBlockSearchRender() {
+    const [query, setQuery] = useState('')
+    const [selected, setSelected] = useState<string | null>(null)
+
+    const filtered = query
+      ? NOTION_BLOCKS_139.filter((b) => b.label.includes(query) || b.desc.includes(query) || b.type.includes(query))
+      : NOTION_BLOCKS_139
+
+    return (
+      <div style={{ width: 320, fontFamily: 'system-ui, sans-serif' }}>
+        <SearchBar
+          value={query}
+          placeholder="블록 유형 검색..."
+          onChange={(e) => { setQuery((e.target as HTMLInputElement).value); setSelected(null) }}
+        />
+        <div style={{ marginTop: 6, borderRadius: 10, border: '1px solid #e2e8f0', overflow: 'hidden', maxHeight: 300, overflowY: 'auto' }}>
+          {filtered.length === 0 ? (
+            <div style={{ padding: '20px', textAlign: 'center', color: '#94a3b8', fontSize: 12 }}>일치하는 블록이 없습니다</div>
+          ) : (
+            filtered.map((b) => (
+              <div
+                key={b.type}
+                onClick={() => { setSelected(b.type); setQuery(b.label) }}
+                style={{
+                  display: 'flex', alignItems: 'center', gap: 10, padding: '8px 12px', cursor: 'pointer',
+                  background: selected === b.type ? '#f0f9ff' : '#fff', borderBottom: '1px solid #f8fafc',
+                  transition: 'background 100ms',
+                }}
+              >
+                <div style={{ width: 28, height: 28, borderRadius: 6, background: '#f1f5f9', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 12, fontWeight: 700, color: '#475569', flexShrink: 0 }}>{b.icon}</div>
+                <div>
+                  <div style={{ fontSize: 13, fontWeight: selected === b.type ? 700 : 500, color: '#0f172a' }}>{b.label}</div>
+                  <div style={{ fontSize: 11, color: '#94a3b8' }}>{b.desc}</div>
+                </div>
+                {selected === b.type && <span style={{ marginLeft: 'auto', fontSize: 12, color: '#0ea5e9' }}>✓</span>}
+              </div>
+            ))
+          )}
+        </div>
+        {selected && (
+          <div style={{ marginTop: 8, padding: '8px 12px', borderRadius: 8, background: '#f0f9ff', border: '1px solid #bae6fd', fontSize: 12, color: '#0369a1' }}>
+            선택됨: <strong>{NOTION_BLOCKS_139.find((b) => b.type === selected)?.label}</strong>
+          </div>
+        )}
+      </div>
+    )
+  },
+}
+
+// shadcn/ui + Notion — 전역 검색 + 최근 항목 + 퀵 액션
+const GLOBAL_SEARCH_RECENT_139 = [
+  { id: 'r1', title: 'Toggle 스토리 추가', type: '최근', icon: '◈', time: '방금 전' },
+  { id: 'r2', title: 'BenchmarkComparison.mdx', type: '최근', icon: '◉', time: '5분 전' },
+  { id: 'r3', title: 'KanbanBoard 템플릿', type: '최근', icon: '◎', time: '20분 전' },
+]
+
+const GLOBAL_SEARCH_ACTIONS_139 = [
+  { id: 'a1', label: '새 스토리 생성', shortcut: 'N', color: '#6366f1' },
+  { id: 'a2', label: '타입체크 실행', shortcut: 'T', color: '#22c55e' },
+  { id: 'a3', label: 'Storybook 빌드', shortcut: 'B', color: '#f59e0b' },
+]
+
+const GLOBAL_DOCS_139 = [
+  { id: 'd1', title: 'SolidButton', path: 'eclipse/Inputs/Buttons', type: '컴포넌트' },
+  { id: 'd2', title: 'DataTable', path: 'eclipse/Data Display', type: '컴포넌트' },
+  { id: 'd3', title: '3-Tier Token System', path: 'Docs/DesignToken', type: '문서' },
+  { id: 'd4', title: 'Carousel setApi 패턴', path: 'eclipse/Data Display/Carousel', type: '컴포넌트' },
+]
+
+export const Shadcn_Notion_전역_검색: Story = {
+  name: 'shadcn/ui + Notion — 전역 검색 + 퀵 액션 (Cycle 139)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'shadcn/ui + Notion 전역 검색 패턴. 최근 항목 / 컴포넌트 문서 / 퀵 액션 3개 섹션. ' +
+          '검색어 없으면 최근 항목 + 퀵 액션 표시, 입력 시 실시간 문서 필터링.',
+      },
+    },
+  },
+  render: function ShadcnNotionGlobalSearchRender() {
+    const [query, setQuery] = useState('')
+
+    const filteredDocs = query
+      ? GLOBAL_DOCS_139.filter((d) => d.title.toLowerCase().includes(query.toLowerCase()) || d.path.toLowerCase().includes(query.toLowerCase()))
+      : []
+
+    return (
+      <div style={{ width: 420, fontFamily: 'system-ui, sans-serif' }}>
+        <SearchBar
+          value={query}
+          placeholder="검색하거나 명령을 입력하세요..."
+          onChange={(e) => setQuery((e.target as HTMLInputElement).value)}
+        />
+        <div style={{ marginTop: 6, borderRadius: 12, border: '1px solid #e2e8f0', overflow: 'hidden', boxShadow: '0 4px 16px rgba(0,0,0,0.08)' }}>
+          {!query ? (
+            <>
+              {/* 최근 항목 */}
+              <div style={{ padding: '8px 12px 4px', fontSize: 11, fontWeight: 600, color: '#94a3b8', letterSpacing: 0.5 }}>최근 항목</div>
+              {GLOBAL_SEARCH_RECENT_139.map((r) => (
+                <div key={r.id} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '8px 12px', cursor: 'pointer', borderBottom: '1px solid #f8fafc' }}>
+                  <span style={{ fontSize: 15, color: '#64748b' }}>{r.icon}</span>
+                  <div style={{ flex: 1 }}>
+                    <div style={{ fontSize: 13, fontWeight: 500, color: '#0f172a' }}>{r.title}</div>
+                    <div style={{ fontSize: 11, color: '#94a3b8' }}>{r.type} · {r.time}</div>
+                  </div>
+                </div>
+              ))}
+              {/* 퀵 액션 */}
+              <div style={{ padding: '8px 12px 4px', fontSize: 11, fontWeight: 600, color: '#94a3b8', letterSpacing: 0.5, borderTop: '1px solid #f1f5f9' }}>빠른 작업</div>
+              {GLOBAL_SEARCH_ACTIONS_139.map((a) => (
+                <div key={a.id} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '8px 12px', cursor: 'pointer', borderBottom: '1px solid #f8fafc' }}>
+                  <div style={{ width: 24, height: 24, borderRadius: 6, background: a.color + '18', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 11, fontWeight: 700, color: a.color }}>{a.shortcut}</div>
+                  <span style={{ fontSize: 13, color: '#0f172a' }}>{a.label}</span>
+                  <span style={{ marginLeft: 'auto', fontSize: 10, color: '#94a3b8', border: '1px solid #e2e8f0', borderRadius: 4, padding: '1px 5px', fontFamily: 'monospace' }}>{a.shortcut}</span>
+                </div>
+              ))}
+            </>
+          ) : (
+            <>
+              {filteredDocs.length > 0 ? (
+                <>
+                  <div style={{ padding: '8px 12px 4px', fontSize: 11, fontWeight: 600, color: '#94a3b8', letterSpacing: 0.5 }}>검색 결과</div>
+                  {filteredDocs.map((d) => (
+                    <div key={d.id} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '8px 12px', cursor: 'pointer', borderBottom: '1px solid #f8fafc' }}>
+                      <div style={{ width: 24, height: 24, borderRadius: 6, background: d.type === '컴포넌트' ? '#eef2ff' : '#f0fdf4', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 10, fontWeight: 700, color: d.type === '컴포넌트' ? '#6366f1' : '#16a34a' }}>
+                        {d.type === '컴포넌트' ? 'C' : 'D'}
+                      </div>
+                      <div>
+                        <div style={{ fontSize: 13, fontWeight: 600, color: '#0f172a' }}>{d.title}</div>
+                        <div style={{ fontSize: 11, color: '#94a3b8' }}>{d.path}</div>
+                      </div>
+                    </div>
+                  ))}
+                </>
+              ) : (
+                <div style={{ padding: '20px', textAlign: 'center', color: '#94a3b8', fontSize: 12 }}>
+                  &ldquo;{query}&rdquo;에 대한 결과가 없습니다
+                </div>
+              )}
+            </>
+          )}
+        </div>
+      </div>
+    )
+  },
+}
