@@ -1179,5 +1179,101 @@ const theme = createTheme({
       </div>
     </section>
 
+    {/* shadcn/ui + Vercel Design Section */}
+    <section style={{ marginBottom: '64px' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px' }}>
+        <h2 style={{ fontSize: '22px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', margin: 0 }}>shadcn/ui + Vercel Design 분석</h2>
+        <span style={{ padding: '3px 10px', background: '#f1f5f9', borderRadius: '20px', fontSize: '12px', fontWeight: '600', color: '#6366f1' }}>Cycle 54</span>
+      </div>
+
+      {/* Two cards */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '20px', marginBottom: '28px' }}>
+        <div style={{ padding: '24px', borderRadius: '14px', background: '#18181b', border: '1px solid #3f3f46' }}>
+          <div style={{ fontSize: '11px', fontWeight: '700', color: '#a1a1aa', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '8px' }}>shadcn/ui</div>
+          <div style={{ fontSize: '18px', fontWeight: '700', color: '#fff', marginBottom: '10px' }}>Copy-paste First</div>
+          <p style={{ fontSize: '13px', color: '#a1a1aa', lineHeight: '1.7', margin: '0 0 16px' }}>
+            Radix UI 기반의 접근성 완전 보장 컴포넌트를 Tailwind CSS로 스타일링. 라이브러리가 아닌 코드 소유권 모델. CLI로 필요한 컴포넌트만 프로젝트에 직접 복사하여 완전 커스터마이징 가능.
+          </p>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '12px' }}>
+            {[
+              ['Command (cmdk)', '키보드 중심 팔레트 — Radix Command + 드릴다운 지원'],
+              ['Token 방식', 'CSS 변수 (--background, --foreground) — 시맨틱 레이어'],
+              ['테마 전환', 'class="dark" 토글로 즉시 다크 모드 전환'],
+              ['구조 철학', '컴포넌트 소유권 이전 — 우리 코드베이스에 완전 통합'],
+            ].map(([k, v]) => (
+              <div key={k} style={{ padding: '8px 12px', background: '#27272a', borderRadius: '8px', border: '1px solid #3f3f46' }}>
+                <span style={{ color: '#6366f1', fontWeight: '700' }}>{k}: </span>
+                <span style={{ color: '#d4d4d8' }}>{v}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div style={{ padding: '24px', borderRadius: '14px', background: '#0a0a0a', border: '1px solid #1f1f1f' }}>
+          <div style={{ fontSize: '11px', fontWeight: '700', color: '#888', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '8px' }}>Vercel Design</div>
+          <div style={{ fontSize: '18px', fontWeight: '700', color: '#fff', marginBottom: '10px' }}>Dark-First Precision</div>
+          <p style={{ fontSize: '13px', color: '#888', lineHeight: '1.7', margin: '0 0 16px' }}>
+            Geist 폰트 + 순수 흑백 팔레트로 정보 밀도 극대화. 다크 모드가 기본이며 색상이 아닌 명도 대비만으로 계층 구조 표현. 배포 상태, 시스템 상태를 점(dot) 인디케이터로 즉각 전달.
+          </p>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '12px' }}>
+            {[
+              ['색상 철학', '흑(#000) ↔ 백(#fff) — 색상 없이 명도로만 계층 표현'],
+              ['EclipseProvider', 'mode="dark" 전역 컨텍스트로 모든 하위 컴포넌트 제어'],
+              ['상태 표현', '초록·노랑·적색 점(●) 하나로 배포/빌드/오류 상태 전달'],
+              ['타이포그래피', 'Geist Mono 코드, 단계별 font-weight로 시각 계층 구성'],
+            ].map(([k, v]) => (
+              <div key={k} style={{ padding: '8px 12px', background: '#111', borderRadius: '8px', border: '1px solid #222' }}>
+                <span style={{ color: '#888', fontWeight: '700' }}>{k}: </span>
+                <span style={{ color: '#ccc' }}>{v}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Comparison table */}
+      <div style={{ overflowX: 'auto', borderRadius: '12px', border: '1.5px solid #e2e8f0', marginBottom: '24px' }}>
+        <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px' }}>
+          <thead>
+            <tr style={{ background: '#f8fafc' }}>
+              {['기준', 'shadcn/ui', 'Vercel Design', 'Orbit UI 반영'].map((col, i) => (
+                <th key={col} style={{ padding: '12px 16px', textAlign: 'left', fontWeight: 700, color: i === 3 ? '#6366f1' : '#475569', borderBottom: '1.5px solid #e2e8f0', whiteSpace: 'nowrap' }}>{col}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {[
+              ['Command 팔레트', '드릴다운 지원 cmdk', '글로벌 프로젝트 탐색', '히스토리·팀전환·드릴다운 3스토리'],
+              ['다크 모드', 'class 기반 즉시 전환', '기본값 다크, 흑백 팔레트', 'EclipseProvider mode prop 3스토리'],
+              ['색상 시스템', 'CSS 변수 시맨틱', '명도 단계만 사용', '3-Tier 토큰 시각화 스토리'],
+              ['타이포그래피', 'font-size 계층', 'Geist Mono + weight', 'Text 컴포넌트 + size prop'],
+              ['상태 인디케이터', '색상 뱃지', '점(●) 인디케이터', 'LabelBadge + AnimatedBadge'],
+            ].map((row, i) => (
+              <tr key={i} style={{ background: i % 2 === 0 ? '#fff' : '#fafafa' }}>
+                {row.map((cell, j) => (
+                  <td key={j} style={{ padding: '11px 16px', color: j === 3 ? '#4f46e5' : '#334155', borderBottom: '1px solid #f1f5f9', fontWeight: j === 0 ? 600 : 400 }}>{cell}</td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      {/* Results */}
+      <div style={{ padding: '20px', borderRadius: '12px', background: 'linear-gradient(135deg, #f0fdf4, #ecfdf5)', border: '2px solid #bbf7d0' }}>
+        <div style={{ fontSize: '13px', fontWeight: '700', color: '#065f46', marginBottom: '12px' }}>Orbit UI 반영 결과</div>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '12px', fontSize: '12px', color: '#374151', lineHeight: '1.7' }}>
+          <div>
+            <div style={{ fontWeight: '700', color: '#059669', marginBottom: '4px' }}>Command 고도화</div>
+            shadcn 최근 명령 히스토리, Vercel 팀 전환 팔레트, shadcn 드릴다운 팔레트 3개 스토리 추가.
+          </div>
+          <div>
+            <div style={{ fontWeight: '700', color: '#059669', marginBottom: '4px' }}>EclipseProvider 고도화</div>
+            Vercel 다크 대시보드, shadcn 토큰 레이어 비교, Vercel 시스템 테마 자동감지 3개 스토리 추가.
+          </div>
+        </div>
+      </div>
+    </section>
+
   </div>
 </Unstyled>

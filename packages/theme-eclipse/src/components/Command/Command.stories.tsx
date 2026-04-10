@@ -815,3 +815,387 @@ export const Vercel_글로벌_검색: Story = {
   },
   render: () => <VercelGlobalSearchDemo />,
 }
+
+/* --------------------------------------------------------------------------
+   shadcn/ui 벤치마크: 최근 명령 히스토리 + 즐겨찾기 패턴
+   shadcn/ui CMDK 공식 예제 — 최근 사용 항목을 상단에 표시하는 패턴
+-------------------------------------------------------------------------- */
+const RECENT_COMMANDS = [
+  { id: 'r1', label: '대시보드로 이동', group: '최근', icon: <HomeLineIcon className="h-4 w-4" />, shortcut: 'G D' },
+  { id: 'r2', label: '새 이슈 만들기', group: '최근', icon: <CircleInfoLineIcon className="h-4 w-4" />, shortcut: 'C' },
+  { id: 'r3', label: '내 프로필', group: '최근', icon: <OnePersonLineIcon className="h-4 w-4" />, shortcut: 'G P' },
+]
+
+const ALL_COMMANDS = [
+  { id: 'n1', label: '대시보드로 이동', group: '페이지', icon: <HomeLineIcon className="h-4 w-4" />, shortcut: 'G D' },
+  { id: 'n2', label: '팀 관리', group: '페이지', icon: <OnePersonLineIcon className="h-4 w-4" />, shortcut: 'G T' },
+  { id: 'n3', label: '설정 열기', group: '페이지', icon: <SettingLineIcon className="h-4 w-4" />, shortcut: 'G S' },
+  { id: 'n4', label: '새 이슈 만들기', group: '액션', icon: <CircleInfoLineIcon className="h-4 w-4" />, shortcut: 'C' },
+  { id: 'n5', label: '즐겨찾기 추가', group: '액션', icon: <StarLineIcon className="h-4 w-4" />, shortcut: 'F' },
+  { id: 'n6', label: '알림 설정', group: '액션', icon: <NotificationLineIcon className="h-4 w-4" />, shortcut: 'N' },
+]
+
+function CommandHistoryDemo() {
+  const [query, setQuery] = useState('')
+  const [favorites, setFavorites] = useState<Set<string>>(new Set(['n1']))
+
+  const filtered = query.length === 0
+    ? { recent: RECENT_COMMANDS, all: [] }
+    : {
+      recent: [],
+      all: ALL_COMMANDS.filter((c) =>
+        c.label.toLowerCase().includes(query.toLowerCase()) ||
+        c.group.toLowerCase().includes(query.toLowerCase())
+      ),
+    }
+
+  const toggleFav = (id: string) => {
+    setFavorites((prev) => {
+      const next = new Set(prev)
+      if (next.has(id)) next.delete(id)
+      else next.add(id)
+      return next
+    })
+  }
+
+  return (
+    <div style={{ maxWidth: 480, margin: '0 auto' }}>
+      <div style={{ fontSize: 11, fontWeight: 700, color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 12 }}>
+        shadcn/ui CMDK — 최근 명령 히스토리 패턴
+      </div>
+      <Command className="rounded-lg border shadow-md">
+        <Command.Input
+          placeholder="명령어 검색..."
+          value={query}
+          onValueChange={setQuery}
+        />
+        <Command.List>
+          <Command.Empty>검색 결과가 없습니다.</Command.Empty>
+
+          {filtered.recent.length > 0 && (
+            <Command.Group heading="최근 사용">
+              {filtered.recent.map((cmd) => (
+                <Command.Item key={cmd.id} className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    {cmd.icon}
+                    <span>{cmd.label}</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span style={{ fontSize: 10, color: '#94a3b8', background: '#f1f5f9', padding: '1px 5px', borderRadius: 4 }}>
+                      {cmd.shortcut}
+                    </span>
+                    <button
+                      onClick={(e) => { e.stopPropagation(); toggleFav(cmd.id) }}
+                      style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '2px' }}
+                    >
+                      <StarLineIcon className="h-3 w-3" style={{ color: favorites.has(cmd.id) ? '#f59e0b' : '#cbd5e1' }} />
+                    </button>
+                  </div>
+                </Command.Item>
+              ))}
+            </Command.Group>
+          )}
+
+          {query.length === 0 && (
+            <Command.Group heading="즐겨찾기">
+              {ALL_COMMANDS.filter((c) => favorites.has(c.id)).map((cmd) => (
+                <Command.Item key={cmd.id} className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    {cmd.icon}
+                    <span>{cmd.label}</span>
+                  </div>
+                  <StarLineIcon className="h-3 w-3" style={{ color: '#f59e0b' }} />
+                </Command.Item>
+              ))}
+              {ALL_COMMANDS.filter((c) => favorites.has(c.id)).length === 0 && (
+                <Command.Item disabled>
+                  <span style={{ color: '#94a3b8', fontSize: 12 }}>즐겨찾기 항목이 없습니다. 별표를 눌러 추가하세요.</span>
+                </Command.Item>
+              )}
+            </Command.Group>
+          )}
+
+          {filtered.all.length > 0 && (
+            <>
+              {['페이지', '액션'].map((group) => {
+                const items = filtered.all.filter((c) => c.group === group)
+                if (items.length === 0) return null
+                return (
+                  <Command.Group key={group} heading={group}>
+                    {items.map((cmd) => (
+                      <Command.Item key={cmd.id} className="flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                          {cmd.icon}
+                          <span>{cmd.label}</span>
+                        </div>
+                        <span style={{ fontSize: 10, color: '#94a3b8', background: '#f1f5f9', padding: '1px 5px', borderRadius: 4 }}>
+                          {cmd.shortcut}
+                        </span>
+                      </Command.Item>
+                    ))}
+                  </Command.Group>
+                )
+              })}
+            </>
+          )}
+        </Command.List>
+      </Command>
+      <p style={{ marginTop: 10, fontSize: 11, color: '#94a3b8' }}>
+        shadcn/ui CMDK — 최근 명령 + 즐겨찾기 패턴 (별표로 즐겨찾기 토글)
+      </p>
+    </div>
+  )
+}
+
+export const shadcn_최근_명령_히스토리: Story = {
+  name: 'shadcn/ui - 최근 명령 히스토리 + 즐겨찾기 패턴',
+  render: () => <CommandHistoryDemo />,
+}
+
+/* --------------------------------------------------------------------------
+   Vercel 벤치마크: 팀 전환 명령 팔레트
+   Vercel 팀 선택 + 최근 프로젝트 이동 패턴
+-------------------------------------------------------------------------- */
+type VercelTeam = { id: string; name: string; plan: 'free' | 'pro' | 'enterprise'; members: number }
+
+const VERCEL_TEAMS: VercelTeam[] = [
+  { id: 't1', name: 'Personal', plan: 'pro', members: 1 },
+  { id: 't2', name: 'orbit-ui', plan: 'pro', members: 4 },
+  { id: 't3', name: 'heejun-labs', plan: 'free', members: 2 },
+  { id: 't4', name: 'enterprise-corp', plan: 'enterprise', members: 24 },
+]
+
+const VERCEL_PROJECTS = [
+  { id: 'p1', name: 'orbit-ui-docs', team: 't2', status: 'READY' as const },
+  { id: 'p2', name: 'personal-blog', team: 't1', status: 'READY' as const },
+  { id: 'p3', name: 'design-tokens', team: 't2', status: 'BUILDING' as const },
+  { id: 'p4', name: 'api-gateway', team: 't4', status: 'ERROR' as const },
+]
+
+const PLAN_CONFIG = {
+  free: { color: '#94a3b8', label: 'Free' },
+  pro: { color: '#6366f1', label: 'Pro' },
+  enterprise: { color: '#f59e0b', label: 'Enterprise' },
+}
+
+const STATUS_CONFIG = {
+  READY: { color: '#10b981', dot: '#10b981' },
+  BUILDING: { color: '#f59e0b', dot: '#f59e0b' },
+  ERROR: { color: '#ef4444', dot: '#ef4444' },
+}
+
+function VercelTeamSwitcherDemo() {
+  const [query, setQuery] = useState('')
+  const [activeTeam, setActiveTeam] = useState('t2')
+
+  const teamFiltered = VERCEL_TEAMS.filter((t) =>
+    t.name.toLowerCase().includes(query.toLowerCase())
+  )
+  const projectFiltered = VERCEL_PROJECTS.filter((p) =>
+    p.name.toLowerCase().includes(query.toLowerCase())
+  )
+
+  return (
+    <div style={{ maxWidth: 480, margin: '0 auto' }}>
+      <div style={{ fontSize: 11, fontWeight: 700, color: '#000', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 12 }}>
+        Vercel — 팀 전환 + 프로젝트 이동 팔레트
+      </div>
+      <Command className="rounded-lg border shadow-md" style={{ background: '#fff' }}>
+        <Command.Input
+          placeholder="팀 또는 프로젝트 검색..."
+          value={query}
+          onValueChange={setQuery}
+        />
+        <Command.List>
+          <Command.Empty>검색 결과가 없습니다.</Command.Empty>
+
+          <Command.Group heading="팀 전환">
+            {teamFiltered.map((team) => {
+              const plan = PLAN_CONFIG[team.plan]
+              return (
+                <Command.Item
+                  key={team.id}
+                  onSelect={() => setActiveTeam(team.id)}
+                  className="flex items-center justify-between"
+                >
+                  <div className="flex items-center gap-2">
+                    <div style={{
+                      width: 20, height: 20, borderRadius: 4,
+                      background: `${plan.color}20`,
+                      display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      fontSize: 10, fontWeight: 800, color: plan.color,
+                    }}>
+                      {team.name[0].toUpperCase()}
+                    </div>
+                    <span>{team.name}</span>
+                    <span style={{ fontSize: 10, fontWeight: 700, color: plan.color, background: `${plan.color}15`, padding: '1px 5px', borderRadius: 3 }}>
+                      {plan.label}
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span style={{ fontSize: 11, color: '#94a3b8' }}>{team.members}명</span>
+                    {activeTeam === team.id && (
+                      <CheckIcon className="h-4 w-4" style={{ color: '#6366f1' }} />
+                    )}
+                  </div>
+                </Command.Item>
+              )
+            })}
+          </Command.Group>
+
+          <Command.Separator />
+
+          <Command.Group heading="최근 프로젝트">
+            {projectFiltered.map((project) => {
+              const statusCfg = STATUS_CONFIG[project.status]
+              const teamName = VERCEL_TEAMS.find((t) => t.id === project.team)?.name
+              return (
+                <Command.Item key={project.id} className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <ArrowRightIcon className="h-4 w-4" style={{ color: '#94a3b8' }} />
+                    <span>{project.name}</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span style={{ fontSize: 11, color: '#94a3b8' }}>{teamName}</span>
+                    <div style={{
+                      width: 7, height: 7, borderRadius: '50%',
+                      background: statusCfg.dot,
+                    }} />
+                    <span style={{ fontSize: 10, fontWeight: 700, color: statusCfg.color }}>
+                      {project.status}
+                    </span>
+                  </div>
+                </Command.Item>
+              )
+            })}
+          </Command.Group>
+        </Command.List>
+      </Command>
+      <p style={{ marginTop: 10, fontSize: 11, color: '#94a3b8' }}>
+        Vercel — 팀 선택(체크마크 표시) + 배포 상태 색상 인디케이터 패턴
+      </p>
+    </div>
+  )
+}
+
+export const Vercel_팀_전환_팔레트: Story = {
+  name: 'Vercel - 팀 전환 + 프로젝트 이동 팔레트',
+  render: () => <VercelTeamSwitcherDemo />,
+}
+
+/* --------------------------------------------------------------------------
+   shadcn/ui 벤치마크: 다단계 드릴다운 팔레트
+   shadcn/ui의 pages 패턴 — 하위 명령 선택 시 새 레벨로 전환
+-------------------------------------------------------------------------- */
+type DrillPage = 'root' | 'theme' | 'team' | 'account'
+
+const DRILLDOWN_TREE: Record<DrillPage, { heading: string; items: { label: string; icon: React.ReactElement; target?: DrillPage; desc?: string }[] }> = {
+  root: {
+    heading: '명령',
+    items: [
+      { label: '테마 설정', icon: <SettingLineIcon className="h-4 w-4" />, target: 'theme', desc: '색상, 폰트 설정' },
+      { label: '팀 관리', icon: <OnePersonLineIcon className="h-4 w-4" />, target: 'team', desc: '멤버, 권한 관리' },
+      { label: '계정 설정', icon: <CircleInfoLineIcon className="h-4 w-4" />, target: 'account', desc: '프로필, 보안' },
+      { label: '알림 센터', icon: <NotificationLineIcon className="h-4 w-4" />, desc: '알림 목록 보기' },
+    ],
+  },
+  theme: {
+    heading: '테마 설정',
+    items: [
+      { label: '라이트 모드 적용', icon: <StarLineIcon className="h-4 w-4" /> },
+      { label: '다크 모드 적용', icon: <StarLineIcon className="h-4 w-4" /> },
+      { label: '시스템 설정 따르기', icon: <SettingLineIcon className="h-4 w-4" /> },
+    ],
+  },
+  team: {
+    heading: '팀 관리',
+    items: [
+      { label: '멤버 초대', icon: <OnePersonLineIcon className="h-4 w-4" /> },
+      { label: '권한 설정', icon: <SettingLineIcon className="h-4 w-4" /> },
+      { label: '팀 삭제', icon: <DeleteLineIcon className="h-4 w-4" /> },
+    ],
+  },
+  account: {
+    heading: '계정 설정',
+    items: [
+      { label: '프로필 편집', icon: <OnePersonLineIcon className="h-4 w-4" /> },
+      { label: '비밀번호 변경', icon: <SettingLineIcon className="h-4 w-4" /> },
+      { label: '2단계 인증', icon: <CheckIcon className="h-4 w-4" /> },
+    ],
+  },
+}
+
+function CommandDrilldownDemo() {
+  const [page, setPage] = useState<DrillPage>('root')
+  const [query, setQuery] = useState('')
+
+  const current = DRILLDOWN_TREE[page]
+
+  const filtered = current.items.filter((item) =>
+    item.label.toLowerCase().includes(query.toLowerCase())
+  )
+
+  return (
+    <div style={{ maxWidth: 480, margin: '0 auto' }}>
+      <div style={{ fontSize: 11, fontWeight: 700, color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 12 }}>
+        shadcn/ui — pages 패턴 (드릴다운 팔레트)
+      </div>
+      <Command className="rounded-lg border shadow-md">
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '6px 12px', borderBottom: '1px solid #f1f5f9' }}>
+          {page !== 'root' && (
+            <button
+              onClick={() => { setPage('root'); setQuery('') }}
+              style={{
+                padding: '2px 8px', borderRadius: 4, border: '1px solid #e2e8f0',
+                background: '#fff', fontSize: 11, cursor: 'pointer', color: '#64748b',
+              }}
+            >
+              ← 뒤로
+            </button>
+          )}
+          <span style={{ fontSize: 12, fontWeight: 600, color: '#64748b' }}>{current.heading}</span>
+        </div>
+        <Command.Input
+          placeholder={`${current.heading} 내 검색...`}
+          value={query}
+          onValueChange={setQuery}
+        />
+        <Command.List>
+          <Command.Empty>검색 결과가 없습니다.</Command.Empty>
+          <Command.Group>
+            {filtered.map((item) => (
+              <Command.Item
+                key={item.label}
+                onSelect={() => {
+                  if (item.target) { setPage(item.target); setQuery('') }
+                }}
+                className="flex items-center justify-between"
+              >
+                <div className="flex items-center gap-2">
+                  {item.icon}
+                  <div>
+                    <div>{item.label}</div>
+                    {item.desc && (
+                      <div style={{ fontSize: 11, color: '#94a3b8' }}>{item.desc}</div>
+                    )}
+                  </div>
+                </div>
+                {item.target && (
+                  <ArrowRightIcon className="h-3 w-3" style={{ color: '#94a3b8' }} />
+                )}
+              </Command.Item>
+            ))}
+          </Command.Group>
+        </Command.List>
+      </Command>
+      <p style={{ marginTop: 10, fontSize: 11, color: '#94a3b8' }}>
+        shadcn/ui — pages 드릴다운 패턴 (선택 시 하위 레벨 전환)
+      </p>
+    </div>
+  )
+}
+
+export const shadcn_드릴다운_팔레트: Story = {
+  name: 'shadcn/ui - pages 패턴 드릴다운 팔레트',
+  render: () => <CommandDrilldownDemo />,
+}

@@ -13110,3 +13110,387 @@ export const ApiPlayground: Story = {
   render: () => <ApiPlaygroundRender />,
 }
 
+// ============================================================
+// Template 44: LearningDashboard (shadcn/ui + Vercel Design 벤치마크)
+// ============================================================
+
+type LDCourse = {
+  id: string
+  title: string
+  instructor: string
+  category: string
+  progress: number
+  totalLessons: number
+  completedLessons: number
+  duration: string
+  level: 'beginner' | 'intermediate' | 'advanced'
+  tags: string[]
+}
+
+type LDLesson = {
+  id: string
+  title: string
+  duration: string
+  completed: boolean
+  locked: boolean
+}
+
+const LD_LEVEL_CONFIG: Record<LDCourse['level'], { label: string; color: string; bg: string }> = {
+  beginner: { label: '입문', color: '#16a34a', bg: '#dcfce7' },
+  intermediate: { label: '중급', color: '#d97706', bg: '#fef3c7' },
+  advanced: { label: '고급', color: '#dc2626', bg: '#fee2e2' },
+}
+
+const LD_COURSES: LDCourse[] = [
+  {
+    id: 'c1',
+    title: 'React 18 완전 정복',
+    instructor: '김민준',
+    category: 'Frontend',
+    progress: 72,
+    totalLessons: 48,
+    completedLessons: 35,
+    duration: '12시간',
+    level: 'intermediate',
+    tags: ['React', 'TypeScript', 'Hooks'],
+  },
+  {
+    id: 'c2',
+    title: 'TypeScript 디자인 패턴',
+    instructor: '이서연',
+    category: 'Language',
+    progress: 40,
+    totalLessons: 32,
+    completedLessons: 13,
+    duration: '8시간',
+    level: 'advanced',
+    tags: ['TypeScript', 'OOP', 'SOLID'],
+  },
+  {
+    id: 'c3',
+    title: 'Tailwind CSS 마스터',
+    instructor: '박지호',
+    category: 'Styling',
+    progress: 100,
+    totalLessons: 24,
+    completedLessons: 24,
+    duration: '6시간',
+    level: 'beginner',
+    tags: ['CSS', 'Tailwind', 'Responsive'],
+  },
+  {
+    id: 'c4',
+    title: 'Node.js API 개발',
+    instructor: '최은아',
+    category: 'Backend',
+    progress: 15,
+    totalLessons: 56,
+    completedLessons: 8,
+    duration: '16시간',
+    level: 'intermediate',
+    tags: ['Node.js', 'Express', 'REST'],
+  },
+]
+
+const LD_LESSONS: LDLesson[] = [
+  { id: 'l1', title: 'Concurrent 모드 소개', duration: '18분', completed: true, locked: false },
+  { id: 'l2', title: 'useTransition 훅 심화', duration: '24분', completed: true, locked: false },
+  { id: 'l3', title: 'Suspense 경계 설계', duration: '32분', completed: true, locked: false },
+  { id: 'l4', title: 'Server Components 기초', duration: '28분', completed: false, locked: false },
+  { id: 'l5', title: 'Streaming SSR 패턴', duration: '35분', completed: false, locked: true },
+  { id: 'l6', title: '성능 프로파일링', duration: '20분', completed: false, locked: true },
+]
+
+const ldColors = {
+  bg: '#f8fafc',
+  sidebar: '#ffffff',
+  card: '#ffffff',
+  border: '#e2e8f0',
+  text: '#1e293b',
+  textSub: '#64748b',
+  accent: '#6366f1',
+  accentBg: '#eef2ff',
+  success: '#16a34a',
+  successBg: '#dcfce7',
+}
+
+function LearningDashboardRender() {
+  const [selectedCourse, setSelectedCourse] = useState<LDCourse>(LD_COURSES[0])
+  const [activeTab, setActiveTab] = useState<'overview' | 'lessons' | 'notes'>('overview')
+  const [searchQuery, setSearchQuery] = useState('')
+  const [filterLevel, setFilterLevel] = useState<LDCourse['level'] | 'all'>('all')
+  const [bookmarked, setBookmarked] = useState<Set<string>>(new Set(['c1']))
+
+  const filtered = LD_COURSES.filter((c) => {
+    const matchSearch =
+      searchQuery === '' ||
+      c.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      c.instructor.includes(searchQuery)
+    const matchLevel = filterLevel === 'all' || c.level === filterLevel
+    return matchSearch && matchLevel
+  })
+
+  const totalProgress = Math.round(
+    LD_COURSES.reduce((sum, c) => sum + c.progress, 0) / LD_COURSES.length,
+  )
+
+  return (
+    <div style={{ display: 'flex', height: '640px', background: ldColors.bg, fontFamily: 'inherit', borderRadius: 12, overflow: 'hidden', border: `1px solid ${ldColors.border}` }}>
+      {/* Sidebar */}
+      <div style={{ width: 280, background: ldColors.sidebar, borderRight: `1px solid ${ldColors.border}`, display: 'flex', flexDirection: 'column', overflowY: 'auto' }}>
+        <div style={{ padding: '20px 16px 12px', borderBottom: `1px solid ${ldColors.border}` }}>
+          <div style={{ fontSize: 15, fontWeight: 700, color: ldColors.text, marginBottom: 4 }}>내 강의실</div>
+          <div style={{ fontSize: 12, color: ldColors.textSub }}>수강 중인 강의 {LD_COURSES.length}개</div>
+        </div>
+
+        {/* Search */}
+        <div style={{ padding: '12px 16px 8px' }}>
+          <TextField
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder="강의 검색..."
+          />
+        </div>
+
+        {/* Level filter */}
+        <div style={{ padding: '0 16px 12px', display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+          {(['all', 'beginner', 'intermediate', 'advanced'] as const).map((lv) => (
+            <button
+              key={lv}
+              onClick={() => setFilterLevel(lv)}
+              style={{
+                padding: '3px 10px',
+                borderRadius: 20,
+                border: 'none',
+                cursor: 'pointer',
+                fontSize: 11,
+                fontWeight: 600,
+                background: filterLevel === lv ? ldColors.accent : ldColors.border,
+                color: filterLevel === lv ? '#fff' : ldColors.textSub,
+                transition: 'all 0.15s',
+              }}
+            >
+              {lv === 'all' ? '전체' : LD_LEVEL_CONFIG[lv].label}
+            </button>
+          ))}
+        </div>
+
+        {/* Course list */}
+        <div style={{ flex: 1, overflowY: 'auto' }}>
+          {filtered.map((course) => {
+            const isSelected = course.id === selectedCourse.id
+            const lvCfg = LD_LEVEL_CONFIG[course.level]
+            return (
+              <div
+                key={course.id}
+                onClick={() => setSelectedCourse(course)}
+                style={{
+                  padding: '12px 16px',
+                  cursor: 'pointer',
+                  background: isSelected ? ldColors.accentBg : 'transparent',
+                  borderLeft: isSelected ? `3px solid ${ldColors.accent}` : '3px solid transparent',
+                  transition: 'all 0.15s',
+                }}
+              >
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 6 }}>
+                  <div style={{ fontSize: 13, fontWeight: 600, color: isSelected ? ldColors.accent : ldColors.text, lineHeight: 1.3, flex: 1, paddingRight: 8 }}>
+                    {course.title}
+                  </div>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      setBookmarked((prev) => {
+                        const next = new Set(prev)
+                        if (next.has(course.id)) next.delete(course.id)
+                        else next.add(course.id)
+                        return next
+                      })
+                    }}
+                    style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0, fontSize: 14 }}
+                  >
+                    {bookmarked.has(course.id) ? '★' : '☆'}
+                  </button>
+                </div>
+                <div style={{ fontSize: 11, color: ldColors.textSub, marginBottom: 6 }}>{course.instructor} · {course.duration}</div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 6 }}>
+                  <Progress value={course.progress} />
+                  <span style={{ fontSize: 11, fontWeight: 600, color: course.progress === 100 ? ldColors.success : ldColors.accent, whiteSpace: 'nowrap' }}>
+                    {course.progress}%
+                  </span>
+                </div>
+                <span style={{ display: 'inline-block', padding: '2px 8px', borderRadius: 10, fontSize: 11, fontWeight: 600, background: lvCfg.bg, color: lvCfg.color }}>
+                  {lvCfg.label}
+                </span>
+              </div>
+            )
+          })}
+        </div>
+
+        {/* Overall progress */}
+        <div style={{ padding: '12px 16px', borderTop: `1px solid ${ldColors.border}`, background: ldColors.accentBg }}>
+          <div style={{ fontSize: 11, fontWeight: 700, color: ldColors.accent, marginBottom: 6 }}>전체 학습 진도</div>
+          <Progress value={totalProgress} />
+          <div style={{ fontSize: 11, color: ldColors.textSub, marginTop: 4 }}>{totalProgress}% 완료</div>
+        </div>
+      </div>
+
+      {/* Main */}
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+        {/* Course header */}
+        <div style={{ padding: '20px 24px 0', borderBottom: `1px solid ${ldColors.border}`, background: ldColors.card }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 12 }}>
+            <div>
+              <div style={{ fontSize: 18, fontWeight: 700, color: ldColors.text, marginBottom: 4 }}>{selectedCourse.title}</div>
+              <div style={{ fontSize: 13, color: ldColors.textSub }}>{selectedCourse.instructor} · {selectedCourse.category} · {selectedCourse.duration}</div>
+            </div>
+            <div style={{ display: 'flex', gap: 8 }}>
+              {selectedCourse.progress === 100 ? (
+                <SolidButton color="primary" size="small">수료증 다운로드</SolidButton>
+              ) : (
+                <SolidButton color="primary" size="small">이어보기</SolidButton>
+              )}
+              <OutlineButton color="black" size="small">공유</OutlineButton>
+            </div>
+          </div>
+          {/* Tabs */}
+          <div style={{ display: 'flex', gap: 0 }}>
+            {(['overview', 'lessons', 'notes'] as const).map((tab) => (
+              <button
+                key={tab}
+                onClick={() => setActiveTab(tab)}
+                style={{
+                  padding: '8px 16px',
+                  background: 'none',
+                  border: 'none',
+                  borderBottom: activeTab === tab ? `2px solid ${ldColors.accent}` : '2px solid transparent',
+                  cursor: 'pointer',
+                  fontSize: 13,
+                  fontWeight: activeTab === tab ? 700 : 500,
+                  color: activeTab === tab ? ldColors.accent : ldColors.textSub,
+                  transition: 'all 0.15s',
+                }}
+              >
+                {tab === 'overview' ? '개요' : tab === 'lessons' ? '커리큘럼' : '노트'}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Tab content */}
+        <div style={{ flex: 1, overflowY: 'auto', padding: '20px 24px' }}>
+          {activeTab === 'overview' && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+              {/* Stats */}
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 12 }}>
+                {[
+                  { label: '완료 레슨', value: `${selectedCourse.completedLessons} / ${selectedCourse.totalLessons}`, color: ldColors.accent },
+                  { label: '학습 진도', value: `${selectedCourse.progress}%`, color: selectedCourse.progress === 100 ? ldColors.success : ldColors.accent },
+                  { label: '난이도', value: LD_LEVEL_CONFIG[selectedCourse.level].label, color: LD_LEVEL_CONFIG[selectedCourse.level].color },
+                ].map((stat) => (
+                  <div key={stat.label} style={{ padding: '16px', background: ldColors.card, borderRadius: 10, border: `1px solid ${ldColors.border}`, textAlign: 'center' }}>
+                    <div style={{ fontSize: 22, fontWeight: 800, color: stat.color, marginBottom: 4 }}>{stat.value}</div>
+                    <div style={{ fontSize: 11, color: ldColors.textSub }}>{stat.label}</div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Progress bar */}
+              <div style={{ padding: 16, background: ldColors.card, borderRadius: 10, border: `1px solid ${ldColors.border}` }}>
+                <div style={{ fontSize: 13, fontWeight: 700, color: ldColors.text, marginBottom: 10 }}>학습 진도</div>
+                <Progress value={selectedCourse.progress} />
+                <div style={{ fontSize: 12, color: ldColors.textSub, marginTop: 6 }}>
+                  {selectedCourse.completedLessons}개 완료, {selectedCourse.totalLessons - selectedCourse.completedLessons}개 남음
+                </div>
+              </div>
+
+              {/* Tags */}
+              <div style={{ padding: 16, background: ldColors.card, borderRadius: 10, border: `1px solid ${ldColors.border}` }}>
+                <div style={{ fontSize: 13, fontWeight: 700, color: ldColors.text, marginBottom: 10 }}>기술 태그</div>
+                <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+                  {selectedCourse.tags.map((tag) => (
+                    <span key={tag} style={{ padding: '4px 12px', background: ldColors.accentBg, color: ldColors.accent, borderRadius: 20, fontSize: 12, fontWeight: 600 }}>
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
+
+          {activeTab === 'lessons' && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+              {LD_LESSONS.map((lesson, idx) => (
+                <div
+                  key={lesson.id}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 12,
+                    padding: '12px 16px',
+                    background: lesson.locked ? '#f8fafc' : ldColors.card,
+                    borderRadius: 10,
+                    border: `1px solid ${ldColors.border}`,
+                    opacity: lesson.locked ? 0.6 : 1,
+                  }}
+                >
+                  <div style={{
+                    width: 28,
+                    height: 28,
+                    borderRadius: '50%',
+                    background: lesson.completed ? ldColors.successBg : lesson.locked ? ldColors.border : ldColors.accentBg,
+                    color: lesson.completed ? ldColors.success : lesson.locked ? ldColors.textSub : ldColors.accent,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    fontSize: 13,
+                    fontWeight: 700,
+                    flexShrink: 0,
+                  }}>
+                    {lesson.completed ? '✓' : lesson.locked ? '🔒' : idx + 1}
+                  </div>
+                  <div style={{ flex: 1 }}>
+                    <div style={{ fontSize: 13, fontWeight: 600, color: lesson.locked ? ldColors.textSub : ldColors.text }}>{lesson.title}</div>
+                    <div style={{ fontSize: 11, color: ldColors.textSub, marginTop: 2 }}>{lesson.duration}</div>
+                  </div>
+                  {!lesson.locked && !lesson.completed && (
+                    <SolidButton color="primary" size="small">시작</SolidButton>
+                  )}
+                  {lesson.completed && (
+                    <OutlineButton color="black" size="small">복습</OutlineButton>
+                  )}
+                </div>
+              ))}
+            </div>
+          )}
+
+          {activeTab === 'notes' && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+              <div style={{ fontSize: 13, fontWeight: 700, color: ldColors.text, marginBottom: 4 }}>강의 노트</div>
+              <TextArea
+                placeholder="이 강의에서 배운 내용을 메모하세요..."
+                rows={6}
+              />
+              <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                <SolidButton color="primary" size="small">저장</SolidButton>
+              </div>
+              <div style={{ padding: 14, background: ldColors.accentBg, borderRadius: 10, border: `1px solid ${ldColors.border}` }}>
+                <div style={{ fontSize: 12, fontWeight: 700, color: ldColors.accent, marginBottom: 6 }}>이전 노트</div>
+                <div style={{ fontSize: 12, color: ldColors.text, lineHeight: 1.6 }}>
+                  - useTransition으로 긴급하지 않은 업데이트를 낮은 우선순위로 처리<br />
+                  - startTransition 콜백 내부의 setState는 concurrent 모드에서 중단 가능<br />
+                  - isPending 플래그로 전환 중 스피너 표시 가능
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const LearningDashboard: Story = {
+  name: 'Learning Dashboard (shadcn/ui + Vercel Design 벤치마크)',
+  render: () => <LearningDashboardRender />,
+}
+
