@@ -26,6 +26,7 @@ export * from './components/Dropdown'
 
 /* E */
 export * from './components/EclipseProvider'
+export * from './components/Editor'
 
 /* F */
 export * from './components/FloatingTextField'

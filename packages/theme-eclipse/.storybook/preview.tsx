@@ -290,7 +290,7 @@ export const useThemeRoot: Decorator = (Story, context) => {
           minHeight: '100vh',
           backgroundColor: 'var(--sem-eclipse-color-backgroundPrimary)',
           color: 'var(--sem-eclipse-color-foregroundPrimary)',
-          padding: isFullscreen ? '0' : '1.25rem',
+          padding: isFullscreen ? '0' : '1.5rem 2rem',
           boxSizing: 'border-box'
         }}
       >
@@ -318,7 +318,7 @@ const preview: Preview = {
     },
   },
   parameters: {
-    layout: 'fullscreen',
+    layout: 'padded',
     viewport: {
       viewports: INITIAL_VIEWPORTS,
     },
