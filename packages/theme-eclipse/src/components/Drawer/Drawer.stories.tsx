@@ -1,3 +1,4 @@
+import { SettingLineIcon } from '@heejun-com/icons'
 import type { Meta, StoryObj } from '@storybook/react'
 import React, { useState } from 'react'
 
@@ -1508,4 +1509,352 @@ export const Shadcn_키보드_단축키_드로어: Story = {
     },
   },
   render: () => <ShadcnKeyboardShortcutsRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Cycle 125 — MUI + Tailwind UI 벤치마크
+-------------------------------------------------------------------------- */
+
+/* --------------------------------------------------------------------------
+   MUI: Drawer 필터 패널 패턴
+   MUI Drawer + Filter — 검색 결과 필터를 슬라이드 패널로 표시
+-------------------------------------------------------------------------- */
+function MUIFilterDrawerRender() {
+  const [open, setOpen] = useState(false)
+  const [filters, setFilters] = useState({
+    status: new Set<string>(['active']),
+    priority: new Set<string>(),
+    assignee: new Set<string>(),
+  })
+
+  const STATUS_OPTS = ['active', 'paused', 'completed', 'cancelled']
+  const PRIORITY_OPTS = ['urgent', 'high', 'medium', 'low']
+  const ASSIGNEE_OPTS = ['김민준', '이서연', '박준혁', '최유진']
+
+  const toggleFilter = (group: keyof typeof filters, value: string) => {
+    setFilters((prev) => {
+      const next = new Set(prev[group])
+      if (next.has(value)) next.delete(value)
+      else next.add(value)
+      return { ...prev, [group]: next }
+    })
+  }
+
+  const totalActive = filters.status.size + filters.priority.size + filters.assignee.size
+
+  return (
+    <Drawer open={open} onOpenChange={setOpen}>
+      <Drawer.Trigger asChild>
+        <Button color="primary" size="medium">
+          <Button.Center>
+            필터 {totalActive > 0 ? `(${totalActive})` : ''}
+          </Button.Center>
+        </Button>
+      </Drawer.Trigger>
+      <Drawer.Content side="right">
+        <Drawer.Header>
+          <Drawer.Title>검색 필터</Drawer.Title>
+          <Drawer.Description>결과를 좁힐 조건을 선택하세요.</Drawer.Description>
+        </Drawer.Header>
+        <div style={{ padding: '16px 20px', display: 'flex', flexDirection: 'column', gap: 20, overflowY: 'auto', flex: 1 }}>
+
+          {/* Status */}
+          <div>
+            <div style={{ fontSize: 12, fontWeight: 700, color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 8 }}>상태</div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+              {STATUS_OPTS.map((opt) => (
+                <label key={opt} style={{ display: 'flex', alignItems: 'center', gap: 10, cursor: 'pointer', padding: '6px 0' }}>
+                  <input
+                    type="checkbox"
+                    checked={filters.status.has(opt)}
+                    onChange={() => toggleFilter('status', opt)}
+                    style={{ width: 16, height: 16, accentColor: '#6366f1' }}
+                  />
+                  <span style={{ fontSize: 13, color: '#1e293b', textTransform: 'capitalize' }}>{opt}</span>
+                </label>
+              ))}
+            </div>
+          </div>
+
+          {/* Priority */}
+          <div>
+            <div style={{ fontSize: 12, fontWeight: 700, color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 8 }}>우선순위</div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+              {PRIORITY_OPTS.map((opt) => {
+                const colors: Record<string, string> = { urgent: '#ef4444', high: '#f59e0b', medium: '#6366f1', low: '#94a3b8' }
+                return (
+                  <label key={opt} style={{ display: 'flex', alignItems: 'center', gap: 10, cursor: 'pointer', padding: '6px 0' }}>
+                    <input
+                      type="checkbox"
+                      checked={filters.priority.has(opt)}
+                      onChange={() => toggleFilter('priority', opt)}
+                      style={{ width: 16, height: 16, accentColor: '#6366f1' }}
+                    />
+                    <span style={{ width: 8, height: 8, borderRadius: '50%', background: colors[opt], flexShrink: 0 }} />
+                    <span style={{ fontSize: 13, color: '#1e293b', textTransform: 'capitalize' }}>{opt}</span>
+                  </label>
+                )
+              })}
+            </div>
+          </div>
+
+          {/* Assignee */}
+          <div>
+            <div style={{ fontSize: 12, fontWeight: 700, color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 8 }}>담당자</div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+              {ASSIGNEE_OPTS.map((opt) => (
+                <label key={opt} style={{ display: 'flex', alignItems: 'center', gap: 10, cursor: 'pointer', padding: '6px 0' }}>
+                  <input
+                    type="checkbox"
+                    checked={filters.assignee.has(opt)}
+                    onChange={() => toggleFilter('assignee', opt)}
+                    style={{ width: 16, height: 16, accentColor: '#6366f1' }}
+                  />
+                  <span style={{ fontSize: 13, color: '#1e293b' }}>{opt}</span>
+                </label>
+              ))}
+            </div>
+          </div>
+        </div>
+        <Drawer.Footer>
+          <OutlineButton color="black" size="medium" onClick={() => setFilters({ status: new Set(), priority: new Set(), assignee: new Set() })}>
+            <OutlineButton.Center>초기화</OutlineButton.Center>
+          </OutlineButton>
+          <Button color="primary" size="medium" onClick={() => setOpen(false)}>
+            <Button.Center>적용 ({totalActive})</Button.Center>
+          </Button>
+        </Drawer.Footer>
+      </Drawer.Content>
+    </Drawer>
+  )
+}
+
+export const MUI_필터_패널_드로어: Story = {
+  name: 'MUI - 필터 패널 우측 드로어 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'MUI Drawer + Filter List 패턴. 검색 결과 필터 옵션을 우측 슬라이드 패널에 ' +
+          '체크박스 그룹으로 표시합니다. 상태/우선순위/담당자 3개 필터 그룹과 초기화/적용 버튼을 포함합니다.',
+      },
+    },
+  },
+  render: () => <MUIFilterDrawerRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Tailwind UI: 모바일 내비게이션 드로어 패턴
+   Tailwind UI Mobile Menu — 좌측 슬라이드 내비게이션 메뉴
+-------------------------------------------------------------------------- */
+function TailwindMobileNavRender() {
+  const [open, setOpen] = useState(false)
+  const [active, setActive] = useState('dashboard')
+
+  const NAV_ITEMS = [
+    { id: 'dashboard', label: '대시보드', icon: '🏠', badge: null },
+    { id: 'projects', label: '프로젝트', icon: '📁', badge: 5 },
+    { id: 'team', label: '팀원', icon: '👥', badge: null },
+    { id: 'reports', label: '보고서', icon: '📊', badge: null },
+    { id: 'settings', label: '설정', icon: '⚙', badge: null },
+  ]
+
+  const NAV_GROUPS = [
+    { label: '워크스페이스', items: NAV_ITEMS.slice(0, 3) },
+    { label: '관리', items: NAV_ITEMS.slice(3) },
+  ]
+
+  return (
+    <Drawer open={open} onOpenChange={setOpen}>
+      <Drawer.Trigger asChild>
+        <Button color="primary" size="medium">
+          <Button.Center>메뉴 열기</Button.Center>
+        </Button>
+      </Drawer.Trigger>
+      <Drawer.Content side="left">
+        <Drawer.Header>
+          <Drawer.Title>
+            <span style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+              <span style={{ width: 28, height: 28, borderRadius: 8, background: 'linear-gradient(135deg, #6366f1, #8b5cf6)', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: 14, fontWeight: 800 }}>O</span>
+              Orbit UI
+            </span>
+          </Drawer.Title>
+          <Drawer.Description>v2.1.0 — 팀 워크스페이스</Drawer.Description>
+        </Drawer.Header>
+        <div style={{ flex: 1, overflowY: 'auto', padding: '12px 16px', display: 'flex', flexDirection: 'column', gap: 20 }}>
+          {NAV_GROUPS.map((group) => (
+            <div key={group.label}>
+              <div style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.07em', marginBottom: 6 }}>
+                {group.label}
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+                {group.items.map((item) => (
+                  <button
+                    key={item.id}
+                    onClick={() => { setActive(item.id); setOpen(false) }}
+                    style={{
+                      display: 'flex', alignItems: 'center', gap: 12, padding: '10px 12px',
+                      borderRadius: 10, border: 'none', cursor: 'pointer', textAlign: 'left',
+                      background: active === item.id ? '#f0f0ff' : 'transparent',
+                      color: active === item.id ? '#6366f1' : '#475569',
+                      fontWeight: active === item.id ? 700 : 500, fontSize: 14, transition: 'all 0.15s',
+                    }}
+                  >
+                    <span style={{ fontSize: 16 }}>{item.icon}</span>
+                    <span style={{ flex: 1 }}>{item.label}</span>
+                    {item.badge && (
+                      <span style={{ minWidth: 20, height: 20, borderRadius: 10, background: '#6366f1', color: '#fff', fontSize: 11, fontWeight: 700, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '0 6px' }}>
+                        {item.badge}
+                      </span>
+                    )}
+                  </button>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+        <Drawer.Footer>
+          <div style={{ width: '100%', display: 'flex', alignItems: 'center', gap: 10, padding: '4px 0' }}>
+            <div style={{ width: 36, height: 36, borderRadius: '50%', background: '#6366f1', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 14, fontWeight: 700 }}>김</div>
+            <div style={{ flex: 1 }}>
+              <div style={{ fontSize: 13, fontWeight: 700, color: '#1e293b' }}>김민준</div>
+              <div style={{ fontSize: 11, color: '#94a3b8' }}>Admin</div>
+            </div>
+            <SettingLineIcon size={16} style={{ color: '#94a3b8' }} />
+          </div>
+        </Drawer.Footer>
+      </Drawer.Content>
+    </Drawer>
+  )
+}
+
+export const Tailwind_모바일_내비게이션_드로어: Story = {
+  name: 'Tailwind UI - 모바일 내비게이션 드로어 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Tailwind UI Mobile Menu 패턴. 좌측 슬라이드 내비게이션 드로어로 ' +
+          '워크스페이스/관리 그룹별 메뉴를 표시하고 사용자 프로필 영역을 하단에 배치합니다.',
+      },
+    },
+  },
+  render: () => <TailwindMobileNavRender />,
+}
+
+/* --------------------------------------------------------------------------
+   MUI + Tailwind: 작업 생성 드로어 패턴
+   두 시스템의 폼 드로어 패턴 결합
+-------------------------------------------------------------------------- */
+function MUITailwindCreateTaskRender() {
+  const [open, setOpen] = useState(false)
+  const [form, setForm] = useState({ title: '', priority: 'medium', assignee: '', due: '' })
+  const [submitted, setSubmitted] = useState(false)
+
+  const PRIORITIES = [
+    { value: 'urgent', label: '긴급', color: '#ef4444' },
+    { value: 'high', label: '높음', color: '#f59e0b' },
+    { value: 'medium', label: '보통', color: '#6366f1' },
+    { value: 'low', label: '낮음', color: '#94a3b8' },
+  ]
+
+  const ASSIGNEES = ['김민준', '이서연', '박준혁', '최유진']
+
+  const handleSubmit = () => {
+    if (!form.title.trim()) return
+    setSubmitted(true)
+    setTimeout(() => { setSubmitted(false); setOpen(false); setForm({ title: '', priority: 'medium', assignee: '', due: '' }) }, 1500)
+  }
+
+  return (
+    <Drawer open={open} onOpenChange={setOpen}>
+      <Drawer.Trigger asChild>
+        <Button color="primary" size="medium">
+          <Button.Center>작업 추가</Button.Center>
+        </Button>
+      </Drawer.Trigger>
+      <Drawer.Content side="right">
+        <Drawer.Header>
+          <Drawer.Title>새 작업 생성</Drawer.Title>
+          <Drawer.Description>MUI + Tailwind 폼 드로어 패턴</Drawer.Description>
+        </Drawer.Header>
+        <div style={{ flex: 1, overflowY: 'auto', padding: '20px' }}>
+          {submitted ? (
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12, padding: '40px 0' }}>
+              <div style={{ width: 48, height: 48, borderRadius: '50%', background: '#dcfce7', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 24 }}>
+                ✓
+              </div>
+              <div style={{ fontSize: 15, fontWeight: 700, color: '#1e293b' }}>작업이 생성되었습니다!</div>
+              <div style={{ fontSize: 13, color: '#64748b' }}>{form.title}</div>
+            </div>
+          ) : (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+              <div>
+                <label style={{ fontSize: 13, fontWeight: 600, color: '#1e293b', display: 'block', marginBottom: 6 }}>제목 *</label>
+                <FloatingTextField
+                  placeholder="작업 제목 입력"
+                  value={form.title}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setForm((f) => ({ ...f, title: e.target.value }))}
+                />
+              </div>
+              <div>
+                <label style={{ fontSize: 13, fontWeight: 600, color: '#1e293b', display: 'block', marginBottom: 6 }}>우선순위</label>
+                <div style={{ display: 'flex', gap: 8 }}>
+                  {PRIORITIES.map((p) => (
+                    <button
+                      key={p.value}
+                      onClick={() => setForm((f) => ({ ...f, priority: p.value }))}
+                      style={{
+                        flex: 1, padding: '8px 4px', borderRadius: 8, border: `1.5px solid ${form.priority === p.value ? p.color : '#e2e8f0'}`,
+                        background: form.priority === p.value ? `${p.color}18` : '#fff',
+                        color: form.priority === p.value ? p.color : '#64748b',
+                        fontSize: 12, fontWeight: 600, cursor: 'pointer',
+                      }}
+                    >
+                      {p.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+              <div>
+                <label style={{ fontSize: 13, fontWeight: 600, color: '#1e293b', display: 'block', marginBottom: 6 }}>담당자</label>
+                <select
+                  value={form.assignee}
+                  onChange={(e) => setForm((f) => ({ ...f, assignee: e.target.value }))}
+                  style={{ width: '100%', padding: '10px 12px', borderRadius: 8, border: '1.5px solid #e2e8f0', fontSize: 13, background: '#fff', outline: 'none' }}
+                >
+                  <option value="">선택 안함</option>
+                  {ASSIGNEES.map((a) => <option key={a} value={a}>{a}</option>)}
+                </select>
+              </div>
+            </div>
+          )}
+        </div>
+        {!submitted && (
+          <Drawer.Footer>
+            <OutlineButton color="black" size="medium" onClick={() => setOpen(false)}>
+              <OutlineButton.Center>취소</OutlineButton.Center>
+            </OutlineButton>
+            <Button color="primary" size="medium" onClick={handleSubmit}>
+              <Button.Center>생성</Button.Center>
+            </Button>
+          </Drawer.Footer>
+        )}
+      </Drawer.Content>
+    </Drawer>
+  )
+}
+
+export const MUI_Tailwind_작업_생성_드로어: Story = {
+  name: 'MUI + Tailwind UI - 작업 생성 폼 드로어 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'MUI Drawer form + Tailwind UI 레이아웃 패턴 결합. 우측 드로어에 작업 생성 폼을 배치하고 ' +
+          '제목/우선순위/담당자를 입력 후 생성 성공 피드백을 인라인으로 표시합니다.',
+      },
+    },
+  },
+  render: () => <MUITailwindCreateTaskRender />,
 }

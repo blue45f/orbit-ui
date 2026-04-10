@@ -853,3 +853,277 @@ export const Notion_블록_타입_전환: Story = {
   },
   render: () => <NotionBlockTypeLinkRender />,
 }
+
+/* --------------------------------------------------------------------------
+   Cycle 125 — MUI + Tailwind UI 벤치마크
+-------------------------------------------------------------------------- */
+
+/* --------------------------------------------------------------------------
+   MUI: 탐색 경로(breadcrumb) 스타일 링크 칩 패턴
+   MUI Breadcrumbs 의 링크 스타일 — 클릭 가능한 경로 탐색 칩 체인
+-------------------------------------------------------------------------- */
+export const MUI_경로_탐색_링크_칩: Story = {
+  name: 'MUI - 경로 탐색 링크 칩 체인 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'MUI Breadcrumbs + Chip 조합 아이디어. 클릭 가능한 ChipLink를 체인으로 연결하여 ' +
+          '계층형 카테고리 탐색을 구현합니다. 현재 위치는 비활성 칩으로 표시합니다.',
+      },
+    },
+  },
+  render: function Render() {
+    const TREE = [
+      { id: 'home', label: '홈', children: ['design', 'dev', 'pm'] },
+      { id: 'design', label: '디자인', children: ['ui', 'ux', 'motion'] },
+      { id: 'dev', label: '개발', children: ['frontend', 'backend', 'infra'] },
+      { id: 'pm', label: '프로덕트', children: ['roadmap', 'analytics', 'feedback'] },
+      { id: 'ui', label: 'UI 컴포넌트', children: [] },
+      { id: 'ux', label: 'UX 리서치', children: [] },
+      { id: 'motion', label: '모션 디자인', children: [] },
+      { id: 'frontend', label: '프론트엔드', children: [] },
+      { id: 'backend', label: '백엔드', children: [] },
+      { id: 'infra', label: '인프라', children: [] },
+      { id: 'roadmap', label: '로드맵', children: [] },
+      { id: 'analytics', label: '분석', children: [] },
+      { id: 'feedback', label: '피드백', children: [] },
+    ]
+
+    const [path, setPath] = React.useState(['home'])
+
+    const getNode = (id: string) => TREE.find((n) => n.id === id)
+
+    const navigate = (id: string, depth: number) => {
+      setPath((prev) => [...prev.slice(0, depth + 1), id])
+    }
+
+    const current = path[path.length - 1]
+    const currentNode = getNode(current)
+
+    return (
+      <div style={{ width: 440, fontFamily: 'system-ui, sans-serif' }}>
+        <div style={{ fontSize: 13, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: 10 }}>
+          카테고리 탐색
+        </div>
+
+        {/* Breadcrumb chips */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 4, flexWrap: 'wrap', marginBottom: 16 }}>
+          {path.map((id, i) => {
+            const node = getNode(id)
+            const isLast = i === path.length - 1
+            return (
+              <React.Fragment key={id}>
+                {isLast ? (
+                  <span style={{ fontSize: 13, fontWeight: 700, padding: '4px 10px', borderRadius: 20, background: '#6366f1', color: '#fff' }}>
+                    {node?.label}
+                  </span>
+                ) : (
+                  <ChipLink href="#" onClick={(e: React.MouseEvent) => { e.preventDefault(); navigate(id, i) }} selected={false}>
+                    {node?.label}
+                  </ChipLink>
+                )}
+                {!isLast && <span style={{ color: '#cbd5e1', fontSize: 12 }}>›</span>}
+              </React.Fragment>
+            )
+          })}
+        </div>
+
+        {/* Children chips */}
+        {currentNode && currentNode.children.length > 0 && (
+          <div>
+            <div style={{ fontSize: 12, color: '#94a3b8', marginBottom: 8 }}>하위 카테고리 선택:</div>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+              {currentNode.children.map((childId) => {
+                const child = getNode(childId)
+                return (
+                  <ChipLink
+                    key={childId}
+                    href="#"
+                    onClick={(e: React.MouseEvent) => { e.preventDefault(); navigate(childId, path.length) }}
+                    selected={false}
+                  >
+                    <ChipLink.Leading><SearchIcon size={12} /></ChipLink.Leading>
+                    {child?.label}
+                  </ChipLink>
+                )
+              })}
+            </div>
+          </div>
+        )}
+
+        {currentNode && currentNode.children.length === 0 && (
+          <div style={{ padding: '14px', borderRadius: 10, background: '#f0f0ff', border: '1px solid #c7d2fe', fontSize: 13, color: '#4338ca', fontWeight: 600 }}>
+            /{path.join(' / ')} — 현재 위치
+          </div>
+        )}
+      </div>
+    )
+  },
+}
+
+/* --------------------------------------------------------------------------
+   Tailwind UI: 필터 태그 스택 패턴
+   Tailwind UI Filter chips — 검색 결과 필터를 ChipLink로 표현
+-------------------------------------------------------------------------- */
+export const Tailwind_검색_필터_태그_스택: Story = {
+  name: 'Tailwind UI - 검색 필터 태그 스택 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Tailwind UI 필터 태그 패턴. 활성 필터를 ChipLink 목록으로 표시하고 ' +
+          '각 태그의 X 버튼으로 개별 제거, "전체 초기화" 링크로 모두 제거합니다.',
+      },
+    },
+  },
+  render: function Render() {
+    const ALL_FILTERS = [
+      { id: 'react', group: '기술', label: 'React' },
+      { id: 'ts', group: '기술', label: 'TypeScript' },
+      { id: 'remote', group: '근무형태', label: '원격' },
+      { id: 'full', group: '고용형태', label: '정규직' },
+      { id: 'senior', group: '경력', label: '시니어' },
+    ]
+    const [active, setActive] = React.useState(new Set(ALL_FILTERS.map((f) => f.id)))
+    const remove = (id: string) => setActive((prev) => { const n = new Set(prev); n.delete(id); return n })
+
+    const grouped = ALL_FILTERS.filter((f) => active.has(f.id)).reduce<Record<string, typeof ALL_FILTERS>>((acc, f) => {
+      acc[f.group] = [...(acc[f.group] ?? []), f]
+      return acc
+    }, {})
+
+    return (
+      <div style={{ width: 460, fontFamily: 'system-ui, sans-serif' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12 }}>
+          <div style={{ fontSize: 14, fontWeight: 700, color: '#1e293b' }}>
+            검색 결과 <span style={{ color: '#6366f1' }}>{active.size > 0 ? `(${active.size}개 필터 적용)` : ''}</span>
+          </div>
+          {active.size > 0 && (
+            <button
+              onClick={() => setActive(new Set())}
+              style={{ fontSize: 12, color: '#ef4444', background: 'none', border: 'none', cursor: 'pointer', fontWeight: 600 }}
+            >
+              전체 초기화
+            </button>
+          )}
+        </div>
+
+        {active.size > 0 ? (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+            {Object.entries(grouped).map(([group, items]) => (
+              <div key={group} style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
+                <span style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', minWidth: 60 }}>{group}</span>
+                {items.map((f) => (
+                  <ChipLink
+                    key={f.id}
+                    href="#"
+                    selected
+                    onClick={(e: React.MouseEvent) => { e.preventDefault(); remove(f.id) }}
+                  >
+                    {f.label}
+                    <span style={{ marginLeft: 4, opacity: 0.7 }}>×</span>
+                  </ChipLink>
+                ))}
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div style={{ padding: '16px', borderRadius: 10, background: '#f8fafc', border: '1px solid #e2e8f0', fontSize: 13, color: '#94a3b8', textAlign: 'center' }}>
+            활성 필터 없음 — 모든 결과 표시 중
+          </div>
+        )}
+
+        <div style={{ marginTop: 14, fontSize: 12, color: '#94a3b8', borderTop: '1px solid #f1f5f9', paddingTop: 10 }}>
+          필터를 클릭하면 해당 조건이 제거됩니다.
+        </div>
+      </div>
+    )
+  },
+}
+
+/* --------------------------------------------------------------------------
+   MUI + Tailwind: 기술 스택 매트릭스 링크 칩
+   두 시스템의 태그/필터 패턴 결합 — 기술 매핑 탐색기
+-------------------------------------------------------------------------- */
+export const MUI_Tailwind_기술_스택_매트릭스: Story = {
+  name: 'MUI + Tailwind UI - 기술 스택 매트릭스 탐색기',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'MUI Chip group + Tailwind UI filter 패턴 결합. 레이어(Frontend/Backend/Infra)별로 ' +
+          '기술 스택을 ChipLink 그룹으로 탐색하고 선택된 기술의 상세 정보를 표시합니다.',
+      },
+    },
+  },
+  render: function Render() {
+    const STACK = {
+      Frontend: [
+        { id: 'react', label: 'React', desc: 'UI 컴포넌트 라이브러리', level: 'expert' },
+        { id: 'ts', label: 'TypeScript', desc: '정적 타입 언어', level: 'expert' },
+        { id: 'vite', label: 'Vite', desc: '빌드 도구', level: 'advanced' },
+        { id: 'tailwind', label: 'Tailwind', desc: 'CSS 유틸리티 프레임워크', level: 'advanced' },
+        { id: 'storybook', label: 'Storybook', desc: '컴포넌트 문서화', level: 'intermediate' },
+      ],
+      Backend: [
+        { id: 'node', label: 'Node.js', desc: 'JS 런타임', level: 'advanced' },
+        { id: 'postgres', label: 'PostgreSQL', desc: '관계형 데이터베이스', level: 'advanced' },
+        { id: 'redis', label: 'Redis', desc: '인메모리 캐시', level: 'intermediate' },
+        { id: 'graphql', label: 'GraphQL', desc: 'API 쿼리 언어', level: 'intermediate' },
+      ],
+      Infra: [
+        { id: 'vercel', label: 'Vercel', desc: '프론트엔드 배포', level: 'expert' },
+        { id: 'github', label: 'GitHub Actions', desc: 'CI/CD 파이프라인', level: 'advanced' },
+        { id: 'docker', label: 'Docker', desc: '컨테이너화', level: 'intermediate' },
+      ],
+    }
+
+    const LEVEL_COLOR: Record<string, string> = { expert: '#10b981', advanced: '#6366f1', intermediate: '#f59e0b' }
+
+    const [selected, setSelected] = React.useState<string | null>('react')
+
+    const selectedItem = Object.values(STACK).flat().find((i) => i.id === selected)
+
+    return (
+      <div style={{ width: 500, fontFamily: 'system-ui, sans-serif' }}>
+        <div style={{ fontSize: 15, fontWeight: 700, color: '#0f172a', marginBottom: 16 }}>기술 스택 매트릭스</div>
+
+        {Object.entries(STACK).map(([layer, items]) => (
+          <div key={layer} style={{ marginBottom: 14 }}>
+            <div style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 6 }}>
+              {layer}
+            </div>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+              {items.map((item) => (
+                <ChipLink
+                  key={item.id}
+                  href="#"
+                  selected={selected === item.id}
+                  onClick={(e: React.MouseEvent) => { e.preventDefault(); setSelected(item.id) }}
+                >
+                  <ChipLink.Leading>
+                    <span style={{ width: 6, height: 6, borderRadius: '50%', background: LEVEL_COLOR[item.level], display: 'inline-block' }} />
+                  </ChipLink.Leading>
+                  {item.label}
+                </ChipLink>
+              ))}
+            </div>
+          </div>
+        ))}
+
+        {selectedItem && (
+          <div style={{ marginTop: 16, padding: '14px 16px', borderRadius: 12, border: '1.5px solid #6366f1', background: '#f0f0ff' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
+              <span style={{ fontSize: 14, fontWeight: 700, color: '#1e293b' }}>{selectedItem.label}</span>
+              <span style={{ fontSize: 11, padding: '2px 8px', borderRadius: 20, background: LEVEL_COLOR[selectedItem.level], color: '#fff', fontWeight: 700 }}>
+                {selectedItem.level}
+              </span>
+            </div>
+            <div style={{ fontSize: 13, color: '#64748b' }}>{selectedItem.desc}</div>
+          </div>
+        )}
+      </div>
+    )
+  },
+}

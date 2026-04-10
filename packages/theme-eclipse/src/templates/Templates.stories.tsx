@@ -29651,3 +29651,211 @@ export const VercelRadix124DevSettings: StoryObj = {
   },
   render: () => <DevSettingsPanel124Render />,
 }
+
+/* ==========================================================================
+   Cycle 125 — MUI + Tailwind UI 벤치마크
+   템플릿: 이슈 트래커 (Drawer 필터 + ChipLink 탐색 + DataTable 스타일)
+========================================================================== */
+
+type Issue125 = {
+  id: string
+  title: string
+  status: 'open' | 'in_progress' | 'in_review' | 'done'
+  priority: 'urgent' | 'high' | 'medium' | 'low'
+  assignee: string
+  label: string
+  created: string
+}
+
+const ISSUES_125: Issue125[] = [
+  { id: 'ENG-001', title: '로그인 폼 유효성 검사 개선', status: 'in_progress', priority: 'high', assignee: '김민준', label: 'Frontend', created: '2일 전' },
+  { id: 'ENG-002', title: 'WebSocket 연결 안정화', status: 'open', priority: 'urgent', assignee: '이서연', label: 'Backend', created: '방금' },
+  { id: 'ENG-003', title: '다크모드 CSS 변수 정리', status: 'in_review', priority: 'medium', assignee: '박준혁', label: 'Design', created: '5시간 전' },
+  { id: 'ENG-004', title: 'E2E 테스트 커버리지 확장', status: 'open', priority: 'low', assignee: '최유진', label: 'QA', created: '3일 전' },
+  { id: 'ENG-005', title: '번들 사이즈 최적화', status: 'done', priority: 'medium', assignee: '김민준', label: 'Frontend', created: '1주 전' },
+  { id: 'ENG-006', title: '접근성 audit 반영', status: 'in_progress', priority: 'high', assignee: '이서연', label: 'Frontend', created: '1일 전' },
+  { id: 'ENG-007', title: 'API rate limiting 구현', status: 'open', priority: 'high', assignee: '박준혁', label: 'Backend', created: '4시간 전' },
+  { id: 'ENG-008', title: 'Storybook 8 업그레이드', status: 'done', priority: 'low', assignee: '최유진', label: 'DevOps', created: '2주 전' },
+]
+
+const ISSUE_STATUS_META: Record<Issue125['status'], { label: string; color: string; bg: string }> = {
+  open: { label: 'Open', color: '#10b981', bg: '#f0fdf4' },
+  in_progress: { label: 'In Progress', color: '#6366f1', bg: '#f0f0ff' },
+  in_review: { label: 'In Review', color: '#f59e0b', bg: '#fffbeb' },
+  done: { label: 'Done', color: '#94a3b8', bg: '#f1f5f9' },
+}
+
+const PRIORITY_COLOR_125: Record<Issue125['priority'], string> = {
+  urgent: '#ef4444', high: '#f59e0b', medium: '#6366f1', low: '#94a3b8',
+}
+
+function IssueTracker125Render() {
+  const [filterOpen, setFilterOpen] = useState(false)
+  const [statusFilter, setStatusFilter] = useState<Set<Issue125['status']>>(new Set(['open', 'in_progress', 'in_review']))
+  const [priorityFilter, setPriorityFilter] = useState<Set<Issue125['priority']>>(new Set())
+  const [labelFilter, setLabelFilter] = useState<string | null>(null)
+  const [search, setSearch] = useState('')
+
+  const LABELS = Array.from(new Set(ISSUES_125.map((i) => i.label)))
+
+  const toggleStatus = (s: Issue125['status']) => {
+    setStatusFilter((prev) => { const n = new Set(prev); if (n.has(s)) n.delete(s); else n.add(s); return n })
+  }
+  const togglePriority = (p: Issue125['priority']) => {
+    setPriorityFilter((prev) => { const n = new Set(prev); if (n.has(p)) n.delete(p); else n.add(p); return n })
+  }
+
+  const filtered = ISSUES_125.filter((issue) => {
+    const matchStatus = statusFilter.size === 0 || statusFilter.has(issue.status)
+    const matchPriority = priorityFilter.size === 0 || priorityFilter.has(issue.priority)
+    const matchLabel = !labelFilter || issue.label === labelFilter
+    const matchSearch = !search || issue.title.toLowerCase().includes(search.toLowerCase()) || issue.assignee.includes(search)
+    return matchStatus && matchPriority && matchLabel && matchSearch
+  })
+
+  const totalFilters = statusFilter.size + priorityFilter.size + (labelFilter ? 1 : 0)
+
+  return (
+    <div style={{ width: 700, fontFamily: 'system-ui, sans-serif' }}>
+      {/* Header */}
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 20 }}>
+        <div>
+          <h2 style={{ margin: 0, fontSize: 22, fontWeight: 800, color: '#0f172a' }}>이슈 트래커</h2>
+          <p style={{ margin: '4px 0 0', fontSize: 13, color: '#64748b' }}>MUI + Tailwind UI 벤치마크 — Cycle 125</p>
+        </div>
+        <div style={{ display: 'flex', gap: 8 }}>
+          {(['open', 'in_progress', 'in_review', 'done'] as Issue125['status'][]).map((s) => {
+            const meta = ISSUE_STATUS_META[s]
+            return (
+              <div key={s} style={{ padding: '6px 12px', borderRadius: 8, background: meta.bg, border: `1px solid ${meta.color}33` }}>
+                <div style={{ fontSize: 18, fontWeight: 800, color: meta.color }}>{ISSUES_125.filter((i) => i.status === s).length}</div>
+                <div style={{ fontSize: 10, color: meta.color, fontWeight: 600 }}>{meta.label}</div>
+              </div>
+            )
+          })}
+        </div>
+      </div>
+
+      {/* Toolbar */}
+      <div style={{ display: 'flex', gap: 10, marginBottom: 14, alignItems: 'center' }}>
+        <div style={{ flex: 1 }}>
+          <TextField placeholder="이슈 또는 담당자 검색..." value={search} onChange={(e) => setSearch(e.target.value)} />
+        </div>
+
+        {/* Label ChipLinks */}
+        <div style={{ display: 'flex', gap: 6 }}>
+          <button
+            onClick={() => setLabelFilter(null)}
+            style={{ padding: '6px 12px', borderRadius: 20, border: `1.5px solid ${!labelFilter ? '#6366f1' : '#e2e8f0'}`, background: !labelFilter ? '#6366f1' : '#fff', color: !labelFilter ? '#fff' : '#64748b', fontSize: 12, fontWeight: 600, cursor: 'pointer' }}
+          >
+            전체
+          </button>
+          {LABELS.map((label) => (
+            <button
+              key={label}
+              onClick={() => setLabelFilter(labelFilter === label ? null : label)}
+              style={{ padding: '6px 12px', borderRadius: 20, border: `1.5px solid ${labelFilter === label ? '#6366f1' : '#e2e8f0'}`, background: labelFilter === label ? '#f0f0ff' : '#fff', color: labelFilter === label ? '#6366f1' : '#64748b', fontSize: 12, fontWeight: 600, cursor: 'pointer' }}
+            >
+              {label}
+            </button>
+          ))}
+        </div>
+
+        {/* Drawer filter button */}
+        <Drawer open={filterOpen} onOpenChange={setFilterOpen}>
+          <Drawer.Trigger asChild>
+            <OutlineButton color="black" size="medium">
+              <OutlineButton.Center>
+                필터 {totalFilters > 0 ? `(${totalFilters})` : ''}
+              </OutlineButton.Center>
+            </OutlineButton>
+          </Drawer.Trigger>
+          <Drawer.Content side="right">
+            <Drawer.Header>
+              <Drawer.Title>이슈 필터</Drawer.Title>
+              <Drawer.Description>표시할 이슈 조건을 설정하세요.</Drawer.Description>
+            </Drawer.Header>
+            <div style={{ flex: 1, overflowY: 'auto', padding: '16px 20px', display: 'flex', flexDirection: 'column', gap: 20 }}>
+              <div>
+                <div style={{ fontSize: 12, fontWeight: 700, color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 8 }}>상태</div>
+                {(['open', 'in_progress', 'in_review', 'done'] as Issue125['status'][]).map((s) => {
+                  const meta = ISSUE_STATUS_META[s]
+                  return (
+                    <label key={s} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '7px 0', cursor: 'pointer' }}>
+                      <input type="checkbox" checked={statusFilter.has(s)} onChange={() => toggleStatus(s)} style={{ width: 16, height: 16, accentColor: '#6366f1' }} />
+                      <span style={{ width: 8, height: 8, borderRadius: '50%', background: meta.color, flexShrink: 0 }} />
+                      <span style={{ fontSize: 13, color: '#1e293b' }}>{meta.label}</span>
+                    </label>
+                  )
+                })}
+              </div>
+              <div>
+                <div style={{ fontSize: 12, fontWeight: 700, color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 8 }}>우선순위</div>
+                {(['urgent', 'high', 'medium', 'low'] as Issue125['priority'][]).map((p) => (
+                  <label key={p} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '7px 0', cursor: 'pointer' }}>
+                    <input type="checkbox" checked={priorityFilter.has(p)} onChange={() => togglePriority(p)} style={{ width: 16, height: 16, accentColor: '#6366f1' }} />
+                    <span style={{ width: 8, height: 8, borderRadius: '50%', background: PRIORITY_COLOR_125[p], flexShrink: 0 }} />
+                    <span style={{ fontSize: 13, color: '#1e293b', textTransform: 'capitalize' }}>{p}</span>
+                  </label>
+                ))}
+              </div>
+            </div>
+            <Drawer.Footer>
+              <OutlineButton color="black" size="medium" onClick={() => { setStatusFilter(new Set()); setPriorityFilter(new Set()) }}>
+                <OutlineButton.Center>초기화</OutlineButton.Center>
+              </OutlineButton>
+              <SolidButton color="black" size="medium" onClick={() => setFilterOpen(false)}>
+                <SolidButton.Center>적용</SolidButton.Center>
+              </SolidButton>
+            </Drawer.Footer>
+          </Drawer.Content>
+        </Drawer>
+      </div>
+
+      {/* Issue list */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+        {filtered.length === 0 ? (
+          <div style={{ padding: '40px 0', textAlign: 'center', color: '#94a3b8', fontSize: 14 }}>조건에 맞는 이슈가 없습니다.</div>
+        ) : (
+          filtered.map((issue) => {
+            const statusMeta = ISSUE_STATUS_META[issue.status]
+            return (
+              <div key={issue.id} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 16px', borderRadius: 12, border: '1px solid #f1f5f9', background: '#fff' }}>
+                <span style={{ width: 8, height: 8, borderRadius: '50%', background: PRIORITY_COLOR_125[issue.priority], flexShrink: 0 }} />
+                <span style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', minWidth: 60 }}>{issue.id}</span>
+                <span style={{ flex: 1, fontSize: 13, fontWeight: 600, color: '#1e293b' }}>{issue.title}</span>
+                <span style={{ fontSize: 11, padding: '2px 8px', borderRadius: 20, background: '#f1f5f9', color: '#64748b', fontWeight: 600 }}>{issue.label}</span>
+                <span style={{ fontSize: 11, padding: '2px 8px', borderRadius: 20, background: statusMeta.bg, color: statusMeta.color, fontWeight: 700 }}>{statusMeta.label}</span>
+                <span style={{ fontSize: 11, color: '#94a3b8', minWidth: 36 }}>{issue.assignee[0]}</span>
+              </div>
+            )
+          })
+        )}
+      </div>
+
+      {/* Footer */}
+      <div style={{ marginTop: 16, display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: 12, borderTop: '1px solid #f1f5f9' }}>
+        <span style={{ fontSize: 13, color: '#94a3b8' }}>{filtered.length}개 / {ISSUES_125.length}개 이슈</span>
+        <SolidButton color="black" size="medium">
+          <SolidButton.Center>이슈 추가</SolidButton.Center>
+        </SolidButton>
+      </div>
+    </div>
+  )
+}
+
+export const MUITailwind125IssueTracker: StoryObj = {
+  name: 'MUI + Tailwind UI — 이슈 트래커 (Cycle 125)',
+  parameters: {
+    layout: 'centered',
+    docs: {
+      description: {
+        story:
+          'MUI + Tailwind UI 벤치마크 — Cycle 125. ' +
+          'Drawer 필터 패널 + 레이블 ChipLink 필터 + TextField 검색 + 이슈 목록. ' +
+          'SolidButton/OutlineButton 액션, LabelBadge 상태 표시를 결합한 이슈 트래커입니다.',
+      },
+    },
+  },
+  render: () => <IssueTracker125Render />,
+}
