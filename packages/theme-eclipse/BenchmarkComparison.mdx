@@ -1438,3 +1438,79 @@ const theme = createTheme({
     </div>
   </div>
 </section>
+
+{/* Cycle 66: shadcn/ui + Vercel Design */}
+<section style={{ marginTop: '48px' }}>
+  <h2 style={{ fontSize: '22px', fontWeight: '800', color: '#0f172a', marginBottom: '8px' }}>
+    Cycle 66 — shadcn/ui + Vercel Design 벤치마크
+  </h2>
+  <p style={{ color: '#64748b', fontSize: '14px', marginBottom: '24px' }}>
+    Tier 1 최우선 벤치마크 시스템 분석. Drawer(Sheet)와 PageDots 컴포넌트 패턴 강화.
+  </p>
+
+  <h3 style={{ fontSize: '17px', fontWeight: '700', color: '#334155', marginBottom: '12px' }}>shadcn/ui 장점 분석</h3>
+  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '12px', marginBottom: '24px' }}>
+    <div style={{ padding: '16px', borderRadius: '12px', background: '#f8fafc', border: '1px solid #e2e8f0' }}>
+      <div style={{ fontWeight: '700', color: '#0f172a', marginBottom: '6px', fontSize: '13px' }}>Sheet(Drawer) 합성 패턴</div>
+      <div style={{ fontSize: '12px', color: '#475569', lineHeight: '1.7' }}>
+        Trigger + Content + Header + Footer의 명확한 역할 분리. 고정 푸터와 스크롤 바디 분리가 핵심.
+        Orbit의 Drawer.Footer 패턴과 완벽히 일치.
+      </div>
+    </div>
+    <div style={{ padding: '16px', borderRadius: '12px', background: '#f8fafc', border: '1px solid #e2e8f0' }}>
+      <div style={{ fontWeight: '700', color: '#0f172a', marginBottom: '6px', fontSize: '13px' }}>Copy-paste 친화적 API</div>
+      <div style={{ fontSize: '12px', color: '#475569', lineHeight: '1.7' }}>
+        설치 없이 컴포넌트 코드를 직접 복사해 사용. 번들 크기 0 추가. Orbit의 스토리 코드 예시를
+        더 완성도 있게 제공하는 방향 참고.
+      </div>
+    </div>
+    <div style={{ padding: '16px', borderRadius: '12px', background: '#f8fafc', border: '1px solid #e2e8f0' }}>
+      <div style={{ fontWeight: '700', color: '#0f172a', marginBottom: '6px', fontSize: '13px' }}>showCloseButton 제어</div>
+      <div style={{ fontSize: '12px', color: '#475569', lineHeight: '1.7' }}>
+        닫기 버튼을 숨기고 커스텀 닫기 패턴(Drawer.Close asChild)으로 대체 가능.
+        Orbit의 Drawer.Close asChild 패턴과 동일.
+      </div>
+    </div>
+  </div>
+
+  <h3 style={{ fontSize: '17px', fontWeight: '700', color: '#334155', marginBottom: '12px' }}>Vercel Design 장점 분석</h3>
+  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '12px', marginBottom: '24px' }}>
+    <div style={{ padding: '16px', borderRadius: '12px', background: '#f0f9ff', border: '1px solid #bae6fd' }}>
+      <div style={{ fontWeight: '700', color: '#0369a1', marginBottom: '6px', fontSize: '13px' }}>모노크롬 + 강조색 팔레트</div>
+      <div style={{ fontSize: '12px', color: '#475569', lineHeight: '1.7' }}>
+        중립 그레이스케일 베이스에 단일 강조색(Indigo/Blue)만 사용. 배포 상태별 색상(warn=amber, success=green)으로
+        시각적 계층 완성.
+      </div>
+    </div>
+    <div style={{ padding: '16px', borderRadius: '12px', background: '#f0f9ff', border: '1px solid #bae6fd' }}>
+      <div style={{ fontWeight: '700', color: '#0369a1', marginBottom: '6px', fontSize: '13px' }}>배포 로그 UX</div>
+      <div style={{ fontSize: '12px', color: '#475569', lineHeight: '1.7' }}>
+        모노스페이스 폰트, 다크 배경 터미널, 타임스탬프 + 레벨 + 메시지 3열 구조.
+        진행 중 커서 애니메이션으로 실시간 느낌 연출.
+      </div>
+    </div>
+    <div style={{ padding: '16px', borderRadius: '12px', background: '#f0f9ff', border: '1px solid #bae6fd' }}>
+      <div style={{ fontWeight: '700', color: '#0369a1', marginBottom: '6px', fontSize: '13px' }}>온보딩 스텝 플로우</div>
+      <div style={{ fontSize: '12px', color: '#475569', lineHeight: '1.7' }}>
+        최소 4단계(팀 이름→프레임워크→레포→완료) 마법사. PageDots가 이전 완료 단계도 선택됨으로
+        표시하는 누적 진행률 패턴 적용.
+      </div>
+    </div>
+  </div>
+
+  <h3 style={{ fontSize: '17px', fontWeight: '700', color: '#334155', marginBottom: '12px' }}>이번 사이클 적용 결과</h3>
+  <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+    <div style={{ padding: '12px 16px', borderRadius: '8px', background: '#f8fafc', border: '1px solid #e2e8f0', fontSize: '13px' }}>
+      <span style={{ fontWeight: '700', color: '#7c3aed' }}>Drawer +3:</span>
+      <span style={{ color: '#475569', marginLeft: '8px' }}>shadcn 검색 필터 사이드패널, Vercel 배포 로그 패널, Vercel 팀 멤버 초대 드로어</span>
+    </div>
+    <div style={{ padding: '12px 16px', borderRadius: '8px', background: '#f8fafc', border: '1px solid #e2e8f0', fontSize: '13px' }}>
+      <span style={{ fontWeight: '700', color: '#0369a1' }}>PageDots +3:</span>
+      <span style={{ color: '#475569', marginLeft: '8px' }}>shadcn 이미지 갤러리 캐러셀, Vercel 온보딩 스텝 플로우, Vercel 기능 투어 슬라이더</span>
+    </div>
+    <div style={{ padding: '12px 16px', borderRadius: '8px', background: '#f8fafc', border: '1px solid #e2e8f0', fontSize: '13px' }}>
+      <span style={{ fontWeight: '700', color: '#059669' }}>Template #56:</span>
+      <span style={{ color: '#475569', marginLeft: '8px' }}>FeedbackBoard — Drawer로 피드백 제출, PageDots로 페이지 인디케이터, 카테고리 필터 사이드바</span>
+    </div>
+  </div>
+</section>

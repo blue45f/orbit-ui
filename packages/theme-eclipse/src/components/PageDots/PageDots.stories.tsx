@@ -316,3 +316,336 @@ export const Mantine_온보딩_진행률: Story = {
     )
   },
 }
+
+/* --------------------------------------------------------------------------
+   Cycle 66: shadcn/ui + Vercel Design 벤치마크
+-------------------------------------------------------------------------- */
+
+/* shadcn/ui Carousel — 이미지 갤러리 캐러셀 인디케이터
+   shadcn의 Carousel 컴포넌트처럼 아래 점 인디케이터로 슬라이드 위치 표시.
+   클릭으로 슬라이드 이동 + 자동 재생 토글.
+-------------------------------------------------------------------------- */
+const GALLERY_SLIDES = [
+  { title: '대시보드 메인', bg: '#e0f2fe', accent: '#0284c7' },
+  { title: '컴포넌트 라이브러리', bg: '#f0fdf4', accent: '#16a34a' },
+  { title: '디자인 토큰 시스템', bg: '#faf5ff', accent: '#7c3aed' },
+  { title: '테마 커스터마이저', bg: '#fff7ed', accent: '#ea580c' },
+  { title: '접근성 가이드', bg: '#fef2f2', accent: '#dc2626' },
+]
+
+export const shadcn_이미지_갤러리_캐러셀: Story = {
+  name: 'shadcn/ui — 이미지 갤러리 캐러셀',
+  parameters: {
+    docs: {
+      description: {
+        story: 'shadcn/ui Carousel 패턴. PageDots를 슬라이드 인디케이터로 활용. 클릭 이동 + 좌우 화살표 + 자동재생 토글. 5개 슬라이드 갤러리.',
+      },
+    },
+  },
+  render: function ShadcnGalleryCarousel() {
+    const [current, setCurrent] = useState(0)
+    const [autoPlay, setAutoPlay] = useState(false)
+    const total = GALLERY_SLIDES.length
+
+    useEffect(() => {
+      if (!autoPlay) return
+      const id = setInterval(() => setCurrent((c) => (c + 1) % total), 2000)
+      return () => clearInterval(id)
+    }, [autoPlay, total])
+
+    const slide = GALLERY_SLIDES[current]
+
+    return (
+      <div style={{ width: 360, fontFamily: 'system-ui, sans-serif' }}>
+        {/* 슬라이드 영역 */}
+        <div style={{
+          height: 200, borderRadius: 16, background: slide.bg, display: 'flex',
+          flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
+          border: `2px solid ${slide.accent}22`, marginBottom: 16, transition: 'background 0.3s',
+        }}>
+          <div style={{ fontSize: 32, marginBottom: 8 }}>
+            {['bar_chart', 'grid_view', 'palette', 'tune', 'accessibility'][current].split('').map((c, i) => <span key={i}>{c}</span>)}
+          </div>
+          <div style={{ fontSize: 16, fontWeight: 700, color: slide.accent }}>{slide.title}</div>
+          <div style={{ fontSize: 12, color: '#64748b', marginTop: 4 }}>{current + 1} / {total}</div>
+        </div>
+
+        {/* 컨트롤 영역 */}
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <button
+            onClick={() => setCurrent((c) => (c - 1 + total) % total)}
+            style={{ padding: '6px 14px', borderRadius: 8, border: '1px solid #e2e8f0', background: '#fff', cursor: 'pointer', fontSize: 12 }}
+          >
+            이전
+          </button>
+
+          <div style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
+            {GALLERY_SLIDES.map((_, i) => (
+              <PageDots key={i} selected={i === current} onClick={() => setCurrent(i)} />
+            ))}
+          </div>
+
+          <button
+            onClick={() => setCurrent((c) => (c + 1) % total)}
+            style={{ padding: '6px 14px', borderRadius: 8, border: '1px solid #e2e8f0', background: '#fff', cursor: 'pointer', fontSize: 12 }}
+          >
+            다음
+          </button>
+        </div>
+
+        <div style={{ textAlign: 'center', marginTop: 12 }}>
+          <button
+            onClick={() => setAutoPlay((a) => !a)}
+            style={{
+              padding: '5px 14px', borderRadius: 99, border: 'none', fontSize: 11, fontWeight: 600, cursor: 'pointer',
+              background: autoPlay ? '#6366f1' : '#f1f5f9', color: autoPlay ? '#fff' : '#64748b',
+              transition: 'all 0.2s',
+            }}
+          >
+            {autoPlay ? '자동재생 중' : '자동재생 시작'}
+          </button>
+        </div>
+      </div>
+    )
+  },
+}
+
+/* Vercel — 온보딩 스텝 플로우
+   Vercel 신규 가입 온보딩 패턴. 4단계 설정 마법사.
+   PageDots로 현재 단계 표시, 각 단계마다 실질적인 입력 UI 포함.
+-------------------------------------------------------------------------- */
+const ONBOARDING_STEPS = [
+  {
+    title: '팀 이름 설정',
+    desc: '팀 또는 회사 이름을 입력하세요.',
+    placeholder: 'Acme Corp',
+  },
+  {
+    title: '프레임워크 선택',
+    desc: '주로 사용하는 프레임워크를 선택하세요.',
+    options: ['Next.js', 'Vite', 'Remix', 'Astro'],
+  },
+  {
+    title: '레포지토리 연결',
+    desc: 'Git 레포지토리를 연결합니다.',
+    placeholder: 'github.com/username/repo',
+  },
+  {
+    title: '설정 완료',
+    desc: '모든 준비가 완료되었습니다!',
+  },
+]
+
+export const Vercel_온보딩_스텝_플로우: Story = {
+  name: 'Vercel — 온보딩 스텝 플로우',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Vercel 신규 사용자 온보딩 패턴. 4단계 설정 마법사에 PageDots를 스텝 인디케이터로 활용. 각 단계마다 실질적 입력 UI와 이전/다음 내비게이션.',
+      },
+    },
+  },
+  render: function VercelOnboarding() {
+    const [step, setStep] = useState(0)
+    const [values, setValues] = useState({ team: '', framework: '', repo: '' })
+    const total = ONBOARDING_STEPS.length
+    const current = ONBOARDING_STEPS[step]
+
+    return (
+      <div style={{
+        width: 400, padding: 32, fontFamily: 'system-ui, sans-serif',
+        background: '#fff', borderRadius: 20, border: '1px solid #e2e8f0',
+        boxShadow: '0 4px 24px #0000000a',
+      }}>
+        {/* 상단 스텝 인디케이터 */}
+        <div style={{ display: 'flex', justifyContent: 'center', gap: 8, marginBottom: 28 }}>
+          {ONBOARDING_STEPS.map((_, i) => (
+            <PageDots key={i} selected={i <= step} onClick={() => i < step && setStep(i)} />
+          ))}
+        </div>
+
+        {/* 콘텐츠 */}
+        <div style={{ minHeight: 140 }}>
+          <div style={{ fontSize: 20, fontWeight: 800, color: '#0f172a', marginBottom: 8 }}>
+            {current.title}
+          </div>
+          <div style={{ fontSize: 13, color: '#64748b', marginBottom: 20, lineHeight: 1.6 }}>
+            {current.desc}
+          </div>
+
+          {step === 0 && (
+            <input
+              value={values.team}
+              onChange={(e) => setValues((v) => ({ ...v, team: e.target.value }))}
+              placeholder={current.placeholder}
+              style={{ width: '100%', padding: '10px 14px', borderRadius: 8, border: '1.5px solid #e2e8f0', fontSize: 13, outline: 'none', boxSizing: 'border-box' }}
+            />
+          )}
+          {step === 1 && (
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
+              {current.options?.map((opt) => (
+                <button
+                  key={opt}
+                  onClick={() => setValues((v) => ({ ...v, framework: opt }))}
+                  style={{
+                    padding: '10px 0', borderRadius: 8,
+                    border: `2px solid ${values.framework === opt ? '#6366f1' : '#e2e8f0'}`,
+                    background: values.framework === opt ? '#eff6ff' : '#fff',
+                    fontSize: 13, fontWeight: values.framework === opt ? 700 : 400,
+                    color: values.framework === opt ? '#3730a3' : '#374151',
+                    cursor: 'pointer', transition: 'all 0.15s',
+                  }}
+                >
+                  {opt}
+                </button>
+              ))}
+            </div>
+          )}
+          {step === 2 && (
+            <input
+              value={values.repo}
+              onChange={(e) => setValues((v) => ({ ...v, repo: e.target.value }))}
+              placeholder={current.placeholder}
+              style={{ width: '100%', padding: '10px 14px', borderRadius: 8, border: '1.5px solid #e2e8f0', fontSize: 13, outline: 'none', boxSizing: 'border-box' }}
+            />
+          )}
+          {step === 3 && (
+            <div style={{ textAlign: 'center', padding: '16px 0' }}>
+              <div style={{ width: 56, height: 56, borderRadius: '50%', background: '#dcfce7', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 12px', fontSize: 24 }}>
+                <span style={{ color: '#16a34a', fontWeight: 800, fontSize: 28 }}>✓</span>
+              </div>
+              <div style={{ fontSize: 14, color: '#166534', fontWeight: 600 }}>배포 준비 완료!</div>
+            </div>
+          )}
+        </div>
+
+        {/* 하단 내비게이션 */}
+        <div style={{ display: 'flex', gap: 8, marginTop: 28 }}>
+          {step > 0 && (
+            <button
+              onClick={() => setStep((s) => s - 1)}
+              style={{ flex: 1, padding: '10px 0', borderRadius: 8, border: '1px solid #e2e8f0', background: '#fff', fontSize: 13, cursor: 'pointer' }}
+            >
+              이전
+            </button>
+          )}
+          <button
+            onClick={() => step < total - 1 ? setStep((s) => s + 1) : setStep(0)}
+            style={{
+              flex: 2, padding: '10px 0', borderRadius: 8, border: 'none',
+              background: step === total - 1 ? '#6366f1' : '#0f172a',
+              color: '#fff', fontSize: 13, fontWeight: 600, cursor: 'pointer',
+            }}
+          >
+            {step === total - 1 ? '대시보드로 이동' : '다음'}
+          </button>
+        </div>
+      </div>
+    )
+  },
+}
+
+/* Vercel — 기능 투어 슬라이더
+   Vercel 신기능 소개 패턴. 수평 슬라이더로 주요 기능을 순서대로 소개.
+   PageDots를 하단 위치 인디케이터로 사용.
+-------------------------------------------------------------------------- */
+const FEATURE_SLIDES = [
+  {
+    title: 'Edge Runtime',
+    desc: '전 세계 엣지 노드에서 실행되는 초고속 런타임. 평균 응답 시간 < 10ms.',
+    color: '#0f172a',
+    bg: '#f8fafc',
+    tag: 'PERFORMANCE',
+  },
+  {
+    title: 'ISR & Streaming',
+    desc: '점진적 정적 재생성과 React 스트리밍으로 사용자 체감 속도 극대화.',
+    color: '#1e40af',
+    bg: '#eff6ff',
+    tag: 'DX',
+  },
+  {
+    title: 'Preview Deployments',
+    desc: 'PR마다 자동 생성되는 공유 가능한 미리보기 URL. 코드 리뷰를 시각적으로.',
+    color: '#5b21b6',
+    bg: '#faf5ff',
+    tag: 'COLLABORATION',
+  },
+  {
+    title: 'Analytics & Vitals',
+    desc: 'Core Web Vitals를 실시간 추적. 실사용자 성능 데이터 기반 최적화.',
+    color: '#065f46',
+    bg: '#ecfdf5',
+    tag: 'OBSERVABILITY',
+  },
+]
+
+export const Vercel_기능_투어_슬라이더: Story = {
+  name: 'Vercel — 기능 투어 슬라이더',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Vercel 신기능 소개 슬라이더 패턴. 4가지 주요 기능을 카드 형태로 순차 소개. PageDots로 현재 위치 표시. 키보드 화살표로도 이동 가능.',
+      },
+    },
+  },
+  render: function VercelFeatureTour() {
+    const [current, setCurrent] = useState(0)
+    const total = FEATURE_SLIDES.length
+    const slide = FEATURE_SLIDES[current]
+
+    return (
+      <div style={{ width: 380, fontFamily: 'system-ui, sans-serif', userSelect: 'none' }}>
+        <div style={{
+          padding: 28, borderRadius: 16, background: slide.bg,
+          border: `1px solid ${slide.color}22`, minHeight: 180,
+          transition: 'background 0.25s, border-color 0.25s',
+        }}>
+          <div style={{
+            display: 'inline-block', fontSize: 10, fontWeight: 700, letterSpacing: '0.08em',
+            color: slide.color, background: `${slide.color}18`, padding: '3px 8px',
+            borderRadius: 4, marginBottom: 14,
+          }}>
+            {slide.tag}
+          </div>
+          <div style={{ fontSize: 22, fontWeight: 800, color: slide.color, marginBottom: 12, lineHeight: 1.2 }}>
+            {slide.title}
+          </div>
+          <div style={{ fontSize: 13, color: '#475569', lineHeight: 1.7 }}>
+            {slide.desc}
+          </div>
+        </div>
+
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: 16 }}>
+          <button
+            onClick={() => setCurrent((c) => Math.max(0, c - 1))}
+            disabled={current === 0}
+            style={{
+              padding: '7px 16px', borderRadius: 8, border: '1px solid #e2e8f0',
+              background: '#fff', fontSize: 12, cursor: current === 0 ? 'not-allowed' : 'pointer',
+              opacity: current === 0 ? 0.4 : 1,
+            }}
+          >
+            이전
+          </button>
+
+          <div style={{ display: 'flex', gap: 6 }}>
+            {FEATURE_SLIDES.map((_, i) => (
+              <PageDots key={i} selected={i === current} onClick={() => setCurrent(i)} />
+            ))}
+          </div>
+
+          <button
+            onClick={() => current < total - 1 ? setCurrent((c) => c + 1) : setCurrent(0)}
+            style={{
+              padding: '7px 16px', borderRadius: 8, border: 'none',
+              background: '#0f172a', color: '#fff', fontSize: 12, fontWeight: 600, cursor: 'pointer',
+            }}
+          >
+            {current === total - 1 ? '다시 보기' : '다음'}
+          </button>
+        </div>
+      </div>
+    )
+  },
+}

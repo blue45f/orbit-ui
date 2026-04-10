@@ -15985,3 +15985,298 @@ export const FormBuilder: Story = {
   },
   render: () => <FormBuilderRender />,
 }
+
+/* ==========================================================================
+   Template #56: FeedbackBoard — 사용자 피드백 & 기능 투표 보드
+   shadcn/ui + Vercel Design 벤치마크 기반
+   ========================================================================== */
+type FBStatus = 'planned' | 'in-progress' | 'done' | 'declined'
+type FBCategory = 'all' | 'feature' | 'bug' | 'improvement'
+
+type FeedbackItem = {
+  id: number
+  title: string
+  desc: string
+  votes: number
+  status: FBStatus
+  category: Exclude<FBCategory, 'all'>
+  comments: number
+  voted: boolean
+}
+
+const INITIAL_FEEDBACK: FeedbackItem[] = [
+  { id: 1, title: '다크 모드 지원 추가', desc: 'shadcn/ui처럼 시스템 테마를 자동으로 감지하는 다크 모드를 지원해 주세요.', votes: 142, status: 'planned', category: 'feature', comments: 18, voted: false },
+  { id: 2, title: 'Popover 포지션 자동 감지', desc: '화면 끝에서 자동으로 방향을 전환하는 스마트 포지셔닝이 필요합니다.', votes: 98, status: 'in-progress', category: 'improvement', comments: 11, voted: true },
+  { id: 3, title: 'DatePicker 컴포넌트', desc: '달력 기반 날짜 선택 컴포넌트가 없습니다. Radix Popover + Calendar 조합으로 구현해 주세요.', votes: 215, status: 'planned', category: 'feature', comments: 34, voted: false },
+  { id: 4, title: 'TextField 자동완성 드롭다운', desc: '입력 중 제안 목록이 표시되는 Combobox 패턴을 지원해 주세요.', votes: 76, status: 'done', category: 'feature', comments: 7, voted: false },
+  { id: 5, title: 'Toast 큐 겹침 현상', desc: '동시에 여러 Toast가 표시될 때 겹치는 버그가 있습니다.', votes: 54, status: 'done', category: 'bug', comments: 5, voted: true },
+  { id: 6, title: 'RTL 레이아웃 지원', desc: '아랍어, 히브리어 등 우->좌 언어를 위한 RTL 레이아웃이 필요합니다.', votes: 31, status: 'declined', category: 'feature', comments: 9, voted: false },
+]
+
+const STATUS_CONFIG: Record<FBStatus, { label: string; bg: string; color: string }> = {
+  planned: { label: '예정됨', bg: '#eff6ff', color: '#1d4ed8' },
+  'in-progress': { label: '진행 중', bg: '#fef3c7', color: '#92400e' },
+  done: { label: '완료', bg: '#dcfce7', color: '#166534' },
+  declined: { label: '거절됨', bg: '#f1f5f9', color: '#64748b' },
+}
+
+const CATEGORY_LABELS: Record<FBCategory, string> = {
+  all: '전체',
+  feature: '기능 요청',
+  bug: '버그 리포트',
+  improvement: '개선 제안',
+}
+
+const FeedbackBoardRender = () => {
+  const [items, setItems] = useState<FeedbackItem[]>(INITIAL_FEEDBACK)
+  const [category, setCategory] = useState<FBCategory>('all')
+  const [sort, setSort] = useState<'votes' | 'newest'>('votes')
+  const [drawerOpen, setDrawerOpen] = useState(false)
+  const [newTitle, setNewTitle] = useState('')
+  const [newDesc, setNewDesc] = useState('')
+  const [newCategory, setNewCategory] = useState<Exclude<FBCategory, 'all'>>('feature')
+
+  const toggleVote = (id: number) => {
+    setItems((prev) =>
+      prev.map((item) =>
+        item.id === id
+          ? { ...item, votes: item.voted ? item.votes - 1 : item.votes + 1, voted: !item.voted }
+          : item,
+      ),
+    )
+  }
+
+  const submitFeedback = () => {
+    if (!newTitle.trim()) return
+    const newItem: FeedbackItem = {
+      id: Date.now(),
+      title: newTitle.trim(),
+      desc: newDesc.trim(),
+      votes: 1,
+      status: 'planned',
+      category: newCategory,
+      comments: 0,
+      voted: true,
+    }
+    setItems((prev) => [newItem, ...prev])
+    setNewTitle('')
+    setNewDesc('')
+    setDrawerOpen(false)
+  }
+
+  const filtered = items
+    .filter((item) => category === 'all' || item.category === category)
+    .sort((a, b) => sort === 'votes' ? b.votes - a.votes : b.id - a.id)
+
+  return (
+    <div style={{ minHeight: '100vh', background: '#f8fafc', fontFamily: 'system-ui, sans-serif', display: 'flex' }}>
+      {/* 사이드바 */}
+      <aside style={{ width: 220, background: '#fff', borderRight: '1px solid #e2e8f0', padding: '24px 16px', flexShrink: 0 }}>
+        <div style={{ fontSize: 16, fontWeight: 800, color: '#0f172a', marginBottom: 24 }}>
+          피드백 보드
+        </div>
+        <div style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 8 }}>
+          카테고리
+        </div>
+        {(Object.keys(CATEGORY_LABELS) as FBCategory[]).map((cat) => (
+          <div
+            key={cat}
+            onClick={() => setCategory(cat)}
+            style={{
+              padding: '8px 12px', borderRadius: 8, cursor: 'pointer', marginBottom: 2, fontSize: 13,
+              fontWeight: category === cat ? 700 : 400,
+              background: category === cat ? '#eff6ff' : 'transparent',
+              color: category === cat ? '#3730a3' : '#475569',
+              transition: 'all 0.15s',
+            }}
+          >
+            {CATEGORY_LABELS[cat]}
+          </div>
+        ))}
+
+        <div style={{ marginTop: 24, borderTop: '1px solid #f1f5f9', paddingTop: 20 }}>
+          <div style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 12 }}>
+            현황 요약
+          </div>
+          {(Object.keys(STATUS_CONFIG) as FBStatus[]).map((s) => {
+            const cfg = STATUS_CONFIG[s]
+            const count = items.filter((i) => i.status === s).length
+            return (
+              <div key={s} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8, fontSize: 12 }}>
+                <span style={{ color: '#475569' }}>{cfg.label}</span>
+                <span style={{ background: cfg.bg, color: cfg.color, padding: '2px 7px', borderRadius: 99, fontWeight: 600, fontSize: 11 }}>{count}</span>
+              </div>
+            )
+          })}
+        </div>
+      </aside>
+
+      {/* 메인 영역 */}
+      <main style={{ flex: 1, padding: 28, overflowY: 'auto' }}>
+        {/* 상단 헤더 */}
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
+          <div>
+            <div style={{ fontSize: 20, fontWeight: 800, color: '#0f172a' }}>
+              {CATEGORY_LABELS[category]}
+              <span style={{ fontSize: 14, fontWeight: 400, color: '#94a3b8', marginLeft: 8 }}>({filtered.length}개)</span>
+            </div>
+          </div>
+          <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+            {/* 정렬 */}
+            <select
+              value={sort}
+              onChange={(e) => setSort(e.target.value as typeof sort)}
+              style={{ padding: '7px 12px', borderRadius: 8, border: '1px solid #e2e8f0', fontSize: 12, background: '#fff', cursor: 'pointer' }}
+            >
+              <option value="votes">투표 순</option>
+              <option value="newest">최신 순</option>
+            </select>
+            {/* 피드백 제출 Drawer 트리거 */}
+            <Drawer open={drawerOpen} onOpenChange={setDrawerOpen}>
+              <Drawer.Trigger asChild>
+                <SolidButton color="primary" size="small">
+                  <SolidButton.Center>피드백 제출</SolidButton.Center>
+                </SolidButton>
+              </Drawer.Trigger>
+              <Drawer.Content side="right">
+                <Drawer.Header>
+                  <Drawer.Title>새 피드백 제출</Drawer.Title>
+                  <Drawer.Description>아이디어, 버그, 개선 제안을 공유해 주세요.</Drawer.Description>
+                </Drawer.Header>
+                <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 16, padding: '8px 0' }}>
+                  <div>
+                    <label style={{ fontSize: 12, fontWeight: 600, color: '#374151', display: 'block', marginBottom: 6 }}>제목 *</label>
+                    <input
+                      value={newTitle}
+                      onChange={(e) => setNewTitle(e.target.value)}
+                      placeholder="간결하게 핵심만 입력하세요"
+                      style={{ width: '100%', padding: '9px 12px', borderRadius: 8, border: '1.5px solid #e2e8f0', fontSize: 13, boxSizing: 'border-box', outline: 'none' }}
+                    />
+                  </div>
+                  <div>
+                    <label style={{ fontSize: 12, fontWeight: 600, color: '#374151', display: 'block', marginBottom: 6 }}>카테고리</label>
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 6 }}>
+                      {(['feature', 'bug', 'improvement'] as const).map((cat) => (
+                        <button
+                          key={cat}
+                          onClick={() => setNewCategory(cat)}
+                          style={{
+                            padding: '7px 0', borderRadius: 8, fontSize: 11, fontWeight: 600, cursor: 'pointer',
+                            border: `2px solid ${newCategory === cat ? '#6366f1' : '#e2e8f0'}`,
+                            background: newCategory === cat ? '#eff6ff' : '#fff',
+                            color: newCategory === cat ? '#3730a3' : '#64748b',
+                          }}
+                        >
+                          {CATEGORY_LABELS[cat]}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                  <div>
+                    <label style={{ fontSize: 12, fontWeight: 600, color: '#374151', display: 'block', marginBottom: 6 }}>상세 설명</label>
+                    <textarea
+                      value={newDesc}
+                      onChange={(e) => setNewDesc(e.target.value)}
+                      placeholder="문제 상황이나 기대하는 결과를 자세히 설명해 주세요"
+                      rows={5}
+                      style={{ width: '100%', padding: '9px 12px', borderRadius: 8, border: '1.5px solid #e2e8f0', fontSize: 13, boxSizing: 'border-box', outline: 'none', resize: 'vertical', fontFamily: 'inherit' }}
+                    />
+                  </div>
+                </div>
+                <Drawer.Footer>
+                  <div style={{ display: 'flex', gap: 8, width: '100%' }}>
+                    <Drawer.Close asChild>
+                      <OutlineButton color="gray" size="medium" style={{ flex: 1 }}>
+                        <OutlineButton.Center>취소</OutlineButton.Center>
+                      </OutlineButton>
+                    </Drawer.Close>
+                    <SolidButton
+                      color="primary"
+                      size="medium"
+                      style={{ flex: 2 }}
+                      onClick={submitFeedback}
+                      disabled={!newTitle.trim()}
+                    >
+                      <SolidButton.Center>제출</SolidButton.Center>
+                    </SolidButton>
+                  </div>
+                </Drawer.Footer>
+              </Drawer.Content>
+            </Drawer>
+          </div>
+        </div>
+
+        {/* 피드백 카드 목록 */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+          {filtered.map((item) => {
+            const statusCfg = STATUS_CONFIG[item.status]
+            return (
+              <div
+                key={item.id}
+                style={{
+                  background: '#fff', borderRadius: 12, border: '1px solid #e2e8f0', padding: '16px 20px',
+                  display: 'flex', gap: 16, alignItems: 'flex-start',
+                  boxShadow: '0 1px 4px #0000000a', transition: 'box-shadow 0.15s',
+                }}
+              >
+                {/* 투표 버튼 */}
+                <button
+                  onClick={() => toggleVote(item.id)}
+                  style={{
+                    display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2,
+                    padding: '6px 10px', borderRadius: 8, border: `1.5px solid ${item.voted ? '#6366f1' : '#e2e8f0'}`,
+                    background: item.voted ? '#eff6ff' : '#fff', cursor: 'pointer', minWidth: 46,
+                    transition: 'all 0.15s', flexShrink: 0,
+                  }}
+                >
+                  <span style={{ fontSize: 10, color: item.voted ? '#6366f1' : '#94a3b8', fontWeight: 700 }}>▲</span>
+                  <span style={{ fontSize: 14, fontWeight: 700, color: item.voted ? '#6366f1' : '#374151' }}>{item.votes}</span>
+                </button>
+
+                {/* 콘텐츠 */}
+                <div style={{ flex: 1 }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4, flexWrap: 'wrap' }}>
+                    <span style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>{item.title}</span>
+                    <span style={{
+                      fontSize: 11, padding: '2px 8px', borderRadius: 99, fontWeight: 600,
+                      background: statusCfg.bg, color: statusCfg.color,
+                    }}>
+                      {statusCfg.label}
+                    </span>
+                    <span style={{ fontSize: 11, color: '#94a3b8', background: '#f8fafc', padding: '2px 7px', borderRadius: 4 }}>
+                      {CATEGORY_LABELS[item.category]}
+                    </span>
+                  </div>
+                  <div style={{ fontSize: 12, color: '#64748b', lineHeight: 1.6 }}>{item.desc}</div>
+                  <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 8 }}>
+                    댓글 {item.comments}개
+                  </div>
+                </div>
+              </div>
+            )
+          })}
+        </div>
+
+        {/* 하단 페이지 인디케이터 */}
+        <div style={{ display: 'flex', justifyContent: 'center', gap: 8, marginTop: 28, padding: '12px 0' }}>
+          {[0, 1, 2].map((i) => (
+            <PageDots key={i} selected={i === 0} onClick={() => {}} />
+          ))}
+        </div>
+      </main>
+    </div>
+  )
+}
+
+export const FeedbackBoard: Story = {
+  name: '피드백 보드 (shadcn/ui + Vercel 패턴)',
+  parameters: {
+    layout: 'fullscreen',
+    docs: {
+      description: {
+        story: 'shadcn/ui Sheet + Vercel Design 패턴 기반 사용자 피드백 & 기능 투표 보드. Drawer로 피드백 제출, PageDots로 페이지 인디케이터, 카테고리 필터 사이드바 포함.',
+      },
+    },
+  },
+  render: () => <FeedbackBoardRender />,
+}

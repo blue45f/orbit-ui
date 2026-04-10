@@ -923,3 +923,342 @@ export const shadcn_설정_드로어: Story = {
   name: 'shadcn/ui — 설정 드로어 (스크롤 콘텐츠 + 고정 푸터)',
   render: () => <ShadcnSettingsDrawerRender />,
 }
+
+/* --------------------------------------------------------------------------
+   Cycle 66: shadcn/ui + Vercel Design 벤치마크
+-------------------------------------------------------------------------- */
+
+/* shadcn/ui Sheet — 검색 + 필터 사이드패널
+   shadcn의 Sheet(=Drawer) 핵심 패턴: 우측에서 슬라이드되는 검색/필터 패널.
+   헤더에 검색 입력, 바디에 필터 체크리스트, 푸터에 적용/초기화 버튼.
+-------------------------------------------------------------------------- */
+const FILTER_CATEGORIES = [
+  { id: 'ui', label: 'UI 라이브러리', count: 24, active: true },
+  { id: 'state', label: '상태관리', count: 12, active: false },
+  { id: 'form', label: '폼 라이브러리', count: 8, active: true },
+  { id: 'animation', label: '애니메이션', count: 6, active: false },
+  { id: 'data', label: '데이터 페칭', count: 9, active: false },
+]
+
+const ShadcnSearchFilterRender = () => {
+  const [open, setOpen] = useState(false)
+  const [query, setQuery] = useState('')
+  const [selected, setSelected] = useState<Set<string>>(new Set(['ui', 'form']))
+
+  const toggle = (id: string) => {
+    setSelected((prev) => {
+      const next = new Set(prev)
+      if (next.has(id)) next.delete(id)
+      else next.add(id)
+      return next
+    })
+  }
+
+  const filtered = FILTER_CATEGORIES.filter((c) =>
+    c.label.toLowerCase().includes(query.toLowerCase()),
+  )
+
+  return (
+    <Drawer open={open} onOpenChange={setOpen}>
+      <Drawer.Trigger asChild>
+        <Button color="primary" size="medium">
+          <Button.Center>검색 필터 열기</Button.Center>
+        </Button>
+      </Drawer.Trigger>
+      <Drawer.Content side="right">
+        <Drawer.Header>
+          <Drawer.Title>패키지 검색 및 필터</Drawer.Title>
+          <Drawer.Description>카테고리를 선택해 결과를 좁힐 수 있습니다.</Drawer.Description>
+          <div style={{ marginTop: 12 }}>
+            <input
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="카테고리 검색..."
+              style={{
+                width: '100%', padding: '8px 12px', borderRadius: 8,
+                border: '1.5px solid #e2e8f0', fontSize: 13, outline: 'none',
+                boxSizing: 'border-box',
+              }}
+            />
+          </div>
+        </Drawer.Header>
+        <div style={{ flex: 1, overflowY: 'auto', padding: '8px 0' }}>
+          <div style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em', padding: '8px 0 6px' }}>
+            카테고리 ({selected.size}개 선택)
+          </div>
+          {filtered.map((cat) => (
+            <div
+              key={cat.id}
+              onClick={() => toggle(cat.id)}
+              style={{
+                display: 'flex', alignItems: 'center', gap: 10, padding: '10px 12px',
+                borderRadius: 8, cursor: 'pointer', marginBottom: 4,
+                background: selected.has(cat.id) ? '#eff6ff' : 'transparent',
+                border: `1px solid ${selected.has(cat.id) ? '#c7d2fe' : 'transparent'}`,
+                transition: 'all 0.15s',
+              }}
+            >
+              <div style={{
+                width: 16, height: 16, borderRadius: 4,
+                border: `2px solid ${selected.has(cat.id) ? '#6366f1' : '#cbd5e1'}`,
+                background: selected.has(cat.id) ? '#6366f1' : '#fff',
+                display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0,
+              }}>
+                {selected.has(cat.id) && <span style={{ fontSize: 9, color: '#fff', fontWeight: 700 }}>✓</span>}
+              </div>
+              <span style={{ flex: 1, fontSize: 13, color: selected.has(cat.id) ? '#3730a3' : '#374151', fontWeight: selected.has(cat.id) ? 600 : 400 }}>
+                {cat.label}
+              </span>
+              <span style={{ fontSize: 11, color: '#94a3b8', background: '#f1f5f9', padding: '2px 6px', borderRadius: 4 }}>
+                {cat.count}
+              </span>
+            </div>
+          ))}
+          {filtered.length === 0 && (
+            <div style={{ textAlign: 'center', padding: '32px 0', fontSize: 13, color: '#94a3b8' }}>
+              검색 결과가 없습니다.
+            </div>
+          )}
+        </div>
+        <Drawer.Footer>
+          <div style={{ display: 'flex', gap: 8, width: '100%' }}>
+            <OutlineButton color="gray" size="medium" style={{ flex: 1 }} onClick={() => setSelected(new Set())}>
+              <OutlineButton.Center>초기화</OutlineButton.Center>
+            </OutlineButton>
+            <Drawer.Close asChild>
+              <Button color="primary" size="medium" style={{ flex: 2 }}>
+                <Button.Center>적용 ({selected.size})</Button.Center>
+              </Button>
+            </Drawer.Close>
+          </div>
+        </Drawer.Footer>
+      </Drawer.Content>
+    </Drawer>
+  )
+}
+
+export const shadcn_검색_필터_사이드패널: Story = {
+  name: 'shadcn/ui — 검색 필터 사이드패널',
+  parameters: {
+    docs: {
+      description: {
+        story: 'shadcn/ui Sheet 패턴. 우측에서 슬라이드되는 검색·필터 패널. 헤더 인라인 검색 입력, 바디 체크리스트, 푸터 적용/초기화 버튼의 3단 구조.',
+      },
+    },
+  },
+  render: () => <ShadcnSearchFilterRender />,
+}
+
+/* Vercel — 배포 로그 사이드패널
+   Vercel 배포 상세 뷰에서 영감. 우측 패널에 로그 스트림을 타임라인으로 표시.
+   실시간 업데이트 시뮬레이션과 상태 배지.
+-------------------------------------------------------------------------- */
+const DEPLOY_LOG_STEPS = [
+  { time: '12:01:03', level: 'info', msg: 'Initializing build environment...' },
+  { time: '12:01:05', level: 'info', msg: 'Installing dependencies (pnpm install)' },
+  { time: '12:01:21', level: 'success', msg: 'Dependencies installed (247 packages)' },
+  { time: '12:01:22', level: 'info', msg: 'Running build: pnpm build:storybook' },
+  { time: '12:01:38', level: 'warn', msg: 'Some chunks are larger than 500 kB' },
+  { time: '12:01:45', level: 'success', msg: 'Build completed in 23s' },
+  { time: '12:01:46', level: 'info', msg: 'Uploading artifacts...' },
+  { time: '12:01:52', level: 'success', msg: 'Deployment ready: orbit-ui.vercel.app' },
+]
+
+const LEVEL_COLOR: Record<string, string> = {
+  info: '#6366f1',
+  success: '#22c55e',
+  warn: '#f59e0b',
+  error: '#ef4444',
+}
+
+const VercelDeployLogRender = () => {
+  const [open, setOpen] = useState(false)
+  const [visibleCount, setVisibleCount] = useState(0)
+  const [running, setRunning] = useState(false)
+
+  const startDeploy = () => {
+    setOpen(true)
+    setVisibleCount(0)
+    setRunning(true)
+  }
+
+  if (running && visibleCount < DEPLOY_LOG_STEPS.length) {
+    setTimeout(() => setVisibleCount((c) => c + 1), 400)
+  }
+
+  return (
+    <Drawer open={open} onOpenChange={(v) => { setOpen(v); if (!v) setRunning(false) }}>
+      <Drawer.Trigger asChild>
+        <Button color="primary" size="medium" onClick={startDeploy}>
+          <Button.Center>배포 시작</Button.Center>
+        </Button>
+      </Drawer.Trigger>
+      <Drawer.Content side="right">
+        <Drawer.Header>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            <Drawer.Title>배포 로그</Drawer.Title>
+            {visibleCount < DEPLOY_LOG_STEPS.length && running ? (
+              <span style={{ fontSize: 11, background: '#fef3c7', color: '#92400e', padding: '2px 8px', borderRadius: 99, fontWeight: 600 }}>
+                진행 중
+              </span>
+            ) : (
+              <span style={{ fontSize: 11, background: '#dcfce7', color: '#166534', padding: '2px 8px', borderRadius: 99, fontWeight: 600 }}>
+                완료
+              </span>
+            )}
+          </div>
+          <Drawer.Description>실시간 빌드 로그를 확인합니다.</Drawer.Description>
+        </Drawer.Header>
+        <div style={{ flex: 1, overflowY: 'auto', fontFamily: 'monospace', fontSize: 12, background: '#0f172a', borderRadius: 8, margin: '0 4px', padding: 16 }}>
+          {DEPLOY_LOG_STEPS.slice(0, visibleCount).map((log, i) => (
+            <div key={i} style={{ display: 'flex', gap: 10, marginBottom: 8, alignItems: 'flex-start' }}>
+              <span style={{ color: '#475569', flexShrink: 0 }}>{log.time}</span>
+              <span style={{ color: LEVEL_COLOR[log.level] ?? '#94a3b8', fontWeight: 700, flexShrink: 0, minWidth: 50 }}>
+                [{log.level.toUpperCase()}]
+              </span>
+              <span style={{ color: '#e2e8f0', wordBreak: 'break-all' }}>{log.msg}</span>
+            </div>
+          ))}
+          {visibleCount < DEPLOY_LOG_STEPS.length && running && (
+            <div style={{ color: '#6366f1', animation: 'none' }}>_ </div>
+          )}
+        </div>
+        <Drawer.Footer>
+          <Drawer.Close asChild>
+            <OutlineButton color="gray" size="medium" style={{ width: '100%' }}>
+              <OutlineButton.Center>닫기</OutlineButton.Center>
+            </OutlineButton>
+          </Drawer.Close>
+        </Drawer.Footer>
+      </Drawer.Content>
+    </Drawer>
+  )
+}
+
+export const Vercel_배포_로그_패널: Story = {
+  name: 'Vercel — 배포 로그 사이드패널',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Vercel 배포 상세 뷰 패턴. 우측 패널에 모노스페이스 로그 스트림을 타임라인으로 표시. 빌드 진행 상태 배지와 실시간 로그 시뮬레이션.',
+      },
+    },
+  },
+  render: () => <VercelDeployLogRender />,
+}
+
+/* Vercel — 팀 멤버 초대 드로어
+   Vercel 팀 설정의 멤버 초대 플로우. 이메일 + 역할 선택 + 확인의 단계적 UX.
+-------------------------------------------------------------------------- */
+const ROLES = [
+  { id: 'owner', label: 'Owner', desc: '모든 권한 (결제 포함)' },
+  { id: 'member', label: 'Member', desc: '프로젝트 배포 및 설정' },
+  { id: 'viewer', label: 'Viewer', desc: '읽기 전용 접근' },
+]
+
+const VercelInviteRender = () => {
+  const [open, setOpen] = useState(false)
+  const [email, setEmail] = useState('')
+  const [role, setRole] = useState('member')
+  const [sent, setSent] = useState(false)
+
+  const handleSend = () => {
+    if (!email.trim()) return
+    setSent(true)
+    setTimeout(() => { setOpen(false); setSent(false); setEmail('') }, 1200)
+  }
+
+  return (
+    <Drawer open={open} onOpenChange={setOpen}>
+      <Drawer.Trigger asChild>
+        <Button color="primary" size="medium">
+          <Button.Center>팀원 초대</Button.Center>
+        </Button>
+      </Drawer.Trigger>
+      <Drawer.Content side="right">
+        <Drawer.Header>
+          <Drawer.Title>팀원 초대</Drawer.Title>
+          <Drawer.Description>이메일을 입력하고 역할을 선택하세요.</Drawer.Description>
+        </Drawer.Header>
+        <div style={{ flex: 1, padding: '8px 0' }}>
+          <div style={{ marginBottom: 20 }}>
+            <label style={{ fontSize: 12, fontWeight: 600, color: '#374151', display: 'block', marginBottom: 6 }}>
+              이메일 주소
+            </label>
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="colleague@company.com"
+              style={{
+                width: '100%', padding: '9px 12px', borderRadius: 8,
+                border: '1.5px solid #e2e8f0', fontSize: 13, outline: 'none',
+                boxSizing: 'border-box',
+              }}
+            />
+          </div>
+          <div>
+            <label style={{ fontSize: 12, fontWeight: 600, color: '#374151', display: 'block', marginBottom: 8 }}>
+              역할 선택
+            </label>
+            {ROLES.map((r) => (
+              <div
+                key={r.id}
+                onClick={() => setRole(r.id)}
+                style={{
+                  padding: '12px 14px', borderRadius: 8, marginBottom: 8, cursor: 'pointer',
+                  border: `2px solid ${role === r.id ? '#6366f1' : '#e2e8f0'}`,
+                  background: role === r.id ? '#eff6ff' : '#fff',
+                  transition: 'all 0.15s',
+                }}
+              >
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                  <div style={{
+                    width: 14, height: 14, borderRadius: '50%',
+                    border: `2px solid ${role === r.id ? '#6366f1' : '#cbd5e1'}`,
+                    background: role === r.id ? '#6366f1' : '#fff',
+                    flexShrink: 0,
+                  }} />
+                  <span style={{ fontSize: 13, fontWeight: 600, color: role === r.id ? '#3730a3' : '#1e293b' }}>
+                    {r.label}
+                  </span>
+                </div>
+                <div style={{ fontSize: 12, color: '#64748b', marginTop: 4, paddingLeft: 22 }}>{r.desc}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+        <Drawer.Footer>
+          <div style={{ display: 'flex', gap: 8, width: '100%' }}>
+            <Drawer.Close asChild>
+              <OutlineButton color="gray" size="medium" style={{ flex: 1 }}>
+                <OutlineButton.Center>취소</OutlineButton.Center>
+              </OutlineButton>
+            </Drawer.Close>
+            <Button
+              color={sent ? 'gray' : 'primary'}
+              size="medium"
+              style={{ flex: 2 }}
+              onClick={handleSend}
+              disabled={!email.trim() || sent}
+            >
+              <Button.Center>{sent ? '초대 완료!' : '초대 전송'}</Button.Center>
+            </Button>
+          </div>
+        </Drawer.Footer>
+      </Drawer.Content>
+    </Drawer>
+  )
+}
+
+export const Vercel_팀_멤버_초대_드로어: Story = {
+  name: 'Vercel — 팀 멤버 초대 드로어',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Vercel 팀 설정 초대 플로우. 이메일 입력 + 역할 선택(Owner/Member/Viewer) + 전송 확인. 간결한 단일 패널에 완전한 초대 워크플로우를 담은 패턴.',
+      },
+    },
+  },
+  render: () => <VercelInviteRender />,
+}
