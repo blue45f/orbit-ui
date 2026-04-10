@@ -1358,3 +1358,213 @@ export const Notion_블록_편집기_호버_액션: Story = {
   args: { children: <MoreHorizontalIcon /> },
   render: () => <NotionBlockEditorRender131 />,
 }
+
+/* --------------------------------------------------------------------------
+   Vercel Design — 컴팩트 대시보드 액션 클러스터
+   Vercel의 모노크롬 아이콘 버튼 그룹 — 새로고침/필터/공유/더보기
+-------------------------------------------------------------------------- */
+function VercelDashboardActionClusterRender() {
+  const [refreshing, setRefreshing] = useState(false)
+  const [starred, setStarred] = useState(false)
+  const [shared, setShared] = useState(false)
+
+  const handleRefresh = () => {
+    setRefreshing(true)
+    setTimeout(() => setRefreshing(false), 1200)
+  }
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 20, minWidth: 360 }}>
+      {/* 대시보드 헤더 */}
+      <div style={{ padding: '12px 16px', border: '1px solid var(--sem-eclipse-color-borderDefault)', borderRadius: 10, background: 'var(--sem-eclipse-color-backgroundPrimary)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <div>
+          <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>프로덕션 배포</div>
+          <div style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginTop: 2 }}>orbit-ui.vercel.app · 2분 전</div>
+        </div>
+        <Flex gap="4px">
+          <SolidIconButton
+            color="black"
+            size="small"
+            onClick={handleRefresh}
+            style={{ opacity: refreshing ? 0.5 : 1, transition: 'opacity 0.2s' }}
+          >
+            <SearchIcon />
+          </SolidIconButton>
+          <SolidIconButton
+            color={starred ? 'black' : 'black'}
+            size="small"
+            onClick={() => setStarred((v) => !v)}
+          >
+            <StarLineIcon />
+          </SolidIconButton>
+          <SolidIconButton
+            color="black"
+            size="small"
+            onClick={() => setShared((v) => !v)}
+          >
+            <ShareIcon />
+          </SolidIconButton>
+          <SolidIconButton color="black" size="small">
+            <MoreHorizontalIcon />
+          </SolidIconButton>
+        </Flex>
+      </div>
+      {/* 상태 표시 */}
+      <div style={{ padding: '10px 14px', borderRadius: 8, background: 'var(--sem-eclipse-color-backgroundSecondary)', fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>
+        {refreshing && '새로고침 중...'}
+        {!refreshing && starred && '즐겨찾기에 추가됨'}
+        {!refreshing && !starred && shared && '공유 링크 복사됨'}
+        {!refreshing && !starred && !shared && 'Vercel 대시보드 액션 클러스터 패턴'}
+      </div>
+    </div>
+  )
+}
+
+export const Vercel_대시보드_액션_클러스터: Story = {
+  args: { children: <SearchIcon /> },
+  name: 'Vercel Design — 컴팩트 대시보드 아이콘 액션 클러스터',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Vercel 대시보드의 모노크롬 아이콘 버튼 그룹 패턴. 새로고침(opacity 애니메이션), 즐겨찾기 토글, 공유. 컴팩트 헤더에 액션을 집약하는 Vercel 스타일.',
+      },
+    },
+  },
+  render: () => <VercelDashboardActionClusterRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Ant Design — 테이블 인라인 CRUD 액션
+   Ant Design DataTable 행별 아이콘 액션 버튼 패턴
+-------------------------------------------------------------------------- */
+const ANT_TABLE_ROWS = [
+  { id: 1, name: '홍길동', email: 'hong@example.com', role: '관리자', status: '활성' },
+  { id: 2, name: '김민수', email: 'kim@example.com', role: '멤버', status: '활성' },
+  { id: 3, name: '이수진', email: 'lee@example.com', role: '뷰어', status: '비활성' },
+]
+
+function AntTableCRUDRender() {
+  const [rows, setRows] = useState(ANT_TABLE_ROWS)
+  const [editId, setEditId] = useState<number | null>(null)
+
+  const handleDelete = (id: number) => setRows((prev) => prev.filter((r) => r.id !== id))
+  const handleEdit = (id: number) => setEditId(id === editId ? null : id)
+
+  return (
+    <div style={{ minWidth: 480, border: '1px solid var(--sem-eclipse-color-borderDefault)', borderRadius: 10, overflow: 'hidden' }}>
+      {/* 테이블 헤더 */}
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.2fr 80px 80px 88px', padding: '8px 16px', background: 'var(--sem-eclipse-color-backgroundSecondary)', fontSize: 11, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundTertiary)', letterSpacing: '0.04em', textTransform: 'uppercase' }}>
+        <span>이름</span><span>이메일</span><span>역할</span><span>상태</span><span style={{ textAlign: 'right' }}>액션</span>
+      </div>
+      {rows.length === 0 ? (
+        <div style={{ padding: '24px', textAlign: 'center', color: 'var(--sem-eclipse-color-foregroundDisabled)', fontSize: 13 }}>모든 멤버가 삭제되었습니다</div>
+      ) : (
+        rows.map((row, idx) => (
+          <div key={row.id} style={{ display: 'grid', gridTemplateColumns: '1fr 1.2fr 80px 80px 88px', padding: '10px 16px', borderTop: idx === 0 ? 'none' : '1px solid var(--sem-eclipse-color-borderSubtle)', alignItems: 'center', background: editId === row.id ? 'var(--sem-eclipse-color-backgroundSecondary)' : 'transparent' }}>
+            <span style={{ fontSize: 13, fontWeight: 500, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{row.name}</span>
+            <span style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundSecondary)' }}>{row.email}</span>
+            <span style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>{row.role}</span>
+            <span style={{ fontSize: 11, color: row.status === '활성' ? '#10b981' : '#94a3b8', fontWeight: 600 }}>{row.status}</span>
+            <Flex gap="4px" justifyContent="flex-end">
+              <SolidIconButton color="black" size="small" onClick={() => handleEdit(row.id)}>
+                <WriteLineIcon />
+              </SolidIconButton>
+              <SolidIconButton color="black" size="small" onClick={() => handleDelete(row.id)}>
+                <CheckIcon />
+              </SolidIconButton>
+            </Flex>
+          </div>
+        ))
+      )}
+    </div>
+  )
+}
+
+export const Ant_테이블_인라인_CRUD_액션: Story = {
+  args: { children: <WriteLineIcon /> },
+  name: 'Ant Design — 테이블 행별 인라인 CRUD 아이콘 버튼',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Ant Design DataTable 행별 편집/삭제 아이콘 액션 패턴. 편집 클릭 시 행 하이라이트, 삭제 시 행 제거. 모든 행 삭제 시 빈 상태 메시지 표시.',
+      },
+    },
+  },
+  render: () => <AntTableCRUDRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Vercel + Ant Design — 미디어 플레이어 컨트롤
+   컴팩트 오디오/비디오 컨트롤 바 — Vercel 스타일 + Ant 기능성
+-------------------------------------------------------------------------- */
+function VercelAntMediaPlayerRender() {
+  const [playing, setPlaying] = useState(false)
+  const [muted, setMuted] = useState(false)
+  const [progress, setProgress] = useState(32)
+  const [liked, setLiked] = useState(false)
+
+  const totalSec = 243
+  const elapsed = Math.round(totalSec * progress / 100)
+  const fmt = (s: number) => `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`
+
+  return (
+    <div style={{ width: 360, padding: '14px 16px', border: '1px solid var(--sem-eclipse-color-borderDefault)', borderRadius: 12, background: 'var(--sem-eclipse-color-backgroundPrimary)', display: 'flex', flexDirection: 'column', gap: 12 }}>
+      {/* 트랙 정보 */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+        <div style={{ width: 44, height: 44, borderRadius: 8, background: 'linear-gradient(135deg, #6366f1, #ec4899)', flexShrink: 0 }} />
+        <div style={{ flex: 1, minWidth: 0 }}>
+          <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>Orbit UI Design Podcast</div>
+          <div style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>Episode 12 — Design Tokens</div>
+        </div>
+        <SolidIconButton color="black" size="small" onClick={() => setLiked((v) => !v)}>
+          <StarLineIcon />
+        </SolidIconButton>
+      </div>
+      {/* 프로그레스 바 */}
+      <div>
+        <input
+          type="range"
+          min={0}
+          max={100}
+          value={progress}
+          onChange={(e) => setProgress(Number(e.target.value))}
+          style={{ width: '100%', height: 4, accentColor: '#6366f1', cursor: 'pointer' }}
+        />
+        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 10, color: 'var(--sem-eclipse-color-foregroundQuaternary)', marginTop: 2 }}>
+          <span>{fmt(elapsed)}</span><span>{fmt(totalSec)}</span>
+        </div>
+      </div>
+      {/* 컨트롤 버튼 */}
+      <Flex gap="8px" justifyContent="center" alignItems="center">
+        <SolidIconButton color="black" size="small" onClick={() => setProgress((v) => Math.max(0, v - 10))}>
+          <ChevronLeftLineIcon />
+        </SolidIconButton>
+        <SolidIconButton color="black" size="medium" onClick={() => setPlaying((v) => !v)}>
+          {playing ? <CheckIcon /> : <PlusIcon />}
+        </SolidIconButton>
+        <SolidIconButton color="black" size="small" onClick={() => setProgress((v) => Math.min(100, v + 10))}>
+          <ChevronRightLineIcon />
+        </SolidIconButton>
+        <SolidIconButton color="black" size="small" onClick={() => setMuted((v) => !v)} style={{ marginLeft: 8 }}>
+          <NotificationLineIcon />
+        </SolidIconButton>
+      </Flex>
+      <div style={{ fontSize: 10, color: 'var(--sem-eclipse-color-foregroundDisabled)', textAlign: 'center' }}>
+        {playing ? '재생 중' : '일시정지'} · {muted ? '음소거' : '소리 켜짐'} · {liked ? '즐겨찾기 추가됨' : 'Vercel + Ant 미디어 컨트롤'}
+      </div>
+    </div>
+  )
+}
+
+export const Vercel_Ant_미디어_플레이어_컨트롤: Story = {
+  args: { children: <StarLineIcon /> },
+  name: 'Vercel + Ant Design — 컴팩트 미디어 플레이어 컨트롤',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Vercel 스타일 + Ant Design 기능성 미디어 플레이어. 이전/재생-일시정지/다음 + 음소거 + 즐겨찾기. range 슬라이더로 진행률 제어, 경과/총 시간 표시.',
+      },
+    },
+  },
+  render: () => <VercelAntMediaPlayerRender />,
+}

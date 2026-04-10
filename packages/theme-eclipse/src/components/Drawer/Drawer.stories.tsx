@@ -10,6 +10,7 @@ import { CheckboxWithLabel } from '../composites/CheckboxWithLabel'
 import { RadioButtonWithLabel } from '../composites/RadioButtonWithLabel'
 import { RadioGroup } from '../composites/RadioGroup'
 import { Typography } from '../Text'
+import { RadioButton } from '../RadioButton'
 
 const meta = {
   title: 'eclipse/Feedback/Drawer',
@@ -1857,4 +1858,311 @@ export const MUI_Tailwind_작업_생성_드로어: Story = {
     },
   },
   render: () => <MUITailwindCreateTaskRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Vercel Design — 환경 변수 관리 드로어
+   Vercel의 compact dark 패널 — 환경변수 추가/편집 사이드 드로어
+-------------------------------------------------------------------------- */
+const ENV_SCOPES = ['Production', 'Preview', 'Development']
+
+function VercelEnvVarDrawerRender() {
+  const [open, setOpen] = useState(false)
+  const [key, setKey] = useState('')
+  const [value, setValue] = useState('')
+  const [scopes, setScopes] = useState<string[]>(['Production', 'Preview', 'Development'])
+  const [saved, setSaved] = useState(false)
+
+  const toggleScope = (s: string) => {
+    setScopes((prev) => prev.includes(s) ? prev.filter((x) => x !== s) : [...prev, s])
+  }
+
+  const handleSave = () => {
+    setSaved(true)
+    setTimeout(() => { setSaved(false); setOpen(false); setKey(''); setValue('') }, 1500)
+  }
+
+  return (
+    <div>
+      <Button color="primary" size="small" onClick={() => setOpen(true)}>
+        <Button.Center>환경 변수 추가</Button.Center>
+      </Button>
+      <Drawer open={open} onOpenChange={setOpen}>
+        <Drawer.Content style={{ width: 440 }}>
+          <Drawer.Header>
+            <Typography textStyle="subheadingSmall" color="foregroundPrimary">환경 변수 추가</Typography>
+          </Drawer.Header>
+          <div style={{ padding: '20px 24px', display: 'flex', flexDirection: 'column', gap: 20, flex: 1, overflowY: 'auto' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+              <Typography textStyle="labelSmall" color="foregroundPrimary">Key</Typography>
+              <FloatingTextField
+                placeholder="예: DATABASE_URL"
+                value={key}
+                onChange={(e) => setKey(e.target.value)}
+              />
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+              <Typography textStyle="labelSmall" color="foregroundPrimary">Value</Typography>
+              <FloatingTextField
+                placeholder="환경 변수 값"
+                value={value}
+                onChange={(e) => setValue(e.target.value)}
+              />
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+              <Typography textStyle="labelSmall" color="foregroundPrimary">환경 선택</Typography>
+              {ENV_SCOPES.map((s) => (
+                <CheckboxWithLabel
+                  key={s}
+                  checked={scopes.includes(s)}
+                  onChange={() => toggleScope(s)}
+                >{s}</CheckboxWithLabel>
+              ))}
+            </div>
+            <div style={{ padding: 12, borderRadius: 8, background: 'var(--sem-eclipse-color-backgroundSecondary)', border: '1px solid var(--sem-eclipse-color-borderSubtle)' }}>
+              <Typography textStyle="descriptionSmall" color="foregroundTertiary">
+                민감한 값은 마스킹되어 저장되며 팀원은 값을 볼 수 없습니다.
+              </Typography>
+            </div>
+          </div>
+          <Drawer.Footer>
+            <OutlineButton color="black" size="medium" onClick={() => setOpen(false)}>
+              <OutlineButton.Center>취소</OutlineButton.Center>
+            </OutlineButton>
+            <Button
+              color="primary"
+              size="medium"
+              disabled={!key.trim() || scopes.length === 0}
+              onClick={handleSave}
+            >
+              <Button.Center>{saved ? '저장됨' : '저장'}</Button.Center>
+            </Button>
+          </Drawer.Footer>
+        </Drawer.Content>
+      </Drawer>
+    </div>
+  )
+}
+
+export const Vercel_환경변수_관리_드로어: Story = {
+  name: 'Vercel Design — 환경 변수 추가/편집 드로어',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Vercel의 환경변수 관리 사이드 드로어 패턴. Key/Value 인풋, Production/Preview/Development 스코프 체크박스, 저장 시 1.5초 후 자동 닫힘. 모노스페이스 Key 필드.',
+      },
+    },
+  },
+  render: () => <VercelEnvVarDrawerRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Ant Design — 데이터 내보내기 설정 드로어
+   Ant의 우측 설정 패널 패턴 — 포맷/범위/필드 선택
+-------------------------------------------------------------------------- */
+const EXPORT_FIELDS = ['ID', '이름', '이메일', '가입일', '플랜', '상태', '마지막 로그인', '사용량']
+
+function AntExportDrawerRender() {
+  const [open, setOpen] = useState(false)
+  const [format, setFormat] = useState('csv')
+  const [dateRange, setDateRange] = useState('30d')
+  const [fields, setFields] = useState<string[]>(['ID', '이름', '이메일', '플랜'])
+  const [exporting, setExporting] = useState(false)
+  const [done, setDone] = useState(false)
+
+  const toggleField = (f: string) => {
+    setFields((prev) => prev.includes(f) ? prev.filter((x) => x !== f) : [...prev, f])
+  }
+
+  const handleExport = () => {
+    setExporting(true)
+    setTimeout(() => { setExporting(false); setDone(true) }, 2000)
+    setTimeout(() => { setDone(false); setOpen(false) }, 3500)
+  }
+
+  return (
+    <div>
+      <OutlineButton color="black" size="small" onClick={() => setOpen(true)}>
+        <OutlineButton.Center>데이터 내보내기</OutlineButton.Center>
+      </OutlineButton>
+      <Drawer open={open} onOpenChange={setOpen}>
+        <Drawer.Content style={{ width: 400 }}>
+          <Drawer.Header>
+            <Typography textStyle="subheadingSmall" color="foregroundPrimary">데이터 내보내기</Typography>
+          </Drawer.Header>
+          <div style={{ padding: '20px 24px', display: 'flex', flexDirection: 'column', gap: 20, flex: 1, overflowY: 'auto' }}>
+            {/* 포맷 선택 */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+              <Typography textStyle="labelSmall" color="foregroundPrimary">파일 형식</Typography>
+              <RadioGroup name="export-format" value={format} onChange={(e) => setFormat(e.target.value)}>
+                {[['csv', 'CSV (.csv)'], ['xlsx', 'Excel (.xlsx)'], ['json', 'JSON (.json)']].map(([v, l]) => (
+                  <RadioButtonWithLabel key={v} value={v}>{l}</RadioButtonWithLabel>
+                ))}
+              </RadioGroup>
+            </div>
+            {/* 기간 선택 */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+              <Typography textStyle="labelSmall" color="foregroundPrimary">데이터 범위</Typography>
+              <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+                {[['7d', '최근 7일'], ['30d', '최근 30일'], ['90d', '최근 90일'], ['all', '전체']].map(([v, l]) => (
+                  <button
+                    key={v}
+                    onClick={() => setDateRange(v)}
+                    style={{ padding: '5px 12px', borderRadius: 6, border: `1px solid ${dateRange === v ? '#6366f1' : 'var(--sem-eclipse-color-borderDefault)'}`, background: dateRange === v ? '#6366f110' : 'transparent', color: dateRange === v ? '#6366f1' : 'var(--sem-eclipse-color-foregroundSecondary)', fontSize: 12, fontWeight: dateRange === v ? 700 : 400, cursor: 'pointer', transition: 'all 0.15s' }}
+                  >
+                    {l}
+                  </button>
+                ))}
+              </div>
+            </div>
+            {/* 필드 선택 */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <Typography textStyle="labelSmall" color="foregroundPrimary">포함할 필드</Typography>
+                <Typography textStyle="descriptionSmall" color="foregroundTertiary">{fields.length}/{EXPORT_FIELDS.length}</Typography>
+              </div>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 6 }}>
+                {EXPORT_FIELDS.map((f) => (
+                  <CheckboxWithLabel
+                    key={f}
+                    checked={fields.includes(f)}
+                    onChange={() => toggleField(f)}
+                  >{f}</CheckboxWithLabel>
+                ))}
+              </div>
+            </div>
+            {/* 상태 메시지 */}
+            {(exporting || done) && (
+              <div style={{ padding: 12, borderRadius: 8, background: done ? '#10b98120' : '#6366f110', border: `1px solid ${done ? '#10b981' : '#6366f1'}40`, textAlign: 'center' }}>
+                <Typography textStyle="labelSmall" color={done ? 'foregroundPrimary' : 'foregroundPrimary'}>
+                  {done ? '내보내기 완료! 다운로드가 시작됩니다.' : '파일 생성 중...'}
+                </Typography>
+              </div>
+            )}
+          </div>
+          <Drawer.Footer>
+            <OutlineButton color="black" size="medium" onClick={() => setOpen(false)}>
+              <OutlineButton.Center>취소</OutlineButton.Center>
+            </OutlineButton>
+            <Button
+              color="primary"
+              size="medium"
+              disabled={fields.length === 0 || exporting}
+              onClick={handleExport}
+            >
+              <Button.Center>{exporting ? '생성 중...' : '내보내기'}</Button.Center>
+            </Button>
+          </Drawer.Footer>
+        </Drawer.Content>
+      </Drawer>
+    </div>
+  )
+}
+
+export const Ant_데이터_내보내기_드로어: Story = {
+  name: 'Ant Design — 데이터 내보내기 설정 드로어',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Ant Design 우측 설정 패널 패턴. CSV/Excel/JSON 포맷, 기간 범위, 포함 필드 체크박스 선택. 내보내기 진행 중 상태 표시 후 완료 피드백.',
+      },
+    },
+  },
+  render: () => <AntExportDrawerRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Vercel + Ant Design — 팀 멤버 상세 드로어
+   팀원 프로필 + 권한/역할 설정 복합 패널
+-------------------------------------------------------------------------- */
+const PERMISSIONS = [
+  { id: 'view', label: '뷰어', desc: '읽기 전용 접근' },
+  { id: 'member', label: '멤버', desc: '프로젝트 생성 및 배포' },
+  { id: 'admin', label: '관리자', desc: '팀 설정 및 멤버 관리' },
+]
+
+function VercelAntMemberDrawerRender() {
+  const [open, setOpen] = useState(false)
+  const [role, setRole] = useState('member')
+  const [notifications, setNotifications] = useState({ deploy: true, error: true, weekly: false })
+
+  return (
+    <div>
+      <Button color="primary" size="small" onClick={() => setOpen(true)}>
+        <Button.Center>멤버 상세 보기</Button.Center>
+      </Button>
+      <Drawer open={open} onOpenChange={setOpen}>
+        <Drawer.Content style={{ width: 420 }}>
+          <Drawer.Header>
+            <Typography textStyle="subheadingSmall" color="foregroundPrimary">팀 멤버 상세</Typography>
+          </Drawer.Header>
+          <div style={{ padding: '20px 24px', display: 'flex', flexDirection: 'column', gap: 20, flex: 1, overflowY: 'auto' }}>
+            {/* 프로필 */}
+            <div style={{ display: 'flex', gap: 14, alignItems: 'center', padding: '14px 16px', background: 'var(--sem-eclipse-color-backgroundSecondary)', borderRadius: 10 }}>
+              <div style={{ width: 48, height: 48, borderRadius: '50%', background: 'linear-gradient(135deg, #6366f1, #8b5cf6)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                <span style={{ fontSize: 18, fontWeight: 800, color: '#fff' }}>AK</span>
+              </div>
+              <div>
+                <Typography textStyle="labelMedium" color="foregroundPrimary">Alice Kim</Typography>
+                <Typography textStyle="descriptionSmall" color="foregroundTertiary">alice@example.com</Typography>
+                <Typography textStyle="descriptionSmall" color="foregroundDisabled">2024년 1월 가입 · 마지막 활동 2시간 전</Typography>
+              </div>
+            </div>
+            {/* 역할 설정 */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+              <Typography textStyle="labelSmall" color="foregroundPrimary">역할 설정</Typography>
+              {PERMISSIONS.map((p) => (
+                <div
+                  key={p.id}
+                  onClick={() => setRole(p.id)}
+                  style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '10px 14px', borderRadius: 8, border: `1.5px solid ${role === p.id ? '#6366f1' : 'var(--sem-eclipse-color-borderDefault)'}`, background: role === p.id ? '#6366f108' : 'transparent', cursor: 'pointer', transition: 'all 0.15s' }}
+                >
+                  <RadioButton checked={role === p.id} onChange={() => setRole(p.id)} />
+                  <div>
+                    <Typography textStyle="labelSmall" color="foregroundPrimary">{p.label}</Typography>
+                    <Typography textStyle="descriptionSmall" color="foregroundTertiary">{p.desc}</Typography>
+                  </div>
+                </div>
+              ))}
+            </div>
+            {/* 알림 설정 */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+              <Typography textStyle="labelSmall" color="foregroundPrimary">알림 설정</Typography>
+              {[
+                { id: 'deploy', label: '배포 성공/실패' },
+                { id: 'error', label: '런타임 에러' },
+                { id: 'weekly', label: '주간 리포트' },
+              ].map((n) => (
+                <CheckboxWithLabel
+                  key={n.id}
+                  checked={notifications[n.id as keyof typeof notifications]}
+                  onChange={() => setNotifications((prev) => ({ ...prev, [n.id]: !prev[n.id as keyof typeof notifications] }))}
+                >{n.label}</CheckboxWithLabel>
+              ))}
+            </div>
+          </div>
+          <Drawer.Footer>
+            <OutlineButton color="black" size="medium" onClick={() => setOpen(false)}>
+              <OutlineButton.Center>닫기</OutlineButton.Center>
+            </OutlineButton>
+            <Button color="primary" size="medium" onClick={() => setOpen(false)}>
+              <Button.Center>변경 저장</Button.Center>
+            </Button>
+          </Drawer.Footer>
+        </Drawer.Content>
+      </Drawer>
+    </div>
+  )
+}
+
+export const Vercel_Ant_팀_멤버_상세_드로어: Story = {
+  name: 'Vercel + Ant Design — 팀 멤버 상세/역할 설정 드로어',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Vercel 팀 관리 + Ant Design 권한 패널 패턴. 멤버 프로필 카드, RadioButton 역할 선택(뷰어/멤버/관리자), 알림 설정 체크박스. 실무 팀 설정 시나리오.',
+      },
+    },
+  },
+  render: () => <VercelAntMemberDrawerRender />,
 }

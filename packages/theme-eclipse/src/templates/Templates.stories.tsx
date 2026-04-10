@@ -34636,3 +34636,200 @@ export const LinearRadix151FileManager: StoryObj = {
   },
   render: () => <LinearRadix151FileManagerRender />,
 }
+
+/* --------------------------------------------------------------------------
+   Cycle 152 — Vercel Design + Ant Design
+   팀 관리 대시보드 — 멤버 테이블 + 드로어 초대 + 역할 필터 + 통계 카드
+-------------------------------------------------------------------------- */
+const V152_MEMBERS = [
+  { id: 1, name: '김희준', email: 'kim@orbit-ui.dev', role: 'admin', active: true, joined: '2024-01-15', deployments: 142 },
+  { id: 2, name: 'Alice Park', email: 'alice@orbit-ui.dev', role: 'member', active: true, joined: '2024-03-02', deployments: 87 },
+  { id: 3, name: 'Bob Lee', email: 'bob@orbit-ui.dev', role: 'member', active: true, joined: '2024-05-10', deployments: 54 },
+  { id: 4, name: 'Carol Yoon', email: 'carol@orbit-ui.dev', role: 'viewer', active: false, joined: '2024-07-20', deployments: 0 },
+  { id: 5, name: 'Dave Choi', email: 'dave@orbit-ui.dev', role: 'member', active: true, joined: '2024-09-01', deployments: 33 },
+]
+
+const ROLE_LABELS: Record<string, string> = { admin: '관리자', member: '멤버', viewer: '뷰어' }
+const ROLE_COLORS: Record<string, string> = { admin: '#6366f1', member: '#0ea5e9', viewer: '#94a3b8' }
+
+function VercelAnt152TeamDashboardRender() {
+  const [drawerOpen, setDrawerOpen] = React.useState(false)
+  const [roleFilter, setRoleFilter] = React.useState<string>('all')
+  const [inviteEmail, setInviteEmail] = React.useState('')
+  const [inviteRole, setInviteRole] = React.useState('member')
+  const [members, setMembers] = React.useState(V152_MEMBERS)
+  const [inviteSent, setInviteSent] = React.useState(false)
+  const [selectedIds, setSelectedIds] = React.useState<number[]>([])
+
+  const filtered = roleFilter === 'all' ? members : members.filter((m) => m.role === roleFilter)
+
+  const totalActive = members.filter((m) => m.active).length
+  const totalDeploys = members.reduce((sum, m) => sum + m.deployments, 0)
+
+  const handleInvite = () => {
+    if (!inviteEmail.includes('@')) return
+    setInviteSent(true)
+    setTimeout(() => { setInviteSent(false); setDrawerOpen(false); setInviteEmail('') }, 2000)
+  }
+
+  const toggleSelect = (id: number) => {
+    setSelectedIds((prev) => prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id])
+  }
+
+  const removeSelected = () => {
+    setMembers((prev) => prev.filter((m) => !selectedIds.includes(m.id)))
+    setSelectedIds([])
+  }
+
+  return (
+    <div style={{ minHeight: '100vh', background: '#f8fafc', display: 'flex', flexDirection: 'column' }}>
+      {/* 헤더 */}
+      <div style={{ background: '#fff', borderBottom: '1px solid #e2e8f0', padding: '0 32px', display: 'flex', alignItems: 'center', height: 56 }}>
+        <span style={{ fontSize: 15, fontWeight: 800, color: '#1e293b', letterSpacing: '-0.01em' }}>Orbit UI</span>
+        <span style={{ fontSize: 13, color: '#94a3b8', marginLeft: 8 }}>/ 팀 관리</span>
+        <div style={{ marginLeft: 'auto', display: 'flex', gap: 8, alignItems: 'center' }}>
+          <span style={{ background: '#6366f1', color: '#fff', borderRadius: 999, padding: '2px 8px', fontSize: 11, fontWeight: 700 }}>{members.length}</span>
+          <SolidButton color="primary" size="small" onClick={() => setDrawerOpen(true)}>
+            <SolidButton.Center>멤버 초대</SolidButton.Center>
+          </SolidButton>
+        </div>
+      </div>
+
+      <div style={{ padding: '28px 32px', display: 'flex', flexDirection: 'column', gap: 24, flex: 1 }}>
+        {/* 통계 카드 */}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 16 }}>
+          {[
+            { label: '전체 멤버', value: members.length, sub: `${totalActive}명 활성`, color: '#6366f1' },
+            { label: '배포 총계', value: totalDeploys, sub: '이번 달', color: '#0ea5e9' },
+            { label: '관리자', value: members.filter((m) => m.role === 'admin').length, sub: '명', color: '#f59e0b' },
+            { label: '비활성', value: members.filter((m) => !m.active).length, sub: '명', color: '#ef4444' },
+          ].map((stat) => (
+            <div key={stat.label} style={{ background: '#fff', borderRadius: 12, padding: '16px 20px', border: '1px solid #e2e8f0' }}>
+              <div style={{ fontSize: 11, color: '#94a3b8', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: 8 }}>{stat.label}</div>
+              <div style={{ fontSize: 28, fontWeight: 800, color: stat.color, lineHeight: 1 }}>{stat.value}</div>
+              <div style={{ fontSize: 11, color: '#64748b', marginTop: 4 }}>{stat.sub}</div>
+            </div>
+          ))}
+        </div>
+
+        {/* 필터 + 액션 바 */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+          {['all', 'admin', 'member', 'viewer'].map((r) => (
+            <button
+              key={r}
+              onClick={() => setRoleFilter(r)}
+              style={{ padding: '5px 12px', borderRadius: 6, border: `1px solid ${roleFilter === r ? '#6366f1' : '#e2e8f0'}`, background: roleFilter === r ? '#6366f110' : '#fff', color: roleFilter === r ? '#6366f1' : '#475569', fontSize: 12, fontWeight: roleFilter === r ? 700 : 400, cursor: 'pointer', transition: 'all 0.15s' }}
+            >
+              {r === 'all' ? '전체' : ROLE_LABELS[r]}
+            </button>
+          ))}
+          {selectedIds.length > 0 && (
+            <OutlineButton color="black" size="small" onClick={removeSelected} style={{ marginLeft: 'auto' }}>
+              <OutlineButton.Center>선택 삭제 ({selectedIds.length})</OutlineButton.Center>
+            </OutlineButton>
+          )}
+        </div>
+
+        {/* 멤버 테이블 */}
+        <div style={{ background: '#fff', borderRadius: 12, border: '1px solid #e2e8f0', overflow: 'hidden' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: '40px 1fr 1.2fr 100px 100px 80px 80px', padding: '10px 16px', background: '#f8fafc', fontSize: 11, fontWeight: 700, color: '#94a3b8', letterSpacing: '0.05em', textTransform: 'uppercase', borderBottom: '1px solid #e2e8f0' }}>
+            <span />
+            <span>이름</span><span>이메일</span><span>역할</span><span>상태</span><span>배포</span><span>가입일</span>
+          </div>
+          {filtered.length === 0 ? (
+            <div style={{ padding: '32px', textAlign: 'center', color: '#94a3b8', fontSize: 13 }}>해당 역할의 멤버가 없습니다</div>
+          ) : (
+            filtered.map((member, idx) => (
+              <div
+                key={member.id}
+                style={{ display: 'grid', gridTemplateColumns: '40px 1fr 1.2fr 100px 100px 80px 80px', padding: '12px 16px', borderTop: idx === 0 ? 'none' : '1px solid #f1f5f9', alignItems: 'center', background: selectedIds.includes(member.id) ? '#f0f9ff' : 'transparent', transition: 'background 0.15s' }}
+              >
+                <Checkbox
+                  checked={selectedIds.includes(member.id)}
+                  onChange={() => toggleSelect(member.id)}
+                />
+                <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                  <div style={{ width: 32, height: 32, borderRadius: '50%', background: `${ROLE_COLORS[member.role]}20`, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                    <span style={{ fontSize: 11, fontWeight: 700, color: ROLE_COLORS[member.role] }}>{member.name.slice(0, 2).toUpperCase()}</span>
+                  </div>
+                  <span style={{ fontSize: 13, fontWeight: 500, color: '#1e293b' }}>{member.name}</span>
+                </div>
+                <span style={{ fontSize: 12, color: '#64748b' }}>{member.email}</span>
+                <span style={{ fontSize: 11, fontWeight: 700, color: ROLE_COLORS[member.role], padding: '2px 8px', background: `${ROLE_COLORS[member.role]}15`, borderRadius: 999, display: 'inline-block' }}>{ROLE_LABELS[member.role]}</span>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                  <span style={{ width: 6, height: 6, borderRadius: '50%', background: member.active ? '#10b981' : '#94a3b8', flexShrink: 0 }} />
+                  <span style={{ fontSize: 11, color: member.active ? '#10b981' : '#94a3b8' }}>{member.active ? '활성' : '비활성'}</span>
+                </div>
+                <span style={{ fontSize: 13, fontWeight: 600, color: '#1e293b' }}>{member.deployments}</span>
+                <span style={{ fontSize: 11, color: '#94a3b8' }}>{member.joined.slice(5)}</span>
+              </div>
+            ))
+          )}
+        </div>
+      </div>
+
+      {/* 초대 드로어 */}
+      <Drawer open={drawerOpen} onOpenChange={setDrawerOpen}>
+        <Drawer.Content style={{ width: 400 }}>
+          <Drawer.Header>
+            <Text textStyle="subheadingSmall" color="foregroundPrimary">멤버 초대</Text>
+          </Drawer.Header>
+          <div style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: 20, flex: 1 }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+              <span style={{ fontSize: 12, fontWeight: 600, color: '#374151' }}>이메일 주소</span>
+              <TextField
+                placeholder="colleague@example.com"
+                value={inviteEmail}
+                onChange={(e) => setInviteEmail(e.target.value)}
+              />
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+              <span style={{ fontSize: 12, fontWeight: 600, color: '#374151' }}>역할 선택</span>
+              {[['admin', '관리자', '팀 설정 및 멤버 관리'], ['member', '멤버', '프로젝트 생성 및 배포'], ['viewer', '뷰어', '읽기 전용 접근']].map(([v, l, d]) => (
+                <div
+                  key={v}
+                  onClick={() => setInviteRole(v)}
+                  style={{ padding: '10px 14px', borderRadius: 8, border: `1.5px solid ${inviteRole === v ? '#6366f1' : '#e2e8f0'}`, background: inviteRole === v ? '#6366f108' : '#fff', cursor: 'pointer', transition: 'all 0.15s' }}
+                >
+                  <div style={{ fontSize: 13, fontWeight: 600, color: '#1e293b' }}>{l}</div>
+                  <div style={{ fontSize: 11, color: '#64748b', marginTop: 2 }}>{d}</div>
+                </div>
+              ))}
+            </div>
+            {inviteSent && (
+              <div style={{ padding: 12, borderRadius: 8, background: '#10b98120', border: '1px solid #10b98140', textAlign: 'center' }}>
+                <Text textStyle="labelSmall" color="foregroundPrimary">초대 이메일을 발송했습니다!</Text>
+              </div>
+            )}
+          </div>
+          <Drawer.Footer>
+            <OutlineButton color="black" size="medium" onClick={() => setDrawerOpen(false)}>
+              <OutlineButton.Center>취소</OutlineButton.Center>
+            </OutlineButton>
+            <SolidButton
+              color="primary"
+              size="medium"
+              disabled={!inviteEmail.includes('@')}
+              onClick={handleInvite}
+            >
+              <SolidButton.Center>{inviteSent ? '발송됨' : '초대 보내기'}</SolidButton.Center>
+            </SolidButton>
+          </Drawer.Footer>
+        </Drawer.Content>
+      </Drawer>
+    </div>
+  )
+}
+
+export const VercelAnt152TeamDashboard: StoryObj = {
+  name: 'Vercel + Ant Design — 팀 관리 대시보드 (멤버 테이블 + 초대 드로어)',
+  parameters: {
+    layout: 'fullscreen',
+    docs: {
+      description: {
+        story: 'Vercel 팀 설정 + Ant Design 데이터 테이블 패턴. 통계 카드 4개, 역할별 필터, 체크박스 다중 선택/삭제, Drawer 멤버 초대 폼(역할 선택+이메일). 실무 팀 관리 대시보드.',
+      },
+    },
+  },
+  render: () => <VercelAnt152TeamDashboardRender />,
+}
