@@ -16482,3 +16482,251 @@ export const InventoryManager: Story = {
   },
   render: () => <InventoryManagerRender />,
 }
+
+/* ==========================================================================
+   Template #58: KnowledgeBase — 지식 베이스 & 위키 뷰어
+   Raycast Extensions + Notion Design 벤치마크 기반
+   ========================================================================== */
+type KBCategory = 'all' | 'guides' | 'api' | 'faq'
+
+type KBArticle = {
+  id: number
+  title: string
+  excerpt: string
+  category: Exclude<KBCategory, 'all'>
+  views: number
+  updated: string
+  tags: string[]
+  pinned?: boolean
+}
+
+const KB_ARTICLES: KBArticle[] = [
+  { id: 1, title: 'Orbit UI 시작하기', excerpt: 'pnpm으로 패키지를 설치하고 ThemeProvider를 앱에 적용하는 방법을 안내합니다.', category: 'guides', views: 1240, updated: '2026-04-08', tags: ['설치', '시작'], pinned: true },
+  { id: 2, title: 'SolidButton 컴포넌트', excerpt: 'color, size props로 다양한 버튼 스타일을 구성하는 방법과 Compound 패턴을 설명합니다.', category: 'api', views: 892, updated: '2026-04-06', tags: ['Button', 'API'] },
+  { id: 3, title: 'TextField 유효성 검사', excerpt: 'errorMessage prop과 실시간 검증 패턴으로 폼 UX를 개선하는 방법을 소개합니다.', category: 'api', views: 654, updated: '2026-04-05', tags: ['Form', 'Validation'] },
+  { id: 4, title: 'Popover 포지션 제어', excerpt: 'side, align props로 팝오버 위치를 정밀 제어하고 collision을 처리하는 가이드입니다.', category: 'api', views: 487, updated: '2026-04-03', tags: ['Popover', 'Overlay'] },
+  { id: 5, title: '다크 모드 전환', excerpt: 'data-theme 속성으로 런타임에 라이트/다크 테마를 전환하는 방법과 주의사항을 설명합니다.', category: 'guides', views: 1034, updated: '2026-04-07', tags: ['Theme', 'Dark Mode'], pinned: true },
+  { id: 6, title: 'Storybook 스토리 작성법', excerpt: 'autodocs, parameters.docs, render 함수로 풍부한 Storybook 문서를 작성하는 모범 사례입니다.', category: 'guides', views: 723, updated: '2026-04-04', tags: ['Storybook', 'Docs'] },
+  { id: 7, title: 'Toast vs Popover — 언제 무엇을?', excerpt: '인터랙션 유형에 따라 Toast, Popover, Modal 중 어떤 컴포넌트를 선택해야 하는지 결정 트리입니다.', category: 'faq', views: 891, updated: '2026-04-02', tags: ['UX', 'Components'] },
+  { id: 8, title: '커스텀 테마 만들기', excerpt: 'vanilla-extract와 CSS 변수를 활용해 브랜드 토큰을 적용하는 완전 가이드입니다.', category: 'guides', views: 567, updated: '2026-04-01', tags: ['Theme', 'Tokens'] },
+]
+
+const KB_CAT_LABELS: Record<KBCategory, string> = {
+  all: '전체',
+  guides: '가이드',
+  api: 'API 레퍼런스',
+  faq: 'FAQ',
+}
+
+const KnowledgeBaseRender = () => {
+  const [category, setCategory] = useState<KBCategory>('all')
+  const [search, setSearch] = useState('')
+  const [selected, setSelected] = useState<KBArticle | null>(null)
+  const [_popoverOpen, _setPopoverOpen] = useState<number | null>(null)
+
+  const filtered = KB_ARTICLES
+    .filter((a) => category === 'all' || a.category === category)
+    .filter((a) =>
+      a.title.toLowerCase().includes(search.toLowerCase()) ||
+      a.excerpt.toLowerCase().includes(search.toLowerCase()),
+    )
+    .sort((a, b) => (b.pinned ? 1 : 0) - (a.pinned ? 1 : 0) || b.views - a.views)
+
+  return (
+    <div style={{ minHeight: '100vh', background: '#f8fafc', fontFamily: 'system-ui, sans-serif', display: 'flex' }}>
+      {/* 왼쪽 사이드바 */}
+      <aside style={{ width: 220, background: '#fff', borderRight: '1px solid #e2e8f0', padding: '24px 16px', flexShrink: 0 }}>
+        <div style={{ fontSize: 16, fontWeight: 800, color: '#0f172a', marginBottom: 20 }}>지식 베이스</div>
+
+        {/* 카테고리 */}
+        <div style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 8 }}>
+          카테고리
+        </div>
+        {(Object.keys(KB_CAT_LABELS) as KBCategory[]).map((cat) => {
+          const count = cat === 'all' ? KB_ARTICLES.length : KB_ARTICLES.filter((a) => a.category === cat).length
+          return (
+            <div
+              key={cat}
+              onClick={() => { setCategory(cat); setSelected(null) }}
+              style={{
+                display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+                padding: '8px 10px', borderRadius: 8, cursor: 'pointer', marginBottom: 2,
+                background: category === cat ? '#eff6ff' : 'transparent',
+                transition: 'background 0.15s',
+              }}
+            >
+              <span style={{ fontSize: 13, fontWeight: category === cat ? 700 : 400, color: category === cat ? '#3730a3' : '#475569' }}>
+                {KB_CAT_LABELS[cat]}
+              </span>
+              <span style={{ fontSize: 11, color: '#94a3b8', background: '#f1f5f9', padding: '1px 6px', borderRadius: 99 }}>{count}</span>
+            </div>
+          )
+        })}
+
+        {/* 인기 태그 */}
+        <div style={{ marginTop: 24, borderTop: '1px solid #f1f5f9', paddingTop: 16 }}>
+          <div style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 10 }}>
+            인기 태그
+          </div>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+            {['Theme', 'API', 'Button', 'Form', 'Storybook', 'UX'].map((tag) => (
+              <button
+                key={tag}
+                onClick={() => setSearch(tag)}
+                style={{
+                  padding: '3px 8px', borderRadius: 99, fontSize: 11, fontWeight: 600,
+                  border: '1px solid #e2e8f0', background: '#fff', color: '#475569',
+                  cursor: 'pointer', transition: 'all 0.15s',
+                }}
+              >
+                {tag}
+              </button>
+            ))}
+          </div>
+        </div>
+      </aside>
+
+      {/* 메인 영역 */}
+      <main style={{ flex: 1, padding: '24px 28px', overflow: 'auto' }}>
+        {selected ? (
+          /* 아티클 상세 */
+          <div style={{ maxWidth: 680 }}>
+            <button
+              onClick={() => setSelected(null)}
+              style={{ fontSize: 12, color: '#6366f1', background: 'none', border: 'none', cursor: 'pointer', padding: 0, marginBottom: 20, fontWeight: 600 }}
+            >
+              ← 목록으로
+            </button>
+            <div style={{ display: 'flex', gap: 8, marginBottom: 12, flexWrap: 'wrap' }}>
+              <span style={{ fontSize: 11, background: '#eff6ff', color: '#3730a3', padding: '2px 8px', borderRadius: 99, fontWeight: 600 }}>
+                {KB_CAT_LABELS[selected.category]}
+              </span>
+              {selected.tags.map((tag) => (
+                <span key={tag} style={{ fontSize: 11, background: '#f1f5f9', color: '#475569', padding: '2px 8px', borderRadius: 99 }}>
+                  {tag}
+                </span>
+              ))}
+            </div>
+            <h1 style={{ fontSize: 24, fontWeight: 800, color: '#0f172a', margin: '0 0 12px' }}>{selected.title}</h1>
+            <div style={{ fontSize: 12, color: '#94a3b8', marginBottom: 24 }}>
+              마지막 업데이트: {selected.updated} · 조회수 {selected.views.toLocaleString()}
+            </div>
+            <div style={{ padding: '20px 24px', background: '#fff', borderRadius: 12, border: '1px solid #e2e8f0', lineHeight: 1.8 }}>
+              <p style={{ fontSize: 14, color: '#475569', margin: 0 }}>{selected.excerpt}</p>
+              <p style={{ fontSize: 14, color: '#475569', marginTop: 16 }}>
+                자세한 내용은 공식 문서를 참조하거나 컴포넌트 Storybook 페이지에서 인터랙티브 데모를 확인하세요.
+              </p>
+            </div>
+            {/* 관련 아티클 */}
+            <div style={{ marginTop: 28 }}>
+              <div style={{ fontSize: 14, fontWeight: 700, color: '#374151', marginBottom: 12 }}>관련 아티클</div>
+              {KB_ARTICLES.filter((a) => a.id !== selected.id && a.category === selected.category).slice(0, 2).map((a) => (
+                <div
+                  key={a.id}
+                  onClick={() => setSelected(a)}
+                  style={{ padding: '12px 16px', background: '#fff', borderRadius: 10, border: '1px solid #e2e8f0', marginBottom: 8, cursor: 'pointer' }}
+                >
+                  <div style={{ fontSize: 13, fontWeight: 600, color: '#0f172a' }}>{a.title}</div>
+                  <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 4 }}>{a.excerpt.slice(0, 60)}...</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        ) : (
+          /* 아티클 목록 */
+          <>
+            {/* 검색 */}
+            <div style={{ display: 'flex', gap: 10, marginBottom: 24, alignItems: 'center' }}>
+              <input
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                placeholder="아티클 검색..."
+                style={{ flex: 1, maxWidth: 380, padding: '9px 14px', borderRadius: 8, border: '1.5px solid #e2e8f0', fontSize: 13, outline: 'none' }}
+              />
+              {search && (
+                <OutlineButton color="gray" size="small" onClick={() => setSearch('')}>
+                  <OutlineButton.Center>초기화</OutlineButton.Center>
+                </OutlineButton>
+              )}
+            </div>
+
+            <div style={{ fontSize: 14, fontWeight: 700, color: '#374151', marginBottom: 16 }}>
+              {KB_CAT_LABELS[category]} <span style={{ fontWeight: 400, color: '#94a3b8' }}>({filtered.length})</span>
+            </div>
+
+            {/* 카드 그리드 */}
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
+              {filtered.map((article) => (
+                <div
+                  key={article.id}
+                  onClick={() => setSelected(article)}
+                  style={{
+                    background: '#fff', borderRadius: 12,
+                    border: `1.5px solid ${article.pinned ? '#c7d2fe' : '#e2e8f0'}`,
+                    padding: '18px 20px', cursor: 'pointer', transition: 'box-shadow 0.15s',
+                    boxShadow: article.pinned ? '0 0 0 1px #e0e7ff' : 'none',
+                  }}
+                >
+                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8 }}>
+                    <span style={{ fontSize: 11, background: '#eff6ff', color: '#3730a3', padding: '2px 7px', borderRadius: 99, fontWeight: 600 }}>
+                      {KB_CAT_LABELS[article.category]}
+                    </span>
+                    {article.pinned && (
+                      <span style={{ fontSize: 10, color: '#6366f1', fontWeight: 700 }}>고정됨</span>
+                    )}
+                  </div>
+                  <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a', marginBottom: 6, lineHeight: 1.4 }}>
+                    {article.title}
+                  </div>
+                  <div style={{ fontSize: 12, color: '#64748b', lineHeight: 1.6, marginBottom: 12 }}>
+                    {article.excerpt.slice(0, 70)}...
+                  </div>
+                  <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginBottom: 10 }}>
+                    {article.tags.map((tag) => (
+                      <span key={tag} style={{ fontSize: 10, color: '#475569', background: '#f1f5f9', padding: '2px 6px', borderRadius: 4 }}>
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                  <div style={{ fontSize: 11, color: '#94a3b8' }}>
+                    조회 {article.views.toLocaleString()} · {article.updated}
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {filtered.length === 0 && (
+              <div style={{ textAlign: 'center', padding: '48px 0', color: '#94a3b8', fontSize: 13 }}>
+                검색 결과가 없습니다.
+              </div>
+            )}
+
+            {/* ScrollableTabGroup으로 카테고리 탭 표시 */}
+            <div style={{ marginTop: 28, display: 'flex', justifyContent: 'center' }}>
+              <ScrollableTabGroup selectedIndex={(['all', 'guides', 'api', 'faq'] as KBCategory[]).indexOf(category)} onTabChange={(i) => setCategory(['all', 'guides', 'api', 'faq'][i] as KBCategory)}>
+                {(['all', 'guides', 'api', 'faq'] as KBCategory[]).map((cat) => (
+                  <ScrollableTabGroup.Tab key={cat} value={cat}>
+                    <ScrollableTabGroup.TabCenter>{KB_CAT_LABELS[cat]}</ScrollableTabGroup.TabCenter>
+                  </ScrollableTabGroup.Tab>
+                ))}
+              </ScrollableTabGroup>
+            </div>
+          </>
+        )}
+      </main>
+    </div>
+  )
+}
+
+export const KnowledgeBase: Story = {
+  name: '지식 베이스 & 위키 (Raycast + Notion 패턴)',
+  parameters: {
+    layout: 'fullscreen',
+    docs: {
+      description: {
+        story: 'Raycast 검색 패턴 + Notion 문서 구조를 결합한 지식 베이스 뷰어. 카테고리 사이드바, 태그 필터, 아티클 카드 그리드, 상세 뷰 + ScrollableTabGroup 하단 탭.',
+      },
+    },
+  },
+  render: () => <KnowledgeBaseRender />,
+}

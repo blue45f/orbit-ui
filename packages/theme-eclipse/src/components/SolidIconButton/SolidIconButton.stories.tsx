@@ -672,3 +672,258 @@ export const 알림_뱃지_조합 = {
   },
   render: () => <NotificationBadgeRender />,
 }
+
+/* --------------------------------------------------------------------------
+   Cycle 68: Raycast Extensions + Notion Design 벤치마크
+-------------------------------------------------------------------------- */
+
+/* Raycast — 빠른 필터 토글 버튼 그룹
+   Raycast 리스트 뷰의 필터 바 패턴. 아이콘 버튼으로 필터를 토글하고
+   활성 필터는 색상으로 구분. compact 밀도의 버튼 클러스터.
+-------------------------------------------------------------------------- */
+const QUICK_FILTER_BUTTONS = [
+  { id: 'search', Icon: SearchIcon, label: '검색' },
+  { id: 'star', Icon: StarLineIcon, label: '즐겨찾기' },
+  { id: 'notify', Icon: NotificationLineIcon, label: '알림' },
+  { id: 'setting', Icon: SettingLineIcon, label: '설정' },
+]
+
+export const Raycast_빠른_필터_토글_그룹 = {
+  name: 'Raycast — 빠른 필터 토글 버튼 그룹',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Raycast 리스트 필터 바 패턴. SolidIconButton의 color prop을 토글 상태로 전환. 활성: black, 비활성: gray. compact한 버튼 클러스터로 빠른 필터 전환.',
+      },
+    },
+  },
+  render: function RaycastFilterGroup() {
+    const [active, setActive] = useState<Set<string>>(new Set(['search']))
+
+    const toggle = (id: string) => {
+      setActive((prev) => {
+        const next = new Set(prev)
+        if (next.has(id)) next.delete(id)
+        else next.add(id)
+        return next
+      })
+    }
+
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 20, padding: '16px 0', fontFamily: 'system-ui, sans-serif' }}>
+        <div style={{ fontSize: 13, color: '#64748b', marginBottom: 4 }}>Raycast 스타일 필터 바 — 토글로 다중 선택 가능</div>
+        {/* 버튼 클러스터 */}
+        <div style={{ display: 'flex', gap: 4, background: '#f1f5f9', padding: 4, borderRadius: 10 }}>
+          {QUICK_FILTER_BUTTONS.map(({ id, Icon }) => (
+            <SolidIconButton
+              key={id}
+              color={active.has(id) ? 'black' : 'white'}
+              size="small"
+              onClick={() => toggle(id)}
+            >
+              <Icon />
+            </SolidIconButton>
+          ))}
+        </div>
+        {/* 라벨 */}
+        <div style={{ display: 'flex', gap: 4 }}>
+          {QUICK_FILTER_BUTTONS.map(({ id, label }) => (
+            <div
+              key={id}
+              style={{
+                width: 32, textAlign: 'center', fontSize: 10, fontWeight: 600,
+                color: active.has(id) ? '#0f172a' : '#94a3b8',
+                transition: 'color 0.15s',
+              }}
+            >
+              {label}
+            </div>
+          ))}
+        </div>
+        {/* 선택 상태 */}
+        <div style={{ fontSize: 12, color: '#64748b' }}>
+          활성 필터: <strong style={{ color: '#0f172a' }}>{active.size > 0 ? [...active].join(', ') : '없음'}</strong>
+        </div>
+      </div>
+    )
+  },
+}
+
+/* Notion — 인라인 텍스트 포맷 도구 모음
+   Notion 텍스트 선택 시 나타나는 인라인 툴바 패턴.
+   B/I/U 포맷 버튼을 SolidIconButton으로 구성한 플로팅 스타일.
+-------------------------------------------------------------------------- */
+const NOTION_FORMAT_BUTTONS: Array<{ fid: string; FIcon: React.ElementType; label: string }> = [
+  { fid: 'bold', FIcon: TextBoldIcon, label: 'B' },
+  { fid: 'italic', FIcon: TextItalicIcon, label: 'I' },
+  { fid: 'underline', FIcon: TextUnderlineIcon, label: 'U' },
+  { fid: 'align', FIcon: AlignLeftIcon, label: 'A' },
+  { fid: 'star', FIcon: StarLineIcon, label: 'S' },
+]
+
+export const Notion_인라인_텍스트_포맷_도구모음 = {
+  name: 'Notion — 인라인 텍스트 포맷 도구 모음',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Notion 인라인 툴바 패턴. 텍스트 선택 영역 위에 float되는 포맷 버튼 클러스터. SolidIconButton B/I/U/정렬/즐겨찾기 토글로 다중 포맷 동시 적용.',
+      },
+    },
+  },
+  render: function NotionInlineToolbar() {
+    const [formats, setFormats] = useState<Set<string>>(new Set())
+    const [sampleText, _setSampleText] = useState('Orbit UI 디자인 시스템 — 빌드 한 번, 어디서든 일관된 UX를 제공합니다.')
+
+    const toggle = (id: string) => {
+      setFormats((prev) => {
+        const next = new Set(prev)
+        if (next.has(id)) next.delete(id)
+        else next.add(id)
+        return next
+      })
+    }
+
+    const textStyle: React.CSSProperties = {
+      fontWeight: formats.has('bold') ? 700 : 400,
+      fontStyle: formats.has('italic') ? 'italic' : 'normal',
+      textDecoration: formats.has('underline') ? 'underline' : 'none',
+      textAlign: formats.has('align') ? 'center' : 'left',
+    }
+
+    return (
+      <div style={{ padding: '16px 0', fontFamily: 'system-ui, sans-serif', width: 380 }}>
+        {/* 툴바 */}
+        <div style={{
+          display: 'inline-flex', gap: 2, background: '#1e293b',
+          padding: '4px 6px', borderRadius: 8, marginBottom: 16,
+          boxShadow: '0 4px 12px rgba(0,0,0,0.2)',
+        }}>
+          {NOTION_FORMAT_BUTTONS.map(({ fid, FIcon }) => (
+            <div key={fid} style={{ position: 'relative' }}>
+              <SolidIconButton
+                color={formats.has(fid) ? 'black' : 'white'}
+                size="small"
+                onClick={() => toggle(fid)}
+              >
+                <FIcon />
+              </SolidIconButton>
+              {fid === 'star' && formats.has(fid) && (
+                <div style={{
+                  position: 'absolute', top: -2, right: -2,
+                  width: 6, height: 6, borderRadius: '50%',
+                  background: '#f59e0b', border: '1px solid #1e293b',
+                }} />
+              )}
+            </div>
+          ))}
+        </div>
+
+        {/* 텍스트 프리뷰 */}
+        <div style={{
+          padding: '16px 18px', borderRadius: 10, background: '#fff',
+          border: '1px solid #e2e8f0', lineHeight: 1.7,
+        }}>
+          <p style={{ fontSize: 14, color: '#0f172a', margin: 0, ...textStyle, transition: 'all 0.15s' }}>
+            {sampleText}
+          </p>
+        </div>
+
+        {/* 편집 */}
+        <div style={{ marginTop: 12, fontSize: 11, color: '#94a3b8', display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+          {NOTION_FORMAT_BUTTONS.map(({ fid, label }) => (
+            <span
+              key={fid}
+              style={{
+                padding: '2px 7px', borderRadius: 4, fontWeight: 600,
+                background: formats.has(fid) ? '#dbeafe' : '#f1f5f9',
+                color: formats.has(fid) ? '#1d4ed8' : '#94a3b8',
+              }}
+            >
+              {label}
+            </span>
+          ))}
+        </div>
+      </div>
+    )
+  },
+}
+
+/* Raycast + Notion — 탐색 히스토리 뒤로/앞으로 버튼 패턴
+   Raycast/Notion의 내비게이션 히스토리 버튼. 비활성 상태(회색)와
+   활성 상태(검정)를 명확히 구분하며 히스토리 스택을 시각화.
+-------------------------------------------------------------------------- */
+const NAV_HISTORY_PAGES = ['홈', '프로젝트', '이슈 목록', '이슈 #142', '댓글']
+
+export const Raycast_Notion_히스토리_내비게이션 = {
+  name: 'Raycast + Notion — 히스토리 내비게이션 버튼',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Raycast/Notion 내비게이션 히스토리 패턴. SolidIconButton의 disabled prop으로 이전/다음 버튼 비활성 구분. 히스토리 스택 시각화 + 현재 위치 표시.',
+      },
+    },
+  },
+  render: function HistoryNavigation() {
+    const [historyIdx, setHistoryIdx] = useState(2)
+
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 20, padding: '16px 0', fontFamily: 'system-ui, sans-serif', width: 360 }}>
+        {/* 내비게이션 바 */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+          <SolidIconButton
+            color="white"
+            size="small"
+            disabled={historyIdx === 0}
+            onClick={() => setHistoryIdx((i) => Math.max(0, i - 1))}
+          >
+            <ChevronLeftLineIcon />
+          </SolidIconButton>
+          <SolidIconButton
+            color="white"
+            size="small"
+            disabled={historyIdx === NAV_HISTORY_PAGES.length - 1}
+            onClick={() => setHistoryIdx((i) => Math.min(NAV_HISTORY_PAGES.length - 1, i + 1))}
+          >
+            <ChevronRightLineIcon />
+          </SolidIconButton>
+          <div style={{
+            flex: 1, padding: '6px 12px', borderRadius: 8,
+            background: '#f8fafc', border: '1px solid #e2e8f0',
+            fontSize: 12, color: '#374151', fontWeight: 500,
+          }}>
+            {NAV_HISTORY_PAGES[historyIdx]}
+          </div>
+        </div>
+
+        {/* 히스토리 스택 시각화 */}
+        <div>
+          <div style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', marginBottom: 6, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+            탐색 히스토리
+          </div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 6, flexWrap: 'wrap' }}>
+            {NAV_HISTORY_PAGES.map((page, i) => (
+              <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                <button
+                  onClick={() => setHistoryIdx(i)}
+                  style={{
+                    padding: '4px 10px', borderRadius: 6, fontSize: 12, cursor: 'pointer',
+                    background: i === historyIdx ? '#0f172a' : i < historyIdx ? '#f1f5f9' : '#fff',
+                    color: i === historyIdx ? '#fff' : i < historyIdx ? '#374151' : '#cbd5e1',
+                    fontWeight: i === historyIdx ? 700 : 400,
+                    border: `1px solid ${i === historyIdx ? '#0f172a' : i < historyIdx ? '#e2e8f0' : '#f1f5f9'}`,
+                    transition: 'all 0.15s',
+                  } as React.CSSProperties}
+                >
+                  {page}
+                </button>
+                {i < NAV_HISTORY_PAGES.length - 1 && (
+                  <span style={{ fontSize: 10, color: '#cbd5e1' }}>›</span>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    )
+  },
+}

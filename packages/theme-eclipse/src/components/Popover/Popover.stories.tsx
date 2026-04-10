@@ -754,3 +754,355 @@ export const Tailwind_태그_편집_팝오버: Story = {
     )
   },
 }
+
+/* --------------------------------------------------------------------------
+   Cycle 68: Raycast Extensions + Notion Design 벤치마크
+-------------------------------------------------------------------------- */
+
+/* Raycast — ActionPanel 섹션별 액션 팝오버
+   Raycast ActionPanel.Section 패턴. 액션을 카테고리별로 그룹화하고
+   키보드 단축키를 우측에 표시. 검색 가능한 액션 목록.
+-------------------------------------------------------------------------- */
+const RAYCAST_ACTIONS = [
+  {
+    section: '파일 작업',
+    items: [
+      { label: '열기', shortcut: '↵', icon: '◻' },
+      { label: '빠른 보기', shortcut: '⌘ Y', icon: '⊞' },
+      { label: '복사 경로', shortcut: '⌘ ⇧ C', icon: '⊡' },
+    ],
+  },
+  {
+    section: '편집',
+    items: [
+      { label: '이름 변경', shortcut: '⌘ ↵', icon: '✎' },
+      { label: '삭제', shortcut: '⌃ X', icon: '⊗' },
+    ],
+  },
+  {
+    section: '공유',
+    items: [
+      { label: '링크 복사', shortcut: '⌘ L', icon: '⊕' },
+      { label: 'AirDrop', shortcut: '⌘ ⇧ S', icon: '◎' },
+    ],
+  },
+]
+
+export const Raycast_ActionPanel_섹션_팝오버: Story = {
+  name: 'Raycast — ActionPanel 섹션별 액션 팝오버',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Raycast ActionPanel.Section 패턴. 액션을 카테고리별로 그룹화하고 우측에 키보드 단축키 표시. 섹션 구분선 + 그룹 헤더로 스캐닝 효율화.',
+      },
+    },
+  },
+  render: function RaycastActionPanel() {
+    const [query, setQuery] = useState('')
+
+    const filtered = RAYCAST_ACTIONS.map((section) => ({
+      ...section,
+      items: section.items.filter((item) =>
+        item.label.toLowerCase().includes(query.toLowerCase()),
+      ),
+    })).filter((section) => section.items.length > 0)
+
+    return (
+      <div style={{ display: 'flex', alignItems: 'center', gap: 16, padding: '24px 0' }}>
+        <Popover>
+          <Popover.Trigger asChild>
+            <Button color="primary" size="medium">
+              <Button.Center>액션 패널 열기</Button.Center>
+            </Button>
+          </Popover.Trigger>
+          <Popover.Content>
+            <div style={{ width: 260, fontFamily: 'system-ui, sans-serif', overflow: 'hidden' }}>
+              {/* 검색 */}
+              <div style={{ padding: '8px 10px', borderBottom: '1px solid #f1f5f9' }}>
+                <input
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                  placeholder="액션 검색..."
+                  autoFocus
+                  style={{
+                    width: '100%', padding: '6px 10px', borderRadius: 6,
+                    border: '1px solid #e2e8f0', fontSize: 12, outline: 'none',
+                    boxSizing: 'border-box', background: '#f8fafc',
+                  }}
+                />
+              </div>
+              {/* 섹션별 액션 */}
+              <div style={{ maxHeight: 280, overflowY: 'auto', padding: '4px 0' }}>
+                {filtered.map((section) => (
+                  <div key={section.section}>
+                    <div style={{ fontSize: 10, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em', padding: '8px 12px 4px' }}>
+                      {section.section}
+                    </div>
+                    {section.items.map((item) => (
+                      <div
+                        key={item.label}
+                        style={{
+                          display: 'flex', alignItems: 'center', gap: 8, padding: '7px 12px',
+                          cursor: 'pointer', borderRadius: 6, margin: '0 4px',
+                          transition: 'background 0.1s',
+                        }}
+                        onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = '#f1f5f9' }}
+                        onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = 'transparent' }}
+                      >
+                        <span style={{ fontSize: 13, color: '#64748b', width: 16, textAlign: 'center', flexShrink: 0 }}>{item.icon}</span>
+                        <span style={{ flex: 1, fontSize: 13, color: '#0f172a', fontWeight: 400 }}>{item.label}</span>
+                        <span style={{ fontSize: 10, color: '#94a3b8', background: '#f1f5f9', padding: '2px 5px', borderRadius: 4, fontFamily: 'monospace', flexShrink: 0 }}>
+                          {item.shortcut}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                ))}
+                {filtered.length === 0 && (
+                  <div style={{ textAlign: 'center', padding: '20px 0', fontSize: 12, color: '#94a3b8' }}>
+                    결과 없음
+                  </div>
+                )}
+              </div>
+            </div>
+          </Popover.Content>
+        </Popover>
+        <Typography textStyle="descriptionSmall" style={{ color: '#94a3b8' }}>
+          Raycast ActionPanel.Section 패턴
+        </Typography>
+      </div>
+    )
+  },
+}
+
+/* Notion — @멘션 사용자 팝오버
+   Notion의 @mention 자동완성 팝오버. 입력창에서 @ 입력 시
+   유저 목록이 팝오버로 표시되고 선택 시 멘션 텍스트로 삽입.
+-------------------------------------------------------------------------- */
+const NOTION_USERS = [
+  { id: 'u1', name: 'Alice Kim', role: 'Design Lead', initials: 'AK', color: '#6366f1' },
+  { id: 'u2', name: 'Bob Lee', role: 'Frontend Dev', initials: 'BL', color: '#0ea5e9' },
+  { id: 'u3', name: 'Carol Park', role: 'Product Manager', initials: 'CP', color: '#10b981' },
+  { id: 'u4', name: 'David Oh', role: 'Backend Dev', initials: 'DO', color: '#f59e0b' },
+  { id: 'u5', name: 'Eve Choi', role: 'QA Engineer', initials: 'EC', color: '#ef4444' },
+]
+
+export const Notion_멘션_사용자_팝오버: Story = {
+  name: 'Notion — @멘션 사용자 팝오버',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Notion @mention 자동완성 패턴. 입력창에서 @ 입력 시 유저 목록 팝오버가 나타납니다. 검색 필터링 + Avatar 이니셜 + 역할 표시 + 키보드 방향키 스타일.',
+      },
+    },
+  },
+  render: function NotionMentionPopover() {
+    const [open, setOpen] = useState(false)
+    const [input, setInput] = useState('')
+    const [mentionQuery, setMentionQuery] = useState('')
+    const [mentions, setMentions] = useState<string[]>([])
+
+    const filteredUsers = NOTION_USERS.filter((u) =>
+      u.name.toLowerCase().includes(mentionQuery.toLowerCase()),
+    )
+
+    const handleInput = (val: string) => {
+      setInput(val)
+      const atIdx = val.lastIndexOf('@')
+      if (atIdx !== -1) {
+        setMentionQuery(val.slice(atIdx + 1))
+        setOpen(true)
+      } else {
+        setOpen(false)
+        setMentionQuery('')
+      }
+    }
+
+    const selectUser = (user: typeof NOTION_USERS[0]) => {
+      const atIdx = input.lastIndexOf('@')
+      const newInput = input.slice(0, atIdx)
+      setInput(newInput)
+      setMentions((prev) => [...prev, user.name])
+      setOpen(false)
+      setMentionQuery('')
+    }
+
+    return (
+      <div style={{ padding: '24px 0', fontFamily: 'system-ui, sans-serif', maxWidth: 400 }}>
+        <Popover open={open} onOpenChange={setOpen}>
+          <Popover.Trigger asChild>
+            <div style={{ width: '100%' }}>
+              <div style={{ fontSize: 12, fontWeight: 600, color: '#64748b', marginBottom: 6 }}>
+                댓글 작성 (@를 입력해 멘션)
+              </div>
+              <input
+                value={input}
+                onChange={(e) => handleInput(e.target.value)}
+                placeholder="내용을 입력하세요... (@멘션 가능)"
+                style={{
+                  width: '100%', padding: '10px 14px', borderRadius: 8,
+                  border: '1.5px solid #e2e8f0', fontSize: 13, outline: 'none',
+                  boxSizing: 'border-box', lineHeight: 1.5,
+                }}
+              />
+            </div>
+          </Popover.Trigger>
+          <Popover.Content>
+            <div style={{ width: 240, fontFamily: 'system-ui, sans-serif' }}>
+              <div style={{ fontSize: 10, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em', padding: '6px 12px 4px' }}>
+                팀 멤버
+              </div>
+              {filteredUsers.map((user) => (
+                <div
+                  key={user.id}
+                  onClick={() => selectUser(user)}
+                  style={{
+                    display: 'flex', alignItems: 'center', gap: 10, padding: '8px 10px',
+                    cursor: 'pointer', borderRadius: 6, margin: '0 4px',
+                    transition: 'background 0.1s',
+                  }}
+                  onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = '#f1f5f9' }}
+                  onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = 'transparent' }}
+                >
+                  <div style={{
+                    width: 28, height: 28, borderRadius: '50%',
+                    background: user.color, display: 'flex', alignItems: 'center',
+                    justifyContent: 'center', fontSize: 10, fontWeight: 700, color: '#fff', flexShrink: 0,
+                  }}>
+                    {user.initials}
+                  </div>
+                  <div>
+                    <div style={{ fontSize: 13, fontWeight: 600, color: '#0f172a' }}>{user.name}</div>
+                    <div style={{ fontSize: 11, color: '#94a3b8' }}>{user.role}</div>
+                  </div>
+                </div>
+              ))}
+              {filteredUsers.length === 0 && (
+                <div style={{ textAlign: 'center', padding: '12px 0', fontSize: 12, color: '#94a3b8' }}>
+                  사용자를 찾을 수 없습니다
+                </div>
+              )}
+            </div>
+          </Popover.Content>
+        </Popover>
+        {mentions.length > 0 && (
+          <div style={{ marginTop: 12, display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+            {mentions.map((m, i) => (
+              <span key={i} style={{ fontSize: 12, background: '#eff6ff', color: '#3730a3', padding: '3px 8px', borderRadius: 4, fontWeight: 600 }}>
+                @{m}
+              </span>
+            ))}
+          </div>
+        )}
+      </div>
+    )
+  },
+}
+
+/* Raycast + Notion — 슬래시 커맨드 블록 타입 선택기
+   Notion의 / 커맨드 메뉴. Raycast의 리스트 아이템 스타일로 블록 타입을 선택.
+   검색 필터링과 카테고리 섹션 분류 포함.
+-------------------------------------------------------------------------- */
+const BLOCK_TYPES = [
+  { id: 'heading1', label: '제목 1', desc: '큰 섹션 제목', icon: 'H1', category: '기본 블록' },
+  { id: 'heading2', label: '제목 2', desc: '중간 섹션 제목', icon: 'H2', category: '기본 블록' },
+  { id: 'bullet', label: '글머리 목록', desc: '순서 없는 항목 목록', icon: '•', category: '기본 블록' },
+  { id: 'numbered', label: '번호 매기기', desc: '순서 있는 목록', icon: '1.', category: '기본 블록' },
+  { id: 'quote', label: '인용구', desc: '강조할 인용 텍스트', icon: '"', category: '기본 블록' },
+  { id: 'code', label: '코드 블록', desc: '코드 스니펫', icon: '</>', category: '고급' },
+  { id: 'table', label: '테이블', desc: '행과 열로 구성된 표', icon: '⊞', category: '고급' },
+  { id: 'divider', label: '구분선', desc: '페이지 섹션 분리', icon: '—', category: '고급' },
+]
+
+export const Notion_슬래시_커맨드_블록_선택기: Story = {
+  name: 'Notion + Raycast — 슬래시 커맨드 블록 타입 선택기',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Notion / 커맨드 메뉴를 Raycast 리스트 스타일로 구현. 블록 타입을 카테고리별로 분류하고 검색 필터링 지원. 아이콘 + 제목 + 설명 3단 레이아웃.',
+      },
+    },
+  },
+  render: function SlashCommandPopover() {
+    const [open, setOpen] = useState(false)
+    const [query, setQuery] = useState('')
+    const [selected, setSelected] = useState<string | null>(null)
+
+    const grouped = BLOCK_TYPES.filter((b) =>
+      b.label.toLowerCase().includes(query.toLowerCase()) ||
+      b.desc.toLowerCase().includes(query.toLowerCase()),
+    ).reduce<Record<string, typeof BLOCK_TYPES>>((acc, b) => {
+      if (!acc[b.category]) acc[b.category] = []
+      acc[b.category].push(b)
+      return acc
+    }, {})
+
+    return (
+      <div style={{ display: 'flex', alignItems: 'center', gap: 16, padding: '24px 0', flexWrap: 'wrap' }}>
+        <Popover open={open} onOpenChange={setOpen}>
+          <Popover.Trigger asChild>
+            <OutlineButton color="gray" size="medium">
+              <OutlineButton.Center>/ 슬래시 커맨드 열기</OutlineButton.Center>
+            </OutlineButton>
+          </Popover.Trigger>
+          <Popover.Content>
+            <div style={{ width: 280, fontFamily: 'system-ui, sans-serif' }}>
+              <div style={{ padding: '8px 10px', borderBottom: '1px solid #f1f5f9' }}>
+                <input
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                  placeholder="블록 타입 검색..."
+                  autoFocus
+                  style={{
+                    width: '100%', padding: '6px 10px', borderRadius: 6,
+                    border: '1px solid #e2e8f0', fontSize: 12, outline: 'none',
+                    boxSizing: 'border-box', background: '#f8fafc',
+                  }}
+                />
+              </div>
+              <div style={{ maxHeight: 300, overflowY: 'auto', padding: '4px 0' }}>
+                {Object.entries(grouped).map(([cat, blocks]) => (
+                  <div key={cat}>
+                    <div style={{ fontSize: 10, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em', padding: '8px 12px 4px' }}>
+                      {cat}
+                    </div>
+                    {blocks.map((block) => (
+                      <div
+                        key={block.id}
+                        onClick={() => { setSelected(block.label); setOpen(false); setQuery('') }}
+                        style={{
+                          display: 'flex', alignItems: 'center', gap: 10, padding: '8px 12px',
+                          cursor: 'pointer', borderRadius: 6, margin: '0 4px', transition: 'background 0.1s',
+                        }}
+                        onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = '#f1f5f9' }}
+                        onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = 'transparent' }}
+                      >
+                        <div style={{
+                          width: 28, height: 28, borderRadius: 6, background: '#f1f5f9',
+                          display: 'flex', alignItems: 'center', justifyContent: 'center',
+                          fontSize: 11, fontWeight: 700, color: '#475569', flexShrink: 0,
+                          fontFamily: 'monospace',
+                        }}>
+                          {block.icon}
+                        </div>
+                        <div>
+                          <div style={{ fontSize: 13, fontWeight: 600, color: '#0f172a' }}>{block.label}</div>
+                          <div style={{ fontSize: 11, color: '#94a3b8' }}>{block.desc}</div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </Popover.Content>
+        </Popover>
+        {selected && (
+          <Typography textStyle="descriptionSmall" style={{ color: '#6366f1', fontWeight: 600 }}>
+            선택됨: {selected}
+          </Typography>
+        )}
+      </div>
+    )
+  },
+}
