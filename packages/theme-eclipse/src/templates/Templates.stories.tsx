@@ -31774,3 +31774,224 @@ export const TailwindMUI136NotifDashboard: StoryObj = {
   },
   render: () => <NotifDashboard136Render />,
 }
+
+// ============================================================
+// Cycle 137 — Linear Design + Radix UI 벤치마크 반영
+// ============================================================
+// 사용자 프로필 + 설정 페이지 (Linear 미니멀 + Radix 접근성)
+// Checkbox, Switch, Divider 복합 사용 패턴
+
+const PROFILE_TABS_137 = ['프로필', '알림', '보안', '연결'] as const
+type ProfileTab137 = typeof PROFILE_TABS_137[number]
+
+const PROFILE_137 = { name: '김희준', handle: '@hjunkim', email: 'hj@orbit.dev', bio: 'Figma 기반 React 디자인 시스템 개발. 3-tier 토큰 아키텍처와 vanilla-extract 전도사.', role: '디자인 시스템 리드', dept: 'Engineering' }
+
+const NOTIF_PREFS_137 = [
+  { id: 'issues', label: '이슈 업데이트', on: true },
+  { id: 'prs', label: 'PR 리뷰 요청', on: true },
+  { id: 'deploys', label: '배포 알림', on: false },
+  { id: 'mentions', label: '멘션', on: true },
+  { id: 'digest', label: '주간 다이제스트', on: false },
+]
+
+const PRIVACY_OPTS_137 = [
+  { id: 'profile_visible', label: '프로필 공개', desc: '다른 팀원이 내 프로필을 볼 수 있습니다' },
+  { id: 'activity_visible', label: '활동 내역 공개', desc: '최근 커밋, PR, 코드리뷰 활동이 표시됩니다' },
+  { id: 'email_visible', label: '이메일 공개', desc: '이메일 주소가 프로필에 표시됩니다' },
+]
+
+function UserProfileSettings137Render() {
+  const [tab, setTab] = useState<ProfileTab137>('프로필')
+  const [profile, setProfile] = useState(PROFILE_137)
+  const [notifPrefs, setNotifPrefs] = useState(NOTIF_PREFS_137)
+  const [privacyOpts, setPrivacyOpts] = useState(
+    Object.fromEntries(PRIVACY_OPTS_137.map((o) => [o.id, o.id === 'profile_visible']))
+  )
+  const [editMode, setEditMode] = useState(false)
+
+  function toggleNotif(id: string) {
+    setNotifPrefs((prev) => prev.map((n) => n.id === id ? { ...n, on: !n.on } : n))
+  }
+
+  function togglePrivacy(id: string) {
+    setPrivacyOpts((prev) => ({ ...prev, [id]: !prev[id] }))
+  }
+
+  return (
+    <div style={{ width: 720, fontFamily: 'system-ui, sans-serif', display: 'grid', gridTemplateColumns: '200px 1fr', gap: 0, borderRadius: 16, border: '1px solid #e2e8f0', overflow: 'hidden', background: '#fff' }}>
+      {/* 사이드바 */}
+      <div style={{ background: '#f8fafc', borderRight: '1px solid #e2e8f0', padding: '24px 0' }}>
+        {/* 아바타 */}
+        <div style={{ textAlign: 'center', padding: '0 20px 20px', borderBottom: '1px solid #e2e8f0' }}>
+          <div style={{ width: 64, height: 64, borderRadius: '50%', background: '#6366f1', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 24, color: '#fff', fontWeight: 700, margin: '0 auto 10px' }}>
+            HJ
+          </div>
+          <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>{profile.name}</div>
+          <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>{profile.handle}</div>
+        </div>
+        {/* 탭 */}
+        <div style={{ padding: '12px 8px' }}>
+          {PROFILE_TABS_137.map((t) => (
+            <div
+              key={t}
+              onClick={() => setTab(t)}
+              style={{
+                padding: '8px 12px', borderRadius: 8, cursor: 'pointer', fontSize: 13, fontWeight: tab === t ? 600 : 400,
+                background: tab === t ? '#fff' : 'transparent',
+                color: tab === t ? '#0f172a' : '#64748b',
+                border: tab === t ? '1px solid #e2e8f0' : '1px solid transparent',
+                marginBottom: 2, transition: 'all 150ms',
+              }}
+            >
+              {t}
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* 콘텐츠 */}
+      <div style={{ padding: '28px 32px' }}>
+        {tab === '프로필' && (
+          <div>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24 }}>
+              <div>
+                <div style={{ fontSize: 16, fontWeight: 700, color: '#0f172a' }}>프로필 정보</div>
+                <div style={{ fontSize: 12, color: '#64748b', marginTop: 2 }}>공개 프로필 정보를 설정합니다</div>
+              </div>
+              <button
+                onClick={() => setEditMode((v) => !v)}
+                style={{ padding: '6px 14px', borderRadius: 8, border: '1px solid #e2e8f0', background: editMode ? '#0f172a' : '#fff', color: editMode ? '#fff' : '#0f172a', fontSize: 12, fontWeight: 600, cursor: 'pointer' }}
+              >
+                {editMode ? '저장' : '편집'}
+              </button>
+            </div>
+            <Divider />
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 16, marginTop: 20 }}>
+              {[
+                { label: '이름', key: 'name' as const },
+                { label: '이메일', key: 'email' as const },
+                { label: '역할', key: 'role' as const },
+                { label: '부서', key: 'dept' as const },
+              ].map((field) => (
+                <div key={field.key}>
+                  <div style={{ fontSize: 12, fontWeight: 600, color: '#64748b', marginBottom: 4 }}>{field.label}</div>
+                  {editMode ? (
+                    <input
+                      value={profile[field.key]}
+                      onChange={(e) => setProfile((p) => ({ ...p, [field.key]: (e.target as HTMLInputElement).value }))}
+                      style={{ width: '100%', padding: '8px 12px', borderRadius: 8, border: '1px solid #e2e8f0', fontSize: 13, outline: 'none', boxSizing: 'border-box' }}
+                    />
+                  ) : (
+                    <div style={{ fontSize: 13, color: '#0f172a', padding: '8px 0' }}>{profile[field.key]}</div>
+                  )}
+                </div>
+              ))}
+              <div>
+                <div style={{ fontSize: 12, fontWeight: 600, color: '#64748b', marginBottom: 4 }}>소개</div>
+                {editMode ? (
+                  <textarea
+                    value={profile.bio}
+                    onChange={(e) => setProfile((p) => ({ ...p, bio: (e.target as HTMLTextAreaElement).value }))}
+                    style={{ width: '100%', padding: '8px 12px', borderRadius: 8, border: '1px solid #e2e8f0', fontSize: 13, outline: 'none', boxSizing: 'border-box', minHeight: 72, resize: 'none' }}
+                  />
+                ) : (
+                  <div style={{ fontSize: 13, color: '#0f172a', padding: '8px 0', lineHeight: 1.6 }}>{profile.bio}</div>
+                )}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {tab === '알림' && (
+          <div>
+            <div style={{ fontSize: 16, fontWeight: 700, color: '#0f172a', marginBottom: 4 }}>알림 설정</div>
+            <div style={{ fontSize: 12, color: '#64748b', marginBottom: 20 }}>이벤트별 알림 수신 여부를 설정합니다</div>
+            <Divider />
+            <div style={{ marginTop: 20 }}>
+              {notifPrefs.map((n) => (
+                <div key={n.id} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px 0', borderBottom: '1px solid #f8fafc' }}>
+                  <span style={{ fontSize: 13, fontWeight: 500, color: '#0f172a' }}>{n.label}</span>
+                  <Switch checked={n.on} onCheckedChange={() => toggleNotif(n.id)} />
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {tab === '보안' && (
+          <div>
+            <div style={{ fontSize: 16, fontWeight: 700, color: '#0f172a', marginBottom: 4 }}>보안 및 개인정보</div>
+            <div style={{ fontSize: 12, color: '#64748b', marginBottom: 20 }}>프로필 공개 범위와 보안 설정을 관리합니다</div>
+            <Divider />
+            <div style={{ marginTop: 20, display: 'flex', flexDirection: 'column', gap: 12 }}>
+              {PRIVACY_OPTS_137.map((opt) => (
+                <div
+                  key={opt.id}
+                  onClick={() => togglePrivacy(opt.id)}
+                  style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 14px', borderRadius: 10, border: '1px solid #f1f5f9', background: privacyOpts[opt.id] ? '#f0f9ff' : '#fff', cursor: 'pointer', transition: 'background 150ms' }}
+                >
+                  <BoxedCheckbox checked={privacyOpts[opt.id]} onChange={() => togglePrivacy(opt.id)} />
+                  <div>
+                    <div style={{ fontSize: 13, fontWeight: 600, color: '#0f172a' }}>{opt.label}</div>
+                    <div style={{ fontSize: 11, color: '#64748b', marginTop: 2 }}>{opt.desc}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {tab === '연결' && (
+          <div>
+            <div style={{ fontSize: 16, fontWeight: 700, color: '#0f172a', marginBottom: 4 }}>연결된 계정</div>
+            <div style={{ fontSize: 12, color: '#64748b', marginBottom: 20 }}>외부 서비스와의 연동을 관리합니다</div>
+            <Divider />
+            <div style={{ marginTop: 20, display: 'flex', flexDirection: 'column', gap: 12 }}>
+              {[
+                { name: 'GitHub', connected: true, user: '@blue45f', color: '#0f172a' },
+                { name: 'Figma', connected: true, user: 'hjunkim@figma.com', color: '#a259ff' },
+                { name: 'Notion', connected: false, user: null, color: '#000' },
+                { name: 'Vercel', connected: true, user: 'blue45f', color: '#000' },
+              ].map((svc) => (
+                <div key={svc.name} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '14px 16px', borderRadius: 12, border: '1px solid #e2e8f0' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                    <div style={{ width: 36, height: 36, borderRadius: 10, background: svc.color + '10', border: `1.5px solid ${svc.color}20`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 15, fontWeight: 700, color: svc.color }}>
+                      {svc.name[0]}
+                    </div>
+                    <div>
+                      <div style={{ fontSize: 13, fontWeight: 600, color: '#0f172a' }}>{svc.name}</div>
+                      <div style={{ fontSize: 11, color: svc.connected ? '#22c55e' : '#94a3b8', marginTop: 1 }}>{svc.connected ? svc.user : '연결되지 않음'}</div>
+                    </div>
+                  </div>
+                  <button style={{
+                    padding: '5px 12px', borderRadius: 7, border: svc.connected ? '1px solid #fca5a5' : '1px solid #e2e8f0',
+                    background: '#fff', color: svc.connected ? '#ef4444' : '#0f172a',
+                    fontSize: 11, fontWeight: 600, cursor: 'pointer',
+                  }}>
+                    {svc.connected ? '해제' : '연결'}
+                  </button>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+
+export const LinearRadix137UserProfileSettings: StoryObj = {
+  name: 'Linear + Radix — 사용자 프로필 설정 페이지 (Cycle 137)',
+  parameters: {
+    layout: 'centered',
+    docs: {
+      description: {
+        story:
+          'Linear Design + Radix UI 벤치마크 — Cycle 137. ' +
+          '4탭(프로필/알림/보안/연결) 설정 레이아웃. 프로필 인라인 편집, Switch 알림 토글, ' +
+          'Checkbox 개인정보 설정 매트릭스, 외부 서비스 연결 관리.',
+      },
+    },
+  },
+  render: () => <UserProfileSettings137Render />,
+}

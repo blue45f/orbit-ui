@@ -1275,3 +1275,233 @@ export const Apple_HIG_빠른_설정_패널: Story = {
     )
   },
 }
+
+// ============================================================
+// Cycle 137 — Linear Design + Radix UI 벤치마크 반영
+// ============================================================
+
+// Linear 스타일 — 알림 환경설정 스위치 패널 (컴팩트)
+const LINEAR_NOTIF_SETTINGS_137 = [
+  { id: 'issue_assigned', label: '이슈 담당자 지정', desc: '내가 담당자로 지정될 때', on: true },
+  { id: 'issue_mentioned', label: '이슈 멘션', desc: '댓글에서 @멘션될 때', on: true },
+  { id: 'pr_review', label: 'PR 리뷰 요청', desc: '리뷰어로 지정될 때', on: true },
+  { id: 'deploy_done', label: '배포 완료', desc: 'Production 배포가 완료될 때', on: false },
+  { id: 'cycle_update', label: '사이클 업데이트', desc: '사이클 목표가 변경될 때', on: false },
+]
+
+export const Linear_알림_환경설정_패널: Story = {
+  name: 'Linear — 알림 환경설정 스위치 패널 (Cycle 137)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Linear Notification Settings 패턴. 알림 항목별 on/off 스위치 + 설명 서브텍스트. ' +
+          '상단 "전체 알림" 마스터 스위치로 일괄 제어. 변경 즉시 하단 저장 버튼 활성화.',
+      },
+    },
+  },
+  render: function LinearNotifSettingsRender() {
+    const [settings, setSettings] = useState(LINEAR_NOTIF_SETTINGS_137)
+    const [saved, setSaved] = useState(true)
+
+    function toggleItem(id: string) {
+      setSettings((prev) => prev.map((s) => s.id === id ? { ...s, on: !s.on } : s))
+      setSaved(false)
+    }
+
+    const allOn = settings.every((s) => s.on)
+    const masterState = allOn ? true : settings.some((s) => s.on) ? 'indeterminate' : false
+
+    function toggleAll() {
+      setSettings((prev) => prev.map((s) => ({ ...s, on: !allOn })))
+      setSaved(false)
+    }
+
+    return (
+      <div style={{ width: 360, fontFamily: 'system-ui, sans-serif', background: '#fff', borderRadius: 14, border: '1px solid #e2e8f0', overflow: 'hidden' }}>
+        {/* 마스터 스위치 */}
+        <div style={{ padding: '14px 18px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <div>
+            <div style={{ fontSize: 13, fontWeight: 700, color: '#0f172a' }}>전체 알림</div>
+            <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 1 }}>모든 알림을 한번에 제어합니다</div>
+          </div>
+          <Switch
+            checked={masterState === true}
+            onCheckedChange={toggleAll}
+          />
+        </div>
+        {/* 개별 알림 설정 */}
+        {settings.map((s) => (
+          <div key={s.id} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px 18px', borderBottom: '1px solid #f8fafc' }}>
+            <div style={{ opacity: masterState === false ? 0.4 : 1, transition: 'opacity 200ms' }}>
+              <div style={{ fontSize: 12, fontWeight: 500, color: '#0f172a' }}>{s.label}</div>
+              <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 1 }}>{s.desc}</div>
+            </div>
+            <Switch
+              checked={s.on}
+              onCheckedChange={() => toggleItem(s.id)}
+              disabled={masterState === false}
+            />
+          </div>
+        ))}
+        {/* 저장 버튼 */}
+        <div style={{ padding: '12px 18px', borderTop: '1px solid #f1f5f9', display: 'flex', gap: 8, justifyContent: 'flex-end' }}>
+          <button
+            disabled={saved}
+            onClick={() => setSaved(true)}
+            style={{
+              padding: '6px 16px', borderRadius: 8, border: 'none', fontSize: 12, fontWeight: 600,
+              background: saved ? '#f1f5f9' : '#0f172a', color: saved ? '#94a3b8' : '#fff',
+              cursor: saved ? 'default' : 'pointer', transition: 'all 200ms',
+            }}
+          >
+            {saved ? '저장됨' : '저장'}
+          </button>
+        </div>
+      </div>
+    )
+  },
+}
+
+// Radix UI 스타일 — 테마 / 접근성 설정 (고대비, 모션 감소)
+const RADIX_A11Y_SETTINGS_137 = [
+  { id: 'high_contrast', label: '고대비 모드', desc: '색상 대비를 높여 가독성을 개선합니다 (WCAG AA 기준)', on: false, badge: 'AA' },
+  { id: 'reduce_motion', label: '모션 감소', desc: '애니메이션과 전환 효과를 최소화합니다', on: false, badge: null },
+  { id: 'large_text', label: '큰 텍스트', desc: '기본 폰트 크기를 18px로 설정합니다', on: false, badge: null },
+  { id: 'focus_ring', label: '포커스 링 강조', desc: '키보드 탐색 시 포커스 인디케이터를 강하게 표시합니다', on: true, badge: null },
+]
+
+export const Radix_접근성_설정_스위치: Story = {
+  name: 'Radix UI — 접근성 설정 스위치 (Cycle 137)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Radix UI AccessibilitySettings 패턴. 고대비/모션감소/큰텍스트/포커스링 등 접근성 옵션. ' +
+          '각 항목 설명 + 뱃지(WCAG 기준 표시). 토글 시 미리보기 영역에 즉시 반영.',
+      },
+    },
+  },
+  render: function RadixA11ySettingsRender() {
+    const [settings, setSettings] = useState(RADIX_A11Y_SETTINGS_137)
+
+    function toggle(id: string) {
+      setSettings((prev) => prev.map((s) => s.id === id ? { ...s, on: !s.on } : s))
+    }
+
+    const highContrast = settings.find((s) => s.id === 'high_contrast')?.on
+    const largeText = settings.find((s) => s.id === 'large_text')?.on
+
+    return (
+      <div style={{ width: 380, fontFamily: 'system-ui, sans-serif' }}>
+        {/* 미리보기 */}
+        <div style={{
+          padding: '16px', borderRadius: 12, border: `2px solid ${highContrast ? '#000' : '#e2e8f0'}`,
+          background: highContrast ? '#000' : '#f8fafc', marginBottom: 14, transition: 'all 300ms',
+        }}>
+          <div style={{ fontSize: largeText ? 18 : 14, fontWeight: 600, color: highContrast ? '#fff' : '#0f172a', transition: 'all 300ms' }}>
+            접근성 미리보기
+          </div>
+          <div style={{ fontSize: largeText ? 15 : 12, color: highContrast ? '#e2e8f0' : '#64748b', marginTop: 4, transition: 'all 300ms' }}>
+            설정 변경 시 즉시 반영됩니다.
+          </div>
+        </div>
+        {/* 설정 목록 */}
+        <div style={{ borderRadius: 12, border: '1px solid #e2e8f0', overflow: 'hidden' }}>
+          {settings.map((s) => (
+            <div key={s.id} style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', padding: '14px 16px', borderBottom: '1px solid #f1f5f9', gap: 12 }}>
+              <div style={{ flex: 1 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                  <span style={{ fontSize: 13, fontWeight: 600, color: '#0f172a' }}>{s.label}</span>
+                  {s.badge && (
+                    <span style={{ fontSize: 10, fontWeight: 700, padding: '1px 6px', borderRadius: 4, background: '#dbeafe', color: '#1d4ed8' }}>{s.badge}</span>
+                  )}
+                </div>
+                <div style={{ fontSize: 11, color: '#64748b', marginTop: 2, lineHeight: 1.5 }}>{s.desc}</div>
+              </div>
+              <Switch
+                checked={s.on}
+                onCheckedChange={() => toggle(s.id)}
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+    )
+  },
+}
+
+// Linear + Radix — 기능 플래그 토글 (개발자 도구 패턴)
+const FEATURE_FLAGS_137 = [
+  { id: 'dark_mode', label: 'Dark Mode', env: 'beta', on: true, risk: 'low' },
+  { id: 'new_datatable', label: 'New DataTable v2', env: 'alpha', on: false, risk: 'medium' },
+  { id: 'ai_suggest', label: 'AI Token Suggest', env: 'experimental', on: false, risk: 'high' },
+  { id: 'perf_monitor', label: 'Performance Monitor', env: 'beta', on: true, risk: 'low' },
+  { id: 'mdx_live', label: 'MDX Live Preview', env: 'stable', on: true, risk: 'low' },
+]
+
+const RISK_STYLE_137: Record<string, { bg: string; color: string }> = {
+  low: { bg: '#f0fdf4', color: '#16a34a' },
+  medium: { bg: '#fffbeb', color: '#d97706' },
+  high: { bg: '#fef2f2', color: '#dc2626' },
+}
+
+const ENV_STYLE_137: Record<string, string> = {
+  stable: '#64748b',
+  beta: '#6366f1',
+  alpha: '#0ea5e9',
+  experimental: '#ec4899',
+}
+
+export const Linear_Radix_기능_플래그_토글: Story = {
+  name: 'Linear + Radix — 기능 플래그 토글 패널 (Cycle 137)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Linear Feature Flags + Radix Switch 통합 개발자 도구 패턴. ' +
+          '환경(stable/beta/alpha/experimental) 배지 + 리스크 레벨(low/medium/high) 표시. ' +
+          'high risk 플래그 활성화 시 경고 텍스트 인라인 표시.',
+      },
+    },
+  },
+  render: function LinearRadixFeatureFlagsRender() {
+    const [flags, setFlags] = useState(FEATURE_FLAGS_137)
+
+    function toggle(id: string) {
+      setFlags((prev) => prev.map((f) => f.id === id ? { ...f, on: !f.on } : f))
+    }
+
+    return (
+      <div style={{ width: 420, fontFamily: 'monospace, system-ui, sans-serif', background: '#0f172a', borderRadius: 14, overflow: 'hidden', border: '1px solid #1e293b' }}>
+        <div style={{ padding: '14px 18px', borderBottom: '1px solid #1e293b', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <span style={{ fontSize: 12, fontWeight: 700, color: '#94a3b8', letterSpacing: 1 }}>FEATURE FLAGS</span>
+          <span style={{ fontSize: 11, color: '#475569' }}>{flags.filter((f) => f.on).length}/{flags.length} 활성</span>
+        </div>
+        {flags.map((f) => {
+          const risk = RISK_STYLE_137[f.risk]
+          return (
+            <div key={f.id} style={{ padding: '12px 18px', borderBottom: '1px solid #1e293b' }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 10 }}>
+                <div style={{ flex: 1 }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                    <span style={{ fontSize: 13, fontWeight: 600, color: '#e2e8f0', fontFamily: 'monospace' }}>{f.label}</span>
+                    <span style={{ fontSize: 10, fontWeight: 700, padding: '1px 6px', borderRadius: 4, background: ENV_STYLE_137[f.env] + '22', color: ENV_STYLE_137[f.env] }}>{f.env}</span>
+                    <span style={{ fontSize: 10, fontWeight: 600, padding: '1px 6px', borderRadius: 4, background: risk.bg + '22', color: risk.color }}>{f.risk}</span>
+                  </div>
+                  {f.on && f.risk === 'high' && (
+                    <div style={{ fontSize: 11, color: '#fca5a5', marginTop: 4 }}>주의: 실험적 기능입니다. 예기치 않은 동작이 발생할 수 있습니다.</div>
+                  )}
+                </div>
+                <Switch
+                  checked={f.on}
+                  onCheckedChange={() => toggle(f.id)}
+                />
+              </div>
+            </div>
+          )
+        })}
+      </div>
+    )
+  },
+}

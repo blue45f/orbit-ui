@@ -1300,3 +1300,249 @@ export const 디자인_QA = {
     return <Checkbox {...args} checked={isChecked} onChange={(checked) => setIsChecked(checked)} />
   },
 } satisfies Story
+
+// ============================================================
+// Cycle 137 — Linear Design + Radix UI 벤치마크 반영
+// ============================================================
+
+// Linear 스타일 — 이슈 레이블 필터 체크박스 (컴팩트 인라인)
+const LINEAR_LABELS_137 = [
+  { id: 'bug', label: 'Bug', color: '#ef4444' },
+  { id: 'feature', label: 'Feature', color: '#6366f1' },
+  { id: 'improvement', label: 'Improvement', color: '#0ea5e9' },
+  { id: 'design', label: 'Design', color: '#ec4899' },
+  { id: 'docs', label: 'Documentation', color: '#f59e0b' },
+  { id: 'chore', label: 'Chore', color: '#94a3b8' },
+]
+
+export const Linear_이슈_레이블_필터: Story = {
+  name: 'Linear — 이슈 레이블 필터 체크박스 (Cycle 137)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Linear Issue Label Filter 패턴. 색상 도트 + 레이블명 + 선택 개수 배지. ' +
+          '복수 선택 가능하며 선택된 항목은 배경 강조. Linear의 컴팩트 밀도감 반영.',
+      },
+    },
+  },
+  render: function LinearLabelFilterRender() {
+    const [selected, setSelected] = useState<string[]>(['bug', 'feature'])
+
+    function toggle(id: string) {
+      setSelected((prev) =>
+        prev.includes(id) ? prev.filter((s) => s !== id) : [...prev, id]
+      )
+    }
+
+    return (
+      <div style={{ width: 260, fontFamily: 'system-ui, sans-serif', background: '#fff', borderRadius: 10, border: '1px solid #e2e8f0', overflow: 'hidden' }}>
+        <div style={{ padding: '10px 14px', borderBottom: '1px solid #f1f5f9', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <span style={{ fontSize: 12, fontWeight: 700, color: '#0f172a' }}>레이블</span>
+          {selected.length > 0 && (
+            <span style={{ fontSize: 11, color: '#6366f1', fontWeight: 600 }}>{selected.length}개 선택</span>
+          )}
+        </div>
+        {LINEAR_LABELS_137.map((l) => {
+          const checked = selected.includes(l.id)
+          return (
+            <div
+              key={l.id}
+              onClick={() => toggle(l.id)}
+              style={{
+                display: 'flex', alignItems: 'center', gap: 10, padding: '8px 14px',
+                background: checked ? l.color + '0a' : '#fff',
+                borderBottom: '1px solid #f8fafc', cursor: 'pointer', transition: 'background 150ms',
+              }}
+            >
+              <Checkbox
+                checked={checked}
+                onChange={() => toggle(l.id)}
+              />
+              <div style={{ width: 8, height: 8, borderRadius: '50%', background: l.color, flexShrink: 0 }} />
+              <span style={{ fontSize: 12, fontWeight: checked ? 600 : 400, color: '#0f172a', flex: 1 }}>{l.label}</span>
+            </div>
+          )
+        })}
+        <div style={{ padding: '8px 14px', borderTop: '1px solid #f1f5f9' }}>
+          <button
+            onClick={() => setSelected([])}
+            style={{ fontSize: 11, color: '#94a3b8', border: 'none', background: 'none', cursor: 'pointer', padding: 0 }}
+          >
+            선택 초기화
+          </button>
+        </div>
+      </div>
+    )
+  },
+}
+
+// Radix UI 스타일 — 권한 설정 매트릭스 체크박스
+const RADIX_PERMISSIONS_137 = [
+  { resource: '컴포넌트', read: true, write: false, delete: false },
+  { resource: '스토리북', read: true, write: true, delete: false },
+  { resource: '디자인 토큰', read: true, write: true, delete: true },
+  { resource: '배포 설정', read: false, write: false, delete: false },
+]
+
+type PermRow = { resource: string; read: boolean; write: boolean; delete: boolean }
+type PermKey = 'read' | 'write' | 'delete'
+
+export const Radix_권한_설정_매트릭스: Story = {
+  name: 'Radix UI — 권한 설정 매트릭스 체크박스 (Cycle 137)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Radix UI CheckboxGroup 권한 매트릭스 패턴. 리소스 × 권한 타입(Read/Write/Delete) 2차원 그리드. ' +
+          '열 헤더 클릭으로 해당 열 전체 선택/해제(indeterminate 상태 포함). 접근성 완전 지원.',
+      },
+    },
+  },
+  render: function RadixPermissionMatrixRender() {
+    const [perms, setPerms] = useState<PermRow[]>(RADIX_PERMISSIONS_137)
+
+    function toggleCell(idx: number, key: PermKey) {
+      setPerms((prev) => prev.map((r, i) => i === idx ? { ...r, [key]: !r[key] } : r))
+    }
+
+    function getColState(key: PermKey): boolean {
+      const all = perms.every((r) => r[key])
+      const none = perms.every((r) => !r[key])
+      if (all) return true
+      if (none) return false
+      return false
+    }
+
+    function toggleCol(key: PermKey) {
+      const state = getColState(key)
+      const next = state !== true
+      setPerms((prev) => prev.map((r) => ({ ...r, [key]: next })))
+    }
+
+    const cols: PermKey[] = ['read', 'write', 'delete']
+    const colLabels = { read: '읽기', write: '쓰기', delete: '삭제' }
+
+    return (
+      <div style={{ fontFamily: 'system-ui, sans-serif', borderRadius: 12, border: '1px solid #e2e8f0', overflow: 'hidden', width: 380 }}>
+        <div style={{ padding: '12px 16px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0', fontSize: 13, fontWeight: 700, color: '#0f172a' }}>
+          리소스 권한 설정
+        </div>
+        <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+          <thead>
+            <tr style={{ background: '#fafbfc' }}>
+              <th style={{ padding: '10px 16px', textAlign: 'left', fontSize: 12, fontWeight: 600, color: '#64748b', width: '45%' }}>리소스</th>
+              {cols.map((col) => (
+                <th key={col} style={{ padding: '10px', textAlign: 'center', fontSize: 12, fontWeight: 600, color: '#64748b' }}>
+                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4 }}>
+                    <Checkbox
+                      checked={getColState(col)}
+                      onChange={() => toggleCol(col)}
+                    />
+                    <span>{colLabels[col]}</span>
+                  </div>
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {perms.map((row, idx) => (
+              <tr key={row.resource} style={{ borderTop: '1px solid #f1f5f9' }}>
+                <td style={{ padding: '10px 16px', fontSize: 13, color: '#0f172a', fontWeight: 500 }}>{row.resource}</td>
+                {cols.map((col) => (
+                  <td key={col} style={{ padding: '10px', textAlign: 'center' }}>
+                    <Checkbox
+                      checked={row[col]}
+                      onChange={() => toggleCell(idx, col)}
+                      disabled={col === 'delete' && !row.write}
+                    />
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    )
+  },
+}
+
+// Linear + Radix — 스프린트 완료 체크리스트 (애니메이션 취소선)
+const SPRINT_TASKS_137 = [
+  { id: 1, title: 'Checkbox 스토리 3개 추가', priority: 'high', done: false },
+  { id: 2, title: 'Switch 스토리 3개 추가', priority: 'high', done: false },
+  { id: 3, title: 'Templates Cycle 137 추가', priority: 'medium', done: false },
+  { id: 4, title: 'pnpm typecheck 통과', priority: 'high', done: false },
+  { id: 5, title: 'ESLint max-warnings 0', priority: 'high', done: false },
+  { id: 6, title: 'git push & 배포', priority: 'medium', done: false },
+]
+
+const PRIORITY_COLOR_137: Record<string, string> = { high: '#ef4444', medium: '#f59e0b', low: '#64748b' }
+
+export const Linear_Radix_스프린트_체크리스트: Story = {
+  name: 'Linear + Radix — 스프린트 완료 체크리스트 (Cycle 137)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Linear Issue + Radix Checkbox 통합 패턴. 완료 시 취소선 애니메이션 + 체크 표시. ' +
+          '전체 완료 시 진행 바가 초록으로 변하고 완료 메시지 표시. 우선순위 색상 도트.',
+      },
+    },
+  },
+  render: function LinearSprintChecklistRender() {
+    const [tasks, setTasks] = useState(SPRINT_TASKS_137)
+
+    function toggle(id: number) {
+      setTasks((prev) => prev.map((t) => t.id === id ? { ...t, done: !t.done } : t))
+    }
+
+    const doneCount = tasks.filter((t) => t.done).length
+    const total = tasks.length
+    const allDone = doneCount === total
+    const progress = Math.round((doneCount / total) * 100)
+
+    return (
+      <div style={{ width: 340, fontFamily: 'system-ui, sans-serif', background: '#fff', borderRadius: 14, border: '1px solid #e2e8f0', overflow: 'hidden' }}>
+        <div style={{ padding: '14px 16px', borderBottom: '1px solid #f1f5f9' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
+            <span style={{ fontSize: 13, fontWeight: 700, color: '#0f172a' }}>Cycle 137 스프린트</span>
+            <span style={{ fontSize: 11, color: allDone ? '#22c55e' : '#94a3b8', fontWeight: 600 }}>{doneCount}/{total}</span>
+          </div>
+          <div style={{ height: 4, background: '#f1f5f9', borderRadius: 99 }}>
+            <div style={{ height: '100%', width: `${progress}%`, background: allDone ? '#22c55e' : '#6366f1', borderRadius: 99, transition: 'width 300ms ease, background 300ms' }} />
+          </div>
+        </div>
+        {tasks.map((task) => (
+          <div
+            key={task.id}
+            onClick={() => toggle(task.id)}
+            style={{
+              display: 'flex', alignItems: 'center', gap: 10, padding: '10px 16px',
+              borderBottom: '1px solid #f8fafc', cursor: 'pointer',
+              background: task.done ? '#f8fafc' : '#fff', transition: 'background 150ms',
+            }}
+          >
+            <Checkbox
+              checked={task.done}
+              onChange={() => toggle(task.id)}
+            />
+            <div style={{ width: 6, height: 6, borderRadius: '50%', background: PRIORITY_COLOR_137[task.priority], flexShrink: 0 }} />
+            <span style={{
+              fontSize: 12, color: task.done ? '#94a3b8' : '#0f172a',
+              textDecoration: task.done ? 'line-through' : 'none',
+              transition: 'all 200ms', flex: 1,
+            }}>
+              {task.title}
+            </span>
+          </div>
+        ))}
+        {allDone && (
+          <div style={{ padding: '12px 16px', background: '#f0fdf4', borderTop: '1px solid #dcfce7', fontSize: 12, color: '#16a34a', fontWeight: 600, textAlign: 'center' }}>
+            스프린트 완료! 모든 작업이 완료되었습니다.
+          </div>
+        )}
+      </div>
+    )
+  },
+}
