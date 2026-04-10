@@ -1241,3 +1241,328 @@ export const FAQ_아코디언_패턴 = {
     )
   },
 }
+
+// --- Cycle 75: shadcn/ui + Vercel Design 벤치마크 ---
+
+const ShadcnChangelogRender = () => {
+  const [openItems, setOpenItems] = useState<string[]>(['v0.3.0'])
+
+  const CHANGELOG = [
+    {
+      version: 'v0.3.0',
+      date: '2026-04-10',
+      type: 'major',
+      changes: [
+        { kind: 'feat', text: 'Command 팔레트 컴포넌트 추가 (cmdk 기반)' },
+        { kind: 'feat', text: 'Toggle 컴포넌트 Radix Primitive 기반으로 재구현' },
+        { kind: 'fix', text: 'Modal 포커스 트랩 누락 수정 (ORB-130)' },
+      ],
+    },
+    {
+      version: 'v0.2.5',
+      date: '2026-03-22',
+      type: 'minor',
+      changes: [
+        { kind: 'feat', text: 'SearchBar 자동완성 드롭다운 패턴 추가' },
+        { kind: 'fix', text: 'Button disabled 상태 커서 수정' },
+        { kind: 'chore', text: 'Storybook 8.6으로 업그레이드' },
+      ],
+    },
+    {
+      version: 'v0.2.0',
+      date: '2026-02-14',
+      type: 'minor',
+      changes: [
+        { kind: 'feat', text: 'DataTable 정렬/필터/페이지네이션 완성' },
+        { kind: 'feat', text: 'EclipseProvider 다크모드 지원' },
+        { kind: 'fix', text: 'FloatingTextField placeholder 색상 WCAG AA 수정' },
+      ],
+    },
+  ]
+
+  const TYPE_COLOR = { major: '#ef4444', minor: '#f59e0b', patch: '#22c55e' } as const
+  const KIND_COLOR = { feat: '#6366f1', fix: '#f59e0b', chore: '#94a3b8' } as const
+  type ChangeKind = keyof typeof KIND_COLOR
+
+  const toggle = (v: string) =>
+    setOpenItems((prev) => prev.includes(v) ? prev.filter((i) => i !== v) : [...prev, v])
+
+  return (
+    <div style={{ width: 500, fontFamily: 'system-ui, sans-serif' }}>
+      <div style={{ fontSize: 15, fontWeight: 700, color: '#0f172a', marginBottom: 16 }}>변경 이력 (Changelog)</div>
+      <Accordion type="multiple" value={openItems} onValueChange={setOpenItems}>
+        {CHANGELOG.map((release) => (
+          <Accordion.Item key={release.version} value={release.version}>
+            <Accordion.Trigger onClick={() => toggle(release.version)}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 10, flex: 1 }}>
+                <span style={{ fontWeight: 700, fontSize: 14, fontFamily: 'monospace' }}>{release.version}</span>
+                <span style={{
+                  fontSize: 9, padding: '1px 6px', borderRadius: 3, fontWeight: 700,
+                  background: TYPE_COLOR[release.type as keyof typeof TYPE_COLOR] + '20',
+                  color: TYPE_COLOR[release.type as keyof typeof TYPE_COLOR],
+                }}>
+                  {release.type.toUpperCase()}
+                </span>
+                <span style={{ marginLeft: 'auto', fontSize: 11, color: '#94a3b8', marginRight: 8 }}>{release.date}</span>
+              </div>
+            </Accordion.Trigger>
+            <Accordion.Content>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+                {release.changes.map((c, i) => (
+                  <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: 8 }}>
+                    <span style={{
+                      fontSize: 9, padding: '2px 6px', borderRadius: 3, fontWeight: 700, flexShrink: 0, marginTop: 1,
+                      background: KIND_COLOR[c.kind as ChangeKind] + '20',
+                      color: KIND_COLOR[c.kind as ChangeKind],
+                    }}>
+                      {c.kind}
+                    </span>
+                    <span style={{ fontSize: 13, color: '#475569', lineHeight: 1.5 }}>{c.text}</span>
+                  </div>
+                ))}
+              </div>
+            </Accordion.Content>
+          </Accordion.Item>
+        ))}
+      </Accordion>
+      <div style={{ marginTop: 10, fontSize: 11, color: '#94a3b8' }}>
+        shadcn/ui — Changelog Accordion 패턴 (버전 타입 배지 + 변경 종류 태그)
+      </div>
+    </div>
+  )
+}
+
+export const shadcn_Changelog_아코디언: Story = {
+  name: 'shadcn/ui - Changelog 버전 아코디언',
+  args: { type: 'multiple' },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'shadcn/ui Accordion 벤치마크. 버전별 릴리즈 타입(major/minor) 배지, feat/fix/chore 변경 종류 태그, type="multiple"로 복수 열기 지원.',
+      },
+    },
+  },
+  render: () => <ShadcnChangelogRender />,
+}
+
+const VercelProjectSettingsRender = () => {
+  const [openSection, setOpenSection] = useState('general')
+
+  const SECTIONS = [
+    {
+      id: 'general',
+      title: '일반',
+      desc: '프로젝트 이름, URL, 삭제',
+      content: [
+        { label: '프로젝트 이름', value: 'orbit-ui-storybook', editable: true },
+        { label: '프레임워크', value: 'Vite', editable: false },
+        { label: '루트 디렉토리', value: 'packages/theme-eclipse', editable: true },
+      ],
+    },
+    {
+      id: 'domains',
+      title: '도메인',
+      desc: '커스텀 도메인 연결',
+      content: [
+        { label: '프로덕션 도메인', value: 'orbit-ui.vercel.app', editable: false },
+        { label: '브랜치 도메인', value: '*.vercel.app', editable: false },
+      ],
+    },
+    {
+      id: 'build',
+      title: '빌드 & 배포',
+      desc: '빌드 명령어, 출력 디렉토리',
+      content: [
+        { label: '빌드 명령어', value: 'pnpm build:storybook', editable: true },
+        { label: '출력 디렉토리', value: 'storybook-static', editable: true },
+        { label: 'Node.js 버전', value: '20.x', editable: false },
+      ],
+    },
+    {
+      id: 'env',
+      title: '환경 변수',
+      desc: '시크릿 및 환경 설정',
+      content: [
+        { label: 'STORYBOOK_ENV', value: 'production', editable: false },
+        { label: 'NODE_ENV', value: 'production', editable: false },
+      ],
+    },
+  ]
+
+  return (
+    <div style={{ width: 520, fontFamily: 'system-ui, sans-serif' }}>
+      <div style={{ marginBottom: 16 }}>
+        <div style={{ fontSize: 15, fontWeight: 700, color: '#0f172a', marginBottom: 2 }}>프로젝트 설정</div>
+        <div style={{ fontSize: 12, color: '#94a3b8' }}>orbit-ui-storybook</div>
+      </div>
+      <Accordion type="single" value={openSection} onValueChange={(v) => setOpenSection(v ?? '')} collapsible>
+        {SECTIONS.map((s) => (
+          <Accordion.Item key={s.id} value={s.id}>
+            <Accordion.Trigger>
+              <div style={{ flex: 1, textAlign: 'left' }}>
+                <div style={{ fontSize: 13, fontWeight: 600 }}>{s.title}</div>
+                <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2, fontWeight: 400 }}>{s.desc}</div>
+              </div>
+            </Accordion.Trigger>
+            <Accordion.Content>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+                {s.content.map((item) => (
+                  <div key={item.label} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                    <div>
+                      <div style={{ fontSize: 12, fontWeight: 500, color: '#1e293b' }}>{item.label}</div>
+                    </div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                      <code style={{
+                        fontFamily: 'monospace', fontSize: 11, background: '#f1f5f9',
+                        padding: '3px 8px', borderRadius: 4, color: '#475569',
+                      }}>
+                        {item.value}
+                      </code>
+                      {item.editable && (
+                        <GhostButton color="gray" size="small">
+                          <GhostButton.Center>수정</GhostButton.Center>
+                        </GhostButton>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </Accordion.Content>
+          </Accordion.Item>
+        ))}
+      </Accordion>
+      <div style={{ marginTop: 10, fontSize: 11, color: '#94a3b8' }}>
+        Vercel 프로젝트 설정 패널 — 섹션별 Accordion + 수정 버튼
+      </div>
+    </div>
+  )
+}
+
+export const Vercel_프로젝트_설정_패널: Story = {
+  name: 'Vercel - 프로젝트 설정 섹션 아코디언',
+  args: { type: 'single' },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Vercel Project Settings 벤치마크. type=single collapsible, 섹션 제목+설명, 내부 코드 뱃지, 편집 가능 항목에 GhostButton 표시 패턴.',
+      },
+    },
+  },
+  render: () => <VercelProjectSettingsRender />,
+}
+
+const ShadcnVercelPricingRender = () => {
+  const [openPlan, setOpenPlan] = useState('pro')
+
+  const PLANS = [
+    {
+      id: 'hobby',
+      name: 'Hobby',
+      price: '무료',
+      badge: null,
+      features: [
+        '개인 프로젝트 무제한',
+        '100회/일 배포',
+        '공유 컴퓨팅',
+        '기본 분석',
+      ],
+    },
+    {
+      id: 'pro',
+      name: 'Pro',
+      price: '$20/월',
+      badge: '추천',
+      features: [
+        '팀 협업 지원',
+        '무제한 배포',
+        '전용 컴퓨팅',
+        '고급 분석 + 커스텀 도메인',
+        '우선 지원',
+      ],
+    },
+    {
+      id: 'enterprise',
+      name: 'Enterprise',
+      price: '문의',
+      badge: null,
+      features: [
+        'Pro 모든 기능 포함',
+        'SLA 보장 (99.99%)',
+        '전용 인프라',
+        'SSO/SAML 통합',
+        '전담 지원팀',
+      ],
+    },
+  ]
+
+  return (
+    <div style={{ width: 480, fontFamily: 'system-ui, sans-serif' }}>
+      <div style={{ fontSize: 15, fontWeight: 700, color: '#0f172a', marginBottom: 16 }}>플랜 선택</div>
+      <Accordion type="single" value={openPlan} onValueChange={(v) => setOpenPlan(v ?? openPlan)} collapsible={false}>
+        {PLANS.map((plan) => (
+          <Accordion.Item key={plan.id} value={plan.id}>
+            <Accordion.Trigger>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 10, flex: 1 }}>
+                <div style={{
+                  width: 16, height: 16, borderRadius: '50%', flexShrink: 0,
+                  border: openPlan === plan.id ? '5px solid #0f172a' : '2px solid #e2e8f0',
+                  transition: 'all 0.2s',
+                }} />
+                <div style={{ flex: 1, textAlign: 'left' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                    <span style={{ fontSize: 13, fontWeight: 600 }}>{plan.name}</span>
+                    {plan.badge && (
+                      <span style={{ fontSize: 9, background: '#0f172a', color: '#fff', padding: '1px 6px', borderRadius: 10, fontWeight: 700 }}>
+                        {plan.badge}
+                      </span>
+                    )}
+                  </div>
+                </div>
+                <span style={{ fontSize: 13, fontWeight: 700, color: '#0f172a', marginRight: 8 }}>{plan.price}</span>
+              </div>
+            </Accordion.Trigger>
+            <Accordion.Content>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 6, paddingLeft: 26 }}>
+                {plan.features.map((f, i) => (
+                  <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                    <span style={{ color: '#22c55e', fontSize: 12, flexShrink: 0 }}>✓</span>
+                    <span style={{ fontSize: 12, color: '#475569' }}>{f}</span>
+                  </div>
+                ))}
+                <div style={{ marginTop: 10 }}>
+                  <Switch
+                    id={`annual-${plan.id}`}
+                    checked={false}
+                    onCheckedChange={() => {}}
+                  />
+                  <label htmlFor={`annual-${plan.id}`} style={{ fontSize: 11, color: '#94a3b8', marginLeft: 6 }}>
+                    연간 결제 시 20% 할인
+                  </label>
+                </div>
+              </div>
+            </Accordion.Content>
+          </Accordion.Item>
+        ))}
+      </Accordion>
+      <div style={{ marginTop: 10, fontSize: 11, color: '#94a3b8' }}>
+        shadcn + Vercel Pricing — 라디오 선택 Accordion + 기능 체크리스트 + Switch 연간 결제 토글
+      </div>
+    </div>
+  )
+}
+
+export const shadcn_Vercel_플랜_선택_아코디언: Story = {
+  name: 'shadcn + Vercel - 플랜 선택 라디오 아코디언',
+  args: { type: 'single' },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'shadcn/ui Accordion + Vercel Pricing 패턴 조합. 라디오 스타일 선택 인디케이터, 기능 체크리스트, Switch 연간/월간 결제 토글, 추천 배지.',
+      },
+    },
+  },
+  render: () => <ShadcnVercelPricingRender />,
+}

@@ -18078,3 +18078,303 @@ export const ComponentBrowser: Story = {
   },
   render: () => <ComponentBrowserRender />,
 }
+
+// --- Cycle 75: shadcn/ui + Vercel Design 벤치마크 — Template #65 ---
+
+type RMVersion = {
+  id: string
+  name: string
+  date: string
+  type: 'major' | 'minor' | 'patch'
+  status: 'released' | 'draft' | 'in-progress'
+  progress: number
+  changes: { kind: 'feat' | 'fix' | 'chore' | 'docs'; text: string }[]
+}
+
+const RM_VERSIONS: RMVersion[] = [
+  {
+    id: 'v0.3.0',
+    name: '0.3.0',
+    date: '2026-04-10',
+    type: 'major',
+    status: 'released',
+    progress: 5,
+    changes: [
+      { kind: 'feat', text: 'Command 팔레트 컴포넌트 추가' },
+      { kind: 'feat', text: 'Toggle 컴포넌트 재구현' },
+      { kind: 'fix', text: 'Modal 포커스 트랩 수정' },
+    ],
+  },
+  {
+    id: 'v0.4.0',
+    name: '0.4.0',
+    date: '2026-05-01',
+    type: 'minor',
+    status: 'in-progress',
+    progress: 2,
+    changes: [
+      { kind: 'feat', text: 'DataTable 가상화 지원' },
+      { kind: 'feat', text: 'Calendar 날짜 범위 선택' },
+      { kind: 'docs', text: '접근성 가이드 완성' },
+    ],
+  },
+  {
+    id: 'v0.5.0',
+    name: '0.5.0',
+    date: '2026-06-15',
+    type: 'major',
+    status: 'draft',
+    progress: 0,
+    changes: [
+      { kind: 'feat', text: '다크모드 토큰 시스템' },
+      { kind: 'feat', text: 'Motion/Animation 레이어' },
+    ],
+  },
+]
+
+const RM_RELEASE_STEPS = ['계획', '개발', '검수', 'RC', '배포']
+
+const RM_TYPE_CFG = {
+  major: { bg: '#fee2e2', color: '#dc2626' },
+  minor: { bg: '#fef3c7', color: '#d97706' },
+  patch: { bg: '#dcfce7', color: '#16a34a' },
+} as const
+
+const RM_STATUS_CFG = {
+  released: { label: 'Released', dot: '#22c55e' },
+  'in-progress': { label: '진행 중', dot: '#f59e0b' },
+  draft: { label: '초안', dot: '#94a3b8' },
+} as const
+
+const RM_KIND_CFG = {
+  feat: { color: '#6366f1', label: 'feat' },
+  fix: { color: '#f59e0b', label: 'fix' },
+  chore: { color: '#94a3b8', label: 'chore' },
+  docs: { color: '#0ea5e9', label: 'docs' },
+} as const
+
+const ReleaseManagerRender = () => {
+  const [openVersions, setOpenVersions] = useState<string[]>(['v0.4.0'])
+  const [activeVersionIdx, setActiveVersionIdx] = useState(1)
+  const [completedSteps, setCompletedSteps] = useState<Record<string, number>>({
+    'v0.3.0': 4,
+    'v0.4.0': 2,
+    'v0.5.0': 0,
+  })
+
+  const activeVersion = RM_VERSIONS[activeVersionIdx]
+  const currentStep = completedSteps[activeVersion.id] ?? 0
+
+  const advanceStep = () => {
+    if (currentStep < RM_RELEASE_STEPS.length - 1) {
+      setCompletedSteps((prev) => ({ ...prev, [activeVersion.id]: currentStep + 1 }))
+    }
+  }
+
+  return (
+    <div style={{
+      minHeight: '100vh', background: '#f8fafc', fontFamily: 'system-ui, sans-serif',
+      display: 'grid', gridTemplateColumns: '280px 1fr',
+    }}>
+      {/* Sidebar: version list */}
+      <div style={{ background: '#fff', borderRight: '1px solid #e2e8f0', padding: '20px 0' }}>
+        <div style={{ padding: '0 16px 16px', borderBottom: '1px solid #f1f5f9' }}>
+          <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>릴리즈 관리</div>
+          <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>Orbit UI</div>
+        </div>
+        <div style={{ padding: '12px 8px' }}>
+          {RM_VERSIONS.map((v, i) => (
+            <button
+              key={v.id}
+              onClick={() => setActiveVersionIdx(i)}
+              style={{
+                display: 'flex', alignItems: 'center', gap: 10, width: '100%',
+                padding: '10px 10px', borderRadius: 8, border: 'none', cursor: 'pointer',
+                background: activeVersionIdx === i ? '#f1f5f9' : 'transparent',
+                marginBottom: 2, textAlign: 'left',
+              }}
+            >
+              <div style={{
+                width: 8, height: 8, borderRadius: '50%', flexShrink: 0,
+                background: RM_STATUS_CFG[v.status].dot,
+              }} />
+              <div style={{ flex: 1 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                  <span style={{ fontSize: 13, fontWeight: 600, color: '#0f172a', fontFamily: 'monospace' }}>v{v.name}</span>
+                  <span style={{
+                    fontSize: 9, padding: '1px 5px', borderRadius: 3, fontWeight: 600,
+                    background: RM_TYPE_CFG[v.type].bg, color: RM_TYPE_CFG[v.type].color,
+                  }}>
+                    {v.type}
+                  </span>
+                </div>
+                <div style={{ fontSize: 10, color: '#94a3b8', marginTop: 1 }}>{v.date}</div>
+              </div>
+            </button>
+          ))}
+        </div>
+        <div style={{ padding: '12px 16px', borderTop: '1px solid #f1f5f9' }}>
+          <div style={{ display: 'flex', justifyContent: 'center' }}>
+            <PageIndicator
+              currentPage={activeVersionIdx}
+              onPageChange={setActiveVersionIdx}
+            >
+              {RM_VERSIONS.map((_, i) => <span key={i} />)}
+            </PageIndicator>
+          </div>
+        </div>
+      </div>
+
+      {/* Main */}
+      <div style={{ padding: 28 }}>
+        {/* Header */}
+        <div style={{ marginBottom: 24 }}>
+          <Breadcrumb>
+            <Breadcrumb.Item>Orbit UI</Breadcrumb.Item>
+            <Breadcrumb.Item>릴리즈</Breadcrumb.Item>
+            <Breadcrumb.Item>v{activeVersion.name}</Breadcrumb.Item>
+          </Breadcrumb>
+          <div style={{ marginTop: 12, display: 'flex', alignItems: 'center', gap: 12 }}>
+            <div style={{ fontSize: 22, fontWeight: 700, color: '#0f172a', fontFamily: 'monospace' }}>
+              v{activeVersion.name}
+            </div>
+            <span style={{
+              fontSize: 10, padding: '2px 8px', borderRadius: 4, fontWeight: 700,
+              background: RM_TYPE_CFG[activeVersion.type].bg,
+              color: RM_TYPE_CFG[activeVersion.type].color,
+            }}>
+              {activeVersion.type.toUpperCase()}
+            </span>
+            <span style={{ fontSize: 11, color: RM_STATUS_CFG[activeVersion.status].dot, fontWeight: 600 }}>
+              ● {RM_STATUS_CFG[activeVersion.status].label}
+            </span>
+            <span style={{ marginLeft: 'auto', fontSize: 12, color: '#94a3b8' }}>{activeVersion.date}</span>
+          </div>
+        </div>
+
+        {/* Pipeline steps */}
+        <div style={{ background: '#fff', borderRadius: 12, border: '1px solid #e2e8f0', padding: 20, marginBottom: 20 }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 16 }}>
+            <div style={{ fontSize: 13, fontWeight: 600, color: '#0f172a' }}>릴리즈 파이프라인</div>
+            {currentStep < RM_RELEASE_STEPS.length - 1 && (
+              <GhostButton
+                color="black"
+                size="small"
+                onClick={advanceStep}
+              >
+                <GhostButton.Center>다음 단계</GhostButton.Center>
+              </GhostButton>
+            )}
+          </div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 0, marginBottom: 14 }}>
+            {RM_RELEASE_STEPS.map((step, i) => (
+              <React.Fragment key={i}>
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4, flexShrink: 0 }}>
+                  <div style={{
+                    width: 28, height: 28, borderRadius: '50%',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    background: i < currentStep ? '#22c55e' : i === currentStep ? '#0f172a' : '#f1f5f9',
+                    color: i <= currentStep ? '#fff' : '#94a3b8',
+                    fontSize: 11, fontWeight: 700, transition: 'all 0.2s',
+                  }}>
+                    {i < currentStep ? '✓' : i + 1}
+                  </div>
+                  <div style={{ fontSize: 9, color: i <= currentStep ? '#0f172a' : '#94a3b8', fontWeight: i === currentStep ? 700 : 400, width: 44, textAlign: 'center' }}>
+                    {step}
+                  </div>
+                </div>
+                {i < RM_RELEASE_STEPS.length - 1 && (
+                  <div style={{
+                    flex: 1, height: 2, marginBottom: 18,
+                    background: i < currentStep ? '#22c55e' : '#f1f5f9', transition: 'background 0.3s',
+                  }} />
+                )}
+              </React.Fragment>
+            ))}
+          </div>
+          <div style={{ display: 'flex', justifyContent: 'center' }}>
+            <PageIndicator currentPage={currentStep} onPageChange={() => {}}>
+              {RM_RELEASE_STEPS.map((_, i) => <span key={i} />)}
+            </PageIndicator>
+          </div>
+        </div>
+
+        {/* Changelog accordion */}
+        <div style={{ background: '#fff', borderRadius: 12, border: '1px solid #e2e8f0', padding: 20, marginBottom: 20 }}>
+          <div style={{ fontSize: 13, fontWeight: 600, color: '#0f172a', marginBottom: 14 }}>변경 이력 (Changelog)</div>
+          <Accordion
+            type="multiple"
+            value={openVersions}
+            onValueChange={setOpenVersions}
+          >
+            {RM_VERSIONS.map((v) => (
+              <Accordion.Item key={v.id} value={v.id}>
+                <Accordion.Trigger>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 8, flex: 1 }}>
+                    <span style={{ fontFamily: 'monospace', fontWeight: 700, fontSize: 13 }}>v{v.name}</span>
+                    <span style={{
+                      fontSize: 9, padding: '1px 5px', borderRadius: 3,
+                      background: RM_TYPE_CFG[v.type].bg, color: RM_TYPE_CFG[v.type].color, fontWeight: 700,
+                    }}>
+                      {v.type}
+                    </span>
+                    <span style={{ marginLeft: 'auto', fontSize: 10, color: '#94a3b8', marginRight: 8 }}>{v.date}</span>
+                  </div>
+                </Accordion.Trigger>
+                <Accordion.Content>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+                    {v.changes.map((c, i) => (
+                      <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: 8 }}>
+                        <span style={{
+                          fontSize: 9, padding: '2px 6px', borderRadius: 3, fontWeight: 700, flexShrink: 0, marginTop: 2,
+                          background: RM_KIND_CFG[c.kind].color + '20', color: RM_KIND_CFG[c.kind].color,
+                        }}>
+                          {c.kind}
+                        </span>
+                        <span style={{ fontSize: 12, color: '#475569', lineHeight: 1.5 }}>{c.text}</span>
+                      </div>
+                    ))}
+                  </div>
+                </Accordion.Content>
+              </Accordion.Item>
+            ))}
+          </Accordion>
+        </div>
+
+        {/* Slider for release confidence */}
+        <div style={{ background: '#fff', borderRadius: 12, border: '1px solid #e2e8f0', padding: 20 }}>
+          <div style={{ fontSize: 13, fontWeight: 600, color: '#0f172a', marginBottom: 12 }}>릴리즈 신뢰도</div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+            <Slider
+              min={0}
+              max={100}
+              step={5}
+              value={[currentStep * 25]}
+              onValueChange={() => {}}
+              style={{ flex: 1 }}
+            />
+            <span style={{ fontSize: 14, fontWeight: 700, color: '#0f172a', width: 40, textAlign: 'right' }}>
+              {currentStep * 25}%
+            </span>
+          </div>
+          <div style={{ marginTop: 6, fontSize: 11, color: '#94a3b8' }}>
+            파이프라인 진행률에 따라 신뢰도 자동 산정
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const ReleaseManager: Story = {
+  name: '릴리즈 관리자 (shadcn + Vercel 패턴)',
+  parameters: {
+    layout: 'fullscreen',
+    docs: {
+      description: {
+        story: 'shadcn/ui Stepper + Vercel Dashboard 패턴 조합. PageIndicator로 버전/파이프라인 단계 표시, Accordion으로 Changelog, Slider로 릴리즈 신뢰도, Breadcrumb 네비게이션 포함.',
+      },
+    },
+  },
+  render: () => <ReleaseManagerRender />,
+}
