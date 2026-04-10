@@ -1961,3 +1961,39 @@ const theme = createTheme({
     <span style={{ color: '#475569', marginLeft: '8px' }}>일일 100회 한도 초과 — 다음 리셋 후 자동 배포 예정</span>
   </div>
 </section>
+
+<section style={{ marginBottom: '32px', padding: '20px', border: '2px solid #6366f1', borderRadius: '8px', background: '#f5f3ff' }}>
+  <h2 style={{ fontSize: '18px', fontWeight: '700', color: '#4f46e5', marginBottom: '12px' }}>
+    Cycle 120 — shadcn/ui + Vercel Design
+  </h2>
+  <p style={{ color: '#475569', marginBottom: '16px' }}>
+    shadcn/ui의 폼 제출 상태 관리 + destructive action 확인 패턴과 Vercel Design의 배포 액션 + 프로젝트 탭 네비게이션을 Orbit UI에 적용.
+    KanbanBoard 템플릿으로 4열 칸반, 카드 이동, 진행률 복합 구현.
+  </p>
+  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '16px' }}>
+    <div style={{ padding: '12px', background: '#ede9fe', borderRadius: '6px' }}>
+      <div style={{ fontWeight: '700', color: '#4c1d95', marginBottom: '6px' }}>shadcn/ui</div>
+      <ul style={{ margin: 0, paddingLeft: '16px', color: '#475569', fontSize: '13px' }}>
+        <li>폼 유효성 기반 버튼 활성화 패턴</li>
+        <li>코드/미리보기 탭 전환 (docs 패턴)</li>
+        <li>destructive action 2단계 확인 플로우</li>
+      </ul>
+    </div>
+    <div style={{ padding: '12px', background: '#ede9fe', borderRadius: '6px' }}>
+      <div style={{ fontWeight: '700', color: '#4c1d95', marginBottom: '6px' }}>Vercel Design</div>
+      <ul style={{ margin: 0, paddingLeft: '16px', color: '#475569', fontSize: '13px' }}>
+        <li>배포/롤백/취소 액션 버튼 상태 관리</li>
+        <li>프로젝트 탭 네비게이션 (CounterBadge)</li>
+        <li>설정 카테고리 탭 (아이콘 + 인라인 입력)</li>
+      </ul>
+    </div>
+  </div>
+  <div style={{ borderTop: '1px solid #c4b5fd', paddingTop: '10px', marginTop: '4px' }}>
+    <span style={{ fontWeight: '700', color: '#4f46e5' }}>Template Cycle120:</span>
+    <span style={{ color: '#475569', marginLeft: '8px' }}>ShadcnVercel120KanbanBoard — 4열 칸반 보드, 카드 이동 GhostButton, Progress 진행률, 검색 TextField</span>
+  </div>
+  <div style={{ borderTop: '1px solid #c4b5fd', paddingTop: '10px', marginTop: '4px' }}>
+    <span style={{ fontWeight: '700', color: '#4f46e5' }}>배포:</span>
+    <span style={{ color: '#475569', marginLeft: '8px' }}>일일 100회 한도 초과 — 다음 리셋 후 자동 배포 예정</span>
+  </div>
+</section>
