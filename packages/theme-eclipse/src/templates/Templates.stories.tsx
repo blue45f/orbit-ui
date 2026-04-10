@@ -35445,3 +35445,226 @@ export const AppleM3156ContentBrowser: StoryObj = {
   },
   render: () => <AppleM3156ContentBrowserRender />,
 }
+
+/* ==========================================================================
+   Cycle 157 — shadcn/ui + Linear Design
+   ShadcnLinear157IssueBoard: 이슈 보드 + AI 리뷰 피드백 템플릿
+   ========================================================================== */
+const BOARD_ISSUES = [
+  { id: '#1241', title: 'BoxedCheckbox 접근성 개선', status: 'done', assignee: 'AK', priority: '낮음', labels: ['접근성', 'UI'] },
+  { id: '#1242', title: 'SpeechBadge 다크모드 지원', status: 'progress', assignee: 'SJ', priority: '높음', labels: ['다크모드'] },
+  { id: '#1243', title: 'Tooltip 애니메이션 최적화', status: 'todo', assignee: 'MH', priority: '중간', labels: ['성능'] },
+  { id: '#1244', title: 'GhostButton 컬러 토큰 정리', status: 'backlog', assignee: '', priority: '낮음', labels: ['토큰'] },
+  { id: '#1245', title: 'PageDots 인터랙션 개선', status: 'todo', assignee: 'AK', priority: '중간', labels: ['인터랙션', 'UI'] },
+]
+
+const BOARD_STATUS: Record<string, { label: string; color: string; bg: string }> = {
+  backlog: { label: '백로그', color: '#94a3b8', bg: '#f8fafc' },
+  todo: { label: '할 일', color: '#64748b', bg: '#f1f5f9' },
+  progress: { label: '진행 중', color: '#f59e0b', bg: '#fffbeb' },
+  done: { label: '완료', color: '#22c55e', bg: '#f0fdf4' },
+}
+
+const BOARD_PRIORITY: Record<string, string> = { 높음: '#ef4444', 중간: '#f59e0b', 낮음: '#94a3b8' }
+
+const AI_REVIEW_MSGS = [
+  { id: 'perf', issue: '#1242', msg: 'CSS 변수 재정의 시 성능 저하 가능. 번들 크기를 확인하세요.', type: 'warning' as const },
+  { id: 'a11y', issue: '#1241', msg: 'aria-label 누락. 스크린리더 사용자를 위해 레이블을 추가하세요.', type: 'info' as const },
+]
+
+function ShadcnLinear157IssueBoardRender() {
+  const [selected, setSelected] = useState<Set<string>>(new Set())
+  const [dismissed, setDismissed] = useState<Set<string>>(new Set())
+
+  const toggleIssue = (id: string) => {
+    setSelected(prev => {
+      const next = new Set(prev)
+      if (next.has(id)) { next.delete(id) } else { next.add(id) }
+      return next
+    })
+  }
+
+  const dismissAI = (id: string) => {
+    setDismissed(prev => {
+      const next = new Set(prev)
+      next.add(id)
+      return next
+    })
+  }
+
+  const visibleReviews = AI_REVIEW_MSGS.filter(r => !dismissed.has(r.id))
+
+  return (
+    <div style={{ display: 'flex', height: '100vh', fontFamily: 'system-ui, sans-serif', background: '#f8fafc' }}>
+      {/* Left: Issue Board */}
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', borderRight: '1px solid #e2e8f0' }}>
+        {/* Header */}
+        <div style={{ padding: '16px 20px', background: '#fff', borderBottom: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', gap: 10 }}>
+          <div style={{ width: 28, height: 28, borderRadius: 8, background: '#6366f1', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <span style={{ fontSize: 14 }}>◈</span>
+          </div>
+          <span style={{ fontSize: 14, fontWeight: 700, color: '#1e293b' }}>Orbit UI — 이슈 보드</span>
+          <span style={{ marginLeft: 'auto', fontSize: 11, padding: '3px 8px', borderRadius: 6, background: '#f0eeff', color: '#6366f1', fontWeight: 700 }}>
+            {selected.size > 0 ? `${selected.size}개 선택됨` : `${BOARD_ISSUES.length}개 이슈`}
+          </span>
+        </div>
+
+        {/* Issue list */}
+        <div style={{ flex: 1, padding: '12px 16px', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: 6 }}>
+          {BOARD_ISSUES.map(issue => {
+            const isChecked = selected.has(issue.id)
+            const statusInfo = BOARD_STATUS[issue.status]
+            return (
+              <div
+                key={issue.id}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 10,
+                  padding: '10px 12px',
+                  borderRadius: 10,
+                  border: `1.5px solid ${isChecked ? '#6366f1' : '#e2e8f0'}`,
+                  background: isChecked ? '#f5f3ff' : '#fff',
+                  cursor: 'pointer',
+                  transition: 'all 0.15s',
+                }}
+                onClick={() => toggleIssue(issue.id)}
+              >
+                <BoxedCheckbox
+                  checked={isChecked}
+                  onChange={() => toggleIssue(issue.id)}
+                  onClick={e => e.stopPropagation()}
+                />
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 4 }}>
+                    <span style={{ fontSize: 10, color: '#94a3b8', fontFamily: 'monospace' }}>{issue.id}</span>
+                    <span style={{ fontSize: 12, fontWeight: 600, color: '#1e293b', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{issue.title}</span>
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 6, flexWrap: 'wrap' }}>
+                    <span style={{ fontSize: 10, padding: '2px 7px', borderRadius: 4, background: statusInfo.bg, color: statusInfo.color, fontWeight: 600 }}>{statusInfo.label}</span>
+                    <span style={{ fontSize: 10, color: BOARD_PRIORITY[issue.priority] }}>▲ {issue.priority}</span>
+                    {issue.labels.map(l => (
+                      <span key={l} style={{ fontSize: 10, padding: '1px 6px', borderRadius: 4, background: '#f1f5f9', color: '#64748b' }}>{l}</span>
+                    ))}
+                  </div>
+                </div>
+                {issue.assignee && (
+                  <div style={{ width: 26, height: 26, borderRadius: '50%', background: '#6366f1', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 10, color: '#fff', fontWeight: 700, flexShrink: 0 }}>
+                    {issue.assignee}
+                  </div>
+                )}
+              </div>
+            )
+          })}
+        </div>
+
+        {/* Footer */}
+        <div style={{ padding: '10px 16px', borderTop: '1px solid #e2e8f0', background: '#fff', display: 'flex', gap: 8 }}>
+          <button
+            onClick={() => setSelected(new Set())}
+            style={{ flex: 1, padding: '8px', fontSize: 12, borderRadius: 8, border: '1px solid #e2e8f0', background: '#fff', color: '#64748b', cursor: 'pointer' }}
+          >선택 해제</button>
+          <button
+            onClick={() => setSelected(new Set(BOARD_ISSUES.map(i => i.id)))}
+            style={{ flex: 1, padding: '8px', fontSize: 12, borderRadius: 8, border: 'none', background: '#6366f1', color: '#fff', cursor: 'pointer', fontWeight: 600 }}
+          >전체 선택</button>
+        </div>
+        <div style={{ padding: '8px 16px', fontSize: 10, color: '#94a3b8', borderTop: '1px solid #f1f5f9' }}>
+          shadcn/ui + Linear — BoxedCheckbox 이슈 멀티선택 패턴
+        </div>
+      </div>
+
+      {/* Right: AI Review Panel */}
+      <div style={{ width: 300, display: 'flex', flexDirection: 'column', background: '#fff' }}>
+        {/* Header */}
+        <div style={{ padding: '16px 16px 12px', borderBottom: '1px solid #e2e8f0' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            <span style={{ fontSize: 18 }}>🤖</span>
+            <span style={{ fontSize: 13, fontWeight: 700, color: '#1e293b' }}>AI 리뷰 피드백</span>
+            {visibleReviews.length > 0 && (
+              <span style={{ marginLeft: 'auto', fontSize: 10, padding: '2px 7px', borderRadius: 6, background: '#fef3c7', color: '#d97706', fontWeight: 700 }}>{visibleReviews.length}개</span>
+            )}
+          </div>
+        </div>
+
+        {/* AI messages */}
+        <div style={{ flex: 1, padding: '12px', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: 12 }}>
+          {visibleReviews.length === 0 ? (
+            <div style={{ padding: 24, textAlign: 'center', color: '#94a3b8', fontSize: 12 }}>
+              <div style={{ fontSize: 28, marginBottom: 8 }}>✅</div>
+              모든 리뷰 피드백이 처리되었습니다
+            </div>
+          ) : (
+            visibleReviews.map(review => (
+              <div key={review.id}>
+                <div style={{ fontSize: 10, color: '#94a3b8', marginBottom: 6, display: 'flex', alignItems: 'center', gap: 4 }}>
+                  <span style={{ fontFamily: 'monospace' }}>{review.issue}</span>
+                  <span>·</span>
+                  <span style={{ color: review.type === 'warning' ? '#f59e0b' : '#6366f1', fontWeight: 600 }}>{review.type === 'warning' ? '⚠️ 경고' : 'ℹ️ 안내'}</span>
+                </div>
+                <div style={{ display: 'flex', alignItems: 'flex-start', gap: 8 }}>
+                  <SpeechBadge
+                    color={review.type === 'warning' ? 'pink' : 'blue'}
+                    tailPosition="leading"
+                    style={{ fontSize: 11, lineHeight: 1.6, flex: 1 }}
+                  >
+                    {review.msg}
+                  </SpeechBadge>
+                  <button
+                    onClick={() => dismissAI(review.id)}
+                    style={{ flexShrink: 0, width: 20, height: 20, borderRadius: '50%', border: '1px solid #e2e8f0', background: '#f8fafc', fontSize: 10, cursor: 'pointer', color: '#94a3b8', display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: 4 }}
+                  >✕</button>
+                </div>
+              </div>
+            ))
+          )}
+
+          {/* Activity feed */}
+          <div style={{ marginTop: 8, padding: '10px 0 0', borderTop: '1px solid #f1f5f9' }}>
+            <p style={{ fontSize: 10, fontWeight: 700, color: '#94a3b8', letterSpacing: '0.06em', textTransform: 'uppercase', margin: '0 0 10px' }}>최근 활동</p>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+              {[
+                { user: 'AK', msg: 'PR #1241 머지 완료', mine: false, time: '방금' },
+                { user: '나', msg: 'LGTM! 배포 진행하세요 🚀', mine: true, time: '1분 전' },
+                { user: 'SJ', msg: '스테이징 확인 완료', mine: false, time: '3분 전' },
+              ].map((msg, i) => (
+                <div key={i} style={{ display: 'flex', alignItems: 'flex-end', gap: 6, flexDirection: msg.mine ? 'row-reverse' : 'row' }}>
+                  <div style={{ width: 22, height: 22, borderRadius: '50%', background: msg.mine ? '#6366f1' : '#64748b', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 9, color: '#fff', fontWeight: 700, flexShrink: 0 }}>
+                    {msg.user[0]}
+                  </div>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: 2, alignItems: msg.mine ? 'flex-end' : 'flex-start', maxWidth: 180 }}>
+                    <SpeechBadge
+                      color={msg.mine ? 'pink' : 'blue'}
+                      tailPosition={msg.mine ? 'trailing' : 'leading'}
+                      style={{ fontSize: 11 }}
+                    >
+                      {msg.msg}
+                    </SpeechBadge>
+                    <span style={{ fontSize: 9, color: '#cbd5e1' }}>{msg.user} · {msg.time}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div style={{ padding: '8px 12px', borderTop: '1px solid #e2e8f0', fontSize: 10, color: '#94a3b8' }}>
+          shadcn/ui + Linear — AI 리뷰 피드백 + SpeechBadge 활동 피드
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const ShadcnLinear157IssueBoard: StoryObj = {
+  name: 'shadcn/ui + Linear — 이슈 보드 + AI 리뷰 피드백 (BoxedCheckbox + SpeechBadge)',
+  parameters: {
+    layout: 'fullscreen',
+    docs: {
+      description: {
+        story: 'shadcn/ui + Linear 복합 패턴. 좌: BoxedCheckbox로 이슈 멀티선택 보드(상태/우선순위/라벨 필터), 우: SpeechBadge AI 리뷰 피드백 패널 + 팀 활동 채팅 피드. 실무 이슈 트래킹 + 코드리뷰 레이아웃.',
+      },
+    },
+  },
+  render: () => <ShadcnLinear157IssueBoardRender />,
+}

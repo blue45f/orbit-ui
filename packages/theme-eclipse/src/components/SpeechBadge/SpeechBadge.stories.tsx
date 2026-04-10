@@ -1014,3 +1014,160 @@ export const Mantine_Ant_고객지원_채팅_위젯: Story = {
   },
   render: () => <MantineAntSupportChatRender />,
 }
+
+/* --------------------------------------------------------------------------
+   Cycle 157 — shadcn/ui + Linear Design
+   shadcn/ui: 커맨드 팔레트 힌트 말풍선 패턴
+-------------------------------------------------------------------------- */
+const SHADCN_HINTS = [
+  { key: '⌘K', desc: '커맨드 팔레트 열기', side: 'trailing' as const },
+  { key: '⌘P', desc: '빠른 파일 검색', side: 'leading' as const },
+  { key: '⌘⇧P', desc: '모든 명령어 보기', side: 'trailing' as const },
+]
+
+function ShadcnCommandHintRender() {
+  const [active, setActive] = useState(0)
+
+  return (
+    <div style={{ width: 320, fontFamily: 'system-ui, sans-serif', padding: 20 }}>
+      <p style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 14 }}>키보드 단축키 힌트</p>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+        {SHADCN_HINTS.map((hint, i) => (
+          <div
+            key={hint.key}
+            style={{ display: 'flex', alignItems: 'center', gap: 12, cursor: 'pointer' }}
+            onClick={() => setActive(i)}
+          >
+            <kbd style={{ padding: '3px 8px', borderRadius: 6, background: active === i ? '#6366f1' : '#f1f5f9', color: active === i ? '#fff' : '#475569', fontSize: 12, fontWeight: 700, border: '1px solid #e2e8f0', fontFamily: 'monospace', whiteSpace: 'nowrap' }}>{hint.key}</kbd>
+            <SpeechBadge color={active === i ? 'blue' : 'pink'} tailPosition={hint.side} style={{ fontSize: 12 }}>
+              {hint.desc}
+            </SpeechBadge>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+export const shadcn_커맨드_힌트_말풍선: Story = {
+  name: 'shadcn/ui — 커맨드 팔레트 힌트 말풍선 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story: 'shadcn/ui의 Command Palette UI 패턴. 키보드 단축키와 SpeechBadge를 조합해 힌트 툴팁을 표현합니다.',
+      },
+    },
+  },
+  render: () => <ShadcnCommandHintRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Linear: 이슈 코멘트 반응 말풍선 패턴
+-------------------------------------------------------------------------- */
+const LINEAR_ACTIVITY = [
+  { user: 'Alex', action: 'PR을 병합했습니다', time: '방금', color: 'blue' as const, tail: 'leading' as const },
+  { user: '나', action: '리뷰 완료 ✓ LGTM!', time: '1분 전', color: 'pink' as const, tail: 'trailing' as const },
+  { user: 'Sarah', action: '스테이징 배포 완료 🚀', time: '3분 전', color: 'blue' as const, tail: 'leading' as const },
+  { user: '나', action: 'QA 팀에 공유했어요', time: '5분 전', color: 'pink' as const, tail: 'trailing' as const },
+]
+
+function LinearActivityBubbleRender() {
+  return (
+    <div style={{ width: 300, fontFamily: 'system-ui, sans-serif', padding: 16, background: '#fafafa', borderRadius: 12, border: '1px solid #f1f5f9' }}>
+      <p style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 16, margin: '0 0 16px' }}>이슈 #1242 — 최근 활동</p>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+        {LINEAR_ACTIVITY.map((item, i) => (
+          <div key={i} style={{ display: 'flex', alignItems: 'flex-end', gap: 8, flexDirection: item.tail === 'trailing' ? 'row-reverse' : 'row' }}>
+            <div style={{ width: 28, height: 28, borderRadius: '50%', background: item.tail === 'trailing' ? '#6366f1' : '#64748b', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 11, color: '#fff', fontWeight: 700, flexShrink: 0 }}>
+              {item.user[0]}
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 2, alignItems: item.tail === 'trailing' ? 'flex-end' : 'flex-start' }}>
+              <SpeechBadge color={item.color} tailPosition={item.tail} style={{ fontSize: 12, maxWidth: 180 }}>
+                {item.action}
+              </SpeechBadge>
+              <span style={{ fontSize: 10, color: '#cbd5e1' }}>{item.user} · {item.time}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+export const Linear_이슈_활동_말풍선: Story = {
+  name: 'Linear — 이슈 활동 피드 말풍선 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Linear의 이슈 Activity Feed 패턴. SpeechBadge로 팀원 활동을 채팅 형식으로 표현합니다.',
+      },
+    },
+  },
+  render: () => <LinearActivityBubbleRender />,
+}
+
+/* --------------------------------------------------------------------------
+   shadcn/ui + Linear: AI 제안 & 피드백 말풍선 복합 패턴
+-------------------------------------------------------------------------- */
+const AI_SUGGESTIONS = [
+  { id: 'perf', msg: '이 함수는 O(n²) 복잡도입니다. Map을 사용하면 O(n)으로 최적화할 수 있어요.', type: 'warning' },
+  { id: 'style', msg: 'shadcn/ui 컨벤션에 따라 컴포넌트 이름을 PascalCase로 변경하는 것을 권장합니다.', type: 'info' },
+  { id: 'test', msg: '이 브랜치에 테스트 커버리지가 없습니다. Linear 이슈 #892를 확인하세요.', type: 'action' },
+]
+
+const AI_TYPE_COLOR: Record<string, 'pink' | 'blue'> = { warning: 'pink', info: 'blue', action: 'pink' }
+
+function ShadcnLinearAIFeedbackRender() {
+  const [dismissed, setDismissed] = useState<Set<string>>(new Set())
+
+  const dismiss = (id: string) => {
+    setDismissed(prev => {
+      const next = new Set(prev)
+      next.add(id)
+      return next
+    })
+  }
+
+  const visible = AI_SUGGESTIONS.filter(s => !dismissed.has(s.id))
+
+  return (
+    <div style={{ width: 320, fontFamily: 'system-ui, sans-serif' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 14 }}>
+        <span style={{ fontSize: 16 }}>🤖</span>
+        <p style={{ fontSize: 13, fontWeight: 700, color: '#1e293b', margin: 0 }}>AI 코드 리뷰 제안</p>
+        <span style={{ marginLeft: 'auto', fontSize: 11, color: '#94a3b8' }}>{visible.length}개 남음</span>
+      </div>
+      {visible.length === 0 ? (
+        <div style={{ padding: 20, textAlign: 'center', fontSize: 12, color: '#94a3b8', background: '#f8fafc', borderRadius: 10, border: '1px dashed #e2e8f0' }}>
+          모든 제안을 처리했습니다 🎉
+        </div>
+      ) : (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+          {visible.map((s) => (
+            <div key={s.id} style={{ display: 'flex', gap: 8, alignItems: 'flex-start' }}>
+              <SpeechBadge color={AI_TYPE_COLOR[s.type]} tailPosition="leading" style={{ fontSize: 11, lineHeight: 1.5, flex: 1 }}>
+                {s.msg}
+              </SpeechBadge>
+              <button
+                onClick={() => dismiss(s.id)}
+                style={{ flexShrink: 0, width: 22, height: 22, borderRadius: '50%', border: '1px solid #e2e8f0', background: '#fff', fontSize: 12, cursor: 'pointer', color: '#94a3b8', display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: 2 }}
+              >✕</button>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  )
+}
+
+export const shadcn_Linear_AI_제안_말풍선: Story = {
+  name: 'shadcn/ui + Linear — AI 코드 리뷰 제안 말풍선 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story: 'shadcn/ui + Linear 복합 패턴. AI 코드 리뷰 제안을 SpeechBadge로 표현하고 개별 해제 기능을 제공합니다.',
+      },
+    },
+  },
+  render: () => <ShadcnLinearAIFeedbackRender />,
+}

@@ -1497,3 +1497,241 @@ export const Vercel_Radix_파이프라인_단계_설정 = {
     )
   },
 }
+
+/* --------------------------------------------------------------------------
+   Cycle 157 — shadcn/ui + Linear Design
+   shadcn/ui: 설정 항목 카드 선택 패턴 (Settings Card Selection)
+-------------------------------------------------------------------------- */
+const SHADCN_SETTINGS = [
+  { id: 'analytics', label: '사용량 분석', desc: '앱 사용 데이터를 수집해 개선에 활용합니다', icon: '📊' },
+  { id: 'crash', label: '충돌 보고', desc: '앱 충돌 시 자동으로 보고서를 전송합니다', icon: '🛡️' },
+  { id: 'updates', label: '자동 업데이트', desc: '새 버전이 출시되면 자동으로 업데이트합니다', icon: '🔄' },
+  { id: 'beta', label: '베타 기능', desc: '아직 개발 중인 실험적 기능을 사용합니다', icon: '🧪' },
+]
+
+function ShadcnSettingsCardRender() {
+  const [selected, setSelected] = useState<Set<string>>(new Set(['analytics', 'crash']))
+
+  const toggle = (id: string) => {
+    setSelected(prev => {
+      const next = new Set(prev)
+      if (next.has(id)) { next.delete(id) } else { next.add(id) }
+      return next
+    })
+  }
+
+  return (
+    <div style={{ width: 320, fontFamily: 'system-ui, sans-serif' }}>
+      <div style={{ marginBottom: 14 }}>
+        <p style={{ fontSize: 14, fontWeight: 700, color: '#0f172a', margin: 0 }}>앱 환경 설정</p>
+        <p style={{ fontSize: 12, color: '#64748b', margin: '3px 0 0' }}>활성화할 기능을 선택하세요</p>
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+        {SHADCN_SETTINGS.map(item => {
+          const isOn = selected.has(item.id)
+          return (
+            <div
+              key={item.id}
+              onClick={() => toggle(item.id)}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 12,
+                padding: '10px 14px',
+                borderRadius: 10,
+                border: `1.5px solid ${isOn ? '#6366f1' : '#e2e8f0'}`,
+                background: isOn ? '#f5f3ff' : '#fff',
+                cursor: 'pointer',
+                transition: 'all 0.15s',
+              }}
+            >
+              <BoxedCheckbox
+                checked={isOn}
+                onChange={() => toggle(item.id)}
+                onClick={e => e.stopPropagation()}
+              />
+              <span style={{ fontSize: 20 }}>{item.icon}</span>
+              <div style={{ flex: 1 }}>
+                <div style={{ fontSize: 13, fontWeight: 600, color: '#1e293b' }}>{item.label}</div>
+                <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>{item.desc}</div>
+              </div>
+            </div>
+          )
+        })}
+      </div>
+      <div style={{ marginTop: 14, padding: '9px 14px', borderRadius: 8, background: '#f8fafc', fontSize: 12, color: '#475569', display: 'flex', justifyContent: 'space-between' }}>
+        <span>{selected.size}/{SHADCN_SETTINGS.length}개 활성화</span>
+        <button
+          onClick={() => setSelected(new Set(SHADCN_SETTINGS.map(s => s.id)))}
+          style={{ background: 'none', border: 'none', fontSize: 11, color: '#6366f1', cursor: 'pointer', fontWeight: 600 }}
+        >모두 선택</button>
+      </div>
+    </div>
+  )
+}
+
+export const shadcn_설정_카드_선택: Story = {
+  name: 'shadcn/ui — 설정 항목 카드 선택 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story: 'shadcn/ui의 Settings Card Selection 패턴. 아이콘+설명이 있는 카드형 체크박스로 앱 환경설정을 제공합니다.',
+      },
+    },
+  },
+  render: () => <ShadcnSettingsCardRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Linear: 이슈 필터 체크박스 패턴 (Issue Filter Multi-Select)
+-------------------------------------------------------------------------- */
+const LINEAR_STATUSES = [
+  { id: 'backlog', label: '백로그', color: '#94a3b8', dot: '○' },
+  { id: 'todo', label: '할 일', color: '#64748b', dot: '◐' },
+  { id: 'progress', label: '진행 중', color: '#f59e0b', dot: '◑' },
+  { id: 'done', label: '완료', color: '#22c55e', dot: '●' },
+  { id: 'cancelled', label: '취소됨', color: '#ef4444', dot: '✕' },
+]
+
+function LinearIssueFilterRender() {
+  const [checked, setChecked] = useState<Set<string>>(new Set(['todo', 'progress']))
+
+  const toggle = (id: string) => {
+    setChecked(prev => {
+      const next = new Set(prev)
+      if (next.has(id)) { next.delete(id) } else { next.add(id) }
+      return next
+    })
+  }
+
+  return (
+    <div style={{ width: 240, fontFamily: 'system-ui, sans-serif', background: '#fff', borderRadius: 12, border: '1px solid #e2e8f0', padding: '12px 0', boxShadow: '0 4px 24px #0001' }}>
+      <div style={{ padding: '0 14px 10px', borderBottom: '1px solid #f1f5f9' }}>
+        <p style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', letterSpacing: '0.07em', textTransform: 'uppercase', margin: 0 }}>상태별 필터</p>
+      </div>
+      <div style={{ padding: '8px 0' }}>
+        {LINEAR_STATUSES.map(s => {
+          const isOn = checked.has(s.id)
+          return (
+            <div
+              key={s.id}
+              onClick={() => toggle(s.id)}
+              style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '7px 14px', cursor: 'pointer', background: isOn ? '#f5f3ff' : 'transparent', transition: 'background 0.1s' }}
+            >
+              <BoxedCheckbox checked={isOn} onChange={() => toggle(s.id)} onClick={e => e.stopPropagation()} />
+              <span style={{ fontSize: 14, color: s.color }}>{s.dot}</span>
+              <span style={{ fontSize: 13, color: '#1e293b', fontWeight: isOn ? 600 : 400 }}>{s.label}</span>
+              <span style={{ marginLeft: 'auto', fontSize: 11, color: '#94a3b8' }}>{Math.floor(Math.random() * 20 + 1)}</span>
+            </div>
+          )
+        })}
+      </div>
+      <div style={{ padding: '8px 14px 0', borderTop: '1px solid #f1f5f9', display: 'flex', gap: 8 }}>
+        <button onClick={() => setChecked(new Set())} style={{ flex: 1, padding: '6px', fontSize: 11, borderRadius: 6, border: '1px solid #e2e8f0', background: '#fff', color: '#64748b', cursor: 'pointer' }}>초기화</button>
+        <button onClick={() => setChecked(new Set(LINEAR_STATUSES.map(s => s.id)))} style={{ flex: 1, padding: '6px', fontSize: 11, borderRadius: 6, border: 'none', background: '#6366f1', color: '#fff', cursor: 'pointer', fontWeight: 600 }}>전체 선택</button>
+      </div>
+    </div>
+  )
+}
+
+export const Linear_이슈_필터_멀티_선택: Story = {
+  name: 'Linear — 이슈 상태 필터 멀티 선택 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Linear의 Issue Filter 패턴. 상태 컬러 닷과 함께 체크박스로 이슈 필터를 멀티 선택합니다.',
+      },
+    },
+  },
+  render: () => <LinearIssueFilterRender />,
+}
+
+/* --------------------------------------------------------------------------
+   shadcn/ui + Linear: 팀 역할 & 권한 복합 설정 패턴
+-------------------------------------------------------------------------- */
+const TEAM_FEATURES = [
+  { id: 'cycles', label: '사이클', desc: 'Linear 스프린트 기능', tier: 'Pro' },
+  { id: 'roadmap', label: '로드맵', desc: '장기 계획 타임라인', tier: 'Pro' },
+  { id: 'insights', label: '인사이트', desc: '팀 생산성 리포트', tier: 'Business' },
+  { id: 'sla', label: 'SLA 트래킹', desc: '응답/해결 시간 관리', tier: 'Business' },
+  { id: 'git', label: 'Git 연동', desc: 'GitHub/GitLab 자동 연결', tier: 'Free' },
+  { id: 'api', label: 'API 접근', desc: '외부 도구 연동용 API', tier: 'Pro' },
+]
+
+const TIER_COLOR: Record<string, string> = { Free: '#22c55e', Pro: '#6366f1', Business: '#f59e0b' }
+
+function ShadcnLinearTeamFeatureRender() {
+  const [enabled, setEnabled] = useState<Set<string>>(new Set(['git']))
+  const currentTier = 'Pro'
+  const tierOrder = ['Free', 'Pro', 'Business']
+  const isAccessible = (tier: string) => tierOrder.indexOf(tier) <= tierOrder.indexOf(currentTier)
+
+  const toggle = (id: string, tier: string) => {
+    if (!isAccessible(tier)) { return }
+    setEnabled(prev => {
+      const next = new Set(prev)
+      if (next.has(id)) { next.delete(id) } else { next.add(id) }
+      return next
+    })
+  }
+
+  return (
+    <div style={{ width: 340, fontFamily: 'system-ui, sans-serif' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
+        <p style={{ fontSize: 14, fontWeight: 700, color: '#0f172a', margin: 0 }}>팀 기능 설정</p>
+        <span style={{ fontSize: 11, padding: '3px 8px', borderRadius: 6, background: '#f0eeff', color: '#6366f1', fontWeight: 700 }}>{currentTier} 플랜</span>
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+        {TEAM_FEATURES.map(feat => {
+          const accessible = isAccessible(feat.tier)
+          const isOn = enabled.has(feat.id)
+          return (
+            <div
+              key={feat.id}
+              onClick={() => toggle(feat.id, feat.tier)}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 10,
+                padding: '9px 12px',
+                borderRadius: 8,
+                border: `1.5px solid ${isOn ? '#6366f1' : '#e2e8f0'}`,
+                background: !accessible ? '#f8fafc' : isOn ? '#f5f3ff' : '#fff',
+                cursor: accessible ? 'pointer' : 'not-allowed',
+                opacity: accessible ? 1 : 0.5,
+                transition: 'all 0.15s',
+              }}
+            >
+              <BoxedCheckbox
+                checked={isOn}
+                disabled={!accessible}
+                onChange={() => toggle(feat.id, feat.tier)}
+                onClick={e => e.stopPropagation()}
+              />
+              <div style={{ flex: 1 }}>
+                <div style={{ fontSize: 12, fontWeight: 600, color: '#1e293b' }}>{feat.label}</div>
+                <div style={{ fontSize: 10, color: '#94a3b8', marginTop: 1 }}>{feat.desc}</div>
+              </div>
+              <span style={{ fontSize: 10, padding: '2px 6px', borderRadius: 4, background: `${TIER_COLOR[feat.tier]}20`, color: TIER_COLOR[feat.tier], fontWeight: 700 }}>{feat.tier}</span>
+            </div>
+          )
+        })}
+      </div>
+      <div style={{ marginTop: 12, padding: '9px 12px', borderRadius: 8, background: '#f8fafc', fontSize: 11, color: '#64748b' }}>
+        {enabled.size}개 기능 활성화 · 비즈니스 플랜 업그레이드 시 4개 추가 기능 사용 가능
+      </div>
+    </div>
+  )
+}
+
+export const shadcn_Linear_팀_기능_설정: Story = {
+  name: 'shadcn/ui + Linear — 팀 기능 플랜 설정 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story: 'shadcn/ui + Linear 복합 패턴. 플랜 티어별 접근 가능 여부를 시각화하며 BoxedCheckbox로 팀 기능을 ON/OFF합니다.',
+      },
+    },
+  },
+  render: () => <ShadcnLinearTeamFeatureRender />,
+}
