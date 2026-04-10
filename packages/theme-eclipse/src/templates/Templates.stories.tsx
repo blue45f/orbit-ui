@@ -21547,3 +21547,174 @@ export const LinearKanbanBoard: Story = {
   },
   render: () => <Linear76KanbanBoardRender />,
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Template #77 — FileManager
+   Tailwind UI 벤치마크: 그리드/리스트 뷰 전환 + 파일 탐색 + 컨텍스트 액션.
+   SegmentedControl, Chip, SolidButton, OutlineButton, SearchBar, Skeleton 활용.
+   ═══════════════════════════════════════════════════════════════════════════ */
+type FileItem = {
+  id: string
+  name: string
+  type: 'folder' | 'image' | 'doc' | 'code' | 'archive'
+  size: string
+  modified: string
+  starred: boolean
+}
+
+const FILE_TYPE_ICON: Record<string, string> = {
+  folder: '📁',
+  image: '🖼',
+  doc: '📄',
+  code: '💾',
+  archive: '🗜',
+}
+
+const FILE_TYPE_COLOR: Record<string, string> = {
+  folder: '#f59e0b',
+  image: '#0ea5e9',
+  doc: '#6366f1',
+  code: '#10b981',
+  archive: '#64748b',
+}
+
+const TW77_FILES: FileItem[] = [
+  { id: 'f1', name: 'components', type: 'folder', size: '-', modified: '오늘', starred: true },
+  { id: 'f2', name: 'templates', type: 'folder', size: '-', modified: '어제', starred: false },
+  { id: 'f3', name: 'design-tokens.json', type: 'code', size: '12 KB', modified: '3일 전', starred: false },
+  { id: 'f4', name: 'figma-export.zip', type: 'archive', size: '4.2 MB', modified: '1주 전', starred: false },
+  { id: 'f5', name: 'button-variants.png', type: 'image', size: '380 KB', modified: '오늘', starred: true },
+  { id: 'f6', name: 'CHANGELOG.md', type: 'doc', size: '28 KB', modified: '어제', starred: false },
+  { id: 'f7', name: 'icon-set.png', type: 'image', size: '1.1 MB', modified: '2주 전', starred: false },
+  { id: 'f8', name: 'index.ts', type: 'code', size: '3 KB', modified: '오늘', starred: false },
+]
+
+const TW77FileManagerRender = () => {
+  const [viewIdx, setViewIdx] = React.useState(0)
+  const [files, setFiles] = React.useState<FileItem[]>(TW77_FILES)
+  const [search, setSearch] = React.useState('')
+  const [selected, setSelected] = React.useState<Set<string>>(new Set())
+  const [filterType, setFilterType] = React.useState<string | null>(null)
+  const [sortBy, setSortBy] = React.useState<'name' | 'modified'>('name')
+
+  const isGrid = viewIdx === 0
+
+  const toggleStar = (id: string) => setFiles((prev) => prev.map((f) => (f.id === id ? { ...f, starred: !f.starred } : f)))
+  const toggleSelect = (id: string) => setSelected((prev) => { const n = new Set(prev); if (n.has(id)) n.delete(id); else n.add(id); return n })
+
+  const visible = files
+    .filter((f) => f.name.toLowerCase().includes(search.toLowerCase()))
+    .filter((f) => !filterType || f.type === filterType)
+    .sort((a, b) => sortBy === 'name' ? a.name.localeCompare(b.name) : a.modified.localeCompare(b.modified))
+
+  const typeFilters = ['folder', 'image', 'doc', 'code', 'archive']
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', height: '100vh', background: 'var(--sem-eclipse-color-backgroundPrimary)' }}>
+      {/* Toolbar */}
+      <div style={{ padding: '12px 20px', borderBottom: '1px solid var(--sem-eclipse-color-borderSubtle)', display: 'flex', alignItems: 'center', gap: 12 }}>
+        <div style={{ fontSize: 15, fontWeight: 800, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginRight: 4 }}>파일 관리자</div>
+        <SearchBar
+          placeholder="파일 검색..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
+        <SegmentedControl selectedIndex={viewIdx} onTabChange={setViewIdx}>
+          <SegmentedControl.Tab value="grid">격자</SegmentedControl.Tab>
+          <SegmentedControl.Tab value="list">목록</SegmentedControl.Tab>
+        </SegmentedControl>
+        <div style={{ display: 'flex', gap: 6, marginLeft: 'auto' }}>
+          {selected.size > 0 && (
+            <>
+              <OutlineButton color="gray" size="medium" onClick={() => setSelected(new Set())}>선택 해제</OutlineButton>
+              <SolidButton color="primary" size="medium" onClick={() => { setFiles((prev) => prev.filter((f) => !selected.has(f.id))); setSelected(new Set()) }}>삭제</SolidButton>
+            </>
+          )}
+        </div>
+      </div>
+
+      {/* Filter bar */}
+      <div style={{ padding: '8px 20px', borderBottom: '1px solid var(--sem-eclipse-color-borderSubtle)', display: 'flex', alignItems: 'center', gap: 8 }}>
+        <span style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>유형:</span>
+        {typeFilters.map((t) => (
+          <button
+            key={t}
+            onClick={() => setFilterType(filterType === t ? null : t)}
+            style={{ padding: '3px 8px', borderRadius: 5, border: `1px solid ${filterType === t ? FILE_TYPE_COLOR[t] : 'var(--sem-eclipse-color-borderSubtle)'}`, background: filterType === t ? `${FILE_TYPE_COLOR[t]}15` : 'none', color: filterType === t ? FILE_TYPE_COLOR[t] : 'var(--sem-eclipse-color-foregroundTertiary)', fontSize: 11, fontWeight: 600, cursor: 'pointer', transition: 'all 0.12s' }}
+          >
+            {FILE_TYPE_ICON[t]} {t}
+          </button>
+        ))}
+        <div style={{ marginLeft: 'auto', display: 'flex', gap: 8, alignItems: 'center' }}>
+          <span style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>정렬:</span>
+          {(['name', 'modified'] as const).map((s) => (
+            <button key={s} onClick={() => setSortBy(s)} style={{ fontSize: 11, fontWeight: sortBy === s ? 700 : 400, color: sortBy === s ? '#6366f1' : 'var(--sem-eclipse-color-foregroundTertiary)', background: 'none', border: 'none', cursor: 'pointer' }}>
+              {s === 'name' ? '이름' : '수정일'}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* File grid/list */}
+      <div style={{ flex: 1, overflowY: 'auto', padding: '16px 20px' }}>
+        {visible.length === 0 ? (
+          <div style={{ textAlign: 'center', padding: '40px', color: 'var(--sem-eclipse-color-foregroundTertiary)', fontSize: 13 }}>
+            검색 결과가 없습니다
+          </div>
+        ) : isGrid ? (
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(140px, 1fr))', gap: 12 }}>
+            {visible.map((file) => (
+              <div
+                key={file.id}
+                onClick={() => toggleSelect(file.id)}
+                style={{ padding: '14px 12px', borderRadius: 10, border: `2px solid ${selected.has(file.id) ? '#6366f1' : 'var(--sem-eclipse-color-borderDefault)'}`, background: selected.has(file.id) ? '#6366f108' : 'var(--sem-eclipse-color-backgroundPrimary)', cursor: 'pointer', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8, transition: 'border-color 0.12s', position: 'relative' }}
+              >
+                <button onClick={(e) => { e.stopPropagation(); toggleStar(file.id) }} style={{ position: 'absolute', top: 8, right: 8, background: 'none', border: 'none', cursor: 'pointer', fontSize: 12, opacity: file.starred ? 1 : 0.3, color: '#f59e0b' }}>★</button>
+                <div style={{ fontSize: 32 }}>{FILE_TYPE_ICON[file.type]}</div>
+                <div style={{ fontSize: 12, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)', textAlign: 'center', wordBreak: 'break-word', lineHeight: 1.3 }}>{file.name}</div>
+                <div style={{ fontSize: 10, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>{file.size !== '-' ? file.size : file.modified}</div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 0, border: '1px solid var(--sem-eclipse-color-borderDefault)', borderRadius: 8, overflow: 'hidden' }}>
+            {visible.map((file, i) => (
+              <div
+                key={file.id}
+                onClick={() => toggleSelect(file.id)}
+                style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '10px 14px', borderBottom: i < visible.length - 1 ? '1px solid var(--sem-eclipse-color-borderSubtle)' : 'none', background: selected.has(file.id) ? '#6366f108' : 'var(--sem-eclipse-color-backgroundPrimary)', cursor: 'pointer', transition: 'background 0.1s' }}
+              >
+                <span style={{ fontSize: 18, flexShrink: 0 }}>{FILE_TYPE_ICON[file.type]}</span>
+                <span style={{ flex: 1, fontSize: 13, fontWeight: 500, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{file.name}</span>
+                <span style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)', minWidth: 56, textAlign: 'right' }}>{file.size}</span>
+                <span style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)', minWidth: 56, textAlign: 'right' }}>{file.modified}</span>
+                <button onClick={(e) => { e.stopPropagation(); toggleStar(file.id) }} style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: 13, opacity: file.starred ? 1 : 0.25, color: '#f59e0b' }}>★</button>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+
+      {/* Status bar */}
+      <div style={{ padding: '8px 20px', borderTop: '1px solid var(--sem-eclipse-color-borderSubtle)', fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)', display: 'flex', justifyContent: 'space-between' }}>
+        <span>{visible.length}개 항목{selected.size > 0 ? ` — ${selected.size}개 선택됨` : ''}</span>
+        <span>{files.filter((f) => f.starred).length}개 즐겨찾기</span>
+      </div>
+    </div>
+  )
+}
+
+export const TailwindFileManager: Story = {
+  name: 'Tailwind FileManager',
+  parameters: {
+    layout: 'fullscreen',
+    docs: {
+      description: {
+        story:
+          'Tailwind UI 벤치마크: 그리드/리스트 뷰 전환, 파일 유형 필터, 별표 즐겨찾기, 다중 선택 삭제. ' +
+          'SegmentedControl(뷰 전환), SearchBar(검색), SolidButton/OutlineButton(액션) 통합.',
+      },
+    },
+  },
+  render: () => <TW77FileManagerRender />,
+}

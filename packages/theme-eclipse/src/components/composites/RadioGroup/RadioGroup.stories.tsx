@@ -562,3 +562,195 @@ export const M3_어시스트_칩_RadioGroup: Story = {
   name: 'Material 3 — Assist Chip + RadioGroup 상태별 권장 액션',
   render: () => <M3AssistChipDemo />,
 }
+
+/* ── Tailwind UI: 배송 방법 선택 ── */
+const ShippingMethodDemo = () => {
+  const [method, setMethod] = useState('standard')
+
+  const methods = [
+    { value: 'standard', label: '일반 배송', desc: '4~6일 소요', price: '무료', badge: '' },
+    { value: 'express', label: '빠른 배송', desc: '2~3일 소요', price: '₩3,000', badge: '' },
+    { value: 'overnight', label: '당일 배송', desc: '오늘 도착 (오후 2시 이전 주문)', price: '₩8,000', badge: '인기' },
+  ]
+
+  return (
+    <div style={{ maxWidth: 420 }}>
+      <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 14 }}>배송 방법 선택 (Tailwind UI 패턴)</div>
+      <RadioGroup value={method} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setMethod(e.target.value)} name="shipping">
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 0, border: '1px solid var(--sem-eclipse-color-borderDefault)', borderRadius: 8, overflow: 'hidden' }}>
+          {methods.map((m, i) => (
+            <div
+              key={m.value}
+              onClick={() => setMethod(m.value)}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 12,
+                padding: '14px 16px',
+                borderBottom: i < methods.length - 1 ? '1px solid var(--sem-eclipse-color-borderSubtle)' : 'none',
+                background: method === m.value ? 'color-mix(in srgb, var(--sem-eclipse-color-fillPrimary) 5%, var(--sem-eclipse-color-backgroundPrimary))' : 'var(--sem-eclipse-color-backgroundPrimary)',
+                cursor: 'pointer',
+                transition: 'background 0.12s',
+              }}
+            >
+              <RadioButtonWithLabel value={m.value} alignItems="center" />
+              <div style={{ flex: 1 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                  <span style={{ fontSize: 14, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{m.label}</span>
+                  {m.badge && <span style={{ fontSize: 10, fontWeight: 700, padding: '1px 6px', borderRadius: 8, background: '#6366f1', color: '#fff' }}>{m.badge}</span>}
+                </div>
+                <div style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginTop: 1 }}>{m.desc}</div>
+              </div>
+              <span style={{ fontSize: 14, fontWeight: 700, color: method === m.value ? 'var(--sem-eclipse-color-fillPrimary)' : 'var(--sem-eclipse-color-foregroundPrimary)' }}>{m.price}</span>
+            </div>
+          ))}
+        </div>
+      </RadioGroup>
+    </div>
+  )
+}
+
+export const Tailwind_배송_방법_선택: Story = {
+  name: 'Tailwind UI — 배송 방법 선택',
+  render: () => <ShippingMethodDemo />,
+}
+
+/* ── Tailwind UI: 팀 역할 권한 선택 ── */
+const TeamRoleDemo = () => {
+  const [role, setRole] = useState('editor')
+
+  const roles = [
+    {
+      value: 'viewer',
+      label: '뷰어',
+      desc: '읽기 전용 접근. 모든 컨텐츠를 볼 수 있지만 수정은 불가.',
+      permissions: ['읽기'],
+      color: '#94a3b8',
+    },
+    {
+      value: 'editor',
+      label: '편집자',
+      desc: '컨텐츠 생성 및 편집. 멤버 관리 및 설정은 제외.',
+      permissions: ['읽기', '쓰기', '편집'],
+      color: '#6366f1',
+    },
+    {
+      value: 'admin',
+      label: '관리자',
+      desc: '전체 접근 권한. 멤버 초대, 설정 변경, 결제 관리 가능.',
+      permissions: ['읽기', '쓰기', '편집', '관리', '결제'],
+      color: '#ef4444',
+    },
+  ]
+
+  return (
+    <div style={{ maxWidth: 440 }}>
+      <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 6 }}>역할 선택</div>
+      <div style={{ fontSize: 13, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginBottom: 14 }}>팀 멤버의 권한 수준을 결정합니다</div>
+      <RadioGroup value={role} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setRole(e.target.value)} name="role">
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+          {roles.map((r) => (
+            <div
+              key={r.value}
+              onClick={() => setRole(r.value)}
+              style={{
+                padding: '14px 16px',
+                borderRadius: 8,
+                border: `2px solid ${role === r.value ? r.color : 'var(--sem-eclipse-color-borderSubtle)'}`,
+                background: role === r.value ? `${r.color}08` : 'var(--sem-eclipse-color-backgroundPrimary)',
+                cursor: 'pointer',
+                transition: 'border-color 0.15s, background 0.15s',
+              }}
+            >
+              <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 6 }}>
+                <RadioButtonWithLabel value={r.value} alignItems="center" />
+                <span style={{ fontSize: 14, fontWeight: 700, color: role === r.value ? r.color : 'var(--sem-eclipse-color-foregroundPrimary)' }}>{r.label}</span>
+              </div>
+              <div style={{ paddingLeft: 26, fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginBottom: 8 }}>{r.desc}</div>
+              <div style={{ paddingLeft: 26, display: 'flex', flexWrap: 'wrap', gap: 4 }}>
+                {r.permissions.map((p) => (
+                  <span key={p} style={{ fontSize: 11, fontWeight: 600, padding: '2px 6px', borderRadius: 4, background: `${r.color}15`, color: r.color }}>{p}</span>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </RadioGroup>
+    </div>
+  )
+}
+
+export const Tailwind_팀_역할_권한_선택: Story = {
+  name: 'Tailwind UI — 팀 역할 권한 선택',
+  render: () => <TeamRoleDemo />,
+}
+
+/* ── Tailwind UI: 구독 플랜 전환 ── */
+const SubscriptionSwitchDemo = () => {
+  const [billing, setBilling] = useState<'monthly' | 'yearly'>('yearly')
+  const [plan, setPlan] = useState('pro')
+
+  const plans = {
+    monthly: [
+      { value: 'basic', label: 'Basic', price: 9000, features: ['컴포넌트 20개', '스토리 100개', '이메일 지원'] },
+      { value: 'pro', label: 'Pro', price: 29000, features: ['컴포넌트 무제한', '스토리 무제한', '테마 커스텀', '우선 지원'] },
+      { value: 'team', label: 'Team', price: 79000, features: ['Pro 모든 기능', '팀 5명', '공유 워크스페이스', 'Slack 지원'] },
+    ],
+    yearly: [
+      { value: 'basic', label: 'Basic', price: 7500, features: ['컴포넌트 20개', '스토리 100개', '이메일 지원'] },
+      { value: 'pro', label: 'Pro', price: 24000, features: ['컴포넌트 무제한', '스토리 무제한', '테마 커스텀', '우선 지원'] },
+      { value: 'team', label: 'Team', price: 65000, features: ['Pro 모든 기능', '팀 5명', '공유 워크스페이스', 'Slack 지원'] },
+    ],
+  }
+
+  const current = plans[billing]
+
+  return (
+    <div style={{ maxWidth: 480 }}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 16 }}>
+        <div style={{ fontSize: 15, fontWeight: 800, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>구독 플랜</div>
+        <div style={{ display: 'flex', gap: 0, border: '1px solid var(--sem-eclipse-color-borderDefault)', borderRadius: 6, overflow: 'hidden' }}>
+          {(['monthly', 'yearly'] as const).map((b) => (
+            <button
+              key={b}
+              onClick={() => setBilling(b)}
+              style={{ padding: '6px 12px', fontSize: 12, fontWeight: 600, background: billing === b ? '#6366f1' : 'var(--sem-eclipse-color-backgroundPrimary)', color: billing === b ? '#fff' : 'var(--sem-eclipse-color-foregroundTertiary)', border: 'none', cursor: 'pointer', transition: 'all 0.12s' }}
+            >
+              {b === 'monthly' ? '월간' : '연간'}
+              {b === 'yearly' && <span style={{ fontSize: 10, marginLeft: 4, opacity: 0.85 }}>-20%</span>}
+            </button>
+          ))}
+        </div>
+      </div>
+      <RadioGroup value={plan} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPlan(e.target.value)} name="subscription">
+        <div style={{ display: 'flex', gap: 10 }}>
+          {current.map((p) => (
+            <div
+              key={p.value}
+              onClick={() => setPlan(p.value)}
+              style={{ flex: 1, padding: '14px 12px', borderRadius: 8, border: `2px solid ${plan === p.value ? '#6366f1' : 'var(--sem-eclipse-color-borderSubtle)'}`, background: plan === p.value ? '#6366f108' : 'var(--sem-eclipse-color-backgroundPrimary)', cursor: 'pointer', transition: 'border-color 0.15s' }}
+            >
+              <RadioButtonWithLabel value={p.value} alignItems="center" />
+              <div style={{ marginTop: 10, paddingLeft: 4 }}>
+                <div style={{ fontSize: 14, fontWeight: 700, color: plan === p.value ? '#6366f1' : 'var(--sem-eclipse-color-foregroundPrimary)' }}>{p.label}</div>
+                <div style={{ fontSize: 16, fontWeight: 800, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginTop: 4 }}>₩{p.price.toLocaleString()}<span style={{ fontSize: 11, fontWeight: 400, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>/월</span></div>
+              </div>
+              <div style={{ marginTop: 10, display: 'flex', flexDirection: 'column', gap: 3, paddingLeft: 4 }}>
+                {p.features.map((f) => (
+                  <div key={f} style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundSecondary)', display: 'flex', gap: 5 }}>
+                    <span style={{ color: '#6366f1', fontWeight: 700 }}>✓</span>{f}
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </RadioGroup>
+    </div>
+  )
+}
+
+export const Tailwind_구독_플랜_전환: Story = {
+  name: 'Tailwind UI — 구독 플랜 전환 (월간/연간)',
+  render: () => <SubscriptionSwitchDemo />,
+}

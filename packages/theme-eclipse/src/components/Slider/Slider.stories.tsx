@@ -951,3 +951,157 @@ export const Linear_피보나치_스토리포인트: Story = {
   },
   render: () => <LinearStoryPointsRender />,
 }
+
+/* ── Tailwind UI: 오디오 이퀄라이저 ── */
+const EqualizerDemo = () => {
+  const bands = ['32Hz', '64Hz', '125Hz', '250Hz', '500Hz', '1kHz', '2kHz', '4kHz', '8kHz', '16kHz']
+  const [gains, setGains] = useState<number[]>([0, 0, 3, 2, 0, -1, 2, 4, 1, 0])
+
+  const presets: Record<string, number[]> = {
+    '플랫': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    '베이스 부스트': [6, 5, 4, 2, 0, 0, 0, 0, 0, 0],
+    '보컬 강화': [0, 0, 0, 1, 3, 4, 3, 1, 0, 0],
+    'Rock': [4, 3, 0, -1, -2, 0, 2, 4, 4, 3],
+  }
+
+  const setGain = (i: number, v: number[]) =>
+    setGains((prev) => prev.map((g, idx) => (idx === i ? v[0] : g)))
+
+  return (
+    <div style={{ maxWidth: 480 }}>
+      <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 12 }}>이퀄라이저 (Tailwind UI 수직 슬라이더 패턴)</div>
+      <div style={{ display: 'flex', gap: 8, marginBottom: 14, flexWrap: 'wrap' }}>
+        {Object.entries(presets).map(([name, vals]) => (
+          <button
+            key={name}
+            onClick={() => setGains(vals)}
+            style={{ fontSize: 11, padding: '4px 10px', borderRadius: 6, border: '1px solid var(--sem-eclipse-color-borderDefault)', background: 'var(--sem-eclipse-color-backgroundPrimary)', color: 'var(--sem-eclipse-color-foregroundSecondary)', cursor: 'pointer', fontWeight: 500 }}
+          >
+            {name}
+          </button>
+        ))}
+      </div>
+      <div style={{ display: 'flex', gap: 12, alignItems: 'flex-end' }}>
+        {bands.map((band, i) => (
+          <div key={band} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6, flex: 1 }}>
+            <span style={{ fontSize: 10, fontWeight: 700, color: gains[i] > 0 ? '#6366f1' : gains[i] < 0 ? '#ef4444' : 'var(--sem-eclipse-color-foregroundTertiary)', minWidth: 24, textAlign: 'center' }}>{gains[i] > 0 ? `+${gains[i]}` : gains[i]}</span>
+            <Slider min={-12} max={12} step={1} value={[gains[i]]} onValueChange={(v) => setGain(i, v)} style={{ height: 80 }} />
+            <span style={{ fontSize: 9, color: 'var(--sem-eclipse-color-foregroundTertiary)', textAlign: 'center', lineHeight: 1.2 }}>{band}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+export const Tailwind_오디오_이퀄라이저: Story = {
+  name: 'Tailwind UI — 오디오 이퀄라이저',
+  render: () => <EqualizerDemo />,
+}
+
+/* ── Tailwind UI: 반응형 미디어 플레이어 컨트롤 ── */
+const MediaPlayerDemo = () => {
+  const [progress, setProgress] = useState(34)
+  const [volume, setVolume] = useState(70)
+  const [playing, setPlaying] = useState(false)
+
+  const duration = 243
+  const current = Math.round((progress / 100) * duration)
+  const fmt = (s: number) => `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`
+
+  return (
+    <div style={{ maxWidth: 400, padding: '20px', borderRadius: 12, border: '1px solid var(--sem-eclipse-color-borderDefault)', background: 'var(--sem-eclipse-color-backgroundPrimary)' }}>
+      {/* Track info */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 16 }}>
+        <div style={{ width: 48, height: 48, borderRadius: 8, background: 'linear-gradient(135deg, #6366f1, #0ea5e9)', flexShrink: 0 }} />
+        <div>
+          <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>Orbit UI Theme Song</div>
+          <div style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginTop: 2 }}>Tailwind UI Patterns</div>
+        </div>
+      </div>
+      {/* Progress */}
+      <div style={{ marginBottom: 8 }}>
+        <Slider min={0} max={100} step={1} value={[progress]} onValueChange={(v) => setProgress(v[0])} />
+      </div>
+      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginBottom: 14 }}>
+        <span>{fmt(current)}</span>
+        <span>{fmt(duration)}</span>
+      </div>
+      {/* Controls */}
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 16, marginBottom: 16 }}>
+        <button style={{ fontSize: 18, background: 'none', border: 'none', cursor: 'pointer', color: 'var(--sem-eclipse-color-foregroundSecondary)' }}>⏮</button>
+        <button onClick={() => setPlaying((v) => !v)} style={{ width: 40, height: 40, borderRadius: '50%', background: '#6366f1', border: 'none', cursor: 'pointer', fontSize: 16, color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          {playing ? '⏸' : '▶'}
+        </button>
+        <button style={{ fontSize: 18, background: 'none', border: 'none', cursor: 'pointer', color: 'var(--sem-eclipse-color-foregroundSecondary)' }}>⏭</button>
+      </div>
+      {/* Volume */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+        <span style={{ fontSize: 13, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>🔈</span>
+        <div style={{ flex: 1 }}>
+          <Slider min={0} max={100} step={1} value={[volume]} onValueChange={(v) => setVolume(v[0])} />
+        </div>
+        <span style={{ fontSize: 13, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>🔊</span>
+        <span style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)', minWidth: 28, textAlign: 'right' }}>{volume}%</span>
+      </div>
+    </div>
+  )
+}
+
+export const Tailwind_미디어_플레이어_컨트롤: Story = {
+  name: 'Tailwind UI — 미디어 플레이어 컨트롤',
+  render: () => <MediaPlayerDemo />,
+}
+
+/* ── Tailwind UI: 다중 범위 가격 필터 ── */
+const PriceRangeDemo = () => {
+  const [range, setRange] = useState([20, 80])
+  const MIN = 0
+  const MAX = 200
+  const step = 5
+
+  const products = [
+    { name: 'Button 컴포넌트 팩', price: 29 },
+    { name: 'Form 템플릿 세트', price: 49 },
+    { name: 'Dashboard 스타터', price: 79 },
+    { name: 'Enterprise 라이선스', price: 149 },
+    { name: 'Custom 프리미엄 플러그인', price: 19 },
+  ]
+
+  const filtered = products.filter((p) => p.price >= range[0] && p.price <= range[1])
+
+  return (
+    <div style={{ maxWidth: 360 }}>
+      <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 14 }}>가격 범위 필터 (Tailwind UI 패턴)</div>
+      <div style={{ marginBottom: 6 }}>
+        <Slider min={MIN} max={MAX} step={step} value={range} onValueChange={setRange} />
+      </div>
+      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginBottom: 16 }}>
+        <span>₩{range[0].toLocaleString()}</span>
+        <span>₩{range[1].toLocaleString()}</span>
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+        {products.map((p) => {
+          const inRange = p.price >= range[0] && p.price <= range[1]
+          return (
+            <div
+              key={p.name}
+              style={{ display: 'flex', justifyContent: 'space-between', padding: '8px 12px', borderRadius: 6, border: `1px solid ${inRange ? 'var(--sem-eclipse-color-fillPrimary)' : 'var(--sem-eclipse-color-borderSubtle)'}`, background: inRange ? 'color-mix(in srgb, var(--sem-eclipse-color-fillPrimary) 5%, var(--sem-eclipse-color-backgroundPrimary))' : 'var(--sem-eclipse-color-backgroundSecondary)', opacity: inRange ? 1 : 0.4, transition: 'all 0.2s' }}
+            >
+              <span style={{ fontSize: 13, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{p.name}</span>
+              <span style={{ fontSize: 13, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>₩{p.price.toLocaleString()}</span>
+            </div>
+          )
+        })}
+      </div>
+      <div style={{ marginTop: 10, fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>
+        {filtered.length}개 상품 표시 중
+      </div>
+    </div>
+  )
+}
+
+export const Tailwind_가격_범위_필터: Story = {
+  name: 'Tailwind UI — 다중 범위 가격 필터',
+  render: () => <PriceRangeDemo />,
+}
