@@ -1311,3 +1311,242 @@ export const Shadcn_문서_섹션_헤더: Story = {
   },
   render: () => <ShadcnDocSectionRender />,
 }
+
+/* --------------------------------------------------------------------------
+   Cycle 177 — Mantine + Ant Design
+   Benchmark:
+   1. Mantine Collapse: 섹션 타이틀에 접기/펼치기 토글 통합
+   2. Ant Design List.Header: 우측 액션 버튼 그룹 + 정렬 컨트롤
+   3. 두 시스템 공통: 섹션 헤더를 네비게이션 앵커로 사용
+-------------------------------------------------------------------------- */
+
+function MantineCollapseSectionRender() {
+  const [collapsed, setCollapsed] = React.useState<Record<string, boolean>>({
+    recent: false,
+    pinned: true,
+    archive: true,
+  })
+
+  const sections = [
+    {
+      id: 'recent',
+      title: '최근 작업',
+      desc: '지난 7일 내 수정된 항목',
+      count: 5,
+      items: ['디자인 시스템 v2.1 스펙 검토', 'Button 컴포넌트 접근성 개선', '스토리북 배포 파이프라인 수정'],
+    },
+    {
+      id: 'pinned',
+      title: '고정된 항목',
+      desc: '중요 표시된 문서',
+      count: 2,
+      items: ['컴포넌트 가이드라인', '토큰 시스템 문서'],
+    },
+    {
+      id: 'archive',
+      title: '보관함',
+      desc: '완료된 작업',
+      count: 14,
+      items: ['Cycle 170 리뷰 완료', 'MUI 벤치마크 결과'],
+    },
+  ]
+
+  return (
+    <div style={{ width: 380, fontFamily: 'system-ui, sans-serif' }}>
+      {sections.map((sec) => (
+        <div key={sec.id} style={{ marginBottom: 4 }}>
+          <SectionTitle>
+            <SectionTitle.Title>
+              {sec.title}
+              <span style={{ marginLeft: 6, fontSize: 10, padding: '1px 6px', borderRadius: 99, background: '#f1f5f9', color: '#64748b', fontWeight: 600, verticalAlign: 'middle' }}>{sec.count}</span>
+            </SectionTitle.Title>
+            <SectionTitle.Description>{sec.desc}</SectionTitle.Description>
+            <SectionTitle.Trailing>
+              <button
+                onClick={() => setCollapsed((prev) => ({ ...prev, [sec.id]: !prev[sec.id] }))}
+                style={{ fontSize: 11, padding: '3px 8px', borderRadius: 6, border: '1px solid #e5e7eb', background: 'transparent', cursor: 'pointer', color: '#64748b', display: 'flex', alignItems: 'center', gap: 4, fontFamily: 'system-ui' }}
+              >
+                <span style={{ display: 'inline-block', transform: collapsed[sec.id] ? 'rotate(-90deg)' : 'rotate(0deg)', transition: 'transform 0.2s', fontSize: 10 }}>▼</span>
+                {collapsed[sec.id] ? '펼치기' : '접기'}
+              </button>
+            </SectionTitle.Trailing>
+          </SectionTitle>
+          {!collapsed[sec.id] && (
+            <div style={{ marginTop: 4 }}>
+              {sec.items.map((item, i) => (
+                <div key={i} style={{ padding: '8px 12px', borderRadius: 8, marginBottom: 2, background: '#f8fafc', fontSize: 12, color: '#374151', display: 'flex', alignItems: 'center', gap: 8 }}>
+                  <span style={{ color: '#94a3b8', fontSize: 10 }}>◎</span>
+                  {item}
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      ))}
+    </div>
+  )
+}
+
+export const Mantine_접기_펼치기_섹션: Story = {
+  name: 'Mantine — 접기/펼치기 섹션 그룹 (Collapse 패턴)',
+  parameters: {
+    layout: 'centered',
+    docs: {
+      description: {
+        story: 'Mantine Collapse 컴포넌트의 섹션 헤더 패턴 적용. SectionTitle.Trailing에 접기/펼치기 버튼을 배치하고, count 배지로 항목 수 표시. 워크스페이스 사이드바의 섹션 그룹 탐색 UI.',
+      },
+    },
+  },
+  render: () => <MantineCollapseSectionRender />,
+}
+
+function AntTaskGroupSectionRender() {
+  const [sort, setSort] = React.useState<'priority' | 'date' | 'assignee'>('priority')
+  const [view, setView] = React.useState<'list' | 'board'>('list')
+
+  const taskGroups = [
+    {
+      id: 'todo',
+      title: '할 일',
+      color: '#6366f1',
+      tasks: [
+        { title: 'TextField RTL 지원 추가', priority: 'high', due: '오늘' },
+        { title: 'Popover 애니메이션 최적화', priority: 'medium', due: '내일' },
+      ],
+    },
+    {
+      id: 'progress',
+      title: '진행 중',
+      color: '#f59e0b',
+      tasks: [
+        { title: 'Calendar storybook 고도화', priority: 'high', due: '오늘' },
+      ],
+    },
+  ]
+
+  const priorityDot: Record<string, string> = { high: '#ef4444', medium: '#f59e0b', low: '#94a3b8' }
+
+  return (
+    <div style={{ width: 380, fontFamily: 'system-ui, sans-serif' }}>
+      <div style={{ marginBottom: 12, display: 'flex', gap: 4, justifyContent: 'flex-end' }}>
+        {(['list', 'board'] as const).map((v) => (
+          <button key={v} onClick={() => setView(v)} style={{ fontSize: 11, padding: '3px 9px', borderRadius: 6, border: `1px solid ${view === v ? '#6366f1' : '#e5e7eb'}`, background: view === v ? '#ede9fe' : 'transparent', color: view === v ? '#6366f1' : '#94a3b8', cursor: 'pointer', fontFamily: 'system-ui' }}>
+            {v === 'list' ? '목록' : '보드'}
+          </button>
+        ))}
+      </div>
+      {taskGroups.map((group) => (
+        <div key={group.id} style={{ marginBottom: 16 }}>
+          <SectionTitle>
+            <SectionTitle.Title>
+              <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>
+                <span style={{ width: 8, height: 8, borderRadius: '50%', background: group.color, display: 'inline-block' }} />
+                {group.title}
+                <span style={{ fontSize: 10, padding: '0px 5px', borderRadius: 99, background: group.color + '15', color: group.color, fontWeight: 700 }}>{group.tasks.length}</span>
+              </span>
+            </SectionTitle.Title>
+            <SectionTitle.Trailing>
+              <div style={{ display: 'flex', gap: 4 }}>
+                {(['priority', 'date', 'assignee'] as const).map((s) => (
+                  <button key={s} onClick={() => setSort(s)} style={{ fontSize: 9, padding: '2px 6px', borderRadius: 4, border: 'none', background: sort === s ? '#f1f5f9' : 'transparent', color: sort === s ? '#374151' : '#94a3b8', cursor: 'pointer', fontFamily: 'system-ui' }}>
+                    {{ priority: '우선순위', date: '날짜', assignee: '담당자' }[s]}
+                  </button>
+                ))}
+              </div>
+            </SectionTitle.Trailing>
+          </SectionTitle>
+          <div style={{ marginTop: 6 }}>
+            {group.tasks.map((task, i) => (
+              <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '7px 10px', borderRadius: 8, background: '#f8fafc', marginBottom: 3 }}>
+                <div style={{ width: 6, height: 6, borderRadius: '50%', background: priorityDot[task.priority], flexShrink: 0 }} />
+                <span style={{ flex: 1, fontSize: 12, color: '#374151' }}>{task.title}</span>
+                <span style={{ fontSize: 10, color: '#94a3b8' }}>{task.due}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  )
+}
+
+export const Ant_작업_그룹_섹션: Story = {
+  name: 'Ant Design — 작업 그룹 섹션 (정렬 컨트롤 + 뷰 전환)',
+  parameters: {
+    layout: 'centered',
+    docs: {
+      description: {
+        story: 'Ant Design List.Header 패턴 적용. SectionTitle.Trailing에 정렬 버튼 그룹(우선순위/날짜/담당자)과 목록/보드 뷰 전환 컨트롤 배치. 프로젝트 관리 앱의 태스크 그룹 헤더 패턴.',
+      },
+    },
+  },
+  render: () => <AntTaskGroupSectionRender />,
+}
+
+function MantineAntWidgetSectionRender() {
+  const [activeFilter, setActiveFilter] = React.useState('all')
+  const [metricPeriod, setMetricPeriod] = React.useState('week')
+
+  const filterChips = ['전체', '주간', '월간', '분기'] as const
+  const filterValues = ['all', 'week', 'month', 'quarter'] as const
+
+  const widgets = [
+    { label: '총 컴포넌트', value: 47, unit: '개', trend: +3, color: '#6366f1' },
+    { label: '스토리 커버리지', value: 94, unit: '%', trend: +2, color: '#10b981' },
+    { label: '접근성 점수', value: 88, unit: 'pt', trend: +5, color: '#f59e0b' },
+    { label: '빌드 성공률', value: 99, unit: '%', trend: 0, color: '#3b82f6' },
+  ]
+
+  return (
+    <div style={{ width: 380, fontFamily: 'system-ui, sans-serif' }}>
+      <SectionTitle>
+        <SectionTitle.Title>대시보드 지표</SectionTitle.Title>
+        <SectionTitle.Description>컴포넌트 라이브러리 품질 현황</SectionTitle.Description>
+        <SectionTitle.Trailing>
+          <div style={{ display: 'flex', gap: 3 }}>
+            {filterChips.map((chip, i) => (
+              <button
+                key={chip}
+                onClick={() => { setActiveFilter(filterValues[i]); setMetricPeriod(filterValues[i]) }}
+                style={{ fontSize: 10, padding: '3px 8px', borderRadius: 99, border: 'none', background: activeFilter === filterValues[i] ? '#6366f1' : '#f1f5f9', color: activeFilter === filterValues[i] ? '#fff' : '#64748b', cursor: 'pointer', fontWeight: activeFilter === filterValues[i] ? 600 : 400, fontFamily: 'system-ui', transition: 'all 0.15s' }}
+              >
+                {chip}
+              </button>
+            ))}
+          </div>
+        </SectionTitle.Trailing>
+      </SectionTitle>
+
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8, marginTop: 10 }}>
+        {widgets.map((w) => (
+          <div key={w.label} style={{ padding: '12px 14px', borderRadius: 10, border: '1px solid #f1f5f9', background: '#fff' }}>
+            <div style={{ fontSize: 10, color: '#94a3b8', marginBottom: 6 }}>{w.label}</div>
+            <div style={{ fontSize: 20, fontWeight: 700, color: '#0f172a' }}>{w.value}<span style={{ fontSize: 11, color: '#94a3b8', fontWeight: 400 }}>{w.unit}</span></div>
+            {w.trend !== 0 && (
+              <div style={{ fontSize: 10, color: w.trend > 0 ? '#10b981' : '#ef4444', marginTop: 4, display: 'flex', alignItems: 'center', gap: 2 }}>
+                <span>{w.trend > 0 ? '▲' : '▼'}</span>
+                <span>{Math.abs(w.trend)}{w.unit} ({metricPeriod === 'all' ? '전체' : metricPeriod === 'week' ? '주간' : metricPeriod === 'month' ? '월간' : '분기'} 기준)</span>
+              </div>
+            )}
+            <div style={{ height: 3, borderRadius: 2, background: '#f1f5f9', marginTop: 8, overflow: 'hidden' }}>
+              <div style={{ height: '100%', width: `${Math.min(w.value, 100)}%`, background: w.color, borderRadius: 2 }} />
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+export const Mantine_Ant_위젯_섹션: Story = {
+  name: 'Mantine + Ant Design — 대시보드 위젯 섹션 (필터 칩 + 지표 카드)',
+  parameters: {
+    layout: 'centered',
+    docs: {
+      description: {
+        story: 'Mantine SegmentedControl 스타일의 필터 칩 + Ant Design Statistics 위젯 패턴. SectionTitle.Trailing에 전체/주간/월간/분기 필터 칩을 배치하고, 선택된 기간에 따라 지표 카드 트렌드 업데이트.',
+      },
+    },
+  },
+  render: () => <MantineAntWidgetSectionRender />,
+}

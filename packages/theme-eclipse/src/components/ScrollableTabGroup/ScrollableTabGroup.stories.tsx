@@ -1594,3 +1594,236 @@ export const MUI_Arco_서버_모니터링_탭: Story = {
   },
   render: () => <MUIArcoServerMonitorTabRender />,
 }
+
+/* --------------------------------------------------------------------------
+   Cycle 177 — Mantine + Ant Design
+   Benchmark:
+   1. Mantine Tabs: 콘텐츠 패널 완전 분리 + 배지 인디케이터
+   2. Ant Design Tabs: status 색상 도트 + count 뱃지 + 탭 필터 조합
+   3. 두 시스템 공통: 탭 헤더를 "네비게이션"처럼 활용하는 패턴
+-------------------------------------------------------------------------- */
+
+function MantineAuditLogTabRender() {
+  const [active, setActive] = useState(0)
+
+  const logTabs = [
+    { id: 'all', label: '전체', count: 248, color: '#6366f1' },
+    { id: 'security', label: '보안', count: 12, color: '#ef4444' },
+    { id: 'access', label: '접근', count: 87, color: '#f59e0b' },
+    { id: 'changes', label: '변경', count: 63, color: '#3b82f6' },
+    { id: 'system', label: '시스템', count: 44, color: '#8b5cf6' },
+    { id: 'api', label: 'API', count: 31, color: '#10b981' },
+    { id: 'export', label: '내보내기', count: 11, color: '#64748b' },
+  ]
+
+  const logEntries = [
+    { time: '14:32', user: 'admin@corp.com', action: '사용자 권한 변경', severity: 'high' },
+    { time: '14:18', user: 'dev@corp.com', action: 'API 키 재발급', severity: 'medium' },
+    { time: '13:55', user: 'ops@corp.com', action: '서버 설정 업데이트', severity: 'low' },
+    { time: '13:44', user: 'admin@corp.com', action: '팀 멤버 초대', severity: 'low' },
+    { time: '13:20', user: 'qa@corp.com', action: '환경변수 접근', severity: 'medium' },
+  ]
+
+  const severityColor = { high: '#ef4444', medium: '#f59e0b', low: '#10b981' } as const
+  const current = logTabs[active]
+
+  return (
+    <div style={{ width: 420, border: '1px solid #e5e7eb', borderRadius: 14, overflow: 'hidden', fontFamily: 'system-ui, sans-serif', background: '#fff' }}>
+      <div style={{ padding: '14px 16px 0', borderBottom: '1px solid #f1f5f9' }}>
+        <div style={{ fontSize: 13, fontWeight: 700, color: '#1e293b', marginBottom: 10 }}>감사 로그</div>
+        <ScrollableTabGroup selectedIndex={active} onTabChange={setActive}>
+          {logTabs.map((tab) => (
+            <ScrollableTabGroup.Tab key={tab.id} value={tab.id}>
+              <ScrollableTabGroup.TabCenter>{tab.label}</ScrollableTabGroup.TabCenter>
+              <ScrollableTabGroup.TabTrailing>
+                <span style={{ fontSize: 9, fontWeight: 700, padding: '0px 5px', borderRadius: 99, background: active === logTabs.indexOf(tab) ? current.color + '20' : '#f1f5f9', color: active === logTabs.indexOf(tab) ? current.color : '#94a3b8' }}>
+                  {tab.count}
+                </span>
+              </ScrollableTabGroup.TabTrailing>
+            </ScrollableTabGroup.Tab>
+          ))}
+        </ScrollableTabGroup>
+      </div>
+      <div style={{ padding: '12px 16px' }}>
+        {logEntries.map((entry, i) => (
+          <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '8px 0', borderBottom: i < logEntries.length - 1 ? '1px solid #f8fafc' : 'none' }}>
+            <div style={{ width: 6, height: 6, borderRadius: '50%', background: severityColor[entry.severity as keyof typeof severityColor], flexShrink: 0 }} />
+            <span style={{ fontSize: 10, color: '#94a3b8', fontFamily: 'monospace', flexShrink: 0 }}>{entry.time}</span>
+            <span style={{ fontSize: 11, color: '#64748b', flex: 1, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{entry.action}</span>
+            <span style={{ fontSize: 10, color: '#94a3b8', flexShrink: 0 }}>{entry.user.split('@')[0]}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+export const Mantine_감사_로그_탭: Story = {
+  name: 'Mantine — 감사 로그 카테고리 탭 (count 뱃지 + 심각도 도트)',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Mantine Tabs의 우측 count indicator 패턴 적용. 각 로그 카테고리 탭에 활성 상태에 따라 색상이 변하는 count 배지 표시. 보안/접근/변경/시스템/API 분류로 감사 로그를 탐색하는 엔터프라이즈 패턴.',
+      },
+    },
+  },
+  render: () => <MantineAuditLogTabRender />,
+}
+
+function AntIssueStatusTabRender() {
+  const [active, setActive] = useState(0)
+
+  const statusTabs = [
+    { id: 'open', label: '열린 이슈', count: 24, statusColor: '#3b82f6' },
+    { id: 'inprogress', label: '진행 중', count: 8, statusColor: '#f59e0b' },
+    { id: 'review', label: '리뷰 대기', count: 5, statusColor: '#8b5cf6' },
+    { id: 'blocked', label: '차단됨', count: 3, statusColor: '#ef4444' },
+    { id: 'done', label: '완료', count: 91, statusColor: '#10b981' },
+    { id: 'closed', label: '닫힌 이슈', count: 147, statusColor: '#94a3b8' },
+  ]
+
+  const issues = [
+    { id: 'ORB-241', title: '다크모드 전환 시 Slider 트랙 색상 깜빡임', priority: 'high', assignee: 'K', label: 'bug' },
+    { id: 'ORB-238', title: 'Calendar disabled 날짜 키보드 접근성 개선', priority: 'medium', assignee: 'J', label: 'a11y' },
+    { id: 'ORB-235', title: 'DataTable 헤더 고정 시 그림자 미적용 이슈', priority: 'medium', assignee: 'H', label: 'bug' },
+    { id: 'ORB-232', title: 'SegmentedControl RTL 레이아웃 지원', priority: 'low', assignee: 'M', label: 'enhancement' },
+  ]
+
+  const priorityColor = { high: '#ef4444', medium: '#f59e0b', low: '#94a3b8' } as const
+  const labelColor: Record<string, { bg: string; text: string }> = {
+    bug: { bg: '#fee2e2', text: '#dc2626' },
+    a11y: { bg: '#ede9fe', text: '#7c3aed' },
+    enhancement: { bg: '#dbeafe', text: '#2563eb' },
+  }
+
+  return (
+    <div style={{ width: 440, border: '1px solid #e5e7eb', borderRadius: 14, overflow: 'hidden', fontFamily: 'system-ui, sans-serif', background: '#fff' }}>
+      <div style={{ padding: '14px 16px 0', borderBottom: '1px solid #f1f5f9' }}>
+        <div style={{ fontSize: 13, fontWeight: 700, color: '#1e293b', marginBottom: 10, display: 'flex', alignItems: 'center', gap: 6 }}>
+          이슈 트래커
+          <span style={{ fontSize: 10, padding: '2px 7px', borderRadius: 99, background: '#dbeafe', color: '#2563eb', fontWeight: 600 }}>Orbit UI</span>
+        </div>
+        <ScrollableTabGroup selectedIndex={active} onTabChange={setActive}>
+          {statusTabs.map((tab, i) => (
+            <ScrollableTabGroup.Tab key={tab.id} value={tab.id}>
+              <ScrollableTabGroup.TabLeading>
+                <div style={{ width: 6, height: 6, borderRadius: '50%', background: tab.statusColor }} />
+              </ScrollableTabGroup.TabLeading>
+              <ScrollableTabGroup.TabCenter>{tab.label}</ScrollableTabGroup.TabCenter>
+              <ScrollableTabGroup.TabTrailing>
+                <span style={{ fontSize: 9, color: active === i ? tab.statusColor : '#94a3b8', fontWeight: 700 }}>{tab.count}</span>
+              </ScrollableTabGroup.TabTrailing>
+            </ScrollableTabGroup.Tab>
+          ))}
+        </ScrollableTabGroup>
+      </div>
+      <div>
+        {issues.map((issue, i) => (
+          <div key={issue.id} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 16px', borderBottom: i < issues.length - 1 ? '1px solid #f8fafc' : 'none', cursor: 'pointer' }}>
+            <div style={{ width: 8, height: 8, borderRadius: '50%', background: priorityColor[issue.priority as keyof typeof priorityColor], flexShrink: 0 }} />
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 2 }}>
+                <span style={{ fontSize: 9, color: '#94a3b8', fontFamily: 'monospace', flexShrink: 0 }}>{issue.id}</span>
+                <span style={{ fontSize: 11, color: '#374151', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{issue.title}</span>
+              </div>
+              <span style={{ fontSize: 9, padding: '1px 6px', borderRadius: 99, background: labelColor[issue.label]?.bg, color: labelColor[issue.label]?.text, fontWeight: 600 }}>{issue.label}</span>
+            </div>
+            <div style={{ width: 20, height: 20, borderRadius: '50%', background: '#6366f1', color: '#fff', fontSize: 9, fontWeight: 700, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>{issue.assignee}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+export const Ant_이슈_상태_탭: Story = {
+  name: 'Ant Design — 이슈 상태별 필터 탭 (상태 도트 + 담당자)',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Ant Design Tabs의 상태 인디케이터 패턴 적용. 각 탭 앞에 상태 색상 도트를 배치하고 count를 탭 뒤에 표시. 이슈 트래커의 Open/InProgress/Review/Blocked/Done/Closed 6단계 상태를 탭으로 구현.',
+      },
+    },
+  },
+  render: () => <AntIssueStatusTabRender />,
+}
+
+function MantineAntAnalyticsTabRender() {
+  const [active, setActive] = useState(0)
+
+  const analyticsTabs = [
+    { id: 'overview', label: '개요', icon: '◎' },
+    { id: 'acquisition', label: '획득', icon: '↘' },
+    { id: 'behavior', label: '행동', icon: '◇' },
+    { id: 'conversion', label: '전환', icon: '↗' },
+    { id: 'retention', label: '리텐션', icon: '↺' },
+    { id: 'realtime', label: '실시간', icon: '●', live: true },
+  ]
+
+  const metrics = [
+    [
+      { label: '방문자', value: '24,831', change: +12.4, unit: '' },
+      { label: '세션', value: '31,204', change: +8.1, unit: '' },
+      { label: '이탈률', value: '38.2', change: -3.2, unit: '%' },
+      { label: '평균 체류', value: '3:24', change: +11.0, unit: '' },
+    ],
+    [
+      { label: '신규 사용자', value: '18,231', change: +22.1, unit: '' },
+      { label: '유입 채널', value: '8', change: 0, unit: '개' },
+      { label: '검색 유입', value: '42.8', change: +5.3, unit: '%' },
+      { label: 'SNS 유입', value: '18.3', change: -2.1, unit: '%' },
+    ],
+  ]
+
+  const currentMetrics = metrics[Math.min(active, metrics.length - 1)]
+
+  return (
+    <div style={{ width: 440, border: '1px solid #e5e7eb', borderRadius: 14, overflow: 'hidden', fontFamily: 'system-ui, sans-serif', background: '#fff' }}>
+      <div style={{ padding: '14px 16px 0', borderBottom: '1px solid #f1f5f9' }}>
+        <div style={{ fontSize: 13, fontWeight: 700, color: '#1e293b', marginBottom: 10 }}>애널리틱스</div>
+        <ScrollableTabGroup selectedIndex={active} onTabChange={setActive}>
+          {analyticsTabs.map((tab) => (
+            <ScrollableTabGroup.Tab key={tab.id} value={tab.id}>
+              <ScrollableTabGroup.TabLeading>
+                <span style={{ fontSize: 10, color: tab.live ? '#ef4444' : '#94a3b8' }}>{tab.icon}</span>
+              </ScrollableTabGroup.TabLeading>
+              <ScrollableTabGroup.TabCenter>{tab.label}</ScrollableTabGroup.TabCenter>
+              {tab.live && (
+                <ScrollableTabGroup.TabTrailing>
+                  <span style={{ fontSize: 8, padding: '1px 4px', borderRadius: 99, background: '#fee2e2', color: '#dc2626', fontWeight: 700 }}>LIVE</span>
+                </ScrollableTabGroup.TabTrailing>
+              )}
+            </ScrollableTabGroup.Tab>
+          ))}
+        </ScrollableTabGroup>
+      </div>
+      <div style={{ padding: 16 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
+          {currentMetrics.map((m) => (
+            <div key={m.label} style={{ padding: '12px 14px', borderRadius: 10, background: '#f8fafc', border: '1px solid #f1f5f9' }}>
+              <div style={{ fontSize: 10, color: '#94a3b8', marginBottom: 4 }}>{m.label}</div>
+              <div style={{ fontSize: 18, fontWeight: 700, color: '#0f172a' }}>{m.value}<span style={{ fontSize: 11 }}>{m.unit}</span></div>
+              {m.change !== 0 && (
+                <div style={{ fontSize: 10, color: m.change > 0 ? '#10b981' : '#ef4444', marginTop: 2 }}>
+                  {m.change > 0 ? '▲' : '▼'} {Math.abs(m.change)}%
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const Mantine_Ant_애널리틱스_탭: Story = {
+  name: 'Mantine + Ant Design — 애널리틱스 지표 탭 (LIVE 배지 + 지표 카드)',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Mantine 탭의 아이콘+텍스트 조합 + Ant Design 실시간 인디케이터 패턴. 애널리틱스 대시보드 탭 — 개요/획득/행동/전환/리텐션/실시간(LIVE 배지). 각 탭 전환 시 해당 지표 카드 그리드 표시.',
+      },
+    },
+  },
+  render: () => <MantineAntAnalyticsTabRender />,
+}

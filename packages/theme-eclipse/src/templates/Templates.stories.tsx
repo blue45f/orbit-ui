@@ -39491,3 +39491,194 @@ export const ChakraArco176BookingDashboard: StoryObj = {
   },
   render: () => <ChakraArco176BookingDashboardRender />,
 }
+
+// ─── Cycle 177 — Mantine + Ant Design ────────────────────────────────────────
+
+function MantineAnt177IssueTrackerRender() {
+  const [activeStatusTab, setActiveStatusTab] = useState(0)
+  const [sort, setSort] = useState<'priority' | 'date'>('priority')
+  const [collapsed, setCollapsed] = useState<Record<string, boolean>>({ todo: false, inprogress: false, review: true })
+
+  const statusTabs = [
+    { id: 'all', label: '전체', count: 41, color: '#6366f1' },
+    { id: 'open', label: '열린 이슈', count: 24, color: '#3b82f6' },
+    { id: 'inprogress', label: '진행 중', count: 8, color: '#f59e0b' },
+    { id: 'review', label: '리뷰 대기', count: 5, color: '#8b5cf6' },
+    { id: 'blocked', label: '차단됨', count: 3, color: '#ef4444' },
+    { id: 'done', label: '완료', count: 91, color: '#10b981' },
+  ]
+
+  const taskGroups = [
+    {
+      id: 'todo',
+      title: '할 일',
+      color: '#6366f1',
+      issues: [
+        { id: 'ORB-241', title: '다크모드 전환 시 Slider 색상 깜빡임', priority: 'high', label: 'bug', assignee: 'K', due: '오늘' },
+        { id: 'ORB-238', title: 'Calendar disabled 키보드 접근성 개선', priority: 'medium', label: 'a11y', assignee: 'J', due: '내일' },
+        { id: 'ORB-235', title: 'DataTable 헤더 고정 그림자 미적용', priority: 'medium', label: 'bug', assignee: 'H', due: '이번 주' },
+      ],
+    },
+    {
+      id: 'inprogress',
+      title: '진행 중',
+      color: '#f59e0b',
+      issues: [
+        { id: 'ORB-232', title: 'SegmentedControl RTL 레이아웃 지원', priority: 'high', label: 'enhancement', assignee: 'M', due: '오늘' },
+        { id: 'ORB-229', title: 'Popover 애니메이션 최적화', priority: 'low', label: 'performance', assignee: 'K', due: '내일' },
+      ],
+    },
+    {
+      id: 'review',
+      title: '리뷰 대기',
+      color: '#8b5cf6',
+      issues: [
+        { id: 'ORB-225', title: 'SectionTitle Mantine 패턴 스토리 추가', priority: 'low', label: 'docs', assignee: 'J', due: '오늘' },
+      ],
+    },
+  ]
+
+  const priorityDot: Record<string, string> = { high: '#ef4444', medium: '#f59e0b', low: '#94a3b8' }
+  const labelStyle: Record<string, { bg: string; text: string }> = {
+    bug: { bg: '#fee2e2', text: '#dc2626' },
+    a11y: { bg: '#ede9fe', text: '#7c3aed' },
+    enhancement: { bg: '#dbeafe', text: '#2563eb' },
+    performance: { bg: '#fef3c7', text: '#d97706' },
+    docs: { bg: '#f0fdf4', text: '#16a34a' },
+  }
+
+  const metrics = [
+    { label: '전체 이슈', value: 41, color: '#6366f1' },
+    { label: '진행 중', value: 8, color: '#f59e0b' },
+    { label: '이번 주 완료', value: 12, color: '#10b981' },
+    { label: '차단됨', value: 3, color: '#ef4444' },
+  ]
+
+  return (
+    <div style={{ minHeight: '100vh', background: '#f8fafc', fontFamily: 'system-ui, sans-serif', display: 'flex' }}>
+      {/* Sidebar */}
+      <div style={{ width: 200, background: '#fff', borderRight: '1px solid #e5e7eb', padding: '20px 0', display: 'flex', flexDirection: 'column' }}>
+        <div style={{ padding: '0 14px 16px', borderBottom: '1px solid #f1f5f9' }}>
+          <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>Orbit UI</div>
+          <div style={{ fontSize: 10, color: '#94a3b8', marginTop: 1 }}>이슈 트래커</div>
+        </div>
+        <div style={{ padding: '10px 8px', flex: 1 }}>
+          {[
+            { icon: '◎', label: '대시보드', active: false },
+            { icon: '◈', label: '이슈 목록', active: true },
+            { icon: '◇', label: '백로그', active: false },
+            { icon: '▣', label: '로드맵', active: false },
+            { icon: '◉', label: '팀 멤버', active: false },
+            { icon: '⊕', label: '설정', active: false },
+          ].map((m) => (
+            <div key={m.label} style={{ padding: '7px 10px', borderRadius: 7, marginBottom: 1, cursor: 'pointer', background: m.active ? '#ede9fe' : 'transparent', color: m.active ? '#7c3aed' : '#64748b', fontSize: 12, fontWeight: m.active ? 600 : 400, display: 'flex', alignItems: 'center', gap: 7 }}>
+              <span style={{ fontSize: 10 }}>{m.icon}</span>
+              {m.label}
+            </div>
+          ))}
+        </div>
+        <div style={{ padding: '12px 14px', borderTop: '1px solid #f1f5f9' }}>
+          {metrics.map((m) => (
+            <div key={m.label} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
+              <span style={{ fontSize: 10, color: '#94a3b8' }}>{m.label}</span>
+              <span style={{ fontSize: 11, fontWeight: 700, color: m.color }}>{m.value}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Main */}
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+        {/* Header */}
+        <div style={{ background: '#fff', borderBottom: '1px solid #e5e7eb', padding: '14px 20px', display: 'flex', alignItems: 'center', gap: 12 }}>
+          <div style={{ flex: 1 }}>
+            <div style={{ fontSize: 16, fontWeight: 700, color: '#0f172a' }}>이슈 목록</div>
+            <div style={{ fontSize: 11, color: '#94a3b8' }}>Mantine + Ant Design 패턴 적용</div>
+          </div>
+          <div style={{ display: 'flex', gap: 6 }}>
+            {(['priority', 'date'] as const).map((s) => (
+              <button key={s} onClick={() => setSort(s)} style={{ fontSize: 11, padding: '4px 10px', borderRadius: 7, border: `1px solid ${sort === s ? '#6366f1' : '#e5e7eb'}`, background: sort === s ? '#ede9fe' : '#fff', color: sort === s ? '#6366f1' : '#6b7280', cursor: 'pointer', fontFamily: 'system-ui', fontWeight: sort === s ? 600 : 400 }}>
+                {{ priority: '우선순위', date: '날짜' }[s]}
+              </button>
+            ))}
+            <SolidButton color="primary" size="small">
+              <SolidButton.Center>이슈 추가</SolidButton.Center>
+            </SolidButton>
+          </div>
+        </div>
+
+        {/* Status Tabs (ScrollableTabGroup) */}
+        <div style={{ background: '#fff', borderBottom: '1px solid #e5e7eb', padding: '0 20px' }}>
+          <ScrollableTabGroup selectedIndex={activeStatusTab} onTabChange={setActiveStatusTab}>
+            {statusTabs.map((tab, i) => (
+              <ScrollableTabGroup.Tab key={tab.id} value={tab.id}>
+                <ScrollableTabGroup.TabLeading>
+                  <div style={{ width: 6, height: 6, borderRadius: '50%', background: tab.color }} />
+                </ScrollableTabGroup.TabLeading>
+                <ScrollableTabGroup.TabCenter>{tab.label}</ScrollableTabGroup.TabCenter>
+                <ScrollableTabGroup.TabTrailing>
+                  <span style={{ fontSize: 9, fontWeight: 700, color: activeStatusTab === i ? tab.color : '#94a3b8' }}>{tab.count}</span>
+                </ScrollableTabGroup.TabTrailing>
+              </ScrollableTabGroup.Tab>
+            ))}
+          </ScrollableTabGroup>
+        </div>
+
+        {/* Issue Groups */}
+        <div style={{ flex: 1, padding: 20, overflow: 'auto' }}>
+          {taskGroups.map((group) => (
+            <div key={group.id} style={{ marginBottom: 16, background: '#fff', borderRadius: 12, border: '1px solid #e5e7eb', overflow: 'hidden' }}>
+              <div style={{ padding: '0 16px' }}>
+                <SectionTitle>
+                  <SectionTitle.Title>
+                    <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>
+                      <span style={{ width: 8, height: 8, borderRadius: '50%', background: group.color, display: 'inline-block' }} />
+                      {group.title}
+                      <span style={{ fontSize: 10, padding: '0px 6px', borderRadius: 99, background: group.color + '15', color: group.color, fontWeight: 700 }}>{group.issues.length}</span>
+                    </span>
+                  </SectionTitle.Title>
+                  <SectionTitle.Trailing>
+                    <button
+                      onClick={() => setCollapsed((prev) => ({ ...prev, [group.id]: !prev[group.id] }))}
+                      style={{ fontSize: 10, padding: '3px 8px', borderRadius: 6, border: '1px solid #e5e7eb', background: 'transparent', cursor: 'pointer', color: '#64748b', fontFamily: 'system-ui', display: 'flex', alignItems: 'center', gap: 3 }}
+                    >
+                      <span style={{ display: 'inline-block', transform: collapsed[group.id] ? 'rotate(-90deg)' : 'rotate(0deg)', transition: 'transform 0.15s', fontSize: 9 }}>▼</span>
+                      {collapsed[group.id] ? '펼치기' : '접기'}
+                    </button>
+                  </SectionTitle.Trailing>
+                </SectionTitle>
+              </div>
+              {!collapsed[group.id] && (
+                <div style={{ borderTop: '1px solid #f1f5f9' }}>
+                  {group.issues.map((issue, i) => (
+                    <div key={issue.id} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '9px 16px', borderBottom: i < group.issues.length - 1 ? '1px solid #f8fafc' : 'none', cursor: 'pointer' }}>
+                      <div style={{ width: 6, height: 6, borderRadius: '50%', background: priorityDot[issue.priority], flexShrink: 0 }} />
+                      <span style={{ fontSize: 10, color: '#94a3b8', fontFamily: 'monospace', flexShrink: 0 }}>{issue.id}</span>
+                      <span style={{ flex: 1, fontSize: 12, color: '#374151', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{issue.title}</span>
+                      <span style={{ fontSize: 9, padding: '1px 6px', borderRadius: 99, background: labelStyle[issue.label]?.bg, color: labelStyle[issue.label]?.text, fontWeight: 600, flexShrink: 0 }}>{issue.label}</span>
+                      <span style={{ fontSize: 10, color: '#94a3b8', flexShrink: 0 }}>{issue.due}</span>
+                      <div style={{ width: 18, height: 18, borderRadius: '50%', background: '#6366f1', color: '#fff', fontSize: 8, fontWeight: 700, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>{issue.assignee}</div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const MantineAnt177IssueTracker: StoryObj = {
+  name: 'Mantine + Ant Design — 이슈 트래커 대시보드 (Cycle 177)',
+  parameters: {
+    layout: 'fullscreen',
+    docs: {
+      description: {
+        story: 'Mantine Collapse 섹션 패턴 + Ant Design 상태 탭 패턴. ScrollableTabGroup으로 이슈 상태 필터링, SectionTitle 접기/펼치기로 그룹 관리. 우선순위 도트 + 레이블 칩 + 담당자 아바타 조합.',
+      },
+    },
+  },
+  render: () => <MantineAnt177IssueTrackerRender />,
+}
