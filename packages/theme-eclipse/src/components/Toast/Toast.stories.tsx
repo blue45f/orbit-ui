@@ -415,3 +415,221 @@ const RaycastCommandToastRender = (args: React.ComponentProps<typeof Toaster>) =
 export const Raycast_커맨드_실행_알림: Story = {
   render: (args) => <RaycastCommandToastRender {...args} />,
 }
+
+/* --------------------------------------------------------------------------
+   MUI 벤치마크: Snackbar 위치 데모
+   MUI Snackbar anchorOrigin 패턴 — 6가지 위치를 UI로 선택해 확인
+-------------------------------------------------------------------------- */
+type ToasterPosition = 'top-left' | 'top-center' | 'top-right' | 'bottom-left' | 'bottom-center' | 'bottom-right'
+
+const POSITIONS: ToasterPosition[] = [
+  'top-left', 'top-center', 'top-right',
+  'bottom-left', 'bottom-center', 'bottom-right',
+]
+
+const SnackbarPositionRender = () => {
+  const [pos, setPos] = React.useState<ToasterPosition>('bottom-center')
+
+  return (
+    <div style={{ padding: '2rem', height: '380px', fontFamily: 'system-ui, sans-serif' }}>
+      <Toaster key={pos} position={pos} />
+      <div style={{ fontSize: '14px', fontWeight: 700, color: '#1e293b', marginBottom: '6px' }}>
+        MUI Snackbar — anchorOrigin 위치 선택
+      </div>
+      <div style={{ fontSize: '12px', color: '#94a3b8', marginBottom: '16px' }}>
+        위치를 선택한 후 알림 띄우기 버튼을 눌러 해당 위치에 Toast가 나타나는 것을 확인합니다.
+      </div>
+
+      <div style={{
+        position: 'relative',
+        width: '300px',
+        height: '160px',
+        borderRadius: '12px',
+        border: '1.5px solid #e2e8f0',
+        background: '#f8fafc',
+        marginBottom: '16px',
+      }}>
+        {POSITIONS.map((p) => {
+          const [v, h] = p.split('-') as ['top' | 'bottom', 'left' | 'center' | 'right']
+          const style: React.CSSProperties = {
+            position: 'absolute',
+            [v]: 10,
+            ...(h === 'left' ? { left: 10 } : h === 'right' ? { right: 10 } : { left: '50%', transform: 'translateX(-50%)' }),
+          }
+          return (
+            <button
+              key={p}
+              onClick={() => setPos(p)}
+              style={{
+                ...style,
+                padding: '5px 10px',
+                borderRadius: '6px',
+                border: `1.5px solid ${pos === p ? '#6366f1' : '#d1d5db'}`,
+                background: pos === p ? '#6366f1' : '#fff',
+                color: pos === p ? '#fff' : '#64748b',
+                fontSize: '10px',
+                fontWeight: 700,
+                cursor: 'pointer',
+                whiteSpace: 'nowrap',
+              }}
+            >
+              {p}
+            </button>
+          )
+        })}
+      </div>
+
+      <Button
+        color="primary"
+        size="medium"
+        onClick={() => toast.info(`위치: ${pos}`, { description: 'MUI anchorOrigin 패턴' })}
+      >
+        <Button.Center>알림 띄우기</Button.Center>
+      </Button>
+    </div>
+  )
+}
+
+export const MUI_Snackbar_위치_데모: Story = {
+  render: () => <SnackbarPositionRender />,
+}
+
+/* --------------------------------------------------------------------------
+   MUI 벤치마크: 실행취소 패턴 (Snackbar UNDO)
+   MUI의 대표적인 Snackbar 패턴 — 삭제 후 UNDO 액션으로 복구
+-------------------------------------------------------------------------- */
+type ListItem = { id: number; text: string }
+
+const UndoPatternRender = (args: React.ComponentProps<typeof Toaster>) => {
+  const [items, setItems] = React.useState<ListItem[]>([
+    { id: 1, text: 'Orbit UI 컴포넌트 리뷰' },
+    { id: 2, text: 'Storybook 스토리 작성' },
+    { id: 3, text: '디자인 토큰 문서화' },
+    { id: 4, text: 'TypeScript 타입 개선' },
+  ])
+
+  const deleteItem = (item: ListItem) => {
+    setItems((prev) => prev.filter((i) => i.id !== item.id))
+    toast(`"${item.text}" 삭제됨`, {
+      action: {
+        label: '실행취소',
+        onClick: () => setItems((prev) => [...prev, item].sort((a, b) => a.id - b.id)),
+      },
+      duration: 5000,
+    })
+  }
+
+  return (
+    <div style={{ padding: '2rem', maxWidth: '380px' }}>
+      <Toaster {...args} position="bottom-center" />
+      <div style={{ fontSize: '14px', fontWeight: 700, color: '#1e293b', marginBottom: '4px' }}>
+        MUI Snackbar UNDO 패턴
+      </div>
+      <div style={{ fontSize: '12px', color: '#94a3b8', marginBottom: '16px' }}>
+        항목을 삭제하면 실행취소 버튼이 포함된 Toast가 5초간 표시됩니다.
+      </div>
+
+      {items.length === 0 ? (
+        <div style={{ padding: '32px', textAlign: 'center', color: '#94a3b8', fontSize: '13px', background: '#f8fafc', borderRadius: '12px', border: '1px dashed #e2e8f0' }}>
+          모든 항목이 삭제되었습니다.
+        </div>
+      ) : (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+          {items.map((item) => (
+            <div
+              key={item.id}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '12px',
+                padding: '12px 14px',
+                borderRadius: '10px',
+                border: '1px solid #e2e8f0',
+                background: '#fff',
+              }}
+            >
+              <div style={{ flex: 1, fontSize: '13px', color: '#374151' }}>{item.text}</div>
+              <button
+                onClick={() => deleteItem(item)}
+                style={{
+                  padding: '4px 10px', borderRadius: '6px',
+                  border: '1px solid #fecaca', background: '#fff5f5',
+                  color: '#ef4444', fontSize: '11px', fontWeight: 600, cursor: 'pointer',
+                }}
+              >
+                삭제
+              </button>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  )
+}
+
+export const MUI_실행취소_패턴: Story = {
+  render: (args) => <UndoPatternRender {...args} />,
+}
+
+/* --------------------------------------------------------------------------
+   MUI 벤치마크: Alert 스타일 토스트
+   MUI Alert severity 패턴 — error/warning/info/success variant를 Toast에 적용
+   각 severity별 색상 팔레트와 아이콘을 Orbit UI Toast로 구현합니다.
+-------------------------------------------------------------------------- */
+type AlertSeverity = 'error' | 'warning' | 'info' | 'success'
+
+const ALERT_CONFIGS: Record<AlertSeverity, { label: string; desc: string; icon: string; fn: (msg: string, desc: string) => void }> = {
+  error: { label: 'Error', desc: '네트워크 연결이 끊어졌습니다. 재시도해 주세요.', icon: '✕', fn: (m, d) => toast.error(m, { description: d }) },
+  warning: { label: 'Warning', desc: '세션이 5분 후 만료됩니다. 저장하세요.', icon: '!', fn: (m, d) => toast.warning(m, { description: d }) },
+  info: { label: 'Info', desc: '새 버전 v2.5.0이 출시되었습니다.', icon: 'i', fn: (m, d) => toast.info(m, { description: d }) },
+  success: { label: 'Success', desc: '변경사항이 저장되었습니다.', icon: '✓', fn: (m, d) => toast.success(m, { description: d }) },
+}
+
+const AlertStyleRender = (args: React.ComponentProps<typeof Toaster>) => (
+  <div style={{ padding: '2rem', height: '360px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+    <Toaster {...args} position="top-right" richColors />
+    <div style={{ fontSize: '14px', fontWeight: 700, color: '#1e293b' }}>MUI Alert severity 패턴</div>
+    <div style={{ fontSize: '12px', color: '#94a3b8', marginBottom: '4px' }}>
+      MUI Alert의 4가지 severity(error/warning/info/success)를 Toast로 구현합니다.
+    </div>
+    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '10px' }}>
+      {(Object.entries(ALERT_CONFIGS) as [AlertSeverity, typeof ALERT_CONFIGS[AlertSeverity]][]).map(([severity, cfg]) => {
+        const colors: Record<AlertSeverity, { border: string; bg: string; text: string }> = {
+          error: { border: '#fecaca', bg: '#fff5f5', text: '#ef4444' },
+          warning: { border: '#fed7aa', bg: '#fffbeb', text: '#f59e0b' },
+          info: { border: '#c7d2fe', bg: '#eef2ff', text: '#6366f1' },
+          success: { border: '#bbf7d0', bg: '#f0fdf4', text: '#10b981' },
+        }
+        const c = colors[severity]
+        return (
+          <button
+            key={severity}
+            onClick={() => cfg.fn(cfg.label, cfg.desc)}
+            style={{
+              display: 'flex', alignItems: 'center', gap: '10px',
+              padding: '12px 14px', borderRadius: '10px',
+              border: `1.5px solid ${c.border}`, background: c.bg,
+              cursor: 'pointer', textAlign: 'left',
+            }}
+          >
+            <div style={{
+              width: '24px', height: '24px', borderRadius: '50%',
+              background: c.text, display: 'flex', alignItems: 'center',
+              justifyContent: 'center', fontSize: '11px', fontWeight: 900, color: '#fff', flexShrink: 0,
+            }}>
+              {cfg.icon}
+            </div>
+            <div>
+              <div style={{ fontSize: '12px', fontWeight: 700, color: c.text }}>{cfg.label}</div>
+              <div style={{ fontSize: '10px', color: '#94a3b8' }}>클릭하여 Toast 확인</div>
+            </div>
+          </button>
+        )
+      })}
+    </div>
+  </div>
+)
+
+export const MUI_Alert_스타일_토스트: Story = {
+  render: (args) => <AlertStyleRender {...args} />,
+}

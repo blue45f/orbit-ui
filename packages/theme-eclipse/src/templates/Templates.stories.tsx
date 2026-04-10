@@ -9955,3 +9955,311 @@ export const SubscriptionPage: Story = {
   render: () => <SubscriptionPageRender />,
 }
 
+/* --------------------------------------------------------------------------
+   Job Board (MUI + Raycast 벤치마크)
+   채용공고 목록 + 상세 패널 + 지원 플로우가 통합된 구직 플랫폼 UI
+-------------------------------------------------------------------------- */
+const JOB_LISTINGS = [
+  {
+    id: 'j1',
+    title: 'Senior Frontend Engineer',
+    company: 'Orbit Labs',
+    location: '서울, 한국',
+    type: 'full-time' as const,
+    level: 'Senior',
+    salary: '₩80M – ₩120M',
+    stack: ['React', 'TypeScript', 'Design System'],
+    posted: '2일 전',
+    applicants: 42,
+    featured: true,
+  },
+  {
+    id: 'j2',
+    title: 'UI/UX Designer',
+    company: 'DesignCo',
+    location: '원격',
+    type: 'remote' as const,
+    level: 'Mid',
+    salary: '₩60M – ₩90M',
+    stack: ['Figma', 'Prototyping', 'Design Tokens'],
+    posted: '3일 전',
+    applicants: 28,
+    featured: false,
+  },
+  {
+    id: 'j3',
+    title: 'Design System Engineer',
+    company: 'TechCorp',
+    location: '부산, 한국',
+    type: 'hybrid' as const,
+    level: 'Mid',
+    salary: '₩70M – ₩100M',
+    stack: ['vanilla-extract', 'Storybook', 'React'],
+    posted: '1주일 전',
+    applicants: 15,
+    featured: false,
+  },
+  {
+    id: 'j4',
+    title: 'Product Manager',
+    company: 'StartupXYZ',
+    location: '서울, 한국',
+    type: 'full-time' as const,
+    level: 'Senior',
+    salary: '₩90M – ₩130M',
+    stack: ['Product Strategy', 'Analytics', 'Agile'],
+    posted: '5일 전',
+    applicants: 67,
+    featured: true,
+  },
+]
+
+const JOB_TYPE_CONFIG = {
+  'full-time': { label: '정규직', color: '#6366f1', bg: '#eef2ff' },
+  'remote': { label: '원격', color: '#10b981', bg: '#f0fdf4' },
+  'hybrid': { label: '하이브리드', color: '#0ea5e9', bg: '#f0f9ff' },
+}
+
+const JobBoardRender = () => {
+  const [selectedJob, setSelectedJob] = useState(JOB_LISTINGS[0])
+  const [appliedJobs, setAppliedJobs] = useState<Set<string>>(new Set())
+  const [savedJobs, setSavedJobs] = useState<Set<string>>(new Set())
+  const [searchQuery, setSearchQuery] = useState('')
+  const [filterType, setFilterType] = useState<string>('all')
+  const [applying, setApplying] = useState(false)
+
+  const filteredJobs = JOB_LISTINGS.filter((j) => {
+    const matchSearch = j.title.toLowerCase().includes(searchQuery.toLowerCase()) || j.company.toLowerCase().includes(searchQuery.toLowerCase())
+    const matchType = filterType === 'all' || j.type === filterType
+    return matchSearch && matchType
+  })
+
+  const handleApply = () => {
+    setApplying(true)
+    setTimeout(() => {
+      setAppliedJobs((prev) => new Set([...prev, selectedJob.id]))
+      setApplying(false)
+    }, 1500)
+  }
+
+  const toggleSave = (id: string) => {
+    setSavedJobs((prev) => {
+      const next = new Set(prev)
+      if (next.has(id)) next.delete(id)
+      else next.add(id)
+      return next
+    })
+  }
+
+  return (
+    <div style={{ maxWidth: 960, fontFamily: 'system-ui, sans-serif' }}>
+      {/* 헤더 */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: 16, marginBottom: 24, flexWrap: 'wrap' }}>
+        <div style={{ flex: 1 }}>
+          <div style={{ fontSize: 24, fontWeight: 900, color: '#0f172a', letterSpacing: '-0.02em', marginBottom: 2 }}>
+            채용 공고
+          </div>
+          <div style={{ fontSize: 13, color: '#64748b' }}>
+            {filteredJobs.length}개의 공고 발견
+          </div>
+        </div>
+
+        <SearchBar
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          placeholder="직무, 회사 검색..."
+        />
+
+        <div style={{ display: 'flex', gap: 6 }}>
+          {(['all', 'full-time', 'remote', 'hybrid'] as const).map((type) => (
+            <button
+              key={type}
+              onClick={() => setFilterType(type)}
+              style={{
+                padding: '6px 12px', borderRadius: 8, fontSize: 12, fontWeight: 600, cursor: 'pointer',
+                border: `1.5px solid ${filterType === type ? '#6366f1' : '#e2e8f0'}`,
+                background: filterType === type ? '#6366f1' : '#fff',
+                color: filterType === type ? '#fff' : '#64748b',
+                transition: 'all 0.15s',
+              }}
+            >
+              {type === 'all' ? '전체' : JOB_TYPE_CONFIG[type].label}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* 메인 레이아웃 */}
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 380px', gap: 20, alignItems: 'start' }}>
+        {/* 공고 목록 */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+          {filteredJobs.length === 0 ? (
+            <div style={{ padding: 48, textAlign: 'center', color: '#94a3b8', background: '#f8fafc', borderRadius: 12, border: '1px dashed #e2e8f0' }}>
+              검색 결과가 없습니다.
+            </div>
+          ) : filteredJobs.map((job) => {
+            const typeConfig = JOB_TYPE_CONFIG[job.type]
+            const isSelected = selectedJob.id === job.id
+            const isApplied = appliedJobs.has(job.id)
+            const isSaved = savedJobs.has(job.id)
+
+            return (
+              <div
+                key={job.id}
+                onClick={() => setSelectedJob(job)}
+                style={{
+                  padding: '18px 20px',
+                  borderRadius: 14,
+                  border: `2px solid ${isSelected ? '#6366f1' : '#e2e8f0'}`,
+                  background: isSelected ? 'rgba(99,102,241,0.03)' : '#fff',
+                  cursor: 'pointer',
+                  transition: 'all 0.15s',
+                  position: 'relative',
+                }}
+              >
+                {job.featured && (
+                  <div style={{ position: 'absolute', top: -1, right: 16, background: '#f59e0b', color: '#fff', fontSize: 9, fontWeight: 800, padding: '2px 8px', borderRadius: '0 0 6px 6px' }}>
+                    FEATURED
+                  </div>
+                )}
+
+                <div style={{ display: 'flex', alignItems: 'flex-start', gap: 14 }}>
+                  <div style={{
+                    width: 44, height: 44, borderRadius: 10, background: `${typeConfig.color}15`,
+                    display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, fontSize: 18,
+                  }}>
+                    {job.type === 'remote' ? '🌐' : job.type === 'hybrid' ? '🏢' : '💼'}
+                  </div>
+
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
+                      <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>{job.title}</div>
+                      {isApplied && (
+                        <span style={{ fontSize: 10, fontWeight: 700, color: '#10b981', background: '#dcfce7', padding: '1px 6px', borderRadius: 99 }}>
+                          지원완료
+                        </span>
+                      )}
+                    </div>
+                    <div style={{ fontSize: 13, color: '#64748b', marginBottom: 8 }}>
+                      {job.company} · {job.location}
+                    </div>
+                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginBottom: 10 }}>
+                      <span style={{ fontSize: 11, padding: '2px 8px', borderRadius: 99, background: typeConfig.bg, color: typeConfig.color, fontWeight: 600 }}>
+                        {typeConfig.label}
+                      </span>
+                      <span style={{ fontSize: 11, padding: '2px 8px', borderRadius: 99, background: '#f1f5f9', color: '#64748b', fontWeight: 500 }}>
+                        {job.level}
+                      </span>
+                      {job.stack.slice(0, 2).map((s) => (
+                        <Chip key={s}>{s}</Chip>
+                      ))}
+                    </div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                      <span style={{ fontSize: 12, fontWeight: 700, color: '#0f172a' }}>{job.salary}</span>
+                      <span style={{ fontSize: 11, color: '#94a3b8' }}>{job.posted}</span>
+                      <span style={{ fontSize: 11, color: '#94a3b8', marginLeft: 'auto', fontVariantNumeric: 'tabular-nums' }}>
+                        지원자 {job.applicants}명
+                      </span>
+                    </div>
+                  </div>
+
+                  <button
+                    onClick={(e) => { e.stopPropagation(); toggleSave(job.id) }}
+                    style={{ padding: '6px 8px', borderRadius: 8, border: '1px solid #e2e8f0', background: '#fff', cursor: 'pointer', color: isSaved ? '#f59e0b' : '#94a3b8', fontSize: 14 }}
+                  >
+                    {isSaved ? '★' : '☆'}
+                  </button>
+                </div>
+              </div>
+            )
+          })}
+        </div>
+
+        {/* 상세 패널 */}
+        <div style={{ borderRadius: 16, border: '1px solid #e2e8f0', overflow: 'hidden', position: 'sticky', top: 0 }}>
+          <div style={{ padding: '20px', borderBottom: '1px solid #f1f5f9' }}>
+            <div style={{ display: 'flex', alignItems: 'flex-start', gap: 12, marginBottom: 14 }}>
+              <div style={{
+                width: 48, height: 48, borderRadius: 12, background: `${JOB_TYPE_CONFIG[selectedJob.type].color}15`,
+                display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 22, flexShrink: 0,
+              }}>
+                {selectedJob.type === 'remote' ? '🌐' : selectedJob.type === 'hybrid' ? '🏢' : '💼'}
+              </div>
+              <div>
+                <div style={{ fontSize: 16, fontWeight: 800, color: '#0f172a', marginBottom: 2 }}>{selectedJob.title}</div>
+                <div style={{ fontSize: 13, color: '#64748b' }}>{selectedJob.company}</div>
+              </div>
+            </div>
+
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 8, marginBottom: 16 }}>
+              {[
+                { label: '위치', value: selectedJob.location },
+                { label: '근무형태', value: JOB_TYPE_CONFIG[selectedJob.type].label },
+                { label: '레벨', value: selectedJob.level },
+                { label: '연봉', value: selectedJob.salary },
+              ].map(({ label, value }) => (
+                <div key={label} style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12 }}>
+                  <span style={{ color: '#94a3b8' }}>{label}</span>
+                  <span style={{ color: '#374151', fontWeight: 600 }}>{value}</span>
+                </div>
+              ))}
+            </div>
+
+            <div style={{ marginBottom: 16 }}>
+              <div style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 8 }}>
+                기술 스택
+              </div>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+                {selectedJob.stack.map((s) => (
+                  <Chip key={s}>{s}</Chip>
+                ))}
+              </div>
+            </div>
+
+            <Progress value={Math.min(selectedJob.applicants * 1.5, 100)} />
+            <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 4, textAlign: 'right', fontVariantNumeric: 'tabular-nums' }}>
+              지원자 {selectedJob.applicants}명 / 정원 {Math.round(selectedJob.applicants * 1.5)}명
+            </div>
+          </div>
+
+          <div style={{ padding: '16px 20px', borderBottom: '1px solid #f1f5f9' }}>
+            <div style={{ fontSize: 12, fontWeight: 700, color: '#1e293b', marginBottom: 8 }}>직무 소개</div>
+            <div style={{ fontSize: 12, color: '#64748b', lineHeight: 1.7 }}>
+              {selectedJob.company}에서 {selectedJob.level} {selectedJob.title}를 채용합니다.
+              3-tier 아키텍처 기반 디자인 시스템 개발 경험이 있는 분을 우대합니다.
+              팀 문화를 중시하며 성장 지향적인 환경에서 일하고 싶은 분을 모십니다.
+            </div>
+          </div>
+
+          <div style={{ padding: '16px 20px' }}>
+            <SolidButton
+              color="primary"
+              size="medium"
+              style={{ width: '100%', marginBottom: 10 }}
+              disabled={appliedJobs.has(selectedJob.id) || applying}
+              onClick={handleApply}
+            >
+              <SolidButton.Center>
+                {applying ? '제출 중...' : appliedJobs.has(selectedJob.id) ? '지원 완료' : '지금 지원하기'}
+              </SolidButton.Center>
+            </SolidButton>
+            <OutlineButton
+              color="black"
+              size="medium"
+              style={{ width: '100%' }}
+              onClick={() => toggleSave(selectedJob.id)}
+            >
+              {savedJobs.has(selectedJob.id) ? '저장 취소' : '공고 저장'}
+            </OutlineButton>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const JobBoard: Story = {
+  name: 'Job Board (MUI + Raycast 벤치마크)',
+  render: () => <JobBoardRender />,
+}
+
