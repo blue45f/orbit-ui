@@ -18953,3 +18953,338 @@ export const SalesDashboard: Story = {
   },
   render: () => <SalesDashboardRender />,
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   68. DesignTokenBrowser (사이클 79 — shadcn/ui 벤치마크)
+   shadcn/ui 스타일 선택 필터 + 토큰 카드 그리드.
+   Slider / Switch / TextField / LabelBadge / Progress / Tooltip 활용.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+const DesignTokenBrowserRender: React.FC = () => {
+  const [search, setSearch] = React.useState('')
+  const [category, setCategory] = React.useState<string>('all')
+  const [showValues, setShowValues] = React.useState(true)
+  const [previewSize, setPreviewSize] = React.useState(40)
+
+  const isDark = document.documentElement.classList.contains('dark')
+  const tc = {
+    bg: 'var(--sem-eclipse-color-backgroundPrimary)',
+    surface: 'var(--sem-eclipse-color-backgroundSecondary)',
+    border: 'var(--sem-eclipse-color-borderDefault)',
+    borderSub: 'var(--sem-eclipse-color-borderSubtle)',
+    fg: 'var(--sem-eclipse-color-foregroundPrimary)',
+    fgSub: 'var(--sem-eclipse-color-foregroundSecondary)',
+    fgMuted: 'var(--sem-eclipse-color-foregroundTertiary)',
+    fillPrimary: 'var(--sem-eclipse-color-fillPrimary)',
+    fillSuccess: 'var(--sem-eclipse-color-systemSuccess)',
+    fillWarning: 'var(--sem-eclipse-color-systemWarning)',
+    fillError: 'var(--sem-eclipse-color-systemError)',
+    fillInfo: 'var(--sem-eclipse-color-systemInfo)',
+  }
+
+  type TokenEntry = {
+    name: string
+    value: string
+    desc: string
+    category: string
+    type: 'color' | 'size' | 'radius' | 'shadow' | 'typography'
+    usage: number
+  }
+
+  const ALL_TOKENS: TokenEntry[] = [
+    { name: 'fillPrimary', value: isDark ? '#818cf8' : '#6366f1', desc: '주요 인터랙션 색상 (버튼, 링크)', category: 'color', type: 'color', usage: 94 },
+    { name: 'fillSecondary', value: isDark ? '#94a3b8' : '#64748b', desc: '보조 강조 색상', category: 'color', type: 'color', usage: 61 },
+    { name: 'backgroundPrimary', value: isDark ? '#0c0c18' : '#ffffff', desc: '기본 배경 색상', category: 'color', type: 'color', usage: 100 },
+    { name: 'backgroundSecondary', value: isDark ? '#131325' : '#f8fafc', desc: '보조 배경 (카드, 사이드바)', category: 'color', type: 'color', usage: 87 },
+    { name: 'foregroundPrimary', value: isDark ? '#f1f5f9' : '#0f172a', desc: '기본 텍스트 색상', category: 'color', type: 'color', usage: 99 },
+    { name: 'foregroundSecondary', value: isDark ? '#94a3b8' : '#475569', desc: '보조 텍스트', category: 'color', type: 'color', usage: 78 },
+    { name: 'systemSuccess', value: '#10b981', desc: '성공/완료 상태', category: 'color', type: 'color', usage: 45 },
+    { name: 'systemError', value: '#ef4444', desc: '에러/위험 상태', category: 'color', type: 'color', usage: 52 },
+    { name: 'systemWarning', value: '#f59e0b', desc: '경고/주의 상태', category: 'color', type: 'color', usage: 33 },
+    { name: 'systemInfo', value: '#3b82f6', desc: '정보/알림 상태', category: 'color', type: 'color', usage: 28 },
+    { name: 'borderDefault', value: isDark ? '#1e293b' : '#e2e8f0', desc: '기본 테두리', category: 'color', type: 'color', usage: 76 },
+    { name: 'borderSubtle', value: isDark ? '#0f172a' : '#f1f5f9', desc: '미묘한 구분선', category: 'color', type: 'color', usage: 55 },
+    { name: 'spacing-xs', value: '4px', desc: '최소 간격 단위', category: 'size', type: 'size', usage: 42 },
+    { name: 'spacing-sm', value: '8px', desc: '소형 간격', category: 'size', type: 'size', usage: 68 },
+    { name: 'spacing-md', value: '16px', desc: '기본 간격', category: 'size', type: 'size', usage: 91 },
+    { name: 'spacing-lg', value: '24px', desc: '대형 간격', category: 'size', type: 'size', usage: 74 },
+    { name: 'spacing-xl', value: '32px', desc: '특대 간격', category: 'size', type: 'size', usage: 39 },
+    { name: 'radius-sm', value: '4px', desc: '소형 모서리 반경', category: 'radius', type: 'radius', usage: 55 },
+    { name: 'radius-md', value: '8px', desc: '기본 모서리 반경', category: 'radius', type: 'radius', usage: 88 },
+    { name: 'radius-lg', value: '12px', desc: '대형 모서리 반경', category: 'radius', type: 'radius', usage: 43 },
+    { name: 'radius-full', value: '9999px', desc: '완전 원형', category: 'radius', type: 'radius', usage: 31 },
+    { name: 'shadow-sm', value: '0 1px 2px rgba(0,0,0,0.05)', desc: '미묘한 그림자', category: 'shadow', type: 'shadow', usage: 62 },
+    { name: 'shadow-md', value: '0 4px 6px rgba(0,0,0,0.07)', desc: '기본 그림자 (카드)', category: 'shadow', type: 'shadow', usage: 79 },
+    { name: 'shadow-lg', value: '0 10px 15px rgba(0,0,0,0.10)', desc: '모달/팝오버 그림자', category: 'shadow', type: 'shadow', usage: 44 },
+    { name: 'font-xs', value: '12px', desc: '캡션, 도움말 텍스트', category: 'typography', type: 'typography', usage: 70 },
+    { name: 'font-sm', value: '13px', desc: '보조 텍스트, 레이블', category: 'typography', type: 'typography', usage: 83 },
+    { name: 'font-md', value: '14px', desc: '기본 본문 텍스트', category: 'typography', type: 'typography', usage: 96 },
+    { name: 'font-lg', value: '16px', desc: '소형 제목', category: 'typography', type: 'typography', usage: 61 },
+    { name: 'font-xl', value: '20px', desc: '섹션 제목', category: 'typography', type: 'typography', usage: 47 },
+    { name: 'font-2xl', value: '24px', desc: '페이지 제목', category: 'typography', type: 'typography', usage: 35 },
+  ]
+
+  const CATEGORIES = [
+    { key: 'all', label: '전체', count: ALL_TOKENS.length },
+    { key: 'color', label: '색상', count: ALL_TOKENS.filter((t) => t.category === 'color').length },
+    { key: 'size', label: '간격', count: ALL_TOKENS.filter((t) => t.category === 'size').length },
+    { key: 'radius', label: '모서리', count: ALL_TOKENS.filter((t) => t.category === 'radius').length },
+    { key: 'shadow', label: '그림자', count: ALL_TOKENS.filter((t) => t.category === 'shadow').length },
+    { key: 'typography', label: '타입', count: ALL_TOKENS.filter((t) => t.category === 'typography').length },
+  ]
+
+  const filtered = ALL_TOKENS.filter((t) =>
+    (category === 'all' || t.category === category) &&
+    (search === '' || t.name.toLowerCase().includes(search.toLowerCase()) || t.desc.includes(search))
+  )
+
+  const [copied, setCopied] = React.useState<string | null>(null)
+  const copyToken = (name: string) => {
+    navigator.clipboard.writeText(`var(--sem-eclipse-color-${name})`).catch(() => {})
+    setCopied(name)
+    setTimeout(() => setCopied(null), 1500)
+  }
+
+  const TokenPreview = ({ token }: { token: TokenEntry }) => {
+    if (token.type === 'color') {
+      return (
+        <div style={{
+          width: previewSize,
+          height: previewSize,
+          borderRadius: 6,
+          background: token.value,
+          border: '1px solid var(--sem-eclipse-color-borderSubtle)',
+          flexShrink: 0,
+        }} />
+      )
+    }
+    if (token.type === 'radius') {
+      return (
+        <div style={{
+          width: previewSize,
+          height: previewSize,
+          borderRadius: token.value,
+          border: `2px solid ${tc.fillPrimary}`,
+          flexShrink: 0,
+        }} />
+      )
+    }
+    if (token.type === 'shadow') {
+      return (
+        <div style={{
+          width: previewSize,
+          height: previewSize,
+          borderRadius: 6,
+          background: tc.bg,
+          boxShadow: token.value,
+          border: '1px solid var(--sem-eclipse-color-borderSubtle)',
+          flexShrink: 0,
+        }} />
+      )
+    }
+    if (token.type === 'size' || token.type === 'typography') {
+      return (
+        <div style={{
+          width: previewSize,
+          height: previewSize,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          flexShrink: 0,
+        }}>
+          <span style={{
+            fontSize: token.type === 'typography' ? token.value : 11,
+            fontWeight: 700,
+            color: tc.fillPrimary,
+          }}>
+            {token.value}
+          </span>
+        </div>
+      )
+    }
+    return null
+  }
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', height: '100vh', background: tc.bg }}>
+      {/* Header */}
+      <div style={{ padding: '14px 24px', borderBottom: `1px solid ${tc.border}`, background: tc.surface, display: 'flex', alignItems: 'center', gap: 16, flexShrink: 0 }}>
+        <div>
+          <Text textStyle="titleMedium" style={{ fontWeight: 700, color: tc.fg }}>Design Token Browser</Text>
+          <Text textStyle="descriptionSmall" style={{ color: tc.fgMuted }}>Orbit UI Eclipse — {ALL_TOKENS.length}개 토큰</Text>
+        </div>
+        <div style={{ flex: 1 }} />
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+          <Text textStyle="descriptionSmall" style={{ color: tc.fgSub }}>값 표시</Text>
+          <Switch
+            checked={showValues}
+            onChange={() => setShowValues((v) => !v)}
+          />
+        </div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+          <Text textStyle="descriptionSmall" style={{ color: tc.fgSub }}>크기</Text>
+          <div style={{ width: 80 }}>
+            <Slider
+              min={28}
+              max={64}
+              value={[previewSize]}
+              onValueChange={(v) => setPreviewSize(v[0])}
+            />
+          </div>
+        </div>
+      </div>
+
+      <div style={{ display: 'flex', flex: 1, overflow: 'hidden' }}>
+        {/* Sidebar */}
+        <div style={{ width: 200, borderRight: `1px solid ${tc.border}`, background: tc.surface, padding: '16px 0', flexShrink: 0, overflowY: 'auto' }}>
+          <div style={{ padding: '0 12px', marginBottom: 8 }}>
+            <Text textStyle="descriptionSmall" style={{ color: tc.fgMuted, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em' }}>카테고리</Text>
+          </div>
+          {CATEGORIES.map((cat) => (
+            <button
+              key={cat.key}
+              onClick={() => setCategory(cat.key)}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                width: '100%',
+                padding: '8px 16px',
+                border: 'none',
+                background: category === cat.key ? `${tc.fillPrimary}15` : 'transparent',
+                borderLeft: category === cat.key ? `2px solid ${tc.fillPrimary}` : '2px solid transparent',
+                color: category === cat.key ? tc.fillPrimary : tc.fgSub,
+                fontSize: 13,
+                fontWeight: category === cat.key ? 600 : 400,
+                cursor: 'pointer',
+                textAlign: 'left',
+              }}
+            >
+              {cat.label}
+              <span style={{
+                fontSize: 11,
+                fontWeight: 600,
+                background: category === cat.key ? `${tc.fillPrimary}25` : tc.borderSub,
+                color: category === cat.key ? tc.fillPrimary : tc.fgMuted,
+                borderRadius: 10,
+                padding: '1px 7px',
+              }}>{cat.count}</span>
+            </button>
+          ))}
+
+          <div style={{ margin: '16px 12px 8px', borderTop: `1px solid ${tc.border}` }} />
+          <div style={{ padding: '0 12px', marginBottom: 8 }}>
+            <Text textStyle="descriptionSmall" style={{ color: tc.fgMuted, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em' }}>통계</Text>
+          </div>
+          <div style={{ padding: '0 16px', display: 'flex', flexDirection: 'column', gap: 10 }}>
+            {[
+              { label: '색상 토큰', val: 12 },
+              { label: '크기 토큰', val: 5 },
+              { label: '기타', val: 13 },
+            ].map(({ label, val }) => (
+              <div key={label}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 3 }}>
+                  <Text textStyle="descriptionSmall" style={{ color: tc.fgSub }}>{label}</Text>
+                  <Text textStyle="descriptionSmall" style={{ color: tc.fgMuted }}>{val}</Text>
+                </div>
+                <Progress value={val / ALL_TOKENS.length * 100} />
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Main */}
+        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+          {/* Search */}
+          <div style={{ padding: '12px 20px', borderBottom: `1px solid ${tc.borderSub}`, background: tc.bg, flexShrink: 0 }}>
+            <TextField
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              placeholder="토큰 이름 또는 설명으로 검색..."
+            />
+          </div>
+
+          {/* Token grid */}
+          <div style={{ flex: 1, overflowY: 'auto', padding: '16px 20px' }}>
+            <div style={{ marginBottom: 12, display: 'flex', alignItems: 'center', gap: 8 }}>
+              <Text textStyle="descriptionSmall" style={{ color: tc.fgMuted }}>{filtered.length}개 토큰</Text>
+              {search && (
+                <LabelBadge color="benefit">
+                  <LabelBadge.Label>{`"${search}" 검색 결과`}</LabelBadge.Label>
+                </LabelBadge>
+              )}
+            </div>
+
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: 10 }}>
+              {filtered.map((token) => (
+                <div
+                  key={token.name}
+                  onClick={() => copyToken(token.name)}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 12,
+                    padding: '12px 14px',
+                    borderRadius: 8,
+                    border: `1px solid ${copied === token.name ? tc.fillPrimary : tc.border}`,
+                    background: copied === token.name ? `${tc.fillPrimary}08` : tc.bg,
+                    cursor: 'pointer',
+                    transition: 'border-color 0.15s, background 0.15s',
+                  }}
+                >
+                  <TokenPreview token={token} />
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 2 }}>
+                      <code style={{ fontSize: 12, fontFamily: 'monospace', color: tc.fillPrimary, background: `${tc.fillPrimary}12`, padding: '1px 5px', borderRadius: 3, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                        {token.name}
+                      </code>
+                      {copied === token.name && (
+                        <Text textStyle="descriptionSmall" style={{ color: tc.fillPrimary }}>복사됨!</Text>
+                      )}
+                    </div>
+                    {showValues && (
+                      <Text textStyle="descriptionSmall" style={{ color: tc.fgMuted, fontFamily: 'monospace', display: 'block', marginBottom: 2 }}>{token.value}</Text>
+                    )}
+                    <Text textStyle="descriptionSmall" style={{ color: tc.fgSub }}>{token.desc}</Text>
+                    <div style={{ marginTop: 4 }}>
+                      <Tooltip.Provider delayDuration={400}>
+                        <Tooltip>
+                          <Tooltip.Trigger asChild>
+                            <div>
+                              <Progress value={token.usage} />
+                            </div>
+                          </Tooltip.Trigger>
+                          <Tooltip.Content>사용 빈도: {token.usage}%</Tooltip.Content>
+                        </Tooltip>
+                      </Tooltip.Provider>
+                    </div>
+                  </div>
+                </div>
+              ))}
+              {filtered.length === 0 && (
+                <div style={{ gridColumn: '1 / -1', textAlign: 'center', padding: '48px 0', color: tc.fgMuted }}>
+                  <Text textStyle="bodyMedium">검색 결과가 없습니다.</Text>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const DesignTokenBrowser: Story = {
+  name: '디자인 토큰 브라우저 (shadcn/ui 벤치마크)',
+  parameters: {
+    layout: 'fullscreen',
+    docs: {
+      description: {
+        story:
+          'shadcn/ui 필터 선택 패턴 + 카드 그리드를 적용한 디자인 토큰 탐색 도구. ' +
+          'Slider(크기 조절), Switch(값 표시), TextField(검색), Progress(사용 빈도), Tooltip, LabelBadge 조합.',
+      },
+    },
+  },
+  render: () => <DesignTokenBrowserRender />,
+}

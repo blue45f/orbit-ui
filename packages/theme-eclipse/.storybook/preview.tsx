@@ -272,6 +272,10 @@ const injectGlobalStyles = () => {
 export const useThemeRoot: Decorator = (Story, context) => {
   const theme = context.globals.theme || 'light'
   const isFullscreen = context.parameters.layout === 'fullscreen'
+  // Templates/Intro 카테고리이면서 fullscreen인 경우에만 padding 제거
+  const storyTitle = context.title ?? ''
+  const isFullscreenCanvas =
+    isFullscreen && (storyTitle.startsWith('Templates') || storyTitle.startsWith('Intro'))
 
   useLayoutEffect(() => {
     injectGlobalStyles()
@@ -290,7 +294,7 @@ export const useThemeRoot: Decorator = (Story, context) => {
           minHeight: '100vh',
           backgroundColor: 'var(--sem-eclipse-color-backgroundPrimary)',
           color: 'var(--sem-eclipse-color-foregroundPrimary)',
-          padding: isFullscreen ? '0' : '1.5rem 2rem',
+          padding: isFullscreenCanvas ? '0' : '1.5rem 2rem',
           boxSizing: 'border-box'
         }}
       >
@@ -318,7 +322,7 @@ const preview: Preview = {
     },
   },
   parameters: {
-    layout: 'padded',
+    layout: 'fullscreen',
     viewport: {
       viewports: INITIAL_VIEWPORTS,
     },
