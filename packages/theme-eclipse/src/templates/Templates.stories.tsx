@@ -18648,6 +18648,287 @@ const SalesDashboardRender = () => {
   )
 }
 
+/* ═══════════════════════════════════════════
+   67. Account Settings (Radix UI + MUI 패턴)
+   Radix의 비제어 컴포넌트 + MUI의 color prop 시스템을 조합한 계정 설정 페이지.
+   Avatar, Switch, RadioButton, TextField, TextArea, LabelBadge, Breadcrumb 활용.
+   ═══════════════════════════════════════════ */
+type UPTab = 'profile' | 'security' | 'notifications' | 'billing'
+
+type UPPlan = 'free' | 'pro' | 'enterprise'
+
+const UP_PLAN_CFG: Record<UPPlan, { label: string; color: 'gray' | 'benefit' | 'sale'; price: string }> = {
+  free:       { label: 'Free', color: 'gray', price: '₩0 / 월' },
+  pro:        { label: 'Pro', color: 'benefit', price: '₩19,000 / 월' },
+  enterprise: { label: 'Enterprise', color: 'sale', price: '₩89,000 / 월' },
+}
+
+const AccountSettingsRender = () => {
+  const [activeTab, setActiveTab] = useState<UPTab>('profile')
+  const [plan] = useState<UPPlan>('pro')
+  const [notifs, setNotifs] = useState({ email: true, push: false, digest: true })
+  const [theme, setTheme] = useState<'system' | 'light' | 'dark'>('system')
+  const [bio, setBio] = useState('Orbit UI 디자인 시스템을 만들고 있습니다.')
+  const [avatarColor] = useState('#6366f1')
+
+  const tabs: { id: UPTab; label: string }[] = [
+    { id: 'profile', label: '프로필' },
+    { id: 'security', label: '보안' },
+    { id: 'notifications', label: '알림' },
+    { id: 'billing', label: '플랜' },
+  ]
+
+  const planCfg = UP_PLAN_CFG[plan]
+
+  return (
+    <div style={{ minHeight: '100vh', background: tc.surface, display: 'flex', flexDirection: 'column' }}>
+      <AppBar>
+        <AppBar.Leading>
+          <SolidIconButton color="black" size="small" aria-label="뒤로">
+            <ChevronLeftLineIcon />
+          </SolidIconButton>
+        </AppBar.Leading>
+        <AppBar.Center>
+          <span style={{ fontSize: 15, fontWeight: 700, color: tc.fg }}>계정 설정</span>
+        </AppBar.Center>
+        <AppBar.Trailing>
+          <LabelBadge color={planCfg.color}>
+            <LabelBadge.Label>{planCfg.label}</LabelBadge.Label>
+          </LabelBadge>
+        </AppBar.Trailing>
+      </AppBar>
+
+      <div style={{ flex: 1, maxWidth: 700, margin: '0 auto', width: '100%', padding: '24px 20px 40px' }}>
+        <Breadcrumb style={{ marginBottom: 20 }}>
+          <Breadcrumb.Item>계정</Breadcrumb.Item>
+          <Breadcrumb.Item>설정</Breadcrumb.Item>
+          <Breadcrumb.Item>{tabs.find((t) => t.id === activeTab)?.label}</Breadcrumb.Item>
+        </Breadcrumb>
+
+        {/* Tab nav */}
+        <div style={{ display: 'flex', gap: 2, marginBottom: 24, borderBottom: `1px solid ${tc.border}`, paddingBottom: 0 }}>
+          {tabs.map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              style={{
+                padding: '10px 16px', fontSize: 13, fontWeight: activeTab === tab.id ? 700 : 500,
+                color: activeTab === tab.id ? tc.fillPrimary : tc.fgSub,
+                background: 'none', border: 'none', cursor: 'pointer',
+                borderBottom: `2px solid ${activeTab === tab.id ? tc.fillPrimary : 'transparent'}`,
+                marginBottom: -1, transition: 'all 0.15s',
+              }}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </div>
+
+        {/* Profile tab */}
+        {activeTab === 'profile' && (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
+            {/* Avatar */}
+            <div style={{
+              background: tc.bg, borderRadius: 14, border: `1px solid ${tc.border}`,
+              padding: 24, display: 'flex', alignItems: 'center', gap: 20,
+            }}>
+              <div style={{
+                width: 64, height: 64, borderRadius: '50%',
+                background: avatarColor, display: 'flex', alignItems: 'center', justifyContent: 'center',
+                flexShrink: 0,
+              }}>
+                <span style={{ fontSize: 22, fontWeight: 800, color: '#fff' }}>김</span>
+              </div>
+              <div style={{ flex: 1 }}>
+                <div style={{ fontSize: 17, fontWeight: 800, color: tc.fg }}>김민지</div>
+                <div style={{ fontSize: 13, color: tc.fgSub, marginTop: 2 }}>minji.kim@orbit-ui.com</div>
+                <div style={{ display: 'flex', gap: 8, marginTop: 10 }}>
+                  <SolidButton color="primary" size="small">사진 변경</SolidButton>
+                  <OutlineButton color="black" size="small">삭제</OutlineButton>
+                </div>
+              </div>
+            </div>
+
+            {/* Bio */}
+            <div style={{ background: tc.bg, borderRadius: 14, border: `1px solid ${tc.border}`, padding: 24 }}>
+              <SectionTitle style={{ marginBottom: 16 }}>기본 정보</SectionTitle>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+                {[
+                  { label: '이름', value: '김민지', placeholder: '실명을 입력하세요' },
+                  { label: '직함', value: 'Senior Frontend Engineer', placeholder: '직함 또는 역할' },
+                  { label: '위치', value: '서울, 대한민국', placeholder: '도시, 국가' },
+                ].map((field) => (
+                  <div key={field.label} style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+                    <label style={{ fontSize: 12, fontWeight: 600, color: tc.fgSub }}>{field.label}</label>
+                    <TextField value={field.value} placeholder={field.placeholder} onChange={(_e) => {}} />
+                  </div>
+                ))}
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+                  <label style={{ fontSize: 12, fontWeight: 600, color: tc.fgSub }}>소개</label>
+                  <textarea
+                    value={bio}
+                    placeholder="자신을 소개하세요..."
+                    onChange={(e) => setBio(e.target.value)}
+                    style={{
+                      width: '100%', minHeight: 80, padding: '10px 12px', borderRadius: 8,
+                      border: '1.5px solid #e2e8f0', fontSize: 13, color: '#1e293b',
+                      outline: 'none', resize: 'vertical', fontFamily: 'inherit', boxSizing: 'border-box',
+                    }}
+                  />
+                  <span style={{ fontSize: 11, color: tc.fgMuted, textAlign: 'right' }}>{bio.length} / 200</span>
+                </div>
+              </div>
+              <div style={{ marginTop: 20, display: 'flex', justifyContent: 'flex-end' }}>
+                <SolidButton color="primary" size="medium">변경사항 저장</SolidButton>
+              </div>
+            </div>
+
+            {/* Theme */}
+            <div style={{ background: tc.bg, borderRadius: 14, border: `1px solid ${tc.border}`, padding: 24 }}>
+              <SectionTitle style={{ marginBottom: 16 }}>테마 설정</SectionTitle>
+              <div style={{ display: 'flex', gap: 10 }}>
+                {(['system', 'light', 'dark'] as const).map((t) => (
+                  <div
+                    key={t}
+                    onClick={() => setTheme(t)}
+                    style={{
+                      flex: 1, padding: '14px 12px', borderRadius: 10, cursor: 'pointer',
+                      border: `2px solid ${theme === t ? tc.fillPrimary : tc.border}`,
+                      background: theme === t ? '#eef2ff' : tc.bg,
+                      display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8,
+                      transition: 'all 0.15s',
+                    }}
+                  >
+                    <div style={{
+                      width: 40, height: 28, borderRadius: 6, overflow: 'hidden',
+                      border: `1px solid ${tc.border}`,
+                      background: t === 'light' ? '#fff' : t === 'dark' ? '#0f172a' : 'linear-gradient(90deg, #fff 50%, #0f172a 50%)',
+                    }} />
+                    <span style={{ fontSize: 12, fontWeight: theme === t ? 700 : 500, color: theme === t ? tc.fillPrimary : tc.fg }}>
+                      {t === 'system' ? '시스템' : t === 'light' ? '라이트' : '다크'}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Notifications tab */}
+        {activeTab === 'notifications' && (
+          <div style={{ background: tc.bg, borderRadius: 14, border: `1px solid ${tc.border}`, overflow: 'hidden' }}>
+            <div style={{ padding: '18px 24px', borderBottom: `1px solid ${tc.border}` }}>
+              <SectionTitle>알림 설정</SectionTitle>
+              <div style={{ fontSize: 12, color: tc.fgMuted, marginTop: 4 }}>
+                수신할 알림 종류를 선택하세요. Radix UI WAI-ARIA Switch 패턴 적용.
+              </div>
+            </div>
+            {[
+              { key: 'email' as const, label: '이메일 알림', desc: '중요 업데이트를 이메일로 수신합니다.' },
+              { key: 'push' as const, label: '푸시 알림', desc: '브라우저 푸시 알림을 허용합니다.' },
+              { key: 'digest' as const, label: '주간 다이제스트', desc: '매주 월요일 요약 리포트를 발송합니다.' },
+            ].map(({ key, label, desc }) => (
+              <div
+                key={key}
+                style={{
+                  padding: '18px 24px', borderBottom: `1px solid ${tc.borderSub}`,
+                  display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+                }}
+              >
+                <div>
+                  <div style={{ fontSize: 14, fontWeight: 600, color: tc.fg }}>{label}</div>
+                  <div style={{ fontSize: 12, color: tc.fgMuted, marginTop: 3 }}>{desc}</div>
+                </div>
+                <Switch
+                  checked={notifs[key]}
+                  onCheckedChange={(v) => setNotifs((prev) => ({ ...prev, [key]: v }))}
+                />
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* Security tab */}
+        {activeTab === 'security' && (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+            <div style={{ background: tc.bg, borderRadius: 14, border: `1px solid ${tc.border}`, padding: 24 }}>
+              <SectionTitle style={{ marginBottom: 16 }}>비밀번호 변경</SectionTitle>
+              {[
+                { label: '현재 비밀번호', placeholder: '현재 비밀번호 입력' },
+                { label: '새 비밀번호', placeholder: '8자 이상, 특수문자 포함' },
+                { label: '비밀번호 확인', placeholder: '새 비밀번호 재입력' },
+              ].map((field) => (
+                <div key={field.label} style={{ display: 'flex', flexDirection: 'column', gap: 6, marginBottom: 14 }}>
+                  <label style={{ fontSize: 12, fontWeight: 600, color: tc.fgSub }}>{field.label}</label>
+                  <TextField placeholder={field.placeholder} onChange={() => {}} />
+                </div>
+              ))}
+              <SolidButton color="primary" size="medium">비밀번호 변경</SolidButton>
+            </div>
+            <div style={{ background: '#fef2f2', borderRadius: 14, border: '1px solid #fecaca', padding: 24 }}>
+              <div style={{ fontSize: 14, fontWeight: 700, color: '#dc2626', marginBottom: 8 }}>위험 구역</div>
+              <div style={{ fontSize: 13, color: '#64748b', marginBottom: 16 }}>
+                계정을 삭제하면 모든 데이터가 영구적으로 삭제됩니다. 이 작업은 되돌릴 수 없습니다.
+              </div>
+              <OutlineButton color="black" size="small">계정 삭제</OutlineButton>
+            </div>
+          </div>
+        )}
+
+        {/* Billing tab */}
+        {activeTab === 'billing' && (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+            <div style={{ background: tc.bg, borderRadius: 14, border: `1px solid ${tc.border}`, padding: 24 }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 20 }}>
+                <div>
+                  <SectionTitle>현재 플랜</SectionTitle>
+                  <div style={{ fontSize: 12, color: tc.fgMuted, marginTop: 4 }}>갱신일: 2026-05-10</div>
+                </div>
+                <LabelBadge color={planCfg.color}>
+                  <LabelBadge.Label>{planCfg.label}</LabelBadge.Label>
+                </LabelBadge>
+              </div>
+              <div style={{ fontSize: 28, fontWeight: 800, color: tc.fg, marginBottom: 20 }}>
+                {planCfg.price}
+              </div>
+
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 20 }}>
+                {[
+                  { label: '컴포넌트', value: '무제한' },
+                  { label: '팀 시트', value: '10명' },
+                  { label: 'API 호출', value: '100,000회 / 월' },
+                  { label: 'Storybook 배포', value: '무제한' },
+                ].map(({ label, value }) => (
+                  <div key={label} style={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <span style={{ fontSize: 13, color: tc.fgSub }}>{label}</span>
+                    <span style={{ fontSize: 13, fontWeight: 600, color: tc.fg }}>{value}</span>
+                  </div>
+                ))}
+              </div>
+              <SolidButton color="primary" size="medium">Enterprise로 업그레이드</SolidButton>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+
+export const AccountSettings: Story = {
+  name: '계정 설정 (Radix UI + MUI 패턴)',
+  parameters: {
+    layout: 'fullscreen',
+    docs: {
+      description: {
+        story:
+          'Radix UI 비제어 컴포넌트 + MUI color prop 패턴을 조합한 계정 설정 페이지. ' +
+          '탭 기반 내비게이션(프로필/보안/알림/플랜), Switch, TextField, LabelBadge, Breadcrumb 조합.',
+      },
+    },
+  },
+  render: () => <AccountSettingsRender />,
+}
+
 export const SalesDashboard: Story = {
   name: '매출 대시보드 (Tailwind UI + Ant Design 패턴)',
   parameters: {

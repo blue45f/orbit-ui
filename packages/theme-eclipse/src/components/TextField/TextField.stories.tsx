@@ -786,3 +786,282 @@ export const Notion_빠른_캡처_받은편지함: Story = {
   name: 'Notion 빠른 캡처 (받은 편지함 패턴)',
   render: () => <NotionQuickCaptureDemo />,
 }
+
+/* --------------------------------------------------------------------------
+   Radix UI 벤치마크: 실시간 유효성 검사 패턴
+   Radix의 uncontrolled → controlled 전환 + 실시간 피드백 패턴
+   입력 즉시 규칙 검사 후 아이콘/색상/메시지로 상태를 명확히 전달
+-------------------------------------------------------------------------- */
+type RuleState = 'idle' | 'valid' | 'invalid'
+
+const validateRules = (value: string) => ({
+  length: value.length >= 3 ? 'valid' : value.length > 0 ? 'invalid' : 'idle',
+  noSpace: value.length > 0 ? (!/\s/.test(value) ? 'valid' : 'invalid') : 'idle',
+  alphaNum: value.length > 0 ? (/^[a-zA-Z0-9가-힣_-]+$/.test(value) ? 'valid' : 'invalid') : 'idle',
+} as Record<string, RuleState>)
+
+const RuleIcon = ({ state }: { state: RuleState }) => {
+  if (state === 'valid') return <span style={{ color: '#10b981', fontSize: 13 }}>✓</span>
+  if (state === 'invalid') return <span style={{ color: '#ef4444', fontSize: 13 }}>✕</span>
+  return <span style={{ color: '#cbd5e1', fontSize: 13 }}>○</span>
+}
+
+const RadixLiveValidationDemo = () => {
+  const [value, setValue] = useState('')
+  const rules = validateRules(value)
+  const allValid = Object.values(rules).every((r) => r === 'valid')
+  const hasError = Object.values(rules).some((r) => r === 'invalid')
+
+  return (
+    <div style={{ maxWidth: 360, display: 'flex', flexDirection: 'column', gap: 14 }}>
+      <div>
+        <div style={{ fontSize: 13, fontWeight: 600, color: '#0f172a', marginBottom: 6 }}>
+          사용자 이름
+          <span style={{ fontWeight: 400, color: '#94a3b8', marginLeft: 4 }}>필수</span>
+        </div>
+        <TextField
+          value={value}
+          placeholder="username_123"
+          error={hasError}
+          onChange={(e) => setValue(e.target.value)}
+        />
+        <div style={{ display: 'flex', gap: 12, marginTop: 10, flexWrap: 'wrap' }}>
+          {[
+            { key: 'length', label: '3자 이상' },
+            { key: 'noSpace', label: '공백 없음' },
+            { key: 'alphaNum', label: '영문/숫자/한글만' },
+          ].map(({ key, label }) => (
+            <div key={key} style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
+              <RuleIcon state={rules[key]} />
+              <span style={{
+                fontSize: 12,
+                color: rules[key] === 'valid' ? '#10b981' : rules[key] === 'invalid' ? '#ef4444' : '#94a3b8',
+              }}>
+                {label}
+              </span>
+            </div>
+          ))}
+        </div>
+        {allValid && (
+          <div style={{
+            marginTop: 10, padding: '8px 12px', borderRadius: 8,
+            background: '#f0fdf4', border: '1px solid #bbf7d0',
+            fontSize: 12, color: '#16a34a', fontWeight: 600,
+          }}>
+            사용 가능한 이름입니다
+          </div>
+        )}
+      </div>
+      <div style={{ fontSize: 11, color: '#94a3b8' }}>
+        Radix UI 실시간 유효성 — uncontrolled → controlled 전환 + 즉각 피드백
+      </div>
+    </div>
+  )
+}
+
+export const Radix_실시간_유효성_검사: Story = {
+  name: 'Radix UI - 실시간 유효성 검사 패턴',
+  render: () => <RadixLiveValidationDemo />,
+}
+
+/* --------------------------------------------------------------------------
+   MUI 벤치마크: 헬퍼 텍스트 상태 패턴
+   MUI의 FormHelperText — hint / success / warning / error 4가지 상태
+   각 상태가 명확한 색상과 아이콘으로 사용자에게 피드백을 제공
+-------------------------------------------------------------------------- */
+type HelperState = 'hint' | 'success' | 'warning' | 'error'
+
+const helperConfig: Record<HelperState, { color: string; bg: string; border: string; icon: string; label: string }> = {
+  hint:    { color: '#64748b', bg: '#f8fafc', border: '#e2e8f0', icon: 'ℹ', label: '힌트' },
+  success: { color: '#16a34a', bg: '#f0fdf4', border: '#bbf7d0', icon: '✓', label: '성공' },
+  warning: { color: '#d97706', bg: '#fffbeb', border: '#fde68a', icon: '!', label: '경고' },
+  error:   { color: '#dc2626', bg: '#fef2f2', border: '#fecaca', icon: '✕', label: '오류' },
+}
+
+const MUIHelperTextDemo = () => {
+  const [activeState, setActiveState] = useState<HelperState>('hint')
+  const cfg = helperConfig[activeState]
+
+  const helperMessages: Record<HelperState, string> = {
+    hint: '5-20자 영문, 숫자, 특수문자(_)를 사용할 수 있습니다.',
+    success: '사용 가능한 이메일 주소입니다.',
+    warning: '이미 다른 계정에서 사용 중인 이메일입니다.',
+    error: '올바른 이메일 형식을 입력하세요. 예: user@domain.com',
+  }
+
+  const placeholders: Record<HelperState, string> = {
+    hint: 'your@email.com',
+    success: 'user@orbit-ui.com',
+    warning: 'taken@domain.com',
+    error: 'invalid-email',
+  }
+
+  return (
+    <div style={{ maxWidth: 380, display: 'flex', flexDirection: 'column', gap: 16 }}>
+      <div style={{ display: 'flex', gap: 6 }}>
+        {(Object.keys(helperConfig) as HelperState[]).map((state) => {
+          const c = helperConfig[state]
+          return (
+            <button
+              key={state}
+              onClick={() => setActiveState(state)}
+              style={{
+                padding: '5px 12px', borderRadius: 7, fontSize: 12, fontWeight: 600,
+                cursor: 'pointer', transition: 'all 0.15s',
+                border: `1.5px solid ${activeState === state ? c.border : '#e2e8f0'}`,
+                background: activeState === state ? c.bg : '#fff',
+                color: activeState === state ? c.color : '#94a3b8',
+              }}
+            >
+              {c.label}
+            </button>
+          )
+        })}
+      </div>
+
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+        <label style={{ fontSize: 13, fontWeight: 600, color: activeState === 'error' ? '#dc2626' : '#374151' }}>
+          이메일
+        </label>
+        <TextField
+          value={placeholders[activeState]}
+          placeholder="your@email.com"
+          error={activeState === 'error'}
+          onChange={() => {}}
+        />
+        <div style={{
+          display: 'flex', alignItems: 'flex-start', gap: 8, padding: '8px 12px',
+          borderRadius: 8, background: cfg.bg, border: `1px solid ${cfg.border}`,
+          fontSize: 12, color: cfg.color,
+        }}>
+          <span style={{
+            width: 16, height: 16, borderRadius: '50%', background: cfg.color, color: '#fff',
+            fontSize: 9, fontWeight: 700, display: 'flex', alignItems: 'center', justifyContent: 'center',
+            flexShrink: 0, marginTop: 1,
+          }}>
+            {cfg.icon}
+          </span>
+          <span style={{ lineHeight: 1.5 }}>{helperMessages[activeState]}</span>
+        </div>
+      </div>
+      <div style={{ fontSize: 11, color: '#94a3b8' }}>
+        MUI FormHelperText 패턴 — hint / success / warning / error 4가지 상태
+      </div>
+    </div>
+  )
+}
+
+export const MUI_헬퍼_텍스트_상태: Story = {
+  name: 'MUI - 헬퍼 텍스트 상태 패턴 (hint/success/warning/error)',
+  render: () => <MUIHelperTextDemo />,
+}
+
+/* --------------------------------------------------------------------------
+   Radix + MUI 조합: 비밀번호 강도 인디케이터
+   Radix의 접근성 패턴(aria-describedby) + MUI의 시각적 강도 표시
+   실시간 문자 조합 분석으로 보안 강도를 4단계로 시각화
+-------------------------------------------------------------------------- */
+const calcStrength = (pwd: string) => {
+  let score = 0
+  if (pwd.length >= 8) score++
+  if (/[A-Z]/.test(pwd)) score++
+  if (/[0-9]/.test(pwd)) score++
+  if (/[^A-Za-z0-9]/.test(pwd)) score++
+  return score
+}
+
+const strengthConfig = [
+  { label: '매우 약함', color: '#ef4444' },
+  { label: '약함', color: '#f59e0b' },
+  { label: '보통', color: '#3b82f6' },
+  { label: '강함', color: '#10b981' },
+  { label: '매우 강함', color: '#059669' },
+]
+
+const PasswordStrengthDemo = () => {
+  const [pwd, setPwd] = useState('')
+  const [show, setShow] = useState(false)
+  const strength = calcStrength(pwd)
+  const cfg = strengthConfig[strength] ?? strengthConfig[0]
+
+  const checks = [
+    { label: '8자 이상', ok: pwd.length >= 8 },
+    { label: '대문자 포함', ok: /[A-Z]/.test(pwd) },
+    { label: '숫자 포함', ok: /[0-9]/.test(pwd) },
+    { label: '특수문자 포함', ok: /[^A-Za-z0-9]/.test(pwd) },
+  ]
+
+  return (
+    <div style={{ maxWidth: 360, display: 'flex', flexDirection: 'column', gap: 14 }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+        <label
+          htmlFor="pwd-field"
+          style={{ fontSize: 13, fontWeight: 600, color: '#0f172a' }}
+        >
+          비밀번호
+        </label>
+        <div style={{ position: 'relative' }}>
+          <TextField
+            id="pwd-field"
+            value={pwd}
+            placeholder="8자 이상 입력"
+            aria-describedby="pwd-strength-desc"
+            onChange={(e) => setPwd(e.target.value)}
+          />
+          <button
+            onClick={() => setShow((v) => !v)}
+            style={{
+              position: 'absolute', right: 12, top: '50%', transform: 'translateY(-50%)',
+              background: 'none', border: 'none', cursor: 'pointer',
+              fontSize: 11, color: '#94a3b8', fontWeight: 600,
+            }}
+          >
+            {show ? '숨기기' : '보기'}
+          </button>
+        </div>
+      </div>
+
+      {pwd.length > 0 && (
+        <>
+          <div>
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 6 }}>
+              <span id="pwd-strength-desc" style={{ fontSize: 12, color: '#64748b' }}>강도</span>
+              <span style={{ fontSize: 12, fontWeight: 700, color: cfg.color }}>{cfg.label}</span>
+            </div>
+            <div style={{ display: 'flex', gap: 4 }}>
+              {[0, 1, 2, 3].map((i) => (
+                <div
+                  key={i}
+                  style={{
+                    flex: 1, height: 5, borderRadius: 3,
+                    background: i < strength ? cfg.color : '#e2e8f0',
+                    transition: 'background 0.2s',
+                  }}
+                />
+              ))}
+            </div>
+          </div>
+
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+            {checks.map(({ label, ok }) => (
+              <div key={label} style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
+                <span style={{ fontSize: 12, color: ok ? '#10b981' : '#cbd5e1' }}>
+                  {ok ? '✓' : '○'}
+                </span>
+                <span style={{ fontSize: 12, color: ok ? '#10b981' : '#94a3b8' }}>{label}</span>
+              </div>
+            ))}
+          </div>
+        </>
+      )}
+      <div style={{ fontSize: 11, color: '#94a3b8' }}>
+        Radix aria-describedby + MUI 시각적 강도 표시 패턴
+      </div>
+    </div>
+  )
+}
+
+export const Radix_MUI_비밀번호_강도: Story = {
+  name: 'Radix + MUI - 비밀번호 강도 인디케이터',
+  render: () => <PasswordStrengthDemo />,
+}

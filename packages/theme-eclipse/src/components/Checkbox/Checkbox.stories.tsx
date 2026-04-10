@@ -635,6 +635,341 @@ export const Tailwind_비교_체크리스트: Story = {
   ),
 }
 
+/* --------------------------------------------------------------------------
+   Radix UI 벤치마크: 접근성 설정 그룹
+   Radix UI WAI-ARIA role="group" + aria-labelledby 패턴
+   키보드 포커스 이동 시 그룹 레이블이 스크린리더에 읽히도록 구성
+-------------------------------------------------------------------------- */
+export const Radix_접근성_설정_그룹: Story = {
+  name: 'Radix UI - 접근성 알림 설정 그룹',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Radix UI의 WAI-ARIA `role="group"` + `aria-labelledby` 패턴. 각 체크박스가 그룹 레이블과 연결되어 스크린리더에서 "알림 설정, 이메일 알림, 체크됨" 순으로 읽힙니다.',
+      },
+    },
+  },
+  render: function Render() {
+    const [settings, setSettings] = useState({
+      email: true,
+      push: false,
+      sms: false,
+      digest: true,
+    })
+
+    const toggle = (key: keyof typeof settings) => {
+      setSettings((prev) => ({ ...prev, [key]: !prev[key] }))
+    }
+
+    const enabledCount = Object.values(settings).filter(Boolean).length
+
+    return (
+      <div style={{ maxWidth: 380 }}>
+        <div
+          role="group"
+          aria-labelledby="notification-group-label"
+          style={{ background: '#fff', borderRadius: 14, border: '1px solid #e2e8f0', overflow: 'hidden' }}
+        >
+          <div
+            id="notification-group-label"
+            style={{
+              padding: '14px 16px',
+              borderBottom: '1px solid #f1f5f9',
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+            }}
+          >
+            <span style={{ fontSize: 13, fontWeight: 700, color: '#0f172a' }}>알림 설정</span>
+            <span
+              style={{
+                fontSize: 11, fontWeight: 600, padding: '2px 8px', borderRadius: 99,
+                background: enabledCount > 0 ? '#eff6ff' : '#f8fafc',
+                color: enabledCount > 0 ? '#3b82f6' : '#94a3b8',
+              }}
+            >
+              {enabledCount}개 활성
+            </span>
+          </div>
+
+          {[
+            { key: 'email' as const, label: '이메일 알림', desc: '중요 업데이트를 이메일로 수신', tag: '권장' },
+            { key: 'push' as const, label: '푸시 알림', desc: '브라우저 푸시 알림 허용', tag: null },
+            { key: 'sms' as const, label: 'SMS 알림', desc: '긴급 알림을 문자로 수신', tag: null },
+            { key: 'digest' as const, label: '주간 다이제스트', desc: '매주 월요일 요약 이메일 발송', tag: '권장' },
+          ].map(({ key, label, desc, tag }) => (
+            <div
+              key={key}
+              style={{
+                display: 'flex', alignItems: 'flex-start', gap: 12, padding: '14px 16px',
+                borderBottom: '1px solid #f8fafc', cursor: 'pointer',
+                background: settings[key] ? '#fafbff' : '#fff',
+                transition: 'background 0.1s',
+              }}
+              onClick={() => toggle(key)}
+            >
+              <div style={{ paddingTop: 2 }}>
+                <Checkbox
+                  checked={settings[key]}
+                  onChange={() => toggle(key)}
+                  aria-label={label}
+                />
+              </div>
+              <div style={{ flex: 1 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 2 }}>
+                  <span style={{ fontSize: 13, fontWeight: settings[key] ? 700 : 500, color: '#1e293b' }}>
+                    {label}
+                  </span>
+                  {tag && (
+                    <span style={{
+                      fontSize: 10, fontWeight: 700, padding: '1px 6px', borderRadius: 4,
+                      background: '#eff6ff', color: '#3b82f6',
+                    }}>
+                      {tag}
+                    </span>
+                  )}
+                </div>
+                <span style={{ fontSize: 12, color: '#94a3b8', lineHeight: 1.4 }}>{desc}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div style={{ marginTop: 10, fontSize: 11, color: '#94a3b8' }}>
+          {'Radix UI WAI-ARIA role="group" + aria-labelledby 패턴'}
+        </div>
+      </div>
+    )
+  },
+}
+
+/* --------------------------------------------------------------------------
+   MUI 벤치마크: 색상 역할 선택 체크박스
+   MUI의 color prop 시스템 — primary/success/error/warning 시맨틱 색상 역할
+   각 체크박스가 의미론적 색상으로 상태를 표현하는 엔터프라이즈 패턴
+-------------------------------------------------------------------------- */
+export const MUI_색상_역할_권한_선택: Story = {
+  name: 'MUI - 색상 역할 권한 선택 (시맨틱 color prop 패턴)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'MUI의 `color` prop 시스템을 theme override로 재현. primary/success/warning/error 역할별 색상으로 권한 등급을 구분합니다.',
+      },
+    },
+  },
+  render: function Render() {
+    const roles = [
+      {
+        id: 'admin',
+        label: '관리자',
+        desc: '모든 리소스에 대한 완전한 접근 권한',
+        level: 'error' as const,
+        color: '#ef4444',
+        bg: '#fee2e2',
+        borderColor: '#fca5a5',
+      },
+      {
+        id: 'editor',
+        label: '편집자',
+        desc: '콘텐츠 생성 및 수정 가능',
+        level: 'warning' as const,
+        color: '#f59e0b',
+        bg: '#fef3c7',
+        borderColor: '#fde68a',
+      },
+      {
+        id: 'member',
+        label: '멤버',
+        desc: '콘텐츠 조회 및 댓글 작성',
+        level: 'primary' as const,
+        color: '#6366f1',
+        bg: '#eef2ff',
+        borderColor: '#c7d2fe',
+      },
+      {
+        id: 'viewer',
+        label: '뷰어',
+        desc: '공개 콘텐츠 조회만 가능',
+        level: 'success' as const,
+        color: '#10b981',
+        bg: '#d1fae5',
+        borderColor: '#6ee7b7',
+      },
+    ]
+
+    const [selected, setSelected] = useState<string[]>(['member'])
+    const toggle = (id: string) =>
+      setSelected((prev) => prev.includes(id) ? prev.filter((r) => r !== id) : [...prev, id])
+
+    return (
+      <div style={{ maxWidth: 400, display: 'flex', flexDirection: 'column', gap: 10 }}>
+        <div style={{ fontSize: 13, fontWeight: 700, color: '#0f172a', marginBottom: 4 }}>
+          역할 할당 <span style={{ fontSize: 11, fontWeight: 400, color: '#94a3b8' }}>(복수 선택 가능)</span>
+        </div>
+        {roles.map((role) => {
+          const isChecked = selected.includes(role.id)
+          return (
+            <div
+              key={role.id}
+              onClick={() => toggle(role.id)}
+              style={{
+                display: 'flex', alignItems: 'center', gap: 12, padding: '12px 16px',
+                borderRadius: 10,
+                border: `1.5px solid ${isChecked ? role.borderColor : '#e2e8f0'}`,
+                background: isChecked ? role.bg : '#fff',
+                cursor: 'pointer', transition: 'all 0.15s',
+              }}
+            >
+              <Checkbox
+                checked={isChecked}
+                onChange={() => toggle(role.id)}
+                theme={isChecked ? {
+                  enabledCheckedFillColor: role.color,
+                } : undefined}
+              />
+              <div style={{ flex: 1 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                  <span style={{ fontSize: 13, fontWeight: 700, color: isChecked ? role.color : '#1e293b' }}>
+                    {role.label}
+                  </span>
+                </div>
+                <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>{role.desc}</div>
+              </div>
+              {isChecked && (
+                <span style={{
+                  fontSize: 10, fontWeight: 700, padding: '2px 8px', borderRadius: 99,
+                  background: role.color, color: '#fff',
+                }}>
+                  선택됨
+                </span>
+              )}
+            </div>
+          )
+        })}
+        <div style={{ fontSize: 11, color: '#94a3b8' }}>
+          MUI color prop 패턴 — primary/success/warning/error 시맨틱 색상 역할
+        </div>
+      </div>
+    )
+  },
+}
+
+/* --------------------------------------------------------------------------
+   Radix + MUI 조합: 온보딩 체크리스트
+   Radix의 WAI-ARIA 완성도 + MUI의 시각적 완료 상태 패턴
+   사용자가 완료할수록 프로그레스 바가 채워지는 온보딩 체크리스트
+-------------------------------------------------------------------------- */
+export const Radix_MUI_온보딩_체크리스트: Story = {
+  name: 'Radix + MUI - 온보딩 체크리스트',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Radix WAI-ARIA + MUI 시각적 완료 상태 패턴. 각 항목 완료 시 색상이 변하고 완료율 Progress가 업데이트됩니다.',
+      },
+    },
+  },
+  render: function Render() {
+    const steps = [
+      { id: 'profile', label: '프로필 사진 업로드', detail: '96×96px 이상의 이미지 권장' },
+      { id: 'team', label: '팀 초대', detail: '이메일로 팀원 초대' },
+      { id: 'project', label: '첫 프로젝트 생성', detail: '프로젝트명과 설명 입력' },
+      { id: 'token', label: 'API 토큰 발급', detail: '개발 환경 연동에 필요' },
+      { id: 'docs', label: '시작 가이드 읽기', detail: '핵심 개념 5분 학습' },
+    ]
+    const [done, setDone] = useState<Set<string>>(new Set(['profile']))
+    const toggle = (id: string) =>
+      setDone((prev) => {
+        const next = new Set(prev)
+        if (next.has(id)) next.delete(id)
+        else next.add(id)
+        return next
+      })
+
+    const pct = Math.round((done.size / steps.length) * 100)
+    const isDone = pct === 100
+
+    return (
+      <div style={{ maxWidth: 400 }}>
+        <div
+          style={{
+            background: isDone ? '#f0fdf4' : '#fff',
+            borderRadius: 14,
+            border: `1px solid ${isDone ? '#bbf7d0' : '#e2e8f0'}`,
+            overflow: 'hidden',
+            transition: 'all 0.3s',
+          }}
+        >
+          <div style={{ padding: '16px 20px', borderBottom: `1px solid ${isDone ? '#bbf7d0' : '#f1f5f9'}` }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 10 }}>
+              <span style={{ fontSize: 14, fontWeight: 700, color: isDone ? '#16a34a' : '#0f172a' }}>
+                {isDone ? '모든 단계 완료!' : '시작하기'}
+              </span>
+              <span style={{ fontSize: 12, fontWeight: 700, color: isDone ? '#16a34a' : '#6366f1' }}>
+                {pct}%
+              </span>
+            </div>
+            <div style={{
+              height: 6, borderRadius: 3, background: '#f1f5f9', overflow: 'hidden',
+            }}>
+              <div style={{
+                height: '100%',
+                width: `${pct}%`,
+                borderRadius: 3,
+                background: isDone ? '#10b981' : '#6366f1',
+                transition: 'width 0.3s ease',
+              }} />
+            </div>
+          </div>
+
+          <div role="group" aria-label="온보딩 체크리스트">
+            {steps.map((step, idx) => {
+              const isChecked = done.has(step.id)
+              return (
+                <div
+                  key={step.id}
+                  onClick={() => toggle(step.id)}
+                  style={{
+                    display: 'flex', alignItems: 'flex-start', gap: 12,
+                    padding: '12px 20px',
+                    borderBottom: idx < steps.length - 1 ? '1px solid #f8fafc' : 'none',
+                    cursor: 'pointer',
+                    background: isChecked ? '#f0fdf4' : '#fff',
+                    transition: 'background 0.15s',
+                  }}
+                >
+                  <div style={{ paddingTop: 2 }}>
+                    <Checkbox
+                      checked={isChecked}
+                      onChange={() => toggle(step.id)}
+                      aria-label={step.label}
+                    />
+                  </div>
+                  <div>
+                    <div style={{
+                      fontSize: 13, fontWeight: 600,
+                      color: isChecked ? '#16a34a' : '#1e293b',
+                      textDecoration: isChecked ? 'line-through' : 'none',
+                      transition: 'all 0.2s',
+                    }}>
+                      {step.label}
+                    </div>
+                    <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>{step.detail}</div>
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+        </div>
+        <div style={{ marginTop: 10, fontSize: 11, color: '#94a3b8' }}>
+          Radix WAI-ARIA + MUI 완료 상태 패턴
+        </div>
+      </div>
+    )
+  },
+}
+
 export const 디자인_QA = {
   args: {
     disabled: false,
