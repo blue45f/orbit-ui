@@ -1512,3 +1512,199 @@ export const Linear_Vercel_테이블_페이지_로딩: Story = {
   },
   render: () => <LinearVercelTableLoad144Render />,
 }
+
+// ──────────────────────────────────────────────────────────────────────────────
+// Cycle 174: Vercel Design + MUI
+// ──────────────────────────────────────────────────────────────────────────────
+
+const BUILD_PIPELINE_STEPS = [
+  { label: 'Cloning repository', duration: 800 },
+  { label: 'Installing dependencies', duration: 1200 },
+  { label: 'Running build', duration: 1500 },
+  { label: 'Uploading assets', duration: 900 },
+  { label: 'Finalizing deployment', duration: 600 },
+]
+
+function VercelBuildPipelineRender() {
+  const [step, setStep] = useState(0)
+
+  React.useEffect(() => {
+    if (step < BUILD_PIPELINE_STEPS.length) {
+      const timer = setTimeout(() => setStep((s) => s + 1), BUILD_PIPELINE_STEPS[step]?.duration ?? 0)
+      return () => clearTimeout(timer)
+    }
+  }, [step])
+
+  const reset = () => setStep(0)
+
+  return (
+    <div style={{ width: 400, background: '#0f172a', borderRadius: 12, overflow: 'hidden', padding: 20 }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
+        <div>
+          <div style={{ fontSize: 14, fontWeight: 700, color: '#f1f5f9' }}>orbit-ui</div>
+          <div style={{ fontSize: 11, color: '#64748b' }}>Production 배포 중...</div>
+        </div>
+        {step >= BUILD_PIPELINE_STEPS.length ? (
+          <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+            <div style={{ width: 8, height: 8, borderRadius: 4, background: '#22c55e' }} />
+            <span style={{ fontSize: 12, color: '#22c55e', fontWeight: 600 }}>Ready</span>
+          </div>
+        ) : (
+          <Loading />
+        )}
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+        {BUILD_PIPELINE_STEPS.map((s, i) => (
+          <div key={s.label} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+            <div style={{ width: 18, height: 18, borderRadius: 9, background: i < step ? '#22c55e20' : i === step ? '#3b82f620' : '#1e293b', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+              {i < step ? (
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#22c55e" strokeWidth="3" strokeLinecap="round"/></svg>
+              ) : i === step && step < BUILD_PIPELINE_STEPS.length ? (
+                <div style={{ width: 6, height: 6, borderRadius: 3, background: '#3b82f6', animation: 'pulse 1s infinite' }} />
+              ) : (
+                <div style={{ width: 4, height: 4, borderRadius: 2, background: '#334155' }} />
+              )}
+            </div>
+            <span style={{ fontSize: 12, color: i < step ? '#22c55e' : i === step && step < BUILD_PIPELINE_STEPS.length ? '#f1f5f9' : '#475569', transition: 'color 300ms' }}>{s.label}</span>
+            {i < step && <span style={{ fontSize: 10, color: '#22c55e', marginLeft: 'auto' }}>{(s.duration / 1000).toFixed(1)}s</span>}
+          </div>
+        ))}
+      </div>
+      {step >= BUILD_PIPELINE_STEPS.length && (
+        <button onClick={reset} style={{ marginTop: 16, width: '100%', padding: '8px', borderRadius: 8, background: '#1e293b', border: '1px solid #334155', color: '#94a3b8', fontSize: 12, cursor: 'pointer' }}>
+          다시 실행
+        </button>
+      )}
+    </div>
+  )
+}
+
+export const Vercel_빌드_파이프라인_로딩: Story = {
+  name: 'Vercel Design — 빌드 파이프라인 단계 로딩 (Clone→Install→Build→Upload→Deploy)',
+  render: () => <VercelBuildPipelineRender />,
+  parameters: {
+    docs: {
+      description: {
+        story: 'Vercel 배포 파이프라인 단계별 Loading 패턴. Clone/Install/Build/Upload/Deploy 5단계 순차 진행. 완료 시 체크, 진행 중 펄스 인디케이터, 다크 배경.',
+      },
+    },
+  },
+}
+
+function MUISkeletonLoadingRender() {
+  const [loading, setLoading] = useState(true)
+
+  React.useEffect(() => {
+    const t = setTimeout(() => setLoading(false), 2500)
+    return () => clearTimeout(t)
+  }, [])
+
+  const reset = () => setLoading(true)
+
+  return (
+    <div style={{ width: 420 }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
+        <span style={{ fontSize: 13, fontWeight: 600, color: '#0f172a' }}>MUI 카드 뷰</span>
+        <button onClick={reset} style={{ padding: '4px 10px', borderRadius: 6, background: '#f1f5f9', border: 'none', fontSize: 11, cursor: 'pointer', color: '#64748b' }}>새로고침</button>
+      </div>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+        {[0, 1, 2, 3].map((i) => (
+          <div key={i} style={{ borderRadius: 10, border: '1px solid #e2e8f0', overflow: 'hidden', background: '#fff' }}>
+            {loading ? (
+              <div>
+                <Skeleton style={{ height: 80, borderRadius: 0 }} />
+                <div style={{ padding: '10px 12px' }}>
+                  <Skeleton style={{ height: 14, borderRadius: 4, marginBottom: 6, width: '80%' }} />
+                  <Skeleton style={{ height: 11, borderRadius: 4, marginBottom: 4, width: '60%' }} />
+                  <Skeleton style={{ height: 11, borderRadius: 4, width: '40%' }} />
+                </div>
+              </div>
+            ) : (
+              <div>
+                <div style={{ height: 80, background: `hsl(${i * 60 + 220}, 70%, 90%)`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 24 }}>
+                  {['🎨', '⚡', '🔧', '📊'][i]}
+                </div>
+                <div style={{ padding: '10px 12px' }}>
+                  <div style={{ fontSize: 13, fontWeight: 600, color: '#0f172a', marginBottom: 4 }}>{['컴포넌트', '성능', '커스텀', '분석'][i]}</div>
+                  <div style={{ fontSize: 11, color: '#64748b', lineHeight: 1.5 }}>{['40+ 컴포넌트', '60fps 보장', '토큰 기반', '스토리 860+'][i]}</div>
+                </div>
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+      {loading && (
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginTop: 12, padding: '8px 12px', borderRadius: 8, background: '#f8fafc', border: '1px solid #e2e8f0' }}>
+          <Loading />
+          <span style={{ fontSize: 12, color: '#64748b' }}>카드 데이터를 불러오는 중...</span>
+        </div>
+      )}
+    </div>
+  )
+}
+
+export const MUI_카드_스켈레톤_로딩: Story = {
+  name: 'MUI — 카드 그리드 스켈레톤 + Loading 조합',
+  render: () => <MUISkeletonLoadingRender />,
+  parameters: {
+    docs: {
+      description: {
+        story: 'MUI Skeleton + Loading 조합 패턴. 카드 그리드 로딩 시 Skeleton placeholder, 완료 후 실제 콘텐츠로 전환. 하단 Loading 스피너로 진행 상태 명시.',
+      },
+    },
+  },
+}
+
+function VercelMUIInlineLoadingRender() {
+  const [states, setStates] = useState({ save: 'idle', publish: 'idle', sync: 'idle' } as Record<string, string>)
+
+  const trigger = (key: string) => {
+    setStates((prev) => ({ ...prev, [key]: 'loading' }))
+    setTimeout(() => setStates((prev) => ({ ...prev, [key]: 'done' })), 1800)
+    setTimeout(() => setStates((prev) => ({ ...prev, [key]: 'idle' })), 3600)
+  }
+
+  const actionConfig: Record<string, { label: string; loadingLabel: string; doneLabel: string; color: string }> = {
+    save: { label: '변경사항 저장', loadingLabel: '저장 중...', doneLabel: '저장 완료', color: '#6366f1' },
+    publish: { label: '게시하기', loadingLabel: '게시 중...', doneLabel: '게시됨', color: '#16a34a' },
+    sync: { label: '동기화', loadingLabel: '동기화 중...', doneLabel: '완료', color: '#3b82f6' },
+  }
+
+  return (
+    <div style={{ width: 360, background: '#fff', borderRadius: 12, border: '1px solid #e2e8f0', padding: 20 }}>
+      <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a', marginBottom: 4 }}>인라인 액션 로딩</div>
+      <div style={{ fontSize: 12, color: '#64748b', marginBottom: 16 }}>Vercel + MUI 버튼 내 로딩 패턴</div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+        {Object.entries(actionConfig).map(([key, cfg]) => {
+          const state = states[key]
+          return (
+            <button
+              key={key}
+              onClick={() => state === 'idle' && trigger(key)}
+              disabled={state === 'loading'}
+              style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, padding: '10px 16px', borderRadius: 8, border: `1px solid ${state === 'done' ? '#dcfce7' : '#e2e8f0'}`, background: state === 'done' ? '#f0fdf4' : state === 'loading' ? '#f8fafc' : '#fff', cursor: state === 'idle' ? 'pointer' : 'default', transition: 'all 200ms', width: '100%' }}
+            >
+              {state === 'loading' && <Loading />}
+              {state === 'done' && <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#16a34a" strokeWidth="2.5" strokeLinecap="round"/></svg>}
+              <span style={{ fontSize: 13, fontWeight: 600, color: state === 'done' ? '#16a34a' : state === 'loading' ? '#94a3b8' : '#0f172a' }}>
+                {state === 'loading' ? cfg.loadingLabel : state === 'done' ? cfg.doneLabel : cfg.label}
+              </span>
+            </button>
+          )
+        })}
+      </div>
+    </div>
+  )
+}
+
+export const Vercel_MUI_인라인_액션_로딩: Story = {
+  name: 'Vercel + MUI — 인라인 액션 버튼 Loading (저장/게시/동기화)',
+  render: () => <VercelMUIInlineLoadingRender />,
+  parameters: {
+    docs: {
+      description: {
+        story: 'Vercel + MUI 버튼 내 Loading 패턴. 저장/게시/동기화 3개 액션 각각 독립적 로딩 상태. idle → loading(스피너) → done(체크) → idle 순환. 실무 폼 제출 UX.',
+      },
+    },
+  },
+}

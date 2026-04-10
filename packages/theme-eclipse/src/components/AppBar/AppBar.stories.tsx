@@ -716,3 +716,180 @@ export const Arco_다중_환경_전환_앱바: Story = {
   },
   render: () => <ArcoEnvSwitchAppBarRender />,
 }
+
+// ──────────────────────────────────────────────────────────────────────────────
+// Cycle 174: Vercel Design + MUI
+// ──────────────────────────────────────────────────────────────────────────────
+
+function VercelDeploymentAppBarRender() {
+  const [env, setEnv] = useState<'production' | 'preview' | 'development'>('production')
+  const envConfig = {
+    production: { label: 'Production', color: '#16a34a', bg: '#dcfce7' },
+    preview: { label: 'Preview', color: '#d97706', bg: '#fef3c7' },
+    development: { label: 'Development', color: '#3b82f6', bg: '#dbeafe' },
+  }
+  const cfg = envConfig[env]
+
+  return (
+    <div style={{ width: 420 }}>
+      <AppBar>
+        <AppBar.Leading>
+          <button style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 4 }}>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M19 12H5M5 12L12 19M5 12L12 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+          </button>
+        </AppBar.Leading>
+        <AppBar.Center>
+          <span style={{ fontSize: 14, fontWeight: 600 }}>blue45f / orbit-ui</span>
+        </AppBar.Center>
+        <AppBar.Trailing>
+          <div style={{ display: 'flex', gap: 6 }}>
+            {(['production', 'preview', 'development'] as const).map((e) => (
+              <button
+                key={e}
+                onClick={() => setEnv(e)}
+                style={{ padding: '3px 8px', borderRadius: 6, border: `1px solid ${env === e ? envConfig[e].color : '#e2e8f0'}`, background: env === e ? envConfig[e].bg : 'transparent', color: env === e ? envConfig[e].color : '#64748b', fontSize: 10, fontWeight: 600, cursor: 'pointer', transition: 'all 150ms' }}
+              >
+                {envConfig[e].label}
+              </button>
+            ))}
+          </div>
+        </AppBar.Trailing>
+      </AppBar>
+      <div style={{ padding: '14px 16px', background: 'var(--sem-eclipse-color-surfaceContainer, #f8fafc)', borderRadius: '0 0 10px 10px', border: '1px solid #e2e8f0', borderTop: 'none' }}>
+        <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+          <div style={{ width: 8, height: 8, borderRadius: 4, background: cfg.color }} />
+          <span style={{ fontSize: 12, color: '#0f172a', fontWeight: 600 }}>{cfg.label} 배포 완료</span>
+          <span style={{ fontSize: 11, color: '#94a3b8', marginLeft: 'auto' }}>2분 전</span>
+        </div>
+        <div style={{ fontSize: 11, color: '#64748b', marginTop: 4 }}>49a55fd — feat(stories): Cycle 173 Linear + Tailwind</div>
+      </div>
+    </div>
+  )
+}
+
+export const Vercel_배포_환경_전환_앱바: Story = {
+  name: 'Vercel Design — 배포 환경 전환 앱바 (Production/Preview/Development)',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Vercel 배포 대시보드 AppBar 패턴. Production/Preview/Development 환경 탭 전환, 활성 환경 컬러 강조, 최근 배포 상태 표시.',
+      },
+    },
+  },
+  render: () => <VercelDeploymentAppBarRender />,
+}
+
+function MUIBreadcrumbAppBarRender() {
+  const [page, setPage] = useState(2)
+  const crumbs = ['홈', '컴포넌트', 'AppBar', '스토리']
+  const activeCrumbs = crumbs.slice(0, page + 1)
+
+  return (
+    <div style={{ width: 480 }}>
+      <AppBar>
+        <AppBar.Leading>
+          <button onClick={() => setPage(Math.max(0, page - 1))} disabled={page === 0} style={{ background: 'none', border: 'none', cursor: page === 0 ? 'not-allowed' : 'pointer', opacity: page === 0 ? 0.4 : 1, padding: 4 }}>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/></svg>
+          </button>
+        </AppBar.Leading>
+        <AppBar.Center>
+          <nav style={{ display: 'flex', alignItems: 'center', gap: 4, fontSize: 13 }}>
+            {activeCrumbs.map((crumb, i) => (
+              <React.Fragment key={crumb}>
+                {i > 0 && <span style={{ color: '#cbd5e1', fontSize: 10 }}>›</span>}
+                <button
+                  onClick={() => setPage(i)}
+                  style={{ background: 'none', border: 'none', cursor: i === activeCrumbs.length - 1 ? 'default' : 'pointer', color: i === activeCrumbs.length - 1 ? '#0f172a' : '#64748b', fontWeight: i === activeCrumbs.length - 1 ? 600 : 400, fontSize: 13, padding: '2px 4px', borderRadius: 4 }}
+                >
+                  {crumb}
+                </button>
+              </React.Fragment>
+            ))}
+          </nav>
+        </AppBar.Center>
+        <AppBar.Trailing>
+          <button
+            onClick={() => setPage(Math.min(crumbs.length - 1, page + 1))}
+            disabled={page === crumbs.length - 1}
+            style={{ padding: '4px 10px', borderRadius: 6, background: page === crumbs.length - 1 ? '#f1f5f9' : '#6366f1', color: page === crumbs.length - 1 ? '#94a3b8' : '#fff', border: 'none', fontSize: 12, fontWeight: 600, cursor: page === crumbs.length - 1 ? 'not-allowed' : 'pointer', transition: 'all 150ms' }}
+          >
+            {page === crumbs.length - 1 ? '마지막' : '다음 →'}
+          </button>
+        </AppBar.Trailing>
+      </AppBar>
+      <div style={{ padding: 20, background: '#fff', borderRadius: '0 0 10px 10px', border: '1px solid #e2e8f0', borderTop: 'none', fontSize: 14, color: '#64748b' }}>
+        현재 위치: <strong style={{ color: '#0f172a' }}>{activeCrumbs[activeCrumbs.length - 1]}</strong> 페이지
+      </div>
+    </div>
+  )
+}
+
+export const MUI_브레드크럼_네비게이션_앱바: Story = {
+  name: 'MUI — 브레드크럼 네비게이션 앱바 (계층 이동)',
+  parameters: {
+    docs: {
+      description: {
+        story: 'MUI Breadcrumbs + AppBar 조합 패턴. 계층 탐색 시 브레드크럼 동적 생성, 뒤로가기 버튼, 다음 단계 진행 버튼. 관리자 패널이나 문서 시스템에서 활용.',
+      },
+    },
+  },
+  render: () => <MUIBreadcrumbAppBarRender />,
+}
+
+function VercelMUISearchAppBarRender() {
+  const [query, setQuery] = useState('')
+  const [focused, setFocused] = useState(false)
+  const items = ['AppBar', 'Avatar', 'Breadcrumb', 'Calendar', 'Checkbox', 'DataTable', 'Divider', 'Dropdown', 'Editor', 'Loading', 'Modal', 'Progress', 'Slider', 'Switch', 'TextField', 'Toggle']
+  const filtered = query.length > 0 ? items.filter((i) => i.toLowerCase().startsWith(query.toLowerCase())) : []
+
+  return (
+    <div style={{ width: 440, position: 'relative' }}>
+      <AppBar>
+        <AppBar.Leading>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            <div style={{ width: 22, height: 22, borderRadius: 5, background: 'linear-gradient(135deg, #6366f1, #8b5cf6)' }} />
+            <span style={{ fontSize: 13, fontWeight: 700, color: '#0f172a' }}>Orbit UI</span>
+          </div>
+        </AppBar.Leading>
+        <AppBar.Center>
+          <div style={{ position: 'relative', width: '100%' }}>
+            <input
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              onFocus={() => setFocused(true)}
+              onBlur={() => setTimeout(() => setFocused(false), 150)}
+              placeholder="컴포넌트 검색..."
+              style={{ width: '100%', padding: '5px 10px 5px 30px', borderRadius: 7, border: `1px solid ${focused ? '#6366f1' : '#e2e8f0'}`, background: '#f8fafc', fontSize: 12, outline: 'none', boxSizing: 'border-box', transition: 'border-color 150ms' }}
+            />
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" style={{ position: 'absolute', left: 10, top: '50%', transform: 'translateY(-50%)', color: '#94a3b8' }}><circle cx="11" cy="11" r="8" stroke="currentColor" strokeWidth="2"/><path d="m21 21-4.35-4.35" stroke="currentColor" strokeWidth="2"/></svg>
+          </div>
+        </AppBar.Center>
+        <AppBar.Trailing>
+          <span style={{ fontSize: 10, padding: '2px 6px', borderRadius: 5, border: '1px solid #e2e8f0', color: '#94a3b8', fontFamily: 'monospace' }}>⌘K</span>
+        </AppBar.Trailing>
+      </AppBar>
+      {focused && filtered.length > 0 && (
+        <div style={{ position: 'absolute', top: '100%', left: 0, right: 0, background: '#fff', border: '1px solid #e2e8f0', borderRadius: '0 0 10px 10px', boxShadow: '0 8px 24px rgba(0,0,0,0.08)', zIndex: 10 }}>
+          {filtered.slice(0, 5).map((item) => (
+            <div key={item} onMouseDown={() => setQuery(item)} style={{ padding: '9px 16px', cursor: 'pointer', fontSize: 13, color: '#0f172a', display: 'flex', alignItems: 'center', gap: 8 }}>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="3" stroke="#94a3b8" strokeWidth="2"/></svg>
+              {item}
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  )
+}
+
+export const Vercel_MUI_검색_앱바: Story = {
+  name: 'Vercel + MUI — 인라인 검색 앱바 (컴포넌트 자동완성)',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Vercel + MUI 검색 AppBar 패턴. 입력 시 컴포넌트 이름 자동완성 드롭다운, 포커스 시 border 색 전환, ⌘K 단축키 뱃지 표시.',
+      },
+    },
+  },
+  render: () => <VercelMUISearchAppBarRender />,
+}

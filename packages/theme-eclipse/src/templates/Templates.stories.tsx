@@ -38847,3 +38847,172 @@ export const LinearTailwind173ProjectDashboard: StoryObj = {
   },
   render: () => <LinearTailwind173ProjectDashboardRender />,
 }
+
+// ──────────────────────────────────────────────────────────────────────────────
+// Cycle 174: Vercel Design + MUI — Deployment Center
+// ──────────────────────────────────────────────────────────────────────────────
+
+function VercelMUI174DeploymentCenterRender() {
+  const [buildStep, setBuildStep] = useState(0)
+  const [activeEnv, setActiveEnv] = useState<'production' | 'preview' | 'development'>('production')
+  const [searchQ, setSearchQ] = useState('')
+
+  const buildSteps = ['Cloning', 'Installing', 'Building', 'Uploading', 'Ready']
+  React.useEffect(() => {
+    if (buildStep < buildSteps.length - 1) {
+      const t = setTimeout(() => setBuildStep((s) => s + 1), 900)
+      return () => clearTimeout(t)
+    }
+  }, [buildStep, buildSteps.length])
+
+  const deployments = [
+    { id: 'dpl_abc123', branch: 'main', commit: '49a55fd', msg: 'feat(stories): Cycle 173', env: 'production', status: 'Ready', age: '2분', duration: '51s' },
+    { id: 'dpl_def456', branch: 'feat/cycle-172', commit: '2916f03', msg: 'feat(stories): Cycle 172', env: 'preview', status: 'Ready', age: '20분', duration: '49s' },
+    { id: 'dpl_ghi789', branch: 'feat/cycle-171', commit: '159a7f7', msg: 'feat(stories): Cycle 171', env: 'preview', status: 'Ready', age: '38분', duration: '52s' },
+    { id: 'dpl_jkl012', branch: 'fix/accordion-args', commit: '089e2fc', msg: 'fix: accordion args', env: 'development', status: 'Error', age: '55분', duration: '12s' },
+    { id: 'dpl_mno345', branch: 'main', commit: '9e700f4', msg: 'fix: storybook switch ref', env: 'production', status: 'Ready', age: '2시간', duration: '48s' },
+  ]
+
+  const envColors = { production: '#16a34a', preview: '#d97706', development: '#3b82f6' }
+  const statusColors = { Ready: '#16a34a', Error: '#ef4444', Building: '#3b82f6' }
+
+  const filtered = deployments.filter((d) => {
+    const envMatch = activeEnv === 'production' ? d.env === 'production' : activeEnv === 'preview' ? d.env === 'preview' : true
+    const searchMatch = !searchQ || d.msg.toLowerCase().includes(searchQ.toLowerCase()) || d.branch.includes(searchQ)
+    return envMatch && searchMatch
+  })
+
+  const envStats = {
+    production: deployments.filter((d) => d.env === 'production' && d.status === 'Ready').length,
+    preview: deployments.filter((d) => d.env === 'preview' && d.status === 'Ready').length,
+    development: deployments.filter((d) => d.status !== 'Error').length,
+  }
+
+  return (
+    <div style={{ minHeight: '100vh', background: '#0f172a', display: 'flex', flexDirection: 'column', fontFamily: 'system-ui, -apple-system, sans-serif', color: '#f1f5f9' }}>
+      {/* AppBar-style header */}
+      <div style={{ height: 52, borderBottom: '1px solid #1e293b', display: 'flex', alignItems: 'center', padding: '0 24px', gap: 16, background: '#0a0f1e' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="#f1f5f9"><path fillRule="evenodd" d="M12 2L2 19.5h20L12 2z"/></svg>
+          <span style={{ fontSize: 14, fontWeight: 700 }}>blue45f</span>
+          <span style={{ color: '#334155' }}>/</span>
+          <span style={{ fontSize: 14, color: '#94a3b8' }}>orbit-ui</span>
+        </div>
+        <div style={{ flex: 1, display: 'flex', justifyContent: 'center' }}>
+          <div style={{ position: 'relative', width: 280 }}>
+            <input
+              value={searchQ}
+              onChange={(e) => setSearchQ(e.target.value)}
+              placeholder="배포 검색..."
+              style={{ width: '100%', padding: '5px 10px 5px 28px', borderRadius: 7, border: '1px solid #334155', background: '#1e293b', color: '#f1f5f9', fontSize: 12, outline: 'none', boxSizing: 'border-box' }}
+            />
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" style={{ position: 'absolute', left: 9, top: '50%', transform: 'translateY(-50%)' }}><circle cx="11" cy="11" r="8" stroke="#64748b" strokeWidth="2"/><path d="m21 21-4.35-4.35" stroke="#64748b" strokeWidth="2"/></svg>
+          </div>
+        </div>
+        <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+          {buildStep < buildSteps.length - 1 && <Loading />}
+          <span style={{ fontSize: 11, color: buildStep < buildSteps.length - 1 ? '#3b82f6' : '#22c55e', fontWeight: 600 }}>{buildSteps[buildStep]}</span>
+        </div>
+      </div>
+
+      <div style={{ flex: 1, padding: '24px', display: 'flex', gap: 20 }}>
+        {/* Main content */}
+        <div style={{ flex: 1 }}>
+          {/* Env filter */}
+          <div style={{ display: 'flex', gap: 8, marginBottom: 16 }}>
+            {(['production', 'preview', 'development'] as const).map((env) => (
+              <button
+                key={env}
+                onClick={() => setActiveEnv(env)}
+                style={{ padding: '5px 14px', borderRadius: 8, border: `1px solid ${activeEnv === env ? envColors[env] : '#334155'}`, background: activeEnv === env ? `${envColors[env]}20` : 'transparent', color: activeEnv === env ? envColors[env] : '#64748b', fontSize: 12, fontWeight: 600, cursor: 'pointer', transition: 'all 150ms', display: 'flex', alignItems: 'center', gap: 6 }}
+              >
+                <div style={{ width: 6, height: 6, borderRadius: 3, background: envColors[env] }} />
+                {env === 'production' ? 'Production' : env === 'preview' ? 'Preview' : 'All'}
+                <span style={{ fontSize: 10, padding: '1px 5px', borderRadius: 99, background: '#1e293b', color: '#94a3b8' }}>{envStats[env]}</span>
+              </button>
+            ))}
+          </div>
+
+          {/* Deployments table */}
+          <div style={{ background: '#0a0f1e', borderRadius: 10, border: '1px solid #1e293b', overflow: 'hidden' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: '120px 1fr 80px 80px 60px', padding: '8px 16px', borderBottom: '1px solid #1e293b', fontSize: 11, color: '#475569', fontWeight: 600 }}>
+              <span>배포 ID</span><span>커밋</span><span>환경</span><span>상태</span><span>시간</span>
+            </div>
+            {filtered.map((dep) => (
+              <div key={dep.id} style={{ display: 'grid', gridTemplateColumns: '120px 1fr 80px 80px 60px', padding: '12px 16px', borderBottom: '1px solid #0f172a', alignItems: 'center' }}>
+                <span style={{ fontSize: 11, fontFamily: 'monospace', color: '#64748b' }}>{dep.id}</span>
+                <div>
+                  <div style={{ fontSize: 12, color: '#f1f5f9', marginBottom: 2 }}>{dep.msg}</div>
+                  <div style={{ fontSize: 10, color: '#475569' }}>{dep.branch} · {dep.commit}</div>
+                </div>
+                <span style={{ fontSize: 10, padding: '2px 7px', borderRadius: 99, background: `${envColors[dep.env as keyof typeof envColors]}20`, color: envColors[dep.env as keyof typeof envColors], fontWeight: 600 }}>{dep.env === 'production' ? 'Prod' : dep.env === 'preview' ? 'Prev' : 'Dev'}</span>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
+                  <div style={{ width: 6, height: 6, borderRadius: 3, background: statusColors[dep.status as keyof typeof statusColors] }} />
+                  <span style={{ fontSize: 11, color: statusColors[dep.status as keyof typeof statusColors] }}>{dep.status}</span>
+                </div>
+                <span style={{ fontSize: 11, color: '#475569' }}>{dep.age}</span>
+              </div>
+            ))}
+            {filtered.length === 0 && (
+              <div style={{ padding: '24px', textAlign: 'center', fontSize: 13, color: '#475569' }}>배포 없음</div>
+            )}
+          </div>
+        </div>
+
+        {/* Right sidebar */}
+        <div style={{ width: 240, display: 'flex', flexDirection: 'column', gap: 12 }}>
+          {/* Build pipeline */}
+          <div style={{ background: '#0a0f1e', borderRadius: 10, border: '1px solid #1e293b', padding: 14 }}>
+            <div style={{ fontSize: 12, fontWeight: 700, marginBottom: 10 }}>현재 빌드</div>
+            {buildSteps.map((s, i) => (
+              <div key={s} style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 7 }}>
+                <div style={{ width: 16, height: 16, borderRadius: 8, background: i < buildStep ? '#22c55e20' : i === buildStep && buildStep < buildSteps.length - 1 ? '#3b82f620' : '#1e293b', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                  {i < buildStep ? <span style={{ fontSize: 9, color: '#22c55e' }}>✓</span> : i === buildStep && buildStep < buildSteps.length - 1 ? <div style={{ width: 4, height: 4, borderRadius: 2, background: '#3b82f6' }} /> : null}
+                </div>
+                <span style={{ fontSize: 11, color: i < buildStep ? '#22c55e' : i === buildStep && buildStep < buildSteps.length - 1 ? '#f1f5f9' : '#334155' }}>{s}</span>
+              </div>
+            ))}
+          </div>
+
+          {/* Domains */}
+          <div style={{ background: '#0a0f1e', borderRadius: 10, border: '1px solid #1e293b', padding: 14 }}>
+            <div style={{ fontSize: 12, fontWeight: 700, marginBottom: 10 }}>도메인</div>
+            {[{ domain: 'orbit-ui.vercel.app', ssl: true, primary: true }, { domain: 'orbit-ui-git-main.vercel.app', ssl: true, primary: false }].map((d) => (
+              <div key={d.domain} style={{ marginBottom: 8 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                  {d.primary && <span style={{ fontSize: 9, padding: '1px 5px', borderRadius: 99, background: '#6366f120', color: '#818cf8', fontWeight: 600 }}>PRIMARY</span>}
+                  {d.ssl && <span style={{ fontSize: 9, color: '#22c55e' }}>🔒</span>}
+                </div>
+                <div style={{ fontSize: 11, color: '#94a3b8', fontFamily: 'monospace', marginTop: 2 }}>{d.domain}</div>
+              </div>
+            ))}
+          </div>
+
+          {/* Stats */}
+          <div style={{ background: '#0a0f1e', borderRadius: 10, border: '1px solid #1e293b', padding: 14 }}>
+            <div style={{ fontSize: 12, fontWeight: 700, marginBottom: 10 }}>배포 통계</div>
+            {[{ label: '총 배포', value: '174' }, { label: '성공률', value: '98%' }, { label: '평균 빌드', value: '50s' }].map((s) => (
+              <div key={s.label} style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8, fontSize: 12 }}>
+                <span style={{ color: '#64748b' }}>{s.label}</span>
+                <span style={{ color: '#f1f5f9', fontWeight: 600 }}>{s.value}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const VercelMUI174DeploymentCenter: StoryObj = {
+  name: 'Vercel + MUI — 배포 센터 (AppBar 검색 + 환경 필터 + 빌드 파이프라인)',
+  parameters: {
+    layout: 'fullscreen',
+    docs: {
+      description: {
+        story: 'Vercel + MUI 복합 패턴. AppBar 인라인 검색 + 환경 탭 필터 + Loading 빌드 진행. 배포 목록 테이블, 빌드 파이프라인 사이드바, 도메인 + 통계 위젯.',
+      },
+    },
+  },
+  render: () => <VercelMUI174DeploymentCenterRender />,
+}
