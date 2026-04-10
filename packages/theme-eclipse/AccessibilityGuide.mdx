@@ -678,5 +678,84 @@ import { Meta, Unstyled } from '@storybook/blocks'
       </div>
     </section>
 
+    {/* ================================================================
+        Cycle 60: Raycast + Notion 접근성 패턴
+        ================================================================ */}
+    <section style={{ marginBottom: '64px' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '32px' }}>
+        <div style={{ width: '4px', height: '48px', borderRadius: '2px', background: 'linear-gradient(180deg, #f43f5e, #ec4899)' }} />
+        <div>
+          <div style={{ fontSize: '22px', fontWeight: '800', color: '#0f172a' }}>Raycast + Notion 접근성 패턴</div>
+          <div style={{ fontSize: '13px', color: '#64748b', marginTop: '4px' }}>Cycle 60 — 키보드 중심 UX / 인라인 편집 / 포커스 관리</div>
+        </div>
+      </div>
+
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '20px', marginBottom: '32px' }}>
+        <div style={{ padding: '24px', borderRadius: '16px', background: '#1c0a2e', border: '1px solid #4a1d96' }}>
+          <div style={{ fontSize: '11px', fontWeight: '700', color: '#c4b5fd', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '12px' }}>Raycast</div>
+          <div style={{ fontSize: '16px', fontWeight: '700', color: '#faf5ff', marginBottom: '14px' }}>키보드 퍼스트 인터랙션</div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '13px', color: '#ddd6fe', lineHeight: '1.6' }}>
+            <div>모든 액션이 키보드 단축키와 1:1로 매핑 — 마우스 없이 완전한 조작 가능</div>
+            <div>Focus trap을 커맨드 팔레트 내에 완전히 격리, Escape로 일관된 닫기</div>
+            <div>결과 리스트에 aria-activedescendant + role="listbox" 패턴 구현</div>
+          </div>
+        </div>
+        <div style={{ padding: '24px', borderRadius: '16px', background: '#0a1628', border: '1px solid #1e3a5f' }}>
+          <div style={{ fontSize: '11px', fontWeight: '700', color: '#93c5fd', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '12px' }}>Notion</div>
+          <div style={{ fontSize: '16px', fontWeight: '700', color: '#eff6ff', marginBottom: '14px' }}>인라인 편집 포커스 패턴</div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '13px', color: '#bfdbfe', lineHeight: '1.6' }}>
+            <div>블록 클릭 시 자동 포커스 이동, contentEditable 요소에 커서 위치 보존</div>
+            <div>슬래시 커맨드 팝업이 열릴 때 포커스를 입력 필드로 이동, 닫힐 때 원래 위치로 복귀</div>
+            <div>사이드바 탭 네비게이션에 role="tree", aria-expanded로 계층 구조 표현</div>
+          </div>
+        </div>
+      </div>
+
+      <div style={{ borderRadius: '12px', border: '1px solid #e2e8f0', overflow: 'hidden', marginBottom: '24px' }}>
+        <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px' }}>
+          <thead>
+            <tr style={{ background: '#f8fafc' }}>
+              {['컴포넌트', 'ARIA 속성', 'Raycast 패턴', 'Notion 패턴', 'Orbit UI 구현'].map((h) => (
+                <th key={h} style={{ padding: '12px 16px', textAlign: 'left', fontWeight: '700', color: '#475569', borderBottom: '2px solid #e2e8f0' }}>{h}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {[
+              ['GhostButton', 'role="button"', '커맨드 리스트 항목 트리거', '인라인 툴바 토글 버튼', 'onClick + style 변환'],
+              ['Tab (TabItem)', 'role="tab"', '검색 결과 카테고리 분류', '사이드바 페이지 트리', 'selected prop + Tab.Leading/Trailing'],
+              ['Command', 'role="listbox"', '전체 커맨드 팔레트 루트', '슬래시 커맨드 드롭다운', 'Command.Input + Command.Item'],
+              ['Calendar', 'role="grid"', '일정 날짜 선택 팝오버', '마감일 인라인 날짜 선택', 'mode="single" + disabled'],
+              ['Chip', 'role="button"', '카테고리 필터 토글', '태그 인라인 편집', 'selected prop + onClick'],
+            ].map((row, i) => (
+              <tr key={i} style={{ background: i % 2 === 0 ? '#fff' : '#fafafa' }}>
+                {row.map((cell, j) => (
+                  <td key={j} style={{ padding: '10px 16px', color: j === 4 ? '#4f46e5' : '#334155', borderBottom: '1px solid #f1f5f9', fontWeight: j === 0 ? 700 : 400 }}>{cell}</td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <div style={{ padding: '20px', borderRadius: '12px', background: 'linear-gradient(135deg, #fdf4ff, #fce7f3)', border: '2px solid #f0abfc' }}>
+        <div style={{ fontSize: '13px', fontWeight: '700', color: '#701a75', marginBottom: '12px' }}>Orbit UI 반영 결과 (Cycle 60)</div>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '12px', fontSize: '12px', color: '#374151', lineHeight: '1.7' }}>
+          <div>
+            <div style={{ fontWeight: '700', color: '#a21caf', marginBottom: '4px' }}>GhostButton +3 스토리</div>
+            Notion 블록 에디터 포맷 툴바, Raycast 명령어 액션 팔레트, Linear 뷰 전환 액션 툴바 추가.
+          </div>
+          <div>
+            <div style={{ fontWeight: '700', color: '#a21caf', marginBottom: '4px' }}>TabItem +3 스토리</div>
+            shadcn 배지 카운터 탭, Notion 사이드바 페이지 탭, Raycast 검색 결과 카테고리 탭 추가.
+          </div>
+          <div>
+            <div style={{ fontWeight: '700', color: '#a21caf', marginBottom: '4px' }}>TravelBooking 템플릿</div>
+            Chip 필터 + Slider 예산 + Calendar 날짜 + Avatar/LabelBadge 조합 여행 예약 앱 추가.
+          </div>
+        </div>
+      </div>
+    </section>
+
   </div>
 </Unstyled>

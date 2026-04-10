@@ -761,3 +761,283 @@ export const Vercel_콤팩트_대시보드_탭: Story = {
   },
   render: () => <VercelCompactTabs />,
 }
+
+/* --------------------------------------------------------------------------
+   shadcn/ui 벤치마크: 배지 카운터 탭 그룹 패턴
+   shadcn Tabs: 각 탭에 CounterBadge로 항목 수를 표시하는 실무 패턴
+-------------------------------------------------------------------------- */
+type ShadcnTabId = 'open' | 'in-review' | 'merged' | 'closed'
+
+const SHADCN_TAB_DATA: { id: ShadcnTabId; label: string; count: number; color: string }[] = [
+  { id: 'open', label: 'Open', count: 12, color: '#10b981' },
+  { id: 'in-review', label: 'In Review', count: 5, color: '#f59e0b' },
+  { id: 'merged', label: 'Merged', count: 48, color: '#6366f1' },
+  { id: 'closed', label: 'Closed', count: 7, color: '#94a3b8' },
+]
+
+const SHADCN_MOCK_PRS: Record<ShadcnTabId, string[]> = {
+  open: ['feat: Calendar Radix 접근성 패턴', 'feat: GhostButton Raycast 팔레트', 'fix: Chip size prop 제거'],
+  'in-review': ['feat: Template TravelBooking', 'docs: BenchmarkComparison Mantine'],
+  merged: ['feat: cycle-59 완료 (Mantine+Ant)', 'feat: cycle-58 MUI+Chakra', 'feat: cycle-57 M3+Figma'],
+  closed: ['fix: PasswordField onChange 타입', 'fix: OutlineIconButton Story annotation'],
+}
+
+function ShadcnBadgeTabsRender() {
+  const [active, setActive] = useState<ShadcnTabId>('open')
+  const items = SHADCN_MOCK_PRS[active]
+
+  return (
+    <div style={{ width: 480, border: '1px solid #e2e8f0', borderRadius: 14, overflow: 'hidden', background: '#fff' }}>
+      {/* Tab row */}
+      <div style={{ display: 'flex', padding: '0 12px', borderBottom: '1px solid #f1f5f9', background: '#fafafa' }}>
+        {SHADCN_TAB_DATA.map((tab) => (
+          <Tab
+            key={tab.id}
+            selected={active === tab.id}
+            onClick={() => setActive(tab.id)}
+          >
+            <Tab.Center>{tab.label}</Tab.Center>
+            <Tab.Trailing>
+              <span style={{
+                padding: '1px 7px', borderRadius: 10,
+                background: active === tab.id ? tab.color : '#f1f5f9',
+                color: active === tab.id ? '#fff' : '#64748b',
+                fontSize: 10, fontWeight: 700,
+                transition: 'all 0.15s',
+              }}>
+                {tab.count}
+              </span>
+            </Tab.Trailing>
+          </Tab>
+        ))}
+      </div>
+
+      {/* Content */}
+      <div style={{ padding: '14px 16px', display: 'flex', flexDirection: 'column', gap: 8 }}>
+        {items.map((pr) => (
+          <div key={pr} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '8px 10px', borderRadius: 8, background: '#f8fafc', border: '1px solid #f1f5f9' }}>
+            <span style={{ width: 8, height: 8, borderRadius: '50%', background: SHADCN_TAB_DATA.find((t) => t.id === active)?.color, flexShrink: 0 }} />
+            <span style={{ fontSize: 12, color: '#1e293b' }}>{pr}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+export const Shadcn_배지_카운터_탭_그룹: Story = {
+  name: 'shadcn/ui - 배지 카운터 탭 그룹 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'shadcn/ui Tabs + Badge 조합 패턴. 각 탭의 Trailing 슬롯에 카운터 배지를 삽입, ' +
+          '선택 시 배지 배경색이 탭 고유 색상으로 전환됩니다. PR/이슈 목록 분류에 적합.',
+      },
+    },
+  },
+  render: () => <ShadcnBadgeTabsRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Notion 벤치마크: 사이드바 페이지 탭 네비게이션 패턴
+   Notion 좌측 사이드바의 페이지 계층 탭 — depth에 따른 들여쓰기, 호버 액션
+-------------------------------------------------------------------------- */
+type NotionPage = {
+  id: string
+  title: string
+  icon: string
+  depth: number
+  hasChildren: boolean
+  unread: boolean
+}
+
+const NOTION_PAGES: NotionPage[] = [
+  { id: 'p1', title: 'Orbit UI 문서', icon: 'O', depth: 0, hasChildren: true, unread: false },
+  { id: 'p2', title: 'GettingStarted', icon: 'G', depth: 1, hasChildren: false, unread: true },
+  { id: 'p3', title: 'ThemeGuide', icon: 'T', depth: 1, hasChildren: false, unread: false },
+  { id: 'p4', title: 'BenchmarkComparison', icon: 'B', depth: 1, hasChildren: false, unread: true },
+  { id: 'p5', title: 'Components', icon: 'C', depth: 0, hasChildren: true, unread: false },
+  { id: 'p6', title: 'Button 계열', icon: 'b', depth: 1, hasChildren: false, unread: false },
+  { id: 'p7', title: 'Form 계열', icon: 'f', depth: 1, hasChildren: false, unread: false },
+]
+
+function NotionSidebarTabsRender() {
+  const [activePage, setActivePage] = useState<string>('p1')
+  const [hovered, setHovered] = useState<string | null>(null)
+
+  return (
+    <div style={{ width: 240, border: '1px solid #e2e8f0', borderRadius: 12, overflow: 'hidden', background: '#fff' }}>
+      <div style={{ padding: '10px 8px', borderBottom: '1px solid #f1f5f9', fontSize: 11, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+        워크스페이스
+      </div>
+      <div style={{ padding: '6px 4px', display: 'flex', flexDirection: 'column', gap: 1 }}>
+        {NOTION_PAGES.map((page) => (
+          <div
+            key={page.id}
+            style={{ paddingLeft: page.depth * 16 }}
+            onMouseEnter={() => setHovered(page.id)}
+            onMouseLeave={() => setHovered(null)}
+          >
+            <Tab
+              selected={activePage === page.id}
+              onClick={() => setActivePage(page.id)}
+              
+            >
+              <Tab.Leading>
+                <span style={{
+                  width: 20, height: 20, borderRadius: 4,
+                  background: activePage === page.id ? '#ede9fe' : '#f1f5f9',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  fontSize: 10, fontWeight: 800, color: activePage === page.id ? '#6366f1' : '#64748b',
+                  flexShrink: 0,
+                }}>
+                  {page.icon}
+                </span>
+              </Tab.Leading>
+              <Tab.Center>
+                <span style={{ fontSize: 13, fontWeight: page.unread ? 700 : 400 }}>
+                  {page.title}
+                </span>
+              </Tab.Center>
+              <Tab.Trailing>
+                {page.unread && hovered !== page.id && (
+                  <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#6366f1', display: 'inline-block' }} />
+                )}
+                {hovered === page.id && (
+                  <span style={{ fontSize: 14, color: '#94a3b8', fontWeight: 700, lineHeight: 1 }}>+</span>
+                )}
+              </Tab.Trailing>
+            </Tab>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+export const Notion_사이드바_페이지_탭: Story = {
+  name: 'Notion - 사이드바 페이지 탭 네비게이션 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Notion 좌측 사이드바 페이지 탭 패턴. depth에 따른 들여쓰기, 호버 시 "+" 액션 표시, ' +
+          '미읽음 페이지 파란 점 + 굵은 글씨, Leading 슬롯에 페이지 아이콘.',
+      },
+    },
+  },
+  render: () => <NotionSidebarTabsRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Raycast 벤치마크: 검색 결과 카테고리 탭 패턴
+   Raycast Search: 검색 결과를 카테고리별로 분류하는 수평 탭 패턴
+-------------------------------------------------------------------------- */
+type RaycastCategory = 'all' | 'apps' | 'files' | 'commands' | 'web'
+
+const RAYCAST_CATEGORIES: { id: RaycastCategory; label: string; count: number; icon: string }[] = [
+  { id: 'all', label: 'All', count: 18, icon: '*' },
+  { id: 'apps', label: 'Apps', count: 4, icon: 'A' },
+  { id: 'files', label: 'Files', count: 6, icon: 'F' },
+  { id: 'commands', label: 'Commands', count: 5, icon: 'C' },
+  { id: 'web', label: 'Web', count: 3, icon: 'W' },
+]
+
+const RAYCAST_RESULTS: Record<RaycastCategory, string[]> = {
+  all: ['Storybook Dev', 'orbit-ui/packages', 'pnpm typecheck', 'Mantine Docs', 'Linear Issue ORB-312'],
+  apps: ['Storybook Dev', 'WebStorm', 'Terminal', 'Figma'],
+  files: ['Templates.stories.tsx', 'GhostButton.stories.tsx', 'BenchmarkComparison.mdx', 'CLAUDE.md', 'pnpm-lock.yaml', 'tsconfig.json'],
+  commands: ['pnpm typecheck', 'pnpm lint', 'git commit', 'vercel deploy', 'pnpm build:storybook'],
+  web: ['Mantine Docs', 'Linear Issue ORB-312', 'Vercel Dashboard'],
+}
+
+function RaycastSearchTabsRender() {
+  const [activeTab, setActiveTab] = useState<RaycastCategory>('all')
+  const results = RAYCAST_RESULTS[activeTab]
+
+  return (
+    <div style={{
+      width: 440, borderRadius: 16, overflow: 'hidden',
+      border: '1px solid #27272a', background: '#09090b',
+      boxShadow: '0 24px 48px rgba(0,0,0,0.5)',
+    }}>
+      {/* Search */}
+      <div style={{ padding: '12px 16px', borderBottom: '1px solid #27272a', display: 'flex', alignItems: 'center', gap: 10 }}>
+        <svg width={14} height={14} viewBox="0 0 24 24" fill="none" stroke="#52525b" strokeWidth={2.5}>
+          <circle cx={11} cy={11} r={8} /><path d="m21 21-4.35-4.35" />
+        </svg>
+        <span style={{ flex: 1, fontSize: 14, color: '#e4e4e7' }}>orbit</span>
+      </div>
+
+      {/* Category tabs */}
+      <div style={{ display: 'flex', padding: '0 8px', borderBottom: '1px solid #27272a', background: '#0c0c0e' }}>
+        {RAYCAST_CATEGORIES.map((cat) => (
+          <Tab
+            key={cat.id}
+            selected={activeTab === cat.id}
+            onClick={() => setActiveTab(cat.id)}
+          >
+            <Tab.Center>
+              <span style={{ fontSize: 12 }}>{cat.label}</span>
+            </Tab.Center>
+            <Tab.Trailing>
+              <span style={{
+                fontSize: 10, fontWeight: 700,
+                padding: '1px 5px', borderRadius: 8,
+                background: activeTab === cat.id ? '#27272a' : 'transparent',
+                color: activeTab === cat.id ? '#a1a1aa' : '#3f3f46',
+              }}>
+                {cat.count}
+              </span>
+            </Tab.Trailing>
+          </Tab>
+        ))}
+      </div>
+
+      {/* Results */}
+      <div style={{ display: 'flex', flexDirection: 'column' }}>
+        {results.map((result, i) => (
+          <div
+            key={result}
+            style={{
+              display: 'flex', alignItems: 'center', gap: 10,
+              padding: '9px 16px',
+              background: i === 0 ? '#18181b' : 'transparent',
+              borderBottom: i < results.length - 1 ? '1px solid #18181b' : 'none',
+              cursor: 'pointer',
+            }}
+          >
+            <span style={{
+              width: 24, height: 24, borderRadius: 5, background: '#27272a',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              fontSize: 10, color: '#71717a', fontWeight: 700, flexShrink: 0,
+            }}>
+              {RAYCAST_CATEGORIES.find((c) => c.id === activeTab)?.icon ?? '*'}
+            </span>
+            <span style={{ fontSize: 13, color: i === 0 ? '#e4e4e7' : '#a1a1aa' }}>{result}</span>
+          </div>
+        ))}
+      </div>
+
+      <div style={{ padding: '8px 16px', borderTop: '1px solid #27272a', fontSize: 10, color: '#3f3f46', display: 'flex', gap: 12 }}>
+        <span><kbd style={{ padding: '1px 4px', background: '#18181b', borderRadius: 3, border: '1px solid #27272a', color: '#71717a' }}>Enter</kbd> 열기</span>
+        <span><kbd style={{ padding: '1px 4px', background: '#18181b', borderRadius: 3, border: '1px solid #27272a', color: '#71717a' }}>Tab</kbd> 미리보기</span>
+      </div>
+    </div>
+  )
+}
+
+export const Raycast_검색_결과_카테고리_탭: Story = {
+  name: 'Raycast - 검색 결과 카테고리 탭 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Raycast 검색 결과 카테고리 탭 패턴. 다크 배경, 탭별 결과 수 카운트, ' +
+          '선택된 첫 번째 결과 하이라이트, 키보드 단축키 힌트 푸터.',
+      },
+    },
+  },
+  render: () => <RaycastSearchTabsRender />,
+}

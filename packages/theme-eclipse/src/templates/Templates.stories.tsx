@@ -14732,3 +14732,239 @@ export const InvoiceApp: Story = {
   },
   render: () => <InvoiceAppRender />,
 }
+
+/* ========================================================================
+   Template 50: TravelBooking
+   Raycast + Notion 벤치마크 — 여행 예약 앱 UI
+   컴포넌트: Calendar, Slider, Chip, Avatar, Progress, SolidButton, OutlineButton, LabelBadge, CounterBadge
+   ======================================================================== */
+type TBDestination = {
+  id: string
+  name: string
+  country: string
+  price: number
+  rating: number
+  reviewCount: number
+  nights: number
+  tag: 'hot' | 'new' | 'sale'
+  tagColor: 'sale' | 'benefit' | 'gray'
+  initial: string
+  avatarColor: string
+}
+
+const TB_DESTINATIONS: TBDestination[] = [
+  { id: 'd1', name: '교토', country: '일본', price: 480000, rating: 4.9, reviewCount: 312, nights: 3, tag: 'hot', tagColor: 'sale', initial: 'KY', avatarColor: '#e879f9' },
+  { id: 'd2', name: '방콕', country: '태국', price: 320000, rating: 4.7, reviewCount: 198, nights: 4, tag: 'sale', tagColor: 'sale', initial: 'BK', avatarColor: '#f97316' },
+  { id: 'd3', name: '바르셀로나', country: '스페인', price: 890000, rating: 4.8, reviewCount: 241, nights: 5, tag: 'new', tagColor: 'benefit', initial: 'BC', avatarColor: '#14b8a6' },
+  { id: 'd4', name: '세부', country: '필리핀', price: 420000, rating: 4.6, reviewCount: 156, nights: 4, tag: 'hot', tagColor: 'sale', initial: 'CB', avatarColor: '#6366f1' },
+]
+
+const TB_CATEGORIES = ['전체', '아시아', '유럽', '오세아니아', '아메리카'] as const
+type TBCategory = typeof TB_CATEGORIES[number]
+
+const tbColors = { bg: '#f8fafc', card: '#ffffff', border: '#e2e8f0', text: '#1e293b', textSub: '#64748b', textMuted: '#94a3b8', accent: '#6366f1' }
+
+function TravelBookingRender() {
+  const [category, setCategory] = useState<TBCategory>('전체')
+  const [budget, setBudget] = useState(800)
+  const [selected, setSelected] = useState<string | null>(null)
+  const [step, setStep] = useState<'browse' | 'detail' | 'confirm'>('browse')
+  const [checkIn, setCheckIn] = useState<Date | undefined>()
+
+  const filtered = TB_DESTINATIONS.filter((d) => {
+    if (category !== '전체') {
+      const asiaCountries = ['일본', '태국', '필리핀']
+      const europeCountries = ['스페인']
+      if (category === '아시아' && !asiaCountries.includes(d.country)) return false
+      if (category === '유럽' && !europeCountries.includes(d.country)) return false
+      if (category === '오세아니아' || category === '아메리카') return false
+    }
+    return d.price <= budget * 1000
+  })
+
+  const dest = TB_DESTINATIONS.find((d) => d.id === selected)
+  const fmt = (n: number) => n.toLocaleString('ko-KR') + '원'
+  const fmtRating = (r: number) => r.toFixed(1)
+
+  if (step === 'confirm' && dest) {
+    return (
+      <div style={{ width: 400, padding: 32, borderRadius: 20, border: `1px solid ${tbColors.border}`, background: tbColors.card, textAlign: 'center', display: 'flex', flexDirection: 'column', gap: 16, alignItems: 'center' }}>
+        <div style={{ width: 56, height: 56, borderRadius: '50%', background: '#d1fae5', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <CheckIcon size={28} style={{ color: '#10b981' }} />
+        </div>
+        <div>
+          <div style={{ fontSize: 18, fontWeight: 800, color: tbColors.text }}>{dest.name} 예약 완료!</div>
+          <div style={{ fontSize: 13, color: tbColors.textSub, marginTop: 4 }}>
+            {checkIn ? checkIn.toLocaleDateString('ko-KR', { month: 'long', day: 'numeric' }) : '날짜 미정'} · {dest.nights}박 · {fmt(dest.price)}
+          </div>
+        </div>
+        <Progress value={100} />
+        <SolidButton color="gray" size="medium" onClick={() => { setStep('browse'); setSelected(null); setCheckIn(undefined) }}>
+          홈으로
+        </SolidButton>
+      </div>
+    )
+  }
+
+  if (step === 'detail' && dest) {
+    return (
+      <div style={{ width: 420, border: `1px solid ${tbColors.border}`, borderRadius: 20, overflow: 'hidden', background: tbColors.card }}>
+        {/* Hero */}
+        <div style={{ height: 120, background: `linear-gradient(135deg, ${dest.avatarColor}30, ${dest.avatarColor}60)`, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <div style={{ fontSize: 48, fontWeight: 800, color: dest.avatarColor, opacity: 0.4 }}>{dest.initial}</div>
+        </div>
+        <div style={{ padding: 20, display: 'flex', flexDirection: 'column', gap: 16 }}>
+          <div>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+              <div>
+                <div style={{ fontSize: 20, fontWeight: 800, color: tbColors.text }}>{dest.name}</div>
+                <div style={{ fontSize: 13, color: tbColors.textSub }}>{dest.country}</div>
+              </div>
+              <LabelBadge color={dest.tagColor}>
+                <LabelBadge.Label>{dest.tag.toUpperCase()}</LabelBadge.Label>
+              </LabelBadge>
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginTop: 8 }}>
+              <StarLineIcon size={14} style={{ color: '#f59e0b' }} />
+              <span style={{ fontSize: 13, fontWeight: 700, color: tbColors.text }}>{fmtRating(dest.rating)}</span>
+              <span style={{ fontSize: 12, color: tbColors.textMuted }}>({dest.reviewCount}개 리뷰)</span>
+            </div>
+          </div>
+          <Divider />
+          <div>
+            <div style={{ fontSize: 12, fontWeight: 700, color: tbColors.textSub, marginBottom: 8 }}>체크인 날짜 선택</div>
+            <Calendar
+              mode="single"
+              selected={checkIn}
+              onSelect={setCheckIn}
+              disabled={{ before: new Date() }}
+            />
+          </div>
+          <div style={{ padding: '12px 16px', borderRadius: 10, background: tbColors.bg, border: `1px solid ${tbColors.border}`, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div>
+              <div style={{ fontSize: 11, color: tbColors.textMuted }}>1인 기준 {dest.nights}박</div>
+              <div style={{ fontSize: 20, fontWeight: 800, color: tbColors.accent }}>{fmt(dest.price)}</div>
+            </div>
+            <CounterBadge>{dest.nights}</CounterBadge>
+          </div>
+          <div style={{ display: 'flex', gap: 8 }}>
+            <OutlineButton color="gray" size="medium" onClick={() => setStep('browse')}>
+              뒤로
+            </OutlineButton>
+            <SolidButton
+              color="primary"
+              size="medium"
+              disabled={!checkIn}
+              onClick={() => checkIn && setStep('confirm')}
+            >
+              예약하기
+            </SolidButton>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  return (
+    <div style={{ width: 480, display: 'flex', flexDirection: 'column', gap: 16, background: tbColors.bg, borderRadius: 20, padding: 20, border: `1px solid ${tbColors.border}` }}>
+      {/* Header */}
+      <div>
+        <div style={{ fontSize: 20, fontWeight: 800, color: tbColors.text }}>여행 예약</div>
+        <div style={{ fontSize: 13, color: tbColors.textSub, marginTop: 2 }}>어디로 떠나고 싶으신가요?</div>
+      </div>
+
+      {/* Budget Slider */}
+      <div style={{ padding: '12px 16px', background: tbColors.card, borderRadius: 12, border: `1px solid ${tbColors.border}` }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, fontWeight: 700, color: tbColors.textSub, marginBottom: 10 }}>
+          <span>예산 설정</span>
+          <span style={{ color: tbColors.accent }}>{(budget * 1000).toLocaleString('ko-KR')}원 이하</span>
+        </div>
+        <Slider
+          value={[budget]}
+          min={200}
+          max={1000}
+          step={50}
+          onValueChange={(v) => setBudget(v[0])}
+        />
+        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 10, color: tbColors.textMuted, marginTop: 4 }}>
+          <span>20만원</span>
+          <span>100만원</span>
+        </div>
+      </div>
+
+      {/* Category Chips */}
+      <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+        {TB_CATEGORIES.map((cat) => (
+          <Chip
+            key={cat}
+            selected={category === cat}
+            onClick={() => setCategory(cat)}
+          >
+            {cat}
+          </Chip>
+        ))}
+      </div>
+
+      {/* Destination Cards */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+        {filtered.length > 0 ? filtered.map((dest) => (
+          <div
+            key={dest.id}
+            onClick={() => { setSelected(dest.id); setStep('detail') }}
+            style={{
+              display: 'flex', alignItems: 'center', gap: 14,
+              padding: '14px', borderRadius: 12,
+              background: tbColors.card,
+              border: `1.5px solid ${tbColors.border}`,
+              cursor: 'pointer',
+              transition: 'all 0.15s',
+            }}
+          >
+            <Avatar>
+              <Avatar.Fallback style={{ background: dest.avatarColor + '30', color: dest.avatarColor }}>{dest.initial}</Avatar.Fallback>
+            </Avatar>
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                <div>
+                  <div style={{ fontSize: 14, fontWeight: 700, color: tbColors.text }}>{dest.name}</div>
+                  <div style={{ fontSize: 11, color: tbColors.textSub }}>{dest.country} · {dest.nights}박</div>
+                </div>
+                <LabelBadge color={dest.tagColor}>
+                  <LabelBadge.Label>{dest.tag.toUpperCase()}</LabelBadge.Label>
+                </LabelBadge>
+              </div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 8 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+                  <StarLineIcon size={12} style={{ color: '#f59e0b' }} />
+                  <span style={{ fontSize: 12, fontWeight: 700, color: tbColors.text }}>{fmtRating(dest.rating)}</span>
+                  <span style={{ fontSize: 11, color: tbColors.textMuted }}>({dest.reviewCount})</span>
+                </div>
+                <span style={{ fontSize: 14, fontWeight: 800, color: tbColors.accent }}>{fmt(dest.price)}</span>
+              </div>
+            </div>
+            <ArrowRightIcon size={16} style={{ color: tbColors.textMuted, flexShrink: 0 }} />
+          </div>
+        )) : (
+          <div style={{ padding: '24px', textAlign: 'center', fontSize: 13, color: tbColors.textMuted, border: `1px dashed ${tbColors.border}`, borderRadius: 12 }}>
+            예산에 맞는 여행지가 없습니다
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+
+export const TravelBooking: Story = {
+  name: 'Travel Booking (Raycast + Notion 벤치마크)',
+  parameters: {
+    layout: 'centered',
+    docs: {
+      description: {
+        story:
+          'Raycast의 빠른 검색/필터 UX + Notion 인라인 편집 패턴 결합. ' +
+          'Chip 카테고리 필터, Slider 예산 설정, Calendar 날짜 선택, Avatar/LabelBadge/CounterBadge/Progress 조합.',
+      },
+    },
+  },
+  render: () => <TravelBookingRender />,
+}

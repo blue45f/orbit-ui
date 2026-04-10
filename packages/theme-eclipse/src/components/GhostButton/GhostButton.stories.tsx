@@ -696,3 +696,375 @@ export const Radix_컨텍스트_메뉴_트리거: Story = {
   },
   render: () => <RadixContextMenuRender />,
 }
+
+/* --------------------------------------------------------------------------
+   Notion 벤치마크: 블록 에디터 인라인 포맷팅 툴바
+   Notion 문서 편집기에서 텍스트 선택 시 나타나는 인라인 툴바 패턴
+-------------------------------------------------------------------------- */
+const NOTION_FORMAT_TOOLS: { key: string; label: string; shortcut: string }[] = [
+  { key: 'bold', label: 'B', shortcut: 'Cmd+B' },
+  { key: 'italic', label: 'I', shortcut: 'Cmd+I' },
+  { key: 'underline', label: 'U', shortcut: 'Cmd+U' },
+  { key: 'strike', label: 'S', shortcut: 'Cmd+Shift+S' },
+  { key: 'code', label: '</>', shortcut: 'Cmd+E' },
+  { key: 'link', label: 'Link', shortcut: 'Cmd+K' },
+]
+
+function NotionEditorToolbarRender() {
+  const [active, setActive] = useState<Set<string>>(new Set())
+  const [text] = useState('Orbit UI는 React 기반 디자인 시스템입니다. vanilla-extract로 CSS-in-JS를 구현하며, 3단계 토큰 시스템을 사용합니다.')
+
+  const toggle = (key: string) =>
+    setActive((prev) => {
+      const next = new Set(prev)
+      if (next.has(key)) next.delete(key)
+      else next.add(key)
+      return next
+    })
+
+  const getTextStyle = (): React.CSSProperties => ({
+    fontWeight: active.has('bold') ? 700 : 400,
+    fontStyle: active.has('italic') ? 'italic' : 'normal',
+    textDecoration: [
+      active.has('underline') ? 'underline' : '',
+      active.has('strike') ? 'line-through' : '',
+    ].filter(Boolean).join(' ') || 'none',
+    fontFamily: active.has('code') ? 'monospace' : 'inherit',
+  })
+
+  return (
+    <div style={{ width: 480, display: 'flex', flexDirection: 'column', gap: 16 }}>
+      {/* Toolbar */}
+      <div style={{
+        display: 'inline-flex', gap: 2, padding: '4px 6px',
+        background: '#1e293b', borderRadius: 10,
+        boxShadow: '0 4px 16px rgba(0,0,0,0.25)',
+        alignSelf: 'flex-start',
+      }}>
+        {NOTION_FORMAT_TOOLS.map((tool, i) => (
+          <div key={tool.key} style={{ display: 'flex', alignItems: 'center' }}>
+            {i === 5 && (
+              <div style={{ width: 1, height: 18, background: '#334155', margin: '0 4px' }} />
+            )}
+            <GhostButton
+              color="gray"
+              size="small"
+              onClick={() => toggle(tool.key)}
+              style={{
+                color: active.has(tool.key) ? '#e0e7ff' : '#94a3b8',
+                background: active.has(tool.key) ? '#3730a3' : 'transparent',
+                borderRadius: 6,
+                minWidth: tool.key === 'code' ? 36 : tool.key === 'link' ? 40 : 28,
+                fontWeight: tool.key === 'bold' ? 800 : tool.key === 'italic' ? 700 : 600,
+                fontStyle: tool.key === 'italic' ? 'italic' : 'normal',
+                fontFamily: tool.key === 'code' ? 'monospace' : 'inherit',
+              }}
+            >
+              {tool.label}
+            </GhostButton>
+          </div>
+        ))}
+      </div>
+
+      {/* Editable text preview */}
+      <div style={{
+        padding: '16px 20px', borderRadius: 10,
+        border: '1.5px solid #e2e8f0', background: '#fff',
+        fontSize: 15, lineHeight: 1.7, color: '#1e293b',
+        ...getTextStyle(),
+      }}>
+        {text}
+      </div>
+
+      {/* Active format indicator */}
+      {active.size > 0 && (
+        <div style={{ fontSize: 11, color: '#94a3b8' }}>
+          적용된 포맷: {Array.from(active).map((k) => NOTION_FORMAT_TOOLS.find((t) => t.key === k)?.label).join(', ')}
+        </div>
+      )}
+    </div>
+  )
+}
+
+export const Notion_블록_에디터_포맷_툴바: Story = {
+  name: 'Notion - 블록 에디터 인라인 포맷팅 툴바 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Notion 인라인 텍스트 편집 툴바 패턴. 다크 배경 플로팅 툴바에 GhostButton을 나열, ' +
+          '클릭 시 active 상태(색상 반전)로 토글되며 하단 텍스트 미리보기에 포맷이 즉시 반영됩니다.',
+      },
+    },
+  },
+  render: () => <NotionEditorToolbarRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Raycast 벤치마크: 빠른 액션 커맨드 리스트 패턴
+   Raycast Extension Commands: GhostButton이 액션 트리거 역할을 하는 컴팩트 리스트
+-------------------------------------------------------------------------- */
+type RaycastCommand = {
+  id: string
+  title: string
+  subtitle: string
+  shortcut: string
+  category: 'recent' | 'action' | 'nav'
+}
+
+const RAYCAST_COMMANDS: RaycastCommand[] = [
+  { id: 'r1', title: '새 이슈 생성', subtitle: 'Linear · 새 이슈를 빠르게 생성합니다', shortcut: 'N', category: 'action' },
+  { id: 'r2', title: '클립보드 히스토리', subtitle: '최근 복사된 항목 보기', shortcut: 'V', category: 'recent' },
+  { id: 'r3', title: 'PR 리뷰 요청', subtitle: 'GitHub · 열린 PR 목록에서 선택', shortcut: 'P', category: 'action' },
+  { id: 'r4', title: 'Storybook 열기', subtitle: 'localhost:6007 브라우저에서 열기', shortcut: 'S', category: 'nav' },
+  { id: 'r5', title: '색상 피커', subtitle: 'HEX/RGB/HSL 색상 변환 도구', shortcut: 'C', category: 'action' },
+]
+
+const CMD_CATEGORY_COLOR: Record<RaycastCommand['category'], string> = {
+  recent: '#8b5cf6',
+  action: '#6366f1',
+  nav: '#14b8a6',
+}
+
+function RaycastCommandListRender() {
+  const [activeId, setActiveId] = useState<string | null>('r1')
+  const [query, setQuery] = useState('')
+
+  const filtered = RAYCAST_COMMANDS.filter(
+    (c) => !query || c.title.toLowerCase().includes(query.toLowerCase())
+  )
+
+  return (
+    <div style={{
+      width: 460, borderRadius: 16, overflow: 'hidden',
+      border: '1px solid #27272a', background: '#09090b',
+      boxShadow: '0 24px 48px rgba(0,0,0,0.5)',
+    }}>
+      {/* Search input */}
+      <div style={{ padding: '12px 16px', borderBottom: '1px solid #27272a', display: 'flex', alignItems: 'center', gap: 10 }}>
+        <svg width={14} height={14} viewBox="0 0 24 24" fill="none" stroke="#52525b" strokeWidth={2.5}>
+          <circle cx={11} cy={11} r={8} /><path d="m21 21-4.35-4.35" />
+        </svg>
+        <input
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          placeholder="명령어 검색..."
+          style={{
+            flex: 1, background: 'transparent', border: 'none', outline: 'none',
+            fontSize: 14, color: '#e4e4e7', caretColor: '#6366f1',
+          }}
+          autoFocus
+        />
+        <kbd style={{ fontSize: 10, padding: '2px 6px', borderRadius: 4, background: '#18181b', color: '#52525b', border: '1px solid #27272a' }}>
+          ESC
+        </kbd>
+      </div>
+
+      {/* Command list */}
+      <div style={{ maxHeight: 300, overflow: 'auto' }}>
+        {filtered.length > 0 ? (
+          filtered.map((cmd) => (
+            <div
+              key={cmd.id}
+              onMouseEnter={() => setActiveId(cmd.id)}
+              style={{
+                display: 'flex', alignItems: 'center', gap: 12,
+                padding: '10px 16px',
+                background: activeId === cmd.id ? '#18181b' : 'transparent',
+                transition: 'background 0.1s',
+              }}
+            >
+              <div
+                style={{
+                  width: 28, height: 28, borderRadius: 6,
+                  background: CMD_CATEGORY_COLOR[cmd.category] + '20',
+                  border: `1px solid ${CMD_CATEGORY_COLOR[cmd.category]}40`,
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  fontSize: 11, fontWeight: 800, color: CMD_CATEGORY_COLOR[cmd.category],
+                  flexShrink: 0,
+                }}
+              >
+                {cmd.shortcut}
+              </div>
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <div style={{ fontSize: 13, fontWeight: 600, color: '#e4e4e7' }}>{cmd.title}</div>
+                <div style={{ fontSize: 11, color: '#52525b', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{cmd.subtitle}</div>
+              </div>
+              <GhostButton
+                color="gray"
+                size="small"
+                style={{
+                  color: activeId === cmd.id ? '#6366f1' : '#3f3f46',
+                  fontSize: 11,
+                  opacity: activeId === cmd.id ? 1 : 0,
+                  transition: 'opacity 0.15s',
+                }}
+              >
+                실행
+              </GhostButton>
+            </div>
+          ))
+        ) : (
+          <div style={{ padding: '32px 16px', textAlign: 'center', fontSize: 13, color: '#52525b' }}>
+            일치하는 명령어 없음
+          </div>
+        )}
+      </div>
+
+      {/* Footer */}
+      <div style={{ padding: '8px 16px', borderTop: '1px solid #27272a', display: 'flex', gap: 12 }}>
+        {[{ key: 'Enter', action: '실행' }, { key: '↑↓', action: '이동' }, { key: 'Tab', action: '미리보기' }].map(({ key, action }) => (
+          <div key={key} style={{ display: 'flex', alignItems: 'center', gap: 4, fontSize: 10, color: '#52525b' }}>
+            <kbd style={{ padding: '1px 6px', borderRadius: 4, background: '#18181b', border: '1px solid #27272a', color: '#71717a' }}>{key}</kbd>
+            <span style={{ marginLeft: 4 }}>{action}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+export const Raycast_명령어_액션_팔레트: Story = {
+  name: 'Raycast - 빠른 명령어 액션 팔레트 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Raycast Extension 커맨드 팔레트 패턴. 다크 배경, 검색 입력, 카테고리별 색상 키 힌트, ' +
+          'hover 시 GhostButton 액션 표시(opacity 0 → 1). 키보드 네비게이션 힌트 푸터 포함.',
+      },
+    },
+  },
+  render: () => <RaycastCommandListRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Linear 벤치마크: 뷰 전환 액션 툴바
+   Linear 이슈 뷰에서 리스트/보드/타임라인 전환 + 필터/그룹/정렬 GhostButton 조합
+-------------------------------------------------------------------------- */
+type LinearView = 'list' | 'board' | 'timeline'
+
+const LINEAR_VIEWS: { id: LinearView; label: string }[] = [
+  { id: 'list', label: 'List' },
+  { id: 'board', label: 'Board' },
+  { id: 'timeline', label: 'Timeline' },
+]
+
+function LinearViewToolbarRender() {
+  const [view, setView] = useState<LinearView>('list')
+  const [showFilters, setShowFilters] = useState(false)
+  const [sortDir, setSortDir] = useState<'asc' | 'desc'>('desc')
+
+  const MOCK_ISSUES = [
+    { id: 'ORB-312', title: '캘린더 스토리 Radix 패턴 추가', priority: 'high', status: 'progress' },
+    { id: 'ORB-311', title: 'GhostButton Notion 인라인 툴바', priority: 'medium', status: 'done' },
+    { id: 'ORB-310', title: 'Template 50 TravelBooking', priority: 'high', status: 'todo' },
+    { id: 'ORB-309', title: 'AccessibilityGuide MDX 보강', priority: 'low', status: 'progress' },
+  ]
+
+  const sorted = [...MOCK_ISSUES].sort((a, b) =>
+    sortDir === 'asc' ? a.id.localeCompare(b.id) : b.id.localeCompare(a.id)
+  )
+
+  const statusColor: Record<string, string> = { progress: '#6366f1', done: '#10b981', todo: '#94a3b8' }
+
+  return (
+    <div style={{ width: 520, display: 'flex', flexDirection: 'column', gap: 0, border: '1px solid #e2e8f0', borderRadius: 12, overflow: 'hidden' }}>
+      {/* Toolbar */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: 4, padding: '8px 12px', background: '#fafafa', borderBottom: '1px solid #f1f5f9' }}>
+        {/* View switcher */}
+        <div style={{ display: 'flex', gap: 1, background: '#f1f5f9', borderRadius: 6, padding: 2 }}>
+          {LINEAR_VIEWS.map((v) => (
+            <GhostButton
+              key={v.id}
+              color={view === v.id ? 'black' : 'gray'}
+              size="small"
+              onClick={() => setView(v.id)}
+              style={{
+                background: view === v.id ? '#fff' : 'transparent',
+                borderRadius: 4,
+                fontWeight: view === v.id ? 700 : 500,
+                boxShadow: view === v.id ? '0 1px 3px rgba(0,0,0,0.08)' : 'none',
+              }}
+            >
+              {v.label}
+            </GhostButton>
+          ))}
+        </div>
+
+        <div style={{ flex: 1 }} />
+
+        {/* Action buttons */}
+        <GhostButton
+          color="gray"
+          size="small"
+          onClick={() => setShowFilters(!showFilters)}
+          style={{ color: showFilters ? '#6366f1' : '#64748b', fontWeight: showFilters ? 700 : 500 }}
+        >
+          Filter
+        </GhostButton>
+
+        <div style={{ width: 1, height: 16, background: '#e2e8f0' }} />
+
+        <GhostButton
+          color="gray"
+          size="small"
+          onClick={() => setSortDir((d) => (d === 'asc' ? 'desc' : 'asc'))}
+          style={{ color: '#64748b' }}
+        >
+          {sortDir === 'desc' ? 'Newest' : 'Oldest'}
+        </GhostButton>
+
+        <GhostButton color="gray" size="small" style={{ color: '#64748b' }}>
+          Group
+        </GhostButton>
+      </div>
+
+      {/* Filter bar */}
+      {showFilters && (
+        <div style={{ padding: '8px 12px', background: '#f8fafc', borderBottom: '1px solid #f1f5f9', display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+          {['Priority: All', 'Status: All', 'Assignee: Any'].map((f) => (
+            <GhostButton key={f} color="gray" size="small" style={{ color: '#6366f1', background: '#eff6ff', borderRadius: 6, fontSize: 11 }}>
+              {f}
+            </GhostButton>
+          ))}
+        </div>
+      )}
+
+      {/* Content */}
+      <div style={{ background: '#fff' }}>
+        {sorted.map((issue, i) => (
+          <div
+            key={issue.id}
+            style={{
+              display: 'flex', alignItems: 'center', gap: 10,
+              padding: '9px 12px',
+              borderBottom: i < sorted.length - 1 ? '1px solid #f8fafc' : 'none',
+            }}
+          >
+            <span style={{ width: 6, height: 6, borderRadius: '50%', background: statusColor[issue.status], flexShrink: 0 }} />
+            <span style={{ fontSize: 13, color: '#1e293b', flex: 1 }}>{issue.title}</span>
+            <span style={{ fontSize: 11, color: '#94a3b8', fontFamily: 'monospace' }}>{issue.id}</span>
+            <GhostButton color="gray" size="small" style={{ color: '#cbd5e1', fontSize: 18, lineHeight: 1 }}>
+              ···
+            </GhostButton>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+export const Linear_뷰_전환_액션_툴바: Story = {
+  name: 'Linear - 뷰 전환 + 필터/정렬 액션 툴바 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Linear 이슈 뷰 툴바 패턴. List/Board/Timeline 뷰 전환 GhostButton 그룹, ' +
+          'Filter/Sort/Group 액션 버튼, 열기/닫기 가능한 필터 바 조합.',
+      },
+    },
+  },
+  render: () => <LinearViewToolbarRender />,
+}
