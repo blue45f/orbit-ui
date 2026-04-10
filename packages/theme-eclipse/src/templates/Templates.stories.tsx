@@ -19837,3 +19837,328 @@ export const DomainManager: Story = {
   },
   render: () => <DomainManagerRender />,
 }
+
+/* ══════════════════════════════════════════════════════════════════════════
+   Template #71 — TaskBoard (Mantine 벤치마크)
+   Mantine의 핵심 패턴을 Orbit UI로 구현한 태스크 보드:
+   · useToggle  → SegmentedControl 뷰 모드 순환 (list/grid/board)
+   · useCounter → 우선순위 증감 (increment/decrement/reset)
+   · useListState → 필터 태그 추가/제거 (append/remove)
+   · useDisclosure → 상세 패널 열기/닫기 (open/close/toggle)
+   ══════════════════════════════════════════════════════════════════════════ */
+type TaskStatus = 'todo' | 'in_progress' | 'review' | 'done'
+type TaskPriority = 0 | 1 | 2 | 3  // 0=low 1=medium 2=high 3=critical
+type TaskViewMode = 'list' | 'grid' | 'board'
+
+interface Task {
+  id: string
+  title: string
+  status: TaskStatus
+  priority: TaskPriority
+  assignee: string
+  tags: string[]
+  progress: number
+}
+
+const INITIAL_TASKS: Task[] = [
+  { id: 't1', title: '디자인 토큰 3단계 시스템 구축', status: 'done', priority: 3, assignee: '김철수', tags: ['tokens', 'design'], progress: 100 },
+  { id: 't2', title: 'SegmentedControl useToggle 통합', status: 'in_progress', priority: 2, assignee: '이영희', tags: ['component', 'mantine'], progress: 65 },
+  { id: 't3', title: 'useCounter 페이지네이션 패턴', status: 'review', priority: 1, assignee: '박민준', tags: ['hooks', 'ux'], progress: 90 },
+  { id: 't4', title: 'useDisclosure 모달 시스템', status: 'todo', priority: 2, assignee: '최수진', tags: ['component', 'a11y'], progress: 0 },
+  { id: 't5', title: 'useListState 필터 파이프라인', status: 'in_progress', priority: 1, assignee: '정도현', tags: ['state', 'filter'], progress: 40 },
+  { id: 't6', title: 'Storybook 8 마이그레이션', status: 'todo', priority: 0, assignee: '김철수', tags: ['infra', 'dx'], progress: 0 },
+  { id: 't7', title: 'vanilla-extract 테마 최적화', status: 'in_progress', priority: 2, assignee: '이영희', tags: ['styling', 'perf'], progress: 55 },
+  { id: 't8', title: 'TipTap 에디터 컴포넌트', status: 'done', priority: 1, assignee: '박민준', tags: ['editor', 'oss'], progress: 100 },
+]
+
+const STATUS_META: Record<TaskStatus, { label: string; color: string; bg: string }> = {
+  todo:        { label: '할 일',    color: '#94a3b8', bg: '#f1f5f9' },
+  in_progress: { label: '진행 중',  color: '#6366f1', bg: '#eef2ff' },
+  review:      { label: '검토 중',  color: '#f59e0b', bg: '#fffbeb' },
+  done:        { label: '완료',     color: '#10b981', bg: '#ecfdf5' },
+}
+
+const PRIORITY_META: Record<TaskPriority, { label: string; color: string }> = {
+  0: { label: '낮음',  color: '#94a3b8' },
+  1: { label: '보통',  color: '#6366f1' },
+  2: { label: '높음',  color: '#f59e0b' },
+  3: { label: '긴급',  color: '#ef4444' },
+}
+
+const AVATAR_COLORS: Record<string, string> = {
+  '김철수': '#6366f1', '이영희': '#10b981', '박민준': '#f59e0b', '최수진': '#ec4899', '정도현': '#06b6d4',
+}
+
+const TaskBoardRender = () => {
+  const [tasks, setTasks] = useState<Task[]>(INITIAL_TASKS)
+  const [viewMode, setViewMode] = useState<TaskViewMode>('list')
+  const [activeFilters, setActiveFilters] = useState<string[]>([])
+  const [selectedTask, setSelectedTask] = useState<Task | null>(null)
+  const [search, setSearch] = useState('')
+
+  // useToggle 시뮬레이션: 뷰 모드 순환
+  const VIEW_CYCLE: TaskViewMode[] = ['list', 'grid', 'board']
+  const cycleView = () => setViewMode((v) => VIEW_CYCLE[(VIEW_CYCLE.indexOf(v) + 1) % VIEW_CYCLE.length])
+
+  // useCounter 시뮬레이션: 태스크 우선순위 조절
+  const incrementPriority = (id: string) =>
+    setTasks((prev) => prev.map((t) => t.id === id ? { ...t, priority: Math.min(t.priority + 1, 3) as TaskPriority } : t))
+  const decrementPriority = (id: string) =>
+    setTasks((prev) => prev.map((t) => t.id === id ? { ...t, priority: Math.max(t.priority - 1, 0) as TaskPriority } : t))
+
+  // useListState 시뮬레이션: 필터 태그
+  const appendFilter = (tag: string) => setActiveFilters((prev) => prev.includes(tag) ? prev : [...prev, tag])
+  const removeFilter = (tag: string) => setActiveFilters((prev) => prev.filter((f) => f !== tag))
+
+  // useDisclosure 시뮬레이션: 상세 패널
+  const openDetail = (task: Task) => setSelectedTask(task)
+  const closeDetail = () => setSelectedTask(null)
+
+  const ALL_TAGS = Array.from(new Set(INITIAL_TASKS.flatMap((t) => t.tags))).sort()
+
+  const filtered = tasks.filter((t) => {
+    const matchSearch = !search || t.title.toLowerCase().includes(search.toLowerCase()) || t.assignee.includes(search)
+    const matchFilter = activeFilters.length === 0 || activeFilters.some((f) => t.tags.includes(f))
+    return matchSearch && matchFilter
+  })
+
+  const byStatus = (status: TaskStatus) => filtered.filter((t) => t.status === status)
+  const STATUSES: TaskStatus[] = ['todo', 'in_progress', 'review', 'done']
+
+  const TaskCard = ({ task, compact = false }: { task: Task; compact?: boolean }) => (
+    <div
+      onClick={() => openDetail(task)}
+      style={{
+        padding: compact ? '10px 12px' : '14px 16px',
+        borderRadius: 8,
+        border: `1px solid ${selectedTask?.id === task.id ? 'var(--sem-eclipse-color-fillPrimary)' : 'var(--sem-eclipse-color-borderSubtle)'}`,
+        background: 'var(--sem-eclipse-color-backgroundPrimary)',
+        cursor: 'pointer',
+        transition: 'border-color 0.15s, box-shadow 0.15s',
+        boxShadow: selectedTask?.id === task.id ? '0 0 0 2px color-mix(in srgb, var(--sem-eclipse-color-fillPrimary) 15%, transparent)' : 'none',
+      }}
+    >
+      <div style={{ display: 'flex', alignItems: 'flex-start', gap: 8, marginBottom: compact ? 6 : 10 }}>
+        <div style={{ flex: 1, fontSize: compact ? 12 : 13, fontWeight: 600, color: task.status === 'done' ? 'var(--sem-eclipse-color-foregroundTertiary)' : 'var(--sem-eclipse-color-foregroundPrimary)', textDecoration: task.status === 'done' ? 'line-through' : 'none', lineHeight: 1.4 }}>
+          {task.title}
+        </div>
+        <div style={{ flexShrink: 0, width: 6, height: 6, borderRadius: '50%', background: PRIORITY_META[task.priority].color, marginTop: 4 }} />
+      </div>
+
+      {!compact && task.progress > 0 && task.progress < 100 && (
+        <div style={{ marginBottom: 10 }}>
+          <Progress value={task.progress} size="small" />
+        </div>
+      )}
+
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <div style={{ display: 'flex', gap: 4, flexWrap: 'wrap' }}>
+          {task.tags.slice(0, 2).map((tag) => (
+            <span key={tag} style={{ fontSize: 10, padding: '1px 6px', borderRadius: 4, background: 'var(--sem-eclipse-color-backgroundSecondary)', color: 'var(--sem-eclipse-color-foregroundTertiary)', fontWeight: 500 }}>
+              {tag}
+            </span>
+          ))}
+        </div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+          {!compact && (
+            <>
+              <OutlineButton color="gray" size="small" onClick={(e) => { e.stopPropagation(); decrementPriority(task.id) }} disabled={task.priority === 0}>
+                <OutlineButton.Center>−</OutlineButton.Center>
+              </OutlineButton>
+              <OutlineButton color="gray" size="small" onClick={(e) => { e.stopPropagation(); incrementPriority(task.id) }} disabled={task.priority === 3}>
+                <OutlineButton.Center>+</OutlineButton.Center>
+              </OutlineButton>
+            </>
+          )}
+          <div style={{ width: 22, height: 22, borderRadius: '50%', background: AVATAR_COLORS[task.assignee] || '#94a3b8', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 10, fontWeight: 700, color: '#fff', flexShrink: 0 }}>
+            {task.assignee[0]}
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', height: '100vh', background: 'var(--sem-eclipse-color-backgroundPrimary)', overflow: 'hidden' }}>
+      {/* Header */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 20px', borderBottom: '1px solid var(--sem-eclipse-color-borderSubtle)', flexShrink: 0 }}>
+        <span style={{ fontSize: 16, fontWeight: 800, color: 'var(--sem-eclipse-color-foregroundPrimary)', letterSpacing: '-0.02em' }}>TaskBoard</span>
+        <span style={{ fontSize: 11, padding: '2px 8px', borderRadius: 10, background: 'var(--sem-eclipse-color-backgroundSecondary)', color: 'var(--sem-eclipse-color-foregroundTertiary)', fontWeight: 600 }}>Mantine 패턴</span>
+        <div style={{ flex: 1 }} />
+        <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+          <TextField
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="검색..."
+          />
+          <SegmentedControl selectedIndex={VIEW_CYCLE.indexOf(viewMode)} onTabChange={(idx) => setViewMode(VIEW_CYCLE[idx])}>
+            <SegmentedControl.Tab value="list"><SegmentedControl.TabCenter>목록</SegmentedControl.TabCenter></SegmentedControl.Tab>
+            <SegmentedControl.Tab value="grid"><SegmentedControl.TabCenter>격자</SegmentedControl.TabCenter></SegmentedControl.Tab>
+            <SegmentedControl.Tab value="board"><SegmentedControl.TabCenter>보드</SegmentedControl.TabCenter></SegmentedControl.Tab>
+          </SegmentedControl>
+          <Tooltip.Provider delayDuration={300}>
+            <Tooltip>
+              <Tooltip.Trigger asChild>
+                <button onClick={cycleView} style={{ padding: '4px 10px', borderRadius: 6, fontSize: 11, fontWeight: 600, border: '1px solid var(--sem-eclipse-color-borderDefault)', background: 'var(--sem-eclipse-color-backgroundSecondary)', color: 'var(--sem-eclipse-color-foregroundSecondary)', cursor: 'pointer' }}>
+                  순환
+                </button>
+              </Tooltip.Trigger>
+              <Tooltip.Content>useToggle() 순환</Tooltip.Content>
+            </Tooltip>
+          </Tooltip.Provider>
+        </div>
+      </div>
+
+      {/* Filter bar */}
+      <div style={{ display: 'flex', gap: 6, padding: '8px 20px', borderBottom: '1px solid var(--sem-eclipse-color-borderSubtle)', flexShrink: 0, alignItems: 'center', flexWrap: 'wrap' }}>
+        <span style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)', fontWeight: 600 }}>태그:</span>
+        {ALL_TAGS.map((tag) => {
+          const active = activeFilters.includes(tag)
+          return (
+            <button
+              key={tag}
+              onClick={() => active ? removeFilter(tag) : appendFilter(tag)}
+              style={{ padding: '2px 8px', borderRadius: 12, fontSize: 11, fontWeight: active ? 700 : 400, border: `1px solid ${active ? 'var(--sem-eclipse-color-fillPrimary)' : 'var(--sem-eclipse-color-borderSubtle)'}`, background: active ? 'color-mix(in srgb, var(--sem-eclipse-color-fillPrimary) 12%, var(--sem-eclipse-color-backgroundPrimary))' : 'var(--sem-eclipse-color-backgroundPrimary)', color: active ? 'var(--sem-eclipse-color-fillPrimary)' : 'var(--sem-eclipse-color-foregroundTertiary)', cursor: 'pointer' }}
+            >
+              {tag}
+            </button>
+          )
+        })}
+        {activeFilters.length > 0 && (
+          <button onClick={() => setActiveFilters([])} style={{ padding: '2px 8px', borderRadius: 12, fontSize: 11, color: '#ef4444', background: 'none', border: 'none', cursor: 'pointer', fontWeight: 600 }}>초기화</button>
+        )}
+        <div style={{ flex: 1 }} />
+        <span style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundQuaternary)' }}>{filtered.length}/{tasks.length}개</span>
+      </div>
+
+      {/* Main */}
+      <div style={{ flex: 1, overflow: 'auto', display: 'flex', gap: 0 }}>
+        {/* Content area */}
+        <div style={{ flex: 1, overflow: 'auto', padding: '16px 20px' }}>
+          {/* List view */}
+          {viewMode === 'list' && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+              {filtered.map((task) => (
+                <div key={task.id} style={{ display: 'grid', gridTemplateColumns: '1fr 80px 80px 80px 120px', gap: 12, padding: '10px 14px', borderRadius: 8, border: `1px solid ${selectedTask?.id === task.id ? 'var(--sem-eclipse-color-fillPrimary)' : 'var(--sem-eclipse-color-borderSubtle)'}`, background: 'var(--sem-eclipse-color-backgroundPrimary)', cursor: 'pointer', alignItems: 'center' }} onClick={() => openDetail(task)}>
+                  <span style={{ fontSize: 13, fontWeight: 500, color: task.status === 'done' ? 'var(--sem-eclipse-color-foregroundTertiary)' : 'var(--sem-eclipse-color-foregroundPrimary)', textDecoration: task.status === 'done' ? 'line-through' : 'none' }}>{task.title}</span>
+                  <span style={{ fontSize: 11, fontWeight: 700, color: STATUS_META[task.status].color, background: STATUS_META[task.status].bg, padding: '2px 6px', borderRadius: 4, textAlign: 'center' }}>{STATUS_META[task.status].label}</span>
+                  <span style={{ fontSize: 11, fontWeight: 600, color: PRIORITY_META[task.priority].color, textAlign: 'center' }}>{PRIORITY_META[task.priority].label}</span>
+                  <div style={{ width: '100%' }}><Progress value={task.progress} size="small" /></div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                    <div style={{ width: 20, height: 20, borderRadius: '50%', background: AVATAR_COLORS[task.assignee] || '#94a3b8', fontSize: 9, fontWeight: 700, color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>{task.assignee[0]}</div>
+                    <span style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundSecondary)' }}>{task.assignee}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {/* Grid view */}
+          {viewMode === 'grid' && (
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))', gap: 10 }}>
+              {filtered.map((task) => <TaskCard key={task.id} task={task} />)}
+            </div>
+          )}
+
+          {/* Board view */}
+          {viewMode === 'board' && (
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 12, height: '100%' }}>
+              {STATUSES.map((status) => (
+                <div key={status} style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 4 }}>
+                    <div style={{ width: 8, height: 8, borderRadius: '50%', background: STATUS_META[status].color }} />
+                    <span style={{ fontSize: 12, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundSecondary)' }}>{STATUS_META[status].label}</span>
+                    <span style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundQuaternary)', marginLeft: 'auto' }}>{byStatus(status).length}</span>
+                  </div>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: 6, flex: 1, overflowY: 'auto' }}>
+                    {byStatus(status).map((task) => <TaskCard key={task.id} task={task} compact />)}
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* Detail panel (useDisclosure) */}
+        {selectedTask && (
+          <div style={{ width: 300, borderLeft: '1px solid var(--sem-eclipse-color-borderSubtle)', background: 'var(--sem-eclipse-color-backgroundPrimary)', overflow: 'auto', flexShrink: 0, display: 'flex', flexDirection: 'column' }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px 16px', borderBottom: '1px solid var(--sem-eclipse-color-borderSubtle)' }}>
+              <span style={{ fontSize: 13, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>상세</span>
+              <button onClick={closeDetail} style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: 16, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>×</button>
+            </div>
+            <div style={{ padding: '16px', display: 'flex', flexDirection: 'column', gap: 14 }}>
+              <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)', lineHeight: 1.5 }}>{selectedTask.title}</div>
+
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                  <span style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>상태</span>
+                  <span style={{ fontSize: 11, fontWeight: 700, color: STATUS_META[selectedTask.status].color, background: STATUS_META[selectedTask.status].bg, padding: '2px 8px', borderRadius: 4 }}>{STATUS_META[selectedTask.status].label}</span>
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                  <span style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>우선순위</span>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                    <OutlineButton color="gray" size="small" onClick={() => decrementPriority(selectedTask.id)} disabled={selectedTask.priority === 0}>
+                      <OutlineButton.Center>−</OutlineButton.Center>
+                    </OutlineButton>
+                    <span style={{ fontSize: 12, fontWeight: 700, color: PRIORITY_META[selectedTask.priority].color, minWidth: 30, textAlign: 'center' }}>{PRIORITY_META[selectedTask.priority].label}</span>
+                    <OutlineButton color="gray" size="small" onClick={() => incrementPriority(selectedTask.id)} disabled={selectedTask.priority === 3}>
+                      <OutlineButton.Center>+</OutlineButton.Center>
+                    </OutlineButton>
+                  </div>
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                  <span style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>담당자</span>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                    <div style={{ width: 20, height: 20, borderRadius: '50%', background: AVATAR_COLORS[selectedTask.assignee] || '#94a3b8', fontSize: 9, fontWeight: 700, color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>{selectedTask.assignee[0]}</div>
+                    <span style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{selectedTask.assignee}</span>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <div style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginBottom: 6 }}>진행률 {selectedTask.progress}%</div>
+                <Progress value={selectedTask.progress} size="medium" />
+              </div>
+
+              <div>
+                <div style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginBottom: 6 }}>태그</div>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 4 }}>
+                  {selectedTask.tags.map((tag) => (
+                    <span key={tag} style={{ fontSize: 11, padding: '2px 8px', borderRadius: 4, background: 'var(--sem-eclipse-color-backgroundSecondary)', color: 'var(--sem-eclipse-color-foregroundSecondary)', fontWeight: 500 }}>{tag}</span>
+                  ))}
+                </div>
+              </div>
+
+              <div style={{ borderTop: '1px solid var(--sem-eclipse-color-borderSubtle)', paddingTop: 12 }}>
+                <div style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundQuaternary)', fontFamily: 'monospace', lineHeight: 1.8 }}>
+                  <div>{`// useDisclosure 패턴`}</div>
+                  <div>{`open()   → 패널 열기`}</div>
+                  <div>{`close()  → 패널 닫기`}</div>
+                  <div>{`// useCounter 패턴`}</div>
+                  <div>{`increment() → 우선순위 +1`}</div>
+                  <div>{`decrement() → 우선순위 -1`}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+
+export const TaskBoard: Story = {
+  name: '태스크 보드 (Mantine 벤치마크)',
+  parameters: {
+    layout: 'fullscreen',
+    docs: {
+      description: {
+        story:
+          'Mantine의 핵심 훅 패턴을 Orbit UI로 구현한 태스크 관리 보드. ' +
+          'useToggle(뷰 모드 순환), useCounter(우선순위 증감), useListState(필터 태그), useDisclosure(상세 패널) ' +
+          '네 가지 이산 핸들러 패턴이 SegmentedControl, OutlineButton, Progress, TextField와 통합됩니다.',
+      },
+    },
+  },
+  render: () => <TaskBoardRender />,
+}

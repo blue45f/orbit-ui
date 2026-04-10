@@ -805,3 +805,298 @@ export const Apple_HIG_레이아웃_전환: Story = {
   },
   render: () => <AppleLayoutSwitcherRender />,
 }
+
+/* --------------------------------------------------------------------------
+   Mantine 벤치마크: useToggle 순환 모드 패턴
+   Mantine의 useToggle([a, b, c]) → type-safe cycling.
+   SegmentedControl 변경 시 const assertion 기반 순환 상태가 업데이트됩니다.
+-------------------------------------------------------------------------- */
+const VIEW_MODES = ['list', 'grid', 'kanban'] as const
+type _ViewMode = (typeof VIEW_MODES)[number]
+
+const MantineToggleCycleRender = () => {
+  const [modeIdx, setModeIdx] = useState(0)
+  const mode = VIEW_MODES[modeIdx]
+
+  // Mantine useToggle pattern: [value, toggle] — cycling through const-asserted tuple
+  const cycleMode = () => setModeIdx((prev) => (prev + 1) % VIEW_MODES.length)
+
+  const ITEMS = ['디자인 토큰 구조', '컴포넌트 계층', '상태 관리 패턴', '접근성 체크리스트', '스타일 가이드', '테스트 전략']
+
+  return (
+    <div style={{ maxWidth: 540, display: 'flex', flexDirection: 'column', gap: 16 }}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <span style={{ fontSize: 14, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>
+          문서 뷰어
+        </span>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+          <SegmentedControl selectedIndex={modeIdx} onTabChange={setModeIdx}>
+            <SegmentedControl.Tab value="list"><SegmentedControl.TabCenter>목록</SegmentedControl.TabCenter></SegmentedControl.Tab>
+            <SegmentedControl.Tab value="grid"><SegmentedControl.TabCenter>격자</SegmentedControl.TabCenter></SegmentedControl.Tab>
+            <SegmentedControl.Tab value="kanban"><SegmentedControl.TabCenter>칸반</SegmentedControl.TabCenter></SegmentedControl.Tab>
+          </SegmentedControl>
+          <button
+            onClick={cycleMode}
+            style={{ padding: '4px 10px', borderRadius: 6, fontSize: 11, fontWeight: 600, border: '1px solid var(--sem-eclipse-color-borderDefault)', background: 'var(--sem-eclipse-color-backgroundSecondary)', color: 'var(--sem-eclipse-color-foregroundSecondary)', cursor: 'pointer' }}
+          >
+            순환 →
+          </button>
+        </div>
+      </div>
+
+      <div style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundQuaternary)', fontFamily: 'monospace', padding: '6px 10px', borderRadius: 6, background: 'var(--sem-eclipse-color-backgroundSecondary)', border: '1px solid var(--sem-eclipse-color-borderSubtle)' }}>
+        {`const [mode, cycleMode] = useToggle(['list', 'grid', 'kanban'] as const)`}
+        <br />
+        {`// mode: '${mode}' — type: ViewMode`}
+      </div>
+
+      {mode === 'list' && (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+          {ITEMS.map((item, i) => (
+            <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 14px', background: i % 2 === 0 ? 'var(--sem-eclipse-color-backgroundPrimary)' : 'var(--sem-eclipse-color-backgroundSecondary)', borderRadius: 6, fontSize: 13, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>
+              <span style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundQuaternary)', minWidth: 18 }}>{i + 1}</span>
+              {item}
+            </div>
+          ))}
+        </div>
+      )}
+
+      {mode === 'grid' && (
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
+          {ITEMS.map((item, i) => (
+            <div key={i} style={{ padding: '12px 14px', borderRadius: 8, border: '1px solid var(--sem-eclipse-color-borderSubtle)', background: 'var(--sem-eclipse-color-backgroundPrimary)', fontSize: 12, color: 'var(--sem-eclipse-color-foregroundPrimary)', fontWeight: 500 }}>
+              {item}
+            </div>
+          ))}
+        </div>
+      )}
+
+      {mode === 'kanban' && (
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 8 }}>
+          {(['할 일', '진행 중', '완료'] as const).map((col, ci) => (
+            <div key={col} style={{ borderRadius: 8, border: '1px solid var(--sem-eclipse-color-borderSubtle)', overflow: 'hidden' }}>
+              <div style={{ padding: '8px 10px', fontSize: 11, fontWeight: 700, color: ['#f59e0b', '#6366f1', '#10b981'][ci], background: 'var(--sem-eclipse-color-backgroundSecondary)', borderBottom: '1px solid var(--sem-eclipse-color-borderSubtle)' }}>{col}</div>
+              {ITEMS.slice(ci * 2, ci * 2 + 2).map((item) => (
+                <div key={item} style={{ padding: '8px 10px', fontSize: 11, color: 'var(--sem-eclipse-color-foregroundPrimary)', borderBottom: '1px solid var(--sem-eclipse-color-borderSubtle)' }}>{item}</div>
+              ))}
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  )
+}
+
+export const Mantine_useToggle_순환_뷰_모드: Story = {
+  name: 'Mantine - useToggle 순환 뷰 모드 (list/grid/kanban)',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Mantine의 useToggle([...values] as const) 패턴. const assertion으로 타입 안전한 순환 상태를 구현합니다. "순환 →" 버튼이 useToggle()의 toggle() 호출을 시뮬레이션합니다.',
+      },
+    },
+  },
+  render: () => <MantineToggleCycleRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Mantine 벤치마크: useCounter 이산 증감 패턴
+   Mantine의 useCounter(initial, { min, max }) → [count, { increment, decrement, set, reset }]
+   SegmentedControl로 페이지 단위(5/10/20/50)를 선택, 페이지네이션 상태와 연동합니다.
+-------------------------------------------------------------------------- */
+const MantineCounterPaginationRender = () => {
+  const PAGE_SIZES = [5, 10, 20, 50] as const
+  const [pageSizeIdx, setPageSizeIdx] = useState(1)
+  const pageSize = PAGE_SIZES[pageSizeIdx]
+  const [page, setPage] = useState(1)
+  const TOTAL = 87
+  const totalPages = Math.ceil(TOTAL / pageSize)
+
+  // Mantine useCounter handlers (simulated)
+  const increment = () => setPage((p) => Math.min(p + 1, totalPages))
+  const decrement = () => setPage((p) => Math.max(p - 1, 1))
+  const reset = () => setPage(1)
+  const set = (n: number) => setPage(Math.max(1, Math.min(n, totalPages)))
+
+  const from = (page - 1) * pageSize + 1
+  const to = Math.min(page * pageSize, TOTAL)
+
+  return (
+    <div style={{ maxWidth: 520, display: 'flex', flexDirection: 'column', gap: 16 }}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <span style={{ fontSize: 14, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>사용자 목록</span>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+          <span style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>페이지당</span>
+          <SegmentedControl selectedIndex={pageSizeIdx} onTabChange={(idx) => { setPageSizeIdx(idx); reset() }}>
+            {PAGE_SIZES.map((s) => (
+              <SegmentedControl.Tab key={s} value={String(s)}>
+                <SegmentedControl.TabCenter>{s}</SegmentedControl.TabCenter>
+              </SegmentedControl.Tab>
+            ))}
+          </SegmentedControl>
+        </div>
+      </div>
+
+      <div style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundQuaternary)', fontFamily: 'monospace', padding: '6px 10px', borderRadius: 6, background: 'var(--sem-eclipse-color-backgroundSecondary)', border: '1px solid var(--sem-eclipse-color-borderSubtle)' }}>
+        {`const [page, { increment, decrement, set, reset }] = useCounter(1, { min: 1, max: ${totalPages} })`}
+      </div>
+
+      <div style={{ borderRadius: 8, border: '1px solid var(--sem-eclipse-color-borderSubtle)', overflow: 'hidden' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr', padding: '8px 14px', background: 'var(--sem-eclipse-color-backgroundSecondary)', borderBottom: '1px solid var(--sem-eclipse-color-borderSubtle)', fontSize: 11, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundTertiary)', gap: 8 }}>
+          <span>이름</span><span>역할</span><span>상태</span>
+        </div>
+        {Array.from({ length: pageSize }, (_, i) => {
+          const n = from + i
+          if (n > TOTAL) return null
+          const roles = ['관리자', '편집자', '뷰어', '기여자']
+          const statuses = [{ label: '활성', color: '#10b981' }, { label: '휴면', color: '#f59e0b' }]
+          const role = roles[(n * 3 + 7) % roles.length]
+          const status = statuses[n % statuses.length]
+          return (
+            <div key={n} style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr', padding: '10px 14px', borderBottom: n < to ? '1px solid var(--sem-eclipse-color-borderSubtle)' : 'none', fontSize: 12, color: 'var(--sem-eclipse-color-foregroundPrimary)', gap: 8, alignItems: 'center' }}>
+              <span>user_{String(n).padStart(3, '0')}</span>
+              <span style={{ color: 'var(--sem-eclipse-color-foregroundSecondary)' }}>{role}</span>
+              <span style={{ fontSize: 11, fontWeight: 600, color: status.color }}>{status.label}</span>
+            </div>
+          )
+        })}
+      </div>
+
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <span style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>{from}–{to} / {TOTAL}개</span>
+        <div style={{ display: 'flex', gap: 4 }}>
+          {[
+            { label: '«', action: reset, disabled: page === 1 },
+            { label: '‹', action: decrement, disabled: page === 1 },
+            { label: String(page), action: () => {}, disabled: true, active: true },
+            { label: '›', action: increment, disabled: page === totalPages },
+            { label: '»', action: () => set(totalPages), disabled: page === totalPages },
+          ].map(({ label, action, disabled, active }, i) => (
+            <button
+              key={i}
+              onClick={action}
+              disabled={disabled}
+              style={{ width: 28, height: 28, borderRadius: 6, border: `1px solid ${active ? 'var(--sem-eclipse-color-fillPrimary)' : 'var(--sem-eclipse-color-borderDefault)'}`, background: active ? 'var(--sem-eclipse-color-fillPrimary)' : 'var(--sem-eclipse-color-backgroundPrimary)', color: active ? '#fff' : disabled ? 'var(--sem-eclipse-color-foregroundQuaternary)' : 'var(--sem-eclipse-color-foregroundPrimary)', fontSize: 12, fontWeight: 600, cursor: disabled ? 'default' : 'pointer' }}
+            >
+              {label}
+            </button>
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const Mantine_useCounter_페이지네이션: Story = {
+  name: 'Mantine - useCounter 이산 증감 페이지네이션 (min/max/reset)',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Mantine의 useCounter(initial, { min, max }) 패턴. [count, { increment, decrement, set, reset }] 튜플을 반환하며, 각 핸들러가 이산적인 상태 전환을 담당합니다.',
+      },
+    },
+  },
+  render: () => <MantineCounterPaginationRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Mantine 벤치마크: useListState 필터 파이프라인 패턴
+   Mantine의 useListState([]) → [state, handlers] — append/remove/filter 이산 핸들러.
+   SegmentedControl로 활성 필터 카테고리를 선택하고, 칩 형태로 누적 관리합니다.
+-------------------------------------------------------------------------- */
+const MantineListStateFilterRender = () => {
+  type Category = '상태' | '우선순위' | '담당자' | '기간'
+  const [activeCategory, setActiveCategory] = useState<Category>('상태')
+  const [filters, setFilters] = useState<{ id: string; label: string; category: Category }[]>([])
+
+  const FILTER_OPTIONS: Record<Category, { id: string; label: string }[]> = {
+    '상태': [{ id: 's1', label: '진행 중' }, { id: 's2', label: '검토 중' }, { id: 's3', label: '완료' }, { id: 's4', label: '보류' }],
+    '우선순위': [{ id: 'p1', label: '긴급' }, { id: 'p2', label: '높음' }, { id: 'p3', label: '보통' }, { id: 'p4', label: '낮음' }],
+    '담당자': [{ id: 'a1', label: '김철수' }, { id: 'a2', label: '이영희' }, { id: 'a3', label: '박민준' }],
+    '기간': [{ id: 'd1', label: '오늘' }, { id: 'd2', label: '이번 주' }, { id: 'd3', label: '이번 달' }],
+  }
+
+  // Mantine useListState handlers (simulated)
+  const append = (item: { id: string; label: string; category: Category }) =>
+    setFilters((prev) => (prev.find((f) => f.id === item.id) ? prev : [...prev, item]))
+  const remove = (id: string) => setFilters((prev) => prev.filter((f) => f.id !== id))
+  const clearAll = () => setFilters([])
+
+  const categories: Category[] = ['상태', '우선순위', '담당자', '기간']
+
+  return (
+    <div style={{ maxWidth: 520, display: 'flex', flexDirection: 'column', gap: 12 }}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <span style={{ fontSize: 14, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>필터 파이프라인</span>
+        {filters.length > 0 && (
+          <button onClick={clearAll} style={{ fontSize: 11, color: '#ef4444', background: 'none', border: 'none', cursor: 'pointer', fontWeight: 600 }}>
+            전체 초기화
+          </button>
+        )}
+      </div>
+
+      <div style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundQuaternary)', fontFamily: 'monospace', padding: '6px 10px', borderRadius: 6, background: 'var(--sem-eclipse-color-backgroundSecondary)', border: '1px solid var(--sem-eclipse-color-borderSubtle)' }}>
+        {`const [filters, { append, remove }] = useListState([])`}
+        <br />
+        {`// filters.length: ${filters.length}`}
+      </div>
+
+      <SegmentedControl selectedIndex={categories.indexOf(activeCategory)} onTabChange={(idx) => setActiveCategory(categories[idx])}>
+        {categories.map((cat) => (
+          <SegmentedControl.Tab key={cat} value={cat}>
+            <SegmentedControl.TabCenter>{cat}</SegmentedControl.TabCenter>
+          </SegmentedControl.Tab>
+        ))}
+      </SegmentedControl>
+
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+        {FILTER_OPTIONS[activeCategory].map((opt) => {
+          const active = filters.some((f) => f.id === opt.id)
+          return (
+            <button
+              key={opt.id}
+              onClick={() => active ? remove(opt.id) : append({ ...opt, category: activeCategory })}
+              style={{
+                padding: '5px 12px',
+                borderRadius: 20,
+                fontSize: 12,
+                fontWeight: active ? 700 : 400,
+                border: `1px solid ${active ? 'var(--sem-eclipse-color-fillPrimary)' : 'var(--sem-eclipse-color-borderDefault)'}`,
+                background: active ? 'color-mix(in srgb, var(--sem-eclipse-color-fillPrimary) 10%, var(--sem-eclipse-color-backgroundPrimary))' : 'var(--sem-eclipse-color-backgroundPrimary)',
+                color: active ? 'var(--sem-eclipse-color-fillPrimary)' : 'var(--sem-eclipse-color-foregroundSecondary)',
+                cursor: 'pointer',
+                transition: 'all 0.15s',
+              }}
+            >
+              {active ? '✓ ' : ''}{opt.label}
+            </button>
+          )
+        })}
+      </div>
+
+      {filters.length > 0 && (
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, padding: '10px 12px', borderRadius: 8, background: 'var(--sem-eclipse-color-backgroundSecondary)', border: '1px solid var(--sem-eclipse-color-borderSubtle)' }}>
+          <span style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)', alignSelf: 'center', marginRight: 4 }}>적용 중:</span>
+          {filters.map((f) => (
+            <span key={f.id} style={{ display: 'inline-flex', alignItems: 'center', gap: 4, padding: '2px 8px', borderRadius: 12, background: 'var(--sem-eclipse-color-fillPrimary)', color: '#fff', fontSize: 11, fontWeight: 600 }}>
+              {f.category}/{f.label}
+              <button onClick={() => remove(f.id)} style={{ background: 'none', border: 'none', color: 'rgba(255,255,255,0.7)', cursor: 'pointer', fontSize: 12, padding: 0, lineHeight: 1 }}>×</button>
+            </span>
+          ))}
+        </div>
+      )}
+    </div>
+  )
+}
+
+export const Mantine_useListState_필터_파이프라인: Story = {
+  name: 'Mantine - useListState 필터 파이프라인 (append/remove)',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Mantine의 useListState([]) 패턴. [state, { append, remove, filter, ... }] 튜플로 이산적인 리스트 조작을 담당합니다. SegmentedControl로 카테고리를 전환하며 필터를 누적합니다.',
+      },
+    },
+  },
+  render: () => <MantineListStateFilterRender />,
+}

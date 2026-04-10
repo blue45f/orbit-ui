@@ -857,3 +857,244 @@ export const Mantine_알림_액션_카드: Story = {
   name: 'Mantine - 알림 카드 인라인 액션 OutlineButton 패턴',
   render: () => <NotificationActionsRender />,
 }
+
+/* --------------------------------------------------------------------------
+   Mantine 벤치마크: useCounter 핸들러 패턴
+   Mantine의 useCounter(n, { min, max }) → [value, { increment, decrement, set, reset }]
+   각 핸들러가 이산적인 OutlineButton 액션으로 표현됩니다.
+-------------------------------------------------------------------------- */
+const MantineCounterHandlerRender = () => {
+  const MIN = 0
+  const MAX = 10
+  const [count, setCount] = useState(0)
+
+  // Mantine useCounter 이산 핸들러 시뮬레이션
+  const handlers = {
+    increment: () => setCount((c) => Math.min(c + 1, MAX)),
+    decrement: () => setCount((c) => Math.max(c - 1, MIN)),
+    set: (v: number) => setCount(Math.max(MIN, Math.min(v, MAX))),
+    reset: () => setCount(0),
+  }
+
+  const pct = (count / MAX) * 100
+
+  return (
+    <div style={{ maxWidth: 400, display: 'flex', flexDirection: 'column', gap: 16 }}>
+      <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>카운터 핸들러 패턴</div>
+      <div style={{ fontSize: 11, fontFamily: 'monospace', padding: '8px 12px', borderRadius: 6, background: 'var(--sem-eclipse-color-backgroundSecondary)', border: '1px solid var(--sem-eclipse-color-borderSubtle)', color: 'var(--sem-eclipse-color-foregroundTertiary)', lineHeight: 1.7 }}>
+        {`const [count, { increment, decrement, set, reset }]`}<br />
+        {`  = useCounter(0, { min: ${MIN}, max: ${MAX} })`}<br />
+        {`// count: ${count}`}
+      </div>
+
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12, padding: '20px', borderRadius: 12, border: '1px solid var(--sem-eclipse-color-borderSubtle)' }}>
+        <div style={{ fontSize: 48, fontWeight: 800, color: 'var(--sem-eclipse-color-foregroundPrimary)', fontVariantNumeric: 'tabular-nums', lineHeight: 1 }}>{count}</div>
+        <div style={{ width: '100%', height: 6, borderRadius: 3, background: 'var(--sem-eclipse-color-backgroundSecondary)', overflow: 'hidden' }}>
+          <div style={{ height: '100%', width: `${pct}%`, background: 'var(--sem-eclipse-color-fillPrimary)', borderRadius: 3, transition: 'width 0.2s ease' }} />
+        </div>
+        <div style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundQuaternary)' }}>{MIN} — {MAX}</div>
+      </div>
+
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
+        {[
+          { label: '− decrement()', action: handlers.decrement, disabled: count === MIN },
+          { label: '+ increment()', action: handlers.increment, disabled: count === MAX },
+          { label: 'set(5)', action: () => handlers.set(5), disabled: false },
+          { label: 'reset()', action: handlers.reset, disabled: count === 0 },
+        ].map(({ label, action, disabled }) => (
+          <OutlineButton key={label} color="gray" size="small" disabled={disabled} onClick={action}>
+            <OutlineButton.Center>{label}</OutlineButton.Center>
+          </OutlineButton>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+export const Mantine_useCounter_핸들러_패턴: Story = {
+  name: 'Mantine - useCounter 이산 핸들러 (increment/decrement/set/reset)',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Mantine의 useCounter(initial, { min, max }) 패턴. 각 핸들러(increment/decrement/set/reset)가 OutlineButton 액션으로 표현됩니다. 튜플 반환으로 데이터와 핸들러를 분리합니다.',
+      },
+    },
+  },
+  render: () => <MantineCounterHandlerRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Mantine 벤치마크: useDisclosure 확장 패턴
+   Mantine의 useDisclosure(false) → [opened, { open, close, toggle }]
+   OutlineButton이 open/close/toggle 각 이산 핸들러를 담당합니다.
+-------------------------------------------------------------------------- */
+const MantineDisclosureRender = () => {
+  const [panelOpen, setPanelOpen] = useState(false)
+  const [loading, setLoading] = useState(false)
+
+  // Mantine useDisclosure 핸들러
+  const disclosure = {
+    open: () => setPanelOpen(true),
+    close: () => setPanelOpen(false),
+    toggle: () => setPanelOpen((v) => !v),
+  }
+
+  const confirmAction = async () => {
+    setLoading(true)
+    await new Promise((r) => setTimeout(r, 1200))
+    setLoading(false)
+    disclosure.close()
+  }
+
+  return (
+    <div style={{ maxWidth: 440, display: 'flex', flexDirection: 'column', gap: 12 }}>
+      <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>모달/드로어 제어</div>
+      <div style={{ fontSize: 11, fontFamily: 'monospace', padding: '8px 12px', borderRadius: 6, background: 'var(--sem-eclipse-color-backgroundSecondary)', border: '1px solid var(--sem-eclipse-color-borderSubtle)', color: 'var(--sem-eclipse-color-foregroundTertiary)', lineHeight: 1.7 }}>
+        {`const [opened, { open, close, toggle }] = useDisclosure(false)`}<br />
+        {`// opened: ${panelOpen}`}
+      </div>
+
+      <div style={{ display: 'flex', gap: 8 }}>
+        <OutlineButton color="gray" size="small" onClick={disclosure.open} disabled={panelOpen}>
+          <OutlineButton.Center>open()</OutlineButton.Center>
+        </OutlineButton>
+        <OutlineButton color="gray" size="small" onClick={disclosure.close} disabled={!panelOpen}>
+          <OutlineButton.Center>close()</OutlineButton.Center>
+        </OutlineButton>
+        <OutlineButton color="gray" size="small" onClick={disclosure.toggle}>
+          <OutlineButton.Center>toggle()</OutlineButton.Center>
+        </OutlineButton>
+      </div>
+
+      <div style={{ overflow: 'hidden', borderRadius: 8, border: `1px solid ${panelOpen ? 'var(--sem-eclipse-color-fillPrimary)' : 'var(--sem-eclipse-color-borderSubtle)'}`, maxHeight: panelOpen ? 200 : 0, transition: 'max-height 0.3s ease, border-color 0.2s' }}>
+        <div style={{ padding: '16px' }}>
+          <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 8 }}>패널이 열렸습니다</div>
+          <div style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginBottom: 16 }}>
+            useDisclosure로 제어되는 패널입니다. open/close/toggle 각각이 이산적인 상태 전환을 담당합니다.
+          </div>
+          <div style={{ display: 'flex', gap: 8 }}>
+            <OutlineButton color="gray" size="small" onClick={disclosure.close} disabled={loading}>
+              <OutlineButton.Center>취소</OutlineButton.Center>
+            </OutlineButton>
+            <OutlineButton color="gray" size="small" onClick={confirmAction} disabled={loading}>
+              <OutlineButton.Center>{loading ? '처리 중...' : '확인'}</OutlineButton.Center>
+            </OutlineButton>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const Mantine_useDisclosure_확장_패턴: Story = {
+  name: 'Mantine - useDisclosure 확장 (open/close/toggle 이산 핸들러)',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Mantine의 useDisclosure(false) 패턴. [opened, { open, close, toggle }] 튜플로 이산적인 가시성 제어를 담당합니다. open/close/toggle 각각이 명확히 분리된 의도를 가집니다.',
+      },
+    },
+  },
+  render: () => <MantineDisclosureRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Mantine 벤치마크: useForm 단계별 제출 패턴
+   Mantine의 form.onSubmit, form.reset, form.setErrors — 이산 핸들러로 단계 전환.
+   OutlineButton이 각 단계(validate → submit → reset)를 담당합니다.
+-------------------------------------------------------------------------- */
+type FormStep = 'idle' | 'validating' | 'submitting' | 'done' | 'error'
+
+const MantineFormStepsRender = () => {
+  const [step, setStep] = useState<FormStep>('idle')
+  const [value, setValue] = useState('')
+  const [errorMsg, setErrorMsg] = useState('')
+
+  const STEPS: { state: FormStep; label: string; color: string }[] = [
+    { state: 'idle', label: '대기', color: '#94a3b8' },
+    { state: 'validating', label: '검증', color: '#f59e0b' },
+    { state: 'submitting', label: '제출', color: '#6366f1' },
+    { state: 'done', label: '완료', color: '#10b981' },
+    { state: 'error', label: '오류', color: '#ef4444' },
+  ]
+
+  const validate = async () => {
+    setStep('validating')
+    await new Promise((r) => setTimeout(r, 700))
+    if (!value.trim()) {
+      setErrorMsg('값을 입력해주세요.')
+      setStep('error')
+      return
+    }
+    setStep('submitting')
+    await new Promise((r) => setTimeout(r, 900))
+    setStep('done')
+  }
+
+  const reset = () => {
+    setStep('idle')
+    setValue('')
+    setErrorMsg('')
+  }
+
+  const currentStep = STEPS.find((s) => s.state === step)!
+
+  return (
+    <div style={{ maxWidth: 400, display: 'flex', flexDirection: 'column', gap: 14 }}>
+      <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>폼 단계별 제출</div>
+      <div style={{ fontSize: 11, fontFamily: 'monospace', padding: '8px 12px', borderRadius: 6, background: 'var(--sem-eclipse-color-backgroundSecondary)', border: '1px solid var(--sem-eclipse-color-borderSubtle)', color: 'var(--sem-eclipse-color-foregroundTertiary)', lineHeight: 1.7 }}>
+        {`const form = useForm({ ... })`}<br />
+        {`// step: '${step}'`}
+      </div>
+
+      {/* Step indicator */}
+      <div style={{ display: 'flex', gap: 4, alignItems: 'center' }}>
+        {STEPS.map((s, i) => (
+          <div key={s.state} style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+            <div style={{ width: 8, height: 8, borderRadius: '50%', background: step === s.state ? s.color : step === 'done' && STEPS.indexOf(STEPS.find((x) => x.state === 'done')!) >= i ? '#10b981' : 'var(--sem-eclipse-color-borderDefault)', transition: 'background 0.2s' }} />
+            {i < STEPS.length - 1 && <div style={{ width: 20, height: 1, background: 'var(--sem-eclipse-color-borderSubtle)' }} />}
+          </div>
+        ))}
+        <span style={{ fontSize: 11, fontWeight: 600, color: currentStep.color, marginLeft: 8 }}>{currentStep.label}</span>
+      </div>
+
+      <input
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+        placeholder="프로젝트명 입력..."
+        disabled={step !== 'idle' && step !== 'error'}
+        style={{ padding: '8px 12px', borderRadius: 6, border: `1px solid ${step === 'error' ? '#ef4444' : 'var(--sem-eclipse-color-borderDefault)'}`, fontSize: 13, color: 'var(--sem-eclipse-color-foregroundPrimary)', background: 'var(--sem-eclipse-color-backgroundPrimary)', outline: 'none' }}
+      />
+      {step === 'error' && <span style={{ fontSize: 12, color: '#ef4444', marginTop: -8 }}>{errorMsg}</span>}
+
+      <div style={{ display: 'flex', gap: 8 }}>
+        <OutlineButton color="gray" size="small" onClick={validate} disabled={step !== 'idle' && step !== 'error'}>
+          <OutlineButton.Center>
+            {step === 'validating' ? '검증 중...' : step === 'submitting' ? '제출 중...' : 'form.onSubmit()'}
+          </OutlineButton.Center>
+        </OutlineButton>
+        <OutlineButton color="gray" size="small" onClick={reset} disabled={step === 'idle'}>
+          <OutlineButton.Center>form.reset()</OutlineButton.Center>
+        </OutlineButton>
+      </div>
+
+      {step === 'done' && (
+        <div style={{ padding: '10px 14px', borderRadius: 8, background: '#10b98115', border: '1px solid #10b981', fontSize: 12, fontWeight: 600, color: '#10b981' }}>
+          ✓ 프로젝트 &quot;{value}&quot; 생성 완료
+        </div>
+      )}
+    </div>
+  )
+}
+
+export const Mantine_useForm_단계별_제출: Story = {
+  name: 'Mantine - useForm 단계별 제출 (validate → submit → reset)',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Mantine의 useForm 패턴. form.onSubmit, form.reset, form.setErrors가 각각 이산적인 OutlineButton 액션으로 표현됩니다. 폼 상태 머신(idle→validating→submitting→done|error)을 시각화합니다.',
+      },
+    },
+  },
+  render: () => <MantineFormStepsRender />,
+}
