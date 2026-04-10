@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { HomeLineIcon, ChevronRightLineIcon, MoreHorizontalIcon } from '@heejun-com/icons'
 
 import { Breadcrumb } from './Breadcrumb'
@@ -948,4 +948,170 @@ export const shadcn_카테고리_탐색: Story = {
       <p style={{ marginTop: 8, fontSize: 11, color: '#94a3b8' }}>shadcn/ui Breadcrumb — 전자상거래 카테고리 탐색 + 공유 버튼 패턴</p>
     </div>
   ),
+}
+
+/* ── Linear Design: 이슈 컨텍스트 경로 ── */
+const IssueContextBreadcrumbDemo = () => {
+  const [path, setPath] = useState(['Orbit UI 팀', '백로그', '이슈 #247'])
+
+  const presets = [
+    ['Orbit UI 팀', '백로그', '이슈 #247'],
+    ['Orbit UI 팀', '스프린트 #12', '이슈 #312'],
+    ['Orbit UI 팀', '완료됨'],
+  ]
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 20, maxWidth: 480 }}>
+      <div>
+        <div style={{ fontSize: 12, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginBottom: 8, textTransform: 'uppercase', letterSpacing: '0.05em' }}>경로 선택</div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+          {presets.map((p) => (
+            <button
+              key={p.join('-')}
+              onClick={() => setPath(p)}
+              style={{ textAlign: 'left', padding: '6px 10px', borderRadius: 6, border: `1px solid ${JSON.stringify(p) === JSON.stringify(path) ? '#6366f1' : 'var(--sem-eclipse-color-borderSubtle)'}`, background: JSON.stringify(p) === JSON.stringify(path) ? '#6366f108' : 'var(--sem-eclipse-color-backgroundPrimary)', cursor: 'pointer', fontSize: 12, color: 'var(--sem-eclipse-color-foregroundSecondary)' }}
+            >
+              {p.join(' / ')}
+            </button>
+          ))}
+        </div>
+      </div>
+      <div>
+        <div style={{ fontSize: 12, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginBottom: 6, textTransform: 'uppercase', letterSpacing: '0.05em' }}>결과</div>
+        <Breadcrumb>
+          <Breadcrumb.List>
+            {path.map((segment, i) => (
+              <React.Fragment key={segment}>
+                <Breadcrumb.Item>
+                  {i === path.length - 1 ? (
+                    <Breadcrumb.Page>{segment}</Breadcrumb.Page>
+                  ) : (
+                    <Breadcrumb.Link>{segment}</Breadcrumb.Link>
+                  )}
+                </Breadcrumb.Item>
+                {i < path.length - 1 && <Breadcrumb.Separator />}
+              </React.Fragment>
+            ))}
+          </Breadcrumb.List>
+        </Breadcrumb>
+      </div>
+    </div>
+  )
+}
+
+export const Linear_이슈_컨텍스트_경로: Story = {
+  name: 'Linear — 이슈 컨텍스트 경로 탐색',
+  render: () => <IssueContextBreadcrumbDemo />,
+}
+
+/* ── Linear Design: 프로젝트 계층 탐색 ── */
+const ProjectHierarchyDemo = () => {
+  type Segment = { label: string; sublabel?: string }
+  const [segments, setSegments] = useState<Segment[]>([
+    { label: 'Orbit UI', sublabel: '조직' },
+    { label: 'theme-eclipse', sublabel: '패키지' },
+    { label: 'components', sublabel: '디렉토리' },
+    { label: 'Button', sublabel: '컴포넌트' },
+  ])
+
+  const truncate = () => setSegments((prev) => (prev.length > 1 ? prev.slice(0, -1) : prev))
+  const reset = () => setSegments([
+    { label: 'Orbit UI', sublabel: '조직' },
+    { label: 'theme-eclipse', sublabel: '패키지' },
+    { label: 'components', sublabel: '디렉토리' },
+    { label: 'Button', sublabel: '컴포넌트' },
+  ])
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 12, maxWidth: 520 }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '10px 14px', borderRadius: 8, border: '1px solid var(--sem-eclipse-color-borderDefault)', background: 'var(--sem-eclipse-color-backgroundPrimary)' }}>
+        <Breadcrumb>
+          <Breadcrumb.List>
+            {segments.map((seg, i) => (
+              <React.Fragment key={seg.label}>
+                <Breadcrumb.Item>
+                  {i === segments.length - 1 ? (
+                    <Breadcrumb.Page>{seg.label}</Breadcrumb.Page>
+                  ) : (
+                    <Breadcrumb.Link>{seg.label}</Breadcrumb.Link>
+                  )}
+                </Breadcrumb.Item>
+                {i < segments.length - 1 && <Breadcrumb.Separator />}
+              </React.Fragment>
+            ))}
+          </Breadcrumb.List>
+        </Breadcrumb>
+      </div>
+      <div style={{ display: 'flex', gap: 8 }}>
+        <button onClick={truncate} style={{ padding: '5px 12px', fontSize: 12, borderRadius: 5, border: '1px solid var(--sem-eclipse-color-borderDefault)', background: 'var(--sem-eclipse-color-backgroundPrimary)', color: 'var(--sem-eclipse-color-foregroundSecondary)', cursor: 'pointer' }}>상위로</button>
+        <button onClick={reset} style={{ padding: '5px 12px', fontSize: 12, borderRadius: 5, border: '1px solid var(--sem-eclipse-color-borderDefault)', background: 'var(--sem-eclipse-color-backgroundPrimary)', color: 'var(--sem-eclipse-color-foregroundSecondary)', cursor: 'pointer' }}>초기화</button>
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+        {segments.map((seg, i) => (
+          <div key={seg.label} style={{ display: 'flex', alignItems: 'center', gap: 8, paddingLeft: i * 16, fontSize: 12, color: i === segments.length - 1 ? 'var(--sem-eclipse-color-foregroundPrimary)' : 'var(--sem-eclipse-color-foregroundTertiary)' }}>
+            <span style={{ color: 'var(--sem-eclipse-color-borderDefault)' }}>{'└'}</span>
+            <span style={{ fontWeight: i === segments.length - 1 ? 700 : 400 }}>{seg.label}</span>
+            {seg.sublabel && <span style={{ fontSize: 10, padding: '1px 5px', borderRadius: 4, background: 'var(--sem-eclipse-color-backgroundSecondary)' }}>{seg.sublabel}</span>}
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+export const Linear_프로젝트_계층_탐색: Story = {
+  name: 'Linear — 프로젝트 계층 탐색',
+  render: () => <ProjectHierarchyDemo />,
+}
+
+/* ── Linear Design: 팀 워크스페이스 네비게이션 ── */
+const WorkspaceNavDemo = () => {
+  const [activeView, setActiveView] = useState('issues')
+
+  const workspaces = [
+    { id: 'orbit', label: 'Orbit UI', views: ['issues', 'projects', 'views', 'members'] },
+  ]
+
+  const viewNames: Record<string, string> = {
+    issues: '이슈',
+    projects: '프로젝트',
+    views: '뷰',
+    members: '멤버',
+  }
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 20, maxWidth: 480 }}>
+      {workspaces.map((ws) => (
+        <div key={ws.id}>
+          <div style={{ display: 'flex', gap: 0, borderBottom: '1px solid var(--sem-eclipse-color-borderSubtle)', marginBottom: 16 }}>
+            {ws.views.map((v) => (
+              <button
+                key={v}
+                onClick={() => setActiveView(v)}
+                style={{ padding: '8px 14px', fontSize: 13, fontWeight: activeView === v ? 700 : 400, color: activeView === v ? 'var(--sem-eclipse-color-foregroundPrimary)' : 'var(--sem-eclipse-color-foregroundTertiary)', background: 'none', border: 'none', borderBottom: `2px solid ${activeView === v ? '#6366f1' : 'transparent'}`, cursor: 'pointer', transition: 'color 0.12s' }}
+              >
+                {viewNames[v]}
+              </button>
+            ))}
+          </div>
+          <Breadcrumb>
+            <Breadcrumb.List>
+              <Breadcrumb.Item>
+                <Breadcrumb.Link>{ws.label}</Breadcrumb.Link>
+              </Breadcrumb.Item>
+              <Breadcrumb.Separator />
+              <Breadcrumb.Item>
+                <Breadcrumb.Page>{viewNames[activeView]}</Breadcrumb.Page>
+              </Breadcrumb.Item>
+            </Breadcrumb.List>
+          </Breadcrumb>
+        </div>
+      ))}
+    </div>
+  )
+}
+
+export const Linear_워크스페이스_네비게이션: Story = {
+  name: 'Linear — 워크스페이스 네비게이션',
+  render: () => <WorkspaceNavDemo />,
 }

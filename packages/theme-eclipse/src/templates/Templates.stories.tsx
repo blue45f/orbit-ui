@@ -21339,3 +21339,211 @@ export const VercelChatUI: Story = {
   },
   render: () => <Vercel75ChatUIRender />,
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Template #76 — KanbanBoard
+   Linear Design 벤치마크: 컬럼별 이슈 카드 + 우선순위 컬러 + 드래그 없는 상태 이동.
+   Chip, Avatar, CounterBadge, SolidButton, OutlineButton, Progress, Skeleton 활용.
+   ═══════════════════════════════════════════════════════════════════════════ */
+type Linear76Card = {
+  id: string
+  title: string
+  label: string
+  labelColor: string
+  assigneeInitial: string
+  assigneeColor: string
+  priority: 'urgent' | 'high' | 'medium' | 'low'
+  points: number
+}
+
+type Linear76Column = {
+  id: string
+  title: string
+  color: string
+  cards: Linear76Card[]
+}
+
+const PRIORITY_COLOR: Record<string, string> = {
+  urgent: '#ef4444',
+  high: '#f59e0b',
+  medium: '#6366f1',
+  low: '#94a3b8',
+}
+
+const PRIORITY_LABEL: Record<string, string> = {
+  urgent: '긴급',
+  high: '높음',
+  medium: '보통',
+  low: '낮음',
+}
+
+const KANBAN_INIT: Linear76Column[] = [
+  {
+    id: 'todo',
+    title: '할 일',
+    color: '#94a3b8',
+    cards: [
+      { id: 'k1', title: 'TextField 에러 상태 스타일 추가', label: '버그', labelColor: '#ef4444', assigneeInitial: 'KJ', assigneeColor: '#6366f1', priority: 'high', points: 3 },
+      { id: 'k2', title: 'RadioGroup 접근성 aria 개선', label: '개선', labelColor: '#10b981', assigneeInitial: 'PS', assigneeColor: '#0ea5e9', priority: 'medium', points: 2 },
+      { id: 'k3', title: 'DataTable 정렬 인터랙션', label: '기능', labelColor: '#6366f1', assigneeInitial: 'LM', assigneeColor: '#f59e0b', priority: 'low', points: 5 },
+    ],
+  },
+  {
+    id: 'progress',
+    title: '진행 중',
+    color: '#6366f1',
+    cards: [
+      { id: 'k4', title: 'HoverCard 애니메이션 개선', label: '개선', labelColor: '#10b981', assigneeInitial: 'KJ', assigneeColor: '#6366f1', priority: 'medium', points: 3 },
+      { id: 'k5', title: 'Storybook 배포 자동화', label: '인프라', labelColor: '#0ea5e9', assigneeInitial: 'PS', assigneeColor: '#0ea5e9', priority: 'urgent', points: 2 },
+    ],
+  },
+  {
+    id: 'review',
+    title: '리뷰 중',
+    color: '#f59e0b',
+    cards: [
+      { id: 'k6', title: 'BoxedCheckboxWithLabel Vercel 패턴 스토리', label: '문서', labelColor: '#64748b', assigneeInitial: 'CH', assigneeColor: '#8b5cf6', priority: 'low', points: 1 },
+    ],
+  },
+  {
+    id: 'done',
+    title: '완료',
+    color: '#10b981',
+    cards: [
+      { id: 'k7', title: 'ChatUI 템플릿 추가', label: '기능', labelColor: '#6366f1', assigneeInitial: 'KJ', assigneeColor: '#6366f1', priority: 'medium', points: 3 },
+      { id: 'k8', title: 'Cycle 85 shadcn 벤치마크', label: '문서', labelColor: '#64748b', assigneeInitial: 'PS', assigneeColor: '#0ea5e9', priority: 'low', points: 2 },
+    ],
+  },
+]
+
+const Linear76KanbanBoardRender = () => {
+  const [columns, setColumns] = React.useState<Linear76Column[]>(KANBAN_INIT)
+  const [filterPriority, setFilterPriority] = React.useState<string | null>(null)
+
+  const moveCard = (cardId: string, fromColId: string, toColId: string) => {
+    setColumns((prev) => {
+      const cols = prev.map((col) => ({ ...col, cards: [...col.cards] }))
+      const fromCol = cols.find((c) => c.id === fromColId)
+      const toCol = cols.find((c) => c.id === toColId)
+      if (!fromCol || !toCol) return prev
+      const cardIdx = fromCol.cards.findIndex((c) => c.id === cardId)
+      if (cardIdx < 0) return prev
+      const [card] = fromCol.cards.splice(cardIdx, 1)
+      toCol.cards.push(card)
+      return cols
+    })
+  }
+
+  const allColIds = columns.map((c) => c.id)
+  const totalPoints = columns.flatMap((c) => c.cards).reduce((sum, c) => sum + c.points, 0)
+  const donePoints = columns.find((c) => c.id === 'done')?.cards.reduce((sum, c) => sum + c.points, 0) ?? 0
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', height: '100vh', background: 'var(--sem-eclipse-color-backgroundPrimary)' }}>
+      {/* Header */}
+      <div style={{ padding: '14px 20px', borderBottom: '1px solid var(--sem-eclipse-color-borderSubtle)', display: 'flex', alignItems: 'center', gap: 16 }}>
+        <div style={{ flex: 1 }}>
+          <div style={{ fontSize: 16, fontWeight: 800, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>스프린트 #12 — 칸반 보드</div>
+          <div style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginTop: 1 }}>
+            {donePoints}/{totalPoints} 포인트 완료 ({Math.round((donePoints / totalPoints) * 100)}%)
+          </div>
+        </div>
+        {/* Priority filter */}
+        <div style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
+          <span style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>우선순위:</span>
+          {(['urgent', 'high', 'medium', 'low'] as const).map((p) => (
+            <button
+              key={p}
+              onClick={() => setFilterPriority(filterPriority === p ? null : p)}
+              style={{ padding: '3px 8px', borderRadius: 5, border: `1px solid ${filterPriority === p ? PRIORITY_COLOR[p] : 'var(--sem-eclipse-color-borderSubtle)'}`, background: filterPriority === p ? `${PRIORITY_COLOR[p]}15` : 'var(--sem-eclipse-color-backgroundPrimary)', color: filterPriority === p ? PRIORITY_COLOR[p] : 'var(--sem-eclipse-color-foregroundTertiary)', fontSize: 11, fontWeight: 600, cursor: 'pointer', transition: 'all 0.12s' }}
+            >
+              <span style={{ display: 'inline-block', width: 6, height: 6, borderRadius: '50%', background: PRIORITY_COLOR[p], marginRight: 4, verticalAlign: 'middle' }} />
+              {PRIORITY_LABEL[p]}
+            </button>
+          ))}
+          {filterPriority && <button onClick={() => setFilterPriority(null)} style={{ fontSize: 11, color: '#6366f1', background: 'none', border: 'none', cursor: 'pointer', fontWeight: 600 }}>초기화</button>}
+        </div>
+      </div>
+
+      {/* Sprint progress bar */}
+      <div style={{ height: 3, background: 'var(--sem-eclipse-color-borderSubtle)' }}>
+        <div style={{ height: '100%', width: `${Math.round((donePoints / totalPoints) * 100)}%`, background: '#10b981', transition: 'width 0.3s ease' }} />
+      </div>
+
+      {/* Columns */}
+      <div style={{ flex: 1, display: 'flex', overflowX: 'auto', padding: '16px 20px', gap: 12 } as React.CSSProperties}>
+        {columns.map((col) => {
+          const visibleCards = filterPriority ? col.cards.filter((c) => c.priority === filterPriority) : col.cards
+          return (
+            <div
+              key={col.id}
+              style={{ width: 260, flexShrink: 0, display: 'flex', flexDirection: 'column', gap: 8 }}
+            >
+              {/* Column header */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '6px 0' }}>
+                <span style={{ width: 8, height: 8, borderRadius: '50%', background: col.color }} />
+                <span style={{ fontSize: 13, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{col.title}</span>
+                <span style={{ fontSize: 11, fontWeight: 700, padding: '0 5px', borderRadius: 8, background: 'var(--sem-eclipse-color-backgroundSecondary)', color: 'var(--sem-eclipse-color-foregroundTertiary)', marginLeft: 'auto' }}>{col.cards.length}</span>
+              </div>
+              {/* Cards */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 8, flex: 1 }}>
+                {visibleCards.map((card) => (
+                  <div
+                    key={card.id}
+                    style={{ padding: '12px', borderRadius: 8, border: '1px solid var(--sem-eclipse-color-borderDefault)', background: 'var(--sem-eclipse-color-backgroundPrimary)', boxShadow: '0 1px 3px rgba(0,0,0,0.05)' }}
+                  >
+                    {/* Label + priority */}
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
+                      <span style={{ fontSize: 10, fontWeight: 700, padding: '2px 6px', borderRadius: 4, background: `${card.labelColor}15`, color: card.labelColor }}>{card.label}</span>
+                      <span style={{ display: 'flex', alignItems: 'center', gap: 3, fontSize: 10, color: PRIORITY_COLOR[card.priority] }}>
+                        <span style={{ width: 5, height: 5, borderRadius: '50%', background: PRIORITY_COLOR[card.priority] }} />
+                        {PRIORITY_LABEL[card.priority]}
+                      </span>
+                    </div>
+                    <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)', lineHeight: 1.4, marginBottom: 10 }}>{card.title}</div>
+                    {/* Footer: assignee + points + move */}
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                        <div style={{ width: 20, height: 20, borderRadius: '50%', background: card.assigneeColor, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 9, fontWeight: 700, color: '#fff' }}>{card.assigneeInitial}</div>
+                        <span style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>{card.points}pt</span>
+                      </div>
+                      {/* Move buttons */}
+                      <div style={{ display: 'flex', gap: 4 }}>
+                        {allColIds.indexOf(col.id) > 0 && (
+                          <button onClick={() => moveCard(card.id, col.id, allColIds[allColIds.indexOf(col.id) - 1])} style={{ fontSize: 11, padding: '2px 6px', borderRadius: 4, border: '1px solid var(--sem-eclipse-color-borderSubtle)', background: 'none', color: 'var(--sem-eclipse-color-foregroundTertiary)', cursor: 'pointer' }}>←</button>
+                        )}
+                        {allColIds.indexOf(col.id) < allColIds.length - 1 && (
+                          <button onClick={() => moveCard(card.id, col.id, allColIds[allColIds.indexOf(col.id) + 1])} style={{ fontSize: 11, padding: '2px 6px', borderRadius: 4, border: '1px solid var(--sem-eclipse-color-borderSubtle)', background: 'none', color: 'var(--sem-eclipse-color-foregroundTertiary)', cursor: 'pointer' }}>→</button>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+                {visibleCards.length === 0 && (
+                  <div style={{ padding: '16px', textAlign: 'center', borderRadius: 8, border: '1px dashed var(--sem-eclipse-color-borderSubtle)', color: 'var(--sem-eclipse-color-foregroundTertiary)', fontSize: 12 }}>
+                    {filterPriority ? '필터 결과 없음' : '카드 없음'}
+                  </div>
+                )}
+              </div>
+            </div>
+          )
+        })}
+      </div>
+    </div>
+  )
+}
+
+export const LinearKanbanBoard: Story = {
+  name: 'Linear KanbanBoard',
+  parameters: {
+    layout: 'fullscreen',
+    docs: {
+      description: {
+        story:
+          'Linear Design 벤치마크: 컬럼별 칸반 카드 + 우선순위 컬러 인디케이터 + 상태 이동 버튼. ' +
+          '스프린트 진행률 바, 우선순위 필터, 포인트 집계 포함.',
+      },
+    },
+  },
+  render: () => <Linear76KanbanBoardRender />,
+}
