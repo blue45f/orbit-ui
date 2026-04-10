@@ -1718,3 +1718,36 @@ const theme = createTheme({
     <span style={{ color: '#475569', marginLeft: '8px' }}>RadixVercel112NotificationCenter — 알림 센터, 필터 탭, 설정 패널, Toggle 알림 설정</span>
   </div>
 </section>
+
+<section style={{ marginBottom: '32px', padding: '20px', background: '#f8fafc', borderRadius: '10px', border: '1px solid #e2e8f0' }}>
+  <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '14px' }}>
+    <span style={{ fontSize: '11px', fontWeight: '700', padding: '3px 10px', borderRadius: '99px', background: '#0f172a', color: '#fff' }}>Cycle 113</span>
+    <h3 style={{ fontSize: '15px', fontWeight: '700', color: '#0f172a', margin: '0' }}>shadcn/ui + Linear Design</h3>
+  </div>
+
+  <h4 style={{ fontSize: '13px', fontWeight: '600', color: '#334155', margin: '0 0 8px' }}>shadcn/ui 장점 분석</h4>
+  <ul style={{ fontSize: '12px', color: '#475569', margin: '0 0 12px', paddingLeft: '18px', lineHeight: '1.8' }}>
+    <li><strong>Click-to-edit 인라인 편집</strong>: 정적 텍스트 클릭 시 즉시 입력 필드로 전환, 저장/취소 확정 패턴. hover 상태에서 수정 힌트만 표시하여 읽기 우선 인터페이스 유지.</li>
+    <li><strong>설문 스텝 위자드</strong>: 답변 선택 즉시 다음 단계로 진행, 건너뛰기/이전 내비게이션, 완료 화면으로 자연스러운 전환. PageIndicator와 단계 레이블 동기화.</li>
+    <li><strong>파일 관리자 레이아웃</strong>: 사이드바 트리 + 그리드/리스트 토글 + 정렬 Chip + 미리보기 패널 4분할 레이아웃. 검색 → 필터 → 선택 → 액션 워크플로우 일관성.</li>
+  </ul>
+
+  <h4 style={{ fontSize: '13px', fontWeight: '600', color: '#334155', margin: '0 0 8px' }}>Linear Design 장점 분석</h4>
+  <ul style={{ fontSize: '12px', color: '#475569', margin: '0 0 12px', paddingLeft: '18px', lineHeight: '1.8' }}>
+    <li><strong>이슈 생성 컴팩트 폼</strong>: 우선순위 컬러 선택기를 헤더에 배치, 제목/설명 2-field 구조, Enter 단축키 제출로 키보드 중심 워크플로우 지원.</li>
+    <li><strong>마일스톤 타임라인</strong>: 타임라인 선(연결선)의 done/upcoming 색상 분기, 클릭으로 마일스톤 이동 + PageIndicator 동기화, 진행률 바 즉시 반영.</li>
+    <li><strong>파일 업로드 3단계 위자드</strong>: 드래그존 → 미리보기+진행률 → 완료 화면, PageIndicator로 단계 위치 표시. 각 단계 전환 시 상태 초기화 패턴.</li>
+  </ul>
+
+  <h4 style={{ fontSize: '13px', fontWeight: '600', color: '#334155', margin: '0 0 8px' }}>Orbit UI 반영 사항</h4>
+  <ul style={{ fontSize: '12px', color: '#475569', margin: '0 0 12px', paddingLeft: '18px', lineHeight: '1.8' }}>
+    <li>FloatingTextField: shadcn 인라인 편집(click-to-edit), Linear 이슈 생성 폼, shadcn+Linear 커맨드 팔레트 검색 +3 스토리</li>
+    <li>PageIndicator: shadcn 설문 위자드, Linear 마일스톤 진행, shadcn+Linear 파일 업로드 스텝 +3 스토리</li>
+    <li>Template FileManager: 사이드바 + 그리드/리스트 뷰 전환 + 미리보기 패널 + 정렬 Chip</li>
+  </ul>
+
+  <div style={{ borderTop: '1px solid #e2e8f0', paddingTop: '10px', marginTop: '4px' }}>
+    <span style={{ fontWeight: '700', color: '#0f172a' }}>Template Cycle113:</span>
+    <span style={{ color: '#475569', marginLeft: '8px' }}>ShadcnLinear113FileManager — 파일 관리자, 사이드바 트리, 그리드/리스트, 미리보기</span>
+  </div>
+</section>

@@ -823,3 +823,266 @@ export const shadcn_Vercel_파이프라인_진행: Story = {
   },
   render: () => <ShadcnVercelProgressRender />,
 }
+
+/* --------------------------------------------------------------------------
+   shadcn/ui — 설문 스텝 위자드
+   단계별 질문 + 진행률 PageIndicator 패턴
+-------------------------------------------------------------------------- */
+const SURVEY_STEPS = [
+  { q: 'Orbit UI를 어떤 용도로 사용하시나요?', opts: ['개인 프로젝트', '팀 프로젝트', '프리랜서 작업', '기업 서비스'] },
+  { q: '현재 사용 중인 다른 디자인 시스템은?', opts: ['shadcn/ui', 'MUI', 'Ant Design', '직접 구현'] },
+  { q: '가장 중요한 기능은 무엇인가요?', opts: ['접근성', '커스터마이징', '문서 품질', '컴포넌트 수'] },
+  { q: 'Orbit UI를 추천할 의향이 있으신가요?', opts: ['매우 그렇다', '그렇다', '보통', '아니다'] },
+]
+
+function ShadcnSurveyWizardRender() {
+  const [step, setStep] = React.useState(0)
+  const [answers, setAnswers] = React.useState<Record<number, string>>({})
+  const [done, setDone] = React.useState(false)
+
+  const select = (opt: string) => {
+    setAnswers((prev) => ({ ...prev, [step]: opt }))
+    if (step < SURVEY_STEPS.length - 1) {
+      setTimeout(() => setStep((s) => s + 1), 300)
+    } else {
+      setTimeout(() => setDone(true), 300)
+    }
+  }
+
+  if (done) {
+    return (
+      <div style={{ width: 360, textAlign: 'center', padding: '32px 0', display: 'flex', flexDirection: 'column', gap: 12, alignItems: 'center' }}>
+        <div style={{ fontSize: 32 }}>✓</div>
+        <div style={{ fontSize: 16, fontWeight: 700, color: '#0f172a' }}>응답 완료!</div>
+        <div style={{ fontSize: 13, color: '#64748b' }}>소중한 피드백 감사합니다.</div>
+        <button onClick={() => { setStep(0); setAnswers({}); setDone(false) }} style={{ marginTop: 8, padding: '8px 20px', borderRadius: 8, border: '1px solid #e2e8f0', background: '#fff', fontSize: 13, cursor: 'pointer', color: '#0f172a' }}>다시 시작</button>
+      </div>
+    )
+  }
+
+  const current = SURVEY_STEPS[step]
+
+  return (
+    <div style={{ width: 360, display: 'flex', flexDirection: 'column', gap: 20 }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 8, alignItems: 'center' }}>
+        <PageIndicator currentPage={step} onPageChange={setStep}>
+          {generateDots(SURVEY_STEPS.length)}
+        </PageIndicator>
+        <div style={{ fontSize: 11, color: '#94a3b8' }}>{step + 1} / {SURVEY_STEPS.length}</div>
+      </div>
+      <div style={{ fontSize: 15, fontWeight: 700, color: '#0f172a', textAlign: 'center', lineHeight: 1.4 }}>{current.q}</div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+        {current.opts.map((opt) => (
+          <button
+            key={opt}
+            onClick={() => select(opt)}
+            style={{ padding: '12px 16px', borderRadius: 8, border: `1.5px solid ${answers[step] === opt ? '#6366f1' : '#e2e8f0'}`, background: answers[step] === opt ? '#6366f108' : '#fff', fontSize: 13, color: '#0f172a', cursor: 'pointer', textAlign: 'left', transition: 'all 0.15s', fontWeight: answers[step] === opt ? 600 : 400 }}
+          >
+            {opt}
+          </button>
+        ))}
+      </div>
+      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <button onClick={() => setStep((s) => Math.max(0, s - 1))} disabled={step === 0} style={{ padding: '6px 14px', borderRadius: 6, border: '1px solid #e2e8f0', background: '#fff', fontSize: 12, color: step === 0 ? '#cbd5e1' : '#64748b', cursor: step === 0 ? 'not-allowed' : 'pointer' }}>이전</button>
+        <button onClick={() => setStep((s) => Math.min(SURVEY_STEPS.length - 1, s + 1))} style={{ padding: '6px 14px', borderRadius: 6, border: '1px solid #e2e8f0', background: '#fff', fontSize: 12, color: '#64748b', cursor: 'pointer' }}>건너뛰기</button>
+      </div>
+      <div style={{ fontSize: 11, color: '#94a3b8', textAlign: 'center' }}>shadcn/ui 설문 위자드 패턴 — PageIndicator 스텝 탐색</div>
+    </div>
+  )
+}
+
+export const shadcn_설문_스텝_위자드: Story = {
+  name: 'shadcn/ui — 설문 스텝 위자드',
+  parameters: {
+    docs: {
+      description: {
+        story: 'shadcn/ui Steps 패턴의 설문 위자드. PageIndicator로 현재 단계를 표시하고, 답변 선택 시 자동으로 다음 단계로 이동합니다. 마지막 단계에서 완료 화면으로 전환.',
+      },
+    },
+  },
+  render: () => <ShadcnSurveyWizardRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Linear Design — 프로젝트 마일스톤 진행
+   분기별 마일스톤 + 완료율 PageIndicator 패턴
+-------------------------------------------------------------------------- */
+const LINEAR_MILESTONES = [
+  { name: 'Q1 알파', date: '2026-03-31', status: 'done', tasks: 12, done: 12 },
+  { name: 'Q2 베타', date: '2026-06-30', status: 'done', tasks: 18, done: 16 },
+  { name: 'Q3 RC', date: '2026-09-30', status: 'current', tasks: 22, done: 9 },
+  { name: 'Q4 출시', date: '2026-12-31', status: 'upcoming', tasks: 15, done: 0 },
+]
+
+function LinearMilestoneRender() {
+  const [active, setActive] = React.useState(2)
+  const m = LINEAR_MILESTONES[active]
+  const pct = Math.round((m.done / m.tasks) * 100)
+
+  return (
+    <div style={{ width: 380, display: 'flex', flexDirection: 'column', gap: 16 }}>
+      <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>Orbit UI 2026 로드맵</div>
+      {/* 마일스톤 타임라인 */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: 0 }}>
+        {LINEAR_MILESTONES.map((ml, i) => (
+          <React.Fragment key={ml.name}>
+            <button
+              onClick={() => setActive(i)}
+              style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4, background: 'none', border: 'none', cursor: 'pointer', padding: '4px 8px' }}
+            >
+              <div style={{ width: 24, height: 24, borderRadius: '50%', border: `2px solid ${ml.status === 'done' ? '#10b981' : ml.status === 'current' ? '#6366f1' : '#e2e8f0'}`, background: ml.status === 'done' ? '#10b981' : active === i ? '#6366f1' : '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'all 0.15s' }}>
+                {ml.status === 'done' && <span style={{ fontSize: 10, color: '#fff', fontWeight: 700 }}>✓</span>}
+                {ml.status === 'current' && <div style={{ width: 8, height: 8, borderRadius: '50%', background: '#6366f1' }} />}
+              </div>
+              <span style={{ fontSize: 10, fontWeight: active === i ? 700 : 400, color: active === i ? '#0f172a' : '#94a3b8', whiteSpace: 'nowrap' }}>{ml.name}</span>
+            </button>
+            {i < LINEAR_MILESTONES.length - 1 && <div style={{ flex: 1, height: 2, background: i < active ? '#10b981' : '#e2e8f0', transition: 'background 0.3s', marginBottom: 16 }} />}
+          </React.Fragment>
+        ))}
+      </div>
+      {/* PageIndicator */}
+      <div style={{ display: 'flex', justifyContent: 'center' }}>
+        <PageIndicator currentPage={active} onPageChange={setActive}>
+          {generateDots(LINEAR_MILESTONES.length)}
+        </PageIndicator>
+      </div>
+      {/* 마일스톤 상세 */}
+      <div style={{ padding: '16px', borderRadius: 10, border: '1px solid #e2e8f0', background: '#f8fafc' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12 }}>
+          <span style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>{m.name}</span>
+          <span style={{ fontSize: 11, color: '#94a3b8' }}>{m.date}</span>
+        </div>
+        <div style={{ height: 6, borderRadius: 3, background: '#e2e8f0', overflow: 'hidden', marginBottom: 6 }}>
+          <div style={{ height: '100%', width: `${pct}%`, borderRadius: 3, background: m.status === 'done' ? '#10b981' : m.status === 'current' ? '#6366f1' : '#e2e8f0', transition: 'width 0.3s' }} />
+        </div>
+        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11, color: '#64748b' }}>
+          <span>{m.done} / {m.tasks} 태스크 완료</span>
+          <span style={{ fontWeight: 700, color: m.status === 'done' ? '#10b981' : '#6366f1' }}>{pct}%</span>
+        </div>
+      </div>
+      <div style={{ fontSize: 11, color: '#94a3b8', textAlign: 'center' }}>Linear 마일스톤 진행 패턴 — 분기별 로드맵 + PageIndicator</div>
+    </div>
+  )
+}
+
+export const Linear_마일스톤_진행_인디케이터: Story = {
+  name: 'Linear Design — 프로젝트 마일스톤 진행',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Linear 로드맵 마일스톤 UI에서 영감을 받은 패턴. 분기별 마일스톤 타임라인 + PageIndicator 동기화, 완료/진행중/예정 상태 시각화, 선택된 마일스톤 태스크 진행률 표시.',
+      },
+    },
+  },
+  render: () => <LinearMilestoneRender />,
+}
+
+/* --------------------------------------------------------------------------
+   shadcn/ui + Linear — 이미지 업로드 스텝
+   파일 선택 → 편집 → 완료 3단계 업로드 위자드
+-------------------------------------------------------------------------- */
+type UploadStep = 'select' | 'preview' | 'done'
+
+const UPLOAD_STEPS: { step: UploadStep; label: string }[] = [
+  { step: 'select', label: '파일 선택' },
+  { step: 'preview', label: '미리보기' },
+  { step: 'done', label: '업로드 완료' },
+]
+
+function ShadcnLinearUploadStepRender() {
+  const [currentStep, setCurrentStep] = React.useState<UploadStep>('select')
+  const [uploading, setUploading] = React.useState(false)
+  const [progress, setProgress] = React.useState(0)
+
+  const stepIndex = UPLOAD_STEPS.findIndex((s) => s.step === currentStep)
+
+  const simulateUpload = async () => {
+    setUploading(true)
+    for (let i = 0; i <= 100; i += 10) {
+      await new Promise((r) => setTimeout(r, 80))
+      setProgress(i)
+    }
+    setUploading(false)
+    setCurrentStep('done')
+  }
+
+  const reset = () => {
+    setCurrentStep('select')
+    setProgress(0)
+  }
+
+  return (
+    <div style={{ width: 340, display: 'flex', flexDirection: 'column', gap: 20, alignItems: 'center' }}>
+      {/* 스텝 레이블 */}
+      <div style={{ display: 'flex', gap: 0, width: '100%' }}>
+        {UPLOAD_STEPS.map((s, i) => (
+          <React.Fragment key={s.step}>
+            <div style={{ flex: 1, textAlign: 'center' }}>
+              <div style={{ fontSize: 11, fontWeight: stepIndex >= i ? 700 : 400, color: stepIndex >= i ? '#6366f1' : '#94a3b8', transition: 'color 0.2s' }}>{s.label}</div>
+            </div>
+          </React.Fragment>
+        ))}
+      </div>
+      <PageIndicator currentPage={stepIndex} onPageChange={(idx) => setCurrentStep(UPLOAD_STEPS[idx].step)}>
+        {generateDots(UPLOAD_STEPS.length)}
+      </PageIndicator>
+
+      {/* 스텝별 콘텐츠 */}
+      {currentStep === 'select' && (
+        <div style={{ width: '100%', padding: '32px 20px', borderRadius: 12, border: '2px dashed #e2e8f0', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12 }}>
+          <div style={{ fontSize: 32, color: '#cbd5e1' }}>↑</div>
+          <div style={{ fontSize: 13, fontWeight: 600, color: '#0f172a' }}>파일을 드래그하거나 클릭하세요</div>
+          <div style={{ fontSize: 11, color: '#94a3b8' }}>PNG, JPG, SVG · 최대 5MB</div>
+          <button onClick={() => setCurrentStep('preview')} style={{ padding: '8px 20px', borderRadius: 8, border: 'none', background: '#6366f1', color: '#fff', fontSize: 13, fontWeight: 600, cursor: 'pointer' }}>
+            파일 선택
+          </button>
+        </div>
+      )}
+
+      {currentStep === 'preview' && (
+        <div style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: 12 }}>
+          <div style={{ width: '100%', height: 140, borderRadius: 10, background: 'linear-gradient(135deg, #6366f120, #a855f720)', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid #e2e8f0' }}>
+            <div style={{ textAlign: 'center', color: '#6366f1' }}>
+              <div style={{ fontSize: 28 }}>◻</div>
+              <div style={{ fontSize: 11, marginTop: 4 }}>orbit-logo.svg</div>
+            </div>
+          </div>
+          {uploading && (
+            <div style={{ height: 4, borderRadius: 2, background: '#e2e8f0', overflow: 'hidden' }}>
+              <div style={{ height: '100%', width: `${progress}%`, background: '#6366f1', transition: 'width 0.08s' }} />
+            </div>
+          )}
+          <div style={{ display: 'flex', gap: 8 }}>
+            <button onClick={() => setCurrentStep('select')} style={{ flex: 1, padding: '8px', borderRadius: 8, border: '1px solid #e2e8f0', background: '#fff', fontSize: 13, cursor: 'pointer' }}>다시 선택</button>
+            <button onClick={simulateUpload} disabled={uploading} style={{ flex: 1, padding: '8px', borderRadius: 8, border: 'none', background: '#0f172a', color: '#fff', fontSize: 13, fontWeight: 600, cursor: uploading ? 'not-allowed' : 'pointer' }}>
+              {uploading ? `${progress}%` : '업로드'}
+            </button>
+          </div>
+        </div>
+      )}
+
+      {currentStep === 'done' && (
+        <div style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', gap: 12, alignItems: 'center' }}>
+          <div style={{ width: 56, height: 56, borderRadius: '50%', background: '#10b98115', border: '2px solid #10b981', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 24, color: '#10b981' }}>✓</div>
+          <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>업로드 완료</div>
+          <div style={{ fontSize: 12, color: '#64748b' }}>orbit-logo.svg가 성공적으로 업로드되었습니다.</div>
+          <button onClick={reset} style={{ padding: '8px 20px', borderRadius: 8, border: '1px solid #e2e8f0', background: '#fff', fontSize: 13, cursor: 'pointer', color: '#0f172a' }}>새 파일 업로드</button>
+        </div>
+      )}
+
+      <div style={{ fontSize: 11, color: '#94a3b8', textAlign: 'center' }}>shadcn/ui + Linear — 파일 업로드 스텝 위자드 + PageIndicator</div>
+    </div>
+  )
+}
+
+export const shadcn_Linear_파일_업로드_스텝: Story = {
+  name: 'shadcn/ui + Linear — 파일 업로드 스텝 위자드',
+  parameters: {
+    docs: {
+      description: {
+        story: 'shadcn/ui Dropzone + Linear 진행률 패턴 조합. PageIndicator로 선택→미리보기→완료 3단계를 표시하고, 업로드 진행률 바와 단계 전환 애니메이션을 연출합니다.',
+      },
+    },
+  },
+  render: () => <ShadcnLinearUploadStepRender />,
+}

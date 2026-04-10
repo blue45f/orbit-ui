@@ -27280,3 +27280,206 @@ export const RadixVercel112NotificationCenter: StoryObj = {
   },
   render: () => <NotificationCenter112Render />,
 }
+
+/* --------------------------------------------------------------------------
+   shadcn/ui + Linear — Cycle 113: 파일 관리자 (FileManager)
+   사이드바 트리 + 파일 그리드 + 미리보기 패널
+-------------------------------------------------------------------------- */
+type FileType113 = 'folder' | 'image' | 'doc' | 'code'
+interface FileItem113 {
+  id: number
+  name: string
+  type: FileType113
+  size: string
+  modified: string
+  starred: boolean
+}
+
+const FILE_ITEMS_113: FileItem113[] = [
+  { id: 1, name: 'components', type: 'folder', size: '--', modified: '오늘', starred: true },
+  { id: 2, name: 'templates', type: 'folder', size: '--', modified: '오늘', starred: false },
+  { id: 3, name: 'orbit-logo.svg', type: 'image', size: '12 KB', modified: '어제', starred: true },
+  { id: 4, name: 'README.md', type: 'doc', size: '4 KB', modified: '3일 전', starred: false },
+  { id: 5, name: 'DataTable.stories.tsx', type: 'code', size: '28 KB', modified: '5시간 전', starred: false },
+  { id: 6, name: 'theme-vars.css.ts', type: 'code', size: '8 KB', modified: '1일 전', starred: true },
+  { id: 7, name: 'screenshot.png', type: 'image', size: '340 KB', modified: '2일 전', starred: false },
+  { id: 8, name: 'CHANGELOG.md', type: 'doc', size: '6 KB', modified: '4일 전', starred: false },
+]
+
+const FILE_ICONS: Record<FileType113, { icon: string; color: string; bg: string }> = {
+  folder: { icon: '▤', color: '#f59e0b', bg: '#fffbeb' },
+  image: { icon: '◻', color: '#06b6d4', bg: '#ecfeff' },
+  doc: { icon: '≡', color: '#6366f1', bg: '#f5f3ff' },
+  code: { icon: '{', color: '#10b981', bg: '#f0fdf4' },
+}
+
+const NAV_ITEMS = ['전체 파일', '즐겨찾기', '최근 파일', '공유 폴더']
+
+function FileManager113Render() {
+  const [activeNav, setActiveNav] = useState(0)
+  const [selected, setSelected] = useState<FileItem113 | null>(null)
+  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid')
+  const [searchQuery, setSearchQuery] = useState('')
+  const [sortBy, setSortBy] = useState<'name' | 'modified' | 'size'>('modified')
+
+  const displayed = FILE_ITEMS_113.filter((f) => {
+    if (activeNav === 1) return f.starred
+    return f.name.toLowerCase().includes(searchQuery.toLowerCase())
+  }).sort((a, b) => sortBy === 'name' ? a.name.localeCompare(b.name) : sortBy === 'size' ? (a.size === '--' ? -1 : b.size === '--' ? 1 : 0) : 0)
+
+  return (
+    <div style={{ fontFamily: 'system-ui, sans-serif', maxWidth: 800, margin: '0 auto', border: '1px solid var(--sem-eclipse-color-borderSubtle)', borderRadius: 16, overflow: 'hidden' }}>
+      {/* AppBar */}
+      <AppBar>
+        <AppBar.Leading>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+            <div style={{ width: 28, height: 28, borderRadius: 8, background: '#f59e0b', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: 14, fontWeight: 800 }}>F</div>
+            <span style={{ fontWeight: 700, fontSize: 15, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>Orbit Files</span>
+          </div>
+        </AppBar.Leading>
+        <AppBar.Center>
+          <SearchBar
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder="파일 검색..."
+          />
+        </AppBar.Center>
+        <AppBar.Trailing>
+          <div style={{ display: 'flex', gap: 6 }}>
+            <SolidIconButton color="black" size="small" onClick={() => setViewMode('grid')}>
+              <span style={{ fontSize: 12, fontWeight: viewMode === 'grid' ? 800 : 400 }}>▦</span>
+            </SolidIconButton>
+            <SolidIconButton color="black" size="small" onClick={() => setViewMode('list')}>
+              <span style={{ fontSize: 12, fontWeight: viewMode === 'list' ? 800 : 400 }}>☰</span>
+            </SolidIconButton>
+          </div>
+        </AppBar.Trailing>
+      </AppBar>
+
+      <div style={{ display: 'flex', height: 480 }}>
+        {/* Sidebar */}
+        <div style={{ width: 160, borderRight: '1px solid var(--sem-eclipse-color-borderSubtle)', padding: '12px 8px', display: 'flex', flexDirection: 'column', gap: 2, flexShrink: 0 }}>
+          {NAV_ITEMS.map((nav, i) => (
+            <button
+              key={nav}
+              onClick={() => setActiveNav(i)}
+              style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '8px 10px', borderRadius: 8, border: 'none', background: activeNav === i ? 'var(--sem-eclipse-color-backgroundSecondary)' : 'transparent', color: activeNav === i ? 'var(--sem-eclipse-color-foregroundPrimary)' : 'var(--sem-eclipse-color-foregroundTertiary)', fontSize: 12, fontWeight: activeNav === i ? 600 : 400, cursor: 'pointer', textAlign: 'left', transition: 'all 0.1s' }}
+            >
+              {nav}
+            </button>
+          ))}
+          <Divider style={{ margin: '8px 4px' }} />
+          <div style={{ fontSize: 10, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundTertiary)', padding: '4px 10px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>태그</div>
+          {['디자인', '개발', '문서'].map((tag, i) => (
+            <div key={tag} style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '6px 10px', fontSize: 12, color: 'var(--sem-eclipse-color-foregroundSecondary)' }}>
+              <div style={{ width: 8, height: 8, borderRadius: '50%', background: ['#6366f1', '#10b981', '#f59e0b'][i], flexShrink: 0 }} />
+              {tag}
+            </div>
+          ))}
+        </div>
+
+        {/* Main Area */}
+        <div style={{ flex: 1, display: 'flex', overflow: 'hidden' }}>
+          <div style={{ flex: 1, padding: '16px', overflowY: 'auto' }}>
+            {/* Toolbar */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 14 }}>
+              <SectionTitle>{NAV_ITEMS[activeNav]}</SectionTitle>
+              <CounterBadge>{displayed.length}</CounterBadge>
+              <div style={{ marginLeft: 'auto', display: 'flex', gap: 6 }}>
+                {(['name', 'modified', 'size'] as const).map((s) => (
+                  <Chip key={s} selected={sortBy === s} onClick={() => setSortBy(s)}>
+                    {s === 'name' ? '이름' : s === 'modified' ? '수정일' : '크기'}
+                  </Chip>
+                ))}
+              </div>
+            </div>
+
+            {/* File Grid / List */}
+            {viewMode === 'grid' ? (
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(110px, 1fr))', gap: 10 }}>
+                {displayed.map((file) => {
+                  const meta = FILE_ICONS[file.type]
+                  return (
+                    <div
+                      key={file.id}
+                      onClick={() => setSelected(selected?.id === file.id ? null : file)}
+                      style={{ padding: '14px 10px', borderRadius: 10, border: `1.5px solid ${selected?.id === file.id ? '#6366f1' : 'var(--sem-eclipse-color-borderSubtle)'}`, background: selected?.id === file.id ? '#f5f3ff' : 'var(--sem-eclipse-color-backgroundPrimary)', cursor: 'pointer', transition: 'all 0.1s', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8 }}
+                    >
+                      <div style={{ width: 44, height: 44, borderRadius: 10, background: meta.bg, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 20, color: meta.color }}>
+                        {meta.icon}
+                      </div>
+                      <div style={{ fontSize: 11, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)', textAlign: 'center', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', width: '100%' }}>{file.name}</div>
+                      {file.starred && <span style={{ fontSize: 10, color: '#f59e0b' }}>★</span>}
+                    </div>
+                  )
+                })}
+              </div>
+            ) : (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+                {displayed.map((file) => {
+                  const meta = FILE_ICONS[file.type]
+                  return (
+                    <div
+                      key={file.id}
+                      onClick={() => setSelected(selected?.id === file.id ? null : file)}
+                      style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '8px 12px', borderRadius: 8, background: selected?.id === file.id ? '#f5f3ff' : 'transparent', cursor: 'pointer', transition: 'background 0.1s' }}
+                    >
+                      <div style={{ width: 28, height: 28, borderRadius: 6, background: meta.bg, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 14, color: meta.color, flexShrink: 0 }}>{meta.icon}</div>
+                      <span style={{ flex: 1, fontSize: 13, color: 'var(--sem-eclipse-color-foregroundPrimary)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{file.name}</span>
+                      <span style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)', flexShrink: 0 }}>{file.size}</span>
+                      <span style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)', flexShrink: 0, width: 60, textAlign: 'right' }}>{file.modified}</span>
+                    </div>
+                  )
+                })}
+              </div>
+            )}
+          </div>
+
+          {/* Preview Panel */}
+          {selected && (
+            <div style={{ width: 200, borderLeft: '1px solid var(--sem-eclipse-color-borderSubtle)', padding: '16px 14px', display: 'flex', flexDirection: 'column', gap: 12, flexShrink: 0 }}>
+              <div style={{ width: '100%', height: 100, borderRadius: 10, background: FILE_ICONS[selected.type].bg, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 36, color: FILE_ICONS[selected.type].color }}>
+                {FILE_ICONS[selected.type].icon}
+              </div>
+              <div>
+                <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 2, wordBreak: 'break-all' }}>{selected.name}</div>
+                <LabelBadge color="gray">{selected.type}</LabelBadge>
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+                {[['크기', selected.size], ['수정일', selected.modified]].map(([k, v]) => (
+                  <div key={k} style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11 }}>
+                    <span style={{ color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>{k}</span>
+                    <span style={{ color: 'var(--sem-eclipse-color-foregroundSecondary)', fontWeight: 600 }}>{v}</span>
+                  </div>
+                ))}
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+                <SolidButton color="primary" size="small">
+                  <SolidButton.Center>열기</SolidButton.Center>
+                </SolidButton>
+                <OutlineButton color="gray" size="small">
+                  <OutlineButton.Center>다운로드</OutlineButton.Center>
+                </OutlineButton>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const ShadcnLinear113FileManager: StoryObj = {
+  name: 'shadcn/ui + Linear — 파일 관리자 (Cycle 113)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'shadcn/ui + Linear Design 벤치마크 — Cycle 113. ' +
+          '파일 관리자: 사이드바 네비게이션 + AppBar SearchBar + 그리드/리스트 전환 + 정렬 Chip + 파일 미리보기 패널(LabelBadge + SolidButton + OutlineButton). ' +
+          'AppBar, SearchBar, SolidIconButton, Chip, SectionTitle, CounterBadge, Divider, LabelBadge, SolidButton, OutlineButton 복합 활용.',
+      },
+    },
+  },
+  render: () => <FileManager113Render />,
+}

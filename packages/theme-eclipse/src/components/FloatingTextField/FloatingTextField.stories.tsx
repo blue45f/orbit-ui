@@ -920,3 +920,232 @@ export const Radix_Chakra_OTP_입력: Story = {
   },
   render: () => <OtpInputDemo />,
 }
+
+/* --------------------------------------------------------------------------
+   shadcn/ui — 인라인 편집 필드
+   클릭하여 편집 전환 + 저장/취소 패턴
+-------------------------------------------------------------------------- */
+const SHADCN_FIELDS = [
+  { key: 'name', label: '프로젝트명', value: 'Orbit UI' },
+  { key: 'slug', label: 'URL 슬러그', value: 'orbit-ui' },
+  { key: 'desc', label: '설명', value: '다계층 React 디자인 시스템' },
+]
+
+function ShadcnInlineEditRender() {
+  const [editing, setEditing] = useState<string | null>(null)
+  const [values, setValues] = useState<Record<string, string>>(
+    Object.fromEntries(SHADCN_FIELDS.map((f) => [f.key, f.value]))
+  )
+  const [drafts, setDrafts] = useState<Record<string, string>>({})
+
+  const startEdit = (key: string) => {
+    setEditing(key)
+    setDrafts((prev) => ({ ...prev, [key]: values[key] }))
+  }
+  const save = (key: string) => {
+    setValues((prev) => ({ ...prev, [key]: drafts[key] ?? prev[key] }))
+    setEditing(null)
+  }
+  const cancel = () => setEditing(null)
+
+  return (
+    <div style={{ width: 340, display: 'flex', flexDirection: 'column', gap: 16 }}>
+      <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>프로젝트 설정</div>
+      {SHADCN_FIELDS.map((field) => (
+        <div key={field.key}>
+          <div style={{ fontSize: 11, fontWeight: 600, color: '#64748b', marginBottom: 4, textTransform: 'uppercase', letterSpacing: '0.05em' }}>{field.label}</div>
+          {editing === field.key ? (
+            <div style={{ display: 'flex', gap: 8, alignItems: 'flex-end' }}>
+              <FloatingTextField
+                placeholder={field.label}
+                value={drafts[field.key] ?? ''}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setDrafts((prev) => ({ ...prev, [field.key]: e.target.value }))
+                }
+                autoFocus
+              />
+              <div style={{ display: 'flex', gap: 4, flexShrink: 0 }}>
+                <button onClick={() => save(field.key)} style={{ padding: '6px 12px', borderRadius: 6, border: 'none', background: '#6366f1', color: '#fff', fontSize: 12, fontWeight: 600, cursor: 'pointer' }}>저장</button>
+                <button onClick={cancel} style={{ padding: '6px 10px', borderRadius: 6, border: '1px solid #e2e8f0', background: '#fff', fontSize: 12, color: '#64748b', cursor: 'pointer' }}>취소</button>
+              </div>
+            </div>
+          ) : (
+            <div
+              onClick={() => startEdit(field.key)}
+              style={{ padding: '8px 12px', borderRadius: 6, border: '1px solid transparent', fontSize: 13, color: '#0f172a', cursor: 'text', transition: 'border-color 0.15s', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8 }}
+              onMouseEnter={(e) => { (e.currentTarget as HTMLDivElement).style.borderColor = '#e2e8f0'; (e.currentTarget as HTMLDivElement).style.background = '#f8fafc' }}
+              onMouseLeave={(e) => { (e.currentTarget as HTMLDivElement).style.borderColor = 'transparent'; (e.currentTarget as HTMLDivElement).style.background = 'transparent' }}
+            >
+              <span>{values[field.key]}</span>
+              <span style={{ fontSize: 11, color: '#94a3b8', opacity: 0 }} className="edit-hint">수정</span>
+            </div>
+          )}
+        </div>
+      ))}
+      <div style={{ fontSize: 11, color: '#94a3b8' }}>shadcn/ui 인라인 편집 패턴 — 클릭하여 FloatingTextField로 전환</div>
+    </div>
+  )
+}
+
+export const shadcn_인라인_편집_필드: Story = {
+  name: 'shadcn/ui — 인라인 편집 필드 (Click-to-edit)',
+  parameters: {
+    docs: {
+      description: {
+        story: 'shadcn/ui의 Editable 컴포넌트 패턴. 정적 텍스트를 클릭하면 FloatingTextField로 전환되고, 저장/취소로 확정합니다. Notion/Linear 인라인 편집 UX와 동일한 패턴.',
+      },
+    },
+  },
+  render: () => <ShadcnInlineEditRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Linear Design — 이슈 제목 + 설명 입력 폼
+   미니멀 컴팩트 + 빠른 입력 패턴
+-------------------------------------------------------------------------- */
+const LINEAR_PRIORITIES = [
+  { value: 'urgent', label: '긴급', color: '#ef4444' },
+  { value: 'high', label: '높음', color: '#f59e0b' },
+  { value: 'medium', label: '중간', color: '#6366f1' },
+  { value: 'low', label: '낮음', color: '#94a3b8' },
+]
+
+function LinearIssueFormRender() {
+  const [title, setTitle] = useState('')
+  const [desc, setDesc] = useState('')
+  const [priority, setPriority] = useState('medium')
+  const [submitted, setSubmitted] = useState(false)
+
+  const submit = async () => {
+    if (!title.trim()) return
+    setSubmitted(true)
+    await new Promise((r) => setTimeout(r, 800))
+    setSubmitted(false)
+    setTitle('')
+    setDesc('')
+    setPriority('medium')
+  }
+
+  const pr = LINEAR_PRIORITIES.find((p) => p.value === priority)!
+
+  return (
+    <div style={{ width: 400, display: 'flex', flexDirection: 'column', gap: 12 }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
+        <div style={{ width: 20, height: 20, borderRadius: '50%', border: `2px solid ${pr.color}`, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+          <div style={{ width: 8, height: 8, borderRadius: '50%', background: pr.color }} />
+        </div>
+        <span style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>새 이슈</span>
+        <select
+          value={priority}
+          onChange={(e) => setPriority(e.target.value)}
+          style={{ marginLeft: 'auto', fontSize: 11, fontWeight: 600, color: pr.color, border: `1px solid ${pr.color}30`, background: `${pr.color}10`, borderRadius: 6, padding: '3px 8px', cursor: 'pointer', outline: 'none' }}
+        >
+          {LINEAR_PRIORITIES.map((p) => (
+            <option key={p.value} value={p.value}>{p.label}</option>
+          ))}
+        </select>
+      </div>
+      <FloatingTextField
+        placeholder="이슈 제목..."
+        value={title}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) => setTitle(e.target.value)}
+        onKeyDown={(e: React.KeyboardEvent) => { if (e.key === 'Enter') submit() }}
+      />
+      <FloatingTextField
+        placeholder="설명 (선택 사항)..."
+        value={desc}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) => setDesc(e.target.value)}
+      />
+      <div style={{ display: 'flex', gap: 8, alignItems: 'center', paddingTop: 4 }}>
+        <button
+          onClick={submit}
+          disabled={!title.trim() || submitted}
+          style={{ padding: '8px 16px', borderRadius: 8, border: 'none', background: title.trim() ? '#0f172a' : '#e2e8f0', color: title.trim() ? '#fff' : '#94a3b8', fontSize: 13, fontWeight: 600, cursor: title.trim() ? 'pointer' : 'not-allowed', transition: 'all 0.15s' }}
+        >
+          {submitted ? '저장 중...' : '이슈 생성'}
+        </button>
+        <span style={{ fontSize: 11, color: '#94a3b8' }}>Enter로 빠른 저장</span>
+      </div>
+      <div style={{ fontSize: 11, color: '#94a3b8' }}>Linear 이슈 입력 패턴 — 우선순위 선택 + 제목/설명 FloatingTextField</div>
+    </div>
+  )
+}
+
+export const Linear_이슈_생성_폼: Story = {
+  name: 'Linear Design — 이슈 생성 폼 (컴팩트 입력)',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Linear 이슈 생성 UI 패턴. 우선순위 컬러 선택기 + 제목 FloatingTextField + 설명 FloatingTextField + Enter 단축키 제출. Linear의 미니멀 컴팩트 입력 패턴 구현.',
+      },
+    },
+  },
+  render: () => <LinearIssueFormRender />,
+}
+
+/* --------------------------------------------------------------------------
+   shadcn/ui + Linear — 검색 + 필터 복합 인풋
+   커맨드 팔레트 스타일 입력 패턴
+-------------------------------------------------------------------------- */
+const CMD_ITEMS = [
+  { id: 1, type: 'issue', label: 'ORB-241 Toggle onCheckedChange 타입 수정', status: 'in-progress' },
+  { id: 2, type: 'component', label: 'FloatingTextField 스토리 추가', status: 'done' },
+  { id: 3, type: 'issue', label: 'ORB-238 DataTable 정렬 로직 개선', status: 'todo' },
+  { id: 4, type: 'doc', label: 'BenchmarkComparison.mdx Cycle 112 반영', status: 'done' },
+  { id: 5, type: 'component', label: 'PageIndicator 신규 스토리 3종', status: 'in-progress' },
+]
+
+const STATUS_COLORS: Record<string, string> = { 'todo': '#94a3b8', 'in-progress': '#6366f1', 'done': '#10b981' }
+const TYPE_ICONS: Record<string, string> = { issue: '#', component: '◻', doc: '▤' }
+
+function ShadcnLinearSearchRender() {
+  const [query, setQuery] = useState('')
+  const [focused, setFocused] = useState(false)
+
+  const results = query.trim()
+    ? CMD_ITEMS.filter((item) => item.label.toLowerCase().includes(query.toLowerCase()))
+    : []
+
+  return (
+    <div style={{ width: 380, position: 'relative' }}>
+      <FloatingTextField
+        placeholder="이슈, 컴포넌트, 문서 검색..."
+        value={query}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) => setQuery(e.target.value)}
+        onFocus={() => setFocused(true)}
+        onBlur={() => setTimeout(() => setFocused(false), 150)}
+      />
+      {focused && query.trim() && (
+        <div style={{ position: 'absolute', top: '100%', left: 0, right: 0, marginTop: 4, borderRadius: 10, border: '1px solid #e2e8f0', background: '#fff', boxShadow: '0 4px 20px rgba(0,0,0,0.12)', zIndex: 10, overflow: 'hidden' }}>
+          {results.length === 0 ? (
+            <div style={{ padding: '16px', fontSize: 13, color: '#94a3b8', textAlign: 'center' }}>결과 없음</div>
+          ) : (
+            results.map((item) => (
+              <div key={item.id} style={{ display: 'flex', gap: 10, alignItems: 'center', padding: '10px 14px', cursor: 'pointer', borderBottom: '1px solid #f1f5f9', transition: 'background 0.1s' }} onMouseEnter={(e) => (e.currentTarget.style.background = '#f8fafc')} onMouseLeave={(e) => (e.currentTarget.style.background = '#fff')}>
+                <span style={{ fontSize: 14, color: '#94a3b8', fontFamily: 'monospace', flexShrink: 0 }}>{TYPE_ICONS[item.type]}</span>
+                <span style={{ flex: 1, fontSize: 13, color: '#0f172a', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{item.label}</span>
+                <span style={{ width: 8, height: 8, borderRadius: '50%', background: STATUS_COLORS[item.status], flexShrink: 0 }} />
+              </div>
+            ))
+          )}
+          <div style={{ padding: '6px 14px', fontSize: 11, color: '#94a3b8', background: '#f8fafc', borderTop: '1px solid #f1f5f9' }}>
+            {results.length}개 결과 · ↑↓ 탐색 · Enter 선택
+          </div>
+        </div>
+      )}
+      <div style={{ marginTop: results.length > 0 && focused ? 8 : 48, fontSize: 11, color: '#94a3b8' }}>shadcn/ui + Linear — 커맨드 팔레트 스타일 검색 FloatingTextField</div>
+    </div>
+  )
+}
+
+export const shadcn_Linear_커맨드_팔레트_검색: Story = {
+  name: 'shadcn/ui + Linear — 커맨드 팔레트 스타일 검색',
+  parameters: {
+    docs: {
+      description: {
+        story: 'shadcn/ui Command + Linear 검색바 패턴 조합. FloatingTextField에 포커스 시 드롭다운 결과가 노출되고, 타입 아이콘과 상태 도트로 결과를 구분합니다. 커맨드 팔레트 UX.',
+      },
+    },
+  },
+  render: () => <ShadcnLinearSearchRender />,
+}
