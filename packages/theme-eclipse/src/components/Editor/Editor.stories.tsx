@@ -836,3 +836,186 @@ export const Mantine_Notion_이슈_설명_에디터: Story = {
   },
   render: () => <MantineNotionIssueEditorDemo />,
 }
+
+/* --------------------------------------------------------------------------
+   shadcn/ui — 초안 자동저장 에디터
+   shadcn의 "unsaved changes" 패턴 — 타이핑 후 2초 뒤 저장 상태 표시
+-------------------------------------------------------------------------- */
+function ShadcnDraftAutoSaveRender() {
+  const [saveStatus, setSaveStatus] = useState<'idle' | 'saving' | 'saved'>('idle')
+  const [timer, setTimer] = useState<ReturnType<typeof setTimeout> | null>(null)
+
+  const handleChange = (_html: string) => {
+    setSaveStatus('saving')
+    if (timer) clearTimeout(timer)
+    const t = setTimeout(() => setSaveStatus('saved'), 2000)
+    setTimer(t)
+  }
+
+  const STATUS_MAP = {
+    idle: { text: '변경사항 없음', color: 'var(--sem-eclipse-color-foregroundQuaternary)' },
+    saving: { text: '저장 중...', color: '#f59e0b' },
+    saved: { text: '자동 저장됨', color: '#10b981' },
+  }
+  const status = STATUS_MAP[saveStatus]
+
+  return (
+    <div style={{ maxWidth: 620 }}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8, padding: '0 2px' }}>
+        <span style={{ fontSize: 13, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>새 초안</span>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+          <span style={{ width: 7, height: 7, borderRadius: '50%', background: status.color, display: 'inline-block' }} />
+          <span style={{ fontSize: 11, color: status.color, fontWeight: 500 }}>{status.text}</span>
+        </div>
+      </div>
+      <Editor
+        placeholder="초안을 작성하세요... 2초 후 자동 저장됩니다."
+        toolbar={<Editor.Toolbar />}
+        footer={<Editor.CharacterCount />}
+        onChange={handleChange}
+      />
+      <p style={{ marginTop: 8, fontSize: 11, color: 'var(--sem-eclipse-color-foregroundDisabled)' }}>
+        shadcn/ui 초안 저장 패턴 — 타이핑 감지 후 2초 디바운스
+      </p>
+    </div>
+  )
+}
+
+export const Shadcn_초안_자동저장_에디터: Story = {
+  name: 'shadcn/ui — 초안 자동저장 에디터 (2초 디바운스)',
+  parameters: {
+    docs: {
+      description: {
+        story: 'shadcn/ui의 unsaved changes 패턴. 타이핑 시 "저장 중..." 표시, 2초 정지 후 "자동 저장됨" 전환. 상태 컬러 dot으로 직관적 피드백.',
+      },
+    },
+  },
+  render: () => <ShadcnDraftAutoSaveRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Tailwind UI — 제품 설명 마케팅 에디터
+   Tailwind UI e-commerce 패턴 — SEO 미리보기 + 글자수 제한
+-------------------------------------------------------------------------- */
+function TailwindProductDescEditorRender() {
+  const [content, setContent] = useState('')
+  const textLen = content.replace(/<[^>]+>/g, '').trim().length
+  const MAX = 160
+  const seoTitle = 'Orbit UI — Design System'
+  const seoPreview = content.replace(/<[^>]+>/g, '').slice(0, 155) || '제품 설명을 입력하면 검색 미리보기가 표시됩니다...'
+
+  return (
+    <div style={{ maxWidth: 620, display: 'flex', flexDirection: 'column', gap: 12 }}>
+      <div>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
+          <span style={{ fontSize: 13, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>제품 설명</span>
+          <span style={{ fontSize: 11, color: textLen > MAX ? '#ef4444' : 'var(--sem-eclipse-color-foregroundTertiary)', fontWeight: textLen > MAX ? 700 : 400 }}>
+            {textLen} / {MAX}자
+          </span>
+        </div>
+        <Editor
+          placeholder="제품을 간결하게 설명하세요. SEO에 최적화된 160자 이내를 권장합니다."
+          toolbar={<Editor.Toolbar />}
+          footer={<Editor.CharacterCount />}
+          error={textLen > MAX}
+          onChange={setContent}
+        />
+      </div>
+      {/* SEO 미리보기 */}
+      <div style={{ border: '1px solid var(--sem-eclipse-color-borderDefault)', borderRadius: 10, padding: '14px 16px', background: 'var(--sem-eclipse-color-backgroundSecondary)' }}>
+        <span style={{ fontSize: 10, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundQuaternary)', letterSpacing: '0.08em', textTransform: 'uppercase' }}>검색 미리보기</span>
+        <div style={{ marginTop: 6, fontSize: 16, color: '#1a0dab', fontWeight: 500, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{seoTitle}</div>
+        <div style={{ fontSize: 12, color: '#006621', marginBottom: 4 }}>orbit-ui.vercel.app › components</div>
+        <div style={{ fontSize: 13, color: '#545454', lineHeight: 1.5 }}>{seoPreview}</div>
+      </div>
+      <p style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundDisabled)' }}>Tailwind UI e-commerce 패턴 — 실시간 SEO 미리보기 + 160자 제한</p>
+    </div>
+  )
+}
+
+export const Tailwind_제품_설명_SEO_에디터: Story = {
+  name: 'Tailwind UI — 제품 설명 SEO 에디터 (160자 제한)',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Tailwind UI e-commerce 패턴. 160자 SEO 제한, 초과 시 error 테두리. 실시간 구글 검색 미리보기 렌더링. 마케팅 콘텐츠 작성 시나리오.',
+      },
+    },
+  },
+  render: () => <TailwindProductDescEditorRender />,
+}
+
+/* --------------------------------------------------------------------------
+   shadcn/ui + Tailwind UI — PR 변경사항 설명 에디터
+   Linear/GitHub PR description 패턴 — 템플릿 선택 + 미리보기 토글
+-------------------------------------------------------------------------- */
+const PR_TEMPLATES: Record<string, string> = {
+  feature: '<h2>기능 설명</h2><p>이 PR은 어떤 기능을 추가합니까?</p><h2>변경사항</h2><ul><li></li></ul><h2>테스트</h2><p>어떻게 테스트했습니까?</p>',
+  bugfix: '<h2>버그 설명</h2><p>어떤 버그를 수정합니까?</p><h2>원인</h2><p></p><h2>수정 방법</h2><p></p>',
+  refactor: '<h2>리팩토링 범위</h2><p>무엇을 개선합니까?</p><h2>이유</h2><p></p><h2>영향 범위</h2><p></p>',
+}
+
+function ShadcnTailwindPRDescRender() {
+  const [template, setTemplate] = useState<keyof typeof PR_TEMPLATES>('feature')
+  const [content, setContent] = useState(PR_TEMPLATES['feature'])
+  const [preview, setPreview] = useState(false)
+  const textLen = content.replace(/<[^>]+>/g, '').trim().length
+
+  const applyTemplate = (key: keyof typeof PR_TEMPLATES) => {
+    setTemplate(key)
+    setContent(PR_TEMPLATES[key])
+  }
+
+  const TMPL_LABELS: Record<string, string> = { feature: '기능 추가', bugfix: '버그 수정', refactor: '리팩토링' }
+
+  return (
+    <div style={{ maxWidth: 640, display: 'flex', flexDirection: 'column', gap: 10 }}>
+      <div style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
+        <span style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>템플릿:</span>
+        {(Object.keys(PR_TEMPLATES) as Array<keyof typeof PR_TEMPLATES>).map((key) => (
+          <button
+            key={key}
+            onClick={() => applyTemplate(key)}
+            style={{ padding: '3px 10px', borderRadius: 6, border: `1px solid ${template === key ? '#6366f1' : 'var(--sem-eclipse-color-borderDefault)'}`, background: template === key ? '#6366f110' : 'transparent', color: template === key ? '#6366f1' : 'var(--sem-eclipse-color-foregroundSecondary)', fontSize: 11, fontWeight: template === key ? 700 : 400, cursor: 'pointer', transition: 'all 0.15s' }}
+          >
+            {TMPL_LABELS[key]}
+          </button>
+        ))}
+        <button
+          onClick={() => setPreview((v) => !v)}
+          style={{ marginLeft: 'auto', padding: '3px 10px', borderRadius: 6, border: '1px solid var(--sem-eclipse-color-borderDefault)', background: preview ? 'var(--sem-eclipse-color-backgroundSecondary)' : 'transparent', color: 'var(--sem-eclipse-color-foregroundSecondary)', fontSize: 11, cursor: 'pointer' }}
+        >
+          {preview ? '편집' : '미리보기'}
+        </button>
+      </div>
+      {preview ? (
+        <div style={{ border: '1px solid var(--sem-eclipse-color-borderDefault)', borderRadius: 8, padding: '12px 16px', minHeight: 180, background: 'var(--sem-eclipse-color-backgroundSecondary)' }}
+          dangerouslySetInnerHTML={{ __html: content }} />
+      ) : (
+        <Editor
+          content={content}
+          placeholder="PR 설명을 작성하세요..."
+          toolbar={<Editor.Toolbar />}
+          footer={<Editor.CharacterCount />}
+          onChange={setContent}
+        />
+      )}
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <span style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundDisabled)' }}>shadcn + Tailwind PR description 패턴</span>
+        <span style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>{textLen}자</span>
+      </div>
+    </div>
+  )
+}
+
+export const Shadcn_Tailwind_PR_설명_에디터: Story = {
+  name: 'shadcn/ui + Tailwind UI — PR 설명 에디터 (템플릿 + 미리보기)',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Linear/GitHub PR description 패턴. 기능추가/버그수정/리팩토링 템플릿 즉시 적용, 편집↔미리보기 토글. 실무 PR 워크플로 시나리오.',
+      },
+    },
+  },
+  render: () => <ShadcnTailwindPRDescRender />,
+}

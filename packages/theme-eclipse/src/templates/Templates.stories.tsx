@@ -34246,3 +34246,182 @@ export const MUIArco149MonitoringDashboard: StoryObj = {
   },
   render: () => <MUIArco149MonitoringDashboardRender />,
 }
+
+/* --------------------------------------------------------------------------
+   Cycle 150 — shadcn/ui + Tailwind UI
+   온보딩 위자드 — 멀티스텝 프로세스, 진행률 표시, 단계별 폼
+-------------------------------------------------------------------------- */
+const ONBOARD_STEPS = ['계정 설정', '팀 구성', '플랜 선택', '완료']
+
+function ShadcnTailwind150OnboardingFlowRender() {
+  const [step, setStep] = React.useState(0)
+  const [name, setName] = React.useState('')
+  const [email, setEmail] = React.useState('')
+  const [teamName, setTeamName] = React.useState('')
+  const [teamSize, setTeamSize] = React.useState<string>('1-5')
+  const [plan, setPlan] = React.useState<string>('pro')
+  const [agreeTerms, setAgreeTerms] = React.useState(false)
+
+  const isStepValid = () => {
+    if (step === 0) return name.trim().length > 0 && email.includes('@')
+    if (step === 1) return teamName.trim().length > 0
+    if (step === 2) return plan !== '' && agreeTerms
+    return true
+  }
+
+  const PLANS = [
+    { id: 'free', label: 'Free', desc: '개인 프로젝트, 최대 3개 컴포넌트', price: '₩0/월' },
+    { id: 'pro', label: 'Pro', desc: '팀 협업, 무제한 컴포넌트 + 테마', price: '₩12,000/월' },
+    { id: 'enterprise', label: 'Enterprise', desc: 'SSO, 감사 로그, 전담 지원', price: '문의' },
+  ]
+  const SIZES = ['1-5', '6-20', '21-100', '100+']
+
+  const progressPct = Math.round(((step) / (ONBOARD_STEPS.length - 1)) * 100)
+
+  return (
+    <div style={{ minHeight: '100vh', background: '#f8fafc', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 24 }}>
+      <div style={{ width: 520, background: '#fff', borderRadius: 20, boxShadow: '0 8px 40px rgba(0,0,0,0.10)', overflow: 'hidden' }}>
+        {/* 헤더 */}
+        <div style={{ padding: '24px 32px 0' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
+            <span style={{ fontSize: 18, fontWeight: 800, color: '#1e293b', letterSpacing: '-0.01em' }}>Orbit UI</span>
+            <span style={{ fontSize: 12, color: '#94a3b8' }}>단계 {step + 1} / {ONBOARD_STEPS.length}</span>
+          </div>
+          {/* 스텝 인디케이터 */}
+          <div style={{ display: 'flex', gap: 4, marginBottom: 10 }}>
+            {ONBOARD_STEPS.map((s, i) => (
+              <div key={s} style={{ flex: 1 }}>
+                <div style={{ height: 4, borderRadius: 4, background: i <= step ? '#6366f1' : '#e2e8f0', transition: 'background 0.3s' }} />
+                <span style={{ fontSize: 10, color: i === step ? '#6366f1' : i < step ? '#94a3b8' : '#cbd5e1', fontWeight: i === step ? 700 : 400, marginTop: 4, display: 'block' }}>{s}</span>
+              </div>
+            ))}
+          </div>
+          <Progress value={progressPct} max={100} style={{ marginBottom: 0 }} />
+        </div>
+        {/* 본문 */}
+        <div style={{ padding: '24px 32px' }}>
+          {step === 0 && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+              <div>
+                <h2 style={{ fontSize: 20, fontWeight: 700, color: '#1e293b', marginBottom: 4 }}>시작해봐요!</h2>
+                <p style={{ fontSize: 13, color: '#64748b' }}>계정 기본 정보를 입력해 주세요.</p>
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+                <span style={{ fontSize: 12, fontWeight: 600, color: '#374151' }}>이름</span>
+                <TextField placeholder="홍길동" value={name} onChange={(e) => setName(e.target.value)} />
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+                <span style={{ fontSize: 12, fontWeight: 600, color: '#374151' }}>이메일</span>
+                <TextField placeholder="you@example.com" value={email} onChange={(e) => setEmail(e.target.value)} />
+              </div>
+            </div>
+          )}
+          {step === 1 && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+              <div>
+                <h2 style={{ fontSize: 20, fontWeight: 700, color: '#1e293b', marginBottom: 4 }}>팀을 만들어요</h2>
+                <p style={{ fontSize: 13, color: '#64748b' }}>팀 이름과 규모를 알려주세요.</p>
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+                <span style={{ fontSize: 12, fontWeight: 600, color: '#374151' }}>팀 이름</span>
+                <TextField placeholder="Awesome Team" value={teamName} onChange={(e) => setTeamName(e.target.value)} />
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                <span style={{ fontSize: 12, fontWeight: 600, color: '#374151' }}>팀 규모</span>
+                <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+                  {SIZES.map((s) => (
+                    <button
+                      key={s}
+                      onClick={() => setTeamSize(s)}
+                      style={{ padding: '6px 14px', borderRadius: 8, border: `1.5px solid ${teamSize === s ? '#6366f1' : '#e2e8f0'}`, background: teamSize === s ? '#6366f110' : '#fff', color: teamSize === s ? '#6366f1' : '#374151', fontSize: 12, fontWeight: teamSize === s ? 700 : 400, cursor: 'pointer', transition: 'all 0.15s' }}
+                    >
+                      {s}명
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
+          {step === 2 && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+              <div>
+                <h2 style={{ fontSize: 20, fontWeight: 700, color: '#1e293b', marginBottom: 4 }}>플랜을 선택하세요</h2>
+                <p style={{ fontSize: 13, color: '#64748b' }}>언제든지 변경할 수 있습니다.</p>
+              </div>
+              {PLANS.map((p) => (
+                <div
+                  key={p.id}
+                  onClick={() => setPlan(p.id)}
+                  style={{ padding: '14px 16px', borderRadius: 12, border: `2px solid ${plan === p.id ? '#6366f1' : '#e2e8f0'}`, background: plan === p.id ? '#6366f108' : '#fafafa', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 12, transition: 'all 0.15s' }}
+                >
+                  <RadioButton checked={plan === p.id} onChange={() => setPlan(p.id)} />
+                  <div style={{ flex: 1 }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                      <span style={{ fontSize: 14, fontWeight: 700, color: '#1e293b' }}>{p.label}</span>
+                      {p.id === 'pro' && <LabelBadge color="benefit"><LabelBadge.Label>추천</LabelBadge.Label></LabelBadge>}
+                    </div>
+                    <span style={{ fontSize: 12, color: '#64748b' }}>{p.desc}</span>
+                  </div>
+                  <span style={{ fontSize: 13, fontWeight: 700, color: plan === p.id ? '#6366f1' : '#94a3b8', whiteSpace: 'nowrap' }}>{p.price}</span>
+                </div>
+              ))}
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                <Checkbox checked={agreeTerms} onChange={() => setAgreeTerms((v) => !v)} />
+                <span style={{ fontSize: 12, color: '#64748b' }}>이용약관 및 개인정보처리방침에 동의합니다.</span>
+              </div>
+            </div>
+          )}
+          {step === 3 && (
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 16, padding: '16px 0' }}>
+              <div style={{ width: 72, height: 72, borderRadius: '50%', background: 'linear-gradient(135deg, #6366f1, #8b5cf6)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <CheckIcon size={32} color="#fff" />
+              </div>
+              <h2 style={{ fontSize: 22, fontWeight: 800, color: '#1e293b', textAlign: 'center' }}>환영합니다, {name || '사용자'}님!</h2>
+              <p style={{ fontSize: 13, color: '#64748b', textAlign: 'center', lineHeight: 1.6 }}>
+                <strong>{teamName || '팀'}</strong> 워크스페이스가 준비되었습니다.<br />
+                <strong>{PLANS.find((p) => p.id === plan)?.label}</strong> 플랜으로 시작합니다.
+              </p>
+              <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', justifyContent: 'center' }}>
+                <LabelBadge color="benefit"><LabelBadge.Label>계정 생성됨</LabelBadge.Label></LabelBadge>
+                <LabelBadge color="gray"><LabelBadge.Label>팀 생성됨</LabelBadge.Label></LabelBadge>
+                <LabelBadge color="sale"><LabelBadge.Label>{PLANS.find((p) => p.id === plan)?.label} 플랜</LabelBadge.Label></LabelBadge>
+              </div>
+              <SolidButton color="primary" size="medium" style={{ marginTop: 8 }}>
+                <SolidButton.Center>대시보드로 이동</SolidButton.Center>
+              </SolidButton>
+            </div>
+          )}
+        </div>
+        {/* 푸터 */}
+        {step < 3 && (
+          <div style={{ padding: '0 32px 28px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <GhostButton color="black" size="small" onClick={() => setStep((s) => Math.max(0, s - 1))} disabled={step === 0}>
+              <GhostButton.Center>이전</GhostButton.Center>
+            </GhostButton>
+            <SolidButton
+              color="primary"
+              size="small"
+              disabled={!isStepValid()}
+              onClick={() => setStep((s) => Math.min(ONBOARD_STEPS.length - 1, s + 1))}
+            >
+              <SolidButton.Center>{step === ONBOARD_STEPS.length - 2 ? '완료' : '다음'}</SolidButton.Center>
+            </SolidButton>
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+
+export const ShadcnTailwind150OnboardingFlow: StoryObj = {
+  name: 'shadcn/ui + Tailwind UI — 멀티스텝 온보딩 위자드',
+  parameters: {
+    layout: 'fullscreen',
+    docs: {
+      description: {
+        story: 'shadcn/ui + Tailwind UI 온보딩 패턴. 4단계 위자드: 계정설정(이름/이메일) → 팀구성(이름/규모) → 플랜선택(RadioButton+이용약관) → 완료. Progress 바, 스텝 인디케이터, 단계별 유효성 검사.',
+      },
+    },
+  },
+  render: () => <ShadcnTailwind150OnboardingFlowRender />,
+}

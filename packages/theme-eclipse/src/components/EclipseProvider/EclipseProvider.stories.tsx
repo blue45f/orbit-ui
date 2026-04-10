@@ -1122,3 +1122,210 @@ export const Raycast_Figma_확장_설정_패널: Story = {
   },
   render: () => <RaycastFigmaSettingsPanelRender />,
 }
+
+/* --------------------------------------------------------------------------
+   shadcn/ui — 컴포넌트 쇼케이스 카드 갤러리
+   shadcn의 "preview + code" 패턴 — 테마 전환 시 모든 컴포넌트 동시 변경
+-------------------------------------------------------------------------- */
+function ShadcnComponentGalleryRender() {
+  const [mode, setMode] = useState<'light' | 'dark'>('light')
+  const isDark = mode === 'dark'
+  return (
+    <EclipseProvider mode={mode}>
+      <div style={{ width: 480, background: 'var(--sem-eclipse-color-backgroundPrimary)', border: '1px solid var(--sem-eclipse-color-borderDefault)', borderRadius: 16, overflow: 'hidden' }}>
+        <div style={{ padding: '14px 20px', borderBottom: '1px solid var(--sem-eclipse-color-borderSubtle)', background: 'var(--sem-eclipse-color-backgroundSecondary)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <Typography textStyle="subheadingSmall" color="foregroundPrimary">컴포넌트 미리보기</Typography>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            <Typography textStyle="descriptionSmall" color="foregroundTertiary">{isDark ? '다크' : '라이트'}</Typography>
+            <Toggle checked={isDark} onChange={() => setMode(isDark ? 'light' : 'dark')} />
+          </div>
+        </div>
+        <div style={{ padding: 20, display: 'flex', flexDirection: 'column', gap: 16 }}>
+          {/* 버튼 행 */}
+          <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+            <SolidButton color="primary" size="small"><SolidButton.Center>Primary</SolidButton.Center></SolidButton>
+            <OutlineButton color="black" size="small"><OutlineButton.Center>Outline</OutlineButton.Center></OutlineButton>
+            <GhostButton color="black" size="small"><GhostButton.Center>Ghost</GhostButton.Center></GhostButton>
+          </div>
+          <Divider />
+          {/* 배지 행 */}
+          <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap' }}>
+            <LabelBadge color="benefit"><LabelBadge.Label>New</LabelBadge.Label></LabelBadge>
+            <LabelBadge color="gray"><LabelBadge.Label>Active</LabelBadge.Label></LabelBadge>
+            <LabelBadge color="sale"><LabelBadge.Label>Error</LabelBadge.Label></LabelBadge>
+            <CounterBadge>{7}</CounterBadge>
+          </div>
+          <Divider />
+          {/* 인풋 행 */}
+          <TextField placeholder="검색어를 입력하세요..." />
+          <Divider />
+          {/* 아바타 + 텍스트 */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+            <Avatar style={{ width: 36, height: 36 }}>
+              <Avatar.Fallback>JD</Avatar.Fallback>
+            </Avatar>
+            <div>
+              <Typography textStyle="labelMedium" color="foregroundPrimary">Jane Doe</Typography>
+              <Typography textStyle="descriptionSmall" color="foregroundTertiary">jane@example.com</Typography>
+            </div>
+            <Switch style={{ marginLeft: 'auto' }} />
+          </div>
+        </div>
+      </div>
+    </EclipseProvider>
+  )
+}
+
+export const Shadcn_컴포넌트_갤러리_테마_스위처: Story = {
+  name: 'shadcn/ui — 컴포넌트 갤러리 테마 스위처',
+  parameters: {
+    docs: {
+      description: {
+        story: 'shadcn/ui의 "preview + code" 패턴. Toggle 하나로 전체 컴포넌트 테마 동시 전환. Button/Badge/TextField/Avatar/Switch 조합 갤러리.',
+      },
+    },
+  },
+  render: () => <ShadcnComponentGalleryRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Tailwind UI — 알림 센터 패널
+   Tailwind UI의 notification panel 패턴 — 읽음/안읽음 상태 관리
+-------------------------------------------------------------------------- */
+const NOTIF_ITEMS = [
+  { id: 1, title: 'PR #142 병합 완료', body: 'feat/onboarding 브랜치가 main에 병합되었습니다.', time: '2분 전', read: false, type: 'success' },
+  { id: 2, title: '빌드 실패', body: 'prod-deploy 파이프라인이 실패했습니다.', time: '15분 전', read: false, type: 'error' },
+  { id: 3, title: '새 멤버 초대', body: 'kim@example.com이 팀에 합류했습니다.', time: '1시간 전', read: true, type: 'info' },
+  { id: 4, title: '월간 리포트 준비됨', body: '3월 사용량 리포트를 확인하세요.', time: '3시간 전', read: true, type: 'info' },
+]
+
+function TailwindNotificationPanelRender() {
+  const [mode, setMode] = useState<'light' | 'dark'>('light')
+  const [notifs, setNotifs] = useState(NOTIF_ITEMS)
+  const unread = notifs.filter((n) => !n.read).length
+
+  const markAllRead = () => setNotifs((prev) => prev.map((n) => ({ ...n, read: true })))
+  const markRead = (id: number) => setNotifs((prev) => prev.map((n) => n.id === id ? { ...n, read: true } : n))
+
+  const TYPE_COLOR: Record<string, string> = { success: '#10b981', error: '#ef4444', info: '#6366f1' }
+
+  return (
+    <EclipseProvider mode={mode}>
+      <div style={{ width: 360, background: 'var(--sem-eclipse-color-backgroundPrimary)', border: '1px solid var(--sem-eclipse-color-borderDefault)', borderRadius: 14, overflow: 'hidden', boxShadow: '0 8px 32px rgba(0,0,0,0.08)' }}>
+        <div style={{ padding: '14px 18px', borderBottom: '1px solid var(--sem-eclipse-color-borderSubtle)', display: 'flex', alignItems: 'center', gap: 8 }}>
+          <Typography textStyle="subheadingSmall" color="foregroundPrimary">알림</Typography>
+          {unread > 0 && <CounterBadge>{unread}</CounterBadge>}
+          <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: 8 }}>
+            <GhostButton color="black" size="small" onClick={markAllRead}>
+              <GhostButton.Center>모두 읽음</GhostButton.Center>
+            </GhostButton>
+            <Toggle checked={mode === 'dark'} onChange={() => setMode((m) => m === 'dark' ? 'light' : 'dark')} />
+          </div>
+        </div>
+        <div style={{ maxHeight: 320, overflowY: 'auto' }}>
+          {notifs.map((n, idx) => (
+            <div key={n.id} onClick={() => markRead(n.id)} style={{ padding: '12px 18px', borderBottom: idx < notifs.length - 1 ? '1px solid var(--sem-eclipse-color-borderSubtle)' : 'none', background: n.read ? 'transparent' : 'var(--sem-eclipse-color-backgroundSecondary)', cursor: 'pointer', display: 'flex', gap: 12, alignItems: 'flex-start', transition: 'background 0.15s' }}>
+              <div style={{ width: 8, height: 8, borderRadius: '50%', background: n.read ? 'transparent' : TYPE_COLOR[n.type], flexShrink: 0, marginTop: 6 }} />
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 8 }}>
+                  <Typography textStyle="labelSmall" color={n.read ? 'foregroundSecondary' : 'foregroundPrimary'}>{n.title}</Typography>
+                  <Typography textStyle="descriptionSmall" color="foregroundQuaternary">{n.time}</Typography>
+                </div>
+                <Typography textStyle="descriptionSmall" color="foregroundTertiary">{n.body}</Typography>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div style={{ padding: '10px 18px', borderTop: '1px solid var(--sem-eclipse-color-borderSubtle)', textAlign: 'center' }}>
+          <GhostButton color="black" size="small">
+            <GhostButton.Center>모든 알림 보기</GhostButton.Center>
+          </GhostButton>
+        </div>
+      </div>
+    </EclipseProvider>
+  )
+}
+
+export const Tailwind_알림_센터_패널: Story = {
+  name: 'Tailwind UI — 알림 센터 패널 (읽음/안읽음 관리)',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Tailwind UI notification panel 패턴. 읽음/안읽음 상태 점(dot) 표시, 클릭 시 읽음 처리, "모두 읽음" 일괄 처리. CounterBadge로 미읽음 수 표시.',
+      },
+    },
+  },
+  render: () => <TailwindNotificationPanelRender />,
+}
+
+/* --------------------------------------------------------------------------
+   shadcn/ui + Tailwind UI — 사용자 프로필 카드
+   shadcn Avatar + Tailwind stat 패턴 — 팀원 프로필 카드
+-------------------------------------------------------------------------- */
+function ShadcnTailwindProfileCardRender() {
+  const [mode, setMode] = useState<'light' | 'dark'>('light')
+  const [followed, setFollowed] = useState(false)
+  const STATS = [
+    { label: '커밋', value: '1,284' },
+    { label: 'PR', value: '237' },
+    { label: '리뷰', value: '892' },
+  ]
+  return (
+    <EclipseProvider mode={mode}>
+      <div style={{ width: 320, background: 'var(--sem-eclipse-color-backgroundPrimary)', border: '1px solid var(--sem-eclipse-color-borderDefault)', borderRadius: 16, overflow: 'hidden' }}>
+        {/* 헤더 배너 */}
+        <div style={{ height: 80, background: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)', position: 'relative' }}>
+          <div style={{ position: 'absolute', top: 12, right: 12 }}>
+            <Toggle checked={mode === 'dark'} onChange={() => setMode((m) => m === 'dark' ? 'light' : 'dark')} />
+          </div>
+        </div>
+        {/* 프로필 섹션 */}
+        <div style={{ padding: '0 20px 20px', marginTop: -28 }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: 12 }}>
+            <Avatar style={{ width: 56, height: 56, border: '3px solid var(--sem-eclipse-color-backgroundPrimary)' }}>
+              <Avatar.Fallback>HK</Avatar.Fallback>
+            </Avatar>
+            {followed ? (
+              <OutlineButton color="black" size="small" onClick={() => setFollowed(false)}>
+                <OutlineButton.Center>팔로잉</OutlineButton.Center>
+              </OutlineButton>
+            ) : (
+              <SolidButton color="primary" size="small" onClick={() => setFollowed(true)}>
+                <SolidButton.Center>팔로우</SolidButton.Center>
+              </SolidButton>
+            )}
+          </div>
+          <Typography textStyle="subheadingMedium" color="foregroundPrimary">Heejun Kim</Typography>
+          <Typography textStyle="descriptionSmall" color="foregroundTertiary">@blue45f · Senior Frontend Engineer</Typography>
+          <Divider style={{ margin: '14px 0' }} />
+          <div style={{ display: 'flex', justifyContent: 'space-around' }}>
+            {STATS.map((s) => (
+              <div key={s.label} style={{ textAlign: 'center' }}>
+                <Typography textStyle="subheadingSmall" color="foregroundPrimary">{s.value}</Typography>
+                <Typography textStyle="descriptionSmall" color="foregroundTertiary">{s.label}</Typography>
+              </div>
+            ))}
+          </div>
+          <Divider style={{ margin: '14px 0' }} />
+          <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+            <LabelBadge color="benefit"><LabelBadge.Label>React</LabelBadge.Label></LabelBadge>
+            <LabelBadge color="gray"><LabelBadge.Label>TypeScript</LabelBadge.Label></LabelBadge>
+            <LabelBadge color="sale"><LabelBadge.Label>Design Systems</LabelBadge.Label></LabelBadge>
+          </div>
+        </div>
+      </div>
+    </EclipseProvider>
+  )
+}
+
+export const Shadcn_Tailwind_사용자_프로필_카드: Story = {
+  name: 'shadcn/ui + Tailwind UI — 사용자 프로필 카드',
+  parameters: {
+    docs: {
+      description: {
+        story: 'shadcn Avatar + Tailwind stat 패턴 조합. 팔로우/팔로잉 토글, 통계(커밋/PR/리뷰), 기술 배지. EclipseProvider 다크모드 전환.',
+      },
+    },
+  },
+  render: () => <ShadcnTailwindProfileCardRender />,
+}
