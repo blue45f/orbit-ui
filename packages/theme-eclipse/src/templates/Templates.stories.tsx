@@ -79,6 +79,7 @@ import {
 } from '@heejun-com/icons'
 
 import { Command } from '../components/Command'
+import { Dropdown } from '../components/Dropdown'
 
 const meta: Meta = {
   title: 'Templates/Showcase',
@@ -31994,4 +31995,196 @@ export const LinearRadix137UserProfileSettings: StoryObj = {
     },
   },
   render: () => <UserProfileSettings137Render />,
+}
+
+// ============================================================
+// Cycle 138 — Vercel Design + Chakra UI 벤치마크 반영
+// ============================================================
+// 칸반 보드: Linear 스타일 이슈 관리 + Vercel 배포 상태 트래킹
+// Dropdown, LabelBadge, CounterBadge, Avatar 복합 사용 패턴
+
+type KanbanCard138 = { id: string; title: string; priority: string; assignee: string; label: string; labelColor: string }
+
+const KANBAN_COLUMNS_138: { id: string; title: string; color: string; cards: KanbanCard138[] }[] = [
+  {
+    id: 'backlog', title: '백로그', color: '#94a3b8',
+    cards: [
+      { id: 'k1', title: 'Tooltip 다크모드 스타일 추가', priority: '낮음', assignee: 'MJ', label: 'enhancement', labelColor: '#6366f1' },
+      { id: 'k2', title: 'MigrationGuide.mdx 작성', priority: '보통', assignee: 'DE', label: 'docs', labelColor: '#f59e0b' },
+    ],
+  },
+  {
+    id: 'progress', title: '진행 중', color: '#6366f1',
+    cards: [
+      { id: 'k3', title: 'Carousel setApi 패턴 스토리', priority: '높음', assignee: 'HJ', label: 'feature', labelColor: '#22c55e' },
+      { id: 'k4', title: 'Vercel Design 벤치마크 반영', priority: '높음', assignee: 'JS', label: 'feature', labelColor: '#22c55e' },
+      { id: 'k5', title: 'TextField 태그 입력 스토리', priority: '보통', assignee: 'HJ', label: 'feature', labelColor: '#22c55e' },
+    ],
+  },
+  {
+    id: 'review', title: '리뷰 중', color: '#f59e0b',
+    cards: [
+      { id: 'k6', title: 'Checkbox 권한 매트릭스', priority: '높음', assignee: 'SH', label: 'feature', labelColor: '#22c55e' },
+      { id: 'k7', title: 'Templates 사이클 137 추가', priority: '보통', assignee: 'HJ', label: 'story', labelColor: '#0ea5e9' },
+    ],
+  },
+  {
+    id: 'done', title: '완료', color: '#22c55e',
+    cards: [
+      { id: 'k8', title: 'Carousel 미디어 플레이어', priority: '보통', assignee: 'JS', label: 'feature', labelColor: '#22c55e' },
+      { id: 'k9', title: 'ListTile 알림 센터 패턴', priority: '낮음', assignee: 'MJ', label: 'feature', labelColor: '#22c55e' },
+      { id: 'k10', title: 'pnpm typecheck 수정 x5', priority: '높음', assignee: 'HJ', label: 'fix', labelColor: '#ef4444' },
+    ],
+  },
+]
+
+const PRIORITY_COLORS_138: Record<string, string> = { '높음': '#ef4444', '보통': '#f59e0b', '낮음': '#94a3b8' }
+
+const AVATAR_COLORS_138: Record<string, string> = { HJ: '#6366f1', JS: '#0ea5e9', MJ: '#ec4899', SH: '#10b981', DE: '#f59e0b' }
+
+function KanbanBoard138Render() {
+  const [columns, setColumns] = useState(KANBAN_COLUMNS_138)
+  const [filterPriority, setFilterPriority] = useState('전체')
+  const [filterOpen, setFilterOpen] = useState(false)
+
+  const priorities = ['전체', '높음', '보통', '낮음']
+
+  const filteredColumns = columns.map((col) => ({
+    ...col,
+    cards: filterPriority === '전체' ? col.cards : col.cards.filter((c) => c.priority === filterPriority),
+  }))
+
+  function moveCard(cardId: string, fromColId: string, toColId: string) {
+    setColumns((prev) => {
+      const card = prev.find((c) => c.id === fromColId)?.cards.find((k) => k.id === cardId)
+      if (!card) return prev
+      return prev.map((col) => {
+        if (col.id === fromColId) return { ...col, cards: col.cards.filter((k) => k.id !== cardId) }
+        if (col.id === toColId) return { ...col, cards: [...col.cards, card] }
+        return col
+      })
+    })
+  }
+
+  const totalCards = columns.reduce((sum, c) => sum + c.cards.length, 0)
+  const doneCards = columns.find((c) => c.id === 'done')?.cards.length ?? 0
+
+  return (
+    <div style={{ fontFamily: 'system-ui, sans-serif', width: 860 }}>
+      {/* 헤더 */}
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 20 }}>
+        <div>
+          <div style={{ fontSize: 18, fontWeight: 700, color: '#0f172a' }}>칸반 보드</div>
+          <div style={{ fontSize: 12, color: '#64748b', marginTop: 2 }}>
+            Cycle 138 — Vercel + Chakra · {doneCards}/{totalCards} 완료
+          </div>
+        </div>
+        <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
+          {/* 진행률 */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+            <div style={{ width: 80, height: 6, background: '#f1f5f9', borderRadius: 99 }}>
+              <div style={{ height: '100%', width: `${Math.round((doneCards / totalCards) * 100)}%`, background: '#22c55e', borderRadius: 99, transition: 'width 300ms ease' }} />
+            </div>
+            <span style={{ fontSize: 11, color: '#22c55e', fontWeight: 700 }}>{Math.round((doneCards / totalCards) * 100)}%</span>
+          </div>
+          {/* 우선순위 필터 드롭다운 */}
+          <div style={{ position: 'relative' }}>
+            <Dropdown
+              value={filterPriority === '전체' ? '우선순위 필터' : filterPriority}
+              activated={filterOpen}
+              onClick={() => setFilterOpen((v) => !v)}
+            />
+            {filterOpen && (
+              <div style={{ position: 'absolute', top: 'calc(100% + 4px)', right: 0, zIndex: 10, background: '#fff', borderRadius: 10, border: '1px solid #e2e8f0', boxShadow: '0 4px 16px rgba(0,0,0,0.10)', overflow: 'hidden', minWidth: 120 }}>
+                {priorities.map((p) => (
+                  <div
+                    key={p}
+                    onClick={() => { setFilterPriority(p); setFilterOpen(false) }}
+                    style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '8px 14px', cursor: 'pointer', background: filterPriority === p ? '#f8fafc' : '#fff', borderBottom: '1px solid #f8fafc', fontSize: 12, fontWeight: filterPriority === p ? 700 : 400 }}
+                  >
+                    {p !== '전체' && <div style={{ width: 6, height: 6, borderRadius: '50%', background: PRIORITY_COLORS_138[p] }} />}
+                    {p}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* 칸반 컬럼 */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 14 }}>
+        {filteredColumns.map((col) => (
+          <div key={col.id} style={{ background: '#f8fafc', borderRadius: 14, border: '1px solid #e2e8f0', overflow: 'hidden' }}>
+            {/* 컬럼 헤더 */}
+            <div style={{ padding: '12px 14px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '3px solid ' + col.color }}>
+              <span style={{ fontSize: 12, fontWeight: 700, color: col.color }}>{col.title}</span>
+              <CounterBadge color="primary">{col.cards.length}</CounterBadge>
+            </div>
+            {/* 카드 목록 */}
+            <div style={{ padding: '10px', display: 'flex', flexDirection: 'column', gap: 8, minHeight: 120 }}>
+              {col.cards.map((card) => (
+                <div key={card.id} style={{ background: '#fff', borderRadius: 10, border: '1px solid #e2e8f0', padding: '10px 12px', boxShadow: '0 1px 4px rgba(0,0,0,0.04)' }}>
+                  <div style={{ fontSize: 12, fontWeight: 600, color: '#0f172a', marginBottom: 8, lineHeight: 1.4 }}>{card.title}</div>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+                      <LabelBadge color="gray"><LabelBadge.Label>{card.label}</LabelBadge.Label></LabelBadge>
+                      <div style={{ width: 5, height: 5, borderRadius: '50%', background: PRIORITY_COLORS_138[card.priority] }} title={card.priority} />
+                    </div>
+                    <div style={{ width: 22, height: 22, borderRadius: '50%', background: AVATAR_COLORS_138[card.assignee] ?? '#94a3b8', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 9, fontWeight: 700, color: '#fff' }}>
+                      {card.assignee}
+                    </div>
+                  </div>
+                  {/* 이동 버튼 */}
+                  <div style={{ display: 'flex', gap: 4, marginTop: 8 }}>
+                    {col.id !== 'backlog' && (
+                      <button
+                        onClick={() => {
+                          const fromIdx = KANBAN_COLUMNS_138.findIndex((c) => c.id === col.id)
+                          if (fromIdx > 0) moveCard(card.id, col.id, KANBAN_COLUMNS_138[fromIdx - 1].id)
+                        }}
+                        style={{ flex: 1, padding: '3px', borderRadius: 5, border: '1px solid #e2e8f0', background: '#f8fafc', fontSize: 10, color: '#64748b', cursor: 'pointer' }}
+                      >
+                        ← 이전
+                      </button>
+                    )}
+                    {col.id !== 'done' && (
+                      <button
+                        onClick={() => {
+                          const fromIdx = KANBAN_COLUMNS_138.findIndex((c) => c.id === col.id)
+                          if (fromIdx < KANBAN_COLUMNS_138.length - 1) moveCard(card.id, col.id, KANBAN_COLUMNS_138[fromIdx + 1].id)
+                        }}
+                        style={{ flex: 1, padding: '3px', borderRadius: 5, border: '1px solid #6366f122', background: '#eef2ff', fontSize: 10, color: '#6366f1', cursor: 'pointer' }}
+                      >
+                        다음 →
+                      </button>
+                    )}
+                  </div>
+                </div>
+              ))}
+              {col.cards.length === 0 && (
+                <div style={{ padding: '24px 8px', textAlign: 'center', fontSize: 11, color: '#cbd5e1' }}>항목 없음</div>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+export const VercelChakra138KanbanBoard: StoryObj = {
+  name: 'Vercel + Chakra — 칸반 보드 (Cycle 138)',
+  parameters: {
+    layout: 'centered',
+    docs: {
+      description: {
+        story:
+          'Vercel Design + Chakra UI 벤치마크 — Cycle 138. ' +
+          '4컬럼 칸반 보드(백로그/진행/리뷰/완료). 카드 이전/다음 이동, 우선순위 Dropdown 필터, ' +
+          '완료 진행률 바, CounterBadge 컬럼 카운터, LabelBadge + Avatar 카드 메타.',
+      },
+    },
+  },
+  render: () => <KanbanBoard138Render />,
 }

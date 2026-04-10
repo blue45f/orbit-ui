@@ -1427,3 +1427,264 @@ export const Arco_shadcn_자동저장_필드: Story = {
   },
   render: () => <ArcoShadcnAutoSaveRender />,
 }
+
+// ============================================================
+// Cycle 138 — Vercel Design + Chakra UI 벤치마크 반영
+// ============================================================
+
+// Vercel 스타일 — 도메인 입력 필드 (실시간 유효성 + CNAME 안내)
+const DOMAIN_REGEX = /^[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(\.[a-zA-Z]{2,})+$/
+
+export const Vercel_도메인_입력_필드: Story = {
+  name: 'Vercel Design — 도메인 입력 필드 (Cycle 138)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Vercel Domain Input 패턴. 실시간 도메인 포맷 유효성 검사 + CNAME 레코드 안내. ' +
+          '유효 도메인 입력 시 초록 체크 + DNS 설정 안내 카드 노출. 잘못된 형식은 즉시 오류 표시.',
+      },
+    },
+  },
+  render: function VercelDomainInputRender() {
+    const [value, setValue] = useState('')
+    const [touched, setTouched] = useState(false)
+
+    const isValid = DOMAIN_REGEX.test(value)
+    const showError = touched && value.length > 0 && !isValid
+    const showSuccess = touched && isValid
+
+    return (
+      <div style={{ width: 400, fontFamily: 'system-ui, sans-serif' }}>
+        <div style={{ fontSize: 12, fontWeight: 700, color: '#0f172a', marginBottom: 6 }}>커스텀 도메인</div>
+        <TextField
+          value={value}
+          placeholder="yourdomain.com"
+          error={showError}
+          onChange={(e) => {
+            setValue((e.target as HTMLInputElement).value)
+            setTouched(true)
+          }}
+        />
+        {showError && (
+          <div style={{ marginTop: 6, fontSize: 11, color: '#ef4444' }}>
+            유효하지 않은 도메인 형식입니다. (예: example.com)
+          </div>
+        )}
+        {showSuccess && (
+          <div style={{ marginTop: 10, padding: '12px 14px', borderRadius: 10, border: '1px solid #dcfce7', background: '#f0fdf4' }}>
+            <div style={{ fontSize: 12, fontWeight: 700, color: '#16a34a', marginBottom: 6 }}>도메인 확인됨 ✓</div>
+            <div style={{ fontSize: 11, color: '#15803d', lineHeight: 1.6 }}>
+              DNS 공급자에서 다음 CNAME 레코드를 추가하세요:
+            </div>
+            <div style={{ marginTop: 8, padding: '8px 10px', borderRadius: 6, background: '#dcfce7', fontFamily: 'monospace', fontSize: 11, color: '#14532d' }}>
+              <div>Type: CNAME</div>
+              <div>Name: {value.startsWith('www.') ? 'www' : '@'}</div>
+              <div>Value: cname.vercel-dns.com</div>
+            </div>
+          </div>
+        )}
+        {!touched && (
+          <div style={{ marginTop: 6, fontSize: 11, color: '#94a3b8' }}>
+            apex 도메인(example.com) 또는 서브도메인(sub.example.com) 모두 지원
+          </div>
+        )}
+      </div>
+    )
+  },
+}
+
+// Chakra UI 스타일 — 태그 입력 필드 (Enter로 추가)
+export const Chakra_태그_입력_필드: Story = {
+  name: 'Chakra UI — 태그 입력 필드 (Cycle 138)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Chakra UI Tag Input 패턴. Enter 또는 쉼표(,)로 태그 추가. X 클릭으로 개별 태그 제거. ' +
+          '10개 태그 제한 + 중복 방지 + 최대 20자 제한. TextField를 태그 입력 컨테이너와 조합.',
+      },
+    },
+  },
+  render: function ChakraTagInputRender() {
+    const [tags, setTags] = useState<string[]>(['typescript', 'react', 'design-system'])
+    const [input, setInput] = useState('')
+    const [error, setError] = useState('')
+
+    function addTag(raw: string) {
+      const tag = raw.trim().toLowerCase().replace(/\s+/g, '-')
+      if (!tag) return
+      if (tags.includes(tag)) { setError('이미 존재하는 태그입니다'); return }
+      if (tag.length > 20) { setError('태그는 20자 이하여야 합니다'); return }
+      if (tags.length >= 10) { setError('최대 10개 태그까지 추가할 수 있습니다'); return }
+      setTags((prev) => [...prev, tag])
+      setInput('')
+      setError('')
+    }
+
+    function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
+      if (e.key === 'Enter' || e.key === ',') {
+        e.preventDefault()
+        addTag(input)
+      }
+      if (e.key === 'Backspace' && !input && tags.length > 0) {
+        setTags((prev) => prev.slice(0, -1))
+      }
+    }
+
+    return (
+      <div style={{ width: 400, fontFamily: 'system-ui, sans-serif' }}>
+        <div style={{ fontSize: 12, fontWeight: 700, color: '#0f172a', marginBottom: 6 }}>프로젝트 태그</div>
+        <div style={{
+          display: 'flex', flexWrap: 'wrap', gap: 6, padding: '8px 12px', borderRadius: 10,
+          border: `1.5px solid ${error ? '#ef4444' : '#e2e8f0'}`, background: '#fff', minHeight: 44, alignItems: 'center',
+        }}>
+          {tags.map((tag) => (
+            <span key={tag} style={{ display: 'inline-flex', alignItems: 'center', gap: 4, padding: '3px 8px', borderRadius: 99, background: '#f1f5f9', fontSize: 12, color: '#475569', fontWeight: 500 }}>
+              {tag}
+              <button
+                onClick={() => setTags((prev) => prev.filter((t) => t !== tag))}
+                style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: 14, height: 14, borderRadius: '50%', border: 'none', background: '#cbd5e1', color: '#fff', cursor: 'pointer', fontSize: 10, padding: 0, lineHeight: 1 }}
+              >
+                ×
+              </button>
+            </span>
+          ))}
+          <input
+            value={input}
+            placeholder={tags.length < 10 ? 'Enter로 태그 추가...' : '최대 10개'}
+            disabled={tags.length >= 10}
+            onChange={(e) => { setInput(e.target.value); setError('') }}
+            onKeyDown={handleKeyDown}
+            style={{ border: 'none', outline: 'none', flex: 1, minWidth: 120, padding: 0, background: 'transparent', fontSize: 12 }}
+          />
+        </div>
+        {error && <div style={{ marginTop: 4, fontSize: 11, color: '#ef4444' }}>{error}</div>}
+        <div style={{ marginTop: 4, fontSize: 11, color: '#94a3b8' }}>{tags.length}/10 태그 · Enter 또는 쉼표로 추가 · Backspace로 마지막 태그 제거</div>
+      </div>
+    )
+  },
+}
+
+// Vercel + Chakra — API 토큰 생성 폼 (스코프 선택 + 만료일)
+const TOKEN_SCOPES_138 = [
+  { id: 'read', label: 'Read', desc: '프로젝트 읽기', on: true },
+  { id: 'deploy', label: 'Deploy', desc: '배포 트리거', on: false },
+  { id: 'admin', label: 'Admin', desc: '전체 관리 권한', on: false },
+]
+
+export const Vercel_Chakra_API_토큰_생성: Story = {
+  name: 'Vercel + Chakra — API 토큰 생성 폼 (Cycle 138)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Vercel + Chakra UI API Token Creation 패턴. 토큰 이름 TextField + 스코프 선택(Read/Deploy/Admin) + 만료일 선택. ' +
+          '생성 완료 시 마스킹된 토큰 + 복사 버튼 노출. 한 번만 표시되는 경고 포함.',
+      },
+    },
+  },
+  render: function VercelChakraTokenFormRender() {
+    const [name, setName] = useState('')
+    const [scopes, setScopes] = useState(TOKEN_SCOPES_138)
+    const [expiry, setExpiry] = useState('30d')
+    const [token, setToken] = useState<string | null>(null)
+    const [copied, setCopied] = useState(false)
+
+    function toggleScope(id: string) {
+      setScopes((prev) => prev.map((s) => s.id === id ? { ...s, on: !s.on } : s))
+    }
+
+    function generate() {
+      if (!name.trim()) return
+      const selectedScopes = scopes.filter((s) => s.on).map((s) => s.id).join('_')
+      setToken(`orbit_${selectedScopes}_${Math.random().toString(36).slice(2, 18)}`)
+    }
+
+    function copy() {
+      if (token) {
+        navigator.clipboard.writeText(token).catch(() => {})
+        setCopied(true)
+        setTimeout(() => setCopied(false), 2000)
+      }
+    }
+
+    const canGenerate = name.trim().length > 0 && scopes.some((s) => s.on)
+
+    return (
+      <div style={{ width: 400, fontFamily: 'system-ui, sans-serif' }}>
+        {!token ? (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+            <div>
+              <div style={{ fontSize: 12, fontWeight: 700, color: '#0f172a', marginBottom: 6 }}>토큰 이름</div>
+              <TextField
+                value={name}
+                placeholder="My API Token"
+                error={false}
+                onChange={(e) => setName((e.target as HTMLInputElement).value)}
+              />
+            </div>
+            <div>
+              <div style={{ fontSize: 12, fontWeight: 700, color: '#0f172a', marginBottom: 8 }}>스코프</div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+                {scopes.map((s) => (
+                  <div
+                    key={s.id}
+                    onClick={() => toggleScope(s.id)}
+                    style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 12px', borderRadius: 8, border: `1.5px solid ${s.on ? '#6366f1' : '#e2e8f0'}`, background: s.on ? '#eef2ff' : '#fff', cursor: 'pointer', transition: 'all 150ms' }}
+                  >
+                    <div style={{ width: 16, height: 16, borderRadius: 4, border: `2px solid ${s.on ? '#6366f1' : '#cbd5e1'}`, background: s.on ? '#6366f1' : '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, transition: 'all 150ms' }}>
+                      {s.on && <span style={{ color: '#fff', fontSize: 10 }}>✓</span>}
+                    </div>
+                    <div>
+                      <span style={{ fontSize: 12, fontWeight: 600, color: s.on ? '#4338ca' : '#0f172a' }}>{s.label}</span>
+                      <span style={{ fontSize: 11, color: '#94a3b8', marginLeft: 6 }}>— {s.desc}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div>
+              <div style={{ fontSize: 12, fontWeight: 700, color: '#0f172a', marginBottom: 6 }}>만료 기간</div>
+              <div style={{ display: 'flex', gap: 6 }}>
+                {['7d', '30d', '90d', '무제한'].map((opt) => (
+                  <button
+                    key={opt}
+                    onClick={() => setExpiry(opt)}
+                    style={{ padding: '6px 12px', borderRadius: 7, border: `1.5px solid ${expiry === opt ? '#6366f1' : '#e2e8f0'}`, background: expiry === opt ? '#eef2ff' : '#fff', color: expiry === opt ? '#4338ca' : '#475569', fontSize: 12, fontWeight: 500, cursor: 'pointer' }}
+                  >
+                    {opt}
+                  </button>
+                ))}
+              </div>
+            </div>
+            <button
+              onClick={generate}
+              disabled={!canGenerate}
+              style={{ padding: '10px', borderRadius: 8, border: 'none', background: canGenerate ? '#0f172a' : '#f1f5f9', color: canGenerate ? '#fff' : '#94a3b8', fontSize: 13, fontWeight: 700, cursor: canGenerate ? 'pointer' : 'default', transition: 'all 200ms' }}
+            >
+              토큰 생성
+            </button>
+          </div>
+        ) : (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+            <div style={{ padding: '10px 12px', borderRadius: 8, background: '#fef9c3', border: '1px solid #fde047', fontSize: 12, color: '#854d0e', fontWeight: 500 }}>
+              이 토큰은 지금만 표시됩니다. 안전한 곳에 보관하세요.
+            </div>
+            <div style={{ display: 'flex', gap: 8 }}>
+              <div style={{ flex: 1, padding: '10px 12px', borderRadius: 8, border: '1px solid #e2e8f0', background: '#f8fafc', fontFamily: 'monospace', fontSize: 12, color: '#475569', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                {token}
+              </div>
+              <button onClick={copy} style={{ padding: '10px 14px', borderRadius: 8, border: '1px solid #e2e8f0', background: copied ? '#0f172a' : '#fff', color: copied ? '#fff' : '#0f172a', fontSize: 12, fontWeight: 600, cursor: 'pointer', whiteSpace: 'nowrap', transition: 'all 200ms' }}>
+                {copied ? '복사됨!' : '복사'}
+              </button>
+            </div>
+            <button onClick={() => { setToken(null); setName(''); setScopes(TOKEN_SCOPES_138); setExpiry('30d') }} style={{ padding: '8px', borderRadius: 8, border: '1px solid #e2e8f0', background: '#fff', fontSize: 12, color: '#64748b', cursor: 'pointer' }}>
+              새 토큰 생성
+            </button>
+          </div>
+        )}
+      </div>
+    )
+  },
+}

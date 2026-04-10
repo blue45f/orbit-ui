@@ -1357,3 +1357,253 @@ export const TailwindUI_인원_배정_드롭다운: Story = {
     )
   },
 }
+
+// ============================================================
+// Cycle 138 — Vercel Design + Chakra UI 벤치마크 반영
+// ============================================================
+
+// Vercel 스타일 — 배포 환경 선택기 (Production/Preview/Development)
+const VERCEL_ENVS_138 = [
+  { value: 'production', label: 'Production', desc: '메인 브랜치 (main)', color: '#22c55e', badge: 'LIVE' },
+  { value: 'preview', label: 'Preview', desc: '모든 PR 브랜치 자동 배포', color: '#6366f1', badge: 'BETA' },
+  { value: 'development', label: 'Development', desc: '로컬 개발 환경', color: '#f59e0b', badge: 'DEV' },
+]
+
+export const Vercel_배포_환경_선택기: Story = {
+  name: 'Vercel Design — 배포 환경 선택기 (Cycle 138)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Vercel Environment Selector 패턴. Production/Preview/Development 환경별 색상 배지 + 설명 서브텍스트. ' +
+          '선택된 환경은 트리거에 색상 도트와 배지로 표시. 모노크롬 컴팩트 밀도.',
+      },
+    },
+  },
+  render: function VercelEnvSelectorRender() {
+    const [open, setOpen] = useState(false)
+    const [env, setEnv] = useState('production')
+    const current = VERCEL_ENVS_138.find((e) => e.value === env) ?? VERCEL_ENVS_138[0]
+
+    return (
+      <div style={{ width: 320, fontFamily: 'system-ui, sans-serif', position: 'relative' }}>
+        <div style={{ fontSize: 11, fontWeight: 600, color: '#64748b', marginBottom: 6, letterSpacing: 0.5 }}>ENVIRONMENT</div>
+        <Dropdown
+          value={current.label}
+          activated={open}
+          onClick={() => setOpen((v) => !v)}
+        >
+          <Dropdown.Leading>
+            <div style={{ width: 8, height: 8, borderRadius: '50%', background: current.color }} />
+          </Dropdown.Leading>
+          <Dropdown.Trailing>
+            <span style={{ fontSize: 10, fontWeight: 700, padding: '1px 5px', borderRadius: 3, background: current.color + '22', color: current.color }}>{current.badge}</span>
+          </Dropdown.Trailing>
+        </Dropdown>
+        {open && (
+          <div style={{ position: 'absolute', top: 'calc(100% + 4px)', left: 0, right: 0, zIndex: 10, background: '#fff', borderRadius: 10, border: '1px solid #e2e8f0', boxShadow: '0 8px 24px rgba(0,0,0,0.10)', overflow: 'hidden' }}>
+            {VERCEL_ENVS_138.map((e) => (
+              <div
+                key={e.value}
+                onClick={() => { setEnv(e.value); setOpen(false) }}
+                style={{
+                  display: 'flex', alignItems: 'center', gap: 10, padding: '10px 14px', cursor: 'pointer',
+                  background: env === e.value ? '#f8fafc' : '#fff', borderBottom: '1px solid #f1f5f9',
+                  transition: 'background 100ms',
+                }}
+              >
+                <div style={{ width: 8, height: 8, borderRadius: '50%', background: e.color, flexShrink: 0 }} />
+                <div style={{ flex: 1 }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                    <span style={{ fontSize: 13, fontWeight: env === e.value ? 700 : 500, color: '#0f172a' }}>{e.label}</span>
+                    <span style={{ fontSize: 10, fontWeight: 700, padding: '1px 5px', borderRadius: 3, background: e.color + '18', color: e.color }}>{e.badge}</span>
+                  </div>
+                  <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 1 }}>{e.desc}</div>
+                </div>
+                {env === e.value && <span style={{ color: '#0f172a', fontSize: 12 }}>✓</span>}
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    )
+  },
+}
+
+// Chakra UI 스타일 — 배포 지역 선택기 (멀티 지역)
+const CHAKRA_REGIONS_138 = [
+  { value: 'iad1', label: 'Washington D.C.', region: 'us-east-1', latency: 12 },
+  { value: 'sfo1', label: 'San Francisco', region: 'us-west-2', latency: 98 },
+  { value: 'icn1', label: 'Seoul', region: 'ap-northeast-2', latency: 6 },
+  { value: 'nrt1', label: 'Tokyo', region: 'ap-northeast-1', latency: 22 },
+  { value: 'fra1', label: 'Frankfurt', region: 'eu-central-1', latency: 188 },
+  { value: 'sin1', label: 'Singapore', region: 'ap-southeast-1', latency: 75 },
+]
+
+function getLatencyColor(ms: number) {
+  if (ms < 30) return '#22c55e'
+  if (ms < 100) return '#f59e0b'
+  return '#ef4444'
+}
+
+export const Chakra_배포_지역_선택기: Story = {
+  name: 'Chakra UI — 배포 지역 선택기 (Cycle 138)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Chakra UI Select + 지역 선택 패턴. 지역별 레이턴시 ms 표시 + 색상 코딩(녹/황/적). ' +
+          '현재 지역은 체크 표시 + 굵은 글씨. 레이턴시 기준 정렬 제안 UX.',
+      },
+    },
+  },
+  render: function ChakraRegionSelectorRender() {
+    const [open, setOpen] = useState(false)
+    const [region, setRegion] = useState('icn1')
+    const current = CHAKRA_REGIONS_138.find((r) => r.value === region) ?? CHAKRA_REGIONS_138[0]
+
+    return (
+      <div style={{ width: 340, fontFamily: 'system-ui, sans-serif', position: 'relative' }}>
+        <div style={{ fontSize: 11, fontWeight: 600, color: '#64748b', marginBottom: 6, letterSpacing: 0.5 }}>PRIMARY REGION</div>
+        <Dropdown
+          value={`${current.label} (${current.region})`}
+          activated={open}
+          onClick={() => setOpen((v) => !v)}
+        >
+          <Dropdown.Trailing>
+            <span style={{ fontSize: 11, fontWeight: 600, color: getLatencyColor(current.latency) }}>{current.latency}ms</span>
+          </Dropdown.Trailing>
+        </Dropdown>
+        {open && (
+          <div style={{ position: 'absolute', top: 'calc(100% + 4px)', left: 0, right: 0, zIndex: 10, background: '#fff', borderRadius: 10, border: '1px solid #e2e8f0', boxShadow: '0 8px 24px rgba(0,0,0,0.10)', overflow: 'hidden' }}>
+            <div style={{ padding: '8px 12px', borderBottom: '1px solid #f1f5f9', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <span style={{ fontSize: 11, fontWeight: 600, color: '#64748b' }}>지역 선택</span>
+              <span style={{ fontSize: 10, color: '#94a3b8' }}>레이턴시 기준 정렬</span>
+            </div>
+            {[...CHAKRA_REGIONS_138].sort((a, b) => a.latency - b.latency).map((r) => (
+              <div
+                key={r.value}
+                onClick={() => { setRegion(r.value); setOpen(false) }}
+                style={{
+                  display: 'flex', alignItems: 'center', gap: 10, padding: '9px 12px', cursor: 'pointer',
+                  background: region === r.value ? '#f8fafc' : '#fff', borderBottom: '1px solid #f8fafc',
+                  transition: 'background 100ms',
+                }}
+              >
+                <div style={{ flex: 1 }}>
+                  <div style={{ fontSize: 13, fontWeight: region === r.value ? 700 : 400, color: '#0f172a' }}>{r.label}</div>
+                  <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 1 }}>{r.region}</div>
+                </div>
+                <span style={{ fontSize: 12, fontWeight: 700, color: getLatencyColor(r.latency), minWidth: 40, textAlign: 'right' }}>{r.latency}ms</span>
+                {region === r.value && <span style={{ fontSize: 12, color: '#22c55e', marginLeft: 4 }}>✓</span>}
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    )
+  },
+}
+
+// Vercel + Chakra — 팀 & 프로젝트 계층 선택기
+const TEAMS_138 = [
+  { id: 't1', name: 'blue45fs-projects', type: 'team', members: 3, projects: 12, avatar: 'B', color: '#6366f1' },
+  { id: 't2', name: 'Personal Account', type: 'personal', members: 1, projects: 4, avatar: 'H', color: '#0ea5e9' },
+]
+
+const PROJECTS_138: Record<string, { id: string; name: string; env: string }[]> = {
+  t1: [
+    { id: 'p1', name: 'orbit-ui', env: 'Production' },
+    { id: 'p2', name: 'orbit-docs', env: 'Preview' },
+    { id: 'p3', name: 'orbit-playground', env: 'Development' },
+  ],
+  t2: [
+    { id: 'p4', name: 'portfolio', env: 'Production' },
+    { id: 'p5', name: 'blog', env: 'Preview' },
+  ],
+}
+
+export const Vercel_Chakra_팀_프로젝트_선택기: Story = {
+  name: 'Vercel + Chakra — 팀/프로젝트 계층 선택기 (Cycle 138)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Vercel + Chakra UI 계층형 선택 드롭다운. 1단계 팀 선택 → 2단계 프로젝트 선택. ' +
+          '팀 아바타 + 멤버/프로젝트 수 표시. 선택 완료 시 "팀/프로젝트" 조합 트리거에 표시.',
+      },
+    },
+  },
+  render: function VercelChakraTeamProjectRender() {
+    const [open, setOpen] = useState(false)
+    const [step, setStep] = useState<'team' | 'project'>('team')
+    const [teamId, setTeamId] = useState<string | null>(null)
+    const [projectId, setProjectId] = useState<string | null>(null)
+
+    const team = TEAMS_138.find((t) => t.id === teamId)
+    const project = PROJECTS_138[teamId ?? '']?.find((p) => p.id === projectId)
+
+    const displayValue = team && project ? `${team.name} / ${project.name}` : team ? `${team.name} / 프로젝트 선택` : '팀 선택'
+
+    function selectTeam(id: string) {
+      setTeamId(id)
+      setProjectId(null)
+      setStep('project')
+    }
+
+    function selectProject(id: string) {
+      setProjectId(id)
+      setOpen(false)
+      setStep('team')
+    }
+
+    return (
+      <div style={{ width: 360, fontFamily: 'system-ui, sans-serif', position: 'relative' }}>
+        <div style={{ fontSize: 11, fontWeight: 600, color: '#64748b', marginBottom: 6, letterSpacing: 0.5 }}>SCOPE</div>
+        <Dropdown
+          value={displayValue}
+          activated={open}
+          onClick={() => { setOpen((v) => !v); setStep('team') }}
+        >
+          {team && (
+            <Dropdown.Leading>
+              <div style={{ width: 18, height: 18, borderRadius: 4, background: team.color, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 10, fontWeight: 700, color: '#fff' }}>
+                {team.avatar}
+              </div>
+            </Dropdown.Leading>
+          )}
+        </Dropdown>
+        {open && (
+          <div style={{ position: 'absolute', top: 'calc(100% + 4px)', left: 0, right: 0, zIndex: 10, background: '#fff', borderRadius: 10, border: '1px solid #e2e8f0', boxShadow: '0 8px 24px rgba(0,0,0,0.10)', overflow: 'hidden' }}>
+            <div style={{ padding: '8px 12px', borderBottom: '1px solid #f1f5f9', display: 'flex', alignItems: 'center', gap: 6 }}>
+              {step === 'project' && (
+                <button onClick={() => setStep('team')} style={{ border: 'none', background: 'none', cursor: 'pointer', padding: '0 4px 0 0', color: '#94a3b8', fontSize: 13 }}>←</button>
+              )}
+              <span style={{ fontSize: 11, fontWeight: 600, color: '#64748b' }}>{step === 'team' ? '팀 선택' : `${team?.name} - 프로젝트`}</span>
+            </div>
+            {step === 'team' && TEAMS_138.map((t) => (
+              <div key={t.id} onClick={() => selectTeam(t.id)} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 12px', cursor: 'pointer', background: teamId === t.id ? '#f8fafc' : '#fff', borderBottom: '1px solid #f8fafc', transition: 'background 100ms' }}>
+                <div style={{ width: 28, height: 28, borderRadius: 8, background: t.color, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 13, fontWeight: 700, color: '#fff' }}>{t.avatar}</div>
+                <div>
+                  <div style={{ fontSize: 13, fontWeight: 600, color: '#0f172a' }}>{t.name}</div>
+                  <div style={{ fontSize: 11, color: '#94a3b8' }}>{t.members}명 · {t.projects}개 프로젝트</div>
+                </div>
+                <span style={{ marginLeft: 'auto', fontSize: 12, color: '#94a3b8' }}>→</span>
+              </div>
+            ))}
+            {step === 'project' && teamId && PROJECTS_138[teamId]?.map((p) => (
+              <div key={p.id} onClick={() => selectProject(p.id)} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 12px', cursor: 'pointer', background: projectId === p.id ? '#f8fafc' : '#fff', borderBottom: '1px solid #f8fafc', transition: 'background 100ms' }}>
+                <div style={{ width: 8, height: 8, borderRadius: '50%', background: p.env === 'Production' ? '#22c55e' : p.env === 'Preview' ? '#6366f1' : '#f59e0b', flexShrink: 0 }} />
+                <div style={{ flex: 1 }}>
+                  <div style={{ fontSize: 13, fontWeight: projectId === p.id ? 700 : 400, color: '#0f172a' }}>{p.name}</div>
+                  <div style={{ fontSize: 11, color: '#94a3b8' }}>{p.env}</div>
+                </div>
+                {projectId === p.id && <span style={{ fontSize: 12, color: '#22c55e' }}>✓</span>}
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    )
+  },
+}
