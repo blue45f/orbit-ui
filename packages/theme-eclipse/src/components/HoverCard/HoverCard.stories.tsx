@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import type { Meta, StoryObj } from '@storybook/react'
 
 import { HoverCard } from './HoverCard'
@@ -6,6 +7,8 @@ import { Typography } from '../Text'
 import { SolidButton } from '../SolidButton'
 import { CounterBadge } from '../CounterBadge'
 import { Divider } from '../Divider'
+import { Progress } from '../Progress'
+import { LabelBadge } from '../LabelBadge'
 
 const meta = {
   title: 'eclipse/Feedback/HoverCard',
@@ -514,4 +517,313 @@ export const shadcn_이슈_미리보기: Story = {
       ))}
     </div>
   ),
+}
+
+/* --------------------------------------------------------------------------
+   Radix UI 벤치마크: 기여자 활동 그래프 미리보기
+   Radix HoverCard — 사용자 이름 위에 호버 시 GitHub 스타일 기여도 그래프 표시
+-------------------------------------------------------------------------- */
+const CONTRIB_USERS = [
+  { name: 'heejun', commits: 142, prs: 38, reviews: 67, streak: 21, level: 'core' },
+  { name: 'soyeon', commits: 89, prs: 22, reviews: 43, streak: 14, level: 'active' },
+  { name: 'jinho', commits: 31, prs: 9, reviews: 18, streak: 5, level: 'contributor' },
+]
+
+function ContribGraphDemo() {
+  const weeks = Array.from({ length: 12 }, (_, wi) =>
+    Array.from({ length: 7 }, (_, di) => {
+      const base = Math.sin((wi * 7 + di) * 0.7) * 0.5 + 0.5
+      return Math.floor(base * 4)
+    }),
+  )
+
+  const levelColor = (lv: number) => {
+    const colors = ['#f1f5f9', '#c7d2fe', '#818cf8', '#6366f1', '#4338ca']
+    return colors[lv] || colors[0]
+  }
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 12, maxWidth: 460 }}>
+      <Typography textStyle="subheadingSmall">기여자 목록</Typography>
+      {CONTRIB_USERS.map((user) => (
+        <div key={user.name} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 14px', borderRadius: 10, border: '1px solid #e2e8f0', background: '#fff' }}>
+          <Avatar />
+          <HoverCard openDelay={150} closeDelay={100}>
+            <HoverCard.Trigger asChild>
+              <span style={{ fontSize: 13, fontWeight: 700, color: '#6366f1', cursor: 'pointer', textDecoration: 'underline', textUnderlineOffset: 3 }}>
+                @{user.name}
+              </span>
+            </HoverCard.Trigger>
+            <HoverCard.Content side="top" align="start" style={{ width: 320 }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                  <Avatar />
+                  <div>
+                    <Typography textStyle="bodyLarge" style={{ fontWeight: 700 }}>@{user.name}</Typography>
+                    <Typography textStyle="descriptionSmall" color="foregroundSecondary">{user.streak}일 연속 기여 중</Typography>
+                  </div>
+                  <span style={{ marginLeft: 'auto', padding: '2px 10px', borderRadius: 20, fontSize: 11, fontWeight: 700, background: '#eef2ff', color: '#6366f1' }}>
+                    {user.level}
+                  </span>
+                </div>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 8 }}>
+                  {[{ label: '커밋', value: user.commits }, { label: 'PR', value: user.prs }, { label: '리뷰', value: user.reviews }].map((s) => (
+                    <div key={s.label} style={{ textAlign: 'center', padding: '8px', background: '#f8fafc', borderRadius: 8 }}>
+                      <div style={{ fontSize: 18, fontWeight: 800, color: '#1e293b' }}>{s.value}</div>
+                      <div style={{ fontSize: 11, color: '#64748b' }}>{s.label}</div>
+                    </div>
+                  ))}
+                </div>
+                <div>
+                  <Typography textStyle="descriptionSmall" color="foregroundSecondary" style={{ marginBottom: 6 }}>최근 12주 기여도</Typography>
+                  <div style={{ display: 'flex', gap: 2 }}>
+                    {weeks.map((week, wi) => (
+                      <div key={wi} style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+                        {week.map((lv, di) => (
+                          <div key={di} style={{ width: 10, height: 10, borderRadius: 2, background: levelColor(lv) }} />
+                        ))}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </HoverCard.Content>
+          </HoverCard>
+          <div style={{ marginLeft: 'auto', display: 'flex', gap: 12 }}>
+            <Typography textStyle="descriptionSmall" color="foregroundSecondary">{user.commits}커밋</Typography>
+            <Typography textStyle="descriptionSmall" color="foregroundSecondary">{user.prs}PR</Typography>
+          </div>
+        </div>
+      ))}
+    </div>
+  )
+}
+
+export const Radix_기여자_활동_그래프: Story = {
+  name: 'Radix UI - 기여자 활동 그래프 미리보기',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Radix HoverCard의 openDelay/closeDelay 세밀 제어 패턴. 기여도 그래프를 인라인 미리보기로 표시합니다. ' +
+          'Radix는 hover 이벤트 지연 시간을 ms 단위로 제어해 의도치 않은 팝업을 방지합니다.',
+      },
+    },
+  },
+  render: () => <ContribGraphDemo />,
+}
+
+/* --------------------------------------------------------------------------
+   Linear Design 벤치마크: 태스크 상세 미리보기
+   Linear의 이슈 목록에서 이슈 ID 위에 호버 시 상세 팝업 표시 패턴
+-------------------------------------------------------------------------- */
+type LinearTask = {
+  id: string
+  title: string
+  status: 'backlog' | 'todo' | 'in_progress' | 'done' | 'cancelled'
+  priority: 'urgent' | 'high' | 'medium' | 'low' | 'none'
+  assignee: string
+  estimate: number
+  progress: number
+  dueDate: string
+}
+
+const LINEAR_STATUS_CFG: Record<LinearTask['status'], { label: string; color: string; symbol: string }> = {
+  backlog: { label: '백로그', color: '#94a3b8', symbol: '○' },
+  todo: { label: '예정', color: '#64748b', symbol: '◎' },
+  in_progress: { label: '진행 중', color: '#6366f1', symbol: '◑' },
+  done: { label: '완료', color: '#10b981', symbol: '●' },
+  cancelled: { label: '취소', color: '#ef4444', symbol: '✕' },
+}
+
+const LINEAR_PRIORITY_CFG: Record<LinearTask['priority'], { label: string; color: string }> = {
+  urgent: { label: '긴급', color: '#ef4444' },
+  high: { label: '높음', color: '#f97316' },
+  medium: { label: '보통', color: '#f59e0b' },
+  low: { label: '낮음', color: '#94a3b8' },
+  none: { label: '없음', color: '#cbd5e1' },
+}
+
+const LINEAR_TASKS: LinearTask[] = [
+  { id: 'ENG-451', title: 'DataTable 가상 스크롤 성능 50% 향상', status: 'in_progress', priority: 'high', assignee: 'HJ', estimate: 5, progress: 60, dueDate: '2026-04-18' },
+  { id: 'ENG-389', title: 'TextField 접근성 개선 (ARIA 레이블)', status: 'todo', priority: 'medium', assignee: 'SY', estimate: 3, progress: 0, dueDate: '2026-04-25' },
+  { id: 'ENG-312', title: 'EclipseProvider 다크모드 전환 애니메이션', status: 'done', priority: 'low', assignee: 'JH', estimate: 2, progress: 100, dueDate: '2026-04-10' },
+]
+
+export const Linear_태스크_상세_미리보기: Story = {
+  name: 'Linear Design - 태스크 상세 미리보기 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Linear의 이슈 목록 hover 패턴. 이슈 ID에 마우스를 올리면 상세 정보(상태, 우선순위, 진도, 담당자)가 팝업됩니다. ' +
+          '컴팩트한 정보 밀도와 색상 코딩으로 빠른 스캔을 지원합니다.',
+      },
+    },
+  },
+  render: () => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 8, maxWidth: 480 }}>
+      <Typography textStyle="subheadingSmall" style={{ marginBottom: 4 }}>스프린트 이슈</Typography>
+      {LINEAR_TASKS.map((task) => {
+        const st = LINEAR_STATUS_CFG[task.status]
+        const pr = LINEAR_PRIORITY_CFG[task.priority]
+        return (
+          <div key={task.id} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 14px', borderRadius: 8, border: '1px solid #f1f5f9', background: '#fff' }}>
+            <span style={{ fontSize: 16, color: st.color, flexShrink: 0 }}>{st.symbol}</span>
+            <HoverCard openDelay={200} closeDelay={150}>
+              <HoverCard.Trigger asChild>
+                <span style={{ fontSize: 11, fontFamily: 'monospace', fontWeight: 700, color: '#6366f1', cursor: 'pointer', textDecoration: 'underline', textDecorationStyle: 'dotted', textUnderlineOffset: 3, flexShrink: 0 }}>
+                  {task.id}
+                </span>
+              </HoverCard.Trigger>
+              <HoverCard.Content side="top" align="start" style={{ width: 300 }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+                  <Typography textStyle="bodyLarge" style={{ fontWeight: 700, lineHeight: 1.4 }}>{task.title}</Typography>
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
+                    <div>
+                      <Typography textStyle="descriptionSmall" color="foregroundSecondary">상태</Typography>
+                      <Typography textStyle="descriptionLarge" style={{ fontWeight: 600, color: st.color }}>{st.symbol} {st.label}</Typography>
+                    </div>
+                    <div>
+                      <Typography textStyle="descriptionSmall" color="foregroundSecondary">우선순위</Typography>
+                      <Typography textStyle="descriptionLarge" style={{ fontWeight: 600, color: pr.color }}>{pr.label}</Typography>
+                    </div>
+                    <div>
+                      <Typography textStyle="descriptionSmall" color="foregroundSecondary">담당자</Typography>
+                      <Typography textStyle="descriptionLarge" style={{ fontWeight: 600 }}>{task.assignee}</Typography>
+                    </div>
+                    <div>
+                      <Typography textStyle="descriptionSmall" color="foregroundSecondary">추정치</Typography>
+                      <Typography textStyle="descriptionLarge" style={{ fontWeight: 600 }}>{task.estimate}pt</Typography>
+                    </div>
+                  </div>
+                  <div>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 4 }}>
+                      <Typography textStyle="descriptionSmall" color="foregroundSecondary">진도</Typography>
+                      <Typography textStyle="descriptionSmall" style={{ fontWeight: 700, color: '#6366f1' }}>{task.progress}%</Typography>
+                    </div>
+                    <Progress value={task.progress} />
+                  </div>
+                  <Typography textStyle="descriptionSmall" color="foregroundSecondary">마감: {task.dueDate}</Typography>
+                </div>
+              </HoverCard.Content>
+            </HoverCard>
+            <Typography textStyle="descriptionLarge" style={{ flex: 1, color: '#1e293b' }}>{task.title}</Typography>
+            <span style={{ fontSize: 11, fontWeight: 700, padding: '2px 8px', borderRadius: 10, background: pr.color + '18', color: pr.color, flexShrink: 0 }}>{pr.label}</span>
+          </div>
+        )
+      })}
+    </div>
+  ),
+}
+
+/* --------------------------------------------------------------------------
+   Linear Design 벤치마크: 멤버 역할 관리 호버 카드
+   팀 멤버 칩에 호버 시 역할/권한/마지막 활동 팝업 표시
+-------------------------------------------------------------------------- */
+type TeamMember = { name: string; role: 'owner' | 'admin' | 'member' | 'guest'; email: string; lastActive: string; projects: number }
+
+const TEAM_MEMBERS: TeamMember[] = [
+  { name: '김희준', role: 'owner', email: 'heejun@orbit.dev', lastActive: '방금 전', projects: 12 },
+  { name: '이서연', role: 'admin', email: 'soyeon@orbit.dev', lastActive: '3시간 전', projects: 8 },
+  { name: '박지호', role: 'member', email: 'jinho@orbit.dev', lastActive: '어제', projects: 5 },
+  { name: '최은아', role: 'guest', email: 'euna@partner.com', lastActive: '3일 전', projects: 2 },
+]
+
+const ROLE_CFG: Record<TeamMember['role'], { label: string; color: string; bg: string; perms: string[] }> = {
+  owner: { label: 'Owner', color: '#7c3aed', bg: '#f3e8ff', perms: ['팀 설정 관리', '결제 관리', '멤버 초대/제거', '모든 프로젝트 접근'] },
+  admin: { label: 'Admin', color: '#2563eb', bg: '#dbeafe', perms: ['멤버 초대/제거', '모든 프로젝트 접근', '프로젝트 생성'] },
+  member: { label: 'Member', color: '#059669', bg: '#d1fae5', perms: ['할당된 프로젝트 접근', '이슈 생성/편집'] },
+  guest: { label: 'Guest', color: '#d97706', bg: '#fef3c7', perms: ['읽기 전용 접근'] },
+}
+
+function TeamRoleHoverDemo() {
+  const [activeId, setActiveId] = useState<string | null>(null)
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 16, maxWidth: 440 }}>
+      <Typography textStyle="subheadingSmall">팀 멤버 ({TEAM_MEMBERS.length}명)</Typography>
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+        {TEAM_MEMBERS.map((member) => {
+          const rc = ROLE_CFG[member.role]
+          return (
+            <HoverCard key={member.name} openDelay={100} closeDelay={200}>
+              <HoverCard.Trigger asChild>
+                <div
+                  onMouseEnter={() => setActiveId(member.name)}
+                  onMouseLeave={() => setActiveId(null)}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 8,
+                    padding: '6px 12px',
+                    borderRadius: 20,
+                    border: `1.5px solid ${activeId === member.name ? rc.color : '#e2e8f0'}`,
+                    background: activeId === member.name ? rc.bg : '#fff',
+                    cursor: 'default',
+                    transition: 'all 0.15s',
+                  }}
+                >
+                  <Avatar />
+                  <Typography textStyle="descriptionLarge" style={{ fontWeight: 600, color: '#1e293b' }}>{member.name}</Typography>
+                  <span style={{ fontSize: 10, fontWeight: 700, padding: '1px 7px', borderRadius: 10, background: rc.bg, color: rc.color }}>{rc.label}</span>
+                </div>
+              </HoverCard.Trigger>
+              <HoverCard.Content side="bottom" align="start" style={{ width: 280 }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                    <Avatar />
+                    <div>
+                      <Typography textStyle="bodyLarge" style={{ fontWeight: 700 }}>{member.name}</Typography>
+                      <Typography textStyle="descriptionSmall" color="foregroundSecondary">{member.email}</Typography>
+                    </div>
+                  </div>
+                  <Divider />
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
+                    <div>
+                      <Typography textStyle="descriptionSmall" color="foregroundSecondary">역할</Typography>
+                      <span style={{ display: 'inline-block', marginTop: 2, padding: '1px 8px', borderRadius: 10, fontSize: 11, fontWeight: 700, background: rc.bg, color: rc.color }}>{rc.label}</span>
+                    </div>
+                    <div>
+                      <Typography textStyle="descriptionSmall" color="foregroundSecondary">참여 프로젝트</Typography>
+                      <Typography textStyle="descriptionLarge" style={{ fontWeight: 700 }}>{member.projects}개</Typography>
+                    </div>
+                    <div style={{ gridColumn: '1 / -1' }}>
+                      <Typography textStyle="descriptionSmall" color="foregroundSecondary">마지막 활동</Typography>
+                      <Typography textStyle="descriptionLarge" style={{ fontWeight: 600 }}>{member.lastActive}</Typography>
+                    </div>
+                  </div>
+                  <div>
+                    <Typography textStyle="descriptionSmall" color="foregroundSecondary" style={{ marginBottom: 6 }}>권한</Typography>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+                      {rc.perms.map((perm) => (
+                        <div key={perm} style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 12, color: '#374151' }}>
+                          <span style={{ color: rc.color, fontWeight: 700 }}>✓</span> {perm}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </HoverCard.Content>
+            </HoverCard>
+          )
+        })}
+      </div>
+      <LabelBadge color="gray"><LabelBadge.Label>멤버 칩에 마우스를 올려보세요</LabelBadge.Label></LabelBadge>
+    </div>
+  )
+}
+
+export const Linear_팀_멤버_역할_호버: Story = {
+  name: 'Linear Design - 팀 멤버 역할 관리 호버 카드',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Linear의 팀 멤버 관리 UI 패턴. 멤버 칩에 호버 시 역할·권한·활동 정보가 팝업됩니다. ' +
+          'onMouseEnter/Leave로 트리거 스타일을 동기화해 시각적 피드백을 강화합니다.',
+      },
+    },
+  },
+  render: () => <TeamRoleHoverDemo />,
 }

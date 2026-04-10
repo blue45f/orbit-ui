@@ -13494,3 +13494,278 @@ export const LearningDashboard: Story = {
   render: () => <LearningDashboardRender />,
 }
 
+
+// ============================================================
+// Template 45: DesignSystemHub (Radix UI + Linear Design 벤치마크)
+// ============================================================
+
+type DSHComponent = {
+  id: string
+  name: string
+  category: 'inputs' | 'feedback' | 'navigation' | 'layout' | 'data'
+  status: 'stable' | 'beta' | 'deprecated' | 'new'
+  stories: number
+  coverage: number
+  a11y: 'pass' | 'partial' | 'fail'
+  radixBased: boolean
+}
+
+const DSH_CATEGORY_CFG: Record<DSHComponent['category'], { label: string; color: string; bg: string }> = {
+  inputs: { label: 'Inputs', color: '#6366f1', bg: '#eef2ff' },
+  feedback: { label: 'Feedback', color: '#f59e0b', bg: '#fef3c7' },
+  navigation: { label: 'Navigation', color: '#10b981', bg: '#dcfce7' },
+  layout: { label: 'Layout', color: '#64748b', bg: '#f1f5f9' },
+  data: { label: 'Data', color: '#3b82f6', bg: '#dbeafe' },
+}
+
+const DSH_STATUS_CFG: Record<DSHComponent['status'], { label: string; color: string }> = {
+  stable: { label: 'Stable', color: '#10b981' },
+  beta: { label: 'Beta', color: '#6366f1' },
+  deprecated: { label: 'Deprecated', color: '#ef4444' },
+  new: { label: 'New', color: '#f97316' },
+}
+
+const DSH_A11Y_CFG: Record<DSHComponent['a11y'], { label: string; color: string; symbol: string }> = {
+  pass: { label: 'Pass', color: '#10b981', symbol: '✓' },
+  partial: { label: 'Partial', color: '#f59e0b', symbol: '!' },
+  fail: { label: 'Fail', color: '#ef4444', symbol: '✕' },
+}
+
+const DSH_COMPONENTS: DSHComponent[] = [
+  { id: 'button', name: 'SolidButton', category: 'inputs', status: 'stable', stories: 12, coverage: 95, a11y: 'pass', radixBased: false },
+  { id: 'slider', name: 'Slider', category: 'inputs', status: 'stable', stories: 11, coverage: 88, a11y: 'pass', radixBased: true },
+  { id: 'hovercard', name: 'HoverCard', category: 'feedback', status: 'stable', stories: 11, coverage: 90, a11y: 'partial', radixBased: true },
+  { id: 'command', name: 'Command', category: 'navigation', status: 'beta', stories: 14, coverage: 78, a11y: 'pass', radixBased: true },
+  { id: 'datatable', name: 'DataTable', category: 'data', status: 'stable', stories: 10, coverage: 82, a11y: 'partial', radixBased: false },
+  { id: 'progress', name: 'Progress', category: 'feedback', status: 'stable', stories: 9, coverage: 91, a11y: 'pass', radixBased: true },
+  { id: 'accordion', name: 'Accordion', category: 'layout', status: 'stable', stories: 8, coverage: 85, a11y: 'pass', radixBased: true },
+  { id: 'textfield', name: 'TextField', category: 'inputs', status: 'stable', stories: 13, coverage: 93, a11y: 'pass', radixBased: false },
+  { id: 'switch', name: 'Switch', category: 'inputs', status: 'stable', stories: 10, coverage: 89, a11y: 'pass', radixBased: true },
+  { id: 'calendar', name: 'Calendar', category: 'inputs', status: 'beta', stories: 8, coverage: 70, a11y: 'partial', radixBased: false },
+]
+
+const dshColors = {
+  bg: '#f8fafc',
+  sidebar: '#ffffff',
+  card: '#ffffff',
+  border: '#e2e8f0',
+  text: '#1e293b',
+  textSub: '#64748b',
+  accent: '#6366f1',
+  accentBg: '#eef2ff',
+}
+
+function DesignSystemHubRender() {
+  const [selectedCategory, setSelectedCategory] = useState<DSHComponent['category'] | 'all'>('all')
+  const [selectedStatus, _setSelectedStatus] = useState<DSHComponent['status'] | 'all'>('all')
+  const [searchQuery, setSearchQuery] = useState('')
+  const [selectedId, setSelectedId] = useState<string>('slider')
+  const [showRadixOnly, setShowRadixOnly] = useState(false)
+
+  const filtered = DSH_COMPONENTS.filter((c) => {
+    const matchCat = selectedCategory === 'all' || c.category === selectedCategory
+    const matchStatus = selectedStatus === 'all' || c.status === selectedStatus
+    const matchSearch = searchQuery === '' || c.name.toLowerCase().includes(searchQuery.toLowerCase())
+    const matchRadix = !showRadixOnly || c.radixBased
+    return matchCat && matchStatus && matchSearch && matchRadix
+  })
+
+  const selected = DSH_COMPONENTS.find((c) => c.id === selectedId) ?? DSH_COMPONENTS[0]
+  const catCfg = DSH_CATEGORY_CFG[selected.category]
+  const stCfg = DSH_STATUS_CFG[selected.status]
+  const a11yCfg = DSH_A11Y_CFG[selected.a11y]
+
+  const avgCoverage = Math.round(DSH_COMPONENTS.reduce((s, c) => s + c.coverage, 0) / DSH_COMPONENTS.length)
+  const stableCount = DSH_COMPONENTS.filter((c) => c.status === 'stable').length
+  const radixCount = DSH_COMPONENTS.filter((c) => c.radixBased).length
+
+  return (
+    <div style={{ display: 'flex', height: '640px', background: dshColors.bg, borderRadius: 12, overflow: 'hidden', border: `1px solid ${dshColors.border}` }}>
+      {/* Sidebar */}
+      <div style={{ width: 300, background: dshColors.sidebar, borderRight: `1px solid ${dshColors.border}`, display: 'flex', flexDirection: 'column' }}>
+        <div style={{ padding: '16px 16px 12px', borderBottom: `1px solid ${dshColors.border}` }}>
+          <div style={{ fontSize: 14, fontWeight: 700, color: dshColors.text, marginBottom: 8 }}>Design System Hub</div>
+          <TextField
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder="컴포넌트 검색..."
+          />
+        </div>
+
+        {/* Filters */}
+        <div style={{ padding: '10px 16px', borderBottom: `1px solid ${dshColors.border}`, display: 'flex', flexDirection: 'column', gap: 8 }}>
+          <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+            {(['all', 'inputs', 'feedback', 'navigation', 'layout', 'data'] as const).map((cat) => (
+              <button
+                key={cat}
+                onClick={() => setSelectedCategory(cat)}
+                style={{
+                  padding: '2px 10px',
+                  borderRadius: 20,
+                  border: 'none',
+                  cursor: 'pointer',
+                  fontSize: 11,
+                  fontWeight: 600,
+                  background: selectedCategory === cat ? dshColors.accent : dshColors.border,
+                  color: selectedCategory === cat ? '#fff' : dshColors.textSub,
+                  transition: 'all 0.15s',
+                }}
+              >
+                {cat === 'all' ? '전체' : DSH_CATEGORY_CFG[cat].label}
+              </button>
+            ))}
+          </div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            <Toggle
+              checked={showRadixOnly}
+              onCheckedChange={setShowRadixOnly}
+            />
+            <span style={{ fontSize: 12, color: dshColors.textSub }}>Radix 기반만</span>
+          </div>
+        </div>
+
+        {/* Component list */}
+        <div style={{ flex: 1, overflowY: 'auto' }}>
+          {filtered.length === 0 && (
+            <div style={{ padding: 24, fontSize: 13, color: dshColors.textSub, textAlign: 'center' }}>검색 결과 없음</div>
+          )}
+          {filtered.map((comp) => {
+            const isActive = comp.id === selectedId
+            const cc = DSH_CATEGORY_CFG[comp.category]
+            const sc = DSH_STATUS_CFG[comp.status]
+            return (
+              <div
+                key={comp.id}
+                onClick={() => setSelectedId(comp.id)}
+                style={{
+                  padding: '10px 16px',
+                  cursor: 'pointer',
+                  background: isActive ? dshColors.accentBg : 'transparent',
+                  borderLeft: `3px solid ${isActive ? dshColors.accent : 'transparent'}`,
+                  transition: 'all 0.15s',
+                }}
+              >
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 4 }}>
+                  <span style={{ fontSize: 13, fontWeight: 600, color: isActive ? dshColors.accent : dshColors.text }}>{comp.name}</span>
+                  <span style={{ fontSize: 10, fontWeight: 700, color: sc.color }}>{sc.label}</span>
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                  <span style={{ fontSize: 11, padding: '1px 8px', borderRadius: 10, background: cc.bg, color: cc.color, fontWeight: 600 }}>{cc.label}</span>
+                  <span style={{ fontSize: 11, color: dshColors.textSub }}>{comp.stories}개 스토리</span>
+                  {comp.radixBased && (
+                    <span style={{ fontSize: 10, padding: '1px 6px', borderRadius: 8, background: '#f3e8ff', color: '#7c3aed', fontWeight: 700 }}>Radix</span>
+                  )}
+                </div>
+              </div>
+            )
+          })}
+        </div>
+
+        {/* Summary footer */}
+        <div style={{ padding: '12px 16px', borderTop: `1px solid ${dshColors.border}`, background: dshColors.accentBg }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 8, fontSize: 12, textAlign: 'center' }}>
+            <div>
+              <div style={{ fontWeight: 800, color: dshColors.accent }}>{DSH_COMPONENTS.length}</div>
+              <div style={{ color: dshColors.textSub }}>전체</div>
+            </div>
+            <div>
+              <div style={{ fontWeight: 800, color: '#10b981' }}>{stableCount}</div>
+              <div style={{ color: dshColors.textSub }}>안정</div>
+            </div>
+            <div>
+              <div style={{ fontWeight: 800, color: '#7c3aed' }}>{radixCount}</div>
+              <div style={{ color: dshColors.textSub }}>Radix</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Detail panel */}
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+        {/* Header */}
+        <div style={{ padding: '20px 24px', borderBottom: `1px solid ${dshColors.border}`, background: dshColors.card }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+            <div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 6 }}>
+                <span style={{ fontSize: 22, fontWeight: 800, color: dshColors.text }}>{selected.name}</span>
+                <span style={{ padding: '2px 10px', borderRadius: 10, fontSize: 12, fontWeight: 700, background: stCfg.color + '18', color: stCfg.color }}>{stCfg.label}</span>
+                {selected.radixBased && (
+                  <span style={{ padding: '2px 10px', borderRadius: 10, fontSize: 12, fontWeight: 700, background: '#f3e8ff', color: '#7c3aed' }}>Radix 기반</span>
+                )}
+              </div>
+              <div style={{ display: 'flex', gap: 12 }}>
+                <span style={{ fontSize: 12, padding: '2px 10px', borderRadius: 10, background: catCfg.bg, color: catCfg.color, fontWeight: 600 }}>{catCfg.label}</span>
+                <span style={{ fontSize: 12, color: a11yCfg.color, fontWeight: 600 }}>A11Y {a11yCfg.symbol} {a11yCfg.label}</span>
+              </div>
+            </div>
+            <div style={{ display: 'flex', gap: 8 }}>
+              <SolidButton color="primary" size="small">스토리북 보기</SolidButton>
+              <OutlineButton color="black" size="small">소스 코드</OutlineButton>
+            </div>
+          </div>
+        </div>
+
+        {/* Metrics */}
+        <div style={{ flex: 1, overflowY: 'auto', padding: '20px 24px', display: 'flex', flexDirection: 'column', gap: 16 }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 12 }}>
+            {[
+              { label: '스토리 수', value: `${selected.stories}개`, color: dshColors.accent },
+              { label: '테스트 커버리지', value: `${selected.coverage}%`, color: selected.coverage >= 90 ? '#10b981' : '#f59e0b' },
+              { label: '접근성', value: `${a11yCfg.label}`, color: a11yCfg.color },
+            ].map((m) => (
+              <div key={m.label} style={{ padding: 16, background: dshColors.card, borderRadius: 10, border: `1px solid ${dshColors.border}`, textAlign: 'center' }}>
+                <div style={{ fontSize: 20, fontWeight: 800, color: m.color, marginBottom: 4 }}>{m.value}</div>
+                <div style={{ fontSize: 11, color: dshColors.textSub }}>{m.label}</div>
+              </div>
+            ))}
+          </div>
+
+          <div style={{ padding: 16, background: dshColors.card, borderRadius: 10, border: `1px solid ${dshColors.border}` }}>
+            <div style={{ fontSize: 13, fontWeight: 700, color: dshColors.text, marginBottom: 10 }}>테스트 커버리지</div>
+            <Progress value={selected.coverage} />
+            <div style={{ fontSize: 12, color: dshColors.textSub, marginTop: 6 }}>{selected.coverage}% 커버</div>
+          </div>
+
+          <div style={{ padding: 16, background: dshColors.card, borderRadius: 10, border: `1px solid ${dshColors.border}` }}>
+            <div style={{ fontSize: 13, fontWeight: 700, color: dshColors.text, marginBottom: 10 }}>전체 시스템 현황</div>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 12 }}>
+              <div>
+                <div style={{ fontSize: 11, color: dshColors.textSub, marginBottom: 4 }}>평균 커버리지</div>
+                <Progress value={avgCoverage} />
+                <div style={{ fontSize: 11, color: dshColors.textSub, marginTop: 4 }}>{avgCoverage}%</div>
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                {(['stable', 'beta', 'deprecated', 'new'] as const).map((st) => {
+                  const cnt = DSH_COMPONENTS.filter((c) => c.status === st).length
+                  const sc = DSH_STATUS_CFG[st]
+                  return (
+                    <div key={st} style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12 }}>
+                      <span style={{ color: sc.color, fontWeight: 600 }}>{sc.label}</span>
+                      <span style={{ fontWeight: 700, color: dshColors.text }}>{cnt}개</span>
+                    </div>
+                  )
+                })}
+              </div>
+            </div>
+          </div>
+
+          <div style={{ padding: 16, background: dshColors.card, borderRadius: 10, border: `1px solid ${dshColors.border}` }}>
+            <div style={{ fontSize: 13, fontWeight: 700, color: dshColors.text, marginBottom: 10 }}>Radix UI 기반 현황</div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+              <div style={{ flex: 1 }}>
+                <Progress value={Math.round((radixCount / DSH_COMPONENTS.length) * 100)} />
+                <div style={{ fontSize: 11, color: dshColors.textSub, marginTop: 4 }}>{radixCount}/{DSH_COMPONENTS.length}개 컴포넌트 Radix 기반</div>
+              </div>
+              <div style={{ fontSize: 28, fontWeight: 900, color: '#7c3aed' }}>{Math.round((radixCount / DSH_COMPONENTS.length) * 100)}%</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const DesignSystemHub: Story = {
+  name: 'Design System Hub (Radix UI + Linear Design 벤치마크)',
+  render: () => <DesignSystemHubRender />,
+}

@@ -666,3 +666,288 @@ export const MUI_시간_슬라이더: Story = {
   },
   render: () => <MuiTimeSliderRender />,
 }
+
+/* --------------------------------------------------------------------------
+   Radix UI 벤치마크: HSL 색상 편집기
+   Radix Slider를 3개 조합해 Hue/Saturation/Lightness 색상 조절기 구현
+-------------------------------------------------------------------------- */
+function RadixHslEditorRender() {
+  const [hsl, setHsl] = useState<[number, number, number]>([220, 70, 55])
+
+  const [h, s, l] = hsl
+  const hexFromHsl = (hue: number, sat: number, lig: number) => {
+    const a = (sat * Math.min(lig, 100 - lig)) / 100
+    const f = (n: number) => {
+      const k = (n + hue / 30) % 12
+      const color = lig - a * Math.max(Math.min(k - 3, 9 - k, 1), -1)
+      return Math.round(255 * color / 100).toString(16).padStart(2, '0')
+    }
+    return `#${f(0)}${f(8)}${f(4)}`
+  }
+
+  const previewColor = `hsl(${h}, ${s}%, ${l}%)`
+  const hexColor = hexFromHsl(h, s, l)
+
+  const sliders: { label: string; key: 0 | 1 | 2; max: number; unit: string; gradient: string }[] = [
+    {
+      label: 'Hue',
+      key: 0,
+      max: 360,
+      unit: '°',
+      gradient: 'linear-gradient(to right, hsl(0,80%,55%), hsl(60,80%,55%), hsl(120,80%,55%), hsl(180,80%,55%), hsl(240,80%,55%), hsl(300,80%,55%), hsl(360,80%,55%))',
+    },
+    {
+      label: 'Saturation',
+      key: 1,
+      max: 100,
+      unit: '%',
+      gradient: `linear-gradient(to right, hsl(${h},0%,${l}%), hsl(${h},100%,${l}%))`,
+    },
+    {
+      label: 'Lightness',
+      key: 2,
+      max: 100,
+      unit: '%',
+      gradient: `linear-gradient(to right, hsl(${h},${s}%,0%), hsl(${h},${s}%,50%), hsl(${h},${s}%,100%))`,
+    },
+  ]
+
+  return (
+    <div style={{ width: 340, display: 'flex', flexDirection: 'column', gap: 24, padding: 24, background: '#fff', borderRadius: 14, border: '1px solid #e2e8f0' }}>
+      <div style={{ display: 'flex', gap: 14, alignItems: 'center' }}>
+        <div style={{ width: 64, height: 64, borderRadius: 12, background: previewColor, border: '2px solid #e2e8f0', flexShrink: 0 }} />
+        <div>
+          <div style={{ fontSize: 20, fontWeight: 800, color: '#1e293b', letterSpacing: '-0.02em' }}>{hexColor}</div>
+          <div style={{ fontSize: 12, color: '#64748b', marginTop: 2 }}>hsl({h}, {s}%, {l}%)</div>
+        </div>
+      </div>
+      {sliders.map((sl) => (
+        <div key={sl.label}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8 }}>
+            <span style={{ fontSize: 12, fontWeight: 700, color: '#475569' }}>{sl.label}</span>
+            <span style={{ fontSize: 12, fontWeight: 700, color: '#1e293b' }}>{hsl[sl.key]}{sl.unit}</span>
+          </div>
+          <div style={{ position: 'relative' }}>
+            <div style={{ position: 'absolute', top: '50%', transform: 'translateY(-50%)', left: 0, right: 0, height: 8, borderRadius: 4, background: sl.gradient }} />
+            <Slider
+              value={[hsl[sl.key]]}
+              max={sl.max}
+              step={1}
+              onValueChange={(val) => {
+                const next: [number, number, number] = [hsl[0], hsl[1], hsl[2]]
+                next[sl.key] = val[0]
+                setHsl(next)
+              }}
+            />
+          </div>
+        </div>
+      ))}
+    </div>
+  )
+}
+
+export const Radix_HSL_색상_편집기: Story = {
+  name: 'Radix UI - HSL 색상 편집기 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Radix Slider 3개를 조합한 HSL 색상 편집기. Hue/Saturation/Lightness를 독립적으로 제어하며 ' +
+          '각 슬라이더의 트랙 배경을 그라데이션으로 현재 색상 범위를 시각화합니다.',
+      },
+    },
+  },
+  render: () => <RadixHslEditorRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Linear Design 벤치마크: 우선순위 스코어링 슬라이더
+   Linear의 Impact x Urgency 매트릭스를 슬라이더 2개로 구현
+-------------------------------------------------------------------------- */
+function LinearPriorityRender() {
+  const [impact, setImpact] = useState([50])
+  const [urgency, setUrgency] = useState([30])
+
+  const score = Math.round((impact[0] * 0.6 + urgency[0] * 0.4))
+
+  const getPriorityLabel = (s: number) => {
+    if (s >= 80) return { label: '긴급', color: '#ef4444', bg: '#fee2e2' }
+    if (s >= 60) return { label: '높음', color: '#f97316', bg: '#ffedd5' }
+    if (s >= 40) return { label: '보통', color: '#f59e0b', bg: '#fef3c7' }
+    if (s >= 20) return { label: '낮음', color: '#6366f1', bg: '#eef2ff' }
+    return { label: '없음', color: '#94a3b8', bg: '#f1f5f9' }
+  }
+
+  const priority = getPriorityLabel(score)
+
+  return (
+    <div style={{ width: 340, display: 'flex', flexDirection: 'column', gap: 20, padding: 24, background: '#fff', borderRadius: 14, border: '1px solid #e2e8f0' }}>
+      <div>
+        <div style={{ fontSize: 14, fontWeight: 700, color: '#1e293b', marginBottom: 4 }}>우선순위 산정</div>
+        <div style={{ fontSize: 12, color: '#64748b' }}>Impact x Urgency 가중 평균 (6:4)</div>
+      </div>
+
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '14px 16px', borderRadius: 10, background: priority.bg, border: `1.5px solid ${priority.color}30` }}>
+        <div>
+          <div style={{ fontSize: 11, fontWeight: 700, color: priority.color, textTransform: 'uppercase', letterSpacing: '0.05em' }}>우선순위</div>
+          <div style={{ fontSize: 22, fontWeight: 800, color: priority.color }}>{priority.label}</div>
+        </div>
+        <div style={{ textAlign: 'right' }}>
+          <div style={{ fontSize: 36, fontWeight: 900, color: priority.color, lineHeight: 1 }}>{score}</div>
+          <div style={{ fontSize: 11, color: priority.color + 'aa' }}>/100</div>
+        </div>
+      </div>
+
+      {[
+        { label: 'Impact (영향도)', value: impact, onChange: setImpact, color: '#6366f1', desc: '비즈니스/사용자에 미치는 영향' },
+        { label: 'Urgency (긴급도)', value: urgency, onChange: setUrgency, color: '#f97316', desc: '처리 시기의 긴급성' },
+      ].map((item) => (
+        <div key={item.label}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 4 }}>
+            <span style={{ fontSize: 12, fontWeight: 700, color: '#1e293b' }}>{item.label}</span>
+            <span style={{ fontSize: 16, fontWeight: 800, color: item.color }}>{item.value[0]}</span>
+          </div>
+          <div style={{ fontSize: 11, color: '#94a3b8', marginBottom: 8 }}>{item.desc}</div>
+          <Slider
+            value={item.value}
+            max={100}
+            step={5}
+            onValueChange={item.onChange}
+          />
+          <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 4, fontSize: 10, color: '#cbd5e1' }}>
+            <span>낮음</span><span>보통</span><span>높음</span>
+          </div>
+        </div>
+      ))}
+    </div>
+  )
+}
+
+export const Linear_우선순위_스코어링: Story = {
+  name: 'Linear Design - Impact x Urgency 우선순위 스코어링',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Linear의 이슈 우선순위 결정 로직을 슬라이더 UI로 구현. ' +
+          'Impact(60%)와 Urgency(40%) 가중 평균으로 0-100 점수를 계산하고 긴급/높음/보통/낮음/없음 등급을 자동 결정합니다.',
+      },
+    },
+  },
+  render: () => <LinearPriorityRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Linear Design 벤치마크: 피보나치 스토리 포인트 추정기
+   개발 팀이 사용하는 1,2,3,5,8,13,21 피보나치 수열 기반 추정 슬라이더
+-------------------------------------------------------------------------- */
+const FIB_POINTS = [0, 1, 2, 3, 5, 8, 13, 21]
+
+function LinearStoryPointsRender() {
+  const [pointIdx, setPointIdx] = useState([3])
+  const [selectedTask, setSelectedTask] = useState(0)
+
+  const tasks = [
+    { title: 'Slider 컴포넌트 리팩터링', current: 3, complexity: '중간' },
+    { title: 'API 인증 미들웨어 추가', current: 5, complexity: '높음' },
+    { title: 'README 오타 수정', current: 1, complexity: '낮음' },
+  ]
+
+  const currentPoints = FIB_POINTS[pointIdx[0]] ?? 0
+
+  const complexityOf = (pts: number) => {
+    if (pts >= 13) return { label: '매우 복잡', color: '#ef4444' }
+    if (pts >= 8) return { label: '복잡', color: '#f97316' }
+    if (pts >= 5) return { label: '높음', color: '#f59e0b' }
+    if (pts >= 3) return { label: '중간', color: '#6366f1' }
+    if (pts >= 1) return { label: '간단', color: '#10b981' }
+    return { label: '미정', color: '#94a3b8' }
+  }
+
+  const cx = complexityOf(currentPoints)
+
+  return (
+    <div style={{ width: 360, display: 'flex', flexDirection: 'column', gap: 16, padding: 24, background: '#fff', borderRadius: 14, border: '1px solid #e2e8f0' }}>
+      <div style={{ fontSize: 14, fontWeight: 700, color: '#1e293b' }}>스토리 포인트 추정</div>
+
+      {/* Task selector */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+        {tasks.map((task, i) => (
+          <div
+            key={task.title}
+            onClick={() => {
+              setSelectedTask(i)
+              setPointIdx([FIB_POINTS.indexOf(task.current)])
+            }}
+            style={{
+              padding: '10px 12px',
+              borderRadius: 8,
+              border: `1.5px solid ${selectedTask === i ? '#6366f1' : '#e2e8f0'}`,
+              background: selectedTask === i ? '#eef2ff' : '#fff',
+              cursor: 'pointer',
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              transition: 'all 0.15s',
+            }}
+          >
+            <div>
+              <div style={{ fontSize: 12, fontWeight: 600, color: selectedTask === i ? '#4f46e5' : '#1e293b' }}>{task.title}</div>
+              <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>복잡도: {task.complexity}</div>
+            </div>
+            <div style={{ fontSize: 18, fontWeight: 800, color: selectedTask === i ? '#6366f1' : '#94a3b8' }}>{task.current}pt</div>
+          </div>
+        ))}
+      </div>
+
+      {/* Fibonacci slider */}
+      <div>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 }}>
+          <span style={{ fontSize: 12, fontWeight: 700, color: '#475569' }}>추정 포인트</span>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            <span style={{ fontSize: 24, fontWeight: 900, color: cx.color }}>{currentPoints}</span>
+            <span style={{ fontSize: 11, fontWeight: 700, padding: '2px 8px', borderRadius: 10, background: cx.color + '18', color: cx.color }}>{cx.label}</span>
+          </div>
+        </div>
+        <Slider
+          value={pointIdx}
+          max={FIB_POINTS.length - 1}
+          step={1}
+          onValueChange={setPointIdx}
+        />
+        <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 6 }}>
+          {FIB_POINTS.map((pt, i) => (
+            <span
+              key={pt}
+              onClick={() => setPointIdx([i])}
+              style={{
+                fontSize: 11,
+                fontWeight: pointIdx[0] === i ? 800 : 400,
+                color: pointIdx[0] === i ? '#6366f1' : '#94a3b8',
+                cursor: 'pointer',
+                minWidth: 20,
+                textAlign: 'center',
+              }}
+            >
+              {pt}
+            </span>
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const Linear_피보나치_스토리포인트: Story = {
+  name: 'Linear Design - 피보나치 스토리포인트 추정기',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Linear의 이슈 추정 UX 패턴. 0,1,2,3,5,8,13,21 피보나치 수열을 슬라이더 인덱스로 매핑해 ' +
+          '비선형 포인트 입력을 구현합니다. 태스크 목록과 연동해 선택한 이슈의 포인트를 즉시 반영합니다.',
+      },
+    },
+  },
+  render: () => <LinearStoryPointsRender />,
+}
