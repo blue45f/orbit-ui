@@ -783,3 +783,263 @@ export const Vercel_배포_채널_선택: Story = {
   name: 'Vercel — 배포 채널 선택 (그룹 체크)',
   render: () => <DeployChannelDemo />,
 }
+
+/* --------------------------------------------------------------------------
+   Mantine 벤치마크: Checkbox.Group 기능 선택 그리드
+   Mantine의 Checkbox.Group — 관련 기능 옵션을 카드 그리드로 선택하는 패턴
+-------------------------------------------------------------------------- */
+const MANTINE_FEATURES = [
+  { value: 'analytics', label: '고급 분석', desc: '데이터 인사이트 및 리포트', icon: '📊' },
+  { value: 'collab', label: '실시간 협업', desc: '팀 동시 편집 지원', icon: '👥' },
+  { value: 'api', label: 'API 접근', desc: 'REST/GraphQL 연동', icon: '🔌' },
+  { value: 'export', label: '내보내기', desc: 'CSV/PDF/Excel 출력', icon: '📤' },
+  { value: 'sso', label: 'SSO 인증', desc: 'SAML·OIDC 지원', icon: '🔐' },
+  { value: 'audit', label: '감사 로그', desc: '활동 기록 90일 보관', icon: '📋' },
+]
+
+function MantineFeatureGridDemo() {
+  const [selected, setSelected] = useState<Set<string>>(new Set(['analytics']))
+
+  const toggle = (v: string) =>
+    setSelected((prev) => {
+      const next = new Set(prev)
+      if (next.has(v)) next.delete(v)
+      else next.add(v)
+      return next
+    })
+
+  return (
+    <div style={{ maxWidth: 480 }}>
+      <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 4 }}>추가 기능 선택</div>
+      <div style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginBottom: 16 }}>
+        {selected.size > 0 ? `${selected.size}개 선택됨` : '기능을 선택하세요'}
+      </div>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
+        {MANTINE_FEATURES.map((f) => {
+          const isSelected = selected.has(f.value)
+          return (
+            <div
+              key={f.value}
+              onClick={() => toggle(f.value)}
+              style={{
+                padding: '14px',
+                borderRadius: 10,
+                border: `2px solid ${isSelected ? '#6366f1' : 'var(--sem-eclipse-color-borderDefault)'}`,
+                background: isSelected ? 'rgba(99,102,241,0.04)' : 'var(--sem-eclipse-color-backgroundPrimary)',
+                cursor: 'pointer',
+                transition: 'all 0.12s',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 8,
+              }}
+            >
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                <span style={{ fontSize: 18 }}>{f.icon}</span>
+                <BoxedCheckboxWithLabel
+                  value={f.value}
+                  checked={isSelected}
+                  onChange={() => toggle(f.value)}
+                  onClick={(e) => e.stopPropagation()}
+                />
+              </div>
+              <div>
+                <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{f.label}</div>
+                <div style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginTop: 2 }}>{f.desc}</div>
+              </div>
+            </div>
+          )
+        })}
+      </div>
+      {selected.size > 0 && (
+        <div style={{ marginTop: 14, padding: '10px 14px', borderRadius: 8, background: 'rgba(99,102,241,0.08)', border: '1.5px solid rgba(99,102,241,0.2)', fontSize: 12, color: '#6366f1', fontWeight: 600 }}>
+          선택: {Array.from(selected).map((v) => MANTINE_FEATURES.find((f) => f.value === v)?.label).join(', ')}
+        </div>
+      )}
+    </div>
+  )
+}
+
+export const Mantine_기능_선택_카드_그리드: Story = {
+  name: 'Mantine — Checkbox.Group 기능 선택 카드 그리드',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Mantine Checkbox.Group 패턴. 기능 옵션을 카드 그리드로 표시하고 BoxedCheckboxWithLabel로 선택 상태를 관리합니다. ' +
+          '카드 전체 클릭으로 선택/해제가 가능합니다.',
+      },
+    },
+  },
+  render: () => <MantineFeatureGridDemo />,
+}
+
+/* --------------------------------------------------------------------------
+   Mantine 벤치마크: 조건부 추가 옵션 표시
+   Mantine의 Checkbox + Collapse 패턴 — 체크 시 하위 설정 펼치기
+-------------------------------------------------------------------------- */
+function MantineConditionalOptionsDemo() {
+  const [backupEnabled, setBackupEnabled] = useState(false)
+  const [notifyEnabled, setNotifyEnabled] = useState(false)
+  const [backupOptions, setBackupOptions] = useState<Set<string>>(new Set())
+  const [notifyChannels, setNotifyChannels] = useState<Set<string>>(new Set())
+
+  const toggleSet = (set: Set<string>, setter: (s: Set<string>) => void, v: string) => {
+    const next = new Set(set)
+    if (next.has(v)) next.delete(v)
+    else next.add(v)
+    setter(next)
+  }
+
+  return (
+    <div style={{ maxWidth: 380, display: 'flex', flexDirection: 'column', gap: 12 }}>
+      <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 4 }}>
+        고급 설정
+      </div>
+
+      {/* 백업 설정 */}
+      <div style={{ border: '1.5px solid var(--sem-eclipse-color-borderDefault)', borderRadius: 10, overflow: 'hidden' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '12px 14px', background: 'var(--sem-eclipse-color-backgroundPrimary)', cursor: 'pointer' }} onClick={() => setBackupEnabled((v) => !v)}>
+          <BoxedCheckboxWithLabel value="backup" checked={backupEnabled} onChange={(c) => setBackupEnabled(c)} onClick={(e) => e.stopPropagation()} />
+          <div>
+            <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>자동 백업 활성화</div>
+            <div style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>활성화하면 백업 주기를 설정할 수 있습니다</div>
+          </div>
+        </div>
+        {backupEnabled && (
+          <div style={{ padding: '10px 14px 14px', borderTop: '1px solid var(--sem-eclipse-color-borderSubtle)', background: 'var(--sem-eclipse-color-backgroundSecondary)', display: 'flex', flexDirection: 'column', gap: 8 }}>
+            <div style={{ fontSize: 11, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundTertiary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>백업 주기</div>
+            {['매일', '매주', '매월'].map((opt) => (
+              <div key={opt} onClick={() => toggleSet(backupOptions, setBackupOptions, opt)} style={{ display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer' }}>
+                <BoxedCheckboxWithLabel value={opt} checked={backupOptions.has(opt)} onChange={() => toggleSet(backupOptions, setBackupOptions, opt)} onClick={(e) => e.stopPropagation()} />
+                <span style={{ fontSize: 13, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{opt}</span>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+
+      {/* 알림 설정 */}
+      <div style={{ border: '1.5px solid var(--sem-eclipse-color-borderDefault)', borderRadius: 10, overflow: 'hidden' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '12px 14px', background: 'var(--sem-eclipse-color-backgroundPrimary)', cursor: 'pointer' }} onClick={() => setNotifyEnabled((v) => !v)}>
+          <BoxedCheckboxWithLabel value="notify" checked={notifyEnabled} onChange={(c) => setNotifyEnabled(c)} onClick={(e) => e.stopPropagation()} />
+          <div>
+            <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>알림 채널 설정</div>
+            <div style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>알림받을 채널을 선택합니다</div>
+          </div>
+        </div>
+        {notifyEnabled && (
+          <div style={{ padding: '10px 14px 14px', borderTop: '1px solid var(--sem-eclipse-color-borderSubtle)', background: 'var(--sem-eclipse-color-backgroundSecondary)', display: 'flex', flexDirection: 'column', gap: 8 }}>
+            <div style={{ fontSize: 11, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundTertiary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>채널</div>
+            {['이메일', 'Slack', 'SMS'].map((ch) => (
+              <div key={ch} onClick={() => toggleSet(notifyChannels, setNotifyChannels, ch)} style={{ display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer' }}>
+                <BoxedCheckboxWithLabel value={ch} checked={notifyChannels.has(ch)} onChange={() => toggleSet(notifyChannels, setNotifyChannels, ch)} onClick={(e) => e.stopPropagation()} />
+                <span style={{ fontSize: 13, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{ch}</span>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+
+export const Mantine_조건부_하위_옵션_표시: Story = {
+  name: 'Mantine — Checkbox + Collapse 조건부 하위 옵션',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Mantine Checkbox + Collapse 패턴. 체크박스를 선택하면 하위 추가 설정이 펼쳐집니다. ' +
+          '백업 주기와 알림 채널 두 그룹으로 구성됩니다.',
+      },
+    },
+  },
+  render: () => <MantineConditionalOptionsDemo />,
+}
+
+/* --------------------------------------------------------------------------
+   Mantine 벤치마크: 팀 역할별 권한 설정 매트릭스
+   Mantine의 Table + Checkbox 패턴 — 역할×권한 이중 축 체크박스 매트릭스
+-------------------------------------------------------------------------- */
+const MANTINE_ROLES = ['뷰어', '편집자', '관리자'] as const
+const MANTINE_PERMS = [
+  { id: 'read', label: '읽기' },
+  { id: 'write', label: '쓰기' },
+  { id: 'delete', label: '삭제' },
+  { id: 'export', label: '내보내기' },
+  { id: 'manage', label: '권한 관리' },
+]
+
+type MantineRole = typeof MANTINE_ROLES[number]
+
+const DEFAULT_MATRIX: Record<MantineRole, Set<string>> = {
+  '뷰어': new Set(['read']),
+  '편집자': new Set(['read', 'write', 'export']),
+  '관리자': new Set(['read', 'write', 'delete', 'export', 'manage']),
+}
+
+function MantinePermissionMatrixDemo() {
+  const [matrix, setMatrix] = useState<Record<MantineRole, Set<string>>>(DEFAULT_MATRIX)
+
+  const toggle = (role: MantineRole, perm: string) => {
+    setMatrix((prev) => {
+      const next = new Set(prev[role])
+      if (next.has(perm)) next.delete(perm)
+      else next.add(perm)
+      return { ...prev, [role]: next }
+    })
+  }
+
+  return (
+    <div style={{ maxWidth: 460 }}>
+      <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 16 }}>역할별 권한 설정</div>
+      <div style={{ borderRadius: 10, border: '1.5px solid var(--sem-eclipse-color-borderDefault)', overflow: 'hidden' }}>
+        <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+          <thead>
+            <tr style={{ background: 'var(--sem-eclipse-color-backgroundSecondary)' }}>
+              <th style={{ padding: '10px 14px', textAlign: 'left', fontSize: 12, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundTertiary)', borderBottom: '1.5px solid var(--sem-eclipse-color-borderDefault)' }}>권한</th>
+              {MANTINE_ROLES.map((role) => (
+                <th key={role} style={{ padding: '10px 14px', textAlign: 'center', fontSize: 12, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundSecondary)', borderBottom: '1.5px solid var(--sem-eclipse-color-borderDefault)' }}>{role}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {MANTINE_PERMS.map((perm, i) => (
+              <tr key={perm.id} style={{ borderBottom: i < MANTINE_PERMS.length - 1 ? '1px solid var(--sem-eclipse-color-borderSubtle)' : 'none' }}>
+                <td style={{ padding: '10px 14px', fontSize: 13, color: 'var(--sem-eclipse-color-foregroundPrimary)', fontWeight: 500 }}>{perm.label}</td>
+                {MANTINE_ROLES.map((role) => (
+                  <td key={role} style={{ padding: '10px 14px', textAlign: 'center' }}>
+                    <div style={{ display: 'flex', justifyContent: 'center' }}>
+                      <BoxedCheckboxWithLabel
+                        value={perm.id}
+                        checked={matrix[role].has(perm.id)}
+                        onChange={() => toggle(role, perm.id)}
+                      />
+                    </div>
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <div style={{ marginTop: 12, fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>
+        관리자: {matrix['관리자'].size}개 · 편집자: {matrix['편집자'].size}개 · 뷰어: {matrix['뷰어'].size}개 권한
+      </div>
+    </div>
+  )
+}
+
+export const Mantine_권한_매트릭스: Story = {
+  name: 'Mantine — Table + Checkbox 역할별 권한 매트릭스',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Mantine Table + Checkbox 패턴. 역할(행) × 권한(열) 이중 축 매트릭스로 권한을 설정합니다. ' +
+          '관리자/편집자/뷰어 세 역할의 권한을 독립적으로 체크할 수 있습니다.',
+      },
+    },
+  },
+  render: () => <MantinePermissionMatrixDemo />,
+}

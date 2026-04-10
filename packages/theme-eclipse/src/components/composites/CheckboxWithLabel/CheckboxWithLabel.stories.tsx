@@ -809,3 +809,344 @@ export const Linear_팀_알림_설정: Story = {
   name: 'Linear — 팀 알림 채널 설정',
   render: () => <TeamNotifDemo />,
 }
+
+/* --------------------------------------------------------------------------
+   Mantine 벤치마크: 전체 선택 / 부분 선택 (Indeterminate) 패턴
+   Mantine의 Checkbox indeterminate 상태 — 그룹 중 일부 선택 시 부모 체크박스에 반영
+-------------------------------------------------------------------------- */
+const MANTINE_TASKS = [
+  { id: 'ts', label: 'TypeScript 설정', desc: 'tsconfig.json 구성' },
+  { id: 'eslint', label: 'ESLint 설정', desc: '.eslintrc 규칙 정의' },
+  { id: 'prettier', label: 'Prettier 설정', desc: '.prettierrc 포맷 설정' },
+  { id: 'husky', label: 'Husky 설정', desc: 'pre-commit 훅 연결' },
+  { id: 'ci', label: 'CI 설정', desc: 'GitHub Actions 파이프라인' },
+]
+
+function MantineIndeterminateDemo() {
+  const [checked, setChecked] = useState<Set<string>>(new Set(['ts', 'eslint']))
+
+  const allChecked = checked.size === MANTINE_TASKS.length
+  const someChecked = checked.size > 0 && !allChecked
+
+  const toggleAll = () => {
+    if (allChecked) setChecked(new Set())
+    else setChecked(new Set(MANTINE_TASKS.map((t) => t.id)))
+  }
+
+  const toggle = (id: string) => {
+    setChecked((prev) => {
+      const next = new Set(prev)
+      if (next.has(id)) next.delete(id)
+      else next.add(id)
+      return next
+    })
+  }
+
+  return (
+    <div style={{ maxWidth: 400 }}>
+      <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 4 }}>프로젝트 초기화 작업</div>
+      <div style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginBottom: 12 }}>{checked.size}/{MANTINE_TASKS.length} 완료</div>
+
+      {/* 전체 선택 */}
+      <div
+        onClick={toggleAll}
+        style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '12px 14px', borderRadius: '10px 10px 0 0', border: '1.5px solid var(--sem-eclipse-color-borderDefault)', borderBottom: 'none', background: 'var(--sem-eclipse-color-backgroundSecondary)', cursor: 'pointer' }}
+      >
+        <div style={{ position: 'relative' }}>
+          <CheckboxWithLabel
+            value="all"
+            checked={allChecked}
+            onChange={toggleAll}
+            onClick={(e) => e.stopPropagation()}
+          />
+          {someChecked && !allChecked && (
+            <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: 10, height: 2, background: '#6366f1', borderRadius: 1, pointerEvents: 'none' }} />
+          )}
+        </div>
+        <span style={{ fontSize: 13, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>
+          {allChecked ? '전체 해제' : someChecked ? '부분 선택됨 — 전체 선택' : '전체 선택'}
+        </span>
+        {someChecked && (
+          <span style={{ marginLeft: 'auto', fontSize: 11, padding: '2px 8px', borderRadius: 8, background: 'rgba(99,102,241,0.1)', color: '#6366f1', fontWeight: 700 }}>
+            {checked.size}/{MANTINE_TASKS.length}
+          </span>
+        )}
+      </div>
+
+      {/* 개별 항목 */}
+      <div style={{ border: '1.5px solid var(--sem-eclipse-color-borderDefault)', borderRadius: '0 0 10px 10px', overflow: 'hidden' }}>
+        {MANTINE_TASKS.map((task, i) => (
+          <div
+            key={task.id}
+            onClick={() => toggle(task.id)}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 10,
+              padding: '10px 14px',
+              borderBottom: i < MANTINE_TASKS.length - 1 ? '1px solid var(--sem-eclipse-color-borderSubtle)' : 'none',
+              background: checked.has(task.id) ? 'rgba(99,102,241,0.03)' : 'var(--sem-eclipse-color-backgroundPrimary)',
+              cursor: 'pointer',
+              transition: 'background 0.1s',
+            }}
+          >
+            <CheckboxWithLabel
+              value={task.id}
+              checked={checked.has(task.id)}
+              onChange={() => toggle(task.id)}
+              onClick={(e) => e.stopPropagation()}
+            />
+            <div>
+              <div style={{ fontSize: 13, fontWeight: checked.has(task.id) ? 700 : 500, color: checked.has(task.id) ? '#6366f1' : 'var(--sem-eclipse-color-foregroundPrimary)', textDecoration: checked.has(task.id) ? 'none' : 'none' }}>{task.label}</div>
+              <div style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>{task.desc}</div>
+            </div>
+            {checked.has(task.id) && (
+              <span style={{ marginLeft: 'auto', fontSize: 11, color: '#10b981', fontWeight: 700 }}>완료</span>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+export const Mantine_전체선택_부분선택_패턴: Story = {
+  name: 'Mantine — 전체 선택 / 부분 선택(Indeterminate) 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Mantine Checkbox indeterminate 패턴. 부분 선택 시 부모 체크박스에 중간 상태 표시줄을 추가합니다. ' +
+          '전체 선택/해제 버튼으로 일괄 토글이 가능합니다.',
+      },
+    },
+  },
+  render: () => <MantineIndeterminateDemo />,
+}
+
+/* --------------------------------------------------------------------------
+   Mantine 벤치마크: 이용약관 단계별 동의 (Required Validation)
+   Mantine의 Checkbox + Form validation 패턴 — 필수 동의 항목 검증
+-------------------------------------------------------------------------- */
+function MantineTermsAgreementDemo() {
+  const [agreed, setAgreed] = useState<Record<string, boolean>>({
+    terms: false,
+    privacy: false,
+    marketing: false,
+    age: false,
+  })
+  const [submitted, setSubmitted] = useState(false)
+  const [done, setDone] = useState(false)
+
+  const required = ['terms', 'privacy', 'age']
+  const canSubmit = required.every((k) => agreed[k])
+  const errors = submitted && !canSubmit ? required.filter((k) => !agreed[k]) : []
+
+  const items = [
+    { id: 'terms', label: '(필수) 이용약관에 동의합니다', link: '약관 보기' },
+    { id: 'privacy', label: '(필수) 개인정보 처리방침에 동의합니다', link: '내용 보기' },
+    { id: 'age', label: '(필수) 만 14세 이상입니다', link: null },
+    { id: 'marketing', label: '(선택) 마케팅 정보 수신에 동의합니다', link: null },
+  ]
+
+  const handleSubmit = () => {
+    setSubmitted(true)
+    if (canSubmit) setDone(true)
+  }
+
+  if (done) {
+    return (
+      <div style={{ maxWidth: 380, padding: '24px', borderRadius: 12, background: '#f0fdf4', border: '1.5px solid #bbf7d0', textAlign: 'center' }}>
+        <div style={{ fontSize: 16, fontWeight: 800, color: '#16a34a', marginBottom: 8 }}>가입 완료!</div>
+        <div style={{ fontSize: 13, color: '#15803d' }}>모든 필수 약관에 동의했습니다.</div>
+        <button onClick={() => { setDone(false); setSubmitted(false); setAgreed({ terms: false, privacy: false, marketing: false, age: false }) }} style={{ marginTop: 16, padding: '8px 20px', borderRadius: 8, border: 'none', background: '#6366f1', color: '#fff', fontSize: 13, fontWeight: 700, cursor: 'pointer' }}>
+          초기화
+        </button>
+      </div>
+    )
+  }
+
+  return (
+    <div style={{ maxWidth: 380, display: 'flex', flexDirection: 'column', gap: 16 }}>
+      <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>약관 동의</div>
+
+      {/* 전체 동의 */}
+      <div
+        onClick={() => {
+          const allTrue = Object.values(agreed).every(Boolean)
+          setAgreed({ terms: !allTrue, privacy: !allTrue, marketing: !allTrue, age: !allTrue })
+          setSubmitted(false)
+        }}
+        style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '12px', borderRadius: 10, border: '1.5px solid var(--sem-eclipse-color-borderDefault)', background: 'var(--sem-eclipse-color-backgroundSecondary)', cursor: 'pointer' }}
+      >
+        <CheckboxWithLabel
+          value="all"
+          checked={Object.values(agreed).every(Boolean)}
+          onChange={() => {}}
+          onClick={(e) => e.stopPropagation()}
+        />
+        <span style={{ fontSize: 14, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>전체 동의</span>
+      </div>
+
+      {/* 개별 항목 */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+        {items.map((item) => {
+          const hasError = errors.includes(item.id)
+          return (
+            <div
+              key={item.id}
+              style={{ padding: '10px 12px', borderRadius: 8, border: `1.5px solid ${hasError ? '#fecaca' : 'transparent'}`, background: hasError ? '#fff5f5' : 'transparent', transition: 'all 0.15s' }}
+            >
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                <CheckboxWithLabel
+                  value={item.id}
+                  checked={agreed[item.id]}
+                  onChange={(c) => { setAgreed((prev) => ({ ...prev, [item.id]: c })); setSubmitted(false) }}
+                />
+                <span style={{ fontSize: 13, color: 'var(--sem-eclipse-color-foregroundPrimary)', flex: 1 }}>{item.label}</span>
+                {item.link && <span style={{ fontSize: 11, color: '#6366f1', cursor: 'pointer', textDecoration: 'underline' }}>{item.link}</span>}
+              </div>
+              {hasError && (
+                <div style={{ marginTop: 4, fontSize: 11, color: '#ef4444', paddingLeft: 28 }}>필수 동의 항목입니다.</div>
+              )}
+            </div>
+          )
+        })}
+      </div>
+
+      <button
+        onClick={handleSubmit}
+        style={{ padding: '12px', borderRadius: 10, border: 'none', background: canSubmit ? '#6366f1' : 'var(--sem-eclipse-color-backgroundSecondary)', color: canSubmit ? '#fff' : 'var(--sem-eclipse-color-foregroundTertiary)', fontSize: 14, fontWeight: 700, cursor: canSubmit ? 'pointer' : 'not-allowed', transition: 'all 0.15s' }}
+      >
+        가입하기
+      </button>
+    </div>
+  )
+}
+
+export const Mantine_이용약관_필수_동의: Story = {
+  name: 'Mantine — Form Validation 이용약관 필수 동의 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Mantine Checkbox + Form validation 패턴. 필수 약관 미동의 시 오류 강조 표시합니다. ' +
+          '전체 동의 체크박스로 일괄 선택/해제가 가능합니다.',
+      },
+    },
+  },
+  render: () => <MantineTermsAgreementDemo />,
+}
+
+/* --------------------------------------------------------------------------
+   Mantine 벤치마크: 태그 기반 관심사 필터 선택
+   Mantine의 Checkbox + Badge 조합 패턴 — 태그 형태의 멀티 필터 UI
+-------------------------------------------------------------------------- */
+const INTEREST_TAGS = [
+  { id: 'frontend', label: 'Frontend', color: '#6366f1' },
+  { id: 'backend', label: 'Backend', color: '#10b981' },
+  { id: 'design', label: 'Design', color: '#f59e0b' },
+  { id: 'devops', label: 'DevOps', color: '#3b82f6' },
+  { id: 'mobile', label: 'Mobile', color: '#ec4899' },
+  { id: 'ai', label: 'AI / ML', color: '#8b5cf6' },
+  { id: 'security', label: 'Security', color: '#ef4444' },
+  { id: 'db', label: 'Database', color: '#14b8a6' },
+]
+
+function MantineTagFilterDemo() {
+  const [selected, setSelected] = useState<Set<string>>(new Set(['frontend', 'design']))
+
+  const toggle = (id: string) => {
+    setSelected((prev) => {
+      const next = new Set(prev)
+      if (next.has(id)) next.delete(id)
+      else next.add(id)
+      return next
+    })
+  }
+
+  const FEED = [
+    { title: 'Orbit UI 3.0 릴리스', tags: ['frontend', 'design'] },
+    { title: 'React 19 서버 액션 완전 정리', tags: ['frontend', 'backend'] },
+    { title: 'PostgreSQL 성능 튜닝 가이드', tags: ['db', 'backend'] },
+    { title: 'Docker Compose 멀티스테이지 빌드', tags: ['devops'] },
+    { title: 'SwiftUI 애니메이션 고급 기법', tags: ['mobile', 'design'] },
+    { title: 'GPT-4o 파인튜닝 실전 가이드', tags: ['ai'] },
+  ]
+
+  const filtered = selected.size === 0 ? FEED : FEED.filter((post) => post.tags.some((t) => selected.has(t)))
+
+  return (
+    <div style={{ maxWidth: 440, display: 'flex', flexDirection: 'column', gap: 16 }}>
+      <div>
+        <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 10 }}>관심 분야 필터</div>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+          {INTEREST_TAGS.map((tag) => {
+            const isSelected = selected.has(tag.id)
+            return (
+              <div
+                key={tag.id}
+                onClick={() => toggle(tag.id)}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 6,
+                  padding: '6px 12px',
+                  borderRadius: 20,
+                  border: `2px solid ${isSelected ? tag.color : 'var(--sem-eclipse-color-borderDefault)'}`,
+                  background: isSelected ? `${tag.color}14` : 'var(--sem-eclipse-color-backgroundPrimary)',
+                  cursor: 'pointer',
+                  transition: 'all 0.12s',
+                }}
+              >
+                <CheckboxWithLabel
+                  value={tag.id}
+                  checked={isSelected}
+                  onChange={() => toggle(tag.id)}
+                  onClick={(e) => e.stopPropagation()}
+                />
+                <span style={{ fontSize: 12, fontWeight: isSelected ? 700 : 500, color: isSelected ? tag.color : 'var(--sem-eclipse-color-foregroundSecondary)' }}>{tag.label}</span>
+              </div>
+            )
+          })}
+        </div>
+        <div style={{ marginTop: 8, fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>
+          {selected.size === 0 ? '전체 보기' : `${selected.size}개 필터 적용 · 게시물 ${filtered.length}개`}
+        </div>
+      </div>
+
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+        {filtered.length === 0 && (
+          <div style={{ fontSize: 13, color: 'var(--sem-eclipse-color-foregroundTertiary)', padding: '12px 0' }}>선택한 태그의 게시물이 없습니다.</div>
+        )}
+        {filtered.map((post) => (
+          <div key={post.title} style={{ padding: '12px 14px', borderRadius: 10, border: '1px solid var(--sem-eclipse-color-borderSubtle)', background: 'var(--sem-eclipse-color-backgroundPrimary)', display: 'flex', alignItems: 'center', gap: 10 }}>
+            <div style={{ flex: 1, fontSize: 13, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{post.title}</div>
+            <div style={{ display: 'flex', gap: 4 }}>
+              {post.tags.map((t) => {
+                const tag = INTEREST_TAGS.find((x) => x.id === t)
+                return tag ? (
+                  <span key={t} style={{ fontSize: 10, fontWeight: 700, padding: '2px 6px', borderRadius: 8, background: `${tag.color}18`, color: tag.color }}>{tag.label}</span>
+                ) : null
+              })}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+export const Mantine_태그_기반_관심사_필터: Story = {
+  name: 'Mantine — Checkbox + Badge 태그 기반 관심사 필터',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Mantine Checkbox + Badge 조합 패턴. 체크박스를 태그 형태로 표시하여 관심사 필터 UI를 만듭니다. ' +
+          '선택된 태그에 해당하는 피드 항목만 필터링됩니다.',
+      },
+    },
+  },
+  render: () => <MantineTagFilterDemo />,
+}

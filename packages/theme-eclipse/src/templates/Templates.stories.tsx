@@ -47,6 +47,7 @@ import { Drawer } from '../components/Drawer'
 import { PasswordField } from '../components/PasswordField'
 import { RadioGroup } from '../components/composites/RadioGroup'
 import { RadioButtonWithLabel } from '../components/composites/RadioButtonWithLabel'
+import { CheckboxWithLabel } from '../components/composites/CheckboxWithLabel'
 
 import {
   MenuIcon,
@@ -22141,4 +22142,272 @@ export const ChakraUserProfile: Story = {
     },
   },
   render: () => <Chakra90UserProfileRender />,
+}
+
+/* =====================================================================
+   Mantine 벤치마크 — Team Onboarding Wizard (Cycle 91)
+   Mantine의 Stepper + Form + Checkbox + Progress 패턴
+   TextField, PasswordField, CheckboxWithLabel, Progress, SolidButton, Chip 통합
+   ===================================================================== */
+
+const MANTINE91_STEPS = ['계정 정보', '팀 설정', '알림 설정', '완료'] as const
+type Mantine91Step = 0 | 1 | 2 | 3
+
+const MANTINE91_ROLES = ['개발자', '디자이너', '프로덕트 매니저', '마케터', '기타'] as const
+
+const MANTINE91_NOTIF_ITEMS = [
+  { id: 'pr', label: 'Pull Request 알림', desc: '새 PR 생성 및 리뷰 요청' },
+  { id: 'deploy', label: '배포 완료 알림', desc: '스테이징/프로덕션 배포 결과' },
+  { id: 'mention', label: '멘션 알림', desc: '댓글에서 내가 언급될 때' },
+  { id: 'weekly', label: '주간 요약 리포트', desc: '매주 월요일 팀 활동 요약' },
+]
+
+const Mantine91OnboardingRender = () => {
+  const [step, setStep] = React.useState<Mantine91Step>(0)
+  const [accountForm, setAccountForm] = React.useState({ name: '', email: '', password: '' })
+  const [teamForm, setTeamForm] = React.useState({ teamName: '', role: '' as string, size: '' })
+  const [notifications, setNotifications] = React.useState<Set<string>>(new Set(['pr', 'deploy']))
+  const [touched, setTouched] = React.useState<Set<string>>(new Set())
+
+  const touch = (field: string) => setTouched((prev) => new Set([...prev, field]))
+
+  const accountErrors = {
+    name: touched.has('name') && !accountForm.name.trim() ? '이름을 입력하세요' : null,
+    email: touched.has('email') && !accountForm.email.includes('@') ? '올바른 이메일을 입력하세요' : null,
+    password: touched.has('password') && accountForm.password.length < 8 ? '8자 이상 입력하세요' : null,
+  }
+
+  const step0Valid = !!accountForm.name.trim() && accountForm.email.includes('@') && accountForm.password.length >= 8
+  const step1Valid = !!teamForm.teamName.trim() && !!teamForm.role
+
+  const toggleNotif = (id: string) => {
+    setNotifications((prev) => {
+      const next = new Set(prev)
+      if (next.has(id)) next.delete(id)
+      else next.add(id)
+      return next
+    })
+  }
+
+  const goNext = () => {
+    if (step === 0) {
+      setTouched(new Set(['name', 'email', 'password']))
+      if (!step0Valid) return
+    }
+    if (step === 1) {
+      if (!step1Valid) return
+    }
+    setStep((prev) => Math.min(3, prev + 1) as Mantine91Step)
+  }
+
+  const goPrev = () => setStep((prev) => Math.max(0, prev - 1) as Mantine91Step)
+
+  const progressValue = (step / (MANTINE91_STEPS.length - 1)) * 100
+
+  return (
+    <div style={{ minHeight: '100vh', background: 'var(--sem-eclipse-color-backgroundSecondary)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 24 }}>
+      <div style={{ width: '100%', maxWidth: 560, background: 'var(--sem-eclipse-color-backgroundPrimary)', borderRadius: 20, border: '1px solid var(--sem-eclipse-color-borderSubtle)', overflow: 'hidden', boxShadow: '0 8px 32px rgba(0,0,0,0.08)' }}>
+        {/* Header + Progress */}
+        <div style={{ padding: '24px 28px 0' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
+            <div style={{ fontSize: 18, fontWeight: 800, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>팀 온보딩</div>
+            <span style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>{step + 1} / {MANTINE91_STEPS.length}</span>
+          </div>
+
+          {/* Step pills */}
+          <div style={{ display: 'flex', gap: 8, marginBottom: 16 }}>
+            {MANTINE91_STEPS.map((label, i) => (
+              <div key={label} style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4 }}>
+                <div style={{
+                  width: 28, height: 28, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  background: i < step ? '#10b981' : i === step ? '#6366f1' : 'var(--sem-eclipse-color-backgroundSecondary)',
+                  border: `2px solid ${i <= step ? (i < step ? '#10b981' : '#6366f1') : 'var(--sem-eclipse-color-borderDefault)'}`,
+                  fontSize: 11, fontWeight: 700,
+                  color: i <= step ? '#fff' : 'var(--sem-eclipse-color-foregroundTertiary)',
+                  transition: 'all 0.2s',
+                }}>
+                  {i < step ? '✓' : i + 1}
+                </div>
+                <span style={{ fontSize: 10, color: i === step ? '#6366f1' : 'var(--sem-eclipse-color-foregroundTertiary)', fontWeight: i === step ? 700 : 400, textAlign: 'center', lineHeight: 1.2 }}>{label}</span>
+              </div>
+            ))}
+          </div>
+
+          <Progress value={progressValue} />
+        </div>
+
+        {/* Step Content */}
+        <div style={{ padding: '24px 28px' }}>
+          {step === 0 && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+              <div style={{ fontSize: 15, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 4 }}>계정 정보 입력</div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+                <label style={{ fontSize: 12, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundSecondary)' }}>이름 *</label>
+                <TextField
+                  placeholder="홍길동"
+                  value={accountForm.name}
+                  onChange={(e) => { setAccountForm((p) => ({ ...p, name: e.target.value })); touch('name') }}
+                  onBlur={() => touch('name')}
+                />
+                {accountErrors.name && <div style={{ fontSize: 11, color: '#ef4444' }}>{accountErrors.name}</div>}
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+                <label style={{ fontSize: 12, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundSecondary)' }}>이메일 *</label>
+                <TextField
+                  placeholder="hong@example.com"
+                  value={accountForm.email}
+                  onChange={(e) => { setAccountForm((p) => ({ ...p, email: e.target.value })); touch('email') }}
+                  onBlur={() => touch('email')}
+                />
+                {accountErrors.email && <div style={{ fontSize: 11, color: '#ef4444' }}>{accountErrors.email}</div>}
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+                <label style={{ fontSize: 12, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundSecondary)' }}>비밀번호 *</label>
+                <PasswordField
+                  placeholder="8자 이상"
+                  value={accountForm.password}
+                  onChange={(e) => { setAccountForm((p) => ({ ...p, password: e.target.value })); touch('password') }}
+                  onBlur={() => touch('password')}
+                />
+                {accountErrors.password && <div style={{ fontSize: 11, color: '#ef4444' }}>{accountErrors.password}</div>}
+              </div>
+            </div>
+          )}
+
+          {step === 1 && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+              <div style={{ fontSize: 15, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 4 }}>팀 정보 설정</div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+                <label style={{ fontSize: 12, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundSecondary)' }}>팀 이름 *</label>
+                <TextField
+                  placeholder="예: Orbit Dev Team"
+                  value={teamForm.teamName}
+                  onChange={(e) => setTeamForm((p) => ({ ...p, teamName: e.target.value }))}
+                />
+              </div>
+              <div>
+                <label style={{ fontSize: 12, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundSecondary)', marginBottom: 8, display: 'block' }}>역할 *</label>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+                  {MANTINE91_ROLES.map((role) => (
+                    <button
+                      key={role}
+                      onClick={() => setTeamForm((p) => ({ ...p, role }))}
+                      style={{
+                        padding: '6px 14px',
+                        borderRadius: 20,
+                        border: `2px solid ${teamForm.role === role ? '#6366f1' : 'var(--sem-eclipse-color-borderDefault)'}`,
+                        background: teamForm.role === role ? '#eef2ff' : 'var(--sem-eclipse-color-backgroundPrimary)',
+                        color: teamForm.role === role ? '#6366f1' : 'var(--sem-eclipse-color-foregroundSecondary)',
+                        cursor: 'pointer',
+                        fontWeight: teamForm.role === role ? 700 : 400,
+                        fontSize: 13,
+                        transition: 'all 0.12s',
+                      }}
+                    >
+                      {role}
+                    </button>
+                  ))}
+                </div>
+                {!teamForm.role && <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 6 }}>역할을 선택하세요</div>}
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+                <label style={{ fontSize: 12, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundSecondary)' }}>팀 규모 (선택)</label>
+                <TextField
+                  placeholder="예: 5"
+                  value={teamForm.size}
+                  onChange={(e) => setTeamForm((p) => ({ ...p, size: e.target.value }))}
+                />
+              </div>
+            </div>
+          )}
+
+          {step === 2 && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+              <div style={{ fontSize: 15, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 4 }}>알림 수신 설정</div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                {MANTINE91_NOTIF_ITEMS.map((item) => (
+                  <div
+                    key={item.id}
+                    onClick={() => toggleNotif(item.id)}
+                    style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 14px', borderRadius: 10, border: `1.5px solid ${notifications.has(item.id) ? '#6366f1' : 'var(--sem-eclipse-color-borderDefault)'}`, background: notifications.has(item.id) ? 'rgba(99,102,241,0.04)' : 'var(--sem-eclipse-color-backgroundPrimary)', cursor: 'pointer', transition: 'all 0.12s' }}
+                  >
+                    <CheckboxWithLabel
+                      value={item.id}
+                      checked={notifications.has(item.id)}
+                      onChange={() => toggleNotif(item.id)}
+                      onClick={(e) => e.stopPropagation()}
+                    />
+                    <div>
+                      <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{item.label}</div>
+                      <div style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>{item.desc}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <div style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>
+                {notifications.size}개 알림 선택됨 · 언제든지 설정에서 변경 가능합니다
+              </div>
+            </div>
+          )}
+
+          {step === 3 && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 16, alignItems: 'center', textAlign: 'center', padding: '16px 0' }}>
+              <div style={{ width: 64, height: 64, borderRadius: '50%', background: '#f0fdf4', border: '3px solid #bbf7d0', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 28 }}>✓</div>
+              <div>
+                <div style={{ fontSize: 20, fontWeight: 800, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 8 }}>
+                  환영합니다, {accountForm.name || '사용자'}님!
+                </div>
+                <div style={{ fontSize: 13, color: 'var(--sem-eclipse-color-foregroundSecondary)', lineHeight: 1.6 }}>
+                  {teamForm.teamName && <span><strong>{teamForm.teamName}</strong> 팀으로 </span>}
+                  온보딩이 완료됐습니다.
+                  <br />{notifications.size}개 알림이 설정되었습니다.
+                </div>
+              </div>
+              <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', justifyContent: 'center' }}>
+                {[accountForm.email, teamForm.role, `알림 ${notifications.size}개`].filter(Boolean).map((tag) => (
+                  <span key={tag} style={{ padding: '4px 12px', borderRadius: 16, fontSize: 12, fontWeight: 700, background: '#eef2ff', border: '1.5px solid rgba(99,102,241,0.3)', color: '#6366f1' }}>
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* Footer Navigation */}
+        <div style={{ padding: '0 28px 28px', display: 'flex', justifyContent: 'space-between', gap: 12 }}>
+          {step > 0 && step < 3 ? (
+            <SolidButton color="gray" size="medium" onClick={goPrev}>
+              <SolidButton.Center>이전</SolidButton.Center>
+            </SolidButton>
+          ) : <div />}
+          {step < 3 ? (
+            <SolidButton color="primary" size="medium" onClick={goNext}>
+              <SolidButton.Center>{step === 2 ? '완료' : '다음'}</SolidButton.Center>
+            </SolidButton>
+          ) : (
+            <SolidButton color="primary" size="medium" onClick={() => { setStep(0); setAccountForm({ name: '', email: '', password: '' }); setTeamForm({ teamName: '', role: '', size: '' }); setNotifications(new Set(['pr', 'deploy'])); setTouched(new Set()) }}>
+              <SolidButton.Center>처음부터</SolidButton.Center>
+            </SolidButton>
+          )}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const MantineOnboardingWizard: Story = {
+  name: 'Mantine — Team Onboarding Wizard',
+  parameters: {
+    layout: 'fullscreen',
+    docs: {
+      description: {
+        story:
+          'Mantine Stepper + Form + Checkbox 패턴. 계정 정보 → 팀 설정 → 알림 설정 3단계 온보딩 위저드. ' +
+          'TextField, PasswordField, CheckboxWithLabel, Progress, SolidButton, Chip 통합. ' +
+          '각 단계에서 유효성 검사 후 다음 단계로 진행합니다.',
+      },
+    },
+  },
+  render: () => <Mantine91OnboardingRender />,
 }
