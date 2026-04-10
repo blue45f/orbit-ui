@@ -623,6 +623,61 @@ function DeleteProjectButton() {
       </div>
     </section>
 
+    {/* Cycle 40: shadcn/ui 마이그레이션 가이드 */}
+    <section style={{ marginTop: '48px', marginBottom: '40px' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '20px' }}>
+        <div style={{ width: 36, height: 36, borderRadius: '10px', background: '#0f172a', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontWeight: 800, fontSize: 16 }}>S</div>
+        <div>
+          <h2 style={{ margin: 0, fontSize: '20px', fontWeight: 800, color: '#0f172a' }}>shadcn/ui에서 마이그레이션</h2>
+          <p style={{ margin: '2px 0 0', fontSize: '12px', color: '#64748b' }}>Cycle 40 벤치마크 — shadcn/ui 패턴을 Orbit UI로 옮기는 방법</p>
+        </div>
+      </div>
+
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '24px' }}>
+        {[
+          {
+            title: 'Button 컴포넌트',
+            shadcn: `<Button variant="outline" size="sm">\n  클릭\n</Button>`,
+            orbit: `<OutlineButton color="gray" size="small">\n  <OutlineButton.Center>클릭</OutlineButton.Center>\n</OutlineButton>`,
+          },
+          {
+            title: 'Dialog → Drawer',
+            shadcn: `<Drawer>\n  <DrawerTrigger>\n    <Button>열기</Button>\n  </DrawerTrigger>\n  <DrawerContent>\n    <DrawerHeader>\n      <DrawerTitle>제목</DrawerTitle>\n    </DrawerHeader>\n    <DrawerFooter>\n      <DrawerClose asChild>\n        <Button>닫기</Button>\n      </DrawerClose>\n    </DrawerFooter>\n  </DrawerContent>\n</Drawer>`,
+            orbit: `<Drawer>\n  <Drawer.Trigger asChild>\n    <SolidButton color="primary" size="medium">\n      <SolidButton.Center>열기</SolidButton.Center>\n    </SolidButton>\n  </Drawer.Trigger>\n  <Drawer.Content side="right">\n    <Drawer.Header>\n      <Drawer.Title>제목</Drawer.Title>\n    </Drawer.Header>\n    <Drawer.Footer>\n      <Drawer.Close asChild>\n        <SolidButton color="black" size="medium">\n          <SolidButton.Center>닫기</SolidButton.Center>\n        </SolidButton>\n      </Drawer.Close>\n    </Drawer.Footer>\n  </Drawer.Content>\n</Drawer>`,
+          },
+        ].map(({ title, shadcn, orbit }) => (
+          <div key={title} style={{ borderRadius: '12px', border: '1.5px solid #e2e8f0', overflow: 'hidden' }}>
+            <div style={{ padding: '10px 14px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0', fontSize: '12px', fontWeight: 700, color: '#1e293b' }}>{title}</div>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr' }}>
+              <div style={{ padding: '12px', borderRight: '1px solid #f1f5f9' }}>
+                <div style={{ fontSize: '10px', fontWeight: 700, color: '#94a3b8', marginBottom: '6px' }}>shadcn/ui</div>
+                <pre style={{ margin: 0, fontSize: '10px', color: '#475569', lineHeight: 1.6, fontFamily: 'monospace', whiteSpace: 'pre-wrap' }}>{shadcn}</pre>
+              </div>
+              <div style={{ padding: '12px' }}>
+                <div style={{ fontSize: '10px', fontWeight: 700, color: '#6366f1', marginBottom: '6px' }}>Orbit UI</div>
+                <pre style={{ margin: 0, fontSize: '10px', color: '#475569', lineHeight: 1.6, fontFamily: 'monospace', whiteSpace: 'pre-wrap' }}>{orbit}</pre>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div style={{ padding: '16px 20px', borderRadius: '12px', background: '#f0fdf4', border: '1.5px solid #a7f3d0' }}>
+        <div style={{ fontSize: '13px', fontWeight: 700, color: '#166534', marginBottom: '8px' }}>shadcn/ui 대비 Orbit UI의 장점</div>
+        <ul style={{ margin: 0, padding: '0 0 0 20px' }}>
+          {[
+            '3단계 토큰 시스템(Reference → Semantic → Component)으로 브랜드 테마 한 곳에서 변경',
+            'vanilla-extract CSS-in-JS로 TypeScript 타입 안전성 보장 (CSS 문자열 오류 없음)',
+            'Compound 컴포넌트 패턴으로 Leading/Center/Trailing 슬롯을 유연하게 조합',
+            'Storybook Autodocs로 모든 컴포넌트 API 자동 문서화',
+            'Figma 디자인 파일과 토큰 동기화 지원',
+          ].map((item) => (
+            <li key={item} style={{ fontSize: '12px', color: '#15803d', lineHeight: '1.7', marginBottom: '3px' }}>{item}</li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
     {/* Footer */}
     <div style={{
       padding: '24px', borderRadius: '12px',

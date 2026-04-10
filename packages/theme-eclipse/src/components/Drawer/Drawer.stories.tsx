@@ -529,3 +529,397 @@ export const Raycast_퀵액션_사이드패널: Story = {
   name: 'Raycast 퀵 액션 사이드 패널',
   render: () => <RaycastActionPanelRender />,
 }
+
+// ─── shadcn/ui: 멀티스텝 온보딩 드로어 ───────────────────────────────────────
+// shadcn/ui Drawer의 핵심 패턴: 복잡한 온보딩 플로우를 Drawer 내에서 단계별로 처리
+// scrollable content + 고정 footer 액션 버튼 패턴
+const steps = [
+  {
+    title: '팀 설정',
+    description: '팀 이름과 설명을 입력하세요',
+    fields: ['팀 이름', '팀 슬러그', '팀 설명'],
+  },
+  {
+    title: '멤버 초대',
+    description: '이메일로 팀원을 초대하세요',
+    fields: ['이메일 주소 1', '이메일 주소 2', '이메일 주소 3'],
+  },
+  {
+    title: '역할 설정',
+    description: '각 멤버의 역할을 지정하세요',
+    fields: ['관리자', '편집자', '뷰어'],
+  },
+]
+
+const ShadcnMultiStepRender = () => {
+  const [step, setStep] = useState(0)
+  const [values, setValues] = useState<Record<string, string>>({})
+
+  const current = steps[step]
+  const isLast = step === steps.length - 1
+
+  return (
+    <Drawer>
+      <Drawer.Trigger asChild>
+        <Button color="primary" size="medium">
+          <Button.Center>팀 온보딩 시작</Button.Center>
+        </Button>
+      </Drawer.Trigger>
+      <Drawer.Content side="right">
+        <Drawer.Header>
+          {/* shadcn 패턴: 단계 표시기를 헤더에 배치 */}
+          <div style={{ display: 'flex', gap: '6px', marginBottom: '12px' }}>
+            {steps.map((_, i) => (
+              <div
+                key={i}
+                style={{
+                  height: '3px',
+                  flex: 1,
+                  borderRadius: '2px',
+                  background: i <= step ? '#6366f1' : '#e2e8f0',
+                  transition: 'background 0.2s',
+                }}
+              />
+            ))}
+          </div>
+          <Drawer.Title>{current.title}</Drawer.Title>
+          <Drawer.Description>{current.description}</Drawer.Description>
+        </Drawer.Header>
+
+        {/* shadcn 핵심 패턴: 스크롤 영역과 고정 푸터 분리 */}
+        <div style={{ flex: 1, overflowY: 'auto', padding: '16px 0', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+          <div style={{ fontSize: '11px', fontWeight: 600, color: '#94a3b8', letterSpacing: '0.05em', textTransform: 'uppercase', marginBottom: '4px' }}>
+            단계 {step + 1} / {steps.length}
+          </div>
+          {current.fields.map((field) => (
+            <FloatingTextField
+              key={field}
+              placeholder={field}
+              value={values[field] ?? ''}
+              onChange={(e) => setValues((prev) => ({ ...prev, [field]: e.target.value }))}
+              style={{ width: '100%' }}
+            />
+          ))}
+        </div>
+
+        <Drawer.Footer>
+          <div style={{ display: 'flex', gap: '8px', width: '100%' }}>
+            {step > 0 ? (
+              <OutlineButton color="gray" size="medium" style={{ flex: 1 }} onClick={() => setStep((s) => s - 1)}>
+                <OutlineButton.Center>이전</OutlineButton.Center>
+              </OutlineButton>
+            ) : (
+              <Drawer.Close asChild>
+                <OutlineButton color="gray" size="medium" style={{ flex: 1 }}>
+                  <OutlineButton.Center>취소</OutlineButton.Center>
+                </OutlineButton>
+              </Drawer.Close>
+            )}
+            {isLast ? (
+              <Drawer.Close asChild>
+                <Button color="primary" size="medium" style={{ flex: 2 }}>
+                  <Button.Center>팀 생성 완료</Button.Center>
+                </Button>
+              </Drawer.Close>
+            ) : (
+              <Button color="primary" size="medium" style={{ flex: 2 }} onClick={() => setStep((s) => s + 1)}>
+                <Button.Center>다음 단계</Button.Center>
+              </Button>
+            )}
+          </div>
+        </Drawer.Footer>
+      </Drawer.Content>
+    </Drawer>
+  )
+}
+
+export const shadcn_멀티스텝_온보딩: Story = {
+  name: 'shadcn/ui — 멀티스텝 온보딩 드로어',
+  render: () => <ShadcnMultiStepRender />,
+}
+
+// ─── Linear: 이슈 상세 패널 ───────────────────────────────────────────────────
+// Linear의 이슈 상세 사이드 패널 패턴:
+// - 상태/우선순위/담당자를 상단에 표시
+// - 설명과 댓글을 스크롤 가능한 영역에 배치
+// - 액션 버튼을 하단 고정 푸터에 배치
+const LinearIssuePanelRender = () => {
+  const [status, setStatus] = useState<'todo' | 'progress' | 'done'>('progress')
+  const [priority, setPriority] = useState<'urgent' | 'high' | 'medium' | 'low'>('high')
+
+  const statusConfig = {
+    todo: { label: 'Todo', color: '#94a3b8', bg: '#f8fafc' },
+    progress: { label: 'In Progress', color: '#6366f1', bg: '#eff6ff' },
+    done: { label: 'Done', color: '#10b981', bg: '#f0fdf4' },
+  }
+
+  const priorityConfig = {
+    urgent: { label: 'Urgent', color: '#ef4444' },
+    high: { label: 'High', color: '#f59e0b' },
+    medium: { label: 'Medium', color: '#6366f1' },
+    low: { label: 'Low', color: '#94a3b8' },
+  }
+
+  const sc = statusConfig[status]
+  const pc = priorityConfig[priority]
+
+  return (
+    <Drawer>
+      <Drawer.Trigger asChild>
+        <Button color="black" size="medium">
+          <Button.Center>이슈 상세 보기</Button.Center>
+        </Button>
+      </Drawer.Trigger>
+      <Drawer.Content side="right">
+        <Drawer.Header>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '6px' }}>
+            <span style={{ fontSize: '11px', fontFamily: 'monospace', color: '#94a3b8', fontWeight: 600 }}>ORB-247</span>
+          </div>
+          <Drawer.Title>디자인 토큰 시스템 고도화</Drawer.Title>
+          <Drawer.Description>Reference → Semantic → Component 3단계 토큰 구조로 마이그레이션</Drawer.Description>
+        </Drawer.Header>
+
+        <div style={{ flex: 1, overflowY: 'auto', padding: '16px 0', display: 'flex', flexDirection: 'column', gap: '20px' }}>
+          {/* 속성 패널 */}
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
+            <div>
+              <div style={{ fontSize: '11px', color: '#94a3b8', fontWeight: 600, marginBottom: '6px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>상태</div>
+              <div style={{ display: 'flex', gap: '6px' }}>
+                {(['todo', 'progress', 'done'] as const).map((s) => (
+                  <button
+                    key={s}
+                    onClick={() => setStatus(s)}
+                    style={{
+                      padding: '4px 10px', borderRadius: '6px', border: 'none', cursor: 'pointer', fontSize: '11px', fontWeight: 600,
+                      background: status === s ? statusConfig[s].bg : '#f1f5f9',
+                      color: status === s ? statusConfig[s].color : '#94a3b8',
+                      transition: 'all 0.15s',
+                    }}
+                  >
+                    {statusConfig[s].label}
+                  </button>
+                ))}
+              </div>
+            </div>
+            <div>
+              <div style={{ fontSize: '11px', color: '#94a3b8', fontWeight: 600, marginBottom: '6px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>우선순위</div>
+              <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
+                {(['urgent', 'high', 'medium', 'low'] as const).map((p) => (
+                  <button
+                    key={p}
+                    onClick={() => setPriority(p)}
+                    style={{
+                      padding: '4px 10px', borderRadius: '6px', border: `1.5px solid ${priority === p ? priorityConfig[p].color : '#e2e8f0'}`,
+                      cursor: 'pointer', fontSize: '11px', fontWeight: 600,
+                      background: priority === p ? 'rgba(99,102,241,0.06)' : '#fff',
+                      color: priority === p ? priorityConfig[p].color : '#94a3b8',
+                      transition: 'all 0.15s',
+                    }}
+                  >
+                    {priorityConfig[p].label}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* 현재 상태 요약 */}
+          <div style={{ padding: '12px', borderRadius: '10px', background: sc.bg, border: `1px solid ${sc.color}22` }}>
+            <span style={{ fontSize: '12px', fontWeight: 700, color: sc.color }}>{sc.label}</span>
+            <span style={{ fontSize: '12px', color: '#64748b', marginLeft: '8px' }}>· 우선순위: </span>
+            <span style={{ fontSize: '12px', fontWeight: 700, color: pc.color }}>{pc.label}</span>
+          </div>
+
+          {/* 설명 */}
+          <div>
+            <div style={{ fontSize: '12px', fontWeight: 700, color: '#1e293b', marginBottom: '8px' }}>설명</div>
+            <div style={{ fontSize: '13px', color: '#475569', lineHeight: '1.7', background: '#f8fafc', borderRadius: '10px', padding: '12px' }}>
+              현재 2단계 토큰 구조(reference → component)를 3단계로 확장하여
+              시맨틱 레이어를 추가합니다. 이를 통해 브랜드 컬러 변경 시 단일
+              지점에서 전체 UI에 반영할 수 있습니다.
+            </div>
+          </div>
+
+          {/* 댓글 */}
+          <div>
+            <div style={{ fontSize: '12px', fontWeight: 700, color: '#1e293b', marginBottom: '10px' }}>댓글 (2)</div>
+            {[
+              { author: '김민준', time: '2시간 전', text: 'semantic 토큰 네이밍 컨벤션 먼저 확정하는 게 좋을 것 같아요.' },
+              { author: '이서연', time: '방금 전', text: '피그마 토큰 플러그인 연동까지 고려하면 좋겠습니다!' },
+            ].map(({ author, time, text }) => (
+              <div key={author} style={{ display: 'flex', gap: '10px', marginBottom: '12px' }}>
+                <div style={{ width: 28, height: 28, borderRadius: '50%', background: '#6366f1', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '11px', fontWeight: 700, flexShrink: 0 }}>
+                  {author[0]}
+                </div>
+                <div>
+                  <div style={{ display: 'flex', gap: '6px', alignItems: 'baseline', marginBottom: '3px' }}>
+                    <span style={{ fontSize: '12px', fontWeight: 700, color: '#1e293b' }}>{author}</span>
+                    <span style={{ fontSize: '11px', color: '#94a3b8' }}>{time}</span>
+                  </div>
+                  <p style={{ margin: 0, fontSize: '12px', color: '#475569', lineHeight: '1.6' }}>{text}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <Drawer.Footer>
+          <div style={{ display: 'flex', gap: '8px', width: '100%' }}>
+            <Drawer.Close asChild>
+              <OutlineButton color="gray" size="medium" style={{ flex: 1 }}>
+                <OutlineButton.Center>닫기</OutlineButton.Center>
+              </OutlineButton>
+            </Drawer.Close>
+            <Button color="primary" size="medium" style={{ flex: 2 }}>
+              <Button.Center>변경사항 저장</Button.Center>
+            </Button>
+          </div>
+        </Drawer.Footer>
+      </Drawer.Content>
+    </Drawer>
+  )
+}
+
+export const Linear_이슈_상세_패널: Story = {
+  name: 'Linear — 이슈 상세 사이드 패널',
+  render: () => <LinearIssuePanelRender />,
+}
+
+// ─── shadcn/ui: 설정 드로어 (반응형 스크롤 콘텐츠) ───────────────────────────
+// shadcn Drawer의 스크롤 가능 콘텐츠 + 하단 고정 액션 패턴
+// 긴 콘텐츠가 스크롤되어도 CTA 버튼은 항상 보이는 패턴
+const ShadcnSettingsDrawerRender = () => {
+  const [notifications, setNotifications] = useState({ email: true, push: false, weekly: true })
+  const [theme, setTheme] = useState<'system' | 'light' | 'dark'>('system')
+  const [lang, setLang] = useState('ko')
+
+  const toggle = (key: keyof typeof notifications) =>
+    setNotifications((prev) => ({ ...prev, [key]: !prev[key] }))
+
+  return (
+    <Drawer>
+      <Drawer.Trigger asChild>
+        <Button color="gray" size="medium">
+          <Button.Center>설정 열기</Button.Center>
+        </Button>
+      </Drawer.Trigger>
+      <Drawer.Content side="right">
+        <Drawer.Header>
+          <Drawer.Title>환경설정</Drawer.Title>
+          <Drawer.Description>알림, 테마, 언어 설정을 관리하세요.</Drawer.Description>
+        </Drawer.Header>
+
+        {/* 스크롤 가능 콘텐츠 영역 */}
+        <div style={{ flex: 1, overflowY: 'auto', padding: '8px 0' }}>
+          {/* 알림 설정 */}
+          <section style={{ marginBottom: '24px' }}>
+            <div style={{ fontSize: '11px', fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em', padding: '12px 0 8px' }}>
+              알림
+            </div>
+            {[
+              { key: 'email' as const, label: '이메일 알림', desc: '중요 업데이트를 이메일로 받습니다' },
+              { key: 'push' as const, label: '푸시 알림', desc: '브라우저 푸시 알림을 활성화합니다' },
+              { key: 'weekly' as const, label: '주간 요약', desc: '매주 월요일 주간 리포트를 받습니다' },
+            ].map(({ key, label, desc }) => (
+              <div
+                key={key}
+                style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 0', borderBottom: '1px solid #f1f5f9' }}
+              >
+                <div>
+                  <div style={{ fontSize: '13px', fontWeight: 500, color: '#1e293b' }}>{label}</div>
+                  <div style={{ fontSize: '11px', color: '#94a3b8', marginTop: '2px' }}>{desc}</div>
+                </div>
+                <div
+                  role="switch"
+                  aria-checked={notifications[key]}
+                  onClick={() => toggle(key)}
+                  style={{
+                    width: 36, height: 20, borderRadius: 10, cursor: 'pointer',
+                    background: notifications[key] ? '#6366f1' : '#e2e8f0',
+                    position: 'relative', transition: 'background 0.2s', flexShrink: 0,
+                  }}
+                >
+                  <div style={{
+                    width: 16, height: 16, borderRadius: '50%', background: '#fff',
+                    position: 'absolute', top: 2, transition: 'left 0.2s',
+                    left: notifications[key] ? 18 : 2, boxShadow: '0 1px 3px rgba(0,0,0,0.2)',
+                  }} />
+                </div>
+              </div>
+            ))}
+          </section>
+
+          {/* 테마 설정 */}
+          <section style={{ marginBottom: '24px' }}>
+            <div style={{ fontSize: '11px', fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em', padding: '12px 0 8px' }}>
+              테마
+            </div>
+            <div style={{ display: 'flex', gap: '8px' }}>
+              {(['system', 'light', 'dark'] as const).map((t) => (
+                <button
+                  key={t}
+                  onClick={() => setTheme(t)}
+                  style={{
+                    flex: 1, padding: '8px 0', borderRadius: '8px', border: `1.5px solid ${theme === t ? '#6366f1' : '#e2e8f0'}`,
+                    background: theme === t ? '#eff6ff' : '#fff', color: theme === t ? '#6366f1' : '#64748b',
+                    fontSize: '12px', fontWeight: theme === t ? 700 : 400, cursor: 'pointer', transition: 'all 0.15s',
+                  }}
+                >
+                  {t === 'system' ? '시스템' : t === 'light' ? '라이트' : '다크'}
+                </button>
+              ))}
+            </div>
+          </section>
+
+          {/* 언어 설정 */}
+          <section>
+            <div style={{ fontSize: '11px', fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em', padding: '12px 0 8px' }}>
+              언어
+            </div>
+            {[
+              { code: 'ko', label: '한국어' },
+              { code: 'en', label: 'English' },
+              { code: 'ja', label: '日本語' },
+            ].map(({ code, label }) => (
+              <div
+                key={code}
+                onClick={() => setLang(code)}
+                style={{
+                  display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                  padding: '10px 12px', borderRadius: '8px', cursor: 'pointer', marginBottom: '4px',
+                  background: lang === code ? '#eff6ff' : 'transparent',
+                  border: `1px solid ${lang === code ? '#c7d2fe' : 'transparent'}`,
+                  transition: 'all 0.1s',
+                }}
+              >
+                <span style={{ fontSize: '13px', color: lang === code ? '#6366f1' : '#475569', fontWeight: lang === code ? 600 : 400 }}>{label}</span>
+                {lang === code && <span style={{ fontSize: '12px', color: '#6366f1' }}>✓</span>}
+              </div>
+            ))}
+          </section>
+        </div>
+
+        {/* 고정 푸터 — shadcn 핵심 패턴: 스크롤과 무관하게 항상 노출 */}
+        <Drawer.Footer>
+          <div style={{ display: 'flex', gap: '8px', width: '100%' }}>
+            <Drawer.Close asChild>
+              <OutlineButton color="gray" size="medium" style={{ flex: 1 }}>
+                <OutlineButton.Center>취소</OutlineButton.Center>
+              </OutlineButton>
+            </Drawer.Close>
+            <Drawer.Close asChild>
+              <Button color="primary" size="medium" style={{ flex: 2 }}>
+                <Button.Center>설정 저장</Button.Center>
+              </Button>
+            </Drawer.Close>
+          </div>
+        </Drawer.Footer>
+      </Drawer.Content>
+    </Drawer>
+  )
+}
+
+export const shadcn_설정_드로어: Story = {
+  name: 'shadcn/ui — 설정 드로어 (스크롤 콘텐츠 + 고정 푸터)',
+  render: () => <ShadcnSettingsDrawerRender />,
+}

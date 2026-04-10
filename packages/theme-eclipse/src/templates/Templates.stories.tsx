@@ -8973,3 +8973,259 @@ export const ActivityFeed: Story = {
   name: 'Activity Feed (Radix UI + Google Material 3 벤치마크)',
   render: () => <ActivityFeedRender />,
 }
+
+// ─── Cycle 40: shadcn/ui + Linear — Code Review ──────────────────────────────
+
+type ReviewStatus = 'approved' | 'changes_requested' | 'pending'
+
+type Reviewer = {
+  name: string
+  avatar: string
+  status: ReviewStatus
+}
+
+type DiffLine = {
+  type: 'added' | 'removed' | 'context'
+  lineNo: number
+  content: string
+}
+
+const REVIEWERS: Reviewer[] = [
+  { name: '김민준', avatar: '김', status: 'approved' },
+  { name: '이서연', avatar: '이', status: 'changes_requested' },
+  { name: '박지호', avatar: '박', status: 'pending' },
+]
+
+const DIFF_LINES: DiffLine[] = [
+  { type: 'context', lineNo: 12, content: 'export type ButtonProps = {' },
+  { type: 'context', lineNo: 13, content: '  disabled?: boolean' },
+  { type: 'removed', lineNo: 14, content: '-  size?: "sm" | "md" | "lg"' },
+  { type: 'added', lineNo: 14, content: '+  size?: "small" | "medium" | "large"' },
+  { type: 'context', lineNo: 15, content: '  theme?: Partial<ButtonTheme>' },
+  { type: 'removed', lineNo: 16, content: '-  onClick?: () => void' },
+  { type: 'added', lineNo: 16, content: '+  onClick?: React.MouseEventHandler<HTMLButtonElement>' },
+  { type: 'context', lineNo: 17, content: '  children?: React.ReactNode' },
+  { type: 'context', lineNo: 18, content: '}' },
+]
+
+const reviewStatusConfig: Record<ReviewStatus, { label: string; color: string; bg: string; icon: string }> = {
+  approved: { label: 'Approved', color: '#10b981', bg: '#f0fdf4', icon: '✓' },
+  changes_requested: { label: 'Changes requested', color: '#ef4444', bg: '#fef2f2', icon: '✕' },
+  pending: { label: 'Pending', color: '#f59e0b', bg: '#fffbeb', icon: '…' },
+}
+
+type ReviewComment = {
+  id: number
+  author: string
+  avatar: string
+  time: string
+  text: string
+  resolved: boolean
+}
+
+const INITIAL_COMMENTS: ReviewComment[] = [
+  { id: 1, author: '이서연', avatar: '이', time: '2시간 전', text: '`size` prop 이름을 "small"/"large"로 변경하면 기존 코드와 호환이 깨집니다. deprecated 처리 후 마이그레이션 가이드가 필요합니다.', resolved: false },
+  { id: 2, author: '김민준', avatar: '김', time: '1시간 전', text: 'onClick 타입 변경 좋습니다! MouseEventHandler가 더 명확하네요.', resolved: true },
+]
+
+function CodeReviewRender() {
+  const [activeFile, setActiveFile] = React.useState('Button.tsx')
+  const [comments, setComments] = React.useState<ReviewComment[]>(INITIAL_COMMENTS)
+  const [newComment, setNewComment] = React.useState('')
+  const [showCommentBox, setShowCommentBox] = React.useState(false)
+  const [myStatus, setMyStatus] = React.useState<ReviewStatus>('pending')
+
+  const resolveComment = (id: number) =>
+    setComments((prev) => prev.map((c) => c.id === id ? { ...c, resolved: true } : c))
+
+  const submitComment = () => {
+    if (!newComment.trim()) return
+    setComments((prev) => [...prev, {
+      id: Date.now(), author: '나', avatar: '나', time: '방금 전', text: newComment.trim(), resolved: false,
+    }])
+    setNewComment('')
+    setShowCommentBox(false)
+  }
+
+  const unresolvedCount = comments.filter((c) => !c.resolved).length
+
+  const files = [
+    { name: 'Button.tsx', additions: 3, deletions: 2, status: 'modified' },
+    { name: 'Button.styles.ts', additions: 0, deletions: 0, status: 'unchanged' },
+    { name: 'Button.stories.tsx', additions: 12, deletions: 4, status: 'modified' },
+  ]
+
+  return (
+    <div style={{ display: 'flex', width: '100%', minHeight: 680, fontFamily: 'system-ui, sans-serif', background: '#f8fafc' }}>
+      {/* 사이드바 */}
+      <div style={{ width: 220, background: '#fff', borderRight: '1px solid #e2e8f0', display: 'flex', flexDirection: 'column', flexShrink: 0 }}>
+        <div style={{ padding: '16px', borderBottom: '1px solid #e2e8f0' }}>
+          <div style={{ fontSize: 13, fontWeight: 800, color: '#1e293b', marginBottom: '4px' }}>PR #247</div>
+          <div style={{ fontSize: 11, color: '#64748b', lineHeight: 1.5 }}>feat: Button size prop API 통일</div>
+          <div style={{ display: 'flex', gap: 6, marginTop: 8 }}>
+            <span style={{ fontSize: 10, fontWeight: 700, color: '#10b981', background: '#f0fdf4', padding: '2px 7px', borderRadius: 5 }}>Open</span>
+            <span style={{ fontSize: 10, color: '#64748b', background: '#f1f5f9', padding: '2px 7px', borderRadius: 5 }}>main ← feat/button-api</span>
+          </div>
+        </div>
+
+        {/* 리뷰어 */}
+        <div style={{ padding: '12px 16px', borderBottom: '1px solid #e2e8f0' }}>
+          <div style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '8px' }}>리뷰어</div>
+          {REVIEWERS.map((r) => {
+            const sc = reviewStatusConfig[r.status]
+            return (
+              <div key={r.name} style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 6 }}>
+                <div style={{ width: 24, height: 24, borderRadius: '50%', background: '#6366f1', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 10, fontWeight: 700, flexShrink: 0 }}>{r.avatar}</div>
+                <span style={{ fontSize: 12, color: '#1e293b', flex: 1 }}>{r.name}</span>
+                <span style={{ fontSize: 10, color: sc.color, fontWeight: 700 }}>{sc.icon}</span>
+              </div>
+            )
+          })}
+        </div>
+
+        {/* 변경 파일 */}
+        <div style={{ padding: '12px 16px', flex: 1 }}>
+          <div style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '8px' }}>변경 파일 ({files.length})</div>
+          {files.map((f) => (
+            <button
+              key={f.name}
+              onClick={() => setActiveFile(f.name)}
+              style={{
+                width: '100%', textAlign: 'left', display: 'flex', flexDirection: 'column', gap: 2,
+                padding: '6px 8px', borderRadius: 6, border: 'none', cursor: 'pointer',
+                background: activeFile === f.name ? '#eff6ff' : 'transparent',
+                marginBottom: 2,
+              }}
+            >
+              <span style={{ fontSize: 11, color: activeFile === f.name ? '#6366f1' : '#475569', fontWeight: activeFile === f.name ? 700 : 400 }}>{f.name}</span>
+              {f.status === 'modified' && (
+                <div style={{ display: 'flex', gap: 4 }}>
+                  <span style={{ fontSize: 10, color: '#10b981', fontFamily: 'monospace' }}>+{f.additions}</span>
+                  <span style={{ fontSize: 10, color: '#ef4444', fontFamily: 'monospace' }}>-{f.deletions}</span>
+                </div>
+              )}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* 메인 콘텐츠 */}
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+        {/* 헤더 */}
+        <div style={{ padding: '14px 20px', background: '#fff', borderBottom: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', gap: 12 }}>
+          <span style={{ fontSize: 13, fontWeight: 700, color: '#1e293b' }}>{activeFile}</span>
+          <div style={{ flex: 1 }} />
+          <div style={{ display: 'flex', gap: 8 }}>
+            {(['approved', 'changes_requested', 'pending'] as ReviewStatus[]).map((s) => {
+              const sc = reviewStatusConfig[s]
+              return (
+                <button
+                  key={s}
+                  onClick={() => setMyStatus(s)}
+                  style={{
+                    padding: '5px 12px', borderRadius: 7, border: `1.5px solid ${myStatus === s ? sc.color : '#e2e8f0'}`,
+                    background: myStatus === s ? sc.bg : '#fff', color: myStatus === s ? sc.color : '#64748b',
+                    fontSize: 11, fontWeight: myStatus === s ? 700 : 400, cursor: 'pointer', transition: 'all 0.15s',
+                  }}
+                >
+                  {sc.icon} {sc.label}
+                </button>
+              )
+            })}
+          </div>
+        </div>
+
+        {/* diff 뷰 */}
+        <div style={{ flex: 1, overflowY: 'auto', padding: '16px 20px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+          {/* 코드 diff */}
+          <div style={{ borderRadius: 12, border: '1px solid #e2e8f0', overflow: 'hidden' }}>
+            <div style={{ padding: '8px 14px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0', fontSize: 11, color: '#64748b', fontFamily: 'monospace' }}>
+              src/components/Button/Button.tsx
+            </div>
+            {DIFF_LINES.map((line, i) => (
+              <div
+                key={i}
+                style={{
+                  display: 'flex', alignItems: 'center',
+                  background: line.type === 'added' ? '#f0fdf4' : line.type === 'removed' ? '#fef2f2' : '#fff',
+                  borderBottom: '1px solid #f8fafc',
+                }}
+              >
+                <div style={{ width: 36, textAlign: 'right', padding: '4px 8px', fontSize: 11, color: '#94a3b8', fontFamily: 'monospace', flexShrink: 0, userSelect: 'none' }}>
+                  {line.lineNo}
+                </div>
+                <pre style={{
+                  margin: 0, padding: '4px 12px', fontSize: 12, lineHeight: 1.6,
+                  color: line.type === 'added' ? '#166534' : line.type === 'removed' ? '#991b1b' : '#1e293b',
+                  fontFamily: '"Fira Code", monospace', flex: 1, overflowX: 'auto',
+                }}>
+                  {line.content}
+                </pre>
+              </div>
+            ))}
+          </div>
+
+          {/* 댓글 영역 */}
+          <div>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '10px' }}>
+              <span style={{ fontSize: 13, fontWeight: 700, color: '#1e293b' }}>
+                리뷰 댓글 <span style={{ color: unresolvedCount > 0 ? '#ef4444' : '#10b981', fontFamily: 'monospace' }}>({unresolvedCount} 미해결)</span>
+              </span>
+              <GhostButton size="small" color="black" onClick={() => setShowCommentBox((v) => !v)}>
+                <GhostButton.Center>+ 댓글 추가</GhostButton.Center>
+              </GhostButton>
+            </div>
+
+            {showCommentBox && (
+              <div style={{ marginBottom: 12, padding: '12px', borderRadius: 10, border: '1.5px solid #6366f1', background: '#fafafe' }}>
+                <textarea
+                  value={newComment}
+                  onChange={(e) => setNewComment(e.target.value)}
+                  placeholder="리뷰 댓글을 작성하세요..."
+                  style={{ width: '100%', padding: '8px', borderRadius: 7, border: '1px solid #e2e8f0', fontSize: 12, resize: 'vertical', minHeight: 64, outline: 'none', boxSizing: 'border-box', fontFamily: 'inherit' }}
+                />
+                <div style={{ display: 'flex', gap: 8, marginTop: 8, justifyContent: 'flex-end' }}>
+                  <button onClick={() => setShowCommentBox(false)} style={{ padding: '5px 12px', borderRadius: 6, border: '1px solid #e2e8f0', background: '#fff', color: '#64748b', fontSize: 11, cursor: 'pointer' }}>취소</button>
+                  <button onClick={submitComment} style={{ padding: '5px 12px', borderRadius: 6, border: 'none', background: '#6366f1', color: '#fff', fontSize: 11, fontWeight: 700, cursor: 'pointer' }}>댓글 등록</button>
+                </div>
+              </div>
+            )}
+
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+              {comments.map((comment) => (
+                <div
+                  key={comment.id}
+                  style={{
+                    padding: '12px 14px', borderRadius: 10,
+                    background: comment.resolved ? '#f8fafc' : '#fff',
+                    border: `1px solid ${comment.resolved ? '#f1f5f9' : '#e2e8f0'}`,
+                    opacity: comment.resolved ? 0.65 : 1,
+                  }}
+                >
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 6 }}>
+                    <div style={{ width: 24, height: 24, borderRadius: '50%', background: '#6366f1', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 10, fontWeight: 700 }}>{comment.avatar}</div>
+                    <span style={{ fontSize: 12, fontWeight: 700, color: '#1e293b' }}>{comment.author}</span>
+                    <span style={{ fontSize: 11, color: '#94a3b8' }}>{comment.time}</span>
+                    {comment.resolved && <span style={{ fontSize: 10, color: '#10b981', marginLeft: 'auto' }}>해결됨</span>}
+                    {!comment.resolved && (
+                      <button onClick={() => resolveComment(comment.id)} style={{ marginLeft: 'auto', padding: '2px 8px', borderRadius: 5, border: '1px solid #e2e8f0', background: '#fff', color: '#64748b', fontSize: 10, cursor: 'pointer' }}>
+                        해결
+                      </button>
+                    )}
+                  </div>
+                  <p style={{ margin: 0, fontSize: 12, color: '#475569', lineHeight: 1.6 }}>{comment.text}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const CodeReview: Story = {
+  name: 'Code Review (shadcn/ui + Linear 벤치마크)',
+  render: () => <CodeReviewRender />,
+}
+

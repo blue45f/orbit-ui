@@ -297,3 +297,182 @@ const CyclingBadgeDemo = () => {
 export const 사이클_애니메이션: Story = {
   render: () => <CyclingBadgeDemo />,
 }
+
+// ─── shadcn/ui: 프로젝트 대시보드 상태 뱃지 ──────────────────────────────────
+// shadcn/ui의 Card + Badge 조합 패턴:
+// 대시보드에서 프로젝트 상태를 한 눈에 파악할 수 있는 카드 그리드 레이아웃
+const projects = [
+  { name: 'Orbit UI', status: 'club', label: 'In Progress', progress: 72, team: 3, issues: 5 },
+  { name: 'Admin Panel', status: 'sale', label: 'Done', progress: 100, team: 2, issues: 0 },
+  { name: 'Design System v2', status: 'white', label: 'Backlog', progress: 15, team: 4, issues: 12 },
+  { name: 'Mobile App', status: 'club', label: 'In Progress', progress: 48, team: 5, issues: 3 },
+] as const
+
+export const shadcn_프로젝트_대시보드: Story = {
+  name: 'shadcn/ui — 프로젝트 대시보드 상태 카드',
+  render: () => (
+    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px', maxWidth: '580px' }}>
+      {projects.map((proj) => (
+        <div
+          key={proj.name}
+          style={{ padding: '16px', borderRadius: '14px', border: '1.5px solid #e2e8f0', background: '#fff', display: 'flex', flexDirection: 'column', gap: '10px' }}
+        >
+          <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }}>
+            <span style={{ fontSize: '13px', fontWeight: 700, color: '#1e293b' }}>{proj.name}</span>
+            <AnimatedBadge color={proj.status} size="small">
+              <AnimatedBadge.Leading>
+                {proj.status === 'club' && <ArrowUpIcon size={10} />}
+                {proj.status === 'sale' && <CheckIcon size={10} />}
+                {proj.status === 'white' && <TimeLineIcon size={10} />}
+              </AnimatedBadge.Leading>
+              <AnimatedBadge.Label>{proj.label}</AnimatedBadge.Label>
+            </AnimatedBadge>
+          </div>
+
+          {/* 진행률 바 */}
+          <div>
+            <div style={{ height: '4px', borderRadius: '2px', background: '#f1f5f9', overflow: 'hidden' }}>
+              <div
+                style={{
+                  height: '100%',
+                  width: `${proj.progress}%`,
+                  borderRadius: '2px',
+                  background: proj.status === 'sale' ? '#10b981' : proj.status === 'club' ? '#6366f1' : '#cbd5e1',
+                  transition: 'width 0.5s ease',
+                }}
+              />
+            </div>
+            <div style={{ fontSize: '11px', color: '#94a3b8', marginTop: '4px', display: 'flex', justifyContent: 'space-between' }}>
+              <span>진행률</span>
+              <span style={{ fontFamily: 'monospace', fontWeight: 600 }}>{proj.progress}%</span>
+            </div>
+          </div>
+
+          <div style={{ display: 'flex', gap: '12px' }}>
+            <span style={{ fontSize: '11px', color: '#94a3b8' }}>팀원 <strong style={{ color: '#64748b' }}>{proj.team}</strong></span>
+            <span style={{ fontSize: '11px', color: '#94a3b8' }}>이슈 <strong style={{ color: proj.issues > 0 ? '#f59e0b' : '#10b981' }}>{proj.issues}</strong></span>
+          </div>
+        </div>
+      ))}
+    </div>
+  ),
+}
+
+// ─── Linear: 우선순위 × 상태 매트릭스 ────────────────────────────────────────
+// Linear의 이슈 보드 패턴: 우선순위와 상태를 2축으로 표현하는 매트릭스 뷰
+// tabular-nums 패턴으로 숫자 정렬 최적화 (Linear 스타일)
+const matrix = [
+  { priority: 'Urgent', issues: [
+    { id: 'ORB-301', status: 'club' as const, label: 'In Progress', title: '인증 토큰 만료 버그' },
+    { id: 'ORB-298', status: 'sale' as const, label: 'Done', title: '결제 오류 핫픽스' },
+  ]},
+  { priority: 'High', issues: [
+    { id: 'ORB-287', status: 'white' as const, label: 'Backlog', title: '다크모드 토큰 정의' },
+    { id: 'ORB-283', status: 'club' as const, label: 'In Progress', title: 'TypeScript 5.7 마이그레이션' },
+  ]},
+  { priority: 'Medium', issues: [
+    { id: 'ORB-271', status: 'white' as const, label: 'Backlog', title: 'Storybook 8.6 업데이트' },
+    { id: 'ORB-268', status: 'sale' as const, label: 'Done', title: '접근성 WCAG AA 검토' },
+  ]},
+]
+
+export const Linear_우선순위_매트릭스: Story = {
+  name: 'Linear — 우선순위 × 상태 매트릭스 뷰',
+  render: () => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '0', border: '1px solid #e2e8f0', borderRadius: '12px', overflow: 'hidden', maxWidth: '520px' }}>
+      {/* 헤더 */}
+      <div style={{ display: 'grid', gridTemplateColumns: '100px 1fr', background: '#f8fafc', borderBottom: '1px solid #e2e8f0' }}>
+        <div style={{ padding: '8px 12px', fontSize: '11px', fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.05em' }}>우선순위</div>
+        <div style={{ padding: '8px 12px', fontSize: '11px', fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.05em' }}>이슈</div>
+      </div>
+      {matrix.map((row, ri) => (
+        <div
+          key={row.priority}
+          style={{ display: 'grid', gridTemplateColumns: '100px 1fr', borderBottom: ri < matrix.length - 1 ? '1px solid #f1f5f9' : 'none' }}
+        >
+          <div style={{ padding: '12px', borderRight: '1px solid #f1f5f9', display: 'flex', alignItems: 'flex-start' }}>
+            <span style={{ fontSize: '12px', fontWeight: 700, color: ri === 0 ? '#ef4444' : ri === 1 ? '#f59e0b' : '#94a3b8' }}>{row.priority}</span>
+          </div>
+          <div style={{ padding: '8px 12px', display: 'flex', flexDirection: 'column', gap: '6px' }}>
+            {row.issues.map((issue) => (
+              <div key={issue.id} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <AnimatedBadge color={issue.status} size="small">
+                  <AnimatedBadge.Label>{issue.label}</AnimatedBadge.Label>
+                </AnimatedBadge>
+                <span style={{ fontSize: '12px', color: '#475569', flex: 1 }}>{issue.title}</span>
+                <span style={{ fontSize: '10px', color: '#94a3b8', fontFamily: 'monospace', fontVariantNumeric: 'tabular-nums' }}>{issue.id}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  ),
+}
+
+// ─── shadcn/ui + Linear: 활동 피드 실시간 상태 뱃지 ──────────────────────────
+// shadcn과 Linear 모두에서 사용하는 실시간 활동 피드 패턴:
+// 이벤트 발생 시 뱃지 색상과 레이블이 전환되는 인터랙티브 데모
+const activityEvents = [
+  { type: 'created', label: 'Backlog', color: 'white' as const, message: '새 이슈가 생성되었습니다' },
+  { type: 'started', label: 'In Progress', color: 'club' as const, message: '작업이 시작되었습니다' },
+  { type: 'review', label: 'In Review', color: 'club' as const, message: '코드 리뷰가 요청되었습니다' },
+  { type: 'done', label: 'Done', color: 'sale' as const, message: '이슈가 완료되었습니다' },
+]
+
+const ActivityFeedBadgeDemo = () => {
+  const [eventIdx, setEventIdx] = useState(0)
+  const [log, setLog] = useState<typeof activityEvents>([activityEvents[0]])
+
+  const trigger = () => {
+    const next = (eventIdx + 1) % activityEvents.length
+    setEventIdx(next)
+    setLog((prev) => [activityEvents[next], ...prev].slice(0, 4))
+  }
+
+  return (
+    <div style={{ maxWidth: '400px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px 16px', borderRadius: '12px', border: '1.5px solid #e2e8f0', background: '#f8fafc' }}>
+        <div>
+          <div style={{ fontSize: '12px', fontWeight: 700, color: '#1e293b', marginBottom: '2px' }}>ORB-247 현재 상태</div>
+          <AnimatedBadge color={activityEvents[eventIdx].color} size="large">
+            {activityEvents[eventIdx].color === 'club' && (
+              <AnimatedBadge.Leading><ArrowUpIcon size={14} /></AnimatedBadge.Leading>
+            )}
+            {activityEvents[eventIdx].color === 'sale' && (
+              <AnimatedBadge.Leading><CheckIcon size={14} /></AnimatedBadge.Leading>
+            )}
+            {activityEvents[eventIdx].color === 'white' && (
+              <AnimatedBadge.Leading><TimeLineIcon size={14} /></AnimatedBadge.Leading>
+            )}
+            <AnimatedBadge.Label>{activityEvents[eventIdx].label}</AnimatedBadge.Label>
+          </AnimatedBadge>
+        </div>
+        <button
+          onClick={trigger}
+          style={{ padding: '8px 14px', borderRadius: '8px', border: 'none', background: '#6366f1', color: '#fff', fontSize: '12px', fontWeight: 700, cursor: 'pointer' }}
+        >
+          상태 전환
+        </button>
+      </div>
+
+      {/* 활동 로그 */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+        <div style={{ fontSize: '11px', fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '2px' }}>활동 로그</div>
+        {log.map((event, i) => (
+          <div key={`${event.type}-${i}`} style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '8px 12px', borderRadius: '8px', background: i === 0 ? '#eff6ff' : '#f8fafc', border: `1px solid ${i === 0 ? '#c7d2fe' : '#f1f5f9'}`, transition: 'all 0.2s' }}>
+            <AnimatedBadge color={event.color} size="small">
+              <AnimatedBadge.Label>{event.label}</AnimatedBadge.Label>
+            </AnimatedBadge>
+            <span style={{ fontSize: '12px', color: i === 0 ? '#1e293b' : '#94a3b8' }}>{event.message}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+export const shadcn_Linear_활동_피드_뱃지: Story = {
+  name: 'shadcn/ui + Linear — 활동 피드 실시간 상태 뱃지',
+  render: () => <ActivityFeedBadgeDemo />,
+}
