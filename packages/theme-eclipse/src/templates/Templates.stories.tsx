@@ -21113,3 +21113,229 @@ export const ShadcnNotificationCenter: Story = {
   },
   render: () => <Shadcn74NotifCenterRender />,
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Template #75 — ChatUI
+   Vercel Design 벤치마크: 컴팩트 밀도 + 모노크롬 + 버블형 메시지 패턴.
+   Avatar, TextField, SolidButton, Chip, Toggle, Divider 활용.
+   ═══════════════════════════════════════════════════════════════════════════ */
+type ChatMsg = {
+  id: string
+  from: string
+  avatar: string
+  avatarColor: string
+  text: string
+  time: string
+  mine: boolean
+  reactions?: { emoji: string; count: number }[]
+}
+
+const CHAT_CHANNELS = [
+  { id: 'general', name: '# general', unread: 3 },
+  { id: 'design', name: '# design', unread: 0 },
+  { id: 'dev', name: '# dev', unread: 7 },
+  { id: 'releases', name: '# releases', unread: 1 },
+]
+
+const CHAT_MESSAGES_INIT: ChatMsg[] = [
+  {
+    id: 'm1',
+    from: '김준희',
+    avatar: 'KJ',
+    avatarColor: '#6366f1',
+    text: '안녕하세요! Orbit UI 최신 버전 확인해보셨나요? 스토리북이 많이 좋아졌어요.',
+    time: '오전 9:02',
+    mine: false,
+    reactions: [{ emoji: '👍', count: 2 }],
+  },
+  {
+    id: 'm2',
+    from: '박서연',
+    avatar: 'PS',
+    avatarColor: '#0ea5e9',
+    text: '네! HoverCard 컴포넌트가 특히 좋더라고요. Vercel 디자인에서 영감받은 거 같았어요.',
+    time: '오전 9:05',
+    mine: false,
+  },
+  {
+    id: 'm3',
+    from: '나',
+    avatar: 'ME',
+    avatarColor: '#10b981',
+    text: '맞아요. 이번 사이클에서 BoxedCheckboxWithLabel도 Vercel 패턴으로 추가했어요!',
+    time: '오전 9:07',
+    mine: true,
+    reactions: [{ emoji: '🎉', count: 3 }],
+  },
+  {
+    id: 'm4',
+    from: '김준희',
+    avatar: 'KJ',
+    avatarColor: '#6366f1',
+    text: '배포 채널 선택 스토리가 특히 실용적이었어요. 실무에서 바로 쓸 수 있겠더라고요.',
+    time: '오전 9:10',
+    mine: false,
+  },
+  {
+    id: 'm5',
+    from: '나',
+    avatar: 'ME',
+    avatarColor: '#10b981',
+    text: '감사합니다! 다음 사이클에선 ChatUI 템플릿도 추가할 예정이에요 :)',
+    time: '오전 9:12',
+    mine: true,
+  },
+]
+
+const Vercel75ChatUIRender = () => {
+  const [channel, setChannel] = React.useState('general')
+  const [messages, setMessages] = React.useState<ChatMsg[]>(CHAT_MESSAGES_INIT)
+  const [input, setInput] = React.useState('')
+  const [notifOn, setNotifOn] = React.useState(true)
+
+  const currentChannel = CHAT_CHANNELS.find((c) => c.id === channel)
+
+  const sendMsg = () => {
+    const trimmed = input.trim()
+    if (!trimmed) return
+    const newMsg: ChatMsg = {
+      id: `m${Date.now()}`,
+      from: '나',
+      avatar: 'ME',
+      avatarColor: '#10b981',
+      text: trimmed,
+      time: new Date().toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit' }),
+      mine: true,
+    }
+    setMessages((prev) => [...prev, newMsg])
+    setInput('')
+  }
+
+  return (
+    <div style={{ display: 'flex', height: '100vh', background: 'var(--sem-eclipse-color-backgroundPrimary)' }}>
+      {/* Sidebar */}
+      <div style={{ width: 220, borderRight: '1px solid var(--sem-eclipse-color-borderSubtle)', display: 'flex', flexDirection: 'column', background: 'var(--sem-eclipse-color-backgroundSecondary)' }}>
+        <div style={{ padding: '16px 14px 12px', borderBottom: '1px solid var(--sem-eclipse-color-borderSubtle)' }}>
+          <div style={{ fontSize: 14, fontWeight: 800, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>Orbit UI 팀</div>
+          <div style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginTop: 2 }}>6명 온라인</div>
+        </div>
+        <div style={{ padding: '10px 8px', flex: 1 }}>
+          <div style={{ fontSize: 10, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundTertiary)', textTransform: 'uppercase', letterSpacing: '0.06em', padding: '0 6px', marginBottom: 4 }}>채널</div>
+          {CHAT_CHANNELS.map((ch) => (
+            <button
+              key={ch.id}
+              onClick={() => setChannel(ch.id)}
+              style={{
+                width: '100%',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                padding: '6px 8px',
+                borderRadius: 6,
+                border: 'none',
+                background: channel === ch.id ? 'var(--sem-eclipse-color-backgroundTertiary, #e5e7eb)' : 'none',
+                color: channel === ch.id ? 'var(--sem-eclipse-color-foregroundPrimary)' : 'var(--sem-eclipse-color-foregroundSecondary)',
+                fontSize: 13,
+                fontWeight: channel === ch.id ? 700 : 400,
+                cursor: 'pointer',
+                textAlign: 'left',
+                transition: 'background 0.1s',
+              }}
+            >
+              <span>{ch.name}</span>
+              {ch.unread > 0 && (
+                <span style={{ fontSize: 11, fontWeight: 700, padding: '0 5px', borderRadius: 8, background: '#6366f1', color: '#fff', minWidth: 16, textAlign: 'center' }}>{ch.unread}</span>
+              )}
+            </button>
+          ))}
+        </div>
+        {/* Notification toggle */}
+        <div style={{ padding: '12px 14px', borderTop: '1px solid var(--sem-eclipse-color-borderSubtle)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <span style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>알림</span>
+          <Toggle checked={notifOn} onChange={() => setNotifOn((v) => !v)} />
+        </div>
+      </div>
+
+      {/* Chat area */}
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+        {/* Channel header */}
+        <div style={{ padding: '13px 20px', borderBottom: '1px solid var(--sem-eclipse-color-borderSubtle)', display: 'flex', alignItems: 'center', gap: 10 }}>
+          <span style={{ fontSize: 16, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{currentChannel?.name}</span>
+          {currentChannel && currentChannel.unread > 0 && (
+            <span style={{ fontSize: 11, fontWeight: 700, padding: '1px 7px', borderRadius: 8, background: '#6366f1', color: '#fff' }}>{currentChannel.unread}개 읽지 않음</span>
+          )}
+        </div>
+
+        {/* Messages */}
+        <div style={{ flex: 1, overflowY: 'auto', padding: '16px 20px', display: 'flex', flexDirection: 'column', gap: 12 }}>
+          {messages.map((msg) => (
+            <div
+              key={msg.id}
+              style={{
+                display: 'flex',
+                flexDirection: msg.mine ? 'row-reverse' : 'row',
+                alignItems: 'flex-end',
+                gap: 8,
+              }}
+            >
+              {!msg.mine && (
+                <div style={{ width: 30, height: 30, borderRadius: '50%', background: msg.avatarColor, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 11, fontWeight: 700, color: '#fff', flexShrink: 0 }}>
+                  {msg.avatar}
+                </div>
+              )}
+              <div style={{ maxWidth: '65%' }}>
+                {!msg.mine && <div style={{ fontSize: 11, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginBottom: 3, paddingLeft: 2 }}>{msg.from}</div>}
+                <div
+                  style={{
+                    padding: '9px 13px',
+                    borderRadius: msg.mine ? '16px 16px 4px 16px' : '16px 16px 16px 4px',
+                    background: msg.mine ? '#6366f1' : 'var(--sem-eclipse-color-backgroundSecondary)',
+                    color: msg.mine ? '#fff' : 'var(--sem-eclipse-color-foregroundPrimary)',
+                    fontSize: 13,
+                    lineHeight: 1.5,
+                  }}
+                >
+                  {msg.text}
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginTop: 4, justifyContent: msg.mine ? 'flex-end' : 'flex-start' }}>
+                  <span style={{ fontSize: 10, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>{msg.time}</span>
+                  {msg.reactions?.map((r) => (
+                    <span key={r.emoji} style={{ fontSize: 11, padding: '1px 6px', borderRadius: 10, background: 'var(--sem-eclipse-color-backgroundSecondary)', cursor: 'pointer' }}>{r.emoji} {r.count}</span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Input area */}
+        <div style={{ padding: '12px 20px', borderTop: '1px solid var(--sem-eclipse-color-borderSubtle)', display: 'flex', gap: 8, alignItems: 'center' }}>
+          <div style={{ flex: 1 }}>
+            <TextField
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              placeholder={`${currentChannel?.name ?? '채널'}에 메시지 보내기`}
+              onKeyDown={(e: React.KeyboardEvent) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMsg() } }}
+            />
+          </div>
+          <SolidButton color="primary" size="medium" onClick={sendMsg} disabled={!input.trim()}>전송</SolidButton>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const VercelChatUI: Story = {
+  name: 'Vercel ChatUI',
+  parameters: {
+    layout: 'fullscreen',
+    docs: {
+      description: {
+        story:
+          'Vercel Design 벤치마크: 컴팩트 사이드바 + 채널 목록 + 버블형 메시지 UI. ' +
+          'Toggle(알림), TextField(입력), SolidButton(전송), Avatar 패턴 통합.',
+      },
+    },
+  },
+  render: () => <Vercel75ChatUIRender />,
+}

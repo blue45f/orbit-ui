@@ -827,3 +827,173 @@ export const Linear_팀_멤버_역할_호버: Story = {
   },
   render: () => <TeamRoleHoverDemo />,
 }
+
+/* ── Vercel Design: 배포 상태 호버 카드 ── */
+const DeployStatusHoverDemo = () => {
+  const deploys = [
+    { id: 'd1', branch: 'main', status: 'ready', hash: 'a3f9c12', time: '2분 전', duration: '48s', env: 'Production' },
+    { id: 'd2', branch: 'feat/button', status: 'building', hash: 'b8e2d54', time: '진행 중', duration: '-', env: 'Preview' },
+    { id: 'd3', branch: 'fix/types', status: 'error', hash: 'c1d7e89', time: '1시간 전', duration: '23s', env: 'Preview' },
+  ]
+
+  const statusColor: Record<string, string> = { ready: '#16a34a', building: '#6366f1', error: '#ef4444' }
+  const statusLabel: Record<string, string> = { ready: '배포 완료', building: '빌드 중', error: '빌드 실패' }
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 8, maxWidth: 380 }}>
+      <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 4 }}>최근 배포 — 호버로 상세 확인</div>
+      {deploys.map((d) => (
+        <HoverCard key={d.id}>
+          <HoverCard.Trigger>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '9px 12px', borderRadius: 8, border: '1px solid var(--sem-eclipse-color-borderDefault)', background: 'var(--sem-eclipse-color-backgroundPrimary)', cursor: 'default' }}>
+              <span style={{ width: 8, height: 8, borderRadius: '50%', background: statusColor[d.status], flexShrink: 0, ...(d.status === 'building' ? { animation: 'pulse 1.5s infinite' } : {}) }} />
+              <span style={{ fontSize: 13, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)', flex: 1 }}>{d.branch}</span>
+              <span style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>{d.time}</span>
+            </div>
+          </HoverCard.Trigger>
+          <HoverCard.Content>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                <span style={{ width: 8, height: 8, borderRadius: '50%', background: statusColor[d.status] }} />
+                <span style={{ fontSize: 13, fontWeight: 700, color: statusColor[d.status] }}>{statusLabel[d.status]}</span>
+              </div>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '6px 16px' }}>
+                {[
+                  ['브랜치', d.branch],
+                  ['커밋', d.hash],
+                  ['환경', d.env],
+                  ['빌드 시간', d.duration],
+                ].map(([k, v]) => (
+                  <div key={k}>
+                    <div style={{ fontSize: 10, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundTertiary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>{k}</div>
+                    <div style={{ fontSize: 12, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginTop: 1 }}>{v}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </HoverCard.Content>
+        </HoverCard>
+      ))}
+    </div>
+  )
+}
+
+export const Vercel_배포_상태_호버: Story = {
+  name: 'Vercel — 배포 상태 호버 카드',
+  render: () => <DeployStatusHoverDemo />,
+}
+
+/* ── Vercel Design: 도메인 DNS 레코드 호버 ── */
+const DnsHoverDemo = () => {
+  const records = [
+    { type: 'A', name: '@', value: '76.76.21.21', ttl: '3600', status: 'verified' },
+    { type: 'CNAME', name: 'www', value: 'cname.vercel-dns.com', ttl: '3600', status: 'pending' },
+    { type: 'TXT', name: '_vercel', value: 'vc-domain-verify=...abc123', ttl: '60', status: 'verified' },
+  ]
+
+  const statusInfo: Record<string, { color: string; label: string }> = {
+    verified: { color: '#16a34a', label: '검증됨' },
+    pending: { color: '#f59e0b', label: '대기 중' },
+  }
+
+  return (
+    <div style={{ maxWidth: 440 }}>
+      <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 12 }}>DNS 레코드 — 호버로 상세 확인</div>
+      <div style={{ border: '1px solid var(--sem-eclipse-color-borderDefault)', borderRadius: 8, overflow: 'hidden' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '60px 80px 1fr 60px', padding: '8px 14px', background: 'var(--sem-eclipse-color-backgroundSecondary)', borderBottom: '1px solid var(--sem-eclipse-color-borderSubtle)' }}>
+          {['타입', '이름', '값', '상태'].map((h) => (
+            <div key={h} style={{ fontSize: 11, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundTertiary)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>{h}</div>
+          ))}
+        </div>
+        {records.map((r, i) => (
+          <HoverCard key={r.type + r.name}>
+            <HoverCard.Trigger>
+              <div style={{ display: 'grid', gridTemplateColumns: '60px 80px 1fr 60px', padding: '10px 14px', borderBottom: i < records.length - 1 ? '1px solid var(--sem-eclipse-color-borderSubtle)' : 'none', background: 'var(--sem-eclipse-color-backgroundPrimary)', cursor: 'default', alignItems: 'center' }}>
+                <span style={{ fontSize: 12, fontWeight: 700, padding: '2px 6px', borderRadius: 4, background: 'var(--sem-eclipse-color-backgroundSecondary)', color: 'var(--sem-eclipse-color-foregroundSecondary)', display: 'inline-block', width: 'fit-content' }}>{r.type}</span>
+                <span style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundPrimary)', fontFamily: 'monospace' }}>{r.name}</span>
+                <span style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundSecondary)', fontFamily: 'monospace', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{r.value}</span>
+                <span style={{ fontSize: 11, fontWeight: 600, color: statusInfo[r.status].color }}>{statusInfo[r.status].label}</span>
+              </div>
+            </HoverCard.Trigger>
+            <HoverCard.Content>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+                <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 2 }}>{r.type} 레코드 상세</div>
+                {[['이름', r.name], ['값', r.value], ['TTL', `${r.ttl}초`], ['상태', statusInfo[r.status].label]].map(([k, v]) => (
+                  <div key={k} style={{ display: 'flex', gap: 12, alignItems: 'flex-start' }}>
+                    <span style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)', minWidth: 40 }}>{k}</span>
+                    <span style={{ fontSize: 11, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)', fontFamily: 'monospace', wordBreak: 'break-all' }}>{v}</span>
+                  </div>
+                ))}
+              </div>
+            </HoverCard.Content>
+          </HoverCard>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+export const Vercel_DNS_레코드_호버: Story = {
+  name: 'Vercel — DNS 레코드 호버 상세',
+  render: () => <DnsHoverDemo />,
+}
+
+/* ── Vercel Design: 팀 멤버 권한 호버 ── */
+const MemberPermissionHoverDemo = () => {
+  const members = [
+    { name: '김준희', email: 'junhee@orbit.io', avatar: 'KJ', color: '#6366f1', role: 'Owner', repos: 12, lastActive: '방금 전' },
+    { name: '박서연', email: 'seoyeon@orbit.io', avatar: 'PS', color: '#0ea5e9', role: 'Member', repos: 7, lastActive: '3시간 전' },
+    { name: '이민준', email: 'minjun@orbit.io', avatar: 'LM', color: '#10b981', role: 'Viewer', repos: 3, lastActive: '2일 전' },
+  ]
+
+  const roleColor: Record<string, string> = { Owner: '#6366f1', Member: '#0ea5e9', Viewer: '#94a3b8' }
+
+  return (
+    <div style={{ maxWidth: 400 }}>
+      <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 12 }}>팀 멤버 — 호버로 권한 확인</div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 0, border: '1px solid var(--sem-eclipse-color-borderDefault)', borderRadius: 8, overflow: 'hidden' }}>
+        {members.map((m, i) => (
+          <HoverCard key={m.email}>
+            <HoverCard.Trigger>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 14px', borderBottom: i < members.length - 1 ? '1px solid var(--sem-eclipse-color-borderSubtle)' : 'none', background: 'var(--sem-eclipse-color-backgroundPrimary)', cursor: 'default' }}>
+                <div style={{ width: 32, height: 32, borderRadius: '50%', background: m.color, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 12, fontWeight: 700, color: '#fff', flexShrink: 0 }}>{m.avatar}</div>
+                <div style={{ flex: 1 }}>
+                  <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{m.name}</div>
+                  <div style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>{m.email}</div>
+                </div>
+                <span style={{ fontSize: 11, fontWeight: 700, padding: '2px 8px', borderRadius: 6, background: `${roleColor[m.role]}15`, color: roleColor[m.role] }}>{m.role}</span>
+              </div>
+            </HoverCard.Trigger>
+            <HoverCard.Content>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                  <div style={{ width: 36, height: 36, borderRadius: '50%', background: m.color, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 14, fontWeight: 700, color: '#fff' }}>{m.avatar}</div>
+                  <div>
+                    <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{m.name}</div>
+                    <div style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>{m.email}</div>
+                  </div>
+                </div>
+                <div style={{ height: 1, background: 'var(--sem-eclipse-color-borderSubtle)' }} />
+                {[
+                  ['역할', m.role],
+                  ['접근 프로젝트', `${m.repos}개`],
+                  ['마지막 활동', m.lastActive],
+                ].map(([k, v]) => (
+                  <div key={k} style={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <span style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>{k}</span>
+                    <span style={{ fontSize: 12, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{v}</span>
+                  </div>
+                ))}
+              </div>
+            </HoverCard.Content>
+          </HoverCard>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+export const Vercel_팀_멤버_권한_호버: Story = {
+  name: 'Vercel — 팀 멤버 권한 호버',
+  render: () => <MemberPermissionHoverDemo />,
+}

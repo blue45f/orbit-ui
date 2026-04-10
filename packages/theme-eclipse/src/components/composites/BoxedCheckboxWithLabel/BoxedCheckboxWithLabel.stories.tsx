@@ -588,3 +588,198 @@ export const Radix_조합_요금제_선택: Story = {
   },
   render: () => <RadixCompoundPricingDemo />,
 }
+
+/* ── Vercel Design: 컴팩트 환경 변수 선택 ── */
+const EnvVarScopeDemo = () => {
+  const [scopes, setScopes] = useState<Set<string>>(new Set(['production', 'preview']))
+
+  const envScopes = [
+    { value: 'production', label: 'Production', desc: 'prod 브랜치 배포에 적용', color: '#16a34a' },
+    { value: 'preview', label: 'Preview', desc: '모든 브랜치 미리보기에 적용', color: '#6366f1' },
+    { value: 'development', label: 'Development', desc: '로컬 dev 환경에만 적용', color: '#f59e0b' },
+  ]
+
+  const toggle = (v: string) =>
+    setScopes((prev) => {
+      const next = new Set(prev)
+      if (next.has(v)) next.delete(v)
+      else next.add(v)
+      return next
+    })
+
+  return (
+    <div style={{ maxWidth: 380 }}>
+      <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 4 }}>환경 범위</div>
+      <div style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginBottom: 10 }}>이 환경 변수가 적용될 환경을 선택하세요.</div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 0, border: '1px solid var(--sem-eclipse-color-borderDefault)', borderRadius: 8, overflow: 'hidden' }}>
+        {envScopes.map((s, i) => (
+          <div
+            key={s.value}
+            onClick={() => toggle(s.value)}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 10,
+              padding: '10px 14px',
+              borderBottom: i < envScopes.length - 1 ? '1px solid var(--sem-eclipse-color-borderSubtle)' : 'none',
+              background: scopes.has(s.value) ? `${s.color}08` : 'var(--sem-eclipse-color-backgroundPrimary)',
+              cursor: 'pointer',
+              transition: 'background 0.12s',
+            }}
+          >
+            <BoxedCheckboxWithLabel value={s.value} checked={scopes.has(s.value)} onChange={() => toggle(s.value)} alignItems="center" />
+            <div style={{ flex: 1 }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                <span style={{ display: 'inline-block', width: 6, height: 6, borderRadius: '50%', background: s.color }} />
+                <span style={{ fontSize: 13, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{s.label}</span>
+              </div>
+              <div style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginTop: 1 }}>{s.desc}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+      <div style={{ marginTop: 8, fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>
+        선택됨: {scopes.size === 0 ? '없음' : Array.from(scopes).join(', ')}
+      </div>
+    </div>
+  )
+}
+
+export const Vercel_환경_변수_범위_선택: Story = {
+  name: 'Vercel — 환경 변수 범위 선택',
+  render: () => <EnvVarScopeDemo />,
+}
+
+/* ── Vercel Design: 빌드 최적화 옵션 ── */
+const BuildOptimizeDemo = () => {
+  const [opts, setOpts] = useState<Set<string>>(new Set(['minify', 'treeshake']))
+
+  const options = [
+    { value: 'minify', label: 'Minify', desc: 'JS/CSS 압축으로 번들 크기 최소화', impact: '~30%' },
+    { value: 'treeshake', label: 'Tree Shaking', desc: '미사용 코드 제거', impact: '~20%' },
+    { value: 'compress', label: 'Gzip 압축', desc: '서버 전송 압축 활성화', impact: '~60%' },
+    { value: 'cache', label: '빌드 캐시', desc: '이전 빌드 결과물 재사용', impact: '속도' },
+    { value: 'sourcemap', label: 'Source Map', desc: '디버깅용 소스맵 생성 (배포 크기 증가)', impact: '+맵' },
+  ]
+
+  const toggle = (v: string) =>
+    setOpts((prev) => {
+      const next = new Set(prev)
+      if (next.has(v)) next.delete(v)
+      else next.add(v)
+      return next
+    })
+
+  return (
+    <div style={{ maxWidth: 400 }}>
+      <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 12 }}>빌드 최적화 (Vercel 컴팩트 체크 패턴)</div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+        {options.map((opt) => (
+          <div
+            key={opt.value}
+            onClick={() => toggle(opt.value)}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 10,
+              padding: '9px 12px',
+              borderRadius: 6,
+              border: `1px solid ${opts.has(opt.value) ? 'var(--sem-eclipse-color-fillPrimary)' : 'var(--sem-eclipse-color-borderSubtle)'}`,
+              background: opts.has(opt.value) ? 'color-mix(in srgb, var(--sem-eclipse-color-fillPrimary) 5%, var(--sem-eclipse-color-backgroundPrimary))' : 'var(--sem-eclipse-color-backgroundPrimary)',
+              cursor: 'pointer',
+              transition: 'border-color 0.12s, background 0.12s',
+            }}
+          >
+            <BoxedCheckboxWithLabel value={opt.value} checked={opts.has(opt.value)} onChange={() => toggle(opt.value)} alignItems="center" />
+            <div style={{ flex: 1 }}>
+              <span style={{ fontSize: 13, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{opt.label}</span>
+              <span style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginLeft: 8 }}>{opt.desc}</span>
+            </div>
+            <span style={{ fontSize: 11, fontWeight: 700, padding: '2px 6px', borderRadius: 4, background: 'var(--sem-eclipse-color-backgroundSecondary)', color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>{opt.impact}</span>
+          </div>
+        ))}
+      </div>
+      <div style={{ marginTop: 12, padding: '8px 12px', borderRadius: 6, background: 'var(--sem-eclipse-color-backgroundSecondary)', fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)', display: 'flex', justifyContent: 'space-between' }}>
+        <span>활성화: {opts.size}개 옵션</span>
+        <button onClick={() => setOpts(new Set(['minify', 'treeshake', 'compress', 'cache']))} style={{ fontSize: 11, color: '#6366f1', background: 'none', border: 'none', cursor: 'pointer', fontWeight: 600 }}>권장 설정</button>
+      </div>
+    </div>
+  )
+}
+
+export const Vercel_빌드_최적화_옵션: Story = {
+  name: 'Vercel — 빌드 최적화 옵션',
+  render: () => <BuildOptimizeDemo />,
+}
+
+/* ── Vercel Design: 모노크롬 배포 채널 선택 ── */
+const DeployChannelDemo = () => {
+  const [channels, setChannels] = useState<Set<string>>(new Set(['github']))
+
+  const channelGroups = [
+    {
+      group: 'Git 연동',
+      items: [
+        { value: 'github', label: 'GitHub', desc: 'main/master 푸시 시 자동 배포' },
+        { value: 'gitlab', label: 'GitLab', desc: 'CI/CD 파이프라인 연동' },
+        { value: 'bitbucket', label: 'Bitbucket', desc: 'Pipelines 통합 배포' },
+      ],
+    },
+    {
+      group: '알림',
+      items: [
+        { value: 'slack', label: 'Slack 알림', desc: '배포 성공/실패 Slack 채널 알림' },
+        { value: 'webhook', label: 'Webhook', desc: 'HTTP POST로 외부 서비스 연동' },
+      ],
+    },
+  ]
+
+  const toggle = (v: string) =>
+    setChannels((prev) => {
+      const next = new Set(prev)
+      if (next.has(v)) next.delete(v)
+      else next.add(v)
+      return next
+    })
+
+  return (
+    <div style={{ maxWidth: 380 }}>
+      <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 12 }}>배포 채널 (Vercel 모노크롬 그룹 체크 패턴)</div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+        {channelGroups.map((grp) => (
+          <div key={grp.group}>
+            <div style={{ fontSize: 11, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundTertiary)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: 6 }}>{grp.group}</div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 0, border: '1px solid var(--sem-eclipse-color-borderDefault)', borderRadius: 8, overflow: 'hidden' }}>
+              {grp.items.map((item, i) => (
+                <div
+                  key={item.value}
+                  onClick={() => toggle(item.value)}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 10,
+                    padding: '9px 12px',
+                    borderBottom: i < grp.items.length - 1 ? '1px solid var(--sem-eclipse-color-borderSubtle)' : 'none',
+                    background: 'var(--sem-eclipse-color-backgroundPrimary)',
+                    cursor: 'pointer',
+                  }}
+                >
+                  <BoxedCheckboxWithLabel value={item.value} checked={channels.has(item.value)} onChange={() => toggle(item.value)} alignItems="center" />
+                  <div>
+                    <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{item.label}</div>
+                    <div style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>{item.desc}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+export const Vercel_배포_채널_선택: Story = {
+  name: 'Vercel — 배포 채널 선택 (그룹 체크)',
+  render: () => <DeployChannelDemo />,
+}
