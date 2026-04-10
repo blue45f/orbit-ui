@@ -15219,3 +15219,141 @@ export const ProductCatalog: Story = {
   },
   render: () => <ProductCatalogRender />,
 }
+
+// ─── Template 52: RecruitmentTracker (Tailwind UI + MUI 벤치마크) ──────────
+
+type RTStage = '서류검토' | '1차면접' | '2차면접' | '최종합격' | '불합격'
+type RTCandidate = {
+  id: number
+  name: string
+  role: string
+  stage: RTStage
+  score: number
+  days: number
+  initial: string
+  color: string
+}
+
+const RT_STAGES: RTStage[] = ['서류검토', '1차면접', '2차면접', '최종합격', '불합격']
+
+const RT_STAGE_COLOR: Record<RTStage, string> = {
+  '서류검토': '#6366f1',
+  '1차면접': '#f59e0b',
+  '2차면접': '#0ea5e9',
+  '최종합격': '#22c55e',
+  '불합격': '#ef4444',
+}
+
+const RT_CANDIDATES: RTCandidate[] = [
+  { id: 1, name: '김지훈', role: 'Frontend', stage: '2차면접', score: 88, days: 14, initial: '김', color: '#6366f1' },
+  { id: 2, name: '이수연', role: 'Designer', stage: '1차면접', score: 72, days: 7, initial: '이', color: '#f59e0b' },
+  { id: 3, name: '박민준', role: 'Backend', stage: '최종합격', score: 95, days: 21, initial: '박', color: '#22c55e' },
+  { id: 4, name: '최유진', role: 'Data', stage: '서류검토', score: 60, days: 3, initial: '최', color: '#0ea5e9' },
+  { id: 5, name: '정서현', role: 'iOS', stage: '불합격', score: 55, days: 18, initial: '정', color: '#ef4444' },
+  { id: 6, name: '한도윤', role: 'PM', stage: '최종합격', score: 91, days: 28, initial: '한', color: '#22c55e' },
+]
+
+const RecruitmentTrackerRender = () => {
+  const [stageFilter, setStageFilter] = useState<RTStage | '전체'>('전체')
+  const [sortBy, setSortBy] = useState<'score' | 'days' | 'name'>('score')
+  const sortIdx = ['score', 'days', 'name'].indexOf(sortBy)
+
+  const filtered = RT_CANDIDATES
+    .filter(c => stageFilter === '전체' || c.stage === stageFilter)
+    .sort((a, b) => {
+      if (sortBy === 'score') return b.score - a.score
+      if (sortBy === 'days') return b.days - a.days
+      return a.name.localeCompare(b.name)
+    })
+
+  const stageCounts = RT_STAGES.reduce<Record<string, number>>((acc, s) => {
+    acc[s] = RT_CANDIDATES.filter(c => c.stage === s).length
+    return acc
+  }, {})
+
+  return (
+    <div style={{ width: 800, fontFamily: 'system-ui, sans-serif' }}>
+      {/* Header */}
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
+        <SectionTitle>
+          <SectionTitle.Title>채용 현황 트래커</SectionTitle.Title>
+          <SectionTitle.Trailing>
+            <CounterBadge>{RT_CANDIDATES.length}</CounterBadge>
+          </SectionTitle.Trailing>
+        </SectionTitle>
+        <SegmentedControl
+          selectedIndex={sortIdx}
+          onTabChange={(i) => setSortBy(['score', 'days', 'name'][i] as 'score' | 'days' | 'name')}
+        >
+          {['점수순', '기간순', '이름순'].map((label, i) => (
+            <SegmentedControl.Tab key={i} value={String(i)}>
+              <SegmentedControl.TabCenter>{label}</SegmentedControl.TabCenter>
+            </SegmentedControl.Tab>
+          ))}
+        </SegmentedControl>
+      </div>
+
+      {/* Stage funnel */}
+      <div style={{ display: 'flex', gap: 8, marginBottom: 20, overflowX: 'auto', paddingBottom: 4 }}>
+        {(['전체', ...RT_STAGES] as const).map((s) => {
+          const count = s === '전체' ? RT_CANDIDATES.length : (stageCounts[s] ?? 0)
+          const isActive = stageFilter === s
+          return (
+            <Chip
+              key={s}
+              selected={isActive}
+              onClick={() => setStageFilter(s)}
+            >
+              {s === '전체' ? '전체' : s}
+              <Chip.Trailing>
+                <span style={{ fontSize: 10, fontWeight: 700, color: isActive ? '#fff' : (s !== '전체' ? RT_STAGE_COLOR[s as RTStage] : '#94a3b8'), background: isActive ? 'rgba(255,255,255,0.25)' : 'rgba(0,0,0,0.06)', borderRadius: 100, padding: '1px 5px' }}>{count}</span>
+              </Chip.Trailing>
+            </Chip>
+          )
+        })}
+      </div>
+
+      {/* Candidate list */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+        {filtered.map((c) => (
+          <div key={c.id} style={{ display: 'flex', alignItems: 'center', gap: 14, padding: '14px 18px', borderRadius: 12, border: '1px solid #e2e8f0', background: '#fff' }}>
+            <Avatar>
+              <Avatar.Fallback>{c.initial}</Avatar.Fallback>
+            </Avatar>
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 4 }}>
+                <span style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>{c.name}</span>
+                <LabelBadge color={c.stage === '최종합격' ? 'benefit' : c.stage === '불합격' ? 'sale' : 'gray'}>
+                  <LabelBadge.Label>{c.stage}</LabelBadge.Label>
+                </LabelBadge>
+              </div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, color: '#64748b', marginBottom: 8 }}>
+                <span>{c.role} · {c.days}일 경과</span>
+                <span style={{ fontWeight: 600, color: RT_STAGE_COLOR[c.stage] }}>{c.score}점</span>
+              </div>
+              <Progress value={c.score} />
+            </div>
+          </div>
+        ))}
+        {filtered.length === 0 && (
+          <div style={{ textAlign: 'center', padding: 40, color: '#94a3b8', fontSize: 13 }}>해당 단계의 지원자가 없습니다.</div>
+        )}
+      </div>
+    </div>
+  )
+}
+
+export const RecruitmentTracker: Story = {
+  name: 'Recruitment Tracker (Tailwind UI + MUI 벤치마크)',
+  parameters: {
+    layout: 'centered',
+    docs: {
+      description: {
+        story:
+          'Tailwind UI의 채용 파이프라인 레이아웃 + MUI의 정렬/필터 패턴 결합. ' +
+          'Chip 스테이지 필터, SegmentedControl 정렬, Avatar, Progress, LabelBadge, SectionTitle, CounterBadge 조합.',
+      },
+    },
+  },
+  render: () => <RecruitmentTrackerRender />,
+}

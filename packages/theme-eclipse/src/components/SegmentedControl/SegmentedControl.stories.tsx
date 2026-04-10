@@ -584,3 +584,224 @@ export const Notion_인라인_블록_툴바: Story = {
   },
   render: () => <NotionToolbarRender />,
 }
+
+// ─── Cycle 62: Tailwind UI + MUI ───────────────────────────────────────────
+
+const TAILWIND_SORT_OPTIONS = [
+  { value: 'newest', label: '최신순' },
+  { value: 'popular', label: '인기순' },
+  { value: 'price-asc', label: '낮은가격' },
+  { value: 'price-desc', label: '높은가격' },
+]
+
+type TailwindSortValue = 'newest' | 'popular' | 'price-asc' | 'price-desc'
+
+const TAILWIND_PRODUCTS = [
+  { id: 1, name: 'React UI Kit', price: 89000, sales: 1240 },
+  { id: 2, name: 'Figma Plugin', price: 29000, sales: 3820 },
+  { id: 3, name: 'Tailwind 템플릿', price: 59000, sales: 780 },
+  { id: 4, name: 'Icon Pack', price: 19000, sales: 5100 },
+  { id: 5, name: 'Motion Preset', price: 45000, sales: 430 },
+  { id: 6, name: 'Dark Theme Kit', price: 39000, sales: 2200 },
+]
+
+const TailwindSortTableRender = () => {
+  const [sort, setSort] = useState<TailwindSortValue>('newest')
+  const sortIdx = TAILWIND_SORT_OPTIONS.findIndex(o => o.value === sort)
+
+  const sorted = [...TAILWIND_PRODUCTS].sort((a, b) => {
+    if (sort === 'newest') return b.id - a.id
+    if (sort === 'popular') return b.sales - a.sales
+    if (sort === 'price-asc') return a.price - b.price
+    return b.price - a.price
+  })
+
+  return (
+    <div style={{ width: 380, fontFamily: 'system-ui, sans-serif' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 14 }}>
+        <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>상품 목록</div>
+        <SegmentedControl
+          selectedIndex={sortIdx}
+          onTabChange={(i) => setSort(TAILWIND_SORT_OPTIONS[i].value as TailwindSortValue)}
+        >
+          {TAILWIND_SORT_OPTIONS.map((o) => (
+            <SegmentedControl.Tab key={o.value} value={o.value}>
+              <SegmentedControl.TabCenter>{o.label}</SegmentedControl.TabCenter>
+            </SegmentedControl.Tab>
+          ))}
+        </SegmentedControl>
+      </div>
+      <div style={{ border: '1px solid #e2e8f0', borderRadius: 10, overflow: 'hidden' }}>
+        {sorted.map((p, i) => (
+          <div key={p.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '11px 16px', borderBottom: i < sorted.length - 1 ? '1px solid #f1f5f9' : 'none', background: '#fff', fontSize: 13, color: '#1e293b' }}>
+            <div style={{ fontWeight: 500 }}>{p.name}</div>
+            <div style={{ display: 'flex', gap: 16, fontSize: 12, color: '#64748b' }}>
+              <span>{p.price.toLocaleString()}원</span>
+              <span style={{ color: '#94a3b8' }}>판매 {p.sales.toLocaleString()}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+export const Tailwind_상품_정렬_컨트롤: Story = {
+  name: 'Tailwind UI - 상품 목록 정렬 SegmentedControl',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Tailwind UI의 정렬 필터 패턴. SegmentedControl로 최신/인기/가격 정렬 기준을 전환하면 아래 상품 목록이 즉시 재정렬됩니다. 컴팩트한 헤더 영역에 정렬 컨트롤을 배치합니다.',
+      },
+    },
+  },
+  render: () => <TailwindSortTableRender />,
+}
+
+const MUI_TIME_RANGES = [
+  { value: '1d', label: '1D' },
+  { value: '1w', label: '1W' },
+  { value: '1m', label: '1M' },
+  { value: '3m', label: '3M' },
+  { value: '1y', label: '1Y' },
+]
+
+type MuiTimeRange = '1d' | '1w' | '1m' | '3m' | '1y'
+
+const MUI_CHART_SEED: Record<MuiTimeRange, number[]> = {
+  '1d':  [42, 45, 41, 50, 48, 52, 49],
+  '1w':  [210, 195, 230, 218, 245, 260, 240],
+  '1m':  [820, 910, 875, 950, 1020, 980, 1100],
+  '3m':  [2400, 2650, 2500, 2800, 3100, 2950, 3200],
+  '1y':  [9800, 10500, 11200, 10800, 12000, 11500, 13000],
+}
+
+const MuiChartRangeRender = () => {
+  const [range, setRange] = useState<MuiTimeRange>('1m')
+  const rangeIdx = MUI_TIME_RANGES.findIndex(r => r.value === range)
+  const data = MUI_CHART_SEED[range]
+  const max = Math.max(...data)
+  const min = Math.min(...data)
+  const current = data[data.length - 1]
+  const prev = data[0]
+  const isUp = current >= prev
+
+  return (
+    <div style={{ width: 340, border: '1px solid #e2e8f0', borderRadius: 14, padding: 20, background: '#fff', fontFamily: 'system-ui, sans-serif' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 16 }}>
+        <div>
+          <div style={{ fontSize: 11, color: '#94a3b8', fontWeight: 600 }}>ORBIT 토큰 지수</div>
+          <div style={{ fontSize: 24, fontWeight: 800, color: '#0f172a' }}>{current.toLocaleString()}</div>
+          <div style={{ fontSize: 12, color: isUp ? '#22c55e' : '#ef4444', fontWeight: 600 }}>
+            {isUp ? '+' : ''}{(((current - prev) / prev) * 100).toFixed(1)}%
+          </div>
+        </div>
+        <SegmentedControl
+          selectedIndex={rangeIdx}
+          onTabChange={(i) => setRange(MUI_TIME_RANGES[i].value as MuiTimeRange)}
+        >
+          {MUI_TIME_RANGES.map((r) => (
+            <SegmentedControl.Tab key={r.value} value={r.value}>
+              <SegmentedControl.TabCenter>{r.label}</SegmentedControl.TabCenter>
+            </SegmentedControl.Tab>
+          ))}
+        </SegmentedControl>
+      </div>
+      <div style={{ display: 'flex', gap: 4, alignItems: 'flex-end', height: 80 }}>
+        {data.map((val, i) => {
+          const h = ((val - min) / (max - min + 1)) * 70 + 10
+          const isLast = i === data.length - 1
+          return (
+            <div key={i} style={{ flex: 1, height: h, borderRadius: 4, background: isLast ? '#6366f1' : '#e0e7ff', transition: 'height 0.3s ease' }} />
+          )
+        })}
+      </div>
+      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 10, color: '#cbd5e1', marginTop: 6 }}>
+        <span>시작</span><span>현재</span>
+      </div>
+    </div>
+  )
+}
+
+export const MUI_차트_기간_전환: Story = {
+  name: 'MUI - 차트 기간 선택 SegmentedControl',
+  parameters: {
+    docs: {
+      description: {
+        story: 'MUI Tabs의 기간 선택 패턴을 SegmentedControl로 구현. 1D/1W/1M/3M/1Y 탭 전환으로 바 차트 데이터와 등락률이 즉시 업데이트됩니다. 금융/분석 대시보드에서 자주 쓰이는 패턴입니다.',
+      },
+    },
+  },
+  render: () => <MuiChartRangeRender />,
+}
+
+const APPLE_LAYOUT_OPTIONS = [
+  { value: 'grid', label: '격자' },
+  { value: 'list', label: '목록' },
+  { value: 'compact', label: '컴팩트' },
+]
+
+type AppleLayout = 'grid' | 'list' | 'compact'
+
+const APPLE_ITEMS = ['Figma 파일', 'Sketch 프로젝트', 'Adobe XD', 'Framer 사이트', 'Canva 디자인', 'Principle 프로토']
+
+const AppleLayoutSwitcherRender = () => {
+  const [layout, setLayout] = useState<AppleLayout>('grid')
+  const layoutIdx = APPLE_LAYOUT_OPTIONS.findIndex(o => o.value === layout)
+
+  return (
+    <div style={{ width: 360, fontFamily: '-apple-system, BlinkMacSystemFont, sans-serif' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 14, padding: '0 4px' }}>
+        <div style={{ fontSize: 16, fontWeight: 700, color: '#1c1c1e' }}>디자인 파일</div>
+        <SegmentedControl
+          selectedIndex={layoutIdx}
+          onTabChange={(i) => setLayout(APPLE_LAYOUT_OPTIONS[i].value as AppleLayout)}
+        >
+          {APPLE_LAYOUT_OPTIONS.map((o) => (
+            <SegmentedControl.Tab key={o.value} value={o.value}>
+              <SegmentedControl.TabCenter>{o.label}</SegmentedControl.TabCenter>
+            </SegmentedControl.Tab>
+          ))}
+        </SegmentedControl>
+      </div>
+      {layout === 'grid' && (
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
+          {APPLE_ITEMS.map((item, i) => (
+            <div key={i} style={{ height: 80, borderRadius: 12, background: '#f2f2f7', border: '1px solid #e5e5ea', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', padding: 10 }}>
+              <div style={{ fontSize: 12, fontWeight: 600, color: '#1c1c1e' }}>{item}</div>
+            </div>
+          ))}
+        </div>
+      )}
+      {layout === 'list' && (
+        <div style={{ border: '1px solid #e5e5ea', borderRadius: 12, overflow: 'hidden' }}>
+          {APPLE_ITEMS.map((item, i) => (
+            <div key={i} style={{ padding: '13px 16px', borderBottom: i < APPLE_ITEMS.length - 1 ? '1px solid #f2f2f7' : 'none', background: '#fff', fontSize: 14, color: '#1c1c1e', display: 'flex', justifyContent: 'space-between' }}>
+              <span>{item}</span>
+              <span style={{ color: '#c7c7cc' }}>{'>'}</span>
+            </div>
+          ))}
+        </div>
+      )}
+      {layout === 'compact' && (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+          {APPLE_ITEMS.map((item, i) => (
+            <div key={i} style={{ padding: '8px 12px', borderRadius: 8, background: '#f2f2f7', fontSize: 12, color: '#3a3a3c', fontWeight: 500 }}>{item}</div>
+          ))}
+        </div>
+      )}
+    </div>
+  )
+}
+
+export const Apple_HIG_레이아웃_전환: Story = {
+  name: 'Apple HIG - 레이아웃 전환 SegmentedControl',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Apple HIG의 세그먼티드 컨트롤 레이아웃 전환 패턴. 격자/목록/컴팩트 세 가지 보기 방식을 전환하면 동일 데이터가 다른 레이아웃으로 렌더링됩니다. iOS Files/Photos 앱에서 활용하는 패턴입니다.',
+      },
+    },
+  },
+  render: () => <AppleLayoutSwitcherRender />,
+}

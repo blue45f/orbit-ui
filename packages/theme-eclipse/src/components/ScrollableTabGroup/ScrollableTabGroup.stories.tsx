@@ -630,3 +630,198 @@ export const MUI_국제화_로케일_탭: typeof 기본 = {
     return <MuiLocaleTabsRender />
   },
 }
+
+// ─── Cycle 62: Tailwind UI + MUI ───────────────────────────────────────────
+
+const TAILWIND_SECTIONS = [
+  { id: 'overview', label: '개요', badge: null, summary: '프로젝트 전체 현황과 최근 활동을 확인합니다.', items: ['전체 태스크 48개', '완료 31개', '진행 중 12개', '지연 5개'] },
+  { id: 'tasks', label: '태스크', badge: 17, summary: '할당된 태스크 목록과 우선순위를 관리합니다.', items: ['긴급 3개', '높음 6개', '보통 5개', '낮음 3개'] },
+  { id: 'members', label: '팀원', badge: null, summary: '프로젝트에 참여 중인 팀원 현황을 확인합니다.', items: ['개발자 4명', '디자이너 2명', 'PM 1명', 'QA 2명'] },
+  { id: 'milestones', label: '마일스톤', badge: 2, summary: '주요 마일스톤과 달성률을 추적합니다.', items: ['베타 배포 D-12', '정식 출시 D-34', '리트로 D-8', '플래닝 D-2'] },
+  { id: 'docs', label: '문서', badge: null, summary: '프로젝트 관련 문서와 가이드를 관리합니다.', items: ['API 문서', '디자인 가이드', 'PRD', '온보딩'] },
+  { id: 'settings', label: '설정', badge: null, summary: '프로젝트 기본 정보와 권한을 설정합니다.', items: ['알림 설정', '멤버 권한', '연동 서비스', '보안'] },
+]
+
+const TailwindProjectNavRender = () => {
+  const [activeId, setActiveId] = useState('overview')
+  const activeIdx = TAILWIND_SECTIONS.findIndex(s => s.id === activeId)
+  const current = TAILWIND_SECTIONS[activeIdx]
+
+  return (
+    <div style={{ width: 380, border: '1px solid #e2e8f0', borderRadius: 14, overflow: 'hidden', background: '#fff', fontFamily: 'system-ui, sans-serif' }}>
+      <div style={{ padding: '16px 20px 0', borderBottom: '1px solid #f1f5f9' }}>
+        <div style={{ fontSize: 15, fontWeight: 700, color: '#0f172a', marginBottom: 12 }}>프로젝트 대시보드</div>
+        <ScrollableTabGroup
+          selectedIndex={activeIdx}
+          onTabChange={(i) => setActiveId(TAILWIND_SECTIONS[i].id)}
+        >
+          {TAILWIND_SECTIONS.map((s) => (
+            <ScrollableTabGroup.Tab key={s.id} value={s.id}>
+              <ScrollableTabGroup.TabCenter>{s.label}</ScrollableTabGroup.TabCenter>
+              {s.badge !== null && (
+                <ScrollableTabGroup.TabTrailing>
+                  <span style={{ background: '#6366f1', color: '#fff', borderRadius: 100, padding: '1px 6px', fontSize: 10, fontWeight: 700 }}>{s.badge}</span>
+                </ScrollableTabGroup.TabTrailing>
+              )}
+            </ScrollableTabGroup.Tab>
+          ))}
+        </ScrollableTabGroup>
+      </div>
+      <div style={{ padding: 20 }}>
+        <div style={{ fontSize: 12, color: '#6366f1', fontWeight: 600, marginBottom: 8 }}>{current?.label?.toUpperCase()}</div>
+        <div style={{ fontSize: 13, color: '#475569', marginBottom: 14, lineHeight: 1.5 }}>{current?.summary}</div>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
+          {current?.items.map((item, i) => (
+            <div key={i} style={{ padding: '10px 12px', borderRadius: 8, background: '#f8fafc', border: '1px solid #e2e8f0', fontSize: 12, color: '#334155', fontWeight: 500 }}>{item}</div>
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const Tailwind_프로젝트_내비게이션_탭: Story = {
+  name: 'Tailwind UI - 프로젝트 섹션 내비게이션 탭',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Tailwind UI의 수평 탭 내비게이션 패턴. 배지 카운터가 달린 섹션 탭으로 프로젝트 대시보드 내부를 구조화합니다. 활성 탭 콘텐츠가 아래 패널에 즉시 반영됩니다.',
+      },
+    },
+  },
+  render: () => <TailwindProjectNavRender />,
+}
+
+const MUI_METRICS = [
+  { id: 'revenue', label: '매출', unit: '원', value: 8420000, prev: 7100000, color: '#22c55e' },
+  { id: 'users', label: '사용자', unit: '명', value: 23410, prev: 19200, color: '#6366f1' },
+  { id: 'orders', label: '주문', unit: '건', value: 1837, prev: 2100, color: '#f59e0b' },
+  { id: 'refunds', label: '환불', unit: '건', value: 42, prev: 38, color: '#ef4444' },
+]
+
+const MUI_PERIODS = [
+  { id: '1d', label: '1일' },
+  { id: '1w', label: '1주' },
+  { id: '1m', label: '1개월' },
+  { id: '3m', label: '3개월' },
+  { id: '6m', label: '6개월' },
+  { id: '1y', label: '1년' },
+]
+
+const MuiMetricsDashboardRender = () => {
+  const [period, setPeriod] = useState('1m')
+  const periodIdx = MUI_PERIODS.findIndex(p => p.id === period)
+  const multiplier = [0.15, 0.4, 1, 2.5, 5, 10][periodIdx] ?? 1
+
+  return (
+    <div style={{ width: 380, border: '1px solid #e2e8f0', borderRadius: 14, overflow: 'hidden', background: '#fff', fontFamily: 'system-ui, sans-serif' }}>
+      <div style={{ padding: '16px 20px 0', borderBottom: '1px solid #f1f5f9' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
+          <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>지표 대시보드</div>
+        </div>
+        <ScrollableTabGroup
+          selectedIndex={periodIdx}
+          onTabChange={(i) => setPeriod(MUI_PERIODS[i].id)}
+        >
+          {MUI_PERIODS.map((p) => (
+            <ScrollableTabGroup.Tab key={p.id} value={p.id}>
+              <ScrollableTabGroup.TabCenter>{p.label}</ScrollableTabGroup.TabCenter>
+            </ScrollableTabGroup.Tab>
+          ))}
+        </ScrollableTabGroup>
+      </div>
+      <div style={{ padding: 20, display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
+        {MUI_METRICS.map((m) => {
+          const val = Math.round(m.value * multiplier)
+          const prev = Math.round(m.prev * multiplier)
+          const diff = val - prev
+          const pct = ((diff / prev) * 100).toFixed(1)
+          const up = diff >= 0
+          return (
+            <div key={m.id} style={{ padding: '12px 14px', borderRadius: 10, border: '1px solid #f1f5f9', background: '#fafafa' }}>
+              <div style={{ fontSize: 11, color: '#94a3b8', fontWeight: 600, marginBottom: 4 }}>{m.label}</div>
+              <div style={{ fontSize: 18, fontWeight: 800, color: '#0f172a' }}>
+                {m.id === 'revenue' ? `${(val / 10000).toFixed(0)}만` : val.toLocaleString()}
+                <span style={{ fontSize: 11, fontWeight: 500, color: '#94a3b8' }}> {m.unit}</span>
+              </div>
+              <div style={{ fontSize: 11, marginTop: 4, color: up ? '#22c55e' : '#ef4444', fontWeight: 600 }}>
+                {up ? '+' : ''}{pct}% vs 이전
+              </div>
+            </div>
+          )
+        })}
+      </div>
+    </div>
+  )
+}
+
+export const MUI_기간별_지표_대시보드: Story = {
+  name: 'MUI - 기간별 지표 대시보드 탭',
+  parameters: {
+    docs: {
+      description: {
+        story: 'MUI Tabs의 scrollButtons="auto" 패턴. 1일~1년 기간 탭을 선택하면 매출/사용자/주문/환불 지표가 비례 계산되어 즉시 업데이트됩니다. 증감률을 색상으로 직관적으로 표현합니다.',
+      },
+    },
+  },
+  render: () => <MuiMetricsDashboardRender />,
+}
+
+const APPLE_APPS = [
+  { id: 'mail', label: '메일', count: 14, content: ['받은 편지함 14개 미읽음', '보낸 편지함', '스팸 3개', '임시보관함 2개'] },
+  { id: 'notes', label: '메모', count: null, content: ['오늘 추가된 메모 3개', '최근 7일 12개', '폴더 5개', '태그된 메모 8개'] },
+  { id: 'calendar', label: '캘린더', count: 3, content: ['오늘 일정 3개', '이번 주 9개', '다음 주 5개', '반복 일정 4개'] },
+  { id: 'reminders', label: '알림', count: 7, content: ['오늘 마감 7개', '예정 12개', '완료 34개', '플래그 2개'] },
+  { id: 'photos', label: '사진', count: null, content: ['최근 48장', '앨범 12개', '공유 앨범 3개', '즐겨찾기 67장'] },
+  { id: 'files', label: '파일', count: null, content: ['최근 파일 8개', '공유된 파일 4개', '태그 6개', '용량 4.2GB'] },
+]
+
+const AppleHIGTabsRender = () => {
+  const [activeIdx, setActiveIdx] = useState(0)
+  const current = APPLE_APPS[activeIdx]
+
+  return (
+    <div style={{ width: 360, border: '1px solid #e2e8f0', borderRadius: 14, overflow: 'hidden', background: '#f2f2f7', fontFamily: '-apple-system, BlinkMacSystemFont, sans-serif' }}>
+      <div style={{ padding: '14px 0 0', borderBottom: '1px solid #d1d5db' }}>
+        <ScrollableTabGroup
+          selectedIndex={activeIdx}
+          onTabChange={setActiveIdx}
+        >
+          {APPLE_APPS.map((app) => (
+            <ScrollableTabGroup.Tab key={app.id} value={app.id}>
+              <ScrollableTabGroup.TabCenter>{app.label}</ScrollableTabGroup.TabCenter>
+              {app.count !== null && (
+                <ScrollableTabGroup.TabTrailing>
+                  <span style={{ background: '#ff3b30', color: '#fff', borderRadius: 100, padding: '1px 5px', fontSize: 10, fontWeight: 700 }}>{app.count}</span>
+                </ScrollableTabGroup.TabTrailing>
+              )}
+            </ScrollableTabGroup.Tab>
+          ))}
+        </ScrollableTabGroup>
+      </div>
+      <div style={{ padding: 16 }}>
+        <div style={{ fontSize: 13, fontWeight: 600, color: '#1c1c1e', marginBottom: 10 }}>{current?.label}</div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+          {current?.content.map((line, i) => (
+            <div key={i} style={{ padding: '10px 14px', borderRadius: 10, background: '#fff', fontSize: 13, color: '#1c1c1e', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <span>{line}</span>
+              <span style={{ color: '#c7c7cc', fontSize: 16 }}>{'>'}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const Apple_HIG_앱_섹션_탭: Story = {
+  name: 'Apple HIG - iOS 앱 섹션 탭 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Apple HIG의 iOS 세그먼티드/탭 패턴을 ScrollableTabGroup으로 구현. 시스템 앱 스타일의 그룹화된 콘텐츠 탭과 SF 심볼 스타일 배지를 사용해 알림 수를 빨간색으로 강조합니다.',
+      },
+    },
+  },
+  render: () => <AppleHIGTabsRender />,
+}

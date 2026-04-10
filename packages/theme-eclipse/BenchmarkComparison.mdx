@@ -1359,3 +1359,82 @@ const theme = createTheme({
 
   </div>
 </Unstyled>
+
+{/* ========== CYCLE 62: Tailwind UI + MUI ========== */}
+<section style={{ marginBottom: '48px' }}>
+  <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '20px' }}>
+    <div style={{ width: '36px', height: '36px', borderRadius: '10px', background: 'linear-gradient(135deg, #0ea5e9, #6366f1)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontWeight: '800', fontSize: '15px' }}>T</div>
+    <div>
+      <div style={{ fontSize: '22px', fontWeight: '800', color: '#0f172a', letterSpacing: '-0.5px' }}>Cycle 62 — Tailwind UI + MUI 벤치마크</div>
+      <div style={{ fontSize: '13px', color: '#64748b', marginTop: '2px' }}>레이아웃 패턴, 기간 선택 컨트롤, 채용 공고 복합 UI 분석</div>
+    </div>
+  </div>
+
+  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '16px', marginBottom: '24px' }}>
+    <div style={{ padding: '20px', borderRadius: '12px', background: 'linear-gradient(135deg, #f0f9ff, #e0f2fe)', border: '1px solid #bae6fd' }}>
+      <div style={{ fontSize: '14px', fontWeight: '700', color: '#0369a1', marginBottom: '12px' }}>Tailwind UI 핵심 패턴</div>
+      <ul style={{ margin: 0, padding: '0 0 0 16px', fontSize: '13px', color: '#0c4a6e', lineHeight: '1.8' }}>
+        <li>수평 탭 내비게이션 with 배지 카운터</li>
+        <li>사이드바 패널 + 리스트 두 열 레이아웃</li>
+        <li>정렬 컨트롤과 데이터 테이블 조합</li>
+        <li>상태 배지(active/closed/draft) 색상 코딩</li>
+        <li>검색 + 필터 + 정렬 복합 헤더 패턴</li>
+      </ul>
+    </div>
+    <div style={{ padding: '20px', borderRadius: '12px', background: 'linear-gradient(135deg, #faf5ff, #ede9fe)', border: '1px solid #ddd6fe' }}>
+      <div style={{ fontSize: '14px', fontWeight: '700', color: '#6d28d9', marginBottom: '12px' }}>MUI 핵심 패턴</div>
+      <ul style={{ margin: 0, padding: '0 0 0 16px', fontSize: '13px', color: '#4c1d95', lineHeight: '1.8' }}>
+        <li>Tabs scrollButtons="auto" 기간 선택</li>
+        <li>1D/1W/1M/3M/1Y 차트 범위 전환</li>
+        <li>지표 카드 등락률 색상 강조 패턴</li>
+        <li>API 일관성 — 모든 컴포넌트 동일 variant 체계</li>
+        <li>국제화 지원 탭 RTL 레이아웃</li>
+      </ul>
+    </div>
+  </div>
+
+  <div style={{ overflowX: 'auto', borderRadius: '12px', border: '1.5px solid #e2e8f0', marginBottom: '24px' }}>
+    <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px' }}>
+      <thead>
+        <tr style={{ background: '#f8fafc' }}>
+          {['기준', 'Tailwind UI', 'MUI', 'Orbit UI 반영'].map((col, i) => (
+            <th key={col} style={{ padding: '12px 16px', textAlign: 'left', fontWeight: 700, color: i === 3 ? '#6366f1' : '#475569', borderBottom: '1.5px solid #e2e8f0', whiteSpace: 'nowrap' }}>{col}</th>
+          ))}
+        </tr>
+      </thead>
+      <tbody>
+        {[
+          ['수평 탭', '배지 카운터 + 콘텐츠 패널', 'scrollButtons="auto" 자동 스크롤', 'ScrollableTabGroup +3 스토리'],
+          ['기간 선택', '필터 드롭다운 방식', '탭 컨트롤 1D-1Y', 'SegmentedControl 차트 기간 전환'],
+          ['레이아웃', '목록+사이드 패널 2열', '그리드 카드 레이아웃', 'JobBoard 복합 레이아웃 템플릿'],
+          ['정렬 UI', '드롭다운 선택', '탭 그룹 정렬 버튼', 'SegmentedControl 상품 정렬 컨트롤'],
+          ['상태 표시', '컬러 도트 + 텍스트', 'Chip 상태 배지', 'LabelBadge + 인라인 상태 뱃지'],
+        ].map((row, i) => (
+          <tr key={i} style={{ background: i % 2 === 0 ? '#fff' : '#fafafa' }}>
+            {row.map((cell, j) => (
+              <td key={j} style={{ padding: '11px 16px', color: j === 3 ? '#4f46e5' : '#334155', borderBottom: '1px solid #f1f5f9', fontWeight: j === 0 ? 600 : 400 }}>{cell}</td>
+            ))}
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <div style={{ padding: '20px', borderRadius: '12px', background: 'linear-gradient(135deg, #f0f9ff, #faf5ff)', border: '2px solid #bae6fd' }}>
+    <div style={{ fontSize: '13px', fontWeight: '700', color: '#0369a1', marginBottom: '12px' }}>Orbit UI 반영 결과 (Cycle 62)</div>
+    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '12px', fontSize: '12px', color: '#374151', lineHeight: '1.7' }}>
+      <div>
+        <div style={{ fontWeight: '700', color: '#0284c7', marginBottom: '4px' }}>ScrollableTabGroup +3</div>
+        Tailwind 프로젝트 내비게이션 탭(배지), MUI 기간별 지표 대시보드(차트), Apple HIG iOS 앱 섹션 탭 추가.
+      </div>
+      <div>
+        <div style={{ fontWeight: '700', color: '#7c3aed', marginBottom: '4px' }}>SegmentedControl +3</div>
+        Tailwind 상품 정렬 컨트롤, MUI 차트 기간 전환(1D-1Y), Apple HIG 레이아웃 전환(격자/목록/컴팩트) 추가.
+      </div>
+      <div>
+        <div style={{ fontWeight: '700', color: '#0369a1', marginBottom: '4px' }}>Template 52: JobBoard</div>
+        TextField 검색, Chip 부서 필터, SegmentedControl 고용형태, LabelBadge 상태, Progress 모집률 조합.
+      </div>
+    </div>
+  </div>
+</section>
