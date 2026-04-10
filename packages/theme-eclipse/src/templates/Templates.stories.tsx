@@ -32373,3 +32373,130 @@ export const ShadcnNotion139AIWritingStudio: StoryObj = {
   },
   render: () => <AIWritingStudio139Render />,
 }
+
+// ─── Cycle 140: Mantine + Arco Design — 제품 분석 대시보드 ─────────────────
+function ProductAnalytics140Render() {
+  const [period, setPeriod] = useState(0)
+  const periods = ['오늘', '이번 주', '이번 달', '올해']
+
+  const metrics = [
+    { label: '활성 사용자', value: '12,847', change: '+8.4%', up: true, pct: 72, color: 'primary' as const },
+    { label: '전환율', value: '3.21%', change: '+0.42%', up: true, pct: 54, color: 'success' as const },
+    { label: '평균 세션', value: '4m 32s', change: '-0:12', up: false, pct: 63, color: 'warning' as const },
+    { label: '이탈률', value: '24.7%', change: '-2.1%', up: true, pct: 38, color: 'warning' as const },
+  ]
+
+  const channels = [
+    { name: '오가닉 검색', visits: 8420, pct: 45, color: 'primary' as const },
+    { name: '직접 접속', visits: 4210, pct: 23, color: 'success' as const },
+    { name: '소셜 미디어', visits: 3150, pct: 17, color: 'warning' as const },
+    { name: '이메일', visits: 2100, pct: 11, color: 'primary' as const },
+    { name: '추천', visits: 730, pct: 4, color: 'warning' as const },
+  ]
+
+  const pages = [
+    { path: '/dashboard', views: 24300, bounce: 18 },
+    { path: '/components', views: 18700, bounce: 24 },
+    { path: '/docs/getting-started', views: 12400, bounce: 31 },
+    { path: '/templates', views: 9800, bounce: 27 },
+    { path: '/changelog', views: 6200, bounce: 42 },
+  ]
+
+  const maxViews = Math.max(...pages.map((p) => p.views))
+
+  return (
+    <div style={{ width: 900, minHeight: 560, fontFamily: 'system-ui, sans-serif', background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 12, overflow: 'hidden' }}>
+      {/* 헤더 */}
+      <div style={{ padding: '16px 24px', background: '#fff', borderBottom: '1px solid #e2e8f0', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <div>
+          <div style={{ fontSize: 16, fontWeight: 700, color: '#0f172a' }}>제품 분석</div>
+          <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>Orbit UI Storybook — Mantine + Arco Design 패턴</div>
+        </div>
+        <div style={{ display: 'flex', gap: 4 }}>
+          {periods.map((p, i) => (
+            <button
+              key={p}
+              onClick={() => setPeriod(i)}
+              style={{ padding: '5px 12px', borderRadius: 6, border: `1px solid ${period === i ? '#3b82f6' : '#e2e8f0'}`, background: period === i ? '#eff6ff' : '#fff', color: period === i ? '#2563eb' : '#475569', fontSize: 11, fontWeight: period === i ? 600 : 400, cursor: 'pointer' }}
+            >
+              {p}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div style={{ padding: 20, display: 'grid', gridTemplateColumns: '1fr 1fr 1fr 1fr', gap: 12, marginBottom: 0 }}>
+        {metrics.map((m) => (
+          <div key={m.label} style={{ background: '#fff', borderRadius: 10, padding: '14px 16px', border: '1px solid #e2e8f0' }}>
+            <div style={{ fontSize: 11, color: '#64748b', marginBottom: 8 }}>{m.label}</div>
+            <div style={{ fontSize: 22, fontWeight: 800, color: '#0f172a', marginBottom: 4 }}>{m.value}</div>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 }}>
+              <span style={{ fontSize: 11, fontWeight: 600, color: m.up ? '#10b981' : '#ef4444' }}>{m.change}</span>
+              <span style={{ fontSize: 10, color: '#94a3b8' }}>전 기간 대비</span>
+            </div>
+            <Progress value={m.pct} size="small" color={m.color} />
+          </div>
+        ))}
+      </div>
+
+      <div style={{ padding: '0 20px 20px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+        {/* 유입 채널 */}
+        <div style={{ background: '#fff', borderRadius: 10, padding: '16px', border: '1px solid #e2e8f0' }}>
+          <div style={{ fontSize: 13, fontWeight: 700, color: '#0f172a', marginBottom: 16 }}>유입 채널</div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+            {channels.map((ch) => (
+              <div key={ch.name}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
+                  <span style={{ fontSize: 12, color: '#374151' }}>{ch.name}</span>
+                  <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+                    <span style={{ fontSize: 11, color: '#94a3b8' }}>{ch.visits.toLocaleString()}</span>
+                    <span style={{ fontSize: 11, fontWeight: 600, color: '#475569', width: 30, textAlign: 'right' }}>{ch.pct}%</span>
+                  </div>
+                </div>
+                <Progress value={ch.pct} size="small" color={ch.color} />
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* 인기 페이지 */}
+        <div style={{ background: '#fff', borderRadius: 10, padding: '16px', border: '1px solid #e2e8f0' }}>
+          <div style={{ fontSize: 13, fontWeight: 700, color: '#0f172a', marginBottom: 16 }}>인기 페이지</div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+            {pages.map((page, i) => (
+              <div key={page.path}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 5 }}>
+                  <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+                    <span style={{ fontSize: 10, width: 16, height: 16, background: '#f1f5f9', borderRadius: 4, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#64748b', fontWeight: 700 }}>{i + 1}</span>
+                    <span style={{ fontSize: 11, fontFamily: 'monospace', color: '#334155' }}>{page.path}</span>
+                  </div>
+                  <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
+                    <span style={{ fontSize: 10, color: '#94a3b8' }}>이탈 {page.bounce}%</span>
+                    <span style={{ fontSize: 11, fontWeight: 600, color: '#1e293b' }}>{page.views.toLocaleString()}</span>
+                  </div>
+                </div>
+                <Progress value={Math.round((page.views / maxViews) * 100)} size="small" color="primary" />
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const MantiineArco140ProductAnalytics: StoryObj = {
+  name: 'Mantine + Arco — 제품 분석 대시보드 (Cycle 140)',
+  parameters: {
+    layout: 'centered',
+    docs: {
+      description: {
+        story:
+          'Mantine + Arco Design 벤치마크 — Cycle 140. ' +
+          '제품 분석 대시보드: 핵심 지표 카드(Progress 비율), 유입 채널 Progress 시각화, ' +
+          '인기 페이지 상대 Progress. 기간 필터 토글로 뷰 전환.',
+      },
+    },
+  },
+  render: () => <ProductAnalytics140Render />,
+}

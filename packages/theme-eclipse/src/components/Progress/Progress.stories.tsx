@@ -1228,3 +1228,213 @@ export const Linear_OKR_키결과_진행률: Story = {
   name: 'Linear Design - OKR 키 결과 진행률 대시보드',
   render: () => <LinearOKRRender />,
 }
+
+// Cycle 140 — Mantine + Arco Design benchmark
+function MantiineFileUpload140Render() {
+  const [files, setFiles] = React.useState([
+    { name: 'report_Q1_2026.pdf', size: '2.4 MB', progress: 100, status: 'done' as const },
+    { name: 'design_assets.zip', size: '18.7 MB', progress: 64, status: 'uploading' as const },
+    { name: 'database_backup.sql', size: '512 KB', progress: 31, status: 'uploading' as const },
+    { name: 'presentation.pptx', size: '5.1 MB', progress: 0, status: 'pending' as const },
+  ])
+
+  const running = React.useRef(false)
+  React.useEffect(() => {
+    if (running.current) return
+    running.current = true
+    const id = setInterval(() => {
+      setFiles((prev) =>
+        prev.map((f) => {
+          if (f.status === 'uploading' && f.progress < 100) {
+            const next = Math.min(100, f.progress + Math.floor(Math.random() * 8) + 2)
+            return { ...f, progress: next, status: next === 100 ? ('done' as const) : f.status }
+          }
+          if (f.status === 'pending') {
+            const uploading = prev.some((x) => x.status === 'uploading' && x.progress < 100)
+            if (!uploading) return { ...f, status: 'uploading' as const, progress: 0 }
+          }
+          return f
+        })
+      )
+    }, 400)
+    return () => clearInterval(id)
+  }, [])
+
+  const colorMap = { done: 'success' as const, uploading: 'primary' as const, pending: 'warning' as const }
+  const labelMap = { done: '완료', uploading: '업로드 중', pending: '대기' }
+
+  return (
+    <div style={{ width: 420, fontFamily: 'system-ui, sans-serif', background: '#fff', border: '1px solid #e2e8f0', borderRadius: 10, padding: 20 }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
+        <span style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>파일 업로드</span>
+        <span style={{ fontSize: 11, color: '#94a3b8' }}>
+          {files.filter((f) => f.status === 'done').length}/{files.length} 완료
+        </span>
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+        {files.map((file) => (
+          <div key={file.name}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
+              <div>
+                <div style={{ fontSize: 12, fontWeight: 500, color: '#1e293b' }}>{file.name}</div>
+                <div style={{ fontSize: 10, color: '#94a3b8', marginTop: 2 }}>{file.size}</div>
+              </div>
+              <span
+                style={{
+                  fontSize: 10, fontWeight: 600, padding: '2px 8px', borderRadius: 20,
+                  background: file.status === 'done' ? '#dcfce7' : file.status === 'uploading' ? '#dbeafe' : '#f1f5f9',
+                  color: file.status === 'done' ? '#16a34a' : file.status === 'uploading' ? '#2563eb' : '#64748b',
+                }}
+              >
+                {labelMap[file.status]}
+              </span>
+            </div>
+            <Progress value={file.progress} size="small" color={colorMap[file.status]} />
+            {file.status === 'uploading' && (
+              <div style={{ textAlign: 'right', fontSize: 10, color: '#3b82f6', marginTop: 3 }}>
+                {file.progress}%
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+      <div style={{ marginTop: 14, padding: '8px 12px', background: '#f8fafc', borderRadius: 6, fontSize: 11, color: '#94a3b8' }}>
+        Mantine DropzoneArea 패턴 — 실시간 업로드 진행률
+      </div>
+    </div>
+  )
+}
+
+export const Mantine_파일_업로드_진행률: Story = {
+  name: 'Mantine — 파일 업로드 실시간 진행률 (Cycle 140)',
+  render: () => <MantiineFileUpload140Render />,
+}
+
+function ArcoSkillLevel140Render() {
+  const skills = [
+    { name: 'React / TypeScript', level: 92, category: '프론트엔드', trend: '+4%' },
+    { name: 'Node.js / Express', level: 78, category: '백엔드', trend: '+2%' },
+    { name: 'PostgreSQL', level: 65, category: '데이터베이스', trend: '+8%' },
+    { name: 'Docker / K8s', level: 53, category: '인프라', trend: '+12%' },
+    { name: 'Figma / Design', level: 41, category: '디자인', trend: '+1%' },
+  ]
+
+  const colorAt = (pct: number) => (pct >= 80 ? 'success' : pct >= 60 ? 'primary' : pct >= 40 ? 'warning' : 'warning')
+
+  return (
+    <div style={{ width: 380, fontFamily: 'system-ui, sans-serif', background: '#fff', border: '1px solid #e2e8f0', borderRadius: 10, padding: 20 }}>
+      <div style={{ marginBottom: 16 }}>
+        <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>스킬 레벨</div>
+        <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>Arco Design Progress 패턴</div>
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+        {skills.map((skill) => (
+          <div key={skill.name}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 6 }}>
+              <div>
+                <span style={{ fontSize: 12, fontWeight: 600, color: '#1e293b' }}>{skill.name}</span>
+                <span style={{ fontSize: 10, color: '#94a3b8', marginLeft: 6 }}>{skill.category}</span>
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                <span style={{ fontSize: 10, color: '#10b981', fontWeight: 600 }}>{skill.trend}</span>
+                <span style={{ fontSize: 12, fontWeight: 700, color: '#1e293b' }}>{skill.level}</span>
+              </div>
+            </div>
+            <Progress value={skill.level} size="medium" color={colorAt(skill.level)} />
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+export const Arco_스킬_레벨_시각화: Story = {
+  name: 'Arco Design — 스킬 레벨 시각화 (Cycle 140)',
+  render: () => <ArcoSkillLevel140Render />,
+}
+
+function MantiineArco140StepProgress140Render() {
+  const [step, setStep] = React.useState(1)
+  const [intervalId, setIntervalId] = React.useState<ReturnType<typeof setInterval> | null>(null)
+  const totalSteps = 5
+
+  const pct = Math.round(((step - 1) / (totalSteps - 1)) * 100)
+
+  const steps = [
+    { label: '계획', desc: '요구사항 정의' },
+    { label: '설계', desc: '아키텍처 설계' },
+    { label: '개발', desc: '기능 구현' },
+    { label: '테스트', desc: 'QA 검증' },
+    { label: '배포', desc: '프로덕션 출시' },
+  ]
+
+  const startAuto = () => {
+    if (intervalId) return
+    const id = setInterval(() => {
+      setStep((s) => {
+        if (s >= totalSteps) {
+          clearInterval(id)
+          setIntervalId(null)
+          return s
+        }
+        return s + 1
+      })
+    }, 900)
+    setIntervalId(id)
+  }
+
+  const reset = () => {
+    if (intervalId) clearInterval(intervalId)
+    setIntervalId(null)
+    setStep(1)
+  }
+
+  return (
+    <div style={{ width: 440, fontFamily: 'system-ui, sans-serif', background: '#fff', border: '1px solid #e2e8f0', borderRadius: 10, padding: 20 }}>
+      <div style={{ marginBottom: 12, fontSize: 14, fontWeight: 700, color: '#0f172a' }}>개발 파이프라인 진행</div>
+      <div style={{ marginBottom: 16 }}>
+        <Progress value={pct} size="large" color={step === totalSteps ? 'success' : 'primary'} />
+        <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 4 }}>
+          <span style={{ fontSize: 10, color: '#94a3b8' }}>{steps[step - 1]?.label} 단계</span>
+          <span style={{ fontSize: 10, fontWeight: 600, color: '#3b82f6' }}>{pct}%</span>
+        </div>
+      </div>
+      <div style={{ display: 'flex', gap: 4, marginBottom: 16 }}>
+        {steps.map((s, i) => (
+          <div
+            key={s.label}
+            onClick={() => setStep(i + 1)}
+            style={{
+              flex: 1, padding: '8px 4px', textAlign: 'center', cursor: 'pointer', borderRadius: 6,
+              background: i < step ? '#eff6ff' : i === step - 1 ? '#dbeafe' : '#f8fafc',
+              border: `1px solid ${i === step - 1 ? '#3b82f6' : '#e2e8f0'}`,
+            }}
+          >
+            <div style={{ fontSize: 10, fontWeight: 600, color: i < step ? '#2563eb' : '#94a3b8' }}>{s.label}</div>
+            <div style={{ fontSize: 9, color: '#94a3b8', marginTop: 2 }}>{s.desc}</div>
+          </div>
+        ))}
+      </div>
+      <div style={{ display: 'flex', gap: 8 }}>
+        <button
+          onClick={startAuto}
+          disabled={!!intervalId || step === totalSteps}
+          style={{ flex: 1, padding: '7px 0', borderRadius: 6, border: 'none', cursor: step === totalSteps ? 'not-allowed' : 'pointer', background: '#3b82f6', color: '#fff', fontSize: 12, fontWeight: 600, opacity: !!intervalId || step === totalSteps ? 0.5 : 1 }}
+        >
+          자동 진행
+        </button>
+        <button
+          onClick={reset}
+          style={{ flex: 1, padding: '7px 0', borderRadius: 6, border: '1px solid #e2e8f0', cursor: 'pointer', background: '#fff', color: '#475569', fontSize: 12 }}
+        >
+          초기화
+        </button>
+      </div>
+    </div>
+  )
+}
+
+export const Mantine_Arco_스텝_파이프라인_진행률: Story = {
+  name: 'Mantine + Arco — 스텝 파이프라인 진행률 (Cycle 140)',
+  render: () => <MantiineArco140StepProgress140Render />,
+}

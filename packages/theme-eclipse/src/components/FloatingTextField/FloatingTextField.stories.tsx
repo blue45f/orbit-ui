@@ -1149,3 +1149,262 @@ export const shadcn_Linear_커맨드_팔레트_검색: Story = {
   },
   render: () => <ShadcnLinearSearchRender />,
 }
+
+// Cycle 140 — Mantine + Arco Design benchmark
+function MantiineInlineEdit140Render() {
+  const fields = [
+    { key: 'name', label: '이름', value: '김희준' },
+    { key: 'title', label: '직함', value: '시니어 프론트엔드 엔지니어' },
+    { key: 'team', label: '팀', value: 'Design Systems' },
+    { key: 'email', label: '이메일', value: 'heejun@orbit-ui.dev' },
+  ]
+
+  const [values, setValues] = useState<Record<string, string>>(
+    Object.fromEntries(fields.map((f) => [f.key, f.value]))
+  )
+  const [editing, setEditing] = useState<string | null>(null)
+  const [draft, setDraft] = useState('')
+  const [saved, setSaved] = useState<string | null>(null)
+
+  const startEdit = (key: string) => {
+    setEditing(key)
+    setDraft(values[key])
+  }
+
+  const save = (key: string) => {
+    setValues((v) => ({ ...v, [key]: draft }))
+    setEditing(null)
+    setSaved(key)
+    setTimeout(() => setSaved(null), 1500)
+  }
+
+  const cancel = () => setEditing(null)
+
+  return (
+    <div style={{ width: 380, fontFamily: 'system-ui, sans-serif' }}>
+      <div style={{ marginBottom: 16 }}>
+        <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>프로필 인라인 편집</div>
+        <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>Mantine InlineEdit 패턴</div>
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+        {fields.map((field) => (
+          <div key={field.key} style={{ padding: '10px 12px', border: `1px solid ${editing === field.key ? '#3b82f6' : '#e2e8f0'}`, borderRadius: 8, background: editing === field.key ? '#fafeff' : '#fff', transition: 'border-color 0.15s' }}>
+            <div style={{ fontSize: 10, color: '#94a3b8', marginBottom: 4, textTransform: 'uppercase', letterSpacing: 0.5 }}>{field.label}</div>
+            {editing === field.key ? (
+              <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+                <FloatingTextField
+                  placeholder={field.label}
+                  value={draft}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setDraft(e.target.value)}
+                  autoFocus
+                />
+                <button onClick={() => save(field.key)} style={{ padding: '4px 10px', borderRadius: 6, border: 'none', background: '#3b82f6', color: '#fff', fontSize: 11, cursor: 'pointer', flexShrink: 0 }}>저장</button>
+                <button onClick={cancel} style={{ padding: '4px 10px', borderRadius: 6, border: '1px solid #e2e8f0', background: '#fff', fontSize: 11, cursor: 'pointer', flexShrink: 0 }}>취소</button>
+              </div>
+            ) : (
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <span style={{ fontSize: 13, color: '#1e293b' }}>{values[field.key]}</span>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                  {saved === field.key && <span style={{ fontSize: 10, color: '#10b981', fontWeight: 600 }}>저장됨</span>}
+                  <button onClick={() => startEdit(field.key)} style={{ padding: '3px 8px', borderRadius: 5, border: '1px solid #e2e8f0', background: '#f8fafc', fontSize: 10, cursor: 'pointer', color: '#64748b' }}>편집</button>
+                </div>
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+export const Mantine_인라인_프로필_편집: Story = {
+  name: 'Mantine — 인라인 프로필 편집 (Cycle 140)',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Mantine InlineEdit 패턴. 각 필드를 클릭하면 FloatingTextField로 전환되어 즉시 편집. 저장/취소 버튼으로 확정.',
+      },
+    },
+  },
+  render: () => <MantiineInlineEdit140Render />,
+}
+
+function ArcoFormValidation140Render() {
+  const [form, setForm] = useState({ username: '', email: '', website: '' })
+  const [touched, setTouched] = useState<Record<string, boolean>>({})
+  const [submitted, setSubmitted] = useState(false)
+
+  const validate = (key: string, val: string) => {
+    if (key === 'username') return val.length < 2 ? '2자 이상 입력하세요' : val.length > 20 ? '20자 이하로 입력하세요' : ''
+    if (key === 'email') return !val.includes('@') ? '유효한 이메일을 입력하세요' : ''
+    if (key === 'website') return val && !val.startsWith('http') ? 'http:// 또는 https://로 시작해야 합니다' : ''
+    return ''
+  }
+
+  const errors = Object.fromEntries(
+    Object.entries(form).map(([k, v]) => [k, validate(k, v)])
+  )
+
+  const hasError = (key: string) => !!(touched[key] || submitted) && !!errors[key]
+
+  const handleSubmit = () => {
+    setSubmitted(true)
+    setTouched({ username: true, email: true, website: true })
+  }
+
+  const isAllValid = Object.values(errors).every((e) => !e) && form.username && form.email
+
+  return (
+    <div style={{ width: 360, fontFamily: 'system-ui, sans-serif' }}>
+      <div style={{ marginBottom: 16 }}>
+        <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>계정 설정</div>
+        <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>Arco Design Form Validation 패턴</div>
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+        {[
+          { key: 'username', label: '사용자명', placeholder: '사용자명 입력 (2~20자)', required: true },
+          { key: 'email', label: '이메일', placeholder: '이메일 주소', required: true },
+          { key: 'website', label: '웹사이트', placeholder: 'https://example.com', required: false },
+        ].map((field) => (
+          <div key={field.key}>
+            <div style={{ display: 'flex', gap: 4, marginBottom: 6, alignItems: 'center' }}>
+              <span style={{ fontSize: 11, fontWeight: 600, color: '#374151' }}>{field.label}</span>
+              {field.required && <span style={{ fontSize: 10, color: '#ef4444' }}>*</span>}
+            </div>
+            <FloatingTextField
+              placeholder={field.placeholder}
+              value={form[field.key as keyof typeof form]}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                setForm((f) => ({ ...f, [field.key]: e.target.value }))
+              }}
+              onBlur={() => setTouched((t) => ({ ...t, [field.key]: true }))}
+              error={hasError(field.key)}
+            />
+            {hasError(field.key) && (
+              <div style={{ fontSize: 10, color: '#ef4444', marginTop: 4 }}>{errors[field.key]}</div>
+            )}
+          </div>
+        ))}
+        <button
+          onClick={handleSubmit}
+          style={{ padding: '10px 0', borderRadius: 8, border: 'none', background: isAllValid ? '#3b82f6' : '#94a3b8', color: '#fff', fontSize: 13, fontWeight: 600, cursor: 'pointer', transition: 'background 0.2s' }}
+        >
+          {submitted && isAllValid ? '저장됨 ✓' : '저장'}
+        </button>
+      </div>
+    </div>
+  )
+}
+
+export const Arco_폼_실시간_유효성_검사: Story = {
+  name: 'Arco Design — 폼 실시간 유효성 검사 (Cycle 140)',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Arco Design Form Validation 패턴. blur 시 실시간 검증, 오류 메시지 즉시 표시. 모든 필드 유효 시 제출 버튼 활성화.',
+      },
+    },
+  },
+  render: () => <ArcoFormValidation140Render />,
+}
+
+function MantiineArcoMultiStep140Render() {
+  const [step, setStep] = useState(0)
+  const [data, setData] = useState({ fullName: '', email: '', company: '', role: '' })
+  const [errors, setErrors] = useState<Record<string, string>>({})
+
+  const steps = [
+    { title: '기본 정보', fields: ['fullName', 'email'] },
+    { title: '조직 정보', fields: ['company', 'role'] },
+    { title: '완료', fields: [] },
+  ]
+
+  const placeholders: Record<string, string> = {
+    fullName: '전체 이름',
+    email: '업무 이메일',
+    company: '회사명',
+    role: '직무/역할',
+  }
+
+  const validate = () => {
+    const errs: Record<string, string> = {}
+    steps[step]?.fields.forEach((f) => {
+      if (!data[f as keyof typeof data]) errs[f] = '필수 입력 항목입니다'
+    })
+    setErrors(errs)
+    return Object.keys(errs).length === 0
+  }
+
+  const next = () => { if (validate()) setStep((s) => Math.min(s + 1, steps.length - 1)) }
+  const back = () => { setStep((s) => Math.max(s - 1, 0)); setErrors({}) }
+
+  return (
+    <div style={{ width: 360, fontFamily: 'system-ui, sans-serif', border: '1px solid #e2e8f0', borderRadius: 10, padding: 20 }}>
+      <div style={{ display: 'flex', gap: 8, marginBottom: 20 }}>
+        {steps.map((s, i) => (
+          <div key={s.title} style={{ flex: 1 }}>
+            <div style={{ height: 3, borderRadius: 2, background: i <= step ? '#3b82f6' : '#e2e8f0', marginBottom: 4, transition: 'background 0.3s' }} />
+            <div style={{ fontSize: 10, color: i === step ? '#3b82f6' : '#94a3b8', fontWeight: i === step ? 600 : 400 }}>{s.title}</div>
+          </div>
+        ))}
+      </div>
+
+      {step < steps.length - 1 ? (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+          {steps[step].fields.map((field) => (
+            <div key={field}>
+              <FloatingTextField
+                placeholder={placeholders[field]}
+                value={data[field as keyof typeof data]}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                  setData((d) => ({ ...d, [field]: e.target.value }))
+                  if (errors[field]) setErrors((er) => ({ ...er, [field]: '' }))
+                }}
+                error={!!errors[field]}
+              />
+              {errors[field] && <div style={{ fontSize: 10, color: '#ef4444', marginTop: 3 }}>{errors[field]}</div>}
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div style={{ textAlign: 'center', padding: '20px 0' }}>
+          <div style={{ fontSize: 28, marginBottom: 8 }}>✓</div>
+          <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a', marginBottom: 4 }}>등록 완료</div>
+          <div style={{ fontSize: 11, color: '#94a3b8' }}>{data.fullName} ({data.email})</div>
+          <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>{data.company} · {data.role}</div>
+        </div>
+      )}
+
+      <div style={{ display: 'flex', gap: 8, marginTop: 20 }}>
+        {step > 0 && step < steps.length - 1 && (
+          <button onClick={back} style={{ flex: 1, padding: '9px 0', borderRadius: 8, border: '1px solid #e2e8f0', background: '#fff', fontSize: 12, cursor: 'pointer', color: '#475569' }}>
+            이전
+          </button>
+        )}
+        {step < steps.length - 1 ? (
+          <button onClick={next} style={{ flex: 1, padding: '9px 0', borderRadius: 8, border: 'none', background: '#3b82f6', color: '#fff', fontSize: 12, fontWeight: 600, cursor: 'pointer' }}>
+            {step === steps.length - 2 ? '완료' : '다음'}
+          </button>
+        ) : (
+          <button onClick={() => { setStep(0); setData({ fullName: '', email: '', company: '', role: '' }) }}
+            style={{ flex: 1, padding: '9px 0', borderRadius: 8, border: '1px solid #e2e8f0', background: '#fff', fontSize: 12, cursor: 'pointer', color: '#475569' }}
+          >
+            다시 시작
+          </button>
+        )}
+      </div>
+    </div>
+  )
+}
+
+export const Mantine_Arco_멀티스텝_가입_폼: Story = {
+  name: 'Mantine + Arco — 멀티스텝 가입 폼 (Cycle 140)',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Mantine Stepper + Arco Design Form 패턴 조합. 3단계 가입 폼, 각 단계별 실시간 유효성 검사, 진행 표시 바 애니메이션.',
+      },
+    },
+  },
+  render: () => <MantiineArcoMultiStep140Render />,
+}
