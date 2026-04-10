@@ -2040,3 +2040,282 @@ export const Apple_M3_FAQ_아코디언: Story = {
   },
   render: () => <AppleM3FAQ142Render />,
 }
+
+// ──────────────────────────────────────────────────────────────────────────────
+// Cycle 171: Ant Design + Mantine
+// ──────────────────────────────────────────────────────────────────────────────
+
+export const AntDesign_API_레퍼런스_아코디언: Story = {
+  name: 'Ant Design — API 레퍼런스 아코디언 (Cycle 171)',
+  args: { type: 'multiple' as const },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Ant Design Collapse 패턴. 컴포넌트 API 문서에서 Props/Events/Slots를 ' +
+          '섹션별 Accordion으로 구분 표시.',
+      },
+    },
+  },
+  render: function AntAPIReferenceRender() {
+    const sections = [
+      {
+        id: 'props',
+        title: 'Props',
+        badge: '12',
+        content: [
+          { name: 'color', type: '"primary" | "gray" | "black"', default: '"primary"', desc: '버튼 색상 변형' },
+          { name: 'size', type: '"small" | "medium" | "large"', default: '"medium"', desc: '버튼 크기' },
+          { name: 'loading', type: 'boolean', default: 'false', desc: '로딩 상태 표시' },
+          { name: 'disabled', type: 'boolean', default: 'false', desc: '비활성화 상태' },
+        ],
+      },
+      {
+        id: 'events',
+        title: 'Events',
+        badge: '3',
+        content: [
+          { name: 'onClick', type: 'React.MouseEventHandler', default: '—', desc: '클릭 이벤트' },
+          { name: 'onFocus', type: 'React.FocusEventHandler', default: '—', desc: '포커스 이벤트' },
+          { name: 'onBlur', type: 'React.FocusEventHandler', default: '—', desc: '블러 이벤트' },
+        ],
+      },
+      {
+        id: 'slots',
+        title: 'Sub-components',
+        badge: '4',
+        content: [
+          { name: 'Button.Leading', type: 'ReactNode', default: '—', desc: '좌측 아이콘 슬롯' },
+          { name: 'Button.Center', type: 'ReactNode', default: '—', desc: '중앙 텍스트 슬롯' },
+          { name: 'Button.Trailing', type: 'ReactNode', default: '—', desc: '우측 아이콘 슬롯' },
+          { name: 'Button.Loading', type: 'ReactNode', default: '—', desc: '로딩 슬롯' },
+        ],
+      },
+    ]
+
+    return (
+      <div style={{ width: 520, fontFamily: 'system-ui, sans-serif' }}>
+        <div style={{ fontSize: 15, fontWeight: 800, color: '#0f172a', marginBottom: 4 }}>SolidButton</div>
+        <div style={{ fontSize: 12, color: '#6b7280', marginBottom: 14 }}>Compound 패턴의 기본 버튼 컴포넌트</div>
+        <Accordion type="multiple">
+          {sections.map((section) => (
+            <Accordion.Item key={section.id} value={section.id}>
+              <Accordion.Trigger>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                  <span style={{ fontSize: 13, fontWeight: 700, color: '#0f172a' }}>{section.title}</span>
+                  <span style={{ fontSize: 10, fontWeight: 700, padding: '1px 7px', borderRadius: 10, background: '#f1f5f9', color: '#64748b' }}>
+                    {section.badge}
+                  </span>
+                </div>
+              </Accordion.Trigger>
+              <Accordion.Content>
+                <div style={{ padding: '0 4px 8px' }}>
+                  <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 2fr 0.8fr 1.5fr', gap: '4px 12px', marginBottom: 4 }}>
+                    {['이름', '타입', '기본값', '설명'].map((h) => (
+                      <span key={h} style={{ fontSize: 10, fontWeight: 700, color: '#9ca3af', letterSpacing: 0.5 }}>{h.toUpperCase()}</span>
+                    ))}
+                  </div>
+                  {section.content.map((row) => (
+                    <div key={row.name} style={{ display: 'grid', gridTemplateColumns: '1.2fr 2fr 0.8fr 1.5fr', gap: '4px 12px', padding: '6px 0', borderTop: '1px solid #f3f4f6' }}>
+                      <span style={{ fontSize: 12, fontFamily: 'monospace', color: '#6366f1', fontWeight: 600 }}>{row.name}</span>
+                      <span style={{ fontSize: 11, fontFamily: 'monospace', color: '#64748b' }}>{row.type}</span>
+                      <span style={{ fontSize: 11, fontFamily: 'monospace', color: '#9ca3af' }}>{row.default}</span>
+                      <span style={{ fontSize: 11, color: '#374151' }}>{row.desc}</span>
+                    </div>
+                  ))}
+                </div>
+              </Accordion.Content>
+            </Accordion.Item>
+          ))}
+        </Accordion>
+      </div>
+    )
+  },
+}
+
+export const Mantine_훅_기반_상태_아코디언: Story = {
+  name: 'Mantine — 훅 기반 상태 아코디언 (Cycle 171)',
+  args: { type: 'multiple' as const },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Mantine useAccordion 훅 패턴. 프로그래매틱 제어 + 상태 추적. ' +
+          '전체 펼침/접힘 버튼 + 현재 열린 섹션 카운터 표시.',
+      },
+    },
+  },
+  render: function MantineAccordionStateRender() {
+    const ITEMS = ['기본 설치', '테마 설정', '컴포넌트 사용', '고급 커스터마이징', '배포 최적화']
+    const ALL_VALS = ITEMS.map((_, i) => String(i))
+    const [openItems, setOpenItems] = useState<string[]>([])
+
+    const expandAll = () => setOpenItems([...ALL_VALS])
+    const collapseAll = () => setOpenItems([])
+
+    return (
+      <div style={{ width: 460, fontFamily: 'system-ui, sans-serif' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12 }}>
+          <span style={{ fontSize: 13, fontWeight: 700, color: '#0f172a' }}>
+            시작 가이드 <span style={{ fontSize: 11, color: '#6b7280', fontWeight: 400 }}>({openItems.length}/{ITEMS.length} 열림)</span>
+          </span>
+          <div style={{ display: 'flex', gap: 8 }}>
+            <button
+              onClick={expandAll}
+              style={{ fontSize: 11, color: '#3b82f6', background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}
+            >
+              전체 펼치기
+            </button>
+            <button
+              onClick={collapseAll}
+              style={{ fontSize: 11, color: '#6b7280', background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}
+            >
+              전체 접기
+            </button>
+          </div>
+        </div>
+        <Accordion
+          type="multiple"
+          value={openItems}
+          onValueChange={setOpenItems}
+        >
+          {ITEMS.map((item, i) => (
+            <Accordion.Item key={i} value={String(i)}>
+              <Accordion.Trigger>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                  <div style={{
+                    width: 22, height: 22, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 11, fontWeight: 700, flexShrink: 0,
+                    background: openItems.includes(String(i)) ? '#3b82f6' : '#e5e7eb',
+                    color: openItems.includes(String(i)) ? '#fff' : '#9ca3af',
+                  }}>
+                    {i + 1}
+                  </div>
+                  <span style={{ fontSize: 13, fontWeight: 600, color: '#0f172a' }}>{item}</span>
+                </div>
+              </Accordion.Trigger>
+              <Accordion.Content>
+                <div style={{ padding: '8px 4px 12px 32px', fontSize: 12, color: '#6b7280', lineHeight: 1.7 }}>
+                  이 단계에서는 {item}에 필요한 설정과 코드를 안내합니다. 각 항목을 순서대로 따라하면 빠르게 시작할 수 있습니다.
+                </div>
+              </Accordion.Content>
+            </Accordion.Item>
+          ))}
+        </Accordion>
+        <div style={{ marginTop: 12, padding: '8px 12px', background: '#f0fdf4', borderRadius: 8, fontSize: 11, color: '#16a34a' }}>
+          완료: {openItems.length}단계 / 전체 {ITEMS.length}단계
+        </div>
+      </div>
+    )
+  },
+}
+
+export const Ant_Mantine_대시보드_위젯_아코디언: Story = {
+  name: 'Ant Design + Mantine — 대시보드 위젯 아코디언 (Cycle 171)',
+  args: { type: 'multiple' as const },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Ant Design + Mantine 대시보드 사이드 패널 패턴. 필터/통계/최근 활동을 ' +
+          'Accordion 섹션으로 구성. 섹션별 배지 카운터 표시.',
+      },
+    },
+  },
+  render: function AntMantineDashboardAccordionRender() {
+    const stats = [
+      { label: '총 사용자', value: '12,048', change: '+5.2%', up: true },
+      { label: '월 활성 사용자', value: '8,341', change: '+2.1%', up: true },
+      { label: '이탈률', value: '3.4%', change: '-0.8%', up: false },
+    ]
+
+    const activities = [
+      { user: 'KM', action: 'PR #142 병합', time: '5분 전' },
+      { user: 'LJ', action: '디자인 토큰 업데이트', time: '20분 전' },
+      { user: 'PS', action: '이슈 #144 생성', time: '1시간 전' },
+    ]
+
+    const [filters, setFilters] = useState({ period: '7일', type: '전체' })
+
+    return (
+      <div style={{ width: 300, fontFamily: 'system-ui, sans-serif' }}>
+        <Accordion type="multiple" defaultValue={['stats', 'activity']}>
+          <Accordion.Item value="filter">
+            <Accordion.Trigger>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                <span style={{ fontSize: 12, fontWeight: 700, color: '#0f172a' }}>필터</span>
+                <LabelBadge color="sale">활성</LabelBadge>
+              </div>
+            </Accordion.Trigger>
+            <Accordion.Content>
+              <div style={{ padding: '8px 4px 12px', display: 'flex', flexDirection: 'column', gap: 10 }}>
+                {[{ label: '기간', key: 'period', opts: ['7일', '30일', '90일'] }, { label: '유형', key: 'type', opts: ['전체', '신규', '복귀'] }].map((f) => (
+                  <div key={f.key}>
+                    <div style={{ fontSize: 11, color: '#9ca3af', marginBottom: 4 }}>{f.label}</div>
+                    <div style={{ display: 'flex', gap: 6 }}>
+                      {f.opts.map((opt) => (
+                        <button
+                          key={opt}
+                          onClick={() => setFilters((prev) => ({ ...prev, [f.key]: opt }))}
+                          style={{
+                            padding: '3px 10px', borderRadius: 6, fontSize: 11, fontWeight: 600, cursor: 'pointer', border: 'none',
+                            background: filters[f.key as keyof typeof filters] === opt ? '#3b82f6' : '#f1f5f9',
+                            color: filters[f.key as keyof typeof filters] === opt ? '#fff' : '#6b7280',
+                          }}
+                        >
+                          {opt}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </Accordion.Content>
+          </Accordion.Item>
+
+          <Accordion.Item value="stats">
+            <Accordion.Trigger>
+              <span style={{ fontSize: 12, fontWeight: 700, color: '#0f172a' }}>핵심 지표</span>
+            </Accordion.Trigger>
+            <Accordion.Content>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 8, padding: '4px 0 12px' }}>
+                {stats.map((stat) => (
+                  <div key={stat.label} style={{ display: 'flex', justifyContent: 'space-between', padding: '8px 10px', background: '#f9fafb', borderRadius: 8 }}>
+                    <div>
+                      <div style={{ fontSize: 11, color: '#9ca3af' }}>{stat.label}</div>
+                      <div style={{ fontSize: 16, fontWeight: 800, color: '#0f172a' }}>{stat.value}</div>
+                    </div>
+                    <span style={{ fontSize: 11, fontWeight: 600, color: stat.up ? '#10b981' : '#ef4444', alignSelf: 'center' }}>{stat.change}</span>
+                  </div>
+                ))}
+              </div>
+            </Accordion.Content>
+          </Accordion.Item>
+
+          <Accordion.Item value="activity">
+            <Accordion.Trigger>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                <span style={{ fontSize: 12, fontWeight: 700, color: '#0f172a' }}>최근 활동</span>
+                <span style={{ fontSize: 10, fontWeight: 700, padding: '1px 6px', borderRadius: 10, background: '#eff6ff', color: '#3b82f6' }}>{activities.length}</span>
+              </div>
+            </Accordion.Trigger>
+            <Accordion.Content>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 8, padding: '4px 0 12px' }}>
+                {activities.map((act, idx) => (
+                  <div key={idx} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                    <div style={{ width: 26, height: 26, borderRadius: '50%', background: '#3b82f6', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 9, fontWeight: 700, color: '#fff', flexShrink: 0 }}>
+                      {act.user}
+                    </div>
+                    <div style={{ flex: 1 }}>
+                      <div style={{ fontSize: 12, color: '#374151' }}>{act.action}</div>
+                      <div style={{ fontSize: 10, color: '#9ca3af' }}>{act.time}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </Accordion.Content>
+          </Accordion.Item>
+        </Accordion>
+      </div>
+    )
+  },
+}

@@ -1452,3 +1452,219 @@ function ReviewerPickerRender143() {
     </div>
   )
 }
+
+// ──────────────────────────────────────────────────────────────────────────────
+// Cycle 171: Ant Design + Mantine
+// ──────────────────────────────────────────────────────────────────────────────
+
+export const AntDesign_멤버_목록_아바타: Story = {
+  name: 'Ant Design — 팀 멤버 목록 아바타 (Cycle 171)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Ant Design List Avatar 패턴. 팀 멤버 리스트에서 아바타 + 이름 + 역할 조합. ' +
+          '온라인 상태 인디케이터 + 역할 배지 포함.',
+      },
+    },
+  },
+  render: function AntMemberListRender() {
+    const members = [
+      { name: '김민준', role: 'Frontend Engineer', initials: 'KM', color: '#3b82f6', online: true },
+      { name: '이지수', role: 'Product Designer', initials: 'LJ', color: '#8b5cf6', online: true },
+      { name: '박서연', role: 'Data Analyst', initials: 'PS', color: '#ec4899', online: false },
+      { name: '최준호', role: 'DevOps Engineer', initials: 'CJ', color: '#f59e0b', online: true },
+      { name: '윤지원', role: 'Product Manager', initials: 'YJ', color: '#10b981', online: false },
+    ]
+
+    return (
+      <div style={{ width: 340, fontFamily: 'system-ui, sans-serif', background: '#fff', border: '1px solid #e5e7eb', borderRadius: 12, overflow: 'hidden' }}>
+        <div style={{ padding: '12px 16px', borderBottom: '1px solid #f3f4f6', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <span style={{ fontSize: 13, fontWeight: 700, color: '#111827' }}>팀 멤버</span>
+          <span style={{ fontSize: 11, color: '#6b7280' }}>{members.filter((m) => m.online).length}명 온라인</span>
+        </div>
+        {members.map((m) => (
+          <div key={m.name} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '10px 16px', borderBottom: '1px solid #f9fafb' }}>
+            <div style={{ position: 'relative', flexShrink: 0 }}>
+              <Avatar>
+                <Avatar.Fallback style={{ background: m.color, color: '#fff', fontWeight: 700 }}>{m.initials}</Avatar.Fallback>
+              </Avatar>
+              <div style={{
+                position: 'absolute', bottom: 0, right: 0, width: 9, height: 9, borderRadius: '50%',
+                background: m.online ? '#10b981' : '#d1d5db',
+                border: '1.5px solid #fff',
+              }} />
+            </div>
+            <div style={{ flex: 1 }}>
+              <div style={{ fontSize: 13, fontWeight: 600, color: '#111827' }}>{m.name}</div>
+              <div style={{ fontSize: 11, color: '#9ca3af' }}>{m.role}</div>
+            </div>
+            <span style={{ fontSize: 10, color: m.online ? '#10b981' : '#9ca3af', fontWeight: 600 }}>
+              {m.online ? '온라인' : '오프라인'}
+            </span>
+          </div>
+        ))}
+      </div>
+    )
+  },
+}
+
+export const Mantine_아바타_그룹_툴팁: Story = {
+  name: 'Mantine — 아바타 그룹 툴팁 패턴 (Cycle 171)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Mantine AvatarGroup 패턴. 오버랩 스택 아바타 그룹 + 나머지 인원 카운터. ' +
+          '호버 시 전체 멤버 팝오버 표시 시뮬레이션.',
+      },
+    },
+  },
+  render: function MantineAvatarGroupRender() {
+    const [hovered, setHovered] = React.useState(false)
+
+    const members = [
+      { initials: 'KM', color: '#3b82f6', name: '김민준' },
+      { initials: 'LJ', color: '#8b5cf6', name: '이지수' },
+      { initials: 'PS', color: '#ec4899', name: '박서연' },
+      { initials: 'CJ', color: '#f59e0b', name: '최준호' },
+      { initials: 'YJ', color: '#10b981', name: '윤지원' },
+    ]
+
+    const visible = members.slice(0, 4)
+    const overflow = members.length - visible.length
+
+    return (
+      <div style={{ fontFamily: 'system-ui, sans-serif', padding: '20px 0' }}>
+        <div style={{ fontSize: 12, color: '#6b7280', marginBottom: 10 }}>이 PR 리뷰어</div>
+        <div
+          style={{ display: 'flex', alignItems: 'center', gap: 4, position: 'relative', cursor: 'pointer' }}
+          onMouseEnter={() => setHovered(true)}
+          onMouseLeave={() => setHovered(false)}
+        >
+          {visible.map((m, i) => (
+            <div key={m.initials} style={{ marginLeft: i > 0 ? -10 : 0, zIndex: visible.length - i, position: 'relative' }}>
+              <Avatar>
+                <Avatar.Fallback style={{ background: m.color, color: '#fff', fontWeight: 700, border: '2px solid #fff' }}>{m.initials}</Avatar.Fallback>
+              </Avatar>
+            </div>
+          ))}
+          {overflow > 0 && (
+            <div style={{ marginLeft: -10, zIndex: 0 }}>
+              <Avatar>
+                <Avatar.Fallback style={{ background: '#e5e7eb', color: '#6b7280', fontWeight: 700, border: '2px solid #fff', fontSize: 11 }}>
+                  +{overflow}
+                </Avatar.Fallback>
+              </Avatar>
+            </div>
+          )}
+          <span style={{ fontSize: 12, color: '#374151', marginLeft: 8 }}>{members.length}명 리뷰어</span>
+
+          {hovered && (
+            <div style={{
+              position: 'absolute', top: '110%', left: 0, background: '#fff', border: '1px solid #e5e7eb',
+              borderRadius: 10, padding: 10, boxShadow: '0 4px 12px rgba(0,0,0,0.1)', zIndex: 100, minWidth: 180,
+            }}>
+              {members.map((m) => (
+                <div key={m.initials} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '4px 0' }}>
+                  <div style={{ width: 22, height: 22, borderRadius: '50%', background: m.color, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 9, fontWeight: 700, color: '#fff', flexShrink: 0 }}>
+                    {m.initials}
+                  </div>
+                  <span style={{ fontSize: 12, color: '#374151' }}>{m.name}</span>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+    )
+  },
+}
+
+export const Ant_Mantine_멘션_선택기: Story = {
+  name: 'Ant Design + Mantine — 멘션 선택기 아바타 (Cycle 171)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Ant Design Mentions + Mantine Combobox 패턴. 검색 필터 + 아바타 아이템 선택기. ' +
+          '선택된 멤버 태그 표시.',
+      },
+    },
+  },
+  render: function AntMantineMentionRender() {
+    const allUsers = [
+      { initials: 'KM', color: '#3b82f6', name: '김민준', role: 'Frontend' },
+      { initials: 'LJ', color: '#8b5cf6', name: '이지수', role: 'Design' },
+      { initials: 'PS', color: '#ec4899', name: '박서연', role: 'Backend' },
+      { initials: 'CJ', color: '#f59e0b', name: '최준호', role: 'DevOps' },
+      { initials: 'YJ', color: '#10b981', name: '윤지원', role: 'PM' },
+    ]
+
+    const [query, setQuery] = React.useState('')
+    const [selected, setSelected] = React.useState<typeof allUsers>([])
+
+    const filtered = allUsers.filter((u) =>
+      !selected.includes(u) &&
+      (u.name.includes(query) || u.role.toLowerCase().includes(query.toLowerCase()))
+    )
+
+    const addUser = (u: typeof allUsers[0]) => {
+      setSelected((prev) => [...prev, u])
+      setQuery('')
+    }
+
+    const removeUser = (u: typeof allUsers[0]) => {
+      setSelected((prev) => prev.filter((s) => s !== u))
+    }
+
+    return (
+      <div style={{ width: 360, fontFamily: 'system-ui, sans-serif' }}>
+        <div style={{ fontSize: 13, fontWeight: 700, color: '#374151', marginBottom: 8 }}>담당자 지정</div>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, padding: selected.length > 0 ? '8px 0' : 0, marginBottom: selected.length > 0 ? 8 : 0 }}>
+          {selected.map((u) => (
+            <div
+              key={u.initials}
+              style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '4px 8px 4px 4px', background: '#f1f5f9', borderRadius: 20, border: '1px solid #e2e8f0' }}
+            >
+              <div style={{ width: 20, height: 20, borderRadius: '50%', background: u.color, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 8, fontWeight: 700, color: '#fff' }}>
+                {u.initials}
+              </div>
+              <span style={{ fontSize: 12, color: '#374151' }}>{u.name}</span>
+              <button onClick={() => removeUser(u)} style={{ fontSize: 12, color: '#9ca3af', background: 'none', border: 'none', cursor: 'pointer', padding: 0, lineHeight: 1 }}>×</button>
+            </div>
+          ))}
+        </div>
+        <input
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          placeholder="이름 또는 역할로 검색..."
+          style={{ width: '100%', padding: '8px 12px', borderRadius: 8, border: '1px solid #e5e7eb', fontSize: 12, outline: 'none', boxSizing: 'border-box', marginBottom: 8 }}
+        />
+        <div style={{ border: '1px solid #e5e7eb', borderRadius: 8, overflow: 'hidden' }}>
+          {filtered.length === 0 ? (
+            <div style={{ padding: '12px 14px', fontSize: 12, color: '#9ca3af', textAlign: 'center' }}>
+              {query ? '검색 결과 없음' : '모든 멤버가 선택됨'}
+            </div>
+          ) : (
+            filtered.map((u) => (
+              <div
+                key={u.initials}
+                onClick={() => addUser(u)}
+                style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '8px 12px', cursor: 'pointer', borderBottom: '1px solid #f9fafb' }}
+              >
+                <Avatar>
+                  <Avatar.Fallback style={{ background: u.color, color: '#fff', fontWeight: 700, width: 32, height: 32, fontSize: 11 }}>{u.initials}</Avatar.Fallback>
+                </Avatar>
+                <div>
+                  <div style={{ fontSize: 13, fontWeight: 600, color: '#111827' }}>{u.name}</div>
+                  <div style={{ fontSize: 11, color: '#9ca3af' }}>{u.role}</div>
+                </div>
+              </div>
+            ))
+          )}
+        </div>
+      </div>
+    )
+  },
+}

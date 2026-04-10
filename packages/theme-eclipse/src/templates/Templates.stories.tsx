@@ -38222,3 +38222,216 @@ export const RadixLinear170FileManager: StoryObj = {
   },
   render: () => <RadixLinear170FileManagerRender />,
 }
+
+// ──────────────────────────────────────────────────────────────────────────────
+// Cycle 171: Ant Design + Mantine — 분석 대시보드
+// ──────────────────────────────────────────────────────────────────────────────
+
+function AntMantine171AnalyticsDashboardRender() {
+  const [period, setPeriod] = useState<'7d' | '30d' | '90d'>('30d')
+  const [openSections, setOpenSections] = useState<string[]>(['kpi', 'team'])
+
+  const kpis = [
+    { label: '총 배포', value: '248', change: '+12%', up: true, color: '#3b82f6' },
+    { label: '성공률', value: '96.4%', change: '+0.8%', up: true, color: '#10b981' },
+    { label: '평균 빌드', value: '38s', change: '-4s', up: false, color: '#f59e0b' },
+    { label: '활성 PR', value: '14', change: '+3', up: true, color: '#8b5cf6' },
+  ]
+
+  const teamMembers = [
+    { initials: 'KM', color: '#3b82f6', name: '김민준', commits: 87, prs: 12, reviews: 34 },
+    { initials: 'LJ', color: '#8b5cf6', name: '이지수', commits: 42, prs: 8, reviews: 56 },
+    { initials: 'PS', color: '#ec4899', name: '박서연', commits: 63, prs: 6, reviews: 28 },
+    { initials: 'CJ', color: '#f59e0b', name: '최준호', commits: 29, prs: 4, reviews: 18 },
+  ]
+
+  const activityLog = [
+    { user: 'KM', action: 'feat: Button ripple 효과 PR 병합', time: '5분 전', type: 'merge' },
+    { user: 'LJ', action: '디자인 토큰 v3 문서 업데이트', time: '22분 전', type: 'doc' },
+    { user: 'PS', action: 'DataTable 가상 스크롤 PR 생성', time: '1시간 전', type: 'pr' },
+    { user: 'CJ', action: 'orbit-ui → Production 배포 완료', time: '2시간 전', type: 'deploy' },
+    { user: 'YJ', action: '스프린트 17 플래닝 완료', time: '3시간 전', type: 'plan' },
+  ]
+
+  const actionColors: Record<string, string> = {
+    merge: '#10b981', doc: '#3b82f6', pr: '#8b5cf6', deploy: '#f59e0b', plan: '#ec4899',
+  }
+
+  const memberColors: Record<string, string> = {
+    KM: '#3b82f6', LJ: '#8b5cf6', PS: '#ec4899', CJ: '#f59e0b', YJ: '#10b981',
+  }
+
+  return (
+    <div style={{ width: '100%', minHeight: '100vh', background: '#f8fafc', fontFamily: 'system-ui, sans-serif', display: 'flex', flexDirection: 'column' }}>
+      {/* Header */}
+      <div style={{ background: '#fff', borderBottom: '1px solid #e2e8f0', padding: '14px 24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <div>
+          <div style={{ fontSize: 18, fontWeight: 800, color: '#0f172a' }}>분석 대시보드</div>
+          <div style={{ fontSize: 12, color: '#64748b' }}>orbit-ui 프로젝트 개발 지표</div>
+        </div>
+        <div style={{ display: 'flex', gap: 6 }}>
+          {(['7d', '30d', '90d'] as const).map((p) => (
+            <OutlineButton
+              key={p}
+              color={period === p ? 'primary' : 'gray'}
+              size="small"
+              onClick={() => setPeriod(p)}
+            >
+              <OutlineButton.Center>{p === '7d' ? '7일' : p === '30d' ? '30일' : '90일'}</OutlineButton.Center>
+            </OutlineButton>
+          ))}
+        </div>
+      </div>
+
+      <div style={{ flex: 1, padding: 24, display: 'flex', gap: 20 }}>
+        {/* Left: Accordion Sections */}
+        <div style={{ width: 300, display: 'flex', flexDirection: 'column', gap: 0 }}>
+          <Accordion type="multiple" value={openSections} onValueChange={setOpenSections}>
+            <Accordion.Item value="kpi">
+              <Accordion.Trigger>
+                <span style={{ fontSize: 13, fontWeight: 700, color: '#0f172a' }}>핵심 지표</span>
+              </Accordion.Trigger>
+              <Accordion.Content>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 8, padding: '4px 0 12px' }}>
+                  {kpis.map((kpi) => (
+                    <div key={kpi.label} style={{ display: 'flex', justifyContent: 'space-between', padding: '8px 10px', background: '#fff', borderRadius: 8, border: '1px solid #f1f5f9' }}>
+                      <div>
+                        <div style={{ fontSize: 10, color: '#9ca3af' }}>{kpi.label}</div>
+                        <div style={{ fontSize: 18, fontWeight: 800, color: kpi.color }}>{kpi.value}</div>
+                      </div>
+                      <span style={{ fontSize: 11, color: kpi.up ? '#10b981' : '#ef4444', fontWeight: 600, alignSelf: 'center' }}>{kpi.change}</span>
+                    </div>
+                  ))}
+                </div>
+              </Accordion.Content>
+            </Accordion.Item>
+
+            <Accordion.Item value="team">
+              <Accordion.Trigger>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                  <span style={{ fontSize: 13, fontWeight: 700, color: '#0f172a' }}>팀 기여도</span>
+                  <span style={{ fontSize: 10, fontWeight: 700, padding: '1px 6px', borderRadius: 10, background: '#eff6ff', color: '#3b82f6' }}>{teamMembers.length}</span>
+                </div>
+              </Accordion.Trigger>
+              <Accordion.Content>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 8, padding: '4px 0 12px' }}>
+                  {teamMembers.map((m) => (
+                    <div key={m.name} style={{ display: 'flex', gap: 10, alignItems: 'center', padding: '6px 0' }}>
+                      <Avatar>
+                        <Avatar.Fallback style={{ background: m.color, color: '#fff', fontWeight: 700, fontSize: 11 }}>{m.initials}</Avatar.Fallback>
+                      </Avatar>
+                      <div style={{ flex: 1 }}>
+                        <div style={{ fontSize: 12, fontWeight: 600, color: '#374151', marginBottom: 3 }}>{m.name}</div>
+                        <Progress value={Math.round((m.commits / 90) * 100)} size="small" color="primary" />
+                      </div>
+                      <span style={{ fontSize: 11, color: '#9ca3af', fontFamily: 'monospace', flexShrink: 0 }}>{m.commits}</span>
+                    </div>
+                  ))}
+                </div>
+              </Accordion.Content>
+            </Accordion.Item>
+
+            <Accordion.Item value="activity">
+              <Accordion.Trigger>
+                <span style={{ fontSize: 13, fontWeight: 700, color: '#0f172a' }}>최근 활동</span>
+              </Accordion.Trigger>
+              <Accordion.Content>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 8, padding: '4px 0 12px' }}>
+                  {activityLog.slice(0, 3).map((log, idx) => (
+                    <div key={idx} style={{ display: 'flex', gap: 10 }}>
+                      <div style={{ width: 24, height: 24, borderRadius: '50%', background: memberColors[log.user] ?? '#94a3b8', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 8, fontWeight: 700, color: '#fff', flexShrink: 0 }}>
+                        {log.user}
+                      </div>
+                      <div style={{ flex: 1 }}>
+                        <div style={{ fontSize: 11, color: '#374151' }}>{log.action}</div>
+                        <div style={{ fontSize: 10, color: '#9ca3af' }}>{log.time}</div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </Accordion.Content>
+            </Accordion.Item>
+          </Accordion>
+        </div>
+
+        {/* Right: Main Content */}
+        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 16 }}>
+          {/* KPI Grid */}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 12 }}>
+            {kpis.map((kpi) => (
+              <div key={kpi.label} style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: 12, padding: '16px 20px' }}>
+                <div style={{ fontSize: 11, color: '#6b7280', marginBottom: 6 }}>{kpi.label}</div>
+                <div style={{ fontSize: 24, fontWeight: 800, color: kpi.color, marginBottom: 4 }}>{kpi.value}</div>
+                <span style={{ fontSize: 11, color: kpi.up ? '#10b981' : '#ef4444', fontWeight: 600 }}>{kpi.change}</span>
+                <span style={{ fontSize: 11, color: '#9ca3af', marginLeft: 4 }}>이전 기간 대비</span>
+              </div>
+            ))}
+          </div>
+
+          {/* Team Table */}
+          <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: 12, padding: 20, flex: 1 }}>
+            <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a', marginBottom: 16 }}>팀원별 상세 지표</div>
+            <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr 3fr', gap: 12, marginBottom: 8 }}>
+              {['멤버', '커밋', 'PR', '리뷰', '기여도'].map((h) => (
+                <span key={h} style={{ fontSize: 11, fontWeight: 700, color: '#9ca3af' }}>{h}</span>
+              ))}
+            </div>
+            {teamMembers.map((m) => {
+              const total = m.commits + m.prs * 3 + m.reviews
+              const maxTotal = Math.max(...teamMembers.map((x) => x.commits + x.prs * 3 + x.reviews))
+              return (
+                <div key={m.name} style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr 3fr', gap: 12, padding: '10px 0', borderBottom: '1px solid #f3f4f6', alignItems: 'center' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                    <Avatar>
+                      <Avatar.Fallback style={{ background: m.color, color: '#fff', fontWeight: 700, fontSize: 11 }}>{m.initials}</Avatar.Fallback>
+                    </Avatar>
+                    <span style={{ fontSize: 13, fontWeight: 600, color: '#111827' }}>{m.name}</span>
+                  </div>
+                  <span style={{ fontSize: 13, color: '#374151', fontFamily: 'monospace' }}>{m.commits}</span>
+                  <span style={{ fontSize: 13, color: '#374151', fontFamily: 'monospace' }}>{m.prs}</span>
+                  <span style={{ fontSize: 13, color: '#374151', fontFamily: 'monospace' }}>{m.reviews}</span>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                    <div style={{ flex: 1 }}>
+                      <Progress value={Math.round((total / maxTotal) * 100)} size="small" color="primary" />
+                    </div>
+                    <span style={{ fontSize: 11, color: '#9ca3af', flexShrink: 0 }}>{Math.round((total / maxTotal) * 100)}%</span>
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+
+          {/* Activity Feed */}
+          <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: 12, padding: 20 }}>
+            <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a', marginBottom: 14 }}>전체 활동 피드</div>
+            {activityLog.map((log, idx) => (
+              <div key={idx} style={{ display: 'flex', gap: 12, marginBottom: idx < activityLog.length - 1 ? 12 : 0 }}>
+                <div style={{ width: 32, height: 32, borderRadius: '50%', background: memberColors[log.user] ?? '#94a3b8', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 10, fontWeight: 700, color: '#fff', flexShrink: 0 }}>
+                  {log.user}
+                </div>
+                <div style={{ flex: 1 }}>
+                  <span style={{ fontSize: 12, fontWeight: 600, color: actionColors[log.type] }}>●</span>
+                  <span style={{ fontSize: 13, color: '#374151', marginLeft: 6 }}>{log.action}</span>
+                  <div style={{ fontSize: 11, color: '#9ca3af', marginTop: 2 }}>{log.time}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const AntMantine171AnalyticsDashboard: StoryObj = {
+  name: 'Ant Design + Mantine — 분석 대시보드 (Accordion + Avatar + Progress)',
+  parameters: {
+    layout: 'fullscreen',
+    docs: {
+      description: {
+        story: 'Ant Design + Mantine 복합 패턴. 좌: Accordion 섹션(KPI/팀/활동), 우: KPI 카드 그리드 + Avatar 팀 테이블 + Progress 기여도 + 활동 피드.',
+      },
+    },
+  },
+  render: () => <AntMantine171AnalyticsDashboardRender />,
+}
