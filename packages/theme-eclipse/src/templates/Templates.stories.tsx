@@ -51,6 +51,8 @@ import { RadioGroup } from '../components/composites/RadioGroup'
 import { RadioButtonWithLabel } from '../components/composites/RadioButtonWithLabel'
 import { CheckboxWithLabel } from '../components/composites/CheckboxWithLabel'
 import { HoverCard } from '../components/HoverCard'
+import { FloatingTextField } from '../components/FloatingTextField'
+import { EclipseProvider } from '../components/EclipseProvider'
 
 import {
   MenuIcon,
@@ -36493,4 +36495,215 @@ export const ChakraArco161ProductOnboarding: StoryObj = {
     },
   },
   render: () => <ChakraArco161ProductOnboardingRender />,
+}
+
+/* ==========================================================================
+   Cycle 162 — Raycast Extensions + Notion Design
+   RaycastNotion162WorkspaceHub: 통합 워크스페이스 허브 템플릿
+   ========================================================================== */
+const WORKSPACE_DOCS_162 = [
+  { icon: '📊', title: '분기 성과 리포트', date: '오늘', tag: '보고서', color: '#6366f1' },
+  { icon: '🎨', title: 'Design System v3 스펙', date: '어제', tag: '설계', color: '#ec4899' },
+  { icon: '🔧', title: 'API 마이그레이션 가이드', date: '3일 전', tag: '개발', color: '#22c55e' },
+  { icon: '📅', title: '스프린트 30 플래닝', date: '1주 전', tag: '기획', color: '#f59e0b' },
+  { icon: '🚀', title: 'v2.1 릴리즈 노트', date: '2주 전', tag: '릴리즈', color: '#14b8a6' },
+]
+
+const RAYCAST_ACTIONS_162 = [
+  { icon: '📝', label: '새 문서', shortcut: '⌘ N', color: '#6366f1' },
+  { icon: '🔗', label: 'URL 복사', shortcut: '⌘ U', color: '#22c55e' },
+  { icon: '📸', label: '스크린샷', shortcut: '⌘ ⇧ 5', color: '#f59e0b' },
+  { icon: '🔍', label: '전체 검색', shortcut: '⌘ F', color: '#ec4899' },
+]
+
+const NOTION_PAGE_BLOCKS_162 = [
+  { type: 'h1', content: '프로젝트 허브' },
+  { type: 'text', content: 'Raycast + Notion 통합 패턴 — 빠른 명령 접근과 Notion 블록 편집기를 하나의 워크스페이스에 통합합니다.' },
+  { type: 'h2', content: '핵심 원칙' },
+  { type: 'bullet', content: '검색 우선 인터페이스 (Raycast 패턴)' },
+  { type: 'bullet', content: '블록 기반 편집 (Notion 패턴)' },
+  { type: 'bullet', content: 'EclipseProvider 테마 전환 지원' },
+  { type: 'callout', content: 'FloatingTextField로 빠른 문서 생성 — 제목 입력 후 Enter로 즉시 생성', icon: '⚡' },
+]
+
+function RaycastNotion162WorkspaceHubRender() {
+  const [dark, setDark] = useState(false)
+  const [search, setSearch] = useState('')
+  const [newDoc, setNewDoc] = useState('')
+  const [accent, setAccent] = useState('#6366f1')
+  const [activeDoc, setActiveDoc] = useState(0)
+  const [docCreated, setDocCreated] = useState(false)
+
+  const bg = dark ? '#191919' : '#f8fafc'
+  const cardBg = dark ? '#252525' : '#ffffff'
+  const sideBg = dark ? '#1c1c1e' : '#f0f0f2'
+  const border = dark ? '#333' : '#e5e7eb'
+  const text = dark ? '#e8e8e6' : '#1e293b'
+  const sub = dark ? '#888' : '#64748b'
+
+  const filteredDocs = search
+    ? WORKSPACE_DOCS_162.filter(d => d.title.includes(search) || d.tag.includes(search))
+    : WORKSPACE_DOCS_162
+
+  const handleCreate = () => {
+    if (!newDoc.trim()) { return }
+    setDocCreated(true)
+    setNewDoc('')
+    setTimeout(() => setDocCreated(false), 2000)
+  }
+
+  return (
+    <EclipseProvider mode={dark ? 'dark' : 'light'}>
+      <div style={{ display: 'flex', height: '100vh', fontFamily: 'system-ui, sans-serif', background: bg, overflow: 'hidden' }}>
+
+        {/* Left panel: Raycast-style command + doc list */}
+        <div style={{ width: 300, display: 'flex', flexDirection: 'column', background: sideBg, borderRight: `1px solid ${border}` }}>
+          {/* Header */}
+          <div style={{ padding: '16px 16px 12px', borderBottom: `1px solid ${border}` }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 10 }}>
+              <span style={{ fontSize: 14, fontWeight: 800, color: text }}>Workspace Hub</span>
+              <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: 6 }}>
+                <span style={{ fontSize: 10, color: sub }}>다크</span>
+                <Toggle checked={dark} onCheckedChange={(c) => setDark(c)} />
+              </div>
+            </div>
+            {/* Accent colors (Raycast pattern) */}
+            <div style={{ display: 'flex', gap: 5, marginBottom: 10 }}>
+              {['#6366f1', '#22c55e', '#f59e0b', '#ec4899', '#14b8a6'].map(c => (
+                <button key={c} onClick={() => setAccent(c)} style={{ width: 20, height: 20, borderRadius: '50%', background: c, border: accent === c ? `2.5px solid ${text}` : '2.5px solid transparent', cursor: 'pointer', padding: 0, transition: 'border 150ms' }} />
+              ))}
+            </div>
+            {/* Search — FloatingTextField (Raycast pattern) */}
+            <FloatingTextField
+              placeholder="문서 검색 (⌘ Space)"
+              value={search}
+              onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setSearch(e.target.value)}
+            />
+          </div>
+
+          {/* Quick actions (Raycast pattern) */}
+          <div style={{ padding: '10px 8px', borderBottom: `1px solid ${border}` }}>
+            <div style={{ fontSize: 10, fontWeight: 700, color: sub, textTransform: 'uppercase', letterSpacing: '0.07em', padding: '0 8px', marginBottom: 6 }}>빠른 실행</div>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 4 }}>
+              {RAYCAST_ACTIONS_162.map(a => (
+                <button key={a.label} style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '6px 8px', borderRadius: 7, border: 'none', background: 'transparent', cursor: 'pointer', textAlign: 'left' }}
+                  onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.background = accent + '18' }}
+                  onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.background = 'transparent' }}>
+                  <span style={{ fontSize: 14 }}>{a.icon}</span>
+                  <div>
+                    <div style={{ fontSize: 10, fontWeight: 600, color: text }}>{a.label}</div>
+                    <div style={{ fontSize: 9, color: sub, fontFamily: 'monospace' }}>{a.shortcut}</div>
+                  </div>
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Doc list */}
+          <div style={{ flex: 1, overflowY: 'auto' }}>
+            <div style={{ fontSize: 10, fontWeight: 700, color: sub, textTransform: 'uppercase', letterSpacing: '0.07em', padding: '10px 16px 6px' }}>최근 문서</div>
+            {filteredDocs.map((doc, i) => (
+              <button key={i} onClick={() => setActiveDoc(i)} style={{ width: '100%', display: 'flex', alignItems: 'center', gap: 10, padding: '9px 16px', border: 'none', background: activeDoc === i ? accent + '18' : 'transparent', cursor: 'pointer', textAlign: 'left', borderLeft: activeDoc === i ? `3px solid ${accent}` : '3px solid transparent' }}>
+                <span style={{ fontSize: 16 }}>{doc.icon}</span>
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <div style={{ fontSize: 11, fontWeight: 600, color: text, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{doc.title}</div>
+                  <div style={{ fontSize: 10, color: sub }}>{doc.date}</div>
+                </div>
+                <div style={{ fontSize: 9, padding: '2px 6px', borderRadius: 4, background: doc.color + '18', color: doc.color, flexShrink: 0 }}>{doc.tag}</div>
+              </button>
+            ))}
+            {filteredDocs.length === 0 && (
+              <div style={{ padding: '20px 16px', fontSize: 11, color: sub, textAlign: 'center' }}>검색 결과 없음</div>
+            )}
+          </div>
+
+          {/* New doc — Notion inline creation pattern */}
+          <div style={{ padding: '10px 12px', borderTop: `1px solid ${border}`, background: cardBg }}>
+            <div style={{ fontSize: 10, fontWeight: 700, color: sub, textTransform: 'uppercase', letterSpacing: '0.07em', marginBottom: 6 }}>새 문서 (Notion 패턴)</div>
+            <div style={{ display: 'flex', gap: 6 }}>
+              <div style={{ flex: 1 }}>
+                <FloatingTextField
+                  placeholder="제목 입력..."
+                  value={newDoc}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setNewDoc(e.target.value)}
+                />
+              </div>
+              <button
+                onClick={handleCreate}
+                disabled={!newDoc.trim()}
+                style={{ padding: '0 12px', fontSize: 11, borderRadius: 8, border: 'none', background: docCreated ? '#22c55e' : newDoc.trim() ? accent : '#e2e8f0', color: newDoc.trim() ? '#fff' : sub, cursor: newDoc.trim() ? 'pointer' : 'not-allowed', fontWeight: 700, transition: 'all 150ms', whiteSpace: 'nowrap' }}
+              >
+                {docCreated ? '✓' : '+'}
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Right panel: Notion-style block editor */}
+        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', background: cardBg, overflowY: 'auto' }}>
+          {/* Doc header */}
+          <div style={{ padding: '24px 40px 0' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 16 }}>
+              <span style={{ fontSize: 11, color: sub }}>워크스페이스</span>
+              <span style={{ fontSize: 11, color: sub }}>›</span>
+              <span style={{ fontSize: 11, color: accent, fontWeight: 600 }}>{WORKSPACE_DOCS_162[activeDoc]?.title ?? '프로젝트 허브'}</span>
+              <div style={{ marginLeft: 'auto', display: 'flex', gap: 6 }}>
+                <LabelBadge color="benefit"><LabelBadge.Label>공개</LabelBadge.Label></LabelBadge>
+                <SolidButton color="primary" size="small"><SolidButton.Center>편집</SolidButton.Center></SolidButton>
+              </div>
+            </div>
+
+            {/* Notion block content */}
+            <div style={{ maxWidth: 640 }}>
+              {NOTION_PAGE_BLOCKS_162.map((block, i) => {
+                if (block.type === 'h1') return (
+                  <div key={i} style={{ fontSize: 28, fontWeight: 800, color: text, marginBottom: 16, letterSpacing: '-0.03em', lineHeight: 1.2 }}>{block.content}</div>
+                )
+                if (block.type === 'h2') return (
+                  <div key={i} style={{ fontSize: 18, fontWeight: 700, color: text, marginTop: 24, marginBottom: 10, letterSpacing: '-0.02em' }}>{block.content}</div>
+                )
+                if (block.type === 'bullet') return (
+                  <div key={i} style={{ display: 'flex', gap: 10, marginBottom: 6, paddingLeft: 8 }}>
+                    <span style={{ color: accent, fontSize: 14, lineHeight: 1.6 }}>•</span>
+                    <span style={{ fontSize: 13, color: text, opacity: 0.85, lineHeight: 1.6 }}>{block.content}</span>
+                  </div>
+                )
+                if (block.type === 'callout') return (
+                  <div key={i} style={{ margin: '16px 0', padding: '14px 18px', borderRadius: 8, background: accent + '12', border: `1px solid ${accent}30`, display: 'flex', gap: 10, alignItems: 'flex-start' }}>
+                    <span style={{ fontSize: 16 }}>{block.icon}</span>
+                    <span style={{ fontSize: 12, color: text, lineHeight: 1.7 }}>{block.content}</span>
+                  </div>
+                )
+                return (
+                  <div key={i} style={{ fontSize: 13, color: text, lineHeight: 1.8, marginBottom: 12, opacity: 0.8 }}>{block.content}</div>
+                )
+              })}
+            </div>
+          </div>
+
+          {/* Bottom status bar (Notion-style) */}
+          <div style={{ marginTop: 'auto', padding: '10px 40px', borderTop: `1px solid ${border}`, display: 'flex', alignItems: 'center', gap: 12, background: dark ? '#1c1c1e' : '#fafafa' }}>
+            <span style={{ fontSize: 10, color: sub }}>마지막 편집: 방금 전</span>
+            <Divider orientation="vertical" length="12px" />
+            <span style={{ fontSize: 10, color: sub }}>256 단어</span>
+            <Divider orientation="vertical" length="12px" />
+            <span style={{ fontSize: 10, color: accent, fontWeight: 600 }}>자동 저장 중...</span>
+          </div>
+        </div>
+      </div>
+    </EclipseProvider>
+  )
+}
+
+export const RaycastNotion162WorkspaceHub: StoryObj = {
+  name: 'Raycast + Notion — 통합 워크스페이스 허브 (FloatingTextField + EclipseProvider)',
+  parameters: {
+    layout: 'fullscreen',
+    docs: {
+      description: {
+        story: 'Raycast Extensions + Notion Design 복합 패턴. 좌: Raycast 커맨드 팔레트(빠른 실행+문서 검색+FloatingTextField 생성), 우: Notion 블록 편집기(H1/H2/불릿/콜아웃). EclipseProvider 다크모드 + 강조 색상 선택.',
+      },
+    },
+  },
+  render: () => <RaycastNotion162WorkspaceHubRender />,
 }

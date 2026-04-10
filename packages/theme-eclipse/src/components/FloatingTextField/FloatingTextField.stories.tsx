@@ -1408,3 +1408,247 @@ export const Mantine_Arco_멀티스텝_가입_폼: Story = {
   },
   render: () => <MantiineArcoMultiStep140Render />,
 }
+
+/* --------------------------------------------------------------------------
+   Cycle 162 — Raycast Extensions + Notion Design
+   Raycast: 빠른 명령 검색 입력 패턴 (Quick Action Search)
+-------------------------------------------------------------------------- */
+const RAYCAST_COMMANDS = [
+  { icon: '📋', title: '클립보드 히스토리', shortcut: '⌘ V', category: '시스템' },
+  { icon: '📸', title: '스크린샷 캡처', shortcut: '⌘ ⇧ 5', category: '시스템' },
+  { icon: '🔗', title: 'URL 단축', shortcut: '⌘ U', category: '도구' },
+  { icon: '🌐', title: '번역', shortcut: '⌘ T', category: '도구' },
+  { icon: '📝', title: '노트 생성', shortcut: '⌘ N', category: 'Notion' },
+  { icon: '📅', title: '일정 추가', shortcut: '⌘ D', category: '캘린더' },
+]
+
+function RaycastQuickSearchRender() {
+  const [query, setQuery] = useState('')
+  const [focused, setFocused] = useState(false)
+
+  const filtered = query.length > 0
+    ? RAYCAST_COMMANDS.filter(c => c.title.includes(query) || c.category.includes(query))
+    : RAYCAST_COMMANDS
+
+  return (
+    <div style={{ width: 380, fontFamily: 'system-ui, sans-serif' }}>
+      <p style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 10 }}>Raycast — 빠른 명령 검색</p>
+      <div style={{ borderRadius: 12, overflow: 'hidden', border: `1.5px solid ${focused ? '#6366f1' : '#e2e8f0'}`, background: '#fff', boxShadow: focused ? '0 0 0 3px #6366f115' : '0 2px 8px rgba(0,0,0,0.05)', transition: 'all 150ms' }}>
+        <div style={{ padding: '4px 12px' }}>
+          <FloatingTextField
+            placeholder="명령어 검색... (⌘ Space)"
+            value={query}
+            onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setQuery(e.target.value)}
+            onFocus={() => setFocused(true)}
+            onBlur={() => setFocused(false)}
+          />
+        </div>
+        {filtered.length > 0 && (
+          <div style={{ borderTop: '1px solid #f1f5f9', maxHeight: 220, overflowY: 'auto' }}>
+            {filtered.map((cmd, i) => (
+              <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '9px 14px', cursor: 'pointer', background: i === 0 && query ? '#f5f3ff' : 'transparent' }}
+                onMouseEnter={e => { (e.currentTarget as HTMLDivElement).style.background = '#f8fafc' }}
+                onMouseLeave={e => { (e.currentTarget as HTMLDivElement).style.background = i === 0 && query ? '#f5f3ff' : 'transparent' }}>
+                <span style={{ fontSize: 16 }}>{cmd.icon}</span>
+                <div style={{ flex: 1 }}>
+                  <div style={{ fontSize: 12, fontWeight: 600, color: '#1e293b' }}>{cmd.title}</div>
+                  <div style={{ fontSize: 10, color: '#94a3b8' }}>{cmd.category}</div>
+                </div>
+                <div style={{ fontSize: 10, padding: '2px 7px', borderRadius: 5, background: '#f1f5f9', color: '#64748b', fontFamily: 'monospace' }}>{cmd.shortcut}</div>
+              </div>
+            ))}
+          </div>
+        )}
+        {filtered.length === 0 && query && (
+          <div style={{ padding: '16px 14px', textAlign: 'center', fontSize: 12, color: '#94a3b8', borderTop: '1px solid #f1f5f9' }}>
+            &apos;{query}&apos;에 해당하는 명령어가 없습니다
+          </div>
+        )}
+      </div>
+      <div style={{ marginTop: 8, fontSize: 10, color: '#cbd5e1', textAlign: 'center' }}>ESC로 닫기 · Enter로 실행 · ↑↓ 탐색</div>
+    </div>
+  )
+}
+
+export const Raycast_빠른_명령_검색_입력: Story = {
+  name: 'Raycast Extensions — 빠른 명령 검색 입력 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Raycast Quick Search 패턴. FloatingTextField로 명령 검색, 실시간 필터링, 카테고리+단축키 표시. 포커스 시 글로우 효과로 활성 상태 강조.',
+      },
+    },
+  },
+  render: () => <RaycastQuickSearchRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Notion Design: 인라인 페이지 제목 편집 패턴
+-------------------------------------------------------------------------- */
+function NotionInlineTitleEditRender() {
+  const [title, setTitle] = useState('')
+  const [subtext, setSubtext] = useState('')
+  const [titleSaved, setTitleSaved] = useState(false)
+
+  const handleSave = () => {
+    if (!title.trim()) { return }
+    setTitleSaved(true)
+    setTimeout(() => setTitleSaved(false), 2000)
+  }
+
+  return (
+    <div style={{ width: 440, fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' }}>
+      <p style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 12 }}>Notion Design — 인라인 페이지 제목 편집</p>
+      <div style={{ background: '#fff', borderRadius: 12, border: '1px solid #e5e7eb', padding: '24px 28px', boxShadow: '0 2px 12px rgba(0,0,0,0.05)' }}>
+        {/* Page icon area */}
+        <div style={{ marginBottom: 16, display: 'flex', alignItems: 'center', gap: 8 }}>
+          <div style={{ width: 36, height: 36, borderRadius: 8, background: '#f0f4ff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 20, cursor: 'pointer' }}>📄</div>
+          <div style={{ fontSize: 11, color: '#94a3b8' }}>아이콘 클릭으로 변경</div>
+        </div>
+
+        {/* Title field — Notion 스타일: 큰 플레이스홀더 */}
+        <div style={{ marginBottom: 12 }}>
+          <div style={{ fontSize: 10, fontWeight: 600, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.07em', marginBottom: 6 }}>페이지 제목</div>
+          <FloatingTextField
+            placeholder="새 페이지"
+            value={title}
+            onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setTitle(e.target.value)}
+          />
+        </div>
+
+        {/* Subtext field */}
+        <div style={{ marginBottom: 20 }}>
+          <div style={{ fontSize: 10, fontWeight: 600, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.07em', marginBottom: 6 }}>부제목 (선택)</div>
+          <FloatingTextField
+            placeholder="내용 추가..."
+            value={subtext}
+            onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setSubtext(e.target.value)}
+          />
+        </div>
+
+        {/* Preview */}
+        {title && (
+          <div style={{ padding: '12px 16px', borderRadius: 8, background: '#f8fafc', border: '1px solid #e5e7eb', marginBottom: 16 }}>
+            <div style={{ fontSize: 11, color: '#94a3b8', marginBottom: 4 }}>미리보기</div>
+            <div style={{ fontSize: 18, fontWeight: 700, color: '#1e293b', letterSpacing: '-0.02em' }}>{title}</div>
+            {subtext && <div style={{ fontSize: 12, color: '#64748b', marginTop: 4, lineHeight: 1.5 }}>{subtext}</div>}
+          </div>
+        )}
+
+        <button
+          onClick={handleSave}
+          disabled={!title.trim()}
+          style={{ width: '100%', padding: '9px', fontSize: 12, borderRadius: 8, border: 'none', background: titleSaved ? '#22c55e' : title.trim() ? '#2563eb' : '#e2e8f0', color: title.trim() ? '#fff' : '#94a3b8', cursor: title.trim() ? 'pointer' : 'not-allowed', fontWeight: 600, transition: 'all 200ms' }}
+        >
+          {titleSaved ? '저장 완료!' : '페이지 생성'}
+        </button>
+      </div>
+    </div>
+  )
+}
+
+export const Notion_인라인_페이지_제목_편집: Story = {
+  name: 'Notion Design — 인라인 페이지 제목 편집 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Notion의 빈 페이지 제목 편집 UX. 큰 플레이스홀더("새 페이지"), 부제목 필드, 실시간 미리보기, 생성 버튼. FloatingTextField 2개 조합 패턴.',
+      },
+    },
+  },
+  render: () => <NotionInlineTitleEditRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Raycast + Notion: 복합 문서 검색 + 생성 패턴
+-------------------------------------------------------------------------- */
+const RECENT_DOCS = [
+  { icon: '📊', title: '1분기 성과 리포트', date: '오늘', tag: '보고서' },
+  { icon: '🎨', title: 'Design System v2 스펙', date: '어제', tag: '설계' },
+  { icon: '🔧', title: 'API 연동 가이드', date: '3일 전', tag: '개발' },
+  { icon: '📅', title: '스프린트 29 플래닝', date: '1주 전', tag: '기획' },
+]
+
+function RaycastNotionDocSearchRender() {
+  const [query, setQuery] = useState('')
+  const [newDocTitle, setNewDocTitle] = useState('')
+  const [created, setCreated] = useState(false)
+
+  const filtered = query
+    ? RECENT_DOCS.filter(d => d.title.includes(query) || d.tag.includes(query))
+    : RECENT_DOCS
+
+  const handleCreate = () => {
+    if (!newDocTitle.trim()) { return }
+    setCreated(true)
+    setNewDocTitle('')
+    setTimeout(() => setCreated(false), 2500)
+  }
+
+  return (
+    <div style={{ width: 420, fontFamily: 'system-ui, sans-serif' }}>
+      <p style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 10 }}>Raycast + Notion — 문서 검색 & 생성</p>
+      <div style={{ background: '#fff', borderRadius: 14, border: '1px solid #e5e7eb', overflow: 'hidden', boxShadow: '0 4px 20px rgba(0,0,0,0.06)' }}>
+        {/* Search */}
+        <div style={{ padding: '12px 16px', borderBottom: '1px solid #f1f5f9' }}>
+          <FloatingTextField
+            placeholder="문서 검색 (Raycast 패턴)"
+            value={query}
+            onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setQuery(e.target.value)}
+          />
+        </div>
+
+        {/* Recent docs list */}
+        <div style={{ maxHeight: 180, overflowY: 'auto' }}>
+          {filtered.length > 0 ? filtered.map((doc, i) => (
+            <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 16px', cursor: 'pointer', borderBottom: '1px solid #f8fafc' }}
+              onMouseEnter={e => { (e.currentTarget as HTMLDivElement).style.background = '#f8fafc' }}
+              onMouseLeave={e => { (e.currentTarget as HTMLDivElement).style.background = '' }}>
+              <span style={{ fontSize: 16 }}>{doc.icon}</span>
+              <div style={{ flex: 1 }}>
+                <div style={{ fontSize: 12, fontWeight: 600, color: '#1e293b' }}>{doc.title}</div>
+                <div style={{ fontSize: 10, color: '#94a3b8' }}>{doc.date}</div>
+              </div>
+              <div style={{ fontSize: 10, padding: '2px 7px', borderRadius: 5, background: '#f0f4ff', color: '#6366f1' }}>{doc.tag}</div>
+            </div>
+          )) : (
+            <div style={{ padding: '20px 16px', textAlign: 'center', fontSize: 12, color: '#94a3b8' }}>검색 결과 없음</div>
+          )}
+        </div>
+
+        {/* Create new doc — Notion 패턴 */}
+        <div style={{ padding: '12px 16px', borderTop: '1px solid #f1f5f9', background: '#fafafa' }}>
+          <div style={{ fontSize: 10, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.07em', marginBottom: 8 }}>새 문서 생성 (Notion 패턴)</div>
+          <div style={{ display: 'flex', gap: 8 }}>
+            <div style={{ flex: 1 }}>
+              <FloatingTextField
+                placeholder="제목 입력..."
+                value={newDocTitle}
+                onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setNewDocTitle(e.target.value)}
+              />
+            </div>
+            <button
+              onClick={handleCreate}
+              disabled={!newDocTitle.trim()}
+              style={{ padding: '0 14px', fontSize: 11, borderRadius: 8, border: 'none', background: created ? '#22c55e' : newDocTitle.trim() ? '#6366f1' : '#e2e8f0', color: newDocTitle.trim() ? '#fff' : '#94a3b8', cursor: newDocTitle.trim() ? 'pointer' : 'not-allowed', fontWeight: 600, whiteSpace: 'nowrap', transition: 'all 150ms' }}
+            >
+              {created ? '생성!' : '+ 생성'}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const Raycast_Notion_문서_검색_생성_패널: Story = {
+  name: 'Raycast + Notion — 문서 검색 & 생성 패널',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Raycast 검색 목록 + Notion 인라인 생성 패턴 조합. FloatingTextField 2개를 각각 검색/생성 용도로 활용. 실시간 필터링, 빠른 문서 생성 UX.',
+      },
+    },
+  },
+  render: () => <RaycastNotionDocSearchRender />,
+}

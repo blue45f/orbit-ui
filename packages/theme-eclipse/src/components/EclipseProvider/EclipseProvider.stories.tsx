@@ -1329,3 +1329,309 @@ export const Shadcn_Tailwind_사용자_프로필_카드: Story = {
   },
   render: () => <ShadcnTailwindProfileCardRender />,
 }
+
+/* --------------------------------------------------------------------------
+   Cycle 162 — Raycast Extensions + Notion Design
+   Raycast: 확장 설정 패널 테마 전환 패턴
+-------------------------------------------------------------------------- */
+const RAYCAST_PANELS = [
+  { id: 'general', label: '일반', icon: '⚙️' },
+  { id: 'appearance', label: '외관', icon: '🎨' },
+  { id: 'shortcuts', label: '단축키', icon: '⌨️' },
+  { id: 'advanced', label: '고급', icon: '🔧' },
+]
+
+const RAYCAST_ACCENT_COLORS = [
+  { name: 'Blue', value: '#3b82f6' },
+  { name: 'Purple', value: '#8b5cf6' },
+  { name: 'Green', value: '#22c55e' },
+  { name: 'Orange', value: '#f97316' },
+  { name: 'Pink', value: '#ec4899' },
+]
+
+function RaycastExtensionSettingRender() {
+  const [dark, setDark] = useState(false)
+  const [panel, setPanel] = useState('appearance')
+  const [accent, setAccent] = useState('#3b82f6')
+  const [density, setDensity] = useState<'compact' | 'comfortable'>('comfortable')
+  const [animEnabled, setAnimEnabled] = useState(true)
+
+  const bg = dark ? '#1c1c1e' : '#f5f5f7'
+  const cardBg = dark ? '#2c2c2e' : '#ffffff'
+  const border = dark ? '#3a3a3c' : '#e5e7eb'
+  const text = dark ? '#f5f5f7' : '#1c1c1e'
+  const sub = dark ? '#98989d' : '#6b7280'
+  const sidebarBg = dark ? '#252527' : '#f0f0f2'
+
+  return (
+    <EclipseProvider mode={dark ? 'dark' : 'light'}>
+      <div style={{ width: 560, height: 420, display: 'flex', borderRadius: 14, overflow: 'hidden', border: `1px solid ${border}`, background: bg, fontFamily: 'system-ui, sans-serif', boxShadow: dark ? '0 8px 32px rgba(0,0,0,0.5)' : '0 4px 24px rgba(0,0,0,0.08)' }}>
+        {/* Sidebar */}
+        <div style={{ width: 140, background: sidebarBg, borderRight: `1px solid ${border}`, display: 'flex', flexDirection: 'column', padding: '16px 8px' }}>
+          <div style={{ fontSize: 11, fontWeight: 700, color: sub, letterSpacing: '0.07em', textTransform: 'uppercase', padding: '0 8px', marginBottom: 8 }}>Raycast</div>
+          {RAYCAST_PANELS.map(p => (
+            <button key={p.id} onClick={() => setPanel(p.id)} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '7px 8px', borderRadius: 7, border: 'none', background: panel === p.id ? accent + '22' : 'transparent', cursor: 'pointer', textAlign: 'left', width: '100%', marginBottom: 2 }}>
+              <span style={{ fontSize: 14 }}>{p.icon}</span>
+              <span style={{ fontSize: 12, fontWeight: panel === p.id ? 600 : 400, color: panel === p.id ? accent : text }}>{p.label}</span>
+            </button>
+          ))}
+          <div style={{ marginTop: 'auto', padding: '0 8px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+              <span style={{ fontSize: 11, color: sub }}>다크</span>
+              <Toggle checked={dark} onCheckedChange={(c) => setDark(c)} />
+            </div>
+          </div>
+        </div>
+
+        {/* Content */}
+        <div style={{ flex: 1, padding: '20px', overflowY: 'auto', background: cardBg }}>
+          {panel === 'appearance' ? (
+            <>
+              <div style={{ fontSize: 14, fontWeight: 700, color: text, marginBottom: 16 }}>외관 설정</div>
+              <div style={{ marginBottom: 18 }}>
+                <div style={{ fontSize: 11, fontWeight: 600, color: sub, marginBottom: 8, textTransform: 'uppercase', letterSpacing: '0.06em' }}>강조 색상</div>
+                <div style={{ display: 'flex', gap: 8 }}>
+                  {RAYCAST_ACCENT_COLORS.map(c => (
+                    <button key={c.name} onClick={() => setAccent(c.value)} style={{ width: 28, height: 28, borderRadius: '50%', background: c.value, border: accent === c.value ? `3px solid ${text}` : '3px solid transparent', cursor: 'pointer', padding: 0, transition: 'border 150ms' }} title={c.name} />
+                  ))}
+                </div>
+              </div>
+              <div style={{ marginBottom: 18 }}>
+                <div style={{ fontSize: 11, fontWeight: 600, color: sub, marginBottom: 8, textTransform: 'uppercase', letterSpacing: '0.06em' }}>밀도</div>
+                <div style={{ display: 'flex', gap: 6 }}>
+                  {(['compact', 'comfortable'] as const).map(d => (
+                    <button key={d} onClick={() => setDensity(d)} style={{ padding: '5px 14px', fontSize: 11, borderRadius: 7, border: `1.5px solid ${density === d ? accent : border}`, background: density === d ? accent + '15' : 'transparent', color: density === d ? accent : sub, cursor: 'pointer', fontWeight: density === d ? 600 : 400, transition: 'all 150ms' }}>{d === 'compact' ? '컴팩트' : '편안함'}</button>
+                  ))}
+                </div>
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 0', borderTop: `1px solid ${border}` }}>
+                <div>
+                  <div style={{ fontSize: 12, fontWeight: 600, color: text }}>애니메이션</div>
+                  <div style={{ fontSize: 11, color: sub, marginTop: 2 }}>전환 효과 활성화</div>
+                </div>
+                <Switch checked={animEnabled} onCheckedChange={(c) => setAnimEnabled(c)} />
+              </div>
+            </>
+          ) : (
+            <div style={{ height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 8 }}>
+              <span style={{ fontSize: 28 }}>{RAYCAST_PANELS.find(p => p.id === panel)?.icon}</span>
+              <div style={{ fontSize: 13, color: sub }}>{RAYCAST_PANELS.find(p => p.id === panel)?.label} 설정</div>
+            </div>
+          )}
+        </div>
+      </div>
+    </EclipseProvider>
+  )
+}
+
+export const Raycast_확장_설정_패널_테마: Story = {
+  name: 'Raycast Extensions — 확장 설정 패널 테마 전환',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Raycast Extension API의 설정 패널 패턴. 사이드바 탭 탐색, 강조 색상 선택, 밀도 설정, Switch/Toggle 조합. EclipseProvider 다크/라이트 전환.',
+      },
+    },
+  },
+  render: () => <RaycastExtensionSettingRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Notion Design: 블록 편집기 테마 미리보기 패턴
+-------------------------------------------------------------------------- */
+const NOTION_THEMES = [
+  { id: 'default', label: '기본', bg: '#ffffff', sidebar: '#f7f7f5', text: '#37352f', accent: '#2eaadc' },
+  { id: 'dark', label: '다크', bg: '#191919', sidebar: '#252525', text: '#e8e8e6', accent: '#5c9fcb' },
+  { id: 'system', label: '시스템', bg: '#f5f4ef', sidebar: '#eceae4', text: '#37352f', accent: '#d9730d' },
+]
+
+const NOTION_BLOCKS = [
+  { type: 'heading', content: '프로젝트 개요' },
+  { type: 'text', content: 'Orbit UI는 3계층 아키텍처 기반의 React 디자인 시스템입니다.' },
+  { type: 'bullet', content: 'Base 컴포넌트 — 스타일 없는 접근성 기초' },
+  { type: 'bullet', content: 'Theme 컴포넌트 — vanilla-extract 토큰 시스템' },
+  { type: 'bullet', content: 'Custom 컴포넌트 — 프로젝트 맞춤 확장' },
+  { type: 'callout', content: 'EclipseProvider로 전체 앱에 테마를 적용하세요.' },
+]
+
+function NotionBlockEditorThemeRender() {
+  const [themeId, setThemeId] = useState('default')
+  const theme = NOTION_THEMES.find(t => t.id === themeId) ?? NOTION_THEMES[0]
+  const isDark = themeId === 'dark'
+
+  return (
+    <EclipseProvider mode={isDark ? 'dark' : 'light'}>
+      <div style={{ width: 580, borderRadius: 10, overflow: 'hidden', border: `1px solid ${isDark ? '#333' : '#e5e7eb'}`, fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif', boxShadow: '0 2px 20px rgba(0,0,0,0.07)' }}>
+        {/* Header */}
+        <div style={{ background: theme.sidebar, padding: '10px 16px', display: 'flex', alignItems: 'center', gap: 8, borderBottom: `1px solid ${isDark ? '#333' : '#e5e7eb'}` }}>
+          <div style={{ width: 10, height: 10, borderRadius: '50%', background: '#ff5f57', marginRight: 2 }} />
+          <div style={{ width: 10, height: 10, borderRadius: '50%', background: '#febc2e' }} />
+          <div style={{ width: 10, height: 10, borderRadius: '50%', background: '#28c840', marginRight: 12 }} />
+          <span style={{ fontSize: 12, color: theme.text, opacity: 0.5 }}>orbit-ui / docs / overview</span>
+          <div style={{ marginLeft: 'auto', display: 'flex', gap: 4 }}>
+            {NOTION_THEMES.map(t => (
+              <button key={t.id} onClick={() => setThemeId(t.id)} style={{ padding: '3px 10px', fontSize: 10, borderRadius: 5, border: `1.5px solid ${themeId === t.id ? theme.accent : 'transparent'}`, background: themeId === t.id ? theme.accent + '18' : 'transparent', color: themeId === t.id ? theme.accent : theme.text, cursor: 'pointer', fontWeight: themeId === t.id ? 600 : 400, opacity: themeId === t.id ? 1 : 0.6 }}>{t.label}</button>
+            ))}
+          </div>
+        </div>
+
+        {/* Editor area */}
+        <div style={{ display: 'flex', background: theme.bg, minHeight: 240 }}>
+          {/* Sidebar */}
+          <div style={{ width: 60, background: theme.sidebar, borderRight: `1px solid ${isDark ? '#333' : '#e5e7eb'}`, display: 'flex', flexDirection: 'column', alignItems: 'center', paddingTop: 16, gap: 10 }}>
+            {['📄', '🔖', '⭐', '🗑️'].map((icon, i) => (
+              <div key={i} style={{ fontSize: 14, opacity: 0.5, cursor: 'pointer', padding: 4 }}>{icon}</div>
+            ))}
+          </div>
+
+          {/* Content */}
+          <div style={{ flex: 1, padding: '24px 32px' }}>
+            {NOTION_BLOCKS.map((block, i) => {
+              if (block.type === 'heading') return (
+                <div key={i} style={{ fontSize: 22, fontWeight: 700, color: theme.text, marginBottom: 12, letterSpacing: '-0.02em' }}>{block.content}</div>
+              )
+              if (block.type === 'bullet') return (
+                <div key={i} style={{ display: 'flex', gap: 8, marginBottom: 4, color: theme.text, fontSize: 13, opacity: 0.85 }}>
+                  <span style={{ color: theme.accent }}>•</span>
+                  <span>{block.content}</span>
+                </div>
+              )
+              if (block.type === 'callout') return (
+                <div key={i} style={{ marginTop: 12, padding: '10px 14px', borderRadius: 6, background: theme.accent + '15', border: `1px solid ${theme.accent}33`, fontSize: 12, color: theme.text, display: 'flex', gap: 8, alignItems: 'flex-start' }}>
+                  <span>💡</span>
+                  <span>{block.content}</span>
+                </div>
+              )
+              return (
+                <div key={i} style={{ fontSize: 13, color: theme.text, lineHeight: 1.7, marginBottom: 8, opacity: 0.85 }}>{block.content}</div>
+              )
+            })}
+          </div>
+        </div>
+      </div>
+    </EclipseProvider>
+  )
+}
+
+export const Notion_블록_편집기_테마_미리보기: Story = {
+  name: 'Notion Design — 블록 편집기 테마 미리보기',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Notion의 페이지 편집기 레이아웃 패턴. 사이드바 + 에디터 영역, 3가지 테마(기본/다크/시스템) 전환, 블록 타입(헤딩/텍스트/불릿/콜아웃) 렌더링. EclipseProvider colorScheme 연동.',
+      },
+    },
+  },
+  render: () => <NotionBlockEditorThemeRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Raycast + Notion: 통합 워크스페이스 테마 컨트롤 패널
+-------------------------------------------------------------------------- */
+const WORKSPACE_MEMBERS = [
+  { name: '김희준', role: '관리자', color: '#6366f1' },
+  { name: '박지수', role: '개발자', color: '#22c55e' },
+  { name: '이민영', role: '디자이너', color: '#f59e0b' },
+  { name: '최성원', role: '뷰어', color: '#ec4899' },
+]
+
+function RaycastNotionWorkspaceRender() {
+  const [dark, setDark] = useState(false)
+  const [accent, setAccent] = useState('#6366f1')
+  const [notifs, setNotifs] = useState(true)
+  const [autoSave, setAutoSave] = useState(true)
+  const [fontSize, setFontSize] = useState<'small' | 'medium' | 'large'>('medium')
+
+  const bg = dark ? '#191919' : '#f8fafc'
+  const cardBg = dark ? '#252525' : '#ffffff'
+  const border = dark ? '#333' : '#e5e7eb'
+  const text = dark ? '#e8e8e6' : '#1e293b'
+  const sub = dark ? '#888' : '#64748b'
+
+  return (
+    <EclipseProvider mode={dark ? 'dark' : 'light'}>
+      <div style={{ width: 540, background: bg, borderRadius: 14, border: `1px solid ${border}`, fontFamily: 'system-ui, sans-serif', overflow: 'hidden', boxShadow: dark ? '0 8px 32px rgba(0,0,0,0.4)' : '0 4px 20px rgba(0,0,0,0.06)' }}>
+        {/* Title bar */}
+        <div style={{ padding: '14px 20px', borderBottom: `1px solid ${border}`, background: cardBg, display: 'flex', alignItems: 'center', gap: 10 }}>
+          <span style={{ fontSize: 15, fontWeight: 800, color: text, letterSpacing: '-0.02em' }}>워크스페이스 설정</span>
+          <span style={{ marginLeft: 4, fontSize: 10, padding: '2px 8px', borderRadius: 999, background: accent + '22', color: accent, fontWeight: 700 }}>Raycast + Notion</span>
+          <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: 6 }}>
+            <span style={{ fontSize: 11, color: sub }}>다크모드</span>
+            <Toggle checked={dark} onCheckedChange={(c) => setDark(c)} />
+          </div>
+        </div>
+
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 0 }}>
+          {/* Left */}
+          <div style={{ padding: '18px 20px', borderRight: `1px solid ${border}` }}>
+            <div style={{ fontSize: 11, fontWeight: 700, color: sub, textTransform: 'uppercase', letterSpacing: '0.07em', marginBottom: 12 }}>외관 설정</div>
+
+            {/* Accent */}
+            <div style={{ marginBottom: 14 }}>
+              <div style={{ fontSize: 11, color: sub, marginBottom: 6 }}>강조 색상</div>
+              <div style={{ display: 'flex', gap: 6 }}>
+                {['#6366f1', '#22c55e', '#f97316', '#ec4899', '#14b8a6'].map(c => (
+                  <button key={c} onClick={() => setAccent(c)} style={{ width: 24, height: 24, borderRadius: '50%', background: c, border: accent === c ? `3px solid ${text}` : '3px solid transparent', cursor: 'pointer', padding: 0, transition: 'border 150ms' }} />
+                ))}
+              </div>
+            </div>
+
+            {/* Font size */}
+            <div style={{ marginBottom: 14 }}>
+              <div style={{ fontSize: 11, color: sub, marginBottom: 6 }}>텍스트 크기 (Notion 패턴)</div>
+              <div style={{ display: 'flex', gap: 4 }}>
+                {(['small', 'medium', 'large'] as const).map(s => (
+                  <button key={s} onClick={() => setFontSize(s)} style={{ flex: 1, padding: '4px 0', fontSize: 10, borderRadius: 6, border: `1.5px solid ${fontSize === s ? accent : border}`, background: fontSize === s ? accent + '18' : 'transparent', color: fontSize === s ? accent : sub, cursor: 'pointer', fontWeight: fontSize === s ? 700 : 400 }}>{s === 'small' ? '소' : s === 'medium' ? '중' : '대'}</button>
+                ))}
+              </div>
+            </div>
+
+            {/* Toggles */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+              {[
+                { label: '알림 (Raycast)', state: notifs, set: setNotifs },
+                { label: '자동 저장 (Notion)', state: autoSave, set: setAutoSave },
+              ].map(item => (
+                <div key={item.label} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 0', borderTop: `1px solid ${border}` }}>
+                  <span style={{ fontSize: 11, color: text }}>{item.label}</span>
+                  <Switch checked={item.state} onCheckedChange={(c) => item.set(c)} />
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Right: Members */}
+          <div style={{ padding: '18px 20px' }}>
+            <div style={{ fontSize: 11, fontWeight: 700, color: sub, textTransform: 'uppercase', letterSpacing: '0.07em', marginBottom: 12 }}>팀 멤버</div>
+            {WORKSPACE_MEMBERS.map(m => (
+              <div key={m.name} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '8px 0', borderBottom: `1px solid ${border}` }}>
+                <div style={{ width: 30, height: 30, borderRadius: '50%', background: m.color + '22', border: `1.5px solid ${m.color}`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 12, fontWeight: 700, color: m.color }}>{m.name[0]}</div>
+                <div>
+                  <div style={{ fontSize: 12, fontWeight: 600, color: text }}>{m.name}</div>
+                  <div style={{ fontSize: 10, color: sub }}>{m.role}</div>
+                </div>
+                <div style={{ marginLeft: 'auto' }}>
+                  <LabelBadge color={m.role === '관리자' ? 'sale' : m.role === '개발자' ? 'benefit' : 'gray'}>
+                    <LabelBadge.Label>{m.role === '관리자' ? 'admin' : m.role === '개발자' ? 'dev' : m.role === '디자이너' ? 'design' : 'view'}</LabelBadge.Label>
+                  </LabelBadge>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </EclipseProvider>
+  )
+}
+
+export const Raycast_Notion_워크스페이스_테마_패널: Story = {
+  name: 'Raycast + Notion — 워크스페이스 테마 컨트롤 패널',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Raycast 강조 색상 선택 + Notion 텍스트 크기 패턴 조합. 팀 멤버 목록, 알림/자동저장 토글, 다크모드 전환. EclipseProvider 테마 컨텍스트 실시간 반영.',
+      },
+    },
+  },
+  render: () => <RaycastNotionWorkspaceRender />,
+}
