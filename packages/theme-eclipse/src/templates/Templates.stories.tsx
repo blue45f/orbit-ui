@@ -87,6 +87,7 @@ import {
 import { Command } from '../components/Command'
 import { Dropdown } from '../components/Dropdown'
 import { Popover } from '../components/Popover'
+import { Tab } from '../components/TabItem'
 import { Dialog } from '../components/Modal'
 
 const meta: Meta = {
@@ -39681,4 +39682,212 @@ export const MantineAnt177IssueTracker: StoryObj = {
     },
   },
   render: () => <MantineAnt177IssueTrackerRender />,
+}
+
+// ─── Cycle 178 — Radix UI + Linear Design ────────────────────────────────────
+
+function RadixLinear178DesignSystemDocsRender() {
+  const [activeSection, setActiveSection] = useState(0)
+  const [activeComponent, setActiveComponent] = useState('Button')
+  const [colorPickerOpen, setColorPickerOpen] = useState(false)
+  const [brandColor, setBrandColor] = useState('#6366f1')
+  const [propView, setPropView] = useState<'props' | 'examples' | 'a11y'>('props')
+
+  const sectionTabs = [
+    { id: 'components', label: '컴포넌트', count: 47 },
+    { id: 'tokens', label: '디자인 토큰', count: 180 },
+    { id: 'patterns', label: '패턴', count: 23 },
+    { id: 'guides', label: '가이드', count: 12 },
+  ]
+
+  const components = [
+    { name: 'Button', status: 'stable', category: 'Actions' },
+    { name: 'TextField', status: 'stable', category: 'Forms' },
+    { name: 'Dialog', status: 'stable', category: 'Overlay' },
+    { name: 'Popover', status: 'stable', category: 'Overlay' },
+    { name: 'Tab', status: 'stable', category: 'Navigation' },
+    { name: 'Slider', status: 'beta', category: 'Forms' },
+    { name: 'Calendar', status: 'beta', category: 'Forms' },
+    { name: 'DataTable', status: 'stable', category: 'Data Display' },
+  ]
+
+  const propsDocs = [
+    { name: 'color', type: '"primary" | "secondary" | "danger"', default: '"primary"', desc: '버튼 색상 테마' },
+    { name: 'size', type: '"small" | "medium" | "large"', default: '"medium"', desc: '버튼 크기' },
+    { name: 'disabled', type: 'boolean', default: 'false', desc: '비활성화 상태' },
+    { name: 'onClick', type: '() => void', default: '—', desc: '클릭 핸들러' },
+  ]
+
+  const shortcuts = [
+    { action: '검색', keys: ['⌘', 'K'] },
+    { action: '새 컴포넌트', keys: ['⌘', 'N'] },
+    { action: '설정', keys: ['⌘', ','] },
+    { action: '도움말', keys: ['?'] },
+  ]
+
+  const colorPalette = ['#6366f1', '#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6', '#ec4899', '#0f172a']
+
+  const statusStyle: Record<string, { bg: string; color: string }> = {
+    stable: { bg: '#dcfce7', color: '#16a34a' },
+    beta: { bg: '#fef3c7', color: '#d97706' },
+  }
+
+  return (
+    <div style={{ minHeight: '100vh', background: '#fff', fontFamily: 'system-ui, sans-serif', display: 'flex', flexDirection: 'column' }}>
+      {/* Top AppBar */}
+      <div style={{ borderBottom: '1px solid #e5e7eb', padding: '0 24px', display: 'flex', alignItems: 'center', gap: 16, height: 52 }}>
+        <div style={{ fontSize: 14, fontWeight: 800, color: '#0f172a', letterSpacing: -0.5 }}>Orbit UI</div>
+        <div style={{ fontSize: 11, color: '#94a3b8' }}>문서</div>
+        <div style={{ flex: 1 }} />
+        {/* Brand color picker via Popover */}
+        <Popover open={colorPickerOpen} onOpenChange={setColorPickerOpen}>
+          <Popover.Trigger asChild>
+            <button style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '5px 10px', borderRadius: 8, border: '1px solid #e5e7eb', background: '#fff', cursor: 'pointer', fontSize: 11, color: '#374151', fontFamily: 'system-ui' }}>
+              <div style={{ width: 14, height: 14, borderRadius: 3, background: brandColor }} />
+              브랜드 색상
+            </button>
+          </Popover.Trigger>
+          <Popover.Content style={{ width: 160 }}>
+            <div style={{ padding: 4 }}>
+              <div style={{ fontSize: 11, fontWeight: 600, color: '#374151', marginBottom: 8 }}>브랜드 색상 선택</div>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 4 }}>
+                {colorPalette.map((c) => (
+                  <button key={c} onClick={() => { setBrandColor(c); setColorPickerOpen(false) }} style={{ width: '100%', aspectRatio: '1', borderRadius: 5, background: c, border: brandColor === c ? '2px solid #374151' : '2px solid transparent', cursor: 'pointer' }} aria-label={c} />
+                ))}
+              </div>
+            </div>
+          </Popover.Content>
+        </Popover>
+        {/* Shortcut hint via Popover */}
+        <Popover>
+          <Popover.Trigger asChild>
+            <button style={{ padding: '5px 10px', borderRadius: 8, border: '1px solid #e5e7eb', background: '#fff', cursor: 'pointer', fontSize: 11, color: '#94a3b8', fontFamily: 'system-ui' }}>
+              단축키 <span style={{ fontFamily: 'monospace', fontSize: 10 }}>?</span>
+            </button>
+          </Popover.Trigger>
+          <Popover.Content style={{ width: 200 }}>
+            <div style={{ padding: 4 }}>
+              <div style={{ fontSize: 11, fontWeight: 600, color: '#0f172a', marginBottom: 8 }}>키보드 단축키</div>
+              {shortcuts.map((s) => (
+                <div key={s.action} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '4px 4px' }}>
+                  <span style={{ fontSize: 11, color: '#374151' }}>{s.action}</span>
+                  <div style={{ display: 'flex', gap: 2 }}>
+                    {s.keys.map((k) => <span key={k} style={{ fontSize: 10, padding: '1px 4px', borderRadius: 3, background: '#f1f5f9', border: '1px solid #e5e7eb', fontFamily: 'monospace', color: '#374151' }}>{k}</span>)}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </Popover.Content>
+        </Popover>
+      </div>
+
+      <div style={{ display: 'flex', flex: 1, overflow: 'hidden' }}>
+        {/* Left sidebar */}
+        <div style={{ width: 200, borderRight: '1px solid #e5e7eb', padding: '16px 8px', overflowY: 'auto' }}>
+          <div style={{ fontSize: 9, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: 0.8, padding: '0 6px', marginBottom: 6 }}>컴포넌트</div>
+          {components.map((comp) => (
+            <div key={comp.name} style={{ marginBottom: 1 }}>
+              <Tab
+                selected={activeComponent === comp.name}
+                onClick={() => setActiveComponent(comp.name)}
+              >
+                <Tab.Center>{comp.name}</Tab.Center>
+                <Tab.Trailing>
+                  <span style={{ fontSize: 9, padding: '0px 4px', borderRadius: 3, background: statusStyle[comp.status]?.bg, color: statusStyle[comp.status]?.color, fontWeight: 600 }}>{comp.status}</span>
+                </Tab.Trailing>
+              </Tab>
+            </div>
+          ))}
+        </div>
+
+        {/* Main content */}
+        <div style={{ flex: 1, overflow: 'auto' }}>
+          {/* Section tabs */}
+          <div style={{ borderBottom: '1px solid #e5e7eb', padding: '0 20px', display: 'flex', gap: 2 }}>
+            {sectionTabs.map((tab, i) => (
+              <Tab key={tab.id} selected={activeSection === i} onClick={() => setActiveSection(i)}>
+                <Tab.Center>{tab.label}</Tab.Center>
+                <Tab.Trailing>
+                  <span style={{ fontSize: 9, color: activeSection === i ? brandColor : '#94a3b8', fontWeight: 700 }}>{tab.count}</span>
+                </Tab.Trailing>
+              </Tab>
+            ))}
+          </div>
+
+          <div style={{ padding: '20px' }}>
+            {/* Component header */}
+            <div style={{ display: 'flex', alignItems: 'flex-start', gap: 12, marginBottom: 20 }}>
+              <div style={{ flex: 1 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
+                  <span style={{ fontSize: 20, fontWeight: 800, color: '#0f172a', letterSpacing: -0.5 }}>{activeComponent}</span>
+                  <span style={{ fontSize: 10, padding: '2px 7px', borderRadius: 99, background: statusStyle[components.find((c) => c.name === activeComponent)?.status ?? 'stable']?.bg, color: statusStyle[components.find((c) => c.name === activeComponent)?.status ?? 'stable']?.color, fontWeight: 600 }}>
+                    {components.find((c) => c.name === activeComponent)?.status}
+                  </span>
+                </div>
+                <div style={{ fontSize: 13, color: '#64748b' }}>
+                  {activeComponent === 'Button' ? 'Radix Primitive 기반 액션 트리거 컴포넌트. 단색/외곽선/고스트 variant 지원.' : `${activeComponent} 컴포넌트 — Orbit UI Eclipse 테마.`}
+                </div>
+              </div>
+              <div style={{ display: 'flex', gap: 2 }}>
+                {(['props', 'examples', 'a11y'] as const).map((v) => (
+                  <button key={v} onClick={() => setPropView(v)} style={{ fontSize: 11, padding: '4px 10px', borderRadius: 7, border: `1px solid ${propView === v ? brandColor : '#e5e7eb'}`, background: propView === v ? brandColor + '15' : '#fff', color: propView === v ? brandColor : '#6b7280', cursor: 'pointer', fontFamily: 'system-ui', fontWeight: propView === v ? 600 : 400 }}>
+                    {{ props: 'Props', examples: '예시', a11y: '접근성' }[v]}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {propView === 'props' && (
+              <div style={{ border: '1px solid #e5e7eb', borderRadius: 10, overflow: 'hidden' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: '140px 1fr 80px 1fr', gap: 0 }}>
+                  {['Prop', '타입', '기본값', '설명'].map((h) => (
+                    <div key={h} style={{ padding: '8px 12px', fontSize: 11, fontWeight: 600, color: '#94a3b8', background: '#f8fafc', borderBottom: '1px solid #f1f5f9' }}>{h}</div>
+                  ))}
+                  {propsDocs.map((prop, i) => [
+                    <div key={prop.name + 'n'} style={{ padding: '9px 12px', fontSize: 12, fontFamily: 'monospace', color: brandColor, borderBottom: i < propsDocs.length - 1 ? '1px solid #f8fafc' : 'none' }}>{prop.name}</div>,
+                    <div key={prop.name + 't'} style={{ padding: '9px 12px', fontSize: 11, fontFamily: 'monospace', color: '#7c3aed', borderBottom: i < propsDocs.length - 1 ? '1px solid #f8fafc' : 'none' }}>{prop.type}</div>,
+                    <div key={prop.name + 'd'} style={{ padding: '9px 12px', fontSize: 11, fontFamily: 'monospace', color: '#94a3b8', borderBottom: i < propsDocs.length - 1 ? '1px solid #f8fafc' : 'none' }}>{prop.default}</div>,
+                    <div key={prop.name + 'desc'} style={{ padding: '9px 12px', fontSize: 12, color: '#374151', borderBottom: i < propsDocs.length - 1 ? '1px solid #f8fafc' : 'none' }}>{prop.desc}</div>,
+                  ])}
+                </div>
+              </div>
+            )}
+
+            {propView === 'examples' && (
+              <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+                {(['primary', 'black', 'gray'] as const).map((c) => (
+                  <SolidButton key={c} color={c} size="medium">
+                    <SolidButton.Center>{c}</SolidButton.Center>
+                  </SolidButton>
+                ))}
+              </div>
+            )}
+
+            {propView === 'a11y' && (
+              <div style={{ padding: '14px 16px', borderRadius: 10, background: '#f0fdf4', border: '1px solid #bbf7d0', fontSize: 12, color: '#166534', lineHeight: 1.7 }}>
+                <div style={{ fontWeight: 700, marginBottom: 6 }}>WAI-ARIA 지원 (Radix UI 패턴)</div>
+                <div>- role=&quot;button&quot; 자동 적용</div>
+                <div>- aria-disabled: disabled 상태 시 true</div>
+                <div>- 키보드: Enter/Space로 활성화</div>
+                <div>- 포커스 링: :focus-visible 스타일</div>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const RadixLinear178DesignSystemDocs: StoryObj = {
+  name: 'Radix UI + Linear — 디자인 시스템 문서 브라우저 (Cycle 178)',
+  parameters: {
+    layout: 'fullscreen',
+    docs: {
+      description: {
+        story: 'Radix Popover 브랜드 색상 피커 + 단축키 힌트 + Linear 스타일 Tab 사이드바 내비게이션. 컴포넌트 Props 테이블 / 예시 / 접근성 탭 전환. 문서 시스템 UI 패턴 종합 데모.',
+      },
+    },
+  },
+  render: () => <RadixLinear178DesignSystemDocsRender />,
 }

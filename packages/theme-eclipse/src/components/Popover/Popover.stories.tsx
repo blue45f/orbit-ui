@@ -1852,3 +1852,218 @@ export const Linear_Radix_레이블_관리_팝오버: Story = {
   },
   render: () => <LinearRadixLabelManagerRender />,
 }
+
+/* --------------------------------------------------------------------------
+   Cycle 178 — Radix UI + Linear Design
+   Benchmark:
+   1. Radix Popover: 폼 입력을 팝오버 내부에 배치하는 인라인 편집 패턴
+   2. Linear: 단축키 힌트 팝오버 — 호버 시 키보드 단축키 오버레이
+   3. Linear + Radix: 색상 선택 팝오버 — 팔레트 그리드 + 텍스트 입력
+-------------------------------------------------------------------------- */
+
+function RadixInlineEditPopoverRender() {
+  const [name, setName] = useState('Orbit UI')
+  const [desc, setDesc] = useState('React 디자인 시스템')
+  const [draft, setDraft] = useState({ name: 'Orbit UI', desc: 'React 디자인 시스템' })
+  const [open, setOpen] = useState(false)
+
+  const handleSave = () => {
+    setName(draft.name)
+    setDesc(draft.desc)
+    setOpen(false)
+  }
+
+  return (
+    <div style={{ padding: '60px 40px', display: 'flex', justifyContent: 'center' }}>
+      <div style={{ border: '1px solid #e5e7eb', borderRadius: 12, padding: '16px 20px', width: 300, fontFamily: 'system-ui, sans-serif' }}>
+        <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 8 }}>
+          <div>
+            <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>{name}</div>
+            <div style={{ fontSize: 12, color: '#64748b', marginTop: 2 }}>{desc}</div>
+          </div>
+          <Popover open={open} onOpenChange={setOpen}>
+            <Popover.Trigger asChild>
+              <button style={{ fontSize: 11, padding: '4px 10px', borderRadius: 7, border: '1px solid #e5e7eb', background: 'transparent', cursor: 'pointer', color: '#6366f1', fontWeight: 600, fontFamily: 'system-ui', whiteSpace: 'nowrap' }}>
+                편집
+              </button>
+            </Popover.Trigger>
+            <Popover.Content style={{ width: 260 }}>
+              <div style={{ padding: 4 }}>
+                <div style={{ fontSize: 12, fontWeight: 600, color: '#374151', marginBottom: 10 }}>프로젝트 정보 편집</div>
+                <div style={{ marginBottom: 8 }}>
+                  <label style={{ fontSize: 11, color: '#94a3b8', display: 'block', marginBottom: 4 }}>이름</label>
+                  <input
+                    value={draft.name}
+                    onChange={(e) => setDraft((prev) => ({ ...prev, name: e.target.value }))}
+                    style={{ width: '100%', padding: '6px 10px', borderRadius: 7, border: '1px solid #e5e7eb', fontSize: 12, color: '#374151', boxSizing: 'border-box', fontFamily: 'system-ui', outline: 'none' }}
+                  />
+                </div>
+                <div style={{ marginBottom: 12 }}>
+                  <label style={{ fontSize: 11, color: '#94a3b8', display: 'block', marginBottom: 4 }}>설명</label>
+                  <input
+                    value={draft.desc}
+                    onChange={(e) => setDraft((prev) => ({ ...prev, desc: e.target.value }))}
+                    style={{ width: '100%', padding: '6px 10px', borderRadius: 7, border: '1px solid #e5e7eb', fontSize: 12, color: '#374151', boxSizing: 'border-box', fontFamily: 'system-ui', outline: 'none' }}
+                  />
+                </div>
+                <div style={{ display: 'flex', gap: 6, justifyContent: 'flex-end' }}>
+                  <button onClick={() => setOpen(false)} style={{ fontSize: 11, padding: '5px 10px', borderRadius: 6, border: '1px solid #e5e7eb', background: 'transparent', cursor: 'pointer', color: '#64748b', fontFamily: 'system-ui' }}>취소</button>
+                  <button onClick={handleSave} style={{ fontSize: 11, padding: '5px 10px', borderRadius: 6, border: 'none', background: '#6366f1', cursor: 'pointer', color: '#fff', fontWeight: 600, fontFamily: 'system-ui' }}>저장</button>
+                </div>
+              </div>
+            </Popover.Content>
+          </Popover>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const Radix_인라인_편집_팝오버: Story = {
+  name: 'Radix UI — 인라인 편집 팝오버 (폼 내장 + 저장/취소)',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Radix UI Popover 안에 폼 입력을 배치하는 인라인 편집 패턴. 저장 시 외부 값 업데이트 후 팝오버 닫기. Notion/Linear 인라인 편집 UX를 Orbit UI Popover로 구현. open 상태 제어로 저장/취소 동작.',
+      },
+    },
+  },
+  render: () => <RadixInlineEditPopoverRender />,
+}
+
+function LinearShortcutHintPopoverRender() {
+  const shortcuts = [
+    { action: '이슈 생성', keys: ['C'] },
+    { action: '검색', keys: ['⌘', 'K'] },
+    { action: '완료로 이동', keys: ['⌘', 'D'] },
+    { action: '담당자 지정', keys: ['A'] },
+    { action: '우선순위 변경', keys: ['P'] },
+    { action: '레이블 추가', keys: ['L'] },
+    { action: '마감일 설정', keys: ['D'] },
+    { action: '이슈 복사', keys: ['⌘', 'C'] },
+  ]
+
+  return (
+    <div style={{ padding: '80px 60px', display: 'flex', gap: 32, justifyContent: 'center', alignItems: 'flex-start', flexWrap: 'wrap', fontFamily: 'system-ui, sans-serif' }}>
+      <Popover>
+        <Popover.Trigger asChild>
+          <button style={{ padding: '7px 14px', borderRadius: 8, border: '1px solid #e5e7eb', background: '#fff', cursor: 'pointer', fontSize: 12, color: '#374151', fontFamily: 'system-ui', display: 'flex', alignItems: 'center', gap: 6 }}>
+            <span style={{ fontSize: 14 }}>⌨</span>
+            키보드 단축키
+            <span style={{ fontSize: 10, padding: '1px 5px', borderRadius: 4, background: '#f1f5f9', color: '#94a3b8', fontFamily: 'monospace' }}>?</span>
+          </button>
+        </Popover.Trigger>
+        <Popover.Content style={{ width: 280 }}>
+          <div style={{ padding: 4 }}>
+            <div style={{ fontSize: 12, fontWeight: 700, color: '#0f172a', marginBottom: 10 }}>키보드 단축키</div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+              {shortcuts.map((s) => (
+                <div key={s.action} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '5px 6px', borderRadius: 6 }}>
+                  <span style={{ fontSize: 12, color: '#374151' }}>{s.action}</span>
+                  <div style={{ display: 'flex', gap: 2 }}>
+                    {s.keys.map((key) => (
+                      <span key={key} style={{ fontSize: 11, padding: '1px 5px', borderRadius: 4, background: '#f8fafc', border: '1px solid #e5e7eb', color: '#374151', fontFamily: 'monospace', fontWeight: 600 }}>
+                        {key}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div style={{ marginTop: 8, paddingTop: 8, borderTop: '1px solid #f1f5f9', fontSize: 10, color: '#94a3b8', textAlign: 'center' }}>
+              Linear 스타일 단축키 팝오버
+            </div>
+          </div>
+        </Popover.Content>
+      </Popover>
+    </div>
+  )
+}
+
+export const Linear_단축키_팝오버: Story = {
+  name: 'Linear — 키보드 단축키 힌트 팝오버 (Linear 스타일)',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Linear의 ? 단축키 팝오버 패턴 구현. 액션-단축키 쌍을 행으로 나열하고 kbd 스타일 키 칩으로 표시. Popover.Content 안에 단축키 테이블을 배치. 프로덕티비티 앱 키보드 힌트 UX.',
+      },
+    },
+  },
+  render: () => <LinearShortcutHintPopoverRender />,
+}
+
+const COLOR_PALETTE = [
+  '#ef4444', '#f97316', '#eab308', '#22c55e', '#06b6d4',
+  '#6366f1', '#a855f7', '#ec4899', '#64748b', '#0f172a',
+  '#fee2e2', '#fef3c7', '#dcfce7', '#dbeafe', '#ede9fe',
+]
+
+function RadixLinearColorPickerRender() {
+  const [color, setColor] = useState('#6366f1')
+  const [hex, setHex] = useState('#6366f1')
+  const [open, setOpen] = useState(false)
+
+  const handleHexChange = (val: string) => {
+    setHex(val)
+    if (/^#[0-9a-fA-F]{6}$/.test(val)) setColor(val)
+  }
+
+  const handleSelect = (c: string) => {
+    setColor(c)
+    setHex(c)
+    setOpen(false)
+  }
+
+  return (
+    <div style={{ padding: '80px 60px', display: 'flex', justifyContent: 'center', fontFamily: 'system-ui, sans-serif' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 14px', border: '1px solid #e5e7eb', borderRadius: 10, background: '#fff' }}>
+        <span style={{ fontSize: 12, color: '#64748b' }}>레이블 색상</span>
+        <Popover open={open} onOpenChange={setOpen}>
+          <Popover.Trigger asChild>
+            <button
+              style={{ width: 24, height: 24, borderRadius: 6, background: color, border: '2px solid #e5e7eb', cursor: 'pointer', flexShrink: 0 }}
+              aria-label="색상 선택"
+            />
+          </Popover.Trigger>
+          <Popover.Content style={{ width: 200 }}>
+            <div style={{ padding: 4 }}>
+              <div style={{ fontSize: 11, fontWeight: 600, color: '#374151', marginBottom: 8 }}>색상 선택</div>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: 4, marginBottom: 10 }}>
+                {COLOR_PALETTE.map((c) => (
+                  <button
+                    key={c}
+                    onClick={() => handleSelect(c)}
+                    style={{ width: '100%', aspectRatio: '1', borderRadius: 5, background: c, border: color === c ? '2px solid #6366f1' : '2px solid transparent', cursor: 'pointer', outline: 'none' }}
+                    aria-label={c}
+                  />
+                ))}
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                <div style={{ width: 20, height: 20, borderRadius: 4, background: color, flexShrink: 0, border: '1px solid #e5e7eb' }} />
+                <input
+                  value={hex}
+                  onChange={(e) => handleHexChange(e.target.value)}
+                  style={{ flex: 1, padding: '4px 7px', borderRadius: 6, border: '1px solid #e5e7eb', fontSize: 11, fontFamily: 'monospace', color: '#374151', outline: 'none' }}
+                  placeholder="#000000"
+                />
+              </div>
+            </div>
+          </Popover.Content>
+        </Popover>
+        <span style={{ fontSize: 12, fontFamily: 'monospace', color: '#374151' }}>{color}</span>
+      </div>
+    </div>
+  )
+}
+
+export const Radix_Linear_색상_피커_팝오버: Story = {
+  name: 'Radix + Linear — 색상 선택 팝오버 (팔레트 + HEX 입력)',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Radix Popover + Linear 색상 선택기 패턴. 스와치 클릭 시 색상 선택 후 팝오버 닫기, HEX 직접 입력 지원. 모듈 레벨 COLOR_PALETTE 상수로 exhaustive-deps 경고 방지.',
+      },
+    },
+  },
+  render: () => <RadixLinearColorPickerRender />,
+}

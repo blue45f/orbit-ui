@@ -1883,3 +1883,230 @@ export const MUI_Arco_파일_탭_에디터: Story = {
   },
   render: () => <MUIArcoFileTabRender />,
 }
+
+/* --------------------------------------------------------------------------
+   Cycle 178 — Radix UI + Linear Design
+   Benchmark:
+   1. Radix Tabs: 키보드 네비게이션 화살표키 지원 + aria-selected + role=tab
+   2. Linear: 탭에 단축키 힌트 오버레이 + 상태 아이콘 내장
+   3. Linear: 컴팩트 세로 탭 내비게이션 (사이드바 스타일)
+-------------------------------------------------------------------------- */
+
+function RadixKeyboardNavTabRender() {
+  const [active, setActive] = useState('overview')
+
+  const tabs = [
+    { id: 'overview', label: '개요', shortcut: '⌘1', desc: '컴포넌트 개요와 기본 사용법을 확인합니다.' },
+    { id: 'props', label: 'Props', shortcut: '⌘2', desc: 'TypeScript 타입 정의와 모든 props를 확인합니다.' },
+    { id: 'examples', label: '예시', shortcut: '⌘3', desc: '실무 사용 예시와 조합 패턴을 제공합니다.' },
+    { id: 'a11y', label: '접근성', shortcut: '⌘4', desc: 'WAI-ARIA 가이드라인과 키보드 내비게이션 지원.' },
+  ]
+
+  const handleKeyDown = (e: React.KeyboardEvent, idx: number) => {
+    if (e.key === 'ArrowRight') {
+      const next = (idx + 1) % tabs.length
+      setActive(tabs[next].id)
+    }
+    if (e.key === 'ArrowLeft') {
+      const prev = (idx - 1 + tabs.length) % tabs.length
+      setActive(tabs[prev].id)
+    }
+  }
+
+  const activeTab = tabs.find((t) => t.id === active)
+
+  return (
+    <div style={{ width: 400, fontFamily: 'system-ui, sans-serif' }}>
+      <div style={{ fontSize: 11, color: '#94a3b8', marginBottom: 8, padding: '4px 8px', background: '#f8fafc', borderRadius: 6, display: 'inline-flex', alignItems: 'center', gap: 4 }}>
+        <span style={{ fontSize: 10 }}>⌨</span> 화살표키로 탭 이동 (Radix UI 패턴)
+      </div>
+      <div role="tablist" aria-label="문서 섹션" style={{ display: 'flex', gap: 4, flexWrap: 'wrap' }}>
+        {tabs.map((tab, i) => (
+          <Tab
+            key={tab.id}
+            selected={active === tab.id}
+            onClick={() => setActive(tab.id)}
+            onKeyDown={(e) => handleKeyDown(e, i)}
+            role="tab"
+            aria-selected={active === tab.id}
+            tabIndex={active === tab.id ? 0 : -1}
+          >
+            <Tab.Center>{tab.label}</Tab.Center>
+            <Tab.Trailing>
+              <span style={{ fontSize: 9, padding: '0px 4px', borderRadius: 3, background: active === tab.id ? '#6366f1' : '#f1f5f9', color: active === tab.id ? '#fff' : '#94a3b8', fontFamily: 'monospace', letterSpacing: 0 }}>
+                {tab.shortcut}
+              </span>
+            </Tab.Trailing>
+          </Tab>
+        ))}
+      </div>
+      <div role="tabpanel" style={{ marginTop: 12, padding: '14px 16px', borderRadius: 10, background: '#f8fafc', border: '1px solid #f1f5f9', fontSize: 13, color: '#374151', lineHeight: 1.6 }}>
+        {activeTab?.desc}
+        <div style={{ marginTop: 8, fontSize: 11, color: '#94a3b8' }}>→ Radix Tabs와 동일한 aria 패턴 (role=tab, aria-selected, tabIndex 관리)</div>
+      </div>
+    </div>
+  )
+}
+
+export const Radix_키보드_네비게이션_탭: Story = {
+  name: 'Radix UI — 키보드 화살표 내비게이션 탭 (단축키 힌트)',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Radix UI Tabs의 키보드 네비게이션 패턴 적용. ←→ 화살표키로 탭 포커스 이동, aria-selected + role=tab + tabIndex 관리. 각 탭에 ⌘1~4 단축키 힌트 칩 표시. 접근성 최우선 탭 구현 패턴.',
+      },
+    },
+  },
+  render: () => <RadixKeyboardNavTabRender />,
+}
+
+function LinearStatusNavTabRender() {
+  const [active, setActive] = useState('my')
+
+  const statusTabs = [
+    { id: 'my', label: '내 이슈', count: 7, status: 'active', dot: '#6366f1' },
+    { id: 'created', label: '생성한 이슈', count: 14, status: 'normal', dot: '#94a3b8' },
+    { id: 'mentioned', label: '언급된 이슈', count: 3, status: 'warning', dot: '#f59e0b' },
+    { id: 'subscribed', label: '구독 중', count: 21, status: 'normal', dot: '#94a3b8' },
+    { id: 'all', label: '전체 이슈', count: 248, status: 'normal', dot: '#94a3b8' },
+  ]
+
+  const issueRows = [
+    { id: 'ORB-241', title: '다크모드 Slider 색상 깜빡임', priority: '●', status: '진행 중', due: '오늘' },
+    { id: 'ORB-238', title: 'Calendar 접근성 키보드 지원', priority: '▲', status: '검토 대기', due: '내일' },
+    { id: 'ORB-232', title: 'RTL 레이아웃 지원', priority: '○', status: '할 일', due: '이번 주' },
+    { id: 'ORB-229', title: 'Popover 애니메이션 최적화', priority: '○', status: '할 일', due: '다음 주' },
+  ]
+
+  return (
+    <div style={{ width: 440, border: '1px solid #e5e7eb', borderRadius: 12, overflow: 'hidden', fontFamily: 'system-ui, sans-serif', background: '#fff' }}>
+      <div style={{ padding: '12px 16px 0', borderBottom: '1px solid #f1f5f9' }}>
+        <div style={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
+          {statusTabs.map((tab) => (
+            <Tab
+              key={tab.id}
+              selected={active === tab.id}
+              onClick={() => setActive(tab.id)}
+            >
+              <Tab.Leading>
+                <span style={{ width: 6, height: 6, borderRadius: '50%', display: 'inline-block', background: active === tab.id ? tab.dot : '#d1d5db' }} />
+              </Tab.Leading>
+              <Tab.Center>{tab.label}</Tab.Center>
+              <Tab.Trailing>
+                <span style={{ fontSize: 10, color: active === tab.id ? tab.dot : '#94a3b8', fontWeight: 600 }}>{tab.count}</span>
+              </Tab.Trailing>
+            </Tab>
+          ))}
+        </div>
+      </div>
+      <div>
+        {issueRows.map((row, i) => (
+          <div key={row.id} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '8px 16px', borderBottom: i < issueRows.length - 1 ? '1px solid #f8fafc' : 'none', cursor: 'pointer' }}>
+            <span style={{ fontSize: 10, color: '#94a3b8' }}>{row.priority}</span>
+            <span style={{ fontSize: 10, color: '#94a3b8', fontFamily: 'monospace' }}>{row.id}</span>
+            <span style={{ flex: 1, fontSize: 12, color: '#374151', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{row.title}</span>
+            <span style={{ fontSize: 10, padding: '1px 6px', borderRadius: 99, background: '#f1f5f9', color: '#64748b' }}>{row.status}</span>
+            <span style={{ fontSize: 10, color: '#94a3b8' }}>{row.due}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+export const Linear_상태_도트_이슈_탭: Story = {
+  name: 'Linear — 이슈 상태 도트 탭 (내 이슈 / 생성 / 언급 / 구독)',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Linear 이슈 목록 탭 패턴. 각 탭 앞에 활성 상태 도트, 뒤에 이슈 count 표시. 내 이슈/생성한 이슈/언급된 이슈/구독 중 탭으로 이슈를 필터링하는 Linear 특유의 컴팩트 탭 패턴.',
+      },
+    },
+  },
+  render: () => <LinearStatusNavTabRender />,
+}
+
+function RadixLinearSettingsTabRender() {
+  const [active, setActive] = useState('profile')
+
+  const settingsSections = [
+    {
+      group: '계정',
+      tabs: [
+        { id: 'profile', label: '프로필', icon: '◎', desc: '이름, 아바타, 소개 수정' },
+        { id: 'security', label: '보안', icon: '◈', desc: '비밀번호, 2FA 설정', badge: '권장' },
+        { id: 'sessions', label: '세션', icon: '◇', desc: '활성 로그인 세션 관리' },
+      ],
+    },
+    {
+      group: '워크스페이스',
+      tabs: [
+        { id: 'workspace', label: '일반', icon: '▣', desc: '워크스페이스 이름과 설정' },
+        { id: 'members', label: '멤버', icon: '◉', desc: '팀원 초대 및 권한 관리', badge: '12명' },
+        { id: 'billing', label: '결제', icon: '⊕', desc: '플랜, 청구서, 결제 수단' },
+      ],
+    },
+    {
+      group: '개발',
+      tabs: [
+        { id: 'api', label: 'API 키', icon: '⊙', desc: 'REST API 접근 토큰 관리' },
+        { id: 'webhooks', label: 'Webhooks', icon: '⊗', desc: '이벤트 알림 엔드포인트' },
+      ],
+    },
+  ]
+
+  const activeInfo = settingsSections.flatMap((s) => s.tabs).find((t) => t.id === active)
+
+  return (
+    <div style={{ display: 'flex', gap: 0, width: 480, border: '1px solid #e5e7eb', borderRadius: 12, overflow: 'hidden', fontFamily: 'system-ui, sans-serif', background: '#fff' }}>
+      {/* Sidebar */}
+      <div style={{ width: 160, background: '#f8fafc', borderRight: '1px solid #f1f5f9', padding: '16px 8px' }}>
+        {settingsSections.map((section) => (
+          <div key={section.group} style={{ marginBottom: 16 }}>
+            <div style={{ fontSize: 9, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: 0.8, padding: '0 6px', marginBottom: 4 }}>{section.group}</div>
+            {section.tabs.map((tab) => (
+              <div key={tab.id} style={{ marginBottom: 1 }}>
+                <Tab
+                  selected={active === tab.id}
+                  onClick={() => setActive(tab.id)}
+                >
+                  <Tab.Leading>
+                    <span style={{ fontSize: 10, opacity: 0.6 }}>{tab.icon}</span>
+                  </Tab.Leading>
+                  <Tab.Center>{tab.label}</Tab.Center>
+                  {tab.badge && (
+                    <Tab.Trailing>
+                      <span style={{ fontSize: 9, padding: '0px 4px', borderRadius: 4, background: active === tab.id ? '#6366f1' : '#e2e8f0', color: active === tab.id ? '#fff' : '#94a3b8', fontWeight: 600 }}>
+                        {tab.badge}
+                      </span>
+                    </Tab.Trailing>
+                  )}
+                </Tab>
+              </div>
+            ))}
+          </div>
+        ))}
+      </div>
+      {/* Content */}
+      <div style={{ flex: 1, padding: '20px' }}>
+        <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a', marginBottom: 4 }}>{activeInfo?.label}</div>
+        <div style={{ fontSize: 12, color: '#94a3b8', marginBottom: 16 }}>{activeInfo?.desc}</div>
+        <div style={{ height: 80, borderRadius: 8, background: '#f8fafc', border: '1px dashed #e2e8f0', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 12, color: '#94a3b8' }}>
+          {activeInfo?.label} 설정 폼 영역
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const Radix_Linear_설정_사이드바_탭: Story = {
+  name: 'Radix + Linear — 설정 사이드바 세로 탭 (그룹 섹션 + 배지)',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Linear Settings 화면의 세로 사이드바 탭 패턴 + Radix 접근성 구조. Tab 컴포넌트를 세로 배치로 활용, 섹션 그룹(계정/워크스페이스/개발)으로 분류, 배지(권장/멤버수)로 중요도 표시.',
+      },
+    },
+  },
+  render: () => <RadixLinearSettingsTabRender />,
+}
