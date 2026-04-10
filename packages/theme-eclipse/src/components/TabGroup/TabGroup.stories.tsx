@@ -1759,3 +1759,237 @@ export const Vercel_shadcn_설정_카테고리_탭: Story = {
   },
   render: () => <VercelShadcnSettingsTabRender />,
 }
+
+/* --------------------------------------------------------------------------
+   Radix UI — 접근성 강화 탭 (키보드 네비게이션 가이드 + ARIA 레이블)
+-------------------------------------------------------------------------- */
+function RadixA11yTabGroupRender() {
+  const [selected, setSelected] = useState(0)
+  const [keyHint, setKeyHint] = useState('')
+
+  const panels = [
+    {
+      tab: '사용 방법',
+      content: 'Tab 키로 탭 그룹에 진입 후 화살표 키로 탭 간 이동, Enter/Space로 선택합니다. 스크린 리더는 각 탭의 상태(선택됨/선택 안 됨)를 자동 안내합니다.',
+    },
+    {
+      tab: 'Props 참조',
+      content: 'selectedIndex: 선택된 탭 인덱스 / onTabChange: 탭 변경 콜백 / children: FixedTabs.Tab 서브컴포넌트 배열',
+    },
+    {
+      tab: '접근성 패턴',
+      content: 'WAI-ARIA Tabs 패턴을 준수합니다. role="tablist", role="tab", role="tabpanel", aria-selected, aria-controls 속성이 자동으로 적용됩니다.',
+    },
+  ]
+
+  return (
+    <div style={{ maxWidth: 520, fontFamily: 'system-ui, sans-serif' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 10 }}>
+        <p style={{ fontSize: 13, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>접근성 탭 패턴</p>
+        {keyHint && (
+          <span style={{ fontSize: 10, padding: '2px 8px', borderRadius: 10, background: 'var(--sem-eclipse-color-fillPrimarySubtle)', color: 'var(--sem-eclipse-color-fillPrimary)', fontWeight: 600 }}>{keyHint}</span>
+        )}
+      </div>
+      <div
+        role="presentation"
+        onKeyDown={(e) => {
+          if (e.key === 'ArrowRight') { setSelected((s) => (s + 1) % panels.length); setKeyHint('→ 키 이동') }
+          if (e.key === 'ArrowLeft') { setSelected((s) => (s - 1 + panels.length) % panels.length); setKeyHint('← 키 이동') }
+        }}
+      >
+        <FixedTabs selectedIndex={selected} onTabChange={setSelected}>
+          {panels.map((p, idx) => (
+            <FixedTabs.Tab key={idx} value={String(idx)}>
+              <FixedTabs.TabCenter>{p.tab}</FixedTabs.TabCenter>
+            </FixedTabs.Tab>
+          ))}
+        </FixedTabs>
+      </div>
+      <div style={{ padding: '16px', borderRadius: '0 0 10px 10px', border: '1px solid var(--sem-eclipse-color-borderSubtle)', borderTop: 'none', background: 'var(--sem-eclipse-color-surfaceDefault)', fontSize: 12, color: 'var(--sem-eclipse-color-foregroundSecondary)', lineHeight: 1.7 }}>
+        {panels[selected].content}
+      </div>
+      <p style={{ fontSize: 10, color: 'var(--sem-eclipse-color-foregroundDisabled)', marginTop: 8, textAlign: 'center' }}>Radix UI Tabs 접근성 패턴 — WAI-ARIA 준수</p>
+    </div>
+  )
+}
+
+export const Radix_접근성_강화_탭: Story = {
+  name: 'Radix UI — 접근성 강화 탭 (키보드 네비게이션)',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Radix UI Tabs 컴포넌트의 접근성 패턴을 Orbit UI로 구현. WAI-ARIA tablist/tab/tabpanel 패턴, 화살표 키 네비게이션, aria-selected 상태 관리. 키보드 조작 시 힌트 표시.',
+      },
+    },
+  },
+  render: () => <RadixA11yTabGroupRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Vercel Design — 배포 로그 탭 (실시간 로그 + 상태 뱃지)
+-------------------------------------------------------------------------- */
+function VercelDeployLogTabRender() {
+  const [selected, setSelected] = useState(0)
+  const [running, setRunning] = useState(false)
+  const [logCount, setLogCount] = useState(12)
+
+  const startDeploy = () => {
+    setRunning(true)
+    setLogCount(12)
+    const interval = setInterval(() => {
+      setLogCount((c) => {
+        if (c >= 28) { clearInterval(interval); setRunning(false); return 28 }
+        return c + 1
+      })
+    }, 200)
+  }
+
+  const buildLogs = [
+    '[00:01] Installing dependencies...',
+    '[00:03] Running build...',
+    '[00:05] Compiling TypeScript...',
+    '[00:08] Bundling assets...',
+    '[00:11] Optimizing output...',
+    '[00:14] Generating static files...',
+    '[00:16] Uploading to edge network...',
+    '[00:18] Deployment complete',
+  ]
+
+  const functionLogs = [
+    'GET /api/health 200 23ms',
+    'POST /api/deploy 201 145ms',
+    'GET /api/projects 200 67ms',
+    'DELETE /api/cache 204 12ms',
+  ]
+
+  const tabs = [
+    { label: 'Build', badge: running ? 'running' : 'ready' },
+    { label: 'Functions', badge: 'ready' },
+    { label: 'Runtime Logs', badge: null },
+  ]
+
+  const badgeColor = { running: '#f59e0b', ready: '#10b981', error: '#ef4444' }
+
+  return (
+    <div style={{ maxWidth: 560, fontFamily: 'monospace, system-ui', background: '#0f172a', borderRadius: 12, overflow: 'hidden', border: '1px solid #1e293b' }}>
+      <div style={{ padding: '10px 16px', borderBottom: '1px solid #1e293b', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <FixedTabs selectedIndex={selected} onTabChange={setSelected}>
+          {tabs.map((t, idx) => (
+            <FixedTabs.Tab key={idx} value={String(idx)}>
+              <FixedTabs.TabLeading>
+                {t.badge && <span style={{ width: 6, height: 6, borderRadius: '50%', background: badgeColor[t.badge as keyof typeof badgeColor], display: 'inline-block' }} />}
+              </FixedTabs.TabLeading>
+              <FixedTabs.TabCenter>
+                <span style={{ fontSize: 12, color: selected === idx ? '#f1f5f9' : '#64748b' }}>{t.label}</span>
+              </FixedTabs.TabCenter>
+            </FixedTabs.Tab>
+          ))}
+        </FixedTabs>
+        <button onClick={startDeploy} disabled={running} style={{ fontSize: 10, padding: '4px 10px', borderRadius: 6, border: 'none', background: running ? '#334155' : '#6366f1', color: running ? '#94a3b8' : '#fff', cursor: running ? 'not-allowed' : 'pointer', fontWeight: 600, fontFamily: 'system-ui, sans-serif' }}>
+          {running ? '배포 중...' : '재배포'}
+        </button>
+      </div>
+      <div style={{ padding: '12px 16px', height: 180, overflowY: 'auto', fontSize: 11, lineHeight: 1.8 }}>
+        {selected === 0 && buildLogs.slice(0, Math.max(1, Math.round((logCount / 28) * buildLogs.length))).map((log, i) => (
+          <div key={i} style={{ color: i === Math.round((logCount / 28) * buildLogs.length) - 1 && running ? '#fbbf24' : '#94a3b8' }}>
+            {log}
+          </div>
+        ))}
+        {selected === 1 && functionLogs.map((log, i) => <div key={i} style={{ color: '#94a3b8' }}>{log}</div>)}
+        {selected === 2 && <div style={{ color: '#475569' }}>런타임 로그가 없습니다.</div>}
+      </div>
+    </div>
+  )
+}
+
+export const Vercel_배포_로그_탭: Story = {
+  name: 'Vercel Design — 배포 로그 탭 (실시간 로그 + 상태 뱃지)',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Vercel 배포 대시보드의 Build/Functions/Runtime Logs 탭 패턴. 탭 앞 상태 도트 뱃지, 다크 배경 로그 뷰어, 재배포 버튼 클릭 시 로그가 순차적으로 표시됩니다.',
+      },
+    },
+  },
+  render: () => <VercelDeployLogTabRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Radix + Vercel — API 키 관리 탭 (타입별 필터 + 카운트)
+-------------------------------------------------------------------------- */
+function RadixVercelApiKeyTabRender() {
+  const [selected, setSelected] = useState(0)
+
+  const keys = [
+    { name: 'Production API Key', type: 'prod', created: '2024-01-15', lastUsed: '방금 전', scopes: ['read', 'write', 'deploy'] },
+    { name: 'CI/CD Pipeline Key', type: 'prod', created: '2024-02-20', lastUsed: '3시간 전', scopes: ['read', 'deploy'] },
+    { name: 'Dev Testing Key', type: 'dev', created: '2024-03-10', lastUsed: '어제', scopes: ['read'] },
+    { name: 'Staging Key', type: 'dev', created: '2024-04-05', lastUsed: '1주 전', scopes: ['read', 'write'] },
+    { name: 'Revoked Key', type: 'revoked', created: '2023-12-01', lastUsed: '-', scopes: [] },
+  ]
+
+  const tabs = [
+    { label: '전체', filter: () => true },
+    { label: 'Production', filter: (k: typeof keys[0]) => k.type === 'prod' },
+    { label: 'Development', filter: (k: typeof keys[0]) => k.type === 'dev' },
+    { label: '만료됨', filter: (k: typeof keys[0]) => k.type === 'revoked' },
+  ]
+
+  const filtered = keys.filter(tabs[selected].filter)
+  const scopeColors: Record<string, string> = { read: '#10b981', write: '#6366f1', deploy: '#f59e0b' }
+
+  return (
+    <div style={{ maxWidth: 560, fontFamily: 'system-ui, sans-serif' }}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12 }}>
+        <p style={{ fontSize: 13, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>API 키 관리</p>
+        <button style={{ fontSize: 11, padding: '5px 12px', borderRadius: 8, border: 'none', background: 'var(--sem-eclipse-color-fillPrimary)', color: '#fff', cursor: 'pointer', fontWeight: 600 }}>+ 새 API 키</button>
+      </div>
+      <FixedTabs selectedIndex={selected} onTabChange={setSelected}>
+        {tabs.map((t, idx) => {
+          const count = keys.filter(t.filter).length
+          return (
+            <FixedTabs.Tab key={idx} value={String(idx)}>
+              <FixedTabs.TabCenter>{t.label}</FixedTabs.TabCenter>
+              <FixedTabs.TabTrailing>
+                <CounterBadge>{count}</CounterBadge>
+              </FixedTabs.TabTrailing>
+            </FixedTabs.Tab>
+          )
+        })}
+      </FixedTabs>
+      <div style={{ marginTop: 10, display: 'flex', flexDirection: 'column', gap: 6 }}>
+        {filtered.length === 0 ? (
+          <div style={{ padding: '20px', textAlign: 'center', color: 'var(--sem-eclipse-color-foregroundDisabled)', fontSize: 12 }}>해당 유형의 API 키가 없습니다.</div>
+        ) : filtered.map((key) => (
+          <div key={key.name} style={{ padding: '12px 14px', borderRadius: 8, border: '1px solid var(--sem-eclipse-color-borderSubtle)', background: key.type === 'revoked' ? 'var(--sem-eclipse-color-surfaceSubtle)' : 'var(--sem-eclipse-color-surfaceDefault)', opacity: key.type === 'revoked' ? 0.7 : 1 }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 5 }}>
+              <span style={{ fontSize: 12, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)', fontFamily: 'monospace' }}>{key.name}</span>
+              <span style={{ fontSize: 9, padding: '1px 6px', borderRadius: 10, background: key.type === 'revoked' ? '#f1f5f9' : key.type === 'prod' ? '#fef3c7' : '#eff6ff', color: key.type === 'revoked' ? '#94a3b8' : key.type === 'prod' ? '#92400e' : '#1d4ed8', fontWeight: 600 }}>{key.type === 'prod' ? 'Production' : key.type === 'dev' ? 'Development' : '만료됨'}</span>
+            </div>
+            <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+              <span style={{ fontSize: 10, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>생성: {key.created}</span>
+              <span style={{ fontSize: 10, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>마지막 사용: {key.lastUsed}</span>
+              <div style={{ display: 'flex', gap: 3, marginLeft: 'auto' }}>
+                {key.scopes.map((s) => (
+                  <span key={s} style={{ fontSize: 9, padding: '1px 5px', borderRadius: 4, background: `${scopeColors[s]}18`, color: scopeColors[s], fontWeight: 600 }}>{s}</span>
+                ))}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+export const Radix_Vercel_API키_관리_탭: Story = {
+  name: 'Radix + Vercel — API 키 관리 탭 (타입별 필터 + 카운트)',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Radix UI Tabs + Vercel API 키 관리 패턴. 전체/Production/Development/만료됨 탭 필터링, 탭에 CounterBadge로 개수 표시, 스코프별 컬러 뱃지.',
+      },
+    },
+  },
+  render: () => <RadixVercelApiKeyTabRender />,
+}

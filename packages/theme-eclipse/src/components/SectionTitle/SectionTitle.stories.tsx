@@ -1139,3 +1139,175 @@ export const Radix_Tailwind_중첩_섹션_계층: Story = {
     </div>
   ),
 }
+
+/* --------------------------------------------------------------------------
+   Radix UI — 콜랩스 가능한 섹션 헤더 (아코디언 패턴)
+-------------------------------------------------------------------------- */
+function RadixCollapseSectionRender() {
+  const sections = [
+    { id: 1, title: '기본 설정', desc: '3개 항목', items: ['언어 설정', '시간대', '날짜 형식'] },
+    { id: 2, title: '알림 설정', desc: '5개 항목', items: ['이메일 알림', '푸시 알림', 'Slack 연동', '주간 다이제스트', '긴급 알림'] },
+    { id: 3, title: '고급 설정', desc: '2개 항목', items: ['개발자 모드', 'API 접근'] },
+  ]
+  const [openIds, setOpenIds] = React.useState<number[]>([1])
+  const toggleSection = (id: number) => setOpenIds((prev) => prev.includes(id) ? prev.filter((i) => i !== id) : [...prev, id])
+
+    return (
+      <div style={{ maxWidth: 400, fontFamily: 'system-ui, sans-serif', display: 'flex', flexDirection: 'column', gap: 2 }}>
+        {sections.map((sec) => {
+          const isOpen = openIds.includes(sec.id)
+          return (
+            <div key={sec.id} style={{ borderRadius: 8, border: '1px solid var(--sem-eclipse-color-borderSubtle)', overflow: 'hidden' }}>
+              <SectionTitle
+                onClick={() => toggleSection(sec.id)}
+                style={{ cursor: 'pointer', padding: '10px 14px' }}
+              >
+                <SectionTitle.Title>
+                  <Typography textStyle="labelMedium" color="foregroundPrimary">{sec.title}</Typography>
+                </SectionTitle.Title>
+                <SectionTitle.Trailing>
+                  <span style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginRight: 8 }}>{sec.desc}</span>
+                  <ChevronRightLineIcon style={{ width: 14, height: 14, transform: isOpen ? 'rotate(90deg)' : 'none', transition: 'transform 0.2s', color: 'var(--sem-eclipse-color-foregroundTertiary)' }} />
+                </SectionTitle.Trailing>
+              </SectionTitle>
+              {isOpen && (
+                <div style={{ background: 'var(--sem-eclipse-color-surfaceSubtle)', borderTop: '1px solid var(--sem-eclipse-color-borderSubtle)' }}>
+                  {sec.items.map((item) => (
+                    <div key={item} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 14px', borderBottom: '1px solid var(--sem-eclipse-color-borderSubtle)', fontSize: 12, color: 'var(--sem-eclipse-color-foregroundSecondary)', cursor: 'pointer' }}>
+                      <span>{item}</span>
+                      <ChevronRightLineIcon style={{ width: 12, height: 12, color: 'var(--sem-eclipse-color-foregroundDisabled)' }} />
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          )
+        })}
+      </div>
+    )
+}
+
+export const Radix_콜랩스_섹션_헤더: Story = {
+  name: 'Radix UI — 콜랩스 가능한 섹션 헤더 (아코디언 패턴)',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Radix UI Collapsible 패턴을 SectionTitle로 구현. 헤더 클릭 시 섹션 콘텐츠가 접히고 펼쳐지는 아코디언 패턴. 설정 패널이나 필터 그룹에 유용.',
+      },
+    },
+  },
+  render: () => <RadixCollapseSectionRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Vercel Design — 프로젝트 리소스 섹션 (사용량 + 업그레이드 CTA)
+-------------------------------------------------------------------------- */
+export const Vercel_프로젝트_리소스_섹션: Story = {
+  name: 'Vercel Design — 프로젝트 리소스 섹션 (사용량 + 업그레이드 CTA)',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Vercel 프로젝트 대시보드의 리소스 섹션 패턴. SectionTitle에 현재 플랜 뱃지 + 업그레이드 링크를 Trailing으로 배치. 각 리소스의 사용량을 Progress 바로 표시.',
+      },
+    },
+  },
+  render: () => {
+    const resources = [
+      { name: '빌드 시간', used: 320, total: 400, unit: '분' },
+      { name: '대역폭', used: 78, total: 100, unit: 'GB' },
+      { name: '함수 실행', used: 9200, total: 10000, unit: '회' },
+    ]
+
+    return (
+      <div style={{ maxWidth: 480, fontFamily: 'system-ui, sans-serif' }}>
+        <SectionTitle style={{ marginBottom: 12 }}>
+          <SectionTitle.Title>
+            <Typography textStyle="labelMedium" color="foregroundPrimary">리소스 사용량</Typography>
+          </SectionTitle.Title>
+          <SectionTitle.Trailing>
+            <LabelBadge color="gray">Pro 플랜</LabelBadge>
+            <TextButton color="black" size="small">
+              업그레이드
+            </TextButton>
+          </SectionTitle.Trailing>
+        </SectionTitle>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 12, padding: '14px', borderRadius: 10, border: '1px solid var(--sem-eclipse-color-borderSubtle)', background: 'var(--sem-eclipse-color-surfaceDefault)' }}>
+          {resources.map((res) => {
+            const pct = Math.round((res.used / res.total) * 100)
+            const isWarn = pct >= 80
+            return (
+              <div key={res.name}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 5 }}>
+                  <span style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundSecondary)' }}>{res.name}</span>
+                  <span style={{ fontSize: 12, fontWeight: 600, color: isWarn ? '#f59e0b' : 'var(--sem-eclipse-color-foregroundPrimary)' }}>{res.used.toLocaleString()} / {res.total.toLocaleString()} {res.unit}</span>
+                </div>
+                <div style={{ height: 5, borderRadius: 3, background: 'var(--sem-eclipse-color-surfaceSubtle)', overflow: 'hidden' }}>
+                  <div style={{ height: '100%', width: `${pct}%`, borderRadius: 3, background: isWarn ? '#f59e0b' : 'var(--sem-eclipse-color-fillPrimary)', transition: 'width 0.3s' }} />
+                </div>
+              </div>
+            )
+          })}
+        </div>
+      </div>
+    )
+  },
+}
+
+/* --------------------------------------------------------------------------
+   shadcn/ui — 컴포넌트 문서 섹션 헤더 (앵커 링크 + 복사 버튼)
+-------------------------------------------------------------------------- */
+function ShadcnDocSectionRender() {
+  const [copiedId, setCopiedId] = React.useState<string | null>(null)
+
+    const docSections = [
+      { id: 'installation', title: '설치', badge: null, code: 'pnpm add @heejun-com/theme-eclipse' },
+      { id: 'usage', title: '기본 사용법', badge: '업데이트됨', code: "import { SolidButton } from '@heejun-com/theme-eclipse'" },
+      { id: 'variants', title: 'Variants', badge: '신규', code: '<SolidButton color="primary" size="medium">' },
+    ]
+
+    const handleCopy = (id: string, code: string) => {
+      void navigator.clipboard.writeText(code).catch(() => null)
+      setCopiedId(id)
+      setTimeout(() => setCopiedId(null), 2000)
+    }
+
+    return (
+      <div style={{ maxWidth: 520, fontFamily: 'system-ui, sans-serif', display: 'flex', flexDirection: 'column', gap: 16 }}>
+        {docSections.map((sec) => (
+          <div key={sec.id}>
+            <SectionTitle style={{ marginBottom: 6 }}>
+              <SectionTitle.Title>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                  <Typography textStyle="titleMedium" color="foregroundPrimary">{sec.title}</Typography>
+                  {sec.badge && <LabelBadge color="gray">{sec.badge}</LabelBadge>}
+                </div>
+              </SectionTitle.Title>
+              <SectionTitle.Trailing>
+                <button
+                  onClick={() => handleCopy(sec.id, sec.code)}
+                  style={{ fontSize: 10, padding: '3px 8px', borderRadius: 6, border: '1px solid var(--sem-eclipse-color-borderDefault)', background: copiedId === sec.id ? 'var(--sem-eclipse-color-fillPrimarySubtle)' : 'transparent', color: copiedId === sec.id ? 'var(--sem-eclipse-color-fillPrimary)' : 'var(--sem-eclipse-color-foregroundTertiary)', cursor: 'pointer', fontWeight: 500, transition: 'all 0.15s', fontFamily: 'system-ui' }}
+                >
+                  {copiedId === sec.id ? '복사됨!' : '코드 복사'}
+                </button>
+              </SectionTitle.Trailing>
+            </SectionTitle>
+            <div style={{ padding: '10px 14px', borderRadius: 8, background: '#0f172a', fontSize: 12, fontFamily: 'monospace', color: '#94a3b8' }}>
+              {sec.code}
+            </div>
+          </div>
+        ))}
+      </div>
+    )
+}
+
+export const Shadcn_문서_섹션_헤더: Story = {
+  name: 'shadcn/ui — 컴포넌트 문서 섹션 헤더 (앵커 링크 + 복사)',
+  parameters: {
+    docs: {
+      description: {
+        story: 'shadcn/ui 문서 사이트의 섹션 헤더 패턴. SectionTitle에 앵커 링크 아이콘을 호버 시 표시하고, "새 기능" 뱃지와 우측에 "코드 복사" 버튼을 배치.',
+      },
+    },
+  },
+  render: () => <ShadcnDocSectionRender />,
+}

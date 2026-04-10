@@ -33846,3 +33846,218 @@ export const ShadcnLinear147DevPortfolio: StoryObj = {
   },
   render: () => <ShadcnLinear147DevPortfolioRender />,
 }
+
+/* ==========================================================================
+   사이클 148 — Radix UI + Vercel Design
+   템플릿: API 레퍼런스 & 탐색기
+========================================================================== */
+function RadixVercel148APIExplorerRender() {
+  const [selectedEndpoint, setSelectedEndpoint] = useState<string>('/api/projects')
+  const [method, setMethod] = useState<'GET' | 'POST' | 'PATCH' | 'DELETE'>('GET')
+  const [response, setResponse] = useState<string | null>(null)
+  const [loading, setLoading] = useState(false)
+  const [activeTab, setActiveTab] = useState<'params' | 'headers' | 'body' | 'response'>('params')
+  const [searchQuery, setSearchQuery] = useState('')
+
+  const endpoints = [
+    { method: 'GET' as const, path: '/api/projects', desc: '프로젝트 목록 조회', category: 'Projects' },
+    { method: 'POST' as const, path: '/api/projects', desc: '새 프로젝트 생성', category: 'Projects' },
+    { method: 'GET' as const, path: '/api/projects/:id', desc: '프로젝트 상세 조회', category: 'Projects' },
+    { method: 'PATCH' as const, path: '/api/projects/:id', desc: '프로젝트 수정', category: 'Projects' },
+    { method: 'DELETE' as const, path: '/api/projects/:id', desc: '프로젝트 삭제', category: 'Projects' },
+    { method: 'GET' as const, path: '/api/deployments', desc: '배포 목록 조회', category: 'Deployments' },
+    { method: 'POST' as const, path: '/api/deployments', desc: '새 배포 트리거', category: 'Deployments' },
+    { method: 'GET' as const, path: '/api/teams', desc: '팀 목록 조회', category: 'Teams' },
+    { method: 'POST' as const, path: '/api/teams/invite', desc: '팀원 초대', category: 'Teams' },
+  ]
+
+  const filteredEndpoints = endpoints.filter(
+    (e) => e.path.includes(searchQuery) || e.desc.includes(searchQuery)
+  )
+
+  const methodColors: Record<string, string> = {
+    GET: '#10b981', POST: '#6366f1', PATCH: '#f59e0b', DELETE: '#ef4444',
+  }
+
+  const sampleResponses: Record<string, object> = {
+    '/api/projects': { data: [{ id: 'prj_1', name: 'orbit-ui', framework: 'vite' }, { id: 'prj_2', name: 'api-server', framework: 'nextjs' }], meta: { total: 2, page: 1 } },
+    '/api/deployments': { data: [{ id: 'dpl_abc', status: 'READY', url: 'orbit-ui.vercel.app', createdAt: '2024-12-01T00:00:00Z' }] },
+    '/api/teams': { data: [{ id: 'team_1', name: 'Orbit Team', memberCount: 5 }] },
+  }
+
+  const handleSend = () => {
+    setLoading(true)
+    setActiveTab('response')
+    setTimeout(() => {
+      const baseKey = Object.keys(sampleResponses).find((k) => selectedEndpoint.startsWith(k)) ?? '/api/projects'
+      setResponse(JSON.stringify(sampleResponses[baseKey], null, 2))
+      setLoading(false)
+    }, 800)
+  }
+
+  const grouped = filteredEndpoints.reduce<Record<string, typeof endpoints>>((acc, ep) => {
+    if (!acc[ep.category]) acc[ep.category] = []
+    acc[ep.category].push(ep)
+    return acc
+  }, {})
+
+  const tabs = ['params', 'headers', 'body', 'response'] as const
+  const tabLabels = { params: 'Query Params', headers: 'Headers', body: 'Body', response: 'Response' }
+
+  return (
+    <div style={{ minHeight: '100vh', background: '#0f172a', fontFamily: 'system-ui, -apple-system, sans-serif', display: 'flex', flexDirection: 'column' }}>
+      {/* 헤더 */}
+      <div style={{ borderBottom: '1px solid #1e293b', padding: '10px 20px', display: 'flex', alignItems: 'center', gap: 12 }}>
+        <span style={{ fontSize: 13, fontWeight: 700, color: '#f1f5f9' }}>Orbit API</span>
+        <span style={{ fontSize: 10, color: '#64748b', background: '#1e293b', padding: '2px 8px', borderRadius: 10 }}>v2.0.0</span>
+        <div style={{ flex: 1 }} />
+        <span style={{ fontSize: 11, color: '#94a3b8', fontFamily: 'monospace' }}>Bearer tok_•••••abc123</span>
+      </div>
+
+      <div style={{ flex: 1, display: 'flex', overflow: 'hidden' }}>
+        {/* 사이드바 — 엔드포인트 목록 */}
+        <div style={{ width: 260, borderRight: '1px solid #1e293b', display: 'flex', flexDirection: 'column', flexShrink: 0 }}>
+          <div style={{ padding: '12px 14px', borderBottom: '1px solid #1e293b' }}>
+            <input
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="엔드포인트 검색..."
+              style={{ width: '100%', padding: '6px 10px', borderRadius: 6, border: '1px solid #334155', background: '#1e293b', fontSize: 11, color: '#94a3b8', outline: 'none', boxSizing: 'border-box', fontFamily: 'monospace' }}
+            />
+          </div>
+          <div style={{ flex: 1, overflowY: 'auto', padding: '8px 0' }}>
+            {Object.entries(grouped).map(([category, eps]) => (
+              <div key={category}>
+                <p style={{ fontSize: 9, fontWeight: 700, color: '#475569', textTransform: 'uppercase', letterSpacing: 0.8, padding: '8px 14px 4px' }}>{category}</p>
+                {eps.map((ep) => (
+                  <div
+                    key={`${ep.method}-${ep.path}`}
+                    onClick={() => { setSelectedEndpoint(ep.path); setMethod(ep.method); setResponse(null) }}
+                    style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '7px 14px', cursor: 'pointer', background: selectedEndpoint === ep.path && method === ep.method ? '#1e1b4b' : 'transparent', borderLeft: selectedEndpoint === ep.path && method === ep.method ? '2px solid #6366f1' : '2px solid transparent', transition: 'all 0.1s' }}
+                  >
+                    <span style={{ fontSize: 9, fontWeight: 700, width: 42, color: methodColors[ep.method], fontFamily: 'monospace', flexShrink: 0 }}>{ep.method}</span>
+                    <span style={{ fontSize: 11, color: '#94a3b8', fontFamily: 'monospace', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{ep.path}</span>
+                  </div>
+                ))}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* 메인 — 요청 빌더 */}
+        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+          {/* 요청 URL 바 */}
+          <div style={{ padding: '12px 16px', borderBottom: '1px solid #1e293b', display: 'flex', gap: 8, alignItems: 'center' }}>
+            <div style={{ display: 'flex', gap: 0, borderRadius: 8, overflow: 'hidden', border: '1px solid #334155', flexShrink: 0 }}>
+              {(['GET', 'POST', 'PATCH', 'DELETE'] as const).map((m) => (
+                <button
+                  key={m}
+                  onClick={() => setMethod(m)}
+                  style={{ padding: '6px 10px', border: 'none', background: method === m ? methodColors[m] : '#1e293b', color: method === m ? '#fff' : '#64748b', fontSize: 10, fontWeight: 700, cursor: 'pointer', fontFamily: 'monospace', transition: 'all 0.15s' }}
+                >
+                  {m}
+                </button>
+              ))}
+            </div>
+            <div style={{ flex: 1, padding: '6px 12px', borderRadius: 8, border: '1px solid #334155', background: '#1e293b', fontSize: 12, color: '#94a3b8', fontFamily: 'monospace', display: 'flex', alignItems: 'center' }}>
+              <span style={{ color: '#475569' }}>https://api.orbit-ui.com</span>
+              <span style={{ color: '#c7d2fe' }}>{selectedEndpoint}</span>
+            </div>
+            <button
+              onClick={handleSend}
+              disabled={loading}
+              style={{ padding: '7px 18px', borderRadius: 8, border: 'none', background: loading ? '#334155' : '#6366f1', color: loading ? '#94a3b8' : '#fff', fontSize: 12, fontWeight: 700, cursor: loading ? 'not-allowed' : 'pointer', fontFamily: 'system-ui', transition: 'all 0.15s' }}
+            >
+              {loading ? '전송 중...' : 'Send'}
+            </button>
+          </div>
+
+          {/* 탭 + 콘텐츠 */}
+          <div style={{ borderBottom: '1px solid #1e293b', padding: '0 16px', display: 'flex', gap: 0 }}>
+            {tabs.map((tab) => (
+              <button
+                key={tab}
+                onClick={() => setActiveTab(tab)}
+                style={{ padding: '8px 14px', fontSize: 11, fontWeight: activeTab === tab ? 600 : 400, color: activeTab === tab ? '#c7d2fe' : '#475569', background: 'none', border: 'none', borderBottom: activeTab === tab ? '2px solid #6366f1' : '2px solid transparent', cursor: 'pointer', marginBottom: -1, transition: 'all 0.15s' }}
+              >
+                {tabLabels[tab]}
+                {tab === 'response' && response && <span style={{ marginLeft: 4, width: 6, height: 6, borderRadius: '50%', background: '#10b981', display: 'inline-block' }} />}
+              </button>
+            ))}
+          </div>
+
+          <div style={{ flex: 1, padding: '16px', overflowY: 'auto' }}>
+            {activeTab === 'params' && (
+              <div>
+                <p style={{ fontSize: 11, color: '#64748b', marginBottom: 10 }}>쿼리 파라미터</p>
+                {[{ key: 'limit', value: '10', desc: '페이지당 결과 수' }, { key: 'page', value: '1', desc: '페이지 번호' }, { key: 'sort', value: 'createdAt', desc: '정렬 기준' }].map((param) => (
+                  <div key={param.key} style={{ display: 'flex', gap: 8, marginBottom: 6, alignItems: 'center' }}>
+                    <input readOnly value={param.key} style={{ width: 120, padding: '5px 8px', borderRadius: 6, border: '1px solid #334155', background: '#1e293b', fontSize: 11, color: '#94a3b8', fontFamily: 'monospace', outline: 'none' }} />
+                    <input readOnly value={param.value} style={{ flex: 1, padding: '5px 8px', borderRadius: 6, border: '1px solid #334155', background: '#1e293b', fontSize: 11, color: '#c7d2fe', fontFamily: 'monospace', outline: 'none' }} />
+                    <span style={{ fontSize: 10, color: '#475569' }}>{param.desc}</span>
+                  </div>
+                ))}
+              </div>
+            )}
+            {activeTab === 'headers' && (
+              <div>
+                {[{ key: 'Authorization', value: 'Bearer tok_•••••abc123' }, { key: 'Content-Type', value: 'application/json' }, { key: 'X-Orbit-Version', value: '2024-12-01' }].map((h) => (
+                  <div key={h.key} style={{ display: 'flex', gap: 8, marginBottom: 6 }}>
+                    <input readOnly value={h.key} style={{ width: 160, padding: '5px 8px', borderRadius: 6, border: '1px solid #334155', background: '#1e293b', fontSize: 11, color: '#94a3b8', fontFamily: 'monospace', outline: 'none' }} />
+                    <input readOnly value={h.value} style={{ flex: 1, padding: '5px 8px', borderRadius: 6, border: '1px solid #334155', background: '#1e293b', fontSize: 11, color: '#fbbf24', fontFamily: 'monospace', outline: 'none' }} />
+                  </div>
+                ))}
+              </div>
+            )}
+            {activeTab === 'body' && (
+              <div style={{ padding: '12px', borderRadius: 8, background: '#1e293b', fontSize: 11, color: '#94a3b8', fontFamily: 'monospace', lineHeight: 1.8 }}>
+                {method === 'GET' || method === 'DELETE' ? (
+                  <span style={{ color: '#475569' }}>이 메서드는 요청 바디가 없습니다.</span>
+                ) : (
+                  <pre style={{ margin: 0 }}>{`{\n  "name": "my-new-project",\n  "framework": "vite",\n  "gitRepository": {\n    "type": "github",\n    "repo": "blue45f/my-project"\n  }\n}`}</pre>
+                )}
+              </div>
+            )}
+            {activeTab === 'response' && (
+              <div>
+                {loading ? (
+                  <div style={{ textAlign: 'center', color: '#475569', fontSize: 12, padding: '32px' }}>요청 전송 중...</div>
+                ) : response ? (
+                  <div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 10 }}>
+                      <span style={{ fontSize: 11, fontWeight: 700, color: '#10b981' }}>200 OK</span>
+                      <span style={{ fontSize: 10, color: '#475569' }}>124ms</span>
+                      <span style={{ fontSize: 10, color: '#475569' }}>application/json</span>
+                    </div>
+                    <div style={{ padding: '12px', borderRadius: 8, background: '#1e293b', fontSize: 11, color: '#94a3b8', fontFamily: 'monospace', lineHeight: 1.8, overflow: 'auto' }}>
+                      <pre style={{ margin: 0 }}>{response}</pre>
+                    </div>
+                  </div>
+                ) : (
+                  <div style={{ textAlign: 'center', color: '#475569', fontSize: 12, padding: '32px' }}>Send 버튼을 클릭해 API를 테스트하세요.</div>
+                )}
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+
+      <p style={{ fontSize: 10, color: '#1e293b', textAlign: 'center', padding: '8px', borderTop: '1px solid #1e293b' }}>
+        Radix UI 접근성 패턴 + Vercel API 탐색기 레이아웃 — 사이클 148
+      </p>
+    </div>
+  )
+}
+
+export const RadixVercel148APIExplorer: StoryObj = {
+  name: 'Radix UI + Vercel — API 레퍼런스 & 탐색기',
+  parameters: {
+    layout: 'fullscreen',
+    docs: {
+      description: {
+        story: 'Radix UI 접근성 Tabs 패턴 + Vercel API 대시보드 레이아웃. 엔드포인트 사이드바 검색/필터링, 메서드 선택, Query Params/Headers/Body/Response 탭, 모의 API 응답 시뮬레이션.',
+      },
+    },
+  },
+  render: () => <RadixVercel148APIExplorerRender />,
+}
