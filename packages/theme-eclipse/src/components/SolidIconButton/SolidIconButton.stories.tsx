@@ -17,7 +17,7 @@ import {
   CheckIcon,
 } from '@heejun-com/icons'
 import { Meta, StoryObj } from '@storybook/react'
-import { ComponentProps, useState } from 'react'
+import React, { ComponentProps, useState } from 'react'
 
 import { SolidIconButton } from '.'
 
@@ -1169,4 +1169,192 @@ export const Shadcn_에디터_포맷_툴바 = {
       </div>
     )
   },
+}
+
+// ============================================================
+// Cycle 131 — shadcn/ui + Radix UI 벤치마크 반영
+// ============================================================
+
+// shadcn/ui 스타일 — 카드 그리드 호버 시 플로팅 액션 버튼
+type ProjectCard131 = { id: number; title: string; lang: string; stars: number; color: string }
+const PROJECT_CARDS_131: ProjectCard131[] = [
+  { id: 1, title: 'orbit-ui', lang: 'TypeScript', stars: 142, color: '#3b82f6' },
+  { id: 2, title: 'vite-plugin', lang: 'JavaScript', stars: 58, color: '#f59e0b' },
+  { id: 3, title: 'icons', lang: 'SVG', stars: 31, color: '#10b981' },
+]
+
+function ProjectCardHover131() {
+  const [hovered, setHovered] = useState<number | null>(null)
+  const [starred, setStarred] = useState<Set<number>>(new Set())
+  return (
+    <div style={{ display: 'flex', gap: 16, padding: '24px' }}>
+      {PROJECT_CARDS_131.map((card) => (
+        <div
+          key={card.id}
+          style={{
+            position: 'relative', width: 180, borderRadius: 12,
+            border: '1px solid #e2e8f0', padding: '20px 16px',
+            background: '#fff', cursor: 'pointer', transition: 'box-shadow 150ms ease',
+            boxShadow: hovered === card.id ? '0 4px 20px rgba(0,0,0,0.10)' : '0 1px 4px rgba(0,0,0,0.04)',
+          }}
+          onMouseEnter={() => setHovered(card.id)}
+          onMouseLeave={() => setHovered(null)}
+        >
+          <div style={{ width: 40, height: 40, borderRadius: 10, background: card.color + '20', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 12 }}>
+            <span style={{ fontSize: 18 }}>📦</span>
+          </div>
+          <div style={{ fontWeight: 700, fontSize: 14, color: '#0f172a', marginBottom: 4 }}>{card.title}</div>
+          <div style={{ fontSize: 12, color: '#64748b' }}>{card.lang}</div>
+          {hovered === card.id && (
+            <div style={{ position: 'absolute', top: 10, right: 10, display: 'flex', gap: 6 }}>
+              <SolidIconButton
+                color="white"
+                size="small"
+                onClick={(e) => { e.stopPropagation(); setStarred((prev) => { const n = new Set(prev); if (n.has(card.id)) { n.delete(card.id) } else { n.add(card.id) } return n }) }}
+              >
+                <StarLineIcon size={14} />
+              </SolidIconButton>
+              <SolidIconButton color="black" size="small">
+                <ShareIcon size={14} />
+              </SolidIconButton>
+            </div>
+          )}
+          <div style={{ marginTop: 12, fontSize: 12, color: '#94a3b8', display: 'flex', alignItems: 'center', gap: 4 }}>
+            <StarLineIcon size={12} />
+            {card.stars + (starred.has(card.id) ? 1 : 0)}
+          </div>
+        </div>
+      ))}
+    </div>
+  )
+}
+
+export const Shadcn_카드_호버_플로팅_액션: Story = {
+  args: { children: <PlusIcon /> },
+  render: () => <ProjectCardHover131 />,
+}
+
+// Radix UI 제어 컴포넌트 패턴 — 토글 그룹 (단일/다중 선택)
+type AlignKey131 = 'left' | 'center' | 'right' | 'justify'
+type FormatKey131 = 'bold' | 'italic' | 'underline'
+
+function RadixToggleGroupRender131() {
+  const [align, setAlign] = useState<AlignKey131>('left')
+  const [formats, setFormats] = useState<Set<FormatKey131>>(new Set())
+  const toggleFormat = (k: FormatKey131) => setFormats((prev) => { const n = new Set(prev); if (n.has(k)) { n.delete(k) } else { n.add(k) } return n })
+  const alignButtons: { key: AlignKey131; Icon: React.FC<{ size?: number }> }[] = [
+    { key: 'left', Icon: AlignLeftIcon },
+    { key: 'center', Icon: AlignLeftIcon },
+    { key: 'right', Icon: AlignLeftIcon },
+    { key: 'justify', Icon: AlignLeftIcon },
+  ]
+  const fmtButtons: { key: FormatKey131; Icon: React.FC<{ size?: number }> }[] = [
+    { key: 'bold', Icon: TextBoldIcon },
+    { key: 'italic', Icon: TextItalicIcon },
+    { key: 'underline', Icon: TextUnderlineIcon },
+  ]
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 20, padding: '24px' }}>
+      <div>
+        <div style={{ fontSize: 11, fontWeight: 600, color: '#94a3b8', marginBottom: 8, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+          정렬 (단일 선택)
+        </div>
+        <div style={{ display: 'flex', gap: 4, background: '#f1f5f9', borderRadius: 8, padding: 4 }}>
+          {alignButtons.map(({ key, Icon }) => (
+            <SolidIconButton
+              key={key}
+              color={align === key ? 'black' : 'white'}
+              size="small"
+              onClick={() => setAlign(key)}
+            >
+              <Icon size={14} />
+            </SolidIconButton>
+          ))}
+        </div>
+      </div>
+      <div>
+        <div style={{ fontSize: 11, fontWeight: 600, color: '#94a3b8', marginBottom: 8, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+          서식 (다중 선택)
+        </div>
+        <div style={{ display: 'flex', gap: 4, background: '#f1f5f9', borderRadius: 8, padding: 4 }}>
+          {fmtButtons.map(({ key, Icon }) => (
+            <SolidIconButton
+              key={key}
+              color={formats.has(key) ? 'black' : 'white'}
+              size="small"
+              onClick={() => toggleFormat(key)}
+            >
+              <Icon size={14} />
+            </SolidIconButton>
+          ))}
+        </div>
+      </div>
+      <div style={{
+        padding: '14px 18px', borderRadius: 10, border: '1px solid #e2e8f0',
+        fontWeight: formats.has('bold') ? 700 : 400,
+        fontStyle: formats.has('italic') ? 'italic' : 'normal',
+        textDecoration: formats.has('underline') ? 'underline' : 'none',
+        textAlign: align, fontSize: 14, color: '#0f172a', lineHeight: 1.7,
+      }}>
+        Orbit UI는 Figma 기반 컴포넌트 시스템입니다. 텍스트 서식 데모.
+      </div>
+    </div>
+  )
+}
+
+export const Radix_텍스트_서식_토글_그룹: Story = {
+  args: { children: <TextBoldIcon /> },
+  render: () => <RadixToggleGroupRender131 />,
+}
+
+// Notion 스타일 — 인라인 블록 편집기 호버 액션바
+type Block131 = { id: number; text: string; type: 'heading' | 'paragraph' | 'list' }
+
+function NotionBlockEditorRender131() {
+  const [hovered, setHovered] = useState<number | null>(null)
+  const [blocks, setBlocks] = useState<Block131[]>([
+    { id: 1, text: '프로젝트 시작하기', type: 'heading' },
+    { id: 2, text: '이 문서는 프로젝트 초기 설정 방법을 설명합니다.', type: 'paragraph' },
+    { id: 3, text: 'pnpm install 로 의존성 설치', type: 'list' },
+    { id: 4, text: 'pnpm dev 로 개발 서버 실행', type: 'list' },
+  ])
+  const removeBlock = (id: number) => setBlocks((prev) => prev.filter((b) => b.id !== id))
+  return (
+    <div style={{ maxWidth: 480, padding: '24px', background: '#fff', borderRadius: 12, border: '1px solid #e2e8f0' }}>
+      {blocks.map((block) => (
+        <div
+          key={block.id}
+          style={{ position: 'relative', padding: '6px 0', display: 'flex', alignItems: 'flex-start', gap: 8 }}
+          onMouseEnter={() => setHovered(block.id)}
+          onMouseLeave={() => setHovered(null)}
+        >
+          {hovered === block.id && (
+            <div style={{ position: 'absolute', left: -80, top: '50%', transform: 'translateY(-50%)', display: 'flex', gap: 4 }}>
+              <SolidIconButton color="white" size="small" onClick={() => removeBlock(block.id)}>
+                <PlusIcon size={12} />
+              </SolidIconButton>
+              <SolidIconButton color="white" size="small">
+                <MoreHorizontalIcon size={12} />
+              </SolidIconButton>
+            </div>
+          )}
+          <div style={{
+            flex: 1,
+            fontSize: block.type === 'heading' ? 18 : 14,
+            fontWeight: block.type === 'heading' ? 700 : 400,
+            color: '#0f172a', lineHeight: 1.7,
+            paddingLeft: block.type === 'list' ? 16 : 0,
+          }}>
+            {block.type === 'list' && <span style={{ color: '#94a3b8', marginRight: 8 }}>•</span>}
+            {block.text}
+          </div>
+        </div>
+      ))}
+    </div>
+  )
+}
+
+export const Notion_블록_편집기_호버_액션: Story = {
+  args: { children: <MoreHorizontalIcon /> },
+  render: () => <NotionBlockEditorRender131 />,
 }

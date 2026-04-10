@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { useState } from 'react'
+import React, { useState } from 'react'
 
 import { Tooltip } from './Tooltip'
 import { FilledButton as Button } from '../SolidButton'
@@ -1188,6 +1188,191 @@ export const MUI_아바타_호버카드_툴팁: Story = {
             ))}
           </div>
         </div>
+      </div>
+    </Tooltip.Provider>
+  ),
+}
+
+// ============================================================
+// Cycle 131 — shadcn/ui + Radix UI 벤치마크 반영
+// ============================================================
+
+// Raycast 커맨드 팔레트 스타일 액션 힌트 툴팁
+const RAYCAST_ACTIONS: { Icon: React.FC<{ size?: number }>; label: string; shortcut: string; desc: string }[] = [
+  { Icon: SearchIcon, label: '검색', shortcut: '⌘K', desc: '전역 검색 열기' },
+  { Icon: StarLineIcon, label: '즐겨찾기', shortcut: '⌘D', desc: '현재 항목 즐겨찾기' },
+  { Icon: NotificationLineIcon, label: '알림', shortcut: '⌘N', desc: '알림 패널 열기' },
+  { Icon: SettingLineIcon, label: '설정', shortcut: '⌘,', desc: '환경 설정' },
+]
+
+export const Raycast_커맨드_팔레트_액션_힌트: Story = {
+  render: () => (
+    <Tooltip.Provider delayDuration={300}>
+      <div style={{
+        background: '#1c1c1e', borderRadius: 12, padding: '8px',
+        display: 'flex', gap: 4, boxShadow: '0 8px 32px rgba(0,0,0,0.4)',
+      }}>
+        {RAYCAST_ACTIONS.map(({ Icon, label, shortcut, desc }) => (
+          <Tooltip key={label}>
+            <Tooltip.Trigger asChild>
+              <button
+                style={{
+                  background: 'transparent', border: 'none', cursor: 'pointer',
+                  borderRadius: 8, padding: '8px', display: 'flex', flexDirection: 'column',
+                  alignItems: 'center', gap: 4, color: '#e5e5e7', minWidth: 56,
+                  transition: 'background 150ms ease',
+                }}
+                onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = 'rgba(255,255,255,0.08)' }}
+                onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = 'transparent' }}
+              >
+                <Icon size={18} />
+                <span style={{ fontSize: 10, color: '#98989d' }}>{label}</span>
+              </button>
+            </Tooltip.Trigger>
+            <Tooltip.Content side="bottom" sideOffset={6}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 3, minWidth: 120 }}>
+                <Typography textStyle="descriptionLarge" className="text-white" style={{ fontWeight: 600 }}>
+                  {desc}
+                </Typography>
+                <span style={{
+                  display: 'inline-flex', alignSelf: 'flex-start',
+                  background: 'rgba(255,255,255,0.15)', borderRadius: 4,
+                  padding: '1px 6px', fontSize: 11, color: '#e5e5e7', fontFamily: 'monospace',
+                }}>
+                  {shortcut}
+                </span>
+              </div>
+            </Tooltip.Content>
+          </Tooltip>
+        ))}
+      </div>
+    </Tooltip.Provider>
+  ),
+}
+
+// Radix UI 제어 컴포넌트 패턴 — 외부에서 open 상태 제어
+const RadixControlledTooltipRender = () => {
+  const [openIndex, setOpenIndex] = useState<number | null>(null)
+  const STEPS = [
+    { label: '프로젝트 생성', done: true },
+    { label: '팀원 초대', done: true },
+    { label: '역할 설정', done: false },
+    { label: '출시', done: false },
+  ]
+  return (
+    <div style={{ padding: '40px 60px' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 0, position: 'relative' }}>
+        {STEPS.map((step, i) => (
+          <div key={step.label} style={{ display: 'flex', alignItems: 'center' }}>
+            <Tooltip.Provider>
+              <Tooltip open={openIndex === i} onOpenChange={(open) => setOpenIndex(open ? i : null)}>
+                <Tooltip.Trigger asChild>
+                  <button
+                    style={{
+                      width: 36, height: 36, borderRadius: '50%', border: 'none', cursor: 'pointer',
+                      background: step.done ? '#0f172a' : openIndex === i ? '#f1f5f9' : '#e2e8f0',
+                      color: step.done ? '#fff' : '#64748b',
+                      fontWeight: 700, fontSize: 14,
+                      boxShadow: openIndex === i ? '0 0 0 3px #3b82f6' : 'none',
+                      transition: 'all 150ms ease',
+                    }}
+                  >
+                    {step.done ? '✓' : i + 1}
+                  </button>
+                </Tooltip.Trigger>
+                <Tooltip.Content side="top" sideOffset={8}>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+                    <Typography textStyle="descriptionLarge" className="text-white" style={{ fontWeight: 600 }}>
+                      {step.label}
+                    </Typography>
+                    <Typography textStyle="descriptionSmall" className="text-white" style={{ opacity: 0.7 }}>
+                      {step.done ? '완료됨' : '진행 예정'}
+                    </Typography>
+                  </div>
+                </Tooltip.Content>
+              </Tooltip>
+            </Tooltip.Provider>
+            {i < STEPS.length - 1 && (
+              <div style={{
+                width: 60, height: 2,
+                background: i < STEPS.filter((s) => s.done).length - 1 ? '#0f172a' : '#e2e8f0',
+                margin: '0 4px', transition: 'background 300ms ease',
+              }} />
+            )}
+          </div>
+        ))}
+      </div>
+      <Typography textStyle="descriptionSmall" style={{ color: '#94a3b8', marginTop: 16, display: 'block', textAlign: 'center' }}>
+        각 단계 클릭 시 툴팁 표시 (Radix 제어 패턴)
+      </Typography>
+    </div>
+  )
+}
+
+export const Radix_제어_스텝퍼_툴팁: Story = {
+  render: () => <RadixControlledTooltipRender />,
+}
+
+// shadcn/ui 스타일 — 데이터 테이블 컬럼 헤더 정보 툴팁
+const TABLE_COLS: { key: string; label: string; info: string; align: 'left' | 'right' }[] = [
+  { key: 'name', label: '프로젝트명', info: '배포된 Vercel 프로젝트 이름', align: 'left' },
+  { key: 'status', label: '상태', info: '현재 빌드 및 배포 상태', align: 'left' },
+  { key: 'p99', label: 'P99 응답 (ms)', info: '상위 1% 응답 시간. 낮을수록 성능 우수', align: 'right' },
+  { key: 'errors', label: '에러율 (%)', info: '지난 24시간 기준 HTTP 5xx 비율', align: 'right' },
+]
+const TABLE_ROWS = [
+  { name: 'orbit-ui', status: '정상', p99: 142, errors: 0.1 },
+  { name: 'storybook', status: '빌드 중', p99: 210, errors: 0.3 },
+  { name: 'api-proxy', status: '경고', p99: 891, errors: 2.4 },
+]
+
+export const Shadcn_테이블_컬럼_정보_툴팁: Story = {
+  render: () => (
+    <Tooltip.Provider delayDuration={200}>
+      <div style={{ border: '1px solid #e2e8f0', borderRadius: 8, overflow: 'hidden', minWidth: 480 }}>
+        <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13 }}>
+          <thead>
+            <tr style={{ background: '#f8fafc', borderBottom: '1px solid #e2e8f0' }}>
+              {TABLE_COLS.map((col) => (
+                <th key={col.key} style={{ padding: '10px 14px', textAlign: col.align, fontWeight: 600, color: '#475569' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 5, justifyContent: col.align === 'right' ? 'flex-end' : 'flex-start' }}>
+                    {col.label}
+                    <Tooltip>
+                      <Tooltip.Trigger asChild>
+                        <span style={{ cursor: 'pointer', color: '#94a3b8', display: 'inline-flex' }}>
+                          <CircleInfoLineIcon size={13} />
+                        </span>
+                      </Tooltip.Trigger>
+                      <Tooltip.Content side="top" sideOffset={4}>
+                        <Typography textStyle="descriptionSmall" className="text-white">
+                          {col.info}
+                        </Typography>
+                      </Tooltip.Content>
+                    </Tooltip>
+                  </div>
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {TABLE_ROWS.map((row, i) => (
+              <tr key={row.name} style={{ borderBottom: i < TABLE_ROWS.length - 1 ? '1px solid #f1f5f9' : 'none' }}>
+                <td style={{ padding: '10px 14px', color: '#1e293b', fontWeight: 500 }}>{row.name}</td>
+                <td style={{ padding: '10px 14px' }}>
+                  <span style={{
+                    padding: '2px 8px', borderRadius: 99, fontSize: 12, fontWeight: 500,
+                    background: row.status === '정상' ? '#dcfce7' : row.status === '빌드 중' ? '#fef9c3' : '#fee2e2',
+                    color: row.status === '정상' ? '#166534' : row.status === '빌드 중' ? '#92400e' : '#991b1b',
+                  }}>
+                    {row.status}
+                  </span>
+                </td>
+                <td style={{ padding: '10px 14px', textAlign: 'right', color: row.p99 > 500 ? '#dc2626' : '#0f172a' }}>{row.p99}</td>
+                <td style={{ padding: '10px 14px', textAlign: 'right', color: row.errors > 1 ? '#dc2626' : '#0f172a' }}>{row.errors.toFixed(1)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </Tooltip.Provider>
   ),

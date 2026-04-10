@@ -30655,3 +30655,205 @@ export const TailwindM3130OnboardingWizard: StoryObj = {
   },
   render: () => <Onboarding130Render />,
 }
+
+/* ============================================================
+   Cycle 131 Template: shadcn/ui + Radix UI 벤치마크
+   사용자 활동 대시보드 — SolidIconButton 액션 + Tooltip 힌트
+   ============================================================ */
+
+type Activity131 = {
+  id: number
+  user: string
+  initials: string
+  color: string
+  action: string
+  target: string
+  time: string
+  type: 'commit' | 'deploy' | 'review' | 'comment'
+}
+
+const ACTIVITIES_131: Activity131[] = [
+  { id: 1, user: '김희준', initials: 'HJ', color: '#6366f1', action: '커밋 푸시', target: 'feat/button-tokens', time: '2분 전', type: 'commit' },
+  { id: 2, user: '박지수', initials: 'JS', color: '#10b981', action: '배포 완료', target: 'orbit-ui (main)', time: '8분 전', type: 'deploy' },
+  { id: 3, user: '이민준', initials: 'MJ', color: '#f59e0b', action: '코드 리뷰 요청', target: 'PR #241', time: '15분 전', type: 'review' },
+  { id: 4, user: '최수현', initials: 'SH', color: '#ec4899', action: '코멘트 작성', target: 'DataTable 스토리', time: '31분 전', type: 'comment' },
+  { id: 5, user: '정우진', initials: 'WJ', color: '#8b5cf6', action: '커밋 푸시', target: 'fix/tooltip-z-index', time: '1시간 전', type: 'commit' },
+  { id: 6, user: '박지수', initials: 'JS', color: '#10b981', action: '코드 리뷰 승인', target: 'PR #239', time: '2시간 전', type: 'review' },
+]
+
+const TYPE_ICON_MAP: Record<Activity131['type'], string> = {
+  commit: '⬆',
+  deploy: '🚀',
+  review: '👁',
+  comment: '💬',
+}
+
+const TYPE_COLOR_MAP: Record<Activity131['type'], string> = {
+  commit: '#6366f1',
+  deploy: '#10b981',
+  review: '#f59e0b',
+  comment: '#3b82f6',
+}
+
+function ActivityDashboard131Render() {
+  const [filter, setFilter] = useState<Activity131['type'] | 'all'>('all')
+  const [bookmarked, setBookmarked] = useState<Set<number>>(new Set())
+  const visible = filter === 'all' ? ACTIVITIES_131 : ACTIVITIES_131.filter((a) => a.type === filter)
+  const FILTERS: Array<{ key: Activity131['type'] | 'all'; label: string }> = [
+    { key: 'all', label: '전체' },
+    { key: 'commit', label: '커밋' },
+    { key: 'deploy', label: '배포' },
+    { key: 'review', label: '리뷰' },
+    { key: 'comment', label: '코멘트' },
+  ]
+  return (
+    <div style={{ width: 540, fontFamily: 'system-ui, sans-serif', background: '#fff', borderRadius: 14, border: '1px solid #e2e8f0', overflow: 'hidden', boxShadow: '0 2px 16px rgba(0,0,0,0.06)' }}>
+      {/* 헤더 */}
+      <div style={{ padding: '18px 20px', borderBottom: '1px solid #f1f5f9', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <div>
+          <div style={{ fontSize: 15, fontWeight: 700, color: '#0f172a' }}>팀 활동</div>
+          <div style={{ fontSize: 12, color: '#94a3b8', marginTop: 2 }}>{ACTIVITIES_131.length}개 활동 · 지난 24시간</div>
+        </div>
+        <Tooltip.Provider delayDuration={200}>
+          <div style={{ display: 'flex', gap: 6 }}>
+            <Tooltip>
+              <Tooltip.Trigger asChild>
+                <span>
+                  <SolidIconButton color="white" size="small">
+                    <NotificationLineIcon size={15} />
+                  </SolidIconButton>
+                </span>
+              </Tooltip.Trigger>
+              <Tooltip.Content side="bottom">
+                <span style={{ fontSize: 12, color: '#fff' }}>알림 설정</span>
+              </Tooltip.Content>
+            </Tooltip>
+            <Tooltip>
+              <Tooltip.Trigger asChild>
+                <span>
+                  <SolidIconButton color="white" size="small">
+                    <ShareIcon size={15} />
+                  </SolidIconButton>
+                </span>
+              </Tooltip.Trigger>
+              <Tooltip.Content side="bottom">
+                <span style={{ fontSize: 12, color: '#fff' }}>활동 내보내기</span>
+              </Tooltip.Content>
+            </Tooltip>
+            <Tooltip>
+              <Tooltip.Trigger asChild>
+                <span>
+                  <SolidIconButton color="black" size="small">
+                    <MoreHorizontalIcon size={15} />
+                  </SolidIconButton>
+                </span>
+              </Tooltip.Trigger>
+              <Tooltip.Content side="bottom">
+                <span style={{ fontSize: 12, color: '#fff' }}>더 보기</span>
+              </Tooltip.Content>
+            </Tooltip>
+          </div>
+        </Tooltip.Provider>
+      </div>
+
+      {/* 필터 탭 */}
+      <div style={{ padding: '10px 20px', borderBottom: '1px solid #f1f5f9', display: 'flex', gap: 6 }}>
+        {FILTERS.map(({ key, label }) => (
+          <button
+            key={key}
+            onClick={() => setFilter(key)}
+            style={{
+              padding: '4px 12px', borderRadius: 99, border: 'none', cursor: 'pointer', fontSize: 12, fontWeight: 500,
+              background: filter === key ? '#0f172a' : '#f1f5f9',
+              color: filter === key ? '#fff' : '#64748b',
+              transition: 'all 150ms ease',
+            }}
+          >
+            {label}
+          </button>
+        ))}
+      </div>
+
+      {/* 활동 목록 */}
+      <div style={{ maxHeight: 360, overflowY: 'auto' }}>
+        {visible.map((act, i) => (
+          <div
+            key={act.id}
+            style={{
+              display: 'flex', alignItems: 'center', gap: 12, padding: '12px 20px',
+              borderBottom: i < visible.length - 1 ? '1px solid #f8fafc' : 'none',
+              transition: 'background 150ms',
+            }}
+            onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = '#f8fafc' }}
+            onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = '#fff' }}
+          >
+            {/* 아바타 */}
+            <div style={{ position: 'relative', flexShrink: 0 }}>
+              <div style={{ width: 36, height: 36, borderRadius: '50%', background: act.color + '22', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 13, fontWeight: 700, color: act.color }}>
+                {act.initials}
+              </div>
+              <div style={{ position: 'absolute', bottom: -1, right: -1, width: 16, height: 16, borderRadius: '50%', background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 9, border: '1px solid #e2e8f0', color: TYPE_COLOR_MAP[act.type] }}>
+                {TYPE_ICON_MAP[act.type]}
+              </div>
+            </div>
+
+            {/* 내용 */}
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <div style={{ fontSize: 13, color: '#0f172a', lineHeight: 1.4 }}>
+                <span style={{ fontWeight: 600 }}>{act.user}</span>
+                <span style={{ color: '#64748b', margin: '0 4px' }}>{act.action}</span>
+                <span style={{ fontWeight: 500, color: TYPE_COLOR_MAP[act.type] }}>{act.target}</span>
+              </div>
+              <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>{act.time}</div>
+            </div>
+
+            {/* 북마크 액션 */}
+            <Tooltip.Provider delayDuration={300}>
+              <Tooltip>
+                <Tooltip.Trigger asChild>
+                  <span>
+                    <SolidIconButton
+                      color={bookmarked.has(act.id) ? 'black' : 'white'}
+                      size="small"
+                      onClick={() => setBookmarked((prev) => { const n = new Set(prev); if (n.has(act.id)) { n.delete(act.id) } else { n.add(act.id) } return n })}
+                    >
+                      <StarLineIcon size={13} />
+                    </SolidIconButton>
+                  </span>
+                </Tooltip.Trigger>
+                <Tooltip.Content side="left">
+                  <span style={{ fontSize: 12, color: '#fff' }}>
+                    {bookmarked.has(act.id) ? '북마크 해제' : '북마크'}
+                  </span>
+                </Tooltip.Content>
+              </Tooltip>
+            </Tooltip.Provider>
+          </div>
+        ))}
+      </div>
+
+      {/* 푸터 */}
+      <div style={{ padding: '12px 20px', borderTop: '1px solid #f1f5f9', textAlign: 'center' }}>
+        <button style={{ fontSize: 12, color: '#6366f1', fontWeight: 500, border: 'none', background: 'none', cursor: 'pointer' }}>
+          전체 활동 보기 →
+        </button>
+      </div>
+    </div>
+  )
+}
+
+export const ShadcnRadix131ActivityDashboard: StoryObj = {
+  name: 'shadcn/ui + Radix — 팀 활동 대시보드 (Cycle 131)',
+  parameters: {
+    layout: 'centered',
+    docs: {
+      description: {
+        story:
+          'shadcn/ui + Radix UI 벤치마크 — Cycle 131. ' +
+          'SolidIconButton 헤더 액션 + Tooltip 힌트 + 필터 탭 + 활동 피드 북마크 패턴. ' +
+          '타입별 필터링, 호버 인터랙션, 북마크 토글을 결합한 팀 활동 대시보드.',
+      },
+    },
+  },
+  render: () => <ActivityDashboard131Render />,
+}
