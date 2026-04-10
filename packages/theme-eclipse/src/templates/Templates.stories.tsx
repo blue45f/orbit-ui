@@ -86,6 +86,7 @@ import {
 import { Command } from '../components/Command'
 import { Dropdown } from '../components/Dropdown'
 import { Popover } from '../components/Popover'
+import { Dialog } from '../components/Modal'
 
 const meta: Meta = {
   title: 'Templates/Showcase',
@@ -36964,4 +36965,219 @@ export const FigmaApple163DesignToolkit: StoryObj = {
     },
   },
   render: () => <FigmaApple163DesignToolkitRender />,
+}
+
+/* ==========================================================================
+   Cycle 164 — Google Material 3 + shadcn/ui
+   M3Shadcn164SearchCenter: 통합 검색 센터 템플릿
+   ========================================================================== */
+const M3_SEARCH_COMPONENTS_164 = [
+  { name: 'SolidButton', category: '입력', desc: '채워진 버튼', color: '#6366f1' },
+  { name: 'TextField', category: '입력', desc: '텍스트 입력', color: '#6366f1' },
+  { name: 'Modal', category: '피드백', desc: '다이얼로그', color: '#f59e0b' },
+  { name: 'Toast', category: '피드백', desc: '알림 메시지', color: '#f59e0b' },
+  { name: 'Progress', category: '피드백', desc: '진행 표시', color: '#f59e0b' },
+  { name: 'DataTable', category: '표시', desc: '데이터 테이블', color: '#14b8a6' },
+  { name: 'Skeleton', category: '표시', desc: '로딩 스켈레톤', color: '#14b8a6' },
+  { name: 'AppBar', category: '내비게이션', desc: '상단 앱바', color: '#ec4899' },
+  { name: 'Drawer', category: '내비게이션', desc: '사이드 드로어', color: '#ec4899' },
+  { name: 'Toggle', category: '입력', desc: '전환 스위치', color: '#6366f1' },
+  { name: 'Slider', category: '입력', desc: '범위 슬라이더', color: '#6366f1' },
+  { name: 'Carousel', category: '표시', desc: '이미지 캐러셀', color: '#14b8a6' },
+]
+
+const M3_FILTER_CATS_164 = ['전체', '입력', '피드백', '표시', '내비게이션']
+const M3_TRENDING_164 = ['Button', 'Modal', 'DataTable', 'Toggle']
+const M3_QUICK_ACTIONS_164 = [
+  { icon: '📝', label: '새 컴포넌트', shortcut: '⌘ N' },
+  { icon: '📋', label: '스토리 복사', shortcut: '⌘ C' },
+  { icon: '🔍', label: '문서 검색', shortcut: '⌘ K' },
+  { icon: '⚙️', label: '설정 열기', shortcut: 'G S' },
+]
+
+function M3Shadcn164SearchCenterRender() {
+  const [search, setSearch] = useState('')
+  const [category, setCategory] = useState('전체')
+  const [history, setHistory] = useState<string[]>(['Modal', 'Toggle'])
+  const [selectedComp, setSelectedComp] = useState<string | null>(null)
+  const [_dialogOpen, setDialogOpen] = useState(false)
+
+  const filtered = M3_SEARCH_COMPONENTS_164.filter(c => {
+    const matchSearch = !search || c.name.toLowerCase().includes(search.toLowerCase()) || c.desc.includes(search)
+    const matchCat = category === '전체' || c.category === category
+    return matchSearch && matchCat
+  })
+
+  const selectComp = (name: string) => {
+    setSelectedComp(name)
+    setHistory(prev => [name, ...prev.filter(h => h !== name)].slice(0, 6))
+  }
+
+  const detail = M3_SEARCH_COMPONENTS_164.find(c => c.name === selectedComp)
+
+  return (
+    <div style={{ display: 'flex', height: '100vh', fontFamily: 'system-ui, sans-serif', background: '#f8fafc', overflow: 'hidden' }}>
+
+      {/* Left panel: Search + results */}
+      <div style={{ width: 340, display: 'flex', flexDirection: 'column', background: '#fff', borderRight: '1px solid #e5e7eb' }}>
+        {/* Header */}
+        <div style={{ padding: '16px 16px 10px', borderBottom: '1px solid #f1f5f9' }}>
+          <div style={{ fontSize: 14, fontWeight: 800, color: '#1e293b', marginBottom: 10, letterSpacing: '-0.02em' }}>컴포넌트 검색</div>
+          <SearchBar
+            placeholder="컴포넌트 검색 (M3 패턴)"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+          {/* M3 Suggestion chips */}
+          {!search && (
+            <div style={{ display: 'flex', gap: 5, flexWrap: 'wrap', marginTop: 8 }}>
+              {M3_TRENDING_164.map(t => (
+                <button key={t} onClick={() => setSearch(t)} style={{ padding: '3px 10px', borderRadius: 16, border: '1px solid #e5e7eb', background: '#f8fafc', color: '#475569', fontSize: 10, cursor: 'pointer', fontWeight: 500 }}>{t}</button>
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* M3 Filter chips */}
+        <div style={{ display: 'flex', gap: 5, padding: '8px 16px', borderBottom: '1px solid #f1f5f9', flexWrap: 'wrap' }}>
+          {M3_FILTER_CATS_164.map(cat => (
+            <button key={cat} onClick={() => setCategory(cat)} style={{ padding: '4px 10px', borderRadius: 16, border: `1.5px solid ${category === cat ? '#6366f1' : '#e5e7eb'}`, background: category === cat ? '#eef2ff' : 'transparent', color: category === cat ? '#4338ca' : '#64748b', fontSize: 10, cursor: 'pointer', fontWeight: category === cat ? 700 : 400, transition: 'all 150ms' }}>{cat}</button>
+          ))}
+        </div>
+
+        {/* Results list */}
+        <div style={{ flex: 1, overflowY: 'auto' }}>
+          {filtered.length > 0 ? filtered.map(c => (
+            <button key={c.name} onClick={() => selectComp(c.name)} style={{ width: '100%', display: 'flex', alignItems: 'center', gap: 10, padding: '10px 16px', border: 'none', borderBottom: '1px solid #f8fafc', background: selectedComp === c.name ? '#eef2ff' : 'transparent', cursor: 'pointer', textAlign: 'left', borderLeft: selectedComp === c.name ? `3px solid ${c.color}` : '3px solid transparent' }}>
+              <div style={{ width: 32, height: 32, borderRadius: 8, background: c.color + '15', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 12, fontWeight: 800, color: c.color, flexShrink: 0 }}>{c.name[0]}</div>
+              <div>
+                <div style={{ fontSize: 12, fontWeight: selectedComp === c.name ? 700 : 600, color: '#1e293b' }}>{c.name}</div>
+                <div style={{ fontSize: 10, color: '#94a3b8' }}>{c.desc}</div>
+              </div>
+              <div style={{ marginLeft: 'auto', fontSize: 9, padding: '2px 6px', borderRadius: 4, background: c.color + '15', color: c.color, flexShrink: 0 }}>{c.category}</div>
+            </button>
+          )) : (
+            <div style={{ padding: '32px 16px', textAlign: 'center', color: '#94a3b8', fontSize: 12 }}>결과 없음</div>
+          )}
+        </div>
+
+        {/* History */}
+        {history.length > 0 && (
+          <div style={{ borderTop: '1px solid #f1f5f9', padding: '8px 16px', background: '#fafafa' }}>
+            <div style={{ fontSize: 10, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.07em', marginBottom: 6 }}>최근 검색</div>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 4 }}>
+              {history.map(h => (
+                <button key={h} onClick={() => selectComp(h)} style={{ padding: '2px 8px', borderRadius: 10, border: '1px solid #e5e7eb', background: '#fff', color: '#64748b', fontSize: 10, cursor: 'pointer' }}>{h}</button>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Right: Inspector + shadcn Dialog */}
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflowY: 'auto' }}>
+        {/* Quick actions toolbar (shadcn/ui Command 패턴) */}
+        <div style={{ padding: '10px 24px', background: '#fff', borderBottom: '1px solid #e5e7eb', display: 'flex', alignItems: 'center', gap: 6 }}>
+          {M3_QUICK_ACTIONS_164.map(a => (
+            <button key={a.label} style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '6px 10px', borderRadius: 7, border: '1px solid #e5e7eb', background: '#f8fafc', color: '#475569', fontSize: 11, cursor: 'pointer' }}>
+              <span>{a.icon}</span>
+              <span>{a.label}</span>
+              <span style={{ fontSize: 9, color: '#94a3b8', fontFamily: 'monospace', background: '#e5e7eb', padding: '1px 4px', borderRadius: 3 }}>{a.shortcut}</span>
+            </button>
+          ))}
+        </div>
+
+        {/* Detail panel */}
+        <div style={{ flex: 1, padding: '24px', display: 'flex', flexDirection: 'column', gap: 16 }}>
+          {detail ? (
+            <>
+              {/* M3 Component card */}
+              <div style={{ background: '#fff', borderRadius: 16, padding: '24px', border: '1px solid #e5e7eb', boxShadow: '0 2px 12px rgba(0,0,0,0.04)' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 20 }}>
+                  <div style={{ width: 56, height: 56, borderRadius: 14, background: detail.color + '15', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 22, fontWeight: 800, color: detail.color }}>{detail.name[0]}</div>
+                  <div>
+                    <div style={{ fontSize: 20, fontWeight: 800, color: '#1e293b', letterSpacing: '-0.02em' }}>{detail.name}</div>
+                    <div style={{ fontSize: 12, color: '#64748b', marginTop: 2 }}>{detail.desc} · {detail.category}</div>
+                  </div>
+                  <div style={{ marginLeft: 'auto' }}>
+                    <Dialog>
+                      <Dialog.Trigger asChild>
+                        <button onClick={() => setDialogOpen(true)} style={{ padding: '8px 16px', borderRadius: 8, border: 'none', background: detail.color, color: '#fff', fontSize: 12, fontWeight: 600, cursor: 'pointer' }}>상세 보기</button>
+                      </Dialog.Trigger>
+                      <Dialog.Top>
+                        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12, textAlign: 'center' }}>
+                          <div style={{ width: 52, height: 52, borderRadius: 14, background: detail.color + '15', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 24, fontWeight: 800, color: detail.color }}>{detail.name[0]}</div>
+                          <div style={{ fontSize: 16, fontWeight: 700, color: '#1e293b', letterSpacing: '-0.01em' }}>{detail.name}</div>
+                          <div style={{ fontSize: 12, color: '#64748b', lineHeight: 1.6 }}>{detail.desc} 컴포넌트입니다. Google Material 3 + shadcn/ui 벤치마크를 통해 Orbit UI에 최적화된 구현을 제공합니다.</div>
+                          <div style={{ padding: '10px 16px', borderRadius: 10, background: detail.color + '10', border: `1px solid ${detail.color}30`, width: '100%', textAlign: 'left' }}>
+                            <div style={{ fontSize: 11, fontWeight: 700, color: detail.color, marginBottom: 4 }}>카테고리</div>
+                            <div style={{ fontSize: 12, color: '#475569' }}>{detail.category}</div>
+                          </div>
+                        </div>
+                      </Dialog.Top>
+                      <Dialog.Bottom direction="horizontal">
+                        <Dialog.Close asChild>
+                          <button onClick={() => setDialogOpen(false)} style={{ flex: 1, padding: '10px', borderRadius: 8, border: '1px solid #e5e7eb', background: '#fff', color: '#475569', fontSize: 13, cursor: 'pointer', fontWeight: 600 }}>닫기</button>
+                        </Dialog.Close>
+                      </Dialog.Bottom>
+                    </Dialog>
+                  </div>
+                </div>
+
+                {/* M3 property rows */}
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 10 }}>
+                  {[
+                    { label: '카테고리', value: detail.category },
+                    { label: '색상 역할', value: 'Primary' },
+                    { label: 'variant', value: '3가지' },
+                  ].map(p => (
+                    <div key={p.label} style={{ padding: '12px', borderRadius: 10, background: '#f8fafc', border: '1px solid #f1f5f9' }}>
+                      <div style={{ fontSize: 10, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 4 }}>{p.label}</div>
+                      <div style={{ fontSize: 13, fontWeight: 700, color: '#1e293b' }}>{p.value}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* shadcn/ui Command-style recent actions */}
+              <div style={{ background: '#fff', borderRadius: 12, border: '1px solid #e5e7eb', overflow: 'hidden' }}>
+                <div style={{ padding: '12px 16px', borderBottom: '1px solid #f1f5f9' }}>
+                  <div style={{ fontSize: 12, fontWeight: 700, color: '#475569' }}>최근 검색 기록</div>
+                </div>
+                {history.slice(0, 4).map((h, i) => {
+                  const hComp = M3_SEARCH_COMPONENTS_164.find(c => c.name === h)
+                  return (
+                    <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 16px', borderBottom: '1px solid #f8fafc' }}>
+                      <div style={{ width: 24, height: 24, borderRadius: 6, background: (hComp?.color ?? '#6366f1') + '15', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 10, fontWeight: 800, color: hComp?.color ?? '#6366f1' }}>{h[0]}</div>
+                      <div style={{ fontSize: 12, color: '#1e293b' }}>{h}</div>
+                      <div style={{ marginLeft: 'auto', fontSize: 10, color: '#94a3b8' }}>{hComp?.category}</div>
+                    </div>
+                  )
+                })}
+              </div>
+            </>
+          ) : (
+            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 12, color: '#94a3b8', textAlign: 'center' }}>
+              <div style={{ fontSize: 40 }}>🔍</div>
+              <div style={{ fontSize: 14, fontWeight: 600 }}>컴포넌트를 검색하세요</div>
+              <div style={{ fontSize: 12 }}>좌측 패널에서 컴포넌트를 선택하면<br/>상세 정보가 표시됩니다</div>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const M3Shadcn164SearchCenter: StoryObj = {
+  name: 'Material 3 + shadcn/ui — 통합 검색 센터 (SearchBar + Dialog)',
+  parameters: {
+    layout: 'fullscreen',
+    docs: {
+      description: {
+        story: 'Google Material 3 + shadcn/ui 복합 패턴. 좌: SearchBar + M3 제안칩/필터칩 + 히스토리, 우: shadcn Command 빠른 실행 툴바 + M3 컴포넌트 인스펙터 카드 + Dialog 상세보기.',
+      },
+    },
+  },
+  render: () => <M3Shadcn164SearchCenterRender />,
 }

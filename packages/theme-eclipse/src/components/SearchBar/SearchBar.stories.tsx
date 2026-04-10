@@ -1779,3 +1779,285 @@ export const Shadcn_Notion_전역_검색: Story = {
     )
   },
 }
+
+/* --------------------------------------------------------------------------
+   Cycle 164 — Google Material 3 + shadcn/ui
+   Material 3: 검색 바 + 칩 필터 패턴 (Search with Suggestion Chips)
+-------------------------------------------------------------------------- */
+const M3_SUGGESTIONS = ['Button', 'TextField', 'Modal', 'DataTable', 'Toggle', 'Slider', 'Progress', 'Toast']
+const M3_CATEGORIES = ['전체', '입력', '피드백', '내비게이션', '표시']
+
+const M3_COMPONENT_LIST = [
+  { name: 'SolidButton', category: '입력', desc: '채워진 스타일 버튼 컴포넌트' },
+  { name: 'TextField', category: '입력', desc: '텍스트 입력 필드' },
+  { name: 'Modal', category: '피드백', desc: '확인/알림 다이얼로그' },
+  { name: 'Toast', category: '피드백', desc: '비침투적 알림 메시지' },
+  { name: 'Progress', category: '피드백', desc: '로딩 진행 표시' },
+  { name: 'Toggle', category: '입력', desc: '온/오프 전환 스위치' },
+  { name: 'AppBar', category: '내비게이션', desc: '상단 앱바 레이아웃' },
+  { name: 'DataTable', category: '표시', desc: '데이터 테이블/그리드' },
+  { name: 'Slider', category: '입력', desc: '범위 슬라이더 컴포넌트' },
+  { name: 'Skeleton', category: '피드백', desc: '로딩 스켈레톤 UI' },
+]
+
+function M3SearchWithChipsRender() {
+  const [query, setQuery] = useState('')
+  const [activeCategory, setActiveCategory] = useState('전체')
+  const [recentSearches, setRecentSearches] = useState<string[]>(['Button', 'Modal'])
+
+  const addRecent = (term: string) => {
+    if (!term.trim()) { return }
+    setRecentSearches(prev => [term, ...prev.filter(r => r !== term)].slice(0, 5))
+  }
+
+  const filtered = M3_COMPONENT_LIST.filter(c => {
+    const matchQuery = !query || c.name.toLowerCase().includes(query.toLowerCase()) || c.desc.includes(query)
+    const matchCat = activeCategory === '전체' || c.category === activeCategory
+    return matchQuery && matchCat
+  })
+
+  return (
+    <div style={{ width: 400, fontFamily: 'system-ui, sans-serif' }}>
+      <p style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 10 }}>Material 3 — 검색 + 제안 칩 패턴</p>
+      <div style={{ borderRadius: 14, border: '1px solid #e5e7eb', overflow: 'hidden', background: '#fff', boxShadow: '0 2px 12px rgba(0,0,0,0.05)' }}>
+        <div style={{ padding: '8px 12px' }}>
+          <SearchBar
+            placeholder="컴포넌트 검색..."
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            onKeyDown={(e: React.KeyboardEvent) => { if (e.key === 'Enter') { addRecent(query) } }}
+          />
+        </div>
+
+        {/* M3 Suggestion Chips */}
+        {!query && (
+          <div style={{ padding: '0 12px 10px', display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+            {M3_SUGGESTIONS.map(s => (
+              <button key={s} onClick={() => { setQuery(s); addRecent(s) }} style={{ padding: '4px 12px', borderRadius: 20, border: '1px solid #e5e7eb', background: '#f8fafc', color: '#475569', fontSize: 11, cursor: 'pointer', fontWeight: 500, transition: 'all 100ms' }}>{s}</button>
+            ))}
+          </div>
+        )}
+
+        {/* Category chips (M3 Filter Chip) */}
+        <div style={{ padding: '0 12px 10px', display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+          {M3_CATEGORIES.map(cat => (
+            <button key={cat} onClick={() => setActiveCategory(cat)} style={{ padding: '4px 12px', borderRadius: 20, border: `1.5px solid ${activeCategory === cat ? '#6366f1' : '#e5e7eb'}`, background: activeCategory === cat ? '#eef2ff' : 'transparent', color: activeCategory === cat ? '#4338ca' : '#64748b', fontSize: 11, cursor: 'pointer', fontWeight: activeCategory === cat ? 700 : 400, transition: 'all 150ms' }}>{cat}</button>
+          ))}
+        </div>
+
+        {/* Results */}
+        <div style={{ borderTop: '1px solid #f1f5f9', maxHeight: 200, overflowY: 'auto' }}>
+          {filtered.length > 0 ? filtered.map(c => (
+            <div key={c.name} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '9px 14px', borderBottom: '1px solid #f8fafc' }}>
+              <div style={{ width: 28, height: 28, borderRadius: 7, background: '#eef2ff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 10, fontWeight: 800, color: '#6366f1', flexShrink: 0 }}>{c.name[0]}</div>
+              <div>
+                <div style={{ fontSize: 12, fontWeight: 600, color: '#1e293b' }}>{c.name}</div>
+                <div style={{ fontSize: 10, color: '#94a3b8' }}>{c.desc}</div>
+              </div>
+              <div style={{ marginLeft: 'auto', flexShrink: 0 }}><Chip>{c.category}</Chip></div>
+            </div>
+          )) : (
+            <div style={{ padding: '20px', textAlign: 'center', fontSize: 12, color: '#94a3b8' }}>결과 없음</div>
+          )}
+        </div>
+      </div>
+      {recentSearches.length > 0 && (
+        <div style={{ marginTop: 8, fontSize: 10, color: '#94a3b8' }}>최근: {recentSearches.join(' · ')}</div>
+      )}
+    </div>
+  )
+}
+
+export const Material3_검색_칩_필터_패턴: Story = {
+  name: 'Google Material 3 — 검색 + 제안/필터 칩 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Material 3 Search + Suggestion Chip + Filter Chip 패턴. 검색어 입력 전 제안 칩 표시, 카테고리 필터 칩(Filter Chip), 검색 결과 + Chip 배지 조합. M3 색상 역할 시스템 적용.',
+      },
+    },
+  },
+  render: () => <M3SearchWithChipsRender />,
+}
+
+/* --------------------------------------------------------------------------
+   shadcn/ui: 전역 검색 + 스코프 선택 패턴
+-------------------------------------------------------------------------- */
+const SHADCN_SEARCH_SCOPES = ['전체', '컴포넌트', '문서', '예시']
+const SHADCN_SCOPE_RESULTS: Record<string, Array<{ title: string; desc: string; icon: string }>> = {
+  '전체': [
+    { title: 'SolidButton', desc: 'packages/theme-eclipse/src/components', icon: '◆' },
+    { title: 'Button 사용 가이드', desc: 'docs/components/button', icon: '📄' },
+    { title: 'Button with Icon 예시', desc: 'storybook/examples', icon: '✦' },
+  ],
+  '컴포넌트': [
+    { title: 'SolidButton', desc: 'Primary 버튼 컴포넌트', icon: '◆' },
+    { title: 'OutlineButton', desc: 'Outlined 버튼 컴포넌트', icon: '◆' },
+    { title: 'GhostButton', desc: 'Ghost 버튼 컴포넌트', icon: '◆' },
+  ],
+  '문서': [
+    { title: 'Button 사용 가이드', desc: 'GettingStarted.mdx', icon: '📄' },
+    { title: 'Theme Architecture', desc: 'Architecture.mdx', icon: '📄' },
+  ],
+  '예시': [
+    { title: 'Button with Icon 예시', desc: 'Leading + Trailing Icon', icon: '✦' },
+    { title: 'Loading State 예시', desc: 'Button.Loading 슬롯', icon: '✦' },
+  ],
+}
+
+function ShadcnGlobalSearchRender() {
+  const [query, setQuery] = useState('')
+  const [scope, setScope] = useState('전체')
+
+  const results = (SHADCN_SCOPE_RESULTS[scope] ?? []).filter(r =>
+    !query || r.title.toLowerCase().includes(query.toLowerCase()) || r.desc.toLowerCase().includes(query.toLowerCase())
+  )
+
+  return (
+    <div style={{ width: 400, fontFamily: 'system-ui, sans-serif' }}>
+      <p style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 10 }}>shadcn/ui — 전역 검색 + 스코프 선택</p>
+      <div style={{ borderRadius: 12, border: '1px solid #e5e7eb', overflow: 'hidden', background: '#fff', boxShadow: '0 2px 12px rgba(0,0,0,0.05)' }}>
+        <div style={{ padding: '8px 12px 0' }}>
+          <SearchBar
+            placeholder="전체 검색 (⌘ K)"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+          />
+        </div>
+
+        {/* Scope tabs (shadcn/ui TabsList 패턴) */}
+        <div style={{ display: 'flex', padding: '6px 12px', gap: 0, borderBottom: '1px solid #f1f5f9' }}>
+          {SHADCN_SEARCH_SCOPES.map(s => (
+            <button key={s} onClick={() => setScope(s)} style={{ flex: 1, padding: '5px 0', fontSize: 11, border: 'none', background: 'transparent', cursor: 'pointer', color: scope === s ? '#6366f1' : '#64748b', fontWeight: scope === s ? 700 : 400, borderBottom: scope === s ? '2px solid #6366f1' : '2px solid transparent', transition: 'all 150ms' }}>{s}</button>
+          ))}
+        </div>
+
+        {/* Results */}
+        <div style={{ maxHeight: 200, overflowY: 'auto' }}>
+          {results.length > 0 ? results.map((r, i) => (
+            <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 14px', borderBottom: '1px solid #f8fafc', cursor: 'pointer' }}
+              onMouseEnter={e => { (e.currentTarget as HTMLDivElement).style.background = '#f8fafc' }}
+              onMouseLeave={e => { (e.currentTarget as HTMLDivElement).style.background = '' }}>
+              <div style={{ width: 28, height: 28, borderRadius: 7, background: '#f0f4ff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 12, fontWeight: 700, color: '#6366f1', flexShrink: 0 }}>{r.icon}</div>
+              <div>
+                <div style={{ fontSize: 12, fontWeight: 600, color: '#1e293b' }}>{r.title}</div>
+                <div style={{ fontSize: 10, color: '#94a3b8' }}>{r.desc}</div>
+              </div>
+            </div>
+          )) : (
+            <div style={{ padding: '20px', textAlign: 'center', fontSize: 12, color: '#94a3b8' }}>
+              &ldquo;{query}&rdquo; 결과 없음 ({scope})
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const Shadcn_전역_검색_스코프_선택: Story = {
+  name: 'shadcn/ui — 전역 검색 + 스코프 선택 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story: 'shadcn/ui 전역 검색 패턴. SearchBar + 스코프 탭(전체/컴포넌트/문서/예시) 조합. 탭 전환으로 검색 스코프 변경, 스코프별 결과 아이콘 차별화. shadcn/ui 공식 문서 검색 UX 모방.',
+      },
+    },
+  },
+  render: () => <ShadcnGlobalSearchRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Material 3 + shadcn/ui: 복합 실시간 검색 + 히스토리 관리 패턴
+-------------------------------------------------------------------------- */
+const M3_TRENDING = ['SolidButton', 'DataTable', 'TextField', 'Progress']
+
+function M3ShadcnSearchHistoryRender() {
+  const [query, setQuery] = useState('')
+  const [history, setHistory] = useState<string[]>(['Modal', 'Toggle', 'Chip'])
+  const [focused, setFocused] = useState(false)
+
+  const suggestions = query
+    ? M3_COMPONENT_LIST.filter(c => c.name.toLowerCase().startsWith(query.toLowerCase())).slice(0, 5)
+    : []
+
+  const handleSelect = (term: string) => {
+    setQuery(term)
+    setHistory(prev => [term, ...prev.filter(h => h !== term)].slice(0, 8))
+    setFocused(false)
+  }
+
+  const removeHistory = (term: string) => {
+    setHistory(prev => prev.filter(h => h !== term))
+  }
+
+  return (
+    <div style={{ width: 380, fontFamily: 'system-ui, sans-serif' }}>
+      <p style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 10 }}>Material 3 + shadcn/ui — 검색 히스토리 관리</p>
+      <div style={{ position: 'relative' }}>
+        <SearchBar
+          placeholder="컴포넌트 이름으로 검색..."
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          onFocus={() => setFocused(true)}
+          onBlur={() => setTimeout(() => setFocused(false), 150)}
+        />
+
+        {/* Dropdown panel */}
+        {focused && (
+          <div style={{ position: 'absolute', top: '100%', left: 0, right: 0, zIndex: 20, marginTop: 4, borderRadius: 12, background: '#fff', border: '1px solid #e5e7eb', boxShadow: '0 8px 24px rgba(0,0,0,0.1)', overflow: 'hidden' }}>
+            {/* Auto-complete suggestions */}
+            {suggestions.length > 0 && (
+              <div style={{ padding: '6px 0', borderBottom: '1px solid #f1f5f9' }}>
+                <div style={{ fontSize: 10, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.07em', padding: '4px 12px' }}>자동완성</div>
+                {suggestions.map(c => (
+                  <button key={c.name} onMouseDown={() => handleSelect(c.name)} style={{ width: '100%', display: 'flex', alignItems: 'center', gap: 8, padding: '8px 12px', border: 'none', background: 'transparent', cursor: 'pointer', textAlign: 'left' }}>
+                    <span style={{ fontSize: 11, color: '#94a3b8', fontFamily: 'monospace' }}>◆</span>
+                    <span style={{ fontSize: 12, color: '#1e293b' }}><strong style={{ color: '#6366f1' }}>{c.name.slice(0, query.length)}</strong>{c.name.slice(query.length)}</span>
+                  </button>
+                ))}
+              </div>
+            )}
+
+            {/* Trending — M3 패턴 */}
+            {!query && (
+              <div style={{ padding: '6px 0', borderBottom: '1px solid #f1f5f9' }}>
+                <div style={{ fontSize: 10, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.07em', padding: '4px 12px' }}>트렌딩</div>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, padding: '4px 12px' }}>
+                  {M3_TRENDING.map(t => (
+                    <button key={t} onMouseDown={() => handleSelect(t)} style={{ padding: '4px 10px', borderRadius: 16, border: '1px solid #e5e7eb', background: '#f8fafc', color: '#475569', fontSize: 11, cursor: 'pointer' }}>{t}</button>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* History — shadcn/ui 패턴 */}
+            {history.length > 0 && !query && (
+              <div style={{ padding: '6px 0' }}>
+                <div style={{ fontSize: 10, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.07em', padding: '4px 12px' }}>최근 검색</div>
+                {history.map(h => (
+                  <div key={h} style={{ display: 'flex', alignItems: 'center', padding: '7px 12px' }}>
+                    <button onMouseDown={() => handleSelect(h)} style={{ flex: 1, border: 'none', background: 'transparent', textAlign: 'left', cursor: 'pointer', fontSize: 12, color: '#374151' }}>🕐 {h}</button>
+                    <button onMouseDown={() => removeHistory(h)} style={{ border: 'none', background: 'transparent', color: '#94a3b8', cursor: 'pointer', fontSize: 12, padding: '0 4px' }}>✕</button>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+
+export const M3_Shadcn_검색_히스토리_관리: Story = {
+  name: 'Material 3 + shadcn/ui — 실시간 검색 + 히스토리 관리',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Material 3 검색 트렌딩 + shadcn/ui 자동완성 패턴 결합. 포커스 시 트렌딩/히스토리 드롭다운, 입력 시 자동완성(매칭 텍스트 강조), 히스토리 삭제. 검색 경험의 3단계(트렌딩→자동완성→히스토리 관리) 완성.',
+      },
+    },
+  },
+  render: () => <M3ShadcnSearchHistoryRender />,
+}

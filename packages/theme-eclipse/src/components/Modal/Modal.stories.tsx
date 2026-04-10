@@ -1722,3 +1722,283 @@ export const Shadcn_Ant_멀티스텝_폼_모달: Story = {
   },
   render: () => <ShadcnAntWizardModalRender />,
 }
+
+/* --------------------------------------------------------------------------
+   Cycle 164 — Google Material 3 + shadcn/ui
+   Material 3: 피드백 다이얼로그 패턴 (Alert Dialog with tonal surface)
+-------------------------------------------------------------------------- */
+const M3_RISK_LEVELS = [
+  { level: 'info', label: '안내', color: '#2196f3', bg: '#e3f2fd', icon: 'ℹ' },
+  { level: 'warning', label: '경고', color: '#ff9800', bg: '#fff3e0', icon: '⚠' },
+  { level: 'critical', label: '위험', color: '#f44336', bg: '#ffebee', icon: '⛔' },
+]
+
+function M3FeedbackDialogRender() {
+  const [open, setOpen] = useState(false)
+  const [riskLevel, setRiskLevel] = useState<'info' | 'warning' | 'critical'>('warning')
+  const [confirmed, setConfirmed] = useState(false)
+
+  const risk = M3_RISK_LEVELS.find(r => r.level === riskLevel) ?? M3_RISK_LEVELS[1]
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 16, alignItems: 'center' }}>
+      <div style={{ display: 'flex', gap: 8 }}>
+        {M3_RISK_LEVELS.map(r => (
+          <button key={r.level} onClick={() => setRiskLevel(r.level as 'info' | 'warning' | 'critical')} style={{ padding: '6px 14px', borderRadius: 20, border: `1.5px solid ${riskLevel === r.level ? r.color : '#e5e7eb'}`, background: riskLevel === r.level ? r.bg : '#fff', color: riskLevel === r.level ? r.color : '#64748b', fontSize: 12, fontWeight: riskLevel === r.level ? 700 : 400, cursor: 'pointer', transition: 'all 150ms' }}>
+            {r.icon} {r.label}
+          </button>
+        ))}
+      </div>
+
+      <Dialog onOpenChange={(o) => { if (!o) { setOpen(false); setConfirmed(false) } }}>
+        <Dialog.Trigger asChild>
+          <Button color="primary" size="medium" onClick={() => setOpen(true)}>
+            <Button.Center>Material 3 다이얼로그 열기</Button.Center>
+          </Button>
+        </Dialog.Trigger>
+        <Dialog.Top>
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12, textAlign: 'center' }}>
+            <div style={{ width: 52, height: 52, borderRadius: '50%', background: risk.bg, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 24 }}>{risk.icon}</div>
+            <Typography textStyle="subheadingSmall">{risk.label} — 작업 확인 필요</Typography>
+            <Typography textStyle="descriptionLarge">
+              이 작업은 {risk.label === '위험' ? '되돌릴 수 없습니다.' : '일부 영향을 줄 수 있습니다.'} 계속 진행하기 전에 내용을 확인해주세요. Material 3의 Tonal Surface 패턴으로 중요도를 시각적으로 구분합니다.
+            </Typography>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '10px 16px', borderRadius: 10, background: risk.bg, width: '100%', cursor: 'pointer' }} onClick={() => setConfirmed(c => !c)}>
+              <div style={{ width: 18, height: 18, borderRadius: 4, border: `2px solid ${risk.color}`, background: confirmed ? risk.color : 'transparent', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, transition: 'all 150ms' }}>
+                {confirmed && <span style={{ color: '#fff', fontSize: 11, fontWeight: 700 }}>✓</span>}
+              </div>
+              <span style={{ fontSize: 12, color: risk.color, fontWeight: 600 }}>확인하고 진행합니다</span>
+            </div>
+          </div>
+        </Dialog.Top>
+        <Dialog.Bottom direction="horizontal">
+          <Dialog.Close asChild>
+            <OutlineButton color="gray" size="medium" width="100%">
+              <OutlineButton.Center>취소</OutlineButton.Center>
+            </OutlineButton>
+          </Dialog.Close>
+          <Dialog.Close asChild>
+            <Button color="primary" size="medium" width="100%" disabled={!confirmed}>
+              <Button.Center>확인</Button.Center>
+            </Button>
+          </Dialog.Close>
+        </Dialog.Bottom>
+      </Dialog>
+
+      {open && confirmed && <div style={{ fontSize: 12, color: '#22c55e', fontWeight: 600 }}>작업이 확인되었습니다</div>}
+    </div>
+  )
+}
+
+export const Material3_피드백_다이얼로그: Story = {
+  name: 'Google Material 3 — 피드백 다이얼로그 (Tonal Surface)',
+  parameters: {
+    layout: 'centered',
+    docs: {
+      description: {
+        story: 'Material 3 Alert Dialog + Tonal Surface 패턴. 안내/경고/위험 3가지 위험 레벨 전환, 중앙 아이콘 서클, 확인 체크박스 필수 선택 후 확인 버튼 활성화. M3 색상 역할 시스템 반영.',
+      },
+    },
+  },
+  render: () => <M3FeedbackDialogRender />,
+}
+
+/* --------------------------------------------------------------------------
+   shadcn/ui: 커맨드 팔레트 트리거 모달 패턴
+-------------------------------------------------------------------------- */
+const SHADCN_QUICK_ACTIONS = [
+  { group: '생성', items: [
+    { icon: '📝', label: '새 파일', shortcut: '⌘ N' },
+    { icon: '📁', label: '새 폴더', shortcut: '⌘ ⇧ N' },
+    { icon: '🔗', label: '새 링크', shortcut: '⌘ K' },
+  ]},
+  { group: '이동', items: [
+    { icon: '🏠', label: '대시보드', shortcut: 'G D' },
+    { icon: '⚙️', label: '설정', shortcut: 'G S' },
+    { icon: '👤', label: '프로필', shortcut: 'G P' },
+  ]},
+]
+
+function ShadcnCommandModalRender() {
+  const [query, setQuery] = useState('')
+  const [chosen, setChosen] = useState<string | null>(null)
+
+  const allItems = SHADCN_QUICK_ACTIONS.flatMap(g => g.items.map(i => ({ ...i, group: g.group })))
+  const filtered = query ? allItems.filter(i => i.label.includes(query) || i.group.includes(query)) : allItems
+  const grouped = filtered.reduce<Record<string, typeof allItems>>((acc, item) => {
+    if (!acc[item.group]) { acc[item.group] = [] }
+    acc[item.group].push(item)
+    return acc
+  }, {})
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 12, alignItems: 'center' }}>
+      <Dialog>
+        <Dialog.Trigger asChild>
+          <button style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '8px 16px', borderRadius: 8, border: '1px solid #e5e7eb', background: '#f8fafc', color: '#64748b', fontSize: 13, cursor: 'pointer', fontFamily: 'system-ui' }}>
+            <span>빠른 실행...</span>
+            <span style={{ marginLeft: 'auto', fontSize: 11, padding: '2px 6px', borderRadius: 4, background: '#e5e7eb', color: '#64748b', fontFamily: 'monospace' }}>⌘ K</span>
+          </button>
+        </Dialog.Trigger>
+        <Dialog.Top>
+          <FloatingTextField
+            placeholder="명령 검색..."
+            value={query}
+            onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setQuery(e.target.value)}
+          />
+          <div style={{ marginTop: 8, maxHeight: 220, overflowY: 'auto' }}>
+            {Object.entries(grouped).map(([group, items]) => (
+              <div key={group}>
+                <div style={{ fontSize: 10, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.07em', padding: '8px 4px 4px' }}>{group}</div>
+                {items.map((item) => (
+                  <Dialog.Close key={item.label} asChild>
+                    <div onClick={() => setChosen(item.label)} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '9px 10px', borderRadius: 7, cursor: 'pointer', transition: 'background 100ms' }}
+                      onMouseEnter={e => { (e.currentTarget as HTMLDivElement).style.background = '#f8fafc' }}
+                      onMouseLeave={e => { (e.currentTarget as HTMLDivElement).style.background = 'transparent' }}>
+                      <span style={{ fontSize: 15 }}>{item.icon}</span>
+                      <span style={{ fontSize: 13, flex: 1, color: '#1e293b' }}>{item.label}</span>
+                      {item.shortcut && <span style={{ fontSize: 10, color: '#94a3b8', fontFamily: 'monospace', background: '#f1f5f9', padding: '1px 5px', borderRadius: 3 }}>{item.shortcut}</span>}
+                    </div>
+                  </Dialog.Close>
+                ))}
+              </div>
+            ))}
+            {filtered.length === 0 && <div style={{ padding: '20px', textAlign: 'center', fontSize: 12, color: '#94a3b8' }}>결과 없음</div>}
+          </div>
+        </Dialog.Top>
+      </Dialog>
+      {chosen && <div style={{ fontSize: 12, color: '#6366f1', fontWeight: 600 }}>실행: {chosen}</div>}
+    </div>
+  )
+}
+
+export const Shadcn_커맨드_팔레트_모달: Story = {
+  name: 'shadcn/ui — 커맨드 팔레트 트리거 모달',
+  parameters: {
+    layout: 'centered',
+    docs: {
+      description: {
+        story: 'shadcn/ui cmdk 패턴. ⌘K 트리거 버튼 → Dialog 내 FloatingTextField 검색 + 그룹별 액션 목록. 선택 시 Dialog 자동 닫힘. 실무에서 가장 많이 사용되는 Command Palette 구현 패턴.',
+      },
+    },
+  },
+  render: () => <ShadcnCommandModalRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Material 3 + shadcn/ui: 이미지 크롭 / 파일 업로드 모달 복합 패턴
+-------------------------------------------------------------------------- */
+type UploadStep = 'select' | 'preview' | 'done'
+
+const FILE_TYPES = [
+  { ext: 'PNG', color: '#6366f1', size: '2.4 MB' },
+  { ext: 'SVG', color: '#22c55e', size: '84 KB' },
+  { ext: 'PDF', color: '#f59e0b', size: '1.1 MB' },
+]
+
+function M3ShadcnFileUploadModalRender() {
+  const [step, setStep] = useState<UploadStep>('select')
+  const [selectedFile, setSelectedFile] = useState<number | null>(null)
+  const [quality, setQuality] = useState(80)
+
+  const file = selectedFile !== null ? FILE_TYPES[selectedFile] : null
+
+  const handleConfirm = () => {
+    if (step === 'select' && selectedFile !== null) { setStep('preview') }
+    else if (step === 'preview') { setStep('done') }
+  }
+
+  const handleClose = () => { setStep('select'); setSelectedFile(null); setQuality(80) }
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12 }}>
+      <Dialog onOpenChange={(o) => { if (!o) { handleClose() } }}>
+        <Dialog.Trigger asChild>
+          <Button color="primary" size="medium">
+            <Button.Center>파일 업로드</Button.Center>
+          </Button>
+        </Dialog.Trigger>
+        <Dialog.Top>
+          <Typography textStyle="subheadingSmall" style={{ marginBottom: 16 }}>
+            {step === 'select' ? '파일 선택' : step === 'preview' ? '미리보기 & 설정' : '업로드 완료'}
+          </Typography>
+
+          {/* Step indicator — M3 패턴 */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: 0, marginBottom: 20 }}>
+            {(['select', 'preview', 'done'] as UploadStep[]).map((s, i) => (
+              <React.Fragment key={s}>
+                <div style={{ width: 28, height: 28, borderRadius: '50%', background: step === s ? '#6366f1' : ((['select', 'preview', 'done'] as UploadStep[]).indexOf(step) > i ? '#6366f1' : '#e5e7eb'), display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 11, fontWeight: 700, color: ((['select', 'preview', 'done'] as UploadStep[]).indexOf(step) >= i ? '#fff' : '#94a3b8'), transition: 'all 200ms' }}>{i + 1}</div>
+                {i < 2 && <div style={{ flex: 1, height: 2, background: (['select', 'preview', 'done'] as UploadStep[]).indexOf(step) > i ? '#6366f1' : '#e5e7eb', transition: 'background 200ms' }} />}
+              </React.Fragment>
+            ))}
+          </div>
+
+          {step === 'select' && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+              <Typography textStyle="descriptionLarge">파일 형식을 선택하세요</Typography>
+              {FILE_TYPES.map((f, i) => (
+                <div key={f.ext} onClick={() => setSelectedFile(i)} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 14px', borderRadius: 10, border: `2px solid ${selectedFile === i ? f.color : '#e5e7eb'}`, background: selectedFile === i ? f.color + '10' : '#fff', cursor: 'pointer', transition: 'all 150ms' }}>
+                  <div style={{ width: 36, height: 36, borderRadius: 8, background: f.color + '20', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 12, fontWeight: 700, color: f.color }}>{f.ext}</div>
+                  <div>
+                    <div style={{ fontSize: 13, fontWeight: 600, color: '#1e293b' }}>{f.ext} 파일</div>
+                    <div style={{ fontSize: 11, color: '#94a3b8' }}>예상 크기: {f.size}</div>
+                  </div>
+                  {selectedFile === i && <span style={{ marginLeft: 'auto', fontSize: 16, color: f.color }}>✓</span>}
+                </div>
+              ))}
+            </div>
+          )}
+
+          {step === 'preview' && file && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+              <div style={{ padding: '20px', borderRadius: 12, background: file.color + '10', border: `2px dashed ${file.color}50`, textAlign: 'center' }}>
+                <div style={{ fontSize: 32, fontWeight: 800, color: file.color, marginBottom: 6 }}>{file.ext}</div>
+                <div style={{ fontSize: 11, color: '#64748b' }}>{file.size}</div>
+              </div>
+              <div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 6 }}>
+                  <span style={{ fontSize: 12, fontWeight: 600, color: '#475569' }}>품질 설정 (M3 슬라이더 패턴)</span>
+                  <span style={{ fontSize: 12, color: file.color, fontWeight: 700 }}>{quality}%</span>
+                </div>
+                <input type="range" min={20} max={100} step={5} value={quality} onChange={e => setQuality(Number(e.target.value))} style={{ width: '100%', accentColor: file.color }} />
+              </div>
+            </div>
+          )}
+
+          {step === 'done' && file && (
+            <div style={{ textAlign: 'center', padding: '16px 0' }}>
+              <div style={{ fontSize: 48, marginBottom: 12 }}>✅</div>
+              <Typography textStyle="subheadingSmall">{file.ext} 업로드 완료</Typography>
+              <Typography textStyle="descriptionLarge">{file.size} · 품질 {quality}%</Typography>
+            </div>
+          )}
+        </Dialog.Top>
+        <Dialog.Bottom direction="horizontal">
+          <Dialog.Close asChild>
+            <OutlineButton color="gray" size="medium" width="100%" onClick={handleClose}>
+              <OutlineButton.Center>닫기</OutlineButton.Center>
+            </OutlineButton>
+          </Dialog.Close>
+          {step !== 'done' && (
+            <Button color="primary" size="medium" width="100%" disabled={step === 'select' && selectedFile === null} onClick={handleConfirm}>
+              <Button.Center>{step === 'select' ? '다음' : '업로드'}</Button.Center>
+            </Button>
+          )}
+        </Dialog.Bottom>
+      </Dialog>
+    </div>
+  )
+}
+
+export const M3_Shadcn_파일_업로드_모달: Story = {
+  name: 'Material 3 + shadcn/ui — 파일 업로드 멀티스텝 모달',
+  parameters: {
+    layout: 'centered',
+    docs: {
+      description: {
+        story: 'Material 3 Step Indicator + shadcn/ui Dialog 패턴. 선택 → 미리보기 → 완료 3단계, 파일 형식 카드 선택, M3 슬라이더 품질 설정, 단계별 버튼 상태 제어. M3 색상 역할(Primary/Tonal) 반영.',
+      },
+    },
+  },
+  render: () => <M3ShadcnFileUploadModalRender />,
+}
