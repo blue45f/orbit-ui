@@ -1735,3 +1735,274 @@ export const shadcn_Linear_팀_기능_설정: Story = {
   },
   render: () => <ShadcnLinearTeamFeatureRender />,
 }
+
+/* --------------------------------------------------------------------------
+   shadcn/ui — 기능 플래그 토글 대시보드
+-------------------------------------------------------------------------- */
+const SHADCN_FLAGS = [
+  { id: 'dark-mode', label: '다크 모드', desc: '시스템 설정 또는 수동 전환 지원', tag: 'UI', stable: true },
+  { id: 'ai-suggestions', label: 'AI 제안', desc: '코드 자동 완성 및 개선 제안', tag: 'AI', stable: false },
+  { id: 'analytics', label: '사용 분석', desc: '컴포넌트 사용 통계 수집', tag: 'Data', stable: true },
+  { id: 'collaboration', label: '협업 커서', desc: '실시간 멀티 유저 커서 표시', tag: 'Beta', stable: false },
+  { id: 'shortcuts', label: '키보드 단축키', desc: '커맨드 팔레트 및 단축키 레지스트리', tag: 'UI', stable: true },
+]
+
+const FLAG_TAG_COLOR: Record<string, { bg: string; color: string }> = {
+  UI: { bg: '#f0f9ff', color: '#0369a1' },
+  AI: { bg: '#fef3c7', color: '#92400e' },
+  Data: { bg: '#f0fdf4', color: '#14532d' },
+  Beta: { bg: '#fdf4ff', color: '#7e22ce' },
+}
+
+function ShadcnFeatureFlagDashboardRender() {
+  const [enabled, setEnabled] = useState<Set<string>>(new Set(['dark-mode', 'shortcuts']))
+
+  const toggle = (id: string) => {
+    setEnabled(prev => {
+      const next = new Set(prev)
+      if (next.has(id)) next.delete(id)
+      else next.add(id)
+      return next
+    })
+  }
+
+  return (
+    <div style={{ width: 360, fontFamily: 'system-ui, sans-serif' }}>
+      <div style={{ marginBottom: 16 }}>
+        <div style={{ fontSize: 15, fontWeight: 700, color: '#0f172a' }}>기능 플래그</div>
+        <div style={{ fontSize: 12, color: '#64748b', marginTop: 2 }}>shadcn/ui 스타일 피처 플래그 토글 대시보드</div>
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+        {SHADCN_FLAGS.map(flag => {
+          const isOn = enabled.has(flag.id)
+          const tagStyle = FLAG_TAG_COLOR[flag.tag] ?? { bg: '#f1f5f9', color: '#475569' }
+          return (
+            <div
+              key={flag.id}
+              onClick={() => toggle(flag.id)}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 12,
+                padding: '12px 14px',
+                borderRadius: 10,
+                border: `1.5px solid ${isOn ? '#6366f1' : '#e2e8f0'}`,
+                background: isOn ? '#fafafa' : '#fff',
+                cursor: 'pointer',
+                transition: 'border-color 0.15s, background 0.15s',
+                boxShadow: isOn ? '0 0 0 3px #e0e7ff' : 'none',
+              }}
+            >
+              <BoxedCheckbox
+                checked={isOn}
+                onChange={() => toggle(flag.id)}
+                onClick={e => e.stopPropagation()}
+              />
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 2 }}>
+                  <span style={{ fontSize: 13, fontWeight: 600, color: '#0f172a' }}>{flag.label}</span>
+                  <span style={{ fontSize: 10, padding: '1px 6px', borderRadius: 4, fontWeight: 600, ...tagStyle }}>{flag.tag}</span>
+                  {!flag.stable && <span style={{ fontSize: 10, color: '#f59e0b' }}>실험적</span>}
+                </div>
+                <div style={{ fontSize: 11, color: '#64748b' }}>{flag.desc}</div>
+              </div>
+              <div style={{ width: 32, height: 18, borderRadius: 9, background: isOn ? '#6366f1' : '#e2e8f0', position: 'relative', flexShrink: 0, transition: 'background 0.2s' }}>
+                <div style={{ position: 'absolute', top: 2, left: isOn ? 14 : 2, width: 14, height: 14, borderRadius: '50%', background: '#fff', transition: 'left 0.2s', boxShadow: '0 1px 3px rgba(0,0,0,0.2)' }} />
+              </div>
+            </div>
+          )
+        })}
+      </div>
+      <div style={{ marginTop: 12, padding: '10px 14px', borderRadius: 8, background: '#f8fafc', border: '1px solid #e2e8f0', display: 'flex', justifyContent: 'space-between', fontSize: 11, color: '#64748b' }}>
+        <span>{enabled.size}개 활성화</span>
+        <span>{SHADCN_FLAGS.length - enabled.size}개 비활성화</span>
+      </div>
+    </div>
+  )
+}
+
+export const shadcn_기능_플래그_토글_대시보드: Story = {
+  name: 'shadcn/ui — 기능 플래그 토글 대시보드',
+  render: () => <ShadcnFeatureFlagDashboardRender />,
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'shadcn/ui 스타일 피처 플래그 패턴. BoxedCheckbox와 인라인 토글을 결합해 기능 ON/OFF를 명확하게 표현합니다. ' +
+          '태그 분류, 실험적 기능 표시, 활성화 카운트 요약을 포함합니다.',
+      },
+    },
+  },
+}
+
+/* --------------------------------------------------------------------------
+   Linear Design — 이슈 속성 선택 그리드
+-------------------------------------------------------------------------- */
+const LINEAR_LABELS = [
+  { id: 'bug', label: 'Bug', color: '#ef4444' },
+  { id: 'feature', label: 'Feature', color: '#6366f1' },
+  { id: 'improvement', label: 'Improvement', color: '#10b981' },
+  { id: 'docs', label: 'Docs', color: '#f59e0b' },
+  { id: 'test', label: 'Test', color: '#8b5cf6' },
+  { id: 'infra', label: 'Infra', color: '#0ea5e9' },
+]
+
+function LinearIssueLabelGridRender() {
+  const [selected, setSelected] = useState<Set<string>>(new Set(['bug']))
+
+  const toggle = (id: string) => {
+    setSelected(prev => {
+      const next = new Set(prev)
+      if (next.has(id)) next.delete(id)
+      else next.add(id)
+      return next
+    })
+  }
+
+  return (
+    <div style={{ width: 320, fontFamily: "'Inter', system-ui, sans-serif" }}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12 }}>
+        <span style={{ fontSize: 12, fontWeight: 600, color: '#1e293b' }}>라벨 선택</span>
+        <span style={{ fontSize: 11, color: '#64748b' }}>{selected.size}개 선택됨</span>
+      </div>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 6 }}>
+        {LINEAR_LABELS.map(lbl => {
+          const isOn = selected.has(lbl.id)
+          return (
+            <div
+              key={lbl.id}
+              onClick={() => toggle(lbl.id)}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 8,
+                padding: '8px 10px',
+                borderRadius: 7,
+                border: `1px solid ${isOn ? lbl.color + '60' : '#e2e8f0'}`,
+                background: isOn ? lbl.color + '10' : '#fff',
+                cursor: 'pointer',
+                transition: 'all 0.12s',
+              }}
+            >
+              <BoxedCheckbox
+                checked={isOn}
+                onChange={() => toggle(lbl.id)}
+                onClick={e => e.stopPropagation()}
+              />
+              <div style={{ width: 8, height: 8, borderRadius: '50%', background: lbl.color, flexShrink: 0 }} />
+              <span style={{ fontSize: 12, color: isOn ? '#1e293b' : '#64748b', fontWeight: isOn ? 600 : 400 }}>{lbl.label}</span>
+            </div>
+          )
+        })}
+      </div>
+      {selected.size > 0 && (
+        <div style={{ marginTop: 10, display: 'flex', gap: 5, flexWrap: 'wrap' }}>
+          {Array.from(selected).map(id => {
+            const lbl = LINEAR_LABELS.find(l => l.id === id)
+            if (!lbl) return null
+            return (
+              <span key={id} style={{ fontSize: 10, padding: '2px 8px', borderRadius: 10, background: lbl.color + '15', color: lbl.color, fontWeight: 600, border: `1px solid ${lbl.color}30` }}>
+                {lbl.label}
+              </span>
+            )
+          })}
+        </div>
+      )}
+    </div>
+  )
+}
+
+export const Linear_이슈_라벨_선택_그리드: Story = {
+  name: 'Linear Design — 이슈 라벨 멀티 선택 그리드',
+  render: () => <LinearIssueLabelGridRender />,
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Linear 이슈 라벨 선택 패턴. BoxedCheckbox를 2열 그리드로 배치하고 각 라벨 색상을 활성화 피드백에 반영합니다. ' +
+          'Linear의 컴팩트하고 색상 코드화된 라벨 UI를 재현합니다.',
+      },
+    },
+  },
+}
+
+/* --------------------------------------------------------------------------
+   shadcn + Linear — 권한 관리 역할 매트릭스
+-------------------------------------------------------------------------- */
+const PERM_ROLES = ['뷰어', '편집자', '관리자']
+const PERM_LIST = [
+  { id: 'read', label: '읽기', desc: '모든 콘텐츠 조회', defaults: [true, true, true] },
+  { id: 'write', label: '쓰기', desc: '콘텐츠 생성 및 편집', defaults: [false, true, true] },
+  { id: 'delete', label: '삭제', desc: '항목 삭제 권한', defaults: [false, false, true] },
+  { id: 'invite', label: '초대', desc: '팀원 초대 및 관리', defaults: [false, false, true] },
+  { id: 'billing', label: '결제', desc: '구독 및 결제 관리', defaults: [false, false, true] },
+]
+
+function ShadcnLinearPermissionMatrixRender() {
+  const [matrix, setMatrix] = useState<Record<string, boolean[]>>(
+    Object.fromEntries(PERM_LIST.map(p => [p.id, [...p.defaults]]))
+  )
+
+  const toggle = (permId: string, roleIdx: number) => {
+    setMatrix(prev => ({
+      ...prev,
+      [permId]: prev[permId].map((v, i) => (i === roleIdx ? !v : v)),
+    }))
+  }
+
+  return (
+    <div style={{ fontFamily: "'Inter', system-ui, sans-serif", width: 400 }}>
+      <div style={{ marginBottom: 14 }}>
+        <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>권한 관리</div>
+        <div style={{ fontSize: 11, color: '#64748b', marginTop: 2 }}>역할별 권한을 개별 설정합니다.</div>
+      </div>
+      <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+        <thead>
+          <tr>
+            <th style={{ textAlign: 'left', padding: '8px 10px', fontSize: 11, color: '#94a3b8', fontWeight: 600, borderBottom: '1px solid #e2e8f0' }}>권한</th>
+            {PERM_ROLES.map(r => (
+              <th key={r} style={{ textAlign: 'center', padding: '8px 10px', fontSize: 11, color: '#94a3b8', fontWeight: 600, borderBottom: '1px solid #e2e8f0' }}>{r}</th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {PERM_LIST.map((perm, pi) => (
+            <tr key={perm.id} style={{ background: pi % 2 === 0 ? '#fff' : '#fafafa' }}>
+              <td style={{ padding: '10px 10px', borderBottom: '1px solid #f1f5f9' }}>
+                <div style={{ fontSize: 12, fontWeight: 600, color: '#1e293b' }}>{perm.label}</div>
+                <div style={{ fontSize: 10, color: '#94a3b8', marginTop: 1 }}>{perm.desc}</div>
+              </td>
+              {PERM_ROLES.map((_r, ri) => (
+                <td key={ri} style={{ textAlign: 'center', padding: '10px 10px', borderBottom: '1px solid #f1f5f9' }}>
+                  <BoxedCheckbox
+                    checked={matrix[perm.id][ri]}
+                    onChange={() => toggle(perm.id, ri)}
+                  />
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <div style={{ marginTop: 12, fontSize: 11, color: '#64748b', display: 'flex', justifyContent: 'space-between' }}>
+        {PERM_ROLES.map((role, ri) => {
+          const count = PERM_LIST.filter(p => matrix[p.id][ri]).length
+          return <span key={role}>{role}: {count}/{PERM_LIST.length}</span>
+        })}
+      </div>
+    </div>
+  )
+}
+
+export const shadcn_Linear_권한_관리_역할_매트릭스: Story = {
+  name: 'shadcn/ui + Linear — 권한 관리 역할 매트릭스',
+  render: () => <ShadcnLinearPermissionMatrixRender />,
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'shadcn/ui + Linear 복합 패턴. BoxedCheckbox를 테이블 셀에 배치해 역할(뷰어/편집자/관리자) × 권한(읽기/쓰기/삭제 등) 매트릭스를 구현합니다.',
+      },
+    },
+  },
+}

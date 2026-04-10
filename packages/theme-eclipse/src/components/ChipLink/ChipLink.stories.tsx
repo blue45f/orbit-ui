@@ -1318,3 +1318,229 @@ export const Radix_Tailwind_문서_사이드바_내비게이션: Story = {
   },
   render: () => <RadixTailwindDocSidebarRender />,
 }
+
+/* --------------------------------------------------------------------------
+   shadcn/ui — 태그 클라우드 컴포넌트 탐색
+-------------------------------------------------------------------------- */
+const SHADCN_TAGS = [
+  { id: 'button', label: 'Button', weight: 3 },
+  { id: 'input', label: 'Input', weight: 2 },
+  { id: 'dialog', label: 'Dialog', weight: 2 },
+  { id: 'dropdown', label: 'Dropdown Menu', weight: 1 },
+  { id: 'select', label: 'Select', weight: 2 },
+  { id: 'checkbox', label: 'Checkbox', weight: 1 },
+  { id: 'badge', label: 'Badge', weight: 3 },
+  { id: 'avatar', label: 'Avatar', weight: 1 },
+  { id: 'card', label: 'Card', weight: 3 },
+  { id: 'table', label: 'Table', weight: 1 },
+  { id: 'command', label: 'Command', weight: 2 },
+  { id: 'toast', label: 'Toast', weight: 2 },
+]
+
+const WEIGHT_STYLE: Record<number, { fontSize: number; padding: string }> = {
+  1: { fontSize: 10, padding: '3px 8px' },
+  2: { fontSize: 12, padding: '4px 10px' },
+  3: { fontSize: 14, padding: '5px 12px' },
+}
+
+function ShadcnTagCloudRender() {
+  const [active, setActive] = useState<string | null>(null)
+
+  return (
+    <div style={{ width: 360, fontFamily: 'system-ui, sans-serif' }}>
+      <div style={{ fontSize: 13, fontWeight: 600, color: '#0f172a', marginBottom: 12 }}>컴포넌트 태그 클라우드</div>
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+        {SHADCN_TAGS.map(tag => {
+          const ws = WEIGHT_STYLE[tag.weight]
+          return (
+            <span key={tag.id} style={{ fontSize: ws.fontSize }}>
+              <ChipLink
+                href="#"
+                selected={active === tag.id}
+                onClick={e => { e.preventDefault(); setActive(active === tag.id ? null : tag.id) }}
+              >
+                {tag.label}
+              </ChipLink>
+            </span>
+          )
+        })}
+      </div>
+      {active && (
+        <div style={{ marginTop: 14, padding: '12px 14px', borderRadius: 8, background: '#f8fafc', border: '1px solid #e2e8f0', fontSize: 12, color: '#475569' }}>
+          <span style={{ fontWeight: 600, color: '#1e293b' }}>{SHADCN_TAGS.find(t => t.id === active)?.label}</span> 컴포넌트를 선택했습니다.
+          <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 4 }}>shadcn/ui 태그 클라우드 — 사용 빈도에 따라 크기가 다릅니다.</div>
+        </div>
+      )}
+    </div>
+  )
+}
+
+export const shadcn_태그_클라우드_컴포넌트_탐색: Story = {
+  name: 'shadcn/ui — 태그 클라우드 컴포넌트 탐색',
+  render: () => <ShadcnTagCloudRender />,
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'shadcn/ui 컴포넌트 탐색 패턴. 사용 빈도에 따라 ChipLink 크기를 3단계로 차별화한 태그 클라우드입니다. ' +
+          'shadcn의 미니멀한 인터랙션 디자인과 컴포넌트 발견 UX를 반영합니다.',
+      },
+    },
+  },
+}
+
+/* --------------------------------------------------------------------------
+   Linear Design — 이슈 라벨 필터 + 이슈 목록
+-------------------------------------------------------------------------- */
+const LINEAR_FILTER_LABELS = [
+  { id: 'all', label: '전체' },
+  { id: 'bug', label: 'Bug' },
+  { id: 'feature', label: 'Feature' },
+  { id: 'improvement', label: 'Improvement' },
+  { id: 'docs', label: 'Docs' },
+]
+
+const LINEAR_ISSUES = [
+  { id: 'ORB-241', title: 'DataTable 정렬 오작동', label: 'bug', priority: 'urgent' },
+  { id: 'ORB-242', title: 'Drawer 스냅 포인트 지원', label: 'feature', priority: 'high' },
+  { id: 'ORB-243', title: 'Chip 선택 상태 개선', label: 'improvement', priority: 'medium' },
+  { id: 'ORB-244', title: 'AccessibilityGuide 보강', label: 'docs', priority: 'low' },
+  { id: 'ORB-245', title: 'Button 로딩 상태 애니메이션', label: 'feature', priority: 'high' },
+  { id: 'ORB-246', title: 'TextField 자동완성 지원', label: 'improvement', priority: 'medium' },
+]
+
+const PRIORITY_COLOR: Record<string, string> = { urgent: '#ef4444', high: '#f97316', medium: '#eab308', low: '#94a3b8' }
+
+function LinearIssueLabelFilterRender() {
+  const [activeLabel, setActiveLabel] = useState('all')
+
+  const filtered = activeLabel === 'all' ? LINEAR_ISSUES : LINEAR_ISSUES.filter(i => i.label === activeLabel)
+
+  return (
+    <div style={{ width: 360, fontFamily: "'Inter', system-ui, sans-serif" }}>
+      <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginBottom: 12 }}>
+        {LINEAR_FILTER_LABELS.map(lbl => (
+          <ChipLink
+            key={lbl.id}
+            href="#"
+            selected={activeLabel === lbl.id}
+            onClick={e => { e.preventDefault(); setActiveLabel(lbl.id) }}
+          >
+            {lbl.label}
+          </ChipLink>
+        ))}
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+        {filtered.map(issue => (
+          <div key={issue.id} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '8px 10px', borderRadius: 6, background: '#fff', border: '1px solid #f1f5f9', cursor: 'pointer' }}>
+            <div style={{ width: 8, height: 8, borderRadius: '50%', background: PRIORITY_COLOR[issue.priority], flexShrink: 0 }} />
+            <span style={{ fontSize: 11, color: '#94a3b8', fontFamily: 'monospace', flexShrink: 0 }}>{issue.id}</span>
+            <span style={{ fontSize: 12, color: '#1e293b', flex: 1 }}>{issue.title}</span>
+            <span style={{ fontSize: 10, color: '#64748b', background: '#f8fafc', padding: '2px 6px', borderRadius: 4 }}>{issue.label}</span>
+          </div>
+        ))}
+        {filtered.length === 0 && (
+          <div style={{ padding: '16px', textAlign: 'center', fontSize: 12, color: '#94a3b8' }}>결과 없음</div>
+        )}
+      </div>
+    </div>
+  )
+}
+
+export const Linear_이슈_라벨_필터_칩_링크: Story = {
+  name: 'Linear Design — 이슈 라벨 필터 ChipLink',
+  render: () => <LinearIssueLabelFilterRender />,
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Linear 이슈 라벨 필터 패턴. ChipLink를 필터 탭으로 사용해 이슈 목록을 동적으로 필터링합니다. ' +
+          'Linear의 컴팩트한 이슈 리스트와 우선순위 색상 코딩 패턴을 재현합니다.',
+      },
+    },
+  },
+}
+
+/* --------------------------------------------------------------------------
+   shadcn + Linear — 기술 스택 & 프로젝트 브라우저
+-------------------------------------------------------------------------- */
+const TECH_CATEGORIES_184 = ['프론트엔드', '백엔드', '인프라', '디자인']
+const TECH_MAP_184: Record<string, string[]> = {
+  '프론트엔드': ['React', 'TypeScript', 'Tailwind', 'Vite', 'Storybook'],
+  '백엔드': ['Node.js', 'Prisma', 'PostgreSQL', 'Redis', 'GraphQL'],
+  '인프라': ['Vercel', 'GitHub Actions', 'Docker', 'AWS S3'],
+  '디자인': ['Figma', 'Orbit UI', 'vanilla-extract', 'Inter'],
+}
+
+function ShadcnLinearTechBrowserRender() {
+  const [category, setCategory] = useState('프론트엔드')
+  const [selected, setSelected] = useState<Set<string>>(new Set())
+
+  const toggleTech = (tech: string) => {
+    setSelected(prev => {
+      const next = new Set(prev)
+      if (next.has(tech)) next.delete(tech)
+      else next.add(tech)
+      return next
+    })
+  }
+
+  return (
+    <div style={{ width: 380, fontFamily: "'Inter', system-ui, sans-serif" }}>
+      <div style={{ fontSize: 13, fontWeight: 700, color: '#0f172a', marginBottom: 10 }}>기술 스택 브라우저</div>
+      {/* Category chips */}
+      <div style={{ display: 'flex', gap: 5, marginBottom: 12 }}>
+        {TECH_CATEGORIES_184.map(cat => (
+          <ChipLink
+            key={cat}
+            href="#"
+            selected={category === cat}
+            onClick={e => { e.preventDefault(); setCategory(cat) }}
+          >
+            {cat}
+          </ChipLink>
+        ))}
+      </div>
+      {/* Tech items */}
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginBottom: 12 }}>
+        {(TECH_MAP_184[category] ?? []).map(tech => (
+          <ChipLink
+            key={tech}
+            href="#"
+            selected={selected.has(tech)}
+            onClick={e => { e.preventDefault(); toggleTech(tech) }}
+          >
+            <ChipLink.Leading>
+              <span style={{ width: 8, height: 8, borderRadius: '50%', background: selected.has(tech) ? '#6366f1' : '#cbd5e1', display: 'inline-block' }} />
+            </ChipLink.Leading>
+            {tech}
+          </ChipLink>
+        ))}
+      </div>
+      {selected.size > 0 && (
+        <div style={{ padding: '10px 12px', borderRadius: 8, background: '#f8fafc', border: '1px solid #e2e8f0' }}>
+          <div style={{ fontSize: 11, fontWeight: 600, color: '#475569', marginBottom: 6 }}>선택된 스택 ({selected.size})</div>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 4 }}>
+            {Array.from(selected).map(tech => (
+              <span key={tech} style={{ fontSize: 10, padding: '2px 8px', borderRadius: 10, background: '#eef2ff', color: '#6366f1', fontWeight: 500 }}>{tech}</span>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  )
+}
+
+export const shadcn_Linear_기술_스택_브라우저: Story = {
+  name: 'shadcn/ui + Linear — 기술 스택 브라우저',
+  render: () => <ShadcnLinearTechBrowserRender />,
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'shadcn/ui + Linear 복합 패턴. 카테고리 ChipLink로 섹션을 전환하고 기술 항목 ChipLink로 멀티 선택합니다. ' +
+          'ChipLink.Leading에 상태 도트를 삽입해 선택 여부를 시각적으로 표현합니다.',
+      },
+    },
+  },
+}

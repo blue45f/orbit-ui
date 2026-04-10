@@ -90,6 +90,7 @@ import { Dropdown } from '../components/Dropdown'
 import { Popover } from '../components/Popover'
 import { Tab } from '../components/TabItem'
 import { Dialog } from '../components/Modal'
+import { ChipLink } from '../components/ChipLink'
 
 const meta: Meta = {
   title: 'Templates/Showcase',
@@ -40924,4 +40925,261 @@ export const FigmaArco183AssetBrowser: StoryObj = {
     },
   },
   render: () => <FigmaArco183Render />,
+}
+
+/* ==========================================================================
+   Cycle 184 — shadcn/ui + Linear Design: 프로젝트 보드 & 이슈 트래커
+========================================================================== */
+const LINEAR184_ISSUES = [
+  { id: 'ORB-250', title: 'BoxedCheckbox 접근성 개선', label: 'bug', priority: 'urgent', assignee: 'Alex', status: 'todo' },
+  { id: 'ORB-251', title: 'ChipLink 멀티 선택 패턴', label: 'feature', priority: 'high', assignee: 'Jin', status: 'in_progress' },
+  { id: 'ORB-252', title: 'DataTable 가상 스크롤 지원', label: 'improvement', priority: 'high', assignee: 'Kim', status: 'in_review' },
+  { id: 'ORB-253', title: 'MigrationGuide Chakra UI 섹션', label: 'docs', priority: 'medium', assignee: 'Alex', status: 'todo' },
+  { id: 'ORB-254', title: 'Skeleton 애니메이션 성능', label: 'improvement', priority: 'medium', assignee: 'Jin', status: 'done' },
+  { id: 'ORB-255', title: 'Tooltip 지연 옵션 추가', label: 'feature', priority: 'low', assignee: 'Kim', status: 'todo' },
+  { id: 'ORB-256', title: 'PasswordField 강도 인디케이터', label: 'feature', priority: 'high', assignee: 'Alex', status: 'in_progress' },
+  { id: 'ORB-257', title: 'SearchBar 디바운스 훅 통합', label: 'improvement', priority: 'medium', assignee: 'Jin', status: 'in_review' },
+]
+
+const L184_PRIORITY_COLOR: Record<string, string> = { urgent: '#ef4444', high: '#f97316', medium: '#eab308', low: '#94a3b8' }
+const L184_LABEL_STYLE: Record<string, { bg: string; color: string }> = {
+  bug: { bg: '#fef2f2', color: '#dc2626' },
+  feature: { bg: '#eef2ff', color: '#4f46e5' },
+  improvement: { bg: '#f0fdf4', color: '#16a34a' },
+  docs: { bg: '#fffbeb', color: '#d97706' },
+}
+const L184_STATUS_LABEL: Record<string, string> = {
+  todo: 'Todo', in_progress: 'In Progress', in_review: 'In Review', done: 'Done',
+}
+const L184_STATUS_COLOR: Record<string, string> = {
+  todo: '#94a3b8', in_progress: '#6366f1', in_review: '#f59e0b', done: '#10b981',
+}
+
+const L184_FLAG_LIST = [
+  { id: 'dark_mode', label: '다크 모드', on: true },
+  { id: 'ai_suggest', label: 'AI 제안', on: false },
+  { id: 'analytics', label: '사용 분석', on: true },
+  { id: 'collab', label: '협업 커서', on: false },
+]
+
+const L184_FILTER_LABELS = [
+  { id: 'all', label: '전체' },
+  { id: 'bug', label: 'Bug' },
+  { id: 'feature', label: 'Feature' },
+  { id: 'improvement', label: 'Improvement' },
+  { id: 'docs', label: 'Docs' },
+]
+
+function ShadcnLinear184Render() {
+  const [filterLabel, setFilterLabel] = useState('all')
+  const [filterStatus, setFilterStatus] = useState('all')
+  const [selectedIssues, setSelectedIssues] = useState<Set<string>>(new Set())
+  const [flags, setFlags] = useState<Record<string, boolean>>(
+    Object.fromEntries(L184_FLAG_LIST.map(f => [f.id, f.on]))
+  )
+  const [sidebarTab, setSidebarTab] = useState<'flags' | 'tech'>('flags')
+  const [techCategory, setTechCategory] = useState('프론트엔드')
+  const [selectedTech, setSelectedTech] = useState<Set<string>>(new Set())
+
+  const TECH184: Record<string, string[]> = {
+    '프론트엔드': ['React', 'TypeScript', 'Tailwind', 'Vite'],
+    '백엔드': ['Node.js', 'PostgreSQL', 'Redis'],
+    '디자인': ['Figma', 'Orbit UI'],
+  }
+
+  const filtered = LINEAR184_ISSUES.filter(i => {
+    const matchL = filterLabel === 'all' || i.label === filterLabel
+    const matchS = filterStatus === 'all' || i.status === filterStatus
+    return matchL && matchS
+  })
+
+  const toggleIssue = (id: string) => {
+    setSelectedIssues(prev => {
+      const next = new Set(prev)
+      if (next.has(id)) next.delete(id)
+      else next.add(id)
+      return next
+    })
+  }
+
+  const toggleFlag = (id: string) => {
+    setFlags(prev => ({ ...prev, [id]: !prev[id] }))
+  }
+
+  const toggleTech = (tech: string) => {
+    setSelectedTech(prev => {
+      const next = new Set(prev)
+      if (next.has(tech)) next.delete(tech)
+      else next.add(tech)
+      return next
+    })
+  }
+
+  return (
+    <div style={{ display: 'flex', height: '100vh', fontFamily: "'Inter', system-ui, sans-serif", background: '#f8fafc', overflow: 'hidden' }}>
+
+      {/* Left sidebar */}
+      <div style={{ width: 200, background: '#fff', borderRight: '1px solid #e2e8f0', display: 'flex', flexDirection: 'column', flexShrink: 0 }}>
+        <div style={{ padding: '16px 14px 12px', borderBottom: '1px solid #f1f5f9' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            <div style={{ width: 26, height: 26, borderRadius: 6, background: '#0f172a', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <span style={{ fontSize: 13, color: '#fff' }}>◎</span>
+            </div>
+            <div>
+              <div style={{ fontSize: 12, fontWeight: 700, color: '#0f172a' }}>Orbit UI</div>
+              <div style={{ fontSize: 10, color: '#94a3b8' }}>Design System</div>
+            </div>
+          </div>
+        </div>
+
+        {/* Sidebar tabs */}
+        <div style={{ display: 'flex', borderBottom: '1px solid #f1f5f9' }}>
+          {(['flags', 'tech'] as const).map(tab => (
+            <button
+              key={tab}
+              onClick={() => setSidebarTab(tab)}
+              style={{ flex: 1, padding: '8px 0', fontSize: 10, fontWeight: sidebarTab === tab ? 600 : 400, color: sidebarTab === tab ? '#6366f1' : '#94a3b8', background: 'none', border: 'none', borderBottom: sidebarTab === tab ? '2px solid #6366f1' : '2px solid transparent', cursor: 'pointer' }}
+            >
+              {tab === 'flags' ? '기능 플래그' : '기술 스택'}
+            </button>
+          ))}
+        </div>
+
+        <div style={{ flex: 1, overflowY: 'auto', padding: '12px 10px' }}>
+          {sidebarTab === 'flags' ? (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+              {L184_FLAG_LIST.map(flag => (
+                <div
+                  key={flag.id}
+                  onClick={() => toggleFlag(flag.id)}
+                  style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '8px 8px', borderRadius: 7, border: `1px solid ${flags[flag.id] ? '#a5b4fc' : '#e2e8f0'}`, background: flags[flag.id] ? '#eef2ff' : '#fff', cursor: 'pointer' }}
+                >
+                  <BoxedCheckbox checked={flags[flag.id]} onChange={() => toggleFlag(flag.id)} onClick={e => e.stopPropagation()} />
+                  <span style={{ fontSize: 11, color: '#1e293b', fontWeight: flags[flag.id] ? 600 : 400 }}>{flag.label}</span>
+                </div>
+              ))}
+              <div style={{ fontSize: 10, color: '#94a3b8', marginTop: 4 }}>
+                {Object.values(flags).filter(Boolean).length}/{L184_FLAG_LIST.length} 활성화
+              </div>
+            </div>
+          ) : (
+            <div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 3, marginBottom: 10 }}>
+                {Object.keys(TECH184).map(cat => (
+                  <ChipLink
+                    key={cat}
+                    href="#"
+                    selected={techCategory === cat}
+                    onClick={e => { e.preventDefault(); setTechCategory(cat) }}
+                  >
+                    {cat}
+                  </ChipLink>
+                ))}
+              </div>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 5 }}>
+                {(TECH184[techCategory] ?? []).map(tech => (
+                  <ChipLink
+                    key={tech}
+                    href="#"
+                    selected={selectedTech.has(tech)}
+                    onClick={e => { e.preventDefault(); toggleTech(tech) }}
+                  >
+                    {tech}
+                  </ChipLink>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Main issue board */}
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+        {/* Toolbar */}
+        <div style={{ height: 52, background: '#fff', borderBottom: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', padding: '0 20px', gap: 10, flexShrink: 0 }}>
+          <span style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>이슈 트래커</span>
+          <span style={{ fontSize: 11, color: '#94a3b8' }}>{LINEAR184_ISSUES.length}개</span>
+          <div style={{ marginLeft: 'auto', display: 'flex', gap: 6, alignItems: 'center' }}>
+            {selectedIssues.size > 0 && (
+              <span style={{ fontSize: 11, color: '#6366f1', fontWeight: 600 }}>{selectedIssues.size}개 선택됨</span>
+            )}
+            <SearchBar placeholder="이슈 검색..." />
+          </div>
+        </div>
+
+        {/* Filters */}
+        <div style={{ padding: '10px 20px', background: '#fff', borderBottom: '1px solid #f1f5f9', display: 'flex', gap: 12, alignItems: 'center' }}>
+          <div style={{ display: 'flex', gap: 4 }}>
+            {L184_FILTER_LABELS.map(lbl => (
+              <ChipLink
+                key={lbl.id}
+                href="#"
+                selected={filterLabel === lbl.id}
+                onClick={e => { e.preventDefault(); setFilterLabel(lbl.id) }}
+              >
+                {lbl.label}
+              </ChipLink>
+            ))}
+          </div>
+          <Divider orientation="vertical" style={{ height: 18 }} />
+          <div style={{ display: 'flex', gap: 4 }}>
+            {(['all', 'todo', 'in_progress', 'in_review', 'done'] as const).map(s => (
+              <button
+                key={s}
+                onClick={() => setFilterStatus(s)}
+                style={{ fontSize: 10, padding: '3px 9px', borderRadius: 10, border: `1px solid ${filterStatus === s ? L184_STATUS_COLOR[s] ?? '#6366f1' : '#e2e8f0'}`, background: filterStatus === s ? (L184_STATUS_COLOR[s] ?? '#6366f1') + '15' : '#fff', color: filterStatus === s ? L184_STATUS_COLOR[s] ?? '#6366f1' : '#64748b', cursor: 'pointer' }}
+              >
+                {s === 'all' ? '전체' : L184_STATUS_LABEL[s]}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Issue list */}
+        <div style={{ flex: 1, overflowY: 'auto', padding: 20 }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+            {filtered.map(issue => {
+              const isSelected = selectedIssues.has(issue.id)
+              const lStyle = L184_LABEL_STYLE[issue.label] ?? { bg: '#f1f5f9', color: '#475569' }
+              return (
+                <div
+                  key={issue.id}
+                  style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 14px', borderRadius: 8, background: isSelected ? '#eef2ff' : '#fff', border: `1px solid ${isSelected ? '#a5b4fc' : '#e2e8f0'}`, cursor: 'pointer', transition: 'all 0.12s' }}
+                  onClick={() => toggleIssue(issue.id)}
+                >
+                  <BoxedCheckbox checked={isSelected} onChange={() => toggleIssue(issue.id)} onClick={e => e.stopPropagation()} />
+                  <div style={{ width: 8, height: 8, borderRadius: '50%', background: L184_PRIORITY_COLOR[issue.priority], flexShrink: 0 }} />
+                  <span style={{ fontSize: 11, color: '#94a3b8', fontFamily: 'monospace', flexShrink: 0, minWidth: 68 }}>{issue.id}</span>
+                  <span style={{ fontSize: 13, color: '#0f172a', flex: 1 }}>{issue.title}</span>
+                  <span style={{ fontSize: 10, padding: '2px 8px', borderRadius: 10, ...lStyle, fontWeight: 500 }}>{issue.label}</span>
+                  <span style={{ fontSize: 10, color: L184_STATUS_COLOR[issue.status], background: L184_STATUS_COLOR[issue.status] + '15', padding: '2px 8px', borderRadius: 10, whiteSpace: 'nowrap' }}>
+                    {L184_STATUS_LABEL[issue.status]}
+                  </span>
+                  <span style={{ fontSize: 11, color: '#64748b', flexShrink: 0 }}>{issue.assignee}</span>
+                </div>
+              )
+            })}
+            {filtered.length === 0 && (
+              <div style={{ padding: 40, textAlign: 'center', fontSize: 13, color: '#94a3b8' }}>
+                필터 조건에 맞는 이슈가 없습니다.
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const ShadcnLinear184ProjectBoard: StoryObj = {
+  name: 'shadcn/ui + Linear — 프로젝트 보드 & 이슈 트래커 (Cycle 184)',
+  parameters: {
+    layout: 'fullscreen',
+    docs: {
+      description: {
+        story: 'shadcn/ui + Linear Design 복합 패턴. 좌측: BoxedCheckbox 기능 플래그 패널 + ChipLink 기술 스택 브라우저 / 우측: ChipLink 이슈 라벨 필터 + BoxedCheckbox 이슈 멀티 선택 + 상태 필터 버튼. Linear 이슈 트래커 UI 완전 재현.',
+      },
+    },
+  },
+  render: () => <ShadcnLinear184Render />,
 }
