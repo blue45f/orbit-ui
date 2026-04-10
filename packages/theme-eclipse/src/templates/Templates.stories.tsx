@@ -37181,3 +37181,152 @@ export const M3Shadcn164SearchCenter: StoryObj = {
   },
   render: () => <M3Shadcn164SearchCenterRender />,
 }
+
+// ──────────────────────────────────────────────────────────────────────────────
+// Cycle 165: Ant Design + Radix UI — 팀 역량 대시보드
+// ──────────────────────────────────────────────────────────────────────────────
+
+function AntRadix165TeamDashboardRender() {
+  type MemberRole = 'admin' | 'editor' | 'viewer'
+  const [selectedMember, setSelectedMember] = useState(0)
+  const [notifSettings, setNotifSettings] = useState({
+    email: true,
+    push: true,
+    slack: false,
+    digest: true,
+  })
+
+  const toggleNotif = (key: keyof typeof notifSettings) => {
+    setNotifSettings((prev) => ({ ...prev, [key]: !prev[key] }))
+  }
+
+  const members = [
+    { name: '김민준', role: 'admin' as MemberRole, avatar: 'KM', color: '#3b82f6', skills: [{ name: 'React', pct: 95, color: 'primary' as const }, { name: 'TypeScript', pct: 88, color: 'primary' as const }, { name: 'Node.js', pct: 72, color: 'success' as const }], goals: [{ label: '스프린트', pct: 78, color: 'primary' as const }, { label: '코드 리뷰', pct: 92, color: 'success' as const }] },
+    { name: '이지수', role: 'editor' as MemberRole, avatar: 'LJ', color: '#8b5cf6', skills: [{ name: 'Figma', pct: 98, color: 'primary' as const }, { name: 'CSS', pct: 90, color: 'primary' as const }, { name: 'Animation', pct: 80, color: 'success' as const }], goals: [{ label: '디자인 시스템', pct: 65, color: 'warning' as const }, { label: '프로토타입', pct: 85, color: 'primary' as const }] },
+    { name: '박서연', role: 'viewer' as MemberRole, avatar: 'PS', color: '#ec4899', skills: [{ name: 'Data Analysis', pct: 85, color: 'primary' as const }, { name: 'SQL', pct: 78, color: 'success' as const }, { name: 'Python', pct: 70, color: 'success' as const }], goals: [{ label: 'Q2 분석 리포트', pct: 55, color: 'warning' as const }, { label: '대시보드', pct: 40, color: 'warning' as const }] },
+  ]
+
+  const roleColors: Record<MemberRole, string> = { admin: '#ef4444', editor: '#3b82f6', viewer: '#6b7280' }
+  const roleLabel: Record<MemberRole, string> = { admin: 'Admin', editor: 'Editor', viewer: 'Viewer' }
+  const member = members[selectedMember]
+
+  const notifChannels: { key: keyof typeof notifSettings; label: string; icon: string }[] = [
+    { key: 'email', label: '이메일', icon: '✉️' },
+    { key: 'push', label: '푸시', icon: '🔔' },
+    { key: 'slack', label: 'Slack', icon: '⚡' },
+    { key: 'digest', label: '주간 요약', icon: '📊' },
+  ]
+
+  return (
+    <div style={{ width: '100%', minHeight: '100vh', background: '#f1f5f9', display: 'flex', fontFamily: 'system-ui, sans-serif' }}>
+      {/* Sidebar */}
+      <div style={{ width: 220, background: '#1e293b', display: 'flex', flexDirection: 'column', padding: '24px 0' }}>
+        <div style={{ padding: '0 20px 20px', borderBottom: '1px solid #334155' }}>
+          <div style={{ fontSize: 16, fontWeight: 800, color: '#f8fafc' }}>Team Hub</div>
+          <div style={{ fontSize: 11, color: '#64748b', marginTop: 2 }}>역량 관리 대시보드</div>
+        </div>
+        <div style={{ padding: '12px 0' }}>
+          {members.map((m, i) => (
+            <div
+              key={m.name}
+              onClick={() => setSelectedMember(i)}
+              style={{
+                display: 'flex', alignItems: 'center', gap: 10, padding: '10px 20px', cursor: 'pointer',
+                background: selectedMember === i ? '#334155' : 'transparent',
+                borderLeft: selectedMember === i ? `3px solid ${m.color}` : '3px solid transparent',
+              }}
+            >
+              <div style={{ width: 32, height: 32, borderRadius: '50%', background: m.color, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 11, fontWeight: 700, color: '#fff', flexShrink: 0 }}>
+                {m.avatar}
+              </div>
+              <div>
+                <div style={{ fontSize: 13, fontWeight: 600, color: '#e2e8f0' }}>{m.name}</div>
+                <div style={{ fontSize: 10, color: roleColors[m.role], fontWeight: 600 }}>{roleLabel[m.role]}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Main Content */}
+      <div style={{ flex: 1, padding: 24, display: 'flex', flexDirection: 'column', gap: 20 }}>
+        {/* Header */}
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+            <div style={{ width: 52, height: 52, borderRadius: '50%', background: member.color, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 18, fontWeight: 800, color: '#fff' }}>
+              {member.avatar}
+            </div>
+            <div>
+              <div style={{ fontSize: 20, fontWeight: 800, color: '#0f172a' }}>{member.name}</div>
+              <span style={{ fontSize: 12, fontWeight: 700, padding: '2px 8px', borderRadius: 20, background: roleColors[member.role] + '22', color: roleColors[member.role] }}>
+                {roleLabel[member.role]}
+              </span>
+            </div>
+          </div>
+          <SolidButton color="primary" size="medium">
+            <SolidButton.Center>프로필 편집</SolidButton.Center>
+          </SolidButton>
+        </div>
+
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20 }}>
+          {/* Skills Card */}
+          <div style={{ background: '#fff', borderRadius: 14, padding: 20, border: '1px solid #e2e8f0' }}>
+            <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a', marginBottom: 16 }}>기술 역량</div>
+            {member.skills.map((skill) => (
+              <div key={skill.name} style={{ marginBottom: 14 }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 5 }}>
+                  <span style={{ fontSize: 13, color: '#374151' }}>{skill.name}</span>
+                  <span style={{ fontSize: 12, fontWeight: 600, color: '#64748b' }}>{skill.pct}%</span>
+                </div>
+                <Progress value={skill.pct} size="small" color={skill.color} />
+              </div>
+            ))}
+          </div>
+
+          {/* Goals Card */}
+          <div style={{ background: '#fff', borderRadius: 14, padding: 20, border: '1px solid #e2e8f0' }}>
+            <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a', marginBottom: 16 }}>목표 달성률</div>
+            {member.goals.map((goal) => (
+              <div key={goal.label} style={{ marginBottom: 16 }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 5 }}>
+                  <span style={{ fontSize: 13, color: '#374151' }}>{goal.label}</span>
+                  <span style={{ fontSize: 12, fontWeight: 700, color: goal.pct >= 80 ? '#16a34a' : goal.pct >= 60 ? '#d97706' : '#dc2626' }}>{goal.pct}%</span>
+                </div>
+                <Progress value={goal.pct} size="medium" color={goal.color} />
+              </div>
+            ))}
+          </div>
+
+          {/* Notification Settings */}
+          <div style={{ background: '#fff', borderRadius: 14, padding: 20, border: '1px solid #e2e8f0', gridColumn: '1 / -1' }}>
+            <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a', marginBottom: 16 }}>알림 설정</div>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+              {notifChannels.map((ch) => (
+                <div key={ch.key} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px 16px', background: '#f8fafc', borderRadius: 10, border: '1px solid #e2e8f0' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                    <span style={{ fontSize: 16 }}>{ch.icon}</span>
+                    <span style={{ fontSize: 13, fontWeight: 500, color: '#374151' }}>{ch.label}</span>
+                  </div>
+                  <Switch checked={notifSettings[ch.key]} onCheckedChange={() => toggleNotif(ch.key)} />
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const AntRadix165TeamDashboard: StoryObj = {
+  name: 'Ant Design + Radix UI — 팀 역량 대시보드 (Progress + Switch)',
+  parameters: {
+    layout: 'fullscreen',
+    docs: {
+      description: {
+        story: 'Ant Design + Radix UI 복합 패턴. 좌: 팀 멤버 사이드바, 우: 기술 역량 Progress bars + 목표 달성률 게이지 + Switch 기반 알림 설정 패널.',
+      },
+    },
+  },
+  render: () => <AntRadix165TeamDashboardRender />,
+}

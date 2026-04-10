@@ -1505,3 +1505,246 @@ export const Linear_Radix_기능_플래그_토글: Story = {
     )
   },
 }
+
+// ──────────────────────────────────────────────────────────────────────────────
+// Cycle 165: Ant Design + Radix UI
+// ──────────────────────────────────────────────────────────────────────────────
+
+export const AntDesign_시스템_알림_설정_토글: Story = {
+  name: 'Ant Design — 시스템 알림 설정 토글 (Cycle 165)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Ant Design Switch 패턴. 알림 채널별 on/off 설정 패널. ' +
+          '이메일/푸시/SMS/Slack 알림을 개별 스위치로 제어.',
+      },
+    },
+  },
+  render: function AntNotificationSettingsRender() {
+    const [settings, setSettings] = useState({
+      email: true,
+      push: true,
+      sms: false,
+      slack: true,
+      marketing: false,
+      digest: true,
+    })
+
+    const toggle = (key: keyof typeof settings) => {
+      setSettings((prev) => ({ ...prev, [key]: !prev[key] }))
+    }
+
+    const channels = [
+      { key: 'email' as const, label: '이메일 알림', desc: '중요 업데이트 및 보안 알림', icon: '✉️' },
+      { key: 'push' as const, label: '푸시 알림', desc: '실시간 앱 알림', icon: '🔔' },
+      { key: 'sms' as const, label: 'SMS 알림', desc: '긴급 보안 코드', icon: '💬' },
+      { key: 'slack' as const, label: 'Slack 연동', desc: '팀 채널 알림 전송', icon: '⚡' },
+      { key: 'marketing' as const, label: '마케팅 수신', desc: '뉴스레터 및 프로모션', icon: '📢' },
+      { key: 'digest' as const, label: '주간 다이제스트', desc: '매주 월요일 요약 리포트', icon: '📊' },
+    ]
+
+    return (
+      <div style={{ width: 380, fontFamily: 'system-ui, sans-serif', background: '#fff', border: '1px solid #e5e7eb', borderRadius: 12, overflow: 'hidden' }}>
+        <div style={{ padding: '16px 20px', borderBottom: '1px solid #f3f4f6', background: '#f9fafb' }}>
+          <div style={{ fontSize: 14, fontWeight: 700, color: '#111827' }}>알림 설정</div>
+          <div style={{ fontSize: 12, color: '#6b7280', marginTop: 2 }}>
+            {Object.values(settings).filter(Boolean).length}개 채널 활성
+          </div>
+        </div>
+        {channels.map((ch) => (
+          <div
+            key={ch.key}
+            style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '14px 20px', borderBottom: '1px solid #f9fafb' }}
+          >
+            <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+              <span style={{ fontSize: 18 }}>{ch.icon}</span>
+              <div>
+                <div style={{ fontSize: 13, fontWeight: 600, color: '#374151' }}>{ch.label}</div>
+                <div style={{ fontSize: 11, color: '#9ca3af' }}>{ch.desc}</div>
+              </div>
+            </div>
+            <Switch checked={settings[ch.key]} onCheckedChange={() => toggle(ch.key)} />
+          </div>
+        ))}
+      </div>
+    )
+  },
+}
+
+export const RadixUI_개발자_환경_설정_스위치: Story = {
+  name: 'Radix UI — 개발자 환경 설정 스위치 (Cycle 165)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Radix UI Switch 패턴. IDE/개발 환경 설정 패널. ' +
+          '실험적 기능 토글 + 위험도 경고 + 그룹별 설정 구성.',
+      },
+    },
+  },
+  render: function RadixDevSettingsRender() {
+    const [config, setConfig] = useState({
+      typescript: true,
+      eslint: true,
+      prettier: true,
+      hotReload: true,
+      sourceMap: false,
+      experimental: false,
+      telemetry: false,
+      debugMode: false,
+    })
+
+    const toggle = (key: keyof typeof config) => {
+      setConfig((prev) => ({ ...prev, [key]: !prev[key] }))
+    }
+
+    const groups = [
+      {
+        title: '언어 & 린팅',
+        items: [
+          { key: 'typescript' as const, label: 'TypeScript 엄격 모드', danger: false },
+          { key: 'eslint' as const, label: 'ESLint 자동 수정', danger: false },
+          { key: 'prettier' as const, label: 'Prettier 포맷팅', danger: false },
+        ],
+      },
+      {
+        title: '빌드 옵션',
+        items: [
+          { key: 'hotReload' as const, label: 'Hot Module Reload', danger: false },
+          { key: 'sourceMap' as const, label: 'Source Map 생성', danger: false },
+        ],
+      },
+      {
+        title: '실험적 기능',
+        items: [
+          { key: 'experimental' as const, label: 'Experimental Features', danger: true },
+          { key: 'debugMode' as const, label: 'Debug Mode', danger: true },
+          { key: 'telemetry' as const, label: '사용 통계 수집', danger: false },
+        ],
+      },
+    ]
+
+    return (
+      <div style={{ width: 360, fontFamily: 'monospace, system-ui', background: '#1e1e2e', borderRadius: 14, overflow: 'hidden', border: '1px solid #313244' }}>
+        <div style={{ padding: '14px 18px', borderBottom: '1px solid #313244' }}>
+          <span style={{ fontSize: 13, fontWeight: 700, color: '#cdd6f4' }}>개발자 설정</span>
+        </div>
+        {groups.map((group) => (
+          <div key={group.title}>
+            <div style={{ padding: '10px 18px 6px', fontSize: 10, fontWeight: 700, color: '#585b70', letterSpacing: 1 }}>
+              {group.title.toUpperCase()}
+            </div>
+            {group.items.map((item) => (
+              <div
+                key={item.key}
+                style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 18px', borderBottom: '1px solid #181825' }}
+              >
+                <div>
+                  <span style={{ fontSize: 13, color: item.danger ? '#f38ba8' : '#cdd6f4' }}>{item.label}</span>
+                  {item.danger && config[item.key] && (
+                    <div style={{ fontSize: 10, color: '#fab387', marginTop: 2 }}>⚠ 프로덕션 환경에서 비활성화 권장</div>
+                  )}
+                </div>
+                <Switch checked={config[item.key]} onCheckedChange={() => toggle(item.key)} />
+              </div>
+            ))}
+          </div>
+        ))}
+      </div>
+    )
+  },
+}
+
+export const Ant_Radix_권한_관리_토글_패널: Story = {
+  name: 'Ant Design + Radix UI — 권한 관리 토글 패널 (Cycle 165)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Ant Design + Radix Switch 통합 RBAC 패턴. 역할별 기능 권한을 스위치로 일괄/개별 제어. ' +
+          '역할(Admin/Editor/Viewer) 선택 + 권한 그룹별 토글.',
+      },
+    },
+  },
+  render: function AntRadixRBACRender() {
+    type Role = 'admin' | 'editor' | 'viewer'
+    const [role, setRole] = useState<Role>('editor')
+    const [perms, setPerms] = useState<Record<string, boolean>>({
+      read: true,
+      write: true,
+      delete: false,
+      publish: false,
+      manageUsers: false,
+      viewAnalytics: true,
+      exportData: false,
+      manageSettings: false,
+    })
+
+    const ROLE_DEFAULTS: Record<Role, Record<string, boolean>> = {
+      admin: { read: true, write: true, delete: true, publish: true, manageUsers: true, viewAnalytics: true, exportData: true, manageSettings: true },
+      editor: { read: true, write: true, delete: false, publish: false, manageUsers: false, viewAnalytics: true, exportData: false, manageSettings: false },
+      viewer: { read: true, write: false, delete: false, publish: false, manageUsers: false, viewAnalytics: false, exportData: false, manageSettings: false },
+    }
+
+    const selectRole = (r: Role) => {
+      setRole(r)
+      setPerms(ROLE_DEFAULTS[r])
+    }
+
+    const permGroups = [
+      { label: '콘텐츠', keys: ['read', 'write', 'delete', 'publish'] },
+      { label: '관리', keys: ['manageUsers', 'manageSettings'] },
+      { label: '데이터', keys: ['viewAnalytics', 'exportData'] },
+    ]
+
+    const permLabels: Record<string, string> = {
+      read: '읽기', write: '쓰기', delete: '삭제', publish: '게시',
+      manageUsers: '사용자 관리', viewAnalytics: '분석 보기', exportData: '데이터 내보내기', manageSettings: '설정 관리',
+    }
+
+    const roleColors: Record<Role, string> = { admin: '#ef4444', editor: '#3b82f6', viewer: '#6b7280' }
+
+    return (
+      <div style={{ width: 400, fontFamily: 'system-ui, sans-serif', background: '#fff', border: '1px solid #e5e7eb', borderRadius: 14, overflow: 'hidden' }}>
+        <div style={{ padding: '16px 20px', background: '#f8fafc', borderBottom: '1px solid #e5e7eb' }}>
+          <div style={{ fontSize: 14, fontWeight: 700, color: '#111827', marginBottom: 10 }}>권한 관리</div>
+          <div style={{ display: 'flex', gap: 8 }}>
+            {(['admin', 'editor', 'viewer'] as Role[]).map((r) => (
+              <button
+                key={r}
+                onClick={() => selectRole(r)}
+                style={{
+                  padding: '5px 12px', borderRadius: 20, border: 'none', cursor: 'pointer', fontSize: 12, fontWeight: 600,
+                  background: role === r ? roleColors[r] : '#e5e7eb',
+                  color: role === r ? '#fff' : '#6b7280',
+                }}
+              >
+                {r.charAt(0).toUpperCase() + r.slice(1)}
+              </button>
+            ))}
+          </div>
+        </div>
+        {permGroups.map((group) => (
+          <div key={group.label}>
+            <div style={{ padding: '10px 20px 4px', fontSize: 11, fontWeight: 700, color: '#9ca3af', letterSpacing: 1 }}>
+              {group.label.toUpperCase()}
+            </div>
+            {group.keys.map((key) => (
+              <div
+                key={key}
+                style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 20px', borderBottom: '1px solid #f9fafb' }}
+              >
+                <span style={{ fontSize: 13, color: '#374151' }}>{permLabels[key]}</span>
+                <Switch
+                  checked={perms[key]}
+                  onCheckedChange={() => setPerms((p) => ({ ...p, [key]: !p[key] }))}
+                />
+              </div>
+            ))}
+          </div>
+        ))}
+      </div>
+    )
+  },
+}

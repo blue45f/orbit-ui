@@ -1438,3 +1438,193 @@ export const Mantine_Arco_스텝_파이프라인_진행률: Story = {
   name: 'Mantine + Arco — 스텝 파이프라인 진행률 (Cycle 140)',
   render: () => <MantiineArco140StepProgress140Render />,
 }
+
+// ──────────────────────────────────────────────────────────────────────────────
+// Cycle 165: Ant Design + Radix UI
+// ──────────────────────────────────────────────────────────────────────────────
+
+export const AntDesign_파일_업로드_진행률: Story = {
+  name: 'Ant Design — 파일 업로드 진행률 (Cycle 165)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Ant Design Upload Progress 패턴. 다중 파일 업로드 진행 상태를 개별 Progress bar로 표시. ' +
+          '완료/실패/진행 중 상태를 색상(success/error/primary)으로 구분.',
+      },
+    },
+  },
+  render: function AntUploadProgressRender() {
+    const [files, setFiles] = React.useState([
+      { name: 'design-assets.zip', size: '12.4 MB', progress: 100, status: 'done' as const },
+      { name: 'prototype-v2.fig', size: '8.1 MB', progress: 67, status: 'uploading' as const },
+      { name: 'brand-guide.pdf', size: '3.2 MB', progress: 0, status: 'error' as const },
+      { name: 'icon-set.svg', size: '512 KB', progress: 34, status: 'uploading' as const },
+    ])
+
+    const statusColor: Record<string, 'success' | 'warning' | 'primary'> = {
+      done: 'success',
+      uploading: 'primary',
+      error: 'warning',
+    }
+
+    const statusLabel: Record<string, string> = {
+      done: '완료',
+      uploading: '업로드 중',
+      error: '실패',
+    }
+
+    const statusDot: Record<string, string> = {
+      done: '#22c55e',
+      uploading: '#3b82f6',
+      error: '#ef4444',
+    }
+
+    const retry = (idx: number) => {
+      setFiles((prev) =>
+        prev.map((f, i) => (i === idx ? { ...f, status: 'uploading' as const, progress: 10 } : f))
+      )
+    }
+
+    return (
+      <div style={{ width: 420, fontFamily: 'system-ui, sans-serif', background: '#fff', border: '1px solid #e5e7eb', borderRadius: 12, padding: 20 }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
+          <span style={{ fontSize: 14, fontWeight: 700, color: '#111827' }}>파일 업로드</span>
+          <span style={{ fontSize: 12, color: '#6b7280' }}>{files.filter((f) => f.status === 'done').length}/{files.length} 완료</span>
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+          {files.map((file, idx) => (
+            <div key={file.name} style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                  <span style={{ width: 8, height: 8, borderRadius: '50%', background: statusDot[file.status], display: 'inline-block' }} />
+                  <span style={{ fontSize: 13, fontWeight: 500, color: '#374151' }}>{file.name}</span>
+                  <span style={{ fontSize: 11, color: '#9ca3af' }}>{file.size}</span>
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                  <span style={{ fontSize: 11, color: statusDot[file.status] }}>{statusLabel[file.status]}</span>
+                  {file.status === 'error' && (
+                    <button
+                      onClick={() => retry(idx)}
+                      style={{ fontSize: 11, color: '#3b82f6', background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}
+                    >
+                      재시도
+                    </button>
+                  )}
+                </div>
+              </div>
+              <Progress
+                value={file.progress}
+                size="small"
+                color={statusColor[file.status] as 'primary' | 'success' | 'warning'}
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+    )
+  },
+}
+
+export const RadixUI_기술_스킬_역량_게이지: Story = {
+  name: 'Radix UI — 기술 스킬 역량 게이지 (Cycle 165)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Radix UI Progress 컴포넌트 패턴. 개발자 포트폴리오의 기술 역량 시각화. ' +
+          '카테고리별 그룹화 + 퍼센트 레이블 + 애니메이션 효과.',
+      },
+    },
+  },
+  render: function RadixSkillGaugeRender() {
+    const skills = [
+      { category: 'Frontend', items: [
+        { name: 'React', level: 95, color: 'primary' as const },
+        { name: 'TypeScript', level: 88, color: 'primary' as const },
+        { name: 'CSS/Tailwind', level: 82, color: 'primary' as const },
+      ]},
+      { category: 'Backend', items: [
+        { name: 'Node.js', level: 75, color: 'success' as const },
+        { name: 'PostgreSQL', level: 68, color: 'success' as const },
+      ]},
+      { category: 'DevOps', items: [
+        { name: 'Docker', level: 60, color: 'warning' as const },
+        { name: 'CI/CD', level: 55, color: 'warning' as const },
+      ]},
+    ]
+
+    return (
+      <div style={{ width: 380, fontFamily: 'system-ui, sans-serif', background: '#0f172a', borderRadius: 14, padding: 24 }}>
+        <div style={{ fontSize: 16, fontWeight: 700, color: '#f8fafc', marginBottom: 20 }}>기술 역량</div>
+        {skills.map((group) => (
+          <div key={group.category} style={{ marginBottom: 20 }}>
+            <div style={{ fontSize: 11, fontWeight: 700, color: '#64748b', letterSpacing: 1, marginBottom: 10 }}>
+              {group.category.toUpperCase()}
+            </div>
+            {group.items.map((skill) => (
+              <div key={skill.name} style={{ marginBottom: 10 }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 4 }}>
+                  <span style={{ fontSize: 13, color: '#cbd5e1' }}>{skill.name}</span>
+                  <span style={{ fontSize: 12, fontWeight: 600, color: '#94a3b8' }}>{skill.level}%</span>
+                </div>
+                <Progress value={skill.level} size="small" color={skill.color} />
+              </div>
+            ))}
+          </div>
+        ))}
+      </div>
+    )
+  },
+}
+
+export const Ant_Radix_목표_달성_대시보드: Story = {
+  name: 'Ant Design + Radix UI — 목표 달성 대시보드 (Cycle 165)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Ant Design Goal Tracker + Radix Progress 통합 패턴. 분기별 OKR 목표 달성도를 ' +
+          'Progress bar로 시각화. 전체 달성률 + 카테고리별 세부 분류.',
+      },
+    },
+  },
+  render: function AntRadixOKRDashboardRender() {
+    const [quarter] = React.useState('Q2 2025')
+    const goals = [
+      { id: 'rev', label: '매출 목표', target: '₩2.4B', current: '₩1.68B', pct: 70, color: 'primary' as const },
+      { id: 'user', label: '신규 사용자', target: '50,000', current: '38,500', pct: 77, color: 'success' as const },
+      { id: 'nps', label: 'NPS 점수', target: '75', current: '52', pct: 69, color: 'warning' as const },
+      { id: 'churn', label: '이탈률 감소', target: '< 3%', current: '4.1%', pct: 45, color: 'warning' as const },
+    ]
+
+    const overall = Math.round(goals.reduce((acc, g) => acc + g.pct, 0) / goals.length)
+
+    return (
+      <div style={{ width: 460, fontFamily: 'system-ui, sans-serif', background: '#fff', border: '1px solid #e5e7eb', borderRadius: 14, overflow: 'hidden' }}>
+        <div style={{ background: 'linear-gradient(135deg, #1d4ed8, #7c3aed)', padding: '20px 24px', color: '#fff' }}>
+          <div style={{ fontSize: 12, opacity: 0.8, marginBottom: 4 }}>{quarter} OKR 현황</div>
+          <div style={{ fontSize: 24, fontWeight: 800, marginBottom: 12 }}>전체 달성률 {overall}%</div>
+          <Progress value={overall} size="large" color="success" />
+        </div>
+        <div style={{ padding: 20, display: 'flex', flexDirection: 'column', gap: 16 }}>
+          {goals.map((goal) => (
+            <div key={goal.id} style={{ padding: 14, background: '#f9fafb', borderRadius: 10, border: '1px solid #f3f4f6' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8 }}>
+                <span style={{ fontSize: 13, fontWeight: 600, color: '#374151' }}>{goal.label}</span>
+                <span style={{ fontSize: 12, fontWeight: 700, color: goal.pct >= 70 ? '#16a34a' : goal.pct >= 50 ? '#d97706' : '#dc2626' }}>
+                  {goal.pct}%
+                </span>
+              </div>
+              <Progress value={goal.pct} size="medium" color={goal.color} />
+              <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 6 }}>
+                <span style={{ fontSize: 11, color: '#9ca3af' }}>현재: {goal.current}</span>
+                <span style={{ fontSize: 11, color: '#9ca3af' }}>목표: {goal.target}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    )
+  },
+}
