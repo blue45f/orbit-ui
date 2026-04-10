@@ -11081,3 +11081,423 @@ export const NotifCenter: Story = {
   render: () => <NotifCenterRender />,
 }
 
+// ─── FileBrowser Template (Chakra UI + Google Material 3 벤치마크) ──────────
+// M3 Files 앱 레이아웃 + Chakra 파일 목록 패턴 참고
+
+type FBFileType = 'folder' | 'image' | 'doc' | 'code' | 'pdf'
+type FBViewMode = 'grid' | 'list'
+type FBSortKey = 'name' | 'date' | 'size'
+
+type FBFileItem = {
+  id: string
+  name: string
+  type: FBFileType
+  size: string
+  modified: string
+  starred: boolean
+}
+
+const FB_TYPE_CONFIG: Record<FBFileType, { icon: string; color: string; bg: string }> = {
+  folder: { icon: '📁', color: '#f59e0b', bg: '#fffbeb' },
+  image: { icon: '🖼', color: '#10b981', bg: '#f0fdf4' },
+  doc: { icon: '📄', color: '#3b82f6', bg: '#eff6ff' },
+  code: { icon: '💻', color: '#8b5cf6', bg: '#f5f3ff' },
+  pdf: { icon: '📕', color: '#ef4444', bg: '#fef2f2' },
+}
+
+const FB_INITIAL_FILES: FBFileItem[] = [
+  { id: 'f1', name: 'components', type: 'folder', size: '-', modified: '2026-04-09', starred: true },
+  { id: 'f2', name: 'styles', type: 'folder', size: '-', modified: '2026-04-08', starred: false },
+  { id: 'f3', name: 'design-tokens.json', type: 'code', size: '24 KB', modified: '2026-04-07', starred: false },
+  { id: 'f4', name: 'overview.png', type: 'image', size: '1.2 MB', modified: '2026-04-06', starred: true },
+  { id: 'f5', name: 'component-spec.pdf', type: 'pdf', size: '840 KB', modified: '2026-04-05', starred: false },
+  { id: 'f6', name: 'README.md', type: 'doc', size: '12 KB', modified: '2026-04-04', starred: false },
+  { id: 'f7', name: 'Button.tsx', type: 'code', size: '4 KB', modified: '2026-04-03', starred: false },
+  { id: 'f8', name: 'figma-export.png', type: 'image', size: '2.1 MB', modified: '2026-04-02', starred: false },
+  { id: 'f9', name: 'CHANGELOG.md', type: 'doc', size: '6 KB', modified: '2026-04-01', starred: false },
+]
+
+const FB_SORT_OPTIONS: { key: FBSortKey; label: string }[] = [
+  { key: 'name', label: '이름' },
+  { key: 'date', label: '날짜' },
+  { key: 'size', label: '크기' },
+]
+
+const FB_NAV_ITEMS = ['내 파일', '공유됨', '즐겨찾기', '최근 항목', '휴지통']
+
+const fbColors = {
+  bg: '#f8fafc',
+  sidebar: '#fff',
+  card: '#fff',
+  border: '#e2e8f0',
+  accent: '#6366f1',
+  fg: '#0f172a',
+  fgSub: '#64748b',
+  navActive: '#eff6ff',
+  navHover: '#f1f5f9',
+}
+
+function FileBrowserRender() {
+  const [files, setFiles] = useState<FBFileItem[]>(FB_INITIAL_FILES)
+  const [view, setView] = useState<FBViewMode>('grid')
+  const [sortKey, setSortKey] = useState<FBSortKey>('name')
+  const [activeNav, setActiveNav] = useState('내 파일')
+  const [selected, setSelected] = useState<string[]>([])
+  const [query, setQuery] = useState('')
+
+  const filteredFiles = files
+    .filter((f) => {
+      if (activeNav === '즐겨찾기') return f.starred
+      return f.name.toLowerCase().includes(query.toLowerCase())
+    })
+    .sort((a, b) => {
+      if (sortKey === 'name') return a.name.localeCompare(b.name)
+      if (sortKey === 'date') return b.modified.localeCompare(a.modified)
+      return a.size.localeCompare(b.size)
+    })
+
+  const toggleStar = (id: string) => {
+    setFiles((prev) =>
+      prev.map((f) => (f.id === id ? { ...f, starred: !f.starred } : f)),
+    )
+  }
+
+  const toggleSelect = (id: string) => {
+    setSelected((prev) => (prev.includes(id) ? prev.filter((s) => s !== id) : [...prev, id]))
+  }
+
+  return (
+    <div
+      style={{
+        width: 860,
+        height: 560,
+        display: 'flex',
+        background: fbColors.bg,
+        borderRadius: 16,
+        overflow: 'hidden',
+        border: `1px solid ${fbColors.border}`,
+        fontFamily: 'system-ui, sans-serif',
+      }}
+    >
+      {/* Sidebar */}
+      <div
+        style={{
+          width: 200,
+          background: fbColors.sidebar,
+          borderRight: `1px solid ${fbColors.border}`,
+          display: 'flex',
+          flexDirection: 'column',
+          padding: '20px 0',
+          flexShrink: 0,
+        }}
+      >
+        <div style={{ padding: '0 16px 16px', fontWeight: 700, fontSize: 16, color: fbColors.fg }}>
+          파일 관리자
+        </div>
+        <nav style={{ display: 'flex', flexDirection: 'column', gap: 2, padding: '0 8px' }}>
+          {FB_NAV_ITEMS.map((item) => (
+            <button
+              key={item}
+              onClick={() => setActiveNav(item)}
+              style={{
+                padding: '8px 12px',
+                borderRadius: 8,
+                border: 'none',
+                textAlign: 'left',
+                cursor: 'pointer',
+                fontSize: 14,
+                fontWeight: activeNav === item ? 600 : 400,
+                background: activeNav === item ? fbColors.navActive : 'transparent',
+                color: activeNav === item ? fbColors.accent : fbColors.fg,
+              }}
+            >
+              {item}
+            </button>
+          ))}
+        </nav>
+        <div style={{ marginTop: 'auto', padding: '16px' }}>
+          <div
+            style={{
+              background: '#f1f5f9',
+              borderRadius: 8,
+              padding: '10px 12px',
+              fontSize: 12,
+              color: fbColors.fgSub,
+            }}
+          >
+            <div style={{ fontWeight: 600, color: fbColors.fg, marginBottom: 4 }}>저장 공간</div>
+            <div
+              style={{
+                height: 4,
+                background: '#e2e8f0',
+                borderRadius: 4,
+                marginBottom: 4,
+                overflow: 'hidden',
+              }}
+            >
+              <div
+                style={{ height: '100%', width: '62%', background: fbColors.accent, borderRadius: 4 }}
+              />
+            </div>
+            <div>6.2 GB / 10 GB</div>
+          </div>
+        </div>
+      </div>
+
+      {/* Main */}
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+        {/* Toolbar */}
+        <div
+          style={{
+            padding: '14px 20px',
+            borderBottom: `1px solid ${fbColors.border}`,
+            display: 'flex',
+            alignItems: 'center',
+            gap: 12,
+            background: fbColors.card,
+          }}
+        >
+          <div style={{ flex: 1 }}>
+            <SearchBar
+              value={query}
+              placeholder="파일 검색..."
+              onChange={(e) => setQuery(e.target.value)}
+            />
+          </div>
+          <div style={{ display: 'flex', gap: 4 }}>
+            {(['grid', 'list'] as FBViewMode[]).map((v) => (
+              <button
+                key={v}
+                onClick={() => setView(v)}
+                style={{
+                  padding: '6px 12px',
+                  borderRadius: 6,
+                  border: `1px solid ${fbColors.border}`,
+                  background: view === v ? fbColors.accent : fbColors.card,
+                  color: view === v ? '#fff' : fbColors.fg,
+                  cursor: 'pointer',
+                  fontSize: 13,
+                }}
+              >
+                {v === 'grid' ? '그리드' : '목록'}
+              </button>
+            ))}
+          </div>
+          <div style={{ display: 'flex', gap: 4 }}>
+            {FB_SORT_OPTIONS.map((s) => (
+              <button
+                key={s.key}
+                onClick={() => setSortKey(s.key)}
+                style={{
+                  padding: '6px 10px',
+                  borderRadius: 6,
+                  border: `1px solid ${fbColors.border}`,
+                  background: sortKey === s.key ? '#f0f0ff' : fbColors.card,
+                  color: sortKey === s.key ? fbColors.accent : fbColors.fgSub,
+                  cursor: 'pointer',
+                  fontSize: 12,
+                  fontWeight: sortKey === s.key ? 600 : 400,
+                }}
+              >
+                {s.label}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Selection bar */}
+        {selected.length > 0 && (
+          <div
+            style={{
+              padding: '8px 20px',
+              background: '#eff6ff',
+              borderBottom: `1px solid #dbeafe`,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              fontSize: 13,
+            }}
+          >
+            <span style={{ color: fbColors.accent, fontWeight: 500 }}>
+              {selected.length}개 선택됨
+            </span>
+            <div style={{ display: 'flex', gap: 8 }}>
+              <button
+                onClick={() => setSelected([])}
+                style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: 13, color: fbColors.fgSub }}
+              >
+                선택 해제
+              </button>
+              <button
+                onClick={() => {
+                  setFiles((prev) => prev.filter((f) => !selected.includes(f.id)))
+                  setSelected([])
+                }}
+                style={{
+                  background: '#fef2f2',
+                  border: '1px solid #fecaca',
+                  borderRadius: 6,
+                  padding: '4px 10px',
+                  cursor: 'pointer',
+                  fontSize: 13,
+                  color: '#ef4444',
+                }}
+              >
+                삭제
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* File Area */}
+        <div style={{ flex: 1, overflowY: 'auto', padding: 20 }}>
+          {filteredFiles.length === 0 && (
+            <div style={{ textAlign: 'center', color: fbColors.fgSub, paddingTop: 60, fontSize: 14 }}>
+              파일이 없습니다
+            </div>
+          )}
+
+          {view === 'grid' ? (
+            <div
+              style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fill, minmax(130px, 1fr))',
+                gap: 12,
+              }}
+            >
+              {filteredFiles.map((file) => {
+                const cfg = FB_TYPE_CONFIG[file.type]
+                const isSelected = selected.includes(file.id)
+                return (
+                  <div
+                    key={file.id}
+                    onClick={() => toggleSelect(file.id)}
+                    style={{
+                      padding: 14,
+                      borderRadius: 10,
+                      border: `1px solid ${isSelected ? fbColors.accent : fbColors.border}`,
+                      background: isSelected ? '#f0f0ff' : fbColors.card,
+                      cursor: 'pointer',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                      gap: 8,
+                      position: 'relative',
+                    }}
+                  >
+                    <div
+                      style={{
+                        width: 48,
+                        height: 48,
+                        borderRadius: 10,
+                        background: cfg.bg,
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        fontSize: 22,
+                      }}
+                    >
+                      {cfg.icon}
+                    </div>
+                    <div
+                      style={{
+                        fontSize: 12,
+                        fontWeight: 500,
+                        color: fbColors.fg,
+                        textAlign: 'center',
+                        wordBreak: 'break-all',
+                        lineHeight: 1.4,
+                      }}
+                    >
+                      {file.name}
+                    </div>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        toggleStar(file.id)
+                      }}
+                      style={{
+                        position: 'absolute',
+                        top: 6,
+                        right: 6,
+                        background: 'none',
+                        border: 'none',
+                        cursor: 'pointer',
+                        fontSize: 12,
+                        opacity: file.starred ? 1 : 0.3,
+                      }}
+                    >
+                      {file.starred ? '★' : '☆'}
+                    </button>
+                  </div>
+                )
+              })}
+            </div>
+          ) : (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+              {filteredFiles.map((file) => {
+                const cfg = FB_TYPE_CONFIG[file.type]
+                const isSelected = selected.includes(file.id)
+                return (
+                  <div
+                    key={file.id}
+                    onClick={() => toggleSelect(file.id)}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 12,
+                      padding: '8px 12px',
+                      borderRadius: 8,
+                      border: `1px solid ${isSelected ? fbColors.accent : 'transparent'}`,
+                      background: isSelected ? '#f0f0ff' : 'transparent',
+                      cursor: 'pointer',
+                    }}
+                    onMouseEnter={(e) => {
+                      if (!isSelected) (e.currentTarget as HTMLDivElement).style.background = fbColors.navHover
+                    }}
+                    onMouseLeave={(e) => {
+                      if (!isSelected) (e.currentTarget as HTMLDivElement).style.background = 'transparent'
+                    }}
+                  >
+                    <span style={{ fontSize: 18, flexShrink: 0 }}>{cfg.icon}</span>
+                    <span style={{ flex: 1, fontSize: 14, color: fbColors.fg, fontWeight: 500 }}>
+                      {file.name}
+                    </span>
+                    <span style={{ fontSize: 12, color: fbColors.fgSub, width: 70, textAlign: 'right' }}>
+                      {file.size}
+                    </span>
+                    <span style={{ fontSize: 12, color: fbColors.fgSub, width: 90, textAlign: 'right' }}>
+                      {file.modified}
+                    </span>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        toggleStar(file.id)
+                      }}
+                      style={{
+                        background: 'none',
+                        border: 'none',
+                        cursor: 'pointer',
+                        fontSize: 14,
+                        opacity: file.starred ? 1 : 0.3,
+                        flexShrink: 0,
+                      }}
+                    >
+                      {file.starred ? '★' : '☆'}
+                    </button>
+                  </div>
+                )
+              })}
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const FileBrowser: Story = {
+  name: 'File Browser (Chakra UI + Google Material 3 벤치마크)',
+  render: () => <FileBrowserRender />,
+}
+

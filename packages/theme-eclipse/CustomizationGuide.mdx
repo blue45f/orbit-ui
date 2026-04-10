@@ -581,5 +581,124 @@ export default function RootLayout({
       </div>
     </section>
 
+    {/* Chakra UI + Google Material 3 테마 패턴 비교 */}
+    <section style={{ marginBottom: '56px' }}>
+      <h2 style={{ fontSize: '24px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '8px' }}>Chakra UI + Google Material 3 테마 패턴</h2>
+      <p style={{ fontSize: '14px', color: '#64748b', lineHeight: '1.7', marginBottom: '24px' }}>
+        Chakra UI의 <code style={{ background: '#f1f5f9', color: '#319795', padding: '2px 6px', borderRadius: '4px', fontSize: '13px' }}>extendTheme</code>과
+        Material 3의 <code style={{ background: '#f1f5f9', color: '#6750a4', padding: '2px 6px', borderRadius: '4px', fontSize: '13px' }}>colorScheme</code> 기반 접근 방식을 Orbit UI 3-tier 토큰 시스템으로 매핑합니다.
+      </p>
+
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '28px' }}>
+        {/* Chakra UI */}
+        <div style={{ borderRadius: '16px', border: '1px solid #b2f5ea', overflow: 'hidden' }}>
+          <div style={{ padding: '12px 20px', background: '#e6fffa', borderBottom: '1px solid #b2f5ea', display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <span style={{ fontSize: '13px', fontWeight: '700', color: '#234e52' }}>Chakra UI — extendTheme</span>
+            <span style={{ fontSize: '11px', color: '#319795', background: '#c6f6f0', padding: '2px 6px', borderRadius: '4px' }}>시맨틱 토큰</span>
+          </div>
+          <pre style={{ margin: 0, padding: '16px', background: '#0f172a', color: '#e2e8f0', fontSize: '11px', lineHeight: '1.8', fontFamily: '"JetBrains Mono", monospace', overflow: 'auto' }}>
+{`import { extendTheme } from '@chakra-ui/react'
+
+const brandTheme = extendTheme({
+  colors: {
+    brand: {
+      50:  '#eff6ff',
+      500: '#6366f1',
+      900: '#1e1b4b',
+    },
+  },
+  semanticTokens: {
+    colors: {
+      'chakra-body-bg': {
+        _light: 'white',
+        _dark: 'gray.900',
+      },
+    },
+  },
+})
+
+// Orbit UI 대응:
+// CSS 변수로 동일한 패턴 구현
+// --color-fill-primary: var(--ref-color-indigo500);`}
+          </pre>
+        </div>
+
+        {/* Google Material 3 */}
+        <div style={{ borderRadius: '16px', border: '1px solid #d8b4fe', overflow: 'hidden' }}>
+          <div style={{ padding: '12px 20px', background: '#faf5ff', borderBottom: '1px solid #d8b4fe', display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <span style={{ fontSize: '13px', fontWeight: '700', color: '#44337a' }}>Google Material 3 — colorScheme</span>
+            <span style={{ fontSize: '11px', color: '#6750a4', background: '#ede9fe', padding: '2px 6px', borderRadius: '4px' }}>Dynamic Color</span>
+          </div>
+          <pre style={{ margin: 0, padding: '16px', background: '#0f172a', color: '#e2e8f0', fontSize: '11px', lineHeight: '1.8', fontFamily: '"JetBrains Mono", monospace', overflow: 'auto' }}>
+{`// Material 3 Dynamic Color 시스템
+// Source Color → Tonal Palette → Color Scheme
+
+const m3Scheme = {
+  primary:          '#6750A4',
+  onPrimary:        '#FFFFFF',
+  primaryContainer: '#EADDFF',
+  secondary:        '#625B71',
+  surface:          '#FEF7FF',
+  onSurface:        '#1D1B20',
+}
+
+// Orbit UI 대응:
+// Semantic token과 1:1 매핑
+// fillPrimary   → primary
+// textOnPrimary → onPrimary`}
+          </pre>
+        </div>
+      </div>
+
+      {/* 토큰 매핑 테이블 */}
+      <h3 style={{ fontSize: '18px', fontWeight: '700', color: '#1e293b', marginBottom: '12px' }}>토큰 매핑 비교</h3>
+      <div style={{ overflowX: 'auto', borderRadius: '12px', border: '1px solid #e2e8f0' }}>
+        <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px' }}>
+          <thead>
+            <tr style={{ background: '#f8fafc' }}>
+              <th style={{ padding: '10px 16px', textAlign: 'left', fontWeight: '700', color: '#475569', borderBottom: '1px solid #e2e8f0' }}>용도</th>
+              <th style={{ padding: '10px 16px', textAlign: 'left', fontWeight: '700', color: '#319795', borderBottom: '1px solid #e2e8f0' }}>Chakra UI</th>
+              <th style={{ padding: '10px 16px', textAlign: 'left', fontWeight: '700', color: '#6750a4', borderBottom: '1px solid #e2e8f0' }}>Material 3</th>
+              <th style={{ padding: '10px 16px', textAlign: 'left', fontWeight: '700', color: '#6366f1', borderBottom: '1px solid #e2e8f0' }}>Orbit UI</th>
+            </tr>
+          </thead>
+          <tbody>
+            {[
+              { purpose: '주 브랜드 색상', chakra: 'brand.500', m3: 'primary', orbit: 'fillPrimary' },
+              { purpose: '주 배경', chakra: 'chakra-body-bg', m3: 'surface', orbit: 'backgroundBase' },
+              { purpose: '텍스트 색상', chakra: 'chakra-body-text', m3: 'onSurface', orbit: 'textPrimary' },
+              { purpose: '경계선', chakra: 'gray.200', m3: 'outlineVariant', orbit: 'borderDefault' },
+              { purpose: '포커스 링', chakra: 'blue.500 (focusRingColor)', m3: 'primary (focus-indicator)', orbit: 'borderFocused' },
+              { purpose: '에러 색상', chakra: 'red.500', m3: 'error', orbit: 'fillError' },
+            ].map((row, i) => (
+              <tr key={row.purpose} style={{ background: i % 2 === 0 ? '#fff' : '#fafafa' }}>
+                <td style={{ padding: '8px 16px', color: '#374151', fontWeight: '500', borderBottom: '1px solid #f1f5f9' }}>{row.purpose}</td>
+                <td style={{ padding: '8px 16px', color: '#319795', fontFamily: 'monospace', fontSize: '12px', borderBottom: '1px solid #f1f5f9' }}>{row.chakra}</td>
+                <td style={{ padding: '8px 16px', color: '#6750a4', fontFamily: 'monospace', fontSize: '12px', borderBottom: '1px solid #f1f5f9' }}>{row.m3}</td>
+                <td style={{ padding: '8px 16px', color: '#6366f1', fontFamily: 'monospace', fontSize: '12px', borderBottom: '1px solid #f1f5f9' }}>{row.orbit}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      {/* Orbit UI 장점 */}
+      <div style={{ marginTop: '24px', padding: '20px', background: '#eff6ff', borderRadius: '12px', border: '1px solid #bfdbfe' }}>
+        <h4 style={{ fontSize: '15px', fontWeight: '700', color: '#1e40af', margin: '0 0 12px' }}>Orbit UI 3-tier 토큰 시스템의 강점</h4>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '12px' }}>
+          {[
+            { title: 'CSS 변수 기반', desc: 'JS 런타임 없이 순수 CSS 변수로 테마 전환. SSR 환경에서 FOUC 없음' },
+            { title: '계층적 구조', desc: 'Reference → Semantic → Component 3단계로 변경 범위를 최소화' },
+            { title: 'Scope 전환', desc: 'data-theme 속성 하나로 컴포넌트 단위 다크/라이트 독립 전환 가능' },
+          ].map((item) => (
+            <div key={item.title} style={{ background: '#fff', borderRadius: '10px', padding: '14px', border: '1px solid #dbeafe' }}>
+              <div style={{ fontSize: '13px', fontWeight: '700', color: '#1e40af', marginBottom: '6px' }}>{item.title}</div>
+              <div style={{ fontSize: '12px', color: '#3b82f6', lineHeight: '1.6' }}>{item.desc}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
   </div>
 </Unstyled>

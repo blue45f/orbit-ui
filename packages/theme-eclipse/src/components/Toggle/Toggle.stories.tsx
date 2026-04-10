@@ -509,3 +509,261 @@ const ColorModeToggleRender = () => {
 export const Chakra_컬러모드_토글: Story = {
   render: () => <ColorModeToggleRender />,
 }
+
+/* --------------------------------------------------------------------------
+   Google Material 3 벤치마크: 스위치 설정 목록 (M3 Switch List)
+   M3의 ListItem + Switch 조합 — 설정 화면의 토글 목록 패턴
+-------------------------------------------------------------------------- */
+const M3_SETTINGS = [
+  {
+    group: '개인정보 보호',
+    items: [
+      { key: 'location', label: '위치 서비스', desc: '앱이 위치 정보에 접근하도록 허용', defaultOn: true },
+      { key: 'analytics', label: '사용 데이터 공유', desc: '제품 개선을 위해 익명 데이터 전송', defaultOn: false },
+      { key: 'crashReport', label: '충돌 보고서', desc: '오류 발생 시 자동으로 보고서 제출', defaultOn: true },
+    ],
+  },
+  {
+    group: '알림',
+    items: [
+      { key: 'push', label: '푸시 알림', desc: '중요 업데이트 및 알림 수신', defaultOn: true },
+      { key: 'email', label: '이메일 다이제스트', desc: '주간 활동 요약 이메일', defaultOn: false },
+    ],
+  },
+]
+
+function Material3SwitchListRender() {
+  const [states, setStates] = useState<Record<string, boolean>>(() => {
+    const init: Record<string, boolean> = {}
+    M3_SETTINGS.forEach((g) => g.items.forEach((i) => { init[i.key] = i.defaultOn }))
+    return init
+  })
+
+  const toggle = (key: string) => setStates((prev) => ({ ...prev, [key]: !prev[key] }))
+
+  return (
+    <div style={{ width: 360, fontFamily: 'system-ui, sans-serif' }}>
+      {M3_SETTINGS.map((group) => (
+        <div key={group.group} style={{ marginBottom: 24 }}>
+          <div style={{
+            fontSize: 11, fontWeight: 700, color: '#6366f1',
+            textTransform: 'uppercase', letterSpacing: '0.08em',
+            padding: '0 16px', marginBottom: 4,
+          }}>
+            {group.group}
+          </div>
+          <div style={{ background: '#fff', borderRadius: 12, border: '1px solid #e2e8f0', overflow: 'hidden' }}>
+            {group.items.map((item, i) => (
+              <div
+                key={item.key}
+                onClick={() => toggle(item.key)}
+                style={{
+                  display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                  padding: '14px 16px', cursor: 'pointer',
+                  borderBottom: i < group.items.length - 1 ? '1px solid #f1f5f9' : 'none',
+                  background: states[item.key] ? 'rgba(99,102,241,0.02)' : '#fff',
+                  transition: 'background 0.15s',
+                }}
+              >
+                <div style={{ flex: 1, marginRight: 12 }}>
+                  <div style={{ fontSize: 14, fontWeight: 500, color: '#1e293b' }}>{item.label}</div>
+                  <div style={{ fontSize: 12, color: '#94a3b8', marginTop: 2, lineHeight: 1.4 }}>{item.desc}</div>
+                </div>
+                <Toggle
+                  checked={states[item.key]}
+                  onCheckedChange={() => toggle(item.key)}
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+      <div style={{ fontSize: 11, color: '#94a3b8', textAlign: 'center' }}>
+        Google Material 3 Switch List 패턴 — 그룹핑된 토글 설정 목록
+      </div>
+    </div>
+  )
+}
+
+export const Material3_스위치_설정_목록: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Google Material 3의 Switch List 패턴. 설정 항목을 카테고리별로 그룹핑하고, 각 행 전체가 클릭 영역이 되어 Toggle 제어가 가능합니다.',
+      },
+    },
+  },
+  render: () => <Material3SwitchListRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Chakra UI 벤치마크: 권한 토글 매트릭스
+   Chakra UI의 Table + Switch 조합 — 역할별 권한 설정
+-------------------------------------------------------------------------- */
+type Permission = 'view' | 'edit' | 'delete' | 'admin'
+type Role = 'viewer' | 'editor' | 'manager' | 'owner'
+
+const ROLES: Role[] = ['viewer', 'editor', 'manager', 'owner']
+const PERMISSIONS: Permission[] = ['view', 'edit', 'delete', 'admin']
+
+const ROLE_LABELS: Record<Role, string> = {
+  viewer: '뷰어', editor: '편집자', manager: '매니저', owner: '소유자',
+}
+
+const PERM_LABELS: Record<Permission, string> = {
+  view: '보기', edit: '편집', delete: '삭제', admin: '관리',
+}
+
+const INITIAL_PERMS: Record<Role, Record<Permission, boolean>> = {
+  viewer: { view: true, edit: false, delete: false, admin: false },
+  editor: { view: true, edit: true, delete: false, admin: false },
+  manager: { view: true, edit: true, delete: true, admin: false },
+  owner: { view: true, edit: true, delete: true, admin: true },
+}
+
+function ChakraPermissionMatrixRender() {
+  const [perms, setPerms] = useState<Record<Role, Record<Permission, boolean>>>(INITIAL_PERMS)
+
+  const toggle = (role: Role, perm: Permission) => {
+    if (role === 'owner') return
+    setPerms((prev) => ({
+      ...prev,
+      [role]: { ...prev[role], [perm]: !prev[role][perm] },
+    }))
+  }
+
+  return (
+    <div style={{ fontFamily: 'system-ui, sans-serif', padding: '20px' }}>
+      <div style={{ fontSize: 14, fontWeight: 700, color: '#1e293b', marginBottom: 14 }}>역할별 권한 설정</div>
+      <div style={{ background: '#fff', borderRadius: 12, border: '1px solid #e2e8f0', overflow: 'hidden' }}>
+        {/* Header */}
+        <div style={{ display: 'grid', gridTemplateColumns: '120px repeat(4, 1fr)', background: '#f8fafc', padding: '10px 16px', borderBottom: '2px solid #e2e8f0' }}>
+          <div style={{ fontSize: 11, fontWeight: 700, color: '#64748b' }}>역할</div>
+          {PERMISSIONS.map((p) => (
+            <div key={p} style={{ fontSize: 11, fontWeight: 700, color: '#64748b', textAlign: 'center' }}>{PERM_LABELS[p]}</div>
+          ))}
+        </div>
+        {/* Rows */}
+        {ROLES.map((role, ri) => (
+          <div
+            key={role}
+            style={{
+              display: 'grid', gridTemplateColumns: '120px repeat(4, 1fr)',
+              padding: '12px 16px', alignItems: 'center',
+              background: ri % 2 === 0 ? '#fff' : '#fafafa',
+              borderBottom: ri < ROLES.length - 1 ? '1px solid #f1f5f9' : 'none',
+              opacity: role === 'owner' ? 0.75 : 1,
+            }}
+          >
+            <div>
+              <div style={{ fontSize: 13, fontWeight: 600, color: '#1e293b' }}>{ROLE_LABELS[role]}</div>
+              {role === 'owner' && <div style={{ fontSize: 10, color: '#94a3b8' }}>변경 불가</div>}
+            </div>
+            {PERMISSIONS.map((perm) => (
+              <div key={perm} style={{ display: 'flex', justifyContent: 'center' }}>
+                <Toggle
+                  checked={perms[role][perm]}
+                  onCheckedChange={() => toggle(role, perm)}
+                  disabled={role === 'owner'}
+                />
+              </div>
+            ))}
+          </div>
+        ))}
+      </div>
+      <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 10, textAlign: 'center' }}>
+        Chakra UI Table + Switch 패턴 — 역할별 권한 매트릭스 (소유자 권한은 고정)
+      </div>
+    </div>
+  )
+}
+
+export const Chakra_권한_토글_매트릭스: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Chakra UI의 Table + Switch 조합 패턴. 역할별로 권한을 행/열 매트릭스로 시각화합니다. 소유자(owner) 역할은 모든 권한이 고정되어 편집 불가 처리됩니다.',
+      },
+    },
+  },
+  render: () => <ChakraPermissionMatrixRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Google Material 3 벤치마크: 온보딩 기능 토글 선택
+   M3의 Feature highlight + Switch 패턴 — 앱 기능 활성화 선택
+-------------------------------------------------------------------------- */
+const M3_FEATURES = [
+  { key: 'darkMode', icon: '◑', title: '다크 모드 자동 전환', desc: '시스템 설정에 따라 자동으로 테마를 변경합니다', color: '#8b5cf6' },
+  { key: 'haptic', icon: '◈', title: '햅틱 피드백', desc: '버튼 클릭 시 진동으로 응답합니다', color: '#6366f1' },
+  { key: 'biometric', icon: '◉', title: '생체 인증', desc: '지문/Face ID로 빠르게 로그인합니다', color: '#06b6d4' },
+  { key: 'sync', icon: '⟳', title: '백그라운드 동기화', desc: '앱이 닫혀있을 때도 데이터를 업데이트합니다', color: '#10b981' },
+]
+
+function M3OnboardingFeaturesRender() {
+  const [enabled, setEnabled] = useState<Record<string, boolean>>({
+    darkMode: true, haptic: true, biometric: false, sync: false,
+  })
+
+  const toggle = (key: string) => setEnabled((prev) => ({ ...prev, [key]: !prev[key] }))
+  const enabledCount = Object.values(enabled).filter(Boolean).length
+
+  return (
+    <div style={{ width: 360, fontFamily: 'system-ui, sans-serif', padding: '20px' }}>
+      <div style={{ fontSize: 16, fontWeight: 800, color: '#1e293b', marginBottom: 4 }}>기능 설정</div>
+      <div style={{ fontSize: 13, color: '#94a3b8', marginBottom: 20, lineHeight: 1.5 }}>
+        원하는 기능을 활성화하세요. 언제든지 설정에서 변경할 수 있습니다.
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+        {M3_FEATURES.map((feat) => (
+          <div
+            key={feat.key}
+            onClick={() => toggle(feat.key)}
+            style={{
+              display: 'flex', alignItems: 'center', gap: 14,
+              padding: '14px 16px', borderRadius: 12, cursor: 'pointer',
+              border: `1.5px solid ${enabled[feat.key] ? feat.color + '60' : '#e2e8f0'}`,
+              background: enabled[feat.key] ? feat.color + '08' : '#fff',
+              transition: 'all 0.2s',
+            }}
+          >
+            <div style={{
+              width: 40, height: 40, borderRadius: 10, flexShrink: 0,
+              background: enabled[feat.key] ? feat.color : '#e2e8f0',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              fontSize: 18, color: '#fff', fontWeight: 700,
+              transition: 'background 0.2s',
+            }}>
+              {feat.icon}
+            </div>
+            <div style={{ flex: 1 }}>
+              <div style={{ fontSize: 13, fontWeight: 600, color: '#1e293b' }}>{feat.title}</div>
+              <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2, lineHeight: 1.4 }}>{feat.desc}</div>
+            </div>
+            <Toggle
+              checked={enabled[feat.key]}
+              onCheckedChange={() => toggle(feat.key)}
+            />
+          </div>
+        ))}
+      </div>
+      <div style={{ marginTop: 16, padding: '10px 14px', borderRadius: 8, background: '#f8fafc', border: '1px solid #e2e8f0', fontSize: 12, color: '#64748b', textAlign: 'center' }}>
+        {enabledCount}개 기능 활성화됨
+      </div>
+    </div>
+  )
+}
+
+export const Material3_온보딩_기능_토글: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Google Material 3 Feature highlight + Switch 패턴. 아이콘 카드에 Toggle을 내장해 카드 전체를 클릭하거나 Toggle을 직접 클릭해 기능을 활성화합니다.',
+      },
+    },
+  },
+  render: () => <M3OnboardingFeaturesRender />,
+}
