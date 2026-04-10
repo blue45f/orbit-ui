@@ -470,5 +470,91 @@ toast('주의가 필요합니다.')`,
       </div>
     </section>
 
+    {/* Arco Design + Mantine 벤치마크 */}
+    <section style={{ marginBottom: '64px' }}>
+      <div style={{ background: 'linear-gradient(160deg, #0c0a1e 0%, #1a1040 100%)', padding: '40px', borderRadius: '20px' }}>
+        <div style={{ fontSize: '11px', fontWeight: 700, color: '#a78bfa', letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: '10px' }}>
+          Cycle 42 Benchmark
+        </div>
+        <h2 style={{ fontSize: '22px', fontWeight: 800, color: '#fff', letterSpacing: '-0.02em', marginBottom: '8px' }}>
+          Arco Design vs Mantine
+        </h2>
+        <p style={{ fontSize: '13px', color: '#a78bfa', marginBottom: '28px' }}>
+          ByteDance의 엔터프라이즈 UI와 React Hook First 접근법의 교차점에서 발견한 패턴들
+        </p>
+
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '16px', marginBottom: '28px' }}>
+          <div style={{ padding: '20px', borderRadius: '12px', background: 'rgba(167,139,250,0.08)', border: '1px solid rgba(167,139,250,0.2)' }}>
+            <div style={{ fontSize: '12px', fontWeight: 700, color: '#a78bfa', marginBottom: '14px' }}>Arco Design 특징</div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+              {[
+                { feature: '통합 테마 시스템', detail: 'Less 변수 기반 전역 테마 설정' },
+                { feature: '중국어 최적화', detail: '아시아권 레이아웃 밀도 최적화' },
+                { feature: '테이블 가상화', detail: '수만 행 처리용 Virtual Table' },
+                { feature: '차트 통합', detail: 'G2Plot 기반 내장 차트 컴포넌트' },
+              ].map(({ feature, detail }) => (
+                <div key={feature} style={{ display: 'flex', gap: '8px', alignItems: 'flex-start' }}>
+                  <div style={{ width: 5, height: 5, borderRadius: '50%', background: '#a78bfa', marginTop: 5, flexShrink: 0 }} />
+                  <div>
+                    <div style={{ fontSize: '12px', fontWeight: 600, color: '#e2e8f0' }}>{feature}</div>
+                    <div style={{ fontSize: '11px', color: '#94a3b8' }}>{detail}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div style={{ padding: '20px', borderRadius: '12px', background: 'rgba(99,102,241,0.08)', border: '1px solid rgba(99,102,241,0.2)' }}>
+            <div style={{ fontSize: '12px', fontWeight: 700, color: '#818cf8', marginBottom: '14px' }}>Mantine 특징</div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+              {[
+                { feature: 'Hooks 우선 설계', detail: 'useDisclosure, useHover 등 40+ 훅' },
+                { feature: 'CSS Modules 방식', detail: '빌드 타임 CSS 추출로 zero-runtime' },
+                { feature: 'Chip.Group', detail: '라디오/체크박스 대체용 칩 그룹' },
+                { feature: '다크모드 기본 지원', detail: 'ColorSchemeProvider로 OS 연동' },
+              ].map(({ feature, detail }) => (
+                <div key={feature} style={{ display: 'flex', gap: '8px', alignItems: 'flex-start' }}>
+                  <div style={{ width: 5, height: 5, borderRadius: '50%', background: '#818cf8', marginTop: 5, flexShrink: 0 }} />
+                  <div>
+                    <div style={{ fontSize: '12px', fontWeight: 600, color: '#e2e8f0' }}>{feature}</div>
+                    <div style={{ fontSize: '11px', color: '#94a3b8' }}>{detail}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div style={{ overflowX: 'auto' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '12px' }}>
+            <thead>
+              <tr>
+                {['기준', 'Arco Design', 'Mantine', 'Orbit UI'].map((h) => (
+                  <th key={h} style={{ padding: '10px 14px', textAlign: 'left', color: '#a78bfa', fontWeight: 700, borderBottom: '1px solid rgba(167,139,250,0.2)' }}>{h}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {[
+                ['스타일 방식', 'Less 변수', 'CSS Modules', 'vanilla-extract'],
+                ['TypeScript', '부분 지원', '완전 지원', '완전 지원'],
+                ['Hook 수', '20+', '40+', '컴포넌트 내장'],
+                ['번들 크기', '~800KB', '~400KB', '~220KB'],
+                ['토큰 계층', '1단계', '2단계', '3단계'],
+                ['Figma 연동', '미지원', '미지원', '네이티브 연동'],
+              ].map(([criterion, arco, mantine, orbit]) => (
+                <tr key={criterion} style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+                  <td style={{ padding: '10px 14px', color: '#94a3b8', fontWeight: 600 }}>{criterion}</td>
+                  <td style={{ padding: '10px 14px', color: '#e2e8f0' }}>{arco}</td>
+                  <td style={{ padding: '10px 14px', color: '#e2e8f0' }}>{mantine}</td>
+                  <td style={{ padding: '10px 14px', color: '#a78bfa', fontWeight: 600 }}>{orbit}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
   </div>
 </Unstyled>

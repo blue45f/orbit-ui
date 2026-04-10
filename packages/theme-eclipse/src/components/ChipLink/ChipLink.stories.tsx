@@ -295,3 +295,210 @@ export const 관련_링크_패턴: Story = {
     </div>
   ),
 }
+
+/* --------------------------------------------------------------------------
+   Mantine 스타일 칩 그룹 다중 선택
+   Chip.Group multiple 패턴 - 기술 스택 필터 다중 선택 UI
+-------------------------------------------------------------------------- */
+const TECH_STACKS = [
+  { id: 'react', label: 'React', icon: <StarLineIcon /> },
+  { id: 'ts', label: 'TypeScript', icon: <CheckIcon /> },
+  { id: 'tailwind', label: 'Tailwind', icon: <SettingLineIcon /> },
+  { id: 'vite', label: 'Vite', icon: <SearchIcon /> },
+  { id: 'storybook', label: 'Storybook', icon: <LinkIcon /> },
+  { id: 'vitest', label: 'Vitest', icon: <HeartLineIcon /> },
+]
+
+const MantineChipGroupRender = () => {
+  const [selected, setSelected] = React.useState<string[]>(['react', 'ts'])
+
+  const toggle = (id: string) => {
+    setSelected((prev) => prev.includes(id) ? prev.filter((s) => s !== id) : [...prev, id])
+  }
+
+  return (
+    <div style={{ maxWidth: 480, padding: 28, fontFamily: 'system-ui, sans-serif' }}>
+      <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a', marginBottom: 4 }}>기술 스택 필터</div>
+      <div style={{ fontSize: 12, color: '#64748b', marginBottom: 16 }}>
+        {selected.length > 0 ? `${selected.length}개 선택됨` : '선택 없음'}
+      </div>
+
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginBottom: 20 }}>
+        {TECH_STACKS.map(({ id, label, icon }) => {
+          const isSelected = selected.includes(id)
+          return (
+            <span key={id}>
+              {isSelected ? (
+                <span
+                  style={{ display: 'inline-flex', alignItems: 'center', gap: 5, padding: '5px 12px', borderRadius: 20, fontSize: 13, fontWeight: 600, background: '#6366f1', color: '#fff', cursor: 'pointer', userSelect: 'none', border: '1.5px solid #6366f1' }}
+                  onClick={() => toggle(id)}
+                >
+                  <span style={{ display: 'flex', width: 14, height: 14 }}>{icon}</span>
+                  {label}
+                </span>
+              ) : (
+                <ChipLink
+                  href="#"
+                  onClick={(e: React.MouseEvent) => { e.preventDefault(); toggle(id) }}
+                >
+                  <ChipLink.Leading>{icon}</ChipLink.Leading>
+                  {label}
+                </ChipLink>
+              )}
+            </span>
+          )
+        })}
+      </div>
+
+      {selected.length > 0 && (
+        <div style={{ padding: '12px 16px', borderRadius: 10, background: '#f8fafc', border: '1px solid #e2e8f0' }}>
+          <div style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 8 }}>선택된 스택</div>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+            {selected.map((id) => {
+              const tech = TECH_STACKS.find((t) => t.id === id)
+              return tech ? (
+                <span key={id} style={{ fontSize: 12, padding: '3px 10px', borderRadius: 12, background: '#eef2ff', color: '#6366f1', fontWeight: 600 }}>
+                  {tech.label}
+                </span>
+              ) : null
+            })}
+          </div>
+          <button
+            style={{ marginTop: 10, fontSize: 11, color: '#94a3b8', background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}
+            onClick={() => setSelected([])}
+          >
+            전체 해제
+          </button>
+        </div>
+      )}
+    </div>
+  )
+}
+
+export const Mantine_칩_그룹_다중선택: Story = {
+  render: () => <MantineChipGroupRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Arco Design 스타일 기술 스택 배지 쇼케이스
+   아이콘과 레이블이 결합된 스택 배지 카드 패턴 - 포트폴리오/프로필 활용
+-------------------------------------------------------------------------- */
+const STACK_CATEGORIES = [
+  {
+    name: 'Frontend',
+    color: '#6366f1',
+    bg: '#eef2ff',
+    items: ['React', 'TypeScript', 'Tailwind CSS', 'Vite'],
+  },
+  {
+    name: 'Design System',
+    color: '#0ea5e9',
+    bg: '#f0f9ff',
+    items: ['Storybook', 'vanilla-extract', 'Figma', 'Design Tokens'],
+  },
+  {
+    name: 'Testing',
+    color: '#10b981',
+    bg: '#f0fdf4',
+    items: ['Vitest', 'Testing Library', 'Playwright'],
+  },
+]
+
+export const Arco_기술스택_배지: Story = {
+  render: () => (
+    <div style={{ maxWidth: 520, padding: 28, fontFamily: 'system-ui, sans-serif', display: 'flex', flexDirection: 'column', gap: 20 }}>
+      <div>
+        <div style={{ fontSize: 16, fontWeight: 800, color: '#0f172a', marginBottom: 4 }}>기술 스택</div>
+        <div style={{ fontSize: 12, color: '#64748b' }}>Orbit UI 프로젝트를 구성하는 기술 스택입니다</div>
+      </div>
+
+      {STACK_CATEGORIES.map(({ name, color, items }) => (
+        <div key={name}>
+          <div style={{ fontSize: 11, fontWeight: 700, color, textTransform: 'uppercase', letterSpacing: '0.07em', marginBottom: 10 }}>
+            {name}
+          </div>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 7 }}>
+            {items.map((item) => (
+              <ChipLink key={item} href="#">
+                <ChipLink.Leading>
+                  <StarLineIcon />
+                </ChipLink.Leading>
+                {item}
+              </ChipLink>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  ),
+}
+
+/* --------------------------------------------------------------------------
+   Mantine 스타일 검색 태그 인터페이스
+   태그 기반 검색 필드 - 입력으로 태그 추가, 클릭으로 제거하는 패턴
+-------------------------------------------------------------------------- */
+const SearchTagsRender = () => {
+  const [tags, setTags] = React.useState<string[]>(['디자인 시스템', 'React'])
+  const [input, setInput] = React.useState('')
+
+  const addTag = () => {
+    const trimmed = input.trim()
+    if (trimmed && !tags.includes(trimmed)) {
+      setTags((prev) => [...prev, trimmed])
+      setInput('')
+    }
+  }
+
+  const removeTag = (tag: string) => {
+    setTags((prev) => prev.filter((t) => t !== tag))
+  }
+
+  return (
+    <div style={{ maxWidth: 460, padding: 28, fontFamily: 'system-ui, sans-serif' }}>
+      <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a', marginBottom: 16 }}>태그 검색</div>
+
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, padding: '10px 12px', border: '1.5px solid #6366f1', borderRadius: 10, background: '#fff', minHeight: 48, marginBottom: 12, alignItems: 'center' }}>
+        {tags.map((tag) => (
+          <ChipLink
+            key={tag}
+            href="#"
+            onClick={(e: React.MouseEvent) => { e.preventDefault(); removeTag(tag) }}
+          >
+            <ChipLink.Leading><CheckIcon /></ChipLink.Leading>
+            {tag}
+          </ChipLink>
+        ))}
+        <input
+          value={input}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setInput(e.target.value)}
+          onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => { if (e.key === 'Enter') addTag() }}
+          placeholder={tags.length === 0 ? '태그 입력 후 Enter' : '태그 추가...'}
+          style={{ border: 'none', outline: 'none', fontSize: 13, color: '#374151', background: 'transparent', minWidth: 100, flex: 1 }}
+        />
+      </div>
+
+      <div style={{ fontSize: 11, color: '#94a3b8', marginBottom: 16 }}>
+        태그를 클릭하면 제거됩니다 · Enter로 추가
+      </div>
+
+      <div>
+        <div style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', marginBottom: 8, textTransform: 'uppercase', letterSpacing: '0.06em' }}>추천 태그</div>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+          {['컴포넌트', 'UI Kit', '토큰', 'Figma', '접근성', '다크모드'].filter((s) => !tags.includes(s)).map((suggest) => (
+            <ChipLink
+              key={suggest}
+              href="#"
+              onClick={(e: React.MouseEvent) => { e.preventDefault(); if (!tags.includes(suggest)) setTags((prev) => [...prev, suggest]) }}
+            >
+              {suggest}
+            </ChipLink>
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const Mantine_검색_태그: Story = {
+  render: () => <SearchTagsRender />,
+}

@@ -9457,3 +9457,213 @@ export const TeamDirectory: Story = {
   render: () => <TeamDirectoryRender />,
 }
 
+/* --------------------------------------------------------------------------
+   Video Player (Arco Design + Mantine 벤치마크)
+   재생/일시정지, 볼륨, 진행 바, 챕터, 재생 목록이 있는 미디어 플레이어 UI
+-------------------------------------------------------------------------- */
+const VIDEO_CHAPTERS = [
+  { id: 'ch1', title: '디자인 시스템 소개', start: 0, duration: 65 },
+  { id: 'ch2', title: 'Eclipse 테마 구조', start: 65, duration: 90 },
+  { id: 'ch3', title: '3-tier 토큰 시스템', start: 155, duration: 110 },
+  { id: 'ch4', title: 'Storybook 연동', start: 265, duration: 85 },
+  { id: 'ch5', title: '배포 및 버저닝', start: 350, duration: 70 },
+]
+const VIDEO_TOTAL = 420
+
+const PLAYLIST_VIDEOS = [
+  { id: 'v1', title: 'Orbit UI 완전 정복 1편', author: 'Design Team', views: 4820, active: true },
+  { id: 'v2', title: 'vanilla-extract 심화 스타일링', author: 'Core Team', views: 3210, active: false },
+  { id: 'v3', title: '접근성 컴포넌트 패턴', author: 'A11y Squad', views: 2180, active: false },
+]
+
+function formatTime(sec: number): string {
+  const m = Math.floor(sec / 60)
+  const s = sec % 60
+  return `${m}:${s.toString().padStart(2, '0')}`
+}
+
+const VideoPlayerRender = () => {
+  const [playing, setPlaying] = useState(false)
+  const [position, setPosition] = useState(0)
+  const [volume, setVolume] = useState(80)
+  const [muted, setMuted] = useState(false)
+  const [quality, setQuality] = useState('1080p')
+
+  const currentChapter = VIDEO_CHAPTERS.findLast((ch) => position >= ch.start) ?? VIDEO_CHAPTERS[0]
+  const progressPct = Math.round((position / VIDEO_TOTAL) * 100)
+
+  return (
+    <div style={{ maxWidth: 860, fontFamily: 'system-ui, sans-serif', background: '#0f172a', borderRadius: 16, overflow: 'hidden' }}>
+      {/* 비디오 영역 */}
+      <div
+        style={{ position: 'relative', aspectRatio: '16/9', background: 'linear-gradient(135deg, #1e293b 0%, #0f172a 100%)', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+        onClick={() => setPlaying((p) => !p)}
+      >
+        <div style={{ textAlign: 'center' }}>
+          <div style={{ width: 64, height: 64, borderRadius: '50%', background: playing ? 'rgba(99,102,241,0.9)' : 'rgba(255,255,255,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 12px', transition: 'background 0.2s' }}>
+            <span style={{ fontSize: 28, color: '#fff' }}>{playing ? '⏸' : '▶'}</span>
+          </div>
+          <div style={{ fontSize: 13, color: 'rgba(255,255,255,0.6)' }}>{playing ? '재생 중' : '클릭하여 재생'}</div>
+        </div>
+
+        {/* 챕터 레이블 */}
+        <div style={{ position: 'absolute', top: 12, left: 12, padding: '4px 10px', borderRadius: 6, background: 'rgba(99,102,241,0.85)', fontSize: 11, fontWeight: 700, color: '#fff' }}>
+          {currentChapter.title}
+        </div>
+
+        {/* 화질 */}
+        <div style={{ position: 'absolute', top: 12, right: 12, padding: '4px 10px', borderRadius: 6, background: 'rgba(0,0,0,0.6)', fontSize: 11, fontWeight: 600, color: '#fff', cursor: 'default' }}>
+          {quality}
+        </div>
+      </div>
+
+      {/* 컨트롤 바 */}
+      <div style={{ padding: '12px 20px 8px', background: '#1e293b' }}>
+        {/* 진행 바 */}
+        <div
+          style={{ height: 4, background: '#334155', borderRadius: 2, marginBottom: 12, cursor: 'pointer', position: 'relative' }}
+          onClick={(e: React.MouseEvent<HTMLDivElement>) => {
+            const rect = (e.currentTarget as HTMLDivElement).getBoundingClientRect()
+            const pct = (e.clientX - rect.left) / rect.width
+            setPosition(Math.round(pct * VIDEO_TOTAL))
+          }}
+        >
+          {/* 챕터 마커 */}
+          {VIDEO_CHAPTERS.slice(1).map((ch) => (
+            <div key={ch.id} style={{ position: 'absolute', top: -2, left: `${(ch.start / VIDEO_TOTAL) * 100}%`, width: 2, height: 8, background: '#64748b', borderRadius: 1 }} />
+          ))}
+          <div style={{ height: '100%', width: `${progressPct}%`, background: '#6366f1', borderRadius: 2, position: 'relative' }}>
+            <div style={{ position: 'absolute', right: -6, top: -4, width: 12, height: 12, borderRadius: '50%', background: '#6366f1', border: '2px solid #fff' }} />
+          </div>
+        </div>
+
+        {/* 컨트롤 버튼 행 */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+          <button
+            onClick={() => setPlaying((p) => !p)}
+            style={{ background: 'none', border: 'none', color: '#fff', fontSize: 18, cursor: 'pointer', padding: 0, lineHeight: 1 }}
+          >
+            {playing ? '⏸' : '▶'}
+          </button>
+
+          <button
+            onClick={() => setPosition((p) => Math.max(0, p - 15))}
+            style={{ background: 'none', border: 'none', color: '#94a3b8', fontSize: 14, cursor: 'pointer', padding: 0 }}
+          >
+            ⏮ 15s
+          </button>
+
+          <button
+            onClick={() => setPosition((p) => Math.min(VIDEO_TOTAL, p + 15))}
+            style={{ background: 'none', border: 'none', color: '#94a3b8', fontSize: 14, cursor: 'pointer', padding: 0 }}
+          >
+            15s ⏭
+          </button>
+
+          <div style={{ display: 'flex', alignItems: 'center', gap: 6, flex: 1 }}>
+            <button
+              onClick={() => setMuted((m) => !m)}
+              style={{ background: 'none', border: 'none', color: '#94a3b8', fontSize: 14, cursor: 'pointer', padding: 0 }}
+            >
+              {muted ? '🔇' : '🔊'}
+            </button>
+            <input
+              type="range"
+              min={0}
+              max={100}
+              value={muted ? 0 : volume}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => { setVolume(Number(e.target.value)); setMuted(false) }}
+              style={{ width: 80, accentColor: '#6366f1' }}
+            />
+          </div>
+
+          <span style={{ fontSize: 12, color: '#94a3b8', fontVariantNumeric: 'tabular-nums', whiteSpace: 'nowrap' }}>
+            {formatTime(position)} / {formatTime(VIDEO_TOTAL)}
+          </span>
+
+          <div style={{ display: 'flex', gap: 6 }}>
+            {['720p', '1080p', '4K'].map((q) => (
+              <button
+                key={q}
+                onClick={() => setQuality(q)}
+                style={{ padding: '2px 8px', borderRadius: 4, border: `1px solid ${quality === q ? '#6366f1' : '#334155'}`, background: quality === q ? '#6366f1' : 'transparent', color: quality === q ? '#fff' : '#94a3b8', fontSize: 11, cursor: 'pointer' }}
+              >
+                {q}
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* 하단: 챕터 + 재생목록 */}
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 280px', background: '#0f172a' }}>
+        {/* 챕터 목록 */}
+        <div style={{ padding: '16px 20px', borderRight: '1px solid #1e293b' }}>
+          <div style={{ fontSize: 11, fontWeight: 700, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.07em', marginBottom: 12 }}>챕터</div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+            {VIDEO_CHAPTERS.map((ch) => {
+              const isActive = currentChapter.id === ch.id
+              return (
+                <div
+                  key={ch.id}
+                  style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '8px 10px', borderRadius: 8, background: isActive ? '#1e293b' : 'transparent', cursor: 'pointer', transition: 'background 0.15s' }}
+                  onClick={() => setPosition(ch.start)}
+                >
+                  <div style={{ width: 6, height: 6, borderRadius: '50%', background: isActive ? '#6366f1' : '#334155', flexShrink: 0 }} />
+                  <div style={{ flex: 1, fontSize: 13, color: isActive ? '#fff' : '#94a3b8', fontWeight: isActive ? 600 : 400 }}>
+                    {ch.title}
+                  </div>
+                  <div style={{ fontSize: 11, color: '#475569', fontVariantNumeric: 'tabular-nums' }}>
+                    {formatTime(ch.duration)}
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+
+          {/* PageDots 챕터 인디케이터 */}
+          <div style={{ display: 'flex', gap: 6, marginTop: 14, paddingTop: 14, borderTop: '1px solid #1e293b', justifyContent: 'center' }}>
+            {VIDEO_CHAPTERS.map((ch) => (
+              <PageDots
+                key={ch.id}
+                selected={currentChapter.id === ch.id}
+                onClick={() => setPosition(ch.start)}
+              />
+            ))}
+          </div>
+        </div>
+
+        {/* 재생 목록 */}
+        <div style={{ padding: '16px 16px' }}>
+          <div style={{ fontSize: 11, fontWeight: 700, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.07em', marginBottom: 12 }}>재생목록</div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+            {PLAYLIST_VIDEOS.map((video) => (
+              <div
+                key={video.id}
+                style={{ display: 'flex', gap: 10, padding: '8px 10px', borderRadius: 8, background: video.active ? '#1e293b' : 'transparent', cursor: 'pointer' }}
+              >
+                <div style={{ width: 48, height: 36, borderRadius: 6, background: video.active ? '#6366f1' : '#1e293b', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, fontSize: 16 }}>
+                  {video.active ? '▶' : '⏸'}
+                </div>
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <div style={{ fontSize: 12, color: video.active ? '#fff' : '#94a3b8', fontWeight: video.active ? 600 : 400, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                    {video.title}
+                  </div>
+                  <div style={{ fontSize: 10, color: '#475569', marginTop: 2 }}>
+                    {video.author} · {video.views.toLocaleString('ko-KR')}회
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const VideoPlayer: Story = {
+  name: 'Video Player (Arco Design + Mantine 벤치마크)',
+  render: () => <VideoPlayerRender />,
+}
+
