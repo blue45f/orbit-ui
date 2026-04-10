@@ -30197,3 +30197,158 @@ export const ShadcnRadix127CommandPalette: StoryObj = {
   },
   render: () => <CommandPalette127Render />,
 }
+
+/* ============================================================
+   Cycle 128 Template: Linear Design + Vercel Design
+   파일 매니저 — 레이아웃 간격 시스템 + 배지 분류 체계
+   ============================================================ */
+const FILES_128 = [
+  { id: 1, name: 'LabelBadge.stories.tsx', type: 'file', size: '12.4KB', status: 'modified', ext: 'tsx' },
+  { id: 2, name: 'Space.stories.tsx', type: 'file', size: '9.8KB', status: 'modified', ext: 'tsx' },
+  { id: 3, name: 'Templates.stories.tsx', type: 'file', size: '85.2KB', status: 'modified', ext: 'tsx' },
+  { id: 4, name: 'BenchmarkComparison.mdx', type: 'file', size: '18.6KB', status: 'added', ext: 'mdx' },
+  { id: 5, name: 'components', type: 'folder', size: '—', status: 'unmodified', ext: '' },
+  { id: 6, name: 'styles', type: 'folder', size: '—', status: 'unmodified', ext: '' },
+  { id: 7, name: 'package.json', type: 'file', size: '2.1KB', status: 'unmodified', ext: 'json' },
+]
+
+const FILE_STATUS_BADGE: Record<string, { label: string; color: 'gray' | 'benefit' | 'sale' }> = {
+  modified: { label: 'M', color: 'gray' },
+  added: { label: 'A', color: 'benefit' },
+  unmodified: { label: '', color: 'gray' },
+}
+
+const EXT_COLORS: Record<string, string> = {
+  tsx: '#3b82f6', mdx: '#8b5cf6', json: '#f59e0b', '': '#64748b',
+}
+
+function FileManager128Render() {
+  const [selected, setSelected] = useState<number | null>(null)
+  const [sortBy, setSortBy] = useState<'name' | 'size' | 'status'>('name')
+
+  const sorted = [...FILES_128].sort((a, b) => {
+    if (sortBy === 'name') return a.name.localeCompare(b.name)
+    if (sortBy === 'status') return a.status.localeCompare(b.status)
+    return 0
+  })
+
+  const selectedFile = FILES_128.find(f => f.id === selected)
+
+  return (
+    <div style={{ width: 580, fontFamily: 'Inter, system-ui, sans-serif', display: 'flex', gap: 0, border: '1px solid #e2e8f0', borderRadius: 12, overflow: 'hidden', height: 420 }}>
+      {/* 파일 목록 */}
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', borderRight: '1px solid #f1f5f9' }}>
+        {/* 툴바 */}
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 14px', borderBottom: '1px solid #f1f5f9', background: '#f8fafc' }}>
+          <span style={{ fontSize: 12, fontWeight: 700, color: '#1e293b' }}>packages/theme-eclipse/src</span>
+          <div style={{ display: 'flex', gap: 4 }}>
+            {(['name', 'status'] as const).map(s => (
+              <button
+                key={s}
+                onClick={() => setSortBy(s)}
+                style={{
+                  padding: '3px 8px', fontSize: 11, borderRadius: 5,
+                  background: sortBy === s ? '#1e293b' : 'transparent',
+                  color: sortBy === s ? '#fff' : '#94a3b8',
+                  border: `1px solid ${sortBy === s ? '#1e293b' : '#e2e8f0'}`,
+                  cursor: 'pointer',
+                }}
+              >
+                {s === 'name' ? '이름순' : '상태순'}
+              </button>
+            ))}
+          </div>
+        </div>
+        {/* 파일 리스트 */}
+        <div style={{ flex: 1, overflowY: 'auto' }}>
+          {sorted.map((file, i) => {
+            const badge = FILE_STATUS_BADGE[file.status]
+            return (
+              <div
+                key={file.id}
+                onClick={() => setSelected(file.id === selected ? null : file.id)}
+                style={{
+                  display: 'flex', alignItems: 'center', gap: 10, padding: '9px 14px',
+                  borderBottom: i < sorted.length - 1 ? '1px solid #f8fafc' : 'none',
+                  background: selected === file.id ? '#f0f9ff' : 'transparent',
+                  cursor: 'pointer',
+                }}
+                onMouseEnter={(e) => { if (selected !== file.id) e.currentTarget.style.background = '#f8fafc' }}
+                onMouseLeave={(e) => { if (selected !== file.id) e.currentTarget.style.background = 'transparent' }}
+              >
+                <span style={{ fontSize: 16 }}>{file.type === 'folder' ? '📁' : '📄'}</span>
+                <span style={{ flex: 1, fontSize: 12, color: '#1e293b', fontFamily: file.ext ? 'monospace' : 'inherit' }}>{file.name}</span>
+                <span style={{ fontSize: 11, color: '#94a3b8', minWidth: 44, textAlign: 'right' }}>{file.size}</span>
+                {badge.label && (
+                  <LabelBadge color={badge.color}>
+                    <LabelBadge.Label>{badge.label}</LabelBadge.Label>
+                  </LabelBadge>
+                )}
+                {!badge.label && <div style={{ width: 28 }} />}
+              </div>
+            )
+          })}
+        </div>
+        <div style={{ padding: '6px 14px', background: '#fafafa', borderTop: '1px solid #f1f5f9', fontSize: 11, color: '#94a3b8' }}>
+          {FILES_128.filter(f => f.status !== 'unmodified').length}개 수정됨 / {FILES_128.length}개 파일
+        </div>
+      </div>
+      {/* 파일 상세 패널 */}
+      <div style={{ width: 200, display: 'flex', flexDirection: 'column', background: '#fafafa' }}>
+        <div style={{ padding: '10px 14px', borderBottom: '1px solid #f1f5f9', fontSize: 12, fontWeight: 700, color: '#475569' }}>
+          파일 정보
+        </div>
+        {selectedFile ? (
+          <div style={{ padding: '14px', display: 'flex', flexDirection: 'column', gap: 12 }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: 48, height: 48, borderRadius: 10, background: `${EXT_COLORS[selectedFile.ext] ?? '#64748b'}22`, margin: '0 auto' }}>
+              <span style={{ fontSize: 11, fontWeight: 700, color: EXT_COLORS[selectedFile.ext] ?? '#64748b' }}>.{selectedFile.ext || 'dir'}</span>
+            </div>
+            {[
+              { label: '이름', value: selectedFile.name },
+              { label: '크기', value: selectedFile.size },
+              { label: '유형', value: selectedFile.type === 'folder' ? '폴더' : '파일' },
+            ].map(({ label, value }) => (
+              <div key={label}>
+                <div style={{ fontSize: 10, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', marginBottom: 3 }}>{label}</div>
+                <div style={{ fontSize: 11, color: '#1e293b', wordBreak: 'break-all', fontFamily: 'monospace' }}>{value}</div>
+              </div>
+            ))}
+            <div>
+              <div style={{ fontSize: 10, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', marginBottom: 4 }}>상태</div>
+              {FILE_STATUS_BADGE[selectedFile.status].label ? (
+                <LabelBadge color={FILE_STATUS_BADGE[selectedFile.status].color}>
+                  <LabelBadge.Label>{selectedFile.status}</LabelBadge.Label>
+                </LabelBadge>
+              ) : (
+                <span style={{ fontSize: 11, color: '#94a3b8' }}>변경 없음</span>
+              )}
+            </div>
+            <SolidButton color="black" size="small">
+              <SolidButton.Center>열기</SolidButton.Center>
+            </SolidButton>
+          </div>
+        ) : (
+          <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#94a3b8', fontSize: 12, padding: 16, textAlign: 'center' }}>
+            파일을 선택하면 상세 정보가 표시됩니다
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+
+export const LinearVercel128FileManager: StoryObj = {
+  name: 'Linear + Vercel — 파일 매니저 (Cycle 128)',
+  parameters: {
+    layout: 'centered',
+    docs: {
+      description: {
+        story:
+          'Linear + Vercel 벤치마크 — Cycle 128. ' +
+          'Space 간격 시스템 + LabelBadge 분류 체계를 활용한 파일 매니저 템플릿. ' +
+          '이름/상태 정렬, 파일 선택 시 상세 패널 표시, git 상태 배지(M/A) 표시.',
+      },
+    },
+  },
+  render: () => <FileManager128Render />,
+}

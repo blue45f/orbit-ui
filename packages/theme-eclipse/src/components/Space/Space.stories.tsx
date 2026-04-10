@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import React, { useState } from 'react'
-import { Meta } from '@storybook/react'
+import { Meta, StoryObj } from '@storybook/react'
 
 import { vars } from '../../styles/theme-vars'
 import { FilledButton as Button } from '../SolidButton'
@@ -32,6 +32,7 @@ const meta = {
 } satisfies Meta<typeof Space>
 
 export default meta
+type Story = StoryObj<typeof meta>
 
 export const 가로_간격 = {
   args: {
@@ -910,4 +911,196 @@ export const Arco_설정_섹션_의미론적_간격 = {
       </div>
     )
   },
+}
+
+/* --------------------------------------------------------------------------
+   Linear Design 벤치마크: 이슈 상세 레이아웃 간격 시스템
+   Linear Issue Detail — 섹션 구분 간격의 일관성 패턴
+-------------------------------------------------------------------------- */
+export const Linear_이슈_상세_섹션_간격: Story = {
+  name: 'Linear Design - 이슈 상세 섹션 간격 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Linear Issue Detail의 섹션 간격 시스템. 헤더/메타정보/설명/댓글 영역을 Space 컴포넌트로 구분해 ' +
+          '콘텐츠 계층을 명확히 하고 시각적 리듬을 만듭니다. 40px 주요 구분, 16px 보조 구분 패턴을 적용합니다.',
+      },
+    },
+  },
+  render: () => (
+    <div style={{ width: 480, fontFamily: 'Inter, system-ui, sans-serif', color: '#1e293b' }}>
+      {/* 이슈 헤더 */}
+      <div>
+        <div style={{ fontSize: 11, fontWeight: 600, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.05em' }}>ORB-312</div>
+        <Space y="50" />
+        <div style={{ fontSize: 18, fontWeight: 700 }}>TextArea 자동저장 디바운스 개선</div>
+      </div>
+
+      <Space y="250" />
+
+      {/* 메타 정보 행 */}
+      <div style={{ display: 'flex', gap: 24, flexWrap: 'wrap' }}>
+        {[
+          { label: '담당자', value: 'hjunkim' },
+          { label: '상태', value: 'In Progress' },
+          { label: '우선순위', value: 'High' },
+          { label: '마일스톤', value: 'v2.0' },
+        ].map(({ label, value }) => (
+          <div key={label} style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+            <span style={{ fontSize: 11, color: '#94a3b8', fontWeight: 600 }}>{label}</span>
+            <span style={{ fontSize: 13, color: '#1e293b', fontWeight: 500 }}>{value}</span>
+          </div>
+        ))}
+      </div>
+
+      <Space y="300" />
+      <div style={{ height: 1, background: '#f1f5f9' }} />
+      <Space y="300" />
+
+      {/* 설명 섹션 */}
+      <div>
+        <div style={{ fontSize: 13, fontWeight: 700, color: '#475569', marginBottom: 8 }}>설명</div>
+        <div style={{ fontSize: 13, color: '#475569', lineHeight: 1.7 }}>
+          1초 디바운스 적용 시 타이핑 중 과도한 저장 요청이 발생합니다. 1.5초로 조정하고 저장 중 표시기를 추가해야 합니다.
+        </div>
+      </div>
+
+      <Space y="400" />
+
+      {/* 댓글 섹션 */}
+      <div>
+        <div style={{ fontSize: 13, fontWeight: 700, color: '#475569', marginBottom: 12 }}>댓글 2개</div>
+        {['수정 완료 — 1.2초 디바운스 + 저장 상태 표시 추가', '리뷰 요청 드립니다. PR #148'].map((comment, i) => (
+          <div key={i} style={{ display: 'flex', gap: 10, marginBottom: i === 0 ? 12 : 0 }}>
+            <div style={{ width: 28, height: 28, borderRadius: '50%', background: '#e0e7ff', color: '#6366f1', fontSize: 10, fontWeight: 700, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+              {i === 0 ? 'HJ' : 'SL'}
+            </div>
+            <div style={{ flex: 1, padding: '8px 12px', background: '#f8fafc', borderRadius: 8, fontSize: 12, color: '#475569', lineHeight: 1.5 }}>
+              {comment}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <Space y="100" />
+      <div style={{ fontSize: 11, color: '#94a3b8' }}>Linear 이슈 상세 — Space 컴포넌트로 섹션 리듬 설계</div>
+    </div>
+  ),
+}
+
+/* --------------------------------------------------------------------------
+   Vercel Design 벤치마크: 컴팩트 설정 폼 간격 패턴
+   Vercel Settings 밀도 — 레이블/인풋/힌트 수직 간격 시스템
+-------------------------------------------------------------------------- */
+export const Vercel_설정_폼_컴팩트_간격: Story = {
+  name: 'Vercel Design - 설정 폼 컴팩트 간격 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Vercel Settings 폼의 컴팩트 밀도 간격 패턴. 레이블(4px), 입력(4px 힌트) 그룹 간 16px, ' +
+          '섹션 간 32px 구분을 Space로 정밀 제어합니다. 고밀도 설정 폼에서 가독성과 밀도를 균형 있게 유지합니다.',
+      },
+    },
+  },
+  render: () => (
+    <div style={{ width: 400, fontFamily: 'Inter, system-ui, sans-serif', color: '#1e293b' }}>
+      <div style={{ fontSize: 14, fontWeight: 700 }}>프로젝트 설정</div>
+      <Space y="300" />
+
+      {/* 섹션 1: 기본 정보 */}
+      <div style={{ fontSize: 12, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.05em' }}>기본 정보</div>
+      <Space y="150" />
+
+      {[
+        { label: '프로젝트 이름', placeholder: 'orbit-ui', hint: '소문자, 숫자, 하이픈만 사용 가능' },
+        { label: '설명', placeholder: 'React 컴포넌트 라이브러리', hint: '선택 사항. 120자 이하' },
+      ].map(({ label, placeholder, hint }) => (
+        <div key={label}>
+          <div style={{ fontSize: 12, fontWeight: 600, color: '#475569' }}>{label}</div>
+          <Space y="50" />
+          <input
+            placeholder={placeholder}
+            defaultValue={placeholder}
+            style={{ width: '100%', padding: '7px 10px', fontSize: 13, border: '1px solid #e2e8f0', borderRadius: 6, color: '#1e293b', outline: 'none', boxSizing: 'border-box', background: '#fff' }}
+          />
+          <Space y="50" />
+          <div style={{ fontSize: 11, color: '#94a3b8' }}>{hint}</div>
+          <Space y="200" />
+        </div>
+      ))}
+
+      <div style={{ height: 1, background: '#f1f5f9' }} />
+      <Space y="300" />
+
+      {/* 섹션 2: 프레임워크 */}
+      <div style={{ fontSize: 12, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.05em' }}>배포 설정</div>
+      <Space y="150" />
+
+      <div style={{ fontSize: 12, fontWeight: 600, color: '#475569' }}>빌드 명령어</div>
+      <Space y="50" />
+      <input
+        defaultValue="pnpm build:storybook"
+        style={{ width: '100%', padding: '7px 10px', fontSize: 13, border: '1px solid #e2e8f0', borderRadius: 6, fontFamily: 'monospace', color: '#1e293b', outline: 'none', boxSizing: 'border-box', background: '#fff' }}
+      />
+      <Space y="50" />
+      <div style={{ fontSize: 11, color: '#94a3b8' }}>패키지 루트 기준 실행됩니다</div>
+      <Space y="100" />
+      <div style={{ fontSize: 11, color: '#94a3b8' }}>Vercel Settings — Space로 레이블/인풋/힌트 간격 정밀 제어</div>
+    </div>
+  ),
+}
+
+/* --------------------------------------------------------------------------
+   Linear + Vercel 복합: 키보드 단축키 참조 레이아웃
+   단축키 섹션 구분 + 항목 간 균등 간격 패턴
+-------------------------------------------------------------------------- */
+const SHORTCUTS = [
+  { section: '일반', items: [{ keys: ['⌘', 'K'], desc: '커맨드 팔레트' }, { keys: ['⌘', ','], desc: '설정' }, { keys: ['?'], desc: '단축키 도움말' }] },
+  { section: '이슈', items: [{ keys: ['C'], desc: '이슈 생성' }, { keys: ['⌘', 'Enter'], desc: '이슈 저장' }, { keys: ['E'], desc: '이슈 편집' }] },
+  { section: '뷰', items: [{ keys: ['⌘', '\\'], desc: '사이드바 토글' }, { keys: ['⌘', 'B'], desc: '보드 뷰' }] },
+]
+
+export const Linear_Vercel_단축키_참조_레이아웃: Story = {
+  name: 'Linear + Vercel - 키보드 단축키 참조 레이아웃',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Linear 단축키 참조 + Vercel 컴팩트 밀도 복합 패턴. ' +
+          '섹션 제목 간 32px, 항목 간 8px의 계층적 Space 간격으로 단축키 목록의 스캐닝 효율을 최적화합니다.',
+      },
+    },
+  },
+  render: () => (
+    <div style={{ width: 340, fontFamily: 'Inter, system-ui, sans-serif', color: '#1e293b' }}>
+      <div style={{ fontSize: 13, fontWeight: 700, color: '#1e293b' }}>키보드 단축키</div>
+      <Space y="250" />
+      {SHORTCUTS.map((section, si) => (
+        <div key={section.section}>
+          {si > 0 && <Space y="300" />}
+          <div style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em' }}>{section.section}</div>
+          <Space y="100" />
+          {section.items.map((item, ii) => (
+            <div key={item.desc}>
+              {ii > 0 && <Space y="75" />}
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                <span style={{ fontSize: 12, color: '#475569' }}>{item.desc}</span>
+                <div style={{ display: 'flex', gap: 3 }}>
+                  {item.keys.map((k, ki) => (
+                    <kbd key={ki} style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', minWidth: 22, height: 22, padding: '0 5px', fontSize: 11, fontWeight: 600, color: '#475569', background: '#f8fafc', border: '1px solid #e2e8f0', borderBottom: '2px solid #e2e8f0', borderRadius: 4, fontFamily: 'system-ui' }}>
+                      {k}
+                    </kbd>
+                  ))}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      ))}
+      <Space y="200" />
+      <div style={{ fontSize: 11, color: '#94a3b8' }}>Space로 계층적 섹션/항목 간격 제어 — Linear + Vercel 패턴</div>
+    </div>
+  ),
 }

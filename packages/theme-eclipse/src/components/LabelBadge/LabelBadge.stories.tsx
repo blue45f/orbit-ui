@@ -995,3 +995,170 @@ export const Linear_프로젝트_헬스_대시보드: Story = {
   },
   render: () => <LinearProjectHealthRender />,
 }
+
+/* --------------------------------------------------------------------------
+   Linear Design 벤치마크: 사이클 스프린트 진행상태 배지 시스템
+   Linear Cycle 배지 — 스프린트 상태(진행중/완료/취소) 인라인 표시
+-------------------------------------------------------------------------- */
+const SPRINT_CYCLES = [
+  { id: 1, name: 'Cycle 24', items: 12, done: 12, status: 'completed' as const },
+  { id: 2, name: 'Cycle 25', items: 18, done: 14, status: 'active' as const },
+  { id: 3, name: 'Cycle 26', items: 8, done: 0, status: 'upcoming' as const },
+  { id: 4, name: 'Cycle 27', items: 0, done: 0, status: 'draft' as const },
+]
+
+const CYCLE_BADGE: Record<string, { label: string; color: 'gray' | 'benefit' | 'sale' }> = {
+  completed: { label: 'Completed', color: 'benefit' },
+  active: { label: 'Active', color: 'gray' },
+  upcoming: { label: 'Upcoming', color: 'gray' },
+  draft: { label: 'Draft', color: 'gray' },
+}
+
+export const Linear_스프린트_사이클_배지: Story = {
+  name: 'Linear Design - 스프린트 사이클 배지 시스템',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Linear Design 사이클(스프린트) 상태 배지 패턴. Completed/Active/Upcoming/Draft 4단계 상태를 ' +
+          '색상 코드된 LabelBadge로 구분하고, 진행률 바와 조합해 대시보드형 스프린트 현황을 제공합니다.',
+      },
+    },
+  },
+  render: () => (
+    <div style={{ width: 380, fontFamily: 'Inter, system-ui, sans-serif', display: 'flex', flexDirection: 'column', gap: 6 }}>
+      <div style={{ fontSize: 12, fontWeight: 700, color: '#6b7280', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 4 }}>
+        스프린트 사이클
+      </div>
+      {SPRINT_CYCLES.map(cycle => {
+        const badge = CYCLE_BADGE[cycle.status]
+        const pct = cycle.items > 0 ? Math.round((cycle.done / cycle.items) * 100) : 0
+        return (
+          <div key={cycle.id} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 14px', borderRadius: 8, border: '1px solid #f0f0f0', background: '#fff' }}>
+            <span style={{ fontSize: 13, fontWeight: 600, color: '#111', flex: 1 }}>{cycle.name}</span>
+            <span style={{ fontSize: 11, color: '#9ca3af' }}>{cycle.done}/{cycle.items}</span>
+            {cycle.items > 0 && (
+              <div style={{ width: 48, height: 4, borderRadius: 2, background: '#f0f0f0', overflow: 'hidden' }}>
+                <div style={{ width: `${pct}%`, height: '100%', background: cycle.status === 'completed' ? '#22c55e' : '#3b82f6' }} />
+              </div>
+            )}
+            <LabelBadge color={badge.color}>
+              <LabelBadge.Label>{badge.label}</LabelBadge.Label>
+            </LabelBadge>
+          </div>
+        )
+      })}
+    </div>
+  ),
+}
+
+/* --------------------------------------------------------------------------
+   Vercel Design 벤치마크: 배포 체크 상태 배지 목록
+   Vercel Checks 패턴 — CI 체크 항목별 상태 배지 열거
+-------------------------------------------------------------------------- */
+const VERCEL_CHECKS = [
+  { name: 'pnpm typecheck', status: 'pass' as const, duration: '12s' },
+  { name: 'pnpm test', status: 'pass' as const, duration: '38s' },
+  { name: 'pnpm lint', status: 'fail' as const, duration: '7s' },
+  { name: 'pnpm build', status: 'running' as const, duration: '—' },
+  { name: 'E2E Tests', status: 'skipped' as const, duration: '—' },
+]
+
+const CHECK_BADGE: Record<string, { label: string; color: 'gray' | 'benefit' | 'sale' }> = {
+  pass: { label: 'Pass', color: 'benefit' },
+  fail: { label: 'Fail', color: 'sale' },
+  running: { label: 'Running', color: 'gray' },
+  skipped: { label: 'Skipped', color: 'gray' },
+}
+
+export const Vercel_CI_체크_상태_배지_목록: Story = {
+  name: 'Vercel Design - CI 체크 상태 배지 목록',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Vercel Deployment Checks 패턴. CI 파이프라인 각 단계(typecheck/test/lint/build/e2e)의 ' +
+          '실행 결과를 Pass/Fail/Running/Skipped 배지로 구분합니다. 실패 항목은 눈에 띄게 강조됩니다.',
+      },
+    },
+  },
+  render: () => (
+    <div style={{ width: 340, fontFamily: 'Inter, system-ui, sans-serif', display: 'flex', flexDirection: 'column', gap: 0, border: '1px solid #e2e8f0', borderRadius: 10, overflow: 'hidden' }}>
+      <div style={{ padding: '10px 14px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0', fontSize: 12, fontWeight: 700, color: '#475569' }}>
+        배포 체크
+      </div>
+      {VERCEL_CHECKS.map((check, i) => {
+        const badge = CHECK_BADGE[check.status]
+        return (
+          <div key={check.name} style={{
+            display: 'flex', alignItems: 'center', gap: 10, padding: '10px 14px',
+            borderBottom: i < VERCEL_CHECKS.length - 1 ? '1px solid #f8fafc' : 'none',
+            background: check.status === 'fail' ? '#fef2f2' : '#fff',
+          }}>
+            <span style={{ fontSize: 13, color: '#1e293b', flex: 1 }}>{check.name}</span>
+            <span style={{ fontSize: 11, color: '#94a3b8', minWidth: 28 }}>{check.duration}</span>
+            <LabelBadge color={badge.color}>
+              <LabelBadge.Label>{badge.label}</LabelBadge.Label>
+            </LabelBadge>
+          </div>
+        )
+      })}
+    </div>
+  ),
+}
+
+/* --------------------------------------------------------------------------
+   Linear + Vercel 복합: 릴리즈 노트 배지 그룹 패턴
+   커밋 유형(feat/fix/docs/chore) + 영향도(breaking/minor/patch) 배지 조합
+-------------------------------------------------------------------------- */
+const RELEASE_ITEMS = [
+  { commit: 'feat(stories): Cycle 127 스토리 추가', type: 'feat', impact: 'minor' },
+  { commit: 'fix(toast): 타입 에러 수정', type: 'fix', impact: 'patch' },
+  { commit: 'docs(benchmark): 분석 기록 업데이트', type: 'docs', impact: 'patch' },
+  { commit: 'feat(template): 커맨드팔레트 신규', type: 'feat', impact: 'minor' },
+  { commit: 'chore: pnpm lock 업데이트', type: 'chore', impact: 'patch' },
+]
+
+const TYPE_BADGE: Record<string, { label: string; color: 'gray' | 'benefit' | 'sale' }> = {
+  feat: { label: 'feat', color: 'gray' },
+  fix: { label: 'fix', color: 'sale' },
+  docs: { label: 'docs', color: 'gray' },
+  chore: { label: 'chore', color: 'gray' },
+}
+
+const IMPACT_BADGE: Record<string, { label: string; color: 'gray' | 'benefit' | 'sale' }> = {
+  minor: { label: 'minor', color: 'gray' },
+  patch: { label: 'patch', color: 'benefit' },
+  breaking: { label: 'breaking', color: 'sale' },
+}
+
+export const Linear_Vercel_릴리즈_노트_배지: Story = {
+  name: 'Linear + Vercel - 릴리즈 노트 커밋 배지 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Linear changelog + Vercel release 복합 배지 패턴. 커밋 유형(feat/fix/docs/chore)과 ' +
+          '영향도(minor/patch/breaking) 두 가지 배지를 조합해 릴리즈 노트의 각 항목을 시각적으로 분류합니다.',
+      },
+    },
+  },
+  render: () => (
+    <div style={{ width: 420, fontFamily: 'Inter, system-ui, sans-serif', display: 'flex', flexDirection: 'column', gap: 0, border: '1px solid #e2e8f0', borderRadius: 10, overflow: 'hidden' }}>
+      <div style={{ padding: '10px 14px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0', fontSize: 12, fontWeight: 700, color: '#475569' }}>
+        릴리즈 노트 — v2.0.1
+      </div>
+      {RELEASE_ITEMS.map((item, i) => {
+        const tb = TYPE_BADGE[item.type]
+        const ib = IMPACT_BADGE[item.impact]
+        return (
+          <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '9px 14px', borderBottom: i < RELEASE_ITEMS.length - 1 ? '1px solid #f8fafc' : 'none' }}>
+            <LabelBadge color={tb.color}><LabelBadge.Label>{tb.label}</LabelBadge.Label></LabelBadge>
+            <span style={{ flex: 1, fontSize: 12, color: '#1e293b', fontFamily: 'monospace' }}>{item.commit}</span>
+            <LabelBadge color={ib.color}><LabelBadge.Label>{ib.label}</LabelBadge.Label></LabelBadge>
+          </div>
+        )
+      })}
+    </div>
+  ),
+}
