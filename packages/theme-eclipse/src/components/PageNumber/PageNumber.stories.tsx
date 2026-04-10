@@ -921,3 +921,207 @@ export const Linear_Vercel_파일_탐색기_페이지네이션: Story = {
   },
   render: () => <LinearVercelFileBrowserRender />,
 }
+
+/* --------------------------------------------------------------------------
+   Cycle 159 — Vercel Design + Ant Design
+   Vercel: 배포 인스턴스 리전별 페이지네이션 패턴
+-------------------------------------------------------------------------- */
+const VERCEL_REGIONS = ['iad1', 'sfo1', 'sin1', 'hnd1', 'fra1']
+const VERCEL_LOG_ITEMS = Array.from({ length: 47 }, (_, i) => ({
+  id: `log-${i + 1}`,
+  region: VERCEL_REGIONS[i % VERCEL_REGIONS.length],
+  status: i % 7 === 0 ? 'error' : i % 3 === 0 ? 'warning' : 'success',
+  message: `Function invocation ${i + 1} completed`,
+  duration: Math.floor(Math.random() * 500 + 50) + 'ms',
+  timestamp: `${String(Math.floor(i / 4)).padStart(2, '0')}:${String((i * 15) % 60).padStart(2, '0')}`,
+}))
+
+const VERCEL_PAGE_SIZE = 8
+
+function VercelRegionLogPaginationRender() {
+  const [page, setPage] = useState(1)
+  const [selectedRegion, setSelectedRegion] = useState<string | null>(null)
+
+  const filtered = selectedRegion ? VERCEL_LOG_ITEMS.filter(l => l.region === selectedRegion) : VERCEL_LOG_ITEMS
+  const totalPages = Math.ceil(filtered.length / VERCEL_PAGE_SIZE)
+  const currentItems = filtered.slice((page - 1) * VERCEL_PAGE_SIZE, page * VERCEL_PAGE_SIZE)
+
+  const handleRegion = (r: string | null) => { setSelectedRegion(r); setPage(1) }
+
+  const STATUS_COLOR: Record<string, string> = { success: '#22c55e', warning: '#f59e0b', error: '#ef4444' }
+
+  return (
+    <div style={{ width: 460, fontFamily: 'system-ui, sans-serif', background: '#fff', borderRadius: 12, border: '1px solid #e2e8f0' }}>
+      <div style={{ padding: '14px 16px', borderBottom: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', gap: 10 }}>
+        <span style={{ fontSize: 13, fontWeight: 700, color: '#1e293b' }}>함수 실행 로그</span>
+        <span style={{ fontSize: 11, color: '#94a3b8' }}>{filtered.length}개</span>
+        <div style={{ marginLeft: 'auto', display: 'flex', gap: 4 }}>
+          <button onClick={() => handleRegion(null)} style={{ padding: '3px 8px', fontSize: 10, borderRadius: 5, border: `1px solid ${!selectedRegion ? '#1e293b' : '#e2e8f0'}`, background: !selectedRegion ? '#1e293b' : '#fff', color: !selectedRegion ? '#fff' : '#64748b', cursor: 'pointer', fontWeight: 600 }}>ALL</button>
+          {VERCEL_REGIONS.map(r => (
+            <button key={r} onClick={() => handleRegion(r)} style={{ padding: '3px 7px', fontSize: 10, borderRadius: 5, border: `1px solid ${selectedRegion === r ? '#1e293b' : '#e2e8f0'}`, background: selectedRegion === r ? '#1e293b' : '#fff', color: selectedRegion === r ? '#fff' : '#64748b', cursor: 'pointer', fontFamily: 'monospace', fontWeight: 600 }}>{r}</button>
+          ))}
+        </div>
+      </div>
+      <div style={{ minHeight: 240 }}>
+        {currentItems.map(item => (
+          <div key={item.id} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '8px 16px', borderBottom: '1px solid #f8fafc' }}>
+            <div style={{ width: 6, height: 6, borderRadius: '50%', background: STATUS_COLOR[item.status], flexShrink: 0 }} />
+            <span style={{ fontSize: 10, color: '#94a3b8', fontFamily: 'monospace', width: 40 }}>{item.timestamp}</span>
+            <span style={{ fontSize: 10, padding: '1px 5px', borderRadius: 3, background: '#f1f5f9', color: '#475569', fontFamily: 'monospace', flexShrink: 0 }}>{item.region}</span>
+            <span style={{ flex: 1, fontSize: 11, color: '#1e293b', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{item.message}</span>
+            <span style={{ fontSize: 10, color: '#94a3b8', flexShrink: 0 }}>{item.duration}</span>
+          </div>
+        ))}
+      </div>
+      <div style={{ padding: '12px 16px', borderTop: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', gap: 8 }}>
+        <button onClick={() => setPage(p => Math.max(1, p - 1))} disabled={page === 1} style={{ padding: '4px 10px', fontSize: 11, borderRadius: 6, border: '1px solid #e2e8f0', background: '#fff', color: '#64748b', cursor: page === 1 ? 'not-allowed' : 'pointer', opacity: page === 1 ? 0.4 : 1 }}>이전</button>
+        <PageNumber current={page} total={totalPages} />
+        <button onClick={() => setPage(p => Math.min(totalPages, p + 1))} disabled={page === totalPages} style={{ padding: '4px 10px', fontSize: 11, borderRadius: 6, border: '1px solid #e2e8f0', background: '#fff', color: '#64748b', cursor: page === totalPages ? 'not-allowed' : 'pointer', opacity: page === totalPages ? 0.4 : 1 }}>다음</button>
+        <span style={{ marginLeft: 'auto', fontSize: 11, color: '#94a3b8' }}>리전: {selectedRegion ?? '전체'}</span>
+      </div>
+    </div>
+  )
+}
+
+export const Vercel_리전별_로그_페이지네이션: Story = {
+  name: 'Vercel Design — 리전별 함수 실행 로그 페이지네이션',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Vercel Design의 Function Log 패턴. 리전 필터 + PageNumber로 서버리스 함수 실행 로그를 페이지네이션합니다.',
+      },
+    },
+  },
+  render: () => <VercelRegionLogPaginationRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Ant Design: 데이터 테이블 페이지네이션 패턴
+-------------------------------------------------------------------------- */
+const ANT_TABLE_DATA = Array.from({ length: 63 }, (_, i) => ({
+  key: `user-${i + 1}`,
+  name: ['김민준', '이서연', '박지후', '최수아', '정도윤', '윤채원', '임주원', '한서진', '오지우', '신예린'][i % 10],
+  role: ['개발자', '디자이너', 'PM', '마케터', 'QA'][i % 5],
+  status: i % 4 === 0 ? 'inactive' : 'active',
+  joined: `2024-${String((i % 12) + 1).padStart(2, '0')}-${String((i % 28) + 1).padStart(2, '0')}`,
+}))
+
+const ANT_TABLE_PAGE_SIZE = 7
+
+function AntTablePaginationRender() {
+  const [page, setPage] = useState(1)
+  const totalPages = Math.ceil(ANT_TABLE_DATA.length / ANT_TABLE_PAGE_SIZE)
+  const rows = ANT_TABLE_DATA.slice((page - 1) * ANT_TABLE_PAGE_SIZE, page * ANT_TABLE_PAGE_SIZE)
+
+  return (
+    <div style={{ width: 480, fontFamily: 'system-ui, sans-serif' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12 }}>
+        <span style={{ fontSize: 14, fontWeight: 700, color: '#1e293b' }}>팀원 목록</span>
+        <span style={{ fontSize: 11, color: '#94a3b8' }}>총 {ANT_TABLE_DATA.length}명</span>
+      </div>
+      <div style={{ border: '1px solid #e2e8f0', borderRadius: 10, overflow: 'hidden' }}>
+        <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 12 }}>
+          <thead>
+            <tr style={{ background: '#f8fafc' }}>
+              {['이름', '역할', '상태', '가입일'].map(h => (
+                <th key={h} style={{ padding: '8px 12px', textAlign: 'left', fontSize: 11, fontWeight: 700, color: '#64748b', borderBottom: '1px solid #e2e8f0' }}>{h}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map(row => (
+              <tr key={row.key} style={{ borderBottom: '1px solid #f1f5f9' }}>
+                <td style={{ padding: '8px 12px', color: '#1e293b', fontWeight: 500 }}>{row.name}</td>
+                <td style={{ padding: '8px 12px', color: '#475569' }}>{row.role}</td>
+                <td style={{ padding: '8px 12px' }}>
+                  <span style={{ fontSize: 10, padding: '2px 7px', borderRadius: 4, background: row.status === 'active' ? '#f0fdf4' : '#f8fafc', color: row.status === 'active' ? '#22c55e' : '#94a3b8', fontWeight: 700 }}>
+                    {row.status === 'active' ? '활성' : '비활성'}
+                  </span>
+                </td>
+                <td style={{ padding: '8px 12px', color: '#94a3b8', fontSize: 11, fontFamily: 'monospace' }}>{row.joined}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <div style={{ padding: '10px 12px', display: 'flex', alignItems: 'center', gap: 4, justifyContent: 'space-between', background: '#fff', borderTop: '1px solid #f1f5f9' }}>
+          <span style={{ fontSize: 11, color: '#94a3b8' }}>{(page - 1) * ANT_TABLE_PAGE_SIZE + 1}–{Math.min(page * ANT_TABLE_PAGE_SIZE, ANT_TABLE_DATA.length)} / {ANT_TABLE_DATA.length}명</span>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            <button onClick={() => setPage(p => Math.max(1, p - 1))} disabled={page === 1} style={{ padding: '3px 8px', fontSize: 11, borderRadius: 5, border: '1px solid #e2e8f0', background: '#fff', cursor: page === 1 ? 'not-allowed' : 'pointer', opacity: page === 1 ? 0.4 : 1 }}>‹</button>
+            <PageNumber current={page} total={totalPages} />
+            <button onClick={() => setPage(p => Math.min(totalPages, p + 1))} disabled={page === totalPages} style={{ padding: '3px 8px', fontSize: 11, borderRadius: 5, border: '1px solid #e2e8f0', background: '#fff', cursor: page === totalPages ? 'not-allowed' : 'pointer', opacity: page === totalPages ? 0.4 : 1 }}>›</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const Ant_데이터_테이블_페이지네이션: Story = {
+  name: 'Ant Design — 데이터 테이블 페이지네이션 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Ant Design의 Table Pagination 패턴. PageNumber로 사용자 목록 테이블의 페이지네이션을 구현합니다.',
+      },
+    },
+  },
+  render: () => <AntTablePaginationRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Vercel + Ant: 분석 대시보드 페이지네이션 복합 패턴
+-------------------------------------------------------------------------- */
+const DASHBOARD_METRICS = Array.from({ length: 28 }, (_, i) => ({
+  id: i + 1,
+  name: ['페이지뷰', '세션', '이탈률', '전환율', '체류시간', 'CLS', 'LCP', 'FID'][i % 8],
+  value: Math.floor(Math.random() * 10000 + 500),
+  change: (Math.random() * 40 - 20).toFixed(1),
+  period: ['오늘', '이번 주', '이번 달'][i % 3],
+}))
+
+const DASHBOARD_PAGE_SIZE = 6
+
+function VercelAntDashboardPaginationRender() {
+  const [page, setPage] = useState(1)
+  const totalPages = Math.ceil(DASHBOARD_METRICS.length / DASHBOARD_PAGE_SIZE)
+  const items = DASHBOARD_METRICS.slice((page - 1) * DASHBOARD_PAGE_SIZE, page * DASHBOARD_PAGE_SIZE)
+
+  return (
+    <div style={{ width: 440, fontFamily: 'system-ui, sans-serif', background: '#0f172a', borderRadius: 14, overflow: 'hidden' }}>
+      <div style={{ padding: '14px 18px', borderBottom: '1px solid #1e293b', display: 'flex', alignItems: 'center', gap: 8 }}>
+        <span style={{ fontSize: 13, fontWeight: 700, color: '#f1f5f9' }}>성능 지표 대시보드</span>
+        <span style={{ fontSize: 10, padding: '2px 7px', borderRadius: 4, background: '#1e293b', color: '#94a3b8', fontFamily: 'monospace' }}>실시간</span>
+        <span style={{ marginLeft: 'auto', fontSize: 11, color: '#475569' }}>{DASHBOARD_METRICS.length}개 지표</span>
+      </div>
+      <div style={{ padding: '12px 16px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
+        {items.map(m => {
+          const isUp = parseFloat(m.change) >= 0
+          return (
+            <div key={m.id} style={{ padding: '12px 14px', borderRadius: 10, background: '#1e293b', border: '1px solid #334155' }}>
+              <div style={{ fontSize: 10, color: '#64748b', marginBottom: 4 }}>{m.name} · {m.period}</div>
+              <div style={{ fontSize: 18, fontWeight: 800, color: '#f1f5f9', letterSpacing: '-0.03em' }}>{m.value.toLocaleString()}</div>
+              <div style={{ fontSize: 11, color: isUp ? '#4ade80' : '#f87171', marginTop: 4 }}>{isUp ? '▲' : '▼'} {Math.abs(parseFloat(m.change))}%</div>
+            </div>
+          )
+        })}
+      </div>
+      <div style={{ padding: '10px 16px', borderTop: '1px solid #1e293b', display: 'flex', alignItems: 'center', gap: 10, justifyContent: 'center' }}>
+        <button onClick={() => setPage(p => Math.max(1, p - 1))} disabled={page === 1} style={{ padding: '4px 10px', fontSize: 11, borderRadius: 6, border: '1px solid #334155', background: '#1e293b', color: '#64748b', cursor: page === 1 ? 'not-allowed' : 'pointer', opacity: page === 1 ? 0.4 : 1 }}>←</button>
+        <PageNumber current={page} total={totalPages} />
+        <button onClick={() => setPage(p => Math.min(totalPages, p + 1))} disabled={page === totalPages} style={{ padding: '4px 10px', fontSize: 11, borderRadius: 6, border: '1px solid #334155', background: '#1e293b', color: '#64748b', cursor: page === totalPages ? 'not-allowed' : 'pointer', opacity: page === totalPages ? 0.4 : 1 }}>→</button>
+      </div>
+    </div>
+  )
+}
+
+export const Vercel_Ant_성능지표_대시보드_페이지네이션: Story = {
+  name: 'Vercel + Ant Design — 성능 지표 대시보드 페이지네이션 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Vercel Design + Ant Design 복합 패턴. 다크 대시보드에서 PageNumber로 성능 지표 카드 그리드를 페이지네이션합니다.',
+      },
+    },
+  },
+  render: () => <VercelAntDashboardPaginationRender />,
+}

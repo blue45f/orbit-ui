@@ -1661,3 +1661,233 @@ export const Shadcn_Radix_자동저장_글자수_제한_에디터: Story = {
   },
   render: () => <ShadcnRadixAutoSaveRender />,
 }
+
+/* --------------------------------------------------------------------------
+   Cycle 159 — Vercel Design + Ant Design
+   Vercel: 환경 변수 bulk 편집 + 실시간 파싱 패턴
+-------------------------------------------------------------------------- */
+function VercelEnvBulkEditorRender() {
+  const defaultVal = `NEXT_PUBLIC_API_URL=https://api.example.com\nNEXT_PUBLIC_WS_URL=wss://ws.example.com\nDATABASE_URL=postgresql://localhost:5432/db\nSECRET_KEY=\nNODE_ENV=production`
+  const [value, setValue] = useState(defaultVal)
+  const [saved, setSaved] = useState(false)
+
+  const lines = value.split('\n').filter(Boolean)
+  const parsed = lines.map(l => {
+    const [k, ...v] = l.split('=')
+    return { key: k?.trim(), value: v.join('=').trim(), valid: !!k?.trim() }
+  })
+  const validCount = parsed.filter(p => p.valid && p.value).length
+  const missingCount = parsed.filter(p => p.valid && !p.value).length
+
+  const handleSave = () => {
+    setSaved(true)
+    setTimeout(() => setSaved(false), 2000)
+  }
+
+  return (
+    <div style={{ width: 420, fontFamily: 'system-ui, sans-serif', background: '#0f172a', borderRadius: 14, overflow: 'hidden', border: '1px solid #1e293b' }}>
+      <div style={{ padding: '12px 16px', borderBottom: '1px solid #1e293b', display: 'flex', alignItems: 'center', gap: 8 }}>
+        <span style={{ fontSize: 13, fontWeight: 700, color: '#f1f5f9' }}>환경 변수 bulk 편집</span>
+        <span style={{ marginLeft: 'auto', fontSize: 10, color: '#64748b' }}>KEY=VALUE 형식</span>
+      </div>
+      <div style={{ padding: '12px 16px' }}>
+        <TextArea
+          value={value}
+          onChange={e => setValue(e.target.value)}
+          placeholder={'KEY=VALUE\nAPI_URL=https://...'}
+          rows={8}
+        />
+        <div style={{ marginTop: 10, display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+          <span style={{ fontSize: 10, padding: '2px 7px', borderRadius: 4, background: '#14532d', color: '#4ade80' }}>{validCount}개 설정됨</span>
+          {missingCount > 0 && <span style={{ fontSize: 10, padding: '2px 7px', borderRadius: 4, background: '#7c2d12', color: '#fca5a5' }}>{missingCount}개 값 없음</span>}
+          <span style={{ fontSize: 10, padding: '2px 7px', borderRadius: 4, background: '#1e293b', color: '#64748b' }}>{parsed.length}개 변수</span>
+        </div>
+      </div>
+      <div style={{ padding: '10px 16px', borderTop: '1px solid #1e293b', display: 'flex', gap: 8 }}>
+        <button onClick={() => setValue('')} style={{ flex: 1, padding: '8px', fontSize: 11, borderRadius: 8, border: '1px solid #334155', background: '#1e293b', color: '#64748b', cursor: 'pointer' }}>초기화</button>
+        <button onClick={handleSave} style={{ flex: 2, padding: '8px', fontSize: 12, borderRadius: 8, border: 'none', background: saved ? '#14532d' : '#fff', color: saved ? '#4ade80' : '#0f172a', cursor: 'pointer', fontWeight: 700, transition: 'all 0.2s' }}>{saved ? '저장 완료' : '저장'}</button>
+      </div>
+    </div>
+  )
+}
+
+export const Vercel_환경변수_벌크_편집기: Story = {
+  name: 'Vercel Design — 환경 변수 Bulk 편집 + 실시간 파싱 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Vercel의 Environment Variables 편집기 패턴. TextArea에 KEY=VALUE 형식으로 입력하면 실시간으로 파싱해 설정/누락 상태를 표시합니다.',
+      },
+    },
+  },
+  render: () => <VercelEnvBulkEditorRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Ant Design: 티켓/이슈 설명 작성 폼 패턴
+-------------------------------------------------------------------------- */
+const ANT_CATEGORIES = ['버그', '기능 요청', '개선', '질문', '기타']
+
+function AntIssueFormRender() {
+  const [title, setTitle] = useState('')
+  const [category, setCategory] = useState('버그')
+  const [desc, setDesc] = useState('')
+  const [submitted, setSubmitted] = useState(false)
+
+  const maxLen = 500
+  const remaining = maxLen - desc.length
+  const isValid = title.trim().length >= 5 && desc.trim().length >= 10
+
+  const handleSubmit = () => {
+    if (isValid) { setSubmitted(true); setTimeout(() => setSubmitted(false), 2500) }
+  }
+
+  return (
+    <div style={{ width: 400, fontFamily: 'system-ui, sans-serif' }}>
+      <p style={{ fontSize: 14, fontWeight: 700, color: '#1e293b', marginBottom: 16 }}>이슈 등록</p>
+      <div style={{ marginBottom: 12 }}>
+        <label style={{ fontSize: 11, fontWeight: 600, color: '#475569', display: 'block', marginBottom: 4 }}>제목 <span style={{ color: '#ef4444' }}>*</span></label>
+        <input
+          value={title}
+          onChange={e => setTitle(e.target.value)}
+          placeholder="이슈 제목을 입력하세요 (5자 이상)"
+          style={{ width: '100%', padding: '8px 12px', fontSize: 13, borderRadius: 8, border: `1.5px solid ${title.length > 0 && title.trim().length < 5 ? '#ef4444' : '#e2e8f0'}`, outline: 'none', boxSizing: 'border-box' }}
+        />
+        {title.length > 0 && title.trim().length < 5 && <p style={{ fontSize: 11, color: '#ef4444', marginTop: 3 }}>최소 5자 이상 입력해주세요</p>}
+      </div>
+      <div style={{ marginBottom: 12 }}>
+        <label style={{ fontSize: 11, fontWeight: 600, color: '#475569', display: 'block', marginBottom: 4 }}>카테고리</label>
+        <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+          {ANT_CATEGORIES.map(c => (
+            <button key={c} onClick={() => setCategory(c)} style={{ padding: '5px 10px', fontSize: 11, borderRadius: 6, border: `1.5px solid ${category === c ? '#6366f1' : '#e2e8f0'}`, background: category === c ? '#f0eeff' : '#fff', color: category === c ? '#6366f1' : '#64748b', cursor: 'pointer', fontWeight: category === c ? 700 : 400 }}>{c}</button>
+          ))}
+        </div>
+      </div>
+      <div style={{ marginBottom: 14 }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 4 }}>
+          <label style={{ fontSize: 11, fontWeight: 600, color: '#475569' }}>설명 <span style={{ color: '#ef4444' }}>*</span></label>
+          <span style={{ fontSize: 10, color: remaining < 50 ? '#ef4444' : '#94a3b8' }}>{desc.length}/{maxLen}</span>
+        </div>
+        <TextArea
+          value={desc}
+          onChange={e => setDesc(e.target.value.slice(0, maxLen))}
+          placeholder="이슈 내용을 자세히 설명해주세요 (10자 이상)&#10;재현 방법, 예상 동작, 실제 동작 등을 포함하면 빠른 처리에 도움이 됩니다."
+          error={desc.length > 0 && desc.trim().length < 10}
+          rows={5}
+        />
+        {desc.length > 0 && desc.trim().length < 10 && <p style={{ fontSize: 11, color: '#ef4444', marginTop: 3 }}>최소 10자 이상 입력해주세요</p>}
+      </div>
+      <button
+        disabled={!isValid}
+        onClick={handleSubmit}
+        style={{ width: '100%', padding: '10px', fontSize: 13, fontWeight: 700, borderRadius: 8, border: 'none', background: submitted ? '#22c55e' : isValid ? '#6366f1' : '#e2e8f0', color: isValid ? '#fff' : '#94a3b8', cursor: isValid ? 'pointer' : 'not-allowed', transition: 'all 0.2s' }}
+      >
+        {submitted ? '이슈 등록 완료!' : '이슈 등록'}
+      </button>
+    </div>
+  )
+}
+
+export const Ant_이슈_등록_폼: Story = {
+  name: 'Ant Design — 이슈 등록 폼 (제목 + 카테고리 + TextArea 유효성)',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Ant Design의 Form Validation 패턴. 제목+카테고리+TextArea 조합으로 이슈 등록 폼을 구현하며 실시간 유효성 검사를 제공합니다.',
+      },
+    },
+  },
+  render: () => <AntIssueFormRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Vercel + Ant: 배포 노트 + 릴리즈 설명 복합 편집 패턴
+-------------------------------------------------------------------------- */
+const RELEASE_TEMPLATES = [
+  { label: '버그 수정', body: '## 버그 수정\n\n- [ ] 재현 경로\n- [ ] 수정 내용\n- [ ] 테스트 결과' },
+  { label: '기능 추가', body: '## 새 기능\n\n### 변경 사항\n\n### 사용 방법\n\n```tsx\n// 코드 예시\n```' },
+  { label: '중단 변경', body: '## Breaking Changes\n\n### 영향 범위\n\n### 마이그레이션 가이드\n\n### 이전 동작 / 이후 동작' },
+]
+
+function VercelAntReleaseNoteRender() {
+  const [note, setNote] = useState('')
+  const [version, setVersion] = useState('2.1.0')
+  const [charCount, setCharCount] = useState(0)
+  const [preview, setPreview] = useState(false)
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setNote(e.target.value)
+    setCharCount(e.target.value.length)
+  }
+
+  return (
+    <div style={{ width: 440, fontFamily: 'system-ui, sans-serif', border: '1px solid #e2e8f0', borderRadius: 12, overflow: 'hidden' }}>
+      <div style={{ padding: '12px 16px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', gap: 8 }}>
+        <span style={{ fontSize: 13, fontWeight: 700, color: '#1e293b' }}>릴리즈 노트</span>
+        <input
+          value={version}
+          onChange={e => setVersion(e.target.value)}
+          style={{ width: 70, fontSize: 12, padding: '3px 8px', borderRadius: 6, border: '1px solid #e2e8f0', background: '#fff', fontFamily: 'monospace', fontWeight: 600, color: '#6366f1', textAlign: 'center' }}
+        />
+        <div style={{ marginLeft: 'auto', display: 'flex', gap: 6 }}>
+          <button
+            onClick={() => setPreview(!preview)}
+            style={{ padding: '4px 10px', fontSize: 11, borderRadius: 6, border: `1px solid ${preview ? '#6366f1' : '#e2e8f0'}`, background: preview ? '#f0eeff' : '#fff', color: preview ? '#6366f1' : '#64748b', cursor: 'pointer', fontWeight: preview ? 700 : 400 }}
+          >
+            {preview ? '편집' : '미리보기'}
+          </button>
+        </div>
+      </div>
+      <div style={{ padding: '10px 14px 6px', background: '#fff', borderBottom: '1px solid #f1f5f9', display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+        {RELEASE_TEMPLATES.map(t => (
+          <button
+            key={t.label}
+            onClick={() => setNote(t.body)}
+            style={{ padding: '3px 8px', fontSize: 10, borderRadius: 5, border: '1px solid #e2e8f0', background: '#f8fafc', color: '#64748b', cursor: 'pointer', fontWeight: 500 }}
+          >
+            {t.label} 템플릿
+          </button>
+        ))}
+      </div>
+      <div style={{ padding: '12px 16px' }}>
+        {preview ? (
+          <div style={{ minHeight: 150, fontSize: 12, color: '#1e293b', lineHeight: 1.8, whiteSpace: 'pre-wrap', background: '#f8fafc', borderRadius: 8, padding: '10px 12px', border: '1px solid #f1f5f9' }}>
+            {note || <span style={{ color: '#94a3b8' }}>미리보기할 내용이 없습니다</span>}
+          </div>
+        ) : (
+          <TextArea
+            value={note}
+            onChange={handleChange}
+            placeholder={'릴리즈 노트를 작성하세요.\n상단 템플릿 버튼으로 빠르게 시작할 수 있습니다.'}
+            rows={7}
+          />
+        )}
+        <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 6 }}>
+          <span style={{ fontSize: 10, color: '#94a3b8' }}>Markdown 지원</span>
+          <span style={{ fontSize: 10, color: charCount > 2000 ? '#ef4444' : '#94a3b8' }}>{charCount}자</span>
+        </div>
+      </div>
+      <div style={{ padding: '10px 16px', borderTop: '1px solid #e2e8f0', display: 'flex', gap: 8 }}>
+        <button onClick={() => setNote('')} style={{ padding: '7px 14px', fontSize: 11, borderRadius: 8, border: '1px solid #e2e8f0', background: '#fff', color: '#64748b', cursor: 'pointer' }}>초기화</button>
+        <button
+          disabled={!note.trim()}
+          style={{ flex: 1, padding: '7px', fontSize: 12, borderRadius: 8, border: 'none', background: note.trim() ? '#1e293b' : '#e2e8f0', color: note.trim() ? '#fff' : '#94a3b8', cursor: note.trim() ? 'pointer' : 'not-allowed', fontWeight: 600 }}
+        >
+          v{version} 배포 노트 게시
+        </button>
+      </div>
+    </div>
+  )
+}
+
+export const Vercel_Ant_릴리즈_노트_에디터: Story = {
+  name: 'Vercel + Ant Design — 릴리즈 노트 + 배포 설명 편집 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Vercel Design + Ant Design 복합 패턴. 버전 입력 + 템플릿 선택 + TextArea 편집/미리보기 전환으로 릴리즈 노트를 작성합니다.',
+      },
+    },
+  },
+  render: () => <VercelAntReleaseNoteRender />,
+}

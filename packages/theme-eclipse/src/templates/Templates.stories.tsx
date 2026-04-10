@@ -35883,3 +35883,167 @@ export const RadixTailwind158DocPortal: StoryObj = {
   },
   render: () => <RadixTailwind158DocPortalRender />,
 }
+
+/* ==========================================================================
+   Cycle 159 — Vercel Design + Ant Design
+   VercelAnt159DeployPortal: 배포 관리 포털 + 릴리즈 노트 편집기 템플릿
+   ========================================================================== */
+const DEPLOY_PORTAL_LOGS = Array.from({ length: 32 }, (_, i) => ({
+  id: i + 1,
+  env: ['production', 'staging', 'preview'][i % 3],
+  branch: ['main', 'dev', `feature/comp-${i}`][i % 3],
+  status: i % 5 === 0 ? 'error' : i % 3 === 0 ? 'building' : 'ready',
+  duration: Math.floor(Math.random() * 120 + 20) + 's',
+  time: `${String(Math.floor(i / 2)).padStart(2, '0')}:${String((i * 30) % 60).padStart(2, '0')}`,
+  region: ['iad1', 'sfo1', 'fra1'][i % 3],
+}))
+
+const DEPLOY_LOG_PAGE_SIZE = 6
+
+const RELEASE_TMPL = [
+  { label: '버그 수정', body: '## 버그 수정\n\n### 문제\n\n### 해결\n\n### 테스트' },
+  { label: '기능 추가', body: '## 새 기능\n\n### 변경 내용\n\n### 사용 예시\n\n```tsx\n// 예시\n```' },
+]
+
+const ENV_COLOR: Record<string, { dot: string; label: string }> = {
+  production: { dot: '#22c55e', label: 'PROD' },
+  staging: { dot: '#f59e0b', label: 'STG' },
+  preview: { dot: '#6366f1', label: 'PRV' },
+}
+const STATUS_DOT: Record<string, string> = { ready: '#22c55e', building: '#f59e0b', error: '#ef4444' }
+
+function VercelAnt159DeployPortalRender() {
+  const [logPage, setLogPage] = useState(1)
+  const [envFilter, setEnvFilter] = useState<string | null>(null)
+  const [releaseNote, setReleaseNote] = useState('')
+  const [version, setVersion] = useState('2.2.0')
+  const [published, setPublished] = useState(false)
+
+  const filteredLogs = envFilter ? DEPLOY_PORTAL_LOGS.filter(l => l.env === envFilter) : DEPLOY_PORTAL_LOGS
+  const totalLogPages = Math.ceil(filteredLogs.length / DEPLOY_LOG_PAGE_SIZE)
+  const currentLogs = filteredLogs.slice((logPage - 1) * DEPLOY_LOG_PAGE_SIZE, logPage * DEPLOY_LOG_PAGE_SIZE)
+
+  const handleEnvFilter = (e: string | null) => { setEnvFilter(e); setLogPage(1) }
+  const handlePublish = () => {
+    if (releaseNote.trim()) { setPublished(true); setTimeout(() => setPublished(false), 2500) }
+  }
+
+  return (
+    <div style={{ display: 'flex', height: '100vh', fontFamily: 'system-ui, sans-serif', background: '#0f172a' }}>
+      {/* Left: Deployment Log Panel */}
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', borderRight: '1px solid #1e293b' }}>
+        {/* Header */}
+        <div style={{ padding: '16px 20px', borderBottom: '1px solid #1e293b' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 10 }}>
+            <div style={{ fontSize: 14, fontWeight: 800, color: '#f1f5f9', letterSpacing: '-0.02em' }}>Deployments</div>
+            <span style={{ fontSize: 10, padding: '2px 7px', borderRadius: 4, background: '#1e293b', color: '#94a3b8', fontFamily: 'monospace' }}>orbit-ui</span>
+            <span style={{ marginLeft: 'auto', fontSize: 11, color: '#475569' }}>{filteredLogs.length}개</span>
+          </div>
+          <div style={{ display: 'flex', gap: 5 }}>
+            <button onClick={() => handleEnvFilter(null)} style={{ padding: '3px 8px', fontSize: 10, borderRadius: 5, border: `1px solid ${!envFilter ? '#f1f5f9' : '#334155'}`, background: !envFilter ? '#f1f5f9' : '#1e293b', color: !envFilter ? '#0f172a' : '#64748b', cursor: 'pointer', fontWeight: 700 }}>ALL</button>
+            {['production', 'staging', 'preview'].map(e => (
+              <button key={e} onClick={() => handleEnvFilter(e)} style={{ padding: '3px 8px', fontSize: 10, borderRadius: 5, border: `1px solid ${envFilter === e ? ENV_COLOR[e].dot : '#334155'}`, background: envFilter === e ? '#1e293b' : '#1e293b', color: envFilter === e ? ENV_COLOR[e].dot : '#64748b', cursor: 'pointer', fontWeight: envFilter === e ? 700 : 400 }}>{ENV_COLOR[e].label}</button>
+            ))}
+          </div>
+        </div>
+
+        {/* Log list */}
+        <div style={{ flex: 1, overflowY: 'auto' }}>
+          {currentLogs.map(log => (
+            <div key={log.id} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 20px', borderBottom: '1px solid #1e293b' }}>
+              <div style={{ width: 6, height: 6, borderRadius: '50%', background: STATUS_DOT[log.status], flexShrink: 0 }} />
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <div style={{ fontSize: 12, color: '#f1f5f9', fontWeight: 600, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{log.branch}</div>
+                <div style={{ fontSize: 10, color: '#475569', marginTop: 2, display: 'flex', gap: 8 }}>
+                  <span style={{ color: ENV_COLOR[log.env].dot }}>{ENV_COLOR[log.env].label}</span>
+                  <span>{log.region}</span>
+                  <span>{log.duration}</span>
+                </div>
+              </div>
+              <span style={{ fontSize: 10, color: '#475569', fontFamily: 'monospace' }}>{log.time}</span>
+            </div>
+          ))}
+        </div>
+
+        {/* Pagination */}
+        <div style={{ padding: '12px 20px', borderTop: '1px solid #1e293b', display: 'flex', alignItems: 'center', gap: 10 }}>
+          <button onClick={() => setLogPage(p => Math.max(1, p - 1))} disabled={logPage === 1} style={{ padding: '4px 10px', fontSize: 11, borderRadius: 6, border: '1px solid #334155', background: '#1e293b', color: '#64748b', cursor: logPage === 1 ? 'not-allowed' : 'pointer', opacity: logPage === 1 ? 0.4 : 1 }}>←</button>
+          <PageNumber current={logPage} total={totalLogPages} />
+          <button onClick={() => setLogPage(p => Math.min(totalLogPages, p + 1))} disabled={logPage === totalLogPages} style={{ padding: '4px 10px', fontSize: 11, borderRadius: 6, border: '1px solid #334155', background: '#1e293b', color: '#64748b', cursor: logPage === totalLogPages ? 'not-allowed' : 'pointer', opacity: logPage === totalLogPages ? 0.4 : 1 }}>→</button>
+          <span style={{ marginLeft: 'auto', fontSize: 10, color: '#475569' }}>{logPage}/{totalLogPages}</span>
+        </div>
+        <div style={{ padding: '8px 16px', borderTop: '1px solid #1e293b', fontSize: 10, color: '#334155' }}>
+          Vercel Design — PageNumber 배포 로그 페이지네이션
+        </div>
+      </div>
+
+      {/* Right: Release Note Editor */}
+      <div style={{ width: 360, display: 'flex', flexDirection: 'column', background: '#0f172a' }}>
+        {/* Header */}
+        <div style={{ padding: '16px 16px 12px', borderBottom: '1px solid #1e293b', display: 'flex', alignItems: 'center', gap: 8 }}>
+          <span style={{ fontSize: 13, fontWeight: 700, color: '#f1f5f9' }}>릴리즈 노트</span>
+          <input
+            value={version}
+            onChange={e => setVersion(e.target.value)}
+            style={{ width: 65, fontSize: 12, padding: '3px 8px', borderRadius: 6, border: '1px solid #334155', background: '#1e293b', color: '#6366f1', fontFamily: 'monospace', fontWeight: 700, textAlign: 'center' }}
+          />
+        </div>
+
+        {/* Template buttons */}
+        <div style={{ padding: '10px 14px 6px', borderBottom: '1px solid #1e293b', display: 'flex', gap: 6 }}>
+          {RELEASE_TMPL.map(t => (
+            <button
+              key={t.label}
+              onClick={() => setReleaseNote(t.body)}
+              style={{ padding: '4px 10px', fontSize: 10, borderRadius: 6, border: '1px solid #334155', background: '#1e293b', color: '#64748b', cursor: 'pointer' }}
+            >
+              {t.label} 템플릿
+            </button>
+          ))}
+        </div>
+
+        {/* TextArea */}
+        <div style={{ flex: 1, padding: '14px', display: 'flex', flexDirection: 'column' }}>
+          <TextArea
+            value={releaseNote}
+            onChange={e => setReleaseNote(e.target.value)}
+            placeholder={'릴리즈 노트를 작성하세요.\n상단 템플릿으로 빠르게 시작할 수 있습니다.\n\nMarkdown 문법을 지원합니다.'}
+            rows={10}
+          />
+          <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 6 }}>
+            <span style={{ fontSize: 10, color: '#334155' }}>Markdown 지원</span>
+            <span style={{ fontSize: 10, color: '#475569' }}>{releaseNote.length}자</span>
+          </div>
+        </div>
+
+        {/* Actions */}
+        <div style={{ padding: '12px 14px', borderTop: '1px solid #1e293b', display: 'flex', gap: 8 }}>
+          <button onClick={() => setReleaseNote('')} style={{ padding: '8px 12px', fontSize: 11, borderRadius: 8, border: '1px solid #334155', background: '#1e293b', color: '#64748b', cursor: 'pointer' }}>초기화</button>
+          <button
+            disabled={!releaseNote.trim()}
+            onClick={handlePublish}
+            style={{ flex: 1, padding: '8px', fontSize: 12, borderRadius: 8, border: 'none', background: published ? '#14532d' : releaseNote.trim() ? '#fff' : '#334155', color: published ? '#4ade80' : releaseNote.trim() ? '#0f172a' : '#475569', cursor: releaseNote.trim() ? 'pointer' : 'not-allowed', fontWeight: 700, transition: 'all 0.2s' }}
+          >
+            {published ? '게시 완료!' : `v${version} 게시`}
+          </button>
+        </div>
+        <div style={{ padding: '8px 14px', borderTop: '1px solid #1e293b', fontSize: 10, color: '#334155' }}>
+          Ant Design — TextArea 릴리즈 노트 편집기
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const VercelAnt159DeployPortal: StoryObj = {
+  name: 'Vercel + Ant Design — 배포 관리 포털 (PageNumber 로그 + TextArea 릴리즈 노트)',
+  parameters: {
+    layout: 'fullscreen',
+    docs: {
+      description: {
+        story: 'Vercel Design + Ant Design 복합 패턴. 좌: 배포 로그 목록(환경별 필터+PageNumber 페이지네이션), 우: TextArea 릴리즈 노트 편집기(템플릿 선택+버전 입력+게시). 실무 배포 관리 포털 레이아웃.',
+      },
+    },
+  },
+  render: () => <VercelAnt159DeployPortalRender />,
+}
