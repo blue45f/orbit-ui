@@ -1925,3 +1925,39 @@ const theme = createTheme({
     <span style={{ color: '#475569', marginLeft: '8px' }}>일일 100회 배포 한도 초과 — 다음 리셋 후 자동 배포 예정</span>
   </div>
 </section>
+
+<section style={{ marginBottom: '32px', padding: '20px', border: '2px solid #10b981', borderRadius: '8px', background: '#f0fdf4' }}>
+  <h2 style={{ fontSize: '18px', fontWeight: '700', color: '#065f46', marginBottom: '12px' }}>
+    Cycle 119 — Google Material 3 + Linear Design
+  </h2>
+  <p style={{ color: '#475569', marginBottom: '16px' }}>
+    M3의 LinearProgressIndicator + step indicator 패턴과 Linear의 optimistic UI + compact view switcher를 Orbit UI에 적용.
+    AnalyticsDashboard 템플릿으로 KPI 카드, 바 차트, 컴포넌트 커버리지, 배포 목록 복합 구현.
+  </p>
+  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '16px' }}>
+    <div style={{ padding: '12px', background: '#d1fae5', borderRadius: '6px' }}>
+      <div style={{ fontWeight: '700', color: '#064e3b', marginBottom: '6px' }}>Google Material 3</div>
+      <ul style={{ margin: 0, paddingLeft: '16px', color: '#475569', fontSize: '13px' }}>
+        <li>LinearProgressIndicator 확정/불확정 모드</li>
+        <li>color role 기반 SegmentedControl 설정</li>
+        <li>분석 기간 필터 + 막대 차트 시각화</li>
+      </ul>
+    </div>
+    <div style={{ padding: '12px', background: '#d1fae5', borderRadius: '6px' }}>
+      <div style={{ fontWeight: '700', color: '#064e3b', marginBottom: '6px' }}>Linear Design</div>
+      <ul style={{ margin: 0, paddingLeft: '16px', color: '#475569', fontSize: '13px' }}>
+        <li>Optimistic UI 이슈 상태 로딩 패턴</li>
+        <li>이슈 뷰 전환 SegmentedControl (보드/목록/캘린더)</li>
+        <li>단계적 온보딩 로딩 (M3 step indicator 조합)</li>
+      </ul>
+    </div>
+  </div>
+  <div style={{ borderTop: '1px solid #6ee7b7', paddingTop: '10px', marginTop: '4px' }}>
+    <span style={{ fontWeight: '700', color: '#065f46' }}>Template Cycle119:</span>
+    <span style={{ color: '#475569', marginLeft: '8px' }}>M3Linear119AnalyticsDashboard — KPI 카드, 바 차트, Progress 커버리지, 배포 목록</span>
+  </div>
+  <div style={{ borderTop: '1px solid #6ee7b7', paddingTop: '10px', marginTop: '4px' }}>
+    <span style={{ fontWeight: '700', color: '#065f46' }}>배포:</span>
+    <span style={{ color: '#475569', marginLeft: '8px' }}>일일 100회 한도 초과 — 다음 리셋 후 자동 배포 예정</span>
+  </div>
+</section>
