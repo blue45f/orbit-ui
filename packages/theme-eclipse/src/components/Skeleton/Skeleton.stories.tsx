@@ -587,3 +587,118 @@ export const Vercel_배포_대시보드_스켈레톤 = {
     </div>
   ),
 }
+
+// ─── Cycle 65: Radix UI + Ant Design ───────────────────────────────────────
+
+export const Radix_아바타_그룹_스켈레톤: Story = {
+  name: 'Radix UI - 팀 멤버 아바타 그룹 스켈레톤',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Radix UI Avatar 스켈레톤 패턴. 원형 Avatar.Fallback 로딩 상태와 텍스트 라인 스켈레톤을 조합합니다. 팀 디렉토리, 협업자 목록 등 사람 정보 로딩에 활용됩니다.',
+      },
+    },
+  },
+  render: () => (
+    <div style={{ width: 340, fontFamily: 'system-ui, sans-serif' }}>
+      <div style={{ fontSize: 12, fontWeight: 700, color: '#94a3b8', marginBottom: 12, textTransform: 'uppercase', letterSpacing: '0.06em' }}>팀 멤버 로딩 중...</div>
+      {[1, 2, 3].map((i) => (
+        <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 0', borderBottom: '1px solid #f1f5f9' }}>
+          {/* Avatar circle skeleton */}
+          <Skeleton height={40} width={40} style={{ borderRadius: '50%', flexShrink: 0 }} />
+          <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 8 }}>
+            <Skeleton height={13} width="60%" />
+            <Skeleton height={10} width="40%" />
+          </div>
+          <Skeleton height={26} width={60} style={{ borderRadius: 100, flexShrink: 0 }} />
+        </div>
+      ))}
+      {/* Avatar group overflow */}
+      <div style={{ marginTop: 14, display: 'flex', alignItems: 'center', gap: 8 }}>
+        <div style={{ display: 'flex' }}>
+          {[1, 2, 3, 4].map((i) => (
+            <Skeleton key={i} height={32} width={32} style={{ borderRadius: '50%', marginLeft: i > 1 ? -8 : 0, border: '2px solid #fff' }} />
+          ))}
+        </div>
+        <Skeleton height={12} width={80} />
+      </div>
+    </div>
+  ),
+}
+
+export const Ant_통계_카드_스켈레톤: Story = {
+  name: 'Ant Design - 통계 대시보드 카드 스켈레톤',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Ant Design Skeleton 패턴. 통계 카드의 숫자/라벨/트렌드 영역을 Skeleton으로 대체해 로딩 상태를 표현합니다. 대시보드, 리포트 페이지 초기 로딩에 활용됩니다.',
+      },
+    },
+  },
+  render: () => (
+    <div style={{ width: 380, fontFamily: 'system-ui, sans-serif' }}>
+      <div style={{ fontSize: 12, fontWeight: 700, color: '#94a3b8', marginBottom: 12, textTransform: 'uppercase', letterSpacing: '0.06em' }}>통계 로딩 중...</div>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 16 }}>
+        {[1, 2, 3, 4].map((i) => (
+          <div key={i} style={{ padding: '16px', borderRadius: 12, border: '1px solid #e2e8f0', background: '#fff' }}>
+            {/* Label */}
+            <Skeleton height={10} width="55%" style={{ marginBottom: 12 }} />
+            {/* Big number */}
+            <Skeleton height={28} width="70%" style={{ marginBottom: 8 }} />
+            {/* Trend line */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+              <Skeleton height={10} width={16} style={{ borderRadius: '50%' }} />
+              <Skeleton height={10} width="40%" />
+            </div>
+          </div>
+        ))}
+      </div>
+      {/* Mini bar chart skeleton */}
+      <div style={{ padding: '16px', borderRadius: 12, border: '1px solid #e2e8f0', background: '#fff' }}>
+        <Skeleton height={12} width="30%" style={{ marginBottom: 14 }} />
+        <div style={{ display: 'flex', gap: 6, alignItems: 'flex-end', height: 60 }}>
+          {[40, 70, 55, 85, 60, 90, 75].map((h, i) => (
+            <Skeleton key={i} height={h * 0.6} width="13%" style={{ borderRadius: '4px 4px 0 0' }} />
+          ))}
+        </div>
+      </div>
+    </div>
+  ),
+}
+
+export const Ant_폼_스켈레톤: Story = {
+  name: 'Ant Design - 폼 필드 스켈레톤',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Ant Design Form Skeleton 패턴. 라벨 + 입력 필드 구조를 Skeleton으로 표현해 폼 데이터 로딩 상태를 처리합니다. 프로필 편집, 설정 페이지 로딩에 활용됩니다.',
+      },
+    },
+  },
+  render: () => (
+    <div style={{ width: 380, fontFamily: 'system-ui, sans-serif' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
+        <Skeleton height={18} width="30%" />
+        <Skeleton height={32} width={72} style={{ borderRadius: 8 }} />
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+        {[
+          { labelWidth: '20%', fieldWidth: '100%' },
+          { labelWidth: '25%', fieldWidth: '100%' },
+          { labelWidth: '15%', fieldWidth: '60%' },
+          { labelWidth: '30%', fieldWidth: '80%' },
+          { labelWidth: '20%', fieldWidth: '100%', multiline: true },
+        ].map((field, i) => (
+          <div key={i}>
+            <Skeleton height={11} width={field.labelWidth} style={{ marginBottom: 8 }} />
+            <Skeleton height={field.multiline ? 80 : 38} width={field.fieldWidth} style={{ borderRadius: 8 }} />
+          </div>
+        ))}
+      </div>
+      <div style={{ borderTop: '1px solid #f1f5f9', paddingTop: 16, marginTop: 4, display: 'flex', gap: 8, justifyContent: 'flex-end' }}>
+        <Skeleton height={36} width={80} style={{ borderRadius: 8 }} />
+        <Skeleton height={36} width={100} style={{ borderRadius: 8 }} />
+      </div>
+    </div>
+  ),
+}

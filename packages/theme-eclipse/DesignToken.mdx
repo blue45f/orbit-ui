@@ -963,3 +963,59 @@ const arcoTokens = {
 
   </div>
 </Unstyled>
+
+{/* ─── Cycle 65: Radix UI + Ant Design ─────────────────────────────────── */}
+{/* Note: Section appended below closing tag intentionally as MDX addendum */}
+
+export const Cycle65Section = () => (
+  <div style={{ marginTop: 48, padding: '32px 40px', background: '#f8fafc', borderRadius: 16, border: '1px solid #e2e8f0' }}>
+    <h2 style={{ fontSize: 22, fontWeight: 700, color: '#0f172a', marginBottom: 8 }}>Radix UI + Ant Design 토큰 시스템 분석</h2>
+    <p style={{ color: '#64748b', fontSize: 14, marginBottom: 24 }}>Cycle 65 벤치마크 — Radix UI Primitives와 Ant Design의 디자인 토큰 철학 비교</p>
+
+    <h3 style={{ fontSize: 16, fontWeight: 600, color: '#334155', marginBottom: 12 }}>Radix UI — Primitive-First 토큰 철학</h3>
+    <ul style={{ color: '#475569', fontSize: 13, lineHeight: 1.8, paddingLeft: 20 }}>
+      <li><strong>비스타일 프리미티브</strong>: Radix는 CSS 변수 기반 토큰을 직접 강요하지 않음. 스타일링은 Tailwind 또는 CSS-in-JS에 위임</li>
+      <li><strong>Radix Colors</strong>: 12단계 색상 스케일 (1=배경 ~ 12=텍스트). 다크 모드 자동 반전 지원</li>
+      <li><strong>의미 기반 스케일</strong>: gray-1(앱 배경), gray-3(컴포넌트 배경), gray-7(테두리), gray-11(저강조 텍스트), gray-12(고강조 텍스트)</li>
+      <li><strong>상태 색상</strong>: hover, active, focus는 스케일 +1 단계로 자동 계산 (예: blue-9 → hover: blue-10)</li>
+      <li><strong>Orbit 연계</strong>: Radix Colors의 12단계 스케일을 Reference Token으로, 의미 매핑을 Semantic Token으로 구현 가능</li>
+    </ul>
+
+    <h3 style={{ fontSize: 16, fontWeight: 600, color: '#334155', marginTop: 24, marginBottom: 12 }}>Ant Design — Enterprise 토큰 체계</h3>
+    <ul style={{ color: '#475569', fontSize: 13, lineHeight: 1.8, paddingLeft: 20 }}>
+      <li><strong>Global Token → Component Token</strong>: Ant Design 5.x는 Design Token을 Global(colorPrimary, borderRadius 등)과 Component(Button.colorBgContainer 등) 2단계로 분리</li>
+      <li><strong>Seed Token</strong>: 최소 설정값(colorPrimary, borderRadius, fontSize)만으로 전체 테마 파생 — 알고리즘 기반 자동 계산</li>
+      <li><strong>Map Token</strong>: Seed에서 파생된 중간 토큰 (colorFillContent, colorBorderSecondary 등) — Orbit의 Semantic Token에 대응</li>
+      <li><strong>Alias Token</strong>: 컴포넌트별 최종 값 (colorBgContainer, colorTextDisabled 등) — Orbit의 Component Token에 대응</li>
+      <li><strong>ConfigProvider</strong>: 런타임에 theme.token 객체로 전역 토큰 오버라이드. Orbit의 ThemeProvider와 유사</li>
+    </ul>
+
+    <h3 style={{ fontSize: 16, fontWeight: 600, color: '#334155', marginTop: 24, marginBottom: 12 }}>Orbit 토큰 시스템과의 비교</h3>
+    <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13, marginTop: 8 }}>
+      <thead>
+        <tr style={{ background: '#f1f5f9' }}>
+          <th style={{ padding: '10px 14px', textAlign: 'left', color: '#475569', fontWeight: 600 }}>기준</th>
+          <th style={{ padding: '10px 14px', textAlign: 'left', color: '#6366f1', fontWeight: 600 }}>Radix UI</th>
+          <th style={{ padding: '10px 14px', textAlign: 'left', color: '#f59e0b', fontWeight: 600 }}>Ant Design 5.x</th>
+          <th style={{ padding: '10px 14px', textAlign: 'left', color: '#10b981', fontWeight: 600 }}>Orbit Eclipse</th>
+        </tr>
+      </thead>
+      <tbody>
+        {[
+          { feature: '토큰 계층', radix: '색상 스케일 (12단계)', ant: 'Seed → Map → Alias', orbit: 'Reference → Semantic → Component' },
+          { feature: '다크 모드', radix: '자동 반전 (P3 지원)', ant: 'algorithm.darkAlgorithm', orbit: 'data-theme="dark"' },
+          { feature: '타입 안전성', radix: 'CSS 변수 문자열', ant: 'TypeScript 인터페이스', orbit: 'vanilla-extract strict TS' },
+          { feature: '런타임 오버라이드', radix: 'CSS 변수 재정의', ant: 'ConfigProvider + theme', orbit: 'ThemeProvider + vars' },
+          { feature: '컴포넌트 밀도', radix: '비제어 (소비자 책임)', ant: 'compact: size="small"', orbit: 'density prop 제어' },
+        ].map((row, i) => (
+          <tr key={row.feature} style={{ background: i % 2 === 0 ? '#fff' : '#fafafa' }}>
+            <td style={{ padding: '9px 14px', fontWeight: 600, color: '#374151', borderBottom: '1px solid #f1f5f9' }}>{row.feature}</td>
+            <td style={{ padding: '9px 14px', color: '#6366f1', borderBottom: '1px solid #f1f5f9', fontSize: 12 }}>{row.radix}</td>
+            <td style={{ padding: '9px 14px', color: '#f59e0b', borderBottom: '1px solid #f1f5f9', fontSize: 12 }}>{row.ant}</td>
+            <td style={{ padding: '9px 14px', color: '#10b981', fontWeight: 600, borderBottom: '1px solid #f1f5f9', fontSize: 12 }}>{row.orbit}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+)

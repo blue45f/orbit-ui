@@ -156,7 +156,7 @@ const componentsByCategory: Record<string, string[]> = {
 }
 
 const FilterTagsRender = () => {
-  const [selected, setSelected] = React.useState('all')
+  const [selected, setSelected] = useState('all')
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', maxWidth: '560px', padding: '24px' }}>
@@ -310,7 +310,7 @@ const TECH_STACKS = [
 ]
 
 const MantineChipGroupRender = () => {
-  const [selected, setSelected] = React.useState<string[]>(['react', 'ts'])
+  const [selected, setSelected] = useState<string[]>(['react', 'ts'])
 
   const toggle = (id: string) => {
     setSelected((prev) => prev.includes(id) ? prev.filter((s) => s !== id) : [...prev, id])
@@ -438,8 +438,8 @@ export const Arco_기술스택_배지: Story = {
    태그 기반 검색 필드 - 입력으로 태그 추가, 클릭으로 제거하는 패턴
 -------------------------------------------------------------------------- */
 const SearchTagsRender = () => {
-  const [tags, setTags] = React.useState<string[]>(['디자인 시스템', 'React'])
-  const [input, setInput] = React.useState('')
+  const [tags, setTags] = useState<string[]>(['디자인 시스템', 'React'])
+  const [input, setInput] = useState('')
 
   const addTag = () => {
     const trimmed = input.trim()

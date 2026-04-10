@@ -15785,3 +15785,203 @@ export const PluginMarketplace: Story = {
   },
   render: () => <PluginMarketplaceRender />,
 }
+
+// ─── Template 55: FormBuilder (Radix UI + Ant Design 벤치마크) ───────────────
+
+type FBFieldType = 'text' | 'select' | 'toggle' | 'number' | 'textarea'
+type FBField = {
+  id: string
+  label: string
+  type: FBFieldType
+  required: boolean
+  placeholder: string
+  value: string | boolean
+  error: string
+}
+
+const INITIAL_FIELDS: FBField[] = [
+  { id: 'name', label: '이름', type: 'text', required: true, placeholder: '홍길동', value: '', error: '' },
+  { id: 'email', label: '이메일', type: 'text', required: true, placeholder: 'user@example.com', value: '', error: '' },
+  { id: 'company', label: '회사명', type: 'text', required: false, placeholder: '(주)오빗', value: '', error: '' },
+  { id: 'plan', label: '요금제', type: 'select', required: true, placeholder: '요금제 선택', value: '', error: '' },
+  { id: 'notify', label: '이메일 알림', type: 'toggle', required: false, placeholder: '', value: false, error: '' },
+  { id: 'bio', label: '소개', type: 'textarea', required: false, placeholder: '간단한 자기소개를 입력해 주세요', value: '', error: '' },
+]
+
+const FB_PLANS = ['Starter', 'Pro', 'Business', 'Enterprise']
+
+const FB_STEPS = ['기본 정보', '계정 설정', '완료']
+
+const FormBuilderRender = () => {
+  const [step, setStep] = useState(0)
+  const [fields, setFields] = useState<FBField[]>(INITIAL_FIELDS)
+  const [submitted, setSubmitted] = useState(false)
+
+  const stepFields: Record<number, string[]> = {
+    0: ['name', 'email', 'company'],
+    1: ['plan', 'notify', 'bio'],
+  }
+
+  const currentFields = step < 2 ? fields.filter(f => (stepFields[step] || []).includes(f.id)) : []
+
+  const validate = () => {
+    let valid = true
+    const updated = fields.map(f => {
+      if (!(stepFields[step] || []).includes(f.id)) return f
+      if (f.required && !f.value) {
+        valid = false
+        return { ...f, error: `${f.label}은(는) 필수 항목입니다.` }
+      }
+      if (f.id === 'email' && f.value && typeof f.value === 'string' && !f.value.includes('@')) {
+        valid = false
+        return { ...f, error: '유효한 이메일 주소를 입력해 주세요.' }
+      }
+      return { ...f, error: '' }
+    })
+    setFields(updated)
+    return valid
+  }
+
+  const next = () => {
+    if (validate()) {
+      if (step < FB_STEPS.length - 1) setStep(s => s + 1)
+      if (step === FB_STEPS.length - 2) setSubmitted(true)
+    }
+  }
+
+  const updateField = (id: string, value: string | boolean) => {
+    setFields(prev => prev.map(f => f.id === id ? { ...f, value, error: '' } : f))
+  }
+
+  return (
+    <div style={{ width: 800, display: 'flex', gap: 24, fontFamily: 'system-ui, sans-serif', alignItems: 'flex-start' }}>
+      {/* Left: step nav */}
+      <div style={{ width: 200, flexShrink: 0 }}>
+        <div style={{ padding: '20px 16px', border: '1px solid #e2e8f0', borderRadius: 14, background: '#fff', marginBottom: 12 }}>
+          <div style={{ fontSize: 13, fontWeight: 700, color: '#0f172a', marginBottom: 16 }}>진행 단계</div>
+          {FB_STEPS.map((label, i) => {
+            const isDone = i < step || submitted
+            const isActive = i === step && !submitted
+            return (
+              <div key={i} style={{ display: 'flex', gap: 10, alignItems: 'flex-start', marginBottom: i < FB_STEPS.length - 1 ? 12 : 0, position: 'relative' }}>
+                {i < FB_STEPS.length - 1 && (
+                  <div style={{ position: 'absolute', left: 13, top: 28, width: 2, height: 20, background: isDone ? '#6366f1' : '#e2e8f0' }} />
+                )}
+                <div style={{ width: 26, height: 26, borderRadius: '50%', background: isDone ? '#6366f1' : isActive ? '#fff' : '#f1f5f9', border: `2px solid ${isDone || isActive ? '#6366f1' : '#e2e8f0'}`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 11, fontWeight: 700, color: isDone ? '#fff' : isActive ? '#6366f1' : '#94a3b8', flexShrink: 0 }}>
+                  {isDone ? '✓' : i + 1}
+                </div>
+                <div>
+                  <div style={{ fontSize: 12, fontWeight: isActive ? 700 : 500, color: isActive ? '#6366f1' : isDone ? '#0f172a' : '#94a3b8' }}>{label}</div>
+                </div>
+              </div>
+            )
+          })}
+        </div>
+        {/* Progress */}
+        <div style={{ padding: '14px 16px', border: '1px solid #e2e8f0', borderRadius: 12, background: '#fff' }}>
+          <div style={{ fontSize: 11, color: '#94a3b8', marginBottom: 8 }}>완료율</div>
+          <Progress value={submitted ? 100 : step * 50} />
+          <div style={{ fontSize: 12, fontWeight: 700, color: '#6366f1', marginTop: 6, textAlign: 'right' }}>{submitted ? 100 : step * 50}%</div>
+        </div>
+      </div>
+
+      {/* Right: form */}
+      <div style={{ flex: 1, minWidth: 0 }}>
+        <SectionTitle>
+          <SectionTitle.Title>{submitted ? '가입 완료!' : FB_STEPS[step]}</SectionTitle.Title>
+          <SectionTitle.Trailing>
+            <PageNumber current={Math.min(step + 1, FB_STEPS.length)} total={FB_STEPS.length} />
+          </SectionTitle.Trailing>
+        </SectionTitle>
+
+        <div style={{ height: 12 }} />
+
+        {submitted ? (
+          <div style={{ textAlign: 'center', padding: '40px 20px', border: '1px solid #dcfce7', borderRadius: 14, background: '#f0fdf4' }}>
+            <div style={{ width: 56, height: 56, borderRadius: '50%', background: '#22c55e', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 24, fontWeight: 800, margin: '0 auto 16px' }}>✓</div>
+            <div style={{ fontSize: 18, fontWeight: 800, color: '#15803d', marginBottom: 8 }}>등록이 완료되었습니다!</div>
+            <div style={{ fontSize: 13, color: '#16a34a' }}>
+              {fields.find(f => f.id === 'name')?.value || '사용자'}님, 환영합니다.
+            </div>
+            <div style={{ marginTop: 20 }}>
+              <LabelBadge color="benefit"><LabelBadge.Label>{fields.find(f => f.id === 'plan')?.value as string || 'Starter'} 플랜</LabelBadge.Label></LabelBadge>
+            </div>
+          </div>
+        ) : (
+          <div style={{ border: '1px solid #e2e8f0', borderRadius: 14, padding: 24, background: '#fff' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+              {currentFields.map((field) => (
+                <div key={field.id}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 4, marginBottom: 6 }}>
+                    <label style={{ fontSize: 13, fontWeight: 600, color: '#334155' }}>{field.label}</label>
+                    {field.required && <span style={{ color: '#ef4444', fontSize: 12 }}>*</span>}
+                  </div>
+                  {field.type === 'toggle' ? (
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                      <Toggle
+                        checked={field.value as boolean}
+                        onCheckedChange={(v) => updateField(field.id, v)}
+                      />
+                      <span style={{ fontSize: 12, color: '#64748b' }}>{field.value ? '활성화됨' : '비활성화됨'}</span>
+                    </div>
+                  ) : field.type === 'select' ? (
+                    <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+                      {FB_PLANS.map(plan => (
+                        <Chip
+                          key={plan}
+                          selected={field.value === plan}
+                          onClick={() => updateField(field.id, plan)}
+                        >
+                          {plan}
+                        </Chip>
+                      ))}
+                    </div>
+                  ) : (
+                    <TextField
+                      value={field.value as string}
+                      onChange={(e) => updateField(field.id, e.target.value)}
+                      placeholder={field.placeholder}
+                    />
+                  )}
+                  {field.error && (
+                    <div style={{ fontSize: 11, color: '#ef4444', marginTop: 4, display: 'flex', alignItems: 'center', gap: 4 }}>
+                      <span>!</span> {field.error}
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 24, paddingTop: 16, borderTop: '1px solid #f1f5f9' }}>
+              <OutlineButton
+                color="gray"
+                size="medium"
+                onClick={() => setStep(s => Math.max(0, s - 1))}
+                disabled={step === 0}
+              >
+                <OutlineButton.Center>이전</OutlineButton.Center>
+              </OutlineButton>
+              <SolidButton color="primary" size="medium" onClick={next}>
+                <SolidButton.Center>{step === FB_STEPS.length - 2 ? '제출하기' : '다음'}</SolidButton.Center>
+              </SolidButton>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+
+export const FormBuilder: Story = {
+  name: 'Form Builder (Radix UI + Ant Design 벤치마크)',
+  parameters: {
+    layout: 'centered',
+    docs: {
+      description: {
+        story:
+          'Radix UI의 비제어/제어 폼 패턴 + Ant Design Steps 스텝 위저드 결합. ' +
+          'SectionTitle + PageNumber 진행 표시, TextField/Chip/Toggle 다양한 필드 타입, Progress 완료율, LabelBadge 플랜 확인.',
+      },
+    },
+  },
+  render: () => <FormBuilderRender />,
+}
