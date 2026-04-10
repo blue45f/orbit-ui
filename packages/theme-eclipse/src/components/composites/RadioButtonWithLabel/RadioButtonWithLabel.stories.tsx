@@ -499,3 +499,165 @@ export const Shadcn_배포_대상_선택: Story = {
   name: 'shadcn/ui — 배포 대상 선택 (아이콘+배지)',
   render: () => <DeployTargetDemo />,
 }
+
+/* ── Ant Design: 폼 필드 내 라디오 그룹 ── */
+const AntFormRadioDemo = () => {
+  const [gender, setGender] = useState('')
+  const [experience, setExperience] = useState('')
+  const [submitted, setSubmitted] = useState(false)
+
+  const genderValid = gender !== ''
+  const expValid = experience !== ''
+  const allValid = genderValid && expValid
+
+  return (
+    <div style={{ maxWidth: 380 }}>
+      <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 20 }}>프로필 설정 (Ant Design 폼 레이블 패턴)</div>
+
+      <div style={{ marginBottom: 20 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 4, marginBottom: 8 }}>
+          <span style={{ color: '#ef4444', fontSize: 12 }}>*</span>
+          <span style={{ fontSize: 13, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>성별</span>
+        </div>
+        <RadioGroup value={gender} onChange={(e) => setGender(e.target.value)} name="gender">
+          <div style={{ display: 'flex', gap: 20 }}>
+            {['남성', '여성', '선택 안함'].map((g) => (
+              <RadioButtonWithLabel key={g} value={g} alignItems="center">{g}</RadioButtonWithLabel>
+            ))}
+          </div>
+        </RadioGroup>
+        {submitted && !genderValid && <div style={{ fontSize: 12, color: '#ef4444', marginTop: 4 }}>성별을 선택해주세요</div>}
+      </div>
+
+      <div style={{ marginBottom: 20 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 4, marginBottom: 8 }}>
+          <span style={{ color: '#ef4444', fontSize: 12 }}>*</span>
+          <span style={{ fontSize: 13, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>개발 경력</span>
+        </div>
+        <RadioGroup value={experience} onChange={(e) => setExperience(e.target.value)} name="experience">
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+            {['1년 미만', '1~3년', '3~5년', '5년 이상'].map((exp) => (
+              <RadioButtonWithLabel key={exp} value={exp} alignItems="center">{exp}</RadioButtonWithLabel>
+            ))}
+          </div>
+        </RadioGroup>
+        {submitted && !expValid && <div style={{ fontSize: 12, color: '#ef4444', marginTop: 4 }}>경력을 선택해주세요</div>}
+      </div>
+
+      <button
+        onClick={() => setSubmitted(true)}
+        style={{ width: '100%', padding: '10px', borderRadius: 6, border: 'none', background: allValid ? '#6366f1' : 'var(--sem-eclipse-color-backgroundSecondary)', color: allValid ? '#fff' : 'var(--sem-eclipse-color-foregroundTertiary)', fontSize: 13, fontWeight: 600, cursor: 'pointer' }}
+      >
+        {submitted && allValid ? '저장 완료!' : '저장'}
+      </button>
+    </div>
+  )
+}
+
+export const Ant_폼_필드_라디오_그룹: Story = {
+  name: 'Ant Design — 폼 필드 내 라디오 그룹',
+  render: () => <AntFormRadioDemo />,
+}
+
+/* ── Ant Design: 수평 라디오 버튼 그룹 ── */
+const AntHorizontalRadioDemo = () => {
+  const [timeRange, setTimeRange] = useState('week')
+  const [chartType, setChartType] = useState('line')
+
+  const timeRanges = [
+    { value: 'day', label: '오늘' },
+    { value: 'week', label: '1주' },
+    { value: 'month', label: '1개월' },
+    { value: 'quarter', label: '3개월' },
+    { value: 'year', label: '1년' },
+  ]
+
+  const chartTypes = [
+    { value: 'line', label: '선형' },
+    { value: 'bar', label: '막대' },
+    { value: 'area', label: '영역' },
+  ]
+
+  return (
+    <div style={{ maxWidth: 480 }}>
+      <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 16 }}>대시보드 설정 (Ant Design 수평 라디오 패턴)</div>
+      <div style={{ marginBottom: 16 }}>
+        <div style={{ fontSize: 12, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginBottom: 8, textTransform: 'uppercase', letterSpacing: '0.04em' }}>기간</div>
+        <RadioGroup value={timeRange} onChange={(e) => setTimeRange(e.target.value)} name="time-range">
+          <div style={{ display: 'flex', gap: 0, border: '1px solid var(--sem-eclipse-color-borderDefault)', borderRadius: 6, overflow: 'hidden' }}>
+            {timeRanges.map((tr, i) => (
+              <div
+                key={tr.value}
+                onClick={() => setTimeRange(tr.value)}
+                style={{ flex: 1, padding: '7px 0', textAlign: 'center', background: timeRange === tr.value ? '#6366f1' : 'var(--sem-eclipse-color-backgroundPrimary)', borderRight: i < timeRanges.length - 1 ? '1px solid var(--sem-eclipse-color-borderSubtle)' : 'none', cursor: 'pointer', transition: 'background 0.12s' }}
+              >
+                <span style={{ fontSize: 12, fontWeight: timeRange === tr.value ? 700 : 400, color: timeRange === tr.value ? '#fff' : 'var(--sem-eclipse-color-foregroundSecondary)' }}>{tr.label}</span>
+              </div>
+            ))}
+          </div>
+        </RadioGroup>
+      </div>
+      <div>
+        <div style={{ fontSize: 12, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginBottom: 8, textTransform: 'uppercase', letterSpacing: '0.04em' }}>차트 유형</div>
+        <RadioGroup value={chartType} onChange={(e) => setChartType(e.target.value)} name="chart-type">
+          <div style={{ display: 'flex', gap: 10 }}>
+            {chartTypes.map((ct) => (
+              <RadioButtonWithLabel key={ct.value} value={ct.value} alignItems="center">{ct.label}</RadioButtonWithLabel>
+            ))}
+          </div>
+        </RadioGroup>
+      </div>
+      <div style={{ marginTop: 16, padding: '12px', borderRadius: 8, background: 'var(--sem-eclipse-color-backgroundSecondary)', fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>
+        선택: <strong style={{ color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{timeRanges.find((t) => t.value === timeRange)?.label}</strong> / <strong style={{ color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{chartTypes.find((c) => c.value === chartType)?.label}</strong> 차트
+      </div>
+    </div>
+  )
+}
+
+export const Ant_수평_라디오_그룹: Story = {
+  name: 'Ant Design — 수평 라디오 버튼 그룹',
+  render: () => <AntHorizontalRadioDemo />,
+}
+
+/* ── Ant Design: 카드형 선택 그리드 ── */
+const AntCardSelectDemo = () => {
+  const [selected, setSelected] = useState('nextjs')
+
+  const frameworks = [
+    { value: 'nextjs', label: 'Next.js', desc: 'React 풀스택', icon: '▲' },
+    { value: 'nuxt', label: 'Nuxt', desc: 'Vue 풀스택', icon: '◆' },
+    { value: 'remix', label: 'Remix', desc: 'React 웹앱', icon: '●' },
+    { value: 'astro', label: 'Astro', desc: '정적 우선', icon: '★' },
+  ]
+
+  return (
+    <div style={{ maxWidth: 400 }}>
+      <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 14 }}>프레임워크 선택 (Ant Design 카드 라디오 그리드)</div>
+      <RadioGroup value={selected} onChange={(e) => setSelected(e.target.value)} name="framework">
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
+          {frameworks.map((fw) => (
+            <div
+              key={fw.value}
+              onClick={() => setSelected(fw.value)}
+              style={{ padding: '14px', borderRadius: 8, border: `2px solid ${selected === fw.value ? '#6366f1' : 'var(--sem-eclipse-color-borderSubtle)'}`, background: selected === fw.value ? '#6366f108' : 'var(--sem-eclipse-color-backgroundPrimary)', cursor: 'pointer', transition: 'border-color 0.15s', display: 'flex', flexDirection: 'column', gap: 8 }}
+            >
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                <span style={{ fontSize: 20, color: selected === fw.value ? '#6366f1' : 'var(--sem-eclipse-color-foregroundSecondary)' }}>{fw.icon}</span>
+                <RadioButtonWithLabel value={fw.value} alignItems="center" />
+              </div>
+              <div>
+                <div style={{ fontSize: 14, fontWeight: 700, color: selected === fw.value ? '#6366f1' : 'var(--sem-eclipse-color-foregroundPrimary)' }}>{fw.label}</div>
+                <div style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginTop: 2 }}>{fw.desc}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </RadioGroup>
+    </div>
+  )
+}
+
+export const Ant_카드형_선택_그리드: Story = {
+  name: 'Ant Design — 카드형 선택 그리드',
+  render: () => <AntCardSelectDemo />,
+}

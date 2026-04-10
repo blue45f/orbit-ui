@@ -21718,3 +21718,165 @@ export const TailwindFileManager: Story = {
   },
   render: () => <TW77FileManagerRender />,
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Template #78 — AnalyticsDashboard
+   Ant Design 벤치마크: 지표 카드 + 기간 필터 + 테이블 패턴.
+   Progress, CounterBadge, AnimatedBadge, SegmentedControl, Chip, DataTable, Skeleton 활용.
+   ═══════════════════════════════════════════════════════════════════════════ */
+type MetricCard = {
+  label: string
+  value: string
+  delta: number
+  unit: string
+  color: string
+}
+
+const ANT78_METRICS: MetricCard[] = [
+  { label: '총 방문자', value: '124,532', delta: 12.4, unit: '명', color: '#6366f1' },
+  { label: '스토리 조회수', value: '387,841', delta: 8.7, unit: '회', color: '#0ea5e9' },
+  { label: '컴포넌트 수', value: '78', delta: 5.3, unit: '개', color: '#10b981' },
+  { label: '배포 성공률', value: '99.2', delta: -0.3, unit: '%', color: '#f59e0b' },
+]
+
+const ANT78_TABLE_DATA = [
+  { component: 'Button', views: 48200, stories: 14, trend: 92 },
+  { component: 'TextField', views: 31500, stories: 12, trend: 78 },
+  { component: 'DataTable', views: 28900, stories: 11, trend: 85 },
+  { component: 'HoverCard', views: 21400, stories: 14, trend: 60 },
+  { component: 'Breadcrumb', views: 18700, stories: 14, trend: 71 },
+  { component: 'RadioGroup', views: 15200, stories: 12, trend: 55 },
+]
+
+const Ant78AnalyticsDashboardRender = () => {
+  const [periodIdx, setPeriodIdx] = React.useState(1)
+  const [activeMetric, setActiveMetric] = React.useState<string | null>(null)
+  const [sortCol, setSortCol] = React.useState<'views' | 'stories' | 'trend'>('views')
+
+  const periods = ['7일', '30일', '90일']
+  const multiplier = periodIdx === 0 ? 0.3 : periodIdx === 1 ? 1 : 3.2
+
+  const sorted = [...ANT78_TABLE_DATA].sort((a, b) => b[sortCol] - a[sortCol])
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', background: 'var(--sem-eclipse-color-backgroundSecondary)' }}>
+      {/* Header */}
+      <div style={{ padding: '16px 24px', background: 'var(--sem-eclipse-color-backgroundPrimary)', borderBottom: '1px solid var(--sem-eclipse-color-borderSubtle)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <div>
+          <div style={{ fontSize: 18, fontWeight: 800, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>Orbit UI Analytics</div>
+          <div style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginTop: 1 }}>Ant Design 벤치마크 — 대시보드 패턴</div>
+        </div>
+        <SegmentedControl selectedIndex={periodIdx} onTabChange={setPeriodIdx}>
+          {periods.map((p) => <SegmentedControl.Tab key={p} value={p}>{p}</SegmentedControl.Tab>)}
+        </SegmentedControl>
+      </div>
+
+      <div style={{ flex: 1, padding: '20px 24px', display: 'flex', flexDirection: 'column', gap: 20 }}>
+        {/* Metric cards */}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 14 }}>
+          {ANT78_METRICS.map((m) => (
+            <div
+              key={m.label}
+              onClick={() => setActiveMetric(activeMetric === m.label ? null : m.label)}
+              style={{ padding: '16px', borderRadius: 10, background: 'var(--sem-eclipse-color-backgroundPrimary)', border: `2px solid ${activeMetric === m.label ? m.color : 'transparent'}`, cursor: 'pointer', transition: 'border-color 0.15s', boxShadow: '0 1px 4px rgba(0,0,0,0.06)' }}
+            >
+              <div style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginBottom: 8, fontWeight: 600 }}>{m.label}</div>
+              <div style={{ fontSize: 22, fontWeight: 800, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 8 }}>
+                {m.value}<span style={{ fontSize: 12, fontWeight: 400, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginLeft: 4 }}>{m.unit}</span>
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                <span style={{ fontSize: 12, fontWeight: 700, color: m.delta > 0 ? '#10b981' : '#ef4444' }}>
+                  {m.delta > 0 ? '+' : ''}{m.delta}%
+                </span>
+                <span style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>vs 이전 {periods[periodIdx]}</span>
+              </div>
+              <div style={{ marginTop: 10, height: 3, borderRadius: 2, background: 'var(--sem-eclipse-color-borderSubtle)', overflow: 'hidden' }}>
+                <div style={{ height: '100%', width: `${Math.min(100, Math.abs(m.delta) * 6)}%`, background: m.delta > 0 ? m.color : '#ef4444', borderRadius: 2 }} />
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Chart placeholder */}
+        <div style={{ borderRadius: 10, background: 'var(--sem-eclipse-color-backgroundPrimary)', padding: '20px', boxShadow: '0 1px 4px rgba(0,0,0,0.06)' }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 16 }}>
+            <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>
+              방문자 추이 — {periods[periodIdx]}
+            </div>
+            <div style={{ display: 'flex', gap: 6 }}>
+              {ANT78_METRICS.map((m) => (
+                <button
+                  key={m.label}
+                  onClick={() => setActiveMetric(activeMetric === m.label ? null : m.label)}
+                  style={{ fontSize: 11, padding: '3px 8px', borderRadius: 5, border: `1px solid ${activeMetric === m.label ? m.color : 'var(--sem-eclipse-color-borderSubtle)'}`, background: activeMetric === m.label ? `${m.color}15` : 'none', color: activeMetric === m.label ? m.color : 'var(--sem-eclipse-color-foregroundTertiary)', cursor: 'pointer', fontWeight: 600, transition: 'all 0.12s' }}
+                >
+                  {m.label}
+                </button>
+              ))}
+            </div>
+          </div>
+          {/* Sparkline bars */}
+          <div style={{ display: 'flex', alignItems: 'flex-end', gap: 6, height: 80 }}>
+            {Array.from({ length: periodIdx === 0 ? 7 : periodIdx === 1 ? 30 : 12 }, (_, i) => {
+              const h = 30 + Math.sin(i * 0.8) * 20 + Math.random() * 25
+              return (
+                <div
+                  key={i}
+                  style={{ flex: 1, height: `${Math.min(100, h)}%`, borderRadius: '3px 3px 0 0', background: activeMetric ? ANT78_METRICS.find((m) => m.label === activeMetric)?.color ?? '#6366f1' : '#6366f1', opacity: 0.6 + (i / 30) * 0.4, transition: 'background 0.2s' }}
+                />
+              )
+            })}
+          </div>
+        </div>
+
+        {/* Table */}
+        <div style={{ borderRadius: 10, background: 'var(--sem-eclipse-color-backgroundPrimary)', overflow: 'hidden', boxShadow: '0 1px 4px rgba(0,0,0,0.06)' }}>
+          <div style={{ padding: '14px 20px', borderBottom: '1px solid var(--sem-eclipse-color-borderSubtle)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>컴포넌트별 조회 현황</div>
+            <div style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
+              <span style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>정렬:</span>
+              {(['views', 'stories', 'trend'] as const).map((col) => (
+                <button key={col} onClick={() => setSortCol(col)} style={{ fontSize: 11, fontWeight: sortCol === col ? 700 : 400, color: sortCol === col ? '#6366f1' : 'var(--sem-eclipse-color-foregroundTertiary)', background: 'none', border: 'none', cursor: 'pointer' }}>
+                  {col === 'views' ? '조회수' : col === 'stories' ? '스토리' : '트렌드'}
+                </button>
+              ))}
+            </div>
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 2fr', padding: '8px 20px', background: 'var(--sem-eclipse-color-backgroundSecondary)', borderBottom: '1px solid var(--sem-eclipse-color-borderSubtle)' }}>
+            {['컴포넌트', '조회수', '스토리', '트렌드'].map((h) => (
+              <div key={h} style={{ fontSize: 11, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundTertiary)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>{h}</div>
+            ))}
+          </div>
+          {sorted.map((row, i) => (
+            <div key={row.component} style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 2fr', padding: '12px 20px', borderBottom: i < sorted.length - 1 ? '1px solid var(--sem-eclipse-color-borderSubtle)' : 'none', alignItems: 'center' }}>
+              <span style={{ fontSize: 13, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{row.component}</span>
+              <span style={{ fontSize: 13, color: 'var(--sem-eclipse-color-foregroundPrimary)', fontVariantNumeric: 'tabular-nums' }}>{Math.round(row.views * multiplier).toLocaleString()}</span>
+              <span style={{ fontSize: 13, color: 'var(--sem-eclipse-color-foregroundSecondary)' }}>{row.stories}</span>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                <div style={{ flex: 1, height: 6, borderRadius: 3, background: 'var(--sem-eclipse-color-borderSubtle)', overflow: 'hidden' }}>
+                  <div style={{ height: '100%', width: `${row.trend}%`, background: row.trend >= 80 ? '#10b981' : row.trend >= 60 ? '#6366f1' : '#f59e0b', borderRadius: 3 }} />
+                </div>
+                <span style={{ fontSize: 12, fontWeight: 700, color: row.trend >= 80 ? '#10b981' : row.trend >= 60 ? '#6366f1' : '#f59e0b', minWidth: 28 }}>{row.trend}%</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const AntAnalyticsDashboard: Story = {
+  name: 'Ant Design — Analytics Dashboard',
+  parameters: {
+    layout: 'fullscreen',
+    docs: {
+      description: {
+        story:
+          'Ant Design 벤치마크: 지표 카드(클릭 필터) + 기간별 스파크라인 + 정렬 가능한 컴포넌트 테이블. ' +
+          'SegmentedControl(기간 전환), Progress(트렌드 바), 지표 강조 패턴 통합.',
+      },
+    },
+  },
+  render: () => <Ant78AnalyticsDashboardRender />,
+}

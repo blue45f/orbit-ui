@@ -478,3 +478,176 @@ export const Radix_포커스_관리_템플릿_에디터: Story = {
   },
   render: () => <RadixFocusManagementDemo />,
 }
+
+/* ── Ant Design: 단계별 폼 에디터 ── */
+const AntStepFormDemo = () => {
+  const [step, setStep] = useState(0)
+  const [values, setValues] = useState({ title: '', content: '', summary: '' })
+
+  const steps = ['제목 작성', '본문 편집', '요약 확인']
+
+  return (
+    <div style={{ maxWidth: 640 }}>
+      {/* Step indicator */}
+      <div style={{ display: 'flex', alignItems: 'center', marginBottom: 24 }}>
+        {steps.map((s, i) => (
+          <div key={s} style={{ display: 'flex', alignItems: 'center', flex: i < steps.length - 1 ? 1 : 'none' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+              <div style={{ width: 28, height: 28, borderRadius: '50%', background: i < step ? '#10b981' : i === step ? '#6366f1' : 'var(--sem-eclipse-color-backgroundSecondary)', color: i <= step ? '#fff' : 'var(--sem-eclipse-color-foregroundTertiary)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 12, fontWeight: 700, flexShrink: 0, transition: 'background 0.2s' }}>
+                {i < step ? '✓' : i + 1}
+              </div>
+              <span style={{ fontSize: 13, fontWeight: i === step ? 700 : 400, color: i === step ? '#6366f1' : i < step ? '#10b981' : 'var(--sem-eclipse-color-foregroundTertiary)', whiteSpace: 'nowrap' }}>{s}</span>
+            </div>
+            {i < steps.length - 1 && <div style={{ flex: 1, height: 2, background: i < step ? '#10b981' : 'var(--sem-eclipse-color-borderSubtle)', margin: '0 8px', transition: 'background 0.2s' }} />}
+          </div>
+        ))}
+      </div>
+
+      {/* Step content */}
+      {step === 0 && (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+          <div style={{ fontSize: 14, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>게시물 제목을 입력하세요</div>
+          <input
+            value={values.title}
+            onChange={(e) => setValues((v) => ({ ...v, title: e.target.value }))}
+            placeholder="제목 (최대 100자)"
+            style={{ padding: '10px 14px', borderRadius: 8, border: '1px solid var(--sem-eclipse-color-borderDefault)', fontSize: 14, outline: 'none', color: 'var(--sem-eclipse-color-foregroundPrimary)', background: 'var(--sem-eclipse-color-backgroundPrimary)' }}
+          />
+          <div style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)', textAlign: 'right' }}>{values.title.length}/100</div>
+        </div>
+      )}
+      {step === 1 && (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+          <div style={{ fontSize: 14, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>본문을 작성하세요</div>
+          <Editor placeholder="본문 내용 입력..." toolbar={<Editor.Toolbar />} footer={<Editor.CharacterCount max={2000} />} onChange={(html) => setValues((v) => ({ ...v, content: html }))} />
+        </div>
+      )}
+      {step === 2 && (
+        <div style={{ padding: '16px', borderRadius: 8, border: '1px solid var(--sem-eclipse-color-borderDefault)', background: 'var(--sem-eclipse-color-backgroundSecondary)', display: 'flex', flexDirection: 'column', gap: 12 }}>
+          <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>작성 완료 확인</div>
+          {[['제목', values.title || '(미입력)'], ['본문 길이', values.content ? `${values.content.replace(/<[^>]+>/g, '').length}자` : '(미입력)']].map(([k, v]) => (
+            <div key={k} style={{ display: 'flex', gap: 12 }}>
+              <span style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)', minWidth: 60 }}>{k}</span>
+              <span style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundPrimary)', fontWeight: 500 }}>{v}</span>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* Navigation */}
+      <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 20 }}>
+        <button onClick={() => setStep((s) => Math.max(0, s - 1))} disabled={step === 0} style={{ padding: '8px 20px', borderRadius: 6, border: '1px solid var(--sem-eclipse-color-borderDefault)', background: 'var(--sem-eclipse-color-backgroundPrimary)', color: step === 0 ? 'var(--sem-eclipse-color-foregroundTertiary)' : 'var(--sem-eclipse-color-foregroundPrimary)', cursor: step === 0 ? 'not-allowed' : 'pointer', fontSize: 13 }}>이전</button>
+        {step < steps.length - 1 ? (
+          <button onClick={() => setStep((s) => s + 1)} style={{ padding: '8px 20px', borderRadius: 6, border: 'none', background: '#6366f1', color: '#fff', cursor: 'pointer', fontSize: 13, fontWeight: 600 }}>다음</button>
+        ) : (
+          <button onClick={() => setStep(0)} style={{ padding: '8px 20px', borderRadius: 6, border: 'none', background: '#10b981', color: '#fff', cursor: 'pointer', fontSize: 13, fontWeight: 600 }}>게시하기</button>
+        )}
+      </div>
+    </div>
+  )
+}
+
+export const Ant_단계별_폼_에디터: Story = {
+  name: 'Ant Design — 단계별 폼 에디터',
+  render: () => <AntStepFormDemo />,
+}
+
+/* ── Ant Design: 동적 탭 에디터 ── */
+const AntTabEditorDemo = () => {
+  const [tabs, setTabs] = useState([
+    { id: 't1', title: 'README.md', content: '' },
+    { id: 't2', title: 'CHANGELOG.md', content: '' },
+  ])
+  const [activeTab, setActiveTab] = useState('t1')
+
+  const addTab = () => {
+    const id = `t${Date.now()}`
+    setTabs((prev) => [...prev, { id, title: `새 파일 ${prev.length + 1}.md`, content: '' }])
+    setActiveTab(id)
+  }
+
+  const closeTab = (id: string) => {
+    setTabs((prev) => {
+      const next = prev.filter((t) => t.id !== id)
+      if (activeTab === id && next.length > 0) setActiveTab(next[next.length - 1].id)
+      return next
+    })
+  }
+
+  const updateContent = (html: string) => {
+    setTabs((prev) => prev.map((t) => (t.id === activeTab ? { ...t, content: html } : t)))
+  }
+
+  const active = tabs.find((t) => t.id === activeTab)
+
+  return (
+    <div style={{ maxWidth: 640 }}>
+      <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 12 }}>문서 탭 에디터 (Ant Design 동적 탭 패턴)</div>
+      {/* Tabs */}
+      <div style={{ display: 'flex', alignItems: 'center', borderBottom: '1px solid var(--sem-eclipse-color-borderSubtle)', marginBottom: 0, overflowX: 'auto' }}>
+        {tabs.map((tab) => (
+          <div
+            key={tab.id}
+            style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '8px 14px', borderBottom: `2px solid ${activeTab === tab.id ? '#6366f1' : 'transparent'}`, cursor: 'pointer', fontSize: 13, fontWeight: activeTab === tab.id ? 700 : 400, color: activeTab === tab.id ? '#6366f1' : 'var(--sem-eclipse-color-foregroundSecondary)', whiteSpace: 'nowrap', transition: 'color 0.12s', flexShrink: 0 }}
+            onClick={() => setActiveTab(tab.id)}
+          >
+            <span>{tab.title}</span>
+            <button onClick={(e) => { e.stopPropagation(); closeTab(tab.id) }} disabled={tabs.length === 1} style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)', background: 'none', border: 'none', cursor: tabs.length === 1 ? 'not-allowed' : 'pointer', opacity: tabs.length === 1 ? 0.3 : 1, padding: '0 2px' }}>x</button>
+          </div>
+        ))}
+        <button onClick={addTab} style={{ padding: '8px 12px', fontSize: 18, color: 'var(--sem-eclipse-color-foregroundTertiary)', background: 'none', border: 'none', cursor: 'pointer', flexShrink: 0 }}>+</button>
+      </div>
+      {active && (
+        <Editor key={active.id} placeholder={`${active.title} 내용 입력...`} toolbar={<Editor.Toolbar />} footer={<Editor.CharacterCount max={5000} />} onChange={updateContent} />
+      )}
+    </div>
+  )
+}
+
+export const Ant_동적_탭_에디터: Story = {
+  name: 'Ant Design — 동적 탭 에디터',
+  render: () => <AntTabEditorDemo />,
+}
+
+/* ── Ant Design: 폼 유효성 검사 에디터 ── */
+const AntValidationEditorDemo = () => {
+  const [value, setValue] = useState('')
+  const [submitted, setSubmitted] = useState(false)
+
+  const text = value.replace(/<[^>]+>/g, '').trim()
+  const charCount = text.length
+  const MIN = 50
+  const MAX = 1000
+
+  const isValid = charCount >= MIN && charCount <= MAX
+  const status = submitted && !isValid ? 'error' : charCount > 0 && charCount < MIN ? 'warning' : 'default'
+  const statusMsg = status === 'error' ? `최소 ${MIN}자 이상 입력하세요 (현재 ${charCount}자)` : status === 'warning' ? `${MIN - charCount}자 더 필요합니다` : null
+
+  return (
+    <div style={{ maxWidth: 640 }}>
+      <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 4 }}>리뷰 작성 (Ant Design 유효성 검사 패턴)</div>
+      <div style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginBottom: 12 }}>최소 {MIN}자 이상, 최대 {MAX}자 이하로 작성하세요.</div>
+      <div style={{ border: `2px solid ${status === 'error' ? '#ef4444' : status === 'warning' ? '#f59e0b' : 'var(--sem-eclipse-color-borderDefault)'}`, borderRadius: 8, overflow: 'hidden', transition: 'border-color 0.15s' }}>
+        <Editor placeholder="솔직하고 상세한 리뷰를 작성해주세요..." toolbar={<Editor.Toolbar />} footer={<Editor.CharacterCount max={MAX} />} onChange={setValue} />
+      </div>
+      {statusMsg && (
+        <div style={{ marginTop: 6, fontSize: 12, color: status === 'error' ? '#ef4444' : '#f59e0b', display: 'flex', alignItems: 'center', gap: 4 }}>
+          <span>{status === 'error' ? '!' : '△'}</span> {statusMsg}
+        </div>
+      )}
+      <div style={{ marginTop: 12, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <div style={{ height: 4, flex: 1, borderRadius: 2, background: 'var(--sem-eclipse-color-borderSubtle)', overflow: 'hidden', marginRight: 12 }}>
+          <div style={{ height: '100%', width: `${Math.min(100, (charCount / MIN) * 100)}%`, background: isValid ? '#10b981' : status === 'warning' ? '#f59e0b' : '#6366f1', transition: 'width 0.2s, background 0.2s', borderRadius: 2 }} />
+        </div>
+        <button onClick={() => setSubmitted(true)} disabled={submitted && !isValid} style={{ padding: '8px 20px', borderRadius: 6, border: 'none', background: isValid ? '#6366f1' : 'var(--sem-eclipse-color-backgroundSecondary)', color: isValid ? '#fff' : 'var(--sem-eclipse-color-foregroundTertiary)', cursor: isValid ? 'pointer' : 'not-allowed', fontSize: 13, fontWeight: 600, transition: 'all 0.15s' }}>
+          {submitted && isValid ? '제출 완료!' : '리뷰 제출'}
+        </button>
+      </div>
+    </div>
+  )
+}
+
+export const Ant_폼_유효성_검사_에디터: Story = {
+  name: 'Ant Design — 폼 유효성 검사 에디터',
+  render: () => <AntValidationEditorDemo />,
+}
