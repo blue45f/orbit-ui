@@ -1195,3 +1195,141 @@ export const Tailwind_M3_위저드_도트_진행_표시: Story = {
   },
   render: () => <TailwindM3WizardRender />,
 }
+
+// ─── Cycle 156: Apple HIG + Google Material 3 ──────────────────────────────
+
+function AppleHigOnboardingRender() {
+  const [current, setCurrent] = useState(0)
+  const slides = [
+    { title: '환영합니다', desc: 'Orbit UI 디자인 시스템에 오신 것을 환영합니다.', color: '#f0f9ff' },
+    { title: '컴포넌트', desc: '48개 이상의 프로덕션 준비 컴포넌트를 사용하세요.', color: '#f0fdf4' },
+    { title: '테마', desc: '3단계 토큰 시스템으로 브랜드를 자유롭게 커스텀하세요.', color: '#fefce8' },
+    { title: '시작하기', desc: 'pnpm add @heejun-com/theme-eclipse 로 즉시 시작하세요.', color: '#fdf4ff' },
+  ]
+  return (
+    <div style={{ width: 320, fontFamily: 'Inter, system-ui, sans-serif' }}>
+      <div style={{ height: 180, background: slides[current].color, borderRadius: 16, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '24px', textAlign: 'center', transition: 'background 0.3s', marginBottom: 16 }}>
+        <div style={{ fontSize: 16, fontWeight: 700, color: '#0f172a', marginBottom: 8 }}>{slides[current].title}</div>
+        <div style={{ fontSize: 13, color: '#475569', lineHeight: 1.6 }}>{slides[current].desc}</div>
+      </div>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6, marginBottom: 16 }}>
+        {slides.map((_, i) => (
+          <PageDots key={i} selected={i === current} onClick={() => setCurrent(i)} />
+        ))}
+      </div>
+      <div style={{ display: 'flex', gap: 8, justifyContent: 'center' }}>
+        <button onClick={() => setCurrent(p => Math.max(0, p - 1))} disabled={current === 0} style={{ padding: '8px 20px', fontSize: 13, border: '1px solid #e2e8f0', borderRadius: 8, cursor: current === 0 ? 'not-allowed' : 'pointer', background: '#fff', color: current === 0 ? '#94a3b8' : '#1e293b' }}>이전</button>
+        <button onClick={() => setCurrent(p => Math.min(slides.length - 1, p + 1))} disabled={current === slides.length - 1} style={{ padding: '8px 20px', fontSize: 13, border: 'none', borderRadius: 8, cursor: current === slides.length - 1 ? 'not-allowed' : 'pointer', background: '#0f172a', color: '#fff' }}>
+          {current === slides.length - 1 ? '완료' : '다음'}
+        </button>
+      </div>
+      <div style={{ marginTop: 12, textAlign: 'center', fontSize: 11, color: '#94a3b8' }}>Apple HIG 온보딩 페이지 도트 패턴</div>
+    </div>
+  )
+}
+
+export const Apple_HIG_온보딩_페이지_도트: Story = {
+  name: 'Apple HIG - 온보딩 페이지 도트 인디케이터',
+  render: () => <AppleHigOnboardingRender />,
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Apple HIG 온보딩 플로우 패턴. 4단계 슬라이드를 PageDots로 표현하며 이전/다음 버튼과 연동됩니다. ' +
+          'Apple UIPageControl의 현재 페이지 하이라이트와 탭 이동 패턴을 재현합니다.',
+      },
+    },
+  },
+}
+
+function M3StepIndicatorRender() {
+  const [step, setStep] = useState(1)
+  const TOTAL = 5
+  return (
+    <div style={{ width: 300, fontFamily: 'Inter, system-ui, sans-serif' }}>
+      <div style={{ fontSize: 12, fontWeight: 700, color: '#6b7280', marginBottom: 12 }}>Material 3 스텝 인디케이터</div>
+      <div style={{ padding: '20px', background: '#fffbfe', borderRadius: 12, border: '1px solid #e8def8', marginBottom: 12 }}>
+        <div style={{ fontSize: 13, fontWeight: 600, color: '#1c1b1f', marginBottom: 4 }}>단계 {step} / {TOTAL}</div>
+        <div style={{ fontSize: 12, color: '#49454f', marginBottom: 16 }}>
+          {['프로젝트 설정', '팀 구성', '플랜 선택', '환경 설정', '완료'][step - 1]}
+        </div>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 4 }}>
+          {Array.from({ length: TOTAL }, (_, i) => (
+            <PageDots key={i} selected={i < step} onClick={() => setStep(i + 1)} />
+          ))}
+        </div>
+      </div>
+      <div style={{ display: 'flex', gap: 6, justifyContent: 'center' }}>
+        {Array.from({ length: TOTAL }, (_, i) => (
+          <button key={i} onClick={() => setStep(i + 1)} style={{ width: 28, height: 28, borderRadius: '50%', border: step === i + 1 ? '2px solid #6750a4' : '1px solid #e8def8', background: step === i + 1 ? '#6750a4' : '#fff', color: step === i + 1 ? '#fff' : '#49454f', fontSize: 11, cursor: 'pointer', fontWeight: 600 }}>
+            {i + 1}
+          </button>
+        ))}
+      </div>
+      <div style={{ marginTop: 10, fontSize: 11, color: '#94a3b8', textAlign: 'center' }}>M3 LinearProgressIndicator + Stepper 패턴</div>
+    </div>
+  )
+}
+
+export const M3_스텝_진행_인디케이터: Story = {
+  name: 'Google Material 3 - 스텝 진행 인디케이터',
+  render: () => <M3StepIndicatorRender />,
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Google Material 3 LinearProgressIndicator 패턴. 완료된 단계는 활성 상태로 표시되고 클릭으로 특정 단계로 이동합니다. ' +
+          'M3의 보라색 계열 Tertiary 색상 시스템을 PageDots로 재현합니다.',
+      },
+    },
+  },
+}
+
+function AppleM3MediaRender() {
+  const [track, setTrack] = useState(0)
+  const [playing, setPlaying] = useState(false)
+  const tracks = ['Orbit Theme', 'Eclipse Suite', 'Design System', 'Component Kit', 'Token Wave']
+  useEffect(() => {
+    if (!playing) return
+    const timer = setTimeout(() => setTrack(p => (p + 1) % tracks.length), 3000)
+    return () => clearTimeout(timer)
+  }, [playing, track, tracks.length])
+  return (
+    <div style={{ width: 300, fontFamily: 'Inter, system-ui, sans-serif', background: '#1c1b1f', borderRadius: 16, padding: '20px', color: '#e6e1e5' }}>
+      <div style={{ textAlign: 'center', marginBottom: 16 }}>
+        <div style={{ width: 80, height: 80, borderRadius: 16, background: 'linear-gradient(135deg, #6750a4, #b69df8)', margin: '0 auto 12px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <span style={{ fontSize: 32 }}>♪</span>
+        </div>
+        <div style={{ fontSize: 14, fontWeight: 700, color: '#e6e1e5' }}>{tracks[track]}</div>
+        <div style={{ fontSize: 12, color: '#938f99', marginTop: 2 }}>Orbit UI Sounds</div>
+      </div>
+      <div style={{ display: 'flex', justifyContent: 'center', gap: 5, marginBottom: 16 }}>
+        {tracks.map((_, i) => (
+          <PageDots key={i} selected={i === track} onClick={() => { setTrack(i); setPlaying(false) }} />
+        ))}
+      </div>
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 16 }}>
+        <button onClick={() => setTrack(p => Math.max(0, p - 1))} style={{ width: 36, height: 36, borderRadius: '50%', border: 'none', background: '#2d2c32', color: '#e6e1e5', cursor: 'pointer', fontSize: 14 }}>&#8249;</button>
+        <button onClick={() => setPlaying(p => !p)} style={{ width: 48, height: 48, borderRadius: '50%', border: 'none', background: '#d0bcff', color: '#1c1b1f', cursor: 'pointer', fontSize: 18, fontWeight: 700 }}>
+          {playing ? '⏸' : '▶'}
+        </button>
+        <button onClick={() => setTrack(p => (p + 1) % tracks.length)} style={{ width: 36, height: 36, borderRadius: '50%', border: 'none', background: '#2d2c32', color: '#e6e1e5', cursor: 'pointer', fontSize: 14 }}>&#8250;</button>
+      </div>
+      <div style={{ marginTop: 12, fontSize: 11, color: '#938f99', textAlign: 'center' }}>Apple Music + M3 미디어 플레이어 도트 패턴</div>
+    </div>
+  )
+}
+
+export const Apple_M3_미디어_플레이어_도트: Story = {
+  name: 'Apple HIG + M3 - 미디어 플레이어 트랙 도트',
+  render: () => <AppleM3MediaRender />,
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Apple HIG + Google Material 3 복합 패턴. 다크 배경의 미디어 플레이어에서 PageDots로 트랙을 표시합니다. ' +
+          'Apple Music의 미니 플레이어 레이아웃과 M3 다크 테마 색상(보라 계열)을 결합합니다.',
+      },
+    },
+  },
+}

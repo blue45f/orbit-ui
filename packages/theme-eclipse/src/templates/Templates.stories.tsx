@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 import {
   Accordion,
@@ -41,6 +41,7 @@ import {
 } from '../index'
 
 import { OutlineButton } from '../components/OutlineButton'
+import { OutlineIconButton } from '../components/OutlineIconButton'
 import { GhostButton } from '../components/GhostButton'
 import { Calendar } from '../components/Calendar'
 import { SearchBar } from '../components/SearchBar'
@@ -77,6 +78,7 @@ import {
   ArrowSortIcon,
   CheckIcon,
   ShareIcon,
+  RefreshLineIcon,
 } from '@heejun-com/icons'
 
 import { Command } from '../components/Command'
@@ -35305,4 +35307,141 @@ export const ArcoRaycast155CommandPalette: StoryObj = {
     },
   },
   render: () => <ArcoRaycast155CommandPaletteRender />,
+}
+
+// ─── Cycle 156: Apple HIG + Google Material 3 ──────────────────────────────
+
+const A156_ITEMS = [
+  { id: '1', title: '아이콘 버튼 가이드', category: 'Components', date: '2026-04-11', starred: true },
+  { id: '2', title: '페이지 도트 패턴', category: 'Navigation', date: '2026-04-10', starred: false },
+  { id: '3', title: 'M3 색상 시스템', category: 'Design Tokens', date: '2026-04-09', starred: true },
+  { id: '4', title: 'Apple HIG 접근성', category: 'Accessibility', date: '2026-04-08', starred: false },
+  { id: '5', title: '다크 테마 전환', category: 'Theme', date: '2026-04-07', starred: false },
+  { id: '6', title: 'Orbit UI 3단계 토큰', category: 'Design Tokens', date: '2026-04-06', starred: true },
+]
+
+const A156_SLIDES = [
+  { title: '디자인 시스템이란?', desc: '재사용 가능한 컴포넌트와 설계 원칙의 집합', color: '#e8f5e9' },
+  { title: '3단계 토큰 시스템', desc: 'Reference → Semantic → Component 계층 구조', color: '#e3f2fd' },
+  { title: 'Orbit UI 특징', desc: '48+ 컴포넌트, TypeScript 지원, 접근성 준수', color: '#f3e5f5' },
+]
+
+function AppleM3156ContentBrowserRender() {
+  const [viewMode, setViewMode] = useState<'grid' | 'list'>('list')
+  const [sortAsc, setSortAsc] = useState(true)
+  const [filterCat, setFilterCat] = useState<string>('전체')
+  const [starredItems, setStarredItems] = useState<Set<string>>(new Set(['1', '3', '6']))
+  const [slide, setSlide] = useState(0)
+  const [playing, setPlaying] = useState(false)
+
+  const categories = ['전체', 'Components', 'Navigation', 'Design Tokens', 'Theme', 'Accessibility']
+  const filtered = A156_ITEMS.filter(item => filterCat === '전체' || item.category === filterCat)
+  const sorted = [...filtered].sort((a, b) => sortAsc ? a.title.localeCompare(b.title) : b.title.localeCompare(a.title))
+
+  const toggleStar = (id: string) => setStarredItems(prev => {
+    const next = new Set(prev)
+    if (next.has(id)) { next.delete(id) } else { next.add(id) }
+    return next
+  })
+
+  useEffect(() => {
+    if (!playing) return
+    const t = setTimeout(() => setSlide(p => (p + 1) % A156_SLIDES.length), 2500)
+    return () => clearTimeout(t)
+  }, [playing, slide])
+
+  return (
+    <div style={{ display: 'flex', height: 580, fontFamily: 'Inter, system-ui, sans-serif', background: '#fff', border: '1px solid #e2e8f0', borderRadius: 8, overflow: 'hidden' }}>
+      {/* Left: Slideshow (Apple HIG Onboarding + M3 Card) */}
+      <div style={{ width: 240, background: '#fafafa', borderRight: '1px solid #e2e8f0', display: 'flex', flexDirection: 'column' }}>
+        <div style={{ padding: '16px', borderBottom: '1px solid #e2e8f0' }}>
+          <div style={{ fontSize: 12, fontWeight: 700, color: '#374151' }}>학습 가이드</div>
+        </div>
+        <div style={{ flex: 1, padding: '16px', display: 'flex', flexDirection: 'column' }}>
+          <div style={{ flex: 1, background: A156_SLIDES[slide].color, borderRadius: 12, padding: '20px 16px', display: 'flex', flexDirection: 'column', justifyContent: 'center', transition: 'background 0.3s', marginBottom: 12 }}>
+            <div style={{ fontSize: 13, fontWeight: 700, color: '#1e293b', marginBottom: 6 }}>{A156_SLIDES[slide].title}</div>
+            <div style={{ fontSize: 11, color: '#475569', lineHeight: 1.5 }}>{A156_SLIDES[slide].desc}</div>
+          </div>
+          <div style={{ display: 'flex', justifyContent: 'center', gap: 5, marginBottom: 12 }}>
+            {A156_SLIDES.map((_, i) => (
+              <PageDots key={i} selected={i === slide} onClick={() => { setSlide(i); setPlaying(false) }} />
+            ))}
+          </div>
+          <div style={{ display: 'flex', gap: 6, justifyContent: 'center' }}>
+            <OutlineIconButton color="gray" size="small" onClick={() => setSlide(p => Math.max(0, p - 1))}>
+              <ChevronLeftLineIcon size={18} />
+            </OutlineIconButton>
+            <OutlineIconButton color={playing ? 'black' : 'gray'} size="small" onClick={() => setPlaying(p => !p)}>
+              <RefreshLineIcon size={18} />
+            </OutlineIconButton>
+            <OutlineIconButton color="gray" size="small" onClick={() => setSlide(p => (p + 1) % A156_SLIDES.length)}>
+              <ChevronRightLineIcon size={18} />
+            </OutlineIconButton>
+          </div>
+        </div>
+        <div style={{ padding: '10px 16px', borderTop: '1px solid #e2e8f0', fontSize: 11, color: '#94a3b8' }}>
+          Apple HIG 슬라이드 패턴
+        </div>
+      </div>
+
+      {/* Right: Content browser (M3 + Apple HIG list/grid) */}
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+        {/* Toolbar */}
+        <div style={{ padding: '10px 16px', borderBottom: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', gap: 8 }}>
+          <div style={{ display: 'flex', gap: 4, flex: 1, flexWrap: 'wrap' }}>
+            {categories.map(cat => (
+              <button key={cat} onClick={() => setFilterCat(cat)} style={{ fontSize: 11, padding: '3px 8px', borderRadius: 12, border: `1px solid ${filterCat === cat ? '#0f172a' : '#e2e8f0'}`, background: filterCat === cat ? '#0f172a' : '#fff', color: filterCat === cat ? '#fff' : '#64748b', cursor: 'pointer', fontWeight: filterCat === cat ? 600 : 400 }}>
+                {cat}
+              </button>
+            ))}
+          </div>
+          <div style={{ display: 'flex', gap: 4 }}>
+            <OutlineIconButton color="gray" size="small" onClick={() => setSortAsc(s => !s)}>
+              <ArrowSortIcon size={18} style={{ transform: sortAsc ? 'none' : 'scaleY(-1)' }} />
+            </OutlineIconButton>
+            <OutlineIconButton color={viewMode === 'grid' ? 'black' : 'gray'} size="small" onClick={() => setViewMode('grid')}>
+              <GridViewLineIcon size={18} />
+            </OutlineIconButton>
+            <OutlineIconButton color={viewMode === 'list' ? 'black' : 'gray'} size="small" onClick={() => setViewMode('list')}>
+              <ListLineIcon size={18} />
+            </OutlineIconButton>
+          </div>
+        </div>
+
+        {/* Content */}
+        <div style={{ flex: 1, padding: '12px 16px', overflowY: 'auto' }}>
+          <div style={{ display: viewMode === 'grid' ? 'grid' : 'flex', gridTemplateColumns: viewMode === 'grid' ? '1fr 1fr' : undefined, flexDirection: viewMode === 'list' ? 'column' : undefined, gap: 8 }}>
+            {sorted.map(item => (
+              <div key={item.id} style={{ padding: viewMode === 'grid' ? '14px' : '10px 14px', background: '#f8fafc', borderRadius: 8, border: '1px solid #e2e8f0', display: 'flex', flexDirection: viewMode === 'grid' ? 'column' : 'row', alignItems: viewMode === 'grid' ? 'flex-start' : 'center', gap: viewMode === 'grid' ? 6 : 10 }}>
+                <div style={{ flex: 1 }}>
+                  <div style={{ fontSize: 13, fontWeight: 600, color: '#1e293b' }}>{item.title}</div>
+                  <div style={{ fontSize: 11, color: '#64748b', marginTop: 2 }}>{item.category} · {item.date}</div>
+                </div>
+                <OutlineIconButton color={starredItems.has(item.id) ? 'black' : 'gray'} size="small" onClick={() => toggleStar(item.id)}>
+                  <StarLineIcon size={18} />
+                </OutlineIconButton>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div style={{ padding: '10px 16px', borderTop: '1px solid #e2e8f0', fontSize: 11, color: '#94a3b8' }}>
+          Apple HIG + M3 — 콘텐츠 브라우저 · PageDots 슬라이드 + OutlineIconButton 툴바 + 그리드/리스트 뷰
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const AppleM3156ContentBrowser: StoryObj = {
+  name: 'Apple HIG + M3 — 콘텐츠 브라우저 (슬라이드 + 뷰 전환 + 즐겨찾기)',
+  parameters: {
+    layout: 'fullscreen',
+    docs: {
+      description: {
+        story: 'Apple HIG + Google Material 3 복합 패턴. 좌: Apple HIG 온보딩 슬라이드(PageDots+OutlineIconButton 탐색), 우: M3 콘텐츠 목록(카테고리 필터+정렬+그리드/리스트 뷰전환+OutlineIconButton 별표 즐겨찾기). 실무 콘텐츠 브라우저 레이아웃.',
+      },
+    },
+  },
+  render: () => <AppleM3156ContentBrowserRender />,
 }

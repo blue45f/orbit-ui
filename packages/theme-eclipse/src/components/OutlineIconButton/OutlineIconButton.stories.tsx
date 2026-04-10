@@ -1268,3 +1268,164 @@ export const Tailwind_M3_미디어_플레이어_컨트롤: Story = {
   },
   render: (args: ComponentProps<typeof OutlineIconButton>) => <TailwindM3PlayerControlRender {...args} />,
 }
+
+// ─── Cycle 156: Apple HIG + Google Material 3 ──────────────────────────────
+
+function AppleHigNavigationBarRender(args: ComponentProps<typeof OutlineIconButton>) {
+  const [bookmarked, setBookmarked] = useState(false)
+  const [downloaded, setDownloaded] = useState(false)
+  return (
+    <div style={{ width: 360, fontFamily: 'Inter, system-ui, sans-serif' }}>
+      <div style={{ fontSize: 12, fontWeight: 700, color: '#6b7280', marginBottom: 10 }}>Apple HIG 내비게이션 바 아이콘 버튼</div>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 16px', background: '#f9fafb', borderRadius: 12, border: '1px solid #e5e7eb' }}>
+        <div style={{ display: 'flex', gap: 8 }}>
+          <OutlineIconButton {...args} color="gray" size="small" onClick={() => {}}>
+            <ChevronLeftLineIcon size={18} />
+          </OutlineIconButton>
+          <OutlineIconButton {...args} color="gray" size="small" onClick={() => {}}>
+            <ChevronRightLineIcon size={18} />
+          </OutlineIconButton>
+        </div>
+        <div style={{ fontSize: 14, fontWeight: 600, color: '#111827' }}>컴포넌트 문서</div>
+        <div style={{ display: 'flex', gap: 6 }}>
+          <OutlineIconButton {...args} color={bookmarked ? 'black' : 'gray'} size="small" onClick={() => setBookmarked(b => !b)}>
+            <StarLineIcon size={18} />
+          </OutlineIconButton>
+          <OutlineIconButton {...args} color={downloaded ? 'black' : 'gray'} size="small" onClick={() => setDownloaded(d => !d)}>
+            <DownloadIcon size={18} />
+          </OutlineIconButton>
+          <OutlineIconButton {...args} color="gray" size="small" onClick={() => {}}>
+            <ShareIcon size={18} />
+          </OutlineIconButton>
+        </div>
+      </div>
+      <div style={{ marginTop: 8, fontSize: 11, color: '#9ca3af' }}>
+        북마크: {bookmarked ? '활성' : '비활성'} | 다운로드: {downloaded ? '완료' : '미완'}
+      </div>
+      <div style={{ fontSize: 11, color: '#9ca3af' }}>Apple HIG UINavigationBar BarButtonItem 패턴</div>
+    </div>
+  )
+}
+
+export const Apple_HIG_내비게이션_바_아이콘: Story = {
+  name: 'Apple HIG - 내비게이션 바 아이콘 버튼 (토글 상태)',
+  args: { children: <ChevronLeftLineIcon /> },
+  render: (args) => <AppleHigNavigationBarRender {...args} />,
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Apple HIG UINavigationBar BarButtonItem 패턴. 좌측 뒤로/앞으로, 우측 북마크·다운로드·공유 아이콘 버튼을 배치합니다. ' +
+          '북마크와 다운로드는 활성 상태에서 흑색으로 전환되는 토글 동작을 구현합니다.',
+      },
+    },
+  },
+}
+
+function M3IconButtonVariantRender(args: ComponentProps<typeof OutlineIconButton>) {
+  const [liked, setLiked] = useState(false)
+  const [filtered, setFiltered] = useState(false)
+  const [sorted, setSorted] = useState(false)
+  return (
+    <div style={{ width: 360, fontFamily: 'Inter, system-ui, sans-serif' }}>
+      <div style={{ fontSize: 12, fontWeight: 700, color: '#6b7280', marginBottom: 12 }}>Material 3 아이콘 버튼 패턴</div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+        <div style={{ padding: '14px 16px', background: '#fffbfe', borderRadius: 12, border: '1px solid #e8def8' }}>
+          <div style={{ fontSize: 11, fontWeight: 600, color: '#49454f', marginBottom: 8 }}>Tonal — 상태 토글</div>
+          <div style={{ display: 'flex', gap: 8 }}>
+            <OutlineIconButton {...args} color={liked ? 'black' : 'gray'} size="medium" onClick={() => setLiked(l => !l)}>
+              <StarLineIcon size={24} />
+            </OutlineIconButton>
+            <OutlineIconButton {...args} color={filtered ? 'black' : 'gray'} size="medium" onClick={() => setFiltered(f => !f)}>
+              <FilterIcon size={24} />
+            </OutlineIconButton>
+            <OutlineIconButton {...args} color={sorted ? 'black' : 'gray'} size="medium" onClick={() => setSorted(s => !s)}>
+              <ArrowSortIcon size={24} />
+            </OutlineIconButton>
+          </div>
+        </div>
+        <div style={{ padding: '14px 16px', background: '#fffbfe', borderRadius: 12, border: '1px solid #e8def8' }}>
+          <div style={{ fontSize: 11, fontWeight: 600, color: '#49454f', marginBottom: 8 }}>Standard — 크기 계층</div>
+          <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+            <OutlineIconButton {...args} color="gray" size="small" onClick={() => {}}>
+              <GridViewLineIcon size={18} />
+            </OutlineIconButton>
+            <OutlineIconButton {...args} color="gray" size="medium" onClick={() => {}}>
+              <ListLineIcon size={24} />
+            </OutlineIconButton>
+            <OutlineIconButton {...args} color="gray" size="large" onClick={() => {}}>
+              <MoreHorizontalIcon size={28} />
+            </OutlineIconButton>
+          </div>
+        </div>
+      </div>
+      <div style={{ marginTop: 10, fontSize: 11, color: '#94a3b8' }}>M3 FilledTonal / Standard IconButton — 상태별 색상 + 크기 계층</div>
+    </div>
+  )
+}
+
+export const M3_아이콘_버튼_패턴: Story = {
+  name: 'Google Material 3 - 아이콘 버튼 Tonal/Standard 패턴',
+  args: { children: <StarLineIcon /> },
+  render: (args) => <M3IconButtonVariantRender {...args} />,
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Google Material 3 FilledTonal + Standard IconButton 패턴. Tonal 섹션은 선택 토글 동작, Standard 섹션은 small·medium·large 크기 계층을 비교합니다. ' +
+          'M3의 상태 레이어(state layer) 개념을 OutlineIconButton color 토글로 재현합니다.',
+      },
+    },
+  },
+}
+
+function AppleM3ToolbarRender(args: ComponentProps<typeof OutlineIconButton>) {
+  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid')
+  const [sortAsc, setSortAsc] = useState(true)
+  const [filterOpen, setFilterOpen] = useState(false)
+  return (
+    <div style={{ width: 380, fontFamily: 'Inter, system-ui, sans-serif' }}>
+      <div style={{ fontSize: 12, fontWeight: 700, color: '#6b7280', marginBottom: 10 }}>Apple HIG + M3 툴바 아이콘 패턴</div>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 14px', background: '#fff', borderRadius: 12, border: '1px solid #e2e8f0', boxShadow: '0 1px 3px rgba(0,0,0,0.06)' }}>
+        <div style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
+          <OutlineIconButton {...args} color={filterOpen ? 'black' : 'gray'} size="small" onClick={() => setFilterOpen(f => !f)}>
+            <FilterIcon size={18} />
+          </OutlineIconButton>
+          <OutlineIconButton {...args} color="gray" size="small" onClick={() => setSortAsc(s => !s)}>
+            <ArrowSortIcon size={18} style={{ transform: sortAsc ? 'none' : 'scaleY(-1)' }} />
+          </OutlineIconButton>
+          <OutlineIconButton {...args} color="gray" size="small" onClick={() => {}}>
+            <RefreshLineIcon size={18} />
+          </OutlineIconButton>
+        </div>
+        <div style={{ display: 'flex', background: '#f3f4f6', borderRadius: 8, padding: 2 }}>
+          <OutlineIconButton {...args} color={viewMode === 'grid' ? 'black' : 'gray'} size="small" onClick={() => setViewMode('grid')} style={{ borderRadius: 6 }}>
+            <GridViewLineIcon size={18} />
+          </OutlineIconButton>
+          <OutlineIconButton {...args} color={viewMode === 'list' ? 'black' : 'gray'} size="small" onClick={() => setViewMode('list')} style={{ borderRadius: 6 }}>
+            <ListLineIcon size={18} />
+          </OutlineIconButton>
+        </div>
+      </div>
+      <div style={{ marginTop: 8, padding: '8px 14px', background: filterOpen ? '#eff6ff' : '#f8fafc', borderRadius: 8, fontSize: 12, color: '#475569', transition: 'background 0.2s' }}>
+        뷰: {viewMode === 'grid' ? '그리드' : '리스트'} | 정렬: {sortAsc ? '오름차순' : '내림차순'} | 필터: {filterOpen ? '열림' : '닫힘'}
+      </div>
+      <div style={{ marginTop: 6, fontSize: 11, color: '#94a3b8' }}>Apple HIG + M3 — 뷰 전환 + 필터 + 정렬 툴바 패턴</div>
+    </div>
+  )
+}
+
+export const Apple_M3_툴바_아이콘_버튼: Story = {
+  name: 'Apple HIG + M3 - 뷰 전환 툴바 아이콘 버튼',
+  args: { children: <FilterIcon /> },
+  render: (args) => <AppleM3ToolbarRender {...args} />,
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Apple HIG + Google Material 3 복합 패턴. 좌측 필터·정렬·새로고침, 우측 그리드/리스트 뷰 전환 세그먼트 컨트롤을 아이콘 버튼으로 구현합니다. ' +
+          'Apple SF Symbols 크기 계층과 M3 톤 강조 버튼 패턴을 재현합니다.',
+      },
+    },
+  },
+}
