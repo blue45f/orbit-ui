@@ -730,6 +730,206 @@ const DEPLOY_BADGE: Record<DeployRow['status'], { color: 'white' | 'club' | 'sal
   pending: { color: 'white', label: 'Queued' },
 }
 
+/* --------------------------------------------------------------------------
+   Linear 벤치마크: 이슈 사이클 상태 배지 패턴
+   Linear의 Cycles 섹션 — 사이클(스프린트) 전환 시 상태 배지 변화 시뮬레이션
+-------------------------------------------------------------------------- */
+type LinearCycleBadge94 = { id: string; title: string; status: 'active' | 'upcoming' | 'completed'; period: string; issueCount: number }
+
+const LINEAR_CYCLE_DATA94: LinearCycleBadge94[] = [
+  { id: 'c14', title: 'Cycle 14', status: 'active',    period: '04/07 - 04/20', issueCount: 8  },
+  { id: 'c15', title: 'Cycle 15', status: 'upcoming',  period: '04/21 - 05/04', issueCount: 6  },
+  { id: 'c16', title: 'Cycle 16', status: 'upcoming',  period: '05/05 - 05/18', issueCount: 4  },
+  { id: 'c13', title: 'Cycle 13', status: 'completed', period: '03/24 - 04/06', issueCount: 11 },
+  { id: 'c12', title: 'Cycle 12', status: 'completed', period: '03/10 - 03/23', issueCount: 9  },
+]
+
+const CYCLE_BADGE94: Record<LinearCycleBadge94['status'], { color: 'white' | 'club' | 'sale'; label: string }> = {
+  active:    { color: 'club',  label: 'Active'    },
+  upcoming:  { color: 'white', label: 'Upcoming'  },
+  completed: { color: 'sale',  label: 'Done'      },
+}
+
+export const Linear_사이클_상태_배지: Story = {
+  name: 'Linear - Cycles 스프린트 상태 배지 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Linear Cycles 패턴. 활성(club)/예정(white)/완료(sale) 세 가지 색상으로 사이클 상태를 표현합니다. ' +
+          '각 행에 기간, 이슈 수, 상태 배지를 함께 배치하는 이슈 트래커 뷰 패턴입니다.',
+      },
+    },
+  },
+  render: () => (
+    <div style={{ width: 380, border: '1px solid #e2e8f0', borderRadius: 12, overflow: 'hidden', fontFamily: 'system-ui, sans-serif', background: '#fff' }}>
+      <div style={{ padding: '12px 16px', borderBottom: '1px solid #f1f5f9', fontSize: 13, fontWeight: 700, color: '#0f172a' }}>
+        Cycles
+      </div>
+      {LINEAR_CYCLE_DATA94.map((c, i) => {
+        const badge = CYCLE_BADGE94[c.status]
+        return (
+          <div key={c.id} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 16px', borderBottom: i < LINEAR_CYCLE_DATA94.length - 1 ? '1px solid #f8fafc' : 'none', cursor: 'pointer' }}>
+            <div style={{ flex: 1 }}>
+              <div style={{ fontSize: 13, fontWeight: c.status === 'active' ? 700 : 500, color: c.status === 'completed' ? '#94a3b8' : '#0f172a' }}>{c.title}</div>
+              <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 1 }}>{c.period} · {c.issueCount}개 이슈</div>
+            </div>
+            <AnimatedBadge color={badge.color} size="small">
+              <AnimatedBadge.Label>{badge.label}</AnimatedBadge.Label>
+            </AnimatedBadge>
+          </div>
+        )
+      })}
+    </div>
+  ),
+}
+
+/* --------------------------------------------------------------------------
+   Linear 벤치마크: 프로젝트 헬스 배지 패턴
+   Linear의 Projects — 프로젝트 건강도를 실시간 상태 배지로 표시
+-------------------------------------------------------------------------- */
+type ProjectHealth94 = 'on-track' | 'at-risk' | 'off-track'
+
+const LINEAR_PROJECTS94: Array<{ id: string; name: string; health: ProjectHealth94; progress: number; team: string }> = [
+  { id: 'p1', name: 'Orbit UI Design System v2', health: 'on-track',   progress: 68, team: 'Engineering' },
+  { id: 'p2', name: 'Figma 컴포넌트 동기화',     health: 'at-risk',   progress: 40, team: 'Design'      },
+  { id: 'p3', name: '접근성 감사 대응',           health: 'off-track', progress: 15, team: 'Engineering' },
+  { id: 'p4', name: 'Storybook 배포 자동화',      health: 'on-track',  progress: 92, team: 'Infra'       },
+]
+
+const HEALTH_BADGE94: Record<ProjectHealth94, { color: 'white' | 'club' | 'sale'; label: string; barColor: string }> = {
+  'on-track':  { color: 'sale',  label: 'On Track',  barColor: '#10b981' },
+  'at-risk':   { color: 'club',  label: 'At Risk',   barColor: '#f59e0b' },
+  'off-track': { color: 'white', label: 'Off Track', barColor: '#ef4444' },
+}
+
+export const Linear_프로젝트_헬스_배지: Story = {
+  name: 'Linear - 프로젝트 건강도 상태 배지 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Linear Projects 패턴. On Track(sale)/At Risk(club)/Off Track(white)로 프로젝트 건강도를 표현하고 ' +
+          '진행률 바와 함께 실시간 상태를 직관적으로 전달합니다.',
+      },
+    },
+  },
+  render: () => (
+    <div style={{ width: 400, display: 'flex', flexDirection: 'column', gap: 10, fontFamily: 'system-ui, sans-serif' }}>
+      <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a', marginBottom: 4 }}>Projects</div>
+      {LINEAR_PROJECTS94.map((p) => {
+        const h = HEALTH_BADGE94[p.health]
+        return (
+          <div key={p.id} style={{ padding: '14px 16px', borderRadius: 12, border: '1px solid #e2e8f0', background: '#fff', display: 'flex', flexDirection: 'column', gap: 10 }}>
+            <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 8 }}>
+              <div>
+                <div style={{ fontSize: 13, fontWeight: 600, color: '#0f172a' }}>{p.name}</div>
+                <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>{p.team}</div>
+              </div>
+              <AnimatedBadge color={h.color} size="small">
+                <AnimatedBadge.Label>{h.label}</AnimatedBadge.Label>
+              </AnimatedBadge>
+            </div>
+            <div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 4 }}>
+                <span style={{ fontSize: 11, color: '#64748b' }}>진행률</span>
+                <span style={{ fontSize: 11, fontWeight: 700, color: h.barColor }}>{p.progress}%</span>
+              </div>
+              <div style={{ height: 4, borderRadius: 2, background: '#f1f5f9', overflow: 'hidden' }}>
+                <div style={{ width: `${p.progress}%`, height: '100%', borderRadius: 2, background: h.barColor, transition: 'width 0.3s' }} />
+              </div>
+            </div>
+          </div>
+        )
+      })}
+    </div>
+  ),
+}
+
+/* --------------------------------------------------------------------------
+   Linear 벤치마크: 실시간 이슈 활동 피드 배지
+   Linear의 Activity — 이슈 상태 변경을 실시간 배지 피드로 표현
+-------------------------------------------------------------------------- */
+type ActivityEvent94 = { id: number; user: string; action: string; issue: string; status: 'white' | 'club' | 'sale'; statusLabel: string; ago: string }
+
+function LinearActivityFeedRender94() {
+  const [events, setEvents] = useState<ActivityEvent94[]>([
+    { id: 1, user: '김희준', action: '완료로 변경',       issue: 'ORB-201 스켈레톤 스토리 추가', status: 'sale',  statusLabel: 'Done',        ago: '방금'   },
+    { id: 2, user: '이서연', action: '진행 중으로 변경',   issue: 'ORB-202 TextField 접근성',    status: 'club',  statusLabel: 'In Progress', ago: '3분 전' },
+    { id: 3, user: '박지호', action: '새 이슈 생성',       issue: 'ORB-205 Motion 토큰 정의',    status: 'white', statusLabel: 'Todo',        ago: '7분 전' },
+    { id: 4, user: '최은아', action: '완료로 변경',         issue: 'ORB-198 Calendar 문서화',     status: 'sale',  statusLabel: 'Done',        ago: '12분 전'},
+  ])
+
+  const addEvent = () => {
+    const newId = Math.max(...events.map((e) => e.id)) + 1
+    const statusCycle: Array<'club' | 'sale' | 'white'> = ['club', 'sale', 'white']
+    const st = statusCycle[newId % 3]
+    const labels: Record<'club' | 'sale' | 'white', string> = { club: 'In Progress', sale: 'Done', white: 'Todo' }
+    const actions = ['진행 중으로 변경', '완료로 변경', '새 이슈 생성']
+    const users = ['김희준', '이서연', '박지호']
+    const newEvent: ActivityEvent94 = {
+      id: newId,
+      user: users[newId % 3],
+      action: actions[newId % 3],
+      issue: `ORB-${200 + newId} 새 작업 항목`,
+      status: st,
+      statusLabel: labels[st],
+      ago: '방금',
+    }
+    setEvents((prev) => [newEvent, ...prev].slice(0, 6))
+  }
+
+  return (
+    <div style={{ width: 380, fontFamily: 'system-ui, sans-serif' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
+        <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>Activity</div>
+        <button
+          onClick={addEvent}
+          style={{ padding: '4px 12px', borderRadius: 8, border: '1px solid #e2e8f0', background: '#fff', fontSize: 11, fontWeight: 600, color: '#6366f1', cursor: 'pointer' }}
+        >
+          + 이벤트 추가
+        </button>
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+        {events.map((ev) => (
+          <div key={ev.id} style={{ display: 'flex', alignItems: 'flex-start', gap: 10, padding: '10px 12px', borderRadius: 10, border: '1px solid #f1f5f9', background: '#fafafa' }}>
+            <div style={{ width: 28, height: 28, borderRadius: '50%', background: '#6366f1', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 11, fontWeight: 700, color: '#fff', flexShrink: 0 }}>
+              {ev.user[0]}
+            </div>
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 4, flexWrap: 'wrap' }}>
+                <span style={{ fontSize: 12, fontWeight: 700, color: '#0f172a' }}>{ev.user}</span>
+                <span style={{ fontSize: 12, color: '#64748b' }}>{ev.action}</span>
+              </div>
+              <div style={{ fontSize: 11, color: '#94a3b8', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', marginTop: 2 }}>{ev.issue}</div>
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 4, flexShrink: 0 }}>
+              <AnimatedBadge color={ev.status} size="small">
+                <AnimatedBadge.Label>{ev.statusLabel}</AnimatedBadge.Label>
+              </AnimatedBadge>
+              <span style={{ fontSize: 10, color: '#94a3b8' }}>{ev.ago}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+export const Linear_활동_피드_배지: Story = {
+  name: 'Linear - 이슈 활동 피드 실시간 배지 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Linear Activity 패턴. 이슈 상태 변경 이벤트를 시간순 피드로 보여주고 AnimatedBadge로 상태를 강조합니다. ' +
+          '"이벤트 추가" 버튼으로 새 활동을 시뮬레이션합니다.',
+      },
+    },
+  },
+  render: () => <LinearActivityFeedRender94 />,
+}
+
 export const Vercel_배포_상태_대시보드: Story = {
   name: 'Vercel - 배포 상태 대시보드 다크 패턴',
   render: () => (

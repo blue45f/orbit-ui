@@ -22954,6 +22954,261 @@ function Shadcn93TeamDashboardRender() {
   )
 }
 
+/* ==========================================================================
+   Cycle 94 — Linear Design 벤치마크: Product Roadmap
+   Linear의 Roadmap 뷰 — 분기별 마일스톤 + 프로젝트 진행률 + 이슈 Backlog
+   Progress, LabelBadge, SectionTitle, Divider, ScrollableTabGroup 통합
+   ========================================================================== */
+type Linear94Quarter = 'Q1' | 'Q2' | 'Q3' | 'Q4'
+type Linear94MilestoneStatus = 'shipped' | 'in-progress' | 'planned' | 'cancelled'
+type Linear94ProjectStatus = 'on-track' | 'at-risk' | 'off-track'
+
+interface Linear94Milestone {
+  id: string
+  title: string
+  team: string
+  status: Linear94MilestoneStatus
+  progress: number
+}
+
+interface Linear94Project {
+  id: string
+  name: string
+  status: Linear94ProjectStatus
+  progress: number
+  milestoneCount: number
+  completedCount: number
+  lead: string
+  color: string
+}
+
+const LINEAR94_QUARTERS: Array<{ id: Linear94Quarter; label: string; isCurrent: boolean }> = [
+  { id: 'Q1', label: 'Q1 2025', isCurrent: false },
+  { id: 'Q2', label: 'Q2 2025', isCurrent: true  },
+  { id: 'Q3', label: 'Q3 2025', isCurrent: false },
+  { id: 'Q4', label: 'Q4 2025', isCurrent: false },
+]
+
+const LINEAR94_ROADMAP: Record<Linear94Quarter, Linear94Milestone[]> = {
+  Q1: [
+    { id: 'm1', title: '3단계 디자인 토큰 아키텍처 완성', team: 'Engineering', status: 'shipped',  progress: 100 },
+    { id: 'm2', title: 'Storybook 8.x 마이그레이션',         team: 'Engineering', status: 'shipped',  progress: 100 },
+    { id: 'm3', title: 'Figma 컴포넌트 동기화 파이프라인',   team: 'Design',      status: 'shipped',  progress: 100 },
+    { id: 'm4', title: 'pnpm 모노레포 최적화',               team: 'Infra',       status: 'shipped',  progress: 100 },
+  ],
+  Q2: [
+    { id: 'm5', title: 'DataTable 고도화 — 정렬·페이지',     team: 'Engineering', status: 'in-progress', progress: 72 },
+    { id: 'm6', title: 'AccessibilityGuide.mdx 완성',        team: 'Product',     status: 'in-progress', progress: 45 },
+    { id: 'm7', title: 'Calendar range 선택 구현',            team: 'Engineering', status: 'planned',     progress: 0  },
+    { id: 'm8', title: 'shadcn/ui 마이그레이션 가이드',       team: 'Product',     status: 'planned',     progress: 0  },
+    { id: 'm9', title: 'BenchmarkComparison.mdx',             team: 'Product',     status: 'in-progress', progress: 30 },
+  ],
+  Q3: [
+    { id: 'm10', title: '다크모드 전면 지원',                 team: 'Engineering', status: 'planned', progress: 0 },
+    { id: 'm11', title: 'Motion 토큰 시스템 설계',            team: 'Design',      status: 'planned', progress: 0 },
+    { id: 'm12', title: 'React Native 컴포넌트 브릿지',       team: 'Engineering', status: 'planned', progress: 0 },
+    { id: 'm13', title: 'AI 컴포넌트 추천 프로토타입',        team: 'Engineering', status: 'planned', progress: 0 },
+  ],
+  Q4: [
+    { id: 'm14', title: 'Orbit UI 2.0 GA 출시',              team: 'Product',     status: 'planned', progress: 0 },
+    { id: 'm15', title: '다국어(i18n) 지원',                  team: 'Engineering', status: 'planned', progress: 0 },
+    { id: 'm16', title: '컴포넌트 성능 벤치마크 리포트',      team: 'Infra',       status: 'planned', progress: 0 },
+  ],
+}
+
+const LINEAR94_PROJECTS: Linear94Project[] = [
+  { id: 'p1', name: 'Design System Core',         status: 'on-track',  progress: 78, milestoneCount: 8,  completedCount: 6,  lead: 'HJ', color: '#6366f1' },
+  { id: 'p2', name: 'Documentation Site',          status: 'at-risk',   progress: 42, milestoneCount: 5,  completedCount: 2,  lead: 'SY', color: '#0ea5e9' },
+  { id: 'p3', name: 'Accessibility Initiative',    status: 'off-track', progress: 18, milestoneCount: 4,  completedCount: 0,  lead: 'JH', color: '#ec4899' },
+  { id: 'p4', name: 'Infra & DevOps',              status: 'on-track',  progress: 90, milestoneCount: 6,  completedCount: 5,  lead: 'EA', color: '#10b981' },
+]
+
+const MS_STATUS_META: Record<Linear94MilestoneStatus, { label: string; color: string; bg: string; barColor: string }> = {
+  shipped:      { label: 'Shipped',     color: '#10b981', bg: '#f0fdf4', barColor: '#10b981' },
+  'in-progress':{ label: 'In Progress', color: '#6366f1', bg: '#eef2ff', barColor: '#6366f1' },
+  planned:      { label: 'Planned',     color: '#94a3b8', bg: '#f8fafc', barColor: '#d1d5db' },
+  cancelled:    { label: 'Cancelled',   color: '#ef4444', bg: '#fef2f2', barColor: '#ef4444' },
+}
+
+const PROJ_STATUS_META: Record<Linear94ProjectStatus, { label: string; color: string; bg: string; badgeColor: 'benefit' | 'sale' | 'gray' }> = {
+  'on-track':  { label: 'On Track',  color: '#10b981', bg: '#f0fdf4', badgeColor: 'benefit' },
+  'at-risk':   { label: 'At Risk',   color: '#f59e0b', bg: '#fffbeb', badgeColor: 'sale'    },
+  'off-track': { label: 'Off Track', color: '#ef4444', bg: '#fef2f2', badgeColor: 'gray'    },
+}
+
+const TEAM_COLOR94: Record<string, string> = {
+  Engineering: '#6366f1',
+  Design:      '#ec4899',
+  Product:     '#f59e0b',
+  Infra:       '#10b981',
+}
+
+function Linear94RoadmapRender() {
+  const [activeQuarterIdx, setActiveQuarterIdx] = React.useState(1)
+  const [activeTab, setActiveTab] = React.useState<'roadmap' | 'projects' | 'backlog'>('roadmap')
+  const quarter = LINEAR94_QUARTERS[activeQuarterIdx]
+  const milestones = LINEAR94_ROADMAP[quarter.id]
+  const shipped = milestones.filter((m) => m.status === 'shipped').length
+  const total = milestones.length
+
+  return (
+    <div style={{ minHeight: '100vh', background: '#f8fafc', fontFamily: 'system-ui, sans-serif', display: 'flex', flexDirection: 'column' }}>
+      {/* Top nav */}
+      <div style={{ background: '#fff', borderBottom: '1px solid #e2e8f0', padding: '0 32px', display: 'flex', alignItems: 'center', gap: 0 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '14px 0', marginRight: 32, borderRight: '1px solid #f1f5f9', paddingRight: 24 }}>
+          <div style={{ width: 22, height: 22, borderRadius: 5, background: '#6366f1', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <span style={{ color: '#fff', fontSize: 10, fontWeight: 900 }}>O</span>
+          </div>
+          <span style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>Orbit UI</span>
+        </div>
+        <div style={{ display: 'flex', gap: 0 }}>
+          {(['roadmap', 'projects', 'backlog'] as const).map((t) => (
+            <button
+              key={t}
+              onClick={() => setActiveTab(t)}
+              style={{ padding: '14px 16px', background: 'none', border: 'none', borderBottom: `2px solid ${activeTab === t ? '#6366f1' : 'transparent'}`, fontSize: 13, fontWeight: activeTab === t ? 700 : 500, color: activeTab === t ? '#6366f1' : '#64748b', cursor: 'pointer', textTransform: 'capitalize', transition: 'all 0.15s' }}
+            >
+              {t === 'roadmap' ? 'Roadmap' : t === 'projects' ? 'Projects' : 'Backlog'}
+            </button>
+          ))}
+        </div>
+        <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: 8 }}>
+          <LabelBadge color="benefit"><LabelBadge.Label>Linear 패턴</LabelBadge.Label></LabelBadge>
+        </div>
+      </div>
+
+      <div style={{ padding: '24px 32px', flex: 1 }}>
+        {/* === ROADMAP TAB === */}
+        {activeTab === 'roadmap' && (
+          <div>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 20 }}>
+              <div>
+                <div style={{ fontSize: 20, fontWeight: 700, color: '#0f172a' }}>Product Roadmap</div>
+                <div style={{ fontSize: 13, color: '#64748b', marginTop: 4 }}>분기별 마일스톤 현황을 확인하세요</div>
+              </div>
+              <div style={{ display: 'flex', gap: 6 }}>
+                {LINEAR94_QUARTERS.map((q, i) => (
+                  <button
+                    key={q.id}
+                    onClick={() => setActiveQuarterIdx(i)}
+                    style={{ padding: '6px 14px', borderRadius: 8, border: `1.5px solid ${activeQuarterIdx === i ? '#6366f1' : '#e2e8f0'}`, background: activeQuarterIdx === i ? '#eef2ff' : '#fff', color: activeQuarterIdx === i ? '#6366f1' : '#64748b', fontSize: 12, fontWeight: 600, cursor: 'pointer', position: 'relative' }}
+                  >
+                    {q.label}
+                    {q.isCurrent && <span style={{ position: 'absolute', top: -4, right: -4, width: 8, height: 8, borderRadius: '50%', background: '#10b981', border: '2px solid #fff' }} />}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Quarter summary */}
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 12, marginBottom: 20 }}>
+              {[
+                { label: '전체 마일스톤', value: total, color: '#6366f1', bg: '#eef2ff' },
+                { label: '완료',          value: shipped, color: '#10b981', bg: '#f0fdf4' },
+                { label: '진행률',        value: `${total > 0 ? Math.round((shipped / total) * 100) : 0}%`, color: '#0ea5e9', bg: '#f0f9ff' },
+              ].map((s) => (
+                <div key={s.label} style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: 12, padding: '14px 18px', display: 'flex', alignItems: 'center', gap: 12 }}>
+                  <div style={{ width: 38, height: 38, borderRadius: 9, background: s.bg, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                    <span style={{ fontSize: 16, fontWeight: 800, color: s.color }}>{s.value}</span>
+                  </div>
+                  <span style={{ fontSize: 12, fontWeight: 600, color: '#64748b' }}>{s.label}</span>
+                </div>
+              ))}
+            </div>
+
+            {/* Milestones */}
+            <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: 14, overflow: 'hidden' }}>
+              <SectionTitle style={{ padding: '14px 20px', borderBottom: '1px solid #f1f5f9' }}>
+                <SectionTitle.Title>{quarter.label} 마일스톤</SectionTitle.Title>
+                <SectionTitle.Description>{quarter.isCurrent ? '현재 진행 중인 분기' : '로드맵 계획'}</SectionTitle.Description>
+                <SectionTitle.Trailing>
+                  <CounterBadge>{milestones.length}</CounterBadge>
+                </SectionTitle.Trailing>
+              </SectionTitle>
+              <div style={{ display: 'flex', flexDirection: 'column' }}>
+                {milestones.map((m, i) => {
+                  const st = MS_STATUS_META[m.status]
+                  return (
+                    <div key={m.id} style={{ padding: '14px 20px', borderBottom: i < milestones.length - 1 ? '1px solid #f8fafc' : 'none', display: 'flex', alignItems: 'center', gap: 14 }}>
+                      <div style={{ width: 10, height: 10, borderRadius: '50%', background: TEAM_COLOR94[m.team] ?? '#94a3b8', flexShrink: 0 }} />
+                      <div style={{ flex: 1, minWidth: 0 }}>
+                        <div style={{ fontSize: 13, fontWeight: 600, color: m.status === 'shipped' ? '#94a3b8' : '#0f172a', textDecoration: m.status === 'shipped' ? 'line-through' : 'none' }}>{m.title}</div>
+                        <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>{m.team}</div>
+                      </div>
+                      {m.status !== 'planned' && (
+                        <div style={{ width: 72, height: 4, borderRadius: 2, background: '#f1f5f9', flexShrink: 0 }}>
+                          <div style={{ width: `${m.progress}%`, height: '100%', borderRadius: 2, background: st.barColor }} />
+                        </div>
+                      )}
+                      <span style={{ padding: '2px 10px', borderRadius: 20, background: st.bg, color: st.color, fontSize: 11, fontWeight: 700, flexShrink: 0 }}>{st.label}</span>
+                    </div>
+                  )
+                })}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* === PROJECTS TAB === */}
+        {activeTab === 'projects' && (
+          <div>
+            <div style={{ fontSize: 20, fontWeight: 700, color: '#0f172a', marginBottom: 20 }}>Projects</div>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
+              {LINEAR94_PROJECTS.map((p) => {
+                const st = PROJ_STATUS_META[p.status]
+                return (
+                  <div key={p.id} style={{ background: '#fff', border: `1.5px solid ${p.status === 'off-track' ? '#fecaca' : '#e2e8f0'}`, borderRadius: 14, padding: '18px 20px', display: 'flex', flexDirection: 'column', gap: 12 }}>
+                    <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 8 }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                        <div style={{ width: 36, height: 36, borderRadius: 9, background: p.color + '18', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                          <span style={{ fontSize: 14, fontWeight: 800, color: p.color }}>{p.lead}</span>
+                        </div>
+                        <div>
+                          <div style={{ fontSize: 13, fontWeight: 700, color: '#0f172a' }}>{p.name}</div>
+                          <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 1 }}>마일스톤 {p.completedCount}/{p.milestoneCount}</div>
+                        </div>
+                      </div>
+                      <LabelBadge color={st.badgeColor}><LabelBadge.Label>{st.label}</LabelBadge.Label></LabelBadge>
+                    </div>
+                    <div>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 6 }}>
+                        <span style={{ fontSize: 11, color: '#64748b' }}>전체 진행률</span>
+                        <span style={{ fontSize: 11, fontWeight: 700, color: st.color }}>{p.progress}%</span>
+                      </div>
+                      <Progress value={p.progress} />
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
+          </div>
+        )}
+
+        {/* === BACKLOG TAB === */}
+        {activeTab === 'backlog' && (
+          <div>
+            <div style={{ fontSize: 20, fontWeight: 700, color: '#0f172a', marginBottom: 20 }}>Backlog</div>
+            <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: 14, overflow: 'hidden' }}>
+              {Object.entries(LINEAR94_ROADMAP).flatMap(([q, ms]) =>
+                ms.filter((m) => m.status === 'planned').map((m) => ({ ...m, quarter: q }))
+              ).map((m, i, arr) => (
+                <div key={m.id} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 20px', borderBottom: i < arr.length - 1 ? '1px solid #f8fafc' : 'none' }}>
+                  <input type="checkbox" style={{ accentColor: '#6366f1', cursor: 'pointer' }} readOnly />
+                  <div style={{ flex: 1 }}>
+                    <div style={{ fontSize: 13, fontWeight: 500, color: '#334155' }}>{m.title}</div>
+                    <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 1 }}>{m.team} · {(m as typeof m & { quarter: string }).quarter}</div>
+                  </div>
+                  <div style={{ width: 8, height: 8, borderRadius: '50%', background: TEAM_COLOR94[m.team] ?? '#94a3b8', flexShrink: 0 }} />
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+
 export const ShadcnTeamDashboard: Story = {
   name: 'shadcn/ui — Team Dashboard',
   parameters: {
@@ -22968,4 +23223,20 @@ export const ShadcnTeamDashboard: Story = {
     },
   },
   render: () => <Shadcn93TeamDashboardRender />,
+}
+
+export const LinearRoadmap: Story = {
+  name: 'Linear Design — Product Roadmap',
+  parameters: {
+    layout: 'fullscreen',
+    docs: {
+      description: {
+        story:
+          'Linear Design 벤치마크: Roadmap + Projects + Backlog 3탭 뷰. ' +
+          '분기별 마일스톤 상태(Shipped/In Progress/Planned), 프로젝트 건강도(On Track/At Risk/Off Track), ' +
+          'Backlog 체크리스트를 Progress, LabelBadge, SectionTitle, CounterBadge로 통합.',
+      },
+    },
+  },
+  render: () => <Linear94RoadmapRender />,
 }

@@ -825,3 +825,312 @@ export const Apple_HIG_앱_섹션_탭: Story = {
   },
   render: () => <AppleHIGTabsRender />,
 }
+
+/* --------------------------------------------------------------------------
+   Linear 벤치마크: 사이클(스프린트) 탭 패턴
+   Linear의 Cycles — 활성/예정/완료 사이클을 수평 탭으로 전환하는 패턴
+-------------------------------------------------------------------------- */
+type LinearCycleStatus = 'active' | 'upcoming' | 'completed'
+
+const LINEAR_CYCLE_TABS: Array<{ id: LinearCycleStatus; label: string; count: number }> = [
+  { id: 'active', label: '활성 사이클', count: 1 },
+  { id: 'upcoming', label: '예정', count: 3 },
+  { id: 'completed', label: '완료', count: 12 },
+]
+
+type CycleIssue = { id: string; title: string; progress: number; priority: 'urgent' | 'high' | 'medium' | 'low' }
+
+const CYCLE_CONTENT: Record<LinearCycleStatus, { title: string; dates: string; issues: CycleIssue[] }> = {
+  active: {
+    title: 'Cycle 14 — Q2 품질 개선',
+    dates: '2025-04-07 ~ 2025-04-20',
+    issues: [
+      { id: 'ORB-201', title: '스켈레톤 스토리 추가', progress: 80, priority: 'high' },
+      { id: 'ORB-202', title: 'TextField 접근성 보강', progress: 45, priority: 'urgent' },
+      { id: 'ORB-203', title: 'AnimatedBadge 색상 확장', progress: 100, priority: 'medium' },
+      { id: 'ORB-204', title: '토큰 문서 고도화', progress: 20, priority: 'low' },
+    ],
+  },
+  upcoming: {
+    title: 'Cycle 15 — 성능 최적화',
+    dates: '2025-04-21 ~ 2025-05-04',
+    issues: [
+      { id: 'ORB-210', title: 'Bundle 사이즈 감소', progress: 0, priority: 'high' },
+      { id: 'ORB-211', title: 'Lazy import 도입', progress: 0, priority: 'medium' },
+      { id: 'ORB-212', title: 'Tree shaking 검증', progress: 0, priority: 'medium' },
+    ],
+  },
+  completed: {
+    title: 'Cycle 13 — 디자인 토큰 통합',
+    dates: '2025-03-24 ~ 2025-04-06',
+    issues: [
+      { id: 'ORB-189', title: '3단계 토큰 아키텍처 설계', progress: 100, priority: 'urgent' },
+      { id: 'ORB-190', title: '시맨틱 토큰 매핑 완료', progress: 100, priority: 'high' },
+      { id: 'ORB-191', title: '다크모드 토큰 정의', progress: 100, priority: 'high' },
+    ],
+  },
+}
+
+const PRIORITY_DOT: Record<CycleIssue['priority'], string> = {
+  urgent: '#ef4444',
+  high:   '#f97316',
+  medium: '#6366f1',
+  low:    '#94a3b8',
+}
+
+function LinearCycleTabsRender() {
+  const [activeIdx, setActiveIdx] = useState(0)
+  const activeId = LINEAR_CYCLE_TABS[activeIdx].id
+  const cycle = CYCLE_CONTENT[activeId]
+
+  return (
+    <div style={{ width: 420, border: '1px solid #e2e8f0', borderRadius: 12, overflow: 'hidden', background: '#fff', fontFamily: 'system-ui, sans-serif' }}>
+      <div style={{ padding: '14px 16px', borderBottom: '1px solid #f1f5f9', display: 'flex', alignItems: 'center', gap: 8 }}>
+        <div style={{ width: 8, height: 8, borderRadius: '50%', background: '#6366f1' }} />
+        <span style={{ fontSize: 13, fontWeight: 700, color: '#0f172a' }}>Cycles</span>
+      </div>
+      <ScrollableTabGroup selectedIndex={activeIdx} onTabChange={setActiveIdx}>
+        {LINEAR_CYCLE_TABS.map((tab) => (
+          <ScrollableTabGroup.Tab key={tab.id} value={tab.id}>
+            <ScrollableTabGroup.TabCenter>{tab.label}</ScrollableTabGroup.TabCenter>
+            <ScrollableTabGroup.TabTrailing>
+              <span style={{ padding: '1px 6px', borderRadius: 10, fontSize: 10, fontWeight: 700, background: '#f1f5f9', color: '#64748b' }}>{tab.count}</span>
+            </ScrollableTabGroup.TabTrailing>
+          </ScrollableTabGroup.Tab>
+        ))}
+      </ScrollableTabGroup>
+      <div style={{ padding: '16px' }}>
+        <div style={{ marginBottom: 12 }}>
+          <div style={{ fontSize: 13, fontWeight: 700, color: '#0f172a' }}>{cycle.title}</div>
+          <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>{cycle.dates}</div>
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+          {cycle.issues.map((issue) => (
+            <div key={issue.id} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '8px 10px', borderRadius: 8, border: '1px solid #f1f5f9', background: '#fafafa' }}>
+              <div style={{ width: 8, height: 8, borderRadius: '50%', background: PRIORITY_DOT[issue.priority], flexShrink: 0 }} />
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <div style={{ fontSize: 12, fontWeight: 600, color: '#334155', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{issue.title}</div>
+                <div style={{ fontSize: 10, color: '#94a3b8', marginTop: 2 }}>{issue.id}</div>
+              </div>
+              <div style={{ width: 52, height: 4, borderRadius: 2, background: '#e2e8f0', flexShrink: 0 }}>
+                <div style={{ width: `${issue.progress}%`, height: '100%', borderRadius: 2, background: issue.progress === 100 ? '#10b981' : '#6366f1', transition: 'width 0.3s' }} />
+              </div>
+              <span style={{ fontSize: 10, fontWeight: 700, color: '#64748b', width: 28, textAlign: 'right', flexShrink: 0 }}>{issue.progress}%</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const Linear_사이클_탭_패턴: Story = {
+  name: 'Linear - Cycles 활성/예정/완료 탭 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Linear의 Cycles 탭 패턴. 활성/예정/완료 사이클을 ScrollableTabGroup으로 전환하고 ' +
+          '각 이슈에 우선순위 색상 도트, 진행률 바, 이슈 ID를 함께 표시합니다.',
+      },
+    },
+  },
+  render: () => <LinearCycleTabsRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Linear 벤치마크: 팀별 이슈 필터 탭
+   Linear의 Team Views — 팀/프로젝트별 이슈를 탭으로 분류하는 패턴
+-------------------------------------------------------------------------- */
+type LinearTeamId = 'all' | 'engineering' | 'design' | 'product' | 'infra'
+
+const LINEAR_TEAM_TABS: Array<{ id: LinearTeamId; label: string; color: string; count: number }> = [
+  { id: 'all',         label: '전체',      color: '#6366f1', count: 24 },
+  { id: 'engineering', label: 'Engineering', color: '#0ea5e9', count: 12 },
+  { id: 'design',      label: 'Design',      color: '#ec4899', count: 5  },
+  { id: 'product',     label: 'Product',     color: '#f59e0b', count: 4  },
+  { id: 'infra',       label: 'Infra',       color: '#10b981', count: 3  },
+]
+
+type LinearIssue94 = { id: string; title: string; team: LinearTeamId; status: 'todo' | 'in-progress' | 'done' }
+
+const LINEAR_ISSUES: LinearIssue94[] = [
+  { id: 'ENG-01', title: 'Button 컴포넌트 접근성 보강', team: 'engineering', status: 'in-progress' },
+  { id: 'ENG-02', title: 'DataTable 정렬 버그 수정', team: 'engineering', status: 'done' },
+  { id: 'ENG-03', title: 'Calendar range 선택 구현', team: 'engineering', status: 'todo' },
+  { id: 'DES-01', title: '디자인 토큰 갱신', team: 'design', status: 'in-progress' },
+  { id: 'DES-02', title: 'Figma 컴포넌트 매핑', team: 'design', status: 'todo' },
+  { id: 'PRD-01', title: 'Roadmap Q2 기획', team: 'product', status: 'done' },
+  { id: 'INF-01', title: 'CI/CD 파이프라인 최적화', team: 'infra', status: 'in-progress' },
+]
+
+const STATUS_ICON: Record<LinearIssue94['status'], { icon: string; color: string }> = {
+  'todo':        { icon: '○', color: '#94a3b8' },
+  'in-progress': { icon: '◑', color: '#6366f1' },
+  'done':        { icon: '●', color: '#10b981' },
+}
+
+function LinearTeamFilterTabsRender() {
+  const [activeIdx, setActiveIdx] = useState(0)
+  const activeId = LINEAR_TEAM_TABS[activeIdx].id
+
+  const filtered = activeId === 'all' ? LINEAR_ISSUES : LINEAR_ISSUES.filter((i) => i.team === activeId)
+  const team = LINEAR_TEAM_TABS[activeIdx]
+
+  return (
+    <div style={{ width: 400, border: '1px solid #e2e8f0', borderRadius: 12, overflow: 'hidden', background: '#fff', fontFamily: 'system-ui, sans-serif' }}>
+      <div style={{ padding: '12px 16px', borderBottom: '1px solid #f1f5f9', display: 'flex', alignItems: 'center', gap: 8 }}>
+        <div style={{ width: 8, height: 8, borderRadius: '50%', background: team.color }} />
+        <span style={{ fontSize: 13, fontWeight: 700, color: '#0f172a' }}>이슈 — {team.label}</span>
+        <span style={{ marginLeft: 'auto', fontSize: 12, color: '#94a3b8' }}>{filtered.length}개</span>
+      </div>
+      <ScrollableTabGroup selectedIndex={activeIdx} onTabChange={setActiveIdx}>
+        {LINEAR_TEAM_TABS.map((t) => (
+          <ScrollableTabGroup.Tab key={t.id} value={t.id}>
+            <ScrollableTabGroup.TabCenter>{t.label}</ScrollableTabGroup.TabCenter>
+            <ScrollableTabGroup.TabTrailing>
+              <span style={{ padding: '1px 5px', borderRadius: 8, fontSize: 10, fontWeight: 700, background: t.color + '18', color: t.color }}>{t.count}</span>
+            </ScrollableTabGroup.TabTrailing>
+          </ScrollableTabGroup.Tab>
+        ))}
+      </ScrollableTabGroup>
+      <div style={{ padding: '12px 16px', display: 'flex', flexDirection: 'column', gap: 4 }}>
+        {filtered.length === 0 ? (
+          <div style={{ padding: '20px', textAlign: 'center', color: '#94a3b8', fontSize: 12 }}>이슈가 없습니다</div>
+        ) : (
+          filtered.map((issue) => {
+            const st = STATUS_ICON[issue.status]
+            return (
+              <div key={issue.id} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '8px 10px', borderRadius: 8, cursor: 'pointer' }}>
+                <span style={{ fontSize: 14, color: st.color, flexShrink: 0, width: 16, textAlign: 'center' }}>{st.icon}</span>
+                <span style={{ flex: 1, fontSize: 13, color: '#334155', fontWeight: 500 }}>{issue.title}</span>
+                <span style={{ fontSize: 11, color: '#94a3b8', fontFamily: 'monospace', flexShrink: 0 }}>{issue.id}</span>
+              </div>
+            )
+          })
+        )}
+      </div>
+    </div>
+  )
+}
+
+export const Linear_팀별_이슈_필터_탭: Story = {
+  name: 'Linear - 팀별 이슈 필터 탭 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Linear의 Team Views 패턴. 팀별 색상 코드 도트와 카운트 배지로 구분된 탭으로 이슈를 필터링하고, ' +
+          '이슈 상태를 진행 중(◑)/완료(●)/대기(○) 아이콘으로 표현합니다.',
+      },
+    },
+  },
+  render: () => <LinearTeamFilterTabsRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Linear 벤치마크: 로드맵 분기(Quarter) 탭
+   Linear의 Roadmap — Q별 마일스톤을 탭으로 탐색하는 패턴
+-------------------------------------------------------------------------- */
+type LinearQuarter = 'Q1' | 'Q2' | 'Q3' | 'Q4'
+
+const LINEAR_QUARTER_TABS: Array<{ id: LinearQuarter; label: string; year: number; status: 'past' | 'current' | 'future' }> = [
+  { id: 'Q1', label: 'Q1 2025', year: 2025, status: 'past' },
+  { id: 'Q2', label: 'Q2 2025', year: 2025, status: 'current' },
+  { id: 'Q3', label: 'Q3 2025', year: 2025, status: 'future' },
+  { id: 'Q4', label: 'Q4 2025', year: 2025, status: 'future' },
+]
+
+type RoadmapItem = { title: string; status: 'shipped' | 'in-progress' | 'planned'; team: string }
+
+const ROADMAP: Record<LinearQuarter, RoadmapItem[]> = {
+  Q1: [
+    { title: '3단계 토큰 아키텍처', status: 'shipped', team: 'Engineering' },
+    { title: 'Storybook 8.x 마이그레이션', status: 'shipped', team: 'Engineering' },
+    { title: 'Figma 컴포넌트 동기화', status: 'shipped', team: 'Design' },
+  ],
+  Q2: [
+    { title: 'DataTable 고도화', status: 'in-progress', team: 'Engineering' },
+    { title: 'AccessibilityGuide.mdx', status: 'in-progress', team: 'Product' },
+    { title: 'Calendar range 선택', status: 'planned', team: 'Engineering' },
+    { title: 'shadcn/ui 마이그레이션 가이드', status: 'planned', team: 'Product' },
+  ],
+  Q3: [
+    { title: '다크모드 전면 지원', status: 'planned', team: 'Engineering' },
+    { title: 'Motion 토큰 시스템', status: 'planned', team: 'Design' },
+    { title: 'React Native 버전', status: 'planned', team: 'Engineering' },
+  ],
+  Q4: [
+    { title: 'Orbit UI 2.0 출시', status: 'planned', team: 'Product' },
+    { title: 'AI 컴포넌트 추천 시스템', status: 'planned', team: 'Engineering' },
+  ],
+}
+
+const ROADMAP_STATUS: Record<RoadmapItem['status'], { label: string; color: string; bg: string }> = {
+  shipped:     { label: 'Shipped', color: '#10b981', bg: '#f0fdf4' },
+  'in-progress': { label: 'In Progress', color: '#6366f1', bg: '#eef2ff' },
+  planned:     { label: 'Planned', color: '#94a3b8', bg: '#f8fafc' },
+}
+
+function LinearRoadmapQuarterTabsRender() {
+  const [activeIdx, setActiveIdx] = useState(1)
+  const quarter = LINEAR_QUARTER_TABS[activeIdx]
+  const items = ROADMAP[quarter.id]
+
+  const QUARTER_STATUS_STYLE: Record<typeof quarter.status, { labelColor: string }> = {
+    past:    { labelColor: '#94a3b8' },
+    current: { labelColor: '#6366f1' },
+    future:  { labelColor: '#64748b' },
+  }
+
+  return (
+    <div style={{ width: 420, border: '1px solid #e2e8f0', borderRadius: 12, overflow: 'hidden', background: '#fff', fontFamily: 'system-ui, sans-serif' }}>
+      <div style={{ padding: '12px 16px', borderBottom: '1px solid #f1f5f9', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <span style={{ fontSize: 13, fontWeight: 700, color: '#0f172a' }}>Roadmap</span>
+        {quarter.status === 'current' && (
+          <span style={{ padding: '2px 8px', borderRadius: 20, background: '#eef2ff', color: '#6366f1', fontSize: 11, fontWeight: 700 }}>현재 분기</span>
+        )}
+      </div>
+      <ScrollableTabGroup selectedIndex={activeIdx} onTabChange={setActiveIdx}>
+        {LINEAR_QUARTER_TABS.map((q) => (
+          <ScrollableTabGroup.Tab key={q.id} value={q.id}>
+            <ScrollableTabGroup.TabCenter>
+              <span style={{ color: QUARTER_STATUS_STYLE[q.status].labelColor }}>{q.label}</span>
+            </ScrollableTabGroup.TabCenter>
+          </ScrollableTabGroup.Tab>
+        ))}
+      </ScrollableTabGroup>
+      <div style={{ padding: '14px 16px', display: 'flex', flexDirection: 'column', gap: 8 }}>
+        <div style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 4 }}>
+          {items.length}개 마일스톤
+        </div>
+        {items.map((item, i) => {
+          const st = ROADMAP_STATUS[item.status]
+          return (
+            <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 12px', borderRadius: 8, border: '1px solid #f1f5f9', background: '#fafafa' }}>
+              <div style={{ flex: 1 }}>
+                <div style={{ fontSize: 13, fontWeight: 600, color: '#0f172a' }}>{item.title}</div>
+                <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>{item.team}</div>
+              </div>
+              <span style={{ padding: '2px 10px', borderRadius: 20, background: st.bg, color: st.color, fontSize: 11, fontWeight: 700, flexShrink: 0 }}>{st.label}</span>
+            </div>
+          )
+        })}
+      </div>
+    </div>
+  )
+}
+
+export const Linear_로드맵_분기_탭: Story = {
+  name: 'Linear - Roadmap Q1/Q2/Q3/Q4 분기 탭 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Linear의 Roadmap 분기별 탭 패턴. 과거/현재/미래 Q를 ScrollableTabGroup 탭으로 탐색하고, ' +
+          '각 마일스톤을 Shipped/In Progress/Planned 상태 배지와 담당 팀으로 표시합니다.',
+      },
+    },
+  },
+  render: () => <LinearRoadmapQuarterTabsRender />,
+}
