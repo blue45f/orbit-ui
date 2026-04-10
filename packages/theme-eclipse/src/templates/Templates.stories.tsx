@@ -28934,3 +28934,228 @@ export const RadixTailwind121Onboarding: StoryObj = {
   },
   render: () => <Onboarding121Render />,
 }
+
+/* ==========================================================================
+   Cycle 122 — Ant Design + Mantine 벤치마크
+   템플릿: 이벤트 대시보드 (Calendar + ScrollableTabGroup + DataTable 스타일)
+========================================================================== */
+
+type Evt122 = {
+  id: number
+  title: string
+  date: string
+  category: string
+  status: 'upcoming' | 'live' | 'completed' | 'cancelled'
+  attendees: number
+  owner: string
+}
+
+const EVENTS_122: Evt122[] = [
+  { id: 1, title: '디자인 시스템 워크샵', date: '2026-04-10', category: 'workshop', status: 'live', attendees: 24, owner: '김민준' },
+  { id: 2, title: 'Q2 스프린트 킥오프', date: '2026-04-11', category: 'meeting', status: 'upcoming', attendees: 8, owner: '이서연' },
+  { id: 3, title: '사용자 인터뷰 세션', date: '2026-04-09', category: 'research', status: 'completed', attendees: 3, owner: '박준혁' },
+  { id: 4, title: '배포 계획 검토', date: '2026-04-14', category: 'meeting', status: 'upcoming', attendees: 5, owner: '최유진' },
+  { id: 5, title: '팀 레트로', date: '2026-04-08', category: 'meeting', status: 'completed', attendees: 10, owner: '김민준' },
+  { id: 6, title: 'API 연동 테스트', date: '2026-04-15', category: 'workshop', status: 'upcoming', attendees: 6, owner: '이서연' },
+  { id: 7, title: '신규 온보딩 교육', date: '2026-04-07', category: 'training', status: 'completed', attendees: 12, owner: '박준혁' },
+  { id: 8, title: '보안 취약점 검토', date: '2026-04-13', category: 'review', status: 'upcoming', attendees: 4, owner: '최유진' },
+  { id: 9, title: '분기 성과 발표', date: '2026-04-16', category: 'presentation', status: 'upcoming', attendees: 30, owner: '김민준' },
+  { id: 10, title: '컴포넌트 QA 세션', date: '2026-04-10', category: 'review', status: 'live', attendees: 7, owner: '이서연' },
+]
+
+const STATUS_META_122: Record<Evt122['status'], { label: string; color: string; bg: string }> = {
+  upcoming: { label: '예정', color: '#6366f1', bg: '#f0f0ff' },
+  live: { label: '진행 중', color: '#10b981', bg: '#f0fdf4' },
+  completed: { label: '완료', color: '#64748b', bg: '#f1f5f9' },
+  cancelled: { label: '취소', color: '#ef4444', bg: '#fef2f2' },
+}
+
+const CATEGORIES_122 = ['전체', 'meeting', 'workshop', 'research', 'training', 'review', 'presentation']
+
+function EventDashboard122Render() {
+  const [selectedTab, setSelectedTab] = useState(0)
+  const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined)
+  const [search, setSearch] = useState('')
+  const [showCalendar, setShowCalendar] = useState(false)
+
+  const category = CATEGORIES_122[selectedTab]
+  const filteredEvents = EVENTS_122.filter((ev) => {
+    const matchCat = category === '전체' || ev.category === category
+    const matchDate = !selectedDate || ev.date === selectedDate.toISOString().slice(0, 10)
+    const matchSearch = ev.title.includes(search) || ev.owner.includes(search)
+    return matchCat && matchDate && matchSearch
+  })
+
+  const counts: Record<string, number> = {}
+  CATEGORIES_122.forEach((cat) => {
+    counts[cat] = cat === '전체' ? EVENTS_122.length : EVENTS_122.filter((e) => e.category === cat).length
+  })
+
+  const liveCount = EVENTS_122.filter((e) => e.status === 'live').length
+  const upcomingCount = EVENTS_122.filter((e) => e.status === 'upcoming').length
+  const completedCount = EVENTS_122.filter((e) => e.status === 'completed').length
+
+  return (
+    <div style={{ width: 720, fontFamily: 'system-ui, sans-serif' }}>
+      {/* Header */}
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 20 }}>
+        <div>
+          <h2 style={{ margin: 0, fontSize: 22, fontWeight: 800, color: '#0f172a' }}>이벤트 대시보드</h2>
+          <p style={{ margin: '4px 0 0', fontSize: 13, color: '#64748b' }}>Ant Design + Mantine 벤치마크 — Cycle 122</p>
+        </div>
+        <div style={{ display: 'flex', gap: 8 }}>
+          <LabelBadge color="benefit">
+            <LabelBadge.Label>Live {liveCount}</LabelBadge.Label>
+          </LabelBadge>
+          <LabelBadge color="gray">
+            <LabelBadge.Label>예정 {upcomingCount}</LabelBadge.Label>
+          </LabelBadge>
+          <LabelBadge color="gray">
+            <LabelBadge.Label>완료 {completedCount}</LabelBadge.Label>
+          </LabelBadge>
+        </div>
+      </div>
+
+      {/* KPI Row */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 12, marginBottom: 20 }}>
+        {[
+          { label: '총 이벤트', value: EVENTS_122.length, color: '#6366f1' },
+          { label: '총 참석자', value: EVENTS_122.reduce((s, e) => s + e.attendees, 0), color: '#10b981' },
+          { label: '평균 참석자', value: Math.round(EVENTS_122.reduce((s, e) => s + e.attendees, 0) / EVENTS_122.length), color: '#f59e0b' },
+          { label: '카테고리', value: CATEGORIES_122.length - 1, color: '#8b5cf6' },
+        ].map((kpi) => (
+          <div key={kpi.label} style={{ padding: '14px 16px', borderRadius: 12, border: '1px solid #f1f5f9', background: '#fff', boxShadow: '0 1px 4px rgba(0,0,0,0.04)' }}>
+            <div style={{ fontSize: 11, color: '#94a3b8', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 6 }}>{kpi.label}</div>
+            <div style={{ fontSize: 24, fontWeight: 800, color: kpi.color }}>{kpi.value}</div>
+          </div>
+        ))}
+      </div>
+
+      {/* Toolbar */}
+      <div style={{ display: 'flex', gap: 10, marginBottom: 12, alignItems: 'center' }}>
+        <div style={{ flex: 1 }}>
+          <TextField
+            placeholder="이벤트 또는 담당자 검색..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+        </div>
+        <div style={{ position: 'relative' }}>
+          <OutlineButton color="black" size="medium" onClick={() => setShowCalendar((v) => !v)}>
+            <OutlineButton.Center>
+              {selectedDate ? selectedDate.toLocaleDateString('ko-KR', { month: 'short', day: 'numeric' }) : '날짜 필터'}
+            </OutlineButton.Center>
+          </OutlineButton>
+          {showCalendar && (
+            <div style={{
+              position: 'absolute', top: '100%', right: 0, zIndex: 10,
+              marginTop: 8, padding: 12, borderRadius: 14, border: '1.5px solid #e2e8f0',
+              background: '#fff', boxShadow: '0 8px 24px rgba(0,0,0,0.1)',
+            }}>
+              <Calendar
+                mode="single"
+                selected={selectedDate}
+                onSelect={(d) => { setSelectedDate(d); setShowCalendar(false) }}
+              />
+              {selectedDate && (
+                <GhostButton color="black" size="small" onClick={() => setSelectedDate(undefined)}>
+                  <GhostButton.Center>필터 초기화</GhostButton.Center>
+                </GhostButton>
+              )}
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Category Tabs */}
+      <div style={{ marginBottom: 16 }}>
+        <ScrollableTabGroup selectedIndex={selectedTab} onTabChange={setSelectedTab}>
+          {CATEGORIES_122.map((cat, i) => (
+            <ScrollableTabGroup.Tab key={cat}>
+              <ScrollableTabGroup.TabCenter>
+                <span style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
+                  <span style={{ textTransform: i === 0 ? 'none' : 'capitalize' }}>{cat}</span>
+                  <span style={{
+                    minWidth: 16, height: 16, borderRadius: 8, padding: '0 4px',
+                    background: i === selectedTab ? '#6366f1' : '#e2e8f0',
+                    color: i === selectedTab ? '#fff' : '#64748b',
+                    fontSize: 10, fontWeight: 700,
+                    display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+                  }}>
+                    {counts[cat]}
+                  </span>
+                </span>
+              </ScrollableTabGroup.TabCenter>
+            </ScrollableTabGroup.Tab>
+          ))}
+        </ScrollableTabGroup>
+      </div>
+
+      {/* Event List */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+        {filteredEvents.length === 0 ? (
+          <div style={{ padding: '40px 0', textAlign: 'center', color: '#94a3b8', fontSize: 14 }}>
+            조건에 맞는 이벤트가 없습니다.
+          </div>
+        ) : (
+          filteredEvents.map((ev) => {
+            const meta = STATUS_META_122[ev.status]
+            return (
+              <div key={ev.id} style={{
+                display: 'flex', alignItems: 'center', gap: 14,
+                padding: '14px 16px', borderRadius: 12, border: '1px solid #f1f5f9',
+                background: ev.status === 'live' ? '#f0fdf4' : '#fff',
+                transition: 'box-shadow 0.15s',
+              }}>
+                {ev.status === 'live' && (
+                  <span style={{ width: 8, height: 8, borderRadius: '50%', background: '#10b981', flexShrink: 0, boxShadow: '0 0 0 3px #bbf7d0', animation: 'pulse 2s infinite' }} />
+                )}
+                {ev.status !== 'live' && (
+                  <span style={{ width: 8, height: 8, borderRadius: '50%', background: '#e2e8f0', flexShrink: 0 }} />
+                )}
+                <div style={{ flex: 1 }}>
+                  <div style={{ fontSize: 14, fontWeight: 600, color: '#1e293b' }}>{ev.title}</div>
+                  <div style={{ fontSize: 12, color: '#94a3b8', marginTop: 2 }}>
+                    {ev.date} · {ev.owner} · 참석자 {ev.attendees}명
+                  </div>
+                </div>
+                <LabelBadge color={ev.status === 'live' ? 'benefit' : 'gray'}>
+                  <LabelBadge.Label>{meta.label}</LabelBadge.Label>
+                </LabelBadge>
+                <span style={{ padding: '3px 10px', borderRadius: 20, background: '#f8fafc', border: '1px solid #e2e8f0', fontSize: 11, color: '#64748b', fontWeight: 600, textTransform: 'capitalize' }}>
+                  {ev.category}
+                </span>
+              </div>
+            )
+          })
+        )}
+      </div>
+
+      {/* Footer */}
+      <div style={{ marginTop: 16, display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px 0', borderTop: '1px solid #f1f5f9' }}>
+        <span style={{ fontSize: 13, color: '#94a3b8' }}>
+          {filteredEvents.length}개 / {EVENTS_122.length}개 표시
+        </span>
+        <SolidButton color="black" size="medium">
+          <SolidButton.Center>이벤트 추가</SolidButton.Center>
+        </SolidButton>
+      </div>
+    </div>
+  )
+}
+
+export const AntMantine122EventDashboard: StoryObj = {
+  name: 'Ant Design + Mantine — 이벤트 대시보드 (Cycle 122)',
+  parameters: {
+    layout: 'centered',
+    docs: {
+      description: {
+        story:
+          'Ant Design + Mantine 벤치마크 — Cycle 122. ' +
+          'Calendar 날짜 필터 + ScrollableTabGroup 카테고리 탭 + KPI 카드 + 이벤트 목록. ' +
+          'LabelBadge 상태 표시, TextField 검색, OutlineButton/GhostButton/SolidButton 액션.',
+      },
+    },
+  },
+  render: () => <EventDashboard122Render />,
+}

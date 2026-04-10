@@ -1134,3 +1134,271 @@ export const Linear_로드맵_분기_탭: Story = {
   },
   render: () => <LinearRoadmapQuarterTabsRender />,
 }
+
+/* --------------------------------------------------------------------------
+   Cycle 122 — Ant Design + Mantine 벤치마크
+-------------------------------------------------------------------------- */
+
+/* --------------------------------------------------------------------------
+   Ant Design: 탭 바 뱃지 + 오버플로우 드롭다운 패턴
+   Ant Design Tabs moreIcon + badge 아이디어
+-------------------------------------------------------------------------- */
+export const Ant_바코드_뱃지_탭: Story = {
+  name: 'Ant Design - 탭 뱃지 + 카테고리 필터 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Ant Design Tabs badge 아이디어. 각 탭에 알림 카운트 배지를 표시하고 ' +
+          '탭 전환 시 해당 카테고리 아이템을 필터링하여 표시하는 패턴입니다.',
+      },
+    },
+  },
+  render: function Render() {
+    const [selectedIndex, setSelectedIndex] = useState(0)
+
+    const tabs = [
+      { label: '전체', count: 42, icon: '📋' },
+      { label: '진행 중', count: 8, icon: '🔄' },
+      { label: '완료', count: 27, icon: '✅' },
+      { label: '취소됨', count: 4, icon: '❌' },
+      { label: '보류', count: 3, icon: '⏸' },
+      { label: '초안', count: 0, icon: '📝' },
+    ]
+
+    const items = [
+      { title: '로그인 버그 수정', status: 1, assignee: '김민준', priority: 'high' },
+      { title: '다크모드 토글 구현', status: 0, assignee: '이서연', priority: 'medium' },
+      { title: 'API 성능 최적화', status: 2, assignee: '박준혁', priority: 'high' },
+      { title: '디자인 시스템 문서화', status: 1, assignee: '최유진', priority: 'low' },
+      { title: '알림 센터 리팩토링', status: 0, assignee: '김민준', priority: 'medium' },
+      { title: '레거시 코드 제거', status: 2, assignee: '이서연', priority: 'low' },
+      { title: '배포 파이프라인 설정', status: 3, assignee: '박준혁', priority: 'high' },
+      { title: '유닛 테스트 커버리지', status: 4, assignee: '최유진', priority: 'medium' },
+    ]
+
+    const priorityColor: Record<string, string> = { high: '#ef4444', medium: '#f59e0b', low: '#10b981' }
+
+    const filtered = selectedIndex === 0 ? items : items.filter((it) => it.status === selectedIndex - 1)
+
+    return (
+      <div style={{ width: 520 }}>
+        <ScrollableTabGroup selectedIndex={selectedIndex} onTabChange={setSelectedIndex}>
+          {tabs.map((t, i) => (
+            <ScrollableTabGroup.Tab key={i}>
+              <ScrollableTabGroup.TabCenter>
+                <span style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                  <span>{t.icon}</span>
+                  <span>{t.label}</span>
+                  {t.count > 0 && (
+                    <span style={{
+                      minWidth: 18, height: 18, borderRadius: 9, padding: '0 5px',
+                      background: i === selectedIndex ? '#6366f1' : '#e2e8f0',
+                      color: i === selectedIndex ? '#fff' : '#64748b',
+                      fontSize: 11, fontWeight: 700,
+                      display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    }}>
+                      {t.count}
+                    </span>
+                  )}
+                </span>
+              </ScrollableTabGroup.TabCenter>
+            </ScrollableTabGroup.Tab>
+          ))}
+        </ScrollableTabGroup>
+        <div style={{ marginTop: 16, display: 'flex', flexDirection: 'column', gap: 8 }}>
+          {filtered.length === 0 ? (
+            <div style={{ padding: '32px 0', textAlign: 'center', color: '#94a3b8', fontSize: 14 }}>항목 없음</div>
+          ) : (
+            filtered.map((item, i) => (
+              <div key={i} style={{
+                display: 'flex', alignItems: 'center', gap: 12,
+                padding: '10px 14px', borderRadius: 10, border: '1px solid #f1f5f9', background: '#fafafa',
+              }}>
+                <span style={{ width: 8, height: 8, borderRadius: '50%', background: priorityColor[item.priority], flexShrink: 0 }} />
+                <div style={{ flex: 1 }}>
+                  <div style={{ fontSize: 13, fontWeight: 600, color: '#1e293b' }}>{item.title}</div>
+                  <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>{item.assignee}</div>
+                </div>
+              </div>
+            ))
+          )}
+        </div>
+      </div>
+    )
+  },
+}
+
+/* --------------------------------------------------------------------------
+   Mantine: Tabs + Panel 연동 패턴
+   Mantine Tabs keepMounted + lazy 아이디어
+-------------------------------------------------------------------------- */
+export const Mantine_패널_연동_탭: Story = {
+  name: 'Mantine - 패널 연동 콘텐츠 탭 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Mantine Tabs 의 패널 연동 패턴. 탭 전환 시 콘텐츠 영역이 슬라이드 전환되고 ' +
+          '각 패널에 독립적인 상태(검색, 필터)를 유지하는 방식을 구현합니다.',
+      },
+    },
+  },
+  render: function Render() {
+    const [selectedIndex, setSelectedIndex] = useState(0)
+    const [search, setSearch] = useState('')
+
+    const panels = [
+      {
+        label: '컴포넌트', icon: '🧩',
+        items: ['Button', 'Input', 'Modal', 'Drawer', 'Tooltip', 'Badge', 'Avatar', 'Card'],
+      },
+      {
+        label: '훅', icon: '🪝',
+        items: ['useDisclosure', 'useForm', 'useLocalStorage', 'useMediaQuery', 'useTimeout', 'useClipboard'],
+      },
+      {
+        label: '유틸리티', icon: '🛠',
+        items: ['createStyles', 'rem', 'em', 'px', 'themeToVars', 'mergeTheme', 'colorsTuple'],
+      },
+    ]
+
+    const panel = panels[selectedIndex]
+    const filtered = panel.items.filter((it) => it.toLowerCase().includes(search.toLowerCase()))
+
+    return (
+      <div style={{ width: 480 }}>
+        <ScrollableTabGroup selectedIndex={selectedIndex} onTabChange={(i) => { setSelectedIndex(i); setSearch('') }}>
+          {panels.map((p, i) => (
+            <ScrollableTabGroup.Tab key={i}>
+              <ScrollableTabGroup.TabCenter>
+                {p.icon} {p.label}
+              </ScrollableTabGroup.TabCenter>
+            </ScrollableTabGroup.Tab>
+          ))}
+        </ScrollableTabGroup>
+
+        <div style={{ marginTop: 14 }}>
+          <input
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder={`${panel.label} 검색...`}
+            style={{
+              width: '100%', padding: '8px 12px', borderRadius: 8,
+              border: '1.5px solid #e2e8f0', fontSize: 13, outline: 'none',
+              boxSizing: 'border-box', marginBottom: 12,
+            }}
+          />
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
+            {filtered.map((item) => (
+              <div key={item} style={{
+                padding: '10px 14px', borderRadius: 8, border: '1px solid #e2e8f0',
+                background: '#fff', fontSize: 13, fontWeight: 500, color: '#1e293b',
+                cursor: 'pointer',
+              }}>
+                {item}
+              </div>
+            ))}
+            {filtered.length === 0 && (
+              <div style={{ gridColumn: '1 / -1', textAlign: 'center', color: '#94a3b8', fontSize: 13, padding: '24px 0' }}>
+                검색 결과 없음
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    )
+  },
+}
+
+/* --------------------------------------------------------------------------
+   Ant + Mantine: 데이터 분석 대시보드 탭 패턴
+   두 시스템의 세그먼트 뷰 + 지표 카드 결합
+-------------------------------------------------------------------------- */
+export const Ant_Mantine_분석_대시보드_탭: Story = {
+  name: 'Ant Design + Mantine - 분석 대시보드 탭 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Ant Design Tabs + Mantine StatCard 아이디어를 결합한 분석 대시보드. ' +
+          '기간별 탭 전환 시 KPI 지표와 트렌드를 업데이트하는 패턴입니다.',
+      },
+    },
+  },
+  render: function Render() {
+    const [selectedIndex, setSelectedIndex] = useState(1)
+
+    const periods = [
+      { label: '오늘', short: 'D' },
+      { label: '7일', short: 'W' },
+      { label: '30일', short: 'M' },
+      { label: '분기', short: 'Q' },
+      { label: '연간', short: 'Y' },
+    ]
+
+    const metrics = [
+      [
+        { label: '방문자', value: '1,284', delta: '+12%', up: true, color: '#6366f1' },
+        { label: '전환율', value: '3.2%', delta: '-0.4%', up: false, color: '#ef4444' },
+        { label: '매출', value: '₩4.2M', delta: '+8%', up: true, color: '#10b981' },
+        { label: '이탈률', value: '42%', delta: '-2%', up: true, color: '#10b981' },
+      ],
+      [
+        { label: '방문자', value: '8,912', delta: '+23%', up: true, color: '#6366f1' },
+        { label: '전환율', value: '4.1%', delta: '+0.9%', up: true, color: '#10b981' },
+        { label: '매출', value: '₩31.5M', delta: '+18%', up: true, color: '#10b981' },
+        { label: '이탈률', value: '38%', delta: '-5%', up: true, color: '#10b981' },
+      ],
+      [
+        { label: '방문자', value: '34,210', delta: '+7%', up: true, color: '#6366f1' },
+        { label: '전환율', value: '3.8%', delta: '+0.2%', up: true, color: '#10b981' },
+        { label: '매출', value: '₩128M', delta: '+15%', up: true, color: '#10b981' },
+        { label: '이탈률', value: '41%', delta: '-1%', up: true, color: '#10b981' },
+      ],
+      [
+        { label: '방문자', value: '98,450', delta: '+11%', up: true, color: '#6366f1' },
+        { label: '전환율', value: '3.6%', delta: '-0.1%', up: false, color: '#ef4444' },
+        { label: '매출', value: '₩385M', delta: '+9%', up: true, color: '#10b981' },
+        { label: '이탈률', value: '43%', delta: '+2%', up: false, color: '#ef4444' },
+      ],
+      [
+        { label: '방문자', value: '412K', delta: '+31%', up: true, color: '#6366f1' },
+        { label: '전환율', value: '4.2%', delta: '+0.8%', up: true, color: '#10b981' },
+        { label: '매출', value: '₩1.6B', delta: '+27%', up: true, color: '#10b981' },
+        { label: '이탈률', value: '36%', delta: '-7%', up: true, color: '#10b981' },
+      ],
+    ]
+
+    const current = metrics[selectedIndex]
+
+    return (
+      <div style={{ width: 480 }}>
+        <ScrollableTabGroup selectedIndex={selectedIndex} onTabChange={setSelectedIndex}>
+          {periods.map((p, i) => (
+            <ScrollableTabGroup.Tab key={i}>
+              <ScrollableTabGroup.TabCenter>{p.label}</ScrollableTabGroup.TabCenter>
+            </ScrollableTabGroup.Tab>
+          ))}
+        </ScrollableTabGroup>
+
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginTop: 16 }}>
+          {current.map((m) => (
+            <div key={m.label} style={{
+              padding: '16px', borderRadius: 12, border: '1px solid #f1f5f9', background: '#fff',
+              boxShadow: '0 1px 4px rgba(0,0,0,0.04)',
+            }}>
+              <div style={{ fontSize: 12, color: '#94a3b8', fontWeight: 600, marginBottom: 8, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                {m.label}
+              </div>
+              <div style={{ fontSize: 22, fontWeight: 800, color: '#1e293b', marginBottom: 6 }}>{m.value}</div>
+              <div style={{ fontSize: 12, fontWeight: 700, color: m.color }}>
+                {m.up ? '▲' : '▼'} {m.delta} vs 이전 {periods[selectedIndex].label}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    )
+  },
+}

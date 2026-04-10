@@ -1232,3 +1232,272 @@ export const Chakra_생년월일_유효성_검사: Story = {
   },
   render: () => <ChakraBirthDatePickerRender />,
 }
+
+/* --------------------------------------------------------------------------
+   Cycle 122 — Ant Design + Mantine 벤치마크
+-------------------------------------------------------------------------- */
+
+/* --------------------------------------------------------------------------
+   Ant Design: 다중 날짜 선택 + 일괄 작업 패턴
+   Ant Design DatePicker 의 multiple selection 아이디어 — 수동 날짜 목록 관리
+-------------------------------------------------------------------------- */
+export const Ant_다중_날짜_선택: Story = {
+  name: 'Ant Design - 다중 날짜 선택 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Ant Design DatePicker multiple 모드 아이디어. 날짜를 클릭할 때마다 목록에 추가/제거하고, ' +
+          '선택된 날짜들에 대해 일괄 작업(일정 추가/내보내기)을 수행하는 패턴입니다.',
+      },
+    },
+  },
+  render: function Render() {
+    const [selected, setSelected] = React.useState<Date[]>([])
+
+    const toggle = (d: Date) => {
+      setSelected((prev) => {
+        const idx = prev.findIndex((p) => p.toDateString() === d.toDateString())
+        return idx >= 0 ? prev.filter((_, i) => i !== idx) : [...prev, d]
+      })
+    }
+
+    return (
+      <div style={{ display: 'flex', gap: 24, flexWrap: 'wrap', alignItems: 'flex-start' }}>
+        <Calendar
+          mode="single"
+          selected={undefined}
+          onSelect={(d) => d && toggle(d)}
+          modifiers={{ chosen: selected }}
+          modifiersStyles={{
+            chosen: {
+              backgroundColor: '#6366f1',
+              color: '#fff',
+              borderRadius: '50%',
+              fontWeight: 700,
+            },
+          }}
+        />
+        <div style={{ minWidth: 220 }}>
+          <div style={{ fontSize: 13, fontWeight: 700, color: '#1e293b', marginBottom: 10 }}>
+            선택된 날짜 ({selected.length}개)
+          </div>
+          {selected.length === 0 ? (
+            <div style={{ fontSize: 13, color: '#94a3b8', marginBottom: 12 }}>날짜를 클릭하여 선택하세요.</div>
+          ) : (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 6, marginBottom: 12 }}>
+              {[...selected]
+                .sort((a, b) => a.getTime() - b.getTime())
+                .map((d) => (
+                  <div
+                    key={d.toDateString()}
+                    style={{
+                      display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                      padding: '6px 10px', borderRadius: 8,
+                      background: '#f0f0ff', border: '1px solid #c7d2fe', fontSize: 13,
+                    }}
+                  >
+                    <span style={{ color: '#4338ca', fontWeight: 600 }}>
+                      {d.toLocaleDateString('ko-KR', { month: 'short', day: 'numeric', weekday: 'short' })}
+                    </span>
+                    <button
+                      onClick={() => toggle(d)}
+                      style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#94a3b8', fontSize: 16, lineHeight: 1 }}
+                    >
+                      ×
+                    </button>
+                  </div>
+                ))}
+            </div>
+          )}
+          <div style={{ display: 'flex', gap: 8 }}>
+            <button
+              disabled={selected.length === 0}
+              style={{
+                flex: 1, padding: '8px 0', borderRadius: 8, border: 'none',
+                background: selected.length > 0 ? '#6366f1' : '#e2e8f0',
+                color: selected.length > 0 ? '#fff' : '#94a3b8',
+                fontSize: 13, fontWeight: 600, cursor: selected.length > 0 ? 'pointer' : 'not-allowed',
+              }}
+            >
+              일정 추가
+            </button>
+            <button
+              disabled={selected.length === 0}
+              onClick={() => setSelected([])}
+              style={{
+                flex: 1, padding: '8px 0', borderRadius: 8,
+                border: '1px solid #e2e8f0', background: '#fff',
+                color: '#475569', fontSize: 13, fontWeight: 600,
+                cursor: selected.length > 0 ? 'pointer' : 'not-allowed',
+              }}
+            >
+              초기화
+            </button>
+          </div>
+        </div>
+      </div>
+    )
+  },
+}
+
+/* --------------------------------------------------------------------------
+   Mantine: DatePickerInput 인라인 확인 다이얼로그 패턴
+   Mantine DatePickerInput의 확인 버튼(clearable + confirmable) 아이디어
+-------------------------------------------------------------------------- */
+export const Mantine_날짜_확인_다이얼로그: Story = {
+  name: 'Mantine - 날짜 선택 확인 다이얼로그 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Mantine DatePickerInput clearable + confirmable 아이디어. 날짜 선택 후 명시적 "확인" 버튼으로 ' +
+          '값을 커밋하고, 현재 선택 중인 날짜와 확정된 날짜를 구분하여 표시합니다.',
+      },
+    },
+  },
+  render: function Render() {
+    const [draft, setDraft] = React.useState<Date | undefined>(undefined)
+    const [confirmed, setConfirmed] = React.useState<Date | undefined>(undefined)
+    const [open, setOpen] = React.useState(false)
+
+    const fmt = (d?: Date) =>
+      d ? d.toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric' }) : '—'
+
+    return (
+      <div style={{ width: 340 }}>
+        {/* Input trigger */}
+        <div
+          onClick={() => setOpen((v) => !v)}
+          style={{
+            padding: '10px 14px', borderRadius: 10, border: '1.5px solid #e2e8f0',
+            cursor: 'pointer', fontSize: 14, fontWeight: 500,
+            color: confirmed ? '#1e293b' : '#94a3b8',
+            background: '#fff', marginBottom: 8, display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+          }}
+        >
+          <span>{confirmed ? fmt(confirmed) : '날짜를 선택하세요'}</span>
+          <span style={{ fontSize: 18, color: '#94a3b8' }}>📅</span>
+        </div>
+
+        {/* Popover-style calendar */}
+        {open && (
+          <div style={{
+            padding: 16, borderRadius: 14, border: '1.5px solid #e2e8f0',
+            background: '#fff', boxShadow: '0 8px 24px rgba(0,0,0,0.1)',
+          }}>
+            <Calendar
+              mode="single"
+              selected={draft}
+              onSelect={setDraft}
+            />
+            <div style={{ display: 'flex', gap: 8, marginTop: 12 }}>
+              <button
+                onClick={() => { setDraft(undefined); setOpen(false) }}
+                style={{
+                  flex: 1, padding: '8px 0', borderRadius: 8,
+                  border: '1px solid #e2e8f0', background: '#f8fafc',
+                  fontSize: 13, fontWeight: 600, color: '#64748b', cursor: 'pointer',
+                }}
+              >
+                취소
+              </button>
+              <button
+                disabled={!draft}
+                onClick={() => { setConfirmed(draft); setOpen(false) }}
+                style={{
+                  flex: 1, padding: '8px 0', borderRadius: 8, border: 'none',
+                  background: draft ? '#6366f1' : '#e2e8f0',
+                  color: draft ? '#fff' : '#94a3b8',
+                  fontSize: 13, fontWeight: 600, cursor: draft ? 'pointer' : 'not-allowed',
+                }}
+              >
+                확인
+              </button>
+            </div>
+          </div>
+        )}
+
+        {confirmed && (
+          <div style={{ marginTop: 12, padding: '10px 14px', borderRadius: 10, background: '#f0fdf4', border: '1px solid #bbf7d0', fontSize: 13, color: '#16a34a', fontWeight: 600 }}>
+            ✓ 확정: {fmt(confirmed)}
+          </div>
+        )}
+      </div>
+    )
+  },
+}
+
+/* --------------------------------------------------------------------------
+   Ant + Mantine: 팀 스프린트 계획 달력
+   두 시스템의 범위 선택 + 이벤트 표시 패턴 결합
+-------------------------------------------------------------------------- */
+export const Ant_Mantine_스프린트_계획_달력: Story = {
+  name: 'Ant Design + Mantine - 팀 스프린트 계획 달력',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Ant Design 이벤트 마킹 + Mantine DateRangePicker 아이디어를 결합한 스프린트 계획 달력. ' +
+          '스프린트 기간을 범위로 선택하고 팀원 업무를 날짜별로 표시합니다.',
+      },
+    },
+  },
+  render: function Render() {
+    const today = new Date()
+    const [range, setRange] = React.useState<{ from: Date; to?: Date }>({
+      from: new Date(today.getFullYear(), today.getMonth(), today.getDate()),
+      to: new Date(today.getFullYear(), today.getMonth(), today.getDate() + 13),
+    })
+
+    const sprintDays = range.from && range.to
+      ? Math.ceil((range.to.getTime() - range.from.getTime()) / 86400000) + 1
+      : 0
+
+    const members = [
+      { name: '김민준', role: 'Frontend', color: '#6366f1', tasks: 5 },
+      { name: '이서연', role: 'Backend', color: '#10b981', tasks: 4 },
+      { name: '박준혁', role: 'Design', color: '#f59e0b', tasks: 3 },
+      { name: '최유진', role: 'QA', color: '#ef4444', tasks: 6 },
+    ]
+
+    return (
+      <div style={{ display: 'flex', gap: 24, flexWrap: 'wrap', alignItems: 'flex-start' }}>
+        <Calendar
+          mode="range"
+          selected={range}
+          onSelect={(r) => r?.from && setRange({ from: r.from, to: r.to })}
+          numberOfMonths={1}
+        />
+        <div style={{ minWidth: 240 }}>
+          <div style={{ fontSize: 15, fontWeight: 700, color: '#1e293b', marginBottom: 4 }}>스프린트 기간</div>
+          <div style={{ fontSize: 13, color: '#64748b', marginBottom: 16 }}>
+            {range.from?.toLocaleDateString('ko-KR', { month: 'short', day: 'numeric' })} ~{' '}
+            {range.to?.toLocaleDateString('ko-KR', { month: 'short', day: 'numeric' })}{' '}
+            <span style={{ color: '#6366f1', fontWeight: 700 }}>({sprintDays}일)</span>
+          </div>
+          <div style={{ fontSize: 13, fontWeight: 700, color: '#1e293b', marginBottom: 8 }}>팀원 배정</div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+            {members.map((m) => (
+              <div key={m.name} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                <div style={{ width: 32, height: 32, borderRadius: '50%', background: m.color, color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 13, fontWeight: 700, flexShrink: 0 }}>
+                  {m.name[0]}
+                </div>
+                <div style={{ flex: 1 }}>
+                  <div style={{ fontSize: 13, fontWeight: 600, color: '#1e293b' }}>{m.name}</div>
+                  <div style={{ fontSize: 11, color: '#94a3b8' }}>{m.role} · {m.tasks}개 태스크</div>
+                </div>
+                <div style={{ fontSize: 11, fontWeight: 700, padding: '2px 8px', borderRadius: 20, background: `${m.color}18`, color: m.color }}>
+                  {Math.round(m.tasks / sprintDays * 10) / 10}/일
+                </div>
+              </div>
+            ))}
+          </div>
+          <div style={{ marginTop: 16, padding: '10px 14px', borderRadius: 10, background: '#f8fafc', border: '1px solid #e2e8f0', fontSize: 12, color: '#64748b' }}>
+            총 {members.reduce((s, m) => s + m.tasks, 0)}개 태스크 · {members.length}명 배정
+          </div>
+        </div>
+      </div>
+    )
+  },
+}
