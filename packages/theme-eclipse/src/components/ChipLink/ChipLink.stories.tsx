@@ -1127,3 +1127,194 @@ export const MUI_Tailwind_기술_스택_매트릭스: Story = {
     )
   },
 }
+
+/* --------------------------------------------------------------------------
+   Cycle 158 — Radix UI + Tailwind UI
+   Radix: 내비게이션 메뉴 링크 칩 패턴 (Navigation Menu Link Chips)
+-------------------------------------------------------------------------- */
+const RADIX_NAV_LINKS = [
+  { href: '#', label: '시작하기', section: 'docs', active: true },
+  { href: '#', label: 'Components', section: 'docs', active: false },
+  { href: '#', label: 'Primitives', section: 'docs', active: false },
+  { href: '#', label: 'Icons', section: 'assets', active: false },
+  { href: '#', label: 'Colors', section: 'assets', active: false },
+]
+
+function RadixNavChipRender() {
+  const [activeIdx, setActiveIdx] = useState(0)
+
+  return (
+    <div style={{ fontFamily: 'system-ui, sans-serif', width: 340 }}>
+      <p style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 12 }}>Radix UI 스타일 내비게이션 칩</p>
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+        {RADIX_NAV_LINKS.map((link, i) => (
+          <ChipLink
+            key={link.label}
+            href={link.href}
+            selected={i === activeIdx}
+            onClick={(e) => { e.preventDefault(); setActiveIdx(i) }}
+          >
+            {link.label}
+          </ChipLink>
+        ))}
+      </div>
+      <div style={{ marginTop: 14, padding: '10px 14px', borderRadius: 8, background: '#f8fafc', border: '1px solid #e2e8f0', fontSize: 12, color: '#475569' }}>
+        선택됨: <strong>{RADIX_NAV_LINKS[activeIdx].label}</strong> — section: {RADIX_NAV_LINKS[activeIdx].section}
+      </div>
+    </div>
+  )
+}
+
+export const Radix_내비게이션_링크_칩: Story = {
+  name: 'Radix UI — 내비게이션 메뉴 링크 칩 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Radix UI의 NavigationMenu 링크 칩 패턴. 섹션별 내비게이션을 ChipLink로 구현하며 활성 상태를 명확히 표시합니다.',
+      },
+    },
+  },
+  render: () => <RadixNavChipRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Tailwind UI: 기술 스택 필터 + 프로젝트 카드 패턴
+-------------------------------------------------------------------------- */
+const TAILWIND_PROJECTS = [
+  { name: 'Orbit UI', tech: ['React', 'TypeScript', 'Vite'], stars: 128 },
+  { name: 'Clay Kit', tech: ['React', 'CSS'], stars: 84 },
+  { name: 'Eclipse Theme', tech: ['TypeScript', 'vanilla-extract'], stars: 56 },
+  { name: 'Icon Pack', tech: ['SVG', 'React'], stars: 210 },
+]
+
+const ALL_TECH = ['React', 'TypeScript', 'Vite', 'CSS', 'vanilla-extract', 'SVG']
+
+function TailwindProjectFilterRender() {
+  const [activeTech, setActiveTech] = useState<Set<string>>(new Set())
+
+  const toggleTech = (t: string) => {
+    setActiveTech(prev => {
+      const next = new Set(prev)
+      if (next.has(t)) { next.delete(t) } else { next.add(t) }
+      return next
+    })
+  }
+
+  const filtered = activeTech.size === 0
+    ? TAILWIND_PROJECTS
+    : TAILWIND_PROJECTS.filter(p => p.tech.some(t => activeTech.has(t)))
+
+  return (
+    <div style={{ width: 360, fontFamily: 'system-ui, sans-serif' }}>
+      <p style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 10 }}>기술 스택 필터</p>
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 5, marginBottom: 14 }}>
+        {ALL_TECH.map(t => (
+          <ChipLink
+            key={t}
+            href="#"
+            selected={activeTech.has(t)}
+            onClick={(e) => { e.preventDefault(); toggleTech(t) }}
+          >
+            {t}
+          </ChipLink>
+        ))}
+        {activeTech.size > 0 && (
+          <ChipLink href="#" onClick={(e) => { e.preventDefault(); setActiveTech(new Set()) }}>
+            전체 보기
+          </ChipLink>
+        )}
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+        {filtered.map(p => (
+          <div key={p.name} style={{ padding: '10px 14px', borderRadius: 10, border: '1.5px solid #e2e8f0', background: '#fff', display: 'flex', alignItems: 'center', gap: 10 }}>
+            <div style={{ flex: 1 }}>
+              <div style={{ fontSize: 13, fontWeight: 600, color: '#1e293b' }}>{p.name}</div>
+              <div style={{ display: 'flex', gap: 4, marginTop: 5, flexWrap: 'wrap' }}>
+                {p.tech.map(t => (
+                  <span key={t} style={{ fontSize: 10, padding: '2px 6px', borderRadius: 4, background: activeTech.has(t) ? '#f0eeff' : '#f1f5f9', color: activeTech.has(t) ? '#6366f1' : '#64748b', fontWeight: activeTech.has(t) ? 700 : 400 }}>{t}</span>
+                ))}
+              </div>
+            </div>
+            <span style={{ fontSize: 12, color: '#94a3b8' }}>⭐ {p.stars}</span>
+          </div>
+        ))}
+        {filtered.length === 0 && (
+          <div style={{ padding: 16, textAlign: 'center', fontSize: 12, color: '#94a3b8', background: '#f8fafc', borderRadius: 10, border: '1px dashed #e2e8f0' }}>결과 없음</div>
+        )}
+      </div>
+    </div>
+  )
+}
+
+export const Tailwind_프로젝트_기술스택_필터: Story = {
+  name: 'Tailwind UI — 기술 스택 필터 + 프로젝트 카드 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Tailwind UI의 Filter Chips 패턴. ChipLink로 기술 스택 필터를 멀티선택하고 프로젝트 카드를 동적으로 필터링합니다.',
+      },
+    },
+  },
+  render: () => <TailwindProjectFilterRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Radix + Tailwind: 문서 사이드바 카테고리 내비게이션 패턴
+-------------------------------------------------------------------------- */
+const DOC_CATEGORIES = [
+  { id: 'overview', label: '개요', count: 3 },
+  { id: 'components', label: '컴포넌트', count: 42 },
+  { id: 'hooks', label: '훅', count: 11 },
+  { id: 'tokens', label: '토큰', count: 8 },
+  { id: 'templates', label: '템플릿', count: 16 },
+  { id: 'changelog', label: '변경 이력', count: 24 },
+]
+
+function RadixTailwindDocSidebarRender() {
+  const [selected, setSelected] = useState('components')
+
+  return (
+    <div style={{ display: 'flex', gap: 20, fontFamily: 'system-ui, sans-serif', width: 400 }}>
+      <div style={{ width: 180 }}>
+        <p style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 10 }}>문서 카테고리</p>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+          {DOC_CATEGORIES.map(cat => (
+            <div key={cat.id} style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+              <ChipLink
+                href="#"
+                selected={selected === cat.id}
+                onClick={(e) => { e.preventDefault(); setSelected(cat.id) }}
+              >
+                {cat.label}
+              </ChipLink>
+              <span style={{ fontSize: 10, color: '#94a3b8' }}>{cat.count}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div style={{ flex: 1, padding: '12px 16px', borderRadius: 10, border: '1px solid #e2e8f0', background: '#f8fafc' }}>
+        <p style={{ fontSize: 13, fontWeight: 700, color: '#1e293b', margin: '0 0 6px' }}>
+          {DOC_CATEGORIES.find(c => c.id === selected)?.label}
+        </p>
+        <p style={{ fontSize: 11, color: '#64748b', margin: 0, lineHeight: 1.6 }}>
+          {DOC_CATEGORIES.find(c => c.id === selected)?.count}개 항목
+        </p>
+        <p style={{ fontSize: 11, color: '#94a3b8', margin: '8px 0 0', lineHeight: 1.6 }}>
+          Radix + Tailwind UI 사이드바 내비게이션 패턴. ChipLink로 카테고리 전환을 구현합니다.
+        </p>
+      </div>
+    </div>
+  )
+}
+
+export const Radix_Tailwind_문서_사이드바_내비게이션: Story = {
+  name: 'Radix + Tailwind UI — 문서 사이드바 카테고리 내비게이션 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Radix UI + Tailwind UI 복합 패턴. ChipLink로 사이드바 문서 카테고리 내비게이션을 구현하며 선택된 섹션을 동적으로 표시합니다.',
+      },
+    },
+  },
+  render: () => <RadixTailwindDocSidebarRender />,
+}

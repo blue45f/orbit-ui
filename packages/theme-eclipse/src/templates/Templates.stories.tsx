@@ -35668,3 +35668,218 @@ export const ShadcnLinear157IssueBoard: StoryObj = {
   },
   render: () => <ShadcnLinear157IssueBoardRender />,
 }
+
+/* ==========================================================================
+   Cycle 158 — Radix UI + Tailwind UI
+   RadixTailwind158DocPortal: 문서 포털 + PR 대시보드 템플릿
+   ========================================================================== */
+const DOC_PORTAL_CATS = [
+  { id: 'overview', label: '개요', items: ['소개', '설치', '빠른 시작', '마이그레이션'] },
+  { id: 'components', label: '컴포넌트', items: ['Button', 'Input', 'Modal', 'Tooltip', 'Badge', 'Chip'] },
+  { id: 'hooks', label: '훅', items: ['useTheme', 'useMediaQuery', 'useDisclosure', 'useDebounce'] },
+  { id: 'tokens', label: '토큰', items: ['Color', 'Typography', 'Spacing', 'Radius'] },
+]
+
+const PORTAL_PR_LIST = [
+  { pr: '#1241', title: 'BoxedCheckbox 접근성 개선', status: 'APPROVED', statusColor: 'benefit' as const, author: 'AK', time: '5분 전' },
+  { pr: '#1242', title: 'SpeechBadge 다크모드 지원', status: 'REVIEW', statusColor: 'sale' as const, author: 'SJ', time: '15분 전' },
+  { pr: '#1243', title: 'Tooltip 애니메이션 최적화', status: 'WIP', statusColor: 'gray' as const, author: 'MH', time: '1시간 전' },
+  { pr: '#1244', title: 'Token 네이밍 정리', status: 'MERGED', statusColor: 'benefit' as const, author: 'AK', time: '2시간 전' },
+  { pr: '#1245', title: 'PageDots 인터랙션 개선', status: 'WIP', statusColor: 'gray' as const, author: 'SJ', time: '3시간 전' },
+]
+
+const PORTAL_TECH_TAGS = ['React', 'TypeScript', 'Vite', 'vanilla-extract', 'Tailwind', 'Radix']
+
+function RadixTailwind158DocPortalRender() {
+  const [selectedCat, setSelectedCat] = useState('components')
+  const [selectedDoc, setSelectedDoc] = useState('Button')
+  const [activeTech, setActiveTech] = useState<Set<string>>(new Set())
+  const [prFilter, setPrFilter] = useState<string | null>(null)
+
+  const toggleTech = (t: string) => {
+    setActiveTech(prev => {
+      const next = new Set(prev)
+      if (next.has(t)) { next.delete(t) } else { next.add(t) }
+      return next
+    })
+  }
+
+  const currentCat = DOC_PORTAL_CATS.find(c => c.id === selectedCat)
+  const filteredPRs = prFilter ? PORTAL_PR_LIST.filter(p => p.status === prFilter) : PORTAL_PR_LIST
+
+  return (
+    <div style={{ display: 'flex', height: '100vh', fontFamily: 'system-ui, sans-serif', background: '#f8fafc' }}>
+      {/* Sidebar */}
+      <div style={{ width: 200, background: '#fff', borderRight: '1px solid #e2e8f0', display: 'flex', flexDirection: 'column' }}>
+        <div style={{ padding: '16px 14px 12px', borderBottom: '1px solid #f1f5f9' }}>
+          <div style={{ fontSize: 14, fontWeight: 800, color: '#1e293b', letterSpacing: '-0.02em' }}>Orbit UI Docs</div>
+          <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>v2.0.0-beta</div>
+        </div>
+        <div style={{ flex: 1, padding: '10px 10px', overflowY: 'auto' }}>
+          {DOC_PORTAL_CATS.map(cat => (
+            <div key={cat.id} style={{ marginBottom: 14 }}>
+              <p style={{ fontSize: 10, fontWeight: 700, color: '#94a3b8', letterSpacing: '0.06em', textTransform: 'uppercase', margin: '0 0 6px 4px' }}>{cat.label}</p>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+                {cat.items.map(item => {
+                  const isActive = selectedDoc === item && selectedCat === cat.id
+                  return (
+                    <div
+                      key={item}
+                      onClick={() => { setSelectedCat(cat.id); setSelectedDoc(item) }}
+                      style={{ fontSize: 12, padding: '5px 8px', borderRadius: 6, color: isActive ? '#6366f1' : '#475569', background: isActive ? '#f0eeff' : 'transparent', cursor: 'pointer', fontWeight: isActive ? 600 : 400, transition: 'all 0.1s' }}
+                    >
+                      {item}
+                    </div>
+                  )
+                })}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Main content */}
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+        {/* Top nav with ChipLink-style filters */}
+        <div style={{ background: '#fff', borderBottom: '1px solid #e2e8f0', padding: '10px 20px', display: 'flex', alignItems: 'center', gap: 8 }}>
+          <span style={{ fontSize: 13, fontWeight: 700, color: '#1e293b' }}>{currentCat?.label}</span>
+          <span style={{ fontSize: 12, color: '#94a3b8' }}>/ {selectedDoc}</span>
+          <div style={{ marginLeft: 'auto', display: 'flex', gap: 5, flexWrap: 'wrap' }}>
+            {PORTAL_TECH_TAGS.map(t => (
+              <button
+                key={t}
+                onClick={() => toggleTech(t)}
+                style={{
+                  padding: '3px 8px',
+                  borderRadius: 999,
+                  border: `1.5px solid ${activeTech.has(t) ? '#6366f1' : '#e2e8f0'}`,
+                  background: activeTech.has(t) ? '#f0eeff' : '#fff',
+                  fontSize: 11,
+                  fontWeight: activeTech.has(t) ? 700 : 400,
+                  color: activeTech.has(t) ? '#6366f1' : '#64748b',
+                  cursor: 'pointer',
+                  transition: 'all 0.1s',
+                }}
+              >
+                {t}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div style={{ flex: 1, display: 'flex', overflow: 'hidden' }}>
+          {/* Doc content area */}
+          <div style={{ flex: 1, padding: '24px 28px', overflowY: 'auto' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 20 }}>
+              <h1 style={{ fontSize: 22, fontWeight: 800, color: '#0f172a', margin: 0, letterSpacing: '-0.03em' }}>{selectedDoc}</h1>
+              <LabelBadge color="benefit">
+                <LabelBadge.Label>STABLE</LabelBadge.Label>
+              </LabelBadge>
+            </div>
+            <div style={{ fontSize: 13, color: '#64748b', lineHeight: 1.8, marginBottom: 20, maxWidth: 520 }}>
+              <strong>{selectedDoc}</strong>는 Orbit UI의 핵심 컴포넌트입니다. Radix UI Primitive를 기반으로 접근성을 보장하며, Tailwind CSS 클래스와 조합하여 유연한 커스터마이징이 가능합니다.
+            </div>
+
+            {/* Usage tags */}
+            <div style={{ marginBottom: 20 }}>
+              <p style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 8 }}>사용 기술</p>
+              <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+                {['React 18', 'TypeScript', 'WAI-ARIA', 'vanilla-extract'].map(tag => (
+                  <span key={tag} style={{ padding: '4px 10px', borderRadius: 999, background: '#f1f5f9', fontSize: 11, color: '#475569', fontWeight: 500 }}>{tag}</span>
+                ))}
+              </div>
+            </div>
+
+            {/* Code example */}
+            <div style={{ background: '#0f172a', borderRadius: 12, padding: '16px 20px', marginBottom: 20 }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 12 }}>
+                <div style={{ width: 8, height: 8, borderRadius: '50%', background: '#ef4444' }} />
+                <div style={{ width: 8, height: 8, borderRadius: '50%', background: '#f59e0b' }} />
+                <div style={{ width: 8, height: 8, borderRadius: '50%', background: '#22c55e' }} />
+                <span style={{ marginLeft: 'auto', fontSize: 10, color: '#475569' }}>TypeScript</span>
+              </div>
+              <pre style={{ margin: 0, fontSize: 11, color: '#e2e8f0', fontFamily: 'monospace', lineHeight: 1.7 }}>
+{`import { ${selectedDoc} } from '@heejun-com/theme-eclipse'
+
+export function Example() {
+  return (
+    <${selectedDoc}>
+      {/* 콘텐츠 */}
+    </${selectedDoc}>
+  )
+}`}
+              </pre>
+            </div>
+
+            {/* Related docs */}
+            <div>
+              <p style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 8 }}>관련 문서</p>
+              <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+                {['디자인 토큰', '접근성 가이드', '테마 커스텀', '마이그레이션'].map(doc => (
+                  <span key={doc} style={{ padding: '5px 10px', borderRadius: 999, border: '1px solid #e2e8f0', background: '#fff', fontSize: 11, color: '#6366f1', cursor: 'pointer', fontWeight: 500 }}>{doc} →</span>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Right: PR dashboard */}
+          <div style={{ width: 280, borderLeft: '1px solid #e2e8f0', background: '#fff', display: 'flex', flexDirection: 'column' }}>
+            <div style={{ padding: '14px 14px 10px', borderBottom: '1px solid #f1f5f9' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                <span style={{ fontSize: 13, fontWeight: 700, color: '#1e293b' }}>PR 현황</span>
+                <span style={{ marginLeft: 'auto', fontSize: 10, color: '#94a3b8' }}>{PORTAL_PR_LIST.length}개</span>
+              </div>
+              <div style={{ display: 'flex', gap: 4, marginTop: 8, flexWrap: 'wrap' }}>
+                {['APPROVED', 'REVIEW', 'WIP', 'MERGED'].map(s => (
+                  <button
+                    key={s}
+                    onClick={() => setPrFilter(prFilter === s ? null : s)}
+                    style={{ padding: '2px 7px', borderRadius: 4, border: `1px solid ${prFilter === s ? '#6366f1' : '#e2e8f0'}`, background: prFilter === s ? '#f0eeff' : '#f8fafc', fontSize: 10, color: prFilter === s ? '#6366f1' : '#64748b', cursor: 'pointer', fontWeight: prFilter === s ? 700 : 400 }}
+                  >
+                    {s}
+                  </button>
+                ))}
+              </div>
+            </div>
+            <div style={{ flex: 1, padding: '8px', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: 6 }}>
+              {filteredPRs.map(pr => (
+                <div key={pr.pr} style={{ padding: '8px 10px', borderRadius: 8, border: '1px solid #f1f5f9', background: '#fafafa' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 4 }}>
+                    <span style={{ fontSize: 10, color: '#94a3b8', fontFamily: 'monospace' }}>{pr.pr}</span>
+                    <LabelBadge color={pr.statusColor}>
+                      <LabelBadge.Label>{pr.status}</LabelBadge.Label>
+                    </LabelBadge>
+                  </div>
+                  <div style={{ fontSize: 11, color: '#1e293b', fontWeight: 500, lineHeight: 1.4 }}>{pr.title}</div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 4, marginTop: 4 }}>
+                    <div style={{ width: 16, height: 16, borderRadius: '50%', background: '#6366f1', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 8, color: '#fff', fontWeight: 700 }}>{pr.author}</div>
+                    <span style={{ fontSize: 10, color: '#94a3b8' }}>{pr.time}</span>
+                  </div>
+                </div>
+              ))}
+              {filteredPRs.length === 0 && (
+                <div style={{ padding: 14, textAlign: 'center', fontSize: 11, color: '#94a3b8' }}>해당 상태 없음</div>
+              )}
+            </div>
+            <div style={{ padding: '8px 12px', borderTop: '1px solid #e2e8f0', fontSize: 10, color: '#94a3b8' }}>
+              Radix + Tailwind — LabelBadge PR 상태 + ChipLink 내비게이션
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const RadixTailwind158DocPortal: StoryObj = {
+  name: 'Radix UI + Tailwind UI — 문서 포털 + PR 대시보드 (ChipLink 내비 + LabelBadge 상태)',
+  parameters: {
+    layout: 'fullscreen',
+    docs: {
+      description: {
+        story: 'Radix UI + Tailwind UI 복합 패턴. 좌: 사이드바 문서 내비게이션(ChipLink 카테고리 필터), 중: 문서 본문(LabelBadge 안정성 뱃지+코드 예시), 우: PR 대시보드(LabelBadge 상태 필터+리뷰 목록). 실무 문서 포털 레이아웃.',
+      },
+    },
+  },
+  render: () => <RadixTailwind158DocPortalRender />,
+}

@@ -1162,3 +1162,170 @@ export const Linear_Vercel_릴리즈_노트_배지: Story = {
     </div>
   ),
 }
+
+/* --------------------------------------------------------------------------
+   Cycle 158 — Radix UI + Tailwind UI
+   Radix: 콘텐츠 상태 배지 그룹 패턴 (Content Status Badges)
+-------------------------------------------------------------------------- */
+const RADIX_CONTENT_ITEMS = [
+  { title: 'Dialog 컴포넌트', status: 'sale', label: 'NEW' },
+  { title: 'Popover 컴포넌트', status: 'benefit', label: 'PRO' },
+  { title: 'Tooltip 컴포넌트', status: 'gray', label: 'STABLE' },
+  { title: 'DropdownMenu', status: 'sale', label: 'UPDATED' },
+  { title: 'AlertDialog', status: 'gray', label: 'STABLE' },
+  { title: 'ContextMenu', status: 'benefit', label: 'BETA' },
+] as const
+
+function RadixContentStatusRender() {
+  return (
+    <div style={{ width: 320, fontFamily: 'system-ui, sans-serif' }}>
+      <p style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 12 }}>Radix UI — 컴포넌트 상태 배지</p>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+        {RADIX_CONTENT_ITEMS.map(item => (
+          <div key={item.title} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '8px 12px', borderRadius: 8, border: '1px solid #f1f5f9', background: '#fff' }}>
+            <div style={{ width: 6, height: 6, borderRadius: '50%', background: item.status === 'sale' ? '#ef4444' : item.status === 'benefit' ? '#6366f1' : '#94a3b8', flexShrink: 0 }} />
+            <span style={{ flex: 1, fontSize: 13, color: '#1e293b', fontWeight: 500 }}>{item.title}</span>
+            <LabelBadge color={item.status}>
+              <LabelBadge.Label>{item.label}</LabelBadge.Label>
+            </LabelBadge>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+export const Radix_컴포넌트_상태_배지: Story = {
+  name: 'Radix UI — 컴포넌트 상태 배지 목록 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Radix UI 컴포넌트 목록 스타일. LabelBadge로 NEW/PRO/STABLE/UPDATED/BETA 상태를 색상 코딩하여 표시합니다.',
+      },
+    },
+  },
+  render: () => <RadixContentStatusRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Tailwind UI: 제품 카드 프로모션 배지 패턴
+-------------------------------------------------------------------------- */
+const TAILWIND_PRODUCTS = [
+  { name: 'Starter Kit', price: '무료', badge: 'FREE', color: 'gray' as const, desc: '개인 프로젝트용 기본 스타터' },
+  { name: 'Pro Bundle', price: '₩29,000/월', badge: 'SALE', color: 'sale' as const, desc: '팀 전용 Pro 컴포넌트 포함' },
+  { name: 'Enterprise', price: '문의', badge: '혜택', color: 'benefit' as const, desc: '무제한 라이선스 + 전용 지원' },
+]
+
+function TailwindProductBadgeRender() {
+  const [selected, setSelected] = useState<string | null>(null)
+
+  return (
+    <div style={{ width: 360, fontFamily: 'system-ui, sans-serif' }}>
+      <p style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 12 }}>Tailwind UI 제품 카드 배지</p>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+        {TAILWIND_PRODUCTS.map(product => (
+          <div
+            key={product.name}
+            onClick={() => setSelected(product.name === selected ? null : product.name)}
+            style={{
+              padding: '14px 16px',
+              borderRadius: 12,
+              border: `1.5px solid ${selected === product.name ? '#6366f1' : '#e2e8f0'}`,
+              background: selected === product.name ? '#f5f3ff' : '#fff',
+              cursor: 'pointer',
+              transition: 'all 0.15s',
+            }}
+          >
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 6 }}>
+              <span style={{ fontSize: 13, fontWeight: 700, color: '#1e293b' }}>{product.name}</span>
+              <LabelBadge color={product.color}>
+                <LabelBadge.Label>{product.badge}</LabelBadge.Label>
+              </LabelBadge>
+              <span style={{ marginLeft: 'auto', fontSize: 12, fontWeight: 600, color: '#6366f1' }}>{product.price}</span>
+            </div>
+            <p style={{ fontSize: 11, color: '#64748b', margin: 0 }}>{product.desc}</p>
+          </div>
+        ))}
+      </div>
+      {selected && (
+        <div style={{ marginTop: 12, padding: '8px 14px', borderRadius: 8, background: '#f0eeff', fontSize: 11, color: '#6366f1', fontWeight: 600 }}>
+          선택: {selected}
+        </div>
+      )}
+    </div>
+  )
+}
+
+export const Tailwind_제품_프로모션_배지: Story = {
+  name: 'Tailwind UI — 제품 카드 프로모션 배지 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Tailwind UI의 Pricing Card 패턴. LabelBadge로 FREE/SALE/혜택 뱃지를 카드 헤더에 배치해 프로모션 정보를 강조합니다.',
+      },
+    },
+  },
+  render: () => <TailwindProductBadgeRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Radix + Tailwind: PR 리뷰 상태 배지 대시보드 패턴
+-------------------------------------------------------------------------- */
+const PR_REVIEWS = [
+  { pr: '#1241', title: 'BoxedCheckbox 접근성', reviewer: 'AK', status: 'APPROVED', color: 'benefit' as const, time: '5분 전' },
+  { pr: '#1242', title: 'SpeechBadge 다크모드', reviewer: 'SJ', status: 'REVIEW', color: 'sale' as const, time: '12분 전' },
+  { pr: '#1243', title: 'Tooltip 애니메이션', reviewer: 'MH', status: 'WIP', color: 'gray' as const, time: '1시간 전' },
+  { pr: '#1244', title: 'Token 정리', reviewer: 'AK', status: 'MERGED', color: 'benefit' as const, time: '2시간 전' },
+]
+
+function RadixTailwindPRDashboardRender() {
+  const [filter, setFilter] = useState<string | null>(null)
+  const filtered = filter ? PR_REVIEWS.filter(p => p.status === filter) : PR_REVIEWS
+
+  return (
+    <div style={{ width: 380, fontFamily: 'system-ui, sans-serif' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12 }}>
+        <span style={{ fontSize: 14, fontWeight: 700, color: '#1e293b' }}>PR 리뷰 현황</span>
+        <span style={{ marginLeft: 'auto', fontSize: 11, color: '#94a3b8' }}>{PR_REVIEWS.length}개</span>
+      </div>
+      <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginBottom: 12 }}>
+        {['APPROVED', 'REVIEW', 'WIP', 'MERGED'].map(s => (
+          <button
+            key={s}
+            onClick={() => setFilter(filter === s ? null : s)}
+            style={{ padding: '4px 8px', borderRadius: 6, border: `1px solid ${filter === s ? '#6366f1' : '#e2e8f0'}`, background: filter === s ? '#f0eeff' : '#fff', fontSize: 11, fontWeight: filter === s ? 700 : 400, color: filter === s ? '#6366f1' : '#64748b', cursor: 'pointer' }}
+          >
+            {s}
+          </button>
+        ))}
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+        {filtered.map(pr => (
+          <div key={pr.pr} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '9px 12px', borderRadius: 8, border: '1px solid #f1f5f9', background: '#fff' }}>
+            <span style={{ fontSize: 10, color: '#94a3b8', fontFamily: 'monospace', flexShrink: 0 }}>{pr.pr}</span>
+            <span style={{ flex: 1, fontSize: 12, color: '#1e293b', fontWeight: 500, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{pr.title}</span>
+            <LabelBadge color={pr.color}>
+              <LabelBadge.Label>{pr.status}</LabelBadge.Label>
+            </LabelBadge>
+            <span style={{ fontSize: 10, color: '#94a3b8', flexShrink: 0 }}>{pr.time}</span>
+          </div>
+        ))}
+        {filtered.length === 0 && (
+          <div style={{ padding: 14, textAlign: 'center', fontSize: 11, color: '#94a3b8', background: '#f8fafc', borderRadius: 8, border: '1px dashed #e2e8f0' }}>해당 상태 없음</div>
+        )}
+      </div>
+    </div>
+  )
+}
+
+export const Radix_Tailwind_PR_리뷰_배지_대시보드: Story = {
+  name: 'Radix + Tailwind UI — PR 리뷰 상태 배지 대시보드 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Radix + Tailwind UI 복합 패턴. LabelBadge로 PR 리뷰 상태(APPROVED/REVIEW/WIP/MERGED)를 시각화하고 상태별 필터링을 제공합니다.',
+      },
+    },
+  },
+  render: () => <RadixTailwindPRDashboardRender />,
+}
