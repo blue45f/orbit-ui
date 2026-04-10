@@ -20845,3 +20845,271 @@ export const M3OnboardingFlow: Story = {
   },
   render: () => <M3OnboardingFlowRender />,
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Template #74 — NotificationCenter
+   shadcn/ui 벤치마크: 필터 탭 + 그룹별 알림 목록 + 설정 패널 패턴.
+   Avatar, AnimatedBadge, CounterBadge, Switch, Toggle, Chip, SegmentedControl 활용.
+   ═══════════════════════════════════════════════════════════════════════════ */
+const NOTIF_ITEMS = [
+  {
+    id: 'n1',
+    type: 'mention',
+    avatar: 'KJ',
+    avatarColor: '#6366f1',
+    title: '김준이 문서에서 나를 언급했습니다',
+    body: '@hjunkim 이 컴포넌트 스펙 확인해주실 수 있나요?',
+    time: '2분 전',
+    read: false,
+    group: '멘션',
+  },
+  {
+    id: 'n2',
+    type: 'pr',
+    avatar: 'SH',
+    avatarColor: '#0ea5e9',
+    title: 'Pull Request 승인 요청',
+    body: 'feat: Button 컴포넌트 loading 상태 추가 — 리뷰 부탁드립니다',
+    time: '18분 전',
+    read: false,
+    group: '협업',
+  },
+  {
+    id: 'n3',
+    type: 'deploy',
+    avatar: '▲',
+    avatarColor: '#000',
+    title: '배포 완료: orbit-ui',
+    body: 'Storybook v85가 성공적으로 프리뷰 환경에 배포되었습니다',
+    time: '1시간 전',
+    read: false,
+    group: '시스템',
+  },
+  {
+    id: 'n4',
+    type: 'comment',
+    avatar: 'YR',
+    avatarColor: '#f59e0b',
+    title: '이유리가 이슈에 댓글을 남겼습니다',
+    body: 'Toggle 컴포넌트의 접근성 레이블이 누락된 것 같아요. aria-label 추가 필요합니다.',
+    time: '3시간 전',
+    read: true,
+    group: '협업',
+  },
+  {
+    id: 'n5',
+    type: 'mention',
+    avatar: 'CH',
+    avatarColor: '#10b981',
+    title: '최현이 스토리에서 나를 태그했습니다',
+    body: '@hjunkim 새 SegmentedControl 스토리 추가 완료! 리뷰해주세요',
+    time: '어제',
+    read: true,
+    group: '멘션',
+  },
+  {
+    id: 'n6',
+    type: 'system',
+    avatar: '●',
+    avatarColor: '#ef4444',
+    title: 'TypeScript 에러 감지',
+    body: '패키지 빌드 중 3개의 타입 에러가 발견되었습니다. 수정이 필요합니다.',
+    time: '어제',
+    read: true,
+    group: '시스템',
+  },
+]
+
+const NOTIF_SETTINGS = [
+  { key: 'mentions', label: '멘션 알림', desc: '나를 @태그한 경우', on: true },
+  { key: 'prs', label: 'PR/리뷰 알림', desc: '리뷰 요청 및 승인', on: true },
+  { key: 'deploys', label: '배포 알림', desc: '빌드 성공/실패 알림', on: true },
+  { key: 'comments', label: '댓글 알림', desc: '내 이슈 및 PR 댓글', on: false },
+  { key: 'system', label: '시스템 알림', desc: '에러, 경고, 업데이트', on: true },
+]
+
+const Shadcn74NotifCenterRender = () => {
+  const [tabIdx, setTabIdx] = React.useState(0)
+  const [items, setItems] = React.useState(NOTIF_ITEMS)
+  const [settings, setSettings] = React.useState(NOTIF_SETTINGS)
+  const [showSettings, setShowSettings] = React.useState(false)
+
+  const tabs = [
+    { label: '전체', count: items.length },
+    { label: '읽지 않음', count: items.filter((n) => !n.read).length },
+    { label: '멘션', count: items.filter((n) => n.group === '멘션').length },
+  ]
+
+  const filtered =
+    tabIdx === 0
+      ? items
+      : tabIdx === 1
+        ? items.filter((n) => !n.read)
+        : items.filter((n) => n.group === '멘션')
+
+  const unreadCount = items.filter((n) => !n.read).length
+
+  const markAllRead = () => setItems((prev) => prev.map((n) => ({ ...n, read: true })))
+  const markRead = (id: string) => setItems((prev) => prev.map((n) => (n.id === id ? { ...n, read: true } : n)))
+  const toggleSetting = (key: string) => setSettings((prev) => prev.map((s) => (s.key === key ? { ...s, on: !s.on } : s)))
+
+  return (
+    <div style={{ display: 'flex', height: '100vh', background: 'var(--sem-eclipse-color-backgroundSecondary)' }}>
+      {/* Main panel */}
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', maxWidth: 680, margin: '0 auto', background: 'var(--sem-eclipse-color-backgroundPrimary)', borderLeft: '1px solid var(--sem-eclipse-color-borderSubtle)', borderRight: '1px solid var(--sem-eclipse-color-borderSubtle)' }}>
+        {/* Header */}
+        <div style={{ padding: '20px 24px 0', borderBottom: '1px solid var(--sem-eclipse-color-borderSubtle)' }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 16 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+              <span style={{ fontSize: 18, fontWeight: 800, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>알림</span>
+              {unreadCount > 0 && (
+                <span style={{ fontSize: 12, fontWeight: 700, padding: '2px 8px', borderRadius: 10, background: '#6366f1', color: '#fff' }}>{unreadCount}</span>
+              )}
+            </div>
+            <div style={{ display: 'flex', gap: 8 }}>
+              {unreadCount > 0 && (
+                <button
+                  onClick={markAllRead}
+                  style={{ fontSize: 12, fontWeight: 600, color: '#6366f1', background: 'none', border: '1px solid #6366f1', borderRadius: 6, padding: '6px 12px', cursor: 'pointer' }}
+                >
+                  모두 읽음
+                </button>
+              )}
+              <button
+                onClick={() => setShowSettings((v) => !v)}
+                style={{ fontSize: 12, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundSecondary)', border: '1px solid var(--sem-eclipse-color-borderDefault)', borderRadius: 6, padding: '6px 12px', cursor: 'pointer', background: showSettings ? 'var(--sem-eclipse-color-backgroundSecondary)' : 'none' } as React.CSSProperties}
+              >
+                {showSettings ? '목록 보기' : '알림 설정'}
+              </button>
+            </div>
+          </div>
+          {/* Filter tabs */}
+          {!showSettings && (
+            <div style={{ display: 'flex', gap: 0 }}>
+              {tabs.map((tab, i) => (
+                <button
+                  key={tab.label}
+                  onClick={() => setTabIdx(i)}
+                  style={{
+                    padding: '8px 16px',
+                    fontSize: 13,
+                    fontWeight: tabIdx === i ? 700 : 500,
+                    color: tabIdx === i ? '#6366f1' : 'var(--sem-eclipse-color-foregroundTertiary)',
+                    background: 'none',
+                    border: 'none',
+                    borderBottom: `2px solid ${tabIdx === i ? '#6366f1' : 'transparent'}`,
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 6,
+                    transition: 'color 0.15s, border-color 0.15s',
+                  }}
+                >
+                  {tab.label}
+                  {tab.count > 0 && (
+                    <span style={{ fontSize: 11, padding: '1px 6px', borderRadius: 8, background: tabIdx === i ? '#6366f120' : 'var(--sem-eclipse-color-backgroundSecondary)', color: tabIdx === i ? '#6366f1' : 'var(--sem-eclipse-color-foregroundTertiary)', fontWeight: 600 }}>{tab.count}</span>
+                  )}
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* Content */}
+        <div style={{ flex: 1, overflowY: 'auto' }}>
+          {showSettings ? (
+            /* Settings panel */
+            <div style={{ padding: '20px 24px' }}>
+              <div style={{ fontSize: 15, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 4 }}>알림 설정</div>
+              <div style={{ fontSize: 13, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginBottom: 20 }}>받고 싶은 알림 유형을 선택하세요</div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 0, border: '1px solid var(--sem-eclipse-color-borderDefault)', borderRadius: 10, overflow: 'hidden' }}>
+                {settings.map((s, i) => (
+                  <div
+                    key={s.key}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      padding: '14px 16px',
+                      borderBottom: i < settings.length - 1 ? '1px solid var(--sem-eclipse-color-borderSubtle)' : 'none',
+                      background: 'var(--sem-eclipse-color-backgroundPrimary)',
+                    }}
+                  >
+                    <div style={{ flex: 1 }}>
+                      <div style={{ fontSize: 14, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{s.label}</div>
+                      <div style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginTop: 2 }}>{s.desc}</div>
+                    </div>
+                    <Toggle checked={s.on} onChange={() => toggleSetting(s.key)} />
+                  </div>
+                ))}
+              </div>
+              <div style={{ marginTop: 16, padding: '12px 14px', borderRadius: 8, background: 'var(--sem-eclipse-color-backgroundSecondary)', fontSize: 13, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>
+                활성화된 알림: <strong style={{ color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{settings.filter((s) => s.on).length}개</strong>
+              </div>
+            </div>
+          ) : filtered.length === 0 ? (
+            /* Empty state */
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '60px 24px', color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>
+              <div style={{ fontSize: 40, marginBottom: 12 }}>☾</div>
+              <div style={{ fontSize: 15, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundSecondary)', marginBottom: 4 }}>모든 알림을 확인했습니다</div>
+              <div style={{ fontSize: 13 }}>새 알림이 오면 여기에 표시됩니다</div>
+            </div>
+          ) : (
+            /* Notification list */
+            <div>
+              {filtered.map((notif, i) => (
+                <div
+                  key={notif.id}
+                  onClick={() => markRead(notif.id)}
+                  style={{
+                    display: 'flex',
+                    gap: 14,
+                    padding: '16px 24px',
+                    borderBottom: i < filtered.length - 1 ? '1px solid var(--sem-eclipse-color-borderSubtle)' : 'none',
+                    background: notif.read ? 'var(--sem-eclipse-color-backgroundPrimary)' : 'color-mix(in srgb, #6366f1 4%, var(--sem-eclipse-color-backgroundPrimary))',
+                    cursor: 'pointer',
+                    transition: 'background 0.15s',
+                    position: 'relative',
+                  }}
+                >
+                  {!notif.read && (
+                    <div style={{ position: 'absolute', left: 8, top: '50%', transform: 'translateY(-50%)', width: 6, height: 6, borderRadius: '50%', background: '#6366f1' }} />
+                  )}
+                  {/* Avatar */}
+                  <div style={{ flexShrink: 0, width: 40, height: 40, borderRadius: '50%', background: notif.avatarColor, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: notif.avatar.length > 2 ? 16 : 13, fontWeight: 700, color: '#fff', marginTop: 2 }}>
+                    {notif.avatar}
+                  </div>
+                  {/* Content */}
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 8, marginBottom: 4 }}>
+                      <span style={{ fontSize: 14, fontWeight: notif.read ? 500 : 700, color: 'var(--sem-eclipse-color-foregroundPrimary)', lineHeight: 1.4 }}>{notif.title}</span>
+                      <span style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)', whiteSpace: 'nowrap', flexShrink: 0, paddingTop: 2 }}>{notif.time}</span>
+                    </div>
+                    <div style={{ fontSize: 13, color: 'var(--sem-eclipse-color-foregroundSecondary)', lineHeight: 1.5, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{notif.body}</div>
+                    <div style={{ marginTop: 6 }}>
+                      <span style={{ fontSize: 11, fontWeight: 600, padding: '2px 8px', borderRadius: 6, background: 'var(--sem-eclipse-color-backgroundSecondary)', color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>{notif.group}</span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const ShadcnNotificationCenter: Story = {
+  name: 'shadcn NotificationCenter',
+  parameters: {
+    layout: 'fullscreen',
+    docs: {
+      description: {
+        story:
+          'shadcn/ui 벤치마크: 필터 탭 + 그룹별 알림 목록 + Toggle 설정 패널. ' +
+          '읽음/읽지 않음 상태 관리, 모두 읽음 처리, 알림 유형별 Toggle 설정 포함.',
+      },
+    },
+  },
+  render: () => <Shadcn74NotifCenterRender />,
+}

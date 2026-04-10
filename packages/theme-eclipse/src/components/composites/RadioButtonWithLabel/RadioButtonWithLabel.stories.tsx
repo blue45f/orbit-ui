@@ -286,3 +286,216 @@ export const Linear_알림_우선순위: Story = {
   name: 'Linear — 알림 우선순위 설정',
   render: () => <NotifPriorityDemo />,
 }
+
+/* ── shadcn/ui: 카드형 플랜 선택 ── */
+const PlanPickerDemo = () => {
+  const [plan, setPlan] = useState<'free' | 'pro' | 'enterprise'>('pro')
+
+  const plans: { value: 'free' | 'pro' | 'enterprise'; label: string; price: string; desc: string; features: string[]; accent: string }[] = [
+    {
+      value: 'free',
+      label: 'Free',
+      price: '₩0',
+      desc: '개인 프로젝트 & 탐색용',
+      features: ['컴포넌트 10개', '스토리 50개', '커뮤니티 지원'],
+      accent: '#64748b',
+    },
+    {
+      value: 'pro',
+      label: 'Pro',
+      price: '₩29,000',
+      desc: '팀 협업 & 실무 프로젝트',
+      features: ['컴포넌트 무제한', '스토리 무제한', '테마 커스텀', '우선 지원'],
+      accent: '#6366f1',
+    },
+    {
+      value: 'enterprise',
+      label: 'Enterprise',
+      price: '문의',
+      desc: '대규모 조직 & 보안 요구사항',
+      features: ['Pro 모든 기능', 'SSO/SAML', 'SLA 99.9%', '전담 매니저'],
+      accent: '#0ea5e9',
+    },
+  ]
+
+  return (
+    <div style={{ maxWidth: 520 }}>
+      <div style={{ fontSize: 18, fontWeight: 800, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 4 }}>플랜 선택</div>
+      <div style={{ fontSize: 14, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginBottom: 20 }}>shadcn/ui 카드형 라디오 패턴 — 풍부한 시각 피드백</div>
+      <RadioGroup value={plan} onChange={(e) => setPlan(e.target.value as typeof plan)} name="plan">
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+          {plans.map((p) => {
+            const selected = plan === p.value
+            return (
+              <div
+                key={p.value}
+                onClick={() => setPlan(p.value)}
+                style={{
+                  padding: '16px 18px',
+                  borderRadius: 10,
+                  border: `2px solid ${selected ? p.accent : 'var(--sem-eclipse-color-borderSubtle)'}`,
+                  background: selected ? `${p.accent}08` : 'var(--sem-eclipse-color-backgroundPrimary)',
+                  cursor: 'pointer',
+                  transition: 'border-color 0.15s, background 0.15s',
+                  position: 'relative',
+                }}
+              >
+                <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 10 }}>
+                  <RadioButtonWithLabel value={p.value} alignItems="center" />
+                  <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                    <div>
+                      <span style={{ fontSize: 15, fontWeight: 700, color: selected ? p.accent : 'var(--sem-eclipse-color-foregroundPrimary)' }}>{p.label}</span>
+                      <span style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginLeft: 8 }}>{p.desc}</span>
+                    </div>
+                    <span style={{ fontSize: 15, fontWeight: 700, color: selected ? p.accent : 'var(--sem-eclipse-color-foregroundPrimary)' }}>{p.price}<span style={{ fontSize: 11, fontWeight: 400, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>{p.value !== 'enterprise' ? '/월' : ''}</span></span>
+                  </div>
+                </div>
+                <div style={{ paddingLeft: 26, display: 'flex', flexWrap: 'wrap', gap: '4px 12px' }}>
+                  {p.features.map((f) => (
+                    <span key={f} style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundSecondary)', display: 'flex', alignItems: 'center', gap: 4 }}>
+                      <span style={{ color: p.accent, fontWeight: 700 }}>✓</span> {f}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )
+          })}
+        </div>
+      </RadioGroup>
+      <div style={{ marginTop: 16, textAlign: 'right' }}>
+        <button style={{ padding: '10px 24px', borderRadius: 8, border: 'none', background: '#6366f1', color: '#fff', fontSize: 14, fontWeight: 600, cursor: 'pointer' }}>
+          {plan === 'enterprise' ? '영업팀 문의' : `${plans.find((p) => p.value === plan)?.label} 플랜 시작`}
+        </button>
+      </div>
+    </div>
+  )
+}
+
+export const Shadcn_카드형_플랜_선택: Story = {
+  name: 'shadcn/ui — 카드형 플랜 선택',
+  render: () => <PlanPickerDemo />,
+}
+
+/* ── shadcn/ui: 폼 통합 결제 주기 선택 ── */
+const BillingCycleDemo = () => {
+  const [cycle, setCycle] = useState<'monthly' | 'yearly'>('yearly')
+  const [submitted, setSubmitted] = useState(false)
+
+  const options: { value: 'monthly' | 'yearly'; label: string; sublabel: string; badge?: string }[] = [
+    { value: 'monthly', label: '월간 결제', sublabel: '매달 자동 갱신' },
+    { value: 'yearly', label: '연간 결제', sublabel: '한 번에 12개월 결제', badge: '2개월 무료' },
+  ]
+
+  return (
+    <div style={{ maxWidth: 380 }}>
+      <div style={{ fontSize: 16, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 4 }}>결제 주기</div>
+      <div style={{ fontSize: 13, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginBottom: 16 }}>shadcn/ui 폼 통합 + 유효성 표시 패턴</div>
+      {submitted ? (
+        <div style={{ padding: '20px', textAlign: 'center', borderRadius: 10, background: '#f0fdf4', border: '1.5px solid #86efac' }}>
+          <div style={{ fontSize: 24, marginBottom: 8 }}>✓</div>
+          <div style={{ fontSize: 14, fontWeight: 700, color: '#16a34a' }}>{cycle === 'yearly' ? '연간' : '월간'} 결제 플랜이 선택되었어요</div>
+          <button onClick={() => setSubmitted(false)} style={{ marginTop: 12, fontSize: 12, color: '#6366f1', background: 'none', border: 'none', cursor: 'pointer', textDecoration: 'underline' }}>다시 선택</button>
+        </div>
+      ) : (
+        <>
+          <RadioGroup value={cycle} onChange={(e) => setCycle(e.target.value as typeof cycle)} name="billing-cycle">
+            <div style={{ display: 'flex', gap: 10 }}>
+              {options.map((opt) => (
+                <div
+                  key={opt.value}
+                  onClick={() => setCycle(opt.value)}
+                  style={{
+                    flex: 1,
+                    padding: '14px 12px',
+                    borderRadius: 8,
+                    border: `2px solid ${cycle === opt.value ? '#6366f1' : 'var(--sem-eclipse-color-borderSubtle)'}`,
+                    background: cycle === opt.value ? '#6366f108' : 'var(--sem-eclipse-color-backgroundPrimary)',
+                    cursor: 'pointer',
+                    transition: 'border-color 0.15s',
+                    position: 'relative',
+                  }}
+                >
+                  {opt.badge && (
+                    <span style={{ position: 'absolute', top: -10, right: 10, fontSize: 11, fontWeight: 700, padding: '2px 8px', borderRadius: 10, background: '#6366f1', color: '#fff' }}>{opt.badge}</span>
+                  )}
+                  <RadioButtonWithLabel value={opt.value} alignItems="center" />
+                  <div style={{ marginTop: 8, paddingLeft: 4 }}>
+                    <div style={{ fontSize: 14, fontWeight: 700, color: cycle === opt.value ? '#6366f1' : 'var(--sem-eclipse-color-foregroundPrimary)' }}>{opt.label}</div>
+                    <div style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginTop: 2 }}>{opt.sublabel}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </RadioGroup>
+          <button onClick={() => setSubmitted(true)} style={{ marginTop: 16, width: '100%', padding: '11px', borderRadius: 8, border: 'none', background: '#6366f1', color: '#fff', fontSize: 14, fontWeight: 600, cursor: 'pointer' }}>
+            선택 완료
+          </button>
+        </>
+      )}
+    </div>
+  )
+}
+
+export const Shadcn_폼_결제_주기_선택: Story = {
+  name: 'shadcn/ui — 폼 통합 결제 주기 선택',
+  render: () => <BillingCycleDemo />,
+}
+
+/* ── shadcn/ui: 수평 아이콘 배지 옵션 선택 ── */
+const DeployTargetDemo = () => {
+  const [target, setTarget] = useState<string>('vercel')
+
+  const targets: { value: string; label: string; icon: string; badge: string; desc: string }[] = [
+    { value: 'vercel', label: 'Vercel', icon: '▲', badge: '권장', desc: 'Zero-config 배포 & Edge Network' },
+    { value: 'netlify', label: 'Netlify', icon: '◆', badge: '', desc: 'JAMstack 특화 정적 배포' },
+    { value: 'aws', label: 'AWS Amplify', icon: '⬡', badge: '', desc: '엔터프라이즈급 확장성' },
+    { value: 'cloudflare', label: 'Cloudflare Pages', icon: '☁', badge: '무료', desc: 'CDN 통합 글로벌 엣지' },
+  ]
+
+  return (
+    <div style={{ maxWidth: 440 }}>
+      <div style={{ fontSize: 16, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 4 }}>배포 대상</div>
+      <div style={{ fontSize: 13, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginBottom: 16 }}>shadcn/ui 수평 아이콘 + 배지 결합 패턴</div>
+      <RadioGroup value={target} onChange={(e) => setTarget(e.target.value)} name="deploy-target">
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 0, border: '1px solid var(--sem-eclipse-color-borderDefault)', borderRadius: 10, overflow: 'hidden' }}>
+          {targets.map((t, i) => (
+            <div
+              key={t.value}
+              onClick={() => setTarget(t.value)}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 12,
+                padding: '13px 16px',
+                borderBottom: i < targets.length - 1 ? '1px solid var(--sem-eclipse-color-borderSubtle)' : 'none',
+                background: target === t.value ? 'color-mix(in srgb, var(--sem-eclipse-color-fillPrimary) 5%, var(--sem-eclipse-color-backgroundPrimary))' : 'var(--sem-eclipse-color-backgroundPrimary)',
+                cursor: 'pointer',
+                transition: 'background 0.12s',
+              }}
+            >
+              <div style={{ width: 36, height: 36, borderRadius: 8, background: target === t.value ? 'var(--sem-eclipse-color-fillPrimary)' : 'var(--sem-eclipse-color-backgroundSecondary)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 16, color: target === t.value ? '#fff' : 'var(--sem-eclipse-color-foregroundSecondary)', transition: 'background 0.12s, color 0.12s', flexShrink: 0 }}>
+                {t.icon}
+              </div>
+              <div style={{ flex: 1 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                  <span style={{ fontSize: 14, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{t.label}</span>
+                  {t.badge && <span style={{ fontSize: 10, fontWeight: 700, padding: '1px 6px', borderRadius: 6, background: 'var(--sem-eclipse-color-fillPrimary)', color: '#fff' }}>{t.badge}</span>}
+                </div>
+                <div style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginTop: 1 }}>{t.desc}</div>
+              </div>
+              <RadioButtonWithLabel value={t.value} alignItems="center" />
+            </div>
+          ))}
+        </div>
+      </RadioGroup>
+      <div style={{ marginTop: 12, padding: '10px 14px', borderRadius: 8, background: 'var(--sem-eclipse-color-backgroundSecondary)', fontSize: 13, color: 'var(--sem-eclipse-color-foregroundSecondary)' }}>
+        선택됨: <strong style={{ color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{targets.find((t) => t.value === target)?.label}</strong>
+      </div>
+    </div>
+  )
+}
+
+export const Shadcn_배포_대상_선택: Story = {
+  name: 'shadcn/ui — 배포 대상 선택 (아이콘+배지)',
+  render: () => <DeployTargetDemo />,
+}
