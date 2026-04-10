@@ -11501,3 +11501,367 @@ export const FileBrowser: Story = {
   render: () => <FileBrowserRender />,
 }
 
+// ─── ChangelogPage Template (Linear Design + Arco Design 벤치마크) ───────────
+// Linear의 Changelog 페이지 레이아웃 + Arco Timeline 스타일 변경 이력
+
+type CLChangeType = 'feat' | 'fix' | 'perf' | 'docs' | 'break'
+type CLFilterKey = 'all' | CLChangeType
+
+type CLChange = {
+  type: CLChangeType
+  scope: string
+  text: string
+}
+
+type CLRelease = {
+  id: string
+  version: string
+  date: string
+  headline: string
+  changes: CLChange[]
+  highlight?: boolean
+}
+
+const CL_CHANGE_CONFIG: Record<CLChangeType, { label: string; color: string }> = {
+  feat: { label: '기능', color: '#10b981' },
+  fix: { label: '수정', color: '#ef4444' },
+  perf: { label: '성능', color: '#8b5cf6' },
+  docs: { label: '문서', color: '#3b82f6' },
+  break: { label: '주의', color: '#f59e0b' },
+}
+
+const CL_FILTER_OPTIONS: { key: CLFilterKey; label: string }[] = [
+  { key: 'all', label: '전체' },
+  { key: 'feat', label: '기능' },
+  { key: 'fix', label: '수정' },
+  { key: 'perf', label: '성능' },
+  { key: 'docs', label: '문서' },
+]
+
+const CL_RELEASES: CLRelease[] = [
+  {
+    id: 'r1',
+    version: 'v2.0.0',
+    date: '2026-04-10',
+    headline: 'Cycle 50 — Linear + Arco 벤치마크 반영',
+    highlight: true,
+    changes: [
+      { type: 'feat', scope: 'CounterBadge', text: 'Linear 이슈 상태별 카운터 사이드바 스토리 추가' },
+      { type: 'feat', scope: 'CounterBadge', text: 'Arco KPI 카드 집계 배지 패턴 추가' },
+      { type: 'feat', scope: 'Text', text: 'Linear 이슈 리스트 타이포그래피 패턴 추가' },
+      { type: 'feat', scope: 'Text', text: 'Arco Description 정보 밀도 레이아웃 추가' },
+      { type: 'docs', scope: 'DesignToken', text: 'Linear + Arco 토큰 시스템 비교 섹션 추가' },
+    ],
+  },
+  {
+    id: 'r2',
+    version: 'v1.9.0',
+    date: '2026-04-09',
+    headline: 'Chakra UI + Material 3 패턴 반영',
+    changes: [
+      { type: 'feat', scope: 'FileBrowser', text: '파일 관리자 템플릿 — 그리드/목록 전환, 즐겨찾기' },
+      { type: 'feat', scope: 'SearchBar', text: 'Chakra 실시간 사용자 검색(아바타 드롭다운) 추가' },
+      { type: 'feat', scope: 'Toggle', text: 'M3 온보딩 기능 토글 카드 패턴 추가' },
+      { type: 'fix', scope: 'Templates', text: 'FileManager 중복 식별자 오류 수정' },
+    ],
+  },
+  {
+    id: 'r3',
+    version: 'v1.8.0',
+    date: '2026-04-08',
+    headline: 'Tailwind UI + Mantine 접근성 강화',
+    changes: [
+      { type: 'feat', scope: 'Checkbox', text: 'Tailwind 플랜 기능 선택 — indeterminate 전체 선택' },
+      { type: 'feat', scope: 'FloatingTextField', text: 'Mantine 글자수 카운터 — 정규식 검증 패턴' },
+      { type: 'perf', scope: 'Templates', text: 'Templates.stories.tsx 번들 크기 최적화' },
+      { type: 'docs', scope: 'AccessibilityGuide', text: 'Tailwind UI + Mantine 접근성 벤치마크 추가' },
+    ],
+  },
+  {
+    id: 'r4',
+    version: 'v1.7.0',
+    date: '2026-04-07',
+    headline: 'shadcn/ui + Radix UI Primitive 반영',
+    changes: [
+      { type: 'feat', scope: 'Carousel', text: 'shadcn 피처 하이라이트 + Radix 스텝 가이드' },
+      { type: 'feat', scope: 'Divider', text: 'shadcn OR 구분선 + Radix 컨텍스트 메뉴 구분선' },
+      { type: 'break', scope: 'EclipseProvider', text: 'highDensityTheme prop 제거됨 (미구현 상태였음)' },
+      { type: 'fix', scope: 'SwitchBar', text: '스토리북 Switch 참조 오류 수정' },
+    ],
+  },
+]
+
+const clColors = {
+  bg: '#fafafa',
+  card: '#fff',
+  border: '#e2e8f0',
+  accent: '#5e6ad2',
+  fg: '#0f172a',
+  fgSub: '#64748b',
+  highlight: '#eff6ff',
+}
+
+function ChangelogPageRender() {
+  const [filter, setFilter] = useState<CLFilterKey>('all')
+  const [expandedIds, setExpandedIds] = useState<string[]>(['r1'])
+
+  const toggleExpand = (id: string) => {
+    setExpandedIds((prev) => (prev.includes(id) ? prev.filter((e) => e !== id) : [...prev, id]))
+  }
+
+  const filteredReleases = CL_RELEASES.map((release) => ({
+    ...release,
+    changes: filter === 'all' ? release.changes : release.changes.filter((c) => c.type === filter),
+  })).filter((r) => r.changes.length > 0)
+
+  return (
+    <div
+      style={{
+        width: 780,
+        minHeight: 560,
+        background: clColors.bg,
+        fontFamily: 'system-ui, sans-serif',
+        display: 'flex',
+      }}
+    >
+      {/* Left sidebar */}
+      <div
+        style={{
+          width: 220,
+          background: clColors.card,
+          borderRight: `1px solid ${clColors.border}`,
+          padding: '20px 0',
+          flexShrink: 0,
+        }}
+      >
+        <div
+          style={{
+            padding: '0 16px 12px',
+            fontSize: 13,
+            fontWeight: 700,
+            color: clColors.fg,
+          }}
+        >
+          Changelog
+        </div>
+        <div
+          style={{
+            padding: '0 16px 8px',
+            fontSize: 11,
+            fontWeight: 600,
+            color: clColors.fgSub,
+            textTransform: 'uppercase',
+            letterSpacing: '0.07em',
+          }}
+        >
+          필터
+        </div>
+        {CL_FILTER_OPTIONS.map((opt) => (
+          <button
+            key={opt.key}
+            onClick={() => setFilter(opt.key)}
+            style={{
+              width: '100%',
+              textAlign: 'left',
+              padding: '7px 16px',
+              border: 'none',
+              background: filter === opt.key ? `${clColors.accent}10` : 'transparent',
+              color: filter === opt.key ? clColors.accent : clColors.fg,
+              fontWeight: filter === opt.key ? 600 : 400,
+              fontSize: 13,
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              gap: 8,
+            }}
+          >
+            {opt.key !== 'all' && (
+              <span
+                style={{
+                  width: 8,
+                  height: 8,
+                  borderRadius: '50%',
+                  background: CL_CHANGE_CONFIG[opt.key as CLChangeType].color,
+                  flexShrink: 0,
+                }}
+              />
+            )}
+            {opt.label}
+          </button>
+        ))}
+
+        <div
+          style={{
+            padding: '20px 16px 8px',
+            fontSize: 11,
+            fontWeight: 600,
+            color: clColors.fgSub,
+            textTransform: 'uppercase',
+            letterSpacing: '0.07em',
+          }}
+        >
+          버전 이력
+        </div>
+        {CL_RELEASES.map((r) => (
+          <div
+            key={r.id}
+            style={{
+              padding: '5px 16px',
+              display: 'flex',
+              alignItems: 'center',
+              gap: 8,
+              cursor: 'pointer',
+            }}
+            onClick={() => toggleExpand(r.id)}
+          >
+            {r.highlight && (
+              <span
+                style={{
+                  fontSize: 9,
+                  padding: '1px 5px',
+                  borderRadius: 4,
+                  background: clColors.accent,
+                  color: '#fff',
+                  fontWeight: 700,
+                }}
+              >
+                NEW
+              </span>
+            )}
+            <span style={{ fontSize: 12, color: clColors.accent, fontFamily: 'monospace', fontWeight: 600 }}>
+              {r.version}
+            </span>
+            <span style={{ fontSize: 11, color: clColors.fgSub }}>{r.date}</span>
+          </div>
+        ))}
+      </div>
+
+      {/* Main content */}
+      <div style={{ flex: 1, overflowY: 'auto', padding: '24px 28px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
+          {filteredReleases.map((release) => {
+            const isExpanded = expandedIds.includes(release.id)
+            return (
+              <div
+                key={release.id}
+                style={{
+                  background: release.highlight ? clColors.highlight : clColors.card,
+                  borderRadius: 12,
+                  border: `1px solid ${release.highlight ? `${clColors.accent}30` : clColors.border}`,
+                  overflow: 'hidden',
+                }}
+              >
+                <div
+                  style={{
+                    padding: '14px 18px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    cursor: 'pointer',
+                    borderBottom: isExpanded ? `1px solid ${clColors.border}` : 'none',
+                  }}
+                  onClick={() => toggleExpand(release.id)}
+                >
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                    {release.highlight && (
+                      <span
+                        style={{
+                          fontSize: 9,
+                          padding: '2px 6px',
+                          borderRadius: 4,
+                          background: clColors.accent,
+                          color: '#fff',
+                          fontWeight: 700,
+                          letterSpacing: '0.05em',
+                        }}
+                      >
+                        LATEST
+                      </span>
+                    )}
+                    <span
+                      style={{
+                        fontSize: 15,
+                        fontWeight: 800,
+                        color: clColors.fg,
+                        fontFamily: 'monospace',
+                        letterSpacing: '-0.01em',
+                      }}
+                    >
+                      {release.version}
+                    </span>
+                    <span style={{ fontSize: 12, color: clColors.fgSub }}>{release.date}</span>
+                    <span
+                      style={{
+                        fontSize: 12,
+                        color: clColors.fg,
+                        fontWeight: 500,
+                        marginLeft: 4,
+                      }}
+                    >
+                      {release.headline}
+                    </span>
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                    <CounterBadge>{release.changes.length}</CounterBadge>
+                    <span style={{ fontSize: 12, color: clColors.fgSub }}>{isExpanded ? '▲' : '▼'}</span>
+                  </div>
+                </div>
+
+                {isExpanded && (
+                  <div style={{ padding: '12px 18px', display: 'flex', flexDirection: 'column', gap: 8 }}>
+                    {release.changes.map((change, i) => {
+                      const cfg = CL_CHANGE_CONFIG[change.type]
+                      return (
+                        <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: 8 }}>
+                          <span
+                            style={{
+                              fontSize: 9,
+                              fontWeight: 800,
+                              padding: '2px 6px',
+                              borderRadius: 4,
+                              background: `${cfg.color}18`,
+                              color: cfg.color,
+                              flexShrink: 0,
+                              marginTop: 2,
+                              textTransform: 'uppercase',
+                              letterSpacing: '0.06em',
+                            }}
+                          >
+                            {cfg.label}
+                          </span>
+                          <span
+                            style={{
+                              fontSize: 11,
+                              fontFamily: 'monospace',
+                              color: clColors.accent,
+                              flexShrink: 0,
+                              marginTop: 3,
+                              background: `${clColors.accent}10`,
+                              padding: '1px 5px',
+                              borderRadius: 4,
+                            }}
+                          >
+                            {change.scope}
+                          </span>
+                          <span style={{ fontSize: 13, color: clColors.fg, lineHeight: 1.5 }}>
+                            {change.text}
+                          </span>
+                        </div>
+                      )
+                    })}
+                  </div>
+                )}
+              </div>
+            )
+          })}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const ChangelogPage: Story = {
+  name: 'Changelog Page (Linear Design + Arco Design 벤치마크)',
+  render: () => <ChangelogPageRender />,
+}
+

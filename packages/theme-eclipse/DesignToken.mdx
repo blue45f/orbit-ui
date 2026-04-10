@@ -875,5 +875,91 @@ function App() {
       </div>
     </section>
 
+    {/* Linear Design + Arco Design 토큰 시스템 비교 */}
+    <section style={{ marginBottom: '56px' }}>
+      <h2 style={{ fontSize: '24px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '8px' }}>Linear Design + Arco Design 토큰 시스템 비교</h2>
+      <p style={{ fontSize: '14px', color: '#64748b', lineHeight: '1.7', marginBottom: '24px' }}>
+        Linear의 미니멀 컬러 토큰 구조와 Arco Design의 계층적 팔레트 시스템을 Orbit UI와 비교합니다.
+      </p>
+
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '28px' }}>
+        <div style={{ borderRadius: '16px', border: '1px solid #c7d2fe', overflow: 'hidden' }}>
+          <div style={{ padding: '12px 20px', background: '#1e1e2e', display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <span style={{ fontSize: '13px', fontWeight: '700', color: '#a5b4fc' }}>Linear Design — 컬러 토큰</span>
+            <span style={{ fontSize: '11px', color: '#5e6ad2', background: '#2d2d4e', padding: '2px 6px', borderRadius: '4px' }}>미니멀</span>
+          </div>
+          <pre style={{ margin: 0, padding: '16px', background: '#111827', color: '#e2e8f0', fontSize: '11px', lineHeight: '1.8', fontFamily: '"JetBrains Mono", monospace', overflow: 'auto' }}>
+{`// Linear 컬러 시스템 — 단일 보라 계열 주색
+const linearTokens = {
+  colorAccent:        '#5E6AD2',
+  colorAccentHover:   '#4f5abf',
+  colorTodo:          '#94a3b8',
+  colorInProgress:    '#f59e0b',
+  colorDone:          '#10b981',
+  colorCancelled:     '#ef4444',
+  bgBase:             '#111',
+  bgSurface:          '#1c1c27',
+}
+
+// Orbit UI 대응:
+// --fill-primary   → colorAccent
+// --bg-base        → bgBase`}
+          </pre>
+        </div>
+
+        <div style={{ borderRadius: '16px', border: '1px solid #bae6fd', overflow: 'hidden' }}>
+          <div style={{ padding: '12px 20px', background: '#0c4a6e', display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <span style={{ fontSize: '13px', fontWeight: '700', color: '#7dd3fc' }}>Arco Design — 팔레트 시스템</span>
+            <span style={{ fontSize: '11px', color: '#38bdf8', background: '#0369a1', padding: '2px 6px', borderRadius: '4px' }}>체계적</span>
+          </div>
+          <pre style={{ margin: 0, padding: '16px', background: '#0f172a', color: '#e2e8f0', fontSize: '11px', lineHeight: '1.8', fontFamily: '"JetBrains Mono", monospace', overflow: 'auto' }}>
+{`// Arco Design — 10단계 팔레트
+const arcoTokens = {
+  blue1: '#e8f7ff', blue6: '#2592f5',
+  blue10: '#003182',
+
+  colorPrimary:       'blue.6',
+  colorPrimaryHover:  'blue.7',
+  colorSuccess:       'green.6',
+  colorDanger:        'red.6',
+}
+
+// Orbit UI 대응:
+// ref.color.blue[500] = blue6
+// sem.color.fillPrimary = blue6`}
+          </pre>
+        </div>
+      </div>
+
+      <div style={{ overflowX: 'auto', borderRadius: '12px', border: '1px solid #e2e8f0' }}>
+        <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px' }}>
+          <thead>
+            <tr style={{ background: '#f8fafc' }}>
+              <th style={{ padding: '10px 16px', textAlign: 'left', fontWeight: '700', color: '#475569', borderBottom: '1px solid #e2e8f0' }}>특성</th>
+              <th style={{ padding: '10px 16px', textAlign: 'left', fontWeight: '700', color: '#5e6ad2', borderBottom: '1px solid #e2e8f0' }}>Linear Design</th>
+              <th style={{ padding: '10px 16px', textAlign: 'left', fontWeight: '700', color: '#2592f5', borderBottom: '1px solid #e2e8f0' }}>Arco Design</th>
+              <th style={{ padding: '10px 16px', textAlign: 'left', fontWeight: '700', color: '#6366f1', borderBottom: '1px solid #e2e8f0' }}>Orbit UI</th>
+            </tr>
+          </thead>
+          <tbody>
+            {[
+              { feature: '색상 철학', linear: '단일 보라 + 4 상태색', arco: '10단계 팔레트 x 6색', orbit: 'Reference 토큰 → Semantic 매핑' },
+              { feature: '다크 모드', linear: '다크 우선 설계', arco: '라이트 우선, 다크 지원', orbit: 'data-theme 스위칭' },
+              { feature: '간격 시스템', linear: '4px 그리드 (컴팩트)', arco: '8px 그리드 (표준)', orbit: '8px 그리드, spacing ref 토큰' },
+              { feature: '컴포넌트 밀도', linear: '고밀도 (이슈 목록)', arco: '중밀도 (테이블/폼)', orbit: 'props로 density 제어 가능' },
+              { feature: '타입 안전성', linear: 'CSS 변수 + TS 상수', arco: 'less 변수', orbit: 'TypeScript + vanilla-extract' },
+            ].map((row, i) => (
+              <tr key={row.feature} style={{ background: i % 2 === 0 ? '#fff' : '#fafafa' }}>
+                <td style={{ padding: '9px 16px', fontWeight: '600', color: '#374151', borderBottom: '1px solid #f1f5f9' }}>{row.feature}</td>
+                <td style={{ padding: '9px 16px', color: '#5e6ad2', borderBottom: '1px solid #f1f5f9', fontSize: 12 }}>{row.linear}</td>
+                <td style={{ padding: '9px 16px', color: '#2592f5', borderBottom: '1px solid #f1f5f9', fontSize: 12 }}>{row.arco}</td>
+                <td style={{ padding: '9px 16px', color: '#6366f1', fontWeight: '600', borderBottom: '1px solid #f1f5f9', fontSize: 12 }}>{row.orbit}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
   </div>
 </Unstyled>

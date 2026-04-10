@@ -272,6 +272,251 @@ const M3_TYPE_ROLES = [
   { m3Role: 'Label Small', orbitStyle: 'descriptionSmall', desc: '캡션, 메타 정보' },
 ] as const
 
+// ─── Linear Design 벤치마크: 이슈 리스트 타이포그래피 ────────────────────────
+// Linear 이슈 목록의 핵심: 제목은 굵게, 메타(담당자/날짜/우선순위)는 작고 흐리게.
+// 모든 정보가 한 줄에 담기는 고밀도 패턴이 특징입니다.
+
+const LINEAR_ISSUES = [
+  { id: 'ORB-341', title: 'CounterBadge max 처리 로직 추가', status: '진행중', priority: 'High', assignee: 'HK', date: '오늘', statusColor: '#6366f1' },
+  { id: 'ORB-340', title: 'Text 컴포넌트 lineClamp prop 지원', status: 'Todo', priority: 'Medium', assignee: 'SL', date: '어제', statusColor: '#94a3b8' },
+  { id: 'ORB-339', title: 'EclipseProvider 다크모드 초기값 버그', status: '검토', priority: 'Urgent', assignee: 'JP', date: '3일 전', statusColor: '#f59e0b' },
+  { id: 'ORB-338', title: 'Slider 접근성 개선 — aria-valuetext', status: '완료', priority: 'Low', assignee: 'HK', date: '5일 전', statusColor: '#10b981' },
+] as const
+
+const PRIORITY_COLOR = { Urgent: '#ef4444', High: '#f59e0b', Medium: '#6366f1', Low: '#94a3b8' } as const
+
+export const Linear_이슈_리스트_타이포: Story = {
+  name: 'Linear Design - 이슈 리스트 타이포그래피 패턴',
+  render: () => (
+    <div
+      style={{
+        width: 560,
+        background: '#fff',
+        borderRadius: 10,
+        border: '1px solid #e2e8f0',
+        overflow: 'hidden',
+        fontFamily: 'system-ui, sans-serif',
+      }}
+    >
+      {LINEAR_ISSUES.map((issue, i) => (
+        <div
+          key={issue.id}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 10,
+            padding: '9px 14px',
+            borderBottom: i < LINEAR_ISSUES.length - 1 ? '1px solid #f8fafc' : 'none',
+            cursor: 'pointer',
+          }}
+          onMouseEnter={(e) => { (e.currentTarget as HTMLDivElement).style.background = '#f8fafc' }}
+          onMouseLeave={(e) => { (e.currentTarget as HTMLDivElement).style.background = '#fff' }}
+        >
+          <div
+            style={{
+              width: 8,
+              height: 8,
+              borderRadius: '50%',
+              background: issue.statusColor,
+              flexShrink: 0,
+            }}
+          />
+          <Text textStyle="descriptionSmall" style={{ color: '#94a3b8', fontFamily: 'monospace', flexShrink: 0, width: 54 }}>
+            {issue.id}
+          </Text>
+          <Text textStyle="descriptionLarge" style={{ flex: 1, color: '#0f172a', fontWeight: 500, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+            {issue.title}
+          </Text>
+          <span
+            style={{
+              fontSize: 10,
+              padding: '2px 6px',
+              borderRadius: 4,
+              fontWeight: 700,
+              background: `${PRIORITY_COLOR[issue.priority]}18`,
+              color: PRIORITY_COLOR[issue.priority],
+              flexShrink: 0,
+            }}
+          >
+            {issue.priority}
+          </span>
+          <Text textStyle="descriptionSmall" style={{ color: '#94a3b8', flexShrink: 0, width: 32, textAlign: 'center' }}>
+            {issue.assignee}
+          </Text>
+          <Text textStyle="descriptionSmall" style={{ color: '#94a3b8', flexShrink: 0, width: 48, textAlign: 'right' }}>
+            {issue.date}
+          </Text>
+        </div>
+      ))}
+    </div>
+  ),
+}
+
+// ─── Arco Design 벤치마크: 정보 밀도 레이아웃 ───────────────────────────────
+// Arco Design Description 컴포넌트 패턴:
+// 레이블(회색) + 값(검정) 쌍을 그리드로 배치하는 정보 밀도 높은 레이아웃입니다.
+
+const ARCO_DEPLOY_INFO = [
+  { label: '환경', value: 'Production' },
+  { label: '버전', value: 'v2.0.0-beta.16' },
+  { label: '빌드', value: '#4281' },
+  { label: '상태', value: '배포 완료', highlight: '#10b981' },
+  { label: '배포 시각', value: '2026-04-10 14:32' },
+  { label: '소요 시간', value: '3m 24s' },
+  { label: '패키지 수', value: '8개' },
+  { label: '청크 크기', value: '2.9 MB' },
+  { label: '담당자', value: 'hjun@example.com' },
+  { label: '브랜치', value: 'main' },
+] as const
+
+export const Arco_정보_밀도_레이아웃: Story = {
+  name: 'Arco Design - Description 정보 밀도 레이아웃',
+  render: () => (
+    <div
+      style={{
+        width: 480,
+        background: '#fff',
+        borderRadius: 12,
+        border: '1px solid #e2e8f0',
+        padding: '20px 24px',
+        fontFamily: 'system-ui, sans-serif',
+      }}
+    >
+      <Text textStyle="subheadingSmall" style={{ marginBottom: 16, display: 'block' }}>
+        배포 정보
+      </Text>
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns: '1fr 1fr',
+          gap: '0',
+          borderTop: '1px solid #f1f5f9',
+        }}
+      >
+        {ARCO_DEPLOY_INFO.map((item, i) => (
+          <div
+            key={item.label}
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 2,
+              padding: '10px 0',
+              borderBottom: '1px solid #f1f5f9',
+              paddingRight: i % 2 === 0 ? 24 : 0,
+              paddingLeft: i % 2 === 1 ? 24 : 0,
+              borderLeft: i % 2 === 1 ? '1px solid #f1f5f9' : 'none',
+            }}
+          >
+            <Text textStyle="descriptionSmall" style={{ color: '#94a3b8', fontWeight: 500 }}>
+              {item.label}
+            </Text>
+            <Text
+              textStyle="descriptionLarge"
+              style={{
+                color: 'highlight' in item ? item.highlight : '#0f172a',
+                fontWeight: 'highlight' in item ? 700 : 500,
+                fontFamily: ['버전', '빌드', '브랜치'].includes(item.label) ? 'monospace' : 'inherit',
+                fontSize: 13,
+              }}
+            >
+              {item.value}
+            </Text>
+          </div>
+        ))}
+      </div>
+    </div>
+  ),
+}
+
+// ─── Linear Design 벤치마크: 변경 이력 타이포그래피 ─────────────────────────
+// Linear의 Changelog 페이지 패턴: 버전 헤더 + 날짜 + 변경 항목 불릿 리스트.
+// 제목은 굵고 크게, 날짜는 작고 흐리게, 항목은 중간 크기 consistent 텍스트로 구성됩니다.
+
+const LINEAR_CHANGELOG = [
+  {
+    version: 'v2.0.0-beta.16',
+    date: '2026-04-10',
+    items: [
+      { type: 'feat', text: 'FileBrowser 템플릿 — 그리드/목록 뷰 전환, 즐겨찾기, 다중 선택' },
+      { type: 'feat', text: 'SearchBar — Chakra 실시간 사용자 검색, M3 스코프 전환 패턴' },
+      { type: 'fix', text: 'Toggle — 온보딩 기능 토글 카드 클릭 영역 개선' },
+    ],
+  },
+  {
+    version: 'v2.0.0-beta.15',
+    date: '2026-04-09',
+    items: [
+      { type: 'feat', text: 'NotifCenter 템플릿 — 카테고리 탭, 미읽음 필터, 알림 삭제' },
+      { type: 'feat', text: 'Checkbox — Tailwind 플랜 기능 선택, Mantine 컬럼 표시 설정' },
+      { type: 'docs', text: 'AccessibilityGuide.mdx — Tailwind UI + Mantine 접근성 벤치마크' },
+    ],
+  },
+] as const
+
+const CHANGE_TYPE_COLOR = { feat: '#10b981', fix: '#ef4444', docs: '#3b82f6' } as const
+const CHANGE_TYPE_LABEL = { feat: '기능', fix: '수정', docs: '문서' } as const
+
+export const Linear_변경_이력_타이포: Story = {
+  name: 'Linear Design - Changelog 변경 이력 타이포그래피',
+  render: () => (
+    <div
+      style={{
+        width: 520,
+        fontFamily: 'system-ui, sans-serif',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 32,
+      }}
+    >
+      {LINEAR_CHANGELOG.map((release) => (
+        <div key={release.version}>
+          <div style={{ display: 'flex', alignItems: 'baseline', gap: 12, marginBottom: 12 }}>
+            <Text textStyle="subheadingSmall" style={{ fontWeight: 800, letterSpacing: '-0.02em', color: '#0f172a' }}>
+              {release.version}
+            </Text>
+            <Text textStyle="descriptionSmall" style={{ color: '#94a3b8' }}>
+              {release.date}
+            </Text>
+          </div>
+          <div
+            style={{
+              borderLeft: '2px solid #e2e8f0',
+              paddingLeft: 16,
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 8,
+            }}
+          >
+            {release.items.map((item, i) => (
+              <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: 8 }}>
+                <span
+                  style={{
+                    fontSize: 9,
+                    fontWeight: 800,
+                    padding: '2px 5px',
+                    borderRadius: 4,
+                    background: `${CHANGE_TYPE_COLOR[item.type]}18`,
+                    color: CHANGE_TYPE_COLOR[item.type],
+                    flexShrink: 0,
+                    marginTop: 2,
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.06em',
+                  }}
+                >
+                  {CHANGE_TYPE_LABEL[item.type]}
+                </span>
+                <Text textStyle="descriptionLarge" style={{ color: '#334155', lineHeight: 1.6 }}>
+                  {item.text}
+                </Text>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  ),
+}
+
 export const Material3_타입_스케일_비교 = {
   name: 'Material 3 - TypeScale 역할 비교',
   render: () => (

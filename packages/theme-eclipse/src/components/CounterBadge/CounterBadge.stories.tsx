@@ -249,3 +249,286 @@ const RealtimeBadgeComponent = () => {
 export const 실시간_업데이트: Story = {
   render: () => <RealtimeBadgeComponent />,
 }
+
+// ─── Linear Design 벤치마크: 이슈 보드 상태별 카운터 ─────────────────────────
+// Linear의 사이드바는 각 상태(Todo/In Progress/Done)별 이슈 수를 CounterBadge로 표시합니다.
+// 호버 시 배경색이 바뀌는 컴팩트한 행 레이아웃이 특징입니다.
+
+const LINEAR_STATUSES = [
+  { key: 'backlog', label: 'Backlog', count: 14, color: '#94a3b8', dot: '#94a3b8' },
+  { key: 'todo', label: 'Todo', count: 8, color: '#6366f1', dot: '#6366f1' },
+  { key: 'inprogress', label: 'In Progress', count: 3, color: '#f59e0b', dot: '#f59e0b' },
+  { key: 'review', label: 'In Review', count: 5, color: '#8b5cf6', dot: '#8b5cf6' },
+  { key: 'done', label: 'Done', count: 47, color: '#10b981', dot: '#10b981' },
+  { key: 'cancelled', label: 'Cancelled', count: 2, color: '#ef4444', dot: '#ef4444' },
+]
+
+export const Linear_이슈_상태_카운터: Story = {
+  name: 'Linear Design - 이슈 상태별 카운터 사이드바',
+  render: () => (
+    <div
+      style={{
+        width: 220,
+        background: '#111',
+        borderRadius: 10,
+        padding: '12px 6px',
+        fontFamily: 'system-ui, sans-serif',
+      }}
+    >
+      <div
+        style={{
+          fontSize: 11,
+          fontWeight: 700,
+          color: '#475569',
+          textTransform: 'uppercase',
+          letterSpacing: '0.08em',
+          padding: '0 8px 8px',
+        }}
+      >
+        Issues
+      </div>
+      {LINEAR_STATUSES.map((status) => (
+        <div
+          key={status.key}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            padding: '5px 8px',
+            borderRadius: 6,
+            cursor: 'pointer',
+          }}
+          onMouseEnter={(e) => { (e.currentTarget as HTMLDivElement).style.background = '#1e1e2e' }}
+          onMouseLeave={(e) => { (e.currentTarget as HTMLDivElement).style.background = 'transparent' }}
+        >
+          <div style={{ display: 'flex', alignItems: 'center', gap: 7 }}>
+            <div
+              style={{
+                width: 8,
+                height: 8,
+                borderRadius: '50%',
+                background: status.dot,
+                flexShrink: 0,
+              }}
+            />
+            <span style={{ fontSize: 13, color: '#c4c4c4', fontWeight: 400 }}>{status.label}</span>
+          </div>
+          <CounterBadge>{status.count}</CounterBadge>
+        </div>
+      ))}
+      <div
+        style={{
+          marginTop: 8,
+          padding: '8px',
+          borderTop: '1px solid #1e1e2e',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+        }}
+      >
+        <span style={{ fontSize: 11, color: '#475569' }}>전체</span>
+        <CounterBadge>{LINEAR_STATUSES.reduce((s, st) => s + st.count, 0)}</CounterBadge>
+      </div>
+    </div>
+  ),
+}
+
+// ─── Arco Design 벤치마크: 데이터 집계 배지 ─────────────────────────────────
+// Arco Design Statistic + Badge 조합 패턴:
+// 대시보드 상단 KPI 카드에 CounterBadge를 부착해 변화량을 표시합니다.
+
+const ARCO_KPI_CARDS = [
+  {
+    label: '총 사용자',
+    value: '48,291',
+    change: 12,
+    changeLabel: '어제 대비 신규',
+    color: '#6366f1',
+    bg: '#eff6ff',
+  },
+  {
+    label: '이번 달 주문',
+    value: '3,842',
+    change: 7,
+    changeLabel: '처리 대기 중',
+    color: '#f59e0b',
+    bg: '#fffbeb',
+  },
+  {
+    label: '미해결 이슈',
+    value: '24',
+    change: 5,
+    changeLabel: '오늘 신규',
+    color: '#ef4444',
+    bg: '#fef2f2',
+  },
+]
+
+export const Arco_KPI_카드_배지: Story = {
+  name: 'Arco Design - KPI 카드 집계 배지 패턴',
+  render: () => (
+    <div style={{ display: 'flex', gap: 16 }}>
+      {ARCO_KPI_CARDS.map((card) => (
+        <div
+          key={card.label}
+          style={{
+            position: 'relative',
+            padding: '18px 20px',
+            borderRadius: 12,
+            border: `1px solid ${card.color}22`,
+            background: card.bg,
+            minWidth: 160,
+          }}
+        >
+          <div
+            style={{
+              position: 'absolute',
+              top: -8,
+              right: 12,
+              display: 'flex',
+              alignItems: 'center',
+              gap: 4,
+            }}
+          >
+            <span style={{ fontSize: 10, color: card.color, fontWeight: 600 }}>
+              +{card.changeLabel}
+            </span>
+            <CounterBadge>{card.change}</CounterBadge>
+          </div>
+          <div style={{ fontSize: 11, color: '#64748b', fontWeight: 500, marginBottom: 6 }}>
+            {card.label}
+          </div>
+          <div style={{ fontSize: 22, fontWeight: 800, color: '#0f172a', letterSpacing: '-0.02em' }}>
+            {card.value}
+          </div>
+        </div>
+      ))}
+    </div>
+  ),
+}
+
+// ─── Linear Design 벤치마크: 프로젝트 진행률 카운터 ─────────────────────────
+// Linear 프로젝트 뷰: 각 마일스톤 완료 수 / 전체 수를 한 행에 표시합니다.
+// 작은 카운터 배지가 진행 상황을 직관적으로 나타냅니다.
+
+const LINEAR_PROJECTS = [
+  {
+    name: 'Orbit UI v3.0',
+    milestones: [
+      { label: '완료', count: 8, color: '#10b981' },
+      { label: '진행중', count: 3, color: '#6366f1' },
+      { label: '예정', count: 5, color: '#94a3b8' },
+    ],
+    dueDate: '2026-05-01',
+    progress: 50,
+  },
+  {
+    name: 'Eclipse Theme v2',
+    milestones: [
+      { label: '완료', count: 12, color: '#10b981' },
+      { label: '진행중', count: 1, color: '#6366f1' },
+      { label: '예정', count: 2, color: '#94a3b8' },
+    ],
+    dueDate: '2026-04-20',
+    progress: 80,
+  },
+  {
+    name: 'Icon Set v5',
+    milestones: [
+      { label: '완료', count: 2, color: '#10b981' },
+      { label: '진행중', count: 4, color: '#6366f1' },
+      { label: '예정', count: 10, color: '#94a3b8' },
+    ],
+    dueDate: '2026-06-15',
+    progress: 25,
+  },
+]
+
+export const Linear_프로젝트_진행_카운터: Story = {
+  name: 'Linear Design - 프로젝트 마일스톤 진행 카운터',
+  render: () => (
+    <div
+      style={{
+        width: 480,
+        background: '#fff',
+        borderRadius: 12,
+        border: '1px solid #e2e8f0',
+        overflow: 'hidden',
+        fontFamily: 'system-ui, sans-serif',
+      }}
+    >
+      <div
+        style={{
+          padding: '10px 16px',
+          borderBottom: '1px solid #f1f5f9',
+          fontSize: 11,
+          fontWeight: 700,
+          color: '#94a3b8',
+          textTransform: 'uppercase',
+          letterSpacing: '0.08em',
+          display: 'grid',
+          gridTemplateColumns: '1fr 180px 80px',
+          gap: 8,
+        }}
+      >
+        <span>프로젝트</span>
+        <span>마일스톤</span>
+        <span>마감일</span>
+      </div>
+      {LINEAR_PROJECTS.map((proj, i) => (
+        <div
+          key={proj.name}
+          style={{
+            padding: '12px 16px',
+            borderBottom: i < LINEAR_PROJECTS.length - 1 ? '1px solid #f8fafc' : 'none',
+            display: 'grid',
+            gridTemplateColumns: '1fr 180px 80px',
+            gap: 8,
+            alignItems: 'center',
+          }}
+        >
+          <div>
+            <div style={{ fontSize: 13, fontWeight: 600, color: '#0f172a', marginBottom: 4 }}>
+              {proj.name}
+            </div>
+            <div
+              style={{
+                height: 3,
+                background: '#f1f5f9',
+                borderRadius: 4,
+                overflow: 'hidden',
+                width: '80%',
+              }}
+            >
+              <div
+                style={{
+                  height: '100%',
+                  width: `${proj.progress}%`,
+                  background: '#6366f1',
+                  borderRadius: 4,
+                }}
+              />
+            </div>
+          </div>
+          <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+            {proj.milestones.map((ms) => (
+              <div key={ms.label} style={{ display: 'flex', alignItems: 'center', gap: 3 }}>
+                <div
+                  style={{
+                    width: 6,
+                    height: 6,
+                    borderRadius: '50%',
+                    background: ms.color,
+                    flexShrink: 0,
+                  }}
+                />
+                <CounterBadge>{ms.count}</CounterBadge>
+              </div>
+            ))}
+          </div>
+          <div style={{ fontSize: 11, color: '#94a3b8' }}>{proj.dueDate}</div>
+        </div>
+      ))}
+    </div>
+  ),
+}
