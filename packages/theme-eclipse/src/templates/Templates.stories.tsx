@@ -19288,3 +19288,279 @@ export const DesignTokenBrowser: Story = {
   },
   render: () => <DesignTokenBrowserRender />,
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   69. AuditLog (사이클 80 — Linear Design 벤치마크)
+   Linear 밀도 패턴: 컴팩트 행, 타입별 LabelBadge, Avatar, Chip 필터.
+   DataTable 대신 native table로 고밀도 구현. TextField / Breadcrumb 조합.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+type AuditEventType = 'login' | 'logout' | 'update' | 'delete' | 'create' | 'export' | 'invite' | 'permission'
+
+interface AuditEvent {
+  id: string
+  type: AuditEventType
+  actor: string
+  initials: string
+  target: string
+  detail: string
+  ip: string
+  time: string
+  ago: string
+}
+
+const AUDIT_EVENTS: AuditEvent[] = [
+  { id: 'ae-001', type: 'login', actor: '김민준', initials: 'KM', target: '계정', detail: 'Google SSO로 로그인', ip: '211.45.123.1', time: '2026-04-10 15:42:11', ago: '방금 전' },
+  { id: 'ae-002', type: 'update', actor: '이서연', initials: 'LS', target: 'Button 컴포넌트', detail: 'primary variant 색상 토큰 변경', ip: '192.168.0.14', time: '2026-04-10 15:38:02', ago: '4분 전' },
+  { id: 'ae-003', type: 'create', actor: '박지호', initials: 'PJ', target: 'TextField 스토리', detail: 'Radix 실시간 유효성 검사 스토리 추가', ip: '10.0.0.8', time: '2026-04-10 15:22:45', ago: '19분 전' },
+  { id: 'ae-004', type: 'export', actor: '김민준', initials: 'KM', target: '디자인 토큰', detail: 'CSS 변수 전체 내보내기 (127개)', ip: '211.45.123.1', time: '2026-04-10 15:10:30', ago: '31분 전' },
+  { id: 'ae-005', type: 'invite', actor: '이서연', initials: 'LS', target: '최수빈', detail: '팀에 뷰어 역할로 초대', ip: '192.168.0.14', time: '2026-04-10 14:55:18', ago: '47분 전' },
+  { id: 'ae-006', type: 'permission', actor: '박지호', initials: 'PJ', target: '최수빈', detail: '역할 변경: 뷰어 → 편집자', ip: '10.0.0.8', time: '2026-04-10 14:40:05', ago: '62분 전' },
+  { id: 'ae-007', type: 'delete', actor: '김민준', initials: 'KM', target: 'AnimatedBadge 스토리', detail: '실험적 스토리 제거', ip: '211.45.123.1', time: '2026-04-10 14:11:33', ago: '91분 전' },
+  { id: 'ae-008', type: 'update', actor: '최수빈', initials: 'CS', target: '팀 설정', detail: '알림 환경설정 변경', ip: '172.16.0.5', time: '2026-04-10 13:50:21', ago: '112분 전' },
+  { id: 'ae-009', type: 'create', actor: '이서연', initials: 'LS', target: 'Templates #68', detail: 'DesignTokenBrowser 템플릿 추가', ip: '192.168.0.14', time: '2026-04-10 13:30:00', ago: '132분 전' },
+  { id: 'ae-010', type: 'login', actor: '최수빈', initials: 'CS', target: '계정', detail: '이메일/비밀번호 로그인', ip: '172.16.0.5', time: '2026-04-10 13:05:44', ago: '157분 전' },
+  { id: 'ae-011', type: 'export', actor: '박지호', initials: 'PJ', target: '스토리 목록', detail: 'Storybook 스토리 전체 CSV 내보내기', ip: '10.0.0.8', time: '2026-04-10 12:48:12', ago: '174분 전' },
+  { id: 'ae-012', type: 'logout', actor: '김민준', initials: 'KM', target: '계정', detail: '세션 만료로 자동 로그아웃', ip: '211.45.123.1', time: '2026-04-10 12:30:00', ago: '192분 전' },
+]
+
+const EVENT_CFG: Record<AuditEventType, { label: string; color: 'gray' | 'benefit' | 'sale' }> = {
+  login: { label: '로그인', color: 'benefit' },
+  logout: { label: '로그아웃', color: 'gray' },
+  update: { label: '수정', color: 'gray' },
+  delete: { label: '삭제', color: 'sale' },
+  create: { label: '생성', color: 'benefit' },
+  export: { label: '내보내기', color: 'gray' },
+  invite: { label: '초대', color: 'benefit' },
+  permission: { label: '권한변경', color: 'sale' },
+}
+
+const AuditLogRender: React.FC = () => {
+  const [search, setSearch] = React.useState('')
+  const [activeType, setActiveType] = React.useState<AuditEventType | 'all'>('all')
+  const [selectedId, setSelectedId] = React.useState<string | null>(null)
+
+  const tc = {
+    bg: 'var(--sem-eclipse-color-backgroundPrimary)',
+    surface: 'var(--sem-eclipse-color-backgroundSecondary)',
+    border: 'var(--sem-eclipse-color-borderDefault)',
+    borderSub: 'var(--sem-eclipse-color-borderSubtle)',
+    fg: 'var(--sem-eclipse-color-foregroundPrimary)',
+    fgSub: 'var(--sem-eclipse-color-foregroundSecondary)',
+    fgMuted: 'var(--sem-eclipse-color-foregroundTertiary)',
+    fillPrimary: 'var(--sem-eclipse-color-fillPrimary)',
+    sysError: 'var(--sem-eclipse-color-systemError)',
+    sysSuccess: 'var(--sem-eclipse-color-systemSuccess)',
+  }
+
+  const FILTER_TYPES: (AuditEventType | 'all')[] = ['all', 'create', 'update', 'delete', 'login', 'logout', 'export', 'invite', 'permission']
+
+  const filtered = AUDIT_EVENTS.filter((ev) => {
+    const matchType = activeType === 'all' || ev.type === activeType
+    const q = search.toLowerCase()
+    const matchSearch = q === '' || ev.actor.includes(q) || ev.target.includes(q) || ev.detail.includes(q) || ev.ip.includes(q)
+    return matchType && matchSearch
+  })
+
+  const selected = AUDIT_EVENTS.find((e) => e.id === selectedId) ?? null
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', height: '100vh', background: tc.bg }}>
+      {/* Header */}
+      <div style={{ padding: '12px 24px', borderBottom: `1px solid ${tc.border}`, background: tc.surface, display: 'flex', alignItems: 'center', gap: 16, flexShrink: 0 }}>
+        <Breadcrumb>
+          <Breadcrumb.List>
+            <Breadcrumb.Item>
+              <span style={{ fontSize: 13, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>설정</span>
+            </Breadcrumb.Item>
+            <Breadcrumb.Separator />
+            <Breadcrumb.Item>
+              <span style={{ fontSize: 13, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>감사 로그</span>
+            </Breadcrumb.Item>
+          </Breadcrumb.List>
+        </Breadcrumb>
+        <div style={{ flex: 1 }} />
+        <Text textStyle="descriptionSmall" style={{ color: tc.fgMuted }}>최근 30일 · {AUDIT_EVENTS.length}개 이벤트</Text>
+      </div>
+
+      <div style={{ display: 'flex', flex: 1, overflow: 'hidden' }}>
+        {/* Main Table */}
+        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+          {/* Toolbar */}
+          <div style={{ padding: '10px 20px', display: 'flex', alignItems: 'center', gap: 10, borderBottom: `1px solid ${tc.borderSub}`, flexShrink: 0, flexWrap: 'wrap' }}>
+            <div style={{ flex: 1, minWidth: 200, maxWidth: 320 }}>
+              <TextField
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                placeholder="행위자, 대상, IP 검색..."
+              />
+            </div>
+            <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+              {FILTER_TYPES.map((t) => {
+                const isAll = t === 'all'
+                const isActive = activeType === t
+                return (
+                  <button
+                    key={t}
+                    onClick={() => setActiveType(t)}
+                    style={{
+                      padding: '3px 10px',
+                      borderRadius: 6,
+                      border: `1px solid ${isActive ? tc.fillPrimary : tc.borderSub}`,
+                      background: isActive ? tc.fillPrimary : 'transparent',
+                      color: isActive ? tc.bg : tc.fgSub,
+                      fontSize: 12,
+                      fontWeight: 600,
+                      cursor: 'pointer',
+                      whiteSpace: 'nowrap',
+                    }}
+                  >
+                    {isAll ? '전체' : EVENT_CFG[t as AuditEventType].label}
+                  </button>
+                )
+              })}
+            </div>
+          </div>
+
+          {/* Table — Linear density: 36px rows */}
+          <div style={{ flex: 1, overflowY: 'auto' }}>
+            <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13 }}>
+              <thead>
+                <tr style={{ background: tc.surface, position: 'sticky', top: 0, zIndex: 1 }}>
+                  {['이벤트', '행위자', '대상', '상세', 'IP', '시간'].map((col) => (
+                    <th
+                      key={col}
+                      style={{
+                        padding: '6px 12px',
+                        textAlign: 'left',
+                        fontSize: 11,
+                        fontWeight: 600,
+                        color: tc.fgMuted,
+                        textTransform: 'uppercase',
+                        letterSpacing: '0.06em',
+                        borderBottom: `1px solid ${tc.border}`,
+                        whiteSpace: 'nowrap',
+                      }}
+                    >
+                      {col}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {filtered.map((ev) => {
+                  const cfg = EVENT_CFG[ev.type]
+                  const isSelected = selectedId === ev.id
+                  return (
+                    <tr
+                      key={ev.id}
+                      onClick={() => setSelectedId(isSelected ? null : ev.id)}
+                      style={{
+                        borderBottom: `1px solid ${tc.borderSub}`,
+                        background: isSelected ? `${tc.fillPrimary}10` : 'transparent',
+                        cursor: 'pointer',
+                        transition: 'background 0.1s',
+                      }}
+                    >
+                      <td style={{ padding: '0 12px', height: 36, verticalAlign: 'middle', whiteSpace: 'nowrap' }}>
+                        <LabelBadge color={cfg.color}>
+                          <LabelBadge.Label>{cfg.label}</LabelBadge.Label>
+                        </LabelBadge>
+                      </td>
+                      <td style={{ padding: '0 12px', height: 36, verticalAlign: 'middle', whiteSpace: 'nowrap' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                          <Avatar style={{ width: 20, height: 20 }}>
+                            <Avatar.Fallback style={{ fontSize: '8px', fontWeight: 700 }}>{ev.initials}</Avatar.Fallback>
+                          </Avatar>
+                          <span style={{ color: tc.fg, fontWeight: 500 }}>{ev.actor}</span>
+                        </div>
+                      </td>
+                      <td style={{ padding: '0 12px', height: 36, verticalAlign: 'middle', whiteSpace: 'nowrap' }}>
+                        <span style={{ color: tc.fgSub }}>{ev.target}</span>
+                      </td>
+                      <td style={{ padding: '0 12px', height: 36, verticalAlign: 'middle', maxWidth: 280 }}>
+                        <span style={{ color: tc.fg, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', display: 'block' }}>{ev.detail}</span>
+                      </td>
+                      <td style={{ padding: '0 12px', height: 36, verticalAlign: 'middle', whiteSpace: 'nowrap' }}>
+                        <code style={{ fontSize: 11, fontFamily: 'monospace', color: tc.fgMuted, background: tc.surface, padding: '1px 5px', borderRadius: 3 }}>{ev.ip}</code>
+                      </td>
+                      <td style={{ padding: '0 12px', height: 36, verticalAlign: 'middle', whiteSpace: 'nowrap' }}>
+                        <Tooltip.Provider delayDuration={300}>
+                          <Tooltip>
+                            <Tooltip.Trigger asChild>
+                              <span style={{ color: tc.fgMuted, fontSize: 12 }}>{ev.ago}</span>
+                            </Tooltip.Trigger>
+                            <Tooltip.Content>{ev.time}</Tooltip.Content>
+                          </Tooltip>
+                        </Tooltip.Provider>
+                      </td>
+                    </tr>
+                  )
+                })}
+                {filtered.length === 0 && (
+                  <tr>
+                    <td colSpan={6} style={{ padding: '40px 0', textAlign: 'center', color: tc.fgMuted }}>
+                      <Text textStyle="bodyMedium">검색 결과가 없습니다.</Text>
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        {/* Detail Panel */}
+        {selected && (
+          <div style={{ width: 280, borderLeft: `1px solid ${tc.border}`, background: tc.surface, padding: 20, overflowY: 'auto', flexShrink: 0 }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 16 }}>
+              <Text textStyle="bodyMedium" style={{ fontWeight: 700, color: tc.fg }}>이벤트 상세</Text>
+              <button
+                onClick={() => setSelectedId(null)}
+                style={{ border: 'none', background: 'transparent', color: tc.fgMuted, fontSize: 16, cursor: 'pointer', padding: 0, lineHeight: 1 }}
+              >
+                ×
+              </button>
+            </div>
+
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+              <div>
+                <LabelBadge color={EVENT_CFG[selected.type].color}>
+                  <LabelBadge.Label>{EVENT_CFG[selected.type].label}</LabelBadge.Label>
+                </LabelBadge>
+              </div>
+
+              {[
+                { label: '행위자', val: selected.actor },
+                { label: '대상', val: selected.target },
+                { label: '상세', val: selected.detail },
+                { label: 'IP 주소', val: selected.ip },
+                { label: '발생 시각', val: selected.time },
+                { label: '이벤트 ID', val: selected.id },
+              ].map(({ label, val }) => (
+                <div key={label}>
+                  <Text textStyle="descriptionSmall" style={{ color: tc.fgMuted, display: 'block', marginBottom: 2 }}>{label}</Text>
+                  <Text textStyle="bodyMedium" style={{ color: tc.fg, wordBreak: 'break-all' }}>{val}</Text>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+
+export const AuditLog: Story = {
+  name: '감사 로그 (Linear Design 벤치마크)',
+  parameters: {
+    layout: 'fullscreen',
+    docs: {
+      description: {
+        story:
+          'Linear의 고밀도 테이블 패턴(행 높이 36px)을 적용한 보안 감사 로그 뷰어. ' +
+          'Breadcrumb, TextField(검색), LabelBadge(이벤트 타입), Avatar, Tooltip(시각 상세), 슬라이드인 상세 패널 조합.',
+      },
+    },
+  },
+  render: () => <AuditLogRender />,
+}
