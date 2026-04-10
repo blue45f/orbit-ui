@@ -2166,3 +2166,269 @@ export const Vercel_Ant_팀_멤버_상세_드로어: Story = {
   },
   render: () => <VercelAntMemberDrawerRender />,
 }
+
+/* --------------------------------------------------------------------------
+   Cycle 190 — Vercel Design + Notion Design
+-------------------------------------------------------------------------- */
+const VERCEL_DEPLOY_LOG_190 = [
+  { time: '14:32:01', type: 'info', msg: 'Build started' },
+  { time: '14:32:04', type: 'info', msg: 'Installing dependencies...' },
+  { time: '14:32:18', type: 'success', msg: 'Dependencies installed (14.2s)' },
+  { time: '14:32:19', type: 'info', msg: 'Running build command: next build' },
+  { time: '14:32:45', type: 'warn', msg: 'Chunk size exceeds 500kB warning' },
+  { time: '14:32:58', type: 'success', msg: 'Build completed (39s)' },
+  { time: '14:32:59', type: 'info', msg: 'Deploying to edge network...' },
+  { time: '14:33:07', type: 'success', msg: 'Ready — orbit-abc123.vercel.app' },
+]
+
+const LOG_STYLE_190: Record<string, { color: string }> = {
+  info:    { color: '#8b949e' },
+  success: { color: '#3fb950' },
+  warn:    { color: '#d29922' },
+  error:   { color: '#f85149' },
+}
+
+function VercelDeployDetailRender() {
+  const [open, setOpen] = useState(false)
+  return (
+    <div style={{ fontFamily: 'system-ui, sans-serif' }}>
+      <Button color="black" size="medium" onClick={() => setOpen(true)}>
+        <Button.Center>배포 상세 보기</Button.Center>
+      </Button>
+      <Drawer open={open} onOpenChange={setOpen}>
+        <Drawer.Content side="right">
+          <div style={{ display: 'flex', flexDirection: 'column', height: '100%', background: '#0d1117' }}>
+            <Drawer.Header>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                <div style={{ width: 10, height: 10, borderRadius: '50%', background: '#3fb950', flexShrink: 0 }} />
+                <Drawer.Title style={{ color: '#f0f6fc', fontSize: 14, fontWeight: 700 }}>배포 완료</Drawer.Title>
+              </div>
+              <Drawer.Description style={{ color: '#8b949e', fontSize: 11, marginTop: 4 }}>
+                orbit-abc123.vercel.app · 39초
+              </Drawer.Description>
+            </Drawer.Header>
+            <div style={{ flex: 1, overflowY: 'auto', padding: '12px 24px' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 6, marginBottom: 20 }}>
+                {[
+                  { label: '프로젝트', value: 'orbit-ui' },
+                  { label: '브랜치', value: 'main' },
+                  { label: '커밋', value: '6ff6b4a' },
+                  { label: '환경', value: 'Production' },
+                ].map((item) => (
+                  <div key={item.label} style={{ display: 'flex', gap: 8, fontSize: 12 }}>
+                    <span style={{ color: '#484f58', width: 56, flexShrink: 0 }}>{item.label}</span>
+                    <span style={{ color: '#c9d1d9', fontFamily: item.label === '커밋' ? 'monospace' : 'inherit' }}>{item.value}</span>
+                  </div>
+                ))}
+              </div>
+              <div style={{ fontSize: 11, fontWeight: 600, color: '#484f58', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 8 }}>빌드 로그</div>
+              <div style={{ background: '#010409', borderRadius: 8, border: '1px solid #21262d', padding: '10px 12px', fontFamily: 'monospace' }}>
+                {VERCEL_DEPLOY_LOG_190.map((log, i) => (
+                  <div key={i} style={{ display: 'flex', gap: 10, fontSize: 11, lineHeight: 1.8 }}>
+                    <span style={{ color: '#484f58', flexShrink: 0 }}>{log.time}</span>
+                    <span style={{ color: LOG_STYLE_190[log.type].color }}>{log.msg}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div style={{ padding: '14px 24px', borderTop: '1px solid #21262d', display: 'flex', gap: 8 }}>
+              <Button color="white" size="small">
+                <Button.Center>재배포</Button.Center>
+              </Button>
+              <OutlineButton color="black" size="small" style={{ borderColor: '#30363d', color: '#c9d1d9' }}>
+                URL 복사
+              </OutlineButton>
+            </div>
+          </div>
+        </Drawer.Content>
+      </Drawer>
+    </div>
+  )
+}
+
+export const Vercel_배포_로그_상세_드로어: Story = {
+  name: 'Vercel Design — 배포 로그 상세 사이드 드로어',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Vercel Design 배포 상세 패턴. 다크 배경 + 빌드 로그(색상별 상태 구분: info/success/warn/error) + 메타 정보 패널. ' +
+          '재배포 / URL 복사 액션을 Footer에 배치합니다.',
+      },
+    },
+  },
+  render: () => <VercelDeployDetailRender />,
+}
+
+const NOTION_PROPS_190 = [
+  { key: '상태', value: '진행 중', type: 'select', color: '#3b82f6' },
+  { key: '담당자', value: '김희준', type: 'person', color: '#8b5cf6' },
+  { key: '기한', value: '2026-04-30', type: 'date', color: '#f59e0b' },
+  { key: '우선순위', value: '높음', type: 'select', color: '#ef4444' },
+  { key: '태그', value: 'Design, Frontend', type: 'multi', color: '#10b981' },
+]
+
+function NotionPagePropertyRender() {
+  const [open, setOpen] = useState(false)
+  const [props, setProps] = useState(NOTION_PROPS_190.map((p) => ({ ...p })))
+  const [editingKey, setEditingKey] = useState<string | null>(null)
+  const [editVal, setEditVal] = useState('')
+
+  const startEdit = (key: string, val: string) => { setEditingKey(key); setEditVal(val) }
+  const commitEdit = () => {
+    if (editingKey) {
+      setProps((prev) => prev.map((p) => p.key === editingKey ? { ...p, value: editVal } : p))
+      setEditingKey(null)
+    }
+  }
+
+  return (
+    <div style={{ fontFamily: 'system-ui, sans-serif' }}>
+      <Button color="black" size="medium" onClick={() => setOpen(true)}>
+        <Button.Center>페이지 속성 열기</Button.Center>
+      </Button>
+      <Drawer open={open} onOpenChange={setOpen}>
+        <Drawer.Content side="right">
+          <Drawer.Header>
+            <Drawer.Title>페이지 속성</Drawer.Title>
+            <Drawer.Description>Notion 인라인 속성 편집 패턴</Drawer.Description>
+          </Drawer.Header>
+          <div style={{ padding: '0 24px', flex: 1, overflowY: 'auto' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+              {props.map((prop) => (
+                <div
+                  key={prop.key}
+                  style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '8px 0', borderBottom: '1px solid #f3f4f6' }}
+                >
+                  <span style={{ fontSize: 12, color: '#9ca3af', width: 72, flexShrink: 0 }}>{prop.key}</span>
+                  {editingKey === prop.key ? (
+                    <input
+                      autoFocus
+                      value={editVal}
+                      onChange={(e) => setEditVal(e.target.value)}
+                      onBlur={commitEdit}
+                      onKeyDown={(e) => e.key === 'Enter' && commitEdit()}
+                      style={{ flex: 1, fontSize: 12, padding: '3px 6px', borderRadius: 5, border: `1px solid ${prop.color}`, outline: 'none' }}
+                    />
+                  ) : (
+                    <div
+                      onClick={() => startEdit(prop.key, prop.value)}
+                      style={{
+                        flex: 1, fontSize: 12, padding: '3px 8px', borderRadius: 5, cursor: 'pointer',
+                        background: `${prop.color}15`, color: prop.color, fontWeight: 500,
+                        border: '1px solid transparent', transition: 'border 0.1s',
+                      }}
+                    >
+                      {prop.value}
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+            <div style={{ marginTop: 20, padding: '10px 12px', background: '#f9fafb', borderRadius: 8, fontSize: 11, color: '#9ca3af' }}>
+              값을 클릭하면 인라인 편집이 가능합니다.
+            </div>
+          </div>
+        </Drawer.Content>
+      </Drawer>
+    </div>
+  )
+}
+
+export const Notion_페이지_속성_인라인_편집_드로어: Story = {
+  name: 'Notion Design — 페이지 속성 인라인 편집 드로어',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Notion 페이지 속성 패널 패턴. 속성 값 클릭 시 인라인 input으로 전환, Enter/blur로 저장. ' +
+          '속성 유형(select/person/date/multi)별 컬러 배지로 시각화합니다.',
+      },
+    },
+  },
+  render: () => <NotionPagePropertyRender />,
+}
+
+const VERCEL_NOTION_TEAM_190 = [
+  { name: '김희준', role: 'Lead Designer', avatar: 'KH', status: 'online', lastSeen: '지금' },
+  { name: '이서연', role: 'Frontend Dev', avatar: 'LY', status: 'online', lastSeen: '5분 전' },
+  { name: '박도현', role: 'UX Researcher', avatar: 'PD', status: 'offline', lastSeen: '2시간 전' },
+  { name: '최민준', role: 'Motion Designer', avatar: 'CM', status: 'away', lastSeen: '30분 전' },
+]
+
+const AVATAR_COLORS_190 = ['#6366f1', '#8b5cf6', '#3b82f6', '#10b981']
+const STATUS_STYLE_190: Record<string, { color: string; label: string }> = {
+  online:  { color: '#10b981', label: '온라인' },
+  away:    { color: '#f59e0b', label: '자리비움' },
+  offline: { color: '#6b7280', label: '오프라인' },
+}
+
+function VercelNotionTeamDrawerRender() {
+  const [open, setOpen] = useState(false)
+  const [search, setSearch] = useState('')
+
+  const filtered = VERCEL_NOTION_TEAM_190.filter((m) =>
+    m.name.includes(search) || m.role.toLowerCase().includes(search.toLowerCase())
+  )
+
+  return (
+    <div style={{ fontFamily: 'system-ui, sans-serif' }}>
+      <Button color="black" size="medium" onClick={() => setOpen(true)}>
+        <Button.Center>팀 멤버 보기</Button.Center>
+      </Button>
+      <Drawer open={open} onOpenChange={setOpen}>
+        <Drawer.Content side="right">
+          <Drawer.Header>
+            <Drawer.Title>팀 멤버</Drawer.Title>
+            <Drawer.Description>Vercel + Notion — 멤버 목록 사이드 패널</Drawer.Description>
+          </Drawer.Header>
+          <div style={{ padding: '0 24px 24px', flex: 1, overflowY: 'auto' }}>
+            <FloatingTextField
+              placeholder="멤버 검색..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
+            <div style={{ marginTop: 14, display: 'flex', flexDirection: 'column', gap: 8 }}>
+              {filtered.map((member, i) => {
+                const st = STATUS_STYLE_190[member.status]
+                return (
+                  <div key={member.name} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '10px 12px', borderRadius: 10, border: '1px solid #f3f4f6', background: '#fff' }}>
+                    <div style={{ position: 'relative', flexShrink: 0 }}>
+                      <div style={{ width: 36, height: 36, borderRadius: '50%', background: AVATAR_COLORS_190[i], display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 12, fontWeight: 700, color: '#fff' }}>{member.avatar}</div>
+                      <div style={{ position: 'absolute', bottom: 0, right: 0, width: 10, height: 10, borderRadius: '50%', background: st.color, border: '2px solid #fff' }} />
+                    </div>
+                    <div style={{ flex: 1 }}>
+                      <div style={{ fontSize: 13, fontWeight: 600, color: '#0f172a' }}>{member.name}</div>
+                      <div style={{ fontSize: 11, color: '#6b7280', marginTop: 1 }}>{member.role}</div>
+                    </div>
+                    <div style={{ textAlign: 'right' }}>
+                      <div style={{ fontSize: 10, color: st.color, fontWeight: 600 }}>{st.label}</div>
+                      <div style={{ fontSize: 10, color: '#9ca3af', marginTop: 1 }}>{member.lastSeen}</div>
+                    </div>
+                  </div>
+                )
+              })}
+              {filtered.length === 0 && (
+                <div style={{ padding: 20, textAlign: 'center', color: '#d1d5db', fontSize: 12 }}>검색 결과 없음</div>
+              )}
+            </div>
+          </div>
+        </Drawer.Content>
+      </Drawer>
+    </div>
+  )
+}
+
+export const Vercel_Notion_팀_멤버_검색_드로어: Story = {
+  name: 'Vercel + Notion — 팀 멤버 검색 사이드 패널',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Vercel + Notion 복합 패턴. FloatingTextField 검색 + 실시간 멤버 필터링 + 온라인/자리비움/오프라인 상태 도트. ' +
+          '아바타 + 역할 + 마지막 접속 시간 3단 멤버 카드 레이아웃.',
+      },
+    },
+  },
+  render: () => <VercelNotionTeamDrawerRender />,
+}

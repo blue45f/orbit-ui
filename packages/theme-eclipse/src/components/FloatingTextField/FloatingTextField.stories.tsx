@@ -1652,3 +1652,250 @@ export const Raycast_Notion_문서_검색_생성_패널: Story = {
   },
   render: () => <RaycastNotionDocSearchRender />,
 }
+
+// ─── Cycle 190: Vercel Design + Notion Design ───────────────────────────────
+
+const VERCEL_ENV_VARS_190 = [
+  { key: 'NEXT_PUBLIC_API_URL', value: 'https://api.example.com', env: 'Production' },
+  { key: 'DATABASE_URL', value: 'postgresql://...', env: 'Preview' },
+  { key: 'NEXTAUTH_SECRET', value: '', env: 'All' },
+]
+
+function VercelApiKeyFieldRender() {
+  const [apiKey, setApiKey] = useState('vrk_1234567890abcdef1234567890abcdef')
+  const [show, setShow] = useState(false)
+  const [copied, setCopied] = useState(false)
+  const masked = show ? apiKey : apiKey.replace(/./g, (c, i) => i < 4 ? c : '•')
+
+  function handleCopy() {
+    setCopied(true)
+    setTimeout(() => setCopied(false), 1500)
+  }
+
+  return (
+    <div style={{ width: 420, fontFamily: 'system-ui, sans-serif' }}>
+      <div style={{ padding: '20px 24px 0', display: 'flex', alignItems: 'center', gap: 8, marginBottom: 16 }}>
+        <div style={{ width: 28, height: 28, background: '#000', borderRadius: 6, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <span style={{ color: '#fff', fontSize: 12, fontWeight: 800 }}>▲</span>
+        </div>
+        <span style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>API Keys</span>
+      </div>
+      <div style={{ padding: '0 24px 20px', display: 'flex', flexDirection: 'column', gap: 14 }}>
+        <div style={{ fontSize: 11, color: '#64748b' }}>
+          Vercel API 키를 사용하면 REST API를 통해 프로젝트를 관리할 수 있습니다.
+        </div>
+        {/* API Key field with show/hide */}
+        <div style={{ position: 'relative' }}>
+          <FloatingTextField
+            placeholder="API 키"
+            value={masked}
+            onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setApiKey(e.target.value)}
+            style={{ width: '100%', paddingRight: 80 }}
+          />
+          <div style={{ position: 'absolute', right: 10, top: '50%', transform: 'translateY(-50%)', display: 'flex', gap: 4 }}>
+            <button onClick={() => setShow(v => !v)} style={{ fontSize: 10, padding: '3px 8px', borderRadius: 5, border: '1px solid #e2e8f0', background: '#fff', cursor: 'pointer', color: '#475569' }}>
+              {show ? '숨김' : '표시'}
+            </button>
+            <button onClick={handleCopy} style={{ fontSize: 10, padding: '3px 8px', borderRadius: 5, border: '1px solid #e2e8f0', background: copied ? '#f0fdf4' : '#fff', cursor: 'pointer', color: copied ? '#16a34a' : '#475569' }}>
+              {copied ? '복사됨' : '복사'}
+            </button>
+          </div>
+        </div>
+        {/* Env var list */}
+        <div style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.07em' }}>환경 변수</div>
+        {VERCEL_ENV_VARS_190.map((ev, i) => (
+          <div key={i} style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
+            <div style={{ flex: 1 }}>
+              <FloatingTextField
+                placeholder={ev.key}
+                value={ev.value}
+                onChange={() => {}}
+                style={{ width: '100%' }}
+              />
+            </div>
+            <div style={{ fontSize: 10, padding: '3px 8px', borderRadius: 5, background: '#f1f5f9', color: '#64748b', whiteSpace: 'nowrap' }}>{ev.env}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+export const Vercel_모노크롬_API_키_입력_필드: Story = {
+  name: 'Vercel — API 키 & 환경변수 관리 필드',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Vercel 모노크롬 디자인 시스템 패턴. API 키 show/hide + 원클릭 복사 + 환경변수 인라인 입력. ' +
+          'FloatingTextField를 API 키 마스킹 및 환경 변수 편집 필드로 활용.',
+      },
+    },
+  },
+  render: () => <VercelApiKeyFieldRender />,
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+
+const NOTION_DB_PROPS_190 = [
+  { label: '제목', value: '디자인 시스템 2025 로드맵', type: '텍스트' },
+  { label: '담당자', value: 'HeeJun Kim', type: '사람' },
+  { label: '마감일', value: '2025-12-31', type: '날짜' },
+  { label: '우선순위', value: 'High', type: '선택' },
+]
+
+function NotionPropertyFieldRender() {
+  const [vals, setVals] = useState(NOTION_DB_PROPS_190.map(p => p.value))
+  const [editing, setEditing] = useState<number | null>(null)
+
+  return (
+    <div style={{ width: 380, fontFamily: 'system-ui, sans-serif', border: '1px solid #e2e8f0', borderRadius: 12, overflow: 'hidden', background: '#fff' }}>
+      {/* Notion-style DB header */}
+      <div style={{ padding: '14px 20px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', gap: 8 }}>
+        <span style={{ fontSize: 18 }}>📋</span>
+        <span style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>데이터베이스 속성</span>
+        <span style={{ marginLeft: 'auto', fontSize: 11, color: '#94a3b8' }}>Notion 패턴</span>
+      </div>
+      {/* Property rows */}
+      <div style={{ padding: '12px 20px', display: 'flex', flexDirection: 'column', gap: 10 }}>
+        {NOTION_DB_PROPS_190.map((prop, i) => (
+          <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+            <div style={{ width: 72, fontSize: 11, color: '#64748b', fontWeight: 500, flexShrink: 0 }}>
+              <div>{prop.label}</div>
+              <div style={{ fontSize: 9, color: '#cbd5e1', marginTop: 1 }}>{prop.type}</div>
+            </div>
+            <div style={{ flex: 1 }}>
+              {editing === i ? (
+                <FloatingTextField
+                  placeholder={prop.label}
+                  value={vals[i]}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+                    const next = [...vals]
+                    next[i] = e.target.value
+                    setVals(next)
+                  }}
+                  onBlur={() => setEditing(null)}
+                  style={{ width: '100%' }}
+                />
+              ) : (
+                <div
+                  onClick={() => setEditing(i)}
+                  style={{ fontSize: 12, color: '#0f172a', padding: '8px 10px', borderRadius: 7, border: '1px solid transparent', cursor: 'text', minHeight: 36, display: 'flex', alignItems: 'center' }}
+                  onMouseEnter={e => { (e.currentTarget as HTMLDivElement).style.borderColor = '#e2e8f0'; (e.currentTarget as HTMLDivElement).style.background = '#f8fafc' }}
+                  onMouseLeave={e => { (e.currentTarget as HTMLDivElement).style.borderColor = 'transparent'; (e.currentTarget as HTMLDivElement).style.background = '' }}
+                >
+                  {vals[i] || <span style={{ color: '#cbd5e1' }}>비어 있음</span>}
+                </div>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+      <div style={{ padding: '10px 20px', borderTop: '1px solid #f1f5f9', fontSize: 10, color: '#94a3b8' }}>
+        셀을 클릭하면 FloatingTextField 인라인 편집 모드로 전환됩니다.
+      </div>
+    </div>
+  )
+}
+
+export const Notion_프로퍼티_인라인_편집_필드: Story = {
+  name: 'Notion — 데이터베이스 속성 인라인 편집',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Notion 데이터베이스 속성 패널 패턴. 셀 클릭 → FloatingTextField 인라인 편집 전환 → blur 시 저장. ' +
+          '속성 타입 레이블, 비어 있음 placeholder, hover 강조 효과 포함.',
+      },
+    },
+  },
+  render: () => <NotionPropertyFieldRender />,
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+
+function VercelNotionMultiFieldRender() {
+  const [projectName, setProjectName] = useState('')
+  const [domain, setDomain] = useState('')
+  const [description, setDescription] = useState('')
+  const [token, setToken] = useState('')
+  const [submitted, setSubmitted] = useState(false)
+
+  const isValid = projectName.trim().length > 0 && domain.trim().length > 0
+
+  function handleSubmit() {
+    if (isValid) {
+      setSubmitted(true)
+      setTimeout(() => setSubmitted(false), 2000)
+    }
+  }
+
+  return (
+    <div style={{ width: 420, fontFamily: 'system-ui, sans-serif', border: '1px solid #e2e8f0', borderRadius: 14, overflow: 'hidden', background: '#fff', boxShadow: '0 4px 24px rgba(0,0,0,0.07)' }}>
+      {/* Header */}
+      <div style={{ padding: '18px 24px 14px', background: '#000', color: '#fff', display: 'flex', alignItems: 'center', gap: 10 }}>
+        <div style={{ width: 26, height: 26, background: '#fff', borderRadius: 6, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <span style={{ fontSize: 11, fontWeight: 900, color: '#000' }}>▲</span>
+        </div>
+        <span style={{ fontSize: 14, fontWeight: 700 }}>새 프로젝트 생성</span>
+        <span style={{ marginLeft: 'auto', fontSize: 10, background: '#222', padding: '3px 8px', borderRadius: 5, color: '#a3a3a3' }}>Vercel + Notion</span>
+      </div>
+      {/* Form body */}
+      <div style={{ padding: '20px 24px', display: 'flex', flexDirection: 'column', gap: 16 }}>
+        {/* Section: Vercel fields */}
+        <div style={{ fontSize: 10, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.07em' }}>Vercel 설정</div>
+        <FloatingTextField
+          placeholder="프로젝트 이름"
+          value={projectName}
+          onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setProjectName(e.target.value)}
+          style={{ width: '100%' }}
+        />
+        <FloatingTextField
+          placeholder="커스텀 도메인 (예: my-app.com)"
+          value={domain}
+          onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setDomain(e.target.value)}
+          style={{ width: '100%' }}
+        />
+        {/* Section: Notion fields */}
+        <div style={{ fontSize: 10, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.07em', marginTop: 4 }}>Notion 연동 (선택)</div>
+        <FloatingTextField
+          placeholder="Notion 페이지 설명"
+          value={description}
+          onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setDescription(e.target.value)}
+          style={{ width: '100%' }}
+        />
+        <FloatingTextField
+          placeholder="Notion 통합 토큰"
+          value={token}
+          onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setToken(e.target.value)}
+          style={{ width: '100%' }}
+        />
+        {/* Submit */}
+        <button
+          onClick={handleSubmit}
+          disabled={!isValid}
+          style={{ width: '100%', padding: '12px 0', borderRadius: 9, border: 'none', background: submitted ? '#22c55e' : isValid ? '#000' : '#e2e8f0', color: isValid ? '#fff' : '#94a3b8', fontWeight: 700, fontSize: 13, cursor: isValid ? 'pointer' : 'not-allowed', transition: 'all 200ms' }}
+        >
+          {submitted ? '✓ 프로젝트 생성 완료' : '프로젝트 생성'}
+        </button>
+        <div style={{ fontSize: 10, color: '#cbd5e1', textAlign: 'center' }}>
+          프로젝트 이름과 도메인은 필수 항목입니다
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const Vercel_Notion_다중_필드_프로젝트_생성_폼: Story = {
+  name: 'Vercel + Notion — 다중 FloatingTextField 프로젝트 생성 폼',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Vercel 모노크롬 + Notion 통합 설정 복합 폼. FloatingTextField 4개를 Vercel 필수 항목(이름/도메인)과 Notion 선택 항목(설명/토큰)으로 분리. ' +
+          '필수 필드 검증 + 제출 성공 피드백 패턴.',
+      },
+    },
+  },
+  render: () => <VercelNotionMultiFieldRender />,
+}

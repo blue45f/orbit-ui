@@ -42293,3 +42293,203 @@ export const ChakraArco189UserProfile: StoryObj = {
   },
   render: () => <ChakraArco189Render />,
 }
+
+// ─── Cycle 190: Vercel Design + Notion Design ────────────────────────────────
+
+const VERCEL_190_DEPLOYMENTS = [
+  { project: 'orbit-ui', branch: 'main', status: 'ready', duration: '1m 42s', time: '2분 전', url: 'orbit-ui.vercel.app', commit: 'feat: 다크 모드 토글' },
+  { project: 'shop-app', branch: 'feat/cart', status: 'building', duration: '—', time: '5분 전', url: 'shop-app-git-feat-cart.vercel.app', commit: 'fix: 장바구니 합계 계산' },
+  { project: 'docs-site', branch: 'main', status: 'error', duration: '0m 38s', time: '12분 전', url: 'docs-site.vercel.app', commit: 'docs: API 레퍼런스 업데이트' },
+  { project: 'dashboard', branch: 'dev', status: 'ready', duration: '2m 10s', time: '1시간 전', url: 'dashboard-dev.vercel.app', commit: 'refactor: 데이터 테이블 최적화' },
+]
+
+const NOTION_190_PAGES = [
+  { icon: '📐', title: 'Orbit UI 디자인 토큰 가이드', updated: '방금 전', tag: '디자인', pinned: true },
+  { icon: '🚀', title: 'Q4 출시 체크리스트', updated: '오늘 오전 9:14', tag: '프로젝트', pinned: true },
+  { icon: '📊', title: '컴포넌트 사용량 분석 리포트', updated: '어제', tag: '데이터', pinned: false },
+  { icon: '🎨', title: 'Eclipse 테마 스타일 가이드', updated: '3일 전', tag: '디자인', pinned: false },
+  { icon: '📝', title: '스프린트 190 회고', updated: '1주 전', tag: '회의', pinned: false },
+]
+
+const STATUS_190: Record<string, { label: string; color: string; bg: string }> = {
+  ready: { label: '● Ready', color: '#16a34a', bg: '#f0fdf4' },
+  building: { label: '◷ Building', color: '#2563eb', bg: '#eff6ff' },
+  error: { label: '✕ Error', color: '#dc2626', bg: '#fef2f2' },
+}
+
+const TAG_COLOR_190: Record<string, { bg: string; color: string }> = {
+  '디자인': { bg: '#ede9fe', color: '#7c3aed' },
+  '프로젝트': { bg: '#dbeafe', color: '#1d4ed8' },
+  '데이터': { bg: '#fef9c3', color: '#92400e' },
+  '회의': { bg: '#f0fdf4', color: '#166534' },
+}
+
+function VercelNotion190Render() {
+  const [search, setSearch] = useState('')
+  const [activeSection, setActiveSection] = useState<'deployments' | 'notion'>('deployments')
+  const [notifEnabled, setNotifEnabled] = useState(true)
+
+  const filteredDeploys = VERCEL_190_DEPLOYMENTS.filter(d =>
+    d.project.toLowerCase().includes(search.toLowerCase()) ||
+    d.branch.toLowerCase().includes(search.toLowerCase()) ||
+    d.commit.toLowerCase().includes(search.toLowerCase())
+  )
+  const filteredPages = NOTION_190_PAGES.filter(p =>
+    p.title.toLowerCase().includes(search.toLowerCase()) ||
+    p.tag.toLowerCase().includes(search.toLowerCase())
+  )
+
+  return (
+    <div style={{ display: 'flex', height: '100vh', fontFamily: 'system-ui, sans-serif', background: '#f8fafc' }}>
+      {/* Left sidebar — Vercel dark style */}
+      <div style={{ width: 220, background: '#000', color: '#fff', display: 'flex', flexDirection: 'column', flexShrink: 0 }}>
+        <div style={{ padding: '20px 16px 12px', display: 'flex', alignItems: 'center', gap: 8 }}>
+          <div style={{ width: 28, height: 28, background: '#fff', borderRadius: 7, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <span style={{ fontSize: 12, fontWeight: 900, color: '#000' }}>▲</span>
+          </div>
+          <span style={{ fontSize: 14, fontWeight: 700 }}>Dashboard</span>
+        </div>
+        <div style={{ flex: 1, padding: '0 8px' }}>
+          {(['deployments', 'notion'] as const).map(s => (
+            <button
+              key={s}
+              onClick={() => setActiveSection(s)}
+              style={{ width: '100%', padding: '8px 10px', borderRadius: 8, border: 'none', background: activeSection === s ? '#1a1a1a' : 'transparent', color: activeSection === s ? '#fff' : '#a3a3a3', cursor: 'pointer', fontSize: 12, fontWeight: 500, textAlign: 'left', marginBottom: 2 }}
+            >
+              {s === 'deployments' ? '🚀 배포 현황' : '📋 Notion 문서'}
+            </button>
+          ))}
+        </div>
+        {/* Notif toggle in sidebar */}
+        <div style={{ padding: '16px', borderTop: '1px solid #1a1a1a', display: 'flex', alignItems: 'center', gap: 8 }}>
+          <Switch
+            checked={notifEnabled}
+            onChange={() => setNotifEnabled(prev => !prev)}
+          />
+          <span style={{ fontSize: 11, color: '#6b7280' }}>알림</span>
+        </div>
+      </div>
+
+      {/* Main content */}
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+        {/* Top bar */}
+        <div style={{ padding: '16px 24px', background: '#fff', borderBottom: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', gap: 16 }}>
+          <div style={{ flex: 1, maxWidth: 360 }}>
+            <FloatingTextField
+              placeholder={activeSection === 'deployments' ? '프로젝트·브랜치·커밋 검색...' : '문서 검색...'}
+              value={search}
+              onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setSearch(e.target.value)}
+              style={{ width: '100%' }}
+            />
+          </div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            {notifEnabled && (
+              <div style={{ display: 'flex', alignItems: 'center', gap: 4, fontSize: 11, color: '#16a34a', background: '#f0fdf4', padding: '4px 10px', borderRadius: 20, fontWeight: 600 }}>
+                <span>●</span><span>알림 ON</span>
+              </div>
+            )}
+            <Avatar style={{ width: 32, height: 32, fontSize: 12 }}>HK</Avatar>
+          </div>
+        </div>
+
+        {/* Content */}
+        <div style={{ flex: 1, overflowY: 'auto', padding: '24px' }}>
+          {activeSection === 'deployments' && (
+            <div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 20 }}>
+                <div style={{ fontSize: 18, fontWeight: 800, color: '#0f172a' }}>배포 현황</div>
+                <CounterBadge>{filteredDeploys.length}</CounterBadge>
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+                {filteredDeploys.map((d, i) => {
+                  const st = STATUS_190[d.status]
+                  return (
+                    <div key={i} style={{ background: '#fff', borderRadius: 12, border: '1px solid #e2e8f0', padding: '14px 18px', display: 'flex', alignItems: 'center', gap: 14 }}>
+                      <div style={{ flex: 1 }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
+                          <span style={{ fontSize: 13, fontWeight: 700, color: '#0f172a' }}>{d.project}</span>
+                          <span style={{ fontSize: 10, padding: '2px 8px', borderRadius: 8, background: '#f1f5f9', color: '#64748b' }}>{d.branch}</span>
+                          <span style={{ marginLeft: 'auto', fontSize: 11, fontWeight: 700, color: st.color, background: st.bg, padding: '2px 8px', borderRadius: 10 }}>{st.label}</span>
+                        </div>
+                        <div style={{ fontSize: 11, color: '#64748b' }}>{d.commit}</div>
+                        <div style={{ fontSize: 10, color: '#94a3b8', marginTop: 4 }}>{d.url} · {d.time} · {d.duration}</div>
+                      </div>
+                    </div>
+                  )
+                })}
+                {filteredDeploys.length === 0 && (
+                  <div style={{ padding: 32, textAlign: 'center', color: '#94a3b8', fontSize: 13 }}>검색 결과 없음</div>
+                )}
+              </div>
+            </div>
+          )}
+
+          {activeSection === 'notion' && (
+            <div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 20 }}>
+                <div style={{ fontSize: 18, fontWeight: 800, color: '#0f172a' }}>Notion 문서</div>
+                <CounterBadge>{filteredPages.length}</CounterBadge>
+              </div>
+              {/* Pinned section */}
+              {filteredPages.filter(p => p.pinned).length > 0 && (
+                <div style={{ marginBottom: 20 }}>
+                  <div style={{ fontSize: 10, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.07em', marginBottom: 8 }}>고정됨</div>
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
+                    {filteredPages.filter(p => p.pinned).map((page, i) => {
+                      const tc = TAG_COLOR_190[page.tag] ?? { bg: '#f1f5f9', color: '#475569' }
+                      return (
+                        <div key={i} style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: 12, padding: '14px 16px', cursor: 'pointer' }}>
+                          <div style={{ fontSize: 20, marginBottom: 8 }}>{page.icon}</div>
+                          <div style={{ fontSize: 12, fontWeight: 600, color: '#0f172a', marginBottom: 6 }}>{page.title}</div>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                            <span style={{ fontSize: 9, padding: '2px 7px', borderRadius: 6, background: tc.bg, color: tc.color, fontWeight: 600 }}>{page.tag}</span>
+                            <span style={{ fontSize: 10, color: '#94a3b8' }}>{page.updated}</span>
+                          </div>
+                        </div>
+                      )
+                    })}
+                  </div>
+                </div>
+              )}
+              {/* All pages */}
+              <div>
+                <div style={{ fontSize: 10, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.07em', marginBottom: 8 }}>전체 문서</div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+                  {filteredPages.map((page, i) => {
+                    const tc = TAG_COLOR_190[page.tag] ?? { bg: '#f1f5f9', color: '#475569' }
+                    return (
+                      <div key={i} style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: 10, padding: '12px 16px', display: 'flex', alignItems: 'center', gap: 12, cursor: 'pointer' }}>
+                        <span style={{ fontSize: 16 }}>{page.icon}</span>
+                        <div style={{ flex: 1 }}>
+                          <div style={{ fontSize: 12, fontWeight: 500, color: '#0f172a' }}>{page.title}</div>
+                          <div style={{ fontSize: 10, color: '#94a3b8', marginTop: 2 }}>업데이트: {page.updated}</div>
+                        </div>
+                        <span style={{ fontSize: 9, padding: '2px 7px', borderRadius: 6, background: tc.bg, color: tc.color, fontWeight: 600 }}>{page.tag}</span>
+                      </div>
+                    )
+                  })}
+                  {filteredPages.length === 0 && (
+                    <div style={{ padding: 32, textAlign: 'center', color: '#94a3b8', fontSize: 13 }}>검색 결과 없음</div>
+                  )}
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const VercelNotion190Dashboard: StoryObj = {
+  name: 'Vercel + Notion — 배포 & 문서 통합 대시보드 (Cycle 190)',
+  parameters: {
+    layout: 'fullscreen',
+    docs: {
+      description: {
+        story: 'Vercel 모노크롬 + Notion 문서 통합 대시보드. Vercel 다크 사이드바 + FloatingTextField 검색 + 배포 현황 카드 + Notion 문서 그리드. Switch 알림 토글 + CounterBadge 개수 표시.',
+      },
+    },
+  },
+  render: () => <VercelNotion190Render />,
+}
