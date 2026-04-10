@@ -1107,3 +1107,288 @@ export const Linear_이슈_설명_자동저장: Story = {
   },
   render: () => <LinearAutoSaveEditorRender />,
 }
+
+function MantineFeedbackFormRender() {
+  const [rating, setRating] = useState(0)
+  const [feedback, setFeedback] = useState('')
+  const [submitted, setSubmitted] = useState(false)
+
+  const handleSubmit = () => {
+    if (rating > 0 && feedback.trim().length >= 10) {
+      setSubmitted(true)
+    }
+  }
+
+  if (submitted) {
+    return (
+      <div style={{ width: 440, padding: 32, borderRadius: 12, background: '#f0fdf4', border: '1px solid #bbf7d0', textAlign: 'center' }}>
+        <div style={{ fontSize: 36, marginBottom: 12 }}>🎉</div>
+        <div style={{ fontSize: 16, fontWeight: 700, color: '#15803d', marginBottom: 6 }}>피드백 감사합니다!</div>
+        <div style={{ fontSize: 13, color: '#4ade80' }}>소중한 의견을 반영하겠습니다.</div>
+        <button
+          onClick={() => { setRating(0); setFeedback(''); setSubmitted(false) }}
+          style={{ marginTop: 20, padding: '8px 20px', borderRadius: 8, border: 'none', background: '#16a34a', color: '#fff', fontSize: 13, fontWeight: 600, cursor: 'pointer' }}
+        >
+          다시 작성
+        </button>
+      </div>
+    )
+  }
+
+  return (
+    <div style={{ width: 440, display: 'flex', flexDirection: 'column', gap: 20, padding: 24, borderRadius: 12, border: '1px solid #e2e8f0', background: '#fff' }}>
+      <div>
+        <div style={{ fontSize: 14, fontWeight: 700, color: '#1e293b', marginBottom: 4 }}>서비스 만족도</div>
+        <div style={{ fontSize: 12, color: '#94a3b8' }}>전반적인 경험을 평가해 주세요</div>
+      </div>
+
+      <div style={{ display: 'flex', gap: 8 }}>
+        {[1, 2, 3, 4, 5].map((star) => (
+          <button
+            key={star}
+            onClick={() => setRating(star)}
+            style={{ background: 'none', border: 'none', fontSize: 28, cursor: 'pointer', opacity: star <= rating ? 1 : 0.3, transition: 'opacity 0.15s', lineHeight: 1 }}
+          >
+            ★
+          </button>
+        ))}
+        {rating > 0 && (
+          <span style={{ fontSize: 12, color: '#64748b', alignSelf: 'center', marginLeft: 4 }}>
+            {['', '매우 불만족', '불만족', '보통', '만족', '매우 만족'][rating]}
+          </span>
+        )}
+      </div>
+
+      <div>
+        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 6 }}>
+          <div style={{ fontSize: 13, fontWeight: 600, color: '#1e293b' }}>상세 피드백</div>
+          <div style={{ fontSize: 11, color: feedback.length < 10 ? '#ef4444' : '#10b981' }}>
+            {feedback.length}/500 {feedback.length < 10 ? `(최소 ${10 - feedback.length}자 더 필요)` : '✓'}
+          </div>
+        </div>
+        <TextArea
+          value={feedback}
+          onChange={(e) => setFeedback(e.target.value)}
+          minimumLine={5}
+          error={feedback.length > 0 && feedback.length < 10}
+          placeholder="서비스 이용 중 불편한 점이나 개선하면 좋겠다고 생각한 기능을 자세히 알려주세요."
+        />
+      </div>
+
+      <button
+        onClick={handleSubmit}
+        disabled={rating === 0 || feedback.trim().length < 10}
+        style={{
+          padding: '10px 0',
+          borderRadius: 8,
+          border: 'none',
+          background: rating > 0 && feedback.length >= 10 ? '#3b82f6' : '#e2e8f0',
+          color: rating > 0 && feedback.length >= 10 ? '#fff' : '#94a3b8',
+          fontSize: 14,
+          fontWeight: 600,
+          cursor: rating > 0 && feedback.length >= 10 ? 'pointer' : 'not-allowed',
+          transition: 'background 0.2s, color 0.2s',
+        }}
+      >
+        피드백 제출
+      </button>
+    </div>
+  )
+}
+
+export const Mantine_피드백_폼_별점: Story = {
+  name: 'Mantine - 별점 + 피드백 폼 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Mantine Rating + Textarea 조합 패턴. 별점 선택 후 최소 10자 입력 시 제출 활성화, ' +
+          '실시간 글자 수 검증, 에러 상태 표시, 제출 완료 후 성공 화면으로 전환.',
+      },
+    },
+  },
+  render: () => <MantineFeedbackFormRender />,
+}
+
+function ArcoCodeReviewRender() {
+  type ReviewLine = { line: number; code: string; comment: string; setComment: (v: string) => void; severity: 'info' | 'warn' | 'error' }
+  const [comment1, setComment1] = useState('')
+  const [comment2, setComment2] = useState('')
+  const [comment3, setComment3] = useState('')
+  const [active, setActive] = useState<number | null>(null)
+  const [submitted, setSubmitted] = useState<number[]>([])
+
+  const reviewLines: ReviewLine[] = [
+    { line: 42, code: 'const data = JSON.parse(req.body)', comment: comment1, setComment: setComment1, severity: 'error' },
+    { line: 67, code: 'await Promise.all(requests.map(fetch))', comment: comment2, setComment: setComment2, severity: 'warn' },
+    { line: 91, code: 'return res.send(result)', comment: comment3, setComment: setComment3, severity: 'info' },
+  ]
+
+  const severityColor = { error: '#ef4444', warn: '#f59e0b', info: '#3b82f6' }
+  const severityLabel = { error: 'Critical', warn: 'Warning', info: 'Suggestion' }
+
+  return (
+    <div style={{ width: 520, display: 'flex', flexDirection: 'column', gap: 0, borderRadius: 10, border: '1px solid #e2e8f0', overflow: 'hidden' }}>
+      <div style={{ background: '#1e293b', padding: '10px 16px', display: 'flex', alignItems: 'center', gap: 8 }}>
+        <span style={{ fontSize: 12, fontWeight: 700, color: '#94a3b8', letterSpacing: 1 }}>CODE REVIEW</span>
+        <span style={{ marginLeft: 'auto', fontSize: 11, color: '#475569' }}>api/handler.ts</span>
+      </div>
+      {reviewLines.map((r, idx) => (
+        <div key={r.line} style={{ borderTop: idx === 0 ? 'none' : '1px solid #f1f5f9' }}>
+          <div
+            onClick={() => setActive(active === r.line ? null : r.line)}
+            style={{ display: 'flex', alignItems: 'center', gap: 0, cursor: 'pointer', background: active === r.line ? '#fafafa' : '#fff', transition: 'background 0.1s' }}
+          >
+            <div style={{ width: 40, padding: '10px 0', textAlign: 'center', fontSize: 11, color: '#94a3b8', background: '#f8fafc', borderRight: '1px solid #f1f5f9', flexShrink: 0 }}>{r.line}</div>
+            <div style={{ flex: 1, padding: '10px 14px', fontFamily: 'monospace', fontSize: 12, color: '#334155' }}>{r.code}</div>
+            <div style={{ padding: '0 12px', flexShrink: 0 }}>
+              <span style={{ fontSize: 10, fontWeight: 700, color: severityColor[r.severity], background: `${severityColor[r.severity]}18`, padding: '2px 7px', borderRadius: 4 }}>
+                {severityLabel[r.severity]}
+              </span>
+            </div>
+          </div>
+
+          {active === r.line && (
+            <div style={{ padding: '10px 14px 12px', background: '#f8fafc', borderTop: '1px solid #f1f5f9' }}>
+              <div style={{ fontSize: 12, fontWeight: 600, color: '#475569', marginBottom: 6 }}>
+                리뷰 코멘트 {submitted.includes(r.line) && <span style={{ color: '#10b981', fontWeight: 400 }}>✓ 제출됨</span>}
+              </div>
+              <TextArea
+                value={r.comment}
+                onChange={(e) => r.setComment(e.target.value)}
+                minimumLine={2}
+                placeholder={`${r.line}번째 줄에 대한 코드 리뷰를 작성하세요...`}
+              />
+              <div style={{ display: 'flex', gap: 8, marginTop: 8, justifyContent: 'flex-end' }}>
+                <button
+                  onClick={() => setActive(null)}
+                  style={{ padding: '5px 14px', borderRadius: 6, border: '1px solid #e2e8f0', background: '#fff', fontSize: 12, cursor: 'pointer', color: '#64748b' }}
+                >
+                  취소
+                </button>
+                <button
+                  disabled={!r.comment.trim()}
+                  onClick={() => { setSubmitted((prev) => [...prev, r.line]); setActive(null) }}
+                  style={{ padding: '5px 14px', borderRadius: 6, border: 'none', background: r.comment.trim() ? severityColor[r.severity] : '#e2e8f0', color: r.comment.trim() ? '#fff' : '#94a3b8', fontSize: 12, fontWeight: 600, cursor: r.comment.trim() ? 'pointer' : 'not-allowed' }}
+                >
+                  코멘트 추가
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
+      ))}
+      <div style={{ padding: '10px 16px', background: '#f8fafc', borderTop: '1px solid #e2e8f0', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <span style={{ fontSize: 11, color: '#94a3b8' }}>{submitted.length}개 코멘트 작성됨</span>
+        <button
+          disabled={submitted.length === 0}
+          style={{ padding: '5px 16px', borderRadius: 6, border: 'none', background: submitted.length > 0 ? '#3b82f6' : '#e2e8f0', color: submitted.length > 0 ? '#fff' : '#94a3b8', fontSize: 12, fontWeight: 600, cursor: submitted.length > 0 ? 'pointer' : 'not-allowed' }}
+        >
+          리뷰 완료
+        </button>
+      </div>
+    </div>
+  )
+}
+
+export const Arco_코드_리뷰_인라인_코멘트: Story = {
+  name: 'Arco - 코드 리뷰 인라인 코멘트 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Arco Design 코드 리뷰 UI 패턴. 코드 라인별 severity 뱃지(Critical/Warning/Suggestion), ' +
+          '라인 클릭 시 인라인 TextArea 확장, 개별 코멘트 제출, 완료 카운터.',
+      },
+    },
+  },
+  render: () => <ArcoCodeReviewRender />,
+}
+
+function MantineCollaborativeNotesRender() {
+  type Collaborator = { id: number; name: string; color: string; avatar: string }
+  const collaborators: Collaborator[] = [
+    { id: 1, name: '김지수', color: '#3b82f6', avatar: '김' },
+    { id: 2, name: '이민준', color: '#8b5cf6', avatar: '이' },
+    { id: 3, name: '박서연', color: '#10b981', avatar: '박' },
+  ]
+  const [notes, setNotes] = useState('# 스프린트 계획 회의\n\n## 목표\n- 로그인 플로우 개선\n- 대시보드 v2 설계\n\n## 논의 사항\n')
+  const [typingId, setTypingId] = useState<number | null>(null)
+  const [version, setVersion] = useState(1)
+
+  const handleEdit = (val: string) => {
+    setNotes(val)
+    const randomCollaborator = collaborators[Math.floor(Math.random() * collaborators.length)]
+    setTypingId(randomCollaborator.id)
+    setVersion((v) => v + 1)
+    setTimeout(() => setTypingId(null), 1200)
+  }
+
+  const lineCount = notes.split('\n').length
+  const wordCount = notes.trim() ? notes.trim().split(/\s+/).length : 0
+
+  return (
+    <div style={{ width: 500, borderRadius: 12, border: '1px solid #e2e8f0', overflow: 'hidden', background: '#fff' }}>
+      <div style={{ padding: '12px 16px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', gap: 10 }}>
+        <div style={{ fontSize: 13, fontWeight: 700, color: '#1e293b', flex: 1 }}>공유 노트</div>
+        <div style={{ display: 'flex', gap: -4 }}>
+          {collaborators.map((c) => (
+            <div
+              key={c.id}
+              title={c.name}
+              style={{
+                width: 26, height: 26, borderRadius: '50%', background: c.color, color: '#fff', fontSize: 11, fontWeight: 700,
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                border: '2px solid #fff', marginLeft: -6,
+                opacity: typingId === c.id ? 1 : 0.6,
+                transform: typingId === c.id ? 'scale(1.15)' : 'scale(1)',
+                transition: 'opacity 0.2s, transform 0.2s',
+              }}
+            >
+              {c.avatar}
+            </div>
+          ))}
+        </div>
+        <div style={{ fontSize: 10, color: '#94a3b8', background: '#fff', border: '1px solid #e2e8f0', borderRadius: 4, padding: '2px 7px' }}>
+          v{version}
+        </div>
+      </div>
+
+      <div style={{ padding: '12px 16px' }}>
+        {typingId !== null && (
+          <div style={{ fontSize: 11, color: collaborators.find((c) => c.id === typingId)?.color, marginBottom: 6, height: 16, transition: 'opacity 0.2s' }}>
+            {collaborators.find((c) => c.id === typingId)?.name}님이 편집 중...
+          </div>
+        )}
+        {typingId === null && <div style={{ height: 16, marginBottom: 6 }} />}
+        <TextArea
+          value={notes}
+          onChange={(e) => handleEdit(e.target.value)}
+          minimumLine={10}
+          placeholder="팀 공유 노트를 작성하세요. Markdown을 지원합니다."
+        />
+      </div>
+
+      <div style={{ padding: '8px 16px', background: '#f8fafc', borderTop: '1px solid #e2e8f0', display: 'flex', gap: 16, fontSize: 11, color: '#94a3b8' }}>
+        <span>{lineCount}줄</span>
+        <span>{wordCount}단어</span>
+        <span>{notes.length}자</span>
+        <span style={{ marginLeft: 'auto' }}>마지막 편집: 방금 전</span>
+      </div>
+    </div>
+  )
+}
+
+export const Mantine_협업_공유_노트_에디터: Story = {
+  name: 'Mantine - 협업 공유 노트 에디터 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Mantine Collaborative editing UI 패턴. 3명 협업자 아바타 + 타이핑 인디케이터, ' +
+          '편집 시 랜덤 협업자 활성화 효과(scale/opacity), 버전 카운터, 줄/단어/글자 수 통계.',
+      },
+    },
+  },
+  render: () => <MantineCollaborativeNotesRender />,
+}

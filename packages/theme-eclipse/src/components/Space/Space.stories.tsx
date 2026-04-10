@@ -600,3 +600,314 @@ export const Arco_인라인_태그_간격_패턴 = {
     )
   },
 }
+
+/* --------------------------------------------------------------------------
+   Mantine 벤치마크: 대시보드 KPI 카드 그리드 간격 시스템
+   Mantine Grid 패턴 — Space로 카드 간 일정 간격 유지 + 섹션 구분
+-------------------------------------------------------------------------- */
+const KPI_CARDS = [
+  { label: '총 컴포넌트', value: '52', delta: '+3', up: true, color: '#6366f1' },
+  { label: '총 스토리', value: '728', delta: '+18', up: true, color: '#10b981' },
+  { label: '평균 스토리/컴포넌트', value: '14.0', delta: '+0.3', up: true, color: '#f59e0b' },
+  { label: '타입 오류', value: '0', delta: '0', up: true, color: '#22c55e' },
+]
+
+export const Mantine_KPI_카드_그리드_간격 = {
+  name: 'Mantine — KPI 카드 그리드 간격 시스템',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Mantine Grid 컴포넌트 간격 패턴. Space 컴포넌트로 KPI 카드 사이 일정 간격 유지. ' +
+          '헤더-카드-차트 섹션을 Space로 구분하는 수직 리듬 패턴.',
+      },
+    },
+  },
+  render: function ManitineKPIGrid() {
+    const [spacing, setSpacing] = useState<Spacing>('250')
+    const MANTINE_KPI_SPACING_OPTIONS: { label: string; value: Spacing }[] = [
+      { label: '8px', value: '100' },
+      { label: '12px', value: '150' },
+      { label: '20px', value: '250' },
+      { label: '28px', value: '300' },
+    ]
+
+    return (
+      <div style={{ width: 520, fontFamily: 'system-ui, sans-serif' }}>
+        {/* 헤더 */}
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div style={{ fontSize: 16, fontWeight: 800, color: '#0f172a' }}>Orbit UI 현황</div>
+          <div style={{ display: 'flex', gap: 6 }}>
+            {MANTINE_KPI_SPACING_OPTIONS.map((opt) => (
+              <button
+                key={opt.value}
+                onClick={() => setSpacing(opt.value)}
+                style={{
+                  padding: '3px 8px', borderRadius: 4, border: `1px solid ${spacing === opt.value ? '#6366f1' : '#e2e8f0'}`,
+                  background: spacing === opt.value ? '#eff6ff' : '#fff',
+                  fontSize: 10, fontWeight: 600, color: spacing === opt.value ? '#6366f1' : '#94a3b8', cursor: 'pointer',
+                }}
+              >
+                {opt.label}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <Space y={spacing} />
+
+        {/* KPI 카드 그리드 */}
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 0 }}>
+          {KPI_CARDS.map((card, i) => (
+            <React.Fragment key={card.label}>
+              {i % 2 === 1 && <Space x={spacing} />}
+              <div style={{
+                padding: '16px', borderRadius: 10, border: '1px solid #e2e8f0', background: '#fff',
+                marginBottom: i < 2 ? 0 : undefined,
+              }}>
+                <div style={{ fontSize: 11, color: '#94a3b8', fontWeight: 600, marginBottom: 6 }}>{card.label}</div>
+                <div style={{ fontSize: 24, fontWeight: 800, color: '#0f172a', marginBottom: 4 }}>{card.value}</div>
+                <div style={{ fontSize: 11, color: card.up ? '#22c55e' : '#ef4444', fontWeight: 600 }}>
+                  {card.delta} 이전 대비
+                </div>
+              </div>
+              {i === 0 && <Space x={spacing} />}
+            </React.Fragment>
+          ))}
+        </div>
+
+        <Space y={spacing} />
+
+        {/* 미니 바 차트 */}
+        <div style={{ padding: '14px 16px', borderRadius: 10, border: '1px solid #e2e8f0', background: '#fafafa' }}>
+          <div style={{ fontSize: 12, fontWeight: 700, color: '#475569', marginBottom: 12 }}>스토리 분포 (Top 5)</div>
+          <div style={{ display: 'flex', gap: 6, alignItems: 'flex-end', height: 48 }}>
+            {[15, 15, 14, 14, 13].map((n, i) => (
+              <React.Fragment key={i}>
+                {i > 0 && <Space x="50" />}
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4 }}>
+                  <div style={{ width: 28, height: `${(n / 15) * 40}px`, borderRadius: '4px 4px 0 0', background: KPI_CARDS[i % 4].color }} />
+                  <div style={{ fontSize: 9, color: '#94a3b8', fontVariantNumeric: 'tabular-nums' }}>{n}</div>
+                </div>
+              </React.Fragment>
+            ))}
+          </div>
+        </div>
+      </div>
+    )
+  },
+}
+
+/* --------------------------------------------------------------------------
+   Mantine 벤치마크: 프로필 카드 내부 수직 간격 시스템
+   Mantine Stack 패턴 — 프로필 요소들의 수직 간격을 Space로 조율
+-------------------------------------------------------------------------- */
+export const Mantine_프로필_카드_수직_간격 = {
+  name: 'Mantine — 프로필 카드 수직 간격 시스템',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Mantine Stack + Space 패턴. 프로필 카드 내부 요소(커버/아바타/이름/소개/스탯/버튼)의 ' +
+          '수직 간격을 Space 토큰으로 조율합니다. 간격 변경 시 전체 카드 리듬이 함께 조정됩니다.',
+      },
+    },
+  },
+  render: function MantineProfileCard() {
+    const [vGap, setVGap] = useState<Spacing>('150')
+    const MANTINE_PROFILE_GAP_OPTIONS: { label: string; value: Spacing }[] = [
+      { label: '4px', value: '50' },
+      { label: '8px', value: '100' },
+      { label: '12px', value: '150' },
+      { label: '20px', value: '250' },
+    ]
+
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: 20, fontFamily: 'system-ui, sans-serif' }}>
+        {/* 간격 컨트롤 */}
+        <div style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
+          <span style={{ fontSize: 11, color: '#94a3b8', fontWeight: 600 }}>수직 간격:</span>
+          {MANTINE_PROFILE_GAP_OPTIONS.map((opt) => (
+            <button
+              key={opt.value}
+              onClick={() => setVGap(opt.value)}
+              style={{
+                padding: '3px 8px', borderRadius: 4, fontSize: 10, fontWeight: 600, cursor: 'pointer',
+                border: `1px solid ${vGap === opt.value ? '#6366f1' : '#e2e8f0'}`,
+                background: vGap === opt.value ? '#eff6ff' : '#fff',
+                color: vGap === opt.value ? '#6366f1' : '#94a3b8',
+              }}
+            >
+              {opt.label}
+            </button>
+          ))}
+        </div>
+
+        {/* 프로필 카드 */}
+        <div style={{ width: 260, borderRadius: 16, border: '1px solid #e2e8f0', overflow: 'hidden', background: '#fff' }}>
+          {/* 커버 */}
+          <div style={{ height: 64, background: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)' }} />
+          <div style={{ padding: '0 20px 20px' }}>
+            {/* 아바타 */}
+            <div style={{
+              width: 48, height: 48, borderRadius: '50%', background: '#0f172a',
+              border: '3px solid #fff', marginTop: -24, marginBottom: 0,
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              color: '#fff', fontWeight: 700, fontSize: 16,
+            }}>
+              HJ
+            </div>
+
+            <Space y={vGap} />
+
+            <div style={{ fontSize: 15, fontWeight: 800, color: '#0f172a' }}>Heejun Kim</div>
+
+            <Space y="50" />
+
+            <div style={{ fontSize: 12, color: '#94a3b8' }}>Lead Designer · Seoul</div>
+
+            <Space y={vGap} />
+
+            <div style={{ fontSize: 12, color: '#475569', lineHeight: 1.6 }}>
+              Orbit UI 디자인 시스템을 개발하고 있습니다.
+            </div>
+
+            <Space y={vGap} />
+
+            {/* 스탯 */}
+            <div style={{ display: 'flex', gap: 0, borderTop: '1px solid #f1f5f9', borderBottom: '1px solid #f1f5f9', padding: `${vGap} 0` }}>
+              {[{ label: '팔로워', value: '1.2k' }, { label: '팔로잉', value: '248' }, { label: '스토리', value: '728' }].map((stat, i) => (
+                <React.Fragment key={stat.label}>
+                  {i > 0 && <div style={{ width: 1, background: '#f1f5f9' }} />}
+                  <div style={{ flex: 1, textAlign: 'center' }}>
+                    <div style={{ fontSize: 14, fontWeight: 800, color: '#0f172a' }}>{stat.value}</div>
+                    <div style={{ fontSize: 10, color: '#94a3b8' }}>{stat.label}</div>
+                  </div>
+                </React.Fragment>
+              ))}
+            </div>
+
+            <Space y={vGap} />
+
+            <div style={{ display: 'flex', gap: 8 }}>
+              <Button color="primary" size="small" style={{ flex: 1 }}>
+                <Button.Center>팔로우</Button.Center>
+              </Button>
+              <OutlinedButton color="primary" size="small">
+                <OutlinedButton.Center>메시지</OutlinedButton.Center>
+              </OutlinedButton>
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  },
+}
+
+/* --------------------------------------------------------------------------
+   Arco Design 벤치마크: 설정 페이지 섹션 구분 간격
+   Arco Divider + Space 패턴 — 설정 섹션 사이 의미론적 간격 적용
+-------------------------------------------------------------------------- */
+const ARCO_SETTINGS_SECTIONS = [
+  {
+    title: '일반 설정',
+    items: [
+      { label: '언어', value: '한국어' },
+      { label: '시간대', value: 'Asia/Seoul (UTC+9)' },
+      { label: '날짜 형식', value: 'YYYY-MM-DD' },
+    ],
+  },
+  {
+    title: '알림',
+    items: [
+      { label: '이메일 알림', value: '활성화' },
+      { label: '슬랙 연동', value: '미설정' },
+      { label: '웹 푸시', value: '비활성화' },
+    ],
+  },
+  {
+    title: '접근성',
+    items: [
+      { label: '고대비 모드', value: '꺼짐' },
+      { label: '애니메이션 감소', value: '꺼짐' },
+    ],
+  },
+]
+
+export const Arco_설정_섹션_의미론적_간격 = {
+  name: 'Arco Design — 설정 섹션 의미론적 간격',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Arco Design 설정 페이지 패턴. ' +
+          '섹션 제목과 항목 사이는 좁은 간격, 섹션 사이는 넓은 간격 적용. ' +
+          'Space로 의미론적 계층 간격을 표현합니다.',
+      },
+    },
+  },
+  render: function ArcoSettingsSections() {
+    const [sectionGap, setSectionGap] = useState<Spacing>('300')
+    const [itemGap, setItemGap] = useState<Spacing>('100')
+    const ARCO_SECTION_GAP_OPTIONS: { label: string; value: Spacing }[] = [
+      { label: '16px', value: '200' },
+      { label: '20px', value: '250' },
+      { label: '28px', value: '300' },
+      { label: '36px', value: '400' },
+    ]
+    const ARCO_ITEM_GAP_OPTIONS: { label: string; value: Spacing }[] = [
+      { label: '4px', value: '50' },
+      { label: '8px', value: '100' },
+      { label: '12px', value: '150' },
+    ]
+
+    return (
+      <div style={{ width: 420, fontFamily: 'system-ui, sans-serif', background: '#fff', borderRadius: 16, border: '1px solid #e2e8f0', padding: '24px 28px' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 20 }}>
+          <div style={{ display: 'flex', gap: 4, alignItems: 'center' }}>
+            <span style={{ fontSize: 11, color: '#94a3b8' }}>섹션 간격</span>
+            {ARCO_SECTION_GAP_OPTIONS.map((opt) => (
+              <button
+                key={opt.value}
+                onClick={() => setSectionGap(opt.value)}
+                style={{ padding: '2px 6px', borderRadius: 3, fontSize: 9, fontWeight: 600, cursor: 'pointer', border: `1px solid ${sectionGap === opt.value ? '#6366f1' : '#e2e8f0'}`, background: sectionGap === opt.value ? '#eff6ff' : '#fff', color: sectionGap === opt.value ? '#6366f1' : '#94a3b8' }}
+              >
+                {opt.label}
+              </button>
+            ))}
+          </div>
+          <div style={{ display: 'flex', gap: 4, alignItems: 'center' }}>
+            <span style={{ fontSize: 11, color: '#94a3b8' }}>항목 간격</span>
+            {ARCO_ITEM_GAP_OPTIONS.map((opt) => (
+              <button
+                key={opt.value}
+                onClick={() => setItemGap(opt.value)}
+                style={{ padding: '2px 6px', borderRadius: 3, fontSize: 9, fontWeight: 600, cursor: 'pointer', border: `1px solid ${itemGap === opt.value ? '#10b981' : '#e2e8f0'}`, background: itemGap === opt.value ? '#f0fdf4' : '#fff', color: itemGap === opt.value ? '#10b981' : '#94a3b8' }}
+              >
+                {opt.label}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {ARCO_SETTINGS_SECTIONS.map((section, si) => (
+          <React.Fragment key={section.title}>
+            {si > 0 && <Space y={sectionGap} />}
+            <div style={{ fontSize: 12, fontWeight: 700, color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 10 }}>
+              {section.title}
+            </div>
+            {section.items.map((item, ii) => (
+              <React.Fragment key={item.label}>
+                {ii > 0 && <Space y={itemGap} />}
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '8px 12px', borderRadius: 8, background: '#f8fafc' }}>
+                  <span style={{ fontSize: 13, color: '#374151' }}>{item.label}</span>
+                  <span style={{ fontSize: 12, color: '#94a3b8', fontWeight: 600 }}>{item.value}</span>
+                </div>
+              </React.Fragment>
+            ))}
+          </React.Fragment>
+        ))}
+      </div>
+    )
+  },
+}

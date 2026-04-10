@@ -25048,3 +25048,227 @@ export const Shadcn103ComponentCatalog: StoryObj = {
   },
   render: () => <Shadcn103CatalogRender />,
 }
+
+// ─── Cycle 104: Mantine + Arco Design ───────────────────────────────────────
+
+type Mantine104Tab = 'notes' | 'feedback' | 'review'
+
+const MANTINE104_TABS: { id: Mantine104Tab; label: string; icon: string }[] = [
+  { id: 'notes', label: '공유 노트', icon: '📝' },
+  { id: 'feedback', label: '피드백', icon: '⭐' },
+  { id: 'review', label: '코드 리뷰', icon: '🔍' },
+]
+
+type Mantine104Reviewer = { id: number; name: string; color: string }
+const MANTINE104_REVIEWERS: Mantine104Reviewer[] = [
+  { id: 1, name: '김지수', color: '#3b82f6' },
+  { id: 2, name: '이민준', color: '#8b5cf6' },
+  { id: 3, name: '박서연', color: '#10b981' },
+]
+
+function Mantine104WorkspaceRender() {
+  const [activeTab, setActiveTab] = useState<Mantine104Tab>('notes')
+  const [notes, setNotes] = useState('# 스프린트 42 계획\n\n## 목표\n- 로그인 플로우 개선\n- 대시보드 v2 설계\n\n## 논의 사항\n')
+  const [rating, setRating] = useState(0)
+  const [feedbackText, setFeedbackText] = useState('')
+  const [feedbackDone, setFeedbackDone] = useState(false)
+  const [reviewComment, setReviewComment] = useState('')
+  const [reviewSubmitted, setReviewSubmitted] = useState(false)
+  const [typingReviewer, setTypingReviewer] = useState<number | null>(null)
+  const [noteVersion, setNoteVersion] = useState(1)
+
+  const handleNotesChange = (val: string) => {
+    setNotes(val)
+    const reviewer = MANTINE104_REVIEWERS[Math.floor(Math.random() * MANTINE104_REVIEWERS.length)]
+    setTypingReviewer(reviewer.id)
+    setNoteVersion((v) => v + 1)
+    setTimeout(() => setTypingReviewer(null), 1200)
+  }
+
+  const handleFeedbackSubmit = () => {
+    if (rating > 0 && feedbackText.trim().length >= 10) {
+      setFeedbackDone(true)
+    }
+  }
+
+  const noteLineCount = notes.split('\n').length
+  const noteWordCount = notes.trim() ? notes.trim().split(/\s+/).length : 0
+
+  return (
+    <div style={{ width: 520, borderRadius: 14, border: '1px solid #e2e8f0', overflow: 'hidden', background: '#fff', fontFamily: 'system-ui, sans-serif' }}>
+      {/* Header */}
+      <div style={{ padding: '14px 20px', background: '#0f172a', display: 'flex', alignItems: 'center', gap: 10 }}>
+        <div style={{ width: 28, height: 28, borderRadius: 8, background: '#3b82f6', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 14 }}>🚀</div>
+        <div>
+          <div style={{ fontSize: 13, fontWeight: 700, color: '#f8fafc' }}>팀 워크스페이스</div>
+          <div style={{ fontSize: 10, color: '#64748b' }}>Mantine + Arco Design 협업 템플릿</div>
+        </div>
+        <div style={{ marginLeft: 'auto', display: 'flex', gap: -4 }}>
+          {MANTINE104_REVIEWERS.map((r) => (
+            <div
+              key={r.id}
+              style={{
+                width: 24, height: 24, borderRadius: '50%', background: r.color, color: '#fff',
+                fontSize: 10, fontWeight: 700, display: 'flex', alignItems: 'center', justifyContent: 'center',
+                border: '2px solid #0f172a', marginLeft: -6,
+                opacity: typingReviewer === r.id ? 1 : 0.6,
+                transform: typingReviewer === r.id ? 'scale(1.2)' : 'scale(1)',
+                transition: 'all 0.2s',
+              }}
+            >
+              {r.name[0]}
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Tabs */}
+      <div style={{ display: 'flex', borderBottom: '1px solid #e2e8f0', background: '#f8fafc' }}>
+        {MANTINE104_TABS.map((tab) => (
+          <button
+            key={tab.id}
+            onClick={() => setActiveTab(tab.id)}
+            style={{
+              flex: 1, padding: '10px 0', border: 'none', background: 'none',
+              fontSize: 12, fontWeight: activeTab === tab.id ? 700 : 400,
+              color: activeTab === tab.id ? '#3b82f6' : '#64748b',
+              borderBottom: activeTab === tab.id ? '2px solid #3b82f6' : '2px solid transparent',
+              cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 5,
+              transition: 'color 0.15s',
+            }}
+          >
+            <span>{tab.icon}</span> {tab.label}
+          </button>
+        ))}
+      </div>
+
+      {/* Tab content */}
+      <div style={{ padding: '16px 20px 20px' }}>
+        {activeTab === 'notes' && (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+              <SectionTitle>공유 노트 편집기</SectionTitle>
+              <div style={{ fontSize: 10, color: '#94a3b8', background: '#f1f5f9', borderRadius: 4, padding: '2px 8px' }}>v{noteVersion}</div>
+            </div>
+            {typingReviewer !== null && (
+              <div style={{ fontSize: 11, color: MANTINE104_REVIEWERS.find((r) => r.id === typingReviewer)?.color }}>
+                {MANTINE104_REVIEWERS.find((r) => r.id === typingReviewer)?.name}님이 편집 중...
+              </div>
+            )}
+            <TextArea value={notes} onChange={(e) => handleNotesChange(e.target.value)} minimumLine={9} placeholder="팀 공유 노트를 작성하세요..." />
+            <div style={{ display: 'flex', gap: 14, fontSize: 11, color: '#94a3b8' }}>
+              <span>{noteLineCount}줄</span>
+              <span>{noteWordCount}단어</span>
+              <span>{notes.length}자</span>
+            </div>
+          </div>
+        )}
+
+        {activeTab === 'feedback' && (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+            <SectionTitle>서비스 만족도 피드백</SectionTitle>
+            {feedbackDone ? (
+              <div style={{ padding: '28px 0', textAlign: 'center' }}>
+                <div style={{ fontSize: 32, marginBottom: 10 }}>🎉</div>
+                <div style={{ fontSize: 14, fontWeight: 700, color: '#15803d' }}>피드백 감사합니다!</div>
+                <button onClick={() => { setRating(0); setFeedbackText(''); setFeedbackDone(false) }}
+                  style={{ marginTop: 14, padding: '7px 18px', borderRadius: 8, border: 'none', background: '#3b82f6', color: '#fff', fontSize: 12, fontWeight: 600, cursor: 'pointer' }}>
+                  다시 작성
+                </button>
+              </div>
+            ) : (
+              <>
+                <div>
+                  <div style={{ fontSize: 12, fontWeight: 600, color: '#475569', marginBottom: 8 }}>전반적인 만족도</div>
+                  <div style={{ display: 'flex', gap: 6 }}>
+                    {[1, 2, 3, 4, 5].map((star) => (
+                      <button key={star} onClick={() => setRating(star)}
+                        style={{ background: 'none', border: 'none', fontSize: 24, cursor: 'pointer', opacity: star <= rating ? 1 : 0.25, transition: 'opacity 0.15s' }}>
+                        ★
+                      </button>
+                    ))}
+                    {rating > 0 && <span style={{ fontSize: 11, color: '#64748b', alignSelf: 'center', marginLeft: 4 }}>{['', '매우 불만족', '불만족', '보통', '만족', '매우 만족'][rating]}</span>}
+                  </div>
+                </div>
+                <div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 6 }}>
+                    <div style={{ fontSize: 12, fontWeight: 600, color: '#475569' }}>상세 피드백</div>
+                    <div style={{ fontSize: 10, color: feedbackText.length < 10 ? '#ef4444' : '#10b981' }}>
+                      {feedbackText.length}/500 {feedbackText.length < 10 ? `(${10 - feedbackText.length}자 더)` : '✓'}
+                    </div>
+                  </div>
+                  <TextArea value={feedbackText} onChange={(e) => setFeedbackText(e.target.value)} minimumLine={4}
+                    error={feedbackText.length > 0 && feedbackText.length < 10}
+                    placeholder="서비스 이용 중 개선사항이나 불편한 점을 자유롭게 작성해 주세요." />
+                </div>
+                <button onClick={handleFeedbackSubmit} disabled={rating === 0 || feedbackText.trim().length < 10}
+                  style={{ padding: '10px 0', borderRadius: 8, border: 'none', background: rating > 0 && feedbackText.length >= 10 ? '#3b82f6' : '#e2e8f0', color: rating > 0 && feedbackText.length >= 10 ? '#fff' : '#94a3b8', fontSize: 13, fontWeight: 600, cursor: rating > 0 && feedbackText.length >= 10 ? 'pointer' : 'not-allowed', transition: 'background 0.2s' }}>
+                  피드백 제출
+                </button>
+              </>
+            )}
+          </div>
+        )}
+
+        {activeTab === 'review' && (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+            <SectionTitle>코드 리뷰 코멘트</SectionTitle>
+            <div style={{ borderRadius: 8, border: '1px solid #e2e8f0', overflow: 'hidden' }}>
+              <div style={{ background: '#1e293b', padding: '8px 12px', fontFamily: 'monospace', fontSize: 11, color: '#94a3b8', display: 'flex', justifyContent: 'space-between' }}>
+                <span>api/handler.ts:42</span>
+                <span style={{ color: '#ef4444', fontWeight: 700 }}>Critical</span>
+              </div>
+              <div style={{ padding: '10px 12px', fontFamily: 'monospace', fontSize: 12, color: '#334155', background: '#fffbeb', borderBottom: '1px solid #e2e8f0' }}>
+                const data = JSON.parse(req.body)
+              </div>
+              <div style={{ padding: '10px 12px' }}>
+                {reviewSubmitted ? (
+                  <div style={{ padding: '10px', borderRadius: 6, background: '#f0fdf4', border: '1px solid #bbf7d0', fontSize: 12, color: '#15803d', display: 'flex', alignItems: 'center', gap: 6 }}>
+                    <span>✓</span> <span>코멘트가 제출되었습니다.</span>
+                  </div>
+                ) : (
+                  <>
+                    <div style={{ fontSize: 11, fontWeight: 600, color: '#475569', marginBottom: 6 }}>리뷰 코멘트 작성</div>
+                    <TextArea value={reviewComment} onChange={(e) => setReviewComment(e.target.value)} minimumLine={3}
+                      placeholder="이 코드의 잠재적인 보안 취약점이나 개선 방법을 작성해 주세요..." />
+                    <div style={{ display: 'flex', justifyContent: 'flex-end', gap: 8, marginTop: 8 }}>
+                      <button onClick={() => setReviewComment('')}
+                        style={{ padding: '5px 14px', borderRadius: 6, border: '1px solid #e2e8f0', background: '#fff', fontSize: 11, cursor: 'pointer', color: '#64748b' }}>
+                        초기화
+                      </button>
+                      <button disabled={!reviewComment.trim()} onClick={() => setReviewSubmitted(true)}
+                        style={{ padding: '5px 14px', borderRadius: 6, border: 'none', background: reviewComment.trim() ? '#ef4444' : '#e2e8f0', color: reviewComment.trim() ? '#fff' : '#94a3b8', fontSize: 11, fontWeight: 600, cursor: reviewComment.trim() ? 'pointer' : 'not-allowed' }}>
+                        코멘트 제출
+                      </button>
+                    </div>
+                  </>
+                )}
+              </div>
+            </div>
+            <Divider />
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <LabelBadge color="sale">리뷰 필요</LabelBadge>
+              <span style={{ fontSize: 11, color: '#94a3b8' }}>1개 Critical · 2개 Warning</span>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+
+export const Mantine104TeamWorkspace: StoryObj = {
+  name: 'Mantine + Arco Design — Team Workspace (Cycle 104)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Mantine + Arco Design 벤치마크 — Cycle 104. ' +
+          '3탭 팀 워크스페이스: 공유 노트 편집(협업자 타이핑 인디케이터+버전 카운터), ' +
+          '별점 피드백 폼(실시간 검증+제출 성공화면), 코드 리뷰 인라인 코멘트. ' +
+          'TextArea, SectionTitle, Divider, LabelBadge 복합 활용.',
+      },
+    },
+  },
+  render: () => <Mantine104WorkspaceRender />,
+}
