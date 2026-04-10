@@ -29402,3 +29402,252 @@ export const ShadcnLinear123ProjectHub: StoryObj = {
   },
   render: () => <ProjectHub123Render />,
 }
+
+/* ==========================================================================
+   Cycle 124 — Vercel Design + Radix UI 벤치마크
+   템플릿: 개발자 설정 패널 (BoxedCheckbox + Chip + Accordion + 탭)
+========================================================================== */
+
+type EnvVar124 = { key: string; value: string; env: 'production' | 'preview' | 'development'; sensitive: boolean }
+
+const ENV_VARS_124: EnvVar124[] = [
+  { key: 'DATABASE_URL', value: 'postgresql://****', env: 'production', sensitive: true },
+  { key: 'NEXTAUTH_SECRET', value: '****', env: 'production', sensitive: true },
+  { key: 'API_BASE_URL', value: 'https://api.example.com', env: 'preview', sensitive: false },
+  { key: 'SENTRY_DSN', value: 'https://****@sentry.io/123', env: 'production', sensitive: true },
+  { key: 'FEATURE_DARK_MODE', value: 'true', env: 'development', sensitive: false },
+  { key: 'DEBUG_LEVEL', value: 'verbose', env: 'development', sensitive: false },
+  { key: 'REDIS_URL', value: 'redis://****', env: 'preview', sensitive: true },
+  { key: 'STRIPE_KEY', value: 'sk_****', env: 'production', sensitive: true },
+]
+
+type BuildStep124 = 'lint' | 'typecheck' | 'test' | 'build' | 'e2e'
+const BUILD_STEPS_124: { id: BuildStep124; label: string; desc: string; required: boolean }[] = [
+  { id: 'lint', label: 'ESLint', desc: 'max-warnings 0', required: true },
+  { id: 'typecheck', label: 'TypeScript', desc: 'tsc --noEmit', required: true },
+  { id: 'test', label: 'Unit Tests', desc: 'vitest run --coverage', required: false },
+  { id: 'build', label: 'Build', desc: 'vite build', required: true },
+  { id: 'e2e', label: 'E2E Tests', desc: 'playwright test', required: false },
+]
+
+type NotifEvent124 = 'deploy_ok' | 'deploy_fail' | 'pr_open' | 'security'
+const NOTIF_EVENTS_124: Record<NotifEvent124, string> = {
+  deploy_ok: '배포 성공',
+  deploy_fail: '배포 실패',
+  pr_open: 'PR 오픈',
+  security: '보안 알림',
+}
+
+function DevSettingsPanel124Render() {
+  const [settingsTab, setSettingsTab] = useState<'env' | 'build' | 'notifications'>('env')
+  const [envFilter, setEnvFilter] = useState<Set<string>>(new Set(['production', 'preview', 'development']))
+  const [buildSteps, setBuildSteps] = useState<Set<BuildStep124>>(new Set(['lint', 'typecheck', 'build']))
+  const [notifOn, setNotifOn] = useState<Set<NotifEvent124>>(new Set(['deploy_fail', 'security']))
+  const [search, setSearch] = useState('')
+
+  const toggleEnvFilter = (e: string) => {
+    setEnvFilter((prev) => {
+      const next = new Set(prev)
+      if (next.has(e)) next.delete(e)
+      else next.add(e)
+      return next
+    })
+  }
+
+  const toggleBuild = (id: BuildStep124, required: boolean) => {
+    if (required) return
+    setBuildSteps((prev) => {
+      const next = new Set(prev)
+      if (next.has(id)) next.delete(id)
+      else next.add(id)
+      return next
+    })
+  }
+
+  const toggleNotif = (ev: NotifEvent124) => {
+    setNotifOn((prev) => {
+      const next = new Set(prev)
+      if (next.has(ev)) next.delete(ev)
+      else next.add(ev)
+      return next
+    })
+  }
+
+  const filteredEnvVars = ENV_VARS_124.filter((v) =>
+    envFilter.has(v.env) && v.key.toLowerCase().includes(search.toLowerCase())
+  )
+
+  const TABS: { id: 'env' | 'build' | 'notifications'; label: string }[] = [
+    { id: 'env', label: '환경 변수' },
+    { id: 'build', label: '빌드 설정' },
+    { id: 'notifications', label: '알림' },
+  ]
+
+  return (
+    <div style={{ width: 640, fontFamily: 'system-ui, sans-serif' }}>
+      {/* Header */}
+      <div style={{ marginBottom: 20 }}>
+        <h2 style={{ margin: 0, fontSize: 22, fontWeight: 800, color: '#0f172a' }}>개발자 설정</h2>
+        <p style={{ margin: '4px 0 0', fontSize: 13, color: '#64748b' }}>Vercel Design + Radix UI 벤치마크 — Cycle 124</p>
+      </div>
+
+      {/* Tab nav */}
+      <div style={{ display: 'flex', borderBottom: '2px solid #e2e8f0', marginBottom: 24 }}>
+        {TABS.map((t) => (
+          <button
+            key={t.id}
+            onClick={() => setSettingsTab(t.id)}
+            style={{
+              padding: '10px 20px', border: 'none', background: 'none', cursor: 'pointer',
+              fontSize: 14, fontWeight: settingsTab === t.id ? 700 : 500,
+              color: settingsTab === t.id ? '#6366f1' : '#64748b',
+              borderBottom: settingsTab === t.id ? '2px solid #6366f1' : '2px solid transparent',
+              marginBottom: '-2px',
+            }}
+          >
+            {t.label}
+          </button>
+        ))}
+      </div>
+
+      {/* ENV VARS tab */}
+      {settingsTab === 'env' && (
+        <div>
+          <div style={{ display: 'flex', gap: 10, marginBottom: 14, alignItems: 'center', flexWrap: 'wrap' }}>
+            <div style={{ flex: 1 }}>
+              <TextField
+                placeholder="변수명 검색..."
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+              />
+            </div>
+            <div style={{ display: 'flex', gap: 6 }}>
+              {(['production', 'preview', 'development'] as const).map((env) => (
+                <Chip key={env} selected={envFilter.has(env)} onClick={() => toggleEnvFilter(env)}>
+                  {env === 'production' ? '프로덕션' : env === 'preview' ? '프리뷰' : '개발'}
+                </Chip>
+              ))}
+            </div>
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+            {filteredEnvVars.map((v) => (
+              <div key={v.key} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 16px', borderRadius: 10, border: '1px solid #f1f5f9', background: '#fff' }}>
+                <div style={{ flex: 1, fontFamily: 'monospace' }}>
+                  <div style={{ fontSize: 13, fontWeight: 700, color: '#1e293b' }}>{v.key}</div>
+                  <div style={{ fontSize: 12, color: '#94a3b8', marginTop: 2 }}>{v.sensitive ? '•'.repeat(12) : v.value}</div>
+                </div>
+                <LabelBadge color={v.env === 'production' ? 'sale' : 'gray'}>
+                  <LabelBadge.Label>{v.env}</LabelBadge.Label>
+                </LabelBadge>
+                {v.sensitive && (
+                  <LabelBadge color="gray">
+                    <LabelBadge.Label>민감</LabelBadge.Label>
+                  </LabelBadge>
+                )}
+              </div>
+            ))}
+            {filteredEnvVars.length === 0 && (
+              <div style={{ padding: '32px 0', textAlign: 'center', color: '#94a3b8', fontSize: 14 }}>변수 없음</div>
+            )}
+          </div>
+          <div style={{ marginTop: 14, display: 'flex', justifyContent: 'flex-end' }}>
+            <SolidButton color="black" size="medium">
+              <SolidButton.Center>변수 추가</SolidButton.Center>
+            </SolidButton>
+          </div>
+        </div>
+      )}
+
+      {/* BUILD SETTINGS tab */}
+      {settingsTab === 'build' && (
+        <div>
+          <div style={{ fontSize: 13, color: '#64748b', marginBottom: 16 }}>
+            각 단계를 활성화하여 빌드 파이프라인을 구성하세요. 필수 단계는 비활성화할 수 없습니다.
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+            {BUILD_STEPS_124.map((step) => {
+              const isOn = buildSteps.has(step.id)
+              return (
+                <div
+                  key={step.id}
+                  onClick={() => toggleBuild(step.id, step.required)}
+                  style={{
+                    display: 'flex', alignItems: 'center', gap: 14, padding: '14px 16px',
+                    borderRadius: 12, cursor: step.required ? 'not-allowed' : 'pointer',
+                    border: `1.5px solid ${isOn ? '#6366f1' : '#e2e8f0'}`,
+                    background: isOn ? '#f0f0ff' : '#fff', transition: 'all 0.15s',
+                  }}
+                >
+                  <BoxedCheckbox
+                    checked={isOn}
+                    disabled={step.required}
+                    onChange={() => toggleBuild(step.id, step.required)}
+                  />
+                  <div style={{ flex: 1 }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                      <span style={{ fontSize: 14, fontWeight: 700, color: '#1e293b' }}>{step.label}</span>
+                      {step.required && <span style={{ fontSize: 11, padding: '1px 6px', borderRadius: 4, background: '#f1f5f9', color: '#64748b', fontWeight: 700 }}>필수</span>}
+                    </div>
+                    <div style={{ fontSize: 12, color: '#94a3b8', marginTop: 2, fontFamily: 'monospace' }}>{step.desc}</div>
+                  </div>
+                  <span style={{ fontSize: 12, fontWeight: 700, color: isOn ? '#6366f1' : '#cbd5e1' }}>{isOn ? '활성' : '비활성'}</span>
+                </div>
+              )
+            })}
+          </div>
+          <div style={{ marginTop: 14, padding: '12px 16px', borderRadius: 10, background: '#f8fafc', border: '1px solid #e2e8f0', fontSize: 13, color: '#64748b' }}>
+            {buildSteps.size}개 단계 활성화 · 예상 소요: ~{buildSteps.size * 45}초
+          </div>
+        </div>
+      )}
+
+      {/* NOTIFICATIONS tab */}
+      {settingsTab === 'notifications' && (
+        <div>
+          <div style={{ fontSize: 13, color: '#64748b', marginBottom: 16 }}>수신할 알림 이벤트를 선택하세요.</div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+            {(Object.keys(NOTIF_EVENTS_124) as NotifEvent124[]).map((ev) => (
+              <div
+                key={ev}
+                onClick={() => toggleNotif(ev)}
+                style={{ display: 'flex', alignItems: 'center', gap: 14, padding: '14px 16px', borderRadius: 12, border: '1px solid #f1f5f9', background: '#fff', cursor: 'pointer' }}
+              >
+                <BoxedCheckbox checked={notifOn.has(ev)} onChange={() => toggleNotif(ev)} />
+                <div style={{ flex: 1 }}>
+                  <div style={{ fontSize: 14, fontWeight: 600, color: '#1e293b' }}>{NOTIF_EVENTS_124[ev]}</div>
+                </div>
+                {ev === 'security' && (
+                  <LabelBadge color="sale">
+                    <LabelBadge.Label>권장</LabelBadge.Label>
+                  </LabelBadge>
+                )}
+              </div>
+            ))}
+          </div>
+          <div style={{ marginTop: 14, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <span style={{ fontSize: 13, color: '#94a3b8' }}>{notifOn.size}개 이벤트 알림 활성</span>
+            <SolidButton color="black" size="medium">
+              <SolidButton.Center>저장</SolidButton.Center>
+            </SolidButton>
+          </div>
+        </div>
+      )}
+    </div>
+  )
+}
+
+export const VercelRadix124DevSettings: StoryObj = {
+  name: 'Vercel + Radix UI — 개발자 설정 패널 (Cycle 124)',
+  parameters: {
+    layout: 'centered',
+    docs: {
+      description: {
+        story:
+          'Vercel Design + Radix UI 벤치마크 — Cycle 124. ' +
+          'BoxedCheckbox 빌드 단계 선택 + Chip 환경 필터 + TextField 검색 + LabelBadge 상태 표시. ' +
+          '환경변수/빌드/알림 3탭 개발자 설정 패널입니다.',
+      },
+    },
+  },
+  render: () => <DevSettingsPanel124Render />,
+}

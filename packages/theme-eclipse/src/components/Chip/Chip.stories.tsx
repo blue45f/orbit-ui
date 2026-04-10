@@ -1017,3 +1017,265 @@ export const Figma_프레임_프리셋_선택: Story = {
   },
   render: () => <FigmaFrameTypeSelectorRender />,
 }
+
+/* --------------------------------------------------------------------------
+   Cycle 124 — Vercel Design + Radix UI 벤치마크
+-------------------------------------------------------------------------- */
+
+/* --------------------------------------------------------------------------
+   Vercel: 환경 변수 스코프 칩 패턴
+   Vercel Env 화면 — Production/Preview/Development 환경 범위 칩
+-------------------------------------------------------------------------- */
+export const Vercel_환경변수_스코프_칩: Story = {
+  name: 'Vercel - 환경변수 스코프 칩 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Vercel Environment Variables 설정 화면 패턴. Production/Preview/Development 환경 범위를 ' +
+          'Chip으로 다중 선택하여 환경변수 적용 범위를 지정합니다.',
+      },
+    },
+  },
+  render: function Render() {
+    const ENVS = [
+      { id: 'production', label: 'Production', icon: '🚀', desc: '배포된 프로덕션 환경' },
+      { id: 'preview', label: 'Preview', icon: '👁', desc: 'PR 프리뷰 배포 환경' },
+      { id: 'development', label: 'Development', icon: '💻', desc: '로컬 개발 환경' },
+    ]
+
+    const VARS = [
+      { key: 'DATABASE_URL', value: '****', scopes: new Set(['production', 'preview']) },
+      { key: 'NEXTAUTH_SECRET', value: '****', scopes: new Set(['production', 'preview', 'development']) },
+      { key: 'API_BASE_URL', value: 'https://api.example.com', scopes: new Set(['production']) },
+      { key: 'DEBUG', value: 'true', scopes: new Set(['development']) },
+    ]
+
+    const [activeScopes, setActiveScopes] = useState<Set<string>>(new Set(['production', 'preview', 'development']))
+
+    const toggle = (id: string) => {
+      setActiveScopes((prev) => {
+        const next = new Set(prev)
+        if (next.has(id)) next.delete(id)
+        else next.add(id)
+        return next
+      })
+    }
+
+    const filtered = VARS.filter((v) => [...activeScopes].some((s) => v.scopes.has(s)))
+
+    return (
+      <div style={{ width: 480, fontFamily: 'system-ui, sans-serif' }}>
+        <div style={{ fontSize: 15, fontWeight: 700, color: '#0f172a', marginBottom: 12 }}>환경 변수</div>
+
+        <div style={{ marginBottom: 16 }}>
+          <div style={{ fontSize: 12, fontWeight: 700, color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: 8 }}>환경 필터</div>
+          <div style={{ display: 'flex', gap: 8 }}>
+            {ENVS.map((env) => (
+              <Chip key={env.id} selected={activeScopes.has(env.id)} onClick={() => toggle(env.id)}>
+                <Chip.Leading>
+                  <span style={{ fontSize: 12 }}>{env.icon}</span>
+                </Chip.Leading>
+                {env.label}
+              </Chip>
+            ))}
+          </div>
+        </div>
+
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+          {filtered.map((v) => (
+            <div key={v.key} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 14px', borderRadius: 8, border: '1px solid #f1f5f9', background: '#fff', fontFamily: 'monospace' }}>
+              <span style={{ fontSize: 13, fontWeight: 700, color: '#1e293b', flex: 1 }}>{v.key}</span>
+              <span style={{ fontSize: 12, color: '#94a3b8' }}>{v.value}</span>
+              <div style={{ display: 'flex', gap: 4 }}>
+                {[...v.scopes].map((s) => (
+                  <span key={s} style={{ fontSize: 10, padding: '2px 6px', borderRadius: 4, background: '#f1f5f9', color: '#64748b', fontWeight: 600 }}>{s}</span>
+                ))}
+              </div>
+            </div>
+          ))}
+          {filtered.length === 0 && (
+            <div style={{ padding: '24px 0', textAlign: 'center', color: '#94a3b8', fontSize: 14 }}>환경을 선택하세요</div>
+          )}
+        </div>
+      </div>
+    )
+  },
+}
+
+/* --------------------------------------------------------------------------
+   Radix: 다중 선택 콤보 칩 패턴
+   Radix Select + 칩 삭제 패턴 — 입력창과 칩 목록 연동
+-------------------------------------------------------------------------- */
+export const Radix_다중_선택_콤보_칩: Story = {
+  name: 'Radix UI - 다중 선택 콤보 칩 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Radix Select + Chip 조합 패턴. 드롭다운에서 선택 시 Chip이 추가되고, ' +
+          'Chip.Trailing의 X 버튼으로 개별 제거하는 태그 입력 인터페이스입니다.',
+      },
+    },
+  },
+  render: function Render() {
+    const ALL_TAGS = ['React', 'TypeScript', 'Vite', 'Tailwind', 'vanilla-extract', 'Storybook', 'Vitest', 'Playwright', 'ESLint', 'Prettier']
+    const [selected, setSelected] = useState<string[]>(['React', 'TypeScript'])
+    const [input, setInput] = useState('')
+
+    const available = ALL_TAGS.filter((t) => !selected.includes(t) && t.toLowerCase().includes(input.toLowerCase()))
+
+    const add = (tag: string) => {
+      setSelected((prev) => [...prev, tag])
+      setInput('')
+    }
+    const remove = (tag: string) => setSelected((prev) => prev.filter((t) => t !== tag))
+
+    return (
+      <div style={{ width: 420, fontFamily: 'system-ui, sans-serif' }}>
+        <div style={{ fontSize: 15, fontWeight: 700, color: '#0f172a', marginBottom: 12 }}>기술 스택 선택</div>
+
+        <div style={{ minHeight: 44, padding: '8px 10px', borderRadius: 10, border: '1.5px solid #e2e8f0', background: '#fff', display: 'flex', flexWrap: 'wrap', gap: 6, marginBottom: 10 }}>
+          {selected.map((tag) => (
+            <Chip key={tag} selected>
+              {tag}
+              <Chip.Trailing>
+                <CancelIcon size={12} onClick={(e: React.MouseEvent) => { e.stopPropagation(); remove(tag) }} />
+              </Chip.Trailing>
+            </Chip>
+          ))}
+          <input
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            placeholder={selected.length === 0 ? '기술 스택 검색...' : ''}
+            style={{ border: 'none', outline: 'none', fontSize: 13, background: 'transparent', minWidth: 120, flex: 1 }}
+          />
+        </div>
+
+        {input.length > 0 && available.length > 0 && (
+          <div style={{ padding: '8px', borderRadius: 10, border: '1px solid #e2e8f0', background: '#fff', boxShadow: '0 4px 12px rgba(0,0,0,0.08)' }}>
+            {available.map((tag) => (
+              <div
+                key={tag}
+                onClick={() => add(tag)}
+                style={{ padding: '8px 10px', borderRadius: 8, fontSize: 13, color: '#1e293b', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 8 }}
+                onMouseEnter={(e) => (e.currentTarget.style.background = '#f8fafc')}
+                onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
+              >
+                <CheckIcon size={14} style={{ color: '#94a3b8' }} />
+                {tag}
+              </div>
+            ))}
+          </div>
+        )}
+
+        <div style={{ marginTop: 10, display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+          {ALL_TAGS.filter((t) => !selected.includes(t)).map((tag) => (
+            <Chip key={tag} onClick={() => add(tag)}>
+              {tag}
+            </Chip>
+          ))}
+        </div>
+      </div>
+    )
+  },
+}
+
+/* --------------------------------------------------------------------------
+   Vercel + Radix: 배포 태그 + 환경 필터 복합 패턴
+   두 시스템의 칩 패턴 결합 — 태그 관리 + 환경 필터
+-------------------------------------------------------------------------- */
+export const Vercel_Radix_배포_태그_필터: Story = {
+  name: 'Vercel + Radix UI - 배포 태그 + 환경 필터 복합 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Vercel 배포 목록 + Radix 다중 필터 패턴 결합. 환경/상태 Chip 필터로 배포 목록을 ' +
+          '좁히고, 브랜치 태그 Chip을 추가/제거하여 배포를 분류합니다.',
+      },
+    },
+  },
+  render: function Render() {
+    const STATUS_OPTS = ['전체', 'Ready', 'Building', 'Failed']
+    const ENV_OPTS = ['production', 'preview', 'development']
+
+    const DEPLOYS = [
+      { id: 1, name: 'feat/design-tokens', env: 'preview', status: 'Ready', ago: '2분 전', tags: ['ui'] },
+      { id: 2, name: 'main', env: 'production', status: 'Ready', ago: '1시간 전', tags: ['stable', 'lts'] },
+      { id: 3, name: 'fix/button-a11y', env: 'preview', status: 'Building', ago: '방금', tags: ['hotfix'] },
+      { id: 4, name: 'chore/deps', env: 'development', status: 'Failed', ago: '3일 전', tags: ['deps'] },
+      { id: 5, name: 'feat/calendar', env: 'preview', status: 'Ready', ago: '5시간 전', tags: ['ui', 'beta'] },
+    ]
+
+    const [statusFilter, setStatusFilter] = useState('전체')
+    const [envFilter, setEnvFilter] = useState<Set<string>>(new Set(['production', 'preview', 'development']))
+
+    const toggleEnv = (env: string) => {
+      setEnvFilter((prev) => {
+        const next = new Set(prev)
+        if (next.has(env)) next.delete(env)
+        else next.add(env)
+        return next
+      })
+    }
+
+    const filtered = DEPLOYS.filter((d) => {
+      const matchStatus = statusFilter === '전체' || d.status === statusFilter
+      const matchEnv = envFilter.has(d.env)
+      return matchStatus && matchEnv
+    })
+
+    const STATUS_COLOR: Record<string, string> = { Ready: '#10b981', Building: '#f59e0b', Failed: '#ef4444' }
+
+    return (
+      <div style={{ width: 520, fontFamily: 'system-ui, sans-serif' }}>
+        <div style={{ fontSize: 15, fontWeight: 700, color: '#0f172a', marginBottom: 14 }}>배포 목록</div>
+
+        <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', marginBottom: 10 }}>
+          <div style={{ display: 'flex', gap: 6 }}>
+            {STATUS_OPTS.map((s) => (
+              <Chip key={s} selected={statusFilter === s} onClick={() => setStatusFilter(s)}>
+                {s}
+              </Chip>
+            ))}
+          </div>
+          <div style={{ width: 1, background: '#e2e8f0', margin: '0 4px' }} />
+          <div style={{ display: 'flex', gap: 6 }}>
+            {ENV_OPTS.map((e) => (
+              <Chip key={e} selected={envFilter.has(e)} onClick={() => toggleEnv(e)}>
+                <Chip.Leading>
+                  <span style={{ fontSize: 10 }}>{e === 'production' ? '🚀' : e === 'preview' ? '👁' : '💻'}</span>
+                </Chip.Leading>
+                {e}
+              </Chip>
+            ))}
+          </div>
+        </div>
+
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+          {filtered.map((d) => (
+            <div key={d.id} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 14px', borderRadius: 10, border: '1px solid #f1f5f9', background: '#fff' }}>
+              <span style={{ width: 8, height: 8, borderRadius: '50%', background: STATUS_COLOR[d.status], flexShrink: 0 }} />
+              <div style={{ flex: 1 }}>
+                <div style={{ fontSize: 13, fontWeight: 600, color: '#1e293b', fontFamily: 'monospace' }}>{d.name}</div>
+                <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>{d.env} · {d.ago}</div>
+              </div>
+              <div style={{ display: 'flex', gap: 4 }}>
+                {d.tags.map((tag) => (
+                  <span key={tag} style={{ fontSize: 10, padding: '2px 7px', borderRadius: 20, background: '#f0f0ff', color: '#6366f1', fontWeight: 700 }}>
+                    {tag}
+                  </span>
+                ))}
+              </div>
+              <span style={{ fontSize: 12, fontWeight: 700, color: STATUS_COLOR[d.status] }}>{d.status}</span>
+            </div>
+          ))}
+          {filtered.length === 0 && (
+            <div style={{ padding: '24px 0', textAlign: 'center', color: '#94a3b8', fontSize: 14 }}>조건에 맞는 배포 없음</div>
+          )}
+        </div>
+      </div>
+    )
+  },
+}

@@ -1218,3 +1218,282 @@ export const Figma_컴포넌트_속성_설정 = {
   },
   render: () => <FigmaComponentPropertiesRender />,
 }
+
+/* --------------------------------------------------------------------------
+   Cycle 124 — Vercel Design + Radix UI 벤치마크
+-------------------------------------------------------------------------- */
+
+/* --------------------------------------------------------------------------
+   Vercel: 배포 알림 채널 설정 패턴
+   Vercel Notifications 설정 화면 — 이벤트별 알림 채널 체크박스
+-------------------------------------------------------------------------- */
+export const Vercel_배포_알림_설정 = {
+  name: 'Vercel - 배포 알림 채널 설정 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Vercel Notifications 설정 화면 패턴. 배포/도메인/팀 이벤트별로 ' +
+          'Email/Slack/Webhook 채널을 BoxedCheckbox로 개별 설정하는 인터페이스입니다.',
+      },
+    },
+  },
+  render: function Render() {
+    type Channel = 'email' | 'slack' | 'webhook'
+    type EventKey = 'deploy_success' | 'deploy_fail' | 'domain_error' | 'team_invite'
+
+    const EVENT_LABELS: Record<EventKey, { label: string; desc: string }> = {
+      deploy_success: { label: '배포 성공', desc: '새 배포가 완료될 때' },
+      deploy_fail: { label: '배포 실패', desc: '빌드 또는 배포 오류 발생 시' },
+      domain_error: { label: '도메인 오류', desc: 'DNS 또는 SSL 문제 발생 시' },
+      team_invite: { label: '팀 초대', desc: '새 팀원이 초대될 때' },
+    }
+
+    const CHANNELS: Channel[] = ['email', 'slack', 'webhook']
+    const CHANNEL_LABELS: Record<Channel, string> = { email: 'Email', slack: 'Slack', webhook: 'Webhook' }
+
+    const [settings, setSettings] = useState<Record<EventKey, Set<Channel>>>({
+      deploy_success: new Set(['email']),
+      deploy_fail: new Set(['email', 'slack']),
+      domain_error: new Set(['email', 'webhook']),
+      team_invite: new Set(['email']),
+    })
+
+    const toggle = (event: EventKey, channel: Channel) => {
+      setSettings((prev) => {
+        const next = new Set(prev[event])
+        if (next.has(channel)) next.delete(channel)
+        else next.add(channel)
+        return { ...prev, [event]: next }
+      })
+    }
+
+    return (
+      <div style={{ width: 500, fontFamily: 'system-ui, sans-serif' }}>
+        <div style={{ fontSize: 15, fontWeight: 700, color: '#0f172a', marginBottom: 4 }}>알림 설정</div>
+        <div style={{ fontSize: 13, color: '#64748b', marginBottom: 16 }}>이벤트별 알림 채널을 선택하세요.</div>
+
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr repeat(3, 80px)', gap: 8, padding: '8px 12px', borderRadius: 8, background: '#f8fafc', marginBottom: 6 }}>
+          <span style={{ fontSize: 12, fontWeight: 700, color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.05em' }}>이벤트</span>
+          {CHANNELS.map((ch) => (
+            <span key={ch} style={{ fontSize: 12, fontWeight: 700, color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.05em', textAlign: 'center' }}>
+              {CHANNEL_LABELS[ch]}
+            </span>
+          ))}
+        </div>
+
+        {(Object.keys(EVENT_LABELS) as EventKey[]).map((ev) => (
+          <div key={ev} style={{ display: 'grid', gridTemplateColumns: '1fr repeat(3, 80px)', gap: 8, padding: '12px', borderRadius: 8, border: '1px solid #f1f5f9', background: '#fff', marginBottom: 6, alignItems: 'center' }}>
+            <div>
+              <div style={{ fontSize: 13, fontWeight: 600, color: '#1e293b' }}>{EVENT_LABELS[ev].label}</div>
+              <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>{EVENT_LABELS[ev].desc}</div>
+            </div>
+            {CHANNELS.map((ch) => (
+              <div key={ch} style={{ display: 'flex', justifyContent: 'center' }}>
+                <BoxedCheckbox
+                  checked={settings[ev].has(ch)}
+                  onChange={() => toggle(ev, ch)}
+                />
+              </div>
+            ))}
+          </div>
+        ))}
+      </div>
+    )
+  },
+}
+
+/* --------------------------------------------------------------------------
+   Radix: 폼 권한 그룹 체크박스 패턴
+   Radix CheckboxGroup 아이디어 — role=group + indeterminate 상태
+-------------------------------------------------------------------------- */
+export const Radix_폼_권한_그룹_체크박스 = {
+  name: 'Radix UI - 폼 권한 그룹 체크박스 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Radix UI CheckboxGroup 접근성 패턴. role="group" + aria-labelledby로 그룹화하고 ' +
+          '권한 카테고리별로 분리된 체크박스 그룹과 indeterminate(minus) 상태를 지원합니다.',
+      },
+    },
+  },
+  render: function Render() {
+    const PERMISSION_GROUPS = [
+      {
+        id: 'read', label: '읽기 권한',
+        items: ['프로젝트 조회', '이슈 조회', '댓글 조회', '대시보드 조회'],
+      },
+      {
+        id: 'write', label: '쓰기 권한',
+        items: ['이슈 생성', '댓글 작성', '라벨 추가', '마일스톤 설정'],
+      },
+      {
+        id: 'admin', label: '관리자 권한',
+        items: ['멤버 초대', '권한 변경', '프로젝트 삭제', 'API 키 발급'],
+      },
+    ]
+
+    const [checked, setChecked] = useState<Set<string>>(
+      new Set(['프로젝트 조회', '이슈 조회', '댓글 조회'])
+    )
+
+    const toggleItem = (item: string) => {
+      setChecked((prev) => {
+        const next = new Set(prev)
+        if (next.has(item)) next.delete(item)
+        else next.add(item)
+        return next
+      })
+    }
+
+    const toggleGroup = (items: string[]) => {
+      const allChecked = items.every((i) => checked.has(i))
+      setChecked((prev) => {
+        const next = new Set(prev)
+        if (allChecked) items.forEach((i) => next.delete(i))
+        else items.forEach((i) => next.add(i))
+        return next
+      })
+    }
+
+    return (
+      <div style={{ width: 380, fontFamily: 'system-ui, sans-serif' }} role="form">
+        <div style={{ fontSize: 15, fontWeight: 700, color: '#0f172a', marginBottom: 4 }}>역할 권한 설정</div>
+        <div style={{ fontSize: 13, color: '#64748b', marginBottom: 16 }}>이 역할에 부여할 권한을 선택하세요.</div>
+
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+          {PERMISSION_GROUPS.map((group) => {
+            const allChecked = group.items.every((i) => checked.has(i))
+            const someChecked = group.items.some((i) => checked.has(i)) && !allChecked
+            return (
+              <div key={group.id} role="group" aria-labelledby={`group-${group.id}`}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8 }}>
+                  <BoxedCheckbox
+                    checked={allChecked}
+                    iconName={someChecked ? 'minus' : 'check'}
+                    onChange={() => toggleGroup(group.items)}
+                  />
+                  <span id={`group-${group.id}`} style={{ fontSize: 13, fontWeight: 700, color: '#1e293b' }}>
+                    {group.label}
+                  </span>
+                  <span style={{ fontSize: 11, color: '#94a3b8', marginLeft: 'auto' }}>
+                    {group.items.filter((i) => checked.has(i)).length}/{group.items.length}
+                  </span>
+                </div>
+                <div style={{ paddingLeft: 30, display: 'flex', flexDirection: 'column', gap: 6 }}>
+                  {group.items.map((item) => (
+                    <div key={item} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                      <BoxedCheckbox checked={checked.has(item)} onChange={() => toggleItem(item)} />
+                      <span style={{ fontSize: 13, color: '#475569' }}>{item}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )
+          })}
+        </div>
+
+        <div style={{ marginTop: 16, padding: '10px 14px', borderRadius: 10, background: '#f0f9ff', border: '1px solid #bae6fd', fontSize: 12, color: '#0369a1' }}>
+          {checked.size}개 권한 선택됨
+        </div>
+      </div>
+    )
+  },
+}
+
+/* --------------------------------------------------------------------------
+   Vercel + Radix: CI/CD 파이프라인 단계 설정
+   두 시스템의 카드형 체크박스 + 그룹화 패턴 결합
+-------------------------------------------------------------------------- */
+export const Vercel_Radix_파이프라인_단계_설정 = {
+  name: 'Vercel + Radix UI - CI/CD 파이프라인 단계 설정',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Vercel Build Settings + Radix CheckboxGroup 패턴 결합. 빌드 파이프라인 각 단계를 ' +
+          'BoxedCheckbox 카드로 활성화/비활성화하고 의존 관계를 시각적으로 표현합니다.',
+      },
+    },
+  },
+  render: function Render() {
+    type StepId = 'lint' | 'test' | 'type_check' | 'build' | 'e2e' | 'deploy'
+    const STEPS: { id: StepId; label: string; desc: string; deps: StepId[]; required: boolean }[] = [
+      { id: 'lint', label: 'ESLint', desc: '코드 스타일 및 오류 검사', deps: [], required: true },
+      { id: 'type_check', label: 'TypeScript', desc: '타입 오류 검사', deps: [], required: true },
+      { id: 'test', label: 'Unit Test', desc: 'Vitest 단위 테스트', deps: ['lint', 'type_check'], required: false },
+      { id: 'build', label: 'Build', desc: 'Vite 프로덕션 빌드', deps: ['lint', 'type_check'], required: true },
+      { id: 'e2e', label: 'E2E Test', desc: 'Playwright 통합 테스트', deps: ['build'], required: false },
+      { id: 'deploy', label: 'Deploy', desc: 'Vercel 프리뷰 배포', deps: ['build'], required: false },
+    ]
+
+    const [enabled, setEnabled] = useState<Set<StepId>>(
+      new Set(['lint', 'type_check', 'build'])
+    )
+
+    const toggle = (id: StepId, required: boolean) => {
+      if (required) return
+      setEnabled((prev) => {
+        const next = new Set(prev)
+        if (next.has(id)) next.delete(id)
+        else next.add(id)
+        return next
+      })
+    }
+
+    return (
+      <div style={{ width: 440, fontFamily: 'system-ui, sans-serif' }}>
+        <div style={{ fontSize: 15, fontWeight: 700, color: '#0f172a', marginBottom: 4 }}>파이프라인 단계 설정</div>
+        <div style={{ fontSize: 13, color: '#64748b', marginBottom: 16 }}>각 단계를 활성화하여 CI/CD 워크플로를 구성하세요.</div>
+
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+          {STEPS.map((step) => {
+            const depsOk = step.deps.every((d) => enabled.has(d))
+            const isActive = enabled.has(step.id) && depsOk
+
+            return (
+              <div
+                key={step.id}
+                onClick={() => !step.required && depsOk && toggle(step.id, step.required)}
+                style={{
+                  display: 'flex', alignItems: 'center', gap: 12, padding: '12px 14px',
+                  borderRadius: 10, cursor: step.required || !depsOk ? 'not-allowed' : 'pointer',
+                  border: `1.5px solid ${isActive ? '#6366f1' : '#e2e8f0'}`,
+                  background: isActive ? '#f0f0ff' : '#fff',
+                  opacity: !depsOk && !step.required ? 0.5 : 1,
+                  transition: 'all 0.15s',
+                }}
+              >
+                <BoxedCheckbox
+                  checked={isActive}
+                  disabled={step.required || !depsOk}
+                  onChange={() => toggle(step.id, step.required)}
+                />
+                <div style={{ flex: 1 }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                    <span style={{ fontSize: 13, fontWeight: 600, color: '#1e293b' }}>{step.label}</span>
+                    {step.required && (
+                      <span style={{ fontSize: 10, padding: '1px 6px', borderRadius: 4, background: '#f1f5f9', color: '#64748b', fontWeight: 700 }}>필수</span>
+                    )}
+                    {!depsOk && !step.required && (
+                      <span style={{ fontSize: 10, color: '#f59e0b' }}>의존성 미충족</span>
+                    )}
+                  </div>
+                  <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>{step.desc}</div>
+                </div>
+                <span style={{ fontSize: 11, fontWeight: 700, color: isActive ? '#6366f1' : '#cbd5e1' }}>
+                  {isActive ? '활성' : '비활성'}
+                </span>
+              </div>
+            )
+          })}
+        </div>
+
+        <div style={{ marginTop: 14, padding: '10px 14px', borderRadius: 10, background: '#f8fafc', border: '1px solid #e2e8f0', fontSize: 12, color: '#64748b' }}>
+          {enabled.size}개 단계 활성화 · 예상 소요: {enabled.size * 90}초
+        </div>
+      </div>
+    )
+  },
+}
