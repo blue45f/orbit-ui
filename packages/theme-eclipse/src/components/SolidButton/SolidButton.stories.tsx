@@ -1139,3 +1139,218 @@ export const Vercel_shadcn_위험_영역_액션: Story = {
   },
   render: () => <VercelShadcnDestructiveRender />,
 } satisfies Story
+
+/* --------------------------------------------------------------------------
+   shadcn/ui — 공유 액션 버튼 그룹 (Copy URL / Download / Share)
+-------------------------------------------------------------------------- */
+function ShadcnShareActionsRender() {
+  const [copied, setCopied] = useState(false)
+  const [downloaded, setDownloaded] = useState(false)
+
+  const handleCopy = () => {
+    setCopied(true)
+    setTimeout(() => setCopied(false), 2000)
+  }
+
+  const handleDownload = () => {
+    setDownloaded(true)
+    setTimeout(() => setDownloaded(false), 2000)
+  }
+
+  return (
+    <div style={{ maxWidth: 420, fontFamily: 'system-ui, sans-serif' }}>
+      <p style={{ fontSize: 13, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 4 }}>공유 옵션</p>
+      <p style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginBottom: 16 }}>이 컴포넌트 예시를 팀과 공유하세요.</p>
+      <div style={{ display: 'flex', gap: 8, padding: '12px', borderRadius: 10, border: '1px solid var(--sem-eclipse-color-borderSubtle)', background: 'var(--sem-eclipse-color-surfaceDefault)', marginBottom: 12 }}>
+        <input
+          readOnly
+          value="https://orbit.ui/components/button#solid"
+          style={{ flex: 1, fontSize: 12, color: 'var(--sem-eclipse-color-foregroundSecondary)', background: 'none', border: 'none', outline: 'none', fontFamily: 'monospace' }}
+        />
+        <SolidButton color="primary" size="small" onClick={handleCopy}>
+          <SolidButton.Center>{copied ? '복사됨!' : 'URL 복사'}</SolidButton.Center>
+        </SolidButton>
+      </div>
+      <div style={{ display: 'flex', gap: 8 }}>
+        <SolidButton color="black" size="small" onClick={handleDownload} style={{ flex: 1 }}>
+          <SolidButton.Center>{downloaded ? '다운로드 완료' : 'PNG 다운로드'}</SolidButton.Center>
+        </SolidButton>
+        <SolidButton color="gray" size="small" style={{ flex: 1 }}>
+          <SolidButton.Center>Figma로 내보내기</SolidButton.Center>
+        </SolidButton>
+      </div>
+    </div>
+  )
+}
+
+export const Shadcn_공유_액션_버튼_그룹: Story = {
+  name: 'shadcn/ui — 공유 액션 버튼 그룹 (Copy URL / Download / Share)',
+  parameters: {
+    docs: {
+      description: {
+        story: 'shadcn/ui의 Copy URL 버튼 패턴. 클릭 후 "복사됨!" 텍스트로 즉각 피드백을 제공하고 2초 후 원래 텍스트로 복귀. SaaS 문서/컴포넌트 공유 UI에서 자주 쓰이는 패턴.',
+      },
+    },
+  },
+  render: () => <ShadcnShareActionsRender />,
+} satisfies Story
+
+/* --------------------------------------------------------------------------
+   Linear Design — 이슈 생성 인라인 폼 (컨텍스트 버튼 그룹)
+-------------------------------------------------------------------------- */
+function LinearIssueCreateRender() {
+  const [priority, setPriority] = useState<'urgent' | 'high' | 'medium' | 'low'>('medium')
+  const [title, setTitle] = useState('')
+  const [submitted, setSubmitted] = useState(false)
+
+  const priorityConfig = {
+    urgent: { label: '긴급', color: '#ef4444' },
+    high: { label: '높음', color: '#f59e0b' },
+    medium: { label: '보통', color: '#6366f1' },
+    low: { label: '낮음', color: '#94a3b8' },
+  }
+
+  const priorities = ['urgent', 'high', 'medium', 'low'] as const
+
+  const handleSubmit = () => {
+    if (title.trim()) {
+      setSubmitted(true)
+      setTimeout(() => { setSubmitted(false); setTitle('') }, 2500)
+    }
+  }
+
+  return (
+    <div style={{ maxWidth: 460, fontFamily: 'system-ui, sans-serif' }}>
+      {submitted ? (
+        <div style={{ padding: '16px', borderRadius: 10, border: '1px solid #bbf7d0', background: '#f0fdf4', textAlign: 'center' }}>
+          <p style={{ fontSize: 13, fontWeight: 600, color: '#16a34a' }}>이슈가 생성되었습니다</p>
+          <p style={{ fontSize: 11, color: '#22c55e' }}>ORB-{Math.floor(Math.random() * 900) + 100}: {title}</p>
+        </div>
+      ) : (
+        <div style={{ padding: '16px', borderRadius: 10, border: '1px solid var(--sem-eclipse-color-borderDefault)', background: 'var(--sem-eclipse-color-surfaceDefault)', boxShadow: '0 2px 12px rgba(0,0,0,0.08)' }}>
+          <input
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            placeholder="이슈 제목..."
+            style={{ width: '100%', fontSize: 14, fontWeight: 500, color: 'var(--sem-eclipse-color-foregroundPrimary)', border: 'none', outline: 'none', background: 'none', marginBottom: 12, boxSizing: 'border-box' }}
+          />
+          <div style={{ display: 'flex', alignItems: 'center', gap: 6, paddingTop: 10, borderTop: '1px solid var(--sem-eclipse-color-borderSubtle)' }}>
+            <span style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>우선순위:</span>
+            <div style={{ display: 'flex', gap: 4 }}>
+              {priorities.map((p) => (
+                <button
+                  key={p}
+                  onClick={() => setPriority(p)}
+                  style={{ fontSize: 10, padding: '2px 8px', borderRadius: 20, border: `1px solid ${priority === p ? priorityConfig[p].color : 'var(--sem-eclipse-color-borderSubtle)'}`, background: priority === p ? `${priorityConfig[p].color}18` : 'transparent', color: priority === p ? priorityConfig[p].color : 'var(--sem-eclipse-color-foregroundTertiary)', cursor: 'pointer', fontWeight: priority === p ? 600 : 400, transition: 'all 0.15s' }}
+                >
+                  {priorityConfig[p].label}
+                </button>
+              ))}
+            </div>
+            <div style={{ flex: 1 }} />
+            <SolidButton color="gray" size="small" onClick={() => setTitle('')}>
+              <SolidButton.Center>취소</SolidButton.Center>
+            </SolidButton>
+            <SolidButton color="primary" size="small" onClick={handleSubmit} disabled={!title.trim()}>
+              <SolidButton.Center>이슈 생성</SolidButton.Center>
+              <SolidButton.Trailing><ArrowRightIcon style={{ width: 12, height: 12 }} /></SolidButton.Trailing>
+            </SolidButton>
+          </div>
+        </div>
+      )}
+    </div>
+  )
+}
+
+export const Linear_이슈_생성_인라인_폼: Story = {
+  name: 'Linear Design — 이슈 생성 인라인 폼 (컨텍스트 버튼 그룹)',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Linear의 이슈 생성 인라인 폼 패턴. 우선순위 선택 → 제목 입력 → 생성/취소 버튼 구성. 제목 미입력 시 생성 버튼 비활성화, 성공 시 녹색 피드백 메시지.',
+      },
+    },
+  },
+  render: () => <LinearIssueCreateRender />,
+} satisfies Story
+
+/* --------------------------------------------------------------------------
+   shadcn/ui + Linear — 확인/취소 패턴 (다이얼로그 액션 영역)
+-------------------------------------------------------------------------- */
+function ShadcnLinearConfirmActionsRender() {
+  const [scenario, setScenario] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
+
+  const scenarios = [
+    { key: 'idle', label: '기본 상태' },
+    { key: 'loading', label: '처리 중' },
+    { key: 'success', label: '성공' },
+    { key: 'error', label: '오류' },
+  ] as const
+
+  const handleConfirm = () => {
+    setScenario('loading')
+    setTimeout(() => {
+      setScenario(Math.random() > 0.3 ? 'success' : 'error')
+      setTimeout(() => setScenario('idle'), 2000)
+    }, 1500)
+  }
+
+  return (
+    <div style={{ maxWidth: 420, fontFamily: 'system-ui, sans-serif' }}>
+      <div style={{ display: 'flex', gap: 6, marginBottom: 16 }}>
+        {scenarios.map((s) => (
+          <button
+            key={s.key}
+            onClick={() => setScenario(s.key)}
+            style={{ fontSize: 10, padding: '3px 8px', borderRadius: 6, border: '1px solid var(--sem-eclipse-color-borderDefault)', background: scenario === s.key ? 'var(--sem-eclipse-color-fillPrimary)' : 'transparent', color: scenario === s.key ? '#fff' : 'var(--sem-eclipse-color-foregroundTertiary)', cursor: 'pointer' }}
+          >
+            {s.label}
+          </button>
+        ))}
+      </div>
+      <div style={{ padding: '20px', borderRadius: 12, border: '1px solid var(--sem-eclipse-color-borderSubtle)', background: 'var(--sem-eclipse-color-surfaceDefault)', boxShadow: '0 4px 20px rgba(0,0,0,0.08)' }}>
+        <p style={{ fontSize: 15, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 6 }}>변경 사항 저장</p>
+        <p style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginBottom: 20 }}>수정된 내용을 저장하면 다른 팀원에게도 반영됩니다.</p>
+
+        {scenario === 'success' && (
+          <div style={{ padding: '8px 12px', borderRadius: 8, background: '#f0fdf4', border: '1px solid #bbf7d0', marginBottom: 12, fontSize: 12, color: '#16a34a', fontWeight: 500 }}>
+            저장이 완료되었습니다.
+          </div>
+        )}
+        {scenario === 'error' && (
+          <div style={{ padding: '8px 12px', borderRadius: 8, background: '#fef2f2', border: '1px solid #fecaca', marginBottom: 12, fontSize: 12, color: '#dc2626', fontWeight: 500 }}>
+            저장에 실패했습니다. 다시 시도해 주세요.
+          </div>
+        )}
+
+        <div style={{ display: 'flex', gap: 8, justifyContent: 'flex-end' }}>
+          <SolidButton color="gray" size="small" disabled={scenario === 'loading'}>
+            <SolidButton.Center>취소</SolidButton.Center>
+          </SolidButton>
+          <SolidButton
+            color="primary"
+            size="small"
+            onClick={handleConfirm}
+            disabled={scenario === 'loading' || scenario === 'success'}
+          >
+            <SolidButton.Center>
+              {scenario === 'loading' ? '저장 중...' : scenario === 'success' ? '저장됨' : '저장'}
+            </SolidButton.Center>
+          </SolidButton>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const Shadcn_Linear_확인_취소_패턴: Story = {
+  name: 'shadcn/ui + Linear — 확인/취소 다이얼로그 액션',
+  parameters: {
+    docs: {
+      description: {
+        story: 'shadcn/ui AlertDialog + Linear 모달 액션 조합 패턴. 기본/처리중/성공/오류 4가지 상태를 SolidButton으로 표현. 처리 중 disabled 처리, 성공/오류 인라인 피드백.',
+      },
+    },
+  },
+  render: () => <ShadcnLinearConfirmActionsRender />,
+} satisfies Story

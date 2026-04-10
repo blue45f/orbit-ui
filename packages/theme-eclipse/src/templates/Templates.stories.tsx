@@ -33624,3 +33624,225 @@ export const ChakraMantine146TeamSettings: StoryObj = {
   },
   render: () => <ChakraMantine146TeamSettingsRender />,
 }
+
+/* ==========================================================================
+   사이클 147 — shadcn/ui + Linear Design
+   템플릿: 개발자 포트폴리오 & 프로젝트 쇼케이스
+========================================================================== */
+function ShadcnLinear147DevPortfolioRender() {
+  const [activeSection, setActiveSection] = useState<'projects' | 'activity' | 'skills'>('projects')
+  const [selectedProject, setSelectedProject] = useState<number | null>(null)
+
+  const profile = {
+    name: '김희준',
+    handle: '@hjunkim',
+    bio: 'Design System Engineer · Orbit UI 메인테이너',
+    location: 'Seoul, Korea',
+    joined: '2021년 3월',
+    stats: { projects: 24, followers: 1842, following: 312, stars: 7204 },
+  }
+
+  const projects = [
+    { id: 1, name: 'orbit-ui', desc: 'React 기반 디자인 시스템 컴포넌트 라이브러리', lang: 'TypeScript', color: '#3178c6', stars: 4200, forks: 312, updated: '1시간 전', tags: ['design-system', 'react', 'tailwind'], status: 'active' },
+    { id: 2, name: 'vite-plugin-orbit', desc: 'Orbit UI를 위한 Vite 플러그인 — CSS 순서 최적화', lang: 'TypeScript', color: '#3178c6', stars: 890, forks: 45, updated: '3일 전', tags: ['vite', 'plugin'], status: 'active' },
+    { id: 3, name: 'figma-tokens-sync', desc: 'Figma 디자인 토큰을 코드로 자동 동기화하는 CLI 도구', lang: 'JavaScript', color: '#f7df1e', stars: 2100, forks: 167, updated: '1주 전', tags: ['figma', 'cli', 'tokens'], status: 'archived' },
+    { id: 4, name: 'react-a11y-audit', desc: 'React 컴포넌트 접근성 자동 검사 도구', lang: 'TypeScript', color: '#3178c6', stars: 14, forks: 2, updated: '2주 전', tags: ['accessibility', 'testing'], status: 'wip' },
+  ]
+
+  const activityWeeks = Array.from({ length: 24 }, () =>
+    Array.from({ length: 7 }, () => Math.random() > 0.4 ? Math.floor(Math.random() * 8) : 0)
+  )
+
+  const skills = [
+    { category: 'Frontend', items: [{ name: 'React', level: 95 }, { name: 'TypeScript', level: 90 }, { name: 'Tailwind CSS', level: 88 }, { name: 'vanilla-extract', level: 82 }] },
+    { category: 'Build & Tools', items: [{ name: 'Vite', level: 85 }, { name: 'Storybook', level: 92 }, { name: 'Vitest', level: 80 }, { name: 'Figma', level: 75 }] },
+    { category: 'Design Systems', items: [{ name: 'Token 설계', level: 90 }, { name: 'Component API 설계', level: 88 }, { name: 'Accessibility', level: 78 }, { name: 'Documentation', level: 85 }] },
+  ]
+
+  const statusColors: Record<string, string> = { active: '#10b981', archived: '#94a3b8', wip: '#f59e0b' }
+  const statusLabels: Record<string, string> = { active: '활성', archived: '보관', wip: '진행 중' }
+
+  const selectedProj = projects.find((p) => p.id === selectedProject)
+
+  return (
+    <div style={{ minHeight: '100vh', background: '#0f172a', fontFamily: 'system-ui, -apple-system, sans-serif', color: '#f1f5f9' }}>
+      {/* 헤더 */}
+      <div style={{ borderBottom: '1px solid #1e293b', padding: '12px 24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <span style={{ fontSize: 14, fontWeight: 700, color: '#f1f5f9' }}>orbit</span>
+        <div style={{ display: 'flex', gap: 20, fontSize: 12, color: '#94a3b8' }}>
+          {['Explore', 'Marketplace', 'Docs', 'Blog'].map((item) => (
+            <span key={item} style={{ cursor: 'pointer' }}>{item}</span>
+          ))}
+        </div>
+        <div style={{ width: 28, height: 28, borderRadius: '50%', background: 'linear-gradient(135deg, #6366f1, #8b5cf6)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 11, fontWeight: 700 }}>HJ</div>
+      </div>
+
+      <div style={{ maxWidth: 960, margin: '0 auto', padding: '32px 24px', display: 'grid', gridTemplateColumns: '240px 1fr', gap: 28 }}>
+        {/* 사이드 프로필 */}
+        <div>
+          <div style={{ width: 80, height: 80, borderRadius: '50%', background: 'linear-gradient(135deg, #6366f1, #8b5cf6)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 28, fontWeight: 700, marginBottom: 12 }}>HJ</div>
+          <p style={{ fontSize: 18, fontWeight: 700, marginBottom: 2 }}>{profile.name}</p>
+          <p style={{ fontSize: 13, color: '#94a3b8', marginBottom: 8 }}>{profile.handle}</p>
+          <p style={{ fontSize: 12, color: '#cbd5e1', marginBottom: 12, lineHeight: 1.5 }}>{profile.bio}</p>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 4, fontSize: 11, color: '#94a3b8', marginBottom: 16 }}>
+            <span>📍 {profile.location}</span>
+            <span>🗓 {profile.joined} 가입</span>
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8, marginBottom: 16 }}>
+            {Object.entries(profile.stats).map(([key, val]) => (
+              <div key={key} style={{ textAlign: 'center', padding: '8px', borderRadius: 8, background: '#1e293b' }}>
+                <p style={{ fontSize: 15, fontWeight: 700 }}>{val >= 1000 ? `${(val / 1000).toFixed(1)}k` : val}</p>
+                <p style={{ fontSize: 9, color: '#64748b', textTransform: 'uppercase', letterSpacing: 0.6 }}>{key}</p>
+              </div>
+            ))}
+          </div>
+          <div style={{ padding: '10px 12px', borderRadius: 8, border: '1px solid #334155', fontSize: 11, color: '#94a3b8', textAlign: 'center', cursor: 'pointer' }}>
+            프로필 편집
+          </div>
+        </div>
+
+        {/* 메인 콘텐츠 */}
+        <div>
+          {/* 탭 */}
+          <div style={{ display: 'flex', gap: 0, borderBottom: '1px solid #1e293b', marginBottom: 20 }}>
+            {(['projects', 'activity', 'skills'] as const).map((tab) => {
+              const labels = { projects: '프로젝트', activity: '기여 현황', skills: '기술 스택' }
+              return (
+                <button
+                  key={tab}
+                  onClick={() => setActiveSection(tab)}
+                  style={{ padding: '8px 16px', fontSize: 12, fontWeight: activeSection === tab ? 600 : 400, color: activeSection === tab ? '#f1f5f9' : '#64748b', background: 'none', border: 'none', borderBottom: activeSection === tab ? '2px solid #6366f1' : '2px solid transparent', cursor: 'pointer', marginBottom: -1 }}
+                >
+                  {labels[tab]}
+                </button>
+              )
+            })}
+          </div>
+
+          {/* 프로젝트 탭 */}
+          {activeSection === 'projects' && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+              {projects.map((proj) => (
+                <div
+                  key={proj.id}
+                  onClick={() => setSelectedProject(selectedProject === proj.id ? null : proj.id)}
+                  style={{ padding: '16px', borderRadius: 10, border: `1px solid ${selectedProject === proj.id ? '#6366f1' : '#1e293b'}`, background: selectedProject === proj.id ? '#1e1b4b' : '#1e293b', cursor: 'pointer', transition: 'all 0.15s' }}
+                >
+                  <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 10 }}>
+                    <div style={{ flex: 1 }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
+                        <span style={{ fontSize: 14, fontWeight: 700, color: '#818cf8' }}>{proj.name}</span>
+                        <span style={{ fontSize: 9, fontWeight: 600, padding: '1px 6px', borderRadius: 10, background: `${statusColors[proj.status]}20`, color: statusColors[proj.status] }}>{statusLabels[proj.status]}</span>
+                      </div>
+                      <p style={{ fontSize: 12, color: '#94a3b8', marginBottom: 8, lineHeight: 1.5 }}>{proj.desc}</p>
+                      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 4, marginBottom: 8 }}>
+                        {proj.tags.map((tag) => (
+                          <span key={tag} style={{ fontSize: 9, padding: '2px 7px', borderRadius: 10, border: '1px solid #334155', color: '#64748b' }}>{tag}</span>
+                        ))}
+                      </div>
+                    </div>
+                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 4, flexShrink: 0 }}>
+                      <span style={{ fontSize: 11, color: '#fbbf24' }}>★ {proj.stars.toLocaleString()}</span>
+                      <span style={{ fontSize: 10, color: '#64748b' }}>{proj.forks} forks</span>
+                    </div>
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                    <span style={{ width: 10, height: 10, borderRadius: '50%', background: proj.color, display: 'inline-block' }} />
+                    <span style={{ fontSize: 10, color: '#64748b' }}>{proj.lang}</span>
+                    <span style={{ fontSize: 10, color: '#475569' }}>업데이트: {proj.updated}</span>
+                  </div>
+                  {selectedProject === proj.id && selectedProj && (
+                    <div style={{ marginTop: 12, padding: '12px', borderRadius: 8, background: '#0f172a', fontSize: 11, color: '#94a3b8' }}>
+                      <p style={{ fontWeight: 600, color: '#c7d2fe', marginBottom: 6 }}>README 미리보기</p>
+                      <p style={{ lineHeight: 1.6 }}>{selectedProj.desc} — 자세한 문서와 예시는 GitHub 저장소를 확인하세요.</p>
+                      <div style={{ display: 'flex', gap: 8, marginTop: 10 }}>
+                        <span style={{ fontSize: 10, padding: '3px 8px', borderRadius: 6, background: '#6366f130', color: '#818cf8', cursor: 'pointer' }}>GitHub에서 보기</span>
+                        <span style={{ fontSize: 10, padding: '3px 8px', borderRadius: 6, background: '#0ea5e930', color: '#38bdf8', cursor: 'pointer' }}>문서 보기</span>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          )}
+
+          {/* 기여 현황 탭 */}
+          {activeSection === 'activity' && (
+            <div>
+              <p style={{ fontSize: 12, color: '#64748b', marginBottom: 14 }}>지난 24주 기여 현황</p>
+              <div style={{ display: 'flex', gap: 2, marginBottom: 16 }}>
+                {activityWeeks.map((week, wi) => (
+                  <div key={wi} style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+                    {week.map((count, di) => (
+                      <div
+                        key={di}
+                        title={`${count}건`}
+                        style={{ width: 10, height: 10, borderRadius: 2, background: count === 0 ? '#1e293b' : count < 3 ? '#3730a3' : count < 6 ? '#4f46e5' : '#818cf8', transition: 'opacity 0.15s' }}
+                      />
+                    ))}
+                  </div>
+                ))}
+              </div>
+              <div style={{ display: 'flex', gap: 4, alignItems: 'center', fontSize: 10, color: '#475569', marginBottom: 20 }}>
+                <span>적음</span>
+                {[0, 1, 2, 3, 4].map((level) => (
+                  <div key={level} style={{ width: 10, height: 10, borderRadius: 2, background: level === 0 ? '#1e293b' : level < 2 ? '#3730a3' : level < 3 ? '#4f46e5' : level < 4 ? '#6366f1' : '#818cf8' }} />
+                ))}
+                <span>많음</span>
+              </div>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
+                {[{ label: '총 커밋', val: '1,847' }, { label: '이번 달', val: '142' }, { label: 'PR 머지', val: '384' }, { label: '코드 리뷰', val: '629' }].map((stat) => (
+                  <div key={stat.label} style={{ padding: '14px', borderRadius: 8, background: '#1e293b', textAlign: 'center' }}>
+                    <p style={{ fontSize: 20, fontWeight: 700, color: '#818cf8', marginBottom: 2 }}>{stat.val}</p>
+                    <p style={{ fontSize: 10, color: '#64748b' }}>{stat.label}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* 기술 스택 탭 */}
+          {activeSection === 'skills' && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
+              {skills.map((cat) => (
+                <div key={cat.category} style={{ padding: '16px', borderRadius: 10, border: '1px solid #1e293b', background: '#1e293b' }}>
+                  <p style={{ fontSize: 11, fontWeight: 700, color: '#818cf8', textTransform: 'uppercase', letterSpacing: 0.8, marginBottom: 12 }}>{cat.category}</p>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+                    {cat.items.map((skill) => (
+                      <div key={skill.name}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 4 }}>
+                          <span style={{ fontSize: 12, color: '#cbd5e1' }}>{skill.name}</span>
+                          <span style={{ fontSize: 11, fontWeight: 600, color: '#6366f1' }}>{skill.level}%</span>
+                        </div>
+                        <div style={{ height: 4, borderRadius: 2, background: '#334155', overflow: 'hidden' }}>
+                          <div style={{ height: '100%', width: `${skill.level}%`, borderRadius: 2, background: 'linear-gradient(90deg, #6366f1, #8b5cf6)' }} />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+
+      <p style={{ fontSize: 10, color: '#334155', textAlign: 'center', padding: '16px', borderTop: '1px solid #1e293b' }}>
+        shadcn/ui GitHub Profile + Linear 프로젝트 카드 패턴 — 사이클 147
+      </p>
+    </div>
+  )
+}
+
+export const ShadcnLinear147DevPortfolio: StoryObj = {
+  name: 'shadcn/ui + Linear — 개발자 포트폴리오 & 프로젝트 쇼케이스',
+  parameters: {
+    layout: 'fullscreen',
+    docs: {
+      description: {
+        story: 'shadcn/ui GitHub 프로파일 카드 + Linear 프로젝트 리스트 패턴. 다크 테마 2컬럼 레이아웃, 기여 현황 히트맵, 기술 스택 Progress 바, 프로젝트 카드 토글 미리보기.',
+      },
+    },
+  },
+  render: () => <ShadcnLinear147DevPortfolioRender />,
+}

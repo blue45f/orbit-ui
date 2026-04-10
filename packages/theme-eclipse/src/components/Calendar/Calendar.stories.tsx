@@ -1501,3 +1501,185 @@ export const Ant_Mantine_스프린트_계획_달력: Story = {
     )
   },
 }
+
+/* --------------------------------------------------------------------------
+   shadcn/ui — 날짜 범위 선택 (여행 일정 예약)
+-------------------------------------------------------------------------- */
+export const Shadcn_날짜_범위_예약: Story = {
+  name: 'shadcn/ui — 날짜 범위 선택 (여행 일정 예약)',
+  parameters: {
+    docs: {
+      description: {
+        story: 'shadcn/ui DateRangePicker 패턴. 체크인/체크아웃 날짜를 순차적으로 선택. 선택된 범위의 박 수와 예상 금액을 실시간으로 계산. 숙박/예약 폼에서 활용.',
+      },
+    },
+  },
+  render: function Render() {
+    const [checkIn, setCheckIn] = React.useState<Date | undefined>()
+    const [checkOut, setCheckOut] = React.useState<Date | undefined>()
+    const [step, setStep] = React.useState<'checkin' | 'checkout'>('checkin')
+
+    const handleSelect = (date: Date | undefined) => {
+      if (step === 'checkin') {
+        setCheckIn(date)
+        setCheckOut(undefined)
+        setStep('checkout')
+      } else {
+        if (date && checkIn && date <= checkIn) {
+          setCheckIn(date)
+          setCheckOut(undefined)
+          setStep('checkout')
+        } else {
+          setCheckOut(date)
+        }
+      }
+    }
+
+    const nights = checkIn && checkOut
+      ? Math.round((checkOut.getTime() - checkIn.getTime()) / (1000 * 60 * 60 * 24))
+      : 0
+    const pricePerNight = 89000
+
+    return (
+      <div style={{ maxWidth: 520, fontFamily: 'system-ui, sans-serif' }}>
+        <div style={{ display: 'flex', gap: 10, marginBottom: 14 }}>
+          <div style={{ flex: 1, padding: '10px 14px', borderRadius: 8, border: `2px solid ${step === 'checkin' ? 'var(--sem-eclipse-color-fillPrimary)' : 'var(--sem-eclipse-color-borderSubtle)'}`, cursor: 'pointer', background: step === 'checkin' ? 'var(--sem-eclipse-color-fillPrimarySubtle)' : 'transparent' }} onClick={() => setStep('checkin')}>
+            <p style={{ fontSize: 9, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundTertiary)', textTransform: 'uppercase', letterSpacing: 0.6, marginBottom: 2 }}>체크인</p>
+            <p style={{ fontSize: 13, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{checkIn ? checkIn.toLocaleDateString('ko-KR') : '날짜 선택'}</p>
+          </div>
+          <div style={{ flex: 1, padding: '10px 14px', borderRadius: 8, border: `2px solid ${step === 'checkout' ? 'var(--sem-eclipse-color-fillPrimary)' : 'var(--sem-eclipse-color-borderSubtle)'}`, cursor: 'pointer', background: step === 'checkout' ? 'var(--sem-eclipse-color-fillPrimarySubtle)' : 'transparent' }} onClick={() => checkIn && setStep('checkout')}>
+            <p style={{ fontSize: 9, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundTertiary)', textTransform: 'uppercase', letterSpacing: 0.6, marginBottom: 2 }}>체크아웃</p>
+            <p style={{ fontSize: 13, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{checkOut ? checkOut.toLocaleDateString('ko-KR') : '날짜 선택'}</p>
+          </div>
+        </div>
+        <Calendar mode="single" selected={step === 'checkin' ? checkIn : checkOut} onSelect={handleSelect} />
+        {nights > 0 && (
+          <div style={{ marginTop: 12, padding: '12px 16px', borderRadius: 8, background: 'var(--sem-eclipse-color-surfaceSubtle)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <span style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundSecondary)' }}>₩{pricePerNight.toLocaleString()} x {nights}박</span>
+            <span style={{ fontSize: 15, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>₩{(pricePerNight * nights).toLocaleString()}</span>
+          </div>
+        )}
+      </div>
+    )
+  },
+}
+
+/* --------------------------------------------------------------------------
+   Linear Design — 마일스톤 일정 계획 달력 (목표일 설정)
+-------------------------------------------------------------------------- */
+export const Linear_마일스톤_일정_계획: Story = {
+  name: 'Linear Design — 마일스톤 일정 계획 달력 (목표일 설정)',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Linear의 마일스톤 due date 선택 패턴. 오늘 이전 날짜 선택 방지, 마일스톤 색상 구분, 남은 일수 표시. 프로젝트 플래닝 UI에서 활용.',
+      },
+    },
+  },
+  render: function Render() {
+    const today = new Date()
+    const [milestones, setMilestones] = React.useState([
+      { id: 1, name: 'Alpha 출시', date: undefined as Date | undefined, color: '#6366f1' },
+      { id: 2, name: 'Beta 출시', date: undefined as Date | undefined, color: '#0ea5e9' },
+      { id: 3, name: 'v1.0 정식 출시', date: undefined as Date | undefined, color: '#10b981' },
+    ])
+    const [activeId, setActiveId] = React.useState(1)
+    const active = milestones.find((m) => m.id === activeId)!
+
+    const daysUntil = (date: Date | undefined) => {
+      if (!date) return null
+      const diff = Math.ceil((date.getTime() - today.getTime()) / (1000 * 60 * 60 * 24))
+      return diff
+    }
+
+    const handleDateSelect = (date: Date | undefined) => {
+      if (date && date < today) return
+      setMilestones((prev) => prev.map((m) => m.id === activeId ? { ...m, date } : m))
+    }
+
+    return (
+      <div style={{ maxWidth: 480, fontFamily: 'system-ui, sans-serif' }}>
+        <p style={{ fontSize: 13, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 12 }}>마일스톤 일정 설정</p>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 6, marginBottom: 14 }}>
+          {milestones.map((m) => {
+            const days = daysUntil(m.date)
+            return (
+              <div key={m.id} onClick={() => setActiveId(m.id)} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 14px', borderRadius: 8, border: `2px solid ${activeId === m.id ? m.color : 'var(--sem-eclipse-color-borderSubtle)'}`, background: activeId === m.id ? `${m.color}10` : 'var(--sem-eclipse-color-surfaceDefault)', cursor: 'pointer', transition: 'all 0.15s' }}>
+                <span style={{ width: 8, height: 8, borderRadius: '50%', background: m.color, flexShrink: 0 }} />
+                <span style={{ flex: 1, fontSize: 12, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{m.name}</span>
+                {m.date ? (
+                  <span style={{ fontSize: 11, color: m.color, fontWeight: 600 }}>
+                    {days !== null && days >= 0 ? `D-${days}` : '기한 초과'}
+                  </span>
+                ) : (
+                  <span style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundDisabled)' }}>미설정</span>
+                )}
+                {m.date && <span style={{ fontSize: 10, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>{m.date.toLocaleDateString('ko-KR')}</span>}
+              </div>
+            )
+          })}
+        </div>
+        <p style={{ fontSize: 11, color: active.color, fontWeight: 600, marginBottom: 6 }}>▸ {active.name} 목표일 선택</p>
+        <Calendar mode="single" selected={active.date} onSelect={handleDateSelect} disabled={{ before: today }} />
+      </div>
+    )
+  },
+}
+
+/* --------------------------------------------------------------------------
+   shadcn/ui + Linear — 반복 이벤트 스케줄러
+-------------------------------------------------------------------------- */
+export const Shadcn_Linear_반복_이벤트_스케줄러: Story = {
+  name: 'shadcn/ui + Linear — 반복 이벤트 스케줄러',
+  parameters: {
+    docs: {
+      description: {
+        story: 'shadcn/ui DatePicker + Linear 반복 설정 패턴. 날짜 선택 후 반복 주기(없음/매일/매주/매월)와 종료 조건을 설정. 캘린더 앱 이벤트 생성 폼 패턴.',
+      },
+    },
+  },
+  render: function Render() {
+    const [startDate, setStartDate] = React.useState<Date | undefined>()
+    const [repeat, setRepeat] = React.useState<'none' | 'daily' | 'weekly' | 'monthly'>('none')
+    const [saved, setSaved] = React.useState(false)
+
+    const repeatLabels = { none: '반복 없음', daily: '매일', weekly: '매주', monthly: '매월' }
+
+    const handleSave = () => {
+      if (startDate) {
+        setSaved(true)
+        setTimeout(() => setSaved(false), 2500)
+      }
+    }
+
+    return (
+      <div style={{ maxWidth: 460, fontFamily: 'system-ui, sans-serif' }}>
+        <p style={{ fontSize: 13, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 14 }}>이벤트 스케줄 설정</p>
+        <Calendar mode="single" selected={startDate} onSelect={setStartDate} />
+        <div style={{ marginTop: 14, display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+          {(['none', 'daily', 'weekly', 'monthly'] as const).map((r) => (
+            <button
+              key={r}
+              onClick={() => setRepeat(r)}
+              style={{ fontSize: 11, padding: '5px 12px', borderRadius: 20, border: `1px solid ${repeat === r ? 'var(--sem-eclipse-color-fillPrimary)' : 'var(--sem-eclipse-color-borderDefault)'}`, background: repeat === r ? 'var(--sem-eclipse-color-fillPrimarySubtle)' : 'transparent', color: repeat === r ? 'var(--sem-eclipse-color-fillPrimary)' : 'var(--sem-eclipse-color-foregroundSecondary)', cursor: 'pointer', fontWeight: repeat === r ? 600 : 400, transition: 'all 0.15s' }}
+            >
+              {repeatLabels[r]}
+            </button>
+          ))}
+        </div>
+        {startDate && (
+          <div style={{ marginTop: 12, padding: '10px 14px', borderRadius: 8, background: 'var(--sem-eclipse-color-surfaceSubtle)', fontSize: 12, color: 'var(--sem-eclipse-color-foregroundSecondary)' }}>
+            {startDate.toLocaleDateString('ko-KR')} 시작
+            {repeat !== 'none' && ` · ${repeatLabels[repeat]} 반복`}
+          </div>
+        )}
+        <div style={{ marginTop: 12, display: 'flex', gap: 8, justifyContent: 'flex-end' }}>
+          <button onClick={() => { setStartDate(undefined); setRepeat('none') }} style={{ fontSize: 12, padding: '7px 14px', borderRadius: 8, border: '1px solid var(--sem-eclipse-color-borderDefault)', background: 'transparent', color: 'var(--sem-eclipse-color-foregroundSecondary)', cursor: 'pointer' }}>초기화</button>
+          <button onClick={handleSave} disabled={!startDate} style={{ fontSize: 12, padding: '7px 14px', borderRadius: 8, border: 'none', background: startDate ? 'var(--sem-eclipse-color-fillPrimary)' : 'var(--sem-eclipse-color-borderDefault)', color: '#fff', cursor: startDate ? 'pointer' : 'not-allowed', fontWeight: 600, transition: 'all 0.15s' }}>
+            {saved ? '저장 완료!' : '일정 저장'}
+          </button>
+        </div>
+      </div>
+    )
+  },
+}
