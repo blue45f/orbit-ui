@@ -1898,3 +1898,218 @@ export const MUI_Mantine_계정_보안_종합_설정: Story = {
   },
   render: () => <MuiMantiineSecurityPanelRender />,
 }
+
+/* --------------------------------------------------------------------------
+   Figma Plugin UI — 플러그인 API 토큰 인증 폼
+-------------------------------------------------------------------------- */
+const TOKEN_RULES = [
+  { label: '8자 이상', check: (v: string) => v.length >= 8 },
+  { label: '대문자 포함', check: (v: string) => /[A-Z]/.test(v) },
+  { label: '숫자 포함', check: (v: string) => /\d/.test(v) },
+  { label: '특수문자 포함', check: (v: string) => /[!@#$%^&*]/.test(v) },
+]
+
+function FigmaPluginTokenAuthRender() {
+  const [token, setToken] = useState('')
+  const [saved, setSaved] = useState(false)
+
+  const strength = TOKEN_RULES.filter(r => r.check(token)).length
+  const strengthColors = ['#ef4444', '#f97316', '#eab308', '#22c55e']
+  const strengthLabels = ['매우 약함', '약함', '보통', '강함']
+
+  return (
+    <div style={{ width: 260, fontFamily: 'system-ui, sans-serif', background: '#2c2c2c', borderRadius: 8, padding: 16, border: '1px solid rgba(255,255,255,0.1)' }}>
+      <div style={{ fontSize: 11, fontWeight: 700, color: 'rgba(255,255,255,0.85)', marginBottom: 12, letterSpacing: '0.02em' }}>API 토큰 설정</div>
+      <PasswordField
+        value={token}
+        placeholder="토큰을 입력하세요"
+        error={token.length > 0 && strength < 3}
+        onChange={e => { setSaved(false); setToken(e.target.value) }}
+      />
+      {token.length > 0 && (
+        <div style={{ marginTop: 10 }}>
+          <div style={{ display: 'flex', gap: 4, marginBottom: 6 }}>
+            {TOKEN_RULES.map((_, i) => (
+              <div key={i} style={{ flex: 1, height: 3, borderRadius: 2, background: i < strength ? strengthColors[strength - 1] : 'rgba(255,255,255,0.15)', transition: 'background 0.2s' }} />
+            ))}
+          </div>
+          <div style={{ fontSize: 10, color: strengthColors[strength - 1] ?? '#94a3b8', marginBottom: 8 }}>
+            {strength > 0 ? strengthLabels[strength - 1] : '입력 중'}
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+            {TOKEN_RULES.map((rule, i) => (
+              <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 10, color: rule.check(token) ? '#4ade80' : 'rgba(255,255,255,0.35)' }}>
+                <span>{rule.check(token) ? '✓' : '○'}</span>
+                <span>{rule.label}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+      <button
+        onClick={() => { if (strength >= 3) setSaved(true) }}
+        disabled={strength < 3}
+        style={{ marginTop: 12, width: '100%', padding: '7px 0', borderRadius: 6, border: 'none', background: strength >= 3 ? '#6366f1' : 'rgba(255,255,255,0.1)', color: strength >= 3 ? '#fff' : 'rgba(255,255,255,0.3)', fontSize: 11, fontWeight: 600, cursor: strength >= 3 ? 'pointer' : 'not-allowed', transition: 'background 0.2s' }}
+      >
+        {saved ? '저장됨 ✓' : '토큰 저장'}
+      </button>
+    </div>
+  )
+}
+
+export const Figma_플러그인_API_토큰_인증_폼: Story = {
+  name: 'Figma Plugin UI — API 토큰 인증 폼',
+  render: () => <FigmaPluginTokenAuthRender />,
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Figma Plugin UI 패턴. 컴팩트한 다크 플러그인 패널에서 API 토큰 강도를 실시간 검증합니다. ' +
+          'Figma의 도구 팔레트 스타일과 인라인 피드백 UX를 반영합니다.',
+      },
+    },
+  },
+}
+
+/* --------------------------------------------------------------------------
+   Arco Design — 계정 보안 비밀번호 이중 확인
+-------------------------------------------------------------------------- */
+function ArcoSecurityDoubleConfirmRender() {
+  const [current, setCurrent] = useState('')
+  const [next, setNext] = useState('')
+  const [confirm, setConfirm] = useState('')
+  const [submitted, setSubmitted] = useState(false)
+
+  const mismatch = confirm.length > 0 && next !== confirm
+  const allFilled = current.length > 0 && next.length >= 8 && !mismatch
+
+  return (
+    <div style={{ width: 320, fontFamily: 'system-ui, sans-serif', background: '#fff', borderRadius: 8, border: '1px solid #e5e7eb', padding: '20px 20px 16px' }}>
+      <div style={{ fontSize: 14, fontWeight: 700, color: '#1f2937', marginBottom: 4 }}>비밀번호 변경</div>
+      <div style={{ fontSize: 12, color: '#6b7280', marginBottom: 16 }}>Arco Design 보안 정책에 따라 90일마다 변경을 권장합니다.</div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+        <div>
+          <div style={{ fontSize: 11, color: '#374151', fontWeight: 500, marginBottom: 4 }}>현재 비밀번호</div>
+          <PasswordField value={current} placeholder="현재 비밀번호" onChange={e => setCurrent(e.target.value)} />
+        </div>
+        <div>
+          <div style={{ fontSize: 11, color: '#374151', fontWeight: 500, marginBottom: 4 }}>새 비밀번호</div>
+          <PasswordField value={next} placeholder="8자 이상" error={next.length > 0 && next.length < 8} onChange={e => setNext(e.target.value)} />
+          {next.length > 0 && next.length < 8 && (
+            <div style={{ fontSize: 10, color: '#ef4444', marginTop: 4 }}>최소 8자 이상이어야 합니다.</div>
+          )}
+        </div>
+        <div>
+          <div style={{ fontSize: 11, color: '#374151', fontWeight: 500, marginBottom: 4 }}>비밀번호 확인</div>
+          <PasswordField value={confirm} placeholder="새 비밀번호 재입력" error={mismatch} onChange={e => setConfirm(e.target.value)} />
+          {mismatch && (
+            <div style={{ fontSize: 10, color: '#ef4444', marginTop: 4 }}>비밀번호가 일치하지 않습니다.</div>
+          )}
+        </div>
+      </div>
+      <button
+        onClick={() => { if (allFilled) setSubmitted(true) }}
+        disabled={!allFilled}
+        style={{ marginTop: 16, width: '100%', padding: '9px 0', borderRadius: 6, border: 'none', background: allFilled ? '#165dff' : '#e5e7eb', color: allFilled ? '#fff' : '#9ca3af', fontSize: 13, fontWeight: 600, cursor: allFilled ? 'pointer' : 'not-allowed' }}
+      >
+        {submitted ? '변경 완료 ✓' : '비밀번호 변경'}
+      </button>
+    </div>
+  )
+}
+
+export const Arco_계정_보안_비밀번호_이중_확인: Story = {
+  name: 'Arco Design — 계정 보안 비밀번호 이중 확인 폼',
+  render: () => <ArcoSecurityDoubleConfirmRender />,
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Arco Design 계정 보안 패턴. 현재→새→확인 3단계 비밀번호 변경 폼으로 불일치 시 실시간 에러를 표시합니다. ' +
+          'Arco의 청색 계열 액션 버튼과 엄격한 보안 검증 UX를 반영합니다.',
+      },
+    },
+  },
+}
+
+/* --------------------------------------------------------------------------
+   Figma + Arco — 워크스페이스 접근 인증 게이트
+-------------------------------------------------------------------------- */
+const WORKSPACE_STEPS = ['접근 코드', '비밀번호'] as const
+
+function FigmaArcoWorkspaceGateRender() {
+  const [step, setStep] = useState<0 | 1>(0)
+  const [accessCode, setAccessCode] = useState('')
+  const [password, setPassword] = useState('')
+  const [unlocked, setUnlocked] = useState(false)
+
+  const isCodeValid = accessCode === 'ORBIT'
+  const isPasswordValid = password.length >= 6
+
+  const handleNext = () => {
+    if (step === 0 && isCodeValid) setStep(1)
+    else if (step === 1 && isPasswordValid) setUnlocked(true)
+  }
+
+  if (unlocked) {
+    return (
+      <div style={{ width: 280, background: '#f0fdf4', borderRadius: 10, border: '1px solid #bbf7d0', padding: 24, textAlign: 'center' }}>
+        <div style={{ fontSize: 28, marginBottom: 8 }}>🔓</div>
+        <div style={{ fontSize: 14, fontWeight: 700, color: '#14532d' }}>워크스페이스 접근 허용</div>
+        <div style={{ fontSize: 12, color: '#16a34a', marginTop: 4 }}>Orbit UI Design System에 오신 것을 환영합니다.</div>
+        <button onClick={() => { setUnlocked(false); setStep(0); setAccessCode(''); setPassword('') }} style={{ marginTop: 14, fontSize: 11, color: '#6b7280', background: 'none', border: 'none', cursor: 'pointer' }}>초기화</button>
+      </div>
+    )
+  }
+
+  return (
+    <div style={{ width: 280, background: '#1e1e1e', borderRadius: 10, border: '1px solid rgba(255,255,255,0.1)', overflow: 'hidden' }}>
+      <div style={{ padding: '12px 16px', borderBottom: '1px solid rgba(255,255,255,0.08)', display: 'flex', alignItems: 'center', gap: 8 }}>
+        {WORKSPACE_STEPS.map((label, i) => (
+          <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+            <div style={{ width: 18, height: 18, borderRadius: '50%', background: i < step ? '#165dff' : i === step ? '#6366f1' : 'rgba(255,255,255,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 10, color: i <= step ? '#fff' : 'rgba(255,255,255,0.3)', fontWeight: 700, flexShrink: 0 }}>
+              {i < step ? '✓' : i + 1}
+            </div>
+            <span style={{ fontSize: 10, color: i === step ? 'rgba(255,255,255,0.85)' : 'rgba(255,255,255,0.3)', fontWeight: i === step ? 600 : 400 }}>{label}</span>
+            {i < WORKSPACE_STEPS.length - 1 && <span style={{ fontSize: 10, color: 'rgba(255,255,255,0.2)' }}>›</span>}
+          </div>
+        ))}
+      </div>
+      <div style={{ padding: '16px 16px 14px' }}>
+        {step === 0 ? (
+          <>
+            <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.5)', marginBottom: 8 }}>워크스페이스 접근 코드를 입력하세요.<br /><span style={{ color: '#818cf8' }}>힌트: 이 프로젝트 이름</span></div>
+            <PasswordField value={accessCode} placeholder="ACCESS CODE" error={accessCode.length > 0 && !isCodeValid} onChange={e => setAccessCode(e.target.value.toUpperCase())} />
+            {accessCode.length > 0 && !isCodeValid && <div style={{ fontSize: 10, color: '#ef4444', marginTop: 4 }}>잘못된 접근 코드입니다.</div>}
+          </>
+        ) : (
+          <>
+            <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.5)', marginBottom: 8 }}>관리자 비밀번호를 입력하세요 (6자 이상).</div>
+            <PasswordField value={password} placeholder="비밀번호" error={password.length > 0 && !isPasswordValid} onChange={e => setPassword(e.target.value)} />
+          </>
+        )}
+        <button
+          onClick={handleNext}
+          disabled={step === 0 ? !isCodeValid : !isPasswordValid}
+          style={{ marginTop: 12, width: '100%', padding: '8px 0', borderRadius: 6, border: 'none', background: (step === 0 ? isCodeValid : isPasswordValid) ? '#6366f1' : 'rgba(255,255,255,0.08)', color: (step === 0 ? isCodeValid : isPasswordValid) ? '#fff' : 'rgba(255,255,255,0.25)', fontSize: 12, fontWeight: 600, cursor: (step === 0 ? isCodeValid : isPasswordValid) ? 'pointer' : 'not-allowed' }}
+        >
+          {step === 0 ? '코드 확인' : '입장하기'}
+        </button>
+      </div>
+    </div>
+  )
+}
+
+export const Figma_Arco_워크스페이스_접근_인증_게이트: Story = {
+  name: 'Figma Plugin UI + Arco Design — 워크스페이스 접근 인증 게이트',
+  render: () => <FigmaArcoWorkspaceGateRender />,
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Figma Plugin UI + Arco Design 복합 패턴. 2단계 접근 인증 게이트(접근 코드 → 비밀번호)를 컴팩트한 다크 패널로 구현합니다. ' +
+          'Figma의 도구 패널 레이아웃과 Arco의 단계적 검증 패턴을 결합합니다. (접근 코드: ORBIT)',
+      },
+    },
+  },
+}

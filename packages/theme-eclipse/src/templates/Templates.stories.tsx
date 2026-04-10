@@ -40678,3 +40678,250 @@ export const RaycastNotion182CommandCenter: StoryObj = {
   },
   render: () => <RaycastNotion182Render />,
 }
+
+/* ==========================================================================
+   Cycle 183 — Figma Plugin UI + Arco Design: 에셋 브라우저 & 컴포넌트 관리
+========================================================================== */
+const ARCO183_COMPONENTS = Array.from({ length: 30 }, (_, i) => ({
+  id: i + 1,
+  name: ['AppBar', 'Avatar', 'Badge', 'Button', 'Calendar', 'Chip', 'DataTable', 'Drawer', 'Dialog', 'Dropdown'][i % 10],
+  category: ['Layout', 'Input', 'Feedback', 'Navigation', 'Data'][i % 5],
+  status: (['stable', 'beta', 'stable', 'stable', 'deprecated'] as const)[i % 5],
+  stories: 18 + (i % 8),
+  hasA11y: i % 4 !== 3,
+  icon: ['📐', '👤', '🏷️', '⬛', '📅', '🏅', '📊', '📑', '💬', '🔽'][i % 10],
+}))
+
+const A183_STATUS_STYLE: Record<string, { bg: string; color: string }> = {
+  stable: { bg: '#e8ffea', color: '#00b42a' },
+  beta: { bg: '#fff7e8', color: '#ff7d00' },
+  deprecated: { bg: '#f2f3f5', color: '#86909c' },
+}
+
+const A183_PAGE_SIZE = 10
+
+function FigmaArco183Render() {
+  const [page, setPage] = useState(1)
+  const [query, setQuery] = useState('')
+  const [filterStatus, setFilterStatus] = useState<string>('all')
+  const [filterA11y, setFilterA11y] = useState(false)
+  const [selectedId, setSelectedId] = useState<number | null>(null)
+  const [panelQuery, setPanelQuery] = useState('')
+  const [panelToken, setPanelToken] = useState('')
+  const [panelSaved, setPanelSaved] = useState(false)
+  const [view, setView] = useState<'grid' | 'table'>('grid')
+
+  const filtered = ARCO183_COMPONENTS.filter(c => {
+    const matchQ = c.name.toLowerCase().includes(query.toLowerCase()) || c.category.toLowerCase().includes(query.toLowerCase())
+    const matchS = filterStatus === 'all' || c.status === filterStatus
+    const matchA = !filterA11y || c.hasA11y
+    return matchQ && matchS && matchA
+  })
+
+  const totalPages = Math.max(1, Math.ceil(filtered.length / A183_PAGE_SIZE))
+  const pageItems = filtered.slice((page - 1) * A183_PAGE_SIZE, page * A183_PAGE_SIZE)
+  const selected = ARCO183_COMPONENTS.find(c => c.id === selectedId)
+
+  const tokenStrength = panelToken.length >= 8 && /[A-Z]/.test(panelToken) && /\d/.test(panelToken)
+
+  return (
+    <div style={{ display: 'flex', height: '100vh', fontFamily: "'Inter', system-ui, sans-serif", background: '#f7f8fa', overflow: 'hidden' }}>
+
+      {/* Figma-style left plugin panel */}
+      <div style={{ width: 200, background: '#2c2c2c', display: 'flex', flexDirection: 'column', flexShrink: 0, borderRight: '1px solid rgba(255,255,255,0.08)' }}>
+        <div style={{ padding: '14px 12px 10px', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
+          <div style={{ fontSize: 11, fontWeight: 700, color: 'rgba(255,255,255,0.85)', letterSpacing: '0.03em' }}>Orbit UI Plugin</div>
+          <div style={{ fontSize: 9, color: 'rgba(255,255,255,0.35)', marginTop: 2 }}>v2.4.1 · Figma Plugin</div>
+        </div>
+
+        {/* Plugin search */}
+        <div style={{ padding: '10px 12px', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
+          <div style={{ fontSize: 9, color: 'rgba(255,255,255,0.4)', marginBottom: 6, textTransform: 'uppercase', letterSpacing: '0.05em' }}>검색</div>
+          <input
+            value={panelQuery}
+            onChange={e => setPanelQuery(e.target.value)}
+            placeholder="컴포넌트 찾기..."
+            style={{ width: '100%', background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 5, padding: '5px 8px', fontSize: 10, color: 'rgba(255,255,255,0.8)', outline: 'none', boxSizing: 'border-box' }}
+          />
+        </div>
+
+        {/* Plugin API token */}
+        <div style={{ padding: '10px 12px', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
+          <div style={{ fontSize: 9, color: 'rgba(255,255,255,0.4)', marginBottom: 6, textTransform: 'uppercase', letterSpacing: '0.05em' }}>API 토큰</div>
+          <PasswordField
+            value={panelToken}
+            placeholder="토큰 입력"
+            error={panelToken.length > 0 && !tokenStrength}
+            onChange={e => { setPanelToken(e.target.value); setPanelSaved(false) }}
+          />
+          <button
+            onClick={() => { if (tokenStrength) setPanelSaved(true) }}
+            disabled={!tokenStrength}
+            style={{ marginTop: 6, width: '100%', padding: '5px 0', border: 'none', borderRadius: 4, background: tokenStrength ? '#6366f1' : 'rgba(255,255,255,0.06)', color: tokenStrength ? '#fff' : 'rgba(255,255,255,0.2)', fontSize: 10, fontWeight: 600, cursor: tokenStrength ? 'pointer' : 'not-allowed' }}
+          >
+            {panelSaved ? '저장됨 ✓' : '저장'}
+          </button>
+        </div>
+
+        {/* Shortcuts */}
+        <div style={{ padding: '10px 12px', flex: 1 }}>
+          <div style={{ fontSize: 9, color: 'rgba(255,255,255,0.4)', marginBottom: 8, textTransform: 'uppercase', letterSpacing: '0.05em' }}>단축키</div>
+          {[['⌘K', '검색'], ['⌘G', '그리드뷰'], ['⌘T', '테이블뷰'], ['⌘F', '필터']].map(([key, label]) => (
+            <div key={key} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '5px 0' }}>
+              <span style={{ fontSize: 10, fontFamily: 'monospace', color: '#818cf8', background: 'rgba(129,140,248,0.12)', padding: '1px 5px', borderRadius: 3 }}>{key}</span>
+              <span style={{ fontSize: 10, color: 'rgba(255,255,255,0.45)' }}>{label}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Main Arco-style content area */}
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+        {/* Top toolbar */}
+        <div style={{ height: 52, background: '#fff', borderBottom: '1px solid #e5e6eb', display: 'flex', alignItems: 'center', padding: '0 20px', gap: 12, flexShrink: 0 }}>
+          <span style={{ fontSize: 14, fontWeight: 700, color: '#1d2129' }}>컴포넌트 관리</span>
+          <Divider orientation="vertical" style={{ height: 16 }} />
+          <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+            <SearchBar
+              value={query}
+              onChange={e => { setQuery(e.target.value); setPage(1) }}
+              placeholder="컴포넌트 검색..."
+            />
+          </div>
+          <div style={{ display: 'flex', gap: 4 }}>
+            {(['all', 'stable', 'beta', 'deprecated'] as const).map(s => (
+              <button
+                key={s}
+                onClick={() => { setFilterStatus(s); setPage(1) }}
+                style={{ fontSize: 10, padding: '3px 10px', borderRadius: 12, border: `1px solid ${filterStatus === s ? '#165dff' : '#e5e6eb'}`, background: filterStatus === s ? '#e8f3ff' : '#fff', color: filterStatus === s ? '#165dff' : '#4e5969', cursor: 'pointer', fontWeight: filterStatus === s ? 600 : 400 }}
+              >
+                {s === 'all' ? '전체' : s}
+              </button>
+            ))}
+          </div>
+          <button
+            onClick={() => { setFilterA11y(p => !p); setPage(1) }}
+            style={{ fontSize: 10, padding: '3px 9px', borderRadius: 12, border: `1px solid ${filterA11y ? '#165dff' : '#e5e6eb'}`, background: filterA11y ? '#e8f3ff' : '#fff', color: filterA11y ? '#165dff' : '#4e5969', cursor: 'pointer' }}
+          >
+            ♿ A11y
+          </button>
+          <div style={{ marginLeft: 'auto', display: 'flex', gap: 4 }}>
+            {(['grid', 'table'] as const).map(v => (
+              <SolidIconButton key={v} size="small" color="black" onClick={() => setView(v)} style={{ outline: view === v ? '2px solid #165dff' : 'none', outlineOffset: 1 }}>
+                {v === 'grid' ? <GridViewLineIcon /> : <ListLineIcon />}
+              </SolidIconButton>
+            ))}
+          </div>
+        </div>
+
+        {/* Content */}
+        <div style={{ flex: 1, display: 'flex', overflow: 'hidden' }}>
+          <div style={{ flex: 1, overflowY: 'auto', padding: 20 }}>
+            <div style={{ fontSize: 11, color: '#86909c', marginBottom: 12 }}>
+              {filtered.length}개 컴포넌트 · {totalPages}페이지
+            </div>
+
+            {view === 'grid' ? (
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: 10 }}>
+                {pageItems.map(comp => (
+                  <div
+                    key={comp.id}
+                    onClick={() => setSelectedId(comp.id === selectedId ? null : comp.id)}
+                    style={{ background: '#fff', borderRadius: 8, border: `1px solid ${comp.id === selectedId ? '#165dff' : '#e5e6eb'}`, padding: '12px 8px', textAlign: 'center', cursor: 'pointer', transition: 'border-color 0.15s', boxShadow: comp.id === selectedId ? '0 0 0 2px #bedaff' : 'none' }}
+                  >
+                    <div style={{ fontSize: 22, marginBottom: 6 }}>{comp.icon}</div>
+                    <div style={{ fontSize: 11, fontWeight: 600, color: '#1d2129', marginBottom: 3 }}>{comp.name}</div>
+                    <div style={{ fontSize: 9, color: '#86909c', marginBottom: 5 }}>{comp.category}</div>
+                    <span style={{ fontSize: 9, padding: '1px 6px', borderRadius: 8, ...A183_STATUS_STYLE[comp.status], fontWeight: 500 }}>{comp.status}</span>
+                    {comp.hasA11y && <div style={{ fontSize: 9, color: '#165dff', marginTop: 3 }}>♿</div>}
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <table style={{ width: '100%', borderCollapse: 'collapse', background: '#fff', borderRadius: 8, overflow: 'hidden', border: '1px solid #e5e6eb' }}>
+                <thead>
+                  <tr style={{ background: '#f7f8fa' }}>
+                    {['컴포넌트', '카테고리', '상태', 'Stories', 'A11y'].map(col => (
+                      <th key={col} style={{ padding: '8px 14px', textAlign: 'left', fontSize: 11, fontWeight: 600, color: '#4e5969', borderBottom: '1px solid #e5e6eb' }}>{col}</th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {pageItems.map((comp, i) => (
+                    <tr key={comp.id} onClick={() => setSelectedId(comp.id === selectedId ? null : comp.id)} style={{ background: comp.id === selectedId ? '#e8f3ff' : i % 2 === 0 ? '#fff' : '#fafafa', cursor: 'pointer' }}>
+                      <td style={{ padding: '9px 14px', fontSize: 12, color: '#1d2129', fontWeight: 500, borderBottom: '1px solid #f2f3f5' }}>
+                        <span style={{ marginRight: 6 }}>{comp.icon}</span>{comp.name}
+                      </td>
+                      <td style={{ padding: '9px 14px', fontSize: 11, color: '#4e5969', borderBottom: '1px solid #f2f3f5' }}>{comp.category}</td>
+                      <td style={{ padding: '9px 14px', borderBottom: '1px solid #f2f3f5' }}>
+                        <span style={{ fontSize: 10, padding: '2px 8px', borderRadius: 10, ...A183_STATUS_STYLE[comp.status], fontWeight: 500 }}>{comp.status}</span>
+                      </td>
+                      <td style={{ padding: '9px 14px', fontSize: 11, color: '#4e5969', borderBottom: '1px solid #f2f3f5', fontFamily: 'monospace' }}>{comp.stories}</td>
+                      <td style={{ padding: '9px 14px', fontSize: 12, borderBottom: '1px solid #f2f3f5', color: comp.hasA11y ? '#165dff' : '#c9cdd4' }}>{comp.hasA11y ? '♿' : '—'}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            )}
+
+            {/* Pagination */}
+            <div style={{ marginTop: 16, display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: 8 }}>
+              <span style={{ fontSize: 11, color: '#86909c' }}>
+                {(page - 1) * A183_PAGE_SIZE + 1}–{Math.min(page * A183_PAGE_SIZE, filtered.length)} / {filtered.length}
+              </span>
+              <button onClick={() => setPage(p => Math.max(1, p - 1))} disabled={page === 1} style={{ padding: '5px 12px', fontSize: 11, borderRadius: 4, border: '1px solid #e5e6eb', background: '#fff', color: page === 1 ? '#c9cdd4' : '#4e5969', cursor: page === 1 ? 'not-allowed' : 'pointer' }}>이전</button>
+              <PageNumber current={page} total={totalPages} />
+              <button onClick={() => setPage(p => Math.min(totalPages, p + 1))} disabled={page === totalPages} style={{ padding: '5px 12px', fontSize: 11, borderRadius: 4, border: '1px solid #e5e6eb', background: '#fff', color: page === totalPages ? '#c9cdd4' : '#4e5969', cursor: page === totalPages ? 'not-allowed' : 'pointer' }}>다음</button>
+            </div>
+          </div>
+
+          {/* Right detail panel — shown when item selected */}
+          {selected && (
+            <div style={{ width: 220, background: '#fff', borderLeft: '1px solid #e5e6eb', padding: 16, flexShrink: 0, overflowY: 'auto' }}>
+              <div style={{ textAlign: 'center', marginBottom: 14 }}>
+                <div style={{ fontSize: 32, marginBottom: 8 }}>{selected.icon}</div>
+                <div style={{ fontSize: 14, fontWeight: 700, color: '#1d2129' }}>{selected.name}</div>
+                <div style={{ fontSize: 11, color: '#86909c', marginTop: 2 }}>{selected.category}</div>
+                <span style={{ display: 'inline-block', marginTop: 6, fontSize: 10, padding: '2px 9px', borderRadius: 10, ...A183_STATUS_STYLE[selected.status], fontWeight: 500 }}>{selected.status}</span>
+              </div>
+              <Divider />
+              <div style={{ marginTop: 12, display: 'flex', flexDirection: 'column', gap: 8 }}>
+                {[
+                  ['Stories', `${selected.stories}개`],
+                  ['A11y', selected.hasA11y ? '지원' : '미지원'],
+                  ['ID', `#${selected.id}`],
+                ].map(([label, value]) => (
+                  <div key={label} style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11 }}>
+                    <span style={{ color: '#86909c' }}>{label}</span>
+                    <span style={{ color: '#1d2129', fontWeight: 500 }}>{value}</span>
+                  </div>
+                ))}
+              </div>
+              <div style={{ marginTop: 14, display: 'flex', flexDirection: 'column', gap: 6 }}>
+                <SolidButton size="small" color="primary">
+                  <SolidButton.Center>스토리 보기</SolidButton.Center>
+                </SolidButton>
+                <OutlineButton size="small" color="black">
+                  <OutlineButton.Center>Figma 열기</OutlineButton.Center>
+                </OutlineButton>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const FigmaArco183AssetBrowser: StoryObj = {
+  name: 'Figma Plugin UI + Arco Design — 에셋 브라우저 & 컴포넌트 관리 (Cycle 183)',
+  parameters: {
+    layout: 'fullscreen',
+    docs: {
+      description: {
+        story: 'Figma Plugin UI + Arco Design 복합 패턴. 좌측: Figma 플러그인 패널(API 토큰 인증 PasswordField + 단축키) / 우측: Arco 스타일 컴포넌트 브라우저(검색·필터·그리드·테이블 뷰 + PageNumber 페이지네이션 + 상세 사이드패널).',
+      },
+    },
+  },
+  render: () => <FigmaArco183Render />,
+}

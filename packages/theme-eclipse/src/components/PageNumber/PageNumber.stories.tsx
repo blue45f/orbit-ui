@@ -1125,3 +1125,218 @@ export const Vercel_Ant_성능지표_대시보드_페이지네이션: Story = {
   },
   render: () => <VercelAntDashboardPaginationRender />,
 }
+
+/* --------------------------------------------------------------------------
+   Figma Plugin UI — 에셋 검색 결과 페이지네이션
+-------------------------------------------------------------------------- */
+const FIGMA_ASSETS = Array.from({ length: 48 }, (_, i) => ({
+  id: i + 1,
+  name: ['Button', 'Input', 'Card', 'Modal', 'Badge', 'Icon', 'Avatar', 'Chip'][i % 8] + `_${Math.floor(i / 8) + 1}`,
+  type: ['Component', 'Frame', 'Group', 'Auto Layout'][i % 4],
+  updated: `${Math.floor(Math.random() * 24) + 1}h 전`,
+}))
+
+const FIGMA_PAGE_SIZE = 8
+
+function FigmaAssetSearchPaginationRender() {
+  const [page, setPage] = useState(1)
+  const [query, setQuery] = useState('')
+  const filtered = FIGMA_ASSETS.filter(a => a.name.toLowerCase().includes(query.toLowerCase()))
+  const totalPages = Math.max(1, Math.ceil(filtered.length / FIGMA_PAGE_SIZE))
+  const items = filtered.slice((page - 1) * FIGMA_PAGE_SIZE, page * FIGMA_PAGE_SIZE)
+
+  return (
+    <div style={{ width: 260, background: '#2c2c2c', borderRadius: 8, border: '1px solid rgba(255,255,255,0.1)', fontFamily: 'system-ui, sans-serif', overflow: 'hidden' }}>
+      <div style={{ padding: '10px 12px', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
+        <input
+          value={query}
+          onChange={e => { setQuery(e.target.value); setPage(1) }}
+          placeholder="에셋 검색..."
+          style={{ width: '100%', background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.12)', borderRadius: 5, padding: '5px 8px', fontSize: 11, color: 'rgba(255,255,255,0.8)', outline: 'none', boxSizing: 'border-box' }}
+        />
+      </div>
+      <div style={{ padding: '8px 12px', fontSize: 10, color: 'rgba(255,255,255,0.35)', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
+        {filtered.length}개 결과
+      </div>
+      <div style={{ padding: '6px 0', maxHeight: 200, overflowY: 'auto' }}>
+        {items.length === 0 ? (
+          <div style={{ padding: '16px', textAlign: 'center', fontSize: 11, color: 'rgba(255,255,255,0.3)' }}>결과 없음</div>
+        ) : items.map(asset => (
+          <div key={asset.id} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '6px 12px', cursor: 'pointer' }}>
+            <div style={{ width: 18, height: 18, borderRadius: 3, background: ['#6366f1', '#10b981', '#f59e0b', '#ef4444'][asset.id % 4] + '30', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 9, color: ['#818cf8', '#34d399', '#fbbf24', '#f87171'][asset.id % 4], flexShrink: 0, fontWeight: 700 }}>
+              {asset.type[0]}
+            </div>
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.8)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{asset.name}</div>
+              <div style={{ fontSize: 9, color: 'rgba(255,255,255,0.3)' }}>{asset.type} · {asset.updated}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+      {totalPages > 1 && (
+        <div style={{ padding: '8px 12px', borderTop: '1px solid rgba(255,255,255,0.08)', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8 }}>
+          <button onClick={() => setPage(p => Math.max(1, p - 1))} disabled={page === 1} style={{ fontSize: 10, padding: '3px 7px', border: 'none', borderRadius: 4, background: 'rgba(255,255,255,0.06)', color: page === 1 ? 'rgba(255,255,255,0.2)' : 'rgba(255,255,255,0.6)', cursor: page === 1 ? 'not-allowed' : 'pointer' }}>‹</button>
+          <PageNumber current={page} total={totalPages} />
+          <button onClick={() => setPage(p => Math.min(totalPages, p + 1))} disabled={page === totalPages} style={{ fontSize: 10, padding: '3px 7px', border: 'none', borderRadius: 4, background: 'rgba(255,255,255,0.06)', color: page === totalPages ? 'rgba(255,255,255,0.2)' : 'rgba(255,255,255,0.6)', cursor: page === totalPages ? 'not-allowed' : 'pointer' }}>›</button>
+        </div>
+      )}
+    </div>
+  )
+}
+
+export const Figma_에셋_검색_결과_페이지네이션: Story = {
+  name: 'Figma Plugin UI — 에셋 검색 결과 페이지네이션',
+  render: () => <FigmaAssetSearchPaginationRender />,
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Figma Plugin UI 에셋 검색 패턴. 컴팩트한 다크 패널에서 컴포넌트/프레임을 검색하고 PageNumber로 페이지네이션합니다. ' +
+          'Figma 에셋 브라우저의 밀도감 있는 리스트 UI를 재현합니다.',
+      },
+    },
+  },
+}
+
+/* --------------------------------------------------------------------------
+   Arco Design — 고급 데이터 테이블 페이지네이션
+-------------------------------------------------------------------------- */
+const ARCO_TABLE_DATA = Array.from({ length: 50 }, (_, i) => ({
+  id: i + 1,
+  component: ['Button', 'Input', 'Select', 'Table', 'Modal', 'Drawer', 'Form', 'Badge', 'Avatar', 'Tag'][i % 10],
+  category: ['Inputs', 'Navigation', 'Feedback', 'Data Display', 'Layout'][i % 5],
+  status: ['stable', 'beta', 'deprecated'][i % 3],
+  version: `${Math.floor(i / 10) + 1}.${i % 5}.0`,
+}))
+
+const STATUS_COLOR: Record<string, string> = { stable: '#00b42a', beta: '#ff7d00', deprecated: '#86909c' }
+const STATUS_BG: Record<string, string> = { stable: '#e8ffea', beta: '#fff7e8', deprecated: '#f2f3f5' }
+const ARCO_PAGE_SIZE = 8
+
+function ArcoAdvancedTablePaginationRender() {
+  const [page, setPage] = useState(1)
+  const totalPages = Math.ceil(ARCO_TABLE_DATA.length / ARCO_PAGE_SIZE)
+  const items = ARCO_TABLE_DATA.slice((page - 1) * ARCO_PAGE_SIZE, page * ARCO_PAGE_SIZE)
+
+  return (
+    <div style={{ width: 420, fontFamily: 'system-ui, sans-serif', background: '#fff', borderRadius: 8, border: '1px solid #e5e6eb' }}>
+      <div style={{ padding: '12px 16px', borderBottom: '1px solid #e5e6eb', display: 'flex', alignItems: 'center' }}>
+        <span style={{ fontSize: 13, fontWeight: 600, color: '#1d2129' }}>컴포넌트 레지스트리</span>
+        <span style={{ marginLeft: 8, fontSize: 11, color: '#86909c' }}>총 {ARCO_TABLE_DATA.length}개</span>
+      </div>
+      <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+        <thead>
+          <tr style={{ background: '#f7f8fa' }}>
+            {['컴포넌트', '카테고리', '상태', '버전'].map(col => (
+              <th key={col} style={{ padding: '8px 12px', textAlign: 'left', fontSize: 11, fontWeight: 600, color: '#4e5969', borderBottom: '1px solid #e5e6eb' }}>{col}</th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {items.map((row, i) => (
+            <tr key={row.id} style={{ background: i % 2 === 0 ? '#fff' : '#fafafa' }}>
+              <td style={{ padding: '8px 12px', fontSize: 12, color: '#1d2129', borderBottom: '1px solid #f2f3f5', fontWeight: 500 }}>{row.component}</td>
+              <td style={{ padding: '8px 12px', fontSize: 11, color: '#4e5969', borderBottom: '1px solid #f2f3f5' }}>{row.category}</td>
+              <td style={{ padding: '8px 12px', borderBottom: '1px solid #f2f3f5' }}>
+                <span style={{ fontSize: 10, padding: '2px 7px', borderRadius: 10, background: STATUS_BG[row.status], color: STATUS_COLOR[row.status], fontWeight: 500 }}>{row.status}</span>
+              </td>
+              <td style={{ padding: '8px 12px', fontSize: 11, color: '#86909c', borderBottom: '1px solid #f2f3f5', fontFamily: 'monospace' }}>{row.version}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <div style={{ padding: '10px 16px', borderTop: '1px solid #e5e6eb', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <div style={{ fontSize: 11, color: '#86909c' }}>
+          {(page - 1) * ARCO_PAGE_SIZE + 1}–{Math.min(page * ARCO_PAGE_SIZE, ARCO_TABLE_DATA.length)} / {ARCO_TABLE_DATA.length}
+        </div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+          <button onClick={() => setPage(p => Math.max(1, p - 1))} disabled={page === 1} style={{ padding: '4px 10px', fontSize: 11, borderRadius: 4, border: '1px solid #e5e6eb', background: '#fff', color: page === 1 ? '#c9cdd4' : '#4e5969', cursor: page === 1 ? 'not-allowed' : 'pointer' }}>이전</button>
+          <PageNumber current={page} total={totalPages} />
+          <button onClick={() => setPage(p => Math.min(totalPages, p + 1))} disabled={page === totalPages} style={{ padding: '4px 10px', fontSize: 11, borderRadius: 4, border: '1px solid #e5e6eb', background: '#fff', color: page === totalPages ? '#c9cdd4' : '#4e5969', cursor: page === totalPages ? 'not-allowed' : 'pointer' }}>다음</button>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const Arco_고급_데이터_테이블_페이지네이션: Story = {
+  name: 'Arco Design — 고급 데이터 테이블 페이지네이션',
+  render: () => <ArcoAdvancedTablePaginationRender />,
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Arco Design 데이터 테이블 페이지네이션 패턴. 줄무늬 배경(zebra stripe)과 상태 배지가 있는 테이블을 PageNumber로 페이지네이션합니다. ' +
+          'Arco의 청색-회색 계열 색상과 컴팩트한 테이블 밀도를 반영합니다.',
+      },
+    },
+  },
+}
+
+/* --------------------------------------------------------------------------
+   Figma + Arco — 컴포넌트 라이브러리 브라우저 페이지네이션
+-------------------------------------------------------------------------- */
+const LIBRARY_COMPONENTS = Array.from({ length: 36 }, (_, i) => ({
+  id: i + 1,
+  name: ['AppBar', 'Avatar', 'Badge', 'Button', 'Calendar', 'Carousel', 'Chip', 'Command', 'DataTable', 'Dialog', 'Divider', 'Drawer'][i % 12] + (i >= 12 ? `_v${Math.floor(i / 12) + 1}` : ''),
+  stories: Math.floor(Math.random() * 10) + 15,
+  hasA11y: i % 3 !== 2,
+}))
+
+const LIBRARY_PAGE_SIZE = 9
+
+function FigmaArcoLibraryBrowserRender() {
+  const [page, setPage] = useState(1)
+  const [filterA11y, setFilterA11y] = useState(false)
+  const filtered = filterA11y ? LIBRARY_COMPONENTS.filter(c => c.hasA11y) : LIBRARY_COMPONENTS
+  const totalPages = Math.max(1, Math.ceil(filtered.length / LIBRARY_PAGE_SIZE))
+  const items = filtered.slice((page - 1) * LIBRARY_PAGE_SIZE, page * LIBRARY_PAGE_SIZE)
+
+  return (
+    <div style={{ width: 340, fontFamily: 'system-ui, sans-serif', background: '#f7f8fa', borderRadius: 10, border: '1px solid #e5e6eb', overflow: 'hidden' }}>
+      <div style={{ padding: '12px 14px', background: '#fff', borderBottom: '1px solid #e5e6eb', display: 'flex', alignItems: 'center', gap: 10 }}>
+        <span style={{ fontSize: 13, fontWeight: 700, color: '#1d2129' }}>컴포넌트 라이브러리</span>
+        <button
+          onClick={() => { setFilterA11y(p => !p); setPage(1) }}
+          style={{ marginLeft: 'auto', fontSize: 10, padding: '3px 8px', borderRadius: 12, border: `1px solid ${filterA11y ? '#165dff' : '#e5e6eb'}`, background: filterA11y ? '#e8f3ff' : '#fff', color: filterA11y ? '#165dff' : '#86909c', cursor: 'pointer', fontWeight: 500 }}
+        >
+          ♿ A11y만
+        </button>
+      </div>
+      <div style={{ padding: 10, display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 8 }}>
+        {items.map(comp => (
+          <div key={comp.id} style={{ background: '#fff', borderRadius: 8, border: '1px solid #e5e6eb', padding: '10px 8px', textAlign: 'center', cursor: 'pointer' }}>
+            <div style={{ width: 32, height: 32, borderRadius: 8, background: '#e8f3ff', margin: '0 auto 6px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 14 }}>
+              {['🔘', '👤', '🏷️', '⬛', '📅', '🎠', '🏅', '🔍', '📊', '💬', '➖', '📑'][comp.id % 12]}
+            </div>
+            <div style={{ fontSize: 10, fontWeight: 600, color: '#1d2129', marginBottom: 2, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{comp.name.split('_')[0]}</div>
+            <div style={{ fontSize: 9, color: '#86909c' }}>{comp.stories} stories</div>
+            {comp.hasA11y && <div style={{ fontSize: 9, color: '#165dff', marginTop: 2 }}>♿</div>}
+          </div>
+        ))}
+      </div>
+      <div style={{ padding: '10px 14px', background: '#fff', borderTop: '1px solid #e5e6eb', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <span style={{ fontSize: 11, color: '#86909c' }}>{filtered.length}개 컴포넌트</span>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+          <button onClick={() => setPage(p => Math.max(1, p - 1))} disabled={page === 1} style={{ padding: '3px 8px', fontSize: 11, border: '1px solid #e5e6eb', borderRadius: 4, background: '#fff', color: page === 1 ? '#c9cdd4' : '#4e5969', cursor: page === 1 ? 'not-allowed' : 'pointer' }}>‹</button>
+          <PageNumber current={page} total={totalPages} />
+          <button onClick={() => setPage(p => Math.min(totalPages, p + 1))} disabled={page === totalPages} style={{ padding: '3px 8px', fontSize: 11, border: '1px solid #e5e6eb', borderRadius: 4, background: '#fff', color: page === totalPages ? '#c9cdd4' : '#4e5969', cursor: page === totalPages ? 'not-allowed' : 'pointer' }}>›</button>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const Figma_Arco_컴포넌트_라이브러리_브라우저: Story = {
+  name: 'Figma Plugin UI + Arco Design — 컴포넌트 라이브러리 브라우저',
+  render: () => <FigmaArcoLibraryBrowserRender />,
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Figma Plugin UI + Arco Design 복합 패턴. Figma 에셋 패널 레이아웃과 Arco의 그리드+필터 패턴을 결합합니다. ' +
+          '3열 카드 그리드로 컴포넌트를 표시하고 접근성 필터와 PageNumber로 페이지네이션합니다.',
+      },
+    },
+  },
+}
