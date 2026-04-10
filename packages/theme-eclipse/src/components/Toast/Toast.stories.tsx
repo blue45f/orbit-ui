@@ -1243,3 +1243,144 @@ export const Chakra_Arco_다단계_폼_제출_알림: Story = {
     },
   },
 }
+
+// ─── Cycle 153: Mantine + Notion ───────────────────────────────────────────
+
+function MantineNotificationStackRender(args: React.ComponentProps<typeof Toaster>) {
+  const [count, setCount] = useState(0)
+  const notifications = [
+    { title: '파일 업로드 완료', desc: 'report_q4.pdf 업로드됨', type: 'success' as const },
+    { title: '빌드 실패', desc: 'main 브랜치 CI 오류', type: 'error' as const },
+    { title: '새 댓글', desc: '홍길동이 문서에 댓글을 남겼습니다', type: 'info' as const },
+    { title: '동기화 중', desc: '변경 사항을 저장 중...', type: 'loading' as const },
+  ]
+  const addNotification = () => {
+    const n = notifications[count % notifications.length]
+    setCount(c => c + 1)
+    if (n.type === 'success') toast.success(n.title, { description: n.desc })
+    else if (n.type === 'error') toast.error(n.title, { description: n.desc })
+    else if (n.type === 'loading') toast.loading(n.title, { description: n.desc })
+    else toast.info(n.title, { description: n.desc })
+  }
+  const clearAll = () => toast.dismiss()
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 10, fontFamily: 'Inter, system-ui, sans-serif' }}>
+      <Toaster {...args} />
+      <div style={{ fontSize: 12, fontWeight: 700, color: '#6b7280' }}>Mantine 알림 스택 관리</div>
+      <div style={{ display: 'flex', gap: 8 }}>
+        <Button color="black" size="small" onClick={addNotification}>
+          <Button.Center>알림 추가</Button.Center>
+        </Button>
+        <Button color="gray" size="small" onClick={clearAll}>
+          <Button.Center>전체 닫기</Button.Center>
+        </Button>
+      </div>
+      <div style={{ fontSize: 11, color: '#9ca3af' }}>성공 → 오류 → 정보 → 로딩 순환 (Mantine useNotifications 패턴)</div>
+    </div>
+  )
+}
+
+export const Mantine_알림_스택_관리: Story = {
+  name: 'Mantine - 알림 스택 관리 시스템',
+  render: (args) => <MantineNotificationStackRender {...args} />,
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Mantine useNotifications 패턴. 성공·오류·정보·로딩 4종 알림을 스택 방식으로 축적하고 전체 일괄 해제를 지원합니다. ' +
+          'Mantine Notifications의 limit·autoClose·closeOnClick 옵션을 Sonner API로 재현합니다.',
+      },
+    },
+  },
+}
+
+function NotionTaskConfirmRender(args: React.ComponentProps<typeof Toaster>) {
+  const TASKS = ['디자인 시스템 토큰 정리', '컴포넌트 문서 업데이트', '스프린트 회고 작성', 'API 엔드포인트 명세']
+  const [completed, setCompleted] = useState<string[]>([])
+  const completeTask = (task: string) => {
+    setCompleted(prev => [...prev, task])
+    toast.success(`완료: ${task}`, {
+      description: '작업이 완료 목록으로 이동되었습니다',
+      action: { label: '실행 취소', onClick: () => setCompleted(prev => prev.filter(t => t !== task)) },
+    })
+  }
+  return (
+    <div style={{ width: 300, fontFamily: 'Inter, system-ui, sans-serif', color: '#1e293b' }}>
+      <Toaster {...args} />
+      <div style={{ fontSize: 13, fontWeight: 700, marginBottom: 10 }}>오늘의 작업</div>
+      {TASKS.map(task => (
+        <div key={task} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '6px 0', borderBottom: '1px solid #f1f5f9' }}>
+          <input
+            type="checkbox"
+            checked={completed.includes(task)}
+            onChange={() => { if (!completed.includes(task)) completeTask(task) }}
+            style={{ accentColor: '#000', width: 14, height: 14, cursor: 'pointer' }}
+          />
+          <span style={{ fontSize: 13, color: completed.includes(task) ? '#94a3b8' : '#1e293b', textDecoration: completed.includes(task) ? 'line-through' : 'none' }}>
+            {task}
+          </span>
+        </div>
+      ))}
+      <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 8 }}>{completed.length}/{TASKS.length} 완료 — Notion 체크박스 패턴</div>
+    </div>
+  )
+}
+
+export const Notion_작업_완료_확인_토스트: Story = {
+  name: 'Notion - 작업 완료 확인 Toast (실행 취소 지원)',
+  render: (args) => <NotionTaskConfirmRender {...args} />,
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Notion 체크박스 완료 패턴. 작업 체크 시 완료 Toast가 표시되며 "실행 취소" 액션으로 체크 해제를 지원합니다. ' +
+          'Notion의 인라인 체크박스 UX와 undo 패턴을 재현합니다.',
+      },
+    },
+  },
+}
+
+function MantineNotionCollabRender(args: React.ComponentProps<typeof Toaster>) {
+  const [active, setActive] = useState(false)
+  const events = [
+    { user: '김민준', action: '페이지를 편집 중', icon: '✏️' },
+    { user: '이서연', action: '댓글을 남겼습니다', icon: '💬' },
+    { user: '박도현', action: '파일을 업로드했습니다', icon: '📎' },
+    { user: '최지아', action: '멘션했습니다', icon: '@' },
+  ]
+  const simulateCollab = () => {
+    if (active) return
+    setActive(true)
+    events.forEach((ev, i) => {
+      setTimeout(() => {
+        toast(`${ev.icon} ${ev.user}`, { description: ev.action, duration: 3000 })
+        if (i === events.length - 1) setTimeout(() => setActive(false), 500)
+      }, i * 1200)
+    })
+  }
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 10, fontFamily: 'Inter, system-ui, sans-serif' }}>
+      <Toaster {...args} />
+      <div style={{ fontSize: 12, fontWeight: 700, color: '#6b7280' }}>Mantine + Notion 실시간 협업 알림</div>
+      <div style={{ fontSize: 11, color: '#9ca3af' }}>4명의 팀원이 순차적으로 활동합니다</div>
+      <Button color="black" size="small" onClick={simulateCollab} disabled={active}>
+        <Button.Center>{active ? '시뮬레이션 중...' : '협업 시뮬레이션'}</Button.Center>
+      </Button>
+      <div style={{ fontSize: 11, color: '#9ca3af' }}>Mantine Notifications + Notion 실시간 협업 UI 패턴</div>
+    </div>
+  )
+}
+
+export const Mantine_Notion_실시간_협업_알림: Story = {
+  name: 'Mantine + Notion - 실시간 협업 알림 스트림',
+  render: (args) => <MantineNotionCollabRender {...args} />,
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Mantine + Notion 복합 패턴. 여러 팀원의 실시간 활동(편집·댓글·업로드·멘션)이 1.2초 간격으로 Toast 스트림으로 전달됩니다. ' +
+          'Notion 협업 공간의 실시간 알림 UX와 Mantine 알림 지속시간 설정을 재현합니다.',
+      },
+    },
+  },
+}

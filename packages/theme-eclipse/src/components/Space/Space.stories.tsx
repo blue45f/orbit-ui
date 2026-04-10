@@ -1104,3 +1104,134 @@ export const Linear_Vercel_단축키_참조_레이아웃: Story = {
     </div>
   ),
 }
+
+// ─── Cycle 153: Mantine + Notion ───────────────────────────────────────────
+
+export const Mantine_컴포넌트_간격_시스템: Story = {
+  name: 'Mantine - 컴포넌트 간격 시스템 쇼케이스',
+  render: () => {
+    const SECTIONS = [
+      { label: '헤더', height: 48, color: '#e0f2fe' },
+      { label: '내비게이션', height: 36, color: '#f0fdf4' },
+      { label: '콘텐츠 영역', height: 80, color: '#fefce8' },
+      { label: '푸터', height: 36, color: '#fdf4ff' },
+    ] as const
+    const GAPS = ['75', '150', '200', '300'] as const
+    return (
+      <div style={{ width: 360, fontFamily: 'Inter, system-ui, sans-serif', color: '#1e293b' }}>
+        <div style={{ fontSize: 13, fontWeight: 700, marginBottom: 12 }}>Mantine 간격 시스템</div>
+        {SECTIONS.map((section, i) => (
+          <div key={section.label}>
+            {i > 0 && (
+              <div style={{ position: 'relative' }}>
+                <Space y={GAPS[i - 1] as Spacing} />
+                <div style={{ position: 'absolute', top: '50%', left: 0, right: 0, transform: 'translateY(-50%)', display: 'flex', alignItems: 'center', gap: 4, pointerEvents: 'none' }}>
+                  <div style={{ flex: 1, height: 1, background: '#e2e8f0', borderStyle: 'dashed' }} />
+                  <span style={{ fontSize: 10, color: '#94a3b8', whiteSpace: 'nowrap' }}>{'Space y="' + GAPS[i - 1] + '"'}</span>
+                  <div style={{ flex: 1, height: 1, background: '#e2e8f0' }} />
+                </div>
+              </div>
+            )}
+            <div style={{ height: section.height, background: section.color, borderRadius: 6, display: 'flex', alignItems: 'center', paddingLeft: 12, fontSize: 12, fontWeight: 500, color: '#475569' }}>
+              {section.label}
+            </div>
+          </div>
+        ))}
+        <div style={{ marginTop: 12, fontSize: 11, color: '#94a3b8' }}>Mantine Stack/Group의 spacing prop을 Space 토큰으로 시각화</div>
+      </div>
+    )
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Mantine Stack 컴포넌트의 spacing 시스템 패턴. 헤더·내비·콘텐츠·푸터 4개 섹션 사이에 서로 다른 Space 토큰을 적용해 ' +
+          '레이아웃 계층 간격을 시각적으로 표현합니다.',
+      },
+    },
+  },
+}
+
+export const Notion_페이지_레이아웃_공백: Story = {
+  name: 'Notion - 페이지 레이아웃 공백 구조',
+  render: () => {
+    const BLOCKS = [
+      { type: 'title', text: '2024 Q4 회고 보고서', fontSize: 22, fontWeight: 800, space: '200' },
+      { type: 'subtitle', text: '작성자: 디자인 시스템 팀 · 2024년 12월', fontSize: 13, color: '#94a3b8', space: '150' },
+      { type: 'heading', text: '개요', fontSize: 16, fontWeight: 700, space: '100' },
+      { type: 'body', text: '이번 분기 디자인 시스템 팀은 총 48개의 컴포넌트를 고도화하였으며, 접근성 기준을 WCAG 2.1 AA로 강화했습니다.', fontSize: 13, space: '300' },
+      { type: 'heading', text: '주요 성과', fontSize: 16, fontWeight: 700, space: '100' },
+      { type: 'body', text: '스토리북 스토리 수: 150+ · 타입 검사 통과율: 100% · 배포 횟수: 52회', fontSize: 13, space: '200' },
+    ] as const
+    return (
+      <div style={{ width: 500, fontFamily: 'Inter, system-ui, sans-serif', color: '#1e293b', padding: '24px 0' }}>
+        {BLOCKS.map((block, i) => (
+          <div key={i}>
+            <div style={{ fontSize: block.fontSize, fontWeight: (block as { fontWeight?: number }).fontWeight ?? 400, color: (block as { color?: string }).color ?? '#1e293b', lineHeight: 1.5 }}>
+              {block.text}
+            </div>
+            {i < BLOCKS.length - 1 && <Space y={block.space as Spacing} />}
+          </div>
+        ))}
+        <div style={{ marginTop: 16, fontSize: 11, color: '#94a3b8' }}>Notion 페이지 블록 간 수직 공백 — Space 토큰 계층 반영</div>
+      </div>
+    )
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Notion 페이지 에디터의 블록 간격 패턴. 제목·부제목·헤딩·본문 블록에 맞게 Space 토큰을 달리 적용해 ' +
+          '읽기 흐름에 맞는 수직 리듬을 구성합니다.',
+      },
+    },
+  },
+}
+
+export const Mantine_Notion_대시보드_그리드_공백: Story = {
+  name: 'Mantine + Notion - 대시보드 그리드 공백 레이아웃',
+  render: () => {
+    const CARDS = [
+      { label: '총 페이지', value: '1,284', sub: '+12 이번 주', color: '#eff6ff' },
+      { label: '공유 문서', value: '342', sub: '팀 전체 공개', color: '#f0fdf4' },
+      { label: '댓글', value: '89', sub: '미해결 7건', color: '#fefce8' },
+      { label: '멤버', value: '24', sub: '활성 18명', color: '#fdf4ff' },
+    ] as const
+    return (
+      <div style={{ width: 420, fontFamily: 'Inter, system-ui, sans-serif', color: '#1e293b' }}>
+        <div style={{ fontSize: 14, fontWeight: 700 }}>워크스페이스 현황</div>
+        <Space y="200" />
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+          {CARDS.map(card => (
+            <div key={card.label} style={{ background: card.color, borderRadius: 8, padding: 14 }}>
+              <div style={{ fontSize: 11, color: '#64748b' }}>{card.label}</div>
+              <Space y="75" />
+              <div style={{ fontSize: 20, fontWeight: 800 }}>{card.value}</div>
+              <Space y="50" />
+              <div style={{ fontSize: 11, color: '#94a3b8' }}>{card.sub}</div>
+            </div>
+          ))}
+        </div>
+        <Space y="300" />
+        <div style={{ fontSize: 13, fontWeight: 600, marginBottom: 8 }}>최근 활동</div>
+        {['홍길동이 디자인 가이드를 편집했습니다', '이서연이 새 페이지를 만들었습니다', '박도현이 스프린트 보드를 공유했습니다'].map((item, i) => (
+          <div key={i}>
+            {i > 0 && <Space y="100" />}
+            <div style={{ fontSize: 12, color: '#475569', padding: '6px 0', borderBottom: '1px solid #f1f5f9' }}>{item}</div>
+          </div>
+        ))}
+        <Space y="150" />
+        <div style={{ fontSize: 11, color: '#94a3b8' }}>Mantine Grid + Notion 대시보드의 공백 패턴을 Space 토큰으로 재현</div>
+      </div>
+    )
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Mantine + Notion 복합 패턴. 대시보드 카드 그리드와 활동 피드 사이에 Space 토큰을 계층별로 배치해 ' +
+          '섹션 간 호흡과 내부 요소 간격을 구분합니다.',
+      },
+    },
+  },
+}

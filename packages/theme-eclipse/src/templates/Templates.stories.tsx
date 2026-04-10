@@ -34833,3 +34833,138 @@ export const VercelAnt152TeamDashboard: StoryObj = {
   },
   render: () => <VercelAnt152TeamDashboardRender />,
 }
+
+// ─── Cycle 153: Mantine + Notion ───────────────────────────────────────────
+
+const M153_PAGES = [
+  { id: 'home', icon: '🏠', title: '홈', editable: false },
+  { id: 'sprint', icon: '⚡', title: '스프린트 보드', editable: true },
+  { id: 'docs', icon: '📄', title: '팀 문서', editable: true },
+  { id: 'roadmap', icon: '🗺️', title: '로드맵', editable: true },
+  { id: 'retro', icon: '🔍', title: '회고', editable: true },
+]
+
+const M153_BLOCKS = [
+  { type: 'h1', text: '스프린트 보드' },
+  { type: 'p', text: '이번 스프린트 목표: 디자인 시스템 컴포넌트 고도화 및 문서 완성' },
+  { type: 'h2', text: '진행 중인 작업' },
+  { type: 'todo', text: '버튼 컴포넌트 접근성 개선', done: true },
+  { type: 'todo', text: '토큰 시스템 3단계 적용', done: true },
+  { type: 'todo', text: '스토리북 템플릿 추가', done: false },
+  { type: 'todo', text: '다크 테마 테스트', done: false },
+  { type: 'h2', text: '메모' },
+  { type: 'p', text: '다음 스프린트 회의: 매주 월요일 오전 10시' },
+]
+
+function MantioneNotion153WorkspaceRender() {
+  const [activePage, setActivePage] = useState('sprint')
+  const [search, setSearch] = useState('')
+  const [todos, setTodos] = useState(M153_BLOCKS.map((b, i) => ({ ...b, id: i })))
+  const [newBlock, setNewBlock] = useState('')
+  const toggleTodo = (id: number) => {
+    setTodos(prev =>
+      prev.map(b => (b.id === id && b.type === 'todo' ? { ...b, done: !b.done } : b))
+    )
+    const block = todos.find(b => b.id === id)
+    if (block) {
+      toast(block.done ? '✅ 완료 취소됨' : '✅ 완료 처리됨', { description: block.text, duration: 2000 })
+    }
+  }
+  const addBlock = () => {
+    if (!newBlock.trim()) return
+    setTodos(prev => [...prev, { type: 'todo', text: newBlock.trim(), done: false, id: Date.now() }])
+    setNewBlock('')
+    toast('블록 추가됨', { description: newBlock.trim(), duration: 2000 })
+  }
+  const filteredPages = M153_PAGES.filter(p => p.title.includes(search))
+  return (
+    <div style={{ display: 'flex', height: 560, fontFamily: 'Inter, system-ui, sans-serif', background: '#fff', border: '1px solid #e2e8f0', borderRadius: 8, overflow: 'hidden' }}>
+      <Toaster position="bottom-right" />
+      {/* Sidebar */}
+      <div style={{ width: 200, background: '#f8fafc', borderRight: '1px solid #e2e8f0', display: 'flex', flexDirection: 'column' }}>
+        <div style={{ padding: '14px 12px 8px', fontSize: 12, fontWeight: 700, color: '#64748b' }}>ORBIT WORKSPACE</div>
+        <div style={{ padding: '0 8px 8px' }}>
+          <input
+            value={search}
+            onChange={e => setSearch(e.target.value)}
+            placeholder="페이지 검색..."
+            style={{ width: '100%', padding: '5px 8px', fontSize: 11, border: '1px solid #e2e8f0', borderRadius: 4, outline: 'none', boxSizing: 'border-box' }}
+          />
+        </div>
+        <div style={{ flex: 1, overflowY: 'auto' }}>
+          {filteredPages.map(page => (
+            <div
+              key={page.id}
+              onClick={() => setActivePage(page.id)}
+              style={{
+                display: 'flex', alignItems: 'center', gap: 6, padding: '5px 12px',
+                fontSize: 12, cursor: 'pointer', borderRadius: 4, margin: '1px 4px',
+                background: activePage === page.id ? '#e0f2fe' : 'transparent',
+                color: activePage === page.id ? '#0284c7' : '#475569',
+                fontWeight: activePage === page.id ? 600 : 400,
+              }}
+            >
+              <span>{page.icon}</span>
+              <span>{page.title}</span>
+            </div>
+          ))}
+        </div>
+        <div style={{ padding: 8, borderTop: '1px solid #e2e8f0' }}>
+          <div style={{ fontSize: 11, color: '#94a3b8', textAlign: 'center' }}>Mantine + Notion 패턴</div>
+        </div>
+      </div>
+      {/* Main Content */}
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflowY: 'auto' }}>
+        <div style={{ padding: '24px 32px 0' }}>
+          {todos.filter(b => b.type === 'h1').slice(0, 1).map(b => (
+            <div key={b.id} style={{ fontSize: 22, fontWeight: 800, color: '#0f172a', marginBottom: 8 }}>{b.text}</div>
+          ))}
+          <div style={{ fontSize: 12, color: '#94a3b8', marginBottom: 20 }}>
+            {todos.filter(b => b.type === 'todo' && b.done).length}/{todos.filter(b => b.type === 'todo').length} 작업 완료
+          </div>
+        </div>
+        <div style={{ padding: '0 32px', flex: 1 }}>
+          {todos.filter(b => b.type !== 'h1').map(b => {
+            if (b.type === 'h2') return <div key={b.id} style={{ fontSize: 14, fontWeight: 700, color: '#1e293b', margin: '16px 0 6px' }}>{b.text}</div>
+            if (b.type === 'p') return <div key={b.id} style={{ fontSize: 13, color: '#64748b', lineHeight: 1.6, marginBottom: 8 }}>{b.text}</div>
+            if (b.type === 'todo') return (
+              <div key={b.id} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '4px 0', cursor: 'pointer' }} onClick={() => toggleTodo(b.id)}>
+                <div style={{ width: 16, height: 16, borderRadius: 3, border: '1.5px solid', borderColor: b.done ? '#0ea5e9' : '#cbd5e1', background: b.done ? '#0ea5e9' : 'transparent', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                  {b.done && <span style={{ color: '#fff', fontSize: 10, lineHeight: 1 }}>✓</span>}
+                </div>
+                <span style={{ fontSize: 13, color: b.done ? '#94a3b8' : '#1e293b', textDecoration: b.done ? 'line-through' : 'none' }}>{b.text}</span>
+              </div>
+            )
+            return null
+          })}
+          <div style={{ display: 'flex', gap: 8, marginTop: 12 }}>
+            <input
+              value={newBlock}
+              onChange={e => setNewBlock(e.target.value)}
+              onKeyDown={e => { if (e.key === 'Enter') addBlock() }}
+              placeholder="새 항목 추가... (Enter)"
+              style={{ flex: 1, padding: '5px 8px', fontSize: 12, border: '1px solid #e2e8f0', borderRadius: 4, outline: 'none' }}
+            />
+            <button onClick={addBlock} style={{ padding: '5px 12px', fontSize: 12, background: '#0f172a', color: '#fff', border: 'none', borderRadius: 4, cursor: 'pointer' }}>추가</button>
+          </div>
+        </div>
+        <div style={{ padding: '12px 32px', borderTop: '1px solid #f1f5f9', fontSize: 11, color: '#94a3b8' }}>
+          Mantine + Notion — 워크스페이스 대시보드 · 사이드바 탐색 + 블록 에디터 + Toast 피드백
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const MantioneNotion153WorkspaceDashboard: StoryObj = {
+  name: 'Mantine + Notion — 워크스페이스 대시보드 (사이드바 + 블록 에디터)',
+  parameters: {
+    layout: 'fullscreen',
+    docs: {
+      description: {
+        story: 'Mantine + Notion 복합 패턴. 좌측 사이드바 페이지 탐색(검색 포함), 우측 블록 에디터(H1/H2/P/Todo), 할일 체크 시 Toast 피드백, 새 블록 추가. Notion 워크스페이스 UX 패턴.',
+      },
+    },
+  },
+  render: () => <MantioneNotion153WorkspaceRender />,
+}
