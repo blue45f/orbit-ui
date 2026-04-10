@@ -17814,3 +17814,267 @@ export const CommandCenter: Story = {
   },
   render: () => <CommandCenterRender />,
 }
+
+// --- Cycle 74: Arco Design + Linear 벤치마크 — Template #64 ---
+
+type CBCategory = 'all' | 'inputs' | 'display' | 'feedback' | 'navigation' | 'layout'
+type CBStatus = 'stable' | 'beta' | 'deprecated'
+
+type CBComponent = {
+  id: string
+  name: string
+  category: CBCategory
+  desc: string
+  status: CBStatus
+  stories: number
+  tags: string[]
+}
+
+const CB_COMPONENTS: CBComponent[] = [
+  { id: 'button', name: 'Button', category: 'inputs', desc: '다양한 변형을 지원하는 버튼 컴포넌트', status: 'stable', stories: 24, tags: ['solid', 'ghost', 'outline'] },
+  { id: 'textfield', name: 'TextField', category: 'inputs', desc: '레이블, 캡션, 에러 상태를 포함한 텍스트 입력', status: 'stable', stories: 18, tags: ['form', 'validation'] },
+  { id: 'searchbar', name: 'SearchBar', category: 'inputs', desc: '검색 전용 입력 필드, 자동완성 지원', status: 'stable', stories: 13, tags: ['search', 'filter'] },
+  { id: 'modal', name: 'Modal', category: 'feedback', desc: '접근성 포커스 트랩을 지원하는 다이얼로그', status: 'stable', stories: 16, tags: ['dialog', 'overlay'] },
+  { id: 'toast', name: 'Toast', category: 'feedback', desc: '비침습적 알림 메시지', status: 'stable', stories: 12, tags: ['notification', 'alert'] },
+  { id: 'command', name: 'Command', category: 'navigation', desc: 'cmdk 기반 커맨드 팔레트', status: 'stable', stories: 13, tags: ['palette', 'search'] },
+  { id: 'datatable', name: 'DataTable', category: 'display', desc: '정렬, 필터, 페이지네이션 지원 테이블', status: 'stable', stories: 20, tags: ['table', 'sort'] },
+  { id: 'carousel', name: 'Carousel', category: 'display', desc: '터치 스와이프 지원 슬라이더', status: 'beta', stories: 15, tags: ['slider', 'swipe'] },
+  { id: 'text', name: 'Text', category: 'display', desc: 'M3 타입 스케일 기반 타이포그래피', status: 'stable', stories: 13, tags: ['typography', 'font'] },
+  { id: 'drawer', name: 'Drawer', category: 'navigation', desc: '슬라이드 인 패널 컴포넌트', status: 'stable', stories: 12, tags: ['panel', 'sidebar'] },
+]
+
+const CB_CATEGORIES: { id: CBCategory; label: string }[] = [
+  { id: 'all', label: '전체' },
+  { id: 'inputs', label: '입력' },
+  { id: 'display', label: '표시' },
+  { id: 'feedback', label: '피드백' },
+  { id: 'navigation', label: '네비게이션' },
+  { id: 'layout', label: '레이아웃' },
+]
+
+const CB_STATUS_CFG: Record<CBStatus, { label: string; bg: string; color: string }> = {
+  stable: { label: 'Stable', bg: '#dcfce7', color: '#16a34a' },
+  beta: { label: 'Beta', bg: '#fef3c7', color: '#d97706' },
+  deprecated: { label: 'Deprecated', bg: '#fee2e2', color: '#dc2626' },
+}
+
+const ComponentBrowserRender = () => {
+  const [query, setQuery] = useState('')
+  const [category, setCategory] = useState<CBCategory>('all')
+  const [selectedId, setSelectedId] = useState<string | null>('searchbar')
+
+  const filtered = CB_COMPONENTS.filter((c) => {
+    const matchCat = category === 'all' || c.category === category
+    const matchQuery = !query ||
+      c.name.toLowerCase().includes(query.toLowerCase()) ||
+      c.desc.toLowerCase().includes(query.toLowerCase()) ||
+      c.tags.some((t) => t.includes(query.toLowerCase()))
+    return matchCat && matchQuery
+  })
+
+  const selected = CB_COMPONENTS.find((c) => c.id === selectedId) ?? null
+
+  const catCounts: Record<CBCategory, number> = {
+    all: CB_COMPONENTS.length,
+    inputs: CB_COMPONENTS.filter((c) => c.category === 'inputs').length,
+    display: CB_COMPONENTS.filter((c) => c.category === 'display').length,
+    feedback: CB_COMPONENTS.filter((c) => c.category === 'feedback').length,
+    navigation: CB_COMPONENTS.filter((c) => c.category === 'navigation').length,
+    layout: CB_COMPONENTS.filter((c) => c.category === 'layout').length,
+  }
+
+  return (
+    <div style={{
+      minHeight: '100vh', background: '#f8fafc', fontFamily: 'system-ui, sans-serif',
+      display: 'grid', gridTemplateColumns: '220px 1fr', gap: 0,
+    }}>
+      {/* Sidebar */}
+      <div style={{ background: '#fff', borderRight: '1px solid #e2e8f0', padding: '20px 0', display: 'flex', flexDirection: 'column' }}>
+        <div style={{ padding: '0 16px 16px', borderBottom: '1px solid #f1f5f9' }}>
+          <Text textStyle="titleSmall">컴포넌트 브라우저</Text>
+          <div style={{ marginTop: 4 }}>
+            <Text textStyle="bodySmall" color="onSurfaceVariant">Orbit UI v0.1.0</Text>
+          </div>
+        </div>
+        <div style={{ padding: '12px 8px', flex: 1 }}>
+          <div style={{ padding: '0 8px 6px' }}>
+            <Text textStyle="labelSmall" color="onSurfaceVariant">카테고리</Text>
+          </div>
+          {CB_CATEGORIES.map((cat) => (
+            <button
+              key={cat.id}
+              onClick={() => setCategory(cat.id)}
+              style={{
+                display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                width: '100%', padding: '7px 10px', borderRadius: 6, border: 'none', cursor: 'pointer',
+                background: category === cat.id ? '#f1f5f9' : 'transparent',
+                color: category === cat.id ? '#0f172a' : '#64748b',
+                marginBottom: 1, textAlign: 'left',
+              }}
+            >
+              <Text textStyle="bodySmall">{cat.label}</Text>
+              <span style={{
+                fontSize: 10, padding: '1px 6px', borderRadius: 10,
+                background: category === cat.id ? '#0f172a' : '#f1f5f9',
+                color: category === cat.id ? '#fff' : '#94a3b8',
+              }}>
+                {catCounts[cat.id]}
+              </span>
+            </button>
+          ))}
+        </div>
+        <div style={{ padding: '12px 16px', borderTop: '1px solid #f1f5f9' }}>
+          <Text textStyle="labelSmall" color="onSurfaceVariant">
+            {CB_COMPONENTS.filter((c) => c.status === 'stable').length}개 안정 · {CB_COMPONENTS.filter((c) => c.status === 'beta').length}개 베타
+          </Text>
+        </div>
+      </div>
+
+      {/* Main */}
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 340px', gap: 0 }}>
+        {/* List panel */}
+        <div style={{ padding: 24, borderRight: '1px solid #e2e8f0', background: '#fff' }}>
+          <div style={{ marginBottom: 16 }}>
+            <Breadcrumb>
+              <Breadcrumb.Item>Orbit UI</Breadcrumb.Item>
+              <Breadcrumb.Item>컴포넌트</Breadcrumb.Item>
+              {category !== 'all' && (
+                <Breadcrumb.Item>
+                  {CB_CATEGORIES.find((c) => c.id === category)?.label}
+                </Breadcrumb.Item>
+              )}
+            </Breadcrumb>
+          </div>
+
+          <div style={{ marginBottom: 16 }}>
+            <SearchBar
+              placeholder="컴포넌트 검색 (이름, 태그)..."
+              onChange={(e) => setQuery(e.target.value)}
+              value={query}
+            />
+          </div>
+
+          <div style={{ marginBottom: 12, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <Text textStyle="titleSmall">
+              {CB_CATEGORIES.find((c) => c.id === category)?.label ?? '전체'} 컴포넌트
+            </Text>
+            <Text textStyle="labelSmall" color="onSurfaceVariant">{filtered.length}개</Text>
+          </div>
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+            {filtered.length === 0 ? (
+              <div style={{ padding: '32px 0', textAlign: 'center' }}>
+                <Text textStyle="bodyMedium" color="onSurfaceVariant">검색 결과 없음</Text>
+              </div>
+            ) : (
+              filtered.map((comp) => (
+                <div
+                  key={comp.id}
+                  onClick={() => setSelectedId(comp.id)}
+                  style={{
+                    padding: '12px 14px', borderRadius: 8, cursor: 'pointer', border: '1px solid transparent',
+                    background: selectedId === comp.id ? '#f8fafc' : 'transparent',
+                    borderColor: selectedId === comp.id ? '#e2e8f0' : 'transparent',
+                  }}
+                >
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 4 }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                      <Text textStyle="bodyMedium">{comp.name}</Text>
+                      <span style={{
+                        fontSize: 9, padding: '1px 5px', borderRadius: 3, fontWeight: 600,
+                        background: CB_STATUS_CFG[comp.status].bg,
+                        color: CB_STATUS_CFG[comp.status].color,
+                      }}>
+                        {CB_STATUS_CFG[comp.status].label}
+                      </span>
+                    </div>
+                    <Text textStyle="labelSmall" color="onSurfaceVariant">{comp.stories}개 스토리</Text>
+                  </div>
+                  <Text textStyle="bodySmall" color="onSurfaceVariant">{comp.desc}</Text>
+                  <div style={{ marginTop: 6, display: 'flex', gap: 4, flexWrap: 'wrap' }}>
+                    {comp.tags.map((tag) => (
+                      <Chip key={tag}>{tag}</Chip>
+                    ))}
+                  </div>
+                </div>
+              ))
+            )}
+          </div>
+        </div>
+
+        {/* Detail panel */}
+        <div style={{ padding: 24, background: '#fafafa' }}>
+          {selected ? (
+            <>
+              <div style={{ marginBottom: 16 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 6 }}>
+                  <Text textStyle="headlineSmall">{selected.name}</Text>
+                  <LabelBadge color={
+                    selected.status === 'stable' ? 'benefit' :
+                    selected.status === 'beta' ? 'sale' : 'gray'
+                  }>
+                    {CB_STATUS_CFG[selected.status].label}
+                  </LabelBadge>
+                </div>
+                <Text textStyle="bodyMedium" color="onSurfaceVariant">{selected.desc}</Text>
+              </div>
+
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10, marginBottom: 20 }}>
+                {[
+                  { label: '카테고리', value: CB_CATEGORIES.find((c) => c.id === selected.category)?.label },
+                  { label: '스토리 수', value: `${selected.stories}개` },
+                  { label: '상태', value: CB_STATUS_CFG[selected.status].label },
+                  { label: '버전', value: '0.1.0' },
+                ].map((item) => (
+                  <div key={item.label} style={{ padding: '8px 10px', background: '#fff', borderRadius: 6, border: '1px solid #e2e8f0' }}>
+                    <Text textStyle="labelSmall" color="onSurfaceVariant">{item.label}</Text>
+                    <div style={{ marginTop: 2 }}>
+                      <Text textStyle="bodySmall">{item.value}</Text>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <div style={{ marginBottom: 14 }}>
+                <SectionTitle>태그</SectionTitle>
+                <div style={{ marginTop: 8, display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+                  {selected.tags.map((tag) => (
+                    <Chip key={tag}>{tag}</Chip>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <SectionTitle>빠른 임포트</SectionTitle>
+                <div style={{ marginTop: 8, background: '#0f172a', borderRadius: 8, padding: '12px 14px' }}>
+                  <Text textStyle="labelSmall" color="onSurfaceVariant">
+                    <code style={{ fontFamily: 'monospace', color: '#94a3b8', fontSize: 11 }}>
+                      {`import { ${selected.name} } from '@heejun-com/theme-eclipse'`}
+                    </code>
+                  </Text>
+                </div>
+              </div>
+            </>
+          ) : (
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: 200 }}>
+              <Text textStyle="bodyMedium" color="onSurfaceVariant">컴포넌트를 선택하세요</Text>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const ComponentBrowser: Story = {
+  name: '컴포넌트 브라우저 (Arco + Linear 패턴)',
+  parameters: {
+    layout: 'fullscreen',
+    docs: {
+      description: {
+        story: 'Arco Design 전역 검색 + Linear 문서 타이포그래피 패턴 조합 템플릿. SearchBar 검색 필터, Text 계층 적용, Chip 태그, LabelBadge 상태, SectionTitle + Breadcrumb 네비게이션 포함.',
+      },
+    },
+  },
+  render: () => <ComponentBrowserRender />,
+}

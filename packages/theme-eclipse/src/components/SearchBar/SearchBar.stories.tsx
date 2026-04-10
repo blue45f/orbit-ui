@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { fn } from '@storybook/test'
-import { useState } from 'react'
+import React, { useState } from 'react'
 
 import { Chip } from '../Chip'
 import { SearchBar } from './SearchBar'
@@ -720,4 +720,342 @@ function ChakraSearchHistoryRender() {
 export const Chakra_최근_검색_히스토리: Story = {
   name: 'Chakra 최근 검색 히스토리 (History Combobox 패턴)',
   render: () => <ChakraSearchHistoryRender />,
+}
+
+// --- Cycle 74: Arco Design + Linear 벤치마크 ---
+
+const ArcoGlobalSearchRender = () => {
+  const [query, setQuery] = useState('')
+  const [activeTab, setActiveTab] = useState<'all' | 'docs' | 'issues' | 'members'>('all')
+  const [searching, setSearching] = useState(false)
+
+  const TABS: { id: 'all' | 'docs' | 'issues' | 'members'; label: string; count: number }[] = [
+    { id: 'all', label: '전체', count: 42 },
+    { id: 'docs', label: '문서', count: 18 },
+    { id: 'issues', label: '이슈', count: 15 },
+    { id: 'members', label: '멤버', count: 9 },
+  ]
+
+  const RESULTS = {
+    all: [
+      { type: 'docs', icon: '📄', title: '컴포넌트 가이드', sub: 'Design System / 문서' },
+      { type: 'issues', icon: '🐛', title: 'Button hover 상태 버그', sub: 'theme-eclipse #142' },
+      { type: 'members', icon: '👤', title: '김혜준', sub: '디자이너 · 서울팀' },
+    ],
+    docs: [
+      { type: 'docs', icon: '📄', title: '시작하기', sub: 'Design System / 가이드' },
+      { type: 'docs', icon: '📄', title: '컴포넌트 가이드', sub: 'Design System / 문서' },
+    ],
+    issues: [
+      { type: 'issues', icon: '🐛', title: 'Button hover 상태 버그', sub: 'theme-eclipse #142' },
+      { type: 'issues', icon: '✅', title: 'TextField 접근성 개선', sub: 'theme-eclipse #138' },
+    ],
+    members: [
+      { type: 'members', icon: '👤', title: '김혜준', sub: '디자이너 · 서울팀' },
+      { type: 'members', icon: '👤', title: '이준호', sub: '프론트엔드 · 서울팀' },
+    ],
+  }
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setQuery(e.target.value)
+    setSearching(true)
+    setTimeout(() => setSearching(false), 400)
+  }
+
+  const results = query ? RESULTS[activeTab] : []
+
+  return (
+    <div style={{ width: 520, fontFamily: 'system-ui, sans-serif' }}>
+      <SearchBar
+        placeholder="프로젝트 전체 검색..."
+        onChange={handleChange}
+        value={query}
+      />
+      {query && (
+        <div style={{ marginTop: 4, background: '#fff', borderRadius: 8, border: '1px solid #e2e8f0', boxShadow: '0 8px 24px rgba(0,0,0,0.08)', overflow: 'hidden' }}>
+          <div style={{ display: 'flex', borderBottom: '1px solid #f1f5f9', padding: '0 12px' }}>
+            {TABS.map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                style={{
+                  padding: '8px 12px', border: 'none', background: 'none', cursor: 'pointer',
+                  fontSize: 12, fontWeight: activeTab === tab.id ? 600 : 400,
+                  color: activeTab === tab.id ? '#0f172a' : '#94a3b8',
+                  borderBottom: activeTab === tab.id ? '2px solid #0f172a' : '2px solid transparent',
+                  marginBottom: -1,
+                }}
+              >
+                {tab.label}
+                <span style={{
+                  marginLeft: 4, fontSize: 10, padding: '1px 5px', borderRadius: 10,
+                  background: activeTab === tab.id ? '#0f172a' : '#f1f5f9',
+                  color: activeTab === tab.id ? '#fff' : '#94a3b8',
+                }}>
+                  {tab.count}
+                </span>
+              </button>
+            ))}
+          </div>
+          {searching ? (
+            <div style={{ padding: 16, textAlign: 'center', color: '#94a3b8', fontSize: 12 }}>검색 중...</div>
+          ) : results.length === 0 ? (
+            <div style={{ padding: 16, textAlign: 'center', color: '#94a3b8', fontSize: 12 }}>결과 없음</div>
+          ) : (
+            results.map((r, i) => (
+              <div
+                key={i}
+                style={{
+                  display: 'flex', alignItems: 'center', gap: 10, padding: '10px 14px',
+                  borderBottom: i < results.length - 1 ? '1px solid #f8fafc' : 'none',
+                  cursor: 'pointer',
+                }}
+              >
+                <span style={{ fontSize: 16 }}>{r.icon}</span>
+                <div>
+                  <div style={{ fontSize: 13, fontWeight: 500, color: '#1e293b' }}>{r.title}</div>
+                  <div style={{ fontSize: 11, color: '#94a3b8' }}>{r.sub}</div>
+                </div>
+              </div>
+            ))
+          )}
+          <div style={{ padding: '6px 14px', borderTop: '1px solid #f1f5f9', fontSize: 10, color: '#94a3b8' }}>
+            Enter 선택 · Esc 닫기
+          </div>
+        </div>
+      )}
+      <p style={{ marginTop: 10, fontSize: 11, color: '#94a3b8' }}>
+        Arco Design — 탭 분류 + 카운트 배지 전역 검색 패턴
+      </p>
+    </div>
+  )
+}
+
+export const Arco_탭_분류_전역_검색: Story = {
+  name: 'Arco Design - 탭 분류 전역 검색 (카운트 배지)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Arco Design GlobalSearch 벤치마크. 탭으로 결과 카테고리 분류(전체/문서/이슈/멤버), 탭별 카운트 배지, 로딩 상태, 빈 결과 처리 포함.',
+      },
+    },
+  },
+  render: () => <ArcoGlobalSearchRender />,
+}
+
+const LinearIssueSearchRender = () => {
+  const [query, setQuery] = useState('')
+  const [selected, setSelected] = useState<string | null>(null)
+
+  type IssueStatus = 'in-progress' | 'todo' | 'done' | 'cancelled'
+  type IssuePriority = 'urgent' | 'high' | 'medium' | 'low'
+
+  const ISSUES: { id: string; title: string; status: IssueStatus; priority: IssuePriority; assignee: string }[] = [
+    { id: 'ORB-142', title: 'Button hover 색상 대비 수정', status: 'in-progress', priority: 'urgent', assignee: 'KH' },
+    { id: 'ORB-138', title: 'TextField 접근성 개선 (aria-label)', status: 'todo', priority: 'high', assignee: 'JH' },
+    { id: 'ORB-130', title: 'Modal 포커스 트랩 누락', status: 'done', priority: 'medium', assignee: 'SY' },
+    { id: 'ORB-125', title: 'DataTable 정렬 아이콘 정렬', status: 'cancelled', priority: 'low', assignee: 'KH' },
+    { id: 'ORB-120', title: 'Carousel 터치 스와이프 지원', status: 'todo', priority: 'medium', assignee: 'JH' },
+  ]
+
+  const STATUS_CFG: Record<IssueStatus, { label: string; color: string; dot: string }> = {
+    'in-progress': { label: '진행 중', color: '#f59e0b', dot: '#f59e0b' },
+    todo: { label: '할 일', color: '#64748b', dot: '#94a3b8' },
+    done: { label: '완료', color: '#22c55e', dot: '#22c55e' },
+    cancelled: { label: '취소됨', color: '#ef4444', dot: '#fca5a5' },
+  }
+
+  const PRIORITY_CFG: Record<IssuePriority, { label: string; color: string }> = {
+    urgent: { label: '긴급', color: '#ef4444' },
+    high: { label: '높음', color: '#f97316' },
+    medium: { label: '보통', color: '#f59e0b' },
+    low: { label: '낮음', color: '#94a3b8' },
+  }
+
+  const filtered = ISSUES.filter(
+    (i) =>
+      !query ||
+      i.title.toLowerCase().includes(query.toLowerCase()) ||
+      i.id.toLowerCase().includes(query.toLowerCase())
+  )
+
+  return (
+    <div style={{ width: 480, fontFamily: 'system-ui, sans-serif' }}>
+      <SearchBar
+        placeholder="이슈 검색 (ID 또는 제목)..."
+        onChange={(e) => setQuery(e.target.value)}
+        value={query}
+      />
+      <div style={{ marginTop: 6, background: '#fff', borderRadius: 8, border: '1px solid #e2e8f0', overflow: 'hidden' }}>
+        {filtered.length === 0 ? (
+          <div style={{ padding: 16, textAlign: 'center', color: '#94a3b8', fontSize: 12 }}>이슈 없음</div>
+        ) : (
+          filtered.map((issue, idx) => (
+            <div
+              key={issue.id}
+              onClick={() => setSelected(issue.id)}
+              style={{
+                display: 'flex', alignItems: 'center', gap: 10, padding: '9px 12px',
+                borderBottom: idx < filtered.length - 1 ? '1px solid #f8fafc' : 'none',
+                cursor: 'pointer',
+                background: selected === issue.id ? '#f8fafc' : '#fff',
+              }}
+            >
+              <div style={{
+                width: 8, height: 8, borderRadius: '50%', flexShrink: 0,
+                background: STATUS_CFG[issue.status].dot,
+              }} />
+              <span style={{ fontSize: 10, fontFamily: 'monospace', color: '#94a3b8', flexShrink: 0 }}>
+                {issue.id}
+              </span>
+              <span style={{ fontSize: 13, flex: 1, color: '#1e293b', fontWeight: 400 }}>{issue.title}</span>
+              <span style={{
+                fontSize: 9, padding: '1px 5px', borderRadius: 3, flexShrink: 0,
+                color: PRIORITY_CFG[issue.priority].color,
+                background: PRIORITY_CFG[issue.priority].color + '18',
+                fontWeight: 600,
+              }}>
+                {PRIORITY_CFG[issue.priority].label}
+              </span>
+              <div style={{
+                width: 22, height: 22, borderRadius: '50%', background: '#e2e8f0',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                fontSize: 9, fontWeight: 700, color: '#475569', flexShrink: 0,
+              }}>
+                {issue.assignee}
+              </div>
+            </div>
+          ))
+        )}
+      </div>
+      {selected && (
+        <div style={{ marginTop: 6, fontSize: 12, color: '#475569' }}>
+          선택된 이슈: <strong>{selected}</strong>
+        </div>
+      )}
+      <p style={{ marginTop: 8, fontSize: 11, color: '#94a3b8' }}>
+        Linear — 이슈 인라인 검색 (상태 dot + 우선순위 배지 + 담당자 아바타)
+      </p>
+    </div>
+  )
+}
+
+export const Linear_이슈_인라인_검색: Story = {
+  name: 'Linear - 이슈 인라인 검색 (상태 + 우선순위)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Linear 이슈 검색 패턴 벤치마크. ID/제목 인라인 필터, 상태 dot 인디케이터, 우선순위 배지(긴급/높음/보통/낮음), 담당자 아바타 조합.',
+      },
+    },
+  },
+  render: () => <LinearIssueSearchRender />,
+}
+
+const ArcoLinearCommandSearchRender = () => {
+  const [query, setQuery] = useState('')
+  const [recentSearches, setRecentSearches] = useState(['컴포넌트 가이드', 'Button API', '다크모드'])
+  const [pinned] = useState(['대시보드', '릴리즈 노트'])
+
+  const SUGGESTIONS = [
+    'SearchBar 사용법',
+    'TextField vs SearchBar',
+    'Command 팔레트 패턴',
+    'Accessibility 체크리스트',
+    'Dark Mode 토큰',
+  ]
+
+  const filtered = query
+    ? SUGGESTIONS.filter((s) => s.toLowerCase().includes(query.toLowerCase()))
+    : []
+
+  const addRecent = (term: string) => {
+    setRecentSearches((prev) => [term, ...prev.filter((r) => r !== term)].slice(0, 5))
+    setQuery('')
+  }
+
+  return (
+    <div style={{ width: 460, fontFamily: 'system-ui, sans-serif' }}>
+      <SearchBar
+        placeholder="문서 검색..."
+        onChange={(e) => setQuery(e.target.value)}
+        value={query}
+      />
+      <div style={{ marginTop: 4, background: '#fff', borderRadius: 10, border: '1px solid #e2e8f0', boxShadow: '0 8px 24px rgba(0,0,0,0.06)', overflow: 'hidden' }}>
+        {!query ? (
+          <>
+            <div style={{ padding: '10px 14px 4px' }}>
+              <div style={{ fontSize: 10, fontWeight: 600, color: '#94a3b8', letterSpacing: '0.06em', marginBottom: 6, textTransform: 'uppercase' }}>고정됨</div>
+              {pinned.map((p) => (
+                <div key={p} style={{
+                  display: 'flex', alignItems: 'center', gap: 8, padding: '6px 0',
+                  borderBottom: '1px solid #f8fafc', cursor: 'pointer',
+                }}>
+                  <span style={{ fontSize: 11, color: '#f59e0b' }}>★</span>
+                  <span style={{ fontSize: 13, color: '#1e293b' }}>{p}</span>
+                </div>
+              ))}
+            </div>
+            <div style={{ padding: '10px 14px 8px' }}>
+              <div style={{ fontSize: 10, fontWeight: 600, color: '#94a3b8', letterSpacing: '0.06em', marginBottom: 6, textTransform: 'uppercase' }}>최근 검색</div>
+              {recentSearches.map((r) => (
+                <div key={r} style={{
+                  display: 'flex', alignItems: 'center', gap: 8, padding: '6px 0',
+                  borderBottom: '1px solid #f8fafc', cursor: 'pointer',
+                }}
+                  onClick={() => addRecent(r)}
+                >
+                  <span style={{ fontSize: 11, color: '#94a3b8' }}>↺</span>
+                  <span style={{ fontSize: 13, color: '#475569' }}>{r}</span>
+                </div>
+              ))}
+            </div>
+          </>
+        ) : filtered.length === 0 ? (
+          <div style={{ padding: 16, textAlign: 'center', color: '#94a3b8', fontSize: 12 }}>
+            &quot;{query}&quot; 검색 결과 없음
+          </div>
+        ) : (
+          <div style={{ padding: '8px 0' }}>
+            {filtered.map((s, i) => (
+              <div
+                key={i}
+                onClick={() => addRecent(s)}
+                style={{
+                  display: 'flex', alignItems: 'center', gap: 8, padding: '8px 14px',
+                  cursor: 'pointer',
+                  borderBottom: i < filtered.length - 1 ? '1px solid #f8fafc' : 'none',
+                }}
+              >
+                <span style={{ fontSize: 11, color: '#6366f1' }}>→</span>
+                <span style={{ fontSize: 13, color: '#1e293b' }}>{s}</span>
+              </div>
+            ))}
+          </div>
+        )}
+        <div style={{ padding: '6px 14px', borderTop: '1px solid #f1f5f9', display: 'flex', justifyContent: 'space-between', fontSize: 10, color: '#94a3b8' }}>
+          <span>최근 검색 {recentSearches.length}개</span>
+          <span>Enter 검색</span>
+        </div>
+      </div>
+      <p style={{ marginTop: 8, fontSize: 11, color: '#94a3b8' }}>
+        Arco + Linear — 고정 북마크 + 최근 검색 히스토리 복합 패턴
+      </p>
+    </div>
+  )
+}
+
+export const Arco_Linear_고정_북마크_검색: Story = {
+  name: 'Arco + Linear - 고정 북마크 + 최근 검색 복합',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Arco Design Search + Linear 고정 항목 패턴 조합. 고정(핀) 북마크 섹션, 최근 검색 히스토리, 실시간 자동완성 제안, 클릭 시 히스토리 자동 추가.',
+      },
+    },
+  },
+  render: () => <ArcoLinearCommandSearchRender />,
 }

@@ -553,3 +553,233 @@ export const Material3_타입_스케일_비교 = {
     </div>
   ),
 }
+
+// --- Cycle 74: Arco Design + Linear 벤치마크 ---
+
+const ArcoDataTableTextRender = () => {
+  const ROWS = [
+    { name: '김혜준', role: '디자이너', team: '서울팀', status: 'active', joined: '2023-03-15' },
+    { name: '이준호', role: '프론트엔드', team: '서울팀', status: 'active', joined: '2022-11-01' },
+    { name: '박수연', role: 'PM', team: '부산팀', status: 'inactive', joined: '2024-01-20' },
+    { name: '최민준', role: '백엔드', team: '원격', status: 'active', joined: '2023-07-08' },
+  ]
+
+  return (
+    <div style={{ width: 600, fontFamily: 'system-ui, sans-serif' }}>
+      <div style={{ marginBottom: 14 }}>
+        <Text textStyle="titleSmall">팀 멤버</Text>
+        <div style={{ marginTop: 2 }}>
+          <Text textStyle="bodySmall" color="onSurfaceVariant">
+            총 {ROWS.length}명 · 최근 업데이트: 오늘
+          </Text>
+        </div>
+      </div>
+      <div style={{ borderRadius: 8, border: '1px solid #e2e8f0', overflow: 'hidden' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1.5fr 1fr 1fr 0.8fr 1fr', background: '#f8fafc', padding: '8px 14px', borderBottom: '1px solid #e2e8f0' }}>
+          {['이름', '역할', '팀', '상태', '입사일'].map((h) => (
+            <div key={h}>
+              <Text textStyle="labelSmall" color="onSurfaceVariant">{h}</Text>
+            </div>
+          ))}
+        </div>
+        {ROWS.map((row, i) => (
+          <div
+            key={row.name}
+            style={{
+              display: 'grid', gridTemplateColumns: '1.5fr 1fr 1fr 0.8fr 1fr',
+              padding: '10px 14px',
+              borderBottom: i < ROWS.length - 1 ? '1px solid #f8fafc' : 'none',
+              alignItems: 'center',
+            }}
+          >
+            <Text textStyle="bodyMedium">{row.name}</Text>
+            <Text textStyle="bodySmall" color="onSurfaceVariant">{row.role}</Text>
+            <Text textStyle="bodySmall" color="onSurfaceVariant">{row.team}</Text>
+            <div>
+              <span style={{
+                fontSize: 10, padding: '2px 7px', borderRadius: 10, fontWeight: 600,
+                background: row.status === 'active' ? '#dcfce7' : '#f1f5f9',
+                color: row.status === 'active' ? '#16a34a' : '#94a3b8',
+              }}>
+                {row.status === 'active' ? '활성' : '비활성'}
+              </span>
+            </div>
+            <Text textStyle="labelSmall" color="onSurfaceVariant">{row.joined}</Text>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+export const Arco_데이터_테이블_타이포: StoryObj<typeof meta> = {
+  name: 'Arco Design - 데이터 테이블 타이포그래피 계층',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Arco Design Table 타이포그래피 패턴 벤치마크. 테이블 헤더(labelSmall), 데이터 셀(bodySmall/bodyMedium), 제목(titleSmall), 부제(bodySmall onSurfaceVariant) 계층 적용.',
+      },
+    },
+  },
+  render: () => <ArcoDataTableTextRender />,
+}
+
+const LinearIssueDetailTextRender = () => {
+  return (
+    <div style={{ width: 520, fontFamily: 'system-ui, sans-serif', padding: '0 2px' }}>
+      <div style={{ marginBottom: 20 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 6 }}>
+          <span style={{ fontSize: 10, fontFamily: 'monospace', color: '#94a3b8', background: '#f1f5f9', padding: '2px 6px', borderRadius: 4 }}>ORB-142</span>
+          <span style={{ fontSize: 10, padding: '2px 6px', borderRadius: 4, background: '#fef3c7', color: '#d97706', fontWeight: 600 }}>진행 중</span>
+        </div>
+        <Text textStyle="headlineSmall">Button hover 색상 대비 수정</Text>
+        <div style={{ marginTop: 6 }}>
+          <Text textStyle="bodyMedium" color="onSurfaceVariant">
+            현재 GhostButton hover 상태의 배경색이 WCAG AA 기준(4.5:1)을 충족하지 않아 저시력 사용자가 상태 변화를 인지하기 어렵습니다.
+          </Text>
+        </div>
+      </div>
+
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 20 }}>
+        {[
+          { label: '담당자', value: '김혜준' },
+          { label: '우선순위', value: '긴급' },
+          { label: '사이클', value: 'Cycle 74' },
+          { label: '마감일', value: '2026-04-15' },
+        ].map((item) => (
+          <div key={item.label}>
+            <Text textStyle="labelSmall" color="onSurfaceVariant">{item.label}</Text>
+            <div style={{ marginTop: 2 }}>
+              <Text textStyle="bodySmall">{item.value}</Text>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div>
+        <Text textStyle="titleSmall">재현 방법</Text>
+        <div style={{ marginTop: 8, display: 'flex', flexDirection: 'column', gap: 4 }}>
+          {[
+            '1. GhostButton 컴포넌트를 렌더링',
+            '2. 마우스를 버튼 위로 이동',
+            '3. 배경색 변화 대비비 측정 (현재 2.8:1)',
+            '4. WCAG AA 기준: 최소 4.5:1 필요',
+          ].map((step) => (
+            <Text key={step} textStyle="bodySmall" color="onSurfaceVariant">{step}</Text>
+          ))}
+        </div>
+      </div>
+
+      <div style={{ marginTop: 16, padding: '10px 12px', borderRadius: 8, background: '#f8fafc', border: '1px solid #f1f5f9' }}>
+        <Text textStyle="labelSmall" color="onSurfaceVariant">수정 제안</Text>
+        <div style={{ marginTop: 4 }}>
+          <Text textStyle="bodySmall">
+            hover 배경을 <code style={{ fontFamily: 'monospace', background: '#e2e8f0', padding: '0 4px', borderRadius: 3 }}>#e2e8f0</code> 으로 변경 시 대비비 5.2:1 달성 가능.
+          </Text>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const Linear_이슈_상세_타이포: StoryObj<typeof meta> = {
+  name: 'Linear - 이슈 상세 뷰 타이포그래피',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Linear 이슈 상세 페이지 타이포그래피 패턴. 이슈 번호(monospace labelSmall), 제목(headlineSmall), 본문(bodyMedium), 메타 정보(labelSmall+bodySmall), 코드 인라인 강조 계층.',
+      },
+    },
+  },
+  render: () => <LinearIssueDetailTextRender />,
+}
+
+const ArcoLinearReadmeTextRender = () => {
+  return (
+    <div style={{ width: 560, fontFamily: 'system-ui, sans-serif', maxWidth: '100%' }}>
+      <div style={{ marginBottom: 6 }}>
+        <Text textStyle="displaySmall">Orbit UI</Text>
+      </div>
+      <div style={{ marginBottom: 20 }}>
+        <Text textStyle="bodyLarge" color="onSurfaceVariant">
+          Figma 기반 React 디자인 시스템 — Base → Theme → Custom 3-tier 아키텍처
+        </Text>
+      </div>
+
+      <div style={{ height: 1, background: '#e2e8f0', marginBottom: 20 }} />
+
+      <div style={{ marginBottom: 16 }}>
+        <Text textStyle="headlineMedium">시작하기</Text>
+      </div>
+
+      <div style={{ marginBottom: 8 }}>
+        <Text textStyle="titleMedium">설치</Text>
+      </div>
+      <div style={{ marginBottom: 16 }}>
+        <Text textStyle="bodyMedium" color="onSurfaceVariant">
+          pnpm 워크스페이스를 사용합니다. 아래 명령어로 의존성을 설치하세요.
+        </Text>
+      </div>
+
+      <div style={{ marginBottom: 20 }}>
+        <Text textStyle="titleMedium">패키지 구조</Text>
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+        {[
+          { pkg: '@heejun-com/core', desc: '비스타일 베이스 컴포넌트 (Tailwind CSS)' },
+          { pkg: '@heejun-com/theme-eclipse', desc: 'Eclipse 테마 래퍼 (vanilla-extract)' },
+          { pkg: '@heejun-com/icons', desc: 'SVG 아이콘 컴포넌트' },
+        ].map((item) => (
+          <div key={item.pkg} style={{ display: 'flex', gap: 12, alignItems: 'flex-start' }}>
+            <div style={{ width: 220, flexShrink: 0 }}>
+              <Text textStyle="labelMedium">
+                <code style={{ fontFamily: 'monospace', background: '#f1f5f9', padding: '1px 6px', borderRadius: 4, fontSize: 12 }}>
+                  {item.pkg}
+                </code>
+              </Text>
+            </div>
+            <Text textStyle="bodySmall" color="onSurfaceVariant">{item.desc}</Text>
+          </div>
+        ))}
+      </div>
+
+      <div style={{ height: 1, background: '#e2e8f0', margin: '20px 0' }} />
+
+      <div style={{ display: 'flex', gap: 16 }}>
+        <div>
+          <Text textStyle="labelSmall" color="onSurfaceVariant">라이선스</Text>
+          <div style={{ marginTop: 2 }}>
+            <Text textStyle="bodySmall">MIT</Text>
+          </div>
+        </div>
+        <div>
+          <Text textStyle="labelSmall" color="onSurfaceVariant">버전</Text>
+          <div style={{ marginTop: 2 }}>
+            <Text textStyle="bodySmall">0.1.0</Text>
+          </div>
+        </div>
+        <div>
+          <Text textStyle="labelSmall" color="onSurfaceVariant">React</Text>
+          <div style={{ marginTop: 2 }}>
+            <Text textStyle="bodySmall">18 / 19</Text>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const Arco_Linear_README_타이포: StoryObj<typeof meta> = {
+  name: 'Arco + Linear - README 문서 타이포그래피 계층',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Arco Design 문서 페이지 + Linear README 타이포그래피 패턴 조합. displaySmall 제목부터 labelSmall 메타까지 6단계 계층 실전 적용. 코드 강조, 구분선, 메타 정보 레이아웃.',
+      },
+    },
+  },
+  render: () => <ArcoLinearReadmeTextRender />,
+}

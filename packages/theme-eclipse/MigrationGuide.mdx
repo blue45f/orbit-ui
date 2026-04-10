@@ -944,3 +944,34 @@ function DeleteProjectButton() {
     </div>
   </div>
 </section>
+
+<section style={{ marginTop: '32px', padding: '20px', borderRadius: '10px', border: '1px solid #e2e8f0', background: '#fafafa' }}>
+  <h3 style={{ fontSize: '16px', fontWeight: '700', color: '#0f172a', margin: '0 0 4px' }}>Cycle 74 — Arco Design + Linear 벤치마크</h3>
+  <p style={{ fontSize: '12px', color: '#94a3b8', margin: '0 0 16px' }}>2026-04-10 / 대상 컴포넌트: SearchBar, Text</p>
+
+  <h4 style={{ fontSize: '13px', fontWeight: '600', color: '#334155', margin: '0 0 8px' }}>Arco Design SearchBar 마이그레이션</h4>
+  <ul style={{ fontSize: '12px', color: '#475569', margin: '0 0 12px', paddingLeft: '18px', lineHeight: '1.8' }}>
+    <li><strong>탭 분류 드롭다운</strong>: Arco Search `<Search.SearchBar allowClear enterButton />` → Orbit UI SearchBar + 탭 헤더 div 조합으로 동일 UX 구현.</li>
+    <li><strong>로딩 상태</strong>: Arco `loading` prop → `setTimeout` + `searching` 상태 변수로 모방, 검색 중 텍스트 표시.</li>
+    <li><strong>고정 북마크 섹션</strong>: Arco Mentions `prefix` 기능 → pinned 배열 상태 + 별표 아이콘 렌더링으로 마이그레이션.</li>
+  </ul>
+
+  <h4 style={{ fontSize: '13px', fontWeight: '600', color: '#334155', margin: '0 0 8px' }}>Linear 타이포그래피 마이그레이션</h4>
+  <ul style={{ fontSize: '12px', color: '#475569', margin: '0 0 12px', paddingLeft: '18px', lineHeight: '1.8' }}>
+    <li><strong>이슈 상세 헤딩</strong>: Linear CSS `font-size: 18px; font-weight: 600` → Orbit UI `Text textStyle="headlineSmall"` 로 대체.</li>
+    <li><strong>메타 정보 라벨</strong>: Linear `text-xs text-gray-500` → `Text textStyle="labelSmall" color="onSurfaceVariant"` 로 시맨틱 매핑.</li>
+    <li><strong>본문 텍스트</strong>: Linear `text-sm leading-relaxed` → `Text textStyle="bodyMedium"` 으로 줄간격 포함 자동 적용.</li>
+  </ul>
+
+  <h4 style={{ fontSize: '13px', fontWeight: '600', color: '#334155', margin: '0 0 8px' }}>Orbit UI 반영 사항</h4>
+  <ul style={{ fontSize: '12px', color: '#475569', margin: '0 0 12px', paddingLeft: '18px', lineHeight: '1.8' }}>
+    <li>SearchBar: Arco 탭 분류 전역 검색, Linear 이슈 인라인 검색(상태+우선순위+담당자), Arco+Linear 고정 북마크+히스토리 +3 스토리</li>
+    <li>Text: Arco 데이터 테이블 타이포그래피 계층, Linear 이슈 상세 뷰 타이포그래피, Arco+Linear README 문서 계층 +3 스토리</li>
+    <li>Template #64 ComponentBrowser: SearchBar 검색 + Text 계층 + Chip 태그 + LabelBadge 상태 + SectionTitle + Breadcrumb 조합</li>
+  </ul>
+
+  <div style={{ borderTop: '1px solid #e2e8f0', paddingTop: '10px', marginTop: '4px' }}>
+    <span style={{ fontWeight: '700', color: '#059669' }}>Template #64:</span>
+    <span style={{ color: '#475569', marginLeft: '8px' }}>ComponentBrowser — 컴포넌트 브라우저 (Arco 탭 검색 + Linear 타이포그래피 + Chip/LabelBadge 조합)</span>
+  </div>
+</section>
