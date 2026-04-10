@@ -31406,3 +31406,178 @@ export const MantineArco134IDEWorkspace: StoryObj = {
   },
   render: () => <IDEWorkspace134Render />,
 }
+
+// ============================================================
+// Cycle 135 — shadcn/ui + Ant Design 벤치마크 반영
+// ============================================================
+// 데이터 관리 대시보드: DataTable + Alert 삭제 확인 패턴
+// shadcn/ui Table + Ant Design Popconfirm/Modal 스타일
+
+type TaskRow135 = { id: number; title: string; assignee: string; status: string; priority: string; due: string }
+
+const TASKS_135: TaskRow135[] = [
+  { id: 1, title: 'Storybook 8.6 업그레이드', assignee: '김희준', status: '완료', priority: '높음', due: '2026-04-01' },
+  { id: 2, title: 'DataTable 필터링 기능', assignee: '이재성', status: '진행 중', priority: '높음', due: '2026-04-10' },
+  { id: 3, title: 'Token 3단계 시스템 문서화', assignee: '박민주', status: '대기', priority: '중간', due: '2026-04-15' },
+  { id: 4, title: 'Dark mode 토큰 정의', assignee: '최수현', status: '대기', priority: '낮음', due: '2026-04-20' },
+  { id: 5, title: 'Vercel 자동 배포 설정', assignee: '김희준', status: '완료', priority: '중간', due: '2026-03-28' },
+]
+
+const STATUS_COLOR_135: Record<string, string> = {
+  '완료': '#22c55e',
+  '진행 중': '#3b82f6',
+  '대기': '#94a3b8',
+}
+
+const PRIORITY_COLOR_135: Record<string, string> = {
+  '높음': '#ef4444',
+  '중간': '#f59e0b',
+  '낮음': '#64748b',
+}
+
+function DataMgmtDashboard135Render() {
+  const [tasks, setTasks] = useState<TaskRow135[]>(TASKS_135)
+  const [deleteTarget, setDeleteTarget] = useState<TaskRow135 | null>(null)
+  const [filterStatus, setFilterStatus] = useState<string>('전체')
+  const statuses = ['전체', '완료', '진행 중', '대기']
+
+  const filtered = filterStatus === '전체' ? tasks : tasks.filter((t) => t.status === filterStatus)
+
+  function handleDelete() {
+    if (!deleteTarget) return
+    setTasks((prev) => prev.filter((t) => t.id !== deleteTarget.id))
+    setDeleteTarget(null)
+  }
+
+  return (
+    <div style={{ fontFamily: 'system-ui, sans-serif', width: 740, padding: 24, background: '#fff', borderRadius: 16, border: '1px solid #e2e8f0', boxShadow: '0 4px 24px rgba(0,0,0,0.06)' }}>
+      {/* 헤더 */}
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 20 }}>
+        <div>
+          <div style={{ fontSize: 18, fontWeight: 700, color: '#0f172a' }}>작업 관리 대시보드</div>
+          <div style={{ fontSize: 12, color: '#64748b', marginTop: 2 }}>shadcn/ui + Ant Design 벤치마크 (Cycle 135)</div>
+        </div>
+        <SolidButton color="primary" size="small">
+          <SolidButton.Center>+ 새 작업</SolidButton.Center>
+        </SolidButton>
+      </div>
+
+      {/* 상태 요약 카드 */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 12, marginBottom: 20 }}>
+        {(['완료', '진행 중', '대기'] as const).map((st) => {
+          const count = tasks.filter((t) => t.status === st).length
+          return (
+            <div key={st} style={{ padding: '12px 16px', borderRadius: 10, border: `1.5px solid ${STATUS_COLOR_135[st]}22`, background: STATUS_COLOR_135[st] + '0d' }}>
+              <div style={{ fontSize: 11, color: STATUS_COLOR_135[st], fontWeight: 600, marginBottom: 4 }}>{st}</div>
+              <div style={{ fontSize: 24, fontWeight: 700, color: '#0f172a' }}>{count}</div>
+            </div>
+          )
+        })}
+      </div>
+
+      {/* 필터 탭 */}
+      <div style={{ display: 'flex', gap: 4, marginBottom: 14 }}>
+        {statuses.map((s) => (
+          <button
+            key={s}
+            onClick={() => setFilterStatus(s)}
+            style={{
+              padding: '5px 14px', borderRadius: 8, border: 'none', cursor: 'pointer', fontSize: 12, fontWeight: 500,
+              background: filterStatus === s ? '#0f172a' : '#f1f5f9',
+              color: filterStatus === s ? '#fff' : '#475569',
+              transition: 'background 180ms',
+            }}
+          >
+            {s}
+          </button>
+        ))}
+      </div>
+
+      {/* DataTable */}
+      <div style={{ borderRadius: 10, border: '1px solid #e2e8f0', overflow: 'hidden' }}>
+        <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13 }}>
+          <thead>
+            <tr style={{ background: '#f8fafc' }}>
+              {['작업', '담당자', '상태', '우선순위', '마감일', ''].map((h) => (
+                <th key={h} style={{ padding: '10px 14px', textAlign: 'left', fontWeight: 600, color: '#475569', fontSize: 12, borderBottom: '1px solid #e2e8f0' }}>{h}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {filtered.map((task, idx) => (
+              <tr key={task.id} style={{ borderBottom: idx < filtered.length - 1 ? '1px solid #f1f5f9' : 'none', background: idx % 2 === 0 ? '#fff' : '#fafbfc' }}>
+                <td style={{ padding: '10px 14px', fontWeight: 500, color: '#0f172a', maxWidth: 200 }}>{task.title}</td>
+                <td style={{ padding: '10px 14px', color: '#475569' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                    <div style={{ width: 24, height: 24, borderRadius: '50%', background: '#6366f1', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 10, color: '#fff', fontWeight: 700 }}>
+                      {task.assignee[0]}
+                    </div>
+                    {task.assignee}
+                  </div>
+                </td>
+                <td style={{ padding: '10px 14px' }}>
+                  <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4, padding: '3px 10px', borderRadius: 99, background: STATUS_COLOR_135[task.status] + '15', color: STATUS_COLOR_135[task.status], fontSize: 11, fontWeight: 600 }}>
+                    {task.status}
+                  </span>
+                </td>
+                <td style={{ padding: '10px 14px' }}>
+                  <span style={{ color: PRIORITY_COLOR_135[task.priority], fontWeight: 600, fontSize: 12 }}>{task.priority}</span>
+                </td>
+                <td style={{ padding: '10px 14px', color: '#94a3b8', fontSize: 12 }}>{task.due}</td>
+                <td style={{ padding: '10px 14px' }}>
+                  <button
+                    onClick={() => setDeleteTarget(task)}
+                    style={{ padding: '4px 10px', borderRadius: 6, border: '1px solid #fca5a5', background: '#fff', color: '#ef4444', fontSize: 11, fontWeight: 600, cursor: 'pointer' }}
+                  >
+                    삭제
+                  </button>
+                </td>
+              </tr>
+            ))}
+            {filtered.length === 0 && (
+              <tr><td colSpan={6} style={{ padding: '32px', textAlign: 'center', color: '#94a3b8', fontSize: 13 }}>작업이 없습니다.</td></tr>
+            )}
+          </tbody>
+        </table>
+      </div>
+
+      {/* Ant Design Popconfirm 스타일 삭제 확인 Alert */}
+      <Alert isPresented={!!deleteTarget} onIsPresentedChange={(open) => { if (!open) setDeleteTarget(null) }}>
+        <Alert.Top>
+          <Alert.Title>작업을 삭제하시겠습니까?</Alert.Title>
+          <Alert.Description>
+            &ldquo;{deleteTarget?.title}&rdquo; 작업이 영구적으로 삭제됩니다. 이 작업은 취소할 수 없습니다.
+          </Alert.Description>
+        </Alert.Top>
+        <Alert.Bottom direction="horizontal">
+          <Alert.Close asChild>
+            <SolidButton color="gray" size="medium" width="100%">
+              <SolidButton.Center>취소</SolidButton.Center>
+            </SolidButton>
+          </Alert.Close>
+          <Alert.Action asChild>
+            <SolidButton color="primary" size="medium" width="100%" onClick={handleDelete}>
+              <SolidButton.Center>삭제</SolidButton.Center>
+            </SolidButton>
+          </Alert.Action>
+        </Alert.Bottom>
+      </Alert>
+    </div>
+  )
+}
+
+export const ShadcnAnt135DataMgmtDashboard: StoryObj = {
+  name: 'shadcn/ui + Ant Design — 데이터 관리 대시보드 (Cycle 135)',
+  parameters: {
+    layout: 'centered',
+    docs: {
+      description: {
+        story:
+          'shadcn/ui + Ant Design 벤치마크 — Cycle 135. ' +
+          '작업 목록 테이블(상태 필터 탭 + 요약 카드) + Alert 삭제 확인 다이얼로그. ' +
+          '실시간 행 삭제 반영, 우선순위/상태 배지, 담당자 아바타 포함.',
+      },
+    },
+  },
+  render: () => <DataMgmtDashboard135Render />,
+}

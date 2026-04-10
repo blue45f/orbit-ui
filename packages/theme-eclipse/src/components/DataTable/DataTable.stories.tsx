@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState as useDataTableState } from 'react'
 import type { Meta, StoryObj } from '@storybook/react'
 import { ColumnDef } from '@tanstack/react-table'
 
@@ -1972,4 +1972,262 @@ const RoadmapTableRender = () => {
 export const Linear_Figma_로드맵_마일스톤: Story = {
   name: 'Linear + Figma Plugin UI - 로드맵 마일스톤 테이블',
   render: () => <RoadmapTableRender />,
+}
+
+// ============================================================
+// Cycle 135 — shadcn/ui + Ant Design 벤치마크 반영
+// ============================================================
+
+// shadcn/ui 스타일 — 사용자 관리 테이블 (역할 필터 + 검색)
+type OrgMember = { id: string; name: string; email: string; role: 'admin' | 'editor' | 'viewer'; status: 'active' | 'inactive'; joined: string }
+
+const ORG_MEMBERS: OrgMember[] = [
+  { id: 'm1', name: '김희준', email: 'hj@orbit.dev', role: 'admin', status: 'active', joined: '2024-01' },
+  { id: 'm2', name: '박지수', email: 'js@orbit.dev', role: 'editor', status: 'active', joined: '2024-03' },
+  { id: 'm3', name: '이민준', email: 'mj@orbit.dev', role: 'viewer', status: 'active', joined: '2024-06' },
+  { id: 'm4', name: '최수현', email: 'sh@orbit.dev', role: 'editor', status: 'inactive', joined: '2024-08' },
+  { id: 'm5', name: '정우진', email: 'wj@orbit.dev', role: 'admin', status: 'active', joined: '2025-01' },
+  { id: 'm6', name: '한소희', email: 'so@orbit.dev', role: 'viewer', status: 'inactive', joined: '2025-03' },
+]
+
+const ROLE_BADGE: Record<OrgMember['role'], { label: string; color: string; bg: string }> = {
+  admin: { label: '관리자', color: '#7c3aed', bg: '#ede9fe' },
+  editor: { label: '편집자', color: '#0369a1', bg: '#e0f2fe' },
+  viewer: { label: '뷰어', color: '#374151', bg: '#f3f4f6' },
+}
+
+function ShadcnOrgMemberTableRender() {
+  const [search, setSearch] = useDataTableState('')
+  const [roleFilter, setRoleFilter] = useDataTableState<OrgMember['role'] | 'all'>('all')
+  const filtered = ORG_MEMBERS.filter((m) =>
+    (roleFilter === 'all' || m.role === roleFilter) &&
+    (m.name.includes(search) || m.email.includes(search))
+  )
+  const memberColumns: ColumnDef<OrgMember>[] = [
+    {
+      accessorKey: 'name',
+      header: '이름',
+      cell: ({ row }) => (
+        <div>
+          <div style={{ fontWeight: 600, fontSize: 13, color: '#0f172a' }}>{row.original.name}</div>
+          <div style={{ fontSize: 11, color: '#94a3b8' }}>{row.original.email}</div>
+        </div>
+      ),
+    },
+    {
+      accessorKey: 'role',
+      header: '역할',
+      cell: ({ row }) => {
+        const { label, color, bg } = ROLE_BADGE[row.original.role]
+        return (
+          <span style={{ fontSize: 11, fontWeight: 600, padding: '2px 8px', borderRadius: 99, background: bg, color }}>
+            {label}
+          </span>
+        )
+      },
+    },
+    {
+      accessorKey: 'status',
+      header: '상태',
+      cell: ({ row }) => (
+        <span style={{ fontSize: 11, fontWeight: 500, padding: '2px 8px', borderRadius: 99, background: row.original.status === 'active' ? '#dcfce7' : '#f1f5f9', color: row.original.status === 'active' ? '#16a34a' : '#64748b' }}>
+          {row.original.status === 'active' ? '활성' : '비활성'}
+        </span>
+      ),
+    },
+    { accessorKey: 'joined', header: '가입일', enableSorting: true },
+  ]
+  return (
+    <div style={{ fontFamily: 'system-ui, sans-serif', width: 560 }}>
+      <div style={{ display: 'flex', gap: 8, marginBottom: 12, alignItems: 'center' }}>
+        <input
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          placeholder="이름 또는 이메일 검색..."
+          style={{ flex: 1, padding: '7px 12px', fontSize: 13, borderRadius: 7, border: '1px solid #e2e8f0', outline: 'none' }}
+        />
+        <div style={{ display: 'flex', gap: 4 }}>
+          {(['all', 'admin', 'editor', 'viewer'] as const).map((r) => (
+            <button
+              key={r}
+              onClick={() => setRoleFilter(r)}
+              style={{ padding: '6px 10px', fontSize: 11, fontWeight: roleFilter === r ? 700 : 400, borderRadius: 6, border: '1px solid #e2e8f0', background: roleFilter === r ? '#0f172a' : '#fff', color: roleFilter === r ? '#fff' : '#64748b', cursor: 'pointer' }}
+            >
+              {r === 'all' ? '전체' : ROLE_BADGE[r].label}
+            </button>
+          ))}
+        </div>
+      </div>
+      <DataTable columns={memberColumns as ColumnDef<OrgMember>[]} data={filtered} enableSorting={true} />
+      <div style={{ marginTop: 8, fontSize: 11, color: '#94a3b8' }}>{filtered.length} / {ORG_MEMBERS.length}명</div>
+    </div>
+  )
+}
+
+export const Shadcn_조직_멤버_관리_테이블: Story = {
+  name: 'shadcn/ui - 조직 멤버 관리 테이블',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'shadcn/ui DataTable 패턴. 검색 + 역할 필터 + 상태 배지 + 가입일 정렬. ' +
+          '이름/이메일 복합 셀, 역할별 색상 배지 인라인 렌더링.',
+      },
+    },
+  },
+  render: () => <ShadcnOrgMemberTableRender />,
+}
+
+// Ant Design 스타일 — API 로그 테이블 (시간순 정렬 + 상태 코드 색상)
+type ApiLog = { id: string; method: 'GET' | 'POST' | 'PUT' | 'DELETE'; path: string; status: number; latency: number; time: string }
+
+const API_LOGS: ApiLog[] = [
+  { id: 'l1', method: 'GET', path: '/api/users', status: 200, latency: 42, time: '14:32:01' },
+  { id: 'l2', method: 'POST', path: '/api/deploy', status: 201, latency: 128, time: '14:32:15' },
+  { id: 'l3', method: 'GET', path: '/api/settings', status: 200, latency: 31, time: '14:32:33' },
+  { id: 'l4', method: 'DELETE', path: '/api/token/abc', status: 204, latency: 19, time: '14:32:48' },
+  { id: 'l5', method: 'PUT', path: '/api/users/1', status: 500, latency: 1240, time: '14:33:02' },
+  { id: 'l6', method: 'GET', path: '/api/metrics', status: 403, latency: 8, time: '14:33:21' },
+  { id: 'l7', method: 'POST', path: '/api/webhook', status: 200, latency: 67, time: '14:33:44' },
+]
+
+const METHOD_COLOR: Record<ApiLog['method'], string> = {
+  GET: '#22c55e', POST: '#3b82f6', PUT: '#f59e0b', DELETE: '#ef4444',
+}
+
+const statusBg = (s: number) => s < 300 ? '#dcfce7' : s < 400 ? '#fef9c3' : s < 500 ? '#fee2e2' : '#fce7f3'
+const statusFg = (s: number) => s < 300 ? '#16a34a' : s < 400 ? '#92400e' : s < 500 ? '#991b1b' : '#9d174d'
+
+export const Ant_API_로그_테이블: Story = {
+  name: 'Ant Design - API 로그 테이블',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Ant Design Table 패턴. HTTP 메서드 색상 태그, 상태 코드 배지(2xx/4xx/5xx), ' +
+          '응답 시간 컬럼(1000ms 이상 빨간색 강조), 시간 역순 정렬.',
+      },
+    },
+  },
+  render: () => (
+    <div style={{ fontFamily: 'system-ui, sans-serif', width: 580 }}>
+      <div style={{ marginBottom: 8, fontSize: 13, fontWeight: 700, color: '#0f172a' }}>API 요청 로그</div>
+      <DataTable
+        columns={[
+          {
+            accessorKey: 'method',
+            header: 'Method',
+            cell: ({ row }) => (
+              <span style={{ fontSize: 11, fontWeight: 700, fontFamily: 'monospace', color: METHOD_COLOR[row.original.method as ApiLog['method']] }}>
+                {row.original.method}
+              </span>
+            ),
+          },
+          {
+            accessorKey: 'path',
+            header: 'Path',
+            cell: ({ row }) => (
+              <span style={{ fontSize: 12, fontFamily: 'monospace', color: '#0f172a' }}>{row.original.path}</span>
+            ),
+          },
+          {
+            accessorKey: 'status',
+            header: 'Status',
+            enableSorting: true,
+            cell: ({ row }) => (
+              <span style={{ fontSize: 11, fontWeight: 600, padding: '2px 7px', borderRadius: 4, background: statusBg(row.original.status as number), color: statusFg(row.original.status as number), fontFamily: 'monospace' }}>
+                {row.original.status}
+              </span>
+            ),
+          },
+          {
+            accessorKey: 'latency',
+            header: 'Latency',
+            enableSorting: true,
+            cell: ({ row }) => (
+              <span style={{ fontSize: 12, fontFamily: 'monospace', color: (row.original.latency as number) > 1000 ? '#ef4444' : '#0f172a', fontWeight: (row.original.latency as number) > 1000 ? 700 : 400 }}>
+                {row.original.latency}ms
+              </span>
+            ),
+          },
+          { accessorKey: 'time', header: '시간', enableSorting: true },
+        ] as ColumnDef<ApiLog>[]}
+        data={API_LOGS}
+        enableSorting={true}
+      />
+    </div>
+  ),
+}
+
+// shadcn/ui + Ant — 재무 보고서 테이블 (계층형 소계 + 컬럼 하이라이트)
+type FinanceRow = { dept: string; q1: number; q2: number; q3: number; q4: number; total: number; change: number }
+
+const FINANCE_ROWS: FinanceRow[] = [
+  { dept: '엔지니어링', q1: 420, q2: 480, q3: 510, q4: 540, total: 1950, change: 12.4 },
+  { dept: '디자인', q1: 180, q2: 190, q3: 210, q4: 220, total: 800, change: 8.2 },
+  { dept: '마케팅', q1: 250, q2: 290, q3: 310, q4: 280, total: 1130, change: 6.7 },
+  { dept: '운영', q1: 120, q2: 130, q3: 125, q4: 140, total: 515, change: -2.1 },
+  { dept: '합계', q1: 970, q2: 1090, q3: 1155, q4: 1180, total: 4395, change: 9.8 },
+]
+
+export const Shadcn_Ant_재무_보고서_테이블: Story = {
+  name: 'shadcn/ui + Ant Design - 재무 보고서 테이블',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'shadcn/ui + Ant Design Table 결합 패턴. 부서별 분기 실적, 합계 행 강조, ' +
+          'YoY 변화율 컬럼(양수/음수 색상 구분), 전체 총계 행 굵은 폰트.',
+      },
+    },
+  },
+  render: () => (
+    <div style={{ fontFamily: 'system-ui, sans-serif', width: 540 }}>
+      <div style={{ marginBottom: 8, fontSize: 13, fontWeight: 700, color: '#0f172a' }}>2025 부서별 예산 집행 (단위: 백만원)</div>
+      <DataTable
+        columns={[
+          {
+            accessorKey: 'dept',
+            header: '부서',
+            cell: ({ row }) => (
+              <span style={{ fontWeight: row.original.dept === '합계' ? 800 : 500, color: '#0f172a', fontSize: 13 }}>
+                {row.original.dept}
+              </span>
+            ),
+          },
+          ...(['q1', 'q2', 'q3', 'q4'] as const).map((q) => ({
+            accessorKey: q,
+            header: q.toUpperCase(),
+            cell: ({ row }: any) => (
+              <span style={{ fontWeight: row.original.dept === '합계' ? 700 : 400, fontSize: 12, fontFamily: 'monospace' }}>
+                {row.original[q].toLocaleString()}
+              </span>
+            ),
+          })),
+          {
+            accessorKey: 'total',
+            header: '연간 합계',
+            enableSorting: true,
+            cell: ({ row }) => (
+              <span style={{ fontWeight: 700, fontSize: 13, fontFamily: 'monospace', color: row.original.dept === '합계' ? '#6366f1' : '#0f172a' }}>
+                {row.original.total.toLocaleString()}
+              </span>
+            ),
+          },
+          {
+            accessorKey: 'change',
+            header: 'YoY',
+            enableSorting: true,
+            cell: ({ row }) => (
+              <span style={{ fontSize: 12, fontWeight: 600, color: row.original.change >= 0 ? '#22c55e' : '#ef4444' }}>
+                {row.original.change >= 0 ? '+' : ''}{row.original.change}%
+              </span>
+            ),
+          },
+        ] as ColumnDef<FinanceRow>[]}
+        data={FINANCE_ROWS}
+        enableSorting={true}
+      />
+    </div>
+  ),
 }

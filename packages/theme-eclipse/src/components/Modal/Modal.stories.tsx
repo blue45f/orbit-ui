@@ -1437,3 +1437,288 @@ export const TailwindUI_공유_권한_모달: Story = {
   },
   render: () => <TwShareRender />,
 }
+
+// ============================================================
+// Cycle 135 — shadcn/ui + Ant Design 벤치마크 반영
+// ============================================================
+
+// shadcn/ui 스타일 — 이미지 갤러리 모달 (라이트박스 패턴)
+const GALLERY_ITEMS_135 = [
+  { id: 1, title: 'Button 컴포넌트 설계', desc: '3-tier 토큰 아키텍처 다이어그램', color: '#6366f1' },
+  { id: 2, title: 'Toast 알림 UI', desc: '4방향 위치 + 다크모드 스크린샷', color: '#10b981' },
+  { id: 3, title: 'DataTable 필터링', desc: '멀티 컬럼 정렬 + 페이지네이션', color: '#f59e0b' },
+  { id: 4, title: 'Command 팔레트', desc: 'Spotlight 스타일 검색 UI', color: '#ec4899' },
+  { id: 5, title: 'Modal 다이얼로그', desc: '스크롤 영역 + 폼 레이아웃', color: '#8b5cf6' },
+  { id: 6, title: 'Carousel 뷰어', desc: '터치 스와이프 + 도트 인디케이터', color: '#0ea5e9' },
+]
+
+function ShadcnLightboxRender() {
+  const [isOpen, setIsOpen] = useState(false)
+  const [selected, setSelected] = useState(0)
+  const item = GALLERY_ITEMS_135[selected]
+  return (
+    <div style={{ fontFamily: 'system-ui, sans-serif' }}>
+      {/* 썸네일 그리드 */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 120px)', gap: 8 }}>
+        {GALLERY_ITEMS_135.map((g, i) => (
+          <div
+            key={g.id}
+            onClick={() => { setSelected(i); setIsOpen(true) }}
+            style={{
+              height: 80, borderRadius: 8, background: g.color + '22', border: `2px solid ${g.color}44`,
+              display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
+              cursor: 'pointer', transition: 'transform 150ms', overflow: 'hidden',
+            }}
+            onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.transform = 'scale(1.04)' }}
+            onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.transform = 'scale(1)' }}
+          >
+            <div style={{ width: 32, height: 32, borderRadius: 6, background: g.color, marginBottom: 4 }} />
+            <span style={{ fontSize: 10, color: g.color, fontWeight: 600, textAlign: 'center', padding: '0 4px' }}>{g.title}</span>
+          </div>
+        ))}
+      </div>
+      {/* 라이트박스 모달 */}
+      <Dialog isPresented={isOpen} onIsPresentedChange={setIsOpen}>
+        <Dialog.Top>
+          <h3 style={{ margin: '0 0 8px', fontSize: 16, fontWeight: 700, color: '#0f172a' }}>{item.title}</h3>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '24px 0' }}>
+            <div style={{ width: 200, height: 140, borderRadius: 12, background: item.color + '22', border: `2px solid ${item.color}44`, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 12 }}>
+              <div style={{ width: 60, height: 60, borderRadius: 12, background: item.color }} />
+              <span style={{ fontSize: 13, fontWeight: 600, color: item.color }}>{item.title}</span>
+            </div>
+          </div>
+          <Typography textStyle="bodySmall" style={{ color: vars.sem.color.foregroundSecondary, textAlign: 'center' }}>
+            {item.desc}
+          </Typography>
+        </Dialog.Top>
+        <Dialog.Bottom direction="horizontal">
+          <Button
+            color="gray" size="large" width="50%"
+            disabled={selected === 0}
+            onClick={() => setSelected((s) => Math.max(0, s - 1))}
+          >
+            <Button.Center>이전</Button.Center>
+          </Button>
+          <Button
+            color="primary" size="large" width="50%"
+            disabled={selected === GALLERY_ITEMS_135.length - 1}
+            onClick={() => setSelected((s) => Math.min(GALLERY_ITEMS_135.length - 1, s + 1))}
+          >
+            <Button.Center>다음</Button.Center>
+          </Button>
+        </Dialog.Bottom>
+      </Dialog>
+    </div>
+  )
+}
+
+export const Shadcn_라이트박스_갤러리_모달: Story = {
+  name: 'shadcn/ui - 라이트박스 갤러리 모달',
+  parameters: {
+    layout: 'centered',
+    docs: {
+      description: {
+        story:
+          'shadcn/ui Dialog 라이트박스 패턴. 썸네일 그리드 클릭 → 모달에서 상세 보기. ' +
+          '이전/다음 버튼으로 항목 순회. 호버 시 썸네일 scale 애니메이션.',
+      },
+    },
+  },
+  render: () => <ShadcnLightboxRender />,
+}
+
+// Ant Design 스타일 — 상세 정보 드로어 스타일 모달 (SlideIn 패턴)
+type ProjectDetail = { name: string; owner: string; status: string; health: number; members: string[]; tags: string[]; desc: string }
+
+const PROJECT_DETAIL: ProjectDetail = {
+  name: 'orbit-ui',
+  owner: '김희준',
+  status: '진행 중',
+  health: 87,
+  members: ['HJ', 'JS', 'MJ', 'SH'],
+  tags: ['React', 'TypeScript', 'Storybook'],
+  desc: 'Figma 기반 React 디자인 시스템. 3-tier 토큰 구조와 vanilla-extract 테마 시스템을 활용한 컴포넌트 라이브러리.',
+}
+
+function AntDetailDrawerRender() {
+  const [isOpen, setIsOpen] = useState(false)
+  return (
+    <div style={{ fontFamily: 'system-ui, sans-serif' }}>
+      <OutlineButton color="black" size="medium" onClick={() => setIsOpen(true)}>
+        <OutlineButton.Center>프로젝트 상세</OutlineButton.Center>
+      </OutlineButton>
+      <Dialog isPresented={isOpen} onIsPresentedChange={setIsOpen}>
+        <Dialog.Top>
+          <h3 style={{ margin: '0 0 8px', fontSize: 16, fontWeight: 700, color: '#0f172a' }}>{PROJECT_DETAIL.name}</h3>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 16, marginTop: 8 }}>
+            {/* 헬스 게이지 */}
+            <div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, color: '#475569', marginBottom: 4 }}>
+                <span>프로젝트 건강도</span>
+                <span style={{ fontWeight: 700, color: PROJECT_DETAIL.health >= 80 ? '#22c55e' : '#f59e0b' }}>{PROJECT_DETAIL.health}%</span>
+              </div>
+              <div style={{ height: 6, background: '#f1f5f9', borderRadius: 99 }}>
+                <div style={{ height: '100%', width: `${PROJECT_DETAIL.health}%`, background: PROJECT_DETAIL.health >= 80 ? '#22c55e' : '#f59e0b', borderRadius: 99 }} />
+              </div>
+            </div>
+            {/* 메타 정보 */}
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+              <div>
+                <div style={{ fontSize: 11, color: '#94a3b8', marginBottom: 2 }}>담당자</div>
+                <div style={{ fontSize: 13, fontWeight: 600, color: '#0f172a' }}>{PROJECT_DETAIL.owner}</div>
+              </div>
+              <div>
+                <div style={{ fontSize: 11, color: '#94a3b8', marginBottom: 2 }}>상태</div>
+                <span style={{ fontSize: 11, fontWeight: 600, padding: '2px 8px', borderRadius: 99, background: '#dcfce7', color: '#16a34a' }}>{PROJECT_DETAIL.status}</span>
+              </div>
+            </div>
+            {/* 멤버 */}
+            <div>
+              <div style={{ fontSize: 11, color: '#94a3b8', marginBottom: 6 }}>팀원 ({PROJECT_DETAIL.members.length}명)</div>
+              <div style={{ display: 'flex', gap: 6 }}>
+                {PROJECT_DETAIL.members.map((m, i) => (
+                  <div key={i} style={{ width: 32, height: 32, borderRadius: '50%', background: ['#6366f1', '#10b981', '#f59e0b', '#ec4899'][i % 4], display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 12, fontWeight: 700, color: '#fff' }}>
+                    {m}
+                  </div>
+                ))}
+              </div>
+            </div>
+            {/* 태그 */}
+            <div>
+              <div style={{ fontSize: 11, color: '#94a3b8', marginBottom: 6 }}>기술 스택</div>
+              <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+                {PROJECT_DETAIL.tags.map((t) => (
+                  <span key={t} style={{ fontSize: 11, padding: '2px 8px', borderRadius: 4, background: '#f1f5f9', color: '#0f172a', border: '1px solid #e2e8f0' }}>{t}</span>
+                ))}
+              </div>
+            </div>
+            {/* 설명 */}
+            <Typography textStyle="bodySmall" style={{ color: vars.sem.color.foregroundSecondary, lineHeight: 1.7 }}>
+              {PROJECT_DETAIL.desc}
+            </Typography>
+          </div>
+        </Dialog.Top>
+        <Dialog.Bottom direction="horizontal">
+          <Dialog.Close asChild>
+            <Button color="gray" size="large" width="100%">
+              <Button.Center>닫기</Button.Center>
+            </Button>
+          </Dialog.Close>
+        </Dialog.Bottom>
+      </Dialog>
+    </div>
+  )
+}
+
+export const Ant_프로젝트_상세_정보_모달: Story = {
+  name: 'Ant Design - 프로젝트 상세 정보 모달',
+  parameters: {
+    layout: 'centered',
+    docs: {
+      description: {
+        story:
+          'Ant Design Drawer 패턴을 Modal로 구현. 프로젝트 건강도 게이지, ' +
+          '메타 정보(담당자/상태), 팀원 아바타, 기술 스택 태그, 설명 복합 레이아웃.',
+      },
+    },
+  },
+  render: () => <AntDetailDrawerRender />,
+}
+
+// shadcn/ui + Ant — 멀티스텝 폼 모달 (Wizard 패턴)
+type WizardStep135 = 'basic' | 'config' | 'review'
+
+function ShadcnAntWizardModalRender() {
+  const [isOpen, setIsOpen] = useState(false)
+  const [step, setStep] = useState<WizardStep135>('basic')
+  const [data, setData] = useState({ name: '', type: '', region: '', confirm: false })
+  const STEPS: WizardStep135[] = ['basic', 'config', 'review']
+  const stepIdx = STEPS.indexOf(step)
+  const stepLabel: Record<WizardStep135, string> = { basic: '기본 정보', config: '환경 설정', review: '검토' }
+  const canNext = step === 'basic' ? data.name.length > 0 : step === 'config' ? data.type.length > 0 : data.confirm
+  return (
+    <div style={{ fontFamily: 'system-ui, sans-serif' }}>
+      <Button color="primary" size="large" onClick={() => { setIsOpen(true); setStep('basic') }}>
+        <Button.Center>프로젝트 생성</Button.Center>
+      </Button>
+      <Dialog isPresented={isOpen} onIsPresentedChange={(open) => { setIsOpen(open); if (!open) setStep('basic') }}>
+        <Dialog.Top>
+          <h3 style={{ margin: '0 0 8px', fontSize: 16, fontWeight: 700, color: '#0f172a' }}>새 프로젝트 생성</h3>
+          {/* 진행 바 */}
+          <div style={{ display: 'flex', gap: 4, marginTop: 8, marginBottom: 16 }}>
+            {STEPS.map((s, i) => (
+              <div key={s} style={{ flex: 1 }}>
+                <div style={{ height: 3, borderRadius: 99, background: i <= stepIdx ? '#0f172a' : '#e2e8f0', transition: 'background 250ms' }} />
+                <div style={{ fontSize: 10, color: i <= stepIdx ? '#0f172a' : '#94a3b8', marginTop: 4, fontWeight: i === stepIdx ? 700 : 400 }}>{stepLabel[s]}</div>
+              </div>
+            ))}
+          </div>
+          {/* 단계 콘텐츠 */}
+          {step === 'basic' && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+              <FloatingTextField
+                placeholder="프로젝트 이름"
+                value={data.name}
+                onChange={(e) => setData((d) => ({ ...d, name: (e.target as HTMLInputElement).value }))}
+              />
+            </div>
+          )}
+          {step === 'config' && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+              <div style={{ fontSize: 12, fontWeight: 600, color: '#475569', marginBottom: 4 }}>프레임워크 선택</div>
+              {['Next.js', 'Vite + React', 'Remix'].map((t) => (
+                <label key={t} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px', borderRadius: 8, border: `1.5px solid ${data.type === t ? '#0f172a' : '#e2e8f0'}`, cursor: 'pointer' }} onClick={() => setData((d) => ({ ...d, type: t }))}>
+                  <span style={{ width: 14, height: 14, borderRadius: '50%', border: `2px solid ${data.type === t ? '#0f172a' : '#cbd5e1'}`, background: data.type === t ? '#0f172a' : '#fff', flexShrink: 0 }} />
+                  <span style={{ fontSize: 13, fontWeight: data.type === t ? 600 : 400, color: '#0f172a' }}>{t}</span>
+                </label>
+              ))}
+            </div>
+          )}
+          {step === 'review' && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+              <div style={{ padding: '12px', borderRadius: 8, background: '#f8fafc', border: '1px solid #e2e8f0', fontSize: 13 }}>
+                <div><span style={{ color: '#94a3b8' }}>이름:</span> <span style={{ fontWeight: 600 }}>{data.name}</span></div>
+                <div style={{ marginTop: 4 }}><span style={{ color: '#94a3b8' }}>프레임워크:</span> <span style={{ fontWeight: 600 }}>{data.type}</span></div>
+              </div>
+              <label style={{ display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer', fontSize: 12, color: '#475569' }}>
+                <input type="checkbox" checked={data.confirm} onChange={(e) => setData((d) => ({ ...d, confirm: e.target.checked }))} />
+                입력 정보를 확인했습니다.
+              </label>
+            </div>
+          )}
+        </Dialog.Top>
+        <Dialog.Bottom direction="horizontal">
+          {stepIdx > 0 && (
+            <OutlineButton color="black" size="large" width="50%" onClick={() => setStep(STEPS[stepIdx - 1] as WizardStep135)}>
+              <OutlineButton.Center>이전</OutlineButton.Center>
+            </OutlineButton>
+          )}
+          {step !== 'review' ? (
+            <Button color="primary" size="large" width={stepIdx > 0 ? '50%' : '100%'} disabled={!canNext} onClick={() => setStep(STEPS[stepIdx + 1] as WizardStep135)}>
+              <Button.Center>다음</Button.Center>
+            </Button>
+          ) : (
+            <Button color="primary" size="large" width={stepIdx > 0 ? '50%' : '100%'} disabled={!canNext} onClick={() => { setIsOpen(false); setStep('basic'); setData({ name: '', type: '', region: '', confirm: false }) }}>
+              <Button.Center>생성 완료</Button.Center>
+            </Button>
+          )}
+        </Dialog.Bottom>
+      </Dialog>
+    </div>
+  )
+}
+
+export const Shadcn_Ant_멀티스텝_폼_모달: Story = {
+  name: 'shadcn/ui + Ant Design - 멀티스텝 폼 모달',
+  parameters: {
+    layout: 'centered',
+    docs: {
+      description: {
+        story:
+          'shadcn/ui + Ant Design Steps 결합. 기본 정보 → 환경 설정 → 검토 3단계 위저드. ' +
+          '단계별 진행 바, 라디오 카드 선택, 최종 검토 확인 체크박스. 각 단계 유효성 검증 후 다음 허용.',
+      },
+    },
+  },
+  render: () => <ShadcnAntWizardModalRender />,
+}
