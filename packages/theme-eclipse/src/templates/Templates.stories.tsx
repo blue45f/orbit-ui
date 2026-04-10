@@ -42085,3 +42085,211 @@ export const MuiTailwind188AnalyticsDashboard: StoryObj = {
   },
   render: () => <MuiTailwind188Render />,
 }
+
+/* --------------------------------------------------------------------------
+   Cycle 189 — Chakra UI + Arco Design
+-------------------------------------------------------------------------- */
+const CHAKRA_189_USER_PROFILE = {
+  name: '김희준',
+  role: 'Lead Designer',
+  team: 'Orbit UI',
+  avatar: 'KH',
+  email: 'heejun@orbit.dev',
+  joined: '2023-03-15',
+  timezone: 'Asia/Seoul',
+}
+
+const CHAKRA_189_ACTIVITY = [
+  { action: 'Button 컴포넌트 스토리 추가', time: '5분 전', type: 'story' },
+  { action: 'Cycle 188 배포 완료', time: '1시간 전', type: 'deploy' },
+  { action: 'RadioGroup 접근성 개선', time: '3시간 전', type: 'fix' },
+  { action: 'Templates 대시보드 추가', time: '어제', type: 'template' },
+]
+
+const CHAKRA_189_NOTIF_PREFS = [
+  { id: 'story', label: '스토리 업데이트', desc: '새 스토리 추가 시 알림', active: true },
+  { id: 'deploy', label: '배포 상태', desc: 'Vercel 배포 완료/실패 알림', active: true },
+  { id: 'review', label: '코드 리뷰', desc: 'PR 리뷰 요청 알림', active: false },
+  { id: 'digest', label: '주간 다이제스트', desc: '매주 월요일 요약 이메일', active: true },
+]
+
+const ACTIVITY_TYPE_STYLE_189: Record<string, { color: string; bg: string; label: string }> = {
+  story:    { color: '#6366f1', bg: '#eef2ff', label: '스토리' },
+  deploy:   { color: '#10b981', bg: '#d1fae5', label: '배포' },
+  fix:      { color: '#f59e0b', bg: '#fef3c7', label: '수정' },
+  template: { color: '#3b82f6', bg: '#dbeafe', label: '템플릿' },
+}
+
+function ChakraArco189Render() {
+  const [activeTab, setActiveTab] = React.useState<'profile' | 'notifications' | 'activity'>('profile')
+  const [notifPrefs, setNotifPrefs] = React.useState<Record<string, boolean>>(
+    Object.fromEntries(CHAKRA_189_NOTIF_PREFS.map((n) => [n.id, n.active]))
+  )
+  const [profileEdit, setProfileEdit] = React.useState(false)
+  const [editName, setEditName] = React.useState(CHAKRA_189_USER_PROFILE.name)
+  const [editRole, setEditRole] = React.useState(CHAKRA_189_USER_PROFILE.role)
+  const [saved, setSaved] = React.useState(false)
+
+  const toggleNotif = (id: string) => {
+    setNotifPrefs((prev) => ({ ...prev, [id]: !prev[id] }))
+  }
+
+  const handleSave = () => {
+    setProfileEdit(false)
+    setSaved(true)
+    setTimeout(() => setSaved(false), 2000)
+  }
+
+  const activeCount = Object.values(notifPrefs).filter(Boolean).length
+
+  return (
+    <div style={{ minHeight: '100vh', background: '#f8fafc', fontFamily: 'system-ui, sans-serif', display: 'flex', justifyContent: 'center', alignItems: 'flex-start', padding: '32px 16px' }}>
+      <div style={{ width: '100%', maxWidth: 720 }}>
+        {/* Profile header */}
+        <div style={{ background: '#fff', borderRadius: 16, border: '1px solid #e5e7eb', padding: '24px', marginBottom: 16, display: 'flex', alignItems: 'center', gap: 20 }}>
+          <div style={{ width: 64, height: 64, borderRadius: '50%', background: 'linear-gradient(135deg, #6366f1, #8b5cf6)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 22, fontWeight: 800, color: '#fff', flexShrink: 0 }}>
+            {CHAKRA_189_USER_PROFILE.avatar}
+          </div>
+          <div style={{ flex: 1 }}>
+            <div style={{ fontSize: 18, fontWeight: 800, color: '#0f172a' }}>{editName}</div>
+            <div style={{ fontSize: 13, color: '#64748b', marginTop: 2 }}>{editRole} · {CHAKRA_189_USER_PROFILE.team}</div>
+            <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 4 }}>{CHAKRA_189_USER_PROFILE.email}</div>
+          </div>
+          {saved && (
+            <div style={{ padding: '6px 14px', background: '#d1fae5', color: '#065f46', fontSize: 11, fontWeight: 600, borderRadius: 20 }}>저장됨</div>
+          )}
+        </div>
+
+        {/* Tabs */}
+        <div style={{ display: 'flex', gap: 4, background: '#f1f5f9', borderRadius: 10, padding: 4, marginBottom: 16 }}>
+          {(['profile', 'notifications', 'activity'] as const).map((tab) => (
+            <button
+              key={tab}
+              onClick={() => setActiveTab(tab)}
+              style={{
+                flex: 1, padding: '8px 12px', borderRadius: 7, border: 'none', cursor: 'pointer', fontSize: 12, fontWeight: activeTab === tab ? 700 : 400,
+                background: activeTab === tab ? '#fff' : 'transparent',
+                color: activeTab === tab ? '#0f172a' : '#64748b',
+                boxShadow: activeTab === tab ? '0 1px 3px rgba(0,0,0,0.08)' : 'none',
+                transition: 'all 0.15s',
+              }}
+            >
+              {tab === 'profile' ? '프로필' : tab === 'notifications' ? `알림 (${activeCount})` : '활동 기록'}
+            </button>
+          ))}
+        </div>
+
+        {/* Tab content */}
+        <div style={{ background: '#fff', borderRadius: 16, border: '1px solid #e5e7eb', padding: '24px' }}>
+          {activeTab === 'profile' && (
+            <div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
+                <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>기본 정보</div>
+                <button
+                  onClick={() => profileEdit ? handleSave() : setProfileEdit(true)}
+                  style={{ padding: '6px 16px', fontSize: 12, fontWeight: 600, borderRadius: 7, border: profileEdit ? 'none' : '1px solid #e5e7eb', background: profileEdit ? '#0f172a' : '#fff', color: profileEdit ? '#fff' : '#374151', cursor: 'pointer' }}
+                >
+                  {profileEdit ? '저장' : '편집'}
+                </button>
+              </div>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+                {[
+                  { label: '이름', value: editName, onChange: setEditName, key: 'name' },
+                  { label: '역할', value: editRole, onChange: setEditRole, key: 'role' },
+                  { label: '팀', value: CHAKRA_189_USER_PROFILE.team, onChange: () => undefined, key: 'team' },
+                  { label: '타임존', value: CHAKRA_189_USER_PROFILE.timezone, onChange: () => undefined, key: 'tz' },
+                ].map((field) => (
+                  <div key={field.key}>
+                    <div style={{ fontSize: 11, fontWeight: 600, color: '#64748b', marginBottom: 4 }}>{field.label}</div>
+                    {profileEdit && (field.key === 'name' || field.key === 'role') ? (
+                      <input
+                        value={field.value}
+                        onChange={(e) => field.onChange(e.target.value)}
+                        style={{ width: '100%', padding: '7px 10px', fontSize: 13, borderRadius: 7, border: '1px solid #d1d5db', outline: 'none', boxSizing: 'border-box' }}
+                      />
+                    ) : (
+                      <div style={{ fontSize: 13, color: '#0f172a', padding: '7px 10px', background: '#f8fafc', borderRadius: 7, border: '1px solid #f3f4f6' }}>{field.value}</div>
+                    )}
+                  </div>
+                ))}
+              </div>
+              <div style={{ marginTop: 20, padding: '14px 16px', background: '#f8fafc', borderRadius: 10, border: '1px solid #f1f5f9' }}>
+                <div style={{ fontSize: 11, fontWeight: 600, color: '#64748b', marginBottom: 4 }}>가입일</div>
+                <div style={{ fontSize: 13, color: '#374151' }}>{CHAKRA_189_USER_PROFILE.joined}</div>
+              </div>
+            </div>
+          )}
+
+          {activeTab === 'notifications' && (
+            <div>
+              <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a', marginBottom: 4 }}>알림 설정</div>
+              <div style={{ fontSize: 11, color: '#64748b', marginBottom: 20 }}>Chakra UI 체크박스 폼 패턴</div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+                {CHAKRA_189_NOTIF_PREFS.map((pref) => (
+                  <div
+                    key={pref.id}
+                    onClick={() => toggleNotif(pref.id)}
+                    style={{
+                      display: 'flex', alignItems: 'center', gap: 14, padding: '12px 14px',
+                      borderRadius: 10, border: `1px solid ${notifPrefs[pref.id] ? '#e0e7ff' : '#f3f4f6'}`,
+                      background: notifPrefs[pref.id] ? '#eef2ff' : '#f9fafb',
+                      cursor: 'pointer', transition: 'all 0.15s',
+                    }}
+                  >
+                    <Checkbox checked={notifPrefs[pref.id]} onChange={() => toggleNotif(pref.id)} />
+                    <div style={{ flex: 1 }}>
+                      <div style={{ fontSize: 13, fontWeight: notifPrefs[pref.id] ? 600 : 400, color: '#0f172a' }}>{pref.label}</div>
+                      <div style={{ fontSize: 11, color: '#64748b', marginTop: 1 }}>{pref.desc}</div>
+                    </div>
+                    <div style={{ width: 36, height: 20, borderRadius: 10, background: notifPrefs[pref.id] ? '#6366f1' : '#d1d5db', position: 'relative', flexShrink: 0, transition: 'background 0.2s' }}>
+                      <div style={{ width: 16, height: 16, borderRadius: '50%', background: '#fff', position: 'absolute', top: 2, left: notifPrefs[pref.id] ? 18 : 2, transition: 'left 0.2s', boxShadow: '0 1px 3px rgba(0,0,0,0.2)' }} />
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <div style={{ marginTop: 16, fontSize: 11, color: '#94a3b8', textAlign: 'right' }}>{activeCount}개 알림 활성화</div>
+            </div>
+          )}
+
+          {activeTab === 'activity' && (
+            <div>
+              <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a', marginBottom: 4 }}>최근 활동</div>
+              <div style={{ fontSize: 11, color: '#64748b', marginBottom: 20 }}>Arco Design 타임라인 패턴</div>
+              <div style={{ position: 'relative' }}>
+                <div style={{ position: 'absolute', left: 11, top: 0, bottom: 0, width: 1, background: '#e5e7eb' }} />
+                {CHAKRA_189_ACTIVITY.map((act, i) => {
+                  const style = ACTIVITY_TYPE_STYLE_189[act.type]
+                  return (
+                    <div key={i} style={{ display: 'flex', gap: 14, marginBottom: 16, position: 'relative' }}>
+                      <div style={{ width: 22, height: 22, borderRadius: '50%', background: style.bg, border: `2px solid ${style.color}`, flexShrink: 0, zIndex: 1 }} />
+                      <div style={{ flex: 1, paddingTop: 2 }}>
+                        <div style={{ fontSize: 13, color: '#0f172a', fontWeight: 500 }}>{act.action}</div>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginTop: 3 }}>
+                          <span style={{ fontSize: 9, fontWeight: 600, padding: '1px 6px', borderRadius: 8, background: style.bg, color: style.color }}>{style.label}</span>
+                          <span style={{ fontSize: 10, color: '#94a3b8' }}>{act.time}</span>
+                        </div>
+                      </div>
+                    </div>
+                  )
+                })}
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const ChakraArco189UserProfile: StoryObj = {
+  name: 'Chakra UI + Arco Design — 유저 프로필 & 알림 설정 (Cycle 189)',
+  parameters: {
+    layout: 'fullscreen',
+    docs: {
+      description: {
+        story: 'Chakra UI + Arco Design 복합 패턴. 프로필 헤더 + 탭(프로필 편집 / 알림 설정 / 활동 기록). Chakra 체크박스+토글 알림 설정 + Arco 타임라인 활동 피드. Checkbox 컴포넌트 활용.',
+      },
+    },
+  },
+  render: () => <ChakraArco189Render />,
+}

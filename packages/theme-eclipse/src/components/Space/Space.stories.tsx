@@ -1235,3 +1235,193 @@ export const Mantine_Notion_대시보드_그리드_공백: Story = {
     },
   },
 }
+
+/* --------------------------------------------------------------------------
+   Cycle 189 — Chakra UI + Arco Design
+-------------------------------------------------------------------------- */
+const CHAKRA_FORM_SECTIONS_189 = [
+  { label: '이름', placeholder: '홍길동', type: 'text' },
+  { label: '이메일', placeholder: 'hello@orbit.dev', type: 'email' },
+  { label: '조직', placeholder: 'Orbit Design Team', type: 'text' },
+]
+
+function ChakraFormSpaceRender() {
+  const [values, setValues] = React.useState({ name: '', email: '', org: '' })
+  const keys = ['name', 'email', 'org'] as const
+  return (
+      <div style={{ width: 360, fontFamily: 'system-ui, sans-serif' }}>
+        <div style={{ fontSize: 15, fontWeight: 700, color: '#0f172a' }}>프로필 설정</div>
+        <div style={{ fontSize: 11, color: '#64748b' }}>{'Chakra UI 폼 간격 패턴 — Space y="200" 섹션 분리'}</div>
+        <Space y="200" />
+        <div style={{ fontSize: 11, fontWeight: 700, color: '#64748b', letterSpacing: '0.05em', textTransform: 'uppercase' }}>기본 정보</div>
+        <Space y="100" />
+        {CHAKRA_FORM_SECTIONS_189.map((f, i) => (
+          <React.Fragment key={f.label}>
+            {i > 0 && <Space y="100" />}
+            <div>
+              <label style={{ display: 'block', fontSize: 12, fontWeight: 600, color: '#374151', marginBottom: 0 }}>{f.label}</label>
+              <Space y="50" />
+              <input
+                type={f.type}
+                placeholder={f.placeholder}
+                value={values[keys[i]]}
+                onChange={(e) => setValues((v) => ({ ...v, [keys[i]]: e.target.value }))}
+                style={{ width: '100%', padding: '8px 12px', fontSize: 13, borderRadius: 7, border: '1px solid #d1d5db', outline: 'none', boxSizing: 'border-box' }}
+              />
+            </div>
+          </React.Fragment>
+        ))}
+        <Space y="200" />
+        <div style={{ fontSize: 11, fontWeight: 700, color: '#64748b', letterSpacing: '0.05em', textTransform: 'uppercase' }}>설정</div>
+        <Space y="100" />
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 12px', background: '#f8fafc', borderRadius: 8, border: '1px solid #e2e8f0' }}>
+          <div style={{ flex: 1 }}>
+            <div style={{ fontSize: 12, fontWeight: 600, color: '#374151' }}>이메일 알림</div>
+            <Space y="25" />
+            <div style={{ fontSize: 11, color: '#64748b' }}>업데이트 및 공지 수신</div>
+          </div>
+          <div style={{ width: 36, height: 20, borderRadius: 10, background: '#6366f1', position: 'relative', cursor: 'pointer' }}>
+            <div style={{ width: 16, height: 16, borderRadius: '50%', background: '#fff', position: 'absolute', top: 2, right: 2, boxShadow: '0 1px 3px rgba(0,0,0,0.2)' }} />
+          </div>
+        </div>
+        <Space y="150" />
+        <button style={{ width: '100%', padding: '10px', fontSize: 13, fontWeight: 600, borderRadius: 8, border: 'none', background: '#0f172a', color: '#fff', cursor: 'pointer' }}>
+          저장
+        </button>
+      </div>
+    )
+}
+
+export const Chakra_폼_섹션_간격_리듬: StoryObj = {
+  name: 'Chakra UI — 폼 섹션 간격 리듬',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Chakra UI 폼 레이아웃 간격 패턴. 섹션 헤더-필드 간(Space y="50"), 필드 간(Space y="100"), 섹션 간(Space y="200")으로 계층적 리듬을 적용합니다.',
+      },
+    },
+  },
+  render: () => <ChakraFormSpaceRender />,
+}
+
+const ARCO_CARD_SECTIONS_189 = [
+  { title: '일일 배포 횟수', value: '24', delta: '+3', positive: true },
+  { title: '평균 빌드 시간', value: '42s', delta: '-8s', positive: true },
+  { title: '오류 발생률', value: '0.3%', delta: '+0.1%', positive: false },
+]
+
+export const Arco_카드_내부_간격_시스템: StoryObj = {
+  name: 'Arco Design — 카드 내부 간격 시스템',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Arco Design 카드 내부 간격 패턴. 카드 헤더-바디 간(Space y="100"), 지표 값-레이블 간(Space y="50"), 카드 간(Space y="150")을 Space 토큰으로 구성합니다.',
+      },
+    },
+  },
+  render: () => (
+    <div style={{ width: 340, fontFamily: 'system-ui, sans-serif' }}>
+      <div style={{ fontSize: 13, fontWeight: 700, color: '#0f172a' }}>배포 지표</div>
+      <Space y="50" />
+      <div style={{ fontSize: 11, color: '#64748b' }}>Arco Design 카드 간격 패턴 적용</div>
+      <Space y="150" />
+      {ARCO_CARD_SECTIONS_189.map((card, i) => (
+        <React.Fragment key={card.title}>
+          {i > 0 && <Space y="100" />}
+          <div style={{ padding: '14px 16px', background: '#fff', border: '1px solid #e5e7eb', borderRadius: 10 }}>
+            <div style={{ fontSize: 11, color: '#6b7280', fontWeight: 500 }}>{card.title}</div>
+            <Space y="75" />
+            <div style={{ display: 'flex', alignItems: 'baseline', gap: 8 }}>
+              <span style={{ fontSize: 24, fontWeight: 800, color: '#0f172a' }}>{card.value}</span>
+              <span style={{ fontSize: 12, fontWeight: 600, color: card.positive ? '#10b981' : '#ef4444' }}>{card.delta}</span>
+            </div>
+            <Space y="75" />
+            <div style={{ height: 3, borderRadius: 2, background: '#f3f4f6' }}>
+              <div style={{ width: '65%', height: '100%', borderRadius: 2, background: card.positive ? '#10b981' : '#ef4444' }} />
+            </div>
+          </div>
+        </React.Fragment>
+      ))}
+      <Space y="150" />
+      <div style={{ fontSize: 10, color: '#9ca3af', textAlign: 'right' }}>{'Space y="100" 카드 간격 · y="75" 내부 간격'}</div>
+    </div>
+  ),
+}
+
+const CHAKRA_ARCO_NAV_ITEMS_189 = [
+  { label: '홈', active: true },
+  { label: '컴포넌트', active: false },
+  { label: '디자인 토큰', active: false },
+  { label: '가이드라인', active: false },
+  { label: '릴리즈', active: false },
+]
+
+function ChakraArcoNavRender() {
+  const [active, setActive] = React.useState('홈')
+    return (
+      <div style={{ display: 'flex', gap: 24, fontFamily: 'system-ui, sans-serif' }}>
+        {/* Sidebar */}
+        <div style={{ width: 180, padding: '20px 14px', background: '#fff', border: '1px solid #e5e7eb', borderRadius: 12 }}>
+          <div style={{ fontSize: 14, fontWeight: 800, color: '#0f172a', letterSpacing: '-0.01em' }}>Orbit UI</div>
+          <Space y="300" />
+          <div style={{ fontSize: 10, fontWeight: 700, color: '#94a3b8', letterSpacing: '0.06em', textTransform: 'uppercase' }}>메뉴</div>
+          <Space y="100" />
+          {CHAKRA_ARCO_NAV_ITEMS_189.map((item, i) => (
+            <React.Fragment key={item.label}>
+              {i > 0 && <Space y="50" />}
+              <div
+                onClick={() => setActive(item.label)}
+                style={{
+                  padding: '7px 10px', borderRadius: 7, cursor: 'pointer', fontSize: 12, fontWeight: active === item.label ? 700 : 400,
+                  color: active === item.label ? '#6366f1' : '#374151',
+                  background: active === item.label ? '#eef2ff' : 'transparent',
+                  transition: 'all 0.1s',
+                }}
+              >
+                {item.label}
+              </div>
+            </React.Fragment>
+          ))}
+          <Space y="200" />
+          <div style={{ fontSize: 10, fontWeight: 700, color: '#94a3b8', letterSpacing: '0.06em', textTransform: 'uppercase' }}>설정</div>
+          <Space y="100" />
+          {['프로필', '테마'].map((item, i) => (
+            <React.Fragment key={item}>
+              {i > 0 && <Space y="50" />}
+              <div style={{ padding: '7px 10px', borderRadius: 7, cursor: 'pointer', fontSize: 12, color: '#94a3b8' }}>{item}</div>
+            </React.Fragment>
+          ))}
+        </div>
+        {/* Space token legend */}
+        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 8, fontSize: 11, color: '#64748b', justifyContent: 'center' }}>
+          {[
+            { token: 'y="300"', use: '로고 → 메뉴 섹션 간격', color: '#6366f1' },
+            { token: 'y="200"', use: '메뉴 → 설정 섹션 간격', color: '#8b5cf6' },
+            { token: 'y="100"', use: '섹션 헤더 → 첫 아이템', color: '#3b82f6' },
+            { token: 'y="50"', use: '네비게이션 아이템 간격', color: '#10b981' },
+          ].map((s) => (
+            <div key={s.token} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+              <div style={{ width: 8, height: 8, borderRadius: '50%', background: s.color, flexShrink: 0 }} />
+              <code style={{ fontSize: 10, fontFamily: 'monospace', background: '#f1f5f9', padding: '1px 5px', borderRadius: 4, color: s.color }}>{s.token}</code>
+              <span>{s.use}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    )
+}
+
+export const Chakra_Arco_내비게이션_간격_리듬: StoryObj = {
+  name: 'Chakra UI + Arco Design — 내비게이션 간격 리듬',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Chakra UI + Arco Design 내비게이션 간격 패턴. 로고-네비게이션 간(Space y="300"), 섹션 구분(Space y="200"), 아이템 간(Space y="50") 계층 구조를 Space 토큰으로 표현합니다.',
+      },
+    },
+  },
+  render: () => <ChakraArcoNavRender />,
+}

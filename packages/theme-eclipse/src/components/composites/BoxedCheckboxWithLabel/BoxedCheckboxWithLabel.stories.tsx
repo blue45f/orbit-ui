@@ -1241,3 +1241,265 @@ export const Mantine_Notion_온보딩_체크리스트: Story = {
   },
   render: () => <MantineNotionOnboardingRender />,
 }
+
+/* --------------------------------------------------------------------------
+   Cycle 189 — Chakra UI + Arco Design
+-------------------------------------------------------------------------- */
+const CHAKRA_FEATURES_189 = [
+  { id: 'analytics', label: '사용량 분석', desc: '월별 사용량 리포트 수신' },
+  { id: 'beta', label: '베타 기능', desc: '출시 전 신기능 먼저 사용' },
+  { id: 'digest', label: '주간 다이제스트', desc: '매주 요약 이메일 수신' },
+  { id: 'tips', label: '팁 & 가이드', desc: '사용 팁과 가이드 알림' },
+]
+
+function ChakraConsentFormRender() {
+  const [agreed, setAgreed] = useState<Set<string>>(new Set(['digest']))
+  const [submitted, setSubmitted] = useState(false)
+
+  const toggle = (id: string) => {
+    setAgreed((prev) => {
+      const n = new Set(prev)
+      if (n.has(id)) { n.delete(id) } else { n.add(id) }
+      return n
+    })
+  }
+
+  if (submitted) {
+    return (
+      <div style={{ width: 360, padding: 24, background: '#f0fdf4', borderRadius: 12, border: '1px solid #bbf7d0', textAlign: 'center', fontFamily: 'system-ui' }}>
+        <div style={{ fontSize: 14, fontWeight: 700, color: '#15803d', marginBottom: 6 }}>설정 저장됨</div>
+        <div style={{ fontSize: 11, color: '#16a34a' }}>{agreed.size}개 항목 활성화</div>
+        <button onClick={() => setSubmitted(false)} style={{ marginTop: 12, padding: '5px 14px', fontSize: 11, borderRadius: 6, border: '1px solid #16a34a', background: '#fff', color: '#16a34a', cursor: 'pointer' }}>돌아가기</button>
+      </div>
+    )
+  }
+
+  return (
+    <div style={{ width: 360, fontFamily: 'system-ui, sans-serif' }}>
+      <div style={{ marginBottom: 14 }}>
+        <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>알림 선호도 설정</div>
+        <div style={{ fontSize: 11, color: '#64748b', marginTop: 2 }}>Chakra UI 체크박스 폼 패턴</div>
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 10, padding: '14px', background: '#f8fafc', borderRadius: 10, border: '1px solid #e2e8f0', marginBottom: 14 }}>
+        {CHAKRA_FEATURES_189.map((f) => (
+          <div
+            key={f.id}
+            onClick={() => toggle(f.id)}
+            style={{ display: 'flex', alignItems: 'flex-start', gap: 10, cursor: 'pointer' }}
+          >
+            <div style={{ paddingTop: 2, flexShrink: 0 }}>
+              <BoxedCheckboxWithLabel
+                value={f.id}
+                checked={agreed.has(f.id)}
+                onChange={() => toggle(f.id)}
+              />
+            </div>
+            <div>
+              <div style={{ fontSize: 13, fontWeight: agreed.has(f.id) ? 600 : 400, color: '#0f172a' }}>{f.label}</div>
+              <div style={{ fontSize: 11, color: '#64748b', marginTop: 1 }}>{f.desc}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <span style={{ fontSize: 11, color: '#94a3b8' }}>{agreed.size}/{CHAKRA_FEATURES_189.length}개 활성화</span>
+        <button
+          onClick={() => setSubmitted(true)}
+          style={{ padding: '7px 18px', fontSize: 12, fontWeight: 600, borderRadius: 8, border: 'none', background: '#0f172a', color: '#fff', cursor: 'pointer' }}
+        >
+          설정 저장
+        </button>
+      </div>
+    </div>
+  )
+}
+
+export const Chakra_알림_선호도_설정_폼: Story = {
+  name: 'Chakra UI — 알림 선호도 설정 체크박스 폼',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Chakra UI 체크박스 폼 패턴. 레이블 + 설명 2단 구성의 그룹 체크박스 + 선택 수 표시 + 저장 후 완료 상태 전환을 보여줍니다.',
+      },
+    },
+  },
+  render: () => <ChakraConsentFormRender />,
+}
+
+const ARCO_PERM_GROUPS_189 = [
+  {
+    group: '읽기 권한',
+    color: '#3b82f6',
+    items: [
+      { id: 'read_comp', label: '컴포넌트 열람' },
+      { id: 'read_token', label: '디자인 토큰 열람' },
+      { id: 'read_doc', label: '문서 열람' },
+    ],
+  },
+  {
+    group: '편집 권한',
+    color: '#8b5cf6',
+    items: [
+      { id: 'edit_comp', label: '컴포넌트 편집' },
+      { id: 'edit_story', label: '스토리 편집' },
+    ],
+  },
+  {
+    group: '관리 권한',
+    color: '#f59e0b',
+    items: [
+      { id: 'manage_user', label: '멤버 관리' },
+      { id: 'manage_deploy', label: '배포 설정' },
+    ],
+  },
+]
+
+function ArcoPermChecklistRender() {
+  const [perms, setPerms] = useState<Set<string>>(new Set(['read_comp', 'read_doc']))
+
+  const toggle = (id: string) => {
+    setPerms((prev) => {
+      const n = new Set(prev)
+      if (n.has(id)) { n.delete(id) } else { n.add(id) }
+      return n
+    })
+  }
+
+  const toggleGroup = (group: typeof ARCO_PERM_GROUPS_189[0]) => {
+    const allSelected = group.items.every((item) => perms.has(item.id))
+    setPerms((prev) => {
+      const n = new Set(prev)
+      group.items.forEach((item) => {
+        if (allSelected) { n.delete(item.id) } else { n.add(item.id) }
+      })
+      return n
+    })
+  }
+
+  return (
+    <div style={{ width: 320, fontFamily: 'system-ui, sans-serif' }}>
+      <div style={{ marginBottom: 14 }}>
+        <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>역할 권한 설정</div>
+        <div style={{ fontSize: 11, color: '#64748b', marginTop: 2 }}>Arco Design 그룹 체크박스 패턴</div>
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+        {ARCO_PERM_GROUPS_189.map((grp) => {
+          const allSelected = grp.items.every((item) => perms.has(item.id))
+          return (
+            <div key={grp.group} style={{ border: '1px solid #e5e7eb', borderRadius: 10, overflow: 'hidden' }}>
+              <div
+                onClick={() => toggleGroup(grp)}
+                style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '10px 14px', background: allSelected ? `${grp.color}10` : '#f9fafb', borderBottom: `1px solid ${allSelected ? `${grp.color}30` : '#f3f4f6'}`, cursor: 'pointer' }}
+              >
+                <div style={{ width: 8, height: 8, borderRadius: '50%', background: grp.color, flexShrink: 0 }} />
+                <span style={{ fontSize: 12, fontWeight: 700, color: allSelected ? grp.color : '#374151', flex: 1 }}>{grp.group}</span>
+                <span style={{ fontSize: 10, color: '#9ca3af' }}>{grp.items.filter((i) => perms.has(i.id)).length}/{grp.items.length}</span>
+              </div>
+              <div style={{ padding: '8px 14px', display: 'flex', flexDirection: 'column', gap: 8 }}>
+                {grp.items.map((item) => (
+                  <div key={item.id} onClick={() => toggle(item.id)} style={{ display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer' }}>
+                    <BoxedCheckboxWithLabel value={item.id} checked={perms.has(item.id)} onChange={() => toggle(item.id)} />
+                    <span style={{ fontSize: 12, color: '#374151' }}>{item.label}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )
+        })}
+      </div>
+      <div style={{ marginTop: 10, fontSize: 11, color: '#94a3b8' }}>총 {perms.size}개 권한 활성화</div>
+    </div>
+  )
+}
+
+export const Arco_그룹_권한_체크리스트: Story = {
+  name: 'Arco Design — 그룹별 권한 체크리스트',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Arco Design 그룹 체크박스 패턴. 권한 그룹 헤더 클릭으로 그룹 전체 선택/해제 + 개별 항목 선택. ' +
+          '그룹 헤더에 색상 도트와 선택 비율(n/total)을 표시합니다.',
+      },
+    },
+  },
+  render: () => <ArcoPermChecklistRender />,
+}
+
+const CHAKRA_ARCO_PLANS_189 = [
+  { id: 'free', label: 'Free', price: '무료', features: ['read_comp', 'read_doc'] },
+  { id: 'pro', label: 'Pro', price: '₩15,000/월', features: ['read_comp', 'read_doc', 'read_token', 'edit_comp'] },
+  { id: 'team', label: 'Team', price: '₩45,000/월', features: ['read_comp', 'read_doc', 'read_token', 'edit_comp', 'edit_story', 'manage_user'] },
+]
+
+const ALL_FEATURES_189 = [
+  { id: 'read_comp', label: '컴포넌트 열람' },
+  { id: 'read_doc', label: '문서 열람' },
+  { id: 'read_token', label: '토큰 열람' },
+  { id: 'edit_comp', label: '컴포넌트 편집' },
+  { id: 'edit_story', label: '스토리 편집' },
+  { id: 'manage_user', label: '멤버 관리' },
+]
+
+function ChakraArcoPlanCompareRender() {
+  const [activePlan, setActivePlan] = useState('pro')
+  const plan = CHAKRA_ARCO_PLANS_189.find((p) => p.id === activePlan)!
+
+  return (
+    <div style={{ width: 420, fontFamily: 'system-ui, sans-serif' }}>
+      <div style={{ marginBottom: 14 }}>
+        <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>플랜별 기능 비교</div>
+        <div style={{ fontSize: 11, color: '#64748b', marginTop: 2 }}>Chakra UI + Arco Design 복합 패턴</div>
+      </div>
+      <div style={{ display: 'flex', gap: 6, marginBottom: 14 }}>
+        {CHAKRA_ARCO_PLANS_189.map((p) => (
+          <button
+            key={p.id}
+            onClick={() => setActivePlan(p.id)}
+            style={{
+              flex: 1, padding: '8px 4px', borderRadius: 8, cursor: 'pointer', transition: 'all 0.12s',
+              border: `1.5px solid ${activePlan === p.id ? '#6366f1' : '#e5e7eb'}`,
+              background: activePlan === p.id ? '#eef2ff' : '#fff',
+              fontWeight: activePlan === p.id ? 700 : 400,
+            }}
+          >
+            <div style={{ fontSize: 12, color: activePlan === p.id ? '#6366f1' : '#374151' }}>{p.label}</div>
+            <div style={{ fontSize: 10, color: '#9ca3af', marginTop: 2 }}>{p.price}</div>
+          </button>
+        ))}
+      </div>
+      <div style={{ border: '1px solid #e5e7eb', borderRadius: 10, overflow: 'hidden' }}>
+        <div style={{ padding: '10px 14px', background: '#eef2ff', borderBottom: '1px solid #e0e7ff' }}>
+          <span style={{ fontSize: 13, fontWeight: 700, color: '#6366f1' }}>{plan.label} 플랜</span>
+          <span style={{ fontSize: 11, color: '#818cf8', marginLeft: 8 }}>{plan.features.length}/{ALL_FEATURES_189.length}개 기능</span>
+        </div>
+        <div style={{ padding: '10px 14px', display: 'flex', flexDirection: 'column', gap: 8 }}>
+          {ALL_FEATURES_189.map((f) => {
+            const included = plan.features.includes(f.id)
+            return (
+              <div key={f.id} style={{ display: 'flex', alignItems: 'center', gap: 8, opacity: included ? 1 : 0.4 }}>
+                <BoxedCheckboxWithLabel value={f.id} checked={included} disabled={true} onChange={() => undefined} />
+                <span style={{ fontSize: 12, color: included ? '#0f172a' : '#9ca3af', fontWeight: included ? 500 : 400 }}>{f.label}</span>
+                {!included && <span style={{ fontSize: 9, color: '#9ca3af', marginLeft: 'auto' }}>업그레이드 필요</span>}
+              </div>
+            )
+          })}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const Chakra_Arco_플랜_기능_비교: Story = {
+  name: 'Chakra UI + Arco Design — 플랜별 기능 비교 체크박스',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Chakra UI + Arco Design 복합 패턴. 플랜 탭 전환 시 해당 플랜에 포함된 기능 체크박스 활성화 + 미포함 기능은 비활성(opacity 0.4) + "업그레이드 필요" 레이블 표시.',
+      },
+    },
+  },
+  render: () => <ChakraArcoPlanCompareRender />,
+}
