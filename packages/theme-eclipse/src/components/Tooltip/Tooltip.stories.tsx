@@ -388,6 +388,210 @@ export const 키보드_단축키_툴팁: Story = {
    shadcn/ui 스타일: 풍부한 컨텐츠 툴팁
    텍스트 외에도 아바타, 상태 배지, 링크 등을 포함한 Rich Tooltip 패턴
 -------------------------------------------------------------------------- */
+/* --------------------------------------------------------------------------
+   Vercel Design: 배포 파이프라인 상태 툴팁
+   Vercel의 배포 상태를 아이콘 위에 hover하면 상세 정보를 보여주는 패턴
+   tabular-nums 패턴으로 숫자 정렬, monospace 폰트로 기술 정보 표시
+-------------------------------------------------------------------------- */
+const deployments = [
+  { env: 'Production', status: 'ready', duration: '47s', time: '2분 전', url: 'orbit-ui.vercel.app', icon: '●', color: '#22c55e' },
+  { env: 'Preview', status: 'building', duration: '...', time: '진행중', url: 'orbit-ui-preview.vercel.app', icon: '◌', color: '#f59e0b' },
+  { env: 'Development', status: 'error', duration: '12s', time: '1시간 전', url: 'localhost:6007', icon: '✕', color: '#ef4444' },
+]
+
+export const Vercel_배포_파이프라인_툴팁: Story = {
+  name: 'Vercel Design — 배포 파이프라인 상태 툴팁',
+  parameters: { layout: 'centered' },
+  render: () => (
+    <Tooltip.Provider>
+      <div style={{ display: 'flex', gap: '8px', padding: '80px 40px', alignItems: 'center', fontFamily: 'system-ui, sans-serif' }}>
+        {deployments.map((dep) => (
+          <Tooltip key={dep.env}>
+            <Tooltip.Trigger asChild>
+              <div style={{
+                display: 'flex', alignItems: 'center', gap: '8px',
+                padding: '8px 14px', borderRadius: '8px',
+                border: '1px solid #e2e8f0', background: '#fff',
+                cursor: 'pointer', transition: 'border-color 0.15s',
+              }}>
+                <span style={{ color: dep.color, fontSize: '14px', lineHeight: 1 }}>{dep.icon}</span>
+                <span style={{ fontSize: '12px', fontWeight: 600, color: '#1e293b' }}>{dep.env}</span>
+              </div>
+            </Tooltip.Trigger>
+            <Tooltip.Content side="bottom">
+              <div style={{ padding: '2px 0', minWidth: '180px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '8px' }}>
+                  <span style={{ color: dep.color, fontSize: '12px' }}>{dep.icon}</span>
+                  <Typography textStyle="descriptionLarge" style={{ fontWeight: 700 }} className="text-white">
+                    {dep.env}
+                  </Typography>
+                </div>
+                {[
+                  { label: '상태', value: dep.status },
+                  { label: '빌드 시간', value: dep.duration },
+                  { label: '배포 일시', value: dep.time },
+                  { label: 'URL', value: dep.url },
+                ].map(({ label, value }) => (
+                  <div key={label} style={{ display: 'flex', justifyContent: 'space-between', gap: '16px', marginBottom: '3px' }}>
+                    <Typography textStyle="descriptionSmall" style={{ opacity: 0.6 }} className="text-white">{label}</Typography>
+                    <Typography textStyle="descriptionSmall" style={{ opacity: 0.9, fontFamily: label === 'URL' ? 'monospace' : 'inherit', fontVariantNumeric: 'tabular-nums' }} className="text-white">{value}</Typography>
+                  </div>
+                ))}
+              </div>
+            </Tooltip.Content>
+          </Tooltip>
+        ))}
+      </div>
+    </Tooltip.Provider>
+  ),
+}
+
+/* --------------------------------------------------------------------------
+   Ant Design: 폼 필드 도움말 툴팁
+   Ant Design의 label + 물음표 아이콘 + 툴팁 패턴
+   각 입력 필드 옆에 도움말 아이콘을 두고 hover 시 설명 표시
+-------------------------------------------------------------------------- */
+const FormHelpTooltipRender = () => {
+  const fields = [
+    {
+      label: '사용자명',
+      placeholder: 'username',
+      help: '영문, 숫자, 밑줄(_)만 허용됩니다. 3~20자 이내로 입력하세요.',
+    },
+    {
+      label: 'API 키',
+      placeholder: 'sk-...',
+      help: 'Orbit UI 대시보드에서 발급받은 API 키를 입력하세요. 타인에게 공유하지 마세요.',
+    },
+    {
+      label: '웹훅 URL',
+      placeholder: 'https://your-app.com/webhook',
+      help: '이벤트 발생 시 POST 요청을 전송할 URL입니다. HTTPS만 지원됩니다.',
+    },
+  ]
+
+  return (
+    <Tooltip.Provider>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', padding: '32px', fontFamily: 'system-ui, sans-serif', maxWidth: '360px' }}>
+        <div style={{ fontSize: '15px', fontWeight: 700, color: '#1e293b', marginBottom: '4px' }}>API 연동 설정</div>
+        {fields.map(({ label, placeholder, help }) => (
+          <div key={label}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '6px' }}>
+              <label style={{ fontSize: '12px', fontWeight: 600, color: '#374151' }}>{label}</label>
+              <Tooltip>
+                <Tooltip.Trigger asChild>
+                  <button
+                    style={{
+                      width: '16px', height: '16px', borderRadius: '50%',
+                      border: '1.5px solid #94a3b8', background: 'none',
+                      display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      fontSize: '10px', color: '#94a3b8', cursor: 'pointer', fontWeight: 700,
+                    }}
+                    aria-label={`${label} 도움말`}
+                  >
+                    ?
+                  </button>
+                </Tooltip.Trigger>
+                <Tooltip.Content side="right" style={{ maxWidth: '220px' }}>
+                  <Typography textStyle="descriptionSmall" style={{ lineHeight: 1.6 }} className="text-white">
+                    {help}
+                  </Typography>
+                </Tooltip.Content>
+              </Tooltip>
+            </div>
+            <input
+              type="text"
+              placeholder={placeholder}
+              style={{
+                width: '100%', padding: '8px 12px', borderRadius: '8px',
+                border: '1px solid #e2e8f0', fontSize: '13px', outline: 'none',
+                boxSizing: 'border-box', color: '#1e293b', background: '#fafafa',
+              }}
+            />
+          </div>
+        ))}
+      </div>
+    </Tooltip.Provider>
+  )
+}
+
+export const Ant_폼_도움말_툴팁: Story = {
+  name: 'Ant Design — 폼 필드 도움말 툴팁',
+  render: () => <FormHelpTooltipRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Ant Design: 데이터 테이블 잘린 텍스트 툴팁
+   Ant Design Table의 ellipsis + tooltip 패턴
+   셀 텍스트가 잘릴 때 hover 시 전체 내용 표시
+-------------------------------------------------------------------------- */
+const tableData = [
+  { id: 'ORB-301', title: '디자인 토큰 시스템 Reference → Semantic → Component 3단계 구조 마이그레이션 완료', assignee: '김민준', status: 'Done', priority: 'Urgent' },
+  { id: 'ORB-298', title: 'Storybook 8.6 autodocs 설정 및 컴포넌트 JSDoc 일괄 업데이트', assignee: '이서연', status: 'In Progress', priority: 'High' },
+  { id: 'ORB-287', title: '다크모드 테마 토큰 정의 및 vanilla-extract 스타일 적용', assignee: '박지호', status: 'Backlog', priority: 'Medium' },
+  { id: 'ORB-271', title: 'TypeScript strict 모드 활성화 및 기존 타입 오류 수정', assignee: '최준혁', status: 'Done', priority: 'Low' },
+]
+
+const statusColors: Record<string, { color: string; bg: string }> = {
+  Done: { color: '#10b981', bg: '#f0fdf4' },
+  'In Progress': { color: '#6366f1', bg: '#eff6ff' },
+  Backlog: { color: '#94a3b8', bg: '#f8fafc' },
+}
+
+export const Ant_테이블_잘린텍스트_툴팁: Story = {
+  name: 'Ant Design — 데이터 테이블 잘린 텍스트 툴팁',
+  render: () => (
+    <Tooltip.Provider>
+      <div style={{ fontFamily: 'system-ui, sans-serif', maxWidth: '620px', padding: '24px' }}>
+        <div style={{ fontSize: '13px', fontWeight: 700, color: '#1e293b', marginBottom: '12px' }}>이슈 목록</div>
+        <div style={{ borderRadius: '12px', border: '1px solid #e2e8f0', overflow: 'hidden' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: '80px 1fr 80px 90px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0' }}>
+            {['ID', '제목', '담당자', '상태'].map((h) => (
+              <div key={h} style={{ padding: '10px 12px', fontSize: '11px', fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.04em' }}>{h}</div>
+            ))}
+          </div>
+          {tableData.map((row, i) => (
+            <div
+              key={row.id}
+              style={{ display: 'grid', gridTemplateColumns: '80px 1fr 80px 90px', borderBottom: i < tableData.length - 1 ? '1px solid #f1f5f9' : 'none', background: '#fff' }}
+            >
+              <div style={{ padding: '10px 12px', fontSize: '11px', color: '#94a3b8', fontFamily: 'monospace', display: 'flex', alignItems: 'center' }}>{row.id}</div>
+              <Tooltip>
+                <Tooltip.Trigger asChild>
+                  <div style={{ padding: '10px 12px', fontSize: '12px', color: '#1e293b', display: 'flex', alignItems: 'center', cursor: 'default' }}>
+                    <span style={{ display: 'block', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                      {row.title}
+                    </span>
+                  </div>
+                </Tooltip.Trigger>
+                <Tooltip.Content side="top" style={{ maxWidth: '300px' }}>
+                  <Typography textStyle="descriptionSmall" style={{ lineHeight: 1.6 }} className="text-white">
+                    {row.title}
+                  </Typography>
+                </Tooltip.Content>
+              </Tooltip>
+              <div style={{ padding: '10px 12px', fontSize: '12px', color: '#475569', display: 'flex', alignItems: 'center' }}>{row.assignee}</div>
+              <div style={{ padding: '10px 12px', display: 'flex', alignItems: 'center' }}>
+                <span style={{
+                  fontSize: '10px', fontWeight: 700,
+                  color: (statusColors[row.status] ?? { color: '#94a3b8' }).color,
+                  background: (statusColors[row.status] ?? { bg: '#f8fafc' }).bg,
+                  padding: '2px 8px', borderRadius: '6px',
+                }}>
+                  {row.status}
+                </span>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div style={{ marginTop: '8px', fontSize: '11px', color: '#94a3b8', textAlign: 'right' }}>
+          Ant Design Table ellipsis + tooltip 패턴
+        </div>
+      </div>
+    </Tooltip.Provider>
+  ),
+}
+
 export const 리치_컨텐츠_툴팁: Story = {
   parameters: {
     layout: 'centered',

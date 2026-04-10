@@ -208,6 +208,158 @@ export const 채팅_대화_시뮬레이션: Story = {
    알림 말풍선 패턴
    시스템 알림이나 툴팁 대체 표시 용도로 활용하는 패턴
 -------------------------------------------------------------------------- */
+/* --------------------------------------------------------------------------
+   Vercel Design: PR 리뷰 코멘트 스레드
+   Vercel과 GitHub의 PR 리뷰 UI에서 쓰이는 코드 리뷰 말풍선 패턴
+   인터랙티브: 좋아요(resolve), 새 댓글 추가 가능
+-------------------------------------------------------------------------- */
+type ReviewComment = { id: number; author: string; text: string; mine: boolean; time: string; resolved: boolean }
+
+const VercelPRReviewRender = () => {
+  const [comments, setComments] = useState<ReviewComment[]>([
+    { id: 1, author: 'leesooyeon', text: 'Tooltip의 `side` 기본값을 `"top"`으로 변경하면 어떨까요? Ant Design 패턴과 일치합니다.', mine: false, time: '10분 전', resolved: false },
+    { id: 2, author: 'me', text: '동의합니다! 이미 `side="top"`이 가장 많이 쓰이고 있어서 기본값으로 설정하는 게 맞을 것 같아요.', mine: true, time: '7분 전', resolved: false },
+    { id: 3, author: 'parkjiho', text: '`delayDuration` 기본값도 300ms → 200ms로 줄이는 건 어떨까요? Vercel이 그렇게 하더라고요.', mine: false, time: '4분 전', resolved: false },
+  ])
+  const [input, setInput] = useState('')
+
+  const addComment = () => {
+    if (!input.trim()) return
+    setComments((prev) => [...prev, { id: Date.now(), author: 'me', text: input.trim(), mine: true, time: '방금 전', resolved: false }])
+    setInput('')
+  }
+
+  const resolveComment = (id: number) => setComments((prev) => prev.filter((c) => c.id !== id))
+
+  return (
+    <div style={{ maxWidth: '420px', fontFamily: 'system-ui, sans-serif' }}>
+      <div style={{ padding: '10px 14px', borderRadius: '10px 10px 0 0', background: '#0f172a', color: '#e2e8f0', fontSize: '11px', fontFamily: 'monospace', borderBottom: '1px solid #1e293b' }}>
+        src/components/Tooltip/Tooltip.tsx · 라인 42
+      </div>
+      <div style={{ background: '#f8fafc', border: '1px solid #e2e8f0', borderTop: 'none', padding: '12px 14px', borderRadius: '0 0 10px 10px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+        {comments.map((c) => (
+          <div key={c.id} style={{ display: 'flex', flexDirection: 'column', alignItems: c.mine ? 'flex-end' : 'flex-start', gap: '4px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', flexDirection: c.mine ? 'row-reverse' : 'row' }}>
+              <div style={{ width: 22, height: 22, borderRadius: '50%', background: c.mine ? '#6366f1' : '#f59e0b', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 9, fontWeight: 700, flexShrink: 0 }}>
+                {c.author[0].toUpperCase()}
+              </div>
+              <span style={{ fontSize: 11, color: '#94a3b8' }}>{c.author} · {c.time}</span>
+            </div>
+            <div style={{ display: 'flex', alignItems: 'flex-end', gap: 6, flexDirection: c.mine ? 'row-reverse' : 'row' }}>
+              <SpeechBadge color={c.mine ? 'blue' : 'pink'} tailPosition={c.mine ? 'trailing' : 'leading'}>
+                {c.text}
+              </SpeechBadge>
+              {!c.mine && (
+                <button onClick={() => resolveComment(c.id)} style={{ fontSize: 10, color: '#94a3b8', background: 'none', border: 'none', cursor: 'pointer', padding: '2px 0', flexShrink: 0 }}>
+                  해결
+                </button>
+              )}
+            </div>
+          </div>
+        ))}
+        <div style={{ display: 'flex', gap: 8, marginTop: 4 }}>
+          <input
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            onKeyDown={(e) => { if (e.key === 'Enter') addComment() }}
+            placeholder="리뷰 댓글 추가..."
+            style={{ flex: 1, padding: '6px 10px', borderRadius: 8, border: '1px solid #e2e8f0', fontSize: 12, outline: 'none' }}
+          />
+          <button onClick={addComment} style={{ padding: '6px 12px', borderRadius: 8, border: 'none', background: '#6366f1', color: '#fff', fontSize: 11, fontWeight: 700, cursor: 'pointer' }}>등록</button>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const Vercel_PR_리뷰_스레드: Story = {
+  name: 'Vercel Design — PR 리뷰 코멘트 스레드',
+  render: () => <VercelPRReviewRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Ant Design: 사용자 피드백 쇼케이스
+   Ant Design의 Comment 컴포넌트 패턴에서 영감
+   제품/서비스에 대한 사용자 후기를 말풍선으로 표현
+-------------------------------------------------------------------------- */
+const testimonials = [
+  { author: 'K', name: '김민준', role: 'Frontend Lead', color: '#6366f1', text: '3단계 토큰 시스템이 정말 강력해요! 브랜드 컬러만 바꾸면 전체 UI가 업데이트되니까 디자이너-개발자 협업이 훨씬 원활해졌습니다.' },
+  { author: 'L', name: '이서연', role: 'Product Designer', color: '#8b5cf6', text: 'Storybook autodocs 덕분에 별도 문서 없이도 컴포넌트 API를 바로 파악할 수 있어요. 온보딩 시간이 절반으로 줄었습니다.' },
+  { author: 'P', name: '박지호', role: 'Design System Engineer', color: '#0ea5e9', text: 'vanilla-extract로 타입 안전한 CSS를 작성할 수 있어서 런타임 오류가 사라졌어요. TypeScript 통합이 완벽합니다.' },
+]
+
+export const Ant_피드백_쇼케이스: Story = {
+  name: 'Ant Design — 사용자 피드백 쇼케이스',
+  render: () => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', maxWidth: '400px', padding: '12px', fontFamily: 'system-ui, sans-serif' }}>
+      <div style={{ fontSize: '12px', fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em' }}>사용자 후기</div>
+      {testimonials.map((t) => (
+        <div key={t.name} style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
+          <div style={{ width: 36, height: 36, borderRadius: '50%', background: t.color, color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 14, fontWeight: 700, flexShrink: 0 }}>
+            {t.author}
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+            <div style={{ display: 'flex', gap: '6px', alignItems: 'baseline' }}>
+              <span style={{ fontSize: 12, fontWeight: 700, color: '#1e293b' }}>{t.name}</span>
+              <span style={{ fontSize: 11, color: '#94a3b8' }}>{t.role}</span>
+            </div>
+            <SpeechBadge color="blue" tailPosition="leading">
+              {t.text}
+            </SpeechBadge>
+          </div>
+        </div>
+      ))}
+    </div>
+  ),
+}
+
+/* --------------------------------------------------------------------------
+   Vercel Design: 다크모드 배포 상태 알림
+   Vercel의 다크 팔레트에서 영감받은 배포 이벤트 타임라인
+   컴팩트 밀도 + monochrome 컬러 시스템 적용
+-------------------------------------------------------------------------- */
+const deployEvents = [
+  { text: 'Production 배포 완료 — orbit-ui.vercel.app', status: 'success', time: '14:32' },
+  { text: 'Preview 빌드 시작 — PR #247 feat/button-api', status: 'building', time: '14:31' },
+  { text: 'Lint + TypeCheck 통과 — 0 오류, 0 경고', status: 'success', time: '14:30' },
+  { text: 'Webhook 실패 — POST /api/notify timeout', status: 'error', time: '14:28' },
+]
+
+const eventColors: Record<string, { color: string }> = {
+  success: { color: '#22c55e' },
+  building: { color: '#f59e0b' },
+  error: { color: '#ef4444' },
+}
+
+export const Vercel_배포_이벤트_타임라인: Story = {
+  name: 'Vercel Design — 배포 이벤트 타임라인',
+  render: () => (
+    <div style={{ background: '#0f172a', padding: '20px 24px', borderRadius: '14px', maxWidth: '420px', fontFamily: 'system-ui, sans-serif' }}>
+      <div style={{ fontSize: '12px', fontWeight: 700, color: 'rgba(255,255,255,0.5)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '14px' }}>
+        배포 이벤트 로그
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+        {deployEvents.map((ev, i) => (
+          <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: '10px' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', flexShrink: 0 }}>
+              <div style={{ width: 8, height: 8, borderRadius: '50%', background: (eventColors[ev.status] ?? { color: '#94a3b8' }).color, marginTop: 5 }} />
+              {i < deployEvents.length - 1 && <div style={{ width: 1, height: 24, background: 'rgba(255,255,255,0.1)', marginTop: 3 }} />}
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '3px', flex: 1 }}>
+              <SpeechBadge color={i % 2 === 0 ? 'blue' : 'pink'} tailPosition="leading">
+                {ev.text}
+              </SpeechBadge>
+              <span style={{ fontSize: 10, color: 'rgba(255,255,255,0.3)', fontFamily: 'monospace', fontVariantNumeric: 'tabular-nums' }}>
+                {ev.time}
+              </span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  ),
+}
+
 export const 알림_말풍선: Story = {
   render: () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', padding: '8px' }}>

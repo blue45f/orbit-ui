@@ -830,5 +830,68 @@ export default function RootLayout({ children }) {
       </div>
     </section>
 
+  {/* Cycle 41: Vercel Design 벤치마크 섹션 */}
+  <section style={{ marginTop: '48px', padding: '32px', background: 'linear-gradient(160deg, #0f172a 0%, #1e293b 100%)', borderRadius: '20px', color: '#e2e8f0' }}>
+    <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px' }}>
+      <div style={{ width: 36, height: 36, borderRadius: '10px', background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800, fontSize: 16, color: '#0f172a' }}>▲</div>
+      <div>
+        <h2 style={{ margin: 0, fontSize: '20px', fontWeight: 800, color: '#fff' }}>Vercel Design (Geist) 벤치마크</h2>
+        <p style={{ margin: '2px 0 0', fontSize: '12px', color: 'rgba(255,255,255,0.5)' }}>Cycle 41 — Vercel의 Geist 디자인 시스템 주요 패턴 분석</p>
+      </div>
+    </div>
+
+    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '16px', marginBottom: '24px' }}>
+      {[
+        {
+          title: '모노크롬 팔레트',
+          icon: '◐',
+          desc: '회색 계열(Gray 100~1000) + 시맨틱 컬러(Blue, Green, Red, Amber)의 이분법적 구성. Dark mode가 기본값이며 Light mode는 보조.',
+          orbit: 'Eclipse 테마의 color: "black" | "gray" | "primary" 체계와 직접 대응. 추가 semantic 색상 확장 가능.',
+        },
+        {
+          title: 'Geist 타이포그래피',
+          icon: 'Aa',
+          desc: 'Geist Sans(UI) + Geist Mono(코드) 이중 폰트 체계. tabular-nums로 숫자 정렬, text-underline-offset: 2.5px로 링크 품질 향상.',
+          orbit: 'Typography 컴포넌트의 textStyle prop이 Geist의 명명 체계와 유사. monospace 폰트는 코드 블록에 적용 권장.',
+        },
+        {
+          title: '컴팩트 밀도 그리드',
+          icon: '⊞',
+          desc: '32px 버튼 높이, 16px 아이콘, 6px 아이콘-텍스트 간격. xs/sm/md/lg 4단계 반응형 브레이크포인트.',
+          orbit: 'size="small"(32px)이 Vercel 기본 밀도에 대응. 8px 그리드 기반 spacing 시스템으로 정렬.',
+        },
+      ].map(({ title, icon, desc, orbit }) => (
+        <div key={title} style={{ background: 'rgba(255,255,255,0.05)', borderRadius: '14px', border: '1px solid rgba(255,255,255,0.1)', padding: '18px' }}>
+          <div style={{ fontSize: '22px', marginBottom: '10px' }}>{icon}</div>
+          <div style={{ fontSize: '13px', fontWeight: 700, color: '#fff', marginBottom: '8px' }}>{title}</div>
+          <p style={{ margin: '0 0 10px', fontSize: '12px', color: 'rgba(255,255,255,0.6)', lineHeight: 1.6 }}>{desc}</p>
+          <div style={{ padding: '8px 10px', borderRadius: '8px', background: 'rgba(99,102,241,0.15)', border: '1px solid rgba(99,102,241,0.3)' }}>
+            <span style={{ fontSize: '10px', fontWeight: 700, color: '#818cf8', display: 'block', marginBottom: '3px' }}>Orbit UI 적용</span>
+            <span style={{ fontSize: '11px', color: 'rgba(255,255,255,0.7)', lineHeight: 1.5 }}>{orbit}</span>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <div style={{ padding: '16px 20px', borderRadius: '12px', background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)' }}>
+      <div style={{ fontSize: '12px', fontWeight: 700, color: 'rgba(255,255,255,0.7)', marginBottom: '10px' }}>Ant Design 테이블 컴포넌트 대비 Orbit UI 특징</div>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+        {[
+          { label: 'Ant Design', items: ['Table 컴포넌트 내장 ellipsis + tooltip', 'Form.Item validateStatus + help 패턴', '전체 기능 번들 (약 2MB gzip)', 'CSS-in-JS 런타임 오버헤드'], accent: '#f59e0b' },
+          { label: 'Orbit UI', items: ['Tooltip 독립 컴포넌트로 자유 조합', 'FloatingTextField + 커스텀 도움말 조합', '트리-쉐이킹 가능 (필요한 것만 import)', 'vanilla-extract 빌드타임 CSS 생성'], accent: '#6366f1' },
+        ].map(({ label, items, accent }) => (
+          <div key={label}>
+            <div style={{ fontSize: '11px', fontWeight: 700, color: accent, marginBottom: '6px' }}>{label}</div>
+            <ul style={{ margin: 0, padding: '0 0 0 16px' }}>
+              {items.map((item) => (
+                <li key={item} style={{ fontSize: '11px', color: 'rgba(255,255,255,0.6)', lineHeight: 1.7 }}>{item}</li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
   </div>
 </Unstyled>

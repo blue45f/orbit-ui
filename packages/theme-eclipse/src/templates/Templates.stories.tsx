@@ -9229,3 +9229,231 @@ export const CodeReview: Story = {
   render: () => <CodeReviewRender />,
 }
 
+// ─── Cycle 41: Vercel Design + Ant Design — Team Directory ───────────────────
+
+type TeamMember = {
+  id: string
+  name: string
+  role: string
+  dept: string
+  status: 'online' | 'away' | 'offline'
+  avatar: string
+  avatarColor: string
+  skills: string[]
+  joinedYear: number
+  location: string
+  email: string
+}
+
+type DeptFilter = 'all' | 'engineering' | 'design' | 'product'
+
+const TEAM_MEMBERS: TeamMember[] = [
+  { id: 'm1', name: '김민준', role: 'Frontend Lead', dept: 'engineering', status: 'online', avatar: '김', avatarColor: '#6366f1', skills: ['React', 'TypeScript', 'Vite'], joinedYear: 2022, location: '서울', email: 'minjun@orbit.dev' },
+  { id: 'm2', name: '이서연', role: 'Product Designer', dept: 'design', status: 'online', avatar: '이', avatarColor: '#8b5cf6', skills: ['Figma', 'Storybook', 'Tokens'], joinedYear: 2021, location: '서울', email: 'seoyeon@orbit.dev' },
+  { id: 'm3', name: '박지호', role: 'Design System Eng', dept: 'engineering', status: 'away', avatar: '박', avatarColor: '#0ea5e9', skills: ['vanilla-extract', 'CSS', 'A11y'], joinedYear: 2023, location: '부산', email: 'jiho@orbit.dev' },
+  { id: 'm4', name: '최준혁', role: 'Product Manager', dept: 'product', status: 'online', avatar: '최', avatarColor: '#10b981', skills: ['Roadmap', 'OKR', 'Figma'], joinedYear: 2022, location: '서울', email: 'junhyuk@orbit.dev' },
+  { id: 'm5', name: '정소영', role: 'Backend Engineer', dept: 'engineering', status: 'offline', avatar: '정', avatarColor: '#f59e0b', skills: ['Node.js', 'Prisma', 'GraphQL'], joinedYear: 2023, location: '대전', email: 'soyoung@orbit.dev' },
+  { id: 'm6', name: '한도연', role: 'UX Researcher', dept: 'design', status: 'away', avatar: '한', avatarColor: '#ef4444', skills: ['User Testing', 'Analytics', 'Notion'], joinedYear: 2024, location: '서울', email: 'doyeon@orbit.dev' },
+  { id: 'm7', name: '오승민', role: 'iOS Engineer', dept: 'engineering', status: 'online', avatar: '오', avatarColor: '#ec4899', skills: ['Swift', 'SwiftUI', 'Combine'], joinedYear: 2022, location: '인천', email: 'seungmin@orbit.dev' },
+  { id: 'm8', name: '윤지원', role: 'Data Analyst', dept: 'product', status: 'online', avatar: '윤', avatarColor: '#14b8a6', skills: ['Python', 'SQL', 'Tableau'], joinedYear: 2023, location: '서울', email: 'jiwon@orbit.dev' },
+]
+
+const statusConfig41: Record<string, { color: string; label: string }> = {
+  online: { color: '#22c55e', label: '온라인' },
+  away: { color: '#f59e0b', label: '자리 비움' },
+  offline: { color: '#94a3b8', label: '오프라인' },
+}
+
+const deptFilters: { key: DeptFilter; label: string }[] = [
+  { key: 'all', label: '전체' },
+  { key: 'engineering', label: '엔지니어링' },
+  { key: 'design', label: '디자인' },
+  { key: 'product', label: '프로덕트' },
+]
+
+function TeamDirectoryRender() {
+  const [dept, setDept] = useState<DeptFilter>('all')
+  const [search, setSearch] = useState('')
+  const [selected, setSelected] = useState<string | null>(null)
+
+  const filtered = TEAM_MEMBERS.filter((m) => {
+    const deptMatch = dept === 'all' || m.dept === dept
+    const searchMatch = !search || m.name.includes(search) || m.role.toLowerCase().includes(search.toLowerCase()) || m.skills.some((s) => s.toLowerCase().includes(search.toLowerCase()))
+    return deptMatch && searchMatch
+  })
+
+  const selectedMember = TEAM_MEMBERS.find((m) => m.id === selected)
+
+  const onlineCount = TEAM_MEMBERS.filter((m) => m.status === 'online').length
+
+  return (
+    <div style={{ display: 'flex', width: '100%', minHeight: 680, fontFamily: 'system-ui, sans-serif', background: '#f8fafc' }}>
+      {/* 메인 패널 */}
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+        {/* 헤더 */}
+        <div style={{ padding: '20px 24px', background: '#fff', borderBottom: '1px solid #e2e8f0' }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '14px' }}>
+            <div>
+              <h2 style={{ margin: 0, fontSize: 18, fontWeight: 800, color: '#0f172a' }}>팀 디렉토리</h2>
+              <p style={{ margin: '3px 0 0', fontSize: 12, color: '#94a3b8' }}>
+                총 {TEAM_MEMBERS.length}명 · 온라인 <span style={{ color: '#22c55e', fontWeight: 700 }}>{onlineCount}</span>명
+              </p>
+            </div>
+            {/* Vercel 스타일 검색바 */}
+            <div style={{ position: 'relative' }}>
+              <input
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                placeholder="이름, 역할, 스킬 검색..."
+                style={{ padding: '8px 14px 8px 34px', borderRadius: 8, border: '1px solid #e2e8f0', fontSize: 12, outline: 'none', width: 200, color: '#1e293b' }}
+              />
+              <span style={{ position: 'absolute', left: 10, top: '50%', transform: 'translateY(-50%)', color: '#94a3b8', fontSize: 14 }}>⌕</span>
+            </div>
+          </div>
+
+          {/* 부서 필터 — Vercel Geist 스타일 탭 */}
+          <div style={{ display: 'flex', gap: '0', borderBottom: '1px solid #f1f5f9', marginBottom: '-21px' }}>
+            {deptFilters.map((f) => (
+              <button
+                key={f.key}
+                onClick={() => setDept(f.key)}
+                style={{
+                  padding: '8px 14px', background: 'none', border: 'none', cursor: 'pointer',
+                  fontSize: 12, fontWeight: dept === f.key ? 700 : 400,
+                  color: dept === f.key ? '#6366f1' : '#64748b',
+                  borderBottom: `2px solid ${dept === f.key ? '#6366f1' : 'transparent'}`,
+                  transition: 'all 0.15s',
+                }}
+              >
+                {f.label}
+                <span style={{ marginLeft: 5, fontSize: 10, color: '#94a3b8', fontFamily: 'monospace' }}>
+                  ({dept === f.key ? filtered.length : (f.key === 'all' ? TEAM_MEMBERS.length : TEAM_MEMBERS.filter((m) => m.dept === f.key).length)})
+                </span>
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* 멤버 그리드 — Ant Design Card 패턴 */}
+        <div style={{ flex: 1, overflowY: 'auto', padding: '20px 24px' }}>
+          {filtered.length === 0 ? (
+            <div style={{ textAlign: 'center', padding: '60px 0', color: '#94a3b8' }}>
+              <div style={{ fontSize: 32, marginBottom: 10 }}>👥</div>
+              <div style={{ fontSize: 14, fontWeight: 600 }}>검색 결과가 없습니다</div>
+            </div>
+          ) : (
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: '12px' }}>
+              {filtered.map((member) => {
+                const sc = statusConfig41[member.status]
+                const isSelected = selected === member.id
+                return (
+                  <Tooltip.Provider key={member.id} delayDuration={400}>
+                    <Tooltip>
+                      <Tooltip.Trigger asChild>
+                        <div
+                          onClick={() => setSelected(isSelected ? null : member.id)}
+                          style={{
+                            padding: '16px', borderRadius: '14px', cursor: 'pointer',
+                            background: isSelected ? '#eff6ff' : '#fff',
+                            border: `1.5px solid ${isSelected ? '#c7d2fe' : '#e2e8f0'}`,
+                            transition: 'all 0.15s',
+                            display: 'flex', flexDirection: 'column', gap: '10px',
+                          }}
+                        >
+                          {/* 아바타 + 상태 */}
+                          <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }}>
+                            <div style={{ position: 'relative' }}>
+                              <div style={{ width: 40, height: 40, borderRadius: '50%', background: member.avatarColor, color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 14, fontWeight: 700 }}>
+                                {member.avatar}
+                              </div>
+                              <div style={{ position: 'absolute', bottom: 1, right: 1, width: 10, height: 10, borderRadius: '50%', background: sc.color, border: '1.5px solid #fff' }} />
+                            </div>
+                            <CounterBadge>{member.joinedYear - 2020}</CounterBadge>
+                          </div>
+
+                          {/* 이름, 역할 */}
+                          <div>
+                            <div style={{ fontSize: 13, fontWeight: 700, color: '#1e293b', marginBottom: 2 }}>{member.name}</div>
+                            <div style={{ fontSize: 11, color: '#64748b' }}>{member.role}</div>
+                          </div>
+
+                          {/* 스킬 태그 */}
+                          <div style={{ display: 'flex', gap: 4, flexWrap: 'wrap' }}>
+                            {member.skills.slice(0, 2).map((skill) => (
+                              <Chip key={skill}>{skill}</Chip>
+                            ))}
+                            {member.skills.length > 2 && (
+                              <span style={{ fontSize: 10, color: '#94a3b8', padding: '2px 6px', background: '#f1f5f9', borderRadius: 5 }}>+{member.skills.length - 2}</span>
+                            )}
+                          </div>
+                        </div>
+                      </Tooltip.Trigger>
+                      <Tooltip.Content side="top">
+                        <span style={{ fontSize: 11, color: '#fff', fontFamily: 'monospace' }}>{member.email}</span>
+                      </Tooltip.Content>
+                    </Tooltip>
+                  </Tooltip.Provider>
+                )
+              })}
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* 상세 패널 */}
+      {selectedMember && (
+        <div style={{ width: 260, background: '#fff', borderLeft: '1px solid #e2e8f0', padding: '20px', display: 'flex', flexDirection: 'column', gap: '16px', overflowY: 'auto' }}>
+          <div style={{ textAlign: 'center', paddingBottom: '16px', borderBottom: '1px solid #f1f5f9' }}>
+            <div style={{ width: 56, height: 56, borderRadius: '50%', background: selectedMember.avatarColor, color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 20, fontWeight: 800, margin: '0 auto 10px' }}>
+              {selectedMember.avatar}
+            </div>
+            <div style={{ fontSize: 15, fontWeight: 800, color: '#1e293b' }}>{selectedMember.name}</div>
+            <div style={{ fontSize: 12, color: '#64748b', marginTop: 3 }}>{selectedMember.role}</div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 5, justifyContent: 'center', marginTop: 8 }}>
+              <div style={{ width: 7, height: 7, borderRadius: '50%', background: statusConfig41[selectedMember.status].color }} />
+              <span style={{ fontSize: 11, color: '#64748b' }}>{statusConfig41[selectedMember.status].label}</span>
+            </div>
+          </div>
+
+          {[
+            { label: '부서', value: selectedMember.dept === 'engineering' ? '엔지니어링' : selectedMember.dept === 'design' ? '디자인' : '프로덕트' },
+            { label: '위치', value: selectedMember.location },
+            { label: '이메일', value: selectedMember.email },
+            { label: '입사', value: `${selectedMember.joinedYear}년` },
+          ].map(({ label, value }) => (
+            <div key={label} style={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
+              <div style={{ fontSize: 10, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.05em' }}>{label}</div>
+              <div style={{ fontSize: 12, color: '#1e293b', fontFamily: label === '이메일' ? 'monospace' : 'inherit' }}>{value}</div>
+            </div>
+          ))}
+
+          <div>
+            <div style={{ fontSize: 10, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: 8 }}>스킬</div>
+            <div style={{ display: 'flex', gap: 5, flexWrap: 'wrap' }}>
+              {selectedMember.skills.map((skill) => (
+                <Chip key={skill}>{skill}</Chip>
+              ))}
+            </div>
+          </div>
+
+          <SpeechBadge color="blue" tailPosition="leading" style={{ fontSize: 11 }}>
+            안녕하세요, {selectedMember.name}입니다!
+          </SpeechBadge>
+
+          <button
+            onClick={() => setSelected(null)}
+            style={{ padding: '8px', borderRadius: 8, border: '1px solid #e2e8f0', background: '#fff', color: '#64748b', fontSize: 12, cursor: 'pointer' }}
+          >
+            닫기
+          </button>
+        </div>
+      )}
+    </div>
+  )
+}
+
+export const TeamDirectory: Story = {
+  name: 'Team Directory (Vercel Design + Ant Design 벤치마크)',
+  render: () => <TeamDirectoryRender />,
+}
+
