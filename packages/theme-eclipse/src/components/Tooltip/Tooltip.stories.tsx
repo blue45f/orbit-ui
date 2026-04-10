@@ -1377,3 +1377,161 @@ export const Shadcn_테이블_컬럼_정보_툴팁: Story = {
     </Tooltip.Provider>
   ),
 }
+
+// ─── Cycle 154: MUI + Chakra UI ────────────────────────────────────────────
+
+function MuiInfoTooltipRender() {
+  const fields = [
+    { label: '프로젝트 이름', hint: '영문, 숫자, 하이픈만 사용 가능합니다. 최대 32자.' },
+    { label: '공개 범위', hint: '팀 공개: 팀원만 접근 / 전체 공개: 링크 보유자 누구나 접근' },
+    { label: '기본 브랜치', hint: 'PR이 머지되는 기본 브랜치입니다. 일반적으로 main을 사용합니다.' },
+  ]
+  return (
+    <div style={{ width: 340, fontFamily: 'Inter, system-ui, sans-serif', color: '#1e293b' }}>
+      <div style={{ fontSize: 13, fontWeight: 700, marginBottom: 16 }}>MUI 정보 툴팁 패턴</div>
+      <Tooltip.Provider delayDuration={200}>
+        {fields.map(field => (
+          <div key={field.label} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 0', borderBottom: '1px solid #f1f5f9' }}>
+            <span style={{ fontSize: 13, color: '#374151' }}>{field.label}</span>
+            <Tooltip>
+              <Tooltip.Trigger asChild>
+                <span style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: 18, height: 18, borderRadius: '50%', background: '#e0f2fe', cursor: 'pointer' }}>
+                  <CircleInfoLineIcon size={12} style={{ color: '#0284c7' }} />
+                </span>
+              </Tooltip.Trigger>
+              <Tooltip.Content side="right" sideOffset={6}>
+                <span style={{ fontSize: 11, maxWidth: 200, lineHeight: 1.5, display: 'block' }}>{field.hint}</span>
+              </Tooltip.Content>
+            </Tooltip>
+          </div>
+        ))}
+      </Tooltip.Provider>
+      <div style={{ marginTop: 12, fontSize: 11, color: '#94a3b8' }}>{'MUI Tooltip placement="right" + info 아이콘 패턴'}</div>
+    </div>
+  )
+}
+
+export const MUI_정보_툴팁_시스템: Story = {
+  name: 'MUI - 폼 필드 정보 툴팁 시스템',
+  render: () => <MuiInfoTooltipRender />,
+  parameters: {
+    layout: 'centered',
+    docs: {
+      description: {
+        story:
+          'MUI Tooltip + InfoIcon 패턴. 폼 필드 옆에 정보 아이콘을 배치하고 우측(right)으로 툴팁을 표시합니다. ' +
+          'MUI placement 옵션과 maxWidth 제한을 Radix 기반 Tooltip으로 재현합니다.',
+      },
+    },
+  },
+}
+
+function ChakraFormHelpRender() {
+  const [focusedField, setFocusedField] = useState<string | null>(null)
+  const formFields = [
+    { id: 'username', label: '사용자명', placeholder: 'orbit_user', tip: '3-20자, 영문/숫자/밑줄만 허용' },
+    { id: 'email', label: '이메일', placeholder: 'user@example.com', tip: '인증 메일이 이 주소로 발송됩니다' },
+    { id: 'password', label: '비밀번호', placeholder: '••••••••', tip: '최소 8자, 대소문자+숫자 포함 권장' },
+  ]
+  return (
+    <div style={{ width: 320, fontFamily: 'Inter, system-ui, sans-serif', color: '#1e293b' }}>
+      <div style={{ fontSize: 13, fontWeight: 700, marginBottom: 16 }}>Chakra UI 폼 도움말 툴팁</div>
+      <Tooltip.Provider delayDuration={300}>
+        {formFields.map(field => (
+          <div key={field.id} style={{ marginBottom: 14 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 4, marginBottom: 4 }}>
+              <label style={{ fontSize: 12, fontWeight: 600, color: '#374151' }}>{field.label}</label>
+              <Tooltip>
+                <Tooltip.Trigger asChild>
+                  <span style={{ cursor: 'help', color: '#94a3b8' }}>
+                    <CircleInfoLineIcon size={12} />
+                  </span>
+                </Tooltip.Trigger>
+                <Tooltip.Content sideOffset={4}>
+                  <span style={{ fontSize: 11 }}>{field.tip}</span>
+                </Tooltip.Content>
+              </Tooltip>
+            </div>
+            <input
+              type={field.id === 'password' ? 'password' : 'text'}
+              placeholder={field.placeholder}
+              onFocus={() => setFocusedField(field.id)}
+              onBlur={() => setFocusedField(null)}
+              style={{
+                width: '100%', padding: '7px 10px', fontSize: 13, boxSizing: 'border-box',
+                border: `1.5px solid ${focusedField === field.id ? '#0284c7' : '#e2e8f0'}`,
+                borderRadius: 6, outline: 'none', transition: 'border-color 0.15s',
+              }}
+            />
+          </div>
+        ))}
+      </Tooltip.Provider>
+      <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 4 }}>Chakra UI FormHelperText + Tooltip 결합 패턴</div>
+    </div>
+  )
+}
+
+export const Chakra_폼_도움말_툴팁: Story = {
+  name: 'Chakra UI - 폼 도움말 툴팁 (포커스 강조)',
+  render: () => <ChakraFormHelpRender />,
+  parameters: {
+    layout: 'centered',
+    docs: {
+      description: {
+        story:
+          'Chakra UI FormHelperText + Tooltip 패턴. 라벨 옆 물음표 아이콘에 커서를 올리면 입력 규칙이 툴팁으로 표시됩니다. ' +
+          '필드 포커스 시 테두리 색상 전환으로 활성 상태를 강조합니다.',
+      },
+    },
+  },
+}
+
+function MuiChakraDashboardTooltipRender() {
+  const stats = [
+    { label: '배포 수', value: '52', icon: <StarLineIcon size={14} />, tip: '이번 달 총 배포 횟수. 무료 플랜 한도: 100회/일' },
+    { label: '빌드 시간', value: '34s', icon: <SettingLineIcon size={14} />, tip: '평균 Storybook 빌드 소요 시간' },
+    { label: '알림', value: '3', icon: <NotificationLineIcon size={14} />, tip: '미확인 시스템 알림 3건' },
+    { label: '검색 횟수', value: '128', icon: <SearchIcon size={14} />, tip: '이번 주 컴포넌트 검색 쿼리 수' },
+  ]
+  return (
+    <div style={{ fontFamily: 'Inter, system-ui, sans-serif', color: '#1e293b' }}>
+      <div style={{ fontSize: 13, fontWeight: 700, marginBottom: 12 }}>MUI + Chakra 대시보드 툴팁</div>
+      <Tooltip.Provider delayDuration={150}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
+          {stats.map(stat => (
+            <Tooltip key={stat.label}>
+              <Tooltip.Trigger asChild>
+                <div style={{ padding: '14px 16px', background: '#f8fafc', borderRadius: 8, border: '1px solid #e2e8f0', cursor: 'default', transition: 'background 0.15s' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 6, color: '#6b7280' }}>
+                    {stat.icon}
+                    <span style={{ fontSize: 11, fontWeight: 500 }}>{stat.label}</span>
+                  </div>
+                  <div style={{ fontSize: 20, fontWeight: 800, color: '#0f172a' }}>{stat.value}</div>
+                </div>
+              </Tooltip.Trigger>
+              <Tooltip.Content sideOffset={6}>
+                <span style={{ fontSize: 11, maxWidth: 180, display: 'block' }}>{stat.tip}</span>
+              </Tooltip.Content>
+            </Tooltip>
+          ))}
+        </div>
+      </Tooltip.Provider>
+      <div style={{ marginTop: 10, fontSize: 11, color: '#94a3b8' }}>MUI + Chakra — 카드 호버 툴팁 대시보드 패턴</div>
+    </div>
+  )
+}
+
+export const MUI_Chakra_대시보드_카드_툴팁: Story = {
+  name: 'MUI + Chakra UI - 대시보드 통계 카드 툴팁',
+  render: () => <MuiChakraDashboardTooltipRender />,
+  parameters: {
+    layout: 'centered',
+    docs: {
+      description: {
+        story:
+          'MUI + Chakra UI 복합 패턴. 대시보드 통계 카드 전체에 툴팁을 적용해 수치의 의미와 단위를 보충 설명합니다. ' +
+          'MUI Tooltip followCursor 없이 카드 하단 중앙에 고정 표시하는 패턴을 재현합니다.',
+      },
+    },
+  },
+}

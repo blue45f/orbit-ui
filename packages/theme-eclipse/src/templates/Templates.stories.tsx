@@ -34968,3 +34968,175 @@ export const MantioneNotion153WorkspaceDashboard: StoryObj = {
   },
   render: () => <MantioneNotion153WorkspaceRender />,
 }
+
+// ─── Cycle 154: MUI + Chakra UI ────────────────────────────────────────────
+
+const M154_METRICS = [
+  { key: 'components', label: '컴포넌트', value: '48', delta: '+3', tip: '이번 달 추가된 컴포넌트 수 포함', color: '#eff6ff' },
+  { key: 'stories', label: '스토리', value: '154+', delta: '+21', tip: '각 컴포넌트별 Storybook 스토리 총합', color: '#f0fdf4' },
+  { key: 'coverage', label: '타입 커버리지', value: '100%', delta: '±0', tip: 'pnpm typecheck 기준 TypeScript 에러 0개', color: '#fefce8' },
+  { key: 'deploys', label: '배포', value: '52', delta: '+1', tip: '이번 달 Vercel 배포 횟수. 한도: 100/일', color: '#fdf4ff' },
+]
+
+const M154_ACTIONS = [
+  { id: 'docs', label: '문서 보기', icon: '📄', tip: 'Storybook docs 열기' },
+  { id: 'figma', label: 'Figma 링크', icon: '🎨', tip: 'Figma 디자인 파일로 이동' },
+  { id: 'github', label: 'GitHub', icon: '🐙', tip: '소스 코드 저장소' },
+  { id: 'slack', label: 'Slack 채널', icon: '💬', tip: '#design-system 채널' },
+  { id: 'changelog', label: '변경 이력', icon: '📋', tip: '최근 릴리즈 노트 확인' },
+]
+
+function MuiChakra154DesignSystemPortalRender() {
+  const [activeTab, setActiveTab] = useState<'overview' | 'tokens' | 'guidelines'>('overview')
+  const [clickedAction, setClickedAction] = useState<string | null>(null)
+
+  const TOKEN_GROUPS = [
+    { name: '색상 토큰', count: 24, sample: ['#0f172a', '#0284c7', '#10b981', '#f43f5e', '#f59e0b'] },
+    { name: '간격 토큰', count: 12, sample: ['4', '8', '12', '16', '24', '32'] },
+    { name: '타이포그래피', count: 8, sample: ['10', '12', '13', '14', '16', '20', '22', '32'] },
+    { name: '반경 토큰', count: 6, sample: ['2', '4', '6', '8', '12', '9999'] },
+  ]
+
+  const GUIDELINES = [
+    { title: '8px 그리드 사용', desc: '모든 간격은 8의 배수 또는 4의 배수를 사용합니다.', status: 'done' },
+    { title: 'WCAG AA 색상 대비', desc: '텍스트-배경 대비비 4.5:1 이상 유지합니다.', status: 'done' },
+    { title: 'forwardRef 필수', desc: '모든 컴포넌트 루트 요소에 forwardRef를 적용합니다.', status: 'done' },
+    { title: '다크 모드 지원', desc: 'CSS 변수를 활용한 테마 전환을 지원합니다.', status: 'wip' },
+    { title: '모바일 반응형', desc: '주요 컴포넌트의 모바일 뷰포트 대응을 완료합니다.', status: 'todo' },
+  ]
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', height: 600, fontFamily: 'Inter, system-ui, sans-serif', background: '#fff', border: '1px solid #e2e8f0', borderRadius: 8, overflow: 'hidden' }}>
+      <Tooltip.Provider delayDuration={200}>
+        {/* Header */}
+        <div style={{ padding: '16px 24px', borderBottom: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: '#fafafa' }}>
+          <div>
+            <div style={{ fontSize: 15, fontWeight: 800, color: '#0f172a' }}>Orbit UI Design System</div>
+            <div style={{ fontSize: 12, color: '#94a3b8', marginTop: 2 }}>MUI + Chakra UI 패턴 포털</div>
+          </div>
+          <div style={{ display: 'flex', gap: 4 }}>
+            {M154_ACTIONS.map(action => (
+              <Tooltip key={action.id}>
+                <Tooltip.Trigger asChild>
+                  <GhostButton color="gray" size="small" onClick={() => setClickedAction(action.id)} style={{ borderRadius: 6, padding: '4px 8px' }}>
+                    <GhostButton.Center><span style={{ fontSize: 14 }}>{action.icon}</span></GhostButton.Center>
+                  </GhostButton>
+                </Tooltip.Trigger>
+                <Tooltip.Content sideOffset={6}>
+                  <span style={{ fontSize: 11 }}>{action.tip}</span>
+                </Tooltip.Content>
+              </Tooltip>
+            ))}
+          </div>
+        </div>
+
+        {/* Stats */}
+        <div style={{ padding: '16px 24px', borderBottom: '1px solid #e2e8f0' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 10 }}>
+            {M154_METRICS.map(m => (
+              <Tooltip key={m.key}>
+                <Tooltip.Trigger asChild>
+                  <div style={{ padding: '12px', background: m.color, borderRadius: 8, cursor: 'default' }}>
+                    <div style={{ fontSize: 11, color: '#64748b', marginBottom: 4 }}>{m.label}</div>
+                    <div style={{ fontSize: 18, fontWeight: 800, color: '#0f172a' }}>{m.value}</div>
+                    <div style={{ fontSize: 10, color: '#10b981', marginTop: 2 }}>{m.delta} 이번 달</div>
+                  </div>
+                </Tooltip.Trigger>
+                <Tooltip.Content sideOffset={6}>
+                  <span style={{ fontSize: 11, maxWidth: 160, display: 'block' }}>{m.tip}</span>
+                </Tooltip.Content>
+              </Tooltip>
+            ))}
+          </div>
+        </div>
+
+        {/* Tabs */}
+        <div style={{ display: 'flex', borderBottom: '1px solid #e2e8f0', padding: '0 24px' }}>
+          {(['overview', 'tokens', 'guidelines'] as const).map(tab => (
+            <GhostButton
+              key={tab}
+              color="gray"
+              size="small"
+              onClick={() => setActiveTab(tab)}
+              style={{ borderRadius: 0, borderBottom: `2px solid ${activeTab === tab ? '#0f172a' : 'transparent'}`, padding: '10px 16px', marginBottom: -1 }}
+            >
+              <GhostButton.Center>
+                <span style={{ color: activeTab === tab ? '#0f172a' : '#94a3b8', fontWeight: activeTab === tab ? 700 : 400 }}>
+                  {{ overview: '개요', tokens: '토큰', guidelines: '가이드라인' }[tab]}
+                </span>
+              </GhostButton.Center>
+            </GhostButton>
+          ))}
+        </div>
+
+        {/* Content */}
+        <div style={{ flex: 1, overflowY: 'auto', padding: '20px 24px' }}>
+          {activeTab === 'overview' && (
+            <div>
+              <div style={{ fontSize: 13, fontWeight: 700, marginBottom: 12 }}>빠른 시작</div>
+              <div style={{ background: '#0f172a', borderRadius: 8, padding: '14px 16px', fontFamily: 'monospace', fontSize: 12, color: '#e2e8f0', lineHeight: 1.8 }}>
+                <div style={{ color: '#94a3b8' }}># 패키지 설치</div>
+                <div>pnpm add @heejun-com/core @heejun-com/theme-eclipse</div>
+                <div style={{ marginTop: 8, color: '#94a3b8' }}># 개발 서버</div>
+                <div>pnpm dev</div>
+              </div>
+              {clickedAction && (
+                <div style={{ marginTop: 12, padding: '8px 12px', background: '#e0f2fe', borderRadius: 6, fontSize: 12, color: '#0284c7' }}>
+                  {M154_ACTIONS.find(a => a.id === clickedAction)?.icon} {M154_ACTIONS.find(a => a.id === clickedAction)?.label} 클릭됨
+                </div>
+              )}
+            </div>
+          )}
+          {activeTab === 'tokens' && (
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+              {TOKEN_GROUPS.map(group => (
+                <div key={group.name} style={{ padding: 14, border: '1px solid #e2e8f0', borderRadius: 8 }}>
+                  <div style={{ fontSize: 12, fontWeight: 700, marginBottom: 10, color: '#374151' }}>{group.name} ({group.count})</div>
+                  <div style={{ display: 'flex', gap: 4, flexWrap: 'wrap' }}>
+                    {group.sample.map(s => (
+                      group.name === '색상 토큰'
+                        ? <div key={s} style={{ width: 20, height: 20, borderRadius: 4, background: s, border: '1px solid rgba(0,0,0,0.1)' }} />
+                        : <span key={s} style={{ fontSize: 10, padding: '2px 5px', background: '#f1f5f9', borderRadius: 3, color: '#475569' }}>{s}</span>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+          {activeTab === 'guidelines' && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+              {GUIDELINES.map(g => (
+                <div key={g.title} style={{ display: 'flex', gap: 12, padding: '10px 14px', background: '#f8fafc', borderRadius: 8 }}>
+                  <span style={{ fontSize: 14, flexShrink: 0 }}>
+                    {g.status === 'done' ? '✅' : g.status === 'wip' ? '🔄' : '⏳'}
+                  </span>
+                  <div>
+                    <div style={{ fontSize: 13, fontWeight: 600, color: '#1e293b' }}>{g.title}</div>
+                    <div style={{ fontSize: 12, color: '#64748b', marginTop: 2 }}>{g.desc}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+
+        <div style={{ padding: '10px 24px', borderTop: '1px solid #f1f5f9', fontSize: 11, color: '#94a3b8' }}>
+          MUI + Chakra UI — 디자인 시스템 포털 · 통계카드(Tooltip) + GhostButton 탭 + 액션 툴바
+        </div>
+      </Tooltip.Provider>
+    </div>
+  )
+}
+
+export const MuiChakra154DesignSystemPortal: StoryObj = {
+  name: 'MUI + Chakra UI — 디자인 시스템 포털 (통계 + 탭 + 툴팁 액션)',
+  parameters: {
+    layout: 'fullscreen',
+    docs: {
+      description: {
+        story: 'MUI + Chakra UI 복합 패턴. MUI 통계 카드(Tooltip 설명), Chakra 탭 네비게이션(GhostButton), 헤더 아이콘 툴바(Tooltip). 개요/토큰/가이드라인 3탭 콘텐츠. 실무 디자인 시스템 포털 레이아웃.',
+      },
+    },
+  },
+  render: () => <MuiChakra154DesignSystemPortalRender />,
+}

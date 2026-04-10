@@ -1516,3 +1516,157 @@ export const Mantine_Ant_뷰전환_내보내기_액션바: Story = {
   },
   render: () => <MantineAntViewActionBarRender />,
 }
+
+// ─── Cycle 154: MUI + Chakra UI ────────────────────────────────────────────
+
+function MuiToolbarActionRender() {
+  const [active, setActive] = useState<string | null>(null)
+  const actions = [
+    { id: 'undo', label: '실행 취소', icon: <ChevronRightLineIcon size={12} style={{ transform: 'rotate(180deg)' }} /> },
+    { id: 'redo', label: '다시 실행', icon: <ChevronRightLineIcon size={12} /> },
+    { id: 'copy', label: '복사', icon: <CopyLineIcon size={12} /> },
+    { id: 'link', label: '링크 삽입', icon: <LinkIcon size={12} /> },
+    { id: 'share', label: '공유', icon: <ShareIcon size={12} /> },
+  ]
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 12, fontFamily: 'Inter, system-ui, sans-serif' }}>
+      <div style={{ fontSize: 12, fontWeight: 700, color: '#6b7280' }}>MUI 툴바 액션 버튼 패턴</div>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 2, padding: '4px 8px', background: '#f8fafc', borderRadius: 6, border: '1px solid #e2e8f0' }}>
+        {actions.map((action, i) => (
+          <div key={action.id} style={{ display: 'flex', alignItems: 'center' }}>
+            {i === 2 && <div style={{ width: 1, height: 16, background: '#e2e8f0', margin: '0 4px' }} />}
+            <GhostButton
+              color="gray"
+              size="small"
+              onClick={() => setActive(action.id)}
+              style={{ borderRadius: 4, background: active === action.id ? '#e0f2fe' : 'transparent' }}
+            >
+              <GhostButton.Center>
+                <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}>{action.icon}{action.label}</span>
+              </GhostButton.Center>
+            </GhostButton>
+          </div>
+        ))}
+      </div>
+      {active && (
+        <div style={{ fontSize: 11, color: '#0284c7', padding: '4px 8px', background: '#e0f2fe', borderRadius: 4 }}>
+          실행: {actions.find(a => a.id === active)?.label}
+        </div>
+      )}
+      <div style={{ fontSize: 11, color: '#9ca3af' }}>MUI IconButton + ButtonGroup 조합 패턴 재현</div>
+    </div>
+  )
+}
+
+export const MUI_툴바_액션_버튼: StoryObj<typeof meta> = {
+  name: 'MUI - 툴바 액션 버튼 (구분선 포함)',
+  render: () => <MuiToolbarActionRender />,
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'MUI Toolbar + IconButton 패턴. 구분선으로 액션 그룹을 시각적으로 분리하고 클릭 상태를 강조 배경으로 표현합니다. ' +
+          'MUI ButtonGroup의 divider 패턴을 GhostButton 조합으로 재현합니다.',
+      },
+    },
+  },
+}
+
+function ChakraMenuItemRender() {
+  const [selected, setSelected] = useState<string | null>(null)
+  const items = [
+    { id: 'edit', label: '편집', icon: <CopyLineIcon size={12} />, shortcut: '⌘E' },
+    { id: 'duplicate', label: '복제', icon: <CopyLineIcon size={12} />, shortcut: '⌘D' },
+    { id: 'share', label: '공유', icon: <ShareIcon size={12} />, shortcut: '⌘S' },
+    { id: 'delete', label: '삭제', icon: <DeleteLineIcon size={12} />, shortcut: '⌫', danger: true },
+  ]
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 12, fontFamily: 'Inter, system-ui, sans-serif' }}>
+      <div style={{ fontSize: 12, fontWeight: 700, color: '#6b7280' }}>Chakra UI 메뉴 아이템 패턴</div>
+      <div style={{ width: 200, background: '#fff', border: '1px solid #e2e8f0', borderRadius: 8, padding: 4, boxShadow: '0 4px 12px rgba(0,0,0,0.08)' }}>
+        {items.map((item, i) => (
+          <div key={item.id}>
+            {i === items.length - 1 && <div style={{ height: 1, background: '#f1f5f9', margin: '4px 0' }} />}
+            <GhostButton
+              color={item.danger ? 'black' : 'gray'}
+              size="small"
+              onClick={() => setSelected(item.id)}
+              style={{ width: '100%', borderRadius: 4, justifyContent: 'space-between' }}
+            >
+              <GhostButton.Center>
+                <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6, flex: 1, color: item.danger ? '#ef4444' : '#1e293b' }}>
+                  {item.icon}
+                  <span style={{ flex: 1, textAlign: 'left' }}>{item.label}</span>
+                  <span style={{ fontSize: 10, color: '#94a3b8', marginLeft: 8 }}>{item.shortcut}</span>
+                </span>
+              </GhostButton.Center>
+            </GhostButton>
+          </div>
+        ))}
+      </div>
+      {selected && <div style={{ fontSize: 11, color: '#0284c7' }}>선택됨: {items.find(i => i.id === selected)?.label}</div>}
+      <div style={{ fontSize: 11, color: '#9ca3af' }}>Chakra UI Menu.Item 패턴 — 아이콘 + 레이블 + 단축키</div>
+    </div>
+  )
+}
+
+export const Chakra_메뉴_아이템_버튼: StoryObj<typeof meta> = {
+  name: 'Chakra UI - 컨텍스트 메뉴 아이템 (단축키 + 위험 액션)',
+  render: () => <ChakraMenuItemRender />,
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Chakra UI Menu.Item 패턴. 아이콘·레이블·단축키 3단 구성, 구분선으로 위험 액션 분리, 삭제 항목 빨간색 강조. ' +
+          'Chakra useMenuList hook의 isDestructive 옵션을 GhostButton 스타일로 재현합니다.',
+      },
+    },
+  },
+}
+
+function MuiChakraQuickActionRender() {
+  const [favorites, setFavorites] = useState<Set<string>>(new Set())
+  const toggleFav = (id: string) => setFavorites(prev => {
+    const next = new Set(prev)
+    if (next.has(id)) { next.delete(id) } else { next.add(id) }
+    return next
+  })
+  const pages = ['디자인 시스템 문서', '스프린트 보드', '팀 위키', '회고 노트', 'API 명세서']
+  return (
+    <div style={{ width: 280, fontFamily: 'Inter, system-ui, sans-serif', color: '#1e293b' }}>
+      <div style={{ fontSize: 12, fontWeight: 700, color: '#6b7280', marginBottom: 8 }}>MUI + Chakra 퀵 액션 패널</div>
+      {pages.map(page => (
+        <div key={page} style={{ display: 'flex', alignItems: 'center', gap: 4, padding: '2px 0' }}>
+          <Flex style={{ flex: 1 }}>
+            <GhostButton color="gray" size="small" style={{ flex: 1, justifyContent: 'flex-start' }}>
+              <GhostButton.Center>
+                <span style={{ textAlign: 'left', color: '#475569', fontSize: 13 }}>{page}</span>
+              </GhostButton.Center>
+            </GhostButton>
+          </Flex>
+          <GhostButton color="gray" size="small" onClick={() => toggleFav(page)}>
+            {favorites.has(page) ? <HeartFillIcon size={12} style={{ color: '#f43f5e' }} /> : <HeartLineIcon size={12} />}
+          </GhostButton>
+          <GhostButton color="gray" size="small">
+            <ChevronRightLineIcon size={12} />
+          </GhostButton>
+        </div>
+      ))}
+      <div style={{ marginTop: 8, fontSize: 11, color: '#94a3b8' }}>즐겨찾기: {favorites.size}개 — MUI List + Chakra 토글 패턴</div>
+    </div>
+  )
+}
+
+export const MUI_Chakra_퀵_액션_패널: StoryObj<typeof meta> = {
+  name: 'MUI + Chakra UI - 퀵 액션 패널 (즐겨찾기 토글)',
+  render: () => <MuiChakraQuickActionRender />,
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'MUI + Chakra UI 복합 패턴. MUI List 스타일 페이지 목록에 Chakra UI 토글 버튼 패턴을 결합해 ' +
+          '즐겨찾기(하트 아이콘) + 탐색(화살표) 인라인 퀵 액션을 구현합니다.',
+      },
+    },
+  },
+}
