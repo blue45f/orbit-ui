@@ -27894,3 +27894,138 @@ export const MantineNotion115UserProfile: StoryObj = {
   },
   render: () => <UserProfile115Render />,
 }
+/* --------------------------------------------------------------------------
+   Cycle 116 — Raycast + Figma Plugin UI
+   템플릿: CommandPalette — 전역 커맨드 팔레트 UI
+   Components: TextField, SolidButton, OutlineButton, LabelBadge, CounterBadge,
+               Divider, SectionTitle, Kbd shortcuts overlay
+-------------------------------------------------------------------------- */
+function CommandPalette116Render() {
+  const [query, setQuery] = React.useState('')
+  const [activeCategory, setActiveCategory] = React.useState('all')
+  const [recentIndex, setRecentIndex] = React.useState<number | null>(null)
+
+  const categories = [
+    { key: 'all', label: '전체' },
+    { key: 'nav', label: '이동' },
+    { key: 'action', label: '작업' },
+    { key: 'search', label: '검색' },
+  ]
+
+  const allCommands = [
+    { id: 1, icon: '🏠', label: '대시보드로 이동', category: 'nav', shortcut: 'G D', badge: null },
+    { id: 2, icon: '📁', label: '내 프로젝트', category: 'nav', shortcut: 'G P', badge: null },
+    { id: 3, icon: '🔔', label: '알림 센터 열기', category: 'nav', shortcut: 'G N', badge: '3' },
+    { id: 4, icon: '⚙️', label: '설정 열기', category: 'nav', shortcut: 'G S', badge: null },
+    { id: 5, icon: '✏️', label: '새 이슈 만들기', category: 'action', shortcut: 'C', badge: null },
+    { id: 6, icon: '📋', label: '클립보드 붙여넣기', category: 'action', shortcut: '⌘V', badge: null },
+    { id: 7, icon: '🗑️', label: '선택 항목 삭제', category: 'action', shortcut: '⌫', badge: null },
+    { id: 8, icon: '🔍', label: '파일 검색', category: 'search', shortcut: '⌘F', badge: null },
+    { id: 9, icon: '👥', label: '팀원 검색', category: 'search', shortcut: '⌘⇧U', badge: null },
+    { id: 10, icon: '🏷️', label: '태그로 검색', category: 'search', shortcut: '⌘⇧T', badge: null },
+  ]
+
+  const filtered = allCommands.filter((cmd) => {
+    const matchCat = activeCategory === 'all' || cmd.category === activeCategory
+    const matchQuery = query === '' || cmd.label.toLowerCase().includes(query.toLowerCase())
+    return matchCat && matchQuery
+  })
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '40px 24px', minHeight: 480, background: 'var(--sem-eclipse-color-backgroundSecondary)' }}>
+      <div style={{ width: 560, background: 'var(--sem-eclipse-color-backgroundPrimary)', borderRadius: 14, border: '1px solid var(--sem-eclipse-color-borderDefault)', boxShadow: '0 24px 64px rgba(0,0,0,0.18)', overflow: 'hidden' }}>
+        {/* Search bar */}
+        <div style={{ padding: '14px 18px', borderBottom: '1px solid var(--sem-eclipse-color-borderSubtle)', display: 'flex', alignItems: 'center', gap: 10 }}>
+          <span style={{ fontSize: 18, opacity: 0.5 }}>🔍</span>
+          <TextField
+            placeholder="명령어 검색..."
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+          />
+          <kbd style={{ fontSize: 11, padding: '3px 8px', borderRadius: 5, border: '1px solid var(--sem-eclipse-color-borderDefault)', background: 'var(--sem-eclipse-color-backgroundSecondary)', color: 'var(--sem-eclipse-color-foregroundTertiary)', fontFamily: 'monospace', flexShrink: 0 }}>ESC</kbd>
+        </div>
+        {/* Category tabs */}
+        <div style={{ padding: '8px 18px', borderBottom: '1px solid var(--sem-eclipse-color-borderSubtle)', display: 'flex', gap: 6 }}>
+          {categories.map((cat) => (
+            <SolidButton
+              key={cat.key}
+              color={activeCategory === cat.key ? 'primary' : 'black'}
+              size="small"
+              onClick={() => setActiveCategory(cat.key)}
+            >
+              <SolidButton.Center>{cat.label}</SolidButton.Center>
+            </SolidButton>
+          ))}
+        </div>
+        {/* Results */}
+        <div style={{ maxHeight: 340, overflowY: 'auto' }}>
+          {filtered.length === 0 ? (
+            <div style={{ padding: '32px 18px', textAlign: 'center' }}>
+              <Text textStyle="descriptionLarge" color="foregroundTertiary">결과 없음</Text>
+            </div>
+          ) : (
+            filtered.map((cmd, i) => (
+              <div
+                key={cmd.id}
+                onClick={() => setRecentIndex(i)}
+                style={{
+                  display: 'flex', alignItems: 'center', gap: 12,
+                  padding: '10px 18px',
+                  background: recentIndex === i ? 'var(--sem-eclipse-color-backgroundSecondary)' : 'transparent',
+                  borderBottom: '1px solid var(--sem-eclipse-color-borderSubtle)',
+                  cursor: 'pointer',
+                }}
+              >
+                <span style={{ fontSize: 18, width: 28, textAlign: 'center', flexShrink: 0 }}>{cmd.icon}</span>
+                <div style={{ flex: 1 }}>
+                  <Text textStyle="labelSmall" color="foregroundPrimary">{cmd.label}</Text>
+                </div>
+                {cmd.badge && <CounterBadge>{parseInt(cmd.badge)}</CounterBadge>}
+                <LabelBadge color="gray">
+                  <LabelBadge.Label>{cmd.category}</LabelBadge.Label>
+                </LabelBadge>
+                <kbd style={{ fontSize: 11, padding: '2px 7px', borderRadius: 4, border: '1px solid var(--sem-eclipse-color-borderDefault)', background: 'var(--sem-eclipse-color-backgroundSecondary)', color: 'var(--sem-eclipse-color-foregroundTertiary)', fontFamily: 'monospace', flexShrink: 0 }}>{cmd.shortcut}</kbd>
+              </div>
+            ))
+          )}
+        </div>
+        {/* Footer */}
+        <Divider />
+        <div style={{ padding: '10px 18px', display: 'flex', alignItems: 'center', gap: 12 }}>
+          <SectionTitle>
+            <SectionTitle.Title>Orbit UI CommandPalette</SectionTitle.Title>
+          </SectionTitle>
+          <div style={{ marginLeft: 'auto', display: 'flex', gap: 8 }}>
+            <OutlineButton color="black" size="small">
+              <OutlineButton.Center>도움말</OutlineButton.Center>
+            </OutlineButton>
+            <SolidButton color="primary" size="small">
+              <SolidButton.Center>실행</SolidButton.Center>
+            </SolidButton>
+          </div>
+        </div>
+      </div>
+      <div style={{ marginTop: 16, display: 'flex', gap: 16 }}>
+        <Text textStyle="descriptionSmall" color="foregroundTertiary">
+          전체 {allCommands.length}개 · 필터됨 {filtered.length}개
+        </Text>
+        <CounterBadge>{filtered.length}</CounterBadge>
+      </div>
+    </div>
+  )
+}
+
+export const RaycastFigma116CommandPalette: StoryObj = {
+  name: 'Raycast + Figma — 커맨드 팔레트 (Cycle 116)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Raycast + Figma Plugin UI 벤치마크 — Cycle 116. ' +
+          '전역 커맨드 팔레트: 검색(TextField) + 카테고리 필터(SolidButton 탭) + 커맨드 목록(CounterBadge, LabelBadge, 단축키 kbd) + 실행 버튼(SolidButton, OutlineButton). ' +
+          'Divider, SectionTitle 복합 활용. 쿼리 필터링 + 카테고리 전환 인터랙션 포함.',
+      },
+    },
+  },
+  render: () => <CommandPalette116Render />,
+}

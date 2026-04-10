@@ -997,3 +997,174 @@ export const Vercel_팀_멤버_권한_호버: Story = {
   name: 'Vercel — 팀 멤버 권한 호버',
   render: () => <MemberPermissionHoverDemo />,
 }
+
+/* --------------------------------------------------------------------------
+   Raycast — 커맨드 단축키 호버 카드
+   Raycast Extensions의 shortcut preview 패턴
+-------------------------------------------------------------------------- */
+function RaycastShortcutHoverRender() {
+  const shortcuts = [
+    { label: '파일 검색', keys: ['⌘', 'F'], desc: '프로젝트 내 파일을 빠르게 검색합니다' },
+    { label: '클립보드 히스토리', keys: ['⌘', '⇧', 'V'], desc: '최근 복사한 항목을 불러옵니다' },
+    { label: '빠른 메모', keys: ['⌘', 'N'], desc: '즉시 새 메모를 작성합니다' },
+  ]
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 8, width: 360, padding: 20 }}>
+      <Typography textStyle="subheadingSmall" color="foregroundPrimary">단축키 목록</Typography>
+      {shortcuts.map((s) => (
+        <HoverCard key={s.label} openDelay={150} closeDelay={100}>
+          <HoverCard.Trigger asChild>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 14px', borderRadius: 8, border: '1px solid var(--sem-eclipse-color-borderDefault)', background: 'var(--sem-eclipse-color-backgroundPrimary)', cursor: 'default' }}>
+              <Typography textStyle="labelSmall" color="foregroundPrimary">{s.label}</Typography>
+              <div style={{ display: 'flex', gap: 3 }}>
+                {s.keys.map((k) => (
+                  <kbd key={k} style={{ fontSize: 12, padding: '2px 6px', borderRadius: 4, border: '1px solid var(--sem-eclipse-color-borderDefault)', background: 'var(--sem-eclipse-color-backgroundSecondary)', fontFamily: 'monospace', color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{k}</kbd>
+                ))}
+              </div>
+            </div>
+          </HoverCard.Trigger>
+          <HoverCard.Content style={{ width: 280 }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+              <Typography textStyle="labelMedium" color="foregroundPrimary">{s.label}</Typography>
+              <Typography textStyle="descriptionLarge" color="foregroundSecondary">{s.desc}</Typography>
+              <div style={{ display: 'flex', gap: 3, marginTop: 4 }}>
+                {s.keys.map((k) => (
+                  <kbd key={k} style={{ fontSize: 14, padding: '4px 8px', borderRadius: 6, border: '1.5px solid var(--sem-eclipse-color-borderDefault)', background: 'var(--sem-eclipse-color-backgroundSecondary)', fontFamily: 'monospace', color: 'var(--sem-eclipse-color-foregroundPrimary)', fontWeight: 600 }}>{k}</kbd>
+                ))}
+              </div>
+            </div>
+          </HoverCard.Content>
+        </HoverCard>
+      ))}
+    </div>
+  )
+}
+
+export const Raycast_커맨드_단축키_호버: Story = {
+  name: 'Raycast — 커맨드 단축키 호버 카드',
+  render: () => <RaycastShortcutHoverRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Figma Plugin — 레이어 속성 호버 카드
+   Figma Plugin UI의 layer info tooltip 패턴
+-------------------------------------------------------------------------- */
+function FigmaLayerInfoHoverRender() {
+  const layers = [
+    { name: 'Button/Primary', type: 'COMPONENT', w: 120, h: 40, x: 0, y: 0, fill: '#6366f1', opacity: 100 },
+    { name: 'Icon/Search', type: 'VECTOR', w: 24, h: 24, x: 48, y: 8, fill: '#ffffff', opacity: 80 },
+    { name: 'Label/Text', type: 'TEXT', w: 60, h: 20, x: 30, y: 10, fill: '#ffffff', opacity: 100 },
+    { name: 'Background', type: 'RECTANGLE', w: 320, h: 200, x: 0, y: 0, fill: '#f8fafc', opacity: 100 },
+  ]
+  const typeColor: Record<string, string> = {
+    COMPONENT: '#8b5cf6', VECTOR: '#10b981', TEXT: '#f59e0b', RECTANGLE: '#6366f1',
+  }
+  return (
+    <div style={{ padding: 24, width: 380 }}>
+      <Typography textStyle="subheadingSmall" color="foregroundPrimary">레이어 패널</Typography>
+      <div style={{ marginTop: 12, display: 'flex', flexDirection: 'column', gap: 2 }}>
+        {layers.map((layer) => (
+          <HoverCard key={layer.name} openDelay={200} closeDelay={150}>
+            <HoverCard.Trigger asChild>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '6px 10px', borderRadius: 6, cursor: 'default', background: 'var(--sem-eclipse-color-backgroundPrimary)', border: '1px solid transparent' }}>
+                <div style={{ width: 10, height: 10, borderRadius: 2, background: typeColor[layer.type], flexShrink: 0 }} />
+                <Typography textStyle="labelSmall" color="foregroundPrimary">{layer.name}</Typography>
+                <span style={{ marginLeft: 'auto', fontSize: 10, color: 'var(--sem-eclipse-color-foregroundTertiary)', fontWeight: 600 }}>{layer.type}</span>
+              </div>
+            </HoverCard.Trigger>
+            <HoverCard.Content style={{ width: 240 }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                  <div style={{ width: 16, height: 16, borderRadius: 3, background: typeColor[layer.type] }} />
+                  <Typography textStyle="labelMedium" color="foregroundPrimary">{layer.name}</Typography>
+                </div>
+                <Divider />
+                {[
+                  ['타입', layer.type],
+                  ['크기', `${layer.w} × ${layer.h}`],
+                  ['위치', `X: ${layer.x}, Y: ${layer.y}`],
+                  ['불투명도', `${layer.opacity}%`],
+                ].map(([k, v]) => (
+                  <div key={k} style={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <Typography textStyle="descriptionSmall" color="foregroundTertiary">{k}</Typography>
+                    <Typography textStyle="descriptionSmall" color="foregroundPrimary">{v}</Typography>
+                  </div>
+                ))}
+                <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                  <div style={{ width: 16, height: 16, borderRadius: 3, background: layer.fill, border: '1px solid var(--sem-eclipse-color-borderDefault)' }} />
+                  <Typography textStyle="descriptionSmall" color="foregroundTertiary">Fill</Typography>
+                  <code style={{ fontSize: 11, marginLeft: 'auto', fontFamily: 'monospace', color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{layer.fill}</code>
+                </div>
+              </div>
+            </HoverCard.Content>
+          </HoverCard>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+export const Figma_레이어_속성_호버: Story = {
+  name: 'Figma Plugin — 레이어 속성 호버 카드',
+  render: () => <FigmaLayerInfoHoverRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Raycast + Figma — 컴포넌트 속성 프리뷰 호버
+   컴포넌트 라이브러리에서 hover로 세부 속성 미리보기
+-------------------------------------------------------------------------- */
+function ComponentPropertyHoverRender() {
+  const components = [
+    { name: 'SolidButton', variant: 'primary', size: 'medium', states: ['default', 'hover', 'pressed', 'disabled'], props: 4 },
+    { name: 'TextField', variant: 'default', size: 'large', states: ['empty', 'focus', 'filled', 'error'], props: 6 },
+    { name: 'Toggle', variant: 'default', size: 'medium', states: ['off', 'on', 'disabled'], props: 3 },
+    { name: 'CounterBadge', variant: 'primary', size: 'small', states: ['default', 'max'], props: 2 },
+  ]
+  return (
+    <div style={{ padding: 24, width: 400 }}>
+      <Typography textStyle="subheadingSmall" color="foregroundPrimary">컴포넌트 라이브러리</Typography>
+      <div style={{ marginTop: 12, display: 'flex', flexDirection: 'column', gap: 4 }}>
+        {components.map((comp) => (
+          <HoverCard key={comp.name} openDelay={100} closeDelay={200}>
+            <HoverCard.Trigger asChild>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '10px 14px', borderRadius: 8, border: '1px solid var(--sem-eclipse-color-borderDefault)', background: 'var(--sem-eclipse-color-backgroundPrimary)', cursor: 'default' }}>
+                <Typography textStyle="labelSmall" color="foregroundPrimary">{comp.name}</Typography>
+                <div style={{ marginLeft: 'auto', display: 'flex', gap: 6, alignItems: 'center' }}>
+                  <CounterBadge>{comp.props}</CounterBadge>
+                  <LabelBadge color="gray"><LabelBadge.Label>{comp.variant}</LabelBadge.Label></LabelBadge>
+                </div>
+              </div>
+            </HoverCard.Trigger>
+            <HoverCard.Content style={{ width: 280 }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                <Typography textStyle="labelMedium" color="foregroundPrimary">{comp.name}</Typography>
+                <Divider />
+                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                  <Typography textStyle="descriptionSmall" color="foregroundTertiary">기본 변형</Typography>
+                  <Typography textStyle="descriptionSmall" color="foregroundPrimary">{comp.variant}</Typography>
+                </div>
+                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                  <Typography textStyle="descriptionSmall" color="foregroundTertiary">크기</Typography>
+                  <Typography textStyle="descriptionSmall" color="foregroundPrimary">{comp.size}</Typography>
+                </div>
+                <div>
+                  <Typography textStyle="descriptionSmall" color="foregroundTertiary">상태 ({comp.states.length}개)</Typography>
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: 4, marginTop: 4 }}>
+                    {comp.states.map((s) => (
+                      <span key={s} style={{ fontSize: 11, padding: '1px 6px', borderRadius: 4, background: 'var(--sem-eclipse-color-backgroundSecondary)', color: 'var(--sem-eclipse-color-foregroundSecondary)', border: '1px solid var(--sem-eclipse-color-borderSubtle)' }}>{s}</span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </HoverCard.Content>
+          </HoverCard>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+export const Raycast_Figma_컴포넌트_속성_프리뷰: Story = {
+  name: 'Raycast + Figma — 컴포넌트 속성 프리뷰',
+  render: () => <ComponentPropertyHoverRender />,
+}

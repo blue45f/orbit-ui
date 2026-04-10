@@ -900,3 +900,225 @@ export const Radix_컬러_스킴_적응_데모: Story = {
   },
   render: () => <RadixColorSchemeDemo />,
 }
+
+/* --------------------------------------------------------------------------
+   Raycast — 커맨드 팔레트 테마 프리뷰
+   Raycast Extensions의 compact dark UI 패턴 — 테마 전환 미리보기
+-------------------------------------------------------------------------- */
+function RaycastCommandPaletteThemeRender() {
+  const [mode, setMode] = useState<'light' | 'dark'>('dark')
+  const commands = [
+    { icon: '🔍', label: '파일 검색', shortcut: '⌘F', category: 'Search' },
+    { icon: '📋', label: '클립보드 히스토리', shortcut: '⌘⇧V', category: 'Clipboard' },
+    { icon: '🎨', label: '컬러 피커', shortcut: '⌘⇧C', category: 'Tools' },
+    { icon: '🔖', label: '즐겨찾기 열기', shortcut: '⌘⇧B', category: 'Browser' },
+    { icon: '⚡', label: '빠른 메모', shortcut: '⌘N', category: 'Notes' },
+  ]
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 16, alignItems: 'center' }}>
+      <div style={{ display: 'flex', gap: 8 }}>
+        <SolidButton color="primary" size="small" onClick={() => setMode('light')}>
+          <SolidButton.Center>라이트</SolidButton.Center>
+        </SolidButton>
+        <SolidButton color="black" size="small" onClick={() => setMode('dark')}>
+          <SolidButton.Center>다크</SolidButton.Center>
+        </SolidButton>
+      </div>
+      <EclipseProvider mode={mode}>
+        <div style={{
+          width: 480,
+          borderRadius: 12,
+          overflow: 'hidden',
+          border: '1px solid var(--sem-eclipse-color-borderDefault)',
+          background: mode === 'dark' ? '#1c1c1e' : '#ffffff',
+          boxShadow: '0 20px 60px rgba(0,0,0,0.3)',
+        }}>
+          <div style={{ padding: '12px 16px', borderBottom: '1px solid var(--sem-eclipse-color-borderSubtle)', background: mode === 'dark' ? '#2c2c2e' : '#f8fafc' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+              <span style={{ fontSize: 16 }}>⌘</span>
+              <TextField placeholder="명령어 검색..." />
+            </div>
+          </div>
+          <div style={{ padding: '8px 0' }}>
+            {commands.map((cmd, i) => (
+              <div key={cmd.label} style={{
+                display: 'flex', alignItems: 'center', gap: 12,
+                padding: '8px 16px',
+                background: i === 0 ? (mode === 'dark' ? 'rgba(99,102,241,0.2)' : 'rgba(99,102,241,0.08)') : 'transparent',
+                cursor: 'default',
+              }}>
+                <span style={{ fontSize: 18, width: 24, textAlign: 'center' }}>{cmd.icon}</span>
+                <div style={{ flex: 1 }}>
+                  <Typography textStyle="labelSmall" color="foregroundPrimary">{cmd.label}</Typography>
+                  <Typography textStyle="descriptionSmall" color="foregroundTertiary">{cmd.category}</Typography>
+                </div>
+                <kbd style={{ fontSize: 11, padding: '2px 6px', borderRadius: 4, border: '1px solid var(--sem-eclipse-color-borderDefault)', color: 'var(--sem-eclipse-color-foregroundTertiary)', background: 'var(--sem-eclipse-color-backgroundSecondary)', fontFamily: 'monospace' }}>{cmd.shortcut}</kbd>
+              </div>
+            ))}
+          </div>
+        </div>
+      </EclipseProvider>
+    </div>
+  )
+}
+
+export const Raycast_커맨드_팔레트_테마: Story = {
+  name: 'Raycast — 커맨드 팔레트 테마 프리뷰',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Raycast Extensions의 compact 커맨드 팔레트 UI. EclipseProvider로 라이트/다크 테마를 전환하며 모든 토큰이 자동 적응하는 것을 확인합니다.',
+      },
+    },
+  },
+  render: () => <RaycastCommandPaletteThemeRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Figma Plugin UI — 디자인 토큰 프리뷰어
+   Figma Plugin의 compact tool palette 패턴 — 토큰 시스템 시각화
+-------------------------------------------------------------------------- */
+function FigmaTokenPreviewerRender() {
+  const [mode, setMode] = useState<'light' | 'dark'>('light')
+  const [selected, setSelected] = useState<string>('primary')
+  const tokens = [
+    { key: 'primary', label: '프라이머리', color: '#6366f1', hex: '#6366f1' },
+    { key: 'secondary', label: '세컨더리', color: '#8b5cf6', hex: '#8b5cf6' },
+    { key: 'success', label: '성공', color: '#10b981', hex: '#10b981' },
+    { key: 'warning', label: '경고', color: '#f59e0b', hex: '#f59e0b' },
+    { key: 'danger', label: '위험', color: '#ef4444', hex: '#ef4444' },
+  ]
+  return (
+    <EclipseProvider mode={mode}>
+      <div style={{ width: 300, border: '1px solid var(--sem-eclipse-color-borderDefault)', borderRadius: 8, overflow: 'hidden', background: 'var(--sem-eclipse-color-backgroundPrimary)' }}>
+        <div style={{ padding: '10px 14px', borderBottom: '1px solid var(--sem-eclipse-color-borderSubtle)', background: 'var(--sem-eclipse-color-backgroundSecondary)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <Typography textStyle="labelMedium" color="foregroundPrimary">Design Tokens</Typography>
+          <div style={{ display: 'flex', gap: 4 }}>
+            <SolidButton color="primary" size="small" onClick={() => setMode('light')}>
+              <SolidButton.Center>☀</SolidButton.Center>
+            </SolidButton>
+            <SolidButton color="black" size="small" onClick={() => setMode('dark')}>
+              <SolidButton.Center>🌙</SolidButton.Center>
+            </SolidButton>
+          </div>
+        </div>
+        <div style={{ padding: 12, display: 'flex', flexDirection: 'column', gap: 6 }}>
+          {tokens.map((t) => (
+            <div
+              key={t.key}
+              onClick={() => setSelected(t.key)}
+              style={{
+                display: 'flex', alignItems: 'center', gap: 10, padding: '8px 10px',
+                borderRadius: 6, cursor: 'pointer',
+                background: selected === t.key ? `${t.color}15` : 'transparent',
+                border: `1.5px solid ${selected === t.key ? t.color : 'transparent'}`,
+              }}
+            >
+              <div style={{ width: 20, height: 20, borderRadius: 4, background: t.color, flexShrink: 0 }} />
+              <Typography textStyle="labelSmall" color="foregroundPrimary">{t.label}</Typography>
+              <code style={{ marginLeft: 'auto', fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)', fontFamily: 'monospace' }}>{t.hex}</code>
+            </div>
+          ))}
+        </div>
+        <Divider />
+        <div style={{ padding: '10px 14px' }}>
+          <Typography textStyle="descriptionSmall" color="foregroundTertiary">
+            mode=&quot;{mode}&quot; · 선택됨: {tokens.find(t => t.key === selected)?.label}
+          </Typography>
+        </div>
+      </div>
+    </EclipseProvider>
+  )
+}
+
+export const Figma_디자인_토큰_프리뷰어: Story = {
+  name: 'Figma Plugin — 디자인 토큰 프리뷰어',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Figma Plugin UI의 compact tool palette 패턴. 디자인 토큰을 시각적으로 탐색하며 EclipseProvider 테마 전환을 실시간으로 확인합니다.',
+      },
+    },
+  },
+  render: () => <FigmaTokenPreviewerRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Raycast + Figma — 확장 설정 패널
+   앱 설정 UI 패턴 — 테마·밀도·폰트 크기 제어
+-------------------------------------------------------------------------- */
+function RaycastFigmaSettingsPanelRender() {
+  const [mode, setMode] = useState<'light' | 'dark'>('light')
+  const [compact, setCompact] = useState(false)
+  const [notif, setNotif] = useState(true)
+  const [autoSave, setAutoSave] = useState(true)
+  return (
+    <EclipseProvider mode={mode}>
+      <div style={{
+        width: 360,
+        background: 'var(--sem-eclipse-color-backgroundPrimary)',
+        border: '1px solid var(--sem-eclipse-color-borderDefault)',
+        borderRadius: 12,
+        overflow: 'hidden',
+      }}>
+        <div style={{ padding: '14px 18px', borderBottom: '1px solid var(--sem-eclipse-color-borderSubtle)', background: 'var(--sem-eclipse-color-backgroundSecondary)', display: 'flex', alignItems: 'center', gap: 10 }}>
+          <CounterBadge>{3}</CounterBadge>
+          <Typography textStyle="subheadingSmall" color="foregroundPrimary">확장 설정</Typography>
+        </div>
+        <div style={{ padding: '16px 18px', display: 'flex', flexDirection: 'column', gap: 14 }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <div>
+              <Typography textStyle="labelMedium" color="foregroundPrimary">다크 모드</Typography>
+              <Typography textStyle="descriptionSmall" color="foregroundTertiary">인터페이스 색상 테마</Typography>
+            </div>
+            <Toggle checked={mode === 'dark'} onChange={() => setMode((m) => m === 'dark' ? 'light' : 'dark')} />
+          </div>
+          <Divider />
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <div>
+              <Typography textStyle="labelMedium" color="foregroundPrimary">컴팩트 모드</Typography>
+              <Typography textStyle="descriptionSmall" color="foregroundTertiary">UI 밀도를 높여 더 많은 정보 표시</Typography>
+            </div>
+            <Toggle checked={compact} onChange={() => setCompact((v) => !v)} />
+          </div>
+          <Divider />
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <div>
+              <Typography textStyle="labelMedium" color="foregroundPrimary">알림 허용</Typography>
+              <Typography textStyle="descriptionSmall" color="foregroundTertiary">작업 완료 시 알림 표시</Typography>
+            </div>
+            <Toggle checked={notif} onChange={() => setNotif((v) => !v)} />
+          </div>
+          <Divider />
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <div>
+              <Typography textStyle="labelMedium" color="foregroundPrimary">자동 저장</Typography>
+              <Typography textStyle="descriptionSmall" color="foregroundTertiary">변경 사항 자동 저장</Typography>
+            </div>
+            <Toggle checked={autoSave} onChange={() => setAutoSave((v) => !v)} />
+          </div>
+        </div>
+        <div style={{ padding: '12px 18px', borderTop: '1px solid var(--sem-eclipse-color-borderSubtle)', display: 'flex', gap: 8, justifyContent: 'flex-end' }}>
+          <OutlineButton color="black" size="small">
+            <OutlineButton.Center>초기화</OutlineButton.Center>
+          </OutlineButton>
+          <SolidButton color="primary" size="small">
+            <SolidButton.Center>저장</SolidButton.Center>
+          </SolidButton>
+        </div>
+      </div>
+    </EclipseProvider>
+  )
+}
+
+export const Raycast_Figma_확장_설정_패널: Story = {
+  name: 'Raycast + Figma — 확장 설정 패널',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Raycast Extensions + Figma Plugin UI의 앱 설정 패턴. 다크 모드, 컴팩트 모드, 알림, 자동 저장을 Toggle로 제어하며 EclipseProvider 테마가 실시간으로 전환됩니다.',
+      },
+    },
+  },
+  render: () => <RaycastFigmaSettingsPanelRender />,
+}
