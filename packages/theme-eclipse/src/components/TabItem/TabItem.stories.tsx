@@ -1678,3 +1678,208 @@ export const Shadcn_Linear_설정_탭_패널: Story = {
   },
   render: () => <ShadcnLinearSettingsTabRender />,
 }
+
+/* --------------------------------------------------------------------------
+   MUI — 아이콘 + 텍스트 탭 아이템 (수직 아이콘 레이아웃)
+-------------------------------------------------------------------------- */
+function MUIIconVerticalTabRender() {
+  const [selected, setSelected] = useState(0)
+
+  const tabs = [
+    { icon: HomeLineIcon, label: '홈', badge: null },
+    { icon: StarLineIcon, label: '즐겨찾기', badge: 3 },
+    { icon: PeopleLineIcon, label: '팀', badge: null },
+    { icon: SettingLineIcon, label: '설정', badge: null },
+    { icon: NotificationLineIcon, label: '알림', badge: 12 },
+  ]
+
+  return (
+    <div style={{ maxWidth: 480, fontFamily: 'system-ui, sans-serif' }}>
+      <p style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginBottom: 10 }}>MUI Icon Tabs 패턴 — 아이콘 + 레이블 조합</p>
+      <div style={{ display: 'flex', gap: 4 }}>
+        {tabs.map((t, idx) => {
+          const Icon = t.icon
+          const isActive = selected === idx
+          return (
+            <div key={idx} style={{ position: 'relative' }}>
+              <Tab
+                value={String(idx)}
+                selected={isActive}
+                onClick={() => setSelected(idx)}
+
+              >
+                <Tab.Leading><Icon style={{ width: 16, height: 16 }} /></Tab.Leading>
+                <Tab.Center>{t.label}</Tab.Center>
+              </Tab>
+              {t.badge !== null && (
+                <span style={{ position: 'absolute', top: 2, right: 4, fontSize: 9, fontWeight: 700, background: '#ef4444', color: '#fff', borderRadius: 10, padding: '0 4px', minWidth: 14, textAlign: 'center', lineHeight: '14px', display: 'block' }}>{t.badge}</span>
+              )}
+            </div>
+          )
+        })}
+      </div>
+      <div style={{ marginTop: 12, padding: '12px', borderRadius: 8, border: '1px solid var(--sem-eclipse-color-borderSubtle)', background: 'var(--sem-eclipse-color-surfaceDefault)', fontSize: 12, color: 'var(--sem-eclipse-color-foregroundSecondary)' }}>
+        선택됨: {tabs[selected].label}
+      </div>
+    </div>
+  )
+}
+
+export const MUI_아이콘_텍스트_탭: Story = {
+  name: 'MUI — 아이콘 + 텍스트 조합 탭 아이템',
+  parameters: {
+    docs: {
+      description: {
+        story: 'MUI Icon Tabs 패턴. Tab.Leading 아이콘 + Tab.Center 텍스트 조합으로 의미 있는 탭 구성. 알림 카운트는 Tab 외부에 절대 포지션 뱃지로 오버레이.',
+      },
+    },
+  },
+  render: () => <MUIIconVerticalTabRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Arco Design — 필터 칩 스타일 탭 (색상 상태 + 선택 누적)
+-------------------------------------------------------------------------- */
+function ArcoFilterChipTabRender() {
+  const [selected, setSelected] = useState<number[]>([0])
+
+  const filters = [
+    { value: 0, label: '전체', color: '#6366f1' },
+    { value: 1, label: '디자인', color: '#ec4899' },
+    { value: 2, label: '개발', color: '#0ea5e9' },
+    { value: 3, label: '기획', color: '#f59e0b' },
+    { value: 4, label: '마케팅', color: '#10b981' },
+    { value: 5, label: '운영', color: '#8b5cf6' },
+  ]
+
+  const toggle = (val: number) => {
+    if (val === 0) { setSelected([0]); return }
+    setSelected((prev) => {
+      const next = prev.filter((v) => v !== 0)
+      if (next.includes(val)) {
+        const removed = next.filter((v) => v !== val)
+        return removed.length === 0 ? [0] : removed
+      }
+      return [...next, val]
+    })
+  }
+
+  const activeFilters = selected.includes(0) ? filters.slice(1) : filters.filter((f) => selected.includes(f.value))
+
+  return (
+    <div style={{ maxWidth: 480, fontFamily: 'system-ui, sans-serif' }}>
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginBottom: 12 }}>
+        {filters.map((f) => {
+          const isActive = selected.includes(f.value)
+          return (
+            <Tab
+              key={f.value}
+              value={String(f.value)}
+              selected={isActive}
+              onClick={() => toggle(f.value)}
+            >
+              <Tab.Center>
+                <span style={{ color: isActive ? f.color : 'var(--sem-eclipse-color-foregroundTertiary)', fontWeight: isActive ? 600 : 400, transition: 'color 0.15s' }}>{f.label}</span>
+              </Tab.Center>
+            </Tab>
+          )
+        })}
+      </div>
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+        {activeFilters.map((f) => (
+          <span key={f.value} style={{ fontSize: 10, padding: '3px 10px', borderRadius: 20, background: `${f.color}18`, color: f.color, fontWeight: 600, border: `1px solid ${f.color}30` }}>{f.label}</span>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+export const Arco_필터_칩_탭: Story = {
+  name: 'Arco Design — 필터 칩 스타일 탭 (다중 선택)',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Arco Design 필터 탭 패턴. Tab을 필터 칩처럼 활용해 다중 선택을 지원. "전체" 선택 시 나머지 해제, 개별 항목 선택 시 "전체" 해제. 선택된 필터를 하단에 뱃지로 표시.',
+      },
+    },
+  },
+  render: () => <ArcoFilterChipTabRender />,
+}
+
+/* --------------------------------------------------------------------------
+   MUI + Arco — 코드 에디터 파일 탭 (수정 표시 + 닫기)
+-------------------------------------------------------------------------- */
+function MUIArcoFileTabRender() {
+  const [files, setFiles] = useState([
+    { id: 1, name: 'SolidButton.tsx', modified: true, lang: 'tsx' },
+    { id: 2, name: 'SolidButton.stories.tsx', modified: false, lang: 'tsx' },
+    { id: 3, name: 'SolidButton.styles.ts', modified: true, lang: 'ts' },
+    { id: 4, name: 'index.ts', modified: false, lang: 'ts' },
+  ])
+  const [activeId, setActiveId] = useState(1)
+
+  const closeFile = (id: number) => {
+    const newFiles = files.filter((f) => f.id !== id)
+    if (newFiles.length === 0) return
+    setFiles(newFiles)
+    if (activeId === id) setActiveId(newFiles[0].id)
+  }
+
+  const activeFile = files.find((f) => f.id === activeId)
+
+  const langColors: Record<string, string> = { tsx: '#3178c6', ts: '#0ea5e9' }
+
+  return (
+    <div style={{ maxWidth: 560, fontFamily: 'monospace, system-ui', background: '#0f172a', borderRadius: 10, overflow: 'hidden', border: '1px solid #1e293b' }}>
+      <div style={{ display: 'flex', borderBottom: '1px solid #1e293b', overflowX: 'auto' }}>
+        {files.map((file) => {
+          const isActive = file.id === activeId
+          return (
+            <div
+              key={file.id}
+              onClick={() => setActiveId(file.id)}
+              style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '8px 14px', cursor: 'pointer', background: isActive ? '#1e293b' : 'transparent', borderRight: '1px solid #0f172a', borderBottom: isActive ? '2px solid #6366f1' : '2px solid transparent', whiteSpace: 'nowrap', minWidth: 0 }}
+            >
+              <span style={{ width: 8, height: 8, borderRadius: 2, background: langColors[file.lang], flexShrink: 0 }} />
+              <span style={{ fontSize: 12, color: isActive ? '#f1f5f9' : '#64748b' }}>{file.name}</span>
+              {file.modified && <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#f59e0b', flexShrink: 0 }} />}
+              <button
+                onClick={(e) => { e.stopPropagation(); closeFile(file.id) }}
+                style={{ marginLeft: 2, width: 14, height: 14, borderRadius: 3, border: 'none', background: 'transparent', color: '#475569', cursor: 'pointer', fontSize: 12, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}
+              >
+                ×
+              </button>
+            </div>
+          )
+        })}
+      </div>
+      <div style={{ padding: '12px 16px', fontSize: 11, color: '#94a3b8', lineHeight: 1.8 }}>
+        <div style={{ color: '#64748b', marginBottom: 6 }}>{'//'} {activeFile?.name}</div>
+        {activeFile?.lang === 'tsx' ? (
+          <>
+            <div><span style={{ color: '#818cf8' }}>import</span> <span style={{ color: '#34d399' }}>{'{ forwardRef }'}</span> <span style={{ color: '#818cf8' }}>from</span> <span style={{ color: '#fbbf24' }}>&#39;react&#39;</span></div>
+            <div><span style={{ color: '#818cf8' }}>export const</span> <span style={{ color: '#60a5fa' }}>SolidButton</span> = <span style={{ color: '#34d399' }}>forwardRef</span>((props, ref) {'=> { ... }'})</div>
+          </>
+        ) : (
+          <>
+            <div><span style={{ color: '#818cf8' }}>export</span> <span style={{ color: '#818cf8' }}>type</span> <span style={{ color: '#60a5fa' }}>SolidButtonTheme</span> = {'{ ... }'}</div>
+            <div><span style={{ color: '#818cf8' }}>export</span> {'{'} SolidButton {'}'} <span style={{ color: '#818cf8' }}>from</span> <span style={{ color: '#fbbf24' }}>&#39;./SolidButton&#39;</span></div>
+          </>
+        )}
+        {activeFile?.modified && <div style={{ marginTop: 8, fontSize: 10, color: '#f59e0b' }}>• 저장되지 않은 변경 사항</div>}
+      </div>
+    </div>
+  )
+}
+
+export const MUI_Arco_파일_탭_에디터: Story = {
+  name: 'MUI + Arco — 코드 에디터 파일 탭 (수정 표시 + 닫기)',
+  parameters: {
+    docs: {
+      description: {
+        story: 'MUI 탭 닫기 패턴 + Arco 파일 상태 표시 조합. 파일 탭에 수정 여부 노란 점, 언어별 색상 아이콘, 닫기 버튼을 배치. VS Code 스타일 파일 탭 패턴을 Orbit UI Tab으로 구현.',
+      },
+    },
+  },
+  render: () => <MUIArcoFileTabRender />,
+}

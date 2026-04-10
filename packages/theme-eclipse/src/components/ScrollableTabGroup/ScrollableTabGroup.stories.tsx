@@ -1402,3 +1402,195 @@ export const Ant_Mantine_분석_대시보드_탭: Story = {
     )
   },
 }
+
+/* --------------------------------------------------------------------------
+   MUI — 데이터 카테고리 탭 (동적 탭 추가/삭제 + 뱃지)
+-------------------------------------------------------------------------- */
+function MUIClosableTabsRender() {
+  const [tabs, setTabs] = useState([
+    { id: 1, label: '전체', count: 142 },
+    { id: 2, label: '활성', count: 89 },
+    { id: 3, label: '보류', count: 31 },
+    { id: 4, label: '완료', count: 22 },
+  ])
+  const [activeIdx, setActiveIdx] = useState(0)
+  const [nextId, setNextId] = useState(5)
+
+  const addTab = () => {
+    const newTab = { id: nextId, label: `커스텀 ${nextId - 4}`, count: Math.floor(Math.random() * 50) }
+    setTabs((prev) => [...prev, newTab])
+    setActiveIdx(tabs.length)
+    setNextId((n) => n + 1)
+  }
+
+  const removeTab = (id: number, idx: number) => {
+    if (tabs.length <= 1) return
+    const newTabs = tabs.filter((t) => t.id !== id)
+    setTabs(newTabs)
+    setActiveIdx(Math.min(activeIdx, newTabs.length - 1))
+    if (idx <= activeIdx && activeIdx > 0) setActiveIdx((i) => i - 1)
+  }
+
+  return (
+    <div style={{ maxWidth: 560, fontFamily: 'system-ui, sans-serif' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+        <ScrollableTabGroup selectedIndex={activeIdx} onTabChange={setActiveIdx}>
+          {tabs.map((tab, idx) => (
+            <ScrollableTabGroup.Tab key={tab.id} value={String(tab.id)}>
+              <ScrollableTabGroup.TabCenter>{tab.label}</ScrollableTabGroup.TabCenter>
+              <ScrollableTabGroup.TabTrailing>
+                <span style={{ fontSize: 10, background: 'var(--sem-eclipse-color-fillPrimarySubtle)', color: 'var(--sem-eclipse-color-fillPrimary)', padding: '0px 5px', borderRadius: 10, fontWeight: 600 }}>{tab.count}</span>
+                {idx > 0 && (
+                  <button
+                    onClick={(e) => { e.stopPropagation(); removeTab(tab.id, idx) }}
+                    style={{ marginLeft: 2, width: 14, height: 14, borderRadius: '50%', border: 'none', background: 'transparent', color: 'var(--sem-eclipse-color-foregroundTertiary)', cursor: 'pointer', fontSize: 11, display: 'flex', alignItems: 'center', justifyContent: 'center', lineHeight: 1 }}
+                  >
+                    ×
+                  </button>
+                )}
+              </ScrollableTabGroup.TabTrailing>
+            </ScrollableTabGroup.Tab>
+          ))}
+        </ScrollableTabGroup>
+        <button onClick={addTab} style={{ flexShrink: 0, width: 28, height: 28, borderRadius: '50%', border: '1px dashed var(--sem-eclipse-color-borderDefault)', background: 'none', color: 'var(--sem-eclipse-color-foregroundTertiary)', cursor: 'pointer', fontSize: 18, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>+</button>
+      </div>
+      <div style={{ marginTop: 12, padding: '14px', borderRadius: 8, border: '1px solid var(--sem-eclipse-color-borderSubtle)', background: 'var(--sem-eclipse-color-surfaceDefault)', fontSize: 12, color: 'var(--sem-eclipse-color-foregroundSecondary)', minHeight: 60 }}>
+        현재 탭: <strong>{tabs[activeIdx]?.label}</strong> — 항목 {tabs[activeIdx]?.count}개
+      </div>
+    </div>
+  )
+}
+
+export const MUI_동적_탭_추가_삭제: Story = {
+  name: 'MUI — 동적 탭 추가/삭제 (클로저블 탭)',
+  parameters: {
+    docs: {
+      description: {
+        story: 'MUI 동적 탭(closable tabs) 패턴. 탭 우측 × 버튼으로 탭을 삭제하고 + 버튼으로 새 탭을 추가. 각 탭에 항목 카운트 뱃지 포함. 데이터 필터링 워크스페이스에서 활용.',
+      },
+    },
+  },
+  render: () => <MUIClosableTabsRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Arco Design — 대시보드 위젯 탭 (그룹별 지표 전환)
+-------------------------------------------------------------------------- */
+function ArcoWidgetMetricTabRender() {
+  const [activeIdx, setActiveIdx] = useState(0)
+
+  const metrics = [
+    { label: '방문자', data: [1200, 1850, 1430, 2100, 1920, 2350, 2180], unit: '명', color: '#6366f1', total: 13030 },
+    { label: '전환율', data: [2.1, 3.4, 2.8, 4.2, 3.9, 4.8, 4.1], unit: '%', color: '#10b981', total: 3.6 },
+    { label: '매출', data: [420, 630, 510, 780, 690, 890, 820], unit: '만원', color: '#f59e0b', total: 4740 },
+    { label: '이탈률', data: [45, 38, 42, 35, 37, 31, 33], unit: '%', color: '#ef4444', total: 37.3 },
+  ]
+
+  const active = metrics[activeIdx]
+  const max = Math.max(...active.data)
+
+  return (
+    <div style={{ maxWidth: 500, fontFamily: 'system-ui, sans-serif' }}>
+      <ScrollableTabGroup selectedIndex={activeIdx} onTabChange={setActiveIdx}>
+        {metrics.map((m, idx) => (
+          <ScrollableTabGroup.Tab key={idx} value={String(idx)}>
+            <ScrollableTabGroup.TabCenter>{m.label}</ScrollableTabGroup.TabCenter>
+          </ScrollableTabGroup.Tab>
+        ))}
+      </ScrollableTabGroup>
+      <div style={{ marginTop: 12, padding: '16px', borderRadius: 10, border: '1px solid var(--sem-eclipse-color-borderSubtle)', background: 'var(--sem-eclipse-color-surfaceDefault)' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 14 }}>
+          <span style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>최근 7일 합계/평균</span>
+          <span style={{ fontSize: 22, fontWeight: 800, color: active.color }}>{active.total.toLocaleString()}<span style={{ fontSize: 12, marginLeft: 2 }}>{active.unit}</span></span>
+        </div>
+        <div style={{ display: 'flex', alignItems: 'flex-end', gap: 6, height: 80 }}>
+          {active.data.map((val, idx) => (
+            <div key={idx} style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 3 }}>
+              <div style={{ width: '100%', borderRadius: '3px 3px 0 0', background: active.color, opacity: 0.6 + (idx / active.data.length) * 0.4, height: `${(val / max) * 72}px`, transition: 'height 0.3s ease' }} />
+              <span style={{ fontSize: 8, color: 'var(--sem-eclipse-color-foregroundDisabled)' }}>{['월', '화', '수', '목', '금', '토', '일'][idx]}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const Arco_대시보드_위젯_탭: Story = {
+  name: 'Arco Design — 대시보드 위젯 탭 (그룹별 지표 전환)',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Arco Design 데이터 시각화 탭 패턴. 방문자/전환율/매출/이탈률 지표를 탭으로 전환하면 차트 데이터와 총합 수치가 실시간으로 업데이트. 대시보드 위젯에서 활용.',
+      },
+    },
+  },
+  render: () => <ArcoWidgetMetricTabRender />,
+}
+
+/* --------------------------------------------------------------------------
+   MUI + Arco — 실시간 서버 모니터링 탭 (상태 도트 + 자동 갱신 수)
+-------------------------------------------------------------------------- */
+function MUIArcoServerMonitorTabRender() {
+  const [activeIdx, setActiveIdx] = useState(0)
+
+  const servers = [
+    { id: 'web-01', label: 'Web-01', status: 'healthy', cpu: 34, mem: 58, req: 1240 },
+    { id: 'web-02', label: 'Web-02', status: 'healthy', cpu: 41, mem: 63, req: 1180 },
+    { id: 'api-01', label: 'API-01', status: 'warning', cpu: 78, mem: 82, req: 890 },
+    { id: 'db-01', label: 'DB-01', status: 'critical', cpu: 92, mem: 94, req: 240 },
+    { id: 'cache-01', label: 'Cache-01', status: 'healthy', cpu: 22, mem: 45, req: 3400 },
+  ]
+
+  const statusColor: Record<string, string> = { healthy: '#10b981', warning: '#f59e0b', critical: '#ef4444' }
+  const active = servers[activeIdx]
+
+  const metricColor = (val: number) => val >= 80 ? '#ef4444' : val >= 60 ? '#f59e0b' : '#10b981'
+
+  return (
+    <div style={{ maxWidth: 560, fontFamily: 'system-ui, sans-serif' }}>
+      <ScrollableTabGroup selectedIndex={activeIdx} onTabChange={setActiveIdx}>
+        {servers.map((srv, idx) => (
+          <ScrollableTabGroup.Tab key={idx} value={srv.id}>
+            <ScrollableTabGroup.TabLeading>
+              <span style={{ width: 7, height: 7, borderRadius: '50%', background: statusColor[srv.status], display: 'inline-block' }} />
+            </ScrollableTabGroup.TabLeading>
+            <ScrollableTabGroup.TabCenter>{srv.label}</ScrollableTabGroup.TabCenter>
+          </ScrollableTabGroup.Tab>
+        ))}
+      </ScrollableTabGroup>
+      <div style={{ marginTop: 12, padding: '16px', borderRadius: 10, border: `1px solid ${statusColor[active.status]}40`, background: 'var(--sem-eclipse-color-surfaceDefault)' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 14 }}>
+          <span style={{ width: 8, height: 8, borderRadius: '50%', background: statusColor[active.status] }} />
+          <span style={{ fontSize: 14, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{active.id}</span>
+          <span style={{ fontSize: 10, fontWeight: 600, padding: '1px 7px', borderRadius: 10, background: `${statusColor[active.status]}20`, color: statusColor[active.status] }}>{active.status}</span>
+        </div>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 10 }}>
+          {[{ label: 'CPU', val: active.cpu, unit: '%' }, { label: 'Memory', val: active.mem, unit: '%' }, { label: 'Req/min', val: active.req, unit: '' }].map((m) => (
+            <div key={m.label} style={{ padding: '10px', borderRadius: 8, background: 'var(--sem-eclipse-color-surfaceSubtle)', textAlign: 'center' }}>
+              <p style={{ fontSize: 10, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginBottom: 4 }}>{m.label}</p>
+              <p style={{ fontSize: 18, fontWeight: 700, color: m.unit === '%' ? metricColor(m.val) : 'var(--sem-eclipse-color-foregroundPrimary)' }}>{m.val.toLocaleString()}<span style={{ fontSize: 11 }}>{m.unit}</span></p>
+              {m.unit === '%' && (
+                <div style={{ height: 4, borderRadius: 2, background: 'var(--sem-eclipse-color-borderSubtle)', marginTop: 6, overflow: 'hidden' }}>
+                  <div style={{ height: '100%', width: `${m.val}%`, background: metricColor(m.val), borderRadius: 2 }} />
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const MUI_Arco_서버_모니터링_탭: Story = {
+  name: 'MUI + Arco — 실시간 서버 모니터링 탭 (상태 도트)',
+  parameters: {
+    docs: {
+      description: {
+        story: 'MUI 탭 상태 표시 + Arco 데이터 시각화 조합. 각 서버 탭에 healthy/warning/critical 상태 도트 표시, 선택 시 CPU/Memory/요청수를 지표 카드로 표시. DevOps 모니터링 대시보드 패턴.',
+      },
+    },
+  },
+  render: () => <MUIArcoServerMonitorTabRender />,
+}

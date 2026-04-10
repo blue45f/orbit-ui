@@ -34061,3 +34061,188 @@ export const RadixVercel148APIExplorer: StoryObj = {
   },
   render: () => <RadixVercel148APIExplorerRender />,
 }
+
+/* ==========================================================================
+   사이클 149 — MUI + Arco Design
+   템플릿: 실시간 데이터 모니터링 & 이상 감지 대시보드
+========================================================================== */
+function MUIArco149MonitoringDashboardRender() {
+  const [timeRange, setTimeRange] = useState<'1h' | '6h' | '24h' | '7d'>('1h')
+  const [alertFilter, setAlertFilter] = useState<'all' | 'critical' | 'warning' | 'info'>('all')
+  const [autoRefresh, setAutoRefresh] = useState(true)
+  const [selectedService, setSelectedService] = useState<string | null>(null)
+
+  const timeRanges = ['1h', '6h', '24h', '7d'] as const
+
+  const services = [
+    { id: 'api-gateway', name: 'API Gateway', status: 'healthy', latency: 45, errorRate: 0.1, rps: 2840 },
+    { id: 'auth-service', name: 'Auth Service', status: 'warning', latency: 120, errorRate: 2.3, rps: 890 },
+    { id: 'user-db', name: 'User DB', status: 'critical', latency: 450, errorRate: 8.7, rps: 340 },
+    { id: 'cdn', name: 'CDN', status: 'healthy', latency: 12, errorRate: 0.0, rps: 18400 },
+    { id: 'payment-svc', name: 'Payment Svc', status: 'healthy', latency: 67, errorRate: 0.2, rps: 145 },
+    { id: 'ml-inference', name: 'ML Inference', status: 'warning', latency: 380, errorRate: 1.8, rps: 62 },
+  ]
+
+  const alerts = [
+    { id: 1, level: 'critical', service: 'User DB', message: 'Latency 450ms 초과 — P99 임계값 (200ms) 2배', time: '2분 전', resolved: false },
+    { id: 2, level: 'critical', service: 'User DB', message: 'Error rate 8.7% — SLO 위반 (목표: 1% 미만)', time: '5분 전', resolved: false },
+    { id: 3, level: 'warning', service: 'Auth Service', message: 'Latency 증가 추세 감지 (지난 15분)', time: '12분 전', resolved: false },
+    { id: 4, level: 'warning', service: 'ML Inference', message: 'GPU 사용률 94% — 스케일아웃 권장', time: '23분 전', resolved: false },
+    { id: 5, level: 'info', service: 'API Gateway', message: '배포 완료 — v2.4.1 롤아웃 100%', time: '45분 전', resolved: true },
+    { id: 6, level: 'info', service: 'CDN', message: '캐시 히트율 99.2% — 정상 범위', time: '1시간 전', resolved: true },
+  ]
+
+  const statusColors: Record<string, string> = { healthy: '#10b981', warning: '#f59e0b', critical: '#ef4444' }
+  const alertColors: Record<string, string> = { critical: '#ef4444', warning: '#f59e0b', info: '#6366f1' }
+  const alertBg: Record<string, string> = { critical: '#fef2f2', warning: '#fffbeb', info: '#eef2ff' }
+
+  const filteredAlerts = alerts.filter((a) => alertFilter === 'all' || a.level === alertFilter)
+
+  const summaryStats = [
+    { label: '총 서비스', val: services.length, sub: '모니터링 중', color: 'var(--sem-eclipse-color-foregroundPrimary)' },
+    { label: '정상', val: services.filter((s) => s.status === 'healthy').length, sub: '서비스', color: '#10b981' },
+    { label: '경고', val: services.filter((s) => s.status === 'warning').length, sub: '서비스', color: '#f59e0b' },
+    { label: '장애', val: services.filter((s) => s.status === 'critical').length, sub: '서비스', color: '#ef4444' },
+  ]
+
+  const mockChartData = {
+    '1h': [120, 145, 132, 167, 155, 143, 178, 165, 190, 175, 160, 185],
+    '6h': [980, 1120, 1045, 1230, 1180, 1095, 1310, 1260, 1400, 1350, 1200, 1420],
+    '24h': [8200, 9400, 8900, 10200, 9800, 9100, 11000, 10600, 11800, 11400, 10200, 12000],
+    '7d': [58000, 67000, 61000, 74000, 70000, 65000, 79000, 75000, 84000, 80000, 72000, 86000],
+  }
+
+  const chartData = mockChartData[timeRange]
+  const chartMax = Math.max(...chartData)
+  const activeService = selectedService ? services.find((s) => s.id === selectedService) : null
+
+  return (
+    <div style={{ minHeight: '100vh', background: 'var(--sem-eclipse-color-backgroundDefault)', fontFamily: 'system-ui, -apple-system, sans-serif', padding: 0 }}>
+      {/* 헤더 */}
+      <div style={{ background: 'var(--sem-eclipse-color-surfaceDefault)', borderBottom: '1px solid var(--sem-eclipse-color-borderSubtle)', padding: '10px 20px', display: 'flex', alignItems: 'center', gap: 12 }}>
+        <span style={{ fontSize: 14, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>Monitoring</span>
+        <div style={{ flex: 1 }} />
+        <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+          {timeRanges.map((t) => (
+            <button key={t} onClick={() => setTimeRange(t)} style={{ fontSize: 11, padding: '4px 10px', borderRadius: 6, border: '1px solid var(--sem-eclipse-color-borderDefault)', background: timeRange === t ? 'var(--sem-eclipse-color-fillPrimary)' : 'transparent', color: timeRange === t ? '#fff' : 'var(--sem-eclipse-color-foregroundTertiary)', cursor: 'pointer', fontWeight: timeRange === t ? 600 : 400, transition: 'all 0.15s' }}>{t}</button>
+          ))}
+        </div>
+        <label style={{ display: 'flex', alignItems: 'center', gap: 5, fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)', cursor: 'pointer' }}>
+          <input type="checkbox" checked={autoRefresh} onChange={(e) => setAutoRefresh(e.target.checked)} style={{ accentColor: 'var(--sem-eclipse-color-fillPrimary)' }} />
+          자동 갱신
+        </label>
+        <span style={{ fontSize: 10, color: '#10b981', fontWeight: 600, background: '#d1fae5', padding: '2px 8px', borderRadius: 10 }}>Live</span>
+      </div>
+
+      <div style={{ padding: '20px', maxWidth: 1000, margin: '0 auto' }}>
+        {/* 요약 카드 */}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 12, marginBottom: 20 }}>
+          {summaryStats.map((stat) => (
+            <div key={stat.label} style={{ padding: '14px 16px', borderRadius: 10, border: '1px solid var(--sem-eclipse-color-borderSubtle)', background: 'var(--sem-eclipse-color-surfaceDefault)', textAlign: 'center' }}>
+              <p style={{ fontSize: 10, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginBottom: 4, textTransform: 'uppercase', letterSpacing: 0.6 }}>{stat.label}</p>
+              <p style={{ fontSize: 28, fontWeight: 800, color: stat.color, lineHeight: 1 }}>{stat.val}</p>
+              <p style={{ fontSize: 10, color: 'var(--sem-eclipse-color-foregroundDisabled)', marginTop: 2 }}>{stat.sub}</p>
+            </div>
+          ))}
+        </div>
+
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 16 }}>
+          {/* 전체 RPS 차트 */}
+          <div style={{ padding: '16px', borderRadius: 10, border: '1px solid var(--sem-eclipse-color-borderSubtle)', background: 'var(--sem-eclipse-color-surfaceDefault)' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 12 }}>
+              <p style={{ fontSize: 12, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>총 요청 수 (RPS)</p>
+              <span style={{ fontSize: 12, fontWeight: 700, color: '#6366f1' }}>{chartData[chartData.length - 1].toLocaleString()}</span>
+            </div>
+            <div style={{ display: 'flex', alignItems: 'flex-end', gap: 3, height: 80 }}>
+              {chartData.map((val, idx) => (
+                <div key={idx} style={{ flex: 1, borderRadius: '2px 2px 0 0', background: '#6366f1', opacity: 0.4 + (idx / chartData.length) * 0.6, height: `${(val / chartMax) * 76}px`, transition: 'height 0.3s ease' }} />
+              ))}
+            </div>
+          </div>
+
+          {/* 서비스 헬스 그리드 */}
+          <div style={{ padding: '16px', borderRadius: 10, border: '1px solid var(--sem-eclipse-color-borderSubtle)', background: 'var(--sem-eclipse-color-surfaceDefault)' }}>
+            <p style={{ fontSize: 12, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 10 }}>서비스 상태</p>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+              {services.map((svc) => (
+                <div
+                  key={svc.id}
+                  onClick={() => setSelectedService(selectedService === svc.id ? null : svc.id)}
+                  style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '5px 8px', borderRadius: 6, cursor: 'pointer', background: selectedService === svc.id ? 'var(--sem-eclipse-color-surfaceSubtle)' : 'transparent', transition: 'background 0.15s' }}
+                >
+                  <span style={{ width: 7, height: 7, borderRadius: '50%', background: statusColors[svc.status], flexShrink: 0 }} />
+                  <span style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundPrimary)', flex: 1 }}>{svc.name}</span>
+                  <span style={{ fontSize: 10, color: 'var(--sem-eclipse-color-foregroundTertiary)', fontFamily: 'monospace' }}>{svc.latency}ms</span>
+                  <span style={{ fontSize: 10, color: svc.errorRate > 1 ? '#ef4444' : 'var(--sem-eclipse-color-foregroundDisabled)', fontFamily: 'monospace' }}>{svc.errorRate}%</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* 서비스 상세 */}
+        {activeService && (
+          <div style={{ padding: '14px 16px', borderRadius: 10, border: `2px solid ${statusColors[activeService.status]}40`, background: 'var(--sem-eclipse-color-surfaceDefault)', marginBottom: 16 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 10 }}>
+              <span style={{ width: 8, height: 8, borderRadius: '50%', background: statusColors[activeService.status] }} />
+              <span style={{ fontSize: 13, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{activeService.name}</span>
+              <span style={{ fontSize: 9, fontWeight: 700, padding: '1px 7px', borderRadius: 10, background: `${statusColors[activeService.status]}20`, color: statusColors[activeService.status] }}>{activeService.status}</span>
+            </div>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 8 }}>
+              {[{ label: 'P99 Latency', val: `${activeService.latency}ms`, warn: activeService.latency > 200 }, { label: 'Error Rate', val: `${activeService.errorRate}%`, warn: activeService.errorRate > 1 }, { label: 'RPS', val: activeService.rps.toLocaleString(), warn: false }].map((m) => (
+                <div key={m.label} style={{ padding: '8px', borderRadius: 8, background: m.warn ? '#fef2f2' : 'var(--sem-eclipse-color-surfaceSubtle)', textAlign: 'center' }}>
+                  <p style={{ fontSize: 9, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginBottom: 3, textTransform: 'uppercase', letterSpacing: 0.5 }}>{m.label}</p>
+                  <p style={{ fontSize: 16, fontWeight: 700, color: m.warn ? '#dc2626' : 'var(--sem-eclipse-color-foregroundPrimary)' }}>{m.val}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* 알림 목록 */}
+        <div style={{ padding: '16px', borderRadius: 10, border: '1px solid var(--sem-eclipse-color-borderSubtle)', background: 'var(--sem-eclipse-color-surfaceDefault)' }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12 }}>
+            <p style={{ fontSize: 12, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>알림 로그</p>
+            <div style={{ display: 'flex', gap: 4 }}>
+              {(['all', 'critical', 'warning', 'info'] as const).map((f) => (
+                <button key={f} onClick={() => setAlertFilter(f)} style={{ fontSize: 10, padding: '3px 8px', borderRadius: 10, border: '1px solid var(--sem-eclipse-color-borderDefault)', background: alertFilter === f ? 'var(--sem-eclipse-color-fillPrimary)' : 'transparent', color: alertFilter === f ? '#fff' : 'var(--sem-eclipse-color-foregroundTertiary)', cursor: 'pointer', fontWeight: alertFilter === f ? 600 : 400, transition: 'all 0.15s' }}>{f === 'all' ? '전체' : f}</button>
+              ))}
+            </div>
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+            {filteredAlerts.map((alert) => (
+              <div key={alert.id} style={{ display: 'flex', gap: 10, padding: '10px 12px', borderRadius: 8, background: alert.resolved ? 'var(--sem-eclipse-color-surfaceSubtle)' : alertBg[alert.level], border: `1px solid ${alert.resolved ? 'var(--sem-eclipse-color-borderSubtle)' : alertColors[alert.level]}30`, opacity: alert.resolved ? 0.7 : 1 }}>
+                <span style={{ fontSize: 14, flexShrink: 0, marginTop: 1 }}>{alert.level === 'critical' ? '🔴' : alert.level === 'warning' ? '🟡' : 'ℹ️'}</span>
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 2 }}>
+                    <span style={{ fontSize: 11, fontWeight: 600, color: alert.resolved ? 'var(--sem-eclipse-color-foregroundTertiary)' : alertColors[alert.level] }}>{alert.service}</span>
+                    <span style={{ fontSize: 10, color: 'var(--sem-eclipse-color-foregroundDisabled)' }}>{alert.time}</span>
+                  </div>
+                  <p style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundSecondary)', lineHeight: 1.4 }}>{alert.message}</p>
+                </div>
+                {alert.resolved && <span style={{ fontSize: 9, fontWeight: 600, color: '#10b981', background: '#d1fae5', padding: '1px 6px', borderRadius: 6, alignSelf: 'center', flexShrink: 0 }}>해결됨</span>}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <p style={{ fontSize: 10, color: 'var(--sem-eclipse-color-foregroundDisabled)', marginTop: 16, textAlign: 'center' }}>
+          MUI 상태 그리드 + Arco 데이터 시각화 패턴 — 사이클 149
+        </p>
+      </div>
+    </div>
+  )
+}
+
+export const MUIArco149MonitoringDashboard: StoryObj = {
+  name: 'MUI + Arco Design — 실시간 서비스 모니터링 대시보드',
+  parameters: {
+    layout: 'fullscreen',
+    docs: {
+      description: {
+        story: 'MUI 상태 그리드 카드 + Arco 데이터 시각화 패턴. 시간 범위 전환, 서비스 헬스 상태 목록, 클릭 시 상세 지표 패널, 알림 로그 필터링을 포함한 종합 모니터링 대시보드.',
+      },
+    },
+  },
+  render: () => <MUIArco149MonitoringDashboardRender />,
+}
