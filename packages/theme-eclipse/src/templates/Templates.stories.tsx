@@ -36047,3 +36047,233 @@ export const VercelAnt159DeployPortal: StoryObj = {
   },
   render: () => <VercelAnt159DeployPortalRender />,
 }
+
+/* ==========================================================================
+   Cycle 160 — MUI + Mantine
+   MuiMantine160SecurityCenter: 보안 센터 (PasswordField 설정 + AlertDialog 확인)
+   ========================================================================== */
+const SECURITY_SESSIONS = [
+  { id: 1, device: 'MacBook Pro', location: 'Seoul, KR', browser: 'Chrome', last: '현재', current: true },
+  { id: 2, device: 'iPhone 15', location: 'Seoul, KR', browser: 'Safari', last: '2시간 전', current: false },
+  { id: 3, device: 'Windows PC', location: 'Busan, KR', browser: 'Edge', last: '3일 전', current: false },
+]
+
+const SECURITY_LOGS = [
+  { id: 1, event: '비밀번호 변경', time: '1일 전', risk: 'low' },
+  { id: 2, event: 'API 토큰 생성', time: '3일 전', risk: 'medium' },
+  { id: 3, event: '새 기기 로그인', time: '5일 전', risk: 'high' },
+  { id: 4, event: '2FA 설정 완료', time: '7일 전', risk: 'low' },
+  { id: 5, event: '비밀번호 오류 3회', time: '8일 전', risk: 'high' },
+]
+
+const POLICY_RULES_TMP = [
+  { id: 'length', label: '최소 8자', test: (v: string) => v.length >= 8 },
+  { id: 'upper', label: '대문자 포함', test: (v: string) => /[A-Z]/.test(v) },
+  { id: 'number', label: '숫자 포함', test: (v: string) => /\d/.test(v) },
+  { id: 'special', label: '특수문자 포함', test: (v: string) => /[!@#$%^&*]/.test(v) },
+]
+
+const RISK_COLOR: Record<string, string> = { low: '#22c55e', medium: '#f59e0b', high: '#ef4444' }
+const RISK_LABEL: Record<string, string> = { low: '정상', medium: '주의', high: '위험' }
+
+function MuiMantine160SecurityCenterRender() {
+  const [tab, setTab] = useState<'password' | 'sessions' | 'logs'>('password')
+  const [newPwd, setNewPwd] = useState('')
+  const [confirmPwd, setConfirmPwd] = useState('')
+  const [currentPwd, setCurrentPwd] = useState('')
+  const [sessions, setSessions] = useState(SECURITY_SESSIONS)
+  const [revokeTarget, setRevokeTarget] = useState<number | null>(null)
+  const [revokeOpen, setRevokeOpen] = useState(false)
+  const [pwdSaved, setPwdSaved] = useState(false)
+
+  const passed = POLICY_RULES_TMP.filter(r => r.test(newPwd)).length
+  const strength = passed === 0 ? 0 : passed <= 1 ? 25 : passed <= 2 ? 50 : passed <= 3 ? 75 : 100
+  const strengthColor = ['', '#ef4444', '#f59e0b', '#eab308', '#22c55e'][passed] || '#22c55e'
+  const canSavePwd = currentPwd.length >= 4 && passed >= 3 && newPwd === confirmPwd
+
+  const handleSavePwd = () => {
+    setPwdSaved(true)
+    setTimeout(() => { setPwdSaved(false); setCurrentPwd(''); setNewPwd(''); setConfirmPwd('') }, 2000)
+  }
+
+  const handleRevokeSession = () => {
+    if (revokeTarget !== null) {
+      setSessions(prev => prev.filter(s => s.id !== revokeTarget))
+    }
+    setRevokeOpen(false)
+    setRevokeTarget(null)
+  }
+
+  return (
+    <div style={{ display: 'flex', height: '100vh', fontFamily: 'system-ui, sans-serif', background: '#f8fafc' }}>
+      {/* Left sidebar */}
+      <div style={{ width: 220, background: '#fff', borderRight: '1px solid #e2e8f0', display: 'flex', flexDirection: 'column' }}>
+        <div style={{ padding: '18px 16px 14px', borderBottom: '1px solid #f1f5f9' }}>
+          <div style={{ fontSize: 14, fontWeight: 800, color: '#0f172a' }}>보안 센터</div>
+          <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>MUI + Mantine 패턴</div>
+        </div>
+        <div style={{ padding: '10px 10px', display: 'flex', flexDirection: 'column', gap: 3 }}>
+          {[
+            { id: 'password', label: '비밀번호 변경', icon: '🔑' },
+            { id: 'sessions', label: '세션 관리', icon: '🖥️' },
+            { id: 'logs', label: '보안 로그', icon: '📋' },
+          ].map(item => (
+            <button
+              key={item.id}
+              onClick={() => setTab(item.id as typeof tab)}
+              style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '8px 10px', borderRadius: 8, border: 'none', background: tab === item.id ? '#f0eeff' : 'transparent', color: tab === item.id ? '#6366f1' : '#475569', cursor: 'pointer', fontWeight: tab === item.id ? 700 : 400, fontSize: 12, textAlign: 'left' }}
+            >
+              <span>{item.icon}</span>
+              {item.label}
+            </button>
+          ))}
+        </div>
+        <div style={{ marginTop: 'auto', padding: '12px 14px', borderTop: '1px solid #f1f5f9' }}>
+          <div style={{ fontSize: 10, color: '#94a3b8', marginBottom: 6 }}>보안 점수</div>
+          <div style={{ height: 6, borderRadius: 3, background: '#f1f5f9', overflow: 'hidden' }}>
+            <div style={{ height: '100%', width: '72%', background: '#22c55e', borderRadius: 3 }} />
+          </div>
+          <div style={{ fontSize: 11, fontWeight: 700, color: '#22c55e', marginTop: 4 }}>72 / 100</div>
+        </div>
+      </div>
+
+      {/* Main content */}
+      <div style={{ flex: 1, padding: '24px', overflowY: 'auto' }}>
+        {tab === 'password' && (
+          <div style={{ maxWidth: 400 }}>
+            <h2 style={{ fontSize: 18, fontWeight: 800, color: '#0f172a', margin: '0 0 20px', letterSpacing: '-0.02em' }}>비밀번호 변경</h2>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+              <div>
+                <label style={{ fontSize: 11, fontWeight: 600, color: '#475569', display: 'block', marginBottom: 6 }}>현재 비밀번호</label>
+                <PasswordField value={currentPwd} onChange={e => setCurrentPwd(e.target.value)} placeholder="현재 비밀번호를 입력하세요" />
+              </div>
+              <div>
+                <label style={{ fontSize: 11, fontWeight: 600, color: '#475569', display: 'block', marginBottom: 6 }}>새 비밀번호</label>
+                <PasswordField value={newPwd} onChange={e => setNewPwd(e.target.value)} placeholder="새 비밀번호를 입력하세요" error={newPwd.length > 0 && passed < 3} />
+                {newPwd.length > 0 && (
+                  <div style={{ marginTop: 8 }}>
+                    <div style={{ height: 4, borderRadius: 2, background: '#f1f5f9', overflow: 'hidden', marginBottom: 8 }}>
+                      <div style={{ height: '100%', width: `${strength}%`, background: strengthColor, borderRadius: 2, transition: 'all 0.3s' }} />
+                    </div>
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 4 }}>
+                      {POLICY_RULES_TMP.map(r => (
+                        <div key={r.id} style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
+                          <span style={{ fontSize: 11, color: r.test(newPwd) ? '#22c55e' : '#cbd5e1' }}>✓</span>
+                          <span style={{ fontSize: 10, color: r.test(newPwd) ? '#1e293b' : '#94a3b8' }}>{r.label}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+              <div>
+                <label style={{ fontSize: 11, fontWeight: 600, color: '#475569', display: 'block', marginBottom: 6 }}>새 비밀번호 확인</label>
+                <PasswordField value={confirmPwd} onChange={e => setConfirmPwd(e.target.value)} placeholder="비밀번호를 다시 입력하세요" error={confirmPwd.length > 0 && confirmPwd !== newPwd} />
+                {confirmPwd.length > 0 && (
+                  <p style={{ fontSize: 11, marginTop: 4, color: confirmPwd === newPwd ? '#22c55e' : '#ef4444' }}>
+                    {confirmPwd === newPwd ? '비밀번호가 일치합니다' : '비밀번호가 일치하지 않습니다'}
+                  </p>
+                )}
+              </div>
+              <SolidButton
+                color="primary"
+                size="large"
+                disabled={!canSavePwd}
+                onClick={handleSavePwd}
+                style={{ opacity: canSavePwd ? 1 : 0.5 }}
+              >
+                <SolidButton.Center>{pwdSaved ? '변경 완료' : '비밀번호 변경'}</SolidButton.Center>
+              </SolidButton>
+            </div>
+          </div>
+        )}
+
+        {tab === 'sessions' && (
+          <div style={{ maxWidth: 500 }}>
+            <h2 style={{ fontSize: 18, fontWeight: 800, color: '#0f172a', margin: '0 0 20px', letterSpacing: '-0.02em' }}>활성 세션 관리</h2>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+              {sessions.map(session => (
+                <div key={session.id} style={{ padding: '14px 16px', borderRadius: 12, border: '1px solid #e2e8f0', background: '#fff', display: 'flex', alignItems: 'center', gap: 12 }}>
+                  <div style={{ width: 36, height: 36, borderRadius: 10, background: session.current ? '#f0eeff' : '#f8fafc', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 18 }}>
+                    {session.device.includes('iPhone') ? '📱' : session.device.includes('Windows') ? '🖥️' : '💻'}
+                  </div>
+                  <div style={{ flex: 1 }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                      <span style={{ fontSize: 13, fontWeight: 600, color: '#1e293b' }}>{session.device}</span>
+                      {session.current && <span style={{ fontSize: 9, padding: '2px 6px', borderRadius: 4, background: '#f0fdf4', color: '#22c55e', fontWeight: 700 }}>현재</span>}
+                    </div>
+                    <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>{session.browser} · {session.location} · {session.last}</div>
+                  </div>
+                  {!session.current && (
+                    <Alert isPresented={revokeOpen && revokeTarget === session.id} onIsPresentedChange={open => { setRevokeOpen(open); if (!open) setRevokeTarget(null) }}>
+                      <Alert.Trigger asChild>
+                        <button
+                          onClick={() => { setRevokeTarget(session.id); setRevokeOpen(true) }}
+                          style={{ padding: '5px 12px', fontSize: 11, borderRadius: 7, border: '1px solid #fca5a5', background: '#fff', color: '#ef4444', cursor: 'pointer', fontWeight: 600 }}
+                        >
+                          종료
+                        </button>
+                      </Alert.Trigger>
+                      <Alert.Top>
+                        <Alert.Title>{session.device} 세션 종료</Alert.Title>
+                        <Alert.Description>
+                          {session.browser} ({session.location}) 세션을 종료합니다. 해당 기기에서 즉시 로그아웃됩니다.
+                        </Alert.Description>
+                      </Alert.Top>
+                      <Alert.Bottom direction="horizontal">
+                        <Alert.Close asChild>
+                          <SolidButton color="gray" size="large" width="100%">
+                            <SolidButton.Center>취소</SolidButton.Center>
+                          </SolidButton>
+                        </Alert.Close>
+                        <Alert.Action asChild>
+                          <SolidButton color="primary" size="large" width="100%" onClick={handleRevokeSession}>
+                            <SolidButton.Center>세션 종료</SolidButton.Center>
+                          </SolidButton>
+                        </Alert.Action>
+                      </Alert.Bottom>
+                    </Alert>
+                  )}
+                </div>
+              ))}
+              {sessions.length === 1 && (
+                <div style={{ padding: 16, textAlign: 'center', fontSize: 12, color: '#94a3b8', background: '#f0fdf4', borderRadius: 10, border: '1px solid #bbf7d0' }}>
+                  모든 외부 세션이 종료되었습니다
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+
+        {tab === 'logs' && (
+          <div style={{ maxWidth: 500 }}>
+            <h2 style={{ fontSize: 18, fontWeight: 800, color: '#0f172a', margin: '0 0 20px', letterSpacing: '-0.02em' }}>보안 활동 로그</h2>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+              {SECURITY_LOGS.map(log => (
+                <div key={log.id} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '11px 16px', borderRadius: 10, border: '1px solid #e2e8f0', background: '#fff' }}>
+                  <div style={{ width: 8, height: 8, borderRadius: '50%', background: RISK_COLOR[log.risk], flexShrink: 0 }} />
+                  <span style={{ flex: 1, fontSize: 13, color: '#1e293b', fontWeight: 500 }}>{log.event}</span>
+                  <span style={{ fontSize: 10, padding: '2px 7px', borderRadius: 4, background: `${RISK_COLOR[log.risk]}15`, color: RISK_COLOR[log.risk], fontWeight: 700 }}>{RISK_LABEL[log.risk]}</span>
+                  <span style={{ fontSize: 11, color: '#94a3b8' }}>{log.time}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+
+export const MuiMantine160SecurityCenter: StoryObj = {
+  name: 'MUI + Mantine — 보안 센터 (PasswordField 설정 + AlertDialog 세션 관리)',
+  parameters: {
+    layout: 'fullscreen',
+    docs: {
+      description: {
+        story: 'MUI + Mantine 복합 패턴. 좌: 탭 사이드바(비밀번호/세션/로그), 중: PasswordField 변경 폼(복잡도 정책+실시간 검증), 세션 관리(AlertDialog 세션 종료 확인), 보안 로그(위험도 배지). 실무 보안 설정 페이지 레이아웃.',
+      },
+    },
+  },
+  render: () => <MuiMantine160SecurityCenterRender />,
+}

@@ -1633,3 +1633,268 @@ export const Linear_Vercel_보안_설정_패널: Story = {
   },
   render: () => <LinearVercelSecurityPanelRender />,
 }
+
+/* --------------------------------------------------------------------------
+   Cycle 160 — MUI + Mantine
+   MUI: 비밀번호 복잡도 정책 설정 패턴 (Password Policy Configuration)
+-------------------------------------------------------------------------- */
+const MUI_POLICY_RULES = [
+  { id: 'length', label: '최소 8자 이상', test: (v: string) => v.length >= 8 },
+  { id: 'upper', label: '대문자 포함 (A-Z)', test: (v: string) => /[A-Z]/.test(v) },
+  { id: 'lower', label: '소문자 포함 (a-z)', test: (v: string) => /[a-z]/.test(v) },
+  { id: 'number', label: '숫자 포함 (0-9)', test: (v: string) => /\d/.test(v) },
+  { id: 'special', label: '특수문자 포함 (!@#$)', test: (v: string) => /[!@#$%^&*]/.test(v) },
+]
+
+function MuiPasswordPolicyRender() {
+  const [password, setPassword] = useState('')
+  const [confirm, setConfirm] = useState('')
+
+  const passed = MUI_POLICY_RULES.filter(r => r.test(password)).length
+  const strength = passed === 0 ? 0 : passed <= 2 ? 25 : passed <= 3 ? 50 : passed <= 4 ? 75 : 100
+  const strengthLabel = ['', '매우 약함', '약함', '보통', '강함', '매우 강함'][passed]
+  const strengthColor = ['', '#ef4444', '#f59e0b', '#eab308', '#22c55e', '#10b981'][passed]
+  const isMatch = confirm.length > 0 && password === confirm
+
+  return (
+    <div style={{ width: 340, fontFamily: 'system-ui, sans-serif' }}>
+      <p style={{ fontSize: 14, fontWeight: 700, color: '#1e293b', marginBottom: 4 }}>보안 수준 설정</p>
+      <p style={{ fontSize: 11, color: '#94a3b8', marginBottom: 16 }}>MUI Password 복잡도 정책 패턴</p>
+      <div style={{ marginBottom: 12 }}>
+        <label style={{ fontSize: 11, fontWeight: 600, color: '#475569', display: 'block', marginBottom: 6 }}>새 비밀번호</label>
+        <PasswordField
+          value={password}
+          onChange={e => setPassword(e.target.value)}
+          placeholder="새 비밀번호를 입력하세요"
+          error={password.length > 0 && passed < 3}
+        />
+        {password.length > 0 && (
+          <div style={{ marginTop: 8 }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 4 }}>
+              <span style={{ fontSize: 10, color: '#94a3b8' }}>강도</span>
+              <span style={{ fontSize: 10, color: strengthColor, fontWeight: 700 }}>{strengthLabel}</span>
+            </div>
+            <div style={{ height: 4, borderRadius: 2, background: '#f1f5f9', overflow: 'hidden' }}>
+              <div style={{ height: '100%', width: `${strength}%`, background: strengthColor, borderRadius: 2, transition: 'all 0.3s' }} />
+            </div>
+          </div>
+        )}
+      </div>
+      <div style={{ marginBottom: 14, padding: '10px 12px', borderRadius: 8, background: '#f8fafc', border: '1px solid #e2e8f0' }}>
+        {MUI_POLICY_RULES.map(rule => {
+          const ok = rule.test(password)
+          return (
+            <div key={rule.id} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '3px 0' }}>
+              <span style={{ fontSize: 12, color: ok ? '#22c55e' : '#cbd5e1' }}>{ok ? '✓' : '○'}</span>
+              <span style={{ fontSize: 11, color: ok ? '#1e293b' : '#94a3b8', textDecoration: ok ? 'none' : 'none' }}>{rule.label}</span>
+            </div>
+          )
+        })}
+      </div>
+      <div style={{ marginBottom: 14 }}>
+        <label style={{ fontSize: 11, fontWeight: 600, color: '#475569', display: 'block', marginBottom: 6 }}>비밀번호 확인</label>
+        <PasswordField
+          value={confirm}
+          onChange={e => setConfirm(e.target.value)}
+          placeholder="비밀번호를 다시 입력하세요"
+          error={confirm.length > 0 && !isMatch}
+        />
+        {confirm.length > 0 && (
+          <p style={{ fontSize: 11, marginTop: 4, color: isMatch ? '#22c55e' : '#ef4444' }}>
+            {isMatch ? '비밀번호가 일치합니다' : '비밀번호가 일치하지 않습니다'}
+          </p>
+        )}
+      </div>
+      <button
+        disabled={passed < 3 || !isMatch}
+        style={{ width: '100%', padding: '10px', fontSize: 13, borderRadius: 8, border: 'none', background: passed >= 3 && isMatch ? '#6366f1' : '#e2e8f0', color: passed >= 3 && isMatch ? '#fff' : '#94a3b8', cursor: passed >= 3 && isMatch ? 'pointer' : 'not-allowed', fontWeight: 600, transition: 'background 0.2s' }}
+      >
+        비밀번호 변경
+      </button>
+    </div>
+  )
+}
+
+export const MUI_비밀번호_복잡도_정책: Story = {
+  name: 'MUI — 비밀번호 복잡도 정책 설정 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story: 'MUI의 Password Complexity Policy 패턴. 실시간 규칙 검증(5단계)과 강도 게이지, 일치 확인을 조합한 보안 비밀번호 설정 UX입니다.',
+      },
+    },
+  },
+  render: () => <MuiPasswordPolicyRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Mantine: 2단계 인증 코드 + 백업 코드 입력 패턴
+-------------------------------------------------------------------------- */
+function Mantine2FASetupRender() {
+  const [step, setStep] = useState<'password' | 'backup' | 'done'>('password')
+  const [password, setPassword] = useState('')
+  const [backup, setBackup] = useState('')
+  const [error, setError] = useState('')
+
+  const MOCK_PASSWORD = 'SecurePass123!'
+  const MOCK_BACKUP = 'BACKUP-2024'
+
+  const handlePasswordVerify = () => {
+    if (password === MOCK_PASSWORD) { setStep('backup'); setError('') }
+    else { setError('비밀번호가 올바르지 않습니다') }
+  }
+
+  const handleBackupVerify = () => {
+    if (backup.toUpperCase() === MOCK_BACKUP) { setStep('done'); setError('') }
+    else { setError('백업 코드가 올바르지 않습니다') }
+  }
+
+  if (step === 'done') {
+    return (
+      <div style={{ width: 320, fontFamily: 'system-ui, sans-serif', textAlign: 'center', padding: 24 }}>
+        <div style={{ fontSize: 40, marginBottom: 12 }}>🔐</div>
+        <p style={{ fontSize: 15, fontWeight: 700, color: '#1e293b' }}>2단계 인증 완료</p>
+        <p style={{ fontSize: 12, color: '#64748b', marginTop: 6 }}>계정 보안이 강화되었습니다</p>
+        <button onClick={() => { setStep('password'); setPassword(''); setBackup(''); setError('') }} style={{ marginTop: 16, padding: '8px 20px', fontSize: 12, borderRadius: 8, border: '1px solid #e2e8f0', background: '#fff', color: '#475569', cursor: 'pointer' }}>처음부터</button>
+      </div>
+    )
+  }
+
+  return (
+    <div style={{ width: 320, fontFamily: 'system-ui, sans-serif' }}>
+      <div style={{ display: 'flex', gap: 4, marginBottom: 20 }}>
+        {['password', 'backup', 'done'].map((s, i) => (
+          <div key={s} style={{ flex: 1, height: 3, borderRadius: 2, background: ['password', 'backup', 'done'].indexOf(step) >= i ? '#6366f1' : '#e2e8f0', transition: 'background 0.3s' }} />
+        ))}
+      </div>
+      {step === 'password' ? (
+        <>
+          <p style={{ fontSize: 13, fontWeight: 700, color: '#1e293b', marginBottom: 4 }}>현재 비밀번호 확인</p>
+          <p style={{ fontSize: 11, color: '#94a3b8', marginBottom: 14 }}>2FA 설정을 위해 현재 비밀번호를 입력하세요 (힌트: SecurePass123!)</p>
+          <PasswordField
+            value={password}
+            onChange={e => setPassword(e.target.value)}
+            placeholder="현재 비밀번호"
+            error={!!error}
+          />
+          {error && <p style={{ fontSize: 11, color: '#ef4444', marginTop: 4 }}>{error}</p>}
+          <button onClick={handlePasswordVerify} disabled={!password} style={{ marginTop: 14, width: '100%', padding: '9px', fontSize: 13, borderRadius: 8, border: 'none', background: password ? '#6366f1' : '#e2e8f0', color: password ? '#fff' : '#94a3b8', cursor: password ? 'pointer' : 'not-allowed', fontWeight: 600 }}>다음</button>
+        </>
+      ) : (
+        <>
+          <p style={{ fontSize: 13, fontWeight: 700, color: '#1e293b', marginBottom: 4 }}>백업 코드 입력</p>
+          <p style={{ fontSize: 11, color: '#94a3b8', marginBottom: 14 }}>인증 앱에서 생성된 백업 코드를 입력하세요 (힌트: BACKUP-2024)</p>
+          <PasswordField
+            value={backup}
+            onChange={e => setBackup(e.target.value)}
+            placeholder="백업 코드 (예: XXXXX-XXXX)"
+            error={!!error}
+          />
+          {error && <p style={{ fontSize: 11, color: '#ef4444', marginTop: 4 }}>{error}</p>}
+          <button onClick={handleBackupVerify} disabled={!backup} style={{ marginTop: 14, width: '100%', padding: '9px', fontSize: 13, borderRadius: 8, border: 'none', background: backup ? '#6366f1' : '#e2e8f0', color: backup ? '#fff' : '#94a3b8', cursor: backup ? 'pointer' : 'not-allowed', fontWeight: 600 }}>인증</button>
+        </>
+      )}
+    </div>
+  )
+}
+
+export const Mantine_2FA_설정_플로우: Story = {
+  name: 'Mantine — 2단계 인증 설정 단계별 플로우 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Mantine의 Multi-step Form 패턴. 현재 비밀번호 확인 → 백업 코드 인증 → 완료 3단계로 2FA 설정 플로우를 구현합니다.',
+      },
+    },
+  },
+  render: () => <Mantine2FASetupRender />,
+}
+
+/* --------------------------------------------------------------------------
+   MUI + Mantine: 사용자 계정 보안 종합 설정 패턴
+-------------------------------------------------------------------------- */
+const SECURITY_SECTIONS = [
+  { id: 'password', label: '비밀번호 변경', icon: '🔑', desc: '마지막 변경: 30일 전' },
+  { id: 'api', label: 'API 토큰 재발급', icon: '🔐', desc: '활성 토큰: 3개' },
+  { id: 'session', label: '세션 종료', icon: '🚪', desc: '활성 세션: 2개' },
+]
+
+function MuiMantiineSecurityPanelRender() {
+  const [activeSection, setActiveSection] = useState<string | null>(null)
+  const [newPwd, setNewPwd] = useState('')
+  const [confirmPwd, setConfirmPwd] = useState('')
+  const [tokenPwd, setTokenPwd] = useState('')
+  const [sessionPwd, setSessionPwd] = useState('')
+  const [saved, setSaved] = useState<Record<string, boolean>>({})
+
+  const save = (id: string) => {
+    setSaved(prev => ({ ...prev, [id]: true }))
+    setTimeout(() => setSaved(prev => ({ ...prev, [id]: false })), 2000)
+    setActiveSection(null)
+    setNewPwd(''); setConfirmPwd(''); setTokenPwd(''); setSessionPwd('')
+  }
+
+  return (
+    <div style={{ width: 360, fontFamily: 'system-ui, sans-serif', border: '1px solid #e2e8f0', borderRadius: 12, overflow: 'hidden' }}>
+      <div style={{ padding: '14px 16px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0' }}>
+        <p style={{ fontSize: 13, fontWeight: 700, color: '#1e293b', margin: 0 }}>보안 설정</p>
+        <p style={{ fontSize: 11, color: '#94a3b8', margin: '2px 0 0' }}>MUI + Mantine 계정 보안 종합 패널</p>
+      </div>
+      <div style={{ background: '#fff' }}>
+        {SECURITY_SECTIONS.map(section => (
+          <div key={section.id} style={{ borderBottom: '1px solid #f1f5f9' }}>
+            <div
+              onClick={() => setActiveSection(activeSection === section.id ? null : section.id)}
+              style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '12px 16px', cursor: 'pointer' }}
+            >
+              <span style={{ fontSize: 18 }}>{section.icon}</span>
+              <div style={{ flex: 1 }}>
+                <div style={{ fontSize: 12, fontWeight: 600, color: '#1e293b' }}>{section.label}</div>
+                <div style={{ fontSize: 10, color: '#94a3b8', marginTop: 1 }}>{section.desc}</div>
+              </div>
+              {saved[section.id] && <span style={{ fontSize: 10, color: '#22c55e', fontWeight: 700 }}>완료</span>}
+              <span style={{ fontSize: 12, color: '#94a3b8', transform: activeSection === section.id ? 'rotate(90deg)' : 'none', transition: 'transform 0.2s' }}>›</span>
+            </div>
+            {activeSection === section.id && (
+              <div style={{ padding: '0 16px 14px', borderTop: '1px solid #f8fafc', background: '#fafafa' }}>
+                {section.id === 'password' && (
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: 8, paddingTop: 10 }}>
+                    <PasswordField value={newPwd} onChange={e => setNewPwd(e.target.value)} placeholder="새 비밀번호" error={newPwd.length > 0 && newPwd.length < 8} />
+                    <PasswordField value={confirmPwd} onChange={e => setConfirmPwd(e.target.value)} placeholder="비밀번호 확인" error={confirmPwd.length > 0 && confirmPwd !== newPwd} />
+                    <button onClick={() => save('password')} disabled={newPwd.length < 8 || newPwd !== confirmPwd} style={{ padding: '8px', fontSize: 12, borderRadius: 8, border: 'none', background: newPwd.length >= 8 && newPwd === confirmPwd ? '#6366f1' : '#e2e8f0', color: newPwd.length >= 8 && newPwd === confirmPwd ? '#fff' : '#94a3b8', cursor: 'pointer', fontWeight: 600 }}>저장</button>
+                  </div>
+                )}
+                {section.id === 'api' && (
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: 8, paddingTop: 10 }}>
+                    <p style={{ fontSize: 11, color: '#64748b', margin: 0 }}>비밀번호 확인 후 새 토큰이 발급됩니다</p>
+                    <PasswordField value={tokenPwd} onChange={e => setTokenPwd(e.target.value)} placeholder="현재 비밀번호" />
+                    <button onClick={() => save('api')} disabled={!tokenPwd} style={{ padding: '8px', fontSize: 12, borderRadius: 8, border: 'none', background: tokenPwd ? '#6366f1' : '#e2e8f0', color: tokenPwd ? '#fff' : '#94a3b8', cursor: tokenPwd ? 'pointer' : 'not-allowed', fontWeight: 600 }}>토큰 재발급</button>
+                  </div>
+                )}
+                {section.id === 'session' && (
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: 8, paddingTop: 10 }}>
+                    <p style={{ fontSize: 11, color: '#64748b', margin: 0 }}>다른 모든 기기의 세션이 종료됩니다</p>
+                    <PasswordField value={sessionPwd} onChange={e => setSessionPwd(e.target.value)} placeholder="현재 비밀번호" />
+                    <button onClick={() => save('session')} disabled={!sessionPwd} style={{ padding: '8px', fontSize: 12, borderRadius: 8, border: 'none', background: sessionPwd ? '#ef4444' : '#e2e8f0', color: sessionPwd ? '#fff' : '#94a3b8', cursor: sessionPwd ? 'pointer' : 'not-allowed', fontWeight: 600 }}>세션 종료</button>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+export const MUI_Mantine_계정_보안_종합_설정: Story = {
+  name: 'MUI + Mantine — 계정 보안 종합 설정 패널 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story: 'MUI + Mantine 복합 패턴. 아코디언 형식의 보안 설정 패널에서 비밀번호 변경/API 토큰 재발급/세션 종료를 PasswordField와 함께 구현합니다.',
+      },
+    },
+  },
+  render: () => <MuiMantiineSecurityPanelRender />,
+}

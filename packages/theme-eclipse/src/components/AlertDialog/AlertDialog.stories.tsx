@@ -1531,3 +1531,298 @@ export const Mantine_Arco_비동기_진행_다이얼로그: Story = {
   },
   render: () => <MantineArcoAsyncConfirmRender />,
 }
+
+/* --------------------------------------------------------------------------
+   Cycle 160 — MUI + Mantine
+   MUI: 계정 삭제 최종 확인 다이얼로그 패턴
+-------------------------------------------------------------------------- */
+function MuiAccountDeleteRender() {
+  const [open, setOpen] = useState(false)
+  const [input, setInput] = useState('')
+  const [deleting, setDeleting] = useState(false)
+  const CONFIRM_TEXT = 'DELETE'
+
+  const handleDelete = () => {
+    setDeleting(true)
+    setTimeout(() => { setDeleting(false); setOpen(false); setInput('') }, 1800)
+  }
+
+  return (
+    <div style={{ fontFamily: 'system-ui, sans-serif' }}>
+      <button
+        onClick={() => setOpen(true)}
+        style={{ padding: '8px 18px', fontSize: 13, borderRadius: 8, border: 'none', background: '#ef4444', color: '#fff', cursor: 'pointer', fontWeight: 600 }}
+      >
+        계정 삭제
+      </button>
+      <Alert
+        isPresented={open}
+        onIsPresentedChange={setOpen}
+      >
+        <Alert.Top>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 10, padding: '4px 0' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+              <DeleteLineIcon size={20} style={{ color: '#ef4444' }} />
+              <span style={{ fontSize: 15, fontWeight: 700, color: '#1e293b' }}>계정을 삭제하시겠습니까?</span>
+            </div>
+            <p style={{ fontSize: 12, color: '#64748b', lineHeight: 1.6, margin: 0 }}>
+              이 작업은 되돌릴 수 없습니다. 모든 데이터, 프로젝트, 결제 정보가 영구적으로 삭제됩니다.
+            </p>
+            <div style={{ padding: '10px 12px', borderRadius: 8, background: '#fef2f2', border: '1px solid #fecaca' }}>
+              <p style={{ fontSize: 11, color: '#991b1b', margin: '0 0 8px', fontWeight: 600 }}>확인을 위해 {CONFIRM_TEXT}를 입력하세요</p>
+              <input
+                value={input}
+                onChange={e => setInput(e.target.value)}
+                placeholder={CONFIRM_TEXT}
+                style={{ width: '100%', padding: '6px 10px', fontSize: 12, borderRadius: 6, border: `1.5px solid ${input === CONFIRM_TEXT ? '#22c55e' : '#fca5a5'}`, outline: 'none', boxSizing: 'border-box', fontFamily: 'monospace', fontWeight: 700 }}
+              />
+            </div>
+            {deleting && (
+              <div style={{ padding: '8px', borderRadius: 8, background: '#f8fafc', textAlign: 'center', fontSize: 11, color: '#64748b' }}>
+                삭제 중...
+              </div>
+            )}
+          </div>
+        </Alert.Top>
+        <Alert.Bottom direction="horizontal">
+          <Alert.Close asChild>
+            <Button color="gray" size="large" width="100%">
+              <Button.Center>취소</Button.Center>
+            </Button>
+          </Alert.Close>
+          <Alert.Action asChild>
+            <Button
+              color="primary"
+              size="large"
+              width="100%"
+              disabled={input !== CONFIRM_TEXT || deleting}
+              onClick={handleDelete}
+            >
+              <Button.Center>{deleting ? '삭제 중...' : '영구 삭제'}</Button.Center>
+            </Button>
+          </Alert.Action>
+        </Alert.Bottom>
+      </Alert>
+    </div>
+  )
+}
+
+export const MUI_계정_삭제_최종_확인: Story = {
+  name: 'MUI — 계정 삭제 최종 확인 다이얼로그 패턴',
+  parameters: {
+    layout: 'centered',
+    docs: {
+      description: {
+        story: 'MUI의 Dangerous Action Confirmation 패턴. "DELETE" 텍스트 입력 확인 + 진행 상태 표시로 계정 삭제 의도를 명확히 검증합니다.',
+      },
+    },
+  },
+  render: () => <MuiAccountDeleteRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Mantine: 결제 정보 변경 확인 다이얼로그 패턴
+-------------------------------------------------------------------------- */
+const MANTINE_PLANS = [
+  { id: 'free', label: 'Free', price: '무료', color: '#64748b' },
+  { id: 'pro', label: 'Pro', price: '₩29,000/월', color: '#6366f1' },
+  { id: 'enterprise', label: 'Enterprise', price: '문의', color: '#f59e0b' },
+]
+
+function MantinePaymentChangeRender() {
+  const [open, setOpen] = useState(false)
+  const [currentPlan] = useState('free')
+  const [targetPlan, setTargetPlan] = useState('pro')
+  const [agreed, setAgreed] = useState(false)
+
+  const current = MANTINE_PLANS.find(p => p.id === currentPlan)
+  const target = MANTINE_PLANS.find(p => p.id === targetPlan)
+
+  return (
+    <div style={{ fontFamily: 'system-ui, sans-serif', display: 'flex', flexDirection: 'column', gap: 10 }}>
+      <div style={{ display: 'flex', gap: 6 }}>
+        {MANTINE_PLANS.filter(p => p.id !== currentPlan).map(p => (
+          <button
+            key={p.id}
+            onClick={() => { setTargetPlan(p.id); setAgreed(false) }}
+            style={{ padding: '6px 12px', fontSize: 11, borderRadius: 7, border: `1.5px solid ${targetPlan === p.id ? p.color : '#e2e8f0'}`, background: targetPlan === p.id ? `${p.color}15` : '#fff', color: targetPlan === p.id ? p.color : '#64748b', cursor: 'pointer', fontWeight: targetPlan === p.id ? 700 : 400 }}
+          >
+            {p.label}으로 변경
+          </button>
+        ))}
+      </div>
+      <button onClick={() => { setOpen(true); setAgreed(false) }} style={{ padding: '8px 18px', fontSize: 13, borderRadius: 8, border: 'none', background: '#6366f1', color: '#fff', cursor: 'pointer', fontWeight: 600, alignSelf: 'flex-start' }}>
+        플랜 변경 확인
+      </button>
+      <Alert isPresented={open} onIsPresentedChange={setOpen}>
+        <Alert.Top>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+            <div style={{ fontSize: 14, fontWeight: 700, color: '#1e293b' }}>플랜 변경 확인</div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '10px 14px', borderRadius: 8, background: '#f8fafc', border: '1px solid #e2e8f0' }}>
+              <div style={{ textAlign: 'center', flex: 1 }}>
+                <div style={{ fontSize: 10, color: '#94a3b8', marginBottom: 2 }}>현재</div>
+                <div style={{ fontSize: 13, fontWeight: 700, color: current?.color }}>{current?.label}</div>
+                <div style={{ fontSize: 10, color: '#94a3b8' }}>{current?.price}</div>
+              </div>
+              <div style={{ fontSize: 16, color: '#94a3b8' }}>→</div>
+              <div style={{ textAlign: 'center', flex: 1 }}>
+                <div style={{ fontSize: 10, color: '#94a3b8', marginBottom: 2 }}>변경 후</div>
+                <div style={{ fontSize: 13, fontWeight: 700, color: target?.color }}>{target?.label}</div>
+                <div style={{ fontSize: 10, color: '#94a3b8' }}>{target?.price}</div>
+              </div>
+            </div>
+            <div style={{ display: 'flex', alignItems: 'flex-start', gap: 8, cursor: 'pointer' }} onClick={() => setAgreed(!agreed)}>
+              <div style={{ width: 16, height: 16, borderRadius: 4, border: `2px solid ${agreed ? '#6366f1' : '#cbd5e1'}`, background: agreed ? '#6366f1' : '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: 1 }}>
+                {agreed && <span style={{ fontSize: 10, color: '#fff' }}>✓</span>}
+              </div>
+              <span style={{ fontSize: 11, color: '#475569', lineHeight: 1.5 }}>변경 약관에 동의하며, 즉시 청구가 발생할 수 있음을 이해합니다</span>
+            </div>
+          </div>
+        </Alert.Top>
+        <Alert.Bottom direction="horizontal">
+          <Alert.Close asChild>
+            <Button color="gray" size="large" width="100%">
+              <Button.Center>취소</Button.Center>
+            </Button>
+          </Alert.Close>
+          <Alert.Action asChild>
+            <Button color="primary" size="large" width="100%" disabled={!agreed}>
+              <Button.Center>변경 확인</Button.Center>
+            </Button>
+          </Alert.Action>
+        </Alert.Bottom>
+      </Alert>
+    </div>
+  )
+}
+
+export const Mantine_결제_플랜_변경_확인: Story = {
+  name: 'Mantine — 결제 플랜 변경 확인 다이얼로그 패턴',
+  parameters: {
+    layout: 'centered',
+    docs: {
+      description: {
+        story: 'Mantine의 Confirmation with Agreement 패턴. 플랜 선택 → 변경 내용 요약 → 약관 동의 체크박스로 결제 플랜 변경을 확인합니다.',
+      },
+    },
+  },
+  render: () => <MantinePaymentChangeRender />,
+}
+
+/* --------------------------------------------------------------------------
+   MUI + Mantine: 워크스페이스 이관 확인 복합 다이얼로그 패턴
+-------------------------------------------------------------------------- */
+const WORKSPACE_MEMBERS = [
+  { name: '김민준', role: 'Admin' },
+  { name: '이서연', role: 'Editor' },
+  { name: '박지후', role: 'Viewer' },
+]
+
+function MuiMantineWorkspaceTransferRender() {
+  const [open, setOpen] = useState(false)
+  const [step, setStep] = useState<'select' | 'confirm'>('select')
+  const [selected, setSelected] = useState('')
+  const [agreed, setAgreed] = useState(false)
+  const [done, setDone] = useState(false)
+
+  const reset = () => { setStep('select'); setSelected(''); setAgreed(false) }
+
+  const handleConfirm = () => {
+    setDone(true)
+    setTimeout(() => { setOpen(false); setDone(false); reset() }, 1500)
+  }
+
+  return (
+    <div style={{ fontFamily: 'system-ui, sans-serif' }}>
+      <button onClick={() => { setOpen(true); reset() }} style={{ padding: '8px 18px', fontSize: 13, borderRadius: 8, border: 'none', background: '#1e293b', color: '#fff', cursor: 'pointer', fontWeight: 600 }}>
+        워크스페이스 소유권 이관
+      </button>
+      <Alert isPresented={open} onIsPresentedChange={v => { if (!done) setOpen(v) }}>
+        <Alert.Top>
+          {done ? (
+            <div style={{ textAlign: 'center', padding: '8px 0' }}>
+              <NotificationCheckFillIcon size={32} style={{ color: '#22c55e' }} />
+              <p style={{ fontSize: 13, fontWeight: 700, color: '#1e293b', marginTop: 8 }}>이관 완료</p>
+            </div>
+          ) : step === 'select' ? (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+              <div style={{ fontSize: 14, fontWeight: 700, color: '#1e293b' }}>소유권 이관 대상 선택</div>
+              <p style={{ fontSize: 11, color: '#64748b', margin: 0 }}>새 소유자를 선택하세요. 이관 후 관리자 권한이 이전됩니다.</p>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+                {WORKSPACE_MEMBERS.map(m => (
+                  <div
+                    key={m.name}
+                    onClick={() => setSelected(m.name)}
+                    style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '8px 12px', borderRadius: 8, border: `1.5px solid ${selected === m.name ? '#6366f1' : '#e2e8f0'}`, background: selected === m.name ? '#f0eeff' : '#fff', cursor: 'pointer' }}
+                  >
+                    <div style={{ width: 28, height: 28, borderRadius: '50%', background: '#6366f1', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 11, color: '#fff', fontWeight: 700 }}>{m.name[0]}</div>
+                    <div style={{ flex: 1 }}>
+                      <div style={{ fontSize: 12, fontWeight: 600, color: '#1e293b' }}>{m.name}</div>
+                      <div style={{ fontSize: 10, color: '#94a3b8' }}>{m.role}</div>
+                    </div>
+                    {selected === m.name && <span style={{ fontSize: 14, color: '#6366f1' }}>●</span>}
+                  </div>
+                ))}
+              </div>
+            </div>
+          ) : (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+              <div style={{ fontSize: 14, fontWeight: 700, color: '#1e293b' }}>이관 최종 확인</div>
+              <div style={{ padding: '10px 12px', borderRadius: 8, background: '#fef3c7', border: '1px solid #fde68a', fontSize: 11, color: '#92400e', lineHeight: 1.6 }}>
+                <strong>{selected}</strong>에게 워크스페이스 소유권을 이관합니다. 이 작업은 되돌릴 수 없습니다.
+              </div>
+              <div style={{ display: 'flex', alignItems: 'flex-start', gap: 8, cursor: 'pointer' }} onClick={() => setAgreed(!agreed)}>
+                <div style={{ width: 16, height: 16, borderRadius: 4, border: `2px solid ${agreed ? '#6366f1' : '#cbd5e1'}`, background: agreed ? '#6366f1' : '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: 1 }}>
+                  {agreed && <span style={{ fontSize: 10, color: '#fff' }}>✓</span>}
+                </div>
+                <span style={{ fontSize: 11, color: '#475569', lineHeight: 1.5 }}>이 결정을 이해하며 동의합니다</span>
+              </div>
+            </div>
+          )}
+        </Alert.Top>
+        {!done && (
+          <Alert.Bottom direction="horizontal">
+            {step === 'select' ? (
+              <>
+                <Alert.Close asChild>
+                  <Button color="gray" size="large" width="100%">
+                    <Button.Center>취소</Button.Center>
+                  </Button>
+                </Alert.Close>
+                <Alert.Action asChild>
+                  <Button color="primary" size="large" width="100%" disabled={!selected} onClick={() => setStep('confirm')}>
+                    <Button.Center>다음</Button.Center>
+                  </Button>
+                </Alert.Action>
+              </>
+            ) : (
+              <>
+                <Button color="gray" size="large" width="100%" onClick={() => { setStep('select'); setAgreed(false) }}>
+                  <Button.Center>이전</Button.Center>
+                </Button>
+                <Alert.Action asChild>
+                  <Button color="primary" size="large" width="100%" disabled={!agreed} onClick={handleConfirm}>
+                    <Button.Center>이관 확인</Button.Center>
+                  </Button>
+                </Alert.Action>
+              </>
+            )}
+          </Alert.Bottom>
+        )}
+      </Alert>
+    </div>
+  )
+}
+
+export const MUI_Mantine_워크스페이스_이관_확인: Story = {
+  name: 'MUI + Mantine — 워크스페이스 소유권 이관 확인 다이얼로그',
+  parameters: {
+    layout: 'centered',
+    docs: {
+      description: {
+        story: 'MUI + Mantine 복합 패턴. 멤버 선택 → 최종 확인(약관 동의) 2단계 이관 플로우. 완료 상태 피드백과 되돌리기 불가 경고를 포함합니다.',
+      },
+    },
+  },
+  render: () => <MuiMantineWorkspaceTransferRender />,
+}
