@@ -1553,3 +1553,209 @@ export const Linear_Vercel_AB_테스트_설정: Story = {
   },
   render: () => <LinearVercelABTest144Render />,
 }
+
+// ──────────────────────────────────────────────────────────────────────────────
+// Cycle 172: shadcn/ui + Raycast Extensions
+// ──────────────────────────────────────────────────────────────────────────────
+
+function ShadcnAudioPlayerRender() {
+  const [volume, setVolume] = useState([72])
+  const [bass, setBass] = useState([40])
+  const [treble, setTreble] = useState([60])
+  const [progress, setProgress] = useState([35])
+  const [playing, setPlaying] = useState(false)
+
+  const formatTime = (pct: number) => {
+    const total = 214
+    const sec = Math.round((pct / 100) * total)
+    return `${Math.floor(sec / 60)}:${String(sec % 60).padStart(2, '0')}`
+  }
+
+  return (
+    <div style={{ width: 360, background: 'var(--sem-eclipse-color-backgroundPrimary, #fff)', borderRadius: 16, border: '1px solid var(--sem-eclipse-color-borderPrimary, #e2e8f0)', padding: 20 }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 20 }}>
+        <div style={{ width: 52, height: 52, borderRadius: 10, background: 'linear-gradient(135deg, #7c3aed, #2563eb)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 22 }}>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M9 18V5l12-2v13" stroke="#fff" strokeWidth="2" strokeLinecap="round"/><circle cx="6" cy="18" r="3" stroke="#fff" strokeWidth="2"/><circle cx="18" cy="16" r="3" stroke="#fff" strokeWidth="2"/></svg>
+        </div>
+        <div>
+          <div style={{ fontSize: 15, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary, #0f172a)' }}>Orbit UI Ambient</div>
+          <div style={{ fontSize: 12, color: '#64748b' }}>Design System Beats · Vol. 3</div>
+        </div>
+        <button onClick={() => setPlaying(!playing)} style={{ marginLeft: 'auto', width: 36, height: 36, borderRadius: 18, background: '#6366f1', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: 14 }}>
+          {playing ? '⏸' : '▶'}
+        </button>
+      </div>
+
+      <div style={{ marginBottom: 16 }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11, color: '#94a3b8', marginBottom: 6 }}>
+          <span>{formatTime(progress[0])}</span>
+          <span>3:34</span>
+        </div>
+        <Slider value={progress} onValueChange={setProgress} min={0} max={100} step={1} />
+      </div>
+
+      <div style={{ borderTop: '1px solid var(--sem-eclipse-color-borderPrimary, #e2e8f0)', paddingTop: 14, display: 'flex', flexDirection: 'column', gap: 10 }}>
+        {[{ label: '볼륨', value: volume, set: setVolume, icon: '🔊' }, { label: '저음', value: bass, set: setBass, icon: '🎵' }, { label: '고음', value: treble, set: setTreble, icon: '✦' }].map((ctrl) => (
+          <div key={ctrl.label} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+            <span style={{ fontSize: 14, width: 20 }}>{ctrl.icon}</span>
+            <span style={{ fontSize: 11, color: '#64748b', width: 28 }}>{ctrl.label}</span>
+            <div style={{ flex: 1 }}>
+              <Slider value={ctrl.value} onValueChange={ctrl.set} min={0} max={100} step={1} />
+            </div>
+            <span style={{ fontSize: 11, color: '#94a3b8', width: 24, textAlign: 'right' }}>{ctrl.value[0]}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+export const shadcn_오디오_플레이어_슬라이더: Story = {
+  name: 'shadcn/ui — 오디오 플레이어 (진행바 + EQ 슬라이더)',
+  args: { defaultValue: [50] },
+  parameters: {
+    docs: {
+      description: {
+        story: 'shadcn/ui 오디오 컨트롤 패턴. 트랙 재생 진행바 + 볼륨/저음/고음 EQ 슬라이더. 재생/일시정지 버튼, 시간 포맷 표시.',
+      },
+    },
+  },
+  render: () => <ShadcnAudioPlayerRender />,
+}
+
+function RaycastBrightnessRender() {
+  const [brightness, setBrightness] = useState([70])
+  const [contrast, setContrast] = useState([50])
+  const [warmth, setWarmth] = useState([40])
+  const [nightShift, setNightShift] = useState(false)
+
+  const getBrightnessLabel = (v: number) => {
+    if (v < 25) return '절전 모드'
+    if (v < 50) return '낮음'
+    if (v < 75) return '보통'
+    return '최대 밝기'
+  }
+
+  return (
+    <div style={{ width: 320, background: '#1c1c1e', borderRadius: 14, overflow: 'hidden', color: '#f2f2f7' }}>
+      <div style={{ padding: '14px 16px', borderBottom: '1px solid #2c2c2e', display: 'flex', alignItems: 'center', gap: 8 }}>
+        <span style={{ fontSize: 16 }}>☀️</span>
+        <span style={{ fontSize: 14, fontWeight: 600 }}>디스플레이 설정</span>
+        <span style={{ marginLeft: 'auto', fontSize: 11, padding: '2px 8px', borderRadius: 99, background: nightShift ? '#ff9f0a30' : '#3a3a3c', color: nightShift ? '#ff9f0a' : '#8e8e93', cursor: 'pointer' }} onClick={() => setNightShift(!nightShift)}>Night Shift {nightShift ? 'ON' : 'OFF'}</span>
+      </div>
+      <div style={{ padding: '14px 16px', display: 'flex', flexDirection: 'column', gap: 14 }}>
+        <div>
+          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8 }}>
+            <span style={{ fontSize: 12, color: '#8e8e93' }}>밝기</span>
+            <span style={{ fontSize: 12, color: '#ff9f0a', fontWeight: 600 }}>{getBrightnessLabel(brightness[0])}</span>
+          </div>
+          <Slider value={brightness} onValueChange={setBrightness} min={0} max={100} step={5} />
+          <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 4, fontSize: 10, color: '#3a3a3c' }}>
+            <span>●</span><span>●</span><span>●</span><span>●</span><span>●</span>
+          </div>
+        </div>
+        <div>
+          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8 }}>
+            <span style={{ fontSize: 12, color: '#8e8e93' }}>대비</span>
+            <span style={{ fontSize: 12, color: '#f2f2f7' }}>{contrast[0]}%</span>
+          </div>
+          <Slider value={contrast} onValueChange={setContrast} min={0} max={100} step={5} />
+        </div>
+        <div>
+          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8 }}>
+            <span style={{ fontSize: 12, color: '#8e8e93' }}>색온도</span>
+            <span style={{ fontSize: 12, color: warmth[0] > 60 ? '#ff9f0a' : '#f2f2f7' }}>{warmth[0] < 30 ? '차가운 (6500K)' : warmth[0] < 60 ? '중간 (5500K)' : '따뜻한 (4000K)'}</span>
+          </div>
+          <Slider value={warmth} onValueChange={setWarmth} min={0} max={100} step={5} />
+        </div>
+        <div style={{ padding: '10px 12px', borderRadius: 10, background: '#2c2c2e', fontSize: 12, color: '#8e8e93' }}>
+          예상 배터리 영향: <span style={{ color: brightness[0] > 75 ? '#ff453a' : '#30d158', fontWeight: 600 }}>{brightness[0] > 75 ? '높음' : '낮음'}</span>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const Raycast_디스플레이_밝기_슬라이더: Story = {
+  name: 'Raycast — 디스플레이 설정 (밝기/대비/색온도)',
+  args: { defaultValue: [70] },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Raycast 시스템 환경설정 패턴. 다크 UI에서 밝기/대비/색온도 3개 슬라이더. Night Shift 토글, 배터리 영향 동적 표시, 밝기 레벨 라벨.',
+      },
+    },
+  },
+  render: () => <RaycastBrightnessRender />,
+}
+
+function ShadcnRaycastPricingRender() {
+  const [storage, setStorage] = useState([50])
+  const [seats, setSeats] = useState([5])
+  const [retention, setRetention] = useState([30])
+
+  const storageGB = Math.round(storage[0] * 2)
+  const seatCount = Math.max(1, Math.round(seats[0] / 10))
+  const retentionDays = Math.round(retention[0] * 3.6)
+
+  const priceBase = 9
+  const priceStorage = Math.round(storageGB * 0.05)
+  const priceSeats = (seatCount - 1) * 12
+  const priceRetention = retentionDays > 90 ? 5 : 0
+  const total = priceBase + priceStorage + priceSeats + priceRetention
+
+  return (
+    <div style={{ width: 400, background: 'var(--sem-eclipse-color-backgroundPrimary, #fff)', borderRadius: 14, border: '1px solid var(--sem-eclipse-color-borderPrimary, #e2e8f0)', padding: 24 }}>
+      <div style={{ fontSize: 16, fontWeight: 700, marginBottom: 4, color: 'var(--sem-eclipse-color-foregroundPrimary, #0f172a)' }}>요금제 커스터마이즈</div>
+      <div style={{ fontSize: 12, color: '#64748b', marginBottom: 20 }}>슬라이더로 사용량을 설정하면 가격이 실시간으로 계산됩니다.</div>
+
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>
+        <div>
+          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8 }}>
+            <span style={{ fontSize: 13, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary, #0f172a)' }}>스토리지</span>
+            <span style={{ fontSize: 13, color: '#6366f1', fontWeight: 700 }}>{storageGB} GB</span>
+          </div>
+          <Slider value={storage} onValueChange={setStorage} min={0} max={100} step={1} />
+          <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 4 }}>+${priceStorage}/월</div>
+        </div>
+        <div>
+          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8 }}>
+            <span style={{ fontSize: 13, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary, #0f172a)' }}>팀 멤버</span>
+            <span style={{ fontSize: 13, color: '#6366f1', fontWeight: 700 }}>{seatCount}명</span>
+          </div>
+          <Slider value={seats} onValueChange={setSeats} min={10} max={100} step={10} />
+          <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 4 }}>+${priceSeats}/월 (1명 기본 포함)</div>
+        </div>
+        <div>
+          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8 }}>
+            <span style={{ fontSize: 13, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary, #0f172a)' }}>데이터 보존</span>
+            <span style={{ fontSize: 13, color: retentionDays > 90 ? '#f59e0b' : '#6366f1', fontWeight: 700 }}>{retentionDays}일</span>
+          </div>
+          <Slider value={retention} onValueChange={setRetention} min={0} max={100} step={5} />
+          <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 4 }}>{retentionDays > 90 ? '+$5/월 (90일 초과)' : '무료 포함'}</div>
+        </div>
+      </div>
+
+      <div style={{ marginTop: 20, padding: '14px 16px', borderRadius: 10, background: 'var(--sem-eclipse-color-surfaceContainer, #f8fafc)', border: '1px solid var(--sem-eclipse-color-borderPrimary, #e2e8f0)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <div>
+          <div style={{ fontSize: 11, color: '#64748b', marginBottom: 2 }}>월 예상 비용</div>
+          <div style={{ fontSize: 22, fontWeight: 800, color: 'var(--sem-eclipse-color-foregroundPrimary, #0f172a)' }}>${total}<span style={{ fontSize: 13, fontWeight: 400, color: '#94a3b8' }}>/mo</span></div>
+        </div>
+        <button style={{ padding: '8px 16px', borderRadius: 8, background: '#6366f1', color: '#fff', border: 'none', fontSize: 13, fontWeight: 600, cursor: 'pointer' }}>플랜 선택</button>
+      </div>
+    </div>
+  )
+}
+
+export const shadcn_Raycast_요금제_계산기: Story = {
+  name: 'shadcn + Raycast — 요금제 계산기 (스토리지/멤버/보존 기간)',
+  args: { defaultValue: [50] },
+  parameters: {
+    docs: {
+      description: {
+        story: 'shadcn/ui + Raycast 요금제 커스터마이즈 패턴. 스토리지/팀 멤버/데이터 보존 3개 슬라이더로 실시간 요금 계산. 90일 초과 시 추가 요금 동적 반영.',
+      },
+    },
+  },
+  render: () => <ShadcnRaycastPricingRender />,
+}

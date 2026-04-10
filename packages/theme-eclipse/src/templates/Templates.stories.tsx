@@ -38435,3 +38435,192 @@ export const AntMantine171AnalyticsDashboard: StoryObj = {
   },
   render: () => <AntMantine171AnalyticsDashboardRender />,
 }
+
+// ──────────────────────────────────────────────────────────────────────────────
+// Cycle 172: shadcn/ui + Raycast — Command Palette + Workspace
+// ──────────────────────────────────────────────────────────────────────────────
+
+function ShadcnRaycast172CommandWorkspaceRender() {
+  const [query, setQuery] = useState('')
+  const [activeTab, setActiveTab] = useState(0)
+  const [volume, setVolume] = useState([65])
+  const [cmdOpen, setCmdOpen] = useState(true)
+  const [selectedCmd, setSelectedCmd] = useState<string | null>(null)
+
+  const tabs = ['최근', '앱', '파일', '설정']
+
+  const commands = [
+    { icon: '🎨', label: 'Design System 열기', category: '앱', shortcut: '⌘D' },
+    { icon: '📋', label: '클립보드 관리자', category: '앱', shortcut: '⌘⇧V' },
+    { icon: '📁', label: 'storybook-static 폴더', category: '파일', shortcut: '⌘O' },
+    { icon: '⚙️', label: 'Storybook 설정', category: '설정', shortcut: '⌘,' },
+    { icon: '🔍', label: 'Orbit UI 검색', category: '최근', shortcut: '⌘F' },
+    { icon: '📊', label: '분석 대시보드', category: '최근', shortcut: '⌘A' },
+    { icon: '🚀', label: 'Vercel 배포', category: '앱', shortcut: '⌘⇧D' },
+    { icon: '🎵', label: '볼륨 조절', category: '설정', shortcut: '⌘↑↓' },
+  ]
+
+  const activeTabLabel = tabs[activeTab]
+  const filtered = commands.filter((c) => {
+    const matchTab = activeTabLabel === '최근' ? true : c.category === activeTabLabel
+    const matchQuery = !query || c.label.toLowerCase().includes(query.toLowerCase())
+    return matchTab && matchQuery
+  })
+
+  return (
+    <div style={{ minHeight: '100vh', background: '#0f172a', display: 'flex', flexDirection: 'column', fontFamily: 'system-ui, -apple-system, sans-serif' }}>
+      {/* Top App Bar */}
+      <div style={{ height: 44, borderBottom: '1px solid #1e293b', display: 'flex', alignItems: 'center', padding: '0 16px', gap: 12 }}>
+        <div style={{ display: 'flex', gap: 6 }}>
+          <div style={{ width: 12, height: 12, borderRadius: 6, background: '#ef4444' }} />
+          <div style={{ width: 12, height: 12, borderRadius: 6, background: '#f59e0b' }} />
+          <div style={{ width: 12, height: 12, borderRadius: 6, background: '#22c55e' }} />
+        </div>
+        <div style={{ flex: 1, display: 'flex', justifyContent: 'center' }}>
+          <span style={{ fontSize: 13, color: '#64748b', fontWeight: 600 }}>Raycast — Orbit UI Workspace</span>
+        </div>
+        <button onClick={() => setCmdOpen(!cmdOpen)} style={{ padding: '4px 10px', borderRadius: 6, background: '#1e293b', border: '1px solid #334155', color: '#94a3b8', fontSize: 11, cursor: 'pointer', fontFamily: 'monospace' }}>⌘K</button>
+      </div>
+
+      <div style={{ flex: 1, display: 'flex', gap: 0 }}>
+        {/* Left Sidebar */}
+        <div style={{ width: 220, borderRight: '1px solid #1e293b', padding: '16px 12px', display: 'flex', flexDirection: 'column', gap: 4 }}>
+          {[
+            { icon: '⊞', label: '대시보드', active: true },
+            { icon: '🎨', label: '컴포넌트', active: false },
+            { icon: '📋', label: '스토리', active: false },
+            { icon: '🚀', label: '배포', active: false },
+            { icon: '📊', label: '분석', active: false },
+          ].map((item) => (
+            <div key={item.label} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '7px 10px', borderRadius: 8, background: item.active ? '#1e293b' : 'transparent', cursor: 'pointer' }}>
+              <span style={{ fontSize: 14 }}>{item.icon}</span>
+              <span style={{ fontSize: 13, color: item.active ? '#f1f5f9' : '#64748b', fontWeight: item.active ? 600 : 400 }}>{item.label}</span>
+            </div>
+          ))}
+          <div style={{ marginTop: 'auto', borderTop: '1px solid #1e293b', paddingTop: 12 }}>
+            <div style={{ fontSize: 11, color: '#475569', marginBottom: 8, padding: '0 10px' }}>볼륨</div>
+            <div style={{ padding: '0 4px' }}>
+              <Slider value={volume} onValueChange={setVolume} min={0} max={100} step={5} />
+            </div>
+            <div style={{ fontSize: 11, color: '#475569', textAlign: 'right', marginTop: 4, padding: '0 10px' }}>{volume[0]}%</div>
+          </div>
+        </div>
+
+        {/* Main Content */}
+        <div style={{ flex: 1, padding: '20px 24px', overflowY: 'auto' }}>
+          {/* Stats Row */}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 12, marginBottom: 20 }}>
+            {[
+              { label: '총 컴포넌트', value: '42', delta: '+3', color: '#6366f1' },
+              { label: '스토리 수', value: '860+', delta: '+18', color: '#22c55e' },
+              { label: '타입체크', value: 'Pass', delta: '100%', color: '#f59e0b' },
+              { label: '배포 횟수', value: '172', delta: 'Cycle', color: '#3b82f6' },
+            ].map((stat) => (
+              <div key={stat.label} style={{ padding: '14px 16px', borderRadius: 10, background: '#1e293b', border: '1px solid #334155' }}>
+                <div style={{ fontSize: 11, color: '#64748b', marginBottom: 6 }}>{stat.label}</div>
+                <div style={{ fontSize: 20, fontWeight: 800, color: '#f1f5f9' }}>{stat.value}</div>
+                <div style={{ fontSize: 11, color: stat.color, fontWeight: 600, marginTop: 2 }}>{stat.delta}</div>
+              </div>
+            ))}
+          </div>
+
+          {/* Tab Navigation */}
+          <div style={{ background: '#1e293b', borderRadius: 10, overflow: 'hidden', border: '1px solid #334155' }}>
+            <div style={{ borderBottom: '1px solid #334155' }}>
+              <FixedTabs selectedIndex={activeTab} onTabChange={setActiveTab}>
+                {tabs.map((t) => (
+                  <FixedTabs.Tab key={t} value={t}>
+                    <FixedTabs.TabCenter>{t}</FixedTabs.TabCenter>
+                  </FixedTabs.Tab>
+                ))}
+              </FixedTabs>
+            </div>
+            <div style={{ padding: '14px 16px' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+                {filtered.map((cmd) => (
+                  <div
+                    key={cmd.label}
+                    onClick={() => setSelectedCmd(cmd.label)}
+                    style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '9px 12px', borderRadius: 8, background: selectedCmd === cmd.label ? '#334155' : 'transparent', cursor: 'pointer', border: '1px solid transparent', transition: 'background 150ms' }}
+                  >
+                    <span style={{ fontSize: 16, width: 24 }}>{cmd.icon}</span>
+                    <span style={{ flex: 1, fontSize: 13, color: '#f1f5f9' }}>{cmd.label}</span>
+                    <span style={{ fontSize: 10, padding: '2px 7px', borderRadius: 5, background: '#0f172a', color: '#64748b', fontFamily: 'monospace' }}>{cmd.shortcut}</span>
+                    <span style={{ fontSize: 10, padding: '2px 7px', borderRadius: 99, background: '#0f172a', color: '#475569' }}>{cmd.category}</span>
+                  </div>
+                ))}
+                {filtered.length === 0 && (
+                  <div style={{ fontSize: 13, color: '#475569', textAlign: 'center', padding: 20 }}>검색 결과 없음</div>
+                )}
+              </div>
+            </div>
+          </div>
+
+          {/* Progress Bars */}
+          <div style={{ marginTop: 16, padding: '16px', background: '#1e293b', borderRadius: 10, border: '1px solid #334155' }}>
+            <div style={{ fontSize: 13, fontWeight: 600, color: '#f1f5f9', marginBottom: 12 }}>컴포넌트 완성도</div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+              {[{ label: 'Actions', pct: 95, color: '#22c55e' }, { label: 'Inputs', pct: 88, color: '#3b82f6' }, { label: 'Feedback', pct: 82, color: '#f59e0b' }, { label: 'Data Display', pct: 76, color: '#6366f1' }].map((item) => (
+                <div key={item.label}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 4 }}>
+                    <span style={{ fontSize: 11, color: '#94a3b8' }}>{item.label}</span>
+                    <span style={{ fontSize: 11, color: item.color, fontWeight: 600 }}>{item.pct}%</span>
+                  </div>
+                  <div style={{ height: 4, borderRadius: 2, background: '#0f172a' }}>
+                    <div style={{ height: 4, borderRadius: 2, background: item.color, width: `${item.pct}%`, transition: 'width 300ms' }} />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Command Palette Overlay */}
+        {cmdOpen && (
+          <div style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.6)', display: 'flex', alignItems: 'flex-start', justifyContent: 'center', paddingTop: 80 }} onClick={() => setCmdOpen(false)}>
+            <div style={{ width: 560, background: '#1e293b', borderRadius: 12, border: '1px solid #334155', boxShadow: '0 32px 80px rgba(0,0,0,0.7)', overflow: 'hidden' }} onClick={(e) => e.stopPropagation()}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '12px 16px', borderBottom: '1px solid #334155' }}>
+                <span style={{ fontSize: 16, color: '#64748b' }}>🔍</span>
+                <input
+                  placeholder="명령어 검색..."
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                  autoFocus
+                  style={{ flex: 1, background: 'transparent', border: 'none', outline: 'none', fontSize: 14, color: '#f1f5f9' }}
+                />
+                <kbd style={{ fontSize: 11, padding: '2px 6px', borderRadius: 5, background: '#0f172a', color: '#64748b', fontFamily: 'monospace' }}>ESC</kbd>
+              </div>
+              <div style={{ maxHeight: 320, overflowY: 'auto' }}>
+                {filtered.map((cmd, i) => (
+                  <div key={cmd.label} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '10px 16px', background: i === 0 ? '#334155' : 'transparent', cursor: 'pointer' }}>
+                    <span style={{ fontSize: 18 }}>{cmd.icon}</span>
+                    <span style={{ flex: 1, fontSize: 13, color: '#f1f5f9' }}>{cmd.label}</span>
+                    <span style={{ fontSize: 11, color: '#64748b', fontFamily: 'monospace' }}>{cmd.shortcut}</span>
+                  </div>
+                ))}
+              </div>
+              <div style={{ padding: '8px 16px', borderTop: '1px solid #334155', display: 'flex', gap: 12, fontSize: 11, color: '#475569' }}>
+                <span><kbd style={{ fontFamily: 'monospace' }}>↵</kbd> 실행</span>
+                <span><kbd style={{ fontFamily: 'monospace' }}>↑↓</kbd> 이동</span>
+                <span><kbd style={{ fontFamily: 'monospace' }}>ESC</kbd> 닫기</span>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+
+export const ShadcnRaycast172CommandWorkspace: StoryObj = {
+  name: 'shadcn/ui + Raycast — 커맨드 팔레트 워크스페이스 (Cycle 172)',
+  parameters: {
+    layout: 'fullscreen',
+    docs: {
+      description: {
+        story: 'shadcn/ui + Raycast 복합 패턴. Raycast Command Palette (⌘K) 오버레이 + FixedTabs 탭 네비게이션 + Slider 볼륨 컨트롤 + 컴포넌트 완성도 Progress 바. 다크 워크스페이스 UI.',
+      },
+    },
+  },
+  render: () => <ShadcnRaycast172CommandWorkspaceRender />,
+}

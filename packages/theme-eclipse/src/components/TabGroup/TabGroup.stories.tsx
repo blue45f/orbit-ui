@@ -1993,3 +1993,311 @@ export const Radix_Vercel_API키_관리_탭: Story = {
   },
   render: () => <RadixVercelApiKeyTabRender />,
 }
+
+
+// ──────────────────────────────────────────────────────────────────────────────
+// Cycle 172: shadcn/ui + Raycast Extensions
+// ──────────────────────────────────────────────────────────────────────────────
+
+function ShadcnComponentDocsTabRender() {
+  const [active, setActive] = useState(0)
+  const tabLabels = ['Overview', 'Usage', 'API Reference', 'Examples', 'Changelog']
+  const propsData = [
+    { name: 'variant', type: '"default" | "outline" | "ghost" | "destructive"', default: '"default"' },
+    { name: 'size', type: '"sm" | "default" | "lg" | "icon"', default: '"default"' },
+    { name: 'asChild', type: 'boolean', default: 'false' },
+    { name: 'disabled', type: 'boolean', default: 'false' },
+  ]
+  const examples = ['기본 버튼', '아이콘 버튼', '로딩 상태', '버튼 그룹', '링크 버튼']
+  const logs = ['v2.0.0 — asChild 패턴 추가', 'v1.5.0 — ghost variant 추가', 'v1.0.0 — 초기 릴리스']
+
+  return (
+    <div style={{ width: 560, background: 'var(--sem-eclipse-color-backgroundPrimary, #fff)', borderRadius: 12, border: '1px solid var(--sem-eclipse-color-borderPrimary, #e2e8f0)', overflow: 'hidden' }}>
+      <div style={{ padding: '16px 20px 0', borderBottom: '1px solid var(--sem-eclipse-color-borderPrimary, #e2e8f0)' }}>
+        <div style={{ fontSize: 18, fontWeight: 700, marginBottom: 14, color: 'var(--sem-eclipse-color-foregroundPrimary, #0f172a)' }}>Button</div>
+        <FixedTabs selectedIndex={active} onTabChange={setActive}>
+          {tabLabels.map((t) => (
+            <FixedTabs.Tab key={t} value={t}>
+              <FixedTabs.TabCenter>{t}</FixedTabs.TabCenter>
+            </FixedTabs.Tab>
+          ))}
+        </FixedTabs>
+      </div>
+      <div style={{ padding: '20px' }}>
+        {active === 0 && (
+          <div>
+            <div style={{ display: 'flex', gap: 6, marginBottom: 10 }}>
+              {[{ label: 'Stable', color: '#16a34a' }, { label: 'v2.0', color: '#2563eb' }].map((b) => (
+                <span key={b.label} style={{ fontSize: 11, padding: '2px 8px', borderRadius: 99, background: `${b.color}18`, color: b.color, fontWeight: 600 }}>{b.label}</span>
+              ))}
+            </div>
+            <p style={{ fontSize: 13, color: 'var(--sem-eclipse-color-foregroundSecondary, #64748b)', lineHeight: 1.7 }}>A versatile button component with multiple variants — primary, outline, ghost, destructive. Built on top of Radix UI primitives.</p>
+          </div>
+        )}
+        {active === 1 && (
+          <div>
+            <div style={{ fontFamily: 'monospace', fontSize: 12, padding: '10px 14px', borderRadius: 8, background: '#0f172a', color: '#e2e8f0', marginBottom: 12 }}>npx shadcn-ui@latest add button</div>
+            <p style={{ fontSize: 13, color: 'var(--sem-eclipse-color-foregroundSecondary, #64748b)' }}>기본 사용법: import &#123; Button &#125; from &quot;@/components/ui/button&quot;</p>
+          </div>
+        )}
+        {active === 2 && (
+          <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 12 }}>
+            <thead>
+              <tr style={{ borderBottom: '1px solid var(--sem-eclipse-color-borderPrimary, #e2e8f0)' }}>
+                {['Prop', 'Type', 'Default'].map((h) => (
+                  <th key={h} style={{ textAlign: 'left', padding: '6px 8px', color: 'var(--sem-eclipse-color-foregroundTertiary, #94a3b8)', fontWeight: 600 }}>{h}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {propsData.map((p) => (
+                <tr key={p.name} style={{ borderBottom: '1px solid #f1f5f9' }}>
+                  <td style={{ padding: '7px 8px', fontFamily: 'monospace', color: '#2563eb', fontWeight: 600 }}>{p.name}</td>
+                  <td style={{ padding: '7px 8px', fontFamily: 'monospace', color: '#64748b', fontSize: 11 }}>{p.type}</td>
+                  <td style={{ padding: '7px 8px', fontFamily: 'monospace', color: '#94a3b8' }}>{p.default}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
+        {active === 3 && (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+            {examples.map((item, i) => (
+              <div key={item} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '8px 12px', borderRadius: 8, background: 'var(--sem-eclipse-color-surfaceContainer, #f8fafc)', cursor: 'pointer' }}>
+                <span style={{ fontSize: 12, color: '#94a3b8', width: 18 }}>{i + 1}</span>
+                <span style={{ fontSize: 13, color: 'var(--sem-eclipse-color-foregroundPrimary, #0f172a)' }}>{item}</span>
+              </div>
+            ))}
+          </div>
+        )}
+        {active === 4 && (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+            {logs.map((log) => (
+              <div key={log} style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundSecondary, #64748b)', display: 'flex', gap: 8 }}>
+                <span style={{ color: '#3b82f6', fontWeight: 600 }}>•</span>
+                {log}
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+
+export const shadcn_컴포넌트_문서_탭: Story = {
+  name: 'shadcn/ui — 컴포넌트 문서 탭 (Overview/Usage/API/Examples/Changelog)',
+  parameters: {
+    docs: {
+      description: {
+        story: 'shadcn/ui 문서 사이트 탭 네비게이션 패턴. Overview/Usage/API Reference/Examples/Changelog 5탭 구조. API 탭에서 props 테이블, Changelog 탭에서 버전 이력 표시.',
+      },
+    },
+  },
+  render: () => <ShadcnComponentDocsTabRender />,
+}
+
+function RaycastExtensionTabRender() {
+  const [active, setActive] = useState(0)
+  const tabLabels = ['Actions', 'Details', 'Metadata', 'Preferences']
+  const actions = [
+    { icon: '↗', label: 'Open in Browser', shortcut: '↵' },
+    { icon: '⧉', label: 'Copy URL', shortcut: '⌘C' },
+    { icon: '✎', label: 'Edit Bookmark', shortcut: '⌘E' },
+    { icon: '★', label: 'Add to Favorites', shortcut: '⌘S' },
+    { icon: '⋮', label: 'More Actions', shortcut: '⌘⇧.' },
+  ]
+  const metadata = [
+    { key: 'URL', value: 'https://orbit-ui.vercel.app' },
+    { key: 'Created', value: '2024-03-15' },
+    { key: 'Last Visited', value: '2 hours ago' },
+    { key: 'Tags', value: 'design-system, ui, react' },
+    { key: 'Category', value: 'Development' },
+  ]
+  const preferences = [
+    { key: 'Default Action', value: 'Open in Browser', type: 'select' },
+    { key: 'Open in Background', value: false, type: 'toggle' },
+    { key: 'Show Favicon', value: true, type: 'toggle' },
+  ]
+
+  return (
+    <div style={{ width: 480, background: '#1c1c1e', borderRadius: 14, overflow: 'hidden', boxShadow: '0 24px 64px rgba(0,0,0,0.5)' }}>
+      <div style={{ padding: '12px 16px 0', borderBottom: '1px solid #2c2c2e' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 12 }}>
+          <div style={{ width: 32, height: 32, borderRadius: 8, background: '#ff6b35', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 16 }}>&#9889;</div>
+          <div>
+            <div style={{ fontSize: 14, fontWeight: 600, color: '#f2f2f7' }}>Orbit UI Docs</div>
+            <div style={{ fontSize: 11, color: '#8e8e93' }}>orbit-ui.vercel.app</div>
+          </div>
+        </div>
+        <FixedTabs selectedIndex={active} onTabChange={setActive}>
+          {tabLabels.map((t) => (
+            <FixedTabs.Tab key={t} value={t}>
+              <FixedTabs.TabCenter>{t}</FixedTabs.TabCenter>
+            </FixedTabs.Tab>
+          ))}
+        </FixedTabs>
+      </div>
+      <div style={{ padding: '12px 16px' }}>
+        {active === 0 && (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+            {actions.map((a) => (
+              <div key={a.label} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '7px 10px', borderRadius: 8, cursor: 'pointer' }}>
+                <span style={{ fontSize: 14, width: 20, textAlign: 'center', color: '#8e8e93' }}>{a.icon}</span>
+                <span style={{ fontSize: 13, color: '#f2f2f7', flex: 1 }}>{a.label}</span>
+                <span style={{ fontSize: 11, padding: '2px 6px', borderRadius: 5, background: '#2c2c2e', color: '#8e8e93', fontFamily: 'monospace' }}>{a.shortcut}</span>
+              </div>
+            ))}
+          </div>
+        )}
+        {active === 1 && (
+          <div>
+            <div style={{ fontSize: 12, color: '#8e8e93', lineHeight: 1.7 }}>Orbit UI is a Figma-based React design system component library. It provides a 3-tier architecture for scalable UI development.</div>
+            <div style={{ marginTop: 12, padding: '8px 12px', borderRadius: 8, background: '#2c2c2e' }}>
+              <div style={{ fontSize: 11, color: '#8e8e93' }}>Last updated: 2 hours ago</div>
+            </div>
+          </div>
+        )}
+        {active === 2 && (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+            {metadata.map((m) => (
+              <div key={m.key} style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12 }}>
+                <span style={{ color: '#8e8e93' }}>{m.key}</span>
+                <span style={{ color: '#f2f2f7', fontFamily: m.key === 'URL' ? 'monospace' : undefined, fontSize: m.key === 'URL' ? 10 : 12 }}>{m.value}</span>
+              </div>
+            ))}
+          </div>
+        )}
+        {active === 3 && (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+            {preferences.map((p) => (
+              <div key={p.key} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: 13 }}>
+                <span style={{ color: '#f2f2f7' }}>{p.key}</span>
+                {p.type === 'toggle' ? (
+                  <div style={{ width: 36, height: 20, borderRadius: 10, background: p.value ? '#30d158' : '#3a3a3c', position: 'relative', cursor: 'pointer' }}>
+                    <div style={{ width: 16, height: 16, borderRadius: 8, background: '#fff', position: 'absolute', top: 2, left: p.value ? 18 : 2, transition: 'left 150ms' }} />
+                  </div>
+                ) : (
+                  <span style={{ fontSize: 12, color: '#8e8e93' }}>{p.value as string}</span>
+                )}
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+
+export const Raycast_익스텐션_액션_탭: Story = {
+  name: 'Raycast — 익스텐션 액션 패널 탭 (Actions/Details/Metadata/Preferences)',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Raycast Extension 상세 패널 탭 UI. 다크 테마 기반 Actions/Details/Metadata/Preferences 4탭. 단축키 표시, 토글 프리퍼런스, 메타데이터 레이아웃.',
+      },
+    },
+  },
+  render: () => <RaycastExtensionTabRender />,
+}
+
+function ShadcnRaycastWorkspaceTabRender() {
+  const [active, setActive] = useState(0)
+  const [notifCount, setNotifCount] = useState(5)
+  const tabLabels = ['Dashboard', 'Issues', 'Members', 'Settings']
+
+  const issues = [
+    { id: 'ORB-142', title: 'TabGroup 스토리 추가', status: 'In Progress', priority: 'High', assignee: 'HJ' },
+    { id: 'ORB-141', title: 'Slider 접근성 개선', status: 'Todo', priority: 'Medium', assignee: 'SW' },
+    { id: 'ORB-140', title: 'shadcn 마이그레이션 가이드', status: 'In Review', priority: 'Low', assignee: 'JW' },
+    { id: 'ORB-139', title: 'Raycast 익스텐션 패턴 반영', status: 'Done', priority: 'High', assignee: 'HJ' },
+  ]
+  const statusColor: Record<string, string> = { 'In Progress': '#3b82f6', Todo: '#64748b', 'In Review': '#f59e0b', Done: '#16a34a' }
+  const priorityColor: Record<string, string> = { High: '#ef4444', Medium: '#f59e0b', Low: '#64748b' }
+  const members = [
+    { name: 'Heejun Kim', role: 'Lead Designer', tasks: 8 },
+    { name: 'Seowon Park', role: 'Frontend Dev', tasks: 5 },
+    { name: 'Jiwon Lee', role: 'UI Engineer', tasks: 6 },
+  ]
+
+  return (
+    <div style={{ width: 600, background: 'var(--sem-eclipse-color-backgroundPrimary, #fff)', borderRadius: 12, border: '1px solid var(--sem-eclipse-color-borderPrimary, #e2e8f0)', overflow: 'hidden' }}>
+      <div style={{ padding: '0 20px', borderBottom: '1px solid var(--sem-eclipse-color-borderPrimary, #e2e8f0)', display: 'flex', alignItems: 'center', gap: 12 }}>
+        <FixedTabs selectedIndex={active} onTabChange={setActive}>
+          {tabLabels.map((t, i) => (
+            <FixedTabs.Tab key={t} value={t}>
+              <FixedTabs.TabCenter>{t}</FixedTabs.TabCenter>
+              {i === 1 && notifCount > 0 && (
+                <FixedTabs.TabTrailing>
+                  <CounterBadge>{notifCount}</CounterBadge>
+                </FixedTabs.TabTrailing>
+              )}
+            </FixedTabs.Tab>
+          ))}
+        </FixedTabs>
+        <div style={{ marginLeft: 'auto' }}>
+          <SolidButton color="primary" size="small" onClick={() => setNotifCount(0)}>모두 읽음</SolidButton>
+        </div>
+      </div>
+      <div style={{ padding: '20px' }}>
+        {active === 0 && (
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+            {[{ label: '전체 이슈', value: '24', delta: '+3' }, { label: '진행 중', value: '8', delta: '+1' }, { label: '완료', value: '14', delta: '+5' }, { label: '팀 멤버', value: '3', delta: '' }].map((c) => (
+              <div key={c.label} style={{ padding: '14px 16px', borderRadius: 10, background: 'var(--sem-eclipse-color-surfaceContainer, #f8fafc)', border: '1px solid var(--sem-eclipse-color-borderPrimary, #e2e8f0)' }}>
+                <div style={{ fontSize: 12, color: '#64748b', marginBottom: 4 }}>{c.label}</div>
+                <div style={{ display: 'flex', alignItems: 'baseline', gap: 6 }}>
+                  <span style={{ fontSize: 26, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary, #0f172a)' }}>{c.value}</span>
+                  {c.delta && <span style={{ fontSize: 11, color: '#16a34a', fontWeight: 600 }}>{c.delta}</span>}
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+        {active === 1 && (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+            {issues.map((issue) => (
+              <div key={issue.id} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '8px 12px', borderRadius: 8, background: 'var(--sem-eclipse-color-surfaceContainer, #f8fafc)', cursor: 'pointer' }}>
+                <span style={{ fontSize: 11, fontFamily: 'monospace', color: '#94a3b8', width: 58 }}>{issue.id}</span>
+                <span style={{ flex: 1, fontSize: 13, color: 'var(--sem-eclipse-color-foregroundPrimary, #0f172a)' }}>{issue.title}</span>
+                <span style={{ fontSize: 10, padding: '2px 7px', borderRadius: 99, background: `${statusColor[issue.status]}18`, color: statusColor[issue.status], fontWeight: 600 }}>{issue.status}</span>
+                <span style={{ fontSize: 10, padding: '2px 7px', borderRadius: 99, background: `${priorityColor[issue.priority]}18`, color: priorityColor[issue.priority], fontWeight: 600 }}>{issue.priority}</span>
+                <div style={{ width: 22, height: 22, borderRadius: 11, background: '#e2e8f0', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 9, fontWeight: 700, color: '#475569' }}>{issue.assignee}</div>
+              </div>
+            ))}
+          </div>
+        )}
+        {active === 2 && (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+            {members.map((m) => (
+              <div key={m.name} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '10px 14px', borderRadius: 10, border: '1px solid var(--sem-eclipse-color-borderPrimary, #e2e8f0)' }}>
+                <div style={{ width: 36, height: 36, borderRadius: 18, background: 'linear-gradient(135deg, #6366f1, #8b5cf6)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 13, fontWeight: 700, color: '#fff' }}>{m.name[0]}</div>
+                <div style={{ flex: 1 }}>
+                  <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary, #0f172a)' }}>{m.name}</div>
+                  <div style={{ fontSize: 11, color: '#64748b' }}>{m.role}</div>
+                </div>
+                <span style={{ fontSize: 11, padding: '2px 8px', borderRadius: 99, background: '#f1f5f9', color: '#64748b', fontWeight: 600 }}>{m.tasks}건</span>
+              </div>
+            ))}
+          </div>
+        )}
+        {active === 3 && (
+          <div style={{ fontSize: 13, color: 'var(--sem-eclipse-color-foregroundSecondary, #64748b)' }}>
+            워크스페이스 설정 (알림, 권한, 통합) 옵션이 이 탭에서 관리됩니다.
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+
+export const shadcn_Raycast_워크스페이스_탭: Story = {
+  name: 'shadcn + Raycast — 워크스페이스 탭 (Dashboard/Issues/Members/Settings)',
+  parameters: {
+    docs: {
+      description: {
+        story: 'shadcn/ui + Raycast 워크스페이스 대시보드. CounterBadge로 미읽음 알림 표시, 탭별 대시보드/이슈/멤버 콘텐츠 전환. 이슈 우선순위 컬러 배지, 담당자 아바타.',
+      },
+    },
+  },
+  render: () => <ShadcnRaycastWorkspaceTabRender />,
+}
