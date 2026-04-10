@@ -8,6 +8,14 @@ Checkbox.displayName = 'Checkbox'
 const meta = {
   title: 'eclipse/Inputs/Selection/Checkbox',
   component: Checkbox,
+  tags: ['autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component: "Checkbox는 Radix UI 기반 접근성 체크박스 컴포넌트입니다. 제어/비제어 모드를 모두 지원하며 키보드 네비게이션을 완벽하게 지원합니다.",
+      },
+    },
+  },
   args: {
     disabled: false,
     iconName: 'check',

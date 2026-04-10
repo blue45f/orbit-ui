@@ -11,6 +11,7 @@ Divider.displayName = 'Divider'
 const meta = {
   title: 'eclipse/Layout/Divider',
   component: Divider,
+  tags: ['autodocs'],
   args: {
     orientation: 'horizontal',
     length: '100%',

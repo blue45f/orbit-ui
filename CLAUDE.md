@@ -317,3 +317,33 @@ Before submitting:
 - [ ] `pnpm build` succeeds
 - [ ] Changeset added if needed (`pnpm changeset`)
 - [ ] Storybook stories added/updated for new components
+
+## Storybook Deployment
+
+**IMPORTANT: Always deploy to the `orbit-ui` project on Vercel. Never create a new project.**
+
+Vercel project: `blue45fs-projects/orbit-ui`
+Project ID: `prj_1nZ11Q8y0tY9kXxnVoML4zMWErBg`
+
+The `storybook-static/` directory is already linked to `orbit-ui` via `.vercel/project.json`. Do NOT run `vercel link` without `--project orbit-ui` as it will create a new project.
+
+### Correct Deploy Steps
+
+```bash
+# 1. Build Storybook
+cd /Users/hjunkim/WebstormProjects/orbit-ui/packages/theme-eclipse
+pnpm build:storybook
+
+# 2. Deploy to orbit-ui (already linked)
+cd storybook-static
+vercel deploy . -y --no-wait --scope blue45fs-projects
+
+# 3. Check build status
+vercel inspect <deployment-url> --scope blue45fs-projects
+```
+
+### Notes
+- The `.vercel/project.json` in `storybook-static/` must always point to `projectId: prj_1nZ11Q8y0tY9kXxnVoML4zMWErBg`
+- Free tier limit: 100 deployments/day — if limit hit, skip deploy and note it in the cycle report
+- After deploy, always check `vercel inspect` or `vercel ls --scope blue45fs-projects` to verify Ready status
+- Do NOT create a `storybook-static` project — use `orbit-ui` only

@@ -9,6 +9,14 @@ LabelBadge.displayName = 'LabelBadge'
 const meta = {
   title: 'eclipse/Data Display/LabelBadge',
   component: LabelBadge,
+  tags: ['autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component: "LabelBadge는 카테고리, 상태, 태그를 표시하는 인라인 배지입니다. sale/benefit/gray 색상 variant를 지원합니다.",
+      },
+    },
+  },
   args: {},
   argTypes: {
     color: {

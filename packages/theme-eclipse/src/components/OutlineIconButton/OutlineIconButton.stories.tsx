@@ -25,6 +25,7 @@ OutlineIconButton.displayName = 'OutlineIconButton'
 const meta = {
   title: 'eclipse/Actions/Buttons/OutlineIconButton',
   component: OutlineIconButton,
+  tags: ['autodocs'],
   args: { color: 'black', size: 'medium', disabled: false },
   argTypes: {
     onClick: { action: 'clicked' },

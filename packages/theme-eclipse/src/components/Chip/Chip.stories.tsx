@@ -14,6 +14,7 @@ Chip.Trailing.displayName = 'Chip.Trailing'
 const meta = {
   title: 'eclipse/Actions/Chips/Chip',
   component: Chip,
+  tags: ['autodocs'],
   args: {},
   argTypes: {
     onClick: { action: 'clicked' },

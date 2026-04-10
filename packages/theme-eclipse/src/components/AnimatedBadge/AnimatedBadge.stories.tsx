@@ -9,6 +9,14 @@ AnimatedBadge.displayName = 'AnimatedBadge'
 const meta = {
   title: 'eclipse/Data Display/AnimatedBadge',
   component: AnimatedBadge,
+  tags: ['autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component: "AnimatedBadge는 숫자/텍스트 배지에 등장 애니메이션을 추가하는 컴포넌트입니다. 알림 카운트, 새 항목 표시 등 동적 배지에 활용합니다.",
+      },
+    },
+  },
   args: {},
   argTypes: {
     size: {

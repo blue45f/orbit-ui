@@ -16,6 +16,14 @@ const spacingKeys = Object.keys(vars.ref.spacing) as Spacing[]
 const meta = {
   title: 'eclipse/Layout/Space',
   component: Space,
+  tags: ['autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component: "Space는 레이아웃 간격 조절을 위한 유틸리티 컴포넌트입니다. width/height prop으로 정밀한 공간 제어가 가능합니다.",
+      },
+    },
+  },
   args: {},
   argTypes: {
     x: { control: 'select', options: spacingKeys },

@@ -24,6 +24,14 @@ const AppBar = AppBarBase as typeof AppBarBase & React.FC<any>
 const meta = {
   title: 'eclipse/Navigation/AppBar',
   component: AppBar,
+  tags: ['autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component: "AppBar는 상단 탐색 바 컴포넌트입니다. 로고, 타이틀, 액션 버튼 슬롯을 제공하며 앱의 주요 탐색 영역으로 사용합니다.",
+      },
+    },
+  },
   decorators: [
     (Story) => {
       return (

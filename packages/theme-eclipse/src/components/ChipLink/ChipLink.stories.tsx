@@ -11,6 +11,7 @@ ChipLink.Leading.displayName = 'ChipLink.Leading'
 const meta = {
   title: 'eclipse/Actions/Chips/ChipLink',
   component: ChipLink,
+  tags: ['autodocs'],
   args: {},
   argTypes: {
     onClick: { action: 'clicked' },

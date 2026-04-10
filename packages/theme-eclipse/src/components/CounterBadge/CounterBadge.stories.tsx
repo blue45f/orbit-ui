@@ -8,6 +8,14 @@ CounterBadge.displayName = 'CounterBadge'
 const meta = {
   title: 'eclipse/Data Display/CounterBadge',
   component: CounterBadge,
+  tags: ['autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component: "CounterBadge는 숫자 카운트를 표시하는 배지 컴포넌트입니다. 99를 초과하는 경우 자동으로 99+로 표시됩니다.",
+      },
+    },
+  },
   args: {
     children: 99,
   },

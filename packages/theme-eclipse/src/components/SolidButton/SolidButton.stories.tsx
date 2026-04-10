@@ -19,6 +19,7 @@ const iconSize: Record<SolidButtonProps['size'], number> = {
 const meta = {
   title: 'eclipse/Actions/Buttons/SolidButton',
   component: SolidButton,
+  tags: ['autodocs'],
   args: { color: 'black', size: 'medium', disabled: false },
   argTypes: {
     onClick: { action: 'clicked' },

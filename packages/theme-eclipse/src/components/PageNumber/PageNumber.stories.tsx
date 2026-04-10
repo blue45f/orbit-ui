@@ -8,6 +8,14 @@ import { PageNumber } from './PageNumber'
 const meta = {
   title: 'eclipse/Navigation/PageNumber',
   component: PageNumber,
+  tags: ['autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component: "PageNumber는 페이지네이션의 개별 페이지 번호 버튼 컴포넌트입니다. 현재/비활성/비활성화 상태를 지원합니다.",
+      },
+    },
+  },
   args: {
     current: 1,
     total: 3,

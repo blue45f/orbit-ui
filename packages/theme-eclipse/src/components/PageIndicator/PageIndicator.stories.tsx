@@ -13,6 +13,14 @@ const generateDots = (count: number) => Array.from({ length: count }, (_, i) => 
 const meta = {
   title: 'eclipse/Navigation/PageIndicator',
   component: PageIndicator,
+  tags: ['autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component: "PageIndicator는 슬라이더, 캐러셀, 스텝 위자드의 현재 위치를 dot으로 표시하는 컴포넌트입니다. shadcn/ui Steps, MUI Stepper 패턴을 지원합니다.",
+      },
+    },
+  },
   argTypes: {
     onPageChange: { action: 'page changed' },
   },

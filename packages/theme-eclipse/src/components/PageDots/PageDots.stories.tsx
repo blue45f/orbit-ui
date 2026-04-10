@@ -6,6 +6,14 @@ import { PageDots } from './PageDots'
 const meta = {
   title: 'eclipse/Navigation/PageDots',
   component: PageDots,
+  tags: ['autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component: "PageDots는 슬라이더/캐러셀의 현재 페이지를 나타내는 단일 dot 컴포넌트입니다. PageIndicator 내부에서 사용됩니다.",
+      },
+    },
+  },
   args: {
     selected: false,
   },

@@ -12,6 +12,14 @@ Text.displayName = 'Text'
 const meta = {
   title: 'eclipse/Data Display/Text',
   component: Text,
+  tags: ['autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component: "Text는 Material Design 3 타입 스케일 기반 타이포그래피 컴포넌트입니다. displayLarge부터 labelSmall까지 13가지 textStyle을 지원합니다.",
+      },
+    },
+  },
   args: {
     textStyle: 'bodyLarge',
     children: 'Children에 값을 입력하여, Text 컴포넌트의 텍스트를 확인해보세요.',

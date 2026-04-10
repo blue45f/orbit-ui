@@ -8,6 +8,14 @@ BoxedCheckbox.displayName = 'BoxedCheckbox'
 const meta = {
   title: 'eclipse/Inputs/Selection/BoxedCheckbox',
   component: BoxedCheckbox,
+  tags: ['autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component: "BoxedCheckbox는 카드 스타일의 체크박스 컴포넌트입니다. 선택 시 전체 카드가 강조되어 시각적 피드백이 명확합니다.",
+      },
+    },
+  },
   args: {
     disabled: false,
     iconName: 'check',

@@ -26,6 +26,7 @@ SolidIconButton.displayName = 'SolidIconButton'
 const meta = {
   title: 'eclipse/Actions/Buttons/SolidIconButton',
   component: SolidIconButton,
+  tags: ['autodocs'],
   args: { color: 'black', size: 'medium', disabled: false },
   argTypes: {
     onClick: { action: 'clicked' },

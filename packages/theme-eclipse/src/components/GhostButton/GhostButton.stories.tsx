@@ -25,6 +25,7 @@ GhostButton.Trailing.displayName = 'GhostButton.Trailing'
 const meta = {
   title: 'eclipse/Actions/Buttons/GhostButton',
   component: GhostButton,
+  tags: ['autodocs'],
   args: { color: 'black', size: 'large', disabled: false },
   argTypes: {
     onClick: { action: 'clicked' },

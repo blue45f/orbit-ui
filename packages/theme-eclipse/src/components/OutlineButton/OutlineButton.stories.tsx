@@ -19,6 +19,7 @@ OutlineButton.Trailing.displayName = 'OutlineButton.Trailing'
 const meta = {
   title: 'eclipse/Actions/Buttons/OutlineButton',
   component: OutlineButton,
+  tags: ['autodocs'],
   args: { color: 'black', size: 'medium', disabled: false },
   argTypes: {
     onClick: { action: 'clicked' },

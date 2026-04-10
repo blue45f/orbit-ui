@@ -8,6 +8,14 @@ SpeechBadge.displayName = 'SpeechBadge'
 const meta = {
   title: 'eclipse/Data Display/SpeechBadge',
   component: SpeechBadge,
+  tags: ['autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component: "SpeechBadge는 말풍선 스타일의 배지 컴포넌트입니다. 채팅, 알림, 상태 메시지 표시에 활용합니다.",
+      },
+    },
+  },
   args: {},
   argTypes: {
     color: {

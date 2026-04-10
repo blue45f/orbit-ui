@@ -9,6 +9,14 @@ RadioButton.displayName = 'RadioButton'
 const meta = {
   title: 'eclipse/Inputs/Selection/RadioButton',
   component: RadioButton,
+  tags: ['autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component: "RadioButton은 단일 선택 그룹의 라디오 버튼 컴포넌트입니다. Radix UI 기반으로 완전한 키보드 접근성을 제공합니다.",
+      },
+    },
+  },
   args: {
     disabled: false,
   },
