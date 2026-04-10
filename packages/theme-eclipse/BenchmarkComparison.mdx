@@ -1653,3 +1653,35 @@ const theme = createTheme({
     <span style={{ color: '#475569', marginLeft: '8px' }}>DomainManager — Vercel 도메인 관리 UI 패턴, DNS 전파 Progress, 펼침형 레코드 패널</span>
   </div>
 </section>
+
+
+<section style={{ marginTop: '32px', padding: '20px', borderRadius: '10px', border: '1px solid #e2e8f0', background: '#fafafa' }}>
+  <h3 style={{ fontSize: '16px', fontWeight: '700', color: '#0f172a', margin: '0 0 4px' }}>Cycle 107 — Apple HIG + Google Material 3 벤치마크</h3>
+  <p style={{ fontSize: '12px', color: '#94a3b8', margin: '0 0 16px' }}>2026-04-10 / 대상 컴포넌트: Checkbox, Switch, Templates</p>
+
+  <h4 style={{ fontSize: '13px', fontWeight: '600', color: '#334155', margin: '0 0 8px' }}>Apple HIG 장점 분석</h4>
+  <ul style={{ fontSize: '12px', color: '#475569', margin: '0 0 12px', paddingLeft: '18px', lineHeight: '1.8' }}>
+    <li><strong>그룹 기반 설정 화면</strong>: 섹션 제목 + 테이블 셀 + 푸터 설명으로 구성된 3단 레이아웃. 각 그룹의 맥락적 설명을 하단에 배치해 인지 부담 최소화.</li>
+    <li><strong>계층형 체크박스</strong>: 부모/자식 관계에서 부분 선택 상태(minus 아이콘)를 명확히 표현. Orbit UI Checkbox의 iconName='minus' 패턴으로 구현 가능.</li>
+    <li><strong>Control Center 아이콘 타일</strong>: 격자형 빠른 설정 패널에서 색상 + 아이콘 + 레이블 + Switch를 하나의 타일로 통합해 상태를 즉각적으로 전달.</li>
+  </ul>
+
+  <h4 style={{ fontSize: '13px', fontWeight: '600', color: '#334155', margin: '0 0 8px' }}>Google Material 3 장점 분석</h4>
+  <ul style={{ fontSize: '12px', color: '#475569', margin: '0 0 12px', paddingLeft: '18px', lineHeight: '1.8' }}>
+    <li><strong>Filter Chip 패턴</strong>: 체크박스 선택 상태가 Chip 배경 채워짐(tonal surface)으로 시각화. 이슈/태그 필터 UI에서 선택 상태를 명확하고 간결하게 전달.</li>
+    <li><strong>권한 위험도 색상 코딩</strong>: 기기 권한 목록에서 위험도(high/medium/low)를 색상 점과 배지로 표시해 보안 민감도를 직관적으로 안내.</li>
+    <li><strong>상태 전환 배경색</strong>: Switch 활성화 시 행(row) 배경이 연두색으로 전환되어 On 상태를 텍스트 없이도 전달. Orbit UI 패턴: background 조건부 전환.</li>
+  </ul>
+
+  <h4 style={{ fontSize: '13px', fontWeight: '600', color: '#334155', margin: '0 0 8px' }}>Orbit UI 반영 사항</h4>
+  <ul style={{ fontSize: '12px', color: '#475569', margin: '0 0 12px', paddingLeft: '18px', lineHeight: '1.8' }}>
+    <li>Checkbox: 계층형 그룹 선택(iconName='minus' 부분 선택), M3 필터 칩 체크박스, M3 개인정보 설정 체크리스트 +3 스토리</li>
+    <li>Switch: Apple HIG 세부 설정 그룹, M3 기기 권한 토글, Apple HIG 빠른 설정 패널(Control Center) +3 스토리</li>
+    <li>Template KanbanBoard: 4컬럼 칸반, 태스크 카드 좌우 이동, 우선순위 Chip 필터, SearchBar 검색</li>
+  </ul>
+
+  <div style={{ borderTop: '1px solid #e2e8f0', paddingTop: '10px', marginTop: '4px' }}>
+    <span style={{ fontWeight: '700', color: '#059669' }}>Template Cycle107:</span>
+    <span style={{ color: '#475569', marginLeft: '8px' }}>AppleHIG107KanbanBoard — 4컬럼 칸반 보드, 태스크 이동 버튼, 우선순위 필터, LabelBadge 레이블 태그</span>
+  </div>
+</section>

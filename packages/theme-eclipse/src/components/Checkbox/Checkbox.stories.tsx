@@ -970,6 +970,313 @@ export const Radix_MUI_온보딩_체크리스트: Story = {
   },
 }
 
+/* --------------------------------------------------------------------------
+   Apple HIG 벤치마크: 계층형 그룹 체크박스
+   Apple Settings-style 그룹 헤더 + 들여쓰기 + 부모/자식 체크박스
+-------------------------------------------------------------------------- */
+type HigAppGroup = { id: string; label: string; items: { id: string; label: string; desc: string }[] }
+
+const HIG_APP_GROUPS: HigAppGroup[] = [
+  {
+    id: 'productivity', label: '생산성 앱',
+    items: [
+      { id: 'notion', label: 'Notion', desc: '문서, 데이터베이스, 페이지' },
+      { id: 'linear', label: 'Linear', desc: '이슈 트래킹, 프로젝트 관리' },
+      { id: 'figma', label: 'Figma', desc: 'UI 디자인, 프로토타이핑' },
+    ],
+  },
+  {
+    id: 'developer', label: '개발자 도구',
+    items: [
+      { id: 'vscode', label: 'VS Code', desc: '코드 편집기' },
+      { id: 'webstorm', label: 'WebStorm', desc: 'JavaScript IDE' },
+    ],
+  },
+]
+
+export const Apple_HIG_계층형_그룹_체크박스: Story = {
+  name: 'Apple HIG — 계층형 그룹 선택 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Apple HIG Settings 화면의 그룹 체크박스 패턴. 상위 그룹 체크박스로 하위 항목 일괄 선택/해제, ' +
+          '부분 선택 시 상위 체크박스 indeterminate 상태(minus 아이콘), 그룹 간 명확한 시각적 구분.',
+      },
+    },
+  },
+  render: function AppleHIGGroupCheckbox() {
+    const [checked, setChecked] = useState<Record<string, boolean>>({
+      notion: true, linear: false, figma: true, vscode: true, webstorm: false,
+    })
+
+    const getGroupState = (group: HigAppGroup): { allChecked: boolean; someChecked: boolean } => {
+      const groupItems = group.items.map((i) => checked[i.id])
+      const allChecked = groupItems.every(Boolean)
+      const someChecked = groupItems.some(Boolean) && !allChecked
+      return { allChecked, someChecked }
+    }
+
+    const toggleGroup = (group: HigAppGroup) => {
+      const { allChecked } = getGroupState(group)
+      const next = { ...checked }
+      group.items.forEach((item) => { next[item.id] = !allChecked })
+      setChecked(next)
+    }
+
+    const toggleItem = (id: string) => {
+      setChecked((prev) => ({ ...prev, [id]: !prev[id] }))
+    }
+
+    const totalSelected = Object.values(checked).filter(Boolean).length
+
+    return (
+      <div style={{ width: 340, fontFamily: 'system-ui, sans-serif' }}>
+        <div style={{ padding: '10px 16px', borderRadius: '10px 10px 0 0', background: '#f8fafc', borderBottom: '1px solid #e2e8f0', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <span style={{ fontSize: 13, fontWeight: 700, color: '#0f172a' }}>동기화할 앱 선택</span>
+          <span style={{ fontSize: 11, color: '#6366f1' }}>{totalSelected}개 선택됨</span>
+        </div>
+
+        {HIG_APP_GROUPS.map((group, gi) => {
+          const { allChecked, someChecked } = getGroupState(group)
+          return (
+            <div key={group.id} style={{ borderBottom: gi < HIG_APP_GROUPS.length - 1 ? '1px solid #e2e8f0' : 'none' }}>
+              {/* 그룹 헤더 */}
+              <div
+                style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 16px', background: '#f1f5f9', cursor: 'pointer' }}
+                onClick={() => toggleGroup(group)}
+              >
+                <Checkbox
+                  checked={allChecked || someChecked}
+                  iconName={someChecked && !allChecked ? 'minus' : 'check'}
+                  onChange={() => toggleGroup(group)}
+                  aria-label={group.label}
+                />
+                <span style={{ fontSize: 12, fontWeight: 700, color: '#475569', letterSpacing: 0.3 }}>{group.label}</span>
+              </div>
+
+              {/* 하위 항목 */}
+              {group.items.map((item) => (
+                <div
+                  key={item.id}
+                  style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '9px 16px 9px 36px', borderTop: '1px solid #f8fafc', cursor: 'pointer' }}
+                  onClick={() => toggleItem(item.id)}
+                >
+                  <Checkbox
+                    checked={checked[item.id]}
+                    onChange={() => toggleItem(item.id)}
+                    aria-label={item.label}
+                  />
+                  <div>
+                    <div style={{ fontSize: 13, color: '#0f172a', fontWeight: 500 }}>{item.label}</div>
+                    <div style={{ fontSize: 11, color: '#94a3b8' }}>{item.desc}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )
+        })}
+      </div>
+    )
+  },
+}
+
+/* --------------------------------------------------------------------------
+   Google Material 3 벤치마크: 필터 칩 체크박스
+   M3 Filter Chip — 체크 상태가 Chip 배경 채워짐으로 시각화
+-------------------------------------------------------------------------- */
+type M3FilterTag = { id: string; label: string; count: number }
+
+const M3_FILTER_TAGS: M3FilterTag[] = [
+  { id: 'bug', label: '버그', count: 12 },
+  { id: 'feature', label: '기능 요청', count: 8 },
+  { id: 'docs', label: '문서', count: 5 },
+  { id: 'performance', label: '성능', count: 3 },
+  { id: 'accessibility', label: '접근성', count: 4 },
+  { id: 'design', label: '디자인', count: 7 },
+  { id: 'test', label: '테스트', count: 6 },
+]
+
+export const Material3_필터_칩_체크박스: Story = {
+  name: 'Google Material 3 — 필터 칩 체크박스 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'M3 Filter Chip 패턴. Checkbox 상태가 Chip 배경 채워짐(tonal)으로 시각화. ' +
+          '선택 시 체크 아이콘 + 색상 전환으로 명확한 선택 상태 표시. 이슈/태그 필터에 활용.',
+      },
+    },
+  },
+  render: function M3FilterChips() {
+    const [selected, setSelected] = useState<string[]>(['bug', 'feature'])
+
+    const toggle = (id: string) => {
+      if (selected.includes(id)) {
+        setSelected(selected.filter((s) => s !== id))
+      } else {
+        setSelected([...selected, id])
+      }
+    }
+
+    const totalIssues = M3_FILTER_TAGS
+      .filter((t) => selected.includes(t.id))
+      .reduce((sum, t) => sum + t.count, 0)
+
+    return (
+      <div style={{ width: 380, fontFamily: 'system-ui, sans-serif' }}>
+        <div style={{ fontSize: 13, fontWeight: 700, color: '#0f172a', marginBottom: 12 }}>
+          이슈 필터
+        </div>
+
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginBottom: 16 }}>
+          {M3_FILTER_TAGS.map((tag) => {
+            const isSelected = selected.includes(tag.id)
+            return (
+              <div
+                key={tag.id}
+                onClick={() => toggle(tag.id)}
+                style={{
+                  display: 'flex', alignItems: 'center', gap: 6,
+                  padding: '6px 12px', borderRadius: 20, cursor: 'pointer',
+                  border: `1.5px solid ${isSelected ? '#6366f1' : '#e2e8f0'}`,
+                  background: isSelected ? '#eff6ff' : '#fff',
+                  transition: 'all 0.15s',
+                }}
+              >
+                <Checkbox
+                  checked={isSelected}
+                  onChange={() => toggle(tag.id)}
+                  aria-label={tag.label}
+                />
+                <span style={{ fontSize: 13, fontWeight: isSelected ? 600 : 400, color: isSelected ? '#4f46e5' : '#374151' }}>
+                  {tag.label}
+                </span>
+                <span style={{ fontSize: 10, padding: '1px 5px', borderRadius: 10, background: isSelected ? '#c7d2fe' : '#f1f5f9', color: isSelected ? '#4338ca' : '#94a3b8', fontWeight: 600 }}>
+                  {tag.count}
+                </span>
+              </div>
+            )
+          })}
+        </div>
+
+        <div style={{ padding: '10px 14px', borderRadius: 8, background: '#f8fafc', border: '1px solid #e2e8f0', fontSize: 12, color: '#64748b', display: 'flex', justifyContent: 'space-between' }}>
+          <span>{selected.length}개 카테고리 선택됨</span>
+          <span style={{ fontWeight: 600, color: '#4f46e5' }}>{totalIssues}개 이슈</span>
+        </div>
+
+        {selected.length > 0 && (
+          <button
+            onClick={() => setSelected([])}
+            style={{ marginTop: 8, fontSize: 11, color: '#94a3b8', background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}
+          >
+            필터 초기화
+          </button>
+        )}
+      </div>
+    )
+  },
+}
+
+/* --------------------------------------------------------------------------
+   Google Material 3 벤치마크: 개인정보 설정 체크리스트
+   M3 Settings list — 데이터 수집 항목 체크박스 + 중요도 뱃지
+-------------------------------------------------------------------------- */
+type M3PrivacySetting = { id: string; title: string; desc: string; required: boolean; importance: 'high' | 'medium' | 'low' }
+
+const M3_PRIVACY_SETTINGS: M3PrivacySetting[] = [
+  { id: 'essential', title: '필수 쿠키', desc: '서비스 운영에 필수적인 데이터', required: true, importance: 'high' },
+  { id: 'analytics', title: '분석 데이터', desc: '서비스 개선을 위한 사용 패턴 분석', required: false, importance: 'medium' },
+  { id: 'marketing', title: '마케팅', desc: '개인화된 광고 및 추천', required: false, importance: 'low' },
+  { id: 'personalize', title: '개인화', desc: '사용자 경험 맞춤 설정', required: false, importance: 'medium' },
+  { id: 'thirdparty', title: '서드파티 공유', desc: '파트너사 데이터 공유', required: false, importance: 'low' },
+]
+
+const M3_IMPORTANCE_STYLE: Record<M3PrivacySetting['importance'], { label: string; color: string; bg: string }> = {
+  high: { label: '필수', color: '#dc2626', bg: '#fee2e2' },
+  medium: { label: '권장', color: '#d97706', bg: '#fef3c7' },
+  low: { label: '선택', color: '#64748b', bg: '#f1f5f9' },
+}
+
+export const Material3_개인정보_설정_체크리스트: Story = {
+  name: 'Google Material 3 — 개인정보 설정 체크리스트',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'M3 Settings 화면의 Privacy 체크리스트 패턴. 항목별 중요도 뱃지(필수/권장/선택), ' +
+          '필수 항목 disabled + 항상 체크 처리, 수락 시 설명 영역 색상 전환.',
+      },
+    },
+  },
+  render: function M3PrivacyChecklist() {
+    const [accepted, setAccepted] = useState<Record<string, boolean>>({
+      essential: true, analytics: true, marketing: false, personalize: true, thirdparty: false,
+    })
+
+    const toggleAccept = (id: string) => {
+      setAccepted((prev) => ({ ...prev, [id]: !prev[id] }))
+    }
+
+    const acceptedCount = Object.values(accepted).filter(Boolean).length
+
+    return (
+      <div style={{ width: 380, fontFamily: 'system-ui, sans-serif' }}>
+        <div style={{ marginBottom: 12 }}>
+          <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a', marginBottom: 2 }}>개인정보 및 쿠키 설정</div>
+          <div style={{ fontSize: 12, color: '#64748b' }}>수집 및 활용할 데이터 항목을 선택하세요</div>
+        </div>
+
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+          {M3_PRIVACY_SETTINGS.map((setting) => {
+            const isAccepted = accepted[setting.id]
+            const style = M3_IMPORTANCE_STYLE[setting.importance]
+            return (
+              <div
+                key={setting.id}
+                onClick={() => { if (!setting.required) { toggleAccept(setting.id) } }}
+                style={{
+                  display: 'flex', alignItems: 'flex-start', gap: 12, padding: '12px 14px',
+                  borderRadius: 10, border: `1px solid ${isAccepted ? '#c7d2fe' : '#e2e8f0'}`,
+                  background: isAccepted ? '#f5f3ff' : '#fff',
+                  cursor: setting.required ? 'default' : 'pointer',
+                  transition: 'all 0.15s',
+                }}
+              >
+                <Checkbox
+                  checked={isAccepted ? true : false}
+                  disabled={setting.required}
+                  onChange={() => { if (!setting.required) { toggleAccept(setting.id) } }}
+                  aria-label={setting.title}
+                />
+                <div style={{ flex: 1 }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 2 }}>
+                    <span style={{ fontSize: 13, fontWeight: 600, color: '#0f172a' }}>{setting.title}</span>
+                    <span style={{ fontSize: 10, fontWeight: 700, padding: '1px 6px', borderRadius: 4, color: style.color, background: style.bg }}>
+                      {style.label}
+                    </span>
+                  </div>
+                  <div style={{ fontSize: 11, color: '#64748b', lineHeight: 1.5 }}>{setting.desc}</div>
+                </div>
+              </div>
+            )
+          })}
+        </div>
+
+        <div style={{ marginTop: 12, padding: '10px 14px', borderRadius: 8, background: '#f8fafc', border: '1px solid #e2e8f0', fontSize: 12, color: '#475569', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <span>{acceptedCount}/{M3_PRIVACY_SETTINGS.length}개 항목 동의</span>
+          <button
+            onClick={() => setAccepted(Object.fromEntries(M3_PRIVACY_SETTINGS.map((s) => [s.id, true])))}
+            style={{ fontSize: 11, fontWeight: 600, color: '#6366f1', background: 'none', border: 'none', cursor: 'pointer' }}
+          >
+            전체 동의
+          </button>
+        </div>
+      </div>
+    )
+  },
+}
+
 export const 디자인_QA = {
   args: {
     disabled: false,

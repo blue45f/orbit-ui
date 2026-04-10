@@ -25778,3 +25778,175 @@ export const Raycast106NotificationCenter: StoryObj = {
   },
   render: () => <RC106NotificationCenterRender />,
 }
+
+// ─── Cycle 107: Apple HIG + Google Material 3 ────────────────────────────────
+
+type KB107Status = 'todo' | 'inprogress' | 'review' | 'done'
+type KB107Priority = 'high' | 'medium' | 'low'
+
+type KB107Task = {
+  id: number
+  title: string
+  desc: string
+  status: KB107Status
+  priority: KB107Priority
+  assignee: string
+  assigneeColor: string
+  label: string
+}
+
+const KB107_TASKS: KB107Task[] = [
+  { id: 1, title: 'Switch 반응형 prop 지원', desc: 'Core 패키지 Space 컴포넌트 breakpoint 기반 값 지원', status: 'todo', priority: 'high', assignee: '김지수', assigneeColor: '#3b82f6', label: 'feat' },
+  { id: 2, title: 'BenchmarkComparison MDX 갱신', desc: 'Cycle 107 Apple HIG + M3 벤치마크 섹션 추가', status: 'inprogress', priority: 'medium', assignee: '이민준', assigneeColor: '#8b5cf6', label: 'docs' },
+  { id: 3, title: 'Checkbox indeterminate 접근성', desc: 'WAI-ARIA aria-checked=mixed 속성 검증', status: 'inprogress', priority: 'high', assignee: '박서연', assigneeColor: '#10b981', label: 'a11y' },
+  { id: 4, title: 'Vercel 100/day 제한 해결', desc: 'Pro plan 전환 또는 배포 횟수 최적화 방안 검토', status: 'review', priority: 'low', assignee: '김지수', assigneeColor: '#3b82f6', label: 'infra' },
+  { id: 5, title: 'DataTable 정렬 스토리 추가', desc: 'Ant Design Table 패턴 벤치마크', status: 'todo', priority: 'medium', assignee: '이민준', assigneeColor: '#8b5cf6', label: 'feat' },
+  { id: 6, title: 'Toggle 토큰값 문서화', desc: 'Spacing Typing 가이드라인 내 토큰 vs px 혼용 금지', status: 'review', priority: 'medium', assignee: '박서연', assigneeColor: '#10b981', label: 'docs' },
+  { id: 7, title: 'Storybook build 최적화', desc: 'Templates chunk 500KB 이상 경고 해결 — manualChunks 설정', status: 'done', priority: 'high', assignee: '김지수', assigneeColor: '#3b82f6', label: 'perf' },
+  { id: 8, title: 'Cycle 106 배포 완료', desc: 'Vercel orbit-ui storybook-static 배포 확인', status: 'done', priority: 'low', assignee: '이민준', assigneeColor: '#8b5cf6', label: 'infra' },
+]
+
+const KB107_COLUMNS: { id: KB107Status; label: string; color: string }[] = [
+  { id: 'todo', label: '할 일', color: '#64748b' },
+  { id: 'inprogress', label: '진행 중', color: '#3b82f6' },
+  { id: 'review', label: '검토', color: '#f59e0b' },
+  { id: 'done', label: '완료', color: '#10b981' },
+]
+
+const KB107_PRIORITY_COLOR: Record<KB107Priority, string> = { high: '#ef4444', medium: '#f59e0b', low: '#94a3b8' }
+const KB107_PRIORITY_LABEL: Record<KB107Priority, string> = { high: '긴급', medium: '중간', low: '낮음' }
+const KB107_LABEL_COLOR: Record<string, string> = {
+  feat: '#6366f1', docs: '#0ea5e9', a11y: '#10b981', infra: '#64748b', perf: '#f59e0b',
+}
+
+function KB107KanbanRender() {
+  const [tasks, setTasks] = useState(KB107_TASKS)
+  const [filter, setFilter] = useState<KB107Priority | 'all'>('all')
+  const [searchQuery, setSearchQuery] = useState('')
+
+  const filteredTasks = tasks.filter((t) => {
+    const priorityMatch = filter === 'all' || t.priority === filter
+    const queryMatch = t.title.toLowerCase().includes(searchQuery.toLowerCase())
+    return priorityMatch && queryMatch
+  })
+
+  const moveTask = (id: number, direction: 'left' | 'right') => {
+    const order: KB107Status[] = ['todo', 'inprogress', 'review', 'done']
+    setTasks((prev) => prev.map((t) => {
+      if (t.id !== id) return t
+      const currentIdx = order.indexOf(t.status)
+      const nextIdx = direction === 'right' ? Math.min(currentIdx + 1, 3) : Math.max(currentIdx - 1, 0)
+      return { ...t, status: order[nextIdx] }
+    }))
+  }
+
+  return (
+    <div style={{ width: '100%', minHeight: '100vh', background: '#f8fafc', fontFamily: 'system-ui, sans-serif' }}>
+      <AppBar>
+        <AppBar.Leading>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+            <div style={{ width: 28, height: 28, borderRadius: 8, background: '#6366f1', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 12, fontWeight: 800, color: '#fff' }}>KB</div>
+            <span style={{ fontWeight: 700, fontSize: 15 }}>Kanban Board</span>
+          </div>
+        </AppBar.Leading>
+        <AppBar.Trailing>
+          <SearchBar value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} placeholder="태스크 검색..." />
+        </AppBar.Trailing>
+      </AppBar>
+
+      <div style={{ padding: '16px 20px' }}>
+        {/* 우선순위 필터 */}
+        <div style={{ display: 'flex', gap: 6, marginBottom: 16, alignItems: 'center' }}>
+          <span style={{ fontSize: 11, color: '#94a3b8', fontWeight: 600 }}>우선순위:</span>
+          {([['all', '전체'], ['high', '긴급'], ['medium', '중간'], ['low', '낮음']] as [KB107Priority | 'all', string][]).map(([val, label]) => (
+            <Chip key={val} selected={filter === val} onClick={() => setFilter(val)}>
+              {label}
+            </Chip>
+          ))}
+          <span style={{ marginLeft: 'auto', fontSize: 11, color: '#94a3b8' }}>{filteredTasks.length}개 태스크</span>
+        </div>
+
+        {/* 칸반 컬럼 */}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 12, alignItems: 'start' }}>
+          {KB107_COLUMNS.map((col) => {
+            const colTasks = filteredTasks.filter((t) => t.status === col.id)
+            return (
+              <div key={col.id} style={{ borderRadius: 12, background: '#fff', border: '1px solid #e2e8f0', overflow: 'hidden' }}>
+                {/* 컬럼 헤더 */}
+                <div style={{ padding: '10px 14px', borderBottom: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', gap: 8 }}>
+                  <span style={{ width: 8, height: 8, borderRadius: '50%', background: col.color, display: 'inline-block' }} />
+                  <span style={{ fontSize: 12, fontWeight: 700, color: '#0f172a' }}>{col.label}</span>
+                  <span style={{ marginLeft: 'auto', fontSize: 11, fontWeight: 700, color: col.color, background: col.color + '18', borderRadius: 10, padding: '1px 7px' }}>
+                    {colTasks.length}
+                  </span>
+                </div>
+
+                {/* 태스크 카드 */}
+                <div style={{ padding: '8px', display: 'flex', flexDirection: 'column', gap: 6, minHeight: 80 }}>
+                  {colTasks.length === 0 && (
+                    <div style={{ padding: '20px 0', textAlign: 'center', color: '#cbd5e1', fontSize: 11 }}>태스크 없음</div>
+                  )}
+                  {colTasks.map((task) => (
+                    <div key={task.id} style={{ padding: '10px 12px', borderRadius: 8, border: '1px solid #f1f5f9', background: '#fafafa' }}>
+                      <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: 4, gap: 4 }}>
+                        <div style={{ fontSize: 12, fontWeight: 600, color: '#0f172a', lineHeight: 1.4, flex: 1 }}>{task.title}</div>
+                        <span style={{ width: 6, height: 6, borderRadius: '50%', background: KB107_PRIORITY_COLOR[task.priority], flexShrink: 0, marginTop: 4 }} />
+                      </div>
+                      <div style={{ fontSize: 10, color: '#94a3b8', lineHeight: 1.4, marginBottom: 8 }}>{task.desc}</div>
+                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+                          <div style={{ width: 18, height: 18, borderRadius: '50%', background: task.assigneeColor, color: '#fff', fontSize: 8, fontWeight: 700, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                            {task.assignee[0]}
+                          </div>
+                          <LabelBadge color="gray">{task.label}</LabelBadge>
+                        </div>
+                        <div style={{ display: 'flex', gap: 2 }}>
+                          {col.id !== 'todo' && (
+                            <button onClick={() => moveTask(task.id, 'left')} style={{ background: 'none', border: '1px solid #e2e8f0', borderRadius: 4, cursor: 'pointer', fontSize: 10, padding: '1px 5px', color: '#64748b' }}>←</button>
+                          )}
+                          {col.id !== 'done' && (
+                            <button onClick={() => moveTask(task.id, 'right')} style={{ background: 'none', border: '1px solid #e2e8f0', borderRadius: 4, cursor: 'pointer', fontSize: 10, padding: '1px 5px', color: '#64748b' }}>→</button>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )
+          })}
+        </div>
+
+        {/* 범례 */}
+        <div style={{ marginTop: 14, display: 'flex', gap: 16, fontSize: 10, color: '#94a3b8', flexWrap: 'wrap' }}>
+          {(['high', 'medium', 'low'] as KB107Priority[]).map((p) => (
+            <span key={p} style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+              <span style={{ width: 6, height: 6, borderRadius: '50%', background: KB107_PRIORITY_COLOR[p], display: 'inline-block' }} />
+              {KB107_PRIORITY_LABEL[p]}
+            </span>
+          ))}
+          {Object.entries(KB107_LABEL_COLOR).map(([label, color]) => (
+            <span key={label} style={{ fontSize: 10, fontWeight: 700, padding: '1px 6px', borderRadius: 4, background: color + '18', color }}>
+              {label}
+            </span>
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const AppleHIG107KanbanBoard: StoryObj = {
+  name: 'Apple HIG + Material 3 — Kanban Board (Cycle 107)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Apple HIG + Google Material 3 벤치마크 — Cycle 107. ' +
+          '칸반 보드: 4컬럼(할 일/진행 중/검토/완료) + 태스크 카드 이동(← →) + 우선순위 Chip 필터 + 검색. ' +
+          'AppBar, SearchBar, Chip, LabelBadge 복합 활용.',
+      },
+    },
+  },
+  render: () => <KB107KanbanRender />,
+}

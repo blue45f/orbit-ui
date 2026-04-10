@@ -1011,3 +1011,267 @@ export const MUI_Figma_컬럼_가시성_토글: Story = {
   },
   render: () => <ColumnVisibilityRender />,
 }
+
+/* --------------------------------------------------------------------------
+   Apple HIG 벤치마크: 세부 설정 그룹 스위치
+   Apple Settings Detail Screen — 그룹별 Switch 목록 + 그룹 설명 푸터
+-------------------------------------------------------------------------- */
+type HigSwitchGroup = { title: string; footer: string; items: { id: string; label: string; desc?: string }[] }
+
+const HIG_SWITCH_GROUPS: HigSwitchGroup[] = [
+  {
+    title: '사생활 보호',
+    footer: '이 설정은 앱이 기기 데이터에 접근하는 방식을 제어합니다.',
+    items: [
+      { id: 'location', label: '위치 서비스', desc: '백그라운드 위치 추적 허용' },
+      { id: 'contacts', label: '연락처 접근', desc: '주소록 데이터 읽기 허용' },
+      { id: 'camera', label: '카메라', desc: '사진 촬영 및 동영상 녹화' },
+    ],
+  },
+  {
+    title: '알림',
+    footer: '알림 배지는 앱 아이콘에 표시됩니다.',
+    items: [
+      { id: 'push', label: '푸시 알림' },
+      { id: 'badge', label: '배지 표시' },
+      { id: 'sound', label: '알림 소리' },
+    ],
+  },
+]
+
+export const Apple_HIG_세부_설정_그룹: Story = {
+  name: 'Apple HIG — 세부 설정 화면 그룹 스위치',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Apple HIG Settings Detail 화면 패턴. 그룹 제목 + Switch 목록 + 그룹 설명 푸터로 구성. ' +
+          '각 항목은 레이블/설명 2줄 구조, 그룹 간 명확한 시각적 구분.',
+      },
+    },
+  },
+  render: function AppleHIGDetailSettings() {
+    const [switches, setSwitches] = useState<Record<string, boolean>>({
+      location: true, contacts: false, camera: true,
+      push: true, badge: true, sound: false,
+    })
+
+    const toggle = (id: string) => {
+      setSwitches((prev) => ({ ...prev, [id]: !prev[id] }))
+    }
+
+    return (
+      <div style={{ width: 320, fontFamily: 'system-ui, -apple-system, sans-serif', background: '#f2f2f7', borderRadius: 16, overflow: 'hidden' }}>
+        {HIG_SWITCH_GROUPS.map((group, gi) => (
+          <div key={group.title} style={{ marginBottom: gi < HIG_SWITCH_GROUPS.length - 1 ? 16 : 0 }}>
+            <div style={{ padding: '8px 16px 4px', fontSize: 11, fontWeight: 600, color: '#6d6d72', textTransform: 'uppercase', letterSpacing: 0.4 }}>
+              {group.title}
+            </div>
+            <div style={{ background: '#fff', borderRadius: 10, overflow: 'hidden', margin: '0 0' }}>
+              {group.items.map((item, idx) => (
+                <div
+                  key={item.id}
+                  style={{
+                    display: 'flex', alignItems: 'center', padding: '12px 16px',
+                    borderTop: idx === 0 ? 'none' : '1px solid #f2f2f7',
+                    cursor: 'pointer',
+                  }}
+                  onClick={() => toggle(item.id)}
+                >
+                  <div style={{ flex: 1 }}>
+                    <div style={{ fontSize: 14, color: '#000', fontWeight: 400 }}>{item.label}</div>
+                    {item.desc && <div style={{ fontSize: 12, color: '#8e8e93', marginTop: 1 }}>{item.desc}</div>}
+                  </div>
+                  <Switch
+                    checked={switches[item.id]}
+                    onCheckedChange={() => toggle(item.id)}
+                  />
+                </div>
+              ))}
+            </div>
+            <div style={{ padding: '4px 16px 8px', fontSize: 12, color: '#8e8e93', lineHeight: 1.5 }}>
+              {group.footer}
+            </div>
+          </div>
+        ))}
+      </div>
+    )
+  },
+}
+
+/* --------------------------------------------------------------------------
+   Google Material 3 벤치마크: 기기 권한 토글 패널
+   M3 Permission Settings — 아이콘 + 권한명 + 상태 설명 + Switch 패턴
+-------------------------------------------------------------------------- */
+type M3Permission = { id: string; icon: string; name: string; desc: string; risk: 'high' | 'medium' | 'low' }
+
+const M3_PERMISSIONS: M3Permission[] = [
+  { id: 'location', icon: 'LOC', name: '위치', desc: '앱이 기기 위치에 접근합니다', risk: 'high' },
+  { id: 'camera', icon: 'CAM', name: '카메라', desc: '사진 및 동영상 촬영을 허용합니다', risk: 'medium' },
+  { id: 'microphone', icon: 'MIC', name: '마이크', desc: '오디오 녹음을 허용합니다', risk: 'medium' },
+  { id: 'contacts', icon: 'CON', name: '연락처', desc: '주소록 데이터를 읽습니다', risk: 'high' },
+  { id: 'storage', icon: 'STO', name: '저장소', desc: '파일 읽기/쓰기를 허용합니다', risk: 'low' },
+  { id: 'notifications', icon: 'NTF', name: '알림', desc: '앱 알림을 표시합니다', risk: 'low' },
+]
+
+const M3_RISK_COLOR: Record<M3Permission['risk'], string> = {
+  high: '#ef4444',
+  medium: '#f59e0b',
+  low: '#10b981',
+}
+
+export const Material3_기기_권한_토글: Story = {
+  name: 'Google Material 3 — 기기 권한 토글 패널',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'M3 App Permission Settings 패턴. 권한별 아이콘 + 이름 + 설명 + 위험도 색상 + Switch. ' +
+          '위험도(high/medium/low)를 색상 배지로 표시해 권한 민감도를 직관적으로 안내.',
+      },
+    },
+  },
+  render: function M3PermissionPanel() {
+    const [permissions, setPermissions] = useState<Record<string, boolean>>(
+      Object.fromEntries(M3_PERMISSIONS.map((p) => [p.id, p.risk === 'low']))
+    )
+
+    const toggle = (id: string) => {
+      setPermissions((prev) => ({ ...prev, [id]: !prev[id] }))
+    }
+
+    const grantedCount = Object.values(permissions).filter(Boolean).length
+
+    return (
+      <div style={{ width: 360, borderRadius: 16, border: '1px solid #e2e8f0', overflow: 'hidden', background: '#fff', fontFamily: 'system-ui, sans-serif' }}>
+        <div style={{ padding: '14px 16px', background: '#0f172a', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <div>
+            <div style={{ fontSize: 14, fontWeight: 700, color: '#f8fafc' }}>앱 권한</div>
+            <div style={{ fontSize: 11, color: '#64748b' }}>Orbit UI — {grantedCount}/{M3_PERMISSIONS.length} 허용됨</div>
+          </div>
+          <button
+            onClick={() => setPermissions(Object.fromEntries(M3_PERMISSIONS.map((p) => [p.id, false])))}
+            style={{ fontSize: 11, color: '#94a3b8', background: 'none', border: 'none', cursor: 'pointer' }}
+          >
+            전체 거부
+          </button>
+        </div>
+
+        {M3_PERMISSIONS.map((perm, idx) => (
+          <div
+            key={perm.id}
+            style={{
+              display: 'flex', alignItems: 'center', gap: 12, padding: '13px 16px',
+              borderTop: idx === 0 ? 'none' : '1px solid #f1f5f9',
+              background: permissions[perm.id] ? '#f0fdf4' : '#fff',
+              transition: 'background 0.15s', cursor: 'pointer',
+            }}
+            onClick={() => toggle(perm.id)}
+          >
+            <div style={{
+              width: 36, height: 36, borderRadius: 10,
+              background: M3_RISK_COLOR[perm.risk] + '18',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              fontSize: 9, fontWeight: 800, color: M3_RISK_COLOR[perm.risk],
+              flexShrink: 0, letterSpacing: -0.5,
+            }}>
+              {perm.icon}
+            </div>
+            <div style={{ flex: 1 }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 1 }}>
+                <span style={{ fontSize: 13, fontWeight: 600, color: '#0f172a' }}>{perm.name}</span>
+                <span style={{ width: 6, height: 6, borderRadius: '50%', background: M3_RISK_COLOR[perm.risk], display: 'inline-block' }} />
+              </div>
+              <div style={{ fontSize: 11, color: '#64748b' }}>{perm.desc}</div>
+            </div>
+            <Switch
+              checked={permissions[perm.id]}
+              onCheckedChange={() => toggle(perm.id)}
+            />
+          </div>
+        ))}
+      </div>
+    )
+  },
+}
+
+/* --------------------------------------------------------------------------
+   Apple HIG 벤치마크: 빠른 설정 패널
+   Apple Control Center — 기능별 아이콘 타일 + Switch 토글 패턴
+-------------------------------------------------------------------------- */
+type HigQuickSetting = { id: string; label: string; icon: string; color: string }
+
+const HIG_QUICK_SETTINGS: HigQuickSetting[] = [
+  { id: 'wifi', label: 'Wi-Fi', icon: 'WIFI', color: '#3b82f6' },
+  { id: 'bluetooth', label: 'Bluetooth', icon: 'BT', color: '#3b82f6' },
+  { id: 'dnd', label: '방해 금지', icon: 'DND', color: '#8b5cf6' },
+  { id: 'darkmode', label: '다크 모드', icon: 'DARK', color: '#1e293b' },
+  { id: 'lowpower', label: '저전력 모드', icon: 'PWR', color: '#f59e0b' },
+  { id: 'focusmode', label: '집중 모드', icon: 'FOCUS', color: '#10b981' },
+]
+
+export const Apple_HIG_빠른_설정_패널: Story = {
+  name: 'Apple HIG — 빠른 설정 Control Center 패널',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Apple Control Center 빠른 설정 패턴. 아이콘 타일 + Switch 토글을 격자로 배치. ' +
+          '활성화 시 타일 배경 채워짐 + 아이콘 색상 전환으로 즉각적인 피드백.',
+      },
+    },
+  },
+  render: function AppleQuickSettings() {
+    const [settings, setSettings] = useState<Record<string, boolean>>(
+      { wifi: true, bluetooth: true, dnd: false, darkmode: false, lowpower: false, focusmode: false }
+    )
+
+    const toggle = (id: string) => {
+      setSettings((prev) => ({ ...prev, [id]: !prev[id] }))
+    }
+
+    return (
+      <div style={{ width: 280, fontFamily: 'system-ui, -apple-system, sans-serif' }}>
+        <div style={{ fontSize: 13, fontWeight: 700, color: '#0f172a', marginBottom: 12 }}>빠른 설정</div>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 8 }}>
+          {HIG_QUICK_SETTINGS.map((setting) => {
+            const isOn = settings[setting.id]
+            return (
+              <div
+                key={setting.id}
+                onClick={() => toggle(setting.id)}
+                style={{
+                  display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-between',
+                  padding: '12px 8px', borderRadius: 14, cursor: 'pointer',
+                  background: isOn ? setting.color : '#f1f5f9',
+                  transition: 'background 0.2s',
+                  minHeight: 72,
+                }}
+              >
+                <div style={{
+                  fontSize: 10, fontWeight: 800, letterSpacing: -0.5,
+                  color: isOn ? '#fff' : '#64748b',
+                  background: isOn ? 'rgba(255,255,255,0.2)' : '#e2e8f0',
+                  borderRadius: 8, padding: '5px 7px',
+                }}>
+                  {setting.icon}
+                </div>
+                <div>
+                  <div style={{ fontSize: 10, fontWeight: 600, color: isOn ? '#fff' : '#374151', textAlign: 'center', marginBottom: 4 }}>
+                    {setting.label}
+                  </div>
+                  <div style={{ display: 'flex', justifyContent: 'center' }}>
+                    <Switch
+                      checked={isOn}
+                      onCheckedChange={() => toggle(setting.id)}
+                    />
+                  </div>
+                </div>
+              </div>
+            )
+          })}
+        </div>
+      </div>
+    )
+  },
+}
