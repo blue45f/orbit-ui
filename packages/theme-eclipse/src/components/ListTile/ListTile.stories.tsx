@@ -1373,3 +1373,248 @@ export const Tailwind_MUI_검색_결과_목록: Story = {
     )
   },
 }
+
+// ──────────────────────────────────────────────────────────────────────────────
+// Cycle 166: Tailwind UI + Linear Design
+// ──────────────────────────────────────────────────────────────────────────────
+
+export const TailwindUI_사람_목록_선택_패턴: Story = {
+  name: 'Tailwind UI — 사람 목록 선택 패턴 (Cycle 166)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Tailwind UI Combobox 패턴. 팀원 목록에서 다중 선택. ' +
+          '체크박스 + 아바타 + 역할 배지 조합. 선택된 항목 하단 요약 표시.',
+      },
+    },
+  },
+  render: function TailwindPeopleListRender() {
+    const people = [
+      { id: 1, name: '김민준', role: 'Frontend', initials: 'KM', color: '#3b82f6' },
+      { id: 2, name: '이지수', role: 'Design', initials: 'LJ', color: '#8b5cf6' },
+      { id: 3, name: '박서연', role: 'Backend', initials: 'PS', color: '#ec4899' },
+      { id: 4, name: '최준호', role: 'DevOps', initials: 'CJ', color: '#f59e0b' },
+      { id: 5, name: '윤지원', role: 'PM', initials: 'YJ', color: '#10b981' },
+    ]
+    const [selected, setSelected] = React.useState<number[]>([])
+
+    const toggle = (id: number) => {
+      setSelected((prev) => prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id])
+    }
+
+    const selectedPeople = people.filter((p) => selected.includes(p.id))
+
+    return (
+      <div style={{ width: 340, fontFamily: 'system-ui, sans-serif' }}>
+        <div style={{ fontSize: 13, fontWeight: 600, color: '#374151', marginBottom: 8 }}>담당자 선택</div>
+        <div style={{ border: '1px solid #e5e7eb', borderRadius: 10, overflow: 'hidden' }}>
+          {people.map((p) => {
+            const isSelected = selected.includes(p.id)
+            return (
+              <div
+                key={p.id}
+                onClick={() => toggle(p.id)}
+                style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '10px 14px', cursor: 'pointer', background: isSelected ? '#eff6ff' : '#fff', borderBottom: '1px solid #f3f4f6', transition: 'background 150ms' }}
+              >
+                <ContainedCheckbox
+                  checked={isSelected}
+                  onChange={() => toggle(p.id)}
+                />
+                <div style={{ width: 32, height: 32, borderRadius: '50%', background: p.color, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 11, fontWeight: 700, color: '#fff', flexShrink: 0 }}>
+                  {p.initials}
+                </div>
+                <ListTile style={{ flex: 1, padding: 0 }}>
+                  <ListTile.Title style={{ fontSize: 13, fontWeight: 600, color: '#111827' }}>{p.name}</ListTile.Title>
+                  <ListTile.Description style={{ fontSize: 11, color: '#6b7280' }}>{p.role}</ListTile.Description>
+                </ListTile>
+                {isSelected && <CheckIcon style={{ color: '#3b82f6', flexShrink: 0 }} />}
+              </div>
+            )
+          })}
+        </div>
+        {selectedPeople.length > 0 && (
+          <div style={{ marginTop: 10, padding: '8px 12px', background: '#eff6ff', borderRadius: 8, fontSize: 12, color: '#1d4ed8' }}>
+            {selectedPeople.length}명 선택됨: {selectedPeople.map((p) => p.name).join(', ')}
+          </div>
+        )}
+      </div>
+    )
+  },
+}
+
+export const Linear_이슈_트래커_리스트: Story = {
+  name: 'Linear — 이슈 트래커 리스트 (Cycle 166)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Linear 이슈 리스트 패턴. 상태/우선순위 아이콘 + 간결한 타이포그래피 + 호버 액션. ' +
+          'Linear의 초고밀도 UI를 ListTile로 재현.',
+      },
+    },
+  },
+  render: function LinearIssueListRender() {
+    const [issues, setIssues] = React.useState([
+      { id: 'ORB-142', title: 'Button 컴포넌트 ripple 효과 추가', status: 'in-progress', priority: 'high', assignee: 'KM', label: 'feat' },
+      { id: 'ORB-141', title: 'TextField 포커스 링 색상 오류 수정', status: 'done', priority: 'medium', assignee: 'LJ', label: 'bug' },
+      { id: 'ORB-140', title: 'Dropdown 포지셔닝 개선 (뷰포트 경계 처리)', status: 'todo', priority: 'low', assignee: 'PS', label: 'improvement' },
+      { id: 'ORB-139', title: 'DataTable 가상 스크롤 지원', status: 'todo', priority: 'high', assignee: 'CJ', label: 'feat' },
+      { id: 'ORB-138', title: 'AccessibilityGuide.mdx 초안 작성', status: 'in-progress', priority: 'medium', assignee: 'YJ', label: 'docs' },
+    ])
+
+    const [activeId, setActiveId] = React.useState<string | null>(null)
+
+    const statusConfig: Record<string, { icon: string; color: string }> = {
+      todo: { icon: '○', color: '#9ca3af' },
+      'in-progress': { icon: '◑', color: '#f59e0b' },
+      done: { icon: '●', color: '#10b981' },
+    }
+
+    const priorityConfig: Record<string, string> = {
+      high: '#ef4444',
+      medium: '#f59e0b',
+      low: '#6b7280',
+    }
+
+    const labelConfig: Record<string, { bg: string; color: string }> = {
+      feat: { bg: '#dbeafe', color: '#1d4ed8' },
+      bug: { bg: '#fee2e2', color: '#dc2626' },
+      improvement: { bg: '#dcfce7', color: '#16a34a' },
+      docs: { bg: '#ede9fe', color: '#7c3aed' },
+    }
+
+    const cycleStatus = (id: string) => {
+      setIssues((prev) => prev.map((issue) => {
+        if (issue.id !== id) return issue
+        const cycle: Record<string, string> = { todo: 'in-progress', 'in-progress': 'done', done: 'todo' }
+        return { ...issue, status: cycle[issue.status] }
+      }))
+    }
+
+    return (
+      <div style={{ width: 480, fontFamily: 'system-ui, sans-serif', background: '#fff', border: '1px solid #e5e7eb', borderRadius: 10, overflow: 'hidden' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 14px', borderBottom: '1px solid #f3f4f6', background: '#fafafa' }}>
+          <span style={{ fontSize: 12, fontWeight: 700, color: '#374151' }}>이슈 목록</span>
+          <span style={{ fontSize: 11, color: '#9ca3af' }}>{issues.length}개</span>
+        </div>
+        {issues.map((issue) => {
+          const sc = statusConfig[issue.status]
+          const lc = labelConfig[issue.label]
+          return (
+            <ListTile
+              key={issue.id}
+              onClick={() => setActiveId(activeId === issue.id ? null : issue.id)}
+              style={{ borderBottom: '1px solid #f9fafb', padding: '8px 14px', cursor: 'pointer', background: activeId === issue.id ? '#f9fafb' : '#fff' }}
+            >
+              <ListTile.Leading>
+                <span
+                  onClick={(e) => { e.stopPropagation(); cycleStatus(issue.id) }}
+                  style={{ fontSize: 14, color: sc.color, cursor: 'pointer', userSelect: 'none' }}
+                  title="상태 변경"
+                >
+                  {sc.icon}
+                </span>
+              </ListTile.Leading>
+              <ListTile.Title style={{ fontSize: 13, color: '#111827', display: 'flex', alignItems: 'center', gap: 8 }}>
+                <span style={{ fontFamily: 'monospace', fontSize: 11, color: '#9ca3af' }}>{issue.id}</span>
+                <span>{issue.title}</span>
+              </ListTile.Title>
+              <ListTile.Description style={{ fontSize: 11, color: '#6b7280', display: 'flex', gap: 8, alignItems: 'center', marginTop: 2 }}>
+                <span style={{ width: 8, height: 8, borderRadius: '50%', background: priorityConfig[issue.priority], display: 'inline-block' }} />
+                <span style={{ padding: '1px 6px', borderRadius: 4, fontSize: 10, fontWeight: 600, background: lc.bg, color: lc.color }}>{issue.label}</span>
+              </ListTile.Description>
+              <ListTile.Trailing>
+                <div style={{ width: 22, height: 22, borderRadius: '50%', background: '#e2e8f0', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 9, fontWeight: 700, color: '#475569' }}>
+                  {issue.assignee}
+                </div>
+              </ListTile.Trailing>
+            </ListTile>
+          )
+        })}
+      </div>
+    )
+  },
+}
+
+export const Tailwind_Linear_알림_센터_리스트: Story = {
+  name: 'Tailwind UI + Linear — 알림 센터 리스트 (Cycle 166)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Tailwind UI Notification list + Linear 읽음/안읽음 패턴. ' +
+          '타입별 아이콘 + 상대시간 + 액션 버튼 + 일괄 읽음 처리.',
+      },
+    },
+  },
+  render: function TailwindLinearNotifRender() {
+    const [notifs, setNotifs] = React.useState([
+      { id: 1, type: 'mention', title: '김민준님이 ORB-142에서 회원님을 멘션했습니다', time: '2분 전', read: false, icon: '💬' },
+      { id: 2, type: 'assign', title: 'ORB-139 이슈가 회원님에게 배정되었습니다', time: '15분 전', read: false, icon: '📋' },
+      { id: 3, type: 'done', title: 'ORB-141 버그가 해결되었습니다', time: '1시간 전', read: false, icon: '✅' },
+      { id: 4, type: 'comment', title: '이지수님이 댓글을 달았습니다: "디자인 토큰 검토 완료"', time: '3시간 전', read: true, icon: '💬' },
+      { id: 5, type: 'deploy', title: '프로덕션 배포가 완료되었습니다 (v2.0.0-beta.16)', time: '어제', read: true, icon: '🚀' },
+    ])
+
+    const markAllRead = () => setNotifs((prev) => prev.map((n) => ({ ...n, read: true })))
+    const markRead = (id: number) => setNotifs((prev) => prev.map((n) => n.id === id ? { ...n, read: true } : n))
+    const dismiss = (id: number) => setNotifs((prev) => prev.filter((n) => n.id !== id))
+
+    const unreadCount = notifs.filter((n) => !n.read).length
+
+    return (
+      <div style={{ width: 400, fontFamily: 'system-ui, sans-serif', background: '#fff', border: '1px solid #e5e7eb', borderRadius: 12, overflow: 'hidden' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px 16px', borderBottom: '1px solid #f3f4f6' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            <span style={{ fontSize: 13, fontWeight: 700, color: '#111827' }}>알림</span>
+            {unreadCount > 0 && (
+              <span style={{ fontSize: 10, fontWeight: 700, padding: '1px 6px', borderRadius: 10, background: '#ef4444', color: '#fff' }}>{unreadCount}</span>
+            )}
+          </div>
+          {unreadCount > 0 && (
+            <button onClick={markAllRead} style={{ fontSize: 11, color: '#3b82f6', background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>
+              모두 읽음
+            </button>
+          )}
+        </div>
+        {notifs.length === 0 ? (
+          <div style={{ padding: 32, textAlign: 'center', color: '#9ca3af', fontSize: 13 }}>알림이 없습니다</div>
+        ) : (
+          notifs.map((n) => (
+            <ListTile
+              key={n.id}
+              style={{ padding: '10px 16px', borderBottom: '1px solid #f9fafb', background: n.read ? '#fff' : '#f0f9ff' }}
+            >
+              <ListTile.Leading>
+                <span style={{ fontSize: 18 }}>{n.icon}</span>
+              </ListTile.Leading>
+              <ListTile.Title style={{ fontSize: 13, color: n.read ? '#374151' : '#111827', fontWeight: n.read ? 400 : 600 }}>
+                {n.title}
+              </ListTile.Title>
+              <ListTile.Description style={{ fontSize: 11, color: '#9ca3af', marginTop: 2 }}>{n.time}</ListTile.Description>
+              <ListTile.Trailing>
+                <div style={{ display: 'flex', gap: 4, alignItems: 'center' }}>
+                  {!n.read && (
+                    <button
+                      onClick={() => markRead(n.id)}
+                      style={{ fontSize: 10, color: '#3b82f6', background: 'none', border: 'none', cursor: 'pointer', padding: '2px 4px' }}
+                    >
+                      읽음
+                    </button>
+                  )}
+                  <button
+                    onClick={() => dismiss(n.id)}
+                    style={{ fontSize: 11, color: '#d1d5db', background: 'none', border: 'none', cursor: 'pointer', padding: '2px 4px', lineHeight: 1 }}
+                  >
+                    ×
+                  </button>
+                </div>
+              </ListTile.Trailing>
+            </ListTile>
+          ))
+        )}
+      </div>
+    )
+  },
+}

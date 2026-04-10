@@ -37330,3 +37330,198 @@ export const AntRadix165TeamDashboard: StoryObj = {
   },
   render: () => <AntRadix165TeamDashboardRender />,
 }
+
+// ──────────────────────────────────────────────────────────────────────────────
+// Cycle 166: Tailwind UI + Linear Design — 프로젝트 이슈 트래커
+// ──────────────────────────────────────────────────────────────────────────────
+
+function TailwindLinear166IssueTrackerRender() {
+  type Priority = 'low' | 'medium' | 'high' | 'urgent'
+  type Status = 'todo' | 'in-progress' | 'done'
+
+  const [query, setQuery] = useState('')
+  const [selectedStatus, setSelectedStatus] = useState<Status | 'all'>('all')
+  const [issues, setIssues] = useState([
+    { id: 'ORB-142', title: 'Button ripple 효과 추가', status: 'in-progress' as Status, priority: 'high' as Priority, assignee: 'KM', color: '#3b82f6' },
+    { id: 'ORB-141', title: 'TextField focus 링 버그 수정', status: 'done' as Status, priority: 'medium' as Priority, assignee: 'LJ', color: '#8b5cf6' },
+    { id: 'ORB-140', title: 'Dropdown 뷰포트 경계 처리', status: 'todo' as Status, priority: 'low' as Priority, assignee: 'PS', color: '#ec4899' },
+    { id: 'ORB-139', title: 'DataTable 가상 스크롤', status: 'todo' as Status, priority: 'urgent' as Priority, assignee: 'CJ', color: '#f59e0b' },
+    { id: 'ORB-138', title: 'AccessibilityGuide.mdx 초안', status: 'in-progress' as Status, priority: 'medium' as Priority, assignee: 'YJ', color: '#10b981' },
+    { id: 'ORB-137', title: '다크모드 시맨틱 토큰 정비', status: 'done' as Status, priority: 'high' as Priority, assignee: 'KM', color: '#3b82f6' },
+  ])
+
+  const [newTitle, setNewTitle] = useState('')
+  const [showCreate, setShowCreate] = useState(false)
+
+  const cycleStatus = (id: string) => {
+    setIssues((prev) => prev.map((issue) => {
+      if (issue.id !== id) return issue
+      const cycle: Record<Status, Status> = { todo: 'in-progress', 'in-progress': 'done', done: 'todo' }
+      return { ...issue, status: cycle[issue.status] }
+    }))
+  }
+
+  const createIssue = () => {
+    if (!newTitle.trim()) return
+    const id = `ORB-${Math.floor(Math.random() * 900 + 100)}`
+    setIssues((prev) => [{ id, title: newTitle.trim(), status: 'todo', priority: 'medium', assignee: 'ME', color: '#6366f1' }, ...prev])
+    setNewTitle('')
+    setShowCreate(false)
+  }
+
+  const statusConfig: Record<Status | 'all', { label: string; icon: string; color: string }> = {
+    all: { label: '전체', icon: '≡', color: '#6b7280' },
+    todo: { label: 'Todo', icon: '○', color: '#9ca3af' },
+    'in-progress': { label: '진행 중', icon: '◑', color: '#f59e0b' },
+    done: { label: '완료', icon: '●', color: '#10b981' },
+  }
+
+  const priorityColor: Record<Priority, string> = {
+    low: '#9ca3af', medium: '#f59e0b', high: '#ef4444', urgent: '#dc2626',
+  }
+
+  const filtered = issues.filter((i) => {
+    const matchQ = !query || i.title.toLowerCase().includes(query.toLowerCase()) || i.id.toLowerCase().includes(query.toLowerCase())
+    const matchS = selectedStatus === 'all' || i.status === selectedStatus
+    return matchQ && matchS
+  })
+
+  const statusCounts: Record<Status, number> = {
+    todo: issues.filter((i) => i.status === 'todo').length,
+    'in-progress': issues.filter((i) => i.status === 'in-progress').length,
+    done: issues.filter((i) => i.status === 'done').length,
+  }
+
+  return (
+    <div style={{ width: '100%', minHeight: '100vh', background: '#f8fafc', display: 'flex', fontFamily: 'system-ui, sans-serif' }}>
+      {/* Sidebar */}
+      <div style={{ width: 200, background: '#0f172a', display: 'flex', flexDirection: 'column', padding: '20px 0' }}>
+        <div style={{ padding: '0 16px 16px', borderBottom: '1px solid #1e293b' }}>
+          <div style={{ fontSize: 15, fontWeight: 800, color: '#f8fafc' }}>Orbit Issues</div>
+          <div style={{ fontSize: 11, color: '#475569', marginTop: 2 }}>프로젝트 이슈 트래커</div>
+        </div>
+        <div style={{ padding: '12px 0' }}>
+          {(Object.entries(statusConfig) as [Status | 'all', typeof statusConfig[Status]][]).map(([key, cfg]) => (
+            <div
+              key={key}
+              onClick={() => setSelectedStatus(key)}
+              style={{
+                display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                padding: '8px 16px', cursor: 'pointer',
+                background: selectedStatus === key ? '#1e293b' : 'transparent',
+                borderLeft: selectedStatus === key ? `3px solid ${cfg.color}` : '3px solid transparent',
+              }}
+            >
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                <span style={{ fontSize: 12, color: cfg.color }}>{cfg.icon}</span>
+                <span style={{ fontSize: 12, color: '#e2e8f0', fontWeight: selectedStatus === key ? 600 : 400 }}>{cfg.label}</span>
+              </div>
+              {key !== 'all' && (
+                <span style={{ fontSize: 10, fontWeight: 700, color: '#64748b' }}>{statusCounts[key as Status]}</span>
+              )}
+            </div>
+          ))}
+        </div>
+        <div style={{ marginTop: 'auto', padding: '0 12px' }}>
+          <SolidButton color="primary" size="small" onClick={() => setShowCreate(true)}>
+            <SolidButton.Center>+ 새 이슈</SolidButton.Center>
+          </SolidButton>
+        </div>
+      </div>
+
+      {/* Main */}
+      <div style={{ flex: 1, padding: 24, display: 'flex', flexDirection: 'column', gap: 16 }}>
+        {/* Header */}
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <div>
+            <div style={{ fontSize: 18, fontWeight: 800, color: '#0f172a' }}>{statusConfig[selectedStatus].label}</div>
+            <div style={{ fontSize: 12, color: '#64748b' }}>{filtered.length}개 이슈</div>
+          </div>
+        </div>
+
+        {/* Search */}
+        <TextField
+          placeholder="이슈 검색 (제목, ID)..."
+          value={query}
+          onChange={(e) => setQuery((e.target as HTMLInputElement).value)}
+        />
+
+        {/* Create Form */}
+        {showCreate && (
+          <div style={{ background: '#fff', border: '1px solid #dbeafe', borderRadius: 10, padding: 16, display: 'flex', gap: 10 }}>
+            <TextField
+              placeholder="이슈 제목..."
+              value={newTitle}
+              onChange={(e) => setNewTitle((e.target as HTMLInputElement).value)}
+              onKeyDown={(e: React.KeyboardEvent) => { if (e.key === 'Enter') createIssue() }}
+            />
+            <SolidButton color="primary" size="medium" onClick={createIssue}>
+              <SolidButton.Center>생성</SolidButton.Center>
+            </SolidButton>
+            <OutlineButton color="gray" size="medium" onClick={() => { setShowCreate(false); setNewTitle('') }}>
+              <OutlineButton.Center>취소</OutlineButton.Center>
+            </OutlineButton>
+          </div>
+        )}
+
+        {/* Issue List */}
+        <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: 12, overflow: 'hidden' }}>
+          {filtered.length === 0 ? (
+            <div style={{ padding: 40, textAlign: 'center', color: '#9ca3af', fontSize: 14 }}>이슈가 없습니다</div>
+          ) : (
+            filtered.map((issue) => {
+              const sc = statusConfig[issue.status]
+              return (
+                <div
+                  key={issue.id}
+                  style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '11px 16px', borderBottom: '1px solid #f9fafb', background: '#fff' }}
+                >
+                  <span
+                    onClick={() => cycleStatus(issue.id)}
+                    style={{ fontSize: 15, color: sc.color, cursor: 'pointer', userSelect: 'none', flexShrink: 0 }}
+                    title="클릭해서 상태 변경"
+                  >
+                    {sc.icon}
+                  </span>
+                  <span style={{ width: 8, height: 8, borderRadius: '50%', background: priorityColor[issue.priority], flexShrink: 0 }} />
+                  <span style={{ fontFamily: 'monospace', fontSize: 11, color: '#9ca3af', flexShrink: 0 }}>{issue.id}</span>
+                  <span style={{ flex: 1, fontSize: 13, color: '#111827', fontWeight: 500 }}>{issue.title}</span>
+                  <div style={{ width: 26, height: 26, borderRadius: '50%', background: issue.color, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 9, fontWeight: 700, color: '#fff', flexShrink: 0 }}>
+                    {issue.assignee}
+                  </div>
+                </div>
+              )
+            })
+          )}
+        </div>
+
+        {/* Stats */}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 12 }}>
+          {(['todo', 'in-progress', 'done'] as Status[]).map((s) => {
+            const cfg = statusConfig[s]
+            return (
+              <div key={s} style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: 10, padding: '14px 16px' }}>
+                <div style={{ fontSize: 11, color: '#6b7280', marginBottom: 4 }}>{cfg.label}</div>
+                <div style={{ fontSize: 24, fontWeight: 800, color: cfg.color }}>{statusCounts[s]}</div>
+                <Progress value={Math.round((statusCounts[s] / issues.length) * 100)} size="small" color={s === 'done' ? 'success' : s === 'in-progress' ? 'warning' : 'primary'} />
+              </div>
+            )
+          })}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const TailwindLinear166IssueTracker: StoryObj = {
+  name: 'Tailwind UI + Linear — 프로젝트 이슈 트래커 (ListTile + TextField)',
+  parameters: {
+    layout: 'fullscreen',
+    docs: {
+      description: {
+        story: 'Tailwind UI + Linear Design 복합 패턴. 좌: 상태별 사이드바, 중: TextField 검색 + 인라인 이슈 생성 + 이슈 리스트, 하: 상태별 Progress 통계 카드.',
+      },
+    },
+  },
+  render: () => <TailwindLinear166IssueTrackerRender />,
+}

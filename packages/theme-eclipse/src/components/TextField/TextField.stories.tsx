@@ -1688,3 +1688,282 @@ export const Vercel_Chakra_API_토큰_생성: Story = {
     )
   },
 }
+
+// ──────────────────────────────────────────────────────────────────────────────
+// Cycle 166: Tailwind UI + Linear Design
+// ──────────────────────────────────────────────────────────────────────────────
+
+export const TailwindUI_회원가입_폼_패턴: Story = {
+  name: 'Tailwind UI — 회원가입 폼 패턴 (Cycle 166)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Tailwind UI Registration Form 패턴. 실시간 유효성 검사 + 에러 메시지 + ' +
+          '비밀번호 강도 인디케이터 조합.',
+      },
+    },
+  },
+  render: function TailwindSignupFormRender() {
+    const [form, setForm] = useState({ email: '', password: '', name: '' })
+    const [touched, setTouched] = useState({ email: false, password: false, name: false })
+
+    const setField = (key: keyof typeof form, value: string) => {
+      setForm((prev) => ({ ...prev, [key]: value }))
+    }
+    const blur = (key: keyof typeof touched) => setTouched((prev) => ({ ...prev, [key]: true }))
+
+    const emailError = touched.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email) ? '유효한 이메일을 입력하세요' : ''
+    const nameError = touched.name && form.name.length < 2 ? '이름은 2자 이상이어야 합니다' : ''
+
+    const pwStrength = (() => {
+      const p = form.password
+      if (p.length === 0) return 0
+      let score = 0
+      if (p.length >= 8) score++
+      if (/[A-Z]/.test(p)) score++
+      if (/[0-9]/.test(p)) score++
+      if (/[^A-Za-z0-9]/.test(p)) score++
+      return score
+    })()
+
+    const strengthLabel = ['', '약함', '보통', '강함', '매우 강함'][pwStrength]
+    const strengthColor = ['', '#ef4444', '#f59e0b', '#3b82f6', '#10b981'][pwStrength]
+
+    return (
+      <div style={{ width: 360, fontFamily: 'system-ui, sans-serif' }}>
+        <div style={{ fontSize: 18, fontWeight: 800, color: '#111827', marginBottom: 4 }}>계정 만들기</div>
+        <div style={{ fontSize: 13, color: '#6b7280', marginBottom: 20 }}>빠르게 시작해 보세요</div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+          <div>
+            <label style={{ fontSize: 12, fontWeight: 600, color: '#374151', display: 'block', marginBottom: 4 }}>이름</label>
+            <TextField
+              placeholder="홍길동"
+              value={form.name}
+              onChange={(e) => setField('name', (e.target as HTMLInputElement).value)}
+              onBlur={() => blur('name')}
+              error={!!nameError}
+            />
+            {nameError && <div style={{ fontSize: 11, color: '#ef4444', marginTop: 4 }}>{nameError}</div>}
+          </div>
+          <div>
+            <label style={{ fontSize: 12, fontWeight: 600, color: '#374151', display: 'block', marginBottom: 4 }}>이메일</label>
+            <TextField
+              placeholder="hello@example.com"
+              value={form.email}
+              onChange={(e) => setField('email', (e.target as HTMLInputElement).value)}
+              onBlur={() => blur('email')}
+              error={!!emailError}
+            />
+            {emailError && <div style={{ fontSize: 11, color: '#ef4444', marginTop: 4 }}>{emailError}</div>}
+          </div>
+          <div>
+            <label style={{ fontSize: 12, fontWeight: 600, color: '#374151', display: 'block', marginBottom: 4 }}>비밀번호</label>
+            <TextField
+              placeholder="8자 이상, 특수문자 포함"
+              value={form.password}
+              onChange={(e) => setField('password', (e.target as HTMLInputElement).value)}
+            />
+            {form.password.length > 0 && (
+              <div style={{ marginTop: 6 }}>
+                <div style={{ display: 'flex', gap: 4, marginBottom: 4 }}>
+                  {[1, 2, 3, 4].map((level) => (
+                    <div
+                      key={level}
+                      style={{ flex: 1, height: 3, borderRadius: 2, background: level <= pwStrength ? strengthColor : '#e5e7eb', transition: 'background 300ms' }}
+                    />
+                  ))}
+                </div>
+                <div style={{ fontSize: 11, color: strengthColor, fontWeight: 600 }}>{strengthLabel}</div>
+              </div>
+            )}
+          </div>
+          <button
+            style={{ padding: '10px', borderRadius: 8, border: 'none', background: '#1d4ed8', color: '#fff', fontSize: 13, fontWeight: 700, cursor: 'pointer' }}
+          >
+            계정 생성
+          </button>
+        </div>
+      </div>
+    )
+  },
+}
+
+export const Linear_이슈_빠른_생성_폼: Story = {
+  name: 'Linear — 이슈 빠른 생성 폼 (Cycle 166)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Linear Quick Issue Create 패턴. 제목 TextField + 인라인 우선순위/상태 선택. ' +
+          'Ctrl+Enter 제출 + 단축키 힌트 표시.',
+      },
+    },
+  },
+  render: function LinearQuickIssueRender() {
+    const [title, setTitle] = useState('')
+    const [desc, setDesc] = useState('')
+    const [priority, setPriority] = useState<'low' | 'medium' | 'high' | 'urgent'>('medium')
+    const [submitted, setSubmitted] = useState<string | null>(null)
+
+    const priorities: { value: 'low' | 'medium' | 'high' | 'urgent'; label: string; color: string }[] = [
+      { value: 'low', label: '낮음', color: '#6b7280' },
+      { value: 'medium', label: '보통', color: '#f59e0b' },
+      { value: 'high', label: '높음', color: '#ef4444' },
+      { value: 'urgent', label: '긴급', color: '#dc2626' },
+    ]
+
+    const submit = () => {
+      if (!title.trim()) return
+      setSubmitted(title.trim())
+      setTitle('')
+      setDesc('')
+      setPriority('medium')
+    }
+
+    return (
+      <div style={{ width: 420, fontFamily: 'system-ui, sans-serif', background: '#fff', border: '1px solid #e5e7eb', borderRadius: 12, padding: 20 }}>
+        <div style={{ fontSize: 13, fontWeight: 700, color: '#111827', marginBottom: 14 }}>새 이슈</div>
+        {submitted && (
+          <div style={{ marginBottom: 14, padding: '8px 12px', background: '#dcfce7', borderRadius: 8, fontSize: 12, color: '#166534' }}>
+            이슈 생성됨: &ldquo;{submitted}&rdquo;
+          </div>
+        )}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+          <TextField
+            placeholder="이슈 제목 입력..."
+            value={title}
+            onChange={(e) => setTitle((e.target as HTMLInputElement).value)}
+            onKeyDown={(e: React.KeyboardEvent) => { if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) submit() }}
+          />
+          <TextField
+            placeholder="설명 (선택사항)"
+            value={desc}
+            onChange={(e) => setDesc((e.target as HTMLInputElement).value)}
+          />
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <div style={{ display: 'flex', gap: 6 }}>
+              {priorities.map((p) => (
+                <button
+                  key={p.value}
+                  onClick={() => setPriority(p.value)}
+                  style={{
+                    padding: '4px 10px', borderRadius: 6, border: `1.5px solid ${priority === p.value ? p.color : '#e5e7eb'}`,
+                    background: priority === p.value ? p.color + '22' : '#fff',
+                    color: priority === p.value ? p.color : '#6b7280',
+                    fontSize: 11, fontWeight: 600, cursor: 'pointer',
+                  }}
+                >
+                  {p.label}
+                </button>
+              ))}
+            </div>
+            <button
+              onClick={submit}
+              disabled={!title.trim()}
+              style={{
+                padding: '7px 14px', borderRadius: 8, border: 'none',
+                background: title.trim() ? '#0f172a' : '#f1f5f9',
+                color: title.trim() ? '#fff' : '#9ca3af',
+                fontSize: 12, fontWeight: 700, cursor: title.trim() ? 'pointer' : 'default',
+              }}
+            >
+              생성
+            </button>
+          </div>
+          <div style={{ fontSize: 10, color: '#9ca3af' }}>⌘+Enter 로 빠른 제출</div>
+        </div>
+      </div>
+    )
+  },
+}
+
+export const Tailwind_Linear_검색_필터_입력: Story = {
+  name: 'Tailwind UI + Linear — 검색 및 필터 입력 (Cycle 166)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Tailwind UI + Linear 검색 필터 패턴. 텍스트 검색 + 태그 필터 칩 조합. ' +
+          '실시간 결과 카운트 + 필터 초기화 버튼.',
+      },
+    },
+  },
+  render: function TailwindLinearSearchFilterRender() {
+    const [query, setQuery] = useState('')
+    const [activeFilters, setActiveFilters] = useState<string[]>([])
+
+    const FILTERS = ['버그', '기능', '개선', '문서', '완료', '진행 중']
+
+    const items = [
+      { id: 1, title: 'Button ripple 효과 구현', tags: ['기능', '진행 중'] },
+      { id: 2, title: 'TextField focus 버그 수정', tags: ['버그', '완료'] },
+      { id: 3, title: 'AccessibilityGuide 문서 작성', tags: ['문서', '진행 중'] },
+      { id: 4, title: 'DataTable 정렬 기능 추가', tags: ['기능', '진행 중'] },
+      { id: 5, title: '다크모드 토큰 시스템 개선', tags: ['개선', '완료'] },
+    ]
+
+    const toggleFilter = (f: string) => {
+      setActiveFilters((prev) => prev.includes(f) ? prev.filter((x) => x !== f) : [...prev, f])
+    }
+
+    const filtered = items.filter((item) => {
+      const matchQuery = !query || item.title.toLowerCase().includes(query.toLowerCase())
+      const matchFilter = activeFilters.length === 0 || activeFilters.every((f) => item.tags.includes(f))
+      return matchQuery && matchFilter
+    })
+
+    return (
+      <div style={{ width: 420, fontFamily: 'system-ui, sans-serif' }}>
+        <div style={{ marginBottom: 10 }}>
+          <TextField
+            placeholder="이슈 검색..."
+            value={query}
+            onChange={(e) => setQuery((e.target as HTMLInputElement).value)}
+          />
+        </div>
+        <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginBottom: 12 }}>
+          {FILTERS.map((f) => (
+            <button
+              key={f}
+              onClick={() => toggleFilter(f)}
+              style={{
+                padding: '4px 10px', borderRadius: 20, border: `1.5px solid ${activeFilters.includes(f) ? '#3b82f6' : '#e5e7eb'}`,
+                background: activeFilters.includes(f) ? '#eff6ff' : '#fff',
+                color: activeFilters.includes(f) ? '#1d4ed8' : '#6b7280',
+                fontSize: 11, fontWeight: 600, cursor: 'pointer',
+              }}
+            >
+              {f}
+            </button>
+          ))}
+          {activeFilters.length > 0 && (
+            <button
+              onClick={() => setActiveFilters([])}
+              style={{ padding: '4px 10px', borderRadius: 20, border: '1px solid #fca5a5', background: '#fee2e2', color: '#dc2626', fontSize: 11, fontWeight: 600, cursor: 'pointer' }}
+            >
+              초기화
+            </button>
+          )}
+        </div>
+        <div style={{ fontSize: 11, color: '#9ca3af', marginBottom: 8 }}>{filtered.length}개 결과</div>
+        <div style={{ border: '1px solid #e5e7eb', borderRadius: 8, overflow: 'hidden' }}>
+          {filtered.length === 0 ? (
+            <div style={{ padding: 20, textAlign: 'center', color: '#9ca3af', fontSize: 12 }}>검색 결과 없음</div>
+          ) : (
+            filtered.map((item) => (
+              <div key={item.id} style={{ padding: '10px 14px', borderBottom: '1px solid #f9fafb', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                <span style={{ fontSize: 13, color: '#374151' }}>{item.title}</span>
+                <div style={{ display: 'flex', gap: 4 }}>
+                  {item.tags.map((tag) => (
+                    <span key={tag} style={{ fontSize: 10, padding: '1px 6px', borderRadius: 4, background: '#f1f5f9', color: '#64748b', fontWeight: 600 }}>{tag}</span>
+                  ))}
+                </div>
+              </div>
+            ))
+          )}
+        </div>
+      </div>
+    )
+  },
+}
