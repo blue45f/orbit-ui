@@ -1891,3 +1891,298 @@ export const Vercel_Ant_릴리즈_노트_에디터: Story = {
   },
   render: () => <VercelAntReleaseNoteRender />,
 }
+
+/* --------------------------------------------------------------------------
+   Cycle 186 — Radix UI + Ant Design
+-------------------------------------------------------------------------- */
+function RadixAccessibleDescriptionRender() {
+  const MAX = 500
+  const [value, setValue] = useState('')
+  const [focused, setFocused] = useState(false)
+  const remaining = MAX - value.length
+  const isOver = remaining < 0
+
+  return (
+    <div style={{ width: 480, fontFamily: 'system-ui, sans-serif' }}>
+      <div style={{ marginBottom: 16, padding: '12px 16px', background: '#f8fafc', borderRadius: 8, border: '1px solid #e2e8f0' }}>
+        <div style={{ fontSize: 13, fontWeight: 600, color: '#0f172a', marginBottom: 2 }}>이슈 설명</div>
+        <div style={{ fontSize: 11, color: '#64748b' }}>Radix UI 접근성 패턴 — aria-label + aria-describedby</div>
+      </div>
+      <div role="group" aria-labelledby="desc-label" style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+        <label id="desc-label" htmlFor="issue-desc" style={{ fontSize: 12, fontWeight: 600, color: '#374151' }}>
+          상세 설명 <span style={{ color: '#ef4444' }}>*</span>
+        </label>
+        <div
+          style={{
+            position: 'relative',
+            borderRadius: 8,
+            outline: focused ? '2px solid #3b82f6' : isOver ? '2px solid #ef4444' : '1px solid #d1d5db',
+            transition: 'outline 0.15s',
+          }}
+        >
+          <TextArea
+            value={value}
+            placeholder="이슈에 대한 자세한 설명을 입력하세요..."
+            minimumLine={5}
+            maximumLine={12}
+            error={isOver}
+            onChange={(e) => setValue(e.target.value)}
+            aria-label="이슈 상세 설명"
+            aria-describedby="desc-hint desc-count"
+            aria-required="true"
+            onFocus={() => setFocused(true)}
+            onBlur={() => setFocused(false)}
+          />
+        </div>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 2 }}>
+          <span id="desc-hint" style={{ fontSize: 10, color: isOver ? '#ef4444' : '#6b7280' }}>
+            {isOver ? `${Math.abs(remaining)}자 초과` : 'Markdown 문법을 지원합니다'}
+          </span>
+          <span id="desc-count" aria-live="polite" style={{ fontSize: 10, color: isOver ? '#ef4444' : '#9ca3af' }}>
+            {value.length} / {MAX}
+          </span>
+        </div>
+      </div>
+      {value.length > 0 && !isOver && (
+        <div style={{ marginTop: 12, padding: '10px 12px', background: '#f0fdf4', borderRadius: 6, border: '1px solid #bbf7d0', fontSize: 11, color: '#16a34a' }}>
+          입력 완료. 저장 버튼을 클릭하세요.
+        </div>
+      )}
+    </div>
+  )
+}
+
+export const Radix_접근성_설명_입력_폼: Story = {
+  name: 'Radix UI — 접근성 이슈 설명 입력 폼',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Radix UI 접근성 패턴. aria-label + aria-describedby + aria-required 조합으로 스크린 리더 친화적인 설명 입력 폼을 구성합니다. ' +
+          '글자 수 초과 시 error 상태 전환 + aria-live 영역으로 실시간 피드백을 제공합니다.',
+      },
+    },
+  },
+  render: () => <RadixAccessibleDescriptionRender />,
+}
+
+const ANT_FEEDBACK_RULES = [
+  { id: 1, label: '구체적', hint: '특정 상황과 예시를 포함해주세요' },
+  { id: 2, label: '건설적', hint: '개선 방향을 제안해주세요' },
+  { id: 3, label: '명확함', hint: '10자 이상 입력해주세요' },
+]
+
+function AntFormValidationRender() {
+  const [feedback, setFeedback] = useState('')
+  const [submitted, setSubmitted] = useState(false)
+  const [touched, setTouched] = useState(false)
+
+  const isTooShort = feedback.trim().length < 10
+  const isEmpty = feedback.trim().length === 0
+  const hasError = touched && (isEmpty || isTooShort)
+
+  const handleSubmit = () => {
+    setTouched(true)
+    if (!hasError && feedback.trim().length >= 10) {
+      setSubmitted(true)
+    }
+  }
+
+  if (submitted) {
+    return (
+      <div style={{ width: 440, padding: 24, fontFamily: 'system-ui, sans-serif', background: '#f0fdf4', border: '1px solid #bbf7d0', borderRadius: 10, textAlign: 'center' }}>
+        <div style={{ fontSize: 32, marginBottom: 8 }}>✓</div>
+        <div style={{ fontSize: 14, fontWeight: 600, color: '#15803d' }}>피드백이 제출되었습니다</div>
+        <div style={{ fontSize: 12, color: '#4ade80', marginTop: 4 }}>{feedback.slice(0, 60)}{feedback.length > 60 ? '...' : ''}</div>
+        <button onClick={() => { setSubmitted(false); setFeedback(''); setTouched(false) }} style={{ marginTop: 12, padding: '6px 16px', fontSize: 12, borderRadius: 6, border: '1px solid #16a34a', background: '#fff', color: '#16a34a', cursor: 'pointer' }}>
+          다시 작성
+        </button>
+      </div>
+    )
+  }
+
+  return (
+    <div style={{ width: 440, fontFamily: 'system-ui, sans-serif' }}>
+      <div style={{ marginBottom: 16 }}>
+        <div style={{ fontSize: 15, fontWeight: 700, color: '#111827' }}>제품 피드백</div>
+        <div style={{ fontSize: 11, color: '#6b7280', marginTop: 2 }}>Ant Design Form 유효성 검사 패턴</div>
+      </div>
+      <div style={{ display: 'flex', gap: 6, marginBottom: 12 }}>
+        {ANT_FEEDBACK_RULES.map((rule) => {
+          const ok = rule.id === 1
+            ? feedback.trim().length > 20
+            : rule.id === 2
+              ? feedback.includes('개선') || feedback.includes('제안') || feedback.includes('바람')
+              : feedback.trim().length >= 10
+          return (
+            <div key={rule.id} style={{ flex: 1, padding: '8px 10px', borderRadius: 6, background: ok ? '#f0fdf4' : '#f9fafb', border: `1px solid ${ok ? '#bbf7d0' : '#e5e7eb'}` }}>
+              <div style={{ fontSize: 10, fontWeight: 600, color: ok ? '#16a34a' : '#9ca3af' }}>{ok ? '✓ ' : ''}{rule.label}</div>
+              <div style={{ fontSize: 9, color: '#9ca3af', marginTop: 2 }}>{rule.hint}</div>
+            </div>
+          )
+        })}
+      </div>
+      <TextArea
+        value={feedback}
+        placeholder="사용하면서 느낀 점, 개선이 필요한 부분, 바라는 기능을 자유롭게 작성해주세요..."
+        minimumLine={4}
+        maximumLine={10}
+        error={hasError}
+        onChange={(e) => { setFeedback(e.target.value); if (!touched) setTouched(true) }}
+        onBlur={() => setTouched(true)}
+      />
+      {hasError && (
+        <div style={{ marginTop: 4, fontSize: 11, color: '#ef4444' }}>
+          {isEmpty ? '피드백을 입력해주세요.' : '10자 이상 입력해주세요.'}
+        </div>
+      )}
+      <button
+        onClick={handleSubmit}
+        style={{
+          marginTop: 12,
+          width: '100%',
+          padding: '10px',
+          fontSize: 13,
+          fontWeight: 600,
+          borderRadius: 8,
+          border: 'none',
+          background: feedback.trim().length >= 10 ? '#111827' : '#e5e7eb',
+          color: feedback.trim().length >= 10 ? '#fff' : '#9ca3af',
+          cursor: feedback.trim().length >= 10 ? 'pointer' : 'not-allowed',
+          transition: 'background 0.2s',
+        }}
+      >
+        피드백 제출
+      </button>
+    </div>
+  )
+}
+
+export const Ant_폼_유효성_검사_텍스트_영역: Story = {
+  name: 'Ant Design — 폼 유효성 검사 텍스트 영역',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Ant Design Form 유효성 검사 패턴. 3가지 기준(구체적·건설적·명확함) 실시간 체크 + 빈 입력/단문 오류 표시 + 제출 후 성공 상태 전환을 보여줍니다.',
+      },
+    },
+  },
+  render: () => <AntFormValidationRender />,
+}
+
+const ISSUE_TEMPLATES_186 = [
+  { id: 'bug', label: '버그 리포트', text: '## 버그 설명\n\n## 재현 단계\n1. \n2. \n\n## 예상 동작\n\n## 실제 동작\n' },
+  { id: 'feat', label: '기능 요청', text: '## 기능 요청\n\n## 필요한 이유\n\n## 제안하는 구현 방법\n' },
+  { id: 'blank', label: '직접 작성', text: '' },
+]
+
+function RadixAntIssueCommentRender() {
+  const [body, setBody] = useState('')
+  const [preview, setPreview] = useState(false)
+  const [selectedTpl, setSelectedTpl] = useState('blank')
+
+  const handleTemplate = (id: string) => {
+    const tpl = ISSUE_TEMPLATES_186.find((t) => t.id === id)
+    if (tpl) { setBody(tpl.text); setSelectedTpl(id) }
+  }
+
+  return (
+    <div style={{ width: 560, fontFamily: 'system-ui, sans-serif' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12 }}>
+        <div style={{ width: 28, height: 28, borderRadius: '50%', background: '#818cf8', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 12, color: '#fff', fontWeight: 700, flexShrink: 0 }}>U</div>
+        <div style={{ flex: 1 }}>
+          <div style={{ fontSize: 12, fontWeight: 600, color: '#0f172a' }}>새 이슈 작성</div>
+          <div style={{ fontSize: 10, color: '#64748b' }}>Radix + Ant Design — 이슈 댓글 에디터</div>
+        </div>
+        <div style={{ display: 'flex', gap: 4 }}>
+          {ISSUE_TEMPLATES_186.map((t) => (
+            <button
+              key={t.id}
+              onClick={() => handleTemplate(t.id)}
+              style={{
+                padding: '4px 10px',
+                fontSize: 10,
+                borderRadius: 5,
+                border: `1px solid ${selectedTpl === t.id ? '#6366f1' : '#d1d5db'}`,
+                background: selectedTpl === t.id ? '#eef2ff' : '#fff',
+                color: selectedTpl === t.id ? '#6366f1' : '#6b7280',
+                cursor: 'pointer',
+                fontWeight: selectedTpl === t.id ? 600 : 400,
+              }}
+            >
+              {t.label}
+            </button>
+          ))}
+        </div>
+      </div>
+      <div style={{ border: '1px solid #e2e8f0', borderRadius: 10, overflow: 'hidden' }}>
+        <div style={{ display: 'flex', borderBottom: '1px solid #e2e8f0', background: '#f8fafc' }}>
+          {(['편집', '미리보기'] as const).map((tab) => {
+            const isActive = (tab === '편집') !== preview
+            return (
+              <button
+                key={tab}
+                role="tab"
+                aria-selected={isActive}
+                onClick={() => setPreview(tab === '미리보기')}
+                style={{
+                  padding: '8px 18px',
+                  fontSize: 12,
+                  fontWeight: isActive ? 600 : 400,
+                  color: isActive ? '#111827' : '#6b7280',
+                  background: isActive ? '#fff' : 'transparent',
+                  border: 'none',
+                  borderBottom: isActive ? '2px solid #111827' : '2px solid transparent',
+                  cursor: 'pointer',
+                }}
+              >
+                {tab}
+              </button>
+            )
+          })}
+        </div>
+        {preview ? (
+          <div style={{ minHeight: 140, padding: '12px 14px', fontSize: 13, color: '#374151', whiteSpace: 'pre-wrap', lineHeight: 1.6 }}>
+            {body || <span style={{ color: '#9ca3af' }}>미리보기할 내용이 없습니다.</span>}
+          </div>
+        ) : (
+          <TextArea
+            value={body}
+            placeholder="이슈 내용을 작성하세요... (Markdown 지원)"
+            minimumLine={6}
+            maximumLine={16}
+            onChange={(e) => setBody(e.target.value)}
+            aria-label="이슈 본문"
+            aria-multiline="true"
+          />
+        )}
+        <div style={{ padding: '8px 12px', borderTop: '1px solid #e2e8f0', background: '#f8fafc', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <span style={{ fontSize: 10, color: '#94a3b8' }}>Markdown 지원 · {body.length}자</span>
+          <div style={{ display: 'flex', gap: 6 }}>
+            <button onClick={() => setBody('')} style={{ padding: '5px 12px', fontSize: 11, borderRadius: 6, border: '1px solid #d1d5db', background: '#fff', color: '#6b7280', cursor: 'pointer' }}>초기화</button>
+            <button
+              disabled={!body.trim()}
+              style={{ padding: '5px 14px', fontSize: 11, fontWeight: 600, borderRadius: 6, border: 'none', background: body.trim() ? '#111827' : '#e5e7eb', color: body.trim() ? '#fff' : '#9ca3af', cursor: body.trim() ? 'pointer' : 'not-allowed' }}
+            >
+              이슈 등록
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const Radix_Ant_이슈_댓글_에디터: Story = {
+  name: 'Radix + Ant Design — 이슈 댓글 & 편집/미리보기 에디터',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Radix UI + Ant Design 복합 패턴. 이슈 템플릿 선택(버그/기능/직접) + 편집/미리보기 탭 전환 + aria-selected/aria-multiline 접근성 속성을 조합합니다.',
+      },
+    },
+  },
+  render: () => <RadixAntIssueCommentRender />,
+}

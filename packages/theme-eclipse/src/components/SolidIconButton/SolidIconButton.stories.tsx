@@ -1568,3 +1568,282 @@ export const Vercel_Ant_미디어_플레이어_컨트롤: Story = {
   },
   render: () => <VercelAntMediaPlayerRender />,
 }
+
+/* --------------------------------------------------------------------------
+   Radix UI — 접근성 토글 아이콘 버튼 (aria-pressed / aria-expanded)
+-------------------------------------------------------------------------- */
+function RadixA11yToggleRender(args: ComponentProps<typeof SolidIconButton>) {
+  const [bold, setBold] = useState(false)
+  const [italic, setItalic] = useState(false)
+  const [underline, setUnderline] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false)
+  const [starred, setStarred] = useState(false)
+
+  return (
+    <div style={{ width: 360, fontFamily: "'Inter', system-ui, sans-serif" }}>
+      <div style={{ fontSize: 11, fontWeight: 600, color: '#64748b', marginBottom: 10 }}>Radix 접근성 토글 버튼 패턴</div>
+      {/* Text format toggles with aria-pressed */}
+      <div style={{ display: 'flex', gap: 4, padding: '10px 12px', background: '#f8fafc', borderRadius: 10, border: '1px solid #e2e8f0', marginBottom: 12 }}>
+        <div style={{ display: 'flex', gap: 2 }}>
+          <SolidIconButton
+            {...args}
+            color={bold ? 'black' : 'white'}
+            size="small"
+            aria-pressed={bold}
+            onClick={() => setBold(b => !b)}
+          >
+            <TextBoldIcon size={16} />
+          </SolidIconButton>
+          <SolidIconButton
+            {...args}
+            color={italic ? 'black' : 'white'}
+            size="small"
+            aria-pressed={italic}
+            onClick={() => setItalic(b => !b)}
+          >
+            <TextItalicIcon size={16} />
+          </SolidIconButton>
+          <SolidIconButton
+            {...args}
+            color={underline ? 'black' : 'white'}
+            size="small"
+            aria-pressed={underline}
+            onClick={() => setUnderline(b => !b)}
+          >
+            <TextUnderlineIcon size={16} />
+          </SolidIconButton>
+        </div>
+        <div style={{ width: 1, height: 28, background: '#e2e8f0', margin: '0 4px', alignSelf: 'center' }} />
+        <SolidIconButton
+          {...args}
+          color={starred ? 'black' : 'white'}
+          size="small"
+          aria-pressed={starred}
+          onClick={() => setStarred(s => !s)}
+        >
+          <StarLineIcon size={16} />
+        </SolidIconButton>
+        <div style={{ marginLeft: 'auto' }}>
+          <SolidIconButton
+            {...args}
+            color="white"
+            size="small"
+            aria-expanded={menuOpen}
+            aria-haspopup="menu"
+            onClick={() => setMenuOpen(m => !m)}
+          >
+            <MoreHorizontalIcon size={16} />
+          </SolidIconButton>
+        </div>
+      </div>
+      {menuOpen && (
+        <div style={{ padding: '8px 12px', background: '#fff', borderRadius: 8, border: '1px solid #e2e8f0', boxShadow: '0 4px 12px rgba(0,0,0,0.08)', fontSize: 12, color: '#374151' }}>
+          <div style={{ display: 'flex', gap: 6, alignItems: 'center', marginBottom: 4 }}>
+            <span style={{ fontSize: 10, fontWeight: 600, color: '#6366f1' }}>ARIA 상태</span>
+          </div>
+          <div style={{ fontSize: 11, color: '#64748b' }}>Bold: {bold ? 'pressed' : 'not-pressed'} / Italic: {italic ? 'pressed' : 'not-pressed'} / Star: {starred ? 'pressed' : 'not-pressed'}</div>
+        </div>
+      )}
+      <div style={{ fontSize: 10, color: '#94a3b8', marginTop: 8 }}>Radix UI의 aria-pressed, aria-expanded, role=&quot;button&quot; 패턴 적용</div>
+    </div>
+  )
+}
+
+export const Radix_접근성_토글_아이콘_버튼: Story = {
+  name: 'Radix UI — 접근성 토글 아이콘 버튼 (aria-pressed)',
+  args: { children: <TextBoldIcon /> },
+  render: (args) => <RadixA11yToggleRender {...args} />,
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Radix UI Primitive 접근성 패턴. SolidIconButton에 aria-pressed, aria-expanded, aria-haspopup을 적용해 스크린리더 친화적 서식 도구를 구현합니다. ' +
+          'Radix Toggle/ToggleGroup 컴포넌트의 접근성 원칙을 반영합니다.',
+      },
+    },
+  },
+}
+
+/* --------------------------------------------------------------------------
+   Ant Design — 데이터 그리드 인라인 액션 아이콘 버튼
+-------------------------------------------------------------------------- */
+const ANT_TASKS = [
+  { id: 'T-001', title: 'DataTable 정렬 개선', priority: '높음', status: '진행중', assignee: 'Alex' },
+  { id: 'T-002', title: 'Modal 접근성 패치', priority: '긴급', status: '검토', assignee: 'Jin' },
+  { id: 'T-003', title: 'Chip 색상 토큰 매핑', priority: '보통', status: '완료', assignee: 'Kim' },
+  { id: 'T-004', title: 'SearchBar 디바운스', priority: '낮음', status: '대기', assignee: 'Alex' },
+]
+
+const ANT_PRIORITY_COLOR: Record<string, string> = { 긴급: '#ef4444', 높음: '#f97316', 보통: '#6366f1', 낮음: '#94a3b8' }
+const ANT_STATUS_BG: Record<string, { bg: string; color: string }> = {
+  진행중: { bg: '#eef2ff', color: '#4f46e5' },
+  검토: { bg: '#fff7ed', color: '#c2410c' },
+  완료: { bg: '#f0fdf4', color: '#16a34a' },
+  대기: { bg: '#f8fafc', color: '#64748b' },
+}
+
+function AntTableInlineActionRender(args: ComponentProps<typeof SolidIconButton>) {
+  const [tasks, setTasks] = useState(ANT_TASKS)
+
+  const deleteTask = (id: string) => setTasks(t => t.filter(task => task.id !== id))
+
+  return (
+    <div style={{ width: 460, fontFamily: "'Inter', system-ui, sans-serif", background: '#fff', borderRadius: 8, border: '1px solid #e5e7eb', overflow: 'hidden' }}>
+      <div style={{ padding: '12px 16px', borderBottom: '1px solid #e5e7eb', display: 'flex', alignItems: 'center', gap: 8 }}>
+        <span style={{ fontSize: 13, fontWeight: 600, color: '#111827' }}>태스크 관리</span>
+        <span style={{ fontSize: 11, color: '#9ca3af' }}>{tasks.length}개</span>
+        <div style={{ marginLeft: 'auto' }}>
+          <SolidIconButton {...args} color="black" size="small">
+            <PlusIcon size={16} />
+          </SolidIconButton>
+        </div>
+      </div>
+      <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+        <thead>
+          <tr style={{ background: '#f9fafb' }}>
+            {['ID', '제목', '우선순위', '상태', '담당자', '액션'].map(col => (
+              <th key={col} style={{ padding: '8px 12px', textAlign: 'left', fontSize: 11, fontWeight: 600, color: '#6b7280', borderBottom: '1px solid #e5e7eb' }}>{col}</th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {tasks.map((task, i) => {
+            const st = ANT_STATUS_BG[task.status] ?? { bg: '#f8fafc', color: '#64748b' }
+            return (
+              <tr key={task.id} style={{ background: i % 2 === 0 ? '#fff' : '#fafafa' }}>
+                <td style={{ padding: '9px 12px', fontSize: 11, color: '#6b7280', fontFamily: 'monospace', borderBottom: '1px solid #f3f4f6' }}>{task.id}</td>
+                <td style={{ padding: '9px 12px', fontSize: 12, color: '#111827', borderBottom: '1px solid #f3f4f6' }}>{task.title}</td>
+                <td style={{ padding: '9px 12px', borderBottom: '1px solid #f3f4f6' }}>
+                  <span style={{ fontSize: 10, color: ANT_PRIORITY_COLOR[task.priority], fontWeight: 600 }}>{task.priority}</span>
+                </td>
+                <td style={{ padding: '9px 12px', borderBottom: '1px solid #f3f4f6' }}>
+                  <span style={{ fontSize: 10, padding: '2px 8px', borderRadius: 10, ...st, fontWeight: 500 }}>{task.status}</span>
+                </td>
+                <td style={{ padding: '9px 12px', fontSize: 11, color: '#4b5563', borderBottom: '1px solid #f3f4f6' }}>{task.assignee}</td>
+                <td style={{ padding: '9px 12px', borderBottom: '1px solid #f3f4f6' }}>
+                  <div style={{ display: 'flex', gap: 4 }}>
+                    <SolidIconButton {...args} color="white" size="small">
+                      <WriteLineIcon size={14} />
+                    </SolidIconButton>
+                    <SolidIconButton {...args} color="white" size="small" onClick={() => deleteTask(task.id)}>
+                      <CheckIcon size={14} />
+                    </SolidIconButton>
+                  </div>
+                </td>
+              </tr>
+            )
+          })}
+        </tbody>
+      </table>
+      {tasks.length === 0 && (
+        <div style={{ padding: 32, textAlign: 'center', fontSize: 12, color: '#9ca3af' }}>모든 태스크 완료!</div>
+      )}
+    </div>
+  )
+}
+
+export const Ant_데이터_그리드_인라인_액션_아이콘: Story = {
+  name: 'Ant Design — 데이터 그리드 인라인 액션 아이콘 버튼',
+  args: { children: <WriteLineIcon /> },
+  render: (args) => <AntTableInlineActionRender {...args} />,
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Ant Design Table 인라인 액션 패턴. 데이터 테이블의 각 행에 SolidIconButton(편집/완료)을 배치합니다. ' +
+          '체크 클릭으로 행을 삭제해 Ant의 낙관적 업데이트 UX를 재현합니다.',
+      },
+    },
+  },
+}
+
+/* --------------------------------------------------------------------------
+   Radix + Ant — 알림 센터 헤더 아이콘 버튼 클러스터
+-------------------------------------------------------------------------- */
+const NOTIF_COUNT = 5
+
+function RadixAntNotifCenterRender(args: ComponentProps<typeof SolidIconButton>) {
+  const [count, setCount] = useState(NOTIF_COUNT)
+  const [muted, setMuted] = useState(false)
+  const [panelOpen, setPanelOpen] = useState(false)
+  const [searchOpen, setSearchOpen] = useState(false)
+
+  return (
+    <div style={{ width: 380, fontFamily: "'Inter', system-ui, sans-serif" }}>
+      <div style={{ padding: '12px 16px', background: '#fff', borderRadius: 12, border: '1px solid #e5e7eb', boxShadow: '0 2px 8px rgba(0,0,0,0.06)' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+          <span style={{ fontSize: 14, fontWeight: 700, color: '#111827', flex: 1 }}>알림 센터</span>
+          {searchOpen && (
+            <input
+              autoFocus
+              placeholder="알림 검색..."
+              onBlur={() => setSearchOpen(false)}
+              style={{ flex: 1, padding: '4px 8px', border: '1px solid #e5e7eb', borderRadius: 6, fontSize: 12, outline: 'none' }}
+            />
+          )}
+          <div style={{ display: 'flex', gap: 4 }}>
+            <SolidIconButton
+              {...args}
+              color="white"
+              size="small"
+              aria-pressed={searchOpen}
+              onClick={() => setSearchOpen(s => !s)}
+            >
+              <SearchIcon size={16} />
+            </SolidIconButton>
+            <SolidIconButton
+              {...args}
+              color={muted ? 'black' : 'white'}
+              size="small"
+              aria-pressed={muted}
+              onClick={() => setMuted(m => !m)}
+              title={muted ? '음소거 해제' : '음소거'}
+            >
+              <NotificationLineIcon size={16} />
+            </SolidIconButton>
+            <div style={{ position: 'relative' }}>
+              <SolidIconButton
+                {...args}
+                color="white"
+                size="small"
+                aria-expanded={panelOpen}
+                onClick={() => { setPanelOpen(p => !p); setCount(0) }}
+              >
+                <SettingLineIcon size={16} />
+              </SolidIconButton>
+              {count > 0 && (
+                <span style={{ position: 'absolute', top: -4, right: -4, width: 16, height: 16, borderRadius: '50%', background: '#ef4444', color: '#fff', fontSize: 9, fontWeight: 700, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>{count}</span>
+              )}
+            </div>
+          </div>
+        </div>
+        {panelOpen && (
+          <div style={{ marginTop: 12, padding: '10px 12px', background: '#f9fafb', borderRadius: 8, border: '1px solid #e5e7eb', fontSize: 12, color: '#6b7280' }}>
+            <div style={{ fontWeight: 600, color: '#111827', marginBottom: 4 }}>알림 설정</div>
+            {['이메일 알림', '슬랙 알림', '푸시 알림'].map((item, i) => (
+              <div key={i} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '4px 0' }}>
+                <span>{item}</span>
+                <span style={{ fontSize: 10, color: muted ? '#ef4444' : '#10b981' }}>{muted ? '비활성' : '활성'}</span>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+
+export const Radix_Ant_알림_센터_헤더_클러스터: Story = {
+  name: 'Radix + Ant Design — 알림 센터 헤더 아이콘 버튼 클러스터',
+  args: { children: <NotificationLineIcon /> },
+  render: (args) => <RadixAntNotifCenterRender {...args} />,
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Radix UI + Ant Design 복합 패턴. 검색(aria-pressed 토글) + 음소거(aria-pressed) + 설정(aria-expanded + 배지)를 SolidIconButton으로 구성합니다. ' +
+          'Ant Design의 Notification 컴포넌트와 Radix Primitive 접근성 패턴을 결합합니다.',
+      },
+    },
+  },
+}

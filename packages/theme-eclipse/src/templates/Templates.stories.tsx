@@ -41409,3 +41409,221 @@ export const VercelMantine185FileManager: StoryObj = {
   },
   render: () => <VercelMantine185Render />,
 }
+
+/* --------------------------------------------------------------------------
+   Cycle 186 — Radix UI + Ant Design
+-------------------------------------------------------------------------- */
+const FORM_186_FIELDS = [
+  { id: 'title', label: '제목', placeholder: '이슈 제목을 입력하세요', required: true },
+  { id: 'url', label: 'URL', placeholder: 'https://example.com', required: false },
+]
+
+const FORM_186_PRIORITIES = ['긴급', '높음', '중간', '낮음']
+
+const FORM_186_TAGS = ['버그', 'UX', '성능', '접근성', '문서화', '기능 요청']
+
+function RadixAnt186Render() {
+  const [title, setTitle] = React.useState('')
+  const [url, setUrl] = React.useState('')
+  const [description, setDescription] = React.useState('')
+  const [priority, setPriority] = React.useState('중간')
+  const [tags, setTags] = React.useState<string[]>(['버그'])
+  const [submitted, setSubmitted] = React.useState(false)
+  const [touched, setTouched] = React.useState(false)
+  const [activeTab, setActiveTab] = React.useState<'form' | 'preview'>('form')
+
+  const titleError = touched && title.trim().length === 0
+  const descError = touched && description.trim().length < 10
+
+  const toggleTag = (tag: string) => {
+    setTags((prev) => prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag])
+  }
+
+  const handleSubmit = () => {
+    setTouched(true)
+    if (title.trim() && description.trim().length >= 10) {
+      setSubmitted(true)
+    }
+  }
+
+  if (submitted) {
+    return (
+      <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#f8fafc', fontFamily: 'system-ui, sans-serif' }}>
+        <div style={{ width: 440, padding: 40, background: '#fff', borderRadius: 16, boxShadow: '0 4px 32px rgba(0,0,0,0.08)', textAlign: 'center' }}>
+          <div style={{ width: 56, height: 56, borderRadius: '50%', background: '#f0fdf4', border: '2px solid #bbf7d0', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 16px', fontSize: 24 }}>✓</div>
+          <div style={{ fontSize: 18, fontWeight: 700, color: '#111827', marginBottom: 6 }}>이슈가 등록되었습니다</div>
+          <div style={{ fontSize: 13, color: '#6b7280', marginBottom: 4 }}><strong>{title}</strong></div>
+          <div style={{ display: 'inline-block', padding: '3px 10px', borderRadius: 20, background: '#fef3c7', color: '#d97706', fontSize: 11, fontWeight: 600, marginBottom: 16 }}>{priority}</div>
+          <div style={{ display: 'flex', gap: 4, flexWrap: 'wrap', justifyContent: 'center', marginBottom: 20 }}>
+            {tags.map((t) => (
+              <span key={t} style={{ padding: '2px 8px', borderRadius: 12, background: '#ede9fe', color: '#7c3aed', fontSize: 10 }}>{t}</span>
+            ))}
+          </div>
+          <button onClick={() => { setSubmitted(false); setTitle(''); setDescription(''); setTouched(false) }} style={{ padding: '8px 20px', borderRadius: 8, border: '1px solid #e5e7eb', background: '#fff', color: '#374151', fontSize: 12, cursor: 'pointer' }}>새 이슈 작성</button>
+        </div>
+      </div>
+    )
+  }
+
+  return (
+    <div style={{ minHeight: '100vh', background: '#f8fafc', fontFamily: 'system-ui, sans-serif', display: 'flex' }}>
+      {/* Sidebar */}
+      <div style={{ width: 220, background: '#111827', display: 'flex', flexDirection: 'column', padding: '20px 0', flexShrink: 0 }}>
+        <div style={{ padding: '0 16px 20px', borderBottom: '1px solid #1f2937' }}>
+          <div style={{ fontSize: 14, fontWeight: 700, color: '#f9fafb' }}>Orbit Issues</div>
+          <div style={{ fontSize: 10, color: '#4b5563', marginTop: 2 }}>Radix + Ant Design</div>
+        </div>
+        {(['모든 이슈', '내 이슈', '팀 이슈', '마감 임박'] as const).map((item, i) => (
+          <div key={i} style={{ padding: '9px 16px', fontSize: 12, color: i === 0 ? '#f9fafb' : '#6b7280', background: i === 0 ? '#1f2937' : 'transparent', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 8 }}>
+            <span>{['📋', '👤', '👥', '⏰'][i]}</span>
+            <span>{item}</span>
+          </div>
+        ))}
+        <div style={{ flex: 1 }} />
+        <div style={{ padding: '12px 16px', borderTop: '1px solid #1f2937', fontSize: 11, color: '#4b5563' }}>Cycle 186</div>
+      </div>
+
+      {/* Main */}
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+        {/* Header */}
+        <div style={{ padding: '16px 24px', background: '#fff', borderBottom: '1px solid #e5e7eb', display: 'flex', alignItems: 'center', gap: 12 }}>
+          <div style={{ flex: 1 }}>
+            <div style={{ fontSize: 15, fontWeight: 700, color: '#111827' }}>새 이슈 등록</div>
+            <div style={{ fontSize: 11, color: '#9ca3af', marginTop: 2 }}>Radix UI + Ant Design 복합 폼 패턴</div>
+          </div>
+          <div style={{ display: 'flex', gap: 6 }}>
+            {(['form', 'preview'] as const).map((tab) => (
+              <button
+                key={tab}
+                role="tab"
+                aria-selected={activeTab === tab}
+                onClick={() => setActiveTab(tab)}
+                style={{ padding: '6px 14px', fontSize: 12, borderRadius: 6, border: `1px solid ${activeTab === tab ? '#111827' : '#e5e7eb'}`, background: activeTab === tab ? '#111827' : '#fff', color: activeTab === tab ? '#fff' : '#6b7280', cursor: 'pointer', fontWeight: activeTab === tab ? 600 : 400 }}
+              >
+                {tab === 'form' ? '폼 편집' : '미리보기'}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Content */}
+        <div style={{ flex: 1, overflowY: 'auto', padding: 24 }}>
+          {activeTab === 'preview' ? (
+            <div style={{ maxWidth: 640, background: '#fff', borderRadius: 12, padding: 24, border: '1px solid #e5e7eb' }}>
+              <div style={{ display: 'flex', gap: 8, alignItems: 'flex-start', marginBottom: 16 }}>
+                <div style={{ flex: 1 }}>
+                  <div style={{ fontSize: 18, fontWeight: 700, color: title ? '#111827' : '#d1d5db' }}>{title || '(제목 없음)'}</div>
+                  {url && <div style={{ fontSize: 11, color: '#6b7280', marginTop: 2 }}>{url}</div>}
+                </div>
+                <span style={{ padding: '3px 10px', borderRadius: 20, background: '#fef3c7', color: '#d97706', fontSize: 11, fontWeight: 600, flexShrink: 0 }}>{priority}</span>
+              </div>
+              <div style={{ display: 'flex', gap: 4, flexWrap: 'wrap', marginBottom: 16 }}>
+                {tags.map((t) => <span key={t} style={{ padding: '2px 8px', borderRadius: 12, background: '#ede9fe', color: '#7c3aed', fontSize: 11 }}>{t}</span>)}
+              </div>
+              <div style={{ fontSize: 13, color: description ? '#374151' : '#d1d5db', whiteSpace: 'pre-wrap', lineHeight: 1.7, minHeight: 80 }}>
+                {description || '(설명 없음)'}
+              </div>
+            </div>
+          ) : (
+            <div style={{ maxWidth: 640, display: 'flex', flexDirection: 'column', gap: 16 }}>
+              {/* Title & URL row */}
+              {FORM_186_FIELDS.map((field) => (
+                <div key={field.id}>
+                  <label style={{ display: 'block', fontSize: 12, fontWeight: 600, color: '#374151', marginBottom: 4 }}>
+                    {field.label} {field.required && <span style={{ color: '#ef4444' }}>*</span>}
+                  </label>
+                  <input
+                    value={field.id === 'title' ? title : url}
+                    placeholder={field.placeholder}
+                    onChange={(e) => field.id === 'title' ? setTitle(e.target.value) : setUrl(e.target.value)}
+                    style={{ width: '100%', padding: '8px 12px', fontSize: 13, borderRadius: 8, border: `1px solid ${field.id === 'title' && titleError ? '#ef4444' : '#d1d5db'}`, outline: 'none', boxSizing: 'border-box' }}
+                  />
+                  {field.id === 'title' && titleError && <div style={{ fontSize: 11, color: '#ef4444', marginTop: 3 }}>제목을 입력해주세요.</div>}
+                </div>
+              ))}
+
+              {/* Priority */}
+              <div>
+                <label style={{ display: 'block', fontSize: 12, fontWeight: 600, color: '#374151', marginBottom: 6 }}>우선순위</label>
+                <div style={{ display: 'flex', gap: 6 }}>
+                  {FORM_186_PRIORITIES.map((p) => (
+                    <button
+                      key={p}
+                      onClick={() => setPriority(p)}
+                      style={{ padding: '5px 12px', fontSize: 12, borderRadius: 6, border: `1px solid ${priority === p ? '#f59e0b' : '#e5e7eb'}`, background: priority === p ? '#fef3c7' : '#fff', color: priority === p ? '#d97706' : '#6b7280', cursor: 'pointer', fontWeight: priority === p ? 600 : 400 }}
+                    >
+                      {p}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Tags */}
+              <div>
+                <label style={{ display: 'block', fontSize: 12, fontWeight: 600, color: '#374151', marginBottom: 6 }}>태그</label>
+                <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+                  {FORM_186_TAGS.map((tag) => (
+                    <button
+                      key={tag}
+                      onClick={() => toggleTag(tag)}
+                      aria-pressed={tags.includes(tag)}
+                      style={{ padding: '4px 10px', fontSize: 11, borderRadius: 12, border: `1px solid ${tags.includes(tag) ? '#7c3aed' : '#e5e7eb'}`, background: tags.includes(tag) ? '#ede9fe' : '#fff', color: tags.includes(tag) ? '#7c3aed' : '#6b7280', cursor: 'pointer' }}
+                    >
+                      {tag}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Description */}
+              <div>
+                <label style={{ display: 'block', fontSize: 12, fontWeight: 600, color: '#374151', marginBottom: 4 }}>
+                  설명 <span style={{ color: '#ef4444' }}>*</span>
+                </label>
+                <TextArea
+                  value={description}
+                  placeholder="이슈에 대한 자세한 설명을 작성하세요... (Markdown 지원, 최소 10자)"
+                  minimumLine={5}
+                  maximumLine={14}
+                  error={descError}
+                  onChange={(e) => setDescription(e.target.value)}
+                  aria-label="이슈 설명"
+                  aria-required="true"
+                />
+                {descError && <div style={{ fontSize: 11, color: '#ef4444', marginTop: 3 }}>10자 이상 입력해주세요.</div>}
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* Footer */}
+        <div style={{ padding: '12px 24px', background: '#fff', borderTop: '1px solid #e5e7eb', display: 'flex', gap: 8, justifyContent: 'flex-end' }}>
+          <button style={{ padding: '8px 18px', fontSize: 13, borderRadius: 8, border: '1px solid #e5e7eb', background: '#fff', color: '#374151', cursor: 'pointer' }}>
+            취소
+          </button>
+          <SolidButton
+            color="black"
+            size="medium"
+            onClick={handleSubmit}
+            disabled={activeTab === 'preview'}
+          >
+            이슈 등록
+          </SolidButton>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const RadixAnt186FormCenter: StoryObj = {
+  name: 'Radix UI + Ant Design — 이슈 등록 폼 센터 (Cycle 186)',
+  parameters: {
+    layout: 'fullscreen',
+    docs: {
+      description: {
+        story: 'Radix UI + Ant Design 복합 패턴. 좌측: 다크 사이드바 내비게이션 / 우측: 이슈 등록 폼(텍스트 필드 + 우선순위 + 태그 + TextArea + 폼/미리보기 전환). 접근성 속성(aria-pressed, aria-selected, aria-required) 완전 적용.',
+      },
+    },
+  },
+  render: () => <RadixAnt186Render />,
+}
