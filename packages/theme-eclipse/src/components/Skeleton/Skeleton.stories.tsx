@@ -1065,3 +1065,152 @@ export const Chakra_Arco_대시보드_위젯_스켈레톤: Story = {
     </div>
   ),
 }
+
+/* --------------------------------------------------------------------------
+   Linear Design — 프로젝트 뷰 로딩 스켈레톤
+   Linear의 3컬럼 프로젝트 상태 보드 로딩 패턴
+-------------------------------------------------------------------------- */
+export const Linear_프로젝트_보드_스켈레톤: Story = {
+  name: 'Linear Design — 프로젝트 보드 로딩 스켈레톤',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Linear 3컬럼 프로젝트 보드(백로그/진행중/완료) 로딩 스켈레톤. 각 컬럼에 이슈 카드 스켈레톤 3~4개, 컬럼 헤더 카운터 포함.',
+      },
+    },
+  },
+  render: () => (
+    <div style={{ display: 'flex', gap: 16, padding: 16 }}>
+      {[4, 3, 5].map((count, colIdx) => (
+        <div key={colIdx} style={{ flex: 1, minWidth: 200, background: '#f8fafc', borderRadius: 10, padding: 12, display: 'flex', flexDirection: 'column', gap: 8 }}>
+          {/* 컬럼 헤더 */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
+            <Skeleton height={12} width="50%" />
+            <Skeleton height={18} width={24} style={{ borderRadius: 999 }} />
+          </div>
+          {/* 이슈 카드들 */}
+          {Array.from({ length: count }).map((_, i) => (
+            <div key={i} style={{ background: '#fff', borderRadius: 8, padding: '10px 12px', border: '1px solid #e2e8f0', display: 'flex', flexDirection: 'column', gap: 8 }}>
+              <Skeleton height={10} width={`${75 - i * 6}%`} />
+              <Skeleton height={8} width={`${55 - i * 4}%`} />
+              <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginTop: 2 }}>
+                <Skeleton height={20} width={20} style={{ borderRadius: '50%' }} />
+                <Skeleton height={8} width={40} />
+                <Skeleton height={16} width={48} style={{ borderRadius: 999, marginLeft: 'auto' }} />
+              </div>
+            </div>
+          ))}
+          {/* 새 이슈 추가 버튼 스켈레톤 */}
+          <Skeleton height={32} width="100%" style={{ borderRadius: 8, marginTop: 4 }} />
+        </div>
+      ))}
+    </div>
+  ),
+}
+
+/* --------------------------------------------------------------------------
+   Radix UI — 컴포넌트 문서 페이지 스켈레톤
+   Radix UI 문서 사이트 레이아웃 — 사이드바 + 본문 + 예시 코드 블록
+-------------------------------------------------------------------------- */
+export const Radix_문서_페이지_스켈레톤: Story = {
+  name: 'Radix UI — 컴포넌트 문서 페이지 스켈레톤',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Radix UI 스타일 문서 페이지 로딩 스켈레톤. 좌측 네비게이션 + 본문 헤딩/단락/코드 블록 + 우측 목차 패널 3단 레이아웃.',
+      },
+    },
+  },
+  render: () => (
+    <div style={{ display: 'flex', gap: 0, minHeight: 480, background: '#fff', border: '1px solid #e2e8f0', borderRadius: 12, overflow: 'hidden' }}>
+      {/* 좌측 사이드바 */}
+      <div style={{ width: 200, borderRight: '1px solid #f1f5f9', padding: '20px 16px', display: 'flex', flexDirection: 'column', gap: 10, flexShrink: 0 }}>
+        <Skeleton height={12} width="60%" />
+        {[90, 75, 85, 70, 80, 65, 88].map((w, i) => (
+          <Skeleton key={i} height={10} width={`${w}%`} />
+        ))}
+        <div style={{ marginTop: 8 }}>
+          <Skeleton height={12} width="55%" style={{ marginBottom: 8 }} />
+          {[80, 70, 75, 68].map((w, i) => (
+            <Skeleton key={i} height={10} width={`${w}%`} style={{ marginBottom: 6 }} />
+          ))}
+        </div>
+      </div>
+      {/* 본문 */}
+      <div style={{ flex: 1, padding: '28px 32px', display: 'flex', flexDirection: 'column', gap: 16 }}>
+        <Skeleton height={28} width="55%" />
+        <Skeleton height={14} width="90%" />
+        <Skeleton height={14} width="80%" />
+        <Skeleton height={80} width="100%" style={{ borderRadius: 8, background: '#f8fafc' }} />
+        <Skeleton height={18} width="35%" />
+        {[95, 88, 72, 84].map((w, i) => (
+          <Skeleton key={i} height={12} width={`${w}%`} />
+        ))}
+        <Skeleton height={100} width="100%" style={{ borderRadius: 8 }} />
+      </div>
+      {/* 우측 목차 */}
+      <div style={{ width: 160, borderLeft: '1px solid #f1f5f9', padding: '28px 14px', display: 'flex', flexDirection: 'column', gap: 8, flexShrink: 0 }}>
+        <Skeleton height={10} width="70%" />
+        {[80, 65, 70, 60, 75, 58].map((w, i) => (
+          <Skeleton key={i} height={9} width={`${w}%`} />
+        ))}
+      </div>
+    </div>
+  ),
+}
+
+/* --------------------------------------------------------------------------
+   Linear + Radix — 설정 페이지 폼 스켈레톤
+   Linear 설정 페이지 + Radix 접근성 레이아웃 로딩 패턴
+-------------------------------------------------------------------------- */
+export const Linear_Radix_설정_폼_스켈레톤: Story = {
+  name: 'Linear + Radix UI — 설정 페이지 폼 스켈레톤',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Linear 설정 페이지 + Radix 접근성 레이아웃. 섹션 헤더, 인풋 필드 행, 토글 설정 행, 저장 버튼 스켈레톤. 실제 폼 로딩 전 UX를 재현.',
+      },
+    },
+  },
+  render: () => (
+    <div style={{ maxWidth: 560, display: 'flex', flexDirection: 'column', gap: 24 }}>
+      {/* 프로필 섹션 */}
+      <div style={{ border: '1px solid #e2e8f0', borderRadius: 12, padding: 20, display: 'flex', flexDirection: 'column', gap: 16 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+          <Skeleton height={56} width={56} style={{ borderRadius: '50%' }} />
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+            <Skeleton height={14} width={120} />
+            <Skeleton height={10} width={160} />
+          </div>
+          <Skeleton height={32} width={80} style={{ borderRadius: 8, marginLeft: 'auto' }} />
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+          {[['표시 이름', 160], ['이메일', 200], ['사용자명', 140]].map(([label, w]) => (
+            <div key={label as string} style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+              <Skeleton height={10} width={w as number} style={{ flexShrink: 0 }} />
+              <Skeleton height={36} width="100%" style={{ borderRadius: 8 }} />
+            </div>
+          ))}
+        </div>
+      </div>
+      {/* 알림 설정 섹션 */}
+      <div style={{ border: '1px solid #e2e8f0', borderRadius: 12, padding: 20, display: 'flex', flexDirection: 'column', gap: 14 }}>
+        <Skeleton height={14} width="40%" />
+        {[1, 2, 3, 4].map((i) => (
+          <div key={i} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 5 }}>
+              <Skeleton height={11} width={`${130 + i * 15}px`} />
+              <Skeleton height={9} width={`${90 + i * 10}px`} />
+            </div>
+            <Skeleton height={22} width={40} style={{ borderRadius: 999 }} />
+          </div>
+        ))}
+      </div>
+      {/* 저장 버튼 */}
+      <div style={{ display: 'flex', justifyContent: 'flex-end', gap: 8 }}>
+        <Skeleton height={36} width={80} style={{ borderRadius: 8 }} />
+        <Skeleton height={36} width={100} style={{ borderRadius: 8 }} />
+      </div>
+    </div>
+  ),
+}

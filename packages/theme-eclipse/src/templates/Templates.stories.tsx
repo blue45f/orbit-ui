@@ -81,6 +81,7 @@ import {
 
 import { Command } from '../components/Command'
 import { Dropdown } from '../components/Dropdown'
+import { Popover } from '../components/Popover'
 
 const meta: Meta = {
   title: 'Templates/Showcase',
@@ -34424,4 +34425,214 @@ export const ShadcnTailwind150OnboardingFlow: StoryObj = {
     },
   },
   render: () => <ShadcnTailwind150OnboardingFlowRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Cycle 151 — Linear Design + Radix UI
+   파일 매니저 — 사이드바 + 파일 그리드 + 팝오버 컨텍스트 메뉴 + 스켈레톤 로딩
+-------------------------------------------------------------------------- */
+const FILE_ITEMS = [
+  { id: '1', name: 'Design Tokens.fig', type: 'figma', size: '2.4 MB', modified: '방금', starred: true },
+  { id: '2', name: 'Component Spec.pdf', type: 'pdf', size: '1.8 MB', modified: '1시간 전', starred: false },
+  { id: '3', name: 'README.md', type: 'md', size: '12 KB', modified: '어제', starred: true },
+  { id: '4', name: 'orbit-ui-v2.zip', type: 'zip', size: '34.2 MB', modified: '2일 전', starred: false },
+  { id: '5', name: 'preview.png', type: 'image', size: '890 KB', modified: '3일 전', starred: false },
+  { id: '6', name: 'package.json', type: 'json', size: '4 KB', modified: '1주 전', starred: false },
+]
+
+const FILE_TYPE_ICONS: Record<string, string> = {
+  figma: '#ec4899', pdf: '#ef4444', md: '#6366f1', zip: '#f59e0b', image: '#10b981', json: '#f59e0b',
+}
+
+const SIDEBAR_ITEMS = ['전체 파일', '최근 항목', '즐겨찾기', '공유됨', '휴지통']
+
+function LinearRadix151FileManagerRender() {
+  const [activeSection, setActiveSection] = React.useState('전체 파일')
+  const [selectedFile, setSelectedFile] = React.useState<string | null>(null)
+  const [openMenu, setOpenMenu] = React.useState<string | null>(null)
+  const [loading, setLoading] = React.useState(false)
+  const [starred, setStarred] = React.useState<Record<string, boolean>>(
+    Object.fromEntries(FILE_ITEMS.map((f) => [f.id, f.starred]))
+  )
+  const [viewMode, setViewMode] = React.useState<'grid' | 'list'>('grid')
+
+  const handleSection = (s: string) => {
+    setActiveSection(s)
+    setLoading(true)
+    setTimeout(() => setLoading(false), 900)
+    setSelectedFile(null)
+  }
+
+  const displayFiles = activeSection === '즐겨찾기'
+    ? FILE_ITEMS.filter((f) => starred[f.id])
+    : FILE_ITEMS
+
+  const MENU_ACTIONS = ['열기', '이름 변경', '복사', '공유', '즐겨찾기', '삭제']
+
+  return (
+    <div style={{ display: 'flex', height: '100vh', background: '#f8fafc', fontFamily: 'system-ui, sans-serif' }}>
+      {/* 사이드바 */}
+      <div style={{ width: 220, background: '#fff', borderRight: '1px solid #e2e8f0', display: 'flex', flexDirection: 'column', padding: '20px 0' }}>
+        <div style={{ padding: '0 16px 16px', fontSize: 15, fontWeight: 800, color: '#1e293b', letterSpacing: '-0.01em' }}>Orbit Files</div>
+        <div style={{ flex: 1 }}>
+          {SIDEBAR_ITEMS.map((s) => (
+            <button
+              key={s}
+              onClick={() => handleSection(s)}
+              style={{ display: 'flex', alignItems: 'center', gap: 10, width: '100%', padding: '8px 16px', border: 'none', background: activeSection === s ? '#f0f9ff' : 'transparent', color: activeSection === s ? '#0369a1' : '#475569', fontSize: 13, fontWeight: activeSection === s ? 600 : 400, cursor: 'pointer', textAlign: 'left', transition: 'background 0.15s' }}
+            >
+              {s}
+              {s === '즐겨찾기' && (
+                <CounterBadge style={{ marginLeft: 'auto' }}>{Object.values(starred).filter(Boolean).length}</CounterBadge>
+              )}
+            </button>
+          ))}
+        </div>
+        <div style={{ padding: '12px 16px', borderTop: '1px solid #f1f5f9' }}>
+          <Skeleton height={10} width="70%" style={{ marginBottom: 6 }} />
+          <Skeleton height={6} width="90%" style={{ borderRadius: 999 }} />
+          <Skeleton height={6} width="55%" style={{ borderRadius: 999, marginTop: 4 }} />
+        </div>
+      </div>
+
+      {/* 메인 영역 */}
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+        {/* 툴바 */}
+        <div style={{ padding: '14px 24px', background: '#fff', borderBottom: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', gap: 12 }}>
+          <Text textStyle="subheadingSmall" color="foregroundPrimary">{activeSection}</Text>
+          <CounterBadge style={{ marginRight: 'auto' }}>{displayFiles.length}</CounterBadge>
+          <div style={{ width: 200 }}><SearchBar placeholder="파일 검색..." /></div>
+          <div style={{ display: 'flex', border: '1px solid #e2e8f0', borderRadius: 6, overflow: 'hidden' }}>
+            {(['grid', 'list'] as const).map((m) => (
+              <button
+                key={m}
+                onClick={() => setViewMode(m)}
+                style={{ padding: '5px 10px', border: 'none', background: viewMode === m ? '#f1f5f9' : '#fff', color: viewMode === m ? '#1e293b' : '#64748b', fontSize: 11, cursor: 'pointer' }}
+              >
+                {m === 'grid' ? '그리드' : '목록'}
+              </button>
+            ))}
+          </div>
+          <OutlineButton color="black" size="small">
+            <OutlineButton.Center>업로드</OutlineButton.Center>
+          </OutlineButton>
+        </div>
+
+        {/* 파일 목록 */}
+        <div style={{ flex: 1, padding: 24, overflowY: 'auto' }}>
+          {loading ? (
+            <div style={{ display: 'grid', gridTemplateColumns: viewMode === 'grid' ? 'repeat(3, 1fr)' : '1fr', gap: 12 }}>
+              {Array.from({ length: 6 }).map((_, i) => (
+                <div key={i} style={{ background: '#fff', borderRadius: 10, padding: 16, border: '1px solid #e2e8f0', display: 'flex', flexDirection: viewMode === 'grid' ? 'column' : 'row', gap: 10, alignItems: viewMode === 'list' ? 'center' : undefined }}>
+                  <Skeleton height={viewMode === 'grid' ? 80 : 36} width={viewMode === 'grid' ? '100%' : 36} style={{ borderRadius: 8 }} />
+                  <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 6 }}>
+                    <Skeleton height={11} width="70%" />
+                    <Skeleton height={9} width="45%" />
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div style={{ display: 'grid', gridTemplateColumns: viewMode === 'grid' ? 'repeat(3, 1fr)' : '1fr', gap: 12 }}>
+              {displayFiles.map((file) => (
+                <Popover key={file.id} open={openMenu === file.id} onOpenChange={(o) => setOpenMenu(o ? file.id : null)}>
+                  <div
+                    onClick={() => setSelectedFile(file.id)}
+                    style={{ background: '#fff', borderRadius: 10, padding: viewMode === 'grid' ? 16 : '10px 16px', border: `2px solid ${selectedFile === file.id ? '#0369a1' : '#e2e8f0'}`, cursor: 'pointer', display: 'flex', flexDirection: viewMode === 'grid' ? 'column' : 'row', gap: viewMode === 'grid' ? 10 : 12, alignItems: viewMode === 'list' ? 'center' : undefined, transition: 'border-color 0.15s', position: 'relative' }}
+                  >
+                    {/* 파일 아이콘 */}
+                    <div style={{ height: viewMode === 'grid' ? 72 : 36, width: viewMode === 'list' ? 36 : '100%', background: `${FILE_TYPE_ICONS[file.type]}18`, borderRadius: 8, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                      <span style={{ fontSize: viewMode === 'grid' ? 24 : 16, color: FILE_TYPE_ICONS[file.type], fontWeight: 800, letterSpacing: '-0.05em' }}>.{file.type.slice(0, 3)}</span>
+                    </div>
+                    {/* 파일 정보 */}
+                    <div style={{ flex: 1, minWidth: 0 }}>
+                      <div style={{ fontSize: 12, fontWeight: 600, color: '#1e293b', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{file.name}</div>
+                      <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>{file.size} · {file.modified}</div>
+                    </div>
+                    {/* 액션 버튼들 */}
+                    <div style={{ display: 'flex', gap: 4, ...(viewMode === 'grid' ? {} : { marginLeft: 'auto', flexShrink: 0 }) }}>
+                      <button
+                        onClick={(e) => { e.stopPropagation(); setStarred((prev) => ({ ...prev, [file.id]: !prev[file.id] })) }}
+                        style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: 14, color: starred[file.id] ? '#f59e0b' : '#cbd5e1', padding: 2 }}
+                      >
+                        {starred[file.id] ? '★' : '☆'}
+                      </button>
+                      <Popover.Trigger asChild>
+                        <button
+                          onClick={(e) => e.stopPropagation()}
+                          style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: 16, color: '#94a3b8', padding: '2px 4px', borderRadius: 4, lineHeight: 1 }}
+                        >
+                          ···
+                        </button>
+                      </Popover.Trigger>
+                    </div>
+                    <Popover.Content align="end" style={{ padding: 4, width: 140, background: '#fff', border: '1px solid #e2e8f0', borderRadius: 8, boxShadow: '0 4px 16px rgba(0,0,0,0.1)' }}>
+                      {MENU_ACTIONS.map((action) => (
+                        <button
+                          key={action}
+                          onClick={() => setOpenMenu(null)}
+                          style={{ display: 'block', width: '100%', padding: '6px 10px', borderRadius: 5, border: 'none', background: 'transparent', cursor: 'pointer', fontSize: 12, color: action === '삭제' ? '#ef4444' : '#374151', textAlign: 'left', transition: 'background 0.1s' }}
+                          onMouseEnter={(e) => (e.currentTarget.style.background = '#f8fafc')}
+                          onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
+                        >
+                          {action}
+                        </button>
+                      ))}
+                    </Popover.Content>
+                  </div>
+                </Popover>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* 우측 디테일 패널 */}
+      {selectedFile && (() => {
+        const f = FILE_ITEMS.find((fi) => fi.id === selectedFile)
+        if (!f) return null
+        return (
+          <div style={{ width: 240, background: '#fff', borderLeft: '1px solid #e2e8f0', padding: 20, display: 'flex', flexDirection: 'column', gap: 14 }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <Text textStyle="labelMedium" color="foregroundPrimary">파일 정보</Text>
+              <button onClick={() => setSelectedFile(null)} style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#94a3b8', fontSize: 16 }}>✕</button>
+            </div>
+            <div style={{ height: 100, background: `${FILE_TYPE_ICONS[f.type]}18`, borderRadius: 10, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <span style={{ fontSize: 32, color: FILE_TYPE_ICONS[f.type], fontWeight: 800 }}>.{f.type.slice(0, 3)}</span>
+            </div>
+            <div>
+              <Text textStyle="labelSmall" color="foregroundPrimary">{f.name}</Text>
+            </div>
+            {[['크기', f.size], ['수정일', f.modified], ['유형', f.type.toUpperCase()]].map(([k, v]) => (
+              <div key={k as string} style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <Text textStyle="descriptionSmall" color="foregroundTertiary">{k}</Text>
+                <Text textStyle="descriptionSmall" color="foregroundSecondary">{v}</Text>
+              </div>
+            ))}
+            <div style={{ marginTop: 8, display: 'flex', flexDirection: 'column', gap: 6 }}>
+              <SolidButton color="primary" size="small">
+                <SolidButton.Center>열기</SolidButton.Center>
+              </SolidButton>
+              <OutlineButton color="black" size="small">
+                <OutlineButton.Center>공유</OutlineButton.Center>
+              </OutlineButton>
+            </div>
+          </div>
+        )
+      })()}
+    </div>
+  )
+}
+
+export const LinearRadix151FileManager: StoryObj = {
+  name: 'Linear + Radix UI — 파일 매니저 (사이드바 + 그리드 + 팝오버 메뉴)',
+  parameters: {
+    layout: 'fullscreen',
+    docs: {
+      description: {
+        story: 'Linear 파일 탐색기 + Radix UI 접근성 패턴. 섹션 전환 시 Skeleton 로딩, Popover 컨텍스트 메뉴, 그리드/목록 뷰 전환, 즐겨찾기 토글, 파일 선택 시 디테일 패널 표시.',
+      },
+    },
+  },
+  render: () => <LinearRadix151FileManagerRender />,
 }

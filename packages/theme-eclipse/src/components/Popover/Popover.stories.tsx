@@ -1622,3 +1622,233 @@ export const Shadcn_Radix_멘션_자동완성_팝오버: Story = {
   },
   render: () => <ShadcnRadixMentionPopoverRender />,
 }
+
+/* --------------------------------------------------------------------------
+   Linear Design — 이슈 퀵 편집 팝오버
+   Linear의 인라인 상태/담당자/우선순위 즉시 변경 패턴
+-------------------------------------------------------------------------- */
+const LINEAR_STATUSES = ['백로그', '할일', '진행중', '완료', '취소']
+const LINEAR_USERS = ['Alice Kim', 'Bob Lee', 'Carol Park', 'Dave Oh']
+const LINEAR_PRIORITIES = ['긴급', '높음', '중간', '낮음', '없음']
+const STATUS_COLORS: Record<string, string> = {
+  '백로그': '#94a3b8', '할일': '#60a5fa', '진행중': '#f59e0b', '완료': '#10b981', '취소': '#6b7280',
+}
+
+function LinearIssueQuickEditRender() {
+  const [status, setStatus] = useState('진행중')
+  const [assignee, setAssignee] = useState('Alice Kim')
+  const [priority, setPriority] = useState('중간')
+  const [openField, setOpenField] = useState<string | null>(null)
+
+  const Field = ({ label, value, field, options, colors }: {
+    label: string
+    value: string
+    field: string
+    options: string[]
+    colors?: Record<string, string>
+  }) => (
+    <Popover open={openField === field} onOpenChange={(o) => setOpenField(o ? field : null)}>
+      <Popover.Trigger asChild>
+        <button style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '4px 8px', borderRadius: 6, border: '1px solid transparent', background: 'transparent', cursor: 'pointer', fontSize: 12, color: 'var(--sem-eclipse-color-foregroundSecondary)', transition: 'background 0.15s' }}
+          onMouseEnter={(e) => (e.currentTarget.style.background = 'var(--sem-eclipse-color-backgroundSecondary)')}
+          onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
+        >
+          {colors && <span style={{ width: 8, height: 8, borderRadius: '50%', background: colors[value], flexShrink: 0 }} />}
+          <span>{value}</span>
+        </button>
+      </Popover.Trigger>
+      <Popover.Content align="start" style={{ padding: 4, minWidth: 140, background: 'var(--sem-eclipse-color-backgroundPrimary)', border: '1px solid var(--sem-eclipse-color-borderDefault)', borderRadius: 8, boxShadow: '0 4px 16px rgba(0,0,0,0.1)' }}>
+        <div style={{ padding: '4px 8px 6px', fontSize: 10, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundQuaternary)', letterSpacing: '0.06em', textTransform: 'uppercase' }}>{label}</div>
+        {options.map((opt) => (
+          <button
+            key={opt}
+            onClick={() => { if (field === 'status') setStatus(opt); else if (field === 'assignee') setAssignee(opt); else setPriority(opt); setOpenField(null) }}
+            style={{ display: 'flex', alignItems: 'center', gap: 8, width: '100%', padding: '6px 8px', borderRadius: 5, border: 'none', background: (field === 'status' ? status : field === 'assignee' ? assignee : priority) === opt ? 'var(--sem-eclipse-color-backgroundSecondary)' : 'transparent', cursor: 'pointer', fontSize: 12, color: 'var(--sem-eclipse-color-foregroundPrimary)', textAlign: 'left', transition: 'background 0.1s' }}
+          >
+            {colors && <span style={{ width: 8, height: 8, borderRadius: '50%', background: colors[opt], flexShrink: 0 }} />}
+            {opt}
+          </button>
+        ))}
+      </Popover.Content>
+    </Popover>
+  )
+
+  return (
+    <div style={{ padding: 16, border: '1px solid var(--sem-eclipse-color-borderDefault)', borderRadius: 10, background: 'var(--sem-eclipse-color-backgroundPrimary)', minWidth: 380 }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 10 }}>
+        <span style={{ fontSize: 11, fontFamily: 'monospace', color: '#6366f1', fontWeight: 700, background: '#6366f108', padding: '2px 6px', borderRadius: 4 }}>ORB-315</span>
+        <Typography textStyle="labelMedium" color="foregroundPrimary">팝오버 퀵 편집 구현</Typography>
+      </div>
+      <div style={{ display: 'flex', gap: 4, flexWrap: 'wrap' }}>
+        <Field label="상태" value={status} field="status" options={LINEAR_STATUSES} colors={STATUS_COLORS} />
+        <Field label="담당자" value={assignee} field="assignee" options={LINEAR_USERS} />
+        <Field label="우선순위" value={priority} field="priority" options={LINEAR_PRIORITIES} />
+      </div>
+      <Typography textStyle="descriptionSmall" color="foregroundDisabled">Linear — 이슈 인라인 속성 퀵 편집 팝오버</Typography>
+    </div>
+  )
+}
+
+export const Linear_이슈_퀵_편집_팝오버: Story = {
+  name: 'Linear Design — 이슈 속성 퀵 편집 팝오버',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Linear의 인라인 이슈 편집 패턴. 상태/담당자/우선순위를 각각 별도 Popover로 즉시 변경. 버튼 클릭 시 해당 팝오버만 열리고 나머지는 닫힘.',
+      },
+    },
+  },
+  render: () => <LinearIssueQuickEditRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Radix UI — 접근성 중심 확인 팝오버
+   Radix의 포커스 트랩 + 키보드 탐색 패턴 — 삭제 확인 다이얼로그 대체
+-------------------------------------------------------------------------- */
+function RadixConfirmPopoverRender() {
+  const [items, setItems] = useState(['문서 A', '문서 B', '문서 C', '문서 D'])
+  const [deletingItem, setDeletingItem] = useState<string | null>(null)
+
+  const handleDelete = (item: string) => {
+    setItems((prev) => prev.filter((i) => i !== item))
+    setDeletingItem(null)
+  }
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 8, minWidth: 320 }}>
+      <Typography textStyle="subheadingSmall" color="foregroundPrimary">문서 목록</Typography>
+      <Typography textStyle="descriptionSmall" color="foregroundTertiary">Radix — 키보드 접근성 삭제 확인 팝오버</Typography>
+      {items.length === 0 ? (
+        <div style={{ padding: '24px', textAlign: 'center', border: '1px dashed var(--sem-eclipse-color-borderDefault)', borderRadius: 8 }}>
+          <Typography textStyle="labelMedium" color="foregroundDisabled">모든 문서가 삭제되었습니다</Typography>
+        </div>
+      ) : (
+        items.map((item) => (
+          <div key={item} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 14px', border: '1px solid var(--sem-eclipse-color-borderDefault)', borderRadius: 8, background: 'var(--sem-eclipse-color-backgroundPrimary)' }}>
+            <Typography textStyle="labelSmall" color="foregroundPrimary">{item}</Typography>
+            <Popover open={deletingItem === item} onOpenChange={(o) => setDeletingItem(o ? item : null)}>
+              <Popover.Trigger asChild>
+                <GhostButton color="black" size="small">
+                  <GhostButton.Center>삭제</GhostButton.Center>
+                </GhostButton>
+              </Popover.Trigger>
+              <Popover.Content align="end" style={{ padding: 16, width: 220, background: 'var(--sem-eclipse-color-backgroundPrimary)', border: '1px solid var(--sem-eclipse-color-borderDefault)', borderRadius: 10, boxShadow: '0 4px 20px rgba(0,0,0,0.12)' }}>
+                <Typography textStyle="labelMedium" color="foregroundPrimary">정말 삭제할까요?</Typography>
+                <Typography textStyle="descriptionSmall" color="foregroundTertiary">{item} 문서가 영구적으로 삭제됩니다.</Typography>
+                <div style={{ display: 'flex', gap: 8, marginTop: 12, justifyContent: 'flex-end' }}>
+                  <OutlineButton color="black" size="small" onClick={() => setDeletingItem(null)}>
+                    <OutlineButton.Center>취소</OutlineButton.Center>
+                  </OutlineButton>
+                  <Button color="primary" size="small" onClick={() => handleDelete(item)}>
+                    <Button.Center>삭제</Button.Center>
+                  </Button>
+                </div>
+              </Popover.Content>
+            </Popover>
+          </div>
+        ))
+      )}
+    </div>
+  )
+}
+
+export const Radix_접근성_삭제_확인_팝오버: Story = {
+  name: 'Radix UI — 접근성 중심 삭제 확인 팝오버',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Radix UI의 포커스 트랩 + 키보드 탐색 패턴. 삭제 버튼 클릭 시 확인 팝오버 표시, 취소/확인으로 처리. 경량 confirm 대화상자로 AlertDialog 대비 더 인라인 친화적.',
+      },
+    },
+  },
+  render: () => <RadixConfirmPopoverRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Linear + Radix — 레이블 관리 팝오버
+   Linear의 멀티셀렉트 레이블 + Radix 접근성 패턴
+-------------------------------------------------------------------------- */
+const LABEL_OPTIONS = [
+  { id: 'bug', name: '버그', color: '#ef4444' },
+  { id: 'feature', name: '기능', color: '#6366f1' },
+  { id: 'docs', name: '문서', color: '#0ea5e9' },
+  { id: 'performance', name: '성능', color: '#f59e0b' },
+  { id: 'a11y', name: '접근성', color: '#10b981' },
+  { id: 'design', name: '디자인', color: '#ec4899' },
+]
+
+function LinearRadixLabelManagerRender() {
+  const [selected, setSelected] = useState<string[]>(['bug', 'feature'])
+  const [open, setOpen] = useState(false)
+  const [search, setSearch] = useState('')
+
+  const toggleLabel = (id: string) => {
+    setSelected((prev) => prev.includes(id) ? prev.filter((l) => l !== id) : [...prev, id])
+  }
+  const filtered = LABEL_OPTIONS.filter((l) => l.name.includes(search))
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 12, minWidth: 320 }}>
+      <Popover open={open} onOpenChange={setOpen}>
+        <Popover.Trigger asChild>
+          <button style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '8px 12px', border: '1px solid var(--sem-eclipse-color-borderDefault)', borderRadius: 8, background: 'var(--sem-eclipse-color-backgroundPrimary)', cursor: 'pointer', fontSize: 13, color: 'var(--sem-eclipse-color-foregroundSecondary)' }}>
+            <span>레이블 편집</span>
+            {selected.length > 0 && <CounterBadge>{selected.length}</CounterBadge>}
+          </button>
+        </Popover.Trigger>
+        <Popover.Content align="start" style={{ padding: 0, width: 220, background: 'var(--sem-eclipse-color-backgroundPrimary)', border: '1px solid var(--sem-eclipse-color-borderDefault)', borderRadius: 10, boxShadow: '0 4px 20px rgba(0,0,0,0.1)', overflow: 'hidden' }}>
+          <div style={{ padding: '8px 10px', borderBottom: '1px solid var(--sem-eclipse-color-borderSubtle)' }}>
+            <input
+              placeholder="레이블 검색..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              style={{ width: '100%', border: 'none', background: 'transparent', fontSize: 12, color: 'var(--sem-eclipse-color-foregroundPrimary)', outline: 'none' }}
+            />
+          </div>
+          <div style={{ maxHeight: 220, overflowY: 'auto', padding: 4 }}>
+            {filtered.map((label) => {
+              const isOn = selected.includes(label.id)
+              return (
+                <button
+                  key={label.id}
+                  onClick={() => toggleLabel(label.id)}
+                  style={{ display: 'flex', alignItems: 'center', gap: 8, width: '100%', padding: '6px 8px', borderRadius: 6, border: 'none', background: isOn ? 'var(--sem-eclipse-color-backgroundSecondary)' : 'transparent', cursor: 'pointer', fontSize: 12, color: 'var(--sem-eclipse-color-foregroundPrimary)', textAlign: 'left', transition: 'background 0.1s' }}
+                >
+                  <span style={{ width: 10, height: 10, borderRadius: '50%', background: label.color, flexShrink: 0 }} />
+                  <span style={{ flex: 1 }}>{label.name}</span>
+                  {isOn && <span style={{ fontSize: 10, color: label.color, fontWeight: 700 }}>✓</span>}
+                </button>
+              )
+            })}
+          </div>
+        </Popover.Content>
+      </Popover>
+      {/* 선택된 레이블 태그 */}
+      <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+        {selected.map((id) => {
+          const label = LABEL_OPTIONS.find((l) => l.id === id)
+          if (!label) return null
+          return (
+            <span key={id} style={{ display: 'flex', alignItems: 'center', gap: 5, padding: '3px 8px', borderRadius: 999, border: `1px solid ${label.color}40`, background: `${label.color}10`, fontSize: 11, fontWeight: 600, color: label.color }}>
+              <span style={{ width: 6, height: 6, borderRadius: '50%', background: label.color }} />
+              {label.name}
+            </span>
+          )
+        })}
+        {selected.length === 0 && <Typography textStyle="descriptionSmall" color="foregroundDisabled">레이블 없음</Typography>}
+      </div>
+    </div>
+  )
+}
+
+export const Linear_Radix_레이블_관리_팝오버: Story = {
+  name: 'Linear + Radix UI — 멀티셀렉트 레이블 관리 팝오버',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Linear 레이블 멀티셀렉트 + Radix 접근성 패턴. 검색 필터 + 색상 도트 + 체크 표시. 선택된 레이블은 컬러 태그로 외부 표시. CounterBadge로 선택 수 즉시 확인.',
+      },
+    },
+  },
+  render: () => <LinearRadixLabelManagerRender />,
+}
