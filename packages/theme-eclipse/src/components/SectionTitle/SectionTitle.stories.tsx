@@ -990,3 +990,152 @@ export const Vercel_사용량_섹션: Story = {
   },
   render: () => <VercelUsageSectionRender />,
 }
+
+/* --------------------------------------------------------------------------
+   Radix UI — 접근성 섹션 헤더 패턴 (Cycle 121)
+   Radix의 heading 계층과 섹션 구조 패턴
+-------------------------------------------------------------------------- */
+export const Radix_접근성_섹션_헤더: Story = {
+  name: 'Radix UI — 접근성 섹션 헤더 (Cycle 121)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Radix UI의 시맨틱 heading 계층 패턴. 1단계(h2) → 2단계(h3) 섹션 구조, CounterBadge로 항목 수 표시, ChevronRight 탐색 링크.',
+      },
+    },
+  },
+  render: () => (
+    <div style={{ width: 480, display: 'flex', flexDirection: 'column', gap: 16 }}>
+      <SectionTitle>
+        <SectionTitle.Title>컴포넌트 라이브러리</SectionTitle.Title>
+        <SectionTitle.Description>Orbit UI 디자인 시스템의 핵심 컴포넌트 목록입니다.</SectionTitle.Description>
+        <SectionTitle.Trailing>
+          <CounterBadge>{47}</CounterBadge>
+        </SectionTitle.Trailing>
+      </SectionTitle>
+      <Divider />
+      {['Actions', 'Inputs', 'Data Display', 'Feedback', 'Navigation'].map((cat, i) => (
+        <div key={cat}>
+          <SectionTitle>
+            <SectionTitle.Title>{cat}</SectionTitle.Title>
+            <SectionTitle.Trailing>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                <CounterBadge>{[8, 12, 11, 7, 9][i]}</CounterBadge>
+                <ChevronRightLineIcon style={{ width: 14, height: 14, color: '#94a3b8' }} />
+              </div>
+            </SectionTitle.Trailing>
+          </SectionTitle>
+          {i < 4 && <Divider />}
+        </div>
+      ))}
+    </div>
+  ),
+}
+
+/* --------------------------------------------------------------------------
+   Tailwind UI — 대시보드 위젯 섹션 헤더 (Cycle 121)
+   Tailwind의 widget section header 패턴 — 제목 + 액션 버튼
+-------------------------------------------------------------------------- */
+export const Tailwind_위젯_섹션_헤더: Story = {
+  name: 'Tailwind UI — 대시보드 위젯 섹션 헤더 (Cycle 121)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Tailwind UI의 dashboard widget section header 패턴. SectionTitle + Trailing 영역에 LabelBadge(상태) + TextButton(전체 보기) 조합.',
+      },
+    },
+  },
+  render: () => (
+    <div style={{ width: 500, display: 'flex', flexDirection: 'column', gap: 16 }}>
+      {[
+        { title: '최근 배포', desc: '지난 7일간의 배포 이력', badge: '119회', badgeColor: 'sale' as const, action: '전체 보기' },
+        { title: '활성 컴포넌트', desc: '현재 사용 중인 컴포넌트 목록', badge: '47개', badgeColor: 'benefit' as const, action: '관리' },
+        { title: '알림', desc: '새 업데이트 및 변경사항', badge: '3개 미확인', badgeColor: 'gray' as const, action: '모두 읽음' },
+      ].map((item) => (
+        <div key={item.title} style={{ border: '1px solid #e2e8f0', borderRadius: 10, overflow: 'hidden' }}>
+          <div style={{ padding: '12px 16px', borderBottom: '1px solid #f1f5f9', background: '#f8fafc' }}>
+            <SectionTitle>
+              <SectionTitle.Title>{item.title}</SectionTitle.Title>
+              <SectionTitle.Description>{item.desc}</SectionTitle.Description>
+              <SectionTitle.Trailing>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                  <LabelBadge color={item.badgeColor}><LabelBadge.Label>{item.badge}</LabelBadge.Label></LabelBadge>
+                  <TextButton size="small" color="black">
+                    <TextButton.Center>{item.action}</TextButton.Center>
+                  </TextButton>
+                </div>
+              </SectionTitle.Trailing>
+            </SectionTitle>
+          </div>
+          <div style={{ padding: '12px 16px', fontSize: 12, color: '#94a3b8' }}>위젯 콘텐츠 영역</div>
+        </div>
+      ))}
+    </div>
+  ),
+}
+
+/* --------------------------------------------------------------------------
+   Radix + Tailwind — 중첩 섹션 계층 구조 (Cycle 121)
+   설정 페이지의 중첩 섹션 헤더 패턴
+-------------------------------------------------------------------------- */
+export const Radix_Tailwind_중첩_섹션_계층: Story = {
+  name: 'Radix + Tailwind — 중첩 섹션 계층 구조 (Cycle 121)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Radix UI + Tailwind의 nested section 패턴. 1단계 섹션 → 2단계 서브섹션 계층 구조. 인덴트 + Divider로 시각적 위계 표현.',
+      },
+    },
+  },
+  render: () => (
+    <div style={{ width: 500, display: 'flex', flexDirection: 'column', gap: 12 }}>
+      <SectionTitle>
+        <SectionTitle.Title>프로젝트 설정</SectionTitle.Title>
+        <SectionTitle.Description>프로젝트의 기본 구성을 관리합니다.</SectionTitle.Description>
+        <SectionTitle.Trailing>
+          <LabelBadge color="benefit"><LabelBadge.Label>Pro</LabelBadge.Label></LabelBadge>
+        </SectionTitle.Trailing>
+      </SectionTitle>
+      <Divider />
+      {[
+        {
+          title: '일반',
+          icon: <SettingLineIcon style={{ width: 14, height: 14 }} />,
+          subs: ['프로젝트 이름', '설명', '표시 언어'],
+        },
+        {
+          title: '알림',
+          icon: <CircleInfoLineIcon style={{ width: 14, height: 14 }} />,
+          subs: ['이메일 알림', '슬랙 연동', '웹훅'],
+        },
+        {
+          title: '새 기능',
+          icon: <CircleNewLineIcon style={{ width: 14, height: 14 }} />,
+          subs: ['베타 기능 참여', '실험적 API'],
+        },
+      ].map((group, gi) => (
+        <div key={group.title} style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+          <SectionTitle>
+            <SectionTitle.Title>
+              <span style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                {group.icon}{group.title}
+              </span>
+            </SectionTitle.Title>
+          </SectionTitle>
+          <div style={{ paddingLeft: 20, display: 'flex', flexDirection: 'column', gap: 4 }}>
+            {group.subs.map((sub) => (
+              <div key={sub} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '6px 10px', borderRadius: 6, background: '#f8fafc', border: '1px solid #f1f5f9' }}>
+                <span style={{ fontSize: 12, color: '#475569', flex: 1 }}>{sub}</span>
+                <ChevronRightLineIcon style={{ width: 12, height: 12, color: '#94a3b8' }} />
+              </div>
+            ))}
+          </div>
+          {gi < 2 && <Divider />}
+        </div>
+      ))}
+    </div>
+  ),
+}

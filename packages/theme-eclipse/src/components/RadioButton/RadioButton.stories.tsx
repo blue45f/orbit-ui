@@ -1143,3 +1143,220 @@ export const Ant_설문_척도_라디오 = {
     )
   },
 }
+
+/* --------------------------------------------------------------------------
+   Radix UI — 접근성 기반 라디오 그룹 (Cycle 121)
+   Radix RadioGroup.Root 패턴 — 시각적 포커스 표시 + 키보드 접근성
+-------------------------------------------------------------------------- */
+function RadixA11yRadioGroupRender() {
+  const [value, setValue] = useState('option-a')
+
+  const options = [
+    { id: 'option-a', label: '옵션 A', desc: '기본 설정으로 시작합니다', recommended: true },
+    { id: 'option-b', label: '옵션 B', desc: '사용자 정의 설정을 직접 구성합니다', recommended: false },
+    { id: 'option-c', label: '옵션 C', desc: '가이드 없이 빈 프로젝트로 시작합니다', recommended: false },
+  ]
+
+  return (
+    <div style={{ width: 380, display: 'flex', flexDirection: 'column', gap: 8 }}>
+      <div style={{ fontSize: 13, fontWeight: 700, color: '#0f172a', marginBottom: 4 }}>
+        Radix RadioGroup — 키보드 접근성 패턴
+      </div>
+      {options.map((opt) => (
+        <label
+          key={opt.id}
+          style={{
+            display: 'flex', alignItems: 'flex-start', gap: 12, padding: '12px 14px',
+            borderRadius: 8, cursor: 'pointer',
+            border: `1.5px solid ${value === opt.id ? '#6366f1' : '#e2e8f0'}`,
+            background: value === opt.id ? '#f0f4ff' : '#fff',
+            transition: 'border-color 0.15s, background 0.15s',
+          }}
+        >
+          <RadioButton
+            name="radix-a11y"
+            value={opt.id}
+            checked={value === opt.id}
+            onChange={() => setValue(opt.id)}
+          />
+          <div style={{ flex: 1 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+              <span style={{ fontSize: 13, fontWeight: 600, color: '#0f172a' }}>{opt.label}</span>
+              {opt.recommended && (
+                <span style={{ fontSize: 10, fontWeight: 700, padding: '1px 6px', borderRadius: 4, background: '#6366f1', color: '#fff' }}>추천</span>
+              )}
+            </div>
+            <div style={{ fontSize: 12, color: '#64748b', marginTop: 2 }}>{opt.desc}</div>
+          </div>
+        </label>
+      ))}
+      <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 4 }}>
+        선택: {options.find((o) => o.id === value)?.label} · 키보드 ↑↓ 화살표로 이동 가능
+      </div>
+    </div>
+  )
+}
+
+export const Radix_A11y_라디오_그룹: Story = {
+  name: 'Radix UI — 접근성 라디오 그룹 (Cycle 121)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Radix UI RadioGroup.Root의 접근성 패턴. 카드형 레이블 클릭, 추천 배지, 선택 시 테두리/배경 변화. 키보드 ↑↓로 포커스 이동 지원.',
+      },
+    },
+  },
+  render: () => <RadixA11yRadioGroupRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Tailwind UI — 결제 방법 선택 라디오 (Cycle 121)
+   Tailwind의 payment method radio card 패턴
+-------------------------------------------------------------------------- */
+function TailwindPaymentRadioRender() {
+  const [method, setMethod] = useState('card')
+
+  const methods = [
+    { id: 'card', label: '신용카드', icon: '💳', detail: '모든 주요 카드 지원' },
+    { id: 'bank', label: '계좌이체', icon: '🏦', detail: '실시간 이체 가능' },
+    { id: 'kakao', label: '카카오페이', icon: '💛', detail: '카카오톡으로 간편 결제' },
+    { id: 'naver', label: '네이버페이', icon: '💚', detail: '포인트 적립 가능' },
+  ]
+
+  return (
+    <div style={{ width: 360, display: 'flex', flexDirection: 'column', gap: 12 }}>
+      <div style={{ fontSize: 13, fontWeight: 700, color: '#0f172a' }}>결제 방법 선택</div>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
+        {methods.map((m) => (
+          <label
+            key={m.id}
+            style={{
+              padding: '14px', borderRadius: 8, cursor: 'pointer',
+              border: `1.5px solid ${method === m.id ? '#6366f1' : '#e2e8f0'}`,
+              background: method === m.id ? '#f0f4ff' : '#fff',
+              display: 'flex', flexDirection: 'column', gap: 8,
+            }}
+          >
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <span style={{ fontSize: 18 }}>{m.icon}</span>
+              <RadioButton
+                name="payment"
+                value={m.id}
+                checked={method === m.id}
+                onChange={() => setMethod(m.id)}
+              />
+            </div>
+            <div>
+              <div style={{ fontSize: 13, fontWeight: 600, color: '#0f172a' }}>{m.label}</div>
+              <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>{m.detail}</div>
+            </div>
+          </label>
+        ))}
+      </div>
+      <div style={{ padding: '10px 14px', borderRadius: 8, background: '#f0f4ff', border: '1px solid #c7d2fe', fontSize: 12, color: '#6366f1' }}>
+        선택된 결제 방법: {methods.find((m) => m.id === method)?.label}
+      </div>
+    </div>
+  )
+}
+
+export const Tailwind_결제_방법_라디오: Story = {
+  name: 'Tailwind UI — 결제 방법 라디오 카드 (Cycle 121)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Tailwind UI의 payment method radio card 패턴. 2열 그리드 카드 선택, 아이콘과 설명 포함, 선택 시 테두리/배경 하이라이트.',
+      },
+    },
+  },
+  render: () => <TailwindPaymentRadioRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Radix + Tailwind — 요금제 선택 라디오 (Cycle 121)
+   구독 플랜 선택 — 연간/월간 토글 + 플랜 카드
+-------------------------------------------------------------------------- */
+function RadixTailwindPlanRadioRender() {
+  const [billing, setBilling] = useState<'monthly' | 'annual'>('annual')
+  const [plan, setPlan] = useState('pro')
+
+  const plans = [
+    { id: 'hobby', label: 'Hobby', price: { monthly: 0, annual: 0 }, features: ['컴포넌트 40+', '스토리 600+', '커뮤니티 지원'], highlight: false },
+    { id: 'pro', label: 'Pro', price: { monthly: 19, annual: 15 }, features: ['컴포넌트 100+', '스토리 1000+', '우선 지원', 'MDX 문서'], highlight: true },
+    { id: 'team', label: 'Team', price: { monthly: 49, annual: 39 }, features: ['무제한 컴포넌트', '커스텀 테마', '전담 지원', 'SLA 99.9%'], highlight: false },
+  ]
+
+  return (
+    <div style={{ width: 460, display: 'flex', flexDirection: 'column', gap: 16 }}>
+      {/* Billing toggle */}
+      <div style={{ display: 'flex', justifyContent: 'center', gap: 0, border: '1px solid #e2e8f0', borderRadius: 8, overflow: 'hidden', width: 'fit-content', alignSelf: 'center' }}>
+        {(['monthly', 'annual'] as const).map((b) => (
+          <button
+            key={b}
+            onClick={() => setBilling(b)}
+            style={{
+              padding: '6px 20px', fontSize: 12, fontWeight: 600, cursor: 'pointer',
+              background: billing === b ? '#6366f1' : '#fff',
+              color: billing === b ? '#fff' : '#64748b',
+              border: 'none',
+            }}
+          >
+            {b === 'monthly' ? '월간' : '연간'}
+            {b === 'annual' && <span style={{ marginLeft: 4, fontSize: 10, opacity: 0.8 }}>(-20%)</span>}
+          </button>
+        ))}
+      </div>
+
+      {/* Plans */}
+      <div style={{ display: 'flex', gap: 8 }}>
+        {plans.map((p) => (
+          <label
+            key={p.id}
+            style={{
+              flex: 1, padding: '14px 12px', borderRadius: 10, cursor: 'pointer',
+              border: `2px solid ${plan === p.id ? '#6366f1' : p.highlight ? '#6366f1' : '#e2e8f0'}`,
+              background: plan === p.id ? '#f0f4ff' : p.highlight ? '#fafafe' : '#fff',
+              position: 'relative',
+            }}
+          >
+            {p.highlight && (
+              <div style={{ position: 'absolute', top: -1, left: '50%', transform: 'translateX(-50%)', fontSize: 10, fontWeight: 700, padding: '2px 8px', background: '#6366f1', color: '#fff', borderRadius: '0 0 6px 6px' }}>인기</div>
+            )}
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8 }}>
+              <span style={{ fontSize: 13, fontWeight: 700, color: '#0f172a' }}>{p.label}</span>
+              <RadioButton name="plan" value={p.id} checked={plan === p.id} onChange={() => setPlan(p.id)} />
+            </div>
+            <div style={{ marginBottom: 8 }}>
+              <span style={{ fontSize: 20, fontWeight: 800, color: '#6366f1' }}>
+                ${p.price[billing]}
+              </span>
+              <span style={{ fontSize: 11, color: '#94a3b8' }}>/월</span>
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+              {p.features.map((f) => (
+                <div key={f} style={{ fontSize: 11, color: '#475569', display: 'flex', gap: 4 }}>
+                  <span style={{ color: '#10b981' }}>✓</span> {f}
+                </div>
+              ))}
+            </div>
+          </label>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+export const Radix_Tailwind_요금제_선택: Story = {
+  name: 'Radix + Tailwind — 요금제 선택 라디오 (Cycle 121)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Radix UI + Tailwind UI의 pricing plan 선택 패턴. 월간/연간 전환 + 3가지 플랜 카드 라디오. 인기 배지, 연간 할인율, 기능 체크리스트.',
+      },
+    },
+  },
+  render: () => <RadixTailwindPlanRadioRender />,
+}

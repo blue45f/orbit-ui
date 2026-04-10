@@ -28720,3 +28720,217 @@ export const ShadcnVercel120KanbanBoard: StoryObj = {
   },
   render: () => <KanbanBoard120Render />,
 }
+/* --------------------------------------------------------------------------
+   Cycle 121 — Radix UI + Tailwind UI
+   템플릿: Onboarding — 온보딩 플로우
+   Components: RadioButton, SectionTitle, Progress, SolidButton, OutlineButton,
+               GhostButton, LabelBadge, CounterBadge, Divider, TextField,
+               Toggle, Switch, Checkbox
+-------------------------------------------------------------------------- */
+function Onboarding121Render() {
+  const [step, setStep] = React.useState(0)
+  const [role, setRole] = React.useState('developer')
+  const [framework, setFramework] = React.useState('react')
+  const [plan, setPlan] = React.useState('hobby')
+  const [notifEmail, setNotifEmail] = React.useState(true)
+  const [notifSlack, setNotifSlack] = React.useState(false)
+  const [workspaceName, setWorkspaceName] = React.useState('')
+  const [agreed, setAgreed] = React.useState(false)
+
+  const totalSteps = 4
+
+  const steps = [
+    { label: '역할 선택', icon: '👤' },
+    { label: '기술 스택', icon: '⚙️' },
+    { label: '요금제', icon: '💳' },
+    { label: '완료', icon: '🎉' },
+  ]
+
+  const roles = [
+    { id: 'developer', label: '개발자', desc: 'React/TypeScript 컴포넌트 개발' },
+    { id: 'designer', label: '디자이너', desc: 'Figma 토큰 및 디자인 시스템 관리' },
+    { id: 'pm', label: '프로덕트 매니저', desc: '컴포넌트 현황 파악 및 로드맵 관리' },
+  ]
+
+  const frameworks = [
+    { id: 'react', label: 'React', detail: 'Create React App / Vite' },
+    { id: 'next', label: 'Next.js', detail: 'App Router 지원' },
+    { id: 'vite', label: 'Vite', detail: '빠른 개발 서버' },
+    { id: 'remix', label: 'Remix', detail: 'Fullstack 지원' },
+  ]
+
+  const plans = [
+    { id: 'hobby', label: 'Hobby', price: '무료', features: ['컴포넌트 40+', '커뮤니티 지원'] },
+    { id: 'pro', label: 'Pro', price: '$15/월', features: ['컴포넌트 100+', '우선 지원', 'MDX 문서'] },
+  ]
+
+  function next() { setStep((s) => Math.min(s + 1, totalSteps - 1)) }
+  function prev() { setStep((s) => Math.max(s - 1, 0)) }
+
+  return (
+    <div style={{ display: 'flex', justifyContent: 'center', padding: '40px 24px', background: 'var(--sem-eclipse-color-backgroundSecondary)', minHeight: 560 }}>
+      <div style={{ width: 560, background: 'var(--sem-eclipse-color-backgroundPrimary)', borderRadius: 16, border: '1px solid var(--sem-eclipse-color-borderDefault)', overflow: 'hidden' }}>
+        {/* Header */}
+        <div style={{ padding: '20px 24px', borderBottom: '1px solid var(--sem-eclipse-color-borderSubtle)' }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12 }}>
+            <SectionTitle>
+              <SectionTitle.Title>Orbit UI 시작하기</SectionTitle.Title>
+            </SectionTitle>
+            <LabelBadge color="gray"><LabelBadge.Label>{`${step + 1}/${totalSteps}`}</LabelBadge.Label></LabelBadge>
+          </div>
+          {/* Step indicators */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: 0 }}>
+            {steps.map((s, i) => (
+              <React.Fragment key={s.label}>
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4 }}>
+                  <div style={{
+                    width: 28, height: 28, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    fontSize: 11, fontWeight: 700,
+                    background: i < step ? '#10b981' : i === step ? '#6366f1' : 'var(--sem-eclipse-color-backgroundSecondary)',
+                    color: i <= step ? '#fff' : 'var(--sem-eclipse-color-foregroundTertiary)',
+                  }}>
+                    {i < step ? '✓' : i + 1}
+                  </div>
+                  <span style={{ fontSize: 9, color: i === step ? '#6366f1' : 'var(--sem-eclipse-color-foregroundTertiary)', fontWeight: i === step ? 700 : 400, whiteSpace: 'nowrap' }}>{s.label}</span>
+                </div>
+                {i < steps.length - 1 && (
+                  <div style={{ flex: 1, height: 2, background: i < step ? '#10b981' : 'var(--sem-eclipse-color-borderSubtle)', marginBottom: 16, transition: 'background 0.3s' }} />
+                )}
+              </React.Fragment>
+            ))}
+          </div>
+          <div style={{ marginTop: 10 }}>
+            <Progress value={((step) / (totalSteps - 1)) * 100} />
+          </div>
+        </div>
+
+        {/* Step content */}
+        <div style={{ padding: '24px', minHeight: 260 }}>
+          {step === 0 && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+              <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 4 }}>역할을 선택해주세요</div>
+              {roles.map((r) => (
+                <label key={r.id} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 14px', borderRadius: 8, cursor: 'pointer', border: `1.5px solid ${role === r.id ? '#6366f1' : 'var(--sem-eclipse-color-borderDefault)'}`, background: role === r.id ? '#f0f4ff' : 'var(--sem-eclipse-color-backgroundPrimary)' }}>
+                  <RadioButton name="role" value={r.id} checked={role === r.id} onChange={() => setRole(r.id)} />
+                  <div>
+                    <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{r.label}</div>
+                    <div style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>{r.desc}</div>
+                  </div>
+                </label>
+              ))}
+            </div>
+          )}
+
+          {step === 1 && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+              <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 4 }}>사용 프레임워크</div>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
+                {frameworks.map((f) => (
+                  <label key={f.id} style={{ padding: '12px', borderRadius: 8, cursor: 'pointer', border: `1.5px solid ${framework === f.id ? '#6366f1' : 'var(--sem-eclipse-color-borderDefault)'}`, background: framework === f.id ? '#f0f4ff' : 'var(--sem-eclipse-color-backgroundPrimary)', display: 'flex', flexDirection: 'column', gap: 6 }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                      <span style={{ fontSize: 13, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{f.label}</span>
+                      <RadioButton name="framework" value={f.id} checked={framework === f.id} onChange={() => setFramework(f.id)} />
+                    </div>
+                    <span style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>{f.detail}</span>
+                  </label>
+                ))}
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                <div style={{ fontSize: 12, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundSecondary)' }}>알림 설정</div>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                  <span style={{ fontSize: 13, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>이메일 알림</span>
+                  <Toggle checked={notifEmail} onChange={() => setNotifEmail((v) => !v)} />
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                  <span style={{ fontSize: 13, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>Slack 연동</span>
+                  <Switch checked={notifSlack} onCheckedChange={(v) => setNotifSlack(v)} />
+                </div>
+              </div>
+            </div>
+          )}
+
+          {step === 2 && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+              <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 4 }}>요금제 선택</div>
+              <div style={{ display: 'flex', gap: 10 }}>
+                {plans.map((p) => (
+                  <label key={p.id} style={{ flex: 1, padding: '14px', borderRadius: 10, cursor: 'pointer', border: `2px solid ${plan === p.id ? '#6366f1' : 'var(--sem-eclipse-color-borderDefault)'}`, background: plan === p.id ? '#f0f4ff' : 'var(--sem-eclipse-color-backgroundPrimary)' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8 }}>
+                      <span style={{ fontSize: 13, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{p.label}</span>
+                      <RadioButton name="plan" value={p.id} checked={plan === p.id} onChange={() => setPlan(p.id)} />
+                    </div>
+                    <div style={{ fontSize: 18, fontWeight: 800, color: '#6366f1', marginBottom: 8 }}>{p.price}</div>
+                    {p.features.map((f) => (
+                      <div key={f} style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundSecondary)', display: 'flex', gap: 4 }}>
+                        <span style={{ color: '#10b981' }}>✓</span>{f}
+                      </div>
+                    ))}
+                  </label>
+                ))}
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+                <div style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundSecondary)', fontWeight: 600 }}>워크스페이스 이름</div>
+                <TextField placeholder="my-workspace" value={workspaceName} onChange={(e) => setWorkspaceName(e.target.value)} />
+              </div>
+              <div style={{ display: 'flex', alignItems: 'flex-start', gap: 8 }}>
+                <Checkbox checked={agreed} onChange={() => setAgreed((v) => !v)} />
+                <span style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundSecondary)' }}>이용약관 및 개인정보 처리방침에 동의합니다.</span>
+              </div>
+            </div>
+          )}
+
+          {step === 3 && (
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12, textAlign: 'center', paddingTop: 20 }}>
+              <div style={{ fontSize: 40 }}>🎉</div>
+              <div style={{ fontSize: 16, fontWeight: 800, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>설정 완료!</div>
+              <div style={{ fontSize: 13, color: 'var(--sem-eclipse-color-foregroundSecondary)' }}>Orbit UI를 사용할 준비가 되었습니다.</div>
+              <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', justifyContent: 'center' }}>
+                <LabelBadge color="sale"><LabelBadge.Label>역할: {roles.find((r) => r.id === role)?.label}</LabelBadge.Label></LabelBadge>
+                <LabelBadge color="gray"><LabelBadge.Label>{frameworks.find((f) => f.id === framework)?.label}</LabelBadge.Label></LabelBadge>
+                <LabelBadge color="benefit"><LabelBadge.Label>{plans.find((p) => p.id === plan)?.label}</LabelBadge.Label></LabelBadge>
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* Footer */}
+        <div style={{ padding: '16px 24px', borderTop: '1px solid var(--sem-eclipse-color-borderSubtle)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <GhostButton color="black" size="small" onClick={prev} disabled={step === 0}>
+            <GhostButton.Center>이전</GhostButton.Center>
+          </GhostButton>
+          <div style={{ display: 'flex', gap: 8 }}>
+            {step < totalSteps - 1 && (
+              <OutlineButton color="black" size="small" onClick={() => setStep(totalSteps - 1)}>
+                <OutlineButton.Center>건너뛰기</OutlineButton.Center>
+              </OutlineButton>
+            )}
+            {step < totalSteps - 1 ? (
+              <SolidButton color="primary" size="small" onClick={next} disabled={step === 2 && (!workspaceName || !agreed)}>
+                <SolidButton.Center>다음</SolidButton.Center>
+              </SolidButton>
+            ) : (
+              <SolidButton color="primary" size="small" onClick={() => setStep(0)}>
+                <SolidButton.Center>처음부터 다시</SolidButton.Center>
+              </SolidButton>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const RadixTailwind121Onboarding: StoryObj = {
+  name: 'Radix + Tailwind — 온보딩 플로우 (Cycle 121)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Radix UI + Tailwind UI 벤치마크 — Cycle 121. ' +
+          '4단계 온보딩: 역할 선택(RadioButton) + 기술 스택(RadioButton+Toggle+Switch) + 요금제(RadioButton+TextField+Checkbox) + 완료. ' +
+          'Progress 단계 표시, SolidButton/OutlineButton/GhostButton 네비게이션, LabelBadge 요약.',
+      },
+    },
+  },
+  render: () => <Onboarding121Render />,
+}
