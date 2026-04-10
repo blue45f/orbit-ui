@@ -1043,3 +1043,201 @@ export const Mantine_권한_매트릭스: Story = {
   },
   render: () => <MantinePermissionMatrixDemo />,
 }
+
+/* --------------------------------------------------------------------------
+   Mantine — 뉴스레터 구독 설정
+   이메일 토픽 다중 선택 + 빈도 선택 패턴
+-------------------------------------------------------------------------- */
+const MANTINE_TOPICS = [
+  { id: 'product', label: '제품 업데이트', desc: '새 기능 및 출시 소식' },
+  { id: 'tutorial', label: '튜토리얼', desc: '컴포넌트 활용 가이드' },
+  { id: 'changelog', label: 'Changelog', desc: '버전 변경 사항 요약' },
+  { id: 'community', label: '커뮤니티', desc: '이벤트 및 기여자 소식' },
+  { id: 'security', label: '보안 공지', desc: '취약점 패치 및 긴급 공지' },
+]
+
+const MANTINE_FREQ = ['즉시', '주간 다이제스트', '월간 요약']
+
+function ManNewsletterRender() {
+  const [topics, setTopics] = useState(new Set(['product', 'changelog', 'security']))
+  const [freq, setFreq] = useState('주간 다이제스트')
+  const [saved, setSaved] = useState(false)
+
+  const toggle = (id: string) => setTopics((prev) => {
+    const next = new Set(prev)
+    if (next.has(id)) next.delete(id)
+    else next.add(id)
+    return next
+  })
+
+  const save = async () => {
+    setSaved(true)
+    await new Promise((r) => setTimeout(r, 1000))
+    setSaved(false)
+  }
+
+  return (
+    <div style={{ maxWidth: 380, display: 'flex', flexDirection: 'column', gap: 16 }}>
+      <div>
+        <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 2 }}>뉴스레터 설정</div>
+        <div style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>관심 있는 토픽을 선택하세요</div>
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+        {MANTINE_TOPICS.map((t) => (
+          <label key={t.id} onClick={() => toggle(t.id)} style={{ display: 'flex', gap: 12, alignItems: 'flex-start', padding: '10px 12px', borderRadius: 8, border: `1.5px solid ${topics.has(t.id) ? '#6366f1' : 'var(--sem-eclipse-color-borderSubtle)'}`, background: topics.has(t.id) ? '#6366f108' : 'var(--sem-eclipse-color-backgroundPrimary)', cursor: 'pointer', transition: 'all 0.15s' }}>
+            <div style={{ paddingTop: 2 }}>
+              <BoxedCheckboxWithLabel value={t.id} checked={topics.has(t.id)} onChange={() => toggle(t.id)} />
+            </div>
+            <div>
+              <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{t.label}</div>
+              <div style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginTop: 1 }}>{t.desc}</div>
+            </div>
+          </label>
+        ))}
+      </div>
+      <div>
+        <div style={{ fontSize: 12, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundSecondary)', marginBottom: 6 }}>발송 빈도</div>
+        <div style={{ display: 'flex', gap: 6 }}>
+          {MANTINE_FREQ.map((f) => (
+            <button key={f} onClick={() => setFreq(f)} style={{ flex: 1, padding: '7px 6px', borderRadius: 8, border: `1.5px solid ${freq === f ? '#6366f1' : 'var(--sem-eclipse-color-borderSubtle)'}`, background: freq === f ? '#6366f108' : 'transparent', color: freq === f ? '#6366f1' : 'var(--sem-eclipse-color-foregroundTertiary)', fontSize: 11, fontWeight: freq === f ? 700 : 400, cursor: 'pointer', transition: 'all 0.15s' }}>{f}</button>
+          ))}
+        </div>
+      </div>
+      <button onClick={save} disabled={topics.size === 0 || saved} style={{ padding: '10px', borderRadius: 8, border: 'none', background: topics.size > 0 ? '#0f172a' : '#e2e8f0', color: topics.size > 0 ? '#fff' : '#94a3b8', fontSize: 13, fontWeight: 700, cursor: topics.size > 0 ? 'pointer' : 'not-allowed', transition: 'all 0.15s' }}>
+        {saved ? '저장됨 ✓' : `구독 저장 (${topics.size}개 토픽)`}
+      </button>
+      <p style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundDisabled)' }}>Mantine 뉴스레터 구독 설정 패턴 — 카드형 다중 선택</p>
+    </div>
+  )
+}
+
+export const Mantine_뉴스레터_구독_설정: Story = {
+  name: 'Mantine — 뉴스레터 구독 설정 (카드형 다중 선택)',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Mantine Checkbox 카드 그리드 패턴. 토픽별 BoxedCheckboxWithLabel + 설명 텍스트 카드, 선택 시 테두리 강조, 발송 빈도 세그먼트 선택, 선택 수 실시간 표시.',
+      },
+    },
+  },
+  render: () => <ManNewsletterRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Notion Design — 블록 속성 토글
+   페이지 속성 활성화/비활성화 체크박스 패턴
+-------------------------------------------------------------------------- */
+const NOTION_PROPS = [
+  { id: 'status', label: '상태', icon: '○', desc: '이슈 진행 상태', enabled: true },
+  { id: 'priority', label: '우선순위', icon: '!', desc: '작업 우선순위', enabled: true },
+  { id: 'assignee', label: '담당자', icon: '☻', desc: '작업 담당 멤버', enabled: false },
+  { id: 'duedate', label: '마감일', icon: '⌛', desc: '완료 목표 날짜', enabled: true },
+  { id: 'estimate', label: '예상 시간', icon: '◑', desc: '작업 소요 예상치', enabled: false },
+  { id: 'tags', label: '태그', icon: '⌗', desc: '분류 및 검색 태그', enabled: false },
+]
+
+function NotionBlockPropertyRender() {
+  const [props, setProps] = useState(NOTION_PROPS.map((p) => ({ ...p })))
+  const enabledCount = props.filter((p) => p.enabled).length
+
+  const toggle = (id: string) => setProps((prev) => prev.map((p) => p.id === id ? { ...p, enabled: !p.enabled } : p))
+
+  return (
+    <div style={{ width: 300, display: 'flex', flexDirection: 'column', gap: 0, borderRadius: 10, border: '1px solid var(--sem-eclipse-color-borderSubtle)', overflow: 'hidden' }}>
+      {/* 헤더 */}
+      <div style={{ padding: '10px 14px', borderBottom: '1px solid var(--sem-eclipse-color-borderSubtle)', background: 'var(--sem-eclipse-color-backgroundSecondary)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <span style={{ fontSize: 12, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>페이지 속성</span>
+        <span style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>{enabledCount} / {props.length} 활성</span>
+      </div>
+      {/* 속성 목록 */}
+      {props.map((p, i) => (
+        <div key={p.id} onClick={() => toggle(p.id)} style={{ display: 'flex', gap: 10, alignItems: 'center', padding: '9px 14px', borderBottom: i < props.length - 1 ? '1px solid var(--sem-eclipse-color-borderSubtle)' : 'none', cursor: 'pointer', background: p.enabled ? 'var(--sem-eclipse-color-backgroundPrimary)' : 'var(--sem-eclipse-color-backgroundSecondary)', transition: 'background 0.1s', opacity: p.enabled ? 1 : 0.6 }}>
+          <span style={{ fontSize: 14, color: 'var(--sem-eclipse-color-foregroundTertiary)', width: 18, textAlign: 'center', flexShrink: 0 }}>{p.icon}</span>
+          <div style={{ flex: 1 }}>
+            <div style={{ fontSize: 12, fontWeight: p.enabled ? 600 : 400, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{p.label}</div>
+            <div style={{ fontSize: 10, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginTop: 1 }}>{p.desc}</div>
+          </div>
+          <BoxedCheckboxWithLabel value={p.id} checked={p.enabled} onChange={() => toggle(p.id)} />
+        </div>
+      ))}
+      <p style={{ fontSize: 10, color: 'var(--sem-eclipse-color-foregroundDisabled)', padding: '8px 14px', margin: 0, textAlign: 'center', background: 'var(--sem-eclipse-color-backgroundSecondary)' }}>Notion 페이지 속성 토글 패턴</p>
+    </div>
+  )
+}
+
+export const Notion_페이지_속성_토글: Story = {
+  name: 'Notion Design — 페이지 속성 활성화 토글',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Notion 페이지 속성 설정 패널 패턴. 속성별 아이콘 + 레이블 + 설명, BoxedCheckboxWithLabel로 활성화 여부 제어, 비활성 항목 opacity 0.6으로 시각적 구분.',
+      },
+    },
+  },
+  render: () => <NotionBlockPropertyRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Mantine + Notion — 온보딩 체크리스트
+   완료 진행률 + 단계별 BoxedCheckbox 패턴
+-------------------------------------------------------------------------- */
+const ONBOARDING_TASKS = [
+  { id: 'install', label: '패키지 설치', desc: 'pnpm add @heejun-com/theme-eclipse', done: true },
+  { id: 'provider', label: 'EclipseProvider 설정', desc: '앱 루트에 테마 프로바이더 래핑', done: true },
+  { id: 'import', label: '첫 컴포넌트 임포트', desc: 'SolidButton 등 컴포넌트 사용해보기', done: false },
+  { id: 'token', label: '디자인 토큰 커스텀', desc: 'CSS 변수로 브랜드 색상 변경', done: false },
+  { id: 'storybook', label: 'Storybook 탐색', desc: '전체 컴포넌트 카탈로그 확인', done: false },
+]
+
+function MantineNotionOnboardingRender() {
+  const [tasks, setTasks] = useState(ONBOARDING_TASKS.map((t) => ({ ...t })))
+  const doneCount = tasks.filter((t) => t.done).length
+  const pct = Math.round((doneCount / tasks.length) * 100)
+
+  const toggleTask = (id: string) => setTasks((prev) => prev.map((t) => t.id === id ? { ...t, done: !t.done } : t))
+
+  return (
+    <div style={{ maxWidth: 360, display: 'flex', flexDirection: 'column', gap: 16 }}>
+      <div>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 6 }}>
+          <span style={{ fontSize: 14, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>시작하기</span>
+          <span style={{ fontSize: 12, fontWeight: 700, color: pct === 100 ? '#10b981' : '#6366f1' }}>{pct}% 완료</span>
+        </div>
+        <div style={{ height: 6, borderRadius: 3, background: 'var(--sem-eclipse-color-borderSubtle)', overflow: 'hidden' }}>
+          <div style={{ height: '100%', width: `${pct}%`, borderRadius: 3, background: pct === 100 ? '#10b981' : '#6366f1', transition: 'width 0.4s ease, background 0.3s' }} />
+        </div>
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+        {tasks.map((task) => (
+          <div key={task.id} onClick={() => toggleTask(task.id)} style={{ display: 'flex', gap: 12, alignItems: 'flex-start', padding: '10px 12px', borderRadius: 8, border: `1.5px solid ${task.done ? '#10b98130' : 'var(--sem-eclipse-color-borderSubtle)'}`, background: task.done ? '#f0fdf4' : 'var(--sem-eclipse-color-backgroundPrimary)', cursor: 'pointer', transition: 'all 0.2s' }}>
+            <div style={{ paddingTop: 2, flexShrink: 0 }}>
+              <BoxedCheckboxWithLabel value={task.id} checked={task.done} onChange={() => toggleTask(task.id)} />
+            </div>
+            <div style={{ flex: 1 }}>
+              <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)', textDecoration: task.done ? 'line-through' : 'none', opacity: task.done ? 0.6 : 1, transition: 'opacity 0.2s' }}>{task.label}</div>
+              <code style={{ fontSize: 10, color: 'var(--sem-eclipse-color-foregroundTertiary)', fontFamily: 'monospace', background: 'var(--sem-eclipse-color-backgroundSecondary)', padding: '1px 5px', borderRadius: 3, display: 'inline-block', marginTop: 3 }}>{task.desc}</code>
+            </div>
+          </div>
+        ))}
+      </div>
+      {pct === 100 && (
+        <div style={{ padding: '10px 14px', borderRadius: 8, background: '#f0fdf4', border: '1px solid #10b98130', fontSize: 12, fontWeight: 600, color: '#10b981', textAlign: 'center' }}>
+          모든 단계 완료! Orbit UI 준비됨
+        </div>
+      )}
+      <p style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundDisabled)' }}>Mantine + Notion 온보딩 체크리스트 — 진행률 바 + 취소선 완료</p>
+    </div>
+  )
+}
+
+export const Mantine_Notion_온보딩_체크리스트: Story = {
+  name: 'Mantine + Notion — 온보딩 체크리스트 (진행률 바)',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Mantine Progress + Notion 체크리스트 패턴 조합. BoxedCheckboxWithLabel 완료 시 취소선 + 녹색 배경 전환, 진행률 바 실시간 업데이트, 전체 완료 시 완료 메시지 표시.',
+      },
+    },
+  },
+  render: () => <MantineNotionOnboardingRender />,
+}

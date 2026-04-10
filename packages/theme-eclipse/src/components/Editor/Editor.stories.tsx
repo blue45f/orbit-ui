@@ -651,3 +651,188 @@ export const Ant_폼_유효성_검사_에디터: Story = {
   name: 'Ant Design — 폼 유효성 검사 에디터',
   render: () => <AntValidationEditorDemo />,
 }
+
+/* ── Mantine: 협업 메모 에디터 ── */
+const MantineColabEditorDemo = () => {
+  const [content, setContent] = useState('')
+  const [collaborators] = useState([
+    { name: 'HJ', color: '#6366f1' },
+    { name: 'SY', color: '#10b981' },
+    { name: 'JW', color: '#f59e0b' },
+  ])
+  const [saving, setSaving] = useState(false)
+
+  const save = async () => {
+    setSaving(true)
+    await new Promise((r) => setTimeout(r, 800))
+    setSaving(false)
+  }
+
+  const charCount = content.replace(/<[^>]+>/g, '').trim().length
+
+  return (
+    <div style={{ maxWidth: 640 }}>
+      {/* 헤더 */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 10 }}>
+        <div style={{ flex: 1, fontSize: 14, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>협업 메모</div>
+        {/* 협업자 아바타 */}
+        <div style={{ display: 'flex', gap: -4 }}>
+          {collaborators.map((c) => (
+            <div key={c.name} style={{ width: 26, height: 26, borderRadius: '50%', background: c.color, color: '#fff', fontSize: 10, fontWeight: 700, display: 'flex', alignItems: 'center', justifyContent: 'center', border: '2px solid #fff', marginLeft: -6 }}>{c.name}</div>
+          ))}
+        </div>
+        <div style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
+          {charCount > 0 && <span style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>{charCount}자</span>}
+          <button onClick={save} disabled={charCount === 0 || saving} style={{ padding: '6px 12px', borderRadius: 6, border: 'none', background: charCount > 0 ? '#0f172a' : '#e2e8f0', color: charCount > 0 ? '#fff' : '#94a3b8', fontSize: 12, fontWeight: 600, cursor: charCount > 0 ? 'pointer' : 'not-allowed' }}>
+            {saving ? '저장 중...' : '저장'}
+          </button>
+        </div>
+      </div>
+      <Editor
+        placeholder="팀 메모를 작성하세요... (Mantine 협업 에디터 패턴)"
+        toolbar={<Editor.Toolbar />}
+        footer={<Editor.CharacterCount />}
+        onChange={setContent}
+      />
+      <p style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundDisabled)', marginTop: 8 }}>Mantine RTE 협업 메모 패턴 — 협업자 아바타 + 자동 저장</p>
+    </div>
+  )
+}
+
+export const Mantine_협업_메모_에디터: Story = {
+  name: 'Mantine — 협업 메모 에디터 (실시간 저장)',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Mantine Rich Text Editor 패턴. 협업자 아바타 중첩 표시, 실시간 글자 수 카운트, 저장 버튼 비활성화(내용 없을 때), 저장 애니메이션 패턴.',
+      },
+    },
+  },
+  render: () => <MantineColabEditorDemo />,
+}
+
+/* ── Notion Design: 블록 에디터 스타일 ── */
+const NotionBlockEditorDemo = () => {
+  const [blocks, setBlocks] = useState([
+    { id: 'h1', type: 'h1' as const, content: '' },
+    { id: 'body', type: 'body' as const, content: '' },
+  ])
+  const [activeBlock, setActiveBlock] = useState<string | null>('h1')
+
+  const addBlock = () => setBlocks((prev) => [...prev, { id: `b${Date.now()}`, type: 'body' as const, content: '' }])
+
+  return (
+    <div style={{ maxWidth: 640 }}>
+      {/* Notion 스타일 헤더 */}
+      <div style={{ padding: '12px 0 8px', display: 'flex', alignItems: 'center', gap: 8, borderBottom: '1px solid var(--sem-eclipse-color-borderSubtle)', marginBottom: 12 }}>
+        <span style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>/ 명령어로 블록 추가</span>
+        <span style={{ marginLeft: 'auto', fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>마지막 편집: 방금 전</span>
+      </div>
+
+      {/* 블록 에디터 목록 */}
+      {blocks.map((block, i) => (
+        <div key={block.id} style={{ marginBottom: 8, position: 'relative' }} onClick={() => setActiveBlock(block.id)}>
+          {activeBlock === block.id && (
+            <div style={{ position: 'absolute', left: -24, top: '50%', transform: 'translateY(-50%)', width: 3, height: '60%', borderRadius: 2, background: '#6366f1' }} />
+          )}
+          {i === 0 ? (
+            <div style={{ fontSize: 22, fontWeight: 800, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>
+              <Editor
+                placeholder="제목 없음"
+                toolbar={null}
+                onChange={(html) => setBlocks((prev) => prev.map((b) => b.id === block.id ? { ...b, content: html } : b))}
+              />
+            </div>
+          ) : (
+            <Editor
+              placeholder={`블록 ${i} — 텍스트를 입력하세요`}
+              toolbar={i === 1 ? <Editor.Toolbar /> : null}
+              footer={i === blocks.length - 1 ? <Editor.CharacterCount /> : null}
+              onChange={(html) => setBlocks((prev) => prev.map((b) => b.id === block.id ? { ...b, content: html } : b))}
+            />
+          )}
+        </div>
+      ))}
+
+      <button onClick={addBlock} style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '6px 10px', borderRadius: 6, border: '1px dashed var(--sem-eclipse-color-borderSubtle)', background: 'transparent', color: 'var(--sem-eclipse-color-foregroundTertiary)', fontSize: 12, cursor: 'pointer', marginTop: 8 }}>
+        + 새 블록 추가
+      </button>
+      <p style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundDisabled)', marginTop: 12 }}>Notion 블록 에디터 패턴 — 포커스 인디케이터 + 블록 추가</p>
+    </div>
+  )
+}
+
+export const Notion_블록_에디터_스타일: Story = {
+  name: 'Notion Design — 블록 에디터 스타일',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Notion 페이지 편집기 패턴. 제목 블록(대형 폰트) + 본문 블록 분리, 포커스 블록 좌측 인디케이터, 새 블록 추가 버튼, / 명령어 힌트.',
+      },
+    },
+  },
+  render: () => <NotionBlockEditorDemo />,
+}
+
+/* ── Mantine + Notion: 이슈 설명 에디터 ── */
+const MantineNotionIssueEditorDemo = () => {
+  const [content, setContent] = useState('')
+  const [pinned, setPinned] = useState(false)
+  const [priority, setPriority] = useState<'low' | 'medium' | 'high'>('medium')
+
+  const PRIORITY_COLORS: Record<string, string> = { low: '#94a3b8', medium: '#f59e0b', high: '#ef4444' }
+  const textLen = content.replace(/<[^>]+>/g, '').trim().length
+  const isReady = textLen >= 20
+
+  return (
+    <div style={{ maxWidth: 640, display: 'flex', flexDirection: 'column', gap: 10 }}>
+      {/* 이슈 메타 헤더 */}
+      <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+        <span style={{ fontSize: 11, fontFamily: 'monospace', color: '#6366f1', fontWeight: 700, background: '#6366f108', padding: '2px 8px', borderRadius: 4 }}>ORB-256</span>
+        <select
+          value={priority}
+          onChange={(e) => setPriority(e.target.value as 'low' | 'medium' | 'high')}
+          style={{ fontSize: 11, fontWeight: 700, color: PRIORITY_COLORS[priority], border: `1px solid ${PRIORITY_COLORS[priority]}40`, background: `${PRIORITY_COLORS[priority]}10`, borderRadius: 6, padding: '3px 8px', outline: 'none', cursor: 'pointer' }}
+        >
+          <option value="low">낮음</option>
+          <option value="medium">중간</option>
+          <option value="high">높음</option>
+        </select>
+        <button onClick={() => setPinned((v) => !v)} style={{ marginLeft: 'auto', fontSize: 11, color: pinned ? '#f59e0b' : 'var(--sem-eclipse-color-foregroundTertiary)', fontWeight: 600, background: 'none', border: 'none', cursor: 'pointer' }}>
+          {pinned ? '★ 고정됨' : '☆ 고정'}
+        </button>
+      </div>
+      {/* 에디터 */}
+      <div style={{ border: `2px solid ${isReady ? '#10b981' : 'var(--sem-eclipse-color-borderDefault)'}`, borderRadius: 8, overflow: 'hidden', transition: 'border-color 0.2s' }}>
+        <Editor
+          placeholder="이슈 설명을 작성하세요... (최소 20자)"
+          toolbar={<Editor.Toolbar />}
+          footer={<Editor.CharacterCount />}
+          onChange={setContent}
+        />
+      </div>
+      {/* 상태 피드백 */}
+      <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
+        <span style={{ fontSize: 11, color: isReady ? '#10b981' : 'var(--sem-eclipse-color-foregroundTertiary)' }}>
+          {isReady ? '설명 충분함' : `${Math.max(0, 20 - textLen)}자 더 입력하세요`}
+        </span>
+        <button disabled={!isReady} style={{ marginLeft: 'auto', padding: '7px 16px', borderRadius: 8, border: 'none', background: isReady ? `${PRIORITY_COLORS[priority]}` : '#e2e8f0', color: isReady ? '#fff' : '#94a3b8', fontSize: 12, fontWeight: 700, cursor: isReady ? 'pointer' : 'not-allowed', transition: 'all 0.2s' }}>
+          이슈 생성
+        </button>
+      </div>
+      <p style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundDisabled)' }}>Mantine + Notion 이슈 설명 에디터 — 우선순위 + 최소 길이 검증</p>
+    </div>
+  )
+}
+
+export const Mantine_Notion_이슈_설명_에디터: Story = {
+  name: 'Mantine + Notion — 이슈 설명 에디터 (우선순위 + 검증)',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Mantine RTE + Notion 이슈 UI 패턴 조합. 우선순위 컬러 셀렉터, 고정 토글, 최소 20자 입력 시 border 녹색 전환 및 이슈 생성 버튼 활성화. 이슈 생성 폼 패턴.',
+      },
+    },
+  },
+  render: () => <MantineNotionIssueEditorDemo />,
+}

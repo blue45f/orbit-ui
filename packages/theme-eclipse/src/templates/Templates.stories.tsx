@@ -27691,3 +27691,206 @@ export const TailwindAnt114CalendarApp: StoryObj = {
   },
   render: () => <CalendarApp114Render />,
 }
+
+/* --------------------------------------------------------------------------
+   Mantine + Notion — Cycle 115: 사용자 프로필 (UserProfile)
+   프로필 헤더 + 스탯 + 활동 피드 + 설정 패널
+-------------------------------------------------------------------------- */
+type ProfileTab115 = 'activity' | 'contributions' | 'settings'
+
+interface Activity115 {
+  id: number
+  type: 'commit' | 'pr' | 'review' | 'comment'
+  title: string
+  repo: string
+  time: string
+}
+
+const ACTIVITIES_115: Activity115[] = [
+  { id: 1, type: 'commit', title: 'feat: Cycle 115 스토리 추가', repo: 'orbit-ui', time: '방금 전' },
+  { id: 2, type: 'pr', title: 'fix: Toggle onCheckedChange 타입 수정', repo: 'orbit-ui', time: '1시간 전' },
+  { id: 3, type: 'review', title: 'DataTable 정렬 로직 리뷰', repo: 'orbit-ui', time: '3시간 전' },
+  { id: 4, type: 'commit', title: 'chore: BenchmarkComparison.mdx 업데이트', repo: 'orbit-ui', time: '어제' },
+  { id: 5, type: 'comment', title: 'PR #2038 수정 요청 코멘트', repo: 'orbit-ui', time: '2일 전' },
+]
+
+const ACTIVITY_META_115: Record<Activity115['type'], { icon: string; color: string }> = {
+  commit: { icon: '⊕', color: '#10b981' },
+  pr: { icon: '⇄', color: '#6366f1' },
+  review: { icon: '◎', color: '#f59e0b' },
+  comment: { icon: '◯', color: '#64748b' },
+}
+
+const CONTRIBUTION_WEEKS = Array.from({ length: 16 }, () =>
+  Array.from({ length: 7 }, () => Math.floor(Math.random() * 5))
+)
+
+function UserProfile115Render() {
+  const [tab, setTab] = useState<ProfileTab115>('activity')
+  const [bio, setBio] = useState('Orbit UI 디자인 시스템 메인테이너. React + TypeScript + vanilla-extract.')
+  const [editingBio, setEditingBio] = useState(false)
+  const [bioDraft, setBioDraft] = useState(bio)
+  const [notifEmail, setNotifEmail] = useState(true)
+  const [notifPush, setNotifPush] = useState(false)
+  const [profilePublic, setProfilePublic] = useState(true)
+
+  const STATS = [
+    { label: '총 커밋', value: 1247 },
+    { label: 'PR 병합', value: 89 },
+    { label: '리뷰', value: 214 },
+    { label: '스토리', value: 480 },
+  ]
+
+  const CONTRIBUTION_COLORS = ['#e2e8f0', '#c7d2fe', '#a5b4fc', '#818cf8', '#6366f1']
+
+  return (
+    <div style={{ fontFamily: 'system-ui, sans-serif', maxWidth: 720, margin: '0 auto' }}>
+      {/* Profile Header */}
+      <div style={{ padding: '24px 24px 0', display: 'flex', gap: 20, alignItems: 'flex-start' }}>
+        {/* Avatar */}
+        <div style={{ width: 72, height: 72, borderRadius: '50%', background: 'linear-gradient(135deg, #6366f1, #a855f7)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: 24, fontWeight: 800, flexShrink: 0 }}>HJ</div>
+        {/* Info */}
+        <div style={{ flex: 1 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 4 }}>
+            <span style={{ fontSize: 18, fontWeight: 800, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>Heejun Kim</span>
+            <LabelBadge color="benefit">Maintainer</LabelBadge>
+          </div>
+          <div style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginBottom: 8 }}>@hjunkim · blue45fs-projects</div>
+          {/* Bio */}
+          {editingBio ? (
+            <div style={{ display: 'flex', gap: 8, alignItems: 'flex-end' }}>
+              <TextField
+                label="소개"
+                value={bioDraft}
+                onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setBioDraft(e.target.value)}
+              />
+              <div style={{ display: 'flex', gap: 4, flexShrink: 0 }}>
+                <SolidButton color="primary" size="small" onClick={() => { setBio(bioDraft); setEditingBio(false) }}>
+                  <SolidButton.Center>저장</SolidButton.Center>
+                </SolidButton>
+                <OutlineButton color="gray" size="small" onClick={() => { setBioDraft(bio); setEditingBio(false) }}>
+                  <OutlineButton.Center>취소</OutlineButton.Center>
+                </OutlineButton>
+              </div>
+            </div>
+          ) : (
+            <div style={{ display: 'flex', gap: 8, alignItems: 'flex-start' }}>
+              <span style={{ fontSize: 13, color: 'var(--sem-eclipse-color-foregroundSecondary)', flex: 1 }}>{bio}</span>
+              <button onClick={() => setEditingBio(true)} style={{ fontSize: 11, color: '#6366f1', background: 'none', border: 'none', cursor: 'pointer', flexShrink: 0 }}>수정</button>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Stats Row */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 0, padding: '16px 24px', borderBottom: '1px solid var(--sem-eclipse-color-borderSubtle)' }}>
+        {STATS.map((s, i) => (
+          <div key={s.label} style={{ textAlign: 'center', padding: '8px 0', borderRight: i < STATS.length - 1 ? '1px solid var(--sem-eclipse-color-borderSubtle)' : 'none' }}>
+            <div style={{ fontSize: 20, fontWeight: 800, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{s.value.toLocaleString()}</div>
+            <div style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginTop: 2 }}>{s.label}</div>
+          </div>
+        ))}
+      </div>
+
+      {/* Tabs */}
+      <div style={{ display: 'flex', borderBottom: '1px solid var(--sem-eclipse-color-borderSubtle)', padding: '0 24px' }}>
+        {([['activity', '활동'], ['contributions', '기여'], ['settings', '설정']] as const).map(([t, label]) => (
+          <button key={t} onClick={() => setTab(t)} style={{ padding: '10px 16px', border: 'none', background: 'none', cursor: 'pointer', fontSize: 13, fontWeight: tab === t ? 700 : 400, color: tab === t ? '#6366f1' : 'var(--sem-eclipse-color-foregroundTertiary)', borderBottom: tab === t ? '2px solid #6366f1' : '2px solid transparent', transition: 'all 0.15s' }}>
+            {label}
+          </button>
+        ))}
+      </div>
+
+      <div style={{ padding: '20px 24px' }}>
+        {/* Activity Tab */}
+        {tab === 'activity' && (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+            {ACTIVITIES_115.map((act) => {
+              const meta = ACTIVITY_META_115[act.type]
+              return (
+                <div key={act.id} style={{ display: 'flex', gap: 12, alignItems: 'flex-start' }}>
+                  <div style={{ width: 28, height: 28, borderRadius: '50%', background: `${meta.color}18`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 14, color: meta.color, flexShrink: 0 }}>{meta.icon}</div>
+                  <div style={{ flex: 1 }}>
+                    <div style={{ fontSize: 13, color: 'var(--sem-eclipse-color-foregroundPrimary)', fontWeight: 500 }}>{act.title}</div>
+                    <div style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginTop: 2 }}>
+                      <span style={{ fontFamily: 'monospace', color: '#6366f1' }}>{act.repo}</span> · {act.time}
+                    </div>
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+        )}
+
+        {/* Contributions Tab */}
+        {tab === 'contributions' && (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+            <div style={{ fontSize: 13, color: 'var(--sem-eclipse-color-foregroundSecondary)' }}>최근 16주 기여 히트맵</div>
+            <div style={{ display: 'flex', gap: 3 }}>
+              {CONTRIBUTION_WEEKS.map((week, wi) => (
+                <div key={wi} style={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
+                  {week.map((level, di) => (
+                    <div key={di} style={{ width: 12, height: 12, borderRadius: 2, background: CONTRIBUTION_COLORS[level] }} title={`${level}개 기여`} />
+                  ))}
+                </div>
+              ))}
+            </div>
+            <div style={{ display: 'flex', gap: 6, alignItems: 'center', fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>
+              적음
+              {CONTRIBUTION_COLORS.map((c) => (
+                <div key={c} style={{ width: 12, height: 12, borderRadius: 2, background: c }} />
+              ))}
+              많음
+            </div>
+          </div>
+        )}
+
+        {/* Settings Tab */}
+        {tab === 'settings' && (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+            <SectionTitle>알림 설정</SectionTitle>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+              {[
+                { label: '이메일 알림', desc: 'PR 리뷰 및 멘션 알림', value: notifEmail, setter: setNotifEmail },
+                { label: '푸시 알림', desc: '브라우저 실시간 알림', value: notifPush, setter: setNotifPush },
+                { label: '프로필 공개', desc: '검색 결과에 프로필 노출', value: profilePublic, setter: setProfilePublic },
+              ].map((item) => (
+                <div key={item.label} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 14px', borderRadius: 8, border: '1px solid var(--sem-eclipse-color-borderSubtle)', background: 'var(--sem-eclipse-color-backgroundPrimary)' }}>
+                  <div>
+                    <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{item.label}</div>
+                    <div style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginTop: 2 }}>{item.desc}</div>
+                  </div>
+                  <Toggle checked={item.value} onCheckedChange={(v) => item.setter(v)} />
+                </div>
+              ))}
+            </div>
+            <Divider />
+            <div style={{ display: 'flex', gap: 8 }}>
+              <OutlineButton color="gray" size="small">
+                <OutlineButton.Center>비밀번호 변경</OutlineButton.Center>
+              </OutlineButton>
+              <OutlineButton color="gray" size="small">
+                <OutlineButton.Center>계정 삭제</OutlineButton.Center>
+              </OutlineButton>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+
+export const MantineNotion115UserProfile: StoryObj = {
+  name: 'Mantine + Notion — 사용자 프로필 (Cycle 115)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Mantine + Notion 벤치마크 — Cycle 115. ' +
+          '사용자 프로필: 인라인 bio 편집(TextField) + 스탯 그리드 + 활동 피드 + 기여 히트맵 + 설정 패널(Toggle 3종). ' +
+          'LabelBadge, TextField, SolidButton, OutlineButton, Toggle, Divider, SectionTitle 복합 활용.',
+      },
+    },
+  },
+  render: () => <UserProfile115Render />,
+}
