@@ -41828,3 +41828,260 @@ export const ShadcnLinear187IssueDashboard: StoryObj = {
   },
   render: () => <ShadcnLinear187Render />,
 }
+
+/* --------------------------------------------------------------------------
+   Cycle 188 — MUI + Tailwind UI
+-------------------------------------------------------------------------- */
+const MUI_188_COMPONENTS = [
+  { id: 1, name: 'Button', category: 'Actions', status: 'stable', coverage: 94, issues: 2 },
+  { id: 2, name: 'TextField', category: 'Inputs', status: 'stable', coverage: 88, issues: 0 },
+  { id: 3, name: 'DataTable', category: 'Data', status: 'beta', coverage: 72, issues: 5 },
+  { id: 4, name: 'Dialog', category: 'Overlays', status: 'stable', coverage: 91, issues: 1 },
+  { id: 5, name: 'Skeleton', category: 'Feedback', status: 'stable', coverage: 85, issues: 0 },
+  { id: 6, name: 'Accordion', category: 'Layout', status: 'stable', coverage: 79, issues: 3 },
+  { id: 7, name: 'CounterBadge', category: 'Display', status: 'stable', coverage: 96, issues: 0 },
+  { id: 8, name: 'Carousel', category: 'Navigation', status: 'beta', coverage: 68, issues: 7 },
+]
+
+const MUI_188_FILTER_CATS = ['전체', 'Actions', 'Inputs', 'Data', 'Overlays', 'Feedback', 'Layout', 'Display', 'Navigation']
+
+function MuiTailwind188Render() {
+  const [selectedRows, setSelectedRows] = React.useState<Set<number>>(new Set())
+  const [catFilter, setCatFilter] = React.useState('전체')
+  const [statusFilter, setStatusFilter] = React.useState<Set<string>>(new Set(['stable', 'beta']))
+  const [searchVal, setSearchVal] = React.useState('')
+  const [sortCol, setSortCol] = React.useState<'name' | 'coverage' | 'issues'>('coverage')
+  const [sortDir, setSortDir] = React.useState<'asc' | 'desc'>('desc')
+
+  const filtered = MUI_188_COMPONENTS
+    .filter((c) =>
+      (catFilter === '전체' || c.category === catFilter) &&
+      statusFilter.has(c.status) &&
+      (searchVal === '' || c.name.toLowerCase().includes(searchVal.toLowerCase()))
+    )
+    .sort((a, b) => {
+      const mult = sortDir === 'asc' ? 1 : -1
+      return (a[sortCol] > b[sortCol] ? 1 : -1) * mult
+    })
+
+  const allSelected = filtered.length > 0 && filtered.every((c) => selectedRows.has(c.id))
+
+  const toggleAll = (checked: boolean) => {
+    setSelectedRows((prev) => {
+      const next = new Set(prev)
+      filtered.forEach((c) => { if (checked) { next.add(c.id) } else { next.delete(c.id) } })
+      return next
+    })
+  }
+
+  const toggleRow = (id: number, checked: boolean) => {
+    setSelectedRows((prev) => {
+      const n = new Set(prev)
+      if (checked) { n.add(id) } else { n.delete(id) }
+      return n
+    })
+  }
+
+  const toggleStatus = (s: string, checked: boolean) => {
+    setStatusFilter((prev) => {
+      const n = new Set(prev)
+      if (checked) { n.add(s) } else { n.delete(s) }
+      return n
+    })
+  }
+
+  const handleSort = (col: 'name' | 'coverage' | 'issues') => {
+    if (sortCol === col) setSortDir((d) => d === 'asc' ? 'desc' : 'asc')
+    else { setSortCol(col); setSortDir('desc') }
+  }
+
+  const avgCoverage = filtered.length ? Math.round(filtered.reduce((s, c) => s + c.coverage, 0) / filtered.length) : 0
+  const totalIssues = filtered.reduce((s, c) => s + c.issues, 0)
+
+  return (
+    <div style={{ minHeight: '100vh', display: 'flex', background: '#f8fafc', fontFamily: 'system-ui, sans-serif' }}>
+      {/* Filter sidebar */}
+      <div style={{ width: 220, background: '#fff', borderRight: '1px solid #e5e7eb', padding: '20px 16px', flexShrink: 0, display: 'flex', flexDirection: 'column', gap: 20 }}>
+        <div>
+          <div style={{ fontSize: 15, fontWeight: 700, color: '#0f172a' }}>컴포넌트 현황</div>
+          <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>MUI + Tailwind UI</div>
+        </div>
+        <div>
+          <div style={{ fontSize: 11, fontWeight: 600, color: '#64748b', letterSpacing: '0.05em', textTransform: 'uppercase', marginBottom: 8 }}>카테고리</div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+            {MUI_188_FILTER_CATS.slice(0, 6).map((cat) => (
+              <div
+                key={cat}
+                onClick={() => setCatFilter(cat)}
+                style={{
+                  padding: '6px 10px', borderRadius: 6, cursor: 'pointer', fontSize: 12,
+                  color: catFilter === cat ? '#6366f1' : '#374151',
+                  background: catFilter === cat ? '#eef2ff' : 'transparent',
+                  fontWeight: catFilter === cat ? 600 : 400,
+                  transition: 'all 0.1s',
+                  display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+                }}
+              >
+                <span>{cat}</span>
+                <span style={{ fontSize: 10, color: catFilter === cat ? '#818cf8' : '#9ca3af' }}>
+                  {cat === '전체' ? MUI_188_COMPONENTS.length : MUI_188_COMPONENTS.filter((c) => c.category === cat).length}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div>
+          <div style={{ fontSize: 11, fontWeight: 600, color: '#64748b', letterSpacing: '0.05em', textTransform: 'uppercase', marginBottom: 8 }}>상태</div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+            {(['stable', 'beta'] as const).map((s) => (
+              <div key={s} style={{ display: 'flex', alignItems: 'center', gap: 6, cursor: 'pointer' }} onClick={() => toggleStatus(s, !statusFilter.has(s))}>
+                <Checkbox
+                  checked={statusFilter.has(s)}
+                  onChange={(c) => toggleStatus(s, c)}
+                />
+                <span style={{ fontSize: 12, color: '#374151', display: 'flex', alignItems: 'center', gap: 6 }}>
+                  {s}
+                  <span style={{ fontSize: 9, padding: '1px 5px', borderRadius: 6, background: s === 'stable' ? '#d1fae5' : '#fef3c7', color: s === 'stable' ? '#065f46' : '#92400e' }}>
+                    {MUI_188_COMPONENTS.filter((c) => c.status === s).length}
+                  </span>
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div style={{ marginTop: 'auto', padding: '12px', background: '#f8fafc', borderRadius: 8 }}>
+          <div style={{ fontSize: 10, color: '#94a3b8', marginBottom: 6 }}>요약</div>
+          <div style={{ fontSize: 13, fontWeight: 700, color: '#0f172a' }}>{avgCoverage}%</div>
+          <div style={{ fontSize: 10, color: '#64748b' }}>평균 커버리지</div>
+          <div style={{ marginTop: 6, fontSize: 13, fontWeight: 700, color: totalIssues > 0 ? '#ef4444' : '#10b981' }}>{totalIssues}</div>
+          <div style={{ fontSize: 10, color: '#64748b' }}>총 이슈</div>
+        </div>
+      </div>
+
+      {/* Main */}
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+        {/* Header */}
+        <div style={{ padding: '16px 24px', background: '#fff', borderBottom: '1px solid #e5e7eb', display: 'flex', alignItems: 'center', gap: 12 }}>
+          <div style={{ flex: 1 }}>
+            <span style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>{catFilter}</span>
+            <span style={{ fontSize: 11, color: '#94a3b8', marginLeft: 8 }}>
+              {filtered.length}개 컴포넌트
+              {selectedRows.size > 0 && <span style={{ color: '#6366f1', marginLeft: 6 }}>({selectedRows.size}개 선택)</span>}
+            </span>
+          </div>
+          <input
+            value={searchVal}
+            onChange={(e) => setSearchVal(e.target.value)}
+            placeholder="컴포넌트 검색..."
+            style={{ padding: '6px 12px', fontSize: 12, borderRadius: 7, border: '1px solid #e5e7eb', outline: 'none', width: 180 }}
+          />
+        </div>
+
+        {/* Stats bar */}
+        <div style={{ padding: '10px 24px', background: '#fff', borderBottom: '1px solid #f3f4f6', display: 'flex', gap: 20 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            <div style={{ width: 80, height: 4, borderRadius: 2, background: '#f3f4f6', overflow: 'hidden' }}>
+              <div style={{ width: `${avgCoverage}%`, height: '100%', background: avgCoverage >= 85 ? '#10b981' : '#f59e0b' }} />
+            </div>
+            <span style={{ fontSize: 11, color: '#6b7280' }}>커버리지 {avgCoverage}%</span>
+          </div>
+          <div style={{ display: 'flex', gap: 8 }}>
+            {[{ label: '안정', count: filtered.filter((c) => c.status === 'stable').length, color: '#10b981' },
+              { label: '베타', count: filtered.filter((c) => c.status === 'beta').length, color: '#f59e0b' }].map((s) => (
+              <span key={s.label} style={{ fontSize: 10, padding: '2px 8px', borderRadius: 8, background: `${s.color}18`, color: s.color, fontWeight: 600 }}>{s.label} {s.count}</span>
+            ))}
+          </div>
+        </div>
+
+        {/* Table */}
+        <div style={{ flex: 1, overflow: 'auto', padding: '0 24px 24px' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: 16 }}>
+            <thead>
+              <tr style={{ background: '#f9fafb' }}>
+                <th style={{ padding: '10px 12px', textAlign: 'left', borderBottom: '1px solid #e5e7eb', width: 40 }}>
+                  <Checkbox
+                    checked={allSelected}
+                    onChange={toggleAll}
+                  />
+                </th>
+                {[
+                  { key: 'name', label: '컴포넌트' },
+                  { key: null, label: '카테고리' },
+                  { key: null, label: '상태' },
+                  { key: 'coverage', label: '커버리지' },
+                  { key: 'issues', label: '이슈' },
+                ].map(({ key, label }) => (
+                  <th
+                    key={label}
+                    onClick={() => key && handleSort(key as 'name' | 'coverage' | 'issues')}
+                    style={{
+                      padding: '10px 12px', textAlign: 'left', fontSize: 11, fontWeight: 600,
+                      color: '#374151', borderBottom: '1px solid #e5e7eb',
+                      cursor: key ? 'pointer' : 'default',
+                      userSelect: 'none',
+                    }}
+                  >
+                    {label}
+                    {key && sortCol === key && <span style={{ marginLeft: 4, fontSize: 9 }}>{sortDir === 'asc' ? '▲' : '▼'}</span>}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {filtered.map((comp) => (
+                <tr
+                  key={comp.id}
+                  style={{ background: selectedRows.has(comp.id) ? '#eef2ff' : '#fff', borderBottom: '1px solid #f9fafb', transition: 'background 0.1s' }}
+                >
+                  <td style={{ padding: '10px 12px' }}>
+                    <Checkbox checked={selectedRows.has(comp.id)} onChange={(c) => toggleRow(comp.id, c)} />
+                  </td>
+                  <td style={{ padding: '10px 12px', fontSize: 13, fontWeight: 600, color: '#0f172a' }}>{comp.name}</td>
+                  <td style={{ padding: '10px 12px', fontSize: 11, color: '#6b7280' }}>{comp.category}</td>
+                  <td style={{ padding: '10px 12px' }}>
+                    <span style={{ fontSize: 10, fontWeight: 600, padding: '2px 8px', borderRadius: 10, background: comp.status === 'stable' ? '#d1fae5' : '#fef3c7', color: comp.status === 'stable' ? '#065f46' : '#92400e' }}>
+                      {comp.status}
+                    </span>
+                  </td>
+                  <td style={{ padding: '10px 12px' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                      <div style={{ width: 60, height: 4, borderRadius: 2, background: '#f3f4f6' }}>
+                        <div style={{ width: `${comp.coverage}%`, height: '100%', borderRadius: 2, background: comp.coverage >= 90 ? '#10b981' : comp.coverage >= 80 ? '#3b82f6' : '#f59e0b' }} />
+                      </div>
+                      <span style={{ fontSize: 11, color: '#374151' }}>{comp.coverage}%</span>
+                    </div>
+                  </td>
+                  <td style={{ padding: '10px 12px' }}>
+                    {comp.issues > 0 ? (
+                      <span style={{ fontSize: 11, fontWeight: 600, color: '#ef4444', background: '#fef2f2', padding: '2px 8px', borderRadius: 8 }}>{comp.issues}</span>
+                    ) : (
+                      <span style={{ fontSize: 11, color: '#d1d5db' }}>0</span>
+                    )}
+                  </td>
+                </tr>
+              ))}
+              {filtered.length === 0 && (
+                <tr>
+                  <td colSpan={6} style={{ padding: 40, textAlign: 'center', color: '#d1d5db', fontSize: 13 }}>검색 결과가 없습니다</td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const MuiTailwind188AnalyticsDashboard: StoryObj = {
+  name: 'MUI + Tailwind UI — 컴포넌트 현황 애널리틱스 대시보드 (Cycle 188)',
+  parameters: {
+    layout: 'fullscreen',
+    docs: {
+      description: {
+        story: 'MUI + Tailwind UI 복합 패턴. 좌측: Tailwind 필터 사이드바(카테고리 + Checkbox 상태 필터 + 요약 패널) / 우측: MUI DataGrid 스타일 테이블(전체선택 + 정렬 + 커버리지 바 + 이슈 배지). Checkbox + Progress 컴포넌트 활용.',
+      },
+    },
+  },
+  render: () => <MuiTailwind188Render />,
+}

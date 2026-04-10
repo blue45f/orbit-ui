@@ -1150,3 +1150,270 @@ export const Mantine_태그_기반_관심사_필터: Story = {
   },
   render: () => <MantineTagFilterDemo />,
 }
+
+/* --------------------------------------------------------------------------
+   Cycle 188 — MUI + Tailwind UI
+-------------------------------------------------------------------------- */
+const MUI_ROWS_188 = [
+  { id: 1, name: 'Button', category: 'Actions', status: 'stable', coverage: 94 },
+  { id: 2, name: 'TextField', category: 'Inputs', status: 'stable', coverage: 88 },
+  { id: 3, name: 'DataTable', category: 'Data', status: 'beta', coverage: 72 },
+  { id: 4, name: 'Dialog', category: 'Overlays', status: 'stable', coverage: 91 },
+  { id: 5, name: 'Skeleton', category: 'Feedback', status: 'stable', coverage: 85 },
+]
+
+function MuiDataGridSelectRender() {
+  const [selected, setSelected] = useState<Set<number>>(new Set())
+  const allSelected = selected.size === MUI_ROWS_188.length
+  const someSelected = selected.size > 0 && !allSelected
+
+  const toggleAll = (checked: boolean) => {
+    setSelected(checked ? new Set(MUI_ROWS_188.map((r) => r.id)) : new Set())
+  }
+
+  const toggleRow = (id: number, checked: boolean) => {
+    setSelected((prev) => {
+      const next = new Set(prev)
+      if (checked) { next.add(id) } else { next.delete(id) }
+      return next
+    })
+  }
+
+  return (
+    <div style={{ width: 520, fontFamily: 'system-ui, sans-serif', border: '1px solid #e5e7eb', borderRadius: 10, overflow: 'hidden' }}>
+      <div style={{ padding: '10px 16px', background: selected.size > 0 ? '#eff6ff' : '#f9fafb', borderBottom: '1px solid #f3f4f6', display: 'flex', alignItems: 'center', gap: 12, minHeight: 44 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+          <CheckboxWithLabel
+            checked={allSelected}
+            onChange={toggleAll}
+            alignItems="center"
+          />
+          <span style={{ fontSize: 12, fontWeight: 600, color: '#374151' }}>
+            {someSelected ? `${selected.size}개 선택됨` : '컴포넌트'}
+          </span>
+        </div>
+        {selected.size > 0 && (
+          <div style={{ marginLeft: 'auto', display: 'flex', gap: 6 }}>
+            <button style={{ padding: '4px 10px', fontSize: 11, borderRadius: 5, border: '1px solid #3b82f6', background: '#eff6ff', color: '#3b82f6', cursor: 'pointer' }}>내보내기</button>
+            <button onClick={() => setSelected(new Set())} style={{ padding: '4px 10px', fontSize: 11, borderRadius: 5, border: '1px solid #ef4444', background: '#fef2f2', color: '#ef4444', cursor: 'pointer' }}>해제</button>
+          </div>
+        )}
+      </div>
+      {MUI_ROWS_188.map((row) => (
+        <div
+          key={row.id}
+          style={{
+            display: 'flex', alignItems: 'center', gap: 12, padding: '10px 16px',
+            borderBottom: '1px solid #f9fafb',
+            background: selected.has(row.id) ? '#f0f9ff' : '#fff',
+            transition: 'background 0.1s',
+          }}
+        >
+          <CheckboxWithLabel
+            checked={selected.has(row.id)}
+            onChange={(c) => toggleRow(row.id, c)}
+            alignItems="center"
+          />
+          <span style={{ fontSize: 13, color: '#111827', fontWeight: 500, width: 100 }}>{row.name}</span>
+          <span style={{ fontSize: 11, color: '#6b7280', width: 70 }}>{row.category}</span>
+          <span style={{ fontSize: 10, fontWeight: 600, padding: '2px 8px', borderRadius: 10, background: row.status === 'stable' ? '#d1fae5' : '#fef3c7', color: row.status === 'stable' ? '#065f46' : '#92400e', width: 50, textAlign: 'center' }}>{row.status}</span>
+          <div style={{ flex: 1, display: 'flex', alignItems: 'center', gap: 6 }}>
+            <div style={{ flex: 1, height: 4, borderRadius: 2, background: '#f3f4f6' }}>
+              <div style={{ width: `${row.coverage}%`, height: '100%', borderRadius: 2, background: row.coverage >= 90 ? '#10b981' : row.coverage >= 80 ? '#3b82f6' : '#f59e0b' }} />
+            </div>
+            <span style={{ fontSize: 10, color: '#9ca3af', width: 30, textAlign: 'right' }}>{row.coverage}%</span>
+          </div>
+        </div>
+      ))}
+    </div>
+  )
+}
+
+export const MUI_데이터_그리드_전체선택_패턴: Story = {
+  name: 'MUI — DataGrid 스타일 전체선택 + 인디케이터',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'MUI DataGrid 전체선택 패턴. 헤더 체크박스(indeterminate 상태 지원) + 행 체크박스 연동. ' +
+          '선택 항목 수 표시 + 일괄 액션(내보내기/해제) 컨텍스트 툴바를 포함합니다.',
+      },
+    },
+  },
+  render: () => <MuiDataGridSelectRender />,
+}
+
+const TAILWIND_FILTER_CATEGORIES_188 = [
+  { id: 'components', label: '컴포넌트', count: 48, color: '#6366f1' },
+  { id: 'templates', label: '템플릿', count: 12, color: '#3b82f6' },
+  { id: 'utilities', label: '유틸리티', count: 24, color: '#10b981' },
+  { id: 'tokens', label: '토큰', count: 86, color: '#f59e0b' },
+]
+
+const TAILWIND_FRAMEWORKS_188 = ['React', 'Vue', 'Angular', 'Svelte']
+
+function TailwindFilterSidebarRender() {
+  const [cats, setCats] = useState(new Set(['components']))
+  const [frameworks, setFrameworks] = useState(new Set(['React']))
+
+  const toggleCat = (id: string, checked: boolean) => {
+    setCats((prev) => { const n = new Set(prev); if (checked) { n.add(id) } else { n.delete(id) }; return n })
+  }
+  const toggleFw = (fw: string, checked: boolean) => {
+    setFrameworks((prev) => { const n = new Set(prev); if (checked) { n.add(fw) } else { n.delete(fw) }; return n })
+  }
+
+  const totalCount = TAILWIND_FILTER_CATEGORIES_188.filter((c) => cats.has(c.id)).reduce((s, c) => s + c.count, 0)
+
+  return (
+    <div style={{ width: 240, fontFamily: 'system-ui, sans-serif', border: '1px solid #e5e7eb', borderRadius: 10, overflow: 'hidden' }}>
+      <div style={{ padding: '12px 16px', borderBottom: '1px solid #f3f4f6', background: '#fff' }}>
+        <div style={{ fontSize: 13, fontWeight: 700, color: '#111827' }}>필터</div>
+        <div style={{ fontSize: 11, color: '#6b7280', marginTop: 2 }}>{totalCount}개 항목 표시</div>
+      </div>
+      <div style={{ padding: '14px 16px', borderBottom: '1px solid #f3f4f6' }}>
+        <div style={{ fontSize: 11, fontWeight: 600, color: '#374151', letterSpacing: '0.04em', textTransform: 'uppercase', marginBottom: 10 }}>유형</div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+          {TAILWIND_FILTER_CATEGORIES_188.map((cat) => (
+            <div key={cat.id} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+              <CheckboxWithLabel
+                checked={cats.has(cat.id)}
+                onChange={(c) => toggleCat(cat.id, c)}
+                alignItems="center"
+              >
+                <span style={{ fontSize: 12, color: '#374151', flex: 1 }}>{cat.label}</span>
+              </CheckboxWithLabel>
+              <span style={{ fontSize: 10, color: '#9ca3af', marginLeft: 'auto' }}>{cat.count}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div style={{ padding: '14px 16px' }}>
+        <div style={{ fontSize: 11, fontWeight: 600, color: '#374151', letterSpacing: '0.04em', textTransform: 'uppercase', marginBottom: 10 }}>프레임워크</div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+          {TAILWIND_FRAMEWORKS_188.map((fw) => (
+            <CheckboxWithLabel
+              key={fw}
+              checked={frameworks.has(fw)}
+              onChange={(c) => toggleFw(fw, c)}
+              alignItems="center"
+            >
+              <span style={{ fontSize: 12, color: '#374151' }}>{fw}</span>
+            </CheckboxWithLabel>
+          ))}
+        </div>
+      </div>
+      {(cats.size > 0 || frameworks.size > 0) && (
+        <div style={{ padding: '10px 16px', borderTop: '1px solid #f3f4f6', background: '#f9fafb' }}>
+          <button
+            onClick={() => { setCats(new Set()); setFrameworks(new Set()) }}
+            style={{ fontSize: 11, color: '#6b7280', background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}
+          >
+            전체 초기화
+          </button>
+        </div>
+      )}
+    </div>
+  )
+}
+
+export const Tailwind_상품_필터_사이드바: Story = {
+  name: 'Tailwind UI — 필터 사이드바 체크박스 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Tailwind UI 이커머스 필터 사이드바 패턴. 유형 + 프레임워크 그룹별 체크박스 필터 + 선택 항목 수 실시간 표시 + 전체 초기화. ' +
+          '레이블 + 카운트 배지 조합으로 명확한 필터 상태를 전달합니다.',
+      },
+    },
+  },
+  render: () => <TailwindFilterSidebarRender />,
+}
+
+const MUI_PERMISSIONS_188 = ['읽기', '쓰기', '삭제', '관리']
+const MUI_RESOURCES_188 = ['컴포넌트', '스토리', '토큰', '배포']
+
+function MuiPermissionMatrixRender() {
+  const [matrix, setMatrix] = useState<Record<string, Set<string>>>(() =>
+    Object.fromEntries(MUI_RESOURCES_188.map((r) => [r, new Set(r === '컴포넌트' ? ['읽기', '쓰기'] : ['읽기'])]))
+  )
+
+  const toggle = (resource: string, perm: string, checked: boolean) => {
+    setMatrix((prev) => {
+      const next = { ...prev }
+      const s = new Set(prev[resource])
+      if (checked) { s.add(perm) } else { s.delete(perm) }
+      next[resource] = s
+      return next
+    })
+  }
+
+  const allForPerm = (perm: string) => MUI_RESOURCES_188.every((r) => matrix[r].has(perm))
+
+  const toggleCol = (perm: string, checked: boolean) => {
+    setMatrix((prev) => {
+      const next = { ...prev }
+      MUI_RESOURCES_188.forEach((r) => {
+        const s = new Set(prev[r])
+        if (checked) { s.add(perm) } else { s.delete(perm) }
+        next[r] = s
+      })
+      return next
+    })
+  }
+
+  return (
+    <div style={{ width: 460, fontFamily: 'system-ui, sans-serif' }}>
+      <div style={{ marginBottom: 12 }}>
+        <div style={{ fontSize: 13, fontWeight: 700, color: '#111827' }}>권한 매트릭스</div>
+        <div style={{ fontSize: 11, color: '#6b7280', marginTop: 2 }}>MUI + Tailwind UI 권한 테이블 패턴</div>
+      </div>
+      <div style={{ border: '1px solid #e5e7eb', borderRadius: 10, overflow: 'hidden' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '120px repeat(4, 1fr)', background: '#f9fafb', borderBottom: '1px solid #e5e7eb' }}>
+          <div style={{ padding: '10px 12px', fontSize: 11, fontWeight: 600, color: '#374151' }}>리소스</div>
+          {MUI_PERMISSIONS_188.map((perm) => (
+            <div key={perm} style={{ padding: '8px 8px', textAlign: 'center' }}>
+              <div style={{ fontSize: 10, fontWeight: 600, color: '#374151', marginBottom: 4 }}>{perm}</div>
+              <div style={{ display: 'flex', justifyContent: 'center' }}>
+                <CheckboxWithLabel
+                  checked={allForPerm(perm)}
+                  onChange={(c) => toggleCol(perm, c)}
+                  alignItems="center"
+                />
+              </div>
+            </div>
+          ))}
+        </div>
+        {MUI_RESOURCES_188.map((resource) => (
+          <div key={resource} style={{ display: 'grid', gridTemplateColumns: '120px repeat(4, 1fr)', borderBottom: '1px solid #f9fafb', background: '#fff' }}>
+            <div style={{ padding: '10px 12px', fontSize: 12, color: '#374151', fontWeight: 500 }}>{resource}</div>
+            {MUI_PERMISSIONS_188.map((perm) => (
+              <div key={perm} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '8px 0' }}>
+                <CheckboxWithLabel
+                  checked={matrix[resource].has(perm)}
+                  onChange={(c) => toggle(resource, perm, c)}
+                  alignItems="center"
+                />
+              </div>
+            ))}
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+export const MUI_Tailwind_권한_매트릭스: Story = {
+  name: 'MUI + Tailwind UI — 권한 매트릭스 체크박스 테이블',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'MUI + Tailwind UI 권한 관리 패턴. 리소스 × 권한 교차 체크박스 테이블. ' +
+          '열 헤더 체크박스는 해당 권한의 전체/부분 선택 상태(indeterminate)를 표현합니다.',
+      },
+    },
+  },
+  render: () => <MuiPermissionMatrixRender />,
+}

@@ -943,3 +943,204 @@ export const Radix_Vercel_보안_인증_방식: Story = {
   },
   render: () => <RadixVercelAuthMethodDemo />,
 }
+
+/* --------------------------------------------------------------------------
+   Cycle 188 — MUI + Tailwind UI
+-------------------------------------------------------------------------- */
+const MUI_NOTIF_FREQUENCIES_188 = [
+  { value: 'realtime', label: '실시간', desc: '즉시 알림 수신', badge: '빠름' },
+  { value: 'hourly', label: '매시간', desc: '1시간 단위로 요약', badge: null },
+  { value: 'daily', label: '매일', desc: '하루 1회 다이제스트', badge: null },
+  { value: 'weekly', label: '매주', desc: '주간 요약 리포트', badge: '절약' },
+  { value: 'none', label: '끄기', desc: '알림 수신 안 함', badge: null },
+]
+
+function MuiNotifFrequencyRender() {
+  const [freq, setFreq] = React.useState('daily')
+  return (
+    <div style={{ width: 360, fontFamily: 'system-ui, sans-serif' }}>
+      <div style={{ marginBottom: 14 }}>
+        <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>알림 빈도 설정</div>
+        <div style={{ fontSize: 11, color: '#64748b', marginTop: 2 }}>MUI Radio 수직 목록 + 설명 패턴</div>
+      </div>
+      <RadioGroup value={freq} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFreq(e.target.value)} name="notif-freq">
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+          {MUI_NOTIF_FREQUENCIES_188.map((f) => (
+            <div
+              key={f.value}
+              onClick={() => setFreq(f.value)}
+              style={{
+                display: 'flex', alignItems: 'center', gap: 12, padding: '10px 12px',
+                borderRadius: 8, cursor: 'pointer', transition: 'background 0.1s',
+                background: freq === f.value ? '#f0f9ff' : 'transparent',
+              }}
+            >
+              <RadioButtonWithLabel value={f.value} alignItems="center" />
+              <div style={{ flex: 1 }}>
+                <div style={{ fontSize: 13, fontWeight: freq === f.value ? 600 : 400, color: '#0f172a' }}>{f.label}</div>
+                <div style={{ fontSize: 11, color: '#64748b', marginTop: 1 }}>{f.desc}</div>
+              </div>
+              {f.badge && (
+                <span style={{ fontSize: 9, fontWeight: 700, padding: '2px 6px', borderRadius: 8, background: f.value === 'realtime' ? '#dbeafe' : '#d1fae5', color: f.value === 'realtime' ? '#1d4ed8' : '#065f46' }}>
+                  {f.badge}
+                </span>
+              )}
+            </div>
+          ))}
+        </div>
+      </RadioGroup>
+      {freq === 'none' && (
+        <div style={{ marginTop: 10, padding: '10px 12px', borderRadius: 8, background: '#fef2f2', border: '1px solid #fecaca', fontSize: 12, color: '#991b1b' }}>
+          알림을 끄면 중요한 업데이트를 놓칠 수 있습니다.
+        </div>
+      )}
+    </div>
+  )
+}
+
+export const MUI_알림_빈도_설정: Story = {
+  name: 'MUI — 알림 빈도 수직 라디오 목록',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'MUI 스타일 수직 RadioGroup 패턴. 빈도 옵션마다 설명 텍스트 + 상태 배지 조합. ' +
+          '"끄기" 선택 시 경고 메시지 인라인 표시로 사용자가 선택 결과를 인지하도록 합니다.',
+      },
+    },
+  },
+  render: () => <MuiNotifFrequencyRender />,
+}
+
+const TAILWIND_PAYMENT_METHODS_188 = [
+  { value: 'card', label: '신용카드', icon: '💳', hint: 'Visa, Mastercard, AMEX' },
+  { value: 'bank', label: '계좌이체', icon: '🏦', hint: '국내 은행 직접 이체' },
+  { value: 'kakao', label: '카카오페이', icon: '💛', hint: '빠른 간편결제' },
+  { value: 'naver', label: '네이버페이', icon: '💚', hint: '포인트 적립 가능' },
+]
+
+function TailwindPaymentMethodRender() {
+  const [method, setMethod] = React.useState('card')
+  return (
+    <div style={{ width: 380, fontFamily: 'system-ui, sans-serif' }}>
+      <div style={{ fontSize: 13, fontWeight: 700, color: '#111827', marginBottom: 12 }}>결제 수단 선택</div>
+      <RadioGroup value={method} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setMethod(e.target.value)} name="payment">
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
+          {TAILWIND_PAYMENT_METHODS_188.map((m) => (
+            <div
+              key={m.value}
+              onClick={() => setMethod(m.value)}
+              style={{
+                padding: '12px 14px', borderRadius: 10,
+                border: `2px solid ${method === m.value ? '#0f172a' : '#e5e7eb'}`,
+                background: method === m.value ? '#f8fafc' : '#fff',
+                cursor: 'pointer', transition: 'all 0.12s',
+              }}
+            >
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 6 }}>
+                <RadioButtonWithLabel value={m.value} alignItems="center" />
+                <span style={{ fontSize: 18 }}>{m.icon}</span>
+              </div>
+              <div style={{ fontSize: 13, fontWeight: method === m.value ? 700 : 500, color: '#111827' }}>{m.label}</div>
+              <div style={{ fontSize: 10, color: '#9ca3af', marginTop: 2 }}>{m.hint}</div>
+            </div>
+          ))}
+        </div>
+      </RadioGroup>
+      <div style={{ marginTop: 14, padding: '10px 14px', borderRadius: 8, background: '#f9fafb', border: '1px solid #f3f4f6', fontSize: 12, color: '#374151', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <span>선택: <strong>{TAILWIND_PAYMENT_METHODS_188.find((m) => m.value === method)?.label}</strong></span>
+        <button style={{ padding: '5px 14px', borderRadius: 6, border: 'none', background: '#111827', color: '#fff', fontSize: 12, fontWeight: 600, cursor: 'pointer' }}>결제 진행</button>
+      </div>
+    </div>
+  )
+}
+
+export const Tailwind_결제_수단_그리드_선택: Story = {
+  name: 'Tailwind UI — 결제 수단 2열 그리드 선택',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Tailwind UI 결제 수단 그리드 패턴. 2열 그리드 카드형 라디오 버튼 + 아이콘 + 설명. ' +
+          '선택 시 굵은 테두리로 강조하고 하단에 선택 요약 + 결제 진행 버튼을 배치합니다.',
+      },
+    },
+  },
+  render: () => <TailwindPaymentMethodRender />,
+}
+
+const MUI_DEPLOY_STRATEGIES_188 = [
+  { value: 'rolling', label: 'Rolling Update', desc: '점진적 교체. 무중단 배포. 평균 3분', risk: 'low' },
+  { value: 'bluegreen', label: 'Blue/Green', desc: '전환 즉시 완료. 롤백 쉬움. 비용 2배', risk: 'low' },
+  { value: 'canary', label: 'Canary', desc: '10% 트래픽 테스트. 점진적 확대', risk: 'medium' },
+  { value: 'recreate', label: 'Recreate', desc: '전체 중단 후 재시작. 가장 빠름', risk: 'high' },
+]
+
+const RISK_STYLE_188: Record<string, { label: string; color: string; bg: string }> = {
+  low:    { label: '낮음', color: '#10b981', bg: '#d1fae5' },
+  medium: { label: '중간', color: '#f59e0b', bg: '#fef3c7' },
+  high:   { label: '높음', color: '#ef4444', bg: '#fee2e2' },
+}
+
+function MuiTailwindDeployStrategyRender() {
+  const [strategy, setStrategy] = React.useState('rolling')
+  const selected = MUI_DEPLOY_STRATEGIES_188.find((s) => s.value === strategy)!
+  const risk = RISK_STYLE_188[selected.risk]
+
+  return (
+    <div style={{ width: 400, fontFamily: 'system-ui, sans-serif' }}>
+      <div style={{ marginBottom: 12 }}>
+        <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>배포 전략 선택</div>
+        <div style={{ fontSize: 11, color: '#64748b', marginTop: 2 }}>MUI + Tailwind UI 복합 선택 패턴</div>
+      </div>
+      <RadioGroup value={strategy} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setStrategy(e.target.value)} name="deploy-strategy">
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+          {MUI_DEPLOY_STRATEGIES_188.map((s) => {
+            const r = RISK_STYLE_188[s.risk]
+            return (
+              <div
+                key={s.value}
+                onClick={() => setStrategy(s.value)}
+                style={{
+                  display: 'flex', alignItems: 'flex-start', gap: 10, padding: '11px 14px', borderRadius: 8,
+                  border: `1.5px solid ${strategy === s.value ? '#6366f1' : '#e5e7eb'}`,
+                  background: strategy === s.value ? '#eef2ff' : '#fff',
+                  cursor: 'pointer', transition: 'all 0.12s',
+                }}
+              >
+                <div style={{ paddingTop: 2 }}>
+                  <RadioButtonWithLabel value={s.value} alignItems="center" />
+                </div>
+                <div style={{ flex: 1 }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 3 }}>
+                    <span style={{ fontSize: 13, fontWeight: strategy === s.value ? 700 : 500, color: '#0f172a' }}>{s.label}</span>
+                    <span style={{ fontSize: 9, fontWeight: 700, padding: '1px 6px', borderRadius: 8, background: r.bg, color: r.color }}>위험 {r.label}</span>
+                  </div>
+                  <div style={{ fontSize: 11, color: '#64748b' }}>{s.desc}</div>
+                </div>
+              </div>
+            )
+          })}
+        </div>
+      </RadioGroup>
+      <div style={{ marginTop: 12, padding: '10px 14px', borderRadius: 8, background: risk.bg, border: `1px solid ${risk.color}40`, fontSize: 12 }}>
+        <span style={{ fontWeight: 700, color: risk.color }}>선택: {selected.label}</span>
+        <span style={{ color: '#6b7280' }}> — 위험도 {risk.label}</span>
+      </div>
+    </div>
+  )
+}
+
+export const MUI_Tailwind_배포_전략_선택: Story = {
+  name: 'MUI + Tailwind UI — 배포 전략 위험도 시각화 선택',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'MUI + Tailwind UI 배포 전략 선택 패턴. 전략별 설명 + 위험도 배지 + 선택 시 요약 패널 변화. ' +
+          'Rolling/Blue-Green/Canary/Recreate 전략을 카드형 라디오로 명확하게 비교합니다.',
+      },
+    },
+  },
+  render: () => <MuiTailwindDeployStrategyRender />,
+}
