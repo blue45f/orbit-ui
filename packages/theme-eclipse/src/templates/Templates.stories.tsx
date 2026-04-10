@@ -31021,3 +31021,175 @@ export const LinearVercel132DeveloperProfile: StoryObj = {
   },
   render: () => <DevProfile132Render />,
 }
+
+/* ============================================================
+   Cycle 133 Template: MUI + Chakra UI 벤치마크
+   팀 커뮤니케이션 허브 — Divider 섹션 + CounterBadge 알림 카운터
+   ============================================================ */
+
+type CommChannel133 = { id: string; name: string; icon: string; count: number; pinned: boolean }
+type CommMessage133 = { id: number; author: string; initials: string; color: string; text: string; time: string; reactions: { emoji: string; count: number }[] }
+
+const COMM_CHANNELS_133: CommChannel133[] = [
+  { id: 'general', name: '일반', icon: '#', count: 12, pinned: true },
+  { id: 'design', name: '디자인', icon: '#', count: 4, pinned: true },
+  { id: 'dev', name: '개발', icon: '#', count: 7, pinned: false },
+  { id: 'announce', name: '공지', icon: '📢', count: 1, pinned: false },
+  { id: 'random', name: '잡담', icon: '#', count: 0, pinned: false },
+]
+
+const COMM_MESSAGES_133: CommMessage133[] = [
+  { id: 1, author: '김희준', initials: 'HJ', color: '#6366f1', text: 'Orbit UI v2.1.0 배포 완료했습니다. Tooltip 접근성 개선 + CounterBadge 실시간 업데이트 지원 포함입니다.', time: '오후 2:14', reactions: [{ emoji: '🎉', count: 8 }, { emoji: '👍', count: 5 }] },
+  { id: 2, author: '박지수', initials: 'JS', color: '#10b981', text: '수고하셨습니다! Storybook 배포도 확인했는데 새 스토리들 퀄리티가 정말 좋네요.', time: '오후 2:16', reactions: [{ emoji: '❤', count: 3 }] },
+  { id: 3, author: '이민준', initials: 'MJ', color: '#f59e0b', text: '다음 릴리즈에 DataTable 가상화 기능 넣으면 좋을 것 같아요. 100행 이상에서 렌더링이 느려지는 이슈가 있어서요.', time: '오후 2:21', reactions: [{ emoji: '💡', count: 4 }, { emoji: '👀', count: 2 }] },
+  { id: 4, author: '최수현', initials: 'SH', color: '#ec4899', text: '동의합니다. react-virtual 연동 작업 PR 올려볼게요.', time: '오후 2:24', reactions: [{ emoji: '🚀', count: 6 }] },
+]
+
+function CommHub133Render() {
+  const [activeChannel, setActiveChannel] = useState('general')
+  const [input, setInput] = useState('')
+  const pinnedChannels = COMM_CHANNELS_133.filter((c) => c.pinned)
+  const otherChannels = COMM_CHANNELS_133.filter((c) => !c.pinned)
+  const totalCount = COMM_CHANNELS_133.reduce((acc, c) => acc + c.count, 0)
+
+  return (
+    <div style={{ display: 'flex', width: 580, height: 440, border: '1px solid #e2e8f0', borderRadius: 14, overflow: 'hidden', fontFamily: 'system-ui, sans-serif' }}>
+      {/* 사이드바 */}
+      <div style={{ width: 180, background: '#f8fafc', borderRight: '1px solid #e2e8f0', display: 'flex', flexDirection: 'column' }}>
+        {/* 헤더 */}
+        <div style={{ padding: '14px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <span style={{ fontSize: 13, fontWeight: 700, color: '#0f172a' }}>채널</span>
+          {totalCount > 0 && <CounterBadge>{totalCount}</CounterBadge>}
+        </div>
+        <Divider />
+
+        {/* 고정 채널 */}
+        <div style={{ padding: '8px 0' }}>
+          <div style={{ padding: '3px 12px 5px', fontSize: 10, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em' }}>고정됨</div>
+          {pinnedChannels.map((ch) => (
+            <div
+              key={ch.id}
+              onClick={() => setActiveChannel(ch.id)}
+              style={{
+                display: 'flex', alignItems: 'center', gap: 8, padding: '7px 12px', cursor: 'pointer',
+                background: activeChannel === ch.id ? '#e2e8f0' : 'transparent',
+                borderRadius: 6, margin: '1px 6px', transition: 'background 100ms',
+              }}
+            >
+              <span style={{ fontSize: 12, color: '#64748b' }}>{ch.icon}</span>
+              <span style={{ flex: 1, fontSize: 13, color: activeChannel === ch.id ? '#0f172a' : '#475569', fontWeight: activeChannel === ch.id ? 600 : 400 }}>{ch.name}</span>
+              {ch.count > 0 && <CounterBadge>{ch.count}</CounterBadge>}
+            </div>
+          ))}
+        </div>
+
+        <Divider />
+
+        {/* 일반 채널 */}
+        <div style={{ padding: '8px 0', flex: 1 }}>
+          <div style={{ padding: '3px 12px 5px', fontSize: 10, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em' }}>채널</div>
+          {otherChannels.map((ch) => (
+            <div
+              key={ch.id}
+              onClick={() => setActiveChannel(ch.id)}
+              style={{
+                display: 'flex', alignItems: 'center', gap: 8, padding: '7px 12px', cursor: 'pointer',
+                background: activeChannel === ch.id ? '#e2e8f0' : 'transparent',
+                borderRadius: 6, margin: '1px 6px', transition: 'background 100ms',
+              }}
+            >
+              <span style={{ fontSize: 12, color: '#64748b' }}>{ch.icon}</span>
+              <span style={{ flex: 1, fontSize: 13, color: activeChannel === ch.id ? '#0f172a' : '#475569', fontWeight: activeChannel === ch.id ? 600 : 400 }}>{ch.name}</span>
+              {ch.count > 0 && <CounterBadge>{ch.count}</CounterBadge>}
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* 메인 영역 */}
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+        {/* 채널 헤더 */}
+        <div style={{ padding: '12px 16px', display: 'flex', alignItems: 'center', gap: 8, borderBottom: '1px solid #e2e8f0' }}>
+          <span style={{ fontSize: 14, color: '#94a3b8' }}>#</span>
+          <span style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>
+            {COMM_CHANNELS_133.find((c) => c.id === activeChannel)?.name}
+          </span>
+          {(COMM_CHANNELS_133.find((c) => c.id === activeChannel)?.count ?? 0) > 0 && (
+            <CounterBadge>{COMM_CHANNELS_133.find((c) => c.id === activeChannel)?.count ?? 0}</CounterBadge>
+          )}
+        </div>
+
+        {/* 메시지 목록 */}
+        <div style={{ flex: 1, overflowY: 'auto', padding: '12px 0' }}>
+          {COMM_MESSAGES_133.map((msg, i) => (
+            <div key={msg.id}>
+              {i > 0 && i % 2 === 0 && (
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '4px 16px' }}>
+                  <Divider />
+                  <span style={{ fontSize: 10, color: '#94a3b8', whiteSpace: 'nowrap' }}>오늘</span>
+                  <Divider />
+                </div>
+              )}
+              <div style={{ display: 'flex', gap: 10, padding: '8px 16px' }}>
+                <div style={{ width: 32, height: 32, borderRadius: '50%', background: msg.color + '22', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 12, fontWeight: 700, color: msg.color, flexShrink: 0 }}>
+                  {msg.initials}
+                </div>
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, marginBottom: 4 }}>
+                    <span style={{ fontSize: 13, fontWeight: 700, color: '#0f172a' }}>{msg.author}</span>
+                    <span style={{ fontSize: 10, color: '#94a3b8' }}>{msg.time}</span>
+                  </div>
+                  <div style={{ fontSize: 13, color: '#475569', lineHeight: 1.5 }}>{msg.text}</div>
+                  <div style={{ display: 'flex', gap: 6, marginTop: 6 }}>
+                    {msg.reactions.map((r) => (
+                      <div key={r.emoji} style={{ display: 'flex', alignItems: 'center', gap: 4, padding: '2px 8px', borderRadius: 99, background: '#f1f5f9', border: '1px solid #e2e8f0', cursor: 'pointer' }}>
+                        <span style={{ fontSize: 12 }}>{r.emoji}</span>
+                        <CounterBadge>{r.count}</CounterBadge>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* 입력창 */}
+        <Divider />
+        <div style={{ padding: '10px 16px' }}>
+          <div style={{ display: 'flex', gap: 8, padding: '8px 12px', border: '1px solid #e2e8f0', borderRadius: 8, background: '#fff', alignItems: 'center' }}>
+            <input
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              placeholder={`#${COMM_CHANNELS_133.find((c) => c.id === activeChannel)?.name}에 메시지 보내기`}
+              style={{ flex: 1, border: 'none', outline: 'none', fontSize: 13, color: '#0f172a', background: 'transparent' }}
+            />
+            <button
+              disabled={!input.trim()}
+              style={{ padding: '4px 10px', fontSize: 12, fontWeight: 600, borderRadius: 5, border: 'none', background: input.trim() ? '#0f172a' : '#f1f5f9', color: input.trim() ? '#fff' : '#94a3b8', cursor: input.trim() ? 'pointer' : 'not-allowed' }}
+              onClick={() => setInput('')}
+            >
+              전송
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const MuiChakra133CommHub: StoryObj = {
+  name: 'MUI + Chakra — 팀 커뮤니케이션 허브 (Cycle 133)',
+  parameters: {
+    layout: 'centered',
+    docs: {
+      description: {
+        story:
+          'MUI + Chakra UI 벤치마크 — Cycle 133. ' +
+          'Divider 채널 섹션 구분 + CounterBadge 미읽 카운터 + 이모지 반응 카운터. ' +
+          '고정/일반 채널, 날짜 구분선, 메시지 반응 배지를 결합한 팀 채팅 허브.',
+      },
+    },
+  },
+  render: () => <CommHub133Render />,
+}

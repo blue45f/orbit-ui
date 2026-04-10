@@ -903,3 +903,195 @@ export const Tailwind_Ant_장바구니_재고_배지: Story = {
   },
   render: () => <TailwindAntCartRender />,
 }
+
+// ============================================================
+// Cycle 133 — MUI + Chakra UI 벤치마크 반영
+// ============================================================
+
+// MUI 스타일 — BadgeGroup 다중 알림 카운터 (Inbox 패턴)
+type InboxChannel = { id: string; label: string; icon: string; count: number; muted: boolean }
+
+function MuiInboxBadgeRender() {
+  const [channels, setChannels] = useState<InboxChannel[]>([
+    { id: 'mentions', label: '멘션', icon: '@', count: 14, muted: false },
+    { id: 'replies', label: '댓글', icon: '💬', count: 7, muted: false },
+    { id: 'deploy', label: '배포', icon: '🚀', count: 3, muted: true },
+    { id: 'review', label: '리뷰', icon: '👁', count: 5, muted: false },
+    { id: 'system', label: '시스템', icon: '⚙', count: 1, muted: true },
+  ])
+  const [active, setActive] = useState('mentions')
+  const totalUnread = channels.filter((c) => !c.muted).reduce((acc, c) => acc + c.count, 0)
+  const markRead = (id: string) => setChannels((prev) => prev.map((c) => c.id === id ? { ...c, count: 0 } : c))
+  return (
+    <div style={{ display: 'flex', fontFamily: 'system-ui, sans-serif' }}>
+      {/* 사이드바 */}
+      <div style={{ width: 180, borderRight: '1px solid #e2e8f0', padding: '12px 0' }}>
+        <div style={{ padding: '6px 14px 10px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <span style={{ fontSize: 12, fontWeight: 700, color: '#0f172a' }}>받은 편지함</span>
+          {totalUnread > 0 && <CounterBadge>{totalUnread}</CounterBadge>}
+        </div>
+        {channels.map((ch) => (
+          <div
+            key={ch.id}
+            onClick={() => { setActive(ch.id); markRead(ch.id) }}
+            style={{
+              display: 'flex', alignItems: 'center', gap: 10, padding: '8px 14px', cursor: 'pointer',
+              background: active === ch.id ? '#f8fafc' : 'transparent',
+              borderLeft: active === ch.id ? '2px solid #0f172a' : '2px solid transparent',
+              transition: 'all 100ms',
+            }}
+          >
+            <span style={{ fontSize: 14, opacity: ch.muted ? 0.4 : 1 }}>{ch.icon}</span>
+            <span style={{ flex: 1, fontSize: 13, color: ch.muted ? '#94a3b8' : '#0f172a' }}>{ch.label}</span>
+            {ch.count > 0 && !ch.muted && <CounterBadge>{ch.count}</CounterBadge>}
+            {ch.count > 0 && ch.muted && (
+              <span style={{ fontSize: 10, color: '#94a3b8', background: '#f1f5f9', borderRadius: 99, padding: '1px 5px' }}>{ch.count}</span>
+            )}
+          </div>
+        ))}
+      </div>
+      {/* 내용 */}
+      <div style={{ flex: 1, padding: '20px', minWidth: 180 }}>
+        <div style={{ fontSize: 13, fontWeight: 700, color: '#0f172a', marginBottom: 8 }}>
+          {channels.find((c) => c.id === active)?.label}
+        </div>
+        <div style={{ fontSize: 12, color: '#94a3b8' }}>
+          {channels.find((c) => c.id === active)?.count === 0 ? '읽지 않은 항목 없음' : `${channels.find((c) => c.id === active)?.count}개 항목`}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const MUI_인박스_채널_배지_그룹: Story = {
+  name: 'MUI - 인박스 채널 뱃지 그룹',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'MUI Badge + List 패턴. 채널별 읽지 않은 수 CounterBadge, 총 미읽 합산, ' +
+          '음소거 채널 회색 처리, 클릭 시 읽음 표시.',
+      },
+    },
+  },
+  render: () => <MuiInboxBadgeRender />,
+}
+
+// Chakra UI 스타일 — 실시간 카운터 애니메이션 (Pulse 패턴)
+function ChakraRealtimeCounterRender() {
+  const [counts, setCounts] = useState({ users: 1243, events: 58, errors: 3, rps: 892 })
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCounts((c) => ({
+        users: c.users + Math.floor(Math.random() * 5),
+        events: c.events + Math.floor(Math.random() * 8),
+        errors: Math.max(0, c.errors + (Math.random() > 0.7 ? 1 : -1)),
+        rps: Math.max(800, Math.min(1200, c.rps + Math.floor(Math.random() * 40 - 20))),
+      }))
+    }, 1500)
+    return () => clearInterval(interval)
+  }, [])
+  const metrics: Array<{ key: keyof typeof counts; label: string; color: string; suffix?: string }> = [
+    { key: 'users', label: '활성 사용자', color: '#6366f1' },
+    { key: 'events', label: '이벤트/분', color: '#10b981' },
+    { key: 'errors', label: '에러', color: '#ef4444' },
+    { key: 'rps', label: 'RPS', color: '#f59e0b' },
+  ]
+  return (
+    <div style={{ fontFamily: 'system-ui, sans-serif', display: 'flex', flexDirection: 'column', gap: 16, width: 320 }}>
+      <div style={{ fontSize: 13, fontWeight: 700, color: '#0f172a' }}>실시간 모니터링</div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+        {metrics.map(({ key, label, color }) => (
+          <div key={key} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 16px', borderRadius: 10, border: '1px solid #e2e8f0', background: '#fff' }}>
+            <div style={{ width: 8, height: 8, borderRadius: '50%', background: color, boxShadow: `0 0 0 3px ${color}30`, animation: 'pulse 1.5s infinite' }} />
+            <span style={{ flex: 1, fontSize: 13, color: '#475569' }}>{label}</span>
+            <CounterBadge>{counts[key]}</CounterBadge>
+          </div>
+        ))}
+      </div>
+      <div style={{ fontSize: 10, color: '#94a3b8', textAlign: 'center' }}>1.5초마다 자동 갱신</div>
+    </div>
+  )
+}
+
+export const Chakra_실시간_모니터링_카운터: Story = {
+  name: 'Chakra UI - 실시간 모니터링 카운터',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Chakra UI Stat + Badge 패턴. 활성 사용자/이벤트/에러/RPS 실시간 카운터. ' +
+          '1.5초 간격 자동 갱신, 색상 인디케이터 펄스.',
+      },
+    },
+  },
+  render: () => <ChakraRealtimeCounterRender />,
+}
+
+// MUI + Chakra — 소셜 피드 반응 카운터 (좋아요 + 댓글 + 공유)
+type SocialPost133 = { id: number; author: string; initials: string; color: string; content: string; likes: number; comments: number; shares: number }
+
+function MuiChakraSocialFeedRender() {
+  const [posts, setPosts] = useState<SocialPost133[]>([
+    { id: 1, author: '김희준', initials: 'HJ', color: '#6366f1', content: 'vanilla-extract로 디자인 토큰 시스템 구축 완료! 3-tier 토큰 구조 덕분에 테마 변경이 훨씬 편해졌어요.', likes: 42, comments: 8, shares: 3 },
+    { id: 2, author: '박지수', initials: 'JS', color: '#10b981', content: 'Storybook autodocs 써보신 분? 컴포넌트 JSDoc만 잘 써두면 문서가 자동으로 생성되는 게 정말 편하더라고요.', likes: 31, comments: 12, shares: 5 },
+    { id: 3, author: '이민준', initials: 'MJ', color: '#f59e0b', content: 'pnpm workspace 마이그레이션 완료. 패키지 간 의존성 관리가 훨씬 깔끔해졌습니다.', likes: 19, comments: 4, shares: 1 },
+  ])
+  const [liked, setLiked] = useState<Set<number>>(new Set())
+  const toggleLike = (id: number) => {
+    setLiked((prev) => {
+      const n = new Set(prev)
+      if (n.has(id)) { n.delete(id) } else { n.add(id) }
+      return n
+    })
+    setPosts((prev) => prev.map((p) => p.id !== id ? p : { ...p, likes: p.likes + (liked.has(id) ? -1 : 1) }))
+  }
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 12, width: 380, fontFamily: 'system-ui, sans-serif' }}>
+      {posts.map((post) => (
+        <div key={post.id} style={{ borderRadius: 12, border: '1px solid #e2e8f0', background: '#fff', padding: '16px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 10 }}>
+            <div style={{ width: 36, height: 36, borderRadius: '50%', background: post.color + '22', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 13, fontWeight: 700, color: post.color }}>
+              {post.initials}
+            </div>
+            <span style={{ fontSize: 13, fontWeight: 600, color: '#0f172a' }}>{post.author}</span>
+          </div>
+          <div style={{ fontSize: 13, color: '#475569', lineHeight: 1.6, marginBottom: 12 }}>{post.content}</div>
+          <div style={{ display: 'flex', gap: 16 }}>
+            <button
+              onClick={() => toggleLike(post.id)}
+              style={{ display: 'flex', alignItems: 'center', gap: 6, background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}
+            >
+              <span style={{ fontSize: 14, color: liked.has(post.id) ? '#ef4444' : '#94a3b8' }}>
+                {liked.has(post.id) ? '♥' : '♡'}
+              </span>
+              <CounterBadge>{post.likes}</CounterBadge>
+            </button>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+              <span style={{ fontSize: 14, color: '#94a3b8' }}>💬</span>
+              <CounterBadge>{post.comments}</CounterBadge>
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+              <span style={{ fontSize: 14, color: '#94a3b8' }}>↗</span>
+              <CounterBadge>{post.shares}</CounterBadge>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  )
+}
+
+export const MUI_Chakra_소셜_피드_반응_카운터: Story = {
+  name: 'MUI + Chakra - 소셜 피드 반응 카운터',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'MUI + Chakra UI 소셜 피드 패턴. 좋아요/댓글/공유 CounterBadge, ' +
+          '좋아요 토글 상태 반영, 아바타 + 컨텐츠 카드 조합.',
+      },
+    },
+  },
+  render: () => <MuiChakraSocialFeedRender />,
+}

@@ -841,3 +841,205 @@ export const Tailwind_Ant_메뉴_그룹_구분: Story = {
     )
   },
 }
+
+// ============================================================
+// Cycle 133 — MUI + Chakra UI 벤치마크 반영
+// ============================================================
+
+// MUI 스타일 — List 섹션 구분 + subheader 패턴
+type MuiSetting = { label: string; desc: string; icon: string; active: boolean }
+type MuiSettingGroup = { group: string; items: MuiSetting[] }
+
+const MUI_SETTINGS: MuiSettingGroup[] = [
+  {
+    group: '계정',
+    items: [
+      { label: '이메일 알림', desc: '새 업데이트 및 공지 수신', icon: '✉', active: true },
+      { label: '마케팅 수신', desc: '프로모션 이메일 수신', icon: '📣', active: false },
+    ],
+  },
+  {
+    group: '보안',
+    items: [
+      { label: '2단계 인증', desc: 'TOTP 앱 또는 SMS', icon: '🔐', active: true },
+      { label: '로그인 알림', desc: '새 기기 로그인 시 알림', icon: '🛡', active: true },
+    ],
+  },
+  {
+    group: '외관',
+    items: [
+      { label: '다크 모드', desc: '어두운 배경 테마 사용', icon: '🌙', active: false },
+      { label: '고대비 모드', desc: '시각 접근성 향상', icon: '👁', active: false },
+    ],
+  },
+]
+
+function MuiSettingsListRender() {
+  const [settings, setSettings] = useState(
+    MUI_SETTINGS.map((g) => ({ ...g, items: g.items.map((i) => ({ ...i })) }))
+  )
+  const toggle = (gi: number, ii: number) => {
+    setSettings((prev) => prev.map((g, gi2) =>
+      gi2 !== gi ? g : { ...g, items: g.items.map((item, ii2) => ii2 !== ii ? item : { ...item, active: !item.active }) }
+    ))
+  }
+  return (
+    <div style={{ width: 360, border: '1px solid #e2e8f0', borderRadius: 10, overflow: 'hidden', fontFamily: 'system-ui, sans-serif' }}>
+      {settings.map((group, gi) => (
+        <div key={group.group}>
+          {gi > 0 && <Divider />}
+          <div style={{ padding: '6px 16px 2px', fontSize: 11, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em', background: '#f8fafc' }}>
+            {group.group}
+          </div>
+          {group.items.map((item, ii) => (
+            <div key={item.label} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 16px', background: '#fff', borderTop: '1px solid #f1f5f9' }}>
+              <span style={{ fontSize: 18, width: 28, textAlign: 'center' }}>{item.icon}</span>
+              <div style={{ flex: 1 }}>
+                <div style={{ fontSize: 13, fontWeight: 600, color: '#0f172a' }}>{item.label}</div>
+                <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 1 }}>{item.desc}</div>
+              </div>
+              <button
+                onClick={() => toggle(gi, ii)}
+                style={{
+                  width: 40, height: 22, borderRadius: 99, border: 'none', cursor: 'pointer',
+                  background: item.active ? '#0f172a' : '#e2e8f0',
+                  position: 'relative', transition: 'background 200ms',
+                }}
+              >
+                <span style={{
+                  position: 'absolute', top: 3, width: 16, height: 16, borderRadius: '50%', background: '#fff',
+                  left: item.active ? 21 : 3, transition: 'left 200ms', display: 'block',
+                }} />
+              </button>
+            </div>
+          ))}
+        </div>
+      ))}
+    </div>
+  )
+}
+
+export const MUI_설정_목록_섹션_구분선: StoryObj = {
+  name: 'MUI - 설정 목록 섹션 구분선',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'MUI List subheader 패턴. 설정 항목을 계정/보안/외관 그룹으로 나누고 ' +
+          'Divider로 섹션 경계를 표시. 토글 스위치 포함 인터랙티브 설정 패널.',
+      },
+    },
+  },
+  render: () => <MuiSettingsListRender />,
+}
+
+// Chakra UI 스타일 — 카드 내부 Divider + 메타 정보 레이아웃
+type ChakraPost = { title: string; author: string; date: string; category: string; readTime: string; summary: string }
+
+const CHAKRA_POSTS: ChakraPost[] = [
+  { title: 'vanilla-extract로 동적 테마 구현하기', author: '김희준', date: '2026-04-10', category: '기술', readTime: '8분', summary: 'vanilla-extract의 createTheme API를 활용해 런타임 테마 전환을 구현하는 방법을 설명합니다.' },
+  { title: '접근성 우선 컴포넌트 설계 원칙', author: '박지수', date: '2026-04-09', category: '접근성', readTime: '5분', summary: 'WAI-ARIA 패턴을 Orbit UI에 적용하면서 배운 실용적인 접근성 설계 원칙을 공유합니다.' },
+  { title: 'Storybook 8의 새로운 기능 총정리', author: '이민준', date: '2026-04-08', category: '도구', readTime: '6분', summary: 'Storybook 8에서 추가된 autodocs, play function 개선, 퍼포먼스 향상 포인트를 정리했습니다.' },
+]
+
+const CATEGORY_COLOR: Record<string, string> = {
+  '기술': '#3b82f6', '접근성': '#22c55e', '도구': '#f59e0b',
+}
+
+export const Chakra_블로그_카드_내부_구분선: StoryObj = {
+  name: 'Chakra UI - 블로그 카드 내부 Divider',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Chakra UI Card 패턴. 제목/본문/푸터 영역을 Divider로 나눠 정보 계층 명확화. ' +
+          '카테고리 색상 배지, 작성자, 읽기 시간 메타 정보 조합.',
+      },
+    },
+  },
+  render: () => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 16, width: 400, fontFamily: 'system-ui, sans-serif' }}>
+      {CHAKRA_POSTS.map((post) => (
+        <div key={post.title} style={{ borderRadius: 10, border: '1px solid #e2e8f0', background: '#fff', overflow: 'hidden' }}>
+          {/* 헤더 */}
+          <div style={{ padding: '14px 16px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8 }}>
+              <span style={{ fontSize: 11, fontWeight: 600, padding: '2px 8px', borderRadius: 99, background: CATEGORY_COLOR[post.category] + '18', color: CATEGORY_COLOR[post.category] }}>
+                {post.category}
+              </span>
+              <span style={{ fontSize: 11, color: '#94a3b8' }}>{post.readTime} 읽기</span>
+            </div>
+            <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a', lineHeight: 1.4 }}>{post.title}</div>
+          </div>
+          <Divider />
+          {/* 본문 */}
+          <div style={{ padding: '12px 16px', fontSize: 12, color: '#64748b', lineHeight: 1.6 }}>{post.summary}</div>
+          <Divider />
+          {/* 푸터 */}
+          <div style={{ padding: '10px 16px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: '#f8fafc' }}>
+            <span style={{ fontSize: 12, fontWeight: 600, color: '#475569' }}>{post.author}</span>
+            <span style={{ fontSize: 11, color: '#94a3b8' }}>{post.date}</span>
+          </div>
+        </div>
+      ))}
+    </div>
+  ),
+}
+
+// MUI + Chakra — 통계 대시보드 수평/수직 복합 구분선
+const STAT_ROWS = [
+  { label: '총 컴포넌트', value: '47', sub: '지난달 대비 +8', trend: 'up' },
+  { label: '스토리 수', value: '812', sub: '지난달 대비 +96', trend: 'up' },
+  { label: '테스트 커버리지', value: '94.2%', sub: '목표: 95%', trend: 'neutral' },
+  { label: '번들 크기', value: '128 KB', sub: '지난달 대비 -3%', trend: 'up' },
+]
+
+const CHART_BARS = [42, 58, 73, 61, 87, 92, 79, 95, 88, 102, 98, 112]
+const MONTHS = ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월']
+
+export const MUI_Chakra_대시보드_복합_구분선: StoryObj = {
+  name: 'MUI + Chakra - 통계 대시보드 복합 Divider',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'MUI + Chakra UI 대시보드 패턴. 수평 Divider로 섹션 구분 + 수직 Divider로 통계 열 구분. ' +
+          '바 차트 + KPI 카드 + 추세 표시 복합 레이아웃.',
+      },
+    },
+  },
+  render: () => (
+    <div style={{ width: 480, fontFamily: 'system-ui, sans-serif', border: '1px solid #e2e8f0', borderRadius: 12, overflow: 'hidden' }}>
+      {/* KPI 행 */}
+      <div style={{ display: 'flex' }}>
+        {STAT_ROWS.map((stat, i) => (
+          <div key={stat.label} style={{ flex: 1, display: 'flex' }}>
+            {i > 0 && (
+              <div style={{ display: 'flex', alignItems: 'stretch', padding: '12px 0' }}>
+                <Divider orientation="vertical" length="100%" />
+              </div>
+            )}
+            <div style={{ flex: 1, padding: '16px 14px' }}>
+              <div style={{ fontSize: 11, color: '#94a3b8', marginBottom: 4 }}>{stat.label}</div>
+              <div style={{ fontSize: 18, fontWeight: 700, color: '#0f172a' }}>{stat.value}</div>
+              <div style={{ fontSize: 10, color: stat.trend === 'up' ? '#22c55e' : '#64748b', marginTop: 2 }}>{stat.sub}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+      <Divider />
+      {/* 바 차트 섹션 */}
+      <div style={{ padding: '16px' }}>
+        <div style={{ fontSize: 12, fontWeight: 600, color: '#475569', marginBottom: 12 }}>월별 스토리 추가 수</div>
+        <div style={{ display: 'flex', alignItems: 'flex-end', gap: 6, height: 80 }}>
+          {CHART_BARS.map((h, i) => (
+            <div key={i} style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4 }}>
+              <div style={{ width: '100%', height: (h / 112) * 64, background: '#0f172a', borderRadius: '3px 3px 0 0', minHeight: 4, transition: 'height 300ms' }} />
+              <span style={{ fontSize: 8, color: '#94a3b8' }}>{MONTHS[i]}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  ),
+}
