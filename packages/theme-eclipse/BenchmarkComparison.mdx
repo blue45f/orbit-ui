@@ -1853,3 +1853,39 @@ const theme = createTheme({
     <span style={{ color: '#475569', marginLeft: '8px' }}>일일 100회 배포 한도 초과 — 다음 리셋 후 자동 배포 예정</span>
   </div>
 </section>
+
+<section style={{ marginBottom: '32px', padding: '20px', border: '2px solid #06b6d4', borderRadius: '8px', background: '#ecfeff' }}>
+  <h2 style={{ fontSize: '18px', fontWeight: '700', color: '#0891b2', marginBottom: '12px' }}>
+    Cycle 117 — MUI + Chakra UI
+  </h2>
+  <p style={{ color: '#475569', marginBottom: '16px' }}>
+    MUI의 controlled expansion panel + grouped accordion 패턴과 Chakra UI의 size variant 시스템을 Orbit UI에 적용.
+    Accordion 이슈 트래커, Avatar 상태 배지 그룹, 소셜 피드 복합 레이아웃 구현.
+  </p>
+  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '16px' }}>
+    <div style={{ padding: '12px', background: '#cffafe', borderRadius: '6px' }}>
+      <div style={{ fontWeight: '700', color: '#0e7490', marginBottom: '6px' }}>Material UI (MUI)</div>
+      <ul style={{ margin: 0, paddingLeft: '16px', color: '#475569', fontSize: '13px' }}>
+        <li>확장 패널 설정 그룹 (controlled accordion)</li>
+        <li>배지 아바타 그룹 (온라인/오프라인 상태)</li>
+        <li>이슈 트래커 카테고리 그룹</li>
+      </ul>
+    </div>
+    <div style={{ padding: '12px', background: '#cffafe', borderRadius: '6px' }}>
+      <div style={{ fontWeight: '700', color: '#0e7490', marginBottom: '6px' }}>Chakra UI</div>
+      <ul style={{ margin: 0, paddingLeft: '16px', color: '#475569', fontSize: '13px' }}>
+        <li>스텝 가이드 아코디언 (완료 상태 Switch)</li>
+        <li>사이즈 변형 아바타 xs~xl</li>
+        <li>댓글 스레드 중첩 Avatar 구조</li>
+      </ul>
+    </div>
+  </div>
+  <div style={{ borderTop: '1px solid #a5f3fc', paddingTop: '10px', marginTop: '4px' }}>
+    <span style={{ fontWeight: '700', color: '#0891b2' }}>Template Cycle117:</span>
+    <span style={{ color: '#475569', marginLeft: '8px' }}>MuiChakra117SocialFeed — 소셜 피드, 좋아요 토글, 트렌딩 태그 사이드바, Avatar + CounterBadge + LabelBadge 복합</span>
+  </div>
+  <div style={{ borderTop: '1px solid #a5f3fc', paddingTop: '10px', marginTop: '4px' }}>
+    <span style={{ fontWeight: '700', color: '#0891b2' }}>배포:</span>
+    <span style={{ color: '#475569', marginLeft: '8px' }}>● Ready — https://storybook-static-m8ldr257d-blue45fs-projects.vercel.app</span>
+  </div>
+</section>
