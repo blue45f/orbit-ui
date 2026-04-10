@@ -1333,3 +1333,207 @@ export const Apple_M3_미디어_플레이어_도트: Story = {
     },
   },
 }
+
+/* --------------------------------------------------------------------------
+   Raycast Extensions — 커맨드 팔레트 스텝 도트
+-------------------------------------------------------------------------- */
+const RAYCAST_STEPS = ['검색', '필터', '결과', '실행']
+
+function RaycastCommandStepRender() {
+  const [step, setStep] = useState(0)
+  return (
+    <div
+      style={{
+        width: 340,
+        fontFamily: "'Inter', system-ui, sans-serif",
+        background: '#1c1c1e',
+        borderRadius: 12,
+        overflow: 'hidden',
+        boxShadow: '0 20px 60px rgba(0,0,0,0.5)',
+        border: '1px solid rgba(255,255,255,0.1)',
+      }}
+    >
+      <div style={{ padding: '12px 16px', borderBottom: '1px solid rgba(255,255,255,0.08)', display: 'flex', alignItems: 'center', gap: 8 }}>
+        <span style={{ fontSize: 13, color: 'rgba(255,255,255,0.5)' }}>&#8984;</span>
+        <span style={{ fontSize: 13, fontWeight: 500, color: 'rgba(255,255,255,0.85)' }}>
+          {RAYCAST_STEPS[step]}
+        </span>
+        <div style={{ marginLeft: 'auto', display: 'flex', gap: 4, alignItems: 'center' }}>
+          {RAYCAST_STEPS.map((_, i) => (
+            <PageDots key={i} selected={i === step} onClick={() => setStep(i)} />
+          ))}
+        </div>
+      </div>
+      <div style={{ padding: 12 }}>
+        {RAYCAST_STEPS.map((label, i) => (
+          <button
+            key={i}
+            onClick={() => setStep(i)}
+            style={{
+              width: '100%',
+              textAlign: 'left',
+              padding: '8px 12px',
+              borderRadius: 8,
+              border: 'none',
+              background: i === step ? 'rgba(99,102,241,0.2)' : 'transparent',
+              color: i === step ? '#818cf8' : 'rgba(255,255,255,0.55)',
+              fontSize: 13,
+              cursor: 'pointer',
+              fontWeight: i === step ? 600 : 400,
+              marginBottom: 2,
+            }}
+          >
+            {i + 1}. {label}
+          </button>
+        ))}
+      </div>
+      <div style={{ padding: '10px 16px', borderTop: '1px solid rgba(255,255,255,0.08)', fontSize: 11, color: 'rgba(255,255,255,0.3)', display: 'flex', justifyContent: 'space-between' }}>
+        <span>Raycast Command Palette</span>
+        <span>&#9166; 실행</span>
+      </div>
+    </div>
+  )
+}
+
+export const Raycast_커맨드_팔레트_스텝_도트: Story = {
+  name: 'Raycast — 커맨드 팔레트 스텝 도트',
+  render: () => <RaycastCommandStepRender />,
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Raycast Extensions 커맨드 팔레트 패턴. 검색→필터→결과→실행 흐름을 PageDots로 표현합니다. ' +
+          'Raycast의 다크 UI와 인디고 악센트를 활용한 단계 인디케이터입니다.',
+      },
+    },
+  },
+}
+
+/* --------------------------------------------------------------------------
+   Notion Design — 문서 섹션 내비게이션 도트
+-------------------------------------------------------------------------- */
+const NOTION_SECTIONS = [
+  { title: '개요', icon: '📄', preview: '이 페이지는 Orbit UI 설계 원칙을 다룹니다.' },
+  { title: '컴포넌트', icon: '🧩', preview: 'Button, Input, Modal 등 37개 컴포넌트를 제공합니다.' },
+  { title: '토큰', icon: '🎨', preview: '3단계 디자인 토큰: Reference → Semantic → Component.' },
+  { title: '접근성', icon: '♿', preview: 'WAI-ARIA 1.2 기준 키보드 내비게이션 완전 지원.' },
+]
+
+function NotionSectionNavRender() {
+  const [section, setSection] = useState(0)
+  return (
+    <div style={{ width: 360, fontFamily: "'Inter', system-ui, sans-serif", background: '#fff', borderRadius: 8, border: '1px solid #e5e5e5' }}>
+      <div style={{ padding: '16px 20px', borderBottom: '1px solid #f0f0f0', display: 'flex', alignItems: 'center', gap: 6 }}>
+        <span style={{ fontSize: 16 }}>📝</span>
+        <span style={{ fontSize: 14, fontWeight: 600, color: '#1a1a1a' }}>Orbit UI 문서</span>
+        <div style={{ marginLeft: 'auto', display: 'flex', gap: 4, alignItems: 'center' }}>
+          {NOTION_SECTIONS.map((_, i) => (
+            <PageDots key={i} selected={i === section} onClick={() => setSection(i)} />
+          ))}
+        </div>
+      </div>
+      <div style={{ padding: '20px 20px 16px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 10 }}>
+          <span style={{ fontSize: 20 }}>{NOTION_SECTIONS[section].icon}</span>
+          <span style={{ fontSize: 15, fontWeight: 700, color: '#1a1a1a' }}>
+            {NOTION_SECTIONS[section].title}
+          </span>
+        </div>
+        <p style={{ margin: 0, fontSize: 13, color: '#666', lineHeight: 1.6 }}>
+          {NOTION_SECTIONS[section].preview}
+        </p>
+      </div>
+      <div style={{ padding: '10px 20px', borderTop: '1px solid #f0f0f0', display: 'flex', justifyContent: 'space-between', gap: 8 }}>
+        <button
+          onClick={() => setSection(p => Math.max(0, p - 1))}
+          disabled={section === 0}
+          style={{ flex: 1, padding: '6px 0', border: '1px solid #e5e5e5', borderRadius: 6, background: '#fff', color: section === 0 ? '#ccc' : '#374151', fontSize: 12, cursor: section === 0 ? 'not-allowed' : 'pointer' }}
+        >
+          이전
+        </button>
+        <button
+          onClick={() => setSection(p => Math.min(NOTION_SECTIONS.length - 1, p + 1))}
+          disabled={section === NOTION_SECTIONS.length - 1}
+          style={{ flex: 1, padding: '6px 0', border: '1px solid #e5e5e5', borderRadius: 6, background: section === NOTION_SECTIONS.length - 1 ? '#f9f9f9' : '#1a1a1a', color: section === NOTION_SECTIONS.length - 1 ? '#ccc' : '#fff', fontSize: 12, cursor: section === NOTION_SECTIONS.length - 1 ? 'not-allowed' : 'pointer' }}
+        >
+          다음
+        </button>
+      </div>
+    </div>
+  )
+}
+
+export const Notion_문서_섹션_내비게이션_도트: Story = {
+  name: 'Notion — 문서 섹션 내비게이션 도트',
+  render: () => <NotionSectionNavRender />,
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Notion 페이지 내비게이션 패턴. 문서 섹션을 PageDots로 표현하고 이전/다음 버튼으로 이동합니다. ' +
+          'Notion의 심플한 흑백 UI와 섹션별 아이콘을 활용한 문서 탐색 인터페이스입니다.',
+      },
+    },
+  },
+}
+
+/* --------------------------------------------------------------------------
+   Raycast + Notion — 온보딩 투어 플로우
+-------------------------------------------------------------------------- */
+const TOUR_STEPS = [
+  { icon: '⚡', title: 'Raycast 확장 설치', desc: 'Orbit UI 컴포넌트를 Raycast 확장으로 바로 사용할 수 있습니다.', bg: '#1c1c1e', text: '#e5e7eb', accent: '#818cf8' },
+  { icon: '📝', title: 'Notion 페이지 연동', desc: '디자인 시스템 문서를 Notion에 자동 동기화합니다.', bg: '#fff', text: '#1a1a1a', accent: '#000' },
+  { icon: '🔗', title: '워크플로우 완성', desc: 'Raycast에서 검색 → Notion에서 문서 확인 → 개발 적용.', bg: '#f8fafc', text: '#1e293b', accent: '#6366f1' },
+]
+
+function RaycastNotionTourRender() {
+  const [step, setStep] = useState(0)
+  const current = TOUR_STEPS[step]
+  return (
+    <div
+      style={{
+        width: 340,
+        fontFamily: "'Inter', system-ui, sans-serif",
+        background: current.bg,
+        borderRadius: 14,
+        border: '1px solid rgba(0,0,0,0.1)',
+        boxShadow: '0 4px 24px rgba(0,0,0,0.12)',
+        transition: 'background 0.3s',
+        overflow: 'hidden',
+      }}
+    >
+      <div style={{ padding: '24px 24px 16px', textAlign: 'center' }}>
+        <div style={{ fontSize: 40, marginBottom: 12 }}>{current.icon}</div>
+        <div style={{ fontSize: 15, fontWeight: 700, color: current.text, marginBottom: 8 }}>{current.title}</div>
+        <p style={{ margin: 0, fontSize: 12, color: current.text, opacity: 0.65, lineHeight: 1.6 }}>{current.desc}</p>
+      </div>
+      <div style={{ padding: '12px 24px 20px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 16 }}>
+        <div style={{ display: 'flex', gap: 6 }}>
+          {TOUR_STEPS.map((_, i) => (
+            <PageDots key={i} selected={i === step} onClick={() => setStep(i)} />
+          ))}
+        </div>
+        <button
+          onClick={() => setStep(p => (p + 1) % TOUR_STEPS.length)}
+          style={{ padding: '8px 28px', borderRadius: 8, border: 'none', background: current.accent, color: '#fff', fontSize: 13, fontWeight: 600, cursor: 'pointer' }}
+        >
+          {step === TOUR_STEPS.length - 1 ? '시작하기' : '다음'}
+        </button>
+      </div>
+    </div>
+  )
+}
+
+export const Raycast_Notion_온보딩_투어_플로우: Story = {
+  name: 'Raycast + Notion — 온보딩 투어 플로우',
+  render: () => <RaycastNotionTourRender />,
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Raycast Extensions + Notion Design 복합 패턴. 각 스텝마다 UI 테마가 전환되는 온보딩 투어를 PageDots로 구현합니다. ' +
+          'Raycast의 다크 테마, Notion의 라이트 테마, 중간 단계의 블루 테마를 순환합니다.',
+      },
+    },
+  },
+}

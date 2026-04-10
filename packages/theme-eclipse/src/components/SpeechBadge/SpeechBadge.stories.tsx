@@ -1171,3 +1171,193 @@ export const shadcn_Linear_AI_제안_말풍선: Story = {
   },
   render: () => <ShadcnLinearAIFeedbackRender />,
 }
+
+/* --------------------------------------------------------------------------
+   Raycast Extensions — 확장 단축키 힌트 말풍선
+-------------------------------------------------------------------------- */
+const RAYCAST_SHORTCUTS = [
+  { key: '⌘K', label: '커맨드 팔레트 열기', tip: 'Raycast의 메인 진입점입니다.' },
+  { key: '⌘⇧F', label: '파일 검색', tip: '프로젝트 내 모든 파일을 빠르게 탐색합니다.' },
+  { key: '⌘⇧P', label: '플러그인 관리', tip: '확장 기능을 추가하거나 설정합니다.' },
+]
+
+function RaycastShortcutHintRender() {
+  const [active, setActive] = useState<number | null>(null)
+  return (
+    <div style={{ width: 320, fontFamily: "'Inter', system-ui, sans-serif", background: '#1c1c1e', borderRadius: 12, padding: 16, border: '1px solid rgba(255,255,255,0.1)' }}>
+      <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.4)', marginBottom: 12, letterSpacing: '0.04em', textTransform: 'uppercase' }}>단축키 가이드</div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+        {RAYCAST_SHORTCUTS.map((item, i) => (
+          <div key={i}>
+            <div
+              onMouseEnter={() => setActive(i)}
+              onMouseLeave={() => setActive(null)}
+              style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '8px 10px', borderRadius: 8, background: active === i ? 'rgba(99,102,241,0.15)' : 'rgba(255,255,255,0.04)', cursor: 'pointer', transition: 'background 0.15s' }}
+            >
+              <span style={{ fontFamily: 'monospace', fontSize: 11, color: '#818cf8', background: 'rgba(129,140,248,0.15)', padding: '2px 6px', borderRadius: 4, minWidth: 48, textAlign: 'center' }}>{item.key}</span>
+              <span style={{ fontSize: 12, color: 'rgba(255,255,255,0.7)' }}>{item.label}</span>
+            </div>
+            {active === i && (
+              <div style={{ paddingLeft: 8, paddingTop: 4 }}>
+                <SpeechBadge color="blue" tailPosition="leading" style={{ fontSize: 11 }}>
+                  {item.tip}
+                </SpeechBadge>
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+export const Raycast_확장_단축키_힌트_말풍선: Story = {
+  name: 'Raycast — 확장 단축키 힌트 말풍선',
+  render: () => <RaycastShortcutHintRender />,
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Raycast Extensions 단축키 힌트 패턴. 단축키 항목에 호버하면 SpeechBadge로 설명이 표시됩니다. ' +
+          'Raycast의 다크 UI에서 인디고 악센트와 함께 맥락적 도움말을 제공합니다.',
+      },
+    },
+  },
+}
+
+/* --------------------------------------------------------------------------
+   Notion Design — 인라인 블록 코멘트 말풍선
+-------------------------------------------------------------------------- */
+const NOTION_COMMENTS = [
+  { user: 'Alex', avatar: 'A', msg: '이 섹션 설명이 조금 더 구체적이어야 할 것 같아요.', time: '방금', color: 'blue' as const },
+  { user: 'Jin', avatar: 'J', msg: '동의합니다. 예시 코드도 추가하면 좋겠어요!', time: '1분 전', color: 'pink' as const },
+]
+
+function NotionInlineCommentRender() {
+  const [resolved, setResolved] = useState(false)
+  return (
+    <div style={{ width: 340, fontFamily: "'Inter', system-ui, sans-serif", background: '#fff', borderRadius: 8, border: '1px solid #e5e5e5' }}>
+      <div style={{ padding: '14px 16px', borderBottom: '1px solid #f0f0f0' }}>
+        <div style={{ fontSize: 12, color: '#9ca3af', marginBottom: 6 }}>문서 블록 코멘트</div>
+        <div style={{ fontSize: 13, color: '#1a1a1a', background: '#fef9c3', padding: '8px 10px', borderRadius: 4, borderLeft: '3px solid #f59e0b' }}>
+          PageDots는 슬라이더/캐러셀의 현재 페이지를 나타내는 컴포넌트입니다.
+        </div>
+      </div>
+      {!resolved ? (
+        <div style={{ padding: '12px 16px', display: 'flex', flexDirection: 'column', gap: 10 }}>
+          {NOTION_COMMENTS.map((c, i) => (
+            <div key={i} style={{ display: 'flex', gap: 8, alignItems: 'flex-start' }}>
+              <div style={{ width: 24, height: 24, borderRadius: '50%', background: c.color === 'blue' ? '#dbeafe' : '#fce7f3', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 11, fontWeight: 700, color: c.color === 'blue' ? '#1d4ed8' : '#be185d', flexShrink: 0 }}>
+                {c.avatar}
+              </div>
+              <div style={{ flex: 1 }}>
+                <div style={{ display: 'flex', gap: 6, alignItems: 'center', marginBottom: 4 }}>
+                  <span style={{ fontSize: 11, fontWeight: 600, color: '#374151' }}>{c.user}</span>
+                  <span style={{ fontSize: 10, color: '#9ca3af' }}>{c.time}</span>
+                </div>
+                <SpeechBadge color={c.color} tailPosition="leading" style={{ fontSize: 11, lineHeight: 1.5 }}>
+                  {c.msg}
+                </SpeechBadge>
+              </div>
+            </div>
+          ))}
+          <button
+            onClick={() => setResolved(true)}
+            style={{ alignSelf: 'flex-end', fontSize: 11, color: '#6b7280', background: 'none', border: '1px solid #e5e5e5', borderRadius: 6, padding: '4px 10px', cursor: 'pointer' }}
+          >
+            해결됨으로 표시
+          </button>
+        </div>
+      ) : (
+        <div style={{ padding: '16px', textAlign: 'center', fontSize: 12, color: '#9ca3af' }}>
+          코멘트가 해결되었습니다 ✓
+          <button onClick={() => setResolved(false)} style={{ display: 'block', margin: '8px auto 0', fontSize: 11, color: '#6366f1', background: 'none', border: 'none', cursor: 'pointer' }}>
+            다시 열기
+          </button>
+        </div>
+      )}
+    </div>
+  )
+}
+
+export const Notion_인라인_블록_코멘트_말풍선: Story = {
+  name: 'Notion — 인라인 블록 코멘트 말풍선',
+  render: () => <NotionInlineCommentRender />,
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Notion 인라인 코멘트 패턴. 문서 블록에 달린 팀원 코멘트를 SpeechBadge로 표현합니다. ' +
+          '해결됨 토글 기능과 아바타 식별을 조합한 협업 UI입니다.',
+      },
+    },
+  },
+}
+
+/* --------------------------------------------------------------------------
+   Raycast + Notion — 워크플로우 팁 가이드 말풍선
+-------------------------------------------------------------------------- */
+const WORKFLOW_TIPS = [
+  { step: 1, source: 'Raycast', tip: '⌘K로 Orbit UI 컴포넌트를 즉시 검색하세요.', color: 'blue' as const, done: false },
+  { step: 2, source: 'Notion', tip: '디자인 토큰 문서를 Notion 페이지로 자동 동기화합니다.', color: 'pink' as const, done: false },
+  { step: 3, source: 'Raycast', tip: 'Storybook 스토리를 Raycast 퀵링크로 저장하세요.', color: 'blue' as const, done: false },
+]
+
+function RaycastNotionWorkflowRender() {
+  const [done, setDone] = useState<Set<number>>(new Set())
+  const toggle = (i: number) => {
+    setDone(prev => {
+      const next = new Set(prev)
+      if (next.has(i)) next.delete(i)
+      else next.add(i)
+      return next
+    })
+  }
+  return (
+    <div style={{ width: 340, fontFamily: "'Inter', system-ui, sans-serif", background: '#f8fafc', borderRadius: 12, padding: 16, border: '1px solid #e2e8f0' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 14 }}>
+        <span style={{ fontSize: 15, fontWeight: 700, color: '#1e293b' }}>워크플로우 팁</span>
+        <span style={{ marginLeft: 'auto', fontSize: 11, color: '#94a3b8' }}>{done.size}/{WORKFLOW_TIPS.length} 완료</span>
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+        {WORKFLOW_TIPS.map((item, i) => (
+          <div key={i} style={{ display: 'flex', gap: 10, alignItems: 'flex-start', opacity: done.has(i) ? 0.45 : 1, transition: 'opacity 0.2s' }}>
+            <button
+              onClick={() => toggle(i)}
+              style={{ flexShrink: 0, width: 20, height: 20, borderRadius: 4, border: done.has(i) ? 'none' : '2px solid #cbd5e1', background: done.has(i) ? '#6366f1' : '#fff', color: '#fff', fontSize: 12, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: 2 }}
+            >
+              {done.has(i) ? '✓' : ''}
+            </button>
+            <div style={{ flex: 1 }}>
+              <span style={{ fontSize: 10, fontWeight: 600, color: item.color === 'blue' ? '#6366f1' : '#ec4899', textTransform: 'uppercase', letterSpacing: '0.06em' }}>{item.source}</span>
+              <div style={{ marginTop: 4 }}>
+                <SpeechBadge color={item.color} tailPosition="leading" style={{ fontSize: 11, lineHeight: 1.5 }}>
+                  {item.tip}
+                </SpeechBadge>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+      {done.size === WORKFLOW_TIPS.length && (
+        <div style={{ marginTop: 14, padding: '10px', textAlign: 'center', fontSize: 12, color: '#6366f1', background: '#eef2ff', borderRadius: 8, fontWeight: 600 }}>
+          워크플로우 마스터 완료!
+        </div>
+      )}
+    </div>
+  )
+}
+
+export const Raycast_Notion_워크플로우_팁_가이드_말풍선: Story = {
+  name: 'Raycast + Notion — 워크플로우 팁 가이드 말풍선',
+  render: () => <RaycastNotionWorkflowRender />,
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Raycast + Notion 복합 워크플로우 팁 패턴. SpeechBadge로 단계별 팁을 표현하고 체크박스로 완료 처리합니다. ' +
+          'Raycast(인디고)와 Notion(핑크) 출처를 색상으로 구분합니다.',
+      },
+    },
+  },
+}

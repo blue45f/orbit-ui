@@ -40467,3 +40467,214 @@ export const MUIM3181AnalyticsDashboard: StoryObj = {
   },
   render: () => <MUIM3181AnalyticsDashboardRender />,
 }
+
+/* ==========================================================================
+   Cycle 182 — Raycast + Notion: 커맨드 센터 & 문서 편집기
+========================================================================== */
+const NOTION182_PAGES = [
+  { id: 'overview', icon: '📄', title: '개요', tag: 'Docs', color: '#6366f1' },
+  { id: 'components', icon: '🧩', title: '컴포넌트', tag: 'Guide', color: '#10b981' },
+  { id: 'tokens', icon: '🎨', title: '디자인 토큰', tag: 'Reference', color: '#f59e0b' },
+  { id: 'a11y', icon: '♿', title: '접근성', tag: 'Standard', color: '#ef4444' },
+]
+
+const RAYCAST182_COMMANDS = [
+  { key: '⌘K', label: '커맨드 팔레트', desc: '모든 기능에 즉시 접근' },
+  { key: '⌘⇧F', label: '파일 검색', desc: '프로젝트 내 파일 검색' },
+  { key: '⌘⇧D', label: '문서 탐색', desc: 'Notion 문서 빠른 이동' },
+  { key: '⌘⇧C', label: '컴포넌트 복사', desc: '스니펫 클립보드 저장' },
+]
+
+const NOTION182_BLOCKS = [
+  { type: 'h1', content: 'Orbit UI 디자인 시스템', style: { fontSize: 22, fontWeight: 800, color: '#1a1a1a', marginBottom: 4 } },
+  { type: 'p', content: 'React + TypeScript 기반 3티어 컴포넌트 라이브러리. Base → Theme → Custom 계층으로 확장 가능한 아키텍처를 제공합니다.', style: { fontSize: 13, color: '#4b5563', lineHeight: 1.7, marginBottom: 12 } },
+  { type: 'callout', content: '37개 컴포넌트 · WAI-ARIA 1.2 준수 · TypeScript 완전 지원', style: { fontSize: 12, color: '#6366f1', background: '#eef2ff', borderRadius: 6, padding: '8px 12px', borderLeft: '3px solid #6366f1', marginBottom: 12 } },
+  { type: 'p', content: '각 컴포넌트는 Storybook에서 인터랙티브 문서를 제공하며, Figma 토큰과 1:1 매핑됩니다.', style: { fontSize: 13, color: '#4b5563', lineHeight: 1.7 } },
+]
+
+function RaycastNotion182Render() {
+  const [activePage, setActivePage] = useState(NOTION182_PAGES[0].id)
+  const [query, setQuery] = useState('')
+  const [cmdOpen, setCmdOpen] = useState(false)
+  const [activeCmd, setActiveCmd] = useState<number | null>(null)
+  const [commentVisible, setCommentVisible] = useState(false)
+
+  const filtered = RAYCAST182_COMMANDS.filter(c =>
+    query === '' || c.label.includes(query) || c.desc.includes(query)
+  )
+  const currentPage = NOTION182_PAGES.find(p => p.id === activePage) ?? NOTION182_PAGES[0]
+
+  return (
+    <div style={{ display: 'flex', height: '100vh', fontFamily: "'Inter', system-ui, sans-serif", background: '#f8fafc', overflow: 'hidden' }}>
+      {/* Sidebar — Notion-style */}
+      <div style={{ width: 220, background: '#fff', borderRight: '1px solid #e5e7eb', display: 'flex', flexDirection: 'column', flexShrink: 0 }}>
+        <div style={{ padding: '16px 14px 10px', borderBottom: '1px solid #f0f0f0' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            <div style={{ width: 28, height: 28, borderRadius: 6, background: '#1a1a1a', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <span style={{ fontSize: 14 }}>🌑</span>
+            </div>
+            <span style={{ fontSize: 13, fontWeight: 700, color: '#1a1a1a' }}>Orbit UI Docs</span>
+          </div>
+        </div>
+        <div style={{ padding: '8px 8px', flex: 1 }}>
+          <div style={{ fontSize: 10, color: '#9ca3af', textTransform: 'uppercase', letterSpacing: '0.06em', padding: '4px 6px', marginBottom: 4 }}>문서</div>
+          {NOTION182_PAGES.map(page => (
+            <button
+              key={page.id}
+              onClick={() => setActivePage(page.id)}
+              style={{ width: '100%', textAlign: 'left', padding: '7px 8px', borderRadius: 6, border: 'none', background: activePage === page.id ? '#f1f5f9' : 'transparent', display: 'flex', alignItems: 'center', gap: 7, cursor: 'pointer', marginBottom: 2 }}
+            >
+              <span style={{ fontSize: 14 }}>{page.icon}</span>
+              <span style={{ fontSize: 12, color: activePage === page.id ? '#1a1a1a' : '#6b7280', fontWeight: activePage === page.id ? 600 : 400 }}>{page.title}</span>
+              <span style={{ marginLeft: 'auto', fontSize: 9, background: page.color + '20', color: page.color, padding: '1px 5px', borderRadius: 3, fontWeight: 600 }}>{page.tag}</span>
+            </button>
+          ))}
+        </div>
+        {/* Raycast shortcut panel */}
+        <div style={{ padding: '10px 8px', borderTop: '1px solid #f0f0f0' }}>
+          <button
+            onClick={() => setCmdOpen(p => !p)}
+            style={{ width: '100%', display: 'flex', alignItems: 'center', gap: 7, padding: '7px 8px', borderRadius: 6, border: '1px solid #e5e7eb', background: cmdOpen ? '#1a1a1a' : '#fff', cursor: 'pointer' }}
+          >
+            <span style={{ fontSize: 12 }}>⚡</span>
+            <span style={{ fontSize: 11, color: cmdOpen ? '#fff' : '#6b7280', fontWeight: 500 }}>Raycast 단축키</span>
+            <span style={{ marginLeft: 'auto', fontFamily: 'monospace', fontSize: 10, color: cmdOpen ? '#818cf8' : '#9ca3af' }}>⌘K</span>
+          </button>
+        </div>
+      </div>
+
+      {/* Main content */}
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+        {/* Top bar */}
+        <div style={{ height: 48, background: '#fff', borderBottom: '1px solid #e5e7eb', display: 'flex', alignItems: 'center', padding: '0 20px', gap: 12, flexShrink: 0 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+            <span style={{ fontSize: 16 }}>{currentPage.icon}</span>
+            <span style={{ fontSize: 13, fontWeight: 600, color: '#1a1a1a' }}>{currentPage.title}</span>
+          </div>
+          <div style={{ marginLeft: 'auto', display: 'flex', gap: 8, alignItems: 'center' }}>
+            <LabelBadge style={{ fontSize: 10 }}>{currentPage.tag}</LabelBadge>
+            <SolidButton
+              size="small"
+              color="primary"
+              onClick={() => setCommentVisible(p => !p)}
+            >
+              <SolidButton.Center>{commentVisible ? '코멘트 닫기' : '코멘트'}</SolidButton.Center>
+            </SolidButton>
+          </div>
+        </div>
+
+        {/* Body */}
+        <div style={{ flex: 1, display: 'flex', overflow: 'hidden' }}>
+          {/* Page content */}
+          <div style={{ flex: 1, padding: '28px 32px', overflowY: 'auto' }}>
+            {/* Raycast command panel overlay */}
+            {cmdOpen && (
+              <div style={{ background: '#1c1c1e', borderRadius: 12, border: '1px solid rgba(255,255,255,0.1)', marginBottom: 20, overflow: 'hidden', boxShadow: '0 8px 32px rgba(0,0,0,0.3)' }}>
+                <div style={{ padding: '10px 14px', borderBottom: '1px solid rgba(255,255,255,0.08)', display: 'flex', alignItems: 'center', gap: 8 }}>
+                  <span style={{ fontSize: 13, color: 'rgba(255,255,255,0.4)' }}>&#8984;</span>
+                  <input
+                    value={query}
+                    onChange={e => setQuery(e.target.value)}
+                    placeholder="명령어 검색..."
+                    style={{ flex: 1, background: 'transparent', border: 'none', outline: 'none', fontSize: 13, color: 'rgba(255,255,255,0.85)', caretColor: '#818cf8' }}
+                  />
+                  <div style={{ display: 'flex', gap: 3 }}>
+                    {[0, 1, 2, 3].map(i => (
+                      <PageDots key={i} selected={i === activeCmd} onClick={() => setActiveCmd(i)} />
+                    ))}
+                  </div>
+                </div>
+                {filtered.map((cmd, i) => (
+                  <div
+                    key={i}
+                    onMouseEnter={() => setActiveCmd(i)}
+                    onMouseLeave={() => setActiveCmd(null)}
+                    style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '9px 14px', background: activeCmd === i ? 'rgba(99,102,241,0.2)' : 'transparent', cursor: 'pointer', transition: 'background 0.1s' }}
+                  >
+                    <span style={{ fontFamily: 'monospace', fontSize: 11, color: '#818cf8', background: 'rgba(129,140,248,0.15)', padding: '2px 6px', borderRadius: 4, minWidth: 44, textAlign: 'center' }}>{cmd.key}</span>
+                    <div>
+                      <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.85)', fontWeight: 500 }}>{cmd.label}</div>
+                      <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.35)', marginTop: 1 }}>{cmd.desc}</div>
+                    </div>
+                    {activeCmd === i && (
+                      <div style={{ marginLeft: 'auto' }}>
+                        <SpeechBadge color="blue" tailPosition="trailing" style={{ fontSize: 10 }}>
+                          {cmd.desc}
+                        </SpeechBadge>
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {/* Notion-style document blocks */}
+            <div style={{ maxWidth: 620 }}>
+              {NOTION182_BLOCKS.map((block, i) => (
+                <div key={i} style={block.style}>{block.content}</div>
+              ))}
+
+              {/* Page dots navigation */}
+              <div style={{ marginTop: 24, paddingTop: 16, borderTop: '1px solid #f0f0f0', display: 'flex', alignItems: 'center', gap: 12 }}>
+                <span style={{ fontSize: 12, color: '#9ca3af' }}>섹션:</span>
+                <div style={{ display: 'flex', gap: 5 }}>
+                  {NOTION182_PAGES.map((p, i) => (
+                    <PageDots
+                      key={p.id}
+                      selected={p.id === activePage}
+                      onClick={() => setActivePage(NOTION182_PAGES[i].id)}
+                    />
+                  ))}
+                </div>
+                <span style={{ fontSize: 11, color: '#9ca3af' }}>
+                  {NOTION182_PAGES.findIndex(p => p.id === activePage) + 1} / {NOTION182_PAGES.length}
+                </span>
+              </div>
+            </div>
+          </div>
+
+          {/* Comment panel */}
+          {commentVisible && (
+            <div style={{ width: 260, background: '#fff', borderLeft: '1px solid #e5e7eb', padding: 16, overflowY: 'auto', flexShrink: 0 }}>
+              <div style={{ fontSize: 13, fontWeight: 700, color: '#1a1a1a', marginBottom: 14 }}>코멘트</div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+                {[
+                  { user: 'Alex', color: 'blue' as const, msg: '이 섹션 예시 코드가 더 필요해요.', time: '2분 전' },
+                  { user: 'Jin', color: 'pink' as const, msg: 'Figma 링크도 추가하면 좋겠습니다!', time: '5분 전' },
+                ].map((c, i) => (
+                  <div key={i} style={{ display: 'flex', gap: 8, alignItems: 'flex-start' }}>
+                    <div style={{ width: 26, height: 26, borderRadius: '50%', background: c.color === 'blue' ? '#dbeafe' : '#fce7f3', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 11, fontWeight: 700, color: c.color === 'blue' ? '#1d4ed8' : '#be185d', flexShrink: 0 }}>
+                      {c.user[0]}
+                    </div>
+                    <div style={{ flex: 1 }}>
+                      <div style={{ display: 'flex', gap: 5, alignItems: 'center', marginBottom: 4 }}>
+                        <span style={{ fontSize: 11, fontWeight: 600, color: '#374151' }}>{c.user}</span>
+                        <span style={{ fontSize: 10, color: '#9ca3af' }}>{c.time}</span>
+                      </div>
+                      <SpeechBadge color={c.color} tailPosition="leading" style={{ fontSize: 11, lineHeight: 1.5 }}>
+                        {c.msg}
+                      </SpeechBadge>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const RaycastNotion182CommandCenter: StoryObj = {
+  name: 'Raycast + Notion — 커맨드 센터 & 문서 편집기 (Cycle 182)',
+  parameters: {
+    layout: 'fullscreen',
+    docs: {
+      description: {
+        story: 'Raycast Extensions + Notion Design 복합 패턴. Notion 문서 사이드바 + 페이지 내비게이션(PageDots) + Raycast 커맨드 팔레트 오버레이(커맨드 호버 SpeechBadge) + Notion 인라인 코멘트(SpeechBadge) 통합 UI.',
+      },
+    },
+  },
+  render: () => <RaycastNotion182Render />,
+}
