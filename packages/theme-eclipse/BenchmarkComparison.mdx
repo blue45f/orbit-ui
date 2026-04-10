@@ -1630,3 +1630,26 @@ const theme = createTheme({
     <span style={{ color: '#475569', marginLeft: '8px' }}>CommandCenter — Mantine Spotlight + Raycast 패턴, 커맨드 팔레트로 워크스페이스 전환, 기능 플래그 Toggle 관리</span>
   </div>
 </section>
+
+<section style={{ marginTop: '32px', padding: '20px', borderRadius: '10px', border: '1px solid #e2e8f0', background: '#fafafa' }}>
+  <h3 style={{ fontSize: '16px', fontWeight: '700', color: '#0f172a', margin: '0 0 4px' }}>Cycle 81 — Vercel Design 벤치마크</h3>
+  <p style={{ fontSize: '12px', color: '#94a3b8', margin: '0 0 16px' }}>2026-04-10 / 대상 컴포넌트: RadioGroup, Templates</p>
+
+  <h4 style={{ fontSize: '13px', fontWeight: '600', color: '#334155', margin: '0 0 8px' }}>Vercel Design 장점 분석</h4>
+  <ul style={{ fontSize: '12px', color: '#475569', margin: '0 0 12px', paddingLeft: '18px', lineHeight: '1.8' }}>
+    <li><strong>두 단계 CSS 변수 시스템</strong>: 시맨틱 토큰(--ds-background-100)이 팔레트 값을 참조하는 구조. Orbit UI 3단계 토큰(Reference → Semantic → Component)과 설계 철학 일치.</li>
+    <li><strong>스케일 기반 타이포그래피</strong>: text-heading-24, text-copy-16 등 크기와 의미를 결합한 클래스. 단일 속성이 아닌 font-size+weight+line-height 복합 단위로 타이포그래피 일관성 확보.</li>
+    <li><strong>데이터 속성 기반 시맨틱 마커</strong>: data-grid-cell, data-geist-code-block 등 CSS 클래스가 아닌 HTML data 속성으로 컴포넌트 영역을 구분. 스타일과 의미 분리.</li>
+  </ul>
+
+  <h4 style={{ fontSize: '13px', fontWeight: '600', color: '#334155', margin: '0 0 8px' }}>Orbit UI 반영 사항</h4>
+  <ul style={{ fontSize: '12px', color: '#475569', margin: '0 0 12px', paddingLeft: '18px', lineHeight: '1.8' }}>
+    <li>RadioGroup: Vercel 배포 환경 선택(Production/Preview/Development 뱃지), 엣지 지역 선택(레이턴시 ms 색상 코딩), 빌드 출력 유형 그리드 선택 +3 스토리</li>
+    <li>Template #70 DomainManager: 도메인 추가/토글/DNS 레코드 상세 패널. Switch, Progress(DNS 전파), LabelBadge(상태), TextField(도메인 입력) 조합</li>
+  </ul>
+
+  <div style={{ borderTop: '1px solid #e2e8f0', paddingTop: '10px', marginTop: '4px' }}>
+    <span style={{ fontWeight: '700', color: '#059669' }}>Template #70:</span>
+    <span style={{ color: '#475569', marginLeft: '8px' }}>DomainManager — Vercel 도메인 관리 UI 패턴, DNS 전파 Progress, 펼침형 레코드 패널</span>
+  </div>
+</section>

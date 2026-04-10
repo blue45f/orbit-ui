@@ -19564,3 +19564,276 @@ export const AuditLog: Story = {
   },
   render: () => <AuditLogRender />,
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   70. DomainManager (사이클 81 — Vercel Design 벤치마크)
+   Vercel 도메인 관리 UI 패턴: 도메인 추가, DNS 전파 상태, Switch 토글.
+   TextField / Switch / LabelBadge / Progress / SolidButton / OutlineButton 활용.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+type DomainStatus = 'active' | 'pending' | 'error' | 'verifying'
+
+interface DomainEntry {
+  id: string
+  domain: string
+  type: 'primary' | 'redirect' | 'branch'
+  status: DomainStatus
+  ssl: boolean
+  enabled: boolean
+  propagation: number
+  addedAt: string
+}
+
+const DOMAIN_STATUS_CFG: Record<DomainStatus, { label: string; color: 'benefit' | 'gray' | 'sale'; dot: string }> = {
+  active:    { label: '활성', color: 'benefit', dot: '#10b981' },
+  pending:   { label: '대기 중', color: 'gray', dot: '#f59e0b' },
+  error:     { label: '오류', color: 'sale', dot: '#ef4444' },
+  verifying: { label: '검증 중', color: 'gray', dot: '#6366f1' },
+}
+
+const DomainManagerRender: React.FC = () => {
+  const [domains, setDomains] = React.useState<DomainEntry[]>([
+    { id: 'd-001', domain: 'orbit-ui.dev', type: 'primary', status: 'active', ssl: true, enabled: true, propagation: 100, addedAt: '2026-01-12' },
+    { id: 'd-002', domain: 'www.orbit-ui.dev', type: 'redirect', status: 'active', ssl: true, enabled: true, propagation: 100, addedAt: '2026-01-12' },
+    { id: 'd-003', domain: 'storybook.orbit-ui.dev', type: 'branch', status: 'verifying', ssl: false, enabled: true, propagation: 65, addedAt: '2026-03-28' },
+    { id: 'd-004', domain: 'dev.orbit-ui.dev', type: 'branch', status: 'pending', ssl: false, enabled: true, propagation: 30, addedAt: '2026-04-09' },
+    { id: 'd-005', domain: 'old-docs.orbit-ui.dev', type: 'redirect', status: 'error', ssl: false, enabled: false, propagation: 0, addedAt: '2026-02-15' },
+  ])
+
+  const [newDomain, setNewDomain] = React.useState('')
+  const [adding, setAdding] = React.useState(false)
+  const [selectedId, setSelectedId] = React.useState<string | null>(null)
+
+  const tc = {
+    bg: 'var(--sem-eclipse-color-backgroundPrimary)',
+    surface: 'var(--sem-eclipse-color-backgroundSecondary)',
+    border: 'var(--sem-eclipse-color-borderDefault)',
+    borderSub: 'var(--sem-eclipse-color-borderSubtle)',
+    fg: 'var(--sem-eclipse-color-foregroundPrimary)',
+    fgSub: 'var(--sem-eclipse-color-foregroundSecondary)',
+    fgMuted: 'var(--sem-eclipse-color-foregroundTertiary)',
+    fillPrimary: 'var(--sem-eclipse-color-fillPrimary)',
+  }
+
+  const toggleEnabled = (id: string) =>
+    setDomains((prev) =>
+      prev.map((d) => (d.id === id ? { ...d, enabled: !d.enabled } : d))
+    )
+
+  const handleAdd = () => {
+    if (!newDomain.trim()) return
+    const entry: DomainEntry = {
+      id: `d-${Date.now()}`,
+      domain: newDomain.trim().toLowerCase(),
+      type: 'branch',
+      status: 'verifying',
+      ssl: false,
+      enabled: true,
+      propagation: 0,
+      addedAt: new Date().toISOString().split('T')[0],
+    }
+    setDomains((prev) => [...prev, entry])
+    setNewDomain('')
+    setAdding(false)
+  }
+
+  const typeLabel: Record<DomainEntry['type'], string> = {
+    primary: '기본',
+    redirect: '리다이렉트',
+    branch: '브랜치',
+  }
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', height: '100vh', background: tc.bg }}>
+      {/* Header */}
+      <div style={{ padding: '14px 24px', borderBottom: `1px solid ${tc.border}`, background: tc.surface, display: 'flex', alignItems: 'center', gap: 16, flexShrink: 0 }}>
+        <div>
+          <Text textStyle="titleMedium" style={{ fontWeight: 700, color: tc.fg }}>도메인 관리</Text>
+          <Text textStyle="descriptionSmall" style={{ color: tc.fgMuted }}>orbit-ui 프로젝트 · {domains.length}개 도메인</Text>
+        </div>
+        <div style={{ flex: 1 }} />
+        <SolidButton color="primary" size="small" onClick={() => setAdding((v) => !v)}>
+          도메인 추가
+        </SolidButton>
+      </div>
+
+      <div style={{ display: 'flex', flex: 1, overflow: 'hidden' }}>
+        {/* Main */}
+        <div style={{ flex: 1, overflowY: 'auto', padding: '20px 24px', display: 'flex', flexDirection: 'column', gap: 12 }}>
+          {/* Add domain form */}
+          {adding && (
+            <div style={{ padding: '16px', borderRadius: 10, border: `1px solid ${tc.fillPrimary}`, background: `color-mix(in srgb, ${tc.fillPrimary} 5%, ${tc.bg})` }}>
+              <Text textStyle="bodyMedium" style={{ fontWeight: 700, color: tc.fg, display: 'block', marginBottom: 10 }}>새 도메인 추가</Text>
+              <div style={{ display: 'flex', gap: 8 }}>
+                <div style={{ flex: 1 }}>
+                  <TextField
+                    value={newDomain}
+                    onChange={(e) => setNewDomain(e.target.value)}
+                    placeholder="example.com"
+                    onKeyDown={(e) => { if (e.key === 'Enter') handleAdd() }}
+                  />
+                </div>
+                <SolidButton color="primary" size="medium" onClick={handleAdd}>추가</SolidButton>
+                <OutlineButton color="black" size="medium" onClick={() => { setAdding(false); setNewDomain('') }}>취소</OutlineButton>
+              </div>
+              <Text textStyle="descriptionSmall" style={{ color: tc.fgMuted, marginTop: 8, display: 'block' }}>
+                도메인 등록 후 DNS 설정에서 CNAME 또는 A 레코드를 추가해야 합니다.
+              </Text>
+            </div>
+          )}
+
+          {/* Domain list */}
+          {domains.map((domain) => {
+            const cfg = DOMAIN_STATUS_CFG[domain.status]
+            const isSelected = selectedId === domain.id
+            return (
+              <div
+                key={domain.id}
+                onClick={() => setSelectedId(isSelected ? null : domain.id)}
+                style={{
+                  borderRadius: 10,
+                  border: `1px solid ${isSelected ? tc.fillPrimary : tc.border}`,
+                  background: isSelected ? `color-mix(in srgb, ${tc.fillPrimary} 4%, ${tc.bg})` : tc.bg,
+                  overflow: 'hidden',
+                  cursor: 'pointer',
+                  transition: 'border-color 0.15s, background 0.15s',
+                  opacity: domain.enabled ? 1 : 0.55,
+                }}
+              >
+                {/* Main row */}
+                <div style={{ display: 'flex', alignItems: 'center', gap: 14, padding: '14px 16px' }}>
+                  {/* Status dot */}
+                  <div style={{ position: 'relative', flexShrink: 0 }}>
+                    <span style={{ width: 10, height: 10, borderRadius: '50%', background: cfg.dot, display: 'block' }} />
+                    {domain.status === 'verifying' && (
+                      <span style={{ position: 'absolute', inset: 0, borderRadius: '50%', background: cfg.dot, opacity: 0.4, animation: 'pulse 1.5s ease-in-out infinite' }} />
+                    )}
+                  </div>
+
+                  {/* Domain info */}
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
+                      <code style={{ fontSize: 14, fontFamily: 'monospace', fontWeight: 700, color: tc.fg }}>{domain.domain}</code>
+                      <LabelBadge color={cfg.color}>
+                        <LabelBadge.Label>{cfg.label}</LabelBadge.Label>
+                      </LabelBadge>
+                      <LabelBadge color="gray">
+                        <LabelBadge.Label>{typeLabel[domain.type]}</LabelBadge.Label>
+                      </LabelBadge>
+                      {domain.ssl && (
+                        <span style={{ fontSize: 11, color: '#10b981', fontWeight: 600 }}>SSL</span>
+                      )}
+                    </div>
+                    {domain.status !== 'active' && (
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                        <div style={{ flex: 1, maxWidth: 200 }}>
+                          <Progress value={domain.propagation} />
+                        </div>
+                        <Text textStyle="descriptionSmall" style={{ color: tc.fgMuted }}>DNS 전파 {domain.propagation}%</Text>
+                      </div>
+                    )}
+                    {domain.status === 'active' && (
+                      <Text textStyle="descriptionSmall" style={{ color: tc.fgMuted }}>추가일: {domain.addedAt}</Text>
+                    )}
+                  </div>
+
+                  {/* Toggle */}
+                  <div onClick={(e) => { e.stopPropagation(); toggleEnabled(domain.id) }}>
+                    <Switch checked={domain.enabled} onChange={() => toggleEnabled(domain.id)} />
+                  </div>
+                </div>
+
+                {/* Expanded DNS info */}
+                {isSelected && (
+                  <div style={{ borderTop: `1px solid ${tc.borderSub}`, padding: '12px 16px', background: tc.surface }}>
+                    <Text textStyle="descriptionSmall" style={{ color: tc.fgMuted, fontWeight: 600, display: 'block', marginBottom: 8, textTransform: 'uppercase', letterSpacing: '0.06em' }}>DNS 레코드</Text>
+                    <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 12, fontFamily: 'monospace' }}>
+                      <thead>
+                        <tr>
+                          {['타입', '이름', '값', 'TTL'].map((col) => (
+                            <th key={col} style={{ textAlign: 'left', padding: '4px 8px', color: tc.fgMuted, fontWeight: 600, borderBottom: `1px solid ${tc.borderSub}` }}>{col}</th>
+                          ))}
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td style={{ padding: '6px 8px', color: tc.fillPrimary }}>CNAME</td>
+                          <td style={{ padding: '6px 8px', color: tc.fg }}>{domain.domain}</td>
+                          <td style={{ padding: '6px 8px', color: tc.fgSub }}>cname.vercel-dns.com</td>
+                          <td style={{ padding: '6px 8px', color: tc.fgMuted }}>60s</td>
+                        </tr>
+                        <tr>
+                          <td style={{ padding: '6px 8px', color: tc.fillPrimary }}>A</td>
+                          <td style={{ padding: '6px 8px', color: tc.fg }}>@</td>
+                          <td style={{ padding: '6px 8px', color: tc.fgSub }}>76.76.21.21</td>
+                          <td style={{ padding: '6px 8px', color: tc.fgMuted }}>60s</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <div style={{ marginTop: 10, display: 'flex', gap: 8 }}>
+                      <OutlineButton color="black" size="small">DNS 설정 열기</OutlineButton>
+                      <OutlineButton color="black" size="small">도메인 제거</OutlineButton>
+                    </div>
+                  </div>
+                )}
+              </div>
+            )
+          })}
+        </div>
+
+        {/* Summary Panel */}
+        <div style={{ width: 220, borderLeft: `1px solid ${tc.border}`, background: tc.surface, padding: 20, flexShrink: 0 }}>
+          <Text textStyle="bodyMedium" style={{ fontWeight: 700, color: tc.fg, display: 'block', marginBottom: 14 }}>요약</Text>
+          {(
+            [
+              { status: 'active' as DomainStatus, label: '활성' },
+              { status: 'verifying' as DomainStatus, label: '검증 중' },
+              { status: 'pending' as DomainStatus, label: '대기 중' },
+              { status: 'error' as DomainStatus, label: '오류' },
+            ] as const
+          ).map(({ status, label }) => {
+            const count = domains.filter((d) => d.status === status).length
+            const cfg = DOMAIN_STATUS_CFG[status]
+            return (
+              <div key={status} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '7px 0', borderBottom: `1px solid ${tc.borderSub}` }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                  <span style={{ width: 6, height: 6, borderRadius: '50%', background: cfg.dot, display: 'inline-block', flexShrink: 0 }} />
+                  <Text textStyle="descriptionSmall" style={{ color: tc.fgSub }}>{label}</Text>
+                </div>
+                <Text textStyle="descriptionSmall" style={{ fontWeight: 700, color: count > 0 ? tc.fg : tc.fgMuted }}>{count}</Text>
+              </div>
+            )
+          })}
+
+          <div style={{ marginTop: 16 }}>
+            <Text textStyle="descriptionSmall" style={{ color: tc.fgMuted, display: 'block', marginBottom: 8 }}>SSL 인증서</Text>
+            <Progress value={domains.filter((d) => d.ssl).length / domains.length * 100} />
+            <Text textStyle="descriptionSmall" style={{ color: tc.fgMuted, display: 'block', marginTop: 4 }}>
+              {domains.filter((d) => d.ssl).length}/{domains.length}개 적용됨
+            </Text>
+          </div>
+
+          <div style={{ marginTop: 16 }}>
+            <Text textStyle="descriptionSmall" style={{ color: tc.fgMuted, display: 'block', marginBottom: 4 }}>DNS 전파 평균</Text>
+            <Progress value={Math.round(domains.reduce((s, d) => s + d.propagation, 0) / domains.length)} />
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const DomainManager: Story = {
+  name: '도메인 관리 (Vercel Design 벤치마크)',
+  parameters: {
+    layout: 'fullscreen',
+    docs: {
+      description: {
+        story:
+          'Vercel 도메인 관리 UI 패턴. 두 단계 상태 토큰(semantic → component) 철학 반영. ' +
+          'Switch(활성화), Progress(DNS 전파), LabelBadge(상태), TextField(도메인 입력), 펼침형 DNS 레코드 패널 조합.',
+      },
+    },
+  },
+  render: () => <DomainManagerRender />,
+}
