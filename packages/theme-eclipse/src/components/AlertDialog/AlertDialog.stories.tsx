@@ -1298,3 +1298,236 @@ export const Tailwind_세션_만료_경고: Story = {
   },
   render: () => <TailwindSessionTimeoutRender />,
 }
+
+// ============================================================
+// Cycle 134 — Mantine + Arco Design 벤치마크 반영
+// ============================================================
+
+// Mantine 스타일 — 멀티스텝 확인 다이얼로그 (modals.openConfirmModal 패턴)
+function MantineMultiStepConfirmRender() {
+  const [step, setStep] = useState<'confirm' | 'review' | null>(null)
+  const [done, setDone] = useState(false)
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 12, alignItems: 'center', fontFamily: 'system-ui, sans-serif' }}>
+      <Button color="primary" size="large" onClick={() => { setStep('confirm'); setDone(false) }}>
+        <Button.Center>계정 삭제 시작</Button.Center>
+      </Button>
+      {done && (
+        <div style={{ padding: '8px 16px', background: '#dcfce7', borderRadius: 8, fontSize: 12, color: '#16a34a', fontWeight: 600 }}>
+          삭제 처리가 접수되었습니다
+        </div>
+      )}
+      {/* 1단계 */}
+      <Alert isPresented={step === 'confirm'} onIsPresentedChange={(open) => { if (!open) setStep(null) }}>
+        <Alert.Top>
+          <Alert.Title>정말 계정을 삭제하시겠습니까?</Alert.Title>
+          <Alert.Description>
+            이 작업은 되돌릴 수 없습니다. 모든 데이터, 프로젝트, 설정이 영구적으로 삭제됩니다.
+          </Alert.Description>
+        </Alert.Top>
+        <Alert.Bottom direction="horizontal">
+          <Alert.Close asChild>
+            <Button color="gray" size="large" width="100%">
+              <Button.Center>취소</Button.Center>
+            </Button>
+          </Alert.Close>
+          <Alert.Action asChild>
+            <Button color="primary" size="large" width="100%" onClick={() => setStep('review')}>
+              <Button.Center>계속</Button.Center>
+            </Button>
+          </Alert.Action>
+        </Alert.Bottom>
+      </Alert>
+      {/* 2단계 */}
+      <Alert isPresented={step === 'review'} onIsPresentedChange={(open) => { if (!open) setStep(null) }}>
+        <Alert.Top>
+          <Alert.Title>최종 확인</Alert.Title>
+          <Alert.Description>
+            아래 항목이 모두 삭제됩니다:{'\n'}• 14개 프로젝트 • 2,841개 파일 • 팀 멤버십 3개{'\n\n'}
+            정말 진행하시겠습니까?
+          </Alert.Description>
+        </Alert.Top>
+        <Alert.Bottom direction="horizontal">
+          <Alert.Action asChild>
+            <Button color="gray" size="large" width="100%" onClick={() => setStep('confirm')}>
+              <Button.Center>이전</Button.Center>
+            </Button>
+          </Alert.Action>
+          <Alert.Action asChild>
+            <Button color="primary" size="large" width="100%" onClick={() => { setStep(null); setDone(true) }}>
+              <Button.Center>영구 삭제</Button.Center>
+            </Button>
+          </Alert.Action>
+        </Alert.Bottom>
+      </Alert>
+    </div>
+  )
+}
+
+export const Mantine_멀티스텝_확인_다이얼로그: Story = {
+  parameters: {
+    layout: 'centered',
+    docs: {
+      description: {
+        story:
+          'Mantine modals.openConfirmModal 패턴. 계정 삭제를 2단계로 나눠 실수 방지. ' +
+          '1단계(위험 경고) → 2단계(삭제 항목 목록 최종 확인) → 완료 피드백.',
+      },
+    },
+  },
+  render: () => <MantineMultiStepConfirmRender />,
+}
+
+// Arco Design 스타일 — 폼 입력 유효성 검사 다이얼로그
+function ArcoFormValidationRender() {
+  const [isOpen, setIsOpen] = useState(false)
+  const [reason, setReason] = useState('')
+  const [error, setError] = useState('')
+  const REASONS = ['기능 불만', '성능 문제', '비용 문제', '서비스 종료', '기타']
+  const handleSubmit = () => {
+    if (!reason) { setError('사유를 선택해 주세요.'); return }
+    setIsOpen(false)
+    setReason('')
+    setError('')
+  }
+  return (
+    <div style={{ fontFamily: 'system-ui, sans-serif' }}>
+      <Button color="primary" size="large" onClick={() => setIsOpen(true)}>
+        <Button.Center>구독 취소</Button.Center>
+      </Button>
+      <Alert isPresented={isOpen} onIsPresentedChange={(open) => { setIsOpen(open); if (!open) { setReason(''); setError('') } }}>
+        <Alert.Top>
+          <Alert.Title>구독을 취소하시겠습니까?</Alert.Title>
+          <Alert.Description>취소 사유를 알려주시면 서비스 개선에 도움이 됩니다.</Alert.Description>
+          <div style={{ marginTop: 12, display: 'flex', flexDirection: 'column', gap: 6 }}>
+            {REASONS.map((r) => (
+              <label key={r} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '8px 10px', borderRadius: 7, border: `1.5px solid ${reason === r ? '#0f172a' : '#e2e8f0'}`, cursor: 'pointer', background: reason === r ? '#f8fafc' : '#fff', fontSize: 13, color: '#0f172a' }} onClick={() => { setReason(r); setError('') }}>
+                <span style={{ width: 14, height: 14, borderRadius: '50%', border: `2px solid ${reason === r ? '#0f172a' : '#cbd5e1'}`, background: reason === r ? '#0f172a' : '#fff', flexShrink: 0 }} />
+                {r}
+              </label>
+            ))}
+            {error && <span style={{ fontSize: 11, color: '#ef4444', marginTop: 2 }}>{error}</span>}
+          </div>
+        </Alert.Top>
+        <Alert.Bottom direction="horizontal">
+          <Alert.Close asChild>
+            <Button color="gray" size="large" width="100%">
+              <Button.Center>유지하기</Button.Center>
+            </Button>
+          </Alert.Close>
+          <Alert.Action asChild>
+            <Button color="primary" size="large" width="100%" onClick={handleSubmit}>
+              <Button.Center>취소 제출</Button.Center>
+            </Button>
+          </Alert.Action>
+        </Alert.Bottom>
+      </Alert>
+    </div>
+  )
+}
+
+export const Arco_폼_유효성_구독_취소_다이얼로그: Story = {
+  parameters: {
+    layout: 'centered',
+    docs: {
+      description: {
+        story:
+          'Arco Design 인라인 폼 유효성 패턴. 다이얼로그 내 라디오 그룹 선택 필수 검증. ' +
+          '미선택 시 에러 표시, 선택 후 submit. 구독 취소 사유 수집 UX.',
+      },
+    },
+  },
+  render: () => <ArcoFormValidationRender />,
+}
+
+// Mantine + Arco — 비동기 작업 진행 다이얼로그
+function MantineArcoAsyncConfirmRender() {
+  const [isOpen, setIsOpen] = useState(false)
+  const [status, setStatus] = useState<'idle' | 'running' | 'done' | 'error'>('idle')
+  const [progress, setProgress] = useState(0)
+  const handleStart = () => {
+    setStatus('running')
+    setProgress(0)
+    const interval = setInterval(() => {
+      setProgress((p) => {
+        if (p >= 100) {
+          clearInterval(interval)
+          setStatus('done')
+          return 100
+        }
+        return p + Math.floor(Math.random() * 15 + 5)
+      })
+    }, 300)
+  }
+  const handleClose = () => { setIsOpen(false); setStatus('idle'); setProgress(0) }
+  return (
+    <div style={{ fontFamily: 'system-ui, sans-serif' }}>
+      <Button color="primary" size="large" onClick={() => { setIsOpen(true); setStatus('idle') }}>
+        <Button.Center>데이터 마이그레이션</Button.Center>
+      </Button>
+      <Alert isPresented={isOpen} onIsPresentedChange={(open) => { if (!open && status !== 'running') handleClose() }}>
+        <Alert.Top>
+          <Alert.Title>
+            {status === 'idle' && '데이터 마이그레이션'}
+            {status === 'running' && '마이그레이션 진행 중...'}
+            {status === 'done' && '마이그레이션 완료'}
+            {status === 'error' && '오류 발생'}
+          </Alert.Title>
+          <Alert.Description>
+            {status === 'idle' && '3,200개 레코드를 새 스키마로 이전합니다. 완료까지 약 30초 소요됩니다.'}
+            {status === 'running' && `진행 중: ${Math.min(progress, 100)}% (진행 중에는 창을 닫지 마세요)`}
+            {status === 'done' && '모든 데이터가 성공적으로 이전되었습니다.'}
+            {status === 'error' && '마이그레이션 중 오류가 발생했습니다. 다시 시도해 주세요.'}
+          </Alert.Description>
+          {(status === 'running' || status === 'done') && (
+            <div style={{ marginTop: 12, height: 6, background: '#f1f5f9', borderRadius: 99, overflow: 'hidden' }}>
+              <div style={{ height: '100%', width: `${Math.min(progress, 100)}%`, background: status === 'done' ? '#22c55e' : '#6366f1', borderRadius: 99, transition: 'width 200ms ease' }} />
+            </div>
+          )}
+        </Alert.Top>
+        <Alert.Bottom direction="horizontal">
+          {status === 'idle' && (
+            <>
+              <Alert.Close asChild>
+                <Button color="gray" size="large" width="100%">
+                  <Button.Center>취소</Button.Center>
+                </Button>
+              </Alert.Close>
+              <Alert.Action asChild>
+                <Button color="primary" size="large" width="100%" onClick={handleStart}>
+                  <Button.Center>시작</Button.Center>
+                </Button>
+              </Alert.Action>
+            </>
+          )}
+          {status === 'running' && (
+            <Button color="gray" size="large" width="100%" disabled>
+              <Button.Center>진행 중...</Button.Center>
+            </Button>
+          )}
+          {(status === 'done' || status === 'error') && (
+            <Alert.Action asChild>
+              <Button color="primary" size="large" width="100%" onClick={handleClose}>
+                <Button.Center>확인</Button.Center>
+              </Button>
+            </Alert.Action>
+          )}
+        </Alert.Bottom>
+      </Alert>
+    </div>
+  )
+}
+
+export const Mantine_Arco_비동기_진행_다이얼로그: Story = {
+  parameters: {
+    layout: 'centered',
+    docs: {
+      description: {
+        story:
+          'Mantine + Arco 비동기 작업 진행 패턴. idle → running(진행 바) → done 상태 전환. ' +
+          '진행 중 닫기 방지, 완료 후 확인 버튼으로 전환. 데이터 마이그레이션 UX.',
+      },
+    },
+  },
+  render: () => <MantineArcoAsyncConfirmRender />,
+}

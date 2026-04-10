@@ -31193,3 +31193,216 @@ export const MuiChakra133CommHub: StoryObj = {
   },
   render: () => <CommHub133Render />,
 }
+
+/* ============================================================
+   Cycle 134 Template: Mantine + Arco Design 벤치마크
+   개발자 IDE 스타일 워크스페이스 — Command 팔레트 + Alert 확인 다이얼로그
+   ============================================================ */
+
+type WorkspaceTab134 = 'editor' | 'search' | 'git'
+type GitChange134 = { file: string; status: 'M' | 'A' | 'D'; lines: string }
+
+const GIT_CHANGES_134: GitChange134[] = [
+  { file: 'src/components/Button/Button.tsx', status: 'M', lines: '+12 -3' },
+  { file: 'src/components/Button/Button.stories.tsx', status: 'M', lines: '+48 -0' },
+  { file: 'src/components/Tooltip/Tooltip.tsx', status: 'A', lines: '+120 -0' },
+  { file: 'src/styles/tokens.ts', status: 'M', lines: '+6 -2' },
+  { file: 'src/components/Badge/Badge.test.tsx', status: 'D', lines: '+0 -35' },
+]
+
+const STATUS_COLOR_134: Record<string, string> = { M: '#f59e0b', A: '#22c55e', D: '#ef4444' }
+
+const COMMAND_ITEMS_134 = [
+  { id: 'save', label: '모두 저장', shortcut: '⌘S', Icon: StarLineIcon },
+  { id: 'search', label: '전체 검색', shortcut: '⌘⇧F', Icon: SearchIcon },
+  { id: 'settings', label: '설정 열기', shortcut: '⌘,', Icon: SettingLineIcon },
+]
+
+function IDEWorkspace134Render() {
+  const [activeTab, setActiveTab] = useState<WorkspaceTab134>('editor')
+  const [commandOpen, setCommandOpen] = useState(false)
+  const [pushAlert, setPushAlert] = useState(false)
+  const [pushed, setPushed] = useState(false)
+  const [query, setQuery] = useState('')
+
+  const handlePush = () => { setPushAlert(false); setPushed(true); setTimeout(() => setPushed(false), 3000) }
+
+  return (
+    <div style={{ width: 600, height: 440, display: 'flex', fontFamily: 'system-ui, sans-serif', border: '1px solid #e2e8f0', borderRadius: 12, overflow: 'hidden', background: '#fff' }}>
+      {/* 좌측 액티비티 바 */}
+      <div style={{ width: 48, background: '#0f172a', display: 'flex', flexDirection: 'column', alignItems: 'center', paddingTop: 12, gap: 4 }}>
+        {([['editor', '≡'], ['search', '⌕'], ['git', '⌥']] as const).map(([tab, icon]) => (
+          <button
+            key={tab}
+            onClick={() => setActiveTab(tab)}
+            style={{
+              width: 36, height: 36, borderRadius: 8, border: 'none', cursor: 'pointer', fontSize: 16,
+              background: activeTab === tab ? 'rgba(255,255,255,0.15)' : 'transparent',
+              color: activeTab === tab ? '#fff' : '#64748b',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+            }}
+          >
+            {icon}
+          </button>
+        ))}
+        <div style={{ flex: 1 }} />
+        <button
+          onClick={() => setCommandOpen(true)}
+          style={{ width: 36, height: 36, borderRadius: 8, border: 'none', cursor: 'pointer', fontSize: 14, background: 'rgba(99,102,241,0.3)', color: '#a5b4fc', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 12 }}
+          title="커맨드 팔레트 (⌘P)"
+        >
+          ⌘
+        </button>
+      </div>
+
+      {/* 사이드 패널 */}
+      <div style={{ width: 180, borderRight: '1px solid #e2e8f0', background: '#f8fafc', display: 'flex', flexDirection: 'column' }}>
+        <div style={{ padding: '12px', fontSize: 11, fontWeight: 700, color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+          {activeTab === 'editor' ? '탐색기' : activeTab === 'search' ? '검색' : 'Git 변경'}
+        </div>
+        {activeTab === 'git' && (
+          <div style={{ flex: 1, overflowY: 'auto' }}>
+            <div style={{ padding: '6px 12px', fontSize: 11, color: '#94a3b8', marginBottom: 4 }}>
+              변경된 파일 {GIT_CHANGES_134.length}개
+            </div>
+            {GIT_CHANGES_134.map((c) => (
+              <div key={c.file} style={{ padding: '6px 12px', display: 'flex', alignItems: 'center', gap: 6 }}>
+                <span style={{ fontSize: 11, fontWeight: 700, color: STATUS_COLOR_134[c.status], width: 12 }}>{c.status}</span>
+                <span style={{ fontSize: 11, color: '#0f172a', flex: 1, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{c.file.split('/').pop()}</span>
+                <span style={{ fontSize: 10, color: '#94a3b8', flexShrink: 0 }}>{c.lines}</span>
+              </div>
+            ))}
+            <div style={{ padding: '10px 12px' }}>
+              <button
+                onClick={() => setPushAlert(true)}
+                style={{ width: '100%', padding: '7px', fontSize: 12, fontWeight: 600, borderRadius: 6, border: 'none', background: '#0f172a', color: '#fff', cursor: 'pointer' }}
+              >
+                Push
+              </button>
+              {pushed && (
+                <div style={{ marginTop: 6, fontSize: 11, color: '#22c55e', textAlign: 'center', fontWeight: 600 }}>
+                  Push 완료
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+        {activeTab === 'editor' && (
+          <div style={{ padding: '0 4px' }}>
+            {['components', 'styles', 'stories', 'tests'].map((f) => (
+              <div key={f} style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '5px 8px', borderRadius: 5, fontSize: 12, color: '#475569', cursor: 'pointer' }}>
+                <span>📁</span>{f}
+              </div>
+            ))}
+          </div>
+        )}
+        {activeTab === 'search' && (
+          <div style={{ padding: '0 10px' }}>
+            <input
+              placeholder="파일에서 검색..."
+              style={{ width: '100%', padding: '6px 8px', fontSize: 12, border: '1px solid #e2e8f0', borderRadius: 6, outline: 'none', color: '#0f172a', boxSizing: 'border-box' }}
+            />
+          </div>
+        )}
+      </div>
+
+      {/* 메인 에디터 */}
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+        {/* 탭 바 */}
+        <div style={{ borderBottom: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', padding: '0 8px', gap: 4, background: '#f8fafc' }}>
+          <div style={{ padding: '8px 12px', fontSize: 12, fontWeight: 600, color: '#0f172a', borderBottom: '2px solid #0f172a', background: '#fff' }}>
+            Button.tsx
+          </div>
+          <div style={{ padding: '8px 12px', fontSize: 12, color: '#94a3b8' }}>Button.stories.tsx</div>
+        </div>
+        {/* 코드 뷰 */}
+        <div style={{ flex: 1, padding: '16px', background: '#0f172a', fontFamily: 'monospace', fontSize: 12, lineHeight: 1.7, overflowY: 'auto' }}>
+          {[
+            { ln: 1, code: "import React from 'react'", color: '#7dd3fc' },
+            { ln: 2, code: "import { cn } from '../../styles'", color: '#7dd3fc' },
+            { ln: 3, code: '', color: '#e2e8f0' },
+            { ln: 4, code: "export type ButtonProps = {", color: '#c084fc' },
+            { ln: 5, code: "  color: 'primary' | 'gray' | 'error'", color: '#86efac' },
+            { ln: 6, code: "  size: 'small' | 'medium' | 'large'", color: '#86efac' },
+            { ln: 7, code: "  disabled?: boolean", color: '#86efac' },
+            { ln: 8, code: "}", color: '#c084fc' },
+          ].map(({ ln, code, color }) => (
+            <div key={ln} style={{ display: 'flex', gap: 12 }}>
+              <span style={{ color: '#475569', width: 20, textAlign: 'right', flexShrink: 0, userSelect: 'none' }}>{ln}</span>
+              <span style={{ color }}>{code}</span>
+            </div>
+          ))}
+        </div>
+        {/* 상태 바 */}
+        <div style={{ padding: '4px 12px', background: '#0f172a', borderTop: '1px solid #1e293b', display: 'flex', gap: 12, fontSize: 10, color: '#64748b' }}>
+          <span>TypeScript</span>
+          <span>UTF-8</span>
+          <span style={{ marginLeft: 'auto' }}>⌘P 커맨드 팔레트</span>
+        </div>
+      </div>
+
+      {/* 커맨드 팔레트 오버레이 */}
+      {commandOpen && (
+        <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.4)', display: 'flex', alignItems: 'flex-start', justifyContent: 'center', paddingTop: 80, zIndex: 100 }} onClick={() => { setCommandOpen(false); setQuery('') }}>
+          <div style={{ width: 440, background: '#fff', borderRadius: 12, border: '1px solid #e2e8f0', boxShadow: '0 20px 60px rgba(0,0,0,0.3)', overflow: 'hidden' }} onClick={(e) => e.stopPropagation()}>
+            <Command>
+              <Command.Input placeholder="커맨드 검색..." value={query} onValueChange={setQuery} />
+              <Command.List>
+                <Command.Empty>커맨드를 찾을 수 없습니다.</Command.Empty>
+                <Command.Group heading="빠른 액션">
+                  {COMMAND_ITEMS_134.filter((i) => !query || i.label.includes(query)).map((item) => (
+                    <Command.Item key={item.id} value={item.label} onSelect={() => { setCommandOpen(false); setQuery('') }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 10, flex: 1 }}>
+                        <item.Icon size={15} />
+                        <span style={{ flex: 1, fontSize: 13 }}>{item.label}</span>
+                        <kbd style={{ fontSize: 10, padding: '2px 6px', background: '#f1f5f9', borderRadius: 4, color: '#64748b', fontFamily: 'monospace' }}>{item.shortcut}</kbd>
+                      </div>
+                    </Command.Item>
+                  ))}
+                </Command.Group>
+              </Command.List>
+            </Command>
+          </div>
+        </div>
+      )}
+
+      {/* Git Push 확인 Alert */}
+      <Alert isPresented={pushAlert} onIsPresentedChange={(open) => { if (!open) setPushAlert(false) }}>
+        <Alert.Top>
+          <Alert.Title>변경 사항을 Push하시겠습니까?</Alert.Title>
+          <Alert.Description>
+            {GIT_CHANGES_134.length}개 파일의 변경 사항을 원격 저장소(origin/main)에 Push합니다.
+          </Alert.Description>
+        </Alert.Top>
+        <Alert.Bottom direction="horizontal">
+          <Alert.Close asChild>
+            <SolidButton color="gray" size="medium" width="100%">
+              <SolidButton.Center>취소</SolidButton.Center>
+            </SolidButton>
+          </Alert.Close>
+          <Alert.Action asChild>
+            <SolidButton color="black" size="medium" width="100%" onClick={handlePush}>
+              <SolidButton.Center>Push</SolidButton.Center>
+            </SolidButton>
+          </Alert.Action>
+        </Alert.Bottom>
+      </Alert>
+    </div>
+  )
+}
+
+export const MantineArco134IDEWorkspace: StoryObj = {
+  name: 'Mantine + Arco — IDE 스타일 워크스페이스 (Cycle 134)',
+  parameters: {
+    layout: 'centered',
+    docs: {
+      description: {
+        story:
+          'Mantine + Arco Design 벤치마크 — Cycle 134. ' +
+          'Command 팔레트 오버레이 + Alert Git Push 확인 다이얼로그. ' +
+          '탭 전환(탐색기/검색/Git), 코드 뷰어, 상태 바 결합 IDE 스타일 레이아웃.',
+      },
+    },
+  },
+  render: () => <IDEWorkspace134Render />,
+}

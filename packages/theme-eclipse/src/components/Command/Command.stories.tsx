@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 import type { Meta, StoryObj } from '@storybook/react'
 
 import {
@@ -2005,4 +2005,280 @@ export const Notion_데이터베이스_필터_팔레트: Story = {
     },
   },
   render: () => <NotionFilterPaletteRender />,
+}
+
+// ============================================================
+// Cycle 134 — Mantine + Arco Design 벤치마크 반영
+// ============================================================
+
+// Mantine Spotlight 패턴 — 최근 항목 + 실시간 검색 + 단축키 힌트
+type SpotlightItem = { id: string; label: string; desc: string; Icon: React.FC<{ size?: number }>; shortcut?: string; category: string }
+
+const SPOTLIGHT_RECENT: SpotlightItem[] = [
+  { id: 'home', label: '홈', desc: '대시보드 홈으로 이동', Icon: HomeLineIcon, shortcut: 'G H', category: '내비게이션' },
+  { id: 'settings', label: '설정', desc: '계정 및 환경 설정', Icon: SettingLineIcon, shortcut: 'G S', category: '내비게이션' },
+  { id: 'profile', label: '프로필', desc: '내 프로필 페이지', Icon: OnePersonLineIcon, shortcut: 'G P', category: '내비게이션' },
+]
+
+const SPOTLIGHT_ACTIONS: SpotlightItem[] = [
+  { id: 'fav', label: '즐겨찾기 추가', desc: '현재 페이지 즐겨찾기', Icon: StarLineIcon, shortcut: '⌘D', category: '액션' },
+  { id: 'notify', label: '알림 설정', desc: '알림 환경 설정 열기', Icon: NotificationLineIcon, shortcut: '⌘⇧N', category: '액션' },
+  { id: 'info', label: '도움말', desc: '도움말 센터 열기', Icon: CircleInfoLineIcon, shortcut: '?', category: '액션' },
+]
+
+function MantineSpotlight134Render() {
+  const [query, setQuery] = useState('')
+  const [selected, setSelected] = useState<string | null>(null)
+  const allItems = [...SPOTLIGHT_RECENT, ...SPOTLIGHT_ACTIONS]
+  const filtered = query.trim()
+    ? allItems.filter((i) => i.label.includes(query) || i.desc.includes(query))
+    : allItems
+  return (
+    <div style={{ width: 480, fontFamily: 'system-ui, sans-serif' }}>
+      <Command>
+        <Command.Input
+          placeholder="무엇이든 검색하세요..."
+          value={query}
+          onValueChange={setQuery}
+        />
+        <Command.List>
+          <Command.Empty>검색 결과가 없습니다.</Command.Empty>
+          {!query && (
+            <Command.Group heading="최근 방문">
+              {SPOTLIGHT_RECENT.map((item) => (
+                <Command.Item key={item.id} value={item.label} onSelect={() => setSelected(item.id)}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 10, flex: 1 }}>
+                    <item.Icon size={16} />
+                    <div style={{ flex: 1 }}>
+                      <div style={{ fontSize: 13, fontWeight: 500, color: '#0f172a' }}>{item.label}</div>
+                      <div style={{ fontSize: 11, color: '#94a3b8' }}>{item.desc}</div>
+                    </div>
+                    {item.shortcut && (
+                      <kbd style={{ fontSize: 10, padding: '2px 6px', background: '#f1f5f9', borderRadius: 4, color: '#64748b', fontFamily: 'monospace' }}>
+                        {item.shortcut}
+                      </kbd>
+                    )}
+                  </div>
+                </Command.Item>
+              ))}
+            </Command.Group>
+          )}
+          {!query && <Command.Separator />}
+          {!query && (
+            <Command.Group heading="빠른 액션">
+              {SPOTLIGHT_ACTIONS.map((item) => (
+                <Command.Item key={item.id} value={item.label} onSelect={() => setSelected(item.id)}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 10, flex: 1 }}>
+                    <item.Icon size={16} />
+                    <div style={{ flex: 1 }}>
+                      <div style={{ fontSize: 13, fontWeight: 500, color: '#0f172a' }}>{item.label}</div>
+                    </div>
+                    {item.shortcut && (
+                      <kbd style={{ fontSize: 10, padding: '2px 6px', background: '#f1f5f9', borderRadius: 4, color: '#64748b', fontFamily: 'monospace' }}>
+                        {item.shortcut}
+                      </kbd>
+                    )}
+                  </div>
+                </Command.Item>
+              ))}
+            </Command.Group>
+          )}
+          {query && filtered.map((item) => (
+            <Command.Item key={item.id} value={item.label} onSelect={() => setSelected(item.id)}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 10, flex: 1 }}>
+                <item.Icon size={16} />
+                <div style={{ flex: 1 }}>
+                  <div style={{ fontSize: 13, fontWeight: 500, color: '#0f172a' }}>{item.label}</div>
+                  <div style={{ fontSize: 11, color: '#94a3b8' }}>{item.desc}</div>
+                </div>
+                <span style={{ fontSize: 10, color: '#94a3b8', background: '#f8fafc', padding: '1px 6px', borderRadius: 99 }}>{item.category}</span>
+              </div>
+            </Command.Item>
+          ))}
+        </Command.List>
+      </Command>
+      {selected && (
+        <div style={{ marginTop: 8, fontSize: 12, color: '#6366f1', textAlign: 'center' }}>
+          선택됨: {allItems.find((i) => i.id === selected)?.label}
+        </div>
+      )}
+    </div>
+  )
+}
+
+export const Mantine_Spotlight_검색_팔레트: Story = {
+  name: 'Mantine Spotlight - 검색 팔레트',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Mantine Spotlight 패턴. 최근 방문 + 빠른 액션 그룹 분리, 단축키 힌트 배지, ' +
+          '검색 시 카테고리 태그 + 설명 표시. 쿼리 유무에 따라 그룹 레이아웃 전환.',
+      },
+    },
+  },
+  render: () => <MantineSpotlight134Render />,
+}
+
+// Arco Design 스타일 — 애플리케이션 메뉴 팔레트 (복합 액션 + 위험 액션 구분)
+type ArcoAction = { id: string; label: string; desc: string; Icon: React.FC<{ size?: number }>; danger?: boolean; group: string }
+
+const ARCO_ACTIONS: ArcoAction[] = [
+  { id: 'profile', label: '프로필 편집', desc: '이름, 이메일, 아바타 변경', Icon: OnePersonLineIcon, group: '계정' },
+  { id: 'settings', label: '환경설정', desc: '테마, 언어, 알림 설정', Icon: SettingLineIcon, group: '계정' },
+  { id: 'search', label: '전체 검색', desc: '프로젝트 내 전체 검색', Icon: SearchIcon, group: '작업' },
+  { id: 'star', label: '즐겨찾기 보기', desc: '즐겨찾기된 항목 모두 보기', Icon: StarLineIcon, group: '작업' },
+  { id: 'notify', label: '알림 모두 읽음', desc: '미읽 알림 일괄 처리', Icon: NotificationLineIcon, group: '작업' },
+  { id: 'delete', label: '프로젝트 삭제', desc: '현재 프로젝트 영구 삭제', Icon: DeleteLineIcon, danger: true, group: '위험' },
+]
+
+function ArcoAppMenuRender() {
+  const [query, setQuery] = useState('')
+  const groups = Array.from(new Set(ARCO_ACTIONS.map((a) => a.group)))
+  const filtered = ARCO_ACTIONS.filter(
+    (a) => !query || a.label.includes(query) || a.desc.includes(query)
+  )
+  return (
+    <div style={{ width: 440, fontFamily: 'system-ui, sans-serif' }}>
+      <Command>
+        <Command.Input placeholder="액션 검색..." value={query} onValueChange={setQuery} />
+        <Command.List>
+          <Command.Empty>액션을 찾을 수 없습니다.</Command.Empty>
+          {query
+            ? filtered.map((action) => (
+                <Command.Item key={action.id} value={action.label}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 10, flex: 1 }}>
+                    <action.Icon size={16} />
+                    <div style={{ flex: 1 }}>
+                      <div style={{ fontSize: 13, fontWeight: 500, color: action.danger ? '#ef4444' : '#0f172a' }}>{action.label}</div>
+                      <div style={{ fontSize: 11, color: '#94a3b8' }}>{action.desc}</div>
+                    </div>
+                    {action.danger && (
+                      <span style={{ fontSize: 10, color: '#ef4444', background: '#fef2f2', padding: '1px 6px', borderRadius: 99 }}>위험</span>
+                    )}
+                  </div>
+                </Command.Item>
+              ))
+            : groups.map((group, gi) => (
+                <div key={group}>
+                  {gi > 0 && <Command.Separator />}
+                  <Command.Group heading={group}>
+                    {ARCO_ACTIONS.filter((a) => a.group === group).map((action) => (
+                      <Command.Item key={action.id} value={action.label}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 10, flex: 1 }}>
+                          <action.Icon size={16} />
+                          <div style={{ flex: 1 }}>
+                            <div style={{ fontSize: 13, fontWeight: 500, color: action.danger ? '#ef4444' : '#0f172a' }}>{action.label}</div>
+                            <div style={{ fontSize: 11, color: '#94a3b8' }}>{action.desc}</div>
+                          </div>
+                          <ArrowRightIcon size={14} />
+                        </div>
+                      </Command.Item>
+                    ))}
+                  </Command.Group>
+                </div>
+              ))
+          }
+        </Command.List>
+      </Command>
+    </div>
+  )
+}
+
+export const Arco_앱_메뉴_액션_팔레트: Story = {
+  name: 'Arco Design - 앱 메뉴 액션 팔레트',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Arco Design Menu 패턴. 계정/작업/위험 그룹 구분, 위험 액션 빨간색 + 위험 배지. ' +
+          '검색 시 그룹 헤더 없이 플랫 리스트로 전환.',
+      },
+    },
+  },
+  render: () => <ArcoAppMenuRender />,
+}
+
+// Mantine + Arco — 프로젝트 전환 팔레트 (최근 + 즐겨찾기 탭)
+type ProjectItem = { id: string; name: string; desc: string; starred: boolean; color: string; lastVisited: string }
+
+const PROJECT_LIST: ProjectItem[] = [
+  { id: 'p1', name: 'orbit-ui', desc: 'React 디자인 시스템', starred: true, color: '#6366f1', lastVisited: '방금 전' },
+  { id: 'p2', name: 'api-gateway', desc: 'REST API 게이트웨이', starred: true, color: '#10b981', lastVisited: '2시간 전' },
+  { id: 'p3', name: 'marketing-site', desc: '마케팅 랜딩 페이지', starred: false, color: '#f59e0b', lastVisited: '1일 전' },
+  { id: 'p4', name: 'analytics-dash', desc: '데이터 시각화 대시보드', starred: false, color: '#ec4899', lastVisited: '3일 전' },
+  { id: 'p5', name: 'mobile-app', desc: 'React Native 앱', starred: true, color: '#8b5cf6', lastVisited: '1주 전' },
+]
+
+function MantineArcoProjectSwitcherRender() {
+  const [tab, setTab] = useState<'recent' | 'starred'>('recent')
+  const [query, setQuery] = useState('')
+  const [selected, setSelected] = useState<string | null>(null)
+  const displayed = tab === 'starred' ? PROJECT_LIST.filter((p) => p.starred) : PROJECT_LIST
+  const filtered = query ? displayed.filter((p) => p.name.includes(query) || p.desc.includes(query)) : displayed
+  return (
+    <div style={{ width: 440, fontFamily: 'system-ui, sans-serif' }}>
+      {/* 탭 */}
+      <div style={{ display: 'flex', borderBottom: '1px solid #e2e8f0', marginBottom: 4 }}>
+        {(['recent', 'starred'] as const).map((t) => (
+          <button
+            key={t}
+            onClick={() => { setTab(t); setQuery('') }}
+            style={{
+              padding: '8px 16px', fontSize: 12, fontWeight: tab === t ? 600 : 400,
+              border: 'none', background: 'none', cursor: 'pointer',
+              color: tab === t ? '#0f172a' : '#94a3b8',
+              borderBottom: tab === t ? '2px solid #0f172a' : '2px solid transparent',
+            }}
+          >
+            {t === 'recent' ? '최근' : '즐겨찾기'}
+          </button>
+        ))}
+      </div>
+      <Command>
+        <Command.Input placeholder="프로젝트 검색..." value={query} onValueChange={setQuery} />
+        <Command.List>
+          <Command.Empty>프로젝트를 찾을 수 없습니다.</Command.Empty>
+          <Command.Group heading={tab === 'recent' ? '최근 프로젝트' : '즐겨찾기'}>
+            {filtered.map((p) => (
+              <Command.Item key={p.id} value={p.name} onSelect={() => setSelected(p.id)}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 10, flex: 1 }}>
+                  <div style={{ width: 28, height: 28, borderRadius: 6, background: p.color + '22', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 11, fontWeight: 700, color: p.color, flexShrink: 0 }}>
+                    {p.name.slice(0, 2).toUpperCase()}
+                  </div>
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <div style={{ fontSize: 13, fontWeight: selected === p.id ? 700 : 500, color: '#0f172a', display: 'flex', alignItems: 'center', gap: 5 }}>
+                      {p.name}
+                      {p.starred && <StarLineIcon size={11} />}
+                    </div>
+                    <div style={{ fontSize: 11, color: '#94a3b8' }}>{p.desc}</div>
+                  </div>
+                  <span style={{ fontSize: 10, color: '#94a3b8' }}>{p.lastVisited}</span>
+                </div>
+              </Command.Item>
+            ))}
+          </Command.Group>
+        </Command.List>
+      </Command>
+      {selected && (
+        <div style={{ marginTop: 8, fontSize: 12, color: '#6366f1', textAlign: 'center' }}>
+          선택됨: {PROJECT_LIST.find((p) => p.id === selected)?.name}
+        </div>
+      )}
+    </div>
+  )
+}
+
+export const Mantine_Arco_프로젝트_전환_팔레트: Story = {
+  name: 'Mantine + Arco - 프로젝트 전환 팔레트',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Mantine Spotlight + Arco 탭 패턴. 최근/즐겨찾기 탭 전환, 아바타 이니셜 + 즐겨찾기 별, ' +
+          '마지막 방문 시간. 검색으로 전체 항목 실시간 필터링.',
+      },
+    },
+  },
+  render: () => <MantineArcoProjectSwitcherRender />,
 }
