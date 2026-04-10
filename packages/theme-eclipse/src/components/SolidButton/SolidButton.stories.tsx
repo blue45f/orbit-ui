@@ -1354,3 +1354,168 @@ export const Shadcn_Linear_확인_취소_패턴: Story = {
   },
   render: () => <ShadcnLinearConfirmActionsRender />,
 } satisfies Story
+
+// ──────────────────────────────────────────────────────────────────────────────
+// Cycle 173: Linear Design + Tailwind UI
+// ──────────────────────────────────────────────────────────────────────────────
+
+function LinearPRActionRender() {
+  const [state, setState] = useState<'idle' | 'merging' | 'merged' | 'closed'>('idle')
+
+  const handleMerge = () => {
+    setState('merging')
+    setTimeout(() => setState('merged'), 1800)
+  }
+
+  return (
+    <div style={{ width: 420, background: 'var(--sem-eclipse-color-backgroundPrimary, #fff)', borderRadius: 12, border: '1px solid var(--sem-eclipse-color-borderPrimary, #e2e8f0)', overflow: 'hidden' }}>
+      <div style={{ padding: '14px 18px', borderBottom: '1px solid var(--sem-eclipse-color-borderPrimary, #e2e8f0)' }}>
+        <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary, #0f172a)', marginBottom: 4 }}>feat: Add Linear PR action button pattern</div>
+        <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+          <span style={{ fontSize: 11, padding: '2px 7px', borderRadius: 99, background: state === 'merged' ? '#8b5cf620' : state === 'closed' ? '#ef444420' : '#22c55e20', color: state === 'merged' ? '#8b5cf6' : state === 'closed' ? '#ef4444' : '#16a34a', fontWeight: 600 }}>
+            {state === 'merged' ? 'Merged' : state === 'closed' ? 'Closed' : 'Open'}
+          </span>
+          <span style={{ fontSize: 11, color: '#94a3b8' }}>blue45f → main · 3 commits · +142 −28</span>
+        </div>
+      </div>
+      <div style={{ padding: '12px 18px', background: 'var(--sem-eclipse-color-surfaceContainer, #f8fafc)', display: 'flex', gap: 6, alignItems: 'center' }}>
+        {state === 'idle' && (
+          <>
+            <SolidButton color="primary" size="medium" onClick={handleMerge}>
+              <SolidButton.Center>Merge pull request</SolidButton.Center>
+            </SolidButton>
+            <SolidButton color="gray" size="medium" onClick={() => setState('closed')}>
+              <SolidButton.Center>Close</SolidButton.Center>
+            </SolidButton>
+          </>
+        )}
+        {state === 'merging' && (
+          <SolidButton color="primary" size="medium" disabled>
+            <SolidButton.Center>Merging...</SolidButton.Center>
+          </SolidButton>
+        )}
+        {state === 'merged' && (
+          <SolidButton color="primary" size="medium" disabled>
+            <SolidButton.Center>Merged</SolidButton.Center>
+          </SolidButton>
+        )}
+        {state === 'closed' && (
+          <SolidButton color="gray" size="medium" disabled>
+            <SolidButton.Center>Closed</SolidButton.Center>
+          </SolidButton>
+        )}
+      </div>
+    </div>
+  )
+}
+
+export const Linear_PR_병합_액션_버튼: Story = {
+  name: 'Linear — PR 병합 액션 버튼 (Merge/Close/Merging 상태 전환)',
+  args: { color: 'primary', size: 'medium' },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Linear GitHub PR 액션 패턴. Merge pull request / Close 버튼 → Merging 로딩 → Merged 완료 상태 전환. 상태별 색상 배지 연동.',
+      },
+    },
+  },
+  render: () => <LinearPRActionRender />,
+} satisfies Story
+
+function TailwindCTAButtonRender() {
+  const [hovered, setHovered] = useState<number | null>(null)
+  const plans = [
+    { label: 'Hobby', price: 'Free', cta: '시작하기', color: 'gray' as const, desc: '개인 프로젝트' },
+    { label: 'Pro', price: '$20/월', cta: '업그레이드', color: 'primary' as const, desc: '팀 협업 + 고급 기능', highlight: true },
+    { label: 'Enterprise', price: '문의', cta: '영업팀 연락', color: 'black' as const, desc: 'SSO·SLA·맞춤 계약' },
+  ]
+
+  return (
+    <div style={{ display: 'flex', gap: 16, alignItems: 'stretch' }}>
+      {plans.map((plan, i) => (
+        <div
+          key={plan.label}
+          onMouseEnter={() => setHovered(i)}
+          onMouseLeave={() => setHovered(null)}
+          style={{ width: 160, padding: 20, borderRadius: 12, border: `2px solid ${plan.highlight ? '#6366f1' : 'var(--sem-eclipse-color-borderPrimary, #e2e8f0)'}`, background: plan.highlight ? '#6366f108' : 'var(--sem-eclipse-color-backgroundPrimary, #fff)', display: 'flex', flexDirection: 'column', gap: 10, transition: 'box-shadow 200ms', boxShadow: hovered === i ? '0 8px 24px rgba(0,0,0,0.08)' : 'none' }}
+        >
+          <div style={{ fontSize: 12, fontWeight: 700, color: plan.highlight ? '#6366f1' : '#64748b', textTransform: 'uppercase', letterSpacing: 1 }}>{plan.label}</div>
+          <div style={{ fontSize: 22, fontWeight: 800, color: 'var(--sem-eclipse-color-foregroundPrimary, #0f172a)' }}>{plan.price}</div>
+          <div style={{ fontSize: 11, color: '#64748b', lineHeight: 1.5, flex: 1 }}>{plan.desc}</div>
+          <SolidButton color={plan.color} size="small" style={{ width: '100%' }}>
+            <SolidButton.Center>{plan.cta}</SolidButton.Center>
+          </SolidButton>
+        </div>
+      ))}
+    </div>
+  )
+}
+
+export const Tailwind_요금제_CTA_버튼_그룹: Story = {
+  name: 'Tailwind UI — 요금제 CTA 버튼 그룹 (Hobby/Pro/Enterprise)',
+  args: { color: 'primary', size: 'small' },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Tailwind UI pricing 카드 패턴. Hobby(gray)/Pro(primary)/Enterprise(black) 3단계 플랜 CTA. 호버 시 카드 elevation, Pro 카드 강조 border.',
+      },
+    },
+  },
+  render: () => <TailwindCTAButtonRender />,
+} satisfies Story
+
+function LinearTailwindToolbarRender() {
+  const [mode, setMode] = useState<'preview' | 'edit' | 'split'>('preview')
+  const [saved, setSaved] = useState(false)
+
+  const handleSave = () => {
+    setSaved(true)
+    setTimeout(() => setSaved(false), 2000)
+  }
+
+  return (
+    <div style={{ width: 560, background: 'var(--sem-eclipse-color-backgroundPrimary, #fff)', borderRadius: 12, border: '1px solid var(--sem-eclipse-color-borderPrimary, #e2e8f0)', overflow: 'hidden' }}>
+      <div style={{ padding: '10px 14px', borderBottom: '1px solid var(--sem-eclipse-color-borderPrimary, #e2e8f0)', display: 'flex', alignItems: 'center', gap: 8 }}>
+        <div style={{ display: 'flex', gap: 4 }}>
+          {(['preview', 'edit', 'split'] as const).map((m) => (
+            <SolidButton key={m} color={mode === m ? 'primary' : 'gray'} size="small" onClick={() => setMode(m)}>
+              <SolidButton.Center>{m === 'preview' ? '미리보기' : m === 'edit' ? '편집' : '분할'}</SolidButton.Center>
+            </SolidButton>
+          ))}
+        </div>
+        <div style={{ marginLeft: 'auto', display: 'flex', gap: 6 }}>
+          <SolidButton color="gray" size="small">
+            <SolidButton.Center>취소</SolidButton.Center>
+          </SolidButton>
+          <SolidButton color="primary" size="small" onClick={handleSave}>
+            <SolidButton.Center>{saved ? '저장됨' : '저장'}</SolidButton.Center>
+          </SolidButton>
+        </div>
+      </div>
+      <div style={{ padding: '20px', minHeight: 80, fontSize: 13, color: '#64748b' }}>
+        {mode === 'preview' && <span>미리보기 모드: 렌더링된 마크다운 콘텐츠가 표시됩니다.</span>}
+        {mode === 'edit' && <span style={{ fontFamily: 'monospace' }}>편집 모드: # 마크다운 소스를 직접 입력합니다.</span>}
+        {mode === 'split' && (
+          <div style={{ display: 'flex', gap: 16 }}>
+            <div style={{ flex: 1, fontFamily: 'monospace' }}>편집 영역</div>
+            <div style={{ width: 1, background: 'var(--sem-eclipse-color-borderPrimary, #e2e8f0)' }} />
+            <div style={{ flex: 1 }}>미리보기 영역</div>
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+
+export const Linear_Tailwind_에디터_툴바_버튼: Story = {
+  name: 'Linear + Tailwind — 에디터 툴바 버튼 (모드 전환 + 저장)',
+  args: { color: 'primary', size: 'small' },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Linear + Tailwind UI 에디터 툴바 패턴. Preview/Edit/Split 모드 토글 버튼 + 저장/취소 액션. 저장 시 2초간 저장됨 피드백.',
+      },
+    },
+  },
+  render: () => <LinearTailwindToolbarRender />,
+} satisfies Story

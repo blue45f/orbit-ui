@@ -1539,3 +1539,222 @@ export const Radix_에디터_정렬_툴바: Story = {
   },
   render: () => <RadixEditorAlignSegmentRender />,
 }
+
+// ──────────────────────────────────────────────────────────────────────────────
+// Cycle 173: Linear Design + Tailwind UI
+// ──────────────────────────────────────────────────────────────────────────────
+
+function LinearIssueFilterSegmentRender() {
+  const [priority, setPriority] = useState(0)
+  const [status, setStatus] = useState(0)
+  const priorities = ['전체', 'Urgent', 'High', 'Medium', 'Low']
+  const statuses = ['전체', 'Backlog', 'Todo', 'In Progress', 'Done']
+  const issues = [
+    { id: 'ORB-198', title: 'DataTable 정렬 버그', priority: 'Urgent', status: 'In Progress' },
+    { id: 'ORB-197', title: 'TextField 유효성 에러 UX', priority: 'High', status: 'Todo' },
+    { id: 'ORB-196', title: 'Calendar 날짜 범위 선택', priority: 'Medium', status: 'Backlog' },
+    { id: 'ORB-195', title: 'Avatar 그룹 오버랩 최적화', priority: 'Low', status: 'Done' },
+    { id: 'ORB-194', title: 'Slider 접근성 키보드 탐색', priority: 'High', status: 'In Progress' },
+  ]
+  const priorityColor: Record<string, string> = { Urgent: '#ef4444', High: '#f59e0b', Medium: '#3b82f6', Low: '#64748b' }
+  const statusColor: Record<string, string> = { Backlog: '#94a3b8', Todo: '#64748b', 'In Progress': '#3b82f6', Done: '#16a34a' }
+
+  const filtered = issues.filter((iss) => {
+    const pMatch = priorities[priority] === '전체' || iss.priority === priorities[priority]
+    const sMatch = statuses[status] === '전체' || iss.status === statuses[status]
+    return pMatch && sMatch
+  })
+
+  return (
+    <div style={{ width: 560 }}>
+      <div style={{ marginBottom: 12 }}>
+        <div style={{ fontSize: 11, color: '#94a3b8', marginBottom: 6, fontWeight: 600, textTransform: 'uppercase', letterSpacing: 1 }}>우선순위</div>
+        <SegmentedControl selectedIndex={priority} onTabChange={setPriority}>
+          {priorities.map((p) => (
+            <SegmentedControl.Tab key={p} value={p}>
+              <SegmentedControl.TabCenter>{p}</SegmentedControl.TabCenter>
+            </SegmentedControl.Tab>
+          ))}
+        </SegmentedControl>
+      </div>
+      <div style={{ marginBottom: 16 }}>
+        <div style={{ fontSize: 11, color: '#94a3b8', marginBottom: 6, fontWeight: 600, textTransform: 'uppercase', letterSpacing: 1 }}>상태</div>
+        <SegmentedControl selectedIndex={status} onTabChange={setStatus}>
+          {statuses.map((s) => (
+            <SegmentedControl.Tab key={s} value={s}>
+              <SegmentedControl.TabCenter>{s}</SegmentedControl.TabCenter>
+            </SegmentedControl.Tab>
+          ))}
+        </SegmentedControl>
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+        {filtered.length === 0 ? (
+          <div style={{ fontSize: 13, color: '#94a3b8', textAlign: 'center', padding: 20 }}>해당 조건의 이슈 없음</div>
+        ) : filtered.map((iss) => (
+          <div key={iss.id} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '8px 12px', borderRadius: 8, border: '1px solid var(--sem-eclipse-color-borderPrimary, #e2e8f0)', background: 'var(--sem-eclipse-color-backgroundPrimary, #fff)' }}>
+            <span style={{ fontSize: 11, fontFamily: 'monospace', color: '#94a3b8', width: 58 }}>{iss.id}</span>
+            <span style={{ flex: 1, fontSize: 13, color: 'var(--sem-eclipse-color-foregroundPrimary, #0f172a)' }}>{iss.title}</span>
+            <span style={{ fontSize: 10, padding: '2px 7px', borderRadius: 99, background: `${priorityColor[iss.priority]}18`, color: priorityColor[iss.priority], fontWeight: 600 }}>{iss.priority}</span>
+            <span style={{ fontSize: 10, padding: '2px 7px', borderRadius: 99, background: `${statusColor[iss.status]}18`, color: statusColor[iss.status], fontWeight: 600 }}>{iss.status}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+export const Linear_이슈_우선순위_상태_필터: Story = {
+  name: 'Linear — 이슈 우선순위 + 상태 이중 필터 세그먼트',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Linear 이슈 트래커 필터 패턴. 우선순위(Urgent/High/Medium/Low) + 상태(Backlog/Todo/In Progress/Done) 2단 SegmentedControl 조합으로 이슈 교차 필터링.',
+      },
+    },
+  },
+  render: () => <LinearIssueFilterSegmentRender />,
+}
+
+function TailwindDashboardViewRender() {
+  const [view, setView] = useState(0)
+  const [period, setPeriod] = useState(1)
+  const views = ['요약', '상세', '원시 데이터']
+  const periods = ['오늘', '7일', '30일', '90일']
+
+  const metricsBase = [
+    { label: '총 방문', value: 48200, unit: '명' },
+    { label: '전환율', value: 3.8, unit: '%' },
+    { label: '평균 체류', value: 4.2, unit: '분' },
+    { label: '이탈률', value: 42, unit: '%' },
+  ]
+  const multiplier = [1, 7, 30, 90][period]
+
+  return (
+    <div style={{ width: 580, background: 'var(--sem-eclipse-color-backgroundPrimary, #fff)', borderRadius: 12, border: '1px solid var(--sem-eclipse-color-borderPrimary, #e2e8f0)', padding: 20 }}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 16 }}>
+        <div style={{ fontSize: 16, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary, #0f172a)' }}>분석 대시보드</div>
+        <div style={{ display: 'flex', gap: 10 }}>
+          <SegmentedControl selectedIndex={view} onTabChange={setView}>
+            {views.map((v) => (
+              <SegmentedControl.Tab key={v} value={v}>
+                <SegmentedControl.TabCenter>{v}</SegmentedControl.TabCenter>
+              </SegmentedControl.Tab>
+            ))}
+          </SegmentedControl>
+          <SegmentedControl selectedIndex={period} onTabChange={setPeriod}>
+            {periods.map((p) => (
+              <SegmentedControl.Tab key={p} value={p}>
+                <SegmentedControl.TabCenter>{p}</SegmentedControl.TabCenter>
+              </SegmentedControl.Tab>
+            ))}
+          </SegmentedControl>
+        </div>
+      </div>
+
+      {view === 0 && (
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+          {metricsBase.map((m) => {
+            const val = m.unit === '명' ? (m.value * multiplier).toLocaleString() : m.value.toFixed(1)
+            return (
+              <div key={m.label} style={{ padding: '14px 16px', borderRadius: 10, background: 'var(--sem-eclipse-color-surfaceContainer, #f8fafc)', border: '1px solid var(--sem-eclipse-color-borderPrimary, #e2e8f0)' }}>
+                <div style={{ fontSize: 11, color: '#64748b', marginBottom: 4 }}>{m.label}</div>
+                <div style={{ fontSize: 24, fontWeight: 800, color: 'var(--sem-eclipse-color-foregroundPrimary, #0f172a)' }}>{val}<span style={{ fontSize: 12, color: '#94a3b8', fontWeight: 400 }}> {m.unit}</span></div>
+                <div style={{ fontSize: 11, color: '#16a34a', marginTop: 2 }}>▲ {(Math.random() * 10 + 2).toFixed(1)}%</div>
+              </div>
+            )
+          })}
+        </div>
+      )}
+      {view === 1 && (
+        <div style={{ fontSize: 13, color: '#64748b', padding: '20px 0' }}>
+          상세 분석 뷰: 채널별/기기별/지역별 분류 데이터를 표시합니다. (기간: {periods[period]})
+        </div>
+      )}
+      {view === 2 && (
+        <div style={{ fontFamily: 'monospace', fontSize: 11, padding: '14px', borderRadius: 8, background: '#0f172a', color: '#e2e8f0', lineHeight: 1.8 }}>
+          date,visits,conversions<br />
+          2024-01-01,1523,58<br />
+          2024-01-02,1810,71<br />
+          2024-01-03,1645,63<br />
+          ...
+        </div>
+      )}
+    </div>
+  )
+}
+
+export const Tailwind_대시보드_뷰_기간_이중_세그먼트: Story = {
+  name: 'Tailwind UI — 대시보드 뷰 + 기간 이중 SegmentedControl',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Tailwind UI 대시보드 컨트롤 패턴. 뷰 모드(요약/상세/원시 데이터) + 기간(오늘/7일/30일/90일) 두 개의 SegmentedControl 동시 제어. 기간 배수로 메트릭 동적 계산.',
+      },
+    },
+  },
+  render: () => <TailwindDashboardViewRender />,
+}
+
+function LinearTailwindEditorModeRender() {
+  const [lang, setLang] = useState(0)
+  const [theme, setTheme] = useState(0)
+  const langs = ['TypeScript', 'JavaScript', 'Python', 'Go']
+  const themes = ['Light', 'Dark', 'System']
+  const codeSnippets: Record<number, string> = {
+    0: 'const greet = (name: string): string => `Hello, ${name}!`',
+    1: 'const greet = (name) => `Hello, ${name}!`',
+    2: 'def greet(name: str) -> str:\n  return f"Hello, {name}!"',
+    3: 'func Greet(name string) string {\n  return "Hello, " + name\n}',
+  }
+  const isDark = theme === 1 || (theme === 2 && true)
+
+  return (
+    <div style={{ width: 520 }}>
+      <div style={{ display: 'flex', gap: 10, marginBottom: 14, flexWrap: 'wrap' }}>
+        <div>
+          <div style={{ fontSize: 11, color: '#94a3b8', marginBottom: 6, fontWeight: 600 }}>언어</div>
+          <SegmentedControl selectedIndex={lang} onTabChange={setLang}>
+            {langs.map((l) => (
+              <SegmentedControl.Tab key={l} value={l}>
+                <SegmentedControl.TabCenter>{l}</SegmentedControl.TabCenter>
+              </SegmentedControl.Tab>
+            ))}
+          </SegmentedControl>
+        </div>
+        <div>
+          <div style={{ fontSize: 11, color: '#94a3b8', marginBottom: 6, fontWeight: 600 }}>테마</div>
+          <SegmentedControl selectedIndex={theme} onTabChange={setTheme}>
+            {themes.map((t) => (
+              <SegmentedControl.Tab key={t} value={t}>
+                <SegmentedControl.TabCenter>{t}</SegmentedControl.TabCenter>
+              </SegmentedControl.Tab>
+            ))}
+          </SegmentedControl>
+        </div>
+      </div>
+      <div style={{ borderRadius: 10, overflow: 'hidden', border: '1px solid var(--sem-eclipse-color-borderPrimary, #e2e8f0)' }}>
+        <div style={{ padding: '8px 14px', background: isDark ? '#1e293b' : '#f8fafc', borderBottom: `1px solid ${isDark ? '#334155' : '#e2e8f0'}`, display: 'flex', alignItems: 'center', gap: 8 }}>
+          <div style={{ display: 'flex', gap: 5 }}>
+            {['#ef4444', '#f59e0b', '#22c55e'].map((c) => <div key={c} style={{ width: 10, height: 10, borderRadius: 5, background: c }} />)}
+          </div>
+          <span style={{ fontSize: 11, color: isDark ? '#64748b' : '#94a3b8', marginLeft: 4 }}>{langs[lang].toLowerCase()}.{['.ts', '.js', '.py', '.go'][lang].slice(1)}</span>
+        </div>
+        <pre style={{ margin: 0, padding: '16px', background: isDark ? '#0f172a' : '#fff', color: isDark ? '#e2e8f0' : '#1e293b', fontSize: 13, fontFamily: 'monospace', lineHeight: 1.7, whiteSpace: 'pre-wrap', minHeight: 80 }}>
+          {codeSnippets[lang]}
+        </pre>
+      </div>
+    </div>
+  )
+}
+
+export const Linear_Tailwind_코드_에디터_세그먼트: Story = {
+  name: 'Linear + Tailwind — 코드 에디터 언어/테마 세그먼트',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Linear + Tailwind UI 코드 에디터 패턴. 언어(TS/JS/Python/Go) + 테마(Light/Dark/System) 두 개 SegmentedControl로 코드 스니펫과 에디터 스타일 동적 전환.',
+      },
+    },
+  },
+  render: () => <LinearTailwindEditorModeRender />,
+}

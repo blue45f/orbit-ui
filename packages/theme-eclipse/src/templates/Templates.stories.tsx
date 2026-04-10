@@ -38624,3 +38624,226 @@ export const ShadcnRaycast172CommandWorkspace: StoryObj = {
   },
   render: () => <ShadcnRaycast172CommandWorkspaceRender />,
 }
+
+// ──────────────────────────────────────────────────────────────────────────────
+// Cycle 173: Linear Design + Tailwind UI — Project Dashboard
+// ──────────────────────────────────────────────────────────────────────────────
+
+function LinearTailwind173ProjectDashboardRender() {
+  const [viewSeg, setViewSeg] = useState(0)
+  const [periodSeg, setPeriodSeg] = useState(1)
+  const [mergeState, setMergeState] = useState<'idle' | 'merging' | 'merged'>('idle')
+  const [activeIssue, setActiveIssue] = useState<string | null>(null)
+
+  const viewLabels = ['Board', 'List', 'Timeline']
+  const periodLabels = ['오늘', '7일', '30일']
+
+  const issues = [
+    { id: 'ORB-201', title: 'SolidButton Linear PR 패턴', priority: 'High', status: 'In Progress', assignee: 'HJ', points: 3 },
+    { id: 'ORB-200', title: 'SegmentedControl 이중 필터', priority: 'Medium', status: 'In Review', assignee: 'SW', points: 2 },
+    { id: 'ORB-199', title: 'Templates 프로젝트 대시보드', priority: 'High', status: 'In Progress', assignee: 'JW', points: 5 },
+    { id: 'ORB-198', title: 'TabGroup compound 버그 수정', priority: 'Low', status: 'Done', assignee: 'HJ', points: 1 },
+    { id: 'ORB-197', title: 'BenchmarkComparison MDX 보강', priority: 'Medium', status: 'Todo', assignee: 'SW', points: 2 },
+  ]
+  const priorityColor: Record<string, string> = { High: '#ef4444', Medium: '#f59e0b', Low: '#64748b', Urgent: '#7c3aed' }
+  const statusColor: Record<string, string> = { 'In Progress': '#3b82f6', 'In Review': '#f59e0b', Done: '#16a34a', Todo: '#94a3b8' }
+
+  const boardCols = ['Todo', 'In Progress', 'In Review', 'Done']
+  const multiplier = [1, 7, 30][periodSeg]
+
+  const handleMerge = () => {
+    setMergeState('merging')
+    setTimeout(() => setMergeState('merged'), 1500)
+  }
+
+  return (
+    <div style={{ minHeight: '100vh', background: '#f8fafc', display: 'flex', flexDirection: 'column', fontFamily: 'system-ui, -apple-system, sans-serif' }}>
+      {/* Header */}
+      <div style={{ height: 52, background: '#fff', borderBottom: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', padding: '0 24px', gap: 16 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+          <div style={{ width: 28, height: 28, borderRadius: 7, background: 'linear-gradient(135deg, #6366f1, #8b5cf6)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#fff" strokeWidth="2"/><path d="M12 6v6l4 2" stroke="#fff" strokeWidth="2" strokeLinecap="round"/></svg>
+          </div>
+          <span style={{ fontSize: 15, fontWeight: 700, color: '#0f172a' }}>Orbit UI</span>
+        </div>
+        <span style={{ fontSize: 13, color: '#94a3b8' }}>/</span>
+        <span style={{ fontSize: 13, color: '#64748b' }}>Cycle 173</span>
+        <div style={{ marginLeft: 'auto', display: 'flex', gap: 8 }}>
+          <SegmentedControl selectedIndex={viewSeg} onTabChange={setViewSeg}>
+            {viewLabels.map((v) => (
+              <SegmentedControl.Tab key={v} value={v}>
+                <SegmentedControl.TabCenter>{v}</SegmentedControl.TabCenter>
+              </SegmentedControl.Tab>
+            ))}
+          </SegmentedControl>
+          <SegmentedControl selectedIndex={periodSeg} onTabChange={setPeriodSeg}>
+            {periodLabels.map((p) => (
+              <SegmentedControl.Tab key={p} value={p}>
+                <SegmentedControl.TabCenter>{p}</SegmentedControl.TabCenter>
+              </SegmentedControl.Tab>
+            ))}
+          </SegmentedControl>
+        </div>
+      </div>
+
+      <div style={{ flex: 1, padding: '20px 24px', display: 'flex', gap: 20 }}>
+        {/* Left: Issue list / board */}
+        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 12 }}>
+          {/* Stats */}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 10 }}>
+            {[
+              { label: '이슈', value: (issues.length * multiplier).toString(), color: '#6366f1' },
+              { label: '완료', value: issues.filter((i) => i.status === 'Done').length.toString(), color: '#16a34a' },
+              { label: '진행 중', value: issues.filter((i) => i.status === 'In Progress').length.toString(), color: '#3b82f6' },
+              { label: '스토리 점수', value: (issues.reduce((s, i) => s + i.points, 0) * multiplier).toString(), color: '#f59e0b' },
+            ].map((s) => (
+              <div key={s.label} style={{ padding: '12px 14px', borderRadius: 10, background: '#fff', border: '1px solid #e2e8f0' }}>
+                <div style={{ fontSize: 10, color: '#64748b', marginBottom: 4 }}>{s.label}</div>
+                <div style={{ fontSize: 22, fontWeight: 800, color: '#0f172a' }}>{s.value}</div>
+                <div style={{ height: 3, borderRadius: 2, background: `${s.color}20`, marginTop: 6 }}>
+                  <div style={{ height: 3, borderRadius: 2, background: s.color, width: '60%' }} />
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Issue table / board */}
+          {viewSeg === 1 ? (
+            <div style={{ background: '#fff', borderRadius: 10, border: '1px solid #e2e8f0', overflow: 'hidden' }}>
+              {issues.map((iss, i) => (
+                <div
+                  key={iss.id}
+                  onClick={() => setActiveIssue(activeIssue === iss.id ? null : iss.id)}
+                  style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '10px 16px', borderBottom: i < issues.length - 1 ? '1px solid #f1f5f9' : 'none', cursor: 'pointer', background: activeIssue === iss.id ? '#f8fafc' : 'transparent', transition: 'background 150ms' }}
+                >
+                  <span style={{ fontSize: 11, fontFamily: 'monospace', color: '#94a3b8', width: 64 }}>{iss.id}</span>
+                  <span style={{ flex: 1, fontSize: 13, color: '#0f172a' }}>{iss.title}</span>
+                  <span style={{ fontSize: 10, padding: '2px 7px', borderRadius: 99, background: `${priorityColor[iss.priority]}18`, color: priorityColor[iss.priority], fontWeight: 600 }}>{iss.priority}</span>
+                  <span style={{ fontSize: 10, padding: '2px 7px', borderRadius: 99, background: `${statusColor[iss.status]}18`, color: statusColor[iss.status], fontWeight: 600 }}>{iss.status}</span>
+                  <div style={{ width: 24, height: 24, borderRadius: 12, background: '#e2e8f0', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 9, fontWeight: 700, color: '#475569' }}>{iss.assignee}</div>
+                </div>
+              ))}
+            </div>
+          ) : viewSeg === 0 ? (
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 10 }}>
+              {boardCols.map((col) => (
+                <div key={col} style={{ background: '#fff', borderRadius: 10, border: '1px solid #e2e8f0', overflow: 'hidden' }}>
+                  <div style={{ padding: '10px 12px', borderBottom: '1px solid #f1f5f9', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <span style={{ fontSize: 11, fontWeight: 600, color: '#64748b' }}>{col}</span>
+                    <span style={{ fontSize: 11, color: '#94a3b8' }}>{issues.filter((i) => i.status === col).length}</span>
+                  </div>
+                  <div style={{ padding: '8px' }}>
+                    {issues.filter((i) => i.status === col).map((iss) => (
+                      <div key={iss.id} style={{ padding: '8px 10px', borderRadius: 7, border: '1px solid #f1f5f9', marginBottom: 6, cursor: 'pointer' }}>
+                        <div style={{ fontSize: 11, color: '#94a3b8', marginBottom: 3 }}>{iss.id}</div>
+                        <div style={{ fontSize: 12, color: '#0f172a', lineHeight: 1.4 }}>{iss.title}</div>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 6 }}>
+                          <span style={{ fontSize: 9, padding: '1px 5px', borderRadius: 99, background: `${priorityColor[iss.priority]}18`, color: priorityColor[iss.priority], fontWeight: 600 }}>{iss.priority}</span>
+                          <div style={{ width: 18, height: 18, borderRadius: 9, background: '#e2e8f0', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 8, fontWeight: 700, color: '#475569' }}>{iss.assignee}</div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div style={{ background: '#fff', borderRadius: 10, border: '1px solid #e2e8f0', padding: '16px' }}>
+              <div style={{ fontSize: 13, color: '#64748b', marginBottom: 12 }}>Timeline View — {periodLabels[periodSeg]}</div>
+              {issues.map((iss) => (
+                <div key={iss.id} style={{ display: 'flex', gap: 12, alignItems: 'center', marginBottom: 10 }}>
+                  <span style={{ fontSize: 10, color: '#94a3b8', width: 58, fontFamily: 'monospace' }}>{iss.id}</span>
+                  <div style={{ flex: 1, height: 22, borderRadius: 4, background: `${statusColor[iss.status]}20`, position: 'relative', overflow: 'hidden' }}>
+                    <div style={{ position: 'absolute', left: 0, top: 0, height: '100%', width: `${iss.points * 20}%`, background: statusColor[iss.status], opacity: 0.4, borderRadius: 4 }} />
+                    <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', padding: '0 8px', fontSize: 10, color: '#0f172a' }}>{iss.title}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* Right panel: PR + Progress */}
+        <div style={{ width: 260, display: 'flex', flexDirection: 'column', gap: 12 }}>
+          {/* PR merge widget */}
+          <div style={{ background: '#fff', borderRadius: 10, border: '1px solid #e2e8f0', overflow: 'hidden' }}>
+            <div style={{ padding: '12px 14px', borderBottom: '1px solid #f1f5f9' }}>
+              <div style={{ fontSize: 12, fontWeight: 700, color: '#0f172a', marginBottom: 3 }}>feat/cycle-173-stories</div>
+              <div style={{ fontSize: 11, color: '#94a3b8' }}>5 commits · +703 −0</div>
+            </div>
+            <div style={{ padding: '10px 14px' }}>
+              {mergeState === 'idle' && (
+                <div style={{ display: 'flex', gap: 6 }}>
+                  <SolidButton color="primary" size="small" onClick={handleMerge}>
+                    <SolidButton.Center>Merge</SolidButton.Center>
+                  </SolidButton>
+                  <SolidButton color="gray" size="small">
+                    <SolidButton.Center>Close</SolidButton.Center>
+                  </SolidButton>
+                </div>
+              )}
+              {mergeState === 'merging' && (
+                <SolidButton color="primary" size="small" disabled>
+                  <SolidButton.Center>Merging...</SolidButton.Center>
+                </SolidButton>
+              )}
+              {mergeState === 'merged' && (
+                <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                  <div style={{ width: 20, height: 20, borderRadius: 10, background: '#8b5cf620', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 12 }}>✓</div>
+                  <span style={{ fontSize: 12, color: '#8b5cf6', fontWeight: 600 }}>Merged into main</span>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Sprint progress */}
+          <div style={{ background: '#fff', borderRadius: 10, border: '1px solid #e2e8f0', padding: '14px' }}>
+            <div style={{ fontSize: 12, fontWeight: 700, color: '#0f172a', marginBottom: 10 }}>Sprint 진행률</div>
+            {[
+              { label: '완료', pct: 40, color: '#16a34a' },
+              { label: '진행 중', pct: 40, color: '#3b82f6' },
+              { label: '남은 작업', pct: 20, color: '#e2e8f0' },
+            ].map((item) => (
+              <div key={item.label} style={{ marginBottom: 8 }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11, marginBottom: 4 }}>
+                  <span style={{ color: '#64748b' }}>{item.label}</span>
+                  <span style={{ color: item.color, fontWeight: 600 }}>{item.pct}%</span>
+                </div>
+                <div style={{ height: 6, borderRadius: 3, background: '#f1f5f9' }}>
+                  <div style={{ height: 6, borderRadius: 3, background: item.color, width: `${item.pct}%`, transition: 'width 300ms' }} />
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Team velocity */}
+          <div style={{ background: '#fff', borderRadius: 10, border: '1px solid #e2e8f0', padding: '14px' }}>
+            <div style={{ fontSize: 12, fontWeight: 700, color: '#0f172a', marginBottom: 10 }}>팀 Velocity</div>
+            {[{ name: 'HJ', points: 8, max: 12 }, { name: 'SW', points: 7, max: 12 }, { name: 'JW', points: 9, max: 12 }].map((m) => (
+              <div key={m.name} style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8 }}>
+                <div style={{ width: 24, height: 24, borderRadius: 12, background: '#6366f120', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 9, fontWeight: 700, color: '#6366f1' }}>{m.name}</div>
+                <div style={{ flex: 1, height: 6, borderRadius: 3, background: '#f1f5f9' }}>
+                  <div style={{ height: 6, borderRadius: 3, background: '#6366f1', width: `${(m.points / m.max) * 100}%`, transition: 'width 300ms' }} />
+                </div>
+                <span style={{ fontSize: 10, color: '#94a3b8', width: 20, textAlign: 'right' }}>{m.points}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const LinearTailwind173ProjectDashboard: StoryObj = {
+  name: 'Linear + Tailwind — 프로젝트 대시보드 (Board/List/Timeline + PR 머지)',
+  parameters: {
+    layout: 'fullscreen',
+    docs: {
+      description: {
+        story: 'Linear + Tailwind UI 복합 패턴. SegmentedControl로 Board/List/Timeline 뷰 전환 + 기간 필터. SolidButton으로 PR Merge 상태 전환. 스프린트 진행률 + 팀 Velocity Progress 바.',
+      },
+    },
+  },
+  render: () => <LinearTailwind173ProjectDashboardRender />,
+}
