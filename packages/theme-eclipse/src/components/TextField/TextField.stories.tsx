@@ -1065,3 +1065,365 @@ export const Radix_MUI_비밀번호_강도: Story = {
   name: 'Radix + MUI - 비밀번호 강도 인디케이터',
   render: () => <PasswordStrengthDemo />,
 }
+
+/* --------------------------------------------------------------------------
+   Arco Design 벤치마크: 폼 실시간 검증 그룹
+   Arco Design Form 패턴 — 여러 입력 필드를 그룹화하고 실시간 검증 메시지를
+   각 필드 아래에 표시하는 인라인 피드백 패턴.
+-------------------------------------------------------------------------- */
+const FIELD_RULES: Record<string, (v: string) => string | null> = {
+  username: (v) => {
+    if (!v) return '사용자 이름을 입력해 주세요.'
+    if (v.length < 3) return '3자 이상이어야 합니다.'
+    if (!/^[a-z0-9_]+$/.test(v)) return '영문 소문자, 숫자, 언더스코어만 허용됩니다.'
+    return null
+  },
+  email: (v) => {
+    if (!v) return '이메일을 입력해 주세요.'
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) return '올바른 이메일 형식이 아닙니다.'
+    return null
+  },
+  phone: (v) => {
+    if (!v) return null
+    if (!/^01[0-9]-\d{3,4}-\d{4}$/.test(v)) return '010-0000-0000 형식으로 입력해 주세요.'
+    return null
+  },
+}
+
+function ArcoFormValidationRender() {
+  const [values, setValues] = useState({ username: '', email: '', phone: '' })
+  const [touched, setTouched] = useState<Record<string, boolean>>({})
+  const [submitted, setSubmitted] = useState(false)
+
+  const errors = Object.fromEntries(
+    Object.entries(FIELD_RULES).map(([k, rule]) => [k, rule(values[k as keyof typeof values])])
+  )
+  const isValid = Object.values(errors).every((e) => e === null)
+
+  const handleSubmit = () => {
+    setTouched({ username: true, email: true, phone: true })
+    if (isValid) setSubmitted(true)
+  }
+
+  if (submitted) {
+    return (
+      <div style={{ maxWidth: 360, textAlign: 'center', padding: '32px' }}>
+        <div style={{ fontSize: 32, marginBottom: 12 }}>✓</div>
+        <div style={{ fontSize: 14, fontWeight: 700, color: '#10b981' }}>등록 완료!</div>
+        <button
+          onClick={() => { setSubmitted(false); setValues({ username: '', email: '', phone: '' }); setTouched({}) }}
+          style={{ marginTop: 16, padding: '8px 20px', borderRadius: 8, border: '1.5px solid #e2e8f0', background: '#fff', cursor: 'pointer', fontSize: 13 }}
+        >
+          다시 시도
+        </button>
+      </div>
+    )
+  }
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 0, width: 360 }}>
+      <div style={{ marginBottom: 20 }}>
+        <div style={{ fontSize: 16, fontWeight: 700, color: '#0f172a' }}>회원 정보 등록</div>
+        <div style={{ fontSize: 12, color: '#94a3b8', marginTop: 4 }}>Arco Design Form 실시간 검증 패턴</div>
+      </div>
+
+      {[
+        { key: 'username', label: '사용자 이름', placeholder: 'orbit_user123', required: true },
+        { key: 'email', label: '이메일', placeholder: 'hello@orbit.dev', required: true },
+        { key: 'phone', label: '전화번호', placeholder: '010-1234-5678', required: false },
+      ].map(({ key, label, placeholder, required }) => {
+        const err = touched[key] ? errors[key] : null
+        const val = values[key as keyof typeof values]
+        const ok = touched[key] && !errors[key] && val.length > 0
+
+        return (
+          <div key={key} style={{ marginBottom: 16 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 4, marginBottom: 6 }}>
+              <label style={{ fontSize: 12, fontWeight: 600, color: '#475569' }}>{label}</label>
+              {required && <span style={{ fontSize: 10, color: '#ef4444' }}>*</span>}
+              {ok && <span style={{ fontSize: 11, color: '#10b981', marginLeft: 'auto' }}>✓</span>}
+            </div>
+            <TextField
+              value={val}
+              placeholder={placeholder}
+              error={!!err}
+              onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+                setValues((prev) => ({ ...prev, [key]: e.target.value }))
+              }
+              onBlur={() => setTouched((prev) => ({ ...prev, [key]: true }))}
+            />
+            {err && (
+              <div style={{ fontSize: 11, color: '#ef4444', marginTop: 4 }}>{err}</div>
+            )}
+          </div>
+        )
+      })}
+
+      <button
+        onClick={handleSubmit}
+        style={{
+          padding: '12px', borderRadius: 8, border: 'none',
+          background: '#6366f1', color: '#fff',
+          fontSize: 14, fontWeight: 700, cursor: 'pointer',
+          marginTop: 4,
+        }}
+      >
+        등록하기
+      </button>
+    </div>
+  )
+}
+
+export const Arco_폼_실시간_검증: Story = {
+  name: 'Arco Design - 폼 실시간 검증 그룹',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Arco Design Form 패턴. onBlur 시 각 필드별 검증 실행, 인라인 에러 메시지, 전체 유효 시 제출 허용. required 표시, 성공 체크마크 포함.',
+      },
+    },
+  },
+  render: () => <ArcoFormValidationRender />,
+}
+
+/* --------------------------------------------------------------------------
+   shadcn/ui 벤치마크: OTP 인증 코드 입력
+   shadcn/ui의 InputOTP 패턴 — 6자리 인증 코드를 독립 셀로 분리해
+   자동 포커스 이동 + Backspace 핸들링을 구현한 패턴.
+-------------------------------------------------------------------------- */
+function ShadcnOTPRender() {
+  const OTP_LENGTH = 6
+  const [digits, setDigits] = useState<string[]>(Array(OTP_LENGTH).fill(''))
+  const [verified, setVerified] = useState<'idle' | 'success' | 'error'>('idle')
+
+  const CORRECT = '123456'
+
+  const handleDigit = (index: number, value: string) => {
+    const digit = value.replace(/\D/g, '').slice(-1)
+    const next = [...digits]
+    next[index] = digit
+    setDigits(next)
+
+    if (digit && index < OTP_LENGTH - 1) {
+      const nextInput = document.getElementById(`otp-${index + 1}`) as HTMLInputElement
+      nextInput?.focus()
+    }
+
+    if (index === OTP_LENGTH - 1 && digit) {
+      const code = [...next.slice(0, -1), digit].join('')
+      if (code.length === OTP_LENGTH) {
+        setVerified(code === CORRECT ? 'success' : 'error')
+      }
+    }
+  }
+
+  const handleKeyDown = (index: number, e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Backspace' && !digits[index] && index > 0) {
+      const prev = document.getElementById(`otp-${index - 1}`) as HTMLInputElement
+      prev?.focus()
+    }
+  }
+
+  const reset = () => { setDigits(Array(OTP_LENGTH).fill('')); setVerified('idle') }
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 20, padding: '32px', maxWidth: 360 }}>
+      <div style={{ textAlign: 'center' }}>
+        <div style={{ fontSize: 16, fontWeight: 700, color: '#0f172a', marginBottom: 6 }}>2단계 인증</div>
+        <div style={{ fontSize: 12, color: '#94a3b8' }}>인증 앱의 6자리 코드를 입력하세요 (힌트: 123456)</div>
+      </div>
+
+      <div style={{ display: 'flex', gap: 8 }}>
+        {digits.map((digit, i) => (
+          <div key={i}>
+            {i === 3 && (
+              <span style={{ fontSize: 18, color: '#cbd5e1', display: 'flex', alignItems: 'center', marginRight: -4, height: '100%', lineHeight: '48px' }}>—</span>
+            )}
+            <input
+              id={`otp-${i}`}
+              value={digit}
+              onChange={(e) => handleDigit(i, e.target.value)}
+              onKeyDown={(e) => handleKeyDown(i, e)}
+              maxLength={1}
+              inputMode="numeric"
+              aria-label={`인증 코드 ${i + 1}번째 자리`}
+              style={{
+                width: 44, height: 48,
+                borderRadius: 10,
+                border: `2px solid ${verified === 'error' ? '#fca5a5' : verified === 'success' ? '#6ee7b7' : digit ? '#6366f1' : '#e2e8f0'}`,
+                background: verified === 'error' ? '#fff7f7' : verified === 'success' ? '#f0fdf4' : '#fff',
+                textAlign: 'center',
+                fontSize: 20, fontWeight: 700,
+                color: '#0f172a',
+                outline: 'none',
+                transition: 'border-color 0.15s',
+                fontFamily: 'monospace',
+              }}
+            />
+          </div>
+        ))}
+      </div>
+
+      {verified === 'success' && (
+        <div style={{ fontSize: 13, color: '#10b981', fontWeight: 700 }}>✓ 인증 성공!</div>
+      )}
+      {verified === 'error' && (
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8 }}>
+          <div style={{ fontSize: 13, color: '#ef4444', fontWeight: 600 }}>코드가 올바르지 않습니다.</div>
+          <button
+            onClick={reset}
+            style={{ fontSize: 12, color: '#6366f1', background: 'none', border: 'none', cursor: 'pointer', textDecoration: 'underline' }}
+          >
+            다시 시도
+          </button>
+        </div>
+      )}
+      <div style={{ fontSize: 11, color: '#94a3b8' }}>shadcn/ui InputOTP 패턴 — 자동 포커스 이동 + Backspace 핸들링</div>
+    </div>
+  )
+}
+
+export const shadcn_OTP_인증_입력: Story = {
+  name: 'shadcn/ui - OTP 인증 코드 입력',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'shadcn/ui InputOTP 패턴. 6자리 코드를 개별 셀로 분리, 숫자 입력 시 자동으로 다음 셀로 포커스 이동, Backspace 시 이전 셀로 이동. 정답(123456)과 비교해 성공/실패 상태 표시.',
+      },
+    },
+  },
+  render: () => <ShadcnOTPRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Arco Design + shadcn/ui 벤치마크: 자동저장 인라인 편집 필드
+   shadcn/ui의 editable content 패턴 + Arco Design의 자동저장 피드백 패턴.
+   debounce 없이 blur 시 저장하고 "저장됨" / "저장 중..." 상태를 표시합니다.
+-------------------------------------------------------------------------- */
+const INLINE_FIELDS = [
+  { id: 'title', label: '프로젝트 이름', value: 'Orbit UI Design System', multiline: false },
+  { id: 'slug', label: 'URL 슬러그', value: 'orbit-ui-ds', multiline: false },
+  { id: 'desc', label: '설명', value: 'React 기반 Figma-first 디자인 시스템', multiline: false },
+]
+
+function ArcoShadcnAutoSaveRender() {
+  const [fields, setFields] = useState(INLINE_FIELDS)
+  const [editingId, setEditingId] = useState<string | null>(null)
+  const [localVal, setLocalVal] = useState('')
+  const [saveStates, setSaveStates] = useState<Record<string, 'saved' | 'saving' | 'idle'>>({})
+
+  const startEdit = (id: string, currentVal: string) => {
+    setEditingId(id)
+    setLocalVal(currentVal)
+  }
+
+  const commitSave = (id: string) => {
+    setSaveStates((prev) => ({ ...prev, [id]: 'saving' }))
+    setFields((prev) => prev.map((f) => f.id === id ? { ...f, value: localVal } : f))
+    setEditingId(null)
+    setTimeout(() => {
+      setSaveStates((prev) => ({ ...prev, [id]: 'saved' }))
+      setTimeout(() => setSaveStates((prev) => ({ ...prev, [id]: 'idle' })), 2000)
+    }, 600)
+  }
+
+  const cancelEdit = () => { setEditingId(null) }
+
+  return (
+    <div style={{ maxWidth: 400 }}>
+      <div style={{ marginBottom: 20 }}>
+        <div style={{ fontSize: 15, fontWeight: 700, color: '#0f172a' }}>프로젝트 설정</div>
+        <div style={{ fontSize: 12, color: '#94a3b8', marginTop: 4 }}>
+          필드를 클릭해 인라인 편집 (Arco + shadcn 자동저장 패턴)
+        </div>
+      </div>
+
+      <div style={{ borderRadius: 12, border: '1px solid #e2e8f0', overflow: 'hidden' }}>
+        {fields.map((field, i) => {
+          const isEditing = editingId === field.id
+          const saveState = saveStates[field.id] ?? 'idle'
+
+          return (
+            <div
+              key={field.id}
+              style={{
+                padding: '14px 16px',
+                borderBottom: i < fields.length - 1 ? '1px solid #f1f5f9' : 'none',
+                background: isEditing ? '#f5f3ff' : '#fff',
+                transition: 'background 0.15s',
+              }}
+            >
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
+                <label style={{ fontSize: 11, fontWeight: 700, color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                  {field.label}
+                </label>
+                {saveState === 'saving' && (
+                  <span style={{ fontSize: 10, color: '#94a3b8' }}>저장 중...</span>
+                )}
+                {saveState === 'saved' && (
+                  <span style={{ fontSize: 10, color: '#10b981', fontWeight: 600 }}>✓ 저장됨</span>
+                )}
+              </div>
+
+              {isEditing ? (
+                <div style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
+                  <TextField
+                    value={localVal}
+                    placeholder={field.value}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setLocalVal(e.target.value)}
+                    onKeyDown={(e: React.KeyboardEvent) => {
+                      if (e.key === 'Enter') commitSave(field.id)
+                      if (e.key === 'Escape') cancelEdit()
+                    }}
+                  />
+                  <button
+                    onClick={() => commitSave(field.id)}
+                    style={{ padding: '4px 10px', borderRadius: 6, border: 'none', background: '#6366f1', color: '#fff', fontSize: 11, fontWeight: 600, cursor: 'pointer', whiteSpace: 'nowrap' }}
+                  >
+                    저장
+                  </button>
+                  <button
+                    onClick={cancelEdit}
+                    style={{ padding: '4px 8px', borderRadius: 6, border: '1px solid #e2e8f0', background: '#fff', color: '#64748b', fontSize: 11, cursor: 'pointer' }}
+                  >
+                    취소
+                  </button>
+                </div>
+              ) : (
+                <button
+                  onClick={() => startEdit(field.id, field.value)}
+                  style={{
+                    display: 'block', width: '100%', textAlign: 'left',
+                    background: 'none', border: 'none', cursor: 'pointer',
+                    padding: '4px 0',
+                    fontSize: 13, color: '#1e293b', fontWeight: 500,
+                  }}
+                >
+                  {field.value || <span style={{ color: '#cbd5e1' }}>클릭해 편집...</span>}
+                </button>
+              )}
+            </div>
+          )
+        })}
+      </div>
+      <div style={{ marginTop: 10, fontSize: 11, color: '#94a3b8' }}>
+        Arco + shadcn 자동저장 패턴 — blur/Enter 저장, Esc 취소, 600ms 저장 피드백
+      </div>
+    </div>
+  )
+}
+
+export const Arco_shadcn_자동저장_필드: Story = {
+  name: 'Arco + shadcn/ui - 인라인 자동저장 편집 필드',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Arco Design 자동저장 피드백 + shadcn/ui 인라인 편집 패턴. 클릭 시 편집 모드 전환, Enter/blur로 저장, Esc로 취소. 저장 중/완료 상태를 600ms 시뮬레이션으로 표시합니다.',
+      },
+    },
+  },
+  render: () => <ArcoShadcnAutoSaveRender />,
+}

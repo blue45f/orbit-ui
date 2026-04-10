@@ -1059,3 +1059,447 @@ export const Arco_Linear_고정_북마크_검색: Story = {
   },
   render: () => <ArcoLinearCommandSearchRender />,
 }
+
+/* --------------------------------------------------------------------------
+   shadcn/ui 벤치마크: 전역 커맨드 검색 (Command Palette 스타일)
+   shadcn/ui Command 컴포넌트의 핵심 UX — 섹션 구분(최근/제안/페이지)과
+   키보드 탐색 힌트를 포함한 전역 검색 패턴.
+-------------------------------------------------------------------------- */
+const SHADCN_RESULTS = {
+  recent: [
+    { id: 'r1', label: 'DataTable 기본', path: '/eclipse/data-display/datatable/기본', icon: '🕐' },
+    { id: 'r2', label: 'Button 색상 변형', path: '/eclipse/inputs/button/색상', icon: '🕐' },
+  ],
+  pages: [
+    { id: 'p1', label: 'Getting Started', path: '/docs/getting-started', icon: '📖' },
+    { id: 'p2', label: 'Design Token', path: '/docs/design-token', icon: '🎨' },
+    { id: 'p3', label: 'Component Overview', path: '/docs/components', icon: '🧩' },
+  ],
+  components: [
+    { id: 'c1', label: 'TextField', path: '/eclipse/inputs/textfield', icon: '✏' },
+    { id: 'c2', label: 'SearchBar', path: '/eclipse/inputs/searchbar', icon: '🔍' },
+    { id: 'c3', label: 'Toggle', path: '/eclipse/inputs/toggle', icon: '🔘' },
+    { id: 'c4', label: 'Progress', path: '/eclipse/feedback/progress', icon: '📊' },
+    { id: 'c5', label: 'Modal', path: '/eclipse/overlay/modal', icon: '🪟' },
+  ],
+}
+
+const ShadcnCommandSearchRender = () => {
+  const [query, setQuery] = useState('')
+  const [selected, setSelected] = useState<string | null>(null)
+
+  const filterItems = (items: typeof SHADCN_RESULTS.components) =>
+    query ? items.filter((i) => i.label.toLowerCase().includes(query.toLowerCase())) : items
+
+  const filteredPages = filterItems(SHADCN_RESULTS.pages)
+  const filteredComponents = filterItems(SHADCN_RESULTS.components)
+  const hasResults = filteredPages.length > 0 || filteredComponents.length > 0
+
+  return (
+    <div style={{ width: 480 }}>
+      {selected && (
+        <div style={{
+          marginBottom: 10, padding: '8px 12px', borderRadius: 8,
+          background: '#f0fdf4', border: '1px solid #bbf7d0',
+          fontSize: 12, color: '#16a34a', fontWeight: 600,
+        }}>
+          → {selected}
+        </div>
+      )}
+
+      <div style={{ borderRadius: 12, border: '1.5px solid #e2e8f0', overflow: 'hidden', boxShadow: '0 4px 24px rgba(0,0,0,0.08)' }}>
+        <div style={{ padding: '10px 14px', borderBottom: '1px solid #f1f5f9' }}>
+          <SearchBar
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="컴포넌트, 문서, 스토리 검색..."
+          />
+        </div>
+
+        <div style={{ maxHeight: 320, overflowY: 'auto' }}>
+          {!query && (
+            <div>
+              <div style={{ padding: '8px 14px 4px', fontSize: 10, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+                최근 방문
+              </div>
+              {SHADCN_RESULTS.recent.map((item) => (
+                <button
+                  key={item.id}
+                  onClick={() => setSelected(item.path)}
+                  style={{
+                    display: 'flex', alignItems: 'center', gap: 10,
+                    width: '100%', padding: '9px 14px', border: 'none', background: 'none',
+                    cursor: 'pointer', textAlign: 'left',
+                  }}
+                  onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.background = '#f8fafc' }}
+                  onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.background = 'none' }}
+                >
+                  <span style={{ fontSize: 13 }}>{item.icon}</span>
+                  <span style={{ fontSize: 13, color: '#1e293b' }}>{item.label}</span>
+                  <span style={{ fontSize: 11, color: '#cbd5e1', marginLeft: 'auto' }}>{item.path}</span>
+                </button>
+              ))}
+            </div>
+          )}
+
+          {hasResults && query && (
+            <>
+              {filteredPages.length > 0 && (
+                <div>
+                  <div style={{ padding: '8px 14px 4px', fontSize: 10, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+                    문서
+                  </div>
+                  {filteredPages.map((item) => (
+                    <button
+                      key={item.id}
+                      onClick={() => setSelected(item.path)}
+                      style={{
+                        display: 'flex', alignItems: 'center', gap: 10,
+                        width: '100%', padding: '9px 14px', border: 'none', background: 'none', cursor: 'pointer', textAlign: 'left',
+                      }}
+                      onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.background = '#f8fafc' }}
+                      onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.background = 'none' }}
+                    >
+                      <span style={{ fontSize: 13 }}>{item.icon}</span>
+                      <span style={{ fontSize: 13, color: '#1e293b' }}>{item.label}</span>
+                    </button>
+                  ))}
+                </div>
+              )}
+              {filteredComponents.length > 0 && (
+                <div>
+                  <div style={{ padding: '8px 14px 4px', fontSize: 10, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+                    컴포넌트
+                  </div>
+                  {filteredComponents.map((item) => (
+                    <button
+                      key={item.id}
+                      onClick={() => setSelected(item.path)}
+                      style={{
+                        display: 'flex', alignItems: 'center', gap: 10,
+                        width: '100%', padding: '9px 14px', border: 'none', background: 'none', cursor: 'pointer', textAlign: 'left',
+                      }}
+                      onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.background = '#f8fafc' }}
+                      onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.background = 'none' }}
+                    >
+                      <span style={{ fontSize: 13 }}>{item.icon}</span>
+                      <span style={{ fontSize: 13, color: '#1e293b' }}>{item.label}</span>
+                      <span style={{ fontSize: 11, color: '#cbd5e1', marginLeft: 'auto' }}>컴포넌트</span>
+                    </button>
+                  ))}
+                </div>
+              )}
+            </>
+          )}
+
+          {query && !hasResults && (
+            <div style={{ padding: '24px 14px', textAlign: 'center', fontSize: 13, color: '#94a3b8' }}>
+              &quot;{query}&quot;에 대한 검색 결과가 없습니다.
+            </div>
+          )}
+        </div>
+
+        <div style={{ padding: '8px 14px', borderTop: '1px solid #f1f5f9', display: 'flex', gap: 12, fontSize: 10, color: '#cbd5e1' }}>
+          <span>↑↓ 탐색</span>
+          <span>↵ 선택</span>
+          <span>Esc 닫기</span>
+        </div>
+      </div>
+      <div style={{ marginTop: 10, fontSize: 11, color: '#94a3b8' }}>
+        shadcn/ui Command 패턴 — 섹션 구분 + 키보드 힌트 + 최근 방문
+      </div>
+    </div>
+  )
+}
+
+export const shadcn_커맨드_팔레트_검색: Story = {
+  name: 'shadcn/ui - 전역 커맨드 팔레트 검색',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'shadcn/ui Command 컴포넌트 패턴. 최근 방문 섹션(쿼리 없을 때), 검색 시 문서/컴포넌트로 섹션 구분, 하단 키보드 단축키 힌트 포함.',
+      },
+    },
+  },
+  render: () => <ShadcnCommandSearchRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Arco Design 벤치마크: 고급 필터 결합 검색
+   Arco Design Search 패턴 — 타입/상태/날짜 범주 칩 필터와 텍스트 검색을
+   결합해 대용량 데이터를 효율적으로 필터링하는 엔터프라이즈 패턴.
+-------------------------------------------------------------------------- */
+const ARCO_ITEMS = [
+  { id: 'i1', name: 'Button 컴포넌트 리팩토링', type: 'task', status: 'done', date: '2026-04-01' },
+  { id: 'i2', name: 'TextField 접근성 개선', type: 'bug', status: 'in-progress', date: '2026-04-05' },
+  { id: 'i3', name: 'Storybook MDX 문서 작성', type: 'docs', status: 'done', date: '2026-03-28' },
+  { id: 'i4', name: 'Design Token 변경 사항 PR', type: 'task', status: 'review', date: '2026-04-07' },
+  { id: 'i5', name: 'Modal 포커스 트랩 버그', type: 'bug', status: 'open', date: '2026-04-08' },
+  { id: 'i6', name: 'DataTable 정렬 기능 추가', type: 'feat', status: 'in-progress', date: '2026-04-09' },
+]
+
+const ARCO_TYPE_CFG = {
+  task:  { label: 'Task', color: '#6366f1' },
+  bug:   { label: 'Bug', color: '#ef4444' },
+  docs:  { label: 'Docs', color: '#f59e0b' },
+  feat:  { label: 'Feat', color: '#10b981' },
+} as const
+
+const ARCO_STATUS_CFG = {
+  open:        { label: '오픈', color: '#94a3b8' },
+  'in-progress': { label: '진행 중', color: '#6366f1' },
+  review:      { label: '리뷰', color: '#f59e0b' },
+  done:        { label: '완료', color: '#10b981' },
+} as const
+
+const ArcoAdvancedFilterRender = () => {
+  const [query, setQuery] = useState('')
+  const [typeFilter, setTypeFilter] = useState<string | null>(null)
+  const [statusFilter, setStatusFilter] = useState<string | null>(null)
+
+  const filtered = ARCO_ITEMS.filter((item) => {
+    const matchText = !query || item.name.toLowerCase().includes(query.toLowerCase())
+    const matchType = !typeFilter || item.type === typeFilter
+    const matchStatus = !statusFilter || item.status === statusFilter
+    return matchText && matchType && matchStatus
+  })
+
+  return (
+    <div style={{ width: 520 }}>
+      <div style={{ marginBottom: 12 }}>
+        <SearchBar
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          placeholder="이슈 검색..."
+        />
+      </div>
+
+      <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginBottom: 12 }}>
+        <span style={{ fontSize: 11, color: '#94a3b8', display: 'flex', alignItems: 'center', marginRight: 4 }}>타입:</span>
+        {Object.entries(ARCO_TYPE_CFG).map(([key, cfg]) => (
+          <button
+            key={key}
+            onClick={() => setTypeFilter(typeFilter === key ? null : key)}
+            style={{
+              padding: '3px 10px', borderRadius: 20, cursor: 'pointer',
+              border: `1.5px solid ${typeFilter === key ? cfg.color : '#e2e8f0'}`,
+              background: typeFilter === key ? cfg.color + '14' : '#fff',
+              color: typeFilter === key ? cfg.color : '#64748b',
+              fontSize: 11, fontWeight: typeFilter === key ? 700 : 400,
+            }}
+          >
+            {cfg.label}
+          </button>
+        ))}
+        <span style={{ fontSize: 11, color: '#cbd5e1', margin: '0 4px' }}>|</span>
+        <span style={{ fontSize: 11, color: '#94a3b8', display: 'flex', alignItems: 'center', marginRight: 4 }}>상태:</span>
+        {Object.entries(ARCO_STATUS_CFG).map(([key, cfg]) => (
+          <button
+            key={key}
+            onClick={() => setStatusFilter(statusFilter === key ? null : key)}
+            style={{
+              padding: '3px 10px', borderRadius: 20, cursor: 'pointer',
+              border: `1.5px solid ${statusFilter === key ? cfg.color : '#e2e8f0'}`,
+              background: statusFilter === key ? cfg.color + '14' : '#fff',
+              color: statusFilter === key ? cfg.color : '#64748b',
+              fontSize: 11, fontWeight: statusFilter === key ? 700 : 400,
+            }}
+          >
+            {cfg.label}
+          </button>
+        ))}
+        {(typeFilter || statusFilter || query) && (
+          <button
+            onClick={() => { setTypeFilter(null); setStatusFilter(null); setQuery('') }}
+            style={{ padding: '3px 10px', borderRadius: 20, border: '1.5px solid #e2e8f0', background: '#fff', color: '#94a3b8', fontSize: 11, cursor: 'pointer' }}
+          >
+            초기화
+          </button>
+        )}
+      </div>
+
+      <div style={{ borderRadius: 10, border: '1px solid #e2e8f0', overflow: 'hidden' }}>
+        <div style={{ padding: '8px 14px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0', fontSize: 11, color: '#94a3b8' }}>
+          {filtered.length}개 결과 / 전체 {ARCO_ITEMS.length}개
+        </div>
+        {filtered.length === 0 ? (
+          <div style={{ padding: '24px', textAlign: 'center', fontSize: 13, color: '#94a3b8' }}>
+            검색 결과가 없습니다.
+          </div>
+        ) : (
+          filtered.map((item, i) => {
+            const typeCfg = ARCO_TYPE_CFG[item.type as keyof typeof ARCO_TYPE_CFG]
+            const statusCfg = ARCO_STATUS_CFG[item.status as keyof typeof ARCO_STATUS_CFG]
+            return (
+              <div
+                key={item.id}
+                style={{
+                  display: 'flex', alignItems: 'center', gap: 10,
+                  padding: '10px 14px',
+                  borderBottom: i < filtered.length - 1 ? '1px solid #f8fafc' : 'none',
+                }}
+              >
+                <span style={{
+                  fontSize: 10, fontWeight: 700, padding: '2px 7px', borderRadius: 4,
+                  background: typeCfg.color + '14', color: typeCfg.color, whiteSpace: 'nowrap',
+                }}>
+                  {typeCfg.label}
+                </span>
+                <span style={{ flex: 1, fontSize: 13, color: '#1e293b' }}>{item.name}</span>
+                <span style={{
+                  fontSize: 10, fontWeight: 600, padding: '2px 8px', borderRadius: 20,
+                  background: statusCfg.color + '14', color: statusCfg.color, whiteSpace: 'nowrap',
+                }}>
+                  {statusCfg.label}
+                </span>
+                <span style={{ fontSize: 11, color: '#cbd5e1', whiteSpace: 'nowrap' }}>{item.date}</span>
+              </div>
+            )
+          })
+        )}
+      </div>
+      <div style={{ marginTop: 10, fontSize: 11, color: '#94a3b8' }}>
+        Arco Design 고급 검색 패턴 — 텍스트 + 타입/상태 칩 필터 결합
+      </div>
+    </div>
+  )
+}
+
+export const Arco_고급_필터_결합_검색: Story = {
+  name: 'Arco Design - 고급 필터 결합 검색',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Arco Design 엔터프라이즈 검색 패턴. 텍스트 검색 + 타입 필터(Task/Bug/Docs/Feat) + 상태 필터(오픈/진행중/리뷰/완료)를 결합. 각 필터는 토글로 작동하고 결과 수를 실시간 표시합니다.',
+      },
+    },
+  },
+  render: () => <ArcoAdvancedFilterRender />,
+}
+
+/* --------------------------------------------------------------------------
+   shadcn/ui + Arco Design 벤치마크: 퍼지 하이라이트 검색
+   shadcn/ui의 highlight 매칭 + Arco의 스코어링 패턴 — 검색어 문자를
+   개별적으로 강조 표시하는 고급 UX 패턴.
+-------------------------------------------------------------------------- */
+const FUZZY_ITEMS = [
+  { id: 'f1', label: 'DataTable', category: '데이터 표시', desc: '정렬/필터/선택 가능한 데이터 테이블' },
+  { id: 'f2', label: 'DatePicker', category: '입력', desc: '날짜 선택 캘린더 컴포넌트' },
+  { id: 'f3', label: 'Dropdown', category: '입력', desc: '선택 드롭다운 메뉴' },
+  { id: 'f4', label: 'Dialog', category: '오버레이', desc: '모달 대화 상자' },
+  { id: 'f5', label: 'Divider', category: '레이아웃', desc: '구분선 컴포넌트' },
+  { id: 'f6', label: 'DrawerPanel', category: '오버레이', desc: '슬라이드 패널' },
+]
+
+function highlightMatch(text: string, query: string): React.ReactNode {
+  if (!query) return text
+  const lowerText = text.toLowerCase()
+  const lowerQuery = query.toLowerCase()
+  const parts: React.ReactNode[] = []
+  let lastIdx = 0
+  let qIdx = 0
+
+  for (let i = 0; i < text.length && qIdx < lowerQuery.length; i++) {
+    if (lowerText[i] === lowerQuery[qIdx]) {
+      if (i > lastIdx) parts.push(text.slice(lastIdx, i))
+      parts.push(
+        <mark key={i} style={{ background: '#fef3c7', color: '#92400e', borderRadius: 2, padding: '0 1px', fontWeight: 700 }}>
+          {text[i]}
+        </mark>
+      )
+      lastIdx = i + 1
+      qIdx++
+    }
+  }
+
+  if (lastIdx < text.length) parts.push(text.slice(lastIdx))
+  return <>{parts}</>
+}
+
+const ShadcnArcoFuzzySearchRender = () => {
+  const [query, setQuery] = useState('dt')
+
+  const scored = FUZZY_ITEMS
+    .map((item) => {
+      const lowerLabel = item.label.toLowerCase()
+      const lowerQuery = query.toLowerCase()
+      let score = 0
+      let qi = 0
+      for (let i = 0; i < lowerLabel.length && qi < lowerQuery.length; i++) {
+        if (lowerLabel[i] === lowerQuery[qi]) { score++; qi++ }
+      }
+      const matched = qi === lowerQuery.length
+      return { ...item, score, matched }
+    })
+    .filter((item) => !query || item.matched)
+    .sort((a, b) => b.score - a.score)
+
+  return (
+    <div style={{ width: 420 }}>
+      <div style={{ marginBottom: 8 }}>
+        <SearchBar
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          placeholder='퍼지 검색 (예: "dt" → DataTable, DrawerPanel)'
+        />
+      </div>
+      <div style={{ fontSize: 11, color: '#94a3b8', marginBottom: 10 }}>
+        쿼리의 각 문자가 순서대로 포함된 결과를 찾습니다 (fuzzy match)
+      </div>
+
+      <div style={{ borderRadius: 10, border: '1px solid #e2e8f0', overflow: 'hidden' }}>
+        {scored.length === 0 ? (
+          <div style={{ padding: '24px', textAlign: 'center', fontSize: 13, color: '#94a3b8' }}>
+            결과 없음
+          </div>
+        ) : (
+          scored.map((item, i) => (
+            <div
+              key={item.id}
+              style={{
+                display: 'flex', alignItems: 'flex-start', gap: 10,
+                padding: '11px 14px',
+                borderBottom: i < scored.length - 1 ? '1px solid #f8fafc' : 'none',
+              }}
+            >
+              <div style={{ flex: 1 }}>
+                <div style={{ fontSize: 14, fontWeight: 600, color: '#1e293b', marginBottom: 2 }}>
+                  {highlightMatch(item.label, query)}
+                </div>
+                <div style={{ fontSize: 11, color: '#94a3b8' }}>{item.desc}</div>
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 4 }}>
+                <span style={{ fontSize: 10, padding: '1px 7px', borderRadius: 4, background: '#f1f5f9', color: '#64748b', fontWeight: 500, whiteSpace: 'nowrap' }}>
+                  {item.category}
+                </span>
+                {query && (
+                  <span style={{ fontSize: 9, fontWeight: 700, color: '#6366f1' }}>
+                    점수: {item.score}/{query.length}
+                  </span>
+                )}
+              </div>
+            </div>
+          ))
+        )}
+      </div>
+      <div style={{ marginTop: 10, fontSize: 11, color: '#94a3b8' }}>
+        shadcn/ui + Arco 퍼지 매칭 패턴 — 문자 순서 매칭 + 노란 하이라이트
+      </div>
+    </div>
+  )
+}
+
+export const shadcn_Arco_퍼지_하이라이트_검색: Story = {
+  name: 'shadcn/ui + Arco - 퍼지 하이라이트 검색',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'shadcn/ui 문자 하이라이트 + Arco 스코어링 패턴. 검색어 문자를 순서대로 매칭해 각 글자를 개별 강조 표시. 점수가 높은 순서로 정렬됩니다. "dt" 입력 시 DataTable, DrawerPanel 등을 찾습니다.',
+      },
+    },
+  },
+  render: () => <ShadcnArcoFuzzySearchRender />,
+}

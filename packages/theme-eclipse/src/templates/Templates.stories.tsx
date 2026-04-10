@@ -26633,3 +26633,261 @@ export const TailwindMantine109ApiDashboard: StoryObj = {
   },
   render: () => <ApiMgmt109Render />,
 }
+
+/* ==========================================================================
+   Cycle 110 — Arco Design + shadcn/ui
+   Template: 개발자 포털 (Developer Portal)
+   AppBar + SearchBar + Chip + LabelBadge + Divider + SectionTitle + SolidButton
+   ========================================================================== */
+const DEV_PORTAL_APIS = [
+  { id: 'a1', name: 'Authentication API', version: 'v3.2', status: 'stable', category: 'auth', calls: '1.2M/day', latency: '48ms' },
+  { id: 'a2', name: 'Data Export API', version: 'v2.0', status: 'stable', category: 'data', calls: '340K/day', latency: '120ms' },
+  { id: 'a3', name: 'Webhook API', version: 'v1.5', status: 'beta', category: 'events', calls: '89K/day', latency: '22ms' },
+  { id: 'a4', name: 'Search API', version: 'v4.0', status: 'stable', category: 'data', calls: '2.8M/day', latency: '35ms' },
+  { id: 'a5', name: 'AI Suggestions API', version: 'v0.9', status: 'preview', category: 'ai', calls: '12K/day', latency: '890ms' },
+  { id: 'a6', name: 'File Storage API', version: 'v2.3', status: 'stable', category: 'storage', calls: '560K/day', latency: '67ms' },
+]
+
+const DP_STATUS_CFG = {
+  stable:  { label: 'Stable', color: '#10b981', labelColor: 'benefit' as const },
+  beta:    { label: 'Beta', color: '#f59e0b', labelColor: 'sale' as const },
+  preview: { label: 'Preview', color: '#94a3b8', labelColor: 'gray' as const },
+}
+
+const DP_CATEGORY_CFG: Record<string, { label: string; color: string }> = {
+  auth:    { label: '인증', color: '#6366f1' },
+  data:    { label: '데이터', color: '#10b981' },
+  events:  { label: '이벤트', color: '#f59e0b' },
+  ai:      { label: 'AI', color: '#8b5cf6' },
+  storage: { label: '스토리지', color: '#0ea5e9' },
+}
+
+function DP110Render() {
+  const [searchQuery, setSearchQuery] = React.useState('')
+  const [catFilter, setCatFilter] = React.useState<string | null>(null)
+  const [statusFilter, setStatusFilter] = React.useState<string | null>(null)
+  const [selectedApi, setSelectedApi] = React.useState<typeof DEV_PORTAL_APIS[0] | null>(null)
+  const [copied, setCopied] = React.useState(false)
+
+  const filtered = DEV_PORTAL_APIS.filter((api) => {
+    const matchText = !searchQuery || api.name.toLowerCase().includes(searchQuery.toLowerCase())
+    const matchCat = !catFilter || api.category === catFilter
+    const matchStatus = !statusFilter || api.status === statusFilter
+    return matchText && matchCat && matchStatus
+  })
+
+  const categories = Array.from(new Set(DEV_PORTAL_APIS.map((a) => a.category)))
+
+  const handleCopy = () => {
+    setCopied(true)
+    setTimeout(() => setCopied(false), 2000)
+  }
+
+  return (
+    <div style={{ minHeight: '100vh', background: '#f8fafc', fontFamily: 'system-ui, sans-serif' }}>
+      <AppBar>
+        <AppBar.Leading>
+          <SectionTitle>Developer Portal</SectionTitle>
+        </AppBar.Leading>
+        <AppBar.Center>
+          <SearchBar
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder="API 이름으로 검색..."
+          />
+        </AppBar.Center>
+        <AppBar.Trailing>
+          <SolidButton color="primary" size="small">
+            <SolidButton.Center>API 키 생성</SolidButton.Center>
+          </SolidButton>
+        </AppBar.Trailing>
+      </AppBar>
+
+      <div style={{ maxWidth: 960, margin: '0 auto', padding: '24px 16px', display: 'grid', gridTemplateColumns: selectedApi ? '1fr 380px' : '1fr', gap: 20 }}>
+        {/* 메인 패널 */}
+        <div>
+          {/* 필터 */}
+          <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginBottom: 16 }}>
+            <span style={{ fontSize: 11, color: '#94a3b8', display: 'flex', alignItems: 'center' }}>카테고리:</span>
+            {categories.map((cat) => {
+              const cfg = DP_CATEGORY_CFG[cat]
+              const active = catFilter === cat
+              return (
+                <Chip
+                  key={cat}
+                  selected={active}
+                  onClick={() => setCatFilter(active ? null : cat)}
+                >
+                  {cfg.label}
+                </Chip>
+              )
+            })}
+            <span style={{ fontSize: 11, color: '#cbd5e1', display: 'flex', alignItems: 'center', margin: '0 4px' }}>|</span>
+            {Object.entries(DP_STATUS_CFG).map(([key, cfg]) => {
+              const active = statusFilter === key
+              return (
+                <Chip
+                  key={key}
+                  selected={active}
+                  onClick={() => setStatusFilter(active ? null : key)}
+                >
+                  {cfg.label}
+                </Chip>
+              )
+            })}
+          </div>
+
+          {/* 결과 수 */}
+          <div style={{ fontSize: 12, color: '#94a3b8', marginBottom: 12 }}>
+            {filtered.length}개 API / 전체 {DEV_PORTAL_APIS.length}개
+          </div>
+
+          {/* API 목록 */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+            {filtered.map((api) => {
+              const statusCfg = DP_STATUS_CFG[api.status as keyof typeof DP_STATUS_CFG]
+              const catCfg = DP_CATEGORY_CFG[api.category]
+              const isSelected = selectedApi?.id === api.id
+
+              return (
+                <button
+                  key={api.id}
+                  onClick={() => setSelectedApi(isSelected ? null : api)}
+                  style={{
+                    display: 'flex', alignItems: 'center', gap: 14,
+                    padding: '16px 20px', borderRadius: 12, cursor: 'pointer',
+                    border: `1.5px solid ${isSelected ? '#6366f1' : '#e2e8f0'}`,
+                    background: isSelected ? '#f5f3ff' : '#fff',
+                    textAlign: 'left', transition: 'all 0.15s',
+                  }}
+                >
+                  <div
+                    style={{
+                      width: 36, height: 36, borderRadius: 8, flexShrink: 0,
+                      background: catCfg.color + '18',
+                      display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      fontSize: 14, color: catCfg.color, fontWeight: 700,
+                    }}
+                  >
+                    {catCfg.label.charAt(0)}
+                  </div>
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
+                      <span style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>{api.name}</span>
+                      <span style={{ fontSize: 10, color: '#94a3b8', fontFamily: 'monospace' }}>{api.version}</span>
+                    </div>
+                    <div style={{ display: 'flex', gap: 8, fontSize: 11, color: '#64748b' }}>
+                      <span>{api.calls}</span>
+                      <span style={{ color: '#cbd5e1' }}>·</span>
+                      <span>P99: {api.latency}</span>
+                    </div>
+                  </div>
+                  <LabelBadge color={statusCfg.labelColor}>
+                    <LabelBadge.Label>{statusCfg.label}</LabelBadge.Label>
+                  </LabelBadge>
+                </button>
+              )
+            })}
+
+            {filtered.length === 0 && (
+              <div style={{ padding: '48px', textAlign: 'center', borderRadius: 12, border: '1px dashed #e2e8f0', color: '#94a3b8', fontSize: 14 }}>
+                검색 결과가 없습니다.
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* 상세 패널 */}
+        {selectedApi && (
+          <div style={{ position: 'sticky', top: 80, height: 'fit-content' }}>
+            <div style={{ borderRadius: 12, border: '1.5px solid #e2e8f0', background: '#fff', overflow: 'hidden' }}>
+              {/* 헤더 */}
+              <div style={{ padding: '16px 20px', borderBottom: '1px solid #f1f5f9', background: '#f8fafc' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                  <div>
+                    <div style={{ fontSize: 15, fontWeight: 700, color: '#0f172a' }}>{selectedApi.name}</div>
+                    <div style={{ fontSize: 12, color: '#94a3b8', marginTop: 2 }}>
+                      {DP_CATEGORY_CFG[selectedApi.category].label} · {selectedApi.version}
+                    </div>
+                  </div>
+                  <button
+                    onClick={() => setSelectedApi(null)}
+                    style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: 18, color: '#94a3b8' }}
+                    aria-label="닫기"
+                  >
+                    ×
+                  </button>
+                </div>
+              </div>
+
+              {/* 통계 */}
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 0, borderBottom: '1px solid #f1f5f9' }}>
+                {[
+                  { label: '일일 호출', value: selectedApi.calls },
+                  { label: 'P99 지연', value: selectedApi.latency },
+                ].map((stat, i) => (
+                  <div key={stat.label} style={{ padding: '14px 20px', borderRight: i === 0 ? '1px solid #f1f5f9' : 'none' }}>
+                    <div style={{ fontSize: 10, color: '#94a3b8', marginBottom: 4, textTransform: 'uppercase', letterSpacing: '0.05em' }}>{stat.label}</div>
+                    <div style={{ fontSize: 18, fontWeight: 800, color: '#0f172a' }}>{stat.value}</div>
+                  </div>
+                ))}
+              </div>
+
+              {/* 엔드포인트 예시 */}
+              <div style={{ padding: '16px 20px', borderBottom: '1px solid #f1f5f9' }}>
+                <div style={{ fontSize: 11, fontWeight: 700, color: '#64748b', marginBottom: 8, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                  Base URL
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                  <code style={{
+                    flex: 1, fontSize: 11, padding: '8px 10px', borderRadius: 8,
+                    background: '#f1f5f9', color: '#475569', fontFamily: 'monospace',
+                    wordBreak: 'break-all',
+                  }}>
+                    https://api.orbit.dev/{selectedApi.category}/v{selectedApi.version.slice(1)}
+                  </code>
+                  <button
+                    onClick={handleCopy}
+                    style={{
+                      padding: '6px 10px', borderRadius: 6, border: '1px solid #e2e8f0',
+                      background: copied ? '#f0fdf4' : '#fff', cursor: 'pointer',
+                      fontSize: 11, color: copied ? '#10b981' : '#64748b', fontWeight: 600,
+                      whiteSpace: 'nowrap',
+                    }}
+                  >
+                    {copied ? '복사됨' : '복사'}
+                  </button>
+                </div>
+              </div>
+
+              {/* 액션 */}
+              <div style={{ padding: '16px 20px', display: 'flex', flexDirection: 'column', gap: 8 }}>
+                <SolidButton color="primary" size="medium" width="100%">
+                  <SolidButton.Center>API 문서 보기</SolidButton.Center>
+                </SolidButton>
+                <SolidButton color="gray" size="medium" width="100%">
+                  <SolidButton.Center>Playground 열기</SolidButton.Center>
+                </SolidButton>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+
+export const ArcoShadcn110DeveloperPortal: StoryObj = {
+  name: 'Arco Design + shadcn/ui — 개발자 포털 (Cycle 110)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Arco Design + shadcn/ui 벤치마크 — Cycle 110. ' +
+          '개발자 포털: AppBar 검색바 + Chip 카테고리/상태 필터 + API 목록 + 슬라이드 상세 패널(호출 통계 + Base URL 복사 + 액션 버튼). ' +
+          'AppBar, SearchBar, Chip, LabelBadge, SectionTitle, SolidButton 복합 활용.',
+      },
+    },
+  },
+  render: () => <DP110Render />,
+}
