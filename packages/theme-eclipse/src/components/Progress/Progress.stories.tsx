@@ -888,3 +888,343 @@ export const Notion_페이지_완성도: Story = {
     </div>
   ),
 }
+
+/* --------------------------------------------------------------------------
+   Linear Design 벤치마크: 팀별 사이클 완료율 대시보드
+   Linear의 Cycles 뷰 — 팀별 이슈 완료율과 남은 작업을 Progress로 시각화
+-------------------------------------------------------------------------- */
+const CYCLE_TEAMS = [
+  { name: 'Design System', completed: 18, total: 24, color: 'primary' as const, avatar: '🎨' },
+  { name: 'Platform', completed: 9, total: 16, color: 'warning' as const, avatar: '⚙️' },
+  { name: 'Frontend', completed: 22, total: 25, color: 'success' as const, avatar: '🖥' },
+  { name: 'QA', completed: 7, total: 12, color: 'primary' as const, avatar: '🔍' },
+]
+
+function LinearCycleTeamRender() {
+  const [cycle, setCycle] = useState(12)
+  const totalCompleted = CYCLE_TEAMS.reduce((s, t) => s + t.completed, 0)
+  const totalIssues = CYCLE_TEAMS.reduce((s, t) => s + t.total, 0)
+  const overallPct = Math.round((totalCompleted / totalIssues) * 100)
+
+  return (
+    <div style={{ maxWidth: 480 }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
+        <div>
+          <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>Cycle {cycle}</div>
+          <div style={{ fontSize: 12, color: '#94a3b8', marginTop: 2 }}>2주 스프린트 — 팀별 진행률</div>
+        </div>
+        <div style={{ display: 'flex', gap: 6 }}>
+          {[10, 11, 12, 13].map((c) => (
+            <button
+              key={c}
+              onClick={() => setCycle(c)}
+              style={{
+                padding: '4px 10px', borderRadius: 6,
+                border: `1px solid ${cycle === c ? '#6366f1' : '#e2e8f0'}`,
+                background: cycle === c ? '#6366f112' : '#fff',
+                color: cycle === c ? '#6366f1' : '#64748b',
+                fontSize: 11, fontWeight: cycle === c ? 700 : 400, cursor: 'pointer',
+              }}
+            >
+              #{c}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* 전체 진행률 */}
+      <div style={{ padding: '14px 16px', borderRadius: 10, border: '1.5px solid #e2e8f0', marginBottom: 16, background: '#fafafa' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
+          <span style={{ fontSize: 12, fontWeight: 600, color: '#64748b' }}>전체 완료율</span>
+          <span style={{ fontSize: 18, fontWeight: 800, color: overallPct >= 80 ? '#10b981' : '#6366f1' }}>
+            {totalCompleted} / {totalIssues}
+          </span>
+        </div>
+        <Progress value={overallPct} color={overallPct >= 80 ? 'success' : 'primary'} size="medium" />
+        <div style={{ marginTop: 6, fontSize: 11, color: '#94a3b8', textAlign: 'right' }}>{overallPct}% 완료</div>
+      </div>
+
+      {/* 팀별 */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+        {CYCLE_TEAMS.map((team) => {
+          const pct = Math.round((team.completed / team.total) * 100)
+          return (
+            <div key={team.name} style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                  <span style={{ fontSize: 16 }}>{team.avatar}</span>
+                  <span style={{ fontSize: 13, fontWeight: 600, color: '#1e293b' }}>{team.name}</span>
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                  <span style={{ fontSize: 11, color: '#94a3b8' }}>{team.completed}/{team.total}</span>
+                  <span style={{
+                    fontSize: 11, fontWeight: 700, minWidth: 32, textAlign: 'right',
+                    color: pct >= 80 ? '#10b981' : pct >= 50 ? '#6366f1' : '#f59e0b',
+                  }}>
+                    {pct}%
+                  </span>
+                </div>
+              </div>
+              <Progress value={pct} color={team.color} size="small" />
+            </div>
+          )
+        })}
+      </div>
+      <div style={{ marginTop: 16, fontSize: 11, color: '#94a3b8' }}>
+        Linear Design 패턴 — 팀별 사이클 완료율 대시보드
+      </div>
+    </div>
+  )
+}
+
+export const Linear_팀_사이클_완료율: Story = {
+  name: 'Linear Design - 팀별 사이클 완료율 대시보드',
+  render: () => <LinearCycleTeamRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Figma Plugin UI 벤치마크: 컴포넌트 커버리지 분석
+   Figma Plugin 패턴 — 디자인 시스템 컴포넌트 커버리지를 Progress로 분석하는 플러그인 UI
+-------------------------------------------------------------------------- */
+const COVERAGE_CATEGORIES = [
+  { label: '기본 입력', used: 8, total: 10, color: 'success' as const },
+  { label: '피드백/오버레이', used: 5, total: 8, color: 'primary' as const },
+  { label: '데이터 표시', used: 3, total: 7, color: 'warning' as const },
+  { label: '레이아웃', used: 6, total: 6, color: 'success' as const },
+  { label: '내비게이션', used: 2, total: 5, color: 'warning' as const },
+]
+
+function FigmaCoverageRender() {
+  const [analyzing, setAnalyzing] = useState(false)
+  const [progress, setProgress] = useState(100)
+
+  const runAnalysis = () => {
+    setAnalyzing(true)
+    setProgress(0)
+    let p = 0
+    const iv = setInterval(() => {
+      p += Math.floor(Math.random() * 15) + 5
+      if (p >= 100) {
+        setProgress(100)
+        setAnalyzing(false)
+        clearInterval(iv)
+      } else {
+        setProgress(p)
+      }
+    }, 200)
+  }
+
+  const totalUsed = COVERAGE_CATEGORIES.reduce((s, c) => s + c.used, 0)
+  const totalAll = COVERAGE_CATEGORIES.reduce((s, c) => s + c.total, 0)
+  const overallCoverage = Math.round((totalUsed / totalAll) * 100)
+
+  return (
+    <div
+      style={{
+        width: 280,
+        borderRadius: 10,
+        border: '1px solid #e2e8f0',
+        background: '#fff',
+        overflow: 'hidden',
+        boxShadow: '0 2px 12px rgba(0,0,0,0.06)',
+        fontFamily: '"JetBrains Mono", monospace',
+      }}
+    >
+      {/* 헤더 */}
+      <div style={{ padding: '10px 14px', borderBottom: '1px solid #f1f5f9', background: '#f8fafc', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <span style={{ fontSize: 12, fontWeight: 700, color: '#0f172a' }}>Coverage Analyzer</span>
+        <button
+          onClick={runAnalysis}
+          disabled={analyzing}
+          style={{
+            padding: '3px 10px', borderRadius: 5, border: 'none',
+            background: analyzing ? '#e2e8f0' : '#6366f1',
+            color: analyzing ? '#94a3b8' : '#fff',
+            fontSize: 10, fontWeight: 700, cursor: analyzing ? 'not-allowed' : 'pointer',
+          }}
+        >
+          {analyzing ? '분석 중...' : '재분석'}
+        </button>
+      </div>
+
+      {/* 분석 진행 */}
+      {analyzing && (
+        <div style={{ padding: '10px 14px', borderBottom: '1px solid #f1f5f9' }}>
+          <div style={{ fontSize: 10, color: '#94a3b8', marginBottom: 6 }}>Analyzing components...</div>
+          <Progress value={progress} color="primary" size="small" />
+        </div>
+      )}
+
+      {/* 전체 커버리지 */}
+      <div style={{ padding: '12px 14px', borderBottom: '1px solid #f1f5f9' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 6 }}>
+          <span style={{ fontSize: 10, color: '#64748b' }}>Overall Coverage</span>
+          <span style={{
+            fontSize: 14, fontWeight: 800,
+            color: overallCoverage >= 80 ? '#10b981' : '#f59e0b',
+          }}>
+            {overallCoverage}%
+          </span>
+        </div>
+        <Progress value={overallCoverage} color={overallCoverage >= 80 ? 'success' : 'warning'} size="small" />
+        <div style={{ fontSize: 10, color: '#94a3b8', marginTop: 4 }}>
+          {totalUsed} / {totalAll} components used
+        </div>
+      </div>
+
+      {/* 카테고리별 */}
+      <div style={{ padding: '10px 14px', display: 'flex', flexDirection: 'column', gap: 10 }}>
+        {COVERAGE_CATEGORIES.map((cat) => {
+          const pct = Math.round((cat.used / cat.total) * 100)
+          return (
+            <div key={cat.label}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 4 }}>
+                <span style={{ fontSize: 10, color: '#64748b' }}>{cat.label}</span>
+                <span style={{ fontSize: 10, fontWeight: 700, color: '#475569' }}>
+                  {cat.used}/{cat.total}
+                </span>
+              </div>
+              <Progress value={pct} color={cat.color} size="small" />
+            </div>
+          )
+        })}
+      </div>
+
+      <div style={{ padding: '8px 14px', borderTop: '1px solid #f1f5f9', fontSize: 9, color: '#cbd5e1' }}>
+        Figma Plugin UI — DS Coverage Analyzer
+      </div>
+    </div>
+  )
+}
+
+export const Figma_컴포넌트_커버리지: Story = {
+  name: 'Figma Plugin UI - 컴포넌트 커버리지 분석기',
+  render: () => <FigmaCoverageRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Linear Design 벤치마크: OKR 키 결과 진행률 대시보드
+   Linear의 Goals 뷰 — 분기별 OKR과 Key Result 달성률을 Progress로 표현
+-------------------------------------------------------------------------- */
+type KeyResult = {
+  id: string
+  label: string
+  current: number
+  target: number
+  unit: string
+  color: 'primary' | 'success' | 'warning'
+}
+
+const Q1_OKRS: Array<{ objective: string; owner: string; keyResults: KeyResult[] }> = [
+  {
+    objective: 'Design System 품질 향상',
+    owner: '김민지',
+    keyResults: [
+      { id: 'kr1', label: '컴포넌트 스토리 수', current: 108, target: 120, unit: '개', color: 'primary' },
+      { id: 'kr2', label: '접근성 커버리지', current: 82, target: 90, unit: '%', color: 'warning' },
+      { id: 'kr3', label: 'TypeScript 에러 수', current: 2, target: 0, unit: '건', color: 'warning' },
+    ],
+  },
+  {
+    objective: '개발자 경험(DX) 개선',
+    owner: '이동욱',
+    keyResults: [
+      { id: 'kr4', label: '빌드 시간 단축', current: 28, target: 20, unit: 's', color: 'success' },
+      { id: 'kr5', label: '문서화 완성도', current: 75, target: 95, unit: '%', color: 'warning' },
+    ],
+  },
+]
+
+function LinearOKRRender() {
+  return (
+    <div style={{ maxWidth: 520 }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
+        <div>
+          <div style={{ fontSize: 15, fontWeight: 700, color: '#0f172a' }}>OKR — Q1 2026</div>
+          <div style={{ fontSize: 12, color: '#94a3b8', marginTop: 2 }}>orbit-ui Design System Team</div>
+        </div>
+        <div style={{
+          padding: '4px 12px', borderRadius: 20,
+          background: '#eff6ff', fontSize: 12, fontWeight: 700, color: '#3b82f6',
+        }}>
+          진행 중
+        </div>
+      </div>
+
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
+        {Q1_OKRS.map((okr, oi) => {
+          const avgPct = Math.round(
+            okr.keyResults.reduce((s, kr) => {
+              const raw = kr.id === 'kr3'
+                ? (kr.current === 0 ? 100 : Math.max(0, 100 - kr.current * 50))
+                : Math.min(100, Math.round((kr.current / kr.target) * 100))
+              return s + raw
+            }, 0) / okr.keyResults.length
+          )
+          return (
+            <div key={oi} style={{ borderRadius: 12, border: '1px solid #e2e8f0', overflow: 'hidden' }}>
+              {/* Objective 헤더 */}
+              <div style={{ padding: '12px 16px', background: '#f8fafc', borderBottom: '1px solid #f1f5f9' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
+                  <span style={{ fontSize: 13, fontWeight: 700, color: '#0f172a' }}>
+                    O{oi + 1}. {okr.objective}
+                  </span>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                    <span style={{ fontSize: 10, color: '#94a3b8' }}>{okr.owner}</span>
+                    <span style={{
+                      fontSize: 12, fontWeight: 800,
+                      color: avgPct >= 80 ? '#10b981' : avgPct >= 60 ? '#6366f1' : '#f59e0b',
+                    }}>
+                      {avgPct}%
+                    </span>
+                  </div>
+                </div>
+                <Progress
+                  value={avgPct}
+                  color={avgPct >= 80 ? 'success' : avgPct >= 60 ? 'primary' : 'warning'}
+                  size="small"
+                />
+              </div>
+
+              {/* Key Results */}
+              <div style={{ display: 'flex', flexDirection: 'column' }}>
+                {okr.keyResults.map((kr, ki) => {
+                  const pct = kr.id === 'kr3'
+                    ? (kr.current === 0 ? 100 : Math.max(0, 100 - kr.current * 50))
+                    : Math.min(100, Math.round((kr.current / kr.target) * 100))
+                  return (
+                    <div
+                      key={kr.id}
+                      style={{
+                        padding: '10px 16px',
+                        borderBottom: ki < okr.keyResults.length - 1 ? '1px solid #f8fafc' : 'none',
+                      }}
+                    >
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
+                        <span style={{ fontSize: 12, color: '#475569' }}>
+                          KR{ki + 1}. {kr.label}
+                        </span>
+                        <span style={{ fontSize: 11, color: '#94a3b8' }}>
+                          {kr.current} / {kr.target} {kr.unit}
+                        </span>
+                      </div>
+                      <Progress value={pct} color={kr.color} size="small" />
+                    </div>
+                  )
+                })}
+              </div>
+            </div>
+          )
+        })}
+      </div>
+      <div style={{ marginTop: 14, fontSize: 11, color: '#94a3b8' }}>
+        Linear Goals 패턴 — OKR 키 결과 진행률 대시보드
+      </div>
+    </div>
+  )
+}
+
+export const Linear_OKR_키결과_진행률: Story = {
+  name: 'Linear Design - OKR 키 결과 진행률 대시보드',
+  render: () => <LinearOKRRender />,
+}

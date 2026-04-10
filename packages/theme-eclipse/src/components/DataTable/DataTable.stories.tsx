@@ -1470,3 +1470,506 @@ export const Tailwind_매출_요약_테이블: Story = {
   name: 'Tailwind UI - 요약 통계 행 포함 매출 테이블',
   render: () => <SalesSummaryTableRender />,
 }
+
+/* --------------------------------------------------------------------------
+   Linear Design 벤치마크: 이슈 트래커 테이블
+   Linear의 이슈 목록 뷰 — 우선순위 아이콘, 상태 배지, 담당자 아바타 조합 패턴.
+-------------------------------------------------------------------------- */
+type LinearIssue = {
+  id: string
+  priority: 'urgent' | 'high' | 'medium' | 'low'
+  title: string
+  status: 'backlog' | 'todo' | 'in-progress' | 'in-review' | 'done'
+  assignee: string
+  points: number
+}
+
+const LINEAR_ISSUES: LinearIssue[] = [
+  { id: 'ORB-421', priority: 'urgent', title: 'DataTable 정렬 오류 수정', status: 'in-progress', assignee: '김민지', points: 3 },
+  { id: 'ORB-418', priority: 'high', title: 'Toast 스택 애니메이션 구현', status: 'in-review', assignee: '이동욱', points: 5 },
+  { id: 'ORB-415', priority: 'high', title: 'TextArea 자동 높이 조절', status: 'todo', assignee: '박소연', points: 2 },
+  { id: 'ORB-412', priority: 'medium', title: 'Chip 컴포넌트 disabled 상태', status: 'backlog', assignee: '최준호', points: 1 },
+  { id: 'ORB-409', priority: 'medium', title: 'Modal 포커스 트랩 접근성', status: 'done', assignee: '정하은', points: 3 },
+  { id: 'ORB-405', priority: 'low', title: 'Storybook 문서 업데이트', status: 'done', assignee: '황태양', points: 1 },
+]
+
+const PRIORITY_CFG = {
+  urgent: { color: '#ef4444', label: '긴급', icon: '🔴' },
+  high:   { color: '#f59e0b', label: '높음', icon: '🟠' },
+  medium: { color: '#6366f1', label: '중간', icon: '🟡' },
+  low:    { color: '#94a3b8', label: '낮음', icon: '⚪' },
+} as const
+
+const LINEAR_STATUS_CFG = {
+  backlog:     { color: '#94a3b8', label: 'Backlog', bg: '#f8fafc' },
+  todo:        { color: '#6366f1', label: 'Todo', bg: '#eff6ff' },
+  'in-progress': { color: '#f59e0b', label: 'In Progress', bg: '#fffbeb' },
+  'in-review': { color: '#8b5cf6', label: 'In Review', bg: '#f5f3ff' },
+  done:        { color: '#10b981', label: 'Done', bg: '#f0fdf4' },
+} as const
+
+const LinearIssueTableRender = () => {
+  const [statusFilter, setStatusFilter] = React.useState<LinearIssue['status'] | 'all'>('all')
+
+  const filtered = statusFilter === 'all'
+    ? LINEAR_ISSUES
+    : LINEAR_ISSUES.filter((i) => i.status === statusFilter)
+
+  const issueColumns: ColumnDef<LinearIssue>[] = [
+    {
+      accessorKey: 'priority',
+      header: '',
+      cell: ({ row }) => {
+        const cfg = PRIORITY_CFG[row.original.priority]
+        return (
+          <span title={cfg.label} style={{ fontSize: '14px', cursor: 'default' }}>
+            {cfg.icon}
+          </span>
+        )
+      },
+    },
+    {
+      accessorKey: 'id',
+      header: 'ID',
+      cell: ({ row }) => (
+        <code style={{
+          fontFamily: 'monospace',
+          fontSize: '11px',
+          color: '#94a3b8',
+          letterSpacing: '0.04em',
+        }}>
+          {row.original.id}
+        </code>
+      ),
+    },
+    {
+      accessorKey: 'title',
+      header: '제목',
+      cell: ({ row }) => (
+        <span style={{
+          fontSize: '13px',
+          fontWeight: 500,
+          color: row.original.status === 'done' ? '#94a3b8' : '#1e293b',
+          textDecoration: row.original.status === 'done' ? 'line-through' : 'none',
+        }}>
+          {row.original.title}
+        </span>
+      ),
+    },
+    {
+      accessorKey: 'status',
+      header: '상태',
+      cell: ({ row }) => {
+        const cfg = LINEAR_STATUS_CFG[row.original.status]
+        return (
+          <span style={{
+            display: 'inline-flex', alignItems: 'center', gap: 5,
+            padding: '3px 8px', borderRadius: 20, fontSize: 11, fontWeight: 600,
+            color: cfg.color, background: cfg.bg, whiteSpace: 'nowrap',
+          }}>
+            <span style={{ width: 6, height: 6, borderRadius: '50%', background: cfg.color, flexShrink: 0 }} />
+            {cfg.label}
+          </span>
+        )
+      },
+    },
+    {
+      accessorKey: 'assignee',
+      header: '담당자',
+      cell: ({ row }) => (
+        <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: 12 }}>
+          <span style={{
+            width: 22, height: 22, borderRadius: '50%',
+            background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
+            color: '#fff', fontSize: '9px', fontWeight: 700,
+            display: 'inline-flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0,
+          }}>
+            {row.original.assignee.charAt(0)}
+          </span>
+          <span style={{ color: '#475569' }}>{row.original.assignee}</span>
+        </span>
+      ),
+    },
+    {
+      accessorKey: 'points',
+      header: 'Pt',
+      cell: ({ row }) => (
+        <span style={{
+          display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+          width: 22, height: 22, borderRadius: 6,
+          background: '#f1f5f9', fontSize: 11, fontWeight: 700, color: '#475569',
+        }}>
+          {row.original.points}
+        </span>
+      ),
+    },
+  ]
+
+  const statuses: Array<LinearIssue['status'] | 'all'> = ['all', 'backlog', 'todo', 'in-progress', 'in-review', 'done']
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 12, width: '100%', maxWidth: 680 }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <div>
+          <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>Issues</div>
+          <div style={{ fontSize: 12, color: '#94a3b8', marginTop: 2 }}>orbit-ui / Design System</div>
+        </div>
+        <div style={{ display: 'flex', gap: 4 }}>
+          {statuses.map((s) => {
+            const active = statusFilter === s
+            const cfg = s !== 'all' ? LINEAR_STATUS_CFG[s] : null
+            return (
+              <button
+                key={s}
+                onClick={() => setStatusFilter(s)}
+                style={{
+                  padding: '4px 10px', borderRadius: 6,
+                  border: `1px solid ${active ? (cfg?.color ?? '#6366f1') : '#e2e8f0'}`,
+                  background: active ? `${(cfg?.color ?? '#6366f1')}12` : '#fff',
+                  color: active ? (cfg?.color ?? '#6366f1') : '#64748b',
+                  fontSize: 11, fontWeight: active ? 700 : 400, cursor: 'pointer',
+                  whiteSpace: 'nowrap',
+                }}
+              >
+                {s === 'all' ? 'All' : LINEAR_STATUS_CFG[s].label}
+              </button>
+            )
+          })}
+        </div>
+      </div>
+      <DataTable columns={issueColumns as any} data={filtered as any} enableSorting={true} />
+      <div style={{ fontSize: 11, color: '#94a3b8' }}>
+        Linear Design 패턴 — 우선순위 아이콘 + 상태 배지 + 담당자 아바타
+      </div>
+    </div>
+  )
+}
+
+export const Linear_이슈_트래커: Story = {
+  name: 'Linear Design - 이슈 트래커 테이블',
+  render: () => <LinearIssueTableRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Figma Plugin UI 벤치마크: 레이어 패널 테이블
+   Figma의 레이어 목록처럼 계층형 레이어 이름 + 타입 아이콘 + 크기 + 가시성 제어
+-------------------------------------------------------------------------- */
+type FigmaLayer = {
+  id: string
+  depth: number
+  type: 'frame' | 'component' | 'group' | 'text' | 'rect'
+  name: string
+  width: number
+  height: number
+  visible: boolean
+  locked: boolean
+}
+
+const FIGMA_LAYERS: FigmaLayer[] = [
+  { id: 'l1', depth: 0, type: 'frame', name: 'Dashboard / Main', width: 1440, height: 900, visible: true, locked: false },
+  { id: 'l2', depth: 1, type: 'component', name: 'AppBar', width: 1440, height: 64, visible: true, locked: true },
+  { id: 'l3', depth: 1, type: 'group', name: 'Content Area', width: 1320, height: 780, visible: true, locked: false },
+  { id: 'l4', depth: 2, type: 'component', name: 'Sidebar Nav', width: 240, height: 780, visible: true, locked: false },
+  { id: 'l5', depth: 2, type: 'frame', name: 'Main Panel', width: 1040, height: 780, visible: true, locked: false },
+  { id: 'l6', depth: 3, type: 'text', name: 'Page Title', width: 240, height: 32, visible: true, locked: false },
+  { id: 'l7', depth: 3, type: 'rect', name: 'Card Background', width: 980, height: 200, visible: false, locked: false },
+]
+
+const LAYER_TYPE_CFG = {
+  frame:     { icon: '⬜', color: '#6366f1', label: 'Frame' },
+  component: { icon: '◆', color: '#8b5cf6', label: 'Component' },
+  group:     { icon: '▣', color: '#f59e0b', label: 'Group' },
+  text:      { icon: 'T', color: '#10b981', label: 'Text' },
+  rect:      { icon: '▬', color: '#94a3b8', label: 'Rectangle' },
+} as const
+
+const FigmaLayerTableRender = () => {
+  const [layers, setLayers] = React.useState(FIGMA_LAYERS)
+  const [selectedId, setSelectedId] = React.useState<string | null>('l5')
+
+  const toggleVisible = (id: string) => {
+    setLayers((prev) => prev.map((l) => l.id === id ? { ...l, visible: !l.visible } : l))
+  }
+
+  const toggleLocked = (id: string) => {
+    setLayers((prev) => prev.map((l) => l.id === id ? { ...l, locked: !l.locked } : l))
+  }
+
+  const layerColumns: ColumnDef<FigmaLayer>[] = [
+    {
+      accessorKey: 'name',
+      header: 'Layer',
+      cell: ({ row }) => {
+        const layer = row.original
+        const cfg = LAYER_TYPE_CFG[layer.type]
+        const isSelected = selectedId === layer.id
+        return (
+          <button
+            onClick={() => setSelectedId(layer.id)}
+            style={{
+              display: 'flex', alignItems: 'center', gap: 6,
+              paddingLeft: `${layer.depth * 16}px`,
+              background: 'none', border: 'none', cursor: 'pointer',
+              width: '100%', textAlign: 'left',
+            }}
+          >
+            <span style={{ fontSize: 11, color: cfg.color, width: 14, textAlign: 'center', flexShrink: 0 }}>
+              {cfg.icon}
+            </span>
+            <span style={{
+              fontSize: 12, fontWeight: isSelected ? 700 : 400,
+              color: layer.visible ? (isSelected ? '#6366f1' : '#1e293b') : '#cbd5e1',
+              fontStyle: layer.visible ? 'normal' : 'italic',
+            }}>
+              {layer.name}
+            </span>
+          </button>
+        )
+      },
+    },
+    {
+      id: 'size',
+      header: 'Size',
+      cell: ({ row }) => (
+        <span style={{ fontFamily: 'monospace', fontSize: 11, color: '#64748b', whiteSpace: 'nowrap' }}>
+          {row.original.width} × {row.original.height}
+        </span>
+      ),
+    },
+    {
+      id: 'visible',
+      header: '',
+      cell: ({ row }) => (
+        <button
+          onClick={() => toggleVisible(row.original.id)}
+          title={row.original.visible ? '숨기기' : '표시'}
+          style={{
+            background: 'none', border: 'none', cursor: 'pointer',
+            fontSize: 13, opacity: row.original.visible ? 1 : 0.4,
+          }}
+          aria-label={row.original.visible ? '레이어 숨기기' : '레이어 표시'}
+        >
+          👁
+        </button>
+      ),
+    },
+    {
+      id: 'locked',
+      header: '',
+      cell: ({ row }) => (
+        <button
+          onClick={() => toggleLocked(row.original.id)}
+          title={row.original.locked ? '잠금 해제' : '잠금'}
+          style={{
+            background: 'none', border: 'none', cursor: 'pointer',
+            fontSize: 13, opacity: row.original.locked ? 1 : 0.3,
+          }}
+          aria-label={row.original.locked ? '레이어 잠금 해제' : '레이어 잠금'}
+        >
+          🔒
+        </button>
+      ),
+    },
+  ]
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 12, width: '100%', maxWidth: 560 }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <div style={{ fontSize: 13, fontWeight: 700, color: '#0f172a' }}>Layers</div>
+        <div style={{ display: 'flex', gap: 8 }}>
+          {Object.entries(LAYER_TYPE_CFG).map(([type, cfg]) => (
+            <span key={type} style={{ display: 'flex', alignItems: 'center', gap: 4, fontSize: 10, color: '#94a3b8' }}>
+              <span style={{ color: cfg.color }}>{cfg.icon}</span>
+              {cfg.label}
+            </span>
+          ))}
+        </div>
+      </div>
+      <DataTable columns={layerColumns as any} data={layers as any} />
+      {selectedId && (
+        <div style={{
+          padding: '10px 14px', borderRadius: 8,
+          background: '#f5f3ff', border: '1px solid #c4b5fd',
+          fontSize: 12, color: '#4f46e5',
+        }}>
+          선택됨: <strong>{layers.find((l) => l.id === selectedId)?.name}</strong>
+          {' — '}눈 아이콘으로 가시성, 잠금 아이콘으로 잠금을 토글할 수 있습니다.
+        </div>
+      )}
+      <div style={{ fontSize: 11, color: '#94a3b8' }}>
+        Figma Plugin UI 패턴 — 레이어 패널: 타입 아이콘 + 깊이 들여쓰기 + 가시성/잠금 제어
+      </div>
+    </div>
+  )
+}
+
+export const Figma_레이어_패널: Story = {
+  name: 'Figma Plugin UI - 레이어 패널 테이블',
+  render: () => <FigmaLayerTableRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Linear + Figma Plugin UI 벤치마크: 로드맵 마일스톤 테이블
+   Linear의 Roadmap 뷰 — 분기별 이니셔티브, 진행률, 상태를 한 눈에 보여주는 패턴
+-------------------------------------------------------------------------- */
+type Milestone = {
+  id: string
+  quarter: string
+  initiative: string
+  owner: string
+  completion: number
+  status: 'on-track' | 'at-risk' | 'completed' | 'planned'
+  features: number
+}
+
+const ROADMAP_DATA: Milestone[] = [
+  { id: 'm1', quarter: 'Q1 2026', initiative: 'Design Token 시스템 고도화', owner: '김민지', completion: 100, status: 'completed', features: 12 },
+  { id: 'm2', quarter: 'Q1 2026', initiative: 'Storybook 8 마이그레이션', owner: '이동욱', completion: 87, status: 'on-track', features: 6 },
+  { id: 'm3', quarter: 'Q2 2026', initiative: 'Figma MCP 인테그레이션', owner: '박소연', completion: 42, status: 'at-risk', features: 8 },
+  { id: 'm4', quarter: 'Q2 2026', initiative: 'RTL 지원 및 i18n', owner: '최준호', completion: 18, status: 'at-risk', features: 15 },
+  { id: 'm5', quarter: 'Q3 2026', initiative: 'React Native 컴포넌트', owner: '정하은', completion: 0, status: 'planned', features: 24 },
+  { id: 'm6', quarter: 'Q3 2026', initiative: 'Orbit AI 컴포넌트 생성기', owner: '황태양', completion: 0, status: 'planned', features: 10 },
+]
+
+const MILESTONE_STATUS_CFG = {
+  'on-track':  { color: '#10b981', label: 'On Track', bg: '#f0fdf4' },
+  'at-risk':   { color: '#f59e0b', label: 'At Risk', bg: '#fffbeb' },
+  'completed': { color: '#6366f1', label: 'Completed', bg: '#eff6ff' },
+  'planned':   { color: '#94a3b8', label: 'Planned', bg: '#f8fafc' },
+} as const
+
+const RoadmapTableRender = () => {
+  const [quarterFilter, setQuarterFilter] = React.useState<string>('all')
+  const quarters = ['all', 'Q1 2026', 'Q2 2026', 'Q3 2026']
+
+  const filtered = quarterFilter === 'all'
+    ? ROADMAP_DATA
+    : ROADMAP_DATA.filter((m) => m.quarter === quarterFilter)
+
+  const milestoneColumns: ColumnDef<Milestone>[] = [
+    {
+      accessorKey: 'quarter',
+      header: '분기',
+      cell: ({ row }) => (
+        <span style={{
+          fontSize: 11, fontWeight: 700, color: '#6366f1',
+          padding: '2px 8px', borderRadius: 4,
+          background: '#eff6ff',
+        }}>
+          {row.original.quarter}
+        </span>
+      ),
+    },
+    {
+      accessorKey: 'initiative',
+      header: '이니셔티브',
+      cell: ({ row }) => (
+        <span style={{
+          fontSize: 13, fontWeight: 600,
+          color: row.original.status === 'completed' ? '#94a3b8' : '#1e293b',
+          textDecoration: row.original.status === 'completed' ? 'line-through' : 'none',
+        }}>
+          {row.original.initiative}
+        </span>
+      ),
+    },
+    {
+      accessorKey: 'owner',
+      header: '오너',
+      cell: ({ row }) => (
+        <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: 12, color: '#475569' }}>
+          <span style={{
+            width: 20, height: 20, borderRadius: '50%',
+            background: '#6366f1', color: '#fff',
+            fontSize: '8px', fontWeight: 700,
+            display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+          }}>
+            {row.original.owner.charAt(0)}
+          </span>
+          {row.original.owner}
+        </span>
+      ),
+    },
+    {
+      accessorKey: 'completion',
+      header: '진행률',
+      cell: ({ row }) => {
+        const pct = row.original.completion
+        const color = pct === 100 ? '#10b981' : pct >= 50 ? '#6366f1' : '#f59e0b'
+        return (
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8, minWidth: 120 }}>
+            <div style={{ flex: 1, height: 4, borderRadius: 4, background: '#f1f5f9', overflow: 'hidden' }}>
+              <div style={{ width: `${pct}%`, height: '100%', background: color, borderRadius: 4, transition: 'width 0.3s ease' }} />
+            </div>
+            <span style={{ fontSize: 11, fontWeight: 700, color, minWidth: 28, textAlign: 'right' }}>
+              {pct}%
+            </span>
+          </div>
+        )
+      },
+    },
+    {
+      accessorKey: 'status',
+      header: '상태',
+      cell: ({ row }) => {
+        const cfg = MILESTONE_STATUS_CFG[row.original.status]
+        return (
+          <span style={{
+            display: 'inline-flex', alignItems: 'center', gap: 4,
+            padding: '3px 8px', borderRadius: 20, fontSize: 11, fontWeight: 700,
+            color: cfg.color, background: cfg.bg, whiteSpace: 'nowrap',
+          }}>
+            <span style={{ width: 5, height: 5, borderRadius: '50%', background: cfg.color }} />
+            {cfg.label}
+          </span>
+        )
+      },
+    },
+    {
+      accessorKey: 'features',
+      header: 'Features',
+      cell: ({ row }) => (
+        <span style={{ fontSize: 12, fontWeight: 600, color: '#64748b' }}>
+          {row.original.features}개
+        </span>
+      ),
+    },
+  ]
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 12, width: '100%', maxWidth: 800 }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <div>
+          <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>Roadmap</div>
+          <div style={{ fontSize: 12, color: '#94a3b8', marginTop: 2 }}>orbit-ui — 2026 계획</div>
+        </div>
+        <div style={{ display: 'flex', gap: 4 }}>
+          {quarters.map((q) => (
+            <button
+              key={q}
+              onClick={() => setQuarterFilter(q)}
+              style={{
+                padding: '4px 10px', borderRadius: 6,
+                border: `1px solid ${quarterFilter === q ? '#6366f1' : '#e2e8f0'}`,
+                background: quarterFilter === q ? '#6366f112' : '#fff',
+                color: quarterFilter === q ? '#6366f1' : '#64748b',
+                fontSize: 11, fontWeight: quarterFilter === q ? 700 : 400, cursor: 'pointer',
+              }}
+            >
+              {q === 'all' ? 'All' : q}
+            </button>
+          ))}
+        </div>
+      </div>
+      <DataTable columns={milestoneColumns as any} data={filtered as any} enableSorting={true} />
+      <div style={{ fontSize: 11, color: '#94a3b8' }}>
+        Linear Roadmap + Figma Plugin UI 패턴 — 분기별 이니셔티브 진행률 테이블
+      </div>
+    </div>
+  )
+}
+
+export const Linear_Figma_로드맵_마일스톤: Story = {
+  name: 'Linear + Figma Plugin UI - 로드맵 마일스톤 테이블',
+  render: () => <RoadmapTableRender />,
+}

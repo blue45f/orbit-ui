@@ -25950,3 +25950,392 @@ export const AppleHIG107KanbanBoard: StoryObj = {
   },
   render: () => <KB107KanbanRender />,
 }
+
+/* ==========================================================================
+   Cycle 108 — Linear Design + Figma Plugin UI
+   Template: Sprint Review Dashboard
+   AppBar + Progress + DataTable + LabelBadge + Chip + SectionTitle + Divider
+   ========================================================================== */
+type C108Issue = {
+  id: string
+  title: string
+  status: 'done' | 'in-progress' | 'cancelled'
+  points: number
+  owner: string
+  label: 'feat' | 'fix' | 'docs' | 'chore'
+}
+
+const C108_ISSUES: C108Issue[] = [
+  { id: 'ORB-421', title: 'DataTable 정렬 오류 수정', status: 'done', points: 3, owner: '김민지', label: 'fix' },
+  { id: 'ORB-418', title: 'Toast 스택 애니메이션', status: 'done', points: 5, owner: '이동욱', label: 'feat' },
+  { id: 'ORB-415', title: 'TextArea 자동 높이 조절', status: 'done', points: 2, owner: '박소연', label: 'feat' },
+  { id: 'ORB-412', title: 'Chip disabled 상태 구현', status: 'in-progress', points: 1, owner: '최준호', label: 'feat' },
+  { id: 'ORB-409', title: 'Modal 포커스 트랩 접근성', status: 'done', points: 3, owner: '정하은', label: 'fix' },
+  { id: 'ORB-405', title: 'Storybook MDX 문서', status: 'done', points: 1, owner: '황태양', label: 'docs' },
+  { id: 'ORB-401', title: '다국어 토큰 실험', status: 'cancelled', points: 2, owner: '김민지', label: 'chore' },
+]
+
+const C108_LABEL_COLOR: Record<C108Issue['label'], string> = {
+  feat: '#6366f1',
+  fix: '#10b981',
+  docs: '#f59e0b',
+  chore: '#94a3b8',
+}
+
+const C108_STATUS_CFG = {
+  done:        { color: '#10b981', label: 'Done', bg: '#f0fdf4' },
+  'in-progress': { color: '#6366f1', label: 'In Progress', bg: '#eff6ff' },
+  cancelled:   { color: '#94a3b8', label: 'Cancelled', bg: '#f8fafc' },
+} as const
+
+function C108SprintReviewRender() {
+  const [tab, setTab] = useState<'overview' | 'issues' | 'retro'>('overview')
+  const [retroItems, setRetroItems] = useState([
+    { id: 'r1', category: 'good', text: '스토리북 배포 자동화 완성' },
+    { id: 'r2', category: 'good', text: 'TypeScript 에러 0건 유지' },
+    { id: 'r3', category: 'improve', text: '코드 리뷰 SLA 단축 필요' },
+    { id: 'r4', category: 'improve', text: 'QA 사이클 부족' },
+    { id: 'r5', category: 'action', text: 'PR 템플릿 업데이트' },
+  ])
+  const [newRetro, setNewRetro] = useState('')
+  const [retroCat, setRetroCat] = useState<'good' | 'improve' | 'action'>('good')
+
+  const doneIssues = C108_ISSUES.filter((i) => i.status === 'done')
+  const inProgressIssues = C108_ISSUES.filter((i) => i.status === 'in-progress')
+  const cancelledIssues = C108_ISSUES.filter((i) => i.status === 'cancelled')
+  const donePoints = doneIssues.reduce((s, i) => s + i.points, 0)
+  const totalPoints = C108_ISSUES.filter((i) => i.status !== 'cancelled').reduce((s, i) => s + i.points, 0)
+  const completionPct = Math.round((donePoints / totalPoints) * 100)
+
+  const RETRO_CFG = {
+    good:    { label: 'Well Done 👍', color: '#10b981', bg: '#f0fdf4' },
+    improve: { label: '개선점 🔧', color: '#f59e0b', bg: '#fffbeb' },
+    action:  { label: 'Action Item ✅', color: '#6366f1', bg: '#eff6ff' },
+  } as const
+
+  const addRetro = () => {
+    if (!newRetro.trim()) return
+    setRetroItems((prev) => [
+      ...prev,
+      { id: `r${Date.now()}`, category: retroCat, text: newRetro.trim() },
+    ])
+    setNewRetro('')
+  }
+
+  return (
+    <div style={{ minHeight: '100vh', background: '#f8fafc', fontFamily: 'system-ui, sans-serif' }}>
+      {/* AppBar */}
+      <AppBar>
+        <AppBar.Leading>
+          <SectionTitle>Sprint Review — Cycle 12</SectionTitle>
+        </AppBar.Leading>
+        <AppBar.Trailing>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            <LabelBadge color="benefit">
+              <LabelBadge.Label>완료</LabelBadge.Label>
+            </LabelBadge>
+            <CounterBadge>{C108_ISSUES.length}</CounterBadge>
+          </div>
+        </AppBar.Trailing>
+      </AppBar>
+
+      <div style={{ maxWidth: 860, margin: '0 auto', padding: '24px 16px' }}>
+        {/* 탭 내비게이션 */}
+        <div style={{ display: 'flex', gap: 4, marginBottom: 20, borderBottom: '1px solid #e2e8f0', paddingBottom: 0 }}>
+          {(['overview', 'issues', 'retro'] as const).map((t) => (
+            <button
+              key={t}
+              onClick={() => setTab(t)}
+              style={{
+                padding: '8px 16px',
+                borderRadius: '8px 8px 0 0',
+                border: 'none',
+                background: tab === t ? '#fff' : 'transparent',
+                color: tab === t ? '#6366f1' : '#64748b',
+                fontWeight: tab === t ? 700 : 400,
+                fontSize: 13,
+                cursor: 'pointer',
+                borderBottom: tab === t ? '2px solid #6366f1' : '2px solid transparent',
+                marginBottom: -1,
+              }}
+            >
+              {t === 'overview' ? '📊 Overview' : t === 'issues' ? '🎯 Issues' : '💬 Retrospective'}
+            </button>
+          ))}
+        </div>
+
+        {/* Overview 탭 */}
+        {tab === 'overview' && (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
+            {/* KPI 카드 */}
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 12 }}>
+              {[
+                { label: '완료 이슈', value: `${doneIssues.length}`, sub: `/ ${C108_ISSUES.length}개`, color: '#10b981' },
+                { label: '완료 포인트', value: `${donePoints}`, sub: `/ ${totalPoints}pt`, color: '#6366f1' },
+                { label: '진행 중', value: `${inProgressIssues.length}`, sub: '이슈', color: '#f59e0b' },
+                { label: '취소', value: `${cancelledIssues.length}`, sub: '이슈', color: '#94a3b8' },
+              ].map((kpi) => (
+                <div
+                  key={kpi.label}
+                  style={{
+                    padding: '16px',
+                    borderRadius: 12,
+                    border: '1px solid #e2e8f0',
+                    background: '#fff',
+                  }}
+                >
+                  <div style={{ fontSize: 11, color: '#94a3b8', marginBottom: 6 }}>{kpi.label}</div>
+                  <div style={{ fontSize: 24, fontWeight: 800, color: kpi.color, lineHeight: 1 }}>{kpi.value}</div>
+                  <div style={{ fontSize: 11, color: '#cbd5e1', marginTop: 4 }}>{kpi.sub}</div>
+                </div>
+              ))}
+            </div>
+
+            {/* 진행률 카드 */}
+            <div style={{ padding: '20px', borderRadius: 12, border: '1px solid #e2e8f0', background: '#fff' }}>
+              <SectionTitle>Sprint 완료율</SectionTitle>
+              <div style={{ height: 12 }} />
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 }}>
+                <span style={{ fontSize: 13, color: '#64748b' }}>스토리 포인트 기준</span>
+                <span style={{ fontSize: 20, fontWeight: 800, color: completionPct >= 80 ? '#10b981' : '#6366f1' }}>
+                  {completionPct}%
+                </span>
+              </div>
+              <Progress value={completionPct} color={completionPct >= 80 ? 'success' : 'primary'} size="large" />
+              <div style={{ marginTop: 10, display: 'flex', gap: 16, fontSize: 12, color: '#94a3b8' }}>
+                <span>✅ 완료 {donePoints}pt</span>
+                <span>🔄 진행 중 {inProgressIssues.reduce((s, i) => s + i.points, 0)}pt</span>
+                <span>❌ 취소 {cancelledIssues.reduce((s, i) => s + i.points, 0)}pt</span>
+              </div>
+            </div>
+
+            {/* 담당자별 완료 현황 */}
+            <div style={{ padding: '20px', borderRadius: 12, border: '1px solid #e2e8f0', background: '#fff' }}>
+              <SectionTitle>담당자별 기여도</SectionTitle>
+              <div style={{ height: 12 }} />
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+                {Array.from(new Set(C108_ISSUES.map((i) => i.owner))).map((owner) => {
+                  const ownerIssues = C108_ISSUES.filter((i) => i.owner === owner)
+                  const ownerDone = ownerIssues.filter((i) => i.status === 'done')
+                  const ownerPct = Math.round((ownerDone.length / ownerIssues.length) * 100)
+                  return (
+                    <div key={owner} style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                      <div style={{
+                        width: 28, height: 28, borderRadius: '50%',
+                        background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
+                        color: '#fff', fontSize: 11, fontWeight: 700,
+                        display: 'flex', alignItems: 'center', justifyContent: 'center',
+                        flexShrink: 0,
+                      }}>
+                        {owner.charAt(0)}
+                      </div>
+                      <div style={{ flex: 1 }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 4 }}>
+                          <span style={{ fontSize: 12, fontWeight: 600, color: '#1e293b' }}>{owner}</span>
+                          <span style={{ fontSize: 11, color: '#94a3b8' }}>
+                            {ownerDone.length}/{ownerIssues.length}
+                          </span>
+                        </div>
+                        <Progress
+                          value={ownerPct}
+                          color={ownerPct === 100 ? 'success' : 'primary'}
+                          size="small"
+                        />
+                      </div>
+                    </div>
+                  )
+                })}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Issues 탭 */}
+        {tab === 'issues' && (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+            <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+              {Object.entries(C108_STATUS_CFG).map(([key, cfg]) => {
+                const count = C108_ISSUES.filter((i) => i.status === key).length
+                return (
+                  <span
+                    key={key}
+                    style={{
+                      display: 'inline-flex', alignItems: 'center', gap: 4,
+                      padding: '4px 12px', borderRadius: 20, fontSize: 12, fontWeight: 600,
+                      background: cfg.bg, color: cfg.color, border: `1px solid ${cfg.color}30`,
+                    }}
+                  >
+                    <span style={{ width: 6, height: 6, borderRadius: '50%', background: cfg.color }} />
+                    {cfg.label} ({count})
+                  </span>
+                )
+              })}
+            </div>
+            <Divider />
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+              {C108_ISSUES.map((issue) => {
+                const cfg = C108_STATUS_CFG[issue.status]
+                return (
+                  <div
+                    key={issue.id}
+                    style={{
+                      padding: '12px 16px',
+                      borderRadius: 10,
+                      border: '1px solid #e2e8f0',
+                      background: '#fff',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 12,
+                      opacity: issue.status === 'cancelled' ? 0.5 : 1,
+                    }}
+                  >
+                    <code style={{ fontSize: 11, color: '#94a3b8', minWidth: 60, fontFamily: 'monospace' }}>
+                      {issue.id}
+                    </code>
+                    <span style={{
+                      flex: 1, fontSize: 13, fontWeight: 500,
+                      color: issue.status === 'done' ? '#94a3b8' : '#1e293b',
+                      textDecoration: issue.status === 'done' ? 'line-through' : issue.status === 'cancelled' ? 'line-through' : 'none',
+                    }}>
+                      {issue.title}
+                    </span>
+                    <span style={{
+                      fontSize: 10, fontWeight: 700, padding: '2px 8px', borderRadius: 12,
+                      background: C108_LABEL_COLOR[issue.label] + '14',
+                      color: C108_LABEL_COLOR[issue.label],
+                    }}>
+                      {issue.label}
+                    </span>
+                    <span style={{
+                      fontSize: 11, fontWeight: 600, padding: '2px 8px', borderRadius: 6,
+                      background: cfg.bg, color: cfg.color, whiteSpace: 'nowrap',
+                    }}>
+                      {cfg.label}
+                    </span>
+                    <span style={{
+                      fontSize: 11, fontWeight: 700,
+                      width: 24, height: 24, borderRadius: 6,
+                      background: '#f1f5f9', color: '#475569',
+                      display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      flexShrink: 0,
+                    }}>
+                      {issue.points}
+                    </span>
+                  </div>
+                )
+              })}
+            </div>
+          </div>
+        )}
+
+        {/* Retro 탭 */}
+        {tab === 'retro' && (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+            {/* 추가 입력 */}
+            <div style={{ padding: '16px', borderRadius: 12, border: '1px solid #e2e8f0', background: '#fff' }}>
+              <SectionTitle>회고 추가</SectionTitle>
+              <div style={{ height: 10 }} />
+              <div style={{ display: 'flex', gap: 8, marginBottom: 8 }}>
+                {(['good', 'improve', 'action'] as const).map((cat) => (
+                  <button
+                    key={cat}
+                    onClick={() => setRetroCat(cat)}
+                    style={{
+                      padding: '5px 12px', borderRadius: 20,
+                      border: `1.5px solid ${retroCat === cat ? RETRO_CFG[cat].color : '#e2e8f0'}`,
+                      background: retroCat === cat ? RETRO_CFG[cat].bg : '#fff',
+                      color: retroCat === cat ? RETRO_CFG[cat].color : '#64748b',
+                      fontSize: 12, fontWeight: retroCat === cat ? 700 : 400, cursor: 'pointer',
+                    }}
+                  >
+                    {RETRO_CFG[cat].label}
+                  </button>
+                ))}
+              </div>
+              <div style={{ display: 'flex', gap: 8 }}>
+                <input
+                  value={newRetro}
+                  onChange={(e) => setNewRetro(e.target.value)}
+                  onKeyDown={(e) => { if (e.key === 'Enter') addRetro() }}
+                  placeholder="회고 내용을 입력하세요..."
+                  style={{
+                    flex: 1, padding: '8px 12px', borderRadius: 8,
+                    border: '1.5px solid #e2e8f0', fontSize: 13, outline: 'none',
+                  }}
+                  aria-label="회고 내용"
+                />
+                <button
+                  onClick={addRetro}
+                  style={{
+                    padding: '8px 16px', borderRadius: 8, border: 'none',
+                    background: '#6366f1', color: '#fff', fontSize: 13, fontWeight: 700, cursor: 'pointer',
+                  }}
+                >
+                  추가
+                </button>
+              </div>
+            </div>
+
+            {/* 카테고리별 회고 */}
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 12 }}>
+              {(['good', 'improve', 'action'] as const).map((cat) => {
+                const items = retroItems.filter((r) => r.category === cat)
+                const cfg = RETRO_CFG[cat]
+                return (
+                  <div
+                    key={cat}
+                    style={{
+                      borderRadius: 12, border: `1.5px solid ${cfg.color}30`,
+                      background: cfg.bg, overflow: 'hidden',
+                    }}
+                  >
+                    <div style={{
+                      padding: '10px 14px', borderBottom: `1px solid ${cfg.color}20`,
+                      fontSize: 12, fontWeight: 700, color: cfg.color,
+                    }}>
+                      {cfg.label} ({items.length})
+                    </div>
+                    <div style={{ padding: '10px 14px', display: 'flex', flexDirection: 'column', gap: 8 }}>
+                      {items.map((item) => (
+                        <div
+                          key={item.id}
+                          style={{
+                            padding: '8px 10px', borderRadius: 8,
+                            background: '#fff', border: `1px solid ${cfg.color}20`,
+                            fontSize: 12, color: '#1e293b', lineHeight: 1.5,
+                          }}
+                        >
+                          {item.text}
+                        </div>
+                      ))}
+                      {items.length === 0 && (
+                        <div style={{ fontSize: 12, color: '#cbd5e1', textAlign: 'center', padding: '8px 0' }}>
+                          항목 없음
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+
+export const Linear108SprintReview: StoryObj = {
+  name: 'Linear + Figma Plugin UI — Sprint Review Dashboard (Cycle 108)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Linear Design + Figma Plugin UI 벤치마크 — Cycle 108. ' +
+          '스프린트 리뷰 대시보드: Overview(KPI 카드 + Progress + 담당자 기여도) / Issues(상태 Chip + 이슈 목록) / Retro(3열 회고 보드 + 회고 추가). ' +
+          'AppBar, Progress, LabelBadge, Chip, Divider, SectionTitle, CounterBadge 복합 활용.',
+      },
+    },
+  },
+  render: () => <C108SprintReviewRender />,
+}
