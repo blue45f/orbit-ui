@@ -944,3 +944,291 @@ export const Shadcn_월별_지출_추적기: Story = {
   },
   render: () => <ShadcnExpenseTrackerRender />,
 }
+
+/* --------------------------------------------------------------------------
+   Chakra UI 벤치마크: 예약 가능 시간 슬롯 선택
+   Chakra UI의 SimpleGrid + Badge 패턴을 활용한 날짜+시간 선택 플로우
+-------------------------------------------------------------------------- */
+const TIME_SLOTS = ['09:00', '10:00', '11:00', '13:00', '14:00', '15:00', '16:00', '17:00']
+const BOOKED = new Set(['10:00', '13:00', '16:00'])
+
+function ChakraTimeSlotPickerRender() {
+  const [date, setDate] = React.useState<Date | undefined>()
+  const [slot, setSlot] = React.useState<string | null>(null)
+  const [confirmed, setConfirmed] = React.useState(false)
+
+  const handleConfirm = () => {
+    if (date && slot) setConfirmed(true)
+  }
+
+  const reset = () => {
+    setDate(undefined)
+    setSlot(null)
+    setConfirmed(false)
+  }
+
+  return (
+    <div style={{ display: 'flex', gap: 24, flexWrap: 'wrap', alignItems: 'flex-start' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+        <div style={{ fontSize: 12, fontWeight: 700, color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.06em' }}>날짜 선택</div>
+        <Calendar
+          mode="single"
+          selected={date}
+          onSelect={(d) => { setDate(d); setSlot(null); setConfirmed(false) }}
+          disabled={(d) => d < new Date(new Date().setHours(0, 0, 0, 0))}
+        />
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 16, minWidth: 200 }}>
+        <div>
+          <div style={{ fontSize: 12, fontWeight: 700, color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 10 }}>시간 선택</div>
+          {date ? (
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
+              {TIME_SLOTS.map((t) => {
+                const isBooked = BOOKED.has(t)
+                const isSelected = slot === t
+                return (
+                  <button
+                    key={t}
+                    disabled={isBooked}
+                    onClick={() => { setSlot(t); setConfirmed(false) }}
+                    style={{
+                      padding: '8px 0',
+                      borderRadius: 8,
+                      border: `2px solid ${isSelected ? '#6366f1' : isBooked ? '#f1f5f9' : '#e2e8f0'}`,
+                      background: isSelected ? '#eef2ff' : isBooked ? '#f8fafc' : '#fff',
+                      color: isSelected ? '#6366f1' : isBooked ? '#cbd5e1' : '#334155',
+                      fontSize: 13,
+                      fontWeight: isSelected ? 700 : 500,
+                      cursor: isBooked ? 'not-allowed' : 'pointer',
+                      transition: 'all 0.12s',
+                      textDecoration: isBooked ? 'line-through' : 'none',
+                    }}
+                  >
+                    {t}
+                  </button>
+                )
+              })}
+            </div>
+          ) : (
+            <div style={{ fontSize: 13, color: '#94a3b8', padding: '12px 0' }}>날짜를 먼저 선택하세요</div>
+          )}
+        </div>
+        {date && slot && (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+            {confirmed ? (
+              <div style={{ padding: '12px 16px', borderRadius: 10, background: '#f0fdf4', border: '1.5px solid #bbf7d0', fontSize: 13, color: '#16a34a', fontWeight: 600 }}>
+                {date.toLocaleDateString('ko-KR', { month: 'long', day: 'numeric' })} {slot} 예약 완료
+              </div>
+            ) : (
+              <button
+                onClick={handleConfirm}
+                style={{ padding: '10px', borderRadius: 10, border: 'none', background: '#6366f1', color: '#fff', fontSize: 14, fontWeight: 700, cursor: 'pointer' }}
+              >
+                {date.toLocaleDateString('ko-KR', { month: 'long', day: 'numeric' })} {slot} 예약
+              </button>
+            )}
+            <button onClick={reset} style={{ padding: '8px', borderRadius: 8, border: '1px solid #e2e8f0', background: '#fff', color: '#64748b', fontSize: 12, cursor: 'pointer' }}>
+              초기화
+            </button>
+          </div>
+        )}
+        <div style={{ fontSize: 11, color: '#94a3b8' }}>취소선 = 예약 불가</div>
+      </div>
+    </div>
+  )
+}
+
+export const Chakra_예약_시간_슬롯_선택기: Story = {
+  name: 'Chakra UI - 날짜·시간 슬롯 예약 선택기',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Chakra UI SimpleGrid + Badge 패턴. 날짜 선택 후 시간 슬롯 그리드를 표시합니다. ' +
+          '예약 불가 슬롯은 비활성화, 선택된 슬롯은 강조 표시됩니다.',
+      },
+    },
+  },
+  render: () => <ChakraTimeSlotPickerRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Chakra UI 벤치마크: 날짜 기반 작업 플래너
+   Chakra UI의 Stack + Checkbox 조합 패턴 — 날짜 선택 + 할 일 관리
+-------------------------------------------------------------------------- */
+type PlannerTask = { id: number; text: string; done: boolean }
+
+function ChakraTaskPlannerRender() {
+  const [date, setDate] = React.useState<Date | undefined>(new Date())
+  const [tasks, setTasks] = React.useState<Record<string, PlannerTask[]>>({})
+  const [input, setInput] = React.useState('')
+
+  const dayKey = (d: Date) => d.toISOString().split('T')[0]
+  const currentKey = date ? dayKey(date) : ''
+  const currentTasks = currentKey ? (tasks[currentKey] ?? []) : []
+
+  const addTask = () => {
+    if (!input.trim() || !currentKey) return
+    setTasks((prev) => ({
+      ...prev,
+      [currentKey]: [...(prev[currentKey] ?? []), { id: Date.now(), text: input.trim(), done: false }],
+    }))
+    setInput('')
+  }
+
+  const toggleTask = (id: number) => {
+    setTasks((prev) => ({
+      ...prev,
+      [currentKey]: (prev[currentKey] ?? []).map((t) => (t.id === id ? { ...t, done: !t.done } : t)),
+    }))
+  }
+
+  const daysWithTasks = new Set(Object.keys(tasks).filter((k) => tasks[k].length > 0))
+
+  return (
+    <div style={{ display: 'flex', gap: 24, flexWrap: 'wrap', alignItems: 'flex-start' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+        <div style={{ fontSize: 12, fontWeight: 700, color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.06em' }}>날짜</div>
+        <Calendar
+          mode="single"
+          selected={date}
+          onSelect={setDate}
+          modifiers={{ hasTasks: Array.from(daysWithTasks).map((k) => new Date(k)) }}
+          modifiersStyles={{ hasTasks: { fontWeight: 800, color: '#6366f1', textDecoration: 'underline', textUnderlineOffset: 3 } }}
+        />
+      </div>
+      <div style={{ flex: 1, minWidth: 220, display: 'flex', flexDirection: 'column', gap: 12 }}>
+        <div style={{ fontSize: 13, fontWeight: 700, color: '#1e293b' }}>
+          {date ? date.toLocaleDateString('ko-KR', { month: 'long', day: 'numeric', weekday: 'short' }) : '날짜 선택'}
+          <span style={{ marginLeft: 8, fontSize: 11, color: '#94a3b8', fontWeight: 500 }}>
+            {currentTasks.length > 0 ? `${currentTasks.filter((t) => t.done).length}/${currentTasks.length} 완료` : ''}
+          </span>
+        </div>
+        <div style={{ display: 'flex', gap: 8 }}>
+          <input
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            onKeyDown={(e) => e.key === 'Enter' && addTask()}
+            placeholder="할 일 추가..."
+            disabled={!date}
+            style={{ flex: 1, padding: '8px 12px', borderRadius: 8, border: '1.5px solid #e2e8f0', fontSize: 13, color: '#1e293b', outline: 'none' }}
+          />
+          <button onClick={addTask} disabled={!date || !input.trim()} style={{ padding: '8px 14px', borderRadius: 8, border: 'none', background: '#6366f1', color: '#fff', fontSize: 13, fontWeight: 700, cursor: 'pointer', opacity: !date || !input.trim() ? 0.4 : 1 }}>
+            추가
+          </button>
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+          {currentTasks.length === 0 && (
+            <div style={{ fontSize: 13, color: '#94a3b8', padding: '8px 0' }}>이 날 할 일이 없습니다.</div>
+          )}
+          {currentTasks.map((task) => (
+            <div
+              key={task.id}
+              onClick={() => toggleTask(task.id)}
+              style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 12px', borderRadius: 8, border: '1px solid #f1f5f9', background: task.done ? '#f0fdf4' : '#fff', cursor: 'pointer' }}
+            >
+              <div style={{ width: 18, height: 18, borderRadius: 4, border: `2px solid ${task.done ? '#10b981' : '#d1d5db'}`, background: task.done ? '#10b981' : '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                {task.done && <span style={{ fontSize: 10, color: '#fff', fontWeight: 900 }}>✓</span>}
+              </div>
+              <span style={{ fontSize: 13, color: task.done ? '#94a3b8' : '#1e293b', textDecoration: task.done ? 'line-through' : 'none' }}>{task.text}</span>
+            </div>
+          ))}
+        </div>
+        <div style={{ fontSize: 11, color: '#94a3b8' }}>밑줄 날짜 = 할 일 있음</div>
+      </div>
+    </div>
+  )
+}
+
+export const Chakra_날짜별_작업_플래너: Story = {
+  name: 'Chakra UI - 날짜 기반 작업 플래너',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Chakra UI Stack + Checkbox 조합 패턴. 날짜 선택 후 해당 날짜의 할 일을 추가·완료 처리합니다. ' +
+          'modifiers로 할 일이 있는 날짜에 밑줄 표시합니다.',
+      },
+    },
+  },
+  render: () => <ChakraTaskPlannerRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Chakra UI 벤치마크: 생년월일 검증 입력기
+   Chakra UI의 FormControl + FormErrorMessage 패턴 — 날짜 유효성 검사 포함
+-------------------------------------------------------------------------- */
+function ChakraBirthDatePickerRender() {
+  const today = new Date()
+  const [selected, setSelected] = React.useState<Date | undefined>()
+  const [submitted, setSubmitted] = React.useState(false)
+
+  const minDate = new Date(today.getFullYear() - 120, today.getMonth(), today.getDate())
+  const maxDate = new Date(today.getFullYear() - 14, today.getMonth(), today.getDate())
+
+  const ageYears = selected ? Math.floor((today.getTime() - selected.getTime()) / (365.25 * 24 * 3600 * 1000)) : null
+  const isValid = selected !== undefined && selected >= minDate && selected <= maxDate
+  const error = submitted && !isValid
+    ? selected === undefined ? '생년월일을 선택하세요.' : '14세 이상 120세 이하만 가입 가능합니다.'
+    : null
+
+  return (
+    <div style={{ display: 'flex', gap: 24, flexWrap: 'wrap', alignItems: 'flex-start', maxWidth: 600 }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+        <div style={{ fontSize: 12, fontWeight: 700, color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.06em' }}>생년월일</div>
+        <div style={{ border: `2px solid ${error ? '#ef4444' : selected ? '#6366f1' : '#e2e8f0'}`, borderRadius: 12, padding: 4, transition: 'border-color 0.15s' }}>
+          <Calendar
+            mode="single"
+            selected={selected}
+            onSelect={(d) => { setSelected(d); setSubmitted(false) }}
+            disabled={(d) => d > maxDate || d < minDate}
+            fromYear={today.getFullYear() - 120}
+            toYear={today.getFullYear() - 14}
+            captionLayout="dropdown"
+          />
+        </div>
+        {error && (
+          <div style={{ fontSize: 12, color: '#ef4444', display: 'flex', alignItems: 'center', gap: 4 }}>
+            <span>!</span> {error}
+          </div>
+        )}
+        {selected && isValid && ageYears !== null && (
+          <div style={{ fontSize: 12, color: '#10b981', fontWeight: 600 }}>
+            만 {ageYears}세 · 가입 가능
+          </div>
+        )}
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 16, paddingTop: 28 }}>
+        <div style={{ padding: '14px 18px', borderRadius: 10, border: '1.5px solid #e2e8f0', background: '#f8fafc', fontSize: 13, color: '#64748b', lineHeight: 1.6, maxWidth: 220 }}>
+          <strong style={{ color: '#1e293b', display: 'block', marginBottom: 4 }}>안내사항</strong>
+          14세 미만 또는 120세 초과는 선택 불가합니다. 드롭다운으로 연도를 빠르게 선택할 수 있습니다.
+        </div>
+        <button
+          onClick={() => setSubmitted(true)}
+          style={{ padding: '10px 24px', borderRadius: 10, border: 'none', background: '#6366f1', color: '#fff', fontSize: 14, fontWeight: 700, cursor: 'pointer' }}
+        >
+          확인
+        </button>
+        {submitted && isValid && selected && (
+          <div style={{ padding: '10px 16px', borderRadius: 10, background: '#f0fdf4', border: '1.5px solid #bbf7d0', fontSize: 13, color: '#16a34a', fontWeight: 600 }}>
+            {selected.toLocaleDateString('ko-KR')} 확인됨 (만 {ageYears}세)
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+
+export const Chakra_생년월일_유효성_검사: Story = {
+  name: 'Chakra UI - 생년월일 유효성 검사 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Chakra UI FormControl + FormErrorMessage 패턴. captionLayout="dropdown"으로 연도를 빠르게 선택하고 ' +
+          '14세 미만·120세 초과 날짜를 비활성화합니다. 제출 시 유효성 오류를 인라인으로 표시합니다.',
+      },
+    },
+  },
+  render: () => <ChakraBirthDatePickerRender />,
+}

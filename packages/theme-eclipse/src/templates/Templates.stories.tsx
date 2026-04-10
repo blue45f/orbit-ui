@@ -21880,3 +21880,265 @@ export const AntAnalyticsDashboard: Story = {
   },
   render: () => <Ant78AnalyticsDashboardRender />,
 }
+
+/* =====================================================================
+   Chakra UI 벤치마크 — User Profile Page (Cycle 90)
+   Chakra UI의 Flex + Stack + Avatar + Badge 패턴을 반영한 사용자 프로필 페이지
+   Calendar(활동 히트맵 대용), Progress(스킬 게이지), LabelBadge, SolidButton 통합
+   ===================================================================== */
+
+const CHAKRA90_SKILLS = [
+  { name: 'TypeScript', level: 92 },
+  { name: 'React', level: 88 },
+  { name: 'Design Systems', level: 80 },
+  { name: 'Accessibility', level: 72 },
+  { name: 'CSS-in-JS', level: 85 },
+]
+
+const CHAKRA90_TABS = ['개요', '프로젝트', '활동', '설정'] as const
+type Chakra90Tab = typeof CHAKRA90_TABS[number]
+
+const CHAKRA90_PROJECTS = [
+  { name: 'Orbit UI Design System', role: '오너', status: '진행 중', color: '#6366f1' },
+  { name: 'Eclipse Theme Package', role: '기여자', status: '완료', color: '#10b981' },
+  { name: 'Icon Catalog Generator', role: '오너', status: '계획', color: '#f59e0b' },
+  { name: 'Storybook Benchmark Suite', role: '기여자', status: '진행 중', color: '#6366f1' },
+]
+
+const CHAKRA90_ACTIVITY = [
+  { date: new Date(2026, 3, 1), count: 3 },
+  { date: new Date(2026, 3, 3), count: 7 },
+  { date: new Date(2026, 3, 5), count: 2 },
+  { date: new Date(2026, 3, 7), count: 9 },
+  { date: new Date(2026, 3, 9), count: 5 },
+]
+
+const Chakra90UserProfileRender = () => {
+  const [activeTab, setActiveTab] = React.useState<Chakra90Tab>('개요')
+  const [following, setFollowing] = React.useState(false)
+  const [calDate, setCalDate] = React.useState<Date | undefined>(new Date(2026, 3, 7))
+
+  const activityDates = CHAKRA90_ACTIVITY.map((a) => a.date)
+  const selectedActivity = calDate
+    ? CHAKRA90_ACTIVITY.find((a) => a.date.toDateString() === calDate.toDateString())
+    : null
+
+  return (
+    <div style={{ minHeight: '100vh', background: 'var(--sem-eclipse-color-backgroundSecondary)', display: 'flex', flexDirection: 'column' }}>
+      {/* Top AppBar */}
+      <AppBar>
+        <AppBar.Leading>
+          <span style={{ fontWeight: 800, fontSize: 15, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>Orbit UI</span>
+        </AppBar.Leading>
+        <AppBar.Trailing>
+          <SolidButton color="primary" size="small">
+            <SolidButton.Center>+ 새 프로젝트</SolidButton.Center>
+          </SolidButton>
+        </AppBar.Trailing>
+      </AppBar>
+
+      <div style={{ flex: 1, maxWidth: 960, margin: '0 auto', width: '100%', padding: '24px 20px', display: 'flex', flexDirection: 'column', gap: 20 }}>
+        {/* Profile Card */}
+        <div style={{ background: 'var(--sem-eclipse-color-backgroundPrimary)', borderRadius: 16, padding: 24, border: '1px solid var(--sem-eclipse-color-borderSubtle)', display: 'flex', gap: 20, flexWrap: 'wrap', alignItems: 'flex-start' }}>
+          <Avatar style={{ width: 72, height: 72, fontSize: 24 }}>
+            <Avatar.Image alt="김희준" />
+            <Avatar.Fallback>HJ</Avatar.Fallback>
+          </Avatar>
+          <div style={{ flex: 1, minWidth: 200 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap', marginBottom: 4 }}>
+              <span style={{ fontSize: 20, fontWeight: 800, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>김희준</span>
+              <LabelBadge color="benefit"><LabelBadge.Label>Core Contributor</LabelBadge.Label></LabelBadge>
+              <LabelBadge color="sale"><LabelBadge.Label>Open to Work</LabelBadge.Label></LabelBadge>
+            </div>
+            <div style={{ fontSize: 14, color: 'var(--sem-eclipse-color-foregroundSecondary)', marginBottom: 8 }}>
+              Design Systems Engineer · Orbit UI 메인테이너
+            </div>
+            <div style={{ display: 'flex', gap: 16, fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)', flexWrap: 'wrap' }}>
+              <span>Seoul, Korea</span>
+              <span>github.com/blue45f</span>
+              <span>팔로워 {following ? 1024 : 1023} · 팔로잉 87</span>
+            </div>
+          </div>
+          <div style={{ display: 'flex', gap: 8 }}>
+            <SolidButton
+              color={following ? 'gray' : 'primary'}
+              size="medium"
+              onClick={() => setFollowing((v) => !v)}
+            >
+              <SolidButton.Center>{following ? '팔로잉' : '팔로우'}</SolidButton.Center>
+            </SolidButton>
+            <SolidButton color="gray" size="medium">
+              <SolidButton.Center>메시지</SolidButton.Center>
+            </SolidButton>
+          </div>
+        </div>
+
+        {/* Tab Nav */}
+        <div style={{ display: 'flex', borderBottom: '1px solid var(--sem-eclipse-color-borderSubtle)', background: 'var(--sem-eclipse-color-backgroundPrimary)', borderRadius: '12px 12px 0 0', padding: '0 8px' }}>
+          {CHAKRA90_TABS.map((tab) => (
+            <button
+              key={tab}
+              onClick={() => setActiveTab(tab)}
+              style={{
+                padding: '12px 16px',
+                background: 'none',
+                border: 'none',
+                borderBottom: activeTab === tab ? '2px solid #6366f1' : '2px solid transparent',
+                cursor: 'pointer',
+                fontSize: 13,
+                fontWeight: activeTab === tab ? 700 : 500,
+                color: activeTab === tab ? '#6366f1' : 'var(--sem-eclipse-color-foregroundSecondary)',
+                transition: 'all 0.12s',
+              }}
+            >
+              {tab}
+            </button>
+          ))}
+        </div>
+
+        {/* Tab Content */}
+        <div style={{ background: 'var(--sem-eclipse-color-backgroundPrimary)', borderRadius: '0 0 16px 16px', padding: 24, border: '1px solid var(--sem-eclipse-color-borderSubtle)', borderTop: 'none' }}>
+          {activeTab === '개요' && (
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24 }}>
+              {/* Skills */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+                <SectionTitle>
+                  <SectionTitle.Title>스킬</SectionTitle.Title>
+                </SectionTitle>
+                {CHAKRA90_SKILLS.map((s) => (
+                  <div key={s.name} style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, color: 'var(--sem-eclipse-color-foregroundSecondary)' }}>
+                      <span>{s.name}</span>
+                      <span style={{ fontWeight: 700 }}>{s.level}%</span>
+                    </div>
+                    <Progress value={s.level} />
+                  </div>
+                ))}
+              </div>
+              {/* Stats */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+                <SectionTitle>
+                  <SectionTitle.Title>통계</SectionTitle.Title>
+                </SectionTitle>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
+                  {[
+                    { label: '총 커밋', value: '2,847' },
+                    { label: '머지된 PR', value: '312' },
+                    { label: '리뷰한 PR', value: '589' },
+                    { label: '열린 이슈', value: '14' },
+                  ].map(({ label, value }) => (
+                    <div key={label} style={{ padding: '14px', borderRadius: 10, background: 'var(--sem-eclipse-color-backgroundSecondary)', border: '1px solid var(--sem-eclipse-color-borderSubtle)' }}>
+                      <div style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginBottom: 4 }}>{label}</div>
+                      <div style={{ fontSize: 20, fontWeight: 800, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{value}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
+
+          {activeTab === '프로젝트' && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+              <SectionTitle>
+                <SectionTitle.Title>프로젝트</SectionTitle.Title>
+                <SectionTitle.Trailing><CounterBadge>{CHAKRA90_PROJECTS.length}</CounterBadge></SectionTitle.Trailing>
+              </SectionTitle>
+              {CHAKRA90_PROJECTS.map((proj) => (
+                <div key={proj.name} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 14px', borderRadius: 10, border: '1px solid var(--sem-eclipse-color-borderSubtle)' }}>
+                  <div style={{ width: 10, height: 10, borderRadius: '50%', background: proj.color, flexShrink: 0 }} />
+                  <div style={{ flex: 1 }}>
+                    <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{proj.name}</div>
+                    <div style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>{proj.role}</div>
+                  </div>
+                  <LabelBadge color={proj.status === '완료' ? 'gray' : proj.status === '계획' ? 'sale' : 'benefit'}>
+                    <LabelBadge.Label>{proj.status}</LabelBadge.Label>
+                  </LabelBadge>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {activeTab === '활동' && (
+            <div style={{ display: 'flex', gap: 24, flexWrap: 'wrap' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                <SectionTitle>
+                  <SectionTitle.Title>활동 캘린더</SectionTitle.Title>
+                  <SectionTitle.Description>클릭해서 날짜별 활동을 확인하세요</SectionTitle.Description>
+                </SectionTitle>
+                <Calendar
+                  mode="single"
+                  selected={calDate}
+                  onSelect={setCalDate}
+                  modifiers={{ active: activityDates }}
+                  modifiersStyles={{ active: { background: 'rgba(99,102,241,0.15)', borderRadius: '50%', fontWeight: 800, color: '#6366f1' } }}
+                  month={new Date(2026, 3)}
+                />
+              </div>
+              <div style={{ flex: 1, minWidth: 180 }}>
+                <SectionTitle>
+                  <SectionTitle.Title>활동 상세</SectionTitle.Title>
+                </SectionTitle>
+                {selectedActivity ? (
+                  <div style={{ padding: '16px', borderRadius: 10, background: 'var(--sem-eclipse-color-backgroundSecondary)', border: '1px solid var(--sem-eclipse-color-borderSubtle)', marginTop: 8 }}>
+                    <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 4 }}>
+                      {calDate?.toLocaleDateString('ko-KR', { month: 'long', day: 'numeric' })}
+                    </div>
+                    <div style={{ fontSize: 24, fontWeight: 900, color: '#6366f1', marginBottom: 4 }}>{selectedActivity.count}</div>
+                    <div style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>기여 활동</div>
+                  </div>
+                ) : (
+                  <div style={{ fontSize: 13, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginTop: 8 }}>날짜를 선택하세요</div>
+                )}
+              </div>
+            </div>
+          )}
+
+          {activeTab === '설정' && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 16, maxWidth: 480 }}>
+              <SectionTitle>
+                <SectionTitle.Title>프로필 편집</SectionTitle.Title>
+              </SectionTitle>
+              {[
+                { label: '이름', placeholder: '김희준' },
+                { label: '소개', placeholder: 'Design Systems Engineer' },
+                { label: '위치', placeholder: 'Seoul, Korea' },
+              ].map(({ label, placeholder }) => (
+                <div key={label} style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+                  <label style={{ fontSize: 12, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundSecondary)' }}>{label}</label>
+                  <input
+                    placeholder={placeholder}
+                    style={{ padding: '10px 14px', borderRadius: 8, border: '1.5px solid var(--sem-eclipse-color-borderDefault)', fontSize: 13, color: 'var(--sem-eclipse-color-foregroundPrimary)', background: 'var(--sem-eclipse-color-backgroundPrimary)', outline: 'none' }}
+                  />
+                </div>
+              ))}
+              <div style={{ display: 'flex', gap: 8, justifyContent: 'flex-end', paddingTop: 8 }}>
+                <SolidButton color="gray" size="medium">
+                  <SolidButton.Center>취소</SolidButton.Center>
+                </SolidButton>
+                <SolidButton color="primary" size="medium">
+                  <SolidButton.Center>저장</SolidButton.Center>
+                </SolidButton>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const ChakraUserProfile: Story = {
+  name: 'Chakra UI — User Profile Page',
+  parameters: {
+    layout: 'fullscreen',
+    docs: {
+      description: {
+        story:
+          'Chakra UI 벤치마크: Flex + Stack + Avatar + Badge 패턴 적용. ' +
+          '팔로우/메시지 액션(SolidButton), 스킬 게이지(Progress), 활동 캘린더(Calendar), ' +
+          '프로젝트 목록(LabelBadge) 등 미사용 컴포넌트를 통합한 사용자 프로필 페이지.',
+      },
+    },
+  },
+  render: () => <Chakra90UserProfileRender />,
+}
