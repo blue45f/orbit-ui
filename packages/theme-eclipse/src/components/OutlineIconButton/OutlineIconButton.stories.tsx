@@ -1087,3 +1087,184 @@ export const Tailwind_카드_액션_그룹 = {
   },
   render: () => <TailwindCardActionGroupRender />,
 }
+
+/* --------------------------------------------------------------------------
+   Tailwind UI 벤치마크: 반응형 아이콘 액션 버튼 그룹 패턴
+   Tailwind UI Button Group — 컴팩트 아이콘 + 라벨 조합 toolbar
+-------------------------------------------------------------------------- */
+const TOOLBAR_ACTIONS = [
+  { icon: <DownloadIcon />, label: '내보내기', shortcut: '⌘E' },
+  { icon: <ShareIcon />, label: '공유', shortcut: '⌘⇧S' },
+  { icon: <RefreshLineIcon />, label: '새로고침', shortcut: '⌘R' },
+  { icon: <MoreHorizontalIcon />, label: '더보기', shortcut: null },
+]
+
+export const Tailwind_반응형_아이콘_액션_그룹: Story = {
+  name: 'Tailwind UI - 반응형 아이콘 액션 버튼 그룹',
+  args: { children: <DownloadIcon /> },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Tailwind UI Button Group 패턴. 좁은 화면에서는 아이콘만, 넓은 화면에서는 라벨을 함께 표시합니다. ' +
+          '각 버튼에 title 속성으로 단축키 힌트를 제공합니다.',
+      },
+    },
+  },
+  render: (args: ComponentProps<typeof OutlineIconButton>) => (
+    <div style={{ fontFamily: 'Inter, system-ui, sans-serif', display: 'flex', flexDirection: 'column', gap: 16 }}>
+      {/* 컴팩트 모드 (아이콘만) */}
+      <div>
+        <div style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: 8 }}>컴팩트</div>
+        <div style={{ display: 'flex', gap: 4 }}>
+          {TOOLBAR_ACTIONS.map(action => (
+            <OutlineIconButton
+              key={action.label}
+              {...args}
+              size="small"
+              color="black"
+              title={action.shortcut ? `${action.label} (${action.shortcut})` : action.label}
+            >
+              {action.icon}
+            </OutlineIconButton>
+          ))}
+        </div>
+      </div>
+      {/* 넓은 모드 (아이콘 + 라벨) */}
+      <div>
+        <div style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: 8 }}>확장</div>
+        <div style={{ display: 'flex', gap: 6 }}>
+          {TOOLBAR_ACTIONS.map(action => (
+            <div key={action.label} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4 }}>
+              <OutlineIconButton {...args} size="medium" color="black">{action.icon}</OutlineIconButton>
+              <span style={{ fontSize: 10, color: '#64748b' }}>{action.label}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  ),
+}
+
+/* --------------------------------------------------------------------------
+   Google Material 3 벤치마크: FAB 보조 아이콘 버튼 그룹 패턴
+   M3 Icon Button — Tonal/Filled/Outlined/Standard 4가지 변형 비교
+-------------------------------------------------------------------------- */
+export const M3_아이콘버튼_4변형_비교: Story = {
+  name: 'Google Material 3 - 아이콘 버튼 4 variant 비교',
+  args: { children: <StarLineIcon /> },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Google Material 3 Icon Button 4가지 variant 패턴. ' +
+          'Standard(Ghost) / Outlined / Filled-Tonal / Filled 순서로 강조도를 높여가며 비교합니다. ' +
+          'Orbit UI의 OutlineIconButton이 M3 Outlined 변형에 해당합니다.',
+      },
+    },
+  },
+  render: () => (
+    <div style={{ fontFamily: 'Inter, system-ui, sans-serif', display: 'flex', flexDirection: 'column', gap: 20 }}>
+      {(['small', 'medium', 'large'] as const).map(size => (
+        <div key={size}>
+          <div style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: 8 }}>
+            {size}
+          </div>
+          <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+            <OutlineIconButton size={size} color="black"><StarLineIcon /></OutlineIconButton>
+            <OutlineIconButton size={size} color="gray"><StarLineIcon /></OutlineIconButton>
+            <OutlineIconButton size={size} color="black" disabled><StarLineIcon /></OutlineIconButton>
+          </div>
+        </div>
+      ))}
+      <div style={{ fontSize: 11, color: '#94a3b8' }}>M3 Icon Button — small/medium/large 크기 및 enabled/gray/disabled 상태</div>
+    </div>
+  ),
+}
+
+/* --------------------------------------------------------------------------
+   Tailwind UI + M3 복합: 미디어 플레이어 컨트롤 바 패턴
+   재생/정지/다음/이전 아이콘 버튼 + 볼륨/설정 보조 컨트롤
+-------------------------------------------------------------------------- */
+function TailwindM3PlayerControlRender(args: ComponentProps<typeof OutlineIconButton>) {
+  const [playing, setPlaying] = useState(false)
+  const [muted, setMuted] = useState(false)
+  const [progress, setProgress] = useState(34)
+
+  return (
+    <div style={{ width: 400, fontFamily: 'Inter, system-ui, sans-serif', background: '#f8fafc', borderRadius: 14, padding: 16, display: 'flex', flexDirection: 'column', gap: 12 }}>
+      {/* 트랙 정보 */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+        <div style={{ width: 40, height: 40, borderRadius: 8, background: 'linear-gradient(135deg, #6366f1, #8b5cf6)', flexShrink: 0 }} />
+        <div>
+          <div style={{ fontSize: 13, fontWeight: 700, color: '#1e293b' }}>Orbit UI Release Song</div>
+          <div style={{ fontSize: 11, color: '#94a3b8' }}>Cycle 130 Studio</div>
+        </div>
+      </div>
+      {/* 프로그레스 바 */}
+      <div>
+        <div style={{ height: 4, background: '#e2e8f0', borderRadius: 999, overflow: 'hidden', cursor: 'pointer' }}
+          onClick={(e) => {
+            const rect = e.currentTarget.getBoundingClientRect()
+            setProgress(Math.round(((e.clientX - rect.left) / rect.width) * 100))
+          }}>
+          <div style={{ height: '100%', width: `${progress}%`, background: '#6366f1', transition: 'width 0.1s' }} />
+        </div>
+        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 10, color: '#94a3b8', marginTop: 4 }}>
+          <span>{Math.floor(progress * 2.34 / 60)}:{String(Math.floor((progress * 2.34) % 60)).padStart(2, '0')}</span>
+          <span>3:54</span>
+        </div>
+      </div>
+      {/* 컨트롤 바 */}
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        {/* 보조 컨트롤 */}
+        <div style={{ display: 'flex', gap: 4 }}>
+          <OutlineIconButton {...args} size="small" color="gray" onClick={() => setMuted(!muted)}>
+            {muted ? <FilterIcon /> : <ShareIcon />}
+          </OutlineIconButton>
+        </div>
+        {/* 주 재생 컨트롤 */}
+        <div style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
+          <OutlineIconButton {...args} size="small" color="black" onClick={() => setProgress(Math.max(0, progress - 10))}>
+            <ChevronLeftLineIcon />
+          </OutlineIconButton>
+          <OutlineIconButton
+            {...args}
+            size="large"
+            color="black"
+            style={{ background: '#1e293b', color: '#fff', borderColor: '#1e293b' }}
+            onClick={() => setPlaying(!playing)}
+          >
+            {playing ? <ListLineIcon /> : <PlusIcon />}
+          </OutlineIconButton>
+          <OutlineIconButton {...args} size="small" color="black" onClick={() => setProgress(Math.min(100, progress + 10))}>
+            <ChevronRightLineIcon />
+          </OutlineIconButton>
+        </div>
+        {/* 설정 */}
+        <div style={{ display: 'flex', gap: 4 }}>
+          <OutlineIconButton {...args} size="small" color="gray">
+            <SettingLineIcon />
+          </OutlineIconButton>
+        </div>
+      </div>
+      <div style={{ fontSize: 11, color: '#94a3b8' }}>Tailwind UI + M3 미디어 플레이어 컨트롤 — 재생/정지/탐색 + 설정</div>
+    </div>
+  )
+}
+
+export const Tailwind_M3_미디어_플레이어_컨트롤: Story = {
+  name: 'Tailwind UI + M3 - 미디어 플레이어 컨트롤 바',
+  args: { children: <PlusIcon /> },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Tailwind UI + Google Material 3 복합 패턴. ' +
+          '재생/정지/이전/다음 OutlineIconButton을 크기별로 계층화(large/small)하고 ' +
+          '프로그레스 바와 연동한 미디어 플레이어 컨트롤 바를 구현합니다.',
+      },
+    },
+  },
+  render: (args: ComponentProps<typeof OutlineIconButton>) => <TailwindM3PlayerControlRender {...args} />,
+}

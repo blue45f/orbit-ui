@@ -980,3 +980,218 @@ export const Linear_문서_예제_슬라이드: Story = {
     )
   },
 }
+
+/* --------------------------------------------------------------------------
+   Tailwind UI 벤치마크: 갤러리 이미지 캐러셀 도트 인디케이터 패턴
+   Tailwind UI Carousel — 썸네일 미리보기 + 도트 탐색 조합
+-------------------------------------------------------------------------- */
+const GALLERY_ITEMS = [
+  { title: 'Dashboard Overview', color: '#6366f1' },
+  { title: 'Analytics Report', color: '#0891b2' },
+  { title: 'Team Settings', color: '#16a34a' },
+  { title: 'Notification Center', color: '#d97706' },
+  { title: 'Profile Page', color: '#dc2626' },
+]
+
+function TailwindGalleryCarouselRender() {
+  const [current, setCurrent] = useState(0)
+
+  const prev = () => setCurrent(i => (i - 1 + GALLERY_ITEMS.length) % GALLERY_ITEMS.length)
+  const next = () => setCurrent(i => (i + 1) % GALLERY_ITEMS.length)
+
+  const item = GALLERY_ITEMS[current]
+
+  return (
+    <div style={{ width: 340, fontFamily: 'Inter, system-ui, sans-serif', display: 'flex', flexDirection: 'column', gap: 12 }}>
+      {/* 이미지 영역 */}
+      <div style={{ position: 'relative', borderRadius: 12, overflow: 'hidden' }}>
+        <div style={{
+          height: 180,
+          background: `linear-gradient(135deg, ${item.color}44, ${item.color}88)`,
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          transition: 'background 0.3s',
+        }}>
+          <div style={{ fontSize: 13, fontWeight: 700, color: item.color }}>{item.title}</div>
+        </div>
+        {/* 이전/다음 버튼 */}
+        <button
+          onClick={prev}
+          style={{ position: 'absolute', left: 8, top: '50%', transform: 'translateY(-50%)', width: 28, height: 28, borderRadius: '50%', background: 'rgba(255,255,255,0.8)', border: 'none', cursor: 'pointer', fontSize: 14, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+        >
+          ‹
+        </button>
+        <button
+          onClick={next}
+          style={{ position: 'absolute', right: 8, top: '50%', transform: 'translateY(-50%)', width: 28, height: 28, borderRadius: '50%', background: 'rgba(255,255,255,0.8)', border: 'none', cursor: 'pointer', fontSize: 14, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+        >
+          ›
+        </button>
+        {/* 오버레이 도트 */}
+        <div style={{ position: 'absolute', bottom: 8, left: '50%', transform: 'translateX(-50%)', display: 'flex', gap: 4 }}>
+          {GALLERY_ITEMS.map((_, i) => (
+            <PageDots key={i} selected={i === current} onClick={() => setCurrent(i)} />
+          ))}
+        </div>
+      </div>
+      {/* 썸네일 스트립 */}
+      <div style={{ display: 'flex', gap: 6 }}>
+        {GALLERY_ITEMS.map((g, i) => (
+          <div
+            key={i}
+            onClick={() => setCurrent(i)}
+            style={{
+              flex: 1, height: 36, borderRadius: 6, cursor: 'pointer',
+              background: `${g.color}${i === current ? 'aa' : '33'}`,
+              border: i === current ? `2px solid ${g.color}` : '2px solid transparent',
+              transition: 'all 0.2s',
+            }}
+          />
+        ))}
+      </div>
+      <div style={{ fontSize: 11, color: '#94a3b8' }}>Tailwind UI 갤러리 캐러셀 — 오버레이 도트 + 썸네일 탐색</div>
+    </div>
+  )
+}
+
+export const Tailwind_갤러리_캐러셀_도트_인디케이터: Story = {
+  name: 'Tailwind UI - 갤러리 캐러셀 도트 인디케이터 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Tailwind UI Carousel 패턴. 이미지 오버레이에 PageDots를 배치하고 하단 썸네일 스트립으로도 탐색합니다. ' +
+          '이전/다음 버튼과 도트 클릭 모두 슬라이드를 전환합니다.',
+      },
+    },
+  },
+  render: () => <TailwindGalleryCarouselRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Google Material 3 벤치마크: 탭 인디케이터 대체 도트 내비게이션 패턴
+   M3 PageIndicator — 모바일 뷰 페이지 위치 표시 도트
+-------------------------------------------------------------------------- */
+const M3_PAGES = [
+  { title: '홈', desc: '피드와 추천 콘텐츠' },
+  { title: '탐색', desc: '카테고리 탐색 및 검색' },
+  { title: '알림', desc: '활동과 업데이트 모아보기' },
+  { title: '프로필', desc: '계정 설정과 통계' },
+]
+
+function M3PageIndicatorRender() {
+  const [page, setPage] = useState(0)
+
+  useEffect(() => {
+    const timer = setInterval(() => setPage(p => (p + 1) % M3_PAGES.length), 2000)
+    return () => clearInterval(timer)
+  }, [])
+
+  return (
+    <div style={{ width: 280, fontFamily: 'Inter, system-ui, sans-serif', display: 'flex', flexDirection: 'column', gap: 16 }}>
+      <div style={{ fontSize: 12, fontWeight: 700, color: '#64748b' }}>모바일 앱 페이지</div>
+      {/* 모바일 프레임 */}
+      <div style={{ border: '2px solid #e2e8f0', borderRadius: 24, overflow: 'hidden', background: '#fff' }}>
+        <div style={{ height: 160, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', gap: 8, background: `linear-gradient(135deg, #f8fafc, #f1f5f9)` }}>
+          <div style={{ fontSize: 28 }}>
+            {['🏠', '🔍', '🔔', '👤'][page]}
+          </div>
+          <div style={{ fontSize: 15, fontWeight: 700, color: '#1e293b' }}>{M3_PAGES[page].title}</div>
+          <div style={{ fontSize: 12, color: '#64748b' }}>{M3_PAGES[page].desc}</div>
+        </div>
+        {/* 하단 도트 인디케이터 */}
+        <div style={{ padding: '10px 0', display: 'flex', justifyContent: 'center', gap: 6, borderTop: '1px solid #f1f5f9' }}>
+          {M3_PAGES.map((_, i) => (
+            <PageDots key={i} selected={i === page} onClick={() => setPage(i)} />
+          ))}
+        </div>
+      </div>
+      <div style={{ fontSize: 11, color: '#94a3b8' }}>M3 PageIndicator — 2초 자동 전환 + 클릭 탐색</div>
+    </div>
+  )
+}
+
+export const M3_모바일_페이지_도트_인디케이터: Story = {
+  name: 'Google Material 3 - 모바일 페이지 도트 인디케이터',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Google Material 3 PageIndicator 패턴. 모바일 앱 하단 네비게이션 도트로 현재 페이지 위치를 표시합니다. ' +
+          '2초 자동 전환 인터벌과 클릭 탐색을 동시에 지원합니다.',
+      },
+    },
+  },
+  render: () => <M3PageIndicatorRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Tailwind UI + M3 복합: 다단계 폼 위저드 도트 진행 표시
+   완료/진행중/대기 상태를 도트 크기와 색상으로 구분하는 패턴
+-------------------------------------------------------------------------- */
+const TM3_WIZARD_STEPS = ['계정 정보', '프로필 설정', '권한 선택', '검토 및 완료']
+
+function TailwindM3WizardRender() {
+  const [step, setStep] = useState(1)
+
+  return (
+    <div style={{ width: 340, fontFamily: 'Inter, system-ui, sans-serif', display: 'flex', flexDirection: 'column', gap: 20 }}>
+      {/* 단계 헤더 */}
+      <div style={{ textAlign: 'center' }}>
+        <div style={{ fontSize: 12, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.05em' }}>단계 {step + 1} / {TM3_WIZARD_STEPS.length}</div>
+        <div style={{ fontSize: 16, fontWeight: 700, color: '#1e293b', marginTop: 4 }}>{TM3_WIZARD_STEPS[step]}</div>
+      </div>
+      {/* 도트 진행 인디케이터 */}
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 0 }}>
+        {TM3_WIZARD_STEPS.map((stepName, i) => (
+          <div key={stepName} style={{ display: 'flex', alignItems: 'center' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4 }}>
+              <PageDots selected={i === step} onClick={() => setStep(i)} />
+              <span style={{ fontSize: 9, color: i === step ? '#1e293b' : '#94a3b8', fontWeight: i === step ? 700 : 400, whiteSpace: 'nowrap' }}>
+                {i < step ? '완료' : i === step ? '진행중' : '대기'}
+              </span>
+            </div>
+            {i < TM3_WIZARD_STEPS.length - 1 && (
+              <div style={{ width: 40, height: 1, background: i < step ? '#22c55e' : '#e2e8f0', margin: '0 4px', marginBottom: 16, transition: 'background 0.3s' }} />
+            )}
+          </div>
+        ))}
+      </div>
+      {/* 콘텐츠 */}
+      <div style={{ padding: 16, background: '#f8fafc', borderRadius: 10, border: '1px solid #f1f5f9', minHeight: 80, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <span style={{ fontSize: 13, color: '#94a3b8' }}>{TM3_WIZARD_STEPS[step]} 폼 콘텐츠</span>
+      </div>
+      {/* 내비게이션 버튼 */}
+      <div style={{ display: 'flex', gap: 8 }}>
+        <button
+          onClick={() => setStep(s => Math.max(0, s - 1))}
+          disabled={step === 0}
+          style={{ flex: 1, padding: '9px', fontSize: 13, fontWeight: 600, background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 8, cursor: step === 0 ? 'not-allowed' : 'pointer', color: step === 0 ? '#94a3b8' : '#1e293b' }}
+        >
+          이전
+        </button>
+        <button
+          onClick={() => setStep(s => Math.min(TM3_WIZARD_STEPS.length - 1, s + 1))}
+          disabled={step === TM3_WIZARD_STEPS.length - 1}
+          style={{ flex: 1, padding: '9px', fontSize: 13, fontWeight: 600, background: step === TM3_WIZARD_STEPS.length - 1 ? '#f8fafc' : '#1e293b', border: 'none', borderRadius: 8, cursor: step === TM3_WIZARD_STEPS.length - 1 ? 'not-allowed' : 'pointer', color: step === TM3_WIZARD_STEPS.length - 1 ? '#94a3b8' : '#fff' }}
+        >
+          {step === TM3_WIZARD_STEPS.length - 1 ? '완료' : '다음'}
+        </button>
+      </div>
+      <div style={{ fontSize: 11, color: '#94a3b8', textAlign: 'center' }}>Tailwind UI + M3 — 도트로 위저드 진행 상태 표시</div>
+    </div>
+  )
+}
+
+export const Tailwind_M3_위저드_도트_진행_표시: Story = {
+  name: 'Tailwind UI + M3 - 다단계 폼 위저드 도트 진행 표시',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Tailwind UI + Google Material 3 복합 패턴. 4단계 폼 위저드의 진행 상태를 PageDots로 표시합니다. ' +
+          '완료/진행중/대기 상태를 도트와 연결선으로 시각화하며 도트 클릭으로 단계 이동이 가능합니다.',
+      },
+    },
+  },
+  render: () => <TailwindM3WizardRender />,
+}

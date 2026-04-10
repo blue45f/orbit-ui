@@ -30513,3 +30513,145 @@ export const MantineAnt129KanbanBoard: StoryObj = {
   },
   render: () => <KanbanBoard129Render />,
 }
+
+/* ============================================================
+   Cycle 130 Template: Tailwind UI + Google Material 3
+   온보딩 위저드 — OutlineIconButton 액션 + PageDots 진행 표시
+   ============================================================ */
+const ONBOARDING_STEPS_130 = [
+  {
+    title: '팀 설정',
+    desc: '팀 이름과 구성원을 추가해 협업을 시작하세요.',
+    icon: '🏢',
+    fields: ['팀 이름', '팀 설명'],
+  },
+  {
+    title: '컴포넌트 라이브러리 선택',
+    desc: '사용할 UI 라이브러리를 선택하면 스타터 키트가 제공됩니다.',
+    icon: '🧩',
+    fields: ['Orbit UI (권장)', 'shadcn/ui', 'MUI'],
+  },
+  {
+    title: '첫 번째 프로젝트',
+    desc: '프로젝트 이름과 저장소 URL을 입력하세요.',
+    icon: '🚀',
+    fields: ['프로젝트 이름', '저장소 URL'],
+  },
+  {
+    title: '완료',
+    desc: '모든 설정이 완료되었습니다. 대시보드로 이동합니다.',
+    icon: '✅',
+    fields: [],
+  },
+]
+
+function Onboarding130Render() {
+  const [step, setStep] = useState(0)
+  const [selections, setSelections] = useState<Record<number, string>>({})
+  const current = ONBOARDING_STEPS_130[step]
+  const isLast = step === ONBOARDING_STEPS_130.length - 1
+
+  return (
+    <div style={{ width: 480, fontFamily: 'Inter, system-ui, sans-serif', display: 'flex', flexDirection: 'column', gap: 0, border: '1px solid #e2e8f0', borderRadius: 16, overflow: 'hidden' }}>
+      {/* 헤더 */}
+      <div style={{ padding: '20px 24px 16px', background: '#f8fafc', borderBottom: '1px solid #f1f5f9', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <div style={{ fontSize: 15, fontWeight: 700, color: '#1e293b' }}>Orbit UI 시작하기</div>
+        <div style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
+          {ONBOARDING_STEPS_130.map((_, i) => (
+            <PageDots key={i} selected={i === step} onClick={() => setStep(i)} />
+          ))}
+        </div>
+      </div>
+
+      {/* 콘텐츠 영역 */}
+      <div style={{ padding: '32px 24px', display: 'flex', flexDirection: 'column', gap: 24, minHeight: 260 }}>
+        {/* 아이콘 + 제목 */}
+        <div style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', gap: 8, alignItems: 'center' }}>
+          <div style={{ fontSize: 40 }}>{current.icon}</div>
+          <div style={{ fontSize: 20, fontWeight: 800, color: '#1e293b' }}>{current.title}</div>
+          <div style={{ fontSize: 13, color: '#64748b', lineHeight: 1.6, maxWidth: 320 }}>{current.desc}</div>
+        </div>
+
+        {/* 필드/선택지 */}
+        {current.fields.length > 0 && (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+            {step === 1
+              ? current.fields.map(field => (
+                  <label
+                    key={field}
+                    style={{
+                      display: 'flex', alignItems: 'center', gap: 10, padding: '10px 14px',
+                      borderRadius: 8, border: `2px solid ${selections[step] === field ? '#6366f1' : '#e2e8f0'}`,
+                      cursor: 'pointer', background: selections[step] === field ? '#f0f0ff' : '#fff',
+                      transition: 'all 0.15s',
+                    }}
+                    onClick={() => setSelections(prev => ({ ...prev, [step]: field }))}
+                  >
+                    <div style={{ width: 16, height: 16, borderRadius: '50%', border: `2px solid ${selections[step] === field ? '#6366f1' : '#e2e8f0'}`, background: selections[step] === field ? '#6366f1' : '#fff', flexShrink: 0 }} />
+                    <span style={{ fontSize: 13, fontWeight: selections[step] === field ? 600 : 400, color: '#1e293b' }}>{field}</span>
+                  </label>
+                ))
+              : current.fields.map(field => (
+                  <div key={field} style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+                    <label style={{ fontSize: 12, fontWeight: 600, color: '#475569' }}>{field}</label>
+                    <input
+                      placeholder={`${field} 입력...`}
+                      style={{ padding: '8px 12px', fontSize: 13, border: '1px solid #e2e8f0', borderRadius: 8, outline: 'none', color: '#1e293b' }}
+                    />
+                  </div>
+                ))
+            }
+          </div>
+        )}
+
+        {/* 완료 화면 */}
+        {isLast && (
+          <div style={{ display: 'flex', justifyContent: 'center' }}>
+            <div style={{ padding: '12px 24px', background: '#f0fdf4', border: '1px solid #bbf7d0', borderRadius: 10, fontSize: 13, color: '#16a34a', fontWeight: 600, textAlign: 'center' }}>
+              설정이 저장되었습니다
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* 푸터 버튼 */}
+      <div style={{ padding: '16px 24px', borderTop: '1px solid #f1f5f9', display: 'flex', gap: 8, justifyContent: 'space-between' }}>
+        <div style={{ fontSize: 12, color: '#94a3b8', display: 'flex', alignItems: 'center' }}>
+          {step + 1} / {ONBOARDING_STEPS_130.length} 단계
+        </div>
+        <div style={{ display: 'flex', gap: 8 }}>
+          {step > 0 && (
+            <OutlineButton color="black" size="medium" onClick={() => setStep(s => s - 1)}>
+              <OutlineButton.Center>이전</OutlineButton.Center>
+            </OutlineButton>
+          )}
+          {!isLast ? (
+            <SolidButton color="black" size="medium" onClick={() => setStep(s => s + 1)}>
+              <SolidButton.Center>다음</SolidButton.Center>
+            </SolidButton>
+          ) : (
+            <SolidButton color="black" size="medium" onClick={() => setStep(0)}>
+              <SolidButton.Center>처음으로</SolidButton.Center>
+            </SolidButton>
+          )}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const TailwindM3130OnboardingWizard: StoryObj = {
+  name: 'Tailwind UI + M3 — 온보딩 위저드 (Cycle 130)',
+  parameters: {
+    layout: 'centered',
+    docs: {
+      description: {
+        story:
+          'Tailwind UI + Google Material 3 벤치마크 — Cycle 130. ' +
+          'PageDots 진행 인디케이터 + 단계별 폼/선택지 + OutlineButton/SolidButton 내비게이션. ' +
+          '4단계 온보딩 위저드로 팀 설정 → 라이브러리 선택 → 프로젝트 생성 → 완료 흐름을 구현합니다.',
+      },
+    },
+  },
+  render: () => <Onboarding130Render />,
+}
