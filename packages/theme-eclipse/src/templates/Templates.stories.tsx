@@ -37856,3 +37856,195 @@ export const VercelShadcn168NotificationCenter: StoryObj = {
   },
   render: () => <VercelShadcn168NotificationCenterRender />,
 }
+
+// ──────────────────────────────────────────────────────────────────────────────
+// Cycle 169: Chakra UI + Arco Design — 사용자 프로필 페이지
+// ──────────────────────────────────────────────────────────────────────────────
+
+function ChakraArco169UserProfileRender() {
+  type Tab = 'overview' | 'activity' | 'settings'
+  const [activeTab, setActiveTab] = useState<Tab>('overview')
+  const [onboardingStep, setOnboardingStep] = useState(2)
+  const [profileComplete, setProfileComplete] = useState(false)
+
+  const ONBOARD_STEPS = 4
+  const onboardPct = Math.round(((onboardingStep + 1) / ONBOARD_STEPS) * 100)
+
+  const activities = [
+    { type: 'commit', text: 'Button ripple 효과 구현 완료', time: '2시간 전' },
+    { type: 'review', text: 'PR #139 리뷰 완료 — LGTM', time: '5시간 전' },
+    { type: 'issue', text: 'ORB-144 이슈 생성', time: '어제' },
+    { type: 'deploy', text: 'v2.0.0-beta.16 배포', time: '2일 전' },
+    { type: 'comment', text: 'DataTable 가상 스크롤 관련 댓글', time: '3일 전' },
+  ]
+
+  const activityIcon: Record<string, string> = {
+    commit: '●', review: '◎', issue: '○', deploy: '▲', comment: '💬',
+  }
+
+  const skills = [
+    { name: 'React', level: 95 },
+    { name: 'TypeScript', level: 88 },
+    { name: 'Design Systems', level: 82 },
+  ]
+
+  const tabs: { key: Tab; label: string }[] = [
+    { key: 'overview', label: '개요' },
+    { key: 'activity', label: '활동' },
+    { key: 'settings', label: '설정' },
+  ]
+
+  return (
+    <div style={{ width: '100%', minHeight: '100vh', background: '#f8fafc', fontFamily: 'system-ui, sans-serif', display: 'flex', flexDirection: 'column' }}>
+      {/* Profile Hero */}
+      <div style={{ background: 'linear-gradient(135deg, #0f172a 0%, #1e3a5f 100%)', padding: '32px 32px 0' }}>
+        <div style={{ display: 'flex', alignItems: 'flex-end', gap: 20, paddingBottom: 0 }}>
+          <div style={{ width: 72, height: 72, borderRadius: '50%', background: '#3b82f6', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 26, fontWeight: 800, color: '#fff', border: '3px solid rgba(255,255,255,0.2)', flexShrink: 0 }}>
+            KM
+          </div>
+          <div style={{ flex: 1, paddingBottom: 16 }}>
+            <Text textStyle="headlineMedium" style={{ display: 'block', color: '#f8fafc', marginBottom: 4 }}>
+              김민준
+            </Text>
+            <Text textStyle="bodyMedium" style={{ display: 'block', color: '#94a3b8' }}>
+              Frontend Engineer @ Orbit UI · Seoul, Korea
+            </Text>
+          </div>
+          <div style={{ paddingBottom: 16, display: 'flex', gap: 8 }}>
+            <SolidButton color="primary" size="small">
+              <SolidButton.Center>팔로우</SolidButton.Center>
+            </SolidButton>
+            <OutlineButton color="gray" size="small">
+              <OutlineButton.Center>메시지</OutlineButton.Center>
+            </OutlineButton>
+          </div>
+        </div>
+
+        {/* Tabs */}
+        <div style={{ display: 'flex', gap: 0, marginTop: 8 }}>
+          {tabs.map((tab) => (
+            <button
+              key={tab.key}
+              onClick={() => setActiveTab(tab.key)}
+              style={{
+                padding: '10px 20px', border: 'none', background: 'transparent', cursor: 'pointer', fontSize: 13, fontWeight: 600,
+                color: activeTab === tab.key ? '#fff' : '#64748b',
+                borderBottom: activeTab === tab.key ? '2px solid #3b82f6' : '2px solid transparent',
+              }}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Content */}
+      <div style={{ flex: 1, padding: 24, display: 'flex', gap: 20 }}>
+        {activeTab === 'overview' && (
+          <>
+            {/* Left */}
+            <div style={{ width: 280, display: 'flex', flexDirection: 'column', gap: 16 }}>
+              {/* Onboarding */}
+              {!profileComplete && (
+                <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: 12, padding: 16 }}>
+                  <Text textStyle="titleSmall" style={{ display: 'block', color: '#374151', marginBottom: 4 }}>프로필 완성도</Text>
+                  <Text textStyle="labelSmall" style={{ display: 'block', color: '#9ca3af', marginBottom: 10 }}>{onboardPct}% 완료</Text>
+                  <Progress value={onboardPct} size="small" color="primary" />
+                  <div style={{ marginTop: 12 }}>
+                    <PageIndicator currentPage={onboardingStep} onPageChange={setOnboardingStep}>
+                      {Array.from({ length: ONBOARD_STEPS }, (_, i) => <span key={i} />)}
+                    </PageIndicator>
+                  </div>
+                  <div style={{ display: 'flex', gap: 8, marginTop: 12 }}>
+                    <button onClick={() => setOnboardingStep((p) => Math.min(ONBOARD_STEPS - 1, p + 1))} disabled={onboardingStep >= ONBOARD_STEPS - 1} style={{ flex: 1, padding: '6px', borderRadius: 6, border: 'none', background: onboardingStep >= ONBOARD_STEPS - 1 ? '#e5e7eb' : '#3b82f6', color: onboardingStep >= ONBOARD_STEPS - 1 ? '#9ca3af' : '#fff', fontSize: 11, cursor: 'pointer' }}>다음 단계</button>
+                    <button onClick={() => setProfileComplete(true)} style={{ flex: 1, padding: '6px', borderRadius: 6, border: '1px solid #e5e7eb', background: '#fff', color: '#374151', fontSize: 11, cursor: 'pointer' }}>나중에</button>
+                  </div>
+                </div>
+              )}
+
+              {/* Skills */}
+              <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: 12, padding: 16 }}>
+                <Text textStyle="titleSmall" style={{ display: 'block', color: '#374151', marginBottom: 12 }}>기술 스택</Text>
+                {skills.map((skill) => (
+                  <div key={skill.name} style={{ marginBottom: 12 }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 4 }}>
+                      <Text textStyle="bodySmall" style={{ display: 'block', color: '#374151' }}>{skill.name}</Text>
+                      <Text textStyle="labelSmall" style={{ display: 'block', color: '#9ca3af' }}>{skill.level}%</Text>
+                    </div>
+                    <Progress value={skill.level} size="small" color="primary" />
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Right */}
+            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 16 }}>
+              <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: 12, padding: 20 }}>
+                <Text textStyle="titleMedium" style={{ display: 'block', color: '#111827', marginBottom: 8 }}>소개</Text>
+                <Text textStyle="bodyMedium" style={{ display: 'block', color: '#475569', lineHeight: 1.7 }}>
+                  Orbit UI 디자인 시스템 메인테이너. React, TypeScript, vanilla-extract를 전문으로 합니다. 650개 이상의 Storybook 스토리 작성, 3-tier 토큰 시스템 설계 담당.
+                </Text>
+              </div>
+              <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: 12, padding: 20 }}>
+                <Text textStyle="titleMedium" style={{ display: 'block', color: '#111827', marginBottom: 14 }}>최근 활동</Text>
+                {activities.slice(0, 3).map((act, idx) => (
+                  <div key={idx} style={{ display: 'flex', gap: 12, marginBottom: idx < 2 ? 12 : 0 }}>
+                    <span style={{ fontSize: 14, color: '#6b7280', flexShrink: 0, marginTop: 1 }}>{activityIcon[act.type]}</span>
+                    <div>
+                      <Text textStyle="bodySmall" style={{ display: 'block', color: '#374151' }}>{act.text}</Text>
+                      <Text textStyle="labelSmall" style={{ display: 'block', color: '#9ca3af' }}>{act.time}</Text>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </>
+        )}
+
+        {activeTab === 'activity' && (
+          <div style={{ flex: 1, background: '#fff', border: '1px solid #e2e8f0', borderRadius: 12, padding: 20 }}>
+            <Text textStyle="titleMedium" style={{ display: 'block', color: '#111827', marginBottom: 16 }}>전체 활동 이력</Text>
+            {activities.map((act, idx) => (
+              <div key={idx} style={{ display: 'flex', gap: 14, padding: '12px 0', borderBottom: idx < activities.length - 1 ? '1px solid #f3f4f6' : 'none' }}>
+                <div style={{ width: 32, height: 32, borderRadius: '50%', background: '#f1f5f9', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 13, color: '#6b7280', flexShrink: 0 }}>
+                  {activityIcon[act.type]}
+                </div>
+                <div>
+                  <Text textStyle="bodyMedium" style={{ display: 'block', color: '#374151' }}>{act.text}</Text>
+                  <Text textStyle="labelSmall" style={{ display: 'block', color: '#9ca3af', marginTop: 2 }}>{act.time}</Text>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {activeTab === 'settings' && (
+          <div style={{ flex: 1, background: '#fff', border: '1px solid #e2e8f0', borderRadius: 12, padding: 20 }}>
+            <Text textStyle="titleMedium" style={{ display: 'block', color: '#111827', marginBottom: 16 }}>프로필 설정</Text>
+            {['이름', '이메일', '직무', '회사'].map((field) => (
+              <div key={field} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px 0', borderBottom: '1px solid #f3f4f6' }}>
+                <Text textStyle="bodyMedium" style={{ display: 'block', color: '#374151' }}>{field}</Text>
+                <OutlineButton color="gray" size="small">
+                  <OutlineButton.Center>편집</OutlineButton.Center>
+                </OutlineButton>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+
+export const ChakraArco169UserProfile: StoryObj = {
+  name: 'Chakra UI + Arco Design — 사용자 프로필 (Text + PageIndicator + Progress)',
+  parameters: {
+    layout: 'fullscreen',
+    docs: {
+      description: {
+        story: 'Chakra UI + Arco Design 복합 패턴. Text 타이포그래피 계층으로 콘텐츠 구성, PageIndicator로 온보딩 진행 표시, Progress로 기술 스킬 표시.',
+      },
+    },
+  },
+  render: () => <ChakraArco169UserProfileRender />,
+}

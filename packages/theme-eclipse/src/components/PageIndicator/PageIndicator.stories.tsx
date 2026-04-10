@@ -1284,3 +1284,230 @@ export const Apple_M3_미디어_캐러셀_인디케이터: Story = {
   },
   render: () => <AppleM3MediaCarousel142Render />,
 }
+
+// ──────────────────────────────────────────────────────────────────────────────
+// Cycle 169: Chakra UI + Arco Design
+// ──────────────────────────────────────────────────────────────────────────────
+
+export const Chakra_튜토리얼_진행_인디케이터: Story = {
+  name: 'Chakra UI — 튜토리얼 진행 인디케이터 (Cycle 169)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Chakra UI Steps 패턴. 튜토리얼 단계별 PageIndicator + 이전/다음 탐색. ' +
+          '완료된 단계 표시 + 현재 단계 레이블 표시.',
+      },
+    },
+  },
+  render: function ChakraTutorialIndicatorRender() {
+    const steps = [
+      { title: '환경 설정', desc: 'Node.js, pnpm 설치' },
+      { title: '패키지 설치', desc: 'npm install @heejun-com/core' },
+      { title: '테마 적용', desc: 'EclipseProvider 설정' },
+      { title: '컴포넌트 사용', desc: 'Button, Input 등 임포트' },
+      { title: '완료', desc: '첫 번째 컴포넌트 렌더링 성공' },
+    ]
+
+    const [current, setCurrent] = useState(0)
+
+    const prev = () => setCurrent((p) => Math.max(0, p - 1))
+    const next = () => setCurrent((p) => Math.min(steps.length - 1, p + 1))
+
+    const step = steps[current]
+
+    return (
+      <div style={{ width: 380, fontFamily: 'system-ui, sans-serif' }}>
+        <div style={{ background: '#fff', border: '1px solid #e5e7eb', borderRadius: 14, padding: 24 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 16 }}>
+            {steps.map((s, i) => (
+              <div key={s.title} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                <div
+                  onClick={() => setCurrent(i)}
+                  style={{
+                    width: 28, height: 28, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    fontSize: 11, fontWeight: 700, cursor: 'pointer',
+                    background: i < current ? '#10b981' : i === current ? '#3b82f6' : '#e5e7eb',
+                    color: i <= current ? '#fff' : '#9ca3af',
+                  }}
+                >
+                  {i < current ? '✓' : i + 1}
+                </div>
+                {i < steps.length - 1 && (
+                  <div style={{ flex: 1, height: 2, width: 24, background: i < current ? '#10b981' : '#e5e7eb' }} />
+                )}
+              </div>
+            ))}
+          </div>
+          <div style={{ marginBottom: 20 }}>
+            <div style={{ fontSize: 16, fontWeight: 700, color: '#111827', marginBottom: 4 }}>{step.title}</div>
+            <div style={{ fontSize: 13, color: '#6b7280' }}>{step.desc}</div>
+          </div>
+          <PageIndicator
+            currentPage={current}
+            onPageChange={setCurrent}
+          >
+            {generateDots(steps.length)}
+          </PageIndicator>
+          <div style={{ display: 'flex', gap: 8, marginTop: 16 }}>
+            <button
+              onClick={prev}
+              disabled={current === 0}
+              style={{ flex: 1, padding: '8px', borderRadius: 8, border: '1px solid #e5e7eb', background: '#fff', color: current === 0 ? '#9ca3af' : '#374151', fontSize: 12, fontWeight: 600, cursor: current === 0 ? 'default' : 'pointer' }}
+            >
+              이전
+            </button>
+            <button
+              onClick={next}
+              disabled={current === steps.length - 1}
+              style={{ flex: 1, padding: '8px', borderRadius: 8, border: 'none', background: current === steps.length - 1 ? '#e5e7eb' : '#3b82f6', color: current === steps.length - 1 ? '#9ca3af' : '#fff', fontSize: 12, fontWeight: 600, cursor: current === steps.length - 1 ? 'default' : 'pointer' }}
+            >
+              {current === steps.length - 1 ? '완료' : '다음'}
+            </button>
+          </div>
+        </div>
+      </div>
+    )
+  },
+}
+
+export const Arco_이미지_뷰어_페이지_닷: Story = {
+  name: 'Arco Design — 이미지 뷰어 페이지 닷 (Cycle 169)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Arco Design Carousel 패턴. 이미지 뷰어 슬라이드 + 하단 PageIndicator 닷. ' +
+          '자동 재생 + 수동 조작 가능.',
+      },
+    },
+  },
+  render: function ArcoImageViewerRender() {
+    const slides = [
+      { label: '컴포넌트 라이브러리', bg: 'linear-gradient(135deg, #1d4ed8, #7c3aed)', text: 'Button, TextField, Modal...' },
+      { label: '디자인 토큰 시스템', bg: 'linear-gradient(135deg, #7c3aed, #ec4899)', text: '3-tier 토큰 아키텍처' },
+      { label: 'Storybook 문서화', bg: 'linear-gradient(135deg, #ec4899, #f59e0b)', text: '650+ 인터랙티브 스토리' },
+      { label: 'Vercel 자동 배포', bg: 'linear-gradient(135deg, #f59e0b, #10b981)', text: 'git push → Production' },
+    ]
+
+    const [current, setCurrent] = useState(0)
+    const [autoPlay, setAutoPlay] = useState(true)
+
+    useEffect(() => {
+      if (!autoPlay) return
+      const id = setInterval(() => {
+        setCurrent((p) => (p + 1) % slides.length)
+      }, 2000)
+      return () => clearInterval(id)
+    }, [autoPlay, slides.length])
+
+    return (
+      <div style={{ width: 360, fontFamily: 'system-ui, sans-serif' }}>
+        <div
+          style={{ height: 180, borderRadius: 14, background: slides[current].bg, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', transition: 'background 300ms', cursor: 'pointer', marginBottom: 12 }}
+          onClick={() => setAutoPlay((p) => !p)}
+        >
+          <div style={{ fontSize: 18, fontWeight: 800, color: '#fff', marginBottom: 6 }}>{slides[current].label}</div>
+          <div style={{ fontSize: 13, color: 'rgba(255,255,255,0.8)' }}>{slides[current].text}</div>
+          <div style={{ fontSize: 10, color: 'rgba(255,255,255,0.5)', marginTop: 8 }}>
+            {autoPlay ? '클릭하여 일시정지' : '클릭하여 재생'}
+          </div>
+        </div>
+        <div style={{ display: 'flex', justifyContent: 'center' }}>
+          <PageIndicator
+            currentPage={current}
+            onPageChange={(p) => { setCurrent(p); setAutoPlay(false) }}
+          >
+            {generateDots(slides.length)}
+          </PageIndicator>
+        </div>
+        <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 12, fontSize: 11, color: '#9ca3af' }}>
+          <span>{current + 1} / {slides.length}</span>
+          <span style={{ color: autoPlay ? '#10b981' : '#9ca3af', fontWeight: autoPlay ? 600 : 400 }}>
+            {autoPlay ? '자동 재생 중' : '일시정지'}
+          </span>
+        </div>
+      </div>
+    )
+  },
+}
+
+export const Chakra_Arco_제품_온보딩_마법사: Story = {
+  name: 'Chakra UI + Arco Design — 제품 온보딩 마법사 (Cycle 169)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Chakra UI + Arco Design Wizard 패턴. 온보딩 폼 스텝 + PageIndicator 위치 표시. ' +
+          '각 단계별 입력 + 최종 완료 화면.',
+      },
+    },
+  },
+  render: function ChakraArcoOnboardingRender() {
+    const [step, setStep] = useState(0)
+    const [form, setForm] = useState({ name: '', company: '', role: '', useCase: '' })
+
+    const steps = [
+      { title: '이름을 알려주세요', field: 'name' as const, placeholder: '홍길동', label: '이름' },
+      { title: '어느 회사인가요?', field: 'company' as const, placeholder: 'Acme Corp', label: '회사' },
+      { title: '직무가 무엇인가요?', field: 'role' as const, placeholder: 'Frontend Engineer', label: '직무' },
+      { title: '주요 사용 목적은?', field: 'useCase' as const, placeholder: '디자인 시스템 구축', label: '사용 목적' },
+    ]
+
+    const canNext = step < steps.length && form[steps[step].field].trim().length > 0
+    const isDone = step >= steps.length
+
+    return (
+      <div style={{ width: 380, fontFamily: 'system-ui, sans-serif', background: '#fff', border: '1px solid #e5e7eb', borderRadius: 16, padding: 24 }}>
+        {isDone ? (
+          <div style={{ textAlign: 'center', padding: '20px 0' }}>
+            <div style={{ fontSize: 40, marginBottom: 12 }}>🎉</div>
+            <div style={{ fontSize: 18, fontWeight: 800, color: '#111827', marginBottom: 8 }}>환영합니다, {form.name}님!</div>
+            <div style={{ fontSize: 13, color: '#6b7280', marginBottom: 16 }}>설정이 완료되었습니다.</div>
+            <div style={{ background: '#f9fafb', borderRadius: 10, padding: 14, textAlign: 'left', fontSize: 12 }}>
+              {steps.map((s) => (
+                <div key={s.field} style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 6 }}>
+                  <span style={{ color: '#9ca3af' }}>{s.label}</span>
+                  <span style={{ fontWeight: 600, color: '#374151' }}>{form[s.field]}</span>
+                </div>
+              ))}
+            </div>
+            <button onClick={() => { setStep(0); setForm({ name: '', company: '', role: '', useCase: '' }) }} style={{ marginTop: 14, padding: '8px 20px', borderRadius: 8, border: 'none', background: '#3b82f6', color: '#fff', fontSize: 12, fontWeight: 600, cursor: 'pointer' }}>
+              다시 시작
+            </button>
+          </div>
+        ) : (
+          <>
+            <div style={{ marginBottom: 20 }}>
+              <div style={{ fontSize: 14, fontWeight: 700, color: '#111827', marginBottom: 8 }}>{steps[step].title}</div>
+              <input
+                value={form[steps[step].field]}
+                onChange={(e) => setForm((prev) => ({ ...prev, [steps[step].field]: e.target.value }))}
+                placeholder={steps[step].placeholder}
+                onKeyDown={(e) => { if (e.key === 'Enter' && canNext) setStep((p) => p + 1) }}
+                style={{ width: '100%', padding: '10px 12px', borderRadius: 8, border: '1.5px solid #e5e7eb', fontSize: 13, outline: 'none', boxSizing: 'border-box' }}
+                autoFocus
+              />
+            </div>
+            <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 16 }}>
+              <PageIndicator
+                currentPage={step}
+                onPageChange={setStep}
+              >
+                {generateDots(steps.length)}
+              </PageIndicator>
+            </div>
+            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+              <button onClick={() => setStep((p) => Math.max(0, p - 1))} disabled={step === 0} style={{ padding: '8px 16px', borderRadius: 8, border: '1px solid #e5e7eb', background: '#fff', color: step === 0 ? '#9ca3af' : '#374151', fontSize: 12, cursor: step === 0 ? 'default' : 'pointer' }}>
+                이전
+              </button>
+              <button onClick={() => setStep((p) => p + 1)} disabled={!canNext} style={{ padding: '8px 20px', borderRadius: 8, border: 'none', background: canNext ? '#3b82f6' : '#e5e7eb', color: canNext ? '#fff' : '#9ca3af', fontSize: 12, fontWeight: 600, cursor: canNext ? 'pointer' : 'default' }}>
+                {step === steps.length - 1 ? '완료' : '다음'}
+              </button>
+            </div>
+          </>
+        )}
+      </div>
+    )
+  },
+}

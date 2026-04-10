@@ -1139,3 +1139,187 @@ export const Raycast_Figma_변경이력_타이포: StoryObj<typeof meta> = {
   },
   render: () => <RaycastFigmaChangeLog141Render />,
 }
+
+// ──────────────────────────────────────────────────────────────────────────────
+// Cycle 169: Chakra UI + Arco Design
+// ──────────────────────────────────────────────────────────────────────────────
+
+export const Chakra_아티클_타이포그래피_계층: StoryObj<typeof meta> = {
+  name: 'Chakra UI — 아티클 타이포그래피 계층 (Cycle 169)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Chakra UI Text 컴포넌트 계층 패턴. 블로그 아티클 레이아웃에서의 타이포그래피 계층 시연. ' +
+          'displaySmall → headlineMedium → bodyLarge 스케일 활용.',
+      },
+    },
+  },
+  render: function ChakraArticleTypoRender() {
+    return (
+      <div style={{ width: 560, fontFamily: 'system-ui, sans-serif', padding: '20px 0' }}>
+        <Text textStyle="labelSmall" style={{ color: '#3b82f6', fontWeight: 700, letterSpacing: 2, marginBottom: 8, display: 'block' }}>
+          ORBIT UI 3.0 릴리즈
+        </Text>
+        <Text textStyle="headlineLarge" style={{ color: '#0f172a', lineHeight: 1.2, marginBottom: 12, display: 'block' }}>
+          3-Tier 토큰 시스템으로 재설계된 디자인 기반
+        </Text>
+        <Text textStyle="bodyLarge" style={{ color: '#475569', lineHeight: 1.7, marginBottom: 20, display: 'block' }}>
+          이번 릴리즈에서는 Reference → Semantic → Component 토큰 구조를 전면 재설계했습니다. 이를 통해 브랜드 색상 변경 시 전체 컴포넌트에 자동으로 반영되는 일관성 있는 디자인 시스템을 구축했습니다.
+        </Text>
+        <div style={{ borderLeft: '3px solid #3b82f6', paddingLeft: 16, marginBottom: 20 }}>
+          <Text textStyle="titleMedium" style={{ color: '#1e40af', fontStyle: 'italic', display: 'block' }}>
+            &ldquo;좋은 디자인 시스템은 컴포넌트가 아니라 결정의 체계다.&rdquo;
+          </Text>
+        </div>
+        <Text textStyle="headlineMedium" style={{ color: '#0f172a', marginBottom: 10, display: 'block' }}>
+          주요 변경사항
+        </Text>
+        <Text textStyle="bodyMedium" style={{ color: '#374151', lineHeight: 1.7, display: 'block' }}>
+          vanilla-extract 기반 CSS-in-JS 통합, Storybook 8 업그레이드, 650개 이상의 인터랙티브 스토리 추가. 모든 컴포넌트는 WAI-ARIA 패턴을 준수하며 키보드 탐색을 완전히 지원합니다.
+        </Text>
+        <div style={{ marginTop: 16, paddingTop: 16, borderTop: '1px solid #e5e7eb', display: 'flex', gap: 16 }}>
+          <Text textStyle="labelSmall" style={{ color: '#9ca3af', display: 'block' }}>2025년 4월 11일</Text>
+          <Text textStyle="labelSmall" style={{ color: '#9ca3af', display: 'block' }}>읽는 시간: 5분</Text>
+        </div>
+      </div>
+    )
+  },
+}
+
+export const Arco_데이터_테이블_셀_타이포: StoryObj<typeof meta> = {
+  name: 'Arco Design — 데이터 테이블 셀 타이포그래피 (Cycle 169)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Arco Design Table 셀 내 타이포그래피 패턴. 제목/부제목 이중 구조 셀 + ' +
+          '숫자/상태 강조 텍스트 조합.',
+      },
+    },
+  },
+  render: function ArcoTableTypoRender() {
+    const rows = [
+      { name: '김민준', role: 'Frontend', commits: 1204, status: 'active', joinDate: '2024-01' },
+      { name: '이지수', role: 'Design', commits: 342, status: 'active', joinDate: '2024-03' },
+      { name: '박서연', role: 'Backend', commits: 876, status: 'away', joinDate: '2024-02' },
+      { name: '최준호', role: 'DevOps', commits: 215, status: 'offline', joinDate: '2024-06' },
+    ]
+
+    const statusColor: Record<string, string> = {
+      active: '#10b981',
+      away: '#f59e0b',
+      offline: '#9ca3af',
+    }
+    const statusLabel: Record<string, string> = {
+      active: '활성',
+      away: '자리 비움',
+      offline: '오프라인',
+    }
+
+    return (
+      <div style={{ width: 520, fontFamily: 'system-ui, sans-serif' }}>
+        <Text textStyle="titleMedium" style={{ display: 'block', marginBottom: 12, color: '#0f172a' }}>
+          팀 멤버 현황
+        </Text>
+        <div style={{ border: '1px solid #e5e7eb', borderRadius: 10, overflow: 'hidden' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr', background: '#f9fafb', padding: '8px 14px', borderBottom: '1px solid #e5e7eb' }}>
+            {['멤버', '커밋', '상태', '합류일'].map((col) => (
+              <Text key={col} textStyle="labelSmall" style={{ color: '#6b7280', fontWeight: 700, display: 'block' }}>{col}</Text>
+            ))}
+          </div>
+          {rows.map((row, idx) => (
+            <div key={row.name} style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr', padding: '12px 14px', borderBottom: idx < rows.length - 1 ? '1px solid #f3f4f6' : 'none', alignItems: 'center' }}>
+              <div>
+                <Text textStyle="bodyMedium" style={{ fontWeight: 600, color: '#111827', display: 'block' }}>{row.name}</Text>
+                <Text textStyle="labelSmall" style={{ color: '#9ca3af', display: 'block' }}>{row.role}</Text>
+              </div>
+              <Text textStyle="titleSmall" style={{ color: '#374151', fontVariantNumeric: 'tabular-nums', display: 'block' }}>{row.commits.toLocaleString()}</Text>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
+                <div style={{ width: 6, height: 6, borderRadius: '50%', background: statusColor[row.status] }} />
+                <Text textStyle="labelSmall" style={{ color: statusColor[row.status], fontWeight: 600, display: 'block' }}>{statusLabel[row.status]}</Text>
+              </div>
+              <Text textStyle="labelSmall" style={{ color: '#9ca3af', display: 'block' }}>{row.joinDate}</Text>
+            </div>
+          ))}
+        </div>
+      </div>
+    )
+  },
+}
+
+export const Chakra_Arco_에러_빈상태_타이포: StoryObj<typeof meta> = {
+  name: 'Chakra UI + Arco Design — 에러/빈 상태 타이포그래피 (Cycle 169)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Chakra UI + Arco Design 빈 상태/에러 화면 타이포그래피 패턴. ' +
+          '제목/설명/액션 3단 구조로 사용자 이탈 방지.',
+      },
+    },
+  },
+  render: function ChakraArcoEmptyStateRender() {
+    const [variant, setVariant] = React.useState<'empty' | 'error' | 'loading'>('empty')
+
+    const states: { key: 'empty' | 'error' | 'loading'; icon: string; title: string; desc: string; action: string; titleStyle: string; descColor: string }[] = [
+      {
+        key: 'empty',
+        icon: '📭',
+        title: '데이터가 없습니다',
+        desc: '아직 등록된 항목이 없습니다. 새 항목을 추가해서 시작해보세요.',
+        action: '첫 번째 항목 추가',
+        titleStyle: 'titleLarge',
+        descColor: '#6b7280',
+      },
+      {
+        key: 'error',
+        icon: '⚠',
+        title: '오류가 발생했습니다',
+        desc: '데이터를 불러오는 중 문제가 발생했습니다. 잠시 후 다시 시도해주세요.',
+        action: '다시 시도',
+        titleStyle: 'titleLarge',
+        descColor: '#ef4444',
+      },
+      {
+        key: 'loading',
+        icon: '⏳',
+        title: '데이터를 불러오는 중',
+        desc: '잠시만 기다려주세요. 데이터를 불러오고 있습니다.',
+        action: '취소',
+        titleStyle: 'titleLarge',
+        descColor: '#6b7280',
+      },
+    ]
+
+    const current = states.find((s) => s.key === variant) ?? states[0]
+
+    return (
+      <div style={{ width: 400, fontFamily: 'system-ui, sans-serif' }}>
+        <div style={{ display: 'flex', gap: 8, marginBottom: 24 }}>
+          {states.map((s) => (
+            <button
+              key={s.key}
+              onClick={() => setVariant(s.key)}
+              style={{ padding: '4px 12px', borderRadius: 20, border: `1.5px solid ${variant === s.key ? '#3b82f6' : '#e5e7eb'}`, background: variant === s.key ? '#eff6ff' : '#fff', color: variant === s.key ? '#1d4ed8' : '#6b7280', fontSize: 11, fontWeight: 600, cursor: 'pointer' }}
+            >
+              {s.key}
+            </button>
+          ))}
+        </div>
+        <div style={{ textAlign: 'center', padding: '40px 24px', border: '2px dashed #e5e7eb', borderRadius: 14 }}>
+          <div style={{ fontSize: 48, marginBottom: 16 }}>{current.icon}</div>
+          <Text textStyle="titleLarge" style={{ display: 'block', color: '#111827', marginBottom: 10 }}>
+            {current.title}
+          </Text>
+          <Text textStyle="bodyMedium" style={{ display: 'block', color: current.descColor, lineHeight: 1.6, marginBottom: 20 }}>
+            {current.desc}
+          </Text>
+          <button style={{ padding: '10px 24px', borderRadius: 8, border: 'none', background: '#3b82f6', color: '#fff', fontSize: 13, fontWeight: 600, cursor: 'pointer' }}>
+            {current.action}
+          </button>
+        </div>
+      </div>
+    )
+  },
+}
