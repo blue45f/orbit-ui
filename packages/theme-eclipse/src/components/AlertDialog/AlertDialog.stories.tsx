@@ -471,3 +471,342 @@ export const Ant_비동기_배포_확인: Story = {
   },
   render: () => <AsyncConfirmDemo />,
 }
+
+/* --------------------------------------------------------------------------
+   Vercel Design 벤치마크: 팀 멤버 제거 확인
+   Vercel 팀 설정에서 멤버 제거 시 나타나는 확인 다이얼로그 패턴
+   구성원 이름과 권한을 다이얼로그에 명시해 실수를 방지하는 UX
+-------------------------------------------------------------------------- */
+const VercelRemoveMemberDemo = () => {
+  const [removed, setRemoved] = useState(false)
+
+  const member = { name: '이서연', email: 'seoyeon@example.com', role: 'Developer' }
+
+  return (
+    <div style={{ padding: '40px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 16 }}>
+      {removed ? (
+        <div style={{
+          display: 'flex', alignItems: 'center', gap: 10,
+          padding: '14px 20px', borderRadius: 10,
+          background: '#f0fdf4', border: '1px solid #bbf7d0',
+          fontSize: 14, color: '#15803d', fontWeight: 500,
+        }}>
+          <NotificationCheckFillIcon style={{ width: 18, height: 18 }} />
+          {member.name}님이 팀에서 제거되었습니다.
+        </div>
+      ) : (
+        <Alert defaultIsPresented={false}>
+          <Alert.Trigger asChild>
+            <Button color="primary" size="medium">
+              <Button.Center>멤버 제거</Button.Center>
+            </Button>
+          </Alert.Trigger>
+          <Alert.Top>
+            <Alert.Title>팀 멤버를 제거하시겠습니까?</Alert.Title>
+            <Alert.Description>
+              아래 멤버가 팀에서 제거되며, 모든 프로젝트 접근 권한을 잃게 됩니다.
+            </Alert.Description>
+            <div style={{
+              marginTop: 14, padding: '12px 16px', borderRadius: 8,
+              background: '#f8fafc', border: '1px solid #e2e8f0',
+              display: 'flex', alignItems: 'center', gap: 12,
+            }}>
+              <div style={{
+                width: 36, height: 36, borderRadius: '50%',
+                background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                color: '#fff', fontWeight: 700, fontSize: 15, flexShrink: 0,
+              }}>
+                {member.name[0]}
+              </div>
+              <div>
+                <div style={{ fontSize: 13, fontWeight: 600, color: '#1e293b' }}>{member.name}</div>
+                <div style={{ fontSize: 12, color: '#64748b' }}>{member.email}</div>
+              </div>
+              <div style={{
+                marginLeft: 'auto', fontSize: 11, fontWeight: 600,
+                padding: '2px 8px', borderRadius: 6,
+                background: '#e0e7ff', color: '#4338ca',
+              }}>
+                {member.role}
+              </div>
+            </div>
+          </Alert.Top>
+          <Alert.Bottom direction="horizontal">
+            <Alert.Close asChild>
+              <Button color="gray" size="large" width="100%">
+                <Button.Center>취소</Button.Center>
+              </Button>
+            </Alert.Close>
+            <Alert.Action asChild>
+              <Button
+                color="primary"
+                size="large"
+                width="100%"
+                style={{ background: '#ef4444', borderColor: '#ef4444' }}
+                onClick={() => setRemoved(true)}
+              >
+                <Button.Center>제거 확인</Button.Center>
+              </Button>
+            </Alert.Action>
+          </Alert.Bottom>
+        </Alert>
+      )}
+      <p style={{ margin: 0, fontSize: 12, color: '#94a3b8', textAlign: 'center' }}>
+        Vercel 팀 설정 패턴 — 멤버 정보 카드를 다이얼로그 내에 표시해 실수 방지
+      </p>
+    </div>
+  )
+}
+
+export const Vercel_팀_멤버_제거: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Vercel 팀 설정의 멤버 제거 확인 다이얼로그 패턴. 제거할 대상의 이름·이메일·권한을 카드로 명시해 의도치 않은 삭제를 방지합니다.',
+      },
+    },
+  },
+  render: () => <VercelRemoveMemberDemo />,
+}
+
+/* --------------------------------------------------------------------------
+   Vercel Design 벤치마크: 요금제 다운그레이드 경고
+   Vercel Pro → Hobby 다운그레이드 시 손실되는 기능 목록을 명시하는 패턴
+-------------------------------------------------------------------------- */
+const VercelDowngradeDemo = () => {
+  const [downgraded, setDowngraded] = useState(false)
+
+  const lostFeatures = [
+    '팀 협업 기능 (멤버 초대 불가)',
+    '커스텀 도메인 무제한',
+    'Analytics 대시보드',
+    '우선 지원 (Priority Support)',
+  ]
+
+  return (
+    <div style={{ padding: '40px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 16 }}>
+      {downgraded ? (
+        <div style={{
+          padding: '16px 20px', borderRadius: 10,
+          background: '#fffbeb', border: '1px solid #fde68a',
+          fontSize: 14, color: '#92400e', fontWeight: 500, maxWidth: 320, textAlign: 'center',
+        }}>
+          Hobby 플랜으로 변경되었습니다. 일부 기능이 비활성화됩니다.
+        </div>
+      ) : (
+        <Alert defaultIsPresented={false}>
+          <Alert.Trigger asChild>
+            <Button color="primary" size="medium">
+              <Button.Center>Hobby로 다운그레이드</Button.Center>
+            </Button>
+          </Alert.Trigger>
+          <Alert.Top>
+            <Alert.Title>Pro 플랜을 해지하시겠습니까?</Alert.Title>
+            <Alert.Description>
+              다운그레이드 시 다음 기능들을 더 이상 사용할 수 없습니다.
+            </Alert.Description>
+            <ul style={{ margin: '14px 0 0', padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 8 }}>
+              {lostFeatures.map((feature) => (
+                <li
+                  key={feature}
+                  style={{
+                    display: 'flex', alignItems: 'center', gap: 8,
+                    fontSize: 13, color: '#475569',
+                  }}
+                >
+                  <span style={{
+                    width: 16, height: 16, borderRadius: '50%',
+                    background: '#fef2f2', border: '1px solid #fecaca',
+                    display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+                    fontSize: 9, color: '#ef4444', fontWeight: 700, flexShrink: 0,
+                  }}>
+                    ✕
+                  </span>
+                  {feature}
+                </li>
+              ))}
+            </ul>
+          </Alert.Top>
+          <Alert.Bottom direction="vertical">
+            <Alert.Close asChild>
+              <Button color="black" size="large" width="100%">
+                <Button.Center>Pro 플랜 유지</Button.Center>
+              </Button>
+            </Alert.Close>
+            <Alert.Action asChild>
+              <Button color="gray" size="large" width="100%" onClick={() => setDowngraded(true)}>
+                <Button.Center>Hobby로 변경</Button.Center>
+              </Button>
+            </Alert.Action>
+          </Alert.Bottom>
+        </Alert>
+      )}
+      <p style={{ margin: 0, fontSize: 12, color: '#94a3b8', textAlign: 'center' }}>
+        Vercel 요금제 다운그레이드 패턴 — 손실 기능 목록 명시 + 유지 CTA 강조
+      </p>
+    </div>
+  )
+}
+
+export const Vercel_요금제_다운그레이드: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Vercel 요금제 다운그레이드 확인 패턴. 손실되는 기능 목록을 체크리스트로 명시하고, 기본 CTA는 플랜 유지(긍정적 행동)로 배치합니다.',
+      },
+    },
+  },
+  render: () => <VercelDowngradeDemo />,
+}
+
+/* --------------------------------------------------------------------------
+   Ant Design 벤치마크: 연속 단계 확인 (Multi-step confirm)
+   Ant Design의 Steps + Modal 조합 패턴 — 위험 작업을 단계별로 확인
+-------------------------------------------------------------------------- */
+const AntMultiStepConfirmDemo = () => {
+  const [step, setStep] = useState<0 | 1 | 2>(0)
+  const [agreed, setAgreed] = useState(false)
+
+  const STEPS = ['내용 확인', '약관 동의', '최종 확인']
+
+  const reset = () => { setStep(0); setAgreed(false) }
+
+  return (
+    <div style={{ padding: '40px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 16 }}>
+      {step === 2 && agreed ? (
+        <div style={{
+          display: 'flex', alignItems: 'center', gap: 10,
+          padding: '14px 20px', borderRadius: 10,
+          background: '#f0fdf4', border: '1px solid #bbf7d0',
+          fontSize: 14, color: '#15803d', fontWeight: 500,
+        }}>
+          <NotificationCheckFillIcon style={{ width: 18, height: 18 }} />
+          법인 계좌 해지가 완료되었습니다.
+        </div>
+      ) : (
+        <Alert defaultIsPresented={false} onOpenChange={(open) => { if (!open) reset() }}>
+          <Alert.Trigger asChild>
+            <Button color="primary" size="medium">
+              <Button.Center>법인 계좌 해지</Button.Center>
+            </Button>
+          </Alert.Trigger>
+          <Alert.Top>
+            {/* Step indicator */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: 0, marginBottom: 16 }}>
+              {STEPS.map((label, i) => (
+                <React.Fragment key={label}>
+                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4 }}>
+                    <div style={{
+                      width: 24, height: 24, borderRadius: '50%',
+                      background: i <= step ? '#6366f1' : '#e2e8f0',
+                      color: i <= step ? '#fff' : '#94a3b8',
+                      display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      fontSize: 11, fontWeight: 700, transition: 'all 0.2s',
+                    }}>
+                      {i + 1}
+                    </div>
+                    <span style={{ fontSize: 10, color: i <= step ? '#6366f1' : '#94a3b8', whiteSpace: 'nowrap' }}>{label}</span>
+                  </div>
+                  {i < STEPS.length - 1 && (
+                    <div style={{
+                      flex: 1, height: 2, margin: '0 4px', marginBottom: 18,
+                      background: i < step ? '#6366f1' : '#e2e8f0', transition: 'background 0.2s',
+                    }} />
+                  )}
+                </React.Fragment>
+              ))}
+            </div>
+
+            {step === 0 && (
+              <>
+                <Alert.Title>법인 계좌 해지 안내</Alert.Title>
+                <Alert.Description>
+                  해지 시 모든 자동이체가 중단되며, 잔여 포인트는 환급되지 않습니다. 계속하시려면 다음을 클릭하세요.
+                </Alert.Description>
+              </>
+            )}
+            {step === 1 && (
+              <>
+                <Alert.Title>약관 동의</Alert.Title>
+                <Alert.Description>
+                  해지 약관에 동의하셔야 다음 단계로 진행할 수 있습니다.
+                </Alert.Description>
+                <label style={{ display: 'flex', alignItems: 'center', gap: 10, marginTop: 14, cursor: 'pointer', fontSize: 13, color: '#374151' }}>
+                  <input
+                    type="checkbox"
+                    checked={agreed}
+                    onChange={(e) => setAgreed(e.target.checked)}
+                    style={{ width: 16, height: 16, cursor: 'pointer' }}
+                  />
+                  해지 약관 및 유의사항을 확인하였으며, 이에 동의합니다.
+                </label>
+              </>
+            )}
+            {step === 2 && (
+              <>
+                <Alert.Title>최종 확인</Alert.Title>
+                <Alert.Description>
+                  법인 계좌 해지를 최종 실행합니다. 이 작업은 되돌릴 수 없습니다.
+                </Alert.Description>
+              </>
+            )}
+          </Alert.Top>
+          <Alert.Bottom direction="horizontal">
+            {step === 0 ? (
+              <Alert.Close asChild>
+                <Button color="gray" size="large" width="100%">
+                  <Button.Center>취소</Button.Center>
+                </Button>
+              </Alert.Close>
+            ) : (
+              <Button color="gray" size="large" width="100%" onClick={() => setStep((s) => (s - 1) as 0 | 1 | 2)}>
+                <Button.Center>이전</Button.Center>
+              </Button>
+            )}
+            {step < 2 ? (
+              <Button
+                color="primary"
+                size="large"
+                width="100%"
+                disabled={step === 1 && !agreed}
+                onClick={() => setStep((s) => (s + 1) as 0 | 1 | 2)}
+              >
+                <Button.Center>다음</Button.Center>
+              </Button>
+            ) : (
+              <Alert.Action asChild>
+                <Button
+                  color="primary"
+                  size="large"
+                  width="100%"
+                  style={{ background: '#ef4444', borderColor: '#ef4444' }}
+                  onClick={() => setAgreed(true)}
+                >
+                  <Button.Center>해지 실행</Button.Center>
+                </Button>
+              </Alert.Action>
+            )}
+          </Alert.Bottom>
+        </Alert>
+      )}
+      <p style={{ margin: 0, fontSize: 12, color: '#94a3b8', textAlign: 'center' }}>
+        Ant Design Steps + Modal 패턴 — 위험 작업을 단계별 확인으로 분리
+      </p>
+    </div>
+  )
+}
+
+export const Ant_다단계_확인_플로우: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Ant Design Steps + Modal 조합 패턴. 고위험 작업을 3단계로 분리해 각 단계에서 명시적 동의를 받습니다. 약관 동의 단계에서는 체크박스가 선택되어야 다음으로 진행됩니다.',
+      },
+    },
+  },
+  render: () => <AntMultiStepConfirmDemo />,
+}

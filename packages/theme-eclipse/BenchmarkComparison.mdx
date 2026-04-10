@@ -1104,5 +1104,80 @@ const theme = createTheme({
       </div>
     </section>
 
+    {/* ─────────────────────────────────────────────────────
+        Vercel Design + Ant Design 벤치마크 (Cycle 46)
+        ───────────────────────────────────────────────────── */}
+    <section style={{ marginTop: '48px' }}>
+      <div style={{ fontSize: '22px', fontWeight: '800', color: '#1e293b', marginBottom: '6px' }}>
+        Vercel Design &amp; Ant Design 벤치마크
+      </div>
+      <div style={{ fontSize: '14px', color: '#64748b', marginBottom: '24px', lineHeight: '1.6' }}>
+        Vercel의 컴팩트 밀도 시스템과 Ant Design의 확인 다이얼로그 UX 패턴을 분석해 Orbit UI에 반영했습니다.
+      </div>
+
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '24px' }}>
+        {/* Vercel */}
+        <div style={{ padding: '20px', borderRadius: '12px', background: '#0a0a0a', border: '1px solid #333' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '16px' }}>
+            <div style={{ width: '32px', height: '32px', borderRadius: '8px', background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <span style={{ color: '#000', fontWeight: '900', fontSize: '15px' }}>▲</span>
+            </div>
+            <div style={{ fontWeight: '700', fontSize: '15px', color: '#fff' }}>Vercel Design</div>
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', fontSize: '13px' }}>
+            <div style={{ padding: '10px 12px', background: '#111', borderRadius: '8px', border: '1px solid #222', color: '#e2e8f0' }}>
+              <div style={{ fontWeight: '600', color: '#fff', marginBottom: '4px' }}>컴팩트 밀도 시스템</div>
+              3가지 밀도(컴팩트/기본/여유)를 Space 토큰으로 구현. 8px 그리드 기반 정밀 간격 제어.
+            </div>
+            <div style={{ padding: '10px 12px', background: '#111', borderRadius: '8px', border: '1px solid #222', color: '#e2e8f0' }}>
+              <div style={{ fontWeight: '600', color: '#fff', marginBottom: '4px' }}>확인 다이얼로그 정보 밀도</div>
+              대상 정보(이름·이메일·권한)를 카드로 인라인 표시해 실수 방지. 위험 CTA는 적색, 안전 CTA는 강조.
+            </div>
+            <div style={{ padding: '10px 12px', background: '#111', borderRadius: '8px', border: '1px solid #222', color: '#e2e8f0' }}>
+              <div style={{ fontWeight: '600', color: '#fff', marginBottom: '4px' }}>다운그레이드 마찰 설계</div>
+              손실 기능 목록 명시 + 플랜 유지 버튼을 주 CTA로 배치해 전환율 보호.
+            </div>
+          </div>
+        </div>
+        {/* Ant Design */}
+        <div style={{ padding: '20px', borderRadius: '12px', background: '#f0f7ff', border: '2px solid #bae0ff' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '16px' }}>
+            <div style={{ width: '32px', height: '32px', borderRadius: '8px', background: '#1677ff', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <span style={{ color: '#fff', fontWeight: '700', fontSize: '13px' }}>Ant</span>
+            </div>
+            <div style={{ fontWeight: '700', fontSize: '15px', color: '#1e293b' }}>Ant Design</div>
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', fontSize: '13px' }}>
+            <div style={{ padding: '10px 12px', background: '#fff', borderRadius: '8px', border: '1px solid #e2e8f0', color: '#374151' }}>
+              <div style={{ fontWeight: '600', color: '#1677ff', marginBottom: '4px' }}>색상 코딩 위험 다이얼로그</div>
+              error/warning/success 별 색상 토큰으로 의도 명확화. 파괴적 액션에 적색 아이콘 + 적색 CTA.
+            </div>
+            <div style={{ padding: '10px 12px', background: '#fff', borderRadius: '8px', border: '1px solid #e2e8f0', color: '#374151' }}>
+              <div style={{ fontWeight: '600', color: '#1677ff', marginBottom: '4px' }}>다단계 확인 플로우</div>
+              Steps + Modal 조합으로 고위험 작업을 3단계로 분리. 중간 단계에 약관 동의 게이팅.
+            </div>
+            <div style={{ padding: '10px 12px', background: '#fff', borderRadius: '8px', border: '1px solid #e2e8f0', color: '#374151' }}>
+              <div style={{ fontWeight: '600', color: '#1677ff', marginBottom: '4px' }}>비동기 버튼 로딩 패턴</div>
+              okButtonProps.loading으로 서버 요청 중 버튼 비활성화. Orbit UI는 disabled + 텍스트 변경으로 구현.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style={{ padding: '20px', borderRadius: '12px', background: 'linear-gradient(135deg, #f0fdf4, #ecfdf5)', border: '2px solid #bbf7d0' }}>
+        <div style={{ fontSize: '13px', fontWeight: '700', color: '#065f46', marginBottom: '12px' }}>Orbit UI 반영 결과</div>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '12px', fontSize: '12px', color: '#374151', lineHeight: '1.7' }}>
+          <div>
+            <div style={{ fontWeight: '700', color: '#059669', marginBottom: '4px' }}>AlertDialog 고도화</div>
+            팀 멤버 제거(Vercel), 요금제 다운그레이드(Vercel), 다단계 확인 플로우(Ant Design) 3개 스토리 추가.
+          </div>
+          <div>
+            <div style={{ fontWeight: '700', color: '#059669', marginBottom: '4px' }}>Space 컴포넌트 고도화</div>
+            레이아웃 밀도 비교(Vercel), 인터랙티브 간격 조절(Ant Design), 섹션 구분 패턴(Vercel) 3개 스토리 추가.
+          </div>
+        </div>
+      </div>
+    </section>
+
   </div>
 </Unstyled>

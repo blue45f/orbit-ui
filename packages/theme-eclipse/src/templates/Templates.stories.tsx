@@ -10512,3 +10512,200 @@ export const InboxView: Story = {
   render: () => <InboxViewRender />,
 }
 
+/* ═══════════════════════════════════════════
+   36. Sprint Board (Vercel + Ant Design 벤치마크)
+   ═══════════════════════════════════════════ */
+type SprintColStatus = 'backlog' | 'inprogress' | 'review' | 'done'
+
+type SprintCard = {
+  id: number
+  title: string
+  tag: string
+  tagColor: string
+  priority: 'high' | 'medium' | 'low'
+  assignee: string
+}
+
+const SPRINT_PRIORITY_CONFIG = {
+  high: { label: '높음', bg: '#fef2f2', color: '#dc2626' },
+  medium: { label: '보통', bg: '#fffbeb', color: '#d97706' },
+  low: { label: '낮음', bg: '#f0fdf4', color: '#16a34a' },
+}
+
+const INITIAL_SPRINT: Record<SprintColStatus, SprintCard[]> = {
+  backlog: [
+    { id: 1, title: 'Space 컴포넌트 스토리 추가', tag: '문서', tagColor: '#6366f1', priority: 'medium', assignee: '김' },
+    { id: 2, title: 'AlertDialog 다단계 확인 구현', tag: '기능', tagColor: '#06b6d4', priority: 'high', assignee: '이' },
+  ],
+  inprogress: [
+    { id: 3, title: 'Vercel 배포 파이프라인 설정', tag: '인프라', tagColor: '#f59e0b', priority: 'high', assignee: '박' },
+    { id: 4, title: '디자인 토큰 MDX 보강', tag: '문서', tagColor: '#6366f1', priority: 'low', assignee: '최' },
+  ],
+  review: [
+    { id: 5, title: 'TypeScript 타입 정리', tag: '리팩터', tagColor: '#8b5cf6', priority: 'medium', assignee: '정' },
+  ],
+  done: [
+    { id: 6, title: 'Cycle 45 배포 완료', tag: '배포', tagColor: '#10b981', priority: 'low', assignee: '김' },
+    { id: 7, title: 'SolidIconButton 스토리 고도화', tag: '기능', tagColor: '#06b6d4', priority: 'medium', assignee: '이' },
+  ],
+}
+
+const SPRINT_COL_CONFIG: Record<SprintColStatus, { label: string; dotColor: string }> = {
+  backlog: { label: 'Backlog', dotColor: '#94a3b8' },
+  inprogress: { label: 'In Progress', dotColor: '#f59e0b' },
+  review: { label: 'Review', dotColor: '#6366f1' },
+  done: { label: 'Done', dotColor: '#10b981' },
+}
+
+const SPRINT_COLUMNS: SprintColStatus[] = ['backlog', 'inprogress', 'review', 'done']
+
+const SprintBoardRender = () => {
+  const [board, setBoard] = useState<Record<SprintColStatus, SprintCard[]>>(INITIAL_SPRINT)
+  const [dragging, setDragging] = useState<{ card: SprintCard; from: SprintColStatus } | null>(null)
+  const [dragOver, setDragOver] = useState<SprintColStatus | null>(null)
+  const [filter, setFilter] = useState<'all' | 'high' | 'medium' | 'low'>('all')
+
+  const totalCards = SPRINT_COLUMNS.reduce((sum, col) => sum + board[col].length, 0)
+  const doneCards = board.done.length
+
+  const filteredBoard = (col: SprintColStatus) =>
+    filter === 'all' ? board[col] : board[col].filter((c) => c.priority === filter)
+
+  const handleDragStart = (card: SprintCard, from: SprintColStatus) => setDragging({ card, from })
+
+  const handleDrop = (to: SprintColStatus) => {
+    if (!dragging || dragging.from === to) { setDragging(null); return }
+    setBoard((prev) => {
+      const fromCards = prev[dragging.from].filter((c) => c.id !== dragging.card.id)
+      const toCards = [...prev[to], dragging.card]
+      return { ...prev, [dragging.from]: fromCards, [to]: toCards }
+    })
+    setDragging(null)
+    setDragOver(null)
+  }
+
+  return (
+    <div style={{ fontFamily: 'system-ui, sans-serif', background: tc.surface, minHeight: 520, borderRadius: 12, overflow: 'hidden', border: `1px solid ${tc.border}` }}>
+      {/* Header */}
+      <div style={{ padding: '14px 20px', borderBottom: `1px solid ${tc.border}`, background: tc.bg, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+          <span style={{ fontWeight: 700, fontSize: 15, color: tc.fg }}>Sprint Board</span>
+          <Progress value={Math.round((doneCards / totalCards) * 100)} color="primary" size="small" style={{ width: 80 }} />
+          <span style={{ fontSize: 12, color: tc.fgSub }}>{doneCards}/{totalCards} 완료</span>
+        </div>
+        <div style={{ display: 'flex', gap: 4 }}>
+          {(['all', 'high', 'medium', 'low'] as const).map((f) => (
+            <button
+              key={f}
+              onClick={() => setFilter(f)}
+              style={{
+                padding: '3px 10px', borderRadius: 20, border: 'none', cursor: 'pointer',
+                fontSize: 11, fontWeight: 600,
+                background: filter === f ? '#1e293b' : tc.surface,
+                color: filter === f ? '#fff' : tc.fgSub,
+                transition: 'all 0.15s',
+              }}
+            >
+              {f === 'all' ? '전체' : SPRINT_PRIORITY_CONFIG[f].label}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Columns */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 12, padding: 16, overflowX: 'auto' }}>
+        {SPRINT_COLUMNS.map((col) => {
+          const config = SPRINT_COL_CONFIG[col]
+          const cards = filteredBoard(col)
+          const isOver = dragOver === col
+
+          return (
+            <div
+              key={col}
+              onDragOver={(e) => { e.preventDefault(); setDragOver(col) }}
+              onDragLeave={() => setDragOver(null)}
+              onDrop={() => handleDrop(col)}
+              style={{
+                background: isOver ? '#f0f9ff' : tc.bg,
+                borderRadius: 10,
+                border: `1px solid ${isOver ? '#6366f1' : tc.border}`,
+                transition: 'all 0.15s',
+                minHeight: 200,
+              }}
+            >
+              {/* Column header */}
+              <div style={{ padding: '10px 12px', borderBottom: `1px solid ${tc.borderSub}`, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                  <div style={{ width: 8, height: 8, borderRadius: '50%', background: config.dotColor }} />
+                  <span style={{ fontSize: 12, fontWeight: 700, color: tc.fg }}>{config.label}</span>
+                </div>
+                <CounterBadge color="gray">{board[col].length}</CounterBadge>
+              </div>
+
+              {/* Cards */}
+              <div style={{ padding: 8, display: 'flex', flexDirection: 'column', gap: 8 }}>
+                {cards.map((card) => {
+                  const pri = SPRINT_PRIORITY_CONFIG[card.priority]
+                  return (
+                    <div
+                      key={card.id}
+                      draggable
+                      onDragStart={() => handleDragStart(card, col)}
+                      style={{
+                        background: tc.bg,
+                        borderRadius: 8,
+                        border: `1px solid ${tc.border}`,
+                        padding: '10px 12px',
+                        cursor: 'grab',
+                        boxShadow: '0 1px 3px rgba(0,0,0,0.06)',
+                        opacity: dragging?.card.id === card.id ? 0.5 : 1,
+                        transition: 'opacity 0.15s',
+                      }}
+                    >
+                      <div style={{ fontSize: 12, fontWeight: 600, color: tc.fg, marginBottom: 8, lineHeight: 1.4 }}>{card.title}</div>
+                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+                          <span style={{
+                            fontSize: 10, fontWeight: 600, padding: '1px 6px', borderRadius: 4,
+                            background: `${card.tagColor}18`, color: card.tagColor,
+                          }}>
+                            {card.tag}
+                          </span>
+                          <span style={{
+                            fontSize: 10, fontWeight: 600, padding: '1px 6px', borderRadius: 4,
+                            background: pri.bg, color: pri.color,
+                          }}>
+                            {pri.label}
+                          </span>
+                        </div>
+                        <div style={{
+                          width: 20, height: 20, borderRadius: '50%',
+                          background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
+                          color: '#fff', fontSize: 10, fontWeight: 700,
+                          display: 'flex', alignItems: 'center', justifyContent: 'center',
+                        }}>
+                          {card.assignee}
+                        </div>
+                      </div>
+                    </div>
+                  )
+                })}
+                {cards.length === 0 && (
+                  <div style={{ padding: '20px 0', textAlign: 'center', color: tc.fgMuted, fontSize: 12 }}>
+                    {filter !== 'all' ? '필터된 항목 없음' : '카드 없음'}
+                  </div>
+                )}
+              </div>
+            </div>
+          )
+        })}
+      </div>
+    </div>
+  )
+}
+
+export const SprintBoard: Story = {
+  name: 'Sprint Board (Vercel + Ant Design 벤치마크)',
+  render: () => <SprintBoardRender />,
+}
+
