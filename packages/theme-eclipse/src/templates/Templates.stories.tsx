@@ -16280,3 +16280,205 @@ export const FeedbackBoard: Story = {
   },
   render: () => <FeedbackBoardRender />,
 }
+
+/* ==========================================================================
+   Template #57: InventoryManager — 재고 관리 대시보드
+   Mantine + Arco Design 벤치마크 기반
+   ========================================================================== */
+type StockStatus = 'in-stock' | 'low' | 'out'
+type StockCategory = 'all' | 'electronics' | 'furniture' | 'stationery'
+
+type InventoryItem = {
+  id: number
+  name: string
+  sku: string
+  category: Exclude<StockCategory, 'all'>
+  stock: number
+  threshold: number
+  price: number
+  status: StockStatus
+}
+
+const STOCK_ITEMS: InventoryItem[] = [
+  { id: 1, name: '무선 키보드', sku: 'KBD-001', category: 'electronics', stock: 85, threshold: 20, price: 89000, status: 'in-stock' },
+  { id: 2, name: '스탠딩 데스크', sku: 'DSK-002', category: 'furniture', stock: 8, threshold: 10, price: 450000, status: 'low' },
+  { id: 3, name: '27인치 모니터', sku: 'MON-003', category: 'electronics', stock: 0, threshold: 5, price: 380000, status: 'out' },
+  { id: 4, name: 'USB-C 허브', sku: 'HUB-004', category: 'electronics', stock: 42, threshold: 15, price: 55000, status: 'in-stock' },
+  { id: 5, name: '인체공학 의자', sku: 'CHR-005', category: 'furniture', stock: 3, threshold: 5, price: 620000, status: 'low' },
+  { id: 6, name: '포스트잇 묶음', sku: 'STK-006', category: 'stationery', stock: 200, threshold: 50, price: 8900, status: 'in-stock' },
+  { id: 7, name: '볼펜 세트', sku: 'PEN-007', category: 'stationery', stock: 0, threshold: 30, price: 12000, status: 'out' },
+  { id: 8, name: '웹캠 HD', sku: 'CAM-008', category: 'electronics', stock: 14, threshold: 10, price: 125000, status: 'in-stock' },
+]
+
+const STOCK_STATUS_CFG: Record<StockStatus, { label: string; bg: string; color: string }> = {
+  'in-stock': { label: '재고 있음', bg: '#dcfce7', color: '#166534' },
+  low: { label: '재고 부족', bg: '#fef3c7', color: '#92400e' },
+  out: { label: '품절', bg: '#fef2f2', color: '#991b1b' },
+}
+
+const STOCK_CAT_LABELS: Record<StockCategory, string> = {
+  all: '전체',
+  electronics: '전자기기',
+  furniture: '가구',
+  stationery: '문구',
+}
+
+const InventoryManagerRender = () => {
+  const [category, setCategory] = useState<StockCategory>('all')
+  const [search, setSearch] = useState('')
+  const [sortBy, setSortBy] = useState<'name' | 'stock' | 'price'>('name')
+
+  const filtered = STOCK_ITEMS
+    .filter((item) => category === 'all' || item.category === category)
+    .filter((item) => item.name.toLowerCase().includes(search.toLowerCase()) || item.sku.toLowerCase().includes(search.toLowerCase()))
+    .sort((a, b) => sortBy === 'name' ? a.name.localeCompare(b.name) : sortBy === 'stock' ? a.stock - b.stock : a.price - b.price)
+
+  const totalValue = STOCK_ITEMS.reduce((acc, i) => acc + i.stock * i.price, 0)
+  const lowCount = STOCK_ITEMS.filter((i) => i.status === 'low' || i.status === 'out').length
+
+  return (
+    <div style={{ minHeight: '100vh', background: '#f8fafc', fontFamily: 'system-ui, sans-serif' }}>
+      {/* 헤더 */}
+      <div style={{ background: '#fff', borderBottom: '1px solid #e2e8f0', padding: '16px 28px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <div style={{ fontSize: 18, fontWeight: 800, color: '#0f172a' }}>재고 관리</div>
+        <div style={{ display: 'flex', gap: 8 }}>
+          <OutlineButton color="gray" size="small">
+            <OutlineButton.Center>CSV 내보내기</OutlineButton.Center>
+          </OutlineButton>
+          <SolidButton color="primary" size="small">
+            <SolidButton.Center>신규 입고</SolidButton.Center>
+          </SolidButton>
+        </div>
+      </div>
+
+      <div style={{ padding: '24px 28px' }}>
+        {/* 요약 카드 */}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 14, marginBottom: 24 }}>
+          {[
+            { label: '전체 품목', value: `${STOCK_ITEMS.length}종`, color: '#6366f1' },
+            { label: '총 재고 가치', value: `${(totalValue / 1000000).toFixed(1)}M`, color: '#0ea5e9' },
+            { label: '주의 필요', value: `${lowCount}개`, color: '#f59e0b' },
+            { label: '품절', value: `${STOCK_ITEMS.filter((i) => i.status === 'out').length}개`, color: '#ef4444' },
+          ].map((stat) => (
+            <div key={stat.label} style={{ background: '#fff', borderRadius: 12, border: '1px solid #e2e8f0', padding: '16px 20px' }}>
+              <div style={{ fontSize: 11, fontWeight: 600, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: 8 }}>
+                {stat.label}
+              </div>
+              <div style={{ fontSize: 24, fontWeight: 800, color: stat.color }}>{stat.value}</div>
+            </div>
+          ))}
+        </div>
+
+        {/* 필터 + 검색 */}
+        <div style={{ background: '#fff', borderRadius: 14, border: '1px solid #e2e8f0', overflow: 'hidden' }}>
+          <div style={{ padding: '16px 20px', borderBottom: '1px solid #f1f5f9', display: 'flex', gap: 12, alignItems: 'center', flexWrap: 'wrap' }}>
+            {/* 검색 */}
+            <input
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              placeholder="품목명 또는 SKU 검색..."
+              style={{ padding: '8px 12px', borderRadius: 8, border: '1.5px solid #e2e8f0', fontSize: 13, outline: 'none', width: 220 }}
+            />
+
+            {/* 카테고리 탭 */}
+            <div style={{ display: 'flex', gap: 4 }}>
+              {(Object.keys(STOCK_CAT_LABELS) as StockCategory[]).map((cat) => (
+                <button
+                  key={cat}
+                  onClick={() => setCategory(cat)}
+                  style={{
+                    padding: '6px 12px', borderRadius: 8, fontSize: 12, fontWeight: 600,
+                    border: 'none', cursor: 'pointer',
+                    background: category === cat ? '#0f172a' : '#f1f5f9',
+                    color: category === cat ? '#fff' : '#64748b',
+                    transition: 'all 0.15s',
+                  }}
+                >
+                  {STOCK_CAT_LABELS[cat]}
+                </button>
+              ))}
+            </div>
+
+            {/* 정렬 */}
+            <select
+              value={sortBy}
+              onChange={(e) => setSortBy(e.target.value as typeof sortBy)}
+              style={{ marginLeft: 'auto', padding: '7px 12px', borderRadius: 8, border: '1px solid #e2e8f0', fontSize: 12, background: '#fff', cursor: 'pointer' }}
+            >
+              <option value="name">이름순</option>
+              <option value="stock">재고 적은 순</option>
+              <option value="price">가격순</option>
+            </select>
+          </div>
+
+          {/* 테이블 헤더 */}
+          <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr 1.2fr', padding: '10px 20px', background: '#f8fafc', borderBottom: '1px solid #f1f5f9' }}>
+            {['품목명 / SKU', '카테고리', '재고', '단가', '상태'].map((h) => (
+              <div key={h} style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.05em' }}>{h}</div>
+            ))}
+          </div>
+
+          {/* 테이블 로우 */}
+          {filtered.map((item) => {
+            const cfg = STOCK_STATUS_CFG[item.status]
+            const pct = Math.min(100, Math.round((item.stock / Math.max(item.threshold * 3, 1)) * 100))
+            return (
+              <div key={item.id} style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr 1.2fr', padding: '14px 20px', borderBottom: '1px solid #f8fafc', alignItems: 'center' }}>
+                {/* 품목명 */}
+                <div>
+                  <div style={{ fontSize: 13, fontWeight: 600, color: '#0f172a' }}>{item.name}</div>
+                  <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>{item.sku}</div>
+                </div>
+                {/* 카테고리 */}
+                <div style={{ fontSize: 12, color: '#475569' }}>{STOCK_CAT_LABELS[item.category]}</div>
+                {/* 재고 + 바 */}
+                <div>
+                  <div style={{ fontSize: 13, fontWeight: 700, color: item.status === 'out' ? '#ef4444' : item.status === 'low' ? '#f59e0b' : '#0f172a' }}>
+                    {item.stock}개
+                  </div>
+                  <div style={{ height: 4, background: '#e2e8f0', borderRadius: 2, marginTop: 4, width: 60 }}>
+                    <div style={{ height: '100%', width: `${pct}%`, borderRadius: 2, background: item.status === 'out' ? '#ef4444' : item.status === 'low' ? '#f59e0b' : '#22c55e', maxWidth: '100%' }} />
+                  </div>
+                </div>
+                {/* 단가 */}
+                <div style={{ fontSize: 13, color: '#374151' }}>{item.price.toLocaleString()}원</div>
+                {/* 상태 뱃지 */}
+                <div>
+                  <span style={{ fontSize: 11, padding: '3px 10px', borderRadius: 99, fontWeight: 600, background: cfg.bg, color: cfg.color }}>
+                    {cfg.label}
+                  </span>
+                </div>
+              </div>
+            )
+          })}
+
+          {filtered.length === 0 && (
+            <div style={{ textAlign: 'center', padding: '40px 0', fontSize: 13, color: '#94a3b8' }}>
+              검색 결과가 없습니다.
+            </div>
+          )}
+        </div>
+
+        {/* 하단 페이지 인디케이터 */}
+        <div style={{ display: 'flex', justifyContent: 'center', gap: 8, marginTop: 24 }}>
+          {[0, 1, 2].map((i) => (
+            <PageDots key={i} selected={i === 0} onClick={() => {}} />
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const InventoryManager: Story = {
+  name: '재고 관리 대시보드 (Mantine + Arco Design 패턴)',
+  parameters: {
+    layout: 'fullscreen',
+    docs: {
+      description: {
+        story: 'Mantine Table + Arco Design 필터 패턴 기반 재고 관리 대시보드. 카테고리 탭 필터, 이름/재고/가격 정렬, 재고 상태 시각화(바 차트), 요약 통계 카드 포함.',
+      },
+    },
+  },
+  render: () => <InventoryManagerRender />,
+}

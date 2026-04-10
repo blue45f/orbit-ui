@@ -838,3 +838,65 @@ import { Meta, Unstyled } from '@storybook/blocks'
     </div>
   </div>
 </section>
+
+{/* Cycle 67: Mantine + Arco Design 알림 및 간격 시스템 */}
+<section style={{ marginTop: '48px' }}>
+  <h2 style={{ fontSize: '22px', fontWeight: '800', color: '#0f172a', marginBottom: '8px' }}>
+    Cycle 67 — Mantine + Arco Design 알림 & 간격 패턴
+  </h2>
+  <p style={{ color: '#64748b', fontSize: '14px', marginBottom: '24px' }}>
+    Toast(알림 큐, 로딩 전환) + Space(폼 리듬, 카드 그리드) 컴포넌트 강화.
+  </p>
+
+  <h3 style={{ fontSize: '17px', fontWeight: '700', color: '#334155', marginBottom: '12px' }}>Mantine 알림 시스템 장점</h3>
+  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '24px' }}>
+    <div style={{ padding: '16px', borderRadius: '12px', background: '#faf5ff', border: '1px solid #e9d5ff' }}>
+      <div style={{ fontWeight: '700', color: '#7c3aed', marginBottom: '6px', fontSize: '13px' }}>notifications.update() 패턴</div>
+      <div style={{ fontSize: '12px', color: '#475569', lineHeight: '1.7' }}>
+        동일 id로 Toast를 로딩→성공/실패로 교체. 비동기 작업 피드백의 가장 자연스러운 UX.
+        Orbit의 toast() id 재사용으로 동일하게 구현 가능.
+      </div>
+    </div>
+    <div style={{ padding: '16px', borderRadius: '12px', background: '#faf5ff', border: '1px solid #e9d5ff' }}>
+      <div style={{ fontWeight: '700', color: '#7c3aed', marginBottom: '6px', fontSize: '13px' }}>알림 큐 오버플로우 제어</div>
+      <div style={{ fontSize: '12px', color: '#475569', lineHeight: '1.7' }}>
+        최대 동시 표시 수 제한, cleanQueue()로 대기 알림 제거. 실시간 이벤트 시스템에서 알림 폭주 방지.
+        toast.dismiss()로 모든 알림 일괄 제거.
+      </div>
+    </div>
+  </div>
+
+  <h3 style={{ fontSize: '17px', fontWeight: '700', color: '#334155', marginBottom: '12px' }}>Arco Design 간격 시스템 장점</h3>
+  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '24px' }}>
+    <div style={{ padding: '16px', borderRadius: '12px', background: '#f0f9ff', border: '1px solid #bae6fd' }}>
+      <div style={{ fontWeight: '700', color: '#0369a1', marginBottom: '6px', fontSize: '13px' }}>wrap 모드 인라인 간격</div>
+      <div style={{ fontSize: '12px', color: '#475569', lineHeight: '1.7' }}>
+        Space x prop으로 인라인 요소(태그, 칩, 버튼) 사이 일관된 수평 간격. flexWrap 없이도 줄 바꿈에 대응.
+        토큰 기반 gap으로 디자인 시스템 일관성 보장.
+      </div>
+    </div>
+    <div style={{ padding: '16px', borderRadius: '12px', background: '#f0f9ff', border: '1px solid #bae6fd' }}>
+      <div style={{ fontWeight: '700', color: '#0369a1', marginBottom: '6px', fontSize: '13px' }}>폼 섹션 수직 리듬</div>
+      <div style={{ fontSize: '12px', color: '#475569', lineHeight: '1.7' }}>
+        레이블→인풋 소간격(spacingKeys[1]), 필드→필드 중간격(spacingKeys[3]), 섹션→섹션 대간격(spacingKeys[6])으로
+        계층적 시각 리듬 형성. Mantine Stack과 동일한 패턴.
+      </div>
+    </div>
+  </div>
+
+  <h3 style={{ fontSize: '17px', fontWeight: '700', color: '#334155', marginBottom: '12px' }}>이번 사이클 적용 결과</h3>
+  <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+    <div style={{ padding: '12px 16px', borderRadius: '8px', background: '#f8fafc', border: '1px solid #e2e8f0', fontSize: '13px' }}>
+      <span style={{ fontWeight: '700', color: '#7c3aed' }}>Toast +3:</span>
+      <span style={{ color: '#475569', marginLeft: '8px' }}>Mantine 로딩→성공 전환, Mantine 알림 큐 관리, Arco 배치 작업 진행 알림</span>
+    </div>
+    <div style={{ padding: '12px 16px', borderRadius: '8px', background: '#f8fafc', border: '1px solid #e2e8f0', fontSize: '13px' }}>
+      <span style={{ fontWeight: '700', color: '#0369a1' }}>Space +3:</span>
+      <span style={{ color: '#475569', marginLeft: '8px' }}>Mantine 폼 섹션 리듬, Arco 카드 그리드 간격, Arco 인라인 태그 x 간격</span>
+    </div>
+    <div style={{ padding: '12px 16px', borderRadius: '8px', background: '#f8fafc', border: '1px solid #e2e8f0', fontSize: '13px' }}>
+      <span style={{ fontWeight: '700', color: '#059669' }}>Template #57:</span>
+      <span style={{ color: '#475569', marginLeft: '8px' }}>InventoryManager — 재고 관리 대시보드 (카테고리 필터, 재고 바, 정렬, PageDots 페이지 인디케이터)</span>
+    </div>
+  </div>
+</section>

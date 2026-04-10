@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { Meta } from '@storybook/react'
 
 import { vars } from '../../styles/theme-vars'
@@ -379,4 +379,216 @@ export const Vercel_설정_섹션_구분 = {
       </Typography>
     </div>
   ),
+}
+
+/* --------------------------------------------------------------------------
+   Cycle 67: Mantine + Arco Design 벤치마크
+-------------------------------------------------------------------------- */
+
+/* Mantine — 폼 섹션 리듬
+   Mantine의 Stack 컴포넌트 패턴. 폼 섹션 간 일관된 수직 리듬을 Space로 구성.
+   헤딩, 입력 필드, 설명 텍스트 사이의 간격 계층을 명확히 표현.
+-------------------------------------------------------------------------- */
+export const Mantine_폼_섹션_리듬 = {
+  name: 'Mantine — 폼 섹션 수직 리듬',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Mantine Stack 컴포넌트 패턴. 섹션 간 큰 Space(spacingKeys[6]), 필드 간 중간 Space(spacingKeys[3]), 레이블-인풋 간 작은 Space(spacingKeys[1])로 계층적 리듬 형성.',
+      },
+    },
+  },
+  render: () => (
+    <div style={{ maxWidth: 440, padding: 32, fontFamily: 'system-ui, sans-serif', background: '#fff', borderRadius: 16, border: '1px solid #e2e8f0' }}>
+      <div style={{ fontSize: 20, fontWeight: 800, color: '#0f172a' }}>프로필 설정</div>
+      <Space y={spacingKeys[2]} />
+      <div style={{ fontSize: 13, color: '#64748b', lineHeight: 1.6 }}>공개 프로필 정보를 업데이트합니다. 변경사항은 저장 후 반영됩니다.</div>
+
+      {/* 섹션 구분 — 큰 간격 */}
+      <Space y={spacingKeys[6]} />
+
+      {/* 기본 정보 섹션 */}
+      <div style={{ fontSize: 13, fontWeight: 700, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.05em' }}>기본 정보</div>
+      <Space y={spacingKeys[3]} />
+
+      <div>
+        <div style={{ fontSize: 12, fontWeight: 600, color: '#374151' }}>표시 이름</div>
+        <Space y={spacingKeys[1]} />
+        <input placeholder="홍길동" style={{ width: '100%', padding: '9px 12px', borderRadius: 8, border: '1.5px solid #e2e8f0', fontSize: 13, boxSizing: 'border-box', outline: 'none' }} />
+      </div>
+
+      <Space y={spacingKeys[3]} />
+
+      <div>
+        <div style={{ fontSize: 12, fontWeight: 600, color: '#374151' }}>이메일</div>
+        <Space y={spacingKeys[1]} />
+        <input placeholder="user@example.com" type="email" style={{ width: '100%', padding: '9px 12px', borderRadius: 8, border: '1.5px solid #e2e8f0', fontSize: 13, boxSizing: 'border-box', outline: 'none' }} />
+        <Space y={spacingKeys[1]} />
+        <div style={{ fontSize: 11, color: '#94a3b8' }}>본인 인증된 이메일은 변경 후 재인증이 필요합니다.</div>
+      </div>
+
+      {/* 섹션 구분 — 큰 간격 */}
+      <Space y={spacingKeys[6]} />
+
+      {/* 소개 섹션 */}
+      <div style={{ fontSize: 13, fontWeight: 700, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.05em' }}>소개</div>
+      <Space y={spacingKeys[3]} />
+
+      <div>
+        <div style={{ fontSize: 12, fontWeight: 600, color: '#374151' }}>자기소개</div>
+        <Space y={spacingKeys[1]} />
+        <textarea rows={3} placeholder="간략한 소개를 작성해 주세요." style={{ width: '100%', padding: '9px 12px', borderRadius: 8, border: '1.5px solid #e2e8f0', fontSize: 13, boxSizing: 'border-box', outline: 'none', fontFamily: 'inherit', resize: 'vertical' }} />
+        <Space y={spacingKeys[1]} />
+        <div style={{ fontSize: 11, color: '#94a3b8' }}>최대 160자</div>
+      </div>
+
+      <Space y={spacingKeys[5]} />
+
+      {/* 저장 버튼 */}
+      <button style={{ width: '100%', padding: '11px 0', borderRadius: 10, background: '#0f172a', color: '#fff', fontSize: 13, fontWeight: 700, border: 'none', cursor: 'pointer' }}>
+        변경사항 저장
+      </button>
+    </div>
+  ),
+}
+
+/* Arco Design — 카드 그리드 간격 패턴
+   Arco Design Grid 컴포넌트의 간격 제어 패턴. Space로 카드 사이 일관된 간격을 형성하고
+   수평/수직 구분자를 Space로 대체하는 레이아웃 패턴.
+-------------------------------------------------------------------------- */
+const STAT_CARDS = [
+  { label: '총 프로젝트', value: '24', change: '+3', up: true },
+  { label: '활성 멤버', value: '8', change: '+1', up: true },
+  { label: '이번달 배포', value: '47', change: '-5', up: false },
+  { label: '오픈 이슈', value: '12', change: '+2', up: false },
+]
+
+export const Arco_카드_그리드_간격_패턴 = {
+  name: 'Arco Design — 카드 그리드 간격 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Arco Design Grid 간격 제어 패턴. Space를 카드 간 구분과 섹션 내 수직 리듬에 활용. 통계 카드 → 상세 목록 레이아웃에서 섹션 간 시각적 리듬 형성.',
+      },
+    },
+  },
+  render: () => (
+    <div style={{ width: 500, padding: 28, fontFamily: 'system-ui, sans-serif', background: '#f8fafc', borderRadius: 16 }}>
+      <div style={{ fontSize: 16, fontWeight: 800, color: '#0f172a' }}>팀 현황</div>
+      <Space y={spacingKeys[2]} />
+      <div style={{ fontSize: 12, color: '#64748b' }}>이번 달 주요 지표</div>
+
+      <Space y={spacingKeys[5]} />
+
+      {/* 통계 카드 그리드 */}
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+        {STAT_CARDS.map((card) => (
+          <div key={card.label} style={{ padding: '16px 18px', borderRadius: 12, background: '#fff', border: '1px solid #e2e8f0' }}>
+            <div style={{ fontSize: 11, fontWeight: 600, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+              {card.label}
+            </div>
+            <Space y={spacingKeys[2]} />
+            <div style={{ display: 'flex', alignItems: 'flex-end', gap: 8 }}>
+              <div style={{ fontSize: 28, fontWeight: 800, color: '#0f172a', lineHeight: 1 }}>{card.value}</div>
+              <div style={{ fontSize: 12, fontWeight: 600, color: card.up ? '#16a34a' : '#dc2626', marginBottom: 2 }}>
+                {card.change}
+              </div>
+            </div>
+            <Space y={spacingKeys[1]} />
+            <div style={{ fontSize: 10, color: '#94a3b8' }}>전월 대비</div>
+          </div>
+        ))}
+      </div>
+
+      <Space y={spacingKeys[5]} />
+
+      {/* 구분선 역할의 Space + 시각적 분리 */}
+      <div style={{ height: 1, background: '#e2e8f0' }} />
+
+      <Space y={spacingKeys[4]} />
+
+      <div style={{ fontSize: 13, fontWeight: 600, color: '#374151' }}>최근 활동</div>
+
+      <Space y={spacingKeys[3]} />
+
+      {['main 브랜치에 PR #89 병합됨', 'Alice가 디자인 팀에 합류했습니다', '프로덕션 배포 v2.4.1 성공'].map((item, i) => (
+        <div key={i}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+            <div style={{ width: 6, height: 6, borderRadius: '50%', background: '#6366f1', flexShrink: 0 }} />
+            <div style={{ fontSize: 12, color: '#475569' }}>{item}</div>
+          </div>
+          {i < 2 && <Space y={spacingKeys[2]} />}
+        </div>
+      ))}
+    </div>
+  ),
+}
+
+/* Arco Design — 인라인 태그 간격 패턴
+   Arco Design Space 컴포넌트의 wrap 모드. x축 Space로 인라인 요소들 사이
+   일관된 수평 간격을 형성하는 태그/칩 배열 패턴.
+-------------------------------------------------------------------------- */
+const TECH_TAGS = [
+  { name: 'React', color: '#0ea5e9' },
+  { name: 'TypeScript', color: '#3178c6' },
+  { name: 'Tailwind CSS', color: '#06b6d4' },
+  { name: 'vanilla-extract', color: '#c26dff' },
+  { name: 'Storybook', color: '#ff4785' },
+  { name: 'Vite', color: '#646cff' },
+  { name: 'Vitest', color: '#6e9f18' },
+  { name: 'pnpm', color: '#f69220' },
+  { name: 'ESLint', color: '#4b32c3' },
+  { name: 'Prettier', color: '#f7b93e' },
+]
+
+export const Arco_인라인_태그_간격_패턴 = {
+  name: 'Arco Design — 인라인 태그 x 간격 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Arco Design Space wrap 모드. x축 Space로 인라인 태그·칩 사이 일관된 수평 간격 형성. gap 토큰 크기별 간격 비교 데모.',
+      },
+    },
+  },
+  render: function ArcoInlineTags() {
+    const [gapIdx, setGapIdx] = useState(2)
+    const gap = spacingKeys[gapIdx]
+
+    return (
+      <div style={{ width: 480, padding: 28, fontFamily: 'system-ui, sans-serif', background: '#fff', borderRadius: 16, border: '1px solid #e2e8f0' }}>
+        <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a', marginBottom: 4 }}>기술 스택</div>
+        <Typography textStyle="descriptionSmall" style={{ color: '#94a3b8', marginBottom: 16, display: 'block' }}>
+          간격 토큰: <strong style={{ color: '#6366f1' }}>{gap}</strong>
+        </Typography>
+
+        {/* 간격 선택 슬라이더 */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 20 }}>
+          <span style={{ fontSize: 11, color: '#94a3b8' }}>좁음</span>
+          <input
+            type="range" min={0} max={spacingKeys.length - 1} value={gapIdx}
+            onChange={(e) => setGapIdx(Number(e.target.value))}
+            style={{ flex: 1 }}
+          />
+          <span style={{ fontSize: 11, color: '#94a3b8' }}>넓음</span>
+        </div>
+
+        {/* 태그 배열 — x 간격 */}
+        <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center' }}>
+          {TECH_TAGS.map((tag, i) => (
+            <React.Fragment key={tag.name}>
+              <div style={{
+                padding: '5px 10px', borderRadius: 99,
+                background: `${tag.color}18`, border: `1px solid ${tag.color}44`,
+                fontSize: 12, fontWeight: 600, color: tag.color,
+                whiteSpace: 'nowrap', marginBottom: 8,
+              }}>
+                {tag.name}
+              </div>
+              {i < TECH_TAGS.length - 1 && <Space x={gap} />}
+            </React.Fragment>
+          ))}
+        </div>
+      </div>
+    )
+  },
 }

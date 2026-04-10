@@ -633,3 +633,254 @@ const AlertStyleRender = (args: React.ComponentProps<typeof Toaster>) => (
 export const MUI_Alert_스타일_토스트: Story = {
   render: (args) => <AlertStyleRender {...args} />,
 }
+
+/* --------------------------------------------------------------------------
+   Cycle 67: Mantine + Arco Design 벤치마크
+-------------------------------------------------------------------------- */
+
+/* Mantine — 로딩 후 성공 전환 알림
+   Mantine의 notifications.update() 패턴. 로딩 상태 알림을 비동기 완료 후
+   성공/실패로 업데이트하는 UX. 비동기 작업 피드백의 가장 자연스러운 패턴.
+-------------------------------------------------------------------------- */
+const MantineLoadingSuccessRender = (args: React.ComponentProps<typeof Toaster>) => {
+  const [loading, setLoading] = useState(false)
+
+  const runAsync = (outcome: 'success' | 'error') => {
+    if (loading) return
+    setLoading(true)
+    toast.loading('파일 업로드 중...', { id: 'upload', description: '잠시만 기다려 주세요.' })
+    setTimeout(() => {
+      setLoading(false)
+      if (outcome === 'success') {
+        toast.success('업로드 완료', { id: 'upload', description: '파일이 성공적으로 저장되었습니다.' })
+      } else {
+        toast.error('업로드 실패', { id: 'upload', description: '네트워크 오류가 발생했습니다. 다시 시도해 주세요.' })
+      }
+    }, 2000)
+  }
+
+  return (
+    <div style={{ padding: '2rem', height: '320px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+      <Toaster {...args} position="top-right" />
+      <div style={{ fontSize: '14px', fontWeight: 700, color: '#1e293b' }}>Mantine — 로딩 후 성공/실패 전환</div>
+      <div style={{ fontSize: '12px', color: '#64748b', marginBottom: '8px', lineHeight: 1.6 }}>
+        비동기 작업 시작 시 loading Toast를 표시하고, 완료 후 동일 id로 성공/실패로 교체합니다.
+        Mantine의 notifications.update() 패턴을 Toast의 id 재사용으로 구현합니다.
+      </div>
+      <div style={{ display: 'flex', gap: '10px' }}>
+        <button
+          onClick={() => runAsync('success')}
+          disabled={loading}
+          style={{
+            padding: '10px 18px', borderRadius: '8px', fontSize: '13px', fontWeight: 600,
+            background: loading ? '#f1f5f9' : '#0f172a', color: loading ? '#94a3b8' : '#fff',
+            border: 'none', cursor: loading ? 'not-allowed' : 'pointer', transition: 'all 0.2s',
+          }}
+        >
+          {loading ? '업로드 중...' : '성공 시뮬레이션'}
+        </button>
+        <button
+          onClick={() => runAsync('error')}
+          disabled={loading}
+          style={{
+            padding: '10px 18px', borderRadius: '8px', fontSize: '13px', fontWeight: 600,
+            background: loading ? '#f1f5f9' : '#fef2f2', color: loading ? '#94a3b8' : '#dc2626',
+            border: `1.5px solid ${loading ? '#e2e8f0' : '#fecaca'}`, cursor: loading ? 'not-allowed' : 'pointer', transition: 'all 0.2s',
+          }}
+        >
+          실패 시뮬레이션
+        </button>
+      </div>
+    </div>
+  )
+}
+
+export const Mantine_로딩_성공_전환_알림: Story = {
+  name: 'Mantine — 로딩 후 성공/실패 전환 알림',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Mantine notifications.update() 패턴. 비동기 작업 시작 시 loading Toast를 표시하고 완료 후 동일 id로 성공/실패로 교체. 업로드, API 호출 등 비동기 작업 피드백에 최적.',
+      },
+    },
+  },
+  render: (args) => <MantineLoadingSuccessRender {...args} />,
+}
+
+/* Mantine — 알림 큐 관리
+   Mantine의 notifications 큐 패턴. 여러 알림이 순차적으로 쌓이고
+   자동으로 사라지는 스택 패턴. 최대 3개 동시 표시.
+-------------------------------------------------------------------------- */
+const QUEUE_MESSAGES = [
+  { title: '새 댓글', desc: 'Alex가 PR #142에 댓글을 남겼습니다.', type: 'info' as const },
+  { title: '빌드 완료', desc: 'main 브랜치 빌드가 성공했습니다.', type: 'success' as const },
+  { title: '보안 경고', desc: '알 수 없는 IP에서 로그인 시도가 감지됐습니다.', type: 'warning' as const },
+  { title: '배포 실패', desc: 'production 환경 배포 중 오류가 발생했습니다.', type: 'error' as const },
+  { title: '구독 만료 예정', desc: '7일 후 구독이 만료됩니다. 갱신해 주세요.', type: 'info' as const },
+]
+
+const MantineQueueRender = (args: React.ComponentProps<typeof Toaster>) => {
+  const [count, setCount] = useState(0)
+
+  const pushNotification = () => {
+    const msg = QUEUE_MESSAGES[count % QUEUE_MESSAGES.length]
+    const fn = {
+      info: toast,
+      success: toast.success,
+      warning: toast.warning,
+      error: toast.error,
+    }[msg.type]
+    fn(msg.title, { description: msg.desc, duration: 4000 })
+    setCount((c) => c + 1)
+  }
+
+  const pushAll = () => {
+    QUEUE_MESSAGES.forEach((msg, i) => {
+      setTimeout(() => {
+        const fn = {
+          info: toast,
+          success: toast.success,
+          warning: toast.warning,
+          error: toast.error,
+        }[msg.type]
+        fn(msg.title, { description: msg.desc, duration: 5000 })
+      }, i * 300)
+    })
+    setCount(QUEUE_MESSAGES.length)
+  }
+
+  return (
+    <div style={{ padding: '2rem', height: '360px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+      <Toaster {...args} position="bottom-right" richColors />
+      <div style={{ fontSize: '14px', fontWeight: 700, color: '#1e293b' }}>Mantine — 알림 큐 관리</div>
+      <div style={{ fontSize: '12px', color: '#64748b', marginBottom: '4px', lineHeight: 1.6 }}>
+        Mantine의 notifications 큐처럼 여러 알림이 순차적으로 쌓입니다. 우측 하단에서 스택으로 표시됩니다.
+      </div>
+      <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+        <button
+          onClick={pushNotification}
+          style={{ padding: '9px 16px', borderRadius: '8px', fontSize: '13px', fontWeight: 600, background: '#0f172a', color: '#fff', border: 'none', cursor: 'pointer' }}
+        >
+          알림 추가 ({count % QUEUE_MESSAGES.length + 1}번째)
+        </button>
+        <button
+          onClick={pushAll}
+          style={{ padding: '9px 16px', borderRadius: '8px', fontSize: '13px', fontWeight: 600, background: '#6366f1', color: '#fff', border: 'none', cursor: 'pointer' }}
+        >
+          5개 동시 발송
+        </button>
+        <button
+          onClick={() => toast.dismiss()}
+          style={{ padding: '9px 16px', borderRadius: '8px', fontSize: '13px', fontWeight: 600, background: '#fff', color: '#64748b', border: '1px solid #e2e8f0', cursor: 'pointer' }}
+        >
+          모두 닫기
+        </button>
+      </div>
+      <div style={{ fontSize: '11px', color: '#94a3b8', marginTop: 'auto' }}>
+        실시간 알림 큐 — 각 알림은 4초 후 자동 닫힘
+      </div>
+    </div>
+  )
+}
+
+export const Mantine_알림_큐_관리: Story = {
+  name: 'Mantine — 알림 큐 관리',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Mantine notifications 큐 패턴. 5가지 알림 타입(info/success/warning/error)을 순차 발송하거나 동시에 5개 쌓기. 실시간 이벤트 알림 시스템 데모.',
+      },
+    },
+  },
+  render: (args) => <MantineQueueRender {...args} />,
+}
+
+/* Arco Design — 배치 작업 진행 알림
+   Arco Design의 진행률 표시 알림 패턴. 파일 다운로드, 데이터 내보내기 등
+   장시간 작업의 진행률을 Toast로 실시간 업데이트.
+-------------------------------------------------------------------------- */
+const ArcoBatchRender = (args: React.ComponentProps<typeof Toaster>) => {
+  const [progress, setProgress] = useState(0)
+  const [running, setRunning] = useState(false)
+
+  const startExport = () => {
+    if (running) return
+    setRunning(true)
+    setProgress(0)
+    toast('데이터 내보내기 시작', { id: 'export', description: '총 1,247개 레코드를 처리합니다.' })
+
+    let current = 0
+    const interval = setInterval(() => {
+      current += Math.floor(Math.random() * 15) + 8
+      if (current >= 100) {
+        current = 100
+        clearInterval(interval)
+        setProgress(100)
+        setRunning(false)
+        toast.success('내보내기 완료', { id: 'export', description: '1,247개 레코드가 CSV로 저장됐습니다.' })
+      } else {
+        setProgress(current)
+        toast(`내보내는 중... ${current}%`, {
+          id: 'export',
+          description: `${Math.round(1247 * current / 100)}개 처리됨`,
+        })
+      }
+    }, 400)
+  }
+
+  return (
+    <div style={{ padding: '2rem', height: '360px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+      <Toaster {...args} position="top-center" />
+      <div style={{ fontSize: '14px', fontWeight: 700, color: '#1e293b' }}>Arco Design — 배치 작업 진행 알림</div>
+      <div style={{ fontSize: '12px', color: '#64748b', lineHeight: 1.6, marginBottom: '8px' }}>
+        Arco Design의 Message.loading() 패턴을 응용. 내보내기/변환 등 장시간 작업의 진행률을 동일 id Toast로 실시간 갱신합니다.
+      </div>
+
+      {/* 진행률 시각화 */}
+      <div style={{ padding: '16px 20px', borderRadius: '12px', background: '#f8fafc', border: '1px solid #e2e8f0' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
+          <span style={{ fontSize: '13px', fontWeight: 600, color: '#374151' }}>CSV 내보내기</span>
+          <span style={{ fontSize: '13px', fontWeight: 700, color: progress === 100 ? '#16a34a' : '#6366f1' }}>
+            {progress}%
+          </span>
+        </div>
+        <div style={{ height: '6px', background: '#e2e8f0', borderRadius: '3px', overflow: 'hidden' }}>
+          <div style={{
+            height: '100%', width: `${progress}%`,
+            background: progress === 100 ? '#22c55e' : '#6366f1',
+            borderRadius: '3px', transition: 'width 0.3s ease, background 0.5s',
+          }} />
+        </div>
+        <div style={{ fontSize: '11px', color: '#94a3b8', marginTop: '6px' }}>
+          {progress === 0 ? '대기 중' : progress === 100 ? '완료됨' : `${Math.round(1247 * progress / 100)}개 / 1,247개 처리됨`}
+        </div>
+      </div>
+
+      <button
+        onClick={startExport}
+        disabled={running}
+        style={{
+          padding: '10px 20px', borderRadius: '8px', fontSize: '13px', fontWeight: 600,
+          background: running ? '#f1f5f9' : '#0f172a',
+          color: running ? '#94a3b8' : '#fff',
+          border: 'none', cursor: running ? 'not-allowed' : 'pointer', alignSelf: 'flex-start',
+          transition: 'all 0.2s',
+        }}
+      >
+        {running ? '처리 중...' : progress === 100 ? '다시 내보내기' : 'CSV 내보내기 시작'}
+      </button>
+    </div>
+  )
+}
+
+export const Arco_배치_작업_진행_알림: Story = {
+  name: 'Arco Design — 배치 작업 진행 알림',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Arco Design Message.loading 패턴. 데이터 내보내기 등 장시간 작업의 진행률을 동일 id Toast로 실시간 갱신. 진행률 바와 처리 건수를 함께 표시.',
+      },
+    },
+  },
+  render: (args) => <ArcoBatchRender {...args} />,
+}
