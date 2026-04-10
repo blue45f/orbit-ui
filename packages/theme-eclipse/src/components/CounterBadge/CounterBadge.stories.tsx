@@ -532,3 +532,168 @@ export const Linear_프로젝트_진행_카운터: Story = {
     </div>
   ),
 }
+
+/* --------------------------------------------------------------------------
+   MUI — 탭 배지 패턴
+   MUI Tabs + Badge 조합으로 탭마다 미확인 항목 수 표시
+-------------------------------------------------------------------------- */
+const MUI_TABS = [
+  { id: 'inbox', label: '받은편지함', count: 12 },
+  { id: 'sent', label: '보낸편지함', count: 0 },
+  { id: 'draft', label: '임시저장', count: 3 },
+  { id: 'spam', label: '스팸', count: 47 },
+  { id: 'trash', label: '휴지통', count: 0 },
+]
+
+const MuiTabBadgeDemo = () => {
+  const [activeTab, setActiveTab] = useState('inbox')
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 0, width: 480 }}>
+      <div style={{ display: 'flex', borderBottom: '2px solid #e2e8f0' }}>
+        {MUI_TABS.map((tab) => (
+          <button key={tab.id} onClick={() => setActiveTab(tab.id)} style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '12px 16px', border: 'none', background: 'none', cursor: 'pointer', fontSize: 14, fontWeight: activeTab === tab.id ? 700 : 400, color: activeTab === tab.id ? '#6366f1' : '#64748b', borderBottom: `2px solid ${activeTab === tab.id ? '#6366f1' : 'transparent'}`, marginBottom: -2, transition: 'all 0.2s' }}>
+            {tab.label}
+            {tab.count > 0 && <CounterBadge>{tab.count}</CounterBadge>}
+          </button>
+        ))}
+      </div>
+      <div style={{ padding: '24px', color: '#64748b', fontSize: 14 }}>
+        {MUI_TABS.find((t) => t.id === activeTab)?.label} 내용 영역
+      </div>
+      <div style={{ fontSize: 11, color: '#94a3b8', padding: '0 24px 16px' }}>
+        MUI Tabs + Badge — 탭별 미확인 항목 카운트 표시
+      </div>
+    </div>
+  )
+}
+
+export const MUI_탭_배지_패턴: Story = {
+  name: 'MUI - 탭 배지 패턴 (미확인 항목 카운트)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'MUI Tabs + Badge 조합 패턴. 각 탭에 미확인 항목 수를 CounterBadge로 표시하며, 0인 탭은 배지를 숨깁니다. 선택된 탭 강조와 배지 색상을 일관되게 유지합니다.',
+      },
+    },
+  },
+  render: () => <MuiTabBadgeDemo />,
+}
+
+/* --------------------------------------------------------------------------
+   Figma Plugin UI — 레이어 패널 오브젝트 카운트
+   Figma의 레이어 패널에서 그룹 내 오브젝트 수를 배지로 표시
+-------------------------------------------------------------------------- */
+const FIGMA_LAYERS = [
+  { name: 'Components', type: 'frame', count: 24, color: '#6366f1', expanded: true },
+  { name: 'Icons', type: 'group', count: 156, color: '#10b981', expanded: false },
+  { name: 'Typography', type: 'frame', count: 8, color: '#f59e0b', expanded: false },
+  { name: 'Colors', type: 'group', count: 32, color: '#ec4899', expanded: false },
+  { name: 'Layout', type: 'frame', count: 6, color: '#3b82f6', expanded: true },
+]
+
+const FigmaLayerPanelDemo = () => {
+  const [selected, setSelected] = useState('Components')
+  return (
+    <div style={{ width: 220, background: '#1e1e1e', borderRadius: 10, padding: '12px 0', color: '#fff' }}>
+      <div style={{ padding: '4px 12px 10px', fontSize: 11, color: '#888', fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase' }}>
+        Layers
+      </div>
+      {FIGMA_LAYERS.map((layer) => (
+        <div key={layer.name} onClick={() => setSelected(layer.name)} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '7px 12px', cursor: 'pointer', background: selected === layer.name ? 'rgba(99,102,241,0.2)' : 'transparent', borderLeft: `2px solid ${selected === layer.name ? layer.color : 'transparent'}` }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            <span style={{ width: 8, height: 8, borderRadius: '50%', background: layer.color, flexShrink: 0 }} />
+            <span style={{ fontSize: 12, color: selected === layer.name ? '#e2e8f0' : '#aaa' }}>{layer.name}</span>
+          </div>
+          <CounterBadge>{layer.count}</CounterBadge>
+        </div>
+      ))}
+      <div style={{ padding: '10px 12px 4px', fontSize: 10, color: '#555' }}>
+        Figma Layer Panel — 오브젝트 수 배지
+      </div>
+    </div>
+  )
+}
+
+export const Figma_레이어_패널_카운트: Story = {
+  name: 'Figma Plugin UI - 레이어 패널 오브젝트 카운트',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Figma 레이어 패널 패턴. 그룹/프레임마다 내부 오브젝트 수를 CounterBadge로 표시하고, 다크 배경 + 컬러 점으로 레이어 타입을 구분합니다.',
+      },
+    },
+  },
+  render: () => <FigmaLayerPanelDemo />,
+}
+
+/* --------------------------------------------------------------------------
+   MUI + Figma — 쇼핑카트 / 장바구니 배지 시스템
+   MUI AppBar Badge + 실시간 카트 업데이트 패턴
+-------------------------------------------------------------------------- */
+const SHOP_ITEMS = [
+  { id: 'p1', name: 'Orbit UI Pro', price: 29 },
+  { id: 'p2', name: 'Icon Pack 500+', price: 15 },
+  { id: 'p3', name: 'Template Bundle', price: 49 },
+  { id: 'p4', name: 'Design Tokens Kit', price: 19 },
+]
+
+const ShoppingCartBadgeDemo = () => {
+  const [cart, setCart] = useState<string[]>([])
+  const addItem = (id: string) => setCart((prev) => [...prev, id])
+  const removeItem = () => setCart((prev) => prev.slice(0, -1))
+  const cartCount = cart.length
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 16, width: 360 }}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px 16px', background: '#0f172a', borderRadius: 10 }}>
+        <span style={{ fontSize: 16, fontWeight: 700, color: '#fff' }}>Store</span>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 4, position: 'relative' }}>
+          <button onClick={removeItem} disabled={cartCount === 0} style={{ background: 'none', border: 'none', color: '#94a3b8', cursor: cartCount > 0 ? 'pointer' : 'default', fontSize: 18, padding: '4px 8px' }}>
+            [cart]
+          </button>
+          {cartCount > 0 && (
+            <span style={{ position: 'absolute', top: -2, right: -4 }}>
+              <CounterBadge>{cartCount}</CounterBadge>
+            </span>
+          )}
+        </div>
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+        {SHOP_ITEMS.map((item) => {
+          const inCart = cart.filter((id) => id === item.id).length
+          return (
+            <div key={item.id} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px 14px', border: '1px solid #e2e8f0', borderRadius: 8 }}>
+              <div>
+                <div style={{ fontSize: 13, fontWeight: 600, color: '#0f172a' }}>{item.name}</div>
+                <div style={{ fontSize: 12, color: '#64748b' }}>${item.price}</div>
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                {inCart > 0 && <CounterBadge>{inCart}</CounterBadge>}
+                <button onClick={() => addItem(item.id)} style={{ fontSize: 12, padding: '6px 12px', borderRadius: 6, background: '#6366f1', color: '#fff', border: 'none', cursor: 'pointer', fontWeight: 600 }}>
+                  추가
+                </button>
+              </div>
+            </div>
+          )
+        })}
+      </div>
+      <div style={{ fontSize: 11, color: '#94a3b8' }}>
+        MUI AppBar Badge + 실시간 카트 카운트 패턴
+      </div>
+    </div>
+  )
+}
+
+export const MUI_Figma_장바구니_배지: Story = {
+  name: 'MUI AppBar + Figma - 장바구니 배지 시스템',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'MUI AppBar Badge 패턴. 아이콘 버튼 우상단에 CounterBadge를 오버레이하여 장바구니 수량을 실시간으로 표시합니다. 99+ 오버플로우, 0일 때 숨김 처리가 포함됩니다.',
+      },
+    },
+  },
+  render: () => <ShoppingCartBadgeDemo />,
+}

@@ -822,3 +822,192 @@ export const Mantine_전체_선택_토글 = {
   name: 'Mantine - 전체 선택 토글 (마스터 Switch + 개별 동기화)',
   render: () => <BulkToggleRender />,
 }
+
+/* --------------------------------------------------------------------------
+   MUI — FormControlLabel 패턴
+   Switch + 라벨 + 설명을 FormGroup으로 묶는 MUI 패턴
+-------------------------------------------------------------------------- */
+const MUI_FORM_SWITCHES = [
+  { id: 'sw-email', label: '이메일 알림', desc: '새 메시지, 댓글, 언급 시 이메일 수신', defaultChecked: true },
+  { id: 'sw-push', label: '푸시 알림', desc: '모바일 기기로 실시간 알림 수신', defaultChecked: true },
+  { id: 'sw-weekly', label: '주간 요약', desc: '매주 월요일 활동 요약 리포트', defaultChecked: false },
+  { id: 'sw-marketing', label: '마케팅 수신', desc: '신규 기능, 할인, 이벤트 소식 수신', defaultChecked: false },
+]
+
+const MuiFormControlRender = () => {
+  const [states, setStates] = useState<Record<string, boolean>>(
+    Object.fromEntries(MUI_FORM_SWITCHES.map((s) => [s.id, s.defaultChecked]))
+  )
+  const toggle = (id: string) => setStates((prev) => ({ ...prev, [id]: !prev[id] }))
+  const activeCount = Object.values(states).filter(Boolean).length
+  return (
+    <div style={{ width: 380, display: 'flex', flexDirection: 'column', gap: 0 }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
+        <span style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>알림 설정</span>
+        <span style={{ fontSize: 12, color: '#6366f1', fontWeight: 600 }}>{activeCount}개 활성화</span>
+      </div>
+      {MUI_FORM_SWITCHES.map((item, i) => (
+        <div key={item.id}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '14px 0' }}>
+            <div style={{ flex: 1, paddingRight: 16 }}>
+              <label htmlFor={item.id} style={{ fontSize: 14, fontWeight: 600, color: '#0f172a', cursor: 'pointer', display: 'block', marginBottom: 2 }}>
+                {item.label}
+              </label>
+              <span style={{ fontSize: 12, color: '#64748b', lineHeight: 1.4 }}>{item.desc}</span>
+            </div>
+            <Switch
+              id={item.id}
+              checked={states[item.id]}
+              onCheckedChange={() => toggle(item.id)}
+            />
+          </div>
+          {i < MUI_FORM_SWITCHES.length - 1 && (
+            <div style={{ height: 1, background: '#f1f5f9' }} />
+          )}
+        </div>
+      ))}
+      <div style={{ marginTop: 12, fontSize: 11, color: '#94a3b8' }}>
+        MUI FormControlLabel 패턴 — Switch + 라벨 + description 그룹
+      </div>
+    </div>
+  )
+}
+
+export const MUI_FormControlLabel_알림설정: Story = {
+  name: 'MUI - FormControlLabel 알림 설정 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'MUI의 FormControlLabel 패턴. Switch, 라벨, 설명 텍스트를 하나의 행으로 묶고, 전체 행에서 탭 포커스와 클릭을 지원합니다. 활성화된 항목 수를 헤더에 실시간 표시합니다.',
+      },
+    },
+  },
+  render: () => <MuiFormControlRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Figma Plugin UI — 속성 패널 컴팩트 토글
+   Figma 플러그인에서 자주 쓰이는 고밀도 토글 행 패턴
+-------------------------------------------------------------------------- */
+const FIGMA_TOGGLES = [
+  { id: 'ft-grid', label: 'Show Grid', icon: '#' },
+  { id: 'ft-rulers', label: 'Rulers', icon: '|' },
+  { id: 'ft-snap', label: 'Snap to Grid', icon: '+' },
+  { id: 'ft-guides', label: 'Guides', icon: '-' },
+  { id: 'ft-outline', label: 'Outline Mode', icon: 'O' },
+  { id: 'ft-proto', label: 'Prototyping', icon: 'P' },
+]
+
+const FigmaPluginToggleRender = () => {
+  const [active, setActive] = useState<Record<string, boolean>>({
+    'ft-grid': true, 'ft-snap': true, 'ft-guides': false, 'ft-rulers': false, 'ft-outline': false, 'ft-proto': true,
+  })
+  return (
+    <div style={{ width: 200, background: '#2c2c2c', borderRadius: 10, padding: '12px 0', color: '#fff', fontFamily: 'monospace' }}>
+      <div style={{ padding: '4px 12px 10px', fontSize: 11, color: '#888', fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase' }}>
+        View Options
+      </div>
+      {FIGMA_TOGGLES.map((t) => (
+        <div key={t.id} onClick={() => setActive((p) => ({ ...p, [t.id]: !p[t.id] }))} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '5px 12px', cursor: 'pointer', background: active[t.id] ? 'rgba(99,102,241,0.15)' : 'transparent', transition: 'background 0.15s' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            <span style={{ width: 16, height: 16, borderRadius: 3, background: active[t.id] ? '#6366f1' : '#444', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 9, color: '#fff', flexShrink: 0 }}>{t.icon}</span>
+            <span style={{ fontSize: 12, color: active[t.id] ? '#e2e8f0' : '#888' }}>{t.label}</span>
+          </div>
+          <Switch
+            id={t.id}
+            checked={active[t.id]}
+            onCheckedChange={() => setActive((p) => ({ ...p, [t.id]: !p[t.id] }))}
+          />
+        </div>
+      ))}
+      <div style={{ padding: '10px 12px 4px', fontSize: 10, color: '#555' }}>
+        Figma Plugin UI — 고밀도 뷰 옵션 토글 패널
+      </div>
+    </div>
+  )
+}
+
+export const Figma_플러그인_뷰_옵션_패널: Story = {
+  name: 'Figma Plugin UI - 컴팩트 뷰 옵션 토글 패널',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Figma 플러그인 UI 패턴. 다크 배경 + 아이콘 + 컴팩트 행 높이(30px)로 고밀도 토글 패널을 구현합니다. 전체 행 클릭으로 토글 가능하며 활성 항목은 강조색 배경으로 구분됩니다.',
+      },
+    },
+  },
+  render: () => <FigmaPluginToggleRender />,
+}
+
+/* --------------------------------------------------------------------------
+   MUI + Figma — 데이터 시각화 레이어 토글
+   MUI DataGrid 컬럼 표시/숨김 + Figma 레이어 토글 조합
+-------------------------------------------------------------------------- */
+const DATA_COLUMNS = [
+  { id: 'col-name', label: '이름', required: true },
+  { id: 'col-email', label: '이메일', required: true },
+  { id: 'col-role', label: '역할', required: false },
+  { id: 'col-join', label: '가입일', required: false },
+  { id: 'col-last', label: '마지막 로그인', required: false },
+  { id: 'col-status', label: '상태', required: false },
+  { id: 'col-plan', label: '플랜', required: false },
+]
+
+const ColumnVisibilityRender = () => {
+  const [visible, setVisible] = useState<Record<string, boolean>>(
+    Object.fromEntries(DATA_COLUMNS.map((c) => [c.id, true]))
+  )
+  const visibleCount = Object.values(visible).filter(Boolean).length
+  const toggleAll = () => {
+    const allVisible = DATA_COLUMNS.filter((c) => !c.required).every((c) => visible[c.id])
+    setVisible((prev) => {
+      const next = { ...prev }
+      DATA_COLUMNS.filter((c) => !c.required).forEach((c) => { next[c.id] = !allVisible })
+      return next
+    })
+  }
+  return (
+    <div style={{ width: 280, border: '1px solid #e2e8f0', borderRadius: 10, overflow: 'hidden' }}>
+      <div style={{ padding: '12px 16px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <span style={{ fontSize: 13, fontWeight: 700, color: '#0f172a' }}>컬럼 표시 ({visibleCount}/{DATA_COLUMNS.length})</span>
+        <button onClick={toggleAll} style={{ fontSize: 12, color: '#6366f1', border: 'none', background: 'none', cursor: 'pointer', fontWeight: 600 }}>
+          {DATA_COLUMNS.filter((c) => !c.required).every((c) => visible[c.id]) ? '선택 해제' : '전체 선택'}
+        </button>
+      </div>
+      {DATA_COLUMNS.map((col) => (
+        <div key={col.id} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 16px', borderBottom: '1px solid #f1f5f9' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            <span style={{ fontSize: 13, color: '#0f172a' }}>{col.label}</span>
+            {col.required && (
+              <span style={{ fontSize: 10, color: '#94a3b8', background: '#f1f5f9', padding: '1px 6px', borderRadius: 4 }}>필수</span>
+            )}
+          </div>
+          <Switch
+            id={col.id}
+            checked={visible[col.id]}
+            disabled={col.required}
+            onCheckedChange={() => !col.required && setVisible((p) => ({ ...p, [col.id]: !p[col.id] }))}
+          />
+        </div>
+      ))}
+      <div style={{ padding: '10px 16px', fontSize: 11, color: '#94a3b8' }}>
+        MUI DataGrid + Figma Layer — 컬럼 가시성 토글 패턴
+      </div>
+    </div>
+  )
+}
+
+export const MUI_Figma_컬럼_가시성_토글: Story = {
+  name: 'MUI DataGrid + Figma Layer - 컬럼 가시성 토글',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'MUI DataGrid의 컬럼 표시/숨김 패널 + Figma의 레이어 토글 패턴 조합. 필수 컬럼은 disabled 처리하고, 전체 선택/해제 버튼으로 일괄 처리가 가능합니다.',
+      },
+    },
+  },
+  render: () => <ColumnVisibilityRender />,
+}

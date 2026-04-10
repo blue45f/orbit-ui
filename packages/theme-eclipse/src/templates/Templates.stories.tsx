@@ -17302,3 +17302,189 @@ export const RadixChakraOnboarding: Story = {
   },
   render: () => <RadixOnboardingRender />,
 }
+
+/* ==========================================================================
+   Template #62 — TeamSettings (팀 설정 대시보드)
+   MUI + Figma Plugin UI 패턴: Switch 그룹, CounterBadge, 멤버 관리
+   ========================================================================== */
+type TSRole = 'owner' | 'admin' | 'member' | 'viewer'
+type TSMember = {
+  id: string
+  name: string
+  email: string
+  role: TSRole
+  initials: string
+  color: string
+  lastActive: string
+  notificationsOn: boolean
+}
+
+const TEAM_ROLE_CFG: Record<TSRole, { label: string; color: string; bg: string }> = {
+  owner:  { label: 'Owner',  color: '#7c3aed', bg: '#f5f3ff' },
+  admin:  { label: 'Admin',  color: '#dc2626', bg: '#fef2f2' },
+  member: { label: 'Member', color: '#0369a1', bg: '#eff6ff' },
+  viewer: { label: 'Viewer', color: '#64748b', bg: '#f8fafc' },
+}
+
+const INITIAL_MEMBERS: TSMember[] = [
+  { id: 'm1', name: '김지훈', email: 'jihoon@orbit.dev', role: 'owner', initials: 'KJ', color: '#6366f1', lastActive: '방금', notificationsOn: true },
+  { id: 'm2', name: '이수연', email: 'suyeon@orbit.dev', role: 'admin', initials: 'LS', color: '#ec4899', lastActive: '5분 전', notificationsOn: true },
+  { id: 'm3', name: '박민준', email: 'minjun@orbit.dev', role: 'member', initials: 'PM', color: '#10b981', lastActive: '1시간 전', notificationsOn: false },
+  { id: 'm4', name: '최아름', email: 'areum@orbit.dev', role: 'member', initials: 'CA', color: '#f59e0b', lastActive: '어제', notificationsOn: true },
+  { id: 'm5', name: '정도윤', email: 'doyun@orbit.dev', role: 'viewer', initials: 'JD', color: '#64748b', lastActive: '3일 전', notificationsOn: false },
+]
+
+const SETTING_GROUPS = [
+  {
+    title: '알림 설정',
+    settings: [
+      { id: 'ts-email', label: '이메일 알림', desc: '멤버 초대, 댓글, 변경 사항 알림', default: true },
+      { id: 'ts-push', label: '푸시 알림', desc: '실시간 모바일 알림', default: true },
+      { id: 'ts-digest', label: '주간 요약', desc: '매주 팀 활동 요약 리포트', default: false },
+    ],
+  },
+  {
+    title: '접근 권한',
+    settings: [
+      { id: 'ts-public', label: '공개 링크 접근', desc: '링크가 있는 누구나 열람 가능', default: false },
+      { id: 'ts-export', label: '데이터 내보내기', desc: 'CSV, JSON 형태로 데이터 다운로드', default: true },
+      { id: 'ts-api', label: 'API 접근 허용', desc: '외부 앱에서 API 키로 접근', default: false },
+    ],
+  },
+]
+
+const TeamSettingsRender = () => {
+  const [members, setMembers] = React.useState<TSMember[]>(INITIAL_MEMBERS)
+  const [settingStates, setSettingStates] = React.useState<Record<string, boolean>>(
+    Object.fromEntries(SETTING_GROUPS.flatMap((g) => g.settings.map((s) => [s.id, s.default])))
+  )
+  const [activeTab, setActiveTab] = React.useState<'members' | 'settings'>('members')
+  const [search, setSearch] = React.useState('')
+
+  const toggleSetting = (id: string) => setSettingStates((prev) => ({ ...prev, [id]: !prev[id] }))
+  const toggleNotification = (id: string) => setMembers((prev) => prev.map((m) => m.id === id ? { ...m, notificationsOn: !m.notificationsOn } : m))
+
+  const filteredMembers = members.filter((m) =>
+    m.name.includes(search) || m.email.includes(search)
+  )
+
+  const roleCounts = (['owner', 'admin', 'member', 'viewer'] as TSRole[]).reduce<Record<string, number>>(
+    (acc, r) => ({ ...acc, [r]: members.filter((m) => m.role === r).length }), {}
+  )
+
+  return (
+    <div style={{ minHeight: '100vh', background: '#f8fafc', padding: 24 }}>
+      <div style={{ maxWidth: 800, margin: '0 auto' }}>
+        {/* 헤더 */}
+        <div style={{ marginBottom: 24 }}>
+          <h1 style={{ fontSize: 22, fontWeight: 800, color: '#0f172a', margin: '0 0 4px' }}>팀 설정</h1>
+          <p style={{ fontSize: 14, color: '#64748b', margin: 0 }}>멤버 관리, 알림 설정, 접근 권한을 관리하세요.</p>
+        </div>
+
+        {/* 탭 */}
+        <div style={{ display: 'flex', gap: 4, marginBottom: 20, background: '#fff', borderRadius: 10, padding: 4, border: '1px solid #e2e8f0', width: 'fit-content' }}>
+          {(['members', 'settings'] as const).map((tab) => (
+            <button key={tab} onClick={() => setActiveTab(tab)} style={{ padding: '8px 20px', borderRadius: 7, border: 'none', cursor: 'pointer', fontSize: 13, fontWeight: activeTab === tab ? 700 : 400, background: activeTab === tab ? '#0f172a' : 'transparent', color: activeTab === tab ? '#fff' : '#64748b', display: 'flex', alignItems: 'center', gap: 6, transition: 'all 0.2s' }}>
+              {tab === 'members' ? '멤버' : '설정'}
+              {tab === 'members' && <CounterBadge>{members.length}</CounterBadge>}
+            </button>
+          ))}
+        </div>
+
+        {/* 멤버 탭 */}
+        {activeTab === 'members' && (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+            {/* 역할별 카운트 배지 */}
+            <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+              {(['owner', 'admin', 'member', 'viewer'] as TSRole[]).map((role) => {
+                const cfg = TEAM_ROLE_CFG[role]
+                return (
+                  <div key={role} style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '6px 12px', borderRadius: 8, background: cfg.bg, border: `1px solid ${cfg.color}22` }}>
+                    <span style={{ fontSize: 12, fontWeight: 600, color: cfg.color }}>{cfg.label}</span>
+                    <CounterBadge>{roleCounts[role]}</CounterBadge>
+                  </div>
+                )
+              })}
+            </div>
+
+            {/* 검색 */}
+            <TextField value={search} onChange={(e) => setSearch(e.target.value)} placeholder="이름 또는 이메일로 검색..." />
+
+            {/* 멤버 목록 */}
+            <div style={{ background: '#fff', borderRadius: 12, border: '1px solid #e2e8f0', overflow: 'hidden' }}>
+              {filteredMembers.map((member, i) => {
+                const cfg = TEAM_ROLE_CFG[member.role]
+                return (
+                  <div key={member.id} style={{ display: 'flex', alignItems: 'center', gap: 14, padding: '14px 20px', borderBottom: i < filteredMembers.length - 1 ? '1px solid #f1f5f9' : 'none' }}>
+                    <div style={{ width: 40, height: 40, borderRadius: '50%', background: member.color, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 13, fontWeight: 800, color: '#fff', flexShrink: 0 }}>
+                      {member.initials}
+                    </div>
+                    <div style={{ flex: 1, minWidth: 0 }}>
+                      <div style={{ fontSize: 14, fontWeight: 600, color: '#0f172a' }}>{member.name}</div>
+                      <div style={{ fontSize: 12, color: '#64748b' }}>{member.email}</div>
+                    </div>
+                    <span style={{ fontSize: 11, fontWeight: 700, padding: '3px 8px', borderRadius: 6, background: cfg.bg, color: cfg.color, flexShrink: 0 }}>{cfg.label}</span>
+                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2, flexShrink: 0 }}>
+                      <Switch
+                        id={`notif-${member.id}`}
+                        checked={member.notificationsOn}
+                        onCheckedChange={() => toggleNotification(member.id)}
+                      />
+                      <span style={{ fontSize: 10, color: '#94a3b8' }}>알림</span>
+                    </div>
+                    <span style={{ fontSize: 11, color: '#94a3b8', flexShrink: 0 }}>{member.lastActive}</span>
+                  </div>
+                )
+              })}
+              {filteredMembers.length === 0 && (
+                <div style={{ padding: '32px 20px', textAlign: 'center', color: '#94a3b8', fontSize: 14 }}>
+                  검색 결과가 없습니다
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+
+        {/* 설정 탭 */}
+        {activeTab === 'settings' && (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+            {SETTING_GROUPS.map((group) => (
+              <div key={group.title} style={{ background: '#fff', borderRadius: 12, border: '1px solid #e2e8f0', overflow: 'hidden' }}>
+                <div style={{ padding: '14px 20px', borderBottom: '1px solid #f1f5f9', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                  <span style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>{group.title}</span>
+                  <CounterBadge>{group.settings.filter((s) => settingStates[s.id]).length}</CounterBadge>
+                </div>
+                {group.settings.map((setting, i) => (
+                  <div key={setting.id} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '14px 20px', borderBottom: i < group.settings.length - 1 ? '1px solid #f1f5f9' : 'none' }}>
+                    <div>
+                      <div style={{ fontSize: 14, fontWeight: 600, color: '#0f172a', marginBottom: 2 }}>{setting.label}</div>
+                      <div style={{ fontSize: 12, color: '#64748b' }}>{setting.desc}</div>
+                    </div>
+                    <Switch
+                      id={setting.id}
+                      checked={settingStates[setting.id]}
+                      onCheckedChange={() => toggleSetting(setting.id)}
+                    />
+                  </div>
+                ))}
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+
+export const TeamSettings: Story = {
+  name: '팀 설정 대시보드 (MUI + Figma Plugin UI 패턴)',
+  parameters: {
+    layout: 'fullscreen',
+    docs: {
+      description: {
+        story: 'MUI FormControlLabel Switch 그룹 + CounterBadge 탭/역할 카운트 + Figma 컴팩트 레이아웃 패턴. 멤버별 알림 토글, 역할 배지, 설정 그룹 활성 카운트, 검색 필터 포함.',
+      },
+    },
+  },
+  render: () => <TeamSettingsRender />,
+}
