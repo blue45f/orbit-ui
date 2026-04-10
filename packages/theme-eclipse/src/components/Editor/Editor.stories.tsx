@@ -1019,3 +1019,179 @@ export const Shadcn_Tailwind_PR_설명_에디터: Story = {
   },
   render: () => <ShadcnTailwindPRDescRender />,
 }
+
+// ──────────────────────────────────────────────────────────────────────────────
+// Cycle 170: Radix UI + Linear Design
+// ──────────────────────────────────────────────────────────────────────────────
+
+export const Radix_접근성_문서_에디터: Story = {
+  name: 'Radix UI — 접근성 문서 에디터 (Cycle 170)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Radix UI 접근성 패턴 문서 작성 에디터. WAI-ARIA 가이드라인 초안 작성 용도. ' +
+          '섹션 헤더 포함 콘텐츠 사전 로드 + 글자 수 제한.',
+      },
+    },
+  },
+  render: function RadixA11yEditorRender() {
+    return (
+      <div style={{ maxWidth: 640, fontFamily: 'system-ui, sans-serif' }}>
+        <div style={{ fontSize: 13, fontWeight: 700, color: '#374151', marginBottom: 8 }}>접근성 가이드 초안</div>
+        <Editor
+          content={`<h2>WAI-ARIA 구현 가이드</h2><p>Orbit UI 컴포넌트는 WAI-ARIA 1.2 표준을 준수합니다. 모든 인터랙티브 컴포넌트는 키보드 탐색을 완전히 지원합니다.</p><h3>버튼 접근성</h3><p>모든 버튼 요소는 <code>role="button"</code>과 적절한 <code>aria-label</code>을 포함해야 합니다.</p>`}
+          toolbar={<Editor.Toolbar />}
+          footer={<Editor.CharacterCount max={2000} />}
+          onChange={(html) => console.log(html)}
+          placeholder="접근성 문서를 작성하세요..."
+        />
+        <div style={{ marginTop: 8, fontSize: 11, color: '#9ca3af' }}>
+          Radix UI 접근성 패턴 참조 — aria-label, role, aria-describedby 명시
+        </div>
+      </div>
+    )
+  },
+}
+
+export const Linear_이슈_설명_에디터: Story = {
+  name: 'Linear — 이슈 설명 에디터 (Cycle 170)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Linear 이슈 상세 페이지 설명 에디터 패턴. 제목 + 설명 + 재현 단계 섹션으로 구성된 ' +
+          '버그 리포트 템플릿. 제출 시 내용 초기화.',
+      },
+    },
+  },
+  render: function LinearIssueEditorRender() {
+    const [title, setTitle] = useState('')
+    const [content, setContent] = useState('')
+    const [submitted, setSubmitted] = useState(false)
+
+    const TEMPLATE = '<h3>문제 설명</h3><p>어떤 문제가 발생했는지 설명해주세요.</p><h3>재현 단계</h3><ol><li>첫 번째 단계</li><li>두 번째 단계</li><li>세 번째 단계</li></ol><h3>기대 동작</h3><p>어떤 동작을 기대했나요?</p>'
+
+    const submit = () => {
+      if (!title.trim()) return
+      setSubmitted(true)
+      setTimeout(() => {
+        setSubmitted(false)
+        setTitle('')
+        setContent('')
+      }, 2000)
+    }
+
+    return (
+      <div style={{ maxWidth: 640, fontFamily: 'system-ui, sans-serif' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12 }}>
+          <span style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>새 이슈 생성</span>
+          <button
+            onClick={() => setContent(TEMPLATE)}
+            style={{ fontSize: 11, color: '#3b82f6', background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}
+          >
+            템플릿 불러오기
+          </button>
+        </div>
+        <input
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          placeholder="이슈 제목 (필수)..."
+          style={{ width: '100%', padding: '10px 12px', borderRadius: 8, border: '1.5px solid #e5e7eb', fontSize: 13, outline: 'none', boxSizing: 'border-box', marginBottom: 10 }}
+        />
+        <Editor
+          content={content}
+          toolbar={<Editor.Toolbar />}
+          onChange={setContent}
+          placeholder="이슈 설명을 작성하세요... (마크다운 지원)"
+        />
+        {submitted ? (
+          <div style={{ marginTop: 10, padding: '10px 14px', background: '#dcfce7', borderRadius: 8, fontSize: 12, color: '#16a34a', fontWeight: 600 }}>
+            이슈가 생성되었습니다!
+          </div>
+        ) : (
+          <div style={{ display: 'flex', justifyContent: 'flex-end', gap: 8, marginTop: 10 }}>
+            <button onClick={() => { setTitle(''); setContent('') }} style={{ padding: '8px 16px', borderRadius: 8, border: '1px solid #e5e7eb', background: '#fff', fontSize: 12, color: '#6b7280', cursor: 'pointer' }}>
+              취소
+            </button>
+            <button
+              onClick={submit}
+              disabled={!title.trim()}
+              style={{ padding: '8px 20px', borderRadius: 8, border: 'none', background: title.trim() ? '#0f172a' : '#e5e7eb', color: title.trim() ? '#fff' : '#9ca3af', fontSize: 12, fontWeight: 700, cursor: title.trim() ? 'pointer' : 'default' }}
+            >
+              이슈 생성
+            </button>
+          </div>
+        )}
+      </div>
+    )
+  },
+}
+
+export const Radix_Linear_협업_노트_에디터: Story = {
+  name: 'Radix UI + Linear — 협업 노트 에디터 (Cycle 170)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Radix UI + Linear 협업 패턴. 팀 공유 노트 에디터. 탭별(회의록/결정사항/액션아이템) ' +
+          '에디터 전환 + 마지막 저장 시각 표시.',
+      },
+    },
+  },
+  render: function RadixLinearCollabEditorRender() {
+    type Tab = 'meeting' | 'decisions' | 'actions'
+
+    const [activeTab, setActiveTab] = useState<Tab>('meeting')
+    const [notes, setNotes] = useState<Record<Tab, string>>({
+      meeting: '<h3>2025-04-11 스프린트 회의</h3><p>참석자: 김민준, 이지수, 박서연</p>',
+      decisions: '<h3>결정사항</h3><ul><li>v2.0.0-beta.17 다음 주 출시</li><li>DataTable 가상 스크롤 이번 스프린트 포함</li></ul>',
+      actions: '<h3>액션 아이템</h3><ul><li>김민준: Button 컴포넌트 PR 제출 (금요일까지)</li><li>이지수: 디자인 시스템 토큰 리뷰</li></ul>',
+    })
+    const [lastSaved, setLastSaved] = useState('저장됨')
+
+    const handleChange = (html: string) => {
+      setNotes((prev) => ({ ...prev, [activeTab]: html }))
+      setLastSaved('저장 중...')
+      setTimeout(() => setLastSaved('방금 저장됨'), 500)
+    }
+
+    const tabs: { key: Tab; label: string }[] = [
+      { key: 'meeting', label: '회의록' },
+      { key: 'decisions', label: '결정사항' },
+      { key: 'actions', label: '액션아이템' },
+    ]
+
+    return (
+      <div style={{ maxWidth: 640, fontFamily: 'system-ui, sans-serif' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12 }}>
+          <div style={{ display: 'flex', gap: 4 }}>
+            {tabs.map((tab) => (
+              <button
+                key={tab.key}
+                onClick={() => setActiveTab(tab.key)}
+                style={{
+                  padding: '5px 12px', borderRadius: 8, border: `1.5px solid ${activeTab === tab.key ? '#3b82f6' : '#e5e7eb'}`,
+                  background: activeTab === tab.key ? '#eff6ff' : '#fff',
+                  color: activeTab === tab.key ? '#1d4ed8' : '#6b7280',
+                  fontSize: 12, fontWeight: 600, cursor: 'pointer',
+                }}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </div>
+          <span style={{ fontSize: 11, color: '#9ca3af' }}>{lastSaved}</span>
+        </div>
+        <Editor
+          key={activeTab}
+          content={notes[activeTab]}
+          toolbar={<Editor.Toolbar />}
+          footer={<Editor.CharacterCount />}
+          onChange={handleChange}
+          placeholder={`${tabs.find((t) => t.key === activeTab)?.label} 내용을 입력하세요...`}
+        />
+      </div>
+    )
+  },
+}

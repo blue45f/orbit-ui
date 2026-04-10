@@ -51,6 +51,7 @@ import { RadioGroup } from '../components/composites/RadioGroup'
 import { RadioButtonWithLabel } from '../components/composites/RadioButtonWithLabel'
 import { CheckboxWithLabel } from '../components/composites/CheckboxWithLabel'
 import { HoverCard } from '../components/HoverCard'
+import { Editor } from '../components/Editor'
 import { FloatingTextField } from '../components/FloatingTextField'
 import { EclipseProvider } from '../components/EclipseProvider'
 
@@ -38047,4 +38048,177 @@ export const ChakraArco169UserProfile: StoryObj = {
     },
   },
   render: () => <ChakraArco169UserProfileRender />,
+}
+
+// ──────────────────────────────────────────────────────────────────────────────
+// Cycle 170: Radix UI + Linear Design — 파일 매니저
+// ──────────────────────────────────────────────────────────────────────────────
+
+function RadixLinear170FileManagerRender() {
+  type ViewMode = 'grid' | 'list'
+  type FileType = 'folder' | 'doc' | 'image' | 'code' | 'data'
+
+  const [viewMode, setViewMode] = useState<ViewMode>('list')
+  const [selected, setSelected] = useState<number[]>([])
+  const [searchQuery, setSearchQuery] = useState('')
+
+  const files: { id: number; name: string; type: FileType; size: string; modified: string; owner: string }[] = [
+    { id: 1, name: 'components', type: 'folder', size: '—', modified: '오늘', owner: 'KM' },
+    { id: 2, name: 'design-tokens.ts', type: 'code', size: '12 KB', modified: '오늘', owner: 'KM' },
+    { id: 3, name: 'AccessibilityGuide.mdx', type: 'doc', size: '8 KB', modified: '어제', owner: 'YJ' },
+    { id: 4, name: 'logo-assets', type: 'folder', size: '—', modified: '어제', owner: 'LJ' },
+    { id: 5, name: 'component-audit.xlsx', type: 'data', size: '45 KB', modified: '2일 전', owner: 'PS' },
+    { id: 6, name: 'figma-export.png', type: 'image', size: '2.1 MB', modified: '3일 전', owner: 'LJ' },
+    { id: 7, name: 'Templates.stories.tsx', type: 'code', size: '380 KB', modified: '3일 전', owner: 'KM' },
+    { id: 8, name: 'benchmark-report.mdx', type: 'doc', size: '22 KB', modified: '지난주', owner: 'CJ' },
+  ]
+
+  const typeIcon: Record<FileType, { icon: string; color: string }> = {
+    folder: { icon: '📁', color: '#f59e0b' },
+    doc: { icon: '📄', color: '#3b82f6' },
+    image: { icon: '🖼', color: '#10b981' },
+    code: { icon: '⌨', color: '#8b5cf6' },
+    data: { icon: '📊', color: '#ec4899' },
+  }
+
+  const toggleSelect = (id: number) => {
+    setSelected((prev) => prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id])
+  }
+
+  const filtered = files.filter((f) =>
+    !searchQuery || f.name.toLowerCase().includes(searchQuery.toLowerCase())
+  )
+
+  const editorContent = selected.length > 0
+    ? `<h3>선택된 파일 정보</h3><p>${selected.length}개 파일 선택됨</p><ul>${selected.map((id) => {
+        const f = files.find((x) => x.id === id)
+        return f ? `<li>${f.name} (${f.size})</li>` : ''
+      }).join('')}</ul>`
+    : '<p>파일을 선택하면 이곳에 상세 정보가 표시됩니다.</p>'
+
+  return (
+    <div style={{ width: '100%', minHeight: '100vh', background: '#f8fafc', fontFamily: 'system-ui, sans-serif', display: 'flex' }}>
+      {/* Sidebar */}
+      <div style={{ width: 200, background: '#0f172a', display: 'flex', flexDirection: 'column', padding: '20px 0' }}>
+        <div style={{ padding: '0 16px 16px', borderBottom: '1px solid #1e293b' }}>
+          <div style={{ fontSize: 15, fontWeight: 800, color: '#f8fafc' }}>파일 관리</div>
+          <div style={{ fontSize: 11, color: '#475569', marginTop: 2 }}>{files.length}개 항목</div>
+        </div>
+        <div style={{ padding: '12px 0' }}>
+          {[
+            { label: '전체', count: files.length },
+            { label: '폴더', count: files.filter((f) => f.type === 'folder').length },
+            { label: '문서', count: files.filter((f) => f.type === 'doc').length },
+            { label: '코드', count: files.filter((f) => f.type === 'code').length },
+            { label: '이미지', count: files.filter((f) => f.type === 'image').length },
+          ].map((item) => (
+            <div key={item.label} style={{ display: 'flex', justifyContent: 'space-between', padding: '8px 16px', fontSize: 12, color: '#94a3b8', cursor: 'pointer' }}>
+              <span>{item.label}</span>
+              <span style={{ color: '#475569' }}>{item.count}</span>
+            </div>
+          ))}
+        </div>
+        {selected.length > 0 && (
+          <div style={{ marginTop: 'auto', padding: '0 12px' }}>
+            <div style={{ fontSize: 11, color: '#64748b', marginBottom: 6 }}>{selected.length}개 선택</div>
+            <SolidButton color="primary" size="small" onClick={() => setSelected([])}>
+              <SolidButton.Center>선택 해제</SolidButton.Center>
+            </SolidButton>
+          </div>
+        )}
+      </div>
+
+      {/* Main */}
+      <div style={{ flex: 1, padding: 24, display: 'flex', flexDirection: 'column', gap: 16 }}>
+        {/* Toolbar */}
+        <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
+          <div style={{ flex: 1 }}>
+            <TextField
+              placeholder="파일 검색..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery((e.target as HTMLInputElement).value)}
+            />
+          </div>
+          <div style={{ display: 'flex', gap: 6 }}>
+            {(['list', 'grid'] as ViewMode[]).map((mode) => (
+              <OutlineButton
+                key={mode}
+                color={viewMode === mode ? 'primary' : 'gray'}
+                size="small"
+                onClick={() => setViewMode(mode)}
+              >
+                <OutlineButton.Center>{mode === 'list' ? '목록' : '격자'}</OutlineButton.Center>
+              </OutlineButton>
+            ))}
+          </div>
+        </div>
+
+        <div style={{ display: 'flex', gap: 16, flex: 1 }}>
+          {/* File List */}
+          <div style={{ flex: 1 }}>
+            <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: 12, overflow: 'hidden' }}>
+              {/* Header */}
+              <div style={{ display: 'grid', gridTemplateColumns: '32px 2fr 1fr 1fr 80px', padding: '10px 16px', background: '#f9fafb', borderBottom: '1px solid #e2e8f0', gap: 8 }}>
+                {['', '이름', '크기', '수정일', '소유자'].map((h) => (
+                  <span key={h} style={{ fontSize: 11, fontWeight: 700, color: '#9ca3af' }}>{h}</span>
+                ))}
+              </div>
+              {filtered.map((file) => {
+                const ti = typeIcon[file.type]
+                const isSelected = selected.includes(file.id)
+                return (
+                  <div
+                    key={file.id}
+                    onClick={() => toggleSelect(file.id)}
+                    style={{
+                      display: 'grid', gridTemplateColumns: '32px 2fr 1fr 1fr 80px', padding: '10px 16px',
+                      borderBottom: '1px solid #f9fafb', cursor: 'pointer', alignItems: 'center', gap: 8,
+                      background: isSelected ? '#eff6ff' : '#fff',
+                    }}
+                  >
+                    <div style={{ width: 18, height: 18, borderRadius: 4, border: `2px solid ${isSelected ? '#3b82f6' : '#d1d5db'}`, background: isSelected ? '#3b82f6' : '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                      {isSelected && <span style={{ fontSize: 9, color: '#fff', fontWeight: 900 }}>✓</span>}
+                    </div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                      <span style={{ fontSize: 16, color: ti.color }}>{ti.icon}</span>
+                      <span style={{ fontSize: 13, fontWeight: 500, color: '#111827' }}>{file.name}</span>
+                    </div>
+                    <span style={{ fontSize: 12, color: '#6b7280' }}>{file.size}</span>
+                    <span style={{ fontSize: 12, color: '#6b7280' }}>{file.modified}</span>
+                    <div style={{ width: 26, height: 26, borderRadius: '50%', background: '#e2e8f0', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 9, fontWeight: 700, color: '#475569' }}>
+                      {file.owner}
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
+          </div>
+
+          {/* Detail Panel */}
+          <div style={{ width: 280, background: '#fff', border: '1px solid #e2e8f0', borderRadius: 12, padding: 16, display: 'flex', flexDirection: 'column', gap: 12 }}>
+            <div style={{ fontSize: 13, fontWeight: 700, color: '#111827' }}>상세 정보</div>
+            <Editor
+              key={editorContent}
+              content={editorContent}
+              onChange={() => {}}
+              placeholder="파일을 선택하세요..."
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const RadixLinear170FileManager: StoryObj = {
+  name: 'Radix UI + Linear — 파일 매니저 (DataTable + Editor)',
+  parameters: {
+    layout: 'fullscreen',
+    docs: {
+      description: {
+        story: 'Radix UI + Linear 복합 패턴. 파일 목록(체크박스 선택, 검색, 뷰 전환) + 우측 Editor 패널로 선택 파일 정보 표시.',
+      },
+    },
+  },
+  render: () => <RadixLinear170FileManagerRender />,
 }

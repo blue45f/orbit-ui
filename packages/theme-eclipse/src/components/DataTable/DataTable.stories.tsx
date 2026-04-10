@@ -2231,3 +2231,293 @@ export const Shadcn_Ant_재무_보고서_테이블: Story = {
     </div>
   ),
 }
+
+// ──────────────────────────────────────────────────────────────────────────────
+// Cycle 170: Radix UI + Linear Design
+// ──────────────────────────────────────────────────────────────────────────────
+
+export const Radix_권한_관리_테이블: Story = {
+  name: 'Radix UI — 역할별 권한 관리 테이블 (Cycle 170)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Radix UI 접근성 패턴 기반 권한 관리 테이블. 역할(Admin/Editor/Viewer)별 기능 접근 권한을 ' +
+          '체크박스 셀로 표시. 권한 변경 인터랙션 지원.',
+      },
+    },
+  },
+  render: function RadixPermTableRender() {
+    const features = ['대시보드 조회', '콘텐츠 생성', '콘텐츠 삭제', '멤버 초대', '설정 변경', '데이터 내보내기', '결제 관리']
+    type Role = 'admin' | 'editor' | 'viewer'
+
+    const [perms, setPerms] = useDataTableState<Record<string, Record<Role, boolean>>>(() => ({
+      '대시보드 조회': { admin: true, editor: true, viewer: true },
+      '콘텐츠 생성': { admin: true, editor: true, viewer: false },
+      '콘텐츠 삭제': { admin: true, editor: false, viewer: false },
+      '멤버 초대': { admin: true, editor: false, viewer: false },
+      '설정 변경': { admin: true, editor: false, viewer: false },
+      '데이터 내보내기': { admin: true, editor: true, viewer: false },
+      '결제 관리': { admin: true, editor: false, viewer: false },
+    }))
+
+    const toggle = (feature: string, role: Role) => {
+      setPerms((prev) => ({
+        ...prev,
+        [feature]: { ...prev[feature], [role]: !prev[feature][role] },
+      }))
+    }
+
+    const columns: ColumnDef<{ feature: string; admin: boolean; editor: boolean; viewer: boolean }>[] = [
+      {
+        accessorKey: 'feature',
+        header: '기능',
+        cell: ({ row }) => (
+          <span style={{ fontSize: 13, color: '#374151', fontWeight: 500 }}>{row.original.feature}</span>
+        ),
+      },
+      ...(['admin', 'editor', 'viewer'] as Role[]).map((role) => ({
+        accessorKey: role,
+        header: () => (
+          <span style={{
+            fontSize: 11, fontWeight: 700, padding: '2px 8px', borderRadius: 4,
+            background: role === 'admin' ? '#fee2e2' : role === 'editor' ? '#dbeafe' : '#f3f4f6',
+            color: role === 'admin' ? '#dc2626' : role === 'editor' ? '#1d4ed8' : '#6b7280',
+          }}>
+            {role.charAt(0).toUpperCase() + role.slice(1)}
+          </span>
+        ),
+        cell: ({ row }: { row: { original: { feature: string; admin: boolean; editor: boolean; viewer: boolean } } }) => {
+          const allowed = perms[row.original.feature]?.[role] ?? false
+          return (
+            <div
+              onClick={() => toggle(row.original.feature, role)}
+              style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}
+            >
+              <div style={{
+                width: 18, height: 18, borderRadius: 4, border: `2px solid ${allowed ? (role === 'admin' ? '#dc2626' : role === 'editor' ? '#1d4ed8' : '#6b7280') : '#d1d5db'}`,
+                background: allowed ? (role === 'admin' ? '#fee2e2' : role === 'editor' ? '#dbeafe' : '#f3f4f6') : '#fff',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+              }}>
+                {allowed && <span style={{ fontSize: 10, color: role === 'admin' ? '#dc2626' : role === 'editor' ? '#1d4ed8' : '#6b7280', fontWeight: 900 }}>✓</span>}
+              </div>
+            </div>
+          )
+        },
+      })),
+    ]
+
+    const data = features.map((f) => ({
+      feature: f,
+      admin: perms[f]?.admin ?? false,
+      editor: perms[f]?.editor ?? false,
+      viewer: perms[f]?.viewer ?? false,
+    }))
+
+    return (
+      <div style={{ fontFamily: 'system-ui, sans-serif', width: 480 }}>
+        <div style={{ marginBottom: 10, fontSize: 13, fontWeight: 700, color: '#0f172a' }}>역할별 권한 설정</div>
+        <DataTable columns={columns} data={data} />
+      </div>
+    )
+  },
+}
+
+export const Linear_스프린트_이슈_트래킹: Story = {
+  name: 'Linear — 스프린트 이슈 트래킹 테이블 (Cycle 170)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Linear 이슈 리스트 패턴. 스프린트 내 이슈 상태/우선순위/담당자/포인트를 ' +
+          'DataTable로 표시. 인라인 상태 변경 + 소팅.',
+      },
+    },
+  },
+  render: () => {
+    type IssueStatus = 'todo' | 'in-progress' | 'done' | 'blocked'
+    type Priority = 'urgent' | 'high' | 'medium' | 'low'
+
+    const issues: { id: string; title: string; status: IssueStatus; priority: Priority; assignee: string; points: number }[] = [
+      { id: 'ORB-142', title: 'Button ripple 효과', status: 'in-progress', priority: 'high', assignee: 'KM', points: 3 },
+      { id: 'ORB-141', title: 'TextField focus 버그', status: 'done', priority: 'medium', assignee: 'LJ', points: 1 },
+      { id: 'ORB-140', title: 'Dropdown 뷰포트 처리', status: 'todo', priority: 'low', assignee: 'PS', points: 2 },
+      { id: 'ORB-139', title: 'DataTable 가상 스크롤', status: 'blocked', priority: 'urgent', assignee: 'CJ', points: 8 },
+      { id: 'ORB-138', title: 'AccessibilityGuide 작성', status: 'in-progress', priority: 'medium', assignee: 'YJ', points: 2 },
+    ]
+
+    const statusIcon: Record<IssueStatus, { icon: string; color: string }> = {
+      todo: { icon: '○', color: '#9ca3af' },
+      'in-progress': { icon: '◑', color: '#f59e0b' },
+      done: { icon: '●', color: '#10b981' },
+      blocked: { icon: '⊘', color: '#ef4444' },
+    }
+
+    const priorityDot: Record<Priority, string> = {
+      urgent: '#dc2626', high: '#ef4444', medium: '#f59e0b', low: '#9ca3af',
+    }
+
+    const columns: ColumnDef<typeof issues[0]>[] = [
+      {
+        accessorKey: 'id',
+        header: 'ID',
+        cell: ({ row }) => (
+          <span style={{ fontFamily: 'monospace', fontSize: 11, color: '#9ca3af' }}>{row.original.id}</span>
+        ),
+      },
+      {
+        accessorKey: 'status',
+        header: '상태',
+        cell: ({ row }) => {
+          const sc = statusIcon[row.original.status]
+          return <span style={{ fontSize: 14, color: sc.color }}>{sc.icon}</span>
+        },
+      },
+      {
+        accessorKey: 'title',
+        header: '제목',
+        cell: ({ row }) => (
+          <span style={{ fontSize: 13, color: '#111827', fontWeight: 500 }}>{row.original.title}</span>
+        ),
+      },
+      {
+        accessorKey: 'priority',
+        header: '우선순위',
+        cell: ({ row }) => (
+          <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
+            <div style={{ width: 7, height: 7, borderRadius: '50%', background: priorityDot[row.original.priority] }} />
+            <span style={{ fontSize: 11, color: '#6b7280' }}>{row.original.priority}</span>
+          </div>
+        ),
+      },
+      {
+        accessorKey: 'assignee',
+        header: '담당자',
+        cell: ({ row }) => (
+          <div style={{ width: 26, height: 26, borderRadius: '50%', background: '#3b82f6', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 10, fontWeight: 700, color: '#fff' }}>
+            {row.original.assignee}
+          </div>
+        ),
+      },
+      {
+        accessorKey: 'points',
+        header: 'SP',
+        cell: ({ row }) => (
+          <span style={{ fontSize: 12, fontWeight: 700, padding: '2px 7px', borderRadius: 5, background: '#f1f5f9', color: '#475569' }}>{row.original.points}</span>
+        ),
+      },
+    ]
+
+    return (
+      <div style={{ fontFamily: 'system-ui, sans-serif', width: 560 }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 10, alignItems: 'center' }}>
+          <span style={{ fontSize: 13, fontWeight: 700, color: '#0f172a' }}>스프린트 17</span>
+          <span style={{ fontSize: 11, color: '#6b7280' }}>
+            {issues.filter((i) => i.status === 'done').length}/{issues.length} 완료 ·{' '}
+            {issues.reduce((a, b) => a + b.points, 0)} SP
+          </span>
+        </div>
+        <DataTable columns={columns} data={issues} />
+      </div>
+    )
+  },
+}
+
+export const Radix_Linear_코드_리뷰_현황_테이블: Story = {
+  name: 'Radix UI + Linear — 코드 리뷰 현황 테이블 (Cycle 170)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Radix UI + Linear 코드 리뷰 패턴. PR별 리뷰 상태/승인 여부/변경 파일 수를 ' +
+          'DataTable로 한눈에 파악. 행 클릭 선택 지원.',
+      },
+    },
+  },
+  render: function RadixLinearCodeReviewRender() {
+    const [selected, setSelected] = useDataTableState<number | null>(null)
+
+    const prs = [
+      { id: 142, title: 'feat: Button ripple 효과 추가', author: 'KM', reviews: 2, approved: 1, files: 4, additions: 120, deletions: 18, status: 'open' },
+      { id: 141, title: 'fix: TextField focus 링 색상 수정', author: 'LJ', reviews: 3, approved: 3, files: 2, additions: 15, deletions: 8, status: 'merged' },
+      { id: 140, title: 'refactor: Dropdown 포지셔닝 개선', author: 'PS', reviews: 1, approved: 0, files: 6, additions: 89, deletions: 42, status: 'open' },
+      { id: 139, title: 'feat: DataTable 가상 스크롤 지원', author: 'CJ', reviews: 0, approved: 0, files: 12, additions: 340, deletions: 5, status: 'draft' },
+    ]
+
+    const statusStyle: Record<string, { bg: string; color: string }> = {
+      open: { bg: '#dcfce7', color: '#16a34a' },
+      merged: { bg: '#ede9fe', color: '#7c3aed' },
+      draft: { bg: '#f1f5f9', color: '#64748b' },
+      closed: { bg: '#fee2e2', color: '#dc2626' },
+    }
+
+    const columns: ColumnDef<typeof prs[0]>[] = [
+      {
+        accessorKey: 'id',
+        header: 'PR',
+        cell: ({ row }) => (
+          <span style={{ fontFamily: 'monospace', fontSize: 11, color: '#9ca3af' }}>#{row.original.id}</span>
+        ),
+      },
+      {
+        accessorKey: 'title',
+        header: '제목',
+        cell: ({ row }) => (
+          <div>
+            <div style={{ fontSize: 13, fontWeight: 600, color: '#111827' }}>{row.original.title}</div>
+            <div style={{ fontSize: 11, color: '#9ca3af' }}>{row.original.author} 작성</div>
+          </div>
+        ),
+      },
+      {
+        accessorKey: 'status',
+        header: '상태',
+        cell: ({ row }) => {
+          const ss = statusStyle[row.original.status]
+          return (
+            <span style={{ fontSize: 10, fontWeight: 700, padding: '2px 7px', borderRadius: 10, background: ss.bg, color: ss.color }}>
+              {row.original.status}
+            </span>
+          )
+        },
+      },
+      {
+        accessorKey: 'reviews',
+        header: '리뷰',
+        cell: ({ row }) => (
+          <span style={{ fontSize: 12, color: row.original.approved === row.original.reviews && row.original.reviews > 0 ? '#10b981' : '#6b7280' }}>
+            {row.original.approved}/{row.original.reviews}
+          </span>
+        ),
+      },
+      {
+        accessorKey: 'files',
+        header: '파일',
+        cell: ({ row }) => (
+          <div style={{ fontSize: 11 }}>
+            <span style={{ color: '#10b981' }}>+{row.original.additions}</span>
+            {' / '}
+            <span style={{ color: '#ef4444' }}>-{row.original.deletions}</span>
+          </div>
+        ),
+      },
+    ]
+
+    return (
+      <div style={{ fontFamily: 'system-ui, sans-serif', width: 560 }}>
+        <div style={{ marginBottom: 10, fontSize: 13, fontWeight: 700, color: '#0f172a' }}>코드 리뷰 현황</div>
+        <div onClick={() => setSelected(null)}>
+          <DataTable
+            columns={columns}
+            data={prs.map((pr) => ({ ...pr, _selected: selected === pr.id }))}
+          />
+        </div>
+        {selected !== null && (
+          <div style={{ marginTop: 10, padding: '10px 14px', background: '#eff6ff', borderRadius: 8, fontSize: 12, color: '#1d4ed8' }}>
+            PR #{selected} 선택됨
+          </div>
+        )}
+      </div>
+    )
+  },
+}
