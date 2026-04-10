@@ -1317,3 +1317,364 @@ export const Radix_탭_콘텐츠_지연_로딩: Story = {
   },
   render: () => <RadixLazyTabRender />,
 }
+
+/* --------------------------------------------------------------------------
+   Cycle 123 — shadcn/ui + Linear Design 벤치마크
+-------------------------------------------------------------------------- */
+
+/* --------------------------------------------------------------------------
+   shadcn/ui: 필터 탭 바 패턴
+   shadcn Tabs 의 underline 스타일 + 검색 가능한 탭 필터 조합
+-------------------------------------------------------------------------- */
+function ShadcnFilterTabRender() {
+  const [active, setActive] = useState('all')
+  const [query, setQuery] = useState('')
+
+  const FILTER_TABS = [
+    { id: 'all', label: '전체', count: 24 },
+    { id: 'open', label: 'Open', count: 8 },
+    { id: 'in_review', label: 'In Review', count: 5 },
+    { id: 'closed', label: 'Closed', count: 11 },
+  ]
+
+  const ITEMS = [
+    { id: 1, title: '로그인 페이지 리디자인', status: 'open', author: '김민준', date: '2일 전' },
+    { id: 2, title: 'API 응답 캐싱 구현', status: 'in_review', author: '이서연', date: '4시간 전' },
+    { id: 3, title: '다크모드 토큰 정리', status: 'closed', author: '박준혁', date: '3일 전' },
+    { id: 4, title: '접근성 audit 반영', status: 'open', author: '최유진', date: '1일 전' },
+    { id: 5, title: 'Storybook 7→8 마이그레이션', status: 'in_review', author: '김민준', date: '1시간 전' },
+    { id: 6, title: '번들 사이즈 최적화', status: 'closed', author: '이서연', date: '5일 전' },
+    { id: 7, title: '컴포넌트 테스트 커버리지', status: 'open', author: '박준혁', date: '6시간 전' },
+    { id: 8, title: 'CI 파이프라인 속도 개선', status: 'closed', author: '최유진', date: '1주 전' },
+  ]
+
+  const STATUS_COLOR: Record<string, string> = {
+    open: '#10b981', in_review: '#f59e0b', closed: '#94a3b8',
+  }
+  const STATUS_LABEL: Record<string, string> = {
+    open: 'Open', in_review: 'In Review', closed: 'Closed',
+  }
+
+  const filtered = ITEMS.filter((it) => {
+    const matchTab = active === 'all' || it.status === active
+    const matchQuery = it.title.includes(query) || it.author.includes(query)
+    return matchTab && matchQuery
+  })
+
+  return (
+    <div style={{ width: 480 }}>
+      {/* Search */}
+      <div style={{ marginBottom: 14 }}>
+        <input
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          placeholder="이슈 또는 담당자 검색..."
+          style={{ width: '100%', padding: '8px 12px', borderRadius: 8, border: '1.5px solid #e2e8f0', fontSize: 13, outline: 'none', boxSizing: 'border-box' }}
+        />
+      </div>
+
+      {/* Tab bar */}
+      <div style={{ display: 'flex', borderBottom: '2px solid #e2e8f0', marginBottom: 16 }}>
+        {FILTER_TABS.map((tab) => (
+          <Tab
+            key={tab.id}
+            selected={active === tab.id}
+            onClick={() => setActive(tab.id)}
+          >
+            <Tab.Center>
+              <span style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                {tab.label}
+                <span style={{
+                  minWidth: 18, height: 18, borderRadius: 9, padding: '0 5px',
+                  background: active === tab.id ? '#6366f1' : '#e2e8f0',
+                  color: active === tab.id ? '#fff' : '#64748b',
+                  fontSize: 11, fontWeight: 700,
+                  display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+                }}>
+                  {tab.count}
+                </span>
+              </span>
+            </Tab.Center>
+          </Tab>
+        ))}
+      </div>
+
+      {/* List */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+        {filtered.map((item) => (
+          <div key={item.id} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '10px 14px', borderRadius: 10, border: '1px solid #f1f5f9', background: '#fff' }}>
+            <span style={{ width: 8, height: 8, borderRadius: '50%', background: STATUS_COLOR[item.status], flexShrink: 0 }} />
+            <div style={{ flex: 1 }}>
+              <div style={{ fontSize: 13, fontWeight: 600, color: '#1e293b' }}>{item.title}</div>
+              <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>{item.author} · {item.date}</div>
+            </div>
+            <span style={{ fontSize: 11, fontWeight: 600, color: STATUS_COLOR[item.status], padding: '2px 8px', borderRadius: 20, background: `${STATUS_COLOR[item.status]}18` }}>
+              {STATUS_LABEL[item.status]}
+            </span>
+          </div>
+        ))}
+        {filtered.length === 0 && (
+          <div style={{ textAlign: 'center', color: '#94a3b8', fontSize: 14, padding: '24px 0' }}>결과 없음</div>
+        )}
+      </div>
+    </div>
+  )
+}
+
+export const Shadcn_필터_탭_바: Story = {
+  name: 'shadcn/ui - 필터 탭 바 + 검색 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'shadcn/ui Tabs 언더라인 스타일 + 검색 입력 조합 패턴. 탭별 아이템 카운트 배지와 ' +
+          '검색어 필터를 결합하여 GitHub 이슈 목록과 유사한 인터페이스를 구현합니다.',
+      },
+    },
+  },
+  render: () => <ShadcnFilterTabRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Linear: 뷰 전환 탭 패턴
+   Linear 의 List/Board/Timeline 뷰 전환 — 탭 클릭으로 레이아웃 모드 변경
+-------------------------------------------------------------------------- */
+function LinearViewSwitchTabRender() {
+  const [view, setView] = useState<'list' | 'board' | 'timeline'>('list')
+
+  const ISSUES = [
+    { id: 'ENG-001', title: '폼 유효성 검사 개선', priority: 'high', status: 'in_progress', team: 'FE' },
+    { id: 'ENG-002', title: 'WebSocket 연결 안정화', priority: 'urgent', status: 'todo', team: 'BE' },
+    { id: 'ENG-003', title: '대시보드 성능 최적화', priority: 'medium', status: 'in_review', team: 'FE' },
+    { id: 'ENG-004', title: 'e2e 테스트 커버리지', priority: 'low', status: 'todo', team: 'QA' },
+    { id: 'ENG-005', title: '로그인 세션 갱신', priority: 'high', status: 'done', team: 'BE' },
+    { id: 'ENG-006', title: '다국어 지원 추가', priority: 'medium', status: 'todo', team: 'FE' },
+  ]
+
+  const PRIORITY_COLOR: Record<string, string> = { urgent: '#ef4444', high: '#f59e0b', medium: '#6366f1', low: '#94a3b8' }
+  const STATUS_GROUPS: Record<string, typeof ISSUES> = {
+    Todo: ISSUES.filter((i) => i.status === 'todo'),
+    'In Progress': ISSUES.filter((i) => i.status === 'in_progress'),
+    'In Review': ISSUES.filter((i) => i.status === 'in_review'),
+    Done: ISSUES.filter((i) => i.status === 'done'),
+  }
+
+  return (
+    <div style={{ width: 560 }}>
+      {/* View tabs */}
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 16 }}>
+        <span style={{ fontSize: 15, fontWeight: 700, color: '#1e293b' }}>Engineering 이슈</span>
+        <div style={{ display: 'flex', borderBottom: '2px solid #e2e8f0' }}>
+          {(['list', 'board', 'timeline'] as const).map((v) => (
+            <Tab key={v} selected={view === v} onClick={() => setView(v)}>
+              <Tab.Center>
+                {v === 'list' ? '목록' : v === 'board' ? '보드' : '타임라인'}
+              </Tab.Center>
+            </Tab>
+          ))}
+        </div>
+      </div>
+
+      {/* List view */}
+      {view === 'list' && (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+          {ISSUES.map((issue) => (
+            <div key={issue.id} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '8px 12px', borderRadius: 8, border: '1px solid #f1f5f9', background: '#fff' }}>
+              <span style={{ width: 6, height: 6, borderRadius: '50%', background: PRIORITY_COLOR[issue.priority], flexShrink: 0 }} />
+              <span style={{ fontSize: 11, color: '#94a3b8', fontWeight: 600, minWidth: 56 }}>{issue.id}</span>
+              <span style={{ flex: 1, fontSize: 13, color: '#1e293b', fontWeight: 500 }}>{issue.title}</span>
+              <span style={{ fontSize: 11, padding: '2px 8px', borderRadius: 20, background: '#f1f5f9', color: '#64748b' }}>{issue.team}</span>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* Board view */}
+      {view === 'board' && (
+        <div style={{ display: 'flex', gap: 12, overflowX: 'auto', paddingBottom: 8 }}>
+          {Object.entries(STATUS_GROUPS).map(([col, items]) => (
+            <div key={col} style={{ minWidth: 160, flex: 1 }}>
+              <div style={{ fontSize: 11, fontWeight: 700, color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 8 }}>
+                {col} <span style={{ fontWeight: 400, color: '#94a3b8' }}>({items.length})</span>
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+                {items.map((issue) => (
+                  <div key={issue.id} style={{ padding: '8px 10px', borderRadius: 8, border: '1px solid #e2e8f0', background: '#fff', fontSize: 12 }}>
+                    <div style={{ color: '#1e293b', fontWeight: 600, marginBottom: 4 }}>{issue.title}</div>
+                    <span style={{ color: '#94a3b8' }}>{issue.id}</span>
+                  </div>
+                ))}
+                {items.length === 0 && <div style={{ padding: '10px', borderRadius: 8, border: '1px dashed #e2e8f0', fontSize: 11, color: '#cbd5e1', textAlign: 'center' }}>없음</div>}
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* Timeline view */}
+      {view === 'timeline' && (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
+          {ISSUES.map((issue, i) => (
+            <div key={issue.id} style={{ display: 'flex', gap: 14, paddingBottom: 12 }}>
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <span style={{ width: 10, height: 10, borderRadius: '50%', background: PRIORITY_COLOR[issue.priority], flexShrink: 0, marginTop: 3 }} />
+                {i < ISSUES.length - 1 && <span style={{ width: 2, flex: 1, background: '#f1f5f9', marginTop: 4 }} />}
+              </div>
+              <div style={{ flex: 1, paddingBottom: 4 }}>
+                <div style={{ fontSize: 13, fontWeight: 600, color: '#1e293b' }}>{issue.title}</div>
+                <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>{issue.id} · {issue.team}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  )
+}
+
+export const Linear_뷰_전환_탭: Story = {
+  name: 'Linear - 뷰 전환 탭 패턴 (List/Board/Timeline)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Linear의 이슈 뷰 전환 탭 패턴. List/Board/Timeline 3가지 뷰를 Tab으로 전환하며 ' +
+          '각 뷰에서 동일한 데이터를 다른 레이아웃으로 렌더링합니다.',
+      },
+    },
+  },
+  render: () => <LinearViewSwitchTabRender />,
+}
+
+/* --------------------------------------------------------------------------
+   shadcn + Linear: 설정 탭 패널 패턴
+   두 시스템의 설정 화면 탭 패턴 결합 — 아이콘 탭 + 상세 설정 패널
+-------------------------------------------------------------------------- */
+function ShadcnLinearSettingsTabRender() {
+  const [active, setActive] = useState('general')
+
+  const SETTINGS_TABS = [
+    { id: 'general', label: '일반', icon: <SettingLineIcon size={14} /> },
+    { id: 'notifications', label: '알림', icon: <NotificationLineIcon size={14} /> },
+    { id: 'team', label: '팀', icon: <PeopleLineIcon size={14} /> },
+    { id: 'billing', label: '결제', icon: <StarLineIcon size={14} /> },
+  ]
+
+  const PANELS: Record<string, React.ReactNode> = {
+    general: (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+        <SettingRow label="워크스페이스 이름" description="팀에 표시되는 이름입니다.">
+          <input defaultValue="Orbit UI Team" style={{ padding: '7px 10px', borderRadius: 8, border: '1.5px solid #e2e8f0', fontSize: 13, width: 200 }} />
+        </SettingRow>
+        <SettingRow label="슬러그" description="URL에 사용되는 고유 식별자입니다.">
+          <input defaultValue="orbit-ui" style={{ padding: '7px 10px', borderRadius: 8, border: '1.5px solid #e2e8f0', fontSize: 13, width: 200 }} />
+        </SettingRow>
+        <SettingRow label="타임존" description="회의 및 일정에 사용됩니다.">
+          <select style={{ padding: '7px 10px', borderRadius: 8, border: '1.5px solid #e2e8f0', fontSize: 13, width: 200, background: '#fff' }}>
+            <option>Asia/Seoul (UTC+9)</option>
+            <option>UTC</option>
+          </select>
+        </SettingRow>
+      </div>
+    ),
+    notifications: (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+        {['이슈 할당됨', '멘션', '댓글', '상태 변경', '마감일 임박'].map((item) => (
+          <div key={item} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 14px', borderRadius: 8, border: '1px solid #f1f5f9' }}>
+            <span style={{ fontSize: 13, color: '#1e293b' }}>{item}</span>
+            <ToggleSwitch />
+          </div>
+        ))}
+      </div>
+    ),
+    team: (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+        {[
+          { name: '김민준', role: 'Admin', avatar: '#6366f1' },
+          { name: '이서연', role: 'Member', avatar: '#10b981' },
+          { name: '박준혁', role: 'Member', avatar: '#f59e0b' },
+          { name: '최유진', role: 'Guest', avatar: '#ef4444' },
+        ].map((m) => (
+          <div key={m.name} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '8px 12px', borderRadius: 8, border: '1px solid #f1f5f9' }}>
+            <div style={{ width: 32, height: 32, borderRadius: '50%', background: m.avatar, color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 13, fontWeight: 700 }}>
+              {m.name[0]}
+            </div>
+            <div style={{ flex: 1, fontSize: 13, fontWeight: 600, color: '#1e293b' }}>{m.name}</div>
+            <span style={{ fontSize: 11, padding: '2px 8px', borderRadius: 20, background: '#f1f5f9', color: '#64748b' }}>{m.role}</span>
+          </div>
+        ))}
+      </div>
+    ),
+    billing: (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+        <div style={{ padding: '16px', borderRadius: 10, border: '2px solid #6366f1', background: '#f0f0ff' }}>
+          <div style={{ fontSize: 13, fontWeight: 700, color: '#4338ca' }}>Pro 플랜 (현재)</div>
+          <div style={{ fontSize: 22, fontWeight: 800, color: '#1e293b', margin: '8px 0 4px' }}>₩19,000<span style={{ fontSize: 13, fontWeight: 400, color: '#64748b' }}> / 월</span></div>
+          <div style={{ fontSize: 12, color: '#64748b' }}>최대 20명 · 무제한 프로젝트 · 우선 지원</div>
+        </div>
+        <button style={{ padding: '10px', borderRadius: 8, border: '1px solid #e2e8f0', background: '#fff', fontSize: 13, color: '#64748b', cursor: 'pointer' }}>
+          플랜 변경 →
+        </button>
+      </div>
+    ),
+  }
+
+  return (
+    <div style={{ width: 500 }}>
+      <div style={{ display: 'flex', borderBottom: '2px solid #e2e8f0', marginBottom: 20 }}>
+        {SETTINGS_TABS.map((tab) => (
+          <Tab key={tab.id} selected={active === tab.id} onClick={() => setActive(tab.id)}>
+            <Tab.Leading>{tab.icon}</Tab.Leading>
+            <Tab.Center>{tab.label}</Tab.Center>
+          </Tab>
+        ))}
+      </div>
+      {PANELS[active]}
+    </div>
+  )
+}
+
+function SettingRow({ label, description, children }: { label: string; description: string; children: React.ReactNode }) {
+  return (
+    <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 16, padding: '10px 0', borderBottom: '1px solid #f1f5f9' }}>
+      <div>
+        <div style={{ fontSize: 13, fontWeight: 600, color: '#1e293b' }}>{label}</div>
+        <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>{description}</div>
+      </div>
+      {children}
+    </div>
+  )
+}
+
+function ToggleSwitch() {
+  const [on, setOn] = useState(true)
+  return (
+    <button
+      onClick={() => setOn((v) => !v)}
+      style={{
+        width: 36, height: 20, borderRadius: 10, border: 'none', cursor: 'pointer',
+        background: on ? '#6366f1' : '#e2e8f0', position: 'relative', transition: 'background 0.2s',
+      }}
+    >
+      <span style={{
+        position: 'absolute', top: 3, left: on ? 19 : 3,
+        width: 14, height: 14, borderRadius: '50%', background: '#fff',
+        transition: 'left 0.2s',
+      }} />
+    </button>
+  )
+}
+
+export const Shadcn_Linear_설정_탭_패널: Story = {
+  name: 'shadcn/ui + Linear - 설정 탭 패널 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'shadcn/ui Settings 레이아웃 + Linear 워크스페이스 설정 패턴. 아이콘이 있는 탭으로 ' +
+          '섹션(일반/알림/팀/결제)을 전환하고 각 패널에 맞는 설정 UI를 표시합니다.',
+      },
+    },
+  },
+  render: () => <ShadcnLinearSettingsTabRender />,
+}

@@ -29159,3 +29159,246 @@ export const AntMantine122EventDashboard: StoryObj = {
   },
   render: () => <EventDashboard122Render />,
 }
+
+/* ==========================================================================
+   Cycle 123 — shadcn/ui + Linear Design 벤치마크
+   템플릿: 프로젝트 허브 (TabItem + AnimatedBadge + Progress + DataTable 스타일)
+========================================================================== */
+
+type Project123 = {
+  id: string
+  name: string
+  status: 'active' | 'review' | 'done' | 'paused'
+  progress: number
+  team: string[]
+  issues: number
+  daysLeft: number
+}
+
+const PROJECTS_123: Project123[] = [
+  { id: 'PRJ-01', name: 'Design System v3', status: 'active', progress: 68, team: ['김', '이', '박'], issues: 4, daysLeft: 12 },
+  { id: 'PRJ-02', name: 'Mobile App Rewrite', status: 'review', progress: 92, team: ['최', '김'], issues: 1, daysLeft: 3 },
+  { id: 'PRJ-03', name: 'API Gateway 마이그레이션', status: 'active', progress: 41, team: ['이', '박', '정'], issues: 7, daysLeft: 24 },
+  { id: 'PRJ-04', name: 'Storybook 8 업그레이드', status: 'done', progress: 100, team: ['김'], issues: 0, daysLeft: 0 },
+  { id: 'PRJ-05', name: '접근성 Audit', status: 'paused', progress: 35, team: ['최', '이'], issues: 2, daysLeft: 30 },
+  { id: 'PRJ-06', name: 'E2E 테스트 커버리지', status: 'active', progress: 55, team: ['박', '김', '최'], issues: 3, daysLeft: 18 },
+]
+
+const TEAM_MEMBERS_123 = [
+  { name: '김민준', role: 'Frontend', color: '#6366f1', projects: 3, issues: 8 },
+  { name: '이서연', role: 'Backend', color: '#10b981', projects: 3, issues: 6 },
+  { name: '박준혁', role: 'Design', color: '#f59e0b', projects: 3, issues: 4 },
+  { name: '최유진', role: 'QA', color: '#ef4444', projects: 3, issues: 3 },
+  { name: '정다은', role: 'DevOps', color: '#8b5cf6', projects: 1, issues: 2 },
+]
+
+const STATUS_META_123 = {
+  active: { label: 'Active', color: 'club' as const, bar: '#6366f1' },
+  review: { label: 'In Review', color: 'sale' as const, bar: '#f59e0b' },
+  done: { label: 'Done', color: 'sale' as const, bar: '#10b981' },
+  paused: { label: 'Paused', color: 'white' as const, bar: '#94a3b8' },
+}
+
+function ProjectHub123Render() {
+  const [tab, setTab] = useState(0)
+  const [search, setSearch] = useState('')
+
+  const TAB_DEFS = [
+    { label: '프로젝트', count: PROJECTS_123.length },
+    { label: '팀원', count: TEAM_MEMBERS_123.length },
+    { label: '이슈', count: PROJECTS_123.reduce((s, p) => s + p.issues, 0) },
+  ]
+
+  const filteredProjects = PROJECTS_123.filter((p) =>
+    p.name.toLowerCase().includes(search.toLowerCase())
+  )
+  const filteredMembers = TEAM_MEMBERS_123.filter((m) =>
+    m.name.includes(search) || m.role.includes(search)
+  )
+  const issueProjects = PROJECTS_123.filter((p) => p.issues > 0).sort((a, b) => b.issues - a.issues)
+
+  return (
+    <div style={{ width: 680, fontFamily: 'system-ui, sans-serif' }}>
+      {/* Header */}
+      <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: 20 }}>
+        <div>
+          <h2 style={{ margin: 0, fontSize: 22, fontWeight: 800, color: '#0f172a' }}>프로젝트 허브</h2>
+          <p style={{ margin: '4px 0 0', fontSize: 13, color: '#64748b' }}>shadcn/ui + Linear 벤치마크 — Cycle 123</p>
+        </div>
+        <div style={{ display: 'flex', gap: 8 }}>
+          <AnimatedBadge color="club" size="small">
+            <AnimatedBadge.Label>Active {PROJECTS_123.filter((p) => p.status === 'active').length}</AnimatedBadge.Label>
+          </AnimatedBadge>
+          <AnimatedBadge color="sale" size="small">
+            <AnimatedBadge.Label>Issues {PROJECTS_123.reduce((s, p) => s + p.issues, 0)}</AnimatedBadge.Label>
+          </AnimatedBadge>
+        </div>
+      </div>
+
+      {/* KPI */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 12, marginBottom: 20 }}>
+        {[
+          { label: '총 프로젝트', value: PROJECTS_123.length, color: '#6366f1' },
+          { label: '완료율', value: `${Math.round(PROJECTS_123.filter((p) => p.status === 'done').length / PROJECTS_123.length * 100)}%`, color: '#10b981' },
+          { label: '평균 진행률', value: `${Math.round(PROJECTS_123.reduce((s, p) => s + p.progress, 0) / PROJECTS_123.length)}%`, color: '#f59e0b' },
+          { label: '총 이슈', value: PROJECTS_123.reduce((s, p) => s + p.issues, 0), color: '#ef4444' },
+        ].map((kpi) => (
+          <div key={kpi.label} style={{ padding: '14px 16px', borderRadius: 12, border: '1px solid #f1f5f9', background: '#fff', boxShadow: '0 1px 4px rgba(0,0,0,0.04)' }}>
+            <div style={{ fontSize: 11, color: '#94a3b8', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 6 }}>{kpi.label}</div>
+            <div style={{ fontSize: 24, fontWeight: 800, color: kpi.color }}>{kpi.value}</div>
+          </div>
+        ))}
+      </div>
+
+      {/* Search */}
+      <div style={{ marginBottom: 12 }}>
+        <TextField
+          placeholder="검색..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
+      </div>
+
+      {/* Tabs */}
+      <div style={{ display: 'flex', borderBottom: '2px solid #e2e8f0', marginBottom: 16 }}>
+        {TAB_DEFS.map((t, i) => (
+          <button
+            key={t.label}
+            onClick={() => setTab(i)}
+            style={{
+              padding: '10px 16px', border: 'none', background: 'none', cursor: 'pointer',
+              fontSize: 14, fontWeight: tab === i ? 700 : 500,
+              color: tab === i ? '#6366f1' : '#64748b',
+              borderBottom: tab === i ? '2px solid #6366f1' : '2px solid transparent',
+              marginBottom: '-2px', display: 'flex', alignItems: 'center', gap: 6,
+            }}
+          >
+            {t.label}
+            <span style={{
+              minWidth: 18, height: 18, borderRadius: 9, padding: '0 5px',
+              background: tab === i ? '#6366f1' : '#e2e8f0',
+              color: tab === i ? '#fff' : '#64748b',
+              fontSize: 11, fontWeight: 700,
+              display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+            }}>
+              {t.count}
+            </span>
+          </button>
+        ))}
+      </div>
+
+      {/* Projects tab */}
+      {tab === 0 && (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+          {filteredProjects.map((p) => {
+            const meta = STATUS_META_123[p.status]
+            return (
+              <div key={p.id} style={{ padding: '14px 16px', borderRadius: 12, border: '1px solid #f1f5f9', background: '#fff' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 10 }}>
+                  <span style={{ fontSize: 11, color: '#94a3b8', fontWeight: 600, minWidth: 52 }}>{p.id}</span>
+                  <span style={{ flex: 1, fontSize: 14, fontWeight: 700, color: '#1e293b' }}>{p.name}</span>
+                  <AnimatedBadge color={meta.color} size="small">
+                    <AnimatedBadge.Label>{meta.label}</AnimatedBadge.Label>
+                  </AnimatedBadge>
+                  {p.issues > 0 && (
+                    <span style={{ fontSize: 11, padding: '2px 8px', borderRadius: 20, background: '#fef2f2', color: '#ef4444', fontWeight: 700 }}>
+                      {p.issues} 이슈
+                    </span>
+                  )}
+                </div>
+                <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+                  <Progress value={p.progress} />
+                  <span style={{ fontSize: 12, fontWeight: 700, color: meta.bar, minWidth: 36 }}>{p.progress}%</span>
+                  <div style={{ display: 'flex', gap: -4, marginLeft: 'auto' }}>
+                    {p.team.map((t, i) => (
+                      <span key={i} style={{ width: 24, height: 24, borderRadius: '50%', background: ['#6366f1', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6'][i % 5], color: '#fff', fontSize: 11, fontWeight: 700, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', border: '2px solid #fff', marginLeft: i > 0 ? -8 : 0 }}>
+                        {t}
+                      </span>
+                    ))}
+                  </div>
+                  {p.daysLeft > 0 && <span style={{ fontSize: 11, color: p.daysLeft < 7 ? '#ef4444' : '#94a3b8', marginLeft: 8 }}>{p.daysLeft}일 남음</span>}
+                </div>
+              </div>
+            )
+          })}
+        </div>
+      )}
+
+      {/* Team tab */}
+      {tab === 1 && (
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
+          {filteredMembers.map((m) => (
+            <div key={m.name} style={{ padding: '14px 16px', borderRadius: 12, border: '1px solid #f1f5f9', background: '#fff' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 10 }}>
+                <div style={{ width: 36, height: 36, borderRadius: '50%', background: m.color, color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 14, fontWeight: 700 }}>
+                  {m.name[0]}
+                </div>
+                <div>
+                  <div style={{ fontSize: 14, fontWeight: 700, color: '#1e293b' }}>{m.name}</div>
+                  <div style={{ fontSize: 11, color: '#94a3b8' }}>{m.role}</div>
+                </div>
+              </div>
+              <div style={{ display: 'flex', gap: 10 }}>
+                <div style={{ flex: 1, padding: '8px', borderRadius: 8, background: '#f8fafc', textAlign: 'center' }}>
+                  <div style={{ fontSize: 18, fontWeight: 800, color: '#1e293b' }}>{m.projects}</div>
+                  <div style={{ fontSize: 10, color: '#94a3b8' }}>프로젝트</div>
+                </div>
+                <div style={{ flex: 1, padding: '8px', borderRadius: 8, background: '#fef2f2', textAlign: 'center' }}>
+                  <div style={{ fontSize: 18, fontWeight: 800, color: '#ef4444' }}>{m.issues}</div>
+                  <div style={{ fontSize: 10, color: '#94a3b8' }}>이슈</div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* Issues tab */}
+      {tab === 2 && (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+          {issueProjects.map((p) => {
+            const meta = STATUS_META_123[p.status]
+            return (
+              <div key={p.id} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '10px 14px', borderRadius: 10, border: '1px solid #f1f5f9', background: '#fff' }}>
+                <div style={{ flex: 1 }}>
+                  <div style={{ fontSize: 13, fontWeight: 600, color: '#1e293b' }}>{p.name}</div>
+                  <div style={{ fontSize: 11, color: '#94a3b8' }}>{p.id}</div>
+                </div>
+                <AnimatedBadge color={meta.color} size="small">
+                  <AnimatedBadge.Label>{meta.label}</AnimatedBadge.Label>
+                </AnimatedBadge>
+                <span style={{ fontSize: 13, fontWeight: 800, color: '#ef4444', minWidth: 28, textAlign: 'right' }}>{p.issues}</span>
+              </div>
+            )
+          })}
+        </div>
+      )}
+
+      {/* Footer */}
+      <div style={{ marginTop: 20, display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: 16, borderTop: '1px solid #f1f5f9' }}>
+        <span style={{ fontSize: 13, color: '#94a3b8' }}>
+          {tab === 0 ? `${filteredProjects.length}개 프로젝트` : tab === 1 ? `${filteredMembers.length}명` : `${TAB_DEFS[2].count}개 이슈`}
+        </span>
+        <SolidButton color="black" size="medium">
+          <SolidButton.Center>새 프로젝트</SolidButton.Center>
+        </SolidButton>
+      </div>
+    </div>
+  )
+}
+
+export const ShadcnLinear123ProjectHub: StoryObj = {
+  name: 'shadcn/ui + Linear — 프로젝트 허브 (Cycle 123)',
+  parameters: {
+    layout: 'centered',
+    docs: {
+      description: {
+        story:
+          'shadcn/ui + Linear Design 벤치마크 — Cycle 123. ' +
+          'TabItem 탭 네비게이션 + AnimatedBadge 상태 배지 + Progress 진행률 + KPI 카드. ' +
+          '프로젝트/팀원/이슈 3탭 구조로 워크스페이스 현황을 한 화면에 표시합니다.',
+      },
+    },
+  },
+  render: () => <ProjectHub123Render />,
+}

@@ -968,3 +968,234 @@ export const Vercel_배포_상태_대시보드: Story = {
     </div>
   ),
 }
+
+/* --------------------------------------------------------------------------
+   Cycle 123 — shadcn/ui + Linear Design 벤치마크
+-------------------------------------------------------------------------- */
+
+/* --------------------------------------------------------------------------
+   shadcn/ui: 알림 카운터 배지 패턴
+   shadcn/ui Badge + 카운트 애니메이션 — 알림 센터 실시간 업데이트
+-------------------------------------------------------------------------- */
+export const Shadcn_알림_카운터_배지: Story = {
+  name: 'shadcn/ui - 알림 카운터 배지 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'shadcn/ui Badge 컴포넌트의 알림 카운터 패턴. 버튼 클릭으로 카운트를 증가/리셋하며 ' +
+          'AnimatedBadge 의 등장 애니메이션으로 신규 알림을 강조합니다.',
+      },
+    },
+  },
+  render: function Render() {
+    const [counts, setCounts] = useState({ messages: 3, mentions: 1, updates: 7 })
+
+    const add = (key: keyof typeof counts) =>
+      setCounts((prev) => ({ ...prev, [key]: prev[key] + 1 }))
+
+    const CHANNELS = [
+      { key: 'messages' as const, label: '메시지', icon: '💬', color: 'club' as const },
+      { key: 'mentions' as const, label: '멘션', icon: '@', color: 'sale' as const },
+      { key: 'updates' as const, label: '업데이트', icon: '🔔', color: 'white' as const },
+    ]
+
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 12, width: 280 }}>
+        <div style={{ fontSize: 13, fontWeight: 700, color: '#1e293b', marginBottom: 4 }}>알림 채널</div>
+        {CHANNELS.map((ch) => (
+          <div key={ch.key} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '10px 14px', borderRadius: 10, border: '1px solid #f1f5f9', background: '#fff' }}>
+            <span style={{ fontSize: 18 }}>{ch.icon}</span>
+            <span style={{ flex: 1, fontSize: 13, fontWeight: 600, color: '#1e293b' }}>{ch.label}</span>
+            {counts[ch.key] > 0 ? (
+              <AnimatedBadge color={ch.color} size="small">
+                <AnimatedBadge.Label>{counts[ch.key]}</AnimatedBadge.Label>
+              </AnimatedBadge>
+            ) : (
+              <span style={{ fontSize: 11, color: '#cbd5e1' }}>—</span>
+            )}
+            <button
+              onClick={() => add(ch.key)}
+              style={{ padding: '4px 10px', borderRadius: 6, border: '1px solid #e2e8f0', background: '#f8fafc', fontSize: 11, cursor: 'pointer', color: '#64748b' }}
+            >
+              +1
+            </button>
+          </div>
+        ))}
+        <button
+          onClick={() => setCounts({ messages: 0, mentions: 0, updates: 0 })}
+          style={{ padding: '8px', borderRadius: 8, border: '1px solid #e2e8f0', background: '#fff', fontSize: 12, color: '#94a3b8', cursor: 'pointer' }}
+        >
+          모두 읽음 처리
+        </button>
+      </div>
+    )
+  },
+}
+
+/* --------------------------------------------------------------------------
+   Linear: 이슈 워크플로 상태 배지
+   Linear 이슈 상태 라이프사이클 — Todo→In Progress→Done 전환 배지
+-------------------------------------------------------------------------- */
+export const Linear_이슈_워크플로_배지: Story = {
+  name: 'Linear - 이슈 워크플로 상태 배지 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Linear 이슈 상태 전환 라이프사이클 패턴. Todo → In Progress → In Review → Done 순서로 ' +
+          '상태를 전환하며 AnimatedBadge 로 현재 상태를 표시합니다.',
+      },
+    },
+  },
+  render: function Render() {
+    type WorkflowStatus = 'backlog' | 'todo' | 'in_progress' | 'in_review' | 'done' | 'cancelled'
+    const STATUSES: WorkflowStatus[] = ['backlog', 'todo', 'in_progress', 'in_review', 'done', 'cancelled']
+    const STATUS_META: Record<WorkflowStatus, { label: string; color: 'white' | 'club' | 'sale'; icon: string }> = {
+      backlog: { label: 'Backlog', color: 'white', icon: '○' },
+      todo: { label: 'Todo', color: 'white', icon: '◻' },
+      in_progress: { label: 'In Progress', color: 'club', icon: '◑' },
+      in_review: { label: 'In Review', color: 'club', icon: '⊙' },
+      done: { label: 'Done', color: 'sale', icon: '✓' },
+      cancelled: { label: 'Cancelled', color: 'white', icon: '✕' },
+    }
+
+    const [issues, setIssues] = useState<{ id: string; title: string; status: WorkflowStatus }[]>([
+      { id: 'LIN-001', title: '검색 자동완성 개선', status: 'in_progress' },
+      { id: 'LIN-002', title: '모바일 터치 이벤트', status: 'todo' },
+      { id: 'LIN-003', title: 'SSR 하이드레이션 오류', status: 'in_review' },
+      { id: 'LIN-004', title: '디자인 토큰 문서화', status: 'done' },
+      { id: 'LIN-005', title: '접근성 audit 반영', status: 'backlog' },
+    ])
+
+    const advance = (id: string) => {
+      setIssues((prev) => prev.map((issue) => {
+        if (issue.id !== id) return issue
+        const idx = STATUSES.indexOf(issue.status)
+        return { ...issue, status: STATUSES[Math.min(idx + 1, STATUSES.length - 1)] }
+      }))
+    }
+
+    return (
+      <div style={{ width: 400 }}>
+        <div style={{ fontSize: 13, fontWeight: 700, color: '#1e293b', marginBottom: 12 }}>이슈 워크플로</div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+          {issues.map((issue) => {
+            const meta = STATUS_META[issue.status]
+            return (
+              <div key={issue.id} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 12px', borderRadius: 8, border: '1px solid #f1f5f9', background: '#fff' }}>
+                <span style={{ fontSize: 14, color: '#64748b', width: 20, textAlign: 'center' }}>{meta.icon}</span>
+                <div style={{ flex: 1 }}>
+                  <div style={{ fontSize: 12, color: '#94a3b8', fontWeight: 600 }}>{issue.id}</div>
+                  <div style={{ fontSize: 13, fontWeight: 500, color: '#1e293b' }}>{issue.title}</div>
+                </div>
+                <AnimatedBadge color={meta.color} size="small">
+                  <AnimatedBadge.Label>{meta.label}</AnimatedBadge.Label>
+                </AnimatedBadge>
+                {issue.status !== 'done' && issue.status !== 'cancelled' && (
+                  <button
+                    onClick={() => advance(issue.id)}
+                    style={{ padding: '3px 8px', borderRadius: 6, border: '1px solid #e2e8f0', background: '#f8fafc', fontSize: 11, cursor: 'pointer', color: '#64748b' }}
+                  >
+                    →
+                  </button>
+                )}
+              </div>
+            )
+          })}
+        </div>
+      </div>
+    )
+  },
+}
+
+/* --------------------------------------------------------------------------
+   shadcn + Linear: 실시간 활동 피드 배지
+   두 시스템의 실시간 업데이트 + 상태 배지 패턴 결합
+-------------------------------------------------------------------------- */
+export const Shadcn_Linear_실시간_활동_배지: Story = {
+  name: 'shadcn/ui + Linear - 실시간 활동 피드 배지 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'shadcn/ui + Linear 실시간 활동 피드 패턴. useEffect로 1초마다 새 활동을 생성하고 ' +
+          'AnimatedBadge 로 활동 유형을 표시합니다. "Live" 배지로 실시간 상태를 표현합니다.',
+      },
+    },
+  },
+  render: function Render() {
+    type ActivityType = 'commit' | 'deploy' | 'review' | 'issue' | 'merge'
+    const ACTIVITY_META: Record<ActivityType, { label: string; color: 'white' | 'club' | 'sale'; icon: string }> = {
+      commit: { label: 'Commit', color: 'white', icon: '◆' },
+      deploy: { label: 'Deploy', color: 'club', icon: '🚀' },
+      review: { label: 'Review', color: 'white', icon: '👁' },
+      issue: { label: 'Issue', color: 'sale', icon: '!' },
+      merge: { label: 'Merged', color: 'sale', icon: '↗' },
+    }
+
+    type FeedTemplate = { type: ActivityType; msg: string; author: string }
+    const INITIAL_FEED: (FeedTemplate & { id: number; ago: string })[] = [
+      { type: 'commit', msg: 'fix: Toggle onChange 타입 오류 수정', author: '김민준', id: 0, ago: '6분 전' },
+      { type: 'deploy', msg: 'orbit-ui v2.1.0 → production', author: 'CI/CD', id: 1, ago: '4분 전' },
+      { type: 'review', msg: 'PR #142 코드리뷰 요청', author: '이서연', id: 2, ago: '2분 전' },
+    ]
+
+    const [feed, setFeed] = useState(INITIAL_FEED)
+    const [live, setLive] = useState(true)
+
+    useEffect(() => {
+      if (!live) return
+      const pool: FeedTemplate[] = [
+        { type: 'commit', msg: 'refactor: Calendar 범위 선택 개선', author: '박준혁' },
+        { type: 'issue', msg: 'BUG: AnimatedBadge 색상 불일치', author: '최유진' },
+        { type: 'merge', msg: 'feat: Calendar 다중선택 지원', author: '김민준' },
+        { type: 'deploy', msg: 'orbit-ui v2.1.1 → preview', author: 'CI/CD' },
+        { type: 'review', msg: 'PR #143 코드리뷰 완료', author: '이서연' },
+      ]
+      const timer = setInterval(() => {
+        const tpl = pool[Math.floor(Math.random() * pool.length)]
+        setFeed((prev) => [{ ...tpl, id: Date.now(), ago: '방금' }, ...prev.slice(0, 4)])
+      }, 3000)
+      return () => clearInterval(timer)
+    }, [live])
+
+    return (
+      <div style={{ width: 400 }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12 }}>
+          <span style={{ fontSize: 13, fontWeight: 700, color: '#1e293b' }}>활동 피드</span>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            {live && (
+              <AnimatedBadge color="sale" size="small">
+                <AnimatedBadge.Label>Live</AnimatedBadge.Label>
+              </AnimatedBadge>
+            )}
+            <button
+              onClick={() => setLive((v) => !v)}
+              style={{ padding: '3px 10px', borderRadius: 6, border: '1px solid #e2e8f0', background: '#f8fafc', fontSize: 11, cursor: 'pointer', color: '#64748b' }}
+            >
+              {live ? '일시정지' : '재개'}
+            </button>
+          </div>
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+          {feed.map((item) => {
+            const meta = ACTIVITY_META[item.type]
+            return (
+              <div key={item.id} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 12px', borderRadius: 8, border: '1px solid #f1f5f9', background: '#fff' }}>
+                <span style={{ fontSize: 14, width: 22, textAlign: 'center' }}>{meta.icon}</span>
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <div style={{ fontSize: 12, fontWeight: 600, color: '#1e293b', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{item.msg}</div>
+                  <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 1 }}>{item.author} · {item.ago}</div>
+                </div>
+                <AnimatedBadge color={meta.color} size="small">
+                  <AnimatedBadge.Label>{meta.label}</AnimatedBadge.Label>
+                </AnimatedBadge>
+              </div>
+            )
+          })}
+        </div>
+      </div>
+    )
+  },
+}
