@@ -366,3 +366,295 @@ export const Ant_갤러리_그리드_페이지네이션: Story = {
   },
   render: () => <AntGalleryPaginationRender />,
 }
+
+/* --------------------------------------------------------------------------
+   shadcn/ui 벤치마크: 블로그/문서 아티클 목록 페이지네이션
+   shadcn Pagination 패턴 — 이전/다음 + 페이지 번호 + 생략(...) 조합
+-------------------------------------------------------------------------- */
+const SHADCN_ARTICLES = Array.from({ length: 48 }, (_, i) => ({
+  title: [
+    'Design Token 계층 구조 완전 정복',
+    'Radix UI Primitive 설계 철학',
+    'Storybook 8 마이그레이션 가이드',
+    'vanilla-extract로 타입 안전 CSS 작성',
+    'Tailwind CSS v4 무엇이 바뀌었나',
+    'shadcn/ui Copy-paste 패턴의 진화',
+  ][i % 6],
+  date: `2026-04-${String(10 - (i % 10)).padStart(2, '0')}`,
+  category: ['Design', 'Dev', 'Tool', 'CSS', 'React'][i % 5],
+}))
+
+const PER_PAGE = 6
+
+function buildPageNums(current: number, total: number): (number | '...')[] {
+  if (total <= 7) return Array.from({ length: total }, (_, i) => i + 1)
+  if (current <= 4) return [1, 2, 3, 4, 5, '...', total]
+  if (current >= total - 3) return [1, '...', total - 4, total - 3, total - 2, total - 1, total]
+  return [1, '...', current - 1, current, current + 1, '...', total]
+}
+
+const ShadcnArticlePaginationRender = () => {
+  const [page, setPage] = useState(1)
+  const totalPages = Math.ceil(SHADCN_ARTICLES.length / PER_PAGE)
+  const items = SHADCN_ARTICLES.slice((page - 1) * PER_PAGE, page * PER_PAGE)
+  const pageNums = buildPageNums(page, totalPages)
+
+  return (
+    <div style={{ width: 560, fontFamily: 'system-ui, sans-serif' }}>
+      <div style={{ fontSize: 15, fontWeight: 800, color: '#0f172a', marginBottom: 16 }}>
+        아티클 ({SHADCN_ARTICLES.length}건)
+      </div>
+      {/* 목록 */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 1, marginBottom: 20 }}>
+        {items.map((article, i) => (
+          <div
+            key={i}
+            style={{
+              display: 'flex', alignItems: 'center', gap: 12,
+              padding: '12px 14px', borderRadius: 8, background: '#fff',
+              border: '1px solid #f1f5f9',
+            }}
+          >
+            <div style={{ flex: 1 }}>
+              <div style={{ fontSize: 13, fontWeight: 600, color: '#1e293b', marginBottom: 2 }}>{article.title}</div>
+              <div style={{ fontSize: 11, color: '#94a3b8' }}>{article.date}</div>
+            </div>
+            <span style={{
+              fontSize: 10, fontWeight: 700, padding: '2px 8px', borderRadius: 20,
+              background: '#f0f9ff', color: '#0284c7',
+            }}>
+              {article.category}
+            </span>
+          </div>
+        ))}
+      </div>
+      {/* 페이지네이션 */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: 4, justifyContent: 'center' }}>
+        <button
+          onClick={() => setPage((p) => Math.max(1, p - 1))}
+          disabled={page === 1}
+          style={{ padding: '5px 10px', borderRadius: 6, border: '1px solid #e2e8f0', background: '#fff', fontSize: 12, cursor: page === 1 ? 'not-allowed' : 'pointer', opacity: page === 1 ? 0.4 : 1 }}
+        >
+          이전
+        </button>
+        {pageNums.map((n, i) =>
+          n === '...'
+            ? <span key={`ellipsis-${i}`} style={{ width: 28, textAlign: 'center', fontSize: 12, color: '#94a3b8' }}>...</span>
+            : <div key={n} onClick={() => setPage(n as number)} style={{ cursor: "pointer" }}><PageNumber current={n === page ? 1 : 0} total={1}>{n}</PageNumber></div>
+        )}
+        <button
+          onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+          disabled={page === totalPages}
+          style={{ padding: '5px 10px', borderRadius: 6, border: '1px solid #e2e8f0', background: '#fff', fontSize: 12, cursor: page === totalPages ? 'not-allowed' : 'pointer', opacity: page === totalPages ? 0.4 : 1 }}
+        >
+          다음
+        </button>
+      </div>
+      <div style={{ textAlign: 'center', fontSize: 11, color: '#94a3b8', marginTop: 8 }}>
+        {(page - 1) * PER_PAGE + 1}–{Math.min(page * PER_PAGE, SHADCN_ARTICLES.length)} / {SHADCN_ARTICLES.length}건
+      </div>
+    </div>
+  )
+}
+
+export const Shadcn_아티클_목록_페이지네이션: Story = {
+  name: 'shadcn/ui - 아티클 목록 페이지네이션',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'shadcn/ui Pagination 패턴. 48개 아티클을 6개씩 나눠 8페이지로 표시합니다. ' +
+          '생략(..​.) 처리와 이전/다음 버튼이 포함된 실무형 페이지네이션입니다.',
+      },
+    },
+  },
+  render: () => <ShadcnArticlePaginationRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Vercel Design 벤치마크: 배포 로그 페이지네이션
+   Vercel Dashboard 스타일 — 컴팩트 테이블 + 페이지 번호 패턴
+-------------------------------------------------------------------------- */
+type DeployLog = { id: string; env: string; status: string; branch: string; time: string; dur: string }
+
+const DEPLOY_LOGS: DeployLog[] = Array.from({ length: 30 }, (_, i) => ({
+  id: `deploy_${(Math.abs(Math.sin(i) * 1e9) | 0).toString(16).slice(0, 8)}`,
+  env: ['Production', 'Preview', 'Preview', 'Development', 'Preview'][i % 5],
+  status: ['Ready', 'Building', 'Error', 'Ready', 'Ready'][i % 5],
+  branch: ['main', 'feat/token-v3', 'fix/tooltip', 'develop', 'chore/deps'][i % 5],
+  time: `${(i % 12) + 1}시간 전`,
+  dur: `${20 + (i % 40)}s`,
+}))
+
+const STATUS_STYLE: Record<string, { color: string; bg: string }> = {
+  Ready: { color: '#16a34a', bg: '#f0fdf4' },
+  Building: { color: '#d97706', bg: '#fffbeb' },
+  Error: { color: '#dc2626', bg: '#fef2f2' },
+}
+
+const LOGS_PER_PAGE = 8
+
+const VercelDeployLogRender = () => {
+  const [page, setPage] = useState(1)
+  const total = Math.ceil(DEPLOY_LOGS.length / LOGS_PER_PAGE)
+  const logs = DEPLOY_LOGS.slice((page - 1) * LOGS_PER_PAGE, page * LOGS_PER_PAGE)
+
+  return (
+    <div style={{ width: 620, fontFamily: 'system-ui, sans-serif' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 14 }}>
+        <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>배포 로그</div>
+        <div style={{ fontSize: 12, color: '#94a3b8' }}>{DEPLOY_LOGS.length}건 · 페이지 {page}/{total}</div>
+      </div>
+      {/* 테이블 */}
+      <div style={{ borderRadius: 10, border: '1px solid #e2e8f0', overflow: 'hidden', marginBottom: 14 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '160px 100px 80px 1fr 80px 60px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0' }}>
+          {['배포 ID', '환경', '상태', '브랜치', '시간', '빌드'].map((h) => (
+            <div key={h} style={{ padding: '8px 12px', fontSize: 11, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.04em' }}>{h}</div>
+          ))}
+        </div>
+        {logs.map((log, i) => {
+          const st = STATUS_STYLE[log.status] ?? { color: '#64748b', bg: '#f8fafc' }
+          return (
+            <div key={log.id} style={{ display: 'grid', gridTemplateColumns: '160px 100px 80px 1fr 80px 60px', borderBottom: i < logs.length - 1 ? '1px solid #f8fafc' : 'none', background: '#fff', alignItems: 'center' }}>
+              <div style={{ padding: '10px 12px', fontSize: 11, fontFamily: 'monospace', color: '#6366f1' }}>{log.id}</div>
+              <div style={{ padding: '10px 12px', fontSize: 11, color: '#475569' }}>{log.env}</div>
+              <div style={{ padding: '10px 12px' }}>
+                <span style={{ fontSize: 10, fontWeight: 700, padding: '2px 7px', borderRadius: 20, color: st.color, background: st.bg }}>{log.status}</span>
+              </div>
+              <div style={{ padding: '10px 12px', fontSize: 11, color: '#64748b', fontFamily: 'monospace', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{log.branch}</div>
+              <div style={{ padding: '10px 12px', fontSize: 11, color: '#94a3b8' }}>{log.time}</div>
+              <div style={{ padding: '10px 12px', fontSize: 11, color: '#94a3b8', fontVariantNumeric: 'tabular-nums' }}>{log.dur}</div>
+            </div>
+          )
+        })}
+      </div>
+      {/* 페이지네이션 */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: 4, justifyContent: 'center' }}>
+        <button
+          onClick={() => setPage((p) => Math.max(1, p - 1))}
+          disabled={page === 1}
+          style={{ padding: '5px 10px', borderRadius: 6, border: '1px solid #e2e8f0', background: '#fff', fontSize: 11, cursor: page === 1 ? 'not-allowed' : 'pointer', opacity: page === 1 ? 0.4 : 1 }}
+        >
+          이전
+        </button>
+        {Array.from({ length: total }, (_, i) => i + 1).map((n) => (
+          <div key={n} onClick={() => setPage(n)} style={{ cursor: 'pointer' }}>
+            <PageNumber current={n === page ? 1 : 0} total={1}>{n}</PageNumber>
+          </div>
+        ))}
+        <button
+          onClick={() => setPage((p) => Math.min(total, p + 1))}
+          disabled={page === total}
+          style={{ padding: '5px 10px', borderRadius: 6, border: '1px solid #e2e8f0', background: '#fff', fontSize: 11, cursor: page === total ? 'not-allowed' : 'pointer', opacity: page === total ? 0.4 : 1 }}
+        >
+          다음
+        </button>
+      </div>
+    </div>
+  )
+}
+
+export const Vercel_배포_로그_페이지네이션: Story = {
+  name: 'Vercel Design - 배포 로그 컴팩트 페이지네이션',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Vercel Dashboard 배포 로그 패턴. 30건의 배포 기록을 8개씩 나눠 표시합니다. ' +
+          '컴팩트 테이블 + 상태 배지 + PageNumber 페이지네이션을 조합한 실무 패턴.',
+      },
+    },
+  },
+  render: () => <VercelDeployLogRender />,
+}
+
+/* --------------------------------------------------------------------------
+   shadcn/ui 벤치마크: 댓글 스레드 무한 스크롤 대안 페이지네이션
+   shadcn DataTable 패턴 — "더 보기" 버튼과 페이지 번호 혼합 방식
+-------------------------------------------------------------------------- */
+const SHADCN_COMMENTS = Array.from({ length: 35 }, (_, i) => ({
+  author: ['Heejun', 'Sora', 'Jaewon', 'Minji', 'Taeho'][i % 5],
+  avatar: ['HJ', 'SR', 'JW', 'MJ', 'TH'][i % 5],
+  color: ['#6366f1', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6'][i % 5],
+  text: [
+    'Design Token 구조가 훨씬 명확해졌네요!',
+    '스토리북 자동 배포 정말 편리합니다.',
+    '컴포넌트 조합 패턴 잘 정리되어 있어요.',
+    'Radix 접근성 패턴 적용이 인상적입니다.',
+    'vanilla-extract 타입 안전성이 좋네요.',
+  ][i % 5],
+  time: `${i + 1}분 전`,
+  likes: (i * 7) % 23,
+}))
+
+const COMMENT_PAGE_SIZE = 5
+
+const ShadcnCommentPaginationRender = () => {
+  const [page, setPage] = useState(1)
+  const total = Math.ceil(SHADCN_COMMENTS.length / COMMENT_PAGE_SIZE)
+  const comments = SHADCN_COMMENTS.slice((page - 1) * COMMENT_PAGE_SIZE, page * COMMENT_PAGE_SIZE)
+
+  return (
+    <div style={{ width: 480, fontFamily: 'system-ui, sans-serif' }}>
+      <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a', marginBottom: 14 }}>
+        댓글 {SHADCN_COMMENTS.length}개
+      </div>
+      {/* 댓글 목록 */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 20 }}>
+        {comments.map((c, i) => (
+          <div key={i} style={{ display: 'flex', gap: 12, padding: '14px', borderRadius: 10, border: '1px solid #f1f5f9', background: '#fff' }}>
+            <div style={{ width: 36, height: 36, borderRadius: '50%', background: c.color, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: 12, fontWeight: 700, flexShrink: 0 }}>
+              {c.avatar}
+            </div>
+            <div style={{ flex: 1 }}>
+              <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, marginBottom: 4 }}>
+                <span style={{ fontSize: 13, fontWeight: 700, color: '#1e293b' }}>{c.author}</span>
+                <span style={{ fontSize: 11, color: '#94a3b8' }}>{c.time}</span>
+              </div>
+              <div style={{ fontSize: 13, color: '#475569', lineHeight: 1.5 }}>{c.text}</div>
+              <div style={{ marginTop: 6, fontSize: 11, color: '#94a3b8' }}>
+                좋아요 {c.likes}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+      {/* 페이지네이션 */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: 4, justifyContent: 'center' }}>
+        <button
+          onClick={() => setPage((p) => Math.max(1, p - 1))}
+          disabled={page === 1}
+          style={{ padding: '5px 10px', borderRadius: 6, border: '1px solid #e2e8f0', background: '#fff', fontSize: 11, cursor: page === 1 ? 'not-allowed' : 'pointer', opacity: page === 1 ? 0.4 : 1 }}
+        >
+          이전
+        </button>
+        {buildPageNums(page, total).map((n, i) =>
+          n === '...'
+            ? <span key={`e-${i}`} style={{ width: 24, textAlign: 'center', fontSize: 11, color: '#94a3b8' }}>...</span>
+            : <div key={n} onClick={() => setPage(n as number)} style={{ cursor: "pointer" }}><PageNumber current={n === page ? 1 : 0} total={1}>{n}</PageNumber></div>
+        )}
+        <button
+          onClick={() => setPage((p) => Math.min(total, p + 1))}
+          disabled={page === total}
+          style={{ padding: '5px 10px', borderRadius: 6, border: '1px solid #e2e8f0', background: '#fff', fontSize: 11, cursor: page === total ? 'not-allowed' : 'pointer', opacity: page === total ? 0.4 : 1 }}
+        >
+          다음
+        </button>
+      </div>
+    </div>
+  )
+}
+
+export const Shadcn_댓글_스레드_페이지네이션: Story = {
+  name: 'shadcn/ui - 댓글 스레드 페이지네이션',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'shadcn/ui 댓글 목록 패턴. 35개 댓글을 5개씩 나눠 7페이지로 표시합니다. ' +
+          '아바타 + 이름 + 내용 + 좋아요 조합의 댓글 카드와 PageNumber 페이지네이션.',
+      },
+    },
+  },
+  render: () => <ShadcnCommentPaginationRender />,
+}

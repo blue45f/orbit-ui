@@ -24879,3 +24879,172 @@ export const Radix102OnboardingFlow: StoryObj = {
   },
   render: () => <Radix102OnboardingRender />,
 }
+
+/* ============================================================================
+   Cycle 103 — shadcn/ui + Vercel Design 벤치마크
+   Component Catalog: shadcn 스타일 카탈로그 + Vercel 배포 카드 + PageNumber 페이지네이션
+============================================================================ */
+type Catalog103Item = {
+  name: string
+  category: string
+  desc: string
+  color: string
+  stories: number
+  status: 'stable' | 'beta' | 'new'
+}
+
+const CATALOG103_ITEMS: Catalog103Item[] = [
+  { name: 'SolidButton', category: 'Actions', desc: '주요 액션용 CTA 버튼', color: '#6366f1', stories: 15, status: 'stable' },
+  { name: 'TextField', category: 'Inputs', desc: '단일 라인 텍스트 입력', color: '#10b981', stories: 14, status: 'stable' },
+  { name: 'DataTable', category: 'Data', desc: '정렬/필터 데이터 테이블', color: '#f59e0b', stories: 13, status: 'stable' },
+  { name: 'Tooltip', category: 'Feedback', desc: '컨텍스트 정보 툴팁', color: '#8b5cf6', stories: 15, status: 'stable' },
+  { name: 'Skeleton', category: 'Feedback', desc: '로딩 플레이스홀더', color: '#0ea5e9', stories: 15, status: 'stable' },
+  { name: 'Drawer', category: 'Overlay', desc: '슬라이드 사이드 패널', color: '#ef4444', stories: 15, status: 'stable' },
+  { name: 'Modal', category: 'Overlay', desc: '포커스 트랩 다이얼로그', color: '#f97316', stories: 13, status: 'stable' },
+  { name: 'Command', category: 'Navigation', desc: '커맨드 팔레트 UI', color: '#06b6d4', stories: 13, status: 'beta' },
+  { name: 'Calendar', category: 'Inputs', desc: '날짜 선택 캘린더', color: '#84cc16', stories: 12, status: 'stable' },
+  { name: 'Accordion', category: 'Layout', desc: '접이식 컨텐츠 패널', color: '#a855f7', stories: 13, status: 'stable' },
+  { name: 'Carousel', category: 'Data', desc: '슬라이드 캐러셀', color: '#ec4899', stories: 13, status: 'stable' },
+  { name: 'SearchBar', category: 'Inputs', desc: '자동완성 검색바', color: '#14b8a6', stories: 12, status: 'new' },
+]
+
+const CATALOG103_PER_PAGE = 6
+const STATUS_BADGE: Record<string, { label: string; color: string; bg: string }> = {
+  stable: { label: 'Stable', color: '#16a34a', bg: '#f0fdf4' },
+  beta: { label: 'Beta', color: '#d97706', bg: '#fffbeb' },
+  new: { label: 'New', color: '#7c3aed', bg: '#f5f3ff' },
+}
+
+const Shadcn103CatalogRender = () => {
+  const [page, setPage] = useState(1)
+  const [search, setSearch] = useState('')
+  const [category, setCategory] = useState('All')
+
+  const categories = ['All', ...Array.from(new Set(CATALOG103_ITEMS.map((c) => c.category)))]
+  const filtered = CATALOG103_ITEMS.filter((item) =>
+    (category === 'All' || item.category === category) &&
+    item.name.toLowerCase().includes(search.toLowerCase())
+  )
+  const totalPages = Math.ceil(filtered.length / CATALOG103_PER_PAGE)
+  const pageItems = filtered.slice((page - 1) * CATALOG103_PER_PAGE, page * CATALOG103_PER_PAGE)
+
+  const handleSearch = (v: string) => { setSearch(v); setPage(1) }
+  const handleCategory = (c: string) => { setCategory(c); setPage(1) }
+
+  return (
+    <div style={{ fontFamily: 'system-ui, sans-serif', width: 600, display: 'flex', flexDirection: 'column', gap: 16 }}>
+      {/* 헤더 */}
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <div>
+          <SectionTitle>컴포넌트 카탈로그</SectionTitle>
+          <div style={{ fontSize: 12, color: '#94a3b8', marginTop: 2 }}>{filtered.length}개 컴포넌트</div>
+        </div>
+        <SearchBar
+          value={search}
+          onChange={(e) => handleSearch((e.target as HTMLInputElement).value)}
+          placeholder="컴포넌트 검색..."
+        />
+      </div>
+
+      {/* 카테고리 필터 */}
+      <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+        {categories.map((cat) => (
+          <Chip
+            key={cat}
+            selected={category === cat}
+            onClick={() => handleCategory(cat)}
+          >
+            {cat}
+          </Chip>
+        ))}
+      </div>
+
+      <Divider />
+
+      {/* 카드 그리드 */}
+      {pageItems.length > 0 ? (
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 12 }}>
+          {pageItems.map((item) => {
+            const badge = STATUS_BADGE[item.status]
+            return (
+              <div
+                key={item.name}
+                style={{
+                  padding: '14px 16px', borderRadius: 12, border: '1px solid #e2e8f0',
+                  background: '#fff', display: 'flex', flexDirection: 'column', gap: 8,
+                  cursor: 'pointer', transition: 'border-color 0.15s, box-shadow 0.15s',
+                }}
+              >
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                  <div style={{
+                    width: 32, height: 32, borderRadius: 8,
+                    background: `${item.color}18`,
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    fontSize: 14, fontWeight: 800, color: item.color,
+                  }}>
+                    {item.name[0]}
+                  </div>
+                  <span style={{ fontSize: 10, fontWeight: 700, padding: '2px 7px', borderRadius: 20, color: badge.color, background: badge.bg }}>
+                    {badge.label}
+                  </span>
+                </div>
+                <div>
+                  <div style={{ fontSize: 13, fontWeight: 700, color: '#0f172a', marginBottom: 2 }}>{item.name}</div>
+                  <div style={{ fontSize: 11, color: '#94a3b8', lineHeight: 1.4 }}>{item.desc}</div>
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: 4 }}>
+                  <LabelBadge color="gray">{item.category}</LabelBadge>
+                  <span style={{ fontSize: 10, color: '#94a3b8' }}>{item.stories} stories</span>
+                </div>
+              </div>
+            )
+          })}
+        </div>
+      ) : (
+        <div style={{ padding: '40px 0', textAlign: 'center', color: '#94a3b8', fontSize: 13 }}>
+          검색 결과가 없습니다.
+        </div>
+      )}
+
+      {/* 페이지네이션 */}
+      {totalPages > 1 && (
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 4 }}>
+          <button
+            onClick={() => setPage((p) => Math.max(1, p - 1))}
+            disabled={page === 1}
+            style={{ padding: '5px 10px', borderRadius: 6, border: '1px solid #e2e8f0', background: '#fff', fontSize: 11, cursor: page === 1 ? 'not-allowed' : 'pointer', opacity: page === 1 ? 0.4 : 1 }}
+          >
+            이전
+          </button>
+          {Array.from({ length: totalPages }, (_, i) => i + 1).map((n) => (
+            <div key={n} onClick={() => setPage(n)} style={{ cursor: 'pointer' }}>
+              <PageNumber current={n === page ? 1 : 0} total={1}>{n}</PageNumber>
+            </div>
+          ))}
+          <button
+            onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+            disabled={page === totalPages}
+            style={{ padding: '5px 10px', borderRadius: 6, border: '1px solid #e2e8f0', background: '#fff', fontSize: 11, cursor: page === totalPages ? 'not-allowed' : 'pointer', opacity: page === totalPages ? 0.4 : 1 }}
+          >
+            다음
+          </button>
+        </div>
+      )}
+    </div>
+  )
+}
+
+export const Shadcn103ComponentCatalog: StoryObj = {
+  name: 'shadcn/ui + Vercel — Component Catalog (Cycle 103)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'shadcn/ui + Vercel Design 벤치마크 — Cycle 103. ' +
+          '컴포넌트 카탈로그: 검색 필터 + 카테고리 Chip 필터 + 카드 그리드 + PageNumber 페이지네이션. ' +
+          'SearchBar, Chip, Divider, SectionTitle, LabelBadge, PageNumber 복합 활용.',
+      },
+    },
+  },
+  render: () => <Shadcn103CatalogRender />,
+}

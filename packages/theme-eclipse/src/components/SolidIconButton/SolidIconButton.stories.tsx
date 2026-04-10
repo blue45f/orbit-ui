@@ -928,3 +928,245 @@ export const Raycast_Notion_히스토리_내비게이션 = {
     )
   },
 }
+
+/* --------------------------------------------------------------------------
+   shadcn/ui 벤치마크: 카드 호버 액션 버튼 그룹
+   shadcn Card 패턴 — 카드 hover 시 우측 상단에 아이콘 버튼 그룹 노출
+-------------------------------------------------------------------------- */
+type ShadcnCard = { title: string; desc: string; tag: string; tagColor: string }
+
+const SHADCN_CARDS: ShadcnCard[] = [
+  { title: 'SolidButton', desc: '주요 액션용 CTA 버튼 컴포넌트', tag: 'Actions', tagColor: '#6366f1' },
+  { title: 'TextField', desc: '단일 라인 텍스트 입력 필드', tag: 'Inputs', tagColor: '#10b981' },
+  { title: 'DataTable', desc: '정렬/필터 지원 데이터 테이블', tag: 'Data', tagColor: '#f59e0b' },
+  { title: 'Tooltip', desc: '호버 시 컨텍스트 정보 표시', tag: 'Feedback', tagColor: '#8b5cf6' },
+]
+
+export const Shadcn_카드_호버_액션_버튼 = {
+  name: 'shadcn/ui — 카드 호버 액션 버튼 그룹',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'shadcn/ui Card 패턴. 카드에 마우스를 올리면 우측 상단에 SolidIconButton 그룹(북마크/공유/더보기)이 나타납니다. ' +
+          'CSS transition으로 opacity 0 → 1 전환.',
+      },
+    },
+  },
+  render: function ShadcnCardHover() {
+    const [hoveredIdx, setHoveredIdx] = useState<number | null>(null)
+    const [bookmarked, setBookmarked] = useState<Set<number>>(new Set())
+
+    return (
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, width: 480, fontFamily: 'system-ui, sans-serif' }}>
+        {SHADCN_CARDS.map((card, i) => (
+          <div
+            key={card.title}
+            onMouseEnter={() => setHoveredIdx(i)}
+            onMouseLeave={() => setHoveredIdx(null)}
+            style={{
+              padding: '16px', borderRadius: 12, border: '1px solid #e2e8f0',
+              background: '#fff', position: 'relative',
+              transition: 'box-shadow 0.15s, border-color 0.15s',
+              boxShadow: hoveredIdx === i ? '0 4px 16px rgba(0,0,0,0.06)' : 'none',
+              borderColor: hoveredIdx === i ? '#c7d2fe' : '#e2e8f0',
+            }}
+          >
+            {/* 액션 버튼 그룹 — hover 시 노출 */}
+            <div style={{
+              position: 'absolute', top: 10, right: 10,
+              display: 'flex', gap: 4,
+              opacity: hoveredIdx === i ? 1 : 0,
+              transition: 'opacity 0.15s',
+            }}>
+              <SolidIconButton
+                color="white"
+                size="small"
+                onClick={() => setBookmarked((prev) => {
+                  const next = new Set(prev)
+                  if (next.has(i)) { next.delete(i) } else { next.add(i) }
+                  return next
+                })}
+                style={{ background: bookmarked.has(i) ? '#eff6ff' : undefined }}
+              >
+                <StarLineIcon />
+              </SolidIconButton>
+              <SolidIconButton color="white" size="small">
+                <ShareIcon />
+              </SolidIconButton>
+              <SolidIconButton color="white" size="small">
+                <MoreHorizontalIcon />
+              </SolidIconButton>
+            </div>
+            {/* 카드 내용 */}
+            <span style={{
+              display: 'inline-block', fontSize: 10, fontWeight: 700,
+              padding: '2px 8px', borderRadius: 20, marginBottom: 8,
+              color: card.tagColor, background: `${card.tagColor}18`,
+            }}>
+              {card.tag}
+            </span>
+            <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a', marginBottom: 4 }}>{card.title}</div>
+            <div style={{ fontSize: 12, color: '#64748b', lineHeight: 1.5 }}>{card.desc}</div>
+          </div>
+        ))}
+      </div>
+    )
+  },
+}
+
+/* --------------------------------------------------------------------------
+   Vercel Design 벤치마크: 다크 네비게이션 바 아이콘 버튼
+   Vercel Sidebar — 다크 배경에 흰색 아이콘 버튼 + 활성 상태 하이라이트
+-------------------------------------------------------------------------- */
+type NavItem = { key: string; Icon: React.FC<{ size?: number }>; label: string }
+const VERCEL_NAV_ITEMS: NavItem[] = [
+  { key: 'home', Icon: (p) => <svg width={p.size ?? 16} height={p.size ?? 16} viewBox="0 0 24 24" fill="none"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/><polyline points="9 22 9 12 15 12 15 22" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>, label: '홈' },
+  { key: 'search', Icon: SearchIcon, label: '검색' },
+  { key: 'notif', Icon: NotificationLineIcon, label: '알림' },
+  { key: 'star', Icon: StarLineIcon, label: '즐겨찾기' },
+  { key: 'settings', Icon: SettingLineIcon, label: '설정' },
+]
+
+export const Vercel_다크_사이드바_네비게이션 = {
+  name: 'Vercel Design — 다크 사이드바 네비게이션',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Vercel Dashboard 사이드바 패턴. 다크 배경(#0f172a)에 SolidIconButton을 배치하고 ' +
+          '활성 항목은 흰색 배경 + 검정 아이콘으로 강조합니다. color="black"과 "white" 전환.',
+      },
+    },
+  },
+  render: function VercelSidebar() {
+    const [active, setActive] = useState('home')
+
+    return (
+      <div style={{ display: 'flex', gap: 32, alignItems: 'flex-start', fontFamily: 'system-ui, sans-serif' }}>
+        {/* 사이드바 */}
+        <div style={{
+          width: 56, padding: '12px 8px', borderRadius: 14,
+          background: '#0f172a', display: 'flex', flexDirection: 'column', gap: 6,
+          boxShadow: '0 4px 20px rgba(0,0,0,0.2)',
+        }}>
+          {VERCEL_NAV_ITEMS.map(({ key, Icon, label }) => (
+            <SolidIconButton
+              key={key}
+              color={active === key ? 'white' : 'black'}
+              size="medium"
+              onClick={() => setActive(key)}
+              aria-label={label}
+              style={{
+                background: active === key ? '#fff' : 'transparent',
+                color: active === key ? '#0f172a' : '#94a3b8',
+                transition: 'background 0.15s, color 0.15s',
+              }}
+            >
+              <Icon size={16} />
+            </SolidIconButton>
+          ))}
+        </div>
+
+        {/* 현재 선택 표시 */}
+        <div style={{ padding: '20px 24px', borderRadius: 12, border: '1px solid #e2e8f0', background: '#fff' }}>
+          <div style={{ fontSize: 12, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 8 }}>현재 섹션</div>
+          <div style={{ fontSize: 16, fontWeight: 800, color: '#0f172a' }}>
+            {VERCEL_NAV_ITEMS.find((n) => n.key === active)?.label}
+          </div>
+        </div>
+      </div>
+    )
+  },
+}
+
+/* --------------------------------------------------------------------------
+   shadcn/ui 벤치마크: 리치 텍스트 에디터 포맷 툴바
+   shadcn/ui Editor 패턴 — Bold/Italic/Underline/정렬 토글 버튼 그룹
+-------------------------------------------------------------------------- */
+type EditorFmtKey = 'bold' | 'italic' | 'underline' | 'left' | 'center' | 'right'
+type EditorAlignKey = 'left' | 'center' | 'right'
+
+const EDITOR_FMT_BUTTONS: { key: EditorFmtKey; Icon: React.FC<{ size?: number }>; group: 'text' | 'align' }[] = [
+  { key: 'bold', Icon: TextBoldIcon, group: 'text' },
+  { key: 'italic', Icon: TextItalicIcon, group: 'text' },
+  { key: 'underline', Icon: TextUnderlineIcon, group: 'text' },
+  { key: 'left', Icon: AlignLeftIcon, group: 'align' },
+  { key: 'center', Icon: (p) => <svg width={p.size ?? 16} height={p.size ?? 16} viewBox="0 0 24 24" fill="none"><line x1="3" y1="6" x2="21" y2="6" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/><line x1="6" y1="12" x2="18" y2="12" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/><line x1="3" y1="18" x2="21" y2="18" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/></svg>, group: 'align' },
+  { key: 'right', Icon: (p) => <svg width={p.size ?? 16} height={p.size ?? 16} viewBox="0 0 24 24" fill="none"><line x1="3" y1="6" x2="21" y2="6" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/><line x1="9" y1="12" x2="21" y2="12" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/><line x1="3" y1="18" x2="21" y2="18" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/></svg>, group: 'align' },
+]
+
+export const Shadcn_에디터_포맷_툴바 = {
+  name: 'shadcn/ui — 에디터 포맷 툴바',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'shadcn/ui 리치 텍스트 에디터 툴바 패턴. ' +
+          'Bold/Italic/Underline(토글 다중 선택) + 정렬(단일 선택) 버튼 그룹. ' +
+          '활성 상태는 color="black"으로 강조합니다.',
+      },
+    },
+  },
+  render: function EditorFormatToolbar() {
+    const [active, setActive] = useState<Set<EditorFmtKey>>(new Set(['bold']))
+    const [align, setAlign] = useState<EditorAlignKey>('left')
+
+    const toggleFormat = (key: EditorFmtKey) => {
+      setActive((prev) => {
+        const next = new Set(prev)
+        if (next.has(key)) { next.delete(key) } else { next.add(key) }
+        return next
+      })
+    }
+
+    return (
+      <div style={{ fontFamily: 'system-ui, sans-serif', display: 'flex', flexDirection: 'column', gap: 16 }}>
+        {/* 툴바 */}
+        <div style={{
+          display: 'flex', alignItems: 'center', gap: 4, padding: '6px 10px',
+          borderRadius: 10, border: '1px solid #e2e8f0', background: '#fff',
+          width: 'fit-content',
+        }}>
+          {/* 텍스트 포맷 그룹 */}
+          {EDITOR_FMT_BUTTONS.filter((b) => b.group === 'text').map(({ key, Icon }) => (
+            <SolidIconButton
+              key={key}
+              color={active.has(key) ? 'black' : 'white'}
+              size="small"
+              onClick={() => toggleFormat(key)}
+              aria-pressed={active.has(key)}
+            >
+              <Icon size={14} />
+            </SolidIconButton>
+          ))}
+          <div style={{ width: 1, height: 20, background: '#e2e8f0', margin: '0 2px' }} />
+          {/* 정렬 그룹 */}
+          {EDITOR_FMT_BUTTONS.filter((b) => b.group === 'align').map(({ key, Icon }) => (
+            <SolidIconButton
+              key={key}
+              color={align === key ? 'black' : 'white'}
+              size="small"
+              onClick={() => setAlign(key as EditorAlignKey)}
+            >
+              <Icon size={14} />
+            </SolidIconButton>
+          ))}
+        </div>
+
+        {/* 미리보기 */}
+        <div style={{
+          padding: '14px 18px', borderRadius: 10, border: '1px solid #e2e8f0',
+          background: '#fafafa', minHeight: 60, maxWidth: 360,
+          fontWeight: active.has('bold') ? 700 : 400,
+          fontStyle: active.has('italic') ? 'italic' : 'normal',
+          textDecoration: active.has('underline') ? 'underline' : 'none',
+          textAlign: align,
+          fontSize: 14, color: '#0f172a', lineHeight: 1.6,
+        }}>
+          Orbit UI는 Figma 기반 React 디자인 시스템입니다.
+        </div>
+      </div>
+    )
+  },
+}
