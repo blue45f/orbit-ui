@@ -22411,3 +22411,255 @@ export const MantineOnboardingWizard: Story = {
   },
   render: () => <Mantine91OnboardingRender />,
 }
+
+/* =====================================================================
+   Radix UI 벤치마크 — Social Feed (Cycle 92)
+   Radix UI의 Avatar, Badge, Separator, ScrollArea 패턴 반영
+   AnimatedBadge, Avatar, LabelBadge, CounterBadge, ScrollableTabGroup,
+   SpeechBadge, Divider, SolidButton, OutlineButton, Toggle 통합
+   ===================================================================== */
+
+const RADIX92_FEED_TABS = ['전체', '팔로잉', '트렌딩', '추천'] as const
+type Radix92FeedTab = typeof RADIX92_FEED_TABS[number]
+
+type Radix92Post = {
+  id: number
+  author: string
+  initials: string
+  role: string
+  time: string
+  content: string
+  tags: string[]
+  likes: number
+  comments: number
+  isNew: boolean
+  isTrending: boolean
+}
+
+const RADIX92_POSTS: Radix92Post[] = [
+  {
+    id: 1, author: '김희준', initials: 'HJ', role: 'Design Systems', time: '방금', isNew: true, isTrending: true,
+    content: 'Orbit UI 3.0 릴리스! 3단계 토큰 시스템과 Eclipse 테마가 드디어 공개됩니다. Radix Primitives 기반의 접근성과 vanilla-extract CSS-in-JS가 만났습니다.',
+    tags: ['OrbitUI', 'DesignSystem', 'React'],
+    likes: 142, comments: 23,
+  },
+  {
+    id: 2, author: '이서연', initials: 'SY', role: 'Frontend Eng', time: '3분 전', isNew: false, isTrending: true,
+    content: 'shadcn/ui의 Copy-paste 철학이 디자인 시스템 업계를 바꾸고 있습니다. 번들 크기 제로, 완전한 커스터마이징 — 이게 바로 미래입니다.',
+    tags: ['shadcn', 'Frontend'],
+    likes: 89, comments: 14,
+  },
+  {
+    id: 3, author: '박지호', initials: 'JH', role: 'Product Design', time: '15분 전', isNew: false, isTrending: false,
+    content: 'Figma Variables → CSS Custom Properties 동기화 워크플로우를 구축했습니다. 디자이너가 토큰을 업데이트하면 코드에 자동으로 반영됩니다.',
+    tags: ['Figma', 'DesignToken', 'Automation'],
+    likes: 67, comments: 9,
+  },
+  {
+    id: 4, author: '최은아', initials: 'EA', role: 'Accessibility Eng', time: '1시간 전', isNew: false, isTrending: false,
+    content: 'WCAG 2.2 업데이트에서 가장 중요한 변경: 2.4.11 Focus Appearance. 포커스 링의 최소 면적과 대비비 요구사항이 강화됩니다.',
+    tags: ['A11y', 'WCAG', 'WebDev'],
+    likes: 203, comments: 41,
+  },
+  {
+    id: 5, author: '황민준', initials: 'MJ', role: 'DevOps', time: '2시간 전', isNew: false, isTrending: false,
+    content: 'pnpm workspaces + Turborepo로 모노레포 빌드 시간을 68% 단축했습니다. 캐싱 전략과 병렬 실행 설정을 공유합니다.',
+    tags: ['pnpm', 'Turborepo', 'DevOps'],
+    likes: 134, comments: 28,
+  },
+]
+
+const Radix92SocialFeedRender = () => {
+  const [activeTab, setActiveTab] = React.useState<Radix92FeedTab>('전체')
+  const [liked, setLiked] = React.useState<Set<number>>(new Set())
+  const [bookmarked, setBookmarked] = React.useState<Set<number>>(new Set())
+  const [showCompose, setShowCompose] = React.useState(false)
+  const [composeText, setComposeText] = React.useState('')
+  const [onlyFollowing, setOnlyFollowing] = React.useState(false)
+
+  const visiblePosts = RADIX92_POSTS.filter((p) => {
+    if (activeTab === '트렌딩') return p.isTrending
+    if (activeTab === '팔로잉') return ['HJ', 'SY'].includes(p.initials)
+    if (activeTab === '추천') return p.likes > 100
+    return true
+  })
+
+  const toggleLike = (id: number) => {
+    setLiked((prev) => {
+      const next = new Set(prev)
+      if (next.has(id)) next.delete(id)
+      else next.add(id)
+      return next
+    })
+  }
+
+  const toggleBookmark = (id: number) => {
+    setBookmarked((prev) => {
+      const next = new Set(prev)
+      if (next.has(id)) next.delete(id)
+      else next.add(id)
+      return next
+    })
+  }
+
+  return (
+    <div style={{ minHeight: '100vh', background: 'var(--sem-eclipse-color-backgroundSecondary)', display: 'flex', flexDirection: 'column' }}>
+      {/* Header */}
+      <AppBar>
+        <AppBar.Leading>
+          <span style={{ fontWeight: 900, fontSize: 16, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>Orbit Feed</span>
+        </AppBar.Leading>
+        <AppBar.Trailing>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            <div style={{ position: 'relative' }}>
+              <AnimatedBadge color="sale">{3}</AnimatedBadge>
+            </div>
+            <Avatar style={{ width: 32, height: 32, fontSize: 12 }}>
+              <Avatar.Fallback>나</Avatar.Fallback>
+            </Avatar>
+          </div>
+        </AppBar.Trailing>
+      </AppBar>
+
+      <div style={{ flex: 1, maxWidth: 680, margin: '0 auto', width: '100%', display: 'flex', flexDirection: 'column' }}>
+        {/* Compose Area */}
+        <div style={{ background: 'var(--sem-eclipse-color-backgroundPrimary)', borderBottom: '1px solid var(--sem-eclipse-color-borderSubtle)', padding: '16px 20px' }}>
+          {showCompose ? (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+              <div style={{ display: 'flex', gap: 10, alignItems: 'flex-start' }}>
+                <Avatar style={{ width: 36, height: 36, fontSize: 13, flexShrink: 0 }}>
+                  <Avatar.Fallback>나</Avatar.Fallback>
+                </Avatar>
+                <textarea
+                  placeholder="무슨 생각을 하고 계신가요?"
+                  value={composeText}
+                  onChange={(e) => setComposeText(e.target.value)}
+                  style={{ flex: 1, minHeight: 80, resize: 'none', padding: '10px 14px', borderRadius: 10, border: '1.5px solid var(--sem-eclipse-color-borderDefault)', fontSize: 14, color: 'var(--sem-eclipse-color-foregroundPrimary)', background: 'var(--sem-eclipse-color-backgroundPrimary)', outline: 'none', fontFamily: 'inherit' }}
+                />
+              </div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <span style={{ fontSize: 12, color: composeText.length > 280 ? '#ef4444' : 'var(--sem-eclipse-color-foregroundTertiary)' }}>
+                  {composeText.length}/280
+                </span>
+                <div style={{ display: 'flex', gap: 8 }}>
+                  <OutlineButton color="black" size="small" onClick={() => { setShowCompose(false); setComposeText('') }}>
+                    <OutlineButton.Center>취소</OutlineButton.Center>
+                  </OutlineButton>
+                  <SolidButton color="primary" size="small" disabled={!composeText.trim() || composeText.length > 280} onClick={() => { setShowCompose(false); setComposeText('') }}>
+                    <SolidButton.Center>게시</SolidButton.Center>
+                  </SolidButton>
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div onClick={() => setShowCompose(true)} style={{ display: 'flex', gap: 10, alignItems: 'center', cursor: 'text' }}>
+              <Avatar style={{ width: 36, height: 36, fontSize: 13, flexShrink: 0 }}>
+                <Avatar.Fallback>나</Avatar.Fallback>
+              </Avatar>
+              <div style={{ flex: 1, padding: '10px 14px', borderRadius: 20, border: '1.5px solid var(--sem-eclipse-color-borderDefault)', fontSize: 14, color: 'var(--sem-eclipse-color-foregroundTertiary)', background: 'var(--sem-eclipse-color-backgroundSecondary)' }}>
+                무슨 생각을 하고 계신가요?
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* Filter Bar */}
+        <div style={{ background: 'var(--sem-eclipse-color-backgroundPrimary)', borderBottom: '1px solid var(--sem-eclipse-color-borderSubtle)', padding: '0 20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <ScrollableTabGroup>
+            {RADIX92_FEED_TABS.map((tab) => (
+              <ScrollableTabGroup.Tab
+                key={tab}
+                selected={activeTab === tab}
+                onClick={() => setActiveTab(tab)}
+              >
+                {tab}
+                {tab === '트렌딩' && <CounterBadge>{2}</CounterBadge>}
+              </ScrollableTabGroup.Tab>
+            ))}
+          </ScrollableTabGroup>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 6, paddingLeft: 12, borderLeft: '1px solid var(--sem-eclipse-color-borderSubtle)' }}>
+            <Toggle checked={onlyFollowing} onChange={() => setOnlyFollowing((v) => !v)} />
+            <span style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)', whiteSpace: 'nowrap' }}>팔로잉만</span>
+          </div>
+        </div>
+
+        {/* Feed Posts */}
+        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 0 }}>
+          {visiblePosts.length === 0 && (
+            <div style={{ padding: '40px', textAlign: 'center', color: 'var(--sem-eclipse-color-foregroundTertiary)', fontSize: 14 }}>게시물이 없습니다.</div>
+          )}
+          {visiblePosts.map((post, i) => (
+            <div key={post.id}>
+              <div style={{ padding: '16px 20px', background: 'var(--sem-eclipse-color-backgroundPrimary)', display: 'flex', gap: 12 }}>
+                {/* Avatar */}
+                <div style={{ flexShrink: 0, position: 'relative' }}>
+                  <Avatar style={{ width: 42, height: 42, fontSize: 14 }}>
+                    <Avatar.Fallback>{post.initials}</Avatar.Fallback>
+                  </Avatar>
+                  {post.isNew && (
+                    <div style={{ position: 'absolute', bottom: -2, right: -2 }}>
+                      <AnimatedBadge color="club" />
+                    </div>
+                  )}
+                </div>
+
+                {/* Content */}
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 2, flexWrap: 'wrap' }}>
+                    <span style={{ fontSize: 14, fontWeight: 800, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{post.author}</span>
+                    <LabelBadge color="gray"><LabelBadge.Label>{post.role}</LabelBadge.Label></LabelBadge>
+                    {post.isTrending && <LabelBadge color="sale"><LabelBadge.Label>인기</LabelBadge.Label></LabelBadge>}
+                    <span style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginLeft: 'auto' }}>{post.time}</span>
+                  </div>
+
+                  <p style={{ margin: '0 0 10px', fontSize: 14, color: 'var(--sem-eclipse-color-foregroundPrimary)', lineHeight: 1.6 }}>
+                    {post.content}
+                  </p>
+
+                  {/* Tags */}
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: 4, marginBottom: 12 }}>
+                    {post.tags.map((tag) => (
+                      <SpeechBadge key={tag}>#{tag}</SpeechBadge>
+                    ))}
+                  </div>
+
+                  {/* Actions */}
+                  <div style={{ display: 'flex', gap: 16, alignItems: 'center' }}>
+                    <button onClick={() => toggleLike(post.id)} style={{ display: 'flex', alignItems: 'center', gap: 4, background: 'none', border: 'none', cursor: 'pointer', fontSize: 13, color: liked.has(post.id) ? '#ef4444' : 'var(--sem-eclipse-color-foregroundTertiary)', fontWeight: liked.has(post.id) ? 700 : 400, transition: 'color 0.15s' }}>
+                      <span style={{ fontSize: 16 }}>{liked.has(post.id) ? '❤' : '♡'}</span>
+                      {post.likes + (liked.has(post.id) ? 1 : 0)}
+                    </button>
+                    <button style={{ display: 'flex', alignItems: 'center', gap: 4, background: 'none', border: 'none', cursor: 'pointer', fontSize: 13, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>
+                      <span style={{ fontSize: 16 }}>💬</span>
+                      {post.comments}
+                    </button>
+                    <button onClick={() => toggleBookmark(post.id)} style={{ display: 'flex', alignItems: 'center', gap: 4, background: 'none', border: 'none', cursor: 'pointer', fontSize: 13, color: bookmarked.has(post.id) ? '#6366f1' : 'var(--sem-eclipse-color-foregroundTertiary)', marginLeft: 'auto', transition: 'color 0.15s' }}>
+                      <span style={{ fontSize: 16 }}>{bookmarked.has(post.id) ? '🔖' : '📌'}</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              {i < visiblePosts.length - 1 && <Divider />}
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const RadixSocialFeed: Story = {
+  name: 'Radix UI — Social Feed',
+  parameters: {
+    layout: 'fullscreen',
+    docs: {
+      description: {
+        story:
+          'Radix UI 벤치마크: Avatar + Badge + Separator + ScrollArea 패턴. ' +
+          'AnimatedBadge(새 게시물 표시), Avatar(작성자), LabelBadge(역할/인기 태그), ' +
+          'SpeechBadge(해시태그), ScrollableTabGroup(피드 필터), Toggle(팔로잉 필터) 통합.',
+      },
+    },
+  },
+  render: () => <Radix92SocialFeedRender />,
+}

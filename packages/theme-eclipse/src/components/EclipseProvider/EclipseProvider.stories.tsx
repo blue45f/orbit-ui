@@ -679,3 +679,224 @@ export function ThemeProviders({
     </div>
   ),
 }
+
+/* --------------------------------------------------------------------------
+   Radix UI 벤치마크: 컴포넌트 토큰 오버라이드 시각화
+   Radix UI의 Theme 컴포넌트 vs EclipseProvider의 CSS 변수 토큰 오버라이드 패턴 비교
+-------------------------------------------------------------------------- */
+export const Radix_토큰_오버라이드_비교: Story = {
+  name: 'Radix UI — CSS 변수 토큰 오버라이드 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Radix UI Theme 컴포넌트는 `accentColor`, `radius` 등 prop으로 테마를 변경합니다. ' +
+          'Orbit UI는 CSS 변수 오버라이드로 동일한 유연성을 제공합니다. ' +
+          '각 패널은 다른 강조 색상 토큰을 적용한 EclipseProvider 인스턴스입니다.',
+      },
+    },
+  },
+  render: () => {
+    const PALETTES = [
+      { name: 'Indigo (기본)', accent: '#6366f1', surface: '#eef2ff', border: 'rgba(99,102,241,0.25)' },
+      { name: 'Emerald', accent: '#10b981', surface: '#f0fdf4', border: 'rgba(16,185,129,0.25)' },
+      { name: 'Rose', accent: '#f43f5e', surface: '#fff1f2', border: 'rgba(244,63,94,0.25)' },
+    ]
+
+    return (
+      <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap' }}>
+        {PALETTES.map((palette) => (
+          <EclipseProvider key={palette.name} mode="light">
+            <div style={{
+              width: 220, borderRadius: 14, overflow: 'hidden',
+              border: `2px solid ${palette.border}`,
+              boxShadow: `0 4px 16px ${palette.border}`,
+            }}>
+              <div style={{ padding: '12px 16px', background: palette.surface, borderBottom: `1px solid ${palette.border}` }}>
+                <Typography textStyle="labelMedium" style={{ color: palette.accent, fontWeight: 800 }}>{palette.name}</Typography>
+              </div>
+              <div style={{ padding: '14px 16px', background: 'var(--sem-eclipse-color-backgroundPrimary)', display: 'flex', flexDirection: 'column', gap: 10 }}>
+                <SolidButton color="primary" size="small">
+                  <SolidButton.Center>주요 액션</SolidButton.Center>
+                </SolidButton>
+                <div style={{ display: 'flex', gap: 6 }}>
+                  <LabelBadge color="benefit">
+                    <LabelBadge.Label>Badge</LabelBadge.Label>
+                  </LabelBadge>
+                  <CounterBadge>{3}</CounterBadge>
+                </div>
+                <Typography textStyle="descriptionSmall" color="foregroundTertiary">
+                  CSS 변수 오버라이드로 브랜드 색상을 적용합니다.
+                </Typography>
+              </div>
+            </div>
+          </EclipseProvider>
+        ))}
+      </div>
+    )
+  },
+}
+
+/* --------------------------------------------------------------------------
+   Radix UI 벤치마크: 접근성 포커스 링 & 키보드 내비게이션 데모
+   Radix의 접근성 우선 설계 — EclipseProvider 내에서 포커스 가시성 확인
+-------------------------------------------------------------------------- */
+export const Radix_접근성_포커스_링_데모: Story = {
+  name: 'Radix UI — 접근성 포커스 링 & 키보드 내비게이션 데모',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Radix UI는 모든 컴포넌트에 WAI-ARIA 포커스 관리를 내장합니다. ' +
+          'Tab 키로 이동 시 EclipseProvider의 포커스 링이 명확하게 표시됩니다. ' +
+          'WCAG 2.4.7 "Focus Visible" 기준 — 3:1 이상 대비비의 포커스 링.',
+      },
+    },
+  },
+  render: () => (
+    <EclipseProvider mode="light">
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 20, maxWidth: 480 }}>
+        <div style={{ padding: '4px 10px', borderRadius: 6, background: '#eef2ff', border: '1.5px solid rgba(99,102,241,0.3)', fontSize: 12, color: '#6366f1', fontWeight: 600 }}>
+          Tab 키로 요소 간 이동 · 포커스 링 시각적 확인
+        </div>
+
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+          <div>
+            <Typography textStyle="labelSmall" color="foregroundTertiary" style={{ marginBottom: 6 }}>텍스트 입력</Typography>
+            <TextField placeholder="이름 입력 (Tab으로 이동)" />
+          </div>
+          <div>
+            <Typography textStyle="labelSmall" color="foregroundTertiary" style={{ marginBottom: 6 }}>비밀번호 입력</Typography>
+            <TextField placeholder="비밀번호" />
+          </div>
+        </div>
+
+        <Divider />
+
+        <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+          <SolidButton color="primary" size="medium">
+            <SolidButton.Center>저장</SolidButton.Center>
+          </SolidButton>
+          <OutlineButton color="black" size="medium">
+            <OutlineButton.Center>취소</OutlineButton.Center>
+          </OutlineButton>
+          <GhostButton color="black" size="large">
+            <GhostButton.Center>미리보기</GhostButton.Center>
+          </GhostButton>
+        </div>
+
+        <Divider />
+
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <Typography textStyle="descriptionLarge" color="foregroundPrimary">다크모드 전환</Typography>
+          <Toggle defaultChecked={false} />
+        </div>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <Typography textStyle="descriptionLarge" color="foregroundPrimary">알림 수신</Typography>
+          <Switch />
+        </div>
+      </div>
+    </EclipseProvider>
+  ),
+}
+
+/* --------------------------------------------------------------------------
+   Radix UI 벤치마크: 고대비 모드 & 컬러 스킴 적응
+   Radix UI의 highContrast + appearance 시스템 비교
+   EclipseProvider에서 라이트/다크/고대비 세 모드 전환 시연
+-------------------------------------------------------------------------- */
+
+function RadixColorSchemeDemo() {
+  const [mode, setMode] = useState<'light' | 'dark'>('light')
+  const [highContrast, setHighContrast] = useState(false)
+
+  const MODES = [
+    { label: 'Light', value: 'light' as const },
+    { label: 'Dark', value: 'dark' as const },
+  ]
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 16, maxWidth: 520 }}>
+      {/* 컨트롤 바 */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '10px 14px', borderRadius: 10, border: '1px solid #e2e8f0', background: '#f8fafc', flexWrap: 'wrap' }}>
+        <div style={{ display: 'flex', gap: 4 }}>
+          {MODES.map(({ label, value }) => (
+            <button
+              key={value}
+              onClick={() => setMode(value)}
+              style={{
+                padding: '5px 14px',
+                borderRadius: 8,
+                border: `1.5px solid ${mode === value ? '#6366f1' : '#e2e8f0'}`,
+                background: mode === value ? '#6366f1' : '#fff',
+                color: mode === value ? '#fff' : '#64748b',
+                fontSize: 12, fontWeight: 700, cursor: 'pointer',
+              }}
+            >
+              {label}
+            </button>
+          ))}
+        </div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+          <Toggle checked={highContrast} onChange={() => setHighContrast((v) => !v)} />
+          <span style={{ fontSize: 12, color: '#64748b' }}>고대비 모드</span>
+        </div>
+      </div>
+
+      {/* 프리뷰 패널 */}
+      <EclipseProvider mode={mode}>
+        <div style={{
+          borderRadius: 14,
+          border: '1.5px solid var(--sem-eclipse-color-borderDefault)',
+          overflow: 'hidden',
+          filter: highContrast ? 'contrast(1.4) saturate(1.2)' : 'none',
+          transition: 'filter 0.2s',
+        }}>
+          <div style={{ padding: '14px 18px', borderBottom: '1px solid var(--sem-eclipse-color-borderSubtle)', background: 'var(--sem-eclipse-color-backgroundSecondary)', display: 'flex', alignItems: 'center', gap: 10 }}>
+            <Avatar>
+              <Avatar.Fallback>RX</Avatar.Fallback>
+            </Avatar>
+            <div>
+              <Typography textStyle="labelMedium" color="foregroundPrimary">Radix UI 스타일 헤더</Typography>
+              <Typography textStyle="descriptionSmall" color="foregroundTertiary">{mode} 모드{highContrast ? ' · 고대비' : ''}</Typography>
+            </div>
+            <div style={{ marginLeft: 'auto', display: 'flex', gap: 6 }}>
+              <LabelBadge color="gray"><LabelBadge.Label>v2.0</LabelBadge.Label></LabelBadge>
+              <CounterBadge>{5}</CounterBadge>
+            </div>
+          </div>
+          <div style={{ padding: '16px 18px', background: 'var(--sem-eclipse-color-backgroundPrimary)', display: 'flex', flexDirection: 'column', gap: 12 }}>
+            <TextField placeholder="Radix Primitives 검색..." />
+            <div style={{ display: 'flex', gap: 8 }}>
+              <SolidButton color="primary" size="small">
+                <SolidButton.Center>확인</SolidButton.Center>
+              </SolidButton>
+              <OutlineButton color="black" size="small">
+                <OutlineButton.Center>취소</OutlineButton.Center>
+              </OutlineButton>
+            </div>
+            <Divider />
+            <Typography textStyle="descriptionSmall" color="foregroundTertiary">
+              EclipseProvider mode=&quot;{mode}&quot; — 모든 시맨틱 토큰이 자동으로 조정됩니다.
+            </Typography>
+          </div>
+        </div>
+      </EclipseProvider>
+    </div>
+  )
+}
+
+export const Radix_컬러_스킴_적응_데모: Story = {
+  name: 'Radix UI — 고대비 모드 & 컬러 스킴 적응 데모',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Radix UI의 `highContrast` + `appearance` 시스템 비교. ' +
+          'EclipseProvider의 mode prop으로 라이트/다크를 전환하고 CSS filter로 고대비 시뮬레이션합니다. ' +
+          '모든 시맨틱 토큰이 자동으로 적응하는 것을 실시간으로 확인합니다.',
+      },
+    },
+  },
+  render: () => <RadixColorSchemeDemo />,
+}

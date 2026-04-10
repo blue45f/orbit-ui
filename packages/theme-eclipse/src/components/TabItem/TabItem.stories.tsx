@@ -1041,3 +1041,279 @@ export const Raycast_검색_결과_카테고리_탭: Story = {
   },
   render: () => <RaycastSearchTabsRender />,
 }
+
+/* --------------------------------------------------------------------------
+   Radix UI 벤치마크: 키보드 접근성 탭 패널
+   Radix Tabs — 좌우 화살표키 탭 이동, aria-controls/aria-labelledby 패턴
+-------------------------------------------------------------------------- */
+const RADIX_DOCS_TABS = [
+  {
+    id: 'overview',
+    label: '개요',
+    content: [
+      { title: 'Radix Tabs vs Orbit Tab', body: 'Radix UI는 TabsPrimitive 기반으로 WAI-ARIA 1.1 Tabs 패턴을 완전히 구현합니다. Orbit UI는 동일한 접근성을 Tab 컴포넌트로 제공합니다.' },
+      { title: '키보드 내비게이션', body: '← / → 화살표로 탭 이동, Home/End로 처음/마지막 탭으로 이동, Enter/Space로 활성화합니다.' },
+    ],
+  },
+  {
+    id: 'api',
+    label: 'API 레퍼런스',
+    content: [
+      { title: 'Tab Props', body: 'selected: boolean — 탭 활성화 상태\nleading: ReactNode — 아이콘 슬롯\ntrailing: ReactNode — 카운터 배지 슬롯' },
+      { title: '비교: Radix vs Orbit', body: 'Radix: <Tabs.Trigger value="x" />\nOrbit: <Tab selected={active === "x"} />' },
+    ],
+  },
+  {
+    id: 'examples',
+    label: '예제',
+    content: [
+      { title: '기본 사용법', body: '각 탭에 value prop을 부여하고 onChange로 상태를 관리합니다.' },
+      { title: '아이콘 탭', body: 'Tab.Leading에 아이콘을 배치하고 Tab.Center에 레이블을 넣습니다.' },
+      { title: '카운터 탭', body: 'Tab.Trailing에 CounterBadge를 배치해 알림 수를 표시합니다.' },
+    ],
+  },
+]
+
+function RadixA11yTabPanelRender() {
+  const [active, setActive] = useState('overview')
+
+  return (
+    <div style={{ maxWidth: 520 }} role="region" aria-label="Radix 접근성 탭 패널 예제">
+      {/* Tab list */}
+      <div role="tablist" aria-label="문서 섹션" style={{ display: 'flex', borderBottom: '2px solid #e2e8f0', gap: 0 }}>
+        {RADIX_DOCS_TABS.map((tab) => (
+          <Tab
+            key={tab.id}
+            selected={active === tab.id}
+            role="tab"
+            aria-selected={active === tab.id}
+            aria-controls={`panel-${tab.id}`}
+            id={`tab-${tab.id}`}
+            tabIndex={active === tab.id ? 0 : -1}
+            onClick={() => setActive(tab.id)}
+            onKeyDown={(e) => {
+              const idx = RADIX_DOCS_TABS.findIndex((t) => t.id === tab.id)
+              if (e.key === 'ArrowRight') setActive(RADIX_DOCS_TABS[(idx + 1) % RADIX_DOCS_TABS.length].id)
+              if (e.key === 'ArrowLeft') setActive(RADIX_DOCS_TABS[(idx - 1 + RADIX_DOCS_TABS.length) % RADIX_DOCS_TABS.length].id)
+              if (e.key === 'Home') setActive(RADIX_DOCS_TABS[0].id)
+              if (e.key === 'End') setActive(RADIX_DOCS_TABS[RADIX_DOCS_TABS.length - 1].id)
+            }}
+          >
+            <Tab.Center>{tab.label}</Tab.Center>
+          </Tab>
+        ))}
+      </div>
+
+      {/* Tab panels */}
+      {RADIX_DOCS_TABS.map((tab) => (
+        <div
+          key={tab.id}
+          id={`panel-${tab.id}`}
+          role="tabpanel"
+          aria-labelledby={`tab-${tab.id}`}
+          hidden={active !== tab.id}
+          style={{ padding: '16px 0', display: active === tab.id ? 'flex' : 'none', flexDirection: 'column', gap: 12 }}
+        >
+          {tab.content.map((item) => (
+            <div key={item.title} style={{ padding: '12px 14px', borderRadius: 10, border: '1px solid #f1f5f9', background: '#fafafa' }}>
+              <div style={{ fontSize: 13, fontWeight: 700, color: '#1e293b', marginBottom: 4 }}>{item.title}</div>
+              <pre style={{ margin: 0, fontSize: 12, color: '#64748b', lineHeight: 1.6, fontFamily: 'inherit', whiteSpace: 'pre-wrap' }}>{item.body}</pre>
+            </div>
+          ))}
+        </div>
+      ))}
+      <div style={{ marginTop: 12, fontSize: 11, color: '#94a3b8' }}>← / → 화살표키로 탭 이동 · Home/End로 처음/마지막 이동</div>
+    </div>
+  )
+}
+
+export const Radix_WAI_ARIA_키보드_탭_패널: Story = {
+  name: 'Radix UI — WAI-ARIA Tabs 키보드 접근성 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Radix UI Tabs의 WAI-ARIA 1.1 구현 패턴. role="tablist/tab/tabpanel", aria-selected, aria-controls, ' +
+          'aria-labelledby를 완전히 구현합니다. ← / → 화살표키, Home, End 키보드 내비게이션을 지원합니다.',
+      },
+    },
+  },
+  render: () => <RadixA11yTabPanelRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Radix UI 벤치마크: 제어/비제어 탭 상태 패턴
+   Radix의 defaultValue(비제어) vs value(제어) 이중 API — Orbit Tab으로 구현
+-------------------------------------------------------------------------- */
+function RadixControlledTabDemo() {
+  const [controlled, setControlled] = useState<string | null>('activity')
+  const [history, setHistory] = useState<string[]>(['activity'])
+
+  const CTRL_TABS = [
+    { id: 'activity', label: '활동', icon: <HomeLineIcon size={14} /> },
+    { id: 'projects', label: '프로젝트', icon: <GridViewLineIcon size={14} /> },
+    { id: 'team', label: '팀', icon: <PeopleLineIcon size={14} /> },
+    { id: 'settings', label: '설정', icon: <SettingLineIcon size={14} /> },
+  ]
+
+  const navigate = (id: string) => {
+    setControlled(id)
+    setHistory((prev) => [...prev.slice(-4), id])
+  }
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 16, maxWidth: 460 }}>
+      <div style={{ padding: '8px 12px', borderRadius: 8, background: '#eef2ff', border: '1.5px solid rgba(99,102,241,0.2)', fontSize: 12, color: '#6366f1', fontWeight: 600 }}>
+        제어 컴포넌트: 상태가 외부에서 관리됩니다 (value: &quot;{controlled}&quot;)
+      </div>
+
+      {/* 제어 탭 */}
+      <div style={{ display: 'flex', borderBottom: '2px solid #e2e8f0' }}>
+        {CTRL_TABS.map((tab) => (
+          <Tab key={tab.id} selected={controlled === tab.id} onClick={() => navigate(tab.id)}>
+            <Tab.Leading>{tab.icon}</Tab.Leading>
+            <Tab.Center>{tab.label}</Tab.Center>
+          </Tab>
+        ))}
+      </div>
+
+      {/* 콘텐츠 */}
+      <div style={{ padding: '14px', borderRadius: 10, border: '1px solid #f1f5f9', background: '#fafafa', minHeight: 60 }}>
+        <div style={{ fontSize: 13, fontWeight: 700, color: '#1e293b', marginBottom: 6 }}>
+          현재: {CTRL_TABS.find((t) => t.id === controlled)?.label ?? '없음'}
+        </div>
+        <div style={{ fontSize: 12, color: '#64748b' }}>
+          Radix value prop으로 외부에서 탭을 완전히 제어합니다.
+        </div>
+      </div>
+
+      {/* 히스토리 */}
+      <div>
+        <div style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 6 }}>탭 이동 히스토리</div>
+        <div style={{ display: 'flex', gap: 4, flexWrap: 'wrap' }}>
+          {history.map((id, i) => (
+            <span key={i} style={{ fontSize: 11, padding: '2px 8px', borderRadius: 8, background: i === history.length - 1 ? '#eef2ff' : '#f1f5f9', color: i === history.length - 1 ? '#6366f1' : '#94a3b8', fontWeight: i === history.length - 1 ? 700 : 400 }}>
+              {CTRL_TABS.find((t) => t.id === id)?.label}
+            </span>
+          ))}
+        </div>
+      </div>
+
+      {/* 외부 제어 버튼 */}
+      <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+        <span style={{ fontSize: 12, color: '#94a3b8', alignSelf: 'center' }}>외부 제어:</span>
+        {CTRL_TABS.map((tab) => (
+          <button
+            key={tab.id}
+            onClick={() => navigate(tab.id)}
+            style={{
+              padding: '4px 10px', borderRadius: 6, border: `1.5px solid ${controlled === tab.id ? '#6366f1' : '#e2e8f0'}`,
+              background: controlled === tab.id ? '#eef2ff' : '#fff',
+              color: controlled === tab.id ? '#6366f1' : '#64748b',
+              fontSize: 12, fontWeight: 600, cursor: 'pointer',
+            }}
+          >
+            {tab.label}
+          </button>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+export const Radix_제어_비제어_탭_API: Story = {
+  name: 'Radix UI — 제어/비제어 탭 상태 이중 API 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Radix Tabs의 defaultValue(비제어)/value(제어) 이중 API 패턴. ' +
+          '외부 버튼으로 탭을 직접 제어하고 이동 히스토리를 기록합니다. ' +
+          '라우터 연동이나 URL 동기화 시 제어 컴포넌트 패턴이 필수입니다.',
+      },
+    },
+  },
+  render: () => <RadixControlledTabDemo />,
+}
+
+/* --------------------------------------------------------------------------
+   Radix UI 벤치마크: 탭 콘텐츠 지연 로딩 패턴
+   Radix Tabs의 forceMount + LazyMount — 탭 전환 시 콘텐츠 지연 마운트
+-------------------------------------------------------------------------- */
+function RadixLazyTabRender() {
+  const [active, setActive] = useState('summary')
+  const [loaded, setLoaded] = useState<Set<string>>(new Set(['summary']))
+
+  const LAZY_TABS = [
+    { id: 'summary', label: '요약', delay: 0 },
+    { id: 'details', label: '상세 데이터', delay: 1200 },
+    { id: 'audit', label: '감사 로그', delay: 800 },
+    { id: 'settings', label: '설정', delay: 300 },
+  ]
+
+  const [loading, setLoading] = useState<Set<string>>(new Set())
+  const [content, setContent] = useState<Record<string, string>>({ summary: '요약 데이터가 로드되었습니다.' })
+
+  const switchTab = (id: string) => {
+    setActive(id)
+    if (!loaded.has(id)) {
+      const tab = LAZY_TABS.find((t) => t.id === id)
+      if (!tab) return
+      setLoading((prev) => new Set([...prev, id]))
+      setTimeout(() => {
+        setContent((prev) => ({ ...prev, [id]: `${tab.label} 콘텐츠가 지연 로드되었습니다. (${tab.delay}ms)` }))
+        setLoaded((prev) => new Set([...prev, id]))
+        setLoading((prev) => { const next = new Set(prev); next.delete(id); return next })
+      }, tab.delay)
+    }
+  }
+
+  return (
+    <div style={{ maxWidth: 480 }}>
+      <div style={{ display: 'flex', borderBottom: '2px solid #e2e8f0' }}>
+        {LAZY_TABS.map((tab) => (
+          <Tab key={tab.id} selected={active === tab.id} onClick={() => switchTab(tab.id)}>
+            <Tab.Center>{tab.label}</Tab.Center>
+            {!loaded.has(tab.id) && (
+              <Tab.Trailing>
+                <LabelBadge color="sale"><LabelBadge.Label>NEW</LabelBadge.Label></LabelBadge>
+              </Tab.Trailing>
+            )}
+          </Tab>
+        ))}
+      </div>
+      <div style={{ padding: '16px 0', minHeight: 80 }}>
+        {loading.has(active) ? (
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10, color: '#94a3b8', fontSize: 13 }}>
+            <div style={{ width: 16, height: 16, borderRadius: '50%', border: '2px solid #e2e8f0', borderTopColor: '#6366f1', animation: 'spin 0.8s linear infinite' }} />
+            콘텐츠 로드 중...
+          </div>
+        ) : (
+          <div style={{ padding: '14px', borderRadius: 10, border: '1px solid #f1f5f9', background: '#fafafa' }}>
+            <div style={{ fontSize: 11, fontWeight: 700, color: '#10b981', textTransform: 'uppercase', marginBottom: 4 }}>로드 완료</div>
+            <div style={{ fontSize: 13, color: '#334155' }}>{content[active] ?? '...'}</div>
+            <div style={{ marginTop: 8, fontSize: 11, color: '#94a3b8' }}>
+              로드된 탭: {Array.from(loaded).join(', ')}
+            </div>
+          </div>
+        )}
+      </div>
+      <div style={{ fontSize: 11, color: '#94a3b8' }}>각 탭은 첫 방문 시 한 번만 로드됩니다 (Lazy Mount)</div>
+    </div>
+  )
+}
+
+export const Radix_탭_콘텐츠_지연_로딩: Story = {
+  name: 'Radix UI — 탭 콘텐츠 지연 로딩(Lazy Mount) 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Radix Tabs forceMount/LazyMount 패턴. 탭을 처음 클릭할 때만 콘텐츠를 로드합니다. ' +
+          '이후 전환 시에는 캐시된 콘텐츠를 즉시 표시합니다. ' +
+          '미방문 탭에는 NEW 배지를 표시합니다.',
+      },
+    },
+  },
+  render: () => <RadixLazyTabRender />,
+}
