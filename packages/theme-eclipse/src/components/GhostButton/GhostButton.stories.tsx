@@ -1670,3 +1670,206 @@ export const MUI_Chakra_퀵_액션_패널: StoryObj<typeof meta> = {
     },
   },
 }
+
+/* --------------------------------------------------------------------------
+   Cycle 181 — MUI + Google Material 3
+   Benchmark:
+   1. MUI IconButton: 데이터 테이블 인라인 액션 — 행별 편집/삭제/복사
+   2. Material 3: 컨텍스트 메뉴 고스트 액션 버튼 — 밀도 높은 컴팩트 메뉴
+   3. MUI + M3: 툴바 아이콘 버튼 그룹 — 구분선으로 기능 그룹 분리
+-------------------------------------------------------------------------- */
+
+function MUIDataTableActionRender() {
+  const [data, setData] = useState([
+    { id: 1, name: 'Button', category: 'Actions', status: 'stable', stories: 28 },
+    { id: 2, name: 'TextField', category: 'Forms', status: 'stable', stories: 24 },
+    { id: 3, name: 'Calendar', category: 'Forms', status: 'beta', stories: 23 },
+    { id: 4, name: 'Slider', category: 'Forms', status: 'beta', stories: 22 },
+    { id: 5, name: 'Popover', category: 'Overlay', status: 'stable', stories: 24 },
+  ])
+  const [copied, setCopied] = useState<number | null>(null)
+
+  const handleDelete = (id: number) => setData((prev) => prev.filter((d) => d.id !== id))
+  const handleCopy = (id: number) => {
+    setCopied(id)
+    setTimeout(() => setCopied(null), 1500)
+  }
+
+  return (
+    <div style={{ width: 440, fontFamily: 'system-ui, sans-serif' }}>
+      <div style={{ fontSize: 12, fontWeight: 700, color: '#374151', marginBottom: 10 }}>컴포넌트 목록</div>
+      <div style={{ border: '1px solid #e5e7eb', borderRadius: 10, overflow: 'hidden' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 100px 60px 80px 80px', padding: '8px 12px', background: '#f8fafc', fontSize: 10, fontWeight: 600, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: 0.5 }}>
+          <span>이름</span><span>카테고리</span><span>상태</span><span>스토리</span><span style={{ textAlign: 'right' }}>액션</span>
+        </div>
+        {data.map((row, i) => (
+          <div key={row.id} style={{ display: 'grid', gridTemplateColumns: '1fr 100px 60px 80px 80px', padding: '8px 12px', alignItems: 'center', borderTop: i > 0 ? '1px solid #f3f4f6' : 'none' }}>
+            <span style={{ fontSize: 12, fontWeight: 600, color: '#111827' }}>{row.name}</span>
+            <span style={{ fontSize: 11, color: '#6b7280' }}>{row.category}</span>
+            <span style={{ fontSize: 10, padding: '1px 6px', borderRadius: 99, background: row.status === 'stable' ? '#dcfce7' : '#fef3c7', color: row.status === 'stable' ? '#16a34a' : '#d97706', fontWeight: 600, width: 'fit-content' }}>{row.status}</span>
+            <span style={{ fontSize: 12, color: '#374151' }}>{row.stories}</span>
+            <div style={{ display: 'flex', gap: 2, justifyContent: 'flex-end' }}>
+              <GhostButton color="gray" size="small" onClick={() => handleCopy(row.id)} aria-label="복사">
+                {copied === row.id ? <CopyLineIcon size={12} style={{ color: '#6366f1' }} /> : <CopyLineIcon size={12} />}
+              </GhostButton>
+              <GhostButton color="gray" size="small" aria-label="편집">
+                <LinkIcon size={12} />
+              </GhostButton>
+              <GhostButton color="gray" size="small" onClick={() => handleDelete(row.id)} aria-label="삭제">
+                <DeleteLineIcon size={12} />
+              </GhostButton>
+            </div>
+          </div>
+        ))}
+      </div>
+      <div style={{ marginTop: 8, fontSize: 11, color: '#94a3b8' }}>MUI IconButton 테이블 인라인 액션 패턴</div>
+    </div>
+  )
+}
+
+export const MUI_데이터_테이블_인라인_액션: StoryObj<typeof meta> = {
+  name: 'MUI — 데이터 테이블 인라인 액션 (복사/편집/삭제)',
+  render: () => <MUIDataTableActionRender />,
+  parameters: {
+    docs: {
+      description: {
+        story: 'MUI DataGrid 인라인 액션 패턴. 각 행 우측에 복사/편집/삭제 GhostButton 아이콘 버튼 배치. 복사 성공 시 아이콘 색상 변경으로 피드백, 삭제 시 행 즉시 제거. MUI IconButton 테이블 액션 UX.',
+      },
+    },
+  },
+}
+
+function M3ContextMenuRender() {
+  const [selected, setSelected] = useState<string | null>(null)
+
+  const menuGroups = [
+    {
+      items: [
+        { id: 'edit', icon: <LinkIcon size={14} />, label: '편집', shortcut: '⌘E' },
+        { id: 'copy', icon: <CopyLineIcon size={14} />, label: '복사', shortcut: '⌘C' },
+        { id: 'share', icon: <ShareIcon size={14} />, label: '공유', shortcut: '⌘⇧S' },
+      ],
+    },
+    {
+      items: [
+        { id: 'fav', icon: <HeartLineIcon size={14} />, label: '즐겨찾기', shortcut: '⌘D' },
+        { id: 'delete', icon: <DeleteLineIcon size={14} />, label: '삭제', shortcut: '⌫', danger: true },
+      ],
+    },
+  ]
+
+  return (
+    <div style={{ padding: '40px', display: 'flex', justifyContent: 'center' }}>
+      <div style={{ width: 220, border: '1px solid #e5e7eb', borderRadius: 10, padding: '4px', background: '#fff', boxShadow: '0 4px 16px rgba(0,0,0,0.08)', fontFamily: 'system-ui, sans-serif' }}>
+        {menuGroups.map((group, gi) => (
+          <div key={gi}>
+            {gi > 0 && <div style={{ height: 1, background: '#f3f4f6', margin: '4px 0' }} />}
+            {group.items.map((item) => (
+              <div key={item.id} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                <GhostButton
+                  color="gray"
+                  size="large"
+                  onClick={() => setSelected(item.id)}
+                  style={{ flex: 1, justifyContent: 'flex-start' }}
+                >
+                  <GhostButton.Center>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 8, color: item.danger ? '#ef4444' : 'inherit' }}>
+                      <span style={{ color: item.danger ? '#ef4444' : '#6b7280' }}>{item.icon}</span>
+                      <span style={{ fontSize: 13 }}>{item.label}</span>
+                    </div>
+                  </GhostButton.Center>
+                  <GhostButton.Trailing>
+                    <span style={{ fontSize: 10, color: '#9ca3af', fontFamily: 'monospace' }}>{item.shortcut}</span>
+                  </GhostButton.Trailing>
+                </GhostButton>
+              </div>
+            ))}
+          </div>
+        ))}
+        {selected && (
+          <div style={{ padding: '4px 8px', fontSize: 11, color: '#6366f1', borderTop: '1px solid #f3f4f6', marginTop: 4 }}>
+            선택: {selected}
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+
+export const M3_컨텍스트_메뉴_액션: StoryObj<typeof meta> = {
+  name: 'Material 3 — 컨텍스트 메뉴 고스트 버튼 (단축키 + 위험 액션)',
+  render: () => <M3ContextMenuRender />,
+  parameters: {
+    docs: {
+      description: {
+        story: 'Material 3 컨텍스트 메뉴 UX 패턴. GhostButton을 아이콘+텍스트+단축키 조합으로 배치, 구분선으로 그룹 분리. 위험 액션(삭제)은 빨간색으로 강조. full-width 컨텍스트 메뉴 항목 패턴.',
+      },
+    },
+  },
+}
+
+function MUI_M3_ToolbarRender() {
+  const [bold, setBold] = useState(false)
+  const [italic, setItalic] = useState(false)
+  const [align, setAlign] = useState<'left' | 'center' | 'right'>('left')
+
+  return (
+    <div style={{ fontFamily: 'system-ui, sans-serif' }}>
+      <div style={{ display: 'inline-flex', alignItems: 'center', gap: 2, padding: '4px 8px', border: '1px solid #e5e7eb', borderRadius: 10, background: '#fff' }}>
+        {/* Text format group */}
+        <GhostButton
+          color={bold ? 'black' : 'gray'}
+          size="small"
+          onClick={() => setBold((p) => !p)}
+          aria-label="굵게"
+          aria-pressed={bold}
+        >
+          <span style={{ fontSize: 13, fontWeight: 700, fontFamily: 'Georgia, serif' }}>B</span>
+        </GhostButton>
+        <GhostButton
+          color={italic ? 'black' : 'gray'}
+          size="small"
+          onClick={() => setItalic((p) => !p)}
+          aria-label="기울임"
+          aria-pressed={italic}
+        >
+          <span style={{ fontSize: 13, fontStyle: 'italic', fontFamily: 'Georgia, serif' }}>I</span>
+        </GhostButton>
+        {/* Divider */}
+        <div style={{ width: 1, height: 20, background: '#e5e7eb', margin: '0 4px' }} />
+        {/* Alignment group */}
+        {(['left', 'center', 'right'] as const).map((a) => (
+          <GhostButton key={a} color={align === a ? 'black' : 'gray'} size="small" onClick={() => setAlign(a)} aria-label={`${a} 정렬`}>
+            <span style={{ fontSize: 12, fontFamily: 'monospace' }}>
+              {a === 'left' ? '≡' : a === 'center' ? '≡' : '≡'}
+            </span>
+          </GhostButton>
+        ))}
+        {/* Divider */}
+        <div style={{ width: 1, height: 20, background: '#e5e7eb', margin: '0 4px' }} />
+        {/* Action group */}
+        <GhostButton color="gray" size="small" aria-label="링크 삽입"><LinkIcon size={14} /></GhostButton>
+        <GhostButton color="gray" size="small" aria-label="공유"><ShareIcon size={14} /></GhostButton>
+        <GhostButton color="gray" size="small" aria-label="삭제"><DeleteLineIcon size={14} /></GhostButton>
+      </div>
+      <div style={{ marginTop: 16, padding: '12px', borderRadius: 8, background: '#f8fafc', fontSize: 13, color: '#374151' }}>
+        <span style={{ fontWeight: bold ? 700 : 400, fontStyle: italic ? 'italic' : 'normal', textAlign: align }}>
+          텍스트 포맷: {bold ? '굵게' : '보통'} {italic ? '기울임' : ''} / 정렬: {align}
+        </span>
+      </div>
+      <div style={{ marginTop: 8, fontSize: 11, color: '#94a3b8' }}>MUI Toolbar + M3 IconButton 그룹 패턴</div>
+    </div>
+  )
+}
+
+export const MUI_M3_툴바_아이콘_그룹: StoryObj<typeof meta> = {
+  name: 'MUI + Material 3 — 텍스트 에디터 툴바 (구분선 그룹)',
+  render: () => <MUI_M3_ToolbarRender />,
+  parameters: {
+    docs: {
+      description: {
+        story: 'MUI Toolbar + Material 3 IconButton 그룹 패턴. 서식(B/I) + 정렬(좌/중/우) + 액션(링크/공유/삭제) 3그룹을 구분선으로 분리. aria-pressed로 토글 상태 접근성 지원. 리치 텍스트 에디터 툴바 패턴.',
+      },
+    },
+  },
+}

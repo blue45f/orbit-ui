@@ -40261,3 +40261,209 @@ export const ShadcnApple180AIPromptBuilder: StoryObj = {
   },
   render: () => <ShadcnApple180AIPromptBuilderRender />,
 }
+
+// ─── Cycle 181 — MUI + Google Material 3 ─────────────────────────────────────
+
+function MUIM3181AnalyticsDashboardRender() {
+  const [loaded, setLoaded] = useState(false)
+  const [activeSection, setActiveSection] = useState('overview')
+
+  const sections = [
+    { id: 'overview', label: '개요' },
+    { id: 'traffic', label: '트래픽' },
+    { id: 'components', label: '컴포넌트' },
+    { id: 'deployments', label: '배포' },
+  ]
+
+  const kpis = [
+    { label: '총 스토리', value: '847', change: '+34', color: '#6366f1' },
+    { label: '컴포넌트 수', value: '47', change: '+3', color: '#10b981' },
+    { label: '빌드 성공률', value: '98.7%', change: '-0.3%', color: '#f59e0b' },
+    { label: '평균 빌드', value: '39초', change: '-2초', color: '#3b82f6' },
+  ]
+
+  const tableRows = [
+    { name: 'SolidButton', category: 'Actions', stories: 28, coverage: 98, status: 'stable' },
+    { name: 'TextField', category: 'Forms', stories: 24, coverage: 95, status: 'stable' },
+    { name: 'Calendar', category: 'Forms', stories: 23, coverage: 88, status: 'beta' },
+    { name: 'DataTable', category: 'Data', stories: 22, coverage: 92, status: 'stable' },
+    { name: 'Slider', category: 'Forms', stories: 22, coverage: 85, status: 'beta' },
+  ]
+
+  return (
+    <div style={{ minHeight: '100vh', background: '#f8fafc', fontFamily: 'system-ui, sans-serif', display: 'flex', flexDirection: 'column' }}>
+      {/* Header */}
+      <div style={{ background: '#fff', borderBottom: '1px solid #e5e7eb', padding: '0 24px', height: 56, display: 'flex', alignItems: 'center', gap: 16 }}>
+        <div style={{ fontSize: 15, fontWeight: 800, color: '#0f172a', letterSpacing: -0.5 }}>Orbit UI Analytics</div>
+        <div style={{ flex: 1 }} />
+        <GhostButton color="gray" size="small" aria-label="데이터 내보내기">
+          <GhostButton.Center>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 4, fontSize: 12 }}>
+              <ShareIcon size={13} />
+              내보내기
+            </div>
+          </GhostButton.Center>
+        </GhostButton>
+        <button
+          onClick={() => setLoaded((p) => !p)}
+          style={{ fontSize: 12, padding: '6px 14px', borderRadius: 8, border: 'none', background: '#6366f1', color: '#fff', cursor: 'pointer', fontFamily: 'system-ui', fontWeight: 600 }}
+        >
+          {loaded ? '스켈레톤 보기' : '데이터 로드'}
+        </button>
+      </div>
+
+      {/* Section nav */}
+      <div style={{ background: '#fff', borderBottom: '1px solid #e5e7eb', padding: '0 24px', display: 'flex', gap: 0 }}>
+        {sections.map((sec) => (
+          <button
+            key={sec.id}
+            onClick={() => setActiveSection(sec.id)}
+            style={{ padding: '12px 16px', border: 'none', background: 'transparent', cursor: 'pointer', fontSize: 13, fontWeight: activeSection === sec.id ? 600 : 400, color: activeSection === sec.id ? '#6366f1' : '#6b7280', borderBottom: activeSection === sec.id ? '2px solid #6366f1' : '2px solid transparent', fontFamily: 'system-ui' }}
+          >
+            {sec.label}
+          </button>
+        ))}
+      </div>
+
+      <div style={{ flex: 1, padding: 24, overflow: 'auto' }}>
+        {/* KPI cards */}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 12, marginBottom: 20 }}>
+          {kpis.map((kpi) => (
+            <div key={kpi.label} style={{ background: '#fff', border: '1px solid #e5e7eb', borderRadius: 12, padding: '16px 18px' }}>
+              {loaded ? (
+                <>
+                  <div style={{ fontSize: 11, color: '#9ca3af', marginBottom: 6 }}>{kpi.label}</div>
+                  <div style={{ fontSize: 22, fontWeight: 800, color: '#0f172a', letterSpacing: -0.5 }}>{kpi.value}</div>
+                  <div style={{ fontSize: 11, color: kpi.change.startsWith('+') ? '#10b981' : '#ef4444', marginTop: 4 }}>
+                    {kpi.change} 이번 달
+                  </div>
+                  <div style={{ height: 3, borderRadius: 2, background: '#f1f5f9', marginTop: 10, overflow: 'hidden' }}>
+                    <div style={{ height: '100%', width: '75%', background: kpi.color, borderRadius: 2 }} />
+                  </div>
+                </>
+              ) : (
+                <>
+                  <Skeleton height={11} width="60%" style={{ marginBottom: 8 }} />
+                  <Skeleton height={26} width="70%" style={{ marginBottom: 6 }} />
+                  <Skeleton height={10} width="50%" style={{ marginBottom: 12 }} />
+                  <Skeleton height={3} width="100%" style={{ borderRadius: 2 }} />
+                </>
+              )}
+            </div>
+          ))}
+        </div>
+
+        {/* Main content area */}
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 340px', gap: 16 }}>
+          {/* Table */}
+          <div style={{ background: '#fff', border: '1px solid #e5e7eb', borderRadius: 12, overflow: 'hidden' }}>
+            <div style={{ padding: '14px 16px', borderBottom: '1px solid #f1f5f9', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+              {loaded ? (
+                <>
+                  <span style={{ fontSize: 13, fontWeight: 600, color: '#111827' }}>컴포넌트 커버리지</span>
+                  <div style={{ display: 'flex', gap: 4 }}>
+                    <GhostButton color="gray" size="small" aria-label="새로고침"><RefreshLineIcon size={13} /></GhostButton>
+                    <GhostButton color="gray" size="small" aria-label="공유"><ShareIcon size={13} /></GhostButton>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <Skeleton height={13} width={140} />
+                  <div style={{ display: 'flex', gap: 4 }}>
+                    <Skeleton height={28} width={28} style={{ borderRadius: 6 }} />
+                    <Skeleton height={28} width={28} style={{ borderRadius: 6 }} />
+                  </div>
+                </>
+              )}
+            </div>
+            {loaded ? (
+              <div>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 80px 70px 80px 70px', padding: '8px 16px', background: '#f8fafc', fontSize: 10, fontWeight: 600, color: '#94a3b8', textTransform: 'uppercase' }}>
+                  <span>컴포넌트</span><span>카테고리</span><span>스토리</span><span>커버리지</span><span>상태</span>
+                </div>
+                {tableRows.map((row, i) => (
+                  <div key={row.name} style={{ display: 'grid', gridTemplateColumns: '1fr 80px 70px 80px 70px', padding: '10px 16px', borderTop: i > 0 ? '1px solid #f8fafc' : 'none', alignItems: 'center' }}>
+                    <span style={{ fontSize: 12, fontWeight: 600, color: '#111827' }}>{row.name}</span>
+                    <span style={{ fontSize: 11, color: '#6b7280' }}>{row.category}</span>
+                    <span style={{ fontSize: 12, color: '#374151' }}>{row.stories}</span>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                      <div style={{ flex: 1, height: 4, borderRadius: 2, background: '#f1f5f9', overflow: 'hidden' }}>
+                        <div style={{ height: '100%', width: `${row.coverage}%`, background: row.coverage >= 90 ? '#10b981' : '#f59e0b', borderRadius: 2 }} />
+                      </div>
+                      <span style={{ fontSize: 10, color: '#6b7280', flexShrink: 0 }}>{row.coverage}%</span>
+                    </div>
+                    <span style={{ fontSize: 10, padding: '1px 6px', borderRadius: 99, background: row.status === 'stable' ? '#dcfce7' : '#fef3c7', color: row.status === 'stable' ? '#16a34a' : '#d97706', fontWeight: 600, width: 'fit-content' }}>{row.status}</span>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div style={{ padding: 16, display: 'flex', flexDirection: 'column', gap: 12 }}>
+                {[0, 1, 2, 3, 4].map((i) => (
+                  <div key={i} style={{ display: 'grid', gridTemplateColumns: '1fr 80px 70px 80px 70px', alignItems: 'center', gap: 8 }}>
+                    <Skeleton height={13} width="70%" />
+                    <Skeleton height={11} width="80%" />
+                    <Skeleton height={11} width={30} />
+                    <Skeleton height={6} width="100%" style={{ borderRadius: 3 }} />
+                    <Skeleton height={18} width={50} style={{ borderRadius: 99 }} />
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* Sidebar: Social Feed Skeleton */}
+          <div style={{ background: '#fff', border: '1px solid #e5e7eb', borderRadius: 12, overflow: 'hidden' }}>
+            <div style={{ padding: '14px 16px', borderBottom: '1px solid #f1f5f9' }}>
+              {loaded ? (
+                <span style={{ fontSize: 13, fontWeight: 600, color: '#111827' }}>최근 팀 활동</span>
+              ) : (
+                <Skeleton height={13} width={100} />
+              )}
+            </div>
+            <div style={{ padding: 16, display: 'flex', flexDirection: 'column', gap: 12 }}>
+              {[
+                { author: 'HJ', action: 'Cycle 181 완료 — GhostButton 스토리 추가', time: '2분 전' },
+                { author: 'MK', action: 'Skeleton 채팅 패턴 PR 머지', time: '15분 전' },
+                { author: 'SY', action: 'MUI M3 템플릿 리뷰 완료', time: '1시간 전' },
+                { author: 'JH', action: 'Analytics 대시보드 스펙 업데이트', time: '3시간 전' },
+              ].map((act, i) => (
+                <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: 8 }}>
+                  {loaded ? (
+                    <>
+                      <div style={{ width: 28, height: 28, borderRadius: '50%', background: '#6366f1', color: '#fff', fontSize: 9, fontWeight: 700, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>{act.author}</div>
+                      <div style={{ flex: 1 }}>
+                        <div style={{ fontSize: 11, color: '#374151', lineHeight: 1.4 }}>{act.action}</div>
+                        <div style={{ fontSize: 10, color: '#9ca3af', marginTop: 2 }}>{act.time}</div>
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <Skeleton width={28} height={28} style={{ borderRadius: '50%', flexShrink: 0 }} />
+                      <div style={{ flex: 1 }}>
+                        <Skeleton height={11} width="90%" style={{ marginBottom: 4 }} />
+                        <Skeleton height={9} width="40%" />
+                      </div>
+                    </>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const MUIM3181AnalyticsDashboard: StoryObj = {
+  name: 'MUI + Material 3 — 애널리틱스 대시보드 스켈레톤 → 콘텐츠 (Cycle 181)',
+  parameters: {
+    layout: 'fullscreen',
+    docs: {
+      description: {
+        story: 'MUI Skeleton + M3 IconButton 패턴. "데이터 로드" 버튼으로 스켈레톤 → 실제 콘텐츠 전환. KPI 카드 4개(Skeleton→실제) + 컴포넌트 커버리지 테이블 + 소셜 피드 사이드바. GhostButton 인라인 액션 포함.',
+      },
+    },
+  },
+  render: () => <MUIM3181AnalyticsDashboardRender />,
+}

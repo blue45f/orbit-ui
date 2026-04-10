@@ -1214,3 +1214,162 @@ export const Linear_Radix_설정_폼_스켈레톤: Story = {
     </div>
   ),
 }
+
+/* --------------------------------------------------------------------------
+   Cycle 181 — MUI + Google Material 3
+   Benchmark:
+   1. MUI Skeleton: 소셜 피드 레이아웃 — 아바타 원형 + 텍스트 줄 + 미디어
+   2. Material 3: 카드 그리드 스켈레톤 — 이미지 영역 + 텍스트 계층
+   3. MUI + M3: 채팅 대화 스켈레톤 — 좌우 말풍선 + 타임스탬프
+-------------------------------------------------------------------------- */
+
+export const MUI_소셜_피드_스켈레톤: Story = {
+  name: 'MUI — 소셜 피드 스켈레톤 (아바타 + 텍스트 + 미디어)',
+  render: () => (
+    <div style={{ width: 380, display: 'flex', flexDirection: 'column', gap: 16, fontFamily: 'system-ui, sans-serif' }}>
+      {[0, 1, 2].map((i) => (
+        <div key={i} style={{ border: '1px solid #f1f5f9', borderRadius: 12, padding: '16px', background: '#fff' }}>
+          {/* Author row */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 12 }}>
+            <Skeleton style={{ width: 40, height: 40, borderRadius: '50%' }} />
+            <div style={{ flex: 1 }}>
+              <Skeleton height={13} width="50%" style={{ marginBottom: 6 }} />
+              <Skeleton height={11} width="35%" />
+            </div>
+            <Skeleton height={28} width={60} style={{ borderRadius: 6 }} />
+          </div>
+          {/* Text body */}
+          <Skeleton height={12} width="95%" style={{ marginBottom: 6 }} />
+          <Skeleton height={12} width="80%" style={{ marginBottom: 6 }} />
+          <Skeleton height={12} width="60%" style={{ marginBottom: 12 }} />
+          {/* Media */}
+          {i === 0 && <Skeleton height={160} width="100%" style={{ borderRadius: 8, marginBottom: 12 }} />}
+          {/* Actions */}
+          <div style={{ display: 'flex', gap: 16 }}>
+            <Skeleton height={28} width={60} style={{ borderRadius: 6 }} />
+            <Skeleton height={28} width={60} style={{ borderRadius: 6 }} />
+            <Skeleton height={28} width={60} style={{ borderRadius: 6 }} />
+          </div>
+        </div>
+      ))}
+      <div style={{ fontSize: 11, color: '#9ca3af', textAlign: 'center' }}>MUI Skeleton 소셜 피드 패턴</div>
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: 'MUI Skeleton 소셜 피드 레이아웃 패턴. 아바타(원형) + 이름/날짜 텍스트 + 본문 3줄 + 미디어(조건부) + 액션 버튼 행. 카드 3개를 가변 너비 텍스트 줄로 구성해 자연스러운 로딩 UI 구현.',
+      },
+    },
+  },
+}
+
+export const M3_카드_그리드_스켈레톤: Story = {
+  name: 'Material 3 — 카드 그리드 스켈레톤 (이미지 + 텍스트 계층)',
+  render: () => (
+    <div style={{ width: 380, fontFamily: 'system-ui, sans-serif' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+        {[0, 1, 2, 3].map((i) => (
+          <div key={i} style={{ border: '1px solid #f1f5f9', borderRadius: 14, overflow: 'hidden', background: '#fff' }}>
+            {/* Image area */}
+            <Skeleton height={120} width="100%" style={{ borderRadius: 0 }} />
+            <div style={{ padding: '12px' }}>
+              {/* Category badge */}
+              <Skeleton height={18} width={60} style={{ borderRadius: 99, marginBottom: 8 }} />
+              {/* Title */}
+              <Skeleton height={13} width="90%" style={{ marginBottom: 5 }} />
+              <Skeleton height={13} width="70%" style={{ marginBottom: 10 }} />
+              {/* Author + date */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                <Skeleton width={20} height={20} style={{ borderRadius: '50%', flexShrink: 0 }} />
+                <Skeleton height={10} width="60%" />
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+      <div style={{ marginTop: 12, fontSize: 11, color: '#9ca3af', textAlign: 'center' }}>Material 3 카드 그리드 스켈레톤 패턴</div>
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Material 3 카드 컴포넌트 스켈레톤 패턴. 2열 그리드에 이미지 영역 + 카테고리 배지(둥근 pill) + 제목 2줄 + 저자 행. M3의 Emphasized Card 구조를 스켈레톤으로 표현.',
+      },
+    },
+  },
+}
+
+function MUI_M3_ChatSkeletonRender() {
+  const [loaded, setLoaded] = useState(false)
+
+  const messages = [
+    { mine: false, lines: [90, 75], time: '09:01' },
+    { mine: true, lines: [60], time: '09:02' },
+    { mine: false, lines: [85, 70, 55], time: '09:03' },
+    { mine: true, lines: [80, 45], time: '09:04' },
+  ]
+
+  return (
+    <div style={{ width: 340, fontFamily: 'system-ui, sans-serif' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
+        <span style={{ fontSize: 12, fontWeight: 700, color: '#374151' }}>채팅 스켈레톤</span>
+        <button onClick={() => setLoaded((p) => !p)} style={{ fontSize: 11, padding: '3px 8px', borderRadius: 6, border: '1px solid #e5e7eb', background: '#fff', cursor: 'pointer', fontFamily: 'system-ui', color: loaded ? '#6366f1' : '#94a3b8' }}>
+          {loaded ? '스켈레톤 표시' : '콘텐츠 로드'}
+        </button>
+      </div>
+      <div style={{ border: '1px solid #e5e7eb', borderRadius: 14, overflow: 'hidden', background: '#fff' }}>
+        <div style={{ background: '#f8fafc', padding: '10px 14px', display: 'flex', alignItems: 'center', gap: 8, borderBottom: '1px solid #f1f5f9' }}>
+          {loaded ? (
+            <>
+              <div style={{ width: 32, height: 32, borderRadius: '50%', background: '#6366f1', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: 12, fontWeight: 700 }}>HJ</div>
+              <div>
+                <div style={{ fontSize: 12, fontWeight: 600, color: '#111827' }}>HeeJun Kim</div>
+                <div style={{ fontSize: 10, color: '#10b981' }}>온라인</div>
+              </div>
+            </>
+          ) : (
+            <>
+              <Skeleton width={32} height={32} style={{ borderRadius: '50%', flexShrink: 0 }} />
+              <div>
+                <Skeleton height={12} width={100} style={{ marginBottom: 4 }} />
+                <Skeleton height={10} width={50} />
+              </div>
+            </>
+          )}
+        </div>
+        <div style={{ padding: '14px', display: 'flex', flexDirection: 'column', gap: 12 }}>
+          {messages.map((msg, i) => (
+            <div key={i} style={{ display: 'flex', flexDirection: 'column', alignItems: msg.mine ? 'flex-end' : 'flex-start' }}>
+              {loaded ? (
+                <div style={{ maxWidth: '80%', padding: '8px 12px', borderRadius: msg.mine ? '14px 14px 4px 14px' : '14px 14px 14px 4px', background: msg.mine ? '#6366f1' : '#f3f4f6', fontSize: 12, color: msg.mine ? '#fff' : '#374151' }}>
+                  {msg.mine ? '안녕하세요! 스토리북 고도화 잘 되고 있나요?' : '네, 사이클 181 진행 중입니다. MUI + M3 패턴 적용 중이에요.'}
+                  <div style={{ fontSize: 9, color: msg.mine ? 'rgba(255,255,255,0.6)' : '#9ca3af', marginTop: 3, textAlign: 'right' }}>{msg.time}</div>
+                </div>
+              ) : (
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 4, alignItems: msg.mine ? 'flex-end' : 'flex-start' }}>
+                  {msg.lines.map((w, j) => (
+                    <Skeleton key={j} height={32} width={`${w}%`} style={{ borderRadius: 10 }} />
+                  ))}
+                  <Skeleton height={9} width={30} />
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const MUI_M3_채팅_스켈레톤: Story = {
+  name: 'MUI + Material 3 — 채팅 UI 스켈레톤 (좌우 말풍선 전환)',
+  render: () => <MUI_M3_ChatSkeletonRender />,
+  parameters: {
+    docs: {
+      description: {
+        story: 'MUI + M3 채팅 UI 스켈레톤 패턴. 좌(상대) / 우(나) 말풍선 구조, 헤더 아바타+이름+상태 모두 스켈레톤 처리. "콘텐츠 로드" 버튼으로 스켈레톤 → 실제 UI 전환 인터랙션 포함.',
+      },
+    },
+  },
+}
