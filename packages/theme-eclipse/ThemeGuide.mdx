@@ -901,5 +901,96 @@ export default function RootLayout({
       </div>
     </section>
 
+    {/* Tailwind UI + Arco Design 섹션 */}
+    <section style={{ marginBottom: '64px' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px' }}>
+        <h2 style={{ fontSize: '22px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', margin: 0 }}>Tailwind UI + Arco Design 테마 패턴 분석</h2>
+        <span style={{ padding: '3px 10px', background: '#f1f5f9', borderRadius: '20px', fontSize: '12px', fontWeight: '600', color: '#6366f1' }}>Cycle 56</span>
+      </div>
+
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '20px', marginBottom: '28px' }}>
+        <div style={{ padding: '24px', borderRadius: '14px', background: '#0f172a', border: '1px solid #1e293b' }}>
+          <div style={{ fontSize: '11px', fontWeight: '700', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '8px' }}>Tailwind UI</div>
+          <div style={{ fontSize: '18px', fontWeight: '700', color: '#fff', marginBottom: '10px' }}>Utility-First Layout System</div>
+          <p style={{ fontSize: '13px', color: '#94a3b8', lineHeight: '1.7', margin: '0 0 16px' }}>
+            Tailwind UI는 Tailwind CSS 유틸리티 클래스만으로 완성도 높은 레이아웃 패턴을 제공합니다. Application Shell, Stacked Layout, Sidebar with Header 등 실무 레이아웃 청사진을 제공해 빠른 구현이 가능합니다.
+          </p>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '12px' }}>
+            {[
+              ['Stacked Layout', 'SectionTitle + 탭 네비게이션으로 페이지 헤더 구성'],
+              ['Table Overlay', 'position: absolute 오버레이로 기존 테이블 구조 유지하며 로딩'],
+              ['Filter Pattern', '검색 입력 + 상태 필터 버튼의 SectionTitle 하단 배치'],
+            ].map(([k, v]) => (
+              <div key={k} style={{ padding: '8px 12px', background: '#1e293b', borderRadius: '8px', border: '1px solid #334155' }}>
+                <span style={{ color: '#6366f1', fontWeight: '700' }}>{k}: </span>
+                <span style={{ color: '#94a3b8' }}>{v}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div style={{ padding: '24px', borderRadius: '14px', background: '#001d35', border: '1px solid #003a6b' }}>
+          <div style={{ fontSize: '11px', fontWeight: '700', color: '#5aaff5', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '8px' }}>Arco Design</div>
+          <div style={{ fontSize: '18px', fontWeight: '700', color: '#fff', marginBottom: '10px' }}>Enterprise Data Experience</div>
+          <p style={{ fontSize: '13px', color: '#8eb9e0', lineHeight: '1.7', margin: '0 0 16px' }}>
+            Arco Design은 아시아권 엔터프라이즈 제품에 특화된 데이터 시각화와 복잡한 폼 UX에 강점을 보입니다. Steps + Spin 조합, 낙관적 업데이트 피드백, Descriptions 다단계 설정 등이 특징입니다.
+          </p>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '12px' }}>
+            {[
+              ['Steps + Spin', '다단계 처리를 타임라인으로 시각화, 각 단계에 로딩 스피너 삽입'],
+              ['Optimistic Update', '즉각 UI 반영 후 서버 동기화 중 인라인 Loading 표시'],
+              ['Collapse Settings', 'SectionTitle을 아코디언 헤더로 활용한 설정 그룹 패턴'],
+            ].map(([k, v]) => (
+              <div key={k} style={{ padding: '8px 12px', background: '#003a6b', borderRadius: '8px', border: '1px solid #005799' }}>
+                <span style={{ color: '#5aaff5', fontWeight: '700' }}>{k}: </span>
+                <span style={{ color: '#8eb9e0' }}>{v}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div style={{ overflowX: 'auto', borderRadius: '12px', border: '1.5px solid #e2e8f0', marginBottom: '24px' }}>
+        <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px' }}>
+          <thead>
+            <tr style={{ background: '#f8fafc' }}>
+              {['기준', 'Tailwind UI', 'Arco Design', 'Orbit UI 반영'].map((col, i) => (
+                <th key={col} style={{ padding: '12px 16px', textAlign: 'left', fontWeight: 700, color: i === 3 ? '#6366f1' : '#475569', borderBottom: '1.5px solid #e2e8f0', whiteSpace: 'nowrap' }}>{col}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {[
+              ['레이아웃', 'Stacked/Sidebar Shell', '독립 레이아웃 미제공', 'Templates 패턴으로 제공'],
+              ['로딩 UI', 'Table Overlay 반투명', 'Steps+Spin 다단계', 'Loading 오버레이·파이프라인·낙관적업데이트'],
+              ['섹션 헤더', '검색+필터 상단 배치', 'Collapse 아코디언', 'SectionTitle 탭·아코디언·필터 3스토리'],
+              ['상태 피드백', '인라인 텍스트 표시', '즉각 반영+동기화 표시', '낙관적 업데이트 + Loading 인라인'],
+              ['데이터 시각화', '미제공', 'Charts 통합 제공', '추후 Chart 통합 계획'],
+            ].map((row, i) => (
+              <tr key={i} style={{ background: i % 2 === 0 ? '#fff' : '#fafafa' }}>
+                {row.map((cell, j) => (
+                  <td key={j} style={{ padding: '11px 16px', color: j === 3 ? '#4f46e5' : '#334155', borderBottom: '1px solid #f1f5f9', fontWeight: j === 0 ? 600 : 400 }}>{cell}</td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <div style={{ padding: '20px', borderRadius: '12px', background: 'linear-gradient(135deg, #f0fdf4, #ecfdf5)', border: '2px solid #bbf7d0' }}>
+        <div style={{ fontSize: '13px', fontWeight: '700', color: '#065f46', marginBottom: '12px' }}>Orbit UI 반영 결과</div>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '12px', fontSize: '12px', color: '#374151', lineHeight: '1.7' }}>
+          <div>
+            <div style={{ fontWeight: '700', color: '#059669', marginBottom: '4px' }}>SectionTitle 고도화</div>
+            Tailwind UI 탭 섹션 네비게이션, Arco 아코디언 설정 그룹, Tailwind UI 필터링 섹션 헤더 3개 스토리 추가.
+          </div>
+          <div>
+            <div style={{ fontWeight: '700', color: '#059669', marginBottom: '4px' }}>Loading 고도화</div>
+            Tailwind UI 테이블 오버레이, Arco 다단계 파이프라인, Arco 낙관적 업데이트 인라인 로딩 3개 스토리 추가.
+          </div>
+        </div>
+      </div>
+    </section>
+
   </div>
 </Unstyled>

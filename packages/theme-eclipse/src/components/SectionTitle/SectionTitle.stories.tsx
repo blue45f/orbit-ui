@@ -1,3 +1,4 @@
+import React from 'react'
 import { ChevronRightLineIcon, CircleInfoLineIcon, CircleNewLineIcon, SettingLineIcon } from '@heejun-com/icons'
 import type { Meta, StoryObj } from '@storybook/react'
 
@@ -457,4 +458,285 @@ export const 디자인QA = {
       </div>
     )
   },
+}
+
+/* --------------------------------------------------------------------------
+   Tailwind UI 벤치마크: 탭 기반 섹션 네비게이션
+   Tailwind UI의 Stacked Layout — 상단 섹션 헤더 + 탭 네비게이션 패턴
+-------------------------------------------------------------------------- */
+const TW_TABS = [
+  { id: 'overview', label: '개요', count: null },
+  { id: 'members', label: '멤버', count: 12 },
+  { id: 'settings', label: '설정', count: null },
+  { id: 'billing', label: '결제', count: null },
+]
+
+function TailwindSectionNavDemo() {
+  const [activeTab, setActiveTab] = React.useState('overview')
+
+  return (
+    <div style={{ width: 480 }}>
+      <SectionTitle>
+        <SectionTitle.Title>팀 워크스페이스</SectionTitle.Title>
+        <SectionTitle.Description>프로젝트 협업 공간을 관리하세요</SectionTitle.Description>
+        <SectionTitle.Trailing>
+          <TextButton color="black" size="small">
+            <TextButton.Center>
+              <ChevronRightLineIcon />
+            </TextButton.Center>
+          </TextButton>
+        </SectionTitle.Trailing>
+      </SectionTitle>
+      <Divider />
+      <div style={{ display: 'flex', gap: 0, borderBottom: '1px solid #e2e8f0', marginBottom: 16 }}>
+        {TW_TABS.map((tab) => (
+          <button
+            key={tab.id}
+            onClick={() => setActiveTab(tab.id)}
+            style={{
+              padding: '10px 16px',
+              background: 'none',
+              border: 'none',
+              borderBottom: activeTab === tab.id ? '2px solid #6366f1' : '2px solid transparent',
+              cursor: 'pointer',
+              fontSize: 13,
+              fontWeight: activeTab === tab.id ? 700 : 500,
+              color: activeTab === tab.id ? '#6366f1' : '#64748b',
+              display: 'flex',
+              alignItems: 'center',
+              gap: 6,
+              transition: 'all 0.15s',
+            }}
+          >
+            {tab.label}
+            {tab.count !== null && (
+              <span style={{ padding: '1px 7px', borderRadius: 10, fontSize: 11, fontWeight: 700, background: activeTab === tab.id ? '#eef2ff' : '#f1f5f9', color: activeTab === tab.id ? '#6366f1' : '#94a3b8' }}>
+                {tab.count}
+              </span>
+            )}
+          </button>
+        ))}
+      </div>
+      <div style={{ padding: '12px 0', fontSize: 13, color: '#64748b' }}>
+        {activeTab === 'overview' && '팀 활동 요약, 최근 프로젝트 현황을 확인하세요.'}
+        {activeTab === 'members' && '12명의 팀 멤버를 관리하고 역할을 설정하세요.'}
+        {activeTab === 'settings' && '워크스페이스 이름, 아이콘, 공개 여부를 설정하세요.'}
+        {activeTab === 'billing' && '구독 플랜 및 결제 수단을 관리하세요.'}
+      </div>
+    </div>
+  )
+}
+
+export const Tailwind_탭_섹션_네비게이션: Story = {
+  name: 'Tailwind UI - 탭 기반 섹션 네비게이션 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Tailwind UI Stacked Layout 패턴. SectionTitle로 페이지 헤더를 구성하고 ' +
+          '하단에 탭 네비게이션을 결합합니다. 탭에 CounterBadge를 삽입해 항목 수를 표시합니다.',
+      },
+    },
+  },
+  render: () => <TailwindSectionNavDemo />,
+}
+
+/* --------------------------------------------------------------------------
+   Arco Design 벤치마크: 다단계 설정 그룹
+   Arco의 Descriptions + Collapse 패턴 — 설정 항목을 그룹별로 접을 수 있는 섹션 구성
+-------------------------------------------------------------------------- */
+const ARCO_SETTING_GROUPS = [
+  {
+    id: 'general',
+    title: '일반 설정',
+    description: '기본 앱 동작 방식을 설정합니다',
+    icon: <SettingLineIcon />,
+    items: ['언어 설정', '시간대 설정', '날짜 형식', '기본 화폐'],
+    badge: null,
+  },
+  {
+    id: 'notifications',
+    title: '알림 설정',
+    description: '이메일·푸시·Slack 채널 알림을 관리합니다',
+    icon: <CircleInfoLineIcon />,
+    items: ['이메일 알림', '푸시 알림', 'Slack 연동', '주간 요약'],
+    badge: 4,
+  },
+  {
+    id: 'new',
+    title: '실험적 기능',
+    description: '베타 기능을 미리 사용해보세요',
+    icon: <CircleNewLineIcon />,
+    items: ['AI 자동 완성', '실시간 협업', '오프라인 모드'],
+    badge: null,
+  },
+]
+
+function ArcoSettingGroupsDemo() {
+  const [expanded, setExpanded] = React.useState<Set<string>>(new Set(['general']))
+
+  const toggle = (id: string) => {
+    setExpanded((prev) => {
+      const next = new Set(prev)
+      if (next.has(id)) next.delete(id)
+      else next.add(id)
+      return next
+    })
+  }
+
+  return (
+    <div style={{ width: 460, display: 'flex', flexDirection: 'column', gap: 8 }}>
+      {ARCO_SETTING_GROUPS.map((group) => {
+        const isOpen = expanded.has(group.id)
+        return (
+          <div key={group.id} style={{ borderRadius: 10, border: `1.5px solid ${isOpen ? '#6366f1' : '#e2e8f0'}`, overflow: 'hidden', transition: 'border-color 0.15s' }}>
+            <SectionTitle style={{ cursor: 'pointer' }} onClick={() => toggle(group.id)}>
+              <SectionTitle.Title>
+                <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                  <span style={{ color: isOpen ? '#6366f1' : '#64748b', display: 'flex', alignItems: 'center' }}>{group.icon}</span>
+                  {group.title}
+                  {group.badge !== null && (
+                    <CounterBadge>{group.badge}</CounterBadge>
+                  )}
+                </span>
+              </SectionTitle.Title>
+              <SectionTitle.Description>{group.description}</SectionTitle.Description>
+              <SectionTitle.Trailing>
+                <span style={{ color: '#94a3b8', fontSize: 12, transform: isOpen ? 'rotate(90deg)' : 'rotate(0deg)', display: 'inline-block', transition: 'transform 0.2s' }}>▶</span>
+              </SectionTitle.Trailing>
+            </SectionTitle>
+            {isOpen && (
+              <div style={{ padding: '0 16px 14px', display: 'flex', flexDirection: 'column', gap: 8 }}>
+                <Divider />
+                {group.items.map((item) => (
+                  <div key={item} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 0' }}>
+                    <Typography textStyle="descriptionLarge" style={{ color: '#334155' }}>{item}</Typography>
+                    <TextButton color="black" size="small">
+                      <TextButton.Center>편집</TextButton.Center>
+                    </TextButton>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        )
+      })}
+    </div>
+  )
+}
+
+export const Arco_다단계_설정_그룹: Story = {
+  name: 'Arco Design - 아코디언 설정 그룹 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Arco Design Collapse + Descriptions 패턴. SectionTitle을 아코디언 헤더로 활용해 ' +
+          '설정 항목을 그룹별로 접고 펼 수 있습니다. 배지로 변경 항목 수를 표시합니다.',
+      },
+    },
+  },
+  render: () => <ArcoSettingGroupsDemo />,
+}
+
+/* --------------------------------------------------------------------------
+   Tailwind UI 벤치마크: 필터링 섹션 헤더
+   Tailwind UI의 Application Shell — 리스트 위에 검색/필터 컨트롤을 배치하는 패턴
+-------------------------------------------------------------------------- */
+const FILTER_OPTIONS = ['전체', '진행 중', '완료', '보류'] as const
+type FilterOption = typeof FILTER_OPTIONS[number]
+
+function TailwindFilterSectionDemo() {
+  const [activeFilter, setActiveFilter] = React.useState<FilterOption>('전체')
+  const [searchValue, setSearchValue] = React.useState('')
+
+  const items = [
+    { name: '디자인 시스템 문서화', status: '진행 중', owner: 'HJ' },
+    { name: 'API 성능 최적화', status: '완료', owner: 'SY' },
+    { name: '모바일 앱 리팩터링', status: '진행 중', owner: 'JH' },
+    { name: 'CI/CD 파이프라인 설정', status: '보류', owner: 'EA' },
+    { name: '접근성 감사', status: '완료', owner: 'HJ' },
+  ]
+
+  const filtered = items.filter((item) => {
+    const matchFilter = activeFilter === '전체' || item.status === activeFilter
+    const matchSearch = searchValue === '' || item.name.includes(searchValue)
+    return matchFilter && matchSearch
+  })
+
+  const statusColor: Record<string, string> = {
+    '진행 중': '#6366f1',
+    '완료': '#10b981',
+    '보류': '#f59e0b',
+  }
+
+  return (
+    <div style={{ width: 480 }}>
+      <SectionTitle>
+        <SectionTitle.Title>프로젝트 ({items.length})</SectionTitle.Title>
+        <SectionTitle.Description>팀 프로젝트 현황을 확인하고 필터링하세요</SectionTitle.Description>
+        <SectionTitle.Trailing>
+          <LabelBadge color="benefit">
+            <LabelBadge.Label>NEW</LabelBadge.Label>
+          </LabelBadge>
+        </SectionTitle.Trailing>
+      </SectionTitle>
+      <div style={{ display: 'flex', gap: 8, margin: '12px 0', flexWrap: 'wrap', alignItems: 'center' }}>
+        <input
+          value={searchValue}
+          onChange={(e) => setSearchValue(e.target.value)}
+          placeholder="프로젝트 검색..."
+          style={{ flex: 1, minWidth: 160, padding: '6px 12px', borderRadius: 8, border: '1.5px solid #e2e8f0', fontSize: 13, color: '#1e293b', outline: 'none' }}
+        />
+        <div style={{ display: 'flex', gap: 4 }}>
+          {FILTER_OPTIONS.map((opt) => (
+            <button
+              key={opt}
+              onClick={() => setActiveFilter(opt)}
+              style={{
+                padding: '5px 12px',
+                borderRadius: 8,
+                border: `1.5px solid ${activeFilter === opt ? '#6366f1' : '#e2e8f0'}`,
+                background: activeFilter === opt ? '#eef2ff' : '#fff',
+                color: activeFilter === opt ? '#6366f1' : '#64748b',
+                fontSize: 12,
+                fontWeight: 600,
+                cursor: 'pointer',
+                transition: 'all 0.15s',
+              }}
+            >
+              {opt}
+            </button>
+          ))}
+        </div>
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+        {filtered.length === 0 && (
+          <div style={{ padding: '20px', textAlign: 'center', color: '#94a3b8', fontSize: 13 }}>검색 결과가 없습니다</div>
+        )}
+        {filtered.map((item) => (
+          <div key={item.name} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 14px', borderRadius: 8, border: '1px solid #f1f5f9', background: '#fff' }}>
+            <div style={{ width: 8, height: 8, borderRadius: '50%', background: statusColor[item.status] ?? '#94a3b8', flexShrink: 0 }} />
+            <Typography textStyle="descriptionLarge" style={{ flex: 1, color: '#1e293b', fontWeight: 500 }}>{item.name}</Typography>
+            <Typography textStyle="descriptionSmall" color="foregroundSecondary">{item.owner}</Typography>
+            <Typography textStyle="descriptionSmall" style={{ color: statusColor[item.status] ?? '#94a3b8', fontWeight: 700 }}>{item.status}</Typography>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+export const Tailwind_필터링_섹션_헤더: Story = {
+  name: 'Tailwind UI - 검색·필터 섹션 헤더 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Tailwind UI Application Shell 패턴. SectionTitle 하단에 검색 입력 + 상태 필터 버튼을 결합합니다. ' +
+          '실시간 필터링으로 리스트를 업데이트하는 실무 패턴입니다.',
+      },
+    },
+  },
+  render: () => <TailwindFilterSectionDemo />,
 }

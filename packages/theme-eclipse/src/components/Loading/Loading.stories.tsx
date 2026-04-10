@@ -403,3 +403,317 @@ export const 디자인_QA: Story = {
     </div>
   ),
 }
+
+/* --------------------------------------------------------------------------
+   Tailwind UI 벤치마크: 데이터 테이블 로딩 오버레이
+   Tailwind UI의 Table with Loading Overlay 패턴
+-------------------------------------------------------------------------- */
+const TABLE_HEADERS = ['이름', '상태', '역할', '가입일']
+const TABLE_ROWS = [
+  ['김희준', '활성', '관리자', '2024-01-15'],
+  ['이서연', '활성', '멤버', '2024-03-08'],
+  ['박지호', '비활성', '멤버', '2024-05-22'],
+]
+
+function TailwindTableLoadingRender() {
+  const [loading, setLoading] = useState(false)
+  const [data, setData] = useState(TABLE_ROWS)
+
+  const refresh = () => {
+    setLoading(true)
+    setData([])
+    setTimeout(() => {
+      setLoading(false)
+      setData(TABLE_ROWS)
+    }, 1800)
+  }
+
+  return (
+    <div style={{ width: 480, display: 'flex', flexDirection: 'column', gap: 12 }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <span style={{ fontSize: 14, fontWeight: 700, color: '#1e293b' }}>팀 멤버</span>
+        <button
+          onClick={refresh}
+          disabled={loading}
+          style={{ padding: '6px 14px', borderRadius: 8, border: '1.5px solid #e2e8f0', background: '#fff', fontSize: 12, fontWeight: 600, color: loading ? '#94a3b8' : '#334155', cursor: loading ? 'not-allowed' : 'pointer' }}
+        >
+          {loading ? '새로고침 중...' : '새로고침'}
+        </button>
+      </div>
+      <div style={{ position: 'relative', borderRadius: 10, border: '1.5px solid #e2e8f0', overflow: 'hidden' }}>
+        {loading && (
+          <div style={{ position: 'absolute', inset: 0, background: 'rgba(255,255,255,0.8)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 10 }}>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 10 }}>
+              <Loading size="medium" />
+              <span style={{ fontSize: 12, color: '#64748b' }}>데이터 불러오는 중...</span>
+            </div>
+          </div>
+        )}
+        <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13 }}>
+          <thead>
+            <tr style={{ background: '#f8fafc' }}>
+              {TABLE_HEADERS.map((h) => (
+                <th key={h} style={{ padding: '10px 14px', textAlign: 'left', fontWeight: 700, color: '#475569', borderBottom: '1.5px solid #e2e8f0' }}>{h}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {data.length === 0 ? (
+              <tr>
+                <td colSpan={4} style={{ padding: '32px', textAlign: 'center', color: '#94a3b8', fontSize: 13 }}>
+                  {loading ? '' : '데이터 없음'}
+                </td>
+              </tr>
+            ) : (
+              data.map((row, i) => (
+                <tr key={i} style={{ borderBottom: '1px solid #f1f5f9' }}>
+                  {row.map((cell, j) => (
+                    <td key={j} style={{ padding: '10px 14px', color: j === 1 ? (cell === '활성' ? '#10b981' : '#ef4444') : '#334155', fontWeight: j === 1 ? 700 : 400 }}>{cell}</td>
+                  ))}
+                </tr>
+              ))
+            )}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  )
+}
+
+export const Tailwind_테이블_로딩_오버레이: Story = {
+  name: 'Tailwind UI - 데이터 테이블 로딩 오버레이 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Tailwind UI Table with Loading Overlay 패턴. 반투명 오버레이 + Loading 스피너로 ' +
+          '기존 레이아웃을 유지하면서 로딩 상태를 표시합니다. 새로고침 버튼으로 상태 전환을 시뮬레이션합니다.',
+      },
+    },
+  },
+  render: () => <TailwindTableLoadingRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Arco Design 벤치마크: 진행률 기반 단계별 로딩
+   Arco의 Steps + Spin 패턴 — 멀티스텝 처리 중 각 단계를 명시적으로 표시
+-------------------------------------------------------------------------- */
+type StepStatus = 'waiting' | 'loading' | 'done' | 'error'
+type ProcessStep = { id: string; label: string; desc: string }
+
+const PROCESS_STEPS: ProcessStep[] = [
+  { id: 'validate', label: '유효성 검사', desc: '입력값과 권한을 확인합니다' },
+  { id: 'upload', label: '파일 업로드', desc: '서버에 파일을 전송합니다' },
+  { id: 'process', label: '서버 처리', desc: '데이터를 분석하고 변환합니다' },
+  { id: 'notify', label: '완료 알림', desc: '팀 멤버에게 결과를 전송합니다' },
+]
+
+function ArcoMultistepLoadingRender() {
+  const [stepIdx, setStepIdx] = useState<number | null>(null)
+  const [statuses, setStatuses] = useState<Record<string, StepStatus>>({})
+
+  const run = () => {
+    if (stepIdx !== null) {
+      setStepIdx(null)
+      setStatuses({})
+      return
+    }
+    setStatuses({})
+    let idx = 0
+
+    const next = () => {
+      if (idx >= PROCESS_STEPS.length) {
+        setStepIdx(PROCESS_STEPS.length)
+        return
+      }
+      const step = PROCESS_STEPS[idx]
+      setStepIdx(idx)
+      setStatuses((prev) => ({ ...prev, [step.id]: 'loading' }))
+      const delay = 700 + Math.random() * 600
+      setTimeout(() => {
+        setStatuses((prev) => ({ ...prev, [step.id]: 'done' }))
+        idx++
+        setTimeout(next, 200)
+      }, delay)
+    }
+    next()
+  }
+
+  const statusColor: Record<StepStatus, string> = {
+    waiting: '#94a3b8',
+    loading: '#6366f1',
+    done: '#10b981',
+    error: '#ef4444',
+  }
+
+  return (
+    <div style={{ width: 400, display: 'flex', flexDirection: 'column', gap: 16 }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <span style={{ fontSize: 14, fontWeight: 700, color: '#1e293b' }}>배포 파이프라인</span>
+        <button
+          onClick={run}
+          style={{ padding: '6px 16px', borderRadius: 8, border: 'none', background: stepIdx === null ? '#6366f1' : '#f1f5f9', color: stepIdx === null ? '#fff' : '#64748b', fontSize: 12, fontWeight: 700, cursor: 'pointer' }}
+        >
+          {stepIdx === null ? '실행' : stepIdx < PROCESS_STEPS.length ? '진행 중...' : '초기화'}
+        </button>
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
+        {PROCESS_STEPS.map((step, i) => {
+          const status: StepStatus = statuses[step.id] ?? 'waiting'
+          const isActive = stepIdx === i
+          return (
+            <div key={step.id} style={{ display: 'flex', gap: 14 }}>
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', flexShrink: 0 }}>
+                <div style={{
+                  width: 32,
+                  height: 32,
+                  borderRadius: '50%',
+                  border: `2px solid ${statusColor[status]}`,
+                  background: status === 'done' ? statusColor[status] : '#fff',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  transition: 'all 0.2s',
+                }}>
+                  {isActive && status === 'loading' ? (
+                    <Loading size="small" />
+                  ) : status === 'done' ? (
+                    <span style={{ fontSize: 14, color: '#fff', fontWeight: 700 }}>✓</span>
+                  ) : (
+                    <span style={{ fontSize: 12, fontWeight: 700, color: statusColor[status] }}>{i + 1}</span>
+                  )}
+                </div>
+                {i < PROCESS_STEPS.length - 1 && (
+                  <div style={{ width: 2, flex: 1, minHeight: 24, background: status === 'done' ? '#10b981' : '#e2e8f0', margin: '4px 0', transition: 'background 0.3s' }} />
+                )}
+              </div>
+              <div style={{ paddingBottom: i < PROCESS_STEPS.length - 1 ? 16 : 0, paddingTop: 4 }}>
+                <div style={{ fontSize: 13, fontWeight: 700, color: isActive ? '#6366f1' : status === 'done' ? '#10b981' : '#94a3b8', transition: 'color 0.2s' }}>{step.label}</div>
+                <div style={{ fontSize: 12, color: '#94a3b8', marginTop: 2 }}>{step.desc}</div>
+              </div>
+            </div>
+          )
+        })}
+      </div>
+      {stepIdx !== null && stepIdx >= PROCESS_STEPS.length && (
+        <div style={{ padding: '12px 16px', borderRadius: 10, background: '#dcfce7', border: '1.5px solid #bbf7d0', fontSize: 13, fontWeight: 700, color: '#16a34a', textAlign: 'center' }}>
+          모든 단계 완료!
+        </div>
+      )}
+    </div>
+  )
+}
+
+export const Arco_다단계_로딩_파이프라인: Story = {
+  name: 'Arco Design - 다단계 처리 파이프라인 로딩 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Arco Design Steps + Spin 패턴. 각 처리 단계를 명시적으로 표시하고 ' +
+          '현재 진행 중인 단계에 Loading 스피너를 삽입합니다. 실행 버튼으로 시뮬레이션합니다.',
+      },
+    },
+  },
+  render: () => <ArcoMultistepLoadingRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Arco Design 벤치마크: 낙관적 업데이트 로딩 피드백
+   Arco의 Spin + Message 패턴 — 즉각 UI 반영 후 서버 동기화 표시
+-------------------------------------------------------------------------- */
+type TaskItem = { id: number; label: string; done: boolean; saving: boolean }
+
+function ArcoOptimisticUpdateRender() {
+  const [tasks, setTasks] = useState<TaskItem[]>([
+    { id: 1, label: '디자인 토큰 정의', done: true, saving: false },
+    { id: 2, label: '컴포넌트 스토리 작성', done: false, saving: false },
+    { id: 3, label: '접근성 감사 실행', done: false, saving: false },
+    { id: 4, label: '문서 배포', done: false, saving: false },
+  ])
+
+  const toggle = (id: number) => {
+    setTasks((prev) =>
+      prev.map((t) => (t.id === id ? { ...t, done: !t.done, saving: true } : t)),
+    )
+    setTimeout(() => {
+      setTasks((prev) =>
+        prev.map((t) => (t.id === id ? { ...t, saving: false } : t)),
+      )
+    }, 1000)
+  }
+
+  const doneCount = tasks.filter((t) => t.done).length
+
+  return (
+    <div style={{ width: 380, display: 'flex', flexDirection: 'column', gap: 14 }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <span style={{ fontSize: 14, fontWeight: 700, color: '#1e293b' }}>작업 목록</span>
+        <span style={{ fontSize: 12, color: '#64748b' }}>{doneCount}/{tasks.length} 완료</span>
+      </div>
+      <div style={{ height: 4, borderRadius: 2, background: '#f1f5f9', overflow: 'hidden' }}>
+        <div style={{ height: '100%', width: `${(doneCount / tasks.length) * 100}%`, background: '#6366f1', borderRadius: 2, transition: 'width 0.3s' }} />
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+        {tasks.map((task) => (
+          <div
+            key={task.id}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 12,
+              padding: '10px 14px',
+              borderRadius: 8,
+              border: '1px solid #f1f5f9',
+              background: task.done ? '#f0fdf4' : '#fff',
+              transition: 'background 0.2s',
+              cursor: 'pointer',
+            }}
+            onClick={() => !task.saving && toggle(task.id)}
+          >
+            <div style={{
+              width: 20,
+              height: 20,
+              borderRadius: 4,
+              border: `2px solid ${task.done ? '#10b981' : '#d1d5db'}`,
+              background: task.done ? '#10b981' : '#fff',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              flexShrink: 0,
+              transition: 'all 0.15s',
+            }}>
+              {task.done && <span style={{ fontSize: 11, color: '#fff', fontWeight: 900 }}>✓</span>}
+            </div>
+            <span style={{ flex: 1, fontSize: 13, color: task.done ? '#94a3b8' : '#1e293b', textDecoration: task.done ? 'line-through' : 'none', transition: 'all 0.2s' }}>
+              {task.label}
+            </span>
+            {task.saving && (
+              <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                <Loading size="small" />
+                <span style={{ fontSize: 11, color: '#94a3b8' }}>저장 중</span>
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+      <div style={{ fontSize: 11, color: '#94a3b8', textAlign: 'center' }}>
+        항목을 클릭해 즉각 반영 후 서버 동기화 로딩을 확인하세요
+      </div>
+    </div>
+  )
+}
+
+export const Arco_낙관적_업데이트_로딩: Story = {
+  name: 'Arco Design - 낙관적 업데이트 인라인 로딩 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Arco Design Spin + Message 패턴. 체크박스 클릭 시 즉각 UI를 반영(낙관적 업데이트)하고 ' +
+          '서버 동기화 중 인라인 Loading 스피너를 표시합니다. 1초 후 저장 완료 상태로 전환됩니다.',
+      },
+    },
+  },
+  render: () => <ArcoOptimisticUpdateRender />,
+}

@@ -13769,3 +13769,241 @@ export const DesignSystemHub: Story = {
   name: 'Design System Hub (Radix UI + Linear Design 벤치마크)',
   render: () => <DesignSystemHubRender />,
 }
+
+// ============================================================
+// Template 46: ProjectRoadmap (Tailwind UI + Arco Design 벤치마크)
+// ============================================================
+
+type RMPhase = 'planning' | 'in_progress' | 'review' | 'done' | 'blocked'
+type RMPriority = 'critical' | 'high' | 'medium' | 'low'
+type RMQuarter = 'Q1' | 'Q2' | 'Q3' | 'Q4'
+
+type RMItem = {
+  id: string
+  title: string
+  phase: RMPhase
+  priority: RMPriority
+  quarter: RMQuarter
+  progress: number
+  team: string
+  tags: string[]
+}
+
+const RM_PHASE_CFG: Record<RMPhase, { label: string; color: string; bg: string; symbol: string }> = {
+  planning: { label: '계획', color: '#6366f1', bg: '#eef2ff', symbol: '○' },
+  in_progress: { label: '진행 중', color: '#3b82f6', bg: '#dbeafe', symbol: '◑' },
+  review: { label: '검토', color: '#f59e0b', bg: '#fef3c7', symbol: '◎' },
+  done: { label: '완료', color: '#10b981', bg: '#dcfce7', symbol: '●' },
+  blocked: { label: '차단', color: '#ef4444', bg: '#fee2e2', symbol: '✕' },
+}
+
+const RM_PRIORITY_CFG: Record<RMPriority, { label: string; color: string }> = {
+  critical: { label: '긴급', color: '#ef4444' },
+  high: { label: '높음', color: '#f97316' },
+  medium: { label: '보통', color: '#f59e0b' },
+  low: { label: '낮음', color: '#94a3b8' },
+}
+
+const RM_ITEMS: RMItem[] = [
+  { id: 'r1', title: '디자인 토큰 v3 마이그레이션', phase: 'done', priority: 'critical', quarter: 'Q1', progress: 100, team: 'Design', tags: ['tokens', 'breaking'] },
+  { id: 'r2', title: 'DataTable 가상 스크롤 도입', phase: 'in_progress', priority: 'high', quarter: 'Q2', progress: 65, team: 'Frontend', tags: ['performance'] },
+  { id: 'r3', title: 'EclipseProvider 다크모드 전환 애니메이션', phase: 'review', priority: 'medium', quarter: 'Q2', progress: 90, team: 'Design', tags: ['theme', 'animation'] },
+  { id: 'r4', title: '모노레포 번들 최적화 (tree-shaking)', phase: 'in_progress', priority: 'high', quarter: 'Q2', progress: 40, team: 'Platform', tags: ['build', 'dx'] },
+  { id: 'r5', title: 'Command 팔레트 글로벌 단축키', phase: 'planning', priority: 'medium', quarter: 'Q3', progress: 0, team: 'Frontend', tags: ['keyboard', 'ux'] },
+  { id: 'r6', title: 'Figma 플러그인 자동 토큰 추출', phase: 'blocked', priority: 'high', quarter: 'Q3', progress: 20, team: 'Design', tags: ['figma', 'tokens'] },
+  { id: 'r7', title: 'Storybook 8.x 마이그레이션', phase: 'done', priority: 'critical', quarter: 'Q1', progress: 100, team: 'Platform', tags: ['docs', 'build'] },
+  { id: 'r8', title: '접근성 감사 및 WAI-ARIA 보강', phase: 'planning', priority: 'high', quarter: 'Q3', progress: 5, team: 'Design', tags: ['a11y'] },
+]
+
+const rmColors = {
+  bg: '#f8fafc',
+  sidebar: '#ffffff',
+  card: '#ffffff',
+  border: '#e2e8f0',
+  text: '#1e293b',
+  textSub: '#64748b',
+  accent: '#6366f1',
+  accentBg: '#eef2ff',
+}
+
+function ProjectRoadmapRender() {
+  const [filterPhase, setFilterPhase] = useState<RMPhase | 'all'>('all')
+  const [filterQuarter, setFilterQuarter] = useState<RMQuarter | 'all'>('all')
+  const [selectedId, setSelectedId] = useState<string | null>('r2')
+
+  const filtered = RM_ITEMS.filter((item) => {
+    const matchPhase = filterPhase === 'all' || item.phase === filterPhase
+    const matchQ = filterQuarter === 'all' || item.quarter === filterQuarter
+    return matchPhase && matchQ
+  })
+
+  const selected = RM_ITEMS.find((i) => i.id === selectedId)
+
+  const quarterGroups: Record<RMQuarter, RMItem[]> = { Q1: [], Q2: [], Q3: [], Q4: [] }
+  filtered.forEach((item) => quarterGroups[item.quarter].push(item))
+
+  const overallProgress = Math.round(RM_ITEMS.reduce((s, i) => s + i.progress, 0) / RM_ITEMS.length)
+
+  return (
+    <div style={{ display: 'flex', height: '640px', background: rmColors.bg, borderRadius: 12, overflow: 'hidden', border: `1px solid ${rmColors.border}` }}>
+      {/* Left: Roadmap timeline */}
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+        {/* Header */}
+        <div style={{ padding: '16px 20px', borderBottom: `1px solid ${rmColors.border}`, background: rmColors.card }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 }}>
+            <div>
+              <div style={{ fontSize: 16, fontWeight: 700, color: rmColors.text }}>Product Roadmap 2026</div>
+              <div style={{ fontSize: 12, color: rmColors.textSub }}>전체 진도 {overallProgress}%</div>
+            </div>
+            <div style={{ display: 'flex', gap: 6 }}>
+              <OutlineButton color="black" size="small">내보내기</OutlineButton>
+              <SolidButton color="primary" size="small">아이템 추가</SolidButton>
+            </div>
+          </div>
+          <Progress value={overallProgress} />
+          {/* Filters */}
+          <div style={{ display: 'flex', gap: 8, marginTop: 10, flexWrap: 'wrap' }}>
+            <div style={{ display: 'flex', gap: 4 }}>
+              {(['all', 'Q1', 'Q2', 'Q3', 'Q4'] as const).map((q) => (
+                <button
+                  key={q}
+                  onClick={() => setFilterQuarter(q)}
+                  style={{
+                    padding: '3px 10px', borderRadius: 8, border: 'none', cursor: 'pointer', fontSize: 11, fontWeight: 600,
+                    background: filterQuarter === q ? rmColors.accent : rmColors.border,
+                    color: filterQuarter === q ? '#fff' : rmColors.textSub,
+                    transition: 'all 0.15s',
+                  }}
+                >
+                  {q === 'all' ? '전체' : q}
+                </button>
+              ))}
+            </div>
+            <div style={{ display: 'flex', gap: 4 }}>
+              {(['all', 'in_progress', 'planning', 'review', 'done', 'blocked'] as const).map((ph) => {
+                const cfg = ph !== 'all' ? RM_PHASE_CFG[ph] : null
+                return (
+                  <button
+                    key={ph}
+                    onClick={() => setFilterPhase(ph)}
+                    style={{
+                      padding: '3px 10px', borderRadius: 8, border: 'none', cursor: 'pointer', fontSize: 11, fontWeight: 600,
+                      background: filterPhase === ph ? (cfg?.color ?? rmColors.accent) : rmColors.border,
+                      color: filterPhase === ph ? '#fff' : rmColors.textSub,
+                      transition: 'all 0.15s',
+                    }}
+                  >
+                    {ph === 'all' ? '전체' : cfg?.label}
+                  </button>
+                )
+              })}
+            </div>
+          </div>
+        </div>
+
+        {/* Timeline by quarter */}
+        <div style={{ flex: 1, overflowY: 'auto', padding: '16px 20px', display: 'flex', flexDirection: 'column', gap: 16 }}>
+          {(['Q1', 'Q2', 'Q3', 'Q4'] as const).map((q) => {
+            const items = quarterGroups[q]
+            if (items.length === 0) return null
+            return (
+              <div key={q}>
+                <div style={{ fontSize: 11, fontWeight: 800, color: rmColors.textSub, textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 8 }}>{q} 2026</div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+                  {items.map((item) => {
+                    const ph = RM_PHASE_CFG[item.phase]
+                    const pr = RM_PRIORITY_CFG[item.priority]
+                    const isSelected = item.id === selectedId
+                    return (
+                      <div
+                        key={item.id}
+                        onClick={() => setSelectedId(item.id === selectedId ? null : item.id)}
+                        style={{
+                          padding: '10px 14px',
+                          borderRadius: 10,
+                          border: `1.5px solid ${isSelected ? rmColors.accent : rmColors.border}`,
+                          background: isSelected ? rmColors.accentBg : rmColors.card,
+                          cursor: 'pointer',
+                          transition: 'all 0.15s',
+                        }}
+                      >
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 6 }}>
+                          <span style={{ fontSize: 14, color: ph.color }}>{ph.symbol}</span>
+                          <span style={{ fontSize: 13, fontWeight: 600, color: isSelected ? rmColors.accent : rmColors.text, flex: 1 }}>{item.title}</span>
+                          <span style={{ fontSize: 11, fontWeight: 700, color: pr.color }}>{pr.label}</span>
+                        </div>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                          <div style={{ flex: 1 }}>
+                            <Progress value={item.progress} />
+                          </div>
+                          <span style={{ fontSize: 11, fontWeight: 700, color: ph.color, whiteSpace: 'nowrap' }}>{item.progress}%</span>
+                          <span style={{ fontSize: 11, padding: '1px 8px', borderRadius: 10, background: ph.bg, color: ph.color, fontWeight: 600 }}>{ph.label}</span>
+                        </div>
+                      </div>
+                    )
+                  })}
+                </div>
+              </div>
+            )
+          })}
+        </div>
+      </div>
+
+      {/* Right: Detail panel */}
+      <div style={{ width: 260, borderLeft: `1px solid ${rmColors.border}`, background: rmColors.card, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+        {selected ? (
+          <>
+            <div style={{ padding: '16px', borderBottom: `1px solid ${rmColors.border}` }}>
+              <div style={{ fontSize: 13, fontWeight: 700, color: rmColors.text, marginBottom: 6, lineHeight: 1.4 }}>{selected.title}</div>
+              <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+                <span style={{ padding: '2px 8px', borderRadius: 10, fontSize: 11, fontWeight: 700, background: RM_PHASE_CFG[selected.phase].bg, color: RM_PHASE_CFG[selected.phase].color }}>
+                  {RM_PHASE_CFG[selected.phase].label}
+                </span>
+                <span style={{ padding: '2px 8px', borderRadius: 10, fontSize: 11, fontWeight: 700, background: '#f1f5f9', color: RM_PRIORITY_CFG[selected.priority].color }}>
+                  {RM_PRIORITY_CFG[selected.priority].label}
+                </span>
+              </div>
+            </div>
+            <div style={{ flex: 1, overflowY: 'auto', padding: 16, display: 'flex', flexDirection: 'column', gap: 14 }}>
+              <div>
+                <div style={{ fontSize: 11, fontWeight: 700, color: rmColors.textSub, marginBottom: 6 }}>진도</div>
+                <Progress value={selected.progress} />
+                <div style={{ fontSize: 11, color: rmColors.textSub, marginTop: 4 }}>{selected.progress}% 완료</div>
+              </div>
+              {[{ label: '분기', value: selected.quarter }, { label: '팀', value: selected.team }].map(({ label, value }) => (
+                <div key={label}>
+                  <div style={{ fontSize: 11, fontWeight: 700, color: rmColors.textSub, marginBottom: 4 }}>{label}</div>
+                  <div style={{ fontSize: 13, fontWeight: 600, color: rmColors.text }}>{value}</div>
+                </div>
+              ))}
+              <div>
+                <div style={{ fontSize: 11, fontWeight: 700, color: rmColors.textSub, marginBottom: 6 }}>태그</div>
+                <div style={{ display: 'flex', gap: 4, flexWrap: 'wrap' }}>
+                  {selected.tags.map((tag) => (
+                    <span key={tag} style={{ padding: '2px 8px', borderRadius: 10, fontSize: 11, background: rmColors.accentBg, color: rmColors.accent, fontWeight: 600 }}>{tag}</span>
+                  ))}
+                </div>
+              </div>
+            </div>
+            <div style={{ padding: '12px 16px', borderTop: `1px solid ${rmColors.border}`, display: 'flex', gap: 8 }}>
+              <SolidButton color="primary" size="small" style={{ flex: 1 }}>편집</SolidButton>
+              <OutlineButton color="black" size="small">삭제</OutlineButton>
+            </div>
+          </>
+        ) : (
+          <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 24 }}>
+            <div style={{ textAlign: 'center', color: rmColors.textSub, fontSize: 13 }}>
+              <div style={{ fontSize: 24, marginBottom: 8, color: "#94a3b8" }}>▣</div>
+              아이템을 선택해 상세 정보를 확인하세요
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+
+export const ProjectRoadmap: Story = {
+  name: 'Project Roadmap (Tailwind UI + Arco Design 벤치마크)',
+  render: () => <ProjectRoadmapRender />,
+}
