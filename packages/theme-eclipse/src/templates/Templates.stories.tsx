@@ -83,6 +83,7 @@ import {
   ShareIcon,
   RefreshLineIcon,
   CancelIcon,
+  DownloadIcon,
 } from '@heejun-com/icons'
 
 import { Command } from '../components/Command'
@@ -41182,4 +41183,229 @@ export const ShadcnLinear184ProjectBoard: StoryObj = {
     },
   },
   render: () => <ShadcnLinear184Render />,
+}
+
+/* ==========================================================================
+   Cycle 185 — Vercel Design + Mantine: 파일 관리자 & 릴리즈 대시보드
+========================================================================== */
+const VERCEL185_FILES = [
+  { name: 'storybook-static', type: 'folder', size: '14 MB', modified: '방금', env: 'Production' },
+  { name: 'packages', type: 'folder', size: '—', modified: '1시간 전', env: 'Development' },
+  { name: 'package.json', type: 'file', size: '2.1 KB', modified: '1일 전', env: 'Production' },
+  { name: 'pnpm-workspace.yaml', type: 'file', size: '312 B', modified: '2일 전', env: 'Development' },
+  { name: '.vercel', type: 'folder', size: '—', modified: '1주 전', env: 'Preview' },
+  { name: 'CLAUDE.md', type: 'file', size: '18 KB', modified: '3일 전', env: 'Development' },
+  { name: 'turbo.json', type: 'file', size: '1.2 KB', modified: '5일 전', env: 'Production' },
+  { name: '.github', type: 'folder', size: '—', modified: '1주 전', env: 'Preview' },
+]
+
+const MANTINE185_RELEASES = [
+  { version: 'v2.5.0', date: '2026-04-22', type: 'sale' as const, features: 4, fixes: 6, tag: 'Latest' },
+  { version: 'v2.4.1', date: '2026-03-18', type: 'benefit' as const, features: 1, fixes: 9, tag: 'Stable' },
+  { version: 'v2.4.0', date: '2026-02-14', type: 'sale' as const, features: 8, fixes: 3, tag: 'Breaking' },
+  { version: 'v2.3.x', date: '2026-01-29', type: 'gray' as const, features: 0, fixes: 5, tag: 'LTS' },
+]
+
+const ENV_BADGE_COLOR: Record<string, 'sale' | 'benefit' | 'gray'> = {
+  Production: 'sale', Preview: 'benefit', Development: 'gray',
+}
+
+const V185_STATUS_DOT: Record<string, string> = { Production: '#0f0', Preview: '#fbbf24', Development: '#60a5fa' }
+
+function VercelMantine185Render() {
+  const [view, setView] = useState<'list' | 'grid'>('list')
+  const [selectedFiles, setSelectedFiles] = useState<Set<string>>(new Set())
+  const [sortAsc, setSortAsc] = useState(true)
+  const [envFilter, setEnvFilter] = useState('all')
+  const [expandedRelease, setExpandedRelease] = useState<string | null>('v2.5.0')
+  const [activeSidePanel, setActiveSidePanel] = useState<'releases' | 'envs'>('releases')
+
+  const filtered = VERCEL185_FILES.filter(f => envFilter === 'all' || f.env === envFilter)
+  const sorted = [...filtered].sort((a, b) => sortAsc ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name))
+
+  const toggleFile = (name: string) => {
+    setSelectedFiles(prev => {
+      const next = new Set(prev)
+      if (next.has(name)) next.delete(name)
+      else next.add(name)
+      return next
+    })
+  }
+
+  return (
+    <div style={{ display: 'flex', height: '100vh', fontFamily: "'Inter', system-ui, sans-serif", background: '#000', overflow: 'hidden' }}>
+
+      {/* Left: Vercel-style file manager */}
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', borderRight: '1px solid #222', overflow: 'hidden' }}>
+        {/* Toolbar */}
+        <div style={{ height: 52, background: '#000', borderBottom: '1px solid #222', display: 'flex', alignItems: 'center', padding: '0 20px', gap: 10, flexShrink: 0 }}>
+          <span style={{ fontSize: 14, fontWeight: 700, color: '#fff' }}>파일 관리자</span>
+          <span style={{ fontSize: 11, color: '#444' }}>orbit-ui/</span>
+          <div style={{ marginLeft: 'auto', display: 'flex', gap: 6, alignItems: 'center' }}>
+            {/* Env filter */}
+            {['all', 'Production', 'Preview', 'Development'].map(env => (
+              <button
+                key={env}
+                onClick={() => setEnvFilter(env)}
+                style={{ fontSize: 10, padding: '3px 8px', borderRadius: 8, border: `1px solid ${envFilter === env ? '#555' : '#333'}`, background: envFilter === env ? '#222' : 'transparent', color: envFilter === env ? '#fff' : '#555', cursor: 'pointer' }}
+              >
+                {env === 'all' ? '전체' : env}
+              </button>
+            ))}
+            <div style={{ width: 1, height: 18, background: '#333' }} />
+            <OutlineIconButton color={sortAsc ? 'black' : 'gray'} size="small" onClick={() => setSortAsc(s => !s)} style={{ borderColor: '#333' }}>
+              <ArrowSortIcon size={15} color="#aaa" style={{ transform: sortAsc ? 'none' : 'scaleY(-1)' }} />
+            </OutlineIconButton>
+            <OutlineIconButton color={view === 'list' ? 'black' : 'gray'} size="small" onClick={() => setView('list')} style={{ borderColor: '#333' }}>
+              <ListLineIcon size={15} color="#aaa" />
+            </OutlineIconButton>
+            <OutlineIconButton color={view === 'grid' ? 'black' : 'gray'} size="small" onClick={() => setView('grid')} style={{ borderColor: '#333' }}>
+              <GridViewLineIcon size={15} color="#aaa" />
+            </OutlineIconButton>
+            <OutlineIconButton color="gray" size="small" disabled={selectedFiles.size === 0} style={{ borderColor: '#333' }}>
+              <DownloadIcon size={15} color={selectedFiles.size > 0 ? '#aaa' : '#444'} />
+            </OutlineIconButton>
+          </div>
+        </div>
+
+        {/* File list */}
+        <div style={{ flex: 1, overflowY: 'auto', padding: view === 'grid' ? 12 : 0 }}>
+          {sorted.length === 0 && (
+            <div style={{ padding: 40, textAlign: 'center', color: '#444', fontSize: 13 }}>파일 없음</div>
+          )}
+          {view === 'list' ? sorted.map(f => (
+            <div
+              key={f.name}
+              onClick={() => toggleFile(f.name)}
+              style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '10px 20px', borderBottom: '1px solid #111', background: selectedFiles.has(f.name) ? '#111' : 'transparent', cursor: 'pointer' }}
+            >
+              <span style={{ fontSize: 16 }}>{f.type === 'folder' ? '📁' : '📄'}</span>
+              <span style={{ fontSize: 13, color: '#e5e7eb', flex: 1 }}>{f.name}</span>
+              <LabelBadge color={ENV_BADGE_COLOR[f.env]}>
+                <LabelBadge.Label>{f.env}</LabelBadge.Label>
+              </LabelBadge>
+              <span style={{ fontSize: 11, color: '#555', minWidth: 52, textAlign: 'right' }}>{f.size}</span>
+              <span style={{ fontSize: 10, color: '#444', minWidth: 48, textAlign: 'right' }}>{f.modified}</span>
+              <div style={{ width: 6, height: 6, borderRadius: '50%', background: V185_STATUS_DOT[f.env], flexShrink: 0 }} />
+            </div>
+          )) : (
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 10 }}>
+              {sorted.map(f => (
+                <div
+                  key={f.name}
+                  onClick={() => toggleFile(f.name)}
+                  style={{ padding: '14px 10px', borderRadius: 8, border: `1px solid ${selectedFiles.has(f.name) ? '#555' : '#222'}`, background: selectedFiles.has(f.name) ? '#111' : '#0a0a0a', textAlign: 'center', cursor: 'pointer' }}
+                >
+                  <div style={{ fontSize: 24, marginBottom: 8 }}>{f.type === 'folder' ? '📁' : '📄'}</div>
+                  <div style={{ fontSize: 11, color: '#e5e7eb', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', marginBottom: 6 }}>{f.name}</div>
+                  <LabelBadge color={ENV_BADGE_COLOR[f.env]}>
+                    <LabelBadge.Label>{f.env}</LabelBadge.Label>
+                  </LabelBadge>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* Status bar */}
+        <div style={{ height: 36, background: '#000', borderTop: '1px solid #222', display: 'flex', alignItems: 'center', padding: '0 20px', gap: 16, fontSize: 11, color: '#555', flexShrink: 0 }}>
+          <span>{sorted.length}개 항목</span>
+          {selectedFiles.size > 0 && <span style={{ color: '#aaa' }}>{selectedFiles.size}개 선택됨</span>}
+        </div>
+      </div>
+
+      {/* Right: Mantine-style release & env panel */}
+      <div style={{ width: 300, background: '#0a0a0a', display: 'flex', flexDirection: 'column', flexShrink: 0 }}>
+        {/* Panel tabs */}
+        <div style={{ display: 'flex', borderBottom: '1px solid #222', flexShrink: 0 }}>
+          {(['releases', 'envs'] as const).map(tab => (
+            <button
+              key={tab}
+              onClick={() => setActiveSidePanel(tab)}
+              style={{ flex: 1, padding: '12px 0', fontSize: 11, fontWeight: activeSidePanel === tab ? 600 : 400, color: activeSidePanel === tab ? '#fff' : '#555', background: 'none', border: 'none', borderBottom: `2px solid ${activeSidePanel === tab ? '#fff' : 'transparent'}`, cursor: 'pointer' }}
+            >
+              {tab === 'releases' ? '릴리즈' : '환경'}
+            </button>
+          ))}
+        </div>
+
+        {activeSidePanel === 'releases' ? (
+          <div style={{ flex: 1, overflowY: 'auto', padding: '12px 14px' }}>
+            <div style={{ fontSize: 11, fontWeight: 700, color: '#888', marginBottom: 10, textTransform: 'uppercase', letterSpacing: '0.05em' }}>버전 이력</div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+              {MANTINE185_RELEASES.map(rel => (
+                <div key={rel.version} style={{ borderRadius: 8, border: '1px solid #222', overflow: 'hidden' }}>
+                  <div
+                    onClick={() => setExpandedRelease(expandedRelease === rel.version ? null : rel.version)}
+                    style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '9px 12px', background: expandedRelease === rel.version ? '#111' : 'transparent', cursor: 'pointer' }}
+                  >
+                    <span style={{ fontSize: 12, fontWeight: 700, color: '#e5e7eb', fontFamily: 'monospace', flex: 1 }}>{rel.version}</span>
+                    <LabelBadge color={rel.type}>
+                      <LabelBadge.Label>{rel.tag}</LabelBadge.Label>
+                    </LabelBadge>
+                  </div>
+                  {expandedRelease === rel.version && (
+                    <div style={{ padding: '8px 12px', borderTop: '1px solid #1a1a1a', display: 'flex', gap: 14 }}>
+                      <div style={{ textAlign: 'center' }}>
+                        <div style={{ fontSize: 16, fontWeight: 800, color: '#818cf8' }}>{rel.features}</div>
+                        <div style={{ fontSize: 9, color: '#555' }}>신기능</div>
+                      </div>
+                      <div style={{ textAlign: 'center' }}>
+                        <div style={{ fontSize: 16, fontWeight: 800, color: '#34d399' }}>{rel.fixes}</div>
+                        <div style={{ fontSize: 9, color: '#555' }}>수정</div>
+                      </div>
+                      <div style={{ fontSize: 10, color: '#555', alignSelf: 'center' }}>{rel.date}</div>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        ) : (
+          <div style={{ flex: 1, overflowY: 'auto', padding: '12px 14px' }}>
+            <div style={{ fontSize: 11, fontWeight: 700, color: '#888', marginBottom: 10, textTransform: 'uppercase', letterSpacing: '0.05em' }}>배포 환경</div>
+            {['Production', 'Preview', 'Development'].map(env => {
+              const count = VERCEL185_FILES.filter(f => f.env === env).length
+              return (
+                <div key={env} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 12px', borderRadius: 8, border: '1px solid #222', marginBottom: 8, background: '#111' }}>
+                  <div style={{ width: 8, height: 8, borderRadius: '50%', background: V185_STATUS_DOT[env], flexShrink: 0 }} />
+                  <div style={{ flex: 1 }}>
+                    <LabelBadge color={ENV_BADGE_COLOR[env]}>
+                      <LabelBadge.Label>{env}</LabelBadge.Label>
+                    </LabelBadge>
+                  </div>
+                  <span style={{ fontSize: 11, color: '#555' }}>{count}개 파일</span>
+                </div>
+              )
+            })}
+          </div>
+        )}
+
+        {/* Bottom actions */}
+        <div style={{ padding: '10px 14px', borderTop: '1px solid #222', display: 'flex', gap: 6, flexShrink: 0 }}>
+          <OutlineIconButton color="gray" size="small" style={{ borderColor: '#333' }}>
+            <RefreshLineIcon size={15} color="#666" />
+          </OutlineIconButton>
+          <OutlineIconButton color="gray" size="small" style={{ borderColor: '#333' }}>
+            <SettingLineIcon size={15} color="#666" />
+          </OutlineIconButton>
+          <div style={{ flex: 1 }} />
+          <span style={{ fontSize: 10, color: '#333', alignSelf: 'center' }}>orbit-ui v2.5.0</span>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const VercelMantine185FileManager: StoryObj = {
+  name: 'Vercel Design + Mantine — 파일 관리자 & 릴리즈 대시보드 (Cycle 185)',
+  parameters: {
+    layout: 'fullscreen',
+    docs: {
+      description: {
+        story: 'Vercel Design + Mantine 복합 패턴. 좌측: Vercel 다크 파일 관리자(OutlineIconButton 툴바 + LabelBadge 환경 배지 + 리스트/그리드 뷰) / 우측: Mantine Accordion 릴리즈 노트(LabelBadge 버전 태그) + 환경 상태 패널.',
+      },
+    },
+  },
+  render: () => <VercelMantine185Render />,
 }

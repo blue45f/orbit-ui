@@ -1329,3 +1329,190 @@ export const Radix_Tailwind_PR_리뷰_배지_대시보드: Story = {
   },
   render: () => <RadixTailwindPRDashboardRender />,
 }
+
+/* --------------------------------------------------------------------------
+   Vercel Design — 배포 환경 배지 시스템
+-------------------------------------------------------------------------- */
+const VERCEL_ENVS = [
+  { label: 'Production', color: 'sale' as const, dot: '#0f0', desc: '프로덕션 환경' },
+  { label: 'Preview', color: 'benefit' as const, dot: '#fbbf24', desc: '프리뷰 환경' },
+  { label: 'Development', color: 'gray' as const, dot: '#60a5fa', desc: '개발 환경' },
+]
+
+const VERCEL_DEPLOYS = [
+  { id: 'd-abc123', branch: 'main', env: 'Production', status: 'Ready', age: '2m 전' },
+  { id: 'd-def456', branch: 'feature/ui', env: 'Preview', status: 'Building', age: '5m 전' },
+  { id: 'd-ghi789', branch: 'fix/badge', env: 'Preview', status: 'Error', age: '12m 전' },
+  { id: 'd-jkl012', branch: 'main', env: 'Development', status: 'Ready', age: '1h 전' },
+]
+
+const STATUS_DOT: Record<string, string> = { Ready: '#0f0', Building: '#fbbf24', Error: '#ef4444' }
+
+function VercelDeployEnvBadgeRender() {
+  return (
+    <div style={{ width: 380, fontFamily: "'Inter', system-ui, sans-serif", background: '#000', borderRadius: 12, border: '1px solid #222', overflow: 'hidden' }}>
+      <div style={{ padding: '12px 16px', borderBottom: '1px solid #222', display: 'flex', gap: 12, alignItems: 'center' }}>
+        {VERCEL_ENVS.map(env => (
+          <div key={env.label} style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+            <LabelBadge color={env.color}>
+              <LabelBadge.Label>{env.label}</LabelBadge.Label>
+            </LabelBadge>
+          </div>
+        ))}
+      </div>
+      <div style={{ padding: '8px 0' }}>
+        {VERCEL_DEPLOYS.map(d => (
+          <div key={d.id} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '9px 16px' }}>
+            <div style={{ width: 7, height: 7, borderRadius: '50%', background: STATUS_DOT[d.status], flexShrink: 0 }} />
+            <span style={{ fontSize: 11, color: '#888', fontFamily: 'monospace', minWidth: 80 }}>{d.id}</span>
+            <span style={{ fontSize: 12, color: '#ccc', flex: 1 }}>{d.branch}</span>
+            <LabelBadge color={VERCEL_ENVS.find(e => e.label === d.env)?.color ?? 'gray'}>
+              <LabelBadge.Label>{d.env}</LabelBadge.Label>
+            </LabelBadge>
+            <span style={{ fontSize: 10, color: '#555', minWidth: 44, textAlign: 'right' }}>{d.age}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+export const Vercel_배포_환경_배지_시스템: Story = {
+  name: 'Vercel Design — 배포 환경 배지 시스템',
+  render: () => <VercelDeployEnvBadgeRender />,
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Vercel Design 배포 환경 배지 패턴. Production/Preview/Development 환경을 LabelBadge color variant로 구분합니다. ' +
+          'Vercel의 다크 배포 로그 UI와 환경별 색상 코딩을 반영합니다.',
+      },
+    },
+  },
+}
+
+/* --------------------------------------------------------------------------
+   Mantine — 날짜 컴포넌트 상태 배지
+-------------------------------------------------------------------------- */
+const MANTINE_DATE_EVENTS = [
+  { date: '4월 11일', label: 'Sprint 시작', badge: 'benefit' as const, note: '2주 스프린트' },
+  { date: '4월 15일', label: '코드 프리즈', badge: 'sale' as const, note: '새 기능 병합 중단' },
+  { date: '4월 18일', label: '릴리즈 리뷰', badge: 'gray' as const, note: '스테이징 검증' },
+  { date: '4월 22일', label: 'v2.5 출시', badge: 'sale' as const, note: '프로덕션 배포' },
+  { date: '4월 25일', label: 'Sprint 종료', badge: 'benefit' as const, note: '회고 및 회의' },
+]
+
+function MantineDateStateBadgeRender() {
+  const [highlight, setHighlight] = useState<string | null>(null)
+  return (
+    <div style={{ width: 340, fontFamily: "'Inter', system-ui, sans-serif" }}>
+      <div style={{ fontSize: 13, fontWeight: 700, color: '#1e293b', marginBottom: 12 }}>릴리즈 일정 캘린더</div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+        {MANTINE_DATE_EVENTS.map(ev => (
+          <div
+            key={ev.date}
+            onClick={() => setHighlight(highlight === ev.date ? null : ev.date)}
+            style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '9px 12px', borderRadius: 8, background: highlight === ev.date ? '#f8fafc' : '#fff', border: `1px solid ${highlight === ev.date ? '#e2e8f0' : '#f1f5f9'}`, cursor: 'pointer', transition: 'all 0.12s' }}
+          >
+            <div style={{ minWidth: 70, fontSize: 11, color: '#64748b', fontWeight: 500 }}>{ev.date}</div>
+            <LabelBadge color={ev.badge}>
+              <LabelBadge.Label>{ev.label}</LabelBadge.Label>
+            </LabelBadge>
+            <span style={{ fontSize: 11, color: '#94a3b8', flex: 1 }}>{ev.note}</span>
+          </div>
+        ))}
+      </div>
+      {highlight && (
+        <div style={{ marginTop: 10, padding: '10px 12px', borderRadius: 8, background: '#f0f9ff', border: '1px solid #bae6fd', fontSize: 12, color: '#0369a1' }}>
+          {MANTINE_DATE_EVENTS.find(e => e.date === highlight)?.date} — {MANTINE_DATE_EVENTS.find(e => e.date === highlight)?.note}
+        </div>
+      )}
+    </div>
+  )
+}
+
+export const Mantine_날짜_컴포넌트_일정_배지: Story = {
+  name: 'Mantine — 날짜 컴포넌트 일정 배지',
+  render: () => <MantineDateStateBadgeRender />,
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Mantine Calendar/DatePicker 일정 패턴. 릴리즈 이벤트를 날짜별로 나열하고 LabelBadge로 유형을 구분합니다. ' +
+          'Mantine의 날짜 컴포넌트 인터랙션과 이벤트 강조 UX를 반영합니다.',
+      },
+    },
+  },
+}
+
+/* --------------------------------------------------------------------------
+   Vercel + Mantine — 릴리즈 노트 배지 대시보드
+-------------------------------------------------------------------------- */
+const RELEASE_NOTES = [
+  { version: 'v2.5.0', date: '2026-04-22', type: 'sale', features: 3, fixes: 5, breaking: false },
+  { version: 'v2.4.1', date: '2026-03-18', type: 'benefit', features: 1, fixes: 8, breaking: false },
+  { version: 'v2.4.0', date: '2026-02-14', type: 'sale', features: 7, fixes: 3, breaking: true },
+  { version: 'v2.3.2', date: '2026-01-29', type: 'gray', features: 0, fixes: 4, breaking: false },
+]
+
+function VercelMantineReleaseNoteRender() {
+  const [expanded, setExpanded] = useState<string | null>('v2.5.0')
+  return (
+    <div style={{ width: 380, fontFamily: "'Inter', system-ui, sans-serif" }}>
+      <div style={{ fontSize: 13, fontWeight: 700, color: '#0f172a', marginBottom: 12 }}>릴리즈 노트</div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+        {RELEASE_NOTES.map(rel => (
+          <div key={rel.version} style={{ borderRadius: 10, border: '1px solid #e2e8f0', overflow: 'hidden' }}>
+            <div
+              onClick={() => setExpanded(expanded === rel.version ? null : rel.version)}
+              style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 14px', background: expanded === rel.version ? '#f8fafc' : '#fff', cursor: 'pointer' }}
+            >
+              <span style={{ fontSize: 13, fontWeight: 700, color: '#1e293b', minWidth: 60, fontFamily: 'monospace' }}>{rel.version}</span>
+              <LabelBadge color={rel.type as 'sale' | 'benefit' | 'gray'}>
+                <LabelBadge.Label>{rel.type === 'sale' ? 'Major' : rel.type === 'benefit' ? 'Minor' : 'Patch'}</LabelBadge.Label>
+              </LabelBadge>
+              {rel.breaking && (
+                <LabelBadge color="sale">
+                  <LabelBadge.Label>Breaking</LabelBadge.Label>
+                </LabelBadge>
+              )}
+              <span style={{ marginLeft: 'auto', fontSize: 10, color: '#94a3b8' }}>{rel.date}</span>
+            </div>
+            {expanded === rel.version && (
+              <div style={{ padding: '10px 14px', borderTop: '1px solid #f1f5f9', background: '#fff', display: 'flex', gap: 12 }}>
+                <div style={{ textAlign: 'center' }}>
+                  <div style={{ fontSize: 18, fontWeight: 800, color: '#6366f1' }}>{rel.features}</div>
+                  <div style={{ fontSize: 10, color: '#94a3b8' }}>신기능</div>
+                </div>
+                <div style={{ textAlign: 'center' }}>
+                  <div style={{ fontSize: 18, fontWeight: 800, color: '#10b981' }}>{rel.fixes}</div>
+                  <div style={{ fontSize: 10, color: '#94a3b8' }}>버그수정</div>
+                </div>
+                {rel.breaking && (
+                  <div style={{ textAlign: 'center' }}>
+                    <div style={{ fontSize: 18, fontWeight: 800, color: '#ef4444' }}>!</div>
+                    <div style={{ fontSize: 10, color: '#94a3b8' }}>Breaking</div>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+export const Vercel_Mantine_릴리즈_노트_배지_대시보드: Story = {
+  name: 'Vercel + Mantine — 릴리즈 노트 배지 대시보드',
+  render: () => <VercelMantineReleaseNoteRender />,
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Vercel Design + Mantine 복합 패턴. 버전별 릴리즈 노트를 LabelBadge로 타입(Major/Minor/Patch/Breaking) 구분합니다. ' +
+          'Mantine의 Accordion 패턴과 Vercel의 버전 표시 스타일을 결합합니다.',
+      },
+    },
+  },
+}

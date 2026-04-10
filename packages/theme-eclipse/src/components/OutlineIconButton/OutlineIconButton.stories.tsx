@@ -1429,3 +1429,257 @@ export const Apple_M3_툴바_아이콘_버튼: Story = {
     },
   },
 }
+
+/* --------------------------------------------------------------------------
+   Vercel Design — 배포 컨트롤 액션 클러스터
+-------------------------------------------------------------------------- */
+function VercelDeployControlRender(args: ComponentProps<typeof OutlineIconButton>) {
+  const [isFav, setIsFav] = useState(false)
+  const [status, setStatus] = useState<'idle' | 'deploying' | 'done'>('idle')
+
+  const deploy = () => {
+    setStatus('deploying')
+    setTimeout(() => setStatus('done'), 2000)
+  }
+
+  return (
+    <div style={{ width: 360, fontFamily: "'Inter', system-ui, sans-serif", background: '#000', borderRadius: 12, border: '1px solid #333', overflow: 'hidden' }}>
+      <div style={{ padding: '14px 16px', borderBottom: '1px solid #222', display: 'flex', alignItems: 'center', gap: 10 }}>
+        <div style={{ width: 32, height: 32, borderRadius: 8, background: '#111', border: '1px solid #333', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <span style={{ color: '#fff', fontSize: 16 }}>▲</span>
+        </div>
+        <div>
+          <div style={{ fontSize: 13, fontWeight: 600, color: '#fff' }}>orbit-ui-storybook</div>
+          <div style={{ fontSize: 10, color: '#666' }}>main · {status === 'deploying' ? '배포 중...' : status === 'done' ? '배포 완료' : '준비됨'}</div>
+        </div>
+        <div style={{ marginLeft: 'auto', display: 'flex', gap: 6 }}>
+          <OutlineIconButton {...args} color="gray" size="small" onClick={() => setIsFav(f => !f)} style={{ borderColor: isFav ? '#fff' : '#333', background: isFav ? '#fff' : 'transparent' }}>
+            <StarLineIcon size={16} color={isFav ? '#000' : '#666'} />
+          </OutlineIconButton>
+          <OutlineIconButton {...args} color="gray" size="small" onClick={() => {}} style={{ borderColor: '#333', background: 'transparent' }}>
+            <ShareIcon size={16} color="#666" />
+          </OutlineIconButton>
+          <OutlineIconButton {...args} color="gray" size="small" onClick={() => {}} style={{ borderColor: '#333', background: 'transparent' }}>
+            <MoreHorizontalIcon size={16} color="#666" />
+          </OutlineIconButton>
+        </div>
+      </div>
+      <div style={{ padding: '12px 16px', display: 'flex', gap: 8 }}>
+        <button
+          onClick={deploy}
+          disabled={status === 'deploying'}
+          style={{ flex: 1, padding: '8px 0', borderRadius: 8, border: '1px solid #444', background: status === 'deploying' ? '#222' : '#fff', color: status === 'deploying' ? '#666' : '#000', fontSize: 12, fontWeight: 600, cursor: status === 'deploying' ? 'not-allowed' : 'pointer' }}
+        >
+          {status === 'deploying' ? '배포 중...' : status === 'done' ? '다시 배포' : '프로덕션 배포'}
+        </button>
+        <OutlineIconButton {...args} color="gray" size="small" onClick={() => setStatus('idle')} style={{ borderColor: '#333', background: 'transparent' }}>
+          <RefreshLineIcon size={16} color="#666" />
+        </OutlineIconButton>
+      </div>
+      <div style={{ padding: '10px 16px', borderTop: '1px solid #222', fontSize: 11, color: '#444', display: 'flex', justifyContent: 'space-between' }}>
+        <span>마지막 배포: 방금 전</span>
+        <span style={{ color: status === 'done' ? '#0f0' : '#666' }}>{status === 'done' ? '● Ready' : status === 'deploying' ? '● Building' : '● Idle'}</span>
+      </div>
+    </div>
+  )
+}
+
+export const Vercel_배포_컨트롤_액션_클러스터: Story = {
+  name: 'Vercel Design — 배포 컨트롤 액션 클러스터',
+  args: { children: <ShareIcon /> },
+  render: (args) => <VercelDeployControlRender {...args} />,
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Vercel Design 배포 컨트롤 패턴. 즐겨찾기/공유/더보기 OutlineIconButton 클러스터와 배포 상태 인디케이터를 다크 카드에 배치합니다. ' +
+          'Vercel의 모노크롬 팔레트와 컴팩트 밀도를 재현합니다.',
+      },
+    },
+  },
+}
+
+/* --------------------------------------------------------------------------
+   Mantine — 훅 기반 상태 관리 툴바
+-------------------------------------------------------------------------- */
+function MantineStatefulToolbarRender(args: ComponentProps<typeof OutlineIconButton>) {
+  const [history, setHistory] = useState<string[]>([])
+  const [future, setFuture] = useState<string[]>([])
+  const [zoom, setZoom] = useState(100)
+  const [downloaded, setDownloaded] = useState(false)
+
+  const addAction = (label: string) => {
+    setHistory(h => [...h, label])
+    setFuture([])
+  }
+
+  const undo = () => {
+    if (history.length === 0) return
+    const last = history[history.length - 1]
+    setHistory(h => h.slice(0, -1))
+    setFuture(f => [last, ...f])
+  }
+
+  const redo = () => {
+    if (future.length === 0) return
+    const next = future[0]
+    setFuture(f => f.slice(1))
+    setHistory(h => [...h, next])
+  }
+
+  return (
+    <div style={{ width: 380, fontFamily: "'Inter', system-ui, sans-serif" }}>
+      <div style={{ fontSize: 11, fontWeight: 600, color: '#64748b', marginBottom: 8 }}>Mantine 훅 기반 상태 툴바</div>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '10px 12px', background: '#fff', borderRadius: 10, border: '1px solid #e2e8f0', boxShadow: '0 1px 4px rgba(0,0,0,0.06)' }}>
+        {/* Undo/Redo */}
+        <div style={{ display: 'flex', gap: 4 }}>
+          <OutlineIconButton {...args} color={history.length > 0 ? 'black' : 'gray'} size="small" onClick={undo} disabled={history.length === 0}>
+            <ChevronLeftLineIcon size={16} />
+          </OutlineIconButton>
+          <OutlineIconButton {...args} color={future.length > 0 ? 'black' : 'gray'} size="small" onClick={redo} disabled={future.length === 0}>
+            <ChevronRightLineIcon size={16} />
+          </OutlineIconButton>
+        </div>
+        <div style={{ width: 1, height: 20, background: '#e2e8f0' }} />
+        {/* Zoom */}
+        <div style={{ display: 'flex', gap: 4, alignItems: 'center' }}>
+          <OutlineIconButton {...args} color="gray" size="small" onClick={() => setZoom(z => Math.max(50, z - 10))}>
+            <span style={{ fontSize: 14, fontWeight: 700 }}>−</span>
+          </OutlineIconButton>
+          <span style={{ fontSize: 11, color: '#64748b', minWidth: 36, textAlign: 'center' }}>{zoom}%</span>
+          <OutlineIconButton {...args} color="gray" size="small" onClick={() => setZoom(z => Math.min(200, z + 10))}>
+            <PlusIcon size={16} />
+          </OutlineIconButton>
+        </div>
+        <div style={{ width: 1, height: 20, background: '#e2e8f0' }} />
+        {/* Actions */}
+        <OutlineIconButton {...args} color="gray" size="small" onClick={() => addAction('편집')}>
+          <WriteLineIcon size={16} />
+        </OutlineIconButton>
+        <OutlineIconButton {...args} color="gray" size="small" onClick={() => { setDownloaded(true); addAction('다운로드'); setTimeout(() => setDownloaded(false), 1500) }}>
+          <DownloadIcon size={16} color={downloaded ? '#6366f1' : undefined} />
+        </OutlineIconButton>
+        <OutlineIconButton {...args} color="gray" size="small" onClick={() => addAction('설정')}>
+          <SettingLineIcon size={16} />
+        </OutlineIconButton>
+      </div>
+      <div style={{ marginTop: 8, display: 'flex', gap: 6, fontSize: 11, color: '#94a3b8' }}>
+        <span>실행 이력: {history.length > 0 ? history.slice(-3).join(' → ') : '없음'}</span>
+        {future.length > 0 && <span style={{ color: '#6366f1' }}>↩ {future.length}개 되돌리기 가능</span>}
+      </div>
+    </div>
+  )
+}
+
+export const Mantine_훅_기반_상태_관리_툴바: Story = {
+  name: 'Mantine — 훅 기반 상태 관리 툴바',
+  args: { children: <RefreshLineIcon /> },
+  render: (args) => <MantineStatefulToolbarRender {...args} />,
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Mantine useHistory/useStateHistory 훅 패턴. Undo/Redo 스택, 줌 제어, 액션 기록 히스토리를 OutlineIconButton 툴바로 구현합니다. ' +
+          'Mantine의 훅 기반 상태 관리와 인터랙티브 피드백 UX를 반영합니다.',
+      },
+    },
+  },
+}
+
+/* --------------------------------------------------------------------------
+   Vercel + Mantine — 파일 관리자 툴바
+-------------------------------------------------------------------------- */
+const FILE_ITEMS = [
+  { name: 'storybook-static', type: 'folder', size: '12 MB', modified: '방금' },
+  { name: 'package.json', type: 'file', size: '2.1 KB', modified: '1일 전' },
+  { name: 'tsconfig.json', type: 'file', size: '1.4 KB', modified: '3일 전' },
+  { name: '.vercel', type: 'folder', size: '—', modified: '1주 전' },
+]
+
+function VercelMantineFileManagerRender(args: ComponentProps<typeof OutlineIconButton>) {
+  const [view, setView] = useState<'grid' | 'list'>('list')
+  const [selected, setSelected] = useState<Set<string>>(new Set())
+  const [sortAsc, setSortAsc] = useState(true)
+
+  const toggleSelect = (name: string) => {
+    setSelected(prev => {
+      const next = new Set(prev)
+      if (next.has(name)) next.delete(name)
+      else next.add(name)
+      return next
+    })
+  }
+
+  const sorted = [...FILE_ITEMS].sort((a, b) => sortAsc ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name))
+
+  return (
+    <div style={{ width: 380, fontFamily: "'Inter', system-ui, sans-serif", background: '#fff', borderRadius: 10, border: '1px solid #e2e8f0', overflow: 'hidden' }}>
+      <div style={{ padding: '10px 14px', borderBottom: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', gap: 8 }}>
+        <span style={{ fontSize: 12, fontWeight: 700, color: '#1e293b', flex: 1 }}>파일 관리자</span>
+        <div style={{ display: 'flex', gap: 4 }}>
+          <OutlineIconButton {...args} color="gray" size="small" onClick={() => setSortAsc(s => !s)}>
+            <ArrowSortIcon size={15} style={{ transform: sortAsc ? 'none' : 'scaleY(-1)' }} />
+          </OutlineIconButton>
+          <OutlineIconButton {...args} color={view === 'grid' ? 'black' : 'gray'} size="small" onClick={() => setView('grid')}>
+            <GridViewLineIcon size={15} />
+          </OutlineIconButton>
+          <OutlineIconButton {...args} color={view === 'list' ? 'black' : 'gray'} size="small" onClick={() => setView('list')}>
+            <ListLineIcon size={15} />
+          </OutlineIconButton>
+          <OutlineIconButton {...args} color="gray" size="small" onClick={() => {}} disabled={selected.size === 0}>
+            <DownloadIcon size={15} color={selected.size > 0 ? undefined : '#cbd5e1'} />
+          </OutlineIconButton>
+        </div>
+      </div>
+      {view === 'list' ? (
+        <div>
+          {sorted.map(f => (
+            <div
+              key={f.name}
+              onClick={() => toggleSelect(f.name)}
+              style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '9px 14px', borderBottom: '1px solid #f8fafc', background: selected.has(f.name) ? '#eff6ff' : '#fff', cursor: 'pointer' }}
+            >
+              <span style={{ fontSize: 16 }}>{f.type === 'folder' ? '📁' : '📄'}</span>
+              <span style={{ fontSize: 12, color: '#1e293b', flex: 1 }}>{f.name}</span>
+              <span style={{ fontSize: 11, color: '#94a3b8', minWidth: 48, textAlign: 'right' }}>{f.size}</span>
+              <span style={{ fontSize: 10, color: '#cbd5e1', minWidth: 44, textAlign: 'right' }}>{f.modified}</span>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div style={{ padding: 10, display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
+          {sorted.map(f => (
+            <div
+              key={f.name}
+              onClick={() => toggleSelect(f.name)}
+              style={{ padding: '12px 10px', borderRadius: 8, border: `1px solid ${selected.has(f.name) ? '#93c5fd' : '#e2e8f0'}`, background: selected.has(f.name) ? '#eff6ff' : '#fff', textAlign: 'center', cursor: 'pointer' }}
+            >
+              <div style={{ fontSize: 24, marginBottom: 6 }}>{f.type === 'folder' ? '📁' : '📄'}</div>
+              <div style={{ fontSize: 11, color: '#1e293b', fontWeight: 500, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{f.name}</div>
+              <div style={{ fontSize: 10, color: '#94a3b8', marginTop: 2 }}>{f.size}</div>
+            </div>
+          ))}
+        </div>
+      )}
+      <div style={{ padding: '8px 14px', borderTop: '1px solid #f1f5f9', fontSize: 11, color: '#94a3b8', display: 'flex', justifyContent: 'space-between' }}>
+        <span>{FILE_ITEMS.length}개 항목</span>
+        {selected.size > 0 && <span style={{ color: '#6366f1' }}>{selected.size}개 선택됨</span>}
+      </div>
+    </div>
+  )
+}
+
+export const Vercel_Mantine_파일_관리자_툴바: Story = {
+  name: 'Vercel + Mantine — 파일 관리자 뷰 전환 툴바',
+  args: { children: <GridViewLineIcon /> },
+  render: (args) => <VercelMantineFileManagerRender {...args} />,
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Vercel Design + Mantine 복합 패턴. 그리드/리스트 뷰 전환, 정렬, 다운로드 OutlineIconButton 툴바를 가진 파일 관리자입니다. ' +
+          'Vercel의 컴팩트 모노크롬 UI와 Mantine의 상태 기반 인터랙션을 결합합니다.',
+      },
+    },
+  },
+}
