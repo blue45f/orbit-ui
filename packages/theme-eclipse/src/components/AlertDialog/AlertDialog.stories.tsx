@@ -999,3 +999,302 @@ export const Ant_폼_이탈_경고: Story = {
   },
   render: () => <LeaveWarningDemo />,
 }
+
+/* --------------------------------------------------------------------------
+   Tailwind UI 벤치마크: 구독 업그레이드 확인
+   Tailwind UI의 upgrade confirmation 패턴 — 현재 플랜과 업그레이드 플랜을
+   나란히 비교해 사용자의 결정을 돕는 인지 부하 최소화 패턴.
+-------------------------------------------------------------------------- */
+const TailwindUpgradeRender = () => {
+  const [confirmed, setConfirmed] = useState(false)
+
+  return (
+    <div style={{ padding: '40px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 16 }}>
+      <Alert>
+        <Alert.Trigger asChild>
+          <Button color="primary" size="medium">
+            <Button.Center>Pro로 업그레이드</Button.Center>
+          </Button>
+        </Alert.Trigger>
+        <Alert.Top>
+          <Alert.Title>Pro 플랜으로 업그레이드하시겠어요?</Alert.Title>
+          <Alert.Description>
+            <div style={{ display: 'flex', gap: 10, marginTop: 12 }}>
+              {[
+                { label: 'Free (현재)', items: ['컴포넌트 50개', '1 워크스페이스', '커뮤니티 지원'], highlight: false },
+                { label: 'Pro', items: ['무제한 컴포넌트', '팀 워크스페이스', '우선 지원'], highlight: true },
+              ].map((plan) => (
+                <div
+                  key={plan.label}
+                  style={{
+                    flex: 1, padding: '12px', borderRadius: 10,
+                    border: plan.highlight ? '2px solid #6366f1' : '1px solid #e2e8f0',
+                    background: plan.highlight ? '#eff6ff' : '#f8fafc',
+                  }}
+                >
+                  <div style={{ fontSize: 12, fontWeight: 700, color: plan.highlight ? '#6366f1' : '#64748b', marginBottom: 8 }}>
+                    {plan.label}
+                  </div>
+                  {plan.items.map((item) => (
+                    <div key={item} style={{ fontSize: 11, color: '#475569', display: 'flex', alignItems: 'center', gap: 5, marginBottom: 4 }}>
+                      <span style={{ color: plan.highlight ? '#6366f1' : '#94a3b8' }}>
+                        {plan.highlight ? '✓' : '·'}
+                      </span>
+                      {item}
+                    </div>
+                  ))}
+                </div>
+              ))}
+            </div>
+            <div style={{ marginTop: 12, padding: '8px 12px', borderRadius: 8, background: '#fffbeb', border: '1px solid #fde68a', fontSize: 11, color: '#92400e' }}>
+              월 ₩29,000 추가 청구. 현재 결제 방법으로 즉시 청구됩니다.
+            </div>
+          </Alert.Description>
+        </Alert.Top>
+        <Alert.Bottom direction="horizontal">
+          <Alert.Close asChild>
+            <Button color="gray" size="large" width="100%">
+              <Button.Center>취소</Button.Center>
+            </Button>
+          </Alert.Close>
+          <Alert.Action asChild>
+            <Button color="primary" size="large" width="100%" onClick={() => setConfirmed(true)}>
+              <Button.Center>업그레이드</Button.Center>
+            </Button>
+          </Alert.Action>
+        </Alert.Bottom>
+      </Alert>
+      {confirmed && (
+        <p style={{ fontSize: 13, color: '#10b981', fontWeight: 600 }}>
+          Pro 플랜으로 업그레이드 완료!
+        </p>
+      )}
+    </div>
+  )
+}
+
+export const Tailwind_구독_업그레이드_확인: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Tailwind UI upgrade confirmation 패턴. 현재/업그레이드 플랜을 나란히 비교해 인지 부하를 줄이고, 청구 금액을 경고 박스로 강조합니다.',
+      },
+    },
+  },
+  render: () => <TailwindUpgradeRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Mantine 벤치마크: 데이터 내보내기 옵션 확인
+   Mantine의 modal with settings 패턴 — 내보내기 포맷/범위 선택 후 확인하는 패턴.
+   선택 가능한 옵션을 AlertDialog 내부에서 직접 구성하는 인터랙티브 패턴.
+-------------------------------------------------------------------------- */
+const MantineExportRender = () => {
+  const [format, setFormat] = useState<'json' | 'csv' | 'xlsx'>('json')
+  const [scope, setScope] = useState<'all' | 'filtered' | 'selected'>('all')
+  const [exported, setExported] = useState(false)
+
+  const FORMAT_OPTS = [
+    { value: 'json' as const, label: 'JSON', ext: '.json', desc: '개발자 친화적' },
+    { value: 'csv' as const, label: 'CSV', ext: '.csv', desc: '스프레드시트 호환' },
+    { value: 'xlsx' as const, label: 'Excel', ext: '.xlsx', desc: 'Microsoft Excel' },
+  ]
+  const SCOPE_OPTS = [
+    { value: 'all' as const, label: '전체 데이터', count: 1248 },
+    { value: 'filtered' as const, label: '필터된 데이터', count: 342 },
+    { value: 'selected' as const, label: '선택한 항목', count: 15 },
+  ]
+
+  return (
+    <div style={{ padding: '40px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 16 }}>
+      <Alert>
+        <Alert.Trigger asChild>
+          <Button color="primary" size="medium">
+            <Button.Center>데이터 내보내기</Button.Center>
+          </Button>
+        </Alert.Trigger>
+        <Alert.Top>
+          <Alert.Title>데이터 내보내기</Alert.Title>
+          <Alert.Description>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 14, marginTop: 12 }}>
+              <div>
+                <div style={{ fontSize: 11, fontWeight: 700, color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: 8 }}>
+                  포맷 선택
+                </div>
+                <div style={{ display: 'flex', gap: 6 }}>
+                  {FORMAT_OPTS.map((opt) => (
+                    <button
+                      key={opt.value}
+                      onClick={() => setFormat(opt.value)}
+                      style={{
+                        flex: 1, padding: '8px 4px', borderRadius: 8, cursor: 'pointer',
+                        border: format === opt.value ? '2px solid #6366f1' : '1px solid #e2e8f0',
+                        background: format === opt.value ? '#eff6ff' : '#fafafa',
+                      }}
+                    >
+                      <div style={{ fontSize: 12, fontWeight: 700, color: format === opt.value ? '#6366f1' : '#1e293b' }}>
+                        {opt.label}
+                      </div>
+                      <div style={{ fontSize: 10, color: '#94a3b8', marginTop: 2 }}>{opt.ext}</div>
+                      <div style={{ fontSize: 10, color: '#94a3b8' }}>{opt.desc}</div>
+                    </button>
+                  ))}
+                </div>
+              </div>
+              <div>
+                <div style={{ fontSize: 11, fontWeight: 700, color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: 8 }}>
+                  내보낼 범위
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+                  {SCOPE_OPTS.map((opt) => (
+                    <button
+                      key={opt.value}
+                      onClick={() => setScope(opt.value)}
+                      style={{
+                        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                        padding: '8px 12px', borderRadius: 8, cursor: 'pointer',
+                        border: scope === opt.value ? '1.5px solid #6366f1' : '1px solid #e2e8f0',
+                        background: scope === opt.value ? '#eff6ff' : '#fafafa',
+                        textAlign: 'left',
+                      }}
+                    >
+                      <span style={{ fontSize: 12, fontWeight: scope === opt.value ? 700 : 400, color: scope === opt.value ? '#6366f1' : '#1e293b' }}>
+                        {opt.label}
+                      </span>
+                      <span style={{ fontSize: 11, color: '#94a3b8' }}>{opt.count.toLocaleString()}개</span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </Alert.Description>
+        </Alert.Top>
+        <Alert.Bottom direction="horizontal">
+          <Alert.Close asChild>
+            <Button color="gray" size="large" width="100%">
+              <Button.Center>취소</Button.Center>
+            </Button>
+          </Alert.Close>
+          <Alert.Action asChild>
+            <Button color="primary" size="large" width="100%" onClick={() => setExported(true)}>
+              <Button.Center>내보내기</Button.Center>
+            </Button>
+          </Alert.Action>
+        </Alert.Bottom>
+      </Alert>
+      {exported && (
+        <p style={{ fontSize: 13, color: '#10b981', fontWeight: 600 }}>
+          {SCOPE_OPTS.find((o) => o.value === scope)?.count.toLocaleString()}개 항목을 {format.toUpperCase()}로 내보내는 중...
+        </p>
+      )}
+    </div>
+  )
+}
+
+export const Mantine_데이터_내보내기_옵션: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Mantine의 modal with interactive settings 패턴. AlertDialog 내부에서 포맷(JSON/CSV/Excel)과 범위(전체/필터/선택)를 직접 선택한 후 내보내기 확인합니다.',
+      },
+    },
+  },
+  render: () => <MantineExportRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Tailwind UI 벤치마크: 세션 만료 타이머 경고
+   Tailwind UI의 session timeout warning 패턴 — 카운트다운으로 긴박감을 주고
+   "연장" / "로그아웃" 두 선택지만 명확히 제시하는 패턴.
+-------------------------------------------------------------------------- */
+const TailwindSessionTimeoutRender = () => {
+  const [seconds, setSeconds] = useState(30)
+  const [isOpen, setIsOpen] = useState(false)
+  const [loggedOut, setLoggedOut] = useState(false)
+
+  React.useEffect(() => {
+    if (!isOpen) {
+      setSeconds(30)
+      return
+    }
+    if (seconds <= 0) {
+      setLoggedOut(true)
+      setIsOpen(false)
+      return
+    }
+    const timer = setTimeout(() => setSeconds((s) => s - 1), 1000)
+    return () => clearTimeout(timer)
+  }, [isOpen, seconds])
+
+  if (loggedOut) {
+    return (
+      <div style={{ padding: '40px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12 }}>
+        <div style={{ fontSize: 13, color: '#ef4444', fontWeight: 600 }}>세션이 만료되어 로그아웃되었습니다.</div>
+        <Button color="primary" size="medium" onClick={() => { setLoggedOut(false); setSeconds(30) }}>
+          <Button.Center>다시 시뮬레이션</Button.Center>
+        </Button>
+      </div>
+    )
+  }
+
+  return (
+    <div style={{ padding: '40px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 16 }}>
+      <Alert open={isOpen} onOpenChange={setIsOpen}>
+        <Alert.Trigger asChild>
+          <Button color="primary" size="medium" onClick={() => setIsOpen(true)}>
+            <Button.Center>세션 만료 시뮬레이션</Button.Center>
+          </Button>
+        </Alert.Trigger>
+        <Alert.Top>
+          <Alert.Title>세션이 곧 만료됩니다</Alert.Title>
+          <Alert.Description>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 16, padding: '8px 0' }}>
+              <div
+                style={{
+                  width: 80, height: 80, borderRadius: '50%',
+                  border: `4px solid ${seconds <= 10 ? '#ef4444' : '#f59e0b'}`,
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  fontSize: 28, fontWeight: 800,
+                  color: seconds <= 10 ? '#ef4444' : '#f59e0b',
+                  transition: 'color 0.3s, border-color 0.3s',
+                }}
+              >
+                {seconds}
+              </div>
+              <div style={{ fontSize: 13, color: '#64748b', textAlign: 'center' }}>
+                보안을 위해 <strong style={{ color: seconds <= 10 ? '#ef4444' : '#1e293b' }}>{seconds}초</strong> 후 자동으로 로그아웃됩니다.
+                <br />지금 세션을 연장하시겠어요?
+              </div>
+            </div>
+          </Alert.Description>
+        </Alert.Top>
+        <Alert.Bottom direction="horizontal">
+          <Alert.Action asChild>
+            <Button color="gray" size="large" width="100%" onClick={() => { setIsOpen(false); setLoggedOut(true) }}>
+              <Button.Center>로그아웃</Button.Center>
+            </Button>
+          </Alert.Action>
+          <Alert.Action asChild>
+            <Button color="primary" size="large" width="100%" onClick={() => { setIsOpen(false); setSeconds(30) }}>
+              <Button.Center>세션 연장</Button.Center>
+            </Button>
+          </Alert.Action>
+        </Alert.Bottom>
+      </Alert>
+    </div>
+  )
+}
+
+export const Tailwind_세션_만료_경고: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Tailwind UI session timeout warning 패턴. 원형 카운트다운 타이머로 긴박감을 시각화하고, 10초 이하에서 색상을 빨간색으로 전환합니다. "로그아웃 / 세션 연장" 두 선택지만 명확히 제시합니다.',
+      },
+    },
+  },
+  render: () => <TailwindSessionTimeoutRender />,
+}

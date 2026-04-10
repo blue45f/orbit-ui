@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 
 import {
   Accordion,
+  Alert,
   AnimatedBadge,
   AppBar,
   Avatar,
@@ -26338,4 +26339,297 @@ export const Linear108SprintReview: StoryObj = {
     },
   },
   render: () => <C108SprintReviewRender />,
+}
+
+/* ==========================================================================
+   Cycle 109 — Tailwind UI + Mantine
+   Template: API 관리 대시보드 (API Management Dashboard)
+   AppBar + Toggle + AlertDialog + TextField + LabelBadge + SectionTitle + Divider
+   ========================================================================== */
+type ApiKey109 = {
+  id: string
+  name: string
+  prefix: string
+  scopes: string[]
+  status: 'active' | 'revoked'
+  lastUsed: string
+  createdAt: string
+}
+
+const API_KEYS_109: ApiKey109[] = [
+  { id: 'k1', name: 'Production Deploy', prefix: 'sk_prod_', scopes: ['deploy', 'read'], status: 'active', lastUsed: '방금 전', createdAt: '2026-01-15' },
+  { id: 'k2', name: 'CI/CD Pipeline', prefix: 'sk_ci_', scopes: ['read', 'write'], status: 'active', lastUsed: '3시간 전', createdAt: '2026-02-01' },
+  { id: 'k3', name: 'Analytics Script', prefix: 'sk_ana_', scopes: ['read'], status: 'active', lastUsed: '1일 전', createdAt: '2026-02-20' },
+  { id: 'k4', name: 'Legacy Integration', prefix: 'sk_leg_', scopes: ['read', 'write', 'delete'], status: 'revoked', lastUsed: '30일 전', createdAt: '2025-11-10' },
+]
+
+const SCOPE_COLORS_109: Record<string, string> = {
+  read: '#6366f1', write: '#f59e0b', deploy: '#10b981', delete: '#ef4444',
+}
+
+function ApiMgmt109Render() {
+  const [keys, setKeys] = React.useState(API_KEYS_109)
+  const [activeTab, setActiveTab] = React.useState<'keys' | 'settings'>('keys')
+  const [newKeyName, setNewKeyName] = React.useState('')
+  const [showNewKey, setShowNewKey] = React.useState(false)
+  const [generatedKey, setGeneratedKey] = React.useState('')
+  const [rateLimit, setRateLimit] = React.useState(true)
+  const [ipRestriction, setIpRestriction] = React.useState(false)
+  const [auditLog, setAuditLog] = React.useState(true)
+  const [autoRotate, setAutoRotate] = React.useState(false)
+
+  const handleGenerate = () => {
+    if (!newKeyName.trim()) return
+    const key = `sk_${newKeyName.toLowerCase().replace(/\s+/g, '_')}_${Math.random().toString(36).slice(2, 10)}`
+    setGeneratedKey(key)
+    setShowNewKey(true)
+    const newKey: ApiKey109 = {
+      id: `k${Date.now()}`,
+      name: newKeyName,
+      prefix: key.slice(0, 12) + '_',
+      scopes: ['read'],
+      status: 'active',
+      lastUsed: '방금 생성',
+      createdAt: new Date().toISOString().slice(0, 10),
+    }
+    setKeys((prev) => [newKey, ...prev])
+    setNewKeyName('')
+  }
+
+  const revokeKey = (id: string) => {
+    setKeys((prev) => prev.map((k) => k.id === id ? { ...k, status: 'revoked' as const } : k))
+  }
+
+  const activeKeys = keys.filter((k) => k.status === 'active')
+  const revokedKeys = keys.filter((k) => k.status === 'revoked')
+
+  return (
+    <div style={{ minHeight: '100vh', background: '#f8fafc', fontFamily: 'system-ui, sans-serif' }}>
+      <AppBar>
+        <AppBar.Leading>
+          <SectionTitle>API 키 관리</SectionTitle>
+        </AppBar.Leading>
+        <AppBar.Trailing>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            <LabelBadge color="benefit">
+              <LabelBadge.Label>활성 {activeKeys.length}개</LabelBadge.Label>
+            </LabelBadge>
+            {revokedKeys.length > 0 && (
+              <LabelBadge color="gray">
+                <LabelBadge.Label>만료 {revokedKeys.length}개</LabelBadge.Label>
+              </LabelBadge>
+            )}
+          </div>
+        </AppBar.Trailing>
+      </AppBar>
+
+      <div style={{ maxWidth: 760, margin: '0 auto', padding: '24px 16px' }}>
+        {/* 탭 */}
+        <div style={{ display: 'flex', gap: 4, marginBottom: 20, borderBottom: '1px solid #e2e8f0', paddingBottom: 0 }}>
+          {([
+            { id: 'keys', label: '🔑 API 키' },
+            { id: 'settings', label: '⚙️ 보안 설정' },
+          ] as const).map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              style={{
+                padding: '8px 16px', borderRadius: '8px 8px 0 0', border: 'none', cursor: 'pointer',
+                background: activeTab === tab.id ? '#fff' : 'transparent',
+                color: activeTab === tab.id ? '#6366f1' : '#64748b',
+                fontWeight: activeTab === tab.id ? 700 : 400, fontSize: 13,
+                borderBottom: activeTab === tab.id ? '2px solid #6366f1' : '2px solid transparent',
+                marginBottom: -1,
+              }}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </div>
+
+        {/* API 키 탭 */}
+        {activeTab === 'keys' && (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+            {/* 새 키 생성 */}
+            <div style={{ padding: '20px', borderRadius: 12, border: '1.5px solid #e2e8f0', background: '#fff' }}>
+              <SectionTitle>새 API 키 생성</SectionTitle>
+              <div style={{ height: 12 }} />
+              <div style={{ display: 'flex', gap: 8 }}>
+                <div style={{ flex: 1 }}>
+                  <TextField
+                    value={newKeyName}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setNewKeyName(e.target.value)}
+                    onKeyDown={(e: React.KeyboardEvent) => { if (e.key === 'Enter') handleGenerate() }}
+                    placeholder="키 이름 입력 (예: Production Deploy)"
+                  />
+                </div>
+                <button
+                  onClick={handleGenerate}
+                  disabled={!newKeyName.trim()}
+                  style={{
+                    padding: '0 20px', borderRadius: 8, border: 'none',
+                    background: newKeyName.trim() ? '#6366f1' : '#e2e8f0',
+                    color: newKeyName.trim() ? '#fff' : '#94a3b8',
+                    fontSize: 13, fontWeight: 700, cursor: newKeyName.trim() ? 'pointer' : 'not-allowed',
+                    whiteSpace: 'nowrap',
+                  }}
+                >
+                  생성
+                </button>
+              </div>
+              {showNewKey && generatedKey && (
+                <div style={{ marginTop: 10, padding: '10px 14px', borderRadius: 8, background: '#f0fdf4', border: '1px solid #bbf7d0' }}>
+                  <div style={{ fontSize: 11, color: '#16a34a', fontWeight: 700, marginBottom: 4 }}>
+                    새 키가 생성되었습니다. 지금 복사하세요 — 다시 볼 수 없습니다.
+                  </div>
+                  <code style={{ fontSize: 11, color: '#0f172a', fontFamily: 'monospace', letterSpacing: '0.02em', wordBreak: 'break-all' }}>
+                    {generatedKey}
+                  </code>
+                </div>
+              )}
+            </div>
+
+            <Divider />
+
+            {/* 키 목록 */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+              {keys.map((key) => (
+                <div
+                  key={key.id}
+                  style={{
+                    padding: '16px 20px', borderRadius: 12,
+                    border: `1px solid ${key.status === 'revoked' ? '#f1f5f9' : '#e2e8f0'}`,
+                    background: key.status === 'revoked' ? '#f8fafc' : '#fff',
+                    opacity: key.status === 'revoked' ? 0.6 : 1,
+                  }}
+                >
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                    <div>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 6 }}>
+                        <span style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>{key.name}</span>
+                        <LabelBadge color={key.status === 'active' ? 'benefit' : 'gray'}>
+                          <LabelBadge.Label>{key.status === 'active' ? '활성' : '만료'}</LabelBadge.Label>
+                        </LabelBadge>
+                      </div>
+                      <code style={{ fontSize: 11, color: '#94a3b8', fontFamily: 'monospace', display: 'block', marginBottom: 8 }}>
+                        {key.prefix}••••••••••••
+                      </code>
+                      <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+                        {key.scopes.map((scope) => (
+                          <span
+                            key={scope}
+                            style={{
+                              fontSize: 10, fontWeight: 700, padding: '2px 7px', borderRadius: 4,
+                              background: (SCOPE_COLORS_109[scope] ?? '#94a3b8') + '14',
+                              color: SCOPE_COLORS_109[scope] ?? '#94a3b8',
+                            }}
+                          >
+                            {scope}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 8 }}>
+                      <div style={{ fontSize: 11, color: '#94a3b8', textAlign: 'right' }}>
+                        <div>마지막 사용: {key.lastUsed}</div>
+                        <div>생성일: {key.createdAt}</div>
+                      </div>
+                      {key.status === 'active' && (
+                        <Alert>
+                          <Alert.Trigger asChild>
+                            <button
+                              style={{
+                                padding: '5px 12px', borderRadius: 7,
+                                border: '1px solid #fca5a5', background: '#fff',
+                                color: '#ef4444', fontSize: 11, fontWeight: 600, cursor: 'pointer',
+                              }}
+                            >
+                              만료시키기
+                            </button>
+                          </Alert.Trigger>
+                          <Alert.Top>
+                            <Alert.Title>{key.name} 키를 만료시킬까요?</Alert.Title>
+                            <Alert.Description>
+                              이 키를 사용하는 모든 서비스에서 인증이 즉시 차단됩니다. 이 작업은 되돌릴 수 없습니다.
+                            </Alert.Description>
+                          </Alert.Top>
+                          <Alert.Bottom direction="horizontal">
+                            <Alert.Close asChild>
+                              <SolidButton color="gray" size="large" width="100%">
+                                <SolidButton.Center>취소</SolidButton.Center>
+                              </SolidButton>
+                            </Alert.Close>
+                            <Alert.Action asChild>
+                              <SolidButton color="primary" size="large" width="100%" onClick={() => revokeKey(key.id)}>
+                                <SolidButton.Center>만료</SolidButton.Center>
+                              </SolidButton>
+                            </Alert.Action>
+                          </Alert.Bottom>
+                        </Alert>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* 보안 설정 탭 */}
+        {activeTab === 'settings' && (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+            <div style={{ padding: '20px', borderRadius: 12, border: '1px solid #e2e8f0', background: '#fff' }}>
+              <SectionTitle>보안 정책</SectionTitle>
+              <div style={{ height: 12 }} />
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 0, borderRadius: 10, border: '1px solid #e2e8f0', overflow: 'hidden' }}>
+                {[
+                  { label: '요청 속도 제한', desc: '시간당 1,000회로 API 요청 제한', checked: rateLimit, onChange: () => setRateLimit((v) => !v), recommended: true },
+                  { label: 'IP 허용 목록', desc: '등록된 IP에서만 요청 허용', checked: ipRestriction, onChange: () => setIpRestriction((v) => !v), recommended: false },
+                  { label: '감사 로그', desc: '모든 API 호출 기록 저장', checked: auditLog, onChange: () => setAuditLog((v) => !v), recommended: true },
+                  { label: '자동 키 교체', desc: '90일마다 API 키 자동 갱신', checked: autoRotate, onChange: () => setAutoRotate((v) => !v), recommended: false },
+                ].map((item, i, arr) => (
+                  <div
+                    key={item.label}
+                    style={{
+                      display: 'flex', alignItems: 'center', gap: 12,
+                      padding: '14px 16px',
+                      borderBottom: i < arr.length - 1 ? '1px solid #f1f5f9' : 'none',
+                    }}
+                  >
+                    <div style={{ flex: 1 }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                        <span style={{ fontSize: 13, fontWeight: 600, color: '#1e293b' }}>{item.label}</span>
+                        {item.recommended && (
+                          <span style={{ fontSize: 9, fontWeight: 700, padding: '1px 5px', borderRadius: 3, background: '#eff6ff', color: '#6366f1' }}>
+                            권장
+                          </span>
+                        )}
+                      </div>
+                      <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>{item.desc}</div>
+                    </div>
+                    <Toggle checked={item.checked} onCheckedChange={item.onChange} />
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+
+export const TailwindMantine109ApiDashboard: StoryObj = {
+  name: 'Tailwind UI + Mantine — API 관리 대시보드 (Cycle 109)',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Tailwind UI + Mantine 벤치마크 — Cycle 109. ' +
+          'API 키 관리 대시보드: Keys 탭(새 키 생성 + AlertDialog 만료 확인 + 스코프 배지) / Settings 탭(보안 정책 Toggle 4개). ' +
+          'AppBar, Alert, Toggle, TextField, LabelBadge, SectionTitle, Divider 복합 활용.',
+      },
+    },
+  },
+  render: () => <ApiMgmt109Render />,
 }

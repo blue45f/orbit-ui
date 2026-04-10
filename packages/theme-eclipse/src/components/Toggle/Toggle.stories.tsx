@@ -1043,3 +1043,344 @@ export const Mantine_기능_플래그_대시보드: Story = {
   },
   render: () => <MantineFeatureFlagsDashRender />,
 }
+
+/* --------------------------------------------------------------------------
+   Tailwind UI 벤치마크: 위젯 가시성 컨트롤
+   Tailwind UI의 dashboard customization 패턴 — 대시보드에 표시할 위젯을
+   사용자가 직접 Toggle로 켜고 끄는 설정 패널 패턴.
+-------------------------------------------------------------------------- */
+const WIDGET_DEFS = [
+  { id: 'w1', label: '방문자 통계', desc: '실시간 방문자 수 및 세션 데이터', icon: '📈', category: '애널리틱스' },
+  { id: 'w2', label: '매출 현황', desc: '일/주/월별 매출 차트', icon: '💰', category: '애널리틱스' },
+  { id: 'w3', label: '최근 주문', desc: '최신 주문 목록 및 상태', icon: '📦', category: '운영' },
+  { id: 'w4', label: '지원 티켓', desc: '미해결 고객 지원 요청', icon: '🎧', category: '운영' },
+  { id: 'w5', label: '팀 활동', desc: '팀원 최근 커밋 및 활동', icon: '👥', category: '팀' },
+  { id: 'w6', label: '시스템 상태', desc: 'API 및 서비스 헬스 체크', icon: '🖥', category: '시스템' },
+]
+
+const TailwindWidgetControlRender = () => {
+  const [widgets, setWidgets] = useState<Record<string, boolean>>(
+    Object.fromEntries(WIDGET_DEFS.map((w, i) => [w.id, i < 4]))
+  )
+
+  const toggle = (id: string) => {
+    setWidgets((prev) => ({ ...prev, [id]: !prev[id] }))
+  }
+
+  const activeCount = Object.values(widgets).filter(Boolean).length
+  const categories = Array.from(new Set(WIDGET_DEFS.map((w) => w.category)))
+
+  return (
+    <div style={{ maxWidth: 420 }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
+        <div>
+          <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>대시보드 위젯</div>
+          <div style={{ fontSize: 12, color: '#94a3b8', marginTop: 2 }}>표시할 위젯을 선택하세요</div>
+        </div>
+        <div style={{
+          padding: '3px 10px', borderRadius: 20,
+          background: '#eff6ff', fontSize: 12, fontWeight: 700, color: '#6366f1',
+        }}>
+          {activeCount}/{WIDGET_DEFS.length}
+        </div>
+      </div>
+
+      {categories.map((cat) => (
+        <div key={cat} style={{ marginBottom: 16 }}>
+          <div style={{ fontSize: 10, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 8 }}>
+            {cat}
+          </div>
+          <div style={{ borderRadius: 10, border: '1px solid #e2e8f0', overflow: 'hidden' }}>
+            {WIDGET_DEFS.filter((w) => w.category === cat).map((widget, i, arr) => (
+              <div
+                key={widget.id}
+                style={{
+                  display: 'flex', alignItems: 'center', gap: 12,
+                  padding: '12px 14px',
+                  borderBottom: i < arr.length - 1 ? '1px solid #f1f5f9' : 'none',
+                  background: widgets[widget.id] ? '#fafafa' : '#fff',
+                  transition: 'background 0.15s',
+                }}
+              >
+                <span style={{ fontSize: 18, flexShrink: 0 }}>{widget.icon}</span>
+                <div style={{ flex: 1 }}>
+                  <div style={{
+                    fontSize: 13, fontWeight: 600,
+                    color: widgets[widget.id] ? '#1e293b' : '#94a3b8',
+                    transition: 'color 0.15s',
+                  }}>
+                    {widget.label}
+                  </div>
+                  <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 1 }}>{widget.desc}</div>
+                </div>
+                <Toggle checked={widgets[widget.id]} onCheckedChange={() => toggle(widget.id)} />
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+
+      <div style={{ padding: '10px 14px', borderRadius: 10, background: '#f8fafc', border: '1px solid #e2e8f0', fontSize: 12, color: '#64748b' }}>
+        변경 사항은 대시보드에 즉시 반영됩니다.
+      </div>
+      <div style={{ marginTop: 10, fontSize: 11, color: '#94a3b8' }}>
+        Tailwind UI Dashboard Customization 패턴 — 위젯 가시성 Toggle
+      </div>
+    </div>
+  )
+}
+
+export const Tailwind_위젯_가시성_컨트롤: Story = {
+  name: 'Tailwind UI - 대시보드 위젯 가시성 컨트롤',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Tailwind UI dashboard customization 패턴. 카테고리별로 그룹화된 위젯 목록에서 Toggle로 표시/숨김을 제어합니다. 활성화된 위젯 개수를 상단에 표시합니다.',
+      },
+    },
+  },
+  render: () => <TailwindWidgetControlRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Mantine 벤치마크: 알림 채널별 설정
+   Mantine의 notification settings 패턴 — 이벤트 유형별로 채널(이메일/푸시/SMS)
+   조합을 개별 Toggle로 제어하는 매트릭스 패턴.
+-------------------------------------------------------------------------- */
+type NotifCategory = 'security' | 'billing' | 'updates' | 'team'
+type NotifChannel = 'email' | 'push' | 'sms'
+
+const NOTIF_CATEGORIES: Array<{ id: NotifCategory; label: string; desc: string; icon: string }> = [
+  { id: 'security', label: '보안 알림', desc: '로그인, 비밀번호 변경', icon: '🔐' },
+  { id: 'billing', label: '결제 알림', desc: '청구서, 결제 실패', icon: '💳' },
+  { id: 'updates', label: '업데이트', desc: '새 기능, 배포 완료', icon: '🔔' },
+  { id: 'team', label: '팀 활동', desc: '멘션, 댓글, 초대', icon: '👥' },
+]
+
+const NOTIF_CHANNELS: Array<{ id: NotifChannel; label: string; icon: string }> = [
+  { id: 'email', label: '이메일', icon: '✉' },
+  { id: 'push', label: '푸시', icon: '📱' },
+  { id: 'sms', label: 'SMS', icon: '💬' },
+]
+
+const MantineNotifChannelRender = () => {
+  type SettingsState = Record<NotifCategory, Record<NotifChannel, boolean>>
+  const [settings, setSettings] = useState<SettingsState>({
+    security: { email: true, push: true, sms: true },
+    billing:  { email: true, push: true, sms: false },
+    updates:  { email: true, push: false, sms: false },
+    team:     { email: false, push: true, sms: false },
+  })
+
+  const toggleNotif = (cat: NotifCategory, ch: NotifChannel) => {
+    setSettings((prev) => ({
+      ...prev,
+      [cat]: { ...prev[cat], [ch]: !prev[cat][ch] },
+    }))
+  }
+
+  return (
+    <div style={{ maxWidth: 480 }}>
+      <div style={{ marginBottom: 16 }}>
+        <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>알림 설정</div>
+        <div style={{ fontSize: 12, color: '#94a3b8', marginTop: 2 }}>채널별로 수신할 알림을 선택하세요</div>
+      </div>
+
+      {/* 테이블 헤더 */}
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr repeat(3, 64px)', gap: 0, marginBottom: 4 }}>
+        <div />
+        {NOTIF_CHANNELS.map((ch) => (
+          <div key={ch.id} style={{ textAlign: 'center', fontSize: 11, fontWeight: 700, color: '#64748b' }}>
+            <div>{ch.icon}</div>
+            <div>{ch.label}</div>
+          </div>
+        ))}
+      </div>
+
+      <div style={{ borderRadius: 12, border: '1px solid #e2e8f0', overflow: 'hidden' }}>
+        {NOTIF_CATEGORIES.map((cat, i) => (
+          <div
+            key={cat.id}
+            style={{
+              display: 'grid', gridTemplateColumns: '1fr repeat(3, 64px)',
+              padding: '12px 16px', alignItems: 'center',
+              borderBottom: i < NOTIF_CATEGORIES.length - 1 ? '1px solid #f1f5f9' : 'none',
+              background: cat.id === 'security' ? '#fffbeb' : '#fff',
+            }}
+          >
+            <div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                <span style={{ fontSize: 14 }}>{cat.icon}</span>
+                <span style={{ fontSize: 13, fontWeight: 600, color: '#1e293b' }}>{cat.label}</span>
+                {cat.id === 'security' && (
+                  <span style={{ fontSize: 9, fontWeight: 700, padding: '1px 5px', borderRadius: 3, background: '#fef3c7', color: '#92400e' }}>
+                    필수
+                  </span>
+                )}
+              </div>
+              <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2, paddingLeft: 20 }}>{cat.desc}</div>
+            </div>
+            {NOTIF_CHANNELS.map((ch) => (
+              <div key={ch.id} style={{ display: 'flex', justifyContent: 'center' }}>
+                <Toggle
+                  checked={settings[cat.id][ch.id]}
+                  onCheckedChange={() => toggleNotif(cat.id, ch.id)}
+                  disabled={cat.id === 'security'}
+                />
+              </div>
+            ))}
+          </div>
+        ))}
+      </div>
+
+      <div style={{ marginTop: 10, fontSize: 11, color: '#94a3b8' }}>
+        Mantine Notification Settings 패턴 — 이벤트 × 채널 매트릭스 Toggle
+      </div>
+    </div>
+  )
+}
+
+export const Mantine_알림_채널_설정: Story = {
+  name: 'Mantine - 알림 채널별 설정 매트릭스',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Mantine의 notification settings 패턴. 이벤트 카테고리(행) × 채널(열) 매트릭스로 알림을 세밀하게 제어합니다. 보안 알림은 disabled 처리해 필수 항목임을 명시합니다.',
+      },
+    },
+  },
+  render: () => <MantineNotifChannelRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Tailwind UI 벤치마크: API 키 권한 스코프 토글
+   Tailwind UI의 API key permissions 패턴 — 읽기/쓰기/삭제 권한을 범주별로
+   Toggle로 부여하는 접근 제어 UI. Linear, GitHub 설정에서 흔히 볼 수 있는 패턴.
+-------------------------------------------------------------------------- */
+type ApiScope = {
+  id: string
+  resource: string
+  read: boolean
+  write: boolean
+  delete: boolean
+  risk: 'low' | 'medium' | 'high'
+}
+
+const INITIAL_SCOPES: ApiScope[] = [
+  { id: 's1', resource: 'Projects', read: true, write: true, delete: false, risk: 'low' },
+  { id: 's2', resource: 'Issues', read: true, write: true, delete: false, risk: 'low' },
+  { id: 's3', resource: 'Members', read: true, write: false, delete: false, risk: 'medium' },
+  { id: 's4', resource: 'Billing', read: false, write: false, delete: false, risk: 'high' },
+  { id: 's5', resource: 'Webhooks', read: true, write: false, delete: false, risk: 'medium' },
+]
+
+const SCOPE_RISK_COLOR = { low: '#10b981', medium: '#f59e0b', high: '#ef4444' } as const
+
+const TailwindApiScopeRender = () => {
+  const [scopes, setScopes] = useState(INITIAL_SCOPES)
+
+  const toggleScope = (id: string, perm: 'read' | 'write' | 'delete') => {
+    setScopes((prev) =>
+      prev.map((s) => {
+        if (s.id !== id) return s
+        const next = { ...s, [perm]: !s[perm] }
+        if (perm === 'read' && !next.read) {
+          next.write = false
+          next.delete = false
+        }
+        if (perm === 'write' && next.write && !next.read) {
+          next.read = true
+        }
+        if (perm === 'delete' && next.delete && !next.read) {
+          next.read = true
+        }
+        return next
+      })
+    )
+  }
+
+  const totalPermissions = scopes.reduce((s, scope) => {
+    return s + (scope.read ? 1 : 0) + (scope.write ? 1 : 0) + (scope.delete ? 1 : 0)
+  }, 0)
+
+  return (
+    <div style={{ maxWidth: 520 }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
+        <div>
+          <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>API 키 권한</div>
+          <div style={{ fontSize: 12, color: '#94a3b8', marginTop: 2 }}>이 키에 부여할 접근 범위를 선택하세요</div>
+        </div>
+        <div style={{ fontSize: 12, color: '#64748b' }}>
+          <span style={{ fontWeight: 700, color: '#6366f1' }}>{totalPermissions}</span>개 권한 활성
+        </div>
+      </div>
+
+      <div style={{ borderRadius: 12, border: '1px solid #e2e8f0', overflow: 'hidden', marginBottom: 12 }}>
+        {/* 헤더 */}
+        <div style={{
+          display: 'grid', gridTemplateColumns: '1fr repeat(3, 80px)',
+          padding: '8px 16px', background: '#f8fafc',
+          borderBottom: '1px solid #e2e8f0',
+        }}>
+          <span style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8' }}>리소스</span>
+          {['읽기', '쓰기', '삭제'].map((perm) => (
+            <span key={perm} style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', textAlign: 'center' }}>{perm}</span>
+          ))}
+        </div>
+
+        {scopes.map((scope, i) => (
+          <div
+            key={scope.id}
+            style={{
+              display: 'grid', gridTemplateColumns: '1fr repeat(3, 80px)',
+              padding: '12px 16px', alignItems: 'center',
+              borderBottom: i < scopes.length - 1 ? '1px solid #f1f5f9' : 'none',
+            }}
+          >
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+              <span style={{ fontSize: 13, fontWeight: 600, color: '#1e293b' }}>{scope.resource}</span>
+              <span style={{
+                fontSize: 9, fontWeight: 700, padding: '1px 5px', borderRadius: 3,
+                background: SCOPE_RISK_COLOR[scope.risk] + '14',
+                color: SCOPE_RISK_COLOR[scope.risk],
+              }}>
+                {scope.risk}
+              </span>
+            </div>
+            {(['read', 'write', 'delete'] as const).map((perm) => (
+              <div key={perm} style={{ display: 'flex', justifyContent: 'center' }}>
+                <Toggle
+                  checked={scope[perm]}
+                  onCheckedChange={() => toggleScope(scope.id, perm)}
+                  disabled={scope.risk === 'high' && perm !== 'read'}
+                />
+              </div>
+            ))}
+          </div>
+        ))}
+      </div>
+
+      <div style={{ padding: '10px 14px', borderRadius: 10, background: '#fef3c7', border: '1px solid #fde68a', fontSize: 12, color: '#92400e' }}>
+        쓰기/삭제 권한 활성화 시 읽기 권한이 자동으로 활성화됩니다. Billing 리소스는 읽기만 허용됩니다.
+      </div>
+      <div style={{ marginTop: 10, fontSize: 11, color: '#94a3b8' }}>
+        Tailwind UI API Key Permissions 패턴 — 리소스 × 권한 레벨 Toggle
+      </div>
+    </div>
+  )
+}
+
+export const Tailwind_API_권한_스코프: Story = {
+  name: 'Tailwind UI - API 키 권한 스코프 토글',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Tailwind UI API key permissions 패턴. 리소스(행) × 권한 레벨(읽기/쓰기/삭제) 매트릭스로 접근 제어를 구성합니다. 쓰기/삭제 활성화 시 읽기를 자동으로 활성화하는 종속 로직을 포함합니다.',
+      },
+    },
+  },
+  render: () => <TailwindApiScopeRender />,
+}
