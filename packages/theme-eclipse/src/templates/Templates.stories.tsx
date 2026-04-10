@@ -30028,3 +30028,172 @@ export const ChakraArco126NotificationCenter: StoryObj = {
   },
   render: () => <NotificationCenter126Render />,
 }
+
+/* ============================================================
+   Cycle 127 Template: shadcn/ui + Radix UI
+   커맨드 팔레트 — Popover + TextArea 검색 + 액션 선택
+   ============================================================ */
+const CMD_ACTIONS = [
+  { id: 'new-issue', label: '새 이슈 생성', category: '이슈', shortcut: '⌘N', icon: '＋' },
+  { id: 'search-issue', label: '이슈 검색', category: '이슈', shortcut: '⌘F', icon: '🔍' },
+  { id: 'new-pr', label: 'PR 생성', category: '코드', shortcut: '⌘P', icon: '⑃' },
+  { id: 'switch-branch', label: '브랜치 전환', category: '코드', shortcut: '⌘B', icon: '⑂' },
+  { id: 'open-settings', label: '설정 열기', category: '앱', shortcut: '⌘,', icon: '⚙' },
+  { id: 'toggle-theme', label: '다크모드 전환', category: '앱', shortcut: '⌘⇧D', icon: '◑' },
+  { id: 'open-docs', label: '문서 열기', category: '도움말', shortcut: '⌘?', icon: '📖' },
+  { id: 'report-bug', label: '버그 리포트', category: '도움말', shortcut: '', icon: '🐛' },
+]
+
+function CommandPalette127Render() {
+  const [open, setOpen] = useState(false)
+  const [query, setQuery] = useState('')
+  const [recent, setRecent] = useState<string[]>(['new-issue', 'switch-branch'])
+
+  const filtered = query
+    ? CMD_ACTIONS.filter(a => a.label.includes(query) || a.category.includes(query))
+    : CMD_ACTIONS
+
+  const categories = [...new Set(filtered.map(a => a.category))]
+
+  const run = (id: string) => {
+    setRecent(prev => [id, ...prev.filter(r => r !== id)].slice(0, 3))
+    setOpen(false)
+    setQuery('')
+  }
+
+  return (
+    <div style={{ width: 480, fontFamily: 'Inter, system-ui, sans-serif', display: 'flex', flexDirection: 'column', gap: 16 }}>
+      {/* 헤더 트리거 바 */}
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px 16px', background: '#f8fafc', borderRadius: 10, border: '1px solid #e2e8f0' }}>
+        <span style={{ fontSize: 14, fontWeight: 700, color: '#1e293b' }}>orbit-ui</span>
+        <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+          <SolidButton color="black" size="small" onClick={() => setOpen(true)}>
+            <SolidButton.Center>커맨드 팔레트 열기 ⌘K</SolidButton.Center>
+          </SolidButton>
+        </div>
+      </div>
+
+      {/* 커맨드 팔레트 (Popover 시뮬레이션) */}
+      {open && (
+        <div style={{
+          position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.4)', zIndex: 50,
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+        }} onClick={() => setOpen(false)}>
+          <div
+            style={{ width: 440, background: '#fff', borderRadius: 14, boxShadow: '0 20px 60px rgba(0,0,0,0.2)', overflow: 'hidden' }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* 검색 입력 */}
+            <div style={{ padding: '12px 16px', borderBottom: '1px solid #f1f5f9' }}>
+              <input
+                autoFocus
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder="명령어 검색..."
+                style={{ width: '100%', fontSize: 15, border: 'none', outline: 'none', color: '#1e293b', background: 'transparent', boxSizing: 'border-box' }}
+              />
+            </div>
+            {/* 최근 사용 */}
+            {!query && recent.length > 0 && (
+              <div style={{ padding: '8px 0' }}>
+                <div style={{ padding: '4px 16px', fontSize: 11, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em' }}>최근 사용</div>
+                {recent.map(id => {
+                  const a = CMD_ACTIONS.find(x => x.id === id)
+                  if (!a) return null
+                  return (
+                    <button
+                      key={a.id}
+                      onClick={() => run(a.id)}
+                      style={{ width: '100%', display: 'flex', alignItems: 'center', gap: 10, padding: '8px 16px', background: 'none', border: 'none', cursor: 'pointer', textAlign: 'left' }}
+                      onMouseEnter={(e) => { e.currentTarget.style.background = '#f8fafc' }}
+                      onMouseLeave={(e) => { e.currentTarget.style.background = 'none' }}
+                    >
+                      <span style={{ fontSize: 15, width: 20, textAlign: 'center' }}>{a.icon}</span>
+                      <span style={{ flex: 1, fontSize: 13, color: '#1e293b' }}>{a.label}</span>
+                      {a.shortcut && <span style={{ fontSize: 11, color: '#94a3b8', background: '#f1f5f9', padding: '2px 6px', borderRadius: 4 }}>{a.shortcut}</span>}
+                    </button>
+                  )
+                })}
+              </div>
+            )}
+            {/* 카테고리별 액션 */}
+            <div style={{ maxHeight: 280, overflowY: 'auto', padding: '4px 0' }}>
+              {categories.map(cat => (
+                <div key={cat}>
+                  <div style={{ padding: '6px 16px 2px', fontSize: 11, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em' }}>{cat}</div>
+                  {filtered.filter(a => a.category === cat).map(a => (
+                    <button
+                      key={a.id}
+                      onClick={() => run(a.id)}
+                      style={{ width: '100%', display: 'flex', alignItems: 'center', gap: 10, padding: '8px 16px', background: 'none', border: 'none', cursor: 'pointer', textAlign: 'left' }}
+                      onMouseEnter={(e) => { e.currentTarget.style.background = '#f8fafc' }}
+                      onMouseLeave={(e) => { e.currentTarget.style.background = 'none' }}
+                    >
+                      <span style={{ fontSize: 15, width: 20, textAlign: 'center' }}>{a.icon}</span>
+                      <span style={{ flex: 1, fontSize: 13, color: '#1e293b' }}>{a.label}</span>
+                      {a.shortcut && <span style={{ fontSize: 11, color: '#94a3b8', background: '#f1f5f9', padding: '2px 6px', borderRadius: 4 }}>{a.shortcut}</span>}
+                    </button>
+                  ))}
+                </div>
+              ))}
+              {filtered.length === 0 && (
+                <div style={{ padding: '24px', textAlign: 'center', color: '#94a3b8', fontSize: 13 }}>
+                  &quot;{query}&quot;에 대한 결과 없음
+                </div>
+              )}
+            </div>
+            <div style={{ padding: '8px 16px', borderTop: '1px solid #f1f5f9', display: 'flex', gap: 12, fontSize: 11, color: '#94a3b8' }}>
+              <span>↑↓ 이동</span>
+              <span>↵ 실행</span>
+              <span>ESC 닫기</span>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* 최근 실행 이력 */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+        <div style={{ fontSize: 13, fontWeight: 700, color: '#1e293b' }}>최근 실행 명령어</div>
+        {recent.length === 0 ? (
+          <div style={{ fontSize: 13, color: '#94a3b8' }}>없음 — 커맨드 팔레트를 열어 실행해보세요</div>
+        ) : (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+            {recent.map(id => {
+              const a = CMD_ACTIONS.find(x => x.id === id)
+              if (!a) return null
+              return (
+                <div key={id} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '8px 12px', background: '#f8fafc', borderRadius: 8, border: '1px solid #f1f5f9' }}>
+                  <span>{a.icon}</span>
+                  <span style={{ fontSize: 13, color: '#1e293b', flex: 1 }}>{a.label}</span>
+                  <LabelBadge style={{ fontSize: 10 }}>{a.category}</LabelBadge>
+                </div>
+              )
+            })}
+          </div>
+        )}
+      </div>
+
+      {/* 노트 입력 (TextArea 활용) */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+        <div style={{ fontSize: 13, fontWeight: 700, color: '#1e293b' }}>빠른 메모</div>
+        <TextField placeholder="이슈 번호, PR 링크 등 메모..." />
+      </div>
+    </div>
+  )
+}
+
+export const ShadcnRadix127CommandPalette: StoryObj = {
+  name: 'shadcn/ui + Radix UI — 커맨드 팔레트 (Cycle 127)',
+  parameters: {
+    layout: 'centered',
+    docs: {
+      description: {
+        story:
+          'shadcn/ui + Radix UI 벤치마크 — Cycle 127. ' +
+          'shadcn/ui Command 패턴 + Radix Popover를 활용한 커맨드 팔레트. ' +
+          '카테고리별 액션, 최근 사용 이력, 검색 필터, 단축키 표시를 포함합니다.',
+      },
+    },
+  },
+  render: () => <CommandPalette127Render />,
+}

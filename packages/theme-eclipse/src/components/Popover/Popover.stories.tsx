@@ -1335,3 +1335,290 @@ export const Ant_삭제_확인_팝컨펌: Story = {
   },
   render: () => <AntDeleteConfirmRender />,
 }
+
+/* --------------------------------------------------------------------------
+   shadcn/ui 벤치마크: 이모지 피커 팝오버 패턴
+   shadcn Popover + Command — 이모지 검색 및 선택
+-------------------------------------------------------------------------- */
+const EMOJI_LIST = [
+  { e: '😀', n: '웃음' }, { e: '👍', n: '좋아요' }, { e: '🎉', n: '파티' }, { e: '🔥', n: '불' },
+  { e: '💡', n: '아이디어' }, { e: '✅', n: '완료' }, { e: '❌', n: '취소' }, { e: '⭐', n: '별' },
+  { e: '🚀', n: '로켓' }, { e: '💎', n: '다이아' }, { e: '🎯', n: '목표' }, { e: '📌', n: '핀' },
+  { e: '🔗', n: '링크' }, { e: '💬', n: '댓글' }, { e: '📊', n: '차트' }, { e: '🛠️', n: '도구' },
+]
+
+function ShadcnEmojiPickerRender() {
+  const [open, setOpen] = useState(false)
+  const [selected, setSelected] = useState<{ e: string; n: string } | null>(null)
+  const [query, setQuery] = useState('')
+
+  const filtered = EMOJI_LIST.filter(em => em.n.includes(query) || em.e.includes(query))
+
+  return (
+    <div style={{ fontFamily: 'Inter, system-ui, sans-serif', display: 'flex', flexDirection: 'column', gap: 12, alignItems: 'flex-start' }}>
+      <div style={{ fontSize: 12, fontWeight: 700, color: '#64748b' }}>리액션 추가</div>
+      <Popover open={open} onOpenChange={setOpen}>
+        <Popover.Trigger asChild>
+          <button style={{
+            padding: '6px 14px',
+            fontSize: 13,
+            background: selected ? '#f0f9ff' : '#f8fafc',
+            border: `1px solid ${selected ? '#bae6fd' : '#e2e8f0'}`,
+            borderRadius: 8,
+            cursor: 'pointer',
+            display: 'flex',
+            alignItems: 'center',
+            gap: 6,
+            color: '#475569',
+          }}>
+            <span style={{ fontSize: 16 }}>{selected?.e ?? '😊'}</span>
+            <span>{selected?.n ?? '이모지 선택'}</span>
+          </button>
+        </Popover.Trigger>
+        <Popover.Content style={{ width: 240, padding: 10 }}>
+          <input
+            autoFocus
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="이모지 검색..."
+            style={{ width: '100%', padding: '6px 10px', fontSize: 12, border: '1px solid #e2e8f0', borderRadius: 6, marginBottom: 8, boxSizing: 'border-box', outline: 'none' }}
+          />
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 4 }}>
+            {filtered.map(em => (
+              <button
+                key={em.e}
+                title={em.n}
+                onClick={() => { setSelected(em); setOpen(false); setQuery('') }}
+                style={{
+                  fontSize: 20,
+                  padding: '6px',
+                  background: selected?.e === em.e ? '#f0f9ff' : 'transparent',
+                  border: `1px solid ${selected?.e === em.e ? '#bae6fd' : 'transparent'}`,
+                  borderRadius: 6,
+                  cursor: 'pointer',
+                  textAlign: 'center',
+                }}
+              >
+                {em.e}
+              </button>
+            ))}
+            {filtered.length === 0 && (
+              <div style={{ gridColumn: '1/-1', textAlign: 'center', color: '#94a3b8', fontSize: 12, padding: '12px 0' }}>없음</div>
+            )}
+          </div>
+        </Popover.Content>
+      </Popover>
+      {selected && (
+        <div style={{ fontSize: 12, color: '#64748b' }}>선택됨: <strong>{selected.e} {selected.n}</strong></div>
+      )}
+      <div style={{ fontSize: 11, color: '#94a3b8' }}>shadcn/ui Popover + 이모지 그리드 검색 패턴</div>
+    </div>
+  )
+}
+
+export const Shadcn_이모지_피커_팝오버: Story = {
+  name: 'shadcn/ui - 이모지 피커 팝오버',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'shadcn/ui Popover + Command 패턴. 이모지 그리드에 검색 필터를 결합해 빠른 이모지 선택을 제공합니다. ' +
+          '선택된 이모지는 트리거 버튼에 즉시 반영되며, shadcn/ui의 Command + Popover 조합 패턴을 단순화해 구현합니다.',
+      },
+    },
+  },
+  render: () => <ShadcnEmojiPickerRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Radix UI 벤치마크: 컨텍스트 메뉴 대체 팝오버 패턴
+   Radix ContextMenu → Popover — 우클릭 대신 항목별 액션 팝오버
+-------------------------------------------------------------------------- */
+const CONTEXT_ITEMS = [
+  { id: 1, title: 'DataTable.stories.tsx', type: 'file', size: '4.2KB' },
+  { id: 2, title: 'Skeleton.stories.tsx', type: 'file', size: '8.1KB' },
+  { id: 3, title: 'components/', type: 'folder', size: '—' },
+]
+
+function RadixContextMenuPopoverRender() {
+  const [openId, setOpenId] = useState<number | null>(null)
+
+  return (
+    <div style={{ width: 320, fontFamily: 'Inter, system-ui, sans-serif', border: '1px solid #e2e8f0', borderRadius: 10, overflow: 'hidden' }}>
+      <div style={{ padding: '8px 12px', fontSize: 11, fontWeight: 700, color: '#94a3b8', background: '#f8fafc', borderBottom: '1px solid #e2e8f0', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+        파일 탐색기
+      </div>
+      {CONTEXT_ITEMS.map((item, i) => (
+        <div
+          key={item.id}
+          style={{ display: 'flex', alignItems: 'center', padding: '10px 14px', borderBottom: i < CONTEXT_ITEMS.length - 1 ? '1px solid #f8fafc' : 'none', gap: 10 }}
+        >
+          <span style={{ fontSize: 16 }}>{item.type === 'folder' ? '📁' : '📄'}</span>
+          <div style={{ flex: 1 }}>
+            <div style={{ fontSize: 13, color: '#1e293b', fontWeight: 500 }}>{item.title}</div>
+            <div style={{ fontSize: 11, color: '#94a3b8' }}>{item.size}</div>
+          </div>
+          <Popover open={openId === item.id} onOpenChange={(o) => setOpenId(o ? item.id : null)}>
+            <Popover.Trigger asChild>
+              <button style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '4px 6px', borderRadius: 6, color: '#94a3b8', fontSize: 16, lineHeight: 1 }}>
+                ⋯
+              </button>
+            </Popover.Trigger>
+            <Popover.Content style={{ width: 160, padding: 4 }}>
+              {['열기', '이름 변경', '복사', '이동', '삭제'].map((action) => (
+                <button
+                  key={action}
+                  onClick={() => setOpenId(null)}
+                  style={{
+                    width: '100%',
+                    textAlign: 'left',
+                    padding: '7px 10px',
+                    fontSize: 12,
+                    color: action === '삭제' ? '#ef4444' : '#1e293b',
+                    background: 'none',
+                    border: 'none',
+                    borderRadius: 6,
+                    cursor: 'pointer',
+                    display: 'block',
+                  }}
+                  onMouseEnter={(e) => { e.currentTarget.style.background = action === '삭제' ? '#fef2f2' : '#f8fafc' }}
+                  onMouseLeave={(e) => { e.currentTarget.style.background = 'none' }}
+                >
+                  {action}
+                </button>
+              ))}
+            </Popover.Content>
+          </Popover>
+        </div>
+      ))}
+      <div style={{ padding: '6px 12px', fontSize: 11, color: '#94a3b8', background: '#fafafa', borderTop: '1px solid #e2e8f0' }}>
+        Radix ContextMenu 패턴 — ⋯ 버튼으로 컨텍스트 액션 제공
+      </div>
+    </div>
+  )
+}
+
+export const Radix_컨텍스트_메뉴_팝오버: Story = {
+  name: 'Radix UI - 컨텍스트 메뉴 대체 팝오버',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Radix UI ContextMenu → Popover 대체 패턴. 우클릭 대신 각 항목의 ⋯ 버튼으로 컨텍스트 액션(열기/이름변경/복사/이동/삭제)을 팝오버로 제공합니다. ' +
+          '모바일 환경에서도 동작하며 접근성이 높은 대안 패턴입니다.',
+      },
+    },
+  },
+  render: () => <RadixContextMenuPopoverRender />,
+}
+
+/* --------------------------------------------------------------------------
+   shadcn + Radix 복합: 사용자 프리필 팝오버 패턴
+   멘션(@) 트리거 팝오버 — 텍스트 내 사용자 언급 자동완성
+-------------------------------------------------------------------------- */
+const MENTION_USERS = [
+  { id: 1, name: '김준혁', role: 'Design Lead', avatar: 'KJ' },
+  { id: 2, name: 'Sarah Lee', role: 'Frontend', avatar: 'SL' },
+  { id: 3, name: '박민정', role: 'PM', avatar: 'PM' },
+  { id: 4, name: 'James Kim', role: 'Backend', avatar: 'JK' },
+]
+
+function ShadcnRadixMentionPopoverRender() {
+  const [open, setOpen] = useState(false)
+  const [query, setQuery] = useState('')
+  const [mentions, setMentions] = useState<string[]>([])
+
+  const filtered = MENTION_USERS.filter(u =>
+    u.name.toLowerCase().includes(query.toLowerCase()) ||
+    u.role.toLowerCase().includes(query.toLowerCase())
+  )
+
+  const addMention = (name: string) => {
+    if (!mentions.includes(name)) setMentions(prev => [...prev, name])
+    setOpen(false)
+    setQuery('')
+  }
+
+  return (
+    <div style={{ fontFamily: 'Inter, system-ui, sans-serif', display: 'flex', flexDirection: 'column', gap: 12, width: 320 }}>
+      <div style={{ fontSize: 12, fontWeight: 700, color: '#64748b' }}>담당자 멘션</div>
+      <Popover open={open} onOpenChange={setOpen}>
+        <Popover.Trigger asChild>
+          <button style={{
+            padding: '8px 12px',
+            fontSize: 13,
+            background: '#f8fafc',
+            border: '1px solid #e2e8f0',
+            borderRadius: 8,
+            cursor: 'pointer',
+            textAlign: 'left',
+            color: '#94a3b8',
+            width: '100%',
+          }}>
+            @ 멘션으로 담당자 지정...
+          </button>
+        </Popover.Trigger>
+        <Popover.Content style={{ width: 260, padding: 8 }}>
+          <input
+            autoFocus
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="이름 또는 역할 검색..."
+            style={{ width: '100%', padding: '6px 10px', fontSize: 12, border: '1px solid #e2e8f0', borderRadius: 6, marginBottom: 6, boxSizing: 'border-box', outline: 'none' }}
+          />
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+            {filtered.map(u => (
+              <button
+                key={u.id}
+                onClick={() => addMention(u.name)}
+                style={{
+                  display: 'flex', alignItems: 'center', gap: 8,
+                  padding: '7px 8px', borderRadius: 6, border: 'none',
+                  background: mentions.includes(u.name) ? '#f0fdf4' : 'transparent',
+                  cursor: 'pointer', textAlign: 'left',
+                }}
+                onMouseEnter={(e) => { if (!mentions.includes(u.name)) e.currentTarget.style.background = '#f8fafc' }}
+                onMouseLeave={(e) => { if (!mentions.includes(u.name)) e.currentTarget.style.background = 'transparent' }}
+              >
+                <div style={{ width: 28, height: 28, borderRadius: '50%', background: '#e0e7ff', color: '#6366f1', fontSize: 10, fontWeight: 700, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                  {u.avatar}
+                </div>
+                <div style={{ flex: 1 }}>
+                  <div style={{ fontSize: 12, fontWeight: 600, color: '#1e293b' }}>{u.name}</div>
+                  <div style={{ fontSize: 11, color: '#94a3b8' }}>{u.role}</div>
+                </div>
+                {mentions.includes(u.name) && <span style={{ fontSize: 12, color: '#22c55e' }}>✓</span>}
+              </button>
+            ))}
+          </div>
+        </Popover.Content>
+      </Popover>
+      {/* 선택된 멘션 목록 */}
+      {mentions.length > 0 && (
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+          {mentions.map(name => (
+            <div key={name} style={{ display: 'flex', alignItems: 'center', gap: 4, padding: '3px 8px', background: '#f0f9ff', border: '1px solid #bae6fd', borderRadius: 999, fontSize: 12, color: '#0369a1' }}>
+              @{name}
+              <button onClick={() => setMentions(prev => prev.filter(m => m !== name))} style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#7dd3fc', fontSize: 12, padding: 0, lineHeight: 1 }}>✕</button>
+            </div>
+          ))}
+        </div>
+      )}
+      <div style={{ fontSize: 11, color: '#94a3b8' }}>shadcn/ui + Radix — @ 멘션 자동완성 팝오버</div>
+    </div>
+  )
+}
+
+export const Shadcn_Radix_멘션_자동완성_팝오버: Story = {
+  name: 'shadcn/ui + Radix UI - @ 멘션 자동완성 팝오버',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'shadcn/ui + Radix UI 복합 팝오버 패턴. @ 트리거로 사용자 검색 팝오버를 열고 이름/역할로 필터링해 담당자를 지정합니다. ' +
+          '선택된 멘션은 태그 형태로 표시되며 ✕로 제거 가능합니다. Linear, GitHub의 담당자 멘션 UX와 동일한 패턴입니다.',
+      },
+    },
+  },
+  render: () => <ShadcnRadixMentionPopoverRender />,
+}

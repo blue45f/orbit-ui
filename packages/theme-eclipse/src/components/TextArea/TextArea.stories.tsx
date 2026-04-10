@@ -1392,3 +1392,272 @@ export const Mantine_협업_공유_노트_에디터: Story = {
   },
   render: () => <MantineCollaborativeNotesRender />,
 }
+
+/* --------------------------------------------------------------------------
+   shadcn/ui 벤치마크: 인라인 편집 모드 전환 패턴
+   shadcn Textarea + 뷰/편집 토글 — Notion 스타일 클릭해서 편집하기
+-------------------------------------------------------------------------- */
+function ShadcnInlineEditRender() {
+  const [editing, setEditing] = useState(false)
+  const [text, setText] = useState('클릭하여 편집하세요. shadcn/ui는 뷰 모드와 편집 모드를 명확히 분리해 사용자가 실수로 편집하는 것을 방지합니다.')
+  const [draft, setDraft] = useState(text)
+
+  const save = () => {
+    setText(draft)
+    setEditing(false)
+  }
+
+  const cancel = () => {
+    setDraft(text)
+    setEditing(false)
+  }
+
+  return (
+    <div style={{ width: 400, fontFamily: 'Inter, system-ui, sans-serif', display: 'flex', flexDirection: 'column', gap: 8 }}>
+      <div style={{ fontSize: 12, fontWeight: 700, color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.05em' }}>설명</div>
+      {editing ? (
+        <>
+          <TextArea
+            value={draft}
+            onChange={(e) => setDraft(e.target.value)}
+            minimumLine={4}
+            autoFocus
+          />
+          <div style={{ display: 'flex', gap: 6 }}>
+            <button
+              onClick={save}
+              style={{ padding: '6px 14px', fontSize: 12, fontWeight: 600, background: '#18181b', color: '#fff', border: 'none', borderRadius: 6, cursor: 'pointer' }}
+            >
+              저장
+            </button>
+            <button
+              onClick={cancel}
+              style={{ padding: '6px 14px', fontSize: 12, fontWeight: 500, background: 'transparent', color: '#64748b', border: '1px solid #e2e8f0', borderRadius: 6, cursor: 'pointer' }}
+            >
+              취소
+            </button>
+          </div>
+        </>
+      ) : (
+        <div
+          onClick={() => setEditing(true)}
+          role="button"
+          tabIndex={0}
+          onKeyDown={(e) => e.key === 'Enter' && setEditing(true)}
+          style={{
+            padding: '10px 12px',
+            fontSize: 14,
+            color: '#475569',
+            lineHeight: 1.6,
+            borderRadius: 8,
+            border: '1px dashed #e2e8f0',
+            cursor: 'text',
+            minHeight: 80,
+            transition: 'border-color 0.15s, background 0.15s',
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.borderColor = '#94a3b8'
+            e.currentTarget.style.background = '#f8fafc'
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.borderColor = '#e2e8f0'
+            e.currentTarget.style.background = 'transparent'
+          }}
+        >
+          {text}
+        </div>
+      )}
+      <div style={{ fontSize: 11, color: '#94a3b8' }}>클릭하면 편집 모드로 전환 — shadcn/ui 인라인 편집 패턴</div>
+    </div>
+  )
+}
+
+export const Shadcn_인라인_편집_모드_전환: Story = {
+  name: 'shadcn/ui - 인라인 편집 모드 전환 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'shadcn/ui Textarea 패턴. 뷰 모드(dashed border)와 편집 모드(Textarea)를 명확히 분리합니다. ' +
+          '클릭 또는 Enter 키로 편집 활성화, 저장/취소로 완료합니다. Notion 인라인 편집 UX와 동일한 패턴입니다.',
+      },
+    },
+  },
+  render: () => <ShadcnInlineEditRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Radix UI 벤치마크: 마크다운 미리보기 분할 편집기 패턴
+   Radix Tabs + Textarea — 편집/미리보기 탭 전환
+-------------------------------------------------------------------------- */
+function RadixMarkdownEditorRender() {
+  const [tab, setTab] = useState<'write' | 'preview'>('write')
+  const [md, setMd] = useState(`## 릴리즈 노트 v2.0\n\n**주요 변경사항:**\n- 신규 토큰 시스템 적용\n- 스토리 고도화 완료\n- TypeScript 5.7 업그레이드\n\n> 이 버전은 Breaking Change를 포함합니다.`)
+
+  const renderMd = (raw: string) =>
+    raw
+      .replace(/^## (.+)$/gm, '<h2 style="font-size:15px;font-weight:700;color:#1e293b;margin:12px 0 6px">$1</h2>')
+      .replace(/^> (.+)$/gm, '<blockquote style="border-left:3px solid #6366f1;padding:6px 10px;color:#64748b;margin:8px 0;font-size:12px">$1</blockquote>')
+      .replace(/\*\*(.+?)\*\*/g, '<strong style="color:#1e293b">$1</strong>')
+      .replace(/^- (.+)$/gm, '<li style="font-size:13px;color:#475569;margin:3px 0;list-style:disc;margin-left:16px">$1</li>')
+      .replace(/\n/g, '<br/>')
+
+  return (
+    <div style={{ width: 440, fontFamily: 'Inter, system-ui, sans-serif', border: '1px solid #e2e8f0', borderRadius: 10, overflow: 'hidden' }}>
+      {/* 탭 헤더 */}
+      <div style={{ display: 'flex', borderBottom: '1px solid #e2e8f0', background: '#fafafa' }}>
+        {(['write', 'preview'] as const).map(t => (
+          <button
+            key={t}
+            onClick={() => setTab(t)}
+            style={{
+              padding: '8px 16px',
+              fontSize: 12,
+              fontWeight: tab === t ? 600 : 400,
+              color: tab === t ? '#18181b' : '#94a3b8',
+              background: 'none',
+              border: 'none',
+              borderBottom: tab === t ? '2px solid #18181b' : '2px solid transparent',
+              cursor: 'pointer',
+            }}
+          >
+            {t === 'write' ? '작성' : '미리보기'}
+          </button>
+        ))}
+        <div style={{ marginLeft: 'auto', padding: '6px 12px', fontSize: 11, color: '#94a3b8', display: 'flex', alignItems: 'center' }}>
+          {md.length}자
+        </div>
+      </div>
+      {/* 콘텐츠 */}
+      <div style={{ padding: 12 }}>
+        {tab === 'write' ? (
+          <TextArea
+            value={md}
+            onChange={(e) => setMd(e.target.value)}
+            minimumLine={8}
+            placeholder="Markdown으로 작성하세요..."
+          />
+        ) : (
+          <div
+            style={{ minHeight: 160, fontSize: 13, color: '#475569', lineHeight: 1.7, padding: '4px 2px' }}
+            dangerouslySetInnerHTML={{ __html: renderMd(md) }}
+          />
+        )}
+      </div>
+      <div style={{ padding: '6px 12px', background: '#f8fafc', borderTop: '1px solid #e2e8f0', fontSize: 11, color: '#94a3b8' }}>
+        Radix Tabs 패턴 — 작성/미리보기 분할 에디터
+      </div>
+    </div>
+  )
+}
+
+export const Radix_마크다운_미리보기_분할_에디터: Story = {
+  name: 'Radix UI - 마크다운 미리보기 분할 에디터',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Radix UI Tabs + Textarea 조합 패턴. 작성 탭과 미리보기 탭을 전환하면서 실시간으로 마크다운 렌더링을 확인합니다. ' +
+          'Radix의 비제어 탭 패턴(각 탭이 독립적으로 콘텐츠를 마운트)을 간소화해 구현합니다.',
+      },
+    },
+  },
+  render: () => <RadixMarkdownEditorRender />,
+}
+
+/* --------------------------------------------------------------------------
+   shadcn + Radix 복합: 폼 초안 자동저장 + 글자 수 제한 패턴
+   shadcn Textarea + Radix ScrollArea — 실시간 저장 상태 표시
+-------------------------------------------------------------------------- */
+function ShadcnRadixAutoSaveRender() {
+  const MAX = 280
+  const [text, setText] = useState('')
+  const [saveState, setSaveState] = useState<'idle' | 'saving' | 'saved'>('idle')
+  const timerRef = { current: null as ReturnType<typeof setTimeout> | null }
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const val = e.target.value.slice(0, MAX)
+    setText(val)
+    setSaveState('saving')
+    if (timerRef.current) clearTimeout(timerRef.current)
+    timerRef.current = setTimeout(() => setSaveState('saved'), 1200)
+  }
+
+  const remaining = MAX - text.length
+  const pct = (text.length / MAX) * 100
+  const ringColor = remaining <= 20 ? '#ef4444' : remaining <= 60 ? '#f59e0b' : '#22c55e'
+
+  return (
+    <div style={{ width: 400, fontFamily: 'Inter, system-ui, sans-serif', display: 'flex', flexDirection: 'column', gap: 8 }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <span style={{ fontSize: 13, fontWeight: 700, color: '#1e293b' }}>게시물 작성</span>
+        <span style={{
+          fontSize: 11,
+          color: saveState === 'saving' ? '#f59e0b' : saveState === 'saved' ? '#22c55e' : '#94a3b8',
+          transition: 'color 0.3s',
+        }}>
+          {saveState === 'saving' ? '저장 중...' : saveState === 'saved' ? '자동 저장됨' : ''}
+        </span>
+      </div>
+      <TextArea
+        value={text}
+        onChange={handleChange}
+        minimumLine={5}
+        placeholder="무슨 생각을 하고 계신가요? (최대 280자)"
+      />
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        {/* 원형 게이지 */}
+        <div style={{ position: 'relative', width: 24, height: 24 }}>
+          <svg width={24} height={24} viewBox="0 0 24 24" style={{ transform: 'rotate(-90deg)' }}>
+            <circle cx={12} cy={12} r={9} fill="none" stroke="#f1f5f9" strokeWidth={3} />
+            <circle
+              cx={12} cy={12} r={9}
+              fill="none"
+              stroke={ringColor}
+              strokeWidth={3}
+              strokeDasharray={`${2 * Math.PI * 9}`}
+              strokeDashoffset={`${2 * Math.PI * 9 * (1 - pct / 100)}`}
+              style={{ transition: 'stroke-dashoffset 0.2s, stroke 0.3s' }}
+            />
+          </svg>
+          {remaining <= 20 && (
+            <span style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 7, fontWeight: 700, color: ringColor }}>
+              {remaining}
+            </span>
+          )}
+        </div>
+        <button
+          disabled={!text.trim()}
+          style={{
+            padding: '7px 20px',
+            fontSize: 13,
+            fontWeight: 600,
+            background: text.trim() ? '#18181b' : '#f1f5f9',
+            color: text.trim() ? '#fff' : '#94a3b8',
+            border: 'none',
+            borderRadius: 999,
+            cursor: text.trim() ? 'pointer' : 'not-allowed',
+            transition: 'background 0.2s, color 0.2s',
+          }}
+        >
+          게시
+        </button>
+      </div>
+      <div style={{ fontSize: 11, color: '#94a3b8' }}>shadcn/ui + Radix — 280자 제한 + 원형 게이지 + 자동저장</div>
+    </div>
+  )
+}
+
+export const Shadcn_Radix_자동저장_글자수_제한_에디터: Story = {
+  name: 'shadcn/ui + Radix UI - 자동저장 + 글자 수 제한 에디터',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'shadcn/ui + Radix UI 복합 패턴. Twitter/X 스타일의 280자 제한 에디터. ' +
+          '원형 SVG 게이지로 남은 글자 수 시각화, 1.2초 디바운스 자동저장 상태 표시, 입력 없으면 게시 버튼 비활성화.',
+      },
+    },
+  },
+  render: () => <ShadcnRadixAutoSaveRender />,
+}
