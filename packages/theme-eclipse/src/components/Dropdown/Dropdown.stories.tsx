@@ -1607,3 +1607,252 @@ export const Vercel_Chakra_팀_프로젝트_선택기: Story = {
     )
   },
 }
+
+/* --------------------------------------------------------------------------
+   Cycle 163 — Figma Plugin UI + Apple HIG
+   Figma Plugin: 컴포넌트 프레임 선택 드롭다운 패턴
+-------------------------------------------------------------------------- */
+const FIGMA_FRAME_OPTIONS = [
+  '375 × 812 — iPhone SE',
+  '390 × 844 — iPhone 14',
+  '428 × 926 — iPhone 14 Pro Max',
+  '768 × 1024 — iPad',
+  '1280 × 800 — Desktop',
+  '1440 × 900 — Desktop XL',
+]
+
+function FigmaFrameSelectorRender() {
+  const [frame, setFrame] = useState('')
+  const [open, setOpen] = useState(false)
+
+  return (
+    <div style={{ width: 320, fontFamily: 'system-ui, sans-serif' }}>
+      <p style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 12 }}>Figma Plugin UI — 프레임 선택 드롭다운</p>
+      <div style={{ background: '#1e1e1e', borderRadius: 10, padding: '16px', color: '#fff' }}>
+        <div style={{ fontSize: 11, color: '#999', marginBottom: 6 }}>캔버스 프레임 크기</div>
+        <Dropdown
+          value={frame}
+          placeholder="프레임 선택..."
+          activated={open}
+          onClick={() => setOpen(o => !o)}
+        />
+        {open && (
+          <div style={{ marginTop: 4, borderRadius: 8, background: '#2c2c2c', border: '1px solid #444', overflow: 'hidden' }}>
+            {FIGMA_FRAME_OPTIONS.map(opt => (
+              <button key={opt} onClick={() => { setFrame(opt); setOpen(false) }} style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '9px 12px', background: frame === opt ? '#3a3a3a' : 'transparent', border: 'none', color: frame === opt ? '#818cf8' : '#d4d4d4', fontSize: 12, cursor: 'pointer', textAlign: 'left' }}>
+                <span>{opt.split(' — ')[1]}</span>
+                <span style={{ fontSize: 10, color: '#666', fontFamily: 'monospace' }}>{opt.split(' — ')[0]}</span>
+              </button>
+            ))}
+          </div>
+        )}
+        {frame && (
+          <div style={{ marginTop: 10, fontSize: 11, color: '#818cf8' }}>선택됨: {frame}</div>
+        )}
+      </div>
+    </div>
+  )
+}
+
+export const Figma_프레임_크기_선택_드롭다운: Story = {
+  name: 'Figma Plugin UI — 캔버스 프레임 크기 선택',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Figma Plugin의 Frame Size Picker 패턴. 다크 배경 플러그인 UI에 Dropdown 배치, 기기명 + 해상도 2단 표시, 선택 시 강조 색상 피드백.',
+      },
+    },
+  },
+  render: () => <FigmaFrameSelectorRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Apple HIG: 공유 시트 / 내보내기 형식 선택 드롭다운
+-------------------------------------------------------------------------- */
+const APPLE_EXPORT_FORMATS = [
+  { value: 'png', label: 'PNG', desc: '투명 배경, 래스터', icon: '🖼️' },
+  { value: 'svg', label: 'SVG', desc: '벡터, 확장 가능', icon: '✦' },
+  { value: 'pdf', label: 'PDF', desc: '인쇄용 고해상도', icon: '📄' },
+  { value: 'webp', label: 'WebP', desc: '웹 최적화', icon: '🌐' },
+]
+
+const APPLE_SCALE_OPTIONS = ['1x', '2x', '3x']
+
+function AppleExportSheetRender() {
+  const [format, setFormat] = useState('')
+  const [scale, setScale] = useState('2x')
+  const [formatOpen, setFormatOpen] = useState(false)
+  const [exported, setExported] = useState(false)
+
+  const selectedFormat = APPLE_EXPORT_FORMATS.find(f => f.value === format)
+
+  const handleExport = () => {
+    if (!format) { return }
+    setExported(true)
+    setTimeout(() => setExported(false), 2000)
+  }
+
+  return (
+    <div style={{ width: 320, fontFamily: '-apple-system, BlinkMacSystemFont, system-ui, sans-serif' }}>
+      <p style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 12 }}>Apple HIG — 내보내기 형식 선택</p>
+      <div style={{ background: '#fff', borderRadius: 14, border: '1px solid #e5e7eb', boxShadow: '0 2px 16px rgba(0,0,0,0.06)', overflow: 'hidden' }}>
+        {/* Header */}
+        <div style={{ padding: '14px 16px', borderBottom: '1px solid #f5f5f7', display: 'flex', alignItems: 'center', gap: 10 }}>
+          <div style={{ width: 36, height: 36, borderRadius: 8, background: '#f0f0f5', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 16 }}>🎨</div>
+          <div>
+            <div style={{ fontSize: 13, fontWeight: 600, color: '#1c1c1e' }}>Button / Primary</div>
+            <div style={{ fontSize: 11, color: '#8e8e93' }}>180 × 44 pt</div>
+          </div>
+        </div>
+
+        <div style={{ padding: '14px 16px', display: 'flex', flexDirection: 'column', gap: 10 }}>
+          {/* Format */}
+          <div>
+            <div style={{ fontSize: 11, fontWeight: 600, color: '#8e8e93', marginBottom: 6, textTransform: 'uppercase', letterSpacing: '0.05em' }}>형식</div>
+            <Dropdown
+              value={selectedFormat ? `${selectedFormat.icon} ${selectedFormat.label} — ${selectedFormat.desc}` : ''}
+              placeholder="내보내기 형식 선택"
+              activated={formatOpen}
+              onClick={() => setFormatOpen(o => !o)}
+            />
+            {formatOpen && (
+              <div style={{ marginTop: 4, borderRadius: 10, background: '#fff', border: '1px solid #e5e7eb', boxShadow: '0 4px 16px rgba(0,0,0,0.08)', overflow: 'hidden' }}>
+                {APPLE_EXPORT_FORMATS.map(f => (
+                  <button key={f.value} onClick={() => { setFormat(f.value); setFormatOpen(false) }} style={{ width: '100%', display: 'flex', alignItems: 'center', gap: 10, padding: '10px 14px', background: format === f.value ? '#f5f4ff' : 'transparent', border: 'none', cursor: 'pointer', textAlign: 'left', borderBottom: '1px solid #f5f5f7' }}>
+                    <span style={{ fontSize: 18 }}>{f.icon}</span>
+                    <div>
+                      <div style={{ fontSize: 13, fontWeight: 600, color: format === f.value ? '#5e5adb' : '#1c1c1e' }}>{f.label}</div>
+                      <div style={{ fontSize: 11, color: '#8e8e93' }}>{f.desc}</div>
+                    </div>
+                    {format === f.value && <span style={{ marginLeft: 'auto', fontSize: 14, color: '#5e5adb' }}>✓</span>}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* Scale */}
+          <div>
+            <div style={{ fontSize: 11, fontWeight: 600, color: '#8e8e93', marginBottom: 6, textTransform: 'uppercase', letterSpacing: '0.05em' }}>해상도</div>
+            <div style={{ display: 'flex', gap: 6 }}>
+              {APPLE_SCALE_OPTIONS.map(s => (
+                <button key={s} onClick={() => setScale(s)} style={{ flex: 1, padding: '8px 0', fontSize: 13, fontWeight: scale === s ? 600 : 400, borderRadius: 8, border: `1.5px solid ${scale === s ? '#5e5adb' : '#e5e7eb'}`, background: scale === s ? '#f5f4ff' : '#fff', color: scale === s ? '#5e5adb' : '#1c1c1e', cursor: 'pointer', transition: 'all 150ms' }}>{s}</button>
+              ))}
+            </div>
+          </div>
+
+          <button onClick={handleExport} disabled={!format} style={{ marginTop: 4, padding: '11px', fontSize: 15, borderRadius: 10, border: 'none', background: exported ? '#22c55e' : format ? '#007aff' : '#e5e7eb', color: format ? '#fff' : '#8e8e93', cursor: format ? 'pointer' : 'not-allowed', fontWeight: 600, letterSpacing: '-0.01em', transition: 'all 200ms' }}>
+            {exported ? '내보내기 완료' : '내보내기'}
+          </button>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const Apple_내보내기_형식_선택_드롭다운: Story = {
+  name: 'Apple HIG — 내보내기 형식 선택 드롭다운',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Apple HIG Share Sheet / Export 패턴. 형식(PNG/SVG/PDF/WebP) + 해상도(1x/2x/3x) Dropdown 조합. iOS 스타일 둥근 카드, 큰 내보내기 버튼, 완료 피드백 애니메이션.',
+      },
+    },
+  },
+  render: () => <AppleExportSheetRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Figma + Apple HIG: 폰트 및 타이포그래피 선택기 복합 드롭다운
+-------------------------------------------------------------------------- */
+const FIGMA_FONT_FAMILIES = [
+  { name: 'Inter', weights: ['Regular', 'Medium', 'SemiBold', 'Bold'] },
+  { name: 'Geist', weights: ['Light', 'Regular', 'Medium', 'Bold'] },
+  { name: 'SF Pro', weights: ['Regular', 'Medium', 'Semibold', 'Bold'] },
+  { name: 'Pretendard', weights: ['Regular', 'Medium', 'SemiBold', 'Bold', 'ExtraBold'] },
+]
+
+const FONT_SIZES = ['11', '12', '13', '14', '16', '18', '20', '24', '28', '32']
+
+function FigmaAppleTypographyPickerRender() {
+  const [fontFamily, setFontFamily] = useState('')
+  const [fontWeight, setFontWeight] = useState('')
+  const [fontSize, setFontSize] = useState('14')
+  const [familyOpen, setFamilyOpen] = useState(false)
+  const [weightOpen, setWeightOpen] = useState(false)
+  const [sizeOpen, setSizeOpen] = useState(false)
+
+  const selectedFont = FIGMA_FONT_FAMILIES.find(f => f.name === fontFamily)
+
+  return (
+    <div style={{ width: 340, fontFamily: 'system-ui, sans-serif' }}>
+      <p style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 12 }}>Figma + Apple HIG — 폰트 선택기</p>
+      <div style={{ background: '#fff', borderRadius: 12, border: '1px solid #e5e7eb', padding: '16px', boxShadow: '0 2px 12px rgba(0,0,0,0.05)' }}>
+        {/* Preview */}
+        <div style={{ marginBottom: 14, padding: '12px', borderRadius: 8, background: '#f8fafc', border: '1px solid #e5e7eb', textAlign: 'center' }}>
+          <div style={{ fontFamily: fontFamily || 'system-ui', fontWeight: fontWeight === 'Bold' ? 700 : fontWeight === 'SemiBold' || fontWeight === 'Semibold' ? 600 : fontWeight === 'Medium' ? 500 : fontWeight === 'Light' ? 300 : 400, fontSize: parseInt(fontSize, 10) || 14, color: '#1e293b', letterSpacing: '-0.01em' }}>
+            {fontFamily ? `${fontFamily} ${fontWeight || 'Regular'}` : '폰트를 선택하세요'}
+          </div>
+          {fontFamily && <div style={{ fontSize: 10, color: '#94a3b8', marginTop: 4 }}>{fontSize}px · The quick brown fox</div>}
+        </div>
+
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8, marginBottom: 8 }}>
+          {/* Font Family */}
+          <div>
+            <div style={{ fontSize: 10, fontWeight: 600, color: '#94a3b8', marginBottom: 4, textTransform: 'uppercase', letterSpacing: '0.05em' }}>패밀리</div>
+            <Dropdown value={fontFamily} placeholder="서체" activated={familyOpen} onClick={() => { setFamilyOpen(o => !o); setWeightOpen(false); setSizeOpen(false) }} />
+            {familyOpen && (
+              <div style={{ position: 'absolute', zIndex: 10, width: 160, marginTop: 4, borderRadius: 8, background: '#fff', border: '1px solid #e5e7eb', boxShadow: '0 4px 16px rgba(0,0,0,0.1)', overflow: 'hidden' }}>
+                {FIGMA_FONT_FAMILIES.map(f => (
+                  <button key={f.name} onClick={() => { setFontFamily(f.name); setFontWeight(''); setFamilyOpen(false) }} style={{ width: '100%', padding: '8px 12px', background: fontFamily === f.name ? '#f0f4ff' : 'transparent', border: 'none', textAlign: 'left', cursor: 'pointer', fontSize: 13, color: fontFamily === f.name ? '#4338ca' : '#374151', fontFamily: f.name }}>
+                    {f.name}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* Weight */}
+          <div>
+            <div style={{ fontSize: 10, fontWeight: 600, color: '#94a3b8', marginBottom: 4, textTransform: 'uppercase', letterSpacing: '0.05em' }}>굵기</div>
+            <Dropdown value={fontWeight} placeholder="굵기" activated={weightOpen} disabled={!fontFamily} onClick={() => { if (!fontFamily) { return }; setWeightOpen(o => !o); setFamilyOpen(false); setSizeOpen(false) }} />
+            {weightOpen && selectedFont && (
+              <div style={{ position: 'absolute', zIndex: 10, width: 140, marginTop: 4, borderRadius: 8, background: '#fff', border: '1px solid #e5e7eb', boxShadow: '0 4px 16px rgba(0,0,0,0.1)', overflow: 'hidden' }}>
+                {selectedFont.weights.map(w => (
+                  <button key={w} onClick={() => { setFontWeight(w); setWeightOpen(false) }} style={{ width: '100%', padding: '8px 12px', background: fontWeight === w ? '#f0f4ff' : 'transparent', border: 'none', textAlign: 'left', cursor: 'pointer', fontSize: 13, color: fontWeight === w ? '#4338ca' : '#374151' }}>
+                    {w}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Size */}
+        <div>
+          <div style={{ fontSize: 10, fontWeight: 600, color: '#94a3b8', marginBottom: 4, textTransform: 'uppercase', letterSpacing: '0.05em' }}>크기 (px)</div>
+          <Dropdown value={`${fontSize}px`} placeholder="크기" activated={sizeOpen} onClick={() => { setSizeOpen(o => !o); setFamilyOpen(false); setWeightOpen(false) }} />
+          {sizeOpen && (
+            <div style={{ marginTop: 4, borderRadius: 8, background: '#fff', border: '1px solid #e5e7eb', boxShadow: '0 4px 16px rgba(0,0,0,0.1)', display: 'grid', gridTemplateColumns: '1fr 1fr 1fr 1fr 1fr', gap: 0, overflow: 'hidden' }}>
+              {FONT_SIZES.map(s => (
+                <button key={s} onClick={() => { setFontSize(s); setSizeOpen(false) }} style={{ padding: '8px 0', background: fontSize === s ? '#f0f4ff' : 'transparent', border: 'none', cursor: 'pointer', fontSize: 12, color: fontSize === s ? '#4338ca' : '#374151', fontWeight: fontSize === s ? 700 : 400 }}>{s}</button>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const Figma_Apple_폰트_타이포그래피_선택기: Story = {
+  name: 'Figma + Apple HIG — 폰트 & 타이포그래피 선택기',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Figma Font Picker + Apple HIG Typography Inspector 패턴. 패밀리/굵기/크기 3개 Dropdown 연동, 실시간 폰트 미리보기. 패밀리 선택 시 굵기 옵션 동적 업데이트.',
+      },
+    },
+  },
+  render: () => <FigmaAppleTypographyPickerRender />,
+}

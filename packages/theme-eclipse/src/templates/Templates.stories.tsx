@@ -36707,3 +36707,261 @@ export const RaycastNotion162WorkspaceHub: StoryObj = {
   },
   render: () => <RaycastNotion162WorkspaceHubRender />,
 }
+
+/* ==========================================================================
+   Cycle 163 — Figma Plugin UI + Apple HIG
+   FigmaApple163DesignToolkit: 디자인 툴킷 패널 템플릿
+   ========================================================================== */
+const TOOLKIT_LAYERS_163 = [
+  { id: 'f1', type: 'frame', name: 'App / Dashboard', depth: 0, color: '#2563eb' },
+  { id: 'g1', type: 'group', name: 'Header', depth: 1, color: '#7c3aed' },
+  { id: 'c1', type: 'component', name: 'Button / Primary', depth: 2, color: '#d97706' },
+  { id: 'c2', type: 'component', name: 'SearchBar', depth: 2, color: '#d97706' },
+  { id: 'g2', type: 'group', name: 'Content', depth: 1, color: '#7c3aed' },
+  { id: 'c3', type: 'component', name: 'DataTable', depth: 2, color: '#d97706' },
+  { id: 't1', type: 'text', name: 'Section Title', depth: 2, color: '#0891b2' },
+]
+
+const TOOLKIT_LAYER_ICON_163: Record<string, string> = {
+  frame: '▣', group: '◈', component: '◆', text: 'T', vector: '✦',
+}
+
+const TOOLKIT_EXPORT_FORMATS_163 = [
+  { value: 'png', label: 'PNG', icon: '🖼️' },
+  { value: 'svg', label: 'SVG', icon: '✦' },
+  { value: 'pdf', label: 'PDF', icon: '📄' },
+  { value: 'webp', label: 'WebP', icon: '🌐' },
+]
+
+const TOOLKIT_FONTS_163 = ['Inter', 'Geist', 'SF Pro', 'Pretendard']
+const TOOLKIT_SIZES_163 = ['12', '13', '14', '16', '18', '20', '24']
+
+function FigmaApple163DesignToolkitRender() {
+  const [layerSearch, setLayerSearch] = useState('')
+  const [selectedLayers, setSelectedLayers] = useState<string[]>(['c1'])
+  const [activePanel, setActivePanel] = useState<'layers' | 'export' | 'typography'>('layers')
+  const [exportFormat, setExportFormat] = useState('svg')
+  const [exportOpen, setExportOpen] = useState(false)
+  const [fontFamily, setFontFamily] = useState('Inter')
+  const [fontOpen, setFontOpen] = useState(false)
+  const [fontSize, setFontSize] = useState('14')
+  const [sizeOpen, setSizeOpen] = useState(false)
+  const [exported, setExported] = useState(false)
+
+  const filteredLayers = layerSearch
+    ? TOOLKIT_LAYERS_163.filter(l => l.name.toLowerCase().includes(layerSearch.toLowerCase()))
+    : TOOLKIT_LAYERS_163
+
+  const toggleLayer = (id: string) => {
+    setSelectedLayers(prev => prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id])
+  }
+
+  const handleExport = () => {
+    setExported(true)
+    setTimeout(() => setExported(false), 2500)
+  }
+
+  const PANELS = [
+    { id: 'layers' as const, label: '레이어' },
+    { id: 'export' as const, label: '내보내기' },
+    { id: 'typography' as const, label: '타이포' },
+  ]
+
+  return (
+    <div style={{ display: 'flex', height: '100vh', fontFamily: 'system-ui, sans-serif', background: '#f0f0f0', overflow: 'hidden' }}>
+
+      {/* Left: Figma-style dark panel */}
+      <div style={{ width: 280, display: 'flex', flexDirection: 'column', background: '#1e1e1e', color: '#d4d4d4' }}>
+        {/* Panel tabs */}
+        <div style={{ display: 'flex', borderBottom: '1px solid #333', background: '#181818' }}>
+          {PANELS.map(p => (
+            <button key={p.id} onClick={() => setActivePanel(p.id)} style={{ flex: 1, padding: '10px 0', fontSize: 11, border: 'none', background: 'transparent', color: activePanel === p.id ? '#818cf8' : '#777', cursor: 'pointer', borderBottom: activePanel === p.id ? '2px solid #818cf8' : '2px solid transparent', fontWeight: activePanel === p.id ? 600 : 400 }}>
+              {p.label}
+            </button>
+          ))}
+        </div>
+
+        {/* Layer panel */}
+        {activePanel === 'layers' && (
+          <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+            <div style={{ padding: '8px' }}>
+              <Command style={{ borderRadius: 6, background: '#2c2c2c', border: '1px solid #444' }}>
+                <Command.Input
+                  placeholder="레이어 검색..."
+                  value={layerSearch}
+                  onValueChange={setLayerSearch}
+                  style={{ background: 'transparent', color: '#d4d4d4', fontSize: 12 }}
+                />
+                <Command.List style={{ maxHeight: 300, background: '#2c2c2c' }}>
+                  <Command.Group heading="레이어">
+                    {filteredLayers.map(layer => (
+                      <Command.Item
+                        key={layer.id}
+                        value={layer.id}
+                        onSelect={() => toggleLayer(layer.id)}
+                        style={{ paddingLeft: 8 + layer.depth * 12 }}
+                      >
+                        <span style={{ fontSize: 10, fontWeight: 700, color: layer.color, marginRight: 6, fontFamily: 'monospace', minWidth: 12, display: 'inline-block' }}>{TOOLKIT_LAYER_ICON_163[layer.type]}</span>
+                        <span style={{ fontSize: 11, flex: 1, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', color: '#d4d4d4' }}>{layer.name}</span>
+                        {selectedLayers.includes(layer.id) && <CheckIcon className="h-3 w-3" style={{ color: '#818cf8', flexShrink: 0 }} />}
+                      </Command.Item>
+                    ))}
+                    <Command.Empty>레이어 없음</Command.Empty>
+                  </Command.Group>
+                </Command.List>
+              </Command>
+            </div>
+            <div style={{ padding: '8px 10px', background: '#252525', borderTop: '1px solid #333', fontSize: 10, color: '#666' }}>
+              {selectedLayers.length}개 선택됨
+            </div>
+          </div>
+        )}
+
+        {/* Export panel (Apple HIG style) */}
+        {activePanel === 'export' && (
+          <div style={{ flex: 1, padding: '14px 12px', display: 'flex', flexDirection: 'column', gap: 12 }}>
+            <div>
+              <div style={{ fontSize: 10, color: '#777', textTransform: 'uppercase', letterSpacing: '0.07em', marginBottom: 6 }}>형식</div>
+              <Dropdown
+                value={TOOLKIT_EXPORT_FORMATS_163.find(f => f.value === exportFormat)?.label ?? ''}
+                placeholder="형식 선택"
+                activated={exportOpen}
+                onClick={() => setExportOpen(o => !o)}
+              />
+              {exportOpen && (
+                <div style={{ marginTop: 4, borderRadius: 8, background: '#2c2c2c', border: '1px solid #444', overflow: 'hidden' }}>
+                  {TOOLKIT_EXPORT_FORMATS_163.map(f => (
+                    <button key={f.value} onClick={() => { setExportFormat(f.value); setExportOpen(false) }} style={{ width: '100%', display: 'flex', alignItems: 'center', gap: 8, padding: '9px 12px', background: exportFormat === f.value ? '#3a3a3a' : 'transparent', border: 'none', color: exportFormat === f.value ? '#818cf8' : '#d4d4d4', fontSize: 12, cursor: 'pointer', textAlign: 'left' }}>
+                      <span>{f.icon}</span>
+                      <span>{f.label}</span>
+                      {exportFormat === f.value && <span style={{ marginLeft: 'auto', fontSize: 11 }}>✓</span>}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+            <div>
+              <div style={{ fontSize: 10, color: '#777', textTransform: 'uppercase', letterSpacing: '0.07em', marginBottom: 6 }}>해상도</div>
+              <div style={{ display: 'flex', gap: 4 }}>
+                {['1x', '2x', '3x'].map(s => (
+                  <button key={s} onClick={() => {}} style={{ flex: 1, padding: '6px 0', fontSize: 11, borderRadius: 5, border: '1px solid #444', background: '#2c2c2c', color: '#d4d4d4', cursor: 'pointer' }}>{s}</button>
+                ))}
+              </div>
+            </div>
+            <button onClick={handleExport} style={{ marginTop: 'auto', padding: '10px', fontSize: 13, borderRadius: 8, border: 'none', background: exported ? '#22c55e' : '#818cf8', color: '#fff', cursor: 'pointer', fontWeight: 600, transition: 'background 200ms' }}>
+              {exported ? '완료!' : '내보내기'}
+            </button>
+          </div>
+        )}
+
+        {/* Typography panel */}
+        {activePanel === 'typography' && (
+          <div style={{ flex: 1, padding: '14px 12px', display: 'flex', flexDirection: 'column', gap: 10 }}>
+            <div>
+              <div style={{ fontSize: 10, color: '#777', textTransform: 'uppercase', letterSpacing: '0.07em', marginBottom: 6 }}>패밀리</div>
+              <Dropdown value={fontFamily} placeholder="서체" activated={fontOpen} onClick={() => { setFontOpen(o => !o); setSizeOpen(false) }} />
+              {fontOpen && (
+                <div style={{ marginTop: 4, borderRadius: 8, background: '#2c2c2c', border: '1px solid #444', overflow: 'hidden' }}>
+                  {TOOLKIT_FONTS_163.map(f => (
+                    <button key={f} onClick={() => { setFontFamily(f); setFontOpen(false) }} style={{ width: '100%', padding: '9px 12px', background: fontFamily === f ? '#3a3a3a' : 'transparent', border: 'none', textAlign: 'left', cursor: 'pointer', fontSize: 13, color: fontFamily === f ? '#818cf8' : '#d4d4d4', fontFamily: f }}>
+                      {f}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+            <div>
+              <div style={{ fontSize: 10, color: '#777', textTransform: 'uppercase', letterSpacing: '0.07em', marginBottom: 6 }}>크기</div>
+              <Dropdown value={`${fontSize}px`} placeholder="크기" activated={sizeOpen} onClick={() => { setSizeOpen(o => !o); setFontOpen(false) }} />
+              {sizeOpen && (
+                <div style={{ marginTop: 4, borderRadius: 8, background: '#2c2c2c', border: '1px solid #444', display: 'grid', gridTemplateColumns: '1fr 1fr 1fr 1fr', overflow: 'hidden' }}>
+                  {TOOLKIT_SIZES_163.map(s => (
+                    <button key={s} onClick={() => { setFontSize(s); setSizeOpen(false) }} style={{ padding: '8px 0', background: fontSize === s ? '#3a3a3a' : 'transparent', border: 'none', cursor: 'pointer', fontSize: 12, color: fontSize === s ? '#818cf8' : '#d4d4d4', fontWeight: fontSize === s ? 700 : 400 }}>{s}</button>
+                  ))}
+                </div>
+              )}
+            </div>
+            {/* Preview */}
+            <div style={{ marginTop: 8, padding: '12px', borderRadius: 8, background: '#2c2c2c', border: '1px solid #444', textAlign: 'center' }}>
+              <div style={{ fontFamily: fontFamily, fontSize: parseInt(fontSize, 10), color: '#e2e8f0', letterSpacing: '-0.01em' }}>
+                {fontFamily} {fontSize}px
+              </div>
+              <div style={{ fontSize: 10, color: '#666', marginTop: 4 }}>The quick brown fox</div>
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Right: Apple HIG-style content inspector */}
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', background: '#f5f4ef', overflowY: 'auto' }}>
+        {/* Toolbar */}
+        <div style={{ padding: '12px 20px', background: 'rgba(255,255,255,0.8)', backdropFilter: 'blur(10px)', borderBottom: '1px solid rgba(0,0,0,0.06)', display: 'flex', alignItems: 'center', gap: 10 }}>
+          <span style={{ fontSize: 14, fontWeight: 700, color: '#1c1c1e', letterSpacing: '-0.02em' }}>Design Toolkit</span>
+          <span style={{ marginLeft: 'auto', fontSize: 11, color: '#8e8e93' }}>Figma Plugin UI + Apple HIG</span>
+        </div>
+
+        {/* Canvas preview area */}
+        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '32px' }}>
+          {/* Selected layer preview */}
+          <div style={{ width: '100%', maxWidth: 480, background: '#fff', borderRadius: 16, boxShadow: '0 4px 40px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.04)', overflow: 'hidden' }}>
+            {/* Frame header */}
+            <div style={{ padding: '14px 18px', background: '#f9f9f9', borderBottom: '1px solid #f0f0f0', display: 'flex', alignItems: 'center', gap: 8 }}>
+              {[0, 1, 2].map(i => (
+                <div key={i} style={{ width: 10, height: 10, borderRadius: '50%', background: ['#ff5f57', '#febc2e', '#28c840'][i] }} />
+              ))}
+              <span style={{ marginLeft: 8, fontSize: 12, color: '#8e8e93', fontWeight: 500 }}>App / Dashboard</span>
+            </div>
+
+            {/* Content blocks */}
+            <div style={{ padding: '20px 18px', display: 'flex', flexDirection: 'column', gap: 12 }}>
+              {selectedLayers.map(id => {
+                const layer = TOOLKIT_LAYERS_163.find(l => l.id === id)
+                if (!layer) { return null }
+                return (
+                  <div key={id} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 14px', borderRadius: 10, background: layer.color + '10', border: `1.5px solid ${layer.color}25` }}>
+                    <span style={{ fontSize: 16, fontWeight: 700, color: layer.color, fontFamily: 'monospace' }}>{TOOLKIT_LAYER_ICON_163[layer.type]}</span>
+                    <div>
+                      <div style={{ fontSize: 13, fontWeight: 600, color: '#1c1c1e' }}>{layer.name}</div>
+                      <div style={{ fontSize: 10, color: '#8e8e93', textTransform: 'capitalize' }}>{layer.type}</div>
+                    </div>
+                    <div style={{ marginLeft: 'auto', fontSize: 10, color: layer.color, fontWeight: 600, background: layer.color + '15', padding: '2px 8px', borderRadius: 5 }}>선택됨</div>
+                  </div>
+                )
+              })}
+              {selectedLayers.length === 0 && (
+                <div style={{ textAlign: 'center', padding: '24px', color: '#8e8e93', fontSize: 13 }}>좌측 패널에서 레이어를 선택하세요</div>
+              )}
+            </div>
+          </div>
+
+          {/* Inspector bottom: Apple HIG-style attributes */}
+          <div style={{ marginTop: 20, width: '100%', maxWidth: 480, display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 10 }}>
+            {[
+              { label: '선택됨', value: `${selectedLayers.length}개` },
+              { label: '형식', value: TOOLKIT_EXPORT_FORMATS_163.find(f => f.value === exportFormat)?.label ?? 'SVG' },
+              { label: '폰트', value: `${fontFamily} ${fontSize}px` },
+            ].map(attr => (
+              <div key={attr.label} style={{ background: '#fff', borderRadius: 10, padding: '12px 14px', boxShadow: '0 1px 8px rgba(0,0,0,0.05)', border: '1px solid rgba(0,0,0,0.04)' }}>
+                <div style={{ fontSize: 10, color: '#8e8e93', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 4 }}>{attr.label}</div>
+                <div style={{ fontSize: 13, fontWeight: 700, color: '#1c1c1e', letterSpacing: '-0.01em', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{attr.value}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const FigmaApple163DesignToolkit: StoryObj = {
+  name: 'Figma Plugin UI + Apple HIG — 디자인 툴킷 패널 (Command + Dropdown)',
+  parameters: {
+    layout: 'fullscreen',
+    docs: {
+      description: {
+        story: 'Figma Plugin UI + Apple HIG 복합 패턴. 좌: 다크 플러그인 패널(레이어/내보내기/타이포 탭 — Command.Group 레이어 선택 + Dropdown 형식/폰트 선택), 우: Apple HIG 인스펙터 스타일 캔버스 미리보기 + 속성 카드.',
+      },
+    },
+  },
+  render: () => <FigmaApple163DesignToolkitRender />,
+}

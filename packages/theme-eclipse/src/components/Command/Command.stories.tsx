@@ -2282,3 +2282,259 @@ export const Mantine_Arco_프로젝트_전환_팔레트: Story = {
   },
   render: () => <MantineArcoProjectSwitcherRender />,
 }
+
+/* --------------------------------------------------------------------------
+   Cycle 163 — Figma Plugin UI + Apple HIG
+   Figma Plugin: 레이어 선택 팔레트 패턴 (Layer Picker)
+-------------------------------------------------------------------------- */
+const FIGMA_LAYERS = [
+  { id: 'frame1', type: 'frame', name: 'Dashboard / Main', depth: 0, color: '#2563eb' },
+  { id: 'group1', type: 'group', name: 'Header Group', depth: 1, color: '#7c3aed' },
+  { id: 'text1', type: 'text', name: 'Title — 디자인 시스템', depth: 2, color: '#0891b2' },
+  { id: 'icon1', type: 'vector', name: 'Icon / Bell', depth: 2, color: '#059669' },
+  { id: 'group2', type: 'group', name: 'Content Area', depth: 1, color: '#7c3aed' },
+  { id: 'comp1', type: 'component', name: 'Button / Primary', depth: 2, color: '#d97706' },
+  { id: 'comp2', type: 'component', name: 'Card / Default', depth: 2, color: '#d97706' },
+  { id: 'text2', type: 'text', name: 'Body Text — 설명', depth: 3, color: '#0891b2' },
+  { id: 'rect1', type: 'rectangle', name: 'Background Fill', depth: 1, color: '#6b7280' },
+]
+
+const LAYER_TYPE_ICON: Record<string, string> = {
+  frame: '▣',
+  group: '◈',
+  text: 'T',
+  vector: '✦',
+  component: '◆',
+  rectangle: '■',
+}
+
+function FigmaLayerPickerRender() {
+  const [query, setQuery] = useState('')
+  const [selected, setSelected] = useState<string[]>([])
+
+  const filtered = query
+    ? FIGMA_LAYERS.filter(l => l.name.toLowerCase().includes(query.toLowerCase()) || l.type.includes(query))
+    : FIGMA_LAYERS
+
+  const toggleLayer = (id: string) => {
+    setSelected(prev => prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id])
+  }
+
+  return (
+    <div style={{ width: 340, fontFamily: 'system-ui, sans-serif' }}>
+      <p style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 10 }}>Figma Plugin UI — 레이어 선택 팔레트</p>
+      <Command style={{ borderRadius: 10, border: '1px solid #e2e8f0', boxShadow: '0 4px 20px rgba(0,0,0,0.08)' }}>
+        <Command.Input
+          placeholder="레이어 검색..."
+          value={query}
+          onValueChange={setQuery}
+        />
+        <Command.List style={{ maxHeight: 280 }}>
+          <Command.Group heading={`레이어 (${filtered.length})`}>
+            {filtered.map(layer => (
+              <Command.Item
+                key={layer.id}
+                value={layer.id}
+                onSelect={() => toggleLayer(layer.id)}
+                style={{ paddingLeft: 8 + layer.depth * 14 }}
+              >
+                <span style={{ fontSize: 11, fontWeight: 700, color: layer.color, marginRight: 6, fontFamily: 'monospace', minWidth: 14, display: 'inline-block' }}>{LAYER_TYPE_ICON[layer.type]}</span>
+                <span style={{ fontSize: 12, flex: 1, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{layer.name}</span>
+                {selected.includes(layer.id) && <CheckIcon className="h-3 w-3 text-blue-500" />}
+              </Command.Item>
+            ))}
+            <Command.Empty>레이어를 찾을 수 없습니다</Command.Empty>
+          </Command.Group>
+        </Command.List>
+      </Command>
+      {selected.length > 0 && (
+        <div style={{ marginTop: 8, padding: '6px 10px', borderRadius: 6, background: '#f0f4ff', fontSize: 11, color: '#2563eb', fontWeight: 600 }}>
+          {selected.length}개 레이어 선택됨
+        </div>
+      )}
+    </div>
+  )
+}
+
+export const Figma_레이어_선택_팔레트: Story = {
+  name: 'Figma Plugin UI — 레이어 선택 팔레트 패턴',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Figma Plugin API의 레이어 탐색 패턴. 계층 깊이별 들여쓰기, 레이어 타입 아이콘(frame/group/text/vector/component), 다중 선택, 실시간 검색. Command.Item depth-based indent.',
+      },
+    },
+  },
+  render: () => <FigmaLayerPickerRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Apple HIG: Spotlight 스타일 앱 검색 팔레트 패턴
+-------------------------------------------------------------------------- */
+const APPLE_APPS = [
+  { category: '앱', name: 'Orbit UI', desc: '디자인 시스템 스토리북', icon: '🎨', shortcut: '⌘ 1' },
+  { category: '앱', name: 'Figma', desc: 'UI 디자인 툴', icon: '🖌️', shortcut: '⌘ 2' },
+  { category: '앱', name: 'VS Code', desc: '코드 편집기', icon: '💻', shortcut: '⌘ 3' },
+  { category: '파일', name: 'design-system.pdf', desc: '~/Downloads', icon: '📄', shortcut: '' },
+  { category: '파일', name: 'orbit-ui-tokens.json', desc: '~/Projects', icon: '📦', shortcut: '' },
+  { category: '웹', name: 'Orbit UI Storybook', desc: 'orbit-ui.vercel.app', icon: '🌐', shortcut: '' },
+  { category: '연락처', name: '김희준', desc: 'hjunkim@orbit-ui.dev', icon: '👤', shortcut: '' },
+]
+
+function AppleSpotlightCommandRender() {
+  const [query, setQuery] = useState('')
+  const [selected, setSelected] = useState<string | null>(null)
+
+  const filtered = query
+    ? APPLE_APPS.filter(a => a.name.toLowerCase().includes(query.toLowerCase()) || a.desc.toLowerCase().includes(query.toLowerCase()))
+    : APPLE_APPS
+
+  const grouped = filtered.reduce<Record<string, typeof APPLE_APPS>>((acc, item) => {
+    if (!acc[item.category]) { acc[item.category] = [] }
+    acc[item.category].push(item)
+    return acc
+  }, {})
+
+  return (
+    <div style={{ width: 380, fontFamily: '-apple-system, BlinkMacSystemFont, system-ui, sans-serif' }}>
+      <p style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 10 }}>Apple HIG — Spotlight 스타일 검색 팔레트</p>
+      <Command style={{ borderRadius: 14, border: 'none', background: 'rgba(255,255,255,0.88)', backdropFilter: 'blur(20px)', boxShadow: '0 8px 40px rgba(0,0,0,0.18), 0 0 0 1px rgba(0,0,0,0.06)' }}>
+        <div style={{ display: 'flex', alignItems: 'center', padding: '12px 16px', borderBottom: '1px solid rgba(0,0,0,0.06)', gap: 10 }}>
+          <SearchIcon className="h-5 w-5" style={{ color: '#8e8e93', flexShrink: 0 }} />
+          <Command.Input
+            placeholder="Spotlight 검색"
+            value={query}
+            onValueChange={setQuery}
+            style={{ border: 'none', outline: 'none', fontSize: 17, fontWeight: 400, letterSpacing: '-0.01em', color: '#1c1c1e', background: 'transparent', flex: 1 }}
+          />
+        </div>
+        <Command.List style={{ maxHeight: 300, padding: '6px 0' }}>
+          {Object.entries(grouped).map(([cat, items]) => (
+            <Command.Group key={cat} heading={cat}>
+              {items.map(app => (
+                <Command.Item
+                  key={app.name}
+                  value={app.name}
+                  onSelect={() => setSelected(app.name)}
+                  style={{ borderRadius: 8, margin: '1px 6px' }}
+                >
+                  <span style={{ fontSize: 20, marginRight: 10, flexShrink: 0 }}>{app.icon}</span>
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <div style={{ fontSize: 13, fontWeight: selected === app.name ? 600 : 400, color: '#1c1c1e', letterSpacing: '-0.01em' }}>{app.name}</div>
+                    <div style={{ fontSize: 11, color: '#8e8e93', marginTop: 1, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{app.desc}</div>
+                  </div>
+                  {app.shortcut && (
+                    <span style={{ fontSize: 10, color: '#8e8e93', fontFamily: 'system-ui', background: 'rgba(0,0,0,0.06)', padding: '2px 6px', borderRadius: 4 }}>{app.shortcut}</span>
+                  )}
+                </Command.Item>
+              ))}
+            </Command.Group>
+          ))}
+          <Command.Empty>
+            <span style={{ fontSize: 13, color: '#8e8e93' }}>&apos;{query}&apos;에 대한 결과 없음</span>
+          </Command.Empty>
+        </Command.List>
+      </Command>
+      {selected && (
+        <div style={{ marginTop: 8, fontSize: 11, color: '#6366f1', textAlign: 'center', fontWeight: 600 }}>열기: {selected}</div>
+      )}
+    </div>
+  )
+}
+
+export const Apple_Spotlight_앱_검색_팔레트: Story = {
+  name: 'Apple HIG — Spotlight 스타일 앱 검색 팔레트',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Apple HIG Spotlight 검색 패턴. 앱/파일/웹/연락처 카테고리별 그룹화, 앱 아이콘 + 이름 + 설명, 단축키 배지. 블러 배경 + 라운드 디자인. Command.Group 다중 카테고리 패턴.',
+      },
+    },
+  },
+  render: () => <AppleSpotlightCommandRender />,
+}
+
+/* --------------------------------------------------------------------------
+   Figma + Apple HIG: 컴포넌트 속성 에디터 팔레트 복합 패턴
+-------------------------------------------------------------------------- */
+const FIGMA_COMPONENT_VARIANTS = [
+  { prop: 'Type', options: ['Primary', 'Secondary', 'Ghost', 'Danger'], selected: 'Primary' },
+  { prop: 'Size', options: ['Small', 'Medium', 'Large'], selected: 'Medium' },
+  { prop: 'State', options: ['Default', 'Hover', 'Pressed', 'Disabled'], selected: 'Default' },
+  { prop: 'Icon', options: ['None', 'Leading', 'Trailing', 'Both'], selected: 'Leading' },
+]
+
+function FigmaAppleComponentEditorRender() {
+  const [variants, setVariants] = useState(FIGMA_COMPONENT_VARIANTS)
+  const [searchProp, setSearchProp] = useState('')
+
+  const updateVariant = (propName: string, value: string) => {
+    setVariants(prev => prev.map(v => v.prop === propName ? { ...v, selected: value } : v))
+  }
+
+  const activeVariant = variants.find(v => v.prop === 'Type')?.selected ?? 'Primary'
+  const activeSize = variants.find(v => v.prop === 'Size')?.selected ?? 'Medium'
+
+  const filteredProps = searchProp
+    ? variants.filter(v => v.prop.toLowerCase().includes(searchProp.toLowerCase()) || v.options.some(o => o.toLowerCase().includes(searchProp.toLowerCase())))
+    : variants
+
+  return (
+    <div style={{ width: 340, fontFamily: 'system-ui, sans-serif' }}>
+      <p style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 10 }}>Figma + Apple HIG — 컴포넌트 속성 에디터</p>
+
+      {/* Preview */}
+      <div style={{ marginBottom: 10, padding: '14px', borderRadius: 10, background: '#f8fafc', border: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <div style={{
+          padding: activeSize === 'Small' ? '5px 12px' : activeSize === 'Large' ? '11px 24px' : '8px 18px',
+          borderRadius: 7,
+          background: activeVariant === 'Primary' ? '#6366f1' : activeVariant === 'Secondary' ? '#e0e7ff' : activeVariant === 'Danger' ? '#fef2f2' : 'transparent',
+          color: activeVariant === 'Primary' ? '#fff' : activeVariant === 'Secondary' ? '#4338ca' : activeVariant === 'Danger' ? '#dc2626' : '#475569',
+          border: activeVariant === 'Ghost' ? '1.5px solid #e2e8f0' : 'none',
+          fontSize: activeSize === 'Small' ? 11 : activeSize === 'Large' ? 15 : 13,
+          fontWeight: 600,
+        }}>
+          {activeVariant} Button ({activeSize})
+        </div>
+      </div>
+
+      <Command style={{ borderRadius: 10, border: '1px solid #e2e8f0' }}>
+        <Command.Input
+          placeholder="속성 검색..."
+          value={searchProp}
+          onValueChange={setSearchProp}
+        />
+        <Command.List style={{ maxHeight: 240 }}>
+          {filteredProps.map(v => (
+            <Command.Group key={v.prop} heading={`${v.prop} — ${v.selected}`}>
+              {v.options.map(opt => (
+                <Command.Item
+                  key={opt}
+                  value={`${v.prop}-${opt}`}
+                  onSelect={() => updateVariant(v.prop, opt)}
+                >
+                  <span style={{ width: 14, height: 14, borderRadius: '50%', border: `2px solid ${v.selected === opt ? '#6366f1' : '#d1d5db'}`, background: v.selected === opt ? '#6366f1' : 'transparent', marginRight: 8, flexShrink: 0, display: 'inline-block' }} />
+                  <span style={{ fontSize: 12, fontWeight: v.selected === opt ? 700 : 400, color: v.selected === opt ? '#6366f1' : '#374151' }}>{opt}</span>
+                  {v.selected === opt && <CheckIcon className="h-3 w-3 ml-auto text-indigo-500" />}
+                </Command.Item>
+              ))}
+            </Command.Group>
+          ))}
+          <Command.Empty>일치하는 속성 없음</Command.Empty>
+        </Command.List>
+      </Command>
+    </div>
+  )
+}
+
+export const Figma_Apple_컴포넌트_속성_에디터: Story = {
+  name: 'Figma + Apple HIG — 컴포넌트 속성 에디터 팔레트',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Figma Component Variant Inspector + Apple HIG Property Inspector 패턴. 속성(Type/Size/State/Icon)별 Command.Group, 라디오 스타일 선택, 실시간 미리보기. 검색으로 속성/옵션 필터링.',
+      },
+    },
+  },
+  render: () => <FigmaAppleComponentEditorRender />,
+}
