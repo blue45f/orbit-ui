@@ -2,3 +2,30 @@ packages:
   - 'apps/*'
   - 'packages/*'
   - 'config/*'
+
+# Workspace catalog: 단일 진실 공급원으로 버전을 통일합니다.
+# 패키지에서 "catalog:"로 참조하면 여기 값이 사용됩니다.
+catalog:
+  # React 19.1
+  react: ^19.1.0
+  react-dom: ^19.1.0
+  '@types/react': ^19.1.0
+  '@types/react-dom': ^19.1.0
+
+  # 타입스크립트 & 노드
+  typescript: ^5.9.0
+  '@types/node': ^22.10.0
+
+  # 빌드/테스트 툴체인
+  vite: ^5.4.20
+  vitest: ^3.2.4
+  '@vitest/coverage-v8': ^3.2.4
+  '@vitest/ui': ^3.2.4
+  '@vitejs/plugin-react-swc': ^3.7.2
+  jsdom: ^25.0.1
+
+  # 테스팅 라이브러리
+  '@testing-library/dom': ^10.4.0
+  '@testing-library/jest-dom': ^6.6.3
+  '@testing-library/react': ^16.0.1
+  '@testing-library/user-event': ^14.5.2
