@@ -6,18 +6,30 @@ import { cn } from '../../styles'
 const Slider = React.forwardRef<
   React.ElementRef<typeof SliderPrimitive.Root>,
   React.ComponentPropsWithoutRef<typeof SliderPrimitive.Root>
->(({ className, ...props }, ref) => (
-  <SliderPrimitive.Root
-    ref={ref}
-    className={cn('relative flex w-full touch-none select-none items-center', className)}
-    {...props}
-  >
-    <SliderPrimitive.Track className="relative h-2 w-full grow overflow-hidden rounded-full bg-slate-100 dark:bg-slate-800">
-      <SliderPrimitive.Range className="absolute h-full bg-slate-900 dark:bg-slate-50" />
-    </SliderPrimitive.Track>
-    <SliderPrimitive.Thumb className="block h-5 w-5 rounded-full border-2 border-slate-900 bg-white ring-offset-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-950 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 dark:border-slate-50 dark:bg-slate-950 dark:ring-offset-slate-950 dark:focus-visible:ring-slate-300" />
-  </SliderPrimitive.Root>
-))
+>(({ className, value, defaultValue, ...props }, ref) => {
+  // 다중 thumb 지원: value/defaultValue 길이만큼 Thumb 렌더링
+  const thumbCount = (value ?? defaultValue ?? [0]).length
+
+  return (
+    <SliderPrimitive.Root
+      ref={ref}
+      className={cn('relative flex w-full touch-none select-none items-center', className)}
+      value={value}
+      defaultValue={defaultValue}
+      {...props}
+    >
+      <SliderPrimitive.Track className="relative h-2 w-full grow overflow-hidden rounded-full bg-slate-100 dark:bg-slate-800">
+        <SliderPrimitive.Range className="absolute h-full bg-slate-900 dark:bg-slate-50" />
+      </SliderPrimitive.Track>
+      {Array.from({ length: thumbCount }, (_, i) => (
+        <SliderPrimitive.Thumb
+          key={i}
+          className="block h-5 w-5 rounded-full border-2 border-slate-900 bg-white ring-offset-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-950 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 dark:border-slate-50 dark:bg-slate-950 dark:ring-offset-slate-950 dark:focus-visible:ring-slate-300"
+        />
+      ))}
+    </SliderPrimitive.Root>
+  )
+})
 Slider.displayName = SliderPrimitive.Root.displayName
 
 export { Slider }

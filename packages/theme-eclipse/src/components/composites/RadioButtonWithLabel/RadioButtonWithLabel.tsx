@@ -1,11 +1,20 @@
 import { useUniqueID, errorDev } from '@heejun-com/core'
+import clsx from 'clsx'
 import { forwardRef } from 'react'
 
 import { RadioButton as Radio, RadioButtonProps as RadioProps } from '../../RadioButton'
 import { Typography } from '../../Text'
 import { useRadioGroupContext } from '../RadioGroup'
 
-import * as styles from './RadioButtonWithLabel.css'
+const containerClass = (opts: { fullWidth?: boolean }) =>
+  clsx('inline-flex', { flex: opts.fullWidth })
+const radioWrapperClass = 'shrink-0'
+const labelClass = (opts: { fullWidth?: boolean; disabled?: boolean }) =>
+  clsx('inline-block min-h-[24px]', {
+    'w-full': opts.fullWidth,
+    'opacity-30': opts.disabled,
+  })
+const labelTextClass = 'inline-block ml-1 align-middle'
 
 type RadioButtonWithLabelProps = RadioProps & {
   children?: React.ReactNode
@@ -60,6 +69,7 @@ export const RadioButtonWithLabel = forwardRef<HTMLButtonElement, RadioButtonWit
       name: nameContext,
       checkedValue,
       disabled: groupDisabled,
+      select: groupSelect,
     } = useRadioGroupContext('Radio')
 
     const { name, checked, disabled } = withinGroup
@@ -69,6 +79,12 @@ export const RadioButtonWithLabel = forwardRef<HTMLButtonElement, RadioButtonWit
           disabled: groupDisabled || disabledProp,
         }
       : { name: nameProp, checked: checkedProp, disabled: disabledProp }
+
+    const handleRadioChange = (next: boolean) => {
+      if (next && withinGroup && value != null) {
+        groupSelect?.(String(value))
+      }
+    }
 
     // NOTE: Radio만으로 비제어 방식을 지원할 수 없는 이유
     // - checked 상태가 false로 바뀐 경우, 리액트의 onChange 이벤트 핸들러가 호출되지 않음
@@ -83,8 +99,8 @@ export const RadioButtonWithLabel = forwardRef<HTMLButtonElement, RadioButtonWit
     }
 
     return (
-      <div className={styles.container({ fullWidth })} style={{ alignItems }}>
-        <div className={styles.radioWrapper}>
+      <div className={containerClass({ fullWidth })} style={{ alignItems }}>
+        <div className={radioWrapperClass}>
           <Radio
             {...rest}
             ref={ref}
@@ -93,6 +109,10 @@ export const RadioButtonWithLabel = forwardRef<HTMLButtonElement, RadioButtonWit
             checked={checked}
             disabled={disabled}
             id={id}
+            onChange={(next) => {
+              handleRadioChange(next)
+              ;(rest as { onChange?: (n: boolean) => void }).onChange?.(next)
+            }}
           />
         </div>
         <RadioLabel id={id} disabled={disabled} fullWidth={fullWidth}>
@@ -114,8 +134,8 @@ const RadioLabel: React.FC<RadioLabelProps> = ({ id, children, disabled, fullWid
   if (!children) return null
 
   return (
-    <label htmlFor={id} data-disabled={disabled} className={styles.label({ fullWidth, disabled })}>
-      <Typography textStyle="bodyLarge" className={styles.labelText}>
+    <label htmlFor={id} data-disabled={disabled} className={labelClass({ fullWidth, disabled })}>
+      <Typography textStyle="bodyLarge" className={labelTextClass}>
         {children}
       </Typography>
     </label>

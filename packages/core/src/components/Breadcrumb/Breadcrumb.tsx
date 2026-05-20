@@ -48,10 +48,10 @@ BreadcrumbLink.displayName = 'BreadcrumbLink'
 
 const BreadcrumbPage = React.forwardRef<HTMLSpanElement, React.ComponentPropsWithoutRef<'span'>>(
   ({ className, ...props }, ref) => (
+    // 현재 페이지는 navigable한 link가 아니므로 role="link"는 부여하지 않는다.
+    // aria-current="page"만으로 보조 기술이 위치를 인식할 수 있다.
     <span
       ref={ref}
-      role="link"
-      aria-disabled="true"
       aria-current="page"
       className={cn('font-normal text-slate-950 dark:text-slate-50', className)}
       {...props}

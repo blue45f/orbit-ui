@@ -5,19 +5,26 @@ import { cleanup, render, screen, waitFor } from '../../../test-utils'
 import { Spinner } from './Spinner'
 
 // Animation 컴포넌트를 모킹하여 LottieProvider 의존성 제거
+// Animation 전용 props(animationData, autoplay, loop, name, path, onAnimationLoad)는
+// DOM으로 흘러가지 않도록 필터링
 vi.mock('../Animation', () => ({
-  Animation: ({ children, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
-    <div {...props}>{children}</div>
-  ),
-}))
-
-// Spinner는 lottie JSON을 동적 import하므로 모킹이 필요
-vi.mock('./lottie/circle-mint.json', () => ({
-  default: { v: '5.5.7', fr: 30, ip: 0, op: 60, w: 100, h: 100, layers: [] },
-}))
-
-vi.mock('./lottie/circle-purple.json', () => ({
-  default: { v: '5.5.7', fr: 30, ip: 0, op: 60, w: 100, h: 100, layers: [] },
+  Animation: ({
+    children,
+    animationData: _animationData,
+    autoplay: _autoplay,
+    loop: _loop,
+    name: _name,
+    path: _path,
+    onAnimationLoad: _onAnimationLoad,
+    ...props
+  }: React.HTMLAttributes<HTMLDivElement> & {
+    animationData?: unknown
+    autoplay?: boolean
+    loop?: boolean | number
+    name?: string
+    path?: string
+    onAnimationLoad?: (animation: unknown) => void
+  }) => <div {...props}>{children}</div>,
 }))
 
 afterEach(() => {
@@ -76,11 +83,11 @@ describe('Spinner', () => {
   })
 
   describe('색상', () => {
-    it('기본 색상은 mint이어야 한다', async () => {
-      render(<Spinner data-testid="spinner-mint" />)
+    it('기본 색상은 primary이어야 한다', async () => {
+      render(<Spinner data-testid="spinner-primary" />)
 
       await waitFor(() => {
-        expect(screen.getByTestId('spinner-mint')).toBeInTheDocument()
+        expect(screen.getByTestId('spinner-primary')).toBeInTheDocument()
       })
     })
 

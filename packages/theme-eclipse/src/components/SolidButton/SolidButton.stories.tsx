@@ -1,6 +1,7 @@
 import { Flex } from '@heejun-com/core'
 import { ArrowRightIcon, ChatLineIcon, ChevronRightLineIcon, NotificationLineIcon, SearchIcon, SettingLineIcon } from '@heejun-com/icons'
 import { Meta, StoryObj } from '@storybook/react'
+import { expect, fn, userEvent, within } from '@storybook/test'
 import { useState } from 'react'
 
 import { SolidButton, SolidButtonProps } from '.'
@@ -42,6 +43,53 @@ const meta = {
 type Story = StoryObj<typeof meta>
 
 export default meta
+
+/**
+ * 인터랙션 테스트 - 클릭하면 onClick이 호출되는지 검증.
+ * Storybook Test Runner / @storybook/test로 자동 실행됨.
+ */
+export const 인터랙션_클릭됨: Story = {
+  args: {
+    color: 'black',
+    size: 'medium',
+    onClick: fn(),
+  },
+  render: (args) => (
+    <SolidButton {...args}>
+      <SolidButton.Center>Click me</SolidButton.Center>
+    </SolidButton>
+  ),
+  play: async ({ args, canvasElement }) => {
+    const canvas = within(canvasElement)
+    const button = await canvas.findByRole('button', { name: /Click me/i })
+    await userEvent.click(button)
+    await expect(args.onClick).toHaveBeenCalledTimes(1)
+  },
+}
+
+/**
+ * 인터랙션 테스트 - disabled 상태에서는 onClick이 호출되지 않아야 함.
+ */
+export const 인터랙션_비활성화_클릭무시: Story = {
+  args: {
+    color: 'black',
+    size: 'medium',
+    disabled: true,
+    onClick: fn(),
+  },
+  render: (args) => (
+    <SolidButton {...args}>
+      <SolidButton.Center>Disabled</SolidButton.Center>
+    </SolidButton>
+  ),
+  play: async ({ args, canvasElement }) => {
+    const canvas = within(canvasElement)
+    const button = canvas.getByRole('button', { name: /Disabled/i })
+    expect(button).toBeDisabled()
+    await userEvent.click(button)
+    await expect(args.onClick).not.toHaveBeenCalled()
+  },
+}
 
 export const 색상 = {
   args: {

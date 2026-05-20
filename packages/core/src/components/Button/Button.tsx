@@ -150,6 +150,8 @@ const InternalButtonRoot = forwardRef<HTMLButtonElement | HTMLAnchorElement, But
       ...styleProp,
     }
 
+    const userOnClick = (rest as { onClick?: (e: React.MouseEvent) => void }).onClick
+
     return (
       <ButtonContext disabled={disabled} loading={loadingProp}>
         <Component
@@ -162,6 +164,17 @@ const InternalButtonRoot = forwardRef<HTMLButtonElement | HTMLAnchorElement, But
           {...a11y}
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           {...(handlers as any)}
+          // disabled/loading 상태에서 native click을 차단.
+          // `as='a'`인 경우 native disabled 속성이 없어 onClick 가드가 필요함.
+          disabled={Component === 'button' && (disabled || busy) ? true : undefined}
+          onClick={(e: React.MouseEvent) => {
+            if (disabled || busy) {
+              e.preventDefault()
+              e.stopPropagation()
+              return
+            }
+            userOnClick?.(e)
+          }}
         >
           {/* Content */}
           <span className={cn('flex items-center gap-200', busy && 'invisible')}>
@@ -183,6 +196,8 @@ const InternalButtonRoot = forwardRef<HTMLButtonElement | HTMLAnchorElement, But
  * ======================================================================== */
 
 function useButtonA11y({ disabled, loading }: Pick<ButtonProps, 'disabled' | 'loading'>) {
+  // 첫 렌더에서 즉시 aria-live=assertive를 켜면 마운트 알림이 시끄럽다.
+  // 한 번이라도 loading이 true가 됐을 때부터 폴라이트하게 알린다.
   const [dirty, markDirty] = useReducer(() => true, false)
 
   useEffect(() => {
@@ -191,7 +206,8 @@ function useButtonA11y({ disabled, loading }: Pick<ButtonProps, 'disabled' | 'lo
 
   return {
     'aria-disabled': disabled || loading,
-    'aria-live': (dirty ? 'assertive' : 'off') as 'assertive' | 'off',
+    'aria-busy': loading || undefined,
+    'aria-live': (dirty ? 'polite' : 'off') as 'polite' | 'off',
   }
 }
 
@@ -253,7 +269,8 @@ const ButtonTrailing: React.FC<ButtonTrailingProps> = ({
   children,
   ...rest
 }) => {
-  const size = width && height ? Math.max(width, height) : (width ?? height)
+  // 아이콘이 슬롯 안에 맞도록 가장 작은 변을 기준으로 한다 (Leading과 일관).
+  const size = width && height ? Math.min(width, height) : (width ?? height)
   const style = {
     width: width ? `${width}px` : undefined,
     height: height ? `${height}px` : undefined,

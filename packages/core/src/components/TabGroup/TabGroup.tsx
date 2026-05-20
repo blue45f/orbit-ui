@@ -237,6 +237,7 @@ const TabItemsActiveIndicator: React.FC<{ className?: string; style?: React.CSSP
     style={style}
   />
 )
+TabItemsActiveIndicator.displayName = 'TabItemsActiveIndicator'
 
 /* ========================================================================
  * Export

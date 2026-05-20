@@ -1,5 +1,5 @@
 import { setupContext, usePrevious, useIsomorphicLayoutEffect } from '../../../libs'
-import { darkTheme, lightTheme, textStyleTheme } from '../../../styles/theme.css'
+import { darkTheme, lightTheme, textStyleTheme } from '../../../styles'
 import { TextStyleBaseSize } from '../../../styles/types'
 import { OverlayContainerLayerProvider } from '../Overlay/OverlayContainerLayer'
 import { UniqueIDProvider } from '../UniqueIDProvider'
@@ -55,8 +55,6 @@ export const ThemeProvider: React.FC<Props> = ({
 
   useTheme(themeClass)
 
-  useFocusVisiblePolyfill()
-
   return (
     <ThemeProviderProvider mode={mode} baseTextSize={baseTextSize}>
       <UniqueIDProvider>
@@ -70,12 +68,15 @@ const useTheme = (themeClass: string) => {
   const prevThemeClass = usePrevious(themeClass)
 
   useIsomorphicLayoutEffect(() => {
-    document.body.classList.remove(...prevThemeClass.split(' ').filter(Boolean))
-    document.body.classList.add(...themeClass.split(' ').filter(Boolean))
-  }, [themeClass])
-}
+    const tokens = themeClass.split(' ').filter(Boolean)
+    const prevTokens = prevThemeClass.split(' ').filter(Boolean)
+    document.body.classList.remove(...prevTokens)
+    document.body.classList.add(...tokens)
 
-const useFocusVisiblePolyfill = () => {
-  // Note: :focus-visible is natively supported in modern browsers (Chrome 86+, Safari 15.4+)
-  // No polyfill needed for target browsers (chrome >= 105, safari >= 15)
+    return () => {
+      // 언마운트 시 현재 themeClass 정리. 다른 ThemeProvider가 같은 토큰을 쓸 수 있으므로
+      // remove만 안전하게 호출한다 (브라우저는 없는 클래스 제거에 관대하다).
+      document.body.classList.remove(...tokens)
+    }
+  }, [themeClass])
 }

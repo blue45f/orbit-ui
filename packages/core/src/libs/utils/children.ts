@@ -158,11 +158,24 @@ export function mapChildrenWithSelection(
   selectedIndex: number,
   onSelect?: (index: number) => void
 ): ReactNode {
-  return Children.map(children, (child, index) => {
+  // displayName이 'ActiveIndicator'와 같이 끝나는 보조 요소는 선택 인덱스 계산에서 제외합니다.
+  // 그 외 모든 자식은 선택 가능한 아이템으로 간주합니다 (기존 PageDots 등과 하위 호환).
+  let selectableIndex = -1
+  return Children.map(children, (child) => {
     if (!child || typeof child !== 'object') return child
-    return cloneElement(child as ReactElement<any>, {
-      selected: index === selectedIndex,
-      onClick: () => onSelect?.(index),
+    const element = child as ReactElement<unknown>
+    const componentName =
+      (element.type as { displayName?: string; name?: string })?.displayName ||
+      (element.type as { name?: string })?.name ||
+      ''
+    if (/Indicator$/.test(componentName)) {
+      return element
+    }
+    selectableIndex += 1
+    const myIndex = selectableIndex
+    return cloneElement(element as ReactElement<any>, {
+      selected: myIndex === selectedIndex,
+      onClick: () => onSelect?.(myIndex),
     })
   })
 }

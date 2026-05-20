@@ -1,7 +1,7 @@
 import { setupContext, StyleProtected, styleProtected, useControllableState } from '@heejun-com/core'
 import { forwardRef } from 'react'
 
-import * as styles from './RadioGroup.css'
+const RADIO_GROUP_FIELDSET_CLASS = 'border-0 m-0 p-0 min-w-0'
 
 // ========== RadioGroupContext ==========
 
@@ -11,6 +11,9 @@ export type RadioGroupContextValue = {
   name: string
   checkedValue: string
   disabled: boolean
+  /** 자식이 선택될 때 호출하는 callback. Radix 내부 input의 change 이벤트가 fieldset까지
+   * 전파되지 않는 경우가 있어, 자식이 명시적으로 호출할 수 있도록 노출합니다. */
+  select?: (value: string, event?: React.ChangeEvent<HTMLInputElement>) => void
 }
 
 export const [RadioGroupProvider, useRadioGroupContext] = setupContext<RadioGroupContextValue>(
@@ -75,21 +78,41 @@ export const RadioGroup = forwardRef<HTMLFieldSetElement, RadioGroupProps>(
       onChange,
     })
 
+    const select = (nextValue: string, event?: React.ChangeEvent<HTMLInputElement>) => {
+      // 합성 change 이벤트가 전달되지 않으면 RadioGroup이 직접 onChange-compatible 이벤트를 만든다.
+      const eventLike =
+        event ??
+        ({
+          target: { value: nextValue, name },
+          currentTarget: { value: nextValue, name },
+        } as unknown as React.ChangeEvent<HTMLInputElement>)
+      handleChange({
+        changeParams: [eventLike],
+        value: nextValue,
+      })
+    }
+
     return (
-      <RadioGroupProvider grouped name={name} checkedValue={value} disabled={disabled}>
+      <RadioGroupProvider
+        grouped
+        name={name}
+        checkedValue={value}
+        disabled={disabled}
+        select={select}
+      >
         <fieldset
           ref={ref}
           role="radiogroup"
           onChange={(event) => {
             const eventAsInput = event as unknown as React.ChangeEvent<HTMLInputElement>
-
+            if (!eventAsInput.target) return
             handleChange({
               changeParams: [eventAsInput],
               value: eventAsInput.target.value,
             })
           }}
           {...styleProtected(rest)}
-          className={styles.fieldset}
+          className={RADIO_GROUP_FIELDSET_CLASS}
         />
       </RadioGroupProvider>
     )

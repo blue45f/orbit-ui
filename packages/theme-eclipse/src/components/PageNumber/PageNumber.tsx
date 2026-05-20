@@ -26,11 +26,12 @@ const PageNumberRoot = forwardRef<HTMLDivElement, PageNumberProps>((props, ref) 
   })
 
   return (
-    <BasePageNumber ref={ref} theme={{ ...vars.com.pageCounter, ...theme }} {...rest}>
-      {trailing && Children.only(trailing) && (
-        <BasePageNumber.Trailing>{trailing as React.ReactElement}</BasePageNumber.Trailing>
-      )}
-    </BasePageNumber>
+    <BasePageNumber
+      ref={ref}
+      theme={{ ...vars.com.pageCounter, ...theme }}
+      trailing={trailing as React.ReactNode}
+      {...rest}
+    />
   )
 })
 

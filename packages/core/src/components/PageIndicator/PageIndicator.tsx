@@ -69,12 +69,13 @@ export const PageIndicator = forwardRef<HTMLDivElement, PageIndicatorProps>(
     const childrenWithProps = mapChildrenWithSelection(children, currentPage, onPageChange)
 
     return (
+      // 페이지네이션은 tab UI가 아니라 navigation landmark에 가깝다.
       <ContainerLayer
-        as="div"
+        as="nav"
         ref={ref}
         className={className}
         style={style}
-        role="tablist"
+        aria-label="Pagination"
         {...rest}
       >
         <ContentLayer

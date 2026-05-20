@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
+import { expect, fn, userEvent, within } from '@storybook/test'
 import { useState } from 'react'
 
 import { Switch } from './Switch'
@@ -22,6 +23,24 @@ export const 기본: Story = {
       </Typography>
     </div>
   ),
+}
+
+/**
+ * 인터랙션 테스트 - Switch를 클릭하면 onCheckedChange가 호출되고 토글된다.
+ */
+export const 인터랙션_토글: Story = {
+  args: {
+    onCheckedChange: fn(),
+  },
+  render: (args) => <Switch {...args} aria-label="알림" />,
+  play: async ({ args, canvasElement }) => {
+    const canvas = within(canvasElement)
+    const swtch = canvas.getByRole('switch', { name: '알림' })
+    expect(swtch).toHaveAttribute('data-state', 'unchecked')
+    await userEvent.click(swtch)
+    await expect(args.onCheckedChange).toHaveBeenCalledWith(true)
+    expect(swtch).toHaveAttribute('data-state', 'checked')
+  },
 }
 
 // ─── Apple HIG: 설정 화면 패턴 ───────────────────────────────────────────────
