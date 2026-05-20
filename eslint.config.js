@@ -5,7 +5,6 @@ import importPlugin from 'eslint-plugin-import'
 import reactPlugin from 'eslint-plugin-react'
 import reactHooksPlugin from 'eslint-plugin-react-hooks'
 import prettierConfig from 'eslint-config-prettier'
-import orbitPlugin from '@orbit-ui/eslint-plugin'
 import globals from 'globals'
 
 /** @type {import('eslint').Linter.Config[]} */
@@ -55,7 +54,6 @@ export default [
       react: reactPlugin,
       'react-hooks': reactHooksPlugin,
       import: importPlugin,
-      '@orbit-ui': orbitPlugin,
     },
     settings: {
       react: { version: 'detect' },

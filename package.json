@@ -22,7 +22,6 @@
   "devDependencies": {
     "@changesets/cli": "^2.27.10",
     "@eslint/js": "^9.16.0",
-    "@orbit-ui/eslint-plugin": "workspace:*",
     "@types/node": "catalog:",
     "@typescript-eslint/eslint-plugin": "^8.17.0",
     "@typescript-eslint/parser": "^8.17.0",
