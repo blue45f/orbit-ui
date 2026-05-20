@@ -13,7 +13,12 @@ import { vars } from '../../styles/theme-vars'
 import { FilledIconButton } from '../SolidIconButton'
 import { Typography } from '../Text'
 
-import * as styles from './SearchBar.css'
+const SEARCHBAR_CLASS = {
+  captionWrapper: 'flex gap-[var(--ref-spacing-50)]',
+  caption: 'whitespace-nowrap',
+  clearButton: 'w-6 h-6 overflow-visible',
+  iconButton: 'shrink-0',
+}
 
 export type SearchBarProps = Omit<
   Omit<TextFieldProps, keyof TextFieldSpecificProps>,
@@ -89,11 +94,11 @@ export const SearchBar = forwardRef<HTMLInputElement, SearchBarProps>((props, re
         <SearchIcon size={18} color={vars.sem.color.foregroundTertiary} />
       </TextField.Leading>
 
-      <TextField.Center className={styles.captionWrapper}>
+      <TextField.Center className={SEARCHBAR_CLASS.captionWrapper}>
         {children}
         {!isFocused && caption.length > 0 && isCaptionVisible && (
           <Typography
-            className={styles.caption}
+            className={SEARCHBAR_CLASS.caption}
             textStyle="descriptionMedium"
             color="foregroundTertiary"
           >
@@ -107,7 +112,7 @@ export const SearchBar = forwardRef<HTMLInputElement, SearchBarProps>((props, re
           color="white"
           size="medium"
           theme={{ enabledFillColor: vars.sem.color.fillNone }}
-          className={styles.iconButton}
+          className={SEARCHBAR_CLASS.iconButton}
         >
           <CircleCancelFillIcon size={16} color={vars.sem.color.foregroundQuaternary} />
         </FilledIconButton>

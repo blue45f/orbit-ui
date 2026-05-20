@@ -697,7 +697,7 @@ export const Tailwind_태그_편집_팝오버: Story = {
             Orbit UI 소개
           </div>
           <div style={{ fontSize: 13, color: '#475569', marginBottom: 16, lineHeight: 1.6 }}>
-            React 기반 3-tier 아키텍처 디자인 시스템. vanilla-extract로 타입 안전한 스타일링을 제공합니다.
+            React 기반 3-tier 아키텍처 디자인 시스템. Tailwind로 타입 안전한 스타일링을 제공합니다.
           </div>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>

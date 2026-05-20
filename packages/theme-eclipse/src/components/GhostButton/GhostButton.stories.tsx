@@ -111,7 +111,7 @@ export const 디자인QA = {
     text: 'Ghost Action',
     disabled: false,
   },
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
+   
   render: ({ leading: _leading, trailing, text, ...args }: any) => {
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', paddingBottom: '2rem' }}>
@@ -294,7 +294,7 @@ const LikeToggleRender = () => {
   const items = [
     { id: '1', title: 'Design System 3-Tier Token 발표', likes: 128, liked: false },
     { id: '2', title: 'Chakra UI → Orbit UI 마이그레이션 가이드', likes: 74, liked: true },
-    { id: '3', title: 'vanilla-extract 성능 비교 분석', likes: 56, liked: false },
+    { id: '3', title: 'Tailwind vs CSS-in-JS 성능 비교', likes: 56, liked: false },
   ]
 
   const [itemLikes, setItemLikes] = useState(items)
@@ -713,7 +713,7 @@ const NOTION_FORMAT_TOOLS: { key: string; label: string; shortcut: string }[] = 
 
 function NotionEditorToolbarRender() {
   const [active, setActive] = useState<Set<string>>(new Set())
-  const [text] = useState('Orbit UI는 React 기반 디자인 시스템입니다. vanilla-extract로 CSS-in-JS를 구현하며, 3단계 토큰 시스템을 사용합니다.')
+  const [text] = useState('Orbit UI는 React 기반 디자인 시스템입니다. Tailwind로 CSS-in-JS를 구현하며, 3단계 토큰 시스템을 사용합니다.')
 
   const toggle = (key: string) =>
     setActive((prev) => {

@@ -193,9 +193,49 @@ export default {
         bold: '700',
       },
       transitionDuration: {
+        // Legacy aliases (유지 - 기존 컴포넌트 호환)
         fast: '150ms',
         normal: '250ms',
         slow: '400ms',
+        // Motion 토큰 정렬 — vars.sem.motion.duration.* 와 동일한 ms
+        instant: '0ms',
+        'token-fast': '120ms',
+        'token-base': '200ms',
+        'token-slow': '320ms',
+        'token-slower': '480ms',
+      },
+      transitionTimingFunction: {
+        standard: 'cubic-bezier(0.2, 0, 0, 1)',
+        emphasized: 'cubic-bezier(0.3, 0, 0, 1)',
+        decelerate: 'cubic-bezier(0, 0, 0, 1)',
+        accelerate: 'cubic-bezier(0.3, 0, 1, 1)',
+        spring: 'cubic-bezier(0.5, 1.6, 0.4, 0.7)',
+      },
+      zIndex: {
+        // Elevation 토큰과 동기화 (elevation-token.ts 의 level1~5)
+        none: '0',
+        'elev-1': '100',
+        'elev-2': '200',
+        'elev-3': '300',
+        'elev-4': '400',
+        'elev-5': '500',
+        // 시맨틱 z-index 가이드
+        hide: '-1',
+        base: '0',
+        dropdown: '100',
+        sticky: '200',
+        overlay: '300',
+        modal: '400',
+        popover: '450',
+        tooltip: '500',
+        toast: '600',
+        max: '9999',
+      },
+      outlineWidth: {
+        ring: 'var(--sem-base-focus-ring-width, 2px)',
+      },
+      outlineOffset: {
+        ring: 'var(--sem-base-focus-ring-offset, 2px)',
       },
       boxShadow: {
         sm: '0px 1px 2px rgba(0, 0, 0, 0.05), 0px 1px 3px rgba(0, 0, 0, 0.02)',

@@ -93,7 +93,7 @@ export const 디자인QA = {
       exclude: ['as', 'children', 'onClick'],
     },
   },
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
+   
   render: ({ color, size, ...rest }: any) => {
     return (
       <OutlineIconButton {...rest} color={color} size={size}>
@@ -107,7 +107,7 @@ export const 디자인QA = {
    Linear 벤치마크: 이슈 상세 액션 툴바
    Linear 스타일 이슈 상세 페이지 우상단 액션바 — 컴팩트 간격, 미니멀 아이콘
 -------------------------------------------------------------------------- */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+ 
 export const Linear_이슈_액션_툴바 = {
   parameters: {
     docs: {
@@ -247,7 +247,7 @@ function VercelDeployActionsRender() {
   )
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+ 
 export const Vercel_배포_히스토리_액션 = {
   parameters: {
     docs: {
@@ -367,7 +367,7 @@ function LinearFilterToolbarRender() {
   )
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+ 
 export const Linear_필터_정렬_툴바 = {
   parameters: {
     docs: {
@@ -386,7 +386,7 @@ export const Linear_필터_정렬_툴바 = {
 const NOTION_BLOCKS = [
   { id: 'b1', type: 'heading', content: '디자인 시스템 아키텍처', level: 1 },
   { id: 'b2', type: 'text', content: 'Orbit UI는 3-tier 토큰 기반으로 설계된 React 컴포넌트 라이브러리입니다.' },
-  { id: 'b3', type: 'text', content: 'vanilla-extract를 사용하여 빌드 타임에 CSS를 생성합니다.' },
+  { id: 'b3', type: 'text', content: 'Tailwind를 사용하여 빌드 타임에 CSS를 생성합니다.' },
   { id: 'b4', type: 'heading', content: '컴포넌트 구조', level: 2 },
 ]
 
@@ -453,7 +453,7 @@ function NotionBlockEditorRender() {
   )
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+ 
 export const Notion_블록_편집_컨트롤 = {
   parameters: {
     docs: {
@@ -545,7 +545,7 @@ function CycleNavigationRender() {
   )
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+ 
 export const Linear_사이클_내비게이션 = {
   parameters: {
     docs: {
@@ -557,7 +557,7 @@ export const Linear_사이클_내비게이션 = {
   render: () => <CycleNavigationRender />,
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+ 
 export const 비활성화_상태_비교 = {
   parameters: {
     docs: {

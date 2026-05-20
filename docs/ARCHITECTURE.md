@@ -231,35 +231,48 @@ const [value, setValue] = useControllableState({
 
 ## 스타일링
 
-### vanilla-extract
+### Tailwind + CSS 변수
 
-빌드 타임 CSS 생성으로 런타임 오버헤드 없음:
-
-```ts
-import { recipe } from '@vanilla-extract/recipes'
-import { createStateRecipe } from '../../utils'
-
-export const stateStyles = recipe(
-  createStateRecipe({
-    enabled: {
-      background: vars.button.enabledFill,
-      color: vars.button.enabledForeground,
-    },
-    disabled: {
-      background: vars.button.disabledFill,
-      color: vars.button.disabledForeground,
-    },
-  })
-)
-```
-
-### 테마 적용
+모든 스타일은 Tailwind 유틸리티 클래스로 작성합니다. 컴포넌트별 토큰은 정적 CSS 변수
+(`var(--sem-eclipse-color-*)`)로 노출되며, Tailwind arbitrary value 안에서 직접 참조합니다.
 
 ```tsx
-const { themeVars } = useTheme(vars.button, theme)
+import { cn } from '@heejun-com/core'
+
+const ROOT_CLASS =
+  'inline-flex items-center rounded-full transition-colors duration-200 ' +
+  '[background-color:var(--sem-eclipse-color-fillSecondary)] ' +
+  'data-[state=checked]:[background-color:var(--sem-eclipse-color-systemMainPrimary)] ' +
+  'focus-visible:outline focus-visible:outline-2 ' +
+  'focus-visible:outline-[var(--sem-base-focus-ring-color)]'
+
+return <button className={cn(ROOT_CLASS, className)} {...props} />
+```
+
+### 변형(variant) 함수
+
+size/color 등 변형은 컴포넌트 내부에 `clsx` 헬퍼 함수로 정의합니다.
+
+```ts
+import clsx from 'clsx'
+
+const buttonCenter = (opts: { size: 'small' | 'medium' | 'large' }) =>
+  clsx('inline-block tracking-tight font-semibold', {
+    'px-0.5 text-[13px]': opts.size === 'small',
+    'px-1 text-[15px]': opts.size === 'medium',
+    'px-1 text-[17px]': opts.size === 'large',
+  })
+```
+
+### 테마 토큰 적용
+
+레거시 `theme` prop이 필요한 컴포넌트는 토큰 객체를 `style`로 전달합니다.
+
+```tsx
+const tokens = vars.com.button
 
 return (
-  <button style={themeVars}>
+  <button style={{ backgroundColor: tokens.enabledFillColor, color: tokens.enabledForegroundColor }}>
     {children}
   </button>
 )
@@ -304,7 +317,8 @@ return (
 export default defineConfig({
   plugins: [
     react(),
-    vanillaExtract(),
+    cssBangCommentPlugin(),
+    cssReorderPlugin(),
   ],
   build: {
     lib: {

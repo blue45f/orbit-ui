@@ -64,7 +64,7 @@ export const 디자인_QA = {
     },
   },
 
-  // eslint-disable-next-line
+   
   render: ({ text, ...rest }: any) => {
     return <SpeechBadge {...rest}>{text || 'SpeechBadge'}</SpeechBadge>
   },
@@ -293,7 +293,7 @@ export const Vercel_PR_리뷰_스레드: Story = {
 const testimonials = [
   { author: 'K', name: '김민준', role: 'Frontend Lead', color: '#6366f1', text: '3단계 토큰 시스템이 정말 강력해요! 브랜드 컬러만 바꾸면 전체 UI가 업데이트되니까 디자이너-개발자 협업이 훨씬 원활해졌습니다.' },
   { author: 'L', name: '이서연', role: 'Product Designer', color: '#8b5cf6', text: 'Storybook autodocs 덕분에 별도 문서 없이도 컴포넌트 API를 바로 파악할 수 있어요. 온보딩 시간이 절반으로 줄었습니다.' },
-  { author: 'P', name: '박지호', role: 'Design System Engineer', color: '#0ea5e9', text: 'vanilla-extract로 타입 안전한 CSS를 작성할 수 있어서 런타임 오류가 사라졌어요. TypeScript 통합이 완벽합니다.' },
+  { author: 'P', name: '박지호', role: 'Design System Engineer', color: '#0ea5e9', text: 'Tailwind로 타입 안전한 CSS를 작성할 수 있어서 런타임 오류가 사라졌어요. TypeScript 통합이 완벽합니다.' },
 ]
 
 export const Ant_피드백_쇼케이스: Story = {
@@ -807,7 +807,7 @@ export const Shadcn_단계별_가이드_팁: Story = {
 -------------------------------------------------------------------------- */
 const BOT_RESPONSES = [
   'Orbit UI는 3계층 아키텍처(Base → Theme → Custom)를 사용합니다.',
-  '컴포넌트를 확장하려면 vanilla-extract 스타일 파일을 수정하세요.',
+  '컴포넌트를 확장하려면 Tailwind 유틸 클래스 파일을 수정하세요.',
   '스토리북에서 autodocs 태그로 자동 문서가 생성됩니다.',
 ]
 

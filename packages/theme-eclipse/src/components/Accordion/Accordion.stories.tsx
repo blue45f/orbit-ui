@@ -82,7 +82,7 @@ const faqItems = [
       </svg>
     ),
     question: '토큰을 커스터마이즈할 수 있나요?',
-    answer: 'CSS 변수 직접 override, theme prop을 통한 컴포넌트별 토큰 주입, vanilla-extract createTheme을 통한 새 테마 클래스 생성 등 3가지 방법을 지원합니다.',
+    answer: 'CSS 변수 직접 override, theme prop을 통한 컴포넌트별 토큰 주입, Tailwind createTheme을 통한 새 테마 클래스 생성 등 3가지 방법을 지원합니다.',
   },
   {
     value: 'faq-4',
@@ -555,7 +555,7 @@ const PAGE_SECTIONS = [
     badge: 'sale' as const,
     content: (
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, paddingTop: 4 }}>
-        {['React 18', 'TypeScript 5.7', 'vanilla-extract', 'Vite', 'Storybook 8', 'pnpm'].map((tech) => (
+        {['React 18', 'TypeScript 5.7', 'Radix UI', 'Vite', 'Storybook 8', 'pnpm'].map((tech) => (
           <span
             key={tech}
             style={{
@@ -816,7 +816,7 @@ const FAQ_ITEMS = [
   },
   {
     q: '번들 크기는 얼마나 되나요?',
-    a: 'vanilla-extract zero-runtime CSS를 사용하여 런타임 오버헤드가 없습니다. Tree-shaking이 완전히 지원되어 사용한 컴포넌트만 포함됩니다.',
+    a: 'Tailwind zero-runtime CSS를 사용하여 런타임 오버헤드가 없습니다. Tree-shaking이 완전히 지원되어 사용한 컴포넌트만 포함됩니다.',
   },
 ]
 
@@ -1930,7 +1930,7 @@ function M3ExpansionPanel142Render() {
       subtitle: '3단계 토큰 시스템',
       badge: '완료',
       color: '#6750a4',
-      content: '레퍼런스 → 시맨틱 → 컴포넌트 토큰의 3단계 계층 구조. vanilla-extract CSS-in-JS로 완전한 타입 안전성 보장. 런타임 오버헤드 없는 제로-런타임 스타일링.',
+      content: '레퍼런스 → 시맨틱 → 컴포넌트 토큰의 3단계 계층 구조. Tailwind 유틸 + CSS 변수로 완전한 타입 안전성 보장. 런타임 오버헤드 없는 제로-런타임 스타일링.',
     },
     {
       id: 'components',

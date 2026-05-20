@@ -93,7 +93,7 @@ export const 디자인_QA = {
     selected: false,
     disabled: false,
   },
-  // eslint-disable-next-line
+   
   render: (args: any) => {
     return <PageDots {...args} />
   },
@@ -181,7 +181,7 @@ export const Mantine_스텝_위저드: Story = {
 -------------------------------------------------------------------------- */
 const CAROUSEL_SLIDES = [
   { title: 'Design System 소개', subtitle: '3-tier 아키텍처로 확장 가능한 UI', color: '#6366f1', bg: '#eef2ff' },
-  { title: 'Eclipse 테마', subtitle: 'vanilla-extract 기반 타입 안전 스타일링', color: '#0ea5e9', bg: '#f0f9ff' },
+  { title: 'Eclipse 테마', subtitle: 'Tailwind + 토큰 기반 타입 안전 스타일링', color: '#0ea5e9', bg: '#f0f9ff' },
   { title: '토큰 시스템', subtitle: 'Reference → Semantic → Component 3단계', color: '#10b981', bg: '#f0fdf4' },
   { title: 'Storybook 문서화', subtitle: '모든 컴포넌트의 인터랙티브 플레이그라운드', color: '#f59e0b', bg: '#fffbeb' },
 ]

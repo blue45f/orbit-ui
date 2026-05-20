@@ -528,7 +528,7 @@ export const Ant_폼_도움말_툴팁: Story = {
 const tableData = [
   { id: 'ORB-301', title: '디자인 토큰 시스템 Reference → Semantic → Component 3단계 구조 마이그레이션 완료', assignee: '김민준', status: 'Done', priority: 'Urgent' },
   { id: 'ORB-298', title: 'Storybook 8.6 autodocs 설정 및 컴포넌트 JSDoc 일괄 업데이트', assignee: '이서연', status: 'In Progress', priority: 'High' },
-  { id: 'ORB-287', title: '다크모드 테마 토큰 정의 및 vanilla-extract 스타일 적용', assignee: '박지호', status: 'Backlog', priority: 'Medium' },
+  { id: 'ORB-287', title: '다크모드 테마 토큰 정의 및 Tailwind 유틸 클래스 적용', assignee: '박지호', status: 'Backlog', priority: 'Medium' },
   { id: 'ORB-271', title: 'TypeScript strict 모드 활성화 및 기존 타입 오류 수정', assignee: '최준혁', status: 'Done', priority: 'Low' },
 ]
 

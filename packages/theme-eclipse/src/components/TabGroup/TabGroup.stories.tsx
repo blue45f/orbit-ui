@@ -100,7 +100,7 @@ export const 디자인QA = {
       max: 5,
     },
   },
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/explicit-module-boundary-types
+   
   render({ tabCount, defaultValue }: any) {
     return (
       <div style={{ width: '100%', maxWidth: '600px' }}>
@@ -955,7 +955,7 @@ const CHAKRA_PROFILE_TABS = [
     count: 42,
     content: [
       { title: 'Orbit UI 릴리즈 v2.0', date: '2시간 전', views: 312 },
-      { title: 'vanilla-extract 마이그레이션 후기', date: '1일 전', views: 891 },
+      { title: 'Tailwind 마이그레이션 후기', date: '1일 전', views: 891 },
       { title: '디자인 토큰 시스템 구축기', date: '3일 전', views: 1240 },
     ],
   },
@@ -965,7 +965,7 @@ const CHAKRA_PROFILE_TABS = [
     count: 128,
     content: [
       { title: '"정말 유용한 글이네요. 감사합니다!"', date: '5분 전', views: null },
-      { title: '"vanilla-extract 예제 더 부탁드려요"', date: '2시간 전', views: null },
+      { title: '"Tailwind 예제 더 부탁드려요"', date: '2시간 전', views: null },
       { title: '"탁월한 접근 방식입니다"', date: '어제', views: null },
     ],
   },

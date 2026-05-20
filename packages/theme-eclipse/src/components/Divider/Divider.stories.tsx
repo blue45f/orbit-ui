@@ -151,7 +151,7 @@ export const 디자인QA = {
       exclude: ['as', 'children', 'onClick'],
     },
   },
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
+   
   render: ({ orientation, length, ...rest }: any) => {
     const vertical = orientation === 'vertical'
     return (
@@ -937,7 +937,7 @@ export const MUI_설정_목록_섹션_구분선: StoryObj = {
 type ChakraPost = { title: string; author: string; date: string; category: string; readTime: string; summary: string }
 
 const CHAKRA_POSTS: ChakraPost[] = [
-  { title: 'vanilla-extract로 동적 테마 구현하기', author: '김희준', date: '2026-04-10', category: '기술', readTime: '8분', summary: 'vanilla-extract의 createTheme API를 활용해 런타임 테마 전환을 구현하는 방법을 설명합니다.' },
+  { title: 'Tailwind로 동적 테마 구현하기', author: '김희준', date: '2026-04-10', category: '기술', readTime: '8분', summary: 'Tailwind의 createTheme API를 활용해 런타임 테마 전환을 구현하는 방법을 설명합니다.' },
   { title: '접근성 우선 컴포넌트 설계 원칙', author: '박지수', date: '2026-04-09', category: '접근성', readTime: '5분', summary: 'WAI-ARIA 패턴을 Orbit UI에 적용하면서 배운 실용적인 접근성 설계 원칙을 공유합니다.' },
   { title: 'Storybook 8의 새로운 기능 총정리', author: '이민준', date: '2026-04-08', category: '도구', readTime: '6분', summary: 'Storybook 8에서 추가된 autodocs, play function 개선, 퍼포먼스 향상 포인트를 정리했습니다.' },
 ]

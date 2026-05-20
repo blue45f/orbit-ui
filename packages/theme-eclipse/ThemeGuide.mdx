@@ -482,36 +482,28 @@ import './custom-theme.css'    // 2. 시맨틱 토큰 override`,
 
     {/* TypeScript Theme Type Extension */}
     <section style={{ marginBottom: '56px' }}>
-      <h2 style={{ fontSize: '24px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '8px' }}>TypeScript로 테마 타입 확장</h2>
+      <h2 style={{ fontSize: '24px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '8px' }}>TypeScript로 테마 클래스 타입 안전 확장</h2>
       <p style={{ fontSize: '14px', color: '#64748b', lineHeight: '1.7', marginBottom: '20px' }}>
-        vanilla-extract의 <code style={{ background: '#f1f5f9', color: '#6366f1', padding: '2px 6px', borderRadius: '4px', fontSize: '13px', fontWeight: '500' }}>createTheme</code>과 TypeScript를 함께 사용하면
-        완전한 타입 안전성을 갖춘 커스텀 테마를 만들 수 있습니다. IDE 자동완성과 타입 에러 검출이 모두 동작합니다.
+        Eclipse는 <code style={{ background: '#f1f5f9', color: '#6366f1', padding: '2px 6px', borderRadius: '4px', fontSize: '13px', fontWeight: '500' }}>theme.css</code>의 CSS 변수만 재정의하면 새 테마 클래스를 추가할 수 있습니다.
+        TypeScript로 허용 클래스 목록을 모듈 보강해두면 IDE 자동완성과 타입 에러 검출이 동작합니다.
       </p>
 
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
         <div style={{ borderRadius: '16px', border: '1px solid #e2e8f0', overflow: 'hidden' }}>
           <div style={{ padding: '10px 16px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0', fontSize: '12px', fontWeight: '600', color: '#475569' }}>
-            커스텀 테마 생성 (my-theme.css.ts)
+            커스텀 테마 클래스 (my-theme.css)
           </div>
           <pre style={{ margin: 0, padding: '16px', background: '#0f172a', color: '#e2e8f0', fontSize: '11px', lineHeight: '1.8', fontFamily: '"JetBrains Mono", monospace', overflow: 'auto' }}>
-{`// my-theme.css.ts
-import { createTheme } from '@vanilla-extract/css'
-import { vars } from '@heejun-com/theme-eclipse/vars'
-
-// vars의 타입을 그대로 상속 → 빠진 토큰은 타입 에러
-export const myThemeClass = createTheme(vars, {
-  sem: {
-    color: {
-      fillPrimary: '#0ea5e9',
-      fillSecondary: '#e0f2fe',
-      foregroundPrimary: '#0c4a6e',
-      backgroundPrimary: '#f0f9ff',
-      surfaceContainer: '#e0f2fe',
-      borderPrimary: '#bae6fd',
-      // ...나머지 토큰은 기본값 상속
-    },
-  },
-})`}
+{`/* my-theme.css */
+.my-theme {
+  --sem-eclipse-color-fillPrimary: #0ea5e9;
+  --sem-eclipse-color-fillSecondary: #e0f2fe;
+  --sem-eclipse-color-foregroundPrimary: #0c4a6e;
+  --sem-eclipse-color-backgroundPrimary: #f0f9ff;
+  --sem-eclipse-color-surfaceContainer: #e0f2fe;
+  --sem-eclipse-color-borderPrimary: #bae6fd;
+  /* 정의하지 않은 변수는 Eclipse 기본값 상속 */
+}`}
           </pre>
         </div>
 
@@ -521,11 +513,10 @@ export const myThemeClass = createTheme(vars, {
           </div>
           <pre style={{ margin: 0, padding: '16px', background: '#0f172a', color: '#e2e8f0', fontSize: '11px', lineHeight: '1.8', fontFamily: '"JetBrains Mono", monospace', overflow: 'auto' }}>
 {`// theme-types.d.ts — 프로젝트 전용 테마 타입 선언
-import type { lightThemeClass } from '@heejun-com/theme-eclipse'
-
 // 허용된 테마 클래스 목록 타입 정의
 export type ThemeClass =
-  | typeof lightThemeClass    // Eclipse 기본 라이트
+  | 'eclipse-light'           // Eclipse 기본 라이트
+  | 'eclipse-dark'            // Eclipse 기본 다크
   | 'my-theme'                // 커스텀 브랜드 테마
   | 'high-contrast-theme'     // 고대비 접근성 테마
 
@@ -537,8 +528,8 @@ declare module '@heejun-com/theme-eclipse' {
 }
 
 // 사용 예:
-// <EclipseProvider themeClass={myThemeClass}>
-//   — IDE에서 ThemeClass 타입 자동완성 제공
+// <EclipseProvider themeClass="my-theme">
+//   — IDE에서 ThemeClass 자동완성 제공
 // </EclipseProvider>`}
           </pre>
         </div>
@@ -550,15 +541,15 @@ declare module '@heejun-com/theme-eclipse' {
           <pre style={{ margin: 0, padding: '16px', background: '#0f172a', color: '#e2e8f0', fontSize: '11px', lineHeight: '1.8', fontFamily: '"JetBrains Mono", monospace', overflow: 'auto' }}>
 {`// providers.tsx
 import { EclipseProvider } from '@heejun-com/theme-eclipse'
-import { myThemeClass } from './my-theme.css'
-import { highContrastClass } from './high-contrast.css'
+import './my-theme.css'         // .my-theme 클래스 정의
+import './high-contrast.css'    // .high-contrast-theme 클래스 정의
 
 type ThemeMode = 'eclipse' | 'brand' | 'high-contrast'
 
 const themeClassMap: Record<ThemeMode, string | undefined> = {
-  eclipse: undefined,          // 기본 Eclipse 테마 (themeClass 없음)
-  brand: myThemeClass,         // 커스텀 브랜드 테마
-  'high-contrast': highContrastClass,  // 고대비 테마
+  eclipse: undefined,                     // 기본 Eclipse 테마
+  brand: 'my-theme',                      // 커스텀 브랜드 테마
+  'high-contrast': 'high-contrast-theme', // 고대비 테마
 }
 
 export function AppProviders({ children }: { children: React.ReactNode }) {
@@ -585,10 +576,8 @@ export function AppProviders({ children }: { children: React.ReactNode }) {
         borderLeft: '3px solid #6366f1',
       }}>
         <p style={{ fontSize: '14px', color: '#475569', margin: 0, lineHeight: '1.6' }}>
-          <strong style={{ color: '#1e293b' }}>vanilla-extract 장점:</strong>{' '}
-          빌드 타임에 CSS가 생성되므로 런타임 오버헤드가 없습니다.
-          <code style={{ background: '#f1f5f9', color: '#6366f1', padding: '2px 6px', borderRadius: '4px', fontSize: '13px' }}>createTheme</code>은
-          CSS 변수 클래스만 교체하므로 테마 전환 시 리렌더링이 최소화됩니다.
+          <strong style={{ color: '#1e293b' }}>CSS 변수 방식의 장점:</strong>{' '}
+          런타임 오버헤드가 없고, 클래스 토글만으로 테마가 즉시 전환됩니다. JS 번들에 추가되는 코드도 없습니다.
         </p>
       </div>
     </section>
@@ -653,32 +642,25 @@ export function AppProviders({ children }: { children: React.ReactNode }) {
           </pre>
         </div>
 
-        {/* vanilla-extract extend */}
+        {/* CSS variable theme class */}
         <div style={{ borderRadius: '16px', border: '1px solid #e2e8f0', overflow: 'hidden' }}>
           <div style={{ padding: '10px 16px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0', fontSize: '12px', fontWeight: '600', color: '#475569' }}>
-            방법 3: vanilla-extract로 새 테마 클래스 생성
+            방법 3: CSS 변수로 새 테마 클래스 생성
           </div>
           <pre style={{ margin: 0, padding: '16px', background: '#0f172a', color: '#e2e8f0', fontSize: '11px', lineHeight: '1.8', fontFamily: '"JetBrains Mono", monospace', overflow: 'auto' }}>
-{`// my-brand-theme.css.ts
-import { createTheme } from '@vanilla-extract/css'
-import { vars } from '@heejun-com/theme-eclipse/vars'
+{`/* my-brand-theme.css */
+.brand-theme {
+  --sem-eclipse-color-fillPrimary: #0ea5e9;
+  --sem-eclipse-color-fillSecondary: #e0f2fe;
+  --sem-eclipse-color-foregroundPrimary: #0c4a6e;
+  --sem-eclipse-color-backgroundPrimary: #f0f9ff;
+}
 
-// Eclipse vars contract를 기반으로 새 테마 생성
-export const brandThemeClass = createTheme(vars, {
-  sem: {
-    color: {
-      fillPrimary: '#0ea5e9',
-      fillSecondary: '#e0f2fe',
-      foregroundPrimary: '#0c4a6e',
-      backgroundPrimary: '#f0f9ff',
-    },
-  },
-})
-
-// 사용 시:
-// <EclipseProvider themeClass={brandThemeClass}>
-//   <App />
-// </EclipseProvider>`}
+/* 사용 시:
+   <EclipseProvider themeClass="brand-theme">
+     <App />
+   </EclipseProvider>
+*/`}
           </pre>
         </div>
 
@@ -721,7 +703,7 @@ export default function RootLayout({
           <strong style={{ color: '#1e293b' }}>권장 순서:</strong>{' '}
           단순 브랜드 색상 변경은 <strong>방법 1 (CSS 변수 override)</strong>,
           컴포넌트별 미세 조정은 <strong>방법 2 (theme prop)</strong>,
-          완전히 다른 테마가 필요하면 <strong>방법 3 (vanilla-extract createTheme)</strong>을 사용하세요.
+          완전히 다른 테마가 필요하면 <strong>방법 3 (CSS 변수 테마 클래스)</strong>을 사용하세요.
         </p>
       </div>
     </section>
@@ -754,9 +736,9 @@ export default function RootLayout({
           {
             name: 'Orbit UI',
             color: '#6366f1',
-            approach: 'vanilla-extract',
+            approach: 'Tailwind + CSS 변수',
             pros: ['빌드 타임 타입 안전', '3단계 토큰 계층', 'Figma 변수 직접 연동'],
-            cons: ['초기 설정 필요', '빌드 플러그인 의존', '학습 곡선 존재'],
+            cons: ['초기 설정 필요', 'CSS 변수 네이밍 학습', '대규모 토큰 관리 비용'],
           },
         ].map(({ name, color, approach, pros, cons }) => (
           <div key={name} style={{ padding: '20px', borderRadius: '14px', border: `2px solid ${color}25`, background: `${color}08` }}>
@@ -793,7 +775,7 @@ export default function RootLayout({
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '12px' }}>
           {[
             { title: 'TypeScript 완전 지원', desc: 'theme prop에서 토큰 키 자동완성 및 타입 오류 감지' },
-            { title: '제로 런타임 CSS', desc: 'vanilla-extract로 빌드 타임 CSS 생성, 런타임 오버헤드 없음' },
+            { title: '제로 런타임 CSS', desc: 'Tailwind + 정적 CSS 변수 토큰, 런타임 오버헤드 없음' },
             { title: 'Figma 토큰 동기화', desc: 'Reference → Semantic → Component 3단계로 Figma 변수 직접 매핑' },
             { title: '컴포넌트별 격리', desc: 'theme prop으로 단일 인스턴스만 변경, 전역 영향 없음' },
           ].map(({ title, desc }) => (

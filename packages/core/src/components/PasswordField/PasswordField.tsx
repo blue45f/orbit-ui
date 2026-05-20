@@ -1,7 +1,7 @@
 import { forwardRef } from 'react'
 
 import { type ComponentThemeProps } from '../../libs'
-import { vars } from '../../styles/theme.css'
+import { vars } from '../../styles'
 import { TextField } from '../TextField'
 
 export type PasswordFieldSpecificProps = {

@@ -9,7 +9,7 @@ import { Children, forwardRef, ReactNode } from 'react'
 
 import { vars } from '../../styles/theme-vars'
 
-import * as styles from './Chip.css'
+const CHIP_CLASS = 'min-h-[38px]'
 
 export type ChipProps = Omit<ChipPropsAsButton, keyof ChipSpecificProps> &
   ComponentThemeProps<typeof vars.com.chip>
@@ -29,7 +29,7 @@ const ChipRoot = forwardRef<HTMLButtonElement, ChipProps>((props, ref) => {
     <BaseChip
       {...rest}
       ref={ref}
-      className={styles.chip}
+      className={CHIP_CLASS}
       theme={{ ...chipTokens, gap: vars.ref.spacing[50], ...theme }}
       as="button"
     >

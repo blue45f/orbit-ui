@@ -106,7 +106,7 @@ export const Shadcn_설명있는_알림_설정: Story = {
 
 /* ── shadcn/ui: 전체 선택 + indeterminate 패턴 ── */
 const SelectAllDemo = () => {
-  const ITEMS = ['TypeScript 5.7 업그레이드', 'Storybook 8 마이그레이션', 'vanilla-extract 최적화', 'TipTap 에디터 통합', 'Dark mode 전환'] as const
+  const ITEMS = ['TypeScript 5.7 업그레이드', 'Storybook 8 마이그레이션', 'Tailwind 토큰 최적화', 'TipTap 에디터 통합', 'Dark mode 전환'] as const
   type Item = (typeof ITEMS)[number]
   const [selected, setSelected] = useState<Set<Item>>(new Set())
 
@@ -289,7 +289,7 @@ export const 디자인QA = {
       description: '두 번째 체크박스 비활성화 여부',
     },
   },
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
+   
   render: (args: any) => (
     <>
       <div style={{ marginBottom: '25px' }}>첫 번째 체크박스는 라벨이 없어요</div>

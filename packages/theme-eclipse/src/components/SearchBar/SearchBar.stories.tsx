@@ -152,7 +152,7 @@ export const 디자인QA = {
     placeholder: '검색어를 입력하세요',
     onChange: fn(),
   },
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
+   
   render: ({ ...args }: any) => <SearchBar {...args} />,
 }
 
@@ -566,7 +566,7 @@ export const Material3_스코프_전환_검색: Story = {
 // ─── Chakra UI 최근 검색 히스토리 패턴 ───────────────────────────────────────
 // Chakra UI Combobox + history 패턴 — 최근 검색어 표시 및 삭제
 
-const DEFAULT_HISTORY = ['디자인 시스템', 'Storybook 배포', 'vanilla-extract', 'Figma 토큰']
+const DEFAULT_HISTORY = ['디자인 시스템', 'Storybook 배포', 'Radix UI', 'Figma 토큰']
 
 function ChakraSearchHistoryRender() {
   const [query, setQuery] = useState('')
@@ -1525,7 +1525,7 @@ export const Shadcn_문서_내_검색: Story = {
       '컴포넌트 기반 개발 — Orbit UI는 재사용 가능한 컴포넌트를 중심으로 설계됩니다.',
       '3-tier 토큰 시스템으로 Reference Token, Semantic Token, Component Token을 계층화합니다.',
       '각 컴포넌트는 Storybook으로 문서화되며 TypeScript 타입이 완전히 지원됩니다.',
-      'vanilla-extract 기반 테마 시스템으로 빌드 타임에 안전한 CSS-in-JS를 제공합니다.',
+      'Tailwind + CSS 변수 기반 테마 시스템으로 빌드 타임에 안전한 토큰 추론를 제공합니다.',
       '컴포넌트 API는 Compound Component 패턴으로 유연한 조합을 지원합니다.',
     ]
 

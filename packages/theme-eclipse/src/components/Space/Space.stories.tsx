@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+ 
 import React, { useState } from 'react'
 import { Meta, StoryObj } from '@storybook/react'
 
@@ -541,7 +541,7 @@ const TECH_TAGS = [
   { name: 'React', color: '#0ea5e9' },
   { name: 'TypeScript', color: '#3178c6' },
   { name: 'Tailwind CSS', color: '#06b6d4' },
-  { name: 'vanilla-extract', color: '#c26dff' },
+  { name: 'Radix UI', color: '#c26dff' },
   { name: 'Storybook', color: '#ff4785' },
   { name: 'Vite', color: '#646cff' },
   { name: 'Vitest', color: '#6e9f18' },

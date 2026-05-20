@@ -15,7 +15,7 @@ import {
 } from '@radix-ui/react-dismissable-layer'
 
 import { polymorphic, useComposedRefs } from '../../../libs'
-import { vars } from '../../../styles/theme.css'
+import { vars } from '../../../styles'
 import { ContainerLayer } from '../Layer'
 
 type OverlayContainerLayerContextValue = {

@@ -914,7 +914,7 @@ type FeedItem = { id: number; title: string; author: string; date: string; tag: 
 const INITIAL_FEED: FeedItem[] = [
   { id: 1, title: '디자인 토큰 3단계 계층 구조 이해하기', author: '김희준', date: '2025-04-01', tag: 'Design', tagColor: '#eef2ff' },
   { id: 2, title: 'Storybook 8.x 마이그레이션 완전 가이드', author: '이서연', date: '2025-04-02', tag: 'Storybook', tagColor: '#f0fdf4' },
-  { id: 3, title: 'vanilla-extract로 타입 안전 CSS 작성', author: '박지호', date: '2025-04-03', tag: 'CSS', tagColor: '#fff7ed' },
+  { id: 3, title: 'Tailwind로 타입 안전 CSS 작성', author: '박지호', date: '2025-04-03', tag: 'CSS', tagColor: '#fff7ed' },
   { id: 4, title: 'React 19 Actions 패턴 실전 활용', author: '최은아', date: '2025-04-04', tag: 'React', tagColor: '#fef3c7' },
 ]
 

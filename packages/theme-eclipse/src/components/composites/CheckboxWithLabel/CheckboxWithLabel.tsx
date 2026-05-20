@@ -1,10 +1,19 @@
 import { useUniqueID } from '@heejun-com/core'
+import clsx from 'clsx'
 import { forwardRef } from 'react'
 
 import { Checkbox, CheckboxProps } from '../../Checkbox'
 import { Typography } from '../../Text'
 
-import * as styles from './CheckboxWithLabel.css'
+const containerClass = (opts: { fullWidth?: boolean }) =>
+  clsx('inline-flex', { flex: opts.fullWidth })
+const checkboxWrapperClass = 'shrink-0'
+const labelClass = (opts: { fullWidth?: boolean; disabled?: boolean }) =>
+  clsx('inline-block min-h-[24px]', {
+    'w-full': opts.fullWidth,
+    'opacity-30': opts.disabled,
+  })
+const labelTextClass = 'inline-block ml-1 align-middle'
 
 export type CheckboxWithLabelProps = CheckboxProps & {
   children?: React.ReactNode
@@ -40,8 +49,8 @@ export const CheckboxWithLabel = forwardRef<HTMLButtonElement, CheckboxWithLabel
     const id = useUniqueID(idProp)
 
     return (
-      <div className={styles.container({ fullWidth })} style={{ alignItems }}>
-        <div className={styles.checkboxWrapper}>
+      <div className={containerClass({ fullWidth })} style={{ alignItems }}>
+        <div className={checkboxWrapperClass}>
           <Checkbox ref={ref} {...rest} id={id} />
         </div>
         <CheckboxLabel id={id} disabled={rest.disabled} fullWidth={fullWidth}>
@@ -63,8 +72,8 @@ const CheckboxLabel: React.FC<CheckboxLabelProps> = ({ id, children, disabled, f
   if (!children) return null
 
   return (
-    <label htmlFor={id} data-disabled={disabled} className={styles.label({ fullWidth, disabled })}>
-      <Typography textStyle="bodyLarge" className={styles.labelText}>
+    <label htmlFor={id} data-disabled={disabled} className={labelClass({ fullWidth, disabled })}>
+      <Typography textStyle="bodyLarge" className={labelTextClass}>
         {children}
       </Typography>
     </label>

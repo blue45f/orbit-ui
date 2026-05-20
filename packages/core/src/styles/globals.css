@@ -33,9 +33,30 @@
   --status-info: rgba(26, 124, 255, 1);
 
   /* Primary Color */
-  --primary: rgba(12, 239, 211, 1);
-  --primary-hover: rgba(0, 201, 185, 1);
-  --primary-active: rgba(0, 163, 155, 1);
+  --primary: rgba(37, 99, 235, 1);
+  --primary-hover: rgba(29, 78, 216, 1);
+  --primary-active: rgba(30, 64, 175, 1);
+
+  /* Motion - duration */
+  --sem-base-motion-duration-instant: 0ms;
+  --sem-base-motion-duration-fast: 120ms;
+  --sem-base-motion-duration-base: 200ms;
+  --sem-base-motion-duration-slow: 320ms;
+  --sem-base-motion-duration-slower: 480ms;
+
+  /* Motion - easing */
+  --sem-base-motion-easing-standard: cubic-bezier(0.2, 0, 0, 1);
+  --sem-base-motion-easing-emphasized: cubic-bezier(0.3, 0, 0, 1);
+  --sem-base-motion-easing-decelerate: cubic-bezier(0, 0, 0, 1);
+  --sem-base-motion-easing-accelerate: cubic-bezier(0.3, 0, 1, 1);
+  --sem-base-motion-easing-spring: cubic-bezier(0.5, 1.6, 0.4, 0.7);
+  --sem-base-motion-easing-linear: linear;
+
+  /* Focus ring */
+  --sem-base-focus-ring-width: 2px;
+  --sem-base-focus-ring-offset: 2px;
+  --sem-base-focus-ring-color: rgba(37, 99, 235, 0.85);
+  --sem-base-focus-ring-color-contrast: rgba(255, 255, 255, 0.95);
 }
 
 .dark {
@@ -57,6 +78,25 @@
   --border-primary: rgba(75, 77, 79, 1);
   --border-secondary: rgba(49, 51, 53, 1);
   --border-tertiary: rgba(38, 40, 42, 1);
+
+  /* Focus ring (Dark) */
+  --sem-base-focus-ring-color: rgba(96, 165, 250, 0.95);
+  --sem-base-focus-ring-color-contrast: rgba(0, 0, 0, 0.85);
+}
+
+/* ========================================================================
+ * Reduced Motion (WCAG 2.3.3)
+ * ======================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 /* ========================================================================
@@ -95,9 +135,18 @@
     border: 0;
   }
 
-  /* Focus Ring */
+  /* Focus Ring (legacy alias) */
   .focus-ring {
     @apply outline-none ring-2 ring-offset-2 ring-blue-500;
+  }
+
+  /* Focus Ring 토큰 기반 - 키보드 포커스 전용 (focus-visible) */
+  .focus-ring-token {
+    outline: none;
+  }
+  .focus-ring-token:focus-visible {
+    outline: var(--sem-base-focus-ring-width) solid var(--sem-base-focus-ring-color);
+    outline-offset: var(--sem-base-focus-ring-offset);
   }
 
   /* Container Layer */

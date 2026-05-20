@@ -119,7 +119,7 @@ export const 디자인_QA = {
       options: ['xSmall', 'small', 'medium', 'large', 'xLarge', 'xxLarge', 'xxxLarge'],
     },
   },
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/explicit-module-boundary-types
+   
   render: ({ baseSize, children, textStyle, ...rest }: any) => {
     return (
       <EclipseProvider baseTextSize={baseSize as TextStyleBaseSize}>
@@ -737,7 +737,7 @@ const ArcoLinearReadmeTextRender = () => {
       <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
         {[
           { pkg: '@heejun-com/core', desc: '비스타일 베이스 컴포넌트 (Tailwind CSS)' },
-          { pkg: '@heejun-com/theme-eclipse', desc: 'Eclipse 테마 래퍼 (vanilla-extract)' },
+          { pkg: '@heejun-com/theme-eclipse', desc: 'Eclipse 테마 래퍼 (Tailwind + CSS 변수)' },
           { pkg: '@heejun-com/icons', desc: 'SVG 아이콘 컴포넌트' },
         ].map((item) => (
           <div key={item.pkg} style={{ display: 'flex', gap: 12, alignItems: 'flex-start' }}>
@@ -1176,7 +1176,7 @@ export const Chakra_아티클_타이포그래피_계층: StoryObj<typeof meta> =
           주요 변경사항
         </Text>
         <Text textStyle="bodyMedium" style={{ color: '#374151', lineHeight: 1.7, display: 'block' }}>
-          vanilla-extract 기반 CSS-in-JS 통합, Storybook 8 업그레이드, 650개 이상의 인터랙티브 스토리 추가. 모든 컴포넌트는 WAI-ARIA 패턴을 준수하며 키보드 탐색을 완전히 지원합니다.
+          Tailwind 기반 zero-runtime CSS 통합, Storybook 8 업그레이드, 650개 이상의 인터랙티브 스토리 추가. 모든 컴포넌트는 WAI-ARIA 패턴을 준수하며 키보드 탐색을 완전히 지원합니다.
         </Text>
         <div style={{ marginTop: 16, paddingTop: 16, borderTop: '1px solid #e5e7eb', display: 'flex', gap: 16 }}>
           <Text textStyle="labelSmall" style={{ color: '#9ca3af', display: 'block' }}>2025년 4월 11일</Text>

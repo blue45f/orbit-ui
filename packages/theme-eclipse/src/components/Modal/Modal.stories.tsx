@@ -145,7 +145,7 @@ export const 디자인QA = {
       max: 2,
     },
   },
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/explicit-module-boundary-types
+   
   render: ({ footerDirection, headerText, bodyText, buttonText, buttonCount, ...rest }: any) => (
     <Dialog {...rest}>
       <Dialog.Trigger asChild>
@@ -1537,7 +1537,7 @@ const PROJECT_DETAIL: ProjectDetail = {
   health: 87,
   members: ['HJ', 'JS', 'MJ', 'SH'],
   tags: ['React', 'TypeScript', 'Storybook'],
-  desc: 'Figma 기반 React 디자인 시스템. 3-tier 토큰 구조와 vanilla-extract 테마 시스템을 활용한 컴포넌트 라이브러리.',
+  desc: 'Figma 기반 React 디자인 시스템. 3-tier 토큰 구조와 Tailwind 토큰 테마 시스템을 활용한 컴포넌트 라이브러리.',
 }
 
 function AntDetailDrawerRender() {

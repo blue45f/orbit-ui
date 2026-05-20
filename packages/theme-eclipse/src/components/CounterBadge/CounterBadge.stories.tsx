@@ -1033,7 +1033,7 @@ type SocialPost133 = { id: number; author: string; initials: string; color: stri
 
 function MuiChakraSocialFeedRender() {
   const [posts, setPosts] = useState<SocialPost133[]>([
-    { id: 1, author: '김희준', initials: 'HJ', color: '#6366f1', content: 'vanilla-extract로 디자인 토큰 시스템 구축 완료! 3-tier 토큰 구조 덕분에 테마 변경이 훨씬 편해졌어요.', likes: 42, comments: 8, shares: 3 },
+    { id: 1, author: '김희준', initials: 'HJ', color: '#6366f1', content: 'Tailwind로 디자인 토큰 시스템 구축 완료! 3-tier 토큰 구조 덕분에 테마 변경이 훨씬 편해졌어요.', likes: 42, comments: 8, shares: 3 },
     { id: 2, author: '박지수', initials: 'JS', color: '#10b981', content: 'Storybook autodocs 써보신 분? 컴포넌트 JSDoc만 잘 써두면 문서가 자동으로 생성되는 게 정말 편하더라고요.', likes: 31, comments: 12, shares: 5 },
     { id: 3, author: '이민준', initials: 'MJ', color: '#f59e0b', content: 'pnpm workspace 마이그레이션 완료. 패키지 간 의존성 관리가 훨씬 깔끔해졌습니다.', likes: 19, comments: 4, shares: 1 },
   ])

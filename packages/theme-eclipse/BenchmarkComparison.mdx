@@ -38,7 +38,7 @@ import { Meta, Unstyled } from '@storybook/blocks'
           </thead>
           <tbody>
             {[
-              ['스타일 방식', 'CSS Modules', 'Less + CSS-in-JS', 'Tailwind CSS', 'Emotion', 'Tailwind + vanilla-extract'],
+              ['스타일 방식', 'CSS Modules', 'Less + CSS-in-JS', 'Tailwind CSS', 'Emotion', 'Tailwind + CSS 변수 토큰'],
               ['번들 크기', '중간', '큰 편', '최소', '큰 편', '최소 (트리쉐이킹)'],
               ['테마 커스텀', 'MantineProvider', 'ConfigProvider', 'CSS 변수', 'ThemeProvider', '3-Tier Token'],
               ['TypeScript', '완전 지원', '완전 지원', '완전 지원', '완전 지원', '완전 지원'],
@@ -395,8 +395,8 @@ toast.success('저장되었습니다.')`}</pre>
       <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
         {[
           {
-            title: 'vanilla-extract 선택 이유',
-            desc: 'MUI의 Emotion과 달리 빌드 타임에 CSS를 생성하여 런타임 오버헤드 없음. Tailwind와 조합으로 유틸리티 클래스와 정적 CSS를 함께 사용.',
+            title: 'Tailwind + CSS 변수 토큰 선택 이유',
+            desc: 'MUI의 Emotion과 달리 런타임 스타일 주입이 없음. Tailwind 유틸리티로 컴포넌트 스타일을 작성하고, theme.css의 정적 CSS 변수로 토큰을 노출해 다크모드와 테마 전환을 클래스 토글로 처리.',
           },
           {
             title: '컴파운드 컴포넌트 전면 채택',
@@ -794,7 +794,7 @@ import { DeleteLineIcon, ChevronRightLineIcon }
           <tbody>
             {[
               ['테마 시스템', 'ThemeProvider + createTheme()', 'EclipseProvider + 3-Tier CSS 변수'],
-              ['스타일 방식', 'Emotion (CSS-in-JS, 런타임)', 'Tailwind + vanilla-extract (빌드 타임)'],
+              ['스타일 방식', 'Emotion (CSS-in-JS, 런타임)', 'Tailwind + CSS 변수 (빌드 타임 + 정적)'],
               ['variant', 'variant="contained/outlined/text"', 'SolidButton/OutlineButton/GhostButton 분리'],
               ['ListItem 패턴', 'ListItem + ListItemIcon + ListItemText', 'ListTile + Leading/Title/Description/Trailing'],
               ['sx prop', '임의 CSS를 컴포넌트에 인라인 적용', 'theme prop으로 토큰 오버라이드 (type-safe)'],
@@ -1098,7 +1098,7 @@ const theme = createTheme({
           </div>
           <div>
             <div style={{ fontWeight: '700', color: '#6366f1', marginBottom: '4px' }}>성능 우위</div>
-            두 시스템 모두 런타임 스타일 주입(CSS-in-JS)을 사용합니다. Orbit UI는 vanilla-extract로 빌드 타임에 CSS를 생성하여 런타임 오버헤드가 없습니다.
+            Chakra는 런타임 스타일 주입(CSS-in-JS)을 사용합니다. Orbit UI는 Tailwind 유틸리티 + 정적 CSS 변수로 모든 스타일이 빌드 결과물에 정적으로 포함되어 런타임 오버헤드가 없습니다.
           </div>
         </div>
       </div>

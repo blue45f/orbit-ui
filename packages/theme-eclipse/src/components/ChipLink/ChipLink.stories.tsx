@@ -3,7 +3,9 @@ import { Meta, StoryObj } from '@storybook/react'
 import React, { useState } from 'react'
 
 import { ChipLink } from './ChipLink'
-import * as styles from './ChipLink.stories.css'
+
+const TABLE_CLASS =
+  'border border-[var(--sem-eclipse-color-borderPrimary)] rounded-[var(--ref-radius-medium)] [&_th]:p-[var(--ref-spacing-100)] [&_td]:p-[var(--ref-spacing-100)] [&_th]:bg-[var(--sem-eclipse-color-backgroundPrimary)]'
 
 ChipLink.displayName = 'ChipLink'
 ChipLink.Leading.displayName = 'ChipLink.Leading'
@@ -27,7 +29,7 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 export const 기본 = {
-  // eslint-disable-next-line
+   
   render: () => {
     return (
       <ChipLink href="https://github.com/blue45f/ui-forge" target="_blank">
@@ -40,7 +42,7 @@ export const 기본 = {
 export const 모든상태: Story = {
   render: () => {
     return (
-      <table className={styles.table}>
+      <table className={TABLE_CLASS}>
         <thead>
           <tr>
             <th>Leading O</th>
@@ -75,7 +77,7 @@ export const 디자인_QA = {
     borderWidth: 1,
     text: 'ChipLink',
   },
-  // eslint-disable-next-line
+   
   render: ({ leading, text, ...rest }: any) => {
     return (
       <ChipLink {...rest} href="https://github.com/blue45f/ui-forge" target="_blank">
@@ -395,7 +397,7 @@ const STACK_CATEGORIES = [
     name: 'Design System',
     color: '#0ea5e9',
     bg: '#f0f9ff',
-    items: ['Storybook', 'vanilla-extract', 'Figma', 'Design Tokens'],
+    items: ['Storybook', 'Radix UI', 'Figma', 'Design Tokens'],
   },
   {
     name: 'Testing',
@@ -1183,11 +1185,11 @@ export const Radix_내비게이션_링크_칩: Story = {
 const TAILWIND_PROJECTS = [
   { name: 'Orbit UI', tech: ['React', 'TypeScript', 'Vite'], stars: 128 },
   { name: 'Clay Kit', tech: ['React', 'CSS'], stars: 84 },
-  { name: 'Eclipse Theme', tech: ['TypeScript', 'vanilla-extract'], stars: 56 },
+  { name: 'Eclipse Theme', tech: ['TypeScript', 'Radix UI'], stars: 56 },
   { name: 'Icon Pack', tech: ['SVG', 'React'], stars: 210 },
 ]
 
-const ALL_TECH = ['React', 'TypeScript', 'Vite', 'CSS', 'vanilla-extract', 'SVG']
+const ALL_TECH = ['React', 'TypeScript', 'Vite', 'CSS', 'Radix UI', 'SVG']
 
 function TailwindProjectFilterRender() {
   const [activeTech, setActiveTech] = useState<Set<string>>(new Set())
@@ -1469,7 +1471,7 @@ const TECH_MAP_184: Record<string, string[]> = {
   '프론트엔드': ['React', 'TypeScript', 'Tailwind', 'Vite', 'Storybook'],
   '백엔드': ['Node.js', 'Prisma', 'PostgreSQL', 'Redis', 'GraphQL'],
   '인프라': ['Vercel', 'GitHub Actions', 'Docker', 'AWS S3'],
-  '디자인': ['Figma', 'Orbit UI', 'vanilla-extract', 'Inter'],
+  '디자인': ['Figma', 'Orbit UI', 'Radix UI', 'Inter'],
 }
 
 function ShadcnLinearTechBrowserRender() {

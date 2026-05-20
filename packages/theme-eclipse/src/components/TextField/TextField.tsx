@@ -10,7 +10,7 @@ import { AllHTMLAttributes, forwardRef, ReactNode } from 'react'
 import { vars } from '../../styles/theme-vars'
 import { FilledIconButton } from '../SolidIconButton'
 
-import * as styles from './TextField.css'
+const TEXTFIELD_ICON_BUTTON_CLASS = 'shrink-0'
 
 export type TextFieldProps = Omit<
   Omit<BaseTextFieldProps, keyof BaseTextFieldSpecificProps>,
@@ -112,7 +112,7 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>((props, re
           color="white"
           size="medium"
           theme={{ enabledFillColor: vars.sem.color.fillNone }}
-          className={styles.iconButton}
+          className={TEXTFIELD_ICON_BUTTON_CLASS}
         >
           <CircleCancelFillIcon size={16} color={vars.sem.color.foregroundQuaternary} />
         </FilledIconButton>

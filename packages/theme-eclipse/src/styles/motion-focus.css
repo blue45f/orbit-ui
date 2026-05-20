@@ -1,0 +1,55 @@
+/* ========================================================================
+ * Eclipse Theme — Motion & Focus Tokens
+ * ========================================================================
+ *
+ * 핵심: 모든 인터랙티브 요소가 일관된 motion/focus 표현을 사용하도록
+ * Light/Dark 양쪽에 동일한 변수를 정의한다. theme.css 는 자동 생성이라
+ * 별도 파일에서 보강한다.
+ */
+
+.eclipse-light,
+.eclipse-dark {
+  /* Motion - duration */
+  --sem-eclipse-motion-duration-instant: 0ms;
+  --sem-eclipse-motion-duration-fast: 120ms;
+  --sem-eclipse-motion-duration-base: 200ms;
+  --sem-eclipse-motion-duration-slow: 320ms;
+  --sem-eclipse-motion-duration-slower: 480ms;
+
+  /* Motion - easing */
+  --sem-eclipse-motion-easing-standard: cubic-bezier(0.2, 0, 0, 1);
+  --sem-eclipse-motion-easing-emphasized: cubic-bezier(0.3, 0, 0, 1);
+  --sem-eclipse-motion-easing-decelerate: cubic-bezier(0, 0, 0, 1);
+  --sem-eclipse-motion-easing-accelerate: cubic-bezier(0.3, 0, 1, 1);
+  --sem-eclipse-motion-easing-spring: cubic-bezier(0.5, 1.6, 0.4, 0.7);
+  --sem-eclipse-motion-easing-linear: linear;
+
+  /* Focus ring (defaults) */
+  --sem-eclipse-focus-ring-width: 2px;
+  --sem-eclipse-focus-ring-offset: 2px;
+}
+
+.eclipse-light {
+  --sem-eclipse-focus-ring-color: rgba(37, 99, 235, 0.85);
+  --sem-eclipse-focus-ring-color-contrast: rgba(255, 255, 255, 0.95);
+}
+
+.eclipse-dark {
+  --sem-eclipse-focus-ring-color: rgba(96, 165, 250, 0.95);
+  --sem-eclipse-focus-ring-color-contrast: rgba(0, 0, 0, 0.85);
+}
+
+/* ========================================================================
+ * Reduced motion (WCAG 2.3.3) — 사용자 설정 존중
+ * ======================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

@@ -1,5 +1,5 @@
 import { errorDev, IntellisenseFriendlyString } from '../../libs'
-import { vars } from '../../styles/theme.css'
+import { vars } from '../../styles'
 import { Flex } from '../primitives'
 
 export type BaseSpacing = `${keyof typeof vars.ref.spacing}`

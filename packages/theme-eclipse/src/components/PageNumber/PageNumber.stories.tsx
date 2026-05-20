@@ -150,7 +150,7 @@ export const 디자인_QA = {
       control: 'boolean',
     },
   },
-  // eslint-disable-next-line
+   
   render: function RenderComponent({ trailing, children: _children, ...rest }: any) {
     return (
       <PageNumber {...rest}>
@@ -376,7 +376,7 @@ const SHADCN_ARTICLES = Array.from({ length: 48 }, (_, i) => ({
     'Design Token 계층 구조 완전 정복',
     'Radix UI Primitive 설계 철학',
     'Storybook 8 마이그레이션 가이드',
-    'vanilla-extract로 타입 안전 CSS 작성',
+    'Tailwind로 타입 안전 CSS 작성',
     'Tailwind CSS v4 무엇이 바뀌었나',
     'shadcn/ui Copy-paste 패턴의 진화',
   ][i % 6],
@@ -581,7 +581,7 @@ const SHADCN_COMMENTS = Array.from({ length: 35 }, (_, i) => ({
     '스토리북 자동 배포 정말 편리합니다.',
     '컴포넌트 조합 패턴 잘 정리되어 있어요.',
     'Radix 접근성 패턴 적용이 인상적입니다.',
-    'vanilla-extract 타입 안전성이 좋네요.',
+    'Tailwind 토큰 타입 안전성이 좋네요.',
   ][i % 5],
   time: `${i + 1}분 전`,
   likes: (i * 7) % 23,

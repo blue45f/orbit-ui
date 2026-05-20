@@ -5,7 +5,9 @@ import { useState } from 'react'
 import { vars } from '../../styles'
 
 import { Chip } from './Chip'
-import * as styles from './Chip.stories.css'
+
+const TABLE_CLASS =
+  'border border-[var(--sem-eclipse-color-borderPrimary)] rounded-[var(--ref-radius-medium)] [&_th]:p-[var(--ref-spacing-100)] [&_td]:p-[var(--ref-spacing-100)] [&_th]:bg-[var(--sem-eclipse-color-backgroundPrimary)]'
 
 Chip.displayName = 'Chip'
 Chip.Leading.displayName = 'Chip.Leading'
@@ -92,7 +94,7 @@ export const 썸네일: Story = {
 export const 모든상태: Story = {
   render: () => {
     return (
-      <table className={styles.table}>
+      <table className={TABLE_CLASS}>
         <thead>
           <tr>
             <th />
@@ -158,7 +160,7 @@ export const 디자인_QA = {
       options: ['default', 'icon', 'image', 'thumbnail'],
     },
   },
-  // eslint-disable-next-line
+   
   render: ({ leading, trailing, variant, text, ...rest }: any) => {
     if (variant === 'icon') {
       return (
@@ -422,7 +424,7 @@ const TagInputRender = () => {
       <div>
         <p style={{ margin: '0 0 8px', fontSize: '12px', fontWeight: 600, color: '#64748b' }}>추천 태그</p>
         <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
-          {['Next.js', 'Tailwind CSS', 'vanilla-extract', 'Storybook', 'Vite']
+          {['Next.js', 'Tailwind CSS', 'Radix UI', 'Storybook', 'Vite']
             .filter((t) => !tags.includes(t))
             .map((tag) => (
               <span key={tag} style={{ display: 'inline-flex' }}>
@@ -1119,7 +1121,7 @@ export const Radix_다중_선택_콤보_칩: Story = {
     },
   },
   render: function Render() {
-    const ALL_TAGS = ['React', 'TypeScript', 'Vite', 'Tailwind', 'vanilla-extract', 'Storybook', 'Vitest', 'Playwright', 'ESLint', 'Prettier']
+    const ALL_TAGS = ['React', 'TypeScript', 'Vite', 'Tailwind', 'Radix UI', 'Storybook', 'Vitest', 'Playwright', 'ESLint', 'Prettier']
     const [selected, setSelected] = useState<string[]>(['React', 'TypeScript'])
     const [input, setInput] = useState('')
 
@@ -1545,7 +1547,7 @@ function AppleHIGTechStackChipRender() {
     { name: 'Storybook', color: '#ff4785', bg: '#feeef5' },
     { name: 'ESLint', color: '#4b32c3', bg: '#eeeafb' },
     { name: 'pnpm', color: '#f69220', bg: '#fef3e6' },
-    { name: 'vanilla-extract', color: '#e17ab6', bg: '#fdeef8' },
+    { name: 'Radix UI', color: '#e17ab6', bg: '#fdeef8' },
   ]
 
   const toggle = (name: string) => {

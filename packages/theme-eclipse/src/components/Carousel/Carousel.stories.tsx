@@ -909,7 +909,7 @@ const FEATURES = [
   },
   {
     icon: '◈',
-    title: 'vanilla-extract 기반',
+    title: 'Tailwind + CSS 변수 기반',
     desc: '빌드 타임 CSS 생성으로 런타임 오버헤드 없이 완전한 타입 안전성을 제공합니다.',
     color: '#06b6d4',
     bg: '#ecfeff',
@@ -1617,7 +1617,7 @@ export const MUI_Chakra_요금제_비교_슬라이더: Story = {
 // Tailwind UI 스타일 — 기능 소개 슬라이드쇼
 const FEATURE_SLIDES_136 = [
   { id: 1, icon: '◈', title: '3-Tier Token System', desc: 'Reference → Semantic → Component 토큰 계층으로 일관된 스타일 관리', color: '#6366f1', bg: '#eef2ff' },
-  { id: 2, icon: '◉', title: 'vanilla-extract 테마', desc: '빌드 타임 CSS-in-JS로 런타임 오버헤드 없이 완전한 타입 안전성 확보', color: '#0ea5e9', bg: '#e0f2fe' },
+  { id: 2, icon: '◉', title: 'Tailwind 토큰 테마', desc: '빌드 타임 CSS-in-JS로 런타임 오버헤드 없이 완전한 타입 안전성 확보', color: '#0ea5e9', bg: '#e0f2fe' },
   { id: 3, icon: '◎', title: 'Compound Component', desc: 'Context 기반 서브 컴포넌트 패턴으로 유연한 조합 및 레이아웃 구성 지원', color: '#10b981', bg: '#ecfdf5' },
   { id: 4, icon: '◆', title: 'Storybook 8.6', desc: 'autodocs + 인터랙티브 Controls로 컴포넌트 문서 자동 생성', color: '#f59e0b', bg: '#fffbeb' },
 ]
@@ -1703,7 +1703,7 @@ export const Tailwind_기능_소개_슬라이드쇼: Story = {
 const MEDIA_QUEUE_136 = [
   { id: 1, title: 'Orbit 디자인 시스템 소개', artist: '김희준', duration: '12:34', genre: 'Tech', color: '#6366f1' },
   { id: 2, title: 'Tailwind UI 컴포넌트 패턴', artist: '이재성', duration: '8:21', genre: 'Design', color: '#0ea5e9' },
-  { id: 3, title: 'vanilla-extract 심층 분석', artist: '박민주', duration: '15:07', genre: 'Dev', color: '#10b981' },
+  { id: 3, title: 'Tailwind 심층 분석', artist: '박민주', duration: '15:07', genre: 'Dev', color: '#10b981' },
 ]
 
 function MuiMediaQueueRender() {

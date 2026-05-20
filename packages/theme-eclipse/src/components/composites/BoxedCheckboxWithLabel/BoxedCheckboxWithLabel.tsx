@@ -1,10 +1,19 @@
 import { useUniqueID } from '@heejun-com/core'
+import clsx from 'clsx'
 import { forwardRef } from 'react'
 
 import { BoxedCheckbox, BoxedCheckboxProps } from '../../BoxedCheckbox'
 import { Typography } from '../../Text'
 
-import * as styles from './BoxedCheckboxWithLabel.css'
+const containerClass = (opts: { fullWidth?: boolean }) =>
+  clsx('inline-flex', { flex: opts.fullWidth })
+const checkboxWrapperClass = 'shrink-0'
+const labelClass = (opts: { fullWidth?: boolean; disabled?: boolean }) =>
+  clsx('inline-block min-h-[24px]', {
+    'w-full': opts.fullWidth,
+    'opacity-30': opts.disabled,
+  })
+const labelTextClass = 'inline-block ml-1 align-middle'
 
 export type BoxedCheckboxWithLabelProps = BoxedCheckboxProps & {
   children?: React.ReactNode
@@ -40,8 +49,8 @@ export const BoxedCheckboxWithLabel = forwardRef<HTMLButtonElement, BoxedCheckbo
     const id = useUniqueID(idProp)
 
     return (
-      <div className={styles.container({ fullWidth })} style={{ alignItems }}>
-        <div className={styles.checkboxWrapper}>
+      <div className={containerClass({ fullWidth })} style={{ alignItems }}>
+        <div className={checkboxWrapperClass}>
           <BoxedCheckbox ref={ref} {...rest} id={id} />
         </div>
         <BoxedCheckboxLabel id={id} disabled={rest.disabled} fullWidth={fullWidth}>
@@ -68,8 +77,8 @@ const BoxedCheckboxLabel: React.FC<BoxedCheckboxLabelProps> = ({
   if (!children) return null
 
   return (
-    <label htmlFor={id} data-disabled={disabled} className={styles.label({ fullWidth, disabled })}>
-      <Typography textStyle="bodyLarge" className={styles.labelText}>
+    <label htmlFor={id} data-disabled={disabled} className={labelClass({ fullWidth, disabled })}>
+      <Typography textStyle="bodyLarge" className={labelTextClass}>
         {children}
       </Typography>
     </label>

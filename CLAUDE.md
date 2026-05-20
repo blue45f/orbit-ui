@@ -8,8 +8,7 @@ Orbit UI (formerly Clay Kit) is a Figma-based React design system component libr
 
 **Key Technologies:**
 - React 18/19 with TypeScript 5.7+
-- Tailwind CSS for core styling
-- vanilla-extract for theme-layer CSS-in-JS
+- Tailwind CSS for all styling (core + theme layers)
 - Vite for building, Vitest for testing
 - Storybook for component documentation
 - pnpm workspaces
@@ -28,7 +27,7 @@ orbit-ui/
 │   ├── theme-eclipse/             # @heejun-com/theme-eclipse - Eclipse theme
 │   │   └── src/
 │   │       ├── components/      # Themed component wrappers
-│   │       ├── styles/          # vanilla-extract styles
+│   │       ├── styles/          # Theme tokens (CSS variables) + Tailwind helpers
 │   │       └── server/          # Server components for Next.js
 │   │
 │   ├── icons/                   # @heejun-com/icons - SVG icon components
@@ -64,7 +63,7 @@ Each component follows this structure:
 ComponentName/
 ├── ComponentName.tsx           # Main component
 ├── ComponentName.lib.tsx       # Internal context/hooks (if needed)
-├── ComponentName.styles.ts     # Styles (for core: Tailwind, for themes: vanilla-extract)
+├── ComponentName.styles.ts     # Styles (Tailwind class strings, optional)
 ├── ComponentName.stories.tsx   # Storybook stories
 ├── ComponentName.test.tsx      # Unit tests
 └── index.ts                    # Exports
@@ -105,7 +104,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 
 ### Theme Components (@heejun-com/theme-eclipse)
 
-Theme components wrap base components with styled tokens using vanilla-extract:
+Theme components wrap base components with styled tokens (CSS variables emitted by `theme.css`):
 
 ```tsx
 import { forwardRef } from 'react'
@@ -169,33 +168,28 @@ const sizeVariants = variants({
 })
 ```
 
-### Theme Package (vanilla-extract)
+### Theme Package (Tailwind + CSS variables)
 
-Use vanilla-extract with recipes for themed styling:
+테마 패키지는 Tailwind 클래스 + theme.css에서 정의된 CSS 변수(`var(--sem-eclipse-color-*)`)를 사용합니다.
+변형이 필요한 경우 `clsx`로 size/color 옵션별 조합 함수를 컴포넌트 내부에 둡니다.
 
 ```ts
-import { recipe } from '@vanilla-extract/recipes'
-import { vars } from '../styles/theme.css'
+import clsx from 'clsx'
 
-export const buttonRecipe = recipe({
-  base: {
-    display: 'inline-flex',
-    alignItems: 'center',
-  },
-  variants: {
-    variant: {
-      primary: {
-        backgroundColor: vars.color.primary,
-        color: vars.color.onPrimary,
-      },
-    },
-  },
-})
+const solidButtonCenter = (opts: { size: 'small' | 'medium' | 'large' }) =>
+  clsx('inline-block tracking-tight font-semibold', {
+    'px-0.5 text-[13px]': opts.size === 'small',
+    'px-1 text-[15px]': opts.size === 'medium',
+    'px-1 text-[17px]': opts.size === 'large',
+  })
 ```
+
+CSS 변수는 `var(--sem-eclipse-color-fillSecondary)` 같은 형태로 Tailwind arbitrary value 안에 직접 사용합니다.
 
 ### CSS Property Ordering
 
-CSS properties in `.css.ts` files should follow concentric ordering (enforced by `@orbit-ui/css-concentric-order`). Order: positioning -> display -> box model -> visual -> typography -> misc.
+내부에 남아있는 일반 CSS 파일(`globals.css`, `theme.css`)은 concentric ordering을 따릅니다.
+Order: positioning -> display -> box model -> visual -> typography -> misc.
 
 ## Design Token Hierarchy
 
@@ -320,31 +314,19 @@ Before submitting:
 
 ## Storybook Deployment
 
-**IMPORTANT: Always deploy to the `orbit-ui` project only. The `storybook-static` Vercel project has been deleted.**
-
-Vercel project: `blue45fs-projects/orbit-ui`
-Project ID: `prj_1nZ11Q8y0tY9kXxnVoML4zMWErBg`
-
-Both `packages/theme-eclipse/.vercel/project.json` and `packages/theme-eclipse/storybook-static/.vercel/project.json` are linked to orbit-ui. The `vercel deploy` command does NOT support a `--project` flag — the link is established via `.vercel/project.json`.
-
-### Correct Deploy Steps
+Vercel project: `blue45fs-projects/orbit-ui` (`prj_1nZ11Q8y0tY9kXxnVoML4zMWErBg`).
+Project Root Directory is `packages/theme-eclipse`; `vercel.json` defines install/build/output. Deploy from the **monorepo root** so Vercel runs the build server-side (~4 min).
 
 ```bash
-# 1. Build Storybook
-cd /Users/hjunkim/WebstormProjects/orbit-ui/packages/theme-eclipse
-pnpm build:storybook
+cd /Users/hjunkim/WebstormProjects/orbit-ui
+vercel deploy . --prod -y --scope blue45fs-projects
 
-# 2. Deploy pre-built static output to orbit-ui
-cd storybook-static
-vercel deploy . -y --no-wait --scope blue45fs-projects
-
-# 3. Verify deployment succeeded (wait ~30-60s):
-vercel ls --scope blue45fs-projects 2>&1 | head -5
-# Look for "● Ready" on orbit-ui project
+# Verify (alias updates automatically):
+vercel ls --scope blue45fs-projects 2>&1 | head -5   # "● Ready"
+# Production alias: https://orbit-ui-pink.vercel.app
 ```
 
-### Notes
-- `vercel deploy` does NOT have a `--project` flag — project is determined by `.vercel/project.json`
-- `storybook-static/.vercel/project.json` → `projectId: prj_1nZ11Q8y0tY9kXxnVoML4zMWErBg` (orbit-ui)
-- Free tier limit: 100 deployments/day — if limit hit, skip deploy and note it in the cycle report
-- Always verify "● Ready" status after deploy
+Notes:
+- `vercel deploy` has no `--project` flag — `.vercel/project.json` (linked at the monorepo root) determines the project.
+- Do NOT `cd packages/theme-eclipse[/storybook-static]` to deploy — Vercel re-applies the Root Directory setting and the path won't resolve.
+- Free tier limit: 100 deployments/day.

@@ -1449,7 +1449,7 @@ const NOTION_BLOCKS = [
   { type: 'heading', content: '프로젝트 개요' },
   { type: 'text', content: 'Orbit UI는 3계층 아키텍처 기반의 React 디자인 시스템입니다.' },
   { type: 'bullet', content: 'Base 컴포넌트 — 스타일 없는 접근성 기초' },
-  { type: 'bullet', content: 'Theme 컴포넌트 — vanilla-extract 토큰 시스템' },
+  { type: 'bullet', content: 'Theme 컴포넌트 — Tailwind + CSS 변수 토큰 시스템' },
   { type: 'bullet', content: 'Custom 컴포넌트 — 프로젝트 맞춤 확장' },
   { type: 'callout', content: 'EclipseProvider로 전체 앱에 테마를 적용하세요.' },
 ]

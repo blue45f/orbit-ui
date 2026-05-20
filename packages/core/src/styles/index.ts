@@ -26,7 +26,7 @@ const baseReset = {
   verticalAlign: 'baseline',
 }
 
-/** CSS reset object with element-specific resets for vanilla-extract */
+/** CSS reset object with element-specific resets (style prop / inline use) */
 export const reset = {
   /** Base reset for all elements */
   base: baseReset,
@@ -174,3 +174,20 @@ export const vars = {
 /* Type exports */
 export type Spacing = keyof typeof vars.ref.spacing
 export type Radius = keyof typeof vars.ref.radius
+
+/* ========================================================================
+ * Theme Class Names (이전엔 theme.css.ts 가 export 했던 상수)
+ * ======================================================================== */
+
+export const lightTheme = 'theme-light'
+export const darkTheme = 'theme-dark'
+
+export const textStyleTheme = {
+  xSmall: 'text-size-xSmall',
+  small: 'text-size-small',
+  medium: 'text-size-medium',
+  large: 'text-size-large',
+  xLarge: 'text-size-xLarge',
+  xxLarge: 'text-size-xxLarge',
+  xxxLarge: 'text-size-xxxLarge',
+}

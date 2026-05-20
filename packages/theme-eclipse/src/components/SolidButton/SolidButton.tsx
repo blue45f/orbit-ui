@@ -11,7 +11,12 @@ import React, { AllHTMLAttributes, Children, forwardRef, ReactNode } from 'react
 
 import { vars } from '../../styles/theme-vars'
 
-import * as styles from './SolidButton.css'
+const solidButtonCenter = (opts: { size: 'small' | 'medium' | 'large' }) =>
+  clsx('inline-block tracking-tight font-semibold', {
+    'px-0.5 text-[13px]': opts.size === 'small',
+    'px-1 text-[15px]': opts.size === 'medium',
+    'px-1 text-[17px]': opts.size === 'large',
+  })
 
 const FILLED_BUTTON_SIZE_MAP = {
   small: {
@@ -90,7 +95,7 @@ const SolidButtonRoot: React.ForwardRefExoticComponent<
     <Button
       {...rest}
       ref={ref}
-      className={clsx(styles.root, className)}
+      className={className}
       theme={{
         ...filledButtonTokens,
         ...variant.size[size],
@@ -108,7 +113,7 @@ const SolidButtonRoot: React.ForwardRefExoticComponent<
         </Button.Leading>
       )}
 
-      <span className={styles.center({ size })}>{center}</span>
+      <span className={solidButtonCenter({ size })}>{center}</span>
 
       {trailing.length > 0 && (
         <Button.Trailing width={FILLED_BUTTON_SIZE_MAP[size].trailing.width}>

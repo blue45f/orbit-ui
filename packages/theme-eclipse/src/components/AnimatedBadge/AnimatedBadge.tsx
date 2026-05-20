@@ -8,9 +8,15 @@ import {
 import { IconPropsContext } from '@heejun-com/icons'
 import { Children } from 'react'
 
+import clsx from 'clsx'
+
 import { vars } from '../../styles/theme-vars'
 
-import * as styles from './AnimatedBadge.css'
+const slotLeading = (opts: { size?: 'small' | 'large' }) =>
+  clsx({
+    'w-2.5 h-2.5': opts.size === 'small',
+    'w-3.5 h-3.5': opts.size === 'large' || !opts.size,
+  })
 
 export type AnimatedBadgeProps = {
   size?: 'small' | 'large'
@@ -55,7 +61,7 @@ const AnimatedBadgeRoot = polymorphic<'span', 'span' | 'div', AnimatedBadgeProps
           {...rest}
         >
           {leading && (
-            <Badge.Leading className={styles.slotLeading({ size })}>{leading}</Badge.Leading>
+            <Badge.Leading className={slotLeading({ size })}>{leading}</Badge.Leading>
           )}
           {label && <Badge.Trailing>{label}</Badge.Trailing>}
         </Badge>

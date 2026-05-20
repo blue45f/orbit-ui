@@ -1174,7 +1174,7 @@ export const Raycast_Figma_컴포넌트_속성_프리뷰: Story = {
 function ShadcnUserProfile143Render() {
   const users = [
     { handle: '@hjunkim', name: '김희준', initials: 'HJ', color: '#3b82f6', bio: 'Design Systems Engineer. Orbit UI 메인테이너. shadcn/ui 팬.', followers: 284, following: 112, repos: 47 },
-    { handle: '@orbit_ui', name: 'Orbit UI', initials: 'OU', color: '#10b981', bio: '3-tier 컴포넌트 라이브러리. React + TS + vanilla-extract.', followers: 1203, following: 42, repos: 18 },
+    { handle: '@orbit_ui', name: 'Orbit UI', initials: 'OU', color: '#10b981', bio: '3-tier 컴포넌트 라이브러리. React + TS + Tailwind.', followers: 1203, following: 42, repos: 18 },
     { handle: '@design_bot', name: 'DesignBot', initials: 'DB', color: '#8b5cf6', bio: '디자인 시스템 자동화 봇. Cycle 143 진행 중.', followers: 89, following: 203, repos: 6 },
   ]
 
@@ -1375,7 +1375,7 @@ export const Shadcn_Tailwind_커밋_히스토리_호버: Story = {
 
 function NotionPagePreviewHoverRender() {
   const pages = [
-    { title: 'Orbit UI Architecture', icon: '◉', updated: '3시간 전', author: 'HJ', content: '3계층 아키텍처: Core → Theme → Custom. vanilla-extract 기반 토큰 시스템.' },
+    { title: 'Orbit UI Architecture', icon: '◉', updated: '3시간 전', author: 'HJ', content: '3계층 아키텍처: Core → Theme → Custom. Tailwind + CSS 변수 기반 토큰 시스템.' },
     { title: 'Component Roadmap', icon: '📋', updated: '1일 전', author: 'SW', content: 'Cycle 175까지 완성 목표. 60+ 컴포넌트, 900+ 스토리 달성 계획.' },
     { title: 'Design Token Guide', icon: '🎨', updated: '2일 전', author: 'JW', content: 'Reference → Semantic → Component 3단계 토큰 체계. CSS 변수 기반 런타임 전환.' },
   ]

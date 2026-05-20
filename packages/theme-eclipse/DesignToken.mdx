@@ -366,7 +366,7 @@ const Card = styled.div\`
               ['1계층 (원시값)', 'Reference Token (colorBlue500)', 'Seed Token (colorPrimary)'],
               ['2계층 (의미값)', 'Semantic Token (fillPrimary)', 'Map Token (colorPrimaryBg)'],
               ['3계층 (컴포넌트)', 'Component Token (button.fillColor)', 'Alias Token (colorBgContainer)'],
-              ['적용 방식', 'CSS Variable + vanilla-extract', 'CSS-in-JS (cssinjs)'],
+              ['적용 방식', 'CSS Variable + Tailwind 유틸', 'CSS-in-JS (cssinjs)'],
               ['Override 방법', 'EclipseProvider style prop', 'ConfigProvider theme prop'],
               ['타입 안전성', 'TypeScript 완전 지원', 'TypeScript 완전 지원'],
             ].map(([label, orbit, ant]) => (
@@ -868,7 +868,7 @@ function App() {
               <td style={{ padding: '10px 14px', fontWeight: '600', color: '#374151', borderBottom: '1px solid #e2e8f0' }}>타입 안전성</td>
               <td style={{ padding: '10px 14px', color: '#4c1d95', borderBottom: '1px solid #e2e8f0' }}>CSS 변수 (타입 없음)</td>
               <td style={{ padding: '10px 14px', color: '#374151', borderBottom: '1px solid #e2e8f0' }}>CSS 변수 (타입 없음)</td>
-              <td style={{ padding: '10px 14px', color: '#4338ca', fontWeight: '600', borderBottom: '1px solid #e2e8f0' }}>TypeScript + vanilla-extract</td>
+              <td style={{ padding: '10px 14px', color: '#4338ca', fontWeight: '600', borderBottom: '1px solid #e2e8f0' }}>TypeScript + 토큰 자동 추론</td>
             </tr>
           </tbody>
         </table>
@@ -947,7 +947,7 @@ const arcoTokens = {
               { feature: '다크 모드', linear: '다크 우선 설계', arco: '라이트 우선, 다크 지원', orbit: 'data-theme 스위칭' },
               { feature: '간격 시스템', linear: '4px 그리드 (컴팩트)', arco: '8px 그리드 (표준)', orbit: '8px 그리드, spacing ref 토큰' },
               { feature: '컴포넌트 밀도', linear: '고밀도 (이슈 목록)', arco: '중밀도 (테이블/폼)', orbit: 'props로 density 제어 가능' },
-              { feature: '타입 안전성', linear: 'CSS 변수 + TS 상수', arco: 'less 변수', orbit: 'TypeScript + vanilla-extract' },
+              { feature: '타입 안전성', linear: 'CSS 변수 + TS 상수', arco: 'less 변수', orbit: 'TypeScript + 토큰 자동 추론' },
             ].map((row, i) => (
               <tr key={row.feature} style={{ background: i % 2 === 0 ? '#fff' : '#fafafa' }}>
                 <td style={{ padding: '9px 16px', fontWeight: '600', color: '#374151', borderBottom: '1px solid #f1f5f9' }}>{row.feature}</td>
@@ -1004,7 +1004,7 @@ export const Cycle65Section = () => (
         {[
           { feature: '토큰 계층', radix: '색상 스케일 (12단계)', ant: 'Seed → Map → Alias', orbit: 'Reference → Semantic → Component' },
           { feature: '다크 모드', radix: '자동 반전 (P3 지원)', ant: 'algorithm.darkAlgorithm', orbit: 'data-theme="dark"' },
-          { feature: '타입 안전성', radix: 'CSS 변수 문자열', ant: 'TypeScript 인터페이스', orbit: 'vanilla-extract strict TS' },
+          { feature: '타입 안전성', radix: 'CSS 변수 문자열', ant: 'TypeScript 인터페이스', orbit: 'Tailwind + 토큰 strict TS' },
           { feature: '런타임 오버라이드', radix: 'CSS 변수 재정의', ant: 'ConfigProvider + theme', orbit: 'ThemeProvider + vars' },
           { feature: '컴포넌트 밀도', radix: '비제어 (소비자 책임)', ant: 'compact: size="small"', orbit: 'density prop 제어' },
         ].map((row, i) => (

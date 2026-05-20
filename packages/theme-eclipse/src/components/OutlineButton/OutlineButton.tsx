@@ -8,9 +8,15 @@ import {
 } from '@heejun-com/core'
 import React, { AllHTMLAttributes, Children, forwardRef, ReactNode } from 'react'
 
+import clsx from 'clsx'
+
 import { vars } from '../../styles/theme-vars'
 
-import * as styles from './OutlineButton.css'
+const outlineButtonCenter = (opts: { size: 'small' | 'medium' | 'large' }) =>
+  clsx('inline-block', {
+    'px-0.5': opts.size === 'small',
+    'px-1': opts.size === 'medium' || opts.size === 'large',
+  })
 
 const OUTLINED_BUTTON_SIZE_MAP = {
   small: {
@@ -105,7 +111,7 @@ const OutlineButtonRoot: React.ForwardRefExoticComponent<
         </Button.Leading>
       )}
 
-      <span className={styles.center({ size })}>{center}</span>
+      <span className={outlineButtonCenter({ size })}>{center}</span>
 
       {trailing.length > 0 && (
         <Button.Trailing width={OUTLINED_BUTTON_SIZE_MAP[size].trailing.width}>

@@ -22,6 +22,29 @@ export const elevation = {
 } as const
 
 /**
+ * 의미 기반 z-index 매핑 — UI 레이어 우선순위 가이드
+ *
+ * 새 컴포넌트는 raw level 대신 이 매핑을 사용해 의도를 분명히 한다.
+ *
+ * 우선순위 순서:
+ *   hide < base < dropdown < sticky < overlay < modal < popover < tooltip < toast < max
+ */
+export const zIndexLayer = {
+  hide: -1,
+  base: 0,
+  dropdown: elevation.level1, // 100
+  sticky: elevation.level2, // 200
+  overlay: elevation.level3, // 300
+  modal: elevation.level4, // 400
+  popover: 450,
+  tooltip: elevation.level5, // 500
+  toast: 600,
+  max: 9999,
+} as const
+
+export type ZIndexLayer = keyof typeof zIndexLayer
+
+/**
  * Elevation CSS 변수명 정의
  * elevation의 키를 기반으로 CSS 변수명을 생성합니다.
  * @example

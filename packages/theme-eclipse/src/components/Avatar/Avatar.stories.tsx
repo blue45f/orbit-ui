@@ -1071,7 +1071,7 @@ export const Mantine_프로필_카드 = {
         <div style={{ fontSize: 16, fontWeight: 700, color: '#0f172a' }}>Heejun Kim</div>
         <div style={{ fontSize: 12, color: '#64748b', marginTop: 2 }}>@heejun · Frontend Engineer</div>
         <div style={{ fontSize: 13, color: '#475569', marginTop: 10, lineHeight: 1.6 }}>
-          Orbit UI 디자인 시스템을 만들고 있습니다. React, TypeScript, Vanilla-Extract 애호가.
+          Orbit UI 디자인 시스템을 만들고 있습니다. React, TypeScript, Tailwind 애호가.
         </div>
         <div style={{ display: 'flex', gap: 20, marginTop: 14 }}>
           {[{ label: '팔로워', value: '1.2K' }, { label: '팔로잉', value: '384' }, { label: '프로젝트', value: '27' }].map((stat) => (

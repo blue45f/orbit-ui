@@ -8,6 +8,7 @@ import { ReusableSVG } from './ReusableSVG'
 
 import '@heejun-com/core/style.css'
 import '../../styles/theme.css'
+import '../../styles/motion-focus.css'
 
 export type EclipseProviderProps = {
   /**

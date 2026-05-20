@@ -1,8 +1,18 @@
 import { ComponentThemeProps, Style, Badge, polymorphic } from '@heejun-com/core'
+import clsx from 'clsx'
 
 import { vars } from '../../styles/theme-vars'
 
-import * as styles from './SpeechBadge.css'
+const speechBadgeTail = (opts: {
+  color: 'pink' | 'blue'
+  position: 'leading' | 'trailing'
+}) =>
+  clsx('absolute w-[9px] h-[5px]', {
+    '[color:var(--com-eclipse-bubbleBadge-fillColor-color-pink)]': opts.color === 'pink',
+    '[color:var(--com-eclipse-bubbleBadge-fillColor-color-blue)]': opts.color === 'blue',
+    'bottom-0 left-[7.7px] scale-x-[-1]': opts.position === 'leading',
+    'right-[7.7px] bottom-0': opts.position === 'trailing',
+  })
 
 export type SpeechBadgeProps = {
   color?: 'pink' | 'blue'
@@ -36,7 +46,7 @@ export const SpeechBadge = polymorphic<'span', 'span' | 'div', SpeechBadgeProps>
       >
         <Badge.Trailing>{children}</Badge.Trailing>
 
-        <span className={styles.tail({ position: tailPosition, color })}>
+        <span className={speechBadgeTail({ position: tailPosition, color })}>
           <SpeechBadgeTail />
         </span>
       </Badge>

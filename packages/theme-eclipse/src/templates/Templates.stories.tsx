@@ -1487,7 +1487,7 @@ const SocialFeedRender = () => {
       id: 4,
       author: { name: 'Choi Dongwook', handle: '@dongwook_eng', initials: 'CD', color: '#ef4444', verified: false },
       time: '5시간 전',
-      content: 'TypeScript strict mode + vanilla-extract 조합은 런타임 오류를 거의 완전히 제거해줍니다. 컴파일 타임에 모든 CSS 타입을 검증하는 것이 게임 체인저.',
+      content: 'TypeScript strict mode + Tailwind 유틸리티 조합은 런타임 오류를 거의 완전히 제거해줍니다. 컴파일 타임에 모든 클래스명을 검증하는 것이 게임 체인저.',
       tag: '#TypeScript',
       likes: 67,
       comments: 9,
@@ -7639,7 +7639,7 @@ const PortfolioPageRender = () => {
       id: 'orbit-ui',
       title: 'Orbit UI',
       desc: 'React 기반 3-tier 디자인 시스템 — 50+ 컴포넌트, Storybook 통합, Vercel 자동 배포',
-      tags: ['React', 'TypeScript', 'Storybook', 'vanilla-extract'],
+      tags: ['React', 'TypeScript', 'Storybook', 'Radix UI'],
       filter: 'design-system',
       color: '#6366f1',
       stars: 248,
@@ -7699,7 +7699,7 @@ const PortfolioPageRender = () => {
 
   const skills = [
     { category: 'Frontend', items: ['React', 'TypeScript', 'Next.js', 'Tailwind CSS', 'Storybook'] },
-    { category: 'Design System', items: ['Figma', 'vanilla-extract', 'Design Tokens', 'Radix UI'] },
+    { category: 'Design System', items: ['Figma', 'Radix UI', 'Design Tokens', 'Radix UI'] },
     { category: 'Tooling', items: ['Vite', 'pnpm', 'Vitest', 'ESLint', 'GitHub Actions'] },
     { category: 'Backend', items: ['Node.js', 'PostgreSQL', 'Vercel', 'Redis'] },
   ]
@@ -9282,7 +9282,7 @@ type DeptFilter = 'all' | 'engineering' | 'design' | 'product'
 const TEAM_MEMBERS: TeamMember[] = [
   { id: 'm1', name: '김민준', role: 'Frontend Lead', dept: 'engineering', status: 'online', avatar: '김', avatarColor: '#6366f1', skills: ['React', 'TypeScript', 'Vite'], joinedYear: 2022, location: '서울', email: 'minjun@orbit.dev' },
   { id: 'm2', name: '이서연', role: 'Product Designer', dept: 'design', status: 'online', avatar: '이', avatarColor: '#8b5cf6', skills: ['Figma', 'Storybook', 'Tokens'], joinedYear: 2021, location: '서울', email: 'seoyeon@orbit.dev' },
-  { id: 'm3', name: '박지호', role: 'Design System Eng', dept: 'engineering', status: 'away', avatar: '박', avatarColor: '#0ea5e9', skills: ['vanilla-extract', 'CSS', 'A11y'], joinedYear: 2023, location: '부산', email: 'jiho@orbit.dev' },
+  { id: 'm3', name: '박지호', role: 'Design System Eng', dept: 'engineering', status: 'away', avatar: '박', avatarColor: '#0ea5e9', skills: ['Radix UI', 'CSS', 'A11y'], joinedYear: 2023, location: '부산', email: 'jiho@orbit.dev' },
   { id: 'm4', name: '최준혁', role: 'Product Manager', dept: 'product', status: 'online', avatar: '최', avatarColor: '#10b981', skills: ['Roadmap', 'OKR', 'Figma'], joinedYear: 2022, location: '서울', email: 'junhyuk@orbit.dev' },
   { id: 'm5', name: '정소영', role: 'Backend Engineer', dept: 'engineering', status: 'offline', avatar: '정', avatarColor: '#f59e0b', skills: ['Node.js', 'Prisma', 'GraphQL'], joinedYear: 2023, location: '대전', email: 'soyoung@orbit.dev' },
   { id: 'm6', name: '한도연', role: 'UX Researcher', dept: 'design', status: 'away', avatar: '한', avatarColor: '#ef4444', skills: ['User Testing', 'Analytics', 'Notion'], joinedYear: 2024, location: '서울', email: 'doyeon@orbit.dev' },
@@ -9504,7 +9504,7 @@ const VIDEO_TOTAL = 420
 
 const PLAYLIST_VIDEOS = [
   { id: 'v1', title: 'Orbit UI 완전 정복 1편', author: 'Design Team', views: 4820, active: true },
-  { id: 'v2', title: 'vanilla-extract 심화 스타일링', author: 'Core Team', views: 3210, active: false },
+  { id: 'v2', title: 'Tailwind 심화 스타일링', author: 'Core Team', views: 3210, active: false },
   { id: 'v3', title: '접근성 컴포넌트 패턴', author: 'A11y Squad', views: 2180, active: false },
 ]
 
@@ -10026,7 +10026,7 @@ const JOB_LISTINGS = [
     type: 'hybrid' as const,
     level: 'Mid',
     salary: '₩70M – ₩100M',
-    stack: ['vanilla-extract', 'Storybook', 'React'],
+    stack: ['Radix UI', 'Storybook', 'React'],
     posted: '1주일 전',
     applicants: 15,
     featured: false,
@@ -10760,7 +10760,7 @@ const ACTIVITY_TYPE_CONFIG = {
   feat: { label: 'feat', bg: '#f0fdf4', color: '#15803d' },
 }
 
-const SKILL_BADGES = ['React', 'TypeScript', 'Storybook', 'Figma', 'vanilla-extract', 'Tailwind CSS']
+const SKILL_BADGES = ['React', 'TypeScript', 'Storybook', 'Figma', 'Radix UI', 'Tailwind CSS']
 
 const DevProfileRender = () => {
   const [activeTab, setActiveTab] = useState<ProfileTab>('overview')
@@ -15413,7 +15413,7 @@ const CT_MODULES: CTModule[] = [
     lessons: [
       { id: 1, title: '디자인 토큰이란?', duration: '12분', completed: true, locked: false },
       { id: 2, title: '3-tier 아키텍처', duration: '18분', completed: true, locked: false },
-      { id: 3, title: 'vanilla-extract 기초', duration: '24분', completed: false, locked: false },
+      { id: 3, title: 'Tailwind 기초', duration: '24분', completed: false, locked: false },
     ],
   },
   {
@@ -15447,7 +15447,7 @@ type CTTabId = 'curriculum' | 'progress' | 'resources'
 
 const CT_RESOURCES = [
   { name: 'Orbit UI 공식 문서', type: 'LINK' },
-  { name: 'vanilla-extract 가이드', type: 'PDF' },
+  { name: 'Tailwind 가이드', type: 'PDF' },
   { name: 'Figma 컴포넌트 파일', type: 'FIGMA' },
   { name: 'GitHub 예제 코드', type: 'CODE' },
   { name: 'Storybook 데모', type: 'DEMO' },
@@ -16535,7 +16535,7 @@ const KB_ARTICLES: KBArticle[] = [
   { id: 5, title: '다크 모드 전환', excerpt: 'data-theme 속성으로 런타임에 라이트/다크 테마를 전환하는 방법과 주의사항을 설명합니다.', category: 'guides', views: 1034, updated: '2026-04-07', tags: ['Theme', 'Dark Mode'], pinned: true },
   { id: 6, title: 'Storybook 스토리 작성법', excerpt: 'autodocs, parameters.docs, render 함수로 풍부한 Storybook 문서를 작성하는 모범 사례입니다.', category: 'guides', views: 723, updated: '2026-04-04', tags: ['Storybook', 'Docs'] },
   { id: 7, title: 'Toast vs Popover — 언제 무엇을?', excerpt: '인터랙션 유형에 따라 Toast, Popover, Modal 중 어떤 컴포넌트를 선택해야 하는지 결정 트리입니다.', category: 'faq', views: 891, updated: '2026-04-02', tags: ['UX', 'Components'] },
-  { id: 8, title: '커스텀 테마 만들기', excerpt: 'vanilla-extract와 CSS 변수를 활용해 브랜드 토큰을 적용하는 완전 가이드입니다.', category: 'guides', views: 567, updated: '2026-04-01', tags: ['Theme', 'Tokens'] },
+  { id: 8, title: '커스텀 테마 만들기', excerpt: 'Tailwind와 CSS 변수를 활용해 브랜드 토큰을 적용하는 완전 가이드입니다.', category: 'guides', views: 567, updated: '2026-04-01', tags: ['Theme', 'Tokens'] },
 ]
 
 const KB_CAT_LABELS: Record<KBCategory, string> = {
@@ -19884,7 +19884,7 @@ const INITIAL_TASKS: Task[] = [
   { id: 't4', title: 'useDisclosure 모달 시스템', status: 'todo', priority: 2, assignee: '최수진', tags: ['component', 'a11y'], progress: 0 },
   { id: 't5', title: 'useListState 필터 파이프라인', status: 'in_progress', priority: 1, assignee: '정도현', tags: ['state', 'filter'], progress: 40 },
   { id: 't6', title: 'Storybook 8 마이그레이션', status: 'todo', priority: 0, assignee: '김철수', tags: ['infra', 'dx'], progress: 0 },
-  { id: 't7', title: 'vanilla-extract 테마 최적화', status: 'in_progress', priority: 2, assignee: '이영희', tags: ['styling', 'perf'], progress: 55 },
+  { id: 't7', title: 'Tailwind 토큰 최적화', status: 'in_progress', priority: 2, assignee: '이영희', tags: ['styling', 'perf'], progress: 55 },
   { id: 't8', title: 'TipTap 에디터 컴포넌트', status: 'done', priority: 1, assignee: '박민준', tags: ['editor', 'oss'], progress: 100 },
 ]
 
@@ -22453,7 +22453,7 @@ type Radix92Post = {
 const RADIX92_POSTS: Radix92Post[] = [
   {
     id: 1, author: '김희준', initials: 'HJ', role: 'Design Systems', time: '방금', isNew: true, isTrending: true,
-    content: 'Orbit UI 3.0 릴리스! 3단계 토큰 시스템과 Eclipse 테마가 드디어 공개됩니다. Radix Primitives 기반의 접근성과 vanilla-extract CSS-in-JS가 만났습니다.',
+    content: 'Orbit UI 3.0 릴리스! 3단계 토큰 시스템과 Eclipse 테마가 드디어 공개됩니다. Radix Primitives 기반의 접근성과 Tailwind 유틸 + CSS 변수가 만났습니다.',
     tags: ['OrbitUI', 'DesignSystem', 'React'],
     likes: 142, comments: 23,
   },
@@ -27740,7 +27740,7 @@ const CONTRIBUTION_WEEKS = Array.from({ length: 16 }, () =>
 
 function UserProfile115Render() {
   const [tab, setTab] = useState<ProfileTab115>('activity')
-  const [bio, setBio] = useState('Orbit UI 디자인 시스템 메인테이너. React + TypeScript + vanilla-extract.')
+  const [bio, setBio] = useState('Orbit UI 디자인 시스템 메인테이너. React + TypeScript + Tailwind.')
   const [editingBio, setEditingBio] = useState(false)
   const [bioDraft, setBioDraft] = useState(bio)
   const [notifEmail, setNotifEmail] = useState(true)
@@ -28083,7 +28083,7 @@ function SocialFeed117Render() {
       id: 3,
       initials: 'LS', color: '#10b981', name: 'Lee Soyeon', handle: '@soyeon_ux',
       time: '6시간 전',
-      content: 'MUI에서 Orbit UI로 마이그레이션 완료! 번들 사이즈 40% 감소, 타입 안전성 대폭 향상. vanilla-extract 기반 zero-runtime CSS-in-JS의 성능이 인상적입니다.',
+      content: 'MUI에서 Orbit UI로 마이그레이션 완료! 번들 사이즈 40% 감소, 타입 안전성 대폭 향상. Tailwind 유틸리티 기반 zero-runtime CSS의 성능이 인상적입니다.',
       tags: ['Migration', 'Performance'],
       likes: 203, comments: 34, reposts: 67,
     },
@@ -28233,7 +28233,7 @@ function ChatUI118Render() {
   const [message, setMessage] = React.useState('')
   const [messages, setMessages] = React.useState([
     { id: 1, from: 'KJ', color: '#6366f1', name: 'Kim Jihye', time: '10:24', text: 'EclipseProvider 다크모드 전환 확인했어요! Toggle 하나로 전체 테마가 적용되네요.', me: false },
-    { id: 2, from: 'PM', color: '#8b5cf6', name: 'Park Minjun', time: '10:26', text: '시맨틱 토큰 설계 덕분인 것 같아요. vanilla-extract 기반이라 런타임 오버헤드도 없고요.', me: false },
+    { id: 2, from: 'PM', color: '#8b5cf6', name: 'Park Minjun', time: '10:26', text: '시맨틱 토큰 설계 덕분인 것 같아요. Tailwind + CSS 변수 기반이라 런타임 오버헤드도 없고요.', me: false },
     { id: 3, from: 'ME', color: '#10b981', name: 'Me', time: '10:28', text: 'Cycle 117에서 MUI + Chakra UI 벤치마크 완료했습니다. Avatar 그룹, Accordion 이슈 트래커 추가했어요.', me: true },
     { id: 4, from: 'LS', color: '#f59e0b', name: 'Lee Soyeon', time: '10:30', text: 'SocialFeed 템플릿도 꽤 잘 나왔네요! 좋아요 토글 인터랙션이 자연스럽습니다 👍', me: false },
   ])
@@ -30883,7 +30883,7 @@ const DEV_REPOS_132: DevRepo132[] = [
   { name: 'eslint-plugin-css', lang: 'JavaScript', stars: 34, updated: '3일 전' },
   { name: 'react-hooks-kit', lang: 'TypeScript', stars: 91, updated: '5일 전' },
   { name: 'figma-token-bridge', lang: 'TypeScript', stars: 27, updated: '1주 전' },
-  { name: 'vanilla-extract-utils', lang: 'TypeScript', stars: 19, updated: '2주 전' },
+  { name: 'tailwind-css-utils', lang: 'TypeScript', stars: 19, updated: '2주 전' },
   { name: 'storybook-preset', lang: 'JavaScript', stars: 44, updated: '3주 전' },
   { name: 'design-token-cli', lang: 'Go', stars: 76, updated: '1달 전' },
 ]
@@ -31797,7 +31797,7 @@ export const TailwindMUI136NotifDashboard: StoryObj = {
 const PROFILE_TABS_137 = ['프로필', '알림', '보안', '연결'] as const
 type ProfileTab137 = typeof PROFILE_TABS_137[number]
 
-const PROFILE_137 = { name: '김희준', handle: '@hjunkim', email: 'hj@orbit.dev', bio: 'Figma 기반 React 디자인 시스템 개발. 3-tier 토큰 아키텍처와 vanilla-extract 전도사.', role: '디자인 시스템 리드', dept: 'Engineering' }
+const PROFILE_137 = { name: '김희준', handle: '@hjunkim', email: 'hj@orbit.dev', bio: 'Figma 기반 React 디자인 시스템 개발. 3-tier 토큰 아키텍처와 Tailwind 전도사.', role: '디자인 시스템 리드', dept: 'Engineering' }
 
 const NOTIF_PREFS_137 = [
   { id: 'issues', label: '이슈 업데이트', on: true },
@@ -33665,7 +33665,7 @@ function ShadcnLinear147DevPortfolioRender() {
   )
 
   const skills = [
-    { category: 'Frontend', items: [{ name: 'React', level: 95 }, { name: 'TypeScript', level: 90 }, { name: 'Tailwind CSS', level: 88 }, { name: 'vanilla-extract', level: 82 }] },
+    { category: 'Frontend', items: [{ name: 'React', level: 95 }, { name: 'TypeScript', level: 90 }, { name: 'Tailwind CSS', level: 88 }, { name: 'Radix UI', level: 82 }] },
     { category: 'Build & Tools', items: [{ name: 'Vite', level: 85 }, { name: 'Storybook', level: 92 }, { name: 'Vitest', level: 80 }, { name: 'Figma', level: 75 }] },
     { category: 'Design Systems', items: [{ name: 'Token 설계', level: 90 }, { name: 'Component API 설계', level: 88 }, { name: 'Accessibility', level: 78 }, { name: 'Documentation', level: 85 }] },
   ]
@@ -35696,7 +35696,7 @@ const PORTAL_PR_LIST = [
   { pr: '#1245', title: 'PageDots 인터랙션 개선', status: 'WIP', statusColor: 'gray' as const, author: 'SJ', time: '3시간 전' },
 ]
 
-const PORTAL_TECH_TAGS = ['React', 'TypeScript', 'Vite', 'vanilla-extract', 'Tailwind', 'Radix']
+const PORTAL_TECH_TAGS = ['React', 'TypeScript', 'Vite', 'Radix UI', 'Tailwind', 'Radix']
 
 function RadixTailwind158DocPortalRender() {
   const [selectedCat, setSelectedCat] = useState('components')
@@ -35792,7 +35792,7 @@ function RadixTailwind158DocPortalRender() {
             <div style={{ marginBottom: 20 }}>
               <p style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 8 }}>사용 기술</p>
               <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
-                {['React 18', 'TypeScript', 'WAI-ARIA', 'vanilla-extract'].map(tag => (
+                {['React 18', 'TypeScript', 'WAI-ARIA', 'Radix UI'].map(tag => (
                   <span key={tag} style={{ padding: '4px 10px', borderRadius: 999, background: '#f1f5f9', fontSize: 11, color: '#475569', fontWeight: 500 }}>{tag}</span>
                 ))}
               </div>
@@ -36293,7 +36293,7 @@ export const MuiMantine160SecurityCenter: StoryObj = {
 const ONBOARD_SLIDES = [
   { title: '환영합니다!', desc: 'Orbit UI로 강력한 디자인 시스템을 구축하세요. 접근성과 확장성을 모두 갖춘 컴포넌트를 제공합니다.', icon: '🚀', color: '#6366f1', bg: '#f5f3ff' },
   { title: '3계층 아키텍처', desc: 'Base(무스타일) → Theme(토큰 스타일) → Custom(프로젝트 확장) 구조로 유연한 커스터마이징이 가능합니다.', icon: '🏗️', color: '#f59e0b', bg: '#fffbeb' },
-  { title: 'vanilla-extract 테마', desc: '타입 안전한 CSS-in-JS로 런타임 오버헤드 없이 테마를 구현합니다. 다크 모드도 완벽 지원합니다.', icon: '🎨', color: '#22c55e', bg: '#f0fdf4' },
+  { title: 'Tailwind 토큰 테마', desc: '타입 안전한 CSS-in-JS로 런타임 오버헤드 없이 테마를 구현합니다. 다크 모드도 완벽 지원합니다.', icon: '🎨', color: '#22c55e', bg: '#f0fdf4' },
   { title: '바로 시작하기', desc: 'npm install @heejun-com/theme-eclipse로 설치 후 EclipseProvider로 감싸면 모든 준비가 완료됩니다.', icon: '✅', color: '#ec4899', bg: '#fdf2f8' },
 ]
 
@@ -37987,7 +37987,7 @@ function ChakraArco169UserProfileRender() {
               <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: 12, padding: 20 }}>
                 <Text textStyle="titleMedium" style={{ display: 'block', color: '#111827', marginBottom: 8 }}>소개</Text>
                 <Text textStyle="bodyMedium" style={{ display: 'block', color: '#475569', lineHeight: 1.7 }}>
-                  Orbit UI 디자인 시스템 메인테이너. React, TypeScript, vanilla-extract를 전문으로 합니다. 650개 이상의 Storybook 스토리 작성, 3-tier 토큰 시스템 설계 담당.
+                  Orbit UI 디자인 시스템 메인테이너. React, TypeScript, Tailwind를 전문으로 합니다. 650개 이상의 Storybook 스토리 작성, 3-tier 토큰 시스템 설계 담당.
                 </Text>
               </div>
               <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: 12, padding: 20 }}>
@@ -42669,4 +42669,448 @@ export const RaycastMantine191DevToolsDashboard: StoryObj = {
     },
   },
   render: () => <RaycastMantine191Render />,
+}
+
+// ─── Cycle 192: Stripe + Linear — Subscription & Billing Center ────────────
+
+type StripeLinear192Plan = {
+  id: string
+  name: string
+  price: number
+  features: string[]
+  recommended?: boolean
+}
+
+type StripeLinear192Invoice = {
+  id: string
+  number: string
+  date: string
+  amount: number
+  status: 'paid' | 'open' | 'past_due' | 'refunded'
+  description: string
+}
+
+const STRIPE_LINEAR_192_PLANS: StripeLinear192Plan[] = [
+  {
+    id: 'starter',
+    name: 'Starter',
+    price: 0,
+    features: ['최대 3 프로젝트', '커뮤니티 지원', '기본 분석'],
+  },
+  {
+    id: 'pro',
+    name: 'Pro',
+    price: 29,
+    recommended: true,
+    features: ['무제한 프로젝트', '우선 이메일 지원', '고급 분석 + 알림', 'API 접근'],
+  },
+  {
+    id: 'enterprise',
+    name: 'Enterprise',
+    price: 99,
+    features: ['Pro 모든 기능', 'SSO / SAML', '전담 매니저', 'SLA 99.99%'],
+  },
+]
+
+const STRIPE_LINEAR_192_INVOICES: StripeLinear192Invoice[] = [
+  { id: 'in_001', number: 'INV-2026-0419', date: '2026-04-01', amount: 29, status: 'paid', description: 'Pro plan · April 2026' },
+  { id: 'in_002', number: 'INV-2026-0318', date: '2026-03-01', amount: 29, status: 'paid', description: 'Pro plan · March 2026' },
+  { id: 'in_003', number: 'INV-2026-0217', date: '2026-02-01', amount: 29, status: 'paid', description: 'Pro plan · February 2026' },
+  { id: 'in_004', number: 'INV-2026-0116', date: '2026-01-01', amount: 29, status: 'paid', description: 'Pro plan · January 2026' },
+  { id: 'in_005', number: 'INV-2025-1215', date: '2025-12-01', amount: 0, status: 'refunded', description: '환불 처리 - 결제 오류' },
+  { id: 'in_006', number: 'INV-2025-1114', date: '2025-11-01', amount: 29, status: 'past_due', description: 'Pro plan · November 2025 (연체)' },
+]
+
+const STRIPE_LINEAR_192_STATUS = {
+  paid: { label: '결제완료', bg: 'rgba(16,185,129,0.10)', color: '#059669', dot: '#10b981' },
+  open: { label: '결제대기', bg: 'rgba(59,130,246,0.10)', color: '#2563eb', dot: '#3b82f6' },
+  past_due: { label: '연체', bg: 'rgba(239,68,68,0.10)', color: '#dc2626', dot: '#ef4444' },
+  refunded: { label: '환불됨', bg: 'rgba(148,163,184,0.15)', color: '#64748b', dot: '#94a3b8' },
+} as const
+
+const STRIPE_LINEAR_192_NAV = [
+  { id: 'overview', label: '개요', icon: '○', shortcut: 'G then O' },
+  { id: 'invoices', label: '인보이스', icon: '◫', shortcut: 'G then I' },
+  { id: 'plans', label: '플랜', icon: '◈', shortcut: 'G then P' },
+  { id: 'methods', label: '결제 수단', icon: '▣', shortcut: 'G then M' },
+  { id: 'usage', label: '사용량', icon: '◔', shortcut: 'G then U' },
+] as const
+
+type StripeLinear192Section = (typeof STRIPE_LINEAR_192_NAV)[number]['id']
+
+const StripeLinear192Render = () => {
+  const [section, setSection] = useState<StripeLinear192Section>('overview')
+  const [autoRenew, setAutoRenew] = useState(true)
+  const [invoiceEmails, setInvoiceEmails] = useState(true)
+  const [usageAlerts, setUsageAlerts] = useState(false)
+  const [planModal, setPlanModal] = useState<string | null>(null)
+
+  const totalPaid = STRIPE_LINEAR_192_INVOICES.filter((i) => i.status === 'paid').reduce(
+    (sum, i) => sum + i.amount,
+    0
+  )
+
+  const navJump = (id: StripeLinear192Section) => setSection(id)
+
+  // Linear-style ⌘K hint chord (educational; no-op handler)
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      if (!(e.metaKey || e.ctrlKey)) return
+      if (e.key.toLowerCase() === 'k') {
+        e.preventDefault()
+        // 데모용 - 실제 Command palette은 다른 스토리 참조
+      }
+    }
+    window.addEventListener('keydown', handler)
+    return () => window.removeEventListener('keydown', handler)
+  }, [])
+
+  return (
+    <div style={{ display: 'flex', height: '100vh', background: '#fafbfc', fontFamily: 'Inter, system-ui, sans-serif' }}>
+      {/* ─── Linear-style sidebar ─── */}
+      <aside style={{ width: 224, background: '#0e0f12', borderRight: '1px solid #1e1f24', display: 'flex', flexDirection: 'column' }}>
+        <div style={{ padding: '16px 14px', borderBottom: '1px solid #1e1f24', display: 'flex', alignItems: 'center', gap: 8 }}>
+          <div style={{ width: 24, height: 24, borderRadius: 6, background: 'linear-gradient(135deg,#6366f1 0%,#a855f7 100%)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: 11, fontWeight: 800 }}>OU</div>
+          <div style={{ flex: 1 }}>
+            <div style={{ fontSize: 12, fontWeight: 700, color: '#f4f4f5' }}>Orbit UI</div>
+            <div style={{ fontSize: 10, color: '#71717a' }}>Pro plan</div>
+          </div>
+        </div>
+
+        <nav style={{ padding: '10px 8px', flex: 1 }} aria-label="Billing sections">
+          <div style={{ fontSize: 9, fontWeight: 700, color: '#52525b', textTransform: 'uppercase', letterSpacing: '0.08em', padding: '8px 10px 4px' }}>Billing</div>
+          {STRIPE_LINEAR_192_NAV.map((item) => {
+            const active = section === item.id
+            return (
+              <button
+                key={item.id}
+                onClick={() => navJump(item.id)}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 10,
+                  width: '100%',
+                  padding: '7px 10px',
+                  marginBottom: 2,
+                  borderRadius: 6,
+                  border: 'none',
+                  background: active ? 'rgba(99,102,241,0.16)' : 'transparent',
+                  color: active ? '#c7d2fe' : '#a1a1aa',
+                  fontSize: 12,
+                  fontWeight: active ? 600 : 500,
+                  cursor: 'pointer',
+                  textAlign: 'left',
+                  transition: 'all 120ms cubic-bezier(0.2,0,0,1)',
+                }}
+                onMouseEnter={(e) => {
+                  if (!active) (e.currentTarget as HTMLButtonElement).style.background = 'rgba(255,255,255,0.04)'
+                }}
+                onMouseLeave={(e) => {
+                  if (!active) (e.currentTarget as HTMLButtonElement).style.background = 'transparent'
+                }}
+              >
+                <span style={{ fontSize: 12, opacity: 0.85, width: 14, textAlign: 'center' }}>{item.icon}</span>
+                <span style={{ flex: 1 }}>{item.label}</span>
+                <span style={{ fontSize: 9, color: '#52525b', fontFamily: 'ui-monospace, monospace' }}>{item.shortcut}</span>
+              </button>
+            )
+          })}
+        </nav>
+
+        {/* Stripe-like trust footer */}
+        <div style={{ padding: '12px 14px', borderTop: '1px solid #1e1f24', fontSize: 10, color: '#52525b', lineHeight: 1.6 }}>
+          <div style={{ color: '#a1a1aa', fontWeight: 600, marginBottom: 4, display: 'flex', alignItems: 'center', gap: 6 }}>
+            <span style={{ display: 'inline-block', width: 6, height: 6, borderRadius: '50%', background: '#10b981' }} />
+            Stripe로 안전 결제
+          </div>
+          PCI DSS Level 1 인증
+          <br />
+          End-to-end TLS 1.3
+        </div>
+      </aside>
+
+      {/* ─── Main area ─── */}
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+        <header style={{ padding: '14px 28px', background: '#fff', borderBottom: '1px solid #e4e4e7', display: 'flex', alignItems: 'center', gap: 16 }}>
+          <div style={{ flex: 1 }}>
+            <div style={{ fontSize: 11, color: '#71717a', marginBottom: 2 }}>설정 / 청구</div>
+            <h1 style={{ margin: 0, fontSize: 17, fontWeight: 700, color: '#18181b', letterSpacing: '-0.01em' }}>
+              {STRIPE_LINEAR_192_NAV.find((n) => n.id === section)?.label}
+            </h1>
+          </div>
+          <div style={{ fontSize: 11, color: '#71717a', display: 'flex', alignItems: 'center', gap: 6 }}>
+            <kbd style={{ padding: '2px 6px', border: '1px solid #e4e4e7', borderRadius: 4, fontSize: 10, fontFamily: 'ui-monospace, monospace', background: '#fafafa' }}>⌘K</kbd>
+            검색
+          </div>
+        </header>
+
+        <div style={{ flex: 1, overflowY: 'auto', padding: '24px 28px' }}>
+          {section === 'overview' && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 16, maxWidth: 920 }}>
+              {/* Hero - current plan */}
+              <div style={{ background: 'linear-gradient(135deg,#0e0f12 0%,#1e1f24 100%)', color: '#fff', borderRadius: 14, padding: '20px 24px', display: 'flex', alignItems: 'center', gap: 20 }}>
+                <div style={{ flex: 1 }}>
+                  <div style={{ fontSize: 11, color: '#a1a1aa', marginBottom: 4 }}>현재 플랜</div>
+                  <div style={{ display: 'flex', alignItems: 'baseline', gap: 8 }}>
+                    <span style={{ fontSize: 22, fontWeight: 800, letterSpacing: '-0.02em' }}>Pro</span>
+                    <span style={{ fontSize: 13, color: '#a1a1aa' }}>$29 / 월 · 다음 결제 2026-05-01</span>
+                  </div>
+                </div>
+                <SolidButton color="primary" size="medium" onClick={() => setPlanModal('enterprise')}>
+                  Enterprise로 업그레이드
+                </SolidButton>
+              </div>
+
+              {/* Stat tiles - Stripe style */}
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 12 }}>
+                {[
+                  { label: '이번 달 비용', value: `$${29}`, change: '0%', color: '#18181b' },
+                  { label: '누적 결제', value: `$${totalPaid}`, change: '+12%', color: '#10b981' },
+                  { label: 'API 사용량', value: '38k / 50k', change: '76%', color: '#3b82f6' },
+                ].map((t) => (
+                  <div key={t.label} style={{ background: '#fff', border: '1px solid #e4e4e7', borderRadius: 12, padding: '14px 18px' }}>
+                    <div style={{ fontSize: 11, color: '#71717a', marginBottom: 6 }}>{t.label}</div>
+                    <div style={{ display: 'flex', alignItems: 'baseline', gap: 8 }}>
+                      <span style={{ fontSize: 18, fontWeight: 700, color: '#18181b', letterSpacing: '-0.01em' }}>{t.value}</span>
+                      <span style={{ fontSize: 11, fontWeight: 600, color: t.color }}>{t.change}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Settings - Linear-style row toggles */}
+              <div style={{ background: '#fff', border: '1px solid #e4e4e7', borderRadius: 12, padding: '6px 0' }}>
+                {[
+                  { label: '자동 갱신', desc: '결제일에 자동으로 플랜을 갱신합니다.', value: autoRenew, set: setAutoRenew },
+                  { label: '인보이스 이메일', desc: '청구서를 이메일로 받습니다.', value: invoiceEmails, set: setInvoiceEmails },
+                  { label: '사용량 알림', desc: '한도의 80% 도달 시 알립니다.', value: usageAlerts, set: setUsageAlerts },
+                ].map((row, i, arr) => (
+                  <div key={row.label} style={{ display: 'flex', alignItems: 'center', gap: 16, padding: '14px 18px', borderBottom: i < arr.length - 1 ? '1px solid #f4f4f5' : 'none' }}>
+                    <div style={{ flex: 1 }}>
+                      <div style={{ fontSize: 13, fontWeight: 600, color: '#18181b' }}>{row.label}</div>
+                      <div style={{ fontSize: 11, color: '#71717a', marginTop: 2 }}>{row.desc}</div>
+                    </div>
+                    <Switch checked={row.value} onChange={() => row.set(!row.value)} />
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {section === 'invoices' && (
+            <div style={{ maxWidth: 920 }}>
+              <div style={{ display: 'flex', alignItems: 'center', marginBottom: 16, gap: 12 }}>
+                <div style={{ flex: 1 }}>
+                  <div style={{ fontSize: 13, fontWeight: 600, color: '#18181b' }}>최근 인보이스</div>
+                  <div style={{ fontSize: 11, color: '#71717a', marginTop: 2 }}>최대 12개월까지 표시됩니다 · 클릭으로 상세 보기</div>
+                </div>
+                <OutlineButton color="gray" size="small">
+                  CSV 내보내기
+                </OutlineButton>
+              </div>
+
+              <div style={{ background: '#fff', border: '1px solid #e4e4e7', borderRadius: 12, overflow: 'hidden' }}>
+                <table style={{ width: '100%', borderCollapse: 'collapse' }} aria-label="인보이스 목록">
+                  <thead>
+                    <tr style={{ background: '#fafafa', borderBottom: '1px solid #e4e4e7' }}>
+                      {['번호', '설명', '날짜', '금액', '상태', ''].map((h) => (
+                        <th
+                          key={h}
+                          scope="col"
+                          style={{ padding: '10px 16px', fontSize: 10, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.06em', color: '#71717a', textAlign: 'left' }}
+                        >
+                          {h}
+                        </th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {STRIPE_LINEAR_192_INVOICES.map((inv, i, arr) => {
+                      const s = STRIPE_LINEAR_192_STATUS[inv.status]
+                      return (
+                        <tr key={inv.id} style={{ borderBottom: i < arr.length - 1 ? '1px solid #f4f4f5' : 'none', transition: 'background-color 120ms' }}>
+                          <td style={{ padding: '12px 16px', fontSize: 12, fontWeight: 600, color: '#18181b', fontFamily: 'ui-monospace, monospace' }}>{inv.number}</td>
+                          <td style={{ padding: '12px 16px', fontSize: 12, color: '#3f3f46' }}>{inv.description}</td>
+                          <td style={{ padding: '12px 16px', fontSize: 12, color: '#71717a', fontVariantNumeric: 'tabular-nums' }}>{inv.date}</td>
+                          <td style={{ padding: '12px 16px', fontSize: 12, fontWeight: 600, color: '#18181b', fontVariantNumeric: 'tabular-nums' }}>${inv.amount.toFixed(2)}</td>
+                          <td style={{ padding: '12px 16px' }}>
+                            <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6, padding: '3px 8px', borderRadius: 999, background: s.bg, color: s.color, fontSize: 11, fontWeight: 600 }}>
+                              <span style={{ width: 5, height: 5, borderRadius: '50%', background: s.dot }} />
+                              {s.label}
+                            </span>
+                          </td>
+                          <td style={{ padding: '12px 16px', textAlign: 'right' }}>
+                            <button
+                              type="button"
+                              style={{ padding: '4px 10px', border: '1px solid #e4e4e7', borderRadius: 6, background: '#fff', fontSize: 11, fontWeight: 500, color: '#3f3f46', cursor: 'pointer' }}
+                            >
+                              PDF
+                            </button>
+                          </td>
+                        </tr>
+                      )
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          )}
+
+          {section === 'plans' && (
+            <div style={{ maxWidth: 920 }}>
+              <div style={{ marginBottom: 16 }}>
+                <div style={{ fontSize: 13, fontWeight: 600, color: '#18181b' }}>플랜 비교</div>
+                <div style={{ fontSize: 11, color: '#71717a', marginTop: 2 }}>언제든지 업그레이드/다운그레이드할 수 있습니다.</div>
+              </div>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 14 }}>
+                {STRIPE_LINEAR_192_PLANS.map((plan) => {
+                  const isCurrent = plan.id === 'pro'
+                  return (
+                    <div
+                      key={plan.id}
+                      style={{
+                        background: '#fff',
+                        border: `1px solid ${plan.recommended ? '#6366f1' : '#e4e4e7'}`,
+                        borderRadius: 14,
+                        padding: '20px 22px',
+                        position: 'relative',
+                        boxShadow: plan.recommended ? '0 6px 24px -8px rgba(99,102,241,0.4)' : 'none',
+                      }}
+                    >
+                      {plan.recommended && (
+                        <div style={{ position: 'absolute', top: -10, left: 18, padding: '2px 10px', background: '#6366f1', color: '#fff', borderRadius: 999, fontSize: 10, fontWeight: 700 }}>추천</div>
+                      )}
+                      <div style={{ fontSize: 13, fontWeight: 700, color: '#18181b', marginBottom: 8 }}>{plan.name}</div>
+                      <div style={{ display: 'flex', alignItems: 'baseline', gap: 4, marginBottom: 14 }}>
+                        <span style={{ fontSize: 26, fontWeight: 800, color: '#18181b', letterSpacing: '-0.02em' }}>${plan.price}</span>
+                        <span style={{ fontSize: 12, color: '#71717a' }}>/ 월</span>
+                      </div>
+                      <ul style={{ listStyle: 'none', padding: 0, margin: 0, marginBottom: 18, display: 'flex', flexDirection: 'column', gap: 8 }}>
+                        {plan.features.map((f) => (
+                          <li key={f} style={{ fontSize: 12, color: '#3f3f46', display: 'flex', alignItems: 'center', gap: 8 }}>
+                            <span style={{ color: '#10b981', fontWeight: 700 }}>✓</span>
+                            {f}
+                          </li>
+                        ))}
+                      </ul>
+                      {isCurrent ? (
+                        <div style={{ padding: '8px 12px', background: '#f4f4f5', color: '#71717a', borderRadius: 8, fontSize: 12, fontWeight: 600, textAlign: 'center' }}>현재 플랜</div>
+                      ) : (
+                        <SolidButton
+                          color="primary"
+                          size="small"
+                          width="100%"
+                          onClick={() => setPlanModal(plan.id)}
+                        >
+                          {plan.id === 'starter' ? '다운그레이드' : '업그레이드'}
+                        </SolidButton>
+                      )}
+                    </div>
+                  )
+                })}
+              </div>
+            </div>
+          )}
+
+          {section === 'methods' && (
+            <div style={{ maxWidth: 580 }}>
+              <div style={{ marginBottom: 16, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                <div>
+                  <div style={{ fontSize: 13, fontWeight: 600, color: '#18181b' }}>결제 수단</div>
+                  <div style={{ fontSize: 11, color: '#71717a', marginTop: 2 }}>기본 결제 수단으로 청구됩니다.</div>
+                </div>
+                <SolidButton color="primary" size="small">+ 카드 추가</SolidButton>
+              </div>
+
+              {[
+                { brand: 'VISA', last4: '4242', exp: '12 / 27', primary: true },
+                { brand: 'MC', last4: '5577', exp: '03 / 28', primary: false },
+              ].map((card) => (
+                <div key={card.last4} style={{ background: '#fff', border: card.primary ? '1px solid #6366f1' : '1px solid #e4e4e7', borderRadius: 12, padding: '14px 18px', marginBottom: 10, display: 'flex', alignItems: 'center', gap: 14 }}>
+                  <div style={{ width: 40, height: 26, borderRadius: 5, background: card.brand === 'VISA' ? '#1a1f71' : 'linear-gradient(135deg,#eb001b 0%,#f79e1b 100%)', color: '#fff', fontSize: 9, fontWeight: 800, display: 'flex', alignItems: 'center', justifyContent: 'center', letterSpacing: '0.05em' }}>{card.brand}</div>
+                  <div style={{ flex: 1 }}>
+                    <div style={{ fontSize: 13, fontWeight: 600, color: '#18181b', fontFamily: 'ui-monospace, monospace' }}>•••• {card.last4}</div>
+                    <div style={{ fontSize: 11, color: '#71717a' }}>만료 {card.exp}</div>
+                  </div>
+                  {card.primary && (
+                    <span style={{ padding: '3px 8px', borderRadius: 6, background: 'rgba(99,102,241,0.12)', color: '#4338ca', fontSize: 10, fontWeight: 700 }}>기본</span>
+                  )}
+                  <button type="button" style={{ padding: '6px 10px', border: '1px solid #e4e4e7', borderRadius: 6, background: '#fff', fontSize: 11, color: '#3f3f46', cursor: 'pointer' }}>편집</button>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {section === 'usage' && (
+            <div style={{ maxWidth: 920 }}>
+              <div style={{ marginBottom: 16 }}>
+                <div style={{ fontSize: 13, fontWeight: 600, color: '#18181b' }}>이번 달 사용량</div>
+                <div style={{ fontSize: 11, color: '#71717a', marginTop: 2 }}>리셋: 2026-05-01</div>
+              </div>
+              {[
+                { label: 'API 호출', used: 38000, total: 50000, unit: '회' },
+                { label: '대역폭', used: 142, total: 500, unit: 'GB' },
+                { label: '빌드 시간', used: 18, total: 100, unit: '분' },
+              ].map((m) => {
+                const pct = Math.round((m.used / m.total) * 100)
+                const danger = pct >= 80
+                return (
+                  <div key={m.label} style={{ background: '#fff', border: '1px solid #e4e4e7', borderRadius: 12, padding: '16px 20px', marginBottom: 10 }}>
+                    <div style={{ display: 'flex', alignItems: 'center', marginBottom: 8 }}>
+                      <div style={{ flex: 1, fontSize: 12, fontWeight: 600, color: '#18181b' }}>{m.label}</div>
+                      <div style={{ fontSize: 12, color: '#3f3f46', fontVariantNumeric: 'tabular-nums' }}>
+                        <span style={{ fontWeight: 700, color: danger ? '#dc2626' : '#18181b' }}>{m.used.toLocaleString()}</span>
+                        <span style={{ color: '#71717a' }}> / {m.total.toLocaleString()}{m.unit}</span>
+                      </div>
+                    </div>
+                    <div style={{ height: 6, background: '#f4f4f5', borderRadius: 999, overflow: 'hidden' }}>
+                      <div style={{ width: `${pct}%`, height: '100%', background: danger ? 'linear-gradient(90deg,#f59e0b 0%,#dc2626 100%)' : '#6366f1', borderRadius: 999, transition: 'width 320ms cubic-bezier(0.3,0,0,1)' }} />
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Plan upgrade modal (Stripe pattern) */}
+      {planModal && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="stripe-linear-192-modal-title"
+          onClick={(e) => { if (e.target === e.currentTarget) setPlanModal(null) }}
+          style={{ position: 'fixed', inset: 0, background: 'rgba(15,23,42,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 100 }}
+        >
+          <div style={{ background: '#fff', borderRadius: 14, padding: '24px 28px', maxWidth: 420, width: '100%', boxShadow: '0 24px 48px -12px rgba(0,0,0,0.3)' }}>
+            <div id="stripe-linear-192-modal-title" style={{ fontSize: 16, fontWeight: 700, color: '#18181b', marginBottom: 6 }}>
+              {STRIPE_LINEAR_192_PLANS.find((p) => p.id === planModal)?.name}로 업그레이드
+            </div>
+            <div style={{ fontSize: 12, color: '#71717a', marginBottom: 16, lineHeight: 1.6 }}>
+              비례 청구로 전환됩니다. 다음 결제일에 차액이 자동 정산됩니다.
+            </div>
+            <div style={{ display: 'flex', justifyContent: 'flex-end', gap: 8 }}>
+              <OutlineButton color="gray" size="small" onClick={() => setPlanModal(null)}>취소</OutlineButton>
+              <SolidButton color="primary" size="small" onClick={() => setPlanModal(null)}>확인 및 결제</SolidButton>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  )
+}
+
+export const StripeLinear192SubscriptionCenter: StoryObj = {
+  name: 'Stripe + Linear — 결제 & 구독 센터 (Cycle 192)',
+  parameters: {
+    layout: 'fullscreen',
+    docs: {
+      description: {
+        story:
+          'Stripe 청구/플랜 패턴 + Linear 다크 사이드바·키보드 chord 힌트 통합 결제 센터. 인보이스 테이블, 플랜 비교 카드, 결제 수단 관리, 사용량 미터, ⌘K 검색 단축키 hint, Switch 기반 청구 옵션, Modal 업그레이드 플로우. 새 motion/focus 토큰을 활용한 부드러운 전환과 키보드 접근성을 보여주는 데모.',
+      },
+    },
+  },
+  render: () => <StripeLinear192Render />,
 }
