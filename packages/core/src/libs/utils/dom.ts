@@ -6,10 +6,10 @@
  * @param value 적용할 value 값
  */
 export function setNativeValue(element: HTMLElement, value: string | boolean): void {
-  // eslint-disable-next-line @typescript-eslint/unbound-method
+
   const { set: valueSetter } = Object.getOwnPropertyDescriptor(element, 'value') || {}
   const prototype = Object.getPrototypeOf(element)
-  // eslint-disable-next-line @typescript-eslint/unbound-method
+
   const { set: prototypeValueSetter } = Object.getOwnPropertyDescriptor(prototype, 'value') || {}
 
   if (prototypeValueSetter && valueSetter !== prototypeValueSetter) {

@@ -7,7 +7,10 @@ import { cleanup, fireEvent, render, screen } from '../../test-utils'
 import { SearchBar } from './SearchBar'
 
 describe('SearchBar (eclipse)', () => {
-  afterEach(() => cleanup())
+  afterEach(() => {
+    cleanup()
+    vi.restoreAllMocks()
+  })
 
   test('placeholder와 함께 렌더링된다', () => {
     render(<SearchBar placeholder="검색어 입력" />)
@@ -68,5 +71,24 @@ describe('SearchBar (eclipse)', () => {
     render(<SearchBar defaultValue="abc" caption="3개의 결과" placeholder="검색" />)
 
     expect(screen.getByText('3개의 결과')).toBeInTheDocument()
+  })
+
+  test('focus helper 함수를 DOM prop으로 전달하지 않는다', () => {
+    const consoleError = vi.spyOn(console, 'error').mockImplementation(() => undefined)
+
+    render(<SearchBar placeholder="검색" />)
+
+    const errorOutput = consoleError.mock.calls.flat().join(' ')
+    expect(errorOutput).not.toContain('focusElement')
+    expect(errorOutput).not.toContain('preventElementBlur')
+
+    consoleError.mockRestore()
+  })
+
+  test('clear button 내부에 또 다른 button을 중첩하지 않는다', () => {
+    render(<SearchBar defaultValue="abc" placeholder="검색" />)
+
+    const clearButton = screen.getByRole('button', { name: '입력 내용 지우기' })
+    expect(clearButton.querySelector('button')).toBeNull()
   })
 })

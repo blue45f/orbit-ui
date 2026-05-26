@@ -100,7 +100,7 @@ export const 디자인QA = {
       max: 5,
     },
   },
-   
+
   render({ tabCount, defaultValue }: any) {
     return (
       <div style={{ width: '100%', maxWidth: '600px' }}>
@@ -117,11 +117,11 @@ export const 디자인QA = {
 }
 
 /* --------------------------------------------------------------------------
-   Linear Design 벤치마크: 이슈 분류 탭 패턴
-   Linear의 뷰 전환 탭 (All Issues / Active / Backlog / Done)
-   컨트롤/비제어 혼합 패턴 (Radix UI 스타일)
+   IssueTracker Design 벤치마크: 이슈 분류 탭 패턴
+   IssueTracker의 뷰 전환 탭 (All Issues / Active / Backlog / Done)
+   컨트롤/비제어 혼합 패턴 (PrimitiveUI 스타일)
 -------------------------------------------------------------------------- */
-type LinearIssue = {
+type IssueTrackerIssue = {
   id: string
   title: string
   status: 'active' | 'backlog' | 'done' | 'cancelled'
@@ -129,9 +129,9 @@ type LinearIssue = {
   assignee: string
 }
 
-const linearIssues: LinearIssue[] = [
-  { id: 'ORB-201', title: 'Implement Radix Tabs controlled/uncontrolled API', status: 'active', priority: 'urgent', assignee: 'HJ' },
-  { id: 'ORB-202', title: 'Add Linear-style compact density to FixedTabs', status: 'active', priority: 'high', assignee: 'KJ' },
+const trackerIssues: IssueTrackerIssue[] = [
+  { id: 'ORB-201', title: 'Implement Primitive Tabs controlled/uncontrolled API', status: 'active', priority: 'urgent', assignee: 'HJ' },
+  { id: 'ORB-202', title: 'Add IssueTracker-style compact density to FixedTabs', status: 'active', priority: 'high', assignee: 'KJ' },
   { id: 'ORB-203', title: 'Write accessibility audit for Tab navigation', status: 'backlog', priority: 'medium', assignee: 'LY' },
   { id: 'ORB-204', title: 'Migrate TabGroup to semantic design tokens', status: 'done', priority: 'low', assignee: 'PM' },
   { id: 'ORB-205', title: 'Fix tab indicator animation on resize', status: 'active', priority: 'high', assignee: 'HJ' },
@@ -140,25 +140,25 @@ const linearIssues: LinearIssue[] = [
   { id: 'ORB-208', title: 'Remove deprecated tab height prop', status: 'cancelled', priority: 'low', assignee: 'KJ' },
 ]
 
-const statusDotColor: Record<LinearIssue['status'], string> = {
+const statusDotColor: Record<IssueTrackerIssue['status'], string> = {
   active: '#6366f1',
   backlog: '#94a3b8',
   done: '#10b981',
   cancelled: '#ef4444',
 }
 
-const priorityBadgeColor: Record<LinearIssue['priority'], 'gray' | 'benefit' | 'sale'> = {
+const priorityBadgeColor: Record<IssueTrackerIssue['priority'], 'gray' | 'benefit' | 'sale'> = {
   urgent: 'sale',
   high: 'benefit',
   medium: 'gray',
   low: 'gray',
 }
 
-const LinearIssueTab = ({
+const IssueTrackerIssueTab = ({
   issues,
   label,
 }: {
-  issues: LinearIssue[]
+  issues: IssueTrackerIssue[]
   label: string
 }) => (
   <div style={{ padding: '8px 0' }}>
@@ -223,13 +223,13 @@ const LinearIssueTab = ({
   </div>
 )
 
-const LinearIssueTabs = () => {
+const IssueTrackerIssueTabs = () => {
   const [selected, setSelected] = useState(0)
   const tabs = [
-    { label: 'All Issues', issues: linearIssues },
-    { label: 'Active', issues: linearIssues.filter((i) => i.status === 'active') },
-    { label: 'Backlog', issues: linearIssues.filter((i) => i.status === 'backlog') },
-    { label: 'Done', issues: linearIssues.filter((i) => i.status === 'done') },
+    { label: 'All Issues', issues: trackerIssues },
+    { label: 'Active', issues: trackerIssues.filter((i) => i.status === 'active') },
+    { label: 'Backlog', issues: trackerIssues.filter((i) => i.status === 'backlog') },
+    { label: 'Done', issues: trackerIssues.filter((i) => i.status === 'done') },
   ]
 
   return (
@@ -237,7 +237,7 @@ const LinearIssueTabs = () => {
       {/* Header */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px 16px', borderBottom: '1px solid #f1f5f9' }}>
         <span style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>Issues</span>
-        <CounterBadge>{linearIssues.length}</CounterBadge>
+        <CounterBadge>{trackerIssues.length}</CounterBadge>
       </div>
 
       {/* Tabs */}
@@ -251,7 +251,7 @@ const LinearIssueTabs = () => {
 
       {/* Content */}
       <div style={{ minHeight: 200 }}>
-        <LinearIssueTab
+        <IssueTrackerIssueTab
           issues={tabs[selected]?.issues ?? []}
           label={tabs[selected]?.label ?? ''}
         />
@@ -260,12 +260,12 @@ const LinearIssueTabs = () => {
   )
 }
 
-export const Linear_이슈_분류탭: Story = {
-  render: () => <LinearIssueTabs />,
+export const IssueTracker_이슈_분류탭: Story = {
+  render: () => <IssueTrackerIssueTabs />,
 }
 
 /* --------------------------------------------------------------------------
-   Radix UI 벤치마크: 비제어/제어 혼합 패턴 (defaultValue + value)
+   PrimitiveUI 벤치마크: 비제어/제어 혼합 패턴 (defaultValue + value)
    aria-selected, role="tab" 명확한 접근성 속성 적용.
    Settings 페이지 탭 패턴
 -------------------------------------------------------------------------- */
@@ -416,8 +416,8 @@ const settingsSections: SettingsSection[] = [
     content: (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
         {[
-          { name: 'GitHub', desc: 'Sync issues and pull requests', connected: true },
-          { name: 'Figma', desc: 'Attach design files to issues', connected: true },
+          { name: 'CodeHost', desc: 'Sync issues and pull requests', connected: true },
+          { name: 'DesignTool', desc: 'Attach design files to issues', connected: true },
           { name: 'Slack', desc: 'Get notifications in Slack', connected: false },
         ].map((integration) => (
           <div key={integration.name} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px 14px', borderRadius: 10, border: '1.5px solid #e2e8f0', background: '#fafafa' }}>
@@ -442,13 +442,13 @@ const settingsSections: SettingsSection[] = [
   },
 ]
 
-const RadixSettingsTabs = () => {
+const PrimitiveSettingsTabs = () => {
   const [activeId, setActiveId] = useState('account')
   const activeSection = settingsSections.find((s) => s.id === activeId) ?? settingsSections[0]
 
   return (
     <div style={{ width: 640, display: 'flex', gap: 0, border: '1px solid #e2e8f0', borderRadius: 12, overflow: 'hidden', background: '#fff' }}>
-      {/* Vertical sidebar nav (Radix-style controlled tabs) */}
+      {/* Vertical sidebar nav (Primitive-style controlled tabs) */}
       <div
         role="tablist"
         aria-label="Settings sections"
@@ -505,15 +505,15 @@ const RadixSettingsTabs = () => {
   )
 }
 
-export const Radix_설정_사이드탭: Story = {
-  render: () => <RadixSettingsTabs />,
+export const Primitive_설정_사이드탭: Story = {
+  render: () => <PrimitiveSettingsTabs />,
 }
 
 /* --------------------------------------------------------------------------
-   Linear 벤치마크: 수평 고정 탭 + 콘텐츠 패널 with 개수 배지
+   IssueTracker 벤치마크: 수평 고정 탭 + 콘텐츠 패널 with 개수 배지
    "Views" 탭 패턴 (Board / List / Timeline) with CounterBadge
 -------------------------------------------------------------------------- */
-const LinearViewTabs = () => {
+const IssueTrackerViewTabs = () => {
   const [selected, setSelected] = useState(0)
 
   const views = [
@@ -552,7 +552,7 @@ const LinearViewTabs = () => {
       count: 24,
       content: (
         <div style={{ display: 'flex', flexDirection: 'column', gap: 1, paddingTop: 8 }}>
-          {linearIssues.slice(0, 5).map((issue) => (
+          {trackerIssues.slice(0, 5).map((issue) => (
             <div key={issue.id} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '7px 0', borderBottom: '1px solid #f8fafc' }}>
               <div style={{ width: 7, height: 7, borderRadius: '50%', background: statusDotColor[issue.status], flexShrink: 0 }} />
               <span style={{ fontSize: 11, color: '#94a3b8', fontFamily: 'monospace', flexShrink: 0 }}>{issue.id}</span>
@@ -637,13 +637,13 @@ const LinearViewTabs = () => {
   )
 }
 
-export const Linear_뷰_전환탭: Story = {
-  render: () => <LinearViewTabs />,
+export const IssueTracker_뷰_전환탭: Story = {
+  render: () => <IssueTrackerViewTabs />,
 }
 
 /* --------------------------------------------------------------------------
-   Arco Design 벤치마크: 통계 대시보드 탭
-   Arco Design의 Tabs + 데이터 카드 패턴 — 탭 전환 시 집계 지표 변경
+   DataProductUI 벤치마크: 통계 대시보드 탭
+   DataProductUI의 Tabs + 데이터 카드 패턴 — 탭 전환 시 집계 지표 변경
    B2B 대시보드에서 기간/카테고리 전환에 널리 쓰이는 패턴
 -------------------------------------------------------------------------- */
 const periodData = {
@@ -655,7 +655,7 @@ const periodData = {
 
 type PeriodKey = keyof typeof periodData
 
-const ArcoDashboardTabsRender = () => {
+const DataProductDashboardTabsRender = () => {
   const [period, setPeriod] = useState<PeriodKey>('week')
   const data = periodData[period]
 
@@ -707,22 +707,22 @@ const ArcoDashboardTabsRender = () => {
   )
 }
 
-export const Arco_통계_대시보드_탭: Story = {
+export const DataProduct_통계_대시보드_탭: Story = {
   parameters: {
     docs: {
       description: {
         story:
-          'Arco Design의 Tabs + 데이터 카드 패턴. 기간 탭 전환 시 집계 지표가 변경됩니다. ' +
+          'DataProductUI의 Tabs + 데이터 카드 패턴. 기간 탭 전환 시 집계 지표가 변경됩니다. ' +
           'B2B 어드민/대시보드에서 날짜 범위 필터 역할로 자주 쓰이는 패턴입니다.',
       },
     },
   },
-  render: () => <ArcoDashboardTabsRender />,
+  render: () => <DataProductDashboardTabsRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Google Material 3 벤치마크: Secondary Tabs (아이콘 + 레이블)
-   M3의 Secondary Tab 패턴 — 아이콘과 텍스트를 수직 배치하는 
+   RoleToken Design 벤치마크: Secondary Tabs (아이콘 + 레이블)
+   M3의 Secondary Tab 패턴 — 아이콘과 텍스트를 수직 배치하는
    탐색형 탭 UI, 하단 인디케이터와 Surface variant 색상
 -------------------------------------------------------------------------- */
 const M3SecondaryTabsRender = () => {
@@ -738,7 +738,7 @@ const M3SecondaryTabsRender = () => {
   const contents = [
     {
       title: '최근 활동',
-      items: ['Orbit UI v2.0 배포 완료', 'AlertDialog 스토리 3개 추가', 'Vercel 자동 배포 설정 완료'],
+      items: ['Orbit UI v2.0 배포 완료', 'AlertDialog 스토리 3개 추가', 'DeployPlatform 자동 배포 설정 완료'],
     },
     {
       title: '팀 멤버',
@@ -816,7 +816,7 @@ export const Material3_세컨더리_탭: Story = {
     docs: {
       description: {
         story:
-          'Google Material 3의 Secondary Tabs 패턴. 아이콘과 레이블을 수직 배치하고 하단 인디케이터(3px, 보라색)로 선택 상태를 표시합니다. ' +
+          'RoleToken Design의 Secondary Tabs 패턴. 아이콘과 레이블을 수직 배치하고 하단 인디케이터(3px, 보라색)로 선택 상태를 표시합니다. ' +
           'Surface Container Low(#ECE6F0) 배경을 사용하는 M3 가이드라인 준수 구현입니다.',
       },
     },
@@ -825,8 +825,8 @@ export const Material3_세컨더리_탭: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Arco Design 벤치마크: 스크롤 가능한 콘텐츠 카테고리 탭
-   Arco Design의 Tabs + 리스트 패턴 — 많은 카테고리를 가진 콘텐츠 탐색
+   DataProductUI 벤치마크: 스크롤 가능한 콘텐츠 카테고리 탭
+   DataProductUI의 Tabs + 리스트 패턴 — 많은 카테고리를 가진 콘텐츠 탐색
    e커머스/뉴스 앱에서 카테고리 필터링에 사용되는 패턴
 -------------------------------------------------------------------------- */
 const categories = ['전체', '컴포넌트', '테마', '접근성', '성능', '타입스크립트', '스토리북', '배포', '마이그레이션']
@@ -835,7 +835,7 @@ const categoryContent: Record<string, { title: string; count: number; latest: st
   '전체': [
     { title: 'Orbit UI v2.0 출시', count: 48, latest: '2시간 전' },
     { title: '새 AlertDialog 스토리 추가', count: 12, latest: '3시간 전' },
-    { title: 'Vercel 자동 배포 수정', count: 7, latest: '5시간 전' },
+    { title: 'DeployPlatform 자동 배포 수정', count: 7, latest: '5시간 전' },
   ],
   '컴포넌트': [
     { title: 'Carousel 3종 스토리 추가', count: 31, latest: '방금 전' },
@@ -858,14 +858,14 @@ const categoryContent: Record<string, { title: string; count: number; latest: st
     { title: '자동 배포 MDX 설정', count: 11, latest: '4일 전' },
   ],
   '배포': [
-    { title: 'Vercel vercel.json 추가', count: 8, latest: '오늘' },
+    { title: 'DeployPlatform deploy.json 추가', count: 8, latest: '오늘' },
   ],
   '마이그레이션': [
     { title: 'Ant Design 마이그레이션 가이드', count: 22, latest: '오늘' },
   ],
 }
 
-const ArcoScrollableTabsRender = () => {
+const DataProductScrollableTabsRender = () => {
   const [selected, setSelected] = useState('전체')
   const items = categoryContent[selected] ?? categoryContent['전체']
 
@@ -927,26 +927,26 @@ const ArcoScrollableTabsRender = () => {
       </div>
 
       <div style={{ padding: '0 16px 14px', fontSize: 11, color: '#94a3b8' }}>
-        Arco Design Tabs + List 패턴 · 카테고리 필터 탐색
+        DataProductUI Tabs + List 패턴 · 카테고리 필터 탐색
       </div>
     </div>
   )
 }
 
-export const Arco_카테고리_필터_탭: Story = {
+export const DataProduct_카테고리_필터_탭: Story = {
   parameters: {
     docs: {
       description: {
         story:
-          'Arco Design의 Tabs + 리스트 패턴. overflowX: auto로 많은 카테고리를 가로 스크롤 가능하게 처리합니다. ' +
+          'DataProductUI의 Tabs + 리스트 패턴. overflowX: auto로 많은 카테고리를 가로 스크롤 가능하게 처리합니다. ' +
           'e커머스, 뉴스, 커뮤니티 앱의 카테고리 필터링 탐색에 널리 사용되는 실무 패턴입니다.',
       },
     },
   },
-  render: () => <ArcoScrollableTabsRender />,
+  render: () => <DataProductScrollableTabsRender />,
 }
 
-// ─── Cycle 63: Chakra UI + Google Material 3 ───────────────────────────────
+// ─── Cycle 63: AccessibleUI + RoleToken Design ───────────────────────────────
 
 const CHAKRA_PROFILE_TABS = [
   {
@@ -955,7 +955,7 @@ const CHAKRA_PROFILE_TABS = [
     count: 42,
     content: [
       { title: 'Orbit UI 릴리즈 v2.0', date: '2시간 전', views: 312 },
-      { title: 'Tailwind 마이그레이션 후기', date: '1일 전', views: 891 },
+      { title: 'UtilityCSS 마이그레이션 후기', date: '1일 전', views: 891 },
       { title: '디자인 토큰 시스템 구축기', date: '3일 전', views: 1240 },
     ],
   },
@@ -965,7 +965,7 @@ const CHAKRA_PROFILE_TABS = [
     count: 128,
     content: [
       { title: '"정말 유용한 글이네요. 감사합니다!"', date: '5분 전', views: null },
-      { title: '"Tailwind 예제 더 부탁드려요"', date: '2시간 전', views: null },
+      { title: '"UtilityCSS 예제 더 부탁드려요"', date: '2시간 전', views: null },
       { title: '"탁월한 접근 방식입니다"', date: '어제', views: null },
     ],
   },
@@ -984,14 +984,14 @@ const CHAKRA_PROFILE_TABS = [
     label: '팔로잉',
     count: 7,
     content: [
-      { title: '@shadcn', date: '팔로우: 1개월 전', views: null },
+      { title: '@ComposableUI', date: '팔로우: 1개월 전', views: null },
       { title: '@t3dotgg', date: '팔로우: 2개월 전', views: null },
       { title: '@leeerob', date: '팔로우: 3개월 전', views: null },
     ],
   },
 ]
 
-const ChakraUserProfileTabsRender = () => {
+const AccessibleUserProfileTabsRender = () => {
   const [activeIdx, setActiveIdx] = useState(0)
   const current = CHAKRA_PROFILE_TABS[activeIdx]
 
@@ -1034,18 +1034,18 @@ const ChakraUserProfileTabsRender = () => {
   )
 }
 
-export const Chakra_유저_프로필_탭: Story = {
-  name: 'Chakra UI - 유저 프로필 섹션 탭',
+export const Accessible_유저_프로필_탭: Story = {
+  name: 'AccessibleUI - 유저 프로필 섹션 탭',
   parameters: {
     docs: {
       description: {
         story:
-          'Chakra UI의 Tabs 컴포넌트를 벤치마크한 유저 프로필 탭 패턴. ' +
+          'AccessibleUI의 Tabs 컴포넌트를 벤치마크한 유저 프로필 탭 패턴. ' +
           '게시물/댓글/저장/팔로잉 탭에 CounterBadge를 함께 표시하며 활성 탭 콘텐츠가 즉시 전환됩니다.',
       },
     },
   },
-  render: () => <ChakraUserProfileTabsRender />,
+  render: () => <AccessibleUserProfileTabsRender />,
 }
 
 type M3TabId = 'home' | 'explore' | 'library' | 'profile'
@@ -1059,7 +1059,7 @@ const M3_TABS: Array<{ id: M3TabId; label: string; icon: string }> = [
 
 const M3_CONTENT: Record<M3TabId, { headline: string; items: string[] }> = {
   home:    { headline: '추천 콘텐츠', items: ['Design Tokens Deep Dive', 'React 19 Actions', 'CSS Layers 완전 이해'] },
-  explore: { headline: '탐색하기', items: ['Figma 플러그인 모음', 'Storybook 8 신기능', 'Tailwind v4 미리보기'] },
+  explore: { headline: '탐색하기', items: ['DesignTool 플러그인 모음', 'Storybook 8 신기능', 'UtilityCSS v4 미리보기'] },
   library: { headline: '내 라이브러리', items: ['북마크 24개', '다운로드 8개', '최근 열람 12개'] },
   profile: { headline: '내 프로필', items: ['작성 게시물 42개', '팔로워 320명', '팔로잉 17명'] },
 }
@@ -1098,19 +1098,19 @@ const Material3SecondaryTabsRender = () => {
         </div>
       </div>
       <div style={{ padding: '0 20px 14px', fontSize: 11, color: '#79747e' }}>
-        Material 3 Secondary Tabs — filled indicator + leading icon 패턴
+        RoleToken Design Secondary Tabs — filled indicator + leading icon 패턴
       </div>
     </div>
   )
 }
 
 export const Material3_세컨더리_아이콘_탭: Story = {
-  name: 'Google Material 3 - Secondary Tabs with Icon',
+  name: 'RoleToken Design - Secondary Tabs with Icon',
   parameters: {
     docs: {
       description: {
         story:
-          'Google Material Design 3의 Secondary Tabs 패턴. ' +
+          'Reference Material Design 3의 Secondary Tabs 패턴. ' +
           'Leading 아이콘 슬롯에 M3 색상 역할(primary) 아이콘을 배치하고, ' +
           '#fffbfe 서피스와 #6750a4 primary 팔레트로 M3 컬러 시스템을 표현합니다.',
       },
@@ -1119,23 +1119,23 @@ export const Material3_세컨더리_아이콘_탭: Story = {
   render: () => <Material3SecondaryTabsRender />,
 }
 
-type ChakraSettingSection = 'account' | 'notifications' | 'privacy' | 'integrations'
+type AccessibleSettingSection = 'account' | 'notifications' | 'privacy' | 'integrations'
 
-const CHAKRA_SETTING_TABS: Array<{ id: ChakraSettingSection; label: string; desc: string }> = [
+const CHAKRA_SETTING_TABS: Array<{ id: AccessibleSettingSection; label: string; desc: string }> = [
   { id: 'account', label: '계정', desc: '프로필, 이메일, 비밀번호를 관리합니다.' },
   { id: 'notifications', label: '알림', desc: '이메일, 푸시, 인앱 알림 설정을 조정합니다.' },
   { id: 'privacy', label: '개인정보', desc: '공개 범위와 데이터 수집 동의를 설정합니다.' },
   { id: 'integrations', label: '연동', desc: '외부 서비스와의 연동을 관리합니다.' },
 ]
 
-const CHAKRA_SETTINGS_FIELDS: Record<ChakraSettingSection, Array<{ label: string; value: string; type: 'text' | 'toggle' | 'select' }>> = {
+const CHAKRA_SETTINGS_FIELDS: Record<AccessibleSettingSection, Array<{ label: string; value: string; type: 'text' | 'toggle' | 'select' }>> = {
   account:       [{ label: '이름', value: 'Heejun Kim', type: 'text' }, { label: '이메일', value: 'hjunkim@orbit.dev', type: 'text' }, { label: '언어', value: '한국어', type: 'select' }],
   notifications: [{ label: '이메일 알림', value: 'on', type: 'toggle' }, { label: '푸시 알림', value: 'off', type: 'toggle' }, { label: '주간 요약', value: 'on', type: 'toggle' }],
   privacy:       [{ label: '프로필 공개', value: 'on', type: 'toggle' }, { label: '활동 공개', value: 'off', type: 'toggle' }, { label: '광고 개인화', value: 'off', type: 'toggle' }],
-  integrations:  [{ label: 'GitHub', value: '연결됨', type: 'select' }, { label: 'Figma', value: '미연결', type: 'select' }, { label: 'Slack', value: '연결됨', type: 'select' }],
+  integrations:  [{ label: 'CodeHost', value: '연결됨', type: 'select' }, { label: 'DesignTool', value: '미연결', type: 'select' }, { label: 'Slack', value: '연결됨', type: 'select' }],
 }
 
-const ChakraSettingsPanelRender = () => {
+const AccessibleSettingsPanelRender = () => {
   const [activeIdx, setActiveIdx] = useState(0)
   const activeId = CHAKRA_SETTING_TABS[activeIdx].id
   const fields = CHAKRA_SETTINGS_FIELDS[activeId]
@@ -1178,27 +1178,27 @@ const ChakraSettingsPanelRender = () => {
   )
 }
 
-export const Chakra_설정_패널_탭: Story = {
-  name: 'Chakra UI - 설정 패널 섹션 탭',
+export const Accessible_설정_패널_탭: Story = {
+  name: 'AccessibleUI - 설정 패널 섹션 탭',
   parameters: {
     docs: {
       description: {
         story:
-          'Chakra UI의 설정 페이지 탭 패턴. 계정/알림/개인정보/연동 탭 전환으로 설정 영역을 분리하고, ' +
+          'AccessibleUI의 설정 페이지 탭 패턴. 계정/알림/개인정보/연동 탭 전환으로 설정 영역을 분리하고, ' +
           '토글/텍스트/선택 세 가지 설정 필드 유형을 인라인으로 관리할 수 있습니다.',
       },
     },
   },
-  render: () => <ChakraSettingsPanelRender />,
+  render: () => <AccessibleSettingsPanelRender />,
 }
 
 /* --------------------------------------------------------------------------
-   shadcn/ui 벤치마크: 컴포넌트 문서 탭 패턴
-   shadcn/ui의 Preview/Code/CLI 3탭 패턴 — 컴포넌트 설치·미리보기·코드 전환
+   ComposableUI 벤치마크: 컴포넌트 문서 탭 패턴
+   ComposableUI의 Preview/Code/CLI 3탭 패턴 — 컴포넌트 설치·미리보기·코드 전환
 -------------------------------------------------------------------------- */
-type ShadcnDocTab = 'preview' | 'code' | 'cli'
+type ComposableUIDocTab = 'preview' | 'code' | 'cli'
 
-const SHADCN_DOC_TABS: Array<{ id: ShadcnDocTab; label: string }> = [
+const UTILITYUI_DOC_TABS: Array<{ id: ComposableUIDocTab; label: string }> = [
   { id: 'preview', label: 'Preview' },
   { id: 'code', label: 'Code' },
   { id: 'cli', label: 'CLI' },
@@ -1223,9 +1223,9 @@ npm install @heejun-com/theme-eclipse
 # yarn
 yarn add @heejun-com/theme-eclipse`
 
-function ShadcnDocTabsRender() {
+function ComposableUIDocTabsRender() {
   const [activeIdx, setActiveIdx] = useState(0)
-  const tabs: ShadcnDocTab[] = ['preview', 'code', 'cli']
+  const tabs: ComposableUIDocTab[] = ['preview', 'code', 'cli']
   const activeId = tabs[activeIdx]
 
   return (
@@ -1236,7 +1236,7 @@ function ShadcnDocTabsRender() {
       </div>
       <div style={{ borderBottom: '1px solid #e2e8f0', padding: '0 16px' }}>
         <FixedTabs selectedIndex={activeIdx} onTabChange={setActiveIdx}>
-          {SHADCN_DOC_TABS.map((tab) => (
+          {UTILITYUI_DOC_TABS.map((tab) => (
             <FixedTabs.Tab key={tab.id} value={tab.id}>
               <FixedTabs.TabCenter>{tab.label}</FixedTabs.TabCenter>
             </FixedTabs.Tab>
@@ -1261,36 +1261,36 @@ function ShadcnDocTabsRender() {
         )}
       </div>
       <div style={{ padding: '10px 16px', borderTop: '1px solid #f1f5f9', background: '#fafafa', fontSize: 11, color: '#94a3b8', textAlign: 'right' }}>
-        shadcn/ui docs 패턴 — Preview / Code / CLI 전환 탭
+        ComposableUI docs 패턴 — Preview / Code / CLI 전환 탭
       </div>
     </div>
   )
 }
 
-export const Shadcn_컴포넌트_문서_탭: Story = {
-  name: 'shadcn/ui - 컴포넌트 문서 Preview/Code/CLI 탭 패턴',
+export const ComposableUI_문서_상세_탭: Story = {
+  name: 'ComposableUI - 컴포넌트 문서 Preview/Code/CLI 탭 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'shadcn/ui 공식 문서의 컴포넌트 페이지 패턴. Preview·Code·CLI 세 탭으로 ' +
+          'ComposableUI 공식 문서의 컴포넌트 페이지 패턴. Preview·Code·CLI 세 탭으로 ' +
           '컴포넌트 미리보기, 소스코드, 설치 CLI 명령어를 전환합니다. ' +
           'FixedTabs로 탭을 구현하고 탭별로 다른 콘텐츠 렌더링 유형을 보여줍니다.',
       },
     },
   },
-  render: () => <ShadcnDocTabsRender />,
+  render: () => <ComposableUIDocTabsRender />,
 }
 
 /* --------------------------------------------------------------------------
-   shadcn/ui 벤치마크: 인증 탭 패턴
-   shadcn/ui의 Card + Tabs 조합 — 로그인/회원가입 탭 전환
+   ComposableUI 벤치마크: 인증 탭 패턴
+   ComposableUI의 Card + Tabs 조합 — 로그인/회원가입 탭 전환
 -------------------------------------------------------------------------- */
-type ShadcnAuthTab = 'login' | 'signup'
+type ComposableUIAuthTab = 'login' | 'signup'
 
-function ShadcnAuthTabsRender() {
+function ComposableUIAuthTabsRender() {
   const [activeIdx, setActiveIdx] = useState(0)
-  const tabs: ShadcnAuthTab[] = ['login', 'signup']
+  const tabs: ComposableUIAuthTab[] = ['login', 'signup']
   const activeId = tabs[activeIdx]
 
   const [loginForm, setLoginForm] = useState({ email: '', password: '' })
@@ -1414,33 +1414,33 @@ function ShadcnAuthTabsRender() {
   )
 }
 
-export const Shadcn_인증_탭: Story = {
-  name: 'shadcn/ui - 로그인/회원가입 Card + Tabs 패턴',
+export const ComposableUI_인증_탭: Story = {
+  name: 'ComposableUI - 로그인/회원가입 Card + Tabs 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'shadcn/ui의 Authentication Card + Tabs 패턴. FixedTabs로 로그인/회원가입을 전환하며 ' +
+          'ComposableUI의 Authentication Card + Tabs 패턴. FixedTabs로 로그인/회원가입을 전환하며 ' +
           '각 탭마다 독립적인 폼 상태를 유지합니다. 제출 버튼 클릭 시 2초간 완료 상태로 전환됩니다.',
       },
     },
   },
-  render: () => <ShadcnAuthTabsRender />,
+  render: () => <ComposableUIAuthTabsRender />,
 }
 
 /* --------------------------------------------------------------------------
-   shadcn/ui 벤치마크: 메트릭 대시보드 탭
-   shadcn/ui의 Dashboard Overview 패턴 — 기간별 지표를 탭으로 전환
+   ComposableUI 벤치마크: 메트릭 대시보드 탭
+   ComposableUI의 Dashboard Overview 패턴 — 기간별 지표를 탭으로 전환
 -------------------------------------------------------------------------- */
-type ShadcnPeriod = '7d' | '30d' | '90d'
+type ComposableUIPeriod = '7d' | '30d' | '90d'
 
-const SHADCN_PERIODS: Array<{ id: ShadcnPeriod; label: string }> = [
+const UTILITYUI_PERIODS: Array<{ id: ComposableUIPeriod; label: string }> = [
   { id: '7d', label: '7일' },
   { id: '30d', label: '30일' },
   { id: '90d', label: '90일' },
 ]
 
-const SHADCN_METRICS: Record<ShadcnPeriod, Array<{ label: string; value: string; change: string; up: boolean }>> = {
+const UTILITYUI_METRICS: Record<ComposableUIPeriod, Array<{ label: string; value: string; change: string; up: boolean }>> = {
   '7d':  [
     { label: '총 방문자', value: '12,340', change: '+8.2%', up: true },
     { label: '신규 가입', value: '284', change: '+12.1%', up: true },
@@ -1461,10 +1461,10 @@ const SHADCN_METRICS: Record<ShadcnPeriod, Array<{ label: string; value: string;
   ],
 }
 
-function ShadcnMetricDashboardRender() {
+function ComposableUIMetricDashboardRender() {
   const [activeIdx, setActiveIdx] = useState(0)
-  const periods: ShadcnPeriod[] = ['7d', '30d', '90d']
-  const metrics = SHADCN_METRICS[periods[activeIdx]]
+  const periods: ComposableUIPeriod[] = ['7d', '30d', '90d']
+  const metrics = UTILITYUI_METRICS[periods[activeIdx]]
 
   return (
     <div style={{ width: 440, fontFamily: 'system-ui, sans-serif' }}>
@@ -1474,7 +1474,7 @@ function ShadcnMetricDashboardRender() {
           <div style={{ fontSize: 12, color: '#64748b', marginTop: 2 }}>서비스 핵심 지표를 기간별로 확인합니다.</div>
         </div>
         <FixedTabs selectedIndex={activeIdx} onTabChange={setActiveIdx}>
-          {SHADCN_PERIODS.map((p) => (
+          {UTILITYUI_PERIODS.map((p) => (
             <FixedTabs.Tab key={p.id} value={p.id}>
               <FixedTabs.TabCenter>{p.label}</FixedTabs.TabCenter>
             </FixedTabs.Tab>
@@ -1497,31 +1497,31 @@ function ShadcnMetricDashboardRender() {
         ))}
       </div>
       <div style={{ marginTop: 12, padding: '10px 14px', borderRadius: 8, background: '#f8fafc', border: '1px solid #f1f5f9', fontSize: 11, color: '#94a3b8', textAlign: 'center' }}>
-        shadcn/ui Dashboard Overview 패턴 — 기간 탭으로 지표 데이터 전환
+        ComposableUI Dashboard Overview 패턴 — 기간 탭으로 지표 데이터 전환
       </div>
     </div>
   )
 }
 
-export const Shadcn_메트릭_대시보드_탭: Story = {
-  name: 'shadcn/ui - Analytics 기간 필터 탭 패턴',
+export const ComposableUI_메트릭_대시보드_탭: Story = {
+  name: 'ComposableUI - Analytics 기간 필터 탭 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'shadcn/ui Dashboard Overview 패턴. FixedTabs를 상단 우측에 배치해 7일/30일/90일 기간을 전환하고, ' +
+          'ComposableUI Dashboard Overview 패턴. FixedTabs를 상단 우측에 배치해 7일/30일/90일 기간을 전환하고, ' +
           '2×2 그리드 메트릭 카드에 증감률과 방향 표시를 포함합니다. 기간 변경 시 모든 지표가 즉시 업데이트됩니다.',
       },
     },
   },
-  render: () => <ShadcnMetricDashboardRender />,
+  render: () => <ComposableUIMetricDashboardRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Vercel — 프로젝트 탭 네비게이션 (Cycle 120)
-   Vercel Design의 compact project navigation 패턴
+   DeployPlatform — 프로젝트 탭 네비게이션 (Cycle 120)
+   DeployPlatform Design의 compact project navigation 패턴
 -------------------------------------------------------------------------- */
-function VercelProjectNavRender() {
+function DeployPlatformProjectNavRender() {
   const [tab, setTab] = React.useState(0)
 
   const tabs = [
@@ -1549,7 +1549,7 @@ function VercelProjectNavRender() {
       ))}
     </div>,
     <div key="domains" style={{ padding: '16px 0', display: 'flex', flexDirection: 'column', gap: 8 }}>
-      {['storybook-static.vercel.app', 'orbit-ui.vercel.app'].map((domain) => (
+      {['storybook-static.deploy.example.com', 'orbit-ui.deploy.example.com'].map((domain) => (
         <div key={domain} style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 13, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>
           <div style={{ width: 6, height: 6, borderRadius: '50%', background: '#10b981' }} />
           {domain}
@@ -1585,24 +1585,24 @@ function VercelProjectNavRender() {
   )
 }
 
-export const Vercel_프로젝트_탭_네비게이션: Story = {
-  name: 'Vercel — 프로젝트 탭 네비게이션 (Cycle 120)',
+export const DeployPlatform_프로젝트_탭_네비게이션: Story = {
+  name: 'DeployPlatform — 프로젝트 탭 네비게이션 (Cycle 120)',
   parameters: {
     docs: {
       description: {
         story:
-          'Vercel Design의 project navigation 탭 패턴. 배포/도메인에 CounterBadge 카운트 표시, 각 탭별 실제 콘텐츠 패널 전환.',
+          'DeployPlatform Design의 project navigation 탭 패턴. 배포/도메인에 CounterBadge 카운트 표시, 각 탭별 실제 콘텐츠 패널 전환.',
       },
     },
   },
-  render: () => <VercelProjectNavRender />,
+  render: () => <DeployPlatformProjectNavRender />,
 }
 
 /* --------------------------------------------------------------------------
-   shadcn/ui — 문서 사이드 탭 (Cycle 120)
-   shadcn의 docs page tab 패턴 — 코드/미리보기 전환
+   ComposableUI — 문서 사이드 탭 (Cycle 120)
+   ComposableUI의 docs page tab 패턴 — 코드/미리보기 전환
 -------------------------------------------------------------------------- */
-function ShadcnDocsTabRender() {
+function ComposableUIDocsTabRender() {
   const [tab, setTab] = React.useState(0)
   const [copied, setCopied] = React.useState(false)
 
@@ -1654,24 +1654,24 @@ export function Example() {
   )
 }
 
-export const shadcn_문서_코드_프리뷰_탭: Story = {
-  name: 'shadcn/ui — 문서 코드/미리보기 탭 (Cycle 120)',
+export const ComposableUI_문서_코드_프리뷰_탭: Story = {
+  name: 'ComposableUI — 문서 코드/미리보기 탭 (Cycle 120)',
   parameters: {
     docs: {
       description: {
         story:
-          'shadcn/ui의 docs page preview/code 탭 패턴. 미리보기와 코드 스니펫 전환, 복사 버튼 포함.',
+          'ComposableUI의 docs page preview/code 탭 패턴. 미리보기와 코드 스니펫 전환, 복사 버튼 포함.',
       },
     },
   },
-  render: () => <ShadcnDocsTabRender />,
+  render: () => <ComposableUIDocsTabRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Vercel + shadcn — 설정 카테고리 탭 (Cycle 120)
+   DeployPlatform + ComposableUI — 설정 카테고리 탭 (Cycle 120)
    프로젝트 설정을 카테고리 탭으로 구성하는 패턴
 -------------------------------------------------------------------------- */
-function VercelShadcnSettingsTabRender() {
+function DeployPlatformComposableUISettingsTabRender() {
   const [tab, setTab] = React.useState(0)
   const [saved, setSaved] = React.useState(false)
 
@@ -1747,23 +1747,23 @@ function VercelShadcnSettingsTabRender() {
   )
 }
 
-export const Vercel_shadcn_설정_카테고리_탭: Story = {
-  name: 'Vercel + shadcn — 설정 카테고리 탭 (Cycle 120)',
+export const DeployPlatform_ComposableUI_설정_카테고리_탭: Story = {
+  name: 'DeployPlatform + ComposableUI — 설정 카테고리 탭 (Cycle 120)',
   parameters: {
     docs: {
       description: {
         story:
-          'Vercel Design + shadcn/ui의 project settings 탭 패턴. 일반/알림/팀 카테고리 탭, 아이콘 + 텍스트 조합, 인라인 입력 필드 + 저장 버튼.',
+          'DeployPlatform Design + ComposableUI의 project settings 탭 패턴. 일반/알림/팀 카테고리 탭, 아이콘 + 텍스트 조합, 인라인 입력 필드 + 저장 버튼.',
       },
     },
   },
-  render: () => <VercelShadcnSettingsTabRender />,
+  render: () => <DeployPlatformComposableUISettingsTabRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Radix UI — 접근성 강화 탭 (키보드 네비게이션 가이드 + ARIA 레이블)
+   PrimitiveUI — 접근성 강화 탭 (키보드 네비게이션 가이드 + ARIA 레이블)
 -------------------------------------------------------------------------- */
-function RadixA11yTabGroupRender() {
+function PrimitiveA11yTabGroupRender() {
   const [selected, setSelected] = useState(0)
   const [keyHint, setKeyHint] = useState('')
 
@@ -1808,27 +1808,27 @@ function RadixA11yTabGroupRender() {
       <div style={{ padding: '16px', borderRadius: '0 0 10px 10px', border: '1px solid var(--sem-eclipse-color-borderSubtle)', borderTop: 'none', background: 'var(--sem-eclipse-color-surfaceDefault)', fontSize: 12, color: 'var(--sem-eclipse-color-foregroundSecondary)', lineHeight: 1.7 }}>
         {panels[selected].content}
       </div>
-      <p style={{ fontSize: 10, color: 'var(--sem-eclipse-color-foregroundDisabled)', marginTop: 8, textAlign: 'center' }}>Radix UI Tabs 접근성 패턴 — WAI-ARIA 준수</p>
+      <p style={{ fontSize: 10, color: 'var(--sem-eclipse-color-foregroundDisabled)', marginTop: 8, textAlign: 'center' }}>PrimitiveUI Tabs 접근성 패턴 — WAI-ARIA 준수</p>
     </div>
   )
 }
 
-export const Radix_접근성_강화_탭: Story = {
-  name: 'Radix UI — 접근성 강화 탭 (키보드 네비게이션)',
+export const Primitive_접근성_강화_탭: Story = {
+  name: 'PrimitiveUI — 접근성 강화 탭 (키보드 네비게이션)',
   parameters: {
     docs: {
       description: {
-        story: 'Radix UI Tabs 컴포넌트의 접근성 패턴을 Orbit UI로 구현. WAI-ARIA tablist/tab/tabpanel 패턴, 화살표 키 네비게이션, aria-selected 상태 관리. 키보드 조작 시 힌트 표시.',
+        story: 'PrimitiveUI Tabs 컴포넌트의 접근성 패턴을 Orbit UI로 구현. WAI-ARIA tablist/tab/tabpanel 패턴, 화살표 키 네비게이션, aria-selected 상태 관리. 키보드 조작 시 힌트 표시.',
       },
     },
   },
-  render: () => <RadixA11yTabGroupRender />,
+  render: () => <PrimitiveA11yTabGroupRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Vercel Design — 배포 로그 탭 (실시간 로그 + 상태 뱃지)
+   DeployPlatform Design — 배포 로그 탭 (실시간 로그 + 상태 뱃지)
 -------------------------------------------------------------------------- */
-function VercelDeployLogTabRender() {
+function DeployPlatformDeployLogTabRender() {
   const [selected, setSelected] = useState(0)
   const [running, setRunning] = useState(false)
   const [logCount, setLogCount] = useState(12)
@@ -1902,22 +1902,22 @@ function VercelDeployLogTabRender() {
   )
 }
 
-export const Vercel_배포_로그_탭: Story = {
-  name: 'Vercel Design — 배포 로그 탭 (실시간 로그 + 상태 뱃지)',
+export const DeployPlatform_배포_로그_탭: Story = {
+  name: 'DeployPlatform Design — 배포 로그 탭 (실시간 로그 + 상태 뱃지)',
   parameters: {
     docs: {
       description: {
-        story: 'Vercel 배포 대시보드의 Build/Functions/Runtime Logs 탭 패턴. 탭 앞 상태 도트 뱃지, 다크 배경 로그 뷰어, 재배포 버튼 클릭 시 로그가 순차적으로 표시됩니다.',
+        story: 'DeployPlatform 배포 대시보드의 Build/Functions/Runtime Logs 탭 패턴. 탭 앞 상태 도트 뱃지, 다크 배경 로그 뷰어, 재배포 버튼 클릭 시 로그가 순차적으로 표시됩니다.',
       },
     },
   },
-  render: () => <VercelDeployLogTabRender />,
+  render: () => <DeployPlatformDeployLogTabRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Radix + Vercel — API 키 관리 탭 (타입별 필터 + 카운트)
+   Primitive + DeployPlatform — API 키 관리 탭 (타입별 필터 + 카운트)
 -------------------------------------------------------------------------- */
-function RadixVercelApiKeyTabRender() {
+function PrimitiveDeployPlatformApiKeyTabRender() {
   const [selected, setSelected] = useState(0)
 
   const keys = [
@@ -1982,24 +1982,24 @@ function RadixVercelApiKeyTabRender() {
   )
 }
 
-export const Radix_Vercel_API키_관리_탭: Story = {
-  name: 'Radix + Vercel — API 키 관리 탭 (타입별 필터 + 카운트)',
+export const Primitive_DeployPlatform_API키_관리_탭: Story = {
+  name: 'Primitive + DeployPlatform — API 키 관리 탭 (타입별 필터 + 카운트)',
   parameters: {
     docs: {
       description: {
-        story: 'Radix UI Tabs + Vercel API 키 관리 패턴. 전체/Production/Development/만료됨 탭 필터링, 탭에 CounterBadge로 개수 표시, 스코프별 컬러 뱃지.',
+        story: 'PrimitiveUI Tabs + DeployPlatform API 키 관리 패턴. 전체/Production/Development/만료됨 탭 필터링, 탭에 CounterBadge로 개수 표시, 스코프별 컬러 뱃지.',
       },
     },
   },
-  render: () => <RadixVercelApiKeyTabRender />,
+  render: () => <PrimitiveDeployPlatformApiKeyTabRender />,
 }
 
 
 // ──────────────────────────────────────────────────────────────────────────────
-// Cycle 172: shadcn/ui + Raycast Extensions
+// Cycle 172: ComposableUI + CommandPalette Extensions
 // ──────────────────────────────────────────────────────────────────────────────
 
-function ShadcnComponentDocsTabRender() {
+function ComposableUIComponentDocsTabRender() {
   const [active, setActive] = useState(0)
   const tabLabels = ['Overview', 'Usage', 'API Reference', 'Examples', 'Changelog']
   const propsData = [
@@ -2031,12 +2031,12 @@ function ShadcnComponentDocsTabRender() {
                 <span key={b.label} style={{ fontSize: 11, padding: '2px 8px', borderRadius: 99, background: `${b.color}18`, color: b.color, fontWeight: 600 }}>{b.label}</span>
               ))}
             </div>
-            <p style={{ fontSize: 13, color: 'var(--sem-eclipse-color-foregroundSecondary, #64748b)', lineHeight: 1.7 }}>A versatile button component with multiple variants — primary, outline, ghost, destructive. Built on top of Radix UI primitives.</p>
+            <p style={{ fontSize: 13, color: 'var(--sem-eclipse-color-foregroundSecondary, #64748b)', lineHeight: 1.7 }}>A versatile button component with multiple variants — primary, outline, ghost, destructive. Built on top of PrimitiveUI primitives.</p>
           </div>
         )}
         {active === 1 && (
           <div>
-            <div style={{ fontFamily: 'monospace', fontSize: 12, padding: '10px 14px', borderRadius: 8, background: '#0f172a', color: '#e2e8f0', marginBottom: 12 }}>npx shadcn-ui@latest add button</div>
+            <div style={{ fontFamily: 'monospace', fontSize: 12, padding: '10px 14px', borderRadius: 8, background: '#0f172a', color: '#e2e8f0', marginBottom: 12 }}>npx ComposableUI-ui@latest add button</div>
             <p style={{ fontSize: 13, color: 'var(--sem-eclipse-color-foregroundSecondary, #64748b)' }}>기본 사용법: import &#123; Button &#125; from &quot;@/components/ui/button&quot;</p>
           </div>
         )}
@@ -2085,19 +2085,19 @@ function ShadcnComponentDocsTabRender() {
   )
 }
 
-export const shadcn_컴포넌트_문서_탭: Story = {
-  name: 'shadcn/ui — 컴포넌트 문서 탭 (Overview/Usage/API/Examples/Changelog)',
+export const ComposableUI_컴포넌트_문서_탭: Story = {
+  name: 'ComposableUI — 컴포넌트 문서 탭 (Overview/Usage/API/Examples/Changelog)',
   parameters: {
     docs: {
       description: {
-        story: 'shadcn/ui 문서 사이트 탭 네비게이션 패턴. Overview/Usage/API Reference/Examples/Changelog 5탭 구조. API 탭에서 props 테이블, Changelog 탭에서 버전 이력 표시.',
+        story: 'ComposableUI 문서 사이트 탭 네비게이션 패턴. Overview/Usage/API Reference/Examples/Changelog 5탭 구조. API 탭에서 props 테이블, Changelog 탭에서 버전 이력 표시.',
       },
     },
   },
-  render: () => <ShadcnComponentDocsTabRender />,
+  render: () => <ComposableUIComponentDocsTabRender />,
 }
 
-function RaycastExtensionTabRender() {
+function CommandPaletteExtensionTabRender() {
   const [active, setActive] = useState(0)
   const tabLabels = ['Actions', 'Details', 'Metadata', 'Preferences']
   const actions = [
@@ -2108,7 +2108,7 @@ function RaycastExtensionTabRender() {
     { icon: '⋮', label: 'More Actions', shortcut: '⌘⇧.' },
   ]
   const metadata = [
-    { key: 'URL', value: 'https://orbit-ui.vercel.app' },
+    { key: 'URL', value: 'https://orbit-ui.deploy.example.com' },
     { key: 'Created', value: '2024-03-15' },
     { key: 'Last Visited', value: '2 hours ago' },
     { key: 'Tags', value: 'design-system, ui, react' },
@@ -2127,7 +2127,7 @@ function RaycastExtensionTabRender() {
           <div style={{ width: 32, height: 32, borderRadius: 8, background: '#ff6b35', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 16 }}>&#9889;</div>
           <div>
             <div style={{ fontSize: 14, fontWeight: 600, color: '#f2f2f7' }}>Orbit UI Docs</div>
-            <div style={{ fontSize: 11, color: '#8e8e93' }}>orbit-ui.vercel.app</div>
+            <div style={{ fontSize: 11, color: '#8e8e93' }}>orbit-ui.deploy.example.com</div>
           </div>
         </div>
         <FixedTabs selectedIndex={active} onTabChange={setActive}>
@@ -2152,7 +2152,7 @@ function RaycastExtensionTabRender() {
         )}
         {active === 1 && (
           <div>
-            <div style={{ fontSize: 12, color: '#8e8e93', lineHeight: 1.7 }}>Orbit UI is a Figma-based React design system component library. It provides a 3-tier architecture for scalable UI development.</div>
+            <div style={{ fontSize: 12, color: '#8e8e93', lineHeight: 1.7 }}>Orbit UI is a DesignTool-based React design system component library. It provides a 3-tier architecture for scalable UI development.</div>
             <div style={{ marginTop: 12, padding: '8px 12px', borderRadius: 8, background: '#2c2c2e' }}>
               <div style={{ fontSize: 11, color: '#8e8e93' }}>Last updated: 2 hours ago</div>
             </div>
@@ -2189,19 +2189,19 @@ function RaycastExtensionTabRender() {
   )
 }
 
-export const Raycast_익스텐션_액션_탭: Story = {
-  name: 'Raycast — 익스텐션 액션 패널 탭 (Actions/Details/Metadata/Preferences)',
+export const CommandPalette_익스텐션_액션_탭: Story = {
+  name: 'CommandPalette — 익스텐션 액션 패널 탭 (Actions/Details/Metadata/Preferences)',
   parameters: {
     docs: {
       description: {
-        story: 'Raycast Extension 상세 패널 탭 UI. 다크 테마 기반 Actions/Details/Metadata/Preferences 4탭. 단축키 표시, 토글 프리퍼런스, 메타데이터 레이아웃.',
+        story: 'CommandPalette Extension 상세 패널 탭 UI. 다크 테마 기반 Actions/Details/Metadata/Preferences 4탭. 단축키 표시, 토글 프리퍼런스, 메타데이터 레이아웃.',
       },
     },
   },
-  render: () => <RaycastExtensionTabRender />,
+  render: () => <CommandPaletteExtensionTabRender />,
 }
 
-function ShadcnRaycastWorkspaceTabRender() {
+function ComposableUICommandPaletteWorkspaceTabRender() {
   const [active, setActive] = useState(0)
   const [notifCount, setNotifCount] = useState(5)
   const tabLabels = ['Dashboard', 'Issues', 'Members', 'Settings']
@@ -2209,8 +2209,8 @@ function ShadcnRaycastWorkspaceTabRender() {
   const issues = [
     { id: 'ORB-142', title: 'TabGroup 스토리 추가', status: 'In Progress', priority: 'High', assignee: 'HJ' },
     { id: 'ORB-141', title: 'Slider 접근성 개선', status: 'Todo', priority: 'Medium', assignee: 'SW' },
-    { id: 'ORB-140', title: 'shadcn 마이그레이션 가이드', status: 'In Review', priority: 'Low', assignee: 'JW' },
-    { id: 'ORB-139', title: 'Raycast 익스텐션 패턴 반영', status: 'Done', priority: 'High', assignee: 'HJ' },
+    { id: 'ORB-140', title: 'ComposableUI 마이그레이션 가이드', status: 'In Review', priority: 'Low', assignee: 'JW' },
+    { id: 'ORB-139', title: 'CommandPalette 익스텐션 패턴 반영', status: 'Done', priority: 'High', assignee: 'HJ' },
   ]
   const statusColor: Record<string, string> = { 'In Progress': '#3b82f6', Todo: '#64748b', 'In Review': '#f59e0b', Done: '#16a34a' }
   const priorityColor: Record<string, string> = { High: '#ef4444', Medium: '#f59e0b', Low: '#64748b' }
@@ -2290,14 +2290,14 @@ function ShadcnRaycastWorkspaceTabRender() {
   )
 }
 
-export const shadcn_Raycast_워크스페이스_탭: Story = {
-  name: 'shadcn + Raycast — 워크스페이스 탭 (Dashboard/Issues/Members/Settings)',
+export const ComposableUI_CommandPalette_워크스페이스_탭: Story = {
+  name: 'ComposableUI + CommandPalette — 워크스페이스 탭 (Dashboard/Issues/Members/Settings)',
   parameters: {
     docs: {
       description: {
-        story: 'shadcn/ui + Raycast 워크스페이스 대시보드. CounterBadge로 미읽음 알림 표시, 탭별 대시보드/이슈/멤버 콘텐츠 전환. 이슈 우선순위 컬러 배지, 담당자 아바타.',
+        story: 'ComposableUI + CommandPalette 워크스페이스 대시보드. CounterBadge로 미읽음 알림 표시, 탭별 대시보드/이슈/멤버 콘텐츠 전환. 이슈 우선순위 컬러 배지, 담당자 아바타.',
       },
     },
   },
-  render: () => <ShadcnRaycastWorkspaceTabRender />,
+  render: () => <ComposableUICommandPaletteWorkspaceTabRender />,
 }

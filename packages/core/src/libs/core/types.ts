@@ -44,7 +44,7 @@ export type StyleProtectedAsChainingProps<
       ? StyleProtectedAsProps<Element>
       : StyleProtectedOptionalAsProps<DefaultElement>
 
-// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+
 export type Prettify<T> = { [K in keyof T]: T[K] } & {}
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

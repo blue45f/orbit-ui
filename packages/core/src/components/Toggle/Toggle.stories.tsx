@@ -78,7 +78,7 @@ export const 디자인QA = {
     thumbWidth: 10,
     thumbHeight: 10,
   },
-  // eslint-disable-next-line
+
   render: ({ thumbWidth, thumbHeight, ...args }: any) => {
     return (
       <Flex flexDirection={'column'} rowGap="20px">

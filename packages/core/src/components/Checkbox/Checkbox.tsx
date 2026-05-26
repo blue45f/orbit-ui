@@ -172,7 +172,7 @@ type CheckboxComponent = typeof CheckboxRoot & {
 /**
  * 체크박스 컴포넌트
  *
- * Radix UI Checkbox primitive를 내부적으로 사용합니다.
+ * 접근성 체크박스 프리미티브를 내부적으로 사용합니다.
  * 접근성(aria-checked, keyboard navigation)이 자동으로 처리됩니다.
  *
  * @example

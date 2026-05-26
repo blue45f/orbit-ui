@@ -65,11 +65,11 @@ export const 범위선택: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Mantine 벤치마크: 날짜 범위 선택 패턴
-   Mantine DatePicker range 패턴 — 시작/종료일 선택 UI
+   AppUI 벤치마크: 날짜 범위 선택 패턴
+   AppUI DatePicker range 패턴 — 시작/종료일 선택 UI
 -------------------------------------------------------------------------- */
-export const Mantine_날짜_범위_선택: Story = {
-  name: 'Mantine - 날짜 범위 선택 패턴',
+export const AppUI_날짜_범위_선택: Story = {
+  name: 'AppUI - 날짜 범위 선택 패턴',
   render: function Render() {
     type DateRange = { from: Date | undefined; to: Date | undefined }
     const [range, setRange] = React.useState<DateRange>({ from: undefined, to: undefined })
@@ -312,16 +312,16 @@ export const 모바일_풀스크린: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Tailwind UI 빠른 선택 사이드바 패턴
-   Tailwind UI DatePicker: 프리셋 버튼 + 캘린더 조합
+   UtilityUI 빠른 선택 사이드바 패턴
+   UtilityUI DatePicker: 프리셋 버튼 + 캘린더 조합
 -------------------------------------------------------------------------- */
-export const TailwindUI_빠른_날짜_선택: Story = {
-  name: 'Tailwind UI - 프리셋 + 캘린더 조합 패턴',
+export const UtilityCSSUI_빠른_날짜_선택: Story = {
+  name: 'UtilityUI - 프리셋 + 캘린더 조합 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'Tailwind UI DatePicker 패턴. 좌측 프리셋 버튼(오늘/이번 주/이번 달 등)과 우측 캘린더를 ' +
+          'UtilityUI DatePicker 패턴. 좌측 프리셋 버튼(오늘/이번 주/이번 달 등)과 우측 캘린더를 ' +
           '조합하여 빠른 날짜 선택을 지원합니다.',
       },
     },
@@ -392,16 +392,16 @@ export const TailwindUI_빠른_날짜_선택: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Apple HIG 인라인 생일 입력 패턴
+   Platform HIG 인라인 생일 입력 패턴
    iOS 생일 날짜 선택: 월/일/년 드럼롤 없이 타이핑 입력 + 캘린더 확인
 -------------------------------------------------------------------------- */
-export const AppleHIG_생일_날짜_입력: Story = {
-  name: 'Apple HIG - 생일 입력 + 캘린더 확인 패턴',
+export const PlatformHIG_생일_날짜_입력: Story = {
+  name: 'Platform HIG - 생일 입력 + 캘린더 확인 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'Apple HIG 생년월일 입력 패턴. 텍스트 입력(YYYY-MM-DD)과 캘린더를 연동하여 ' +
+          'Platform HIG 생년월일 입력 패턴. 텍스트 입력(YYYY-MM-DD)과 캘린더를 연동하여 ' +
           '날짜를 시각적으로 확인합니다. 미래 날짜는 비활성화됩니다.',
       },
     },
@@ -490,16 +490,16 @@ export const AppleHIG_생일_날짜_입력: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Tailwind UI 예약 예정일 선택 패턴
+   UtilityUI 예약 예정일 선택 패턴
    예약/스케줄링에서 사용: 오늘 이후만 선택 가능, 주말 비활성화, 확인 버튼
 -------------------------------------------------------------------------- */
-export const TailwindUI_예약_일정_선택: Story = {
-  name: 'Tailwind UI - 예약 스케줄링 + 시간 선택 패턴',
+export const UtilityCSSUI_예약_일정_선택: Story = {
+  name: 'UtilityUI - 예약 스케줄링 + 시간 선택 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'Tailwind UI 예약 캘린더 패턴. 오늘 이후만 선택 가능, 주말 비활성화. ' +
+          'UtilityUI 예약 캘린더 패턴. 오늘 이후만 선택 가능, 주말 비활성화. ' +
           '날짜 선택 후 시간 슬롯 선택까지 이어지는 2단계 예약 UX입니다.',
       },
     },
@@ -611,16 +611,16 @@ export const TailwindUI_예약_일정_선택: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Radix UI 벤치마크: 접근성 다중 날짜 선택기
-   Radix 패턴: 명시적 label, aria-live 영역, 키보드 네비게이션 힌트
+   PrimitiveUI 벤치마크: 접근성 다중 날짜 선택기
+   Primitive 패턴: 명시적 label, aria-live 영역, 키보드 네비게이션 힌트
 -------------------------------------------------------------------------- */
-export const Radix_접근성_다중_날짜_선택기: Story = {
-  name: 'Radix UI - 접근성 다중 날짜 선택기 패턴',
+export const Primitive_접근성_다중_날짜_선택기: Story = {
+  name: 'PrimitiveUI - 접근성 다중 날짜 선택기 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'Radix UI의 접근성 우선 패턴 적용. aria-live 영역으로 선택 상태를 스크린리더에 전달하고, ' +
+          'PrimitiveUI의 접근성 우선 패턴 적용. aria-live 영역으로 선택 상태를 스크린리더에 전달하고, ' +
           '키보드 단축키 힌트를 제공합니다. 프로젝트 휴일/마감일 다중 선택 시나리오입니다.',
       },
     },
@@ -709,25 +709,25 @@ export const Radix_접근성_다중_날짜_선택기: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Notion 벤치마크: 태스크 마감일 인라인 설정 패턴
-   Notion DB에서 Date 속성을 인라인 편집하는 UX — 태스크 리스트 + 달력
+   WorkspaceEditor 벤치마크: 태스크 마감일 인라인 설정 패턴
+   WorkspaceEditor DB에서 Date 속성을 인라인 편집하는 UX — 태스크 리스트 + 달력
 -------------------------------------------------------------------------- */
-type NotionTask = {
+type WorkspaceEditorTask = {
   id: string
   title: string
   deadline: Date | undefined
   done: boolean
 }
 
-const NOTION_TASKS_INIT: NotionTask[] = [
+const WORKSPACE_TASKS_INIT: WorkspaceEditorTask[] = [
   { id: 't1', title: '디자인 토큰 가이드 문서화', deadline: undefined, done: false },
   { id: 't2', title: 'Storybook autodocs 보강', deadline: undefined, done: false },
   { id: 't3', title: '접근성 키보드 테스트', deadline: undefined, done: false },
   { id: 't4', title: '다크모드 색상 검수', deadline: undefined, done: false },
 ]
 
-function NotionDeadlineRender() {
-  const [tasks, setTasks] = React.useState<NotionTask[]>(NOTION_TASKS_INIT)
+function WorkspaceEditorDeadlineRender() {
+  const [tasks, setTasks] = React.useState<WorkspaceEditorTask[]>(WORKSPACE_TASKS_INIT)
   const [openId, setOpenId] = React.useState<string | null>(null)
 
   const setDeadline = (id: string, d: Date | undefined) => {
@@ -818,25 +818,25 @@ function NotionDeadlineRender() {
   )
 }
 
-export const Notion_태스크_마감일_설정: Story = {
-  name: 'Notion - 태스크 마감일 인라인 설정 패턴',
+export const WorkspaceEditor_태스크_마감일_설정: Story = {
+  name: 'WorkspaceEditor - 태스크 마감일 인라인 설정 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'Notion Database Date 속성 인라인 편집 패턴. 각 태스크 행에서 날짜 버튼을 클릭해 ' +
+          'WorkspaceEditor Database Date 속성 인라인 편집 패턴. 각 태스크 행에서 날짜 버튼을 클릭해 ' +
           '달력 팝오버로 마감일을 설정합니다. 오늘 이전 날짜 비활성화, 기한 초과 시 경고 표시.',
       },
     },
   },
-  render: () => <NotionDeadlineRender />,
+  render: () => <WorkspaceEditorDeadlineRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Shadcn/ui 벤치마크: 월별 지출 추적기 패턴
-   shadcn Calendar + 데이터 입력 조합 — 날짜별 지출 기록 및 월합계
+   ComposableUI/ui 벤치마크: 월별 지출 추적기 패턴
+   ComposableUI Calendar + 데이터 입력 조합 — 날짜별 지출 기록 및 월합계
 -------------------------------------------------------------------------- */
-function ShadcnExpenseTrackerRender() {
+function ComposableUIExpenseTrackerRender() {
   const [selected, setSelected] = React.useState<Date | undefined>(new Date())
   const [expenses, setExpenses] = React.useState<Record<string, number>>({})
   const [input, setInput] = React.useState('')
@@ -931,28 +931,28 @@ function ShadcnExpenseTrackerRender() {
   )
 }
 
-export const Shadcn_월별_지출_추적기: Story = {
-  name: 'shadcn/ui - 월별 지출 추적 달력 패턴',
+export const ComposableUI_월별_지출_추적기: Story = {
+  name: 'ComposableUI - 월별 지출 추적 달력 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'shadcn/ui Calendar + 데이터 입력 조합 패턴. 날짜 선택 후 지출 금액을 입력하면 ' +
+          'ComposableUI Calendar + 데이터 입력 조합 패턴. 날짜 선택 후 지출 금액을 입력하면 ' +
           '달력에 기록 표시(초록 밑줄)되고 월합계를 집계합니다.',
       },
     },
   },
-  render: () => <ShadcnExpenseTrackerRender />,
+  render: () => <ComposableUIExpenseTrackerRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Chakra UI 벤치마크: 예약 가능 시간 슬롯 선택
-   Chakra UI의 SimpleGrid + Badge 패턴을 활용한 날짜+시간 선택 플로우
+   AccessibleUI 벤치마크: 예약 가능 시간 슬롯 선택
+   AccessibleUI의 SimpleGrid + Badge 패턴을 활용한 날짜+시간 선택 플로우
 -------------------------------------------------------------------------- */
 const TIME_SLOTS = ['09:00', '10:00', '11:00', '13:00', '14:00', '15:00', '16:00', '17:00']
 const BOOKED = new Set(['10:00', '13:00', '16:00'])
 
-function ChakraTimeSlotPickerRender() {
+function AccessibleTimeSlotPickerRender() {
   const [date, setDate] = React.useState<Date | undefined>()
   const [slot, setSlot] = React.useState<string | null>(null)
   const [confirmed, setConfirmed] = React.useState(false)
@@ -1038,27 +1038,27 @@ function ChakraTimeSlotPickerRender() {
   )
 }
 
-export const Chakra_예약_시간_슬롯_선택기: Story = {
-  name: 'Chakra UI - 날짜·시간 슬롯 예약 선택기',
+export const Accessible_예약_시간_슬롯_선택기: Story = {
+  name: 'AccessibleUI - 날짜·시간 슬롯 예약 선택기',
   parameters: {
     docs: {
       description: {
         story:
-          'Chakra UI SimpleGrid + Badge 패턴. 날짜 선택 후 시간 슬롯 그리드를 표시합니다. ' +
+          'AccessibleUI SimpleGrid + Badge 패턴. 날짜 선택 후 시간 슬롯 그리드를 표시합니다. ' +
           '예약 불가 슬롯은 비활성화, 선택된 슬롯은 강조 표시됩니다.',
       },
     },
   },
-  render: () => <ChakraTimeSlotPickerRender />,
+  render: () => <AccessibleTimeSlotPickerRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Chakra UI 벤치마크: 날짜 기반 작업 플래너
-   Chakra UI의 Stack + Checkbox 조합 패턴 — 날짜 선택 + 할 일 관리
+   AccessibleUI 벤치마크: 날짜 기반 작업 플래너
+   AccessibleUI의 Stack + Checkbox 조합 패턴 — 날짜 선택 + 할 일 관리
 -------------------------------------------------------------------------- */
 type PlannerTask = { id: number; text: string; done: boolean }
 
-function ChakraTaskPlannerRender() {
+function AccessibleTaskPlannerRender() {
   const [date, setDate] = React.useState<Date | undefined>(new Date())
   const [tasks, setTasks] = React.useState<Record<string, PlannerTask[]>>({})
   const [input, setInput] = React.useState('')
@@ -1140,25 +1140,25 @@ function ChakraTaskPlannerRender() {
   )
 }
 
-export const Chakra_날짜별_작업_플래너: Story = {
-  name: 'Chakra UI - 날짜 기반 작업 플래너',
+export const Accessible_날짜별_작업_플래너: Story = {
+  name: 'AccessibleUI - 날짜 기반 작업 플래너',
   parameters: {
     docs: {
       description: {
         story:
-          'Chakra UI Stack + Checkbox 조합 패턴. 날짜 선택 후 해당 날짜의 할 일을 추가·완료 처리합니다. ' +
+          'AccessibleUI Stack + Checkbox 조합 패턴. 날짜 선택 후 해당 날짜의 할 일을 추가·완료 처리합니다. ' +
           'modifiers로 할 일이 있는 날짜에 밑줄 표시합니다.',
       },
     },
   },
-  render: () => <ChakraTaskPlannerRender />,
+  render: () => <AccessibleTaskPlannerRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Chakra UI 벤치마크: 생년월일 검증 입력기
-   Chakra UI의 FormControl + FormErrorMessage 패턴 — 날짜 유효성 검사 포함
+   AccessibleUI 벤치마크: 생년월일 검증 입력기
+   AccessibleUI의 FormControl + FormErrorMessage 패턴 — 날짜 유효성 검사 포함
 -------------------------------------------------------------------------- */
-function ChakraBirthDatePickerRender() {
+function AccessibleBirthDatePickerRender() {
   const today = new Date()
   const [selected, setSelected] = React.useState<Date | undefined>()
   const [submitted, setSubmitted] = React.useState(false)
@@ -1219,22 +1219,22 @@ function ChakraBirthDatePickerRender() {
   )
 }
 
-export const Chakra_생년월일_유효성_검사: Story = {
-  name: 'Chakra UI - 생년월일 유효성 검사 패턴',
+export const Accessible_생년월일_유효성_검사: Story = {
+  name: 'AccessibleUI - 생년월일 유효성 검사 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'Chakra UI FormControl + FormErrorMessage 패턴. captionLayout="dropdown"으로 연도를 빠르게 선택하고 ' +
+          'AccessibleUI FormControl + FormErrorMessage 패턴. captionLayout="dropdown"으로 연도를 빠르게 선택하고 ' +
           '14세 미만·120세 초과 날짜를 비활성화합니다. 제출 시 유효성 오류를 인라인으로 표시합니다.',
       },
     },
   },
-  render: () => <ChakraBirthDatePickerRender />,
+  render: () => <AccessibleBirthDatePickerRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Cycle 122 — Ant Design + Mantine 벤치마크
+   Cycle 122 — Ant Design + AppUI 벤치마크
 -------------------------------------------------------------------------- */
 
 /* --------------------------------------------------------------------------
@@ -1342,16 +1342,16 @@ export const Ant_다중_날짜_선택: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Mantine: DatePickerInput 인라인 확인 다이얼로그 패턴
-   Mantine DatePickerInput의 확인 버튼(clearable + confirmable) 아이디어
+   AppUI: DatePickerInput 인라인 확인 다이얼로그 패턴
+   AppUI DatePickerInput의 확인 버튼(clearable + confirmable) 아이디어
 -------------------------------------------------------------------------- */
-export const Mantine_날짜_확인_다이얼로그: Story = {
-  name: 'Mantine - 날짜 선택 확인 다이얼로그 패턴',
+export const AppUI_날짜_확인_다이얼로그: Story = {
+  name: 'AppUI - 날짜 선택 확인 다이얼로그 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'Mantine DatePickerInput clearable + confirmable 아이디어. 날짜 선택 후 명시적 "확인" 버튼으로 ' +
+          'AppUI DatePickerInput clearable + confirmable 아이디어. 날짜 선택 후 명시적 "확인" 버튼으로 ' +
           '값을 커밋하고, 현재 선택 중인 날짜와 확정된 날짜를 구분하여 표시합니다.',
       },
     },
@@ -1429,16 +1429,16 @@ export const Mantine_날짜_확인_다이얼로그: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Ant + Mantine: 팀 스프린트 계획 달력
+   Ant + AppUI: 팀 스프린트 계획 달력
    두 시스템의 범위 선택 + 이벤트 표시 패턴 결합
 -------------------------------------------------------------------------- */
-export const Ant_Mantine_스프린트_계획_달력: Story = {
-  name: 'Ant Design + Mantine - 팀 스프린트 계획 달력',
+export const Ant_AppUI_스프린트_계획_달력: Story = {
+  name: 'Ant Design + AppUI - 팀 스프린트 계획 달력',
   parameters: {
     docs: {
       description: {
         story:
-          'Ant Design 이벤트 마킹 + Mantine DateRangePicker 아이디어를 결합한 스프린트 계획 달력. ' +
+          'Ant Design 이벤트 마킹 + AppUI DateRangePicker 아이디어를 결합한 스프린트 계획 달력. ' +
           '스프린트 기간을 범위로 선택하고 팀원 업무를 날짜별로 표시합니다.',
       },
     },
@@ -1503,14 +1503,14 @@ export const Ant_Mantine_스프린트_계획_달력: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   shadcn/ui — 날짜 범위 선택 (여행 일정 예약)
+   ComposableUI — 날짜 범위 선택 (여행 일정 예약)
 -------------------------------------------------------------------------- */
-export const Shadcn_날짜_범위_예약: Story = {
-  name: 'shadcn/ui — 날짜 범위 선택 (여행 일정 예약)',
+export const ComposableUI_날짜_범위_예약: Story = {
+  name: 'ComposableUI — 날짜 범위 선택 (여행 일정 예약)',
   parameters: {
     docs: {
       description: {
-        story: 'shadcn/ui DateRangePicker 패턴. 체크인/체크아웃 날짜를 순차적으로 선택. 선택된 범위의 박 수와 예상 금액을 실시간으로 계산. 숙박/예약 폼에서 활용.',
+        story: 'ComposableUI DateRangePicker 패턴. 체크인/체크아웃 날짜를 순차적으로 선택. 선택된 범위의 박 수와 예상 금액을 실시간으로 계산. 숙박/예약 폼에서 활용.',
       },
     },
   },
@@ -1565,14 +1565,14 @@ export const Shadcn_날짜_범위_예약: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Linear Design — 마일스톤 일정 계획 달력 (목표일 설정)
+   IssueTracker Design — 마일스톤 일정 계획 달력 (목표일 설정)
 -------------------------------------------------------------------------- */
-export const Linear_마일스톤_일정_계획: Story = {
-  name: 'Linear Design — 마일스톤 일정 계획 달력 (목표일 설정)',
+export const IssueTracker_마일스톤_일정_계획: Story = {
+  name: 'IssueTracker Design — 마일스톤 일정 계획 달력 (목표일 설정)',
   parameters: {
     docs: {
       description: {
-        story: 'Linear의 마일스톤 due date 선택 패턴. 오늘 이전 날짜 선택 방지, 마일스톤 색상 구분, 남은 일수 표시. 프로젝트 플래닝 UI에서 활용.',
+        story: 'IssueTracker의 마일스톤 due date 선택 패턴. 오늘 이전 날짜 선택 방지, 마일스톤 색상 구분, 남은 일수 표시. 프로젝트 플래닝 UI에서 활용.',
       },
     },
   },
@@ -1627,14 +1627,14 @@ export const Linear_마일스톤_일정_계획: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   shadcn/ui + Linear — 반복 이벤트 스케줄러
+   ComposableUI + IssueTracker — 반복 이벤트 스케줄러
 -------------------------------------------------------------------------- */
-export const Shadcn_Linear_반복_이벤트_스케줄러: Story = {
-  name: 'shadcn/ui + Linear — 반복 이벤트 스케줄러',
+export const ComposableUI_IssueTracker_반복_이벤트_스케줄러: Story = {
+  name: 'ComposableUI + IssueTracker — 반복 이벤트 스케줄러',
   parameters: {
     docs: {
       description: {
-        story: 'shadcn/ui DatePicker + Linear 반복 설정 패턴. 날짜 선택 후 반복 주기(없음/매일/매주/매월)와 종료 조건을 설정. 캘린더 앱 이벤트 생성 폼 패턴.',
+        story: 'ComposableUI DatePicker + IssueTracker 반복 설정 패턴. 날짜 선택 후 반복 주기(없음/매일/매주/매월)와 종료 조건을 설정. 캘린더 앱 이벤트 생성 폼 패턴.',
       },
     },
   },
@@ -1685,12 +1685,12 @@ export const Shadcn_Linear_반복_이벤트_스케줄러: Story = {
 }
 
 // ──────────────────────────────────────────────────────────────────────────────
-// Cycle 176: Chakra UI + Arco Design
+// Cycle 176: AccessibleUI + DataProductUI
 // ──────────────────────────────────────────────────────────────────────────────
 
-export const Chakra_생일_기념일_달력: Story = {
-  name: 'Chakra UI — 생일/기념일 마킹 달력 (이벤트 하이라이트)',
-  render: function ChakraBirthdayCalendarRender() {
+export const Accessible_생일_기념일_달력: Story = {
+  name: 'AccessibleUI — 생일/기념일 마킹 달력 (이벤트 하이라이트)',
+  render: function AccessibleBirthdayCalendarRender() {
     const today = new Date()
     const [selected, setSelected] = React.useState<Date | undefined>(undefined)
     const anniversaries = [3, 8, 14, 21, 28].map((d) => new Date(today.getFullYear(), today.getMonth(), d))
@@ -1735,15 +1735,15 @@ export const Chakra_생일_기념일_달력: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Chakra UI date picker 이벤트 마킹 패턴. 기념일(주황)/생일(파랑) 날짜 custom modifier로 하이라이트. 선택 날짜 이벤트 타입 자동 분류.',
+        story: 'AccessibleUI date picker 이벤트 마킹 패턴. 기념일(주황)/생일(파랑) 날짜 custom modifier로 하이라이트. 선택 날짜 이벤트 타입 자동 분류.',
       },
     },
   },
 }
 
-export const Arco_다중_달력_비교_뷰: Story = {
-  name: 'Arco Design — 이전/다음 월 비교 달력 (기간 선택)',
-  render: function ArcoRangeCalendarRender() {
+export const DataProduct_다중_달력_비교_뷰: Story = {
+  name: 'DataProductUI — 이전/다음 월 비교 달력 (기간 선택)',
+  render: function DataProductRangeCalendarRender() {
     const [range, setRange] = React.useState<{ from?: Date; to?: Date }>({})
     const now = new Date()
     const prevMonth = new Date(now.getFullYear(), now.getMonth() - 1, 1)
@@ -1794,15 +1794,15 @@ export const Arco_다중_달력_비교_뷰: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Arco Design 이중 달력 범위 선택 패턴. 이전월/다음월 나란히 표시, 클릭 두 번으로 시작-종료 날짜 설정, 선택 기간 일수 자동 계산.',
+        story: 'DataProductUI 이중 달력 범위 선택 패턴. 이전월/다음월 나란히 표시, 클릭 두 번으로 시작-종료 날짜 설정, 선택 기간 일수 자동 계산.',
       },
     },
   },
 }
 
-export const Chakra_Arco_예약_일정_달력: Story = {
-  name: 'Chakra + Arco — 예약/일정 달력 (불가 날짜 + 카운트 표시)',
-  render: function ChakraArcoBookingCalendarRender() {
+export const Accessible_DataProduct_예약_일정_달력: Story = {
+  name: 'Accessible + DataProduct — 예약/일정 달력 (불가 날짜 + 카운트 표시)',
+  render: function AccessibleDataProductBookingCalendarRender() {
     const today = new Date()
     const [selected, setSelected] = React.useState<Date | undefined>(undefined)
 
@@ -1863,7 +1863,7 @@ export const Chakra_Arco_예약_일정_달력: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Chakra UI + Arco Design 예약 달력 패턴. 예약 가능(초록)/인기(노랑)/불가(회색) 3상태 modifier 적용. 날짜 유형별 카운트 사이드 패널 표시.',
+        story: 'AccessibleUI + DataProductUI 예약 달력 패턴. 예약 가능(초록)/인기(노랑)/불가(회색) 3상태 modifier 적용. 날짜 유형별 카운트 사이드 패널 표시.',
       },
     },
   },

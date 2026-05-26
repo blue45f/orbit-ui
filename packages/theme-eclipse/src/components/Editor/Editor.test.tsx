@@ -1,11 +1,14 @@
-import { afterEach, describe, expect, test } from 'vitest'
+import { afterEach, describe, expect, test, vi } from 'vitest'
 
 import { cleanup, render, screen } from '../../test-utils'
 
 import { Editor } from './Editor'
 
 describe('Editor (eclipse) - smoke tests', () => {
-  afterEach(() => cleanup())
+  afterEach(() => {
+    cleanup()
+    vi.restoreAllMocks()
+  })
 
   test('렌더링 시 에러 없이 마운트된다', () => {
     const { container } = render(<Editor placeholder="내용 입력" />)
@@ -50,5 +53,13 @@ describe('Editor (eclipse) - smoke tests', () => {
     // 두 번째 div (에디터 영역)이 min-height를 가지고 있는지 확인
     const contentArea = container.querySelector('.tiptap-orbit')?.parentElement
     expect(contentArea?.style.minHeight).toBe('200px')
+  })
+
+  test('Link extension을 중복 등록하지 않는다', () => {
+    const consoleWarn = vi.spyOn(console, 'warn').mockImplementation(() => undefined)
+
+    render(<Editor placeholder="내용 입력" />)
+
+    expect(consoleWarn.mock.calls.flat().join(' ')).not.toContain('Duplicate extension names')
   })
 })

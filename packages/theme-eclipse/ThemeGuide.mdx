@@ -6,16 +6,16 @@ import { Meta, Unstyled } from '@storybook/blocks'
   <div style={{
     maxWidth: '960px',
     margin: '0 auto',
-    fontFamily: '"Pretendard Variable", "Pretendard", -apple-system, BlinkMacSystemFont, system-ui, sans-serif',
+    fontFamily: '"Pretendard Variable", "Pretendard", system-ui, sans-serif',
   }}>
 
     {/* Header */}
     <div style={{ marginBottom: '48px' }}>
       <div style={{ fontSize: '12px', fontWeight: '700', color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '8px' }}>Theme Guide</div>
       <h1 style={{ fontSize: '36px', fontWeight: '800', color: '#1e293b', letterSpacing: '-0.03em', margin: '0 0 12px' }}>테마 가이드</h1>
-      <p style={{ fontSize: '16px', color: '#64748b', lineHeight: '1.7', margin: 0 }}>
+      <div style={{ fontSize: '16px', color: '#64748b', lineHeight: '1.7', margin: 0 }}>
         Eclipse 테마의 Light/Dark 모드 시스템과 <code style={{ background: '#f1f5f9', color: '#6366f1', padding: '2px 6px', borderRadius: '4px', fontSize: '14px', fontWeight: '500' }}>EclipseProvider</code> 활용법을 안내합니다.
-      </p>
+      </div>
     </div>
 
     {/* Theme Preview Side-by-Side */}
@@ -91,9 +91,9 @@ import { Meta, Unstyled } from '@storybook/blocks'
         background: 'linear-gradient(90deg, rgba(99, 102, 241, 0.04) 0%, transparent 100%)',
         borderLeft: '3px solid #6366f1',
       }}>
-        <p style={{ fontSize: '14px', color: '#475569', margin: 0, lineHeight: '1.6' }}>
+        <div style={{ fontSize: '14px', color: '#475569', margin: 0, lineHeight: '1.6' }}>
           스토리북 상단 툴바의 <strong style={{ color: '#1e293b' }}>Light/Dark 토글</strong>로 모든 컴포넌트의 테마를 실시간 전환할 수 있습니다.
-        </p>
+        </div>
       </div>
     </section>
 
@@ -101,10 +101,10 @@ import { Meta, Unstyled } from '@storybook/blocks'
     <section style={{ marginBottom: '56px' }}>
       <h2 style={{ fontSize: '24px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '24px' }}>EclipseProvider</h2>
 
-      <p style={{ fontSize: '14px', color: '#64748b', lineHeight: '1.7', marginBottom: '20px' }}>
+      <div style={{ fontSize: '14px', color: '#64748b', lineHeight: '1.7', marginBottom: '20px' }}>
         모든 테마 기능은 <code style={{ background: '#f1f5f9', color: '#6366f1', padding: '2px 6px', borderRadius: '4px', fontSize: '13px', fontWeight: '500' }}>EclipseProvider</code>를 통해 제공됩니다.
         내부적으로 <strong style={{ color: '#1e293b' }}>ThemeProvider, LottieProvider, Portal</strong>을 결합하여 테마 클래스, 애니메이션 엔진, 포탈 렌더링을 한번에 설정합니다.
-      </p>
+      </div>
 
       <div style={{ borderRadius: '16px', border: '1px solid #e2e8f0', overflow: 'hidden', marginBottom: '24px' }}>
         <div style={{ padding: '12px 20px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0', fontSize: '13px', fontWeight: '600', color: '#475569' }}>
@@ -157,10 +157,10 @@ import { Meta, Unstyled } from '@storybook/blocks'
     {/* Semantic Color Tokens */}
     <section style={{ marginBottom: '56px' }}>
       <h2 style={{ fontSize: '24px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '24px' }}>Semantic Color Tokens</h2>
-      <p style={{ fontSize: '14px', color: '#64748b', lineHeight: '1.7', marginBottom: '20px' }}>
-        Light/Dark 모드에 따라 자동으로 매핑되는 시맨틱 컬러 토큰입니다. 
+      <div style={{ fontSize: '14px', color: '#64748b', lineHeight: '1.7', marginBottom: '20px' }}>
+        Light/Dark 모드에 따라 자동으로 매핑되는 시맨틱 컬러 토큰입니다.
         <code style={{ background: '#f1f5f9', color: '#6366f1', padding: '2px 6px', borderRadius: '4px', fontSize: '13px', fontWeight: '500' }}>vars.sem.color.*</code>로 접근합니다.
-      </p>
+      </div>
 
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '12px' }}>
         {[
@@ -230,7 +230,7 @@ import { Meta, Unstyled } from '@storybook/blocks'
 {`const [mode, setMode] = useState('light')
 
 <EclipseProvider mode={mode}>
-  <button onClick={() => 
+  <button onClick={() =>
     setMode(m => m === 'light' ? 'dark' : 'light')
   }>
     Toggle Theme
@@ -265,10 +265,10 @@ const CustomCard = () => (
     {/* Runtime Theme Change */}
     <section style={{ marginBottom: '56px' }}>
       <h2 style={{ fontSize: '24px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '8px' }}>런타임 테마 변경</h2>
-      <p style={{ fontSize: '14px', color: '#64748b', lineHeight: '1.7', marginBottom: '20px' }}>
+      <div style={{ fontSize: '14px', color: '#64748b', lineHeight: '1.7', marginBottom: '20px' }}>
         <code style={{ background: '#f1f5f9', color: '#6366f1', padding: '2px 6px', borderRadius: '4px', fontSize: '13px', fontWeight: '500' }}>EclipseProvider</code>의 <code style={{ background: '#f1f5f9', color: '#6366f1', padding: '2px 6px', borderRadius: '4px', fontSize: '13px', fontWeight: '500' }}>mode</code> prop을 상태로 관리하면 런타임에 즉시 테마를 전환할 수 있습니다.
         CSS 변수가 자동으로 교체되므로 별도의 리렌더링 최적화 없이도 부드럽게 전환됩니다.
-      </p>
+      </div>
 
       <div style={{ borderRadius: '16px', border: '1px solid #e2e8f0', overflow: 'hidden', marginBottom: '16px' }}>
         <div style={{ padding: '10px 16px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0', fontSize: '12px', fontWeight: '600', color: '#475569' }}>
@@ -314,21 +314,21 @@ export function Providers({ children }: { children: React.ReactNode }) {
         background: 'linear-gradient(90deg, rgba(99,102,241,0.04) 0%, transparent 100%)',
         borderLeft: '3px solid #6366f1',
       }}>
-        <p style={{ fontSize: '14px', color: '#475569', margin: 0, lineHeight: '1.6' }}>
+        <div style={{ fontSize: '14px', color: '#475569', margin: 0, lineHeight: '1.6' }}>
           <strong style={{ color: '#1e293b' }}>팁:</strong>{' '}
           <code style={{ background: '#f1f5f9', color: '#6366f1', padding: '2px 6px', borderRadius: '4px', fontSize: '13px' }}>window.matchMedia('(prefers-color-scheme: dark)')</code>로 시스템 설정을 감지하고,
           <code style={{ background: '#f1f5f9', color: '#6366f1', padding: '2px 6px', borderRadius: '4px', fontSize: '13px' }}>localStorage</code>로 사용자 선택을 유지합니다.
-        </p>
+        </div>
       </div>
     </section>
 
     {/* CSS Variable Direct Override */}
     <section style={{ marginBottom: '56px' }}>
       <h2 style={{ fontSize: '24px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '8px' }}>CSS 변수 직접 Override</h2>
-      <p style={{ fontSize: '14px', color: '#64748b', lineHeight: '1.7', marginBottom: '20px' }}>
+      <div style={{ fontSize: '14px', color: '#64748b', lineHeight: '1.7', marginBottom: '20px' }}>
         Orbit UI의 모든 시맨틱 토큰은 CSS 사용자 정의 속성(Custom Properties)으로 노출됩니다.
         <code style={{ background: '#f1f5f9', color: '#6366f1', padding: '2px 6px', borderRadius: '4px', fontSize: '13px', fontWeight: '500' }}>:root</code>에서 직접 override하면 빌드 없이 즉시 적용됩니다.
-      </p>
+      </div>
 
       <div style={{ borderRadius: '16px', border: '1px solid #e2e8f0', overflow: 'hidden', marginBottom: '16px' }}>
         <div style={{ padding: '10px 16px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0', fontSize: '12px', fontWeight: '600', color: '#475569' }}>
@@ -390,9 +390,9 @@ export function Providers({ children }: { children: React.ReactNode }) {
     {/* Brand Color Step-by-Step */}
     <section style={{ marginBottom: '56px' }}>
       <h2 style={{ fontSize: '24px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '8px' }}>브랜드 컬러 교체 Step-by-Step</h2>
-      <p style={{ fontSize: '14px', color: '#64748b', lineHeight: '1.7', marginBottom: '20px' }}>
+      <div style={{ fontSize: '14px', color: '#64748b', lineHeight: '1.7', marginBottom: '20px' }}>
         프로젝트 브랜드 컬러로 교체하는 단계별 가이드입니다. 예시는 Indigo(기본) → Sky Blue(커스텀) 교체입니다.
-      </p>
+      </div>
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
         {[
@@ -483,10 +483,10 @@ import './custom-theme.css'    // 2. 시맨틱 토큰 override`,
     {/* TypeScript Theme Type Extension */}
     <section style={{ marginBottom: '56px' }}>
       <h2 style={{ fontSize: '24px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '8px' }}>TypeScript로 테마 클래스 타입 안전 확장</h2>
-      <p style={{ fontSize: '14px', color: '#64748b', lineHeight: '1.7', marginBottom: '20px' }}>
+      <div style={{ fontSize: '14px', color: '#64748b', lineHeight: '1.7', marginBottom: '20px' }}>
         Eclipse는 <code style={{ background: '#f1f5f9', color: '#6366f1', padding: '2px 6px', borderRadius: '4px', fontSize: '13px', fontWeight: '500' }}>theme.css</code>의 CSS 변수만 재정의하면 새 테마 클래스를 추가할 수 있습니다.
         TypeScript로 허용 클래스 목록을 모듈 보강해두면 IDE 자동완성과 타입 에러 검출이 동작합니다.
-      </p>
+      </div>
 
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
         <div style={{ borderRadius: '16px', border: '1px solid #e2e8f0', overflow: 'hidden' }}>
@@ -575,20 +575,20 @@ export function AppProviders({ children }: { children: React.ReactNode }) {
         background: 'linear-gradient(90deg, rgba(99, 102, 241, 0.04) 0%, transparent 100%)',
         borderLeft: '3px solid #6366f1',
       }}>
-        <p style={{ fontSize: '14px', color: '#475569', margin: 0, lineHeight: '1.6' }}>
+        <div style={{ fontSize: '14px', color: '#475569', margin: 0, lineHeight: '1.6' }}>
           <strong style={{ color: '#1e293b' }}>CSS 변수 방식의 장점:</strong>{' '}
           런타임 오버헤드가 없고, 클래스 토글만으로 테마가 즉시 전환됩니다. JS 번들에 추가되는 코드도 없습니다.
-        </p>
+        </div>
       </div>
     </section>
 
     {/* Theme Extension */}
     <section style={{ marginBottom: '40px' }}>
       <h2 style={{ fontSize: '24px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '8px' }}>테마 확장 가이드</h2>
-      <p style={{ fontSize: '14px', color: '#64748b', lineHeight: '1.7', marginBottom: '24px' }}>
-        shadcn/ui의 CSS 변수 override 방식과 유사하게, Orbit UI도 CSS 변수를 직접 override하여 프로젝트별 커스텀 테마를 만들 수 있습니다.
+      <div style={{ fontSize: '14px', color: '#64748b', lineHeight: '1.7', marginBottom: '24px' }}>
+        ComposableUI의 CSS 변수 override 방식과 유사하게, Orbit UI도 CSS 변수를 직접 override하여 프로젝트별 커스텀 테마를 만들 수 있습니다.
         <code style={{ background: '#f1f5f9', color: '#6366f1', padding: '2px 6px', borderRadius: '4px', fontSize: '13px', fontWeight: '500' }}>EclipseProvider</code> 없이도 CSS 레이어에서 직접 토큰을 재정의할 수 있습니다.
-      </p>
+      </div>
 
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '24px' }}>
         {/* CSS override */}
@@ -699,35 +699,35 @@ export default function RootLayout({
         background: 'linear-gradient(90deg, rgba(16, 185, 129, 0.04) 0%, transparent 100%)',
         borderLeft: '3px solid #10b981',
       }}>
-        <p style={{ fontSize: '14px', color: '#475569', margin: 0, lineHeight: '1.6' }}>
+        <div style={{ fontSize: '14px', color: '#475569', margin: 0, lineHeight: '1.6' }}>
           <strong style={{ color: '#1e293b' }}>권장 순서:</strong>{' '}
           단순 브랜드 색상 변경은 <strong>방법 1 (CSS 변수 override)</strong>,
           컴포넌트별 미세 조정은 <strong>방법 2 (theme prop)</strong>,
           완전히 다른 테마가 필요하면 <strong>방법 3 (CSS 변수 테마 클래스)</strong>을 사용하세요.
-        </p>
+        </div>
       </div>
     </section>
 
-    {/* Tailwind UI + Chakra UI 테마 벤치마크 */}
+    {/* UtilityUI + AccessibleUI 테마 벤치마크 */}
     <section style={{ marginBottom: '64px' }}>
       <h2 style={{ fontSize: '22px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '8px' }}>
         테마 시스템 벤치마크
       </h2>
-      <p style={{ fontSize: '14px', color: '#64748b', marginBottom: '24px' }}>
-        Tailwind UI와 Chakra UI의 테마 접근법과 Orbit UI의 차별점을 비교합니다. (Cycle 43 벤치마크)
-      </p>
+      <div style={{ fontSize: '14px', color: '#64748b', marginBottom: '24px' }}>
+        UtilityUI와 AccessibleUI의 테마 접근법과 Orbit UI의 차별점을 비교합니다. (Cycle 43 벤치마크)
+      </div>
 
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px', marginBottom: '28px' }}>
         {[
           {
-            name: 'Tailwind UI',
+            name: 'UtilityUI',
             color: '#06b6d4',
             approach: 'Config 기반',
             pros: ['tailwind.config.js 단일 진입점', '유틸리티 클래스 조합', 'JIT 컴파일 최적화'],
             cons: ['런타임 테마 변경 불가', '타입 안전성 미흡', 'CSS 클래스 문자열 의존'],
           },
           {
-            name: 'Chakra UI',
+            name: 'AccessibleUI',
             color: '#319795',
             approach: 'Recipe 기반',
             pros: ['ColorSchemeProvider로 다크모드', 'extendTheme() 간편 확장', 'semantic tokens 지원'],
@@ -736,8 +736,8 @@ export default function RootLayout({
           {
             name: 'Orbit UI',
             color: '#6366f1',
-            approach: 'Tailwind + CSS 변수',
-            pros: ['빌드 타임 타입 안전', '3단계 토큰 계층', 'Figma 변수 직접 연동'],
+            approach: 'UtilityCSS + CSS 변수',
+            pros: ['빌드 타임 타입 안전', '3단계 토큰 계층', 'DesignTool 변수 직접 연동'],
             cons: ['초기 설정 필요', 'CSS 변수 네이밍 학습', '대규모 토큰 관리 비용'],
           },
         ].map(({ name, color, approach, pros, cons }) => (
@@ -775,8 +775,8 @@ export default function RootLayout({
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '12px' }}>
           {[
             { title: 'TypeScript 완전 지원', desc: 'theme prop에서 토큰 키 자동완성 및 타입 오류 감지' },
-            { title: '제로 런타임 CSS', desc: 'Tailwind + 정적 CSS 변수 토큰, 런타임 오버헤드 없음' },
-            { title: 'Figma 토큰 동기화', desc: 'Reference → Semantic → Component 3단계로 Figma 변수 직접 매핑' },
+            { title: '제로 런타임 CSS', desc: 'UtilityCSS + 정적 CSS 변수 토큰, 런타임 오버헤드 없음' },
+            { title: 'DesignTool 토큰 동기화', desc: 'Reference → Semantic → Component 3단계로 DesignTool 변수 직접 매핑' },
             { title: '컴포넌트별 격리', desc: 'theme prop으로 단일 인스턴스만 변경, 전역 영향 없음' },
           ].map(({ title, desc }) => (
             <div key={title} style={{ display: 'flex', gap: '10px', alignItems: 'flex-start' }}>
@@ -791,21 +791,21 @@ export default function RootLayout({
       </div>
     </section>
 
-    {/* Notion + Apple HIG 벤치마크 섹션 */}
+    {/* WorkspaceEditor + Platform HIG 벤치마크 섹션 */}
     <section style={{ marginBottom: '56px' }}>
       <h2 style={{ fontSize: '24px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '8px' }}>
-        Notion Design + Apple HIG 벤치마크
+        WorkspaceEditor Design + Platform HIG 벤치마크
       </h2>
-      <p style={{ fontSize: '14px', color: '#64748b', marginBottom: '28px' }}>
-        Notion의 컨텍스트 기반 테마와 Apple HIG의 플랫폼 적응형 색상 시스템에서 배우는 Orbit UI 적용 패턴입니다. (Cycle 52 벤치마크)
-      </p>
+      <div style={{ fontSize: '14px', color: '#64748b', marginBottom: '28px' }}>
+        WorkspaceEditor의 컨텍스트 기반 테마와 Platform HIG의 플랫폼 적응형 색상 시스템에서 배우는 Orbit UI 적용 패턴입니다. (Cycle 52 벤치마크)
+      </div>
 
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '28px' }}>
-        {/* Notion */}
+        {/* WorkspaceEditor */}
         <div style={{ borderRadius: '14px', border: '2px solid #0000001a', background: '#fff', overflow: 'hidden' }}>
           <div style={{ padding: '16px 20px', background: '#0f0f0f', display: 'flex', alignItems: 'center', gap: '10px' }}>
             <div style={{ width: '20px', height: '20px', borderRadius: '4px', background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '11px', fontWeight: '800', color: '#0f0f0f' }}>N</div>
-            <span style={{ fontSize: '13px', fontWeight: '700', color: '#fff' }}>Notion Design System</span>
+            <span style={{ fontSize: '13px', fontWeight: '700', color: '#fff' }}>WorkspaceEditor Design System</span>
           </div>
           <div style={{ padding: '20px' }}>
             <div style={{ fontSize: '11px', fontWeight: '700', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.07em', marginBottom: '12px' }}>핵심 패턴</div>
@@ -829,11 +829,11 @@ export default function RootLayout({
           </div>
         </div>
 
-        {/* Apple HIG */}
+        {/* Platform HIG */}
         <div style={{ borderRadius: '14px', border: '2px solid #0000001a', background: '#fff', overflow: 'hidden' }}>
           <div style={{ padding: '16px 20px', background: '#1c1c1e', display: 'flex', alignItems: 'center', gap: '10px' }}>
             <div style={{ width: '20px', height: '20px', borderRadius: '50%', background: 'linear-gradient(135deg, #e8e8e8, #b0b0b0)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '11px', fontWeight: '800', color: '#1c1c1e' }}>A</div>
-            <span style={{ fontSize: '13px', fontWeight: '700', color: '#fff' }}>Apple HIG</span>
+            <span style={{ fontSize: '13px', fontWeight: '700', color: '#fff' }}>Platform HIG</span>
           </div>
           <div style={{ padding: '20px' }}>
             <div style={{ fontSize: '11px', fontWeight: '700', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.07em', marginBottom: '12px' }}>핵심 패턴</div>
@@ -862,41 +862,41 @@ export default function RootLayout({
       <div style={{ borderRadius: '12px', border: '1px solid #e2e8f0', overflow: 'hidden' }}>
         <div style={{ display: 'grid', gridTemplateColumns: '1.5fr 1fr 1fr 1fr', background: '#f8fafc', padding: '10px 16px', borderBottom: '1px solid #e2e8f0', fontSize: '11px', fontWeight: '700', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
           <span>패턴</span>
-          <span>Notion</span>
-          <span>Apple HIG</span>
+          <span>WorkspaceEditor</span>
+          <span>Platform HIG</span>
           <span>Orbit UI</span>
         </div>
         {[
-          { pattern: '색상 철학', notion: '페이지 컨텍스트 기반', apple: '시스템 semantic 색상', orbit: '3단계 토큰 계층' },
-          { pattern: '텍스트 입력', notion: '클릭-편집 인라인', apple: 'SF Symbol 아이콘 + Clear', orbit: 'TextField + onBlur 저장' },
-          { pattern: '탐색 패턴', notion: 'Breadcrumb 경로 추적', apple: '< Back + Breadcrumb', orbit: 'Breadcrumb 컴포넌트' },
-          { pattern: '다크 모드', notion: 'CSS 변수 자동 전환', apple: 'UIColor semantic 자동', orbit: 'EclipseProvider 토글' },
-          { pattern: '상태 피드백', notion: '인라인 상태 도트', apple: 'SF Symbol 상태 아이콘', orbit: 'LabelBadge + CounterBadge' },
-        ].map(({ pattern, notion, apple, orbit }, i) => (
+          { pattern: '색상 철학', workspace: '페이지 컨텍스트 기반', native: '시스템 semantic 색상', orbit: '3단계 토큰 계층' },
+          { pattern: '텍스트 입력', workspace: '클릭-편집 인라인', native: 'SF Symbol 아이콘 + Clear', orbit: 'TextField + onBlur 저장' },
+          { pattern: '탐색 패턴', workspace: 'Breadcrumb 경로 추적', native: '< Back + Breadcrumb', orbit: 'Breadcrumb 컴포넌트' },
+          { pattern: '다크 모드', workspace: 'CSS 변수 자동 전환', native: 'UIColor semantic 자동', orbit: 'EclipseProvider 토글' },
+          { pattern: '상태 피드백', workspace: '인라인 상태 도트', native: 'SF Symbol 상태 아이콘', orbit: 'LabelBadge + CounterBadge' },
+        ].map(({ pattern, workspace, native, orbit }, i) => (
           <div key={pattern} style={{ display: 'grid', gridTemplateColumns: '1.5fr 1fr 1fr 1fr', padding: '10px 16px', borderBottom: i < 4 ? '1px solid #f1f5f9' : 'none', fontSize: '12px', background: i % 2 === 0 ? '#fff' : '#fafafa' }}>
             <span style={{ fontWeight: '600', color: '#1e293b' }}>{pattern}</span>
-            <span style={{ color: '#64748b' }}>{notion}</span>
-            <span style={{ color: '#64748b' }}>{apple}</span>
+            <span style={{ color: '#64748b' }}>{workspace}</span>
+            <span style={{ color: '#64748b' }}>{native}</span>
             <span style={{ color: '#6366f1', fontWeight: '600' }}>{orbit}</span>
           </div>
         ))}
       </div>
     </section>
 
-    {/* Tailwind UI + Arco Design 섹션 */}
+    {/* UtilityUI + DataProductUI 섹션 */}
     <section style={{ marginBottom: '64px' }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px' }}>
-        <h2 style={{ fontSize: '22px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', margin: 0 }}>Tailwind UI + Arco Design 테마 패턴 분석</h2>
+        <h2 style={{ fontSize: '22px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', margin: 0 }}>UtilityUI + DataProductUI 테마 패턴 분석</h2>
         <span style={{ padding: '3px 10px', background: '#f1f5f9', borderRadius: '20px', fontSize: '12px', fontWeight: '600', color: '#6366f1' }}>Cycle 56</span>
       </div>
 
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '20px', marginBottom: '28px' }}>
         <div style={{ padding: '24px', borderRadius: '14px', background: '#0f172a', border: '1px solid #1e293b' }}>
-          <div style={{ fontSize: '11px', fontWeight: '700', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '8px' }}>Tailwind UI</div>
+          <div style={{ fontSize: '11px', fontWeight: '700', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '8px' }}>UtilityUI</div>
           <div style={{ fontSize: '18px', fontWeight: '700', color: '#fff', marginBottom: '10px' }}>Utility-First Layout System</div>
-          <p style={{ fontSize: '13px', color: '#94a3b8', lineHeight: '1.7', margin: '0 0 16px' }}>
-            Tailwind UI는 Tailwind CSS 유틸리티 클래스만으로 완성도 높은 레이아웃 패턴을 제공합니다. Application Shell, Stacked Layout, Sidebar with Header 등 실무 레이아웃 청사진을 제공해 빠른 구현이 가능합니다.
-          </p>
+          <div style={{ fontSize: '13px', color: '#94a3b8', lineHeight: '1.7', margin: '0 0 16px' }}>
+            UtilityUI는 UtilityCSS CSS 유틸리티 클래스만으로 완성도 높은 레이아웃 패턴을 제공합니다. Application Shell, Stacked Layout, Sidebar with Header 등 실무 레이아웃 청사진을 제공해 빠른 구현이 가능합니다.
+          </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '12px' }}>
             {[
               ['Stacked Layout', 'SectionTitle + 탭 네비게이션으로 페이지 헤더 구성'],
@@ -912,11 +912,11 @@ export default function RootLayout({
         </div>
 
         <div style={{ padding: '24px', borderRadius: '14px', background: '#001d35', border: '1px solid #003a6b' }}>
-          <div style={{ fontSize: '11px', fontWeight: '700', color: '#5aaff5', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '8px' }}>Arco Design</div>
+          <div style={{ fontSize: '11px', fontWeight: '700', color: '#5aaff5', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '8px' }}>DataProductUI</div>
           <div style={{ fontSize: '18px', fontWeight: '700', color: '#fff', marginBottom: '10px' }}>Enterprise Data Experience</div>
-          <p style={{ fontSize: '13px', color: '#8eb9e0', lineHeight: '1.7', margin: '0 0 16px' }}>
-            Arco Design은 아시아권 엔터프라이즈 제품에 특화된 데이터 시각화와 복잡한 폼 UX에 강점을 보입니다. Steps + Spin 조합, 낙관적 업데이트 피드백, Descriptions 다단계 설정 등이 특징입니다.
-          </p>
+          <div style={{ fontSize: '13px', color: '#8eb9e0', lineHeight: '1.7', margin: '0 0 16px' }}>
+            DataProductUI은 아시아권 엔터프라이즈 제품에 특화된 데이터 시각화와 복잡한 폼 UX에 강점을 보입니다. Steps + Spin 조합, 낙관적 업데이트 피드백, Descriptions 다단계 설정 등이 특징입니다.
+          </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '12px' }}>
             {[
               ['Steps + Spin', '다단계 처리를 타임라인으로 시각화, 각 단계에 로딩 스피너 삽입'],
@@ -936,7 +936,7 @@ export default function RootLayout({
         <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px' }}>
           <thead>
             <tr style={{ background: '#f8fafc' }}>
-              {['기준', 'Tailwind UI', 'Arco Design', 'Orbit UI 반영'].map((col, i) => (
+              {['기준', 'UtilityUI', 'DataProductUI', 'Orbit UI 반영'].map((col, i) => (
                 <th key={col} style={{ padding: '12px 16px', textAlign: 'left', fontWeight: 700, color: i === 3 ? '#6366f1' : '#475569', borderBottom: '1.5px solid #e2e8f0', whiteSpace: 'nowrap' }}>{col}</th>
               ))}
             </tr>
@@ -964,11 +964,11 @@ export default function RootLayout({
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '12px', fontSize: '12px', color: '#374151', lineHeight: '1.7' }}>
           <div>
             <div style={{ fontWeight: '700', color: '#059669', marginBottom: '4px' }}>SectionTitle 고도화</div>
-            Tailwind UI 탭 섹션 네비게이션, Arco 아코디언 설정 그룹, Tailwind UI 필터링 섹션 헤더 3개 스토리 추가.
+            UtilityUI 탭 섹션 네비게이션, DataProduct 아코디언 설정 그룹, UtilityUI 필터링 섹션 헤더 3개 스토리 추가.
           </div>
           <div>
             <div style={{ fontWeight: '700', color: '#059669', marginBottom: '4px' }}>Loading 고도화</div>
-            Tailwind UI 테이블 오버레이, Arco 다단계 파이프라인, Arco 낙관적 업데이트 인라인 로딩 3개 스토리 추가.
+            UtilityUI 테이블 오버레이, DataProduct 다단계 파이프라인, DataProduct 낙관적 업데이트 인라인 로딩 3개 스토리 추가.
           </div>
         </div>
       </div>
@@ -977,21 +977,21 @@ export default function RootLayout({
   </div>
 </Unstyled>
 
-{/* ========== CYCLE 61: shadcn/ui + Vercel Design ========== */}
+{/* ========== CYCLE 61: ComposableUI + DeployPlatform Design ========== */}
 <section style={{ marginBottom: '48px' }}>
   <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '20px' }}>
     <div style={{ width: '36px', height: '36px', borderRadius: '10px', background: 'linear-gradient(135deg, #09090b, #18181b)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontWeight: '800', fontSize: '15px' }}>S</div>
     <div>
-      <div style={{ fontSize: '22px', fontWeight: '800', color: '#09090b', letterSpacing: '-0.5px' }}>Cycle 61 — shadcn/ui + Vercel Design 벤치마크</div>
+      <div style={{ fontSize: '22px', fontWeight: '800', color: '#09090b', letterSpacing: '-0.5px' }}>Cycle 61 — ComposableUI + DeployPlatform Design 벤치마크</div>
       <div style={{ fontSize: '13px', color: '#71717a', marginTop: '2px' }}>다크 모드 퍼스트 디자인과 컴팩트 인터랙션 패턴 분석</div>
     </div>
   </div>
 
   <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '16px', marginBottom: '24px' }}>
     <div style={{ padding: '20px', borderRadius: '12px', background: '#09090b', border: '1px solid #27272a' }}>
-      <div style={{ fontSize: '14px', fontWeight: '700', color: '#f4f4f5', marginBottom: '12px' }}>shadcn/ui 핵심 패턴</div>
+      <div style={{ fontSize: '14px', fontWeight: '700', color: '#f4f4f5', marginBottom: '12px' }}>ComposableUI 핵심 패턴</div>
       <ul style={{ margin: 0, padding: '0 0 0 16px', fontSize: '13px', color: '#a1a1aa', lineHeight: '1.8' }}>
-        <li>Radix UI 기반 비스타일 프리미티브</li>
+        <li>PrimitiveUI 기반 비스타일 프리미티브</li>
         <li>copy-paste 설치 방식 (소유권 이전)</li>
         <li>CSS 변수 기반 다크 모드 토글</li>
         <li>Tooltip.Provider delayDuration 전역 설정</li>
@@ -999,7 +999,7 @@ export default function RootLayout({
       </ul>
     </div>
     <div style={{ padding: '20px', borderRadius: '12px', background: '#09090b', border: '1px solid #27272a' }}>
-      <div style={{ fontSize: '14px', fontWeight: '700', color: '#f4f4f5', marginBottom: '12px' }}>Vercel Design 핵심 패턴</div>
+      <div style={{ fontSize: '14px', fontWeight: '700', color: '#f4f4f5', marginBottom: '12px' }}>DeployPlatform Design 핵심 패턴</div>
       <ul style={{ margin: 0, padding: '0 0 0 16px', fontSize: '13px', color: '#a1a1aa', lineHeight: '1.8' }}>
         <li>정보 밀도 최적화 — 컴팩트 액션 힌트</li>
         <li>kbd 단축키 레이블로 전문가 UX 강화</li>
@@ -1014,7 +1014,7 @@ export default function RootLayout({
     <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px' }}>
       <thead>
         <tr style={{ background: '#fafafa' }}>
-          {['기준', 'shadcn/ui', 'Vercel Design', 'Orbit UI 반영'].map((col, i) => (
+          {['기준', 'ComposableUI', 'DeployPlatform Design', 'Orbit UI 반영'].map((col, i) => (
             <th key={col} style={{ padding: '12px 16px', textAlign: 'left', fontWeight: 700, color: i === 3 ? '#6366f1' : '#09090b', borderBottom: '1.5px solid #e4e4e7', whiteSpace: 'nowrap' }}>{col}</th>
           ))}
         </tr>
@@ -1022,7 +1022,7 @@ export default function RootLayout({
       <tbody>
         {[
           ['색상 모드', 'CSS 변수 즉시 스위치', 'dark 퍼스트 단일 팔레트', 'Tooltip·TextArea 다크 테마 스토리'],
-          ['툴팁', 'Provider delayDuration 전역', '컴팩트 액션힌트 + kbd', 'Shadcn 차트·Vercel 힌트·Linear 단축키'],
+          ['툴팁', 'Provider delayDuration 전역', '컴팩트 액션힌트 + kbd', 'ComposableUI 차트·DeployPlatform 힌트·IssueTracker 단축키'],
           ['텍스트 에디터', 'write/preview 탭 분리', '멀티라인 ENV 편집', 'Comment·EnvVar·AutoSave 3패턴'],
           ['상태 표시', '남은글자·제출 애니메이션', '파싱 결과 유효성 표시', '실시간 카운터 + debounce 저장'],
           ['제품 카탈로그', '사이드바 필터 + 그리드', '컴팩트 리스트 뷰', 'Slider 가격·Toggle 세일·Chip 카테고리'],
@@ -1042,11 +1042,11 @@ export default function RootLayout({
     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '12px', fontSize: '12px', color: '#374151', lineHeight: '1.7' }}>
       <div>
         <div style={{ fontWeight: '700', color: '#7c3aed', marginBottom: '4px' }}>Tooltip 고도화</div>
-        shadcn 차트 데이터 레이블, Vercel 컴팩트 액션 힌트(kbd), Linear 단축키 레퍼런스 카드 3개 스토리 추가.
+        ComposableUI 차트 데이터 레이블, DeployPlatform 컴팩트 액션 힌트(kbd), IssueTracker 단축키 레퍼런스 카드 3개 스토리 추가.
       </div>
       <div>
         <div style={{ fontWeight: '700', color: '#7c3aed', marginBottom: '4px' }}>TextArea 고도화</div>
-        shadcn 코멘트 에디터(write/preview), Vercel 환경변수 편집기(parseEnv), Linear 자동저장(debounce) 3개 스토리 추가.
+        ComposableUI 코멘트 에디터(write/preview), DeployPlatform 환경변수 편집기(parseEnv), IssueTracker 자동저장(debounce) 3개 스토리 추가.
       </div>
       <div>
         <div style={{ fontWeight: '700', color: '#7c3aed', marginBottom: '4px' }}>Template 51: ProductCatalog</div>
@@ -1061,50 +1061,50 @@ export default function RootLayout({
 </section>
 
 <section style={{ marginTop: '48px', padding: '32px', background: 'linear-gradient(135deg, #fff1f2 0%, #fff7ed 100%)', borderRadius: '16px', border: '1px solid #fecdd3' }}>
-  <h2 style={{ fontSize: '22px', fontWeight: '800', color: '#881337', marginBottom: '8px' }}>Cycle 72 — MUI + Figma Plugin UI 패턴</h2>
-  <p style={{ color: '#be123c', fontSize: '14px', marginBottom: '24px', fontWeight: '600' }}>Switch FormControlLabel + CounterBadge 오버레이 + 고밀도 컴팩트 UI 패턴</p>
+  <h2 style={{ fontSize: '22px', fontWeight: '800', color: '#881337', marginBottom: '8px' }}>Cycle 72 — EnterpriseUI + DesignTool Plugin UI 패턴</h2>
+  <div style={{ color: '#be123c', fontSize: '14px', marginBottom: '24px', fontWeight: '600' }}>Switch FormControlLabel + CounterBadge 오버레이 + 고밀도 컴팩트 UI 패턴</div>
 
-  <h3 style={{ fontSize: '17px', fontWeight: '700', color: '#334155', marginBottom: '16px' }}>MUI에서 배운 것</h3>
+  <h3 style={{ fontSize: '17px', fontWeight: '700', color: '#334155', marginBottom: '16px' }}>EnterpriseUI에서 배운 것</h3>
   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '24px' }}>
     <div style={{ padding: '16px', borderRadius: '10px', background: '#fff', border: '1px solid #fecdd3' }}>
       <h4 style={{ fontSize: '14px', fontWeight: '700', color: '#be123c', marginBottom: '8px' }}>FormControlLabel 패턴</h4>
-      <p style={{ fontSize: '13px', color: '#475569', lineHeight: '1.6' }}>
-        MUI는 Switch + 라벨 + description을 하나의 <code>FormControlLabel</code>로 묶어 전체 행에서 클릭 가능하게 합니다. Orbit UI에서는 <code>label</code> + <code>htmlFor</code> + <code>Switch id</code> 조합으로 동일한 접근성을 구현합니다.
-      </p>
+      <div style={{ fontSize: '13px', color: '#475569', lineHeight: '1.6' }}>
+        EnterpriseUI는 Switch + 라벨 + description을 하나의 <code>FormControlLabel</code>로 묶어 전체 행에서 클릭 가능하게 합니다. Orbit UI에서는 <code>label</code> + <code>htmlFor</code> + <code>Switch id</code> 조합으로 동일한 접근성을 구현합니다.
+      </div>
     </div>
     <div style={{ padding: '16px', borderRadius: '10px', background: '#fff', border: '1px solid #fecdd3' }}>
       <h4 style={{ fontSize: '14px', fontWeight: '700', color: '#be123c', marginBottom: '8px' }}>AppBar Badge 오버레이</h4>
-      <p style={{ fontSize: '13px', color: '#475569', lineHeight: '1.6' }}>
-        MUI Badge는 버튼/아이콘 우상단에 <code>position: absolute</code>로 CounterBadge를 오버레이합니다. 0일 때 숨김, 99+ 오버플로우, 색상 변형(error/warning/default)을 지원합니다.
-      </p>
+      <div style={{ fontSize: '13px', color: '#475569', lineHeight: '1.6' }}>
+        EnterpriseUI Badge는 버튼/아이콘 우상단에 <code>position: absolute</code>로 CounterBadge를 오버레이합니다. 0일 때 숨김, 99+ 오버플로우, 색상 변형(error/warning/default)을 지원합니다.
+      </div>
     </div>
     <div style={{ padding: '16px', borderRadius: '10px', background: '#fff', border: '1px solid #fecdd3' }}>
       <h4 style={{ fontSize: '14px', fontWeight: '700', color: '#be123c', marginBottom: '8px' }}>Switch FormGroup 레이아웃</h4>
-      <p style={{ fontSize: '13px', color: '#475569', lineHeight: '1.6' }}>
-        MUI FormGroup은 Switch 목록을 수직으로 쌓고 Divider로 구분합니다. 각 항목은 라벨(굵음), 설명(얇음), Switch(우측)로 구성되며 8px 그리드 기반 패딩을 사용합니다.
-      </p>
+      <div style={{ fontSize: '13px', color: '#475569', lineHeight: '1.6' }}>
+        EnterpriseUI FormGroup은 Switch 목록을 수직으로 쌓고 Divider로 구분합니다. 각 항목은 라벨(굵음), 설명(얇음), Switch(우측)로 구성되며 8px 그리드 기반 패딩을 사용합니다.
+      </div>
     </div>
     <div style={{ padding: '16px', borderRadius: '10px', background: '#fff', border: '1px solid #fecdd3' }}>
       <h4 style={{ fontSize: '14px', fontWeight: '700', color: '#be123c', marginBottom: '8px' }}>Tabs + Badge 조합</h4>
-      <p style={{ fontSize: '13px', color: '#475569', lineHeight: '1.6' }}>
-        MUI Tab에 Badge를 조합하면 탭별 미확인 항목 수를 표시할 수 있습니다. 0인 탭은 배지를 숨기고, 활성 탭 배지는 primary 색상으로 강조합니다.
-      </p>
+      <div style={{ fontSize: '13px', color: '#475569', lineHeight: '1.6' }}>
+        EnterpriseUI Tab에 Badge를 조합하면 탭별 미확인 항목 수를 표시할 수 있습니다. 0인 탭은 배지를 숨기고, 활성 탭 배지는 primary 색상으로 강조합니다.
+      </div>
     </div>
   </div>
 
-  <h3 style={{ fontSize: '17px', fontWeight: '700', color: '#334155', marginBottom: '16px' }}>Figma Plugin UI에서 배운 것</h3>
+  <h3 style={{ fontSize: '17px', fontWeight: '700', color: '#334155', marginBottom: '16px' }}>DesignTool Plugin UI에서 배운 것</h3>
   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '24px' }}>
     <div style={{ padding: '16px', borderRadius: '10px', background: '#fff', border: '1px solid #fed7aa' }}>
       <h4 style={{ fontSize: '14px', fontWeight: '700', color: '#c2410c', marginBottom: '8px' }}>다크 배경 고밀도 패널</h4>
-      <p style={{ fontSize: '13px', color: '#475569', lineHeight: '1.6' }}>
-        Figma 플러그인 UI는 <code>#2c2c2c</code> 배경에 30px 행 높이로 최대한 많은 정보를 표시합니다. 아이콘 컬러 + 텍스트 색상 변화로 활성 상태를 구분하며 Switch를 우측에 배치합니다.
-      </p>
+      <div style={{ fontSize: '13px', color: '#475569', lineHeight: '1.6' }}>
+        DesignTool 플러그인 UI는 <code>#2c2c2c</code> 배경에 30px 행 높이로 최대한 많은 정보를 표시합니다. 아이콘 컬러 + 텍스트 색상 변화로 활성 상태를 구분하며 Switch를 우측에 배치합니다.
+      </div>
     </div>
     <div style={{ padding: '16px', borderRadius: '10px', background: '#fff', border: '1px solid #fed7aa' }}>
       <h4 style={{ fontSize: '14px', fontWeight: '700', color: '#c2410c', marginBottom: '8px' }}>레이어 패널 카운트 배지</h4>
-      <p style={{ fontSize: '13px', color: '#475569', lineHeight: '1.6' }}>
-        Figma 레이어 패널은 그룹/프레임마다 내부 오브젝트 수를 우측에 배치합니다. 색상 점으로 레이어 타입을 구분하고, 선택된 항목은 왼쪽 컬러 보더로 강조합니다.
-      </p>
+      <div style={{ fontSize: '13px', color: '#475569', lineHeight: '1.6' }}>
+        DesignTool 레이어 패널은 그룹/프레임마다 내부 오브젝트 수를 우측에 배치합니다. 색상 점으로 레이어 타입을 구분하고, 선택된 항목은 왼쪽 컬러 보더로 강조합니다.
+      </div>
     </div>
   </div>
 
@@ -1112,11 +1112,11 @@ export default function RootLayout({
   <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
     <div style={{ padding: '12px 16px', borderRadius: '8px', background: '#f8fafc', border: '1px solid #e2e8f0', fontSize: '13px' }}>
       <span style={{ fontWeight: '700', color: '#be123c' }}>Switch +3:</span>
-      <span style={{ color: '#475569', marginLeft: '8px' }}>MUI FormControlLabel 알림 설정, Figma 플러그인 뷰 옵션 패널, MUI+Figma 컬럼 가시성 토글</span>
+      <span style={{ color: '#475569', marginLeft: '8px' }}>EnterpriseUI FormControlLabel 알림 설정, DesignTool 플러그인 뷰 옵션 패널, EnterpriseUI+DesignTool 컬럼 가시성 토글</span>
     </div>
     <div style={{ padding: '12px 16px', borderRadius: '8px', background: '#f8fafc', border: '1px solid #e2e8f0', fontSize: '13px' }}>
       <span style={{ fontWeight: '700', color: '#c2410c' }}>CounterBadge +3:</span>
-      <span style={{ color: '#475569', marginLeft: '8px' }}>MUI 탭 배지 패턴, Figma 레이어 패널 카운트, MUI+Figma 장바구니 배지 시스템</span>
+      <span style={{ color: '#475569', marginLeft: '8px' }}>EnterpriseUI 탭 배지 패턴, DesignTool 레이어 패널 카운트, EnterpriseUI+DesignTool 장바구니 배지 시스템</span>
     </div>
     <div style={{ padding: '12px 16px', borderRadius: '8px', background: '#f8fafc', border: '1px solid #e2e8f0', fontSize: '13px' }}>
       <span style={{ fontWeight: '700', color: '#059669' }}>Template #62:</span>

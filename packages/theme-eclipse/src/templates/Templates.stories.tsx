@@ -1477,7 +1477,7 @@ const SocialFeedRender = () => {
       id: 3,
       author: { name: 'Lee Soyeon', handle: '@soyeon_ux', initials: 'LS', color: '#f59e0b', verified: true },
       time: '2시간 전',
-      content: 'shadcn/ui에서 영감을 받아 Orbit UI에 복사-붙여넣기 방식의 스토리를 추가했습니다. 개발자가 바로 사용할 수 있는 코드 예시가 핵심입니다.',
+      content: 'ComposableUI에서 영감을 받아 Orbit UI에 복사-붙여넣기 방식의 스토리를 추가했습니다. 개발자가 바로 사용할 수 있는 코드 예시가 핵심입니다.',
       tag: '#개발자경험',
       likes: 213,
       comments: 41,
@@ -1487,7 +1487,7 @@ const SocialFeedRender = () => {
       id: 4,
       author: { name: 'Choi Dongwook', handle: '@dongwook_eng', initials: 'CD', color: '#ef4444', verified: false },
       time: '5시간 전',
-      content: 'TypeScript strict mode + Tailwind 유틸리티 조합은 런타임 오류를 거의 완전히 제거해줍니다. 컴파일 타임에 모든 클래스명을 검증하는 것이 게임 체인저.',
+      content: 'TypeScript strict mode + UtilityCSS 유틸리티 조합은 런타임 오류를 거의 완전히 제거해줍니다. 컴파일 타임에 모든 클래스명을 검증하는 것이 게임 체인저.',
       tag: '#TypeScript',
       likes: 67,
       comments: 9,
@@ -1866,7 +1866,7 @@ export const SocialFeed: Story = {
 
 /* ═══════════════════════════════════════════
    7. Onboarding Flow
-   Ant Design Steps + Mantine Notification 패턴 참고:
+   Ant Design Steps + AppUI Notification 패턴 참고:
    - 단계별 진행 (Progress + PageDots)
    - 각 단계에 다른 입력 컴포넌트
    - 완료 화면 + CTA
@@ -2171,8 +2171,8 @@ export const Onboarding: Story = {
 }
 
 /* ═══════════════════════════════════════════
-   CommandPalette - Linear/Raycast 스타일 빠른 검색 UI
-   shadcn/ui Command + Radix Dialog 접근성 패턴 반영:
+   CommandPalette - IssueTracker/CommandPalette 스타일 빠른 검색 UI
+   ComposableUI Command + Primitive Dialog 접근성 패턴 반영:
    - cmdk 기반 실시간 필터링
    - 카테고리별 그룹 + 키보드 단축키 표시
    - aria-label, role="dialog" 시멘틱 구조
@@ -2230,7 +2230,7 @@ const CommandPaletteRender = () => {
           Command Palette
         </Text>
         <Text textStyle="caption" style={{ color: tc.fgMuted }}>
-          Linear / Raycast 스타일 검색 UI
+          IssueTracker / CommandPalette 스타일 검색 UI
         </Text>
       </div>
 
@@ -2393,7 +2393,7 @@ const CommandPaletteRender = () => {
         width: '100%',
       }}>
         <Text textStyle="caption" style={{ color: tc.fgSub, display: 'block', marginBottom: '8px', fontWeight: 600 }}>
-          접근성 구현 포인트 (Radix Dialog 패턴 반영)
+          접근성 구현 포인트 (Primitive Dialog 패턴 반영)
         </Text>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
           {[
@@ -2401,7 +2401,7 @@ const CommandPaletteRender = () => {
             'aria-label 으로 스크린리더에 목적 전달',
             'Escape 키로 닫기 + 포커스 자동 복원',
             'cmdk 기반 aria-selected 상태 자동 관리',
-            '오버레이 클릭 시 dismiss (Radix onInteractOutside 패턴)',
+            '오버레이 클릭 시 dismiss (Primitive onInteractOutside 패턴)',
           ].map((point) => (
             <div key={point} style={{ display: 'flex', alignItems: 'flex-start', gap: '6px' }}>
               <span style={{ color: '#10b981', flexShrink: 0, marginTop: '1px' }}>+</span>
@@ -2739,7 +2739,7 @@ export const ChatUI: Story = {
 }
 
 /* ═══════════════════════════════════════════
-   10. KanbanBoard (Linear-style)
+   10. KanbanBoard (IssueTracker-style)
    ═══════════════════════════════════════════ */
 
 type KanbanPriority = 'urgent' | 'high' | 'medium' | 'low'
@@ -2768,7 +2768,7 @@ const kanbanColumns: KanbanColumn[] = [
     color: '#94a3b8',
     cards: [
       { id: 'k1', title: 'Audit design token hierarchy', priority: 'high', assignee: 'HJ', tag: 'Design', tagColor: 'gray' },
-      { id: 'k2', title: 'Write MigrationGuide for Chakra users', priority: 'medium', assignee: 'KJ', tag: 'Docs', tagColor: 'gray' },
+      { id: 'k2', title: 'Write MigrationGuide for Accessible users', priority: 'medium', assignee: 'KJ', tag: 'Docs', tagColor: 'gray' },
       { id: 'k3', title: 'Add AnimatedBadge pulse variant', priority: 'low', assignee: 'LY', tag: 'Feature', tagColor: 'benefit' },
       { id: 'k4', title: 'Update Storybook to v8', priority: 'urgent', assignee: 'PM', tag: 'Infra', tagColor: 'sale' },
     ],
@@ -2790,7 +2790,7 @@ const kanbanColumns: KanbanColumn[] = [
     cards: [
       { id: 'k8', title: 'KanbanBoard template story', priority: 'medium', assignee: 'HJ', tag: 'Docs', tagColor: 'gray' },
       { id: 'k9', title: 'UserProfile template story', priority: 'medium', assignee: 'KJ', tag: 'Docs', tagColor: 'gray' },
-      { id: 'k10', title: 'Linear/Vercel benchmark analysis', priority: 'high', assignee: 'HJ', tag: 'Design', tagColor: 'benefit' },
+      { id: 'k10', title: 'IssueTracker/DeployPlatform benchmark analysis', priority: 'high', assignee: 'HJ', tag: 'Design', tagColor: 'benefit' },
     ],
   },
 ]
@@ -2965,7 +2965,7 @@ export const KanbanBoard: Story = {
 }
 
 /* ═══════════════════════════════════════════
-   11. UserProfile (Vercel/GitHub-style)
+   11. UserProfile (DeployPlatform/CodeHost-style)
    ═══════════════════════════════════════════ */
 
 const profileProjects = [
@@ -2977,7 +2977,7 @@ const profileProjects = [
 
 const activityFeed = [
   { action: 'Pushed 3 commits to', target: 'feat/kanban-template', time: '2 hours ago' },
-  { action: 'Opened PR #47', target: 'Linear/Vercel benchmark stories', time: '4 hours ago' },
+  { action: 'Opened PR #47', target: 'IssueTracker/DeployPlatform benchmark stories', time: '4 hours ago' },
   { action: 'Closed issue #42', target: 'ListTile compact density', time: 'Yesterday' },
   { action: 'Released', target: 'v2.5.0', time: '3 days ago' },
   { action: 'Created repository', target: 'token-forge', time: '1 week ago' },
@@ -3953,7 +3953,7 @@ const FM_FOLDERS = [
 
 const FM_FILES = [
   { name: 'design-tokens.pdf', type: 'PDF', size: '2.4 MB', modified: '2일 전', color: '#ef4444' },
-  { name: 'orbit-ui-spec.figma', type: 'Figma', size: '18.7 MB', modified: '1일 전', color: '#6366f1' },
+  { name: 'orbit-ui-spec.design', type: 'DesignTool', size: '18.7 MB', modified: '1일 전', color: '#6366f1' },
   { name: 'component-list.xlsx', type: 'Excel', size: '524 KB', modified: '3일 전', color: '#10b981' },
   { name: 'README.md', type: 'Markdown', size: '12 KB', modified: '오늘', color: '#64748b' },
   { name: 'sprint-plan.pptx', type: 'PPT', size: '6.1 MB', modified: '5일 전', color: '#f59e0b' },
@@ -4053,7 +4053,7 @@ const FileManagerRender = () => {
                   <Drawer.Description>파일 타입을 선택하여 필터링합니다.</Drawer.Description>
                 </Drawer.Header>
                 <div style={{ padding: '16px 0', display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                  {['PDF', 'Figma', 'Excel', 'PPT', 'Markdown'].map((type) => (
+                  {['PDF', 'DesignTool', 'Excel', 'PPT', 'Markdown'].map((type) => (
                     <div key={type} style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                       <Checkbox
                         checked={fileType.includes(type)}
@@ -4136,8 +4136,8 @@ export const FileManager: Story = {
 }
 
 /* ═══════════════════════════════════════════
-   16. DeploymentHub (Vercel-inspired)
-   Vercel Design: 모노크롬 팔레트, 컴팩트 밀도, 배포 현황 대시보드
+   16. DeploymentHub (DeployPlatform-inspired)
+   DeployPlatform Design: 모노크롬 팔레트, 컴팩트 밀도, 배포 현황 대시보드
    Components: SolidButton, OutlineButton, GhostButton, LabelBadge,
                CounterBadge, Toggle, Text, Tooltip, Breadcrumb, Avatar
    ═══════════════════════════════════════════ */
@@ -4152,7 +4152,7 @@ const DEPLOY_STATUS_CFG: Record<DeployStatus, { color: string; label: string }> 
 }
 
 const DEPLOY_LIST = [
-  { id: 'dpl-8ax9', commit: 'a3f9b2c', message: 'feat: add Raycast slider story',    branch: 'main',           author: 'HJ', status: 'ready'    as DeployStatus, duration: '1m 24s', ago: '2m ago',  env: 'Production' },
+  { id: 'dpl-8ax9', commit: 'a3f9b2c', message: 'feat: add CommandPalette slider story',    branch: 'main',           author: 'HJ', status: 'ready'    as DeployStatus, duration: '1m 24s', ago: '2m ago',  env: 'Production' },
   { id: 'dpl-7kc3', commit: 'e71c4d8', message: 'fix: password strength meter',      branch: 'feat/password',  author: 'MJ', status: 'building' as DeployStatus, duration: '--',    ago: '8m ago',  env: 'Preview' },
   { id: 'dpl-6rb1', commit: 'b50f912', message: 'chore: update dependencies',        branch: 'chore/deps',     author: 'SY', status: 'error'    as DeployStatus, duration: '0m 38s', ago: '32m ago', env: 'Preview' },
   { id: 'dpl-5wq8', commit: 'd2a8e61', message: 'refactor: 3-tier token system',     branch: 'refactor/tok',   author: 'HJ', status: 'ready'    as DeployStatus, duration: '2m 05s', ago: '1h ago',  env: 'Production' },
@@ -4161,7 +4161,7 @@ const DEPLOY_LIST = [
 ]
 
 const HUB_INTEGRATIONS = [
-  { name: 'GitHub', connected: true,  lastSync: '1m ago' },
+  { name: 'CodeHost', connected: true,  lastSync: '1m ago' },
   { name: 'Slack',  connected: true,  lastSync: '5m ago' },
   { name: 'Sentry', connected: false, lastSync: 'Never' },
 ]
@@ -4188,7 +4188,7 @@ const DeploymentHubRender: React.FC = () => {
   const errorCount = DEPLOY_LIST.filter((d) => d.status === 'error').length
 
   return (
-    <div style={{ display: 'flex', height: '100vh', background: '#fafafa', fontFamily: 'system-ui, -apple-system, sans-serif' }}>
+    <div style={{ display: 'flex', height: '100vh', background: '#fafafa', fontFamily: 'system-ui, sans-serif' }}>
       {/* Sidebar */}
       <aside style={{ width: 220, background: tc.bg, borderRight: `1px solid ${tc.border}`, display: 'flex', flexDirection: 'column', flexShrink: 0 }}>
         <div style={{ padding: '20px 20px 16px', borderBottom: `1px solid ${tc.borderSub}`, display: 'flex', alignItems: 'center', gap: '10px' }}>
@@ -4470,7 +4470,7 @@ export const DeploymentHub: Story = {
 }
 
 /* ═══════════════════════════════════════════
-   16. Pricing Page — Vercel/shadcn 벤치마크
+   16. Pricing Page — DeployPlatform/ComposableUI 벤치마크
    ═══════════════════════════════════════════ */
 const PRICING_PLANS = [
   {
@@ -4568,21 +4568,21 @@ const TESTIMONIALS = [
   {
     quote: 'Orbit UI 도입 후 디자인-개발 협업 속도가 3배 향상됐습니다. 토큰 시스템이 특히 훌륭해요.',
     author: 'Kim Jihye',
-    role: 'Lead Designer @ Kakao',
+    role: 'Lead Designer @ WarmYellow',
     initials: 'KJ',
     color: '#6366f1',
   },
   {
-    quote: 'shadcn/ui 대비 한국어 지원과 접근성이 압도적입니다. Pro 플랜 ROI가 확실합니다.',
+    quote: 'ComposableUI 대비 한국어 지원과 접근성이 압도적입니다. Pro 플랜 ROI가 확실합니다.',
     author: 'Park Minjun',
-    role: 'Frontend Lead @ Naver',
+    role: 'Frontend Lead @ GrowthGreen',
     initials: 'PM',
     color: '#10b981',
   },
   {
     quote: 'Enterprise 계약 후 온보딩부터 운영까지 전담 지원을 받고 있어 매우 만족스럽습니다.',
     author: 'Lee Soyeon',
-    role: 'CTO @ Coupang',
+    role: 'CTO @ SignalRed',
     initials: 'LS',
     color: '#f59e0b',
   },
@@ -4599,7 +4599,7 @@ const PricingPageRender: React.FC = () => {
   }
 
   return (
-    <div style={{ minHeight: '100vh', background: tc.bg, fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' }}>
+    <div style={{ minHeight: '100vh', background: tc.bg, fontFamily: '"Segoe UI", sans-serif' }}>
       {/* Nav */}
       <nav style={{
         position: 'sticky', top: 0, zIndex: 50,
@@ -5000,10 +5000,10 @@ export const PricingPage: Story = {
 }
 
 /* ==========================================================================
-   IssueTracker Template (사이클 17 — Linear/Radix 벤치마크)
-   Linear-inspired issue tracker combining:
+   IssueTracker Template (사이클 17 — IssueTracker/Primitive 벤치마크)
+   IssueTracker-inspired issue tracker combining:
    - ScrollableTabGroup (뷰 전환)
-   - ListTile (컴팩트 이슈 목록 — Linear 32px density)
+   - ListTile (컴팩트 이슈 목록 — IssueTracker 32px density)
    - LabelBadge (상태/우선순위 배지)
    - CounterBadge (개수)
    - SolidButton / GhostButton / OutlineButton (액션)
@@ -5022,8 +5022,8 @@ type ITIssue = {
 
 const IT_ISSUES: ITIssue[] = [
   { id: 'ORB-301', title: 'Implement FixedTabs controlled/uncontrolled API', status: 'in_progress', priority: 'urgent', assignee: 'HJ', label: 'feat', cycle: 'C17', createdAt: '2h ago' },
-  { id: 'ORB-302', title: 'Add Linear-style compact density to ListTile', status: 'in_review', priority: 'high', assignee: 'KJ', label: 'feat', cycle: 'C17', createdAt: '4h ago' },
-  { id: 'ORB-303', title: 'Write Radix UI benchmark stories for TabGroup', status: 'done', priority: 'high', assignee: 'HJ', label: 'docs', cycle: 'C17', createdAt: '6h ago' },
+  { id: 'ORB-302', title: 'Add IssueTracker-style compact density to ListTile', status: 'in_review', priority: 'high', assignee: 'KJ', label: 'feat', cycle: 'C17', createdAt: '4h ago' },
+  { id: 'ORB-303', title: 'Write PrimitiveUI benchmark stories for TabGroup', status: 'done', priority: 'high', assignee: 'HJ', label: 'docs', cycle: 'C17', createdAt: '6h ago' },
   { id: 'ORB-304', title: 'Fix CounterBadge number type constraint', status: 'done', priority: 'medium', assignee: 'LY', label: 'fix', cycle: 'C17', createdAt: '1d ago' },
   { id: 'ORB-305', title: 'Migrate LabelBadge to semantic design tokens', status: 'todo', priority: 'medium', assignee: 'PM', label: 'refactor', cycle: 'C18', createdAt: '2d ago' },
   { id: 'ORB-306', title: 'Add MigrationGuide for antd users', status: 'todo', priority: 'low', assignee: 'CD', label: 'docs', cycle: 'C18', createdAt: '2d ago' },
@@ -5095,7 +5095,7 @@ const IssueTrackerRender = () => {
   const priorities: ITIssue['priority'][] = ['urgent', 'high', 'medium', 'low']
 
   return (
-    <div style={{ minHeight: '100vh', background: tc.bg, display: 'flex', flexDirection: 'column', fontFamily: '"Pretendard Variable", "Pretendard", -apple-system, BlinkMacSystemFont, system-ui, sans-serif' }}>
+    <div style={{ minHeight: '100vh', background: tc.bg, display: 'flex', flexDirection: 'column', fontFamily: '"Pretendard Variable", "Pretendard", system-ui, sans-serif' }}>
       {/* Top header */}
       <header style={{ height: 52, borderBottom: `1px solid ${tc.border}`, display: 'flex', alignItems: 'center', padding: '0 20px', gap: 12, background: tc.bg, flexShrink: 0 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
@@ -5237,7 +5237,7 @@ const IssueTrackerRender = () => {
             </ScrollableTabGroup>
           </div>
 
-          {/* Issue list — Linear compact density (32px rows) */}
+          {/* Issue list — IssueTracker compact density (32px rows) */}
           <div style={{ flex: 1, overflow: 'auto' }}>
             {filtered.length === 0 && (
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: 180, color: tc.fgMuted, fontSize: 13 }}>
@@ -5332,7 +5332,7 @@ export const IssueTracker: Story = {
 }
 
 /* ═══════════════════════════════════════════
-   DeveloperProfile Template (사이클 18 — Material 3 / Mantine 벤치마크)
+   DeveloperProfile Template (사이클 18 — RoleToken Design / AppUI 벤치마크)
    ─ 프로필 헤더 + 통계 카드 + 탭 (활동/프로젝트/설정) + 설정 폼
    포함 컴포넌트: SolidButton, OutlineButton, Switch, RadioButton
    ═══════════════════════════════════════════ */
@@ -5346,7 +5346,7 @@ const UserInitialAvatar = ({ initials, size, bg }: { initials: string; size: num
       y={size / 2 + size * 0.13}
       textAnchor="middle"
       fill="#fff"
-      fontFamily="system-ui, -apple-system, sans-serif"
+      fontFamily="system-ui, sans-serif"
       fontSize={size * 0.38}
       fontWeight="700"
     >
@@ -5369,7 +5369,7 @@ const DeveloperProfileRender = () => {
   ]
 
   const activities = [
-    { type: 'commit', message: 'feat: Material 3 컬러 시스템 적용', project: 'Orbit UI', time: '2시간 전', color: '#10b981' },
+    { type: 'commit', message: 'feat: RoleToken Design 컬러 시스템 적용', project: 'Orbit UI', time: '2시간 전', color: '#10b981' },
     { type: 'review', message: 'PR #142 코드 리뷰 완료', project: 'Design System', time: '4시간 전', color: '#6366f1' },
     { type: 'issue', message: 'Chip 컴포넌트 접근성 이슈 제보', project: 'Orbit UI', time: '어제', color: '#f59e0b' },
     { type: 'release', message: 'v3.2.0 릴리즈 배포', project: 'Orbit UI', time: '3일 전', color: '#8b5cf6' },
@@ -5379,7 +5379,7 @@ const DeveloperProfileRender = () => {
   const projects = [
     { name: 'Orbit UI', desc: 'React 기반 디자인 시스템 라이브러리', lang: 'TypeScript', stars: 284, forks: 42, color: '#6366f1' },
     { name: 'Eclipse Theme', desc: '다크/라이트 테마 패키지', lang: 'CSS', stars: 128, forks: 19, color: '#8b5cf6' },
-    { name: 'Figma Tokens Plugin', desc: '디자인 토큰 Figma 동기화 플러그인', lang: 'JavaScript', stars: 96, forks: 14, color: '#0ea5e9' },
+    { name: 'DesignTool Tokens Plugin', desc: '디자인 토큰 DesignTool 동기화 플러그인', lang: 'JavaScript', stars: 96, forks: 14, color: '#0ea5e9' },
   ]
 
   // 활동 타입별 아이콘 (인라인 SVG)
@@ -5727,7 +5727,7 @@ export const DeveloperProfile: Story = {
    OnboardingFlow (사이클 20)
    단계 표시기 + 환영 화면 → 프로필 → 팀 초대 → 완료 흐름.
    Progress + SolidButton + OutlineButton 활용.
-   Notion/Figma 벤치마크: 아바타 색상 선택 + 인라인 편집 패턴.
+   WorkspaceEditor/DesignTool 벤치마크: 아바타 색상 선택 + 인라인 편집 패턴.
    ═══════════════════════════════════════════════════════════════════════════ */
 const OnboardingFlowRender = () => {
   const [step, setStep] = useState(0)
@@ -6206,7 +6206,7 @@ export const OnboardingFlow: Story = {
 
 // ─────────────────────────────────────────────────────────────────────────────
 // SocialFeed 템플릿
-// Arco Design 피드 카드 + Tailwind UI 사이드바 레이아웃을 조합한 소셜 피드 UI
+// DataProductUI 피드 카드 + UtilityUI 사이드바 레이아웃을 조합한 소셜 피드 UI
 // ─────────────────────────────────────────────────────────────────────────────
 
 type FeedFilter = 'all' | 'following' | 'popular'
@@ -6233,7 +6233,7 @@ const INITIAL_POSTS: FeedPost[] = [
     authorHandle: '@hjunkim',
     timeAgo: '2분 전',
     content:
-      'Orbit UI의 SegmentedControl에 Arco Design 패턴을 적용했습니다. 통계 카드 기간 선택 UI가 훨씬 직관적이 되었어요. 디자인 시스템을 벤치마크할 때는 단순히 따라하는 것이 아니라 우리 컨텍스트에 맞게 재해석하는 것이 중요합니다.',
+      'Orbit UI의 SegmentedControl에 DataProductUI 패턴을 적용했습니다. 통계 카드 기간 선택 UI가 훨씬 직관적이 되었어요. 디자인 시스템을 벤치마크할 때는 단순히 따라하는 것이 아니라 우리 컨텍스트에 맞게 재해석하는 것이 중요합니다.',
     likes: 24,
     comments: 6,
     shares: 3,
@@ -6247,11 +6247,11 @@ const INITIAL_POSTS: FeedPost[] = [
     authorHandle: '@soyeon.p',
     timeAgo: '18분 전',
     content:
-      'Tailwind UI의 3열 폼 레이아웃은 정말 잘 설계되어 있어요. 레이블 + 설명 + 입력 구조는 복잡한 설정 화면에서 인지 부하를 크게 낮춰줍니다. 우리 팀에서도 이 패턴을 도입할 예정입니다.',
+      'UtilityUI의 3열 폼 레이아웃은 정말 잘 설계되어 있어요. 레이블 + 설명 + 입력 구조는 복잡한 설정 화면에서 인지 부하를 크게 낮춰줍니다. 우리 팀에서도 이 패턴을 도입할 예정입니다.',
     likes: 41,
     comments: 12,
     shares: 8,
-    tags: ['TailwindUI', 'UX패턴'],
+    tags: ['UtilityCSSUI', 'UX패턴'],
     liked: true,
   },
   {
@@ -6261,11 +6261,11 @@ const INITIAL_POSTS: FeedPost[] = [
     authorHandle: '@jiwon.dev',
     timeAgo: '1시간 전',
     content:
-      'Switch 컴포넌트에 Apple HIG 설정 화면 패턴을 구현했는데, 전체 행을 탭 타겟으로 만드는 것이 모바일 UX에서 핵심이더군요. 작은 토글을 정확하게 누르기 어렵다는 사실을 테스트 후에야 깨달았습니다.',
+      'Switch 컴포넌트에 Platform HIG 설정 화면 패턴을 구현했는데, 전체 행을 탭 타겟으로 만드는 것이 모바일 UX에서 핵심이더군요. 작은 토글을 정확하게 누르기 어렵다는 사실을 테스트 후에야 깨달았습니다.',
     likes: 18,
     comments: 4,
     shares: 2,
-    tags: ['모바일UX', 'AppleHIG'],
+    tags: ['모바일UX', 'PlatformHIG'],
     liked: false,
   },
   {
@@ -6275,11 +6275,11 @@ const INITIAL_POSTS: FeedPost[] = [
     authorHandle: '@minkyu.c',
     timeAgo: '3시간 전',
     content:
-      'ListTile Linear 스타일 컴팩트 이슈 목록을 구현했어요. 32px 행 높이에서 상태 표시, ID, 우선순위, 담당자까지 모두 담는 게 쉽지 않았습니다. 정보 밀도와 가독성 사이의 균형을 잡는 것이 핵심입니다.',
+      'ListTile IssueTracker 스타일 컴팩트 이슈 목록을 구현했어요. 32px 행 높이에서 상태 표시, ID, 우선순위, 담당자까지 모두 담는 게 쉽지 않았습니다. 정보 밀도와 가독성 사이의 균형을 잡는 것이 핵심입니다.',
     likes: 33,
     comments: 9,
     shares: 5,
-    tags: ['Linear', 'DataDensity'],
+    tags: ['IssueTracker', 'DataDensity'],
     liked: false,
   },
 ]
@@ -6493,7 +6493,7 @@ function SocialFeedV2Render() {
         background: tc.surface,
         display: 'flex',
         fontFamily:
-          '"Pretendard Variable", "Pretendard", -apple-system, BlinkMacSystemFont, system-ui, sans-serif',
+          '"Pretendard Variable", "Pretendard", system-ui, sans-serif',
         minHeight: '100vh',
       }}
     >
@@ -6580,7 +6580,7 @@ function SocialFeedV2Render() {
             인기 태그
           </div>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
-            {['디자인시스템', 'OrbitUI', 'TailwindUI', 'UX패턴', 'Linear'].map((tag) => (
+            {['디자인시스템', 'OrbitUI', 'UtilityCSSUI', 'UX패턴', 'IssueTracker'].map((tag) => (
               <span
                 key={tag}
                 style={{
@@ -6675,13 +6675,13 @@ function SocialFeedV2Render() {
 }
 
 export const SocialFeedV2: Story = {
-  name: 'SocialFeed (Arco + Tailwind UI 사이드바)',
+  name: 'SocialFeed (DataProduct + UtilityUI 사이드바)',
   render: () => <SocialFeedV2Render />,
 }
 
 /* --------------------------------------------------------------------------
    FinanceDashboard 템플릿
-   Linear + Vercel 스타일 모노크롬 금융 대시보드
+   IssueTracker + DeployPlatform 스타일 모노크롬 금융 대시보드
    SegmentedControl(selectedIndex/onTabChange), TextField, SolidButton, ListTile 조합
 -------------------------------------------------------------------------- */
 const FINANCE_TABS = ['전체', '수입', '지출']
@@ -6718,7 +6718,7 @@ function FinanceDashboardRender() {
       style={{
         maxWidth: 480,
         margin: '0 auto',
-        fontFamily: '-apple-system, BlinkMacSystemFont, sans-serif',
+        fontFamily: 'sans-serif',
         background: '#f8fafc',
         borderRadius: 16,
         border: '1px solid #e2e8f0',
@@ -6871,14 +6871,14 @@ function FinanceDashboardRender() {
 }
 
 export const FinanceDashboard: Story = {
-  name: 'Finance Dashboard (Linear + Vercel 모노크롬 스타일)',
+  name: 'Finance Dashboard (IssueTracker + DeployPlatform 모노크롬 스타일)',
   render: () => <FinanceDashboardRender />,
 }
 
 /* --------------------------------------------------------------------------
-   EmailClient — Tailwind UI + Radix UI 벤치마크 기반
+   EmailClient — UtilityUI + PrimitiveUI 벤치마크 기반
    3-패널 레이아웃: 폴더 사이드바 / 메일 목록 / 메일 상세
-   Tailwind UI의 인박스 패턴 + Radix의 접근성 중심 상호작용
+   UtilityUI의 인박스 패턴 + Primitive의 접근성 중심 상호작용
 -------------------------------------------------------------------------- */
 
 const EMAIL_FOLDERS = [
@@ -6896,7 +6896,7 @@ const EMAIL_LIST = [
     fromInitial: 'HK',
     fromColor: '#6366f1',
     subject: '[Orbit UI] 사이클 33 완료 보고',
-    preview: 'Tailwind UI + Radix UI 벤치마크 기반 HoverCard, Breadcrumb, EmailClient 템플릿 추가가 완료되었습니다.',
+    preview: 'UtilityUI + PrimitiveUI 벤치마크 기반 HoverCard, Breadcrumb, EmailClient 템플릿 추가가 완료되었습니다.',
     time: '오전 10:42',
     read: false,
     starred: true,
@@ -6935,7 +6935,7 @@ const EMAIL_LIST = [
     fromInitial: 'CI',
     fromColor: '#94a3b8',
     subject: '[성공] main 브랜치 빌드 완료 — orbit-ui@2.1.4',
-    preview: 'All checks passed. 12 packages built successfully. Storybook deployed to orbit-ui-pink.vercel.app.',
+    preview: 'All checks passed. 12 packages built successfully. Storybook deployed to orbit-ui-pink.deploy.example.com.',
     time: '어제',
     read: true,
     starred: false,
@@ -6944,11 +6944,11 @@ const EMAIL_LIST = [
   },
   {
     id: 5,
-    from: 'Figma',
+    from: 'DesignTool',
     fromInitial: 'F',
     fromColor: '#ef4444',
     subject: '디자인 파일 공유: Orbit UI v2 Components',
-    preview: 'Sumin Lee가 Figma 파일 "Orbit UI v2 Components"을 공유했습니다. 파일을 열려면 링크를 클릭하세요.',
+    preview: 'Sumin Lee가 DesignTool 파일 "Orbit UI v2 Components"을 공유했습니다. 파일을 열려면 링크를 클릭하세요.',
     time: '2일 전',
     read: true,
     starred: false,
@@ -7200,7 +7200,7 @@ function EmailClientRender() {
               <p style={{ margin: '0 0 16px' }}>{selectedEmail.preview}</p>
               <p style={{ margin: '0 0 16px' }}>자세한 내용은 아래를 참고해 주세요:</p>
               <ul style={{ margin: '0 0 16px', padding: '0 0 0 20px', color: tc.fgSub }}>
-                <li>HoverCard 컴포넌트 — Tailwind UI, Radix UI, shadcn/ui 패턴 각 1개 추가</li>
+                <li>HoverCard 컴포넌트 — UtilityUI, PrimitiveUI, ComposableUI 패턴 각 1개 추가</li>
                 <li>Breadcrumb 컴포넌트 — 파일시스템, 설정 계층, 이커머스 패턴 추가</li>
                 <li>EmailClient 템플릿 — 3-패널 레이아웃, 폴더/목록/상세/작성 기능 포함</li>
               </ul>
@@ -7234,14 +7234,14 @@ function EmailClientRender() {
 }
 
 export const EmailClient: Story = {
-  name: 'Email Client (Tailwind UI + Radix UI 벤치마크)',
+  name: 'Email Client (UtilityUI + PrimitiveUI 벤치마크)',
   render: () => <EmailClientRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Monitoring Dashboard — Vercel/Linear 벤치마크
+   Monitoring Dashboard — DeployPlatform/IssueTracker 벤치마크
    시스템 상태 모니터링 대시보드 — 실시간 서비스 헬스, 인시던트 타임라인,
-   배포 이력, 지역별 레이턴시 맵을 포함한 Vercel-style SRE 도구
+   배포 이력, 지역별 레이턴시 맵을 포함한 DeployPlatform-style SRE 도구
 -------------------------------------------------------------------------- */
 const MonitoringDashboardRender = () => {
   const [selectedRegion, setSelectedRegion] = useState<string>('all')
@@ -7336,7 +7336,7 @@ const MonitoringDashboardRender = () => {
     : 'operational'
 
   return (
-    <div style={{ minHeight: '100vh', background: tc.bg, color: tc.fg, fontFamily: '"Geist", "Inter", system-ui, sans-serif' }}>
+    <div style={{ minHeight: '100vh', background: tc.bg, color: tc.fg, fontFamily: '"System", "Inter", system-ui, sans-serif' }}>
       {/* Header */}
       <div style={{ borderBottom: `1px solid ${tc.border}`, padding: '0 24px' }}>
         <div style={{ maxWidth: 1200, margin: '0 auto', height: 52, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
@@ -7607,12 +7607,12 @@ const MonitoringDashboardRender = () => {
 }
 
 export const MonitoringDashboard: Story = {
-  name: 'Monitoring Dashboard (Vercel + Linear 벤치마크)',
+  name: 'Monitoring Dashboard (DeployPlatform + IssueTracker 벤치마크)',
   render: () => <MonitoringDashboardRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Portfolio Page — shadcn/ui + Radix UI 벤치마크
+   Portfolio Page — ComposableUI + PrimitiveUI 벤치마크
    개발자/디자이너 포트폴리오 — 프로젝트 그리드, 기술 스택 태그,
    경력 타임라인, 연락처 섹션을 포함한 개인 브랜딩 페이지
 -------------------------------------------------------------------------- */
@@ -7638,8 +7638,8 @@ const PortfolioPageRender = () => {
     {
       id: 'orbit-ui',
       title: 'Orbit UI',
-      desc: 'React 기반 3-tier 디자인 시스템 — 50+ 컴포넌트, Storybook 통합, Vercel 자동 배포',
-      tags: ['React', 'TypeScript', 'Storybook', 'Radix UI'],
+      desc: 'React 기반 3-tier 디자인 시스템 — 50+ 컴포넌트, Storybook 통합, DeployPlatform 자동 배포',
+      tags: ['React', 'TypeScript', 'Storybook', 'PrimitiveUI'],
       filter: 'design-system',
       color: '#6366f1',
       stars: 248,
@@ -7668,8 +7668,8 @@ const PortfolioPageRender = () => {
     {
       id: 'deploy-hub',
       title: 'Deploy Hub',
-      desc: 'GitHub Actions + Vercel 통합 자동화 도구 — PR 미리보기, 배포 상태 알림',
-      tags: ['GitHub Actions', 'Vercel', 'Node.js'],
+      desc: 'CodeHost Actions + DeployPlatform 통합 자동화 도구 — PR 미리보기, 배포 상태 알림',
+      tags: ['CodeHost Actions', 'DeployPlatform', 'Node.js'],
       filter: 'web',
       color: '#f59e0b',
       stars: 142,
@@ -7686,10 +7686,10 @@ const PortfolioPageRender = () => {
       year: '2025',
     },
     {
-      id: 'figma-sync',
-      title: 'Figma Token Sync',
-      desc: 'Figma 토큰을 Orbit UI 디자인 토큰으로 자동 변환하는 CLI 도구',
-      tags: ['CLI', 'Figma API', 'JSON'],
+      id: 'design-sync',
+      title: 'DesignTool Token Sync',
+      desc: 'DesignTool 토큰을 Orbit UI 디자인 토큰으로 자동 변환하는 CLI 도구',
+      tags: ['CLI', 'DesignTool API', 'JSON'],
       filter: 'open-source',
       color: '#06b6d4',
       stars: 53,
@@ -7698,10 +7698,10 @@ const PortfolioPageRender = () => {
   ]
 
   const skills = [
-    { category: 'Frontend', items: ['React', 'TypeScript', 'Next.js', 'Tailwind CSS', 'Storybook'] },
-    { category: 'Design System', items: ['Figma', 'Radix UI', 'Design Tokens', 'Radix UI'] },
-    { category: 'Tooling', items: ['Vite', 'pnpm', 'Vitest', 'ESLint', 'GitHub Actions'] },
-    { category: 'Backend', items: ['Node.js', 'PostgreSQL', 'Vercel', 'Redis'] },
+    { category: 'Frontend', items: ['React', 'TypeScript', 'Next.js', 'UtilityCSS CSS', 'Storybook'] },
+    { category: 'Design System', items: ['DesignTool', 'PrimitiveUI', 'Design Tokens', 'PrimitiveUI'] },
+    { category: 'Tooling', items: ['Vite', 'pnpm', 'Vitest', 'ESLint', 'CodeHost Actions'] },
+    { category: 'Backend', items: ['Node.js', 'PostgreSQL', 'DeployPlatform', 'Redis'] },
   ]
 
   const timeline = [
@@ -7766,7 +7766,7 @@ const PortfolioPageRender = () => {
           <div style={{ flexShrink: 0, display: 'flex', flexDirection: 'column', gap: 12 }}>
             {/* 미니 스탯 카드 */}
             {[
-              { label: 'GitHub Stars', value: '639+', color: '#f59e0b' },
+              { label: 'CodeHost Stars', value: '639+', color: '#f59e0b' },
               { label: 'Components', value: '50+', color: tc.accent },
               { label: 'Open Source', value: '6 repos', color: '#10b981' },
             ].map((stat) => (
@@ -7923,7 +7923,7 @@ const PortfolioPageRender = () => {
               <SolidButton.Center>연락하기</SolidButton.Center>
             </SolidButton>
             <OutlineButton size="medium" color="black">
-              <OutlineButton.Center>GitHub</OutlineButton.Center>
+              <OutlineButton.Center>CodeHost</OutlineButton.Center>
             </OutlineButton>
           </div>
         </section>
@@ -7933,12 +7933,12 @@ const PortfolioPageRender = () => {
 }
 
 export const PortfolioPage: Story = {
-  name: 'Portfolio Page (shadcn/ui + Radix UI 벤치마크)',
+  name: 'Portfolio Page (ComposableUI + PrimitiveUI 벤치마크)',
   render: () => <PortfolioPageRender />,
 }
 
 /* ═══════════════════════════════════════════
-   26. Document Editor (Notion + Linear 벤치마크)
+   26. Document Editor (WorkspaceEditor + IssueTracker 벤치마크)
    ═══════════════════════════════════════════ */
 const DocumentEditorRender = () => {
   const [activeBlock, setActiveBlock] = useState<number | null>(null)
@@ -7985,7 +7985,7 @@ const DocumentEditorRender = () => {
         flexDirection: 'column',
         height: '100vh',
         background: tc.bg,
-        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+        fontFamily: '"Segoe UI", sans-serif',
       }}
     >
       {/* Top bar */}
@@ -8332,19 +8332,19 @@ const DocumentEditorRender = () => {
         <span>•</span>
         <span style={{ color: saved ? '#16a34a' : '#92400e' }}>{saved ? '저장됨' : '저장 중...'}</span>
         <div style={{ flex: 1 }} />
-        <span>Notion + Linear 벤치마크</span>
+        <span>WorkspaceEditor + IssueTracker 벤치마크</span>
       </div>
     </div>
   )
 }
 
 export const DocumentEditor: Story = {
-  name: 'Document Editor (Notion + Linear 벤치마크)',
+  name: 'Document Editor (WorkspaceEditor + IssueTracker 벤치마크)',
   render: () => <DocumentEditorRender />,
 }
 
 /* ═══════════════════════════════════════════
-   27. Search Results (Mantine + Chakra UI 벤치마크)
+   27. Search Results (AppUI + AccessibleUI 벤치마크)
    ═══════════════════════════════════════════ */
 const SearchResultsRender = () => {
   const [query, setQuery] = useState('design system')
@@ -8357,7 +8357,7 @@ const SearchResultsRender = () => {
     { type: '컴포넌트', title: 'Button — SolidButton, OutlineButton, GhostButton', desc: '6가지 색상 variant, 3가지 크기, Leading/Center/Trailing 슬롯으로 구성된 버튼 컴포넌트 시리즈.', tags: ['actions', 'buttons', 'interactive'], updated: '2일 전', relevance: 98 },
     { type: '문서', title: 'DesignToken — 3단계 토큰 시스템', desc: 'Reference → Semantic → Component 계층의 토큰 아키텍처 설명. CSS Variables 기반 런타임 테마 변경.', tags: ['tokens', 'theme', 'architecture'], updated: '5일 전', relevance: 92 },
     { type: '템플릿', title: 'AdminDashboard — 관리자 대시보드', desc: '사이드바 네비게이션, 지표 카드, 데이터 테이블을 포함한 완성형 관리자 UI 레이아웃.', tags: ['template', 'dashboard', 'admin'], updated: '1주 전', relevance: 88 },
-    { type: '스토리', title: 'Command — Raycast 스포트라이트 패턴', desc: '다크 배경 스포트라이트 런처. 앱/파일/액션 카테고리 + 아이콘 + 서브텍스트 + 단축키 힌트.', tags: ['command', 'search', 'spotlight'], updated: '3일 전', relevance: 85 },
+    { type: '스토리', title: 'Command — CommandPalette 스포트라이트 패턴', desc: '다크 배경 스포트라이트 런처. 앱/파일/액션 카테고리 + 아이콘 + 서브텍스트 + 단축키 힌트.', tags: ['command', 'search', 'spotlight'], updated: '3일 전', relevance: 85 },
     { type: 'MDX', title: 'GettingStarted — 시작 가이드', desc: 'pnpm 설치, Provider 설정, SSR 서버 컴포넌트 사용법, 첫 컴포넌트 렌더링 4단계 가이드.', tags: ['guide', 'setup', 'quickstart'], updated: '1주 전', relevance: 80 },
     { type: '컴포넌트', title: 'TextField — 텍스트 입력 필드', desc: '레이블, 헬퍼 텍스트, 에러 상태, Leading/Trailing 아이콘 슬롯을 포함한 입력 컴포넌트.', tags: ['input', 'form', 'text'], updated: '4일 전', relevance: 76 },
     { type: '문서', title: 'MigrationGuide — Ant Design 마이그레이션', desc: 'Ant Design에서 Orbit UI로 전환하는 방법. 컴포넌트 매핑, 코드 변환 예시 10개 포함.', tags: ['migration', 'antd', 'guide'], updated: '6일 전', relevance: 72 },
@@ -8388,7 +8388,7 @@ const SearchResultsRender = () => {
       style={{
         minHeight: '100vh',
         background: tc.bg,
-        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+        fontFamily: '"Segoe UI", sans-serif',
       }}
     >
       {/* Search header */}
@@ -8583,17 +8583,17 @@ const SearchResultsRender = () => {
 }
 
 export const SearchResults: Story = {
-  name: 'Search Results (Mantine + Chakra UI 벤치마크)',
+  name: 'Search Results (AppUI + AccessibleUI 벤치마크)',
   render: () => <SearchResultsRender />,
 }
 
 /* ═══════════════════════════════════════════
-   28. Mobile Checkout (Tailwind UI + Apple HIG 벤치마크)
+   28. Mobile Checkout (UtilityUI + Platform HIG 벤치마크)
    ═══════════════════════════════════════════ */
 const MobileCheckoutRender = () => {
   const [step, setStep] = useState<1 | 2 | 3>(1)
   const [address, setAddress] = useState({ name: '김희준', phone: '010-1234-5678', addr: '서울시 강남구 테헤란로 123' })
-  const [payMethod, setPayMethod] = useState<'card' | 'kakao' | 'naver'>('card')
+  const [payMethod, setPayMethod] = useState<'card' | 'quickpay' | 'pointpay'>('card')
   const [agreed, setAgreed] = useState(false)
   const [ordered, setOrdered] = useState(false)
 
@@ -8608,13 +8608,13 @@ const MobileCheckoutRender = () => {
 
   const payMethods = [
     { key: 'card' as const, label: '신용카드', icon: '💳' },
-    { key: 'kakao' as const, label: '카카오페이', icon: '🟡' },
-    { key: 'naver' as const, label: '네이버페이', icon: '🟢' },
+    { key: 'quickpay' as const, label: '퀵페이', icon: '🟡' },
+    { key: 'pointpay' as const, label: '포인트페이', icon: '🟢' },
   ]
 
   if (ordered) {
     return (
-      <div style={{ width: 390, minHeight: '100vh', background: tc.bg, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 16, padding: 32, fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' }}>
+      <div style={{ width: 390, minHeight: '100vh', background: tc.bg, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 16, padding: 32, fontFamily: '"Segoe UI", sans-serif' }}>
         <div style={{ width: 64, height: 64, borderRadius: '50%', background: '#f0fdf4', border: '2px solid #86efac', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 28 }}>✓</div>
         <div style={{ textAlign: 'center' }}>
           <div style={{ fontSize: 20, fontWeight: 800, color: tc.fg, marginBottom: 8 }}>주문 완료!</div>
@@ -8635,7 +8635,7 @@ const MobileCheckoutRender = () => {
   }
 
   return (
-    <div style={{ width: 390, minHeight: '100vh', background: tc.bg, display: 'flex', flexDirection: 'column', fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' }}>
+    <div style={{ width: 390, minHeight: '100vh', background: tc.bg, display: 'flex', flexDirection: 'column', fontFamily: '"Segoe UI", sans-serif' }}>
       {/* Header */}
       <div style={{ position: 'sticky', top: 0, zIndex: 10, background: tc.bg, borderBottom: `1px solid ${tc.border}`, padding: '14px 16px', display: 'flex', alignItems: 'center', gap: 12 }}>
         {step > 1 && (
@@ -8784,11 +8784,11 @@ const MobileCheckoutRender = () => {
 }
 
 export const MobileCheckout: Story = {
-  name: 'Mobile Checkout (Tailwind UI + Apple HIG 벤치마크)',
+  name: 'Mobile Checkout (UtilityUI + Platform HIG 벤치마크)',
   render: () => <MobileCheckoutRender />,
 }
 
-// ─── Cycle 39: Radix UI + Google Material 3 — Activity Feed ──────────────
+// ─── Cycle 39: PrimitiveUI + RoleToken Design — Activity Feed ──────────────
 
 type FeedCategory = 'all' | 'mentions' | 'updates' | 'alerts'
 type FeedItem = {
@@ -8810,7 +8810,7 @@ const FEED_ITEMS: FeedItem[] = [
   { id: 5, category: 'updates', title: '스프린트 리뷰 일정', body: '다음 주 금요일 오후 3시 스프린트 리뷰 미팅이 확정되었습니다.', time: '5시간 전', read: true, avatar: '📅', color: '#f59e0b' },
   { id: 6, category: 'alerts', title: '스토리지 90% 사용', body: '프로젝트 스토리지가 90%에 도달했습니다. 정리가 필요합니다.', time: '어제', read: true, avatar: '⚠', color: '#f97316' },
   { id: 7, category: 'mentions', title: '박지호가 태그했습니다', body: '@you 컴포넌트 문서 업데이트 확인 부탁드립니다.', time: '어제', read: true, avatar: '박', color: '#10b981' },
-  { id: 8, category: 'updates', title: 'Storybook 배포 완료', body: 'Storybook이 Vercel에 성공적으로 배포되었습니다. 미리보기 링크를 확인하세요.', time: '2일 전', read: true, avatar: '✓', color: '#6366f1' },
+  { id: 8, category: 'updates', title: 'Storybook 배포 완료', body: 'Storybook이 DeployPlatform에 성공적으로 배포되었습니다. 미리보기 링크를 확인하세요.', time: '2일 전', read: true, avatar: '✓', color: '#6366f1' },
 ]
 
 const FEED_CATEGORIES: { key: FeedCategory; label: string }[] = [
@@ -8872,7 +8872,7 @@ function ActivityFeedRender() {
           })}
         </nav>
 
-        {/* Radix UI 스타일 필터 토글 */}
+        {/* PrimitiveUI 스타일 필터 토글 */}
         <div style={{ margin: '12px 16px 0', padding: '12px', background: '#f8fafc', borderRadius: 10, border: '1px solid #e2e8f0' }}>
           <label style={{ display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer', fontSize: 12, color: '#64748b', fontWeight: 500 }}>
             <div
@@ -8994,7 +8994,7 @@ function ActivityFeedRender() {
               </div>
             ))}
           </div>
-          <span style={{ fontSize: 11, color: '#94a3b8' }}>Radix UI + Material 3 패턴 적용</span>
+          <span style={{ fontSize: 11, color: '#94a3b8' }}>PrimitiveUI + RoleToken Design 패턴 적용</span>
         </div>
       </div>
     </div>
@@ -9002,11 +9002,11 @@ function ActivityFeedRender() {
 }
 
 export const ActivityFeed: Story = {
-  name: 'Activity Feed (Radix UI + Google Material 3 벤치마크)',
+  name: 'Activity Feed (PrimitiveUI + RoleToken Design 벤치마크)',
   render: () => <ActivityFeedRender />,
 }
 
-// ─── Cycle 40: shadcn/ui + Linear — Code Review ──────────────────────────────
+// ─── Cycle 40: ComposableUI + IssueTracker — Code Review ──────────────────────────────
 
 type ReviewStatus = 'approved' | 'changes_requested' | 'pending'
 
@@ -9257,11 +9257,11 @@ function CodeReviewRender() {
 }
 
 export const CodeReview: Story = {
-  name: 'Code Review (shadcn/ui + Linear 벤치마크)',
+  name: 'Code Review (ComposableUI + IssueTracker 벤치마크)',
   render: () => <CodeReviewRender />,
 }
 
-// ─── Cycle 41: Vercel Design + Ant Design — Team Directory ───────────────────
+// ─── Cycle 41: DeployPlatform Design + Ant Design — Team Directory ───────────────────
 
 type TeamMember = {
   id: string
@@ -9281,11 +9281,11 @@ type DeptFilter = 'all' | 'engineering' | 'design' | 'product'
 
 const TEAM_MEMBERS: TeamMember[] = [
   { id: 'm1', name: '김민준', role: 'Frontend Lead', dept: 'engineering', status: 'online', avatar: '김', avatarColor: '#6366f1', skills: ['React', 'TypeScript', 'Vite'], joinedYear: 2022, location: '서울', email: 'minjun@orbit.dev' },
-  { id: 'm2', name: '이서연', role: 'Product Designer', dept: 'design', status: 'online', avatar: '이', avatarColor: '#8b5cf6', skills: ['Figma', 'Storybook', 'Tokens'], joinedYear: 2021, location: '서울', email: 'seoyeon@orbit.dev' },
-  { id: 'm3', name: '박지호', role: 'Design System Eng', dept: 'engineering', status: 'away', avatar: '박', avatarColor: '#0ea5e9', skills: ['Radix UI', 'CSS', 'A11y'], joinedYear: 2023, location: '부산', email: 'jiho@orbit.dev' },
-  { id: 'm4', name: '최준혁', role: 'Product Manager', dept: 'product', status: 'online', avatar: '최', avatarColor: '#10b981', skills: ['Roadmap', 'OKR', 'Figma'], joinedYear: 2022, location: '서울', email: 'junhyuk@orbit.dev' },
+  { id: 'm2', name: '이서연', role: 'Product Designer', dept: 'design', status: 'online', avatar: '이', avatarColor: '#8b5cf6', skills: ['DesignTool', 'Storybook', 'Tokens'], joinedYear: 2021, location: '서울', email: 'seoyeon@orbit.dev' },
+  { id: 'm3', name: '박지호', role: 'Design System Eng', dept: 'engineering', status: 'away', avatar: '박', avatarColor: '#0ea5e9', skills: ['PrimitiveUI', 'CSS', 'A11y'], joinedYear: 2023, location: '부산', email: 'jiho@orbit.dev' },
+  { id: 'm4', name: '최준혁', role: 'Product Manager', dept: 'product', status: 'online', avatar: '최', avatarColor: '#10b981', skills: ['Roadmap', 'OKR', 'DesignTool'], joinedYear: 2022, location: '서울', email: 'junhyuk@orbit.dev' },
   { id: 'm5', name: '정소영', role: 'Backend Engineer', dept: 'engineering', status: 'offline', avatar: '정', avatarColor: '#f59e0b', skills: ['Node.js', 'Prisma', 'GraphQL'], joinedYear: 2023, location: '대전', email: 'soyoung@orbit.dev' },
-  { id: 'm6', name: '한도연', role: 'UX Researcher', dept: 'design', status: 'away', avatar: '한', avatarColor: '#ef4444', skills: ['User Testing', 'Analytics', 'Notion'], joinedYear: 2024, location: '서울', email: 'doyeon@orbit.dev' },
+  { id: 'm6', name: '한도연', role: 'UX Researcher', dept: 'design', status: 'away', avatar: '한', avatarColor: '#ef4444', skills: ['User Testing', 'Analytics', 'WorkspaceEditor'], joinedYear: 2024, location: '서울', email: 'doyeon@orbit.dev' },
   { id: 'm7', name: '오승민', role: 'iOS Engineer', dept: 'engineering', status: 'online', avatar: '오', avatarColor: '#ec4899', skills: ['Swift', 'SwiftUI', 'Combine'], joinedYear: 2022, location: '인천', email: 'seungmin@orbit.dev' },
   { id: 'm8', name: '윤지원', role: 'Data Analyst', dept: 'product', status: 'online', avatar: '윤', avatarColor: '#14b8a6', skills: ['Python', 'SQL', 'Tableau'], joinedYear: 2023, location: '서울', email: 'jiwon@orbit.dev' },
 ]
@@ -9331,7 +9331,7 @@ function TeamDirectoryRender() {
                 총 {TEAM_MEMBERS.length}명 · 온라인 <span style={{ color: '#22c55e', fontWeight: 700 }}>{onlineCount}</span>명
               </p>
             </div>
-            {/* Vercel 스타일 검색바 */}
+            {/* DeployPlatform 스타일 검색바 */}
             <div style={{ position: 'relative' }}>
               <input
                 value={search}
@@ -9343,7 +9343,7 @@ function TeamDirectoryRender() {
             </div>
           </div>
 
-          {/* 부서 필터 — Vercel Geist 스타일 탭 */}
+          {/* 부서 필터 — DeployPlatform System 스타일 탭 */}
           <div style={{ display: 'flex', gap: '0', borderBottom: '1px solid #f1f5f9', marginBottom: '-21px' }}>
             {deptFilters.map((f) => (
               <button
@@ -9485,12 +9485,12 @@ function TeamDirectoryRender() {
 }
 
 export const TeamDirectory: Story = {
-  name: 'Team Directory (Vercel Design + Ant Design 벤치마크)',
+  name: 'Team Directory (DeployPlatform Design + Ant Design 벤치마크)',
   render: () => <TeamDirectoryRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Video Player (Arco Design + Mantine 벤치마크)
+   Video Player (DataProductUI + AppUI 벤치마크)
    재생/일시정지, 볼륨, 진행 바, 챕터, 재생 목록이 있는 미디어 플레이어 UI
 -------------------------------------------------------------------------- */
 const VIDEO_CHAPTERS = [
@@ -9504,7 +9504,7 @@ const VIDEO_TOTAL = 420
 
 const PLAYLIST_VIDEOS = [
   { id: 'v1', title: 'Orbit UI 완전 정복 1편', author: 'Design Team', views: 4820, active: true },
-  { id: 'v2', title: 'Tailwind 심화 스타일링', author: 'Core Team', views: 3210, active: false },
+  { id: 'v2', title: 'UtilityCSS 심화 스타일링', author: 'Core Team', views: 3210, active: false },
   { id: 'v3', title: '접근성 컴포넌트 패턴', author: 'A11y Squad', views: 2180, active: false },
 ]
 
@@ -9695,12 +9695,12 @@ const VideoPlayerRender = () => {
 }
 
 export const VideoPlayer: Story = {
-  name: 'Video Player (Arco Design + Mantine 벤치마크)',
+  name: 'Video Player (DataProductUI + AppUI 벤치마크)',
   render: () => <VideoPlayerRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Subscription Page (Tailwind UI + Chakra UI 벤치마크)
+   Subscription Page (UtilityUI + AccessibleUI 벤치마크)
    플랜 비교 + 결제 폼 + 특징 체크리스트가 통합된 구독 페이지
 -------------------------------------------------------------------------- */
 const SUBSCRIPTION_PLANS = [
@@ -9983,12 +9983,12 @@ const SubscriptionPageRender = () => {
 }
 
 export const SubscriptionPage: Story = {
-  name: 'Subscription Page (Tailwind UI + Chakra UI 벤치마크)',
+  name: 'Subscription Page (UtilityUI + AccessibleUI 벤치마크)',
   render: () => <SubscriptionPageRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Job Board (MUI + Raycast 벤치마크)
+   Job Board (EnterpriseUI + CommandPalette 벤치마크)
    채용공고 목록 + 상세 패널 + 지원 플로우가 통합된 구직 플랫폼 UI
 -------------------------------------------------------------------------- */
 const JOB_LISTINGS = [
@@ -10013,7 +10013,7 @@ const JOB_LISTINGS = [
     type: 'remote' as const,
     level: 'Mid',
     salary: '₩60M – ₩90M',
-    stack: ['Figma', 'Prototyping', 'Design Tokens'],
+    stack: ['DesignTool', 'Prototyping', 'Design Tokens'],
     posted: '3일 전',
     applicants: 28,
     featured: false,
@@ -10026,7 +10026,7 @@ const JOB_LISTINGS = [
     type: 'hybrid' as const,
     level: 'Mid',
     salary: '₩70M – ₩100M',
-    stack: ['Radix UI', 'Storybook', 'React'],
+    stack: ['PrimitiveUI', 'Storybook', 'React'],
     posted: '1주일 전',
     applicants: 15,
     featured: false,
@@ -10291,12 +10291,12 @@ const JobBoardRender = () => {
 }
 
 export const JobBoard: Story = {
-  name: 'Job Board (MUI + Raycast 벤치마크)',
+  name: 'Job Board (EnterpriseUI + CommandPalette 벤치마크)',
   render: () => <JobBoardRender />,
 }
 
 /* ═══════════════════════════════════════════
-   35. Inbox View (Linear + Notion 벤치마크)
+   35. Inbox View (IssueTracker + WorkspaceEditor 벤치마크)
    ═══════════════════════════════════════════ */
 type InboxItem = {
   id: number
@@ -10538,12 +10538,12 @@ const InboxViewRender = () => {
 }
 
 export const InboxView: Story = {
-  name: 'Inbox View (Linear + Notion 벤치마크)',
+  name: 'Inbox View (IssueTracker + WorkspaceEditor 벤치마크)',
   render: () => <InboxViewRender />,
 }
 
 /* ═══════════════════════════════════════════
-   36. Sprint Board (Vercel + Ant Design 벤치마크)
+   36. Sprint Board (DeployPlatform + Ant Design 벤치마크)
    ═══════════════════════════════════════════ */
 type SprintColStatus = 'backlog' | 'inprogress' | 'review' | 'done'
 
@@ -10568,7 +10568,7 @@ const INITIAL_SPRINT: Record<SprintColStatus, SprintCard[]> = {
     { id: 2, title: 'AlertDialog 다단계 확인 구현', tag: '기능', tagColor: '#06b6d4', priority: 'high', assignee: '이' },
   ],
   inprogress: [
-    { id: 3, title: 'Vercel 배포 파이프라인 설정', tag: '인프라', tagColor: '#f59e0b', priority: 'high', assignee: '박' },
+    { id: 3, title: 'DeployPlatform 배포 파이프라인 설정', tag: '인프라', tagColor: '#f59e0b', priority: 'high', assignee: '박' },
     { id: 4, title: '디자인 토큰 MDX 보강', tag: '문서', tagColor: '#6366f1', priority: 'low', assignee: '최' },
   ],
   review: [
@@ -10735,12 +10735,12 @@ const SprintBoardRender = () => {
 }
 
 export const SprintBoard: Story = {
-  name: 'Sprint Board (Vercel + Ant Design 벤치마크)',
+  name: 'Sprint Board (DeployPlatform + Ant Design 벤치마크)',
   render: () => <SprintBoardRender />,
 }
 
 /* ═══════════════════════════════════════════
-   37. Dev Profile (shadcn/ui + Radix UI 벤치마크)
+   37. Dev Profile (ComposableUI + PrimitiveUI 벤치마크)
    ═══════════════════════════════════════════ */
 type ProfileTab = 'overview' | 'activity' | 'settings'
 
@@ -10760,7 +10760,7 @@ const ACTIVITY_TYPE_CONFIG = {
   feat: { label: 'feat', bg: '#f0fdf4', color: '#15803d' },
 }
 
-const SKILL_BADGES = ['React', 'TypeScript', 'Storybook', 'Figma', 'Radix UI', 'Tailwind CSS']
+const SKILL_BADGES = ['React', 'TypeScript', 'Storybook', 'DesignTool', 'PrimitiveUI', 'UtilityCSS CSS']
 
 const DevProfileRender = () => {
   const [activeTab, setActiveTab] = useState<ProfileTab>('overview')
@@ -10928,12 +10928,12 @@ const DevProfileRender = () => {
 }
 
 export const DevProfile: Story = {
-  name: 'Dev Profile (shadcn/ui + Radix UI 벤치마크)',
+  name: 'Dev Profile (ComposableUI + PrimitiveUI 벤치마크)',
   render: () => <DevProfileRender />,
 }
 
 /* ═══════════════════════════════════════════
-   38. Notification Center (Tailwind UI + Mantine 벤치마크)
+   38. Notification Center (UtilityUI + AppUI 벤치마크)
    ═══════════════════════════════════════════ */
 type NotifCenterCategory = 'all' | 'mention' | 'system' | 'team'
 type NotifCenterItem = {
@@ -10956,10 +10956,10 @@ const NOTIF_CATEGORY_CONFIG = {
 const INITIAL_NOTIFS: NotifCenterItem[] = [
   { id: 1, category: 'mention', title: '김민준님이 멘션했습니다', body: '@hjunkim PRJ-247 리뷰 부탁드립니다.', time: '2분 전', read: false, avatar: '김', avatarColor: '#6366f1' },
   { id: 2, category: 'system', title: '빌드 성공', body: 'orbit-ui@2.0.0-beta.17 Storybook 빌드가 완료되었습니다.', time: '15분 전', read: false, avatar: '★', avatarColor: '#f59e0b' },
-  { id: 3, category: 'team', title: '이서연님이 PR을 오픈했습니다', body: 'feat: Carousel 스토리 3개 추가 (shadcn/ui + Radix 벤치마크)', time: '1시간 전', read: false, avatar: '이', avatarColor: '#10b981' },
+  { id: 3, category: 'team', title: '이서연님이 PR을 오픈했습니다', body: 'feat: Carousel 스토리 3개 추가 (ComposableUI + Primitive 벤치마크)', time: '1시간 전', read: false, avatar: '이', avatarColor: '#10b981' },
   { id: 4, category: 'mention', title: '박도현님이 댓글을 달았습니다', body: 'CounterBadge children 타입 이슈 재현 확인했습니다.', time: '3시간 전', read: true, avatar: '박', avatarColor: '#8b5cf6' },
-  { id: 5, category: 'system', title: '배포 완료', body: 'storybook-static → vercel.app 프로덕션 배포 성공 (19s)', time: '5시간 전', read: true, avatar: '▲', avatarColor: '#0ea5e9' },
-  { id: 6, category: 'team', title: '최지아님이 이슈를 배정했습니다', body: 'PRJ-251 Tailwind UI 벤치마크 적용 → @hjunkim', time: '어제', read: true, avatar: '최', avatarColor: '#ec4899' },
+  { id: 5, category: 'system', title: '배포 완료', body: 'storybook-static → deploy.app 프로덕션 배포 성공 (19s)', time: '5시간 전', read: true, avatar: '▲', avatarColor: '#0ea5e9' },
+  { id: 6, category: 'team', title: '최지아님이 이슈를 배정했습니다', body: 'PRJ-251 UtilityUI 벤치마크 적용 → @hjunkim', time: '어제', read: true, avatar: '최', avatarColor: '#ec4899' },
 ]
 
 const NotifCenterRender = () => {
@@ -11107,12 +11107,12 @@ const NotifCenterRender = () => {
 }
 
 export const NotifCenter: Story = {
-  name: 'Notification Center (Tailwind UI + Mantine 벤치마크)',
+  name: 'Notification Center (UtilityUI + AppUI 벤치마크)',
   render: () => <NotifCenterRender />,
 }
 
-// ─── FileBrowser Template (Chakra UI + Google Material 3 벤치마크) ──────────
-// M3 Files 앱 레이아웃 + Chakra 파일 목록 패턴 참고
+// ─── FileBrowser Template (AccessibleUI + RoleToken Design 벤치마크) ──────────
+// M3 Files 앱 레이아웃 + Accessible 파일 목록 패턴 참고
 
 type FBFileType = 'folder' | 'image' | 'doc' | 'code' | 'pdf'
 type FBViewMode = 'grid' | 'list'
@@ -11143,7 +11143,7 @@ const FB_INITIAL_FILES: FBFileItem[] = [
   { id: 'f5', name: 'component-spec.pdf', type: 'pdf', size: '840 KB', modified: '2026-04-05', starred: false },
   { id: 'f6', name: 'README.md', type: 'doc', size: '12 KB', modified: '2026-04-04', starred: false },
   { id: 'f7', name: 'Button.tsx', type: 'code', size: '4 KB', modified: '2026-04-03', starred: false },
-  { id: 'f8', name: 'figma-export.png', type: 'image', size: '2.1 MB', modified: '2026-04-02', starred: false },
+  { id: 'f8', name: 'design-export.png', type: 'image', size: '2.1 MB', modified: '2026-04-02', starred: false },
   { id: 'f9', name: 'CHANGELOG.md', type: 'doc', size: '6 KB', modified: '2026-04-01', starred: false },
 ]
 
@@ -11527,12 +11527,12 @@ function FileBrowserRender() {
 }
 
 export const FileBrowser: Story = {
-  name: 'File Browser (Chakra UI + Google Material 3 벤치마크)',
+  name: 'File Browser (AccessibleUI + RoleToken Design 벤치마크)',
   render: () => <FileBrowserRender />,
 }
 
-// ─── ChangelogPage Template (Linear Design + Arco Design 벤치마크) ───────────
-// Linear의 Changelog 페이지 레이아웃 + Arco Timeline 스타일 변경 이력
+// ─── ChangelogPage Template (IssueTracker Design + DataProductUI 벤치마크) ───────────
+// IssueTracker의 Changelog 페이지 레이아웃 + DataProduct Timeline 스타일 변경 이력
 
 type CLChangeType = 'feat' | 'fix' | 'perf' | 'docs' | 'break'
 type CLFilterKey = 'all' | CLChangeType
@@ -11573,24 +11573,24 @@ const CL_RELEASES: CLRelease[] = [
     id: 'r1',
     version: 'v2.0.0',
     date: '2026-04-10',
-    headline: 'Cycle 50 — Linear + Arco 벤치마크 반영',
+    headline: 'Cycle 50 — IssueTracker + DataProduct 벤치마크 반영',
     highlight: true,
     changes: [
-      { type: 'feat', scope: 'CounterBadge', text: 'Linear 이슈 상태별 카운터 사이드바 스토리 추가' },
-      { type: 'feat', scope: 'CounterBadge', text: 'Arco KPI 카드 집계 배지 패턴 추가' },
-      { type: 'feat', scope: 'Text', text: 'Linear 이슈 리스트 타이포그래피 패턴 추가' },
-      { type: 'feat', scope: 'Text', text: 'Arco Description 정보 밀도 레이아웃 추가' },
-      { type: 'docs', scope: 'DesignToken', text: 'Linear + Arco 토큰 시스템 비교 섹션 추가' },
+      { type: 'feat', scope: 'CounterBadge', text: 'IssueTracker 이슈 상태별 카운터 사이드바 스토리 추가' },
+      { type: 'feat', scope: 'CounterBadge', text: 'DataProduct KPI 카드 집계 배지 패턴 추가' },
+      { type: 'feat', scope: 'Text', text: 'IssueTracker 이슈 리스트 타이포그래피 패턴 추가' },
+      { type: 'feat', scope: 'Text', text: 'DataProduct Description 정보 밀도 레이아웃 추가' },
+      { type: 'docs', scope: 'DesignToken', text: 'IssueTracker + DataProduct 토큰 시스템 비교 섹션 추가' },
     ],
   },
   {
     id: 'r2',
     version: 'v1.9.0',
     date: '2026-04-09',
-    headline: 'Chakra UI + Material 3 패턴 반영',
+    headline: 'AccessibleUI + RoleToken Design 패턴 반영',
     changes: [
       { type: 'feat', scope: 'FileBrowser', text: '파일 관리자 템플릿 — 그리드/목록 전환, 즐겨찾기' },
-      { type: 'feat', scope: 'SearchBar', text: 'Chakra 실시간 사용자 검색(아바타 드롭다운) 추가' },
+      { type: 'feat', scope: 'SearchBar', text: 'Accessible 실시간 사용자 검색(아바타 드롭다운) 추가' },
       { type: 'feat', scope: 'Toggle', text: 'M3 온보딩 기능 토글 카드 패턴 추가' },
       { type: 'fix', scope: 'Templates', text: 'FileManager 중복 식별자 오류 수정' },
     ],
@@ -11599,22 +11599,22 @@ const CL_RELEASES: CLRelease[] = [
     id: 'r3',
     version: 'v1.8.0',
     date: '2026-04-08',
-    headline: 'Tailwind UI + Mantine 접근성 강화',
+    headline: 'UtilityUI + AppUI 접근성 강화',
     changes: [
-      { type: 'feat', scope: 'Checkbox', text: 'Tailwind 플랜 기능 선택 — indeterminate 전체 선택' },
-      { type: 'feat', scope: 'FloatingTextField', text: 'Mantine 글자수 카운터 — 정규식 검증 패턴' },
+      { type: 'feat', scope: 'Checkbox', text: 'UtilityCSS 플랜 기능 선택 — indeterminate 전체 선택' },
+      { type: 'feat', scope: 'FloatingTextField', text: 'AppUI 글자수 카운터 — 정규식 검증 패턴' },
       { type: 'perf', scope: 'Templates', text: 'Templates.stories.tsx 번들 크기 최적화' },
-      { type: 'docs', scope: 'AccessibilityGuide', text: 'Tailwind UI + Mantine 접근성 벤치마크 추가' },
+      { type: 'docs', scope: 'AccessibilityGuide', text: 'UtilityUI + AppUI 접근성 벤치마크 추가' },
     ],
   },
   {
     id: 'r4',
     version: 'v1.7.0',
     date: '2026-04-07',
-    headline: 'shadcn/ui + Radix UI Primitive 반영',
+    headline: 'ComposableUI + PrimitiveUI Primitive 반영',
     changes: [
-      { type: 'feat', scope: 'Carousel', text: 'shadcn 피처 하이라이트 + Radix 스텝 가이드' },
-      { type: 'feat', scope: 'Divider', text: 'shadcn OR 구분선 + Radix 컨텍스트 메뉴 구분선' },
+      { type: 'feat', scope: 'Carousel', text: 'ComposableUI 피처 하이라이트 + Primitive 스텝 가이드' },
+      { type: 'feat', scope: 'Divider', text: 'ComposableUI OR 구분선 + Primitive 컨텍스트 메뉴 구분선' },
       { type: 'break', scope: 'EclipseProvider', text: 'highDensityTheme prop 제거됨 (미구현 상태였음)' },
       { type: 'fix', scope: 'SwitchBar', text: '스토리북 Switch 참조 오류 수정' },
     ],
@@ -11891,12 +11891,12 @@ function ChangelogPageRender() {
 }
 
 export const ChangelogPage: Story = {
-  name: 'Changelog Page (Linear Design + Arco Design 벤치마크)',
+  name: 'Changelog Page (IssueTracker Design + DataProductUI 벤치마크)',
   render: () => <ChangelogPageRender />,
 }
 
-// ─── DataImportWizard Template (MUI + Raycast 벤치마크) ──────────────────────
-// MUI Stepper + Raycast 컴팩트 UI 패턴으로 구현한 데이터 임포트 위자드
+// ─── DataImportWizard Template (EnterpriseUI + CommandPalette 벤치마크) ──────────────────────
+// EnterpriseUI Stepper + CommandPalette 컴팩트 UI 패턴으로 구현한 데이터 임포트 위자드
 
 type ImportStep = 'upload' | 'map' | 'validate' | 'confirm'
 type ImportFormat = 'csv' | 'json' | 'xlsx'
@@ -11920,7 +11920,7 @@ const FIELD_MAPPINGS: FieldMapping[] = [
 const IMPORT_FORMATS: { key: ImportFormat; label: string; desc: string }[] = [
   { key: 'csv', label: 'CSV', desc: '쉼표 구분 텍스트 파일' },
   { key: 'json', label: 'JSON', desc: 'JavaScript Object Notation' },
-  { key: 'xlsx', label: 'Excel', desc: 'Microsoft Excel 파일' },
+  { key: 'xlsx', label: 'Excel', desc: 'Enterprise Excel 파일' },
 ]
 
 const wizColors = {
@@ -12292,12 +12292,12 @@ function DataImportWizardRender() {
 }
 
 export const DataImportWizard: Story = {
-  name: 'Data Import Wizard (MUI Stepper + Raycast 벤치마크)',
+  name: 'Data Import Wizard (EnterpriseUI Stepper + CommandPalette 벤치마크)',
   render: () => <DataImportWizardRender />,
 }
 
 /* ============================================================
-   Template 42: ReviewPortal — Notion + Apple HIG 벤치마크
+   Template 42: ReviewPortal — WorkspaceEditor + Platform HIG 벤치마크
    디자인 리뷰 포털: 피드백 수집 + 승인 플로우
    ============================================================ */
 type RPStatus = 'pending' | 'approved' | 'rejected' | 'revision'
@@ -12349,7 +12349,7 @@ const RP_REVIEWS: RPReview[] = [
     category: 'design',
     createdAt: '2026-04-09',
     commentCount: 3,
-    description: 'Primary 버튼의 hover 색상이 Figma 스펙과 다릅니다. #6366f1 → #4f46e5로 수정이 필요합니다.',
+    description: 'Primary 버튼의 hover 색상이 DesignTool 스펙과 다릅니다. #6366f1 → #4f46e5로 수정이 필요합니다.',
   },
   {
     id: 'rv-002',
@@ -12418,7 +12418,7 @@ const ReviewPortalRender = () => {
   const [selected, setSelected] = useState<RPReview | null>(RP_REVIEWS[0])
   const [comment, setComment] = useState('')
   const [comments, setComments] = useState<{ text: string; time: string }[]>([
-    { text: '색상 코드를 Figma 링크와 함께 첨부해 주시겠어요?', time: '10분 전' },
+    { text: '색상 코드를 DesignTool 링크와 함께 첨부해 주시겠어요?', time: '10분 전' },
     { text: '다음 스프린트 내에 처리 예정입니다.', time: '5분 전' },
   ])
 
@@ -12451,7 +12451,7 @@ const ReviewPortalRender = () => {
       overflow: 'hidden',
       display: 'flex',
       flexDirection: 'column',
-      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+      fontFamily: '"Segoe UI", sans-serif',
     }}>
       {/* Header */}
       <div style={{
@@ -12739,12 +12739,12 @@ const ReviewPortalRender = () => {
 }
 
 export const ReviewPortal: Story = {
-  name: 'Review Portal (Notion + Apple HIG 벤치마크)',
+  name: 'Review Portal (WorkspaceEditor + Platform HIG 벤치마크)',
   render: () => <ReviewPortalRender />,
 }
 
 /* ============================================================
-   Template 43: ApiPlayground — Mantine + Ant Design 벤치마크
+   Template 43: ApiPlayground — AppUI + Ant Design 벤치마크
    API 플레이그라운드: HTTP 요청 테스트 + 응답 뷰어
    ============================================================ */
 type ApiMethod = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH'
@@ -13136,12 +13136,12 @@ const ApiPlaygroundRender = () => {
 }
 
 export const ApiPlayground: Story = {
-  name: 'API Playground (Mantine + Ant Design 벤치마크)',
+  name: 'API Playground (AppUI + Ant Design 벤치마크)',
   render: () => <ApiPlaygroundRender />,
 }
 
 // ============================================================
-// Template 44: LearningDashboard (shadcn/ui + Vercel Design 벤치마크)
+// Template 44: LearningDashboard (ComposableUI + DeployPlatform Design 벤치마크)
 // ============================================================
 
 type LDCourse = {
@@ -13198,7 +13198,7 @@ const LD_COURSES: LDCourse[] = [
   },
   {
     id: 'c3',
-    title: 'Tailwind CSS 마스터',
+    title: 'UtilityCSS CSS 마스터',
     instructor: '박지호',
     category: 'Styling',
     progress: 100,
@@ -13206,7 +13206,7 @@ const LD_COURSES: LDCourse[] = [
     completedLessons: 24,
     duration: '6시간',
     level: 'beginner',
-    tags: ['CSS', 'Tailwind', 'Responsive'],
+    tags: ['CSS', 'UtilityCSS', 'Responsive'],
   },
   {
     id: 'c4',
@@ -13520,13 +13520,13 @@ function LearningDashboardRender() {
 }
 
 export const LearningDashboard: Story = {
-  name: 'Learning Dashboard (shadcn/ui + Vercel Design 벤치마크)',
+  name: 'Learning Dashboard (ComposableUI + DeployPlatform Design 벤치마크)',
   render: () => <LearningDashboardRender />,
 }
 
 
 // ============================================================
-// Template 45: DesignSystemHub (Radix UI + Linear Design 벤치마크)
+// Template 45: DesignSystemHub (PrimitiveUI + IssueTracker Design 벤치마크)
 // ============================================================
 
 type DSHComponent = {
@@ -13590,14 +13590,14 @@ function DesignSystemHubRender() {
   const [selectedStatus, _setSelectedStatus] = useState<DSHComponent['status'] | 'all'>('all')
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedId, setSelectedId] = useState<string>('slider')
-  const [showRadixOnly, setShowRadixOnly] = useState(false)
+  const [showPrimitiveOnly, setShowPrimitiveOnly] = useState(false)
 
   const filtered = DSH_COMPONENTS.filter((c) => {
     const matchCat = selectedCategory === 'all' || c.category === selectedCategory
     const matchStatus = selectedStatus === 'all' || c.status === selectedStatus
     const matchSearch = searchQuery === '' || c.name.toLowerCase().includes(searchQuery.toLowerCase())
-    const matchRadix = !showRadixOnly || c.radixBased
-    return matchCat && matchStatus && matchSearch && matchRadix
+    const matchPrimitive = !showPrimitiveOnly || c.radixBased
+    return matchCat && matchStatus && matchSearch && matchPrimitive
   })
 
   const selected = DSH_COMPONENTS.find((c) => c.id === selectedId) ?? DSH_COMPONENTS[0]
@@ -13647,10 +13647,10 @@ function DesignSystemHubRender() {
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
             <Toggle
-              checked={showRadixOnly}
-              onCheckedChange={setShowRadixOnly}
+              checked={showPrimitiveOnly}
+              onCheckedChange={setShowPrimitiveOnly}
             />
-            <span style={{ fontSize: 12, color: dshColors.textSub }}>Radix 기반만</span>
+            <span style={{ fontSize: 12, color: dshColors.textSub }}>Primitive 기반만</span>
           </div>
         </div>
 
@@ -13683,7 +13683,7 @@ function DesignSystemHubRender() {
                   <span style={{ fontSize: 11, padding: '1px 8px', borderRadius: 10, background: cc.bg, color: cc.color, fontWeight: 600 }}>{cc.label}</span>
                   <span style={{ fontSize: 11, color: dshColors.textSub }}>{comp.stories}개 스토리</span>
                   {comp.radixBased && (
-                    <span style={{ fontSize: 10, padding: '1px 6px', borderRadius: 8, background: '#f3e8ff', color: '#7c3aed', fontWeight: 700 }}>Radix</span>
+                    <span style={{ fontSize: 10, padding: '1px 6px', borderRadius: 8, background: '#f3e8ff', color: '#7c3aed', fontWeight: 700 }}>Primitive</span>
                   )}
                 </div>
               </div>
@@ -13704,7 +13704,7 @@ function DesignSystemHubRender() {
             </div>
             <div>
               <div style={{ fontWeight: 800, color: '#7c3aed' }}>{radixCount}</div>
-              <div style={{ color: dshColors.textSub }}>Radix</div>
+              <div style={{ color: dshColors.textSub }}>Primitive</div>
             </div>
           </div>
         </div>
@@ -13720,7 +13720,7 @@ function DesignSystemHubRender() {
                 <span style={{ fontSize: 22, fontWeight: 800, color: dshColors.text }}>{selected.name}</span>
                 <span style={{ padding: '2px 10px', borderRadius: 10, fontSize: 12, fontWeight: 700, background: stCfg.color + '18', color: stCfg.color }}>{stCfg.label}</span>
                 {selected.radixBased && (
-                  <span style={{ padding: '2px 10px', borderRadius: 10, fontSize: 12, fontWeight: 700, background: '#f3e8ff', color: '#7c3aed' }}>Radix 기반</span>
+                  <span style={{ padding: '2px 10px', borderRadius: 10, fontSize: 12, fontWeight: 700, background: '#f3e8ff', color: '#7c3aed' }}>Primitive 기반</span>
                 )}
               </div>
               <div style={{ display: 'flex', gap: 12 }}>
@@ -13780,11 +13780,11 @@ function DesignSystemHubRender() {
           </div>
 
           <div style={{ padding: 16, background: dshColors.card, borderRadius: 10, border: `1px solid ${dshColors.border}` }}>
-            <div style={{ fontSize: 13, fontWeight: 700, color: dshColors.text, marginBottom: 10 }}>Radix UI 기반 현황</div>
+            <div style={{ fontSize: 13, fontWeight: 700, color: dshColors.text, marginBottom: 10 }}>PrimitiveUI 기반 현황</div>
             <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
               <div style={{ flex: 1 }}>
                 <Progress value={Math.round((radixCount / DSH_COMPONENTS.length) * 100)} />
-                <div style={{ fontSize: 11, color: dshColors.textSub, marginTop: 4 }}>{radixCount}/{DSH_COMPONENTS.length}개 컴포넌트 Radix 기반</div>
+                <div style={{ fontSize: 11, color: dshColors.textSub, marginTop: 4 }}>{radixCount}/{DSH_COMPONENTS.length}개 컴포넌트 Primitive 기반</div>
               </div>
               <div style={{ fontSize: 28, fontWeight: 900, color: '#7c3aed' }}>{Math.round((radixCount / DSH_COMPONENTS.length) * 100)}%</div>
             </div>
@@ -13796,12 +13796,12 @@ function DesignSystemHubRender() {
 }
 
 export const DesignSystemHub: Story = {
-  name: 'Design System Hub (Radix UI + Linear Design 벤치마크)',
+  name: 'Design System Hub (PrimitiveUI + IssueTracker Design 벤치마크)',
   render: () => <DesignSystemHubRender />,
 }
 
 // ============================================================
-// Template 46: ProjectRoadmap (Tailwind UI + Arco Design 벤치마크)
+// Template 46: ProjectRoadmap (UtilityUI + DataProductUI 벤치마크)
 // ============================================================
 
 type RMPhase = 'planning' | 'in_progress' | 'review' | 'done' | 'blocked'
@@ -13840,7 +13840,7 @@ const RM_ITEMS: RMItem[] = [
   { id: 'r3', title: 'EclipseProvider 다크모드 전환 애니메이션', phase: 'review', priority: 'medium', quarter: 'Q2', progress: 90, team: 'Design', tags: ['theme', 'animation'] },
   { id: 'r4', title: '모노레포 번들 최적화 (tree-shaking)', phase: 'in_progress', priority: 'high', quarter: 'Q2', progress: 40, team: 'Platform', tags: ['build', 'dx'] },
   { id: 'r5', title: 'Command 팔레트 글로벌 단축키', phase: 'planning', priority: 'medium', quarter: 'Q3', progress: 0, team: 'Frontend', tags: ['keyboard', 'ux'] },
-  { id: 'r6', title: 'Figma 플러그인 자동 토큰 추출', phase: 'blocked', priority: 'high', quarter: 'Q3', progress: 20, team: 'Design', tags: ['figma', 'tokens'] },
+  { id: 'r6', title: 'DesignTool 플러그인 자동 토큰 추출', phase: 'blocked', priority: 'high', quarter: 'Q3', progress: 20, team: 'Design', tags: ['design', 'tokens'] },
   { id: 'r7', title: 'Storybook 8.x 마이그레이션', phase: 'done', priority: 'critical', quarter: 'Q1', progress: 100, team: 'Platform', tags: ['docs', 'build'] },
   { id: 'r8', title: '접근성 감사 및 WAI-ARIA 보강', phase: 'planning', priority: 'high', quarter: 'Q3', progress: 5, team: 'Design', tags: ['a11y'] },
 ]
@@ -14034,12 +14034,12 @@ function ProjectRoadmapRender() {
 }
 
 export const ProjectRoadmap: Story = {
-  name: 'Project Roadmap (Tailwind UI + Arco Design 벤치마크)',
+  name: 'Project Roadmap (UtilityUI + DataProductUI 벤치마크)',
   render: () => <ProjectRoadmapRender />,
 }
 
 // ============================================================
-// Template 47: SecurityCenter (Google M3 + Figma Plugin UI 벤치마크)
+// Template 47: SecurityCenter (Reference M3 + DesignTool Plugin UI 벤치마크)
 // ============================================================
 
 type SCSession = { id: string; device: string; location: string; ip: string; lastActive: string; current: boolean }
@@ -14055,7 +14055,7 @@ const SC_SESSIONS: SCSession[] = [
 
 const SC_ACTIVITIES: SCActivity[] = [
   { id: 'a1', action: '로그인 성공 (MacBook Pro)', time: '오늘 09:41', risk: 'low' },
-  { id: 'a2', action: 'API 키 생성 (Figma Token)', time: '어제 18:22', risk: 'medium' },
+  { id: 'a2', action: 'API 키 생성 (DesignTool Token)', time: '어제 18:22', risk: 'medium' },
   { id: 'a3', action: '알 수 없는 위치에서 로그인 시도', time: '3일 전 02:15', risk: 'high' },
   { id: 'a4', action: '비밀번호 변경', time: '1주일 전', risk: 'low' },
 ]
@@ -14067,7 +14067,7 @@ const SC_RISK_CFG: Record<SCActivity['risk'], { color: string; label: string }> 
 }
 
 const SC_2FA_METHODS: { key: SC2FAMethod; label: string; desc: string; enabled: boolean }[] = [
-  { key: 'authenticator', label: '인증 앱 (TOTP)', desc: 'Google Authenticator, Authy 등', enabled: true },
+  { key: 'authenticator', label: '인증 앱 (TOTP)', desc: 'Reference Authenticator, Authy 등', enabled: true },
   { key: 'sms', label: 'SMS 인증', desc: '등록된 휴대폰으로 코드 전송', enabled: true },
   { key: 'email', label: '이메일 인증', desc: '계정 이메일로 코드 전송', enabled: false },
   { key: 'hardware', label: '하드웨어 키 (FIDO2)', desc: 'YubiKey 등 물리적 보안 키', enabled: false },
@@ -14269,12 +14269,12 @@ function SecurityCenterRender() {
 }
 
 export const SecurityCenter: Story = {
-  name: 'Security Center (Google M3 + Figma Plugin UI 벤치마크)',
+  name: 'Security Center (Reference M3 + DesignTool Plugin UI 벤치마크)',
   render: () => <SecurityCenterRender />,
 }
 
 // ============================================================
-// Template 48: ContentCMS (MUI + Chakra UI 벤치마크)
+// Template 48: ContentCMS (EnterpriseUI + AccessibleUI 벤치마크)
 // ============================================================
 
 type CMSStatus = 'published' | 'draft' | 'review' | 'archived'
@@ -14563,14 +14563,14 @@ function ContentCMSRender() {
 }
 
 export const ContentCMS: Story = {
-  name: 'Content CMS (MUI + Chakra UI 벤치마크)',
+  name: 'Content CMS (EnterpriseUI + AccessibleUI 벤치마크)',
   render: () => <ContentCMSRender />,
 }
 
 
 /* ========================================================================
    Template 49: InvoiceApp
-   Mantine + Ant Design 벤치마크 — 인보이스 관리 앱 UI
+   AppUI + Ant Design 벤치마크 — 인보이스 관리 앱 UI
    컴포넌트: LabelBadge, SolidButton, OutlineButton, TextField, DataTable, Progress, Chip, Avatar
    ======================================================================== */
 type InvStatus = 'draft' | 'sent' | 'paid' | 'overdue'
@@ -14748,13 +14748,13 @@ function InvoiceAppRender() {
 }
 
 export const InvoiceApp: Story = {
-  name: 'Invoice App (Mantine + Ant Design 벤치마크)',
+  name: 'Invoice App (AppUI + Ant Design 벤치마크)',
   parameters: {
     layout: 'centered',
     docs: {
       description: {
         story:
-          'Mantine의 Stats/Progress 조합 + Ant Design의 List/Tag 패턴 결합. ' +
+          'AppUI의 Stats/Progress 조합 + Ant Design의 List/Tag 패턴 결합. ' +
           'LabelBadge, Chip 필터, Avatar, Progress, SolidButton, OutlineButton을 활용한 인보이스 관리 앱.',
       },
     },
@@ -14764,7 +14764,7 @@ export const InvoiceApp: Story = {
 
 /* ========================================================================
    Template 50: TravelBooking
-   Raycast + Notion 벤치마크 — 여행 예약 앱 UI
+   CommandPalette + WorkspaceEditor 벤치마크 — 여행 예약 앱 UI
    컴포넌트: Calendar, Slider, Chip, Avatar, Progress, SolidButton, OutlineButton, LabelBadge, CounterBadge
    ======================================================================== */
 type TBDestination = {
@@ -14984,13 +14984,13 @@ function TravelBookingRender() {
 }
 
 export const TravelBooking: Story = {
-  name: 'Travel Booking (Raycast + Notion 벤치마크)',
+  name: 'Travel Booking (CommandPalette + WorkspaceEditor 벤치마크)',
   parameters: {
     layout: 'centered',
     docs: {
       description: {
         story:
-          'Raycast의 빠른 검색/필터 UX + Notion 인라인 편집 패턴 결합. ' +
+          'CommandPalette의 빠른 검색/필터 UX + WorkspaceEditor 인라인 편집 패턴 결합. ' +
           'Chip 카테고리 필터, Slider 예산 설정, Calendar 날짜 선택, Avatar/LabelBadge/CounterBadge/Progress 조합.',
       },
     },
@@ -15000,7 +15000,7 @@ export const TravelBooking: Story = {
 
 /* ========================================================================
    Template 51: ProductCatalog
-   shadcn/ui + Vercel Design 벤치마크 — 상품 카탈로그 앱
+   ComposableUI + DeployPlatform Design 벤치마크 — 상품 카탈로그 앱
    컴포넌트: Chip, LabelBadge, SolidButton, OutlineButton, Toggle, Slider, Progress, SectionTitle, SearchBar
    ======================================================================== */
 type PCCategory = '전체' | '의류' | '전자기기' | '도서' | '스포츠'
@@ -15235,13 +15235,13 @@ function ProductCatalogRender() {
 }
 
 export const ProductCatalog: Story = {
-  name: 'Product Catalog (shadcn/ui + Vercel Design 벤치마크)',
+  name: 'Product Catalog (ComposableUI + DeployPlatform Design 벤치마크)',
   parameters: {
     layout: 'centered',
     docs: {
       description: {
         story:
-          'shadcn/ui의 카탈로그 레이아웃 + Vercel의 컴팩트 필터 패턴 결합. ' +
+          'ComposableUI의 카탈로그 레이아웃 + DeployPlatform의 컴팩트 필터 패턴 결합. ' +
           'SectionTitle, Chip, Slider, Toggle, LabelBadge, SolidButton, Divider 조합 상품 카탈로그.',
       },
     },
@@ -15249,7 +15249,7 @@ export const ProductCatalog: Story = {
   render: () => <ProductCatalogRender />,
 }
 
-// ─── Template 52: RecruitmentTracker (Tailwind UI + MUI 벤치마크) ──────────
+// ─── Template 52: RecruitmentTracker (UtilityUI + EnterpriseUI 벤치마크) ──────────
 
 type RTStage = '서류검토' | '1차면접' | '2차면접' | '최종합격' | '불합격'
 type RTCandidate = {
@@ -15373,13 +15373,13 @@ const RecruitmentTrackerRender = () => {
 }
 
 export const RecruitmentTracker: Story = {
-  name: 'Recruitment Tracker (Tailwind UI + MUI 벤치마크)',
+  name: 'Recruitment Tracker (UtilityUI + EnterpriseUI 벤치마크)',
   parameters: {
     layout: 'centered',
     docs: {
       description: {
         story:
-          'Tailwind UI의 채용 파이프라인 레이아웃 + MUI의 정렬/필터 패턴 결합. ' +
+          'UtilityUI의 채용 파이프라인 레이아웃 + EnterpriseUI의 정렬/필터 패턴 결합. ' +
           'Chip 스테이지 필터, SegmentedControl 정렬, Avatar, Progress, LabelBadge, SectionTitle, CounterBadge 조합.',
       },
     },
@@ -15388,7 +15388,7 @@ export const RecruitmentTracker: Story = {
 }
 
 
-// ─── Template 53: CourseTracker (Chakra UI + Google Material 3 벤치마크) ────
+// ─── Template 53: CourseTracker (AccessibleUI + RoleToken Design 벤치마크) ────
 
 type CTLesson = {
   id: number
@@ -15413,7 +15413,7 @@ const CT_MODULES: CTModule[] = [
     lessons: [
       { id: 1, title: '디자인 토큰이란?', duration: '12분', completed: true, locked: false },
       { id: 2, title: '3-tier 아키텍처', duration: '18분', completed: true, locked: false },
-      { id: 3, title: 'Tailwind 기초', duration: '24분', completed: false, locked: false },
+      { id: 3, title: 'UtilityCSS 기초', duration: '24분', completed: false, locked: false },
     ],
   },
   {
@@ -15447,9 +15447,9 @@ type CTTabId = 'curriculum' | 'progress' | 'resources'
 
 const CT_RESOURCES = [
   { name: 'Orbit UI 공식 문서', type: 'LINK' },
-  { name: 'Tailwind 가이드', type: 'PDF' },
-  { name: 'Figma 컴포넌트 파일', type: 'FIGMA' },
-  { name: 'GitHub 예제 코드', type: 'CODE' },
+  { name: 'UtilityCSS 가이드', type: 'PDF' },
+  { name: 'DesignTool 컴포넌트 파일', type: 'DESIGN' },
+  { name: 'CodeHost 예제 코드', type: 'CODE' },
   { name: 'Storybook 데모', type: 'DEMO' },
 ]
 
@@ -15585,7 +15585,7 @@ const CourseTrackerRender = () => {
           <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
             {CT_RESOURCES.map((res, i) => (
               <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 16px', borderRadius: 10, border: '1px solid #e2e8f0', background: '#fff' }}>
-                <LabelBadge color={res.type === 'PDF' ? 'sale' : res.type === 'FIGMA' ? 'benefit' : 'gray'}>
+                <LabelBadge color={res.type === 'PDF' ? 'sale' : res.type === 'DESIGN' ? 'benefit' : 'gray'}>
                   <LabelBadge.Label>{res.type}</LabelBadge.Label>
                 </LabelBadge>
                 <span style={{ fontSize: 13, color: '#334155', fontWeight: 500 }}>{res.name}</span>
@@ -15599,13 +15599,13 @@ const CourseTrackerRender = () => {
 }
 
 export const CourseTracker: Story = {
-  name: 'Course Tracker (Chakra UI + Google Material 3 벤치마크)',
+  name: 'Course Tracker (AccessibleUI + RoleToken Design 벤치마크)',
   parameters: {
     layout: 'centered',
     docs: {
       description: {
         story:
-          'Chakra UI의 탭 + 진도 패턴 + Google Material 3의 색상 역할 시스템 결합. ' +
+          'AccessibleUI의 탭 + 진도 패턴 + RoleToken Design의 색상 역할 시스템 결합. ' +
           'FixedTabs(커리큘럼/진도/자료), BoxedCheckbox 레슨 완료 체크, Progress 모듈별 진도, LabelBadge 리소스 타입.',
       },
     },
@@ -15613,7 +15613,7 @@ export const CourseTracker: Story = {
   render: () => <CourseTrackerRender />,
 }
 
-// ─── Template 54: PluginMarketplace (Linear Design + Figma Plugin UI 벤치마크) ─
+// ─── Template 54: PluginMarketplace (IssueTracker Design + DesignTool Plugin UI 벤치마크) ─
 
 type PMCategory = '전체' | '생산성' | '디자인' | '개발' | '협업'
 type PMPlugin = {
@@ -15799,13 +15799,13 @@ const PluginMarketplaceRender = () => {
 }
 
 export const PluginMarketplace: Story = {
-  name: 'Plugin Marketplace (Linear Design + Figma Plugin UI 벤치마크)',
+  name: 'Plugin Marketplace (IssueTracker Design + DesignTool Plugin UI 벤치마크)',
   parameters: {
     layout: 'centered',
     docs: {
       description: {
         story:
-          'Linear의 컴팩트 리스트 레이아웃 + Figma Plugin UI의 마켓플레이스 패턴 결합. ' +
+          'IssueTracker의 컴팩트 리스트 레이아웃 + DesignTool Plugin UI의 마켓플레이스 패턴 결합. ' +
           'TextField 검색, Chip 카테고리, Avatar, LabelBadge, SolidButton 설치/제거, Progress 평점, Divider 조합.',
       },
     },
@@ -15813,7 +15813,7 @@ export const PluginMarketplace: Story = {
   render: () => <PluginMarketplaceRender />,
 }
 
-// ─── Template 55: FormBuilder (Radix UI + Ant Design 벤치마크) ───────────────
+// ─── Template 55: FormBuilder (PrimitiveUI + Ant Design 벤치마크) ───────────────
 
 type FBFieldType = 'text' | 'select' | 'toggle' | 'number' | 'textarea'
 type FBField = {
@@ -15999,13 +15999,13 @@ const FormBuilderRender = () => {
 }
 
 export const FormBuilder: Story = {
-  name: 'Form Builder (Radix UI + Ant Design 벤치마크)',
+  name: 'Form Builder (PrimitiveUI + Ant Design 벤치마크)',
   parameters: {
     layout: 'centered',
     docs: {
       description: {
         story:
-          'Radix UI의 비제어/제어 폼 패턴 + Ant Design Steps 스텝 위저드 결합. ' +
+          'PrimitiveUI의 비제어/제어 폼 패턴 + Ant Design Steps 스텝 위저드 결합. ' +
           'SectionTitle + PageNumber 진행 표시, TextField/Chip/Toggle 다양한 필드 타입, Progress 완료율, LabelBadge 플랜 확인.',
       },
     },
@@ -16015,7 +16015,7 @@ export const FormBuilder: Story = {
 
 /* ==========================================================================
    Template #56: FeedbackBoard — 사용자 피드백 & 기능 투표 보드
-   shadcn/ui + Vercel Design 벤치마크 기반
+   ComposableUI + DeployPlatform Design 벤치마크 기반
    ========================================================================== */
 type FBStatus = 'planned' | 'in-progress' | 'done' | 'declined'
 type FBCategory = 'all' | 'feature' | 'bug' | 'improvement'
@@ -16032,9 +16032,9 @@ type FeedbackItem = {
 }
 
 const INITIAL_FEEDBACK: FeedbackItem[] = [
-  { id: 1, title: '다크 모드 지원 추가', desc: 'shadcn/ui처럼 시스템 테마를 자동으로 감지하는 다크 모드를 지원해 주세요.', votes: 142, status: 'planned', category: 'feature', comments: 18, voted: false },
+  { id: 1, title: '다크 모드 지원 추가', desc: 'ComposableUI처럼 시스템 테마를 자동으로 감지하는 다크 모드를 지원해 주세요.', votes: 142, status: 'planned', category: 'feature', comments: 18, voted: false },
   { id: 2, title: 'Popover 포지션 자동 감지', desc: '화면 끝에서 자동으로 방향을 전환하는 스마트 포지셔닝이 필요합니다.', votes: 98, status: 'in-progress', category: 'improvement', comments: 11, voted: true },
-  { id: 3, title: 'DatePicker 컴포넌트', desc: '달력 기반 날짜 선택 컴포넌트가 없습니다. Radix Popover + Calendar 조합으로 구현해 주세요.', votes: 215, status: 'planned', category: 'feature', comments: 34, voted: false },
+  { id: 3, title: 'DatePicker 컴포넌트', desc: '달력 기반 날짜 선택 컴포넌트가 없습니다. Primitive Popover + Calendar 조합으로 구현해 주세요.', votes: 215, status: 'planned', category: 'feature', comments: 34, voted: false },
   { id: 4, title: 'TextField 자동완성 드롭다운', desc: '입력 중 제안 목록이 표시되는 Combobox 패턴을 지원해 주세요.', votes: 76, status: 'done', category: 'feature', comments: 7, voted: false },
   { id: 5, title: 'Toast 큐 겹침 현상', desc: '동시에 여러 Toast가 표시될 때 겹치는 버그가 있습니다.', votes: 54, status: 'done', category: 'bug', comments: 5, voted: true },
   { id: 6, title: 'RTL 레이아웃 지원', desc: '아랍어, 히브리어 등 우->좌 언어를 위한 RTL 레이아웃이 필요합니다.', votes: 31, status: 'declined', category: 'feature', comments: 9, voted: false },
@@ -16296,12 +16296,12 @@ const FeedbackBoardRender = () => {
 }
 
 export const FeedbackBoard: Story = {
-  name: '피드백 보드 (shadcn/ui + Vercel 패턴)',
+  name: '피드백 보드 (ComposableUI + DeployPlatform 패턴)',
   parameters: {
     layout: 'fullscreen',
     docs: {
       description: {
-        story: 'shadcn/ui Sheet + Vercel Design 패턴 기반 사용자 피드백 & 기능 투표 보드. Drawer로 피드백 제출, PageDots로 페이지 인디케이터, 카테고리 필터 사이드바 포함.',
+        story: 'ComposableUI Sheet + DeployPlatform Design 패턴 기반 사용자 피드백 & 기능 투표 보드. Drawer로 피드백 제출, PageDots로 페이지 인디케이터, 카테고리 필터 사이드바 포함.',
       },
     },
   },
@@ -16310,7 +16310,7 @@ export const FeedbackBoard: Story = {
 
 /* ==========================================================================
    Template #57: InventoryManager — 재고 관리 대시보드
-   Mantine + Arco Design 벤치마크 기반
+   AppUI + DataProductUI 벤치마크 기반
    ========================================================================== */
 type StockStatus = 'in-stock' | 'low' | 'out'
 type StockCategory = 'all' | 'electronics' | 'furniture' | 'stationery'
@@ -16498,12 +16498,12 @@ const InventoryManagerRender = () => {
 }
 
 export const InventoryManager: Story = {
-  name: '재고 관리 대시보드 (Mantine + Arco Design 패턴)',
+  name: '재고 관리 대시보드 (AppUI + DataProductUI 패턴)',
   parameters: {
     layout: 'fullscreen',
     docs: {
       description: {
-        story: 'Mantine Table + Arco Design 필터 패턴 기반 재고 관리 대시보드. 카테고리 탭 필터, 이름/재고/가격 정렬, 재고 상태 시각화(바 차트), 요약 통계 카드 포함.',
+        story: 'AppUI Table + DataProductUI 필터 패턴 기반 재고 관리 대시보드. 카테고리 탭 필터, 이름/재고/가격 정렬, 재고 상태 시각화(바 차트), 요약 통계 카드 포함.',
       },
     },
   },
@@ -16512,7 +16512,7 @@ export const InventoryManager: Story = {
 
 /* ==========================================================================
    Template #58: KnowledgeBase — 지식 베이스 & 위키 뷰어
-   Raycast Extensions + Notion Design 벤치마크 기반
+   CommandPalette Extensions + WorkspaceEditor Design 벤치마크 기반
    ========================================================================== */
 type KBCategory = 'all' | 'guides' | 'api' | 'faq'
 
@@ -16535,7 +16535,7 @@ const KB_ARTICLES: KBArticle[] = [
   { id: 5, title: '다크 모드 전환', excerpt: 'data-theme 속성으로 런타임에 라이트/다크 테마를 전환하는 방법과 주의사항을 설명합니다.', category: 'guides', views: 1034, updated: '2026-04-07', tags: ['Theme', 'Dark Mode'], pinned: true },
   { id: 6, title: 'Storybook 스토리 작성법', excerpt: 'autodocs, parameters.docs, render 함수로 풍부한 Storybook 문서를 작성하는 모범 사례입니다.', category: 'guides', views: 723, updated: '2026-04-04', tags: ['Storybook', 'Docs'] },
   { id: 7, title: 'Toast vs Popover — 언제 무엇을?', excerpt: '인터랙션 유형에 따라 Toast, Popover, Modal 중 어떤 컴포넌트를 선택해야 하는지 결정 트리입니다.', category: 'faq', views: 891, updated: '2026-04-02', tags: ['UX', 'Components'] },
-  { id: 8, title: '커스텀 테마 만들기', excerpt: 'Tailwind와 CSS 변수를 활용해 브랜드 토큰을 적용하는 완전 가이드입니다.', category: 'guides', views: 567, updated: '2026-04-01', tags: ['Theme', 'Tokens'] },
+  { id: 8, title: '커스텀 테마 만들기', excerpt: 'UtilityCSS와 CSS 변수를 활용해 브랜드 토큰을 적용하는 완전 가이드입니다.', category: 'guides', views: 567, updated: '2026-04-01', tags: ['Theme', 'Tokens'] },
 ]
 
 const KB_CAT_LABELS: Record<KBCategory, string> = {
@@ -16746,12 +16746,12 @@ const KnowledgeBaseRender = () => {
 }
 
 export const KnowledgeBase: Story = {
-  name: '지식 베이스 & 위키 (Raycast + Notion 패턴)',
+  name: '지식 베이스 & 위키 (CommandPalette + WorkspaceEditor 패턴)',
   parameters: {
     layout: 'fullscreen',
     docs: {
       description: {
-        story: 'Raycast 검색 패턴 + Notion 문서 구조를 결합한 지식 베이스 뷰어. 카테고리 사이드바, 태그 필터, 아티클 카드 그리드, 상세 뷰 + ScrollableTabGroup 하단 탭.',
+        story: 'CommandPalette 검색 패턴 + WorkspaceEditor 문서 구조를 결합한 지식 베이스 뷰어. 카테고리 사이드바, 태그 필터, 아티클 카드 그리드, 상세 뷰 + ScrollableTabGroup 하단 탭.',
       },
     },
   },
@@ -16760,7 +16760,7 @@ export const KnowledgeBase: Story = {
 
 /* ==========================================================================
    Template #59: HabitTracker — 습관 추적 & 목표 관리 대시보드
-   Linear Design + Google Material 3 벤치마크 기반
+   IssueTracker Design + RoleToken Design 벤치마크 기반
    ========================================================================== */
 type HabitFreq = 'daily' | 'weekly'
 type HabitStatus = 'active' | 'paused'
@@ -16972,7 +16972,7 @@ const HabitTrackerRender = () => {
                     </div>
                   </div>
                 </div>
-                {/* Linear 스타일 구분선 (마지막 제외) */}
+                {/* IssueTracker 스타일 구분선 (마지막 제외) */}
                 {idx < filtered.length - 1 && (
                   <div style={{ height: 1, background: 'transparent', margin: '0 20px' }} />
                 )}
@@ -16993,12 +16993,12 @@ const HabitTrackerRender = () => {
 }
 
 export const HabitTracker: Story = {
-  name: '습관 트래커 & 목표 관리 (Linear + M3 패턴)',
+  name: '습관 트래커 & 목표 관리 (IssueTracker + M3 패턴)',
   parameters: {
     layout: 'fullscreen',
     docs: {
       description: {
-        story: 'Linear 상태 관리 패턴 + Material 3 진행률 시각화 기반 습관 추적 대시보드. 완료 토글, 주간 히트맵, 연속 달성일, Progress 바, PageDots 인디케이터 포함.',
+        story: 'IssueTracker 상태 관리 패턴 + RoleToken Design 진행률 시각화 기반 습관 추적 대시보드. 완료 토글, 주간 히트맵, 연속 달성일, Progress 바, PageDots 인디케이터 포함.',
       },
     },
   },
@@ -17007,7 +17007,7 @@ export const HabitTracker: Story = {
 
 /* ==========================================================================
    Template #60 — NotificationCenter (알림 센터)
-   Tailwind UI + Ant Design 패턴: 읽음/안읽음 관리, 카테고리 필터, 일괄 액션
+   UtilityUI + Ant Design 패턴: 읽음/안읽음 관리, 카테고리 필터, 일괄 액션
    ========================================================================== */
 type NotiType = 'info' | 'success' | 'warning' | 'mention'
 type NotiCategory = 'all' | 'system' | 'team' | 'updates'
@@ -17149,13 +17149,13 @@ const NotiCenterRender = () => {
   )
 }
 
-export const TailwindNotificationCenter: Story = {
-  name: '알림 센터 (Tailwind UI + Ant Design 패턴)',
+export const UtilityCSSNotificationCenter: Story = {
+  name: '알림 센터 (UtilityUI + Ant Design 패턴)',
   parameters: {
     layout: 'fullscreen',
     docs: {
       description: {
-        story: 'Tailwind UI 알림 목록 패턴 + Ant Design 배지 카운트/일괄 액션 조합. 카테고리 탭 필터, 읽음/안읽음 토글, 개별 삭제, 모두 읽음 처리, Progress 바 진행률 포함.',
+        story: 'UtilityUI 알림 목록 패턴 + Ant Design 배지 카운트/일괄 액션 조합. 카테고리 탭 필터, 읽음/안읽음 토글, 개별 삭제, 모두 읽음 처리, Progress 바 진행률 포함.',
       },
     },
   },
@@ -17164,7 +17164,7 @@ export const TailwindNotificationCenter: Story = {
 
 /* ==========================================================================
    Template #61 — OnboardingFlow (온보딩 플로우)
-   Radix UI + Chakra UI 패턴: 단계별 진행, 역할 선택, 완료 화면
+   PrimitiveUI + AccessibleUI 패턴: 단계별 진행, 역할 선택, 완료 화면
    ========================================================================== */
 type OBRole = 'designer' | 'developer' | 'pm' | 'other'
 type OBStep = 0 | 1 | 2 | 3
@@ -17180,7 +17180,7 @@ const OB_GOALS = ['더 빠른 UI 개발', '일관된 디자인 시스템', '팀 
 
 const OB_STEPS = ['환영', '역할 선택', '목표 설정', '완료']
 
-const RadixOnboardingRender = () => {
+const PrimitiveOnboardingRender = () => {
   const [step, setStep] = React.useState<OBStep>(0)
   const [role, setRole] = React.useState<OBRole | null>(null)
   const [goals, setGoals] = React.useState<string[]>([])
@@ -17317,22 +17317,22 @@ const RadixOnboardingRender = () => {
   )
 }
 
-export const RadixChakraOnboarding: Story = {
-  name: '온보딩 플로우 (Radix UI + Chakra UI 패턴)',
+export const PrimitiveAccessibleOnboarding: Story = {
+  name: '온보딩 플로우 (PrimitiveUI + AccessibleUI 패턴)',
   parameters: {
     layout: 'fullscreen',
     docs: {
       description: {
-        story: 'Radix UI 단계 관리 + Chakra UI 단순 props 패턴 조합. 4단계 온보딩: 이름 입력 → 역할 선택 → 목표 설정(복수 선택) → 완료. Progress 바, SegmentedControl 테마 설정 포함.',
+        story: 'PrimitiveUI 단계 관리 + AccessibleUI 단순 props 패턴 조합. 4단계 온보딩: 이름 입력 → 역할 선택 → 목표 설정(복수 선택) → 완료. Progress 바, SegmentedControl 테마 설정 포함.',
       },
     },
   },
-  render: () => <RadixOnboardingRender />,
+  render: () => <PrimitiveOnboardingRender />,
 }
 
 /* ==========================================================================
    Template #62 — TeamSettings (팀 설정 대시보드)
-   MUI + Figma Plugin UI 패턴: Switch 그룹, CounterBadge, 멤버 관리
+   EnterpriseUI + DesignTool Plugin UI 패턴: Switch 그룹, CounterBadge, 멤버 관리
    ========================================================================== */
 type TSRole = 'owner' | 'admin' | 'member' | 'viewer'
 type TSMember = {
@@ -17504,19 +17504,19 @@ const TeamSettingsRender = () => {
 }
 
 export const TeamSettings: Story = {
-  name: '팀 설정 대시보드 (MUI + Figma Plugin UI 패턴)',
+  name: '팀 설정 대시보드 (EnterpriseUI + DesignTool Plugin UI 패턴)',
   parameters: {
     layout: 'fullscreen',
     docs: {
       description: {
-        story: 'MUI FormControlLabel Switch 그룹 + CounterBadge 탭/역할 카운트 + Figma 컴팩트 레이아웃 패턴. 멤버별 알림 토글, 역할 배지, 설정 그룹 활성 카운트, 검색 필터 포함.',
+        story: 'EnterpriseUI FormControlLabel Switch 그룹 + CounterBadge 탭/역할 카운트 + DesignTool 컴팩트 레이아웃 패턴. 멤버별 알림 토글, 역할 배지, 설정 그룹 활성 카운트, 검색 필터 포함.',
       },
     },
   },
   render: () => <TeamSettingsRender />,
 }
 
-// --- Cycle 73: Mantine + Raycast 벤치마크 — Template #63 ---
+// --- Cycle 73: AppUI + CommandPalette 벤치마크 — Template #63 ---
 
 type CPWorkspace = {
   id: string
@@ -17830,19 +17830,19 @@ const CommandCenterRender = () => {
 }
 
 export const CommandCenter: Story = {
-  name: '커맨드 센터 (Mantine + Raycast 패턴)',
+  name: '커맨드 센터 (AppUI + CommandPalette 패턴)',
   parameters: {
     layout: 'fullscreen',
     docs: {
       description: {
-        story: 'Mantine Spotlight + Raycast Extension 패턴 조합 템플릿. Command 팔레트로 워크스페이스 전환 및 빠른 작업 실행, Toggle로 기능 플래그 관리, Breadcrumb 네비게이션 포함.',
+        story: 'AppUI Spotlight + CommandPalette Extension 패턴 조합 템플릿. Command 팔레트로 워크스페이스 전환 및 빠른 작업 실행, Toggle로 기능 플래그 관리, Breadcrumb 네비게이션 포함.',
       },
     },
   },
   render: () => <CommandCenterRender />,
 }
 
-// --- Cycle 74: Arco Design + Linear 벤치마크 — Template #64 ---
+// --- Cycle 74: DataProductUI + IssueTracker 벤치마크 — Template #64 ---
 
 type CBCategory = 'all' | 'inputs' | 'display' | 'feedback' | 'navigation' | 'layout'
 type CBStatus = 'stable' | 'beta' | 'deprecated'
@@ -18094,19 +18094,19 @@ const ComponentBrowserRender = () => {
 }
 
 export const ComponentBrowser: Story = {
-  name: '컴포넌트 브라우저 (Arco + Linear 패턴)',
+  name: '컴포넌트 브라우저 (DataProduct + IssueTracker 패턴)',
   parameters: {
     layout: 'fullscreen',
     docs: {
       description: {
-        story: 'Arco Design 전역 검색 + Linear 문서 타이포그래피 패턴 조합 템플릿. SearchBar 검색 필터, Text 계층 적용, Chip 태그, LabelBadge 상태, SectionTitle + Breadcrumb 네비게이션 포함.',
+        story: 'DataProductUI 전역 검색 + IssueTracker 문서 타이포그래피 패턴 조합 템플릿. SearchBar 검색 필터, Text 계층 적용, Chip 태그, LabelBadge 상태, SectionTitle + Breadcrumb 네비게이션 포함.',
       },
     },
   },
   render: () => <ComponentBrowserRender />,
 }
 
-// --- Cycle 75: shadcn/ui + Vercel Design 벤치마크 — Template #65 ---
+// --- Cycle 75: ComposableUI + DeployPlatform Design 벤치마크 — Template #65 ---
 
 type RMVersion = {
   id: string
@@ -18394,12 +18394,12 @@ const ReleaseManagerRender = () => {
 }
 
 export const ReleaseManager: Story = {
-  name: '릴리즈 관리자 (shadcn + Vercel 패턴)',
+  name: '릴리즈 관리자 (ComposableUI + DeployPlatform 패턴)',
   parameters: {
     layout: 'fullscreen',
     docs: {
       description: {
-        story: 'shadcn/ui Stepper + Vercel Dashboard 패턴 조합. PageIndicator로 버전/파이프라인 단계 표시, Accordion으로 Changelog, Slider로 릴리즈 신뢰도, Breadcrumb 네비게이션 포함.',
+        story: 'ComposableUI Stepper + DeployPlatform Dashboard 패턴 조합. PageIndicator로 버전/파이프라인 단계 표시, Accordion으로 Changelog, Slider로 릴리즈 신뢰도, Breadcrumb 네비게이션 포함.',
       },
     },
   },
@@ -18407,8 +18407,8 @@ export const ReleaseManager: Story = {
 }
 
 /* ═══════════════════════════════════════════
-   66. Sales Dashboard (Tailwind UI + Ant Design 패턴)
-   Tailwind UI의 stacked list + summary 패턴과 Ant Design의
+   66. Sales Dashboard (UtilityUI + Ant Design 패턴)
+   UtilityUI의 stacked list + summary 패턴과 Ant Design의
    엔터프라이즈 데이터 밀도를 결합한 매출 대시보드 템플릿.
    DataTable, Progress, LabelBadge, SectionTitle, Breadcrumb 활용.
    ═══════════════════════════════════════════ */
@@ -18676,8 +18676,8 @@ const SalesDashboardRender = () => {
 }
 
 /* ═══════════════════════════════════════════
-   67. Account Settings (Radix UI + MUI 패턴)
-   Radix의 비제어 컴포넌트 + MUI의 color prop 시스템을 조합한 계정 설정 페이지.
+   67. Account Settings (PrimitiveUI + EnterpriseUI 패턴)
+   Primitive의 비제어 컴포넌트 + EnterpriseUI의 color prop 시스템을 조합한 계정 설정 페이지.
    Avatar, Switch, RadioButton, TextField, TextArea, LabelBadge, Breadcrumb 활용.
    ═══════════════════════════════════════════ */
 type UPTab = 'profile' | 'security' | 'notifications' | 'billing'
@@ -18847,7 +18847,7 @@ const AccountSettingsRender = () => {
             <div style={{ padding: '18px 24px', borderBottom: `1px solid ${tc.border}` }}>
               <SectionTitle>알림 설정</SectionTitle>
               <div style={{ fontSize: 12, color: tc.fgMuted, marginTop: 4 }}>
-                수신할 알림 종류를 선택하세요. Radix UI WAI-ARIA Switch 패턴 적용.
+                수신할 알림 종류를 선택하세요. PrimitiveUI WAI-ARIA Switch 패턴 적용.
               </div>
             </div>
             {[
@@ -18942,13 +18942,13 @@ const AccountSettingsRender = () => {
 }
 
 export const AccountSettings: Story = {
-  name: '계정 설정 (Radix UI + MUI 패턴)',
+  name: '계정 설정 (PrimitiveUI + EnterpriseUI 패턴)',
   parameters: {
     layout: 'fullscreen',
     docs: {
       description: {
         story:
-          'Radix UI 비제어 컴포넌트 + MUI color prop 패턴을 조합한 계정 설정 페이지. ' +
+          'PrimitiveUI 비제어 컴포넌트 + EnterpriseUI color prop 패턴을 조합한 계정 설정 페이지. ' +
           '탭 기반 내비게이션(프로필/보안/알림/플랜), Switch, TextField, LabelBadge, Breadcrumb 조합.',
       },
     },
@@ -18957,13 +18957,13 @@ export const AccountSettings: Story = {
 }
 
 export const SalesDashboard: Story = {
-  name: '매출 대시보드 (Tailwind UI + Ant Design 패턴)',
+  name: '매출 대시보드 (UtilityUI + Ant Design 패턴)',
   parameters: {
     layout: 'fullscreen',
     docs: {
       description: {
         story:
-          'Tailwind UI 요약 통계 행 패턴 + Ant Design 엔터프라이즈 데이터 밀도를 결합한 매출 대시보드. ' +
+          'UtilityUI 요약 통계 행 패턴 + Ant Design 엔터프라이즈 데이터 밀도를 결합한 매출 대시보드. ' +
           'DataTable 대신 native table + Progress로 목표 달성률 시각화. KPI 카드, 채널별 매출 분석, LabelBadge, Breadcrumb 포함.',
       },
     },
@@ -18972,8 +18972,8 @@ export const SalesDashboard: Story = {
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   68. DesignTokenBrowser (사이클 79 — shadcn/ui 벤치마크)
-   shadcn/ui 스타일 선택 필터 + 토큰 카드 그리드.
+   68. DesignTokenBrowser (사이클 79 — ComposableUI 벤치마크)
+   ComposableUI 스타일 선택 필터 + 토큰 카드 그리드.
    Slider / Switch / TextField / LabelBadge / Progress / Tooltip 활용.
    ═══════════════════════════════════════════════════════════════════════════ */
 
@@ -19292,13 +19292,13 @@ const DesignTokenBrowserRender: React.FC = () => {
 }
 
 export const DesignTokenBrowser: Story = {
-  name: '디자인 토큰 브라우저 (shadcn/ui 벤치마크)',
+  name: '디자인 토큰 브라우저 (ComposableUI 벤치마크)',
   parameters: {
     layout: 'fullscreen',
     docs: {
       description: {
         story:
-          'shadcn/ui 필터 선택 패턴 + 카드 그리드를 적용한 디자인 토큰 탐색 도구. ' +
+          'ComposableUI 필터 선택 패턴 + 카드 그리드를 적용한 디자인 토큰 탐색 도구. ' +
           'Slider(크기 조절), Switch(값 표시), TextField(검색), Progress(사용 빈도), Tooltip, LabelBadge 조합.',
       },
     },
@@ -19307,8 +19307,8 @@ export const DesignTokenBrowser: Story = {
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   69. AuditLog (사이클 80 — Linear Design 벤치마크)
-   Linear 밀도 패턴: 컴팩트 행, 타입별 LabelBadge, Avatar, Chip 필터.
+   69. AuditLog (사이클 80 — IssueTracker Design 벤치마크)
+   IssueTracker 밀도 패턴: 컴팩트 행, 타입별 LabelBadge, Avatar, Chip 필터.
    DataTable 대신 native table로 고밀도 구현. TextField / Breadcrumb 조합.
    ═══════════════════════════════════════════════════════════════════════════ */
 
@@ -19327,9 +19327,9 @@ interface AuditEvent {
 }
 
 const AUDIT_EVENTS: AuditEvent[] = [
-  { id: 'ae-001', type: 'login', actor: '김민준', initials: 'KM', target: '계정', detail: 'Google SSO로 로그인', ip: '211.45.123.1', time: '2026-04-10 15:42:11', ago: '방금 전' },
+  { id: 'ae-001', type: 'login', actor: '김민준', initials: 'KM', target: '계정', detail: 'Reference SSO로 로그인', ip: '211.45.123.1', time: '2026-04-10 15:42:11', ago: '방금 전' },
   { id: 'ae-002', type: 'update', actor: '이서연', initials: 'LS', target: 'Button 컴포넌트', detail: 'primary variant 색상 토큰 변경', ip: '192.168.0.14', time: '2026-04-10 15:38:02', ago: '4분 전' },
-  { id: 'ae-003', type: 'create', actor: '박지호', initials: 'PJ', target: 'TextField 스토리', detail: 'Radix 실시간 유효성 검사 스토리 추가', ip: '10.0.0.8', time: '2026-04-10 15:22:45', ago: '19분 전' },
+  { id: 'ae-003', type: 'create', actor: '박지호', initials: 'PJ', target: 'TextField 스토리', detail: 'Primitive 실시간 유효성 검사 스토리 추가', ip: '10.0.0.8', time: '2026-04-10 15:22:45', ago: '19분 전' },
   { id: 'ae-004', type: 'export', actor: '김민준', initials: 'KM', target: '디자인 토큰', detail: 'CSS 변수 전체 내보내기 (127개)', ip: '211.45.123.1', time: '2026-04-10 15:10:30', ago: '31분 전' },
   { id: 'ae-005', type: 'invite', actor: '이서연', initials: 'LS', target: '최수빈', detail: '팀에 뷰어 역할로 초대', ip: '192.168.0.14', time: '2026-04-10 14:55:18', ago: '47분 전' },
   { id: 'ae-006', type: 'permission', actor: '박지호', initials: 'PJ', target: '최수빈', detail: '역할 변경: 뷰어 → 편집자', ip: '10.0.0.8', time: '2026-04-10 14:40:05', ago: '62분 전' },
@@ -19439,7 +19439,7 @@ const AuditLogRender: React.FC = () => {
             </div>
           </div>
 
-          {/* Table — Linear density: 36px rows */}
+          {/* Table — IssueTracker density: 36px rows */}
           <div style={{ flex: 1, overflowY: 'auto' }}>
             <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13 }}>
               <thead>
@@ -19568,13 +19568,13 @@ const AuditLogRender: React.FC = () => {
 }
 
 export const AuditLog: Story = {
-  name: '감사 로그 (Linear Design 벤치마크)',
+  name: '감사 로그 (IssueTracker Design 벤치마크)',
   parameters: {
     layout: 'fullscreen',
     docs: {
       description: {
         story:
-          'Linear의 고밀도 테이블 패턴(행 높이 36px)을 적용한 보안 감사 로그 뷰어. ' +
+          'IssueTracker의 고밀도 테이블 패턴(행 높이 36px)을 적용한 보안 감사 로그 뷰어. ' +
           'Breadcrumb, TextField(검색), LabelBadge(이벤트 타입), Avatar, Tooltip(시각 상세), 슬라이드인 상세 패널 조합.',
       },
     },
@@ -19583,8 +19583,8 @@ export const AuditLog: Story = {
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   70. DomainManager (사이클 81 — Vercel Design 벤치마크)
-   Vercel 도메인 관리 UI 패턴: 도메인 추가, DNS 전파 상태, Switch 토글.
+   70. DomainManager (사이클 81 — DeployPlatform Design 벤치마크)
+   DeployPlatform 도메인 관리 UI 패턴: 도메인 추가, DNS 전파 상태, Switch 토글.
    TextField / Switch / LabelBadge / Progress / SolidButton / OutlineButton 활용.
    ═══════════════════════════════════════════════════════════════════════════ */
 
@@ -19776,7 +19776,7 @@ const DomainManagerRender: React.FC = () => {
                         <tr>
                           <td style={{ padding: '6px 8px', color: tc.fillPrimary }}>CNAME</td>
                           <td style={{ padding: '6px 8px', color: tc.fg }}>{domain.domain}</td>
-                          <td style={{ padding: '6px 8px', color: tc.fgSub }}>cname.vercel-dns.com</td>
+                          <td style={{ padding: '6px 8px', color: tc.fgSub }}>cname.deploy-dns.example.com</td>
                           <td style={{ padding: '6px 8px', color: tc.fgMuted }}>60s</td>
                         </tr>
                         <tr>
@@ -19841,13 +19841,13 @@ const DomainManagerRender: React.FC = () => {
 }
 
 export const DomainManager: Story = {
-  name: '도메인 관리 (Vercel Design 벤치마크)',
+  name: '도메인 관리 (DeployPlatform Design 벤치마크)',
   parameters: {
     layout: 'fullscreen',
     docs: {
       description: {
         story:
-          'Vercel 도메인 관리 UI 패턴. 두 단계 상태 토큰(semantic → component) 철학 반영. ' +
+          'DeployPlatform 도메인 관리 UI 패턴. 두 단계 상태 토큰(semantic → component) 철학 반영. ' +
           'Switch(활성화), Progress(DNS 전파), LabelBadge(상태), TextField(도메인 입력), 펼침형 DNS 레코드 패널 조합.',
       },
     },
@@ -19856,8 +19856,8 @@ export const DomainManager: Story = {
 }
 
 /* ══════════════════════════════════════════════════════════════════════════
-   Template #71 — TaskBoard (Mantine 벤치마크)
-   Mantine의 핵심 패턴을 Orbit UI로 구현한 태스크 보드:
+   Template #71 — TaskBoard (AppUI 벤치마크)
+   AppUI의 핵심 패턴을 Orbit UI로 구현한 태스크 보드:
    · useToggle  → SegmentedControl 뷰 모드 순환 (list/grid/board)
    · useCounter → 우선순위 증감 (increment/decrement/reset)
    · useListState → 필터 태그 추가/제거 (append/remove)
@@ -19879,12 +19879,12 @@ interface Task {
 
 const INITIAL_TASKS: Task[] = [
   { id: 't1', title: '디자인 토큰 3단계 시스템 구축', status: 'done', priority: 3, assignee: '김철수', tags: ['tokens', 'design'], progress: 100 },
-  { id: 't2', title: 'SegmentedControl useToggle 통합', status: 'in_progress', priority: 2, assignee: '이영희', tags: ['component', 'mantine'], progress: 65 },
+  { id: 't2', title: 'SegmentedControl useToggle 통합', status: 'in_progress', priority: 2, assignee: '이영희', tags: ['component', 'accessibleKit'], progress: 65 },
   { id: 't3', title: 'useCounter 페이지네이션 패턴', status: 'review', priority: 1, assignee: '박민준', tags: ['hooks', 'ux'], progress: 90 },
   { id: 't4', title: 'useDisclosure 모달 시스템', status: 'todo', priority: 2, assignee: '최수진', tags: ['component', 'a11y'], progress: 0 },
   { id: 't5', title: 'useListState 필터 파이프라인', status: 'in_progress', priority: 1, assignee: '정도현', tags: ['state', 'filter'], progress: 40 },
   { id: 't6', title: 'Storybook 8 마이그레이션', status: 'todo', priority: 0, assignee: '김철수', tags: ['infra', 'dx'], progress: 0 },
-  { id: 't7', title: 'Tailwind 토큰 최적화', status: 'in_progress', priority: 2, assignee: '이영희', tags: ['styling', 'perf'], progress: 55 },
+  { id: 't7', title: 'UtilityCSS 토큰 최적화', status: 'in_progress', priority: 2, assignee: '이영희', tags: ['styling', 'perf'], progress: 55 },
   { id: 't8', title: 'TipTap 에디터 컴포넌트', status: 'done', priority: 1, assignee: '박민준', tags: ['editor', 'oss'], progress: 100 },
 ]
 
@@ -20000,7 +20000,7 @@ const TaskBoardRender = () => {
       {/* Header */}
       <div style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 20px', borderBottom: '1px solid var(--sem-eclipse-color-borderSubtle)', flexShrink: 0 }}>
         <span style={{ fontSize: 16, fontWeight: 800, color: 'var(--sem-eclipse-color-foregroundPrimary)', letterSpacing: '-0.02em' }}>TaskBoard</span>
-        <span style={{ fontSize: 11, padding: '2px 8px', borderRadius: 10, background: 'var(--sem-eclipse-color-backgroundSecondary)', color: 'var(--sem-eclipse-color-foregroundTertiary)', fontWeight: 600 }}>Mantine 패턴</span>
+        <span style={{ fontSize: 11, padding: '2px 8px', borderRadius: 10, background: 'var(--sem-eclipse-color-backgroundSecondary)', color: 'var(--sem-eclipse-color-foregroundTertiary)', fontWeight: 600 }}>AppUI 패턴</span>
         <div style={{ flex: 1 }} />
         <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
           <TextField
@@ -20165,13 +20165,13 @@ const TaskBoardRender = () => {
 }
 
 export const TaskBoard: Story = {
-  name: '태스크 보드 (Mantine 벤치마크)',
+  name: '태스크 보드 (AppUI 벤치마크)',
   parameters: {
     layout: 'fullscreen',
     docs: {
       description: {
         story:
-          'Mantine의 핵심 훅 패턴을 Orbit UI로 구현한 태스크 관리 보드. ' +
+          'AppUI의 핵심 훅 패턴을 Orbit UI로 구현한 태스크 관리 보드. ' +
           'useToggle(뷰 모드 순환), useCounter(우선순위 증감), useListState(필터 태그), useDisclosure(상세 패널) ' +
           '네 가지 이산 핸들러 패턴이 SegmentedControl, OutlineButton, Progress, TextField와 통합됩니다.',
       },
@@ -20181,8 +20181,8 @@ export const TaskBoard: Story = {
 }
 
 /* ══════════════════════════════════════════════════════════════════════════
-   Template #72 — PricingPage (Radix UI 벤치마크)
-   Radix UI의 핵심 패턴을 Orbit UI로 구현한 요금제 비교 페이지:
+   Template #72 — PricingPage (PrimitiveUI 벤치마크)
+   PrimitiveUI의 핵심 패턴을 Orbit UI로 구현한 요금제 비교 페이지:
    · 조합 패턴(Compound) → SolidButton + OutlineButton + LabelBadge 조합
    · 제어/비제어 이중 API → Toggle(연간/월간), Switch(기능 토글)
    · 데이터 속성 상태 표현 → data-recommended, data-selected
@@ -20322,7 +20322,7 @@ const PricingPage72Render = () => {
 
       {/* Hero */}
       <div style={{ textAlign: 'center', padding: '56px 40px 40px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12 }}>
-        <LabelBadge color="benefit">Radix UI 조합 패턴 벤치마크</LabelBadge>
+        <LabelBadge color="benefit">PrimitiveUI 조합 패턴 벤치마크</LabelBadge>
         <h1 style={{ margin: 0, fontSize: 36, fontWeight: 800, color: 'var(--sem-eclipse-color-foregroundPrimary)', letterSpacing: '-0.03em', lineHeight: 1.15 }}>
           단순하고 투명한 요금제
         </h1>
@@ -20330,7 +20330,7 @@ const PricingPage72Render = () => {
           팀 규모에 맞게 시작하고, 성장에 따라 언제든 업그레이드하세요.
         </p>
 
-        {/* Billing toggle — Radix 제어/비제어 패턴 */}
+        {/* Billing toggle — Primitive 제어/비제어 패턴 */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginTop: 8, padding: '8px 16px', borderRadius: 24, background: 'var(--sem-eclipse-color-backgroundSecondary)', border: '1px solid var(--sem-eclipse-color-borderSubtle)' }}>
           <span style={{ fontSize: 13, fontWeight: billing === 'monthly' ? 700 : 400, color: billing === 'monthly' ? 'var(--sem-eclipse-color-foregroundPrimary)' : 'var(--sem-eclipse-color-foregroundTertiary)', transition: 'all 0.15s' }}>
             월간
@@ -20469,13 +20469,13 @@ const PricingPage72Render = () => {
 }
 
 export const PricingComparison: Story = {
-  name: '요금제 비교 페이지 (Radix UI 벤치마크)',
+  name: '요금제 비교 페이지 (PrimitiveUI 벤치마크)',
   parameters: {
     layout: 'fullscreen',
     docs: {
       description: {
         story:
-          'Radix UI 조합 패턴을 Orbit UI로 구현한 요금제 비교 페이지. ' +
+          'PrimitiveUI 조합 패턴을 Orbit UI로 구현한 요금제 비교 페이지. ' +
           'Toggle(연간/월간 청구), Tooltip(기능 설명), SolidButton/OutlineButton(CTA), ' +
           'LabelBadge(인기 배지), data-recommended/data-selected 속성 패턴을 활용합니다.',
       },
@@ -20485,7 +20485,7 @@ export const PricingComparison: Story = {
 }
 
 /* ══════════════════════════════════════════════════════════════════════════
-   Template #73 — OnboardingFlow (Google Material 3 벤치마크)
+   Template #73 — OnboardingFlow (RoleToken Design 벤치마크)
    M3 색상 역할 시스템을 Orbit UI로 구현한 단계별 온보딩 플로우:
    · M3 컨테이너 색상 역할 → 단계별 강조 배경
    · M3 상태 레이어 → 선택 항목 시각적 피드백
@@ -20592,7 +20592,7 @@ const M3OnboardingFlowRender = () => {
     <div style={{ minHeight: '100vh', background: 'var(--sem-eclipse-color-backgroundPrimary)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '24px 20px' }}>
       {step < 4 ? (
         <div style={{ width: '100%', maxWidth: 520, display: 'flex', flexDirection: 'column', gap: 0 }}>
-          {/* Progress bar — M3 Linear Indicator */}
+          {/* Progress bar — M3 IssueTracker Indicator */}
           <div style={{ height: 4, borderRadius: 2, background: 'var(--sem-eclipse-color-backgroundSecondary)', overflow: 'hidden', marginBottom: 32 }}>
             <div style={{ height: '100%', width: `${((step + 1) / 5) * 100}%`, background: stepColor.primary, borderRadius: 2, transition: 'width 0.4s ease, background 0.3s ease' }} />
           </div>
@@ -20846,13 +20846,13 @@ const M3OnboardingFlowRender = () => {
 }
 
 export const M3OnboardingFlow: Story = {
-  name: 'M3 온보딩 플로우 (Material 3 벤치마크)',
+  name: 'M3 온보딩 플로우 (RoleToken Design 벤치마크)',
   parameters: {
     layout: 'fullscreen',
     docs: {
       description: {
         story:
-          'Google Material 3 색상 역할 시스템을 Orbit UI로 구현한 5단계 온보딩 플로우. ' +
+          'RoleToken Design 색상 역할 시스템을 Orbit UI로 구현한 5단계 온보딩 플로우. ' +
           '각 단계마다 M3 컨테이너 색상 역할이 변경되며, ' +
           'RadioGroup(역할/팀규모/테마), Toggle(알림), Filter Chip 패턴(목표)이 통합됩니다.',
       },
@@ -20863,7 +20863,7 @@ export const M3OnboardingFlow: Story = {
 
 /* ═══════════════════════════════════════════════════════════════════════════
    Template #74 — NotificationCenter
-   shadcn/ui 벤치마크: 필터 탭 + 그룹별 알림 목록 + 설정 패널 패턴.
+   ComposableUI 벤치마크: 필터 탭 + 그룹별 알림 목록 + 설정 패널 패턴.
    Avatar, AnimatedBadge, CounterBadge, Switch, Toggle, Chip, SegmentedControl 활용.
    ═══════════════════════════════════════════════════════════════════════════ */
 const NOTIF_ITEMS = [
@@ -20943,7 +20943,7 @@ const NOTIF_SETTINGS = [
   { key: 'system', label: '시스템 알림', desc: '에러, 경고, 업데이트', on: true },
 ]
 
-const Shadcn74NotifCenterRender = () => {
+const ComposableUI74NotifCenterRender = () => {
   const [tabIdx, setTabIdx] = React.useState(0)
   const [items, setItems] = React.useState(NOTIF_ITEMS)
   const [settings, setSettings] = React.useState(NOTIF_SETTINGS)
@@ -21114,24 +21114,24 @@ const Shadcn74NotifCenterRender = () => {
   )
 }
 
-export const ShadcnNotificationCenter: Story = {
-  name: 'shadcn NotificationCenter',
+export const ComposableUINotificationCenter: Story = {
+  name: 'ComposableUI NotificationCenter',
   parameters: {
     layout: 'fullscreen',
     docs: {
       description: {
         story:
-          'shadcn/ui 벤치마크: 필터 탭 + 그룹별 알림 목록 + Toggle 설정 패널. ' +
+          'ComposableUI 벤치마크: 필터 탭 + 그룹별 알림 목록 + Toggle 설정 패널. ' +
           '읽음/읽지 않음 상태 관리, 모두 읽음 처리, 알림 유형별 Toggle 설정 포함.',
       },
     },
   },
-  render: () => <Shadcn74NotifCenterRender />,
+  render: () => <ComposableUI74NotifCenterRender />,
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
    Template #75 — ChatUI
-   Vercel Design 벤치마크: 컴팩트 밀도 + 모노크롬 + 버블형 메시지 패턴.
+   DeployPlatform Design 벤치마크: 컴팩트 밀도 + 모노크롬 + 버블형 메시지 패턴.
    Avatar, TextField, SolidButton, Chip, Toggle, Divider 활용.
    ═══════════════════════════════════════════════════════════════════════════ */
 type ChatMsg = {
@@ -21168,7 +21168,7 @@ const CHAT_MESSAGES_INIT: ChatMsg[] = [
     from: '박서연',
     avatar: 'PS',
     avatarColor: '#0ea5e9',
-    text: '네! HoverCard 컴포넌트가 특히 좋더라고요. Vercel 디자인에서 영감받은 거 같았어요.',
+    text: '네! HoverCard 컴포넌트가 특히 좋더라고요. DeployPlatform 디자인에서 영감받은 거 같았어요.',
     time: '오전 9:05',
     mine: false,
   },
@@ -21177,7 +21177,7 @@ const CHAT_MESSAGES_INIT: ChatMsg[] = [
     from: '나',
     avatar: 'ME',
     avatarColor: '#10b981',
-    text: '맞아요. 이번 사이클에서 BoxedCheckboxWithLabel도 Vercel 패턴으로 추가했어요!',
+    text: '맞아요. 이번 사이클에서 BoxedCheckboxWithLabel도 DeployPlatform 패턴으로 추가했어요!',
     time: '오전 9:07',
     mine: true,
     reactions: [{ emoji: '🎉', count: 3 }],
@@ -21202,7 +21202,7 @@ const CHAT_MESSAGES_INIT: ChatMsg[] = [
   },
 ]
 
-const Vercel75ChatUIRender = () => {
+const DeployPlatform75ChatUIRender = () => {
   const [channel, setChannel] = React.useState('general')
   const [messages, setMessages] = React.useState<ChatMsg[]>(CHAT_MESSAGES_INIT)
   const [input, setInput] = React.useState('')
@@ -21340,27 +21340,27 @@ const Vercel75ChatUIRender = () => {
   )
 }
 
-export const VercelChatUI: Story = {
-  name: 'Vercel ChatUI',
+export const DeployPlatformChatUI: Story = {
+  name: 'DeployPlatform ChatUI',
   parameters: {
     layout: 'fullscreen',
     docs: {
       description: {
         story:
-          'Vercel Design 벤치마크: 컴팩트 사이드바 + 채널 목록 + 버블형 메시지 UI. ' +
+          'DeployPlatform Design 벤치마크: 컴팩트 사이드바 + 채널 목록 + 버블형 메시지 UI. ' +
           'Toggle(알림), TextField(입력), SolidButton(전송), Avatar 패턴 통합.',
       },
     },
   },
-  render: () => <Vercel75ChatUIRender />,
+  render: () => <DeployPlatform75ChatUIRender />,
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
    Template #76 — KanbanBoard
-   Linear Design 벤치마크: 컬럼별 이슈 카드 + 우선순위 컬러 + 드래그 없는 상태 이동.
+   IssueTracker Design 벤치마크: 컬럼별 이슈 카드 + 우선순위 컬러 + 드래그 없는 상태 이동.
    Chip, Avatar, CounterBadge, SolidButton, OutlineButton, Progress, Skeleton 활용.
    ═══════════════════════════════════════════════════════════════════════════ */
-type Linear76Card = {
+type IssueTracker76Card = {
   id: string
   title: string
   label: string
@@ -21371,11 +21371,11 @@ type Linear76Card = {
   points: number
 }
 
-type Linear76Column = {
+type IssueTracker76Column = {
   id: string
   title: string
   color: string
-  cards: Linear76Card[]
+  cards: IssueTracker76Card[]
 }
 
 const PRIORITY_COLOR: Record<string, string> = {
@@ -21392,7 +21392,7 @@ const PRIORITY_LABEL: Record<string, string> = {
   low: '낮음',
 }
 
-const KANBAN_INIT: Linear76Column[] = [
+const KANBAN_INIT: IssueTracker76Column[] = [
   {
     id: 'todo',
     title: '할 일',
@@ -21417,7 +21417,7 @@ const KANBAN_INIT: Linear76Column[] = [
     title: '리뷰 중',
     color: '#f59e0b',
     cards: [
-      { id: 'k6', title: 'BoxedCheckboxWithLabel Vercel 패턴 스토리', label: '문서', labelColor: '#64748b', assigneeInitial: 'CH', assigneeColor: '#8b5cf6', priority: 'low', points: 1 },
+      { id: 'k6', title: 'BoxedCheckboxWithLabel DeployPlatform 패턴 스토리', label: '문서', labelColor: '#64748b', assigneeInitial: 'CH', assigneeColor: '#8b5cf6', priority: 'low', points: 1 },
     ],
   },
   {
@@ -21426,13 +21426,13 @@ const KANBAN_INIT: Linear76Column[] = [
     color: '#10b981',
     cards: [
       { id: 'k7', title: 'ChatUI 템플릿 추가', label: '기능', labelColor: '#6366f1', assigneeInitial: 'KJ', assigneeColor: '#6366f1', priority: 'medium', points: 3 },
-      { id: 'k8', title: 'Cycle 85 shadcn 벤치마크', label: '문서', labelColor: '#64748b', assigneeInitial: 'PS', assigneeColor: '#0ea5e9', priority: 'low', points: 2 },
+      { id: 'k8', title: 'Cycle 85 ComposableUI 벤치마크', label: '문서', labelColor: '#64748b', assigneeInitial: 'PS', assigneeColor: '#0ea5e9', priority: 'low', points: 2 },
     ],
   },
 ]
 
-const Linear76KanbanBoardRender = () => {
-  const [columns, setColumns] = React.useState<Linear76Column[]>(KANBAN_INIT)
+const IssueTracker76KanbanBoardRender = () => {
+  const [columns, setColumns] = React.useState<IssueTracker76Column[]>(KANBAN_INIT)
   const [filterPriority, setFilterPriority] = React.useState<string | null>(null)
 
   const moveCard = (cardId: string, fromColId: string, toColId: string) => {
@@ -21548,24 +21548,24 @@ const Linear76KanbanBoardRender = () => {
   )
 }
 
-export const LinearKanbanBoard: Story = {
-  name: 'Linear KanbanBoard',
+export const IssueTrackerKanbanBoard: Story = {
+  name: 'IssueTracker KanbanBoard',
   parameters: {
     layout: 'fullscreen',
     docs: {
       description: {
         story:
-          'Linear Design 벤치마크: 컬럼별 칸반 카드 + 우선순위 컬러 인디케이터 + 상태 이동 버튼. ' +
+          'IssueTracker Design 벤치마크: 컬럼별 칸반 카드 + 우선순위 컬러 인디케이터 + 상태 이동 버튼. ' +
           '스프린트 진행률 바, 우선순위 필터, 포인트 집계 포함.',
       },
     },
   },
-  render: () => <Linear76KanbanBoardRender />,
+  render: () => <IssueTracker76KanbanBoardRender />,
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
    Template #77 — FileManager
-   Tailwind UI 벤치마크: 그리드/리스트 뷰 전환 + 파일 탐색 + 컨텍스트 액션.
+   UtilityUI 벤치마크: 그리드/리스트 뷰 전환 + 파일 탐색 + 컨텍스트 액션.
    SegmentedControl, Chip, SolidButton, OutlineButton, SearchBar, Skeleton 활용.
    ═══════════════════════════════════════════════════════════════════════════ */
 type FileItem = {
@@ -21597,7 +21597,7 @@ const TW77_FILES: FileItem[] = [
   { id: 'f1', name: 'components', type: 'folder', size: '-', modified: '오늘', starred: true },
   { id: 'f2', name: 'templates', type: 'folder', size: '-', modified: '어제', starred: false },
   { id: 'f3', name: 'design-tokens.json', type: 'code', size: '12 KB', modified: '3일 전', starred: false },
-  { id: 'f4', name: 'figma-export.zip', type: 'archive', size: '4.2 MB', modified: '1주 전', starred: false },
+  { id: 'f4', name: 'design-export.zip', type: 'archive', size: '4.2 MB', modified: '1주 전', starred: false },
   { id: 'f5', name: 'button-variants.png', type: 'image', size: '380 KB', modified: '오늘', starred: true },
   { id: 'f6', name: 'CHANGELOG.md', type: 'doc', size: '28 KB', modified: '어제', starred: false },
   { id: 'f7', name: 'icon-set.png', type: 'image', size: '1.1 MB', modified: '2주 전', starred: false },
@@ -21719,14 +21719,14 @@ const TW77FileManagerRender = () => {
   )
 }
 
-export const TailwindFileManager: Story = {
-  name: 'Tailwind FileManager',
+export const UtilityCSSFileManager: Story = {
+  name: 'UtilityCSS FileManager',
   parameters: {
     layout: 'fullscreen',
     docs: {
       description: {
         story:
-          'Tailwind UI 벤치마크: 그리드/리스트 뷰 전환, 파일 유형 필터, 별표 즐겨찾기, 다중 선택 삭제. ' +
+          'UtilityUI 벤치마크: 그리드/리스트 뷰 전환, 파일 유형 필터, 별표 즐겨찾기, 다중 선택 삭제. ' +
           'SegmentedControl(뷰 전환), SearchBar(검색), SolidButton/OutlineButton(액션) 통합.',
       },
     },
@@ -21897,8 +21897,8 @@ export const AntAnalyticsDashboard: Story = {
 }
 
 /* =====================================================================
-   Chakra UI 벤치마크 — User Profile Page (Cycle 90)
-   Chakra UI의 Flex + Stack + Avatar + Badge 패턴을 반영한 사용자 프로필 페이지
+   AccessibleUI 벤치마크 — User Profile Page (Cycle 90)
+   AccessibleUI의 Flex + Stack + Avatar + Badge 패턴을 반영한 사용자 프로필 페이지
    Calendar(활동 히트맵 대용), Progress(스킬 게이지), LabelBadge, SolidButton 통합
    ===================================================================== */
 
@@ -21911,7 +21911,7 @@ const CHAKRA90_SKILLS = [
 ]
 
 const CHAKRA90_TABS = ['개요', '프로젝트', '활동', '설정'] as const
-type Chakra90Tab = typeof CHAKRA90_TABS[number]
+type Accessible90Tab = typeof CHAKRA90_TABS[number]
 
 const CHAKRA90_PROJECTS = [
   { name: 'Orbit UI Design System', role: '오너', status: '진행 중', color: '#6366f1' },
@@ -21928,8 +21928,8 @@ const CHAKRA90_ACTIVITY = [
   { date: new Date(2026, 3, 9), count: 5 },
 ]
 
-const Chakra90UserProfileRender = () => {
-  const [activeTab, setActiveTab] = React.useState<Chakra90Tab>('개요')
+const Accessible90UserProfileRender = () => {
+  const [activeTab, setActiveTab] = React.useState<Accessible90Tab>('개요')
   const [following, setFollowing] = React.useState(false)
   const [calDate, setCalDate] = React.useState<Date | undefined>(new Date(2026, 3, 7))
 
@@ -21970,7 +21970,7 @@ const Chakra90UserProfileRender = () => {
             </div>
             <div style={{ display: 'flex', gap: 16, fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)', flexWrap: 'wrap' }}>
               <span>Seoul, Korea</span>
-              <span>github.com/blue45f</span>
+              <span>code.example.com/team</span>
               <span>팔로워 {following ? 1024 : 1023} · 팔로잉 87</span>
             </div>
           </div>
@@ -22142,42 +22142,42 @@ const Chakra90UserProfileRender = () => {
   )
 }
 
-export const ChakraUserProfile: Story = {
-  name: 'Chakra UI — User Profile Page',
+export const AccessibleUserProfile: Story = {
+  name: 'AccessibleUI — User Profile Page',
   parameters: {
     layout: 'fullscreen',
     docs: {
       description: {
         story:
-          'Chakra UI 벤치마크: Flex + Stack + Avatar + Badge 패턴 적용. ' +
+          'AccessibleUI 벤치마크: Flex + Stack + Avatar + Badge 패턴 적용. ' +
           '팔로우/메시지 액션(SolidButton), 스킬 게이지(Progress), 활동 캘린더(Calendar), ' +
           '프로젝트 목록(LabelBadge) 등 미사용 컴포넌트를 통합한 사용자 프로필 페이지.',
       },
     },
   },
-  render: () => <Chakra90UserProfileRender />,
+  render: () => <Accessible90UserProfileRender />,
 }
 
 /* =====================================================================
-   Mantine 벤치마크 — Team Onboarding Wizard (Cycle 91)
-   Mantine의 Stepper + Form + Checkbox + Progress 패턴
+   AppUI 벤치마크 — Team Onboarding Wizard (Cycle 91)
+   AppUI의 Stepper + Form + Checkbox + Progress 패턴
    TextField, PasswordField, CheckboxWithLabel, Progress, SolidButton, Chip 통합
    ===================================================================== */
 
-const MANTINE91_STEPS = ['계정 정보', '팀 설정', '알림 설정', '완료'] as const
-type Mantine91Step = 0 | 1 | 2 | 3
+const ACCESSIBLEKIT91_STEPS = ['계정 정보', '팀 설정', '알림 설정', '완료'] as const
+type AppUI91Step = 0 | 1 | 2 | 3
 
-const MANTINE91_ROLES = ['개발자', '디자이너', '프로덕트 매니저', '마케터', '기타'] as const
+const ACCESSIBLEKIT91_ROLES = ['개발자', '디자이너', '프로덕트 매니저', '마케터', '기타'] as const
 
-const MANTINE91_NOTIF_ITEMS = [
+const ACCESSIBLEKIT91_NOTIF_ITEMS = [
   { id: 'pr', label: 'Pull Request 알림', desc: '새 PR 생성 및 리뷰 요청' },
   { id: 'deploy', label: '배포 완료 알림', desc: '스테이징/프로덕션 배포 결과' },
   { id: 'mention', label: '멘션 알림', desc: '댓글에서 내가 언급될 때' },
   { id: 'weekly', label: '주간 요약 리포트', desc: '매주 월요일 팀 활동 요약' },
 ]
 
-const Mantine91OnboardingRender = () => {
-  const [step, setStep] = React.useState<Mantine91Step>(0)
+const AppUI91OnboardingRender = () => {
+  const [step, setStep] = React.useState<AppUI91Step>(0)
   const [accountForm, setAccountForm] = React.useState({ name: '', email: '', password: '' })
   const [teamForm, setTeamForm] = React.useState({ teamName: '', role: '' as string, size: '' })
   const [notifications, setNotifications] = React.useState<Set<string>>(new Set(['pr', 'deploy']))
@@ -22211,12 +22211,12 @@ const Mantine91OnboardingRender = () => {
     if (step === 1) {
       if (!step1Valid) return
     }
-    setStep((prev) => Math.min(3, prev + 1) as Mantine91Step)
+    setStep((prev) => Math.min(3, prev + 1) as AppUI91Step)
   }
 
-  const goPrev = () => setStep((prev) => Math.max(0, prev - 1) as Mantine91Step)
+  const goPrev = () => setStep((prev) => Math.max(0, prev - 1) as AppUI91Step)
 
-  const progressValue = (step / (MANTINE91_STEPS.length - 1)) * 100
+  const progressValue = (step / (ACCESSIBLEKIT91_STEPS.length - 1)) * 100
 
   return (
     <div style={{ minHeight: '100vh', background: 'var(--sem-eclipse-color-backgroundSecondary)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 24 }}>
@@ -22225,12 +22225,12 @@ const Mantine91OnboardingRender = () => {
         <div style={{ padding: '24px 28px 0' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
             <div style={{ fontSize: 18, fontWeight: 800, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>팀 온보딩</div>
-            <span style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>{step + 1} / {MANTINE91_STEPS.length}</span>
+            <span style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>{step + 1} / {ACCESSIBLEKIT91_STEPS.length}</span>
           </div>
 
           {/* Step pills */}
           <div style={{ display: 'flex', gap: 8, marginBottom: 16 }}>
-            {MANTINE91_STEPS.map((label, i) => (
+            {ACCESSIBLEKIT91_STEPS.map((label, i) => (
               <div key={label} style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4 }}>
                 <div style={{
                   width: 28, height: 28, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center',
@@ -22302,7 +22302,7 @@ const Mantine91OnboardingRender = () => {
               <div>
                 <label style={{ fontSize: 12, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundSecondary)', marginBottom: 8, display: 'block' }}>역할 *</label>
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
-                  {MANTINE91_ROLES.map((role) => (
+                  {ACCESSIBLEKIT91_ROLES.map((role) => (
                     <button
                       key={role}
                       onClick={() => setTeamForm((p) => ({ ...p, role }))}
@@ -22339,7 +22339,7 @@ const Mantine91OnboardingRender = () => {
             <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
               <div style={{ fontSize: 15, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 4 }}>알림 수신 설정</div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-                {MANTINE91_NOTIF_ITEMS.map((item) => (
+                {ACCESSIBLEKIT91_NOTIF_ITEMS.map((item) => (
                   <div
                     key={item.id}
                     onClick={() => toggleNotif(item.id)}
@@ -22410,33 +22410,33 @@ const Mantine91OnboardingRender = () => {
   )
 }
 
-export const MantineOnboardingWizard: Story = {
-  name: 'Mantine — Team Onboarding Wizard',
+export const AppUIOnboardingWizard: Story = {
+  name: 'AppUI — Team Onboarding Wizard',
   parameters: {
     layout: 'fullscreen',
     docs: {
       description: {
         story:
-          'Mantine Stepper + Form + Checkbox 패턴. 계정 정보 → 팀 설정 → 알림 설정 3단계 온보딩 위저드. ' +
+          'AppUI Stepper + Form + Checkbox 패턴. 계정 정보 → 팀 설정 → 알림 설정 3단계 온보딩 위저드. ' +
           'TextField, PasswordField, CheckboxWithLabel, Progress, SolidButton, Chip 통합. ' +
           '각 단계에서 유효성 검사 후 다음 단계로 진행합니다.',
       },
     },
   },
-  render: () => <Mantine91OnboardingRender />,
+  render: () => <AppUI91OnboardingRender />,
 }
 
 /* =====================================================================
-   Radix UI 벤치마크 — Social Feed (Cycle 92)
-   Radix UI의 Avatar, Badge, Separator, ScrollArea 패턴 반영
+   PrimitiveUI 벤치마크 — Social Feed (Cycle 92)
+   PrimitiveUI의 Avatar, Badge, Separator, ScrollArea 패턴 반영
    AnimatedBadge, Avatar, LabelBadge, CounterBadge, ScrollableTabGroup,
    SpeechBadge, Divider, SolidButton, OutlineButton, Toggle 통합
    ===================================================================== */
 
 const RADIX92_FEED_TABS = ['전체', '팔로잉', '트렌딩', '추천'] as const
-type Radix92FeedTab = typeof RADIX92_FEED_TABS[number]
+type Primitive92FeedTab = typeof RADIX92_FEED_TABS[number]
 
-type Radix92Post = {
+type Primitive92Post = {
   id: number
   author: string
   initials: string
@@ -22450,23 +22450,23 @@ type Radix92Post = {
   isTrending: boolean
 }
 
-const RADIX92_POSTS: Radix92Post[] = [
+const RADIX92_POSTS: Primitive92Post[] = [
   {
     id: 1, author: '김희준', initials: 'HJ', role: 'Design Systems', time: '방금', isNew: true, isTrending: true,
-    content: 'Orbit UI 3.0 릴리스! 3단계 토큰 시스템과 Eclipse 테마가 드디어 공개됩니다. Radix Primitives 기반의 접근성과 Tailwind 유틸 + CSS 변수가 만났습니다.',
+    content: 'Orbit UI 3.0 릴리스! 3단계 토큰 시스템과 Eclipse 테마가 드디어 공개됩니다. Primitive Primitives 기반의 접근성과 UtilityCSS 유틸 + CSS 변수가 만났습니다.',
     tags: ['OrbitUI', 'DesignSystem', 'React'],
     likes: 142, comments: 23,
   },
   {
     id: 2, author: '이서연', initials: 'SY', role: 'Frontend Eng', time: '3분 전', isNew: false, isTrending: true,
-    content: 'shadcn/ui의 Copy-paste 철학이 디자인 시스템 업계를 바꾸고 있습니다. 번들 크기 제로, 완전한 커스터마이징 — 이게 바로 미래입니다.',
-    tags: ['shadcn', 'Frontend'],
+    content: 'ComposableUI의 Copy-paste 철학이 디자인 시스템 업계를 바꾸고 있습니다. 번들 크기 제로, 완전한 커스터마이징 — 이게 바로 미래입니다.',
+    tags: ['ComposableUI', 'Frontend'],
     likes: 89, comments: 14,
   },
   {
     id: 3, author: '박지호', initials: 'JH', role: 'Product Design', time: '15분 전', isNew: false, isTrending: false,
-    content: 'Figma Variables → CSS Custom Properties 동기화 워크플로우를 구축했습니다. 디자이너가 토큰을 업데이트하면 코드에 자동으로 반영됩니다.',
-    tags: ['Figma', 'DesignToken', 'Automation'],
+    content: 'DesignTool Variables → CSS Custom Properties 동기화 워크플로우를 구축했습니다. 디자이너가 토큰을 업데이트하면 코드에 자동으로 반영됩니다.',
+    tags: ['DesignTool', 'DesignToken', 'Automation'],
     likes: 67, comments: 9,
   },
   {
@@ -22483,8 +22483,8 @@ const RADIX92_POSTS: Radix92Post[] = [
   },
 ]
 
-const Radix92SocialFeedRender = () => {
-  const [activeTab, setActiveTab] = React.useState<Radix92FeedTab>('전체')
+const Primitive92SocialFeedRender = () => {
+  const [activeTab, setActiveTab] = React.useState<Primitive92FeedTab>('전체')
   const [liked, setLiked] = React.useState<Set<number>>(new Set())
   const [bookmarked, setBookmarked] = React.useState<Set<number>>(new Set())
   const [showCompose, setShowCompose] = React.useState(false)
@@ -22662,41 +22662,41 @@ const Radix92SocialFeedRender = () => {
   )
 }
 
-export const RadixSocialFeed: Story = {
-  name: 'Radix UI — Social Feed',
+export const PrimitiveSocialFeed: Story = {
+  name: 'PrimitiveUI — Social Feed',
   parameters: {
     layout: 'fullscreen',
     docs: {
       description: {
         story:
-          'Radix UI 벤치마크: Avatar + Badge + Separator + ScrollArea 패턴. ' +
+          'PrimitiveUI 벤치마크: Avatar + Badge + Separator + ScrollArea 패턴. ' +
           'AnimatedBadge(새 게시물 표시), Avatar(작성자), LabelBadge(역할/인기 태그), ' +
           'SpeechBadge(해시태그), ScrollableTabGroup(피드 필터), Toggle(팔로잉 필터) 통합.',
       },
     },
   },
-  render: () => <Radix92SocialFeedRender />,
+  render: () => <Primitive92SocialFeedRender />,
 }
 
 /* ==========================================================================
-   Cycle 93 — shadcn/ui 벤치마크: Team Dashboard
-   shadcn/ui의 DataTable + Command + Card 패턴
+   Cycle 93 — ComposableUI 벤치마크: Team Dashboard
+   ComposableUI의 DataTable + Command + Card 패턴
    멤버 관리 대시보드: 검색, 역할 필터, DataTable, Skeleton 로딩, Badge
    ========================================================================== */
-type Shadcn93Role = '전체' | '관리자' | '디자이너' | '개발자' | '기획자'
-type Shadcn93MemberStatus = 'active' | 'inactive' | 'invited'
+type ComposableUI93Role = '전체' | '관리자' | '디자이너' | '개발자' | '기획자'
+type ComposableUI93MemberStatus = 'active' | 'inactive' | 'invited'
 
-interface Shadcn93Member {
+interface ComposableUI93Member {
   id: number
   name: string
-  role: Shadcn93Role
+  role: ComposableUI93Role
   email: string
-  status: Shadcn93MemberStatus
+  status: ComposableUI93MemberStatus
   joinedAt: string
   taskCount: number
 }
 
-const SHADCN93_MEMBERS: Shadcn93Member[] = [
+const UTILITYUI93_MEMBERS: ComposableUI93Member[] = [
   { id: 1, name: '김희준', role: '관리자', email: 'hjunkim@orbit.dev', status: 'active', joinedAt: '2024-01-10', taskCount: 24 },
   { id: 2, name: '이서연', role: '개발자', email: 'sylee@orbit.dev', status: 'active', joinedAt: '2024-02-14', taskCount: 18 },
   { id: 3, name: '박지호', role: '디자이너', email: 'jhpark@orbit.dev', status: 'active', joinedAt: '2024-03-08', taskCount: 31 },
@@ -22706,24 +22706,24 @@ const SHADCN93_MEMBERS: Shadcn93Member[] = [
   { id: 7, name: '강다연', role: '개발자', email: 'dygang@orbit.dev', status: 'active', joinedAt: '2024-06-12', taskCount: 22 },
 ]
 
-const SHADCN93_ROLE_FILTERS: Shadcn93Role[] = ['전체', '관리자', '개발자', '디자이너', '기획자']
+const UTILITYUI93_ROLE_FILTERS: ComposableUI93Role[] = ['전체', '관리자', '개발자', '디자이너', '기획자']
 
-const SHADCN93_STATUS_META: Record<Shadcn93MemberStatus, { label: string; color: string; bg: string }> = {
+const UTILITYUI93_STATUS_META: Record<ComposableUI93MemberStatus, { label: string; color: string; bg: string }> = {
   active:   { label: '활성', color: '#10b981', bg: '#f0fdf4' },
   inactive: { label: '비활성', color: '#94a3b8', bg: '#f8fafc' },
   invited:  { label: '초대됨', color: '#f59e0b', bg: '#fffbeb' },
 }
 
-const SHADCN93_ROLE_COLOR: Record<string, string> = {
+const UTILITYUI93_ROLE_COLOR: Record<string, string> = {
   '관리자': '#6366f1',
   '개발자': '#0ea5e9',
   '디자이너': '#ec4899',
   '기획자': '#f59e0b',
 }
 
-function Shadcn93TeamDashboardRender() {
+function ComposableUI93TeamDashboardRender() {
   const [search, setSearch] = React.useState('')
-  const [roleFilter, setRoleFilter] = React.useState<Shadcn93Role>('전체')
+  const [roleFilter, setRoleFilter] = React.useState<ComposableUI93Role>('전체')
   const [loading, setLoading] = React.useState(false)
   const [sortKey, setSortKey] = React.useState<'name' | 'taskCount' | 'joinedAt'>('name')
   const [sortAsc, setSortAsc] = React.useState(true)
@@ -22736,7 +22736,7 @@ function Shadcn93TeamDashboardRender() {
     else { setSortKey(key); setSortAsc(true) }
   }
 
-  const filtered = SHADCN93_MEMBERS
+  const filtered = UTILITYUI93_MEMBERS
     .filter((m) => roleFilter === '전체' || m.role === roleFilter)
     .filter((m) => search === '' || m.name.includes(search) || m.email.includes(search))
     .sort((a, b) => {
@@ -22769,10 +22769,10 @@ function Shadcn93TeamDashboardRender() {
   )
 
   const stats = [
-    { label: '전체 멤버', value: SHADCN93_MEMBERS.length, color: '#6366f1', bg: '#eef2ff' },
-    { label: '활성', value: SHADCN93_MEMBERS.filter((m) => m.status === 'active').length, color: '#10b981', bg: '#f0fdf4' },
-    { label: '총 태스크', value: SHADCN93_MEMBERS.reduce((s, m) => s + m.taskCount, 0), color: '#0ea5e9', bg: '#f0f9ff' },
-    { label: '초대 대기', value: SHADCN93_MEMBERS.filter((m) => m.status === 'invited').length, color: '#f59e0b', bg: '#fffbeb' },
+    { label: '전체 멤버', value: UTILITYUI93_MEMBERS.length, color: '#6366f1', bg: '#eef2ff' },
+    { label: '활성', value: UTILITYUI93_MEMBERS.filter((m) => m.status === 'active').length, color: '#10b981', bg: '#f0fdf4' },
+    { label: '총 태스크', value: UTILITYUI93_MEMBERS.reduce((s, m) => s + m.taskCount, 0), color: '#0ea5e9', bg: '#f0f9ff' },
+    { label: '초대 대기', value: UTILITYUI93_MEMBERS.filter((m) => m.status === 'invited').length, color: '#f59e0b', bg: '#fffbeb' },
   ]
 
   return (
@@ -22784,7 +22784,7 @@ function Shadcn93TeamDashboardRender() {
             <PeopleLineIcon size={14} color="#fff" />
           </div>
           <span style={{ fontSize: 15, fontWeight: 700, color: '#0f172a' }}>팀 대시보드</span>
-          <LabelBadge color="benefit"><LabelBadge.Label>shadcn/ui 패턴</LabelBadge.Label></LabelBadge>
+          <LabelBadge color="benefit"><LabelBadge.Label>ComposableUI 패턴</LabelBadge.Label></LabelBadge>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
           <SolidButton
@@ -22827,7 +22827,7 @@ function Shadcn93TeamDashboardRender() {
               />
             </div>
             <div style={{ display: 'flex', gap: 4 }}>
-              {SHADCN93_ROLE_FILTERS.map((r) => (
+              {UTILITYUI93_ROLE_FILTERS.map((r) => (
                 <button
                   key={r}
                   onClick={() => { setRoleFilter(r); setPage(1) }}
@@ -22889,7 +22889,7 @@ function Shadcn93TeamDashboardRender() {
                   </tr>
                 ) : (
                   paged.map((m) => {
-                    const st = SHADCN93_STATUS_META[m.status]
+                    const st = UTILITYUI93_STATUS_META[m.status]
                     const isSelected = selectedIds.has(m.id)
                     return (
                       <tr
@@ -22906,7 +22906,7 @@ function Shadcn93TeamDashboardRender() {
                         </td>
                         <td style={{ padding: '12px 12px' }}>
                           <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                            <div style={{ width: 32, height: 32, borderRadius: '50%', background: SHADCN93_ROLE_COLOR[m.role] ?? '#6366f1', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 12, fontWeight: 700, color: '#fff', flexShrink: 0 }}>
+                            <div style={{ width: 32, height: 32, borderRadius: '50%', background: UTILITYUI93_ROLE_COLOR[m.role] ?? '#6366f1', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 12, fontWeight: 700, color: '#fff', flexShrink: 0 }}>
                               {m.name[0]}
                             </div>
                             <div>
@@ -22916,7 +22916,7 @@ function Shadcn93TeamDashboardRender() {
                           </div>
                         </td>
                         <td style={{ padding: '12px 12px' }}>
-                          <span style={{ padding: '2px 10px', borderRadius: 20, background: (SHADCN93_ROLE_COLOR[m.role] ?? '#6366f1') + '18', color: SHADCN93_ROLE_COLOR[m.role] ?? '#6366f1', fontSize: 11, fontWeight: 700 }}>{m.role}</span>
+                          <span style={{ padding: '2px 10px', borderRadius: 20, background: (UTILITYUI93_ROLE_COLOR[m.role] ?? '#6366f1') + '18', color: UTILITYUI93_ROLE_COLOR[m.role] ?? '#6366f1', fontSize: 11, fontWeight: 700 }}>{m.role}</span>
                         </td>
                         <td style={{ padding: '12px 12px' }}>
                           <span style={{ padding: '2px 10px', borderRadius: 20, background: st.bg, color: st.color, fontSize: 11, fontWeight: 700 }}>{st.label}</span>
@@ -22969,26 +22969,26 @@ function Shadcn93TeamDashboardRender() {
 }
 
 /* ==========================================================================
-   Cycle 94 — Linear Design 벤치마크: Product Roadmap
-   Linear의 Roadmap 뷰 — 분기별 마일스톤 + 프로젝트 진행률 + 이슈 Backlog
+   Cycle 94 — IssueTracker Design 벤치마크: Product Roadmap
+   IssueTracker의 Roadmap 뷰 — 분기별 마일스톤 + 프로젝트 진행률 + 이슈 Backlog
    Progress, LabelBadge, SectionTitle, Divider, ScrollableTabGroup 통합
    ========================================================================== */
-type Linear94Quarter = 'Q1' | 'Q2' | 'Q3' | 'Q4'
-type Linear94MilestoneStatus = 'shipped' | 'in-progress' | 'planned' | 'cancelled'
-type Linear94ProjectStatus = 'on-track' | 'at-risk' | 'off-track'
+type IssueTracker94Quarter = 'Q1' | 'Q2' | 'Q3' | 'Q4'
+type IssueTracker94MilestoneStatus = 'shipped' | 'in-progress' | 'planned' | 'cancelled'
+type IssueTracker94ProjectStatus = 'on-track' | 'at-risk' | 'off-track'
 
-interface Linear94Milestone {
+interface IssueTracker94Milestone {
   id: string
   title: string
   team: string
-  status: Linear94MilestoneStatus
+  status: IssueTracker94MilestoneStatus
   progress: number
 }
 
-interface Linear94Project {
+interface IssueTracker94Project {
   id: string
   name: string
-  status: Linear94ProjectStatus
+  status: IssueTracker94ProjectStatus
   progress: number
   milestoneCount: number
   completedCount: number
@@ -22996,25 +22996,25 @@ interface Linear94Project {
   color: string
 }
 
-const LINEAR94_QUARTERS: Array<{ id: Linear94Quarter; label: string; isCurrent: boolean }> = [
+const TRACKER94_QUARTERS: Array<{ id: IssueTracker94Quarter; label: string; isCurrent: boolean }> = [
   { id: 'Q1', label: 'Q1 2025', isCurrent: false },
   { id: 'Q2', label: 'Q2 2025', isCurrent: true  },
   { id: 'Q3', label: 'Q3 2025', isCurrent: false },
   { id: 'Q4', label: 'Q4 2025', isCurrent: false },
 ]
 
-const LINEAR94_ROADMAP: Record<Linear94Quarter, Linear94Milestone[]> = {
+const TRACKER94_ROADMAP: Record<IssueTracker94Quarter, IssueTracker94Milestone[]> = {
   Q1: [
     { id: 'm1', title: '3단계 디자인 토큰 아키텍처 완성', team: 'Engineering', status: 'shipped',  progress: 100 },
     { id: 'm2', title: 'Storybook 8.x 마이그레이션',         team: 'Engineering', status: 'shipped',  progress: 100 },
-    { id: 'm3', title: 'Figma 컴포넌트 동기화 파이프라인',   team: 'Design',      status: 'shipped',  progress: 100 },
+    { id: 'm3', title: 'DesignTool 컴포넌트 동기화 파이프라인',   team: 'Design',      status: 'shipped',  progress: 100 },
     { id: 'm4', title: 'pnpm 모노레포 최적화',               team: 'Infra',       status: 'shipped',  progress: 100 },
   ],
   Q2: [
     { id: 'm5', title: 'DataTable 고도화 — 정렬·페이지',     team: 'Engineering', status: 'in-progress', progress: 72 },
     { id: 'm6', title: 'AccessibilityGuide.mdx 완성',        team: 'Product',     status: 'in-progress', progress: 45 },
     { id: 'm7', title: 'Calendar range 선택 구현',            team: 'Engineering', status: 'planned',     progress: 0  },
-    { id: 'm8', title: 'shadcn/ui 마이그레이션 가이드',       team: 'Product',     status: 'planned',     progress: 0  },
+    { id: 'm8', title: 'ComposableUI 마이그레이션 가이드',       team: 'Product',     status: 'planned',     progress: 0  },
     { id: 'm9', title: 'BenchmarkComparison.mdx',             team: 'Product',     status: 'in-progress', progress: 30 },
   ],
   Q3: [
@@ -23030,21 +23030,21 @@ const LINEAR94_ROADMAP: Record<Linear94Quarter, Linear94Milestone[]> = {
   ],
 }
 
-const LINEAR94_PROJECTS: Linear94Project[] = [
+const TRACKER94_PROJECTS: IssueTracker94Project[] = [
   { id: 'p1', name: 'Design System Core',         status: 'on-track',  progress: 78, milestoneCount: 8,  completedCount: 6,  lead: 'HJ', color: '#6366f1' },
   { id: 'p2', name: 'Documentation Site',          status: 'at-risk',   progress: 42, milestoneCount: 5,  completedCount: 2,  lead: 'SY', color: '#0ea5e9' },
   { id: 'p3', name: 'Accessibility Initiative',    status: 'off-track', progress: 18, milestoneCount: 4,  completedCount: 0,  lead: 'JH', color: '#ec4899' },
   { id: 'p4', name: 'Infra & DevOps',              status: 'on-track',  progress: 90, milestoneCount: 6,  completedCount: 5,  lead: 'EA', color: '#10b981' },
 ]
 
-const MS_STATUS_META: Record<Linear94MilestoneStatus, { label: string; color: string; bg: string; barColor: string }> = {
+const MS_STATUS_META: Record<IssueTracker94MilestoneStatus, { label: string; color: string; bg: string; barColor: string }> = {
   shipped:      { label: 'Shipped',     color: '#10b981', bg: '#f0fdf4', barColor: '#10b981' },
   'in-progress':{ label: 'In Progress', color: '#6366f1', bg: '#eef2ff', barColor: '#6366f1' },
   planned:      { label: 'Planned',     color: '#94a3b8', bg: '#f8fafc', barColor: '#d1d5db' },
   cancelled:    { label: 'Cancelled',   color: '#ef4444', bg: '#fef2f2', barColor: '#ef4444' },
 }
 
-const PROJ_STATUS_META: Record<Linear94ProjectStatus, { label: string; color: string; bg: string; badgeColor: 'benefit' | 'sale' | 'gray' }> = {
+const PROJ_STATUS_META: Record<IssueTracker94ProjectStatus, { label: string; color: string; bg: string; badgeColor: 'benefit' | 'sale' | 'gray' }> = {
   'on-track':  { label: 'On Track',  color: '#10b981', bg: '#f0fdf4', badgeColor: 'benefit' },
   'at-risk':   { label: 'At Risk',   color: '#f59e0b', bg: '#fffbeb', badgeColor: 'sale'    },
   'off-track': { label: 'Off Track', color: '#ef4444', bg: '#fef2f2', badgeColor: 'gray'    },
@@ -23057,11 +23057,11 @@ const TEAM_COLOR94: Record<string, string> = {
   Infra:       '#10b981',
 }
 
-function Linear94RoadmapRender() {
+function IssueTracker94RoadmapRender() {
   const [activeQuarterIdx, setActiveQuarterIdx] = React.useState(1)
   const [activeTab, setActiveTab] = React.useState<'roadmap' | 'projects' | 'backlog'>('roadmap')
-  const quarter = LINEAR94_QUARTERS[activeQuarterIdx]
-  const milestones = LINEAR94_ROADMAP[quarter.id]
+  const quarter = TRACKER94_QUARTERS[activeQuarterIdx]
+  const milestones = TRACKER94_ROADMAP[quarter.id]
   const shipped = milestones.filter((m) => m.status === 'shipped').length
   const total = milestones.length
 
@@ -23087,7 +23087,7 @@ function Linear94RoadmapRender() {
           ))}
         </div>
         <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: 8 }}>
-          <LabelBadge color="benefit"><LabelBadge.Label>Linear 패턴</LabelBadge.Label></LabelBadge>
+          <LabelBadge color="benefit"><LabelBadge.Label>IssueTracker 패턴</LabelBadge.Label></LabelBadge>
         </div>
       </div>
 
@@ -23101,7 +23101,7 @@ function Linear94RoadmapRender() {
                 <div style={{ fontSize: 13, color: '#64748b', marginTop: 4 }}>분기별 마일스톤 현황을 확인하세요</div>
               </div>
               <div style={{ display: 'flex', gap: 6 }}>
-                {LINEAR94_QUARTERS.map((q, i) => (
+                {TRACKER94_QUARTERS.map((q, i) => (
                   <button
                     key={q.id}
                     onClick={() => setActiveQuarterIdx(i)}
@@ -23168,7 +23168,7 @@ function Linear94RoadmapRender() {
           <div>
             <div style={{ fontSize: 20, fontWeight: 700, color: '#0f172a', marginBottom: 20 }}>Projects</div>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
-              {LINEAR94_PROJECTS.map((p) => {
+              {TRACKER94_PROJECTS.map((p) => {
                 const st = PROJ_STATUS_META[p.status]
                 return (
                   <div key={p.id} style={{ background: '#fff', border: `1.5px solid ${p.status === 'off-track' ? '#fecaca' : '#e2e8f0'}`, borderRadius: 14, padding: '18px 20px', display: 'flex', flexDirection: 'column', gap: 12 }}>
@@ -23203,7 +23203,7 @@ function Linear94RoadmapRender() {
           <div>
             <div style={{ fontSize: 20, fontWeight: 700, color: '#0f172a', marginBottom: 20 }}>Backlog</div>
             <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: 14, overflow: 'hidden' }}>
-              {Object.entries(LINEAR94_ROADMAP).flatMap(([q, ms]) =>
+              {Object.entries(TRACKER94_ROADMAP).flatMap(([q, ms]) =>
                 ms.filter((m) => m.status === 'planned').map((m) => ({ ...m, quarter: q }))
               ).map((m, i, arr) => (
                 <div key={m.id} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 20px', borderBottom: i < arr.length - 1 ? '1px solid #f8fafc' : 'none' }}>
@@ -23223,48 +23223,48 @@ function Linear94RoadmapRender() {
   )
 }
 
-export const ShadcnTeamDashboard: Story = {
-  name: 'shadcn/ui — Team Dashboard',
+export const ComposableUITeamDashboard: Story = {
+  name: 'ComposableUI — Team Dashboard',
   parameters: {
     layout: 'fullscreen',
     docs: {
       description: {
         story:
-          'shadcn/ui 벤치마크: DataTable + Command + Card 패턴. ' +
+          'ComposableUI 벤치마크: DataTable + Command + Card 패턴. ' +
           '멤버 검색·역할 필터·정렬·체크박스 선택·페이지네이션 완전 구현. ' +
           'Skeleton 로딩 오버레이, LabelBadge(역할/상태), SolidButton(액션) 통합.',
       },
     },
   },
-  render: () => <Shadcn93TeamDashboardRender />,
+  render: () => <ComposableUI93TeamDashboardRender />,
 }
 
-export const LinearRoadmap: Story = {
-  name: 'Linear Design — Product Roadmap',
+export const IssueTrackerRoadmap: Story = {
+  name: 'IssueTracker Design — Product Roadmap',
   parameters: {
     layout: 'fullscreen',
     docs: {
       description: {
         story:
-          'Linear Design 벤치마크: Roadmap + Projects + Backlog 3탭 뷰. ' +
+          'IssueTracker Design 벤치마크: Roadmap + Projects + Backlog 3탭 뷰. ' +
           '분기별 마일스톤 상태(Shipped/In Progress/Planned), 프로젝트 건강도(On Track/At Risk/Off Track), ' +
           'Backlog 체크리스트를 Progress, LabelBadge, SectionTitle, CounterBadge로 통합.',
       },
     },
   },
-  render: () => <Linear94RoadmapRender />,
+  render: () => <IssueTracker94RoadmapRender />,
 }
 
 /* ==========================================================================
-   Cycle 95 — Vercel Design 벤치마크: Usage & Billing Dashboard
-   Vercel 사용량·결제 대시보드 — 리소스 미터, 플랜 카드, 청구 내역
+   Cycle 95 — DeployPlatform Design 벤치마크: Usage & Billing Dashboard
+   DeployPlatform 사용량·결제 대시보드 — 리소스 미터, 플랜 카드, 청구 내역
    Progress, Slider, Toggle, SectionTitle, LabelBadge, Divider 통합
    ========================================================================== */
-type Vercel95Plan = 'hobby' | 'pro' | 'enterprise'
-type Vercel95UsageItem = { label: string; used: number; limit: number | null; unit: string; color: string; icon: string }
-type Vercel95Invoice = { id: string; date: string; amount: string; status: 'paid' | 'pending' | 'failed' }
+type DeployPlatform95Plan = 'hobby' | 'pro' | 'enterprise'
+type DeployPlatform95UsageItem = { label: string; used: number; limit: number | null; unit: string; color: string; icon: string }
+type DeployPlatform95Invoice = { id: string; date: string; amount: string; status: 'paid' | 'pending' | 'failed' }
 
-const VERCEL95_PLANS: Array<{ id: Vercel95Plan; name: string; price: string; features: string[]; color: string; popular: boolean }> = [
+const DEPLOY95_PLANS: Array<{ id: DeployPlatform95Plan; name: string; price: string; features: string[]; color: string; popular: boolean }> = [
   {
     id: 'hobby',
     name: 'Hobby',
@@ -23291,33 +23291,33 @@ const VERCEL95_PLANS: Array<{ id: Vercel95Plan; name: string; price: string; fea
   },
 ]
 
-const VERCEL95_USAGE: Vercel95UsageItem[] = [
+const DEPLOY95_USAGE: DeployPlatform95UsageItem[] = [
   { label: '대역폭',       used: 78,  limit: 100,  unit: 'GB',   color: '#6366f1', icon: '↕' },
   { label: '빌드 시간',   used: 340, limit: 600,  unit: '분',   color: '#0ea5e9', icon: '⚙' },
   { label: '함수 호출',   used: 4.2, limit: null, unit: '백만',  color: '#10b981', icon: 'λ' },
   { label: '이미지 최적화', used: 9.1, limit: 10,   unit: '만',   color: '#f59e0b', icon: '◻' },
 ]
 
-const VERCEL95_INVOICES: Vercel95Invoice[] = [
+const DEPLOY95_INVOICES: DeployPlatform95Invoice[] = [
   { id: 'inv-2504', date: '2025-04-01', amount: '$20.00', status: 'paid'    },
   { id: 'inv-2503', date: '2025-03-01', amount: '$20.00', status: 'paid'    },
   { id: 'inv-2502', date: '2025-02-01', amount: '$24.50', status: 'paid'    },
   { id: 'inv-2501', date: '2025-01-01', amount: '$20.00', status: 'pending' },
 ]
 
-const INV_STATUS: Record<Vercel95Invoice['status'], { label: string; color: string; bg: string }> = {
+const INV_STATUS: Record<DeployPlatform95Invoice['status'], { label: string; color: string; bg: string }> = {
   paid:    { label: 'Paid',    color: '#10b981', bg: '#f0fdf4' },
   pending: { label: 'Pending', color: '#f59e0b', bg: '#fffbeb' },
   failed:  { label: 'Failed',  color: '#ef4444', bg: '#fef2f2' },
 }
 
-function Vercel95UsageBillingRender() {
-  const [currentPlan] = React.useState<Vercel95Plan>('hobby')
+function DeployPlatform95UsageBillingRender() {
+  const [currentPlan] = React.useState<DeployPlatform95Plan>('hobby')
   const [billingEmail, setBillingEmail] = React.useState('hjunkim@orbit.dev')
   const [autoRenew, setAutoRenew] = React.useState(true)
   const [activeTab, setActiveTab] = React.useState<'usage' | 'billing' | 'plans'>('usage')
 
-  const nearLimitCount = VERCEL95_USAGE.filter((u) => u.limit !== null && u.used / u.limit >= 0.8).length
+  const nearLimitCount = DEPLOY95_USAGE.filter((u) => u.limit !== null && u.used / u.limit >= 0.8).length
 
   return (
     <div style={{ minHeight: '100vh', background: '#f8fafc', fontFamily: 'system-ui, sans-serif' }}>
@@ -23345,7 +23345,7 @@ function Vercel95UsageBillingRender() {
         </div>
         <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: 8 }}>
           <LabelBadge color="gray"><LabelBadge.Label>Hobby Plan</LabelBadge.Label></LabelBadge>
-          <LabelBadge color="benefit"><LabelBadge.Label>Vercel 패턴</LabelBadge.Label></LabelBadge>
+          <LabelBadge color="benefit"><LabelBadge.Label>DeployPlatform 패턴</LabelBadge.Label></LabelBadge>
         </div>
       </div>
 
@@ -23365,7 +23365,7 @@ function Vercel95UsageBillingRender() {
             </SectionTitle>
 
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14, marginTop: 16 }}>
-              {VERCEL95_USAGE.map((item) => {
+              {DEPLOY95_USAGE.map((item) => {
                 const pct = item.limit !== null ? Math.round((item.used / item.limit) * 100) : null
                 const isNear = pct !== null && pct >= 80
                 return (
@@ -23443,15 +23443,15 @@ function Vercel95UsageBillingRender() {
               <SectionTitle.Title>청구 내역</SectionTitle.Title>
               <SectionTitle.Description>최근 4개월 청구서</SectionTitle.Description>
               <SectionTitle.Trailing>
-                <CounterBadge>{VERCEL95_INVOICES.length}</CounterBadge>
+                <CounterBadge>{DEPLOY95_INVOICES.length}</CounterBadge>
               </SectionTitle.Trailing>
             </SectionTitle>
 
             <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: 12, overflow: 'hidden' }}>
-              {VERCEL95_INVOICES.map((inv, i) => {
+              {DEPLOY95_INVOICES.map((inv, i) => {
                 const st = INV_STATUS[inv.status]
                 return (
-                  <div key={inv.id} style={{ display: 'flex', alignItems: 'center', gap: 14, padding: '12px 20px', borderBottom: i < VERCEL95_INVOICES.length - 1 ? '1px solid #f8fafc' : 'none' }}>
+                  <div key={inv.id} style={{ display: 'flex', alignItems: 'center', gap: 14, padding: '12px 20px', borderBottom: i < DEPLOY95_INVOICES.length - 1 ? '1px solid #f8fafc' : 'none' }}>
                     <div style={{ flex: 1 }}>
                       <div style={{ fontSize: 13, fontWeight: 600, color: '#0f172a' }}>{inv.id}</div>
                       <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 1 }}>{inv.date}</div>
@@ -23477,7 +23477,7 @@ function Vercel95UsageBillingRender() {
               </SectionTitle.Trailing>
             </SectionTitle>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 14, marginTop: 16 }}>
-              {VERCEL95_PLANS.map((plan) => {
+              {DEPLOY95_PLANS.map((plan) => {
                 const isActive = plan.id === currentPlan
                 return (
                   <div key={plan.id} style={{ background: '#fff', border: `2px solid ${plan.popular ? plan.color : isActive ? '#0f172a' : '#e2e8f0'}`, borderRadius: 14, padding: '22px 20px', position: 'relative', display: 'flex', flexDirection: 'column', gap: 14 }}>
@@ -23520,44 +23520,44 @@ function Vercel95UsageBillingRender() {
   )
 }
 
-export const VercelUsageBilling: Story = {
-  name: 'Vercel Design — Usage & Billing Dashboard',
+export const DeployPlatformUsageBilling: Story = {
+  name: 'DeployPlatform Design — Usage & Billing Dashboard',
   parameters: {
     layout: 'fullscreen',
     docs: {
       description: {
         story:
-          'Vercel Design 벤치마크: 사용량/결제/플랜 3탭 대시보드. ' +
+          'DeployPlatform Design 벤치마크: 사용량/결제/플랜 3탭 대시보드. ' +
           'Progress(사용량 미터), Toggle(자동갱신), Slider 없이도 풍부한 인터랙션 구현. ' +
           'SectionTitle, LabelBadge, CounterBadge, Divider, Toggle 통합. ' +
           '한도 근접 경고, 청구 내역, 플랜 비교 카드 완전 구현.',
       },
     },
   },
-  render: () => <Vercel95UsageBillingRender />,
+  render: () => <DeployPlatform95UsageBillingRender />,
 }
 
-// ─── Cycle 96: Figma Design 벤치마크 ──────────────────────────────────────────
+// ─── Cycle 96: DesignTool Design 벤치마크 ──────────────────────────────────────────
 
-type Figma96Section = 'design' | 'prototype' | 'inspect'
-type Figma96TokenType = 'color' | 'typography' | 'spacing' | 'effect'
+type DesignTool96Section = 'design' | 'prototype' | 'inspect'
+type DesignTool96TokenType = 'color' | 'typography' | 'spacing' | 'effect'
 
-interface Figma96DesignToken {
+interface DesignTool96DesignToken {
   id: string
   name: string
-  type: Figma96TokenType
+  type: DesignTool96TokenType
   value: string
   hex?: string
 }
 
-interface Figma96PropertyItem {
+interface DesignTool96PropertyItem {
   id: string
   label: string
   value: string
   editable: boolean
 }
 
-const FIGMA96_TOKENS: Figma96DesignToken[] = [
+const DESIGN96_TOKENS: DesignTool96DesignToken[] = [
   { id: 'c1', name: 'Primary/500', type: 'color', value: '#7C3AED', hex: '#7C3AED' },
   { id: 'c2', name: 'Primary/100', type: 'color', value: '#EDE9FE', hex: '#EDE9FE' },
   { id: 'c3', name: 'Neutral/900', type: 'color', value: '#111827', hex: '#111827' },
@@ -23569,7 +23569,7 @@ const FIGMA96_TOKENS: Figma96DesignToken[] = [
   { id: 'e1', name: 'Shadow/MD', type: 'effect', value: '0 4px 12px rgba(0,0,0,0.1)' },
 ]
 
-const FIGMA96_DESIGN_PROPS: Figma96PropertyItem[] = [
+const DESIGN96_DESIGN_PROPS: DesignTool96PropertyItem[] = [
   { id: 'w', label: 'W', value: '320', editable: true },
   { id: 'h', label: 'H', value: '240', editable: true },
   { id: 'x', label: 'X', value: '0', editable: true },
@@ -23578,19 +23578,19 @@ const FIGMA96_DESIGN_PROPS: Figma96PropertyItem[] = [
   { id: 'opacity', label: 'Opacity', value: '100%', editable: true },
 ]
 
-const TOKEN_TYPE_COLOR: Record<Figma96TokenType, string> = {
+const TOKEN_TYPE_COLOR: Record<DesignTool96TokenType, string> = {
   color: '#7C3AED',
   typography: '#0EA5E9',
   spacing: '#10B981',
   effect: '#F59E0B',
 }
 
-const Figma96InspectPanelRender = () => {
-  const [activeSection, setActiveSection] = useState<Figma96Section>('design')
+const DesignTool96InspectPanelRender = () => {
+  const [activeSection, setActiveSection] = useState<DesignTool96Section>('design')
   const [selectedToken, setSelectedToken] = useState<string | null>(null)
-  const [filterType, setFilterType] = useState<Figma96TokenType | 'all'>('all')
+  const [filterType, setFilterType] = useState<DesignTool96TokenType | 'all'>('all')
 
-  const filteredTokens = filterType === 'all' ? FIGMA96_TOKENS : FIGMA96_TOKENS.filter(t => t.type === filterType)
+  const filteredTokens = filterType === 'all' ? DESIGN96_TOKENS : DESIGN96_TOKENS.filter(t => t.type === filterType)
 
   return (
     <div style={{ display: 'flex', height: 520, fontFamily: 'Inter, system-ui, sans-serif', background: '#f8fafc', gap: 0, borderRadius: 12, overflow: 'hidden', border: '1px solid #e5e7eb' }}>
@@ -23617,7 +23617,7 @@ const Figma96InspectPanelRender = () => {
       <div style={{ width: 260, background: '#fff', borderLeft: '1px solid #e5e7eb', display: 'flex', flexDirection: 'column' }}>
         {/* Section tabs */}
         <div style={{ display: 'flex', borderBottom: '1px solid #f0f0f0' }}>
-          {(['design', 'prototype', 'inspect'] as Figma96Section[]).map(sec => (
+          {(['design', 'prototype', 'inspect'] as DesignTool96Section[]).map(sec => (
             <button
               key={sec}
               onClick={() => setActiveSection(sec)}
@@ -23633,7 +23633,7 @@ const Figma96InspectPanelRender = () => {
             <div>
               <SectionTitle>레이아웃</SectionTitle>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 6, marginTop: 8, marginBottom: 14 }}>
-                {FIGMA96_DESIGN_PROPS.map(prop => (
+                {DESIGN96_DESIGN_PROPS.map(prop => (
                   <div key={prop.id} style={{ background: '#f9fafb', borderRadius: 6, padding: '6px 8px', border: '1px solid #f0f0f0' }}>
                     <div style={{ fontSize: 9, color: '#9ca3af', marginBottom: 2 }}>{prop.label}</div>
                     <div style={{ fontSize: 12, fontWeight: 600, color: '#111827' }}>{prop.value}</div>
@@ -23676,7 +23676,7 @@ const Figma96InspectPanelRender = () => {
                   <button
                     key={type}
                     onClick={() => setFilterType(type)}
-                    style={{ fontSize: 10, padding: '2px 8px', borderRadius: 10, border: `1px solid ${filterType === type ? TOKEN_TYPE_COLOR[type as Figma96TokenType] ?? '#7C3AED' : '#e5e7eb'}`, background: filterType === type ? (TOKEN_TYPE_COLOR[type as Figma96TokenType] ?? '#7C3AED') : '#fff', color: filterType === type ? '#fff' : '#6b7280', cursor: 'pointer', fontWeight: filterType === type ? 600 : 400 }}
+                    style={{ fontSize: 10, padding: '2px 8px', borderRadius: 10, border: `1px solid ${filterType === type ? TOKEN_TYPE_COLOR[type as DesignTool96TokenType] ?? '#7C3AED' : '#e5e7eb'}`, background: filterType === type ? (TOKEN_TYPE_COLOR[type as DesignTool96TokenType] ?? '#7C3AED') : '#fff', color: filterType === type ? '#fff' : '#6b7280', cursor: 'pointer', fontWeight: filterType === type ? 600 : 400 }}
                   >
                     {type}
                   </button>
@@ -23712,44 +23712,44 @@ const Figma96InspectPanelRender = () => {
   )
 }
 
-export const Figma96ComponentInspect: StoryObj = {
-  name: 'Figma - 컴포넌트 인스펙터 패널 (Cycle 96)',
+export const DesignTool96ComponentInspect: StoryObj = {
+  name: 'DesignTool - 컴포넌트 인스펙터 패널 (Cycle 96)',
   parameters: {
     docs: {
       description: {
-        story: 'Figma Design 벤치마크 — Design/Prototype/Inspect 3탭 인스펙터 패널. 레이아웃 속성, 프로토타입 인터랙션, 디자인 토큰 뷰어를 통합한 Figma 우측 패널 패턴입니다. SectionTitle, Toggle, LabelBadge 컴포넌트를 활용합니다.',
+        story: 'DesignTool Design 벤치마크 — Design/Prototype/Inspect 3탭 인스펙터 패널. 레이아웃 속성, 프로토타입 인터랙션, 디자인 토큰 뷰어를 통합한 DesignTool 우측 패널 패턴입니다. SectionTitle, Toggle, LabelBadge 컴포넌트를 활용합니다.',
       },
     },
   },
-  render: () => <Figma96InspectPanelRender />,
+  render: () => <DesignTool96InspectPanelRender />,
 }
 
-// ─── Cycle 97: Raycast + shadcn/ui 벤치마크 ────────────────────────────────────
+// ─── Cycle 97: CommandPalette + ComposableUI 벤치마크 ────────────────────────────────────
 
-type Raycast97NotifType = 'mention' | 'deploy' | 'alert' | 'update' | 'invite'
-type Raycast97NotifPriority = 'high' | 'normal' | 'low'
+type CommandPalette97NotifType = 'mention' | 'deploy' | 'alert' | 'update' | 'invite'
+type CommandPalette97NotifPriority = 'high' | 'normal' | 'low'
 
-interface Raycast97Notification {
+interface CommandPalette97Notification {
   id: string
-  type: Raycast97NotifType
+  type: CommandPalette97NotifType
   title: string
   body: string
   time: string
   read: boolean
-  priority: Raycast97NotifPriority
+  priority: CommandPalette97NotifPriority
   source: string
 }
 
-const RAYCAST97_NOTIFICATIONS: Raycast97Notification[] = [
+const LAUNCHER97_NOTIFICATIONS: CommandPalette97Notification[] = [
   { id: 'n1', type: 'mention', title: '@hjunkim 멘션됨', body: 'Storybook 배포 완료 확인 부탁드립니다', time: '방금', read: false, priority: 'high', source: 'Slack' },
-  { id: 'n2', type: 'deploy', title: 'orbit-ui 배포 완료', body: 'preview: orbit-ui-pink.vercel.app', time: '2분 전', read: false, priority: 'normal', source: 'Vercel' },
+  { id: 'n2', type: 'deploy', title: 'orbit-ui 배포 완료', body: 'preview: orbit-ui-pink.deploy.example.com', time: '2분 전', read: false, priority: 'normal', source: 'DeployPlatform' },
   { id: 'n3', type: 'alert', title: 'TypeScript 에러 감지', body: 'Templates.stories.tsx — TS2322 타입 불일치 3건', time: '5분 전', read: false, priority: 'high', source: 'CI/CD' },
-  { id: 'n4', type: 'update', title: 'Storybook 8.7 릴리스', body: '새로운 Controls UI, 성능 개선 포함', time: '1시간 전', read: true, priority: 'low', source: 'GitHub' },
-  { id: 'n5', type: 'invite', title: '디자인 리뷰 초대', body: 'Eclipse Theme v2 컴포넌트 검토 미팅', time: '2시간 전', read: true, priority: 'normal', source: 'Figma' },
-  { id: 'n6', type: 'deploy', title: 'PR #142 머지됨', body: 'feat(stories): Figma Design 벤치마크 스토리 추가', time: '어제', read: true, priority: 'normal', source: 'GitHub' },
+  { id: 'n4', type: 'update', title: 'Storybook 8.7 릴리스', body: '새로운 Controls UI, 성능 개선 포함', time: '1시간 전', read: true, priority: 'low', source: 'CodeHost' },
+  { id: 'n5', type: 'invite', title: '디자인 리뷰 초대', body: 'Eclipse Theme v2 컴포넌트 검토 미팅', time: '2시간 전', read: true, priority: 'normal', source: 'DesignTool' },
+  { id: 'n6', type: 'deploy', title: 'PR #142 머지됨', body: 'feat(stories): DesignTool Design 벤치마크 스토리 추가', time: '어제', read: true, priority: 'normal', source: 'CodeHost' },
 ]
 
-const RAYCAST97_TYPE_META: Record<Raycast97NotifType, { icon: string; color: string }> = {
+const LAUNCHER97_TYPE_META: Record<CommandPalette97NotifType, { icon: string; color: string }> = {
   mention: { icon: '@', color: '#7c3aed' },
   deploy: { icon: '↑', color: '#10b981' },
   alert: { icon: '!', color: '#ef4444' },
@@ -23757,10 +23757,10 @@ const RAYCAST97_TYPE_META: Record<Raycast97NotifType, { icon: string; color: str
   invite: { icon: '✉', color: '#f59e0b' },
 }
 
-const Raycast97NotificationCenterRender = () => {
-  const [notifications, setNotifications] = useState(RAYCAST97_NOTIFICATIONS)
+const CommandPalette97NotificationCenterRender = () => {
+  const [notifications, setNotifications] = useState(LAUNCHER97_NOTIFICATIONS)
   const [filter, setFilter] = useState<'all' | 'unread'>('all')
-  const [selectedType, setSelectedType] = useState<Raycast97NotifType | 'all'>('all')
+  const [selectedType, setSelectedType] = useState<CommandPalette97NotifType | 'all'>('all')
 
   const markAllRead = () => setNotifications(prev => prev.map(n => ({ ...n, read: true })))
   const markRead = (id: string) => setNotifications(prev => prev.map(n => n.id === id ? { ...n, read: true } : n))
@@ -23774,7 +23774,7 @@ const Raycast97NotificationCenterRender = () => {
     return true
   })
 
-  const filterTypes: Array<Raycast97NotifType | 'all'> = ['all', 'mention', 'deploy', 'alert', 'update', 'invite']
+  const filterTypes: Array<CommandPalette97NotifType | 'all'> = ['all', 'mention', 'deploy', 'alert', 'update', 'invite']
 
   return (
     <div style={{ width: 420, fontFamily: 'Inter, system-ui, sans-serif', background: '#fff', borderRadius: 12, border: '1px solid #e5e7eb', boxShadow: '0 8px 32px rgba(0,0,0,0.08)', overflow: 'hidden' }}>
@@ -23826,7 +23826,7 @@ const Raycast97NotificationCenterRender = () => {
           <div style={{ padding: '32px 16px', textAlign: 'center', color: '#9ca3af', fontSize: 13 }}>알림이 없습니다</div>
         ) : (
           filtered.map(notif => {
-            const meta = RAYCAST97_TYPE_META[notif.type]
+            const meta = LAUNCHER97_TYPE_META[notif.type]
             return (
               <div
                 key={notif.id}
@@ -23869,26 +23869,26 @@ const Raycast97NotificationCenterRender = () => {
 
       {/* Footer */}
       <div style={{ padding: '10px 16px', borderTop: '1px solid #f0f0f0', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <span style={{ fontSize: 11, color: '#9ca3af' }}>Raycast + shadcn/ui 알림 센터 패턴</span>
+        <span style={{ fontSize: 11, color: '#9ca3af' }}>CommandPalette + ComposableUI 알림 센터 패턴</span>
         <SectionTitle>알림 설정</SectionTitle>
       </div>
     </div>
   )
 }
 
-export const Raycast97NotificationCenter: StoryObj = {
-  name: 'Raycast + shadcn — 알림 센터 (Cycle 97)',
+export const CommandPalette97NotificationCenter: StoryObj = {
+  name: 'CommandPalette + ComposableUI — 알림 센터 (Cycle 97)',
   parameters: {
     docs: {
       description: {
-        story: 'Raycast Extensions + shadcn/ui 벤치마크 — 통합 알림 센터 패널. 타입 필터(mention/deploy/alert/update/invite), 읽음/안읽음 필터, 우선순위 배지를 갖춘 알림 목록. CounterBadge, AnimatedBadge, LabelBadge, SectionTitle 컴포넌트를 복합 활용합니다.',
+        story: 'CommandPalette Extensions + ComposableUI 벤치마크 — 통합 알림 센터 패널. 타입 필터(mention/deploy/alert/update/invite), 읽음/안읽음 필터, 우선순위 배지를 갖춘 알림 목록. CounterBadge, AnimatedBadge, LabelBadge, SectionTitle 컴포넌트를 복합 활용합니다.',
       },
     },
   },
-  render: () => <Raycast97NotificationCenterRender />,
+  render: () => <CommandPalette97NotificationCenterRender />,
 }
 
-// ─── Cycle 98: Ant Design + Mantine 벤치마크 ────────────────────────────────────
+// ─── Cycle 98: Ant Design + AppUI 벤치마크 ────────────────────────────────────
 
 type Ant98FormStep = 'basic' | 'security' | 'profile' | 'done'
 type Ant98ValidationState = 'idle' | 'valid' | 'error'
@@ -24102,7 +24102,7 @@ const Ant98MultiStepFormRender = () => {
 }
 
 export const Ant98MultiStepFormTemplate: StoryObj = {
-  name: 'Ant Design + Mantine — 멀티스텝 폼 유효성 검사 (Cycle 98)',
+  name: 'Ant Design + AppUI — 멀티스텝 폼 유효성 검사 (Cycle 98)',
   parameters: {
     docs: {
       description: {
@@ -24113,23 +24113,23 @@ export const Ant98MultiStepFormTemplate: StoryObj = {
   render: () => <Ant98MultiStepFormRender />,
 }
 
-// ─── Cycle 99: Linear Design + Arco Design 벤치마크 ───────────────────────────
+// ─── Cycle 99: IssueTracker Design + DataProductUI 벤치마크 ───────────────────────────
 
-type Linear99IssueStatus = 'todo' | 'inprogress' | 'review' | 'done' | 'cancelled'
-type Linear99IssuePriority = 'urgent' | 'high' | 'medium' | 'low'
+type IssueTracker99IssueStatus = 'todo' | 'inprogress' | 'review' | 'done' | 'cancelled'
+type IssueTracker99IssuePriority = 'urgent' | 'high' | 'medium' | 'low'
 
-interface Linear99Issue {
+interface IssueTracker99Issue {
   id: string
   title: string
-  status: Linear99IssueStatus
-  priority: Linear99IssuePriority
+  status: IssueTracker99IssueStatus
+  priority: IssueTracker99IssuePriority
   assignee: string
   label: string
   estimate: number
   dueDate: string
 }
 
-const LINEAR99_ISSUES: Linear99Issue[] = [
+const TRACKER99_ISSUES: IssueTracker99Issue[] = [
   { id: 'ENG-101', title: '버튼 hover 상태 색상 수정', status: 'done', priority: 'high', assignee: 'HJ', label: 'Bug', estimate: 1, dueDate: '04/08' },
   { id: 'ENG-102', title: 'DataTable 가상 스크롤 최적화', status: 'inprogress', priority: 'urgent', assignee: 'SJ', label: 'Feature', estimate: 5, dueDate: '04/12' },
   { id: 'ENG-103', title: 'Toast 포지션 prop 추가', status: 'review', priority: 'medium', assignee: 'MJ', label: 'Enhancement', estimate: 2, dueDate: '04/10' },
@@ -24139,7 +24139,7 @@ const LINEAR99_ISSUES: Linear99Issue[] = [
   { id: 'ENG-107', title: 'Carousel 무한 루프 버그 수정', status: 'cancelled', priority: 'low', assignee: 'MJ', label: 'Bug', estimate: 1, dueDate: '04/05' },
 ]
 
-const L99_STATUS_META: Record<Linear99IssueStatus, { label: string; color: string; dot: string }> = {
+const L99_STATUS_META: Record<IssueTracker99IssueStatus, { label: string; color: string; dot: string }> = {
   todo: { label: 'Todo', color: '#9ca3af', dot: '#d1d5db' },
   inprogress: { label: 'In Progress', color: '#6366f1', dot: '#6366f1' },
   review: { label: 'In Review', color: '#f59e0b', dot: '#f59e0b' },
@@ -24147,7 +24147,7 @@ const L99_STATUS_META: Record<Linear99IssueStatus, { label: string; color: strin
   cancelled: { label: 'Cancelled', color: '#9ca3af', dot: '#e5e7eb' },
 }
 
-const L99_PRIORITY_META: Record<Linear99IssuePriority, { label: string; color: 'sale' | 'benefit' | 'gray' }> = {
+const L99_PRIORITY_META: Record<IssueTracker99IssuePriority, { label: string; color: 'sale' | 'benefit' | 'gray' }> = {
   urgent: { label: 'Urgent', color: 'sale' },
   high: { label: 'High', color: 'benefit' },
   medium: { label: 'Medium', color: 'gray' },
@@ -24163,18 +24163,18 @@ const L99_LABEL_COLOR: Record<string, string> = {
   Performance: '#f59e0b',
 }
 
-const Linear99IssueBoardRender = () => {
-  const [statusFilter, setStatusFilter] = useState<Linear99IssueStatus | 'all'>('all')
-  const [priorityFilter, setPriorityFilter] = useState<Linear99IssuePriority | 'all'>('all')
+const IssueTracker99IssueBoardRender = () => {
+  const [statusFilter, setStatusFilter] = useState<IssueTracker99IssueStatus | 'all'>('all')
+  const [priorityFilter, setPriorityFilter] = useState<IssueTracker99IssuePriority | 'all'>('all')
   const [selectedId, setSelectedId] = useState<string | null>(null)
 
-  const filtered = LINEAR99_ISSUES.filter(i => {
+  const filtered = TRACKER99_ISSUES.filter(i => {
     if (statusFilter !== 'all' && i.status !== statusFilter) return false
     if (priorityFilter !== 'all' && i.priority !== priorityFilter) return false
     return true
   })
 
-  const selectedIssue = LINEAR99_ISSUES.find(i => i.id === selectedId)
+  const selectedIssue = TRACKER99_ISSUES.find(i => i.id === selectedId)
 
   return (
     <div style={{ display: 'flex', gap: 0, height: 480, fontFamily: 'Inter, system-ui, sans-serif', border: '1px solid #f0f0f0', borderRadius: 12, overflow: 'hidden', background: '#fff' }}>
@@ -24198,7 +24198,7 @@ const Linear99IssueBoardRender = () => {
             style={{ fontSize: 11, padding: '4px 8px', borderRadius: 6, border: '1px solid #e5e7eb', background: '#fff', color: '#374151', cursor: 'pointer', outline: 'none' }}
           >
             <option value="all">모든 우선순위</option>
-            {(['urgent', 'high', 'medium', 'low'] as Linear99IssuePriority[]).map(p => (
+            {(['urgent', 'high', 'medium', 'low'] as IssueTracker99IssuePriority[]).map(p => (
               <option key={p} value={p}>{L99_PRIORITY_META[p].label}</option>
             ))}
           </select>
@@ -24285,19 +24285,19 @@ const Linear99IssueBoardRender = () => {
   )
 }
 
-export const Linear99IssueBoard: StoryObj = {
-  name: 'Linear - 이슈 보드 + 상세 패널 (Cycle 99)',
+export const IssueTracker99IssueBoard: StoryObj = {
+  name: 'IssueTracker - 이슈 보드 + 상세 패널 (Cycle 99)',
   parameters: {
     docs: {
       description: {
-        story: 'Linear Design + Arco Design 벤치마크 — 이슈 목록과 우측 상세 패널. 상태/우선순위 필터 드롭다운, 이슈 클릭 시 슬라이드인 상세 패널, LabelBadge 우선순위 표시, SectionTitle/Divider 활용. Linear의 미니멀 이슈 트래커 UI 패턴을 구현합니다.',
+        story: 'IssueTracker Design + DataProductUI 벤치마크 — 이슈 목록과 우측 상세 패널. 상태/우선순위 필터 드롭다운, 이슈 클릭 시 슬라이드인 상세 패널, LabelBadge 우선순위 표시, SectionTitle/Divider 활용. IssueTracker의 미니멀 이슈 트래커 UI 패턴을 구현합니다.',
       },
     },
   },
-  render: () => <Linear99IssueBoardRender />,
+  render: () => <IssueTracker99IssueBoardRender />,
 }
 
-// ─── Cycle 100: Tailwind UI + shadcn/ui 벤치마크 ─────────────────────────────────
+// ─── Cycle 100: UtilityUI + ComposableUI 벤치마크 ─────────────────────────────────
 
 type TW100MetricTrend = 'up' | 'down' | 'neutral'
 type TW100PeriodKey = '7d' | '30d' | '90d'
@@ -24382,7 +24382,7 @@ const TW100AnalyticsDashRender = () => {
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 20 }}>
         <div>
           <div style={{ fontSize: 16, fontWeight: 700, color: '#111' }}>Analytics Dashboard</div>
-          <div style={{ fontSize: 12, color: '#9ca3af', marginTop: 2 }}>Tailwind UI + shadcn/ui 벤치마크 패턴</div>
+          <div style={{ fontSize: 12, color: '#9ca3af', marginTop: 2 }}>UtilityUI + ComposableUI 벤치마크 패턴</div>
         </div>
         <div style={{ display: 'flex', gap: 4, background: '#fff', border: '1px solid #e5e7eb', borderRadius: 8, padding: 3 }}>
           {TW100_PERIODS.map(p => (
@@ -24444,11 +24444,11 @@ const TW100AnalyticsDashRender = () => {
 }
 
 export const TW100AnalyticsDashboard: StoryObj = {
-  name: 'Tailwind UI + shadcn/ui — Analytics Dashboard (Cycle 100)',
+  name: 'UtilityUI + ComposableUI — Analytics Dashboard (Cycle 100)',
   parameters: {
     docs: {
       description: {
-        story: 'Tailwind UI + shadcn/ui 벤치마크 — 100번째 사이클 기념 Analytics Dashboard. 기간 전환(7일/30일/90일) + 4개 지표 카드(SVG 스파크라인 포함) + 인기 컴포넌트 Top 5 테이블. SectionTitle, LabelBadge, Progress 컴포넌트를 복합 활용합니다.',
+        story: 'UtilityUI + ComposableUI 벤치마크 — 100번째 사이클 기념 Analytics Dashboard. 기간 전환(7일/30일/90일) + 4개 지표 카드(SVG 스파크라인 포함) + 인기 컴포넌트 Top 5 테이블. SectionTitle, LabelBadge, Progress 컴포넌트를 복합 활용합니다.',
       },
     },
   },
@@ -24456,10 +24456,10 @@ export const TW100AnalyticsDashboard: StoryObj = {
 }
 
 /* ============================================================================
-   Cycle 101 — MUI + Chakra UI 벤치마크
+   Cycle 101 — EnterpriseUI + AccessibleUI 벤치마크
    Team Activity Dashboard: Skeleton 로딩 → 팀 활동 피드 + Tooltip 아바타 그룹
 ============================================================================ */
-const MUI101_MEMBERS = [
+const EnterpriseUI101_MEMBERS = [
   { initials: 'HJ', name: 'Heejun Kim', role: 'Lead Designer', color: '#6366f1', online: true },
   { initials: 'SR', name: 'Sora Ryu', role: 'Frontend Eng', color: '#10b981', online: true },
   { initials: 'JP', name: 'Jaewon Park', role: 'Backend Eng', color: '#f59e0b', online: false },
@@ -24467,7 +24467,7 @@ const MUI101_MEMBERS = [
   { initials: 'TK', name: 'Taeho Kim', role: 'DevOps', color: '#8b5cf6', online: false },
 ]
 
-type MUI101Activity = {
+type EnterpriseUI101Activity = {
   id: number
   memberIdx: number
   action: string
@@ -24477,15 +24477,15 @@ type MUI101Activity = {
   badgeText: string
 }
 
-const MUI101_ACTIVITIES: MUI101Activity[] = [
+const EnterpriseUI101_ACTIVITIES: EnterpriseUI101Activity[] = [
   { id: 1, memberIdx: 0, action: '컴포넌트 배포', target: 'SolidButton v2.1.0', time: '2분 전', badge: 'sale', badgeText: 'Deploy' },
-  { id: 2, memberIdx: 1, action: '스토리 추가', target: 'Skeleton — MUI 패턴', time: '14분 전', badge: 'benefit', badgeText: 'Story' },
+  { id: 2, memberIdx: 1, action: '스토리 추가', target: 'Skeleton — EnterpriseUI 패턴', time: '14분 전', badge: 'benefit', badgeText: 'Story' },
   { id: 3, memberIdx: 3, action: '이슈 완료', target: 'Tooltip 다크모드 지원', time: '28분 전', badge: 'gray', badgeText: 'Fix' },
   { id: 4, memberIdx: 2, action: 'PR 리뷰 요청', target: 'DataTable 정렬 기능', time: '1시간 전', badge: 'benefit', badgeText: 'PR' },
-  { id: 5, memberIdx: 4, action: 'CI/CD 파이프라인 업데이트', target: 'vercel-deploy.yml', time: '2시간 전', badge: 'gray', badgeText: 'Infra' },
+  { id: 5, memberIdx: 4, action: 'CI/CD 파이프라인 업데이트', target: 'deploy-platform.yml', time: '2시간 전', badge: 'gray', badgeText: 'Infra' },
 ]
 
-const MUI101TeamActivityRender = () => {
+const EnterpriseUI101TeamActivityRender = () => {
   const [isLoading, setIsLoading] = React.useState(true)
 
   React.useEffect(() => {
@@ -24505,14 +24505,14 @@ const MUI101TeamActivityRender = () => {
         <div>
           <SectionTitle>팀 활동 피드</SectionTitle>
           <div style={{ fontSize: 12, color: '#94a3b8', marginTop: 2 }}>
-            {isLoading ? '불러오는 중...' : `${MUI101_ACTIVITIES.length}건의 최근 활동`}
+            {isLoading ? '불러오는 중...' : `${EnterpriseUI101_ACTIVITIES.length}건의 최근 활동`}
           </div>
         </div>
         {/* Tooltip 아바타 그룹 */}
         <Tooltip.Provider delayDuration={200}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
             <div style={{ display: 'flex', alignItems: 'center' }}>
-              {MUI101_MEMBERS.map((m, i) => (
+              {EnterpriseUI101_MEMBERS.map((m, i) => (
                 <Tooltip key={m.initials}>
                   <Tooltip.Trigger asChild>
                     <div
@@ -24522,7 +24522,7 @@ const MUI101TeamActivityRender = () => {
                         display: 'flex', alignItems: 'center', justifyContent: 'center',
                         color: '#fff', fontSize: 11, fontWeight: 700, cursor: 'pointer',
                         marginLeft: i > 0 ? -8 : 0, position: 'relative',
-                        zIndex: MUI101_MEMBERS.length - i, boxShadow: '0 0 0 2px #fff',
+                        zIndex: EnterpriseUI101_MEMBERS.length - i, boxShadow: '0 0 0 2px #fff',
                       }}
                     >
                       {m.initials}
@@ -24587,8 +24587,8 @@ const MUI101TeamActivityRender = () => {
                 <Skeleton height={20} width={52} style={{ borderRadius: 20, flexShrink: 0 }} />
               </div>
             ))
-          : MUI101_ACTIVITIES.map((act) => {
-              const member = MUI101_MEMBERS[act.memberIdx]
+          : EnterpriseUI101_ACTIVITIES.map((act) => {
+              const member = EnterpriseUI101_MEMBERS[act.memberIdx]
               return (
                 <div
                   key={act.id}
@@ -24640,7 +24640,7 @@ const MUI101TeamActivityRender = () => {
           border: '1px solid #e2e8f0', display: 'flex', justifyContent: 'space-between', alignItems: 'center',
         }}>
           <div style={{ fontSize: 12, color: '#64748b' }}>
-            온라인 멤버: <strong style={{ color: '#22c55e' }}>{MUI101_MEMBERS.filter(m => m.online).length}</strong> / {MUI101_MEMBERS.length}명
+            온라인 멤버: <strong style={{ color: '#22c55e' }}>{EnterpriseUI101_MEMBERS.filter(m => m.online).length}</strong> / {EnterpriseUI101_MEMBERS.length}명
           </div>
           <div style={{ display: 'flex', gap: 8 }}>
             <LabelBadge color="sale">Deploy ×1</LabelBadge>
@@ -24653,29 +24653,29 @@ const MUI101TeamActivityRender = () => {
   )
 }
 
-export const MUI101TeamActivityDashboard: StoryObj = {
-  name: 'MUI + Chakra UI — Team Activity Dashboard (Cycle 101)',
+export const EnterpriseUI101TeamActivityDashboard: StoryObj = {
+  name: 'EnterpriseUI + AccessibleUI — Team Activity Dashboard (Cycle 101)',
   parameters: {
     docs: {
       description: {
         story:
-          'MUI + Chakra UI 벤치마크 — Cycle 101. ' +
+          'EnterpriseUI + AccessibleUI 벤치마크 — Cycle 101. ' +
           'Skeleton 로딩(1.8초) → 팀 활동 피드로 전환. ' +
           'Tooltip 아바타 그룹(hover 시 멤버 정보), LabelBadge 활동 분류, Divider, SectionTitle, Skeleton 로딩 패턴을 복합 활용합니다.',
       },
     },
   },
-  render: () => <MUI101TeamActivityRender />,
+  render: () => <EnterpriseUI101TeamActivityRender />,
 }
 
 /* ============================================================================
-   Cycle 102 — Radix UI + Linear Design 벤치마크
+   Cycle 102 — PrimitiveUI + IssueTracker Design 벤치마크
    User Onboarding Flow: 멀티스텝 회원가입 + PasswordField 검증 + PageDots 진행 표시
 ============================================================================ */
-type Radix102Step = 'profile' | 'password' | 'plan' | 'done'
+type Primitive102Step = 'profile' | 'password' | 'plan' | 'done'
 
-const RADIX102_STEPS: Radix102Step[] = ['profile', 'password', 'plan', 'done']
-const RADIX102_LABELS: Record<Radix102Step, string> = {
+const RADIX102_STEPS: Primitive102Step[] = ['profile', 'password', 'plan', 'done']
+const RADIX102_LABELS: Record<Primitive102Step, string> = {
   profile: '프로필',
   password: '비밀번호',
   plan: '플랜 선택',
@@ -24693,7 +24693,7 @@ const RADIX102_PW_RULES = [
   { id: 'number', label: '숫자 포함', test: (v: string) => /\d/.test(v) },
 ]
 
-const Radix102OnboardingRender = () => {
+const Primitive102OnboardingRender = () => {
   const [stepIdx, setStepIdx] = useState(0)
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
@@ -24879,24 +24879,24 @@ const Radix102OnboardingRender = () => {
   )
 }
 
-export const Radix102OnboardingFlow: StoryObj = {
-  name: 'Radix UI + Linear — User Onboarding Flow (Cycle 102)',
+export const Primitive102OnboardingFlow: StoryObj = {
+  name: 'PrimitiveUI + IssueTracker — User Onboarding Flow (Cycle 102)',
   parameters: {
     docs: {
       description: {
         story:
-          'Radix UI + Linear Design 벤치마크 — Cycle 102. ' +
+          'PrimitiveUI + IssueTracker Design 벤치마크 — Cycle 102. ' +
           '4단계 회원가입 플로우: 프로필 → 비밀번호(실시간 강도 검증) → 플랜 선택 → 완료. ' +
           'PageDots 진행 표시, PasswordField 실시간 검증, TextField, SectionTitle, LabelBadge 복합 활용.',
       },
     },
   },
-  render: () => <Radix102OnboardingRender />,
+  render: () => <Primitive102OnboardingRender />,
 }
 
 /* ============================================================================
-   Cycle 103 — shadcn/ui + Vercel Design 벤치마크
-   Component Catalog: shadcn 스타일 카탈로그 + Vercel 배포 카드 + PageNumber 페이지네이션
+   Cycle 103 — ComposableUI + DeployPlatform Design 벤치마크
+   Component Catalog: ComposableUI 스타일 카탈로그 + DeployPlatform 배포 카드 + PageNumber 페이지네이션
 ============================================================================ */
 type Catalog103Item = {
   name: string
@@ -24929,7 +24929,7 @@ const STATUS_BADGE: Record<string, { label: string; color: string; bg: string }>
   new: { label: 'New', color: '#7c3aed', bg: '#f5f3ff' },
 }
 
-const Shadcn103CatalogRender = () => {
+const ComposableUI103CatalogRender = () => {
   const [page, setPage] = useState(1)
   const [search, setSearch] = useState('')
   const [category, setCategory] = useState('All')
@@ -25048,40 +25048,40 @@ const Shadcn103CatalogRender = () => {
   )
 }
 
-export const Shadcn103ComponentCatalog: StoryObj = {
-  name: 'shadcn/ui + Vercel — Component Catalog (Cycle 103)',
+export const ComposableUI103ComponentCatalog: StoryObj = {
+  name: 'ComposableUI + DeployPlatform — Component Catalog (Cycle 103)',
   parameters: {
     docs: {
       description: {
         story:
-          'shadcn/ui + Vercel Design 벤치마크 — Cycle 103. ' +
+          'ComposableUI + DeployPlatform Design 벤치마크 — Cycle 103. ' +
           '컴포넌트 카탈로그: 검색 필터 + 카테고리 Chip 필터 + 카드 그리드 + PageNumber 페이지네이션. ' +
           'SearchBar, Chip, Divider, SectionTitle, LabelBadge, PageNumber 복합 활용.',
       },
     },
   },
-  render: () => <Shadcn103CatalogRender />,
+  render: () => <ComposableUI103CatalogRender />,
 }
 
-// ─── Cycle 104: Mantine + Arco Design ───────────────────────────────────────
+// ─── Cycle 104: AppUI + DataProductUI ───────────────────────────────────────
 
-type Mantine104Tab = 'notes' | 'feedback' | 'review'
+type AppUI104Tab = 'notes' | 'feedback' | 'review'
 
-const MANTINE104_TABS: { id: Mantine104Tab; label: string; icon: string }[] = [
+const ACCESSIBLEKIT104_TABS: { id: AppUI104Tab; label: string; icon: string }[] = [
   { id: 'notes', label: '공유 노트', icon: '📝' },
   { id: 'feedback', label: '피드백', icon: '⭐' },
   { id: 'review', label: '코드 리뷰', icon: '🔍' },
 ]
 
-type Mantine104Reviewer = { id: number; name: string; color: string }
-const MANTINE104_REVIEWERS: Mantine104Reviewer[] = [
+type AppUI104Reviewer = { id: number; name: string; color: string }
+const ACCESSIBLEKIT104_REVIEWERS: AppUI104Reviewer[] = [
   { id: 1, name: '김지수', color: '#3b82f6' },
   { id: 2, name: '이민준', color: '#8b5cf6' },
   { id: 3, name: '박서연', color: '#10b981' },
 ]
 
-function Mantine104WorkspaceRender() {
-  const [activeTab, setActiveTab] = useState<Mantine104Tab>('notes')
+function AppUI104WorkspaceRender() {
+  const [activeTab, setActiveTab] = useState<AppUI104Tab>('notes')
   const [notes, setNotes] = useState('# 스프린트 42 계획\n\n## 목표\n- 로그인 플로우 개선\n- 대시보드 v2 설계\n\n## 논의 사항\n')
   const [rating, setRating] = useState(0)
   const [feedbackText, setFeedbackText] = useState('')
@@ -25093,7 +25093,7 @@ function Mantine104WorkspaceRender() {
 
   const handleNotesChange = (val: string) => {
     setNotes(val)
-    const reviewer = MANTINE104_REVIEWERS[Math.floor(Math.random() * MANTINE104_REVIEWERS.length)]
+    const reviewer = ACCESSIBLEKIT104_REVIEWERS[Math.floor(Math.random() * ACCESSIBLEKIT104_REVIEWERS.length)]
     setTypingReviewer(reviewer.id)
     setNoteVersion((v) => v + 1)
     setTimeout(() => setTypingReviewer(null), 1200)
@@ -25115,10 +25115,10 @@ function Mantine104WorkspaceRender() {
         <div style={{ width: 28, height: 28, borderRadius: 8, background: '#3b82f6', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 14 }}>🚀</div>
         <div>
           <div style={{ fontSize: 13, fontWeight: 700, color: '#f8fafc' }}>팀 워크스페이스</div>
-          <div style={{ fontSize: 10, color: '#64748b' }}>Mantine + Arco Design 협업 템플릿</div>
+          <div style={{ fontSize: 10, color: '#64748b' }}>AppUI + DataProductUI 협업 템플릿</div>
         </div>
         <div style={{ marginLeft: 'auto', display: 'flex', gap: -4 }}>
-          {MANTINE104_REVIEWERS.map((r) => (
+          {ACCESSIBLEKIT104_REVIEWERS.map((r) => (
             <div
               key={r.id}
               style={{
@@ -25138,7 +25138,7 @@ function Mantine104WorkspaceRender() {
 
       {/* Tabs */}
       <div style={{ display: 'flex', borderBottom: '1px solid #e2e8f0', background: '#f8fafc' }}>
-        {MANTINE104_TABS.map((tab) => (
+        {ACCESSIBLEKIT104_TABS.map((tab) => (
           <button
             key={tab.id}
             onClick={() => setActiveTab(tab.id)}
@@ -25165,8 +25165,8 @@ function Mantine104WorkspaceRender() {
               <div style={{ fontSize: 10, color: '#94a3b8', background: '#f1f5f9', borderRadius: 4, padding: '2px 8px' }}>v{noteVersion}</div>
             </div>
             {typingReviewer !== null && (
-              <div style={{ fontSize: 11, color: MANTINE104_REVIEWERS.find((r) => r.id === typingReviewer)?.color }}>
-                {MANTINE104_REVIEWERS.find((r) => r.id === typingReviewer)?.name}님이 편집 중...
+              <div style={{ fontSize: 11, color: ACCESSIBLEKIT104_REVIEWERS.find((r) => r.id === typingReviewer)?.color }}>
+                {ACCESSIBLEKIT104_REVIEWERS.find((r) => r.id === typingReviewer)?.name}님이 편집 중...
               </div>
             )}
             <TextArea value={notes} onChange={(e) => handleNotesChange(e.target.value)} minimumLine={9} placeholder="팀 공유 노트를 작성하세요..." />
@@ -25271,23 +25271,23 @@ function Mantine104WorkspaceRender() {
   )
 }
 
-export const Mantine104TeamWorkspace: StoryObj = {
-  name: 'Mantine + Arco Design — Team Workspace (Cycle 104)',
+export const AppUI104TeamWorkspace: StoryObj = {
+  name: 'AppUI + DataProductUI — Team Workspace (Cycle 104)',
   parameters: {
     docs: {
       description: {
         story:
-          'Mantine + Arco Design 벤치마크 — Cycle 104. ' +
+          'AppUI + DataProductUI 벤치마크 — Cycle 104. ' +
           '3탭 팀 워크스페이스: 공유 노트 편집(협업자 타이핑 인디케이터+버전 카운터), ' +
           '별점 피드백 폼(실시간 검증+제출 성공화면), 코드 리뷰 인라인 코멘트. ' +
           'TextArea, SectionTitle, Divider, LabelBadge 복합 활용.',
       },
     },
   },
-  render: () => <Mantine104WorkspaceRender />,
+  render: () => <AppUI104WorkspaceRender />,
 }
 
-// ─── Cycle 105: Tailwind UI + Ant Design ─────────────────────────────────────
+// ─── Cycle 105: UtilityUI + Ant Design ─────────────────────────────────────
 
 type TW105FileType = 'all' | 'document' | 'image' | 'archive'
 type TW105SortKey = 'name' | 'date' | 'size'
@@ -25304,7 +25304,7 @@ type TW105File = {
 }
 
 const TW105_FILES: TW105File[] = [
-  { id: 1, name: 'design-system-v2.figma', type: 'document', size: '12.4 MB', modified: '2026-04-10', owner: '김지수', ownerColor: '#3b82f6', status: 'ready' },
+  { id: 1, name: 'design-system-v2.design', type: 'document', size: '12.4 MB', modified: '2026-04-10', owner: '김지수', ownerColor: '#3b82f6', status: 'ready' },
   { id: 2, name: 'orbit-ui-cover.png', type: 'image', size: '2.1 MB', modified: '2026-04-09', owner: '이민준', ownerColor: '#8b5cf6', status: 'ready' },
   { id: 3, name: 'storybook-archive.zip', type: 'archive', size: '84.6 MB', modified: '2026-04-08', owner: '박서연', ownerColor: '#10b981', status: 'processing' },
   { id: 4, name: 'sprint-notes.md', type: 'document', size: '38 KB', modified: '2026-04-07', owner: '최현우', ownerColor: '#f59e0b', status: 'ready' },
@@ -25578,13 +25578,13 @@ function TW105FileManagerRender() {
   )
 }
 
-export const TailwindUI105FileManager: StoryObj = {
-  name: 'Tailwind UI + Ant Design — File Manager (Cycle 105)',
+export const UtilityCSSUI105FileManager: StoryObj = {
+  name: 'UtilityUI + Ant Design — File Manager (Cycle 105)',
   parameters: {
     docs: {
       description: {
         story:
-          'Tailwind UI + Ant Design 벤치마크 — Cycle 105. ' +
+          'UtilityUI + Ant Design 벤치마크 — Cycle 105. ' +
           '파일 관리자: 타입 필터(Chip) + 정렬 + 목록/그리드 Toggle + 다중 선택 + 일괄 삭제. ' +
           'AppBar, SearchBar, Chip, Toggle, LabelBadge, GhostButton, OutlineButton, SolidButton 복합 활용.',
       },
@@ -25593,7 +25593,7 @@ export const TailwindUI105FileManager: StoryObj = {
   render: () => <TW105FileManagerRender />,
 }
 
-// ─── Cycle 106: Raycast + Notion Design ──────────────────────────────────────
+// ─── Cycle 106: CommandPalette + WorkspaceEditor Design ──────────────────────────────────────
 
 type RC106NotifType = 'mention' | 'comment' | 'pr' | 'deploy' | 'alert'
 
@@ -25609,14 +25609,14 @@ type RC106Notification = {
 }
 
 const RC106_NOTIFICATIONS: RC106Notification[] = [
-  { id: 1, type: 'mention', title: '이민준이 멘션했습니다', body: '@hjunkim Orbit UI v2 PR 리뷰 부탁드립니다', time: '2분 전', read: false, source: 'GitHub', sourceColor: '#0f172a' },
-  { id: 2, type: 'pr', title: 'PR #142 병합됨', body: 'feat(stories): Cycle 105 변경사항이 main에 병합되었습니다', time: '18분 전', read: false, source: 'GitHub', sourceColor: '#0f172a' },
-  { id: 3, type: 'deploy', title: '배포 완료', body: 'orbit-ui Storybook이 Vercel에 성공적으로 배포되었습니다', time: '35분 전', read: false, source: 'Vercel', sourceColor: '#000' },
-  { id: 4, type: 'comment', title: '새 댓글', body: '김지수: Space 컴포넌트 반응형 지원 방향 논의 필요합니다', time: '1시간 전', read: false, source: 'Notion', sourceColor: '#000' },
+  { id: 1, type: 'mention', title: '이민준이 멘션했습니다', body: '@hjunkim Orbit UI v2 PR 리뷰 부탁드립니다', time: '2분 전', read: false, source: 'CodeHost', sourceColor: '#0f172a' },
+  { id: 2, type: 'pr', title: 'PR #142 병합됨', body: 'feat(stories): Cycle 105 변경사항이 main에 병합되었습니다', time: '18분 전', read: false, source: 'CodeHost', sourceColor: '#0f172a' },
+  { id: 3, type: 'deploy', title: '배포 완료', body: 'orbit-ui Storybook이 DeployPlatform에 성공적으로 배포되었습니다', time: '35분 전', read: false, source: 'DeployPlatform', sourceColor: '#000' },
+  { id: 4, type: 'comment', title: '새 댓글', body: '김지수: Space 컴포넌트 반응형 지원 방향 논의 필요합니다', time: '1시간 전', read: false, source: 'WorkspaceEditor', sourceColor: '#000' },
   { id: 5, type: 'alert', title: '빌드 오류', body: 'TypeScript 타입 에러 발견 — packages/theme-eclipse', time: '2시간 전', read: true, source: 'CI/CD', sourceColor: '#ef4444' },
-  { id: 6, type: 'mention', title: '박서연이 멘션했습니다', body: '@hjunkim LabelBadge color prop 확장 관련 의견 구합니다', time: '3시간 전', read: true, source: 'Linear', sourceColor: '#5e6ad2' },
-  { id: 7, type: 'pr', title: 'PR #138 리뷰 요청', body: 'fix(toggle): onCheckedChange prop 정상화 요청', time: '5시간 전', read: true, source: 'GitHub', sourceColor: '#0f172a' },
-  { id: 8, type: 'deploy', title: '배포 실패', body: 'storybook-static 빌드가 100/day 제한으로 실패했습니다', time: '어제', read: true, source: 'Vercel', sourceColor: '#000' },
+  { id: 6, type: 'mention', title: '박서연이 멘션했습니다', body: '@hjunkim LabelBadge color prop 확장 관련 의견 구합니다', time: '3시간 전', read: true, source: 'IssueTracker', sourceColor: '#5e6ad2' },
+  { id: 7, type: 'pr', title: 'PR #138 리뷰 요청', body: 'fix(toggle): onCheckedChange prop 정상화 요청', time: '5시간 전', read: true, source: 'CodeHost', sourceColor: '#0f172a' },
+  { id: 8, type: 'deploy', title: '배포 실패', body: 'storybook-static 빌드가 100/day 제한으로 실패했습니다', time: '어제', read: true, source: 'DeployPlatform', sourceColor: '#000' },
 ]
 
 const RC106_TYPE_ICON: Record<RC106NotifType, string> = {
@@ -25778,13 +25778,13 @@ function RC106NotificationCenterRender() {
   )
 }
 
-export const Raycast106NotificationCenter: StoryObj = {
-  name: 'Raycast + Notion — Notification Center (Cycle 106)',
+export const CommandPalette106NotificationCenter: StoryObj = {
+  name: 'CommandPalette + WorkspaceEditor — Notification Center (Cycle 106)',
   parameters: {
     docs: {
       description: {
         story:
-          'Raycast + Notion 벤치마크 — Cycle 106. ' +
+          'CommandPalette + WorkspaceEditor 벤치마크 — Cycle 106. ' +
           '알림 센터: 타입별 Chip 필터 + 읽음/미읽음 구분 + 클릭 읽음 처리 + 개별 닫기 + 전체 읽음. ' +
           'AppBar, CounterBadge, GhostButton, Chip, LabelBadge 복합 활용.',
       },
@@ -25793,7 +25793,7 @@ export const Raycast106NotificationCenter: StoryObj = {
   render: () => <RC106NotificationCenterRender />,
 }
 
-// ─── Cycle 107: Apple HIG + Google Material 3 ────────────────────────────────
+// ─── Cycle 107: Platform HIG + RoleToken Design ────────────────────────────────
 
 type KB107Status = 'todo' | 'inprogress' | 'review' | 'done'
 type KB107Priority = 'high' | 'medium' | 'low'
@@ -25811,13 +25811,13 @@ type KB107Task = {
 
 const KB107_TASKS: KB107Task[] = [
   { id: 1, title: 'Switch 반응형 prop 지원', desc: 'Core 패키지 Space 컴포넌트 breakpoint 기반 값 지원', status: 'todo', priority: 'high', assignee: '김지수', assigneeColor: '#3b82f6', label: 'feat' },
-  { id: 2, title: 'BenchmarkComparison MDX 갱신', desc: 'Cycle 107 Apple HIG + M3 벤치마크 섹션 추가', status: 'inprogress', priority: 'medium', assignee: '이민준', assigneeColor: '#8b5cf6', label: 'docs' },
+  { id: 2, title: 'BenchmarkComparison MDX 갱신', desc: 'Cycle 107 Platform HIG + M3 벤치마크 섹션 추가', status: 'inprogress', priority: 'medium', assignee: '이민준', assigneeColor: '#8b5cf6', label: 'docs' },
   { id: 3, title: 'Checkbox indeterminate 접근성', desc: 'WAI-ARIA aria-checked=mixed 속성 검증', status: 'inprogress', priority: 'high', assignee: '박서연', assigneeColor: '#10b981', label: 'a11y' },
-  { id: 4, title: 'Vercel 100/day 제한 해결', desc: 'Pro plan 전환 또는 배포 횟수 최적화 방안 검토', status: 'review', priority: 'low', assignee: '김지수', assigneeColor: '#3b82f6', label: 'infra' },
+  { id: 4, title: 'DeployPlatform 100/day 제한 해결', desc: 'Pro plan 전환 또는 배포 횟수 최적화 방안 검토', status: 'review', priority: 'low', assignee: '김지수', assigneeColor: '#3b82f6', label: 'infra' },
   { id: 5, title: 'DataTable 정렬 스토리 추가', desc: 'Ant Design Table 패턴 벤치마크', status: 'todo', priority: 'medium', assignee: '이민준', assigneeColor: '#8b5cf6', label: 'feat' },
   { id: 6, title: 'Toggle 토큰값 문서화', desc: 'Spacing Typing 가이드라인 내 토큰 vs px 혼용 금지', status: 'review', priority: 'medium', assignee: '박서연', assigneeColor: '#10b981', label: 'docs' },
   { id: 7, title: 'Storybook build 최적화', desc: 'Templates chunk 500KB 이상 경고 해결 — manualChunks 설정', status: 'done', priority: 'high', assignee: '김지수', assigneeColor: '#3b82f6', label: 'perf' },
-  { id: 8, title: 'Cycle 106 배포 완료', desc: 'Vercel orbit-ui storybook-static 배포 확인', status: 'done', priority: 'low', assignee: '이민준', assigneeColor: '#8b5cf6', label: 'infra' },
+  { id: 8, title: 'Cycle 106 배포 완료', desc: 'DeployPlatform orbit-ui storybook-static 배포 확인', status: 'done', priority: 'low', assignee: '이민준', assigneeColor: '#8b5cf6', label: 'infra' },
 ]
 
 const KB107_COLUMNS: { id: KB107Status; label: string; color: string }[] = [
@@ -25950,13 +25950,13 @@ function KB107KanbanRender() {
   )
 }
 
-export const AppleHIG107KanbanBoard: StoryObj = {
-  name: 'Apple HIG + Material 3 — Kanban Board (Cycle 107)',
+export const PlatformHIG107KanbanBoard: StoryObj = {
+  name: 'Platform HIG + RoleToken Design — Kanban Board (Cycle 107)',
   parameters: {
     docs: {
       description: {
         story:
-          'Apple HIG + Google Material 3 벤치마크 — Cycle 107. ' +
+          'Platform HIG + RoleToken Design 벤치마크 — Cycle 107. ' +
           '칸반 보드: 4컬럼(할 일/진행 중/검토/완료) + 태스크 카드 이동(← →) + 우선순위 Chip 필터 + 검색. ' +
           'AppBar, SearchBar, Chip, LabelBadge 복합 활용.',
       },
@@ -25966,7 +25966,7 @@ export const AppleHIG107KanbanBoard: StoryObj = {
 }
 
 /* ==========================================================================
-   Cycle 108 — Linear Design + Figma Plugin UI
+   Cycle 108 — IssueTracker Design + DesignTool Plugin UI
    Template: Sprint Review Dashboard
    AppBar + Progress + DataTable + LabelBadge + Chip + SectionTitle + Divider
    ========================================================================== */
@@ -26339,13 +26339,13 @@ function C108SprintReviewRender() {
   )
 }
 
-export const Linear108SprintReview: StoryObj = {
-  name: 'Linear + Figma Plugin UI — Sprint Review Dashboard (Cycle 108)',
+export const IssueTracker108SprintReview: StoryObj = {
+  name: 'IssueTracker + DesignTool Plugin UI — Sprint Review Dashboard (Cycle 108)',
   parameters: {
     docs: {
       description: {
         story:
-          'Linear Design + Figma Plugin UI 벤치마크 — Cycle 108. ' +
+          'IssueTracker Design + DesignTool Plugin UI 벤치마크 — Cycle 108. ' +
           '스프린트 리뷰 대시보드: Overview(KPI 카드 + Progress + 담당자 기여도) / Issues(상태 Chip + 이슈 목록) / Retro(3열 회고 보드 + 회고 추가). ' +
           'AppBar, Progress, LabelBadge, Chip, Divider, SectionTitle, CounterBadge 복합 활용.',
       },
@@ -26355,7 +26355,7 @@ export const Linear108SprintReview: StoryObj = {
 }
 
 /* ==========================================================================
-   Cycle 109 — Tailwind UI + Mantine
+   Cycle 109 — UtilityUI + AppUI
    Template: API 관리 대시보드 (API Management Dashboard)
    AppBar + Toggle + AlertDialog + TextField + LabelBadge + SectionTitle + Divider
    ========================================================================== */
@@ -26632,13 +26632,13 @@ function ApiMgmt109Render() {
   )
 }
 
-export const TailwindMantine109ApiDashboard: StoryObj = {
-  name: 'Tailwind UI + Mantine — API 관리 대시보드 (Cycle 109)',
+export const UtilityCSSAppUI109ApiDashboard: StoryObj = {
+  name: 'UtilityUI + AppUI — API 관리 대시보드 (Cycle 109)',
   parameters: {
     docs: {
       description: {
         story:
-          'Tailwind UI + Mantine 벤치마크 — Cycle 109. ' +
+          'UtilityUI + AppUI 벤치마크 — Cycle 109. ' +
           'API 키 관리 대시보드: Keys 탭(새 키 생성 + AlertDialog 만료 확인 + 스코프 배지) / Settings 탭(보안 정책 Toggle 4개). ' +
           'AppBar, Alert, Toggle, TextField, LabelBadge, SectionTitle, Divider 복합 활용.',
       },
@@ -26648,7 +26648,7 @@ export const TailwindMantine109ApiDashboard: StoryObj = {
 }
 
 /* ==========================================================================
-   Cycle 110 — Arco Design + shadcn/ui
+   Cycle 110 — DataProductUI + ComposableUI
    Template: 개발자 포털 (Developer Portal)
    AppBar + SearchBar + Chip + LabelBadge + Divider + SectionTitle + SolidButton
    ========================================================================== */
@@ -26890,13 +26890,13 @@ function DP110Render() {
   )
 }
 
-export const ArcoShadcn110DeveloperPortal: StoryObj = {
-  name: 'Arco Design + shadcn/ui — 개발자 포털 (Cycle 110)',
+export const DataProductComposableUI110DeveloperPortal: StoryObj = {
+  name: 'DataProductUI + ComposableUI — 개발자 포털 (Cycle 110)',
   parameters: {
     docs: {
       description: {
         story:
-          'Arco Design + shadcn/ui 벤치마크 — Cycle 110. ' +
+          'DataProductUI + ComposableUI 벤치마크 — Cycle 110. ' +
           '개발자 포털: AppBar 검색바 + Chip 카테고리/상태 필터 + API 목록 + 슬라이드 상세 패널(호출 통계 + Base URL 복사 + 액션 버튼). ' +
           'AppBar, SearchBar, Chip, LabelBadge, SectionTitle, SolidButton 복합 활용.',
       },
@@ -26906,7 +26906,7 @@ export const ArcoShadcn110DeveloperPortal: StoryObj = {
 }
 
 /* --------------------------------------------------------------------------
-   MUI + Chakra UI — Cycle 111: 디자인 리뷰 대시보드
+   EnterpriseUI + AccessibleUI — Cycle 111: 디자인 리뷰 대시보드
    PR 리뷰 통계 + 컴포넌트 커버리지 + 팀 활동 피드
 -------------------------------------------------------------------------- */
 type ReviewStatus111 = 'approved' | 'changes' | 'pending'
@@ -27104,13 +27104,13 @@ function ReviewDashboard111Render() {
   )
 }
 
-export const MuiChakra111ReviewDashboard: StoryObj = {
-  name: 'MUI + Chakra UI — 디자인 리뷰 대시보드 (Cycle 111)',
+export const EnterpriseUIAccessible111ReviewDashboard: StoryObj = {
+  name: 'EnterpriseUI + AccessibleUI — 디자인 리뷰 대시보드 (Cycle 111)',
   parameters: {
     docs: {
       description: {
         story:
-          'MUI + Chakra UI 벤치마크 — Cycle 111. ' +
+          'EnterpriseUI + AccessibleUI 벤치마크 — Cycle 111. ' +
           '디자인 리뷰 대시보드: KPI 카드(승인/수정요청/검토중) + PR 목록(Chip 필터 + 상태뱃지 + 슬라이드 리뷰 패널) + 컴포넌트 커버리지(Progress 바 + LabelBadge) + 팀 활동 피드. ' +
           'AppBar, CounterBadge, Avatar, Chip, OutlineButton, SolidButton, Progress, LabelBadge 복합 활용.',
       },
@@ -27120,7 +27120,7 @@ export const MuiChakra111ReviewDashboard: StoryObj = {
 }
 
 /* --------------------------------------------------------------------------
-   Radix UI + Vercel — Cycle 112: 알림 센터 (NotificationCenter)
+   PrimitiveUI + DeployPlatform — Cycle 112: 알림 센터 (NotificationCenter)
    필터 탭 + 알림 목록 + 일괄 액션 + 설정 패널
 -------------------------------------------------------------------------- */
 type NotifType112 = 'all' | 'deploy' | 'comment' | 'alert'
@@ -27279,13 +27279,13 @@ function NotificationCenter112Render() {
   )
 }
 
-export const RadixVercel112NotificationCenter: StoryObj = {
-  name: 'Radix UI + Vercel — 알림 센터 (Cycle 112)',
+export const PrimitiveDeployPlatform112NotificationCenter: StoryObj = {
+  name: 'PrimitiveUI + DeployPlatform — 알림 센터 (Cycle 112)',
   parameters: {
     docs: {
       description: {
         story:
-          'Radix UI + Vercel 벤치마크 — Cycle 112. ' +
+          'PrimitiveUI + DeployPlatform 벤치마크 — Cycle 112. ' +
           '알림 센터: ScrollableTabGroup 필터 + 알림 목록(읽음/미읽음 상태 + LabelBadge 타입) + 모두 읽음 일괄 처리 + 설정 패널(Toggle 3종) + 개별 닫기. ' +
           'AppBar, CounterBadge, SolidIconButton, ScrollableTabGroup, Toggle, LabelBadge 복합 활용.',
       },
@@ -27295,7 +27295,7 @@ export const RadixVercel112NotificationCenter: StoryObj = {
 }
 
 /* --------------------------------------------------------------------------
-   shadcn/ui + Linear — Cycle 113: 파일 관리자 (FileManager)
+   ComposableUI + IssueTracker — Cycle 113: 파일 관리자 (FileManager)
    사이드바 트리 + 파일 그리드 + 미리보기 패널
 -------------------------------------------------------------------------- */
 type FileType113 = 'folder' | 'image' | 'doc' | 'code'
@@ -27482,13 +27482,13 @@ function FileManager113Render() {
   )
 }
 
-export const ShadcnLinear113FileManager: StoryObj = {
-  name: 'shadcn/ui + Linear — 파일 관리자 (Cycle 113)',
+export const ComposableUIIssueTracker113FileManager: StoryObj = {
+  name: 'ComposableUI + IssueTracker — 파일 관리자 (Cycle 113)',
   parameters: {
     docs: {
       description: {
         story:
-          'shadcn/ui + Linear Design 벤치마크 — Cycle 113. ' +
+          'ComposableUI + IssueTracker Design 벤치마크 — Cycle 113. ' +
           '파일 관리자: 사이드바 네비게이션 + AppBar SearchBar + 그리드/리스트 전환 + 정렬 Chip + 파일 미리보기 패널(LabelBadge + SolidButton + OutlineButton). ' +
           'AppBar, SearchBar, SolidIconButton, Chip, SectionTitle, CounterBadge, Divider, LabelBadge, SolidButton, OutlineButton 복합 활용.',
       },
@@ -27498,7 +27498,7 @@ export const ShadcnLinear113FileManager: StoryObj = {
 }
 
 /* --------------------------------------------------------------------------
-   Tailwind UI + Ant Design — Cycle 114: 캘린더 앱 (CalendarApp)
+   UtilityUI + Ant Design — Cycle 114: 캘린더 앱 (CalendarApp)
    월별 뷰 + 이벤트 목록 + 이벤트 추가 다이얼로그
 -------------------------------------------------------------------------- */
 interface CalEvent114 {
@@ -27690,13 +27690,13 @@ function CalendarApp114Render() {
   )
 }
 
-export const TailwindAnt114CalendarApp: StoryObj = {
-  name: 'Tailwind UI + Ant Design — 캘린더 앱 (Cycle 114)',
+export const UtilityCSSAnt114CalendarApp: StoryObj = {
+  name: 'UtilityUI + Ant Design — 캘린더 앱 (Cycle 114)',
   parameters: {
     docs: {
       description: {
         story:
-          'Tailwind UI + Ant Design 벤치마크 — Cycle 114. ' +
+          'UtilityUI + Ant Design 벤치마크 — Cycle 114. ' +
           '캘린더 앱: 월별 그리드 뷰 + 이벤트 사이드바 + 이벤트 추가 다이얼로그(TextField + 시간입력 + 색상선택). ' +
           'AppBar, SolidButton, OutlineButton, CounterBadge, Divider, SectionTitle, TextField 복합 활용.',
       },
@@ -27706,7 +27706,7 @@ export const TailwindAnt114CalendarApp: StoryObj = {
 }
 
 /* --------------------------------------------------------------------------
-   Mantine + Notion — Cycle 115: 사용자 프로필 (UserProfile)
+   AppUI + WorkspaceEditor — Cycle 115: 사용자 프로필 (UserProfile)
    프로필 헤더 + 스탯 + 활동 피드 + 설정 패널
 -------------------------------------------------------------------------- */
 type ProfileTab115 = 'activity' | 'contributions' | 'settings'
@@ -27740,7 +27740,7 @@ const CONTRIBUTION_WEEKS = Array.from({ length: 16 }, () =>
 
 function UserProfile115Render() {
   const [tab, setTab] = useState<ProfileTab115>('activity')
-  const [bio, setBio] = useState('Orbit UI 디자인 시스템 메인테이너. React + TypeScript + Tailwind.')
+  const [bio, setBio] = useState('Orbit UI 디자인 시스템 메인테이너. React + TypeScript + UtilityCSS.')
   const [editingBio, setEditingBio] = useState(false)
   const [bioDraft, setBioDraft] = useState(bio)
   const [notifEmail, setNotifEmail] = useState(true)
@@ -27893,13 +27893,13 @@ function UserProfile115Render() {
   )
 }
 
-export const MantineNotion115UserProfile: StoryObj = {
-  name: 'Mantine + Notion — 사용자 프로필 (Cycle 115)',
+export const AppUIWorkspaceEditor115UserProfile: StoryObj = {
+  name: 'AppUI + WorkspaceEditor — 사용자 프로필 (Cycle 115)',
   parameters: {
     docs: {
       description: {
         story:
-          'Mantine + Notion 벤치마크 — Cycle 115. ' +
+          'AppUI + WorkspaceEditor 벤치마크 — Cycle 115. ' +
           '사용자 프로필: 인라인 bio 편집(TextField) + 스탯 그리드 + 활동 피드 + 기여 히트맵 + 설정 패널(Toggle 3종). ' +
           'LabelBadge, TextField, SolidButton, OutlineButton, Toggle, Divider, SectionTitle 복합 활용.',
       },
@@ -27908,7 +27908,7 @@ export const MantineNotion115UserProfile: StoryObj = {
   render: () => <UserProfile115Render />,
 }
 /* --------------------------------------------------------------------------
-   Cycle 116 — Raycast + Figma Plugin UI
+   Cycle 116 — CommandPalette + DesignTool Plugin UI
    템플릿: CommandPalette — 전역 커맨드 팔레트 UI
    Components: TextField, SolidButton, OutlineButton, LabelBadge, CounterBadge,
                Divider, SectionTitle, Kbd shortcuts overlay
@@ -28028,13 +28028,13 @@ function CommandPalette116Render() {
   )
 }
 
-export const RaycastFigma116CommandPalette: StoryObj = {
-  name: 'Raycast + Figma — 커맨드 팔레트 (Cycle 116)',
+export const CommandPaletteDesignTool116CommandPalette: StoryObj = {
+  name: 'CommandPalette + DesignTool — 커맨드 팔레트 (Cycle 116)',
   parameters: {
     docs: {
       description: {
         story:
-          'Raycast + Figma Plugin UI 벤치마크 — Cycle 116. ' +
+          'CommandPalette + DesignTool Plugin UI 벤치마크 — Cycle 116. ' +
           '전역 커맨드 팔레트: 검색(TextField) + 카테고리 필터(SolidButton 탭) + 커맨드 목록(CounterBadge, LabelBadge, 단축키 kbd) + 실행 버튼(SolidButton, OutlineButton). ' +
           'Divider, SectionTitle 복합 활용. 쿼리 필터링 + 카테고리 전환 인터랙션 포함.',
       },
@@ -28043,7 +28043,7 @@ export const RaycastFigma116CommandPalette: StoryObj = {
   render: () => <CommandPalette116Render />,
 }
 /* --------------------------------------------------------------------------
-   Cycle 117 — MUI + Chakra UI
+   Cycle 117 — EnterpriseUI + AccessibleUI
    템플릿: SocialFeed — 소셜 피드 UI
    Components: Avatar, LabelBadge, CounterBadge, Divider, SectionTitle,
                TextField, SolidButton, OutlineButton, GhostButton
@@ -28083,7 +28083,7 @@ function SocialFeed117Render() {
       id: 3,
       initials: 'LS', color: '#10b981', name: 'Lee Soyeon', handle: '@soyeon_ux',
       time: '6시간 전',
-      content: 'MUI에서 Orbit UI로 마이그레이션 완료! 번들 사이즈 40% 감소, 타입 안전성 대폭 향상. Tailwind 유틸리티 기반 zero-runtime CSS의 성능이 인상적입니다.',
+      content: 'EnterpriseUI에서 Orbit UI로 마이그레이션 완료! 번들 사이즈 40% 감소, 타입 안전성 대폭 향상. UtilityCSS 유틸리티 기반 zero-runtime CSS의 성능이 인상적입니다.',
       tags: ['Migration', 'Performance'],
       likes: 203, comments: 34, reposts: 67,
     },
@@ -28207,13 +28207,13 @@ function SocialFeed117Render() {
   )
 }
 
-export const MuiChakra117SocialFeed: StoryObj = {
-  name: 'MUI + Chakra UI — 소셜 피드 (Cycle 117)',
+export const EnterpriseUIAccessible117SocialFeed: StoryObj = {
+  name: 'EnterpriseUI + AccessibleUI — 소셜 피드 (Cycle 117)',
   parameters: {
     docs: {
       description: {
         story:
-          'MUI + Chakra UI 벤치마크 — Cycle 117. ' +
+          'EnterpriseUI + AccessibleUI 벤치마크 — Cycle 117. ' +
           '소셜 피드: Avatar 오버랩 그룹 + 좋아요 토글(useState) + 탭(trending/following) + 게시 입력(TextField) + 사이드바(트렌딩 태그, 추천 팔로우). ' +
           'CounterBadge, LabelBadge, Divider, SectionTitle, OutlineButton, SolidButton 복합 활용.',
       },
@@ -28222,7 +28222,7 @@ export const MuiChakra117SocialFeed: StoryObj = {
   render: () => <SocialFeed117Render />,
 }
 /* --------------------------------------------------------------------------
-   Cycle 118 — Arco Design + Apple HIG
+   Cycle 118 — DataProductUI + Platform HIG
    템플릿: ChatUI — 채팅 인터페이스
    Components: Avatar, TextField, SolidButton, OutlineButton, GhostButton,
                CounterBadge, LabelBadge, Divider, ScrollableTabGroup,
@@ -28233,8 +28233,8 @@ function ChatUI118Render() {
   const [message, setMessage] = React.useState('')
   const [messages, setMessages] = React.useState([
     { id: 1, from: 'KJ', color: '#6366f1', name: 'Kim Jihye', time: '10:24', text: 'EclipseProvider 다크모드 전환 확인했어요! Toggle 하나로 전체 테마가 적용되네요.', me: false },
-    { id: 2, from: 'PM', color: '#8b5cf6', name: 'Park Minjun', time: '10:26', text: '시맨틱 토큰 설계 덕분인 것 같아요. Tailwind + CSS 변수 기반이라 런타임 오버헤드도 없고요.', me: false },
-    { id: 3, from: 'ME', color: '#10b981', name: 'Me', time: '10:28', text: 'Cycle 117에서 MUI + Chakra UI 벤치마크 완료했습니다. Avatar 그룹, Accordion 이슈 트래커 추가했어요.', me: true },
+    { id: 2, from: 'PM', color: '#8b5cf6', name: 'Park Minjun', time: '10:26', text: '시맨틱 토큰 설계 덕분인 것 같아요. UtilityCSS + CSS 변수 기반이라 런타임 오버헤드도 없고요.', me: false },
+    { id: 3, from: 'ME', color: '#10b981', name: 'Me', time: '10:28', text: 'Cycle 117에서 EnterpriseUI + AccessibleUI 벤치마크 완료했습니다. Avatar 그룹, Accordion 이슈 트래커 추가했어요.', me: true },
     { id: 4, from: 'LS', color: '#f59e0b', name: 'Lee Soyeon', time: '10:30', text: 'SocialFeed 템플릿도 꽤 잘 나왔네요! 좋아요 토글 인터랙션이 자연스럽습니다 👍', me: false },
   ])
 
@@ -28370,13 +28370,13 @@ function ChatUI118Render() {
   function onMessage() { sendMessage() }
 }
 
-export const ArcoApple118ChatUI: StoryObj = {
-  name: 'Arco + Apple HIG — 채팅 UI (Cycle 118)',
+export const DataProductPlatform118ChatUI: StoryObj = {
+  name: 'DataProduct + Platform HIG — 채팅 UI (Cycle 118)',
   parameters: {
     docs: {
       description: {
         story:
-          'Arco Design + Apple HIG 벤치마크 — Cycle 118. ' +
+          'DataProductUI + Platform HIG 벤치마크 — Cycle 118. ' +
           '채팅 UI: 채널 사이드바(CounterBadge) + 온라인 멤버(Avatar 상태 배지) + 메시지 버블 + 메시지 입력(TextField). ' +
           'GhostButton, OutlineButton, SolidButton, LabelBadge, Divider, SectionTitle 복합 활용.',
       },
@@ -28385,7 +28385,7 @@ export const ArcoApple118ChatUI: StoryObj = {
   render: () => <ChatUI118Render />,
 }
 /* --------------------------------------------------------------------------
-   Cycle 119 — Google Material 3 + Linear Design
+   Cycle 119 — RoleToken Design + IssueTracker Design
    템플릿: AnalyticsDashboard — 분석 대시보드
    Components: SegmentedControl, Progress, CounterBadge, LabelBadge, Loading,
                SolidButton, OutlineButton, SectionTitle, Divider, Slider
@@ -28554,13 +28554,13 @@ function AnalyticsDashboard119Render() {
   )
 }
 
-export const M3Linear119AnalyticsDashboard: StoryObj = {
-  name: 'M3 + Linear — 분석 대시보드 (Cycle 119)',
+export const M3IssueTracker119AnalyticsDashboard: StoryObj = {
+  name: 'M3 + IssueTracker — 분석 대시보드 (Cycle 119)',
   parameters: {
     docs: {
       description: {
         story:
-          'Google Material 3 + Linear Design 벤치마크 — Cycle 119. ' +
+          'RoleToken Design + IssueTracker Design 벤치마크 — Cycle 119. ' +
           '분석 대시보드: KPI 카드 + 일별 활동 바 차트 + 컴포넌트 커버리지(Progress) + 최근 배포 목록. ' +
           'SegmentedControl(기간/뷰) + Loading + CounterBadge + LabelBadge + Progress + Divider 복합 활용.',
       },
@@ -28569,7 +28569,7 @@ export const M3Linear119AnalyticsDashboard: StoryObj = {
   render: () => <AnalyticsDashboard119Render />,
 }
 /* --------------------------------------------------------------------------
-   Cycle 120 — shadcn/ui + Vercel Design
+   Cycle 120 — ComposableUI + DeployPlatform Design
    템플릿: KanbanBoard — 칸반 보드
    Components: Avatar, LabelBadge, CounterBadge, SolidButton, OutlineButton,
                GhostButton, SectionTitle, Divider, Progress, TextField
@@ -28719,13 +28719,13 @@ function KanbanBoard120Render() {
   )
 }
 
-export const ShadcnVercel120KanbanBoard: StoryObj = {
-  name: 'shadcn/ui + Vercel — 칸반 보드 (Cycle 120)',
+export const ComposableUIDeployPlatform120KanbanBoard: StoryObj = {
+  name: 'ComposableUI + DeployPlatform — 칸반 보드 (Cycle 120)',
   parameters: {
     docs: {
       description: {
         story:
-          'shadcn/ui + Vercel Design 벤치마크 — Cycle 120. ' +
+          'ComposableUI + DeployPlatform Design 벤치마크 — Cycle 120. ' +
           '칸반 보드: 4열 컬럼(백로그/할일/진행중/완료) + 카드 이동(GhostButton) + 검색(TextField) + 진행률(Progress). ' +
           'LabelBadge, CounterBadge, Avatar 이니셜, SectionTitle, Divider 복합 활용.',
       },
@@ -28734,7 +28734,7 @@ export const ShadcnVercel120KanbanBoard: StoryObj = {
   render: () => <KanbanBoard120Render />,
 }
 /* --------------------------------------------------------------------------
-   Cycle 121 — Radix UI + Tailwind UI
+   Cycle 121 — PrimitiveUI + UtilityUI
    템플릿: Onboarding — 온보딩 플로우
    Components: RadioButton, SectionTitle, Progress, SolidButton, OutlineButton,
                GhostButton, LabelBadge, CounterBadge, Divider, TextField,
@@ -28761,7 +28761,7 @@ function Onboarding121Render() {
 
   const roles = [
     { id: 'developer', label: '개발자', desc: 'React/TypeScript 컴포넌트 개발' },
-    { id: 'designer', label: '디자이너', desc: 'Figma 토큰 및 디자인 시스템 관리' },
+    { id: 'designer', label: '디자이너', desc: 'DesignTool 토큰 및 디자인 시스템 관리' },
     { id: 'pm', label: '프로덕트 매니저', desc: '컴포넌트 현황 파악 및 로드맵 관리' },
   ]
 
@@ -28933,13 +28933,13 @@ function Onboarding121Render() {
   )
 }
 
-export const RadixTailwind121Onboarding: StoryObj = {
-  name: 'Radix + Tailwind — 온보딩 플로우 (Cycle 121)',
+export const PrimitiveUtilityCSS121Onboarding: StoryObj = {
+  name: 'Primitive + UtilityCSS — 온보딩 플로우 (Cycle 121)',
   parameters: {
     docs: {
       description: {
         story:
-          'Radix UI + Tailwind UI 벤치마크 — Cycle 121. ' +
+          'PrimitiveUI + UtilityUI 벤치마크 — Cycle 121. ' +
           '4단계 온보딩: 역할 선택(RadioButton) + 기술 스택(RadioButton+Toggle+Switch) + 요금제(RadioButton+TextField+Checkbox) + 완료. ' +
           'Progress 단계 표시, SolidButton/OutlineButton/GhostButton 네비게이션, LabelBadge 요약.',
       },
@@ -28949,7 +28949,7 @@ export const RadixTailwind121Onboarding: StoryObj = {
 }
 
 /* ==========================================================================
-   Cycle 122 — Ant Design + Mantine 벤치마크
+   Cycle 122 — Ant Design + AppUI 벤치마크
    템플릿: 이벤트 대시보드 (Calendar + ScrollableTabGroup + DataTable 스타일)
 ========================================================================== */
 
@@ -29014,7 +29014,7 @@ function EventDashboard122Render() {
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 20 }}>
         <div>
           <h2 style={{ margin: 0, fontSize: 22, fontWeight: 800, color: '#0f172a' }}>이벤트 대시보드</h2>
-          <p style={{ margin: '4px 0 0', fontSize: 13, color: '#64748b' }}>Ant Design + Mantine 벤치마크 — Cycle 122</p>
+          <p style={{ margin: '4px 0 0', fontSize: 13, color: '#64748b' }}>Ant Design + AppUI 벤치마크 — Cycle 122</p>
         </div>
         <div style={{ display: 'flex', gap: 8 }}>
           <LabelBadge color="benefit">
@@ -29157,14 +29157,14 @@ function EventDashboard122Render() {
   )
 }
 
-export const AntMantine122EventDashboard: StoryObj = {
-  name: 'Ant Design + Mantine — 이벤트 대시보드 (Cycle 122)',
+export const AntAppUI122EventDashboard: StoryObj = {
+  name: 'Ant Design + AppUI — 이벤트 대시보드 (Cycle 122)',
   parameters: {
     layout: 'centered',
     docs: {
       description: {
         story:
-          'Ant Design + Mantine 벤치마크 — Cycle 122. ' +
+          'Ant Design + AppUI 벤치마크 — Cycle 122. ' +
           'Calendar 날짜 필터 + ScrollableTabGroup 카테고리 탭 + KPI 카드 + 이벤트 목록. ' +
           'LabelBadge 상태 표시, TextField 검색, OutlineButton/GhostButton/SolidButton 액션.',
       },
@@ -29174,7 +29174,7 @@ export const AntMantine122EventDashboard: StoryObj = {
 }
 
 /* ==========================================================================
-   Cycle 123 — shadcn/ui + Linear Design 벤치마크
+   Cycle 123 — ComposableUI + IssueTracker Design 벤치마크
    템플릿: 프로젝트 허브 (TabItem + AnimatedBadge + Progress + DataTable 스타일)
 ========================================================================== */
 
@@ -29236,7 +29236,7 @@ function ProjectHub123Render() {
       <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: 20 }}>
         <div>
           <h2 style={{ margin: 0, fontSize: 22, fontWeight: 800, color: '#0f172a' }}>프로젝트 허브</h2>
-          <p style={{ margin: '4px 0 0', fontSize: 13, color: '#64748b' }}>shadcn/ui + Linear 벤치마크 — Cycle 123</p>
+          <p style={{ margin: '4px 0 0', fontSize: 13, color: '#64748b' }}>ComposableUI + IssueTracker 벤치마크 — Cycle 123</p>
         </div>
         <div style={{ display: 'flex', gap: 8 }}>
           <AnimatedBadge color="club" size="small">
@@ -29400,14 +29400,14 @@ function ProjectHub123Render() {
   )
 }
 
-export const ShadcnLinear123ProjectHub: StoryObj = {
-  name: 'shadcn/ui + Linear — 프로젝트 허브 (Cycle 123)',
+export const ComposableUIIssueTracker123ProjectHub: StoryObj = {
+  name: 'ComposableUI + IssueTracker — 프로젝트 허브 (Cycle 123)',
   parameters: {
     layout: 'centered',
     docs: {
       description: {
         story:
-          'shadcn/ui + Linear Design 벤치마크 — Cycle 123. ' +
+          'ComposableUI + IssueTracker Design 벤치마크 — Cycle 123. ' +
           'TabItem 탭 네비게이션 + AnimatedBadge 상태 배지 + Progress 진행률 + KPI 카드. ' +
           '프로젝트/팀원/이슈 3탭 구조로 워크스페이스 현황을 한 화면에 표시합니다.',
       },
@@ -29417,7 +29417,7 @@ export const ShadcnLinear123ProjectHub: StoryObj = {
 }
 
 /* ==========================================================================
-   Cycle 124 — Vercel Design + Radix UI 벤치마크
+   Cycle 124 — DeployPlatform Design + PrimitiveUI 벤치마크
    템플릿: 개발자 설정 패널 (BoxedCheckbox + Chip + Accordion + 탭)
 ========================================================================== */
 
@@ -29431,7 +29431,7 @@ const ENV_VARS_124: EnvVar124[] = [
   { key: 'FEATURE_DARK_MODE', value: 'true', env: 'development', sensitive: false },
   { key: 'DEBUG_LEVEL', value: 'verbose', env: 'development', sensitive: false },
   { key: 'REDIS_URL', value: 'redis://****', env: 'preview', sensitive: true },
-  { key: 'STRIPE_KEY', value: 'sk_****', env: 'production', sensitive: true },
+  { key: 'BILLING_KEY', value: 'sk_****', env: 'production', sensitive: true },
 ]
 
 type BuildStep124 = 'lint' | 'typecheck' | 'test' | 'build' | 'e2e'
@@ -29501,7 +29501,7 @@ function DevSettingsPanel124Render() {
       {/* Header */}
       <div style={{ marginBottom: 20 }}>
         <h2 style={{ margin: 0, fontSize: 22, fontWeight: 800, color: '#0f172a' }}>개발자 설정</h2>
-        <p style={{ margin: '4px 0 0', fontSize: 13, color: '#64748b' }}>Vercel Design + Radix UI 벤치마크 — Cycle 124</p>
+        <p style={{ margin: '4px 0 0', fontSize: 13, color: '#64748b' }}>DeployPlatform Design + PrimitiveUI 벤치마크 — Cycle 124</p>
       </div>
 
       {/* Tab nav */}
@@ -29649,14 +29649,14 @@ function DevSettingsPanel124Render() {
   )
 }
 
-export const VercelRadix124DevSettings: StoryObj = {
-  name: 'Vercel + Radix UI — 개발자 설정 패널 (Cycle 124)',
+export const DeployPlatformPrimitive124DevSettings: StoryObj = {
+  name: 'DeployPlatform + PrimitiveUI — 개발자 설정 패널 (Cycle 124)',
   parameters: {
     layout: 'centered',
     docs: {
       description: {
         story:
-          'Vercel Design + Radix UI 벤치마크 — Cycle 124. ' +
+          'DeployPlatform Design + PrimitiveUI 벤치마크 — Cycle 124. ' +
           'BoxedCheckbox 빌드 단계 선택 + Chip 환경 필터 + TextField 검색 + LabelBadge 상태 표시. ' +
           '환경변수/빌드/알림 3탭 개발자 설정 패널입니다.',
       },
@@ -29666,7 +29666,7 @@ export const VercelRadix124DevSettings: StoryObj = {
 }
 
 /* ==========================================================================
-   Cycle 125 — MUI + Tailwind UI 벤치마크
+   Cycle 125 — EnterpriseUI + UtilityUI 벤치마크
    템플릿: 이슈 트래커 (Drawer 필터 + ChipLink 탐색 + DataTable 스타일)
 ========================================================================== */
 
@@ -29734,7 +29734,7 @@ function IssueTracker125Render() {
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 20 }}>
         <div>
           <h2 style={{ margin: 0, fontSize: 22, fontWeight: 800, color: '#0f172a' }}>이슈 트래커</h2>
-          <p style={{ margin: '4px 0 0', fontSize: 13, color: '#64748b' }}>MUI + Tailwind UI 벤치마크 — Cycle 125</p>
+          <p style={{ margin: '4px 0 0', fontSize: 13, color: '#64748b' }}>EnterpriseUI + UtilityUI 벤치마크 — Cycle 125</p>
         </div>
         <div style={{ display: 'flex', gap: 8 }}>
           {(['open', 'in_progress', 'in_review', 'done'] as Issue125['status'][]).map((s) => {
@@ -29857,14 +29857,14 @@ function IssueTracker125Render() {
   )
 }
 
-export const MUITailwind125IssueTracker: StoryObj = {
-  name: 'MUI + Tailwind UI — 이슈 트래커 (Cycle 125)',
+export const EnterpriseUIUtilityCSS125IssueTracker: StoryObj = {
+  name: 'EnterpriseUI + UtilityUI — 이슈 트래커 (Cycle 125)',
   parameters: {
     layout: 'centered',
     docs: {
       description: {
         story:
-          'MUI + Tailwind UI 벤치마크 — Cycle 125. ' +
+          'EnterpriseUI + UtilityUI 벤치마크 — Cycle 125. ' +
           'Drawer 필터 패널 + 레이블 ChipLink 필터 + TextField 검색 + 이슈 목록. ' +
           'SolidButton/OutlineButton 액션, LabelBadge 상태 표시를 결합한 이슈 트래커입니다.',
       },
@@ -29874,16 +29874,16 @@ export const MUITailwind125IssueTracker: StoryObj = {
 }
 
 /* ============================================================
-   Cycle 126 Template: Chakra UI + Arco Design
+   Cycle 126 Template: AccessibleUI + DataProductUI
    알림 센터 — Skeleton 로딩 + Toast 액션 피드백
    ============================================================ */
 import { Toaster, toast } from '../components/Toast'
 
 const NOTIFICATIONS_126 = [
-  { id: 1, type: 'deploy', avatar: 'VR', name: 'Vercel', message: 'orbit-ui 프리뷰 배포 완료', time: '방금 전', read: false },
+  { id: 1, type: 'deploy', avatar: 'VR', name: 'DeployPlatform', message: 'orbit-ui 프리뷰 배포 완료', time: '방금 전', read: false },
   { id: 2, type: 'mention', avatar: 'JK', name: '김준혁', message: '@hjunkim 이슈 #312를 리뷰해주세요', time: '3분 전', read: false },
   { id: 3, type: 'pr', avatar: 'SL', name: 'Sarah Lee', message: 'PR #148 Cycle 125 스토리 머지됨', time: '15분 전', read: true },
-  { id: 4, type: 'ci', avatar: 'CI', name: 'GitHub Actions', message: 'pnpm test 전체 통과 ✓ 58/58', time: '1시간 전', read: true },
+  { id: 4, type: 'ci', avatar: 'CI', name: 'CodeHost Actions', message: 'pnpm test 전체 통과 ✓ 58/58', time: '1시간 전', read: true },
   { id: 5, type: 'comment', avatar: 'MJ', name: '박민정', message: 'Skeleton 컴포넌트에 댓글을 남겼습니다', time: '2시간 전', read: true },
 ]
 
@@ -30026,14 +30026,14 @@ function NotificationCenter126Render() {
   )
 }
 
-export const ChakraArco126NotificationCenter: StoryObj = {
-  name: 'Chakra UI + Arco Design — 알림 센터 (Cycle 126)',
+export const AccessibleDataProduct126NotificationCenter: StoryObj = {
+  name: 'AccessibleUI + DataProductUI — 알림 센터 (Cycle 126)',
   parameters: {
     layout: 'centered',
     docs: {
       description: {
         story:
-          'Chakra UI + Arco Design 벤치마크 — Cycle 126. ' +
+          'AccessibleUI + DataProductUI 벤치마크 — Cycle 126. ' +
           'Skeleton 로딩 플레이스홀더 + Toast 액션 피드백이 결합된 알림 센터 템플릿. ' +
           '새로고침 시 Skeleton → 실제 콘텐츠 전환, 삭제/읽음 처리에 Toast 피드백을 제공합니다.',
       },
@@ -30043,7 +30043,7 @@ export const ChakraArco126NotificationCenter: StoryObj = {
 }
 
 /* ============================================================
-   Cycle 127 Template: shadcn/ui + Radix UI
+   Cycle 127 Template: ComposableUI + PrimitiveUI
    커맨드 팔레트 — Popover + TextArea 검색 + 액션 선택
    ============================================================ */
 const CMD_ACTIONS = [
@@ -30195,15 +30195,15 @@ function CommandPalette127Render() {
   )
 }
 
-export const ShadcnRadix127CommandPalette: StoryObj = {
-  name: 'shadcn/ui + Radix UI — 커맨드 팔레트 (Cycle 127)',
+export const ComposableUIPrimitive127CommandPalette: StoryObj = {
+  name: 'ComposableUI + PrimitiveUI — 커맨드 팔레트 (Cycle 127)',
   parameters: {
     layout: 'centered',
     docs: {
       description: {
         story:
-          'shadcn/ui + Radix UI 벤치마크 — Cycle 127. ' +
-          'shadcn/ui Command 패턴 + Radix Popover를 활용한 커맨드 팔레트. ' +
+          'ComposableUI + PrimitiveUI 벤치마크 — Cycle 127. ' +
+          'ComposableUI Command 패턴 + Primitive Popover를 활용한 커맨드 팔레트. ' +
           '카테고리별 액션, 최근 사용 이력, 검색 필터, 단축키 표시를 포함합니다.',
       },
     },
@@ -30212,7 +30212,7 @@ export const ShadcnRadix127CommandPalette: StoryObj = {
 }
 
 /* ============================================================
-   Cycle 128 Template: Linear Design + Vercel Design
+   Cycle 128 Template: IssueTracker Design + DeployPlatform Design
    파일 매니저 — 레이아웃 간격 시스템 + 배지 분류 체계
    ============================================================ */
 const FILES_128 = [
@@ -30350,14 +30350,14 @@ function FileManager128Render() {
   )
 }
 
-export const LinearVercel128FileManager: StoryObj = {
-  name: 'Linear + Vercel — 파일 매니저 (Cycle 128)',
+export const IssueTrackerDeployPlatform128FileManager: StoryObj = {
+  name: 'IssueTracker + DeployPlatform — 파일 매니저 (Cycle 128)',
   parameters: {
     layout: 'centered',
     docs: {
       description: {
         story:
-          'Linear + Vercel 벤치마크 — Cycle 128. ' +
+          'IssueTracker + DeployPlatform 벤치마크 — Cycle 128. ' +
           'Space 간격 시스템 + LabelBadge 분류 체계를 활용한 파일 매니저 템플릿. ' +
           '이름/상태 정렬, 파일 선택 시 상세 패널 표시, git 상태 배지(M/A) 표시.',
       },
@@ -30367,7 +30367,7 @@ export const LinearVercel128FileManager: StoryObj = {
 }
 
 /* ============================================================
-   Cycle 129 Template: Mantine + Ant Design
+   Cycle 129 Template: AppUI + Ant Design
    칸반 보드 — GhostButton 액션 + SpeechBadge 코멘트 + LabelBadge 상태
    ============================================================ */
 const KANBAN_COLUMNS_129 = [
@@ -30511,14 +30511,14 @@ function KanbanBoard129Render() {
   )
 }
 
-export const MantineAnt129KanbanBoard: StoryObj = {
-  name: 'Mantine + Ant Design — 칸반 보드 (Cycle 129)',
+export const AppUIAnt129KanbanBoard: StoryObj = {
+  name: 'AppUI + Ant Design — 칸반 보드 (Cycle 129)',
   parameters: {
     layout: 'centered',
     docs: {
       description: {
         story:
-          'Mantine + Ant Design 벤치마크 — Cycle 129. ' +
+          'AppUI + Ant Design 벤치마크 — Cycle 129. ' +
           'GhostButton 컬럼 액션 + SpeechBadge 코멘트 말풍선 + LabelBadge 우선순위 배지를 결합한 칸반 보드. ' +
           '카드 클릭 시 편집/이동 액션 버튼이 펼쳐지는 인터랙티브 패턴.',
       },
@@ -30528,7 +30528,7 @@ export const MantineAnt129KanbanBoard: StoryObj = {
 }
 
 /* ============================================================
-   Cycle 130 Template: Tailwind UI + Google Material 3
+   Cycle 130 Template: UtilityUI + RoleToken Design
    온보딩 위저드 — OutlineIconButton 액션 + PageDots 진행 표시
    ============================================================ */
 const ONBOARDING_STEPS_130 = [
@@ -30542,7 +30542,7 @@ const ONBOARDING_STEPS_130 = [
     title: '컴포넌트 라이브러리 선택',
     desc: '사용할 UI 라이브러리를 선택하면 스타터 키트가 제공됩니다.',
     icon: '🧩',
-    fields: ['Orbit UI (권장)', 'shadcn/ui', 'MUI'],
+    fields: ['Orbit UI (권장)', 'ComposableUI', 'EnterpriseUI'],
   },
   {
     title: '첫 번째 프로젝트',
@@ -30653,14 +30653,14 @@ function Onboarding130Render() {
   )
 }
 
-export const TailwindM3130OnboardingWizard: StoryObj = {
-  name: 'Tailwind UI + M3 — 온보딩 위저드 (Cycle 130)',
+export const UtilityCSSM3130OnboardingWizard: StoryObj = {
+  name: 'UtilityUI + M3 — 온보딩 위저드 (Cycle 130)',
   parameters: {
     layout: 'centered',
     docs: {
       description: {
         story:
-          'Tailwind UI + Google Material 3 벤치마크 — Cycle 130. ' +
+          'UtilityUI + RoleToken Design 벤치마크 — Cycle 130. ' +
           'PageDots 진행 인디케이터 + 단계별 폼/선택지 + OutlineButton/SolidButton 내비게이션. ' +
           '4단계 온보딩 위저드로 팀 설정 → 라이브러리 선택 → 프로젝트 생성 → 완료 흐름을 구현합니다.',
       },
@@ -30670,7 +30670,7 @@ export const TailwindM3130OnboardingWizard: StoryObj = {
 }
 
 /* ============================================================
-   Cycle 131 Template: shadcn/ui + Radix UI 벤치마크
+   Cycle 131 Template: ComposableUI + PrimitiveUI 벤치마크
    사용자 활동 대시보드 — SolidIconButton 액션 + Tooltip 힌트
    ============================================================ */
 
@@ -30855,14 +30855,14 @@ function ActivityDashboard131Render() {
   )
 }
 
-export const ShadcnRadix131ActivityDashboard: StoryObj = {
-  name: 'shadcn/ui + Radix — 팀 활동 대시보드 (Cycle 131)',
+export const ComposableUIPrimitive131ActivityDashboard: StoryObj = {
+  name: 'ComposableUI + Primitive — 팀 활동 대시보드 (Cycle 131)',
   parameters: {
     layout: 'centered',
     docs: {
       description: {
         story:
-          'shadcn/ui + Radix UI 벤치마크 — Cycle 131. ' +
+          'ComposableUI + PrimitiveUI 벤치마크 — Cycle 131. ' +
           'SolidIconButton 헤더 액션 + Tooltip 힌트 + 필터 탭 + 활동 피드 북마크 패턴. ' +
           '타입별 필터링, 호버 인터랙션, 북마크 토글을 결합한 팀 활동 대시보드.',
       },
@@ -30872,7 +30872,7 @@ export const ShadcnRadix131ActivityDashboard: StoryObj = {
 }
 
 /* ============================================================
-   Cycle 132 Template: Linear Design + Vercel Design 벤치마크
+   Cycle 132 Template: IssueTracker Design + DeployPlatform Design 벤치마크
    개발자 프로필 설정 — PasswordField 보안 + PageNumber 페이지 내비게이션
    ============================================================ */
 
@@ -30882,7 +30882,7 @@ const DEV_REPOS_132: DevRepo132[] = [
   { name: 'vite-plugin-tokens', lang: 'TypeScript', stars: 58, updated: '1일 전' },
   { name: 'eslint-plugin-css', lang: 'JavaScript', stars: 34, updated: '3일 전' },
   { name: 'react-hooks-kit', lang: 'TypeScript', stars: 91, updated: '5일 전' },
-  { name: 'figma-token-bridge', lang: 'TypeScript', stars: 27, updated: '1주 전' },
+  { name: 'design-token-bridge', lang: 'TypeScript', stars: 27, updated: '1주 전' },
   { name: 'tailwind-css-utils', lang: 'TypeScript', stars: 19, updated: '2주 전' },
   { name: 'storybook-preset', lang: 'JavaScript', stars: 44, updated: '3주 전' },
   { name: 'design-token-cli', lang: 'Go', stars: 76, updated: '1달 전' },
@@ -31019,14 +31019,14 @@ function DevProfile132Render() {
   )
 }
 
-export const LinearVercel132DeveloperProfile: StoryObj = {
-  name: 'Linear + Vercel — 개발자 프로필 설정 (Cycle 132)',
+export const IssueTrackerDeployPlatform132DeveloperProfile: StoryObj = {
+  name: 'IssueTracker + DeployPlatform — 개발자 프로필 설정 (Cycle 132)',
   parameters: {
     layout: 'centered',
     docs: {
       description: {
         story:
-          'Linear 컴팩트 + Vercel 모노크롬 벤치마크 — Cycle 132. ' +
+          'IssueTracker 컴팩트 + DeployPlatform 모노크롬 벤치마크 — Cycle 132. ' +
           'PageNumber 페이지네이션 레포 목록 + PasswordField 보안 탭. ' +
           '탭 전환, 레포 페이지네이션, 비밀번호 변경 + 저장 피드백 결합.',
       },
@@ -31036,7 +31036,7 @@ export const LinearVercel132DeveloperProfile: StoryObj = {
 }
 
 /* ============================================================
-   Cycle 133 Template: MUI + Chakra UI 벤치마크
+   Cycle 133 Template: EnterpriseUI + AccessibleUI 벤치마크
    팀 커뮤니케이션 허브 — Divider 섹션 + CounterBadge 알림 카운터
    ============================================================ */
 
@@ -31191,14 +31191,14 @@ function CommHub133Render() {
   )
 }
 
-export const MuiChakra133CommHub: StoryObj = {
-  name: 'MUI + Chakra — 팀 커뮤니케이션 허브 (Cycle 133)',
+export const EnterpriseUIAccessible133CommHub: StoryObj = {
+  name: 'EnterpriseUI + Accessible — 팀 커뮤니케이션 허브 (Cycle 133)',
   parameters: {
     layout: 'centered',
     docs: {
       description: {
         story:
-          'MUI + Chakra UI 벤치마크 — Cycle 133. ' +
+          'EnterpriseUI + AccessibleUI 벤치마크 — Cycle 133. ' +
           'Divider 채널 섹션 구분 + CounterBadge 미읽 카운터 + 이모지 반응 카운터. ' +
           '고정/일반 채널, 날짜 구분선, 메시지 반응 배지를 결합한 팀 채팅 허브.',
       },
@@ -31208,7 +31208,7 @@ export const MuiChakra133CommHub: StoryObj = {
 }
 
 /* ============================================================
-   Cycle 134 Template: Mantine + Arco Design 벤치마크
+   Cycle 134 Template: AppUI + DataProductUI 벤치마크
    개발자 IDE 스타일 워크스페이스 — Command 팔레트 + Alert 확인 다이얼로그
    ============================================================ */
 
@@ -31404,14 +31404,14 @@ function IDEWorkspace134Render() {
   )
 }
 
-export const MantineArco134IDEWorkspace: StoryObj = {
-  name: 'Mantine + Arco — IDE 스타일 워크스페이스 (Cycle 134)',
+export const AppUIDataProduct134IDEWorkspace: StoryObj = {
+  name: 'AppUI + DataProduct — IDE 스타일 워크스페이스 (Cycle 134)',
   parameters: {
     layout: 'centered',
     docs: {
       description: {
         story:
-          'Mantine + Arco Design 벤치마크 — Cycle 134. ' +
+          'AppUI + DataProductUI 벤치마크 — Cycle 134. ' +
           'Command 팔레트 오버레이 + Alert Git Push 확인 다이얼로그. ' +
           '탭 전환(탐색기/검색/Git), 코드 뷰어, 상태 바 결합 IDE 스타일 레이아웃.',
       },
@@ -31421,10 +31421,10 @@ export const MantineArco134IDEWorkspace: StoryObj = {
 }
 
 // ============================================================
-// Cycle 135 — shadcn/ui + Ant Design 벤치마크 반영
+// Cycle 135 — ComposableUI + Ant Design 벤치마크 반영
 // ============================================================
 // 데이터 관리 대시보드: DataTable + Alert 삭제 확인 패턴
-// shadcn/ui Table + Ant Design Popconfirm/Modal 스타일
+// ComposableUI Table + Ant Design Popconfirm/Modal 스타일
 
 type TaskRow135 = { id: number; title: string; assignee: string; status: string; priority: string; due: string }
 
@@ -31433,7 +31433,7 @@ const TASKS_135: TaskRow135[] = [
   { id: 2, title: 'DataTable 필터링 기능', assignee: '이재성', status: '진행 중', priority: '높음', due: '2026-04-10' },
   { id: 3, title: 'Token 3단계 시스템 문서화', assignee: '박민주', status: '대기', priority: '중간', due: '2026-04-15' },
   { id: 4, title: 'Dark mode 토큰 정의', assignee: '최수현', status: '대기', priority: '낮음', due: '2026-04-20' },
-  { id: 5, title: 'Vercel 자동 배포 설정', assignee: '김희준', status: '완료', priority: '중간', due: '2026-03-28' },
+  { id: 5, title: 'DeployPlatform 자동 배포 설정', assignee: '김희준', status: '완료', priority: '중간', due: '2026-03-28' },
 ]
 
 const STATUS_COLOR_135: Record<string, string> = {
@@ -31468,7 +31468,7 @@ function DataMgmtDashboard135Render() {
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 20 }}>
         <div>
           <div style={{ fontSize: 18, fontWeight: 700, color: '#0f172a' }}>작업 관리 대시보드</div>
-          <div style={{ fontSize: 12, color: '#64748b', marginTop: 2 }}>shadcn/ui + Ant Design 벤치마크 (Cycle 135)</div>
+          <div style={{ fontSize: 12, color: '#64748b', marginTop: 2 }}>ComposableUI + Ant Design 벤치마크 (Cycle 135)</div>
         </div>
         <SolidButton color="primary" size="small">
           <SolidButton.Center>+ 새 작업</SolidButton.Center>
@@ -31579,14 +31579,14 @@ function DataMgmtDashboard135Render() {
   )
 }
 
-export const ShadcnAnt135DataMgmtDashboard: StoryObj = {
-  name: 'shadcn/ui + Ant Design — 데이터 관리 대시보드 (Cycle 135)',
+export const ComposableUIAnt135DataMgmtDashboard: StoryObj = {
+  name: 'ComposableUI + Ant Design — 데이터 관리 대시보드 (Cycle 135)',
   parameters: {
     layout: 'centered',
     docs: {
       description: {
         story:
-          'shadcn/ui + Ant Design 벤치마크 — Cycle 135. ' +
+          'ComposableUI + Ant Design 벤치마크 — Cycle 135. ' +
           '작업 목록 테이블(상태 필터 탭 + 요약 카드) + Alert 삭제 확인 다이얼로그. ' +
           '실시간 행 삭제 반영, 우선순위/상태 배지, 담당자 아바타 포함.',
       },
@@ -31596,10 +31596,10 @@ export const ShadcnAnt135DataMgmtDashboard: StoryObj = {
 }
 
 // ============================================================
-// Cycle 136 — Tailwind UI + Material UI 벤치마크 반영
+// Cycle 136 — UtilityUI + Enterprise UI 벤치마크 반영
 // ============================================================
 // 알림 센터 + 활동 피드 대시보드
-// Tailwind UI Notification Feed + MUI Timeline 스타일
+// UtilityUI Notification Feed + EnterpriseUI Timeline 스타일
 
 const NOTIF_ITEMS_136 = [
   { id: 1, type: 'deploy', actor: 'CI/CD', action: 'orbit-ui Storybook 배포 완료', detail: 'Production → Ready in 2m 46s', time: '방금 전', unread: true, color: '#22c55e' },
@@ -31740,8 +31740,8 @@ function NotifDashboard136Render() {
         <div style={{ background: '#0f172a', borderRadius: 16, padding: '20px', color: '#fff' }}>
           <div style={{ fontSize: 12, fontWeight: 700, color: '#94a3b8', marginBottom: 12, letterSpacing: 0.5 }}>CYCLE 136 벤치마크</div>
           {[
-            { name: 'Tailwind UI', point: '슬라이드쇼 자동 전환 + 인디케이터', color: '#38bdf8' },
-            { name: 'MUI', point: '미디어 플레이어 큐 + 진행 바 인터랙션', color: '#818cf8' },
+            { name: 'UtilityUI', point: '슬라이드쇼 자동 전환 + 인디케이터', color: '#38bdf8' },
+            { name: 'EnterpriseUI', point: '미디어 플레이어 큐 + 진행 바 인터랙션', color: '#818cf8' },
           ].map((b) => (
             <div key={b.name} style={{ marginBottom: 12, padding: '10px 12px', background: '#1e293b', borderRadius: 10, borderLeft: `3px solid ${b.color}` }}>
               <div style={{ fontSize: 12, fontWeight: 700, color: b.color }}>{b.name}</div>
@@ -31772,14 +31772,14 @@ function NotifDashboard136Render() {
   )
 }
 
-export const TailwindMUI136NotifDashboard: StoryObj = {
-  name: 'Tailwind UI + MUI — 알림 센터 대시보드 (Cycle 136)',
+export const UtilityCSSEnterpriseUI136NotifDashboard: StoryObj = {
+  name: 'UtilityUI + EnterpriseUI — 알림 센터 대시보드 (Cycle 136)',
   parameters: {
     layout: 'centered',
     docs: {
       description: {
         story:
-          'Tailwind UI + MUI 벤치마크 — Cycle 136. ' +
+          'UtilityUI + EnterpriseUI 벤치마크 — Cycle 136. ' +
           '탭(전체/안읽음) + 타입 필터 알림 피드 + 클릭 읽음 처리. ' +
           '우측에 사이클 진행도 Progress Bar, 벤치마크 요약, 오늘의 성과 카드 배치.',
       },
@@ -31789,15 +31789,15 @@ export const TailwindMUI136NotifDashboard: StoryObj = {
 }
 
 // ============================================================
-// Cycle 137 — Linear Design + Radix UI 벤치마크 반영
+// Cycle 137 — IssueTracker Design + PrimitiveUI 벤치마크 반영
 // ============================================================
-// 사용자 프로필 + 설정 페이지 (Linear 미니멀 + Radix 접근성)
+// 사용자 프로필 + 설정 페이지 (IssueTracker 미니멀 + Primitive 접근성)
 // Checkbox, Switch, Divider 복합 사용 패턴
 
 const PROFILE_TABS_137 = ['프로필', '알림', '보안', '연결'] as const
 type ProfileTab137 = typeof PROFILE_TABS_137[number]
 
-const PROFILE_137 = { name: '김희준', handle: '@hjunkim', email: 'hj@orbit.dev', bio: 'Figma 기반 React 디자인 시스템 개발. 3-tier 토큰 아키텍처와 Tailwind 전도사.', role: '디자인 시스템 리드', dept: 'Engineering' }
+const PROFILE_137 = { name: '김희준', handle: '@hjunkim', email: 'hj@orbit.dev', bio: 'DesignTool 기반 React 디자인 시스템 개발. 3-tier 토큰 아키텍처와 UtilityCSS 전도사.', role: '디자인 시스템 리드', dept: 'Engineering' }
 
 const NOTIF_PREFS_137 = [
   { id: 'issues', label: '이슈 업데이트', on: true },
@@ -31961,10 +31961,10 @@ function UserProfileSettings137Render() {
             <Divider />
             <div style={{ marginTop: 20, display: 'flex', flexDirection: 'column', gap: 12 }}>
               {[
-                { name: 'GitHub', connected: true, user: '@blue45f', color: '#0f172a' },
-                { name: 'Figma', connected: true, user: 'hjunkim@figma.com', color: '#a259ff' },
-                { name: 'Notion', connected: false, user: null, color: '#000' },
-                { name: 'Vercel', connected: true, user: 'blue45f', color: '#000' },
+                { name: 'CodeHost', connected: true, user: '@blue45f', color: '#0f172a' },
+                { name: 'DesignTool', connected: true, user: 'hjunkim@design.com', color: '#a259ff' },
+                { name: 'WorkspaceEditor', connected: false, user: null, color: '#000' },
+                { name: 'DeployPlatform', connected: true, user: 'blue45f', color: '#000' },
               ].map((svc) => (
                 <div key={svc.name} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '14px 16px', borderRadius: 12, border: '1px solid #e2e8f0' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
@@ -31993,14 +31993,14 @@ function UserProfileSettings137Render() {
   )
 }
 
-export const LinearRadix137UserProfileSettings: StoryObj = {
-  name: 'Linear + Radix — 사용자 프로필 설정 페이지 (Cycle 137)',
+export const IssueTrackerPrimitive137UserProfileSettings: StoryObj = {
+  name: 'IssueTracker + Primitive — 사용자 프로필 설정 페이지 (Cycle 137)',
   parameters: {
     layout: 'centered',
     docs: {
       description: {
         story:
-          'Linear Design + Radix UI 벤치마크 — Cycle 137. ' +
+          'IssueTracker Design + PrimitiveUI 벤치마크 — Cycle 137. ' +
           '4탭(프로필/알림/보안/연결) 설정 레이아웃. 프로필 인라인 편집, Switch 알림 토글, ' +
           'Checkbox 개인정보 설정 매트릭스, 외부 서비스 연결 관리.',
       },
@@ -32010,9 +32010,9 @@ export const LinearRadix137UserProfileSettings: StoryObj = {
 }
 
 // ============================================================
-// Cycle 138 — Vercel Design + Chakra UI 벤치마크 반영
+// Cycle 138 — DeployPlatform Design + AccessibleUI 벤치마크 반영
 // ============================================================
-// 칸반 보드: Linear 스타일 이슈 관리 + Vercel 배포 상태 트래킹
+// 칸반 보드: IssueTracker 스타일 이슈 관리 + DeployPlatform 배포 상태 트래킹
 // Dropdown, LabelBadge, CounterBadge, Avatar 복합 사용 패턴
 
 type KanbanCard138 = { id: string; title: string; priority: string; assignee: string; label: string; labelColor: string }
@@ -32029,7 +32029,7 @@ const KANBAN_COLUMNS_138: { id: string; title: string; color: string; cards: Kan
     id: 'progress', title: '진행 중', color: '#6366f1',
     cards: [
       { id: 'k3', title: 'Carousel setApi 패턴 스토리', priority: '높음', assignee: 'HJ', label: 'feature', labelColor: '#22c55e' },
-      { id: 'k4', title: 'Vercel Design 벤치마크 반영', priority: '높음', assignee: 'JS', label: 'feature', labelColor: '#22c55e' },
+      { id: 'k4', title: 'DeployPlatform Design 벤치마크 반영', priority: '높음', assignee: 'JS', label: 'feature', labelColor: '#22c55e' },
       { id: 'k5', title: 'TextField 태그 입력 스토리', priority: '보통', assignee: 'HJ', label: 'feature', labelColor: '#22c55e' },
     ],
   },
@@ -32088,7 +32088,7 @@ function KanbanBoard138Render() {
         <div>
           <div style={{ fontSize: 18, fontWeight: 700, color: '#0f172a' }}>칸반 보드</div>
           <div style={{ fontSize: 12, color: '#64748b', marginTop: 2 }}>
-            Cycle 138 — Vercel + Chakra · {doneCards}/{totalCards} 완료
+            Cycle 138 — DeployPlatform + Accessible · {doneCards}/{totalCards} 완료
           </div>
         </div>
         <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
@@ -32185,14 +32185,14 @@ function KanbanBoard138Render() {
   )
 }
 
-export const VercelChakra138KanbanBoard: StoryObj = {
-  name: 'Vercel + Chakra — 칸반 보드 (Cycle 138)',
+export const DeployPlatformAccessible138KanbanBoard: StoryObj = {
+  name: 'DeployPlatform + Accessible — 칸반 보드 (Cycle 138)',
   parameters: {
     layout: 'centered',
     docs: {
       description: {
         story:
-          'Vercel Design + Chakra UI 벤치마크 — Cycle 138. ' +
+          'DeployPlatform Design + AccessibleUI 벤치마크 — Cycle 138. ' +
           '4컬럼 칸반 보드(백로그/진행/리뷰/완료). 카드 이전/다음 이동, 우선순위 Dropdown 필터, ' +
           '완료 진행률 바, CounterBadge 컬럼 카운터, LabelBadge + Avatar 카드 메타.',
       },
@@ -32202,7 +32202,7 @@ export const VercelChakra138KanbanBoard: StoryObj = {
 }
 
 
-// ─── Cycle 139: Shadcn + Notion — AI 글쓰기 스튜디오 ───────────────────────
+// ─── Cycle 139: ComposableUI + WorkspaceEditor — AI 글쓰기 스튜디오 ───────────────────────
 function AIWritingStudio139Render() {
   const [activeDoc, setActiveDoc] = useState(0)
   const [fmtBold, setFmtBold] = useState(false)
@@ -32369,14 +32369,14 @@ function AIWritingStudio139Render() {
   )
 }
 
-export const ShadcnNotion139AIWritingStudio: StoryObj = {
-  name: 'Shadcn + Notion — AI 글쓰기 스튜디오 (Cycle 139)',
+export const ComposableUIWorkspaceEditor139AIWritingStudio: StoryObj = {
+  name: 'ComposableUI + WorkspaceEditor — AI 글쓰기 스튜디오 (Cycle 139)',
   parameters: {
     layout: 'centered',
     docs: {
       description: {
         story:
-          'Shadcn UI + Notion Design 벤치마크 — Cycle 139. ' +
+          'ComposableUI UI + WorkspaceEditor Design 벤치마크 — Cycle 139. ' +
           '3패널 AI 글쓰기 스튜디오: 사이드바(SearchBar 문서검색/문서목록), ' +
           '에디터(Toggle 서식도구바 Bold/Italic/Underline/Code, 편집·미리보기 Toggle), ' +
           '목차 패널(Toggle 토글). AppBar + LabelBadge 서식 상태 표시.',
@@ -32386,7 +32386,7 @@ export const ShadcnNotion139AIWritingStudio: StoryObj = {
   render: () => <AIWritingStudio139Render />,
 }
 
-// ─── Cycle 140: Mantine + Arco Design — 제품 분석 대시보드 ─────────────────
+// ─── Cycle 140: AppUI + DataProductUI — 제품 분석 대시보드 ─────────────────
 function ProductAnalytics140Render() {
   const [period, setPeriod] = useState(0)
   const periods = ['오늘', '이번 주', '이번 달', '올해']
@@ -32422,7 +32422,7 @@ function ProductAnalytics140Render() {
       <div style={{ padding: '16px 24px', background: '#fff', borderBottom: '1px solid #e2e8f0', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <div>
           <div style={{ fontSize: 16, fontWeight: 700, color: '#0f172a' }}>제품 분석</div>
-          <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>Orbit UI Storybook — Mantine + Arco Design 패턴</div>
+          <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>Orbit UI Storybook — AppUI + DataProductUI 패턴</div>
         </div>
         <div style={{ display: 'flex', gap: 4 }}>
           {periods.map((p, i) => (
@@ -32497,14 +32497,14 @@ function ProductAnalytics140Render() {
   )
 }
 
-export const MantiineArco140ProductAnalytics: StoryObj = {
-  name: 'Mantine + Arco — 제품 분석 대시보드 (Cycle 140)',
+export const AccessibleKitDataProduct140ProductAnalytics: StoryObj = {
+  name: 'AppUI + DataProduct — 제품 분석 대시보드 (Cycle 140)',
   parameters: {
     layout: 'centered',
     docs: {
       description: {
         story:
-          'Mantine + Arco Design 벤치마크 — Cycle 140. ' +
+          'AppUI + DataProductUI 벤치마크 — Cycle 140. ' +
           '제품 분석 대시보드: 핵심 지표 카드(Progress 비율), 유입 채널 Progress 시각화, ' +
           '인기 페이지 상대 Progress. 기간 필터 토글로 뷰 전환.',
       },
@@ -32513,7 +32513,7 @@ export const MantiineArco140ProductAnalytics: StoryObj = {
   render: () => <ProductAnalytics140Render />,
 }
 
-// ─── Cycle 141: Raycast + Figma — 캘린더 앱 ────────────────────────────────
+// ─── Cycle 141: CommandPalette + DesignTool — 캘린더 앱 ────────────────────────────────
 function CalendarApp141Render() {
   const today = new Date(2026, 3, 10)
   const [viewDate, setViewDate] = React.useState(today)
@@ -32678,14 +32678,14 @@ function CalendarApp141Render() {
   )
 }
 
-export const RaycastFigma141CalendarApp: StoryObj = {
-  name: 'Raycast + Figma — 캘린더 앱 (Cycle 141)',
+export const CommandPaletteDesignTool141CalendarApp: StoryObj = {
+  name: 'CommandPalette + DesignTool — 캘린더 앱 (Cycle 141)',
   parameters: {
     layout: 'centered',
     docs: {
       description: {
         story:
-          'Raycast + Figma Plugin UI 벤치마크 — Cycle 141. ' +
+          'CommandPalette + DesignTool Plugin UI 벤치마크 — Cycle 141. ' +
           '2패널 캘린더 앱: 사이드바(이벤트 타입 필터, 예정 일정), ' +
           '메인 그리드(월 달력, 날짜 이벤트 인라인, 하단 상세). ' +
           'SolidButton/SolidIconButton 네비, Divider, Text 계층.',
@@ -32695,7 +32695,7 @@ export const RaycastFigma141CalendarApp: StoryObj = {
   render: () => <CalendarApp141Render />,
 }
 
-// ─── Cycle 142: Apple HIG + Material 3 — 소셜 피드 ─────────────────────────
+// ─── Cycle 142: Platform HIG + RoleToken Design — 소셜 피드 ─────────────────────────
 function SocialFeed142Render() {
   const [liked, setLiked] = React.useState<Record<number, boolean>>({})
   const [bookmarked, setBookmarked] = React.useState<Record<number, boolean>>({})
@@ -32712,7 +32712,7 @@ function SocialFeed142Render() {
       initials: 'HJ',
       avatarColor: '#3b82f6',
       time: '2분 전',
-      body: 'Orbit UI Cycle 142 완료! Apple HIG + Material 3 벤치마크 적용. PageIndicator onPageChange API, Accordion compound 패턴, SocialFeed 템플릿 추가.',
+      body: 'Orbit UI Cycle 142 완료! Platform HIG + RoleToken Design 벤치마크 적용. PageIndicator onPageChange API, Accordion compound 패턴, SocialFeed 템플릿 추가.',
       likes: 24,
       comments: 7,
       tag: 'design-system',
@@ -32736,7 +32736,7 @@ function SocialFeed142Render() {
       initials: 'OU',
       avatarColor: '#10b981',
       time: '1시간 전',
-      body: 'Apple HIG Page Control 패턴 → Orbit UI PageIndicator. onPageChange prop으로 제어 가능. 온보딩, 카드 캐러셀, 미디어 슬라이더 모두 지원.',
+      body: 'Platform HIG Page Control 패턴 → Orbit UI PageIndicator. onPageChange prop으로 제어 가능. 온보딩, 카드 캐러셀, 미디어 슬라이더 모두 지원.',
       likes: 38,
       comments: 11,
       tag: 'orbit-ui',
@@ -32860,14 +32860,14 @@ function SocialFeed142Render() {
   )
 }
 
-export const AppleM3142SocialFeed: StoryObj = {
-  name: 'Apple HIG + Material 3 — 소셜 피드 (Cycle 142)',
+export const PlatformM3142SocialFeed: StoryObj = {
+  name: 'Platform HIG + RoleToken Design — 소셜 피드 (Cycle 142)',
   parameters: {
     layout: 'centered',
     docs: {
       description: {
         story:
-          'Apple HIG + Google Material 3 벤치마크 — Cycle 142. ' +
+          'Platform HIG + RoleToken Design 벤치마크 — Cycle 142. ' +
           '소셜 피드: 게시물 목록(좋아요/북마크 토글), 사이드 태그 패널 + Accordion FAQ. ' +
           'Text 타이포 계층, LabelBadge 태그, SolidButton 게시물 작성.',
       },
@@ -32876,10 +32876,10 @@ export const AppleM3142SocialFeed: StoryObj = {
   render: () => <SocialFeed142Render />,
 }
 
-// ─── Cycle 143: shadcn/ui + Tailwind UI — 채팅 UI ──────────────────────────
+// ─── Cycle 143: ComposableUI + UtilityUI — 채팅 UI ──────────────────────────
 function ChatUI143Render() {
   const [messages, setMessages] = React.useState([
-    { id: 1, sender: 'HJ', senderName: '김희준', color: '#3b82f6', text: 'Cycle 143 진행 중! shadcn/ui + Tailwind UI 벤치마크 완료했어.', time: '14:02', mine: false },
+    { id: 1, sender: 'HJ', senderName: '김희준', color: '#3b82f6', text: 'Cycle 143 진행 중! ComposableUI + UtilityUI 벤치마크 완료했어.', time: '14:02', mine: false },
     { id: 2, sender: 'DS', senderName: '박다솔', color: '#8b5cf6', text: 'HoverCard에 Avatar + 프로필 호버 패턴 추가한 거 봤어? 완성도 높다.', time: '14:03', mine: true },
     { id: 3, sender: 'HJ', senderName: '김희준', color: '#3b82f6', text: '응, Avatar 그룹 스택이랑 PR 리뷰어 선택기도 추가했어. size prop 없는 게 함정이었다 ㅋㅋ', time: '14:04', mine: false },
     { id: 4, sender: 'JW', senderName: '이재원', color: '#10b981', text: '커밋 히스토리 호버카드 패턴도 Progress 바 넣은 거 좋던데. 실제 git 화면 같아.', time: '14:05', mine: false },
@@ -33024,14 +33024,14 @@ function ChatUI143Render() {
   )
 }
 
-export const ShadcnTailwind143ChatUI: StoryObj = {
-  name: 'shadcn/ui + Tailwind UI — 채팅 UI (Cycle 143)',
+export const ComposableUIUtilityCSS143ChatUI: StoryObj = {
+  name: 'ComposableUI + UtilityUI — 채팅 UI (Cycle 143)',
   parameters: {
     layout: 'centered',
     docs: {
       description: {
         story:
-          'shadcn/ui + Tailwind UI 벤치마크 — Cycle 143. ' +
+          'ComposableUI + UtilityUI 벤치마크 — Cycle 143. ' +
           '3패널 채팅 UI: 사이드바(채널 목록 SearchBar 필터 + 팀원 상태), ' +
           '메시지 피드(HoverCard 프로필 호버), 입력창(TextField + SolidButton). ' +
           'Text/LabelBadge 조합, Avatar 이니셜 표시.',
@@ -33041,7 +33041,7 @@ export const ShadcnTailwind143ChatUI: StoryObj = {
   render: () => <ChatUI143Render />,
 }
 
-// ─── Cycle 144: Linear + Vercel — 커맨드 팔레트 ────────────────────────────
+// ─── Cycle 144: IssueTracker + DeployPlatform — 커맨드 팔레트 ────────────────────────────
 function CommandPalette144Render() {
   const [query, setQuery] = React.useState('')
   const [selected, setSelected] = React.useState(0)
@@ -33089,7 +33089,7 @@ function CommandPalette144Render() {
     <div style={{ width: 680, fontFamily: 'system-ui, sans-serif', background: '#f8fafc', minHeight: 500, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 20, border: '1px solid #e2e8f0', borderRadius: 12, padding: 32 }}>
       <div style={{ width: '100%', maxWidth: 540 }}>
         <Text style={{ fontSize: 13, color: '#94a3b8', marginBottom: 12, display: 'block', textAlign: 'center' }}>
-          커맨드 팔레트 — Linear + Vercel 패턴 (⌘K)
+          커맨드 팔레트 — IssueTracker + DeployPlatform 패턴 (⌘K)
         </Text>
 
         {open ? (
@@ -33181,14 +33181,14 @@ function CommandPalette144Render() {
   )
 }
 
-export const LinearVercel144CommandPalette: StoryObj = {
-  name: 'Linear + Vercel — 커맨드 팔레트 (Cycle 144)',
+export const IssueTrackerDeployPlatform144CommandPalette: StoryObj = {
+  name: 'IssueTracker + DeployPlatform — 커맨드 팔레트 (Cycle 144)',
   parameters: {
     layout: 'centered',
     docs: {
       description: {
         story:
-          'Linear + Vercel Design 벤치마크 — Cycle 144. ' +
+          'IssueTracker + DeployPlatform Design 벤치마크 — Cycle 144. ' +
           '커맨드 팔레트: SearchBar 검색 필터, 그룹별 명령어 목록, hover 선택, ' +
           '실행 후 Loading 피드백, 최근 사용 LabelBadge. ' +
           '단축키 키캡 힌트 바, 결과 없음 상태.',
@@ -33199,10 +33199,10 @@ export const LinearVercel144CommandPalette: StoryObj = {
 }
 
 /* ==========================================================================
-   사이클 145 — TailwindUI + Ant Design
+   사이클 145 — UtilityCSSUI + Ant Design
    템플릿: 빌링 & 구독 대시보드
 ========================================================================== */
-function TailwindAnt145BillingDashboardRender() {
+function UtilityCSSAnt145BillingDashboardRender() {
   const [plan, setPlan] = useState<'starter' | 'pro' | 'enterprise'>('pro')
   const [billingCycle, setBillingCycle] = useState<'monthly' | 'yearly'>('monthly')
   const [activeTab, setActiveTab] = useState<'overview' | 'invoices' | 'payment'>('overview')
@@ -33234,7 +33234,7 @@ function TailwindAnt145BillingDashboardRender() {
     amount === 0 ? '무료' : `₩${amount.toLocaleString('ko-KR')}`
 
   return (
-    <div style={{ minHeight: '100vh', background: 'var(--sem-eclipse-color-backgroundDefault)', fontFamily: 'system-ui, -apple-system, sans-serif', padding: 24 }}>
+    <div style={{ minHeight: '100vh', background: 'var(--sem-eclipse-color-backgroundDefault)', fontFamily: 'system-ui, sans-serif', padding: 24 }}>
       {/* 헤더 */}
       <div style={{ maxWidth: 900, margin: '0 auto' }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 28 }}>
@@ -33393,31 +33393,31 @@ function TailwindAnt145BillingDashboardRender() {
         )}
 
         <p style={{ fontSize: 10, color: 'var(--sem-eclipse-color-foregroundDisabled)', marginTop: 24, textAlign: 'center' }}>
-          Tailwind UI 구독 페이지 + Ant Design 폼/테이블 패턴 조합 — 사이클 145
+          UtilityUI 구독 페이지 + Ant Design 폼/테이블 패턴 조합 — 사이클 145
         </p>
       </div>
     </div>
   )
 }
 
-export const TailwindAnt145BillingDashboard: StoryObj = {
-  name: 'Tailwind UI + Ant Design — 빌링 & 구독 대시보드',
+export const UtilityCSSAnt145BillingDashboard: StoryObj = {
+  name: 'UtilityUI + Ant Design — 빌링 & 구독 대시보드',
   parameters: {
     layout: 'fullscreen',
     docs: {
       description: {
-        story: 'Tailwind UI 구독 플랜 카드 패턴 + Ant Design 테이블/폼 UX. 월간/연간 청구 전환, 플랜 선택, 사용량 Progress 바, 청구서 목록, 결제 수단 관리를 통합한 SaaS 빌링 대시보드.',
+        story: 'UtilityUI 구독 플랜 카드 패턴 + Ant Design 테이블/폼 UX. 월간/연간 청구 전환, 플랜 선택, 사용량 Progress 바, 청구서 목록, 결제 수단 관리를 통합한 SaaS 빌링 대시보드.',
       },
     },
   },
-  render: () => <TailwindAnt145BillingDashboardRender />,
+  render: () => <UtilityCSSAnt145BillingDashboardRender />,
 }
 
 /* ==========================================================================
-   사이클 146 — Chakra UI + Mantine
+   사이클 146 — AccessibleUI + AppUI
    템플릿: 팀 설정 & 멤버 관리 페이지
 ========================================================================== */
-function ChakraMantine146TeamSettingsRender() {
+function AccessibleAppUI146TeamSettingsRender() {
   const [activeSection, setActiveSection] = useState<'general' | 'members' | 'roles' | 'danger'>('general')
   const [teamName, setTeamName] = useState('Orbit Design Team')
   const [visibility, setVisibility] = useState<'public' | 'private'>('private')
@@ -33449,7 +33449,7 @@ function ChakraMantine146TeamSettingsRender() {
   ] as const
 
   return (
-    <div style={{ minHeight: '100vh', background: 'var(--sem-eclipse-color-backgroundDefault)', fontFamily: 'system-ui, -apple-system, sans-serif', display: 'flex' }}>
+    <div style={{ minHeight: '100vh', background: 'var(--sem-eclipse-color-backgroundDefault)', fontFamily: 'system-ui, sans-serif', display: 'flex' }}>
       {/* 사이드 네비 */}
       <div style={{ width: 200, borderRight: '1px solid var(--sem-eclipse-color-borderSubtle)', padding: '24px 0', flexShrink: 0 }}>
         <div style={{ padding: '0 16px 20px' }}>
@@ -33616,31 +33616,31 @@ function ChakraMantine146TeamSettingsRender() {
         )}
 
         <p style={{ fontSize: 10, color: 'var(--sem-eclipse-color-foregroundDisabled)', marginTop: 32, textAlign: 'center' }}>
-          Chakra UI 설정 패널 + Mantine 멤버 관리 패턴 — 사이클 146
+          AccessibleUI 설정 패널 + AppUI 멤버 관리 패턴 — 사이클 146
         </p>
       </div>
     </div>
   )
 }
 
-export const ChakraMantine146TeamSettings: StoryObj = {
-  name: 'Chakra UI + Mantine — 팀 설정 & 멤버 관리',
+export const AccessibleAppUI146TeamSettings: StoryObj = {
+  name: 'AccessibleUI + AppUI — 팀 설정 & 멤버 관리',
   parameters: {
     layout: 'fullscreen',
     docs: {
       description: {
-        story: 'Chakra UI 설정 패널 레이아웃 + Mantine 멤버 관리 패턴. 사이드 네비로 일반/멤버/역할/위험구역을 전환. 이메일 초대, 멤버 검색, 역할 권한 매트릭스, 위험 구역 액션을 포함.',
+        story: 'AccessibleUI 설정 패널 레이아웃 + AppUI 멤버 관리 패턴. 사이드 네비로 일반/멤버/역할/위험구역을 전환. 이메일 초대, 멤버 검색, 역할 권한 매트릭스, 위험 구역 액션을 포함.',
       },
     },
   },
-  render: () => <ChakraMantine146TeamSettingsRender />,
+  render: () => <AccessibleAppUI146TeamSettingsRender />,
 }
 
 /* ==========================================================================
-   사이클 147 — shadcn/ui + Linear Design
+   사이클 147 — ComposableUI + IssueTracker Design
    템플릿: 개발자 포트폴리오 & 프로젝트 쇼케이스
 ========================================================================== */
-function ShadcnLinear147DevPortfolioRender() {
+function ComposableUIIssueTracker147DevPortfolioRender() {
   const [activeSection, setActiveSection] = useState<'projects' | 'activity' | 'skills'>('projects')
   const [selectedProject, setSelectedProject] = useState<number | null>(null)
 
@@ -33656,7 +33656,7 @@ function ShadcnLinear147DevPortfolioRender() {
   const projects = [
     { id: 1, name: 'orbit-ui', desc: 'React 기반 디자인 시스템 컴포넌트 라이브러리', lang: 'TypeScript', color: '#3178c6', stars: 4200, forks: 312, updated: '1시간 전', tags: ['design-system', 'react', 'tailwind'], status: 'active' },
     { id: 2, name: 'vite-plugin-orbit', desc: 'Orbit UI를 위한 Vite 플러그인 — CSS 순서 최적화', lang: 'TypeScript', color: '#3178c6', stars: 890, forks: 45, updated: '3일 전', tags: ['vite', 'plugin'], status: 'active' },
-    { id: 3, name: 'figma-tokens-sync', desc: 'Figma 디자인 토큰을 코드로 자동 동기화하는 CLI 도구', lang: 'JavaScript', color: '#f7df1e', stars: 2100, forks: 167, updated: '1주 전', tags: ['figma', 'cli', 'tokens'], status: 'archived' },
+    { id: 3, name: 'design-tokens-sync', desc: 'DesignTool 디자인 토큰을 코드로 자동 동기화하는 CLI 도구', lang: 'JavaScript', color: '#f7df1e', stars: 2100, forks: 167, updated: '1주 전', tags: ['design', 'cli', 'tokens'], status: 'archived' },
     { id: 4, name: 'react-a11y-audit', desc: 'React 컴포넌트 접근성 자동 검사 도구', lang: 'TypeScript', color: '#3178c6', stars: 14, forks: 2, updated: '2주 전', tags: ['accessibility', 'testing'], status: 'wip' },
   ]
 
@@ -33665,8 +33665,8 @@ function ShadcnLinear147DevPortfolioRender() {
   )
 
   const skills = [
-    { category: 'Frontend', items: [{ name: 'React', level: 95 }, { name: 'TypeScript', level: 90 }, { name: 'Tailwind CSS', level: 88 }, { name: 'Radix UI', level: 82 }] },
-    { category: 'Build & Tools', items: [{ name: 'Vite', level: 85 }, { name: 'Storybook', level: 92 }, { name: 'Vitest', level: 80 }, { name: 'Figma', level: 75 }] },
+    { category: 'Frontend', items: [{ name: 'React', level: 95 }, { name: 'TypeScript', level: 90 }, { name: 'UtilityCSS CSS', level: 88 }, { name: 'PrimitiveUI', level: 82 }] },
+    { category: 'Build & Tools', items: [{ name: 'Vite', level: 85 }, { name: 'Storybook', level: 92 }, { name: 'Vitest', level: 80 }, { name: 'DesignTool', level: 75 }] },
     { category: 'Design Systems', items: [{ name: 'Token 설계', level: 90 }, { name: 'Component API 설계', level: 88 }, { name: 'Accessibility', level: 78 }, { name: 'Documentation', level: 85 }] },
   ]
 
@@ -33676,7 +33676,7 @@ function ShadcnLinear147DevPortfolioRender() {
   const selectedProj = projects.find((p) => p.id === selectedProject)
 
   return (
-    <div style={{ minHeight: '100vh', background: '#0f172a', fontFamily: 'system-ui, -apple-system, sans-serif', color: '#f1f5f9' }}>
+    <div style={{ minHeight: '100vh', background: '#0f172a', fontFamily: 'system-ui, sans-serif', color: '#f1f5f9' }}>
       {/* 헤더 */}
       <div style={{ borderBottom: '1px solid #1e293b', padding: '12px 24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         <span style={{ fontSize: 14, fontWeight: 700, color: '#f1f5f9' }}>orbit</span>
@@ -33765,9 +33765,9 @@ function ShadcnLinear147DevPortfolioRender() {
                   {selectedProject === proj.id && selectedProj && (
                     <div style={{ marginTop: 12, padding: '12px', borderRadius: 8, background: '#0f172a', fontSize: 11, color: '#94a3b8' }}>
                       <p style={{ fontWeight: 600, color: '#c7d2fe', marginBottom: 6 }}>README 미리보기</p>
-                      <p style={{ lineHeight: 1.6 }}>{selectedProj.desc} — 자세한 문서와 예시는 GitHub 저장소를 확인하세요.</p>
+                      <p style={{ lineHeight: 1.6 }}>{selectedProj.desc} — 자세한 문서와 예시는 CodeHost 저장소를 확인하세요.</p>
                       <div style={{ display: 'flex', gap: 8, marginTop: 10 }}>
-                        <span style={{ fontSize: 10, padding: '3px 8px', borderRadius: 6, background: '#6366f130', color: '#818cf8', cursor: 'pointer' }}>GitHub에서 보기</span>
+                        <span style={{ fontSize: 10, padding: '3px 8px', borderRadius: 6, background: '#6366f130', color: '#818cf8', cursor: 'pointer' }}>CodeHost에서 보기</span>
                         <span style={{ fontSize: 10, padding: '3px 8px', borderRadius: 6, background: '#0ea5e930', color: '#38bdf8', cursor: 'pointer' }}>문서 보기</span>
                       </div>
                     </div>
@@ -33839,30 +33839,30 @@ function ShadcnLinear147DevPortfolioRender() {
       </div>
 
       <p style={{ fontSize: 10, color: '#334155', textAlign: 'center', padding: '16px', borderTop: '1px solid #1e293b' }}>
-        shadcn/ui GitHub Profile + Linear 프로젝트 카드 패턴 — 사이클 147
+        ComposableUI CodeHost Profile + IssueTracker 프로젝트 카드 패턴 — 사이클 147
       </p>
     </div>
   )
 }
 
-export const ShadcnLinear147DevPortfolio: StoryObj = {
-  name: 'shadcn/ui + Linear — 개발자 포트폴리오 & 프로젝트 쇼케이스',
+export const ComposableUIIssueTracker147DevPortfolio: StoryObj = {
+  name: 'ComposableUI + IssueTracker — 개발자 포트폴리오 & 프로젝트 쇼케이스',
   parameters: {
     layout: 'fullscreen',
     docs: {
       description: {
-        story: 'shadcn/ui GitHub 프로파일 카드 + Linear 프로젝트 리스트 패턴. 다크 테마 2컬럼 레이아웃, 기여 현황 히트맵, 기술 스택 Progress 바, 프로젝트 카드 토글 미리보기.',
+        story: 'ComposableUI CodeHost 프로파일 카드 + IssueTracker 프로젝트 리스트 패턴. 다크 테마 2컬럼 레이아웃, 기여 현황 히트맵, 기술 스택 Progress 바, 프로젝트 카드 토글 미리보기.',
       },
     },
   },
-  render: () => <ShadcnLinear147DevPortfolioRender />,
+  render: () => <ComposableUIIssueTracker147DevPortfolioRender />,
 }
 
 /* ==========================================================================
-   사이클 148 — Radix UI + Vercel Design
+   사이클 148 — PrimitiveUI + DeployPlatform Design
    템플릿: API 레퍼런스 & 탐색기
 ========================================================================== */
-function RadixVercel148APIExplorerRender() {
+function PrimitiveDeployPlatform148APIExplorerRender() {
   const [selectedEndpoint, setSelectedEndpoint] = useState<string>('/api/projects')
   const [method, setMethod] = useState<'GET' | 'POST' | 'PATCH' | 'DELETE'>('GET')
   const [response, setResponse] = useState<string | null>(null)
@@ -33892,7 +33892,7 @@ function RadixVercel148APIExplorerRender() {
 
   const sampleResponses: Record<string, object> = {
     '/api/projects': { data: [{ id: 'prj_1', name: 'orbit-ui', framework: 'vite' }, { id: 'prj_2', name: 'api-server', framework: 'nextjs' }], meta: { total: 2, page: 1 } },
-    '/api/deployments': { data: [{ id: 'dpl_abc', status: 'READY', url: 'orbit-ui.vercel.app', createdAt: '2024-12-01T00:00:00Z' }] },
+    '/api/deployments': { data: [{ id: 'dpl_abc', status: 'READY', url: 'orbit-ui.deploy.example.com', createdAt: '2024-12-01T00:00:00Z' }] },
     '/api/teams': { data: [{ id: 'team_1', name: 'Orbit Team', memberCount: 5 }] },
   }
 
@@ -33916,7 +33916,7 @@ function RadixVercel148APIExplorerRender() {
   const tabLabels = { params: 'Query Params', headers: 'Headers', body: 'Body', response: 'Response' }
 
   return (
-    <div style={{ minHeight: '100vh', background: '#0f172a', fontFamily: 'system-ui, -apple-system, sans-serif', display: 'flex', flexDirection: 'column' }}>
+    <div style={{ minHeight: '100vh', background: '#0f172a', fontFamily: 'system-ui, sans-serif', display: 'flex', flexDirection: 'column' }}>
       {/* 헤더 */}
       <div style={{ borderBottom: '1px solid #1e293b', padding: '10px 20px', display: 'flex', alignItems: 'center', gap: 12 }}>
         <span style={{ fontSize: 13, fontWeight: 700, color: '#f1f5f9' }}>Orbit API</span>
@@ -34025,7 +34025,7 @@ function RadixVercel148APIExplorerRender() {
                 {method === 'GET' || method === 'DELETE' ? (
                   <span style={{ color: '#475569' }}>이 메서드는 요청 바디가 없습니다.</span>
                 ) : (
-                  <pre style={{ margin: 0 }}>{`{\n  "name": "my-new-project",\n  "framework": "vite",\n  "gitRepository": {\n    "type": "github",\n    "repo": "blue45f/my-project"\n  }\n}`}</pre>
+                  <pre style={{ margin: 0 }}>{`{\n  "name": "my-new-project",\n  "framework": "vite",\n  "gitRepository": {\n    "type": "codehost",\n    "repo": "blue45f/my-project"\n  }\n}`}</pre>
                 )}
               </div>
             )}
@@ -34054,30 +34054,30 @@ function RadixVercel148APIExplorerRender() {
       </div>
 
       <p style={{ fontSize: 10, color: '#1e293b', textAlign: 'center', padding: '8px', borderTop: '1px solid #1e293b' }}>
-        Radix UI 접근성 패턴 + Vercel API 탐색기 레이아웃 — 사이클 148
+        PrimitiveUI 접근성 패턴 + DeployPlatform API 탐색기 레이아웃 — 사이클 148
       </p>
     </div>
   )
 }
 
-export const RadixVercel148APIExplorer: StoryObj = {
-  name: 'Radix UI + Vercel — API 레퍼런스 & 탐색기',
+export const PrimitiveDeployPlatform148APIExplorer: StoryObj = {
+  name: 'PrimitiveUI + DeployPlatform — API 레퍼런스 & 탐색기',
   parameters: {
     layout: 'fullscreen',
     docs: {
       description: {
-        story: 'Radix UI 접근성 Tabs 패턴 + Vercel API 대시보드 레이아웃. 엔드포인트 사이드바 검색/필터링, 메서드 선택, Query Params/Headers/Body/Response 탭, 모의 API 응답 시뮬레이션.',
+        story: 'PrimitiveUI 접근성 Tabs 패턴 + DeployPlatform API 대시보드 레이아웃. 엔드포인트 사이드바 검색/필터링, 메서드 선택, Query Params/Headers/Body/Response 탭, 모의 API 응답 시뮬레이션.',
       },
     },
   },
-  render: () => <RadixVercel148APIExplorerRender />,
+  render: () => <PrimitiveDeployPlatform148APIExplorerRender />,
 }
 
 /* ==========================================================================
-   사이클 149 — MUI + Arco Design
+   사이클 149 — EnterpriseUI + DataProductUI
    템플릿: 실시간 데이터 모니터링 & 이상 감지 대시보드
 ========================================================================== */
-function MUIArco149MonitoringDashboardRender() {
+function EnterpriseUIDataProduct149MonitoringDashboardRender() {
   const [timeRange, setTimeRange] = useState<'1h' | '6h' | '24h' | '7d'>('1h')
   const [alertFilter, setAlertFilter] = useState<'all' | 'critical' | 'warning' | 'info'>('all')
   const [autoRefresh, setAutoRefresh] = useState(true)
@@ -34128,7 +34128,7 @@ function MUIArco149MonitoringDashboardRender() {
   const activeService = selectedService ? services.find((s) => s.id === selectedService) : null
 
   return (
-    <div style={{ minHeight: '100vh', background: 'var(--sem-eclipse-color-backgroundDefault)', fontFamily: 'system-ui, -apple-system, sans-serif', padding: 0 }}>
+    <div style={{ minHeight: '100vh', background: 'var(--sem-eclipse-color-backgroundDefault)', fontFamily: 'system-ui, sans-serif', padding: 0 }}>
       {/* 헤더 */}
       <div style={{ background: 'var(--sem-eclipse-color-surfaceDefault)', borderBottom: '1px solid var(--sem-eclipse-color-borderSubtle)', padding: '10px 20px', display: 'flex', alignItems: 'center', gap: 12 }}>
         <span style={{ fontSize: 14, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>Monitoring</span>
@@ -34238,33 +34238,33 @@ function MUIArco149MonitoringDashboardRender() {
         </div>
 
         <p style={{ fontSize: 10, color: 'var(--sem-eclipse-color-foregroundDisabled)', marginTop: 16, textAlign: 'center' }}>
-          MUI 상태 그리드 + Arco 데이터 시각화 패턴 — 사이클 149
+          EnterpriseUI 상태 그리드 + DataProduct 데이터 시각화 패턴 — 사이클 149
         </p>
       </div>
     </div>
   )
 }
 
-export const MUIArco149MonitoringDashboard: StoryObj = {
-  name: 'MUI + Arco Design — 실시간 서비스 모니터링 대시보드',
+export const EnterpriseUIDataProduct149MonitoringDashboard: StoryObj = {
+  name: 'EnterpriseUI + DataProductUI — 실시간 서비스 모니터링 대시보드',
   parameters: {
     layout: 'fullscreen',
     docs: {
       description: {
-        story: 'MUI 상태 그리드 카드 + Arco 데이터 시각화 패턴. 시간 범위 전환, 서비스 헬스 상태 목록, 클릭 시 상세 지표 패널, 알림 로그 필터링을 포함한 종합 모니터링 대시보드.',
+        story: 'EnterpriseUI 상태 그리드 카드 + DataProduct 데이터 시각화 패턴. 시간 범위 전환, 서비스 헬스 상태 목록, 클릭 시 상세 지표 패널, 알림 로그 필터링을 포함한 종합 모니터링 대시보드.',
       },
     },
   },
-  render: () => <MUIArco149MonitoringDashboardRender />,
+  render: () => <EnterpriseUIDataProduct149MonitoringDashboardRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Cycle 150 — shadcn/ui + Tailwind UI
+   Cycle 150 — ComposableUI + UtilityUI
    온보딩 위자드 — 멀티스텝 프로세스, 진행률 표시, 단계별 폼
 -------------------------------------------------------------------------- */
 const ONBOARD_STEPS = ['계정 설정', '팀 구성', '플랜 선택', '완료']
 
-function ShadcnTailwind150OnboardingFlowRender() {
+function ComposableUIUtilityCSS150OnboardingFlowRender() {
   const [step, setStep] = React.useState(0)
   const [name, setName] = React.useState('')
   const [email, setEmail] = React.useState('')
@@ -34424,25 +34424,25 @@ function ShadcnTailwind150OnboardingFlowRender() {
   )
 }
 
-export const ShadcnTailwind150OnboardingFlow: StoryObj = {
-  name: 'shadcn/ui + Tailwind UI — 멀티스텝 온보딩 위자드',
+export const ComposableUIUtilityCSS150OnboardingFlow: StoryObj = {
+  name: 'ComposableUI + UtilityUI — 멀티스텝 온보딩 위자드',
   parameters: {
     layout: 'fullscreen',
     docs: {
       description: {
-        story: 'shadcn/ui + Tailwind UI 온보딩 패턴. 4단계 위자드: 계정설정(이름/이메일) → 팀구성(이름/규모) → 플랜선택(RadioButton+이용약관) → 완료. Progress 바, 스텝 인디케이터, 단계별 유효성 검사.',
+        story: 'ComposableUI + UtilityUI 온보딩 패턴. 4단계 위자드: 계정설정(이름/이메일) → 팀구성(이름/규모) → 플랜선택(RadioButton+이용약관) → 완료. Progress 바, 스텝 인디케이터, 단계별 유효성 검사.',
       },
     },
   },
-  render: () => <ShadcnTailwind150OnboardingFlowRender />,
+  render: () => <ComposableUIUtilityCSS150OnboardingFlowRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Cycle 151 — Linear Design + Radix UI
+   Cycle 151 — IssueTracker Design + PrimitiveUI
    파일 매니저 — 사이드바 + 파일 그리드 + 팝오버 컨텍스트 메뉴 + 스켈레톤 로딩
 -------------------------------------------------------------------------- */
 const FILE_ITEMS = [
-  { id: '1', name: 'Design Tokens.fig', type: 'figma', size: '2.4 MB', modified: '방금', starred: true },
+  { id: '1', name: 'Design Tokens.fig', type: 'design', size: '2.4 MB', modified: '방금', starred: true },
   { id: '2', name: 'Component Spec.pdf', type: 'pdf', size: '1.8 MB', modified: '1시간 전', starred: false },
   { id: '3', name: 'README.md', type: 'md', size: '12 KB', modified: '어제', starred: true },
   { id: '4', name: 'orbit-ui-v2.zip', type: 'zip', size: '34.2 MB', modified: '2일 전', starred: false },
@@ -34451,12 +34451,12 @@ const FILE_ITEMS = [
 ]
 
 const FILE_TYPE_ICONS: Record<string, string> = {
-  figma: '#ec4899', pdf: '#ef4444', md: '#6366f1', zip: '#f59e0b', image: '#10b981', json: '#f59e0b',
+  design: '#ec4899', pdf: '#ef4444', md: '#6366f1', zip: '#f59e0b', image: '#10b981', json: '#f59e0b',
 }
 
 const SIDEBAR_ITEMS = ['전체 파일', '최근 항목', '즐겨찾기', '공유됨', '휴지통']
 
-function LinearRadix151FileManagerRender() {
+function IssueTrackerPrimitive151FileManagerRender() {
   const [activeSection, setActiveSection] = React.useState('전체 파일')
   const [selectedFile, setSelectedFile] = React.useState<string | null>(null)
   const [openMenu, setOpenMenu] = React.useState<string | null>(null)
@@ -34634,21 +34634,21 @@ function LinearRadix151FileManagerRender() {
   )
 }
 
-export const LinearRadix151FileManager: StoryObj = {
-  name: 'Linear + Radix UI — 파일 매니저 (사이드바 + 그리드 + 팝오버 메뉴)',
+export const IssueTrackerPrimitive151FileManager: StoryObj = {
+  name: 'IssueTracker + PrimitiveUI — 파일 매니저 (사이드바 + 그리드 + 팝오버 메뉴)',
   parameters: {
     layout: 'fullscreen',
     docs: {
       description: {
-        story: 'Linear 파일 탐색기 + Radix UI 접근성 패턴. 섹션 전환 시 Skeleton 로딩, Popover 컨텍스트 메뉴, 그리드/목록 뷰 전환, 즐겨찾기 토글, 파일 선택 시 디테일 패널 표시.',
+        story: 'IssueTracker 파일 탐색기 + PrimitiveUI 접근성 패턴. 섹션 전환 시 Skeleton 로딩, Popover 컨텍스트 메뉴, 그리드/목록 뷰 전환, 즐겨찾기 토글, 파일 선택 시 디테일 패널 표시.',
       },
     },
   },
-  render: () => <LinearRadix151FileManagerRender />,
+  render: () => <IssueTrackerPrimitive151FileManagerRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Cycle 152 — Vercel Design + Ant Design
+   Cycle 152 — DeployPlatform Design + Ant Design
    팀 관리 대시보드 — 멤버 테이블 + 드로어 초대 + 역할 필터 + 통계 카드
 -------------------------------------------------------------------------- */
 const V152_MEMBERS = [
@@ -34662,7 +34662,7 @@ const V152_MEMBERS = [
 const ROLE_LABELS: Record<string, string> = { admin: '관리자', member: '멤버', viewer: '뷰어' }
 const ROLE_COLORS: Record<string, string> = { admin: '#6366f1', member: '#0ea5e9', viewer: '#94a3b8' }
 
-function VercelAnt152TeamDashboardRender() {
+function DeployPlatformAnt152TeamDashboardRender() {
   const [drawerOpen, setDrawerOpen] = React.useState(false)
   const [roleFilter, setRoleFilter] = React.useState<string>('all')
   const [inviteEmail, setInviteEmail] = React.useState('')
@@ -34831,20 +34831,20 @@ function VercelAnt152TeamDashboardRender() {
   )
 }
 
-export const VercelAnt152TeamDashboard: StoryObj = {
-  name: 'Vercel + Ant Design — 팀 관리 대시보드 (멤버 테이블 + 초대 드로어)',
+export const DeployPlatformAnt152TeamDashboard: StoryObj = {
+  name: 'DeployPlatform + Ant Design — 팀 관리 대시보드 (멤버 테이블 + 초대 드로어)',
   parameters: {
     layout: 'fullscreen',
     docs: {
       description: {
-        story: 'Vercel 팀 설정 + Ant Design 데이터 테이블 패턴. 통계 카드 4개, 역할별 필터, 체크박스 다중 선택/삭제, Drawer 멤버 초대 폼(역할 선택+이메일). 실무 팀 관리 대시보드.',
+        story: 'DeployPlatform 팀 설정 + Ant Design 데이터 테이블 패턴. 통계 카드 4개, 역할별 필터, 체크박스 다중 선택/삭제, Drawer 멤버 초대 폼(역할 선택+이메일). 실무 팀 관리 대시보드.',
       },
     },
   },
-  render: () => <VercelAnt152TeamDashboardRender />,
+  render: () => <DeployPlatformAnt152TeamDashboardRender />,
 }
 
-// ─── Cycle 153: Mantine + Notion ───────────────────────────────────────────
+// ─── Cycle 153: AppUI + WorkspaceEditor ───────────────────────────────────────────
 
 const M153_PAGES = [
   { id: 'home', icon: '🏠', title: '홈', editable: false },
@@ -34866,7 +34866,7 @@ const M153_BLOCKS = [
   { type: 'p', text: '다음 스프린트 회의: 매주 월요일 오전 10시' },
 ]
 
-function MantioneNotion153WorkspaceRender() {
+function MantioneWorkspaceEditor153WorkspaceRender() {
   const [activePage, setActivePage] = useState('sprint')
   const [search, setSearch] = useState('')
   const [todos, setTodos] = useState(M153_BLOCKS.map((b, i) => ({ ...b, id: i })))
@@ -34920,7 +34920,7 @@ function MantioneNotion153WorkspaceRender() {
           ))}
         </div>
         <div style={{ padding: 8, borderTop: '1px solid #e2e8f0' }}>
-          <div style={{ fontSize: 11, color: '#94a3b8', textAlign: 'center' }}>Mantine + Notion 패턴</div>
+          <div style={{ fontSize: 11, color: '#94a3b8', textAlign: 'center' }}>AppUI + WorkspaceEditor 패턴</div>
         </div>
       </div>
       {/* Main Content */}
@@ -34959,44 +34959,44 @@ function MantioneNotion153WorkspaceRender() {
           </div>
         </div>
         <div style={{ padding: '12px 32px', borderTop: '1px solid #f1f5f9', fontSize: 11, color: '#94a3b8' }}>
-          Mantine + Notion — 워크스페이스 대시보드 · 사이드바 탐색 + 블록 에디터 + Toast 피드백
+          AppUI + WorkspaceEditor — 워크스페이스 대시보드 · 사이드바 탐색 + 블록 에디터 + Toast 피드백
         </div>
       </div>
     </div>
   )
 }
 
-export const MantioneNotion153WorkspaceDashboard: StoryObj = {
-  name: 'Mantine + Notion — 워크스페이스 대시보드 (사이드바 + 블록 에디터)',
+export const MantioneWorkspaceEditor153WorkspaceDashboard: StoryObj = {
+  name: 'AppUI + WorkspaceEditor — 워크스페이스 대시보드 (사이드바 + 블록 에디터)',
   parameters: {
     layout: 'fullscreen',
     docs: {
       description: {
-        story: 'Mantine + Notion 복합 패턴. 좌측 사이드바 페이지 탐색(검색 포함), 우측 블록 에디터(H1/H2/P/Todo), 할일 체크 시 Toast 피드백, 새 블록 추가. Notion 워크스페이스 UX 패턴.',
+        story: 'AppUI + WorkspaceEditor 복합 패턴. 좌측 사이드바 페이지 탐색(검색 포함), 우측 블록 에디터(H1/H2/P/Todo), 할일 체크 시 Toast 피드백, 새 블록 추가. WorkspaceEditor 워크스페이스 UX 패턴.',
       },
     },
   },
-  render: () => <MantioneNotion153WorkspaceRender />,
+  render: () => <MantioneWorkspaceEditor153WorkspaceRender />,
 }
 
-// ─── Cycle 154: MUI + Chakra UI ────────────────────────────────────────────
+// ─── Cycle 154: EnterpriseUI + AccessibleUI ────────────────────────────────────────────
 
 const M154_METRICS = [
   { key: 'components', label: '컴포넌트', value: '48', delta: '+3', tip: '이번 달 추가된 컴포넌트 수 포함', color: '#eff6ff' },
   { key: 'stories', label: '스토리', value: '154+', delta: '+21', tip: '각 컴포넌트별 Storybook 스토리 총합', color: '#f0fdf4' },
   { key: 'coverage', label: '타입 커버리지', value: '100%', delta: '±0', tip: 'pnpm typecheck 기준 TypeScript 에러 0개', color: '#fefce8' },
-  { key: 'deploys', label: '배포', value: '52', delta: '+1', tip: '이번 달 Vercel 배포 횟수. 한도: 100/일', color: '#fdf4ff' },
+  { key: 'deploys', label: '배포', value: '52', delta: '+1', tip: '이번 달 DeployPlatform 배포 횟수. 한도: 100/일', color: '#fdf4ff' },
 ]
 
 const M154_ACTIONS = [
   { id: 'docs', label: '문서 보기', icon: '📄', tip: 'Storybook docs 열기' },
-  { id: 'figma', label: 'Figma 링크', icon: '🎨', tip: 'Figma 디자인 파일로 이동' },
-  { id: 'github', label: 'GitHub', icon: '🐙', tip: '소스 코드 저장소' },
+  { id: 'design', label: 'DesignTool 링크', icon: '🎨', tip: 'DesignTool 디자인 파일로 이동' },
+  { id: 'codehost', label: 'CodeHost', icon: '🐙', tip: '소스 코드 저장소' },
   { id: 'slack', label: 'Slack 채널', icon: '💬', tip: '#design-system 채널' },
   { id: 'changelog', label: '변경 이력', icon: '📋', tip: '최근 릴리즈 노트 확인' },
 ]
 
-function MuiChakra154DesignSystemPortalRender() {
+function EnterpriseUIAccessible154DesignSystemPortalRender() {
   const [activeTab, setActiveTab] = useState<'overview' | 'tokens' | 'guidelines'>('overview')
   const [clickedAction, setClickedAction] = useState<string | null>(null)
 
@@ -35022,7 +35022,7 @@ function MuiChakra154DesignSystemPortalRender() {
         <div style={{ padding: '16px 24px', borderBottom: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: '#fafafa' }}>
           <div>
             <div style={{ fontSize: 15, fontWeight: 800, color: '#0f172a' }}>Orbit UI Design System</div>
-            <div style={{ fontSize: 12, color: '#94a3b8', marginTop: 2 }}>MUI + Chakra UI 패턴 포털</div>
+            <div style={{ fontSize: 12, color: '#94a3b8', marginTop: 2 }}>EnterpriseUI + AccessibleUI 패턴 포털</div>
           </div>
           <div style={{ display: 'flex', gap: 4 }}>
             {M154_ACTIONS.map(action => (
@@ -35131,27 +35131,27 @@ function MuiChakra154DesignSystemPortalRender() {
         </div>
 
         <div style={{ padding: '10px 24px', borderTop: '1px solid #f1f5f9', fontSize: 11, color: '#94a3b8' }}>
-          MUI + Chakra UI — 디자인 시스템 포털 · 통계카드(Tooltip) + GhostButton 탭 + 액션 툴바
+          EnterpriseUI + AccessibleUI — 디자인 시스템 포털 · 통계카드(Tooltip) + GhostButton 탭 + 액션 툴바
         </div>
       </Tooltip.Provider>
     </div>
   )
 }
 
-export const MuiChakra154DesignSystemPortal: StoryObj = {
-  name: 'MUI + Chakra UI — 디자인 시스템 포털 (통계 + 탭 + 툴팁 액션)',
+export const EnterpriseUIAccessible154DesignSystemPortal: StoryObj = {
+  name: 'EnterpriseUI + AccessibleUI — 디자인 시스템 포털 (통계 + 탭 + 툴팁 액션)',
   parameters: {
     layout: 'fullscreen',
     docs: {
       description: {
-        story: 'MUI + Chakra UI 복합 패턴. MUI 통계 카드(Tooltip 설명), Chakra 탭 네비게이션(GhostButton), 헤더 아이콘 툴바(Tooltip). 개요/토큰/가이드라인 3탭 콘텐츠. 실무 디자인 시스템 포털 레이아웃.',
+        story: 'EnterpriseUI + AccessibleUI 복합 패턴. EnterpriseUI 통계 카드(Tooltip 설명), Accessible 탭 네비게이션(GhostButton), 헤더 아이콘 툴바(Tooltip). 개요/토큰/가이드라인 3탭 콘텐츠. 실무 디자인 시스템 포털 레이아웃.',
       },
     },
   },
-  render: () => <MuiChakra154DesignSystemPortalRender />,
+  render: () => <EnterpriseUIAccessible154DesignSystemPortalRender />,
 }
 
-// ─── Cycle 155: Arco Design + Raycast Extensions ───────────────────────────
+// ─── Cycle 155: DataProductUI + CommandPalette Extensions ───────────────────────────
 
 const R155_COMMANDS = [
   { id: 'search-issues', label: '이슈 검색', group: '검색', keys: ['⌘', 'K'], badge: 0 },
@@ -35170,7 +35170,7 @@ const R155_LABELS = [
   { id: 'docs', text: '문서', color: '#00B42A' },
 ]
 
-function ArcoRaycast155CommandPaletteRender() {
+function DataProductCommandPalette155CommandPaletteRender() {
   const [query, setQuery] = useState('')
   const [selectedCmd, setSelectedCmd] = useState<string | null>(null)
   const [selectedLabels, setSelectedLabels] = useState<Set<string>>(new Set(['bug']))
@@ -35190,7 +35190,7 @@ function ArcoRaycast155CommandPaletteRender() {
 
   return (
     <div style={{ display: 'flex', height: 560, fontFamily: 'Inter, system-ui, sans-serif', background: '#fff', border: '1px solid #e2e8f0', borderRadius: 8, overflow: 'hidden' }}>
-      {/* Left: Command Palette (Raycast dark panel) */}
+      {/* Left: Command Palette (CommandPalette dark panel) */}
       <div style={{ width: 280, background: '#1c1c1e', display: 'flex', flexDirection: 'column', borderRight: '1px solid #2c2c2e' }}>
         <div style={{ padding: 12, borderBottom: '1px solid #2c2c2e' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '6px 10px', background: '#2c2c2e', borderRadius: 8 }}>
@@ -35238,17 +35238,17 @@ function ArcoRaycast155CommandPaletteRender() {
           ))}
         </div>
         <div style={{ padding: '10px 14px', borderTop: '1px solid #2c2c2e', fontSize: 11, color: '#6d6d72' }}>
-          Raycast 커맨드 팔레트 패턴
+          CommandPalette 커맨드 팔레트 패턴
         </div>
       </div>
 
-      {/* Right: Arco-style issue panel */}
+      {/* Right: DataProduct-style issue panel */}
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
         <div style={{ padding: '16px 20px', borderBottom: '1px solid #e5e6eb', background: '#f7f8fa' }}>
           <div style={{ fontSize: 14, fontWeight: 700, color: '#1d2129' }}>
             {selectedCmd ? R155_COMMANDS.find(c => c.id === selectedCmd)?.label ?? '이슈 상세' : '이슈 선택'}
           </div>
-          <div style={{ fontSize: 12, color: '#86909c', marginTop: 2 }}>Arco Design 이슈 패널</div>
+          <div style={{ fontSize: 12, color: '#86909c', marginTop: 2 }}>DataProductUI 이슈 패널</div>
         </div>
 
         <div style={{ flex: 1, padding: '16px 20px', overflowY: 'auto' }}>
@@ -35297,33 +35297,33 @@ function ArcoRaycast155CommandPaletteRender() {
         </div>
 
         <div style={{ padding: '10px 20px', borderTop: '1px solid #e5e6eb', fontSize: 11, color: '#86909c' }}>
-          Arco Design + Raycast — 커맨드 팔레트 + 이슈 레이블 패널
+          DataProductUI + CommandPalette — 커맨드 팔레트 + 이슈 레이블 패널
         </div>
       </div>
     </div>
   )
 }
 
-export const ArcoRaycast155CommandPalette: StoryObj = {
-  name: 'Arco Design + Raycast — 커맨드 팔레트 + 이슈 레이블 패널',
+export const DataProductCommandPalette155CommandPalette: StoryObj = {
+  name: 'DataProductUI + CommandPalette — 커맨드 팔레트 + 이슈 레이블 패널',
   parameters: {
     layout: 'fullscreen',
     docs: {
       description: {
-        story: 'Arco Design + Raycast 복합 패턴. 좌: Raycast 스타일 다크 커맨드 팔레트(검색+그룹필터+단축키 Chip+AnimatedBadge), 우: Arco 스타일 이슈 패널(컬러 도트 레이블 Chip+알림 배지). 실무 이슈 관리 도구 레이아웃.',
+        story: 'DataProductUI + CommandPalette 복합 패턴. 좌: CommandPalette 스타일 다크 커맨드 팔레트(검색+그룹필터+단축키 Chip+AnimatedBadge), 우: DataProduct 스타일 이슈 패널(컬러 도트 레이블 Chip+알림 배지). 실무 이슈 관리 도구 레이아웃.',
       },
     },
   },
-  render: () => <ArcoRaycast155CommandPaletteRender />,
+  render: () => <DataProductCommandPalette155CommandPaletteRender />,
 }
 
-// ─── Cycle 156: Apple HIG + Google Material 3 ──────────────────────────────
+// ─── Cycle 156: Platform HIG + RoleToken Design ──────────────────────────────
 
 const A156_ITEMS = [
   { id: '1', title: '아이콘 버튼 가이드', category: 'Components', date: '2026-04-11', starred: true },
   { id: '2', title: '페이지 도트 패턴', category: 'Navigation', date: '2026-04-10', starred: false },
   { id: '3', title: 'M3 색상 시스템', category: 'Design Tokens', date: '2026-04-09', starred: true },
-  { id: '4', title: 'Apple HIG 접근성', category: 'Accessibility', date: '2026-04-08', starred: false },
+  { id: '4', title: 'Platform HIG 접근성', category: 'Accessibility', date: '2026-04-08', starred: false },
   { id: '5', title: '다크 테마 전환', category: 'Theme', date: '2026-04-07', starred: false },
   { id: '6', title: 'Orbit UI 3단계 토큰', category: 'Design Tokens', date: '2026-04-06', starred: true },
 ]
@@ -35334,7 +35334,7 @@ const A156_SLIDES = [
   { title: 'Orbit UI 특징', desc: '48+ 컴포넌트, TypeScript 지원, 접근성 준수', color: '#f3e5f5' },
 ]
 
-function AppleM3156ContentBrowserRender() {
+function PlatformM3156ContentBrowserRender() {
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('list')
   const [sortAsc, setSortAsc] = useState(true)
   const [filterCat, setFilterCat] = useState<string>('전체')
@@ -35360,7 +35360,7 @@ function AppleM3156ContentBrowserRender() {
 
   return (
     <div style={{ display: 'flex', height: 580, fontFamily: 'Inter, system-ui, sans-serif', background: '#fff', border: '1px solid #e2e8f0', borderRadius: 8, overflow: 'hidden' }}>
-      {/* Left: Slideshow (Apple HIG Onboarding + M3 Card) */}
+      {/* Left: Slideshow (Platform HIG Onboarding + M3 Card) */}
       <div style={{ width: 240, background: '#fafafa', borderRight: '1px solid #e2e8f0', display: 'flex', flexDirection: 'column' }}>
         <div style={{ padding: '16px', borderBottom: '1px solid #e2e8f0' }}>
           <div style={{ fontSize: 12, fontWeight: 700, color: '#374151' }}>학습 가이드</div>
@@ -35388,11 +35388,11 @@ function AppleM3156ContentBrowserRender() {
           </div>
         </div>
         <div style={{ padding: '10px 16px', borderTop: '1px solid #e2e8f0', fontSize: 11, color: '#94a3b8' }}>
-          Apple HIG 슬라이드 패턴
+          Platform HIG 슬라이드 패턴
         </div>
       </div>
 
-      {/* Right: Content browser (M3 + Apple HIG list/grid) */}
+      {/* Right: Content browser (M3 + Platform HIG list/grid) */}
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
         {/* Toolbar */}
         <div style={{ padding: '10px 16px', borderBottom: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', gap: 8 }}>
@@ -35434,29 +35434,29 @@ function AppleM3156ContentBrowserRender() {
         </div>
 
         <div style={{ padding: '10px 16px', borderTop: '1px solid #e2e8f0', fontSize: 11, color: '#94a3b8' }}>
-          Apple HIG + M3 — 콘텐츠 브라우저 · PageDots 슬라이드 + OutlineIconButton 툴바 + 그리드/리스트 뷰
+          Platform HIG + M3 — 콘텐츠 브라우저 · PageDots 슬라이드 + OutlineIconButton 툴바 + 그리드/리스트 뷰
         </div>
       </div>
     </div>
   )
 }
 
-export const AppleM3156ContentBrowser: StoryObj = {
-  name: 'Apple HIG + M3 — 콘텐츠 브라우저 (슬라이드 + 뷰 전환 + 즐겨찾기)',
+export const PlatformM3156ContentBrowser: StoryObj = {
+  name: 'Platform HIG + M3 — 콘텐츠 브라우저 (슬라이드 + 뷰 전환 + 즐겨찾기)',
   parameters: {
     layout: 'fullscreen',
     docs: {
       description: {
-        story: 'Apple HIG + Google Material 3 복합 패턴. 좌: Apple HIG 온보딩 슬라이드(PageDots+OutlineIconButton 탐색), 우: M3 콘텐츠 목록(카테고리 필터+정렬+그리드/리스트 뷰전환+OutlineIconButton 별표 즐겨찾기). 실무 콘텐츠 브라우저 레이아웃.',
+        story: 'Platform HIG + RoleToken Design 복합 패턴. 좌: Platform HIG 온보딩 슬라이드(PageDots+OutlineIconButton 탐색), 우: M3 콘텐츠 목록(카테고리 필터+정렬+그리드/리스트 뷰전환+OutlineIconButton 별표 즐겨찾기). 실무 콘텐츠 브라우저 레이아웃.',
       },
     },
   },
-  render: () => <AppleM3156ContentBrowserRender />,
+  render: () => <PlatformM3156ContentBrowserRender />,
 }
 
 /* ==========================================================================
-   Cycle 157 — shadcn/ui + Linear Design
-   ShadcnLinear157IssueBoard: 이슈 보드 + AI 리뷰 피드백 템플릿
+   Cycle 157 — ComposableUI + IssueTracker Design
+   ComposableUIIssueTracker157IssueBoard: 이슈 보드 + AI 리뷰 피드백 템플릿
    ========================================================================== */
 const BOARD_ISSUES = [
   { id: '#1241', title: 'BoxedCheckbox 접근성 개선', status: 'done', assignee: 'AK', priority: '낮음', labels: ['접근성', 'UI'] },
@@ -35480,7 +35480,7 @@ const AI_REVIEW_MSGS = [
   { id: 'a11y', issue: '#1241', msg: 'aria-label 누락. 스크린리더 사용자를 위해 레이블을 추가하세요.', type: 'info' as const },
 ]
 
-function ShadcnLinear157IssueBoardRender() {
+function ComposableUIIssueTracker157IssueBoardRender() {
   const [selected, setSelected] = useState<Set<string>>(new Set())
   const [dismissed, setDismissed] = useState<Set<string>>(new Set())
 
@@ -35578,7 +35578,7 @@ function ShadcnLinear157IssueBoardRender() {
           >전체 선택</button>
         </div>
         <div style={{ padding: '8px 16px', fontSize: 10, color: '#94a3b8', borderTop: '1px solid #f1f5f9' }}>
-          shadcn/ui + Linear — BoxedCheckbox 이슈 멀티선택 패턴
+          ComposableUI + IssueTracker — BoxedCheckbox 이슈 멀티선택 패턴
         </div>
       </div>
 
@@ -35657,29 +35657,29 @@ function ShadcnLinear157IssueBoardRender() {
         </div>
 
         <div style={{ padding: '8px 12px', borderTop: '1px solid #e2e8f0', fontSize: 10, color: '#94a3b8' }}>
-          shadcn/ui + Linear — AI 리뷰 피드백 + SpeechBadge 활동 피드
+          ComposableUI + IssueTracker — AI 리뷰 피드백 + SpeechBadge 활동 피드
         </div>
       </div>
     </div>
   )
 }
 
-export const ShadcnLinear157IssueBoard: StoryObj = {
-  name: 'shadcn/ui + Linear — 이슈 보드 + AI 리뷰 피드백 (BoxedCheckbox + SpeechBadge)',
+export const ComposableUIIssueTracker157IssueBoard: StoryObj = {
+  name: 'ComposableUI + IssueTracker — 이슈 보드 + AI 리뷰 피드백 (BoxedCheckbox + SpeechBadge)',
   parameters: {
     layout: 'fullscreen',
     docs: {
       description: {
-        story: 'shadcn/ui + Linear 복합 패턴. 좌: BoxedCheckbox로 이슈 멀티선택 보드(상태/우선순위/라벨 필터), 우: SpeechBadge AI 리뷰 피드백 패널 + 팀 활동 채팅 피드. 실무 이슈 트래킹 + 코드리뷰 레이아웃.',
+        story: 'ComposableUI + IssueTracker 복합 패턴. 좌: BoxedCheckbox로 이슈 멀티선택 보드(상태/우선순위/라벨 필터), 우: SpeechBadge AI 리뷰 피드백 패널 + 팀 활동 채팅 피드. 실무 이슈 트래킹 + 코드리뷰 레이아웃.',
       },
     },
   },
-  render: () => <ShadcnLinear157IssueBoardRender />,
+  render: () => <ComposableUIIssueTracker157IssueBoardRender />,
 }
 
 /* ==========================================================================
-   Cycle 158 — Radix UI + Tailwind UI
-   RadixTailwind158DocPortal: 문서 포털 + PR 대시보드 템플릿
+   Cycle 158 — PrimitiveUI + UtilityUI
+   PrimitiveUtilityCSS158DocPortal: 문서 포털 + PR 대시보드 템플릿
    ========================================================================== */
 const DOC_PORTAL_CATS = [
   { id: 'overview', label: '개요', items: ['소개', '설치', '빠른 시작', '마이그레이션'] },
@@ -35696,9 +35696,9 @@ const PORTAL_PR_LIST = [
   { pr: '#1245', title: 'PageDots 인터랙션 개선', status: 'WIP', statusColor: 'gray' as const, author: 'SJ', time: '3시간 전' },
 ]
 
-const PORTAL_TECH_TAGS = ['React', 'TypeScript', 'Vite', 'Radix UI', 'Tailwind', 'Radix']
+const PORTAL_TECH_TAGS = ['React', 'TypeScript', 'Vite', 'PrimitiveUI', 'UtilityCSS', 'Primitive']
 
-function RadixTailwind158DocPortalRender() {
+function PrimitiveUtilityCSS158DocPortalRender() {
   const [selectedCat, setSelectedCat] = useState('components')
   const [selectedDoc, setSelectedDoc] = useState('Button')
   const [activeTech, setActiveTech] = useState<Set<string>>(new Set())
@@ -35785,14 +35785,14 @@ function RadixTailwind158DocPortalRender() {
               </LabelBadge>
             </div>
             <div style={{ fontSize: 13, color: '#64748b', lineHeight: 1.8, marginBottom: 20, maxWidth: 520 }}>
-              <strong>{selectedDoc}</strong>는 Orbit UI의 핵심 컴포넌트입니다. Radix UI Primitive를 기반으로 접근성을 보장하며, Tailwind CSS 클래스와 조합하여 유연한 커스터마이징이 가능합니다.
+              <strong>{selectedDoc}</strong>는 Orbit UI의 핵심 컴포넌트입니다. PrimitiveUI Primitive를 기반으로 접근성을 보장하며, UtilityCSS CSS 클래스와 조합하여 유연한 커스터마이징이 가능합니다.
             </div>
 
             {/* Usage tags */}
             <div style={{ marginBottom: 20 }}>
               <p style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 8 }}>사용 기술</p>
               <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
-                {['React 18', 'TypeScript', 'WAI-ARIA', 'Radix UI'].map(tag => (
+                {['React 18', 'TypeScript', 'WAI-ARIA', 'PrimitiveUI'].map(tag => (
                   <span key={tag} style={{ padding: '4px 10px', borderRadius: 999, background: '#f1f5f9', fontSize: 11, color: '#475569', fontWeight: 500 }}>{tag}</span>
                 ))}
               </div>
@@ -35870,7 +35870,7 @@ export function Example() {
               )}
             </div>
             <div style={{ padding: '8px 12px', borderTop: '1px solid #e2e8f0', fontSize: 10, color: '#94a3b8' }}>
-              Radix + Tailwind — LabelBadge PR 상태 + ChipLink 내비게이션
+              Primitive + UtilityCSS — LabelBadge PR 상태 + ChipLink 내비게이션
             </div>
           </div>
         </div>
@@ -35879,22 +35879,22 @@ export function Example() {
   )
 }
 
-export const RadixTailwind158DocPortal: StoryObj = {
-  name: 'Radix UI + Tailwind UI — 문서 포털 + PR 대시보드 (ChipLink 내비 + LabelBadge 상태)',
+export const PrimitiveUtilityCSS158DocPortal: StoryObj = {
+  name: 'PrimitiveUI + UtilityUI — 문서 포털 + PR 대시보드 (ChipLink 내비 + LabelBadge 상태)',
   parameters: {
     layout: 'fullscreen',
     docs: {
       description: {
-        story: 'Radix UI + Tailwind UI 복합 패턴. 좌: 사이드바 문서 내비게이션(ChipLink 카테고리 필터), 중: 문서 본문(LabelBadge 안정성 뱃지+코드 예시), 우: PR 대시보드(LabelBadge 상태 필터+리뷰 목록). 실무 문서 포털 레이아웃.',
+        story: 'PrimitiveUI + UtilityUI 복합 패턴. 좌: 사이드바 문서 내비게이션(ChipLink 카테고리 필터), 중: 문서 본문(LabelBadge 안정성 뱃지+코드 예시), 우: PR 대시보드(LabelBadge 상태 필터+리뷰 목록). 실무 문서 포털 레이아웃.',
       },
     },
   },
-  render: () => <RadixTailwind158DocPortalRender />,
+  render: () => <PrimitiveUtilityCSS158DocPortalRender />,
 }
 
 /* ==========================================================================
-   Cycle 159 — Vercel Design + Ant Design
-   VercelAnt159DeployPortal: 배포 관리 포털 + 릴리즈 노트 편집기 템플릿
+   Cycle 159 — DeployPlatform Design + Ant Design
+   DeployPlatformAnt159DeployPortal: 배포 관리 포털 + 릴리즈 노트 편집기 템플릿
    ========================================================================== */
 const DEPLOY_PORTAL_LOGS = Array.from({ length: 32 }, (_, i) => ({
   id: i + 1,
@@ -35920,7 +35920,7 @@ const ENV_COLOR: Record<string, { dot: string; label: string }> = {
 }
 const STATUS_DOT: Record<string, string> = { ready: '#22c55e', building: '#f59e0b', error: '#ef4444' }
 
-function VercelAnt159DeployPortalRender() {
+function DeployPlatformAnt159DeployPortalRender() {
   const [logPage, setLogPage] = useState(1)
   const [envFilter, setEnvFilter] = useState<string | null>(null)
   const [releaseNote, setReleaseNote] = useState('')
@@ -35981,7 +35981,7 @@ function VercelAnt159DeployPortalRender() {
           <span style={{ marginLeft: 'auto', fontSize: 10, color: '#475569' }}>{logPage}/{totalLogPages}</span>
         </div>
         <div style={{ padding: '8px 16px', borderTop: '1px solid #1e293b', fontSize: 10, color: '#334155' }}>
-          Vercel Design — PageNumber 배포 로그 페이지네이션
+          DeployPlatform Design — PageNumber 배포 로그 페이지네이션
         </div>
       </div>
 
@@ -36043,22 +36043,22 @@ function VercelAnt159DeployPortalRender() {
   )
 }
 
-export const VercelAnt159DeployPortal: StoryObj = {
-  name: 'Vercel + Ant Design — 배포 관리 포털 (PageNumber 로그 + TextArea 릴리즈 노트)',
+export const DeployPlatformAnt159DeployPortal: StoryObj = {
+  name: 'DeployPlatform + Ant Design — 배포 관리 포털 (PageNumber 로그 + TextArea 릴리즈 노트)',
   parameters: {
     layout: 'fullscreen',
     docs: {
       description: {
-        story: 'Vercel Design + Ant Design 복합 패턴. 좌: 배포 로그 목록(환경별 필터+PageNumber 페이지네이션), 우: TextArea 릴리즈 노트 편집기(템플릿 선택+버전 입력+게시). 실무 배포 관리 포털 레이아웃.',
+        story: 'DeployPlatform Design + Ant Design 복합 패턴. 좌: 배포 로그 목록(환경별 필터+PageNumber 페이지네이션), 우: TextArea 릴리즈 노트 편집기(템플릿 선택+버전 입력+게시). 실무 배포 관리 포털 레이아웃.',
       },
     },
   },
-  render: () => <VercelAnt159DeployPortalRender />,
+  render: () => <DeployPlatformAnt159DeployPortalRender />,
 }
 
 /* ==========================================================================
-   Cycle 160 — MUI + Mantine
-   MuiMantine160SecurityCenter: 보안 센터 (PasswordField 설정 + AlertDialog 확인)
+   Cycle 160 — EnterpriseUI + AppUI
+   EnterpriseUIAppUI160SecurityCenter: 보안 센터 (PasswordField 설정 + AlertDialog 확인)
    ========================================================================== */
 const SECURITY_SESSIONS = [
   { id: 1, device: 'MacBook Pro', location: 'Seoul, KR', browser: 'Chrome', last: '현재', current: true },
@@ -36084,7 +36084,7 @@ const POLICY_RULES_TMP = [
 const RISK_COLOR: Record<string, string> = { low: '#22c55e', medium: '#f59e0b', high: '#ef4444' }
 const RISK_LABEL: Record<string, string> = { low: '정상', medium: '주의', high: '위험' }
 
-function MuiMantine160SecurityCenterRender() {
+function EnterpriseUIAppUI160SecurityCenterRender() {
   const [tab, setTab] = useState<'password' | 'sessions' | 'logs'>('password')
   const [newPwd, setNewPwd] = useState('')
   const [confirmPwd, setConfirmPwd] = useState('')
@@ -36118,7 +36118,7 @@ function MuiMantine160SecurityCenterRender() {
       <div style={{ width: 220, background: '#fff', borderRight: '1px solid #e2e8f0', display: 'flex', flexDirection: 'column' }}>
         <div style={{ padding: '18px 16px 14px', borderBottom: '1px solid #f1f5f9' }}>
           <div style={{ fontSize: 14, fontWeight: 800, color: '#0f172a' }}>보안 센터</div>
-          <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>MUI + Mantine 패턴</div>
+          <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>EnterpriseUI + AppUI 패턴</div>
         </div>
         <div style={{ padding: '10px 10px', display: 'flex', flexDirection: 'column', gap: 3 }}>
           {[
@@ -36273,27 +36273,27 @@ function MuiMantine160SecurityCenterRender() {
   )
 }
 
-export const MuiMantine160SecurityCenter: StoryObj = {
-  name: 'MUI + Mantine — 보안 센터 (PasswordField 설정 + AlertDialog 세션 관리)',
+export const EnterpriseUIAppUI160SecurityCenter: StoryObj = {
+  name: 'EnterpriseUI + AppUI — 보안 센터 (PasswordField 설정 + AlertDialog 세션 관리)',
   parameters: {
     layout: 'fullscreen',
     docs: {
       description: {
-        story: 'MUI + Mantine 복합 패턴. 좌: 탭 사이드바(비밀번호/세션/로그), 중: PasswordField 변경 폼(복잡도 정책+실시간 검증), 세션 관리(AlertDialog 세션 종료 확인), 보안 로그(위험도 배지). 실무 보안 설정 페이지 레이아웃.',
+        story: 'EnterpriseUI + AppUI 복합 패턴. 좌: 탭 사이드바(비밀번호/세션/로그), 중: PasswordField 변경 폼(복잡도 정책+실시간 검증), 세션 관리(AlertDialog 세션 종료 확인), 보안 로그(위험도 배지). 실무 보안 설정 페이지 레이아웃.',
       },
     },
   },
-  render: () => <MuiMantine160SecurityCenterRender />,
+  render: () => <EnterpriseUIAppUI160SecurityCenterRender />,
 }
 
 /* ==========================================================================
-   Cycle 161 — Chakra UI + Arco Design
-   ChakraArco161ProductOnboarding: 제품 온보딩 + 권한 설정 템플릿
+   Cycle 161 — AccessibleUI + DataProductUI
+   AccessibleDataProduct161ProductOnboarding: 제품 온보딩 + 권한 설정 템플릿
    ========================================================================== */
 const ONBOARD_SLIDES = [
   { title: '환영합니다!', desc: 'Orbit UI로 강력한 디자인 시스템을 구축하세요. 접근성과 확장성을 모두 갖춘 컴포넌트를 제공합니다.', icon: '🚀', color: '#6366f1', bg: '#f5f3ff' },
   { title: '3계층 아키텍처', desc: 'Base(무스타일) → Theme(토큰 스타일) → Custom(프로젝트 확장) 구조로 유연한 커스터마이징이 가능합니다.', icon: '🏗️', color: '#f59e0b', bg: '#fffbeb' },
-  { title: 'Tailwind 토큰 테마', desc: '타입 안전한 CSS-in-JS로 런타임 오버헤드 없이 테마를 구현합니다. 다크 모드도 완벽 지원합니다.', icon: '🎨', color: '#22c55e', bg: '#f0fdf4' },
+  { title: 'UtilityCSS 토큰 테마', desc: '타입 안전한 CSS-in-JS로 런타임 오버헤드 없이 테마를 구현합니다. 다크 모드도 완벽 지원합니다.', icon: '🎨', color: '#22c55e', bg: '#f0fdf4' },
   { title: '바로 시작하기', desc: 'npm install @heejun-com/theme-eclipse로 설치 후 EclipseProvider로 감싸면 모든 준비가 완료됩니다.', icon: '✅', color: '#ec4899', bg: '#fdf2f8' },
 ]
 
@@ -36324,7 +36324,7 @@ const FEATURE_LIST = [
 
 type OnboardCarouselApi = Parameters<NonNullable<React.ComponentProps<typeof Carousel>['setApi']>>[0]
 
-function ChakraArco161ProductOnboardingRender() {
+function AccessibleDataProduct161ProductOnboardingRender() {
   const [slide, setSlide] = useState(0)
   const [carouselApi, setCarouselApi] = useState<OnboardCarouselApi>()
   const [onboardDone, setOnboardDone] = useState(false)
@@ -36363,7 +36363,7 @@ function ChakraArco161ProductOnboardingRender() {
       <div style={{ width: 380, display: 'flex', flexDirection: 'column', background: '#fff', borderRight: '1px solid #e2e8f0' }}>
         <div style={{ padding: '20px 20px 14px', borderBottom: '1px solid #f1f5f9' }}>
           <div style={{ fontSize: 15, fontWeight: 800, color: '#0f172a', letterSpacing: '-0.02em' }}>Orbit UI 시작하기</div>
-          <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>Chakra UI + Arco Design 온보딩 패턴</div>
+          <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>AccessibleUI + DataProductUI 온보딩 패턴</div>
         </div>
 
         {/* Carousel */}
@@ -36429,7 +36429,7 @@ function ChakraArco161ProductOnboardingRender() {
         <div style={{ padding: '20px 24px', display: 'flex', flexDirection: 'column', gap: 24 }}>
           {/* Permission Matrix */}
           <div>
-            <p style={{ fontSize: 12, fontWeight: 700, color: '#0f172a', marginBottom: 12 }}>역할별 권한 설정 (Arco Design 패턴)</p>
+            <p style={{ fontSize: 12, fontWeight: 700, color: '#0f172a', marginBottom: 12 }}>역할별 권한 설정 (DataProductUI 패턴)</p>
             <div style={{ border: '1px solid #e2e8f0', borderRadius: 12, overflow: 'hidden' }}>
               <table style={{ width: '100%', borderCollapse: 'collapse' }}>
                 <thead>
@@ -36462,7 +36462,7 @@ function ChakraArco161ProductOnboardingRender() {
 
           {/* Feature Toggles (Checkboxes) */}
           <div>
-            <p style={{ fontSize: 12, fontWeight: 700, color: '#0f172a', marginBottom: 12 }}>기능 설정 (Chakra UI 패턴)</p>
+            <p style={{ fontSize: 12, fontWeight: 700, color: '#0f172a', marginBottom: 12 }}>기능 설정 (AccessibleUI 패턴)</p>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
               {FEATURE_LIST.map(feat => (
                 <div
@@ -36490,22 +36490,22 @@ function ChakraArco161ProductOnboardingRender() {
   )
 }
 
-export const ChakraArco161ProductOnboarding: StoryObj = {
-  name: 'Chakra + Arco Design — 제품 온보딩 투어 + 권한/기능 설정 (Carousel + Checkbox)',
+export const AccessibleDataProduct161ProductOnboarding: StoryObj = {
+  name: 'Accessible + DataProductUI — 제품 온보딩 투어 + 권한/기능 설정 (Carousel + Checkbox)',
   parameters: {
     layout: 'fullscreen',
     docs: {
       description: {
-        story: 'Chakra UI + Arco Design 복합 패턴. 좌: Carousel 온보딩 투어(4단계 슬라이드+진행 바+네비게이션), 우: Checkbox 역할별 권한 매트릭스(Arco) + 기능 카드 선택(Chakra). 실무 SaaS 온보딩+설정 레이아웃.',
+        story: 'AccessibleUI + DataProductUI 복합 패턴. 좌: Carousel 온보딩 투어(4단계 슬라이드+진행 바+네비게이션), 우: Checkbox 역할별 권한 매트릭스(DataProduct) + 기능 카드 선택(Accessible). 실무 SaaS 온보딩+설정 레이아웃.',
       },
     },
   },
-  render: () => <ChakraArco161ProductOnboardingRender />,
+  render: () => <AccessibleDataProduct161ProductOnboardingRender />,
 }
 
 /* ==========================================================================
-   Cycle 162 — Raycast Extensions + Notion Design
-   RaycastNotion162WorkspaceHub: 통합 워크스페이스 허브 템플릿
+   Cycle 162 — CommandPalette Extensions + WorkspaceEditor Design
+   CommandPaletteWorkspaceEditor162WorkspaceHub: 통합 워크스페이스 허브 템플릿
    ========================================================================== */
 const WORKSPACE_DOCS_162 = [
   { icon: '📊', title: '분기 성과 리포트', date: '오늘', tag: '보고서', color: '#6366f1' },
@@ -36515,24 +36515,24 @@ const WORKSPACE_DOCS_162 = [
   { icon: '🚀', title: 'v2.1 릴리즈 노트', date: '2주 전', tag: '릴리즈', color: '#14b8a6' },
 ]
 
-const RAYCAST_ACTIONS_162 = [
+const LAUNCHER_ACTIONS_162 = [
   { icon: '📝', label: '새 문서', shortcut: '⌘ N', color: '#6366f1' },
   { icon: '🔗', label: 'URL 복사', shortcut: '⌘ U', color: '#22c55e' },
   { icon: '📸', label: '스크린샷', shortcut: '⌘ ⇧ 5', color: '#f59e0b' },
   { icon: '🔍', label: '전체 검색', shortcut: '⌘ F', color: '#ec4899' },
 ]
 
-const NOTION_PAGE_BLOCKS_162 = [
+const WORKSPACE_PAGE_BLOCKS_162 = [
   { type: 'h1', content: '프로젝트 허브' },
-  { type: 'text', content: 'Raycast + Notion 통합 패턴 — 빠른 명령 접근과 Notion 블록 편집기를 하나의 워크스페이스에 통합합니다.' },
+  { type: 'text', content: 'CommandPalette + WorkspaceEditor 통합 패턴 — 빠른 명령 접근과 WorkspaceEditor 블록 편집기를 하나의 워크스페이스에 통합합니다.' },
   { type: 'h2', content: '핵심 원칙' },
-  { type: 'bullet', content: '검색 우선 인터페이스 (Raycast 패턴)' },
-  { type: 'bullet', content: '블록 기반 편집 (Notion 패턴)' },
+  { type: 'bullet', content: '검색 우선 인터페이스 (CommandPalette 패턴)' },
+  { type: 'bullet', content: '블록 기반 편집 (WorkspaceEditor 패턴)' },
   { type: 'bullet', content: 'EclipseProvider 테마 전환 지원' },
   { type: 'callout', content: 'FloatingTextField로 빠른 문서 생성 — 제목 입력 후 Enter로 즉시 생성', icon: '⚡' },
 ]
 
-function RaycastNotion162WorkspaceHubRender() {
+function CommandPaletteWorkspaceEditor162WorkspaceHubRender() {
   const [dark, setDark] = useState(false)
   const [search, setSearch] = useState('')
   const [newDoc, setNewDoc] = useState('')
@@ -36562,7 +36562,7 @@ function RaycastNotion162WorkspaceHubRender() {
     <EclipseProvider mode={dark ? 'dark' : 'light'}>
       <div style={{ display: 'flex', height: '100vh', fontFamily: 'system-ui, sans-serif', background: bg, overflow: 'hidden' }}>
 
-        {/* Left panel: Raycast-style command + doc list */}
+        {/* Left panel: CommandPalette-style command + doc list */}
         <div style={{ width: 300, display: 'flex', flexDirection: 'column', background: sideBg, borderRight: `1px solid ${border}` }}>
           {/* Header */}
           <div style={{ padding: '16px 16px 12px', borderBottom: `1px solid ${border}` }}>
@@ -36573,13 +36573,13 @@ function RaycastNotion162WorkspaceHubRender() {
                 <Toggle checked={dark} onCheckedChange={(c) => setDark(c)} />
               </div>
             </div>
-            {/* Accent colors (Raycast pattern) */}
+            {/* Accent colors (CommandPalette pattern) */}
             <div style={{ display: 'flex', gap: 5, marginBottom: 10 }}>
               {['#6366f1', '#22c55e', '#f59e0b', '#ec4899', '#14b8a6'].map(c => (
                 <button key={c} onClick={() => setAccent(c)} style={{ width: 20, height: 20, borderRadius: '50%', background: c, border: accent === c ? `2.5px solid ${text}` : '2.5px solid transparent', cursor: 'pointer', padding: 0, transition: 'border 150ms' }} />
               ))}
             </div>
-            {/* Search — FloatingTextField (Raycast pattern) */}
+            {/* Search — FloatingTextField (CommandPalette pattern) */}
             <FloatingTextField
               placeholder="문서 검색 (⌘ Space)"
               value={search}
@@ -36587,11 +36587,11 @@ function RaycastNotion162WorkspaceHubRender() {
             />
           </div>
 
-          {/* Quick actions (Raycast pattern) */}
+          {/* Quick actions (CommandPalette pattern) */}
           <div style={{ padding: '10px 8px', borderBottom: `1px solid ${border}` }}>
             <div style={{ fontSize: 10, fontWeight: 700, color: sub, textTransform: 'uppercase', letterSpacing: '0.07em', padding: '0 8px', marginBottom: 6 }}>빠른 실행</div>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 4 }}>
-              {RAYCAST_ACTIONS_162.map(a => (
+              {LAUNCHER_ACTIONS_162.map(a => (
                 <button key={a.label} style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '6px 8px', borderRadius: 7, border: 'none', background: 'transparent', cursor: 'pointer', textAlign: 'left' }}
                   onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.background = accent + '18' }}
                   onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.background = 'transparent' }}>
@@ -36623,9 +36623,9 @@ function RaycastNotion162WorkspaceHubRender() {
             )}
           </div>
 
-          {/* New doc — Notion inline creation pattern */}
+          {/* New doc — WorkspaceEditor inline creation pattern */}
           <div style={{ padding: '10px 12px', borderTop: `1px solid ${border}`, background: cardBg }}>
-            <div style={{ fontSize: 10, fontWeight: 700, color: sub, textTransform: 'uppercase', letterSpacing: '0.07em', marginBottom: 6 }}>새 문서 (Notion 패턴)</div>
+            <div style={{ fontSize: 10, fontWeight: 700, color: sub, textTransform: 'uppercase', letterSpacing: '0.07em', marginBottom: 6 }}>새 문서 (WorkspaceEditor 패턴)</div>
             <div style={{ display: 'flex', gap: 6 }}>
               <div style={{ flex: 1 }}>
                 <FloatingTextField
@@ -36645,7 +36645,7 @@ function RaycastNotion162WorkspaceHubRender() {
           </div>
         </div>
 
-        {/* Right panel: Notion-style block editor */}
+        {/* Right panel: WorkspaceEditor-style block editor */}
         <div style={{ flex: 1, display: 'flex', flexDirection: 'column', background: cardBg, overflowY: 'auto' }}>
           {/* Doc header */}
           <div style={{ padding: '24px 40px 0' }}>
@@ -36659,9 +36659,9 @@ function RaycastNotion162WorkspaceHubRender() {
               </div>
             </div>
 
-            {/* Notion block content */}
+            {/* WorkspaceEditor block content */}
             <div style={{ maxWidth: 640 }}>
-              {NOTION_PAGE_BLOCKS_162.map((block, i) => {
+              {WORKSPACE_PAGE_BLOCKS_162.map((block, i) => {
                 if (block.type === 'h1') return (
                   <div key={i} style={{ fontSize: 28, fontWeight: 800, color: text, marginBottom: 16, letterSpacing: '-0.03em', lineHeight: 1.2 }}>{block.content}</div>
                 )
@@ -36687,7 +36687,7 @@ function RaycastNotion162WorkspaceHubRender() {
             </div>
           </div>
 
-          {/* Bottom status bar (Notion-style) */}
+          {/* Bottom status bar (WorkspaceEditor-style) */}
           <div style={{ marginTop: 'auto', padding: '10px 40px', borderTop: `1px solid ${border}`, display: 'flex', alignItems: 'center', gap: 12, background: dark ? '#1c1c1e' : '#fafafa' }}>
             <span style={{ fontSize: 10, color: sub }}>마지막 편집: 방금 전</span>
             <Divider orientation="vertical" length="12px" />
@@ -36701,22 +36701,22 @@ function RaycastNotion162WorkspaceHubRender() {
   )
 }
 
-export const RaycastNotion162WorkspaceHub: StoryObj = {
-  name: 'Raycast + Notion — 통합 워크스페이스 허브 (FloatingTextField + EclipseProvider)',
+export const CommandPaletteWorkspaceEditor162WorkspaceHub: StoryObj = {
+  name: 'CommandPalette + WorkspaceEditor — 통합 워크스페이스 허브 (FloatingTextField + EclipseProvider)',
   parameters: {
     layout: 'fullscreen',
     docs: {
       description: {
-        story: 'Raycast Extensions + Notion Design 복합 패턴. 좌: Raycast 커맨드 팔레트(빠른 실행+문서 검색+FloatingTextField 생성), 우: Notion 블록 편집기(H1/H2/불릿/콜아웃). EclipseProvider 다크모드 + 강조 색상 선택.',
+        story: 'CommandPalette Extensions + WorkspaceEditor Design 복합 패턴. 좌: CommandPalette 커맨드 팔레트(빠른 실행+문서 검색+FloatingTextField 생성), 우: WorkspaceEditor 블록 편집기(H1/H2/불릿/콜아웃). EclipseProvider 다크모드 + 강조 색상 선택.',
       },
     },
   },
-  render: () => <RaycastNotion162WorkspaceHubRender />,
+  render: () => <CommandPaletteWorkspaceEditor162WorkspaceHubRender />,
 }
 
 /* ==========================================================================
-   Cycle 163 — Figma Plugin UI + Apple HIG
-   FigmaApple163DesignToolkit: 디자인 툴킷 패널 템플릿
+   Cycle 163 — DesignTool Plugin UI + Platform HIG
+   DesignToolPlatform163DesignToolkit: 디자인 툴킷 패널 템플릿
    ========================================================================== */
 const TOOLKIT_LAYERS_163 = [
   { id: 'f1', type: 'frame', name: 'App / Dashboard', depth: 0, color: '#2563eb' },
@@ -36739,10 +36739,10 @@ const TOOLKIT_EXPORT_FORMATS_163 = [
   { value: 'webp', label: 'WebP', icon: '🌐' },
 ]
 
-const TOOLKIT_FONTS_163 = ['Inter', 'Geist', 'SF Pro', 'Pretendard']
+const TOOLKIT_FONTS_163 = ['Inter', 'System', 'SF Pro', 'Pretendard']
 const TOOLKIT_SIZES_163 = ['12', '13', '14', '16', '18', '20', '24']
 
-function FigmaApple163DesignToolkitRender() {
+function DesignToolPlatform163DesignToolkitRender() {
   const [layerSearch, setLayerSearch] = useState('')
   const [selectedLayers, setSelectedLayers] = useState<string[]>(['c1'])
   const [activePanel, setActivePanel] = useState<'layers' | 'export' | 'typography'>('layers')
@@ -36776,7 +36776,7 @@ function FigmaApple163DesignToolkitRender() {
   return (
     <div style={{ display: 'flex', height: '100vh', fontFamily: 'system-ui, sans-serif', background: '#f0f0f0', overflow: 'hidden' }}>
 
-      {/* Left: Figma-style dark panel */}
+      {/* Left: DesignTool-style dark panel */}
       <div style={{ width: 280, display: 'flex', flexDirection: 'column', background: '#1e1e1e', color: '#d4d4d4' }}>
         {/* Panel tabs */}
         <div style={{ display: 'flex', borderBottom: '1px solid #333', background: '#181818' }}>
@@ -36823,7 +36823,7 @@ function FigmaApple163DesignToolkitRender() {
           </div>
         )}
 
-        {/* Export panel (Apple HIG style) */}
+        {/* Export panel (Platform HIG style) */}
         {activePanel === 'export' && (
           <div style={{ flex: 1, padding: '14px 12px', display: 'flex', flexDirection: 'column', gap: 12 }}>
             <div>
@@ -36898,12 +36898,12 @@ function FigmaApple163DesignToolkitRender() {
         )}
       </div>
 
-      {/* Right: Apple HIG-style content inspector */}
+      {/* Right: Platform HIG-style content inspector */}
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', background: '#f5f4ef', overflowY: 'auto' }}>
         {/* Toolbar */}
         <div style={{ padding: '12px 20px', background: 'rgba(255,255,255,0.8)', backdropFilter: 'blur(10px)', borderBottom: '1px solid rgba(0,0,0,0.06)', display: 'flex', alignItems: 'center', gap: 10 }}>
           <span style={{ fontSize: 14, fontWeight: 700, color: '#1c1c1e', letterSpacing: '-0.02em' }}>Design Toolkit</span>
-          <span style={{ marginLeft: 'auto', fontSize: 11, color: '#8e8e93' }}>Figma Plugin UI + Apple HIG</span>
+          <span style={{ marginLeft: 'auto', fontSize: 11, color: '#8e8e93' }}>DesignTool Plugin UI + Platform HIG</span>
         </div>
 
         {/* Canvas preview area */}
@@ -36940,7 +36940,7 @@ function FigmaApple163DesignToolkitRender() {
             </div>
           </div>
 
-          {/* Inspector bottom: Apple HIG-style attributes */}
+          {/* Inspector bottom: Platform HIG-style attributes */}
           <div style={{ marginTop: 20, width: '100%', maxWidth: 480, display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 10 }}>
             {[
               { label: '선택됨', value: `${selectedLayers.length}개` },
@@ -36959,22 +36959,22 @@ function FigmaApple163DesignToolkitRender() {
   )
 }
 
-export const FigmaApple163DesignToolkit: StoryObj = {
-  name: 'Figma Plugin UI + Apple HIG — 디자인 툴킷 패널 (Command + Dropdown)',
+export const DesignToolPlatform163DesignToolkit: StoryObj = {
+  name: 'DesignTool Plugin UI + Platform HIG — 디자인 툴킷 패널 (Command + Dropdown)',
   parameters: {
     layout: 'fullscreen',
     docs: {
       description: {
-        story: 'Figma Plugin UI + Apple HIG 복합 패턴. 좌: 다크 플러그인 패널(레이어/내보내기/타이포 탭 — Command.Group 레이어 선택 + Dropdown 형식/폰트 선택), 우: Apple HIG 인스펙터 스타일 캔버스 미리보기 + 속성 카드.',
+        story: 'DesignTool Plugin UI + Platform HIG 복합 패턴. 좌: 다크 플러그인 패널(레이어/내보내기/타이포 탭 — Command.Group 레이어 선택 + Dropdown 형식/폰트 선택), 우: Platform HIG 인스펙터 스타일 캔버스 미리보기 + 속성 카드.',
       },
     },
   },
-  render: () => <FigmaApple163DesignToolkitRender />,
+  render: () => <DesignToolPlatform163DesignToolkitRender />,
 }
 
 /* ==========================================================================
-   Cycle 164 — Google Material 3 + shadcn/ui
-   M3Shadcn164SearchCenter: 통합 검색 센터 템플릿
+   Cycle 164 — RoleToken Design + ComposableUI
+   M3ComposableUI164SearchCenter: 통합 검색 센터 템플릿
    ========================================================================== */
 const M3_SEARCH_COMPONENTS_164 = [
   { name: 'SolidButton', category: '입력', desc: '채워진 버튼', color: '#6366f1' },
@@ -37000,7 +37000,7 @@ const M3_QUICK_ACTIONS_164 = [
   { icon: '⚙️', label: '설정 열기', shortcut: 'G S' },
 ]
 
-function M3Shadcn164SearchCenterRender() {
+function M3ComposableUI164SearchCenterRender() {
   const [search, setSearch] = useState('')
   const [category, setCategory] = useState('전체')
   const [history, setHistory] = useState<string[]>(['Modal', 'Toggle'])
@@ -37079,9 +37079,9 @@ function M3Shadcn164SearchCenterRender() {
         )}
       </div>
 
-      {/* Right: Inspector + shadcn Dialog */}
+      {/* Right: Inspector + ComposableUI Dialog */}
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflowY: 'auto' }}>
-        {/* Quick actions toolbar (shadcn/ui Command 패턴) */}
+        {/* Quick actions toolbar (ComposableUI Command 패턴) */}
         <div style={{ padding: '10px 24px', background: '#fff', borderBottom: '1px solid #e5e7eb', display: 'flex', alignItems: 'center', gap: 6 }}>
           {M3_QUICK_ACTIONS_164.map(a => (
             <button key={a.label} style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '6px 10px', borderRadius: 7, border: '1px solid #e5e7eb', background: '#f8fafc', color: '#475569', fontSize: 11, cursor: 'pointer' }}>
@@ -37113,7 +37113,7 @@ function M3Shadcn164SearchCenterRender() {
                         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12, textAlign: 'center' }}>
                           <div style={{ width: 52, height: 52, borderRadius: 14, background: detail.color + '15', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 24, fontWeight: 800, color: detail.color }}>{detail.name[0]}</div>
                           <div style={{ fontSize: 16, fontWeight: 700, color: '#1e293b', letterSpacing: '-0.01em' }}>{detail.name}</div>
-                          <div style={{ fontSize: 12, color: '#64748b', lineHeight: 1.6 }}>{detail.desc} 컴포넌트입니다. Google Material 3 + shadcn/ui 벤치마크를 통해 Orbit UI에 최적화된 구현을 제공합니다.</div>
+                          <div style={{ fontSize: 12, color: '#64748b', lineHeight: 1.6 }}>{detail.desc} 컴포넌트입니다. RoleToken Design + ComposableUI 벤치마크를 통해 Orbit UI에 최적화된 구현을 제공합니다.</div>
                           <div style={{ padding: '10px 16px', borderRadius: 10, background: detail.color + '10', border: `1px solid ${detail.color}30`, width: '100%', textAlign: 'left' }}>
                             <div style={{ fontSize: 11, fontWeight: 700, color: detail.color, marginBottom: 4 }}>카테고리</div>
                             <div style={{ fontSize: 12, color: '#475569' }}>{detail.category}</div>
@@ -37144,7 +37144,7 @@ function M3Shadcn164SearchCenterRender() {
                 </div>
               </div>
 
-              {/* shadcn/ui Command-style recent actions */}
+              {/* ComposableUI Command-style recent actions */}
               <div style={{ background: '#fff', borderRadius: 12, border: '1px solid #e5e7eb', overflow: 'hidden' }}>
                 <div style={{ padding: '12px 16px', borderBottom: '1px solid #f1f5f9' }}>
                   <div style={{ fontSize: 12, fontWeight: 700, color: '#475569' }}>최근 검색 기록</div>
@@ -37174,24 +37174,24 @@ function M3Shadcn164SearchCenterRender() {
   )
 }
 
-export const M3Shadcn164SearchCenter: StoryObj = {
-  name: 'Material 3 + shadcn/ui — 통합 검색 센터 (SearchBar + Dialog)',
+export const M3ComposableUI164SearchCenter: StoryObj = {
+  name: 'RoleToken Design + ComposableUI — 통합 검색 센터 (SearchBar + Dialog)',
   parameters: {
     layout: 'fullscreen',
     docs: {
       description: {
-        story: 'Google Material 3 + shadcn/ui 복합 패턴. 좌: SearchBar + M3 제안칩/필터칩 + 히스토리, 우: shadcn Command 빠른 실행 툴바 + M3 컴포넌트 인스펙터 카드 + Dialog 상세보기.',
+        story: 'RoleToken Design + ComposableUI 복합 패턴. 좌: SearchBar + M3 제안칩/필터칩 + 히스토리, 우: ComposableUI Command 빠른 실행 툴바 + M3 컴포넌트 인스펙터 카드 + Dialog 상세보기.',
       },
     },
   },
-  render: () => <M3Shadcn164SearchCenterRender />,
+  render: () => <M3ComposableUI164SearchCenterRender />,
 }
 
 // ──────────────────────────────────────────────────────────────────────────────
-// Cycle 165: Ant Design + Radix UI — 팀 역량 대시보드
+// Cycle 165: Ant Design + PrimitiveUI — 팀 역량 대시보드
 // ──────────────────────────────────────────────────────────────────────────────
 
-function AntRadix165TeamDashboardRender() {
+function AntPrimitive165TeamDashboardRender() {
   type MemberRole = 'admin' | 'editor' | 'viewer'
   const [selectedMember, setSelectedMember] = useState(0)
   const [notifSettings, setNotifSettings] = useState({
@@ -37207,7 +37207,7 @@ function AntRadix165TeamDashboardRender() {
 
   const members = [
     { name: '김민준', role: 'admin' as MemberRole, avatar: 'KM', color: '#3b82f6', skills: [{ name: 'React', pct: 95, color: 'primary' as const }, { name: 'TypeScript', pct: 88, color: 'primary' as const }, { name: 'Node.js', pct: 72, color: 'success' as const }], goals: [{ label: '스프린트', pct: 78, color: 'primary' as const }, { label: '코드 리뷰', pct: 92, color: 'success' as const }] },
-    { name: '이지수', role: 'editor' as MemberRole, avatar: 'LJ', color: '#8b5cf6', skills: [{ name: 'Figma', pct: 98, color: 'primary' as const }, { name: 'CSS', pct: 90, color: 'primary' as const }, { name: 'Animation', pct: 80, color: 'success' as const }], goals: [{ label: '디자인 시스템', pct: 65, color: 'warning' as const }, { label: '프로토타입', pct: 85, color: 'primary' as const }] },
+    { name: '이지수', role: 'editor' as MemberRole, avatar: 'LJ', color: '#8b5cf6', skills: [{ name: 'DesignTool', pct: 98, color: 'primary' as const }, { name: 'CSS', pct: 90, color: 'primary' as const }, { name: 'Animation', pct: 80, color: 'success' as const }], goals: [{ label: '디자인 시스템', pct: 65, color: 'warning' as const }, { label: '프로토타입', pct: 85, color: 'primary' as const }] },
     { name: '박서연', role: 'viewer' as MemberRole, avatar: 'PS', color: '#ec4899', skills: [{ name: 'Data Analysis', pct: 85, color: 'primary' as const }, { name: 'SQL', pct: 78, color: 'success' as const }, { name: 'Python', pct: 70, color: 'success' as const }], goals: [{ label: 'Q2 분석 리포트', pct: 55, color: 'warning' as const }, { label: '대시보드', pct: 40, color: 'warning' as const }] },
   ]
 
@@ -37323,24 +37323,24 @@ function AntRadix165TeamDashboardRender() {
   )
 }
 
-export const AntRadix165TeamDashboard: StoryObj = {
-  name: 'Ant Design + Radix UI — 팀 역량 대시보드 (Progress + Switch)',
+export const AntPrimitive165TeamDashboard: StoryObj = {
+  name: 'Ant Design + PrimitiveUI — 팀 역량 대시보드 (Progress + Switch)',
   parameters: {
     layout: 'fullscreen',
     docs: {
       description: {
-        story: 'Ant Design + Radix UI 복합 패턴. 좌: 팀 멤버 사이드바, 우: 기술 역량 Progress bars + 목표 달성률 게이지 + Switch 기반 알림 설정 패널.',
+        story: 'Ant Design + PrimitiveUI 복합 패턴. 좌: 팀 멤버 사이드바, 우: 기술 역량 Progress bars + 목표 달성률 게이지 + Switch 기반 알림 설정 패널.',
       },
     },
   },
-  render: () => <AntRadix165TeamDashboardRender />,
+  render: () => <AntPrimitive165TeamDashboardRender />,
 }
 
 // ──────────────────────────────────────────────────────────────────────────────
-// Cycle 166: Tailwind UI + Linear Design — 프로젝트 이슈 트래커
+// Cycle 166: UtilityUI + IssueTracker Design — 프로젝트 이슈 트래커
 // ──────────────────────────────────────────────────────────────────────────────
 
-function TailwindLinear166IssueTrackerRender() {
+function UtilityCSSIssueTracker166IssueTrackerRender() {
   type Priority = 'low' | 'medium' | 'high' | 'urgent'
   type Status = 'todo' | 'in-progress' | 'done'
 
@@ -37518,24 +37518,24 @@ function TailwindLinear166IssueTrackerRender() {
   )
 }
 
-export const TailwindLinear166IssueTracker: StoryObj = {
-  name: 'Tailwind UI + Linear — 프로젝트 이슈 트래커 (ListTile + TextField)',
+export const UtilityCSSIssueTracker166IssueTracker: StoryObj = {
+  name: 'UtilityUI + IssueTracker — 프로젝트 이슈 트래커 (ListTile + TextField)',
   parameters: {
     layout: 'fullscreen',
     docs: {
       description: {
-        story: 'Tailwind UI + Linear Design 복합 패턴. 좌: 상태별 사이드바, 중: TextField 검색 + 인라인 이슈 생성 + 이슈 리스트, 하: 상태별 Progress 통계 카드.',
+        story: 'UtilityUI + IssueTracker Design 복합 패턴. 좌: 상태별 사이드바, 중: TextField 검색 + 인라인 이슈 생성 + 이슈 리스트, 하: 상태별 Progress 통계 카드.',
       },
     },
   },
-  render: () => <TailwindLinear166IssueTrackerRender />,
+  render: () => <UtilityCSSIssueTracker166IssueTrackerRender />,
 }
 
 // ──────────────────────────────────────────────────────────────────────────────
-// Cycle 167: MUI + Mantine — 칸반 보드
+// Cycle 167: EnterpriseUI + AppUI — 칸반 보드
 // ──────────────────────────────────────────────────────────────────────────────
 
-function MUIMantine167KanbanRender() {
+function EnterpriseUIAppUI167KanbanRender() {
   type Status = 'backlog' | 'todo' | 'in-progress' | 'done'
 
   const [columnVisibility, setColumnVisibility] = useState<Record<Status, boolean>>({
@@ -37688,24 +37688,24 @@ function MUIMantine167KanbanRender() {
   )
 }
 
-export const MUIMantine167Kanban: StoryObj = {
-  name: 'MUI + Mantine — 칸반 보드 (Toggle + CounterBadge)',
+export const EnterpriseUIAppUI167Kanban: StoryObj = {
+  name: 'EnterpriseUI + AppUI — 칸반 보드 (Toggle + CounterBadge)',
   parameters: {
     layout: 'fullscreen',
     docs: {
       description: {
-        story: 'MUI + Mantine 복합 패턴. Toggle로 컬럼 표시/숨김 제어, CounterBadge로 각 컬럼 카드 수 표시. 카드 이동 + 인라인 추가 기능.',
+        story: 'EnterpriseUI + AppUI 복합 패턴. Toggle로 컬럼 표시/숨김 제어, CounterBadge로 각 컬럼 카드 수 표시. 카드 이동 + 인라인 추가 기능.',
       },
     },
   },
-  render: () => <MUIMantine167KanbanRender />,
+  render: () => <EnterpriseUIAppUI167KanbanRender />,
 }
 
 // ──────────────────────────────────────────────────────────────────────────────
-// Cycle 168: Vercel Design + shadcn/ui — 알림 센터
+// Cycle 168: DeployPlatform Design + ComposableUI — 알림 센터
 // ──────────────────────────────────────────────────────────────────────────────
 
-function VercelShadcn168NotificationCenterRender() {
+function DeployPlatformComposableUI168NotificationCenterRender() {
   type Tab = 'all' | 'unread' | 'mentions'
   type NotifType = 'deploy' | 'mention' | 'assign' | 'review' | 'alert'
 
@@ -37849,24 +37849,24 @@ function VercelShadcn168NotificationCenterRender() {
   )
 }
 
-export const VercelShadcn168NotificationCenter: StoryObj = {
-  name: 'Vercel + shadcn/ui — 알림 센터 (Divider + OutlineButton)',
+export const DeployPlatformComposableUI168NotificationCenter: StoryObj = {
+  name: 'DeployPlatform + ComposableUI — 알림 센터 (Divider + OutlineButton)',
   parameters: {
     layout: 'fullscreen',
     docs: {
       description: {
-        story: 'Vercel + shadcn/ui 복합 패턴. 탭 구분에 수직 Divider, 알림 항목 구분에 수평 Divider. OutlineButton으로 읽음/닫기/모두읽음 액션 구현.',
+        story: 'DeployPlatform + ComposableUI 복합 패턴. 탭 구분에 수직 Divider, 알림 항목 구분에 수평 Divider. OutlineButton으로 읽음/닫기/모두읽음 액션 구현.',
       },
     },
   },
-  render: () => <VercelShadcn168NotificationCenterRender />,
+  render: () => <DeployPlatformComposableUI168NotificationCenterRender />,
 }
 
 // ──────────────────────────────────────────────────────────────────────────────
-// Cycle 169: Chakra UI + Arco Design — 사용자 프로필 페이지
+// Cycle 169: AccessibleUI + DataProductUI — 사용자 프로필 페이지
 // ──────────────────────────────────────────────────────────────────────────────
 
-function ChakraArco169UserProfileRender() {
+function AccessibleDataProduct169UserProfileRender() {
   type Tab = 'overview' | 'activity' | 'settings'
   const [activeTab, setActiveTab] = useState<Tab>('overview')
   const [onboardingStep, setOnboardingStep] = useState(2)
@@ -37987,7 +37987,7 @@ function ChakraArco169UserProfileRender() {
               <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: 12, padding: 20 }}>
                 <Text textStyle="titleMedium" style={{ display: 'block', color: '#111827', marginBottom: 8 }}>소개</Text>
                 <Text textStyle="bodyMedium" style={{ display: 'block', color: '#475569', lineHeight: 1.7 }}>
-                  Orbit UI 디자인 시스템 메인테이너. React, TypeScript, Tailwind를 전문으로 합니다. 650개 이상의 Storybook 스토리 작성, 3-tier 토큰 시스템 설계 담당.
+                  Orbit UI 디자인 시스템 메인테이너. React, TypeScript, UtilityCSS를 전문으로 합니다. 650개 이상의 Storybook 스토리 작성, 3-tier 토큰 시스템 설계 담당.
                 </Text>
               </div>
               <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: 12, padding: 20 }}>
@@ -38041,24 +38041,24 @@ function ChakraArco169UserProfileRender() {
   )
 }
 
-export const ChakraArco169UserProfile: StoryObj = {
-  name: 'Chakra UI + Arco Design — 사용자 프로필 (Text + PageIndicator + Progress)',
+export const AccessibleDataProduct169UserProfile: StoryObj = {
+  name: 'AccessibleUI + DataProductUI — 사용자 프로필 (Text + PageIndicator + Progress)',
   parameters: {
     layout: 'fullscreen',
     docs: {
       description: {
-        story: 'Chakra UI + Arco Design 복합 패턴. Text 타이포그래피 계층으로 콘텐츠 구성, PageIndicator로 온보딩 진행 표시, Progress로 기술 스킬 표시.',
+        story: 'AccessibleUI + DataProductUI 복합 패턴. Text 타이포그래피 계층으로 콘텐츠 구성, PageIndicator로 온보딩 진행 표시, Progress로 기술 스킬 표시.',
       },
     },
   },
-  render: () => <ChakraArco169UserProfileRender />,
+  render: () => <AccessibleDataProduct169UserProfileRender />,
 }
 
 // ──────────────────────────────────────────────────────────────────────────────
-// Cycle 170: Radix UI + Linear Design — 파일 매니저
+// Cycle 170: PrimitiveUI + IssueTracker Design — 파일 매니저
 // ──────────────────────────────────────────────────────────────────────────────
 
-function RadixLinear170FileManagerRender() {
+function PrimitiveIssueTracker170FileManagerRender() {
   type ViewMode = 'grid' | 'list'
   type FileType = 'folder' | 'doc' | 'image' | 'code' | 'data'
 
@@ -38072,7 +38072,7 @@ function RadixLinear170FileManagerRender() {
     { id: 3, name: 'AccessibilityGuide.mdx', type: 'doc', size: '8 KB', modified: '어제', owner: 'YJ' },
     { id: 4, name: 'logo-assets', type: 'folder', size: '—', modified: '어제', owner: 'LJ' },
     { id: 5, name: 'component-audit.xlsx', type: 'data', size: '45 KB', modified: '2일 전', owner: 'PS' },
-    { id: 6, name: 'figma-export.png', type: 'image', size: '2.1 MB', modified: '3일 전', owner: 'LJ' },
+    { id: 6, name: 'design-export.png', type: 'image', size: '2.1 MB', modified: '3일 전', owner: 'LJ' },
     { id: 7, name: 'Templates.stories.tsx', type: 'code', size: '380 KB', modified: '3일 전', owner: 'KM' },
     { id: 8, name: 'benchmark-report.mdx', type: 'doc', size: '22 KB', modified: '지난주', owner: 'CJ' },
   ]
@@ -38214,24 +38214,24 @@ function RadixLinear170FileManagerRender() {
   )
 }
 
-export const RadixLinear170FileManager: StoryObj = {
-  name: 'Radix UI + Linear — 파일 매니저 (DataTable + Editor)',
+export const PrimitiveIssueTracker170FileManager: StoryObj = {
+  name: 'PrimitiveUI + IssueTracker — 파일 매니저 (DataTable + Editor)',
   parameters: {
     layout: 'fullscreen',
     docs: {
       description: {
-        story: 'Radix UI + Linear 복합 패턴. 파일 목록(체크박스 선택, 검색, 뷰 전환) + 우측 Editor 패널로 선택 파일 정보 표시.',
+        story: 'PrimitiveUI + IssueTracker 복합 패턴. 파일 목록(체크박스 선택, 검색, 뷰 전환) + 우측 Editor 패널로 선택 파일 정보 표시.',
       },
     },
   },
-  render: () => <RadixLinear170FileManagerRender />,
+  render: () => <PrimitiveIssueTracker170FileManagerRender />,
 }
 
 // ──────────────────────────────────────────────────────────────────────────────
-// Cycle 171: Ant Design + Mantine — 분석 대시보드
+// Cycle 171: Ant Design + AppUI — 분석 대시보드
 // ──────────────────────────────────────────────────────────────────────────────
 
-function AntMantine171AnalyticsDashboardRender() {
+function AntAppUI171AnalyticsDashboardRender() {
   const [period, setPeriod] = useState<'7d' | '30d' | '90d'>('30d')
   const [openSections, setOpenSections] = useState<string[]>(['kpi', 'team'])
 
@@ -38427,24 +38427,24 @@ function AntMantine171AnalyticsDashboardRender() {
   )
 }
 
-export const AntMantine171AnalyticsDashboard: StoryObj = {
-  name: 'Ant Design + Mantine — 분석 대시보드 (Accordion + Avatar + Progress)',
+export const AntAppUI171AnalyticsDashboard: StoryObj = {
+  name: 'Ant Design + AppUI — 분석 대시보드 (Accordion + Avatar + Progress)',
   parameters: {
     layout: 'fullscreen',
     docs: {
       description: {
-        story: 'Ant Design + Mantine 복합 패턴. 좌: Accordion 섹션(KPI/팀/활동), 우: KPI 카드 그리드 + Avatar 팀 테이블 + Progress 기여도 + 활동 피드.',
+        story: 'Ant Design + AppUI 복합 패턴. 좌: Accordion 섹션(KPI/팀/활동), 우: KPI 카드 그리드 + Avatar 팀 테이블 + Progress 기여도 + 활동 피드.',
       },
     },
   },
-  render: () => <AntMantine171AnalyticsDashboardRender />,
+  render: () => <AntAppUI171AnalyticsDashboardRender />,
 }
 
 // ──────────────────────────────────────────────────────────────────────────────
-// Cycle 172: shadcn/ui + Raycast — Command Palette + Workspace
+// Cycle 172: ComposableUI + CommandPalette — Command Palette + Workspace
 // ──────────────────────────────────────────────────────────────────────────────
 
-function ShadcnRaycast172CommandWorkspaceRender() {
+function ComposableUICommandPalette172CommandWorkspaceRender() {
   const [query, setQuery] = useState('')
   const [activeTab, setActiveTab] = useState(0)
   const [volume, setVolume] = useState([65])
@@ -38460,7 +38460,7 @@ function ShadcnRaycast172CommandWorkspaceRender() {
     { icon: '⚙️', label: 'Storybook 설정', category: '설정', shortcut: '⌘,' },
     { icon: '🔍', label: 'Orbit UI 검색', category: '최근', shortcut: '⌘F' },
     { icon: '📊', label: '분석 대시보드', category: '최근', shortcut: '⌘A' },
-    { icon: '🚀', label: 'Vercel 배포', category: '앱', shortcut: '⌘⇧D' },
+    { icon: '🚀', label: 'DeployPlatform 배포', category: '앱', shortcut: '⌘⇧D' },
     { icon: '🎵', label: '볼륨 조절', category: '설정', shortcut: '⌘↑↓' },
   ]
 
@@ -38472,7 +38472,7 @@ function ShadcnRaycast172CommandWorkspaceRender() {
   })
 
   return (
-    <div style={{ minHeight: '100vh', background: '#0f172a', display: 'flex', flexDirection: 'column', fontFamily: 'system-ui, -apple-system, sans-serif' }}>
+    <div style={{ minHeight: '100vh', background: '#0f172a', display: 'flex', flexDirection: 'column', fontFamily: 'system-ui, sans-serif' }}>
       {/* Top App Bar */}
       <div style={{ height: 44, borderBottom: '1px solid #1e293b', display: 'flex', alignItems: 'center', padding: '0 16px', gap: 12 }}>
         <div style={{ display: 'flex', gap: 6 }}>
@@ -38481,7 +38481,7 @@ function ShadcnRaycast172CommandWorkspaceRender() {
           <div style={{ width: 12, height: 12, borderRadius: 6, background: '#22c55e' }} />
         </div>
         <div style={{ flex: 1, display: 'flex', justifyContent: 'center' }}>
-          <span style={{ fontSize: 13, color: '#64748b', fontWeight: 600 }}>Raycast — Orbit UI Workspace</span>
+          <span style={{ fontSize: 13, color: '#64748b', fontWeight: 600 }}>CommandPalette — Orbit UI Workspace</span>
         </div>
         <button onClick={() => setCmdOpen(!cmdOpen)} style={{ padding: '4px 10px', borderRadius: 6, background: '#1e293b', border: '1px solid #334155', color: '#94a3b8', fontSize: 11, cursor: 'pointer', fontFamily: 'monospace' }}>⌘K</button>
       </div>
@@ -38616,24 +38616,24 @@ function ShadcnRaycast172CommandWorkspaceRender() {
   )
 }
 
-export const ShadcnRaycast172CommandWorkspace: StoryObj = {
-  name: 'shadcn/ui + Raycast — 커맨드 팔레트 워크스페이스 (Cycle 172)',
+export const ComposableUICommandPalette172CommandWorkspace: StoryObj = {
+  name: 'ComposableUI + CommandPalette — 커맨드 팔레트 워크스페이스 (Cycle 172)',
   parameters: {
     layout: 'fullscreen',
     docs: {
       description: {
-        story: 'shadcn/ui + Raycast 복합 패턴. Raycast Command Palette (⌘K) 오버레이 + FixedTabs 탭 네비게이션 + Slider 볼륨 컨트롤 + 컴포넌트 완성도 Progress 바. 다크 워크스페이스 UI.',
+        story: 'ComposableUI + CommandPalette 복합 패턴. CommandPalette Command Palette (⌘K) 오버레이 + FixedTabs 탭 네비게이션 + Slider 볼륨 컨트롤 + 컴포넌트 완성도 Progress 바. 다크 워크스페이스 UI.',
       },
     },
   },
-  render: () => <ShadcnRaycast172CommandWorkspaceRender />,
+  render: () => <ComposableUICommandPalette172CommandWorkspaceRender />,
 }
 
 // ──────────────────────────────────────────────────────────────────────────────
-// Cycle 173: Linear Design + Tailwind UI — Project Dashboard
+// Cycle 173: IssueTracker Design + UtilityUI — Project Dashboard
 // ──────────────────────────────────────────────────────────────────────────────
 
-function LinearTailwind173ProjectDashboardRender() {
+function IssueTrackerUtilityCSS173ProjectDashboardRender() {
   const [viewSeg, setViewSeg] = useState(0)
   const [periodSeg, setPeriodSeg] = useState(1)
   const [mergeState, setMergeState] = useState<'idle' | 'merging' | 'merged'>('idle')
@@ -38643,7 +38643,7 @@ function LinearTailwind173ProjectDashboardRender() {
   const periodLabels = ['오늘', '7일', '30일']
 
   const issues = [
-    { id: 'ORB-201', title: 'SolidButton Linear PR 패턴', priority: 'High', status: 'In Progress', assignee: 'HJ', points: 3 },
+    { id: 'ORB-201', title: 'SolidButton IssueTracker PR 패턴', priority: 'High', status: 'In Progress', assignee: 'HJ', points: 3 },
     { id: 'ORB-200', title: 'SegmentedControl 이중 필터', priority: 'Medium', status: 'In Review', assignee: 'SW', points: 2 },
     { id: 'ORB-199', title: 'Templates 프로젝트 대시보드', priority: 'High', status: 'In Progress', assignee: 'JW', points: 5 },
     { id: 'ORB-198', title: 'TabGroup compound 버그 수정', priority: 'Low', status: 'Done', assignee: 'HJ', points: 1 },
@@ -38661,7 +38661,7 @@ function LinearTailwind173ProjectDashboardRender() {
   }
 
   return (
-    <div style={{ minHeight: '100vh', background: '#f8fafc', display: 'flex', flexDirection: 'column', fontFamily: 'system-ui, -apple-system, sans-serif' }}>
+    <div style={{ minHeight: '100vh', background: '#f8fafc', display: 'flex', flexDirection: 'column', fontFamily: 'system-ui, sans-serif' }}>
       {/* Header */}
       <div style={{ height: 52, background: '#fff', borderBottom: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', padding: '0 24px', gap: 16 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
@@ -38839,24 +38839,24 @@ function LinearTailwind173ProjectDashboardRender() {
   )
 }
 
-export const LinearTailwind173ProjectDashboard: StoryObj = {
-  name: 'Linear + Tailwind — 프로젝트 대시보드 (Board/List/Timeline + PR 머지)',
+export const IssueTrackerUtilityCSS173ProjectDashboard: StoryObj = {
+  name: 'IssueTracker + UtilityCSS — 프로젝트 대시보드 (Board/List/Timeline + PR 머지)',
   parameters: {
     layout: 'fullscreen',
     docs: {
       description: {
-        story: 'Linear + Tailwind UI 복합 패턴. SegmentedControl로 Board/List/Timeline 뷰 전환 + 기간 필터. SolidButton으로 PR Merge 상태 전환. 스프린트 진행률 + 팀 Velocity Progress 바.',
+        story: 'IssueTracker + UtilityUI 복합 패턴. SegmentedControl로 Board/List/Timeline 뷰 전환 + 기간 필터. SolidButton으로 PR Merge 상태 전환. 스프린트 진행률 + 팀 Velocity Progress 바.',
       },
     },
   },
-  render: () => <LinearTailwind173ProjectDashboardRender />,
+  render: () => <IssueTrackerUtilityCSS173ProjectDashboardRender />,
 }
 
 // ──────────────────────────────────────────────────────────────────────────────
-// Cycle 174: Vercel Design + MUI — Deployment Center
+// Cycle 174: DeployPlatform Design + EnterpriseUI — Deployment Center
 // ──────────────────────────────────────────────────────────────────────────────
 
-function VercelMUI174DeploymentCenterRender() {
+function DeployPlatformEnterpriseUI174DeploymentCenterRender() {
   const [buildStep, setBuildStep] = useState(0)
   const [activeEnv, setActiveEnv] = useState<'production' | 'preview' | 'development'>('production')
   const [searchQ, setSearchQ] = useState('')
@@ -38893,7 +38893,7 @@ function VercelMUI174DeploymentCenterRender() {
   }
 
   return (
-    <div style={{ minHeight: '100vh', background: '#0f172a', display: 'flex', flexDirection: 'column', fontFamily: 'system-ui, -apple-system, sans-serif', color: '#f1f5f9' }}>
+    <div style={{ minHeight: '100vh', background: '#0f172a', display: 'flex', flexDirection: 'column', fontFamily: 'system-ui, sans-serif', color: '#f1f5f9' }}>
       {/* AppBar-style header */}
       <div style={{ height: 52, borderBottom: '1px solid #1e293b', display: 'flex', alignItems: 'center', padding: '0 24px', gap: 16, background: '#0a0f1e' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
@@ -38981,7 +38981,7 @@ function VercelMUI174DeploymentCenterRender() {
           {/* Domains */}
           <div style={{ background: '#0a0f1e', borderRadius: 10, border: '1px solid #1e293b', padding: 14 }}>
             <div style={{ fontSize: 12, fontWeight: 700, marginBottom: 10 }}>도메인</div>
-            {[{ domain: 'orbit-ui.vercel.app', ssl: true, primary: true }, { domain: 'orbit-ui-git-main.vercel.app', ssl: true, primary: false }].map((d) => (
+            {[{ domain: 'orbit-ui.deploy.example.com', ssl: true, primary: true }, { domain: 'orbit-ui-git-main.deploy.example.com', ssl: true, primary: false }].map((d) => (
               <div key={d.domain} style={{ marginBottom: 8 }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
                   {d.primary && <span style={{ fontSize: 9, padding: '1px 5px', borderRadius: 99, background: '#6366f120', color: '#818cf8', fontWeight: 600 }}>PRIMARY</span>}
@@ -39008,24 +39008,24 @@ function VercelMUI174DeploymentCenterRender() {
   )
 }
 
-export const VercelMUI174DeploymentCenter: StoryObj = {
-  name: 'Vercel + MUI — 배포 센터 (AppBar 검색 + 환경 필터 + 빌드 파이프라인)',
+export const DeployPlatformEnterpriseUI174DeploymentCenter: StoryObj = {
+  name: 'DeployPlatform + EnterpriseUI — 배포 센터 (AppBar 검색 + 환경 필터 + 빌드 파이프라인)',
   parameters: {
     layout: 'fullscreen',
     docs: {
       description: {
-        story: 'Vercel + MUI 복합 패턴. AppBar 인라인 검색 + 환경 탭 필터 + Loading 빌드 진행. 배포 목록 테이블, 빌드 파이프라인 사이드바, 도메인 + 통계 위젯.',
+        story: 'DeployPlatform + EnterpriseUI 복합 패턴. AppBar 인라인 검색 + 환경 탭 필터 + Loading 빌드 진행. 배포 목록 테이블, 빌드 파이프라인 사이드바, 도메인 + 통계 위젯.',
       },
     },
   },
-  render: () => <VercelMUI174DeploymentCenterRender />,
+  render: () => <DeployPlatformEnterpriseUI174DeploymentCenterRender />,
 }
 
 // ──────────────────────────────────────────────────────────────────────────────
-// Cycle 175: Notion + Figma — Knowledge Base / Doc Editor
+// Cycle 175: WorkspaceEditor + DesignTool — Knowledge Base / Doc Editor
 // ──────────────────────────────────────────────────────────────────────────────
 
-function NotionFigma175KnowledgeBaseRender() {
+function WorkspaceEditorDesignTool175KnowledgeBaseRender() {
   const [activePage, setActivePage] = useState('Breadcrumb')
   const [searchQ, setSearchQ] = useState('')
   const [hoverToken, setHoverToken] = useState<string | null>(null)
@@ -39047,7 +39047,7 @@ function NotionFigma175KnowledgeBaseRender() {
 
   const componentDoc = {
     name: activePage,
-    description: `${activePage} 컴포넌트는 Orbit UI의 핵심 Navigation 컴포넌트입니다. Notion의 페이지 계층 탐색 패턴과 Figma의 레이어 탐색 패턴을 참고하여 설계되었습니다.`,
+    description: `${activePage} 컴포넌트는 Orbit UI의 핵심 Navigation 컴포넌트입니다. WorkspaceEditor의 페이지 계층 탐색 패턴과 DesignTool의 레이어 탐색 패턴을 참고하여 설계되었습니다.`,
     props: [
       { name: 'children', type: 'ReactNode', desc: '브레드크럼 아이템들' },
       { name: 'separator', type: 'ReactNode', desc: '구분자 (기본: /)' },
@@ -39060,8 +39060,8 @@ function NotionFigma175KnowledgeBaseRender() {
   const categories = [...new Set(pages.map((p) => p.category))]
 
   return (
-    <div style={{ minHeight: '100vh', background: '#fff', display: 'flex', fontFamily: 'system-ui, -apple-system, sans-serif' }}>
-      {/* Left sidebar — Notion-style */}
+    <div style={{ minHeight: '100vh', background: '#fff', display: 'flex', fontFamily: 'system-ui, sans-serif' }}>
+      {/* Left sidebar — WorkspaceEditor-style */}
       <div style={{ width: 240, borderRight: '1px solid #e2e8f0', display: 'flex', flexDirection: 'column', height: '100vh', overflow: 'hidden' }}>
         {/* Workspace header */}
         <div style={{ padding: '14px 16px', borderBottom: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', gap: 8 }}>
@@ -39169,7 +39169,7 @@ function NotionFigma175KnowledgeBaseRender() {
             </div>
           </div>
 
-          {/* Right panel — Figma-style token inspector */}
+          {/* Right panel — DesignTool-style token inspector */}
           <div style={{ width: 200, flexShrink: 0 }}>
             <div style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: 1, marginBottom: 10 }}>사용 토큰</div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
@@ -39210,22 +39210,22 @@ function NotionFigma175KnowledgeBaseRender() {
   )
 }
 
-export const NotionFigma175KnowledgeBase: StoryObj = {
-  name: 'Notion + Figma — 지식 베이스 문서 에디터 (Cycle 175)',
+export const WorkspaceEditorDesignTool175KnowledgeBase: StoryObj = {
+  name: 'WorkspaceEditor + DesignTool — 지식 베이스 문서 에디터 (Cycle 175)',
   parameters: {
     layout: 'fullscreen',
     docs: {
       description: {
-        story: 'Notion 문서 + Figma 인스펙터 복합 패턴. Notion 사이드바 페이지 트리 + Breadcrumb 계층 탐색 + 컴포넌트 문서 Props 테이블 + Figma 스타일 토큰 인스펙터 패널.',
+        story: 'WorkspaceEditor 문서 + DesignTool 인스펙터 복합 패턴. WorkspaceEditor 사이드바 페이지 트리 + Breadcrumb 계층 탐색 + 컴포넌트 문서 Props 테이블 + DesignTool 스타일 토큰 인스펙터 패널.',
       },
     },
   },
-  render: () => <NotionFigma175KnowledgeBaseRender />,
+  render: () => <WorkspaceEditorDesignTool175KnowledgeBaseRender />,
 }
 
-// ─── Cycle 176 — Chakra UI + Arco Design ─────────────────────────────────────
+// ─── Cycle 176 — AccessibleUI + DataProductUI ─────────────────────────────────────
 
-function ChakraArco176BookingDashboardRender() {
+function AccessibleDataProduct176BookingDashboardRender() {
   const today = new Date()
   const [selectedDate, setSelectedDate] = React.useState<Date | undefined>(undefined)
   const [exportFormat, setExportFormat] = React.useState('csv')
@@ -39274,7 +39274,7 @@ function ChakraArco176BookingDashboardRender() {
       <div style={{ width: 220, background: '#fff', borderRight: '1px solid #e5e7eb', padding: '24px 0', display: 'flex', flexDirection: 'column' }}>
         <div style={{ padding: '0 16px 20px', borderBottom: '1px solid #f3f4f6' }}>
           <div style={{ fontSize: 15, fontWeight: 700, color: '#1f2937' }}>예약 관리</div>
-          <div style={{ fontSize: 11, color: '#9ca3af', marginTop: 2 }}>Chakra UI + Arco Design</div>
+          <div style={{ fontSize: 11, color: '#9ca3af', marginTop: 2 }}>AccessibleUI + DataProductUI</div>
         </div>
         <div style={{ padding: '12px 8px', flex: 1 }}>
           {['대시보드', '예약 목록', '고객 관리', '통계 리포트', '설정'].map((m, i) => (
@@ -39403,7 +39403,7 @@ function ChakraArco176BookingDashboardRender() {
           {activeTab === 1 && (
             <div style={{ maxWidth: 560, background: '#fff', borderRadius: 12, padding: 28, border: '1px solid #e5e7eb' }}>
               <div style={{ fontSize: 14, fontWeight: 600, color: '#374151', marginBottom: 4 }}>데이터 내보내기 형식</div>
-              <div style={{ fontSize: 12, color: '#9ca3af', marginBottom: 20 }}>Arco Design 스타일 라디오 선택</div>
+              <div style={{ fontSize: 12, color: '#9ca3af', marginBottom: 20 }}>DataProductUI 스타일 라디오 선택</div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
                 {exportFormats.map((fmt) => (
                   <label
@@ -39443,7 +39443,7 @@ function ChakraArco176BookingDashboardRender() {
           {activeTab === 2 && (
             <div style={{ maxWidth: 560, background: '#fff', borderRadius: 12, padding: 28, border: '1px solid #e5e7eb' }}>
               <div style={{ fontSize: 14, fontWeight: 600, color: '#374151', marginBottom: 4 }}>알림 빈도 설정</div>
-              <div style={{ fontSize: 12, color: '#9ca3af', marginBottom: 20 }}>Chakra UI 스타일 알림 설정</div>
+              <div style={{ fontSize: 12, color: '#9ca3af', marginBottom: 20 }}>AccessibleUI 스타일 알림 설정</div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
                 {notifOptions.map((opt) => (
                   <label
@@ -39483,22 +39483,22 @@ function ChakraArco176BookingDashboardRender() {
   )
 }
 
-export const ChakraArco176BookingDashboard: StoryObj = {
-  name: 'Chakra UI + Arco Design — 예약 관리 대시보드 (Cycle 176)',
+export const AccessibleDataProduct176BookingDashboard: StoryObj = {
+  name: 'AccessibleUI + DataProductUI — 예약 관리 대시보드 (Cycle 176)',
   parameters: {
     layout: 'fullscreen',
     docs: {
       description: {
-        story: 'Chakra UI 달력 예약 시스템 + Arco Design 데이터 내보내기 패턴. Calendar 모디파이어 기반 예약 현황 시각화 + RadioButton 형식 선택 + 알림 빈도 설정.',
+        story: 'AccessibleUI 달력 예약 시스템 + DataProductUI 데이터 내보내기 패턴. Calendar 모디파이어 기반 예약 현황 시각화 + RadioButton 형식 선택 + 알림 빈도 설정.',
       },
     },
   },
-  render: () => <ChakraArco176BookingDashboardRender />,
+  render: () => <AccessibleDataProduct176BookingDashboardRender />,
 }
 
-// ─── Cycle 177 — Mantine + Ant Design ────────────────────────────────────────
+// ─── Cycle 177 — AppUI + Ant Design ────────────────────────────────────────
 
-function MantineAnt177IssueTrackerRender() {
+function AppUIAnt177IssueTrackerRender() {
   const [activeStatusTab, setActiveStatusTab] = useState(0)
   const [sort, setSort] = useState<'priority' | 'date'>('priority')
   const [collapsed, setCollapsed] = useState<Record<string, boolean>>({ todo: false, inprogress: false, review: true })
@@ -39537,7 +39537,7 @@ function MantineAnt177IssueTrackerRender() {
       title: '리뷰 대기',
       color: '#8b5cf6',
       issues: [
-        { id: 'ORB-225', title: 'SectionTitle Mantine 패턴 스토리 추가', priority: 'low', label: 'docs', assignee: 'J', due: '오늘' },
+        { id: 'ORB-225', title: 'SectionTitle AppUI 패턴 스토리 추가', priority: 'low', label: 'docs', assignee: 'J', due: '오늘' },
       ],
     },
   ]
@@ -39597,7 +39597,7 @@ function MantineAnt177IssueTrackerRender() {
         <div style={{ background: '#fff', borderBottom: '1px solid #e5e7eb', padding: '14px 20px', display: 'flex', alignItems: 'center', gap: 12 }}>
           <div style={{ flex: 1 }}>
             <div style={{ fontSize: 16, fontWeight: 700, color: '#0f172a' }}>이슈 목록</div>
-            <div style={{ fontSize: 11, color: '#94a3b8' }}>Mantine + Ant Design 패턴 적용</div>
+            <div style={{ fontSize: 11, color: '#94a3b8' }}>AppUI + Ant Design 패턴 적용</div>
           </div>
           <div style={{ display: 'flex', gap: 6 }}>
             {(['priority', 'date'] as const).map((s) => (
@@ -39674,22 +39674,22 @@ function MantineAnt177IssueTrackerRender() {
   )
 }
 
-export const MantineAnt177IssueTracker: StoryObj = {
-  name: 'Mantine + Ant Design — 이슈 트래커 대시보드 (Cycle 177)',
+export const AppUIAnt177IssueTracker: StoryObj = {
+  name: 'AppUI + Ant Design — 이슈 트래커 대시보드 (Cycle 177)',
   parameters: {
     layout: 'fullscreen',
     docs: {
       description: {
-        story: 'Mantine Collapse 섹션 패턴 + Ant Design 상태 탭 패턴. ScrollableTabGroup으로 이슈 상태 필터링, SectionTitle 접기/펼치기로 그룹 관리. 우선순위 도트 + 레이블 칩 + 담당자 아바타 조합.',
+        story: 'AppUI Collapse 섹션 패턴 + Ant Design 상태 탭 패턴. ScrollableTabGroup으로 이슈 상태 필터링, SectionTitle 접기/펼치기로 그룹 관리. 우선순위 도트 + 레이블 칩 + 담당자 아바타 조합.',
       },
     },
   },
-  render: () => <MantineAnt177IssueTrackerRender />,
+  render: () => <AppUIAnt177IssueTrackerRender />,
 }
 
-// ─── Cycle 178 — Radix UI + Linear Design ────────────────────────────────────
+// ─── Cycle 178 — PrimitiveUI + IssueTracker Design ────────────────────────────────────
 
-function RadixLinear178DesignSystemDocsRender() {
+function PrimitiveIssueTracker178DesignSystemDocsRender() {
   const [activeSection, setActiveSection] = useState(0)
   const [activeComponent, setActiveComponent] = useState('Button')
   const [colorPickerOpen, setColorPickerOpen] = useState(false)
@@ -39828,7 +39828,7 @@ function RadixLinear178DesignSystemDocsRender() {
                   </span>
                 </div>
                 <div style={{ fontSize: 13, color: '#64748b' }}>
-                  {activeComponent === 'Button' ? 'Radix Primitive 기반 액션 트리거 컴포넌트. 단색/외곽선/고스트 variant 지원.' : `${activeComponent} 컴포넌트 — Orbit UI Eclipse 테마.`}
+                  {activeComponent === 'Button' ? 'Primitive Primitive 기반 액션 트리거 컴포넌트. 단색/외곽선/고스트 variant 지원.' : `${activeComponent} 컴포넌트 — Orbit UI Eclipse 테마.`}
                 </div>
               </div>
               <div style={{ display: 'flex', gap: 2 }}>
@@ -39868,7 +39868,7 @@ function RadixLinear178DesignSystemDocsRender() {
 
             {propView === 'a11y' && (
               <div style={{ padding: '14px 16px', borderRadius: 10, background: '#f0fdf4', border: '1px solid #bbf7d0', fontSize: 12, color: '#166534', lineHeight: 1.7 }}>
-                <div style={{ fontWeight: 700, marginBottom: 6 }}>WAI-ARIA 지원 (Radix UI 패턴)</div>
+                <div style={{ fontWeight: 700, marginBottom: 6 }}>WAI-ARIA 지원 (PrimitiveUI 패턴)</div>
                 <div>- role=&quot;button&quot; 자동 적용</div>
                 <div>- aria-disabled: disabled 상태 시 true</div>
                 <div>- 키보드: Enter/Space로 활성화</div>
@@ -39882,20 +39882,20 @@ function RadixLinear178DesignSystemDocsRender() {
   )
 }
 
-export const RadixLinear178DesignSystemDocs: StoryObj = {
-  name: 'Radix UI + Linear — 디자인 시스템 문서 브라우저 (Cycle 178)',
+export const PrimitiveIssueTracker178DesignSystemDocs: StoryObj = {
+  name: 'PrimitiveUI + IssueTracker — 디자인 시스템 문서 브라우저 (Cycle 178)',
   parameters: {
     layout: 'fullscreen',
     docs: {
       description: {
-        story: 'Radix Popover 브랜드 색상 피커 + 단축키 힌트 + Linear 스타일 Tab 사이드바 내비게이션. 컴포넌트 Props 테이블 / 예시 / 접근성 탭 전환. 문서 시스템 UI 패턴 종합 데모.',
+        story: 'Primitive Popover 브랜드 색상 피커 + 단축키 힌트 + IssueTracker 스타일 Tab 사이드바 내비게이션. 컴포넌트 Props 테이블 / 예시 / 접근성 탭 전환. 문서 시스템 UI 패턴 종합 데모.',
       },
     },
   },
-  render: () => <RadixLinear178DesignSystemDocsRender />,
+  render: () => <PrimitiveIssueTracker178DesignSystemDocsRender />,
 }
 
-// ─── Cycle 179 — Tailwind UI + Vercel Design ─────────────────────────────────
+// ─── Cycle 179 — UtilityUI + DeployPlatform Design ─────────────────────────────────
 
 const PIPELINE_STEPS_179 = [
   { id: 'typecheck', label: '타입 체크', icon: '◈' },
@@ -39904,13 +39904,13 @@ const PIPELINE_STEPS_179 = [
   { id: 'deploy', label: '배포', icon: '◉' },
 ]
 
-function TailwindVercel179ActivityFeedRender() {
+function UtilityCSSDeployPlatform179ActivityFeedRender() {
   const [deployments, setDeployments] = useState([
     { id: 1, branch: 'feat/cycle-179', commit: 'feat: AnimatedBadge 고도화', status: 'ready' as const, duration: 38, ago: '2분 전', author: 'HJ' },
     { id: 2, branch: 'fix/toast-batch', commit: 'fix: Toast 일괄 알림 순서 수정', status: 'ready' as const, duration: 41, ago: '18분 전', author: 'MK' },
     { id: 3, branch: 'feat/cycle-178', commit: 'feat: Popover 색상 피커 추가', status: 'error' as const, duration: 23, ago: '1시간 전', author: 'SY' },
     { id: 4, branch: 'chore/deps', commit: 'chore: pnpm 의존성 업데이트', status: 'ready' as const, duration: 52, ago: '3시간 전', author: 'JH' },
-    { id: 5, branch: 'feat/cycle-177', commit: 'feat: SectionTitle Mantine 패턴', status: 'ready' as const, duration: 39, ago: '5시간 전', author: 'YR' },
+    { id: 5, branch: 'feat/cycle-177', commit: 'feat: SectionTitle AppUI 패턴', status: 'ready' as const, duration: 39, ago: '5시간 전', author: 'YR' },
   ])
   const [activeFilter, setActiveFilter] = useState<'all' | 'ready' | 'error'>('all')
   const [pipelinePhase, setPipelinePhase] = useState<'idle' | 'running' | 'done'>('idle')
@@ -39941,7 +39941,7 @@ function TailwindVercel179ActivityFeedRender() {
       } else {
         setPipelinePhase('done')
         setCurrentStep(-1)
-        setToastMsg('배포 완료! orbit-ui-preview.vercel.app')
+        setToastMsg('배포 완료! orbit-ui-preview.deploy.example.com')
         setDeployments((prev) => [
           {
             id: prev.length + 1,
@@ -40060,22 +40060,22 @@ function TailwindVercel179ActivityFeedRender() {
   )
 }
 
-export const TailwindVercel179ActivityFeed: StoryObj = {
-  name: 'Tailwind UI + Vercel — 배포 활동 피드 대시보드 (Cycle 179)',
+export const UtilityCSSDeployPlatform179ActivityFeed: StoryObj = {
+  name: 'UtilityUI + DeployPlatform — 배포 활동 피드 대시보드 (Cycle 179)',
   parameters: {
     layout: 'fullscreen',
     docs: {
       description: {
-        story: 'Tailwind UI Activity Feed + Vercel Deployments 대시보드. AnimatedBadge로 배포 상태/KPI/사이드바 통계 시각화. 새 배포 버튼 클릭 시 파이프라인 단계별 진행 애니메이션 + Toast 피드백. 상태 필터(전체/완료/오류) 탭.',
+        story: 'UtilityUI Activity Feed + DeployPlatform Deployments 대시보드. AnimatedBadge로 배포 상태/KPI/사이드바 통계 시각화. 새 배포 버튼 클릭 시 파이프라인 단계별 진행 애니메이션 + Toast 피드백. 상태 필터(전체/완료/오류) 탭.',
       },
     },
   },
-  render: () => <TailwindVercel179ActivityFeedRender />,
+  render: () => <UtilityCSSDeployPlatform179ActivityFeedRender />,
 }
 
-// ─── Cycle 180 — shadcn/ui + Apple HIG ───────────────────────────────────────
+// ─── Cycle 180 — ComposableUI + Platform HIG ───────────────────────────────────────
 
-function ShadcnApple180AIPromptBuilderRender() {
+function ComposableUIPlatform180AIPromptBuilderRender() {
   const [selectedFilters, setSelectedFilters] = useState<string[]>([])
   const [prompt, setPrompt] = useState('')
   const [promptChips, setPromptChips] = useState([
@@ -40110,7 +40110,7 @@ function ShadcnApple180AIPromptBuilderRender() {
       {/* Header */}
       <div style={{ background: '#111827', padding: '0 24px', height: 52, display: 'flex', alignItems: 'center', gap: 16 }}>
         <div style={{ fontSize: 14, fontWeight: 700, color: '#fff' }}>AI 프롬프트 빌더</div>
-        <div style={{ fontSize: 11, color: '#6b7280' }}>shadcn/ui + Apple HIG</div>
+        <div style={{ fontSize: 11, color: '#6b7280' }}>ComposableUI + Platform HIG</div>
         <div style={{ flex: 1 }} />
         {/* Toolbar with shortcut tooltips */}
         <Tooltip.Provider>
@@ -40251,22 +40251,22 @@ function ShadcnApple180AIPromptBuilderRender() {
   )
 }
 
-export const ShadcnApple180AIPromptBuilder: StoryObj = {
-  name: 'shadcn/ui + Apple HIG — AI 프롬프트 빌더 (Cycle 180)',
+export const ComposableUIPlatform180AIPromptBuilder: StoryObj = {
+  name: 'ComposableUI + Platform HIG — AI 프롬프트 빌더 (Cycle 180)',
   parameters: {
     layout: 'fullscreen',
     docs: {
       description: {
-        story: 'shadcn/ui 필터 Chip + Apple HIG 소비형 제안 칩 + Tooltip 단축키 힌트 조합. 도메인/문체 멀티셀렉트 필터 Chip, 클릭 시 소비되는 제안 태그, 툴바 단축키 Tooltip, 저장 버튼 rich Tooltip.',
+        story: 'ComposableUI 필터 Chip + Platform HIG 소비형 제안 칩 + Tooltip 단축키 힌트 조합. 도메인/문체 멀티셀렉트 필터 Chip, 클릭 시 소비되는 제안 태그, 툴바 단축키 Tooltip, 저장 버튼 rich Tooltip.',
       },
     },
   },
-  render: () => <ShadcnApple180AIPromptBuilderRender />,
+  render: () => <ComposableUIPlatform180AIPromptBuilderRender />,
 }
 
-// ─── Cycle 181 — MUI + Google Material 3 ─────────────────────────────────────
+// ─── Cycle 181 — EnterpriseUI + RoleToken Design ─────────────────────────────────────
 
-function MUIM3181AnalyticsDashboardRender() {
+function EnterpriseUIM3181AnalyticsDashboardRender() {
   const [loaded, setLoaded] = useState(false)
   const [activeSection, setActiveSection] = useState('overview')
 
@@ -40426,7 +40426,7 @@ function MUIM3181AnalyticsDashboardRender() {
               {[
                 { author: 'HJ', action: 'Cycle 181 완료 — GhostButton 스토리 추가', time: '2분 전' },
                 { author: 'MK', action: 'Skeleton 채팅 패턴 PR 머지', time: '15분 전' },
-                { author: 'SY', action: 'MUI M3 템플릿 리뷰 완료', time: '1시간 전' },
+                { author: 'SY', action: 'EnterpriseUI M3 템플릿 리뷰 완료', time: '1시간 전' },
                 { author: 'JH', action: 'Analytics 대시보드 스펙 업데이트', time: '3시간 전' },
               ].map((act, i) => (
                 <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: 8 }}>
@@ -40457,58 +40457,58 @@ function MUIM3181AnalyticsDashboardRender() {
   )
 }
 
-export const MUIM3181AnalyticsDashboard: StoryObj = {
-  name: 'MUI + Material 3 — 애널리틱스 대시보드 스켈레톤 → 콘텐츠 (Cycle 181)',
+export const EnterpriseUIM3181AnalyticsDashboard: StoryObj = {
+  name: 'EnterpriseUI + RoleToken Design — 애널리틱스 대시보드 스켈레톤 → 콘텐츠 (Cycle 181)',
   parameters: {
     layout: 'fullscreen',
     docs: {
       description: {
-        story: 'MUI Skeleton + M3 IconButton 패턴. "데이터 로드" 버튼으로 스켈레톤 → 실제 콘텐츠 전환. KPI 카드 4개(Skeleton→실제) + 컴포넌트 커버리지 테이블 + 소셜 피드 사이드바. GhostButton 인라인 액션 포함.',
+        story: 'EnterpriseUI Skeleton + M3 IconButton 패턴. "데이터 로드" 버튼으로 스켈레톤 → 실제 콘텐츠 전환. KPI 카드 4개(Skeleton→실제) + 컴포넌트 커버리지 테이블 + 소셜 피드 사이드바. GhostButton 인라인 액션 포함.',
       },
     },
   },
-  render: () => <MUIM3181AnalyticsDashboardRender />,
+  render: () => <EnterpriseUIM3181AnalyticsDashboardRender />,
 }
 
 /* ==========================================================================
-   Cycle 182 — Raycast + Notion: 커맨드 센터 & 문서 편집기
+   Cycle 182 — CommandPalette + WorkspaceEditor: 커맨드 센터 & 문서 편집기
 ========================================================================== */
-const NOTION182_PAGES = [
+const WORKSPACE182_PAGES = [
   { id: 'overview', icon: '📄', title: '개요', tag: 'Docs', color: '#6366f1' },
   { id: 'components', icon: '🧩', title: '컴포넌트', tag: 'Guide', color: '#10b981' },
   { id: 'tokens', icon: '🎨', title: '디자인 토큰', tag: 'Reference', color: '#f59e0b' },
   { id: 'a11y', icon: '♿', title: '접근성', tag: 'Standard', color: '#ef4444' },
 ]
 
-const RAYCAST182_COMMANDS = [
+const LAUNCHER182_COMMANDS = [
   { key: '⌘K', label: '커맨드 팔레트', desc: '모든 기능에 즉시 접근' },
   { key: '⌘⇧F', label: '파일 검색', desc: '프로젝트 내 파일 검색' },
-  { key: '⌘⇧D', label: '문서 탐색', desc: 'Notion 문서 빠른 이동' },
+  { key: '⌘⇧D', label: '문서 탐색', desc: 'WorkspaceEditor 문서 빠른 이동' },
   { key: '⌘⇧C', label: '컴포넌트 복사', desc: '스니펫 클립보드 저장' },
 ]
 
-const NOTION182_BLOCKS = [
+const WORKSPACE182_BLOCKS = [
   { type: 'h1', content: 'Orbit UI 디자인 시스템', style: { fontSize: 22, fontWeight: 800, color: '#1a1a1a', marginBottom: 4 } },
   { type: 'p', content: 'React + TypeScript 기반 3티어 컴포넌트 라이브러리. Base → Theme → Custom 계층으로 확장 가능한 아키텍처를 제공합니다.', style: { fontSize: 13, color: '#4b5563', lineHeight: 1.7, marginBottom: 12 } },
   { type: 'callout', content: '37개 컴포넌트 · WAI-ARIA 1.2 준수 · TypeScript 완전 지원', style: { fontSize: 12, color: '#6366f1', background: '#eef2ff', borderRadius: 6, padding: '8px 12px', borderLeft: '3px solid #6366f1', marginBottom: 12 } },
-  { type: 'p', content: '각 컴포넌트는 Storybook에서 인터랙티브 문서를 제공하며, Figma 토큰과 1:1 매핑됩니다.', style: { fontSize: 13, color: '#4b5563', lineHeight: 1.7 } },
+  { type: 'p', content: '각 컴포넌트는 Storybook에서 인터랙티브 문서를 제공하며, DesignTool 토큰과 1:1 매핑됩니다.', style: { fontSize: 13, color: '#4b5563', lineHeight: 1.7 } },
 ]
 
-function RaycastNotion182Render() {
-  const [activePage, setActivePage] = useState(NOTION182_PAGES[0].id)
+function CommandPaletteWorkspaceEditor182Render() {
+  const [activePage, setActivePage] = useState(WORKSPACE182_PAGES[0].id)
   const [query, setQuery] = useState('')
   const [cmdOpen, setCmdOpen] = useState(false)
   const [activeCmd, setActiveCmd] = useState<number | null>(null)
   const [commentVisible, setCommentVisible] = useState(false)
 
-  const filtered = RAYCAST182_COMMANDS.filter(c =>
+  const filtered = LAUNCHER182_COMMANDS.filter(c =>
     query === '' || c.label.includes(query) || c.desc.includes(query)
   )
-  const currentPage = NOTION182_PAGES.find(p => p.id === activePage) ?? NOTION182_PAGES[0]
+  const currentPage = WORKSPACE182_PAGES.find(p => p.id === activePage) ?? WORKSPACE182_PAGES[0]
 
   return (
     <div style={{ display: 'flex', height: '100vh', fontFamily: "'Inter', system-ui, sans-serif", background: '#f8fafc', overflow: 'hidden' }}>
-      {/* Sidebar — Notion-style */}
+      {/* Sidebar — WorkspaceEditor-style */}
       <div style={{ width: 220, background: '#fff', borderRight: '1px solid #e5e7eb', display: 'flex', flexDirection: 'column', flexShrink: 0 }}>
         <div style={{ padding: '16px 14px 10px', borderBottom: '1px solid #f0f0f0' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
@@ -40520,7 +40520,7 @@ function RaycastNotion182Render() {
         </div>
         <div style={{ padding: '8px 8px', flex: 1 }}>
           <div style={{ fontSize: 10, color: '#9ca3af', textTransform: 'uppercase', letterSpacing: '0.06em', padding: '4px 6px', marginBottom: 4 }}>문서</div>
-          {NOTION182_PAGES.map(page => (
+          {WORKSPACE182_PAGES.map(page => (
             <button
               key={page.id}
               onClick={() => setActivePage(page.id)}
@@ -40532,14 +40532,14 @@ function RaycastNotion182Render() {
             </button>
           ))}
         </div>
-        {/* Raycast shortcut panel */}
+        {/* CommandPalette shortcut panel */}
         <div style={{ padding: '10px 8px', borderTop: '1px solid #f0f0f0' }}>
           <button
             onClick={() => setCmdOpen(p => !p)}
             style={{ width: '100%', display: 'flex', alignItems: 'center', gap: 7, padding: '7px 8px', borderRadius: 6, border: '1px solid #e5e7eb', background: cmdOpen ? '#1a1a1a' : '#fff', cursor: 'pointer' }}
           >
             <span style={{ fontSize: 12 }}>⚡</span>
-            <span style={{ fontSize: 11, color: cmdOpen ? '#fff' : '#6b7280', fontWeight: 500 }}>Raycast 단축키</span>
+            <span style={{ fontSize: 11, color: cmdOpen ? '#fff' : '#6b7280', fontWeight: 500 }}>CommandPalette 단축키</span>
             <span style={{ marginLeft: 'auto', fontFamily: 'monospace', fontSize: 10, color: cmdOpen ? '#818cf8' : '#9ca3af' }}>⌘K</span>
           </button>
         </div>
@@ -40569,7 +40569,7 @@ function RaycastNotion182Render() {
         <div style={{ flex: 1, display: 'flex', overflow: 'hidden' }}>
           {/* Page content */}
           <div style={{ flex: 1, padding: '28px 32px', overflowY: 'auto' }}>
-            {/* Raycast command panel overlay */}
+            {/* CommandPalette command panel overlay */}
             {cmdOpen && (
               <div style={{ background: '#1c1c1e', borderRadius: 12, border: '1px solid rgba(255,255,255,0.1)', marginBottom: 20, overflow: 'hidden', boxShadow: '0 8px 32px rgba(0,0,0,0.3)' }}>
                 <div style={{ padding: '10px 14px', borderBottom: '1px solid rgba(255,255,255,0.08)', display: 'flex', alignItems: 'center', gap: 8 }}>
@@ -40610,9 +40610,9 @@ function RaycastNotion182Render() {
               </div>
             )}
 
-            {/* Notion-style document blocks */}
+            {/* WorkspaceEditor-style document blocks */}
             <div style={{ maxWidth: 620 }}>
-              {NOTION182_BLOCKS.map((block, i) => (
+              {WORKSPACE182_BLOCKS.map((block, i) => (
                 <div key={i} style={block.style}>{block.content}</div>
               ))}
 
@@ -40620,16 +40620,16 @@ function RaycastNotion182Render() {
               <div style={{ marginTop: 24, paddingTop: 16, borderTop: '1px solid #f0f0f0', display: 'flex', alignItems: 'center', gap: 12 }}>
                 <span style={{ fontSize: 12, color: '#9ca3af' }}>섹션:</span>
                 <div style={{ display: 'flex', gap: 5 }}>
-                  {NOTION182_PAGES.map((p, i) => (
+                  {WORKSPACE182_PAGES.map((p, i) => (
                     <PageDots
                       key={p.id}
                       selected={p.id === activePage}
-                      onClick={() => setActivePage(NOTION182_PAGES[i].id)}
+                      onClick={() => setActivePage(WORKSPACE182_PAGES[i].id)}
                     />
                   ))}
                 </div>
                 <span style={{ fontSize: 11, color: '#9ca3af' }}>
-                  {NOTION182_PAGES.findIndex(p => p.id === activePage) + 1} / {NOTION182_PAGES.length}
+                  {WORKSPACE182_PAGES.findIndex(p => p.id === activePage) + 1} / {WORKSPACE182_PAGES.length}
                 </span>
               </div>
             </div>
@@ -40642,7 +40642,7 @@ function RaycastNotion182Render() {
               <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
                 {[
                   { user: 'Alex', color: 'blue' as const, msg: '이 섹션 예시 코드가 더 필요해요.', time: '2분 전' },
-                  { user: 'Jin', color: 'pink' as const, msg: 'Figma 링크도 추가하면 좋겠습니다!', time: '5분 전' },
+                  { user: 'Jin', color: 'pink' as const, msg: 'DesignTool 링크도 추가하면 좋겠습니다!', time: '5분 전' },
                 ].map((c, i) => (
                   <div key={i} style={{ display: 'flex', gap: 8, alignItems: 'flex-start' }}>
                     <div style={{ width: 26, height: 26, borderRadius: '50%', background: c.color === 'blue' ? '#dbeafe' : '#fce7f3', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 11, fontWeight: 700, color: c.color === 'blue' ? '#1d4ed8' : '#be185d', flexShrink: 0 }}>
@@ -40668,21 +40668,21 @@ function RaycastNotion182Render() {
   )
 }
 
-export const RaycastNotion182CommandCenter: StoryObj = {
-  name: 'Raycast + Notion — 커맨드 센터 & 문서 편집기 (Cycle 182)',
+export const CommandPaletteWorkspaceEditor182CommandCenter: StoryObj = {
+  name: 'CommandPalette + WorkspaceEditor — 커맨드 센터 & 문서 편집기 (Cycle 182)',
   parameters: {
     layout: 'fullscreen',
     docs: {
       description: {
-        story: 'Raycast Extensions + Notion Design 복합 패턴. Notion 문서 사이드바 + 페이지 내비게이션(PageDots) + Raycast 커맨드 팔레트 오버레이(커맨드 호버 SpeechBadge) + Notion 인라인 코멘트(SpeechBadge) 통합 UI.',
+        story: 'CommandPalette Extensions + WorkspaceEditor Design 복합 패턴. WorkspaceEditor 문서 사이드바 + 페이지 내비게이션(PageDots) + CommandPalette 커맨드 팔레트 오버레이(커맨드 호버 SpeechBadge) + WorkspaceEditor 인라인 코멘트(SpeechBadge) 통합 UI.',
       },
     },
   },
-  render: () => <RaycastNotion182Render />,
+  render: () => <CommandPaletteWorkspaceEditor182Render />,
 }
 
 /* ==========================================================================
-   Cycle 183 — Figma Plugin UI + Arco Design: 에셋 브라우저 & 컴포넌트 관리
+   Cycle 183 — DesignTool Plugin UI + DataProductUI: 에셋 브라우저 & 컴포넌트 관리
 ========================================================================== */
 const ARCO183_COMPONENTS = Array.from({ length: 30 }, (_, i) => ({
   id: i + 1,
@@ -40702,7 +40702,7 @@ const A183_STATUS_STYLE: Record<string, { bg: string; color: string }> = {
 
 const A183_PAGE_SIZE = 10
 
-function FigmaArco183Render() {
+function DesignToolDataProduct183Render() {
   const [page, setPage] = useState(1)
   const [query, setQuery] = useState('')
   const [filterStatus, setFilterStatus] = useState<string>('all')
@@ -40729,11 +40729,11 @@ function FigmaArco183Render() {
   return (
     <div style={{ display: 'flex', height: '100vh', fontFamily: "'Inter', system-ui, sans-serif", background: '#f7f8fa', overflow: 'hidden' }}>
 
-      {/* Figma-style left plugin panel */}
+      {/* DesignTool-style left plugin panel */}
       <div style={{ width: 200, background: '#2c2c2c', display: 'flex', flexDirection: 'column', flexShrink: 0, borderRight: '1px solid rgba(255,255,255,0.08)' }}>
         <div style={{ padding: '14px 12px 10px', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
           <div style={{ fontSize: 11, fontWeight: 700, color: 'rgba(255,255,255,0.85)', letterSpacing: '0.03em' }}>Orbit UI Plugin</div>
-          <div style={{ fontSize: 9, color: 'rgba(255,255,255,0.35)', marginTop: 2 }}>v2.4.1 · Figma Plugin</div>
+          <div style={{ fontSize: 9, color: 'rgba(255,255,255,0.35)', marginTop: 2 }}>v2.4.1 · DesignTool Plugin</div>
         </div>
 
         {/* Plugin search */}
@@ -40777,7 +40777,7 @@ function FigmaArco183Render() {
         </div>
       </div>
 
-      {/* Main Arco-style content area */}
+      {/* Main DataProduct-style content area */}
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
         {/* Top toolbar */}
         <div style={{ height: 52, background: '#fff', borderBottom: '1px solid #e5e6eb', display: 'flex', alignItems: 'center', padding: '0 20px', gap: 12, flexShrink: 0 }}>
@@ -40904,7 +40904,7 @@ function FigmaArco183Render() {
                   <SolidButton.Center>스토리 보기</SolidButton.Center>
                 </SolidButton>
                 <OutlineButton size="small" color="black">
-                  <OutlineButton.Center>Figma 열기</OutlineButton.Center>
+                  <OutlineButton.Center>DesignTool 열기</OutlineButton.Center>
                 </OutlineButton>
               </div>
             </div>
@@ -40915,27 +40915,27 @@ function FigmaArco183Render() {
   )
 }
 
-export const FigmaArco183AssetBrowser: StoryObj = {
-  name: 'Figma Plugin UI + Arco Design — 에셋 브라우저 & 컴포넌트 관리 (Cycle 183)',
+export const DesignToolDataProduct183AssetBrowser: StoryObj = {
+  name: 'DesignTool Plugin UI + DataProductUI — 에셋 브라우저 & 컴포넌트 관리 (Cycle 183)',
   parameters: {
     layout: 'fullscreen',
     docs: {
       description: {
-        story: 'Figma Plugin UI + Arco Design 복합 패턴. 좌측: Figma 플러그인 패널(API 토큰 인증 PasswordField + 단축키) / 우측: Arco 스타일 컴포넌트 브라우저(검색·필터·그리드·테이블 뷰 + PageNumber 페이지네이션 + 상세 사이드패널).',
+        story: 'DesignTool Plugin UI + DataProductUI 복합 패턴. 좌측: DesignTool 플러그인 패널(API 토큰 인증 PasswordField + 단축키) / 우측: DataProduct 스타일 컴포넌트 브라우저(검색·필터·그리드·테이블 뷰 + PageNumber 페이지네이션 + 상세 사이드패널).',
       },
     },
   },
-  render: () => <FigmaArco183Render />,
+  render: () => <DesignToolDataProduct183Render />,
 }
 
 /* ==========================================================================
-   Cycle 184 — shadcn/ui + Linear Design: 프로젝트 보드 & 이슈 트래커
+   Cycle 184 — ComposableUI + IssueTracker Design: 프로젝트 보드 & 이슈 트래커
 ========================================================================== */
-const LINEAR184_ISSUES = [
+const TRACKER184_ISSUES = [
   { id: 'ORB-250', title: 'BoxedCheckbox 접근성 개선', label: 'bug', priority: 'urgent', assignee: 'Alex', status: 'todo' },
   { id: 'ORB-251', title: 'ChipLink 멀티 선택 패턴', label: 'feature', priority: 'high', assignee: 'Jin', status: 'in_progress' },
   { id: 'ORB-252', title: 'DataTable 가상 스크롤 지원', label: 'improvement', priority: 'high', assignee: 'Kim', status: 'in_review' },
-  { id: 'ORB-253', title: 'MigrationGuide Chakra UI 섹션', label: 'docs', priority: 'medium', assignee: 'Alex', status: 'todo' },
+  { id: 'ORB-253', title: 'MigrationGuide AccessibleUI 섹션', label: 'docs', priority: 'medium', assignee: 'Alex', status: 'todo' },
   { id: 'ORB-254', title: 'Skeleton 애니메이션 성능', label: 'improvement', priority: 'medium', assignee: 'Jin', status: 'done' },
   { id: 'ORB-255', title: 'Tooltip 지연 옵션 추가', label: 'feature', priority: 'low', assignee: 'Kim', status: 'todo' },
   { id: 'ORB-256', title: 'PasswordField 강도 인디케이터', label: 'feature', priority: 'high', assignee: 'Alex', status: 'in_progress' },
@@ -40971,7 +40971,7 @@ const L184_FILTER_LABELS = [
   { id: 'docs', label: 'Docs' },
 ]
 
-function ShadcnLinear184Render() {
+function ComposableUIIssueTracker184Render() {
   const [filterLabel, setFilterLabel] = useState('all')
   const [filterStatus, setFilterStatus] = useState('all')
   const [selectedIssues, setSelectedIssues] = useState<Set<string>>(new Set())
@@ -40983,12 +40983,12 @@ function ShadcnLinear184Render() {
   const [selectedTech, setSelectedTech] = useState<Set<string>>(new Set())
 
   const TECH184: Record<string, string[]> = {
-    '프론트엔드': ['React', 'TypeScript', 'Tailwind', 'Vite'],
+    '프론트엔드': ['React', 'TypeScript', 'UtilityCSS', 'Vite'],
     '백엔드': ['Node.js', 'PostgreSQL', 'Redis'],
-    '디자인': ['Figma', 'Orbit UI'],
+    '디자인': ['DesignTool', 'Orbit UI'],
   }
 
-  const filtered = LINEAR184_ISSUES.filter(i => {
+  const filtered = TRACKER184_ISSUES.filter(i => {
     const matchL = filterLabel === 'all' || i.label === filterLabel
     const matchS = filterStatus === 'all' || i.status === filterStatus
     return matchL && matchS
@@ -41099,7 +41099,7 @@ function ShadcnLinear184Render() {
         {/* Toolbar */}
         <div style={{ height: 52, background: '#fff', borderBottom: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', padding: '0 20px', gap: 10, flexShrink: 0 }}>
           <span style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>이슈 트래커</span>
-          <span style={{ fontSize: 11, color: '#94a3b8' }}>{LINEAR184_ISSUES.length}개</span>
+          <span style={{ fontSize: 11, color: '#94a3b8' }}>{TRACKER184_ISSUES.length}개</span>
           <div style={{ marginLeft: 'auto', display: 'flex', gap: 6, alignItems: 'center' }}>
             {selectedIssues.size > 0 && (
               <span style={{ fontSize: 11, color: '#6366f1', fontWeight: 600 }}>{selectedIssues.size}개 선택됨</span>
@@ -41172,34 +41172,34 @@ function ShadcnLinear184Render() {
   )
 }
 
-export const ShadcnLinear184ProjectBoard: StoryObj = {
-  name: 'shadcn/ui + Linear — 프로젝트 보드 & 이슈 트래커 (Cycle 184)',
+export const ComposableUIIssueTracker184ProjectBoard: StoryObj = {
+  name: 'ComposableUI + IssueTracker — 프로젝트 보드 & 이슈 트래커 (Cycle 184)',
   parameters: {
     layout: 'fullscreen',
     docs: {
       description: {
-        story: 'shadcn/ui + Linear Design 복합 패턴. 좌측: BoxedCheckbox 기능 플래그 패널 + ChipLink 기술 스택 브라우저 / 우측: ChipLink 이슈 라벨 필터 + BoxedCheckbox 이슈 멀티 선택 + 상태 필터 버튼. Linear 이슈 트래커 UI 완전 재현.',
+        story: 'ComposableUI + IssueTracker Design 복합 패턴. 좌측: BoxedCheckbox 기능 플래그 패널 + ChipLink 기술 스택 브라우저 / 우측: ChipLink 이슈 라벨 필터 + BoxedCheckbox 이슈 멀티 선택 + 상태 필터 버튼. IssueTracker 이슈 트래커 UI 완전 재현.',
       },
     },
   },
-  render: () => <ShadcnLinear184Render />,
+  render: () => <ComposableUIIssueTracker184Render />,
 }
 
 /* ==========================================================================
-   Cycle 185 — Vercel Design + Mantine: 파일 관리자 & 릴리즈 대시보드
+   Cycle 185 — DeployPlatform Design + AppUI: 파일 관리자 & 릴리즈 대시보드
 ========================================================================== */
-const VERCEL185_FILES = [
+const DEPLOY185_FILES = [
   { name: 'storybook-static', type: 'folder', size: '14 MB', modified: '방금', env: 'Production' },
   { name: 'packages', type: 'folder', size: '—', modified: '1시간 전', env: 'Development' },
   { name: 'package.json', type: 'file', size: '2.1 KB', modified: '1일 전', env: 'Production' },
   { name: 'pnpm-workspace.yaml', type: 'file', size: '312 B', modified: '2일 전', env: 'Development' },
-  { name: '.vercel', type: 'folder', size: '—', modified: '1주 전', env: 'Preview' },
+  { name: '.deploy', type: 'folder', size: '—', modified: '1주 전', env: 'Preview' },
   { name: 'CLAUDE.md', type: 'file', size: '18 KB', modified: '3일 전', env: 'Development' },
   { name: 'turbo.json', type: 'file', size: '1.2 KB', modified: '5일 전', env: 'Production' },
-  { name: '.github', type: 'folder', size: '—', modified: '1주 전', env: 'Preview' },
+  { name: '.ci', type: 'folder', size: '—', modified: '1주 전', env: 'Preview' },
 ]
 
-const MANTINE185_RELEASES = [
+const ACCESSIBLEKIT185_RELEASES = [
   { version: 'v2.5.0', date: '2026-04-22', type: 'sale' as const, features: 4, fixes: 6, tag: 'Latest' },
   { version: 'v2.4.1', date: '2026-03-18', type: 'benefit' as const, features: 1, fixes: 9, tag: 'Stable' },
   { version: 'v2.4.0', date: '2026-02-14', type: 'sale' as const, features: 8, fixes: 3, tag: 'Breaking' },
@@ -41212,7 +41212,7 @@ const ENV_BADGE_COLOR: Record<string, 'sale' | 'benefit' | 'gray'> = {
 
 const V185_STATUS_DOT: Record<string, string> = { Production: '#0f0', Preview: '#fbbf24', Development: '#60a5fa' }
 
-function VercelMantine185Render() {
+function DeployPlatformAppUI185Render() {
   const [view, setView] = useState<'list' | 'grid'>('list')
   const [selectedFiles, setSelectedFiles] = useState<Set<string>>(new Set())
   const [sortAsc, setSortAsc] = useState(true)
@@ -41220,7 +41220,7 @@ function VercelMantine185Render() {
   const [expandedRelease, setExpandedRelease] = useState<string | null>('v2.5.0')
   const [activeSidePanel, setActiveSidePanel] = useState<'releases' | 'envs'>('releases')
 
-  const filtered = VERCEL185_FILES.filter(f => envFilter === 'all' || f.env === envFilter)
+  const filtered = DEPLOY185_FILES.filter(f => envFilter === 'all' || f.env === envFilter)
   const sorted = [...filtered].sort((a, b) => sortAsc ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name))
 
   const toggleFile = (name: string) => {
@@ -41235,7 +41235,7 @@ function VercelMantine185Render() {
   return (
     <div style={{ display: 'flex', height: '100vh', fontFamily: "'Inter', system-ui, sans-serif", background: '#000', overflow: 'hidden' }}>
 
-      {/* Left: Vercel-style file manager */}
+      {/* Left: DeployPlatform-style file manager */}
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', borderRight: '1px solid #222', overflow: 'hidden' }}>
         {/* Toolbar */}
         <div style={{ height: 52, background: '#000', borderBottom: '1px solid #222', display: 'flex', alignItems: 'center', padding: '0 20px', gap: 10, flexShrink: 0 }}>
@@ -41314,7 +41314,7 @@ function VercelMantine185Render() {
         </div>
       </div>
 
-      {/* Right: Mantine-style release & env panel */}
+      {/* Right: AppUI-style release & env panel */}
       <div style={{ width: 300, background: '#0a0a0a', display: 'flex', flexDirection: 'column', flexShrink: 0 }}>
         {/* Panel tabs */}
         <div style={{ display: 'flex', borderBottom: '1px solid #222', flexShrink: 0 }}>
@@ -41333,7 +41333,7 @@ function VercelMantine185Render() {
           <div style={{ flex: 1, overflowY: 'auto', padding: '12px 14px' }}>
             <div style={{ fontSize: 11, fontWeight: 700, color: '#888', marginBottom: 10, textTransform: 'uppercase', letterSpacing: '0.05em' }}>버전 이력</div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-              {MANTINE185_RELEASES.map(rel => (
+              {ACCESSIBLEKIT185_RELEASES.map(rel => (
                 <div key={rel.version} style={{ borderRadius: 8, border: '1px solid #222', overflow: 'hidden' }}>
                   <div
                     onClick={() => setExpandedRelease(expandedRelease === rel.version ? null : rel.version)}
@@ -41365,7 +41365,7 @@ function VercelMantine185Render() {
           <div style={{ flex: 1, overflowY: 'auto', padding: '12px 14px' }}>
             <div style={{ fontSize: 11, fontWeight: 700, color: '#888', marginBottom: 10, textTransform: 'uppercase', letterSpacing: '0.05em' }}>배포 환경</div>
             {['Production', 'Preview', 'Development'].map(env => {
-              const count = VERCEL185_FILES.filter(f => f.env === env).length
+              const count = DEPLOY185_FILES.filter(f => f.env === env).length
               return (
                 <div key={env} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 12px', borderRadius: 8, border: '1px solid #222', marginBottom: 8, background: '#111' }}>
                   <div style={{ width: 8, height: 8, borderRadius: '50%', background: V185_STATUS_DOT[env], flexShrink: 0 }} />
@@ -41397,21 +41397,21 @@ function VercelMantine185Render() {
   )
 }
 
-export const VercelMantine185FileManager: StoryObj = {
-  name: 'Vercel Design + Mantine — 파일 관리자 & 릴리즈 대시보드 (Cycle 185)',
+export const DeployPlatformAppUI185FileManager: StoryObj = {
+  name: 'DeployPlatform Design + AppUI — 파일 관리자 & 릴리즈 대시보드 (Cycle 185)',
   parameters: {
     layout: 'fullscreen',
     docs: {
       description: {
-        story: 'Vercel Design + Mantine 복합 패턴. 좌측: Vercel 다크 파일 관리자(OutlineIconButton 툴바 + LabelBadge 환경 배지 + 리스트/그리드 뷰) / 우측: Mantine Accordion 릴리즈 노트(LabelBadge 버전 태그) + 환경 상태 패널.',
+        story: 'DeployPlatform Design + AppUI 복합 패턴. 좌측: DeployPlatform 다크 파일 관리자(OutlineIconButton 툴바 + LabelBadge 환경 배지 + 리스트/그리드 뷰) / 우측: AppUI Accordion 릴리즈 노트(LabelBadge 버전 태그) + 환경 상태 패널.',
       },
     },
   },
-  render: () => <VercelMantine185Render />,
+  render: () => <DeployPlatformAppUI185Render />,
 }
 
 /* --------------------------------------------------------------------------
-   Cycle 186 — Radix UI + Ant Design
+   Cycle 186 — PrimitiveUI + Ant Design
 -------------------------------------------------------------------------- */
 const FORM_186_FIELDS = [
   { id: 'title', label: '제목', placeholder: '이슈 제목을 입력하세요', required: true },
@@ -41422,7 +41422,7 @@ const FORM_186_PRIORITIES = ['긴급', '높음', '중간', '낮음']
 
 const FORM_186_TAGS = ['버그', 'UX', '성능', '접근성', '문서화', '기능 요청']
 
-function RadixAnt186Render() {
+function PrimitiveAnt186Render() {
   const [title, setTitle] = React.useState('')
   const [url, setUrl] = React.useState('')
   const [description, setDescription] = React.useState('')
@@ -41471,7 +41471,7 @@ function RadixAnt186Render() {
       <div style={{ width: 220, background: '#111827', display: 'flex', flexDirection: 'column', padding: '20px 0', flexShrink: 0 }}>
         <div style={{ padding: '0 16px 20px', borderBottom: '1px solid #1f2937' }}>
           <div style={{ fontSize: 14, fontWeight: 700, color: '#f9fafb' }}>Orbit Issues</div>
-          <div style={{ fontSize: 10, color: '#4b5563', marginTop: 2 }}>Radix + Ant Design</div>
+          <div style={{ fontSize: 10, color: '#4b5563', marginTop: 2 }}>Primitive + Ant Design</div>
         </div>
         {(['모든 이슈', '내 이슈', '팀 이슈', '마감 임박'] as const).map((item, i) => (
           <div key={i} style={{ padding: '9px 16px', fontSize: 12, color: i === 0 ? '#f9fafb' : '#6b7280', background: i === 0 ? '#1f2937' : 'transparent', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 8 }}>
@@ -41489,7 +41489,7 @@ function RadixAnt186Render() {
         <div style={{ padding: '16px 24px', background: '#fff', borderBottom: '1px solid #e5e7eb', display: 'flex', alignItems: 'center', gap: 12 }}>
           <div style={{ flex: 1 }}>
             <div style={{ fontSize: 15, fontWeight: 700, color: '#111827' }}>새 이슈 등록</div>
-            <div style={{ fontSize: 11, color: '#9ca3af', marginTop: 2 }}>Radix UI + Ant Design 복합 폼 패턴</div>
+            <div style={{ fontSize: 11, color: '#9ca3af', marginTop: 2 }}>PrimitiveUI + Ant Design 복합 폼 패턴</div>
           </div>
           <div style={{ display: 'flex', gap: 6 }}>
             {(['form', 'preview'] as const).map((tab) => (
@@ -41615,35 +41615,35 @@ function RadixAnt186Render() {
   )
 }
 
-export const RadixAnt186FormCenter: StoryObj = {
-  name: 'Radix UI + Ant Design — 이슈 등록 폼 센터 (Cycle 186)',
+export const PrimitiveAnt186FormCenter: StoryObj = {
+  name: 'PrimitiveUI + Ant Design — 이슈 등록 폼 센터 (Cycle 186)',
   parameters: {
     layout: 'fullscreen',
     docs: {
       description: {
-        story: 'Radix UI + Ant Design 복합 패턴. 좌측: 다크 사이드바 내비게이션 / 우측: 이슈 등록 폼(텍스트 필드 + 우선순위 + 태그 + TextArea + 폼/미리보기 전환). 접근성 속성(aria-pressed, aria-selected, aria-required) 완전 적용.',
+        story: 'PrimitiveUI + Ant Design 복합 패턴. 좌측: 다크 사이드바 내비게이션 / 우측: 이슈 등록 폼(텍스트 필드 + 우선순위 + 태그 + TextArea + 폼/미리보기 전환). 접근성 속성(aria-pressed, aria-selected, aria-required) 완전 적용.',
       },
     },
   },
-  render: () => <RadixAnt186Render />,
+  render: () => <PrimitiveAnt186Render />,
 }
 
 /* --------------------------------------------------------------------------
-   Cycle 187 — Linear Design + shadcn/ui
+   Cycle 187 — IssueTracker Design + ComposableUI
 -------------------------------------------------------------------------- */
-const SHADCN_187_ISSUE_COLS = [
+const UTILITYUI_187_ISSUE_COLS = [
   { id: 'backlog', label: 'Backlog', color: '#6b7280', count: 24 },
   { id: 'todo', label: 'Todo', color: '#f59e0b', count: 8 },
   { id: 'inprogress', label: 'In Progress', color: '#3b82f6', count: 5 },
   { id: 'done', label: 'Done', color: '#10b981', count: 42 },
 ]
 
-const SHADCN_187_ISSUES = [
+const UTILITYUI_187_ISSUES = [
   { id: 1, title: 'Storybook 다크모드 지원', col: 'inprogress', assignee: 'K', priority: 'high' },
   { id: 2, title: 'TextField 접근성 개선', col: 'inprogress', assignee: 'J', priority: 'urgent' },
   { id: 3, title: 'CounterBadge 스타일 토큰', col: 'todo', assignee: 'H', priority: 'medium' },
   { id: 4, title: 'RadioButton 그룹 컴포넌트', col: 'todo', assignee: 'J', priority: 'low' },
-  { id: 5, title: 'Vercel 배포 자동화', col: 'done', assignee: 'K', priority: 'medium' },
+  { id: 5, title: 'DeployPlatform 배포 자동화', col: 'done', assignee: 'K', priority: 'medium' },
   { id: 6, title: 'Typography 가이드라인', col: 'backlog', assignee: 'H', priority: 'low' },
   { id: 7, title: 'EclipseProvider 테마 확장', col: 'backlog', assignee: 'J', priority: 'medium' },
 ]
@@ -41655,12 +41655,12 @@ const PRIORITY_STYLE_187: Record<string, { label: string; color: string; bg: str
   low:    { label: '낮음', color: '#6b7280', bg: '#f9fafb' },
 }
 
-const LINEAR_187_NAV = ['수신함', '내 이슈', '팀', '프로젝트']
-const LINEAR_187_NAV_COUNTS = [12, 5, 48, 3]
+const TRACKER_187_NAV = ['수신함', '내 이슈', '팀', '프로젝트']
+const TRACKER_187_NAV_COUNTS = [12, 5, 48, 3]
 
-function ShadcnLinear187Render() {
+function ComposableUIIssueTracker187Render() {
   const [activeNav, setActiveNav] = React.useState('내 이슈')
-  const [issues, setIssues] = React.useState(SHADCN_187_ISSUES)
+  const [issues, setIssues] = React.useState(UTILITYUI_187_ISSUES)
   const [selected, setSelected] = React.useState<number | null>(null)
   const [searchVal, setSearchVal] = React.useState('')
   const [activeCol, setActiveCol] = React.useState<string | null>(null)
@@ -41686,7 +41686,7 @@ function ShadcnLinear187Render() {
           <div style={{ fontSize: 10, color: '#374151' }}>main · Cycle 187</div>
         </div>
         <div style={{ flex: 1, padding: '8px 0' }}>
-          {LINEAR_187_NAV.map((item, i) => (
+          {TRACKER_187_NAV.map((item, i) => (
             <div
               key={item}
               onClick={() => setActiveNav(item)}
@@ -41698,16 +41698,16 @@ function ShadcnLinear187Render() {
               }}
             >
               <span style={{ fontSize: 12, color: activeNav === item ? '#f3f4f6' : '#6b7280', flex: 1, fontWeight: activeNav === item ? 600 : 400 }}>{item}</span>
-              {LINEAR_187_NAV_COUNTS[i] > 0 && (
+              {TRACKER_187_NAV_COUNTS[i] > 0 && (
                 <span style={{ fontSize: 9, fontWeight: 600, color: activeNav === item ? '#a5b4fc' : '#374151', background: activeNav === item ? '#1e1b4b' : '#1f2937', padding: '1px 6px', borderRadius: 10, minWidth: 20, textAlign: 'center' }}>
-                  {LINEAR_187_NAV_COUNTS[i]}
+                  {TRACKER_187_NAV_COUNTS[i]}
                 </span>
               )}
             </div>
           ))}
           <div style={{ padding: '12px 14px 6px', marginTop: 8, borderTop: '1px solid #1f2937' }}>
             <div style={{ fontSize: 10, color: '#374151', fontWeight: 600, letterSpacing: '0.05em', marginBottom: 6 }}>상태 필터</div>
-            {SHADCN_187_ISSUE_COLS.map((col) => (
+            {UTILITYUI_187_ISSUE_COLS.map((col) => (
               <div
                 key={col.id}
                 onClick={() => setActiveCol(activeCol === col.id ? null : col.id)}
@@ -41741,7 +41741,7 @@ function ShadcnLinear187Render() {
             style={{ padding: '5px 10px', fontSize: 11, borderRadius: 6, border: '1px solid #30363d', background: '#0d1117', color: '#c9d1d9', outline: 'none', width: 160 }}
           />
           <div style={{ display: 'flex', gap: 4 }}>
-            {SHADCN_187_ISSUE_COLS.slice(0, 4).map((col) => (
+            {UTILITYUI_187_ISSUE_COLS.slice(0, 4).map((col) => (
               <div key={col.id} style={{ display: 'flex', alignItems: 'center', gap: 4, padding: '4px 8px', borderRadius: 5, background: '#161b22', border: '1px solid #21262d' }}>
                 <div style={{ width: 5, height: 5, borderRadius: '50%', background: col.color }} />
                 <span style={{ fontSize: 10, color: '#8b949e' }}>{colCount(col.id)}</span>
@@ -41755,7 +41755,7 @@ function ShadcnLinear187Render() {
           {filtered.length === 0 && (
             <div style={{ padding: 40, textAlign: 'center', color: '#30363d', fontSize: 12 }}>이슈가 없습니다</div>
           )}
-          {SHADCN_187_ISSUE_COLS.map((col) => {
+          {UTILITYUI_187_ISSUE_COLS.map((col) => {
             const colIssues = filtered.filter((i) => i.col === col.id)
             if (colIssues.length === 0) return null
             return (
@@ -41802,37 +41802,37 @@ function ShadcnLinear187Render() {
 
         {/* Footer */}
         <div style={{ padding: '8px 20px', borderTop: '1px solid #21262d', background: '#161b22', display: 'flex', gap: 12, alignItems: 'center' }}>
-          {SHADCN_187_ISSUE_COLS.map((col) => (
+          {UTILITYUI_187_ISSUE_COLS.map((col) => (
             <div key={col.id} style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
               <div style={{ width: 6, height: 6, borderRadius: '50%', background: col.color }} />
               <span style={{ fontSize: 10, color: '#484f58' }}>{col.label}: {colCount(col.id)}</span>
             </div>
           ))}
           <div style={{ flex: 1 }} />
-          <span style={{ fontSize: 10, color: '#21262d' }}>Linear Design + shadcn/ui Cycle 187</span>
+          <span style={{ fontSize: 10, color: '#21262d' }}>IssueTracker Design + ComposableUI Cycle 187</span>
         </div>
       </div>
     </div>
   )
 }
 
-export const ShadcnLinear187IssueDashboard: StoryObj = {
-  name: 'shadcn/ui + Linear — 이슈 대시보드 (Cycle 187)',
+export const ComposableUIIssueTracker187IssueDashboard: StoryObj = {
+  name: 'ComposableUI + IssueTracker — 이슈 대시보드 (Cycle 187)',
   parameters: {
     layout: 'fullscreen',
     docs: {
       description: {
-        story: 'Linear Design + shadcn/ui 복합 패턴. 좌측: Linear 다크 사이드바(내비게이션 카운터 + 상태 필터) / 우측: 이슈 목록(상태 그룹핑 + 우선순위 배지 + 완료 인라인 액션 + 이슈 검색). RadioButtonWithLabel + CounterBadge 컴포넌트 활용.',
+        story: 'IssueTracker Design + ComposableUI 복합 패턴. 좌측: IssueTracker 다크 사이드바(내비게이션 카운터 + 상태 필터) / 우측: 이슈 목록(상태 그룹핑 + 우선순위 배지 + 완료 인라인 액션 + 이슈 검색). RadioButtonWithLabel + CounterBadge 컴포넌트 활용.',
       },
     },
   },
-  render: () => <ShadcnLinear187Render />,
+  render: () => <ComposableUIIssueTracker187Render />,
 }
 
 /* --------------------------------------------------------------------------
-   Cycle 188 — MUI + Tailwind UI
+   Cycle 188 — EnterpriseUI + UtilityUI
 -------------------------------------------------------------------------- */
-const MUI_188_COMPONENTS = [
+const EnterpriseUI_188_COMPONENTS = [
   { id: 1, name: 'Button', category: 'Actions', status: 'stable', coverage: 94, issues: 2 },
   { id: 2, name: 'TextField', category: 'Inputs', status: 'stable', coverage: 88, issues: 0 },
   { id: 3, name: 'DataTable', category: 'Data', status: 'beta', coverage: 72, issues: 5 },
@@ -41843,9 +41843,9 @@ const MUI_188_COMPONENTS = [
   { id: 8, name: 'Carousel', category: 'Navigation', status: 'beta', coverage: 68, issues: 7 },
 ]
 
-const MUI_188_FILTER_CATS = ['전체', 'Actions', 'Inputs', 'Data', 'Overlays', 'Feedback', 'Layout', 'Display', 'Navigation']
+const EnterpriseUI_188_FILTER_CATS = ['전체', 'Actions', 'Inputs', 'Data', 'Overlays', 'Feedback', 'Layout', 'Display', 'Navigation']
 
-function MuiTailwind188Render() {
+function EnterpriseUIUtilityCSS188Render() {
   const [selectedRows, setSelectedRows] = React.useState<Set<number>>(new Set())
   const [catFilter, setCatFilter] = React.useState('전체')
   const [statusFilter, setStatusFilter] = React.useState<Set<string>>(new Set(['stable', 'beta']))
@@ -41853,7 +41853,7 @@ function MuiTailwind188Render() {
   const [sortCol, setSortCol] = React.useState<'name' | 'coverage' | 'issues'>('coverage')
   const [sortDir, setSortDir] = React.useState<'asc' | 'desc'>('desc')
 
-  const filtered = MUI_188_COMPONENTS
+  const filtered = EnterpriseUI_188_COMPONENTS
     .filter((c) =>
       (catFilter === '전체' || c.category === catFilter) &&
       statusFilter.has(c.status) &&
@@ -41904,12 +41904,12 @@ function MuiTailwind188Render() {
       <div style={{ width: 220, background: '#fff', borderRight: '1px solid #e5e7eb', padding: '20px 16px', flexShrink: 0, display: 'flex', flexDirection: 'column', gap: 20 }}>
         <div>
           <div style={{ fontSize: 15, fontWeight: 700, color: '#0f172a' }}>컴포넌트 현황</div>
-          <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>MUI + Tailwind UI</div>
+          <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>EnterpriseUI + UtilityUI</div>
         </div>
         <div>
           <div style={{ fontSize: 11, fontWeight: 600, color: '#64748b', letterSpacing: '0.05em', textTransform: 'uppercase', marginBottom: 8 }}>카테고리</div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-            {MUI_188_FILTER_CATS.slice(0, 6).map((cat) => (
+            {EnterpriseUI_188_FILTER_CATS.slice(0, 6).map((cat) => (
               <div
                 key={cat}
                 onClick={() => setCatFilter(cat)}
@@ -41924,7 +41924,7 @@ function MuiTailwind188Render() {
               >
                 <span>{cat}</span>
                 <span style={{ fontSize: 10, color: catFilter === cat ? '#818cf8' : '#9ca3af' }}>
-                  {cat === '전체' ? MUI_188_COMPONENTS.length : MUI_188_COMPONENTS.filter((c) => c.category === cat).length}
+                  {cat === '전체' ? EnterpriseUI_188_COMPONENTS.length : EnterpriseUI_188_COMPONENTS.filter((c) => c.category === cat).length}
                 </span>
               </div>
             ))}
@@ -41942,7 +41942,7 @@ function MuiTailwind188Render() {
                 <span style={{ fontSize: 12, color: '#374151', display: 'flex', alignItems: 'center', gap: 6 }}>
                   {s}
                   <span style={{ fontSize: 9, padding: '1px 5px', borderRadius: 6, background: s === 'stable' ? '#d1fae5' : '#fef3c7', color: s === 'stable' ? '#065f46' : '#92400e' }}>
-                    {MUI_188_COMPONENTS.filter((c) => c.status === s).length}
+                    {EnterpriseUI_188_COMPONENTS.filter((c) => c.status === s).length}
                   </span>
                 </span>
               </div>
@@ -42073,21 +42073,21 @@ function MuiTailwind188Render() {
   )
 }
 
-export const MuiTailwind188AnalyticsDashboard: StoryObj = {
-  name: 'MUI + Tailwind UI — 컴포넌트 현황 애널리틱스 대시보드 (Cycle 188)',
+export const EnterpriseUIUtilityCSS188AnalyticsDashboard: StoryObj = {
+  name: 'EnterpriseUI + UtilityUI — 컴포넌트 현황 애널리틱스 대시보드 (Cycle 188)',
   parameters: {
     layout: 'fullscreen',
     docs: {
       description: {
-        story: 'MUI + Tailwind UI 복합 패턴. 좌측: Tailwind 필터 사이드바(카테고리 + Checkbox 상태 필터 + 요약 패널) / 우측: MUI DataGrid 스타일 테이블(전체선택 + 정렬 + 커버리지 바 + 이슈 배지). Checkbox + Progress 컴포넌트 활용.',
+        story: 'EnterpriseUI + UtilityUI 복합 패턴. 좌측: UtilityCSS 필터 사이드바(카테고리 + Checkbox 상태 필터 + 요약 패널) / 우측: EnterpriseUI DataGrid 스타일 테이블(전체선택 + 정렬 + 커버리지 바 + 이슈 배지). Checkbox + Progress 컴포넌트 활용.',
       },
     },
   },
-  render: () => <MuiTailwind188Render />,
+  render: () => <EnterpriseUIUtilityCSS188Render />,
 }
 
 /* --------------------------------------------------------------------------
-   Cycle 189 — Chakra UI + Arco Design
+   Cycle 189 — AccessibleUI + DataProductUI
 -------------------------------------------------------------------------- */
 const CHAKRA_189_USER_PROFILE = {
   name: '김희준',
@@ -42108,7 +42108,7 @@ const CHAKRA_189_ACTIVITY = [
 
 const CHAKRA_189_NOTIF_PREFS = [
   { id: 'story', label: '스토리 업데이트', desc: '새 스토리 추가 시 알림', active: true },
-  { id: 'deploy', label: '배포 상태', desc: 'Vercel 배포 완료/실패 알림', active: true },
+  { id: 'deploy', label: '배포 상태', desc: 'DeployPlatform 배포 완료/실패 알림', active: true },
   { id: 'review', label: '코드 리뷰', desc: 'PR 리뷰 요청 알림', active: false },
   { id: 'digest', label: '주간 다이제스트', desc: '매주 월요일 요약 이메일', active: true },
 ]
@@ -42120,7 +42120,7 @@ const ACTIVITY_TYPE_STYLE_189: Record<string, { color: string; bg: string; label
   template: { color: '#3b82f6', bg: '#dbeafe', label: '템플릿' },
 }
 
-function ChakraArco189Render() {
+function AccessibleDataProduct189Render() {
   const [activeTab, setActiveTab] = React.useState<'profile' | 'notifications' | 'activity'>('profile')
   const [notifPrefs, setNotifPrefs] = React.useState<Record<string, boolean>>(
     Object.fromEntries(CHAKRA_189_NOTIF_PREFS.map((n) => [n.id, n.active]))
@@ -42223,7 +42223,7 @@ function ChakraArco189Render() {
           {activeTab === 'notifications' && (
             <div>
               <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a', marginBottom: 4 }}>알림 설정</div>
-              <div style={{ fontSize: 11, color: '#64748b', marginBottom: 20 }}>Chakra UI 체크박스 폼 패턴</div>
+              <div style={{ fontSize: 11, color: '#64748b', marginBottom: 20 }}>AccessibleUI 체크박스 폼 패턴</div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
                 {CHAKRA_189_NOTIF_PREFS.map((pref) => (
                   <div
@@ -42254,7 +42254,7 @@ function ChakraArco189Render() {
           {activeTab === 'activity' && (
             <div>
               <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a', marginBottom: 4 }}>최근 활동</div>
-              <div style={{ fontSize: 11, color: '#64748b', marginBottom: 20 }}>Arco Design 타임라인 패턴</div>
+              <div style={{ fontSize: 11, color: '#64748b', marginBottom: 20 }}>DataProductUI 타임라인 패턴</div>
               <div style={{ position: 'relative' }}>
                 <div style={{ position: 'absolute', left: 11, top: 0, bottom: 0, width: 1, background: '#e5e7eb' }} />
                 {CHAKRA_189_ACTIVITY.map((act, i) => {
@@ -42281,29 +42281,29 @@ function ChakraArco189Render() {
   )
 }
 
-export const ChakraArco189UserProfile: StoryObj = {
-  name: 'Chakra UI + Arco Design — 유저 프로필 & 알림 설정 (Cycle 189)',
+export const AccessibleDataProduct189UserProfile: StoryObj = {
+  name: 'AccessibleUI + DataProductUI — 유저 프로필 & 알림 설정 (Cycle 189)',
   parameters: {
     layout: 'fullscreen',
     docs: {
       description: {
-        story: 'Chakra UI + Arco Design 복합 패턴. 프로필 헤더 + 탭(프로필 편집 / 알림 설정 / 활동 기록). Chakra 체크박스+토글 알림 설정 + Arco 타임라인 활동 피드. Checkbox 컴포넌트 활용.',
+        story: 'AccessibleUI + DataProductUI 복합 패턴. 프로필 헤더 + 탭(프로필 편집 / 알림 설정 / 활동 기록). Accessible 체크박스+토글 알림 설정 + DataProduct 타임라인 활동 피드. Checkbox 컴포넌트 활용.',
       },
     },
   },
-  render: () => <ChakraArco189Render />,
+  render: () => <AccessibleDataProduct189Render />,
 }
 
-// ─── Cycle 190: Vercel Design + Notion Design ────────────────────────────────
+// ─── Cycle 190: DeployPlatform Design + WorkspaceEditor Design ────────────────────────────────
 
-const VERCEL_190_DEPLOYMENTS = [
-  { project: 'orbit-ui', branch: 'main', status: 'ready', duration: '1m 42s', time: '2분 전', url: 'orbit-ui.vercel.app', commit: 'feat: 다크 모드 토글' },
-  { project: 'shop-app', branch: 'feat/cart', status: 'building', duration: '—', time: '5분 전', url: 'shop-app-git-feat-cart.vercel.app', commit: 'fix: 장바구니 합계 계산' },
-  { project: 'docs-site', branch: 'main', status: 'error', duration: '0m 38s', time: '12분 전', url: 'docs-site.vercel.app', commit: 'docs: API 레퍼런스 업데이트' },
-  { project: 'dashboard', branch: 'dev', status: 'ready', duration: '2m 10s', time: '1시간 전', url: 'dashboard-dev.vercel.app', commit: 'refactor: 데이터 테이블 최적화' },
+const DEPLOY_190_DEPLOYMENTS = [
+  { project: 'orbit-ui', branch: 'main', status: 'ready', duration: '1m 42s', time: '2분 전', url: 'orbit-ui.deploy.example.com', commit: 'feat: 다크 모드 토글' },
+  { project: 'shop-app', branch: 'feat/cart', status: 'building', duration: '—', time: '5분 전', url: 'shop-app-git-feat-cart.deploy.example.com', commit: 'fix: 장바구니 합계 계산' },
+  { project: 'docs-site', branch: 'main', status: 'error', duration: '0m 38s', time: '12분 전', url: 'docs-site.deploy.example.com', commit: 'docs: API 레퍼런스 업데이트' },
+  { project: 'dashboard', branch: 'dev', status: 'ready', duration: '2m 10s', time: '1시간 전', url: 'dashboard-dev.deploy.example.com', commit: 'refactor: 데이터 테이블 최적화' },
 ]
 
-const NOTION_190_PAGES = [
+const WORKSPACE_190_PAGES = [
   { icon: '📐', title: 'Orbit UI 디자인 토큰 가이드', updated: '방금 전', tag: '디자인', pinned: true },
   { icon: '🚀', title: 'Q4 출시 체크리스트', updated: '오늘 오전 9:14', tag: '프로젝트', pinned: true },
   { icon: '📊', title: '컴포넌트 사용량 분석 리포트', updated: '어제', tag: '데이터', pinned: false },
@@ -42324,24 +42324,24 @@ const TAG_COLOR_190: Record<string, { bg: string; color: string }> = {
   '회의': { bg: '#f0fdf4', color: '#166534' },
 }
 
-function VercelNotion190Render() {
+function DeployPlatformWorkspaceEditor190Render() {
   const [search, setSearch] = useState('')
-  const [activeSection, setActiveSection] = useState<'deployments' | 'notion'>('deployments')
+  const [activeSection, setActiveSection] = useState<'deployments' | 'workspace'>('deployments')
   const [notifEnabled, setNotifEnabled] = useState(true)
 
-  const filteredDeploys = VERCEL_190_DEPLOYMENTS.filter(d =>
+  const filteredDeploys = DEPLOY_190_DEPLOYMENTS.filter(d =>
     d.project.toLowerCase().includes(search.toLowerCase()) ||
     d.branch.toLowerCase().includes(search.toLowerCase()) ||
     d.commit.toLowerCase().includes(search.toLowerCase())
   )
-  const filteredPages = NOTION_190_PAGES.filter(p =>
+  const filteredPages = WORKSPACE_190_PAGES.filter(p =>
     p.title.toLowerCase().includes(search.toLowerCase()) ||
     p.tag.toLowerCase().includes(search.toLowerCase())
   )
 
   return (
     <div style={{ display: 'flex', height: '100vh', fontFamily: 'system-ui, sans-serif', background: '#f8fafc' }}>
-      {/* Left sidebar — Vercel dark style */}
+      {/* Left sidebar — DeployPlatform dark style */}
       <div style={{ width: 220, background: '#000', color: '#fff', display: 'flex', flexDirection: 'column', flexShrink: 0 }}>
         <div style={{ padding: '20px 16px 12px', display: 'flex', alignItems: 'center', gap: 8 }}>
           <div style={{ width: 28, height: 28, background: '#fff', borderRadius: 7, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -42350,13 +42350,13 @@ function VercelNotion190Render() {
           <span style={{ fontSize: 14, fontWeight: 700 }}>Dashboard</span>
         </div>
         <div style={{ flex: 1, padding: '0 8px' }}>
-          {(['deployments', 'notion'] as const).map(s => (
+          {(['deployments', 'workspace'] as const).map(s => (
             <button
               key={s}
               onClick={() => setActiveSection(s)}
               style={{ width: '100%', padding: '8px 10px', borderRadius: 8, border: 'none', background: activeSection === s ? '#1a1a1a' : 'transparent', color: activeSection === s ? '#fff' : '#a3a3a3', cursor: 'pointer', fontSize: 12, fontWeight: 500, textAlign: 'left', marginBottom: 2 }}
             >
-              {s === 'deployments' ? '🚀 배포 현황' : '📋 Notion 문서'}
+              {s === 'deployments' ? '🚀 배포 현황' : '📋 WorkspaceEditor 문서'}
             </button>
           ))}
         </div>
@@ -42424,10 +42424,10 @@ function VercelNotion190Render() {
             </div>
           )}
 
-          {activeSection === 'notion' && (
+          {activeSection === 'workspace' && (
             <div>
               <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 20 }}>
-                <div style={{ fontSize: 18, fontWeight: 800, color: '#0f172a' }}>Notion 문서</div>
+                <div style={{ fontSize: 18, fontWeight: 800, color: '#0f172a' }}>WorkspaceEditor 문서</div>
                 <CounterBadge>{filteredPages.length}</CounterBadge>
               </div>
               {/* Pinned section */}
@@ -42481,47 +42481,47 @@ function VercelNotion190Render() {
   )
 }
 
-export const VercelNotion190Dashboard: StoryObj = {
-  name: 'Vercel + Notion — 배포 & 문서 통합 대시보드 (Cycle 190)',
+export const DeployPlatformWorkspaceEditor190Dashboard: StoryObj = {
+  name: 'DeployPlatform + WorkspaceEditor — 배포 & 문서 통합 대시보드 (Cycle 190)',
   parameters: {
     layout: 'fullscreen',
     docs: {
       description: {
-        story: 'Vercel 모노크롬 + Notion 문서 통합 대시보드. Vercel 다크 사이드바 + FloatingTextField 검색 + 배포 현황 카드 + Notion 문서 그리드. Switch 알림 토글 + CounterBadge 개수 표시.',
+        story: 'DeployPlatform 모노크롬 + WorkspaceEditor 문서 통합 대시보드. DeployPlatform 다크 사이드바 + FloatingTextField 검색 + 배포 현황 카드 + WorkspaceEditor 문서 그리드. Switch 알림 토글 + CounterBadge 개수 표시.',
       },
     },
   },
-  render: () => <VercelNotion190Render />,
+  render: () => <DeployPlatformWorkspaceEditor190Render />,
 }
 
-// ─── Cycle 191: Raycast Extensions + Mantine ────────────────────────────────
+// ─── Cycle 191: CommandPalette Extensions + AppUI ────────────────────────────────
 
-const RAYCAST_191_COMMANDS = [
+const LAUNCHER_191_COMMANDS = [
   { label: '새 프로젝트 생성', shortcut: '⌘N', icon: '✦', tag: '프로젝트' },
   { label: 'Git 브랜치 전환', shortcut: '⌘B', icon: '🔀', tag: 'Git' },
   { label: '배포 파이프라인 실행', shortcut: '⌘⇧D', icon: '🚀', tag: '배포' },
   { label: '컴포넌트 스토리 열기', shortcut: '⌘S', icon: '🧩', tag: 'Storybook' },
   { label: '디자인 토큰 편집', shortcut: '⌘T', icon: '🎨', tag: '디자인' },
   { label: '접근성 감사 실행', shortcut: '⌘A', icon: '♿', tag: '품질' },
-  { label: 'PR 리뷰 열기', shortcut: '⌘P', icon: '👁', tag: 'GitHub' },
+  { label: 'PR 리뷰 열기', shortcut: '⌘P', icon: '👁', tag: 'CodeHost' },
 ]
 
-const MANTINE_191_FEATURES = [
+const ACCESSIBLEKIT_191_FEATURES = [
   { id: 'autoSave', label: '자동 저장', desc: '30초마다 변경사항 저장', on: true },
   { id: 'livePreview', label: '실시간 미리보기', desc: '코드 변경 즉시 반영', on: true },
   { id: 'aiHint', label: 'AI 힌트', desc: 'prop 자동완성 AI 제안', on: false },
   { id: 'darkTheme', label: '다크 테마', desc: '어두운 에디터 색상', on: false },
 ]
 
-function RaycastMantine191Render() {
+function CommandPaletteAppUI191Render() {
   const [cmdQ, setCmdQ] = React.useState('')
   const [cmdOpen, setCmdOpen] = React.useState(false)
   const [lastCmd, setLastCmd] = React.useState<string | null>(null)
   const [features, setFeatures] = React.useState<Record<string, boolean>>(
-    Object.fromEntries(MANTINE_191_FEATURES.map((f) => [f.id, f.on]))
+    Object.fromEntries(ACCESSIBLEKIT_191_FEATURES.map((f) => [f.id, f.on]))
   )
 
-  const filteredCmds = RAYCAST_191_COMMANDS.filter(
+  const filteredCmds = LAUNCHER_191_COMMANDS.filter(
     (c) => c.label.toLowerCase().includes(cmdQ.toLowerCase()) || c.tag.toLowerCase().includes(cmdQ.toLowerCase())
   )
 
@@ -42538,7 +42538,7 @@ function RaycastMantine191Render() {
 
   return (
     <div style={{ display: 'flex', height: '100vh', fontFamily: 'system-ui, sans-serif', background: '#f8fafc' }}>
-      {/* Sidebar — Raycast dark */}
+      {/* Sidebar — CommandPalette dark */}
       <div style={{ width: 230, background: '#111', color: '#fff', display: 'flex', flexDirection: 'column', flexShrink: 0 }}>
         <div style={{ padding: '18px 16px 10px', display: 'flex', alignItems: 'center', gap: 8 }}>
           <span style={{ fontSize: 18, fontWeight: 900, color: '#fff', letterSpacing: '-0.05em' }}>⚡</span>
@@ -42553,8 +42553,8 @@ function RaycastMantine191Render() {
         </div>
         {/* Feature flag switches in sidebar */}
         <div style={{ padding: '12px 14px', borderTop: '1px solid #1f1f1f' }}>
-          <div style={{ fontSize: 9, fontWeight: 700, color: '#52525b', textTransform: 'uppercase', letterSpacing: '0.07em', marginBottom: 8 }}>Mantine 피처 플래그</div>
-          {MANTINE_191_FEATURES.map((f) => (
+          <div style={{ fontSize: 9, fontWeight: 700, color: '#52525b', textTransform: 'uppercase', letterSpacing: '0.07em', marginBottom: 8 }}>AppUI 피처 플래그</div>
+          {ACCESSIBLEKIT_191_FEATURES.map((f) => (
             <div key={f.id} style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 6 }}>
               <span style={{ fontSize: 10, color: features[f.id] ? '#d4d4d8' : '#52525b', flex: 1 }}>{f.label}</span>
               <Switch checked={features[f.id]} onChange={() => toggleFeature(f.id)} />
@@ -42589,7 +42589,7 @@ function RaycastMantine191Render() {
             <div style={{ marginBottom: 24, boxShadow: '0 8px 32px rgba(0,0,0,0.12)', borderRadius: 14, overflow: 'hidden' }}>
               <Command>
                 <Command.Input
-                  placeholder="명령어 검색... (Raycast 패턴)"
+                  placeholder="명령어 검색... (CommandPalette 패턴)"
                   value={cmdQ}
                   onValueChange={setCmdQ}
                 />
@@ -42610,12 +42610,12 @@ function RaycastMantine191Render() {
             </div>
           )}
 
-          {/* Feature flag cards — Mantine pattern */}
+          {/* Feature flag cards — AppUI pattern */}
           <div style={{ marginBottom: 24 }}>
-            <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a', marginBottom: 4 }}>Mantine 피처 플래그 설정</div>
+            <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a', marginBottom: 4 }}>AppUI 피처 플래그 설정</div>
             <div style={{ fontSize: 11, color: '#64748b', marginBottom: 16 }}>에디터 동작을 피처 플래그로 제어합니다</div>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
-              {MANTINE_191_FEATURES.map((f) => (
+              {ACCESSIBLEKIT_191_FEATURES.map((f) => (
                 <div
                   key={f.id}
                   style={{ background: '#fff', border: `1px solid ${features[f.id] ? '#bbf7d0' : '#e2e8f0'}`, borderRadius: 12, padding: '14px 16px', transition: 'border-color 200ms' }}
@@ -42637,7 +42637,7 @@ function RaycastMantine191Render() {
           <div>
             <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a', marginBottom: 12 }}>빠른 명령어</div>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 8 }}>
-              {RAYCAST_191_COMMANDS.map((cmd) => (
+              {LAUNCHER_191_COMMANDS.map((cmd) => (
                 <button
                   key={cmd.label}
                   onClick={() => runCmd(cmd.label)}
@@ -42658,22 +42658,22 @@ function RaycastMantine191Render() {
   )
 }
 
-export const RaycastMantine191DevToolsDashboard: StoryObj = {
-  name: 'Raycast + Mantine — 개발 도구 대시보드 (Cycle 191)',
+export const CommandPaletteAppUI191DevToolsDashboard: StoryObj = {
+  name: 'CommandPalette + AppUI — 개발 도구 대시보드 (Cycle 191)',
   parameters: {
     layout: 'fullscreen',
     docs: {
       description: {
-        story: 'Raycast 커맨드 팔레트 + Mantine 피처 플래그 스위치 통합 개발 도구 대시보드. Raycast 다크 사이드바 + Command 인라인 팔레트 + Switch 기반 피처 카드 그리드. ⌘K 토글로 커맨드 팔레트 열기/닫기.',
+        story: 'CommandPalette 커맨드 팔레트 + AppUI 피처 플래그 스위치 통합 개발 도구 대시보드. CommandPalette 다크 사이드바 + Command 인라인 팔레트 + Switch 기반 피처 카드 그리드. ⌘K 토글로 커맨드 팔레트 열기/닫기.',
       },
     },
   },
-  render: () => <RaycastMantine191Render />,
+  render: () => <CommandPaletteAppUI191Render />,
 }
 
-// ─── Cycle 192: Stripe + Linear — Subscription & Billing Center ────────────
+// ─── Cycle 192: Billing + IssueTracker — Subscription & Billing Center ────────────
 
-type StripeLinear192Plan = {
+type BillingIssueTracker192Plan = {
   id: string
   name: string
   price: number
@@ -42681,7 +42681,7 @@ type StripeLinear192Plan = {
   recommended?: boolean
 }
 
-type StripeLinear192Invoice = {
+type BillingIssueTracker192Invoice = {
   id: string
   number: string
   date: string
@@ -42690,7 +42690,7 @@ type StripeLinear192Invoice = {
   description: string
 }
 
-const STRIPE_LINEAR_192_PLANS: StripeLinear192Plan[] = [
+const BILLING_TRACKER_192_PLANS: BillingIssueTracker192Plan[] = [
   {
     id: 'starter',
     name: 'Starter',
@@ -42712,7 +42712,7 @@ const STRIPE_LINEAR_192_PLANS: StripeLinear192Plan[] = [
   },
 ]
 
-const STRIPE_LINEAR_192_INVOICES: StripeLinear192Invoice[] = [
+const BILLING_TRACKER_192_INVOICES: BillingIssueTracker192Invoice[] = [
   { id: 'in_001', number: 'INV-2026-0419', date: '2026-04-01', amount: 29, status: 'paid', description: 'Pro plan · April 2026' },
   { id: 'in_002', number: 'INV-2026-0318', date: '2026-03-01', amount: 29, status: 'paid', description: 'Pro plan · March 2026' },
   { id: 'in_003', number: 'INV-2026-0217', date: '2026-02-01', amount: 29, status: 'paid', description: 'Pro plan · February 2026' },
@@ -42721,14 +42721,14 @@ const STRIPE_LINEAR_192_INVOICES: StripeLinear192Invoice[] = [
   { id: 'in_006', number: 'INV-2025-1114', date: '2025-11-01', amount: 29, status: 'past_due', description: 'Pro plan · November 2025 (연체)' },
 ]
 
-const STRIPE_LINEAR_192_STATUS = {
+const BILLING_TRACKER_192_STATUS = {
   paid: { label: '결제완료', bg: 'rgba(16,185,129,0.10)', color: '#059669', dot: '#10b981' },
   open: { label: '결제대기', bg: 'rgba(59,130,246,0.10)', color: '#2563eb', dot: '#3b82f6' },
   past_due: { label: '연체', bg: 'rgba(239,68,68,0.10)', color: '#dc2626', dot: '#ef4444' },
   refunded: { label: '환불됨', bg: 'rgba(148,163,184,0.15)', color: '#64748b', dot: '#94a3b8' },
 } as const
 
-const STRIPE_LINEAR_192_NAV = [
+const BILLING_TRACKER_192_NAV = [
   { id: 'overview', label: '개요', icon: '○', shortcut: 'G then O' },
   { id: 'invoices', label: '인보이스', icon: '◫', shortcut: 'G then I' },
   { id: 'plans', label: '플랜', icon: '◈', shortcut: 'G then P' },
@@ -42736,23 +42736,23 @@ const STRIPE_LINEAR_192_NAV = [
   { id: 'usage', label: '사용량', icon: '◔', shortcut: 'G then U' },
 ] as const
 
-type StripeLinear192Section = (typeof STRIPE_LINEAR_192_NAV)[number]['id']
+type BillingIssueTracker192Section = (typeof BILLING_TRACKER_192_NAV)[number]['id']
 
-const StripeLinear192Render = () => {
-  const [section, setSection] = useState<StripeLinear192Section>('overview')
+const BillingIssueTracker192Render = () => {
+  const [section, setSection] = useState<BillingIssueTracker192Section>('overview')
   const [autoRenew, setAutoRenew] = useState(true)
   const [invoiceEmails, setInvoiceEmails] = useState(true)
   const [usageAlerts, setUsageAlerts] = useState(false)
   const [planModal, setPlanModal] = useState<string | null>(null)
 
-  const totalPaid = STRIPE_LINEAR_192_INVOICES.filter((i) => i.status === 'paid').reduce(
+  const totalPaid = BILLING_TRACKER_192_INVOICES.filter((i) => i.status === 'paid').reduce(
     (sum, i) => sum + i.amount,
     0
   )
 
-  const navJump = (id: StripeLinear192Section) => setSection(id)
+  const navJump = (id: BillingIssueTracker192Section) => setSection(id)
 
-  // Linear-style ⌘K hint chord (educational; no-op handler)
+  // IssueTracker-style ⌘K hint chord (educational; no-op handler)
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
       if (!(e.metaKey || e.ctrlKey)) return
@@ -42767,7 +42767,7 @@ const StripeLinear192Render = () => {
 
   return (
     <div style={{ display: 'flex', height: '100vh', background: '#fafbfc', fontFamily: 'Inter, system-ui, sans-serif' }}>
-      {/* ─── Linear-style sidebar ─── */}
+      {/* ─── IssueTracker-style sidebar ─── */}
       <aside style={{ width: 224, background: '#0e0f12', borderRight: '1px solid #1e1f24', display: 'flex', flexDirection: 'column' }}>
         <div style={{ padding: '16px 14px', borderBottom: '1px solid #1e1f24', display: 'flex', alignItems: 'center', gap: 8 }}>
           <div style={{ width: 24, height: 24, borderRadius: 6, background: 'linear-gradient(135deg,#6366f1 0%,#a855f7 100%)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: 11, fontWeight: 800 }}>OU</div>
@@ -42779,7 +42779,7 @@ const StripeLinear192Render = () => {
 
         <nav style={{ padding: '10px 8px', flex: 1 }} aria-label="Billing sections">
           <div style={{ fontSize: 9, fontWeight: 700, color: '#52525b', textTransform: 'uppercase', letterSpacing: '0.08em', padding: '8px 10px 4px' }}>Billing</div>
-          {STRIPE_LINEAR_192_NAV.map((item) => {
+          {BILLING_TRACKER_192_NAV.map((item) => {
             const active = section === item.id
             return (
               <button
@@ -42817,11 +42817,11 @@ const StripeLinear192Render = () => {
           })}
         </nav>
 
-        {/* Stripe-like trust footer */}
+        {/* Billing-like trust footer */}
         <div style={{ padding: '12px 14px', borderTop: '1px solid #1e1f24', fontSize: 10, color: '#52525b', lineHeight: 1.6 }}>
           <div style={{ color: '#a1a1aa', fontWeight: 600, marginBottom: 4, display: 'flex', alignItems: 'center', gap: 6 }}>
             <span style={{ display: 'inline-block', width: 6, height: 6, borderRadius: '50%', background: '#10b981' }} />
-            Stripe로 안전 결제
+            Billing로 안전 결제
           </div>
           PCI DSS Level 1 인증
           <br />
@@ -42835,7 +42835,7 @@ const StripeLinear192Render = () => {
           <div style={{ flex: 1 }}>
             <div style={{ fontSize: 11, color: '#71717a', marginBottom: 2 }}>설정 / 청구</div>
             <h1 style={{ margin: 0, fontSize: 17, fontWeight: 700, color: '#18181b', letterSpacing: '-0.01em' }}>
-              {STRIPE_LINEAR_192_NAV.find((n) => n.id === section)?.label}
+              {BILLING_TRACKER_192_NAV.find((n) => n.id === section)?.label}
             </h1>
           </div>
           <div style={{ fontSize: 11, color: '#71717a', display: 'flex', alignItems: 'center', gap: 6 }}>
@@ -42861,7 +42861,7 @@ const StripeLinear192Render = () => {
                 </SolidButton>
               </div>
 
-              {/* Stat tiles - Stripe style */}
+              {/* Stat tiles - Billing style */}
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 12 }}>
                 {[
                   { label: '이번 달 비용', value: `$${29}`, change: '0%', color: '#18181b' },
@@ -42878,7 +42878,7 @@ const StripeLinear192Render = () => {
                 ))}
               </div>
 
-              {/* Settings - Linear-style row toggles */}
+              {/* Settings - IssueTracker-style row toggles */}
               <div style={{ background: '#fff', border: '1px solid #e4e4e7', borderRadius: 12, padding: '6px 0' }}>
                 {[
                   { label: '자동 갱신', desc: '결제일에 자동으로 플랜을 갱신합니다.', value: autoRenew, set: setAutoRenew },
@@ -42925,8 +42925,8 @@ const StripeLinear192Render = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {STRIPE_LINEAR_192_INVOICES.map((inv, i, arr) => {
-                      const s = STRIPE_LINEAR_192_STATUS[inv.status]
+                    {BILLING_TRACKER_192_INVOICES.map((inv, i, arr) => {
+                      const s = BILLING_TRACKER_192_STATUS[inv.status]
                       return (
                         <tr key={inv.id} style={{ borderBottom: i < arr.length - 1 ? '1px solid #f4f4f5' : 'none', transition: 'background-color 120ms' }}>
                           <td style={{ padding: '12px 16px', fontSize: 12, fontWeight: 600, color: '#18181b', fontFamily: 'ui-monospace, monospace' }}>{inv.number}</td>
@@ -42963,7 +42963,7 @@ const StripeLinear192Render = () => {
                 <div style={{ fontSize: 11, color: '#71717a', marginTop: 2 }}>언제든지 업그레이드/다운그레이드할 수 있습니다.</div>
               </div>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 14 }}>
-                {STRIPE_LINEAR_192_PLANS.map((plan) => {
+                {BILLING_TRACKER_192_PLANS.map((plan) => {
                   const isCurrent = plan.id === 'pro'
                   return (
                     <div
@@ -43074,18 +43074,18 @@ const StripeLinear192Render = () => {
         </div>
       </div>
 
-      {/* Plan upgrade modal (Stripe pattern) */}
+      {/* Plan upgrade modal (Billing pattern) */}
       {planModal && (
         <div
           role="dialog"
           aria-modal="true"
-          aria-labelledby="stripe-linear-192-modal-title"
+          aria-labelledby="billing-tracker-192-modal-title"
           onClick={(e) => { if (e.target === e.currentTarget) setPlanModal(null) }}
           style={{ position: 'fixed', inset: 0, background: 'rgba(15,23,42,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 100 }}
         >
           <div style={{ background: '#fff', borderRadius: 14, padding: '24px 28px', maxWidth: 420, width: '100%', boxShadow: '0 24px 48px -12px rgba(0,0,0,0.3)' }}>
-            <div id="stripe-linear-192-modal-title" style={{ fontSize: 16, fontWeight: 700, color: '#18181b', marginBottom: 6 }}>
-              {STRIPE_LINEAR_192_PLANS.find((p) => p.id === planModal)?.name}로 업그레이드
+            <div id="billing-tracker-192-modal-title" style={{ fontSize: 16, fontWeight: 700, color: '#18181b', marginBottom: 6 }}>
+              {BILLING_TRACKER_192_PLANS.find((p) => p.id === planModal)?.name}로 업그레이드
             </div>
             <div style={{ fontSize: 12, color: '#71717a', marginBottom: 16, lineHeight: 1.6 }}>
               비례 청구로 전환됩니다. 다음 결제일에 차액이 자동 정산됩니다.
@@ -43101,16 +43101,16 @@ const StripeLinear192Render = () => {
   )
 }
 
-export const StripeLinear192SubscriptionCenter: StoryObj = {
-  name: 'Stripe + Linear — 결제 & 구독 센터 (Cycle 192)',
+export const BillingIssueTracker192SubscriptionCenter: StoryObj = {
+  name: 'Billing + IssueTracker — 결제 & 구독 센터 (Cycle 192)',
   parameters: {
     layout: 'fullscreen',
     docs: {
       description: {
         story:
-          'Stripe 청구/플랜 패턴 + Linear 다크 사이드바·키보드 chord 힌트 통합 결제 센터. 인보이스 테이블, 플랜 비교 카드, 결제 수단 관리, 사용량 미터, ⌘K 검색 단축키 hint, Switch 기반 청구 옵션, Modal 업그레이드 플로우. 새 motion/focus 토큰을 활용한 부드러운 전환과 키보드 접근성을 보여주는 데모.',
+          'Billing 청구/플랜 패턴 + IssueTracker 다크 사이드바·키보드 chord 힌트 통합 결제 센터. 인보이스 테이블, 플랜 비교 카드, 결제 수단 관리, 사용량 미터, ⌘K 검색 단축키 hint, Switch 기반 청구 옵션, Modal 업그레이드 플로우. 새 motion/focus 토큰을 활용한 부드러운 전환과 키보드 접근성을 보여주는 데모.',
       },
     },
   },
-  render: () => <StripeLinear192Render />,
+  render: () => <BillingIssueTracker192Render />,
 }

@@ -82,7 +82,7 @@ export const 디자인QA = {
       description: '두 번째 라디오 비활성화 여부',
     },
   },
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
+
   render: (args: any) => (
     <RadioGroup defaultValue="blue" name="color" {...args} disabled={args.disabledAll}>
       <div style={{ marginBottom: '25px' }}>첫 번째 라디오는 라벨이 없어요</div>
@@ -105,7 +105,7 @@ export const 디자인QA = {
   ),
 }
 
-/* ── Linear: 뷰 밀도 선택 ── */
+/* ── IssueTracker: 뷰 밀도 선택 ── */
 const DensityPickerDemo = () => {
   const [density, setDensity] = useState<'compact' | 'default' | 'comfortable'>('default')
 
@@ -179,12 +179,12 @@ const DensityPickerDemo = () => {
   )
 }
 
-export const Linear_뷰_밀도_선택: Story = {
-  name: 'Linear — 뷰 밀도 선택 (Compact/Default/Comfortable)',
+export const IssueTracker_뷰_밀도_선택: Story = {
+  name: 'IssueTracker — 뷰 밀도 선택 (Compact/Default/Comfortable)',
   render: () => <DensityPickerDemo />,
 }
 
-/* ── Linear: 테마/시스템 환경 설정 ── */
+/* ── IssueTracker: 테마/시스템 환경 설정 ── */
 const ThemePickerDemo = () => {
   const [theme, setTheme] = useState<'system' | 'light' | 'dark'>('system')
 
@@ -228,12 +228,12 @@ const ThemePickerDemo = () => {
   )
 }
 
-export const Linear_테마_선택: Story = {
-  name: 'Linear — 테마 선택 (System/Light/Dark)',
+export const IssueTracker_테마_선택: Story = {
+  name: 'IssueTracker — 테마 선택 (System/Light/Dark)',
   render: () => <ThemePickerDemo />,
 }
 
-/* ── Linear: 알림 우선순위 설정 ── */
+/* ── IssueTracker: 알림 우선순위 설정 ── */
 const NotifPriorityDemo = () => {
   const [priority, setPriority] = useState<string>('important')
 
@@ -282,12 +282,12 @@ const NotifPriorityDemo = () => {
   )
 }
 
-export const Linear_알림_우선순위: Story = {
-  name: 'Linear — 알림 우선순위 설정',
+export const IssueTracker_알림_우선순위: Story = {
+  name: 'IssueTracker — 알림 우선순위 설정',
   render: () => <NotifPriorityDemo />,
 }
 
-/* ── shadcn/ui: 카드형 플랜 선택 ── */
+/* ── ComposableUI: 카드형 플랜 선택 ── */
 const PlanPickerDemo = () => {
   const [plan, setPlan] = useState<'free' | 'pro' | 'enterprise'>('pro')
 
@@ -321,7 +321,7 @@ const PlanPickerDemo = () => {
   return (
     <div style={{ maxWidth: 520 }}>
       <div style={{ fontSize: 18, fontWeight: 800, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 4 }}>플랜 선택</div>
-      <div style={{ fontSize: 14, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginBottom: 20 }}>shadcn/ui 카드형 라디오 패턴 — 풍부한 시각 피드백</div>
+      <div style={{ fontSize: 14, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginBottom: 20 }}>ComposableUI 카드형 라디오 패턴 — 풍부한 시각 피드백</div>
       <RadioGroup value={plan} onChange={(e) => setPlan(e.target.value as typeof plan)} name="plan">
         <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
           {plans.map((p) => {
@@ -371,12 +371,12 @@ const PlanPickerDemo = () => {
   )
 }
 
-export const Shadcn_카드형_플랜_선택: Story = {
-  name: 'shadcn/ui — 카드형 플랜 선택',
+export const ComposableUI_카드형_플랜_선택: Story = {
+  name: 'ComposableUI — 카드형 플랜 선택',
   render: () => <PlanPickerDemo />,
 }
 
-/* ── shadcn/ui: 폼 통합 결제 주기 선택 ── */
+/* ── ComposableUI: 폼 통합 결제 주기 선택 ── */
 const BillingCycleDemo = () => {
   const [cycle, setCycle] = useState<'monthly' | 'yearly'>('yearly')
   const [submitted, setSubmitted] = useState(false)
@@ -389,7 +389,7 @@ const BillingCycleDemo = () => {
   return (
     <div style={{ maxWidth: 380 }}>
       <div style={{ fontSize: 16, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 4 }}>결제 주기</div>
-      <div style={{ fontSize: 13, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginBottom: 16 }}>shadcn/ui 폼 통합 + 유효성 표시 패턴</div>
+      <div style={{ fontSize: 13, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginBottom: 16 }}>ComposableUI 폼 통합 + 유효성 표시 패턴</div>
       {submitted ? (
         <div style={{ padding: '20px', textAlign: 'center', borderRadius: 10, background: '#f0fdf4', border: '1.5px solid #86efac' }}>
           <div style={{ fontSize: 24, marginBottom: 8 }}>✓</div>
@@ -436,17 +436,17 @@ const BillingCycleDemo = () => {
   )
 }
 
-export const Shadcn_폼_결제_주기_선택: Story = {
-  name: 'shadcn/ui — 폼 통합 결제 주기 선택',
+export const ComposableUI_폼_결제_주기_선택: Story = {
+  name: 'ComposableUI — 폼 통합 결제 주기 선택',
   render: () => <BillingCycleDemo />,
 }
 
-/* ── shadcn/ui: 수평 아이콘 배지 옵션 선택 ── */
+/* ── ComposableUI: 수평 아이콘 배지 옵션 선택 ── */
 const DeployTargetDemo = () => {
-  const [target, setTarget] = useState<string>('vercel')
+  const [target, setTarget] = useState<string>('deploy')
 
   const targets: { value: string; label: string; icon: string; badge: string; desc: string }[] = [
-    { value: 'vercel', label: 'Vercel', icon: '▲', badge: '권장', desc: 'Zero-config 배포 & Edge Network' },
+    { value: 'deploy', label: 'DeployPlatform', icon: '▲', badge: '권장', desc: 'Zero-config 배포 & Edge Network' },
     { value: 'netlify', label: 'Netlify', icon: '◆', badge: '', desc: 'JAMstack 특화 정적 배포' },
     { value: 'aws', label: 'AWS Amplify', icon: '⬡', badge: '', desc: '엔터프라이즈급 확장성' },
     { value: 'cloudflare', label: 'Cloudflare Pages', icon: '☁', badge: '무료', desc: 'CDN 통합 글로벌 엣지' },
@@ -455,7 +455,7 @@ const DeployTargetDemo = () => {
   return (
     <div style={{ maxWidth: 440 }}>
       <div style={{ fontSize: 16, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 4 }}>배포 대상</div>
-      <div style={{ fontSize: 13, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginBottom: 16 }}>shadcn/ui 수평 아이콘 + 배지 결합 패턴</div>
+      <div style={{ fontSize: 13, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginBottom: 16 }}>ComposableUI 수평 아이콘 + 배지 결합 패턴</div>
       <RadioGroup value={target} onChange={(e) => setTarget(e.target.value)} name="deploy-target">
         <div style={{ display: 'flex', flexDirection: 'column', gap: 0, border: '1px solid var(--sem-eclipse-color-borderDefault)', borderRadius: 10, overflow: 'hidden' }}>
           {targets.map((t, i) => (
@@ -495,8 +495,8 @@ const DeployTargetDemo = () => {
   )
 }
 
-export const Shadcn_배포_대상_선택: Story = {
-  name: 'shadcn/ui — 배포 대상 선택 (아이콘+배지)',
+export const ComposableUI_배포_대상_선택: Story = {
+  name: 'ComposableUI — 배포 대상 선택 (아이콘+배지)',
   render: () => <DeployTargetDemo />,
 }
 
@@ -663,8 +663,8 @@ export const Ant_카드형_선택_그리드: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Vercel 벤치마크: 배포 리전 선택
-   Vercel Serverless Functions Region 설정 패턴
+   DeployPlatform 벤치마크: 배포 리전 선택
+   DeployPlatform Serverless Functions Region 설정 패턴
 -------------------------------------------------------------------------- */
 type DeployRegion95 = { value: string; label: string; location: string; latency: string; recommended: boolean }
 
@@ -676,7 +676,7 @@ const DEPLOY_REGIONS: DeployRegion95[] = [
   { value: 'icn1',  label: 'Seoul, South Korea',           location: 'Asia Pacific',  latency: '25ms',  recommended: false },
 ]
 
-const VercelRegionSelectDemo = () => {
+const DeployPlatformRegionSelectDemo = () => {
   const [region, setRegion] = useState('iad1')
 
   return (
@@ -725,23 +725,23 @@ const VercelRegionSelectDemo = () => {
   )
 }
 
-export const Vercel_배포_리전_선택: Story = {
-  name: 'Vercel - 서버리스 함수 배포 리전 선택 패턴',
+export const DeployPlatform_배포_리전_선택: Story = {
+  name: 'DeployPlatform - 서버리스 함수 배포 리전 선택 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'Vercel Serverless Functions Region 설정 패턴. 각 리전에 위치, 지연 시간, 권장 태그를 함께 표시하고 ' +
+          'DeployPlatform Serverless Functions Region 설정 패턴. 각 리전에 위치, 지연 시간, 권장 태그를 함께 표시하고 ' +
           '선택 시 카드 전체에 강조 테두리를 적용합니다.',
       },
     },
   },
-  render: () => <VercelRegionSelectDemo />,
+  render: () => <DeployPlatformRegionSelectDemo />,
 }
 
 /* --------------------------------------------------------------------------
-   Vercel 벤치마크: 빌드 전략 선택
-   Vercel Build & Development Settings 패턴 — 빌드 방식 라디오 선택
+   DeployPlatform 벤치마크: 빌드 전략 선택
+   DeployPlatform Build & Development Settings 패턴 — 빌드 방식 라디오 선택
 -------------------------------------------------------------------------- */
 type BuildStrategy95 = { value: string; label: string; desc: string; icon: string; recommended: boolean }
 
@@ -751,7 +751,7 @@ const BUILD_STRATEGIES: BuildStrategy95[] = [
   { value: 'skip',     label: '빌드 건너뛰기',    desc: '이미 빌드된 정적 파일을 직접 배포합니다.',              icon: '⏭', recommended: false },
 ]
 
-const VercelBuildStrategyDemo = () => {
+const DeployPlatformBuildStrategyDemo = () => {
   const [strategy, setStrategy] = useState('auto')
 
   return (
@@ -794,23 +794,23 @@ const VercelBuildStrategyDemo = () => {
   )
 }
 
-export const Vercel_빌드_전략_선택: Story = {
-  name: 'Vercel - 빌드 전략 라디오 선택 패턴',
+export const DeployPlatform_빌드_전략_선택: Story = {
+  name: 'DeployPlatform - 빌드 전략 라디오 선택 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'Vercel Build & Development Settings 패턴. 아이콘 + 제목 + 설명으로 구성된 카드형 라디오 옵션으로 ' +
+          'DeployPlatform Build & Development Settings 패턴. 아이콘 + 제목 + 설명으로 구성된 카드형 라디오 옵션으로 ' +
           '빌드 방식을 선택합니다. 선택 시 전체 카드에 강조 효과를 적용합니다.',
       },
     },
   },
-  render: () => <VercelBuildStrategyDemo />,
+  render: () => <DeployPlatformBuildStrategyDemo />,
 }
 
 /* --------------------------------------------------------------------------
-   Vercel 벤치마크: 노드 런타임 버전 선택
-   Vercel Node.js Version 설정 패턴 — 버전별 지원 기간 표시 라디오 선택
+   DeployPlatform 벤치마크: 노드 런타임 버전 선택
+   DeployPlatform Node.js Version 설정 패턴 — 버전별 지원 기간 표시 라디오 선택
 -------------------------------------------------------------------------- */
 type NodeVersion95 = { value: string; label: string; lts: boolean; eol: string; status: 'recommended' | 'lts' | 'deprecated' }
 
@@ -826,7 +826,7 @@ const STATUS_BADGE_STYLE: Record<NodeVersion95['status'], { label: string; color
   deprecated:  { label: 'Deprecated',  color: '#ef4444', bg: '#fef2f2' },
 }
 
-const VercelNodeVersionDemo = () => {
+const DeployPlatformNodeVersionDemo = () => {
   const [version, setVersion] = useState('20.x')
 
   return (
@@ -880,22 +880,22 @@ const VercelNodeVersionDemo = () => {
   )
 }
 
-export const Vercel_노드_버전_선택: Story = {
-  name: 'Vercel - Node.js 런타임 버전 선택 패턴',
+export const DeployPlatform_노드_버전_선택: Story = {
+  name: 'DeployPlatform - Node.js 런타임 버전 선택 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'Vercel Node.js Version 설정 패턴. LTS/권장/지원종료 상태 배지를 각 버전에 표시하고, ' +
+          'DeployPlatform Node.js Version 설정 패턴. LTS/권장/지원종료 상태 배지를 각 버전에 표시하고, ' +
           'Deprecated 버전은 비활성화합니다. 특정 선택 시 업그레이드 경고 메시지를 인라인 표시합니다.',
       },
     },
   },
-  render: () => <VercelNodeVersionDemo />,
+  render: () => <DeployPlatformNodeVersionDemo />,
 }
 
 /* --------------------------------------------------------------------------
-   Cycle 187 — Linear Design + shadcn/ui
+   Cycle 187 — IssueTracker Design + ComposableUI
 -------------------------------------------------------------------------- */
 const MEMBER_ROLES_187 = [
   { value: 'owner', label: 'Owner', desc: '모든 설정 및 멤버 관리 권한', icon: '👑' },
@@ -904,13 +904,13 @@ const MEMBER_ROLES_187 = [
   { value: 'viewer', label: 'Viewer', desc: '읽기 전용 접근', icon: '👁' },
 ]
 
-function ShadcnRoleSelectRender() {
+function ComposableUIRoleSelectRender() {
   const [role, setRole] = useState('member')
   return (
     <div style={{ width: 420, fontFamily: 'system-ui, sans-serif' }}>
       <div style={{ marginBottom: 12 }}>
         <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>멤버 역할 선택</div>
-        <div style={{ fontSize: 12, color: '#64748b', marginTop: 2 }}>shadcn/ui 카드형 라디오 선택 패턴</div>
+        <div style={{ fontSize: 12, color: '#64748b', marginTop: 2 }}>ComposableUI 카드형 라디오 선택 패턴</div>
       </div>
       <RadioGroup value={role} onChange={(e) => setRole(e.target.value)} name="member-role">
         <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
@@ -946,35 +946,35 @@ function ShadcnRoleSelectRender() {
   )
 }
 
-export const Shadcn_카드형_역할_선택: Story = {
-  name: 'shadcn/ui — 카드형 멤버 역할 선택',
+export const ComposableUI_카드형_역할_선택: Story = {
+  name: 'ComposableUI — 카드형 멤버 역할 선택',
   parameters: {
     docs: {
       description: {
         story:
-          'shadcn/ui 카드형 RadioGroup 패턴. 각 옵션을 카드로 표현하고 선택 시 테두리·배경 강조. ' +
+          'ComposableUI 카드형 RadioGroup 패턴. 각 옵션을 카드로 표현하고 선택 시 테두리·배경 강조. ' +
           '아이콘 + 제목 + 설명 3단 레이아웃으로 역할을 명확하게 전달합니다.',
       },
     },
   },
-  render: () => <ShadcnRoleSelectRender />,
+  render: () => <ComposableUIRoleSelectRender />,
 }
 
-const LINEAR_ISSUE_TYPES_187 = [
+const TRACKER_ISSUE_TYPES_187 = [
   { value: 'bug', label: '버그', shortcut: 'B', color: '#ef4444' },
   { value: 'feature', label: '기능', shortcut: 'F', color: '#3b82f6' },
   { value: 'improvement', label: '개선', shortcut: 'I', color: '#10b981' },
   { value: 'docs', label: '문서', shortcut: 'D', color: '#8b5cf6' },
 ]
 
-function LinearIssueTypeRender() {
+function IssueTrackerIssueTypeRender() {
   const [type, setType] = useState('feature')
   return (
     <div style={{ width: 340, fontFamily: '"Inter", system-ui, sans-serif' }}>
       <div style={{ fontSize: 11, fontWeight: 600, color: '#6b7280', letterSpacing: '0.05em', marginBottom: 10, textTransform: 'uppercase' }}>이슈 유형</div>
       <RadioGroup value={type} onChange={(e) => setType(e.target.value)} name="issue-type">
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 6 }}>
-          {LINEAR_ISSUE_TYPES_187.map((t) => (
+          {TRACKER_ISSUE_TYPES_187.map((t) => (
             <div
               key={t.value}
               onClick={() => setType(t.value)}
@@ -995,34 +995,34 @@ function LinearIssueTypeRender() {
         </div>
       </RadioGroup>
       <div style={{ marginTop: 12, padding: '7px 10px', borderRadius: 6, background: '#f9fafb', border: '1px solid #f3f4f6', fontSize: 11, color: '#374151', display: 'flex', alignItems: 'center', gap: 6 }}>
-        <div style={{ width: 6, height: 6, borderRadius: '50%', background: LINEAR_ISSUE_TYPES_187.find((t) => t.value === type)?.color }} />
-        <span>{LINEAR_ISSUE_TYPES_187.find((t) => t.value === type)?.label} 유형으로 생성됩니다</span>
+        <div style={{ width: 6, height: 6, borderRadius: '50%', background: TRACKER_ISSUE_TYPES_187.find((t) => t.value === type)?.color }} />
+        <span>{TRACKER_ISSUE_TYPES_187.find((t) => t.value === type)?.label} 유형으로 생성됩니다</span>
       </div>
     </div>
   )
 }
 
-export const Linear_이슈_유형_선택: Story = {
-  name: 'Linear — 이슈 유형 컴팩트 그리드 선택',
+export const IssueTracker_이슈_유형_선택: Story = {
+  name: 'IssueTracker — 이슈 유형 컴팩트 그리드 선택',
   parameters: {
     docs: {
       description: {
         story:
-          'Linear Design 컴팩트 라디오 그리드 패턴. 2열 그리드 배치 + 키보드 단축키 뱃지 + 색상 도트로 ' +
+          'IssueTracker Design 컴팩트 라디오 그리드 패턴. 2열 그리드 배치 + 키보드 단축키 뱃지 + 색상 도트로 ' +
           '이슈 유형을 고밀도 UI로 표현합니다. 선택 시 해당 색상으로 테두리와 배경이 변경됩니다.',
       },
     },
   },
-  render: () => <LinearIssueTypeRender />,
+  render: () => <IssueTrackerIssueTypeRender />,
 }
 
-const SHADCN_LINEAR_PLANS_187 = [
+const UTILITYUI_TRACKER_PLANS_187 = [
   { value: 'hobby', label: 'Hobby', price: '무료', features: ['3개 프로젝트', '1명', '기본 스토리지'], highlight: false },
   { value: 'pro', label: 'Pro', price: '₩15,000/월', features: ['무제한 프로젝트', '10명', '50GB 스토리지'], highlight: true },
   { value: 'team', label: 'Team', price: '₩45,000/월', features: ['무제한 프로젝트', '무제한', '200GB 스토리지'], highlight: false },
 ]
 
-function ShadcnLinearPricingRender() {
+function ComposableUIIssueTrackerPricingRender() {
   const [plan, setPlan] = useState('pro')
   const [billing, setBilling] = useState('yearly')
   return (
@@ -1052,7 +1052,7 @@ function ShadcnLinearPricingRender() {
       </div>
       <RadioGroup value={plan} onChange={(e) => setPlan(e.target.value)} name="pricing-plan">
         <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-          {SHADCN_LINEAR_PLANS_187.map((p) => (
+          {UTILITYUI_TRACKER_PLANS_187.map((p) => (
             <div
               key={p.value}
               onClick={() => setPlan(p.value)}
@@ -1084,16 +1084,16 @@ function ShadcnLinearPricingRender() {
   )
 }
 
-export const Shadcn_Linear_가격_플랜_선택: Story = {
-  name: 'shadcn/ui + Linear — 가격 플랜 선택 패턴',
+export const ComposableUI_IssueTracker_가격_플랜_선택: Story = {
+  name: 'ComposableUI + IssueTracker — 가격 플랜 선택 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'shadcn/ui + Linear Design 복합 패턴. 월간/연간 청구 주기 토글 + 3단계 가격 플랜 카드 선택. ' +
+          'ComposableUI + IssueTracker Design 복합 패턴. 월간/연간 청구 주기 토글 + 3단계 가격 플랜 카드 선택. ' +
           '연간 선택 시 할인 배지 노출, 추천 플랜에 강조 테두리와 "인기" 뱃지를 표시합니다.',
       },
     },
   },
-  render: () => <ShadcnLinearPricingRender />,
+  render: () => <ComposableUIIssueTrackerPricingRender />,
 }

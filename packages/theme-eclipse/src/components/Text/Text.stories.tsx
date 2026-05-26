@@ -119,7 +119,7 @@ export const 디자인_QA = {
       options: ['xSmall', 'small', 'medium', 'large', 'xLarge', 'xxLarge', 'xxxLarge'],
     },
   },
-   
+
   render: ({ baseSize, children, textStyle, ...rest }: any) => {
     return (
       <EclipseProvider baseTextSize={baseSize as TextStyleBaseSize}>
@@ -132,10 +132,10 @@ export const 디자인_QA = {
 }
 
 /* --------------------------------------------------------------------------
-   Notion 벤치마크: 타이포그래피 계층 시연
-   Notion 페이지 스타일 — 계층화된 문서 타이포그래피
+   WorkspaceEditor 벤치마크: 타이포그래피 계층 시연
+   WorkspaceEditor 페이지 스타일 — 계층화된 문서 타이포그래피
 -------------------------------------------------------------------------- */
-const NOTION_SECTIONS = [
+const WORKSPACE_SECTIONS = [
   {
     style: 'subheadingLarge',
     text: 'Orbit UI 디자인 시스템',
@@ -163,8 +163,8 @@ const NOTION_SECTIONS = [
   },
 ] as const
 
-export const Notion_타이포그래피_계층 = {
-  name: 'Notion - 타이포그래피 계층 시연',
+export const WorkspaceEditor_타이포그래피_계층 = {
+  name: 'WorkspaceEditor - 타이포그래피 계층 시연',
   render: () => (
     <div
       style={{
@@ -176,7 +176,7 @@ export const Notion_타이포그래피_계층 = {
       }}
     >
       <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-        {NOTION_SECTIONS.map((section) => (
+        {WORKSPACE_SECTIONS.map((section) => (
           <React.Fragment key={section.style}>
             <Text
               textStyle={section.style as string}
@@ -203,8 +203,8 @@ export const Notion_타이포그래피_계층 = {
 }
 
 /* --------------------------------------------------------------------------
-   Figma Plugin 벤치마크: 컴팩트 속성 패널 텍스트
-   Figma 속성 패널 스타일 — 고밀도 레이블/값 쌍 레이아웃
+   DesignTool Plugin 벤치마크: 컴팩트 속성 패널 텍스트
+   DesignTool 속성 패널 스타일 — 고밀도 레이블/값 쌍 레이아웃
 -------------------------------------------------------------------------- */
 const PROPERTIES = [
   { label: 'Width', value: '320px' },
@@ -218,8 +218,8 @@ const PROPERTIES = [
   { label: 'Line Height', value: '1.6' },
 ]
 
-export const Figma_컴팩트_속성_패널 = {
-  name: 'Figma Plugin - 컴팩트 속성 패널 텍스트',
+export const DesignTool_컴팩트_속성_패널 = {
+  name: 'DesignTool Plugin - 컴팩트 속성 패널 텍스트',
   render: () => (
     <div
       style={{
@@ -269,8 +269,8 @@ export const Figma_컴팩트_속성_패널 = {
 }
 
 /* --------------------------------------------------------------------------
-   Google Material 3 벤치마크: 타입 스케일 롤 시연
-   Material 3 TypeScale — Display, Headline, Body, Label 롤 비교
+   RoleToken Design 벤치마크: 타입 스케일 롤 시연
+   RoleToken Design TypeScale — Display, Headline, Body, Label 롤 비교
 -------------------------------------------------------------------------- */
 const M3_TYPE_ROLES = [
   { m3Role: 'Display Large', orbitStyle: 'subheadingLarge', desc: 'Hero, 랜딩 페이지 메인 헤드라인' },
@@ -280,11 +280,11 @@ const M3_TYPE_ROLES = [
   { m3Role: 'Label Small', orbitStyle: 'descriptionSmall', desc: '캡션, 메타 정보' },
 ] as const
 
-// ─── Linear Design 벤치마크: 이슈 리스트 타이포그래피 ────────────────────────
-// Linear 이슈 목록의 핵심: 제목은 굵게, 메타(담당자/날짜/우선순위)는 작고 흐리게.
+// ─── IssueTracker Design 벤치마크: 이슈 리스트 타이포그래피 ────────────────────────
+// IssueTracker 이슈 목록의 핵심: 제목은 굵게, 메타(담당자/날짜/우선순위)는 작고 흐리게.
 // 모든 정보가 한 줄에 담기는 고밀도 패턴이 특징입니다.
 
-const LINEAR_ISSUES = [
+const TRACKER_ISSUES = [
   { id: 'ORB-341', title: 'CounterBadge max 처리 로직 추가', status: '진행중', priority: 'High', assignee: 'HK', date: '오늘', statusColor: '#6366f1' },
   { id: 'ORB-340', title: 'Text 컴포넌트 lineClamp prop 지원', status: 'Todo', priority: 'Medium', assignee: 'SL', date: '어제', statusColor: '#94a3b8' },
   { id: 'ORB-339', title: 'EclipseProvider 다크모드 초기값 버그', status: '검토', priority: 'Urgent', assignee: 'JP', date: '3일 전', statusColor: '#f59e0b' },
@@ -293,8 +293,8 @@ const LINEAR_ISSUES = [
 
 const PRIORITY_COLOR = { Urgent: '#ef4444', High: '#f59e0b', Medium: '#6366f1', Low: '#94a3b8' } as const
 
-export const Linear_이슈_리스트_타이포: Story = {
-  name: 'Linear Design - 이슈 리스트 타이포그래피 패턴',
+export const IssueTracker_이슈_리스트_타이포: Story = {
+  name: 'IssueTracker Design - 이슈 리스트 타이포그래피 패턴',
   render: () => (
     <div
       style={{
@@ -306,7 +306,7 @@ export const Linear_이슈_리스트_타이포: Story = {
         fontFamily: 'system-ui, sans-serif',
       }}
     >
-      {LINEAR_ISSUES.map((issue, i) => (
+      {TRACKER_ISSUES.map((issue, i) => (
         <div
           key={issue.id}
           style={{
@@ -314,7 +314,7 @@ export const Linear_이슈_리스트_타이포: Story = {
             alignItems: 'center',
             gap: 10,
             padding: '9px 14px',
-            borderBottom: i < LINEAR_ISSUES.length - 1 ? '1px solid #f8fafc' : 'none',
+            borderBottom: i < TRACKER_ISSUES.length - 1 ? '1px solid #f8fafc' : 'none',
             cursor: 'pointer',
           }}
           onMouseEnter={(e) => { (e.currentTarget as HTMLDivElement).style.background = '#f8fafc' }}
@@ -360,8 +360,8 @@ export const Linear_이슈_리스트_타이포: Story = {
   ),
 }
 
-// ─── Arco Design 벤치마크: 정보 밀도 레이아웃 ───────────────────────────────
-// Arco Design Description 컴포넌트 패턴:
+// ─── DataProductUI 벤치마크: 정보 밀도 레이아웃 ───────────────────────────────
+// DataProductUI Description 컴포넌트 패턴:
 // 레이블(회색) + 값(검정) 쌍을 그리드로 배치하는 정보 밀도 높은 레이아웃입니다.
 
 const ARCO_DEPLOY_INFO = [
@@ -377,8 +377,8 @@ const ARCO_DEPLOY_INFO = [
   { label: '브랜치', value: 'main' },
 ] as const
 
-export const Arco_정보_밀도_레이아웃: Story = {
-  name: 'Arco Design - Description 정보 밀도 레이아웃',
+export const DataProduct_정보_밀도_레이아웃: Story = {
+  name: 'DataProductUI - Description 정보 밀도 레이아웃',
   render: () => (
     <div
       style={{
@@ -436,17 +436,17 @@ export const Arco_정보_밀도_레이아웃: Story = {
   ),
 }
 
-// ─── Linear Design 벤치마크: 변경 이력 타이포그래피 ─────────────────────────
-// Linear의 Changelog 페이지 패턴: 버전 헤더 + 날짜 + 변경 항목 불릿 리스트.
+// ─── IssueTracker Design 벤치마크: 변경 이력 타이포그래피 ─────────────────────────
+// IssueTracker의 Changelog 페이지 패턴: 버전 헤더 + 날짜 + 변경 항목 불릿 리스트.
 // 제목은 굵고 크게, 날짜는 작고 흐리게, 항목은 중간 크기 consistent 텍스트로 구성됩니다.
 
-const LINEAR_CHANGELOG = [
+const TRACKER_CHANGELOG = [
   {
     version: 'v2.0.0-beta.16',
     date: '2026-04-10',
     items: [
       { type: 'feat', text: 'FileBrowser 템플릿 — 그리드/목록 뷰 전환, 즐겨찾기, 다중 선택' },
-      { type: 'feat', text: 'SearchBar — Chakra 실시간 사용자 검색, M3 스코프 전환 패턴' },
+      { type: 'feat', text: 'SearchBar — Accessible 실시간 사용자 검색, M3 스코프 전환 패턴' },
       { type: 'fix', text: 'Toggle — 온보딩 기능 토글 카드 클릭 영역 개선' },
     ],
   },
@@ -455,8 +455,8 @@ const LINEAR_CHANGELOG = [
     date: '2026-04-09',
     items: [
       { type: 'feat', text: 'NotifCenter 템플릿 — 카테고리 탭, 미읽음 필터, 알림 삭제' },
-      { type: 'feat', text: 'Checkbox — Tailwind 플랜 기능 선택, Mantine 컬럼 표시 설정' },
-      { type: 'docs', text: 'AccessibilityGuide.mdx — Tailwind UI + Mantine 접근성 벤치마크' },
+      { type: 'feat', text: 'Checkbox — UtilityCSS 플랜 기능 선택, AppUI 컬럼 표시 설정' },
+      { type: 'docs', text: 'AccessibilityGuide.mdx — UtilityUI + AppUI 접근성 벤치마크' },
     ],
   },
 ] as const
@@ -464,8 +464,8 @@ const LINEAR_CHANGELOG = [
 const CHANGE_TYPE_COLOR = { feat: '#10b981', fix: '#ef4444', docs: '#3b82f6' } as const
 const CHANGE_TYPE_LABEL = { feat: '기능', fix: '수정', docs: '문서' } as const
 
-export const Linear_변경_이력_타이포: Story = {
-  name: 'Linear Design - Changelog 변경 이력 타이포그래피',
+export const IssueTracker_변경_이력_타이포: Story = {
+  name: 'IssueTracker Design - Changelog 변경 이력 타이포그래피',
   render: () => (
     <div
       style={{
@@ -476,7 +476,7 @@ export const Linear_변경_이력_타이포: Story = {
         gap: 32,
       }}
     >
-      {LINEAR_CHANGELOG.map((release) => (
+      {TRACKER_CHANGELOG.map((release) => (
         <div key={release.version}>
           <div style={{ display: 'flex', alignItems: 'baseline', gap: 12, marginBottom: 12 }}>
             <Text textStyle="subheadingSmall" style={{ fontWeight: 800, letterSpacing: '-0.02em', color: '#0f172a' }}>
@@ -526,11 +526,11 @@ export const Linear_변경_이력_타이포: Story = {
 }
 
 export const Material3_타입_스케일_비교 = {
-  name: 'Material 3 - TypeScale 역할 비교',
+  name: 'RoleToken Design - TypeScale 역할 비교',
   render: () => (
     <div style={{ maxWidth: 520 }}>
       <div style={{ marginBottom: 16 }}>
-        <Text textStyle="subheadingSmall">Material 3 TypeScale → Orbit UI TextStyle 매핑</Text>
+        <Text textStyle="subheadingSmall">RoleToken Design TypeScale → Orbit UI TextStyle 매핑</Text>
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
         {M3_TYPE_ROLES.map((role, i) => (
@@ -562,9 +562,9 @@ export const Material3_타입_스케일_비교 = {
   ),
 }
 
-// --- Cycle 74: Arco Design + Linear 벤치마크 ---
+// --- Cycle 74: DataProductUI + IssueTracker 벤치마크 ---
 
-const ArcoDataTableTextRender = () => {
+const DataProductDataTableTextRender = () => {
   const ROWS = [
     { name: '김혜준', role: '디자이너', team: '서울팀', status: 'active', joined: '2023-03-15' },
     { name: '이준호', role: '프론트엔드', team: '서울팀', status: 'active', joined: '2022-11-01' },
@@ -620,20 +620,20 @@ const ArcoDataTableTextRender = () => {
   )
 }
 
-export const Arco_데이터_테이블_타이포: StoryObj<typeof meta> = {
-  name: 'Arco Design - 데이터 테이블 타이포그래피 계층',
+export const DataProduct_데이터_테이블_타이포: StoryObj<typeof meta> = {
+  name: 'DataProductUI - 데이터 테이블 타이포그래피 계층',
   parameters: {
     docs: {
       description: {
         story:
-          'Arco Design Table 타이포그래피 패턴 벤치마크. 테이블 헤더(labelSmall), 데이터 셀(bodySmall/bodyMedium), 제목(titleSmall), 부제(bodySmall onSurfaceVariant) 계층 적용.',
+          'DataProductUI Table 타이포그래피 패턴 벤치마크. 테이블 헤더(labelSmall), 데이터 셀(bodySmall/bodyMedium), 제목(titleSmall), 부제(bodySmall onSurfaceVariant) 계층 적용.',
       },
     },
   },
-  render: () => <ArcoDataTableTextRender />,
+  render: () => <DataProductDataTableTextRender />,
 }
 
-const LinearIssueDetailTextRender = () => {
+const IssueTrackerIssueDetailTextRender = () => {
   return (
     <div style={{ width: 520, fontFamily: 'system-ui, sans-serif', padding: '0 2px' }}>
       <div style={{ marginBottom: 20 }}>
@@ -691,20 +691,20 @@ const LinearIssueDetailTextRender = () => {
   )
 }
 
-export const Linear_이슈_상세_타이포: StoryObj<typeof meta> = {
-  name: 'Linear - 이슈 상세 뷰 타이포그래피',
+export const IssueTracker_이슈_상세_타이포: StoryObj<typeof meta> = {
+  name: 'IssueTracker - 이슈 상세 뷰 타이포그래피',
   parameters: {
     docs: {
       description: {
         story:
-          'Linear 이슈 상세 페이지 타이포그래피 패턴. 이슈 번호(monospace labelSmall), 제목(headlineSmall), 본문(bodyMedium), 메타 정보(labelSmall+bodySmall), 코드 인라인 강조 계층.',
+          'IssueTracker 이슈 상세 페이지 타이포그래피 패턴. 이슈 번호(monospace labelSmall), 제목(headlineSmall), 본문(bodyMedium), 메타 정보(labelSmall+bodySmall), 코드 인라인 강조 계층.',
       },
     },
   },
-  render: () => <LinearIssueDetailTextRender />,
+  render: () => <IssueTrackerIssueDetailTextRender />,
 }
 
-const ArcoLinearReadmeTextRender = () => {
+const DataProductIssueTrackerReadmeTextRender = () => {
   return (
     <div style={{ width: 560, fontFamily: 'system-ui, sans-serif', maxWidth: '100%' }}>
       <div style={{ marginBottom: 6 }}>
@@ -712,7 +712,7 @@ const ArcoLinearReadmeTextRender = () => {
       </div>
       <div style={{ marginBottom: 20 }}>
         <Text textStyle="bodyLarge" color="onSurfaceVariant">
-          Figma 기반 React 디자인 시스템 — Base → Theme → Custom 3-tier 아키텍처
+          DesignTool 기반 React 디자인 시스템 — Base → Theme → Custom 3-tier 아키텍처
         </Text>
       </div>
 
@@ -736,8 +736,8 @@ const ArcoLinearReadmeTextRender = () => {
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
         {[
-          { pkg: '@heejun-com/core', desc: '비스타일 베이스 컴포넌트 (Tailwind CSS)' },
-          { pkg: '@heejun-com/theme-eclipse', desc: 'Eclipse 테마 래퍼 (Tailwind + CSS 변수)' },
+          { pkg: '@heejun-com/core', desc: '비스타일 베이스 컴포넌트 (UtilityCSS CSS)' },
+          { pkg: '@heejun-com/theme-eclipse', desc: 'Eclipse 테마 래퍼 (UtilityCSS + CSS 변수)' },
           { pkg: '@heejun-com/icons', desc: 'SVG 아이콘 컴포넌트' },
         ].map((item) => (
           <div key={item.pkg} style={{ display: 'flex', gap: 12, alignItems: 'flex-start' }}>
@@ -779,21 +779,21 @@ const ArcoLinearReadmeTextRender = () => {
   )
 }
 
-export const Arco_Linear_README_타이포: StoryObj<typeof meta> = {
-  name: 'Arco + Linear - README 문서 타이포그래피 계층',
+export const DataProduct_IssueTracker_README_타이포: StoryObj<typeof meta> = {
+  name: 'DataProduct + IssueTracker - README 문서 타이포그래피 계층',
   parameters: {
     docs: {
       description: {
         story:
-          'Arco Design 문서 페이지 + Linear README 타이포그래피 패턴 조합. displaySmall 제목부터 labelSmall 메타까지 6단계 계층 실전 적용. 코드 강조, 구분선, 메타 정보 레이아웃.',
+          'DataProductUI 문서 페이지 + IssueTracker README 타이포그래피 패턴 조합. displaySmall 제목부터 labelSmall 메타까지 6단계 계층 실전 적용. 코드 강조, 구분선, 메타 정보 레이아웃.',
       },
     },
   },
-  render: () => <ArcoLinearReadmeTextRender />,
+  render: () => <DataProductIssueTrackerReadmeTextRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Radix UI — 컴포넌트 API 문서 타이포그래피
+   PrimitiveUI — 컴포넌트 API 문서 타이포그래피
    PropTable + 설명 계층 패턴
 -------------------------------------------------------------------------- */
 const RADIX_PROPS = [
@@ -803,7 +803,7 @@ const RADIX_PROPS = [
   { name: 'truncate', type: 'boolean', default: 'false', desc: '텍스트 말줄임 적용 여부' },
 ]
 
-function RadixApiDocRender() {
+function PrimitiveApiDocRender() {
   return (
     <div style={{ maxWidth: 600, display: 'flex', flexDirection: 'column', gap: 20 }}>
       {/* 컴포넌트 헤더 */}
@@ -851,30 +851,30 @@ function RadixApiDocRender() {
   )
 }
 
-export const Radix_API_문서_타이포그래피: StoryObj<typeof meta> = {
-  name: 'Radix UI — 컴포넌트 API 문서 타이포그래피',
+export const Primitive_API_문서_타이포그래피: StoryObj<typeof meta> = {
+  name: 'PrimitiveUI — 컴포넌트 API 문서 타이포그래피',
   parameters: {
     docs: {
       description: {
-        story: 'Radix UI 공식 문서 스타일의 PropTable + 헤더 계층 패턴. headlineMedium 컴포넌트 타이틀, bodyMedium 설명, titleSmall 섹션 구분, bodySmall + labelSmall 테이블 내용 계층 실전 적용.',
+        story: 'PrimitiveUI 공식 문서 스타일의 PropTable + 헤더 계층 패턴. headlineMedium 컴포넌트 타이틀, bodyMedium 설명, titleSmall 섹션 구분, bodySmall + labelSmall 테이블 내용 계층 실전 적용.',
       },
     },
   },
-  render: () => <RadixApiDocRender />,
+  render: () => <PrimitiveApiDocRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Vercel Design — 배포 상태 알림 타이포그래피
+   DeployPlatform Design — 배포 상태 알림 타이포그래피
    상태 뱃지 + 메시지 계층 + 타임스탬프 패턴
 -------------------------------------------------------------------------- */
-const VERCEL_EVENTS = [
+const DEPLOY_EVENTS = [
   { type: 'success', icon: '●', color: '#10b981', title: '배포 성공', message: 'orbit-ui feat/cycle-112 → production 8분 전에 완료되었습니다.', meta: 'a9fa67f · by hjunkim', time: '8m ago' },
   { type: 'building', icon: '○', color: '#f59e0b', title: '빌드 진행 중', message: 'orbit-ui main → preview 빌드 중입니다. 평균 소요 시간 약 2분.', meta: 'cb60c3e · by hjunkim', time: '2m ago' },
   { type: 'error', icon: '✕', color: '#ef4444', title: '빌드 실패', message: 'orbit-ui feat/fix-toggle → preview TypeScript 오류 1건이 발생했습니다.', meta: 'd5fd051 · by hjunkim', time: '23m ago' },
   { type: 'queued', icon: '◌', color: '#94a3b8', title: '대기 중', message: 'orbit-ui chore/deps-update → preview 빌드 대기열에서 처리를 기다리고 있습니다.', meta: '0bcdcd1 · by hjunkim', time: '1h ago' },
 ]
 
-function VercelDeployNotifyRender() {
+function DeployPlatformDeployNotifyRender() {
   return (
     <div style={{ maxWidth: 560, display: 'flex', flexDirection: 'column', gap: 12 }}>
       <div style={{ marginBottom: 4 }}>
@@ -883,7 +883,7 @@ function VercelDeployNotifyRender() {
           <Text textStyle="bodySmall" color="onSurfaceVariant">최근 배포 이벤트 4건</Text>
         </div>
       </div>
-      {VERCEL_EVENTS.map((event, i) => (
+      {DEPLOY_EVENTS.map((event, i) => (
         <div key={i} style={{ display: 'flex', gap: 14, padding: '14px 16px', borderRadius: 10, border: '1px solid var(--sem-eclipse-color-borderSubtle)', background: 'var(--sem-eclipse-color-backgroundPrimary)' }}>
           <div style={{ display: 'flex', alignItems: 'flex-start', paddingTop: 2 }}>
             <span style={{ fontSize: 18, color: event.color, lineHeight: 1, fontWeight: 700 }}>{event.icon}</span>
@@ -906,20 +906,20 @@ function VercelDeployNotifyRender() {
   )
 }
 
-export const Vercel_배포_상태_알림_타이포: StoryObj<typeof meta> = {
-  name: 'Vercel Design — 배포 상태 알림 타이포그래피',
+export const DeployPlatform_배포_상태_알림_타이포: StoryObj<typeof meta> = {
+  name: 'DeployPlatform Design — 배포 상태 알림 타이포그래피',
   parameters: {
     docs: {
       description: {
-        story: 'Vercel 대시보드 배포 알림 UI 타이포그래피 패턴. titleMedium 섹션 제목, labelMedium 이벤트 타입, bodySmall 메시지, labelSmall 타임스탬프, monospace 커밋 해시 계층 구현.',
+        story: 'DeployPlatform 대시보드 배포 알림 UI 타이포그래피 패턴. titleMedium 섹션 제목, labelMedium 이벤트 타입, bodySmall 메시지, labelSmall 타임스탬프, monospace 커밋 해시 계층 구현.',
       },
     },
   },
-  render: () => <VercelDeployNotifyRender />,
+  render: () => <DeployPlatformDeployNotifyRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Radix UI + Vercel — 에러 상태 타이포그래피
+   PrimitiveUI + DeployPlatform — 에러 상태 타이포그래피
    빈 상태 / 오류 / 권한 없음 메시지 패턴
 -------------------------------------------------------------------------- */
 type EmptyState = 'empty' | 'error' | 'forbidden' | 'notfound'
@@ -931,7 +931,7 @@ const EMPTY_STATES: Record<EmptyState, { icon: string; title: string; body: stri
   notfound: { icon: '∅', title: '페이지를 찾을 수 없습니다', body: 'URL을 확인하거나 돌아가기 버튼으로 이전 페이지로 이동하세요.', action: '홈으로 돌아가기', color: '#6366f1' },
 }
 
-function RadixVercelEmptyStateRender() {
+function PrimitiveDeployPlatformEmptyStateRender() {
   const [state, setState] = React.useState<EmptyState>('empty')
   const s = EMPTY_STATES[state]
   return (
@@ -957,31 +957,31 @@ function RadixVercelEmptyStateRender() {
           {s.action}
         </button>
       </div>
-      <div style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundDisabled)' }}>Radix UI + Vercel — 빈 상태 / 에러 / 권한없음 메시지 타이포</div>
+      <div style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundDisabled)' }}>PrimitiveUI + DeployPlatform — 빈 상태 / 에러 / 권한없음 메시지 타이포</div>
     </div>
   )
 }
 
-export const Radix_Vercel_빈상태_에러_타이포: StoryObj<typeof meta> = {
-  name: 'Radix UI + Vercel — 빈 상태 / 에러 타이포그래피 패턴',
+export const Primitive_DeployPlatform_빈상태_에러_타이포: StoryObj<typeof meta> = {
+  name: 'PrimitiveUI + DeployPlatform — 빈 상태 / 에러 타이포그래피 패턴',
   parameters: {
     docs: {
       description: {
-        story: 'Radix UI + Vercel의 Empty State / Error 메시지 UI 타이포그래피 패턴. titleMedium 제목, bodySmall 설명 텍스트, 상태별 색상 코딩, 4가지 상태(empty/error/forbidden/notfound) 전환.',
+        story: 'PrimitiveUI + DeployPlatform의 Empty State / Error 메시지 UI 타이포그래피 패턴. titleMedium 제목, bodySmall 설명 텍스트, 상태별 색상 코딩, 4가지 상태(empty/error/forbidden/notfound) 전환.',
       },
     },
   },
-  render: () => <RadixVercelEmptyStateRender />,
+  render: () => <PrimitiveDeployPlatformEmptyStateRender />,
 }
 
-// Cycle 141 - Raycast Extensions + Figma Plugin UI benchmark
-function RaycastResultItem141Render() {
+// Cycle 141 - CommandPalette Extensions + DesignTool Plugin UI benchmark
+function CommandPaletteResultItem141Render() {
   const [selected, setSelected] = React.useState(1)
 
   const results = [
     { id: 1, category: 'Storybook', title: 'Progress Component', desc: 'Cycle 140에 추가된 업로드 진행률 컴포넌트', shortcut: '⌘1' },
     { id: 2, category: 'Issue', title: 'ORB-241 TextField focus ring', desc: 'a11y: focus visible 개선', shortcut: '⌘2' },
-    { id: 3, category: 'Doc', title: 'BenchmarkComparison.mdx', desc: 'Cycle 141 Raycast 섹션 추가', shortcut: '⌘3' },
+    { id: 3, category: 'Doc', title: 'BenchmarkComparison.mdx', desc: 'Cycle 141 CommandPalette 섹션 추가', shortcut: '⌘3' },
     { id: 4, category: 'Component', title: 'OutlineButton', desc: '16종 스토리 포함 — 액션 패널, 필터 바', shortcut: '⌘4' },
   ]
 
@@ -994,7 +994,7 @@ function RaycastResultItem141Render() {
 
   return (
     <div style={{ width: 420, fontFamily: 'system-ui, sans-serif' }}>
-      <div style={{ marginBottom: 10, fontSize: 11, color: '#64748b' }}>Raycast — 검색 결과 타이포그래피 패턴</div>
+      <div style={{ marginBottom: 10, fontSize: 11, color: '#64748b' }}>CommandPalette — 검색 결과 타이포그래피 패턴</div>
       <div style={{ border: '1px solid #e2e8f0', borderRadius: 12, overflow: 'hidden', boxShadow: '0 4px 20px rgba(0,0,0,0.08)' }}>
         {results.map((r) => (
           <div
@@ -1026,19 +1026,19 @@ function RaycastResultItem141Render() {
   )
 }
 
-export const Raycast_검색결과_타이포: StoryObj<typeof meta> = {
-  name: 'Raycast — 검색 결과 타이포그래피 (Cycle 141)',
+export const CommandPalette_검색결과_타이포: StoryObj<typeof meta> = {
+  name: 'CommandPalette — 검색 결과 타이포그래피 (Cycle 141)',
   parameters: {
     docs: {
       description: {
-        story: 'Raycast 검색 결과 패턴. 카테고리 뱃지 + labelMedium 제목 + bodySmall 설명. 선택 상태 배경 변화, 단축키 키캡.',
+        story: 'CommandPalette 검색 결과 패턴. 카테고리 뱃지 + labelMedium 제목 + bodySmall 설명. 선택 상태 배경 변화, 단축키 키캡.',
       },
     },
   },
-  render: () => <RaycastResultItem141Render />,
+  render: () => <CommandPaletteResultItem141Render />,
 }
 
-function FigmaPropertyPanel141Render() {
+function DesignToolPropertyPanel141Render() {
   const props = [
     { label: 'Width', value: '360px', token: 'spacing-90' },
     { label: 'Height', value: 'auto', token: 'auto' },
@@ -1054,7 +1054,7 @@ function FigmaPropertyPanel141Render() {
       <div style={{ padding: '8px 12px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0' }}>
         <Text textStyle="labelMedium">속성 패널</Text>
         <div style={{ marginTop: 1 }}>
-          <Text textStyle="labelSmall" color="onSurfaceVariant">Figma Plugin UI 타이포그래피</Text>
+          <Text textStyle="labelSmall" color="onSurfaceVariant">DesignTool Plugin UI 타이포그래피</Text>
         </div>
       </div>
       <div style={{ padding: 4 }}>
@@ -1074,22 +1074,22 @@ function FigmaPropertyPanel141Render() {
   )
 }
 
-export const Figma_속성_패널_타이포: StoryObj<typeof meta> = {
-  name: 'Figma Plugin UI — 속성 패널 타이포그래피 (Cycle 141)',
+export const DesignTool_속성_패널_타이포: StoryObj<typeof meta> = {
+  name: 'DesignTool Plugin UI — 속성 패널 타이포그래피 (Cycle 141)',
   parameters: {
     docs: {
       description: {
-        story: 'Figma 속성 패널 UI 타이포그래피. labelMedium 헤더, labelSmall 키/값 쌍, monospace 토큰 레퍼런스. 컴팩트 밀도.',
+        story: 'DesignTool 속성 패널 UI 타이포그래피. labelMedium 헤더, labelSmall 키/값 쌍, monospace 토큰 레퍼런스. 컴팩트 밀도.',
       },
     },
   },
-  render: () => <FigmaPropertyPanel141Render />,
+  render: () => <DesignToolPropertyPanel141Render />,
 }
 
-function RaycastFigmaChangeLog141Render() {
+function CommandPaletteDesignToolChangeLog141Render() {
   const changes = [
     { version: 'v2.1.0', date: '2026-04-10', tag: 'minor', items: ['Cycle 141: OutlineButton 액션 패널 스토리', 'Text 속성 패널 타이포 패턴', 'Templates: CalendarApp 추가'] },
-    { version: 'v2.0.9', date: '2026-04-09', tag: 'patch', items: ['Cycle 140: Progress 업로드 진행률', 'FloatingTextField 멀티스텝 폼', 'Mantine + Arco 분석 대시보드'] },
+    { version: 'v2.0.9', date: '2026-04-09', tag: 'patch', items: ['Cycle 140: Progress 업로드 진행률', 'FloatingTextField 멀티스텝 폼', 'AppUI + DataProduct 분석 대시보드'] },
     { version: 'v2.0.8', date: '2026-04-08', tag: 'patch', items: ['Toggle 서식 도구바', 'SearchBar 전역 검색', 'AI 글쓰기 스튜디오 템플릿'] },
   ]
 
@@ -1100,7 +1100,7 @@ function RaycastFigmaChangeLog141Render() {
       <div style={{ marginBottom: 12 }}>
         <Text textStyle="titleMedium">변경 이력</Text>
         <div style={{ marginTop: 2 }}>
-          <Text textStyle="bodySmall" color="onSurfaceVariant">Raycast + Figma — 릴리스 노트 타이포 패턴</Text>
+          <Text textStyle="bodySmall" color="onSurfaceVariant">CommandPalette + DesignTool — 릴리스 노트 타이포 패턴</Text>
         </div>
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
@@ -1128,34 +1128,34 @@ function RaycastFigmaChangeLog141Render() {
   )
 }
 
-export const Raycast_Figma_변경이력_타이포: StoryObj<typeof meta> = {
-  name: 'Raycast + Figma — 변경 이력 타이포그래피 (Cycle 141)',
+export const CommandPalette_DesignTool_변경이력_타이포: StoryObj<typeof meta> = {
+  name: 'CommandPalette + DesignTool — 변경 이력 타이포그래피 (Cycle 141)',
   parameters: {
     docs: {
       description: {
-        story: 'Raycast 릴리스 노트 + Figma UI 타이포. titleMedium 헤더, labelLarge 버전, labelSmall 날짜/태그, bodySmall 항목. 수직 타임라인 레이아웃.',
+        story: 'CommandPalette 릴리스 노트 + DesignTool UI 타이포. titleMedium 헤더, labelLarge 버전, labelSmall 날짜/태그, bodySmall 항목. 수직 타임라인 레이아웃.',
       },
     },
   },
-  render: () => <RaycastFigmaChangeLog141Render />,
+  render: () => <CommandPaletteDesignToolChangeLog141Render />,
 }
 
 // ──────────────────────────────────────────────────────────────────────────────
-// Cycle 169: Chakra UI + Arco Design
+// Cycle 169: AccessibleUI + DataProductUI
 // ──────────────────────────────────────────────────────────────────────────────
 
-export const Chakra_아티클_타이포그래피_계층: StoryObj<typeof meta> = {
-  name: 'Chakra UI — 아티클 타이포그래피 계층 (Cycle 169)',
+export const Accessible_아티클_타이포그래피_계층: StoryObj<typeof meta> = {
+  name: 'AccessibleUI — 아티클 타이포그래피 계층 (Cycle 169)',
   parameters: {
     docs: {
       description: {
         story:
-          'Chakra UI Text 컴포넌트 계층 패턴. 블로그 아티클 레이아웃에서의 타이포그래피 계층 시연. ' +
+          'AccessibleUI Text 컴포넌트 계층 패턴. 블로그 아티클 레이아웃에서의 타이포그래피 계층 시연. ' +
           'displaySmall → headlineMedium → bodyLarge 스케일 활용.',
       },
     },
   },
-  render: function ChakraArticleTypoRender() {
+  render: function AccessibleArticleTypoRender() {
     return (
       <div style={{ width: 560, fontFamily: 'system-ui, sans-serif', padding: '20px 0' }}>
         <Text textStyle="labelSmall" style={{ color: '#3b82f6', fontWeight: 700, letterSpacing: 2, marginBottom: 8, display: 'block' }}>
@@ -1176,7 +1176,7 @@ export const Chakra_아티클_타이포그래피_계층: StoryObj<typeof meta> =
           주요 변경사항
         </Text>
         <Text textStyle="bodyMedium" style={{ color: '#374151', lineHeight: 1.7, display: 'block' }}>
-          Tailwind 기반 zero-runtime CSS 통합, Storybook 8 업그레이드, 650개 이상의 인터랙티브 스토리 추가. 모든 컴포넌트는 WAI-ARIA 패턴을 준수하며 키보드 탐색을 완전히 지원합니다.
+          UtilityCSS 기반 zero-runtime CSS 통합, Storybook 8 업그레이드, 650개 이상의 인터랙티브 스토리 추가. 모든 컴포넌트는 WAI-ARIA 패턴을 준수하며 키보드 탐색을 완전히 지원합니다.
         </Text>
         <div style={{ marginTop: 16, paddingTop: 16, borderTop: '1px solid #e5e7eb', display: 'flex', gap: 16 }}>
           <Text textStyle="labelSmall" style={{ color: '#9ca3af', display: 'block' }}>2025년 4월 11일</Text>
@@ -1187,18 +1187,18 @@ export const Chakra_아티클_타이포그래피_계층: StoryObj<typeof meta> =
   },
 }
 
-export const Arco_데이터_테이블_셀_타이포: StoryObj<typeof meta> = {
-  name: 'Arco Design — 데이터 테이블 셀 타이포그래피 (Cycle 169)',
+export const DataProduct_데이터_테이블_셀_타이포: StoryObj<typeof meta> = {
+  name: 'DataProductUI — 데이터 테이블 셀 타이포그래피 (Cycle 169)',
   parameters: {
     docs: {
       description: {
         story:
-          'Arco Design Table 셀 내 타이포그래피 패턴. 제목/부제목 이중 구조 셀 + ' +
+          'DataProductUI Table 셀 내 타이포그래피 패턴. 제목/부제목 이중 구조 셀 + ' +
           '숫자/상태 강조 텍스트 조합.',
       },
     },
   },
-  render: function ArcoTableTypoRender() {
+  render: function DataProductTableTypoRender() {
     const rows = [
       { name: '김민준', role: 'Frontend', commits: 1204, status: 'active', joinDate: '2024-01' },
       { name: '이지수', role: 'Design', commits: 342, status: 'active', joinDate: '2024-03' },
@@ -1248,18 +1248,18 @@ export const Arco_데이터_테이블_셀_타이포: StoryObj<typeof meta> = {
   },
 }
 
-export const Chakra_Arco_에러_빈상태_타이포: StoryObj<typeof meta> = {
-  name: 'Chakra UI + Arco Design — 에러/빈 상태 타이포그래피 (Cycle 169)',
+export const Accessible_DataProduct_에러_빈상태_타이포: StoryObj<typeof meta> = {
+  name: 'AccessibleUI + DataProductUI — 에러/빈 상태 타이포그래피 (Cycle 169)',
   parameters: {
     docs: {
       description: {
         story:
-          'Chakra UI + Arco Design 빈 상태/에러 화면 타이포그래피 패턴. ' +
+          'AccessibleUI + DataProductUI 빈 상태/에러 화면 타이포그래피 패턴. ' +
           '제목/설명/액션 3단 구조로 사용자 이탈 방지.',
       },
     },
   },
-  render: function ChakraArcoEmptyStateRender() {
+  render: function AccessibleDataProductEmptyStateRender() {
     const [variant, setVariant] = React.useState<'empty' | 'error' | 'loading'>('empty')
 
     const states: { key: 'empty' | 'error' | 'loading'; icon: string; title: string; desc: string; action: string; titleStyle: string; descColor: string }[] = [

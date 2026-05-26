@@ -49,10 +49,10 @@ export const 전체화면: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Linear 스타일: 이슈 목록 스켈레톤 패턴
-   Linear의 이슈 목록 로딩 시 보여주는 컴팩트 스켈레톤 패턴
+   IssueTracker 스타일: 이슈 목록 스켈레톤 패턴
+   IssueTracker의 이슈 목록 로딩 시 보여주는 컴팩트 스켈레톤 패턴
 -------------------------------------------------------------------------- */
-const LinearIssueRowSkeleton = () => (
+const IssueTrackerIssueRowSkeleton = () => (
   <div
     style={{
       display: 'flex',
@@ -71,7 +71,7 @@ const LinearIssueRowSkeleton = () => (
   </div>
 )
 
-export const Linear_이슈목록_스켈레톤: Story = {
+export const IssueTracker_이슈목록_스켈레톤: Story = {
   render: () => (
     <div style={{ maxWidth: '560px', borderRadius: '12px', border: '1px solid #e2e8f0', overflow: 'hidden' }}>
       <div
@@ -90,14 +90,14 @@ export const Linear_이슈목록_스켈레톤: Story = {
         </div>
       </div>
       {Array.from({ length: 6 }).map((_, i) => (
-        <LinearIssueRowSkeleton key={i} />
+        <IssueTrackerIssueRowSkeleton key={i} />
       ))}
     </div>
   ),
 }
 
 /* --------------------------------------------------------------------------
-   Linear 스타일: 데이터 로딩 트랜지션
+   IssueTracker 스타일: 데이터 로딩 트랜지션
    로딩 -> 데이터 전환 애니메이션 패턴
 -------------------------------------------------------------------------- */
 const IssueItem = ({ title, id, color }: { title: string; id: string; color: string }) => (
@@ -184,7 +184,7 @@ const LoadingTransitionDemo = () => {
         </div>
 
         {loading ? (
-          Array.from({ length: 4 }).map((_, i) => <LinearIssueRowSkeleton key={i} />)
+          Array.from({ length: 4 }).map((_, i) => <IssueTrackerIssueRowSkeleton key={i} />)
         ) : loaded ? (
           issues.map((issue) => <IssueItem key={issue.id} {...issue} />)
         ) : (
@@ -209,7 +209,7 @@ export const 로딩_데이터_전환: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Linear 스타일: 인라인 로딩 상태
+   IssueTracker 스타일: 인라인 로딩 상태
    버튼, 입력창 등 인라인 요소에서의 컴팩트 로딩 패턴
 -------------------------------------------------------------------------- */
 const InlineLoadingDemo = () => {
@@ -223,7 +223,7 @@ const InlineLoadingDemo = () => {
   const items = [
     { id: 'title', label: '프로젝트 이름', value: 'Orbit UI Design System' },
     { id: 'desc', label: '설명', value: '컴포넌트 라이브러리 및 디자인 토큰 시스템' },
-    { id: 'url', label: '문서 URL', value: 'https://orbit-ui.vercel.app' },
+    { id: 'url', label: '문서 URL', value: 'https://orbit-ui.deploy.example.com' },
   ]
 
   return (
@@ -301,10 +301,10 @@ export const 인라인_로딩_상태: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Notion 스타일: 페이지 블록 스켈레톤
-   Notion 페이지 로딩 시 보여주는 블록 단위 스켈레톤 패턴
+   WorkspaceEditor 스타일: 페이지 블록 스켈레톤
+   WorkspaceEditor 페이지 로딩 시 보여주는 블록 단위 스켈레톤 패턴
 -------------------------------------------------------------------------- */
-const NotionPageSkeleton = () => (
+const WorkspaceEditorPageSkeleton = () => (
   <div style={{ maxWidth: '680px', padding: '48px 96px' }}>
     <Skeleton height={44} width="65%" style={{ borderRadius: '6px', marginBottom: '24px' }} />
     <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginBottom: '32px' }}>
@@ -341,7 +341,7 @@ const NotionPageSkeleton = () => (
   </div>
 )
 
-export const Notion_페이지_스켈레톤: Story = {
+export const WorkspaceEditor_페이지_스켈레톤: Story = {
   render: () => (
     <div style={{ border: '1px solid #e2e8f0', borderRadius: '12px', overflow: 'hidden', maxWidth: '680px' }}>
       <div
@@ -360,7 +360,7 @@ export const Notion_페이지_스켈레톤: Story = {
         <Skeleton height={12} width={8} style={{ borderRadius: '2px' }} />
         <Skeleton height={12} width={96} style={{ borderRadius: '4px' }} />
       </div>
-      <NotionPageSkeleton />
+      <WorkspaceEditorPageSkeleton />
     </div>
   ),
 }
@@ -405,8 +405,8 @@ export const 디자인_QA: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Tailwind UI 벤치마크: 데이터 테이블 로딩 오버레이
-   Tailwind UI의 Table with Loading Overlay 패턴
+   UtilityUI 벤치마크: 데이터 테이블 로딩 오버레이
+   UtilityUI의 Table with Loading Overlay 패턴
 -------------------------------------------------------------------------- */
 const TABLE_HEADERS = ['이름', '상태', '역할', '가입일']
 const TABLE_ROWS = [
@@ -415,7 +415,7 @@ const TABLE_ROWS = [
   ['박지호', '비활성', '멤버', '2024-05-22'],
 ]
 
-function TailwindTableLoadingRender() {
+function UtilityCSSTableLoadingRender() {
   const [loading, setLoading] = useState(false)
   const [data, setData] = useState(TABLE_ROWS)
 
@@ -480,23 +480,23 @@ function TailwindTableLoadingRender() {
   )
 }
 
-export const Tailwind_테이블_로딩_오버레이: Story = {
-  name: 'Tailwind UI - 데이터 테이블 로딩 오버레이 패턴',
+export const UtilityCSS_테이블_로딩_오버레이: Story = {
+  name: 'UtilityUI - 데이터 테이블 로딩 오버레이 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'Tailwind UI Table with Loading Overlay 패턴. 반투명 오버레이 + Loading 스피너로 ' +
+          'UtilityUI Table with Loading Overlay 패턴. 반투명 오버레이 + Loading 스피너로 ' +
           '기존 레이아웃을 유지하면서 로딩 상태를 표시합니다. 새로고침 버튼으로 상태 전환을 시뮬레이션합니다.',
       },
     },
   },
-  render: () => <TailwindTableLoadingRender />,
+  render: () => <UtilityCSSTableLoadingRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Arco Design 벤치마크: 진행률 기반 단계별 로딩
-   Arco의 Steps + Spin 패턴 — 멀티스텝 처리 중 각 단계를 명시적으로 표시
+   DataProductUI 벤치마크: 진행률 기반 단계별 로딩
+   DataProduct의 Steps + Spin 패턴 — 멀티스텝 처리 중 각 단계를 명시적으로 표시
 -------------------------------------------------------------------------- */
 type StepStatus = 'waiting' | 'loading' | 'done' | 'error'
 type ProcessStep = { id: string; label: string; desc: string }
@@ -508,7 +508,7 @@ const PROCESS_STEPS: ProcessStep[] = [
   { id: 'notify', label: '완료 알림', desc: '팀 멤버에게 결과를 전송합니다' },
 ]
 
-function ArcoMultistepLoadingRender() {
+function DataProductMultistepLoadingRender() {
   const [stepIdx, setStepIdx] = useState<number | null>(null)
   const [statuses, setStatuses] = useState<Record<string, StepStatus>>({})
 
@@ -604,27 +604,27 @@ function ArcoMultistepLoadingRender() {
   )
 }
 
-export const Arco_다단계_로딩_파이프라인: Story = {
-  name: 'Arco Design - 다단계 처리 파이프라인 로딩 패턴',
+export const DataProduct_다단계_로딩_파이프라인: Story = {
+  name: 'DataProductUI - 다단계 처리 파이프라인 로딩 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'Arco Design Steps + Spin 패턴. 각 처리 단계를 명시적으로 표시하고 ' +
+          'DataProductUI Steps + Spin 패턴. 각 처리 단계를 명시적으로 표시하고 ' +
           '현재 진행 중인 단계에 Loading 스피너를 삽입합니다. 실행 버튼으로 시뮬레이션합니다.',
       },
     },
   },
-  render: () => <ArcoMultistepLoadingRender />,
+  render: () => <DataProductMultistepLoadingRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Arco Design 벤치마크: 낙관적 업데이트 로딩 피드백
-   Arco의 Spin + Message 패턴 — 즉각 UI 반영 후 서버 동기화 표시
+   DataProductUI 벤치마크: 낙관적 업데이트 로딩 피드백
+   DataProduct의 Spin + Message 패턴 — 즉각 UI 반영 후 서버 동기화 표시
 -------------------------------------------------------------------------- */
 type TaskItem = { id: number; label: string; done: boolean; saving: boolean }
 
-function ArcoOptimisticUpdateRender() {
+function DataProductOptimisticUpdateRender() {
   const [tasks, setTasks] = useState<TaskItem[]>([
     { id: 1, label: '디자인 토큰 정의', done: true, saving: false },
     { id: 2, label: '컴포넌트 스토리 작성', done: false, saving: false },
@@ -704,25 +704,25 @@ function ArcoOptimisticUpdateRender() {
   )
 }
 
-export const Arco_낙관적_업데이트_로딩: Story = {
-  name: 'Arco Design - 낙관적 업데이트 인라인 로딩 패턴',
+export const DataProduct_낙관적_업데이트_로딩: Story = {
+  name: 'DataProductUI - 낙관적 업데이트 인라인 로딩 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'Arco Design Spin + Message 패턴. 체크박스 클릭 시 즉각 UI를 반영(낙관적 업데이트)하고 ' +
+          'DataProductUI Spin + Message 패턴. 체크박스 클릭 시 즉각 UI를 반영(낙관적 업데이트)하고 ' +
           '서버 동기화 중 인라인 Loading 스피너를 표시합니다. 1초 후 저장 완료 상태로 전환됩니다.',
       },
     },
   },
-  render: () => <ArcoOptimisticUpdateRender />,
+  render: () => <DataProductOptimisticUpdateRender />,
 }
 
 /* --------------------------------------------------------------------------
-   shadcn/ui 벤치마크: 카드 스켈레톤 그리드
-   shadcn/ui Skeleton 컴포넌트 데모 — 3열 카드 레이아웃 스켈레톤 패턴
+   ComposableUI 벤치마크: 카드 스켈레톤 그리드
+   ComposableUI Skeleton 컴포넌트 데모 — 3열 카드 레이아웃 스켈레톤 패턴
 -------------------------------------------------------------------------- */
-const ShadcnCardSkeletonItem = () => (
+const ComposableUICardSkeletonItem = () => (
   <div style={{ borderRadius: 12, border: '1px solid #e2e8f0', overflow: 'hidden', background: '#fff' }}>
     <Skeleton height={140} width="100%" style={{ borderRadius: 0, display: 'block' }} />
     <div style={{ padding: '14px 16px 16px', display: 'flex', flexDirection: 'column', gap: 8 }}>
@@ -744,7 +744,7 @@ const ShadcnCardSkeletonItem = () => (
   </div>
 )
 
-function ShadcnCardSkeletonGridRender() {
+function ComposableUICardSkeletonGridRender() {
   const [loaded, setLoaded] = useState(false)
 
   return (
@@ -790,37 +790,37 @@ function ShadcnCardSkeletonGridRender() {
         </div>
       ) : (
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 12 }}>
-          <ShadcnCardSkeletonItem />
-          <ShadcnCardSkeletonItem />
-          <ShadcnCardSkeletonItem />
+          <ComposableUICardSkeletonItem />
+          <ComposableUICardSkeletonItem />
+          <ComposableUICardSkeletonItem />
         </div>
       )}
       <div style={{ fontSize: 11, color: '#94a3b8', textAlign: 'center' }}>
-        shadcn/ui Skeleton 패턴 — 버튼 클릭으로 스켈레톤 ↔ 콘텐츠 전환
+        ComposableUI Skeleton 패턴 — 버튼 클릭으로 스켈레톤 ↔ 콘텐츠 전환
       </div>
     </div>
   )
 }
 
-export const Shadcn_카드_스켈레톤_그리드: Story = {
-  name: 'shadcn/ui - 3열 카드 스켈레톤 그리드 패턴',
+export const ComposableUI_카드_스켈레톤_그리드: Story = {
+  name: 'ComposableUI - 3열 카드 스켈레톤 그리드 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'shadcn/ui Skeleton 컴포넌트 데모 패턴. Avatar + 텍스트 + 태그 영역으로 구성된 카드 스켈레톤을 ' +
+          'ComposableUI Skeleton 컴포넌트 데모 패턴. Avatar + 텍스트 + 태그 영역으로 구성된 카드 스켈레톤을 ' +
           '3열 그리드로 배치합니다. 버튼 클릭으로 스켈레톤과 실제 콘텐츠 사이를 전환합니다.',
       },
     },
   },
-  render: () => <ShadcnCardSkeletonGridRender />,
+  render: () => <ComposableUICardSkeletonGridRender />,
 }
 
 /* --------------------------------------------------------------------------
-   shadcn/ui 벤치마크: 프로필 카드 스켈레톤
-   shadcn/ui의 대표 Skeleton 데모 — Avatar + 텍스트 라인 패턴
+   ComposableUI 벤치마크: 프로필 카드 스켈레톤
+   ComposableUI의 대표 Skeleton 데모 — Avatar + 텍스트 라인 패턴
 -------------------------------------------------------------------------- */
-const ShadcnProfileSkeleton = () => (
+const ComposableUIProfileSkeleton = () => (
   <div style={{ display: 'flex', alignItems: 'center', gap: 14, padding: '16px 20px', borderRadius: 12, border: '1px solid #e2e8f0', background: '#fff', maxWidth: 360 }}>
     <Skeleton height={56} width={56} style={{ borderRadius: '50%', flexShrink: 0 }} />
     <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 8 }}>
@@ -831,7 +831,7 @@ const ShadcnProfileSkeleton = () => (
   </div>
 )
 
-function ShadcnProfileSkeletonRender() {
+function ComposableUIProfileSkeletonRender() {
   const [showReal, setShowReal] = useState(false)
   const [loading, setLoading] = useState(false)
 
@@ -864,9 +864,9 @@ function ShadcnProfileSkeletonRender() {
       </div>
       {!showReal || loading ? (
         <>
-          <ShadcnProfileSkeleton />
-          <ShadcnProfileSkeleton />
-          <ShadcnProfileSkeleton />
+          <ComposableUIProfileSkeleton />
+          <ComposableUIProfileSkeleton />
+          <ComposableUIProfileSkeleton />
         </>
       ) : (
         profiles.map((p) => (
@@ -884,37 +884,37 @@ function ShadcnProfileSkeletonRender() {
       )}
       {!loading && !showReal && (
         <div style={{ fontSize: 11, color: '#94a3b8', textAlign: 'center' }}>
-          버튼을 클릭해 shadcn/ui 프로필 스켈레톤 → 실제 데이터 전환을 확인하세요
+          버튼을 클릭해 ComposableUI 프로필 스켈레톤 → 실제 데이터 전환을 확인하세요
         </div>
       )}
     </div>
   )
 }
 
-export const Shadcn_프로필_스켈레톤: Story = {
-  name: 'shadcn/ui - Avatar + 텍스트 라인 프로필 스켈레톤 패턴',
+export const ComposableUI_프로필_스켈레톤: Story = {
+  name: 'ComposableUI - Avatar + 텍스트 라인 프로필 스켈레톤 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'shadcn/ui의 대표 Skeleton 데모 패턴. 원형 Avatar 스켈레톤 + 3줄 텍스트 라인 스켈레톤으로 ' +
+          'ComposableUI의 대표 Skeleton 데모 패턴. 원형 Avatar 스켈레톤 + 3줄 텍스트 라인 스켈레톤으로 ' +
           '프로필 카드 로딩 상태를 표현합니다. 1.8초 후 실제 프로필 데이터로 전환됩니다.',
       },
     },
   },
-  render: () => <ShadcnProfileSkeletonRender />,
+  render: () => <ComposableUIProfileSkeletonRender />,
 }
 
 /* --------------------------------------------------------------------------
-   shadcn/ui 벤치마크: 무한 스크롤 로딩 트리거
-   shadcn/ui의 Table + Pagination 패턴 — 리스트 하단 점진적 로딩 시뮬레이션
+   ComposableUI 벤치마크: 무한 스크롤 로딩 트리거
+   ComposableUI의 Table + Pagination 패턴 — 리스트 하단 점진적 로딩 시뮬레이션
 -------------------------------------------------------------------------- */
 type FeedItem = { id: number; title: string; author: string; date: string; tag: string; tagColor: string }
 
 const INITIAL_FEED: FeedItem[] = [
   { id: 1, title: '디자인 토큰 3단계 계층 구조 이해하기', author: '김희준', date: '2025-04-01', tag: 'Design', tagColor: '#eef2ff' },
   { id: 2, title: 'Storybook 8.x 마이그레이션 완전 가이드', author: '이서연', date: '2025-04-02', tag: 'Storybook', tagColor: '#f0fdf4' },
-  { id: 3, title: 'Tailwind로 타입 안전 CSS 작성', author: '박지호', date: '2025-04-03', tag: 'CSS', tagColor: '#fff7ed' },
+  { id: 3, title: 'UtilityCSS로 타입 안전 CSS 작성', author: '박지호', date: '2025-04-03', tag: 'CSS', tagColor: '#fff7ed' },
   { id: 4, title: 'React 19 Actions 패턴 실전 활용', author: '최은아', date: '2025-04-04', tag: 'React', tagColor: '#fef3c7' },
 ]
 
@@ -924,7 +924,7 @@ const MORE_FEED: FeedItem[] = [
   { id: 7, title: 'TypeScript 5.7 satisfies 연산자 활용', author: '박지호', date: '2025-04-07', tag: 'TypeScript', tagColor: '#dbeafe' },
 ]
 
-function ShadcnInfiniteScrollRender() {
+function ComposableUIInfiniteScrollRender() {
   const [items, setItems] = useState<FeedItem[]>(INITIAL_FEED)
   const [loadingMore, setLoadingMore] = useState(false)
   const [allLoaded, setAllLoaded] = useState(false)
@@ -984,26 +984,26 @@ function ShadcnInfiniteScrollRender() {
   )
 }
 
-export const Shadcn_무한_스크롤_로딩: Story = {
-  name: 'shadcn/ui - 피드 더 보기 인라인 로딩 트리거 패턴',
+export const ComposableUI_무한_스크롤_로딩: Story = {
+  name: 'ComposableUI - 피드 더 보기 인라인 로딩 트리거 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'shadcn/ui Table + Pagination 패턴을 피드 더 보기에 응용. ' +
+          'ComposableUI Table + Pagination 패턴을 피드 더 보기에 응용. ' +
           '하단 버튼 클릭 시 Loading 스피너와 함께 1.6초 후 추가 항목을 로드합니다. ' +
           '모든 항목 로드 후 완료 메시지로 전환됩니다.',
       },
     },
   },
-  render: () => <ShadcnInfiniteScrollRender />,
+  render: () => <ComposableUIInfiniteScrollRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Google M3 — 선형 진행 지표 로딩 (Cycle 119)
-   Material 3의 LinearProgressIndicator 패턴 — 버퍼/확정/불확정 모드
+   Reference M3 — 선형 진행 지표 로딩 (Cycle 119)
+   RoleToken Design의 IssueTrackerProgressIndicator 패턴 — 버퍼/확정/불확정 모드
 -------------------------------------------------------------------------- */
-function M3LinearProgressRender() {
+function M3IssueTrackerProgressRender() {
   const [progress, setProgress] = React.useState(0)
   const [running, setRunning] = React.useState(false)
 
@@ -1031,7 +1031,7 @@ function M3LinearProgressRender() {
 
   return (
     <div style={{ width: 420, display: 'flex', flexDirection: 'column', gap: 24, padding: 20 }}>
-      <div style={{ fontSize: 13, fontWeight: 700, color: '#0f172a' }}>M3 LinearProgressIndicator 패턴</div>
+      <div style={{ fontSize: 13, fontWeight: 700, color: '#0f172a' }}>M3 IssueTrackerProgressIndicator 패턴</div>
 
       {/* Determinate */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
@@ -1076,23 +1076,23 @@ function M3LinearProgressRender() {
 }
 
 export const M3_선형_진행_지표: Story = {
-  name: 'Google M3 — 선형 진행 지표 (Cycle 119)',
+  name: 'Reference M3 — 선형 진행 지표 (Cycle 119)',
   parameters: {
     docs: {
       description: {
         story:
-          'Material 3의 LinearProgressIndicator 패턴. 확정(단계별 진행바) + 불확정(Loading spinner) 모드, 파일 업로드/검사/처리 완료 단계 표시.',
+          'RoleToken Design의 IssueTrackerProgressIndicator 패턴. 확정(단계별 진행바) + 불확정(Loading spinner) 모드, 파일 업로드/검사/처리 완료 단계 표시.',
       },
     },
   },
-  render: () => <M3LinearProgressRender />,
+  render: () => <M3IssueTrackerProgressRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Linear — 이슈 처리 로딩 상태 (Cycle 119)
-   Linear의 optimistic UI 패턴 — 즉각 피드백 + 백그라운드 동기화
+   IssueTracker — 이슈 처리 로딩 상태 (Cycle 119)
+   IssueTracker의 optimistic UI 패턴 — 즉각 피드백 + 백그라운드 동기화
 -------------------------------------------------------------------------- */
-function LinearIssueLoadingRender() {
+function IssueTrackerIssueLoadingRender() {
   const [issues, setIssues] = React.useState<{ id: string; title: string; status: 'todo' | 'in_progress' }[]>([
     { id: 'ORB-042', title: 'HoverCard 열림 지연 개선', status: 'todo' },
     { id: 'ORB-041', title: 'TextField 자동완성 드롭다운', status: 'todo' },
@@ -1118,7 +1118,7 @@ function LinearIssueLoadingRender() {
   return (
     <div style={{ width: 400, display: 'flex', flexDirection: 'column', gap: 6 }}>
       <div style={{ fontSize: 12, fontWeight: 700, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 4 }}>
-        이슈 목록 — Linear Optimistic UI
+        이슈 목록 — IssueTracker Optimistic UI
       </div>
       {issues.map((issue) => (
         <div key={issue.id} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 12px', borderRadius: 8, border: '1px solid #e2e8f0', background: '#fff' }}>
@@ -1149,24 +1149,24 @@ function LinearIssueLoadingRender() {
   )
 }
 
-export const Linear_이슈_낙관적_로딩: Story = {
-  name: 'Linear — 이슈 낙관적 업데이트 로딩 (Cycle 119)',
+export const IssueTracker_이슈_낙관적_로딩: Story = {
+  name: 'IssueTracker — 이슈 낙관적 업데이트 로딩 (Cycle 119)',
   parameters: {
     docs: {
       description: {
         story:
-          'Linear의 Optimistic UI 패턴. 이슈 상태 변경 시 즉각 Loading 스피너 표시 후 백그라운드 업데이트 반영. 사용자 인터랙션이 즉각적으로 느껴집니다.',
+          'IssueTracker의 Optimistic UI 패턴. 이슈 상태 변경 시 즉각 Loading 스피너 표시 후 백그라운드 업데이트 반영. 사용자 인터랙션이 즉각적으로 느껴집니다.',
       },
     },
   },
-  render: () => <LinearIssueLoadingRender />,
+  render: () => <IssueTrackerIssueLoadingRender />,
 }
 
 /* --------------------------------------------------------------------------
-   M3 + Linear — 단계적 온보딩 로딩 (Cycle 119)
-   M3 스텝 인디케이터 + Linear 미니멀 스켈레톤 조합
+   M3 + IssueTracker — 단계적 온보딩 로딩 (Cycle 119)
+   M3 스텝 인디케이터 + IssueTracker 미니멀 스켈레톤 조합
 -------------------------------------------------------------------------- */
-function M3LinearOnboardingRender() {
+function M3IssueTrackerOnboardingRender() {
   const [step, setStep] = React.useState(0)
   const [loading, setLoading] = React.useState(false)
 
@@ -1250,21 +1250,21 @@ function M3LinearOnboardingRender() {
   )
 }
 
-export const M3_Linear_단계적_온보딩_로딩: Story = {
-  name: 'M3 + Linear — 단계적 온보딩 로딩 (Cycle 119)',
+export const M3_IssueTracker_단계적_온보딩_로딩: Story = {
+  name: 'M3 + IssueTracker — 단계적 온보딩 로딩 (Cycle 119)',
   parameters: {
     docs: {
       description: {
         story:
-          'Material 3 step indicator + Linear 미니멀 스타일 조합. 온보딩 4단계 진행, 각 단계별 Loading 스피너, 완료 시 축하 메시지.',
+          'RoleToken Design step indicator + IssueTracker 미니멀 스타일 조합. 온보딩 4단계 진행, 각 단계별 Loading 스피너, 완료 시 축하 메시지.',
       },
     },
   },
-  render: () => <M3LinearOnboardingRender />,
+  render: () => <M3IssueTrackerOnboardingRender />,
 }
 
-// Cycle 144 - Linear Design + Vercel Design benchmark
-function LinearDataFetch144Render() {
+// Cycle 144 - IssueTracker Design + DeployPlatform Design benchmark
+function IssueTrackerDataFetch144Render() {
   const [state, setState] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
   const [retryCount, setRetryCount] = useState(0)
 
@@ -1297,7 +1297,7 @@ function LinearDataFetch144Render() {
     <div style={{ width: 360, fontFamily: 'system-ui, sans-serif', border: '1px solid #e2e8f0', borderRadius: 10, padding: 20, background: '#fff' }}>
       <div style={{ marginBottom: 16 }}>
         <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>이슈 목록</div>
-        <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>Linear Design — 데이터 패치 로딩 상태</div>
+        <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>IssueTracker Design — 데이터 패치 로딩 상태</div>
       </div>
 
       <div style={{ padding: '32px 20px', textAlign: 'center', border: '1px dashed #e2e8f0', borderRadius: 8, marginBottom: 16 }}>
@@ -1341,19 +1341,19 @@ function LinearDataFetch144Render() {
   )
 }
 
-export const Linear_데이터_패치_로딩: Story = {
-  name: 'Linear — 데이터 패치 로딩 상태 (Cycle 144)',
+export const IssueTracker_데이터_패치_로딩: Story = {
+  name: 'IssueTracker — 데이터 패치 로딩 상태 (Cycle 144)',
   parameters: {
     docs: {
       description: {
-        story: 'Linear Design 데이터 패치 패턴. idle→loading→success/error 상태 전환. 첫 조회는 오류 유도, 재시도 성공. Loading 스피너 + 상태별 피드백.',
+        story: 'IssueTracker Design 데이터 패치 패턴. idle→loading→success/error 상태 전환. 첫 조회는 오류 유도, 재시도 성공. Loading 스피너 + 상태별 피드백.',
       },
     },
   },
-  render: () => <LinearDataFetch144Render />,
+  render: () => <IssueTrackerDataFetch144Render />,
 }
 
-function VercelDeployLoading144Render() {
+function DeployPlatformDeployLoading144Render() {
   const [phase, setPhase] = useState(0)
   const [running, setRunning] = useState(false)
 
@@ -1387,7 +1387,7 @@ function VercelDeployLoading144Render() {
     <div style={{ width: 360, fontFamily: 'system-ui, sans-serif', background: '#0a0a0a', border: '1px solid #27272a', borderRadius: 10, padding: 20 }}>
       <div style={{ marginBottom: 16 }}>
         <div style={{ fontSize: 13, fontWeight: 700, color: '#e2e8f0' }}>배포 파이프라인</div>
-        <div style={{ fontSize: 10, color: '#52525b', marginTop: 2 }}>Vercel Design — 배포 진행 로딩</div>
+        <div style={{ fontSize: 10, color: '#52525b', marginTop: 2 }}>DeployPlatform Design — 배포 진행 로딩</div>
       </div>
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 16 }}>
@@ -1430,19 +1430,19 @@ function VercelDeployLoading144Render() {
   )
 }
 
-export const Vercel_배포_파이프라인_로딩: Story = {
-  name: 'Vercel — 배포 파이프라인 로딩 (Cycle 144)',
+export const DeployPlatform_배포_파이프라인_로딩: Story = {
+  name: 'DeployPlatform — 배포 파이프라인 로딩 (Cycle 144)',
   parameters: {
     docs: {
       description: {
-        story: 'Vercel 다크 테마 배포 파이프라인. 4단계(Init/Build/Deploy/Ready) 순서 전환, 현재 단계 Loading 스피너, 완료 단계 초록 체크. 모노크롬 팔레트.',
+        story: 'DeployPlatform 다크 테마 배포 파이프라인. 4단계(Init/Build/Deploy/Ready) 순서 전환, 현재 단계 Loading 스피너, 완료 단계 초록 체크. 모노크롬 팔레트.',
       },
     },
   },
-  render: () => <VercelDeployLoading144Render />,
+  render: () => <DeployPlatformDeployLoading144Render />,
 }
 
-function LinearVercelTableLoad144Render() {
+function IssueTrackerDeployPlatformTableLoad144Render() {
   const [page, setPage] = useState(1)
   const [loading, setLoading] = useState(false)
 
@@ -1467,7 +1467,7 @@ function LinearVercelTableLoad144Render() {
 
   return (
     <div style={{ width: 440, fontFamily: 'system-ui, sans-serif' }}>
-      <div style={{ marginBottom: 10, fontSize: 11, color: '#64748b' }}>Linear + Vercel — 테이블 페이지 로딩</div>
+      <div style={{ marginBottom: 10, fontSize: 11, color: '#64748b' }}>IssueTracker + DeployPlatform — 테이블 페이지 로딩</div>
       <div style={{ border: '1px solid #e2e8f0', borderRadius: 10, overflow: 'hidden' }}>
         <div style={{ padding: '10px 14px', borderBottom: '1px solid #e2e8f0', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <span style={{ fontSize: 12, fontWeight: 700, color: '#0f172a' }}>이슈 목록</span>
@@ -1501,20 +1501,20 @@ function LinearVercelTableLoad144Render() {
   )
 }
 
-export const Linear_Vercel_테이블_페이지_로딩: Story = {
-  name: 'Linear + Vercel — 테이블 페이지 로딩 (Cycle 144)',
+export const IssueTracker_DeployPlatform_테이블_페이지_로딩: Story = {
+  name: 'IssueTracker + DeployPlatform — 테이블 페이지 로딩 (Cycle 144)',
   parameters: {
     docs: {
       description: {
-        story: 'Linear 이슈 목록 + Vercel 컴팩트 스타일. 페이지 전환 시 Loading 스피너, 우선순위 색상 코딩, 상태 인디케이터. 페이지네이션 버튼.',
+        story: 'IssueTracker 이슈 목록 + DeployPlatform 컴팩트 스타일. 페이지 전환 시 Loading 스피너, 우선순위 색상 코딩, 상태 인디케이터. 페이지네이션 버튼.',
       },
     },
   },
-  render: () => <LinearVercelTableLoad144Render />,
+  render: () => <IssueTrackerDeployPlatformTableLoad144Render />,
 }
 
 // ──────────────────────────────────────────────────────────────────────────────
-// Cycle 174: Vercel Design + MUI
+// Cycle 174: DeployPlatform Design + EnterpriseUI
 // ──────────────────────────────────────────────────────────────────────────────
 
 const BUILD_PIPELINE_STEPS = [
@@ -1525,7 +1525,7 @@ const BUILD_PIPELINE_STEPS = [
   { label: 'Finalizing deployment', duration: 600 },
 ]
 
-function VercelBuildPipelineRender() {
+function DeployPlatformBuildPipelineRender() {
   const [step, setStep] = useState(0)
 
   React.useEffect(() => {
@@ -1579,19 +1579,19 @@ function VercelBuildPipelineRender() {
   )
 }
 
-export const Vercel_빌드_파이프라인_로딩: Story = {
-  name: 'Vercel Design — 빌드 파이프라인 단계 로딩 (Clone→Install→Build→Upload→Deploy)',
-  render: () => <VercelBuildPipelineRender />,
+export const DeployPlatform_빌드_파이프라인_로딩: Story = {
+  name: 'DeployPlatform Design — 빌드 파이프라인 단계 로딩 (Clone→Install→Build→Upload→Deploy)',
+  render: () => <DeployPlatformBuildPipelineRender />,
   parameters: {
     docs: {
       description: {
-        story: 'Vercel 배포 파이프라인 단계별 Loading 패턴. Clone/Install/Build/Upload/Deploy 5단계 순차 진행. 완료 시 체크, 진행 중 펄스 인디케이터, 다크 배경.',
+        story: 'DeployPlatform 배포 파이프라인 단계별 Loading 패턴. Clone/Install/Build/Upload/Deploy 5단계 순차 진행. 완료 시 체크, 진행 중 펄스 인디케이터, 다크 배경.',
       },
     },
   },
 }
 
-function MUISkeletonLoadingRender() {
+function EnterpriseUISkeletonLoadingRender() {
   const [loading, setLoading] = useState(true)
 
   React.useEffect(() => {
@@ -1604,7 +1604,7 @@ function MUISkeletonLoadingRender() {
   return (
     <div style={{ width: 420 }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
-        <span style={{ fontSize: 13, fontWeight: 600, color: '#0f172a' }}>MUI 카드 뷰</span>
+        <span style={{ fontSize: 13, fontWeight: 600, color: '#0f172a' }}>EnterpriseUI 카드 뷰</span>
         <button onClick={reset} style={{ padding: '4px 10px', borderRadius: 6, background: '#f1f5f9', border: 'none', fontSize: 11, cursor: 'pointer', color: '#64748b' }}>새로고침</button>
       </div>
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
@@ -1643,19 +1643,19 @@ function MUISkeletonLoadingRender() {
   )
 }
 
-export const MUI_카드_스켈레톤_로딩: Story = {
-  name: 'MUI — 카드 그리드 스켈레톤 + Loading 조합',
-  render: () => <MUISkeletonLoadingRender />,
+export const EnterpriseUI_카드_스켈레톤_로딩: Story = {
+  name: 'EnterpriseUI — 카드 그리드 스켈레톤 + Loading 조합',
+  render: () => <EnterpriseUISkeletonLoadingRender />,
   parameters: {
     docs: {
       description: {
-        story: 'MUI Skeleton + Loading 조합 패턴. 카드 그리드 로딩 시 Skeleton placeholder, 완료 후 실제 콘텐츠로 전환. 하단 Loading 스피너로 진행 상태 명시.',
+        story: 'EnterpriseUI Skeleton + Loading 조합 패턴. 카드 그리드 로딩 시 Skeleton placeholder, 완료 후 실제 콘텐츠로 전환. 하단 Loading 스피너로 진행 상태 명시.',
       },
     },
   },
 }
 
-function VercelMUIInlineLoadingRender() {
+function DeployPlatformEnterpriseUIInlineLoadingRender() {
   const [states, setStates] = useState({ save: 'idle', publish: 'idle', sync: 'idle' } as Record<string, string>)
 
   const trigger = (key: string) => {
@@ -1673,7 +1673,7 @@ function VercelMUIInlineLoadingRender() {
   return (
     <div style={{ width: 360, background: '#fff', borderRadius: 12, border: '1px solid #e2e8f0', padding: 20 }}>
       <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a', marginBottom: 4 }}>인라인 액션 로딩</div>
-      <div style={{ fontSize: 12, color: '#64748b', marginBottom: 16 }}>Vercel + MUI 버튼 내 로딩 패턴</div>
+      <div style={{ fontSize: 12, color: '#64748b', marginBottom: 16 }}>DeployPlatform + EnterpriseUI 버튼 내 로딩 패턴</div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
         {Object.entries(actionConfig).map(([key, cfg]) => {
           const state = states[key]
@@ -1697,13 +1697,13 @@ function VercelMUIInlineLoadingRender() {
   )
 }
 
-export const Vercel_MUI_인라인_액션_로딩: Story = {
-  name: 'Vercel + MUI — 인라인 액션 버튼 Loading (저장/게시/동기화)',
-  render: () => <VercelMUIInlineLoadingRender />,
+export const DeployPlatform_EnterpriseUI_인라인_액션_로딩: Story = {
+  name: 'DeployPlatform + EnterpriseUI — 인라인 액션 버튼 Loading (저장/게시/동기화)',
+  render: () => <DeployPlatformEnterpriseUIInlineLoadingRender />,
   parameters: {
     docs: {
       description: {
-        story: 'Vercel + MUI 버튼 내 Loading 패턴. 저장/게시/동기화 3개 액션 각각 독립적 로딩 상태. idle → loading(스피너) → done(체크) → idle 순환. 실무 폼 제출 UX.',
+        story: 'DeployPlatform + EnterpriseUI 버튼 내 Loading 패턴. 저장/게시/동기화 3개 액션 각각 독립적 로딩 상태. idle → loading(스피너) → done(체크) → idle 순환. 실무 폼 제출 UX.',
       },
     },
   },

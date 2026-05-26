@@ -6,16 +6,16 @@ import { Meta, Unstyled } from '@storybook/blocks'
   <div style={{
     maxWidth: '900px',
     margin: '0 auto',
-    fontFamily: '"Pretendard Variable", "Pretendard", -apple-system, BlinkMacSystemFont, system-ui, sans-serif',
+    fontFamily: '"Pretendard Variable", "Pretendard", system-ui, sans-serif',
   }}>
 
     {/* Header */}
     <div style={{ marginBottom: '48px' }}>
       <div style={{ fontSize: '12px', fontWeight: '700', color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '8px' }}>Design Tokens</div>
       <h1 style={{ fontSize: '36px', fontWeight: '800', color: '#1e293b', letterSpacing: '-0.03em', margin: '0 0 12px' }}>디자인 토큰</h1>
-      <p style={{ fontSize: '16px', color: '#64748b', lineHeight: '1.6', margin: 0 }}>
+      <div style={{ fontSize: '16px', color: '#64748b', lineHeight: '1.6', margin: 0 }}>
         Eclipse 테마의 디자인 토큰은 <code style={{ background: '#f1f5f9', color: '#6366f1', padding: '2px 6px', borderRadius: '4px', fontSize: '14px', fontWeight: '500' }}>@heejun-com/theme-eclipse/token</code>에서 사용할 수 있습니다.
-      </p>
+      </div>
     </div>
 
     {/* Token Hierarchy Visual */}
@@ -213,7 +213,7 @@ const Card = styled.div\`
               <div style={{ width: '8px', height: '8px', borderRadius: '3px', background: cat.color }} />
               <h3 style={{ fontSize: '15px', fontWeight: '700', color: '#1e293b', margin: 0 }}>{cat.name}</h3>
             </div>
-            <p style={{ fontSize: '13px', color: '#64748b', margin: '0 0 12px', lineHeight: '1.5' }}>{cat.desc}</p>
+            <div style={{ fontSize: '13px', color: '#64748b', margin: '0 0 12px', lineHeight: '1.5' }}>{cat.desc}</div>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px' }}>
               {cat.tokens.map((t, j) => (
                 <code key={j} style={{
@@ -232,21 +232,21 @@ const Card = styled.div\`
       </div>
     </section>
 
-    {/* Material 3 Color Role System Comparison */}
+    {/* RoleToken Design Color Role System Comparison */}
     <section style={{ marginBottom: '56px' }}>
       <h2 style={{ fontSize: '22px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '8px' }}>
-        Material 3 색상 역할 시스템과 비교
+        RoleToken Design 색상 역할 시스템과 비교
       </h2>
-      <p style={{ fontSize: '14px', color: '#64748b', lineHeight: '1.6', marginBottom: '24px' }}>
-        Google Material 3는 색상을 역할(role) 기반으로 체계화합니다. Orbit UI의 Semantic Token과 어떻게 대응되는지 비교합니다.
-      </p>
+      <div style={{ fontSize: '14px', color: '#64748b', lineHeight: '1.6', marginBottom: '24px' }}>
+        RoleToken Design는 색상을 역할(role) 기반으로 체계화합니다. Orbit UI의 Semantic Token과 어떻게 대응되는지 비교합니다.
+      </div>
 
       <div style={{ overflowX: 'auto' }}>
         <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px' }}>
           <thead>
             <tr style={{ background: '#f8fafc' }}>
               <th style={{ padding: '10px 16px', textAlign: 'left', borderBottom: '2px solid #e2e8f0', color: '#64748b', fontWeight: '600' }}>
-                Material 3 역할
+                RoleToken Design 역할
               </th>
               <th style={{ padding: '10px 16px', textAlign: 'left', borderBottom: '2px solid #e2e8f0', color: '#64748b', fontWeight: '600' }}>
                 설명
@@ -295,9 +295,9 @@ const Card = styled.div\`
         background: '#f8fafc',
         border: '1px solid #e2e8f0',
       }}>
-        <p style={{ fontSize: '13px', color: '#64748b', margin: 0, lineHeight: '1.6' }}>
-          <strong style={{ color: '#1e293b' }}>핵심 차이점:</strong> Material 3는 색상을 동적 색상 팔레트(Dynamic Color)로 생성하지만, Orbit UI의 Eclipse 테마는 고정된 CSS Variable로 브랜드 일관성을 유지합니다. 두 시스템 모두 Surface/Container 계층을 통해 시각적 깊이(elevation)를 표현합니다.
-        </p>
+        <div style={{ fontSize: '13px', color: '#64748b', margin: 0, lineHeight: '1.6' }}>
+          <strong style={{ color: '#1e293b' }}>핵심 차이점:</strong> RoleToken Design는 색상을 동적 색상 팔레트(Dynamic Color)로 생성하지만, Orbit UI의 Eclipse 테마는 고정된 CSS Variable로 브랜드 일관성을 유지합니다. 두 시스템 모두 Surface/Container 계층을 통해 시각적 깊이(elevation)를 표현합니다.
+        </div>
       </div>
     </section>
 
@@ -306,9 +306,9 @@ const Card = styled.div\`
       <h2 style={{ fontSize: '22px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '8px' }}>
         커스텀 브랜드 색상 적용
       </h2>
-      <p style={{ fontSize: '14px', color: '#64748b', lineHeight: '1.6', marginBottom: '20px' }}>
+      <div style={{ fontSize: '14px', color: '#64748b', lineHeight: '1.6', marginBottom: '20px' }}>
         CSS Variable을 재정의하여 브랜드 색상을 적용할 수 있습니다. <code style={{ background: '#f1f5f9', color: '#6366f1', padding: '2px 6px', borderRadius: '4px', fontSize: '13px' }}>EclipseProvider</code> 하위에서만 동작합니다.
-      </p>
+      </div>
 
       <div style={{ borderRadius: '12px', border: '1px solid #e2e8f0', overflow: 'hidden' }}>
         <div style={{ padding: '8px 16px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', gap: '6px' }}>
@@ -341,17 +341,17 @@ const Card = styled.div\`
       background: 'linear-gradient(90deg, rgba(99, 102, 241, 0.04) 0%, transparent 100%)',
       borderLeft: '3px solid #6366f1',
     }}>
-      <p style={{ fontSize: '14px', color: '#475569', margin: 0, lineHeight: '1.6' }}>
+      <div style={{ fontSize: '14px', color: '#475569', margin: 0, lineHeight: '1.6' }}>
         디자인 토큰 값은 <code style={{ background: '#f1f5f9', color: '#6366f1', padding: '2px 6px', borderRadius: '4px', fontSize: '13px', fontWeight: '500' }}>EclipseProvider</code>의 CSS Variable로 동작합니다. 반드시 Provider 하위에서 사용해주세요.
-      </p>
+      </div>
     </div>
 
     {/* Ant Design Token System Comparison */}
     <section style={{ marginTop: '56px', marginBottom: '56px' }}>
       <h2 style={{ fontSize: '22px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '8px' }}>Ant Design 토큰 시스템과 비교</h2>
-      <p style={{ fontSize: '14px', color: '#64748b', marginBottom: '28px', lineHeight: '1.6' }}>
+      <div style={{ fontSize: '14px', color: '#64748b', marginBottom: '28px', lineHeight: '1.6' }}>
         Ant Design v5와 Orbit UI의 토큰 시스템은 유사한 3단계 구조를 가지지만, 적용 방식이 다릅니다.
-      </p>
+      </div>
       <div style={{ overflowX: 'auto', marginBottom: '24px' }}>
         <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px' }}>
           <thead>
@@ -366,7 +366,7 @@ const Card = styled.div\`
               ['1계층 (원시값)', 'Reference Token (colorBlue500)', 'Seed Token (colorPrimary)'],
               ['2계층 (의미값)', 'Semantic Token (fillPrimary)', 'Map Token (colorPrimaryBg)'],
               ['3계층 (컴포넌트)', 'Component Token (button.fillColor)', 'Alias Token (colorBgContainer)'],
-              ['적용 방식', 'CSS Variable + Tailwind 유틸', 'CSS-in-JS (cssinjs)'],
+              ['적용 방식', 'CSS Variable + UtilityCSS 유틸', 'CSS-in-JS (cssinjs)'],
               ['Override 방법', 'EclipseProvider style prop', 'ConfigProvider theme prop'],
               ['타입 안전성', 'TypeScript 완전 지원', 'TypeScript 완전 지원'],
             ].map(([label, orbit, ant]) => (
@@ -402,20 +402,20 @@ const Card = styled.div\`
     {/* Brand Application Guide */}
     <section style={{ marginBottom: '56px' }}>
       <h2 style={{ fontSize: '22px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '8px' }}>실전 예제: 회사 브랜드 적용하기</h2>
-      <p style={{ fontSize: '14px', color: '#64748b', marginBottom: '24px', lineHeight: '1.6' }}>
+      <div style={{ fontSize: '14px', color: '#64748b', marginBottom: '24px', lineHeight: '1.6' }}>
         EclipseProvider에 CSS 변수를 전달하여 브랜드 컬러를 적용합니다. 단 하나의 파일만 수정하면 됩니다.
-      </p>
+      </div>
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '24px' }}>
         {[
-          { brand: 'Kakao', primary: '#FEE500', secondary: '#FFEB3B', fg: '#191600' },
-          { brand: 'Naver', primary: '#03C75A', secondary: '#02B350', fg: '#FFFFFF' },
-          { brand: 'Toss', primary: '#0064FF', secondary: '#0057E3', fg: '#FFFFFF' },
-          { brand: 'Coupang', primary: '#EE2424', secondary: '#CC1F1F', fg: '#FFFFFF' },
+          { brand: 'WarmYellow', primary: '#FEE500', secondary: '#FFEB3B', fg: '#191600' },
+          { brand: 'GrowthGreen', primary: '#03C75A', secondary: '#02B350', fg: '#FFFFFF' },
+          { brand: 'ClearBlue', primary: '#0064FF', secondary: '#0057E3', fg: '#FFFFFF' },
+          { brand: 'SignalRed', primary: '#EE2424', secondary: '#CC1F1F', fg: '#FFFFFF' },
         ].map(({ brand, primary }) => (
           <div key={brand} style={{ borderRadius: '10px', border: '1px solid #e2e8f0', overflow: 'hidden' }}>
             <div style={{ padding: '14px 16px', background: primary, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-              <span style={{ fontWeight: '700', fontSize: '14px', color: brand === 'Kakao' ? '#191600' : '#fff' }}>{brand} 브랜드</span>
-              <span style={{ fontSize: '11px', color: brand === 'Kakao' ? 'rgba(25,22,0,0.6)' : 'rgba(255,255,255,0.7)', fontFamily: 'monospace' }}>{primary}</span>
+              <span style={{ fontWeight: '700', fontSize: '14px', color: brand === 'WarmYellow' ? '#191600' : '#fff' }}>{brand} 브랜드</span>
+              <span style={{ fontSize: '11px', color: brand === 'WarmYellow' ? 'rgba(25,22,0,0.6)' : 'rgba(255,255,255,0.7)', fontFamily: 'monospace' }}>{primary}</span>
             </div>
             <div style={{ padding: '12px 16px', background: '#f8fafc', fontSize: '12px', color: '#64748b', fontFamily: 'monospace' }}>
               {'--sem-eclipse-color-fillPrimary: '}{primary}
@@ -424,13 +424,13 @@ const Card = styled.div\`
         ))}
       </div>
       <pre style={{ background: '#1e293b', color: '#e2e8f0', borderRadius: '12px', padding: '20px 24px', fontSize: '13px', lineHeight: '1.7', overflow: 'auto' }}>{`// theme/brand.ts - 브랜드별 토큰 파일
-export const kakaoBrand = {
+export const quickpayBrand = {
   '--sem-eclipse-color-fillPrimary': '#FEE500',
   '--sem-eclipse-color-fillSecondary': '#FFEB3B',
   '--sem-eclipse-color-foregroundOnFill': '#191600',
 }
 
-export const naverBrand = {
+export const pointpayBrand = {
   '--sem-eclipse-color-fillPrimary': '#03C75A',
   '--sem-eclipse-color-fillSecondary': '#02B350',
   '--sem-eclipse-color-foregroundOnFill': '#FFFFFF',
@@ -438,11 +438,11 @@ export const naverBrand = {
 
 // App.tsx - 브랜드 적용
 import { EclipseProvider } from '@heejun-com/theme-eclipse'
-import { kakaoBrand } from './theme/brand'
+import { quickpayBrand } from './theme/brand'
 
 function App() {
   return (
-    <EclipseProvider style={kakaoBrand}>
+    <EclipseProvider style={quickpayBrand}>
       <YourApp />
     </EclipseProvider>
   )
@@ -454,9 +454,9 @@ function App() {
       <h2 style={{ fontSize: '22px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '8px' }}>
         Dark Mode 토큰 재정의
       </h2>
-      <p style={{ fontSize: '14px', color: '#64748b', lineHeight: '1.6', marginBottom: '24px' }}>
+      <div style={{ fontSize: '14px', color: '#64748b', lineHeight: '1.6', marginBottom: '24px' }}>
         EclipseProvider의 <code style={{ background: '#f1f5f9', color: '#6366f1', padding: '2px 6px', borderRadius: '4px', fontSize: '13px' }}>mode="dark"</code> prop을 설정하거나, CSS Variable을 직접 재정의하여 다크 모드를 구현할 수 있습니다.
-      </p>
+      </div>
 
       {/* 다크/라이트 토큰 비교 */}
       <div style={{ overflowX: 'auto', marginBottom: '24px' }}>
@@ -544,7 +544,7 @@ function App() {
   border-radius: var(--sem-eclipse-radius-md);
 }
 
-/* ② Tailwind와 CSS Variable 조합 */
+/* ② UtilityCSS와 CSS Variable 조합 */
 .card {
   background-color: var(--sem-eclipse-color-surfaceContainer);
   padding: var(--sem-eclipse-spacing-md);
@@ -567,9 +567,9 @@ function App() {
       <h2 style={{ fontSize: '22px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '8px' }}>
         Before / After: 토큰 도입 전후 비교
       </h2>
-      <p style={{ fontSize: '14px', color: '#64748b', lineHeight: '1.6', marginBottom: '24px' }}>
+      <div style={{ fontSize: '14px', color: '#64748b', lineHeight: '1.6', marginBottom: '24px' }}>
         하드코딩된 색상값에서 Orbit UI 디자인 토큰으로 전환하는 실제 코드 예시입니다.
-      </p>
+      </div>
 
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '20px' }}>
         {/* Before */}
@@ -633,9 +633,9 @@ function App() {
       </div>
 
       <div style={{ padding: '16px 20px', borderRadius: '10px', background: 'linear-gradient(90deg, rgba(16,185,129,0.04) 0%, transparent 100%)', borderLeft: '3px solid #10b981' }}>
-        <p style={{ fontSize: '14px', color: '#475569', margin: 0, lineHeight: '1.6' }}>
+        <div style={{ fontSize: '14px', color: '#475569', margin: 0, lineHeight: '1.6' }}>
           <strong style={{ color: '#0f172a' }}>핵심 이점:</strong> CSS Variable 기반 토큰을 사용하면 다크모드, 브랜드 변경, 접근성 조정 모두 한 곳에서 관리됩니다. 컴포넌트 코드는 변경 없이 토큰 값만 바꾸면 전체 UI가 일관되게 업데이트됩니다.
-        </p>
+        </div>
       </div>
     </section>
 
@@ -648,10 +648,10 @@ function App() {
         <h2 style={{ fontSize: '20px', fontWeight: '800', color: '#1e293b', margin: 0 }}>브랜드 컬러 적용</h2>
       </div>
 
-      <p style={{ fontSize: '14px', color: '#64748b', lineHeight: '1.7', marginBottom: '24px' }}>
+      <div style={{ fontSize: '14px', color: '#64748b', lineHeight: '1.7', marginBottom: '24px' }}>
         Orbit UI의 Reference Token을 재정의해 브랜드 고유 색상을 전역으로 적용할 수 있습니다.
-        Arco Design의 ConfigProvider, MUI의 createTheme과 같이 한 곳에서 전체 테마를 변경하는 패턴입니다.
-      </p>
+        DataProductUI의 ConfigProvider, EnterpriseUI의 createTheme과 같이 한 곳에서 전체 테마를 변경하는 패턴입니다.
+      </div>
 
       <div style={{ borderRadius: '12px', border: '1px solid #e2e8f0', overflow: 'hidden', marginBottom: '24px' }}>
         <div style={{ padding: '8px 16px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
@@ -683,14 +683,14 @@ function App() {
             <span style={{ fontSize: '12px', color: '#f59e0b', fontWeight: '700' }}>기업 브랜드 예시</span>
           </div>
           <pre style={{ margin: 0, padding: '16px', background: '#0f172a', color: '#e2e8f0', fontSize: '11px', lineHeight: '1.8', fontFamily: '"JetBrains Mono", monospace', overflow: 'auto' }}>
-{`/* Kakao 스타일 (노란색 계열) */
+{`/* WarmYellow 스타일 (노란색 계열) */
 :root {
   --sem-eclipse-color-fillPrimary: #FEE500;
   --sem-eclipse-color-foregroundPrimary:
     #000000;
 }
 
-/* Naver 스타일 (초록색 계열) */
+/* GrowthGreen 스타일 (초록색 계열) */
 :root {
   --sem-eclipse-color-fillPrimary: #03C75A;
 }`}
@@ -710,7 +710,7 @@ function App() {
     foreground: '#000000',
   }}
 >
-  카카오 로그인
+  퀵 로그인
 </SolidButton>`}
           </pre>
         </div>
@@ -718,8 +718,8 @@ function App() {
 
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '12px' }}>
         {[
-          { name: 'Arco Design', method: 'ConfigProvider theme', desc: '전역 컴포넌트에 theme 객체 주입, token 키-값으로 재정의' },
-          { name: 'MUI', method: 'createTheme()', desc: 'palette.primary.main 등 시맨틱 키로 색상 계층 구성' },
+          { name: 'DataProductUI', method: 'ConfigProvider theme', desc: '전역 컴포넌트에 theme 객체 주입, token 키-값으로 재정의' },
+          { name: 'EnterpriseUI', method: 'createTheme()', desc: 'palette.primary.main 등 시맨틱 키로 색상 계층 구성' },
           { name: 'Orbit UI', method: 'CSS Variables', desc: 'Reference/Semantic/Component 세 계층 중 원하는 곳에서 오버라이드' },
         ].map((item) => (
           <div key={item.name} style={{ padding: '16px', borderRadius: '10px', background: '#f8fafc', border: '1px solid #e2e8f0' }}>
@@ -731,18 +731,18 @@ function App() {
       </div>
     </section>
 
-    {/* Raycast / Linear Token Usage */}
+    {/* CommandPalette / IssueTracker Token Usage */}
     <section style={{ marginBottom: '56px' }}>
       <h2 style={{ fontSize: '22px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '8px' }}>실무 토큰 활용 패턴</h2>
-      <p style={{ fontSize: '14px', color: '#64748b', lineHeight: '1.6', marginBottom: '24px' }}>Raycast, Linear 등 세계 수준 디자인 시스템이 사용하는 토큰 활용 전략입니다.</p>
+      <div style={{ fontSize: '14px', color: '#64748b', lineHeight: '1.6', marginBottom: '24px' }}>CommandPalette, IssueTracker 등 세계 수준 디자인 시스템이 사용하는 토큰 활용 전략입니다.</div>
 
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '24px' }}>
         <div style={{ borderRadius: '12px', border: '1px solid #e2e8f0', overflow: 'hidden' }}>
           <div style={{ padding: '10px 16px', background: '#faf5ff', borderBottom: '1px solid #e2e8f0' }}>
-            <span style={{ fontSize: '12px', color: '#7c3aed', fontWeight: '700' }}>Raycast - 다크 모드 토큰</span>
+            <span style={{ fontSize: '12px', color: '#7c3aed', fontWeight: '700' }}>CommandPalette - 다크 모드 토큰</span>
           </div>
           <pre style={{ margin: 0, padding: '16px', background: '#1c1c1e', color: '#e5e5e5', fontSize: '11px', lineHeight: '1.8', fontFamily: '"JetBrains Mono", monospace', overflow: 'auto' }}>
-{`/* Raycast는 모든 색상을 
+{`/* CommandPalette는 모든 색상을
    semantic token으로 정의 */
 :root[data-theme="dark"] {
   --bg-primary: #1c1c1e;
@@ -757,10 +757,10 @@ function App() {
 
         <div style={{ borderRadius: '12px', border: '1px solid #e2e8f0', overflow: 'hidden' }}>
           <div style={{ padding: '10px 16px', background: '#f0f4ff', borderBottom: '1px solid #e2e8f0' }}>
-            <span style={{ fontSize: '12px', color: '#4f46e5', fontWeight: '700' }}>Linear - 컴포넌트 토큰</span>
+            <span style={{ fontSize: '12px', color: '#4f46e5', fontWeight: '700' }}>IssueTracker - 컴포넌트 토큰</span>
           </div>
           <pre style={{ margin: 0, padding: '16px', background: '#0f172a', color: '#e2e8f0', fontSize: '11px', lineHeight: '1.8', fontFamily: '"JetBrains Mono", monospace', overflow: 'auto' }}>
-{`/* Linear는 컴포넌트별 토큰을
+{`/* IssueTracker는 컴포넌트별 토큰을
    명확하게 네이밍 */
 :root {
   --issue-urgent: #ef4444;
@@ -794,14 +794,14 @@ function App() {
     </section>
 
     {/* ─────────────────────────────────────────────────────
-        Linear Design + Notion Design 벤치마크
+        IssueTracker Design + WorkspaceEditor Design 벤치마크
         ───────────────────────────────────────────────────── */}
     <section style={{ marginTop: '48px' }}>
       <div style={{ fontSize: '22px', fontWeight: '800', color: '#1e293b', marginBottom: '6px' }}>
-        Linear &amp; Notion 토큰 설계 벤치마크
+        IssueTracker &amp; WorkspaceEditor 토큰 설계 벤치마크
       </div>
       <div style={{ fontSize: '14px', color: '#64748b', marginBottom: '24px', lineHeight: '1.6' }}>
-        Linear와 Notion의 색상 토큰 설계 방식을 Orbit UI 3-Tier 구조와 비교합니다.
+        IssueTracker와 WorkspaceEditor의 색상 토큰 설계 방식을 Orbit UI 3-Tier 구조와 비교합니다.
       </div>
 
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '24px' }}>
@@ -810,7 +810,7 @@ function App() {
             <div style={{ width: '32px', height: '32px', borderRadius: '8px', background: '#5e6ad2', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <span style={{ color: '#fff', fontWeight: '700', fontSize: '14px' }}>L</span>
             </div>
-            <div style={{ fontWeight: '700', fontSize: '15px', color: '#1e293b' }}>Linear</div>
+            <div style={{ fontWeight: '700', fontSize: '15px', color: '#1e293b' }}>IssueTracker</div>
           </div>
           <ul style={{ listStyle: 'none', padding: 0, margin: 0, fontSize: '13px', color: '#4c1d95', lineHeight: '2' }}>
             <li>의미론적 네이밍: <code style={{ background: '#ede9fe', padding: '1px 5px', borderRadius: '4px' }}>--color-fg-primary</code></li>
@@ -824,7 +824,7 @@ function App() {
             <div style={{ width: '32px', height: '32px', borderRadius: '8px', background: '#191919', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <span style={{ color: '#fff', fontWeight: '700', fontSize: '14px' }}>N</span>
             </div>
-            <div style={{ fontWeight: '700', fontSize: '15px', color: '#1e293b' }}>Notion</div>
+            <div style={{ fontWeight: '700', fontSize: '15px', color: '#1e293b' }}>WorkspaceEditor</div>
           </div>
           <ul style={{ listStyle: 'none', padding: 0, margin: 0, fontSize: '13px', color: '#374151', lineHeight: '2' }}>
             <li>역할 기반 네이밍: <code style={{ background: '#f3f4f6', padding: '1px 5px', borderRadius: '4px' }}>--bg-default</code></li>
@@ -840,8 +840,8 @@ function App() {
           <thead>
             <tr style={{ background: '#f1f5f9' }}>
               <th style={{ padding: '10px 14px', textAlign: 'left', fontWeight: '700', color: '#475569', borderBottom: '2px solid #e2e8f0' }}>기준</th>
-              <th style={{ padding: '10px 14px', textAlign: 'left', fontWeight: '700', color: '#5e6ad2', borderBottom: '2px solid #e2e8f0' }}>Linear</th>
-              <th style={{ padding: '10px 14px', textAlign: 'left', fontWeight: '700', color: '#374151', borderBottom: '2px solid #e2e8f0' }}>Notion</th>
+              <th style={{ padding: '10px 14px', textAlign: 'left', fontWeight: '700', color: '#5e6ad2', borderBottom: '2px solid #e2e8f0' }}>IssueTracker</th>
+              <th style={{ padding: '10px 14px', textAlign: 'left', fontWeight: '700', color: '#374151', borderBottom: '2px solid #e2e8f0' }}>WorkspaceEditor</th>
               <th style={{ padding: '10px 14px', textAlign: 'left', fontWeight: '700', color: '#6366f1', borderBottom: '2px solid #e2e8f0' }}>Orbit UI</th>
             </tr>
           </thead>
@@ -875,22 +875,22 @@ function App() {
       </div>
     </section>
 
-    {/* Linear Design + Arco Design 토큰 시스템 비교 */}
+    {/* IssueTracker Design + DataProductUI 토큰 시스템 비교 */}
     <section style={{ marginBottom: '56px' }}>
-      <h2 style={{ fontSize: '24px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '8px' }}>Linear Design + Arco Design 토큰 시스템 비교</h2>
-      <p style={{ fontSize: '14px', color: '#64748b', lineHeight: '1.7', marginBottom: '24px' }}>
-        Linear의 미니멀 컬러 토큰 구조와 Arco Design의 계층적 팔레트 시스템을 Orbit UI와 비교합니다.
-      </p>
+      <h2 style={{ fontSize: '24px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '8px' }}>IssueTracker Design + DataProductUI 토큰 시스템 비교</h2>
+      <div style={{ fontSize: '14px', color: '#64748b', lineHeight: '1.7', marginBottom: '24px' }}>
+        IssueTracker의 미니멀 컬러 토큰 구조와 DataProductUI의 계층적 팔레트 시스템을 Orbit UI와 비교합니다.
+      </div>
 
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '28px' }}>
         <div style={{ borderRadius: '16px', border: '1px solid #c7d2fe', overflow: 'hidden' }}>
           <div style={{ padding: '12px 20px', background: '#1e1e2e', display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <span style={{ fontSize: '13px', fontWeight: '700', color: '#a5b4fc' }}>Linear Design — 컬러 토큰</span>
+            <span style={{ fontSize: '13px', fontWeight: '700', color: '#a5b4fc' }}>IssueTracker Design — 컬러 토큰</span>
             <span style={{ fontSize: '11px', color: '#5e6ad2', background: '#2d2d4e', padding: '2px 6px', borderRadius: '4px' }}>미니멀</span>
           </div>
           <pre style={{ margin: 0, padding: '16px', background: '#111827', color: '#e2e8f0', fontSize: '11px', lineHeight: '1.8', fontFamily: '"JetBrains Mono", monospace', overflow: 'auto' }}>
-{`// Linear 컬러 시스템 — 단일 보라 계열 주색
-const linearTokens = {
+{`// IssueTracker 컬러 시스템 — 단일 보라 계열 주색
+const trackerTokens = {
   colorAccent:        '#5E6AD2',
   colorAccentHover:   '#4f5abf',
   colorTodo:          '#94a3b8',
@@ -909,11 +909,11 @@ const linearTokens = {
 
         <div style={{ borderRadius: '16px', border: '1px solid #bae6fd', overflow: 'hidden' }}>
           <div style={{ padding: '12px 20px', background: '#0c4a6e', display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <span style={{ fontSize: '13px', fontWeight: '700', color: '#7dd3fc' }}>Arco Design — 팔레트 시스템</span>
+            <span style={{ fontSize: '13px', fontWeight: '700', color: '#7dd3fc' }}>DataProductUI — 팔레트 시스템</span>
             <span style={{ fontSize: '11px', color: '#38bdf8', background: '#0369a1', padding: '2px 6px', borderRadius: '4px' }}>체계적</span>
           </div>
           <pre style={{ margin: 0, padding: '16px', background: '#0f172a', color: '#e2e8f0', fontSize: '11px', lineHeight: '1.8', fontFamily: '"JetBrains Mono", monospace', overflow: 'auto' }}>
-{`// Arco Design — 10단계 팔레트
+{`// DataProductUI — 10단계 팔레트
 const arcoTokens = {
   blue1: '#e8f7ff', blue6: '#2592f5',
   blue10: '#003182',
@@ -936,22 +936,22 @@ const arcoTokens = {
           <thead>
             <tr style={{ background: '#f8fafc' }}>
               <th style={{ padding: '10px 16px', textAlign: 'left', fontWeight: '700', color: '#475569', borderBottom: '1px solid #e2e8f0' }}>특성</th>
-              <th style={{ padding: '10px 16px', textAlign: 'left', fontWeight: '700', color: '#5e6ad2', borderBottom: '1px solid #e2e8f0' }}>Linear Design</th>
-              <th style={{ padding: '10px 16px', textAlign: 'left', fontWeight: '700', color: '#2592f5', borderBottom: '1px solid #e2e8f0' }}>Arco Design</th>
+              <th style={{ padding: '10px 16px', textAlign: 'left', fontWeight: '700', color: '#5e6ad2', borderBottom: '1px solid #e2e8f0' }}>IssueTracker Design</th>
+              <th style={{ padding: '10px 16px', textAlign: 'left', fontWeight: '700', color: '#2592f5', borderBottom: '1px solid #e2e8f0' }}>DataProductUI</th>
               <th style={{ padding: '10px 16px', textAlign: 'left', fontWeight: '700', color: '#6366f1', borderBottom: '1px solid #e2e8f0' }}>Orbit UI</th>
             </tr>
           </thead>
           <tbody>
             {[
-              { feature: '색상 철학', linear: '단일 보라 + 4 상태색', arco: '10단계 팔레트 x 6색', orbit: 'Reference 토큰 → Semantic 매핑' },
-              { feature: '다크 모드', linear: '다크 우선 설계', arco: '라이트 우선, 다크 지원', orbit: 'data-theme 스위칭' },
-              { feature: '간격 시스템', linear: '4px 그리드 (컴팩트)', arco: '8px 그리드 (표준)', orbit: '8px 그리드, spacing ref 토큰' },
-              { feature: '컴포넌트 밀도', linear: '고밀도 (이슈 목록)', arco: '중밀도 (테이블/폼)', orbit: 'props로 density 제어 가능' },
-              { feature: '타입 안전성', linear: 'CSS 변수 + TS 상수', arco: 'less 변수', orbit: 'TypeScript + 토큰 자동 추론' },
+              { feature: '색상 철학', tracker: '단일 보라 + 4 상태색', arco: '10단계 팔레트 x 6색', orbit: 'Reference 토큰 → Semantic 매핑' },
+              { feature: '다크 모드', tracker: '다크 우선 설계', arco: '라이트 우선, 다크 지원', orbit: 'data-theme 스위칭' },
+              { feature: '간격 시스템', tracker: '4px 그리드 (컴팩트)', arco: '8px 그리드 (표준)', orbit: '8px 그리드, spacing ref 토큰' },
+              { feature: '컴포넌트 밀도', tracker: '고밀도 (이슈 목록)', arco: '중밀도 (테이블/폼)', orbit: 'props로 density 제어 가능' },
+              { feature: '타입 안전성', tracker: 'CSS 변수 + TS 상수', arco: 'less 변수', orbit: 'TypeScript + 토큰 자동 추론' },
             ].map((row, i) => (
               <tr key={row.feature} style={{ background: i % 2 === 0 ? '#fff' : '#fafafa' }}>
                 <td style={{ padding: '9px 16px', fontWeight: '600', color: '#374151', borderBottom: '1px solid #f1f5f9' }}>{row.feature}</td>
-                <td style={{ padding: '9px 16px', color: '#5e6ad2', borderBottom: '1px solid #f1f5f9', fontSize: 12 }}>{row.linear}</td>
+                <td style={{ padding: '9px 16px', color: '#5e6ad2', borderBottom: '1px solid #f1f5f9', fontSize: 12 }}>{row.tracker}</td>
                 <td style={{ padding: '9px 16px', color: '#2592f5', borderBottom: '1px solid #f1f5f9', fontSize: 12 }}>{row.arco}</td>
                 <td style={{ padding: '9px 16px', color: '#6366f1', fontWeight: '600', borderBottom: '1px solid #f1f5f9', fontSize: 12 }}>{row.orbit}</td>
               </tr>
@@ -964,21 +964,21 @@ const arcoTokens = {
   </div>
 </Unstyled>
 
-{/* ─── Cycle 65: Radix UI + Ant Design ─────────────────────────────────── */}
+{/* ─── Cycle 65: PrimitiveUI + Ant Design ─────────────────────────────────── */}
 {/* Note: Section appended below closing tag intentionally as MDX addendum */}
 
 export const Cycle65Section = () => (
   <div style={{ marginTop: 48, padding: '32px 40px', background: '#f8fafc', borderRadius: 16, border: '1px solid #e2e8f0' }}>
-    <h2 style={{ fontSize: 22, fontWeight: 700, color: '#0f172a', marginBottom: 8 }}>Radix UI + Ant Design 토큰 시스템 분석</h2>
-    <p style={{ color: '#64748b', fontSize: 14, marginBottom: 24 }}>Cycle 65 벤치마크 — Radix UI Primitives와 Ant Design의 디자인 토큰 철학 비교</p>
+    <h2 style={{ fontSize: 22, fontWeight: 700, color: '#0f172a', marginBottom: 8 }}>PrimitiveUI + Ant Design 토큰 시스템 분석</h2>
+    <div style={{ color: '#64748b', fontSize: 14, marginBottom: 24 }}>Cycle 65 벤치마크 — PrimitiveUI Primitives와 Ant Design의 디자인 토큰 철학 비교</div>
 
-    <h3 style={{ fontSize: 16, fontWeight: 600, color: '#334155', marginBottom: 12 }}>Radix UI — Primitive-First 토큰 철학</h3>
+    <h3 style={{ fontSize: 16, fontWeight: 600, color: '#334155', marginBottom: 12 }}>PrimitiveUI — Primitive-First 토큰 철학</h3>
     <ul style={{ color: '#475569', fontSize: 13, lineHeight: 1.8, paddingLeft: 20 }}>
-      <li><strong>비스타일 프리미티브</strong>: Radix는 CSS 변수 기반 토큰을 직접 강요하지 않음. 스타일링은 Tailwind 또는 CSS-in-JS에 위임</li>
-      <li><strong>Radix Colors</strong>: 12단계 색상 스케일 (1=배경 ~ 12=텍스트). 다크 모드 자동 반전 지원</li>
+      <li><strong>비스타일 프리미티브</strong>: Primitive는 CSS 변수 기반 토큰을 직접 강요하지 않음. 스타일링은 UtilityCSS 또는 CSS-in-JS에 위임</li>
+      <li><strong>Primitive Colors</strong>: 12단계 색상 스케일 (1=배경 ~ 12=텍스트). 다크 모드 자동 반전 지원</li>
       <li><strong>의미 기반 스케일</strong>: gray-1(앱 배경), gray-3(컴포넌트 배경), gray-7(테두리), gray-11(저강조 텍스트), gray-12(고강조 텍스트)</li>
       <li><strong>상태 색상</strong>: hover, active, focus는 스케일 +1 단계로 자동 계산 (예: blue-9 → hover: blue-10)</li>
-      <li><strong>Orbit 연계</strong>: Radix Colors의 12단계 스케일을 Reference Token으로, 의미 매핑을 Semantic Token으로 구현 가능</li>
+      <li><strong>Orbit 연계</strong>: Primitive Colors의 12단계 스케일을 Reference Token으로, 의미 매핑을 Semantic Token으로 구현 가능</li>
     </ul>
 
     <h3 style={{ fontSize: 16, fontWeight: 600, color: '#334155', marginTop: 24, marginBottom: 12 }}>Ant Design — Enterprise 토큰 체계</h3>
@@ -995,7 +995,7 @@ export const Cycle65Section = () => (
       <thead>
         <tr style={{ background: '#f1f5f9' }}>
           <th style={{ padding: '10px 14px', textAlign: 'left', color: '#475569', fontWeight: 600 }}>기준</th>
-          <th style={{ padding: '10px 14px', textAlign: 'left', color: '#6366f1', fontWeight: 600 }}>Radix UI</th>
+          <th style={{ padding: '10px 14px', textAlign: 'left', color: '#6366f1', fontWeight: 600 }}>PrimitiveUI</th>
           <th style={{ padding: '10px 14px', textAlign: 'left', color: '#f59e0b', fontWeight: 600 }}>Ant Design 5.x</th>
           <th style={{ padding: '10px 14px', textAlign: 'left', color: '#10b981', fontWeight: 600 }}>Orbit Eclipse</th>
         </tr>
@@ -1004,7 +1004,7 @@ export const Cycle65Section = () => (
         {[
           { feature: '토큰 계층', radix: '색상 스케일 (12단계)', ant: 'Seed → Map → Alias', orbit: 'Reference → Semantic → Component' },
           { feature: '다크 모드', radix: '자동 반전 (P3 지원)', ant: 'algorithm.darkAlgorithm', orbit: 'data-theme="dark"' },
-          { feature: '타입 안전성', radix: 'CSS 변수 문자열', ant: 'TypeScript 인터페이스', orbit: 'Tailwind + 토큰 strict TS' },
+          { feature: '타입 안전성', radix: 'CSS 변수 문자열', ant: 'TypeScript 인터페이스', orbit: 'UtilityCSS + 토큰 strict TS' },
           { feature: '런타임 오버라이드', radix: 'CSS 변수 재정의', ant: 'ConfigProvider + theme', orbit: 'ThemeProvider + vars' },
           { feature: '컴포넌트 밀도', radix: '비제어 (소비자 책임)', ant: 'compact: size="small"', orbit: 'density prop 제어' },
         ].map((row, i) => (

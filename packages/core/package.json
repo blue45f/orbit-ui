@@ -34,7 +34,7 @@
     "preinstall": "mkdir -p dist && touch dist/style.css",
     "dev": "storybook dev -p 6009",
     "build": "vite build && pnpm build:css && pnpm build:dts",
-    "build:css": "tailwindcss -i ./src/styles/globals.css -o ./dist/style.css --minify",
+    "build:css": "BROWSERSLIST_IGNORE_OLD_DATA=1 tailwindcss -i ./src/styles/globals.css -o ./dist/style.css --minify",
     "build:dts": "tsc -p tsconfig.dts.json",
     "build:storybook": "storybook build",
     "typecheck": "tsc --noEmit",

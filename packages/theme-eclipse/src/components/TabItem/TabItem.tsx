@@ -46,7 +46,7 @@ type TabComponent = typeof TabRoot & {
 
 /**
  * ### 💡 알아두기
- * - [🔗 figma 디자인가이드라인 바로가기](https://www.figma.com/design/j83TJjvORWmdqQ1mBWc3uR/%F0%9F%98%8E-%5B%ED%81%B4%EB%A0%88%EC%9D%B4%5D-%EC%BD%94%EC%96%B4-(0.1.5-token_v1)?m=auto&node-id=4829-34536&t=0WpAUIxxGzOh6eog-1)
+ * - [🔗 design 디자인가이드라인 바로가기](https://design.example.com/reference)?m=auto&node-id=4829-34536&t=0WpAUIxxGzOh6eog-1)
  *
  * ### 🧩 서브컴포넌트
  * - {@link Tab `Tab`} 탭

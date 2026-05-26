@@ -27,7 +27,7 @@ export const 기본: Story = {
 
 /* --------------------------------------------------------------------------
    범위 선택 (Range Selection)
-   Radix Slider 패턴: 두 개의 thumb으로 범위를 지정하는 패턴.
+   Primitive Slider 패턴: 두 개의 thumb으로 범위를 지정하는 패턴.
    가격 필터, 날짜 범위 등에서 활용됩니다.
 -------------------------------------------------------------------------- */
 const RangeSelectionRender = () => {
@@ -77,7 +77,7 @@ export const 범위선택: Story = {
 
 /* --------------------------------------------------------------------------
    볼륨 컨트롤 패턴
-   Radix Slider + 접근성 패턴: aria-label, aria-valuetext를 활용한 시각적 피드백.
+   Primitive Slider + 접근성 패턴: aria-label, aria-valuetext를 활용한 시각적 피드백.
    키보드(좌/우 방향키)로 조절 가능하며 스크린리더에 값 변화를 알립니다.
 -------------------------------------------------------------------------- */
 const VolumeControlRender = () => {
@@ -208,11 +208,11 @@ export const 단계별설정: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Raycast 스타일 키보드 단축키 설정
-   Raycast 패턴: 슬라이더로 수치를 조정하고 키보드 단축키로도 제어 가능.
+   CommandPalette 스타일 키보드 단축키 설정
+   CommandPalette 패턴: 슬라이더로 수치를 조정하고 키보드 단축키로도 제어 가능.
    Up/Down 화살표로 값 조정 + 슬라이더 조합. Compact UI 밀도.
 -------------------------------------------------------------------------- */
-const RaycastSettingsRender = () => {
+const CommandPaletteSettingsRender = () => {
   const [windowOpacity, setWindowOpacity] = useState([90])
   const [fontSize, setFontSize] = useState([14])
   const [animationSpeed, setAnimationSpeed] = useState([2])
@@ -246,7 +246,7 @@ const RaycastSettingsRender = () => {
         </div>
         <div>
           <div style={{ fontSize: '13px', fontWeight: 700, color: '#0f172a' }}>Appearance</div>
-          <div style={{ fontSize: '11px', color: '#94a3b8' }}>Raycast Settings</div>
+          <div style={{ fontSize: '11px', color: '#94a3b8' }}>CommandPalette Settings</div>
         </div>
       </div>
 
@@ -357,15 +357,15 @@ const RaycastSettingsRender = () => {
   )
 }
 
-export const Raycast_설정패널: Story = {
-  render: () => <RaycastSettingsRender />,
+export const CommandPalette_설정패널: Story = {
+  render: () => <CommandPaletteSettingsRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Mantine 가격 필터 패턴
-   Mantine RangeSlider: 최솟값/최댓값 입력 + 슬라이더 연동, 라이브 필터링
+   AppUI 가격 필터 패턴
+   AppUI RangeSlider: 최솟값/최댓값 입력 + 슬라이더 연동, 라이브 필터링
 -------------------------------------------------------------------------- */
-const MantinePriceFilterRender = () => {
+const AppUIPriceFilterRender = () => {
   const [price, setPrice] = useState([15000, 85000])
   const [minInput, setMinInput] = useState(String(price[0]))
   const [maxInput, setMaxInput] = useState(String(price[1]))
@@ -463,25 +463,25 @@ const MantinePriceFilterRender = () => {
   )
 }
 
-export const Mantine_가격_필터: Story = {
-  name: 'Mantine - 가격 범위 입력 + 라이브 필터링 패턴',
+export const AppUI_가격_필터: Story = {
+  name: 'AppUI - 가격 범위 입력 + 라이브 필터링 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'Mantine RangeSlider 패턴. 텍스트 입력과 슬라이더를 양방향으로 연동하여 가격 범위를 설정합니다. ' +
+          'AppUI RangeSlider 패턴. 텍스트 입력과 슬라이더를 양방향으로 연동하여 가격 범위를 설정합니다. ' +
           'blur 이벤트로 입력값 검증 후 슬라이더와 동기화합니다.',
       },
     },
   },
-  render: () => <MantinePriceFilterRender />,
+  render: () => <AppUIPriceFilterRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Chakra UI 밝기/채도 조절 패턴
-   Chakra Slider: 여러 슬라이더를 쌓아 이미지 편집 도구처럼 구성
+   AccessibleUI 밝기/채도 조절 패턴
+   Accessible Slider: 여러 슬라이더를 쌓아 이미지 편집 도구처럼 구성
 -------------------------------------------------------------------------- */
-const ChakraImageEditRender = () => {
+const AccessibleImageEditRender = () => {
   const [brightness, setBrightness] = useState([100])
   const [contrast, setContrast] = useState([100])
   const [saturation, setSaturation] = useState([100])
@@ -547,25 +547,25 @@ const ChakraImageEditRender = () => {
   )
 }
 
-export const Chakra_이미지_편집기: Story = {
-  name: 'Chakra UI - 이미지 필터 편집기 패턴',
+export const Accessible_이미지_편집기: Story = {
+  name: 'AccessibleUI - 이미지 필터 편집기 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'Chakra UI Slider 다중 스택 패턴. 밝기/대비/채도를 각각 슬라이더로 제어하며 CSS filter를 실시간 반영합니다. ' +
+          'AccessibleUI Slider 다중 스택 패턴. 밝기/대비/채도를 각각 슬라이더로 제어하며 CSS filter를 실시간 반영합니다. ' +
           '리셋 버튼으로 기본값 복귀를 지원합니다.',
       },
     },
   },
-  render: () => <ChakraImageEditRender />,
+  render: () => <AccessibleImageEditRender />,
 }
 
 /* --------------------------------------------------------------------------
-   MUI 단계별 시간 슬라이더 패턴
-   MUI Slider marks: 고정 스텝 구간에 레이블을 표시, 미팅 시간 조율 UI
+   EnterpriseUI 단계별 시간 슬라이더 패턴
+   EnterpriseUI Slider marks: 고정 스텝 구간에 레이블을 표시, 미팅 시간 조율 UI
 -------------------------------------------------------------------------- */
-const MuiTimeSliderRender = () => {
+const EnterpriseUITimeSliderRender = () => {
   const [duration, setDuration] = useState([30])
 
   const marks = [15, 30, 45, 60, 90, 120]
@@ -653,25 +653,25 @@ const MuiTimeSliderRender = () => {
   )
 }
 
-export const MUI_시간_슬라이더: Story = {
-  name: 'MUI - 고정 구간 미팅 시간 설정 패턴',
+export const EnterpriseUI_시간_슬라이더: Story = {
+  name: 'EnterpriseUI - 고정 구간 미팅 시간 설정 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'MUI Slider marks 패턴. 15분 단위 고정 스텝에 레이블을 표시하고 프리셋 버튼을 제공합니다. ' +
+          'EnterpriseUI Slider marks 패턴. 15분 단위 고정 스텝에 레이블을 표시하고 프리셋 버튼을 제공합니다. ' +
           '구간 클릭 + 프리셋 버튼으로 빠른 값 설정을 지원합니다.',
       },
     },
   },
-  render: () => <MuiTimeSliderRender />,
+  render: () => <EnterpriseUITimeSliderRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Radix UI 벤치마크: HSL 색상 편집기
-   Radix Slider를 3개 조합해 Hue/Saturation/Lightness 색상 조절기 구현
+   PrimitiveUI 벤치마크: HSL 색상 편집기
+   Primitive Slider를 3개 조합해 Hue/Saturation/Lightness 색상 조절기 구현
 -------------------------------------------------------------------------- */
-function RadixHslEditorRender() {
+function PrimitiveHslEditorRender() {
   const [hsl, setHsl] = useState<[number, number, number]>([220, 70, 55])
 
   const [h, s, l] = hsl
@@ -746,25 +746,25 @@ function RadixHslEditorRender() {
   )
 }
 
-export const Radix_HSL_색상_편집기: Story = {
-  name: 'Radix UI - HSL 색상 편집기 패턴',
+export const Primitive_HSL_색상_편집기: Story = {
+  name: 'PrimitiveUI - HSL 색상 편집기 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'Radix Slider 3개를 조합한 HSL 색상 편집기. Hue/Saturation/Lightness를 독립적으로 제어하며 ' +
+          'Primitive Slider 3개를 조합한 HSL 색상 편집기. Hue/Saturation/Lightness를 독립적으로 제어하며 ' +
           '각 슬라이더의 트랙 배경을 그라데이션으로 현재 색상 범위를 시각화합니다.',
       },
     },
   },
-  render: () => <RadixHslEditorRender />,
+  render: () => <PrimitiveHslEditorRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Linear Design 벤치마크: 우선순위 스코어링 슬라이더
-   Linear의 Impact x Urgency 매트릭스를 슬라이더 2개로 구현
+   IssueTracker Design 벤치마크: 우선순위 스코어링 슬라이더
+   IssueTracker의 Impact x Urgency 매트릭스를 슬라이더 2개로 구현
 -------------------------------------------------------------------------- */
-function LinearPriorityRender() {
+function IssueTrackerPriorityRender() {
   const [impact, setImpact] = useState([50])
   const [urgency, setUrgency] = useState([30])
 
@@ -823,27 +823,27 @@ function LinearPriorityRender() {
   )
 }
 
-export const Linear_우선순위_스코어링: Story = {
-  name: 'Linear Design - Impact x Urgency 우선순위 스코어링',
+export const IssueTracker_우선순위_스코어링: Story = {
+  name: 'IssueTracker Design - Impact x Urgency 우선순위 스코어링',
   parameters: {
     docs: {
       description: {
         story:
-          'Linear의 이슈 우선순위 결정 로직을 슬라이더 UI로 구현. ' +
+          'IssueTracker의 이슈 우선순위 결정 로직을 슬라이더 UI로 구현. ' +
           'Impact(60%)와 Urgency(40%) 가중 평균으로 0-100 점수를 계산하고 긴급/높음/보통/낮음/없음 등급을 자동 결정합니다.',
       },
     },
   },
-  render: () => <LinearPriorityRender />,
+  render: () => <IssueTrackerPriorityRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Linear Design 벤치마크: 피보나치 스토리 포인트 추정기
+   IssueTracker Design 벤치마크: 피보나치 스토리 포인트 추정기
    개발 팀이 사용하는 1,2,3,5,8,13,21 피보나치 수열 기반 추정 슬라이더
 -------------------------------------------------------------------------- */
 const FIB_POINTS = [0, 1, 2, 3, 5, 8, 13, 21]
 
-function LinearStoryPointsRender() {
+function IssueTrackerStoryPointsRender() {
   const [pointIdx, setPointIdx] = useState([3])
   const [selectedTask, setSelectedTask] = useState(0)
 
@@ -938,21 +938,21 @@ function LinearStoryPointsRender() {
   )
 }
 
-export const Linear_피보나치_스토리포인트: Story = {
-  name: 'Linear Design - 피보나치 스토리포인트 추정기',
+export const IssueTracker_피보나치_스토리포인트: Story = {
+  name: 'IssueTracker Design - 피보나치 스토리포인트 추정기',
   parameters: {
     docs: {
       description: {
         story:
-          'Linear의 이슈 추정 UX 패턴. 0,1,2,3,5,8,13,21 피보나치 수열을 슬라이더 인덱스로 매핑해 ' +
+          'IssueTracker의 이슈 추정 UX 패턴. 0,1,2,3,5,8,13,21 피보나치 수열을 슬라이더 인덱스로 매핑해 ' +
           '비선형 포인트 입력을 구현합니다. 태스크 목록과 연동해 선택한 이슈의 포인트를 즉시 반영합니다.',
       },
     },
   },
-  render: () => <LinearStoryPointsRender />,
+  render: () => <IssueTrackerStoryPointsRender />,
 }
 
-/* ── Tailwind UI: 오디오 이퀄라이저 ── */
+/* ── UtilityUI: 오디오 이퀄라이저 ── */
 const EqualizerDemo = () => {
   const bands = ['32Hz', '64Hz', '125Hz', '250Hz', '500Hz', '1kHz', '2kHz', '4kHz', '8kHz', '16kHz']
   const [gains, setGains] = useState<number[]>([0, 0, 3, 2, 0, -1, 2, 4, 1, 0])
@@ -969,7 +969,7 @@ const EqualizerDemo = () => {
 
   return (
     <div style={{ maxWidth: 480 }}>
-      <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 12 }}>이퀄라이저 (Tailwind UI 수직 슬라이더 패턴)</div>
+      <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 12 }}>이퀄라이저 (UtilityUI 수직 슬라이더 패턴)</div>
       <div style={{ display: 'flex', gap: 8, marginBottom: 14, flexWrap: 'wrap' }}>
         {Object.entries(presets).map(([name, vals]) => (
           <button
@@ -994,12 +994,12 @@ const EqualizerDemo = () => {
   )
 }
 
-export const Tailwind_오디오_이퀄라이저: Story = {
-  name: 'Tailwind UI — 오디오 이퀄라이저',
+export const UtilityCSS_오디오_이퀄라이저: Story = {
+  name: 'UtilityUI — 오디오 이퀄라이저',
   render: () => <EqualizerDemo />,
 }
 
-/* ── Tailwind UI: 반응형 미디어 플레이어 컨트롤 ── */
+/* ── UtilityUI: 반응형 미디어 플레이어 컨트롤 ── */
 const MediaPlayerDemo = () => {
   const [progress, setProgress] = useState(34)
   const [volume, setVolume] = useState(70)
@@ -1016,7 +1016,7 @@ const MediaPlayerDemo = () => {
         <div style={{ width: 48, height: 48, borderRadius: 8, background: 'linear-gradient(135deg, #6366f1, #0ea5e9)', flexShrink: 0 }} />
         <div>
           <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>Orbit UI Theme Song</div>
-          <div style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginTop: 2 }}>Tailwind UI Patterns</div>
+          <div style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginTop: 2 }}>UtilityUI Patterns</div>
         </div>
       </div>
       {/* Progress */}
@@ -1048,12 +1048,12 @@ const MediaPlayerDemo = () => {
   )
 }
 
-export const Tailwind_미디어_플레이어_컨트롤: Story = {
-  name: 'Tailwind UI — 미디어 플레이어 컨트롤',
+export const UtilityCSS_미디어_플레이어_컨트롤: Story = {
+  name: 'UtilityUI — 미디어 플레이어 컨트롤',
   render: () => <MediaPlayerDemo />,
 }
 
-/* ── Tailwind UI: 다중 범위 가격 필터 ── */
+/* ── UtilityUI: 다중 범위 가격 필터 ── */
 const PriceRangeDemo = () => {
   const [range, setRange] = useState([20, 80])
   const MIN = 0
@@ -1072,7 +1072,7 @@ const PriceRangeDemo = () => {
 
   return (
     <div style={{ maxWidth: 360 }}>
-      <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 14 }}>가격 범위 필터 (Tailwind UI 패턴)</div>
+      <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 14 }}>가격 범위 필터 (UtilityUI 패턴)</div>
       <div style={{ marginBottom: 6 }}>
         <Slider min={MIN} max={MAX} step={step} value={range} onValueChange={setRange} />
       </div>
@@ -1101,16 +1101,16 @@ const PriceRangeDemo = () => {
   )
 }
 
-export const Tailwind_가격_범위_필터: Story = {
-  name: 'Tailwind UI — 다중 범위 가격 필터',
+export const UtilityCSS_가격_범위_필터: Story = {
+  name: 'UtilityUI — 다중 범위 가격 필터',
   render: () => <PriceRangeDemo />,
 }
 
 /* --------------------------------------------------------------------------
-   Arco Design — 데이터 시각화 임계값 슬라이더 (Cycle 118)
-   Arco의 데이터 차트 임계값 설정 UI 패턴
+   DataProductUI — 데이터 시각화 임계값 슬라이더 (Cycle 118)
+   DataProduct의 데이터 차트 임계값 설정 UI 패턴
 -------------------------------------------------------------------------- */
-function ArcoThresholdSliderRender() {
+function DataProductThresholdSliderRender() {
   const [cpuThreshold, setCpuThreshold] = useState([70])
   const [memThreshold, setMemThreshold] = useState([80])
   const [diskThreshold, setDiskThreshold] = useState([90])
@@ -1166,24 +1166,24 @@ function ArcoThresholdSliderRender() {
   )
 }
 
-export const Arco_임계값_알림_슬라이더: Story = {
-  name: 'Arco Design — 임계값 알림 슬라이더 (Cycle 118)',
+export const DataProduct_임계값_알림_슬라이더: Story = {
+  name: 'DataProductUI — 임계값 알림 슬라이더 (Cycle 118)',
   parameters: {
     docs: {
       description: {
         story:
-          'Arco Design의 모니터링 대시보드 임계값 설정 패턴. CPU/메모리/디스크 알림 임계값을 Slider로 조정, 현재 사용률과 비교하여 알림 상태 실시간 표시.',
+          'DataProductUI의 모니터링 대시보드 임계값 설정 패턴. CPU/메모리/디스크 알림 임계값을 Slider로 조정, 현재 사용률과 비교하여 알림 상태 실시간 표시.',
       },
     },
   },
-  render: () => <ArcoThresholdSliderRender />,
+  render: () => <DataProductThresholdSliderRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Apple HIG — iOS 스타일 컨트롤 슬라이더 (Cycle 118)
+   Platform HIG — iOS 스타일 컨트롤 슬라이더 (Cycle 118)
    HIG의 볼륨/밝기/색온도 컨트롤 패턴
 -------------------------------------------------------------------------- */
-function AppleHIGControlSliderRender() {
+function PlatformHIGControlSliderRender() {
   const [brightness, setBrightness] = useState([70])
   const [volume, setVolume] = useState([55])
   const [colorTemp, setColorTemp] = useState([50])
@@ -1250,24 +1250,24 @@ function AppleHIGControlSliderRender() {
   )
 }
 
-export const Apple_HIG_컨트롤_센터_슬라이더: Story = {
-  name: 'Apple HIG — 컨트롤 센터 슬라이더 (Cycle 118)',
+export const Platform_HIG_컨트롤_센터_슬라이더: Story = {
+  name: 'Platform HIG — 컨트롤 센터 슬라이더 (Cycle 118)',
   parameters: {
     docs: {
       description: {
         story:
-          'Apple HIG의 iOS 컨트롤 센터 UI 패턴. 밝기/볼륨/색온도를 Slider로 조정, 아이콘과 현재 값 표시, 다크 배경의 제어 패널 스타일.',
+          'Platform HIG의 iOS 컨트롤 센터 UI 패턴. 밝기/볼륨/색온도를 Slider로 조정, 아이콘과 현재 값 표시, 다크 배경의 제어 패널 스타일.',
       },
     },
   },
-  render: () => <AppleHIGControlSliderRender />,
+  render: () => <PlatformHIGControlSliderRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Arco + Apple — 시간대 범위 슬라이더 (Cycle 118)
+   DataProduct + Platform — 시간대 범위 슬라이더 (Cycle 118)
    일정/예약 시스템의 시간 범위 선택 패턴
 -------------------------------------------------------------------------- */
-function ArcoAppleTimeRangeRender() {
+function DataProductPlatformTimeRangeRender() {
   const [timeRange, setTimeRange] = useState([9, 18])
   const [days, setDays] = useState<Set<string>>(new Set(['Mon', 'Tue', 'Wed', 'Thu', 'Fri']))
 
@@ -1337,21 +1337,21 @@ function ArcoAppleTimeRangeRender() {
   )
 }
 
-export const Arco_Apple_시간대_범위_슬라이더: Story = {
-  name: 'Arco + Apple — 시간대 범위 슬라이더 (Cycle 118)',
+export const DataProduct_Platform_시간대_범위_슬라이더: Story = {
+  name: 'DataProduct + Platform — 시간대 범위 슬라이더 (Cycle 118)',
   parameters: {
     docs: {
       description: {
         story:
-          'Arco Design + Apple HIG의 시간 범위 선택 패턴. 근무 요일 토글 + Slider 범위 선택 + 자동 계산(주 총 근무 시간). 실무 스케줄러 UI.',
+          'DataProductUI + Platform HIG의 시간 범위 선택 패턴. 근무 요일 토글 + Slider 범위 선택 + 자동 계산(주 총 근무 시간). 실무 스케줄러 UI.',
       },
     },
   },
-  render: () => <ArcoAppleTimeRangeRender />,
+  render: () => <DataProductPlatformTimeRangeRender />,
 }
 
-// Cycle 144 - Linear Design + Vercel Design benchmark
-function LinearIssuePriority144Render() {
+// Cycle 144 - IssueTracker Design + DeployPlatform Design benchmark
+function IssueTrackerIssuePriority144Render() {
   const [urgency, setUrgency] = useState(50)
   const [impact, setImpact] = useState(70)
   const [effort, setEffort] = useState(30)
@@ -1370,7 +1370,7 @@ function LinearIssuePriority144Render() {
     <div style={{ width: 360, fontFamily: 'system-ui, sans-serif', border: '1px solid #e2e8f0', borderRadius: 10, padding: 20, background: '#fff' }}>
       <div style={{ marginBottom: 16 }}>
         <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>이슈 우선순위 계산기</div>
-        <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>Linear Design — RICE 스코어링 패턴</div>
+        <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>IssueTracker Design — RICE 스코어링 패턴</div>
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 18, marginBottom: 20 }}>
         {metrics.map((m) => (
@@ -1403,19 +1403,19 @@ function LinearIssuePriority144Render() {
   )
 }
 
-export const Linear_이슈_우선순위_계산기: Story = {
-  name: 'Linear — 이슈 우선순위 계산기 (Cycle 144)',
+export const IssueTracker_이슈_우선순위_계산기: Story = {
+  name: 'IssueTracker — 이슈 우선순위 계산기 (Cycle 144)',
   parameters: {
     docs: {
       description: {
-        story: 'Linear RICE 스코어링 패턴. 긴급도/영향도/작업량 3개 Slider로 우선순위 자동 계산. 점수에 따라 urgent/high/medium/low 동적 판정.',
+        story: 'IssueTracker RICE 스코어링 패턴. 긴급도/영향도/작업량 3개 Slider로 우선순위 자동 계산. 점수에 따라 urgent/high/medium/low 동적 판정.',
       },
     },
   },
-  render: () => <LinearIssuePriority144Render />,
+  render: () => <IssueTrackerIssuePriority144Render />,
 }
 
-function VercelBandwidthSlider144Render() {
+function DeployPlatformBandwidthSlider144Render() {
   const [bandwidth, setBandwidth] = useState([100])
   const [cache, setCache] = useState([72])
   const [functions, setFunctions] = useState([40])
@@ -1429,7 +1429,7 @@ function VercelBandwidthSlider144Render() {
     <div style={{ width: 360, fontFamily: 'system-ui, sans-serif', border: '1px solid #e2e8f0', borderRadius: 10, padding: 20, background: '#fff' }}>
       <div style={{ marginBottom: 16 }}>
         <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>리소스 할당</div>
-        <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>Vercel Design — 사용량 슬라이더</div>
+        <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>DeployPlatform Design — 사용량 슬라이더</div>
       </div>
 
       {[
@@ -1466,19 +1466,19 @@ function VercelBandwidthSlider144Render() {
   )
 }
 
-export const Vercel_리소스_할당_슬라이더: Story = {
-  name: 'Vercel — 리소스 할당 슬라이더 (Cycle 144)',
+export const DeployPlatform_리소스_할당_슬라이더: Story = {
+  name: 'DeployPlatform — 리소스 할당 슬라이더 (Cycle 144)',
   parameters: {
     docs: {
       description: {
-        story: 'Vercel 리소스 할당 패턴. 대역폭/캐시/함수 실행량 3개 Slider 합산, 한도 초과 시 경고 표시 및 게이지 빨간색 전환.',
+        story: 'DeployPlatform 리소스 할당 패턴. 대역폭/캐시/함수 실행량 3개 Slider 합산, 한도 초과 시 경고 표시 및 게이지 빨간색 전환.',
       },
     },
   },
-  render: () => <VercelBandwidthSlider144Render />,
+  render: () => <DeployPlatformBandwidthSlider144Render />,
 }
 
-function LinearVercelABTest144Render() {
+function IssueTrackerDeployPlatformABTest144Render() {
   const [splitA, setSplitA] = useState([60])
   const [confidence, setConfidence] = useState([95])
   const [duration, setDuration] = useState([14])
@@ -1495,7 +1495,7 @@ function LinearVercelABTest144Render() {
     <div style={{ width: 380, fontFamily: 'system-ui, sans-serif', border: '1px solid #e2e8f0', borderRadius: 10, padding: 20, background: '#fff' }}>
       <div style={{ marginBottom: 16 }}>
         <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>A/B 테스트 설정</div>
-        <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>Linear + Vercel — 실험 파라미터</div>
+        <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>IssueTracker + DeployPlatform — 실험 파라미터</div>
       </div>
 
       <div style={{ marginBottom: 14 }}>
@@ -1542,23 +1542,23 @@ function LinearVercelABTest144Render() {
   )
 }
 
-export const Linear_Vercel_AB_테스트_설정: Story = {
-  name: 'Linear + Vercel — A/B 테스트 설정 (Cycle 144)',
+export const IssueTracker_DeployPlatform_AB_테스트_설정: Story = {
+  name: 'IssueTracker + DeployPlatform — A/B 테스트 설정 (Cycle 144)',
   parameters: {
     docs: {
       description: {
-        story: 'Linear + Vercel A/B 실험 파라미터 슬라이더. 트래픽 분배 / 신뢰도 임계값 / 기간 3개 Slider. 분배 시각화 바, 신뢰도 상태 색상 동적 변환.',
+        story: 'IssueTracker + DeployPlatform A/B 실험 파라미터 슬라이더. 트래픽 분배 / 신뢰도 임계값 / 기간 3개 Slider. 분배 시각화 바, 신뢰도 상태 색상 동적 변환.',
       },
     },
   },
-  render: () => <LinearVercelABTest144Render />,
+  render: () => <IssueTrackerDeployPlatformABTest144Render />,
 }
 
 // ──────────────────────────────────────────────────────────────────────────────
-// Cycle 172: shadcn/ui + Raycast Extensions
+// Cycle 172: ComposableUI + CommandPalette Extensions
 // ──────────────────────────────────────────────────────────────────────────────
 
-function ShadcnAudioPlayerRender() {
+function ComposableUIAudioPlayerRender() {
   const [volume, setVolume] = useState([72])
   const [bass, setBass] = useState([40])
   const [treble, setTreble] = useState([60])
@@ -1610,20 +1610,20 @@ function ShadcnAudioPlayerRender() {
   )
 }
 
-export const shadcn_오디오_플레이어_슬라이더: Story = {
-  name: 'shadcn/ui — 오디오 플레이어 (진행바 + EQ 슬라이더)',
+export const ComposableUI_오디오_플레이어_슬라이더: Story = {
+  name: 'ComposableUI — 오디오 플레이어 (진행바 + EQ 슬라이더)',
   args: { defaultValue: [50] },
   parameters: {
     docs: {
       description: {
-        story: 'shadcn/ui 오디오 컨트롤 패턴. 트랙 재생 진행바 + 볼륨/저음/고음 EQ 슬라이더. 재생/일시정지 버튼, 시간 포맷 표시.',
+        story: 'ComposableUI 오디오 컨트롤 패턴. 트랙 재생 진행바 + 볼륨/저음/고음 EQ 슬라이더. 재생/일시정지 버튼, 시간 포맷 표시.',
       },
     },
   },
-  render: () => <ShadcnAudioPlayerRender />,
+  render: () => <ComposableUIAudioPlayerRender />,
 }
 
-function RaycastBrightnessRender() {
+function CommandPaletteBrightnessRender() {
   const [brightness, setBrightness] = useState([70])
   const [contrast, setContrast] = useState([50])
   const [warmth, setWarmth] = useState([40])
@@ -1676,20 +1676,20 @@ function RaycastBrightnessRender() {
   )
 }
 
-export const Raycast_디스플레이_밝기_슬라이더: Story = {
-  name: 'Raycast — 디스플레이 설정 (밝기/대비/색온도)',
+export const CommandPalette_디스플레이_밝기_슬라이더: Story = {
+  name: 'CommandPalette — 디스플레이 설정 (밝기/대비/색온도)',
   args: { defaultValue: [70] },
   parameters: {
     docs: {
       description: {
-        story: 'Raycast 시스템 환경설정 패턴. 다크 UI에서 밝기/대비/색온도 3개 슬라이더. Night Shift 토글, 배터리 영향 동적 표시, 밝기 레벨 라벨.',
+        story: 'CommandPalette 시스템 환경설정 패턴. 다크 UI에서 밝기/대비/색온도 3개 슬라이더. Night Shift 토글, 배터리 영향 동적 표시, 밝기 레벨 라벨.',
       },
     },
   },
-  render: () => <RaycastBrightnessRender />,
+  render: () => <CommandPaletteBrightnessRender />,
 }
 
-function ShadcnRaycastPricingRender() {
+function ComposableUICommandPalettePricingRender() {
   const [storage, setStorage] = useState([50])
   const [seats, setSeats] = useState([5])
   const [retention, setRetention] = useState([30])
@@ -1747,15 +1747,15 @@ function ShadcnRaycastPricingRender() {
   )
 }
 
-export const shadcn_Raycast_요금제_계산기: Story = {
-  name: 'shadcn + Raycast — 요금제 계산기 (스토리지/멤버/보존 기간)',
+export const ComposableUI_CommandPalette_요금제_계산기: Story = {
+  name: 'ComposableUI + CommandPalette — 요금제 계산기 (스토리지/멤버/보존 기간)',
   args: { defaultValue: [50] },
   parameters: {
     docs: {
       description: {
-        story: 'shadcn/ui + Raycast 요금제 커스터마이즈 패턴. 스토리지/팀 멤버/데이터 보존 3개 슬라이더로 실시간 요금 계산. 90일 초과 시 추가 요금 동적 반영.',
+        story: 'ComposableUI + CommandPalette 요금제 커스터마이즈 패턴. 스토리지/팀 멤버/데이터 보존 3개 슬라이더로 실시간 요금 계산. 90일 초과 시 추가 요금 동적 반영.',
       },
     },
   },
-  render: () => <ShadcnRaycastPricingRender />,
+  render: () => <ComposableUICommandPalettePricingRender />,
 }

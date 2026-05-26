@@ -3,6 +3,17 @@ import React, { forwardRef, PropsWithChildren, Children } from 'react'
 
 import { Typography } from '../Text'
 
+const hasComponent = (
+  children: React.ReactNode,
+  components: React.ElementType[]
+): boolean =>
+  Children.toArray(children).some((child) => {
+    if (!React.isValidElement(child)) return false
+    if (components.includes(child.type as React.ElementType)) return true
+
+    return hasComponent((child.props as { children?: React.ReactNode }).children, components)
+  })
+
 export type AlertProps = React.ComponentPropsWithoutRef<typeof CoreAlertDialog> & {
   defaultIsPresented?: boolean
   isPresented?: boolean
@@ -23,6 +34,10 @@ export const AlertRoot = forwardRef<HTMLDivElement, AlertProps>((props, forwarde
     if (child.type === AlertBottom) bottoms.push(child)
   })
 
+  const content = [...tops, ...bottoms]
+  const hasTitle = hasComponent(content, [AlertTitle])
+  const hasDescription = hasComponent(content, [AlertDescription])
+
   return (
     <CoreAlertDialog
       defaultOpen={defaultIsPresented}
@@ -31,8 +46,13 @@ export const AlertRoot = forwardRef<HTMLDivElement, AlertProps>((props, forwarde
     >
       {trigger}
       <CoreAlertDialog.Content ref={forwardedRef} {...rest}>
-        {tops}
-        {bottoms}
+        {!hasTitle && <CoreAlertDialog.Title className="sr-only">Alert dialog</CoreAlertDialog.Title>}
+        {!hasDescription && (
+          <CoreAlertDialog.Description className="sr-only">
+            Confirm or dismiss this dialog.
+          </CoreAlertDialog.Description>
+        )}
+        {content}
       </CoreAlertDialog.Content>
     </CoreAlertDialog>
   )
@@ -89,7 +109,7 @@ type AlertComponent = typeof AlertRoot & {
 
 /**
  * ### 💡 알아두기
- * 모던한 트렌드를 반영하여 재구성된 Alert 컴포넌트입니다. Radix UI를 기반으로 부드러운 전환과 안정성을 보장합니다.
+ * 모던한 트렌드를 반영하여 재구성된 Alert 컴포넌트입니다. 접근성 프리미티브를 기반으로 부드러운 전환과 안정성을 보장합니다.
  *
  * @example
  * ### 👇 기본 사용법 (비제어)

@@ -83,7 +83,7 @@ export const 디자인_QA = {
     },
   },
 
-  // eslint-disable-next-line
+
   render: ({ visual, label, text, ...rest }: any) => {
     return (
       <LabelBadge {...rest}>
@@ -98,9 +98,9 @@ export const 디자인_QA = {
   },
 }
 
-// ── Vercel-style Status Indicator benchmark stories ──────────────────────────
+// ── DeployPlatform-style Status Indicator benchmark stories ──────────────────────────
 
-// Vercel compact status: deployment status, environment status, etc.
+// DeployPlatform compact status: deployment status, environment status, etc.
 const statusConfigs = [
   { label: 'Ready', color: 'benefit' as const, dot: '#10b981', desc: 'Deployment successful' },
   { label: 'Building', color: 'gray' as const, dot: '#f59e0b', desc: 'Build in progress' },
@@ -109,8 +109,8 @@ const statusConfigs = [
   { label: 'Queued', color: 'gray' as const, dot: '#6366f1', desc: 'Waiting in queue' },
 ]
 
-// Vercel deployment-row style (monochrome precision, compact)
-export const Vercel_배포_상태_배지: Story = {
+// DeployPlatform deployment-row style (monochrome precision, compact)
+export const DeployPlatform_배포_상태_배지: Story = {
   render: () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
       {/* Header */}
@@ -122,7 +122,7 @@ export const Vercel_배포_상태_배지: Story = {
       <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
         {statusConfigs.map((s) => (
           <div key={s.label} style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-            {/* Compact dot + badge combo (Vercel monochrome style) */}
+            {/* Compact dot + badge combo (DeployPlatform monochrome style) */}
             <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
               <div style={{
                 width: 6,
@@ -143,8 +143,8 @@ export const Vercel_배포_상태_배지: Story = {
   ),
 }
 
-// All color variants side-by-side comparison (Vercel design audit style)
-export const Vercel_컬러_배리언트_비교: Story = {
+// All color variants side-by-side comparison (DeployPlatform design audit style)
+export const DeployPlatform_컬러_배리언트_비교: Story = {
   render: () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
       <div style={{ fontSize: 12, fontWeight: 600, color: '#64748b', borderBottom: '1px solid #f1f5f9', paddingBottom: 8 }}>
@@ -197,12 +197,12 @@ export const Vercel_컬러_배리언트_비교: Story = {
   ),
 }
 
-// Environment badge row (Vercel: Production / Preview / Development)
-export const Vercel_환경_배지_조합: Story = {
+// Environment badge row (DeployPlatform: Production / Preview / Development)
+export const DeployPlatform_환경_배지_조합: Story = {
   render: () => {
     const envs = [
-      { name: 'Production', branch: 'main', color: 'benefit' as const, dot: '#10b981', url: 'orbit-ui.vercel.app' },
-      { name: 'Preview', branch: 'feat/kanban', color: 'gray' as const, dot: '#6366f1', url: 'orbit-ui-preview.vercel.app' },
+      { name: 'Production', branch: 'main', color: 'benefit' as const, dot: '#10b981', url: 'orbit-ui.deploy.example.com' },
+      { name: 'Preview', branch: 'feat/kanban', color: 'gray' as const, dot: '#6366f1', url: 'orbit-ui-preview.deploy.example.com' },
       { name: 'Development', branch: 'local', color: 'gray' as const, dot: '#f59e0b', url: 'localhost:6006' },
     ]
 
@@ -243,11 +243,11 @@ export const Vercel_환경_배지_조합: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Apple HIG 스타일: 세그먼트 필터 + 상태 배지 조합
-   Apple HIG의 Segmented Control + 인라인 배지 패턴.
+   Platform HIG 스타일: 세그먼트 필터 + 상태 배지 조합
+   Platform HIG의 Segmented Control + 인라인 배지 패턴.
    상태별로 아이템을 분류하고 각 항목에 배지를 표시합니다.
 -------------------------------------------------------------------------- */
-const AppleHIGSegmentFilterRender = () => {
+const PlatformHIGSegmentFilterRender = () => {
   const segments = ['전체', '진행 중', '완료', '보류'] as const
   type Segment = typeof segments[number]
   const [active, setActive] = useState<Segment>('전체')
@@ -265,7 +265,7 @@ const AppleHIGSegmentFilterRender = () => {
 
   return (
     <div style={{ maxWidth: '480px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
-      {/* Segmented Control (Apple HIG 스타일) */}
+      {/* Segmented Control (Platform HIG 스타일) */}
       <div style={{
         display: 'inline-flex',
         background: '#f1f5f9',
@@ -325,16 +325,16 @@ const AppleHIGSegmentFilterRender = () => {
   )
 }
 
-export const Apple_HIG_세그먼트_필터: Story = {
-  render: () => <AppleHIGSegmentFilterRender />,
+export const Platform_HIG_세그먼트_필터: Story = {
+  render: () => <PlatformHIGSegmentFilterRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Raycast 스타일: 퀵 액션 결과 목록 + 배지
-   Raycast의 Action List 패턴: 아이콘 + 제목 + 서브타이틀 + 단축키 배지.
+   CommandPalette 스타일: 퀵 액션 결과 목록 + 배지
+   CommandPalette의 Action List 패턴: 아이콘 + 제목 + 서브타이틀 + 단축키 배지.
    키보드 내비게이션 시뮬레이션 포함.
 -------------------------------------------------------------------------- */
-const RaycastActionListRender = () => {
+const CommandPaletteActionListRender = () => {
   const [selectedIdx, setSelectedIdx] = useState(0)
 
   const actions: Array<{
@@ -362,7 +362,7 @@ const RaycastActionListRender = () => {
       boxShadow: '0 8px 32px rgba(0,0,0,0.08)',
       overflow: 'hidden',
     }}>
-      {/* Raycast 헤더 */}
+      {/* CommandPalette 헤더 */}
       <div style={{
         padding: '14px 16px',
         borderBottom: '1px solid #f1f5f9',
@@ -475,16 +475,16 @@ const RaycastActionListRender = () => {
   )
 }
 
-export const Raycast_퀵액션_목록: Story = {
-  render: () => <RaycastActionListRender />,
+export const CommandPalette_퀵액션_목록: Story = {
+  render: () => <CommandPaletteActionListRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Apple HIG + Linear 조합: 이슈 우선순위 배지 목록
-   Apple HIG의 List 패턴 + Linear의 Priority indicator 조합.
+   Platform HIG + IssueTracker 조합: 이슈 우선순위 배지 목록
+   Platform HIG의 List 패턴 + IssueTracker의 Priority indicator 조합.
    각 이슈 항목에 우선순위, 상태, 레이블 배지를 복합적으로 표시합니다.
 -------------------------------------------------------------------------- */
-export const Apple_HIG_이슈_우선순위_목록: Story = {
+export const Platform_HIG_이슈_우선순위_목록: Story = {
   render: () => {
     const issues: Array<{
       id: string
@@ -561,11 +561,11 @@ export const Apple_HIG_이슈_우선순위_목록: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   MUI 벤치마크: 뱃지 그룹 상태 대시보드
-   MUI Badge + Chip 조합 패턴 — 서비스 상태를 LabelBadge로 시각화
+   EnterpriseUI 벤치마크: 뱃지 그룹 상태 대시보드
+   EnterpriseUI Badge + Chip 조합 패턴 — 서비스 상태를 LabelBadge로 시각화
 -------------------------------------------------------------------------- */
 
-const MUI_SERVICES = [
+const EnterpriseUI_SERVICES = [
   { name: 'API Gateway', status: 'benefit' as const, uptime: '99.98%', latency: '12ms', region: 'ap-northeast-2' },
   { name: 'Database (RDS)', status: 'benefit' as const, uptime: '99.95%', latency: '4ms', region: 'ap-northeast-2' },
   { name: 'CDN', status: 'sale' as const, uptime: '97.20%', latency: '89ms', region: 'global' },
@@ -579,21 +579,21 @@ const STATUS_LABEL: Record<'benefit' | 'sale' | 'gray', string> = {
   gray: '점검',
 }
 
-export const MUI_서비스_상태_대시보드: Story = {
-  name: 'MUI - 서비스 상태 배지 대시보드 패턴',
+export const EnterpriseUI_서비스_상태_대시보드: Story = {
+  name: 'EnterpriseUI - 서비스 상태 배지 대시보드 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'MUI Badge 상태 표시 패턴. LabelBadge color를 benefit(정상)/sale(지연)/gray(점검)로 ' +
+          'EnterpriseUI Badge 상태 표시 패턴. LabelBadge color를 benefit(정상)/sale(지연)/gray(점검)로 ' +
           '매핑해 서비스 상태를 시각화합니다. 각 서비스의 가동률과 레이턴시를 함께 표시합니다.',
       },
     },
   },
   render: () => (
     <div style={{ width: 440, display: 'flex', flexDirection: 'column', gap: 10 }}>
-      <div style={{ fontSize: 13, fontWeight: 700, color: '#1e293b', marginBottom: 4 }}>서비스 상태 (MUI Badge 패턴)</div>
-      {MUI_SERVICES.map((svc) => (
+      <div style={{ fontSize: 13, fontWeight: 700, color: '#1e293b', marginBottom: 4 }}>서비스 상태 (EnterpriseUI Badge 패턴)</div>
+      {EnterpriseUI_SERVICES.map((svc) => (
         <div key={svc.name} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 16px', borderRadius: 10, border: '1px solid #f1f5f9', background: '#fff' }}>
           <div style={{ flex: 1 }}>
             <div style={{ fontSize: 13, fontWeight: 600, color: '#1e293b', marginBottom: 2 }}>{svc.name}</div>
@@ -616,12 +616,12 @@ export const MUI_서비스_상태_대시보드: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Chakra UI 벤치마크: 알림 유형 분류 배지
-   Chakra Badge colorScheme 패턴 — 알림 종류별 LabelBadge + 읽음 상태 관리
+   AccessibleUI 벤치마크: 알림 유형 분류 배지
+   Accessible Badge colorScheme 패턴 — 알림 종류별 LabelBadge + 읽음 상태 관리
 -------------------------------------------------------------------------- */
 type NotifItem = { id: number; title: string; desc: string; type: 'benefit' | 'sale' | 'gray'; time: string; read: boolean }
 
-function ChakraNotifBadgeRender() {
+function AccessibleNotifBadgeRender() {
   const [notifs, setNotifs] = useState<NotifItem[]>([
     { id: 1, title: '배포 완료', desc: 'production 브랜치 배포가 성공적으로 완료되었습니다.', type: 'benefit', time: '5분 전', read: false },
     { id: 2, title: '빌드 실패', desc: 'main 브랜치 PR #143 빌드가 실패했습니다.', type: 'sale', time: '23분 전', read: false },
@@ -680,23 +680,23 @@ function ChakraNotifBadgeRender() {
   )
 }
 
-export const Chakra_알림_유형_배지: Story = {
-  name: 'Chakra UI - 알림 유형 분류 배지 패턴',
+export const Accessible_알림_유형_배지: Story = {
+  name: 'AccessibleUI - 알림 유형 분류 배지 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'Chakra UI Badge colorScheme 패턴. LabelBadge color(benefit/sale/gray)로 알림 유형을 분류합니다. ' +
+          'AccessibleUI Badge colorScheme 패턴. LabelBadge color(benefit/sale/gray)로 알림 유형을 분류합니다. ' +
           '읽지 않은 알림에 보라색 도트를 표시하고 클릭 시 읽음 처리합니다.',
       },
     },
   },
-  render: () => <ChakraNotifBadgeRender />,
+  render: () => <AccessibleNotifBadgeRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Chakra UI 벤치마크: 카테고리 멀티 배지 필터
-   Chakra의 Wrap + Badge 패턴 — 선택한 카테고리를 배지로 표시하는 필터 UI
+   AccessibleUI 벤치마크: 카테고리 멀티 배지 필터
+   Accessible의 Wrap + Badge 패턴 — 선택한 카테고리를 배지로 표시하는 필터 UI
 -------------------------------------------------------------------------- */
 const CHAKRA_CATEGORIES = [
   { id: 'design', label: 'Design', color: 'benefit' as const },
@@ -711,14 +711,14 @@ const CHAKRA_CATEGORIES = [
 
 const CHAKRA_ARTICLES = [
   { title: 'React 18 Concurrent Features', cats: ['frontend'] },
-  { title: 'Figma Auto Layout 심화', cats: ['design'] },
+  { title: 'DesignTool Auto Layout 심화', cats: ['design'] },
   { title: 'Terraform으로 AWS 인프라 관리', cats: ['devops', 'backend'] },
   { title: 'OWASP Top 10 실전 방어', cats: ['security', 'backend'] },
   { title: 'LLM Fine-tuning 가이드', cats: ['ai'] },
   { title: 'Flutter vs React Native 2026', cats: ['mobile', 'frontend'] },
 ]
 
-function ChakraCategoryBadgeFilterRender() {
+function AccessibleCategoryBadgeFilterRender() {
   const [selected, setSelected] = useState<Set<string>>(new Set())
 
   const toggle = (id: string) =>
@@ -735,7 +735,7 @@ function ChakraCategoryBadgeFilterRender() {
 
   return (
     <div style={{ width: 440, display: 'flex', flexDirection: 'column', gap: 14 }}>
-      <div style={{ fontSize: 13, fontWeight: 700, color: '#1e293b' }}>카테고리 배지 필터 (Chakra Wrap + Badge)</div>
+      <div style={{ fontSize: 13, fontWeight: 700, color: '#1e293b' }}>카테고리 배지 필터 (Accessible Wrap + Badge)</div>
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
         {CHAKRA_CATEGORIES.map((cat) => {
           const isOn = selected.has(cat.id)
@@ -778,21 +778,21 @@ function ChakraCategoryBadgeFilterRender() {
   )
 }
 
-export const Chakra_카테고리_멀티_배지_필터: Story = {
-  name: 'Chakra UI - 카테고리 멀티 배지 필터 패턴',
+export const Accessible_카테고리_멀티_배지_필터: Story = {
+  name: 'AccessibleUI - 카테고리 멀티 배지 필터 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'Chakra UI Wrap + Badge 패턴. LabelBadge를 클릭 가능한 필터로 활용합니다. ' +
+          'AccessibleUI Wrap + Badge 패턴. LabelBadge를 클릭 가능한 필터로 활용합니다. ' +
           '선택한 카테고리에 해당하는 아티클만 필터링하여 보여주는 실무 패턴입니다.',
       },
     },
   },
-  render: () => <ChakraCategoryBadgeFilterRender />,
+  render: () => <AccessibleCategoryBadgeFilterRender />,
 }
 
-const LINEAR_ISSUE_STATUS = [
+const TRACKER_ISSUE_STATUS = [
   { id: 'backlog', label: 'Backlog', color: 'gray' as const },
   { id: 'todo', label: 'Todo', color: 'gray' as const },
   { id: 'inprogress', label: 'In Progress', color: 'benefit' as const },
@@ -800,7 +800,7 @@ const LINEAR_ISSUE_STATUS = [
   { id: 'cancelled', label: 'Cancelled', color: 'gray' as const },
 ]
 
-const LINEAR_ISSUES_DATA = [
+const TRACKER_ISSUES_DATA = [
   { id: 'ENG-101', title: '버튼 컴포넌트 호버 상태 수정', status: 'inprogress', priority: 'high' },
   { id: 'ENG-102', title: 'DataTable 정렬 버그 수정', status: 'todo', priority: 'urgent' },
   { id: 'ENG-103', title: 'Toast 자동 닫힘 타이밍 조정', status: 'done', priority: 'medium' },
@@ -815,10 +815,10 @@ const PRIORITY_META: Record<string, { label: string; color: 'sale' | 'benefit' |
   low: { label: 'Low', color: 'gray' },
 }
 
-const LinearIssueStatusBadgeRender = () => {
+const IssueTrackerIssueStatusBadgeRender = () => {
   const [filterStatus, setFilterStatus] = useState<string | null>(null)
 
-  const filtered = LINEAR_ISSUES_DATA.filter(i => filterStatus === null || i.status === filterStatus)
+  const filtered = TRACKER_ISSUES_DATA.filter(i => filterStatus === null || i.status === filterStatus)
 
   return (
     <div style={{ width: 440, fontFamily: 'Inter, system-ui, sans-serif' }}>
@@ -829,7 +829,7 @@ const LinearIssueStatusBadgeRender = () => {
         >
           전체
         </button>
-        {LINEAR_ISSUE_STATUS.map(s => (
+        {TRACKER_ISSUE_STATUS.map(s => (
           <button
             key={s.id}
             onClick={() => setFilterStatus(filterStatus === s.id ? null : s.id)}
@@ -841,7 +841,7 @@ const LinearIssueStatusBadgeRender = () => {
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
         {filtered.map(issue => {
-          const statusMeta = LINEAR_ISSUE_STATUS.find(s => s.id === issue.status)
+          const statusMeta = TRACKER_ISSUE_STATUS.find(s => s.id === issue.status)
           const priorityMeta = PRIORITY_META[issue.priority]
           return (
             <div key={issue.id} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '8px 10px', borderRadius: 8, background: '#f9fafb', border: '1px solid #f0f0f0' }}>
@@ -857,21 +857,21 @@ const LinearIssueStatusBadgeRender = () => {
           )
         })}
       </div>
-      <div style={{ marginTop: 8, fontSize: 11, color: '#9ca3af' }}>Linear 이슈 상태 + 우선순위 배지 패턴</div>
+      <div style={{ marginTop: 8, fontSize: 11, color: '#9ca3af' }}>IssueTracker 이슈 상태 + 우선순위 배지 패턴</div>
     </div>
   )
 }
 
-export const Linear_이슈_상태_우선순위_배지: Story = {
-  name: 'Linear - 이슈 상태 + 우선순위 배지 필터 패턴',
+export const IssueTracker_이슈_상태_우선순위_배지: Story = {
+  name: 'IssueTracker - 이슈 상태 + 우선순위 배지 필터 패턴',
   parameters: {
     docs: {
       description: {
-        story: 'Linear 이슈 목록의 상태(Backlog/Todo/In Progress/Done)와 우선순위(Urgent/High/Medium/Low) 배지 패턴. 필터 버튼으로 상태별 이슈를 필터링하며 LabelBadge 색상으로 중요도를 시각화합니다.',
+        story: 'IssueTracker 이슈 목록의 상태(Backlog/Todo/In Progress/Done)와 우선순위(Urgent/High/Medium/Low) 배지 패턴. 필터 버튼으로 상태별 이슈를 필터링하며 LabelBadge 색상으로 중요도를 시각화합니다.',
       },
     },
   },
-  render: () => <LinearIssueStatusBadgeRender />,
+  render: () => <IssueTrackerIssueStatusBadgeRender />,
 }
 
 const ARCO_TECH_TAGS = [
@@ -891,7 +891,7 @@ const ARCO_GROUP_COLOR: Record<string, 'gray' | 'benefit' | 'sale'> = {
   database: 'gray',
 }
 
-const ArcoTagGroupRender = () => {
+const DataProductTagGroupRender = () => {
   const [selected, setSelected] = useState<Set<string>>(new Set(['react', 'node']))
 
   const toggle = (id: string) => {
@@ -927,25 +927,25 @@ const ArcoTagGroupRender = () => {
         </div>
       ))}
       <div style={{ marginTop: 8, fontSize: 11, color: '#9ca3af' }}>
-        {selected.size}개 선택됨 — Arco Design Tag Group 패턴
+        {selected.size}개 선택됨 — DataProductUI Tag Group 패턴
       </div>
     </div>
   )
 }
 
-export const Arco_기술스택_태그_그룹: Story = {
-  name: 'Arco Design - 기술 스택 태그 그룹 선택 패턴',
+export const DataProduct_기술스택_태그_그룹: Story = {
+  name: 'DataProductUI - 기술 스택 태그 그룹 선택 패턴',
   parameters: {
     docs: {
       description: {
-        story: 'Arco Design Tag Group 패턴. Frontend/Backend/Database 카테고리별로 기술 스택 LabelBadge를 그룹핑하고 클릭 선택/해제를 지원합니다. 선택 상태는 opacity와 scale 트랜지션으로 시각화합니다.',
+        story: 'DataProductUI Tag Group 패턴. Frontend/Backend/Database 카테고리별로 기술 스택 LabelBadge를 그룹핑하고 클릭 선택/해제를 지원합니다. 선택 상태는 opacity와 scale 트랜지션으로 시각화합니다.',
       },
     },
   },
-  render: () => <ArcoTagGroupRender />,
+  render: () => <DataProductTagGroupRender />,
 }
 
-const LINEAR_PROJECT_HEALTH = [
+const TRACKER_PROJECT_HEALTH = [
   { id: 'p1', name: 'Eclipse Theme v2', health: 'on_track', progress: 72, lead: 'HJ', color: '#7c3aed' },
   { id: 'p2', name: 'Core Components', health: 'at_risk', progress: 43, lead: 'SJ', color: '#ef4444' },
   { id: 'p3', name: 'Storybook 고도화', health: 'on_track', progress: 91, lead: 'MJ', color: '#10b981' },
@@ -958,10 +958,10 @@ const HEALTH_BADGE: Record<string, { label: string; color: 'sale' | 'benefit' | 
   off_track: { label: 'Off Track', color: 'gray' },
 }
 
-const LinearProjectHealthRender = () => (
+const IssueTrackerProjectHealthRender = () => (
   <div style={{ width: 400, fontFamily: 'Inter, system-ui, sans-serif', display: 'flex', flexDirection: 'column', gap: 6 }}>
     <div style={{ fontSize: 12, fontWeight: 700, color: '#6b7280', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 4 }}>프로젝트 헬스</div>
-    {LINEAR_PROJECT_HEALTH.map(proj => {
+    {TRACKER_PROJECT_HEALTH.map(proj => {
       const health = HEALTH_BADGE[proj.health]
       return (
         <div key={proj.id} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 12px', borderRadius: 8, border: '1px solid #f0f0f0', background: '#fff' }}>
@@ -980,25 +980,25 @@ const LinearProjectHealthRender = () => (
         </div>
       )
     })}
-    <div style={{ fontSize: 11, color: '#9ca3af', marginTop: 2 }}>Linear 프로젝트 헬스 배지 패턴</div>
+    <div style={{ fontSize: 11, color: '#9ca3af', marginTop: 2 }}>IssueTracker 프로젝트 헬스 배지 패턴</div>
   </div>
 )
 
-export const Linear_프로젝트_헬스_대시보드: Story = {
-  name: 'Linear - 프로젝트 헬스 대시보드 배지',
+export const IssueTracker_프로젝트_헬스_대시보드: Story = {
+  name: 'IssueTracker - 프로젝트 헬스 대시보드 배지',
   parameters: {
     docs: {
       description: {
-        story: 'Linear 프로젝트 상태 대시보드 패턴. On Track/At Risk/Off Track 헬스를 LabelBadge로 표시하고, 진행률 바와 담당자 아바타를 함께 배치합니다. 각 프로젝트의 건강 상태를 한눈에 파악할 수 있는 복합 UI입니다.',
+        story: 'IssueTracker 프로젝트 상태 대시보드 패턴. On Track/At Risk/Off Track 헬스를 LabelBadge로 표시하고, 진행률 바와 담당자 아바타를 함께 배치합니다. 각 프로젝트의 건강 상태를 한눈에 파악할 수 있는 복합 UI입니다.',
       },
     },
   },
-  render: () => <LinearProjectHealthRender />,
+  render: () => <IssueTrackerProjectHealthRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Linear Design 벤치마크: 사이클 스프린트 진행상태 배지 시스템
-   Linear Cycle 배지 — 스프린트 상태(진행중/완료/취소) 인라인 표시
+   IssueTracker Design 벤치마크: 사이클 스프린트 진행상태 배지 시스템
+   IssueTracker Cycle 배지 — 스프린트 상태(진행중/완료/취소) 인라인 표시
 -------------------------------------------------------------------------- */
 const SPRINT_CYCLES = [
   { id: 1, name: 'Cycle 24', items: 12, done: 12, status: 'completed' as const },
@@ -1014,13 +1014,13 @@ const CYCLE_BADGE: Record<string, { label: string; color: 'gray' | 'benefit' | '
   draft: { label: 'Draft', color: 'gray' },
 }
 
-export const Linear_스프린트_사이클_배지: Story = {
-  name: 'Linear Design - 스프린트 사이클 배지 시스템',
+export const IssueTracker_스프린트_사이클_배지: Story = {
+  name: 'IssueTracker Design - 스프린트 사이클 배지 시스템',
   parameters: {
     docs: {
       description: {
         story:
-          'Linear Design 사이클(스프린트) 상태 배지 패턴. Completed/Active/Upcoming/Draft 4단계 상태를 ' +
+          'IssueTracker Design 사이클(스프린트) 상태 배지 패턴. Completed/Active/Upcoming/Draft 4단계 상태를 ' +
           '색상 코드된 LabelBadge로 구분하고, 진행률 바와 조합해 대시보드형 스프린트 현황을 제공합니다.',
       },
     },
@@ -1053,10 +1053,10 @@ export const Linear_스프린트_사이클_배지: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Vercel Design 벤치마크: 배포 체크 상태 배지 목록
-   Vercel Checks 패턴 — CI 체크 항목별 상태 배지 열거
+   DeployPlatform Design 벤치마크: 배포 체크 상태 배지 목록
+   DeployPlatform Checks 패턴 — CI 체크 항목별 상태 배지 열거
 -------------------------------------------------------------------------- */
-const VERCEL_CHECKS = [
+const DEPLOY_CHECKS = [
   { name: 'pnpm typecheck', status: 'pass' as const, duration: '12s' },
   { name: 'pnpm test', status: 'pass' as const, duration: '38s' },
   { name: 'pnpm lint', status: 'fail' as const, duration: '7s' },
@@ -1071,13 +1071,13 @@ const CHECK_BADGE: Record<string, { label: string; color: 'gray' | 'benefit' | '
   skipped: { label: 'Skipped', color: 'gray' },
 }
 
-export const Vercel_CI_체크_상태_배지_목록: Story = {
-  name: 'Vercel Design - CI 체크 상태 배지 목록',
+export const DeployPlatform_CI_체크_상태_배지_목록: Story = {
+  name: 'DeployPlatform Design - CI 체크 상태 배지 목록',
   parameters: {
     docs: {
       description: {
         story:
-          'Vercel Deployment Checks 패턴. CI 파이프라인 각 단계(typecheck/test/lint/build/e2e)의 ' +
+          'DeployPlatform Deployment Checks 패턴. CI 파이프라인 각 단계(typecheck/test/lint/build/e2e)의 ' +
           '실행 결과를 Pass/Fail/Running/Skipped 배지로 구분합니다. 실패 항목은 눈에 띄게 강조됩니다.',
       },
     },
@@ -1087,12 +1087,12 @@ export const Vercel_CI_체크_상태_배지_목록: Story = {
       <div style={{ padding: '10px 14px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0', fontSize: 12, fontWeight: 700, color: '#475569' }}>
         배포 체크
       </div>
-      {VERCEL_CHECKS.map((check, i) => {
+      {DEPLOY_CHECKS.map((check, i) => {
         const badge = CHECK_BADGE[check.status]
         return (
           <div key={check.name} style={{
             display: 'flex', alignItems: 'center', gap: 10, padding: '10px 14px',
-            borderBottom: i < VERCEL_CHECKS.length - 1 ? '1px solid #f8fafc' : 'none',
+            borderBottom: i < DEPLOY_CHECKS.length - 1 ? '1px solid #f8fafc' : 'none',
             background: check.status === 'fail' ? '#fef2f2' : '#fff',
           }}>
             <span style={{ fontSize: 13, color: '#1e293b', flex: 1 }}>{check.name}</span>
@@ -1108,7 +1108,7 @@ export const Vercel_CI_체크_상태_배지_목록: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Linear + Vercel 복합: 릴리즈 노트 배지 그룹 패턴
+   IssueTracker + DeployPlatform 복합: 릴리즈 노트 배지 그룹 패턴
    커밋 유형(feat/fix/docs/chore) + 영향도(breaking/minor/patch) 배지 조합
 -------------------------------------------------------------------------- */
 const RELEASE_ITEMS = [
@@ -1132,13 +1132,13 @@ const IMPACT_BADGE: Record<string, { label: string; color: 'gray' | 'benefit' | 
   breaking: { label: 'breaking', color: 'sale' },
 }
 
-export const Linear_Vercel_릴리즈_노트_배지: Story = {
-  name: 'Linear + Vercel - 릴리즈 노트 커밋 배지 패턴',
+export const IssueTracker_DeployPlatform_릴리즈_노트_배지: Story = {
+  name: 'IssueTracker + DeployPlatform - 릴리즈 노트 커밋 배지 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'Linear changelog + Vercel release 복합 배지 패턴. 커밋 유형(feat/fix/docs/chore)과 ' +
+          'IssueTracker changelog + DeployPlatform release 복합 배지 패턴. 커밋 유형(feat/fix/docs/chore)과 ' +
           '영향도(minor/patch/breaking) 두 가지 배지를 조합해 릴리즈 노트의 각 항목을 시각적으로 분류합니다.',
       },
     },
@@ -1164,8 +1164,8 @@ export const Linear_Vercel_릴리즈_노트_배지: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Cycle 158 — Radix UI + Tailwind UI
-   Radix: 콘텐츠 상태 배지 그룹 패턴 (Content Status Badges)
+   Cycle 158 — PrimitiveUI + UtilityUI
+   Primitive: 콘텐츠 상태 배지 그룹 패턴 (Content Status Badges)
 -------------------------------------------------------------------------- */
 const RADIX_CONTENT_ITEMS = [
   { title: 'Dialog 컴포넌트', status: 'sale', label: 'NEW' },
@@ -1176,10 +1176,10 @@ const RADIX_CONTENT_ITEMS = [
   { title: 'ContextMenu', status: 'benefit', label: 'BETA' },
 ] as const
 
-function RadixContentStatusRender() {
+function PrimitiveContentStatusRender() {
   return (
     <div style={{ width: 320, fontFamily: 'system-ui, sans-serif' }}>
-      <p style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 12 }}>Radix UI — 컴포넌트 상태 배지</p>
+      <p style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 12 }}>PrimitiveUI — 컴포넌트 상태 배지</p>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
         {RADIX_CONTENT_ITEMS.map(item => (
           <div key={item.title} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '8px 12px', borderRadius: 8, border: '1px solid #f1f5f9', background: '#fff' }}>
@@ -1195,20 +1195,20 @@ function RadixContentStatusRender() {
   )
 }
 
-export const Radix_컴포넌트_상태_배지: Story = {
-  name: 'Radix UI — 컴포넌트 상태 배지 목록 패턴',
+export const Primitive_컴포넌트_상태_배지: Story = {
+  name: 'PrimitiveUI — 컴포넌트 상태 배지 목록 패턴',
   parameters: {
     docs: {
       description: {
-        story: 'Radix UI 컴포넌트 목록 스타일. LabelBadge로 NEW/PRO/STABLE/UPDATED/BETA 상태를 색상 코딩하여 표시합니다.',
+        story: 'PrimitiveUI 컴포넌트 목록 스타일. LabelBadge로 NEW/PRO/STABLE/UPDATED/BETA 상태를 색상 코딩하여 표시합니다.',
       },
     },
   },
-  render: () => <RadixContentStatusRender />,
+  render: () => <PrimitiveContentStatusRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Tailwind UI: 제품 카드 프로모션 배지 패턴
+   UtilityUI: 제품 카드 프로모션 배지 패턴
 -------------------------------------------------------------------------- */
 const TAILWIND_PRODUCTS = [
   { name: 'Starter Kit', price: '무료', badge: 'FREE', color: 'gray' as const, desc: '개인 프로젝트용 기본 스타터' },
@@ -1216,12 +1216,12 @@ const TAILWIND_PRODUCTS = [
   { name: 'Enterprise', price: '문의', badge: '혜택', color: 'benefit' as const, desc: '무제한 라이선스 + 전용 지원' },
 ]
 
-function TailwindProductBadgeRender() {
+function UtilityCSSProductBadgeRender() {
   const [selected, setSelected] = useState<string | null>(null)
 
   return (
     <div style={{ width: 360, fontFamily: 'system-ui, sans-serif' }}>
-      <p style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 12 }}>Tailwind UI 제품 카드 배지</p>
+      <p style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 12 }}>UtilityUI 제품 카드 배지</p>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
         {TAILWIND_PRODUCTS.map(product => (
           <div
@@ -1256,20 +1256,20 @@ function TailwindProductBadgeRender() {
   )
 }
 
-export const Tailwind_제품_프로모션_배지: Story = {
-  name: 'Tailwind UI — 제품 카드 프로모션 배지 패턴',
+export const UtilityCSS_제품_프로모션_배지: Story = {
+  name: 'UtilityUI — 제품 카드 프로모션 배지 패턴',
   parameters: {
     docs: {
       description: {
-        story: 'Tailwind UI의 Pricing Card 패턴. LabelBadge로 FREE/SALE/혜택 뱃지를 카드 헤더에 배치해 프로모션 정보를 강조합니다.',
+        story: 'UtilityUI의 Pricing Card 패턴. LabelBadge로 FREE/SALE/혜택 뱃지를 카드 헤더에 배치해 프로모션 정보를 강조합니다.',
       },
     },
   },
-  render: () => <TailwindProductBadgeRender />,
+  render: () => <UtilityCSSProductBadgeRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Radix + Tailwind: PR 리뷰 상태 배지 대시보드 패턴
+   Primitive + UtilityCSS: PR 리뷰 상태 배지 대시보드 패턴
 -------------------------------------------------------------------------- */
 const PR_REVIEWS = [
   { pr: '#1241', title: 'BoxedCheckbox 접근성', reviewer: 'AK', status: 'APPROVED', color: 'benefit' as const, time: '5분 전' },
@@ -1278,7 +1278,7 @@ const PR_REVIEWS = [
   { pr: '#1244', title: 'Token 정리', reviewer: 'AK', status: 'MERGED', color: 'benefit' as const, time: '2시간 전' },
 ]
 
-function RadixTailwindPRDashboardRender() {
+function PrimitiveUtilityCSSPRDashboardRender() {
   const [filter, setFilter] = useState<string | null>(null)
   const filtered = filter ? PR_REVIEWS.filter(p => p.status === filter) : PR_REVIEWS
 
@@ -1318,28 +1318,28 @@ function RadixTailwindPRDashboardRender() {
   )
 }
 
-export const Radix_Tailwind_PR_리뷰_배지_대시보드: Story = {
-  name: 'Radix + Tailwind UI — PR 리뷰 상태 배지 대시보드 패턴',
+export const Primitive_UtilityCSS_PR_리뷰_배지_대시보드: Story = {
+  name: 'Primitive + UtilityUI — PR 리뷰 상태 배지 대시보드 패턴',
   parameters: {
     docs: {
       description: {
-        story: 'Radix + Tailwind UI 복합 패턴. LabelBadge로 PR 리뷰 상태(APPROVED/REVIEW/WIP/MERGED)를 시각화하고 상태별 필터링을 제공합니다.',
+        story: 'Primitive + UtilityUI 복합 패턴. LabelBadge로 PR 리뷰 상태(APPROVED/REVIEW/WIP/MERGED)를 시각화하고 상태별 필터링을 제공합니다.',
       },
     },
   },
-  render: () => <RadixTailwindPRDashboardRender />,
+  render: () => <PrimitiveUtilityCSSPRDashboardRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Vercel Design — 배포 환경 배지 시스템
+   DeployPlatform Design — 배포 환경 배지 시스템
 -------------------------------------------------------------------------- */
-const VERCEL_ENVS = [
+const DEPLOY_ENVS = [
   { label: 'Production', color: 'sale' as const, dot: '#0f0', desc: '프로덕션 환경' },
   { label: 'Preview', color: 'benefit' as const, dot: '#fbbf24', desc: '프리뷰 환경' },
   { label: 'Development', color: 'gray' as const, dot: '#60a5fa', desc: '개발 환경' },
 ]
 
-const VERCEL_DEPLOYS = [
+const DEPLOY_DEPLOYS = [
   { id: 'd-abc123', branch: 'main', env: 'Production', status: 'Ready', age: '2m 전' },
   { id: 'd-def456', branch: 'feature/ui', env: 'Preview', status: 'Building', age: '5m 전' },
   { id: 'd-ghi789', branch: 'fix/badge', env: 'Preview', status: 'Error', age: '12m 전' },
@@ -1348,11 +1348,11 @@ const VERCEL_DEPLOYS = [
 
 const STATUS_DOT: Record<string, string> = { Ready: '#0f0', Building: '#fbbf24', Error: '#ef4444' }
 
-function VercelDeployEnvBadgeRender() {
+function DeployPlatformDeployEnvBadgeRender() {
   return (
     <div style={{ width: 380, fontFamily: "'Inter', system-ui, sans-serif", background: '#000', borderRadius: 12, border: '1px solid #222', overflow: 'hidden' }}>
       <div style={{ padding: '12px 16px', borderBottom: '1px solid #222', display: 'flex', gap: 12, alignItems: 'center' }}>
-        {VERCEL_ENVS.map(env => (
+        {DEPLOY_ENVS.map(env => (
           <div key={env.label} style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
             <LabelBadge color={env.color}>
               <LabelBadge.Label>{env.label}</LabelBadge.Label>
@@ -1361,12 +1361,12 @@ function VercelDeployEnvBadgeRender() {
         ))}
       </div>
       <div style={{ padding: '8px 0' }}>
-        {VERCEL_DEPLOYS.map(d => (
+        {DEPLOY_DEPLOYS.map(d => (
           <div key={d.id} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '9px 16px' }}>
             <div style={{ width: 7, height: 7, borderRadius: '50%', background: STATUS_DOT[d.status], flexShrink: 0 }} />
             <span style={{ fontSize: 11, color: '#888', fontFamily: 'monospace', minWidth: 80 }}>{d.id}</span>
             <span style={{ fontSize: 12, color: '#ccc', flex: 1 }}>{d.branch}</span>
-            <LabelBadge color={VERCEL_ENVS.find(e => e.label === d.env)?.color ?? 'gray'}>
+            <LabelBadge color={DEPLOY_ENVS.find(e => e.label === d.env)?.color ?? 'gray'}>
               <LabelBadge.Label>{d.env}</LabelBadge.Label>
             </LabelBadge>
             <span style={{ fontSize: 10, color: '#555', minWidth: 44, textAlign: 'right' }}>{d.age}</span>
@@ -1377,24 +1377,24 @@ function VercelDeployEnvBadgeRender() {
   )
 }
 
-export const Vercel_배포_환경_배지_시스템: Story = {
-  name: 'Vercel Design — 배포 환경 배지 시스템',
-  render: () => <VercelDeployEnvBadgeRender />,
+export const DeployPlatform_배포_환경_배지_시스템: Story = {
+  name: 'DeployPlatform Design — 배포 환경 배지 시스템',
+  render: () => <DeployPlatformDeployEnvBadgeRender />,
   parameters: {
     docs: {
       description: {
         story:
-          'Vercel Design 배포 환경 배지 패턴. Production/Preview/Development 환경을 LabelBadge color variant로 구분합니다. ' +
-          'Vercel의 다크 배포 로그 UI와 환경별 색상 코딩을 반영합니다.',
+          'DeployPlatform Design 배포 환경 배지 패턴. Production/Preview/Development 환경을 LabelBadge color variant로 구분합니다. ' +
+          'DeployPlatform의 다크 배포 로그 UI와 환경별 색상 코딩을 반영합니다.',
       },
     },
   },
 }
 
 /* --------------------------------------------------------------------------
-   Mantine — 날짜 컴포넌트 상태 배지
+   AppUI — 날짜 컴포넌트 상태 배지
 -------------------------------------------------------------------------- */
-const MANTINE_DATE_EVENTS = [
+const ACCESSIBLEKIT_DATE_EVENTS = [
   { date: '4월 11일', label: 'Sprint 시작', badge: 'benefit' as const, note: '2주 스프린트' },
   { date: '4월 15일', label: '코드 프리즈', badge: 'sale' as const, note: '새 기능 병합 중단' },
   { date: '4월 18일', label: '릴리즈 리뷰', badge: 'gray' as const, note: '스테이징 검증' },
@@ -1402,13 +1402,13 @@ const MANTINE_DATE_EVENTS = [
   { date: '4월 25일', label: 'Sprint 종료', badge: 'benefit' as const, note: '회고 및 회의' },
 ]
 
-function MantineDateStateBadgeRender() {
+function AppUIDateStateBadgeRender() {
   const [highlight, setHighlight] = useState<string | null>(null)
   return (
     <div style={{ width: 340, fontFamily: "'Inter', system-ui, sans-serif" }}>
       <div style={{ fontSize: 13, fontWeight: 700, color: '#1e293b', marginBottom: 12 }}>릴리즈 일정 캘린더</div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-        {MANTINE_DATE_EVENTS.map(ev => (
+        {ACCESSIBLEKIT_DATE_EVENTS.map(ev => (
           <div
             key={ev.date}
             onClick={() => setHighlight(highlight === ev.date ? null : ev.date)}
@@ -1424,29 +1424,29 @@ function MantineDateStateBadgeRender() {
       </div>
       {highlight && (
         <div style={{ marginTop: 10, padding: '10px 12px', borderRadius: 8, background: '#f0f9ff', border: '1px solid #bae6fd', fontSize: 12, color: '#0369a1' }}>
-          {MANTINE_DATE_EVENTS.find(e => e.date === highlight)?.date} — {MANTINE_DATE_EVENTS.find(e => e.date === highlight)?.note}
+          {ACCESSIBLEKIT_DATE_EVENTS.find(e => e.date === highlight)?.date} — {ACCESSIBLEKIT_DATE_EVENTS.find(e => e.date === highlight)?.note}
         </div>
       )}
     </div>
   )
 }
 
-export const Mantine_날짜_컴포넌트_일정_배지: Story = {
-  name: 'Mantine — 날짜 컴포넌트 일정 배지',
-  render: () => <MantineDateStateBadgeRender />,
+export const AppUI_날짜_컴포넌트_일정_배지: Story = {
+  name: 'AppUI — 날짜 컴포넌트 일정 배지',
+  render: () => <AppUIDateStateBadgeRender />,
   parameters: {
     docs: {
       description: {
         story:
-          'Mantine Calendar/DatePicker 일정 패턴. 릴리즈 이벤트를 날짜별로 나열하고 LabelBadge로 유형을 구분합니다. ' +
-          'Mantine의 날짜 컴포넌트 인터랙션과 이벤트 강조 UX를 반영합니다.',
+          'AppUI Calendar/DatePicker 일정 패턴. 릴리즈 이벤트를 날짜별로 나열하고 LabelBadge로 유형을 구분합니다. ' +
+          'AppUI의 날짜 컴포넌트 인터랙션과 이벤트 강조 UX를 반영합니다.',
       },
     },
   },
 }
 
 /* --------------------------------------------------------------------------
-   Vercel + Mantine — 릴리즈 노트 배지 대시보드
+   DeployPlatform + AppUI — 릴리즈 노트 배지 대시보드
 -------------------------------------------------------------------------- */
 const RELEASE_NOTES = [
   { version: 'v2.5.0', date: '2026-04-22', type: 'sale', features: 3, fixes: 5, breaking: false },
@@ -1455,7 +1455,7 @@ const RELEASE_NOTES = [
   { version: 'v2.3.2', date: '2026-01-29', type: 'gray', features: 0, fixes: 4, breaking: false },
 ]
 
-function VercelMantineReleaseNoteRender() {
+function DeployPlatformAppUIReleaseNoteRender() {
   const [expanded, setExpanded] = useState<string | null>('v2.5.0')
   return (
     <div style={{ width: 380, fontFamily: "'Inter', system-ui, sans-serif" }}>
@@ -1503,15 +1503,15 @@ function VercelMantineReleaseNoteRender() {
   )
 }
 
-export const Vercel_Mantine_릴리즈_노트_배지_대시보드: Story = {
-  name: 'Vercel + Mantine — 릴리즈 노트 배지 대시보드',
-  render: () => <VercelMantineReleaseNoteRender />,
+export const DeployPlatform_AppUI_릴리즈_노트_배지_대시보드: Story = {
+  name: 'DeployPlatform + AppUI — 릴리즈 노트 배지 대시보드',
+  render: () => <DeployPlatformAppUIReleaseNoteRender />,
   parameters: {
     docs: {
       description: {
         story:
-          'Vercel Design + Mantine 복합 패턴. 버전별 릴리즈 노트를 LabelBadge로 타입(Major/Minor/Patch/Breaking) 구분합니다. ' +
-          'Mantine의 Accordion 패턴과 Vercel의 버전 표시 스타일을 결합합니다.',
+          'DeployPlatform Design + AppUI 복합 패턴. 버전별 릴리즈 노트를 LabelBadge로 타입(Major/Minor/Patch/Breaking) 구분합니다. ' +
+          'AppUI의 Accordion 패턴과 DeployPlatform의 버전 표시 스타일을 결합합니다.',
       },
     },
   },

@@ -149,4 +149,23 @@ describe('Alert (AlertDialog)', () => {
       expect(screen.getByRole('alertdialog')).toBeInTheDocument()
     })
   })
+
+  test('Title 또는 Description이 생략돼도 접근성 경고를 출력하지 않는다', async () => {
+    const consoleError = vi.spyOn(console, 'error').mockImplementation(() => undefined)
+
+    render(
+      <Alert defaultIsPresented>
+        <Alert.Top>
+          <Alert.Title>경고</Alert.Title>
+        </Alert.Top>
+      </Alert>
+    )
+
+    await waitFor(() => {
+      expect(screen.getByRole('alertdialog')).toBeInTheDocument()
+    })
+
+    expect(consoleError.mock.calls.flat().join(' ')).not.toContain('requires a description')
+    expect(consoleError.mock.calls.flat().join(' ')).not.toContain('Missing `Description`')
+  })
 })

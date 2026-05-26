@@ -54,7 +54,7 @@ type AppBarComponent = typeof AppBarRoot & {
 
 /**
  * ### 💡 알아두기
- * - [🔗 figma 디자인가이드라인 바로가기](https://www.figma.com/design/nvbYsAN7MkMtI50gQpoWdk/-%EB%AF%BC%ED%8A%B8-2.0--%ED%81%B4%EB%A0%88%EC%9D%B4%EB%AF%BC%ED%8A%B8?node-id=2129-56983&t=xZF3LtnOoJoYVimj-11)
+ * - [🔗 design 디자인가이드라인 바로가기](https://design.example.com/reference)
  * - 사용자가 머무르고 있는 화면의 제목과 주요 액션 버튼을 제공할 수 있어요.
  * - foundation의 AppBar를 기반으로 구현되었어요.
  *

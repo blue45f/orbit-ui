@@ -54,7 +54,7 @@ export const 라이트모드: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   다크 모드 — Radix UI darkTheme 패턴
+   다크 모드 — PrimitiveUI darkTheme 패턴
    mode="dark"로 전환하면 모든 컴포넌트가 다크 토큰을 사용합니다.
 -------------------------------------------------------------------------- */
 export const 다크모드: Story = {
@@ -233,7 +233,7 @@ export const 플랫폼_비교: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   shadcn/ui 패턴: 중첩 Provider 컨텍스트 데모
+   ComposableUI 패턴: 중첩 Provider 컨텍스트 데모
    여러 섹션에 서로 다른 테마를 적용하는 시나리오를 데모합니다.
    (예: 라이트 메인 + 다크 사이드바)
 -------------------------------------------------------------------------- */
@@ -306,10 +306,10 @@ export const 중첩_Provider_패턴: Story = {
    실제 Next.js 앱에서의 EclipseProvider 설정 방법을 시각화합니다.
 -------------------------------------------------------------------------- */
 /* --------------------------------------------------------------------------
-   Vercel 벤치마크: 다크 대시보드 레이아웃 패턴
-   Vercel Dashboard의 어두운 카드 + 모노크롬 팔레트를 EclipseProvider로 구현
+   DeployPlatform 벤치마크: 다크 대시보드 레이아웃 패턴
+   DeployPlatform Dashboard의 어두운 카드 + 모노크롬 팔레트를 EclipseProvider로 구현
 -------------------------------------------------------------------------- */
-const VercelDarkDashboardRender = () => {
+const DeployPlatformDarkDashboardRender = () => {
   const metrics = [
     { label: 'Total Deployments', value: '2,847', change: '+12%', up: true },
     { label: 'Error Rate', value: '0.04%', change: '-0.01%', up: false },
@@ -324,13 +324,13 @@ const VercelDarkDashboardRender = () => {
         borderRadius: 16,
         padding: 24,
         width: 560,
-        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+        fontFamily: '"Segoe UI", sans-serif',
       }}>
         {/* Header */}
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 20 }}>
           <div>
             <div style={{ fontSize: 11, fontWeight: 700, color: '#666', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: 4 }}>
-              Vercel Design — Dark Dashboard
+              DeployPlatform Design — Dark Dashboard
             </div>
             <div style={{ fontSize: 18, fontWeight: 700, color: '#fff' }}>orbit-ui</div>
           </div>
@@ -394,35 +394,35 @@ const VercelDarkDashboardRender = () => {
         </div>
 
         <div style={{ marginTop: 12, fontSize: 11, color: '#444' }}>
-          Vercel Design — 모노크롬 다크 팔레트 + 배포 상태 인디케이터 패턴
+          DeployPlatform Design — 모노크롬 다크 팔레트 + 배포 상태 인디케이터 패턴
         </div>
       </div>
     </EclipseProvider>
   )
 }
 
-export const Vercel_다크_대시보드: Story = {
-  name: 'Vercel Design - 다크 대시보드 레이아웃 패턴',
-  render: () => <VercelDarkDashboardRender />,
+export const DeployPlatform_다크_대시보드: Story = {
+  name: 'DeployPlatform Design - 다크 대시보드 레이아웃 패턴',
+  render: () => <DeployPlatformDarkDashboardRender />,
 }
 
 /* --------------------------------------------------------------------------
-   shadcn/ui 벤치마크: 시맨틱 토큰 레이어 시각화
-   shadcn/ui의 CSS 변수 기반 토큰 시스템을 Orbit UI 토큰으로 대조 표시
+   ComposableUI 벤치마크: 시맨틱 토큰 레이어 시각화
+   ComposableUI의 CSS 변수 기반 토큰 시스템을 Orbit UI 토큰으로 대조 표시
 -------------------------------------------------------------------------- */
-export const shadcn_토큰_레이어_비교: Story = {
-  name: 'shadcn/ui - CSS 변수 토큰 레이어 비교',
+export const ComposableUI_토큰_레이어_비교: Story = {
+  name: 'ComposableUI - CSS 변수 토큰 레이어 비교',
   render: () => (
-    <div style={{ maxWidth: 600, fontFamily: '-apple-system, BlinkMacSystemFont, sans-serif' }}>
+    <div style={{ maxWidth: 600, fontFamily: 'sans-serif' }}>
       <div style={{ fontSize: 11, fontWeight: 700, color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 16 }}>
-        shadcn/ui CSS Variables vs Orbit UI Token System
+        ComposableUI CSS Variables vs Orbit UI Token System
       </div>
 
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 20 }}>
-        {/* shadcn side */}
+        {/* ComposableUI side */}
         <div style={{ borderRadius: 12, border: '1px solid #e2e8f0', overflow: 'hidden' }}>
           <div style={{ padding: '10px 14px', background: '#18181b', borderBottom: '1px solid #333' }}>
-            <span style={{ fontSize: 12, fontWeight: 700, color: '#fff' }}>shadcn/ui</span>
+            <span style={{ fontSize: 12, fontWeight: 700, color: '#fff' }}>ComposableUI</span>
             <span style={{ marginLeft: 8, fontSize: 11, color: '#666' }}>globals.css</span>
           </div>
           <div style={{ padding: '12px 14px', background: '#0c0c0c', fontFamily: 'monospace' }}>
@@ -471,34 +471,34 @@ export const shadcn_토큰_레이어_비교: Story = {
       <div style={{ borderRadius: 12, border: '1px solid #e2e8f0', overflow: 'hidden' }}>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', background: '#f8fafc', padding: '8px 14px', fontSize: 11, fontWeight: 700, color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.06em', borderBottom: '1px solid #e2e8f0' }}>
           <span>역할</span>
-          <span>shadcn/ui</span>
+          <span>ComposableUI</span>
           <span>Orbit UI</span>
         </div>
         {[
-          { role: '배경', shadcn: '--background', orbit: 'colorSlate50 → surfacePrimary' },
-          { role: '전경', shadcn: '--foreground', orbit: 'colorSlate950 → textPrimary' },
-          { role: '강조색', shadcn: '--primary', orbit: 'colorIndigo600 → fillPrimary' },
-          { role: '보조 배경', shadcn: '--muted', orbit: 'colorSlate100 → surfaceSecondary' },
-          { role: '테두리', shadcn: '--border', orbit: 'colorSlate200 → strokeDefault' },
-        ].map(({ role, shadcn, orbit }, i) => (
+          { role: '배경', ComposableUI: '--background', orbit: 'colorSlate50 → surfacePrimary' },
+          { role: '전경', ComposableUI: '--foreground', orbit: 'colorSlate950 → textPrimary' },
+          { role: '강조색', ComposableUI: '--primary', orbit: 'colorIndigo600 → fillPrimary' },
+          { role: '보조 배경', ComposableUI: '--muted', orbit: 'colorSlate100 → surfaceSecondary' },
+          { role: '테두리', ComposableUI: '--border', orbit: 'colorSlate200 → strokeDefault' },
+        ].map(({ role, ComposableUI, orbit }, i) => (
           <div key={role} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', padding: '9px 14px', borderBottom: i < 4 ? '1px solid #f1f5f9' : 'none', fontSize: 12, background: i % 2 === 0 ? '#fff' : '#fafafa' }}>
             <span style={{ fontWeight: 600, color: '#1e293b' }}>{role}</span>
-            <span style={{ fontFamily: 'monospace', fontSize: 11, color: '#6366f1' }}>{shadcn}</span>
+            <span style={{ fontFamily: 'monospace', fontSize: 11, color: '#6366f1' }}>{ComposableUI}</span>
             <span style={{ fontFamily: 'monospace', fontSize: 11, color: '#10b981' }}>{orbit}</span>
           </div>
         ))}
       </div>
 
       <div style={{ marginTop: 12, fontSize: 11, color: '#94a3b8' }}>
-        shadcn/ui CSS 변수 레이어 vs Orbit UI 3단계 토큰 계층 비교
+        ComposableUI CSS 변수 레이어 vs Orbit UI 3단계 토큰 계층 비교
       </div>
     </div>
   ),
 }
 
 /* --------------------------------------------------------------------------
-   Vercel 벤치마크: 시스템 테마 자동 감지 패턴
-   Vercel Dashboard의 prefers-color-scheme 감지 + 수동 오버라이드 패턴
+   DeployPlatform 벤치마크: 시스템 테마 자동 감지 패턴
+   DeployPlatform Dashboard의 prefers-color-scheme 감지 + 수동 오버라이드 패턴
 -------------------------------------------------------------------------- */
 const SystemThemeRender = () => {
   const [override, setOverride] = useState<'auto' | 'light' | 'dark'>('auto')
@@ -507,9 +507,9 @@ const SystemThemeRender = () => {
   const resolvedMode = override === 'auto' ? systemPref : override
 
   return (
-    <div style={{ maxWidth: 520, fontFamily: '-apple-system, BlinkMacSystemFont, sans-serif' }}>
+    <div style={{ maxWidth: 520, fontFamily: 'sans-serif' }}>
       <div style={{ fontSize: 11, fontWeight: 700, color: '#000', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 16 }}>
-        Vercel — 시스템 테마 자동 감지 + 수동 오버라이드 패턴
+        DeployPlatform — 시스템 테마 자동 감지 + 수동 오버라이드 패턴
       </div>
 
       {/* Theme selector */}
@@ -588,14 +588,14 @@ const SystemThemeRender = () => {
         </div>
       </EclipseProvider>
       <div style={{ marginTop: 12, fontSize: 11, color: '#94a3b8' }}>
-        Vercel — prefers-color-scheme 자동 감지 + 수동 오버라이드 패턴
+        DeployPlatform — prefers-color-scheme 자동 감지 + 수동 오버라이드 패턴
       </div>
     </div>
   )
 }
 
-export const Vercel_시스템_테마_자동감지: Story = {
-  name: 'Vercel Design - 시스템 테마 자동 감지 + 수동 오버라이드',
+export const DeployPlatform_시스템_테마_자동감지: Story = {
+  name: 'DeployPlatform Design - 시스템 테마 자동 감지 + 수동 오버라이드',
   render: () => <SystemThemeRender />,
 }
 
@@ -681,16 +681,16 @@ export function ThemeProviders({
 }
 
 /* --------------------------------------------------------------------------
-   Radix UI 벤치마크: 컴포넌트 토큰 오버라이드 시각화
-   Radix UI의 Theme 컴포넌트 vs EclipseProvider의 CSS 변수 토큰 오버라이드 패턴 비교
+   PrimitiveUI 벤치마크: 컴포넌트 토큰 오버라이드 시각화
+   PrimitiveUI의 Theme 컴포넌트 vs EclipseProvider의 CSS 변수 토큰 오버라이드 패턴 비교
 -------------------------------------------------------------------------- */
-export const Radix_토큰_오버라이드_비교: Story = {
-  name: 'Radix UI — CSS 변수 토큰 오버라이드 패턴',
+export const Primitive_토큰_오버라이드_비교: Story = {
+  name: 'PrimitiveUI — CSS 변수 토큰 오버라이드 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'Radix UI Theme 컴포넌트는 `accentColor`, `radius` 등 prop으로 테마를 변경합니다. ' +
+          'PrimitiveUI Theme 컴포넌트는 `accentColor`, `radius` 등 prop으로 테마를 변경합니다. ' +
           'Orbit UI는 CSS 변수 오버라이드로 동일한 유연성을 제공합니다. ' +
           '각 패널은 다른 강조 색상 토큰을 적용한 EclipseProvider 인스턴스입니다.',
       },
@@ -738,16 +738,16 @@ export const Radix_토큰_오버라이드_비교: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Radix UI 벤치마크: 접근성 포커스 링 & 키보드 내비게이션 데모
-   Radix의 접근성 우선 설계 — EclipseProvider 내에서 포커스 가시성 확인
+   PrimitiveUI 벤치마크: 접근성 포커스 링 & 키보드 내비게이션 데모
+   Primitive의 접근성 우선 설계 — EclipseProvider 내에서 포커스 가시성 확인
 -------------------------------------------------------------------------- */
-export const Radix_접근성_포커스_링_데모: Story = {
-  name: 'Radix UI — 접근성 포커스 링 & 키보드 내비게이션 데모',
+export const Primitive_접근성_포커스_링_데모: Story = {
+  name: 'PrimitiveUI — 접근성 포커스 링 & 키보드 내비게이션 데모',
   parameters: {
     docs: {
       description: {
         story:
-          'Radix UI는 모든 컴포넌트에 WAI-ARIA 포커스 관리를 내장합니다. ' +
+          'PrimitiveUI는 모든 컴포넌트에 WAI-ARIA 포커스 관리를 내장합니다. ' +
           'Tab 키로 이동 시 EclipseProvider의 포커스 링이 명확하게 표시됩니다. ' +
           'WCAG 2.4.7 "Focus Visible" 기준 — 3:1 이상 대비비의 포커스 링.',
       },
@@ -801,12 +801,12 @@ export const Radix_접근성_포커스_링_데모: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Radix UI 벤치마크: 고대비 모드 & 컬러 스킴 적응
-   Radix UI의 highContrast + appearance 시스템 비교
+   PrimitiveUI 벤치마크: 고대비 모드 & 컬러 스킴 적응
+   PrimitiveUI의 highContrast + appearance 시스템 비교
    EclipseProvider에서 라이트/다크/고대비 세 모드 전환 시연
 -------------------------------------------------------------------------- */
 
-function RadixColorSchemeDemo() {
+function PrimitiveColorSchemeDemo() {
   const [mode, setMode] = useState<'light' | 'dark'>('light')
   const [highContrast, setHighContrast] = useState(false)
 
@@ -857,7 +857,7 @@ function RadixColorSchemeDemo() {
               <Avatar.Fallback>RX</Avatar.Fallback>
             </Avatar>
             <div>
-              <Typography textStyle="labelMedium" color="foregroundPrimary">Radix UI 스타일 헤더</Typography>
+              <Typography textStyle="labelMedium" color="foregroundPrimary">PrimitiveUI 스타일 헤더</Typography>
               <Typography textStyle="descriptionSmall" color="foregroundTertiary">{mode} 모드{highContrast ? ' · 고대비' : ''}</Typography>
             </div>
             <div style={{ marginLeft: 'auto', display: 'flex', gap: 6 }}>
@@ -866,7 +866,7 @@ function RadixColorSchemeDemo() {
             </div>
           </div>
           <div style={{ padding: '16px 18px', background: 'var(--sem-eclipse-color-backgroundPrimary)', display: 'flex', flexDirection: 'column', gap: 12 }}>
-            <TextField placeholder="Radix Primitives 검색..." />
+            <TextField placeholder="Primitive Primitives 검색..." />
             <div style={{ display: 'flex', gap: 8 }}>
               <SolidButton color="primary" size="small">
                 <SolidButton.Center>확인</SolidButton.Center>
@@ -886,26 +886,26 @@ function RadixColorSchemeDemo() {
   )
 }
 
-export const Radix_컬러_스킴_적응_데모: Story = {
-  name: 'Radix UI — 고대비 모드 & 컬러 스킴 적응 데모',
+export const Primitive_컬러_스킴_적응_데모: Story = {
+  name: 'PrimitiveUI — 고대비 모드 & 컬러 스킴 적응 데모',
   parameters: {
     docs: {
       description: {
         story:
-          'Radix UI의 `highContrast` + `appearance` 시스템 비교. ' +
+          'PrimitiveUI의 `highContrast` + `appearance` 시스템 비교. ' +
           'EclipseProvider의 mode prop으로 라이트/다크를 전환하고 CSS filter로 고대비 시뮬레이션합니다. ' +
           '모든 시맨틱 토큰이 자동으로 적응하는 것을 실시간으로 확인합니다.',
       },
     },
   },
-  render: () => <RadixColorSchemeDemo />,
+  render: () => <PrimitiveColorSchemeDemo />,
 }
 
 /* --------------------------------------------------------------------------
-   Raycast — 커맨드 팔레트 테마 프리뷰
-   Raycast Extensions의 compact dark UI 패턴 — 테마 전환 미리보기
+   CommandPalette — 커맨드 팔레트 테마 프리뷰
+   CommandPalette Extensions의 compact dark UI 패턴 — 테마 전환 미리보기
 -------------------------------------------------------------------------- */
-function RaycastCommandPaletteThemeRender() {
+function CommandPaletteCommandPaletteThemeRender() {
   const [mode, setMode] = useState<'light' | 'dark'>('dark')
   const commands = [
     { icon: '🔍', label: '파일 검색', shortcut: '⌘F', category: 'Search' },
@@ -962,23 +962,23 @@ function RaycastCommandPaletteThemeRender() {
   )
 }
 
-export const Raycast_커맨드_팔레트_테마: Story = {
-  name: 'Raycast — 커맨드 팔레트 테마 프리뷰',
+export const CommandPalette_커맨드_팔레트_테마: Story = {
+  name: 'CommandPalette — 커맨드 팔레트 테마 프리뷰',
   parameters: {
     docs: {
       description: {
-        story: 'Raycast Extensions의 compact 커맨드 팔레트 UI. EclipseProvider로 라이트/다크 테마를 전환하며 모든 토큰이 자동 적응하는 것을 확인합니다.',
+        story: 'CommandPalette Extensions의 compact 커맨드 팔레트 UI. EclipseProvider로 라이트/다크 테마를 전환하며 모든 토큰이 자동 적응하는 것을 확인합니다.',
       },
     },
   },
-  render: () => <RaycastCommandPaletteThemeRender />,
+  render: () => <CommandPaletteCommandPaletteThemeRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Figma Plugin UI — 디자인 토큰 프리뷰어
-   Figma Plugin의 compact tool palette 패턴 — 토큰 시스템 시각화
+   DesignTool Plugin UI — 디자인 토큰 프리뷰어
+   DesignTool Plugin의 compact tool palette 패턴 — 토큰 시스템 시각화
 -------------------------------------------------------------------------- */
-function FigmaTokenPreviewerRender() {
+function DesignToolTokenPreviewerRender() {
   const [mode, setMode] = useState<'light' | 'dark'>('light')
   const [selected, setSelected] = useState<string>('primary')
   const tokens = [
@@ -1031,23 +1031,23 @@ function FigmaTokenPreviewerRender() {
   )
 }
 
-export const Figma_디자인_토큰_프리뷰어: Story = {
-  name: 'Figma Plugin — 디자인 토큰 프리뷰어',
+export const DesignTool_디자인_토큰_프리뷰어: Story = {
+  name: 'DesignTool Plugin — 디자인 토큰 프리뷰어',
   parameters: {
     docs: {
       description: {
-        story: 'Figma Plugin UI의 compact tool palette 패턴. 디자인 토큰을 시각적으로 탐색하며 EclipseProvider 테마 전환을 실시간으로 확인합니다.',
+        story: 'DesignTool Plugin UI의 compact tool palette 패턴. 디자인 토큰을 시각적으로 탐색하며 EclipseProvider 테마 전환을 실시간으로 확인합니다.',
       },
     },
   },
-  render: () => <FigmaTokenPreviewerRender />,
+  render: () => <DesignToolTokenPreviewerRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Raycast + Figma — 확장 설정 패널
+   CommandPalette + DesignTool — 확장 설정 패널
    앱 설정 UI 패턴 — 테마·밀도·폰트 크기 제어
 -------------------------------------------------------------------------- */
-function RaycastFigmaSettingsPanelRender() {
+function CommandPaletteDesignToolSettingsPanelRender() {
   const [mode, setMode] = useState<'light' | 'dark'>('light')
   const [compact, setCompact] = useState(false)
   const [notif, setNotif] = useState(true)
@@ -1111,23 +1111,23 @@ function RaycastFigmaSettingsPanelRender() {
   )
 }
 
-export const Raycast_Figma_확장_설정_패널: Story = {
-  name: 'Raycast + Figma — 확장 설정 패널',
+export const CommandPalette_DesignTool_확장_설정_패널: Story = {
+  name: 'CommandPalette + DesignTool — 확장 설정 패널',
   parameters: {
     docs: {
       description: {
-        story: 'Raycast Extensions + Figma Plugin UI의 앱 설정 패턴. 다크 모드, 컴팩트 모드, 알림, 자동 저장을 Toggle로 제어하며 EclipseProvider 테마가 실시간으로 전환됩니다.',
+        story: 'CommandPalette Extensions + DesignTool Plugin UI의 앱 설정 패턴. 다크 모드, 컴팩트 모드, 알림, 자동 저장을 Toggle로 제어하며 EclipseProvider 테마가 실시간으로 전환됩니다.',
       },
     },
   },
-  render: () => <RaycastFigmaSettingsPanelRender />,
+  render: () => <CommandPaletteDesignToolSettingsPanelRender />,
 }
 
 /* --------------------------------------------------------------------------
-   shadcn/ui — 컴포넌트 쇼케이스 카드 갤러리
-   shadcn의 "preview + code" 패턴 — 테마 전환 시 모든 컴포넌트 동시 변경
+   ComposableUI — 컴포넌트 쇼케이스 카드 갤러리
+   ComposableUI의 "preview + code" 패턴 — 테마 전환 시 모든 컴포넌트 동시 변경
 -------------------------------------------------------------------------- */
-function ShadcnComponentGalleryRender() {
+function ComposableUIComponentGalleryRender() {
   const [mode, setMode] = useState<'light' | 'dark'>('light')
   const isDark = mode === 'dark'
   return (
@@ -1176,21 +1176,21 @@ function ShadcnComponentGalleryRender() {
   )
 }
 
-export const Shadcn_컴포넌트_갤러리_테마_스위처: Story = {
-  name: 'shadcn/ui — 컴포넌트 갤러리 테마 스위처',
+export const ComposableUI_컴포넌트_갤러리_테마_스위처: Story = {
+  name: 'ComposableUI — 컴포넌트 갤러리 테마 스위처',
   parameters: {
     docs: {
       description: {
-        story: 'shadcn/ui의 "preview + code" 패턴. Toggle 하나로 전체 컴포넌트 테마 동시 전환. Button/Badge/TextField/Avatar/Switch 조합 갤러리.',
+        story: 'ComposableUI의 "preview + code" 패턴. Toggle 하나로 전체 컴포넌트 테마 동시 전환. Button/Badge/TextField/Avatar/Switch 조합 갤러리.',
       },
     },
   },
-  render: () => <ShadcnComponentGalleryRender />,
+  render: () => <ComposableUIComponentGalleryRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Tailwind UI — 알림 센터 패널
-   Tailwind UI의 notification panel 패턴 — 읽음/안읽음 상태 관리
+   UtilityUI — 알림 센터 패널
+   UtilityUI의 notification panel 패턴 — 읽음/안읽음 상태 관리
 -------------------------------------------------------------------------- */
 const NOTIF_ITEMS = [
   { id: 1, title: 'PR #142 병합 완료', body: 'feat/onboarding 브랜치가 main에 병합되었습니다.', time: '2분 전', read: false, type: 'success' },
@@ -1199,7 +1199,7 @@ const NOTIF_ITEMS = [
   { id: 4, title: '월간 리포트 준비됨', body: '3월 사용량 리포트를 확인하세요.', time: '3시간 전', read: true, type: 'info' },
 ]
 
-function TailwindNotificationPanelRender() {
+function UtilityCSSNotificationPanelRender() {
   const [mode, setMode] = useState<'light' | 'dark'>('light')
   const [notifs, setNotifs] = useState(NOTIF_ITEMS)
   const unread = notifs.filter((n) => !n.read).length
@@ -1246,23 +1246,23 @@ function TailwindNotificationPanelRender() {
   )
 }
 
-export const Tailwind_알림_센터_패널: Story = {
-  name: 'Tailwind UI — 알림 센터 패널 (읽음/안읽음 관리)',
+export const UtilityCSS_알림_센터_패널: Story = {
+  name: 'UtilityUI — 알림 센터 패널 (읽음/안읽음 관리)',
   parameters: {
     docs: {
       description: {
-        story: 'Tailwind UI notification panel 패턴. 읽음/안읽음 상태 점(dot) 표시, 클릭 시 읽음 처리, "모두 읽음" 일괄 처리. CounterBadge로 미읽음 수 표시.',
+        story: 'UtilityUI notification panel 패턴. 읽음/안읽음 상태 점(dot) 표시, 클릭 시 읽음 처리, "모두 읽음" 일괄 처리. CounterBadge로 미읽음 수 표시.',
       },
     },
   },
-  render: () => <TailwindNotificationPanelRender />,
+  render: () => <UtilityCSSNotificationPanelRender />,
 }
 
 /* --------------------------------------------------------------------------
-   shadcn/ui + Tailwind UI — 사용자 프로필 카드
-   shadcn Avatar + Tailwind stat 패턴 — 팀원 프로필 카드
+   ComposableUI + UtilityUI — 사용자 프로필 카드
+   ComposableUI Avatar + UtilityCSS stat 패턴 — 팀원 프로필 카드
 -------------------------------------------------------------------------- */
-function ShadcnTailwindProfileCardRender() {
+function ComposableUIUtilityCSSProfileCardRender() {
   const [mode, setMode] = useState<'light' | 'dark'>('light')
   const [followed, setFollowed] = useState(false)
   const STATS = [
@@ -1318,30 +1318,30 @@ function ShadcnTailwindProfileCardRender() {
   )
 }
 
-export const Shadcn_Tailwind_사용자_프로필_카드: Story = {
-  name: 'shadcn/ui + Tailwind UI — 사용자 프로필 카드',
+export const ComposableUI_UtilityCSS_사용자_프로필_카드: Story = {
+  name: 'ComposableUI + UtilityUI — 사용자 프로필 카드',
   parameters: {
     docs: {
       description: {
-        story: 'shadcn Avatar + Tailwind stat 패턴 조합. 팔로우/팔로잉 토글, 통계(커밋/PR/리뷰), 기술 배지. EclipseProvider 다크모드 전환.',
+        story: 'ComposableUI Avatar + UtilityCSS stat 패턴 조합. 팔로우/팔로잉 토글, 통계(커밋/PR/리뷰), 기술 배지. EclipseProvider 다크모드 전환.',
       },
     },
   },
-  render: () => <ShadcnTailwindProfileCardRender />,
+  render: () => <ComposableUIUtilityCSSProfileCardRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Cycle 162 — Raycast Extensions + Notion Design
-   Raycast: 확장 설정 패널 테마 전환 패턴
+   Cycle 162 — CommandPalette Extensions + WorkspaceEditor Design
+   CommandPalette: 확장 설정 패널 테마 전환 패턴
 -------------------------------------------------------------------------- */
-const RAYCAST_PANELS = [
+const LAUNCHER_PANELS = [
   { id: 'general', label: '일반', icon: '⚙️' },
   { id: 'appearance', label: '외관', icon: '🎨' },
   { id: 'shortcuts', label: '단축키', icon: '⌨️' },
   { id: 'advanced', label: '고급', icon: '🔧' },
 ]
 
-const RAYCAST_ACCENT_COLORS = [
+const LAUNCHER_ACCENT_COLORS = [
   { name: 'Blue', value: '#3b82f6' },
   { name: 'Purple', value: '#8b5cf6' },
   { name: 'Green', value: '#22c55e' },
@@ -1349,7 +1349,7 @@ const RAYCAST_ACCENT_COLORS = [
   { name: 'Pink', value: '#ec4899' },
 ]
 
-function RaycastExtensionSettingRender() {
+function CommandPaletteExtensionSettingRender() {
   const [dark, setDark] = useState(false)
   const [panel, setPanel] = useState('appearance')
   const [accent, setAccent] = useState('#3b82f6')
@@ -1368,8 +1368,8 @@ function RaycastExtensionSettingRender() {
       <div style={{ width: 560, height: 420, display: 'flex', borderRadius: 14, overflow: 'hidden', border: `1px solid ${border}`, background: bg, fontFamily: 'system-ui, sans-serif', boxShadow: dark ? '0 8px 32px rgba(0,0,0,0.5)' : '0 4px 24px rgba(0,0,0,0.08)' }}>
         {/* Sidebar */}
         <div style={{ width: 140, background: sidebarBg, borderRight: `1px solid ${border}`, display: 'flex', flexDirection: 'column', padding: '16px 8px' }}>
-          <div style={{ fontSize: 11, fontWeight: 700, color: sub, letterSpacing: '0.07em', textTransform: 'uppercase', padding: '0 8px', marginBottom: 8 }}>Raycast</div>
-          {RAYCAST_PANELS.map(p => (
+          <div style={{ fontSize: 11, fontWeight: 700, color: sub, letterSpacing: '0.07em', textTransform: 'uppercase', padding: '0 8px', marginBottom: 8 }}>CommandPalette</div>
+          {LAUNCHER_PANELS.map(p => (
             <button key={p.id} onClick={() => setPanel(p.id)} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '7px 8px', borderRadius: 7, border: 'none', background: panel === p.id ? accent + '22' : 'transparent', cursor: 'pointer', textAlign: 'left', width: '100%', marginBottom: 2 }}>
               <span style={{ fontSize: 14 }}>{p.icon}</span>
               <span style={{ fontSize: 12, fontWeight: panel === p.id ? 600 : 400, color: panel === p.id ? accent : text }}>{p.label}</span>
@@ -1391,7 +1391,7 @@ function RaycastExtensionSettingRender() {
               <div style={{ marginBottom: 18 }}>
                 <div style={{ fontSize: 11, fontWeight: 600, color: sub, marginBottom: 8, textTransform: 'uppercase', letterSpacing: '0.06em' }}>강조 색상</div>
                 <div style={{ display: 'flex', gap: 8 }}>
-                  {RAYCAST_ACCENT_COLORS.map(c => (
+                  {LAUNCHER_ACCENT_COLORS.map(c => (
                     <button key={c.name} onClick={() => setAccent(c.value)} style={{ width: 28, height: 28, borderRadius: '50%', background: c.value, border: accent === c.value ? `3px solid ${text}` : '3px solid transparent', cursor: 'pointer', padding: 0, transition: 'border 150ms' }} title={c.name} />
                   ))}
                 </div>
@@ -1414,8 +1414,8 @@ function RaycastExtensionSettingRender() {
             </>
           ) : (
             <div style={{ height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 8 }}>
-              <span style={{ fontSize: 28 }}>{RAYCAST_PANELS.find(p => p.id === panel)?.icon}</span>
-              <div style={{ fontSize: 13, color: sub }}>{RAYCAST_PANELS.find(p => p.id === panel)?.label} 설정</div>
+              <span style={{ fontSize: 28 }}>{LAUNCHER_PANELS.find(p => p.id === panel)?.icon}</span>
+              <div style={{ fontSize: 13, color: sub }}>{LAUNCHER_PANELS.find(p => p.id === panel)?.label} 설정</div>
             </div>
           )}
         </div>
@@ -1424,44 +1424,44 @@ function RaycastExtensionSettingRender() {
   )
 }
 
-export const Raycast_확장_설정_패널_테마: Story = {
-  name: 'Raycast Extensions — 확장 설정 패널 테마 전환',
+export const CommandPalette_확장_설정_패널_테마: Story = {
+  name: 'CommandPalette Extensions — 확장 설정 패널 테마 전환',
   parameters: {
     docs: {
       description: {
-        story: 'Raycast Extension API의 설정 패널 패턴. 사이드바 탭 탐색, 강조 색상 선택, 밀도 설정, Switch/Toggle 조합. EclipseProvider 다크/라이트 전환.',
+        story: 'CommandPalette Extension API의 설정 패널 패턴. 사이드바 탭 탐색, 강조 색상 선택, 밀도 설정, Switch/Toggle 조합. EclipseProvider 다크/라이트 전환.',
       },
     },
   },
-  render: () => <RaycastExtensionSettingRender />,
+  render: () => <CommandPaletteExtensionSettingRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Notion Design: 블록 편집기 테마 미리보기 패턴
+   WorkspaceEditor Design: 블록 편집기 테마 미리보기 패턴
 -------------------------------------------------------------------------- */
-const NOTION_THEMES = [
+const WORKSPACE_THEMES = [
   { id: 'default', label: '기본', bg: '#ffffff', sidebar: '#f7f7f5', text: '#37352f', accent: '#2eaadc' },
   { id: 'dark', label: '다크', bg: '#191919', sidebar: '#252525', text: '#e8e8e6', accent: '#5c9fcb' },
   { id: 'system', label: '시스템', bg: '#f5f4ef', sidebar: '#eceae4', text: '#37352f', accent: '#d9730d' },
 ]
 
-const NOTION_BLOCKS = [
+const WORKSPACE_BLOCKS = [
   { type: 'heading', content: '프로젝트 개요' },
   { type: 'text', content: 'Orbit UI는 3계층 아키텍처 기반의 React 디자인 시스템입니다.' },
   { type: 'bullet', content: 'Base 컴포넌트 — 스타일 없는 접근성 기초' },
-  { type: 'bullet', content: 'Theme 컴포넌트 — Tailwind + CSS 변수 토큰 시스템' },
+  { type: 'bullet', content: 'Theme 컴포넌트 — UtilityCSS + CSS 변수 토큰 시스템' },
   { type: 'bullet', content: 'Custom 컴포넌트 — 프로젝트 맞춤 확장' },
   { type: 'callout', content: 'EclipseProvider로 전체 앱에 테마를 적용하세요.' },
 ]
 
-function NotionBlockEditorThemeRender() {
+function WorkspaceEditorBlockEditorThemeRender() {
   const [themeId, setThemeId] = useState('default')
-  const theme = NOTION_THEMES.find(t => t.id === themeId) ?? NOTION_THEMES[0]
+  const theme = WORKSPACE_THEMES.find(t => t.id === themeId) ?? WORKSPACE_THEMES[0]
   const isDark = themeId === 'dark'
 
   return (
     <EclipseProvider mode={isDark ? 'dark' : 'light'}>
-      <div style={{ width: 580, borderRadius: 10, overflow: 'hidden', border: `1px solid ${isDark ? '#333' : '#e5e7eb'}`, fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif', boxShadow: '0 2px 20px rgba(0,0,0,0.07)' }}>
+      <div style={{ width: 580, borderRadius: 10, overflow: 'hidden', border: `1px solid ${isDark ? '#333' : '#e5e7eb'}`, fontFamily: '"Segoe UI", sans-serif', boxShadow: '0 2px 20px rgba(0,0,0,0.07)' }}>
         {/* Header */}
         <div style={{ background: theme.sidebar, padding: '10px 16px', display: 'flex', alignItems: 'center', gap: 8, borderBottom: `1px solid ${isDark ? '#333' : '#e5e7eb'}` }}>
           <div style={{ width: 10, height: 10, borderRadius: '50%', background: '#ff5f57', marginRight: 2 }} />
@@ -1469,7 +1469,7 @@ function NotionBlockEditorThemeRender() {
           <div style={{ width: 10, height: 10, borderRadius: '50%', background: '#28c840', marginRight: 12 }} />
           <span style={{ fontSize: 12, color: theme.text, opacity: 0.5 }}>orbit-ui / docs / overview</span>
           <div style={{ marginLeft: 'auto', display: 'flex', gap: 4 }}>
-            {NOTION_THEMES.map(t => (
+            {WORKSPACE_THEMES.map(t => (
               <button key={t.id} onClick={() => setThemeId(t.id)} style={{ padding: '3px 10px', fontSize: 10, borderRadius: 5, border: `1.5px solid ${themeId === t.id ? theme.accent : 'transparent'}`, background: themeId === t.id ? theme.accent + '18' : 'transparent', color: themeId === t.id ? theme.accent : theme.text, cursor: 'pointer', fontWeight: themeId === t.id ? 600 : 400, opacity: themeId === t.id ? 1 : 0.6 }}>{t.label}</button>
             ))}
           </div>
@@ -1486,7 +1486,7 @@ function NotionBlockEditorThemeRender() {
 
           {/* Content */}
           <div style={{ flex: 1, padding: '24px 32px' }}>
-            {NOTION_BLOCKS.map((block, i) => {
+            {WORKSPACE_BLOCKS.map((block, i) => {
               if (block.type === 'heading') return (
                 <div key={i} style={{ fontSize: 22, fontWeight: 700, color: theme.text, marginBottom: 12, letterSpacing: '-0.02em' }}>{block.content}</div>
               )
@@ -1513,20 +1513,20 @@ function NotionBlockEditorThemeRender() {
   )
 }
 
-export const Notion_블록_편집기_테마_미리보기: Story = {
-  name: 'Notion Design — 블록 편집기 테마 미리보기',
+export const WorkspaceEditor_블록_편집기_테마_미리보기: Story = {
+  name: 'WorkspaceEditor Design — 블록 편집기 테마 미리보기',
   parameters: {
     docs: {
       description: {
-        story: 'Notion의 페이지 편집기 레이아웃 패턴. 사이드바 + 에디터 영역, 3가지 테마(기본/다크/시스템) 전환, 블록 타입(헤딩/텍스트/불릿/콜아웃) 렌더링. EclipseProvider colorScheme 연동.',
+        story: 'WorkspaceEditor의 페이지 편집기 레이아웃 패턴. 사이드바 + 에디터 영역, 3가지 테마(기본/다크/시스템) 전환, 블록 타입(헤딩/텍스트/불릿/콜아웃) 렌더링. EclipseProvider colorScheme 연동.',
       },
     },
   },
-  render: () => <NotionBlockEditorThemeRender />,
+  render: () => <WorkspaceEditorBlockEditorThemeRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Raycast + Notion: 통합 워크스페이스 테마 컨트롤 패널
+   CommandPalette + WorkspaceEditor: 통합 워크스페이스 테마 컨트롤 패널
 -------------------------------------------------------------------------- */
 const WORKSPACE_MEMBERS = [
   { name: '김희준', role: '관리자', color: '#6366f1' },
@@ -1535,7 +1535,7 @@ const WORKSPACE_MEMBERS = [
   { name: '최성원', role: '뷰어', color: '#ec4899' },
 ]
 
-function RaycastNotionWorkspaceRender() {
+function CommandPaletteWorkspaceEditorWorkspaceRender() {
   const [dark, setDark] = useState(false)
   const [accent, setAccent] = useState('#6366f1')
   const [notifs, setNotifs] = useState(true)
@@ -1554,7 +1554,7 @@ function RaycastNotionWorkspaceRender() {
         {/* Title bar */}
         <div style={{ padding: '14px 20px', borderBottom: `1px solid ${border}`, background: cardBg, display: 'flex', alignItems: 'center', gap: 10 }}>
           <span style={{ fontSize: 15, fontWeight: 800, color: text, letterSpacing: '-0.02em' }}>워크스페이스 설정</span>
-          <span style={{ marginLeft: 4, fontSize: 10, padding: '2px 8px', borderRadius: 999, background: accent + '22', color: accent, fontWeight: 700 }}>Raycast + Notion</span>
+          <span style={{ marginLeft: 4, fontSize: 10, padding: '2px 8px', borderRadius: 999, background: accent + '22', color: accent, fontWeight: 700 }}>CommandPalette + WorkspaceEditor</span>
           <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: 6 }}>
             <span style={{ fontSize: 11, color: sub }}>다크모드</span>
             <Toggle checked={dark} onCheckedChange={(c) => setDark(c)} />
@@ -1578,7 +1578,7 @@ function RaycastNotionWorkspaceRender() {
 
             {/* Font size */}
             <div style={{ marginBottom: 14 }}>
-              <div style={{ fontSize: 11, color: sub, marginBottom: 6 }}>텍스트 크기 (Notion 패턴)</div>
+              <div style={{ fontSize: 11, color: sub, marginBottom: 6 }}>텍스트 크기 (WorkspaceEditor 패턴)</div>
               <div style={{ display: 'flex', gap: 4 }}>
                 {(['small', 'medium', 'large'] as const).map(s => (
                   <button key={s} onClick={() => setFontSize(s)} style={{ flex: 1, padding: '4px 0', fontSize: 10, borderRadius: 6, border: `1.5px solid ${fontSize === s ? accent : border}`, background: fontSize === s ? accent + '18' : 'transparent', color: fontSize === s ? accent : sub, cursor: 'pointer', fontWeight: fontSize === s ? 700 : 400 }}>{s === 'small' ? '소' : s === 'medium' ? '중' : '대'}</button>
@@ -1589,8 +1589,8 @@ function RaycastNotionWorkspaceRender() {
             {/* Toggles */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
               {[
-                { label: '알림 (Raycast)', state: notifs, set: setNotifs },
-                { label: '자동 저장 (Notion)', state: autoSave, set: setAutoSave },
+                { label: '알림 (CommandPalette)', state: notifs, set: setNotifs },
+                { label: '자동 저장 (WorkspaceEditor)', state: autoSave, set: setAutoSave },
               ].map(item => (
                 <div key={item.label} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 0', borderTop: `1px solid ${border}` }}>
                   <span style={{ fontSize: 11, color: text }}>{item.label}</span>
@@ -1624,14 +1624,14 @@ function RaycastNotionWorkspaceRender() {
   )
 }
 
-export const Raycast_Notion_워크스페이스_테마_패널: Story = {
-  name: 'Raycast + Notion — 워크스페이스 테마 컨트롤 패널',
+export const CommandPalette_WorkspaceEditor_워크스페이스_테마_패널: Story = {
+  name: 'CommandPalette + WorkspaceEditor — 워크스페이스 테마 컨트롤 패널',
   parameters: {
     docs: {
       description: {
-        story: 'Raycast 강조 색상 선택 + Notion 텍스트 크기 패턴 조합. 팀 멤버 목록, 알림/자동저장 토글, 다크모드 전환. EclipseProvider 테마 컨텍스트 실시간 반영.',
+        story: 'CommandPalette 강조 색상 선택 + WorkspaceEditor 텍스트 크기 패턴 조합. 팀 멤버 목록, 알림/자동저장 토글, 다크모드 전환. EclipseProvider 테마 컨텍스트 실시간 반영.',
       },
     },
   },
-  render: () => <RaycastNotionWorkspaceRender />,
+  render: () => <CommandPaletteWorkspaceEditorWorkspaceRender />,
 }

@@ -22,7 +22,7 @@
   --sem-eclipse-motion-easing-decelerate: cubic-bezier(0, 0, 0, 1);
   --sem-eclipse-motion-easing-accelerate: cubic-bezier(0.3, 0, 1, 1);
   --sem-eclipse-motion-easing-spring: cubic-bezier(0.5, 1.6, 0.4, 0.7);
-  --sem-eclipse-motion-easing-linear: linear;
+  --sem-eclipse-motion-easing-tracker: linear;
 
   /* Focus ring (defaults) */
   --sem-eclipse-focus-ring-width: 2px;

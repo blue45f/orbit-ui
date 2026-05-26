@@ -13,7 +13,7 @@ const meta = {
   parameters: {
     docs: {
       description: {
-        component: "RadioButton은 단일 선택 그룹의 라디오 버튼 컴포넌트입니다. Radix UI 기반으로 완전한 키보드 접근성을 제공합니다.",
+        component: "RadioButton은 단일 선택 그룹의 라디오 버튼 컴포넌트입니다. PrimitiveUI 기반으로 완전한 키보드 접근성을 제공합니다.",
       },
     },
   },
@@ -139,7 +139,7 @@ export const 라벨_추가 = {
   },
 } satisfies Story
 
-// Tailwind UI 카드형 플랜 선택 패턴
+// UtilityUI 카드형 플랜 선택 패턴
 export const 플랜_선택_카드 = {
   render: function Render(args) {
     const [plan, setPlan] = useState('pro')
@@ -236,7 +236,7 @@ export const 플랜_선택_카드 = {
   },
 } satisfies Story
 
-// Tailwind UI 인라인 라디오 그룹 — 배송 방법 선택
+// UtilityUI 인라인 라디오 그룹 — 배송 방법 선택
 export const 배송_방법_선택 = {
   render: function Render(args) {
     const [shipping, setShipping] = useState('standard')
@@ -297,7 +297,7 @@ export const 배송_방법_선택 = {
   },
 } satisfies Story
 
-// Mantine 팀 역할 선택 패턴
+// AppUI 팀 역할 선택 패턴
 export const 팀원_역할_선택 = {
   render: function Render(args) {
     const [role, setRole] = useState('editor')
@@ -378,7 +378,7 @@ export const 팀원_역할_선택 = {
   },
 } satisfies Story
 
-// 설정 페이지 라디오 그룹 (Chakra UI 실무 패턴)
+// 설정 페이지 라디오 그룹 (AccessibleUI 실무 패턴)
 export const 설정페이지라디오그룹 = {
   render: function Render(args) {
     const [theme, setTheme] = useState<string>('system')
@@ -558,7 +558,7 @@ export const 디자인QA = {
       description: '두 번째 라디오 비활성화 여부',
     },
   },
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
+
   render: function Render(args: any) {
     const [selected, setSelected] = useState('blue')
     return (
@@ -604,18 +604,18 @@ export const 디자인QA = {
 }
 
 /* --------------------------------------------------------------------------
-   shadcn/ui 벤치마크: 요금제 선택 라디오 패턴
-   shadcn/ui RadioGroup — 박스형 요금제 카드 선택 UI
+   ComposableUI 벤치마크: 요금제 선택 라디오 패턴
+   ComposableUI RadioGroup — 박스형 요금제 카드 선택 UI
 -------------------------------------------------------------------------- */
 const PLANS = [
   { id: 'starter', name: 'Starter', price: '무료', features: ['컴포넌트 50개', '프로젝트 3개', '커뮤니티 지원'] },
-  { id: 'pro', name: 'Pro', price: '₩29,000/월', features: ['컴포넌트 무제한', '프로젝트 무제한', '우선 지원', 'Figma 연동'] },
+  { id: 'pro', name: 'Pro', price: '₩29,000/월', features: ['컴포넌트 무제한', '프로젝트 무제한', '우선 지원', 'DesignTool 연동'] },
   { id: 'team', name: 'Team', price: '₩79,000/월', features: ['Pro 모든 기능', '팀원 10명', '커스텀 테마', '전담 매니저'] },
 ]
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export const shadcn_요금제_선택 = {
-  name: 'shadcn/ui - 박스형 요금제 선택 패턴',
+
+export const ComposableUI_요금제_선택 = {
+  name: 'ComposableUI - 박스형 요금제 선택 패턴',
   render: function Render() {
     const [plan, setPlan] = useState('pro')
     return (
@@ -664,15 +664,15 @@ export const shadcn_요금제_선택 = {
             )
           })}
         </div>
-        <div style={{ marginTop: 12, fontSize: 11, color: '#94a3b8' }}>shadcn/ui RadioGroup — 카드형 선택 UI 패턴</div>
+        <div style={{ marginTop: 12, fontSize: 11, color: '#94a3b8' }}>ComposableUI RadioGroup — 카드형 선택 UI 패턴</div>
       </div>
     )
   },
 }
 
 /* --------------------------------------------------------------------------
-   Linear 벤치마크: 이슈 우선순위 선택 패턴
-   Linear priority picker — 우선순위 레벨 라디오 선택 UI
+   IssueTracker 벤치마크: 이슈 우선순위 선택 패턴
+   IssueTracker priority picker — 우선순위 레벨 라디오 선택 UI
 -------------------------------------------------------------------------- */
 const PRIORITIES = [
   { id: 'urgent', label: '긴급', color: '#ef4444', desc: '즉시 처리 필요' },
@@ -682,9 +682,9 @@ const PRIORITIES = [
   { id: 'none', label: '없음', color: '#e2e8f0', desc: '우선순위 미지정' },
 ]
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export const Linear_우선순위_선택 = {
-  name: 'Linear - 이슈 우선순위 선택 패턴',
+
+export const IssueTracker_우선순위_선택 = {
+  name: 'IssueTracker - 이슈 우선순위 선택 패턴',
   render: function Render() {
     const [priority, setPriority] = useState('medium')
     const selected = PRIORITIES.find((p) => p.id === priority)!
@@ -733,18 +733,18 @@ export const Linear_우선순위_선택 = {
    Ant Design 벤치마크: 설문 문항 라디오 패턴
    Ant Design Radio.Group — 1~5점 척도 + 단일 선택 설문 UI
 -------------------------------------------------------------------------- */
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+
 /* --------------------------------------------------------------------------
-   Chakra UI 벤치마크: 테마 색상 모드 선택
-   Chakra UI의 colorScheme prop 패턴 — 색상 역할별 시각적 미리보기가 있는 라디오 그룹
+   AccessibleUI 벤치마크: 테마 색상 모드 선택
+   AccessibleUI의 colorScheme prop 패턴 — 색상 역할별 시각적 미리보기가 있는 라디오 그룹
 -------------------------------------------------------------------------- */
-export const Chakra_테마_색상_모드: Story = {
-  name: 'Chakra UI - 테마 색상 모드 선택',
+export const Accessible_테마_색상_모드: Story = {
+  name: 'AccessibleUI - 테마 색상 모드 선택',
   parameters: {
     docs: {
       description: {
         story:
-          'Chakra UI colorScheme 패턴. 각 라디오 옵션에 색상 미리보기 스와치가 포함되어 선택 전에 결과를 확인할 수 있습니다.',
+          'AccessibleUI colorScheme 패턴. 각 라디오 옵션에 색상 미리보기 스와치가 포함되어 선택 전에 결과를 확인할 수 있습니다.',
       },
     },
   },
@@ -818,7 +818,7 @@ export const Chakra_테마_색상_모드: Story = {
           </div>
         </div>
         <div style={{ fontSize: 11, color: '#94a3b8' }}>
-          Chakra UI colorScheme 패턴 — 색상 스와치 미리보기 + 라디오 선택
+          AccessibleUI colorScheme 패턴 — 색상 스와치 미리보기 + 라디오 선택
         </div>
       </div>
     )
@@ -826,12 +826,12 @@ export const Chakra_테마_색상_모드: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Material 3 벤치마크: 버튼 변형 역할 선택
+   RoleToken Design 벤치마크: 버튼 변형 역할 선택
    M3의 filled / tonal / outlined / text 버튼 변형을 라디오로 선택하는 패턴
    각 변형의 시각적 차이를 명확하게 보여주는 UI 설정 패널
 -------------------------------------------------------------------------- */
 export const M3_버튼_변형_선택: Story = {
-  name: 'Material 3 - 버튼 변형 역할 선택',
+  name: 'RoleToken Design - 버튼 변형 역할 선택',
   parameters: {
     docs: {
       description: {
@@ -931,17 +931,17 @@ export const M3_버튼_변형_선택: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Chakra + M3 조합: 구독 플랜 선택 카드
-   Chakra UI의 시각적 피드백 + M3의 컨테이너 색상 역할을 결합한
+   Accessible + M3 조합: 구독 플랜 선택 카드
+   AccessibleUI의 시각적 피드백 + M3의 컨테이너 색상 역할을 결합한
    가격 플랜 선택 UI — 각 플랜이 M3 컨테이너 토큰으로 시각 구분
 -------------------------------------------------------------------------- */
-export const Chakra_M3_구독_플랜_선택: Story = {
-  name: 'Chakra + M3 - 구독 플랜 선택 카드',
+export const Accessible_M3_구독_플랜_선택: Story = {
+  name: 'Accessible + M3 - 구독 플랜 선택 카드',
   parameters: {
     docs: {
       description: {
         story:
-          'Chakra UI 시각적 피드백 + M3 container color role 조합. ' +
+          'AccessibleUI 시각적 피드백 + M3 container color role 조합. ' +
           '선택된 플랜은 M3 primaryContainer 색상으로 강조되며, 각 플랜의 특성이 명확히 구분됩니다.',
       },
     },
@@ -1047,7 +1047,7 @@ export const Chakra_M3_구독_플랜_선택: Story = {
           )
         })}
         <div style={{ marginTop: 4, fontSize: 11, color: '#94a3b8' }}>
-          Chakra UI 시각적 피드백 + M3 container color role 패턴
+          AccessibleUI 시각적 피드백 + M3 container color role 패턴
         </div>
       </div>
     )
@@ -1145,10 +1145,10 @@ export const Ant_설문_척도_라디오 = {
 }
 
 /* --------------------------------------------------------------------------
-   Radix UI — 접근성 기반 라디오 그룹 (Cycle 121)
-   Radix RadioGroup.Root 패턴 — 시각적 포커스 표시 + 키보드 접근성
+   PrimitiveUI — 접근성 기반 라디오 그룹 (Cycle 121)
+   Primitive RadioGroup.Root 패턴 — 시각적 포커스 표시 + 키보드 접근성
 -------------------------------------------------------------------------- */
-function RadixA11yRadioGroupRender() {
+function PrimitiveA11yRadioGroupRender() {
   const [value, setValue] = useState('option-a')
 
   const options = [
@@ -1160,7 +1160,7 @@ function RadixA11yRadioGroupRender() {
   return (
     <div style={{ width: 380, display: 'flex', flexDirection: 'column', gap: 8 }}>
       <div style={{ fontSize: 13, fontWeight: 700, color: '#0f172a', marginBottom: 4 }}>
-        Radix RadioGroup — 키보드 접근성 패턴
+        Primitive RadioGroup — 키보드 접근성 패턴
       </div>
       {options.map((opt) => (
         <label
@@ -1197,31 +1197,31 @@ function RadixA11yRadioGroupRender() {
   )
 }
 
-export const Radix_A11y_라디오_그룹: Story = {
-  name: 'Radix UI — 접근성 라디오 그룹 (Cycle 121)',
+export const Primitive_A11y_라디오_그룹: Story = {
+  name: 'PrimitiveUI — 접근성 라디오 그룹 (Cycle 121)',
   parameters: {
     docs: {
       description: {
         story:
-          'Radix UI RadioGroup.Root의 접근성 패턴. 카드형 레이블 클릭, 추천 배지, 선택 시 테두리/배경 변화. 키보드 ↑↓로 포커스 이동 지원.',
+          'PrimitiveUI RadioGroup.Root의 접근성 패턴. 카드형 레이블 클릭, 추천 배지, 선택 시 테두리/배경 변화. 키보드 ↑↓로 포커스 이동 지원.',
       },
     },
   },
-  render: () => <RadixA11yRadioGroupRender />,
+  render: () => <PrimitiveA11yRadioGroupRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Tailwind UI — 결제 방법 선택 라디오 (Cycle 121)
-   Tailwind의 payment method radio card 패턴
+   UtilityUI — 결제 방법 선택 라디오 (Cycle 121)
+   UtilityCSS의 payment method radio card 패턴
 -------------------------------------------------------------------------- */
-function TailwindPaymentRadioRender() {
+function UtilityCSSPaymentRadioRender() {
   const [method, setMethod] = useState('card')
 
   const methods = [
     { id: 'card', label: '신용카드', icon: '💳', detail: '모든 주요 카드 지원' },
     { id: 'bank', label: '계좌이체', icon: '🏦', detail: '실시간 이체 가능' },
-    { id: 'kakao', label: '카카오페이', icon: '💛', detail: '카카오톡으로 간편 결제' },
-    { id: 'naver', label: '네이버페이', icon: '💚', detail: '포인트 적립 가능' },
+    { id: 'quickpay', label: '퀵페이', icon: '💛', detail: '메신저으로 간편 결제' },
+    { id: 'pointpay', label: '포인트페이', icon: '💚', detail: '포인트 적립 가능' },
   ]
 
   return (
@@ -1261,24 +1261,24 @@ function TailwindPaymentRadioRender() {
   )
 }
 
-export const Tailwind_결제_방법_라디오: Story = {
-  name: 'Tailwind UI — 결제 방법 라디오 카드 (Cycle 121)',
+export const UtilityCSS_결제_방법_라디오: Story = {
+  name: 'UtilityUI — 결제 방법 라디오 카드 (Cycle 121)',
   parameters: {
     docs: {
       description: {
         story:
-          'Tailwind UI의 payment method radio card 패턴. 2열 그리드 카드 선택, 아이콘과 설명 포함, 선택 시 테두리/배경 하이라이트.',
+          'UtilityUI의 payment method radio card 패턴. 2열 그리드 카드 선택, 아이콘과 설명 포함, 선택 시 테두리/배경 하이라이트.',
       },
     },
   },
-  render: () => <TailwindPaymentRadioRender />,
+  render: () => <UtilityCSSPaymentRadioRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Radix + Tailwind — 요금제 선택 라디오 (Cycle 121)
+   Primitive + UtilityCSS — 요금제 선택 라디오 (Cycle 121)
    구독 플랜 선택 — 연간/월간 토글 + 플랜 카드
 -------------------------------------------------------------------------- */
-function RadixTailwindPlanRadioRender() {
+function PrimitiveUtilityCSSPlanRadioRender() {
   const [billing, setBilling] = useState<'monthly' | 'annual'>('annual')
   const [plan, setPlan] = useState('pro')
 
@@ -1348,23 +1348,23 @@ function RadixTailwindPlanRadioRender() {
   )
 }
 
-export const Radix_Tailwind_요금제_선택: Story = {
-  name: 'Radix + Tailwind — 요금제 선택 라디오 (Cycle 121)',
+export const Primitive_UtilityCSS_요금제_선택: Story = {
+  name: 'Primitive + UtilityCSS — 요금제 선택 라디오 (Cycle 121)',
   parameters: {
     docs: {
       description: {
         story:
-          'Radix UI + Tailwind UI의 pricing plan 선택 패턴. 월간/연간 전환 + 3가지 플랜 카드 라디오. 인기 배지, 연간 할인율, 기능 체크리스트.',
+          'PrimitiveUI + UtilityUI의 pricing plan 선택 패턴. 월간/연간 전환 + 3가지 플랜 카드 라디오. 인기 배지, 연간 할인율, 기능 체크리스트.',
       },
     },
   },
-  render: () => <RadixTailwindPlanRadioRender />,
+  render: () => <PrimitiveUtilityCSSPlanRadioRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Tailwind UI — 구독 플랜 선택 (카드형 라디오)
+   UtilityUI — 구독 플랜 선택 (카드형 라디오)
 -------------------------------------------------------------------------- */
-function TailwindSubscriptionPlanRender() {
+function UtilityCSSSubscriptionPlanRender() {
   const [selected, setSelected] = useState('pro')
   const plans = [
     { id: 'starter', name: 'Starter', price: '무료', features: ['3개 프로젝트', '5GB 스토리지', '커뮤니티 지원'] },
@@ -1400,16 +1400,16 @@ function TailwindSubscriptionPlanRender() {
   )
 }
 
-export const Tailwind_구독_플랜_선택: Story = {
-  name: 'Tailwind UI — 구독 플랜 선택 (카드형)',
+export const UtilityCSS_구독_플랜_선택: Story = {
+  name: 'UtilityUI — 구독 플랜 선택 (카드형)',
   parameters: {
     docs: {
       description: {
-        story: 'Tailwind UI의 card radio group 패턴. 각 라디오 옵션이 전체 카드 영역을 클릭 대상으로 삼아 선택 경험을 향상. 선택 시 border 컬러 + 배경 전환.',
+        story: 'UtilityUI의 card radio group 패턴. 각 라디오 옵션이 전체 카드 영역을 클릭 대상으로 삼아 선택 경험을 향상. 선택 시 border 컬러 + 배경 전환.',
       },
     },
   },
-  render: () => <TailwindSubscriptionPlanRender />,
+  render: () => <UtilityCSSSubscriptionPlanRender />,
 }
 
 /* --------------------------------------------------------------------------
@@ -1459,15 +1459,15 @@ export const Ant_알림_주기_설정: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   MUI — 결제 수단 선택 (아이콘 + 라디오 그리드)
+   EnterpriseUI — 결제 수단 선택 (아이콘 + 라디오 그리드)
 -------------------------------------------------------------------------- */
-function MUIPaymentMethodRender() {
+function EnterpriseUIPaymentMethodRender() {
   const [method, setMethod] = useState('card')
   const methods = [
     { id: 'card', icon: '💳', label: '신용카드', sub: 'Visa, Mastercard, AMEX' },
     { id: 'bank', icon: '🏦', label: '계좌이체', sub: '실시간 이체' },
-    { id: 'kakao', icon: '💛', label: '카카오페이', sub: '간편결제' },
-    { id: 'naver', icon: '🟢', label: '네이버페이', sub: '간편결제' },
+    { id: 'quickpay', icon: '💛', label: '퀵페이', sub: '간편결제' },
+    { id: 'pointpay', icon: '🟢', label: '포인트페이', sub: '간편결제' },
   ]
   return (
     <div style={{ maxWidth: 400, fontFamily: 'system-ui, sans-serif' }}>
@@ -1491,23 +1491,23 @@ function MUIPaymentMethodRender() {
   )
 }
 
-export const MUI_결제_수단_선택: Story = {
-  name: 'MUI — 결제 수단 선택 (아이콘 + 그리드)',
+export const EnterpriseUI_결제_수단_선택: Story = {
+  name: 'EnterpriseUI — 결제 수단 선택 (아이콘 + 그리드)',
   parameters: {
     docs: {
       description: {
-        story: 'Material UI의 Radio + Card 조합 패턴. 2열 그리드로 결제 수단을 시각적으로 배열. 아이콘과 짧은 설명으로 빠른 식별을 돕는 선택 UI.',
+        story: 'Enterprise UI의 Radio + Card 조합 패턴. 2열 그리드로 결제 수단을 시각적으로 배열. 아이콘과 짧은 설명으로 빠른 식별을 돕는 선택 UI.',
       },
     },
   },
-  render: () => <MUIPaymentMethodRender />,
+  render: () => <EnterpriseUIPaymentMethodRender />,
 }
 
 // ──────────────────────────────────────────────────────────────────────────────
-// Cycle 176: Chakra UI + Arco Design
+// Cycle 176: AccessibleUI + DataProductUI
 // ──────────────────────────────────────────────────────────────────────────────
 
-function ChakraThemeSelectionRender() {
+function AccessibleThemeSelectionRender() {
   const [selected, setSelected] = useState('system')
   const themes = [
     { value: 'light', label: '라이트', desc: '흰 배경의 기본 테마', preview: { bg: '#fff', text: '#0f172a', accent: '#6366f1' } },
@@ -1544,20 +1544,20 @@ function ChakraThemeSelectionRender() {
   )
 }
 
-export const Chakra_테마_선택_라디오: Story = {
-  name: 'Chakra UI — 테마 선택 RadioButton (라이트/다크/시스템)',
+export const Accessible_테마_선택_라디오: Story = {
+  name: 'AccessibleUI — 테마 선택 RadioButton (라이트/다크/시스템)',
   args: { disabled: false },
   parameters: {
     docs: {
       description: {
-        story: 'Chakra UI 테마 설정 패턴. 라이트/다크/시스템 3가지 RadioButton, 선택 시 카드 border 강조 + 배경 변화. 미리보기 컬러 스와치 동반.',
+        story: 'AccessibleUI 테마 설정 패턴. 라이트/다크/시스템 3가지 RadioButton, 선택 시 카드 border 강조 + 배경 변화. 미리보기 컬러 스와치 동반.',
       },
     },
   },
-  render: () => <ChakraThemeSelectionRender />,
+  render: () => <AccessibleThemeSelectionRender />,
 }
 
-function ArcoDataExportRadioRender() {
+function DataProductDataExportRadioRender() {
   const [format, setFormat] = useState('csv')
   const [encoding, setEncoding] = useState('utf8')
   const formats = [
@@ -1611,20 +1611,20 @@ function ArcoDataExportRadioRender() {
   )
 }
 
-export const Arco_데이터_내보내기_형식_라디오: Story = {
-  name: 'Arco Design — 데이터 내보내기 형식 선택 (CSV/JSON/Excel/Parquet)',
+export const DataProduct_데이터_내보내기_형식_라디오: Story = {
+  name: 'DataProductUI — 데이터 내보내기 형식 선택 (CSV/JSON/Excel/Parquet)',
   args: { disabled: false },
   parameters: {
     docs: {
       description: {
-        story: 'Arco Design 데이터 내보내기 폼 패턴. 파일 형식 4가지 카드형 RadioButton + 인코딩 3가지 인라인 RadioButton. 선택값으로 파일명 동적 생성.',
+        story: 'DataProductUI 데이터 내보내기 폼 패턴. 파일 형식 4가지 카드형 RadioButton + 인코딩 3가지 인라인 RadioButton. 선택값으로 파일명 동적 생성.',
       },
     },
   },
-  render: () => <ArcoDataExportRadioRender />,
+  render: () => <DataProductDataExportRadioRender />,
 }
 
-function ChakraArcoNotificationRadioRender() {
+function AccessibleDataProductNotificationRadioRender() {
   const [frequency, setFrequency] = useState('realtime')
   const [channel, setChannel] = useState('push')
   const [priority, setPriority] = useState('all')
@@ -1685,15 +1685,15 @@ function ChakraArcoNotificationRadioRender() {
   )
 }
 
-export const Chakra_Arco_알림_설정_라디오: Story = {
-  name: 'Chakra + Arco — 알림 설정 RadioButton (주기 + 채널 + 우선순위)',
+export const Accessible_DataProduct_알림_설정_라디오: Story = {
+  name: 'Accessible + DataProduct — 알림 설정 RadioButton (주기 + 채널 + 우선순위)',
   args: { disabled: false },
   parameters: {
     docs: {
       description: {
-        story: 'Chakra UI + Arco Design 알림 환경설정 패턴. 발송 주기(카드형) + 채널 + 우선순위 3개 RadioButton 그룹 독립 제어. 선택 조합 요약 문구 실시간 생성.',
+        story: 'AccessibleUI + DataProductUI 알림 환경설정 패턴. 발송 주기(카드형) + 채널 + 우선순위 3개 RadioButton 그룹 독립 제어. 선택 조합 요약 문구 실시간 생성.',
       },
     },
   },
-  render: () => <ChakraArcoNotificationRadioRender />,
+  render: () => <AccessibleDataProductNotificationRadioRender />,
 }

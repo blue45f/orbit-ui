@@ -8,9 +8,6 @@ import { CircleCancelFillIcon } from '@heejun-com/icons'
 import { AllHTMLAttributes, forwardRef, ReactNode } from 'react'
 
 import { vars } from '../../styles/theme-vars'
-import { FilledIconButton } from '../SolidIconButton'
-
-const TEXTFIELD_ICON_BUTTON_CLASS = 'shrink-0'
 
 export type TextFieldProps = Omit<
   Omit<BaseTextFieldProps, keyof BaseTextFieldSpecificProps>,
@@ -108,14 +105,7 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>((props, re
     >
       <BaseTextField.Center>{children}</BaseTextField.Center>
       <BaseTextField.ClearButton visibility="onFocused">
-        <FilledIconButton
-          color="white"
-          size="medium"
-          theme={{ enabledFillColor: vars.sem.color.fillNone }}
-          className={TEXTFIELD_ICON_BUTTON_CLASS}
-        >
-          <CircleCancelFillIcon size={16} color={vars.sem.color.foregroundQuaternary} />
-        </FilledIconButton>
+        <CircleCancelFillIcon size={16} color={vars.sem.color.foregroundQuaternary} />
       </BaseTextField.ClearButton>
     </BaseTextField>
   )

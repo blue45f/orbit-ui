@@ -1,12 +1,31 @@
-import { AlertDialog as CoreAlertDialog } from '@heejun-com/core'
-import React, { forwardRef, PropsWithChildren, Children, HTMLAttributes } from 'react'
+import * as DialogPrimitive from '@radix-ui/react-dialog'
+import React, { Children, forwardRef, HTMLAttributes, PropsWithChildren } from 'react'
 
-export type DialogProps = React.ComponentPropsWithoutRef<typeof CoreAlertDialog> & {
+import { cn } from '../../styles'
+
+type DialogRootPrimitiveProps = React.ComponentPropsWithoutRef<typeof DialogPrimitive.Root>
+type DialogContentPrimitiveProps = React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content>
+
+export type DialogProps = Omit<DialogContentPrimitiveProps, 'children'> & {
+  children?: React.ReactNode
   defaultIsPresented?: boolean
   isPresented?: boolean
   onIsPresentedChange?: (open: boolean) => void
+  onOpenChange?: (open: boolean) => void
+  modal?: DialogRootPrimitiveProps['modal']
   theme?: unknown
 }
+
+const hasComponent = (
+  children: React.ReactNode,
+  components: React.ElementType[]
+): boolean =>
+  Children.toArray(children).some((child) => {
+    if (!React.isValidElement(child)) return false
+    if (components.includes(child.type as React.ElementType)) return true
+
+    return hasComponent((child.props as { children?: React.ReactNode }).children, components)
+  })
 
 export const DialogRoot = forwardRef<HTMLDivElement, DialogProps>((props, forwardedRef) => {
   const {
@@ -15,7 +34,10 @@ export const DialogRoot = forwardRef<HTMLDivElement, DialogProps>((props, forwar
     defaultIsPresented,
     isPresented,
     onIsPresentedChange,
-    ...rest
+    onOpenChange,
+    modal,
+    className,
+    ...contentProps
   } = props
 
   let trigger: React.ReactNode = null
@@ -24,28 +46,55 @@ export const DialogRoot = forwardRef<HTMLDivElement, DialogProps>((props, forwar
 
   Children.forEach(children, (child) => {
     if (!React.isValidElement(child)) return
-    if (child.type === CoreAlertDialog.Trigger) trigger = child
+    if (child.type === DialogTrigger) trigger = child
     if (child.type === DialogTop) tops.push(child)
     if (child.type === DialogBottom) bottoms.push(child)
   })
 
+  const content = [...tops, ...bottoms]
+  const hasTitle = hasComponent(content, [DialogTitle])
+  const hasDescription = hasComponent(content, [DialogDescription])
+
   return (
-    <CoreAlertDialog
+    <DialogPrimitive.Root
       defaultOpen={defaultIsPresented}
       open={isPresented}
-      onOpenChange={onIsPresentedChange}
+      onOpenChange={onIsPresentedChange ?? onOpenChange}
+      modal={modal}
     >
       {trigger}
-      <CoreAlertDialog.Content ref={forwardedRef} {...rest}>
-        {tops}
-        {bottoms}
-      </CoreAlertDialog.Content>
-    </CoreAlertDialog>
+      <DialogPrimitive.Portal>
+        <DialogPrimitive.Overlay
+          className={cn(
+            'fixed inset-0 z-[300] bg-black/50 backdrop-blur-sm',
+            'data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0'
+          )}
+        />
+        <DialogPrimitive.Content
+          ref={forwardedRef}
+          className={cn(
+            'fixed left-[50%] top-[50%] z-[300] grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border border-slate-200 bg-white p-6 shadow-2xl duration-200',
+            'data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%]',
+            'sm:rounded-2xl dark:border-slate-800 dark:bg-slate-950',
+            className
+          )}
+          {...contentProps}
+        >
+          {!hasTitle && <DialogTitle className="sr-only">Dialog</DialogTitle>}
+          {!hasDescription && (
+            <DialogDescription className="sr-only">Supplementary dialog content.</DialogDescription>
+          )}
+          {content}
+        </DialogPrimitive.Content>
+      </DialogPrimitive.Portal>
+    </DialogPrimitive.Root>
   )
 })
 
+const DialogTrigger = DialogPrimitive.Trigger
+
 const DialogTop = ({ children }: PropsWithChildren) => {
-  return <CoreAlertDialog.Header>{children}</CoreAlertDialog.Header>
+  return <div className="flex flex-col space-y-2 text-center sm:text-left">{children}</div>
 }
 
 interface DialogFooterProps {
@@ -57,24 +106,55 @@ const DialogBottom = ({
   children,
 }: PropsWithChildren<DialogFooterProps & HTMLAttributes<HTMLDivElement>>) => {
   return (
-    <CoreAlertDialog.Footer
-      className={direction === 'vertical' ? 'flex-col !space-x-0 space-y-2' : ''}
+    <div
+      className={cn(
+        'flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2',
+        direction === 'vertical' && 'flex-col !space-x-0 space-y-2'
+      )}
     >
       {children}
-    </CoreAlertDialog.Footer>
+    </div>
   )
 }
 
+const DialogTitle = forwardRef<
+  React.ElementRef<typeof DialogPrimitive.Title>,
+  React.ComponentPropsWithoutRef<typeof DialogPrimitive.Title>
+>(({ className, ...props }, ref) => (
+  <DialogPrimitive.Title
+    ref={ref}
+    className={cn('text-lg font-semibold tracking-tight', className)}
+    {...props}
+  />
+))
+DialogTitle.displayName = DialogPrimitive.Title.displayName
+
+const DialogDescription = forwardRef<
+  React.ElementRef<typeof DialogPrimitive.Description>,
+  React.ComponentPropsWithoutRef<typeof DialogPrimitive.Description>
+>(({ className, ...props }, ref) => (
+  <DialogPrimitive.Description
+    ref={ref}
+    className={cn('text-sm text-slate-500 dark:text-slate-400', className)}
+    {...props}
+  />
+))
+DialogDescription.displayName = DialogPrimitive.Description.displayName
+
 type DialogComponent = typeof DialogRoot & {
-  Trigger: typeof CoreAlertDialog.Trigger
+  Trigger: typeof DialogTrigger
   Top: typeof DialogTop
   Bottom: typeof DialogBottom
-  Close: typeof CoreAlertDialog.Cancel
+  Close: typeof DialogPrimitive.Close
+  Title: typeof DialogTitle
+  Description: typeof DialogDescription
 }
 
 export const Dialog: DialogComponent = Object.assign(DialogRoot, {
-  Trigger: CoreAlertDialog.Trigger,
+  Trigger: DialogTrigger,
   Top: DialogTop,
   Bottom: DialogBottom,
-  Close: CoreAlertDialog.Cancel,
+  Close: DialogPrimitive.Close,
+  Title: DialogTitle,
+  Description: DialogDescription,
 })

@@ -160,7 +160,7 @@ export const 디자인_QA = {
       options: ['default', 'icon', 'image', 'thumbnail'],
     },
   },
-   
+
   render: ({ leading, trailing, variant, text, ...rest }: any) => {
     if (variant === 'icon') {
       return (
@@ -233,8 +233,8 @@ export const 디자인_QA = {
   },
 }
 
-// ─── Mantine: 필터 칩 그룹 패턴 ───────────────────────────────────────────────
-// Mantine의 MultiSelect + Chip 패턴을 참고합니다.
+// ─── AppUI: 필터 칩 그룹 패턴 ───────────────────────────────────────────────
+// AppUI의 MultiSelect + Chip 패턴을 참고합니다.
 // 필터 칩은 선택/해제 토글이 가능하며, 현재 활성 필터를 시각적으로 표현합니다.
 const FilterChipGroupRender = () => {
   const categories = ['전체', '디자인', '개발', '마케팅', '기획', '데이터']
@@ -268,7 +268,7 @@ const FilterChipGroupRender = () => {
     <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', maxWidth: '480px' }}>
       <div>
         <p style={{ margin: '0 0 6px', fontSize: '12px', fontWeight: 700, color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
-          Mantine 필터 칩 그룹
+          AppUI 필터 칩 그룹
         </p>
         <p style={{ margin: '0 0 16px', fontSize: '13px', color: '#64748b' }}>
           카테고리를 선택해 콘텐츠를 필터링합니다. 복수 선택이 가능합니다.
@@ -341,13 +341,13 @@ const FilterChipGroupRender = () => {
   )
 }
 
-export const Mantine_필터_칩_그룹: Story = {
-  name: 'Mantine - 필터 칩 그룹 (MultiSelect 패턴)',
+export const AppUI_필터_칩_그룹: Story = {
+  name: 'AppUI - 필터 칩 그룹 (MultiSelect 패턴)',
   render: () => <FilterChipGroupRender />,
 }
 
-// ─── Mantine: 태그 입력 + 칩 삭제 패턴 ──────────────────────────────────────
-// Mantine의 TagsInput 컴포넌트 패턴을 참고합니다.
+// ─── AppUI: 태그 입력 + 칩 삭제 패턴 ──────────────────────────────────────
+// AppUI의 TagsInput 컴포넌트 패턴을 참고합니다.
 // 텍스트 입력 후 Enter로 태그를 추가하고, 칩의 X 버튼으로 삭제합니다.
 const TagInputRender = () => {
   const [tags, setTags] = useState<string[]>(['React', 'TypeScript', 'Orbit UI'])
@@ -369,7 +369,7 @@ const TagInputRender = () => {
     <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', maxWidth: '480px' }}>
       <div>
         <p style={{ margin: '0 0 6px', fontSize: '12px', fontWeight: 700, color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
-          Mantine TagsInput 패턴
+          AppUI TagsInput 패턴
         </p>
         <p style={{ margin: '0 0 16px', fontSize: '13px', color: '#64748b' }}>
           기술 스택이나 키워드 태그를 입력하고 관리합니다.
@@ -424,7 +424,7 @@ const TagInputRender = () => {
       <div>
         <p style={{ margin: '0 0 8px', fontSize: '12px', fontWeight: 600, color: '#64748b' }}>추천 태그</p>
         <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
-          {['Next.js', 'Tailwind CSS', 'Radix UI', 'Storybook', 'Vite']
+          {['Next.js', 'UtilityCSS CSS', 'PrimitiveUI', 'Storybook', 'Vite']
             .filter((t) => !tags.includes(t))
             .map((tag) => (
               <span key={tag} style={{ display: 'inline-flex' }}>
@@ -442,12 +442,12 @@ const TagInputRender = () => {
   )
 }
 
-export const Mantine_태그_입력_패턴: Story = {
-  name: 'Mantine - 태그 입력 패턴 (TagsInput)',
+export const AppUI_태그_입력_패턴: Story = {
+  name: 'AppUI - 태그 입력 패턴 (TagsInput)',
   render: () => <TagInputRender />,
 }
 
-// ─── Material 3: 필터 칩 상태 레이어 ─────────────────────────────────────────
+// ─── RoleToken Design: 필터 칩 상태 레이어 ─────────────────────────────────────────
 // M3 Filter Chip: 선택 시 Container 색상 + Check 아이콘으로 상태를 표시합니다.
 // Hover 8%, Pressed 12% 상태 레이어로 피드백을 줍니다.
 const Material3FilterChipRender = () => {
@@ -471,7 +471,7 @@ const Material3FilterChipRender = () => {
     <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', maxWidth: '500px' }}>
       <div>
         <p style={{ margin: '0 0 6px', fontSize: '12px', fontWeight: 700, color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
-          Material 3 Filter Chip
+          RoleToken Design Filter Chip
         </p>
         <p style={{ margin: '0 0 16px', fontSize: '13px', color: '#64748b' }}>
           M3 Filter Chip은 선택 시 Filled 스타일로 전환되어 활성 상태를 명확히 표시합니다.
@@ -542,26 +542,26 @@ const Material3FilterChipRender = () => {
 }
 
 export const Material3_필터칩_상태레이어: Story = {
-  name: 'Material 3 - 필터 칩 + 상태 레이어 시스템',
+  name: 'RoleToken Design - 필터 칩 + 상태 레이어 시스템',
   render: () => <Material3FilterChipRender />,
 }
 
 /* --------------------------------------------------------------------------
-   MUI 벤치마크: Autocomplete 태그 선택기
-   MUI Autocomplete + Chip의 핵심 패턴 — 입력창에서 검색 후 Chip으로 선택 항목 추가
+   EnterpriseUI 벤치마크: Autocomplete 태그 선택기
+   EnterpriseUI Autocomplete + Chip의 핵심 패턴 — 입력창에서 검색 후 Chip으로 선택 항목 추가
 -------------------------------------------------------------------------- */
-const MUI_SKILL_OPTIONS = [
-  'React', 'TypeScript', 'Next.js', 'Tailwind CSS', 'GraphQL',
-  'Node.js', 'PostgreSQL', 'Docker', 'AWS', 'Figma',
+const EnterpriseUI_SKILL_OPTIONS = [
+  'React', 'TypeScript', 'Next.js', 'UtilityCSS CSS', 'GraphQL',
+  'Node.js', 'PostgreSQL', 'Docker', 'AWS', 'DesignTool',
   'Storybook', 'Vitest', 'Playwright', 'ESLint', 'Prettier',
 ]
 
-function MuiAutocompleteChipsRender() {
+function EnterpriseUIAutocompleteChipsRender() {
   const [selected, setSelected] = useState<string[]>(['React', 'TypeScript'])
   const [query, setQuery] = useState('')
   const [open, setOpen] = useState(false)
 
-  const filtered = MUI_SKILL_OPTIONS.filter(
+  const filtered = EnterpriseUI_SKILL_OPTIONS.filter(
     (opt) => opt.toLowerCase().includes(query.toLowerCase()) && !selected.includes(opt),
   )
 
@@ -575,7 +575,7 @@ function MuiAutocompleteChipsRender() {
 
   return (
     <div style={{ width: 420, display: 'flex', flexDirection: 'column', gap: 12 }}>
-      <div style={{ fontSize: 13, fontWeight: 700, color: '#1e293b', marginBottom: 4 }}>기술 스택 선택 (MUI Autocomplete 패턴)</div>
+      <div style={{ fontSize: 13, fontWeight: 700, color: '#1e293b', marginBottom: 4 }}>기술 스택 선택 (EnterpriseUI Autocomplete 패턴)</div>
       <div
         style={{
           minHeight: 44,
@@ -628,29 +628,29 @@ function MuiAutocompleteChipsRender() {
         </div>
       )}
       <div style={{ fontSize: 12, color: '#94a3b8' }}>
-        선택됨: {selected.length}개 / {MUI_SKILL_OPTIONS.length}개
+        선택됨: {selected.length}개 / {EnterpriseUI_SKILL_OPTIONS.length}개
       </div>
     </div>
   )
 }
 
-export const MUI_Autocomplete_태그_선택기: Story = {
-  name: 'MUI - Autocomplete 태그 선택기 패턴',
+export const EnterpriseUI_Autocomplete_태그_선택기: Story = {
+  name: 'EnterpriseUI - Autocomplete 태그 선택기 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'MUI Autocomplete + Chip 핵심 패턴. 입력창에 텍스트를 입력하면 드롭다운에서 옵션을 선택해 ' +
+          'EnterpriseUI Autocomplete + Chip 핵심 패턴. 입력창에 텍스트를 입력하면 드롭다운에서 옵션을 선택해 ' +
           'Chip으로 추가합니다. Chip의 Trailing 아이콘으로 개별 항목을 제거합니다.',
       },
     },
   },
-  render: () => <MuiAutocompleteChipsRender />,
+  render: () => <EnterpriseUIAutocompleteChipsRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Chakra UI 벤치마크: 태그 클라우드 인터랙션
-   Chakra의 Tag 컴포넌트 패턴 — 인기도 가중치 기반 크기 변화 + 호버 강조
+   AccessibleUI 벤치마크: 태그 클라우드 인터랙션
+   Accessible의 Tag 컴포넌트 패턴 — 인기도 가중치 기반 크기 변화 + 호버 강조
 -------------------------------------------------------------------------- */
 type TagItem = { label: string; count: number; selected: boolean }
 
@@ -659,8 +659,8 @@ const CHAKRA_TAGS: TagItem[] = [
   { label: 'TypeScript', count: 980, selected: false },
   { label: 'UI Design', count: 756, selected: true },
   { label: 'Next.js', count: 612, selected: false },
-  { label: 'Tailwind', count: 540, selected: true },
-  { label: 'Figma', count: 480, selected: false },
+  { label: 'UtilityCSS', count: 540, selected: true },
+  { label: 'DesignTool', count: 480, selected: false },
   { label: 'Node.js', count: 390, selected: false },
   { label: 'GraphQL', count: 280, selected: false },
   { label: 'Testing', count: 210, selected: false },
@@ -669,7 +669,7 @@ const CHAKRA_TAGS: TagItem[] = [
   { label: 'Git', count: 120, selected: false },
 ]
 
-function ChakraTagCloudRender() {
+function AccessibleTagCloudRender() {
   const [tags, setTags] = useState(CHAKRA_TAGS)
 
   const toggle = (label: string) =>
@@ -711,27 +711,27 @@ function ChakraTagCloudRender() {
   )
 }
 
-export const Chakra_태그_클라우드: Story = {
-  name: 'Chakra UI - 태그 클라우드 인터랙션 패턴',
+export const Accessible_태그_클라우드: Story = {
+  name: 'AccessibleUI - 태그 클라우드 인터랙션 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'Chakra UI Tag 컴포넌트 패턴. 인기도(count) 값에 따라 Chip의 size를 small/medium/large로 ' +
+          'AccessibleUI Tag 컴포넌트 패턴. 인기도(count) 값에 따라 Chip의 size를 small/medium/large로 ' +
           '자동 매핑합니다. 선택 시 Leading에 CheckIcon을 삽입하고 Trailing에 카운트를 표시합니다.',
       },
     },
   },
-  render: () => <ChakraTagCloudRender />,
+  render: () => <AccessibleTagCloudRender />,
 }
 
 /* --------------------------------------------------------------------------
-   MUI 벤치마크: 상태 기반 필터 칩 툴바
-   MUI Chip variant="outlined/filled" + clickable 패턴 — 복수 필터 조합 적용
+   EnterpriseUI 벤치마크: 상태 기반 필터 칩 툴바
+   EnterpriseUI Chip variant="outlined/filled" + clickable 패턴 — 복수 필터 조합 적용
 -------------------------------------------------------------------------- */
 type FilterGroup = { id: string; label: string; options: { value: string; label: string }[] }
 
-const MUI_FILTER_GROUPS: FilterGroup[] = [
+const EnterpriseUI_FILTER_GROUPS: FilterGroup[] = [
   {
     id: 'status',
     label: '상태',
@@ -770,7 +770,7 @@ const MOCK_USERS = [
   { name: '한지우', status: 'active', role: 'admin', plan: 'enterprise' },
 ]
 
-function MuiFilterChipToolbarRender() {
+function EnterpriseUIFilterChipToolbarRender() {
   const [activeFilters, setActiveFilters] = useState<Record<string, string | null>>({ status: null, role: null, plan: null })
 
   const toggleFilter = (groupId: string, value: string) => {
@@ -791,14 +791,14 @@ function MuiFilterChipToolbarRender() {
   return (
     <div style={{ width: 460, display: 'flex', flexDirection: 'column', gap: 14 }}>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-        <div style={{ fontSize: 13, fontWeight: 700, color: '#1e293b' }}>사용자 필터 (MUI Chip 패턴)</div>
+        <div style={{ fontSize: 13, fontWeight: 700, color: '#1e293b' }}>사용자 필터 (EnterpriseUI Chip 패턴)</div>
         {hasFilters && (
           <button onClick={clearAll} style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: 12, color: '#ef4444', fontWeight: 600 }}>
             필터 초기화
           </button>
         )}
       </div>
-      {MUI_FILTER_GROUPS.map((group) => (
+      {EnterpriseUI_FILTER_GROUPS.map((group) => (
         <div key={group.id}>
           <div style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 8 }}>{group.label}</div>
           <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
@@ -839,21 +839,21 @@ function MuiFilterChipToolbarRender() {
   )
 }
 
-export const MUI_상태_필터_칩_툴바: Story = {
-  name: 'MUI - 상태 기반 복수 필터 칩 툴바 패턴',
+export const EnterpriseUI_상태_필터_칩_툴바: Story = {
+  name: 'EnterpriseUI - 상태 기반 복수 필터 칩 툴바 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'MUI Chip clickable + variant 패턴. 그룹별 단일 선택 필터를 Chip으로 구현합니다. ' +
+          'EnterpriseUI Chip clickable + variant 패턴. 그룹별 단일 선택 필터를 Chip으로 구현합니다. ' +
           '활성 필터는 selected 상태로 강조하고 초기화 버튼으로 전체 필터를 리셋합니다.',
       },
     },
   },
-  render: () => <MuiFilterChipToolbarRender />,
+  render: () => <EnterpriseUIFilterChipToolbarRender />,
 }
 
-const FIGMA_PROPERTY_OPTIONS = [
+const DESIGN_PROPERTY_OPTIONS = [
   { id: 'variant', label: 'Variant' },
   { id: 'size', label: 'Size' },
   { id: 'state', label: 'State' },
@@ -862,7 +862,7 @@ const FIGMA_PROPERTY_OPTIONS = [
   { id: 'label', label: 'Label' },
 ]
 
-const FigmaPropertyFilterRender = () => {
+const DesignToolPropertyFilterRender = () => {
   const [active, setActive] = useState<Set<string>>(new Set(['variant', 'size']))
 
   const toggle = (id: string) => {
@@ -878,7 +878,7 @@ const FigmaPropertyFilterRender = () => {
     <div style={{ width: 340, fontFamily: 'Inter, system-ui, sans-serif', background: '#fff', border: '1px solid #e5e7eb', borderRadius: 10, padding: 16 }}>
       <div style={{ fontSize: 12, fontWeight: 700, color: '#111', marginBottom: 10 }}>Component Properties</div>
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
-        {FIGMA_PROPERTY_OPTIONS.map(opt => {
+        {DESIGN_PROPERTY_OPTIONS.map(opt => {
           const isOn = active.has(opt.id)
           return (
             <Chip key={opt.id} selected={isOn} onClick={() => toggle(opt.id)}>
@@ -889,25 +889,25 @@ const FigmaPropertyFilterRender = () => {
         })}
       </div>
       <div style={{ marginTop: 12, fontSize: 11, color: '#9ca3af' }}>
-        {active.size}개 속성 표시 중 · Figma Property Filter 패턴
+        {active.size}개 속성 표시 중 · DesignTool Property Filter 패턴
       </div>
     </div>
   )
 }
 
-export const Figma_컴포넌트_속성_필터: Story = {
-  name: 'Figma - 컴포넌트 속성 필터 칩',
+export const DesignTool_컴포넌트_속성_필터: Story = {
+  name: 'DesignTool - 컴포넌트 속성 필터 칩',
   parameters: {
     docs: {
       description: {
-        story: 'Figma Component Properties 패널의 속성 필터 칩 패턴. Variant/Size/State/Color 등 속성을 Chip으로 다중 선택하여 인스펙터에 표시할 항목을 제어합니다.',
+        story: 'DesignTool Component Properties 패널의 속성 필터 칩 패턴. Variant/Size/State/Color 등 속성을 Chip으로 다중 선택하여 인스펙터에 표시할 항목을 제어합니다.',
       },
     },
   },
-  render: () => <FigmaPropertyFilterRender />,
+  render: () => <DesignToolPropertyFilterRender />,
 }
 
-const FIGMA_PLUGIN_CATEGORIES = [
+const DESIGN_PLUGIN_CATEGORIES = [
   { id: 'all', label: '전체' },
   { id: 'productivity', label: '생산성' },
   { id: 'design', label: '디자인' },
@@ -916,17 +916,17 @@ const FIGMA_PLUGIN_CATEGORIES = [
   { id: 'icons', label: '아이콘' },
 ]
 
-const FigmaPluginCategoryRender = () => {
+const DesignToolPluginCategoryRender = () => {
   const [selected, setSelected] = useState('all')
 
   return (
     <div style={{ width: 360, fontFamily: 'Inter, system-ui, sans-serif', background: '#fff', border: '1px solid #e5e7eb', borderRadius: 10, overflow: 'hidden' }}>
       <div style={{ padding: '12px 16px', borderBottom: '1px solid #f0f0f0', background: '#f9fafb' }}>
-        <div style={{ fontSize: 13, fontWeight: 700, color: '#111' }}>Figma Plugins</div>
+        <div style={{ fontSize: 13, fontWeight: 700, color: '#111' }}>DesignTool Plugins</div>
         <div style={{ fontSize: 11, color: '#6b7280', marginTop: 2 }}>카테고리를 선택하세요</div>
       </div>
       <div style={{ padding: '10px 16px', display: 'flex', flexWrap: 'wrap', gap: 6, borderBottom: '1px solid #f0f0f0' }}>
-        {FIGMA_PLUGIN_CATEGORIES.map(cat => (
+        {DESIGN_PLUGIN_CATEGORIES.map(cat => (
           <Chip key={cat.id} selected={selected === cat.id} onClick={() => setSelected(cat.id)}>
             {cat.label}
           </Chip>
@@ -934,7 +934,7 @@ const FigmaPluginCategoryRender = () => {
       </div>
       <div style={{ padding: '12px 16px' }}>
         <div style={{ fontSize: 11, color: '#9ca3af', marginBottom: 8 }}>
-          {selected === 'all' ? '모든 플러그인' : `${FIGMA_PLUGIN_CATEGORIES.find(c => c.id === selected)?.label} 플러그인`}
+          {selected === 'all' ? '모든 플러그인' : `${DESIGN_PLUGIN_CATEGORIES.find(c => c.id === selected)?.label} 플러그인`}
         </div>
         {[1, 2, 3].map(i => (
           <div key={i} style={{ display: 'flex', gap: 10, alignItems: 'center', padding: '8px 0', borderBottom: i < 3 ? '1px solid #f0f0f0' : 'none' }}>
@@ -950,19 +950,19 @@ const FigmaPluginCategoryRender = () => {
   )
 }
 
-export const Figma_플러그인_카테고리_필터: Story = {
-  name: 'Figma - 플러그인 카테고리 단일 선택 필터',
+export const DesignTool_플러그인_카테고리_필터: Story = {
+  name: 'DesignTool - 플러그인 카테고리 단일 선택 필터',
   parameters: {
     docs: {
       description: {
-        story: 'Figma Plugins 브라우저의 카테고리 필터 패턴. 단일 선택 Chip 그룹으로 플러그인 카테고리를 필터링하며, 선택된 카테고리에 맞는 플러그인 목록을 보여줍니다.',
+        story: 'DesignTool Plugins 브라우저의 카테고리 필터 패턴. 단일 선택 Chip 그룹으로 플러그인 카테고리를 필터링하며, 선택된 카테고리에 맞는 플러그인 목록을 보여줍니다.',
       },
     },
   },
-  render: () => <FigmaPluginCategoryRender />,
+  render: () => <DesignToolPluginCategoryRender />,
 }
 
-const FIGMA_FRAME_TYPES = [
+const DESIGN_FRAME_TYPES = [
   { id: 'mobile', label: 'Mobile', icon: '📱' },
   { id: 'tablet', label: 'Tablet', icon: '⬜' },
   { id: 'desktop', label: 'Desktop', icon: '🖥' },
@@ -970,7 +970,7 @@ const FIGMA_FRAME_TYPES = [
   { id: 'tv', label: 'TV', icon: '📺' },
 ]
 
-const FigmaFrameTypeSelectorRender = () => {
+const DesignToolFrameTypeSelectorRender = () => {
   const [selected, setSelected] = useState<Set<string>>(new Set(['mobile', 'desktop']))
 
   const toggle = (id: string) => {
@@ -987,7 +987,7 @@ const FigmaFrameTypeSelectorRender = () => {
       <div style={{ fontSize: 12, fontWeight: 700, color: '#e5e5e5', marginBottom: 4 }}>Frame Presets</div>
       <div style={{ fontSize: 11, color: '#888', marginBottom: 12 }}>디자인할 디바이스 유형을 선택하세요</div>
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
-        {FIGMA_FRAME_TYPES.map(type => {
+        {DESIGN_FRAME_TYPES.map(type => {
           const isOn = selected.has(type.id)
           return (
             <Chip key={type.id} selected={isOn} onClick={() => toggle(type.id)}>
@@ -1001,40 +1001,40 @@ const FigmaFrameTypeSelectorRender = () => {
       </div>
       <div style={{ marginTop: 12, padding: '8px 10px', background: '#2d2d2d', borderRadius: 6, fontSize: 11, color: '#888' }}>
         {selected.size > 0
-          ? `${[...selected].map(id => FIGMA_FRAME_TYPES.find(t => t.id === id)?.label).join(', ')} 프레임 생성 예정`
+          ? `${[...selected].map(id => DESIGN_FRAME_TYPES.find(t => t.id === id)?.label).join(', ')} 프레임 생성 예정`
           : '하나 이상의 디바이스를 선택하세요'}
       </div>
     </div>
   )
 }
 
-export const Figma_프레임_프리셋_선택: Story = {
-  name: 'Figma - 다크 테마 프레임 프리셋 선택 칩',
+export const DesignTool_프레임_프리셋_선택: Story = {
+  name: 'DesignTool - 다크 테마 프레임 프리셋 선택 칩',
   parameters: {
     docs: {
       description: {
-        story: 'Figma 새 프레임 생성 시 디바이스 프리셋 선택 패턴. 다크 UI 배경에서 Chip으로 Mobile/Tablet/Desktop 등 다중 선택. 아이콘 + 텍스트 조합의 Chip.Leading을 활용합니다.',
+        story: 'DesignTool 새 프레임 생성 시 디바이스 프리셋 선택 패턴. 다크 UI 배경에서 Chip으로 Mobile/Tablet/Desktop 등 다중 선택. 아이콘 + 텍스트 조합의 Chip.Leading을 활용합니다.',
       },
     },
   },
-  render: () => <FigmaFrameTypeSelectorRender />,
+  render: () => <DesignToolFrameTypeSelectorRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Cycle 124 — Vercel Design + Radix UI 벤치마크
+   Cycle 124 — DeployPlatform Design + PrimitiveUI 벤치마크
 -------------------------------------------------------------------------- */
 
 /* --------------------------------------------------------------------------
-   Vercel: 환경 변수 스코프 칩 패턴
-   Vercel Env 화면 — Production/Preview/Development 환경 범위 칩
+   DeployPlatform: 환경 변수 스코프 칩 패턴
+   DeployPlatform Env 화면 — Production/Preview/Development 환경 범위 칩
 -------------------------------------------------------------------------- */
-export const Vercel_환경변수_스코프_칩: Story = {
-  name: 'Vercel - 환경변수 스코프 칩 패턴',
+export const DeployPlatform_환경변수_스코프_칩: Story = {
+  name: 'DeployPlatform - 환경변수 스코프 칩 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'Vercel Environment Variables 설정 화면 패턴. Production/Preview/Development 환경 범위를 ' +
+          'DeployPlatform Environment Variables 설정 화면 패턴. Production/Preview/Development 환경 범위를 ' +
           'Chip으로 다중 선택하여 환경변수 적용 범위를 지정합니다.',
       },
     },
@@ -1106,22 +1106,22 @@ export const Vercel_환경변수_스코프_칩: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Radix: 다중 선택 콤보 칩 패턴
-   Radix Select + 칩 삭제 패턴 — 입력창과 칩 목록 연동
+   Primitive: 다중 선택 콤보 칩 패턴
+   Primitive Select + 칩 삭제 패턴 — 입력창과 칩 목록 연동
 -------------------------------------------------------------------------- */
-export const Radix_다중_선택_콤보_칩: Story = {
-  name: 'Radix UI - 다중 선택 콤보 칩 패턴',
+export const Primitive_다중_선택_콤보_칩: Story = {
+  name: 'PrimitiveUI - 다중 선택 콤보 칩 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'Radix Select + Chip 조합 패턴. 드롭다운에서 선택 시 Chip이 추가되고, ' +
+          'Primitive Select + Chip 조합 패턴. 드롭다운에서 선택 시 Chip이 추가되고, ' +
           'Chip.Trailing의 X 버튼으로 개별 제거하는 태그 입력 인터페이스입니다.',
       },
     },
   },
   render: function Render() {
-    const ALL_TAGS = ['React', 'TypeScript', 'Vite', 'Tailwind', 'Radix UI', 'Storybook', 'Vitest', 'Playwright', 'ESLint', 'Prettier']
+    const ALL_TAGS = ['React', 'TypeScript', 'Vite', 'UtilityCSS', 'PrimitiveUI', 'Storybook', 'Vitest', 'Playwright', 'ESLint', 'Prettier']
     const [selected, setSelected] = useState<string[]>(['React', 'TypeScript'])
     const [input, setInput] = useState('')
 
@@ -1184,16 +1184,16 @@ export const Radix_다중_선택_콤보_칩: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Vercel + Radix: 배포 태그 + 환경 필터 복합 패턴
+   DeployPlatform + Primitive: 배포 태그 + 환경 필터 복합 패턴
    두 시스템의 칩 패턴 결합 — 태그 관리 + 환경 필터
 -------------------------------------------------------------------------- */
-export const Vercel_Radix_배포_태그_필터: Story = {
-  name: 'Vercel + Radix UI - 배포 태그 + 환경 필터 복합 패턴',
+export const DeployPlatform_Primitive_배포_태그_필터: Story = {
+  name: 'DeployPlatform + PrimitiveUI - 배포 태그 + 환경 필터 복합 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'Vercel 배포 목록 + Radix 다중 필터 패턴 결합. 환경/상태 Chip 필터로 배포 목록을 ' +
+          'DeployPlatform 배포 목록 + Primitive 다중 필터 패턴 결합. 환경/상태 Chip 필터로 배포 목록을 ' +
           '좁히고, 브랜치 태그 Chip을 추가/제거하여 배포를 분류합니다.',
       },
     },
@@ -1282,7 +1282,7 @@ export const Vercel_Radix_배포_태그_필터: Story = {
   },
 }
 
-// ─── Cycle 155: Arco Design + Raycast Extensions ───────────────────────────
+// ─── Cycle 155: DataProductUI + CommandPalette Extensions ───────────────────────────
 
 const ARCO_TAGS = [
   { id: 'all', label: '전체' },
@@ -1293,7 +1293,7 @@ const ARCO_TAGS = [
   { id: 'docs', label: '문서' },
 ]
 
-function ArcoTagFilterRender() {
+function DataProductTagFilterRender() {
   const [selected, setSelected] = useState<string[]>(['all'])
   const toggle = (id: string) => {
     if (id === 'all') { setSelected(['all']); return }
@@ -1305,7 +1305,7 @@ function ArcoTagFilterRender() {
   }
   return (
     <div style={{ width: 360, fontFamily: 'Inter, system-ui, sans-serif' }}>
-      <div style={{ fontSize: 12, fontWeight: 700, color: '#6b7280', marginBottom: 10 }}>Arco Design 태그 필터 패턴</div>
+      <div style={{ fontSize: 12, fontWeight: 700, color: '#6b7280', marginBottom: 10 }}>DataProductUI 태그 필터 패턴</div>
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
         {ARCO_TAGS.map(tag => (
           <Chip
@@ -1321,39 +1321,39 @@ function ArcoTagFilterRender() {
         ))}
       </div>
       <div style={{ marginTop: 10, fontSize: 11, color: '#94a3b8' }}>
-        선택됨: {selected.join(', ')} — Arco Design Tag.CheckableTag 패턴
+        선택됨: {selected.join(', ')} — DataProductUI Tag.CheckableTag 패턴
       </div>
     </div>
   )
 }
 
-export const Arco_데이터_태그_필터: Story = {
-  name: 'Arco Design - 데이터 시각화 태그 필터',
-  render: () => <ArcoTagFilterRender />,
+export const DataProduct_데이터_태그_필터: Story = {
+  name: 'DataProductUI - 데이터 시각화 태그 필터',
+  render: () => <DataProductTagFilterRender />,
   parameters: {
     docs: {
       description: {
         story:
-          'Arco Design Tag.CheckableTag 패턴. 선택된 태그는 파란 배경+테두리로 강조되고 체크 아이콘이 등장합니다. ' +
-          '"전체" 선택 시 개별 선택이 초기화되는 Arco 태그 그룹 동작을 재현합니다.',
+          'DataProductUI Tag.CheckableTag 패턴. 선택된 태그는 파란 배경+테두리로 강조되고 체크 아이콘이 등장합니다. ' +
+          '"전체" 선택 시 개별 선택이 초기화되는 DataProduct 태그 그룹 동작을 재현합니다.',
       },
     },
   },
 }
 
-const RAYCAST_COMMANDS = [
+const LAUNCHER_COMMANDS = [
   { id: 'search', label: '빠른 검색', keys: ['⌘', 'K'] },
   { id: 'new', label: '새 항목 생성', keys: ['⌘', 'N'] },
   { id: 'copy', label: '링크 복사', keys: ['⌘', 'C'] },
   { id: 'open', label: '새 탭에서 열기', keys: ['⌘', 'T'] },
 ]
 
-function RaycastShortcutChipRender() {
+function CommandPaletteShortcutChipRender() {
   const [active, setActive] = useState<string | null>(null)
   return (
     <div style={{ width: 320, fontFamily: 'Inter, system-ui, sans-serif', background: '#1c1c1e', borderRadius: 12, padding: 12 }}>
       <div style={{ fontSize: 11, fontWeight: 600, color: '#8e8e93', marginBottom: 8, padding: '0 4px' }}>COMMANDS</div>
-      {RAYCAST_COMMANDS.map(cmd => (
+      {LAUNCHER_COMMANDS.map(cmd => (
         <div
           key={cmd.id}
           onClick={() => setActive(cmd.id)}
@@ -1369,20 +1369,20 @@ function RaycastShortcutChipRender() {
           </div>
         </div>
       ))}
-      <div style={{ marginTop: 6, padding: '0 4px', fontSize: 11, color: '#6d6d72' }}>Raycast 단축키 칩 — 다크 팔레트</div>
+      <div style={{ marginTop: 6, padding: '0 4px', fontSize: 11, color: '#6d6d72' }}>CommandPalette 단축키 칩 — 다크 팔레트</div>
     </div>
   )
 }
 
-export const Raycast_커맨드_팔레트_칩: Story = {
-  name: 'Raycast - 커맨드 팔레트 단축키 칩',
-  render: () => <RaycastShortcutChipRender />,
+export const CommandPalette_커맨드_팔레트_칩: Story = {
+  name: 'CommandPalette - 커맨드 팔레트 단축키 칩',
+  render: () => <CommandPaletteShortcutChipRender />,
   parameters: {
     docs: {
       description: {
         story:
-          'Raycast Extensions 커맨드 팔레트 단축키 표시 패턴. 다크 배경에 키보드 단축키를 소형 뱃지로 표현합니다. ' +
-          'Raycast의 KeyboardShortcut 컴포넌트 패턴과 Chip 테마 오버라이드를 조합해 구현합니다.',
+          'CommandPalette Extensions 커맨드 팔레트 단축키 표시 패턴. 다크 배경에 키보드 단축키를 소형 뱃지로 표현합니다. ' +
+          'CommandPalette의 KeyboardShortcut 컴포넌트 패턴과 Chip 테마 오버라이드를 조합해 구현합니다.',
       },
     },
   },
@@ -1396,13 +1396,13 @@ const ISSUE_LABELS = [
   { id: 'test', text: '테스트', color: '#722ED1', selected: false },
 ]
 
-function ArcoRaycastLabelChipRender() {
+function DataProductCommandPaletteLabelChipRender() {
   const [labels, setLabels] = useState(ISSUE_LABELS)
   const toggle = (id: string) => setLabels(prev => prev.map(l => l.id === id ? { ...l, selected: !l.selected } : l))
   const selected = labels.filter(l => l.selected)
   return (
     <div style={{ width: 340, fontFamily: 'Inter, system-ui, sans-serif' }}>
-      <div style={{ fontSize: 12, fontWeight: 700, color: '#6b7280', marginBottom: 10 }}>Arco + Raycast 이슈 레이블 칩</div>
+      <div style={{ fontSize: 12, fontWeight: 700, color: '#6b7280', marginBottom: 10 }}>DataProduct + CommandPalette 이슈 레이블 칩</div>
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginBottom: 12 }}>
         {labels.map(label => (
           <Chip
@@ -1425,34 +1425,34 @@ function ArcoRaycastLabelChipRender() {
       <div style={{ padding: '8px 12px', background: '#f7f8fa', borderRadius: 8, fontSize: 12, color: '#4e5969' }}>
         선택된 레이블: {selected.length > 0 ? selected.map(l => l.text).join(', ') : '없음'}
       </div>
-      <div style={{ marginTop: 8, fontSize: 11, color: '#94a3b8' }}>Arco Tag + Raycast 이슈 레이블 토글 패턴</div>
+      <div style={{ marginTop: 8, fontSize: 11, color: '#94a3b8' }}>DataProduct Tag + CommandPalette 이슈 레이블 토글 패턴</div>
     </div>
   )
 }
 
-export const Arco_Raycast_이슈_레이블_칩: Story = {
-  name: 'Arco Design + Raycast - 이슈 레이블 칩 시스템',
-  render: () => <ArcoRaycastLabelChipRender />,
+export const DataProduct_CommandPalette_이슈_레이블_칩: Story = {
+  name: 'DataProductUI + CommandPalette - 이슈 레이블 칩 시스템',
+  render: () => <DataProductCommandPaletteLabelChipRender />,
   parameters: {
     docs: {
       description: {
         story:
-          'Arco Design + Raycast 복합 패턴. 컬러 도트·텍스트·삭제 아이콘 구성의 레이블 칩을 토글하며 이슈에 레이블을 할당합니다. ' +
-          'Arco Tag closable 패턴과 Raycast 이슈 레이블 UI를 Chip 테마 오버라이드로 구현합니다.',
+          'DataProductUI + CommandPalette 복합 패턴. 컬러 도트·텍스트·삭제 아이콘 구성의 레이블 칩을 토글하며 이슈에 레이블을 할당합니다. ' +
+          'DataProduct Tag closable 패턴과 CommandPalette 이슈 레이블 UI를 Chip 테마 오버라이드로 구현합니다.',
       },
     },
   },
 }
 
 /* --------------------------------------------------------------------------
-   Cycle 180 — shadcn/ui + Apple HIG
+   Cycle 180 — ComposableUI + Platform HIG
    Benchmark:
-   1. shadcn/ui Badge/Chip: 인터랙티브 필터 필 — 멀티셀렉트 + 전체 해제
-   2. Apple HIG: 터치 친화적 크기 + 탭 타겟 최소 44×44pt 권고
-   3. Apple HIG: Chip을 "제안 태그"로 활용해 클릭 시 사라지는 패턴
+   1. ComposableUI Badge/Chip: 인터랙티브 필터 필 — 멀티셀렉트 + 전체 해제
+   2. Platform HIG: 터치 친화적 크기 + 탭 타겟 최소 44×44pt 권고
+   3. Platform HIG: Chip을 "제안 태그"로 활용해 클릭 시 사라지는 패턴
 -------------------------------------------------------------------------- */
 
-function ShadcnFilterChipGroupRender() {
+function ComposableUIFilterChipGroupRender() {
   const [selected, setSelected] = useState<string[]>([])
 
   const filterGroups = [
@@ -1521,33 +1521,33 @@ function ShadcnFilterChipGroupRender() {
   )
 }
 
-export const Shadcn_필터_칩_그룹: Story = {
-  name: 'shadcn/ui — 멀티셀렉트 필터 칩 그룹 (전체 해제)',
+export const ComposableUI_필터_칩_그룹: Story = {
+  name: 'ComposableUI — 멀티셀렉트 필터 칩 그룹 (전체 해제)',
   parameters: {
     layout: 'centered',
     docs: {
       description: {
-        story: 'shadcn/ui Badge 필터 패턴 적용. 카테고리/상태/프레임워크 3그룹 멀티셀렉트 칩, 선택 시 체크 아이콘+취소 아이콘 추가. 선택된 수 표시 + 전체 해제 버튼. 문서 필터링 UX.',
+        story: 'ComposableUI Badge 필터 패턴 적용. 카테고리/상태/프레임워크 3그룹 멀티셀렉트 칩, 선택 시 체크 아이콘+취소 아이콘 추가. 선택된 수 표시 + 전체 해제 버튼. 문서 필터링 UX.',
       },
     },
   },
-  render: () => <ShadcnFilterChipGroupRender />,
+  render: () => <ComposableUIFilterChipGroupRender />,
 }
 
-function AppleHIGTechStackChipRender() {
+function PlatformHIGTechStackChipRender() {
   const [selected, setSelected] = useState<string[]>(['React', 'TypeScript'])
 
   const techStacks = [
     { name: 'React', color: '#61dafb', bg: '#e8f8fd' },
     { name: 'TypeScript', color: '#3178c6', bg: '#e8f0fb' },
-    { name: 'Tailwind', color: '#38bdf8', bg: '#e0f7fe' },
+    { name: 'UtilityCSS', color: '#38bdf8', bg: '#e0f7fe' },
     { name: 'Next.js', color: '#000000', bg: '#f3f4f6' },
     { name: 'Vite', color: '#646cff', bg: '#eeefff' },
     { name: 'Vitest', color: '#6e9f18', bg: '#f0f7e6' },
     { name: 'Storybook', color: '#ff4785', bg: '#feeef5' },
     { name: 'ESLint', color: '#4b32c3', bg: '#eeeafb' },
     { name: 'pnpm', color: '#f69220', bg: '#fef3e6' },
-    { name: 'Radix UI', color: '#e17ab6', bg: '#fdeef8' },
+    { name: 'PrimitiveUI', color: '#e17ab6', bg: '#fdeef8' },
   ]
 
   const toggle = (name: string) => {
@@ -1557,7 +1557,7 @@ function AppleHIGTechStackChipRender() {
   return (
     <div style={{ width: 380, fontFamily: 'system-ui, sans-serif' }}>
       <div style={{ fontSize: 13, fontWeight: 700, color: '#111827', marginBottom: 4 }}>기술 스택 선택</div>
-      <div style={{ fontSize: 11, color: '#9ca3af', marginBottom: 12 }}>Apple HIG 스타일 태그 칩 — 최소 터치 타겟 적용</div>
+      <div style={{ fontSize: 11, color: '#9ca3af', marginBottom: 12 }}>Platform HIG 스타일 태그 칩 — 최소 터치 타겟 적용</div>
       <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
         {techStacks.map((tech) => (
           <Chip
@@ -1584,20 +1584,20 @@ function AppleHIGTechStackChipRender() {
   )
 }
 
-export const Apple_HIG_기술_스택_태그_칩: Story = {
-  name: 'Apple HIG — 기술 스택 컬러 태그 칩 (브랜드 색상 오버라이드)',
+export const Platform_HIG_기술_스택_태그_칩: Story = {
+  name: 'Platform HIG — 기술 스택 컬러 태그 칩 (브랜드 색상 오버라이드)',
   parameters: {
     layout: 'centered',
     docs: {
       description: {
-        story: 'Apple HIG 터치 친화적 컴포넌트 원칙 + shadcn/ui Badge 스타일 적용. 각 기술 스택 고유 브랜드 색상으로 theme 오버라이드. 선택 시 배경+테두리+텍스트 색상이 해당 기술 색상으로 변경.',
+        story: 'Platform HIG 터치 친화적 컴포넌트 원칙 + ComposableUI Badge 스타일 적용. 각 기술 스택 고유 브랜드 색상으로 theme 오버라이드. 선택 시 배경+테두리+텍스트 색상이 해당 기술 색상으로 변경.',
       },
     },
   },
-  render: () => <AppleHIGTechStackChipRender />,
+  render: () => <PlatformHIGTechStackChipRender />,
 }
 
-function ShadcnAppleAISuggestionChipRender() {
+function ComposableUIPlatformAISuggestionChipRender() {
   const [prompt, setPrompt] = useState('')
   const [suggestions, setSuggestions] = useState([
     '회의 요약 작성', '이메일 초안 작성', '코드 리뷰', '버그 분석',
@@ -1650,15 +1650,15 @@ function ShadcnAppleAISuggestionChipRender() {
   )
 }
 
-export const Shadcn_Apple_AI_프롬프트_제안_칩: Story = {
-  name: 'shadcn/ui + Apple HIG — AI 프롬프트 제안 칩 (클릭 시 소비)',
+export const ComposableUI_Platform_AI_프롬프트_제안_칩: Story = {
+  name: 'ComposableUI + Platform HIG — AI 프롬프트 제안 칩 (클릭 시 소비)',
   parameters: {
     layout: 'centered',
     docs: {
       description: {
-        story: 'shadcn/ui Command 제안 패턴 + Apple HIG 소비형 인터랙션. 제안 칩 클릭 시 칩은 사라지고 텍스트가 프롬프트에 추가됨. AI 어시스턴트의 빠른 프롬프트 구성 UX 패턴.',
+        story: 'ComposableUI Command 제안 패턴 + Platform HIG 소비형 인터랙션. 제안 칩 클릭 시 칩은 사라지고 텍스트가 프롬프트에 추가됨. AI 어시스턴트의 빠른 프롬프트 구성 UX 패턴.',
       },
     },
   },
-  render: () => <ShadcnAppleAISuggestionChipRender />,
+  render: () => <ComposableUIPlatformAISuggestionChipRender />,
 }

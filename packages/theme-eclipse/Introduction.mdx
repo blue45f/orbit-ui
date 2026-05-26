@@ -6,7 +6,7 @@ import { Meta, Unstyled } from '@storybook/blocks'
   <div style={{
     maxWidth: '960px',
     margin: '0 auto',
-    fontFamily: '"Pretendard Variable", "Pretendard", -apple-system, BlinkMacSystemFont, system-ui, sans-serif',
+    fontFamily: '"Pretendard Variable", "Pretendard", system-ui, sans-serif',
   }}>
 
     {/* Hero Section */}
@@ -44,7 +44,7 @@ import { Meta, Unstyled } from '@storybook/blocks'
         Orbit UI
       </h1>
 
-      <p style={{
+      <div style={{
         fontSize: '13px',
         fontWeight: '600',
         letterSpacing: '0.15em',
@@ -53,9 +53,9 @@ import { Meta, Unstyled } from '@storybook/blocks'
         margin: '0 0 24px',
       }}>
         Eclipse Theme
-      </p>
+      </div>
 
-      <p style={{
+      <div style={{
         fontSize: '18px',
         lineHeight: '1.7',
         color: '#64748b',
@@ -65,7 +65,7 @@ import { Meta, Unstyled } from '@storybook/blocks'
         Headless & Tiered Architecture 기반의 고성능 React 디자인 시스템.
         <br />
         깊이감 있는 인터랙션과 정교한 디자인 언어를 제공합니다.
-      </p>
+      </div>
     </div>
 
     {/* Stats Row */}
@@ -126,8 +126,8 @@ import { Meta, Unstyled } from '@storybook/blocks'
           },
           {
             tag: 'Templates',
-            title: 'Stripe + Linear 결제 센터',
-            desc: '청구·플랜·결제수단·사용량 5개 섹션 + Stripe 인보이스 테이블 + Linear ⌘K chord 힌트가 통합된 새 벤치마크.',
+            title: 'Billing + IssueTracker 결제 센터',
+            desc: '청구·플랜·결제수단·사용량 5개 섹션 + Billing 인보이스 테이블 + IssueTracker ⌘K chord 힌트가 통합된 새 벤치마크.',
             color: '#ec4899',
           },
         ].map((item, i) => (
@@ -199,7 +199,7 @@ import { Meta, Unstyled } from '@storybook/blocks'
               fontFamily: '"JetBrains Mono", monospace',
             }}>{item.icon}</div>
             <h3 style={{ fontSize: '16px', fontWeight: '700', color: '#1e293b', margin: '0 0 8px', letterSpacing: '-0.01em' }}>{item.title}</h3>
-            <p style={{ fontSize: '14px', color: '#64748b', lineHeight: '1.6', margin: 0 }}>{item.desc}</p>
+            <div style={{ fontSize: '14px', color: '#64748b', lineHeight: '1.6', margin: 0 }}>{item.desc}</div>
           </div>
         ))}
       </div>
@@ -272,7 +272,7 @@ import { Meta, Unstyled } from '@storybook/blocks'
           }}>
             <div style={{ fontSize: '20px', marginBottom: '12px' }}>{item.icon}</div>
             <h3 style={{ fontSize: '15px', fontWeight: '700', color: '#1e293b', margin: '0 0 8px' }}>{item.title}</h3>
-            <p style={{ fontSize: '13px', color: '#64748b', lineHeight: '1.65', margin: 0 }}>{item.desc}</p>
+            <div style={{ fontSize: '13px', color: '#64748b', lineHeight: '1.65', margin: 0 }}>{item.desc}</div>
           </div>
         ))}
       </div>
@@ -321,9 +321,9 @@ import { Meta, Unstyled } from '@storybook/blocks'
       <div style={{ marginBottom: '24px' }}>
         <div style={{ fontSize: '12px', fontWeight: '700', color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '8px' }}>npm Packages</div>
         <h2 style={{ fontSize: '28px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', margin: '0 0 8px' }}>3개 독립 패키지 구성</h2>
-        <p style={{ fontSize: '14px', color: '#64748b', lineHeight: '1.6', margin: 0 }}>
+        <div style={{ fontSize: '14px', color: '#64748b', lineHeight: '1.6', margin: 0 }}>
           각 패키지는 독립적으로 설치하고 사용할 수 있어, 프로젝트 필요에 따라 선택적으로 도입할 수 있습니다.
-        </p>
+        </div>
       </div>
 
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px' }}>
@@ -375,7 +375,7 @@ import { Meta, Unstyled } from '@storybook/blocks'
               <span style={{ fontSize: '11px', padding: '2px 8px', borderRadius: '100px', background: pkg.badgeBg, color: pkg.badgeColor, fontWeight: '700' }}>{pkg.badge}</span>
             </div>
             <code style={{ fontSize: '12px', fontWeight: '700', color: pkg.code, wordBreak: 'break-all' }}>{pkg.name}</code>
-            <p style={{ fontSize: '12px', color: '#64748b', lineHeight: '1.6', margin: 0, flexGrow: 1 }}>{pkg.desc}</p>
+            <div style={{ fontSize: '12px', color: '#64748b', lineHeight: '1.6', margin: 0, flexGrow: 1 }}>{pkg.desc}</div>
             <pre style={{ margin: 0, padding: '8px 10px', background: '#0f172a', borderRadius: '6px', color: '#e2e8f0', fontSize: '10px', fontFamily: '"JetBrains Mono", monospace', wordBreak: 'break-all', whiteSpace: 'pre-wrap' }}>{pkg.install}</pre>
           </div>
         ))}

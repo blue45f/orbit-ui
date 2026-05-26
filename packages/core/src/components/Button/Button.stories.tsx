@@ -35,7 +35,7 @@ type Story = StoryObj<typeof meta>
 export default meta
 
 export const 기본 = {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
   render: (args: any) => <Button {...args}>작성</Button>,
 } satisfies Story
 

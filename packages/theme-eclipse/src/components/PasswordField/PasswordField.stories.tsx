@@ -190,8 +190,8 @@ export const 에러상태: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Vercel 스타일 비밀번호 강도 미터
-   Vercel Design 패턴: 실시간 강도 측정 (weak/fair/good/strong) + 컬러 피드백.
+   DeployPlatform 스타일 비밀번호 강도 미터
+   DeployPlatform Design 패턴: 실시간 강도 측정 (weak/fair/good/strong) + 컬러 피드백.
    입력값에 따라 4단계 프로그레스 바와 레이블이 변합니다.
 -------------------------------------------------------------------------- */
 const getPasswordStrength = (pw: string): { level: number; label: string; color: string } => {
@@ -286,13 +286,13 @@ const StrengthMeterRender = () => {
   )
 }
 
-export const Vercel_강도미터: Story = {
+export const DeployPlatform_강도미터: Story = {
   render: () => <StrengthMeterRender />,
 }
 
 /* --------------------------------------------------------------------------
-   계정 생성 폼 (Vercel signup 패턴)
-   Vercel Design 패턴: 이메일 + 비밀번호 + 확인 필드 조합.
+   계정 생성 폼 (DeployPlatform signup 패턴)
+   DeployPlatform Design 패턴: 이메일 + 비밀번호 + 확인 필드 조합.
    비밀번호 일치 여부를 실시간으로 검증합니다.
 -------------------------------------------------------------------------- */
 const SignupFormRender = () => {
@@ -390,7 +390,7 @@ const SignupFormRender = () => {
   )
 }
 
-export const Vercel_계정생성폼: Story = {
+export const DeployPlatform_계정생성폼: Story = {
   render: () => <SignupFormRender />,
 }
 
@@ -400,15 +400,15 @@ export const 디자인QA = {
     disabled: false,
     error: false,
   },
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
+
   render: ({ placeholder: _placeholder, disabled: _disabled, error: _error, ...args }: any) => (
     <PasswordField {...args} />
   ),
 }
 
 /* --------------------------------------------------------------------------
-   MUI 벤치마크: 비밀번호 변경 폼
-   MUI TextField outlined variant 스타일 — 현재/새/확인 필드 조합
+   EnterpriseUI 벤치마크: 비밀번호 변경 폼
+   EnterpriseUI TextField outlined variant 스타일 — 현재/새/확인 필드 조합
    실시간 일치 여부 + 강도 표시를 포함한 계정 설정 패턴입니다.
 -------------------------------------------------------------------------- */
 const PasswordChangeRender = () => {
@@ -435,7 +435,7 @@ const PasswordChangeRender = () => {
     <div style={{ width: 380, padding: '32px', background: '#fff', borderRadius: '16px', border: '1px solid #e2e8f0', boxShadow: '0 4px 20px rgba(0,0,0,0.06)', fontFamily: 'system-ui, sans-serif' }}>
       <div style={{ fontSize: '16px', fontWeight: 800, color: '#0f172a', marginBottom: '4px' }}>비밀번호 변경</div>
       <div style={{ fontSize: '12px', color: '#64748b', marginBottom: '24px' }}>
-        MUI TextField outlined 스타일 비밀번호 변경 폼
+        EnterpriseUI TextField outlined 스타일 비밀번호 변경 폼
       </div>
 
       {success ? (
@@ -508,19 +508,19 @@ const PasswordChangeRender = () => {
   )
 }
 
-export const MUI_비밀번호_변경_폼: Story = {
+export const EnterpriseUI_비밀번호_변경_폼: Story = {
   render: () => <PasswordChangeRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Raycast 벤치마크: API 키 입력 패널
-   Raycast Extensions 스타일 — 컴팩트한 API 키 관리 패널
+   CommandPalette 벤치마크: API 키 입력 패널
+   CommandPalette Extensions 스타일 — 컴팩트한 API 키 관리 패널
    show/hide + 복사 + 재생성 버튼이 일체화된 개발자 설정 UI입니다.
 -------------------------------------------------------------------------- */
 const API_KEY_SERVICES = [
   { id: 'openai', name: 'OpenAI API', key: 'sk-proj-abc123...xyz', prefix: 'sk-proj-' },
-  { id: 'vercel', name: 'Vercel Token', key: 'tok_abc123...xyz', prefix: 'tok_' },
-  { id: 'github', name: 'GitHub PAT', key: 'ghp_abc123...xyz', prefix: 'ghp_' },
+  { id: 'deploy', name: 'DeployPlatform Token', key: 'tok_abc123...xyz', prefix: 'tok_' },
+  { id: 'codehost', name: 'CodeHost PAT', key: 'pat_abc123...xyz', prefix: 'pat_' },
 ]
 
 const ApiKeyPanelRender = () => {
@@ -539,7 +539,7 @@ const ApiKeyPanelRender = () => {
         <div style={{ padding: '14px 18px', borderBottom: '1px solid #1e293b', display: 'flex', alignItems: 'center', gap: '8px' }}>
           <div style={{ fontSize: '13px', fontWeight: 700, color: '#e2e8f0' }}>API 키 관리</div>
           <div style={{ marginLeft: 'auto', fontSize: '10px', color: '#475569', background: '#1e293b', padding: '2px 8px', borderRadius: '99px' }}>
-            Raycast 스타일
+            CommandPalette 스타일
           </div>
         </div>
 
@@ -601,13 +601,13 @@ const ApiKeyPanelRender = () => {
   )
 }
 
-export const Raycast_API_키_입력_패널: Story = {
+export const CommandPalette_API_키_입력_패널: Story = {
   render: () => <ApiKeyPanelRender />,
 }
 
 /* --------------------------------------------------------------------------
-   MUI 벤치마크: 소셜 로그인 + 비밀번호 조합 폼
-   MUI의 로그인 페이지 패턴 — OAuth 버튼 + divider + 이메일/비밀번호 폼
+   EnterpriseUI 벤치마크: 소셜 로그인 + 비밀번호 조합 폼
+   EnterpriseUI의 로그인 페이지 패턴 — OAuth 버튼 + divider + 이메일/비밀번호 폼
    계정 존재 여부에 따라 "로그인" / "회원가입" 모드 전환
 -------------------------------------------------------------------------- */
 const SocialLoginRender = () => {
@@ -616,12 +616,12 @@ const SocialLoginRender = () => {
   const [password, setPassword] = useState('')
 
   const oauthProviders = [
-    { name: 'GitHub', icon: (
+    { name: 'CodeHost', icon: (
       <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
         <path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.866-.013-1.7-2.782.603-3.369-1.342-3.369-1.342-.454-1.155-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0 1 12 6.836c.85.004 1.705.115 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.741 0 .267.18.579.688.481C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z" />
       </svg>
     )},
-    { name: 'Google', icon: (
+    { name: 'Reference', icon: (
       <svg width="16" height="16" viewBox="0 0 24 24">
         <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
         <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
@@ -638,7 +638,7 @@ const SocialLoginRender = () => {
           {mode === 'login' ? '로그인' : '계정 만들기'}
         </div>
         <div style={{ fontSize: '13px', color: '#64748b' }}>
-          MUI 로그인 페이지 패턴 — OAuth + 폼 조합
+          EnterpriseUI 로그인 페이지 패턴 — OAuth + 폼 조합
         </div>
       </div>
 
@@ -711,12 +711,12 @@ const SocialLoginRender = () => {
   )
 }
 
-export const MUI_소셜_로그인_조합: Story = {
+export const EnterpriseUI_소셜_로그인_조합: Story = {
   render: () => <SocialLoginRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Google Material 3 벤치마크: 비밀번호 강도 + 조건 체크리스트
+   RoleToken Design 벤치마크: 비밀번호 강도 + 조건 체크리스트
    M3의 지원 텍스트(Supporting Text) 패턴 — 입력 하단에 구체적 조건 피드백 표시
 -------------------------------------------------------------------------- */
 const M3_PASSWORD_RULES = [
@@ -780,12 +780,12 @@ function M3PasswordStrengthRender() {
 }
 
 export const M3_비밀번호_강도_조건_체크리스트: Story = {
-  name: 'Google M3 - 비밀번호 강도 + 조건 체크리스트 패턴',
+  name: 'Reference M3 - 비밀번호 강도 + 조건 체크리스트 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'Google Material 3 Supporting Text 패턴. 비밀번호 입력 하단에 실시간 조건 체크리스트와 ' +
+          'RoleToken Design Supporting Text 패턴. 비밀번호 입력 하단에 실시간 조건 체크리스트와 ' +
           '강도 프로그레스 바를 표시합니다. 조건 충족 시 초록색 체크로 즉각 피드백을 제공합니다.',
       },
     },
@@ -794,14 +794,14 @@ export const M3_비밀번호_강도_조건_체크리스트: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Figma Plugin UI 벤치마크: API 키 입력 마스킹 패턴
-   Figma 플러그인의 토큰/키 입력 UI — 저장 후 부분 마스킹 표시 + 복사 기능
+   DesignTool Plugin UI 벤치마크: API 키 입력 마스킹 패턴
+   DesignTool 플러그인의 토큰/키 입력 UI — 저장 후 부분 마스킹 표시 + 복사 기능
 -------------------------------------------------------------------------- */
 type ApiKeyEntry = { id: string; name: string; value: string; created: string; masked: boolean }
 
-function FigmaApiKeyPanelRender() {
+function DesignToolApiKeyPanelRender() {
   const [keys, setKeys] = useState<ApiKeyEntry[]>([
-    { id: 'k1', name: 'Figma API Token', value: 'figd_KbXqwA-3pnR9mLvJ', created: '2026-01-15', masked: true },
+    { id: 'k1', name: 'DesignTool API Token', value: 'figd_KbXqwA-3pnR9mLvJ', created: '2026-01-15', masked: true },
     { id: 'k2', name: 'OpenAI API Key', value: 'sk-proj-ABCD1234efgh5678', created: '2026-03-02', masked: true },
   ])
   const [newKeyName, setNewKeyName] = useState('')
@@ -863,7 +863,7 @@ function FigmaApiKeyPanelRender() {
         <input
           value={newKeyName}
           onChange={(e) => setNewKeyName(e.target.value)}
-          placeholder="키 이름 (예: Figma API Token)"
+          placeholder="키 이름 (예: DesignTool API Token)"
           style={{ padding: '7px 10px', borderRadius: 6, border: '1px solid #3f3f46', background: '#27272a', color: '#e4e4e7', fontSize: 12, outline: 'none' }}
         />
         <PasswordField
@@ -883,22 +883,22 @@ function FigmaApiKeyPanelRender() {
   )
 }
 
-export const Figma_API키_마스킹_패널: Story = {
-  name: 'Figma Plugin UI - API 키 마스킹 입력 패널 패턴',
+export const DesignTool_API키_마스킹_패널: Story = {
+  name: 'DesignTool Plugin UI - API 키 마스킹 입력 패널 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'Figma 플러그인 패널 스타일의 API 키 관리 UI. PasswordField로 신규 키를 입력하고 ' +
+          'DesignTool 플러그인 패널 스타일의 API 키 관리 UI. PasswordField로 신규 키를 입력하고 ' +
           '저장 후 부분 마스킹(앞 6자 + 뒤 4자)으로 표시합니다. 표시/숨김 토글과 클립보드 복사 기능을 포함합니다.',
       },
     },
   },
-  render: () => <FigmaApiKeyPanelRender />,
+  render: () => <DesignToolApiKeyPanelRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Google Material 3 벤치마크: 비밀번호 재설정 단계 폼
+   RoleToken Design 벤치마크: 비밀번호 재설정 단계 폼
    M3의 Text Field + Button 조합 패턴 — 이메일 인증 → 새 비밀번호 2단계 플로우
 -------------------------------------------------------------------------- */
 type ResetStep = 'email' | 'code' | 'newpass' | 'done'
@@ -1019,12 +1019,12 @@ function M3PasswordResetRender() {
 }
 
 export const M3_비밀번호_재설정_단계폼: Story = {
-  name: 'Google M3 - 비밀번호 재설정 다단계 폼 패턴',
+  name: 'Reference M3 - 비밀번호 재설정 다단계 폼 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'Google Material 3 Text Field + 단계 진행 패턴. 이메일 입력 → 인증 코드 → 새 비밀번호 3단계 플로우를 ' +
+          'RoleToken Design Text Field + 단계 진행 패턴. 이메일 입력 → 인증 코드 → 새 비밀번호 3단계 플로우를 ' +
           '구현합니다. PasswordField의 error 상태로 실시간 유효성 피드백을 제공합니다.',
       },
     },
@@ -1033,8 +1033,8 @@ export const M3_비밀번호_재설정_단계폼: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Radix UI 벤치마크: 실시간 비밀번호 규칙 검증
-   Radix Form + PasswordField — 비밀번호 조건 실시간 체크 패턴
+   PrimitiveUI 벤치마크: 실시간 비밀번호 규칙 검증
+   Primitive Form + PasswordField — 비밀번호 조건 실시간 체크 패턴
 -------------------------------------------------------------------------- */
 const RADIX_PW_RULES = [
   { id: 'length', label: '최소 8자 이상', test: (v: string) => v.length >= 8 },
@@ -1043,7 +1043,7 @@ const RADIX_PW_RULES = [
   { id: 'special', label: '특수문자 포함 (!@#$...)', test: (v: string) => /[^A-Za-z0-9]/.test(v) },
 ]
 
-const RadixPwValidationRender = () => {
+const PrimitivePwValidationRender = () => {
   const [pw, setPw] = useState('')
   const [confirm, setConfirm] = useState('')
 
@@ -1057,7 +1057,7 @@ const RadixPwValidationRender = () => {
     <div style={{ width: 360, fontFamily: 'system-ui, sans-serif', display: 'flex', flexDirection: 'column', gap: 20, padding: 28, borderRadius: 16, border: '1px solid #e2e8f0' }}>
       <div>
         <div style={{ fontSize: 16, fontWeight: 800, color: '#0f172a', marginBottom: 4 }}>새 비밀번호 설정</div>
-        <div style={{ fontSize: 12, color: '#94a3b8' }}>Radix UI Form validation 패턴</div>
+        <div style={{ fontSize: 12, color: '#94a3b8' }}>PrimitiveUI Form validation 패턴</div>
       </div>
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
@@ -1133,26 +1133,26 @@ const RadixPwValidationRender = () => {
   )
 }
 
-export const Radix_비밀번호_실시간_검증: Story = {
-  name: 'Radix UI - 실시간 비밀번호 조건 검증',
+export const Primitive_비밀번호_실시간_검증: Story = {
+  name: 'PrimitiveUI - 실시간 비밀번호 조건 검증',
   parameters: {
     layout: 'centered',
     docs: {
       description: {
         story:
-          'Radix UI Form 패턴. 비밀번호 입력 시 4가지 규칙(길이/대문자/숫자/특수문자)을 실시간으로 체크합니다. ' +
+          'PrimitiveUI Form 패턴. 비밀번호 입력 시 4가지 규칙(길이/대문자/숫자/특수문자)을 실시간으로 체크합니다. ' +
           '강도 바 + 조건 리스트 + 확인 입력 일치 여부를 복합 표시합니다.',
       },
     },
   },
-  render: () => <RadixPwValidationRender />,
+  render: () => <PrimitivePwValidationRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Linear 벤치마크: 보안 설정 패널 비밀번호 변경
-   Linear Settings → Security 패턴 — 현재/새 비밀번호 + 2FA 설정 섹션
+   IssueTracker 벤치마크: 보안 설정 패널 비밀번호 변경
+   IssueTracker Settings → Security 패턴 — 현재/새 비밀번호 + 2FA 설정 섹션
 -------------------------------------------------------------------------- */
-const LinearSecurityPanelRender = () => {
+const IssueTrackerSecurityPanelRender = () => {
   const [current, setCurrent] = useState('')
   const [next, setNext] = useState('')
   const [saved, setSaved] = useState(false)
@@ -1240,26 +1240,26 @@ const LinearSecurityPanelRender = () => {
   )
 }
 
-export const Linear_보안_설정_패널: Story = {
-  name: 'Linear - 보안 설정 패널',
+export const IssueTracker_보안_설정_패널: Story = {
+  name: 'IssueTracker - 보안 설정 패널',
   parameters: {
     layout: 'centered',
     docs: {
       description: {
         story:
-          'Linear Settings Security 패턴. 현재/새 비밀번호 변경 폼 + 2FA 상태 표시. ' +
+          'IssueTracker Settings Security 패턴. 현재/새 비밀번호 변경 폼 + 2FA 상태 표시. ' +
           '비밀번호 최소 길이 실시간 검증, 조건 충족 시 저장 버튼 활성화.',
       },
     },
   },
-  render: () => <LinearSecurityPanelRender />,
+  render: () => <IssueTrackerSecurityPanelRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Radix UI 벤치마크: 계정 삭제 확인 비밀번호 입력
-   Radix AlertDialog + PasswordField — 위험 작업 전 비밀번호 재확인 패턴
+   PrimitiveUI 벤치마크: 계정 삭제 확인 비밀번호 입력
+   Primitive AlertDialog + PasswordField — 위험 작업 전 비밀번호 재확인 패턴
 -------------------------------------------------------------------------- */
-const RadixDangerConfirmRender = () => {
+const PrimitiveDangerConfirmRender = () => {
   const [pw, setPw] = useState('')
   const [confirmed, setConfirmed] = useState(false)
   const [open, setOpen] = useState(false)
@@ -1342,28 +1342,28 @@ const RadixDangerConfirmRender = () => {
   )
 }
 
-export const Radix_위험_작업_비밀번호_확인: Story = {
-  name: 'Radix UI - 위험 작업 비밀번호 재확인',
+export const Primitive_위험_작업_비밀번호_확인: Story = {
+  name: 'PrimitiveUI - 위험 작업 비밀번호 재확인',
   parameters: {
     layout: 'centered',
     docs: {
       description: {
         story:
-          'Radix AlertDialog 패턴. 계정 삭제 등 위험한 작업 전 비밀번호 재확인 UI. ' +
+          'Primitive AlertDialog 패턴. 계정 삭제 등 위험한 작업 전 비밀번호 재확인 UI. ' +
           '잘못된 입력 시 error 상태, 정확한 입력 시 삭제 버튼 활성화. ' +
           '데모용 비밀번호: delete123',
       },
     },
   },
-  render: () => <RadixDangerConfirmRender />,
+  render: () => <PrimitiveDangerConfirmRender />,
 }
 
 // ============================================================
-// Cycle 132 — Linear Design + Vercel Design 벤치마크 반영
+// Cycle 132 — IssueTracker Design + DeployPlatform Design 벤치마크 반영
 // ============================================================
 
-// Linear 스타일 — 팀 멤버 초대 + 비밀번호 설정 온보딩
-function LinearTeamOnboardingRender() {
+// IssueTracker 스타일 — 팀 멤버 초대 + 비밀번호 설정 온보딩
+function IssueTrackerTeamOnboardingRender() {
   const [step, setStep] = useState<'invite' | 'password' | 'done'>('invite')
   const [email, setEmail] = useState('')
   const [pw, setPw] = useState('')
@@ -1450,25 +1450,25 @@ function LinearTeamOnboardingRender() {
   )
 }
 
-export const Linear_팀_온보딩_비밀번호_설정: Story = {
-  name: 'Linear - 팀 온보딩 비밀번호 설정',
+export const IssueTracker_팀_온보딩_비밀번호_설정: Story = {
+  name: 'IssueTracker - 팀 온보딩 비밀번호 설정',
   parameters: {
     layout: 'centered',
     docs: {
       description: {
         story:
-          'Linear 온보딩 UI 패턴. 이메일 확인 → 비밀번호 설정 → 완료 3단계. ' +
+          'IssueTracker 온보딩 UI 패턴. 이메일 확인 → 비밀번호 설정 → 완료 3단계. ' +
           '비밀번호 강도 게이지(4단계 색상)와 일치 검증, 진행 바 포함.',
       },
     },
   },
-  render: () => <LinearTeamOnboardingRender />,
+  render: () => <IssueTrackerTeamOnboardingRender />,
 }
 
-// Vercel 스타일 — API 토큰 생성 보안 폼
+// DeployPlatform 스타일 — API 토큰 생성 보안 폼
 type TokenScope132 = 'read' | 'write' | 'admin'
 
-function VercelTokenCreateRender() {
+function DeployPlatformTokenCreateRender() {
   const [name, setName] = useState('')
   const [scope, setScope] = useState<TokenScope132>('read')
   const [pw, setPw] = useState('')
@@ -1547,22 +1547,22 @@ function VercelTokenCreateRender() {
   )
 }
 
-export const Vercel_API_토큰_생성_보안_폼: Story = {
-  name: 'Vercel Design - API 토큰 생성 보안 폼',
+export const DeployPlatform_API_토큰_생성_보안_폼: Story = {
+  name: 'DeployPlatform Design - API 토큰 생성 보안 폼',
   parameters: {
     layout: 'centered',
     docs: {
       description: {
         story:
-          'Vercel 토큰 생성 UI 패턴. 이름 + 권한 범위 선택(라디오) + 비밀번호 재확인. ' +
+          'DeployPlatform 토큰 생성 UI 패턴. 이름 + 권한 범위 선택(라디오) + 비밀번호 재확인. ' +
           '생성 후 일회성 토큰 표시 + 복사 경고 메시지.',
       },
     },
   },
-  render: () => <VercelTokenCreateRender />,
+  render: () => <DeployPlatformTokenCreateRender />,
 }
 
-// Linear + Vercel — 보안 설정 비밀번호 변경 + 세션 관리
+// IssueTracker + DeployPlatform — 보안 설정 비밀번호 변경 + 세션 관리
 type Session132 = { device: string; location: string; time: string; current: boolean }
 
 const SESSIONS_132: Session132[] = [
@@ -1571,7 +1571,7 @@ const SESSIONS_132: Session132[] = [
   { device: 'Windows PC (Edge)', location: '부산, KR', time: '1일 전', current: false },
 ]
 
-function LinearVercelSecurityPanelRender() {
+function IssueTrackerDeployPlatformSecurityPanelRender() {
   const [current, setCurrent] = useState('')
   const [next, setNext] = useState('')
   const [sessions, setSessions] = useState<Session132[]>(SESSIONS_132)
@@ -1619,26 +1619,26 @@ function LinearVercelSecurityPanelRender() {
   )
 }
 
-export const Linear_Vercel_보안_설정_패널: Story = {
-  name: 'Linear + Vercel - 보안 설정 비밀번호 + 세션 관리',
+export const IssueTracker_DeployPlatform_보안_설정_패널: Story = {
+  name: 'IssueTracker + DeployPlatform - 보안 설정 비밀번호 + 세션 관리',
   parameters: {
     layout: 'centered',
     docs: {
       description: {
         story:
-          'Linear 컴팩트 + Vercel 모노크롬 결합. 비밀번호 변경(현재/새 비밀번호 + 저장 피드백) + ' +
+          'IssueTracker 컴팩트 + DeployPlatform 모노크롬 결합. 비밀번호 변경(현재/새 비밀번호 + 저장 피드백) + ' +
           '활성 세션 목록(디바이스/위치/시간 + 세션 종료 버튼).',
       },
     },
   },
-  render: () => <LinearVercelSecurityPanelRender />,
+  render: () => <IssueTrackerDeployPlatformSecurityPanelRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Cycle 160 — MUI + Mantine
-   MUI: 비밀번호 복잡도 정책 설정 패턴 (Password Policy Configuration)
+   Cycle 160 — EnterpriseUI + AppUI
+   EnterpriseUI: 비밀번호 복잡도 정책 설정 패턴 (Password Policy Configuration)
 -------------------------------------------------------------------------- */
-const MUI_POLICY_RULES = [
+const EnterpriseUI_POLICY_RULES = [
   { id: 'length', label: '최소 8자 이상', test: (v: string) => v.length >= 8 },
   { id: 'upper', label: '대문자 포함 (A-Z)', test: (v: string) => /[A-Z]/.test(v) },
   { id: 'lower', label: '소문자 포함 (a-z)', test: (v: string) => /[a-z]/.test(v) },
@@ -1646,11 +1646,11 @@ const MUI_POLICY_RULES = [
   { id: 'special', label: '특수문자 포함 (!@#$)', test: (v: string) => /[!@#$%^&*]/.test(v) },
 ]
 
-function MuiPasswordPolicyRender() {
+function EnterpriseUIPasswordPolicyRender() {
   const [password, setPassword] = useState('')
   const [confirm, setConfirm] = useState('')
 
-  const passed = MUI_POLICY_RULES.filter(r => r.test(password)).length
+  const passed = EnterpriseUI_POLICY_RULES.filter(r => r.test(password)).length
   const strength = passed === 0 ? 0 : passed <= 2 ? 25 : passed <= 3 ? 50 : passed <= 4 ? 75 : 100
   const strengthLabel = ['', '매우 약함', '약함', '보통', '강함', '매우 강함'][passed]
   const strengthColor = ['', '#ef4444', '#f59e0b', '#eab308', '#22c55e', '#10b981'][passed]
@@ -1659,7 +1659,7 @@ function MuiPasswordPolicyRender() {
   return (
     <div style={{ width: 340, fontFamily: 'system-ui, sans-serif' }}>
       <p style={{ fontSize: 14, fontWeight: 700, color: '#1e293b', marginBottom: 4 }}>보안 수준 설정</p>
-      <p style={{ fontSize: 11, color: '#94a3b8', marginBottom: 16 }}>MUI Password 복잡도 정책 패턴</p>
+      <p style={{ fontSize: 11, color: '#94a3b8', marginBottom: 16 }}>EnterpriseUI Password 복잡도 정책 패턴</p>
       <div style={{ marginBottom: 12 }}>
         <label style={{ fontSize: 11, fontWeight: 600, color: '#475569', display: 'block', marginBottom: 6 }}>새 비밀번호</label>
         <PasswordField
@@ -1681,7 +1681,7 @@ function MuiPasswordPolicyRender() {
         )}
       </div>
       <div style={{ marginBottom: 14, padding: '10px 12px', borderRadius: 8, background: '#f8fafc', border: '1px solid #e2e8f0' }}>
-        {MUI_POLICY_RULES.map(rule => {
+        {EnterpriseUI_POLICY_RULES.map(rule => {
           const ok = rule.test(password)
           return (
             <div key={rule.id} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '3px 0' }}>
@@ -1715,22 +1715,22 @@ function MuiPasswordPolicyRender() {
   )
 }
 
-export const MUI_비밀번호_복잡도_정책: Story = {
-  name: 'MUI — 비밀번호 복잡도 정책 설정 패턴',
+export const EnterpriseUI_비밀번호_복잡도_정책: Story = {
+  name: 'EnterpriseUI — 비밀번호 복잡도 정책 설정 패턴',
   parameters: {
     docs: {
       description: {
-        story: 'MUI의 Password Complexity Policy 패턴. 실시간 규칙 검증(5단계)과 강도 게이지, 일치 확인을 조합한 보안 비밀번호 설정 UX입니다.',
+        story: 'EnterpriseUI의 Password Complexity Policy 패턴. 실시간 규칙 검증(5단계)과 강도 게이지, 일치 확인을 조합한 보안 비밀번호 설정 UX입니다.',
       },
     },
   },
-  render: () => <MuiPasswordPolicyRender />,
+  render: () => <EnterpriseUIPasswordPolicyRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Mantine: 2단계 인증 코드 + 백업 코드 입력 패턴
+   AppUI: 2단계 인증 코드 + 백업 코드 입력 패턴
 -------------------------------------------------------------------------- */
-function Mantine2FASetupRender() {
+function AppUI2FASetupRender() {
   const [step, setStep] = useState<'password' | 'backup' | 'done'>('password')
   const [password, setPassword] = useState('')
   const [backup, setBackup] = useState('')
@@ -1798,20 +1798,20 @@ function Mantine2FASetupRender() {
   )
 }
 
-export const Mantine_2FA_설정_플로우: Story = {
-  name: 'Mantine — 2단계 인증 설정 단계별 플로우 패턴',
+export const AppUI_2FA_설정_플로우: Story = {
+  name: 'AppUI — 2단계 인증 설정 단계별 플로우 패턴',
   parameters: {
     docs: {
       description: {
-        story: 'Mantine의 Multi-step Form 패턴. 현재 비밀번호 확인 → 백업 코드 인증 → 완료 3단계로 2FA 설정 플로우를 구현합니다.',
+        story: 'AppUI의 Multi-step Form 패턴. 현재 비밀번호 확인 → 백업 코드 인증 → 완료 3단계로 2FA 설정 플로우를 구현합니다.',
       },
     },
   },
-  render: () => <Mantine2FASetupRender />,
+  render: () => <AppUI2FASetupRender />,
 }
 
 /* --------------------------------------------------------------------------
-   MUI + Mantine: 사용자 계정 보안 종합 설정 패턴
+   EnterpriseUI + AppUI: 사용자 계정 보안 종합 설정 패턴
 -------------------------------------------------------------------------- */
 const SECURITY_SECTIONS = [
   { id: 'password', label: '비밀번호 변경', icon: '🔑', desc: '마지막 변경: 30일 전' },
@@ -1819,7 +1819,7 @@ const SECURITY_SECTIONS = [
   { id: 'session', label: '세션 종료', icon: '🚪', desc: '활성 세션: 2개' },
 ]
 
-function MuiMantiineSecurityPanelRender() {
+function EnterpriseUIAccessibleKitSecurityPanelRender() {
   const [activeSection, setActiveSection] = useState<string | null>(null)
   const [newPwd, setNewPwd] = useState('')
   const [confirmPwd, setConfirmPwd] = useState('')
@@ -1838,7 +1838,7 @@ function MuiMantiineSecurityPanelRender() {
     <div style={{ width: 360, fontFamily: 'system-ui, sans-serif', border: '1px solid #e2e8f0', borderRadius: 12, overflow: 'hidden' }}>
       <div style={{ padding: '14px 16px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0' }}>
         <p style={{ fontSize: 13, fontWeight: 700, color: '#1e293b', margin: 0 }}>보안 설정</p>
-        <p style={{ fontSize: 11, color: '#94a3b8', margin: '2px 0 0' }}>MUI + Mantine 계정 보안 종합 패널</p>
+        <p style={{ fontSize: 11, color: '#94a3b8', margin: '2px 0 0' }}>EnterpriseUI + AppUI 계정 보안 종합 패널</p>
       </div>
       <div style={{ background: '#fff' }}>
         {SECURITY_SECTIONS.map(section => (
@@ -1887,20 +1887,20 @@ function MuiMantiineSecurityPanelRender() {
   )
 }
 
-export const MUI_Mantine_계정_보안_종합_설정: Story = {
-  name: 'MUI + Mantine — 계정 보안 종합 설정 패널 패턴',
+export const EnterpriseUI_AppUI_계정_보안_종합_설정: Story = {
+  name: 'EnterpriseUI + AppUI — 계정 보안 종합 설정 패널 패턴',
   parameters: {
     docs: {
       description: {
-        story: 'MUI + Mantine 복합 패턴. 아코디언 형식의 보안 설정 패널에서 비밀번호 변경/API 토큰 재발급/세션 종료를 PasswordField와 함께 구현합니다.',
+        story: 'EnterpriseUI + AppUI 복합 패턴. 아코디언 형식의 보안 설정 패널에서 비밀번호 변경/API 토큰 재발급/세션 종료를 PasswordField와 함께 구현합니다.',
       },
     },
   },
-  render: () => <MuiMantiineSecurityPanelRender />,
+  render: () => <EnterpriseUIAccessibleKitSecurityPanelRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Figma Plugin UI — 플러그인 API 토큰 인증 폼
+   DesignTool Plugin UI — 플러그인 API 토큰 인증 폼
 -------------------------------------------------------------------------- */
 const TOKEN_RULES = [
   { label: '8자 이상', check: (v: string) => v.length >= 8 },
@@ -1909,7 +1909,7 @@ const TOKEN_RULES = [
   { label: '특수문자 포함', check: (v: string) => /[!@#$%^&*]/.test(v) },
 ]
 
-function FigmaPluginTokenAuthRender() {
+function DesignToolPluginTokenAuthRender() {
   const [token, setToken] = useState('')
   const [saved, setSaved] = useState(false)
 
@@ -1957,24 +1957,24 @@ function FigmaPluginTokenAuthRender() {
   )
 }
 
-export const Figma_플러그인_API_토큰_인증_폼: Story = {
-  name: 'Figma Plugin UI — API 토큰 인증 폼',
-  render: () => <FigmaPluginTokenAuthRender />,
+export const DesignTool_플러그인_API_토큰_인증_폼: Story = {
+  name: 'DesignTool Plugin UI — API 토큰 인증 폼',
+  render: () => <DesignToolPluginTokenAuthRender />,
   parameters: {
     docs: {
       description: {
         story:
-          'Figma Plugin UI 패턴. 컴팩트한 다크 플러그인 패널에서 API 토큰 강도를 실시간 검증합니다. ' +
-          'Figma의 도구 팔레트 스타일과 인라인 피드백 UX를 반영합니다.',
+          'DesignTool Plugin UI 패턴. 컴팩트한 다크 플러그인 패널에서 API 토큰 강도를 실시간 검증합니다. ' +
+          'DesignTool의 도구 팔레트 스타일과 인라인 피드백 UX를 반영합니다.',
       },
     },
   },
 }
 
 /* --------------------------------------------------------------------------
-   Arco Design — 계정 보안 비밀번호 이중 확인
+   DataProductUI — 계정 보안 비밀번호 이중 확인
 -------------------------------------------------------------------------- */
-function ArcoSecurityDoubleConfirmRender() {
+function DataProductSecurityDoubleConfirmRender() {
   const [current, setCurrent] = useState('')
   const [next, setNext] = useState('')
   const [confirm, setConfirm] = useState('')
@@ -1986,7 +1986,7 @@ function ArcoSecurityDoubleConfirmRender() {
   return (
     <div style={{ width: 320, fontFamily: 'system-ui, sans-serif', background: '#fff', borderRadius: 8, border: '1px solid #e5e7eb', padding: '20px 20px 16px' }}>
       <div style={{ fontSize: 14, fontWeight: 700, color: '#1f2937', marginBottom: 4 }}>비밀번호 변경</div>
-      <div style={{ fontSize: 12, color: '#6b7280', marginBottom: 16 }}>Arco Design 보안 정책에 따라 90일마다 변경을 권장합니다.</div>
+      <div style={{ fontSize: 12, color: '#6b7280', marginBottom: 16 }}>DataProductUI 보안 정책에 따라 90일마다 변경을 권장합니다.</div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
         <div>
           <div style={{ fontSize: 11, color: '#374151', fontWeight: 500, marginBottom: 4 }}>현재 비밀번호</div>
@@ -2018,26 +2018,26 @@ function ArcoSecurityDoubleConfirmRender() {
   )
 }
 
-export const Arco_계정_보안_비밀번호_이중_확인: Story = {
-  name: 'Arco Design — 계정 보안 비밀번호 이중 확인 폼',
-  render: () => <ArcoSecurityDoubleConfirmRender />,
+export const DataProduct_계정_보안_비밀번호_이중_확인: Story = {
+  name: 'DataProductUI — 계정 보안 비밀번호 이중 확인 폼',
+  render: () => <DataProductSecurityDoubleConfirmRender />,
   parameters: {
     docs: {
       description: {
         story:
-          'Arco Design 계정 보안 패턴. 현재→새→확인 3단계 비밀번호 변경 폼으로 불일치 시 실시간 에러를 표시합니다. ' +
-          'Arco의 청색 계열 액션 버튼과 엄격한 보안 검증 UX를 반영합니다.',
+          'DataProductUI 계정 보안 패턴. 현재→새→확인 3단계 비밀번호 변경 폼으로 불일치 시 실시간 에러를 표시합니다. ' +
+          'DataProduct의 청색 계열 액션 버튼과 엄격한 보안 검증 UX를 반영합니다.',
       },
     },
   },
 }
 
 /* --------------------------------------------------------------------------
-   Figma + Arco — 워크스페이스 접근 인증 게이트
+   DesignTool + DataProduct — 워크스페이스 접근 인증 게이트
 -------------------------------------------------------------------------- */
 const WORKSPACE_STEPS = ['접근 코드', '비밀번호'] as const
 
-function FigmaArcoWorkspaceGateRender() {
+function DesignToolDataProductWorkspaceGateRender() {
   const [step, setStep] = useState<0 | 1>(0)
   const [accessCode, setAccessCode] = useState('')
   const [password, setPassword] = useState('')
@@ -2100,15 +2100,15 @@ function FigmaArcoWorkspaceGateRender() {
   )
 }
 
-export const Figma_Arco_워크스페이스_접근_인증_게이트: Story = {
-  name: 'Figma Plugin UI + Arco Design — 워크스페이스 접근 인증 게이트',
-  render: () => <FigmaArcoWorkspaceGateRender />,
+export const DesignTool_DataProduct_워크스페이스_접근_인증_게이트: Story = {
+  name: 'DesignTool Plugin UI + DataProductUI — 워크스페이스 접근 인증 게이트',
+  render: () => <DesignToolDataProductWorkspaceGateRender />,
   parameters: {
     docs: {
       description: {
         story:
-          'Figma Plugin UI + Arco Design 복합 패턴. 2단계 접근 인증 게이트(접근 코드 → 비밀번호)를 컴팩트한 다크 패널로 구현합니다. ' +
-          'Figma의 도구 패널 레이아웃과 Arco의 단계적 검증 패턴을 결합합니다. (접근 코드: ORBIT)',
+          'DesignTool Plugin UI + DataProductUI 복합 패턴. 2단계 접근 인증 게이트(접근 코드 → 비밀번호)를 컴팩트한 다크 패널로 구현합니다. ' +
+          'DesignTool의 도구 패널 레이아웃과 DataProduct의 단계적 검증 패턴을 결합합니다. (접근 코드: ORBIT)',
       },
     },
   },

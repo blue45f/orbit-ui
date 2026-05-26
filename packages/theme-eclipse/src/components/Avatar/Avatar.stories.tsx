@@ -231,10 +231,10 @@ export const 온라인_상태_표시: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Notion 스타일: 멘션(Mention) UI 패턴
-   @사용자 멘션 드롭다운 리스트. Notion의 slash command 스타일로 아바타 + 이름 + 역할 표시.
+   WorkspaceEditor 스타일: 멘션(Mention) UI 패턴
+   @사용자 멘션 드롭다운 리스트. WorkspaceEditor의 slash command 스타일로 아바타 + 이름 + 역할 표시.
 -------------------------------------------------------------------------- */
-const NotionMentionRender = () => {
+const WorkspaceEditorMentionRender = () => {
   const [query, setQuery] = React.useState('@')
   const [selected, setSelected] = React.useState<string | null>(null)
 
@@ -386,22 +386,22 @@ const NotionMentionRender = () => {
   )
 }
 
-export const Notion_멘션_UI: Story = {
+export const WorkspaceEditor_멘션_UI: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Notion 스타일 @멘션 드롭다운. 아바타 + 이름 + 역할 조합으로 팀원을 선택하는 패턴입니다.',
+        story: 'WorkspaceEditor 스타일 @멘션 드롭다운. 아바타 + 이름 + 역할 조합으로 팀원을 선택하는 패턴입니다.',
       },
     },
   },
-  render: () => <NotionMentionRender />,
+  render: () => <WorkspaceEditorMentionRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Figma Plugin UI: 레이어 목록 패턴
-   Figma의 레이어 패널처럼 중첩 인덴트 + 타입 아이콘 + 아바타로 편집자 표시
+   DesignTool Plugin UI: 레이어 목록 패턴
+   DesignTool의 레이어 패널처럼 중첩 인덴트 + 타입 아이콘 + 아바타로 편집자 표시
 -------------------------------------------------------------------------- */
-const FigmaLayerListRender = () => {
+const DesignToolLayerListRender = () => {
   const [activeLayer, setActiveLayer] = React.useState<string | null>('layer-btn-1')
 
   type Layer = {
@@ -538,22 +538,22 @@ const FigmaLayerListRender = () => {
   )
 }
 
-export const Figma_레이어_목록: Story = {
+export const DesignTool_레이어_목록: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Figma Plugin UI 레이어 패널 패턴. 중첩 인덴트 + 타입 아이콘 + 편집자 아바타 조합.',
+        story: 'DesignTool Plugin UI 레이어 패널 패턴. 중첩 인덴트 + 타입 아이콘 + 편집자 아바타 조합.',
       },
     },
   },
-  render: () => <FigmaLayerListRender />,
+  render: () => <DesignToolLayerListRender />,
 }
 
 export const 프로필_카드_패턴: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'shadcn/ui 스타일의 프로필 카드 조합 패턴입니다. Avatar와 텍스트, 버튼을 결합한 실무 사용 예시입니다.',
+        story: 'ComposableUI 스타일의 프로필 카드 조합 패턴입니다. Avatar와 텍스트, 버튼을 결합한 실무 사용 예시입니다.',
       },
     },
   },
@@ -623,8 +623,8 @@ export const 프로필_카드_패턴: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   shadcn/ui 벤치마크: 팀 멤버 목록 패턴
-   shadcn/ui Avatar Group + AvatarStack — 멤버 오버레이 그룹 UI
+   ComposableUI 벤치마크: 팀 멤버 목록 패턴
+   ComposableUI Avatar Group + AvatarStack — 멤버 오버레이 그룹 UI
 -------------------------------------------------------------------------- */
 const TEAM_MEMBERS = [
   { name: 'Alice Kim', color: '#6366f1' },
@@ -634,8 +634,8 @@ const TEAM_MEMBERS = [
   { name: 'Emma Yoon', color: '#8b5cf6' },
 ]
 
-export const shadcn_팀_멤버_그룹 = {
-  name: 'shadcn/ui - 팀 멤버 오버레이 그룹',
+export const ComposableUI_팀_멤버_그룹 = {
+  name: 'ComposableUI - 팀 멤버 오버레이 그룹',
   render: () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 20, maxWidth: 340 }}>
       <div style={{ fontSize: 13, fontWeight: 700, color: '#1e293b' }}>프로젝트 팀</div>
@@ -702,8 +702,8 @@ export const shadcn_팀_멤버_그룹 = {
 }
 
 /* --------------------------------------------------------------------------
-   Linear 벤치마크: 이슈 담당자 할당 패턴
-   Linear assign member — 아바타 + 이름 + 역할 레이블 조합 UI
+   IssueTracker 벤치마크: 이슈 담당자 할당 패턴
+   IssueTracker assign member — 아바타 + 이름 + 역할 레이블 조합 UI
 -------------------------------------------------------------------------- */
 const ASSIGNEES = [
   { name: 'Heejun Kim', role: 'Frontend', color: '#6366f1', issues: 5, status: '진행 중' },
@@ -711,8 +711,8 @@ const ASSIGNEES = [
   { name: 'Jinho Park', role: 'Backend', color: '#10b981', issues: 8, status: '진행 중' },
 ]
 
-export const Linear_담당자_할당_패널 = {
-  name: 'Linear - 이슈 담당자 할당 패널',
+export const IssueTracker_담당자_할당_패널 = {
+  name: 'IssueTracker - 이슈 담당자 할당 패널',
   render: function Render() {
     const [selected, setSelected] = React.useState<string | null>(null)
     return (
@@ -769,12 +769,12 @@ export const Linear_담당자_할당_패널 = {
 }
 
 /* --------------------------------------------------------------------------
-   Mantine 벤치마크: 사용자 프로필 카드 패턴
-   Mantine Avatar + Text + Badge — 소셜 프로필 카드 UI
+   AppUI 벤치마크: 사용자 프로필 카드 패턴
+   AppUI Avatar + Text + Badge — 소셜 프로필 카드 UI
 -------------------------------------------------------------------------- */
 /* --------------------------------------------------------------------------
-   Chakra UI 벤치마크: 색상 스키마 아바타 그리드
-   Chakra UI의 colorScheme prop 시스템 — semantic colors × size 매트릭스
+   AccessibleUI 벤치마크: 색상 스키마 아바타 그리드
+   AccessibleUI의 colorScheme prop 시스템 — semantic colors × size 매트릭스
    각 배경 색상이 의미론적 역할을 가지는 아바타 그리드 패턴
 -------------------------------------------------------------------------- */
 const CHAKRA_COLORS = [
@@ -792,13 +792,13 @@ const CHAKRA_SIZES = [
   { label: 'lg', size: 56, fontSize: 20 },
 ]
 
-export const Chakra_색상_스키마_아바타: Story = {
-  name: 'Chakra UI - colorScheme × size 매트릭스',
+export const Accessible_색상_스키마_아바타: Story = {
+  name: 'AccessibleUI - colorScheme × size 매트릭스',
   parameters: {
     docs: {
       description: {
         story:
-          'Chakra UI colorScheme × size prop 매트릭스 패턴. ' +
+          'AccessibleUI colorScheme × size prop 매트릭스 패턴. ' +
           '시맨틱 색상 역할(primary/success/warning/error/secondary/neutral)과 크기(sm/md/lg)의 9가지 조합을 시각화합니다.',
       },
     },
@@ -837,14 +837,14 @@ export const Chakra_색상_스키마_아바타: Story = {
         </div>
       ))}
       <div style={{ fontSize: 11, color: '#94a3b8' }}>
-        Chakra UI colorScheme prop 패턴 — semantic color × size 매트릭스
+        AccessibleUI colorScheme prop 패턴 — semantic color × size 매트릭스
       </div>
     </div>
   ),
 }
 
 /* --------------------------------------------------------------------------
-   Material 3 벤치마크: 상태 레이어 + 프레즌스 인디케이터
+   RoleToken Design 벤치마크: 상태 레이어 + 프레즌스 인디케이터
    M3의 state layer 시스템(idle/hover/active) + 프레즌스 상태 표시 패턴
    아바타 호버 시 8% → 16% 오버레이로 상태를 표현하는 M3 패턴
 -------------------------------------------------------------------------- */
@@ -866,12 +866,12 @@ const M3_TEAM: { initials: string; name: string; role: string; bg: string; statu
 ]
 
 export const M3_상태_레이어_프레즌스: Story = {
-  name: 'Material 3 - 상태 레이어 + 프레즌스 인디케이터',
+  name: 'RoleToken Design - 상태 레이어 + 프레즌스 인디케이터',
   parameters: {
     docs: {
       description: {
         story:
-          'Material 3 state layer 시스템. 아바타 hover 시 8% 오버레이, active 시 16% 오버레이로 상태를 시각화합니다. ' +
+          'RoleToken Design state layer 시스템. 아바타 hover 시 8% 오버레이, active 시 16% 오버레이로 상태를 시각화합니다. ' +
           '프레즌스 인디케이터(online/away/busy/offline)로 실시간 상태를 표시합니다.',
       },
     },
@@ -951,8 +951,8 @@ export const M3_상태_레이어_프레즌스: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Chakra + M3 조합: 팀 디렉토리 부서별 그룹
-   Chakra UI의 Stack composition + M3의 컨테이너 색상 역할을 결합한
+   Accessible + M3 조합: 팀 디렉토리 부서별 그룹
+   AccessibleUI의 Stack composition + M3의 컨테이너 색상 역할을 결합한
    부서별로 그룹화된 팀 디렉토리 패턴
 -------------------------------------------------------------------------- */
 type DeptMember = { initials: string; name: string; role: string; bg: string }
@@ -987,13 +987,13 @@ const DEPT_DATA: { dept: string; containerBg: string; borderColor: string; membe
   },
 ]
 
-export const Chakra_M3_팀_디렉토리: Story = {
-  name: 'Chakra + M3 - 팀 디렉토리 부서별 그룹',
+export const Accessible_M3_팀_디렉토리: Story = {
+  name: 'Accessible + M3 - 팀 디렉토리 부서별 그룹',
   parameters: {
     docs: {
       description: {
         story:
-          'Chakra UI Stack composition + M3 container color role 패턴. ' +
+          'AccessibleUI Stack composition + M3 container color role 패턴. ' +
           '각 부서가 M3의 컨테이너 색상(primaryContainer/secondaryContainer/tertiaryContainer)으로 시각적으로 구분됩니다.',
       },
     },
@@ -1039,14 +1039,14 @@ export const Chakra_M3_팀_디렉토리: Story = {
         </div>
       ))}
       <div style={{ fontSize: 11, color: '#94a3b8' }}>
-        Chakra Stack composition + M3 container color role 패턴
+        Accessible Stack composition + M3 container color role 패턴
       </div>
     </div>
   ),
 }
 
-export const Mantine_프로필_카드 = {
-  name: 'Mantine - 사용자 프로필 카드',
+export const AppUI_프로필_카드 = {
+  name: 'AppUI - 사용자 프로필 카드',
   render: () => (
     <div
       style={{
@@ -1071,7 +1071,7 @@ export const Mantine_프로필_카드 = {
         <div style={{ fontSize: 16, fontWeight: 700, color: '#0f172a' }}>Heejun Kim</div>
         <div style={{ fontSize: 12, color: '#64748b', marginTop: 2 }}>@heejun · Frontend Engineer</div>
         <div style={{ fontSize: 13, color: '#475569', marginTop: 10, lineHeight: 1.6 }}>
-          Orbit UI 디자인 시스템을 만들고 있습니다. React, TypeScript, Tailwind 애호가.
+          Orbit UI 디자인 시스템을 만들고 있습니다. React, TypeScript, UtilityCSS 애호가.
         </div>
         <div style={{ display: 'flex', gap: 20, marginTop: 14 }}>
           {[{ label: '팔로워', value: '1.2K' }, { label: '팔로잉', value: '384' }, { label: '프로젝트', value: '27' }].map((stat) => (
@@ -1087,16 +1087,16 @@ export const Mantine_프로필_카드 = {
 }
 
 /* --------------------------------------------------------------------------
-   MUI — 배지 아바타 그룹 (Cycle 117)
-   MUI AvatarGroup + Badge 패턴 — 온라인 상태 인디케이터
+   EnterpriseUI — 배지 아바타 그룹 (Cycle 117)
+   EnterpriseUI AvatarGroup + Badge 패턴 — 온라인 상태 인디케이터
 -------------------------------------------------------------------------- */
-export const MUI_배지_아바타_그룹: Story = {
-  name: 'MUI — 배지 아바타 그룹 (Cycle 117)',
+export const EnterpriseUI_배지_아바타_그룹: Story = {
+  name: 'EnterpriseUI — 배지 아바타 그룹 (Cycle 117)',
   parameters: {
     docs: {
       description: {
         story:
-          'MUI AvatarGroup + Badge 패턴. 온라인/오프라인/자리비움 상태 인디케이터, 오버랩 그룹, +N 더보기 표시.',
+          'EnterpriseUI AvatarGroup + Badge 패턴. 온라인/오프라인/자리비움 상태 인디케이터, 오버랩 그룹, +N 더보기 표시.',
       },
     },
   },
@@ -1159,16 +1159,16 @@ export const MUI_배지_아바타_그룹: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Chakra UI — 사이즈 변형 아바타 쇼케이스 (Cycle 117)
-   Chakra Avatar의 size variant 시스템 — xs/sm/md/lg/xl
+   AccessibleUI — 사이즈 변형 아바타 쇼케이스 (Cycle 117)
+   Accessible Avatar의 size variant 시스템 — xs/sm/md/lg/xl
 -------------------------------------------------------------------------- */
-export const Chakra_사이즈_변형_아바타: Story = {
-  name: 'Chakra UI — 사이즈 변형 아바타 (Cycle 117)',
+export const Accessible_사이즈_변형_아바타: Story = {
+  name: 'AccessibleUI — 사이즈 변형 아바타 (Cycle 117)',
   parameters: {
     docs: {
       description: {
         story:
-          'Chakra UI Avatar의 size variant 패턴. xs(24px)~xl(72px) 크기 계층, 각 사이즈에 적절한 폰트 크기 비율 적용.',
+          'AccessibleUI Avatar의 size variant 패턴. xs(24px)~xl(72px) 크기 계층, 각 사이즈에 적절한 폰트 크기 비율 적용.',
       },
     },
   },
@@ -1215,16 +1215,16 @@ export const Chakra_사이즈_변형_아바타: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   MUI + Chakra — 댓글 스레드 아바타 패턴 (Cycle 117)
+   EnterpriseUI + Accessible — 댓글 스레드 아바타 패턴 (Cycle 117)
    아바타를 활용한 소셜 댓글 UI 구성
 -------------------------------------------------------------------------- */
-export const MUI_Chakra_댓글_스레드: Story = {
-  name: 'MUI + Chakra — 댓글 스레드 (Cycle 117)',
+export const EnterpriseUI_Accessible_댓글_스레드: Story = {
+  name: 'EnterpriseUI + Accessible — 댓글 스레드 (Cycle 117)',
   parameters: {
     docs: {
       description: {
         story:
-          'MUI + Chakra의 comment thread 패턴. Avatar + timestamp + 좋아요 카운트 조합. 중첩 댓글 구조, 입력 영역 포함.',
+          'EnterpriseUI + Accessible의 comment thread 패턴. Avatar + timestamp + 좋아요 카운트 조합. 중첩 댓글 구조, 입력 영역 포함.',
       },
     },
   },
@@ -1240,7 +1240,7 @@ export const MUI_Chakra_댓글_스레드: Story = {
       },
       {
         initials: 'LS', color: '#10b981', name: 'Lee Soyeon', time: '45분 전',
-        text: 'HoverCard 컴포넌트 패턴이 Radix UI와 유사한데 Orbit UI만의 토큰 시스템이 더해져서 훨씬 편리합니다.',
+        text: 'HoverCard 컴포넌트 패턴이 PrimitiveUI와 유사한데 Orbit UI만의 토큰 시스템이 더해져서 훨씬 편리합니다.',
         likes: 8,
         replies: [],
       },
@@ -1294,13 +1294,13 @@ export const MUI_Chakra_댓글_스레드: Story = {
   },
 }
 
-// Cycle 143 - shadcn/ui + Tailwind UI benchmark
-export const Shadcn_아바타_그룹_스택: Story = {
-  name: 'shadcn/ui — 아바타 그룹 스택 (Cycle 143)',
+// Cycle 143 - ComposableUI + UtilityUI benchmark
+export const ComposableUI_아바타_그룹_스택: Story = {
+  name: 'ComposableUI — 아바타 그룹 스택 (Cycle 143)',
   parameters: {
     docs: {
       description: {
-        story: 'shadcn/ui AvatarGroup 패턴. 겹치는 스택 레이아웃, +N 오버플로우 표시. 팀 구성원, PR 리뷰어, 협업자 목록 표시에 활용.',
+        story: 'ComposableUI AvatarGroup 패턴. 겹치는 스택 레이아웃, +N 오버플로우 표시. 팀 구성원, PR 리뷰어, 협업자 목록 표시에 활용.',
       },
     },
   },
@@ -1344,12 +1344,12 @@ export const Shadcn_아바타_그룹_스택: Story = {
   },
 }
 
-export const Tailwind_사용자_프로필_카드: Story = {
-  name: 'Tailwind UI — 사용자 프로필 카드 (Cycle 143)',
+export const UtilityCSS_사용자_프로필_카드: Story = {
+  name: 'UtilityUI — 사용자 프로필 카드 (Cycle 143)',
   parameters: {
     docs: {
       description: {
-        story: 'Tailwind UI User Card 패턴. Avatar + 이름/역할 + 소속 배지. 팔로우/메시지 액션. 팀 디렉토리, 저자 소개에 활용.',
+        story: 'UtilityUI User Card 패턴. Avatar + 이름/역할 + 소속 배지. 팔로우/메시지 액션. 팀 디렉토리, 저자 소개에 활용.',
       },
     },
   },
@@ -1387,12 +1387,12 @@ export const Tailwind_사용자_프로필_카드: Story = {
   },
 }
 
-export const Shadcn_Tailwind_리뷰어_선택기: Story = {
-  name: 'shadcn/ui + Tailwind UI — PR 리뷰어 선택기 (Cycle 143)',
+export const ComposableUI_UtilityCSS_리뷰어_선택기: Story = {
+  name: 'ComposableUI + UtilityUI — PR 리뷰어 선택기 (Cycle 143)',
   parameters: {
     docs: {
       description: {
-        story: 'shadcn/ui + Tailwind UI PR 리뷰어 선택 패턴. 팀원 목록에서 리뷰어 추가/제거, 선택된 아바타 그룹 표시.',
+        story: 'ComposableUI + UtilityUI PR 리뷰어 선택 패턴. 팀원 목록에서 리뷰어 추가/제거, 선택된 아바타 그룹 표시.',
       },
     },
   },
@@ -1454,7 +1454,7 @@ function ReviewerPickerRender143() {
 }
 
 // ──────────────────────────────────────────────────────────────────────────────
-// Cycle 171: Ant Design + Mantine
+// Cycle 171: Ant Design + AppUI
 // ──────────────────────────────────────────────────────────────────────────────
 
 export const AntDesign_멤버_목록_아바타: Story = {
@@ -1509,18 +1509,18 @@ export const AntDesign_멤버_목록_아바타: Story = {
   },
 }
 
-export const Mantine_아바타_그룹_툴팁: Story = {
-  name: 'Mantine — 아바타 그룹 툴팁 패턴 (Cycle 171)',
+export const AppUI_아바타_그룹_툴팁: Story = {
+  name: 'AppUI — 아바타 그룹 툴팁 패턴 (Cycle 171)',
   parameters: {
     docs: {
       description: {
         story:
-          'Mantine AvatarGroup 패턴. 오버랩 스택 아바타 그룹 + 나머지 인원 카운터. ' +
+          'AppUI AvatarGroup 패턴. 오버랩 스택 아바타 그룹 + 나머지 인원 카운터. ' +
           '호버 시 전체 멤버 팝오버 표시 시뮬레이션.',
       },
     },
   },
-  render: function MantineAvatarGroupRender() {
+  render: function AppUIAvatarGroupRender() {
     const [hovered, setHovered] = React.useState(false)
 
     const members = [
@@ -1581,18 +1581,18 @@ export const Mantine_아바타_그룹_툴팁: Story = {
   },
 }
 
-export const Ant_Mantine_멘션_선택기: Story = {
-  name: 'Ant Design + Mantine — 멘션 선택기 아바타 (Cycle 171)',
+export const Ant_AppUI_멘션_선택기: Story = {
+  name: 'Ant Design + AppUI — 멘션 선택기 아바타 (Cycle 171)',
   parameters: {
     docs: {
       description: {
         story:
-          'Ant Design Mentions + Mantine Combobox 패턴. 검색 필터 + 아바타 아이템 선택기. ' +
+          'Ant Design Mentions + AppUI Combobox 패턴. 검색 필터 + 아바타 아이템 선택기. ' +
           '선택된 멤버 태그 표시.',
       },
     },
   },
-  render: function AntMantineMentionRender() {
+  render: function AntAppUIMentionRender() {
     const allUsers = [
       { initials: 'KM', color: '#3b82f6', name: '김민준', role: 'Frontend' },
       { initials: 'LJ', color: '#8b5cf6', name: '이지수', role: 'Design' },

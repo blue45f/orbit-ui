@@ -99,7 +99,7 @@ export const 초기_내용: Story = {
     <div style={{ maxWidth: 640 }}>
       <Editor
         content={`<h2>프로젝트 소개</h2>
-<p>Orbit UI는 Figma 기반의 React 디자인 시스템입니다.</p>
+<p>Orbit UI는 DesignTool 기반의 React 디자인 시스템입니다.</p>
 <ul>
   <li><strong>3단계 토큰 시스템</strong> — Reference → Semantic → Component</li>
   <li><em>헤드리스 아키텍처</em> — 베이스 + 테마 레이어 분리</li>
@@ -242,11 +242,11 @@ export const 블로그_에디터: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Radix UI 벤치마크: onOpenChange 패턴 — 실시간 프리뷰 + 제어 에디터
-   Radix의 제어 컴포넌트 패턴(value + onValueChange)을 에디터에 적용.
+   PrimitiveUI 벤치마크: onOpenChange 패턴 — 실시간 프리뷰 + 제어 에디터
+   Primitive의 제어 컴포넌트 패턴(value + onValueChange)을 에디터에 적용.
    에디터 내용이 변경될 때마다 프리뷰가 실시간으로 동기화됩니다.
 -------------------------------------------------------------------------- */
-const RadixControlledPreviewDemo = () => {
+const PrimitiveControlledPreviewDemo = () => {
   const [content, setContent] = useState('<p>내용을 작성하면 오른쪽 프리뷰에 실시간으로 반영됩니다.</p>')
   const [wordCount, setWordCount] = useState(0)
 
@@ -259,7 +259,7 @@ const RadixControlledPreviewDemo = () => {
   return (
     <div style={{ maxWidth: 700, display: 'flex', flexDirection: 'column', gap: 12 }}>
       <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>
-        Radix 제어 컴포넌트 패턴: value + onValueChange
+        Primitive 제어 컴포넌트 패턴: value + onValueChange
       </div>
       <div style={{ fontSize: 11, fontFamily: 'monospace', padding: '6px 10px', borderRadius: 4, background: 'var(--sem-eclipse-color-backgroundSecondary)', color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>
         {`<Editor content={content} onChange={handleChange} /> // 제어(Controlled)`}
@@ -297,34 +297,34 @@ const RadixControlledPreviewDemo = () => {
   )
 }
 
-export const Radix_제어_에디터_실시간_프리뷰: Story = {
-  name: 'Radix UI — 제어 에디터 + 실시간 프리뷰 (value + onValueChange)',
+export const Primitive_제어_에디터_실시간_프리뷰: Story = {
+  name: 'PrimitiveUI — 제어 에디터 + 실시간 프리뷰 (value + onValueChange)',
   parameters: {
     docs: {
       description: {
         story:
-          'Radix의 제어 컴포넌트 패턴(content + onChange)을 에디터에 적용. ' +
+          'Primitive의 제어 컴포넌트 패턴(content + onChange)을 에디터에 적용. ' +
           '에디터 내용(HTML)이 상태로 관리되고, onChange 콜백으로 프리뷰가 실시간 동기화됩니다. ' +
           '단어 수 카운팅도 동일 콜백에서 처리합니다.',
       },
     },
   },
-  render: () => <RadixControlledPreviewDemo />,
+  render: () => <PrimitiveControlledPreviewDemo />,
 }
 
 /* --------------------------------------------------------------------------
-   Radix UI 벤치마크: 조합 컴포넌트 파트 분리 패턴
-   Radix의 Root/Trigger/Content 파트 분리처럼,
+   PrimitiveUI 벤치마크: 조합 컴포넌트 파트 분리 패턴
+   Primitive의 Root/Trigger/Content 파트 분리처럼,
    Editor.Toolbar, Editor.CharacterCount가 독립적으로 조합됩니다.
 -------------------------------------------------------------------------- */
-const RadixCompoundEditorDemo = () => {
+const PrimitiveCompoundEditorDemo = () => {
   const [mode, setMode] = useState<'write' | 'preview'>('write')
   const [content, setContent] = useState('')
 
   return (
     <div style={{ maxWidth: 580, display: 'flex', flexDirection: 'column', gap: 12 }}>
       <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>
-        Radix 조합 파트 분리: Editor.Toolbar + Editor.CharacterCount
+        Primitive 조합 파트 분리: Editor.Toolbar + Editor.CharacterCount
       </div>
       <div style={{ fontSize: 11, fontFamily: 'monospace', padding: '6px 10px', borderRadius: 4, background: 'var(--sem-eclipse-color-backgroundSecondary)', color: 'var(--sem-eclipse-color-foregroundTertiary)', lineHeight: 1.7 }}>
         {`<Editor>`}<br />
@@ -374,24 +374,24 @@ const RadixCompoundEditorDemo = () => {
   )
 }
 
-export const Radix_조합_파트_에디터: Story = {
-  name: 'Radix UI — 조합 파트 에디터 (Root/Toolbar/CharacterCount 분리)',
+export const Primitive_조합_파트_에디터: Story = {
+  name: 'PrimitiveUI — 조합 파트 에디터 (Root/Toolbar/CharacterCount 분리)',
   parameters: {
     docs: {
       description: {
         story:
-          'Radix UI의 Root/Trigger/Content 파트 분리 패턴을 에디터에 적용. ' +
+          'PrimitiveUI의 Root/Trigger/Content 파트 분리 패턴을 에디터에 적용. ' +
           'Editor.Toolbar와 Editor.CharacterCount가 독립 파트로 조합됩니다. ' +
-          'Write/Preview 탭 전환은 Radix Tabs 패턴을 시뮬레이션합니다.',
+          'Write/Preview 탭 전환은 Primitive Tabs 패턴을 시뮬레이션합니다.',
       },
     },
   },
-  render: () => <RadixCompoundEditorDemo />,
+  render: () => <PrimitiveCompoundEditorDemo />,
 }
 
 /* --------------------------------------------------------------------------
-   Radix UI 벤치마크: onOpenAutoFocus + focus 관리 패턴
-   Radix Dialog에서 마운트 시 자동 포커스 설정처럼,
+   PrimitiveUI 벤치마크: onOpenAutoFocus + focus 관리 패턴
+   Primitive Dialog에서 마운트 시 자동 포커스 설정처럼,
    에디터 활성화 시점에 포커스 + 콘텍스트 정보를 제공합니다.
 -------------------------------------------------------------------------- */
 const RAW_TEMPLATES = [
@@ -400,7 +400,7 @@ const RAW_TEMPLATES = [
   { key: 'meeting', label: '회의록', content: '<h2>회의록</h2><p>일시: <br/>참석자: </p><h3>안건</h3><ul><li></li></ul><h3>결정사항</h3><ul><li></li></ul>' },
 ]
 
-const RadixFocusManagementDemo = () => {
+const PrimitiveFocusManagementDemo = () => {
   const [activeTemplate, setActiveTemplate] = useState<string | null>(null)
   const [content, setContent] = useState('')
 
@@ -416,10 +416,10 @@ const RadixFocusManagementDemo = () => {
     <div style={{ maxWidth: 560, display: 'flex', flexDirection: 'column', gap: 14 }}>
       <div>
         <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 4 }}>
-          Radix 포커스 관리: 템플릿 선택 후 자동 에디터 활성화
+          Primitive 포커스 관리: 템플릿 선택 후 자동 에디터 활성화
         </div>
         <div style={{ fontSize: 11, fontFamily: 'monospace', padding: '6px 10px', borderRadius: 4, background: 'var(--sem-eclipse-color-backgroundSecondary)', color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>
-          {`// Radix onOpenAutoFocus → 마운트 시 포커스 자동 이동`}
+          {`// Primitive onOpenAutoFocus → 마운트 시 포커스 자동 이동`}
         </div>
       </div>
 
@@ -464,19 +464,19 @@ const RadixFocusManagementDemo = () => {
   )
 }
 
-export const Radix_포커스_관리_템플릿_에디터: Story = {
-  name: 'Radix UI — 포커스 관리 패턴 (onOpenAutoFocus, 템플릿 선택 에디터)',
+export const Primitive_포커스_관리_템플릿_에디터: Story = {
+  name: 'PrimitiveUI — 포커스 관리 패턴 (onOpenAutoFocus, 템플릿 선택 에디터)',
   parameters: {
     docs: {
       description: {
         story:
-          'Radix Dialog의 onOpenAutoFocus 패턴에 대응. 템플릿 버튼 클릭 시 에디터가 마운트되고 ' +
+          'Primitive Dialog의 onOpenAutoFocus 패턴에 대응. 템플릿 버튼 클릭 시 에디터가 마운트되고 ' +
           '(key prop으로 remount), 내용이 초기화됩니다. ' +
           '포커스 자동 이동과 초기 콘텐츠 주입을 동시에 처리하는 패턴입니다.',
       },
     },
   },
-  render: () => <RadixFocusManagementDemo />,
+  render: () => <PrimitiveFocusManagementDemo />,
 }
 
 /* ── Ant Design: 단계별 폼 에디터 ── */
@@ -652,8 +652,8 @@ export const Ant_폼_유효성_검사_에디터: Story = {
   render: () => <AntValidationEditorDemo />,
 }
 
-/* ── Mantine: 협업 메모 에디터 ── */
-const MantineColabEditorDemo = () => {
+/* ── AppUI: 협업 메모 에디터 ── */
+const AppUIColabEditorDemo = () => {
   const [content, setContent] = useState('')
   const [collaborators] = useState([
     { name: 'HJ', color: '#6366f1' },
@@ -689,30 +689,30 @@ const MantineColabEditorDemo = () => {
         </div>
       </div>
       <Editor
-        placeholder="팀 메모를 작성하세요... (Mantine 협업 에디터 패턴)"
+        placeholder="팀 메모를 작성하세요... (AppUI 협업 에디터 패턴)"
         toolbar={<Editor.Toolbar />}
         footer={<Editor.CharacterCount />}
         onChange={setContent}
       />
-      <p style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundDisabled)', marginTop: 8 }}>Mantine RTE 협업 메모 패턴 — 협업자 아바타 + 자동 저장</p>
+      <p style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundDisabled)', marginTop: 8 }}>AppUI RTE 협업 메모 패턴 — 협업자 아바타 + 자동 저장</p>
     </div>
   )
 }
 
-export const Mantine_협업_메모_에디터: Story = {
-  name: 'Mantine — 협업 메모 에디터 (실시간 저장)',
+export const AppUI_협업_메모_에디터: Story = {
+  name: 'AppUI — 협업 메모 에디터 (실시간 저장)',
   parameters: {
     docs: {
       description: {
-        story: 'Mantine Rich Text Editor 패턴. 협업자 아바타 중첩 표시, 실시간 글자 수 카운트, 저장 버튼 비활성화(내용 없을 때), 저장 애니메이션 패턴.',
+        story: 'AppUI Rich Text Editor 패턴. 협업자 아바타 중첩 표시, 실시간 글자 수 카운트, 저장 버튼 비활성화(내용 없을 때), 저장 애니메이션 패턴.',
       },
     },
   },
-  render: () => <MantineColabEditorDemo />,
+  render: () => <AppUIColabEditorDemo />,
 }
 
-/* ── Notion Design: 블록 에디터 스타일 ── */
-const NotionBlockEditorDemo = () => {
+/* ── WorkspaceEditor Design: 블록 에디터 스타일 ── */
+const WorkspaceEditorBlockEditorDemo = () => {
   const [blocks, setBlocks] = useState([
     { id: 'h1', type: 'h1' as const, content: '' },
     { id: 'body', type: 'body' as const, content: '' },
@@ -723,7 +723,7 @@ const NotionBlockEditorDemo = () => {
 
   return (
     <div style={{ maxWidth: 640 }}>
-      {/* Notion 스타일 헤더 */}
+      {/* WorkspaceEditor 스타일 헤더 */}
       <div style={{ padding: '12px 0 8px', display: 'flex', alignItems: 'center', gap: 8, borderBottom: '1px solid var(--sem-eclipse-color-borderSubtle)', marginBottom: 12 }}>
         <span style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>/ 명령어로 블록 추가</span>
         <span style={{ marginLeft: 'auto', fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>마지막 편집: 방금 전</span>
@@ -757,25 +757,25 @@ const NotionBlockEditorDemo = () => {
       <button onClick={addBlock} style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '6px 10px', borderRadius: 6, border: '1px dashed var(--sem-eclipse-color-borderSubtle)', background: 'transparent', color: 'var(--sem-eclipse-color-foregroundTertiary)', fontSize: 12, cursor: 'pointer', marginTop: 8 }}>
         + 새 블록 추가
       </button>
-      <p style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundDisabled)', marginTop: 12 }}>Notion 블록 에디터 패턴 — 포커스 인디케이터 + 블록 추가</p>
+      <p style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundDisabled)', marginTop: 12 }}>WorkspaceEditor 블록 에디터 패턴 — 포커스 인디케이터 + 블록 추가</p>
     </div>
   )
 }
 
-export const Notion_블록_에디터_스타일: Story = {
-  name: 'Notion Design — 블록 에디터 스타일',
+export const WorkspaceEditor_블록_에디터_스타일: Story = {
+  name: 'WorkspaceEditor Design — 블록 에디터 스타일',
   parameters: {
     docs: {
       description: {
-        story: 'Notion 페이지 편집기 패턴. 제목 블록(대형 폰트) + 본문 블록 분리, 포커스 블록 좌측 인디케이터, 새 블록 추가 버튼, / 명령어 힌트.',
+        story: 'WorkspaceEditor 페이지 편집기 패턴. 제목 블록(대형 폰트) + 본문 블록 분리, 포커스 블록 좌측 인디케이터, 새 블록 추가 버튼, / 명령어 힌트.',
       },
     },
   },
-  render: () => <NotionBlockEditorDemo />,
+  render: () => <WorkspaceEditorBlockEditorDemo />,
 }
 
-/* ── Mantine + Notion: 이슈 설명 에디터 ── */
-const MantineNotionIssueEditorDemo = () => {
+/* ── AppUI + WorkspaceEditor: 이슈 설명 에디터 ── */
+const AppUIWorkspaceEditorIssueEditorDemo = () => {
   const [content, setContent] = useState('')
   const [pinned, setPinned] = useState(false)
   const [priority, setPriority] = useState<'low' | 'medium' | 'high'>('medium')
@@ -820,28 +820,28 @@ const MantineNotionIssueEditorDemo = () => {
           이슈 생성
         </button>
       </div>
-      <p style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundDisabled)' }}>Mantine + Notion 이슈 설명 에디터 — 우선순위 + 최소 길이 검증</p>
+      <p style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundDisabled)' }}>AppUI + WorkspaceEditor 이슈 설명 에디터 — 우선순위 + 최소 길이 검증</p>
     </div>
   )
 }
 
-export const Mantine_Notion_이슈_설명_에디터: Story = {
-  name: 'Mantine + Notion — 이슈 설명 에디터 (우선순위 + 검증)',
+export const AppUI_WorkspaceEditor_이슈_설명_에디터: Story = {
+  name: 'AppUI + WorkspaceEditor — 이슈 설명 에디터 (우선순위 + 검증)',
   parameters: {
     docs: {
       description: {
-        story: 'Mantine RTE + Notion 이슈 UI 패턴 조합. 우선순위 컬러 셀렉터, 고정 토글, 최소 20자 입력 시 border 녹색 전환 및 이슈 생성 버튼 활성화. 이슈 생성 폼 패턴.',
+        story: 'AppUI RTE + WorkspaceEditor 이슈 UI 패턴 조합. 우선순위 컬러 셀렉터, 고정 토글, 최소 20자 입력 시 border 녹색 전환 및 이슈 생성 버튼 활성화. 이슈 생성 폼 패턴.',
       },
     },
   },
-  render: () => <MantineNotionIssueEditorDemo />,
+  render: () => <AppUIWorkspaceEditorIssueEditorDemo />,
 }
 
 /* --------------------------------------------------------------------------
-   shadcn/ui — 초안 자동저장 에디터
-   shadcn의 "unsaved changes" 패턴 — 타이핑 후 2초 뒤 저장 상태 표시
+   ComposableUI — 초안 자동저장 에디터
+   ComposableUI의 "unsaved changes" 패턴 — 타이핑 후 2초 뒤 저장 상태 표시
 -------------------------------------------------------------------------- */
-function ShadcnDraftAutoSaveRender() {
+function ComposableUIDraftAutoSaveRender() {
   const [saveStatus, setSaveStatus] = useState<'idle' | 'saving' | 'saved'>('idle')
   const [timer, setTimer] = useState<ReturnType<typeof setTimeout> | null>(null)
 
@@ -875,29 +875,29 @@ function ShadcnDraftAutoSaveRender() {
         onChange={handleChange}
       />
       <p style={{ marginTop: 8, fontSize: 11, color: 'var(--sem-eclipse-color-foregroundDisabled)' }}>
-        shadcn/ui 초안 저장 패턴 — 타이핑 감지 후 2초 디바운스
+        ComposableUI 초안 저장 패턴 — 타이핑 감지 후 2초 디바운스
       </p>
     </div>
   )
 }
 
-export const Shadcn_초안_자동저장_에디터: Story = {
-  name: 'shadcn/ui — 초안 자동저장 에디터 (2초 디바운스)',
+export const ComposableUI_초안_자동저장_에디터: Story = {
+  name: 'ComposableUI — 초안 자동저장 에디터 (2초 디바운스)',
   parameters: {
     docs: {
       description: {
-        story: 'shadcn/ui의 unsaved changes 패턴. 타이핑 시 "저장 중..." 표시, 2초 정지 후 "자동 저장됨" 전환. 상태 컬러 dot으로 직관적 피드백.',
+        story: 'ComposableUI의 unsaved changes 패턴. 타이핑 시 "저장 중..." 표시, 2초 정지 후 "자동 저장됨" 전환. 상태 컬러 dot으로 직관적 피드백.',
       },
     },
   },
-  render: () => <ShadcnDraftAutoSaveRender />,
+  render: () => <ComposableUIDraftAutoSaveRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Tailwind UI — 제품 설명 마케팅 에디터
-   Tailwind UI e-commerce 패턴 — SEO 미리보기 + 글자수 제한
+   UtilityUI — 제품 설명 마케팅 에디터
+   UtilityUI e-commerce 패턴 — SEO 미리보기 + 글자수 제한
 -------------------------------------------------------------------------- */
-function TailwindProductDescEditorRender() {
+function UtilityCSSProductDescEditorRender() {
   const [content, setContent] = useState('')
   const textLen = content.replace(/<[^>]+>/g, '').trim().length
   const MAX = 160
@@ -925,29 +925,29 @@ function TailwindProductDescEditorRender() {
       <div style={{ border: '1px solid var(--sem-eclipse-color-borderDefault)', borderRadius: 10, padding: '14px 16px', background: 'var(--sem-eclipse-color-backgroundSecondary)' }}>
         <span style={{ fontSize: 10, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundQuaternary)', letterSpacing: '0.08em', textTransform: 'uppercase' }}>검색 미리보기</span>
         <div style={{ marginTop: 6, fontSize: 16, color: '#1a0dab', fontWeight: 500, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{seoTitle}</div>
-        <div style={{ fontSize: 12, color: '#006621', marginBottom: 4 }}>orbit-ui.vercel.app › components</div>
+        <div style={{ fontSize: 12, color: '#006621', marginBottom: 4 }}>orbit-ui.deploy.example.com › components</div>
         <div style={{ fontSize: 13, color: '#545454', lineHeight: 1.5 }}>{seoPreview}</div>
       </div>
-      <p style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundDisabled)' }}>Tailwind UI e-commerce 패턴 — 실시간 SEO 미리보기 + 160자 제한</p>
+      <p style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundDisabled)' }}>UtilityUI e-commerce 패턴 — 실시간 SEO 미리보기 + 160자 제한</p>
     </div>
   )
 }
 
-export const Tailwind_제품_설명_SEO_에디터: Story = {
-  name: 'Tailwind UI — 제품 설명 SEO 에디터 (160자 제한)',
+export const UtilityCSS_제품_설명_SEO_에디터: Story = {
+  name: 'UtilityUI — 제품 설명 SEO 에디터 (160자 제한)',
   parameters: {
     docs: {
       description: {
-        story: 'Tailwind UI e-commerce 패턴. 160자 SEO 제한, 초과 시 error 테두리. 실시간 구글 검색 미리보기 렌더링. 마케팅 콘텐츠 작성 시나리오.',
+        story: 'UtilityUI e-commerce 패턴. 160자 SEO 제한, 초과 시 error 테두리. 실시간 구글 검색 미리보기 렌더링. 마케팅 콘텐츠 작성 시나리오.',
       },
     },
   },
-  render: () => <TailwindProductDescEditorRender />,
+  render: () => <UtilityCSSProductDescEditorRender />,
 }
 
 /* --------------------------------------------------------------------------
-   shadcn/ui + Tailwind UI — PR 변경사항 설명 에디터
-   Linear/GitHub PR description 패턴 — 템플릿 선택 + 미리보기 토글
+   ComposableUI + UtilityUI — PR 변경사항 설명 에디터
+   IssueTracker/CodeHost PR description 패턴 — 템플릿 선택 + 미리보기 토글
 -------------------------------------------------------------------------- */
 const PR_TEMPLATES: Record<string, string> = {
   feature: '<h2>기능 설명</h2><p>이 PR은 어떤 기능을 추가합니까?</p><h2>변경사항</h2><ul><li></li></ul><h2>테스트</h2><p>어떻게 테스트했습니까?</p>',
@@ -955,7 +955,7 @@ const PR_TEMPLATES: Record<string, string> = {
   refactor: '<h2>리팩토링 범위</h2><p>무엇을 개선합니까?</p><h2>이유</h2><p></p><h2>영향 범위</h2><p></p>',
 }
 
-function ShadcnTailwindPRDescRender() {
+function ComposableUIUtilityCSSPRDescRender() {
   const [template, setTemplate] = useState<keyof typeof PR_TEMPLATES>('feature')
   const [content, setContent] = useState(PR_TEMPLATES['feature'])
   const [preview, setPreview] = useState(false)
@@ -1001,41 +1001,41 @@ function ShadcnTailwindPRDescRender() {
         />
       )}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <span style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundDisabled)' }}>shadcn + Tailwind PR description 패턴</span>
+        <span style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundDisabled)' }}>ComposableUI + UtilityCSS PR description 패턴</span>
         <span style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>{textLen}자</span>
       </div>
     </div>
   )
 }
 
-export const Shadcn_Tailwind_PR_설명_에디터: Story = {
-  name: 'shadcn/ui + Tailwind UI — PR 설명 에디터 (템플릿 + 미리보기)',
+export const ComposableUI_UtilityCSS_PR_설명_에디터: Story = {
+  name: 'ComposableUI + UtilityUI — PR 설명 에디터 (템플릿 + 미리보기)',
   parameters: {
     docs: {
       description: {
-        story: 'Linear/GitHub PR description 패턴. 기능추가/버그수정/리팩토링 템플릿 즉시 적용, 편집↔미리보기 토글. 실무 PR 워크플로 시나리오.',
+        story: 'IssueTracker/CodeHost PR description 패턴. 기능추가/버그수정/리팩토링 템플릿 즉시 적용, 편집↔미리보기 토글. 실무 PR 워크플로 시나리오.',
       },
     },
   },
-  render: () => <ShadcnTailwindPRDescRender />,
+  render: () => <ComposableUIUtilityCSSPRDescRender />,
 }
 
 // ──────────────────────────────────────────────────────────────────────────────
-// Cycle 170: Radix UI + Linear Design
+// Cycle 170: PrimitiveUI + IssueTracker Design
 // ──────────────────────────────────────────────────────────────────────────────
 
-export const Radix_접근성_문서_에디터: Story = {
-  name: 'Radix UI — 접근성 문서 에디터 (Cycle 170)',
+export const Primitive_접근성_문서_에디터: Story = {
+  name: 'PrimitiveUI — 접근성 문서 에디터 (Cycle 170)',
   parameters: {
     docs: {
       description: {
         story:
-          'Radix UI 접근성 패턴 문서 작성 에디터. WAI-ARIA 가이드라인 초안 작성 용도. ' +
+          'PrimitiveUI 접근성 패턴 문서 작성 에디터. WAI-ARIA 가이드라인 초안 작성 용도. ' +
           '섹션 헤더 포함 콘텐츠 사전 로드 + 글자 수 제한.',
       },
     },
   },
-  render: function RadixA11yEditorRender() {
+  render: function PrimitiveA11yEditorRender() {
     return (
       <div style={{ maxWidth: 640, fontFamily: 'system-ui, sans-serif' }}>
         <div style={{ fontSize: 13, fontWeight: 700, color: '#374151', marginBottom: 8 }}>접근성 가이드 초안</div>
@@ -1047,25 +1047,25 @@ export const Radix_접근성_문서_에디터: Story = {
           placeholder="접근성 문서를 작성하세요..."
         />
         <div style={{ marginTop: 8, fontSize: 11, color: '#9ca3af' }}>
-          Radix UI 접근성 패턴 참조 — aria-label, role, aria-describedby 명시
+          PrimitiveUI 접근성 패턴 참조 — aria-label, role, aria-describedby 명시
         </div>
       </div>
     )
   },
 }
 
-export const Linear_이슈_설명_에디터: Story = {
-  name: 'Linear — 이슈 설명 에디터 (Cycle 170)',
+export const IssueTracker_이슈_설명_에디터: Story = {
+  name: 'IssueTracker — 이슈 설명 에디터 (Cycle 170)',
   parameters: {
     docs: {
       description: {
         story:
-          'Linear 이슈 상세 페이지 설명 에디터 패턴. 제목 + 설명 + 재현 단계 섹션으로 구성된 ' +
+          'IssueTracker 이슈 상세 페이지 설명 에디터 패턴. 제목 + 설명 + 재현 단계 섹션으로 구성된 ' +
           '버그 리포트 템플릿. 제출 시 내용 초기화.',
       },
     },
   },
-  render: function LinearIssueEditorRender() {
+  render: function IssueTrackerIssueEditorRender() {
     const [title, setTitle] = useState('')
     const [content, setContent] = useState('')
     const [submitted, setSubmitted] = useState(false)
@@ -1128,18 +1128,18 @@ export const Linear_이슈_설명_에디터: Story = {
   },
 }
 
-export const Radix_Linear_협업_노트_에디터: Story = {
-  name: 'Radix UI + Linear — 협업 노트 에디터 (Cycle 170)',
+export const Primitive_IssueTracker_협업_노트_에디터: Story = {
+  name: 'PrimitiveUI + IssueTracker — 협업 노트 에디터 (Cycle 170)',
   parameters: {
     docs: {
       description: {
         story:
-          'Radix UI + Linear 협업 패턴. 팀 공유 노트 에디터. 탭별(회의록/결정사항/액션아이템) ' +
+          'PrimitiveUI + IssueTracker 협업 패턴. 팀 공유 노트 에디터. 탭별(회의록/결정사항/액션아이템) ' +
           '에디터 전환 + 마지막 저장 시각 표시.',
       },
     },
   },
-  render: function RadixLinearCollabEditorRender() {
+  render: function PrimitiveIssueTrackerCollabEditorRender() {
     type Tab = 'meeting' | 'decisions' | 'actions'
 
     const [activeTab, setActiveTab] = useState<Tab>('meeting')

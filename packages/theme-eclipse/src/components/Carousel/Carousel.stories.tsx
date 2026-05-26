@@ -40,7 +40,7 @@ export const 기본: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Arco Design 스타일 카드 캐러셀
+   DataProductUI 스타일 카드 캐러셀
    컴팩트한 카드 슬라이더 + 인디케이터 도트 + 현재 슬라이드 표시
 -------------------------------------------------------------------------- */
 const cardItems = [
@@ -173,7 +173,7 @@ export const 카드캐러셀: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Arco Design 이미지 갤러리 캐러셀
+   DataProductUI 이미지 갤러리 캐러셀
    썸네일 네비게이션 + 슬라이드 카운터 + 풀너비 레이아웃
 -------------------------------------------------------------------------- */
 const gallerySlides = [
@@ -300,7 +300,7 @@ export const 이미지갤러리: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   자동재생 캐러셀 (Arco Design autoplay 패턴)
+   자동재생 캐러셀 (DataProductUI autoplay 패턴)
    setInterval 기반 자동 슬라이드 + 정지/재생 토글
 -------------------------------------------------------------------------- */
 const autoplayItems = [
@@ -432,8 +432,8 @@ export const 자동재생: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Arco Design 벤치마크: 제품 온보딩 캐러셀
-   Arco Design의 Carousel + steps 패턴 — 프로그레스바 + 단계 안내
+   DataProductUI 벤치마크: 제품 온보딩 캐러셀
+   DataProductUI의 Carousel + steps 패턴 — 프로그레스바 + 단계 안내
    온보딩/튜토리얼 흐름에서 각 단계 컨텐츠 + 완료 CTA
 -------------------------------------------------------------------------- */
 const onboardingSteps = [
@@ -608,12 +608,12 @@ const OnboardingCarouselRender = () => {
   )
 }
 
-export const Arco_온보딩_단계형: Story = {
+export const DataProduct_온보딩_단계형: Story = {
   parameters: {
     docs: {
       description: {
         story:
-          'Arco Design의 Carousel + steps 패턴. 프로그레스바로 진행 상태를 표시하고 마지막 단계에서 완료 CTA로 전환됩니다. ' +
+          'DataProductUI의 Carousel + steps 패턴. 프로그레스바로 진행 상태를 표시하고 마지막 단계에서 완료 CTA로 전환됩니다. ' +
           '온보딩/튜토리얼 흐름에 최적화된 단계형 캐러셀입니다.',
       },
     },
@@ -622,7 +622,7 @@ export const Arco_온보딩_단계형: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Google Material 3 벤치마크: 미디어 카드 캐러셀
+   RoleToken Design 벤치마크: 미디어 카드 캐러셀
    M3의 Card + Carousel 패턴 — 엘리베이션 그림자, filled 카드 스타일,
    aspect-ratio 기반 이미지 영역, 리플 효과 시뮬레이션
 -------------------------------------------------------------------------- */
@@ -755,7 +755,7 @@ export const Material3_미디어_카드: Story = {
     docs: {
       description: {
         story:
-          'Google Material 3의 Filled Card 패턴. 엘리베이션 그림자(0 1px 2px + 0 1px 3px 1px), 12px 모서리, ' +
+          'RoleToken Design의 Filled Card 패턴. 엘리베이션 그림자(0 1px 2px + 0 1px 3px 1px), 12px 모서리, ' +
           '상단 이미지 영역, 바디, 액션 영역의 3단 레이아웃을 M3 가이드라인에 따라 구현합니다.',
       },
     },
@@ -764,8 +764,8 @@ export const Material3_미디어_카드: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Arco Design 벤치마크: 후기/리뷰 캐러셀
-   Arco Design testimonial 패턴 — 아바타 + 별점 + 리뷰 텍스트
+   DataProductUI 벤치마크: 후기/리뷰 캐러셀
+   DataProductUI testimonial 패턴 — 아바타 + 별점 + 리뷰 텍스트
    실무 랜딩페이지에서 자주 쓰이는 소셜 프루프 UI
 -------------------------------------------------------------------------- */
 const testimonials = [
@@ -882,12 +882,12 @@ const TestimonialCarouselRender = () => {
   )
 }
 
-export const Arco_리뷰_캐러셀: Story = {
+export const DataProduct_리뷰_캐러셀: Story = {
   parameters: {
     docs: {
       description: {
         story:
-          'Arco Design의 testimonial 패턴. 별점 + 인용 텍스트 + 아바타 프로필로 소셜 프루프를 구성합니다. ' +
+          'DataProductUI의 testimonial 패턴. 별점 + 인용 텍스트 + 아바타 프로필로 소셜 프루프를 구성합니다. ' +
           '랜딩페이지나 마케팅 섹션에서 자주 사용되는 실무 패턴입니다.',
       },
     },
@@ -896,8 +896,8 @@ export const Arco_리뷰_캐러셀: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   shadcn/ui 벤치마크: 피처 하이라이트 캐러셀
-   shadcn/ui 랜딩페이지 feature showcase 패턴 — 아이콘 + 제목 + 설명
+   ComposableUI 벤치마크: 피처 하이라이트 캐러셀
+   ComposableUI 랜딩페이지 feature showcase 패턴 — 아이콘 + 제목 + 설명
 -------------------------------------------------------------------------- */
 const FEATURES = [
   {
@@ -909,7 +909,7 @@ const FEATURES = [
   },
   {
     icon: '◈',
-    title: 'Tailwind + CSS 변수 기반',
+    title: 'UtilityCSS + CSS 변수 기반',
     desc: '빌드 타임 CSS 생성으로 런타임 오버헤드 없이 완전한 타입 안전성을 제공합니다.',
     color: '#06b6d4',
     bg: '#ecfeff',
@@ -989,18 +989,18 @@ function FeatureCarouselRender() {
         ))}
       </div>
       <div style={{ fontSize: 11, color: '#94a3b8' }}>
-        shadcn/ui feature showcase 패턴 — {current + 1}/{FEATURES.length}
+        ComposableUI feature showcase 패턴 — {current + 1}/{FEATURES.length}
       </div>
     </div>
   )
 }
 
-export const shadcn_피처_하이라이트: Story = {
+export const ComposableUI_피처_하이라이트: Story = {
   parameters: {
     docs: {
       description: {
         story:
-          'shadcn/ui 랜딩페이지 feature showcase 패턴. 아이콘 + 제목 + 설명으로 제품의 핵심 가치를 순서대로 소개합니다. 도트 인디케이터는 현재 슬라이드 색상에 맞게 동적으로 변경됩니다.',
+          'ComposableUI 랜딩페이지 feature showcase 패턴. 아이콘 + 제목 + 설명으로 제품의 핵심 가치를 순서대로 소개합니다. 도트 인디케이터는 현재 슬라이드 색상에 맞게 동적으로 변경됩니다.',
       },
     },
   },
@@ -1008,8 +1008,8 @@ export const shadcn_피처_하이라이트: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Radix UI 벤치마크: 수직 스크롤 스텝 캐러셀
-   Radix ScrollArea + Carousel 조합 패턴 — 단계별 가이드 플로우
+   PrimitiveUI 벤치마크: 수직 스크롤 스텝 캐러셀
+   Primitive ScrollArea + Carousel 조합 패턴 — 단계별 가이드 플로우
 -------------------------------------------------------------------------- */
 const STEPS = [
   { step: 1, title: '패키지 설치', code: 'pnpm add @heejun-com/theme-eclipse', color: '#6366f1' },
@@ -1132,18 +1132,18 @@ function StepCarouselRender() {
         )}
       </div>
       <div style={{ fontSize: 11, color: '#94a3b8', textAlign: 'center' }}>
-        Radix ScrollArea + Carousel 조합 — 단계별 온보딩 가이드
+        Primitive ScrollArea + Carousel 조합 — 단계별 온보딩 가이드
       </div>
     </div>
   )
 }
 
-export const Radix_스텝_가이드_캐러셀: Story = {
+export const Primitive_스텝_가이드_캐러셀: Story = {
   parameters: {
     docs: {
       description: {
         story:
-          'Radix UI ScrollArea + Carousel 조합 패턴. 설치/설정을 단계별로 안내하는 온보딩 가이드입니다. 상단 진행 바가 완료된 단계를 시각적으로 추적합니다.',
+          'PrimitiveUI ScrollArea + Carousel 조합 패턴. 설치/설정을 단계별로 안내하는 온보딩 가이드입니다. 상단 진행 바가 완료된 단계를 시각적으로 추적합니다.',
       },
     },
   },
@@ -1151,8 +1151,8 @@ export const Radix_스텝_가이드_캐러셀: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   shadcn/ui + Radix 벤치마크: 제품 이미지 갤러리 (썸네일 네비게이션)
-   shadcn/ui Carousel + 썸네일 트랙 패턴 — 이커머스 제품 상세 이미지
+   ComposableUI + Primitive 벤치마크: 제품 이미지 갤러리 (썸네일 네비게이션)
+   ComposableUI Carousel + 썸네일 트랙 패턴 — 이커머스 제품 상세 이미지
 -------------------------------------------------------------------------- */
 const PRODUCT_SLIDES = [
   { id: 1, bg: 'linear-gradient(135deg, #6366f1, #8b5cf6)', label: 'Front View', caption: '전면' },
@@ -1227,18 +1227,18 @@ function ProductGalleryRender() {
         ))}
       </div>
       <div style={{ fontSize: 11, color: '#94a3b8', textAlign: 'center' }}>
-        shadcn/ui 제품 갤러리 패턴 — 썸네일 트랙으로 빠른 이미지 전환
+        ComposableUI 제품 갤러리 패턴 — 썸네일 트랙으로 빠른 이미지 전환
       </div>
     </div>
   )
 }
 
-export const shadcn_제품_갤러리: Story = {
+export const ComposableUI_제품_갤러리: Story = {
   parameters: {
     docs: {
       description: {
         story:
-          'shadcn/ui Carousel의 제품 이미지 갤러리 패턴. 메인 슬라이드 + 하단 썸네일 트랙으로 이커머스 제품 상세 이미지 탐색 UX를 구현합니다.',
+          'ComposableUI Carousel의 제품 이미지 갤러리 패턴. 메인 슬라이드 + 하단 썸네일 트랙으로 이커머스 제품 상세 이미지 탐색 UX를 구현합니다.',
       },
     },
   },
@@ -1246,7 +1246,7 @@ export const shadcn_제품_갤러리: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Tailwind UI — 서비스 소개 히어로 슬라이더
+   UtilityUI — 서비스 소개 히어로 슬라이더
    텍스트 오버레이 + 배경 그라디언트 슬라이드
 -------------------------------------------------------------------------- */
 const HERO_SLIDES = [
@@ -1292,17 +1292,17 @@ const HeroSliderRender = () => {
           ))}
         </div>
       </div>
-      <p style={{ fontSize: 11, color: '#94a3b8' }}>Tailwind UI Hero Slider — 자동 전환 + 도트 내비게이션</p>
+      <p style={{ fontSize: 11, color: '#94a3b8' }}>UtilityUI Hero Slider — 자동 전환 + 도트 내비게이션</p>
     </div>
   )
 }
 
-export const Tailwind_히어로_슬라이더: Story = {
+export const UtilityCSS_히어로_슬라이더: Story = {
   parameters: {
     docs: {
       description: {
         story:
-          'Tailwind UI 랜딩 페이지 히어로 섹션 패턴. 그라디언트 배경 + 텍스트 오버레이 슬라이드, 3.5초 자동 전환, 하단 도트 인디케이터로 서비스 핵심 가치를 순차 노출합니다.',
+          'UtilityUI 랜딩 페이지 히어로 섹션 패턴. 그라디언트 배경 + 텍스트 오버레이 슬라이드, 3.5초 자동 전환, 하단 도트 인디케이터로 서비스 핵심 가치를 순차 노출합니다.',
       },
     },
   },
@@ -1310,11 +1310,11 @@ export const Tailwind_히어로_슬라이더: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Tailwind UI — 팀원 소개 캐러셀
+   UtilityUI — 팀원 소개 캐러셀
    카드형 팀원 프로필 슬라이드
 -------------------------------------------------------------------------- */
 const TEAM_MEMBERS = [
-  { name: '김지훈', role: 'Design Lead', initials: 'KJ', bg: '#6366f1', tags: ['Figma', 'Research', 'System'] },
+  { name: '김지훈', role: 'Design Lead', initials: 'KJ', bg: '#6366f1', tags: ['DesignTool', 'Research', 'System'] },
   { name: '이수연', role: 'Frontend Engineer', initials: 'LS', bg: '#10b981', tags: ['React', 'TypeScript', 'CSS'] },
   { name: '박민준', role: 'Product Manager', initials: 'PM', bg: '#f59e0b', tags: ['Roadmap', 'OKR', 'UX'] },
   { name: '최아름', role: 'Backend Engineer', initials: 'CA', bg: '#ec4899', tags: ['Node.js', 'DB', 'API'] },
@@ -1351,17 +1351,17 @@ const TeamCarouselRender = () => {
           <button key={i} onClick={() => setIdx(i)} style={{ width: idx === i ? 16 : 6, height: 6, borderRadius: 3, background: idx === i ? '#6366f1' : '#e2e8f0', border: 'none', cursor: 'pointer', transition: 'all 0.3s', padding: 0 }} />
         ))}
       </div>
-      <p style={{ fontSize: 11, color: '#94a3b8' }}>Tailwind UI 팀 소개 패턴 — 아바타 + 역할 + 스킬 태그</p>
+      <p style={{ fontSize: 11, color: '#94a3b8' }}>UtilityUI 팀 소개 패턴 — 아바타 + 역할 + 스킬 태그</p>
     </div>
   )
 }
 
-export const Tailwind_팀원_소개_캐러셀: Story = {
+export const UtilityCSS_팀원_소개_캐러셀: Story = {
   parameters: {
     docs: {
       description: {
         story:
-          'Tailwind UI About 페이지의 팀원 소개 캐러셀 패턴. 아바타 이니셜, 직책, 스킬 태그를 카드로 구성하고 Previous/Next 버튼과 도트 인디케이터로 탐색합니다.',
+          'UtilityUI About 페이지의 팀원 소개 캐러셀 패턴. 아바타 이니셜, 직책, 스킬 태그를 카드로 구성하고 Previous/Next 버튼과 도트 인디케이터로 탐색합니다.',
       },
     },
   },
@@ -1426,17 +1426,17 @@ export const Ant_공지_배너_슬라이더: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   MUI — 온보딩 스텝 캐러셀
+   EnterpriseUI — 온보딩 스텝 캐러셀
    진행 단계 표시 + 완료 체크 패턴
 -------------------------------------------------------------------------- */
 const ONBOARDING_STEPS = [
   { step: 1, title: '프로젝트 생성', desc: 'Orbit UI 프로젝트를 초기화하고 기본 설정을 완료합니다.', action: '프로젝트 만들기', done: true },
   { step: 2, title: '팀원 초대', desc: '협업할 팀원의 이메일을 입력하여 프로젝트에 초대합니다.', action: '팀원 초대하기', done: true },
   { step: 3, title: '컴포넌트 탐색', desc: 'Storybook에서 사용 가능한 모든 컴포넌트를 확인합니다.', action: '스토리북 열기', done: false },
-  { step: 4, title: '첫 배포', desc: '완성된 UI를 Vercel에 배포하고 팀과 공유합니다.', action: '배포 시작', done: false },
+  { step: 4, title: '첫 배포', desc: '완성된 UI를 DeployPlatform에 배포하고 팀과 공유합니다.', action: '배포 시작', done: false },
 ]
 
-const MuiOnboardingStepRender = () => {
+const EnterpriseUIOnboardingStepRender = () => {
   const [cur, setCur] = React.useState(0)
   const _s = ONBOARDING_STEPS[cur]
   return (
@@ -1469,24 +1469,24 @@ const MuiOnboardingStepRender = () => {
         <Carousel.Previous onClick={() => setCur((c) => Math.max(0, c - 1))} />
         <Carousel.Next onClick={() => setCur((c) => Math.min(ONBOARDING_STEPS.length - 1, c + 1))} />
       </Carousel>
-      <p style={{ fontSize: 11, color: '#94a3b8' }}>MUI Stepper 패턴 — 진행 단계 표시 + 완료 체크</p>
+      <p style={{ fontSize: 11, color: '#94a3b8' }}>EnterpriseUI Stepper 패턴 — 진행 단계 표시 + 완료 체크</p>
     </div>
   )
 }
 
-export const MUI_온보딩_스텝_캐러셀: Story = {
+export const EnterpriseUI_온보딩_스텝_캐러셀: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'MUI Stepper에서 영감을 받은 온보딩 캐러셀. 단계별 완료 상태를 색상으로 구분하고, 상단 스텝 인디케이터를 클릭하여 원하는 단계로 이동합니다.',
+        story: 'EnterpriseUI Stepper에서 영감을 받은 온보딩 캐러셀. 단계별 완료 상태를 색상으로 구분하고, 상단 스텝 인디케이터를 클릭하여 원하는 단계로 이동합니다.',
       },
     },
   },
-  render: () => <MuiOnboardingStepRender />,
+  render: () => <EnterpriseUIOnboardingStepRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Chakra UI — 이미지 갤러리 줌 뷰어
+   AccessibleUI — 이미지 갤러리 줌 뷰어
    썸네일 스트립 + 선택 슬라이드 확대 패턴
 -------------------------------------------------------------------------- */
 const GALLERY_ITEMS = [
@@ -1497,7 +1497,7 @@ const GALLERY_ITEMS = [
   { id: 5, label: 'City', emoji: '🌆', bg: '#f3e8ff', accent: '#a855f7' },
 ]
 
-const ChakraGalleryViewerRender = () => {
+const AccessibleGalleryViewerRender = () => {
   const [selected, setSelected] = React.useState(0)
   const [zoom, setZoom] = React.useState(false)
   const item = GALLERY_ITEMS[selected]
@@ -1525,24 +1525,24 @@ const ChakraGalleryViewerRender = () => {
           ))}
         </Carousel.Content>
       </Carousel>
-      <p style={{ fontSize: 11, color: '#94a3b8' }}>Chakra UI 갤러리 패턴 — 썸네일 스트립 + 줌 토글</p>
+      <p style={{ fontSize: 11, color: '#94a3b8' }}>AccessibleUI 갤러리 패턴 — 썸네일 스트립 + 줌 토글</p>
     </div>
   )
 }
 
-export const Chakra_이미지_갤러리_줌_뷰어: Story = {
+export const Accessible_이미지_갤러리_줌_뷰어: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Chakra UI 이미지 갤러리 뷰어 패턴. 하단 썸네일 Carousel로 이미지를 선택하고, 메인 뷰를 클릭하여 줌인/아웃합니다. spring 애니메이션으로 자연스러운 확대 효과를 연출합니다.',
+        story: 'AccessibleUI 이미지 갤러리 뷰어 패턴. 하단 썸네일 Carousel로 이미지를 선택하고, 메인 뷰를 클릭하여 줌인/아웃합니다. spring 애니메이션으로 자연스러운 확대 효과를 연출합니다.',
       },
     },
   },
-  render: () => <ChakraGalleryViewerRender />,
+  render: () => <AccessibleGalleryViewerRender />,
 }
 
 /* --------------------------------------------------------------------------
-   MUI + Chakra UI — 요금제 비교 슬라이더
+   EnterpriseUI + AccessibleUI — 요금제 비교 슬라이더
    플랜 카드 스와이프 + 인기 뱃지 패턴
 -------------------------------------------------------------------------- */
 const PRICING_PLANS = [
@@ -1551,7 +1551,7 @@ const PRICING_PLANS = [
   { name: 'Enterprise', price: '문의', priceNum: -1, color: '#0f172a', badge: 'NEW', features: ['모든 Pro 기능', '팀원 무제한', '전담 지원', 'SLA 보장', '커스텀 통합'] },
 ]
 
-const MuiChakraPricingSliderRender = () => {
+const EnterpriseUIAccessiblePricingSliderRender = () => {
   const [cur, setCur] = React.useState(1)
   const plan = PRICING_PLANS[cur]
   return (
@@ -1593,38 +1593,38 @@ const MuiChakraPricingSliderRender = () => {
           <button key={p.name} onClick={() => setCur(i)} style={{ width: i === cur ? 20 : 6, height: 6, borderRadius: 3, border: 'none', cursor: 'pointer', background: i === cur ? plan.color : '#e2e8f0', transition: 'all 0.3s', padding: 0 }} />
         ))}
       </div>
-      <p style={{ fontSize: 11, color: '#94a3b8', textAlign: 'center' }}>MUI + Chakra UI 요금제 카드 패턴 — 인기 뱃지 + 클릭 선택</p>
+      <p style={{ fontSize: 11, color: '#94a3b8', textAlign: 'center' }}>EnterpriseUI + AccessibleUI 요금제 카드 패턴 — 인기 뱃지 + 클릭 선택</p>
     </div>
   )
 }
 
-export const MUI_Chakra_요금제_비교_슬라이더: Story = {
+export const EnterpriseUI_Accessible_요금제_비교_슬라이더: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'MUI Card + Chakra UI Carousel을 결합한 요금제 비교 슬라이더. 카드 클릭으로 선택하고 Previous/Next로 탐색합니다. 인기 뱃지와 선택 테두리 강조로 시각적 계층을 표현합니다.',
+        story: 'EnterpriseUI Card + AccessibleUI Carousel을 결합한 요금제 비교 슬라이더. 카드 클릭으로 선택하고 Previous/Next로 탐색합니다. 인기 뱃지와 선택 테두리 강조로 시각적 계층을 표현합니다.',
       },
     },
   },
-  render: () => <MuiChakraPricingSliderRender />,
+  render: () => <EnterpriseUIAccessiblePricingSliderRender />,
 }
 
 
 // ============================================================
-// Cycle 136 — Tailwind UI + Material UI 벤치마크 반영
+// Cycle 136 — UtilityUI + Enterprise UI 벤치마크 반영
 // ============================================================
 
-// Tailwind UI 스타일 — 기능 소개 슬라이드쇼
+// UtilityUI 스타일 — 기능 소개 슬라이드쇼
 const FEATURE_SLIDES_136 = [
   { id: 1, icon: '◈', title: '3-Tier Token System', desc: 'Reference → Semantic → Component 토큰 계층으로 일관된 스타일 관리', color: '#6366f1', bg: '#eef2ff' },
-  { id: 2, icon: '◉', title: 'Tailwind 토큰 테마', desc: '빌드 타임 CSS-in-JS로 런타임 오버헤드 없이 완전한 타입 안전성 확보', color: '#0ea5e9', bg: '#e0f2fe' },
+  { id: 2, icon: '◉', title: 'UtilityCSS 토큰 테마', desc: '빌드 타임 CSS-in-JS로 런타임 오버헤드 없이 완전한 타입 안전성 확보', color: '#0ea5e9', bg: '#e0f2fe' },
   { id: 3, icon: '◎', title: 'Compound Component', desc: 'Context 기반 서브 컴포넌트 패턴으로 유연한 조합 및 레이아웃 구성 지원', color: '#10b981', bg: '#ecfdf5' },
   { id: 4, icon: '◆', title: 'Storybook 8.6', desc: 'autodocs + 인터랙티브 Controls로 컴포넌트 문서 자동 생성', color: '#f59e0b', bg: '#fffbeb' },
 ]
 
 type CarouselApi136 = Parameters<NonNullable<React.ComponentProps<typeof Carousel>['setApi']>>[0]
 
-function TailwindFeatureSlideshowRender() {
+function UtilityCSSFeatureSlideshowRender() {
   const [cur, setCur] = useState(0)
   const [api, setApi] = useState<CarouselApi136>()
 
@@ -1685,28 +1685,28 @@ function TailwindFeatureSlideshowRender() {
   )
 }
 
-export const Tailwind_기능_소개_슬라이드쇼: Story = {
-  name: 'Tailwind UI — 기능 소개 슬라이드쇼 (Cycle 136)',
+export const UtilityCSS_기능_소개_슬라이드쇼: Story = {
+  name: 'UtilityUI — 기능 소개 슬라이드쇼 (Cycle 136)',
   parameters: {
     docs: {
       description: {
         story:
-          'Tailwind UI Feature Section 슬라이드 패턴. 3초 자동 전환 + 진행 인디케이터 점. ' +
+          'UtilityUI Feature Section 슬라이드 패턴. 3초 자동 전환 + 진행 인디케이터 점. ' +
           'Carousel setApi + api.on("select") 패턴으로 외부 상태 동기화. 아이콘 카드 + 제목/설명 구조.',
       },
     },
   },
-  render: () => <TailwindFeatureSlideshowRender />,
+  render: () => <UtilityCSSFeatureSlideshowRender />,
 }
 
-// MUI 스타일 — 미디어 플레이어 큐 캐러셀
+// EnterpriseUI 스타일 — 미디어 플레이어 큐 캐러셀
 const MEDIA_QUEUE_136 = [
   { id: 1, title: 'Orbit 디자인 시스템 소개', artist: '김희준', duration: '12:34', genre: 'Tech', color: '#6366f1' },
-  { id: 2, title: 'Tailwind UI 컴포넌트 패턴', artist: '이재성', duration: '8:21', genre: 'Design', color: '#0ea5e9' },
-  { id: 3, title: 'Tailwind 심층 분석', artist: '박민주', duration: '15:07', genre: 'Dev', color: '#10b981' },
+  { id: 2, title: 'UtilityUI 컴포넌트 패턴', artist: '이재성', duration: '8:21', genre: 'Design', color: '#0ea5e9' },
+  { id: 3, title: 'UtilityCSS 심층 분석', artist: '박민주', duration: '15:07', genre: 'Dev', color: '#10b981' },
 ]
 
-function MuiMediaQueueRender() {
+function EnterpriseUIMediaQueueRender() {
   const [cur, setCur] = useState(0)
   const [api, setApi] = useState<CarouselApi136>()
   const [playing, setPlaying] = useState(false)
@@ -1767,29 +1767,29 @@ function MuiMediaQueueRender() {
   )
 }
 
-export const MUI_미디어_플레이어_큐: Story = {
-  name: 'MUI — 미디어 플레이어 큐 캐러셀 (Cycle 136)',
+export const EnterpriseUI_미디어_플레이어_큐: Story = {
+  name: 'EnterpriseUI — 미디어 플레이어 큐 캐러셀 (Cycle 136)',
   parameters: {
     docs: {
       description: {
         story:
-          'Material UI AudioPlayer + Carousel 통합 패턴. 트랙 전환 시 진행 바/재생 상태 초기화. ' +
+          'Enterprise UI AudioPlayer + Carousel 통합 패턴. 트랙 전환 시 진행 바/재생 상태 초기화. ' +
           '클릭 가능한 진행 바, 재생/일시정지 토글 + 이전/다음 scrollPrev/scrollNext 컨트롤.',
       },
     },
   },
-  render: () => <MuiMediaQueueRender />,
+  render: () => <EnterpriseUIMediaQueueRender />,
 }
 
-// Tailwind UI + MUI — 다크 컴포넌트 카탈로그 캐러셀
+// UtilityUI + EnterpriseUI — 다크 컴포넌트 카탈로그 캐러셀
 const PRODUCT_CARDS_136 = [
   { id: 1, name: 'SolidButton', tag: 'interaction', users: 1240, color: '#6366f1', desc: '클릭/호버/포커스/로딩 상태를 모두 지원하는 기본 CTA 버튼' },
   { id: 2, name: 'DataTable', tag: 'data', users: 870, color: '#0ea5e9', desc: 'tanstack/table 기반 정렬/필터/페이지네이션 내장 데이터 테이블' },
-  { id: 3, name: 'Command', tag: 'navigation', users: 650, color: '#10b981', desc: 'Raycast/shadcn 스타일 명령 팔레트. 퍼지 검색 + 그룹 헤딩' },
+  { id: 3, name: 'Command', tag: 'navigation', users: 650, color: '#10b981', desc: 'CommandPalette/ComposableUI 스타일 명령 팔레트. 퍼지 검색 + 그룹 헤딩' },
   { id: 4, name: 'Calendar', tag: 'input', users: 420, color: '#f59e0b', desc: '날짜 범위 선택 + 한국어 로케일 지원 인터랙티브 달력' },
 ]
 
-function TailwindMuiProductCarouselRender() {
+function UtilityCSSEnterpriseUIProductCarouselRender() {
   const [cur, setCur] = useState(0)
   const [api, setApi] = useState<CarouselApi136>()
   const card = PRODUCT_CARDS_136[cur]
@@ -1838,23 +1838,23 @@ function TailwindMuiProductCarouselRender() {
   )
 }
 
-export const Tailwind_MUI_다크_컴포넌트_카탈로그: Story = {
-  name: 'Tailwind UI + MUI — 다크 컴포넌트 카탈로그 (Cycle 136)',
+export const UtilityCSS_EnterpriseUI_다크_컴포넌트_카탈로그: Story = {
+  name: 'UtilityUI + EnterpriseUI — 다크 컴포넌트 카탈로그 (Cycle 136)',
   parameters: {
     docs: {
       description: {
         story:
-          'Tailwind UI + MUI 다크 카드 스타일 통합 패턴. 다크 배경 컴포넌트 카탈로그 캐러셀. ' +
+          'UtilityUI + EnterpriseUI 다크 카드 스타일 통합 패턴. 다크 배경 컴포넌트 카탈로그 캐러셀. ' +
           '카드별 색상 테마 + 사용 통계 + 해시태그 레이블. 도트 인디케이터 클릭으로 scrollTo(i) 이동.',
       },
     },
   },
-  render: () => <TailwindMuiProductCarouselRender />,
+  render: () => <UtilityCSSEnterpriseUIProductCarouselRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Cycle 161 — Chakra UI + Arco Design
-   Chakra: 색상 테마 선택 캐러셀 패턴 (Color Theme Picker Carousel)
+   Cycle 161 — AccessibleUI + DataProductUI
+   Accessible: 색상 테마 선택 캐러셀 패턴 (Color Theme Picker Carousel)
 -------------------------------------------------------------------------- */
 const CHAKRA_THEMES = [
   { name: 'Ocean', primary: '#0ea5e9', secondary: '#38bdf8', bg: '#f0f9ff', text: '#0c4a6e' },
@@ -1864,11 +1864,11 @@ const CHAKRA_THEMES = [
   { name: 'Rose', primary: '#f43f5e', secondary: '#fb7185', bg: '#fff1f2', text: '#881337' },
 ]
 
-type ChakraCarouselApi = Parameters<NonNullable<React.ComponentProps<typeof Carousel>['setApi']>>[0]
+type AccessibleCarouselApi = Parameters<NonNullable<React.ComponentProps<typeof Carousel>['setApi']>>[0]
 
-function ChakraThemePickerCarouselRender() {
+function AccessibleThemePickerCarouselRender() {
   const [current, setCurrent] = useState(0)
-  const [api, setApi] = useState<ChakraCarouselApi>()
+  const [api, setApi] = useState<AccessibleCarouselApi>()
   const theme = CHAKRA_THEMES[current]
 
   React.useEffect(() => {
@@ -1878,7 +1878,7 @@ function ChakraThemePickerCarouselRender() {
 
   return (
     <div style={{ width: 320, fontFamily: 'system-ui, sans-serif' }}>
-      <p style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 12 }}>Chakra UI — 테마 선택 캐러셀</p>
+      <p style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 12 }}>AccessibleUI — 테마 선택 캐러셀</p>
       <Carousel setApi={setApi} opts={{ loop: true }} className="w-full">
         {CHAKRA_THEMES.map((t) => (
           <Carousel.Item key={t.name} style={{ width: '100%' }}>
@@ -1908,20 +1908,20 @@ function ChakraThemePickerCarouselRender() {
   )
 }
 
-export const Chakra_테마_선택_캐러셀: Story = {
-  name: 'Chakra UI — 색상 테마 선택 캐러셀 패턴',
+export const Accessible_테마_선택_캐러셀: Story = {
+  name: 'AccessibleUI — 색상 테마 선택 캐러셀 패턴',
   parameters: {
     docs: {
       description: {
-        story: 'Chakra UI의 Color Mode Picker 패턴. 5가지 색상 테마를 캐러셀로 탐색하고 선택할 수 있는 인터랙티브 데모입니다.',
+        story: 'AccessibleUI의 Color Mode Picker 패턴. 5가지 색상 테마를 캐러셀로 탐색하고 선택할 수 있는 인터랙티브 데모입니다.',
       },
     },
   },
-  render: () => <ChakraThemePickerCarouselRender />,
+  render: () => <AccessibleThemePickerCarouselRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Arco Design: 데이터 시각화 스탯 카드 캐러셀 패턴
+   DataProductUI: 데이터 시각화 스탯 카드 캐러셀 패턴
 -------------------------------------------------------------------------- */
 const ARCO_STATS = [
   { label: '총 이슈', value: 1284, change: +12.5, unit: '건', color: '#6366f1', period: '이번 달' },
@@ -1932,7 +1932,7 @@ const ARCO_STATS = [
   { label: '배포 성공률', value: 99.1, change: +0.8, unit: '%', color: '#8b5cf6', period: '30일' },
 ]
 
-function ArcoStatCardCarouselRender() {
+function DataProductStatCardCarouselRender() {
   const [idx, setIdx] = useState(0)
   const VISIBLE = 3
 
@@ -1941,7 +1941,7 @@ function ArcoStatCardCarouselRender() {
   return (
     <div style={{ width: 400, fontFamily: 'system-ui, sans-serif' }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12 }}>
-        <p style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', letterSpacing: '0.06em', textTransform: 'uppercase', margin: 0 }}>Arco Design — 통계 카드 캐러셀</p>
+        <p style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', letterSpacing: '0.06em', textTransform: 'uppercase', margin: 0 }}>DataProductUI — 통계 카드 캐러셀</p>
         <span style={{ marginLeft: 'auto', fontSize: 11, color: '#94a3b8' }}>{idx + 1}–{Math.min(idx + VISIBLE, ARCO_STATS.length)} / {ARCO_STATS.length}</span>
       </div>
       <Carousel className="w-full">
@@ -1973,20 +1973,20 @@ function ArcoStatCardCarouselRender() {
   )
 }
 
-export const Arco_통계_카드_캐러셀: Story = {
-  name: 'Arco Design — 데이터 통계 카드 캐러셀 패턴',
+export const DataProduct_통계_카드_캐러셀: Story = {
+  name: 'DataProductUI — 데이터 통계 카드 캐러셀 패턴',
   parameters: {
     docs: {
       description: {
-        story: 'Arco Design의 Statistic Card 패턴. 팀 성과 지표를 3개씩 그룹화해 캐러셀로 탐색합니다. 이전/다음 버튼으로 페이지 단위 전환.',
+        story: 'DataProductUI의 Statistic Card 패턴. 팀 성과 지표를 3개씩 그룹화해 캐러셀로 탐색합니다. 이전/다음 버튼으로 페이지 단위 전환.',
       },
     },
   },
-  render: () => <ArcoStatCardCarouselRender />,
+  render: () => <DataProductStatCardCarouselRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Chakra + Arco: 제품 온보딩 투어 캐러셀 복합 패턴
+   Accessible + DataProduct: 제품 온보딩 투어 캐러셀 복합 패턴
 -------------------------------------------------------------------------- */
 const ONBOARDING_GUIDE_STEPS = [
   {
@@ -2025,7 +2025,7 @@ const ONBOARDING_GUIDE_STEPS = [
 
 type OnboardingCarouselApi = Parameters<NonNullable<React.ComponentProps<typeof Carousel>['setApi']>>[0]
 
-function ChakraArcoOnboardingCarouselRender() {
+function AccessibleDataProductOnboardingCarouselRender() {
   const [step, setStep] = useState(0)
   const [api, setApi] = useState<OnboardingCarouselApi>()
   const current = ONBOARDING_GUIDE_STEPS[step]
@@ -2076,14 +2076,14 @@ function ChakraArcoOnboardingCarouselRender() {
   )
 }
 
-export const Chakra_Arco_온보딩_투어_캐러셀: Story = {
-  name: 'Chakra + Arco Design — 제품 온보딩 투어 캐러셀 패턴',
+export const Accessible_DataProduct_온보딩_투어_캐러셀: Story = {
+  name: 'Accessible + DataProductUI — 제품 온보딩 투어 캐러셀 패턴',
   parameters: {
     docs: {
       description: {
-        story: 'Chakra UI + Arco Design 복합 패턴. Orbit UI 설치/설정/사용 4단계 온보딩을 캐러셀로 가이드합니다. 진행 바 + 이전/다음 네비게이션.',
+        story: 'AccessibleUI + DataProductUI 복합 패턴. Orbit UI 설치/설정/사용 4단계 온보딩을 캐러셀로 가이드합니다. 진행 바 + 이전/다음 네비게이션.',
       },
     },
   },
-  render: () => <ChakraArcoOnboardingCarouselRender />,
+  render: () => <AccessibleDataProductOnboardingCarouselRender />,
 }

@@ -6,14 +6,14 @@ import { Meta, Unstyled } from '@storybook/blocks'
   <div style={{
     maxWidth: '960px',
     margin: '0 auto',
-    fontFamily: '"Pretendard Variable", "Pretendard", -apple-system, BlinkMacSystemFont, system-ui, sans-serif',
+    fontFamily: '"Pretendard Variable", "Pretendard", system-ui, sans-serif',
   }}>
 
     {/* Header */}
     <div style={{ marginBottom: '48px' }}>
       <div style={{ fontSize: '12px', fontWeight: '700', color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '8px' }}>Component Overview</div>
       <h1 style={{ fontSize: '36px', fontWeight: '800', color: '#1e293b', letterSpacing: '-0.03em', margin: '0 0 12px' }}>컴포넌트 개요</h1>
-      <p style={{ fontSize: '16px', color: '#64748b', lineHeight: '1.6', margin: 0 }}>50개 이상의 프로덕션 레디 컴포넌트로 구성된 완전한 디자인 시스템</p>
+      <div style={{ fontSize: '16px', color: '#64748b', lineHeight: '1.6', margin: 0 }}>50개 이상의 프로덕션 레디 컴포넌트로 구성된 완전한 디자인 시스템</div>
     </div>
 
     {/* Design Principles */}
@@ -53,7 +53,7 @@ import { Meta, Unstyled } from '@storybook/blocks'
               borderRadius: '0 0 16px 16px',
             }}>
               <h3 style={{ fontSize: '16px', fontWeight: '700', color: '#1e293b', margin: '0 0 8px' }}>{item.title}</h3>
-              <p style={{ fontSize: '13px', color: '#64748b', lineHeight: '1.65', margin: 0 }}>{item.desc}</p>
+              <div style={{ fontSize: '13px', color: '#64748b', lineHeight: '1.65', margin: 0 }}>{item.desc}</div>
             </div>
           </div>
         ))}
@@ -206,7 +206,7 @@ import { Meta, Unstyled } from '@storybook/blocks'
     {/* Do / Don't */}
     <section style={{ marginBottom: '64px' }}>
       <h2 style={{ fontSize: '22px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '8px' }}>Do / Don't</h2>
-      <p style={{ fontSize: '14px', color: '#64748b', marginBottom: '28px' }}>컴포넌트를 올바르게 사용하는 방법과 피해야 할 패턴을 안내합니다.</p>
+      <div style={{ fontSize: '14px', color: '#64748b', marginBottom: '28px' }}>컴포넌트를 올바르게 사용하는 방법과 피해야 할 패턴을 안내합니다.</div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
         {[
           {
@@ -277,7 +277,7 @@ toast('주의가 필요합니다.')`,
                   <div style={{ width: '20px', height: '20px', borderRadius: '50%', background: '#10b981', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '11px', fontWeight: 800, color: '#fff' }}>O</div>
                   <span style={{ fontSize: '12px', fontWeight: 700, color: '#10b981' }}>Do</span>
                 </div>
-                <p style={{ fontSize: '13px', color: '#475569', lineHeight: '1.6', margin: '0 0 12px' }}>{doText}</p>
+                <div style={{ fontSize: '13px', color: '#475569', lineHeight: '1.6', margin: '0 0 12px' }}>{doText}</div>
                 <pre style={{ margin: 0, padding: '12px', borderRadius: '8px', background: '#f0fdf4', border: '1px solid #bbf7d0', fontSize: '11px', color: '#15803d', lineHeight: '1.6', overflowX: 'auto' }}>{doCode}</pre>
               </div>
               <div style={{ padding: '20px' }}>
@@ -285,7 +285,7 @@ toast('주의가 필요합니다.')`,
                   <div style={{ width: '20px', height: '20px', borderRadius: '50%', background: '#ef4444', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '11px', fontWeight: 800, color: '#fff' }}>X</div>
                   <span style={{ fontSize: '12px', fontWeight: 700, color: '#ef4444' }}>Don't</span>
                 </div>
-                <p style={{ fontSize: '13px', color: '#475569', lineHeight: '1.6', margin: '0 0 12px' }}>{dont}</p>
+                <div style={{ fontSize: '13px', color: '#475569', lineHeight: '1.6', margin: '0 0 12px' }}>{dont}</div>
                 <pre style={{ margin: 0, padding: '12px', borderRadius: '8px', background: '#fef2f2', border: '1px solid #fecaca', fontSize: '11px', color: '#b91c1c', lineHeight: '1.6', overflowX: 'auto' }}>{dontCode}</pre>
               </div>
             </div>
@@ -294,10 +294,10 @@ toast('주의가 필요합니다.')`,
       </div>
     </section>
 
-    {/* Accessibility Checklist — Mantine style */}
+    {/* Accessibility Checklist — AppUI style */}
     <section style={{ marginBottom: '64px' }}>
       <h2 style={{ fontSize: '22px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '8px' }}>접근성 체크리스트</h2>
-      <p style={{ fontSize: '14px', color: '#64748b', marginBottom: '24px' }}>Orbit UI 컴포넌트를 사용하기 전에 아래 체크리스트를 확인하세요. WAI-ARIA 패턴을 기반으로 작성되었습니다.</p>
+      <div style={{ fontSize: '14px', color: '#64748b', marginBottom: '24px' }}>Orbit UI 컴포넌트를 사용하기 전에 아래 체크리스트를 확인하세요. WAI-ARIA 패턴을 기반으로 작성되었습니다.</div>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '16px' }}>
         {[
           {
@@ -382,10 +382,10 @@ toast('주의가 필요합니다.')`,
       </div>
     </section>
 
-    {/* Component Composition Patterns — Tailwind UI style */}
+    {/* Component Composition Patterns — UtilityUI style */}
     <section style={{ marginBottom: '64px' }}>
       <h2 style={{ fontSize: '22px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '8px' }}>컴포넌트 조합 패턴</h2>
-      <p style={{ fontSize: '14px', color: '#64748b', marginBottom: '24px' }}>실무에서 자주 사용되는 컴포넌트 조합과 권장 패턴을 안내합니다.</p>
+      <div style={{ fontSize: '14px', color: '#64748b', marginBottom: '24px' }}>실무에서 자주 사용되는 컴포넌트 조합과 권장 패턴을 안내합니다.</div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
         {[
           {
@@ -451,7 +451,7 @@ toast('주의가 필요합니다.')`,
     {/* API Consistency */}
     <section style={{ marginBottom: '64px' }}>
       <h2 style={{ fontSize: '22px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '8px' }}>API 일관성</h2>
-      <p style={{ fontSize: '14px', color: '#64748b', marginBottom: '24px' }}>Ant Design에서 영감을 받아 모든 컴포넌트가 예측 가능한 인터페이스를 따릅니다.</p>
+      <div style={{ fontSize: '14px', color: '#64748b', marginBottom: '24px' }}>Ant Design에서 영감을 받아 모든 컴포넌트가 예측 가능한 인터페이스를 따릅니다.</div>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '14px' }}>
         {[
           { prop: 'color', values: '"primary" | "black" | "gray" | "white"', desc: '시각적 색상 변형. 모든 버튼/입력 컴포넌트에 동일하게 적용.' },
@@ -470,22 +470,22 @@ toast('주의가 필요합니다.')`,
       </div>
     </section>
 
-    {/* Arco Design + Mantine 벤치마크 */}
+    {/* DataProductUI + AppUI 벤치마크 */}
     <section style={{ marginBottom: '64px' }}>
       <div style={{ background: 'linear-gradient(160deg, #0c0a1e 0%, #1a1040 100%)', padding: '40px', borderRadius: '20px' }}>
         <div style={{ fontSize: '11px', fontWeight: 700, color: '#a78bfa', letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: '10px' }}>
           Cycle 42 Benchmark
         </div>
         <h2 style={{ fontSize: '22px', fontWeight: 800, color: '#fff', letterSpacing: '-0.02em', marginBottom: '8px' }}>
-          Arco Design vs Mantine
+          DataProductUI vs AppUI
         </h2>
-        <p style={{ fontSize: '13px', color: '#a78bfa', marginBottom: '28px' }}>
+        <div style={{ fontSize: '13px', color: '#a78bfa', marginBottom: '28px' }}>
           ByteDance의 엔터프라이즈 UI와 React Hook First 접근법의 교차점에서 발견한 패턴들
-        </p>
+        </div>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '16px', marginBottom: '28px' }}>
           <div style={{ padding: '20px', borderRadius: '12px', background: 'rgba(167,139,250,0.08)', border: '1px solid rgba(167,139,250,0.2)' }}>
-            <div style={{ fontSize: '12px', fontWeight: 700, color: '#a78bfa', marginBottom: '14px' }}>Arco Design 특징</div>
+            <div style={{ fontSize: '12px', fontWeight: 700, color: '#a78bfa', marginBottom: '14px' }}>DataProductUI 특징</div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
               {[
                 { feature: '통합 테마 시스템', detail: 'Less 변수 기반 전역 테마 설정' },
@@ -505,7 +505,7 @@ toast('주의가 필요합니다.')`,
           </div>
 
           <div style={{ padding: '20px', borderRadius: '12px', background: 'rgba(99,102,241,0.08)', border: '1px solid rgba(99,102,241,0.2)' }}>
-            <div style={{ fontSize: '12px', fontWeight: 700, color: '#818cf8', marginBottom: '14px' }}>Mantine 특징</div>
+            <div style={{ fontSize: '12px', fontWeight: 700, color: '#818cf8', marginBottom: '14px' }}>AppUI 특징</div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
               {[
                 { feature: 'Hooks 우선 설계', detail: 'useDisclosure, useHover 등 40+ 훅' },
@@ -529,24 +529,24 @@ toast('주의가 필요합니다.')`,
           <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '12px' }}>
             <thead>
               <tr>
-                {['기준', 'Arco Design', 'Mantine', 'Orbit UI'].map((h) => (
+                {['기준', 'DataProductUI', 'AppUI', 'Orbit UI'].map((h) => (
                   <th key={h} style={{ padding: '10px 14px', textAlign: 'left', color: '#a78bfa', fontWeight: 700, borderBottom: '1px solid rgba(167,139,250,0.2)' }}>{h}</th>
                 ))}
               </tr>
             </thead>
             <tbody>
               {[
-                ['스타일 방식', 'Less 변수', 'CSS Modules', 'Tailwind + CSS 변수'],
+                ['스타일 방식', 'Less 변수', 'CSS Modules', 'UtilityCSS + CSS 변수'],
                 ['TypeScript', '부분 지원', '완전 지원', '완전 지원'],
                 ['Hook 수', '20+', '40+', '컴포넌트 내장'],
                 ['번들 크기', '~800KB', '~400KB', '~220KB'],
                 ['토큰 계층', '1단계', '2단계', '3단계'],
-                ['Figma 연동', '미지원', '미지원', '네이티브 연동'],
-              ].map(([criterion, arco, mantine, orbit]) => (
+                ['DesignTool 연동', '미지원', '미지원', '네이티브 연동'],
+              ].map(([criterion, arco, accessibleKit, orbit]) => (
                 <tr key={criterion} style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
                   <td style={{ padding: '10px 14px', color: '#94a3b8', fontWeight: 600 }}>{criterion}</td>
                   <td style={{ padding: '10px 14px', color: '#e2e8f0' }}>{arco}</td>
-                  <td style={{ padding: '10px 14px', color: '#e2e8f0' }}>{mantine}</td>
+                  <td style={{ padding: '10px 14px', color: '#e2e8f0' }}>{accessibleKit}</td>
                   <td style={{ padding: '10px 14px', color: '#a78bfa', fontWeight: 600 }}>{orbit}</td>
                 </tr>
               ))}

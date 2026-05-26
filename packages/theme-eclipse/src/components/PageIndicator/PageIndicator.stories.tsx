@@ -17,7 +17,7 @@ const meta = {
   parameters: {
     docs: {
       description: {
-        component: "PageIndicator는 슬라이더, 캐러셀, 스텝 위자드의 현재 위치를 dot으로 표시하는 컴포넌트입니다. shadcn/ui Steps, MUI Stepper 패턴을 지원합니다.",
+        component: "PageIndicator는 슬라이더, 캐러셀, 스텝 위자드의 현재 위치를 dot으로 표시하는 컴포넌트입니다. ComposableUI Steps, EnterpriseUI Stepper 패턴을 지원합니다.",
       },
     },
   },
@@ -129,8 +129,8 @@ export const 배경과_함께 = {
   },
 } satisfies Story
 
-// ─── MUI 벤치마크: Stepper 위자드 패턴 ─────────────────────────────────────
-// MUI Stepper는 다단계 폼의 진행 상태를 표시합니다.
+// ─── EnterpriseUI 벤치마크: Stepper 위자드 패턴 ─────────────────────────────────────
+// EnterpriseUI Stepper는 다단계 폼의 진행 상태를 표시합니다.
 // PageIndicator를 Stepper처럼 활용해 단계별 콘텐츠를 전환합니다.
 
 const WIZARD_STEPS = [
@@ -140,7 +140,7 @@ const WIZARD_STEPS = [
   { title: '확인', desc: '설정을 검토하세요', content: '모든 설정을 확인하고 프로젝트를 생성합니다.' },
 ]
 
-function MuiStepperRender() {
+function EnterpriseUIStepperRender() {
   const [step, setStep] = useState(0)
   const [completed, setCompleted] = useState<Set<number>>(new Set())
 
@@ -260,16 +260,16 @@ function MuiStepperRender() {
   )
 }
 
-export const MUI_스텝퍼_위자드: Story = {
-  name: 'MUI Stepper - 단계별 위자드 패턴',
-  render: () => <MuiStepperRender />,
+export const EnterpriseUI_스텝퍼_위자드: Story = {
+  name: 'EnterpriseUI Stepper - 단계별 위자드 패턴',
+  render: () => <EnterpriseUIStepperRender />,
 }
 
-// ─── Raycast 벤치마크: 온보딩 피처 플로우 ──────────────────────────────────
-// Raycast의 온보딩 화면: 각 기능을 슬라이드 형태로 소개하고
+// ─── CommandPalette 벤치마크: 온보딩 피처 플로우 ──────────────────────────────────
+// CommandPalette의 온보딩 화면: 각 기능을 슬라이드 형태로 소개하고
 // PageIndicator로 현재 위치를 표시합니다. 키보드로 탐색 가능합니다.
 
-const RAYCAST_FEATURES = [
+const LAUNCHER_FEATURES = [
   {
     icon: (
       <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
@@ -278,7 +278,7 @@ const RAYCAST_FEATURES = [
       </svg>
     ),
     title: '빠른 검색',
-    sub: 'Raycast Extension 스타일',
+    sub: 'CommandPalette Extension 스타일',
     desc: '키보드 단축키 하나로 즉시 검색을 시작하고, 최근 항목과 즐겨찾기를 먼저 표시합니다.',
     color: '#5e6ad2',
   },
@@ -307,15 +307,15 @@ const RAYCAST_FEATURES = [
   },
 ]
 
-function RaycastOnboardingRender() {
+function CommandPaletteOnboardingRender() {
   const [current, setCurrent] = useState(0)
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === 'ArrowRight') setCurrent((c) => Math.min(c + 1, RAYCAST_FEATURES.length - 1))
+    if (e.key === 'ArrowRight') setCurrent((c) => Math.min(c + 1, LAUNCHER_FEATURES.length - 1))
     if (e.key === 'ArrowLeft') setCurrent((c) => Math.max(c - 1, 0))
   }
 
-  const feature = RAYCAST_FEATURES[current]
+  const feature = LAUNCHER_FEATURES[current]
 
   return (
     <div
@@ -364,7 +364,7 @@ function RaycastOnboardingRender() {
         }}
       >
         <PageIndicator currentPage={current} onPageChange={setCurrent}>
-          {generateDots(RAYCAST_FEATURES.length)}
+          {generateDots(LAUNCHER_FEATURES.length)}
         </PageIndicator>
         <div style={{ display: 'flex', gap: 8 }}>
           <button
@@ -383,7 +383,7 @@ function RaycastOnboardingRender() {
             이전
           </button>
           <button
-            onClick={() => setCurrent((c) => Math.min(c + 1, RAYCAST_FEATURES.length - 1))}
+            onClick={() => setCurrent((c) => Math.min(c + 1, LAUNCHER_FEATURES.length - 1))}
             style={{
               padding: '7px 16px',
               borderRadius: 6,
@@ -395,7 +395,7 @@ function RaycastOnboardingRender() {
               cursor: 'pointer',
             }}
           >
-            {current === RAYCAST_FEATURES.length - 1 ? '시작하기' : '다음'}
+            {current === LAUNCHER_FEATURES.length - 1 ? '시작하기' : '다음'}
           </button>
         </div>
         <div style={{ fontSize: 10, color: '#3a3a4e' }}>
@@ -406,13 +406,13 @@ function RaycastOnboardingRender() {
   )
 }
 
-export const Raycast_온보딩_피처_플로우: Story = {
-  name: 'Raycast - 온보딩 피처 플로우 (키보드 탐색)',
-  render: () => <RaycastOnboardingRender />,
+export const CommandPalette_온보딩_피처_플로우: Story = {
+  name: 'CommandPalette - 온보딩 피처 플로우 (키보드 탐색)',
+  render: () => <CommandPaletteOnboardingRender />,
 }
 
-// ─── MUI 벤치마크: 이미지 갤러리 슬라이더 패턴 ──────────────────────────────
-// MUI Mobile Stepper 패턴: 이미지 캐러셀 하단에 도트 인디케이터를 배치합니다.
+// ─── EnterpriseUI 벤치마크: 이미지 갤러리 슬라이더 패턴 ──────────────────────────────
+// EnterpriseUI Mobile Stepper 패턴: 이미지 캐러셀 하단에 도트 인디케이터를 배치합니다.
 // 자동 재생 + 수동 제어를 함께 제공하는 패턴입니다.
 
 const GALLERY_SLIDES = [
@@ -422,7 +422,7 @@ const GALLERY_SLIDES = [
   { bg: '#fdf4ff', title: 'Form Components', sub: 'TextField · Checkbox · RadioButton', accent: '#8b5cf6' },
 ]
 
-function MuiGallerySliderRender() {
+function EnterpriseUIGallerySliderRender() {
   const [current, setCurrent] = useState(0)
 
   useEffect(() => {
@@ -498,9 +498,9 @@ function MuiGallerySliderRender() {
   )
 }
 
-export const MUI_갤러리_슬라이더: Story = {
-  name: 'MUI Mobile Stepper - 갤러리 슬라이더 패턴 (자동 재생)',
-  render: () => <MuiGallerySliderRender />,
+export const EnterpriseUI_갤러리_슬라이더: Story = {
+  name: 'EnterpriseUI Mobile Stepper - 갤러리 슬라이더 패턴 (자동 재생)',
+  render: () => <EnterpriseUIGallerySliderRender />,
 }
 
 export const 디자인_QA = {
@@ -534,9 +534,9 @@ export const 디자인_QA = {
   },
 } satisfies Story
 
-// --- Cycle 75: shadcn/ui + Vercel Design 벤치마크 ---
+// --- Cycle 75: ComposableUI + DeployPlatform Design 벤치마크 ---
 
-const ShadcnStepperRender = () => {
+const ComposableUIStepperRender = () => {
   const [step, setStep] = useState(0)
 
   const STEPS = [
@@ -620,26 +620,26 @@ const ShadcnStepperRender = () => {
         </button>
       </div>
       <p style={{ marginTop: 12, fontSize: 11, color: '#94a3b8', textAlign: 'center' }}>
-        shadcn/ui Stepper — 단계 완료 체크, 연결선 컬러, PageIndicator 연동
+        ComposableUI Stepper — 단계 완료 체크, 연결선 컬러, PageIndicator 연동
       </p>
     </div>
   )
 }
 
-export const shadcn_스텝퍼_온보딩: Story = {
-  name: 'shadcn/ui - Stepper 온보딩 위자드',
+export const ComposableUI_스텝퍼_온보딩: Story = {
+  name: 'ComposableUI - Stepper 온보딩 위자드',
   parameters: {
     docs: {
       description: {
         story:
-          'shadcn/ui Steps 컴포넌트 벤치마크. 완료 체크마크, 단계 연결선 색상 변화, PageIndicator 하단 dot과 동기화. 이전/다음 버튼 연동.',
+          'ComposableUI Steps 컴포넌트 벤치마크. 완료 체크마크, 단계 연결선 색상 변화, PageIndicator 하단 dot과 동기화. 이전/다음 버튼 연동.',
       },
     },
   },
-  render: () => <ShadcnStepperRender />,
+  render: () => <ComposableUIStepperRender />,
 }
 
-const VercelDeploymentIndicatorRender = () => {
+const DeployPlatformDeploymentIndicatorRender = () => {
   const [activeIdx, setActiveIdx] = useState(2)
 
   const DEPLOYMENTS = [
@@ -705,26 +705,26 @@ const VercelDeploymentIndicatorRender = () => {
         <span style={{ color: '#94a3b8' }}>  · {STATUS_CFG[active.status as DeployStatus].label}</span>
       </div>
       <p style={{ marginTop: 8, fontSize: 11, color: '#94a3b8' }}>
-        Vercel 배포 히스토리 — 상태 dot + PageIndicator 연동
+        DeployPlatform 배포 히스토리 — 상태 dot + PageIndicator 연동
       </p>
     </div>
   )
 }
 
-export const Vercel_배포_히스토리_인디케이터: Story = {
-  name: 'Vercel - 배포 히스토리 인디케이터',
+export const DeployPlatform_배포_히스토리_인디케이터: Story = {
+  name: 'DeployPlatform - 배포 히스토리 인디케이터',
   parameters: {
     docs: {
       description: {
         story:
-          'Vercel Dashboard 배포 목록 벤치마크. 상태 dot(Ready/Building/Error), 브랜치·환경 태그, PageIndicator로 현재 선택 동기화. 컴팩트 모노크롬 레이아웃.',
+          'DeployPlatform Dashboard 배포 목록 벤치마크. 상태 dot(Ready/Building/Error), 브랜치·환경 태그, PageIndicator로 현재 선택 동기화. 컴팩트 모노크롬 레이아웃.',
       },
     },
   },
-  render: () => <VercelDeploymentIndicatorRender />,
+  render: () => <DeployPlatformDeploymentIndicatorRender />,
 }
 
-const ShadcnVercelProgressRender = () => {
+const ComposableUIDeployPlatformProgressRender = () => {
   const [currentStep, setCurrentStep] = useState(1)
   const [running, setRunning] = useState(false)
 
@@ -805,37 +805,37 @@ const ShadcnVercelProgressRender = () => {
         {running ? `${PIPELINE[currentStep].label} 진행 중...` : currentStep === PIPELINE.length - 1 ? '모든 단계 완료' : `${PIPELINE[currentStep].label} 단계`}
       </div>
       <p style={{ marginTop: 8, fontSize: 11, color: '#94a3b8', textAlign: 'center' }}>
-        shadcn + Vercel — CI/CD 파이프라인 진행 표시 (자동 재생)
+        ComposableUI + DeployPlatform — CI/CD 파이프라인 진행 표시 (자동 재생)
       </p>
     </div>
   )
 }
 
-export const shadcn_Vercel_파이프라인_진행: Story = {
-  name: 'shadcn + Vercel - CI/CD 파이프라인 진행 표시',
+export const ComposableUI_DeployPlatform_파이프라인_진행: Story = {
+  name: 'ComposableUI + DeployPlatform - CI/CD 파이프라인 진행 표시',
   parameters: {
     docs: {
       description: {
         story:
-          'shadcn Steps + Vercel Build Log 패턴 조합. 파이프라인 단계 아이콘, 연결선 완료 색상, PageIndicator 동기화, 자동 재생 애니메이션(800ms 인터벌).',
+          'ComposableUI Steps + DeployPlatform Build Log 패턴 조합. 파이프라인 단계 아이콘, 연결선 완료 색상, PageIndicator 동기화, 자동 재생 애니메이션(800ms 인터벌).',
       },
     },
   },
-  render: () => <ShadcnVercelProgressRender />,
+  render: () => <ComposableUIDeployPlatformProgressRender />,
 }
 
 /* --------------------------------------------------------------------------
-   shadcn/ui — 설문 스텝 위자드
+   ComposableUI — 설문 스텝 위자드
    단계별 질문 + 진행률 PageIndicator 패턴
 -------------------------------------------------------------------------- */
 const SURVEY_STEPS = [
   { q: 'Orbit UI를 어떤 용도로 사용하시나요?', opts: ['개인 프로젝트', '팀 프로젝트', '프리랜서 작업', '기업 서비스'] },
-  { q: '현재 사용 중인 다른 디자인 시스템은?', opts: ['shadcn/ui', 'MUI', 'Ant Design', '직접 구현'] },
+  { q: '현재 사용 중인 다른 디자인 시스템은?', opts: ['ComposableUI', 'EnterpriseUI', 'Ant Design', '직접 구현'] },
   { q: '가장 중요한 기능은 무엇인가요?', opts: ['접근성', '커스터마이징', '문서 품질', '컴포넌트 수'] },
   { q: 'Orbit UI를 추천할 의향이 있으신가요?', opts: ['매우 그렇다', '그렇다', '보통', '아니다'] },
 ]
 
-function ShadcnSurveyWizardRender() {
+function ComposableUISurveyWizardRender() {
   const [step, setStep] = React.useState(0)
   const [answers, setAnswers] = React.useState<Record<number, string>>({})
   const [done, setDone] = React.useState(false)
@@ -886,37 +886,37 @@ function ShadcnSurveyWizardRender() {
         <button onClick={() => setStep((s) => Math.max(0, s - 1))} disabled={step === 0} style={{ padding: '6px 14px', borderRadius: 6, border: '1px solid #e2e8f0', background: '#fff', fontSize: 12, color: step === 0 ? '#cbd5e1' : '#64748b', cursor: step === 0 ? 'not-allowed' : 'pointer' }}>이전</button>
         <button onClick={() => setStep((s) => Math.min(SURVEY_STEPS.length - 1, s + 1))} style={{ padding: '6px 14px', borderRadius: 6, border: '1px solid #e2e8f0', background: '#fff', fontSize: 12, color: '#64748b', cursor: 'pointer' }}>건너뛰기</button>
       </div>
-      <div style={{ fontSize: 11, color: '#94a3b8', textAlign: 'center' }}>shadcn/ui 설문 위자드 패턴 — PageIndicator 스텝 탐색</div>
+      <div style={{ fontSize: 11, color: '#94a3b8', textAlign: 'center' }}>ComposableUI 설문 위자드 패턴 — PageIndicator 스텝 탐색</div>
     </div>
   )
 }
 
-export const shadcn_설문_스텝_위자드: Story = {
-  name: 'shadcn/ui — 설문 스텝 위자드',
+export const ComposableUI_설문_스텝_위자드: Story = {
+  name: 'ComposableUI — 설문 스텝 위자드',
   parameters: {
     docs: {
       description: {
-        story: 'shadcn/ui Steps 패턴의 설문 위자드. PageIndicator로 현재 단계를 표시하고, 답변 선택 시 자동으로 다음 단계로 이동합니다. 마지막 단계에서 완료 화면으로 전환.',
+        story: 'ComposableUI Steps 패턴의 설문 위자드. PageIndicator로 현재 단계를 표시하고, 답변 선택 시 자동으로 다음 단계로 이동합니다. 마지막 단계에서 완료 화면으로 전환.',
       },
     },
   },
-  render: () => <ShadcnSurveyWizardRender />,
+  render: () => <ComposableUISurveyWizardRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Linear Design — 프로젝트 마일스톤 진행
+   IssueTracker Design — 프로젝트 마일스톤 진행
    분기별 마일스톤 + 완료율 PageIndicator 패턴
 -------------------------------------------------------------------------- */
-const LINEAR_MILESTONES = [
+const TRACKER_MILESTONES = [
   { name: 'Q1 알파', date: '2026-03-31', status: 'done', tasks: 12, done: 12 },
   { name: 'Q2 베타', date: '2026-06-30', status: 'done', tasks: 18, done: 16 },
   { name: 'Q3 RC', date: '2026-09-30', status: 'current', tasks: 22, done: 9 },
   { name: 'Q4 출시', date: '2026-12-31', status: 'upcoming', tasks: 15, done: 0 },
 ]
 
-function LinearMilestoneRender() {
+function IssueTrackerMilestoneRender() {
   const [active, setActive] = React.useState(2)
-  const m = LINEAR_MILESTONES[active]
+  const m = TRACKER_MILESTONES[active]
   const pct = Math.round((m.done / m.tasks) * 100)
 
   return (
@@ -924,7 +924,7 @@ function LinearMilestoneRender() {
       <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>Orbit UI 2026 로드맵</div>
       {/* 마일스톤 타임라인 */}
       <div style={{ display: 'flex', alignItems: 'center', gap: 0 }}>
-        {LINEAR_MILESTONES.map((ml, i) => (
+        {TRACKER_MILESTONES.map((ml, i) => (
           <React.Fragment key={ml.name}>
             <button
               onClick={() => setActive(i)}
@@ -936,14 +936,14 @@ function LinearMilestoneRender() {
               </div>
               <span style={{ fontSize: 10, fontWeight: active === i ? 700 : 400, color: active === i ? '#0f172a' : '#94a3b8', whiteSpace: 'nowrap' }}>{ml.name}</span>
             </button>
-            {i < LINEAR_MILESTONES.length - 1 && <div style={{ flex: 1, height: 2, background: i < active ? '#10b981' : '#e2e8f0', transition: 'background 0.3s', marginBottom: 16 }} />}
+            {i < TRACKER_MILESTONES.length - 1 && <div style={{ flex: 1, height: 2, background: i < active ? '#10b981' : '#e2e8f0', transition: 'background 0.3s', marginBottom: 16 }} />}
           </React.Fragment>
         ))}
       </div>
       {/* PageIndicator */}
       <div style={{ display: 'flex', justifyContent: 'center' }}>
         <PageIndicator currentPage={active} onPageChange={setActive}>
-          {generateDots(LINEAR_MILESTONES.length)}
+          {generateDots(TRACKER_MILESTONES.length)}
         </PageIndicator>
       </div>
       {/* 마일스톤 상세 */}
@@ -960,25 +960,25 @@ function LinearMilestoneRender() {
           <span style={{ fontWeight: 700, color: m.status === 'done' ? '#10b981' : '#6366f1' }}>{pct}%</span>
         </div>
       </div>
-      <div style={{ fontSize: 11, color: '#94a3b8', textAlign: 'center' }}>Linear 마일스톤 진행 패턴 — 분기별 로드맵 + PageIndicator</div>
+      <div style={{ fontSize: 11, color: '#94a3b8', textAlign: 'center' }}>IssueTracker 마일스톤 진행 패턴 — 분기별 로드맵 + PageIndicator</div>
     </div>
   )
 }
 
-export const Linear_마일스톤_진행_인디케이터: Story = {
-  name: 'Linear Design — 프로젝트 마일스톤 진행',
+export const IssueTracker_마일스톤_진행_인디케이터: Story = {
+  name: 'IssueTracker Design — 프로젝트 마일스톤 진행',
   parameters: {
     docs: {
       description: {
-        story: 'Linear 로드맵 마일스톤 UI에서 영감을 받은 패턴. 분기별 마일스톤 타임라인 + PageIndicator 동기화, 완료/진행중/예정 상태 시각화, 선택된 마일스톤 태스크 진행률 표시.',
+        story: 'IssueTracker 로드맵 마일스톤 UI에서 영감을 받은 패턴. 분기별 마일스톤 타임라인 + PageIndicator 동기화, 완료/진행중/예정 상태 시각화, 선택된 마일스톤 태스크 진행률 표시.',
       },
     },
   },
-  render: () => <LinearMilestoneRender />,
+  render: () => <IssueTrackerMilestoneRender />,
 }
 
 /* --------------------------------------------------------------------------
-   shadcn/ui + Linear — 이미지 업로드 스텝
+   ComposableUI + IssueTracker — 이미지 업로드 스텝
    파일 선택 → 편집 → 완료 3단계 업로드 위자드
 -------------------------------------------------------------------------- */
 type UploadStep = 'select' | 'preview' | 'done'
@@ -989,7 +989,7 @@ const UPLOAD_STEPS: { step: UploadStep; label: string }[] = [
   { step: 'done', label: '업로드 완료' },
 ]
 
-function ShadcnLinearUploadStepRender() {
+function ComposableUIIssueTrackerUploadStepRender() {
   const [currentStep, setCurrentStep] = React.useState<UploadStep>('select')
   const [uploading, setUploading] = React.useState(false)
   const [progress, setProgress] = React.useState(0)
@@ -1070,25 +1070,25 @@ function ShadcnLinearUploadStepRender() {
         </div>
       )}
 
-      <div style={{ fontSize: 11, color: '#94a3b8', textAlign: 'center' }}>shadcn/ui + Linear — 파일 업로드 스텝 위자드 + PageIndicator</div>
+      <div style={{ fontSize: 11, color: '#94a3b8', textAlign: 'center' }}>ComposableUI + IssueTracker — 파일 업로드 스텝 위자드 + PageIndicator</div>
     </div>
   )
 }
 
-export const shadcn_Linear_파일_업로드_스텝: Story = {
-  name: 'shadcn/ui + Linear — 파일 업로드 스텝 위자드',
+export const ComposableUI_IssueTracker_파일_업로드_스텝: Story = {
+  name: 'ComposableUI + IssueTracker — 파일 업로드 스텝 위자드',
   parameters: {
     docs: {
       description: {
-        story: 'shadcn/ui Dropzone + Linear 진행률 패턴 조합. PageIndicator로 선택→미리보기→완료 3단계를 표시하고, 업로드 진행률 바와 단계 전환 애니메이션을 연출합니다.',
+        story: 'ComposableUI Dropzone + IssueTracker 진행률 패턴 조합. PageIndicator로 선택→미리보기→완료 3단계를 표시하고, 업로드 진행률 바와 단계 전환 애니메이션을 연출합니다.',
       },
     },
   },
-  render: () => <ShadcnLinearUploadStepRender />,
+  render: () => <ComposableUIIssueTrackerUploadStepRender />,
 }
 
-// Cycle 142 - Apple HIG + Google Material 3 benchmark
-function AppleHIGPageControl142Render() {
+// Cycle 142 - Platform HIG + RoleToken Design benchmark
+function PlatformHIGPageControl142Render() {
   const [current, setCurrent] = useState(0)
   const slides = [
     { title: '모든 기기에서 이어서', desc: 'iPhone, iPad, Mac 어디서나 끊김없이 이어서 작업하세요. iCloud가 자동으로 동기화합니다.', bg: '#1d4ed8' },
@@ -1120,22 +1120,22 @@ function AppleHIGPageControl142Render() {
             {current === slides.length - 2 ? '시작' : '다음'}
           </button>
         </div>
-        <div style={{ fontSize: 11, color: '#94a3b8' }}>Apple HIG — Page Control 온보딩 패턴</div>
+        <div style={{ fontSize: 11, color: '#94a3b8' }}>Platform HIG — Page Control 온보딩 패턴</div>
       </div>
     </div>
   )
 }
 
-export const Apple_HIG_온보딩_페이지_컨트롤: Story = {
-  name: 'Apple HIG — 온보딩 페이지 컨트롤 (Cycle 142)',
+export const Platform_HIG_온보딩_페이지_컨트롤: Story = {
+  name: 'Platform HIG — 온보딩 페이지 컨트롤 (Cycle 142)',
   parameters: {
     docs: {
       description: {
-        story: 'Apple HIG Page Control 온보딩 패턴. 슬라이드 배경색 전환, dot 클릭 직접 이동, 이전/다음 버튼. 마지막 슬라이드 전 버튼 "시작"으로 전환.',
+        story: 'Platform HIG Page Control 온보딩 패턴. 슬라이드 배경색 전환, dot 클릭 직접 이동, 이전/다음 버튼. 마지막 슬라이드 전 버튼 "시작"으로 전환.',
       },
     },
   },
-  render: () => <AppleHIGPageControl142Render />,
+  render: () => <PlatformHIGPageControl142Render />,
 }
 
 function M3StepperIndicator142Render() {
@@ -1155,7 +1155,7 @@ function M3StepperIndicator142Render() {
 
   return (
     <div style={{ width: 380, fontFamily: 'system-ui, sans-serif' }}>
-      <div style={{ marginBottom: 10, fontSize: 11, color: '#64748b' }}>Google Material 3 — Stepper + PageIndicator</div>
+      <div style={{ marginBottom: 10, fontSize: 11, color: '#64748b' }}>RoleToken Design — Stepper + PageIndicator</div>
 
       {/* M3 스타일 스텝 헤더 */}
       <div style={{ display: 'flex', alignItems: 'center', marginBottom: 24 }}>
@@ -1199,18 +1199,18 @@ function M3StepperIndicator142Render() {
 }
 
 export const M3_스텝퍼_인디케이터: Story = {
-  name: 'Material 3 — Stepper + PageIndicator 연동 (Cycle 142)',
+  name: 'RoleToken Design — Stepper + PageIndicator 연동 (Cycle 142)',
   parameters: {
     docs: {
       description: {
-        story: 'Google Material 3 Stepper 패턴 + PageIndicator 동기화. 완료 단계 체크 표시, M3 보라색 팔레트, 스텝 연결선 완료 시 그린 전환.',
+        story: 'RoleToken Design Stepper 패턴 + PageIndicator 동기화. 완료 단계 체크 표시, M3 보라색 팔레트, 스텝 연결선 완료 시 그린 전환.',
       },
     },
   },
   render: () => <M3StepperIndicator142Render />,
 }
 
-function AppleM3MediaCarousel142Render() {
+function PlatformM3MediaCarousel142Render() {
   const [current, setCurrent] = useState(0)
   const [autoPlay, setAutoPlay] = useState(false)
   const runRef = React.useRef<ReturnType<typeof setInterval> | null>(null)
@@ -1220,7 +1220,7 @@ function AppleM3MediaCarousel142Render() {
     { label: 'Design Tokens', sub: '3단계 토큰 시스템', icon: '◇', color: '#8b5cf6' },
     { label: 'Storybook 8', sub: '컴포넌트 문서화', icon: '◉', color: '#10b981' },
     { label: 'Vanilla Extract', sub: '타입 안전 CSS', icon: '◆', color: '#f59e0b' },
-    { label: 'Tailwind CSS', sub: '유틸리티 퍼스트', icon: '◎', color: '#06b6d4' },
+    { label: 'UtilityCSS CSS', sub: '유틸리티 퍼스트', icon: '◎', color: '#06b6d4' },
   ]
 
   const toggleAuto = () => {
@@ -1242,7 +1242,7 @@ function AppleM3MediaCarousel142Render() {
 
   return (
     <div style={{ width: 340, fontFamily: 'system-ui, sans-serif' }}>
-      <div style={{ marginBottom: 10, fontSize: 11, color: '#64748b' }}>Apple HIG + M3 — 미디어 캐러셀 PageIndicator</div>
+      <div style={{ marginBottom: 10, fontSize: 11, color: '#64748b' }}>Platform HIG + M3 — 미디어 캐러셀 PageIndicator</div>
       <div style={{ borderRadius: 16, border: '1px solid #e2e8f0', overflow: 'hidden' }}>
         <div style={{ padding: '40px 24px', textAlign: 'center', background: `${item.color}0f`, borderBottom: '1px solid #f1f5f9', transition: 'background 0.3s' }}>
           <div style={{ fontSize: 48, color: item.color, marginBottom: 12 }}>{item.icon}</div>
@@ -1273,34 +1273,34 @@ function AppleM3MediaCarousel142Render() {
   )
 }
 
-export const Apple_M3_미디어_캐러셀_인디케이터: Story = {
-  name: 'Apple HIG + Material 3 — 미디어 캐러셀 (Cycle 142)',
+export const Platform_M3_미디어_캐러셀_인디케이터: Story = {
+  name: 'Platform HIG + RoleToken Design — 미디어 캐러셀 (Cycle 142)',
   parameters: {
     docs: {
       description: {
-        story: 'Apple HIG 카드 캐러셀 + M3 색상 역할 시스템. 자동 재생 토글, PageIndicator dot 직접 클릭, 아이템 색상 동적 변환 (배경/버튼).',
+        story: 'Platform HIG 카드 캐러셀 + M3 색상 역할 시스템. 자동 재생 토글, PageIndicator dot 직접 클릭, 아이템 색상 동적 변환 (배경/버튼).',
       },
     },
   },
-  render: () => <AppleM3MediaCarousel142Render />,
+  render: () => <PlatformM3MediaCarousel142Render />,
 }
 
 // ──────────────────────────────────────────────────────────────────────────────
-// Cycle 169: Chakra UI + Arco Design
+// Cycle 169: AccessibleUI + DataProductUI
 // ──────────────────────────────────────────────────────────────────────────────
 
-export const Chakra_튜토리얼_진행_인디케이터: Story = {
-  name: 'Chakra UI — 튜토리얼 진행 인디케이터 (Cycle 169)',
+export const Accessible_튜토리얼_진행_인디케이터: Story = {
+  name: 'AccessibleUI — 튜토리얼 진행 인디케이터 (Cycle 169)',
   parameters: {
     docs: {
       description: {
         story:
-          'Chakra UI Steps 패턴. 튜토리얼 단계별 PageIndicator + 이전/다음 탐색. ' +
+          'AccessibleUI Steps 패턴. 튜토리얼 단계별 PageIndicator + 이전/다음 탐색. ' +
           '완료된 단계 표시 + 현재 단계 레이블 표시.',
       },
     },
   },
-  render: function ChakraTutorialIndicatorRender() {
+  render: function AccessibleTutorialIndicatorRender() {
     const steps = [
       { title: '환경 설정', desc: 'Node.js, pnpm 설치' },
       { title: '패키지 설치', desc: 'npm install @heejun-com/core' },
@@ -1371,23 +1371,23 @@ export const Chakra_튜토리얼_진행_인디케이터: Story = {
   },
 }
 
-export const Arco_이미지_뷰어_페이지_닷: Story = {
-  name: 'Arco Design — 이미지 뷰어 페이지 닷 (Cycle 169)',
+export const DataProduct_이미지_뷰어_페이지_닷: Story = {
+  name: 'DataProductUI — 이미지 뷰어 페이지 닷 (Cycle 169)',
   parameters: {
     docs: {
       description: {
         story:
-          'Arco Design Carousel 패턴. 이미지 뷰어 슬라이드 + 하단 PageIndicator 닷. ' +
+          'DataProductUI Carousel 패턴. 이미지 뷰어 슬라이드 + 하단 PageIndicator 닷. ' +
           '자동 재생 + 수동 조작 가능.',
       },
     },
   },
-  render: function ArcoImageViewerRender() {
+  render: function DataProductImageViewerRender() {
     const slides = [
       { label: '컴포넌트 라이브러리', bg: 'linear-gradient(135deg, #1d4ed8, #7c3aed)', text: 'Button, TextField, Modal...' },
       { label: '디자인 토큰 시스템', bg: 'linear-gradient(135deg, #7c3aed, #ec4899)', text: '3-tier 토큰 아키텍처' },
       { label: 'Storybook 문서화', bg: 'linear-gradient(135deg, #ec4899, #f59e0b)', text: '650+ 인터랙티브 스토리' },
-      { label: 'Vercel 자동 배포', bg: 'linear-gradient(135deg, #f59e0b, #10b981)', text: 'git push → Production' },
+      { label: 'DeployPlatform 자동 배포', bg: 'linear-gradient(135deg, #f59e0b, #10b981)', text: 'git push → Production' },
     ]
 
     const [current, setCurrent] = useState(0)
@@ -1432,18 +1432,18 @@ export const Arco_이미지_뷰어_페이지_닷: Story = {
   },
 }
 
-export const Chakra_Arco_제품_온보딩_마법사: Story = {
-  name: 'Chakra UI + Arco Design — 제품 온보딩 마법사 (Cycle 169)',
+export const Accessible_DataProduct_제품_온보딩_마법사: Story = {
+  name: 'AccessibleUI + DataProductUI — 제품 온보딩 마법사 (Cycle 169)',
   parameters: {
     docs: {
       description: {
         story:
-          'Chakra UI + Arco Design Wizard 패턴. 온보딩 폼 스텝 + PageIndicator 위치 표시. ' +
+          'AccessibleUI + DataProductUI Wizard 패턴. 온보딩 폼 스텝 + PageIndicator 위치 표시. ' +
           '각 단계별 입력 + 최종 완료 화면.',
       },
     },
   },
-  render: function ChakraArcoOnboardingRender() {
+  render: function AccessibleDataProductOnboardingRender() {
     const [step, setStep] = useState(0)
     const [form, setForm] = useState({ name: '', company: '', role: '', useCase: '' })
 

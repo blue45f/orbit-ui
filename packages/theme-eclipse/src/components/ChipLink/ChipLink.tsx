@@ -57,7 +57,7 @@ type ChipLinkComponent = typeof ChipLinkRoot & {
  *
  * function App() {
  *   return (
- *     <ChipLink href='https://github.com/blue45f/ui-forge' target='_blank'>
+ *     <ChipLink href='https://code.example.com/orbit-ui' target='_blank'>
  *       <ChipLink.Leading>
  *         <CheckIcon size={24} />
  *       </ChipLink.Leading>

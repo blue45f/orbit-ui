@@ -243,11 +243,11 @@ export const 디자인QA = {
     error: false,
     minimumLine: 3,
   },
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
+
   render: ({ ...args }: any) => <TextArea {...args} />,
 }
 
-// MUI 문자 카운터 패턴
+// EnterpriseUI 문자 카운터 패턴
 const CharCounterTextArea = ({
   label,
   maxLength,
@@ -318,7 +318,7 @@ const MultiFieldFormDemo = () => {
     }}>
       <div style={{ marginBottom: '28px' }}>
         <div style={{ fontSize: '11px', fontWeight: '700', color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '6px' }}>
-          MUI TextArea Pattern
+          EnterpriseUI TextArea Pattern
         </div>
         <h2 style={{ margin: '0 0 6px', fontSize: '22px', fontWeight: '800', color: '#0f172a', letterSpacing: '-0.02em' }}>
           새 글 작성
@@ -402,12 +402,12 @@ const MultiFieldFormDemo = () => {
   )
 }
 
-export const MUI_문자카운터패턴: Story = {
-  name: 'MUI 문자 카운터 패턴 (게시글 작성)',
+export const EnterpriseUI_문자카운터패턴: Story = {
+  name: 'EnterpriseUI 문자 카운터 패턴 (게시글 작성)',
   render: () => <MultiFieldFormDemo />,
 }
 
-// Chakra 피드백/리뷰 폼 패턴
+// Accessible 피드백/리뷰 폼 패턴
 const FeedbackFormDemo = () => {
   const [rating, setRating] = useState<number | null>(null)
   const [feedback, setFeedback] = useState('')
@@ -425,7 +425,7 @@ const FeedbackFormDemo = () => {
     }}>
       <div style={{ marginBottom: '24px' }}>
         <div style={{ fontSize: '11px', fontWeight: '700', color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '6px' }}>
-          Chakra Textarea Pattern
+          Accessible Textarea Pattern
         </div>
         <h3 style={{ margin: '0 0 4px', fontSize: '18px', fontWeight: '700', color: '#0f172a' }}>피드백 보내기</h3>
         <p style={{ margin: 0, fontSize: '13px', color: '#64748b' }}>서비스 개선에 도움이 됩니다</p>
@@ -522,16 +522,16 @@ const FeedbackFormDemo = () => {
   )
 }
 
-export const Chakra_피드백폼패턴: Story = {
-  name: 'Chakra Textarea 패턴 (피드백/리뷰 폼)',
+export const Accessible_피드백폼패턴: Story = {
+  name: 'Accessible Textarea 패턴 (피드백/리뷰 폼)',
   render: () => <FeedbackFormDemo />,
 }
 
 /* --------------------------------------------------------------------------
-   Radix UI 글자수 카운터 + 미리보기 패턴
-   Radix Primitive TextArea: 잔여 글자수 색상 피드백 + 입력 내용 실시간 미리보기
+   PrimitiveUI 글자수 카운터 + 미리보기 패턴
+   Primitive Primitive TextArea: 잔여 글자수 색상 피드백 + 입력 내용 실시간 미리보기
 -------------------------------------------------------------------------- */
-const RadixCharCounterRender = () => {
+const PrimitiveCharCounterRender = () => {
   const [value, setValue] = useState('')
   const maxChars = 500
   const remaining = maxChars - value.length
@@ -577,22 +577,22 @@ const RadixCharCounterRender = () => {
   )
 }
 
-export const Radix_글자수_카운터_미리보기: Story = {
-  name: 'Radix UI - 글자수 카운터 + 실시간 미리보기 패턴',
+export const Primitive_글자수_카운터_미리보기: Story = {
+  name: 'PrimitiveUI - 글자수 카운터 + 실시간 미리보기 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'Radix Primitive autosize 패턴. 잔여 글자수를 색상(정상/경고/위험)으로 표시하고 ' +
+          'Primitive Primitive autosize 패턴. 잔여 글자수를 색상(정상/경고/위험)으로 표시하고 ' +
           '입력 내용을 하단 미리보기 영역에 실시간 반영합니다.',
       },
     },
   },
-  render: () => <RadixCharCounterRender />,
+  render: () => <PrimitiveCharCounterRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Google Material 3 인라인 유효성 검사 패턴
+   RoleToken Design 인라인 유효성 검사 패턴
    M3 TextField: 입력 즉시 error boolean + 안내 텍스트 전환으로 피드백
 -------------------------------------------------------------------------- */
 const M3InlineValidationRender = () => {
@@ -680,12 +680,12 @@ const M3InlineValidationRender = () => {
 }
 
 export const M3_인라인_유효성_검사: Story = {
-  name: 'Google Material 3 - 인라인 유효성 검사 패턴',
+  name: 'RoleToken Design - 인라인 유효성 검사 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'Google Material 3 TextField 패턴. 안내 텍스트가 에러 발생 시 빨간 에러 메시지로 ' +
+          'RoleToken Design TextField 패턴. 안내 텍스트가 에러 발생 시 빨간 에러 메시지로 ' +
           '전환됩니다. error prop(boolean)으로 TextArea 스타일을 제어합니다.',
       },
     },
@@ -694,10 +694,10 @@ export const M3_인라인_유효성_검사: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Radix UI 코드 에디터 스타일 입력 패턴
+   PrimitiveUI 코드 에디터 스타일 입력 패턴
    JSON 코드 입력: monospace 폰트 + 라인 번호 오버레이 + 유효성 검증
 -------------------------------------------------------------------------- */
-const RadixCodeEditorRender = () => {
+const PrimitiveCodeEditorRender = () => {
   const defaultJson = `{
   "name": "orbit-ui",
   "version": "2.0.0",
@@ -786,33 +786,33 @@ const RadixCodeEditorRender = () => {
         </button>
       </div>
       <div style={{ fontSize: 11, color: '#94a3b8' }}>
-        Radix UI Primitive 패턴 — monospace 폰트, 라인 번호, JSON 유효성 검증
+        PrimitiveUI Primitive 패턴 — monospace 폰트, 라인 번호, JSON 유효성 검증
       </div>
     </div>
   )
 }
 
-export const Radix_코드_에디터_입력: Story = {
-  name: 'Radix UI - 코드 에디터 스타일 입력 패턴',
+export const Primitive_코드_에디터_입력: Story = {
+  name: 'PrimitiveUI - 코드 에디터 스타일 입력 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'Radix Primitive TextArea를 코드 에디터처럼 활용. monospace 폰트, 라인 번호 오버레이, ' +
+          'Primitive Primitive TextArea를 코드 에디터처럼 활용. monospace 폰트, 라인 번호 오버레이, ' +
           'JSON 유효성 검사 버튼을 조합한 설정 편집 UI 패턴입니다.',
       },
     },
   },
-  render: () => <RadixCodeEditorRender />,
+  render: () => <PrimitiveCodeEditorRender />,
 }
 
 /* --------------------------------------------------------------------------
-   shadcn/ui 벤치마크: 코멘트 리치 텍스트 에디터 패턴
-   shadcn Textarea + 리치 에디터 패턴 — 서식 툴바 + 멘션 힌트 + 글자 수 제한
+   ComposableUI 벤치마크: 코멘트 리치 텍스트 에디터 패턴
+   ComposableUI Textarea + 리치 에디터 패턴 — 서식 툴바 + 멘션 힌트 + 글자 수 제한
 -------------------------------------------------------------------------- */
 const MAX_COMMENT_LEN = 500
 
-function ShadcnCommentEditorRender() {
+function ComposableUICommentEditorRender() {
   const [value, setValue] = useState('')
   const [mode, setMode] = useState<'write' | 'preview'>('write')
   const [submitted, setSubmitted] = useState(false)
@@ -901,30 +901,30 @@ function ShadcnCommentEditorRender() {
   )
 }
 
-export const Shadcn_코멘트_리치_에디터: Story = {
-  name: 'shadcn/ui - 코멘트 리치 에디터 패턴',
+export const ComposableUI_코멘트_리치_에디터: Story = {
+  name: 'ComposableUI - 코멘트 리치 에디터 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'shadcn/ui Textarea + 리치 에디터 패턴. 작성/미리보기 탭 전환, 글자 수 제한 표시(500자), ' +
+          'ComposableUI Textarea + 리치 에디터 패턴. 작성/미리보기 탭 전환, 글자 수 제한 표시(500자), ' +
           '초과 시 에러 상태, 제출 성공 피드백 애니메이션 포함.',
       },
     },
   },
-  render: () => <ShadcnCommentEditorRender />,
+  render: () => <ComposableUICommentEditorRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Vercel 벤치마크: 환경변수 멀티라인 편집기 패턴
-   Vercel Env Vars 편집기 — .env 형식 파싱 + 검증 + 추가 UI
+   DeployPlatform 벤치마크: 환경변수 멀티라인 편집기 패턴
+   DeployPlatform Env Vars 편집기 — .env 형식 파싱 + 검증 + 추가 UI
 -------------------------------------------------------------------------- */
 const ENV_PLACEHOLDER = `NEXT_PUBLIC_API_URL=https://api.example.com
 DATABASE_URL=postgresql://user:pass@localhost:5432/db
 NEXTAUTH_SECRET=your-secret-key-here
 REDIS_URL=redis://localhost:6379`
 
-function VercelEnvEditorRender() {
+function DeployPlatformEnvEditorRender() {
   const [raw, setRaw] = useState(ENV_PLACEHOLDER)
   const [parsed, setParsed] = useState<{ key: string; value: string; valid: boolean }[]>([])
   const [showParsed, setShowParsed] = useState(false)
@@ -1012,27 +1012,27 @@ function VercelEnvEditorRender() {
   )
 }
 
-export const Vercel_환경변수_멀티라인_편집기: Story = {
-  name: 'Vercel - 환경변수 멀티라인 편집기 패턴',
+export const DeployPlatform_환경변수_멀티라인_편집기: Story = {
+  name: 'DeployPlatform - 환경변수 멀티라인 편집기 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'Vercel 환경변수 일괄 입력 패턴. .env 형식으로 붙여넣기 후 파싱 & 검증, ' +
+          'DeployPlatform 환경변수 일괄 입력 패턴. .env 형식으로 붙여넣기 후 파싱 & 검증, ' +
           'monospace 폰트로 코드 에디터 느낌, KEY/VALUE 분리 + 유효성 표시.',
       },
     },
   },
-  render: () => <VercelEnvEditorRender />,
+  render: () => <DeployPlatformEnvEditorRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Linear 벤치마크: 이슈 설명 자동저장 에디터 패턴
-   Linear 이슈 설명 필드 — 자동저장 상태 표시, Markdown 힌트
+   IssueTracker 벤치마크: 이슈 설명 자동저장 에디터 패턴
+   IssueTracker 이슈 설명 필드 — 자동저장 상태 표시, Markdown 힌트
 -------------------------------------------------------------------------- */
 type AutoSaveStatus = 'idle' | 'saving' | 'saved' | 'error'
 
-function LinearAutoSaveEditorRender() {
+function IssueTrackerAutoSaveEditorRender() {
   const [desc, setDesc] = useState('이슈 재현 단계:\n1. Storybook을 실행한다\n2. Chip 컴포넌트로 이동한다\n3. 클릭 이벤트 확인')
   const [status, setStatus] = useState<AutoSaveStatus>('saved')
   const timerRef = { current: null as ReturnType<typeof setTimeout> | null }
@@ -1094,21 +1094,21 @@ function LinearAutoSaveEditorRender() {
   )
 }
 
-export const Linear_이슈_설명_자동저장: Story = {
-  name: 'Linear - 이슈 설명 자동저장 에디터 패턴',
+export const IssueTracker_이슈_설명_자동저장: Story = {
+  name: 'IssueTracker - 이슈 설명 자동저장 에디터 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'Linear 이슈 설명 자동저장 패턴. 1초 debounce 후 "저장 중..." → "저장됨" 상태 전환, ' +
+          'IssueTracker 이슈 설명 자동저장 패턴. 1초 debounce 후 "저장 중..." → "저장됨" 상태 전환, ' +
           '글자 수/단어 수/줄 수 실시간 카운터, 상태 점(indicator dot) 색상 전환.',
       },
     },
   },
-  render: () => <LinearAutoSaveEditorRender />,
+  render: () => <IssueTrackerAutoSaveEditorRender />,
 }
 
-function MantineFeedbackFormRender() {
+function AppUIFeedbackFormRender() {
   const [rating, setRating] = useState(0)
   const [feedback, setFeedback] = useState('')
   const [submitted, setSubmitted] = useState(false)
@@ -1196,21 +1196,21 @@ function MantineFeedbackFormRender() {
   )
 }
 
-export const Mantine_피드백_폼_별점: Story = {
-  name: 'Mantine - 별점 + 피드백 폼 패턴',
+export const AppUI_피드백_폼_별점: Story = {
+  name: 'AppUI - 별점 + 피드백 폼 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'Mantine Rating + Textarea 조합 패턴. 별점 선택 후 최소 10자 입력 시 제출 활성화, ' +
+          'AppUI Rating + Textarea 조합 패턴. 별점 선택 후 최소 10자 입력 시 제출 활성화, ' +
           '실시간 글자 수 검증, 에러 상태 표시, 제출 완료 후 성공 화면으로 전환.',
       },
     },
   },
-  render: () => <MantineFeedbackFormRender />,
+  render: () => <AppUIFeedbackFormRender />,
 }
 
-function ArcoCodeReviewRender() {
+function DataProductCodeReviewRender() {
   type ReviewLine = { line: number; code: string; comment: string; setComment: (v: string) => void; severity: 'info' | 'warn' | 'error' }
   const [comment1, setComment1] = useState('')
   const [comment2, setComment2] = useState('')
@@ -1291,21 +1291,21 @@ function ArcoCodeReviewRender() {
   )
 }
 
-export const Arco_코드_리뷰_인라인_코멘트: Story = {
-  name: 'Arco - 코드 리뷰 인라인 코멘트 패턴',
+export const DataProduct_코드_리뷰_인라인_코멘트: Story = {
+  name: 'DataProduct - 코드 리뷰 인라인 코멘트 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'Arco Design 코드 리뷰 UI 패턴. 코드 라인별 severity 뱃지(Critical/Warning/Suggestion), ' +
+          'DataProductUI 코드 리뷰 UI 패턴. 코드 라인별 severity 뱃지(Critical/Warning/Suggestion), ' +
           '라인 클릭 시 인라인 TextArea 확장, 개별 코멘트 제출, 완료 카운터.',
       },
     },
   },
-  render: () => <ArcoCodeReviewRender />,
+  render: () => <DataProductCodeReviewRender />,
 }
 
-function MantineCollaborativeNotesRender() {
+function AppUICollaborativeNotesRender() {
   type Collaborator = { id: number; name: string; color: string; avatar: string }
   const collaborators: Collaborator[] = [
     { id: 1, name: '김지수', color: '#3b82f6', avatar: '김' },
@@ -1379,27 +1379,27 @@ function MantineCollaborativeNotesRender() {
   )
 }
 
-export const Mantine_협업_공유_노트_에디터: Story = {
-  name: 'Mantine - 협업 공유 노트 에디터 패턴',
+export const AppUI_협업_공유_노트_에디터: Story = {
+  name: 'AppUI - 협업 공유 노트 에디터 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'Mantine Collaborative editing UI 패턴. 3명 협업자 아바타 + 타이핑 인디케이터, ' +
+          'AppUI Collaborative editing UI 패턴. 3명 협업자 아바타 + 타이핑 인디케이터, ' +
           '편집 시 랜덤 협업자 활성화 효과(scale/opacity), 버전 카운터, 줄/단어/글자 수 통계.',
       },
     },
   },
-  render: () => <MantineCollaborativeNotesRender />,
+  render: () => <AppUICollaborativeNotesRender />,
 }
 
 /* --------------------------------------------------------------------------
-   shadcn/ui 벤치마크: 인라인 편집 모드 전환 패턴
-   shadcn Textarea + 뷰/편집 토글 — Notion 스타일 클릭해서 편집하기
+   ComposableUI 벤치마크: 인라인 편집 모드 전환 패턴
+   ComposableUI Textarea + 뷰/편집 토글 — WorkspaceEditor 스타일 클릭해서 편집하기
 -------------------------------------------------------------------------- */
-function ShadcnInlineEditRender() {
+function ComposableUIInlineEditRender() {
   const [editing, setEditing] = useState(false)
-  const [text, setText] = useState('클릭하여 편집하세요. shadcn/ui는 뷰 모드와 편집 모드를 명확히 분리해 사용자가 실수로 편집하는 것을 방지합니다.')
+  const [text, setText] = useState('클릭하여 편집하세요. ComposableUI는 뷰 모드와 편집 모드를 명확히 분리해 사용자가 실수로 편집하는 것을 방지합니다.')
   const [draft, setDraft] = useState(text)
 
   const save = () => {
@@ -1467,30 +1467,30 @@ function ShadcnInlineEditRender() {
           {text}
         </div>
       )}
-      <div style={{ fontSize: 11, color: '#94a3b8' }}>클릭하면 편집 모드로 전환 — shadcn/ui 인라인 편집 패턴</div>
+      <div style={{ fontSize: 11, color: '#94a3b8' }}>클릭하면 편집 모드로 전환 — ComposableUI 인라인 편집 패턴</div>
     </div>
   )
 }
 
-export const Shadcn_인라인_편집_모드_전환: Story = {
-  name: 'shadcn/ui - 인라인 편집 모드 전환 패턴',
+export const ComposableUI_인라인_편집_모드_전환: Story = {
+  name: 'ComposableUI - 인라인 편집 모드 전환 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'shadcn/ui Textarea 패턴. 뷰 모드(dashed border)와 편집 모드(Textarea)를 명확히 분리합니다. ' +
-          '클릭 또는 Enter 키로 편집 활성화, 저장/취소로 완료합니다. Notion 인라인 편집 UX와 동일한 패턴입니다.',
+          'ComposableUI Textarea 패턴. 뷰 모드(dashed border)와 편집 모드(Textarea)를 명확히 분리합니다. ' +
+          '클릭 또는 Enter 키로 편집 활성화, 저장/취소로 완료합니다. WorkspaceEditor 인라인 편집 UX와 동일한 패턴입니다.',
       },
     },
   },
-  render: () => <ShadcnInlineEditRender />,
+  render: () => <ComposableUIInlineEditRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Radix UI 벤치마크: 마크다운 미리보기 분할 편집기 패턴
-   Radix Tabs + Textarea — 편집/미리보기 탭 전환
+   PrimitiveUI 벤치마크: 마크다운 미리보기 분할 편집기 패턴
+   Primitive Tabs + Textarea — 편집/미리보기 탭 전환
 -------------------------------------------------------------------------- */
-function RadixMarkdownEditorRender() {
+function PrimitiveMarkdownEditorRender() {
   const [tab, setTab] = useState<'write' | 'preview'>('write')
   const [md, setMd] = useState(`## 릴리즈 노트 v2.0\n\n**주요 변경사항:**\n- 신규 토큰 시스템 적용\n- 스토리 고도화 완료\n- TypeScript 5.7 업그레이드\n\n> 이 버전은 Breaking Change를 포함합니다.`)
 
@@ -1545,31 +1545,31 @@ function RadixMarkdownEditorRender() {
         )}
       </div>
       <div style={{ padding: '6px 12px', background: '#f8fafc', borderTop: '1px solid #e2e8f0', fontSize: 11, color: '#94a3b8' }}>
-        Radix Tabs 패턴 — 작성/미리보기 분할 에디터
+        Primitive Tabs 패턴 — 작성/미리보기 분할 에디터
       </div>
     </div>
   )
 }
 
-export const Radix_마크다운_미리보기_분할_에디터: Story = {
-  name: 'Radix UI - 마크다운 미리보기 분할 에디터',
+export const Primitive_마크다운_미리보기_분할_에디터: Story = {
+  name: 'PrimitiveUI - 마크다운 미리보기 분할 에디터',
   parameters: {
     docs: {
       description: {
         story:
-          'Radix UI Tabs + Textarea 조합 패턴. 작성 탭과 미리보기 탭을 전환하면서 실시간으로 마크다운 렌더링을 확인합니다. ' +
-          'Radix의 비제어 탭 패턴(각 탭이 독립적으로 콘텐츠를 마운트)을 간소화해 구현합니다.',
+          'PrimitiveUI Tabs + Textarea 조합 패턴. 작성 탭과 미리보기 탭을 전환하면서 실시간으로 마크다운 렌더링을 확인합니다. ' +
+          'Primitive의 비제어 탭 패턴(각 탭이 독립적으로 콘텐츠를 마운트)을 간소화해 구현합니다.',
       },
     },
   },
-  render: () => <RadixMarkdownEditorRender />,
+  render: () => <PrimitiveMarkdownEditorRender />,
 }
 
 /* --------------------------------------------------------------------------
-   shadcn + Radix 복합: 폼 초안 자동저장 + 글자 수 제한 패턴
-   shadcn Textarea + Radix ScrollArea — 실시간 저장 상태 표시
+   ComposableUI + Primitive 복합: 폼 초안 자동저장 + 글자 수 제한 패턴
+   ComposableUI Textarea + Primitive ScrollArea — 실시간 저장 상태 표시
 -------------------------------------------------------------------------- */
-function ShadcnRadixAutoSaveRender() {
+function ComposableUIPrimitiveAutoSaveRender() {
   const MAX = 280
   const [text, setText] = useState('')
   const [saveState, setSaveState] = useState<'idle' | 'saving' | 'saved'>('idle')
@@ -1643,30 +1643,30 @@ function ShadcnRadixAutoSaveRender() {
           게시
         </button>
       </div>
-      <div style={{ fontSize: 11, color: '#94a3b8' }}>shadcn/ui + Radix — 280자 제한 + 원형 게이지 + 자동저장</div>
+      <div style={{ fontSize: 11, color: '#94a3b8' }}>ComposableUI + Primitive — 280자 제한 + 원형 게이지 + 자동저장</div>
     </div>
   )
 }
 
-export const Shadcn_Radix_자동저장_글자수_제한_에디터: Story = {
-  name: 'shadcn/ui + Radix UI - 자동저장 + 글자 수 제한 에디터',
+export const ComposableUI_Primitive_자동저장_글자수_제한_에디터: Story = {
+  name: 'ComposableUI + PrimitiveUI - 자동저장 + 글자 수 제한 에디터',
   parameters: {
     docs: {
       description: {
         story:
-          'shadcn/ui + Radix UI 복합 패턴. Twitter/X 스타일의 280자 제한 에디터. ' +
+          'ComposableUI + PrimitiveUI 복합 패턴. Twitter/X 스타일의 280자 제한 에디터. ' +
           '원형 SVG 게이지로 남은 글자 수 시각화, 1.2초 디바운스 자동저장 상태 표시, 입력 없으면 게시 버튼 비활성화.',
       },
     },
   },
-  render: () => <ShadcnRadixAutoSaveRender />,
+  render: () => <ComposableUIPrimitiveAutoSaveRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Cycle 159 — Vercel Design + Ant Design
-   Vercel: 환경 변수 bulk 편집 + 실시간 파싱 패턴
+   Cycle 159 — DeployPlatform Design + Ant Design
+   DeployPlatform: 환경 변수 bulk 편집 + 실시간 파싱 패턴
 -------------------------------------------------------------------------- */
-function VercelEnvBulkEditorRender() {
+function DeployPlatformEnvBulkEditorRender() {
   const defaultVal = `NEXT_PUBLIC_API_URL=https://api.example.com\nNEXT_PUBLIC_WS_URL=wss://ws.example.com\nDATABASE_URL=postgresql://localhost:5432/db\nSECRET_KEY=\nNODE_ENV=production`
   const [value, setValue] = useState(defaultVal)
   const [saved, setSaved] = useState(false)
@@ -1711,16 +1711,16 @@ function VercelEnvBulkEditorRender() {
   )
 }
 
-export const Vercel_환경변수_벌크_편집기: Story = {
-  name: 'Vercel Design — 환경 변수 Bulk 편집 + 실시간 파싱 패턴',
+export const DeployPlatform_환경변수_벌크_편집기: Story = {
+  name: 'DeployPlatform Design — 환경 변수 Bulk 편집 + 실시간 파싱 패턴',
   parameters: {
     docs: {
       description: {
-        story: 'Vercel의 Environment Variables 편집기 패턴. TextArea에 KEY=VALUE 형식으로 입력하면 실시간으로 파싱해 설정/누락 상태를 표시합니다.',
+        story: 'DeployPlatform의 Environment Variables 편집기 패턴. TextArea에 KEY=VALUE 형식으로 입력하면 실시간으로 파싱해 설정/누락 상태를 표시합니다.',
       },
     },
   },
-  render: () => <VercelEnvBulkEditorRender />,
+  render: () => <DeployPlatformEnvBulkEditorRender />,
 }
 
 /* --------------------------------------------------------------------------
@@ -1801,7 +1801,7 @@ export const Ant_이슈_등록_폼: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Vercel + Ant: 배포 노트 + 릴리즈 설명 복합 편집 패턴
+   DeployPlatform + Ant: 배포 노트 + 릴리즈 설명 복합 편집 패턴
 -------------------------------------------------------------------------- */
 const RELEASE_TEMPLATES = [
   { label: '버그 수정', body: '## 버그 수정\n\n- [ ] 재현 경로\n- [ ] 수정 내용\n- [ ] 테스트 결과' },
@@ -1809,7 +1809,7 @@ const RELEASE_TEMPLATES = [
   { label: '중단 변경', body: '## Breaking Changes\n\n### 영향 범위\n\n### 마이그레이션 가이드\n\n### 이전 동작 / 이후 동작' },
 ]
 
-function VercelAntReleaseNoteRender() {
+function DeployPlatformAntReleaseNoteRender() {
   const [note, setNote] = useState('')
   const [version, setVersion] = useState('2.1.0')
   const [charCount, setCharCount] = useState(0)
@@ -1880,22 +1880,22 @@ function VercelAntReleaseNoteRender() {
   )
 }
 
-export const Vercel_Ant_릴리즈_노트_에디터: Story = {
-  name: 'Vercel + Ant Design — 릴리즈 노트 + 배포 설명 편집 패턴',
+export const DeployPlatform_Ant_릴리즈_노트_에디터: Story = {
+  name: 'DeployPlatform + Ant Design — 릴리즈 노트 + 배포 설명 편집 패턴',
   parameters: {
     docs: {
       description: {
-        story: 'Vercel Design + Ant Design 복합 패턴. 버전 입력 + 템플릿 선택 + TextArea 편집/미리보기 전환으로 릴리즈 노트를 작성합니다.',
+        story: 'DeployPlatform Design + Ant Design 복합 패턴. 버전 입력 + 템플릿 선택 + TextArea 편집/미리보기 전환으로 릴리즈 노트를 작성합니다.',
       },
     },
   },
-  render: () => <VercelAntReleaseNoteRender />,
+  render: () => <DeployPlatformAntReleaseNoteRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Cycle 186 — Radix UI + Ant Design
+   Cycle 186 — PrimitiveUI + Ant Design
 -------------------------------------------------------------------------- */
-function RadixAccessibleDescriptionRender() {
+function PrimitiveAccessibleDescriptionRender() {
   const MAX = 500
   const [value, setValue] = useState('')
   const [focused, setFocused] = useState(false)
@@ -1906,7 +1906,7 @@ function RadixAccessibleDescriptionRender() {
     <div style={{ width: 480, fontFamily: 'system-ui, sans-serif' }}>
       <div style={{ marginBottom: 16, padding: '12px 16px', background: '#f8fafc', borderRadius: 8, border: '1px solid #e2e8f0' }}>
         <div style={{ fontSize: 13, fontWeight: 600, color: '#0f172a', marginBottom: 2 }}>이슈 설명</div>
-        <div style={{ fontSize: 11, color: '#64748b' }}>Radix UI 접근성 패턴 — aria-label + aria-describedby</div>
+        <div style={{ fontSize: 11, color: '#64748b' }}>PrimitiveUI 접근성 패턴 — aria-label + aria-describedby</div>
       </div>
       <div role="group" aria-labelledby="desc-label" style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
         <label id="desc-label" htmlFor="issue-desc" style={{ fontSize: 12, fontWeight: 600, color: '#374151' }}>
@@ -1952,18 +1952,18 @@ function RadixAccessibleDescriptionRender() {
   )
 }
 
-export const Radix_접근성_설명_입력_폼: Story = {
-  name: 'Radix UI — 접근성 이슈 설명 입력 폼',
+export const Primitive_접근성_설명_입력_폼: Story = {
+  name: 'PrimitiveUI — 접근성 이슈 설명 입력 폼',
   parameters: {
     docs: {
       description: {
         story:
-          'Radix UI 접근성 패턴. aria-label + aria-describedby + aria-required 조합으로 스크린 리더 친화적인 설명 입력 폼을 구성합니다. ' +
+          'PrimitiveUI 접근성 패턴. aria-label + aria-describedby + aria-required 조합으로 스크린 리더 친화적인 설명 입력 폼을 구성합니다. ' +
           '글자 수 초과 시 error 상태 전환 + aria-live 영역으로 실시간 피드백을 제공합니다.',
       },
     },
   },
-  render: () => <RadixAccessibleDescriptionRender />,
+  render: () => <PrimitiveAccessibleDescriptionRender />,
 }
 
 const ANT_FEEDBACK_RULES = [
@@ -2077,7 +2077,7 @@ const ISSUE_TEMPLATES_186 = [
   { id: 'blank', label: '직접 작성', text: '' },
 ]
 
-function RadixAntIssueCommentRender() {
+function PrimitiveAntIssueCommentRender() {
   const [body, setBody] = useState('')
   const [preview, setPreview] = useState(false)
   const [selectedTpl, setSelectedTpl] = useState('blank')
@@ -2093,7 +2093,7 @@ function RadixAntIssueCommentRender() {
         <div style={{ width: 28, height: 28, borderRadius: '50%', background: '#818cf8', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 12, color: '#fff', fontWeight: 700, flexShrink: 0 }}>U</div>
         <div style={{ flex: 1 }}>
           <div style={{ fontSize: 12, fontWeight: 600, color: '#0f172a' }}>새 이슈 작성</div>
-          <div style={{ fontSize: 10, color: '#64748b' }}>Radix + Ant Design — 이슈 댓글 에디터</div>
+          <div style={{ fontSize: 10, color: '#64748b' }}>Primitive + Ant Design — 이슈 댓글 에디터</div>
         </div>
         <div style={{ display: 'flex', gap: 4 }}>
           {ISSUE_TEMPLATES_186.map((t) => (
@@ -2174,15 +2174,15 @@ function RadixAntIssueCommentRender() {
   )
 }
 
-export const Radix_Ant_이슈_댓글_에디터: Story = {
-  name: 'Radix + Ant Design — 이슈 댓글 & 편집/미리보기 에디터',
+export const Primitive_Ant_이슈_댓글_에디터: Story = {
+  name: 'Primitive + Ant Design — 이슈 댓글 & 편집/미리보기 에디터',
   parameters: {
     docs: {
       description: {
         story:
-          'Radix UI + Ant Design 복합 패턴. 이슈 템플릿 선택(버그/기능/직접) + 편집/미리보기 탭 전환 + aria-selected/aria-multiline 접근성 속성을 조합합니다.',
+          'PrimitiveUI + Ant Design 복합 패턴. 이슈 템플릿 선택(버그/기능/직접) + 편집/미리보기 탭 전환 + aria-selected/aria-multiline 접근성 속성을 조합합니다.',
       },
     },
   },
-  render: () => <RadixAntIssueCommentRender />,
+  render: () => <PrimitiveAntIssueCommentRender />,
 }

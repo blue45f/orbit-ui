@@ -145,7 +145,7 @@ export const 디자인QA = {
       max: 2,
     },
   },
-   
+
   render: ({ footerDirection, headerText, bodyText, buttonText, buttonCount, ...rest }: any) => (
     <Dialog {...rest}>
       <Dialog.Trigger asChild>
@@ -176,7 +176,7 @@ export const 디자인QA = {
 }
 
 /* --------------------------------------------------------------------------
-   폼 다이얼로그 (MUI Dialog 폼 패턴)
+   폼 다이얼로그 (EnterpriseUI Dialog 폼 패턴)
    TextField 포함, 제출 버튼, 실시간 유효성 검사
 -------------------------------------------------------------------------- */
 const FormDialogRender = () => {
@@ -282,7 +282,7 @@ export const 폼다이얼로그: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   위험 동작 확인 다이얼로그 (MUI Dialog destructive action 패턴)
+   위험 동작 확인 다이얼로그 (EnterpriseUI Dialog destructive action 패턴)
    취소/삭제 버튼 조합, 삭제 대상 명시, 복구 불가 경고
 -------------------------------------------------------------------------- */
 export const 위험동작확인: Story = {
@@ -337,7 +337,7 @@ export const 위험동작확인: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   로딩 상태 다이얼로그 (MUI Dialog 제출 중 버튼 disabled 패턴)
+   로딩 상태 다이얼로그 (EnterpriseUI Dialog 제출 중 버튼 disabled 패턴)
    제출 버튼 클릭 후 로딩 상태 표시 및 버튼 비활성화
 -------------------------------------------------------------------------- */
 const LoadingDialogRender = (args: React.ComponentProps<typeof Dialog>) => {
@@ -593,8 +593,8 @@ export const 멀티스텝: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   shadcn/ui 벤치마크: 삭제 확인 다이얼로그 패턴
-   shadcn/ui AlertDialog — 위험 작업 전 이중 확인 패턴
+   ComposableUI 벤치마크: 삭제 확인 다이얼로그 패턴
+   ComposableUI AlertDialog — 위험 작업 전 이중 확인 패턴
 -------------------------------------------------------------------------- */
 function DeleteConfirmRender() {
   const [isOpen, setIsOpen] = useState(false)
@@ -647,19 +647,19 @@ function DeleteConfirmRender() {
           </Dialog.Bottom>
         </Dialog>
       )}
-      <div style={{ fontSize: 11, color: '#94a3b8' }}>shadcn/ui AlertDialog 패턴 — 위험 작업 전 이중 확인</div>
+      <div style={{ fontSize: 11, color: '#94a3b8' }}>ComposableUI AlertDialog 패턴 — 위험 작업 전 이중 확인</div>
     </div>
   )
 }
 
-export const shadcn_삭제_확인_다이얼로그: Story = {
-  name: 'shadcn/ui - 삭제 확인 다이얼로그 패턴',
+export const ComposableUI_삭제_확인_다이얼로그: Story = {
+  name: 'ComposableUI - 삭제 확인 다이얼로그 패턴',
   render: () => <DeleteConfirmRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Mantine 벤치마크: 이미지 뷰어 모달 패턴
-   Mantine Modal — 전체화면 이미지 미리보기 lightbox 패턴
+   AppUI 벤치마크: 이미지 뷰어 모달 패턴
+   AppUI Modal — 전체화면 이미지 미리보기 lightbox 패턴
 -------------------------------------------------------------------------- */
 const GALLERY_ITEMS = [
   { id: 1, title: 'Orbit UI Components', color: '#6366f1', label: 'Components' },
@@ -723,13 +723,13 @@ function ImageViewerRender() {
           </Dialog.Bottom>
         </Dialog>
       )}
-      <div style={{ marginTop: 12, fontSize: 11, color: '#94a3b8' }}>Mantine Modal — 썸네일 클릭 시 라이트박스 미리보기</div>
+      <div style={{ marginTop: 12, fontSize: 11, color: '#94a3b8' }}>AppUI Modal — 썸네일 클릭 시 라이트박스 미리보기</div>
     </div>
   )
 }
 
-export const Mantine_이미지_뷰어_모달: Story = {
-  name: 'Mantine - 이미지 뷰어 라이트박스 패턴',
+export const AppUI_이미지_뷰어_모달: Story = {
+  name: 'AppUI - 이미지 뷰어 라이트박스 패턴',
   render: () => <ImageViewerRender />,
 }
 
@@ -821,7 +821,7 @@ export const Ant_폼_제출_다이얼로그: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Radix UI — 이미지 미리보기 라이트박스
+   PrimitiveUI — 이미지 미리보기 라이트박스
    비제어 모달 패턴 + ESC/배경 클릭 닫기
 -------------------------------------------------------------------------- */
 const LIGHTBOX_ITEMS = [
@@ -858,17 +858,17 @@ const LightboxRender = () => {
           </Dialog.Bottom>
         </Dialog>
       )}
-      <p style={{ fontSize: 12, color: '#94a3b8' }}>Radix UI Dialog — 비제어 라이트박스, 썸네일 클릭으로 미리보기</p>
+      <p style={{ fontSize: 12, color: '#94a3b8' }}>PrimitiveUI Dialog — 비제어 라이트박스, 썸네일 클릭으로 미리보기</p>
     </div>
   )
 }
 
-export const Radix_라이트박스_이미지_미리보기: Story = {
+export const Primitive_라이트박스_이미지_미리보기: Story = {
   parameters: {
     docs: {
       description: {
         story:
-          'Radix UI의 비제어(uncontrolled) Dialog 패턴. 썸네일 클릭 시 라이트박스 모달 오픈. ESC 키 또는 배경 클릭으로 닫기를 지원합니다.',
+          'PrimitiveUI의 비제어(uncontrolled) Dialog 패턴. 썸네일 클릭 시 라이트박스 모달 오픈. ESC 키 또는 배경 클릭으로 닫기를 지원합니다.',
       },
     },
   },
@@ -876,7 +876,7 @@ export const Radix_라이트박스_이미지_미리보기: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Chakra UI — 사용자 프로필 편집 모달
+   AccessibleUI — 사용자 프로필 편집 모달
    단순하고 직관적인 폼 UX 패턴
 -------------------------------------------------------------------------- */
 const ProfileEditRender = () => {
@@ -922,17 +922,17 @@ const ProfileEditRender = () => {
           </Dialog.Close>
         </Dialog.Bottom>
       </Dialog>
-      <p style={{ marginLeft: 16, fontSize: 12, color: '#94a3b8', alignSelf: 'center' }}>Chakra UI 프로필 편집 패턴 — 심플 폼, 즉시 피드백</p>
+      <p style={{ marginLeft: 16, fontSize: 12, color: '#94a3b8', alignSelf: 'center' }}>AccessibleUI 프로필 편집 패턴 — 심플 폼, 즉시 피드백</p>
     </div>
   )
 }
 
-export const Chakra_프로필_편집_모달: Story = {
+export const Accessible_프로필_편집_모달: Story = {
   parameters: {
     docs: {
       description: {
         story:
-          'Chakra UI Modal의 단순 폼 패턴. 이름, 직함을 인라인 편집하고 저장 시 성공 배너를 즉시 표시합니다. props API의 단순함과 즉각적인 사용자 피드백이 특징입니다.',
+          'AccessibleUI Modal의 단순 폼 패턴. 이름, 직함을 인라인 편집하고 저장 시 성공 배너를 즉시 표시합니다. props API의 단순함과 즉각적인 사용자 피드백이 특징입니다.',
       },
     },
   },
@@ -940,7 +940,7 @@ export const Chakra_프로필_편집_모달: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Radix + Chakra — 권한 설정 모달
+   Primitive + Accessible — 권한 설정 모달
    체크박스 목록 + 역할 선택 패턴
 -------------------------------------------------------------------------- */
 const PERM_LIST = [
@@ -995,18 +995,18 @@ const PermModalRender = () => {
         </Dialog.Bottom>
       </Dialog>
       <p style={{ marginLeft: 16, fontSize: 12, color: '#94a3b8', alignSelf: 'center' }}>
-        Radix + Chakra — 권한 체크리스트 + 카운트 표시
+        Primitive + Accessible — 권한 체크리스트 + 카운트 표시
       </p>
     </div>
   )
 }
 
-export const Radix_Chakra_권한_설정_모달: Story = {
+export const Primitive_Accessible_권한_설정_모달: Story = {
   parameters: {
     docs: {
       description: {
         story:
-          'Radix UI Dialog + Chakra UI Checkbox 패턴 조합. 권한 목록을 토글 카드로 표현하고, 선택된 권한 수를 버튼에 실시간으로 표시합니다.',
+          'PrimitiveUI Dialog + AccessibleUI Checkbox 패턴 조합. 권한 목록을 토글 카드로 표현하고, 선택된 권한 수를 버튼에 실시간으로 표시합니다.',
       },
     },
   },
@@ -1014,8 +1014,8 @@ export const Radix_Chakra_권한_설정_모달: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Tailwind UI 벤치마크: 알림 설정 모달
-   Tailwind UI Notification preferences dialog 패턴
+   UtilityUI 벤치마크: 알림 설정 모달
+   UtilityUI Notification preferences dialog 패턴
 -------------------------------------------------------------------------- */
 type TwNotifKey = 'email' | 'push' | 'slack' | 'sms'
 type TwNotifCategory = 'mentions' | 'comments' | 'releases' | 'billing'
@@ -1129,13 +1129,13 @@ const TwNotifRender = () => {
   )
 }
 
-export const TailwindUI_알림_설정_모달: Story = {
-  name: 'Tailwind UI — 알림 채널 환경설정 모달',
+export const UtilityCSSUI_알림_설정_모달: Story = {
+  name: 'UtilityUI — 알림 채널 환경설정 모달',
   parameters: {
     docs: {
       description: {
         story:
-          'Tailwind UI Notification preferences dialog 패턴. ' +
+          'UtilityUI Notification preferences dialog 패턴. ' +
           '카테고리(멘션/댓글/릴리즈/결제) × 채널(이메일/푸시/Slack/SMS) 체크박스 매트릭스로 ' +
           '세밀한 알림 설정을 지원. 저장 시 인라인 성공 배너 표시.',
       },
@@ -1296,8 +1296,8 @@ export const Ant_일괄_삭제_확인_모달: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Tailwind UI 벤치마크: 공유 설정 모달
-   Tailwind UI Share dialog 패턴 — 링크 공유 + 권한 관리
+   UtilityUI 벤치마크: 공유 설정 모달
+   UtilityUI Share dialog 패턴 — 링크 공유 + 권한 관리
 -------------------------------------------------------------------------- */
 type TwShareRole = 'viewer' | 'editor' | 'admin'
 
@@ -1423,13 +1423,13 @@ const TwShareRender = () => {
   )
 }
 
-export const TailwindUI_공유_권한_모달: Story = {
-  name: 'Tailwind UI — 공유 권한 관리 Share Dialog',
+export const UtilityCSSUI_공유_권한_모달: Story = {
+  name: 'UtilityUI — 공유 권한 관리 Share Dialog',
   parameters: {
     docs: {
       description: {
         story:
-          'Tailwind UI Share dialog 패턴. 이메일 초대 + 멤버별 역할 선택(드롭다운) + ' +
+          'UtilityUI Share dialog 패턴. 이메일 초대 + 멤버별 역할 선택(드롭다운) + ' +
           '링크 복사 기능이 통합된 공유 권한 관리 모달. ' +
           '초대 즉시 목록에 추가되며 역할은 인라인에서 변경 가능합니다.',
       },
@@ -1439,10 +1439,10 @@ export const TailwindUI_공유_권한_모달: Story = {
 }
 
 // ============================================================
-// Cycle 135 — shadcn/ui + Ant Design 벤치마크 반영
+// Cycle 135 — ComposableUI + Ant Design 벤치마크 반영
 // ============================================================
 
-// shadcn/ui 스타일 — 이미지 갤러리 모달 (라이트박스 패턴)
+// ComposableUI 스타일 — 이미지 갤러리 모달 (라이트박스 패턴)
 const GALLERY_ITEMS_135 = [
   { id: 1, title: 'Button 컴포넌트 설계', desc: '3-tier 토큰 아키텍처 다이어그램', color: '#6366f1' },
   { id: 2, title: 'Toast 알림 UI', desc: '4방향 위치 + 다크모드 스크린샷', color: '#10b981' },
@@ -1452,7 +1452,7 @@ const GALLERY_ITEMS_135 = [
   { id: 6, title: 'Carousel 뷰어', desc: '터치 스와이프 + 도트 인디케이터', color: '#0ea5e9' },
 ]
 
-function ShadcnLightboxRender() {
+function ComposableUILightboxRender() {
   const [isOpen, setIsOpen] = useState(false)
   const [selected, setSelected] = useState(0)
   const item = GALLERY_ITEMS_135[selected]
@@ -1512,19 +1512,19 @@ function ShadcnLightboxRender() {
   )
 }
 
-export const Shadcn_라이트박스_갤러리_모달: Story = {
-  name: 'shadcn/ui - 라이트박스 갤러리 모달',
+export const ComposableUI_라이트박스_갤러리_모달: Story = {
+  name: 'ComposableUI - 라이트박스 갤러리 모달',
   parameters: {
     layout: 'centered',
     docs: {
       description: {
         story:
-          'shadcn/ui Dialog 라이트박스 패턴. 썸네일 그리드 클릭 → 모달에서 상세 보기. ' +
+          'ComposableUI Dialog 라이트박스 패턴. 썸네일 그리드 클릭 → 모달에서 상세 보기. ' +
           '이전/다음 버튼으로 항목 순회. 호버 시 썸네일 scale 애니메이션.',
       },
     },
   },
-  render: () => <ShadcnLightboxRender />,
+  render: () => <ComposableUILightboxRender />,
 }
 
 // Ant Design 스타일 — 상세 정보 드로어 스타일 모달 (SlideIn 패턴)
@@ -1537,7 +1537,7 @@ const PROJECT_DETAIL: ProjectDetail = {
   health: 87,
   members: ['HJ', 'JS', 'MJ', 'SH'],
   tags: ['React', 'TypeScript', 'Storybook'],
-  desc: 'Figma 기반 React 디자인 시스템. 3-tier 토큰 구조와 Tailwind 토큰 테마 시스템을 활용한 컴포넌트 라이브러리.',
+  desc: 'DesignTool 기반 React 디자인 시스템. 3-tier 토큰 구조와 UtilityCSS 토큰 테마 시스템을 활용한 컴포넌트 라이브러리.',
 }
 
 function AntDetailDrawerRender() {
@@ -1625,10 +1625,10 @@ export const Ant_프로젝트_상세_정보_모달: Story = {
   render: () => <AntDetailDrawerRender />,
 }
 
-// shadcn/ui + Ant — 멀티스텝 폼 모달 (Wizard 패턴)
+// ComposableUI + Ant — 멀티스텝 폼 모달 (Wizard 패턴)
 type WizardStep135 = 'basic' | 'config' | 'review'
 
-function ShadcnAntWizardModalRender() {
+function ComposableUIAntWizardModalRender() {
   const [isOpen, setIsOpen] = useState(false)
   const [step, setStep] = useState<WizardStep135>('basic')
   const [data, setData] = useState({ name: '', type: '', region: '', confirm: false })
@@ -1708,24 +1708,24 @@ function ShadcnAntWizardModalRender() {
   )
 }
 
-export const Shadcn_Ant_멀티스텝_폼_모달: Story = {
-  name: 'shadcn/ui + Ant Design - 멀티스텝 폼 모달',
+export const ComposableUI_Ant_멀티스텝_폼_모달: Story = {
+  name: 'ComposableUI + Ant Design - 멀티스텝 폼 모달',
   parameters: {
     layout: 'centered',
     docs: {
       description: {
         story:
-          'shadcn/ui + Ant Design Steps 결합. 기본 정보 → 환경 설정 → 검토 3단계 위저드. ' +
+          'ComposableUI + Ant Design Steps 결합. 기본 정보 → 환경 설정 → 검토 3단계 위저드. ' +
           '단계별 진행 바, 라디오 카드 선택, 최종 검토 확인 체크박스. 각 단계 유효성 검증 후 다음 허용.',
       },
     },
   },
-  render: () => <ShadcnAntWizardModalRender />,
+  render: () => <ComposableUIAntWizardModalRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Cycle 164 — Google Material 3 + shadcn/ui
-   Material 3: 피드백 다이얼로그 패턴 (Alert Dialog with tonal surface)
+   Cycle 164 — RoleToken Design + ComposableUI
+   RoleToken Design: 피드백 다이얼로그 패턴 (Alert Dialog with tonal surface)
 -------------------------------------------------------------------------- */
 const M3_RISK_LEVELS = [
   { level: 'info', label: '안내', color: '#2196f3', bg: '#e3f2fd', icon: 'ℹ' },
@@ -1753,7 +1753,7 @@ function M3FeedbackDialogRender() {
       <Dialog onOpenChange={(o) => { if (!o) { setOpen(false); setConfirmed(false) } }}>
         <Dialog.Trigger asChild>
           <Button color="primary" size="medium" onClick={() => setOpen(true)}>
-            <Button.Center>Material 3 다이얼로그 열기</Button.Center>
+            <Button.Center>RoleToken Design 다이얼로그 열기</Button.Center>
           </Button>
         </Dialog.Trigger>
         <Dialog.Top>
@@ -1761,7 +1761,7 @@ function M3FeedbackDialogRender() {
             <div style={{ width: 52, height: 52, borderRadius: '50%', background: risk.bg, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 24 }}>{risk.icon}</div>
             <Typography textStyle="subheadingSmall">{risk.label} — 작업 확인 필요</Typography>
             <Typography textStyle="descriptionLarge">
-              이 작업은 {risk.label === '위험' ? '되돌릴 수 없습니다.' : '일부 영향을 줄 수 있습니다.'} 계속 진행하기 전에 내용을 확인해주세요. Material 3의 Tonal Surface 패턴으로 중요도를 시각적으로 구분합니다.
+              이 작업은 {risk.label === '위험' ? '되돌릴 수 없습니다.' : '일부 영향을 줄 수 있습니다.'} 계속 진행하기 전에 내용을 확인해주세요. RoleToken Design의 Tonal Surface 패턴으로 중요도를 시각적으로 구분합니다.
             </Typography>
             <div style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '10px 16px', borderRadius: 10, background: risk.bg, width: '100%', cursor: 'pointer' }} onClick={() => setConfirmed(c => !c)}>
               <div style={{ width: 18, height: 18, borderRadius: 4, border: `2px solid ${risk.color}`, background: confirmed ? risk.color : 'transparent', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, transition: 'all 150ms' }}>
@@ -1791,12 +1791,12 @@ function M3FeedbackDialogRender() {
 }
 
 export const Material3_피드백_다이얼로그: Story = {
-  name: 'Google Material 3 — 피드백 다이얼로그 (Tonal Surface)',
+  name: 'RoleToken Design — 피드백 다이얼로그 (Tonal Surface)',
   parameters: {
     layout: 'centered',
     docs: {
       description: {
-        story: 'Material 3 Alert Dialog + Tonal Surface 패턴. 안내/경고/위험 3가지 위험 레벨 전환, 중앙 아이콘 서클, 확인 체크박스 필수 선택 후 확인 버튼 활성화. M3 색상 역할 시스템 반영.',
+        story: 'RoleToken Design Alert Dialog + Tonal Surface 패턴. 안내/경고/위험 3가지 위험 레벨 전환, 중앙 아이콘 서클, 확인 체크박스 필수 선택 후 확인 버튼 활성화. M3 색상 역할 시스템 반영.',
       },
     },
   },
@@ -1804,9 +1804,9 @@ export const Material3_피드백_다이얼로그: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   shadcn/ui: 커맨드 팔레트 트리거 모달 패턴
+   ComposableUI: 커맨드 팔레트 트리거 모달 패턴
 -------------------------------------------------------------------------- */
-const SHADCN_QUICK_ACTIONS = [
+const UTILITYUI_QUICK_ACTIONS = [
   { group: '생성', items: [
     { icon: '📝', label: '새 파일', shortcut: '⌘ N' },
     { icon: '📁', label: '새 폴더', shortcut: '⌘ ⇧ N' },
@@ -1819,11 +1819,11 @@ const SHADCN_QUICK_ACTIONS = [
   ]},
 ]
 
-function ShadcnCommandModalRender() {
+function ComposableUICommandModalRender() {
   const [query, setQuery] = useState('')
   const [chosen, setChosen] = useState<string | null>(null)
 
-  const allItems = SHADCN_QUICK_ACTIONS.flatMap(g => g.items.map(i => ({ ...i, group: g.group })))
+  const allItems = UTILITYUI_QUICK_ACTIONS.flatMap(g => g.items.map(i => ({ ...i, group: g.group })))
   const filtered = query ? allItems.filter(i => i.label.includes(query) || i.group.includes(query)) : allItems
   const grouped = filtered.reduce<Record<string, typeof allItems>>((acc, item) => {
     if (!acc[item.group]) { acc[item.group] = [] }
@@ -1872,21 +1872,21 @@ function ShadcnCommandModalRender() {
   )
 }
 
-export const Shadcn_커맨드_팔레트_모달: Story = {
-  name: 'shadcn/ui — 커맨드 팔레트 트리거 모달',
+export const ComposableUI_커맨드_팔레트_모달: Story = {
+  name: 'ComposableUI — 커맨드 팔레트 트리거 모달',
   parameters: {
     layout: 'centered',
     docs: {
       description: {
-        story: 'shadcn/ui cmdk 패턴. ⌘K 트리거 버튼 → Dialog 내 FloatingTextField 검색 + 그룹별 액션 목록. 선택 시 Dialog 자동 닫힘. 실무에서 가장 많이 사용되는 Command Palette 구현 패턴.',
+        story: 'ComposableUI cmdk 패턴. ⌘K 트리거 버튼 → Dialog 내 FloatingTextField 검색 + 그룹별 액션 목록. 선택 시 Dialog 자동 닫힘. 실무에서 가장 많이 사용되는 Command Palette 구현 패턴.',
       },
     },
   },
-  render: () => <ShadcnCommandModalRender />,
+  render: () => <ComposableUICommandModalRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Material 3 + shadcn/ui: 이미지 크롭 / 파일 업로드 모달 복합 패턴
+   RoleToken Design + ComposableUI: 이미지 크롭 / 파일 업로드 모달 복합 패턴
 -------------------------------------------------------------------------- */
 type UploadStep = 'select' | 'preview' | 'done'
 
@@ -1896,7 +1896,7 @@ const FILE_TYPES = [
   { ext: 'PDF', color: '#f59e0b', size: '1.1 MB' },
 ]
 
-function M3ShadcnFileUploadModalRender() {
+function M3ComposableUIFileUploadModalRender() {
   const [step, setStep] = useState<UploadStep>('select')
   const [selectedFile, setSelectedFile] = useState<number | null>(null)
   const [quality, setQuality] = useState(80)
@@ -1990,15 +1990,15 @@ function M3ShadcnFileUploadModalRender() {
   )
 }
 
-export const M3_Shadcn_파일_업로드_모달: Story = {
-  name: 'Material 3 + shadcn/ui — 파일 업로드 멀티스텝 모달',
+export const M3_ComposableUI_파일_업로드_모달: Story = {
+  name: 'RoleToken Design + ComposableUI — 파일 업로드 멀티스텝 모달',
   parameters: {
     layout: 'centered',
     docs: {
       description: {
-        story: 'Material 3 Step Indicator + shadcn/ui Dialog 패턴. 선택 → 미리보기 → 완료 3단계, 파일 형식 카드 선택, M3 슬라이더 품질 설정, 단계별 버튼 상태 제어. M3 색상 역할(Primary/Tonal) 반영.',
+        story: 'RoleToken Design Step Indicator + ComposableUI Dialog 패턴. 선택 → 미리보기 → 완료 3단계, 파일 형식 카드 선택, M3 슬라이더 품질 설정, 단계별 버튼 상태 제어. M3 색상 역할(Primary/Tonal) 반영.',
       },
     },
   },
-  render: () => <M3ShadcnFileUploadModalRender />,
+  render: () => <M3ComposableUIFileUploadModalRender />,
 }

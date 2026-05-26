@@ -6,28 +6,28 @@ import { Meta, Unstyled } from '@storybook/blocks'
   <div style={{
     maxWidth: '960px',
     margin: '0 auto',
-    fontFamily: '"Pretendard Variable", "Pretendard", -apple-system, BlinkMacSystemFont, system-ui, sans-serif',
+    fontFamily: '"Pretendard Variable", "Pretendard", system-ui, sans-serif',
     padding: '0 24px',
   }}>
 
     <div style={{ marginBottom: '48px', paddingTop: '48px' }}>
       <div style={{ fontSize: '12px', fontWeight: '700', color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '8px' }}>Accessibility Guide</div>
       <h1 style={{ fontSize: '36px', fontWeight: '800', color: '#1e293b', letterSpacing: '-0.03em', margin: '0 0 12px' }}>접근성 가이드</h1>
-      <p style={{ fontSize: '16px', color: '#64748b', lineHeight: '1.6', margin: 0 }}>
-        WAI-ARIA 패턴, Radix UI 접근성 비교, 키보드 네비게이션 체크리스트, 스크린리더 테스트 가이드를 제공합니다.
-      </p>
+      <div style={{ fontSize: '16px', color: '#64748b', lineHeight: '1.6', margin: 0 }}>
+        WAI-ARIA 패턴, PrimitiveUI 접근성 비교, 키보드 네비게이션 체크리스트, 스크린리더 테스트 가이드를 제공합니다.
+      </div>
     </div>
 
     <section style={{ marginBottom: '64px' }}>
-      <h2 style={{ fontSize: '22px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '8px' }}>Radix UI vs Orbit UI 접근성 비교</h2>
-      <p style={{ fontSize: '14px', color: '#64748b', marginBottom: '24px', lineHeight: '1.6' }}>
-        Radix UI는 접근성을 핵심 설계 원칙으로 삼습니다. Orbit UI는 동일한 WAI-ARIA 패턴을 따르며, 아래 표는 주요 구현 비교입니다.
-      </p>
+      <h2 style={{ fontSize: '22px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '8px' }}>PrimitiveUI vs Orbit UI 접근성 비교</h2>
+      <div style={{ fontSize: '14px', color: '#64748b', marginBottom: '24px', lineHeight: '1.6' }}>
+        PrimitiveUI는 접근성을 핵심 설계 원칙으로 삼습니다. Orbit UI는 동일한 WAI-ARIA 패턴을 따르며, 아래 표는 주요 구현 비교입니다.
+      </div>
       <div style={{ overflowX: 'auto', borderRadius: '12px', border: '1.5px solid #e2e8f0' }}>
         <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px' }}>
           <thead>
             <tr style={{ background: '#f8fafc' }}>
-              {['패턴', 'Radix UI', 'Orbit UI', '구현 상태'].map((col) => (
+              {['패턴', 'PrimitiveUI', 'Orbit UI', '구현 상태'].map((col) => (
                 <th key={col} style={{ padding: '12px 16px', textAlign: 'left', fontWeight: '600', color: '#1e293b', borderBottom: '1px solid #e2e8f0' }}>{col}</th>
               ))}
             </tr>
@@ -40,7 +40,7 @@ import { Meta, Unstyled } from '@storybook/blocks'
               { pattern: 'Listbox (Select)', radix: 'role="listbox", aria-selected, keyboard nav', orbit: 'Popover + ListTile 조합', status: '부분', statusColor: '#f59e0b' },
               { pattern: 'Toggle / Switch', radix: 'role="switch", aria-checked, aria-label', orbit: 'Toggle, Switch 컴포넌트', status: '완료', statusColor: '#10b981' },
               { pattern: 'Accordion', radix: 'aria-expanded, aria-controls, aria-labelledby', orbit: 'Accordion 컴포넌트', status: '완료', statusColor: '#10b981' },
-              { pattern: 'Slider', radix: 'role="slider", aria-valuenow, aria-valuetext', orbit: 'Slider (Radix 직접 래핑)', status: '완료', statusColor: '#10b981' },
+              { pattern: 'Slider', radix: 'role="slider", aria-valuenow, aria-valuetext', orbit: 'Slider (Primitive 직접 래핑)', status: '완료', statusColor: '#10b981' },
               { pattern: 'Tooltip', radix: 'aria-describedby, hover/focus 트리거', orbit: 'Tooltip 컴포넌트', status: '완료', statusColor: '#10b981' },
             ].map(({ pattern, radix, orbit, status, statusColor }, i) => (
               <tr key={pattern} style={{ borderBottom: '1px solid #f1f5f9', background: i % 2 === 0 ? '#fff' : '#fafbfc' }}>
@@ -66,9 +66,9 @@ import { Meta, Unstyled } from '@storybook/blocks'
 
     <section style={{ marginBottom: '64px' }}>
       <h2 style={{ fontSize: '22px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '8px' }}>WAI-ARIA 핵심 패턴</h2>
-      <p style={{ fontSize: '14px', color: '#64748b', marginBottom: '24px', lineHeight: '1.6' }}>
+      <div style={{ fontSize: '14px', color: '#64748b', marginBottom: '24px', lineHeight: '1.6' }}>
         컴포넌트 구현 시 반드시 따라야 하는 WAI-ARIA 디자인 패턴입니다.
-      </p>
+      </div>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '16px' }}>
         {[
           {
@@ -160,9 +160,9 @@ import { Meta, Unstyled } from '@storybook/blocks'
 
     <section style={{ marginBottom: '64px' }}>
       <h2 style={{ fontSize: '22px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '8px' }}>키보드 네비게이션 구현 체크리스트</h2>
-      <p style={{ fontSize: '14px', color: '#64748b', marginBottom: '24px', lineHeight: '1.6' }}>
+      <div style={{ fontSize: '14px', color: '#64748b', marginBottom: '24px', lineHeight: '1.6' }}>
         새 컴포넌트 구현 또는 PR 리뷰 전 아래 항목을 확인하세요.
-      </p>
+      </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
         {[
           { category: '포커스 관리', color: '#6366f1', items: [
@@ -219,9 +219,9 @@ import { Meta, Unstyled } from '@storybook/blocks'
 
     <section style={{ marginBottom: '64px' }}>
       <h2 style={{ fontSize: '22px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '8px' }}>스크린리더 테스트 가이드</h2>
-      <p style={{ fontSize: '14px', color: '#64748b', marginBottom: '24px', lineHeight: '1.6' }}>
+      <div style={{ fontSize: '14px', color: '#64748b', marginBottom: '24px', lineHeight: '1.6' }}>
         실제 스크린리더로 컴포넌트를 검증하는 방법입니다. 개발 환경별 권장 도구를 사용하세요.
-      </p>
+      </div>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '16px', marginBottom: '32px' }}>
         {[
           { tool: 'VoiceOver (macOS/iOS)', shortcut: 'Cmd + F5', color: '#6366f1', steps: ['Safari 브라우저 사용 권장', 'VO + U: 로터 메뉴 (링크/헤딩/폼 이동)', 'VO + Shift + Down: 컨테이너 진입', 'VO + 방향키: 요소 탐색', 'VO + Space: 선택/실행'] },
@@ -266,9 +266,9 @@ import { Meta, Unstyled } from '@storybook/blocks'
 
     <section style={{ marginBottom: '64px' }}>
       <h2 style={{ fontSize: '22px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '8px' }}>Orbit UI 컴포넌트 코드 예시</h2>
-      <p style={{ fontSize: '14px', color: '#64748b', marginBottom: '24px', lineHeight: '1.6' }}>
+      <div style={{ fontSize: '14px', color: '#64748b', marginBottom: '24px', lineHeight: '1.6' }}>
         접근성 속성을 포함한 올바른 컴포넌트 사용 예시입니다.
-      </p>
+      </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
         {[
           {
@@ -346,20 +346,20 @@ import { Meta, Unstyled } from '@storybook/blocks'
       </div>
     </section>
 
-  {/* ─── Cycle 39: Radix UI + Google Material 3 접근성 벤치마크 ─── */}
+  {/* ─── Cycle 39: PrimitiveUI + RoleToken Design 접근성 벤치마크 ─── */}
   <section style={{ marginTop: '48px', padding: '32px', background: 'linear-gradient(135deg, #faf5ff 0%, #eff6ff 100%)', borderRadius: '20px', border: '1.5px solid #e9d5ff' }}>
     <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px' }}>
       <span style={{ fontSize: '28px' }}>♿</span>
       <div>
-        <h2 style={{ margin: 0, fontSize: '22px', fontWeight: '800', color: '#1e1b4b' }}>Radix UI + Google Material 3 접근성 패턴</h2>
-        <p style={{ margin: '4px 0 0', fontSize: '13px', color: '#7c3aed' }}>Cycle 39 벤치마크 — 접근성 우수 사례 비교 분석</p>
+        <h2 style={{ margin: 0, fontSize: '22px', fontWeight: '800', color: '#1e1b4b' }}>PrimitiveUI + RoleToken Design 접근성 패턴</h2>
+        <div style={{ margin: '4px 0 0', fontSize: '13px', color: '#7c3aed' }}>Cycle 39 벤치마크 — 접근성 우수 사례 비교 분석</div>
       </div>
     </div>
 
     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '28px' }}>
       {[
         {
-          lib: 'Radix UI',
+          lib: 'PrimitiveUI',
           icon: '⬡',
           color: '#6366f1',
           bg: '#eff6ff',
@@ -368,12 +368,12 @@ import { Meta, Unstyled } from '@storybook/blocks'
             'WAI-ARIA 명세 100% 준수 — 모든 Primitive에 role, aria-* 자동 적용',
             'Focus 관리 — Dialog/Popover 열릴 때 first focusable로 이동, 닫힐 때 trigger로 복원',
             'Escape 키 처리 — Popover, Dialog, DropdownMenu 전역 일관성',
-            'asChild 패턴 — 시맨틱 HTML 유지하면서 Radix 접근성 레이어 합성',
+            'asChild 패턴 — 시맨틱 HTML 유지하면서 Primitive 접근성 레이어 합성',
             'Screen reader 친화적 — aria-expanded, aria-controls 자동 연결',
           ],
         },
         {
-          lib: 'Google Material 3',
+          lib: 'RoleToken Design',
           icon: 'M',
           color: '#059669',
           bg: '#f0fdf4',
@@ -404,66 +404,66 @@ import { Meta, Unstyled } from '@storybook/blocks'
     <h3 style={{ fontSize: '16px', fontWeight: '700', color: '#1e293b', margin: '0 0 16px' }}>Orbit UI에 적용된 접근성 패턴</h3>
     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '14px' }}>
       {[
-        { pattern: 'GhostButton Toolbar', from: 'Radix UI', aria: 'role="toolbar" + aria-pressed', desc: '토글 가능한 버튼 그룹에 role="toolbar"와 aria-pressed로 상태 표현', color: '#6366f1' },
-        { pattern: 'TextArea 유효성', from: 'Material 3', aria: 'aria-invalid + aria-describedby', desc: 'error 상태를 aria-invalid로 표현, 오류 메시지를 aria-describedby로 연결', color: '#059669' },
-        { pattern: 'Activity Feed', from: 'Radix UI + M3', aria: 'role="switch" + aria-checked', desc: '필터 토글을 role="switch"로 구현, 읽지 않은 상태를 시각+스크린리더로 이중 표현', color: '#8b5cf6' },
+        { pattern: 'GhostButton Toolbar', from: 'PrimitiveUI', aria: 'role="toolbar" + aria-pressed', desc: '토글 가능한 버튼 그룹에 role="toolbar"와 aria-pressed로 상태 표현', color: '#6366f1' },
+        { pattern: 'TextArea 유효성', from: 'RoleToken Design', aria: 'aria-invalid + aria-describedby', desc: 'error 상태를 aria-invalid로 표현, 오류 메시지를 aria-describedby로 연결', color: '#059669' },
+        { pattern: 'Activity Feed', from: 'PrimitiveUI + M3', aria: 'role="switch" + aria-checked', desc: '필터 토글을 role="switch"로 구현, 읽지 않은 상태를 시각+스크린리더로 이중 표현', color: '#8b5cf6' },
       ].map(({ pattern, from, aria, desc, color }) => (
         <div key={pattern} style={{ background: '#fff', borderRadius: '12px', border: '1.5px solid #e2e8f0', padding: '16px' }}>
           <div style={{ fontSize: '10px', fontWeight: '700', color, textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '6px' }}>{from}</div>
           <div style={{ fontSize: '13px', fontWeight: '700', color: '#1e293b', marginBottom: '6px' }}>{pattern}</div>
           <code style={{ display: 'block', fontSize: '11px', background: '#f1f5f9', color: '#7c3aed', padding: '6px 10px', borderRadius: '7px', marginBottom: '10px', fontFamily: 'monospace' }}>{aria}</code>
-          <p style={{ margin: 0, fontSize: '11px', color: '#64748b', lineHeight: '1.6' }}>{desc}</p>
+          <div style={{ margin: 0, fontSize: '11px', color: '#64748b', lineHeight: '1.6' }}>{desc}</div>
         </div>
       ))}
     </div>
   </section>
 
   {/* ─────────────────────────────────────────────────────
-      Tailwind UI + Mantine 접근성 벤치마크 (Cycle 48)
+      UtilityUI + AppUI 접근성 벤치마크 (Cycle 48)
       ───────────────────────────────────────────────────── */}
   <section style={{ marginTop: '48px' }}>
     <div style={{ fontSize: '22px', fontWeight: '800', color: '#1e293b', marginBottom: '6px' }}>
-      Tailwind UI &amp; Mantine 접근성 벤치마크
+      UtilityUI &amp; AppUI 접근성 벤치마크
     </div>
     <div style={{ fontSize: '14px', color: '#64748b', marginBottom: '24px', lineHeight: '1.6' }}>
-      Tailwind UI의 실무 접근성 패턴과 Mantine의 form 접근성 구현 방식을 Orbit UI와 비교합니다.
+      UtilityUI의 실무 접근성 패턴과 AppUI의 form 접근성 구현 방식을 Orbit UI와 비교합니다.
     </div>
 
     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '24px' }}>
-      {/* Tailwind UI */}
+      {/* UtilityUI */}
       <div style={{ padding: '20px', borderRadius: '12px', background: '#f0fdf4', border: '2px solid #bbf7d0' }}>
-        <div style={{ fontWeight: '700', fontSize: '14px', color: '#1e293b', marginBottom: '14px' }}>Tailwind UI 접근성 강점</div>
+        <div style={{ fontWeight: '700', fontSize: '14px', color: '#1e293b', marginBottom: '14px' }}>UtilityUI 접근성 강점</div>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', fontSize: '13px', color: '#14532d' }}>
           <div style={{ padding: '10px 12px', background: '#fff', borderRadius: '8px', border: '1px solid #bbf7d0' }}>
             <div style={{ fontWeight: '700', marginBottom: '4px' }}>읽기 전용 체크박스 패턴</div>
-            pricing 비교표에서 disabled 체크박스로 기능 지원 여부를 시각적으로 표현. aria-readonly 속성으로 보조 기술에 상태 전달.
+            <div>pricing 비교표에서 disabled 체크박스로 기능 지원 여부를 시각적으로 표현. aria-readonly 속성으로 보조 기술에 상태 전달.</div>
           </div>
           <div style={{ padding: '10px 12px', background: '#fff', borderRadius: '8px', border: '1px solid #bbf7d0' }}>
             <div style={{ fontWeight: '700', marginBottom: '4px' }}>체크박스 카드 그리드</div>
-            label 요소로 체크박스와 텍스트를 묶어 클릭 영역을 카드 전체로 확장. 키보드로 탭 이동 후 Space로 토글 가능.
+            <div>label 요소로 체크박스와 텍스트를 묶어 클릭 영역을 카드 전체로 확장. 키보드로 탭 이동 후 Space로 토글 가능.</div>
           </div>
           <div style={{ padding: '10px 12px', background: '#fff', borderRadius: '8px', border: '1px solid #bbf7d0' }}>
             <div style={{ fontWeight: '700', marginBottom: '4px' }}>결제 폼 자동 포맷팅</div>
-            카드 번호 입력 시 inputmode="numeric"으로 모바일 숫자 키패드 자동 활성화. pattern 속성으로 유효성 힌트 제공.
+            <div>카드 번호 입력 시 inputmode="numeric"으로 모바일 숫자 키패드 자동 활성화. pattern 속성으로 유효성 힌트 제공.</div>
           </div>
         </div>
       </div>
 
-      {/* Mantine */}
+      {/* AppUI */}
       <div style={{ padding: '20px', borderRadius: '12px', background: '#eff6ff', border: '2px solid #bfdbfe' }}>
-        <div style={{ fontWeight: '700', fontSize: '14px', color: '#1e293b', marginBottom: '14px' }}>Mantine 접근성 강점</div>
+        <div style={{ fontWeight: '700', fontSize: '14px', color: '#1e293b', marginBottom: '14px' }}>AppUI 접근성 강점</div>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', fontSize: '13px', color: '#1e3a5f' }}>
           <div style={{ padding: '10px 12px', background: '#fff', borderRadius: '8px', border: '1px solid #bfdbfe' }}>
             <div style={{ fontWeight: '700', marginBottom: '4px' }}>연동된 aria-describedby</div>
-            description 텍스트에 자동으로 id를 부여하고 input의 aria-describedby로 연결. 스크린 리더가 힌트 텍스트를 자동 읽음.
+            <div>description 텍스트에 자동으로 id를 부여하고 input의 aria-describedby로 연결. 스크린 리더가 힌트 텍스트를 자동 읽음.</div>
           </div>
           <div style={{ padding: '10px 12px', background: '#fff', borderRadius: '8px', border: '1px solid #bfdbfe' }}>
             <div style={{ fontWeight: '700', marginBottom: '4px' }}>글자 수 카운터 라이브 리전</div>
-            남은 글자 수를 aria-live="polite"로 래핑해 스크린 리더가 실시간으로 안내. 시각적 색상 변화와 별개로 보조 기술도 지원.
+            <div>남은 글자 수를 aria-live="polite"로 래핑해 스크린 리더가 실시간으로 안내. 시각적 색상 변화와 별개로 보조 기술도 지원.</div>
           </div>
           <div style={{ padding: '10px 12px', background: '#fff', borderRadius: '8px', border: '1px solid #bfdbfe' }}>
             <div style={{ fontWeight: '700', marginBottom: '4px' }}>disabled vs required 시각화</div>
-            필수 컬럼은 disabled + 시각적 텍스트 "필수" 레이블로 구분. aria-required + aria-disabled 조합으로 보조 기술 대응.
+            <div>필수 컬럼은 disabled + 시각적 텍스트 "필수" 레이블로 구분. aria-required + aria-disabled 조합으로 보조 기술 대응.</div>
           </div>
         </div>
       </div>
@@ -474,34 +474,34 @@ import { Meta, Unstyled } from '@storybook/blocks'
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '12px', fontSize: '12px', color: '#374151', lineHeight: '1.7' }}>
         <div>
           <div style={{ fontWeight: '700', color: '#16a34a', marginBottom: '4px' }}>Checkbox 접근성</div>
-          disabled prop으로 읽기 전용 시각화, label 요소로 클릭 영역 확장, onChange 콜백으로 제어 상태 관리.
+          <div>disabled prop으로 읽기 전용 시각화, label 요소로 클릭 영역 확장, onChange 콜백으로 제어 상태 관리.</div>
         </div>
         <div>
           <div style={{ fontWeight: '700', color: '#1d4ed8', marginBottom: '4px' }}>FloatingTextField 접근성</div>
-          floating label로 placeholder 대체 (항상 표시), error prop으로 aria-invalid 자동 설정.
+          <div>floating label로 placeholder 대체 (항상 표시), error prop으로 aria-invalid 자동 설정.</div>
         </div>
         <div>
           <div style={{ fontWeight: '700', color: '#6366f1', marginBottom: '4px' }}>Switch 접근성</div>
-          onCheckedChange로 제어 상태 관리, role="switch" + aria-checked 자동 설정으로 보조 기술 완전 지원.
+          <div>onCheckedChange로 제어 상태 관리, role="switch" + aria-checked 자동 설정으로 보조 기술 완전 지원.</div>
         </div>
       </div>
     </div>
   </section>
 
-    {/* Mantine + Ant Design 접근성 벤치마크 */}
+    {/* AppUI + Ant Design 접근성 벤치마크 */}
     <section style={{ marginBottom: '64px' }}>
       <h2 style={{ fontSize: '22px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '8px' }}>
-        Mantine + Ant Design 접근성 벤치마크
+        AppUI + Ant Design 접근성 벤치마크
       </h2>
-      <p style={{ fontSize: '14px', color: '#64748b', marginBottom: '24px', lineHeight: '1.6' }}>
-        Mantine과 Ant Design의 접근성 구현 방식에서 Orbit UI가 배울 수 있는 패턴을 분석합니다. (Cycle 53 벤치마크)
-      </p>
+      <div style={{ fontSize: '14px', color: '#64748b', marginBottom: '24px', lineHeight: '1.6' }}>
+        AppUI과 Ant Design의 접근성 구현 방식에서 Orbit UI가 배울 수 있는 패턴을 분석합니다. (Cycle 53 벤치마크)
+      </div>
 
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '28px' }}>
-        {/* Mantine */}
+        {/* AppUI */}
         <div style={{ borderRadius: '14px', border: '1.5px solid #339af020', background: '#f0f9ff', overflow: 'hidden' }}>
           <div style={{ padding: '14px 18px', background: '#1971c2', display: 'flex', alignItems: 'center', gap: 8 }}>
-            <span style={{ fontSize: '12px', fontWeight: '800', color: '#fff', letterSpacing: '0.02em' }}>Mantine</span>
+            <span style={{ fontSize: '12px', fontWeight: '800', color: '#fff', letterSpacing: '0.02em' }}>AppUI</span>
             <span style={{ fontSize: '11px', color: '#a5d8ff', fontWeight: '600' }}>v7 Accessibility</span>
           </div>
           <div style={{ padding: '16px 18px' }}>
@@ -509,7 +509,7 @@ import { Meta, Unstyled } from '@storybook/blocks'
               { title: 'useMove + useHover 훅', desc: 'Slider/ColorPicker 마우스 이벤트를 키보드로 동일하게 처리하는 커스텀 훅 제공' },
               { title: 'Switch role="switch"', desc: 'aria-checked + aria-label 자동 설정, label prop으로 연동 — htmlFor 수동 설정 불필요' },
               { title: 'FocusTrap 컴포넌트', desc: '모달/팝오버 내 포커스 트랩을 독립 컴포넌트로 재사용 가능 — 커스텀 오버레이에 적용' },
-              { title: 'Accessible announcements', desc: '@mantine/notifications는 role="alert" + aria-live="polite"로 스크린리더 자동 읽기' },
+              { title: 'Accessible announcements', desc: '@accessible-kit/notifications는 role="alert" + aria-live="polite"로 스크린리더 자동 읽기' },
             ].map(({ title, desc }) => (
               <div key={title} style={{ marginBottom: '12px' }}>
                 <div style={{ fontSize: '12px', fontWeight: '700', color: '#1971c2', marginBottom: '3px' }}>{title}</div>
@@ -546,9 +546,9 @@ import { Meta, Unstyled } from '@storybook/blocks'
         <div style={{ fontSize: '14px', fontWeight: '700', color: '#1e293b', marginBottom: '12px' }}>Switch 컴포넌트 접근성 체크리스트</div>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '10px' }}>
           {[
-            { ok: true, item: 'role="switch" 자동 설정', detail: 'Radix Switch primitive 래핑으로 자동 적용' },
+            { ok: true, item: 'role="switch" 자동 설정', detail: 'Primitive Switch primitive 래핑으로 자동 적용' },
             { ok: true, item: 'aria-checked 상태 반영', detail: 'checked prop이 변경될 때 즉시 업데이트' },
-            { ok: true, item: 'Space/Enter 키 토글', detail: 'Radix 기본 동작으로 키보드 토글 지원' },
+            { ok: true, item: 'Space/Enter 키 토글', detail: 'Primitive 기본 동작으로 키보드 토글 지원' },
             { ok: true, item: 'aria-label 명시 권장', detail: 'label 텍스트만으로 의미 전달이 불명확할 때' },
             { ok: false, item: 'disabled + aria-disabled 병행', detail: 'disabled prop 시 aria-disabled도 함께 설정 필요' },
             { ok: false, item: 'aria-describedby 연결', detail: '설명 텍스트를 id로 연결해 스크린리더에 제공 필요' },
@@ -570,7 +570,7 @@ import { Meta, Unstyled } from '@storybook/blocks'
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '12px', fontSize: '12px' }}>
           {[
             { label: '로딩 상태', code: 'loading={true}', desc: 'aria-busy="true" 자동 설정, 버튼 텍스트에 "처리 중..." 추가로 스크린리더에 상태 전달' },
-            { label: '아이콘 전용 버튼', code: 'aria-label="저장"', desc: '텍스트 없는 아이콘 버튼은 aria-label 필수 — Mantine의 ActionIcon처럼 명확한 레이블 제공' },
+            { label: '아이콘 전용 버튼', code: 'aria-label="저장"', desc: '텍스트 없는 아이콘 버튼은 aria-label 필수 — AppUI의 ActionIcon처럼 명확한 레이블 제공' },
             { label: '버튼 그룹', code: 'role="group"', desc: '연관된 버튼을 묶을 때 wrapper에 role="group" + aria-label="페이지 네비게이션" 추가' },
           ].map(({ label, code, desc }) => (
             <div key={label} style={{ padding: '12px', borderRadius: '8px', background: '#f8fafc', border: '1px solid #f1f5f9' }}>
@@ -583,21 +583,21 @@ import { Meta, Unstyled } from '@storybook/blocks'
       </div>
     </section>
 
-    {/* Radix UI + Linear Design 접근성 섹션 */}
+    {/* PrimitiveUI + IssueTracker Design 접근성 섹션 */}
     <section style={{ marginBottom: '64px' }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px' }}>
-        <h2 style={{ fontSize: '22px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', margin: 0 }}>Radix UI + Linear Design 접근성 분석</h2>
+        <h2 style={{ fontSize: '22px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', margin: 0 }}>PrimitiveUI + IssueTracker Design 접근성 분석</h2>
         <span style={{ padding: '3px 10px', background: '#f1f5f9', borderRadius: '20px', fontSize: '12px', fontWeight: '600', color: '#6366f1' }}>Cycle 55</span>
       </div>
 
       {/* Two cards */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '20px', marginBottom: '28px' }}>
         <div style={{ padding: '24px', borderRadius: '14px', background: '#0f0f0f', border: '1px solid #2a2a2a' }}>
-          <div style={{ fontSize: '11px', fontWeight: '700', color: '#888', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '8px' }}>Radix UI</div>
+          <div style={{ fontSize: '11px', fontWeight: '700', color: '#888', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '8px' }}>PrimitiveUI</div>
           <div style={{ fontSize: '18px', fontWeight: '700', color: '#fff', marginBottom: '10px' }}>Accessibility by Default</div>
-          <p style={{ fontSize: '13px', color: '#999', lineHeight: '1.7', margin: '0 0 16px' }}>
-            모든 Radix Primitive는 WAI-ARIA 1.2 완전 준수. HoverCard는 role="dialog" + aria-describedby, Slider는 role="slider" + aria-valuenow/valuemin/valuemax를 자동 관리합니다.
-          </p>
+          <div style={{ fontSize: '13px', color: '#999', lineHeight: '1.7', margin: '0 0 16px' }}>
+            모든 Primitive Primitive는 WAI-ARIA 1.2 완전 준수. HoverCard는 role="dialog" + aria-describedby, Slider는 role="slider" + aria-valuenow/valuemin/valuemax를 자동 관리합니다.
+          </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '12px' }}>
             {[
               { check: 'HoverCard', note: 'Escape 키 닫기, focus 이탈 시 자동 닫기, openDelay/closeDelay로 의도치 않은 트리거 방지' },
@@ -613,11 +613,11 @@ import { Meta, Unstyled } from '@storybook/blocks'
         </div>
 
         <div style={{ padding: '24px', borderRadius: '14px', background: '#0f172a', border: '1px solid #1e293b' }}>
-          <div style={{ fontSize: '11px', fontWeight: '700', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '8px' }}>Linear Design</div>
+          <div style={{ fontSize: '11px', fontWeight: '700', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '8px' }}>IssueTracker Design</div>
           <div style={{ fontSize: '18px', fontWeight: '700', color: '#fff', marginBottom: '10px' }}>Keyboard-First Navigation</div>
-          <p style={{ fontSize: '13px', color: '#94a3b8', lineHeight: '1.7', margin: '0 0 16px' }}>
-            Linear은 마우스 없이 전체 기능 이용 가능한 키보드 네비게이션을 핵심 UX로 설계합니다. 이슈 탐색, 상태 변경, 우선순위 조정 모두 키보드 단축키로 수행 가능합니다.
-          </p>
+          <div style={{ fontSize: '13px', color: '#94a3b8', lineHeight: '1.7', margin: '0 0 16px' }}>
+            IssueTracker은 마우스 없이 전체 기능 이용 가능한 키보드 네비게이션을 핵심 UX로 설계합니다. 이슈 탐색, 상태 변경, 우선순위 조정 모두 키보드 단축키로 수행 가능합니다.
+          </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '12px' }}>
             {[
               { key: 'G → I', action: '이슈 목록으로 이동' },
@@ -639,17 +639,17 @@ import { Meta, Unstyled } from '@storybook/blocks'
         <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px' }}>
           <thead>
             <tr style={{ background: '#f8fafc' }}>
-              {['컴포넌트', '접근성 기준', 'Radix 지원', 'Orbit UI 구현', '상태'].map((col, i) => (
+              {['컴포넌트', '접근성 기준', 'Primitive 지원', 'Orbit UI 구현', '상태'].map((col, i) => (
                 <th key={col} style={{ padding: '12px 16px', textAlign: 'left', fontWeight: 700, color: i === 4 ? '#6366f1' : '#475569', borderBottom: '1.5px solid #e2e8f0', whiteSpace: 'nowrap' }}>{col}</th>
               ))}
             </tr>
           </thead>
           <tbody>
             {[
-              ['HoverCard', 'role="dialog"', '자동 추가', 'Radix 위임', '✓'],
+              ['HoverCard', 'role="dialog"', '자동 추가', 'Primitive 위임', '✓'],
               ['HoverCard', 'Escape 닫기', '기본 지원', 'openDelay 커스텀', '✓'],
               ['HoverCard', 'focus trap', '옵션 제공', '미적용 (미리보기)', '!'],
-              ['Slider', 'role="slider"', '자동 추가', 'Radix 위임', '✓'],
+              ['Slider', 'role="slider"', '자동 추가', 'Primitive 위임', '✓'],
               ['Slider', 'aria-valuenow', '자동 관리', 'value prop 연동', '✓'],
               ['Slider', 'Arrow 키 조정', '기본 지원', 'step prop으로 제어', '✓'],
             ].map((row, i) => (
@@ -668,31 +668,31 @@ import { Meta, Unstyled } from '@storybook/blocks'
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '12px', fontSize: '12px', color: '#374151', lineHeight: '1.7' }}>
           <div>
             <div style={{ fontWeight: '700', color: '#059669', marginBottom: '4px' }}>HoverCard 고도화</div>
-            Radix 기여자 활동 그래프, Linear 태스크 상세 미리보기, Linear 팀 멤버 역할 호버 3개 스토리 추가.
+            <div>Primitive 기여자 활동 그래프, IssueTracker 태스크 상세 미리보기, IssueTracker 팀 멤버 역할 호버 3개 스토리 추가.</div>
           </div>
           <div>
             <div style={{ fontWeight: '700', color: '#059669', marginBottom: '4px' }}>Slider 고도화</div>
-            Radix HSL 색상 편집기, Linear 우선순위 스코어링, Linear 피보나치 스토리포인트 3개 스토리 추가.
+            <div>Primitive HSL 색상 편집기, IssueTracker 우선순위 스코어링, IssueTracker 피보나치 스토리포인트 3개 스토리 추가.</div>
           </div>
         </div>
       </div>
     </section>
 
     {/* ================================================================
-        Cycle 60: Raycast + Notion 접근성 패턴
+        Cycle 60: CommandPalette + WorkspaceEditor 접근성 패턴
         ================================================================ */}
     <section style={{ marginBottom: '64px' }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '32px' }}>
         <div style={{ width: '4px', height: '48px', borderRadius: '2px', background: 'linear-gradient(180deg, #f43f5e, #ec4899)' }} />
         <div>
-          <div style={{ fontSize: '22px', fontWeight: '800', color: '#0f172a' }}>Raycast + Notion 접근성 패턴</div>
+          <div style={{ fontSize: '22px', fontWeight: '800', color: '#0f172a' }}>CommandPalette + WorkspaceEditor 접근성 패턴</div>
           <div style={{ fontSize: '13px', color: '#64748b', marginTop: '4px' }}>Cycle 60 — 키보드 중심 UX / 인라인 편집 / 포커스 관리</div>
         </div>
       </div>
 
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '20px', marginBottom: '32px' }}>
         <div style={{ padding: '24px', borderRadius: '16px', background: '#1c0a2e', border: '1px solid #4a1d96' }}>
-          <div style={{ fontSize: '11px', fontWeight: '700', color: '#c4b5fd', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '12px' }}>Raycast</div>
+          <div style={{ fontSize: '11px', fontWeight: '700', color: '#c4b5fd', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '12px' }}>CommandPalette</div>
           <div style={{ fontSize: '16px', fontWeight: '700', color: '#faf5ff', marginBottom: '14px' }}>키보드 퍼스트 인터랙션</div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '13px', color: '#ddd6fe', lineHeight: '1.6' }}>
             <div>모든 액션이 키보드 단축키와 1:1로 매핑 — 마우스 없이 완전한 조작 가능</div>
@@ -701,7 +701,7 @@ import { Meta, Unstyled } from '@storybook/blocks'
           </div>
         </div>
         <div style={{ padding: '24px', borderRadius: '16px', background: '#0a1628', border: '1px solid #1e3a5f' }}>
-          <div style={{ fontSize: '11px', fontWeight: '700', color: '#93c5fd', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '12px' }}>Notion</div>
+          <div style={{ fontSize: '11px', fontWeight: '700', color: '#93c5fd', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '12px' }}>WorkspaceEditor</div>
           <div style={{ fontSize: '16px', fontWeight: '700', color: '#eff6ff', marginBottom: '14px' }}>인라인 편집 포커스 패턴</div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '13px', color: '#bfdbfe', lineHeight: '1.6' }}>
             <div>블록 클릭 시 자동 포커스 이동, contentEditable 요소에 커서 위치 보존</div>
@@ -715,7 +715,7 @@ import { Meta, Unstyled } from '@storybook/blocks'
         <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px' }}>
           <thead>
             <tr style={{ background: '#f8fafc' }}>
-              {['컴포넌트', 'ARIA 속성', 'Raycast 패턴', 'Notion 패턴', 'Orbit UI 구현'].map((h) => (
+              {['컴포넌트', 'ARIA 속성', 'CommandPalette 패턴', 'WorkspaceEditor 패턴', 'Orbit UI 구현'].map((h) => (
                 <th key={h} style={{ padding: '12px 16px', textAlign: 'left', fontWeight: '700', color: '#475569', borderBottom: '2px solid #e2e8f0' }}>{h}</th>
               ))}
             </tr>
@@ -743,15 +743,15 @@ import { Meta, Unstyled } from '@storybook/blocks'
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '12px', fontSize: '12px', color: '#374151', lineHeight: '1.7' }}>
           <div>
             <div style={{ fontWeight: '700', color: '#a21caf', marginBottom: '4px' }}>GhostButton +3 스토리</div>
-            Notion 블록 에디터 포맷 툴바, Raycast 명령어 액션 팔레트, Linear 뷰 전환 액션 툴바 추가.
+            <div>WorkspaceEditor 블록 에디터 포맷 툴바, CommandPalette 명령어 액션 팔레트, IssueTracker 뷰 전환 액션 툴바 추가.</div>
           </div>
           <div>
             <div style={{ fontWeight: '700', color: '#a21caf', marginBottom: '4px' }}>TabItem +3 스토리</div>
-            shadcn 배지 카운터 탭, Notion 사이드바 페이지 탭, Raycast 검색 결과 카테고리 탭 추가.
+            <div>ComposableUI 배지 카운터 탭, WorkspaceEditor 사이드바 페이지 탭, CommandPalette 검색 결과 카테고리 탭 추가.</div>
           </div>
           <div>
             <div style={{ fontWeight: '700', color: '#a21caf', marginBottom: '4px' }}>TravelBooking 템플릿</div>
-            Chip 필터 + Slider 예산 + Calendar 날짜 + Avatar/LabelBadge 조합 여행 예약 앱 추가.
+            <div>Chip 필터 + Slider 예산 + Calendar 날짜 + Avatar/LabelBadge 조합 여행 예약 앱 추가.</div>
           </div>
         </div>
       </div>
@@ -760,19 +760,19 @@ import { Meta, Unstyled } from '@storybook/blocks'
   </div>
 </Unstyled>
 
-{/* ========== CYCLE 63: Chakra UI + Google Material 3 접근성 ========== */}
+{/* ========== CYCLE 63: AccessibleUI + RoleToken Design 접근성 ========== */}
 <section style={{ marginBottom: '48px' }}>
   <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '20px' }}>
     <div style={{ width: '36px', height: '36px', borderRadius: '10px', background: 'linear-gradient(135deg, #319795, #6750a4)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontWeight: '800', fontSize: '15px' }}>C</div>
     <div>
-      <div style={{ fontSize: '22px', fontWeight: '800', color: '#1a202c', letterSpacing: '-0.5px' }}>Cycle 63 — Chakra UI + Google Material 3 접근성 패턴</div>
+      <div style={{ fontSize: '22px', fontWeight: '800', color: '#1a202c', letterSpacing: '-0.5px' }}>Cycle 63 — AccessibleUI + RoleToken Design 접근성 패턴</div>
       <div style={{ fontSize: '13px', color: '#718096', marginTop: '2px' }}>체크박스 접근성, 탭 키보드 내비게이션, M3 색상 역할 시스템의 접근성 고려</div>
     </div>
   </div>
 
   <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '16px', marginBottom: '24px' }}>
     <div style={{ padding: '20px', borderRadius: '12px', background: 'linear-gradient(135deg, #e6fffa, #b2f5ea)', border: '1px solid #81e6d9' }}>
-      <div style={{ fontSize: '14px', fontWeight: '700', color: '#234e52', marginBottom: '12px' }}>Chakra UI 접근성 강점</div>
+      <div style={{ fontSize: '14px', fontWeight: '700', color: '#234e52', marginBottom: '12px' }}>AccessibleUI 접근성 강점</div>
       <ul style={{ margin: 0, padding: '0 0 0 16px', fontSize: '13px', color: '#276749', lineHeight: '1.8' }}>
         <li>모든 컴포넌트 ARIA 기본 적용</li>
         <li>Checkbox indeterminate 상태 네이티브 지원</li>
@@ -782,7 +782,7 @@ import { Meta, Unstyled } from '@storybook/blocks'
       </ul>
     </div>
     <div style={{ padding: '20px', borderRadius: '12px', background: 'linear-gradient(135deg, #f3e8ff, #ede9fe)', border: '1px solid #d8b4fe' }}>
-      <div style={{ fontSize: '14px', fontWeight: '700', color: '#3b0764', marginBottom: '12px' }}>Google Material 3 접근성 강점</div>
+      <div style={{ fontSize: '14px', fontWeight: '700', color: '#3b0764', marginBottom: '12px' }}>RoleToken Design 접근성 강점</div>
       <ul style={{ margin: 0, padding: '0 0 0 16px', fontSize: '13px', color: '#4c1d95', lineHeight: '1.8' }}>
         <li>색상 역할(primary/secondary/error)로 의미 전달</li>
         <li>비활성 상태 38% 불투명도 기준 준수</li>
@@ -797,7 +797,7 @@ import { Meta, Unstyled } from '@storybook/blocks'
     <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px' }}>
       <thead>
         <tr style={{ background: '#f7fafc' }}>
-          {['접근성 항목', 'Chakra UI', 'Material 3', 'Orbit UI 반영'].map((col, i) => (
+          {['접근성 항목', 'AccessibleUI', 'RoleToken Design', 'Orbit UI 반영'].map((col, i) => (
             <th key={col} style={{ padding: '12px 16px', textAlign: 'left', fontWeight: 700, color: i === 3 ? '#6366f1' : '#2d3748', borderBottom: '1.5px solid #e2e8f0', whiteSpace: 'nowrap' }}>{col}</th>
           ))}
         </tr>
@@ -825,30 +825,30 @@ import { Meta, Unstyled } from '@storybook/blocks'
     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '12px', fontSize: '12px', color: '#374151', lineHeight: '1.7' }}>
       <div>
         <div style={{ fontWeight: '700', color: '#319795', marginBottom: '4px' }}>TabGroup +3 스토리</div>
-        Chakra 유저 프로필 탭(CounterBadge), M3 아이콘 탭(Leading 슬롯), Chakra 설정 패널 탭(토글 인라인) 추가.
+        <div>Accessible 유저 프로필 탭(CounterBadge), M3 아이콘 탭(Leading 슬롯), Accessible 설정 패널 탭(토글 인라인) 추가.</div>
       </div>
       <div>
         <div style={{ fontWeight: '700', color: '#6750a4', marginBottom: '4px' }}>BoxedCheckbox +3 스토리</div>
-        Chakra 플랜 기능 선택 카드, M3 약관 동의(indeterminate 전체 선택), M3 기술스택 필터 칩 패턴 추가.
+        <div>Accessible 플랜 기능 선택 카드, M3 약관 동의(indeterminate 전체 선택), M3 기술스택 필터 칩 패턴 추가.</div>
       </div>
       <div>
         <div style={{ fontWeight: '700', color: '#319795', marginBottom: '4px' }}>CourseTracker 템플릿</div>
-        FixedTabs + BoxedCheckbox 레슨 완료 + Progress 모듈 진도 + LabelBadge 리소스 타입 조합.
+        <div>FixedTabs + BoxedCheckbox 레슨 완료 + Progress 모듈 진도 + LabelBadge 리소스 타입 조합.</div>
       </div>
     </div>
   </div>
 </section>
 
-{/* Cycle 67: Mantine + Arco Design 알림 및 간격 시스템 */}
+{/* Cycle 67: AppUI + DataProductUI 알림 및 간격 시스템 */}
 <section style={{ marginTop: '48px' }}>
   <h2 style={{ fontSize: '22px', fontWeight: '800', color: '#0f172a', marginBottom: '8px' }}>
-    Cycle 67 — Mantine + Arco Design 알림 & 간격 패턴
+    Cycle 67 — AppUI + DataProductUI 알림 & 간격 패턴
   </h2>
-  <p style={{ color: '#64748b', fontSize: '14px', marginBottom: '24px' }}>
+  <div style={{ color: '#64748b', fontSize: '14px', marginBottom: '24px' }}>
     Toast(알림 큐, 로딩 전환) + Space(폼 리듬, 카드 그리드) 컴포넌트 강화.
-  </p>
+  </div>
 
-  <h3 style={{ fontSize: '17px', fontWeight: '700', color: '#334155', marginBottom: '12px' }}>Mantine 알림 시스템 장점</h3>
+  <h3 style={{ fontSize: '17px', fontWeight: '700', color: '#334155', marginBottom: '12px' }}>AppUI 알림 시스템 장점</h3>
   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '24px' }}>
     <div style={{ padding: '16px', borderRadius: '12px', background: '#faf5ff', border: '1px solid #e9d5ff' }}>
       <div style={{ fontWeight: '700', color: '#7c3aed', marginBottom: '6px', fontSize: '13px' }}>notifications.update() 패턴</div>
@@ -866,7 +866,7 @@ import { Meta, Unstyled } from '@storybook/blocks'
     </div>
   </div>
 
-  <h3 style={{ fontSize: '17px', fontWeight: '700', color: '#334155', marginBottom: '12px' }}>Arco Design 간격 시스템 장점</h3>
+  <h3 style={{ fontSize: '17px', fontWeight: '700', color: '#334155', marginBottom: '12px' }}>DataProductUI 간격 시스템 장점</h3>
   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '24px' }}>
     <div style={{ padding: '16px', borderRadius: '12px', background: '#f0f9ff', border: '1px solid #bae6fd' }}>
       <div style={{ fontWeight: '700', color: '#0369a1', marginBottom: '6px', fontSize: '13px' }}>wrap 모드 인라인 간격</div>
@@ -879,7 +879,7 @@ import { Meta, Unstyled } from '@storybook/blocks'
       <div style={{ fontWeight: '700', color: '#0369a1', marginBottom: '6px', fontSize: '13px' }}>폼 섹션 수직 리듬</div>
       <div style={{ fontSize: '12px', color: '#475569', lineHeight: '1.7' }}>
         레이블→인풋 소간격(spacingKeys[1]), 필드→필드 중간격(spacingKeys[3]), 섹션→섹션 대간격(spacingKeys[6])으로
-        계층적 시각 리듬 형성. Mantine Stack과 동일한 패턴.
+        계층적 시각 리듬 형성. AppUI Stack과 동일한 패턴.
       </div>
     </div>
   </div>
@@ -888,11 +888,11 @@ import { Meta, Unstyled } from '@storybook/blocks'
   <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
     <div style={{ padding: '12px 16px', borderRadius: '8px', background: '#f8fafc', border: '1px solid #e2e8f0', fontSize: '13px' }}>
       <span style={{ fontWeight: '700', color: '#7c3aed' }}>Toast +3:</span>
-      <span style={{ color: '#475569', marginLeft: '8px' }}>Mantine 로딩→성공 전환, Mantine 알림 큐 관리, Arco 배치 작업 진행 알림</span>
+      <span style={{ color: '#475569', marginLeft: '8px' }}>AppUI 로딩→성공 전환, AppUI 알림 큐 관리, DataProduct 배치 작업 진행 알림</span>
     </div>
     <div style={{ padding: '12px 16px', borderRadius: '8px', background: '#f8fafc', border: '1px solid #e2e8f0', fontSize: '13px' }}>
       <span style={{ fontWeight: '700', color: '#0369a1' }}>Space +3:</span>
-      <span style={{ color: '#475569', marginLeft: '8px' }}>Mantine 폼 섹션 리듬, Arco 카드 그리드 간격, Arco 인라인 태그 x 간격</span>
+      <span style={{ color: '#475569', marginLeft: '8px' }}>AppUI 폼 섹션 리듬, DataProduct 카드 그리드 간격, DataProduct 인라인 태그 x 간격</span>
     </div>
     <div style={{ padding: '12px 16px', borderRadius: '8px', background: '#f8fafc', border: '1px solid #e2e8f0', fontSize: '13px' }}>
       <span style={{ fontWeight: '700', color: '#059669' }}>Template #57:</span>
@@ -902,50 +902,50 @@ import { Meta, Unstyled } from '@storybook/blocks'
 </section>
 
 <section style={{ marginTop: '48px', padding: '32px', background: 'linear-gradient(135deg, #ecfdf5 0%, #eff6ff 100%)', borderRadius: '16px', border: '1px solid #a7f3d0' }}>
-  <h2 style={{ fontSize: '22px', fontWeight: '800', color: '#064e3b', marginBottom: '8px' }}>Cycle 71 — Radix UI + Chakra UI 접근성 패턴</h2>
-  <p style={{ color: '#047857', fontSize: '14px', marginBottom: '24px', fontWeight: '600' }}>Modal 비제어 컴포넌트 + FloatingTextField 포커스 관리 + OTP 입력 접근성</p>
+  <h2 style={{ fontSize: '22px', fontWeight: '800', color: '#064e3b', marginBottom: '8px' }}>Cycle 71 — PrimitiveUI + AccessibleUI 접근성 패턴</h2>
+  <div style={{ color: '#047857', fontSize: '14px', marginBottom: '24px', fontWeight: '600' }}>Modal 비제어 컴포넌트 + FloatingTextField 포커스 관리 + OTP 입력 접근성</div>
 
-  <h3 style={{ fontSize: '17px', fontWeight: '700', color: '#334155', marginBottom: '16px' }}>Radix UI 접근성 원칙</h3>
+  <h3 style={{ fontSize: '17px', fontWeight: '700', color: '#334155', marginBottom: '16px' }}>PrimitiveUI 접근성 원칙</h3>
   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '24px' }}>
     <div style={{ padding: '16px', borderRadius: '10px', background: '#fff', border: '1px solid #a7f3d0' }}>
       <h4 style={{ fontSize: '14px', fontWeight: '700', color: '#047857', marginBottom: '8px' }}>비제어/제어 컴포넌트 패턴</h4>
-      <p style={{ fontSize: '13px', color: '#475569', lineHeight: '1.6' }}>
-        Radix는 <code>defaultIsPresented</code>(비제어)와 <code>isPresented</code>(제어) 두 가지 모두 지원. 비제어 모드는 내부 상태를 자동 관리해 코드량을 줄이고, 제어 모드는 외부에서 완전한 상태 제어를 제공합니다.
-      </p>
+      <div style={{ fontSize: '13px', color: '#475569', lineHeight: '1.6' }}>
+        Primitive는 <code>defaultIsPresented</code>(비제어)와 <code>isPresented</code>(제어) 두 가지 모두 지원. 비제어 모드는 내부 상태를 자동 관리해 코드량을 줄이고, 제어 모드는 외부에서 완전한 상태 제어를 제공합니다.
+      </div>
     </div>
     <div style={{ padding: '16px', borderRadius: '10px', background: '#fff', border: '1px solid #a7f3d0' }}>
       <h4 style={{ fontSize: '14px', fontWeight: '700', color: '#047857', marginBottom: '8px' }}>포커스 트래핑 & 복귀</h4>
-      <p style={{ fontSize: '13px', color: '#475569', lineHeight: '1.6' }}>
-        Radix Dialog는 열릴 때 첫 포커스 가능 요소로 포커스를 이동하고, 닫힐 때 트리거 요소로 복귀합니다. Tab/Shift+Tab으로 모달 내 포커스를 순환하여 WAI-ARIA Dialog 패턴을 완전히 구현합니다.
-      </p>
+      <div style={{ fontSize: '13px', color: '#475569', lineHeight: '1.6' }}>
+        Primitive Dialog는 열릴 때 첫 포커스 가능 요소로 포커스를 이동하고, 닫힐 때 트리거 요소로 복귀합니다. Tab/Shift+Tab으로 모달 내 포커스를 순환하여 WAI-ARIA Dialog 패턴을 완전히 구현합니다.
+      </div>
     </div>
     <div style={{ padding: '16px', borderRadius: '10px', background: '#fff', border: '1px solid #a7f3d0' }}>
       <h4 style={{ fontSize: '14px', fontWeight: '700', color: '#047857', marginBottom: '8px' }}>aria-* 시맨틱 속성</h4>
-      <p style={{ fontSize: '13px', color: '#475569', lineHeight: '1.6' }}>
+      <div style={{ fontSize: '13px', color: '#475569', lineHeight: '1.6' }}>
         검색 필드에 <code>role="search"</code>, <code>aria-label</code>, <code>aria-autocomplete="list"</code>를 추가하면 스크린 리더가 "검색 영역" 진입을 알리고 자동완성 지원 여부를 안내합니다.
-      </p>
+      </div>
     </div>
     <div style={{ padding: '16px', borderRadius: '10px', background: '#fff', border: '1px solid #a7f3d0' }}>
       <h4 style={{ fontSize: '14px', fontWeight: '700', color: '#047857', marginBottom: '8px' }}>OTP 입력 포커스 관리</h4>
-      <p style={{ fontSize: '13px', color: '#475569', lineHeight: '1.6' }}>
+      <div style={{ fontSize: '13px', color: '#475569', lineHeight: '1.6' }}>
         OTP 6자리 분할 입력에서 숫자 입력 시 다음 칸으로 자동 포커스 이동, Backspace 입력 시 이전 칸으로 복귀. <code>inputMode="numeric"</code>으로 모바일 숫자 키패드를 표시합니다.
-      </p>
+      </div>
     </div>
   </div>
 
-  <h3 style={{ fontSize: '17px', fontWeight: '700', color: '#334155', marginBottom: '16px' }}>Chakra UI 접근성 원칙</h3>
+  <h3 style={{ fontSize: '17px', fontWeight: '700', color: '#334155', marginBottom: '16px' }}>AccessibleUI 접근성 원칙</h3>
   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '24px' }}>
     <div style={{ padding: '16px', borderRadius: '10px', background: '#fff', border: '1px solid #bfdbfe' }}>
       <h4 style={{ fontSize: '14px', fontWeight: '700', color: '#1d4ed8', marginBottom: '8px' }}>즉각적 시각 피드백</h4>
-      <p style={{ fontSize: '13px', color: '#475569', lineHeight: '1.6' }}>
-        Chakra의 <code>error</code> prop은 입력 즉시 색상과 아이콘을 변경해 에러를 인지시킵니다. 비밀번호 강도 측정은 입력 중에 실시간 색상 바와 텍스트 레이블로 강도를 표시합니다.
-      </p>
+      <div style={{ fontSize: '13px', color: '#475569', lineHeight: '1.6' }}>
+        Accessible의 <code>error</code> prop은 입력 즉시 색상과 아이콘을 변경해 에러를 인지시킵니다. 비밀번호 강도 측정은 입력 중에 실시간 색상 바와 텍스트 레이블로 강도를 표시합니다.
+      </div>
     </div>
     <div style={{ padding: '16px', borderRadius: '10px', background: '#fff', border: '1px solid #bfdbfe' }}>
       <h4 style={{ fontSize: '14px', fontWeight: '700', color: '#1d4ed8', marginBottom: '8px' }}>단순한 props API</h4>
-      <p style={{ fontSize: '13px', color: '#475569', lineHeight: '1.6' }}>
-        Chakra는 <code>isDisabled</code>, <code>isInvalid</code>, <code>isRequired</code> 같은 단순 boolean props로 접근성 속성을 자동 매핑합니다. Orbit UI도 이 패턴을 차용해 <code>disabled</code>, <code>error</code> props가 aria 속성을 자동으로 설정합니다.
-      </p>
+      <div style={{ fontSize: '13px', color: '#475569', lineHeight: '1.6' }}>
+        Accessible는 <code>isDisabled</code>, <code>isInvalid</code>, <code>isRequired</code> 같은 단순 boolean props로 접근성 속성을 자동 매핑합니다. Orbit UI도 이 패턴을 차용해 <code>disabled</code>, <code>error</code> props가 aria 속성을 자동으로 설정합니다.
+      </div>
     </div>
   </div>
 
@@ -953,15 +953,15 @@ import { Meta, Unstyled } from '@storybook/blocks'
   <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
     <div style={{ padding: '12px 16px', borderRadius: '8px', background: '#f8fafc', border: '1px solid #e2e8f0', fontSize: '13px' }}>
       <span style={{ fontWeight: '700', color: '#047857' }}>Modal +3:</span>
-      <span style={{ color: '#475569', marginLeft: '8px' }}>Radix 라이트박스 이미지 미리보기, Chakra 프로필 편집 모달, Radix+Chakra 권한 설정 체크리스트 모달</span>
+      <span style={{ color: '#475569', marginLeft: '8px' }}>Primitive 라이트박스 이미지 미리보기, Accessible 프로필 편집 모달, Primitive+Accessible 권한 설정 체크리스트 모달</span>
     </div>
     <div style={{ padding: '12px 16px', borderRadius: '8px', background: '#f8fafc', border: '1px solid #e2e8f0', fontSize: '13px' }}>
       <span style={{ fontWeight: '700', color: '#1d4ed8' }}>FloatingTextField +3:</span>
-      <span style={{ color: '#475569', marginLeft: '8px' }}>Radix 접근성 검색 필드(aria-*), Chakra 비밀번호 강도 측정, Radix+Chakra OTP 6자리 포커스 이동</span>
+      <span style={{ color: '#475569', marginLeft: '8px' }}>Primitive 접근성 검색 필드(aria-*), Accessible 비밀번호 강도 측정, Primitive+Accessible OTP 6자리 포커스 이동</span>
     </div>
     <div style={{ padding: '12px 16px', borderRadius: '8px', background: '#f8fafc', border: '1px solid #e2e8f0', fontSize: '13px' }}>
       <span style={{ fontWeight: '700', color: '#7c3aed' }}>Template #61:</span>
-      <span style={{ color: '#475569', marginLeft: '8px' }}>RadixChakraOnboarding — 4단계 온보딩 (이름 입력 → 역할 선택 → 목표 체크리스트 → 완료), SegmentedControl 테마 설정</span>
+      <span style={{ color: '#475569', marginLeft: '8px' }}>PrimitiveAccessibleOnboarding — 4단계 온보딩 (이름 입력 → 역할 선택 → 목표 체크리스트 → 완료), SegmentedControl 테마 설정</span>
     </div>
   </div>
 </section>

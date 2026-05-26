@@ -204,11 +204,11 @@ export const 전체너비 = {
   },
 } satisfies Story
 
-// ─── Apple HIG: 계층적 버튼 (Primary / Secondary / Tertiary) ────────────────
-// Apple HIG에서 버튼 계층은 화면에서의 시각적 중요도를 나타냅니다.
+// ─── Platform HIG: 계층적 버튼 (Primary / Secondary / Tertiary) ────────────────
+// Platform HIG에서 버튼 계층은 화면에서의 시각적 중요도를 나타냅니다.
 // Primary(Filled) > Secondary(Outlined) > Tertiary(Ghost) 순으로 강조도가 낮아집니다.
-export const Apple_HIG_버튼_계층: Story = {
-  name: 'Apple HIG - 계층적 버튼 (Primary / Secondary / Tertiary)',
+export const Platform_HIG_버튼_계층: Story = {
+  name: 'Platform HIG - 계층적 버튼 (Primary / Secondary / Tertiary)',
   render: () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '32px', width: '480px' }}>
       <div>
@@ -266,7 +266,7 @@ export const 디자인QA = {
     leading: true,
     trailing: true,
   },
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
+
   render: ({ color, size, text, leading, trailing, ...rest }: any) => {
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', paddingBottom: '2rem' }}>
@@ -289,11 +289,11 @@ export const 디자인QA = {
   },
 }
 
-// ─── Material 3: 색상 역할 시스템 (Color Role System) ────────────────────────
+// ─── RoleToken Design: 색상 역할 시스템 (Color Role System) ────────────────────────
 // M3는 Primary / Secondary / Tertiary / Error 4가지 색상 역할을 정의합니다.
 // 각 역할은 Container(배경)와 On-Container(텍스트/아이콘) 한 쌍으로 존재합니다.
 export const Material3_색상역할_시스템: Story = {
-  name: 'Material 3 - 색상 역할 시스템 (Primary/Secondary/Tertiary/Error)',
+  name: 'RoleToken Design - 색상 역할 시스템 (Primary/Secondary/Tertiary/Error)',
   render: () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '32px', maxWidth: '560px' }}>
       <div>
@@ -301,7 +301,7 @@ export const Material3_색상역할_시스템: Story = {
           M3 Color Roles
         </p>
         <p style={{ margin: '0 0 20px', fontSize: '13px', color: '#64748b', lineHeight: 1.6 }}>
-          Material 3의 색상 역할 시스템입니다. SolidButton의 color prop을 M3 역할에 매핑하여 사용합니다.
+          RoleToken Design의 색상 역할 시스템입니다. SolidButton의 color prop을 M3 역할에 매핑하여 사용합니다.
         </p>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
           {/* Primary Role */}
@@ -366,11 +366,11 @@ export const Material3_색상역할_시스템: Story = {
   ),
 }
 
-// ─── Material 3: 밀도 시스템 (Density System) ────────────────────────────────
+// ─── RoleToken Design: 밀도 시스템 (Density System) ────────────────────────────────
 // M3는 Compact(-2) / Default(0) / Comfortable(+2) 세 가지 밀도를 정의합니다.
 // SolidButton의 size prop (small/medium/large)으로 이를 표현합니다.
 export const Material3_밀도_시스템: Story = {
-  name: 'Material 3 - 밀도 시스템 (Compact / Default / Comfortable)',
+  name: 'RoleToken Design - 밀도 시스템 (Compact / Default / Comfortable)',
   render: () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '32px', maxWidth: '600px' }}>
       <div>
@@ -470,11 +470,11 @@ export const Material3_밀도_시스템: Story = {
   ),
 }
 
-// ─── Material 3: FAB (Floating Action Button) 패턴 ───────────────────────────
+// ─── RoleToken Design: FAB (Floating Action Button) 패턴 ───────────────────────────
 // FAB는 화면의 가장 중요한 액션을 위해 항상 떠 있는 버튼입니다.
 // M3에서는 Small FAB / Regular FAB / Large FAB / Extended FAB 4가지를 정의합니다.
 export const Material3_FAB_패턴: Story = {
-  name: 'Material 3 - FAB (Floating Action Button) 패턴',
+  name: 'RoleToken Design - FAB (Floating Action Button) 패턴',
   render: () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '32px', maxWidth: '560px' }}>
       <div>
@@ -539,7 +539,7 @@ export const Material3_FAB_패턴: Story = {
           <p style={{ margin: '0 0 8px', fontSize: '14px', fontWeight: 700, color: '#0f172a' }}>M3 실전: FAB 배치 위치</p>
           <p style={{ margin: 0, fontSize: '12px', color: '#64748b' }}>FAB는 우측 하단(모바일) 또는 우측 상단(태블릿/PC)에 배치합니다.</p>
           <div style={{ marginTop: '16px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
-            {['아티클 1 - Orbit UI 디자인 토큰 가이드', '아티클 2 - Material 3 컬러 시스템', '아티클 3 - Mantine v7 마이그레이션'].map((item) => (
+            {['아티클 1 - Orbit UI 디자인 토큰 가이드', '아티클 2 - RoleToken Design 컬러 시스템', '아티클 3 - AppUI v7 마이그레이션'].map((item) => (
               <div key={item} style={{ padding: '12px 16px', background: '#fff', borderRadius: '8px', border: '1px solid #e2e8f0', fontSize: '13px', color: '#374151' }}>
                 {item}
               </div>
@@ -560,16 +560,16 @@ export const Material3_FAB_패턴: Story = {
   ),
 }
 
-// ─── shadcn/ui: 아이콘 + 텍스트 조합 패턴 ────────────────────────────────────
-// shadcn/ui Button은 아이콘과 텍스트를 자유롭게 조합합니다.
+// ─── ComposableUI: 아이콘 + 텍스트 조합 패턴 ────────────────────────────────────
+// ComposableUI Button은 아이콘과 텍스트를 자유롭게 조합합니다.
 // SolidButton의 Compound 패턴으로 동일하게 구현합니다.
-export const shadcn_아이콘_조합_패턴: Story = {
-  name: 'shadcn/ui - 아이콘+텍스트 조합 패턴',
+export const ComposableUI_아이콘_조합_패턴: Story = {
+  name: 'ComposableUI - 아이콘+텍스트 조합 패턴',
   render: () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', maxWidth: '560px' }}>
       <div>
         <p style={{ margin: '0 0 6px', fontSize: '12px', fontWeight: '700', color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
-          shadcn/ui Icon+Text Patterns
+          ComposableUI Icon+Text Patterns
         </p>
         <p style={{ margin: '0 0 16px', fontSize: '13px', color: '#64748b', lineHeight: 1.6 }}>
           Leading(왼쪽 아이콘), Trailing(오른쪽 아이콘), 크기별 아이콘 스케일 패턴을 데모합니다.
@@ -629,8 +629,8 @@ export const shadcn_아이콘_조합_패턴: Story = {
   ),
 } satisfies Story
 
-// ─── shadcn/ui: 인터랙티브 로딩 상태 패턴 ────────────────────────────────────
-// shadcn/ui에서 버튼 클릭 후 로딩 → 완료 상태를 전환하는 패턴입니다.
+// ─── ComposableUI: 인터랙티브 로딩 상태 패턴 ────────────────────────────────────
+// ComposableUI에서 버튼 클릭 후 로딩 → 완료 상태를 전환하는 패턴입니다.
 // SolidButton의 loading prop과 disabled로 동일하게 구현합니다.
 function InteractiveLoadingRender() {
   const [states, setStates] = useState<Record<string, 'idle' | 'loading' | 'done'>>({
@@ -659,7 +659,7 @@ function InteractiveLoadingRender() {
     <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', maxWidth: '480px' }}>
       <div>
         <p style={{ margin: '0 0 6px', fontSize: '12px', fontWeight: '700', color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
-          shadcn/ui Interactive Loading Pattern
+          ComposableUI Interactive Loading Pattern
         </p>
         <p style={{ margin: '0 0 4px', fontSize: '13px', color: '#64748b', lineHeight: 1.6 }}>
           버튼을 클릭하면 로딩 → 완료 상태 전환을 확인할 수 있습니다.
@@ -696,10 +696,10 @@ function InteractiveLoadingRender() {
       </div>
 
       <div style={{ padding: '16px', borderRadius: '10px', background: '#f8fafc', border: '1px solid #e2e8f0' }}>
-        <p style={{ margin: '0 0 8px', fontSize: '12px', fontWeight: '600', color: '#475569' }}>shadcn/ui vs Orbit UI 로딩 패턴 비교</p>
+        <p style={{ margin: '0 0 8px', fontSize: '12px', fontWeight: '600', color: '#475569' }}>ComposableUI vs Orbit UI 로딩 패턴 비교</p>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
           <div style={{ padding: '10px', borderRadius: '8px', background: '#0f172a', fontSize: '11px', color: '#94a3b8', fontFamily: 'monospace', lineHeight: 1.6 }}>
-            {'// shadcn/ui\n<Button disabled={isPending}>\n  {isPending && <Loader2 />}\n  Save\n</Button>'}
+            {'// ComposableUI\n<Button disabled={isPending}>\n  {isPending && <Loader2 />}\n  Save\n</Button>'}
           </div>
           <div style={{ padding: '10px', borderRadius: '8px', background: '#0f172a', fontSize: '11px', color: '#e2e8f0', fontFamily: 'monospace', lineHeight: 1.6 }}>
             {'// Orbit UI\n<SolidButton loading={isPending}>\n  <SolidButton.Loading />\n  <SolidButton.Center>Save\n  </SolidButton.Center>\n</SolidButton>'}
@@ -710,20 +710,20 @@ function InteractiveLoadingRender() {
   )
 }
 
-export const shadcn_인터랙티브_로딩_패턴: Story = {
-  name: 'shadcn/ui - 인터랙티브 로딩 상태 패턴',
+export const ComposableUI_인터랙티브_로딩_패턴: Story = {
+  name: 'ComposableUI - 인터랙티브 로딩 상태 패턴',
   render: () => <InteractiveLoadingRender />,
 } satisfies Story
 
-// ─── Chakra UI: ButtonGroup 연결 패턴 ────────────────────────────────────────
-// Chakra UI의 ButtonGroup isAttached prop — 버튼을 하나의 연결된 그룹으로 표시
-export const Chakra_버튼_그룹_연결_패턴: Story = {
-  name: 'Chakra UI - ButtonGroup 연결 패턴',
+// ─── AccessibleUI: ButtonGroup 연결 패턴 ────────────────────────────────────────
+// AccessibleUI의 ButtonGroup isAttached prop — 버튼을 하나의 연결된 그룹으로 표시
+export const Accessible_버튼_그룹_연결_패턴: Story = {
+  name: 'AccessibleUI - ButtonGroup 연결 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'Chakra UI ButtonGroup isAttached 패턴. 툴바·액션 그룹에서 관련 버튼을 시각적으로 연결합니다. ' +
+          'AccessibleUI ButtonGroup isAttached 패턴. 툴바·액션 그룹에서 관련 버튼을 시각적으로 연결합니다. ' +
           'SolidButton에 borderRadius를 조정해 동일하게 구현합니다.',
       },
     },
@@ -732,7 +732,7 @@ export const Chakra_버튼_그룹_연결_패턴: Story = {
     <div style={{ display: 'flex', flexDirection: 'column', gap: 32, maxWidth: 540 }}>
       <div>
         <p style={{ margin: '0 0 6px', fontSize: 12, fontWeight: 700, color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
-          Chakra UI ButtonGroup isAttached
+          AccessibleUI ButtonGroup isAttached
         </p>
         <p style={{ margin: '0 0 20px', fontSize: 13, color: '#64748b', lineHeight: 1.6 }}>
           관련 액션을 하나의 연결된 그룹으로 묶어 공간 효율을 높이고 의미적 연관성을 표현합니다.
@@ -793,14 +793,14 @@ export const Chakra_버튼_그룹_연결_패턴: Story = {
   ),
 } satisfies Story
 
-// ─── Chakra UI: 소셜 로그인 버튼 패턴 ───────────────────────────────────────
-// Chakra UI에서 자주 쓰이는 소셜 액션 버튼 — SVG 아이콘 + 레이블 조합
-function ChakraSocialButtonRender() {
+// ─── AccessibleUI: 소셜 로그인 버튼 패턴 ───────────────────────────────────────
+// AccessibleUI에서 자주 쓰이는 소셜 액션 버튼 — SVG 아이콘 + 레이블 조합
+function AccessibleSocialButtonRender() {
   const [clickedProvider, setClickedProvider] = useState<string | null>(null)
 
   const providers = [
     {
-      name: 'Google',
+      name: 'Reference',
       color: 'white' as const,
       icon: (
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
@@ -812,7 +812,7 @@ function ChakraSocialButtonRender() {
       ),
     },
     {
-      name: 'GitHub',
+      name: 'CodeHost',
       color: 'black' as const,
       icon: (
         <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
@@ -821,7 +821,7 @@ function ChakraSocialButtonRender() {
       ),
     },
     {
-      name: 'Kakao',
+      name: 'WarmYellow',
       color: 'primary' as const,
       icon: (
         <svg width="16" height="14" viewBox="0 0 16 14" fill="currentColor">
@@ -835,10 +835,10 @@ function ChakraSocialButtonRender() {
     <div style={{ display: 'flex', flexDirection: 'column', gap: 28, maxWidth: 400 }}>
       <div>
         <p style={{ margin: '0 0 6px', fontSize: 12, fontWeight: 700, color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
-          Chakra UI Social Auth Pattern
+          AccessibleUI Social Auth Pattern
         </p>
         <p style={{ margin: '0 0 16px', fontSize: 13, color: '#64748b', lineHeight: 1.6 }}>
-          소셜 로그인 버튼은 Chakra UI에서 흔히 볼 수 있는 패턴입니다. SVG 인라인 아이콘 + 레이블 조합입니다.
+          소셜 로그인 버튼은 AccessibleUI에서 흔히 볼 수 있는 패턴입니다. SVG 인라인 아이콘 + 레이블 조합입니다.
         </p>
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
@@ -862,33 +862,33 @@ function ChakraSocialButtonRender() {
       )}
       <div style={{ padding: '14px', borderRadius: 10, background: '#f8fafc', border: '1px solid #e2e8f0', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8, fontSize: 11 }}>
         <div style={{ padding: '8px', borderRadius: 8, background: '#0f172a', color: '#94a3b8', fontFamily: 'monospace', lineHeight: 1.6 }}>
-          {'// Chakra UI\n<Button leftIcon={<Google />}>\n  Google로 계속\n</Button>'}
+          {'// AccessibleUI\n<Button leftIcon={<Reference />}>\n  Reference로 계속\n</Button>'}
         </div>
         <div style={{ padding: '8px', borderRadius: 8, background: '#0f172a', color: '#e2e8f0', fontFamily: 'monospace', lineHeight: 1.6 }}>
-          {'// Orbit UI\n<SolidButton>\n  <SolidButton.Leading><Google /></SolidButton.Leading>\n  <SolidButton.Center>Google로 계속</SolidButton.Center>\n</SolidButton>'}
+          {'// Orbit UI\n<SolidButton>\n  <SolidButton.Leading><Reference /></SolidButton.Leading>\n  <SolidButton.Center>Reference로 계속</SolidButton.Center>\n</SolidButton>'}
         </div>
       </div>
     </div>
   )
 }
 
-export const Chakra_소셜_로그인_버튼: Story = {
-  name: 'Chakra UI - 소셜 로그인 버튼 패턴',
+export const Accessible_소셜_로그인_버튼: Story = {
+  name: 'AccessibleUI - 소셜 로그인 버튼 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'Chakra UI Button + leftIcon 패턴. 인라인 SVG 아이콘과 레이블을 조합한 소셜 인증 버튼입니다. ' +
+          'AccessibleUI Button + leftIcon 패턴. 인라인 SVG 아이콘과 레이블을 조합한 소셜 인증 버튼입니다. ' +
           'Orbit UI의 SolidButton.Leading으로 동일 패턴을 구현합니다.',
       },
     },
   },
-  render: () => <ChakraSocialButtonRender />,
+  render: () => <AccessibleSocialButtonRender />,
 } satisfies Story
 
-// ─── Chakra UI: 확인 다이얼로그 액션 그룹 ────────────────────────────────────
-// Chakra UI의 AlertDialog 패턴 — 위험 액션 전 사용자 확인 UI
-function ChakraConfirmDialogRender() {
+// ─── AccessibleUI: 확인 다이얼로그 액션 그룹 ────────────────────────────────────
+// AccessibleUI의 AlertDialog 패턴 — 위험 액션 전 사용자 확인 UI
+function AccessibleConfirmDialogRender() {
   const [open, setOpen] = useState<string | null>(null)
   const [done, setDone] = useState<string | null>(null)
 
@@ -908,7 +908,7 @@ function ChakraConfirmDialogRender() {
     <div style={{ display: 'flex', flexDirection: 'column', gap: 24, maxWidth: 440 }}>
       <div>
         <p style={{ margin: '0 0 6px', fontSize: 12, fontWeight: 700, color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
-          Chakra UI AlertDialog 패턴
+          AccessibleUI AlertDialog 패턴
         </p>
         <p style={{ margin: '0 0 16px', fontSize: 13, color: '#64748b', lineHeight: 1.6 }}>
           위험한 액션은 확인 다이얼로그로 사용자 의도를 재확인합니다. 취소를 기본 포커스로 설정합니다.
@@ -950,25 +950,25 @@ function ChakraConfirmDialogRender() {
   )
 }
 
-export const Chakra_확인_다이얼로그_액션: Story = {
-  name: 'Chakra UI - 확인 다이얼로그 액션 패턴',
+export const Accessible_확인_다이얼로그_액션: Story = {
+  name: 'AccessibleUI - 확인 다이얼로그 액션 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'Chakra UI AlertDialog 패턴. 위험·되돌릴 수 없는 액션 전 인라인 확인 UI를 표시합니다. ' +
+          'AccessibleUI AlertDialog 패턴. 위험·되돌릴 수 없는 액션 전 인라인 확인 UI를 표시합니다. ' +
           '취소를 기본 강조로 두어 실수를 방지합니다.',
       },
     },
   },
-  render: () => <ChakraConfirmDialogRender />,
+  render: () => <AccessibleConfirmDialogRender />,
 } satisfies Story
 
 /* --------------------------------------------------------------------------
-   Vercel — 배포 액션 버튼 패턴 (Cycle 120)
-   Vercel Design의 compact action button 패턴 — 배포/롤백/취소
+   DeployPlatform — 배포 액션 버튼 패턴 (Cycle 120)
+   DeployPlatform Design의 compact action button 패턴 — 배포/롤백/취소
 -------------------------------------------------------------------------- */
-function VercelDeployActionsRender() {
+function DeployPlatformDeployActionsRender() {
   const [status, setStatus] = useState<'idle' | 'deploying' | 'done' | 'error'>('idle')
 
   function deploy() {
@@ -1013,7 +1013,7 @@ function VercelDeployActionsRender() {
 
       {status === 'done' && (
         <div style={{ padding: '10px 14px', borderRadius: 8, background: '#f0fdf4', border: '1px solid #bbf7d0', fontSize: 12, color: '#16a34a' }}>
-          배포 완료 — storybook-static.vercel.app 에서 확인 가능합니다.
+          배포 완료 — storybook-static.deploy.example.com 에서 확인 가능합니다.
         </div>
       )}
       {status === 'error' && (
@@ -1025,24 +1025,24 @@ function VercelDeployActionsRender() {
   )
 }
 
-export const Vercel_배포_액션_버튼: Story = {
-  name: 'Vercel — 배포 액션 버튼 패턴 (Cycle 120)',
+export const DeployPlatform_배포_액션_버튼: Story = {
+  name: 'DeployPlatform — 배포 액션 버튼 패턴 (Cycle 120)',
   parameters: {
     docs: {
       description: {
         story:
-          'Vercel Design의 compact action button 패턴. 배포/롤백/취소 상태에 따라 버튼 활성화 제어, 상태 인디케이터 및 결과 메시지 표시.',
+          'DeployPlatform Design의 compact action button 패턴. 배포/롤백/취소 상태에 따라 버튼 활성화 제어, 상태 인디케이터 및 결과 메시지 표시.',
       },
     },
   },
-  render: () => <VercelDeployActionsRender />,
+  render: () => <DeployPlatformDeployActionsRender />,
 } satisfies Story
 
 /* --------------------------------------------------------------------------
-   shadcn/ui — 폼 제출 버튼 상태 (Cycle 120)
-   shadcn의 button + form validation 패턴 — 유효성 기반 제어
+   ComposableUI — 폼 제출 버튼 상태 (Cycle 120)
+   ComposableUI의 button + form validation 패턴 — 유효성 기반 제어
 -------------------------------------------------------------------------- */
-function ShadcnFormSubmitRender() {
+function ComposableUIFormSubmitRender() {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [submitted, setSubmitted] = useState(false)
@@ -1100,24 +1100,24 @@ function ShadcnFormSubmitRender() {
   )
 }
 
-export const shadcn_폼_제출_버튼_상태: Story = {
-  name: 'shadcn/ui — 폼 제출 버튼 상태 (Cycle 120)',
+export const ComposableUI_폼_제출_버튼_상태: Story = {
+  name: 'ComposableUI — 폼 제출 버튼 상태 (Cycle 120)',
   parameters: {
     docs: {
       description: {
         story:
-          'shadcn/ui의 form submit button 패턴. 유효성 검사 기반 버튼 활성화, 로딩 상태, 완료 피드백. 이름 2자+ + 이메일 @ 포함 시 제출 버튼 활성화.',
+          'ComposableUI의 form submit button 패턴. 유효성 검사 기반 버튼 활성화, 로딩 상태, 완료 피드백. 이름 2자+ + 이메일 @ 포함 시 제출 버튼 활성화.',
       },
     },
   },
-  render: () => <ShadcnFormSubmitRender />,
+  render: () => <ComposableUIFormSubmitRender />,
 } satisfies Story
 
 /* --------------------------------------------------------------------------
-   Vercel + shadcn — 위험 영역 액션 버튼 (Cycle 120)
+   DeployPlatform + ComposableUI — 위험 영역 액션 버튼 (Cycle 120)
    삭제/초기화 등 destructive action 확인 패턴
 -------------------------------------------------------------------------- */
-function VercelShadcnDestructiveRender() {
+function DeployPlatformComposableUIDestructiveRender() {
   const [confirmStep, setConfirmStep] = useState<'idle' | 'confirm' | 'done'>('idle')
   const [inputVal, setInputVal] = useState('')
   const projectName = 'orbit-ui'
@@ -1175,23 +1175,23 @@ function VercelShadcnDestructiveRender() {
   )
 }
 
-export const Vercel_shadcn_위험_영역_액션: Story = {
-  name: 'Vercel + shadcn — 위험 영역 destructive 버튼 (Cycle 120)',
+export const DeployPlatform_ComposableUI_위험_영역_액션: Story = {
+  name: 'DeployPlatform + ComposableUI — 위험 영역 destructive 버튼 (Cycle 120)',
   parameters: {
     docs: {
       description: {
         story:
-          'Vercel Design + shadcn/ui의 destructive action 확인 패턴. 삭제 버튼 → 프로젝트명 재입력 확인 → 영구 삭제 3단계 플로우.',
+          'DeployPlatform Design + ComposableUI의 destructive action 확인 패턴. 삭제 버튼 → 프로젝트명 재입력 확인 → 영구 삭제 3단계 플로우.',
       },
     },
   },
-  render: () => <VercelShadcnDestructiveRender />,
+  render: () => <DeployPlatformComposableUIDestructiveRender />,
 } satisfies Story
 
 /* --------------------------------------------------------------------------
-   shadcn/ui — 공유 액션 버튼 그룹 (Copy URL / Download / Share)
+   ComposableUI — 공유 액션 버튼 그룹 (Copy URL / Download / Share)
 -------------------------------------------------------------------------- */
-function ShadcnShareActionsRender() {
+function ComposableUIShareActionsRender() {
   const [copied, setCopied] = useState(false)
   const [downloaded, setDownloaded] = useState(false)
 
@@ -1224,29 +1224,29 @@ function ShadcnShareActionsRender() {
           <SolidButton.Center>{downloaded ? '다운로드 완료' : 'PNG 다운로드'}</SolidButton.Center>
         </SolidButton>
         <SolidButton color="gray" size="small" style={{ flex: 1 }}>
-          <SolidButton.Center>Figma로 내보내기</SolidButton.Center>
+          <SolidButton.Center>DesignTool로 내보내기</SolidButton.Center>
         </SolidButton>
       </div>
     </div>
   )
 }
 
-export const Shadcn_공유_액션_버튼_그룹: Story = {
-  name: 'shadcn/ui — 공유 액션 버튼 그룹 (Copy URL / Download / Share)',
+export const ComposableUI_공유_액션_버튼_그룹: Story = {
+  name: 'ComposableUI — 공유 액션 버튼 그룹 (Copy URL / Download / Share)',
   parameters: {
     docs: {
       description: {
-        story: 'shadcn/ui의 Copy URL 버튼 패턴. 클릭 후 "복사됨!" 텍스트로 즉각 피드백을 제공하고 2초 후 원래 텍스트로 복귀. SaaS 문서/컴포넌트 공유 UI에서 자주 쓰이는 패턴.',
+        story: 'ComposableUI의 Copy URL 버튼 패턴. 클릭 후 "복사됨!" 텍스트로 즉각 피드백을 제공하고 2초 후 원래 텍스트로 복귀. SaaS 문서/컴포넌트 공유 UI에서 자주 쓰이는 패턴.',
       },
     },
   },
-  render: () => <ShadcnShareActionsRender />,
+  render: () => <ComposableUIShareActionsRender />,
 } satisfies Story
 
 /* --------------------------------------------------------------------------
-   Linear Design — 이슈 생성 인라인 폼 (컨텍스트 버튼 그룹)
+   IssueTracker Design — 이슈 생성 인라인 폼 (컨텍스트 버튼 그룹)
 -------------------------------------------------------------------------- */
-function LinearIssueCreateRender() {
+function IssueTrackerIssueCreateRender() {
   const [priority, setPriority] = useState<'urgent' | 'high' | 'medium' | 'low'>('medium')
   const [title, setTitle] = useState('')
   const [submitted, setSubmitted] = useState(false)
@@ -1310,22 +1310,22 @@ function LinearIssueCreateRender() {
   )
 }
 
-export const Linear_이슈_생성_인라인_폼: Story = {
-  name: 'Linear Design — 이슈 생성 인라인 폼 (컨텍스트 버튼 그룹)',
+export const IssueTracker_이슈_생성_인라인_폼: Story = {
+  name: 'IssueTracker Design — 이슈 생성 인라인 폼 (컨텍스트 버튼 그룹)',
   parameters: {
     docs: {
       description: {
-        story: 'Linear의 이슈 생성 인라인 폼 패턴. 우선순위 선택 → 제목 입력 → 생성/취소 버튼 구성. 제목 미입력 시 생성 버튼 비활성화, 성공 시 녹색 피드백 메시지.',
+        story: 'IssueTracker의 이슈 생성 인라인 폼 패턴. 우선순위 선택 → 제목 입력 → 생성/취소 버튼 구성. 제목 미입력 시 생성 버튼 비활성화, 성공 시 녹색 피드백 메시지.',
       },
     },
   },
-  render: () => <LinearIssueCreateRender />,
+  render: () => <IssueTrackerIssueCreateRender />,
 } satisfies Story
 
 /* --------------------------------------------------------------------------
-   shadcn/ui + Linear — 확인/취소 패턴 (다이얼로그 액션 영역)
+   ComposableUI + IssueTracker — 확인/취소 패턴 (다이얼로그 액션 영역)
 -------------------------------------------------------------------------- */
-function ShadcnLinearConfirmActionsRender() {
+function ComposableUIIssueTrackerConfirmActionsRender() {
   const [scenario, setScenario] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
 
   const scenarios = [
@@ -1391,23 +1391,23 @@ function ShadcnLinearConfirmActionsRender() {
   )
 }
 
-export const Shadcn_Linear_확인_취소_패턴: Story = {
-  name: 'shadcn/ui + Linear — 확인/취소 다이얼로그 액션',
+export const ComposableUI_IssueTracker_확인_취소_패턴: Story = {
+  name: 'ComposableUI + IssueTracker — 확인/취소 다이얼로그 액션',
   parameters: {
     docs: {
       description: {
-        story: 'shadcn/ui AlertDialog + Linear 모달 액션 조합 패턴. 기본/처리중/성공/오류 4가지 상태를 SolidButton으로 표현. 처리 중 disabled 처리, 성공/오류 인라인 피드백.',
+        story: 'ComposableUI AlertDialog + IssueTracker 모달 액션 조합 패턴. 기본/처리중/성공/오류 4가지 상태를 SolidButton으로 표현. 처리 중 disabled 처리, 성공/오류 인라인 피드백.',
       },
     },
   },
-  render: () => <ShadcnLinearConfirmActionsRender />,
+  render: () => <ComposableUIIssueTrackerConfirmActionsRender />,
 } satisfies Story
 
 // ──────────────────────────────────────────────────────────────────────────────
-// Cycle 173: Linear Design + Tailwind UI
+// Cycle 173: IssueTracker Design + UtilityUI
 // ──────────────────────────────────────────────────────────────────────────────
 
-function LinearPRActionRender() {
+function IssueTrackerPRActionRender() {
   const [state, setState] = useState<'idle' | 'merging' | 'merged' | 'closed'>('idle')
 
   const handleMerge = () => {
@@ -1418,7 +1418,7 @@ function LinearPRActionRender() {
   return (
     <div style={{ width: 420, background: 'var(--sem-eclipse-color-backgroundPrimary, #fff)', borderRadius: 12, border: '1px solid var(--sem-eclipse-color-borderPrimary, #e2e8f0)', overflow: 'hidden' }}>
       <div style={{ padding: '14px 18px', borderBottom: '1px solid var(--sem-eclipse-color-borderPrimary, #e2e8f0)' }}>
-        <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary, #0f172a)', marginBottom: 4 }}>feat: Add Linear PR action button pattern</div>
+        <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary, #0f172a)', marginBottom: 4 }}>feat: Add IssueTracker PR action button pattern</div>
         <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
           <span style={{ fontSize: 11, padding: '2px 7px', borderRadius: 99, background: state === 'merged' ? '#8b5cf620' : state === 'closed' ? '#ef444420' : '#22c55e20', color: state === 'merged' ? '#8b5cf6' : state === 'closed' ? '#ef4444' : '#16a34a', fontWeight: 600 }}>
             {state === 'merged' ? 'Merged' : state === 'closed' ? 'Closed' : 'Open'}
@@ -1457,20 +1457,20 @@ function LinearPRActionRender() {
   )
 }
 
-export const Linear_PR_병합_액션_버튼: Story = {
-  name: 'Linear — PR 병합 액션 버튼 (Merge/Close/Merging 상태 전환)',
+export const IssueTracker_PR_병합_액션_버튼: Story = {
+  name: 'IssueTracker — PR 병합 액션 버튼 (Merge/Close/Merging 상태 전환)',
   args: { color: 'primary', size: 'medium' },
   parameters: {
     docs: {
       description: {
-        story: 'Linear GitHub PR 액션 패턴. Merge pull request / Close 버튼 → Merging 로딩 → Merged 완료 상태 전환. 상태별 색상 배지 연동.',
+        story: 'IssueTracker CodeHost PR 액션 패턴. Merge pull request / Close 버튼 → Merging 로딩 → Merged 완료 상태 전환. 상태별 색상 배지 연동.',
       },
     },
   },
-  render: () => <LinearPRActionRender />,
+  render: () => <IssueTrackerPRActionRender />,
 } satisfies Story
 
-function TailwindCTAButtonRender() {
+function UtilityCSSCTAButtonRender() {
   const [hovered, setHovered] = useState<number | null>(null)
   const plans = [
     { label: 'Hobby', price: 'Free', cta: '시작하기', color: 'gray' as const, desc: '개인 프로젝트' },
@@ -1499,20 +1499,20 @@ function TailwindCTAButtonRender() {
   )
 }
 
-export const Tailwind_요금제_CTA_버튼_그룹: Story = {
-  name: 'Tailwind UI — 요금제 CTA 버튼 그룹 (Hobby/Pro/Enterprise)',
+export const UtilityCSS_요금제_CTA_버튼_그룹: Story = {
+  name: 'UtilityUI — 요금제 CTA 버튼 그룹 (Hobby/Pro/Enterprise)',
   args: { color: 'primary', size: 'small' },
   parameters: {
     docs: {
       description: {
-        story: 'Tailwind UI pricing 카드 패턴. Hobby(gray)/Pro(primary)/Enterprise(black) 3단계 플랜 CTA. 호버 시 카드 elevation, Pro 카드 강조 border.',
+        story: 'UtilityUI pricing 카드 패턴. Hobby(gray)/Pro(primary)/Enterprise(black) 3단계 플랜 CTA. 호버 시 카드 elevation, Pro 카드 강조 border.',
       },
     },
   },
-  render: () => <TailwindCTAButtonRender />,
+  render: () => <UtilityCSSCTAButtonRender />,
 } satisfies Story
 
-function LinearTailwindToolbarRender() {
+function IssueTrackerUtilityCSSToolbarRender() {
   const [mode, setMode] = useState<'preview' | 'edit' | 'split'>('preview')
   const [saved, setSaved] = useState(false)
 
@@ -1555,15 +1555,15 @@ function LinearTailwindToolbarRender() {
   )
 }
 
-export const Linear_Tailwind_에디터_툴바_버튼: Story = {
-  name: 'Linear + Tailwind — 에디터 툴바 버튼 (모드 전환 + 저장)',
+export const IssueTracker_UtilityCSS_에디터_툴바_버튼: Story = {
+  name: 'IssueTracker + UtilityCSS — 에디터 툴바 버튼 (모드 전환 + 저장)',
   args: { color: 'primary', size: 'small' },
   parameters: {
     docs: {
       description: {
-        story: 'Linear + Tailwind UI 에디터 툴바 패턴. Preview/Edit/Split 모드 토글 버튼 + 저장/취소 액션. 저장 시 2초간 저장됨 피드백.',
+        story: 'IssueTracker + UtilityUI 에디터 툴바 패턴. Preview/Edit/Split 모드 토글 버튼 + 저장/취소 액션. 저장 시 2초간 저장됨 피드백.',
       },
     },
   },
-  render: () => <LinearTailwindToolbarRender />,
+  render: () => <IssueTrackerUtilityCSSToolbarRender />,
 } satisfies Story

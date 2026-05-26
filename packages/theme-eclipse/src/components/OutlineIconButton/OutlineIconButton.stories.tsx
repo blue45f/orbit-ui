@@ -93,7 +93,7 @@ export const 디자인QA = {
       exclude: ['as', 'children', 'onClick'],
     },
   },
-   
+
   render: ({ color, size, ...rest }: any) => {
     return (
       <OutlineIconButton {...rest} color={color} size={size}>
@@ -104,16 +104,16 @@ export const 디자인QA = {
 }
 
 /* --------------------------------------------------------------------------
-   Linear 벤치마크: 이슈 상세 액션 툴바
-   Linear 스타일 이슈 상세 페이지 우상단 액션바 — 컴팩트 간격, 미니멀 아이콘
+   IssueTracker 벤치마크: 이슈 상세 액션 툴바
+   IssueTracker 스타일 이슈 상세 페이지 우상단 액션바 — 컴팩트 간격, 미니멀 아이콘
 -------------------------------------------------------------------------- */
- 
-export const Linear_이슈_액션_툴바 = {
+
+export const IssueTracker_이슈_액션_툴바 = {
   parameters: {
     docs: {
       description: {
         story:
-          'Linear 이슈 상세 페이지 액션바 패턴. 우측 상단에 OutlineIconButton 툴바를 배치하여 수정, 즐겨찾기, 공유, 더보기 액션을 제공합니다.',
+          'IssueTracker 이슈 상세 페이지 액션바 패턴. 우측 상단에 OutlineIconButton 툴바를 배치하여 수정, 즐겨찾기, 공유, 더보기 액션을 제공합니다.',
       },
     },
   },
@@ -157,17 +157,17 @@ export const Linear_이슈_액션_툴바 = {
         </div>
       </div>
       <div style={{ padding: '16px', fontSize: 13, color: '#475569', lineHeight: 1.7 }}>
-        BoxedCheckbox 권한 매트릭스 스토리 추가 및 SolidIconButton 에디터 툴바 패턴 구현. shadcn/ui + Radix UI 벤치마크 기반으로 인터랙티브 데모를 고도화합니다.
+        BoxedCheckbox 권한 매트릭스 스토리 추가 및 SolidIconButton 에디터 툴바 패턴 구현. ComposableUI + PrimitiveUI 벤치마크 기반으로 인터랙티브 데모를 고도화합니다.
       </div>
     </div>
   ),
 }
 
 /* --------------------------------------------------------------------------
-   Vercel 벤치마크: 모노크롬 액션 버튼 그룹
-   Vercel 배포 히스토리 스타일 — 모노크롬 팔레트, 컴팩트 밀도
+   DeployPlatform 벤치마크: 모노크롬 액션 버튼 그룹
+   DeployPlatform 배포 히스토리 스타일 — 모노크롬 팔레트, 컴팩트 밀도
 -------------------------------------------------------------------------- */
-function VercelDeployActionsRender() {
+function DeployPlatformDeployActionsRender() {
   const [refreshing, setRefreshing] = useState(false)
 
   const handleRefresh = () => {
@@ -247,17 +247,17 @@ function VercelDeployActionsRender() {
   )
 }
 
- 
-export const Vercel_배포_히스토리_액션 = {
+
+export const DeployPlatform_배포_히스토리_액션 = {
   parameters: {
     docs: {
       description: {
         story:
-          'Vercel 배포 히스토리 UI 패턴. 컴팩트한 OutlineIconButton으로 각 배포 항목의 설정/다운로드 액션을 제공하고, 새로고침 버튼은 로딩 중 비활성화됩니다.',
+          'DeployPlatform 배포 히스토리 UI 패턴. 컴팩트한 OutlineIconButton으로 각 배포 항목의 설정/다운로드 액션을 제공하고, 새로고침 버튼은 로딩 중 비활성화됩니다.',
       },
     },
   },
-  render: () => <VercelDeployActionsRender />,
+  render: () => <DeployPlatformDeployActionsRender />,
 }
 
 /* --------------------------------------------------------------------------
@@ -265,10 +265,10 @@ export const Vercel_배포_히스토리_액션 = {
    disabled 상태에서의 시각적 처리 — 활성/비활성 비교
 -------------------------------------------------------------------------- */
 /* --------------------------------------------------------------------------
-   Linear 벤치마크: 필터·정렬·뷰 전환 툴바
-   Linear 이슈 목록 상단 툴바 패턴 — 필터/정렬/뷰 전환 아이콘 버튼 조합
+   IssueTracker 벤치마크: 필터·정렬·뷰 전환 툴바
+   IssueTracker 이슈 목록 상단 툴바 패턴 — 필터/정렬/뷰 전환 아이콘 버튼 조합
 -------------------------------------------------------------------------- */
-function LinearFilterToolbarRender() {
+function IssueTrackerFilterToolbarRender() {
   const [view, setView] = useState<'list' | 'grid'>('list')
   const [filterActive, setFilterActive] = useState(false)
   const [sortActive, setSortActive] = useState(false)
@@ -361,45 +361,45 @@ function LinearFilterToolbarRender() {
         ))}
       </div>
       <div style={{ marginTop: 12, fontSize: 11, color: '#94a3b8' }}>
-        Linear 이슈 툴바 패턴 — 뷰: {view}, 필터: {filterActive ? '적용' : '없음'}, 정렬: {sortActive ? '적용' : '없음'}
+        IssueTracker 이슈 툴바 패턴 — 뷰: {view}, 필터: {filterActive ? '적용' : '없음'}, 정렬: {sortActive ? '적용' : '없음'}
       </div>
     </div>
   )
 }
 
- 
-export const Linear_필터_정렬_툴바 = {
+
+export const IssueTracker_필터_정렬_툴바 = {
   parameters: {
     docs: {
       description: {
-        story: 'Linear 이슈 목록 상단 툴바 패턴. 필터/정렬 버튼은 활성 시 blue dot으로 표시하고, 뷰 전환 버튼은 토글 그룹으로 구성됩니다.',
+        story: 'IssueTracker 이슈 목록 상단 툴바 패턴. 필터/정렬 버튼은 활성 시 blue dot으로 표시하고, 뷰 전환 버튼은 토글 그룹으로 구성됩니다.',
       },
     },
   },
-  render: () => <LinearFilterToolbarRender />,
+  render: () => <IssueTrackerFilterToolbarRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Notion 벤치마크: 블록 편집 컨트롤
-   Notion 블록 에디터 패턴 — 드래그 핸들 + 블록 추가 + 액션 버튼 조합
+   WorkspaceEditor 벤치마크: 블록 편집 컨트롤
+   WorkspaceEditor 블록 에디터 패턴 — 드래그 핸들 + 블록 추가 + 액션 버튼 조합
 -------------------------------------------------------------------------- */
-const NOTION_BLOCKS = [
+const WORKSPACE_BLOCKS = [
   { id: 'b1', type: 'heading', content: '디자인 시스템 아키텍처', level: 1 },
   { id: 'b2', type: 'text', content: 'Orbit UI는 3-tier 토큰 기반으로 설계된 React 컴포넌트 라이브러리입니다.' },
-  { id: 'b3', type: 'text', content: 'Tailwind를 사용하여 빌드 타임에 CSS를 생성합니다.' },
+  { id: 'b3', type: 'text', content: 'UtilityCSS를 사용하여 빌드 타임에 CSS를 생성합니다.' },
   { id: 'b4', type: 'heading', content: '컴포넌트 구조', level: 2 },
 ]
 
-function NotionBlockEditorRender() {
+function WorkspaceEditorBlockEditorRender() {
   const [hoveredBlock, setHoveredBlock] = useState<string | null>(null)
   const [selectedBlock, setSelectedBlock] = useState<string | null>(null)
 
   return (
     <div style={{ maxWidth: 560, fontFamily: 'system-ui, sans-serif', padding: '16px 0' }}>
       <div style={{ fontSize: 11, color: '#94a3b8', marginBottom: 12 }}>
-        Notion 블록 에디터 패턴 — 블록에 마우스를 올리면 컨트롤이 표시됩니다
+        WorkspaceEditor 블록 에디터 패턴 — 블록에 마우스를 올리면 컨트롤이 표시됩니다
       </div>
-      {NOTION_BLOCKS.map((block) => (
+      {WORKSPACE_BLOCKS.map((block) => (
         <div
           key={block.id}
           style={{ display: 'flex', alignItems: 'flex-start', gap: 4, padding: '2px 0', position: 'relative' }}
@@ -453,21 +453,21 @@ function NotionBlockEditorRender() {
   )
 }
 
- 
-export const Notion_블록_편집_컨트롤 = {
+
+export const WorkspaceEditor_블록_편집_컨트롤 = {
   parameters: {
     docs: {
       description: {
-        story: 'Notion 블록 에디터 패턴. 각 블록에 hover 시 드래그 핸들, 블록 추가, 수정 버튼이 표시됩니다. 클릭 시 선택 상태가 표시됩니다.',
+        story: 'WorkspaceEditor 블록 에디터 패턴. 각 블록에 hover 시 드래그 핸들, 블록 추가, 수정 버튼이 표시됩니다. 클릭 시 선택 상태가 표시됩니다.',
       },
     },
   },
-  render: () => <NotionBlockEditorRender />,
+  render: () => <WorkspaceEditorBlockEditorRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Linear 벤치마크: 사이클 내비게이션
-   Linear Sprint/Cycle 네비게이션 패턴 — 이전/다음 기간 이동, 현재 상태 표시
+   IssueTracker 벤치마크: 사이클 내비게이션
+   IssueTracker Sprint/Cycle 네비게이션 패턴 — 이전/다음 기간 이동, 현재 상태 표시
 -------------------------------------------------------------------------- */
 const CYCLES = [
   { id: 1, name: 'Cycle 42', start: '3월 24일', end: '4월 6일', status: 'completed', issues: 18, done: 18 },
@@ -539,25 +539,25 @@ function CycleNavigationRender() {
         </div>
       </div>
       <div style={{ marginTop: 8, fontSize: 11, color: '#94a3b8' }}>
-        Linear Cycle 네비게이션 패턴 — 이전/다음 버튼으로 스프린트 기간 탐색
+        IssueTracker Cycle 네비게이션 패턴 — 이전/다음 버튼으로 스프린트 기간 탐색
       </div>
     </div>
   )
 }
 
- 
-export const Linear_사이클_내비게이션 = {
+
+export const IssueTracker_사이클_내비게이션 = {
   parameters: {
     docs: {
       description: {
-        story: 'Linear Sprint/Cycle 네비게이션 패턴. 이전/다음 OutlineIconButton으로 사이클 기간을 이동하며 진행률과 상태를 확인합니다.',
+        story: 'IssueTracker Sprint/Cycle 네비게이션 패턴. 이전/다음 OutlineIconButton으로 사이클 기간을 이동하며 진행률과 상태를 확인합니다.',
       },
     },
   },
   render: () => <CycleNavigationRender />,
 }
 
- 
+
 export const 비활성화_상태_비교 = {
   parameters: {
     docs: {
@@ -605,7 +605,7 @@ export const 비활성화_상태_비교 = {
 }
 
 /* --------------------------------------------------------------------------
-   Google Material 3 벤치마크: Tonal Icon Button 그룹
+   RoleToken Design 벤치마크: Tonal Icon Button 그룹
    M3의 Icon Button variant — Filled/Tonal/Outlined/Standard 4가지 역할 구분
 -------------------------------------------------------------------------- */
 const M3_ACTIONS = [
@@ -684,12 +684,12 @@ function M3TonalGroupRender() {
 }
 
 export const M3_아이콘버튼_그룹_변형 = {
-  name: 'Google M3 - Tonal / Outlined / Standard 아이콘 버튼 변형',
+  name: 'Reference M3 - Tonal / Outlined / Standard 아이콘 버튼 변형',
   parameters: {
     docs: {
       description: {
         story:
-          'Google Material 3 Icon Button variant 체계. Filled Tonal(토글 강조), Outlined(기본 경계선), ' +
+          'RoleToken Design Icon Button variant 체계. Filled Tonal(토글 강조), Outlined(기본 경계선), ' +
           'Standard(최소 크기) 3가지 역할을 OutlineIconButton으로 구현합니다.',
       },
     },
@@ -698,12 +698,12 @@ export const M3_아이콘버튼_그룹_변형 = {
 }
 
 /* --------------------------------------------------------------------------
-   Figma Plugin UI 벤치마크: 컴팩트 도구 팔레트
-   Figma 플러그인 패널의 도구 팔레트 — 좁은 공간에 최대 밀도로 아이콘 버튼 배치
+   DesignTool Plugin UI 벤치마크: 컴팩트 도구 팔레트
+   DesignTool 플러그인 패널의 도구 팔레트 — 좁은 공간에 최대 밀도로 아이콘 버튼 배치
 -------------------------------------------------------------------------- */
-type FigmaTool = 'select' | 'move' | 'grid' | 'list' | 'sort' | 'filter' | 'refresh' | 'setting'
+type DesignToolTool = 'select' | 'move' | 'grid' | 'list' | 'sort' | 'filter' | 'refresh' | 'setting'
 
-const FIGMA_TOOL_GROUPS: { group: string; tools: { key: FigmaTool; icon: React.ReactElement; label: string }[] }[] = [
+const DESIGN_TOOL_GROUPS: { group: string; tools: { key: DesignToolTool; icon: React.ReactElement; label: string }[] }[] = [
   {
     group: '보기',
     tools: [
@@ -727,8 +727,8 @@ const FIGMA_TOOL_GROUPS: { group: string; tools: { key: FigmaTool; icon: React.R
   },
 ]
 
-function FigmaToolPaletteRender() {
-  const [activeTool, setActiveTool] = useState<FigmaTool>('grid')
+function DesignToolToolPaletteRender() {
+  const [activeTool, setActiveTool] = useState<DesignToolTool>('grid')
   const [disabled, setDisabled] = useState(false)
 
   return (
@@ -740,7 +740,7 @@ function FigmaToolPaletteRender() {
           <span style={{ fontSize: 11, color: '#71717a' }}>비활성화</span>
         </label>
       </div>
-      {FIGMA_TOOL_GROUPS.map(({ group, tools }) => (
+      {DESIGN_TOOL_GROUPS.map(({ group, tools }) => (
         <div key={group}>
           <div style={{ fontSize: 10, fontWeight: 700, color: '#52525b', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: 6 }}>{group}</div>
           <div style={{ display: 'flex', gap: 4 }}>
@@ -775,22 +775,22 @@ function FigmaToolPaletteRender() {
   )
 }
 
-export const Figma_컴팩트_도구_팔레트 = {
-  name: 'Figma Plugin UI - 컴팩트 도구 팔레트 패턴',
+export const DesignTool_컴팩트_도구_팔레트 = {
+  name: 'DesignTool Plugin UI - 컴팩트 도구 팔레트 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'Figma 플러그인 패널의 컴팩트 도구 팔레트 패턴. 다크 배경(#1e1e1e)에 최소 간격으로 ' +
+          'DesignTool 플러그인 패널의 컴팩트 도구 팔레트 패턴. 다크 배경(#1e1e1e)에 최소 간격으로 ' +
           '아이콘 버튼을 그룹화하고, 활성 도구에 강조 border + 색상을 적용합니다.',
       },
     },
   },
-  render: () => <FigmaToolPaletteRender />,
+  render: () => <DesignToolToolPaletteRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Google Material 3 벤치마크: 플로팅 액션 버튼 연장 패턴
+   RoleToken Design 벤치마크: 플로팅 액션 버튼 연장 패턴
    M3 FAB → Extended FAB 전환 패턴 — 스크롤 방향에 따라 버튼이 확장/축소
 -------------------------------------------------------------------------- */
 function M3ExtendedFabRender() {
@@ -871,12 +871,12 @@ function M3ExtendedFabRender() {
 }
 
 export const M3_Extended_FAB_패턴 = {
-  name: 'Google M3 - Extended FAB 스크롤 반응 패턴',
+  name: 'Reference M3 - Extended FAB 스크롤 반응 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'Google Material 3 Extended FAB 패턴. 스크롤 다운 시 텍스트 레이블이 숨겨져 원형 FAB로 축소되고, ' +
+          'RoleToken Design Extended FAB 패턴. 스크롤 다운 시 텍스트 레이블이 숨겨져 원형 FAB로 축소되고, ' +
           '스크롤 업 시 다시 "항목 추가" 텍스트가 확장됩니다. cubic-bezier 트랜지션으로 자연스러운 전환을 구현합니다.',
       },
     },
@@ -893,7 +893,7 @@ const TW_EDITOR_TOOLS = [
 
 type TwToolId = 'bold' | 'list' | 'link' | 'more'
 
-const TailwindEditorToolbarRender = () => {
+const UtilityCSSEditorToolbarRender = () => {
   const [active, setActive] = useState<Set<TwToolId>>(new Set())
   const [saved, setSaved] = useState(false)
 
@@ -943,7 +943,7 @@ const TailwindEditorToolbarRender = () => {
       </div>
       <div style={{ border: '1px solid #e5e7eb', borderRadius: '0 0 8px 8px', padding: '12px 14px', minHeight: 100, fontSize: 13, color: '#374151', lineHeight: 1.6 }}>
         <p style={{ margin: 0, fontWeight: active.has('bold') ? 700 : 400 }}>
-          Tailwind UI Editor 툴바 패턴 — OutlineIconButton으로 서식 도구를 구현합니다. 활성 버튼은 배경색 반전으로 상태를 표시합니다.
+          UtilityUI Editor 툴바 패턴 — OutlineIconButton으로 서식 도구를 구현합니다. 활성 버튼은 배경색 반전으로 상태를 표시합니다.
         </p>
       </div>
       {saved && <div style={{ marginTop: 8, fontSize: 11, color: '#10b981', fontWeight: 600 }}>저장 완료!</div>}
@@ -951,21 +951,21 @@ const TailwindEditorToolbarRender = () => {
   )
 }
 
-export const Tailwind_에디터_서식_툴바 = {
-  name: 'Tailwind UI - 에디터 서식 툴바 패턴',
+export const UtilityCSS_에디터_서식_툴바 = {
+  name: 'UtilityUI - 에디터 서식 툴바 패턴',
   parameters: {
     docs: {
       description: {
-        story: 'Tailwind UI 에디터 툴바 패턴. Bold/List/Link/More 서식 도구를 OutlineIconButton으로 배치하고, 저장/설정 액션을 우측에 배치합니다. 활성 포맷 버튼은 배경 반전으로 시각적 피드백을 제공합니다.',
+        story: 'UtilityUI 에디터 툴바 패턴. Bold/List/Link/More 서식 도구를 OutlineIconButton으로 배치하고, 저장/설정 액션을 우측에 배치합니다. 활성 포맷 버튼은 배경 반전으로 시각적 피드백을 제공합니다.',
       },
     },
   },
-  render: () => <TailwindEditorToolbarRender />,
+  render: () => <UtilityCSSEditorToolbarRender />,
 }
 
-const SHADCN_PAGINATION_ITEMS = [1, 2, 3, 4, 5]
+const UTILITYUI_PAGINATION_ITEMS = [1, 2, 3, 4, 5]
 
-const ShadcnPaginationRender = () => {
+const ComposableUIPaginationRender = () => {
   const [page, setPage] = useState(1)
   const totalPages = 5
 
@@ -981,7 +981,7 @@ const ShadcnPaginationRender = () => {
         >
           <ChevronRightLineIcon size={14} style={{ transform: 'rotate(180deg)' }} />
         </OutlineIconButton>
-        {SHADCN_PAGINATION_ITEMS.map(p => (
+        {UTILITYUI_PAGINATION_ITEMS.map(p => (
           <button
             key={p}
             onClick={() => setPage(p)}
@@ -1001,32 +1001,32 @@ const ShadcnPaginationRender = () => {
         </OutlineIconButton>
       </div>
       <div style={{ fontSize: 12, color: '#9ca3af' }}>
-        {totalPages}페이지 중 {page}페이지 · shadcn/ui Pagination 패턴
+        {totalPages}페이지 중 {page}페이지 · ComposableUI Pagination 패턴
       </div>
     </div>
   )
 }
 
-export const Shadcn_페이지네이션_컨트롤 = {
-  name: 'shadcn/ui - 페이지네이션 이전/다음 컨트롤',
+export const ComposableUI_페이지네이션_컨트롤 = {
+  name: 'ComposableUI - 페이지네이션 이전/다음 컨트롤',
   parameters: {
     docs: {
       description: {
-        story: 'shadcn/ui Pagination 컴포넌트 패턴. 이전/다음 방향 아이콘을 OutlineIconButton으로 구현하고, 페이지 번호 버튼과 함께 배치합니다. disabled 상태에서 자동 비활성화되며, 현재 페이지는 반전 스타일로 강조합니다.',
+        story: 'ComposableUI Pagination 컴포넌트 패턴. 이전/다음 방향 아이콘을 OutlineIconButton으로 구현하고, 페이지 번호 버튼과 함께 배치합니다. disabled 상태에서 자동 비활성화되며, 현재 페이지는 반전 스타일로 강조합니다.',
       },
     },
   },
-  render: () => <ShadcnPaginationRender />,
+  render: () => <ComposableUIPaginationRender />,
 }
 
 
 const TW_ARTICLE_CARDS = [
-  { id: 1, title: 'Tailwind UI 컴포넌트 패턴 분석', category: '기술', date: '2026.04.10', starred: false },
-  { id: 2, title: 'shadcn/ui와 Orbit UI 비교 연구', category: '디자인', date: '2026.04.08', starred: true },
+  { id: 1, title: 'UtilityUI 컴포넌트 패턴 분석', category: '기술', date: '2026.04.10', starred: false },
+  { id: 2, title: 'ComposableUI와 Orbit UI 비교 연구', category: '디자인', date: '2026.04.08', starred: true },
   { id: 3, title: 'Storybook 8.x 마이그레이션 가이드', category: '도구', date: '2026.04.05', starred: false },
 ]
 
-const TailwindCardActionGroupRender = () => {
+const UtilityCSSCardActionGroupRender = () => {
   const [cards, setCards] = useState(TW_ARTICLE_CARDS)
   const [refreshing, setRefreshing] = useState<number | null>(null)
 
@@ -1071,26 +1071,26 @@ const TailwindCardActionGroupRender = () => {
           </div>
         </div>
       ))}
-      <div style={{ fontSize: 11, color: '#9ca3af', marginTop: 2 }}>Tailwind UI Card Action Group 패턴</div>
+      <div style={{ fontSize: 11, color: '#9ca3af', marginTop: 2 }}>UtilityUI Card Action Group 패턴</div>
     </div>
   )
 }
 
-export const Tailwind_카드_액션_그룹 = {
-  name: 'Tailwind UI - 카드 액션 버튼 그룹 패턴',
+export const UtilityCSS_카드_액션_그룹 = {
+  name: 'UtilityUI - 카드 액션 버튼 그룹 패턴',
   parameters: {
     docs: {
       description: {
-        story: 'Tailwind UI Card의 액션 버튼 그룹 패턴. 즐겨찾기(토글 상태)/새로고침(로딩 애니메이션)/더보기 OutlineIconButton을 카드 우측에 배치합니다. 즐겨찾기 활성 상태는 노란 배경으로 시각화합니다.',
+        story: 'UtilityUI Card의 액션 버튼 그룹 패턴. 즐겨찾기(토글 상태)/새로고침(로딩 애니메이션)/더보기 OutlineIconButton을 카드 우측에 배치합니다. 즐겨찾기 활성 상태는 노란 배경으로 시각화합니다.',
       },
     },
   },
-  render: () => <TailwindCardActionGroupRender />,
+  render: () => <UtilityCSSCardActionGroupRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Tailwind UI 벤치마크: 반응형 아이콘 액션 버튼 그룹 패턴
-   Tailwind UI Button Group — 컴팩트 아이콘 + 라벨 조합 toolbar
+   UtilityUI 벤치마크: 반응형 아이콘 액션 버튼 그룹 패턴
+   UtilityUI Button Group — 컴팩트 아이콘 + 라벨 조합 toolbar
 -------------------------------------------------------------------------- */
 const TOOLBAR_ACTIONS = [
   { icon: <DownloadIcon />, label: '내보내기', shortcut: '⌘E' },
@@ -1099,14 +1099,14 @@ const TOOLBAR_ACTIONS = [
   { icon: <MoreHorizontalIcon />, label: '더보기', shortcut: null },
 ]
 
-export const Tailwind_반응형_아이콘_액션_그룹: Story = {
-  name: 'Tailwind UI - 반응형 아이콘 액션 버튼 그룹',
+export const UtilityCSS_반응형_아이콘_액션_그룹: Story = {
+  name: 'UtilityUI - 반응형 아이콘 액션 버튼 그룹',
   args: { children: <DownloadIcon /> },
   parameters: {
     docs: {
       description: {
         story:
-          'Tailwind UI Button Group 패턴. 좁은 화면에서는 아이콘만, 넓은 화면에서는 라벨을 함께 표시합니다. ' +
+          'UtilityUI Button Group 패턴. 좁은 화면에서는 아이콘만, 넓은 화면에서는 라벨을 함께 표시합니다. ' +
           '각 버튼에 title 속성으로 단축키 힌트를 제공합니다.',
       },
     },
@@ -1147,17 +1147,17 @@ export const Tailwind_반응형_아이콘_액션_그룹: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Google Material 3 벤치마크: FAB 보조 아이콘 버튼 그룹 패턴
+   RoleToken Design 벤치마크: FAB 보조 아이콘 버튼 그룹 패턴
    M3 Icon Button — Tonal/Filled/Outlined/Standard 4가지 변형 비교
 -------------------------------------------------------------------------- */
 export const M3_아이콘버튼_4변형_비교: Story = {
-  name: 'Google Material 3 - 아이콘 버튼 4 variant 비교',
+  name: 'RoleToken Design - 아이콘 버튼 4 variant 비교',
   args: { children: <StarLineIcon /> },
   parameters: {
     docs: {
       description: {
         story:
-          'Google Material 3 Icon Button 4가지 variant 패턴. ' +
+          'RoleToken Design Icon Button 4가지 variant 패턴. ' +
           'Standard(Ghost) / Outlined / Filled-Tonal / Filled 순서로 강조도를 높여가며 비교합니다. ' +
           'Orbit UI의 OutlineIconButton이 M3 Outlined 변형에 해당합니다.',
       },
@@ -1183,10 +1183,10 @@ export const M3_아이콘버튼_4변형_비교: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Tailwind UI + M3 복합: 미디어 플레이어 컨트롤 바 패턴
+   UtilityUI + M3 복합: 미디어 플레이어 컨트롤 바 패턴
    재생/정지/다음/이전 아이콘 버튼 + 볼륨/설정 보조 컨트롤
 -------------------------------------------------------------------------- */
-function TailwindM3PlayerControlRender(args: ComponentProps<typeof OutlineIconButton>) {
+function UtilityCSSM3PlayerControlRender(args: ComponentProps<typeof OutlineIconButton>) {
   const [playing, setPlaying] = useState(false)
   const [muted, setMuted] = useState(false)
   const [progress, setProgress] = useState(34)
@@ -1248,35 +1248,35 @@ function TailwindM3PlayerControlRender(args: ComponentProps<typeof OutlineIconBu
           </OutlineIconButton>
         </div>
       </div>
-      <div style={{ fontSize: 11, color: '#94a3b8' }}>Tailwind UI + M3 미디어 플레이어 컨트롤 — 재생/정지/탐색 + 설정</div>
+      <div style={{ fontSize: 11, color: '#94a3b8' }}>UtilityUI + M3 미디어 플레이어 컨트롤 — 재생/정지/탐색 + 설정</div>
     </div>
   )
 }
 
-export const Tailwind_M3_미디어_플레이어_컨트롤: Story = {
-  name: 'Tailwind UI + M3 - 미디어 플레이어 컨트롤 바',
+export const UtilityCSS_M3_미디어_플레이어_컨트롤: Story = {
+  name: 'UtilityUI + M3 - 미디어 플레이어 컨트롤 바',
   args: { children: <PlusIcon /> },
   parameters: {
     docs: {
       description: {
         story:
-          'Tailwind UI + Google Material 3 복합 패턴. ' +
+          'UtilityUI + RoleToken Design 복합 패턴. ' +
           '재생/정지/이전/다음 OutlineIconButton을 크기별로 계층화(large/small)하고 ' +
           '프로그레스 바와 연동한 미디어 플레이어 컨트롤 바를 구현합니다.',
       },
     },
   },
-  render: (args: ComponentProps<typeof OutlineIconButton>) => <TailwindM3PlayerControlRender {...args} />,
+  render: (args: ComponentProps<typeof OutlineIconButton>) => <UtilityCSSM3PlayerControlRender {...args} />,
 }
 
-// ─── Cycle 156: Apple HIG + Google Material 3 ──────────────────────────────
+// ─── Cycle 156: Platform HIG + RoleToken Design ──────────────────────────────
 
-function AppleHigNavigationBarRender(args: ComponentProps<typeof OutlineIconButton>) {
+function PlatformHigNavigationBarRender(args: ComponentProps<typeof OutlineIconButton>) {
   const [bookmarked, setBookmarked] = useState(false)
   const [downloaded, setDownloaded] = useState(false)
   return (
     <div style={{ width: 360, fontFamily: 'Inter, system-ui, sans-serif' }}>
-      <div style={{ fontSize: 12, fontWeight: 700, color: '#6b7280', marginBottom: 10 }}>Apple HIG 내비게이션 바 아이콘 버튼</div>
+      <div style={{ fontSize: 12, fontWeight: 700, color: '#6b7280', marginBottom: 10 }}>Platform HIG 내비게이션 바 아이콘 버튼</div>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 16px', background: '#f9fafb', borderRadius: 12, border: '1px solid #e5e7eb' }}>
         <div style={{ display: 'flex', gap: 8 }}>
           <OutlineIconButton {...args} color="gray" size="small" onClick={() => {}}>
@@ -1302,20 +1302,20 @@ function AppleHigNavigationBarRender(args: ComponentProps<typeof OutlineIconButt
       <div style={{ marginTop: 8, fontSize: 11, color: '#9ca3af' }}>
         북마크: {bookmarked ? '활성' : '비활성'} | 다운로드: {downloaded ? '완료' : '미완'}
       </div>
-      <div style={{ fontSize: 11, color: '#9ca3af' }}>Apple HIG UINavigationBar BarButtonItem 패턴</div>
+      <div style={{ fontSize: 11, color: '#9ca3af' }}>Platform HIG UINavigationBar BarButtonItem 패턴</div>
     </div>
   )
 }
 
-export const Apple_HIG_내비게이션_바_아이콘: Story = {
-  name: 'Apple HIG - 내비게이션 바 아이콘 버튼 (토글 상태)',
+export const Platform_HIG_내비게이션_바_아이콘: Story = {
+  name: 'Platform HIG - 내비게이션 바 아이콘 버튼 (토글 상태)',
   args: { children: <ChevronLeftLineIcon /> },
-  render: (args) => <AppleHigNavigationBarRender {...args} />,
+  render: (args) => <PlatformHigNavigationBarRender {...args} />,
   parameters: {
     docs: {
       description: {
         story:
-          'Apple HIG UINavigationBar BarButtonItem 패턴. 좌측 뒤로/앞으로, 우측 북마크·다운로드·공유 아이콘 버튼을 배치합니다. ' +
+          'Platform HIG UINavigationBar BarButtonItem 패턴. 좌측 뒤로/앞으로, 우측 북마크·다운로드·공유 아이콘 버튼을 배치합니다. ' +
           '북마크와 다운로드는 활성 상태에서 흑색으로 전환되는 토글 동작을 구현합니다.',
       },
     },
@@ -1328,7 +1328,7 @@ function M3IconButtonVariantRender(args: ComponentProps<typeof OutlineIconButton
   const [sorted, setSorted] = useState(false)
   return (
     <div style={{ width: 360, fontFamily: 'Inter, system-ui, sans-serif' }}>
-      <div style={{ fontSize: 12, fontWeight: 700, color: '#6b7280', marginBottom: 12 }}>Material 3 아이콘 버튼 패턴</div>
+      <div style={{ fontSize: 12, fontWeight: 700, color: '#6b7280', marginBottom: 12 }}>RoleToken Design 아이콘 버튼 패턴</div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
         <div style={{ padding: '14px 16px', background: '#fffbfe', borderRadius: 12, border: '1px solid #e8def8' }}>
           <div style={{ fontSize: 11, fontWeight: 600, color: '#49454f', marginBottom: 8 }}>Tonal — 상태 토글</div>
@@ -1365,27 +1365,27 @@ function M3IconButtonVariantRender(args: ComponentProps<typeof OutlineIconButton
 }
 
 export const M3_아이콘_버튼_패턴: Story = {
-  name: 'Google Material 3 - 아이콘 버튼 Tonal/Standard 패턴',
+  name: 'RoleToken Design - 아이콘 버튼 Tonal/Standard 패턴',
   args: { children: <StarLineIcon /> },
   render: (args) => <M3IconButtonVariantRender {...args} />,
   parameters: {
     docs: {
       description: {
         story:
-          'Google Material 3 FilledTonal + Standard IconButton 패턴. Tonal 섹션은 선택 토글 동작, Standard 섹션은 small·medium·large 크기 계층을 비교합니다. ' +
+          'RoleToken Design FilledTonal + Standard IconButton 패턴. Tonal 섹션은 선택 토글 동작, Standard 섹션은 small·medium·large 크기 계층을 비교합니다. ' +
           'M3의 상태 레이어(state layer) 개념을 OutlineIconButton color 토글로 재현합니다.',
       },
     },
   },
 }
 
-function AppleM3ToolbarRender(args: ComponentProps<typeof OutlineIconButton>) {
+function PlatformM3ToolbarRender(args: ComponentProps<typeof OutlineIconButton>) {
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid')
   const [sortAsc, setSortAsc] = useState(true)
   const [filterOpen, setFilterOpen] = useState(false)
   return (
     <div style={{ width: 380, fontFamily: 'Inter, system-ui, sans-serif' }}>
-      <div style={{ fontSize: 12, fontWeight: 700, color: '#6b7280', marginBottom: 10 }}>Apple HIG + M3 툴바 아이콘 패턴</div>
+      <div style={{ fontSize: 12, fontWeight: 700, color: '#6b7280', marginBottom: 10 }}>Platform HIG + M3 툴바 아이콘 패턴</div>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 14px', background: '#fff', borderRadius: 12, border: '1px solid #e2e8f0', boxShadow: '0 1px 3px rgba(0,0,0,0.06)' }}>
         <div style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
           <OutlineIconButton {...args} color={filterOpen ? 'black' : 'gray'} size="small" onClick={() => setFilterOpen(f => !f)}>
@@ -1410,30 +1410,30 @@ function AppleM3ToolbarRender(args: ComponentProps<typeof OutlineIconButton>) {
       <div style={{ marginTop: 8, padding: '8px 14px', background: filterOpen ? '#eff6ff' : '#f8fafc', borderRadius: 8, fontSize: 12, color: '#475569', transition: 'background 0.2s' }}>
         뷰: {viewMode === 'grid' ? '그리드' : '리스트'} | 정렬: {sortAsc ? '오름차순' : '내림차순'} | 필터: {filterOpen ? '열림' : '닫힘'}
       </div>
-      <div style={{ marginTop: 6, fontSize: 11, color: '#94a3b8' }}>Apple HIG + M3 — 뷰 전환 + 필터 + 정렬 툴바 패턴</div>
+      <div style={{ marginTop: 6, fontSize: 11, color: '#94a3b8' }}>Platform HIG + M3 — 뷰 전환 + 필터 + 정렬 툴바 패턴</div>
     </div>
   )
 }
 
-export const Apple_M3_툴바_아이콘_버튼: Story = {
-  name: 'Apple HIG + M3 - 뷰 전환 툴바 아이콘 버튼',
+export const Platform_M3_툴바_아이콘_버튼: Story = {
+  name: 'Platform HIG + M3 - 뷰 전환 툴바 아이콘 버튼',
   args: { children: <FilterIcon /> },
-  render: (args) => <AppleM3ToolbarRender {...args} />,
+  render: (args) => <PlatformM3ToolbarRender {...args} />,
   parameters: {
     docs: {
       description: {
         story:
-          'Apple HIG + Google Material 3 복합 패턴. 좌측 필터·정렬·새로고침, 우측 그리드/리스트 뷰 전환 세그먼트 컨트롤을 아이콘 버튼으로 구현합니다. ' +
-          'Apple SF Symbols 크기 계층과 M3 톤 강조 버튼 패턴을 재현합니다.',
+          'Platform HIG + RoleToken Design 복합 패턴. 좌측 필터·정렬·새로고침, 우측 그리드/리스트 뷰 전환 세그먼트 컨트롤을 아이콘 버튼으로 구현합니다. ' +
+          'Platform SF Symbols 크기 계층과 M3 톤 강조 버튼 패턴을 재현합니다.',
       },
     },
   },
 }
 
 /* --------------------------------------------------------------------------
-   Vercel Design — 배포 컨트롤 액션 클러스터
+   DeployPlatform Design — 배포 컨트롤 액션 클러스터
 -------------------------------------------------------------------------- */
-function VercelDeployControlRender(args: ComponentProps<typeof OutlineIconButton>) {
+function DeployPlatformDeployControlRender(args: ComponentProps<typeof OutlineIconButton>) {
   const [isFav, setIsFav] = useState(false)
   const [status, setStatus] = useState<'idle' | 'deploying' | 'done'>('idle')
 
@@ -1484,25 +1484,25 @@ function VercelDeployControlRender(args: ComponentProps<typeof OutlineIconButton
   )
 }
 
-export const Vercel_배포_컨트롤_액션_클러스터: Story = {
-  name: 'Vercel Design — 배포 컨트롤 액션 클러스터',
+export const DeployPlatform_배포_컨트롤_액션_클러스터: Story = {
+  name: 'DeployPlatform Design — 배포 컨트롤 액션 클러스터',
   args: { children: <ShareIcon /> },
-  render: (args) => <VercelDeployControlRender {...args} />,
+  render: (args) => <DeployPlatformDeployControlRender {...args} />,
   parameters: {
     docs: {
       description: {
         story:
-          'Vercel Design 배포 컨트롤 패턴. 즐겨찾기/공유/더보기 OutlineIconButton 클러스터와 배포 상태 인디케이터를 다크 카드에 배치합니다. ' +
-          'Vercel의 모노크롬 팔레트와 컴팩트 밀도를 재현합니다.',
+          'DeployPlatform Design 배포 컨트롤 패턴. 즐겨찾기/공유/더보기 OutlineIconButton 클러스터와 배포 상태 인디케이터를 다크 카드에 배치합니다. ' +
+          'DeployPlatform의 모노크롬 팔레트와 컴팩트 밀도를 재현합니다.',
       },
     },
   },
 }
 
 /* --------------------------------------------------------------------------
-   Mantine — 훅 기반 상태 관리 툴바
+   AppUI — 훅 기반 상태 관리 툴바
 -------------------------------------------------------------------------- */
-function MantineStatefulToolbarRender(args: ComponentProps<typeof OutlineIconButton>) {
+function AppUIStatefulToolbarRender(args: ComponentProps<typeof OutlineIconButton>) {
   const [history, setHistory] = useState<string[]>([])
   const [future, setFuture] = useState<string[]>([])
   const [zoom, setZoom] = useState(100)
@@ -1529,7 +1529,7 @@ function MantineStatefulToolbarRender(args: ComponentProps<typeof OutlineIconBut
 
   return (
     <div style={{ width: 380, fontFamily: "'Inter', system-ui, sans-serif" }}>
-      <div style={{ fontSize: 11, fontWeight: 600, color: '#64748b', marginBottom: 8 }}>Mantine 훅 기반 상태 툴바</div>
+      <div style={{ fontSize: 11, fontWeight: 600, color: '#64748b', marginBottom: 8 }}>AppUI 훅 기반 상태 툴바</div>
       <div style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '10px 12px', background: '#fff', borderRadius: 10, border: '1px solid #e2e8f0', boxShadow: '0 1px 4px rgba(0,0,0,0.06)' }}>
         {/* Undo/Redo */}
         <div style={{ display: 'flex', gap: 4 }}>
@@ -1571,32 +1571,32 @@ function MantineStatefulToolbarRender(args: ComponentProps<typeof OutlineIconBut
   )
 }
 
-export const Mantine_훅_기반_상태_관리_툴바: Story = {
-  name: 'Mantine — 훅 기반 상태 관리 툴바',
+export const AppUI_훅_기반_상태_관리_툴바: Story = {
+  name: 'AppUI — 훅 기반 상태 관리 툴바',
   args: { children: <RefreshLineIcon /> },
-  render: (args) => <MantineStatefulToolbarRender {...args} />,
+  render: (args) => <AppUIStatefulToolbarRender {...args} />,
   parameters: {
     docs: {
       description: {
         story:
-          'Mantine useHistory/useStateHistory 훅 패턴. Undo/Redo 스택, 줌 제어, 액션 기록 히스토리를 OutlineIconButton 툴바로 구현합니다. ' +
-          'Mantine의 훅 기반 상태 관리와 인터랙티브 피드백 UX를 반영합니다.',
+          'AppUI useHistory/useStateHistory 훅 패턴. Undo/Redo 스택, 줌 제어, 액션 기록 히스토리를 OutlineIconButton 툴바로 구현합니다. ' +
+          'AppUI의 훅 기반 상태 관리와 인터랙티브 피드백 UX를 반영합니다.',
       },
     },
   },
 }
 
 /* --------------------------------------------------------------------------
-   Vercel + Mantine — 파일 관리자 툴바
+   DeployPlatform + AppUI — 파일 관리자 툴바
 -------------------------------------------------------------------------- */
 const FILE_ITEMS = [
   { name: 'storybook-static', type: 'folder', size: '12 MB', modified: '방금' },
   { name: 'package.json', type: 'file', size: '2.1 KB', modified: '1일 전' },
   { name: 'tsconfig.json', type: 'file', size: '1.4 KB', modified: '3일 전' },
-  { name: '.vercel', type: 'folder', size: '—', modified: '1주 전' },
+  { name: '.deploy', type: 'folder', size: '—', modified: '1주 전' },
 ]
 
-function VercelMantineFileManagerRender(args: ComponentProps<typeof OutlineIconButton>) {
+function DeployPlatformAppUIFileManagerRender(args: ComponentProps<typeof OutlineIconButton>) {
   const [view, setView] = useState<'grid' | 'list'>('list')
   const [selected, setSelected] = useState<Set<string>>(new Set())
   const [sortAsc, setSortAsc] = useState(true)
@@ -1669,16 +1669,16 @@ function VercelMantineFileManagerRender(args: ComponentProps<typeof OutlineIconB
   )
 }
 
-export const Vercel_Mantine_파일_관리자_툴바: Story = {
-  name: 'Vercel + Mantine — 파일 관리자 뷰 전환 툴바',
+export const DeployPlatform_AppUI_파일_관리자_툴바: Story = {
+  name: 'DeployPlatform + AppUI — 파일 관리자 뷰 전환 툴바',
   args: { children: <GridViewLineIcon /> },
-  render: (args) => <VercelMantineFileManagerRender {...args} />,
+  render: (args) => <DeployPlatformAppUIFileManagerRender {...args} />,
   parameters: {
     docs: {
       description: {
         story:
-          'Vercel Design + Mantine 복합 패턴. 그리드/리스트 뷰 전환, 정렬, 다운로드 OutlineIconButton 툴바를 가진 파일 관리자입니다. ' +
-          'Vercel의 컴팩트 모노크롬 UI와 Mantine의 상태 기반 인터랙션을 결합합니다.',
+          'DeployPlatform Design + AppUI 복합 패턴. 그리드/리스트 뷰 전환, 정렬, 다운로드 OutlineIconButton 툴바를 가진 파일 관리자입니다. ' +
+          'DeployPlatform의 컴팩트 모노크롬 UI와 AppUI의 상태 기반 인터랙션을 결합합니다.',
       },
     },
   },

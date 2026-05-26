@@ -47,7 +47,7 @@ export const 기본: Story = {
   ),
 }
 
-// 다양한 위치 데모 (Chakra UI 접근성 강화 패턴)
+// 다양한 위치 데모 (AccessibleUI 접근성 강화 패턴)
 export const 위치변형: Story = {
   render: () => (
     <Tooltip.Provider>
@@ -292,8 +292,8 @@ export const 딜레이설정: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Vercel 스타일: 키보드 단축키 표시 툴팁
-   Vercel/Linear가 많이 쓰는 "액션 + 단축키" 조합 툴팁 패턴
+   DeployPlatform 스타일: 키보드 단축키 표시 툴팁
+   DeployPlatform/IssueTracker가 많이 쓰는 "액션 + 단축키" 조합 툴팁 패턴
 -------------------------------------------------------------------------- */
 const KbdKey = ({ keys }: { keys: string[] }) => (
   <span style={{ display: 'flex', alignItems: 'center', gap: '3px' }}>
@@ -385,22 +385,22 @@ export const 키보드_단축키_툴팁: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   shadcn/ui 스타일: 풍부한 컨텐츠 툴팁
+   ComposableUI 스타일: 풍부한 컨텐츠 툴팁
    텍스트 외에도 아바타, 상태 배지, 링크 등을 포함한 Rich Tooltip 패턴
 -------------------------------------------------------------------------- */
 /* --------------------------------------------------------------------------
-   Vercel Design: 배포 파이프라인 상태 툴팁
-   Vercel의 배포 상태를 아이콘 위에 hover하면 상세 정보를 보여주는 패턴
+   DeployPlatform Design: 배포 파이프라인 상태 툴팁
+   DeployPlatform의 배포 상태를 아이콘 위에 hover하면 상세 정보를 보여주는 패턴
    tabular-nums 패턴으로 숫자 정렬, monospace 폰트로 기술 정보 표시
 -------------------------------------------------------------------------- */
 const deployments = [
-  { env: 'Production', status: 'ready', duration: '47s', time: '2분 전', url: 'orbit-ui.vercel.app', icon: '●', color: '#22c55e' },
-  { env: 'Preview', status: 'building', duration: '...', time: '진행중', url: 'orbit-ui-preview.vercel.app', icon: '◌', color: '#f59e0b' },
+  { env: 'Production', status: 'ready', duration: '47s', time: '2분 전', url: 'orbit-ui.deploy.example.com', icon: '●', color: '#22c55e' },
+  { env: 'Preview', status: 'building', duration: '...', time: '진행중', url: 'orbit-ui-preview.deploy.example.com', icon: '◌', color: '#f59e0b' },
   { env: 'Development', status: 'error', duration: '12s', time: '1시간 전', url: 'localhost:6007', icon: '✕', color: '#ef4444' },
 ]
 
-export const Vercel_배포_파이프라인_툴팁: Story = {
-  name: 'Vercel Design — 배포 파이프라인 상태 툴팁',
+export const DeployPlatform_배포_파이프라인_툴팁: Story = {
+  name: 'DeployPlatform Design — 배포 파이프라인 상태 툴팁',
   parameters: { layout: 'centered' },
   render: () => (
     <Tooltip.Provider>
@@ -528,7 +528,7 @@ export const Ant_폼_도움말_툴팁: Story = {
 const tableData = [
   { id: 'ORB-301', title: '디자인 토큰 시스템 Reference → Semantic → Component 3단계 구조 마이그레이션 완료', assignee: '김민준', status: 'Done', priority: 'Urgent' },
   { id: 'ORB-298', title: 'Storybook 8.6 autodocs 설정 및 컴포넌트 JSDoc 일괄 업데이트', assignee: '이서연', status: 'In Progress', priority: 'High' },
-  { id: 'ORB-287', title: '다크모드 테마 토큰 정의 및 Tailwind 유틸 클래스 적용', assignee: '박지호', status: 'Backlog', priority: 'Medium' },
+  { id: 'ORB-287', title: '다크모드 테마 토큰 정의 및 UtilityCSS 유틸 클래스 적용', assignee: '박지호', status: 'Backlog', priority: 'Medium' },
   { id: 'ORB-271', title: 'TypeScript strict 모드 활성화 및 기존 타입 오류 수정', assignee: '최준혁', status: 'Done', priority: 'Low' },
 ]
 
@@ -652,7 +652,7 @@ export const 리치_컨텐츠_툴팁: Story = {
               </Typography>
               {[
                 { label: '빌드 시간', value: '47초' },
-                { label: '배포 URL', value: 'orbit-ui.vercel.app' },
+                { label: '배포 URL', value: 'orbit-ui.deploy.example.com' },
                 { label: '배포 일시', value: '2분 전' },
               ].map(({ label, value }) => (
                 <div key={label} style={{ display: 'flex', justifyContent: 'space-between', gap: '16px', marginBottom: '3px' }}>
@@ -694,8 +694,8 @@ export const 리치_컨텐츠_툴팁: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   shadcn/ui 벤치마크: 데이터 시각화 레이블 툴팁 패턴
-   shadcn Chart Tooltip 패턴 — 차트 바/원소 hover 시 데이터 레이블 표시
+   ComposableUI 벤치마크: 데이터 시각화 레이블 툴팁 패턴
+   ComposableUI Chart Tooltip 패턴 — 차트 바/원소 hover 시 데이터 레이블 표시
 -------------------------------------------------------------------------- */
 const CHART_DATA = [
   { month: '1월', value: 42, prev: 38 },
@@ -706,13 +706,13 @@ const CHART_DATA = [
   { month: '6월', value: 91, prev: 79 },
 ]
 
-export const Shadcn_데이터_시각화_레이블: Story = {
-  name: 'shadcn/ui - 데이터 시각화 차트 레이블 툴팁 패턴',
+export const ComposableUI_데이터_시각화_레이블: Story = {
+  name: 'ComposableUI - 데이터 시각화 차트 레이블 툴팁 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'shadcn Chart Tooltip 패턴. 막대 차트의 각 바에 Tooltip을 연결, ' +
+          'ComposableUI Chart Tooltip 패턴. 막대 차트의 각 바에 Tooltip을 연결, ' +
           '현재 값과 전월 대비를 리치 컨텐츠로 표시합니다.',
       },
     },
@@ -786,10 +786,10 @@ export const Shadcn_데이터_시각화_레이블: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Vercel 벤치마크: 컴팩트 액션 힌트 툴팁 패턴
-   Vercel Dashboard 아이콘 버튼 툴팁 — 단축키 포함 컴팩트 힌트
+   DeployPlatform 벤치마크: 컴팩트 액션 힌트 툴팁 패턴
+   DeployPlatform Dashboard 아이콘 버튼 툴팁 — 단축키 포함 컴팩트 힌트
 -------------------------------------------------------------------------- */
-const VERCEL_ACTIONS: { key: string; label: string; shortcut: string; Icon: React.FC<{ size?: number }> }[] = [
+const DEPLOY_ACTIONS: { key: string; label: string; shortcut: string; Icon: React.FC<{ size?: number }> }[] = [
   { key: 'search', label: '검색', shortcut: '⌘K', Icon: SearchIcon },
   { key: 'notif', label: '알림', shortcut: '⌘N', Icon: NotificationLineIcon },
   { key: 'star', label: '즐겨찾기', shortcut: '⌘S', Icon: StarLineIcon },
@@ -797,13 +797,13 @@ const VERCEL_ACTIONS: { key: string; label: string; shortcut: string; Icon: Reac
   { key: 'info', label: '도움말', shortcut: '⌘/', Icon: CircleInfoLineIcon },
 ]
 
-export const Vercel_컴팩트_액션_힌트: Story = {
-  name: 'Vercel - 컴팩트 아이콘 버튼 액션 힌트 툴팁 패턴',
+export const DeployPlatform_컴팩트_액션_힌트: Story = {
+  name: 'DeployPlatform - 컴팩트 아이콘 버튼 액션 힌트 툴팁 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'Vercel Dashboard 툴팁 패턴. 아이콘 버튼 위 hover 시 레이블 + 단축키를 함께 표시. ' +
+          'DeployPlatform Dashboard 툴팁 패턴. 아이콘 버튼 위 hover 시 레이블 + 단축키를 함께 표시. ' +
           'delayDuration=300, 컴팩트 레이아웃으로 밀도 있는 네비게이션 표현.',
       },
     },
@@ -817,7 +817,7 @@ export const Vercel_컴팩트_액션_힌트: Story = {
           background: '#0f172a', border: '1px solid #1e293b',
           boxShadow: '0 4px 16px rgba(0,0,0,0.2)',
         }}>
-          {VERCEL_ACTIONS.map(({ key, label, shortcut, Icon }) => (
+          {DEPLOY_ACTIONS.map(({ key, label, shortcut, Icon }) => (
             <Tooltip key={key}>
               <Tooltip.Trigger asChild>
                 <SolidIconButton
@@ -854,7 +854,7 @@ export const Vercel_컴팩트_액션_힌트: Story = {
           display: 'flex', gap: 4, padding: '6px 10px', borderRadius: 10,
           background: '#fff', border: '1px solid #e2e8f0',
         }}>
-          {VERCEL_ACTIONS.slice(0, 3).map(({ key, label, shortcut, Icon }) => (
+          {DEPLOY_ACTIONS.slice(0, 3).map(({ key, label, shortcut, Icon }) => (
             <Tooltip key={key}>
               <Tooltip.Trigger asChild>
                 <SolidIconButton color="black" size="small">
@@ -882,15 +882,15 @@ export const Vercel_컴팩트_액션_힌트: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Linear 벤치마크: 단축키 레퍼런스 카드 툴팁 패턴
-   Linear 단축키 힌트 — 복수 단축키를 카드 형태로 그룹화
+   IssueTracker 벤치마크: 단축키 레퍼런스 카드 툴팁 패턴
+   IssueTracker 단축키 힌트 — 복수 단축키를 카드 형태로 그룹화
 -------------------------------------------------------------------------- */
 type ShortcutGroup = {
   group: string
   items: { action: string; keys: string[] }[]
 }
 
-const LINEAR_SHORTCUTS: ShortcutGroup[] = [
+const TRACKER_SHORTCUTS: ShortcutGroup[] = [
   {
     group: '이슈',
     items: [
@@ -909,13 +909,13 @@ const LINEAR_SHORTCUTS: ShortcutGroup[] = [
   },
 ]
 
-export const Linear_단축키_레퍼런스_툴팁: Story = {
-  name: 'Linear - 단축키 레퍼런스 카드 툴팁 패턴',
+export const IssueTracker_단축키_레퍼런스_툴팁: Story = {
+  name: 'IssueTracker - 단축키 레퍼런스 카드 툴팁 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'Linear 단축키 힌트 패턴. 기능 설명 버튼에 hover 시 관련 단축키 그룹을 카드로 표시. ' +
+          'IssueTracker 단축키 힌트 패턴. 기능 설명 버튼에 hover 시 관련 단축키 그룹을 카드로 표시. ' +
           '여러 단축키 항목을 그룹화하여 컨텍스트 기반 단축키 레퍼런스를 제공합니다.',
       },
     },
@@ -923,7 +923,7 @@ export const Linear_단축키_레퍼런스_툴팁: Story = {
   render: () => (
     <Tooltip.Provider delayDuration={200}>
       <div style={{ display: 'flex', gap: 32, flexWrap: 'wrap', justifyContent: 'center' }}>
-        {LINEAR_SHORTCUTS.map((group) => (
+        {TRACKER_SHORTCUTS.map((group) => (
           <Tooltip key={group.group}>
             <Tooltip.Trigger asChild>
               <Button color="gray" size="medium" style={{ minWidth: 120 }}>
@@ -973,16 +973,16 @@ export const Linear_단축키_레퍼런스_툴팁: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   MUI 벤치마크: 비활성 버튼 설명 툴팁
-   MUI Tooltip의 disabled button wrapper 패턴 — span으로 래핑하여 비활성 엘리먼트에 툴팁 적용
+   EnterpriseUI 벤치마크: 비활성 버튼 설명 툴팁
+   EnterpriseUI Tooltip의 disabled button wrapper 패턴 — span으로 래핑하여 비활성 엘리먼트에 툴팁 적용
 -------------------------------------------------------------------------- */
-export const MUI_비활성_버튼_툴팁: Story = {
-  name: 'MUI - 비활성 버튼 설명 툴팁',
+export const EnterpriseUI_비활성_버튼_툴팁: Story = {
+  name: 'EnterpriseUI - 비활성 버튼 설명 툴팁',
   parameters: {
     docs: {
       description: {
         story:
-          'MUI Tooltip의 disabled element 지원 패턴. ' +
+          'EnterpriseUI Tooltip의 disabled element 지원 패턴. ' +
           '비활성 버튼은 hover 이벤트를 발생시키지 않으므로 span으로 래핑하여 툴팁을 표시합니다. ' +
           '권한 부족, 조건 미충족 상태를 사용자에게 명확히 설명하는 UX 패턴입니다.',
       },
@@ -1036,8 +1036,8 @@ export const MUI_비활성_버튼_툴팁: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Chakra UI 벤치마크: 색상 선택기 스와치 툴팁
-   Chakra UI ColorPicker 패턴 — 각 스와치 hover 시 색상명 표시
+   AccessibleUI 벤치마크: 색상 선택기 스와치 툴팁
+   AccessibleUI ColorPicker 패턴 — 각 스와치 hover 시 색상명 표시
 -------------------------------------------------------------------------- */
 const CHAKRA_PALETTE = [
   { name: 'Indigo', hex: '#6366f1' },
@@ -1050,7 +1050,7 @@ const CHAKRA_PALETTE = [
   { name: 'Zinc', hex: '#71717a' },
 ]
 
-const ChakraColorSwatchRender = () => {
+const AccessibleColorSwatchRender = () => {
   const [selected, setSelected] = useState<string | null>(null)
   return (
     <Tooltip.Provider delayDuration={100}>
@@ -1099,38 +1099,38 @@ const ChakraColorSwatchRender = () => {
   )
 }
 
-export const Chakra_색상_스와치_툴팁: Story = {
-  name: 'Chakra UI - 색상 선택기 스와치 툴팁',
+export const Accessible_색상_스와치_툴팁: Story = {
+  name: 'AccessibleUI - 색상 선택기 스와치 툴팁',
   parameters: {
     docs: {
       description: {
         story:
-          'Chakra UI ColorPicker 패턴. 색상 스와치 위에 hover하면 색상명과 HEX 값을 툴팁으로 표시합니다. ' +
+          'AccessibleUI ColorPicker 패턴. 색상 스와치 위에 hover하면 색상명과 HEX 값을 툴팁으로 표시합니다. ' +
           '선택된 색상은 링 아웃라인으로 강조, 아래 영역에 선택 결과를 반영합니다.',
       },
     },
   },
-  render: () => <ChakraColorSwatchRender />,
+  render: () => <AccessibleColorSwatchRender />,
 }
 
 /* --------------------------------------------------------------------------
-   MUI 벤치마크: 사용자 아바타 호버 카드 툴팁
-   MUI Tooltip + Avatar 조합 — 사용자 정보 호버 카드 패턴
+   EnterpriseUI 벤치마크: 사용자 아바타 호버 카드 툴팁
+   EnterpriseUI Tooltip + Avatar 조합 — 사용자 정보 호버 카드 패턴
 -------------------------------------------------------------------------- */
-const MUI_MEMBERS = [
+const EnterpriseUI_MEMBERS = [
   { initials: 'AK', name: 'Alice Kim', role: 'Product Designer', color: '#6366f1', online: true },
   { initials: 'BL', name: 'Bob Lee', role: 'Frontend Engineer', color: '#10b981', online: false },
   { initials: 'CJ', name: 'Clara Jung', role: 'UX Researcher', color: '#f59e0b', online: true },
   { initials: 'DJ', name: 'Daniel Jo', role: 'Backend Engineer', color: '#ef4444', online: true },
 ]
 
-export const MUI_아바타_호버카드_툴팁: Story = {
-  name: 'MUI - 사용자 아바타 호버카드 툴팁',
+export const EnterpriseUI_아바타_호버카드_툴팁: Story = {
+  name: 'EnterpriseUI - 사용자 아바타 호버카드 툴팁',
   parameters: {
     docs: {
       description: {
         story:
-          'MUI Tooltip + Avatar 패턴. 아바타 hover 시 이름/역할/온라인 상태를 호버 카드로 표시합니다. ' +
+          'EnterpriseUI Tooltip + Avatar 패턴. 아바타 hover 시 이름/역할/온라인 상태를 호버 카드로 표시합니다. ' +
           'delayDuration=300으로 의도치 않은 툴팁 노출을 방지합니다.',
       },
     },
@@ -1143,7 +1143,7 @@ export const MUI_아바타_호버카드_툴팁: Story = {
             팀 멤버
           </div>
           <div style={{ display: 'flex', alignItems: 'center' }}>
-            {MUI_MEMBERS.map((m, i) => (
+            {EnterpriseUI_MEMBERS.map((m, i) => (
               <Tooltip key={m.initials}>
                 <Tooltip.Trigger asChild>
                   <div
@@ -1152,7 +1152,7 @@ export const MUI_아바타_호버카드_툴팁: Story = {
                       background: m.color, border: '2px solid #fff',
                       display: 'flex', alignItems: 'center', justifyContent: 'center',
                       color: '#fff', fontSize: 13, fontWeight: 700,
-                      cursor: 'pointer', zIndex: MUI_MEMBERS.length - i,
+                      cursor: 'pointer', zIndex: EnterpriseUI_MEMBERS.length - i,
                       marginLeft: i > 0 ? -10 : 0,
                       position: 'relative', boxShadow: '0 0 0 2px #fff',
                     }}
@@ -1194,25 +1194,25 @@ export const MUI_아바타_호버카드_툴팁: Story = {
 }
 
 // ============================================================
-// Cycle 131 — shadcn/ui + Radix UI 벤치마크 반영
+// Cycle 131 — ComposableUI + PrimitiveUI 벤치마크 반영
 // ============================================================
 
-// Raycast 커맨드 팔레트 스타일 액션 힌트 툴팁
-const RAYCAST_ACTIONS: { Icon: React.FC<{ size?: number }>; label: string; shortcut: string; desc: string }[] = [
+// CommandPalette 커맨드 팔레트 스타일 액션 힌트 툴팁
+const LAUNCHER_ACTIONS: { Icon: React.FC<{ size?: number }>; label: string; shortcut: string; desc: string }[] = [
   { Icon: SearchIcon, label: '검색', shortcut: '⌘K', desc: '전역 검색 열기' },
   { Icon: StarLineIcon, label: '즐겨찾기', shortcut: '⌘D', desc: '현재 항목 즐겨찾기' },
   { Icon: NotificationLineIcon, label: '알림', shortcut: '⌘N', desc: '알림 패널 열기' },
   { Icon: SettingLineIcon, label: '설정', shortcut: '⌘,', desc: '환경 설정' },
 ]
 
-export const Raycast_커맨드_팔레트_액션_힌트: Story = {
+export const CommandPalette_커맨드_팔레트_액션_힌트: Story = {
   render: () => (
     <Tooltip.Provider delayDuration={300}>
       <div style={{
         background: '#1c1c1e', borderRadius: 12, padding: '8px',
         display: 'flex', gap: 4, boxShadow: '0 8px 32px rgba(0,0,0,0.4)',
       }}>
-        {RAYCAST_ACTIONS.map(({ Icon, label, shortcut, desc }) => (
+        {LAUNCHER_ACTIONS.map(({ Icon, label, shortcut, desc }) => (
           <Tooltip key={label}>
             <Tooltip.Trigger asChild>
               <button
@@ -1250,8 +1250,8 @@ export const Raycast_커맨드_팔레트_액션_힌트: Story = {
   ),
 }
 
-// Radix UI 제어 컴포넌트 패턴 — 외부에서 open 상태 제어
-const RadixControlledTooltipRender = () => {
+// PrimitiveUI 제어 컴포넌트 패턴 — 외부에서 open 상태 제어
+const PrimitiveControlledTooltipRender = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(null)
   const STEPS = [
     { label: '프로젝트 생성', done: true },
@@ -1303,19 +1303,19 @@ const RadixControlledTooltipRender = () => {
         ))}
       </div>
       <Typography textStyle="descriptionSmall" style={{ color: '#94a3b8', marginTop: 16, display: 'block', textAlign: 'center' }}>
-        각 단계 클릭 시 툴팁 표시 (Radix 제어 패턴)
+        각 단계 클릭 시 툴팁 표시 (Primitive 제어 패턴)
       </Typography>
     </div>
   )
 }
 
-export const Radix_제어_스텝퍼_툴팁: Story = {
-  render: () => <RadixControlledTooltipRender />,
+export const Primitive_제어_스텝퍼_툴팁: Story = {
+  render: () => <PrimitiveControlledTooltipRender />,
 }
 
-// shadcn/ui 스타일 — 데이터 테이블 컬럼 헤더 정보 툴팁
+// ComposableUI 스타일 — 데이터 테이블 컬럼 헤더 정보 툴팁
 const TABLE_COLS: { key: string; label: string; info: string; align: 'left' | 'right' }[] = [
-  { key: 'name', label: '프로젝트명', info: '배포된 Vercel 프로젝트 이름', align: 'left' },
+  { key: 'name', label: '프로젝트명', info: '배포된 DeployPlatform 프로젝트 이름', align: 'left' },
   { key: 'status', label: '상태', info: '현재 빌드 및 배포 상태', align: 'left' },
   { key: 'p99', label: 'P99 응답 (ms)', info: '상위 1% 응답 시간. 낮을수록 성능 우수', align: 'right' },
   { key: 'errors', label: '에러율 (%)', info: '지난 24시간 기준 HTTP 5xx 비율', align: 'right' },
@@ -1326,7 +1326,7 @@ const TABLE_ROWS = [
   { name: 'api-proxy', status: '경고', p99: 891, errors: 2.4 },
 ]
 
-export const Shadcn_테이블_컬럼_정보_툴팁: Story = {
+export const ComposableUI_테이블_컬럼_정보_툴팁: Story = {
   render: () => (
     <Tooltip.Provider delayDuration={200}>
       <div style={{ border: '1px solid #e2e8f0', borderRadius: 8, overflow: 'hidden', minWidth: 480 }}>
@@ -1378,9 +1378,9 @@ export const Shadcn_테이블_컬럼_정보_툴팁: Story = {
   ),
 }
 
-// ─── Cycle 154: MUI + Chakra UI ────────────────────────────────────────────
+// ─── Cycle 154: EnterpriseUI + AccessibleUI ────────────────────────────────────────────
 
-function MuiInfoTooltipRender() {
+function EnterpriseUIInfoTooltipRender() {
   const fields = [
     { label: '프로젝트 이름', hint: '영문, 숫자, 하이픈만 사용 가능합니다. 최대 32자.' },
     { label: '공개 범위', hint: '팀 공개: 팀원만 접근 / 전체 공개: 링크 보유자 누구나 접근' },
@@ -1388,7 +1388,7 @@ function MuiInfoTooltipRender() {
   ]
   return (
     <div style={{ width: 340, fontFamily: 'Inter, system-ui, sans-serif', color: '#1e293b' }}>
-      <div style={{ fontSize: 13, fontWeight: 700, marginBottom: 16 }}>MUI 정보 툴팁 패턴</div>
+      <div style={{ fontSize: 13, fontWeight: 700, marginBottom: 16 }}>EnterpriseUI 정보 툴팁 패턴</div>
       <Tooltip.Provider delayDuration={200}>
         {fields.map(field => (
           <div key={field.label} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 0', borderBottom: '1px solid #f1f5f9' }}>
@@ -1406,27 +1406,27 @@ function MuiInfoTooltipRender() {
           </div>
         ))}
       </Tooltip.Provider>
-      <div style={{ marginTop: 12, fontSize: 11, color: '#94a3b8' }}>{'MUI Tooltip placement="right" + info 아이콘 패턴'}</div>
+      <div style={{ marginTop: 12, fontSize: 11, color: '#94a3b8' }}>{'EnterpriseUI Tooltip placement="right" + info 아이콘 패턴'}</div>
     </div>
   )
 }
 
-export const MUI_정보_툴팁_시스템: Story = {
-  name: 'MUI - 폼 필드 정보 툴팁 시스템',
-  render: () => <MuiInfoTooltipRender />,
+export const EnterpriseUI_정보_툴팁_시스템: Story = {
+  name: 'EnterpriseUI - 폼 필드 정보 툴팁 시스템',
+  render: () => <EnterpriseUIInfoTooltipRender />,
   parameters: {
     layout: 'centered',
     docs: {
       description: {
         story:
-          'MUI Tooltip + InfoIcon 패턴. 폼 필드 옆에 정보 아이콘을 배치하고 우측(right)으로 툴팁을 표시합니다. ' +
-          'MUI placement 옵션과 maxWidth 제한을 Radix 기반 Tooltip으로 재현합니다.',
+          'EnterpriseUI Tooltip + InfoIcon 패턴. 폼 필드 옆에 정보 아이콘을 배치하고 우측(right)으로 툴팁을 표시합니다. ' +
+          'EnterpriseUI placement 옵션과 maxWidth 제한을 Primitive 기반 Tooltip으로 재현합니다.',
       },
     },
   },
 }
 
-function ChakraFormHelpRender() {
+function AccessibleFormHelpRender() {
   const [focusedField, setFocusedField] = useState<string | null>(null)
   const formFields = [
     { id: 'username', label: '사용자명', placeholder: 'orbit_user', tip: '3-20자, 영문/숫자/밑줄만 허용' },
@@ -1435,7 +1435,7 @@ function ChakraFormHelpRender() {
   ]
   return (
     <div style={{ width: 320, fontFamily: 'Inter, system-ui, sans-serif', color: '#1e293b' }}>
-      <div style={{ fontSize: 13, fontWeight: 700, marginBottom: 16 }}>Chakra UI 폼 도움말 툴팁</div>
+      <div style={{ fontSize: 13, fontWeight: 700, marginBottom: 16 }}>AccessibleUI 폼 도움말 툴팁</div>
       <Tooltip.Provider delayDuration={300}>
         {formFields.map(field => (
           <div key={field.id} style={{ marginBottom: 14 }}>
@@ -1466,27 +1466,27 @@ function ChakraFormHelpRender() {
           </div>
         ))}
       </Tooltip.Provider>
-      <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 4 }}>Chakra UI FormHelperText + Tooltip 결합 패턴</div>
+      <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 4 }}>AccessibleUI FormHelperText + Tooltip 결합 패턴</div>
     </div>
   )
 }
 
-export const Chakra_폼_도움말_툴팁: Story = {
-  name: 'Chakra UI - 폼 도움말 툴팁 (포커스 강조)',
-  render: () => <ChakraFormHelpRender />,
+export const Accessible_폼_도움말_툴팁: Story = {
+  name: 'AccessibleUI - 폼 도움말 툴팁 (포커스 강조)',
+  render: () => <AccessibleFormHelpRender />,
   parameters: {
     layout: 'centered',
     docs: {
       description: {
         story:
-          'Chakra UI FormHelperText + Tooltip 패턴. 라벨 옆 물음표 아이콘에 커서를 올리면 입력 규칙이 툴팁으로 표시됩니다. ' +
+          'AccessibleUI FormHelperText + Tooltip 패턴. 라벨 옆 물음표 아이콘에 커서를 올리면 입력 규칙이 툴팁으로 표시됩니다. ' +
           '필드 포커스 시 테두리 색상 전환으로 활성 상태를 강조합니다.',
       },
     },
   },
 }
 
-function MuiChakraDashboardTooltipRender() {
+function EnterpriseUIAccessibleDashboardTooltipRender() {
   const stats = [
     { label: '배포 수', value: '52', icon: <StarLineIcon size={14} />, tip: '이번 달 총 배포 횟수. 무료 플랜 한도: 100회/일' },
     { label: '빌드 시간', value: '34s', icon: <SettingLineIcon size={14} />, tip: '평균 Storybook 빌드 소요 시간' },
@@ -1495,7 +1495,7 @@ function MuiChakraDashboardTooltipRender() {
   ]
   return (
     <div style={{ fontFamily: 'Inter, system-ui, sans-serif', color: '#1e293b' }}>
-      <div style={{ fontSize: 13, fontWeight: 700, marginBottom: 12 }}>MUI + Chakra 대시보드 툴팁</div>
+      <div style={{ fontSize: 13, fontWeight: 700, marginBottom: 12 }}>EnterpriseUI + Accessible 대시보드 툴팁</div>
       <Tooltip.Provider delayDuration={150}>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
           {stats.map(stat => (
@@ -1516,35 +1516,35 @@ function MuiChakraDashboardTooltipRender() {
           ))}
         </div>
       </Tooltip.Provider>
-      <div style={{ marginTop: 10, fontSize: 11, color: '#94a3b8' }}>MUI + Chakra — 카드 호버 툴팁 대시보드 패턴</div>
+      <div style={{ marginTop: 10, fontSize: 11, color: '#94a3b8' }}>EnterpriseUI + Accessible — 카드 호버 툴팁 대시보드 패턴</div>
     </div>
   )
 }
 
-export const MUI_Chakra_대시보드_카드_툴팁: Story = {
-  name: 'MUI + Chakra UI - 대시보드 통계 카드 툴팁',
-  render: () => <MuiChakraDashboardTooltipRender />,
+export const EnterpriseUI_Accessible_대시보드_카드_툴팁: Story = {
+  name: 'EnterpriseUI + AccessibleUI - 대시보드 통계 카드 툴팁',
+  render: () => <EnterpriseUIAccessibleDashboardTooltipRender />,
   parameters: {
     layout: 'centered',
     docs: {
       description: {
         story:
-          'MUI + Chakra UI 복합 패턴. 대시보드 통계 카드 전체에 툴팁을 적용해 수치의 의미와 단위를 보충 설명합니다. ' +
-          'MUI Tooltip followCursor 없이 카드 하단 중앙에 고정 표시하는 패턴을 재현합니다.',
+          'EnterpriseUI + AccessibleUI 복합 패턴. 대시보드 통계 카드 전체에 툴팁을 적용해 수치의 의미와 단위를 보충 설명합니다. ' +
+          'EnterpriseUI Tooltip followCursor 없이 카드 하단 중앙에 고정 표시하는 패턴을 재현합니다.',
       },
     },
   },
 }
 
 /* --------------------------------------------------------------------------
-   Cycle 180 — shadcn/ui + Apple HIG
+   Cycle 180 — ComposableUI + Platform HIG
    Benchmark:
-   1. shadcn/ui: 툴팁 내부에 아이콘 + 제목 + 설명 구조적 콘텐츠 배치
-   2. Apple HIG: 기능 설명 중심 툴팁 — 단순 레이블이 아닌 "무엇을 하는지" 설명
-   3. shadcn + Apple: 키보드 단축키 조합을 툴팁으로 표시하는 패턴
+   1. ComposableUI: 툴팁 내부에 아이콘 + 제목 + 설명 구조적 콘텐츠 배치
+   2. Platform HIG: 기능 설명 중심 툴팁 — 단순 레이블이 아닌 "무엇을 하는지" 설명
+   3. ComposableUI + Platform: 키보드 단축키 조합을 툴팁으로 표시하는 패턴
 -------------------------------------------------------------------------- */
 
-function ShadcnRichContentTooltipRender() {
+function ComposableUIRichContentTooltipRender() {
   const actions = [
     {
       icon: <StarLineIcon size={18} />,
@@ -1597,20 +1597,20 @@ function ShadcnRichContentTooltipRender() {
   )
 }
 
-export const Shadcn_구조화된_콘텐츠_툴팁: Story = {
-  name: 'shadcn/ui — 구조화된 콘텐츠 툴팁 (제목 + 설명 2단 구조)',
+export const ComposableUI_구조화된_콘텐츠_툴팁: Story = {
+  name: 'ComposableUI — 구조화된 콘텐츠 툴팁 (제목 + 설명 2단 구조)',
   parameters: {
     layout: 'centered',
     docs: {
       description: {
-        story: 'shadcn/ui 툴팁의 rich content 패턴. Tooltip.Content 내부에 제목(bold)+설명(muted) 2단 구조 배치. Apple HIG "기능을 설명하는 툴팁" 원칙에 따라 레이블만 보여주는 대신 구체적인 동작 설명 포함.',
+        story: 'ComposableUI 툴팁의 rich content 패턴. Tooltip.Content 내부에 제목(bold)+설명(muted) 2단 구조 배치. Platform HIG "기능을 설명하는 툴팁" 원칙에 따라 레이블만 보여주는 대신 구체적인 동작 설명 포함.',
       },
     },
   },
-  render: () => <ShadcnRichContentTooltipRender />,
+  render: () => <ComposableUIRichContentTooltipRender />,
 }
 
-function AppleContextualHintTooltipRender() {
+function PlatformContextualHintTooltipRender() {
   const [progress, setProgress] = useState(65)
 
   const fields = [
@@ -1685,20 +1685,20 @@ function AppleContextualHintTooltipRender() {
   )
 }
 
-export const Apple_HIG_컨텍스트_힌트_툴팁: Story = {
-  name: 'Apple HIG — 컨텍스트 힌트 툴팁 (설정 필드 정보 아이콘)',
+export const Platform_HIG_컨텍스트_힌트_툴팁: Story = {
+  name: 'Platform HIG — 컨텍스트 힌트 툴팁 (설정 필드 정보 아이콘)',
   parameters: {
     layout: 'centered',
     docs: {
       description: {
-        story: 'Apple HIG 컨텍스트 힌트 원칙 적용. 설정 폼 각 필드 옆 정보(i) 아이콘에 툴팁으로 제약 조건/동작 설명을 제공. 단순 레이블 대신 "왜 이 설정이 있는지"를 설명하는 Apple 스타일 UX.',
+        story: 'Platform HIG 컨텍스트 힌트 원칙 적용. 설정 폼 각 필드 옆 정보(i) 아이콘에 툴팁으로 제약 조건/동작 설명을 제공. 단순 레이블 대신 "왜 이 설정이 있는지"를 설명하는 Platform 스타일 UX.',
       },
     },
   },
-  render: () => <AppleContextualHintTooltipRender />,
+  render: () => <PlatformContextualHintTooltipRender />,
 }
 
-function ShadcnAppleShortcutTooltipRender() {
+function ComposableUIPlatformShortcutTooltipRender() {
   const toolbarItems = [
     { icon: <StarLineIcon size={16} />, label: '즐겨찾기', keys: ['⌘', 'D'] },
     { icon: <SearchIcon size={16} />, label: '검색', keys: ['⌘', 'K'] },
@@ -1738,15 +1738,15 @@ function ShadcnAppleShortcutTooltipRender() {
   )
 }
 
-export const Shadcn_Apple_단축키_툴팁: Story = {
-  name: 'shadcn/ui + Apple HIG — 키보드 단축키 툴팁 (다크 툴바)',
+export const ComposableUI_Platform_단축키_툴팁: Story = {
+  name: 'ComposableUI + Platform HIG — 키보드 단축키 툴팁 (다크 툴바)',
   parameters: {
     layout: 'centered',
     docs: {
       description: {
-        story: 'shadcn/ui 툴팁 + Apple HIG 단축키 힌트 패턴. 다크 툴바 아이콘에 hover 시 기능명 + kbd 스타일 단축키 조합 표시. Notion/Linear/Figma의 툴바 단축키 힌트 UX를 Orbit UI Tooltip으로 구현.',
+        story: 'ComposableUI 툴팁 + Platform HIG 단축키 힌트 패턴. 다크 툴바 아이콘에 hover 시 기능명 + kbd 스타일 단축키 조합 표시. WorkspaceEditor/IssueTracker/DesignTool의 툴바 단축키 힌트 UX를 Orbit UI Tooltip으로 구현.',
       },
     },
   },
-  render: () => <ShadcnAppleShortcutTooltipRender />,
+  render: () => <ComposableUIPlatformShortcutTooltipRender />,
 }

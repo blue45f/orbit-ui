@@ -221,7 +221,7 @@ export const 크기조절 = {
 } satisfies Story
 
 export const 디자인_QA = {
-  // eslint-disable-next-line
+
   args: {
     isPresented: true,
     width: '100%',
@@ -240,7 +240,7 @@ export const 디자인_QA = {
     showContent?: boolean
     showFooter?: boolean
   },
-  // eslint-disable-next-line
+
   argTypes: {
     isPresented: {
       control: 'boolean',
@@ -278,9 +278,9 @@ export const 디자인_QA = {
       control: 'boolean',
       description: 'Footer 표시 여부',
     },
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
   } as any,
-  // eslint-disable-next-line
+
   render: function Story(args: any) {
     const {
       isPresented,

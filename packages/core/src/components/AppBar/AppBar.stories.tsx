@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { ForwardIcon, MenuIcon } from '@heejun-com/icons'
 import type { Meta, StoryObj } from '@storybook/react'
 import { useState } from 'react'
@@ -14,7 +14,7 @@ const meta: Meta<typeof AppBar> = {
     layout: 'fullscreen',
   },
   decorators: [
-    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+
     (Story) => {
       return (
         <div style={{ background: '#f6f6f6', margin: '-1rem', height: '100vh' }}>

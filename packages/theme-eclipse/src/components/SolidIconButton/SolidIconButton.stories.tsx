@@ -101,7 +101,7 @@ export const 디자인QA = {
       exclude: ['as', 'children', 'onClick'],
     },
   },
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
+
   render: ({ color, size, ...rest }: any) => {
     return (
       <SolidIconButton {...rest} color={color} size={size}>
@@ -112,8 +112,8 @@ export const 디자인QA = {
 }
 
 /* --------------------------------------------------------------------------
-   shadcn/ui 벤치마크: 에디터 툴바 패턴
-   shadcn/ui Toggle 그룹 패턴 — 텍스트 서식 도구바
+   ComposableUI 벤치마크: 에디터 툴바 패턴
+   ComposableUI Toggle 그룹 패턴 — 텍스트 서식 도구바
    에디터에서 서식 버튼을 토글 상태로 관리하는 패턴입니다.
 -------------------------------------------------------------------------- */
 type FormatKey = 'bold' | 'italic' | 'underline' | 'align'
@@ -189,19 +189,19 @@ function EditorToolbarRender() {
         Orbit UI 디자인 시스템 - 3-Tier 토큰 기반 컴포넌트 라이브러리입니다.
       </div>
       <div style={{ fontSize: 11, color: '#94a3b8' }}>
-        shadcn/ui Toggle Group 패턴 — active 상태: {Array.from(active).join(', ') || '없음'}
+        ComposableUI Toggle Group 패턴 — active 상태: {Array.from(active).join(', ') || '없음'}
       </div>
     </div>
   )
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const shadcn_에디터_툴바 = {
+
+export const ComposableUI_에디터_툴바 = {
   parameters: {
     docs: {
       description: {
         story:
-          'shadcn/ui Toggle Group 패턴. 서식 버튼의 활성/비활성 상태를 Set으로 관리하며, color prop으로 active 상태를 시각화합니다.',
+          'ComposableUI Toggle Group 패턴. 서식 버튼의 활성/비활성 상태를 Set으로 관리하며, color prop으로 active 상태를 시각화합니다.',
       },
     },
   },
@@ -209,8 +209,8 @@ export const shadcn_에디터_툴바 = {
 }
 
 /* --------------------------------------------------------------------------
-   Radix UI 벤치마크: 플로팅 액션 버튼 패턴
-   Radix DropdownMenu 트리거 패턴 응용 — FAB 확장 메뉴
+   PrimitiveUI 벤치마크: 플로팅 액션 버튼 패턴
+   Primitive DropdownMenu 트리거 패턴 응용 — FAB 확장 메뉴
 -------------------------------------------------------------------------- */
 const FAB_ACTIONS = [
   { icon: <SearchIcon />, label: '검색', color: '#6366f1' },
@@ -275,19 +275,19 @@ function FloatingActionRender() {
         </SolidIconButton>
       </div>
       <div style={{ padding: 20, fontSize: 12, color: '#94a3b8' }}>
-        Radix DropdownMenu 트리거 패턴 — + 버튼 클릭으로 확장
+        Primitive DropdownMenu 트리거 패턴 — + 버튼 클릭으로 확장
       </div>
     </div>
   )
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const Radix_플로팅_액션 = {
+
+export const Primitive_플로팅_액션 = {
   parameters: {
     docs: {
       description: {
         story:
-          'Radix DropdownMenu 트리거 패턴 응용. FAB(Floating Action Button) 클릭 시 서브 액션이 위로 펼쳐집니다. aria-expanded로 접근성을 보장합니다.',
+          'Primitive DropdownMenu 트리거 패턴 응용. FAB(Floating Action Button) 클릭 시 서브 액션이 위로 펼쳐집니다. aria-expanded로 접근성을 보장합니다.',
       },
     },
   },
@@ -399,8 +399,8 @@ function NotificationBadgeRender() {
 }
 
 /* --------------------------------------------------------------------------
-   Linear Design 벤치마크: 페이지 헤더 빠른 액션 클러스터
-   Linear의 이슈 헤더 우측 액션 버튼군 — 즐겨찾기·공유·수정·더보기
+   IssueTracker Design 벤치마크: 페이지 헤더 빠른 액션 클러스터
+   IssueTracker의 이슈 헤더 우측 액션 버튼군 — 즐겨찾기·공유·수정·더보기
 -------------------------------------------------------------------------- */
 function QuickActionClusterRender() {
   const [starred, setStarred] = useState(false)
@@ -456,18 +456,18 @@ function QuickActionClusterRender() {
         </div>
       </div>
       <div style={{ fontSize: 11, color: '#94a3b8' }}>
-        Linear 이슈 헤더 패턴 — 즐겨찾기: {starred ? 'ON' : 'OFF'} / 공유: {shared ? 'ON' : 'OFF'} / 수정: {editMode ? 'ON' : 'OFF'}
+        IssueTracker 이슈 헤더 패턴 — 즐겨찾기: {starred ? 'ON' : 'OFF'} / 공유: {shared ? 'ON' : 'OFF'} / 수정: {editMode ? 'ON' : 'OFF'}
       </div>
     </div>
   )
 }
 
-export const Linear_빠른_액션_클러스터 = {
+export const IssueTracker_빠른_액션_클러스터 = {
   parameters: {
     docs: {
       description: {
         story:
-          'Linear 이슈 헤더의 빠른 액션 버튼 클러스터 패턴. 즐겨찾기·공유·수정 버튼이 각각 독립적인 토글 상태를 가지며, color prop으로 활성/비활성을 시각화합니다.',
+          'IssueTracker 이슈 헤더의 빠른 액션 버튼 클러스터 패턴. 즐겨찾기·공유·수정 버튼이 각각 독립적인 토글 상태를 가지며, color prop으로 활성/비활성을 시각화합니다.',
       },
     },
   },
@@ -475,8 +475,8 @@ export const Linear_빠른_액션_클러스터 = {
 }
 
 /* --------------------------------------------------------------------------
-   Notion Design 벤치마크: 페이지 탐색 이전/다음 버튼
-   Notion의 문서 탐색 이전/다음 — 히스토리 기반 방향 네비게이션
+   WorkspaceEditor Design 벤치마크: 페이지 탐색 이전/다음 버튼
+   WorkspaceEditor의 문서 탐색 이전/다음 — 히스토리 기반 방향 네비게이션
 -------------------------------------------------------------------------- */
 const PAGES = ['개요', '설치 가이드', '컴포넌트 구조', '토큰 시스템', '기여 가이드']
 
@@ -541,18 +541,18 @@ function PageNavigationRender() {
         ))}
       </div>
       <div style={{ fontSize: 11, color: '#94a3b8', textAlign: 'center' }}>
-        Notion 문서 탐색 패턴 — disabled 상태로 경계 처리
+        WorkspaceEditor 문서 탐색 패턴 — disabled 상태로 경계 처리
       </div>
     </div>
   )
 }
 
-export const Notion_페이지_탐색_내비게이션 = {
+export const WorkspaceEditor_페이지_탐색_내비게이션 = {
   parameters: {
     docs: {
       description: {
         story:
-          'Notion 문서 탐색 패턴. 이전/다음 SolidIconButton이 페이지 경계에서 disabled 처리되며, 하단 닷 인디케이터로 현재 위치를 표시합니다.',
+          'WorkspaceEditor 문서 탐색 패턴. 이전/다음 SolidIconButton이 페이지 경계에서 disabled 처리되며, 하단 닷 인디케이터로 현재 위치를 표시합니다.',
       },
     },
   },
@@ -560,8 +560,8 @@ export const Notion_페이지_탐색_내비게이션 = {
 }
 
 /* --------------------------------------------------------------------------
-   Linear + Notion 벤치마크: 완료 체크 액션 버튼
-   Linear 이슈 완료 체크 + Notion 체크박스 블록 완료 패턴
+   IssueTracker + WorkspaceEditor 벤치마크: 완료 체크 액션 버튼
+   IssueTracker 이슈 완료 체크 + WorkspaceEditor 체크박스 블록 완료 패턴
 -------------------------------------------------------------------------- */
 type TaskStatus = 'todo' | 'inprogress' | 'done'
 
@@ -649,19 +649,19 @@ function TaskStatusRender() {
   )
 }
 
-export const Linear_Notion_태스크_상태_전환 = {
+export const IssueTracker_WorkspaceEditor_태스크_상태_전환 = {
   parameters: {
     docs: {
       description: {
         story:
-          'Linear 이슈 완료 체크 + Notion 체크박스 패턴 조합. SolidIconButton의 color prop을 상태에 따라 전환하며, 완료 시 카드 배경과 텍스트 스타일도 함께 변화합니다.',
+          'IssueTracker 이슈 완료 체크 + WorkspaceEditor 체크박스 패턴 조합. SolidIconButton의 color prop을 상태에 따라 전환하며, 완료 시 카드 배경과 텍스트 스타일도 함께 변화합니다.',
       },
     },
   },
   render: () => <TaskStatusRender />,
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+
 export const 알림_뱃지_조합 = {
   parameters: {
     docs: {
@@ -675,11 +675,11 @@ export const 알림_뱃지_조합 = {
 }
 
 /* --------------------------------------------------------------------------
-   Cycle 68: Raycast Extensions + Notion Design 벤치마크
+   Cycle 68: CommandPalette Extensions + WorkspaceEditor Design 벤치마크
 -------------------------------------------------------------------------- */
 
-/* Raycast — 빠른 필터 토글 버튼 그룹
-   Raycast 리스트 뷰의 필터 바 패턴. 아이콘 버튼으로 필터를 토글하고
+/* CommandPalette — 빠른 필터 토글 버튼 그룹
+   CommandPalette 리스트 뷰의 필터 바 패턴. 아이콘 버튼으로 필터를 토글하고
    활성 필터는 색상으로 구분. compact 밀도의 버튼 클러스터.
 -------------------------------------------------------------------------- */
 const QUICK_FILTER_BUTTONS = [
@@ -689,16 +689,16 @@ const QUICK_FILTER_BUTTONS = [
   { id: 'setting', Icon: SettingLineIcon, label: '설정' },
 ]
 
-export const Raycast_빠른_필터_토글_그룹 = {
-  name: 'Raycast — 빠른 필터 토글 버튼 그룹',
+export const CommandPalette_빠른_필터_토글_그룹 = {
+  name: 'CommandPalette — 빠른 필터 토글 버튼 그룹',
   parameters: {
     docs: {
       description: {
-        story: 'Raycast 리스트 필터 바 패턴. SolidIconButton의 color prop을 토글 상태로 전환. 활성: black, 비활성: gray. compact한 버튼 클러스터로 빠른 필터 전환.',
+        story: 'CommandPalette 리스트 필터 바 패턴. SolidIconButton의 color prop을 토글 상태로 전환. 활성: black, 비활성: gray. compact한 버튼 클러스터로 빠른 필터 전환.',
       },
     },
   },
-  render: function RaycastFilterGroup() {
+  render: function CommandPaletteFilterGroup() {
     const [active, setActive] = useState<Set<string>>(new Set(['search']))
 
     const toggle = (id: string) => {
@@ -712,7 +712,7 @@ export const Raycast_빠른_필터_토글_그룹 = {
 
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 20, padding: '16px 0', fontFamily: 'system-ui, sans-serif' }}>
-        <div style={{ fontSize: 13, color: '#64748b', marginBottom: 4 }}>Raycast 스타일 필터 바 — 토글로 다중 선택 가능</div>
+        <div style={{ fontSize: 13, color: '#64748b', marginBottom: 4 }}>CommandPalette 스타일 필터 바 — 토글로 다중 선택 가능</div>
         {/* 버튼 클러스터 */}
         <div style={{ display: 'flex', gap: 4, background: '#f1f5f9', padding: 4, borderRadius: 10 }}>
           {QUICK_FILTER_BUTTONS.map(({ id, Icon }) => (
@@ -750,11 +750,11 @@ export const Raycast_빠른_필터_토글_그룹 = {
   },
 }
 
-/* Notion — 인라인 텍스트 포맷 도구 모음
-   Notion 텍스트 선택 시 나타나는 인라인 툴바 패턴.
+/* WorkspaceEditor — 인라인 텍스트 포맷 도구 모음
+   WorkspaceEditor 텍스트 선택 시 나타나는 인라인 툴바 패턴.
    B/I/U 포맷 버튼을 SolidIconButton으로 구성한 플로팅 스타일.
 -------------------------------------------------------------------------- */
-const NOTION_FORMAT_BUTTONS: Array<{ fid: string; FIcon: React.ElementType; label: string }> = [
+const WORKSPACE_FORMAT_BUTTONS: Array<{ fid: string; FIcon: React.ElementType; label: string }> = [
   { fid: 'bold', FIcon: TextBoldIcon, label: 'B' },
   { fid: 'italic', FIcon: TextItalicIcon, label: 'I' },
   { fid: 'underline', FIcon: TextUnderlineIcon, label: 'U' },
@@ -762,16 +762,16 @@ const NOTION_FORMAT_BUTTONS: Array<{ fid: string; FIcon: React.ElementType; labe
   { fid: 'star', FIcon: StarLineIcon, label: 'S' },
 ]
 
-export const Notion_인라인_텍스트_포맷_도구모음 = {
-  name: 'Notion — 인라인 텍스트 포맷 도구 모음',
+export const WorkspaceEditor_인라인_텍스트_포맷_도구모음 = {
+  name: 'WorkspaceEditor — 인라인 텍스트 포맷 도구 모음',
   parameters: {
     docs: {
       description: {
-        story: 'Notion 인라인 툴바 패턴. 텍스트 선택 영역 위에 float되는 포맷 버튼 클러스터. SolidIconButton B/I/U/정렬/즐겨찾기 토글로 다중 포맷 동시 적용.',
+        story: 'WorkspaceEditor 인라인 툴바 패턴. 텍스트 선택 영역 위에 float되는 포맷 버튼 클러스터. SolidIconButton B/I/U/정렬/즐겨찾기 토글로 다중 포맷 동시 적용.',
       },
     },
   },
-  render: function NotionInlineToolbar() {
+  render: function WorkspaceEditorInlineToolbar() {
     const [formats, setFormats] = useState<Set<string>>(new Set())
     const [sampleText, _setSampleText] = useState('Orbit UI 디자인 시스템 — 빌드 한 번, 어디서든 일관된 UX를 제공합니다.')
 
@@ -799,7 +799,7 @@ export const Notion_인라인_텍스트_포맷_도구모음 = {
           padding: '4px 6px', borderRadius: 8, marginBottom: 16,
           boxShadow: '0 4px 12px rgba(0,0,0,0.2)',
         }}>
-          {NOTION_FORMAT_BUTTONS.map(({ fid, FIcon }) => (
+          {WORKSPACE_FORMAT_BUTTONS.map(({ fid, FIcon }) => (
             <div key={fid} style={{ position: 'relative' }}>
               <SolidIconButton
                 color={formats.has(fid) ? 'black' : 'white'}
@@ -831,7 +831,7 @@ export const Notion_인라인_텍스트_포맷_도구모음 = {
 
         {/* 편집 */}
         <div style={{ marginTop: 12, fontSize: 11, color: '#94a3b8', display: 'flex', gap: 6, flexWrap: 'wrap' }}>
-          {NOTION_FORMAT_BUTTONS.map(({ fid, label }) => (
+          {WORKSPACE_FORMAT_BUTTONS.map(({ fid, label }) => (
             <span
               key={fid}
               style={{
@@ -849,18 +849,18 @@ export const Notion_인라인_텍스트_포맷_도구모음 = {
   },
 }
 
-/* Raycast + Notion — 탐색 히스토리 뒤로/앞으로 버튼 패턴
-   Raycast/Notion의 내비게이션 히스토리 버튼. 비활성 상태(회색)와
+/* CommandPalette + WorkspaceEditor — 탐색 히스토리 뒤로/앞으로 버튼 패턴
+   CommandPalette/WorkspaceEditor의 내비게이션 히스토리 버튼. 비활성 상태(회색)와
    활성 상태(검정)를 명확히 구분하며 히스토리 스택을 시각화.
 -------------------------------------------------------------------------- */
 const NAV_HISTORY_PAGES = ['홈', '프로젝트', '이슈 목록', '이슈 #142', '댓글']
 
-export const Raycast_Notion_히스토리_내비게이션 = {
-  name: 'Raycast + Notion — 히스토리 내비게이션 버튼',
+export const CommandPalette_WorkspaceEditor_히스토리_내비게이션 = {
+  name: 'CommandPalette + WorkspaceEditor — 히스토리 내비게이션 버튼',
   parameters: {
     docs: {
       description: {
-        story: 'Raycast/Notion 내비게이션 히스토리 패턴. SolidIconButton의 disabled prop으로 이전/다음 버튼 비활성 구분. 히스토리 스택 시각화 + 현재 위치 표시.',
+        story: 'CommandPalette/WorkspaceEditor 내비게이션 히스토리 패턴. SolidIconButton의 disabled prop으로 이전/다음 버튼 비활성 구분. 히스토리 스택 시각화 + 현재 위치 표시.',
       },
     },
   },
@@ -930,36 +930,36 @@ export const Raycast_Notion_히스토리_내비게이션 = {
 }
 
 /* --------------------------------------------------------------------------
-   shadcn/ui 벤치마크: 카드 호버 액션 버튼 그룹
-   shadcn Card 패턴 — 카드 hover 시 우측 상단에 아이콘 버튼 그룹 노출
+   ComposableUI 벤치마크: 카드 호버 액션 버튼 그룹
+   ComposableUI Card 패턴 — 카드 hover 시 우측 상단에 아이콘 버튼 그룹 노출
 -------------------------------------------------------------------------- */
-type ShadcnCard = { title: string; desc: string; tag: string; tagColor: string }
+type ComposableUICard = { title: string; desc: string; tag: string; tagColor: string }
 
-const SHADCN_CARDS: ShadcnCard[] = [
+const UTILITYUI_CARDS: ComposableUICard[] = [
   { title: 'SolidButton', desc: '주요 액션용 CTA 버튼 컴포넌트', tag: 'Actions', tagColor: '#6366f1' },
   { title: 'TextField', desc: '단일 라인 텍스트 입력 필드', tag: 'Inputs', tagColor: '#10b981' },
   { title: 'DataTable', desc: '정렬/필터 지원 데이터 테이블', tag: 'Data', tagColor: '#f59e0b' },
   { title: 'Tooltip', desc: '호버 시 컨텍스트 정보 표시', tag: 'Feedback', tagColor: '#8b5cf6' },
 ]
 
-export const Shadcn_카드_호버_액션_버튼 = {
-  name: 'shadcn/ui — 카드 호버 액션 버튼 그룹',
+export const ComposableUI_카드_호버_액션_버튼 = {
+  name: 'ComposableUI — 카드 호버 액션 버튼 그룹',
   parameters: {
     docs: {
       description: {
         story:
-          'shadcn/ui Card 패턴. 카드에 마우스를 올리면 우측 상단에 SolidIconButton 그룹(북마크/공유/더보기)이 나타납니다. ' +
+          'ComposableUI Card 패턴. 카드에 마우스를 올리면 우측 상단에 SolidIconButton 그룹(북마크/공유/더보기)이 나타납니다. ' +
           'CSS transition으로 opacity 0 → 1 전환.',
       },
     },
   },
-  render: function ShadcnCardHover() {
+  render: function ComposableUICardHover() {
     const [hoveredIdx, setHoveredIdx] = useState<number | null>(null)
     const [bookmarked, setBookmarked] = useState<Set<number>>(new Set())
 
     return (
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, width: 480, fontFamily: 'system-ui, sans-serif' }}>
-        {SHADCN_CARDS.map((card, i) => (
+        {UTILITYUI_CARDS.map((card, i) => (
           <div
             key={card.title}
             onMouseEnter={() => setHoveredIdx(i)}
@@ -1016,11 +1016,11 @@ export const Shadcn_카드_호버_액션_버튼 = {
 }
 
 /* --------------------------------------------------------------------------
-   Vercel Design 벤치마크: 다크 네비게이션 바 아이콘 버튼
-   Vercel Sidebar — 다크 배경에 흰색 아이콘 버튼 + 활성 상태 하이라이트
+   DeployPlatform Design 벤치마크: 다크 네비게이션 바 아이콘 버튼
+   DeployPlatform Sidebar — 다크 배경에 흰색 아이콘 버튼 + 활성 상태 하이라이트
 -------------------------------------------------------------------------- */
 type NavItem = { key: string; Icon: React.FC<{ size?: number }>; label: string }
-const VERCEL_NAV_ITEMS: NavItem[] = [
+const DEPLOY_NAV_ITEMS: NavItem[] = [
   { key: 'home', Icon: (p) => <svg width={p.size ?? 16} height={p.size ?? 16} viewBox="0 0 24 24" fill="none"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/><polyline points="9 22 9 12 15 12 15 22" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>, label: '홈' },
   { key: 'search', Icon: SearchIcon, label: '검색' },
   { key: 'notif', Icon: NotificationLineIcon, label: '알림' },
@@ -1028,18 +1028,18 @@ const VERCEL_NAV_ITEMS: NavItem[] = [
   { key: 'settings', Icon: SettingLineIcon, label: '설정' },
 ]
 
-export const Vercel_다크_사이드바_네비게이션 = {
-  name: 'Vercel Design — 다크 사이드바 네비게이션',
+export const DeployPlatform_다크_사이드바_네비게이션 = {
+  name: 'DeployPlatform Design — 다크 사이드바 네비게이션',
   parameters: {
     docs: {
       description: {
         story:
-          'Vercel Dashboard 사이드바 패턴. 다크 배경(#0f172a)에 SolidIconButton을 배치하고 ' +
+          'DeployPlatform Dashboard 사이드바 패턴. 다크 배경(#0f172a)에 SolidIconButton을 배치하고 ' +
           '활성 항목은 흰색 배경 + 검정 아이콘으로 강조합니다. color="black"과 "white" 전환.',
       },
     },
   },
-  render: function VercelSidebar() {
+  render: function DeployPlatformSidebar() {
     const [active, setActive] = useState('home')
 
     return (
@@ -1050,7 +1050,7 @@ export const Vercel_다크_사이드바_네비게이션 = {
           background: '#0f172a', display: 'flex', flexDirection: 'column', gap: 6,
           boxShadow: '0 4px 20px rgba(0,0,0,0.2)',
         }}>
-          {VERCEL_NAV_ITEMS.map(({ key, Icon, label }) => (
+          {DEPLOY_NAV_ITEMS.map(({ key, Icon, label }) => (
             <SolidIconButton
               key={key}
               color={active === key ? 'white' : 'black'}
@@ -1072,7 +1072,7 @@ export const Vercel_다크_사이드바_네비게이션 = {
         <div style={{ padding: '20px 24px', borderRadius: 12, border: '1px solid #e2e8f0', background: '#fff' }}>
           <div style={{ fontSize: 12, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 8 }}>현재 섹션</div>
           <div style={{ fontSize: 16, fontWeight: 800, color: '#0f172a' }}>
-            {VERCEL_NAV_ITEMS.find((n) => n.key === active)?.label}
+            {DEPLOY_NAV_ITEMS.find((n) => n.key === active)?.label}
           </div>
         </div>
       </div>
@@ -1081,8 +1081,8 @@ export const Vercel_다크_사이드바_네비게이션 = {
 }
 
 /* --------------------------------------------------------------------------
-   shadcn/ui 벤치마크: 리치 텍스트 에디터 포맷 툴바
-   shadcn/ui Editor 패턴 — Bold/Italic/Underline/정렬 토글 버튼 그룹
+   ComposableUI 벤치마크: 리치 텍스트 에디터 포맷 툴바
+   ComposableUI Editor 패턴 — Bold/Italic/Underline/정렬 토글 버튼 그룹
 -------------------------------------------------------------------------- */
 type EditorFmtKey = 'bold' | 'italic' | 'underline' | 'left' | 'center' | 'right'
 type EditorAlignKey = 'left' | 'center' | 'right'
@@ -1096,13 +1096,13 @@ const EDITOR_FMT_BUTTONS: { key: EditorFmtKey; Icon: React.FC<{ size?: number }>
   { key: 'right', Icon: (p) => <svg width={p.size ?? 16} height={p.size ?? 16} viewBox="0 0 24 24" fill="none"><line x1="3" y1="6" x2="21" y2="6" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/><line x1="9" y1="12" x2="21" y2="12" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/><line x1="3" y1="18" x2="21" y2="18" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/></svg>, group: 'align' },
 ]
 
-export const Shadcn_에디터_포맷_툴바 = {
-  name: 'shadcn/ui — 에디터 포맷 툴바',
+export const ComposableUI_에디터_포맷_툴바 = {
+  name: 'ComposableUI — 에디터 포맷 툴바',
   parameters: {
     docs: {
       description: {
         story:
-          'shadcn/ui 리치 텍스트 에디터 툴바 패턴. ' +
+          'ComposableUI 리치 텍스트 에디터 툴바 패턴. ' +
           'Bold/Italic/Underline(토글 다중 선택) + 정렬(단일 선택) 버튼 그룹. ' +
           '활성 상태는 color="black"으로 강조합니다.',
       },
@@ -1164,7 +1164,7 @@ export const Shadcn_에디터_포맷_툴바 = {
           textAlign: align,
           fontSize: 14, color: '#0f172a', lineHeight: 1.6,
         }}>
-          Orbit UI는 Figma 기반 React 디자인 시스템입니다.
+          Orbit UI는 DesignTool 기반 React 디자인 시스템입니다.
         </div>
       </div>
     )
@@ -1172,10 +1172,10 @@ export const Shadcn_에디터_포맷_툴바 = {
 }
 
 // ============================================================
-// Cycle 131 — shadcn/ui + Radix UI 벤치마크 반영
+// Cycle 131 — ComposableUI + PrimitiveUI 벤치마크 반영
 // ============================================================
 
-// shadcn/ui 스타일 — 카드 그리드 호버 시 플로팅 액션 버튼
+// ComposableUI 스타일 — 카드 그리드 호버 시 플로팅 액션 버튼
 type ProjectCard131 = { id: number; title: string; lang: string; stars: number; color: string }
 const PROJECT_CARDS_131: ProjectCard131[] = [
   { id: 1, title: 'orbit-ui', lang: 'TypeScript', stars: 142, color: '#3b82f6' },
@@ -1229,16 +1229,16 @@ function ProjectCardHover131() {
   )
 }
 
-export const Shadcn_카드_호버_플로팅_액션: Story = {
+export const ComposableUI_카드_호버_플로팅_액션: Story = {
   args: { children: <PlusIcon /> },
   render: () => <ProjectCardHover131 />,
 }
 
-// Radix UI 제어 컴포넌트 패턴 — 토글 그룹 (단일/다중 선택)
+// PrimitiveUI 제어 컴포넌트 패턴 — 토글 그룹 (단일/다중 선택)
 type AlignKey131 = 'left' | 'center' | 'right' | 'justify'
 type FormatKey131 = 'bold' | 'italic' | 'underline'
 
-function RadixToggleGroupRender131() {
+function PrimitiveToggleGroupRender131() {
   const [align, setAlign] = useState<AlignKey131>('left')
   const [formats, setFormats] = useState<Set<FormatKey131>>(new Set())
   const toggleFormat = (k: FormatKey131) => setFormats((prev) => { const n = new Set(prev); if (n.has(k)) { n.delete(k) } else { n.add(k) } return n })
@@ -1296,21 +1296,21 @@ function RadixToggleGroupRender131() {
         textDecoration: formats.has('underline') ? 'underline' : 'none',
         textAlign: align, fontSize: 14, color: '#0f172a', lineHeight: 1.7,
       }}>
-        Orbit UI는 Figma 기반 컴포넌트 시스템입니다. 텍스트 서식 데모.
+        Orbit UI는 DesignTool 기반 컴포넌트 시스템입니다. 텍스트 서식 데모.
       </div>
     </div>
   )
 }
 
-export const Radix_텍스트_서식_토글_그룹: Story = {
+export const Primitive_텍스트_서식_토글_그룹: Story = {
   args: { children: <TextBoldIcon /> },
-  render: () => <RadixToggleGroupRender131 />,
+  render: () => <PrimitiveToggleGroupRender131 />,
 }
 
-// Notion 스타일 — 인라인 블록 편집기 호버 액션바
+// WorkspaceEditor 스타일 — 인라인 블록 편집기 호버 액션바
 type Block131 = { id: number; text: string; type: 'heading' | 'paragraph' | 'list' }
 
-function NotionBlockEditorRender131() {
+function WorkspaceEditorBlockEditorRender131() {
   const [hovered, setHovered] = useState<number | null>(null)
   const [blocks, setBlocks] = useState<Block131[]>([
     { id: 1, text: '프로젝트 시작하기', type: 'heading' },
@@ -1354,16 +1354,16 @@ function NotionBlockEditorRender131() {
   )
 }
 
-export const Notion_블록_편집기_호버_액션: Story = {
+export const WorkspaceEditor_블록_편집기_호버_액션: Story = {
   args: { children: <MoreHorizontalIcon /> },
-  render: () => <NotionBlockEditorRender131 />,
+  render: () => <WorkspaceEditorBlockEditorRender131 />,
 }
 
 /* --------------------------------------------------------------------------
-   Vercel Design — 컴팩트 대시보드 액션 클러스터
-   Vercel의 모노크롬 아이콘 버튼 그룹 — 새로고침/필터/공유/더보기
+   DeployPlatform Design — 컴팩트 대시보드 액션 클러스터
+   DeployPlatform의 모노크롬 아이콘 버튼 그룹 — 새로고침/필터/공유/더보기
 -------------------------------------------------------------------------- */
-function VercelDashboardActionClusterRender() {
+function DeployPlatformDashboardActionClusterRender() {
   const [refreshing, setRefreshing] = useState(false)
   const [starred, setStarred] = useState(false)
   const [shared, setShared] = useState(false)
@@ -1379,7 +1379,7 @@ function VercelDashboardActionClusterRender() {
       <div style={{ padding: '12px 16px', border: '1px solid var(--sem-eclipse-color-borderDefault)', borderRadius: 10, background: 'var(--sem-eclipse-color-backgroundPrimary)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         <div>
           <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>프로덕션 배포</div>
-          <div style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginTop: 2 }}>orbit-ui.vercel.app · 2분 전</div>
+          <div style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginTop: 2 }}>orbit-ui.deploy.example.com · 2분 전</div>
         </div>
         <Flex gap="4px">
           <SolidIconButton
@@ -1414,23 +1414,23 @@ function VercelDashboardActionClusterRender() {
         {refreshing && '새로고침 중...'}
         {!refreshing && starred && '즐겨찾기에 추가됨'}
         {!refreshing && !starred && shared && '공유 링크 복사됨'}
-        {!refreshing && !starred && !shared && 'Vercel 대시보드 액션 클러스터 패턴'}
+        {!refreshing && !starred && !shared && 'DeployPlatform 대시보드 액션 클러스터 패턴'}
       </div>
     </div>
   )
 }
 
-export const Vercel_대시보드_액션_클러스터: Story = {
+export const DeployPlatform_대시보드_액션_클러스터: Story = {
   args: { children: <SearchIcon /> },
-  name: 'Vercel Design — 컴팩트 대시보드 아이콘 액션 클러스터',
+  name: 'DeployPlatform Design — 컴팩트 대시보드 아이콘 액션 클러스터',
   parameters: {
     docs: {
       description: {
-        story: 'Vercel 대시보드의 모노크롬 아이콘 버튼 그룹 패턴. 새로고침(opacity 애니메이션), 즐겨찾기 토글, 공유. 컴팩트 헤더에 액션을 집약하는 Vercel 스타일.',
+        story: 'DeployPlatform 대시보드의 모노크롬 아이콘 버튼 그룹 패턴. 새로고침(opacity 애니메이션), 즐겨찾기 토글, 공유. 컴팩트 헤더에 액션을 집약하는 DeployPlatform 스타일.',
       },
     },
   },
-  render: () => <VercelDashboardActionClusterRender />,
+  render: () => <DeployPlatformDashboardActionClusterRender />,
 }
 
 /* --------------------------------------------------------------------------
@@ -1494,10 +1494,10 @@ export const Ant_테이블_인라인_CRUD_액션: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Vercel + Ant Design — 미디어 플레이어 컨트롤
-   컴팩트 오디오/비디오 컨트롤 바 — Vercel 스타일 + Ant 기능성
+   DeployPlatform + Ant Design — 미디어 플레이어 컨트롤
+   컴팩트 오디오/비디오 컨트롤 바 — DeployPlatform 스타일 + Ant 기능성
 -------------------------------------------------------------------------- */
-function VercelAntMediaPlayerRender() {
+function DeployPlatformAntMediaPlayerRender() {
   const [playing, setPlaying] = useState(false)
   const [muted, setMuted] = useState(false)
   const [progress, setProgress] = useState(32)
@@ -1550,29 +1550,29 @@ function VercelAntMediaPlayerRender() {
         </SolidIconButton>
       </Flex>
       <div style={{ fontSize: 10, color: 'var(--sem-eclipse-color-foregroundDisabled)', textAlign: 'center' }}>
-        {playing ? '재생 중' : '일시정지'} · {muted ? '음소거' : '소리 켜짐'} · {liked ? '즐겨찾기 추가됨' : 'Vercel + Ant 미디어 컨트롤'}
+        {playing ? '재생 중' : '일시정지'} · {muted ? '음소거' : '소리 켜짐'} · {liked ? '즐겨찾기 추가됨' : 'DeployPlatform + Ant 미디어 컨트롤'}
       </div>
     </div>
   )
 }
 
-export const Vercel_Ant_미디어_플레이어_컨트롤: Story = {
+export const DeployPlatform_Ant_미디어_플레이어_컨트롤: Story = {
   args: { children: <StarLineIcon /> },
-  name: 'Vercel + Ant Design — 컴팩트 미디어 플레이어 컨트롤',
+  name: 'DeployPlatform + Ant Design — 컴팩트 미디어 플레이어 컨트롤',
   parameters: {
     docs: {
       description: {
-        story: 'Vercel 스타일 + Ant Design 기능성 미디어 플레이어. 이전/재생-일시정지/다음 + 음소거 + 즐겨찾기. range 슬라이더로 진행률 제어, 경과/총 시간 표시.',
+        story: 'DeployPlatform 스타일 + Ant Design 기능성 미디어 플레이어. 이전/재생-일시정지/다음 + 음소거 + 즐겨찾기. range 슬라이더로 진행률 제어, 경과/총 시간 표시.',
       },
     },
   },
-  render: () => <VercelAntMediaPlayerRender />,
+  render: () => <DeployPlatformAntMediaPlayerRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Radix UI — 접근성 토글 아이콘 버튼 (aria-pressed / aria-expanded)
+   PrimitiveUI — 접근성 토글 아이콘 버튼 (aria-pressed / aria-expanded)
 -------------------------------------------------------------------------- */
-function RadixA11yToggleRender(args: ComponentProps<typeof SolidIconButton>) {
+function PrimitiveA11yToggleRender(args: ComponentProps<typeof SolidIconButton>) {
   const [bold, setBold] = useState(false)
   const [italic, setItalic] = useState(false)
   const [underline, setUnderline] = useState(false)
@@ -1581,7 +1581,7 @@ function RadixA11yToggleRender(args: ComponentProps<typeof SolidIconButton>) {
 
   return (
     <div style={{ width: 360, fontFamily: "'Inter', system-ui, sans-serif" }}>
-      <div style={{ fontSize: 11, fontWeight: 600, color: '#64748b', marginBottom: 10 }}>Radix 접근성 토글 버튼 패턴</div>
+      <div style={{ fontSize: 11, fontWeight: 600, color: '#64748b', marginBottom: 10 }}>Primitive 접근성 토글 버튼 패턴</div>
       {/* Text format toggles with aria-pressed */}
       <div style={{ display: 'flex', gap: 4, padding: '10px 12px', background: '#f8fafc', borderRadius: 10, border: '1px solid #e2e8f0', marginBottom: 12 }}>
         <div style={{ display: 'flex', gap: 2 }}>
@@ -1644,21 +1644,21 @@ function RadixA11yToggleRender(args: ComponentProps<typeof SolidIconButton>) {
           <div style={{ fontSize: 11, color: '#64748b' }}>Bold: {bold ? 'pressed' : 'not-pressed'} / Italic: {italic ? 'pressed' : 'not-pressed'} / Star: {starred ? 'pressed' : 'not-pressed'}</div>
         </div>
       )}
-      <div style={{ fontSize: 10, color: '#94a3b8', marginTop: 8 }}>Radix UI의 aria-pressed, aria-expanded, role=&quot;button&quot; 패턴 적용</div>
+      <div style={{ fontSize: 10, color: '#94a3b8', marginTop: 8 }}>PrimitiveUI의 aria-pressed, aria-expanded, role=&quot;button&quot; 패턴 적용</div>
     </div>
   )
 }
 
-export const Radix_접근성_토글_아이콘_버튼: Story = {
-  name: 'Radix UI — 접근성 토글 아이콘 버튼 (aria-pressed)',
+export const Primitive_접근성_토글_아이콘_버튼: Story = {
+  name: 'PrimitiveUI — 접근성 토글 아이콘 버튼 (aria-pressed)',
   args: { children: <TextBoldIcon /> },
-  render: (args) => <RadixA11yToggleRender {...args} />,
+  render: (args) => <PrimitiveA11yToggleRender {...args} />,
   parameters: {
     docs: {
       description: {
         story:
-          'Radix UI Primitive 접근성 패턴. SolidIconButton에 aria-pressed, aria-expanded, aria-haspopup을 적용해 스크린리더 친화적 서식 도구를 구현합니다. ' +
-          'Radix Toggle/ToggleGroup 컴포넌트의 접근성 원칙을 반영합니다.',
+          'PrimitiveUI Primitive 접근성 패턴. SolidIconButton에 aria-pressed, aria-expanded, aria-haspopup을 적용해 스크린리더 친화적 서식 도구를 구현합니다. ' +
+          'Primitive Toggle/ToggleGroup 컴포넌트의 접근성 원칙을 반영합니다.',
       },
     },
   },
@@ -1758,11 +1758,11 @@ export const Ant_데이터_그리드_인라인_액션_아이콘: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Radix + Ant — 알림 센터 헤더 아이콘 버튼 클러스터
+   Primitive + Ant — 알림 센터 헤더 아이콘 버튼 클러스터
 -------------------------------------------------------------------------- */
 const NOTIF_COUNT = 5
 
-function RadixAntNotifCenterRender(args: ComponentProps<typeof SolidIconButton>) {
+function PrimitiveAntNotifCenterRender(args: ComponentProps<typeof SolidIconButton>) {
   const [count, setCount] = useState(NOTIF_COUNT)
   const [muted, setMuted] = useState(false)
   const [panelOpen, setPanelOpen] = useState(false)
@@ -1833,16 +1833,16 @@ function RadixAntNotifCenterRender(args: ComponentProps<typeof SolidIconButton>)
   )
 }
 
-export const Radix_Ant_알림_센터_헤더_클러스터: Story = {
-  name: 'Radix + Ant Design — 알림 센터 헤더 아이콘 버튼 클러스터',
+export const Primitive_Ant_알림_센터_헤더_클러스터: Story = {
+  name: 'Primitive + Ant Design — 알림 센터 헤더 아이콘 버튼 클러스터',
   args: { children: <NotificationLineIcon /> },
-  render: (args) => <RadixAntNotifCenterRender {...args} />,
+  render: (args) => <PrimitiveAntNotifCenterRender {...args} />,
   parameters: {
     docs: {
       description: {
         story:
-          'Radix UI + Ant Design 복합 패턴. 검색(aria-pressed 토글) + 음소거(aria-pressed) + 설정(aria-expanded + 배지)를 SolidIconButton으로 구성합니다. ' +
-          'Ant Design의 Notification 컴포넌트와 Radix Primitive 접근성 패턴을 결합합니다.',
+          'PrimitiveUI + Ant Design 복합 패턴. 검색(aria-pressed 토글) + 음소거(aria-pressed) + 설정(aria-expanded + 배지)를 SolidIconButton으로 구성합니다. ' +
+          'Ant Design의 Notification 컴포넌트와 Primitive Primitive 접근성 패턴을 결합합니다.',
       },
     },
   },

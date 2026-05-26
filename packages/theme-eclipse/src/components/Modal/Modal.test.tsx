@@ -143,4 +143,25 @@ describe('Dialog (Modal)', () => {
       expect(screen.getByText('버튼2')).toBeInTheDocument()
     })
   })
+
+  test('Title 또는 Description이 생략돼도 접근성 경고를 출력하지 않는다', async () => {
+    const consoleError = vi.spyOn(console, 'error').mockImplementation(() => undefined)
+
+    render(
+      <Dialog defaultIsPresented>
+        <Dialog.Top>
+          <div>내용</div>
+        </Dialog.Top>
+      </Dialog>
+    )
+
+    await waitFor(() => {
+      expect(screen.getByRole('dialog')).toBeInTheDocument()
+    })
+
+    const output = consoleError.mock.calls.flat().join(' ')
+    expect(output).not.toContain('requires a description')
+    expect(output).not.toContain('requires a `DialogTitle`')
+    expect(output).not.toContain('Missing `Description`')
+  })
 })

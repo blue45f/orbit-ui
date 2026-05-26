@@ -61,7 +61,7 @@ export const 디자인_QA = {
       control: 'boolean',
     },
   },
-  // eslint-disable-next-line
+
   render: ({ tabCount, hasLeading, hasCenter, hasTrailing, defaultValue, ...rest }: any) => {
     const tabs = Array.from({ length: tabCount || 3 }, (_, i) => {
       const value = ['blue', 'foundation', 'ocean', 'green'][i] || `tab${i}`
@@ -92,8 +92,8 @@ export const 디자인_QA = {
   },
 }
 
-// ─── Arco Design: 뷰 전환 패턴 ──────────────────────────────────────────────
-// Arco Design의 Radio.Group buttonStyle="solid" 패턴을 참고했습니다.
+// ─── DataProductUI: 뷰 전환 패턴 ──────────────────────────────────────────────
+// DataProductUI의 Radio.Group buttonStyle="solid" 패턴을 참고했습니다.
 // 대시보드에서 목록/그리드/캘린더 뷰를 전환할 때 활용됩니다.
 function ViewSwitcherRender() {
   const [viewIndex, setViewIndex] = useState(0)
@@ -147,13 +147,13 @@ function ViewSwitcherRender() {
   )
 }
 
-export const Arco_뷰_전환: Story = {
-  name: 'Arco Design - 뷰 전환 패턴 (목록/그리드/캘린더)',
+export const DataProduct_뷰_전환: Story = {
+  name: 'DataProductUI - 뷰 전환 패턴 (목록/그리드/캘린더)',
   render: () => <ViewSwitcherRender />,
 }
 
-// ─── Arco Design: 통계 카드 기간 선택 패턴 ──────────────────────────────────
-// Arco Design Statistic 컴포넌트와 Radio.Group을 결합한 기간 필터 패턴입니다.
+// ─── DataProductUI: 통계 카드 기간 선택 패턴 ──────────────────────────────────
+// DataProductUI Statistic 컴포넌트와 Radio.Group을 결합한 기간 필터 패턴입니다.
 function StatsPeriodRender() {
   const [periodIndex, setPeriodIndex] = useState(1)
 
@@ -238,13 +238,13 @@ function StatsPeriodRender() {
   )
 }
 
-export const Arco_통계_기간_선택: Story = {
-  name: 'Arco Design - 통계 카드 기간 선택 패턴',
+export const DataProduct_통계_기간_선택: Story = {
+  name: 'DataProductUI - 통계 카드 기간 선택 패턴',
   render: () => <StatsPeriodRender />,
 }
 
-// ─── Tailwind UI: 폼 내부 요금제 선택 패턴 ──────────────────────────────────
-// Tailwind UI Radio Group과 유사한 플랜 선택 UI에서 활용됩니다.
+// ─── UtilityUI: 폼 내부 요금제 선택 패턴 ──────────────────────────────────
+// UtilityUI Radio Group과 유사한 플랜 선택 UI에서 활용됩니다.
 function PlanSelectorRender() {
   const [planIndex, setPlanIndex] = useState(1)
 
@@ -309,15 +309,15 @@ function PlanSelectorRender() {
   )
 }
 
-export const Tailwind_폼_옵션_선택: Story = {
-  name: 'Tailwind UI - 폼 내 요금제/옵션 선택 패턴',
+export const UtilityCSS_폼_옵션_선택: Story = {
+  name: 'UtilityUI - 폼 내 요금제/옵션 선택 패턴',
   render: () => <PlanSelectorRender />,
 }
 
-// ─── Linear Design: 뷰 전환 + 컨텐츠 필터 통합 패턴 ──────────────────────────
-// Linear의 All Issues 뷰에서 그룹핑 방식과 레이아웃을 동시에 제어하는 
+// ─── IssueTracker Design: 뷰 전환 + 컨텐츠 필터 통합 패턴 ──────────────────────────
+// IssueTracker의 All Issues 뷰에서 그룹핑 방식과 레이아웃을 동시에 제어하는
 // SegmentedControl 패턴. 선택 상태에 따라 하단 컨텐츠가 변경됩니다.
-function LinearGroupByRender() {
+function IssueTrackerGroupByRender() {
   const [groupBy, setGroupBy] = useState(0)
   const [layout, setLayout] = useState(0)
 
@@ -413,22 +413,22 @@ function LinearGroupByRender() {
   )
 }
 
-export const Linear_그룹핑_레이아웃_전환: Story = {
-  name: 'Linear - 이슈 그룹핑 + 레이아웃 동시 제어 패턴',
+export const IssueTracker_그룹핑_레이아웃_전환: Story = {
+  name: 'IssueTracker - 이슈 그룹핑 + 레이아웃 동시 제어 패턴',
   parameters: {
     docs: {
       description: {
-        story: 'Linear의 All Issues 뷰 패턴. Group By와 Layout 두 개의 SegmentedControl을 조합해 콘텐츠 구성 방식을 제어합니다. 하나의 UI에 복수 SegmentedControl을 사용하는 실무 패턴입니다.',
+        story: 'IssueTracker의 All Issues 뷰 패턴. Group By와 Layout 두 개의 SegmentedControl을 조합해 콘텐츠 구성 방식을 제어합니다. 하나의 UI에 복수 SegmentedControl을 사용하는 실무 패턴입니다.',
       },
     },
   },
-  render: () => <LinearGroupByRender />,
+  render: () => <IssueTrackerGroupByRender />,
 }
 
-// ─── shadcn/ui: 다크/라이트 + 사이즈 동시 제어 패턴 ─────────────────────────
-// shadcn/ui의 ThemeToggle 패턴 응용 — appearance와 density를 
+// ─── ComposableUI: 다크/라이트 + 사이즈 동시 제어 패턴 ─────────────────────────
+// ComposableUI의 ThemeToggle 패턴 응용 — appearance와 density를
 // 두 개의 독립 SegmentedControl로 동시에 제어, 라이브 미리보기 연동
-function ShadcnAppearanceRender() {
+function ComposableUIAppearanceRender() {
   const [appearance, setAppearance] = useState(0)
   const [density, setDensity] = useState(1)
   const [radius, setRadius] = useState(1)
@@ -499,22 +499,22 @@ function ShadcnAppearanceRender() {
   )
 }
 
-export const shadcn_외관_설정_제어: Story = {
-  name: 'shadcn/ui - Theme/Density/Radius 다중 설정 패턴',
+export const ComposableUI_외관_설정_제어: Story = {
+  name: 'ComposableUI - Theme/Density/Radius 다중 설정 패턴',
   parameters: {
     docs: {
       description: {
-        story: 'shadcn/ui의 ThemeToggle + Appearance 설정 패턴. 여러 SegmentedControl로 외관(다크/라이트), 밀도, 모서리 반경을 독립적으로 제어하고 라이브 미리보기로 즉각 피드백을 제공합니다.',
+        story: 'ComposableUI의 ThemeToggle + Appearance 설정 패턴. 여러 SegmentedControl로 외관(다크/라이트), 밀도, 모서리 반경을 독립적으로 제어하고 라이브 미리보기로 즉각 피드백을 제공합니다.',
       },
     },
   },
-  render: () => <ShadcnAppearanceRender />,
+  render: () => <ComposableUIAppearanceRender />,
 }
 
-// ─── Notion: 블록 타입 선택 / 텍스트 정렬 패턴 ──────────────────────────────
-// Notion의 인라인 툴바 패턴 — SegmentedControl을 소형 아이콘 모드로 사용
+// ─── WorkspaceEditor: 블록 타입 선택 / 텍스트 정렬 패턴 ──────────────────────────────
+// WorkspaceEditor의 인라인 툴바 패턴 — SegmentedControl을 소형 아이콘 모드로 사용
 // 텍스트 정렬, 제목 레벨, 색상 등을 한 줄 툴바로 제어
-function NotionToolbarRender() {
+function WorkspaceEditorToolbarRender() {
   const [align, setAlign] = useState(0)
   const [heading, setHeading] = useState(0)
 
@@ -567,25 +567,25 @@ function NotionToolbarRender() {
         </p>
       </div>
       <div style={{ marginTop: 8, fontSize: 11, color: '#94a3b8', textAlign: 'center' }}>
-        Notion 인라인 블록 툴바 패턴 — 텍스트 타입 + 정렬 SegmentedControl 조합
+        WorkspaceEditor 인라인 블록 툴바 패턴 — 텍스트 타입 + 정렬 SegmentedControl 조합
       </div>
     </div>
   )
 }
 
-export const Notion_인라인_블록_툴바: Story = {
-  name: 'Notion - 인라인 블록 타입/정렬 툴바 패턴',
+export const WorkspaceEditor_인라인_블록_툴바: Story = {
+  name: 'WorkspaceEditor - 인라인 블록 타입/정렬 툴바 패턴',
   parameters: {
     docs: {
       description: {
-        story: 'Notion의 인라인 툴바 패턴. SegmentedControl을 소형 아이콘/텍스트 모드로 사용해 텍스트 유형과 정렬을 한 줄에 제어합니다. 두 컨트롤이 조합되어 에디터 블록 속성을 즉시 반영합니다.',
+        story: 'WorkspaceEditor의 인라인 툴바 패턴. SegmentedControl을 소형 아이콘/텍스트 모드로 사용해 텍스트 유형과 정렬을 한 줄에 제어합니다. 두 컨트롤이 조합되어 에디터 블록 속성을 즉시 반영합니다.',
       },
     },
   },
-  render: () => <NotionToolbarRender />,
+  render: () => <WorkspaceEditorToolbarRender />,
 }
 
-// ─── Cycle 62: Tailwind UI + MUI ───────────────────────────────────────────
+// ─── Cycle 62: UtilityUI + EnterpriseUI ───────────────────────────────────────────
 
 const TAILWIND_SORT_OPTIONS = [
   { value: 'newest', label: '최신순' },
@@ -594,19 +594,19 @@ const TAILWIND_SORT_OPTIONS = [
   { value: 'price-desc', label: '높은가격' },
 ]
 
-type TailwindSortValue = 'newest' | 'popular' | 'price-asc' | 'price-desc'
+type UtilityCSSSortValue = 'newest' | 'popular' | 'price-asc' | 'price-desc'
 
 const TAILWIND_PRODUCTS = [
   { id: 1, name: 'React UI Kit', price: 89000, sales: 1240 },
-  { id: 2, name: 'Figma Plugin', price: 29000, sales: 3820 },
-  { id: 3, name: 'Tailwind 템플릿', price: 59000, sales: 780 },
+  { id: 2, name: 'DesignTool Plugin', price: 29000, sales: 3820 },
+  { id: 3, name: 'UtilityCSS 템플릿', price: 59000, sales: 780 },
   { id: 4, name: 'Icon Pack', price: 19000, sales: 5100 },
   { id: 5, name: 'Motion Preset', price: 45000, sales: 430 },
   { id: 6, name: 'Dark Theme Kit', price: 39000, sales: 2200 },
 ]
 
-const TailwindSortTableRender = () => {
-  const [sort, setSort] = useState<TailwindSortValue>('newest')
+const UtilityCSSSortTableRender = () => {
+  const [sort, setSort] = useState<UtilityCSSSortValue>('newest')
   const sortIdx = TAILWIND_SORT_OPTIONS.findIndex(o => o.value === sort)
 
   const sorted = [...TAILWIND_PRODUCTS].sort((a, b) => {
@@ -622,7 +622,7 @@ const TailwindSortTableRender = () => {
         <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>상품 목록</div>
         <SegmentedControl
           selectedIndex={sortIdx}
-          onTabChange={(i) => setSort(TAILWIND_SORT_OPTIONS[i].value as TailwindSortValue)}
+          onTabChange={(i) => setSort(TAILWIND_SORT_OPTIONS[i].value as UtilityCSSSortValue)}
         >
           {TAILWIND_SORT_OPTIONS.map((o) => (
             <SegmentedControl.Tab key={o.value} value={o.value}>
@@ -646,19 +646,19 @@ const TailwindSortTableRender = () => {
   )
 }
 
-export const Tailwind_상품_정렬_컨트롤: Story = {
-  name: 'Tailwind UI - 상품 목록 정렬 SegmentedControl',
+export const UtilityCSS_상품_정렬_컨트롤: Story = {
+  name: 'UtilityUI - 상품 목록 정렬 SegmentedControl',
   parameters: {
     docs: {
       description: {
-        story: 'Tailwind UI의 정렬 필터 패턴. SegmentedControl로 최신/인기/가격 정렬 기준을 전환하면 아래 상품 목록이 즉시 재정렬됩니다. 컴팩트한 헤더 영역에 정렬 컨트롤을 배치합니다.',
+        story: 'UtilityUI의 정렬 필터 패턴. SegmentedControl로 최신/인기/가격 정렬 기준을 전환하면 아래 상품 목록이 즉시 재정렬됩니다. 컴팩트한 헤더 영역에 정렬 컨트롤을 배치합니다.',
       },
     },
   },
-  render: () => <TailwindSortTableRender />,
+  render: () => <UtilityCSSSortTableRender />,
 }
 
-const MUI_TIME_RANGES = [
+const EnterpriseUI_TIME_RANGES = [
   { value: '1d', label: '1D' },
   { value: '1w', label: '1W' },
   { value: '1m', label: '1M' },
@@ -666,9 +666,9 @@ const MUI_TIME_RANGES = [
   { value: '1y', label: '1Y' },
 ]
 
-type MuiTimeRange = '1d' | '1w' | '1m' | '3m' | '1y'
+type EnterpriseUITimeRange = '1d' | '1w' | '1m' | '3m' | '1y'
 
-const MUI_CHART_SEED: Record<MuiTimeRange, number[]> = {
+const EnterpriseUI_CHART_SEED: Record<EnterpriseUITimeRange, number[]> = {
   '1d':  [42, 45, 41, 50, 48, 52, 49],
   '1w':  [210, 195, 230, 218, 245, 260, 240],
   '1m':  [820, 910, 875, 950, 1020, 980, 1100],
@@ -676,10 +676,10 @@ const MUI_CHART_SEED: Record<MuiTimeRange, number[]> = {
   '1y':  [9800, 10500, 11200, 10800, 12000, 11500, 13000],
 }
 
-const MuiChartRangeRender = () => {
-  const [range, setRange] = useState<MuiTimeRange>('1m')
-  const rangeIdx = MUI_TIME_RANGES.findIndex(r => r.value === range)
-  const data = MUI_CHART_SEED[range]
+const EnterpriseUIChartRangeRender = () => {
+  const [range, setRange] = useState<EnterpriseUITimeRange>('1m')
+  const rangeIdx = EnterpriseUI_TIME_RANGES.findIndex(r => r.value === range)
+  const data = EnterpriseUI_CHART_SEED[range]
   const max = Math.max(...data)
   const min = Math.min(...data)
   const current = data[data.length - 1]
@@ -698,9 +698,9 @@ const MuiChartRangeRender = () => {
         </div>
         <SegmentedControl
           selectedIndex={rangeIdx}
-          onTabChange={(i) => setRange(MUI_TIME_RANGES[i].value as MuiTimeRange)}
+          onTabChange={(i) => setRange(EnterpriseUI_TIME_RANGES[i].value as EnterpriseUITimeRange)}
         >
-          {MUI_TIME_RANGES.map((r) => (
+          {EnterpriseUI_TIME_RANGES.map((r) => (
             <SegmentedControl.Tab key={r.value} value={r.value}>
               <SegmentedControl.TabCenter>{r.label}</SegmentedControl.TabCenter>
             </SegmentedControl.Tab>
@@ -723,41 +723,41 @@ const MuiChartRangeRender = () => {
   )
 }
 
-export const MUI_차트_기간_전환: Story = {
-  name: 'MUI - 차트 기간 선택 SegmentedControl',
+export const EnterpriseUI_차트_기간_전환: Story = {
+  name: 'EnterpriseUI - 차트 기간 선택 SegmentedControl',
   parameters: {
     docs: {
       description: {
-        story: 'MUI Tabs의 기간 선택 패턴을 SegmentedControl로 구현. 1D/1W/1M/3M/1Y 탭 전환으로 바 차트 데이터와 등락률이 즉시 업데이트됩니다. 금융/분석 대시보드에서 자주 쓰이는 패턴입니다.',
+        story: 'EnterpriseUI Tabs의 기간 선택 패턴을 SegmentedControl로 구현. 1D/1W/1M/3M/1Y 탭 전환으로 바 차트 데이터와 등락률이 즉시 업데이트됩니다. 금융/분석 대시보드에서 자주 쓰이는 패턴입니다.',
       },
     },
   },
-  render: () => <MuiChartRangeRender />,
+  render: () => <EnterpriseUIChartRangeRender />,
 }
 
-const APPLE_LAYOUT_OPTIONS = [
+const NATIVE_LAYOUT_OPTIONS = [
   { value: 'grid', label: '격자' },
   { value: 'list', label: '목록' },
   { value: 'compact', label: '컴팩트' },
 ]
 
-type AppleLayout = 'grid' | 'list' | 'compact'
+type PlatformLayout = 'grid' | 'list' | 'compact'
 
-const APPLE_ITEMS = ['Figma 파일', 'Sketch 프로젝트', 'Adobe XD', 'Framer 사이트', 'Canva 디자인', 'Principle 프로토']
+const NATIVE_ITEMS = ['DesignTool 파일', 'Sketch 프로젝트', 'Adobe XD', 'Framer 사이트', 'Canva 디자인', 'Principle 프로토']
 
-const AppleLayoutSwitcherRender = () => {
-  const [layout, setLayout] = useState<AppleLayout>('grid')
-  const layoutIdx = APPLE_LAYOUT_OPTIONS.findIndex(o => o.value === layout)
+const PlatformLayoutSwitcherRender = () => {
+  const [layout, setLayout] = useState<PlatformLayout>('grid')
+  const layoutIdx = NATIVE_LAYOUT_OPTIONS.findIndex(o => o.value === layout)
 
   return (
-    <div style={{ width: 360, fontFamily: '-apple-system, BlinkMacSystemFont, sans-serif' }}>
+    <div style={{ width: 360, fontFamily: 'sans-serif' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 14, padding: '0 4px' }}>
         <div style={{ fontSize: 16, fontWeight: 700, color: '#1c1c1e' }}>디자인 파일</div>
         <SegmentedControl
           selectedIndex={layoutIdx}
-          onTabChange={(i) => setLayout(APPLE_LAYOUT_OPTIONS[i].value as AppleLayout)}
+          onTabChange={(i) => setLayout(NATIVE_LAYOUT_OPTIONS[i].value as PlatformLayout)}
         >
-          {APPLE_LAYOUT_OPTIONS.map((o) => (
+          {NATIVE_LAYOUT_OPTIONS.map((o) => (
             <SegmentedControl.Tab key={o.value} value={o.value}>
               <SegmentedControl.TabCenter>{o.label}</SegmentedControl.TabCenter>
             </SegmentedControl.Tab>
@@ -766,7 +766,7 @@ const AppleLayoutSwitcherRender = () => {
       </div>
       {layout === 'grid' && (
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
-          {APPLE_ITEMS.map((item, i) => (
+          {NATIVE_ITEMS.map((item, i) => (
             <div key={i} style={{ height: 80, borderRadius: 12, background: '#f2f2f7', border: '1px solid #e5e5ea', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', padding: 10 }}>
               <div style={{ fontSize: 12, fontWeight: 600, color: '#1c1c1e' }}>{item}</div>
             </div>
@@ -775,8 +775,8 @@ const AppleLayoutSwitcherRender = () => {
       )}
       {layout === 'list' && (
         <div style={{ border: '1px solid #e5e5ea', borderRadius: 12, overflow: 'hidden' }}>
-          {APPLE_ITEMS.map((item, i) => (
-            <div key={i} style={{ padding: '13px 16px', borderBottom: i < APPLE_ITEMS.length - 1 ? '1px solid #f2f2f7' : 'none', background: '#fff', fontSize: 14, color: '#1c1c1e', display: 'flex', justifyContent: 'space-between' }}>
+          {NATIVE_ITEMS.map((item, i) => (
+            <div key={i} style={{ padding: '13px 16px', borderBottom: i < NATIVE_ITEMS.length - 1 ? '1px solid #f2f2f7' : 'none', background: '#fff', fontSize: 14, color: '#1c1c1e', display: 'flex', justifyContent: 'space-between' }}>
               <span>{item}</span>
               <span style={{ color: '#c7c7cc' }}>{'>'}</span>
             </div>
@@ -785,7 +785,7 @@ const AppleLayoutSwitcherRender = () => {
       )}
       {layout === 'compact' && (
         <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-          {APPLE_ITEMS.map((item, i) => (
+          {NATIVE_ITEMS.map((item, i) => (
             <div key={i} style={{ padding: '8px 12px', borderRadius: 8, background: '#f2f2f7', fontSize: 12, color: '#3a3a3c', fontWeight: 500 }}>{item}</div>
           ))}
         </div>
@@ -794,31 +794,31 @@ const AppleLayoutSwitcherRender = () => {
   )
 }
 
-export const Apple_HIG_레이아웃_전환: Story = {
-  name: 'Apple HIG - 레이아웃 전환 SegmentedControl',
+export const Platform_HIG_레이아웃_전환: Story = {
+  name: 'Platform HIG - 레이아웃 전환 SegmentedControl',
   parameters: {
     docs: {
       description: {
-        story: 'Apple HIG의 세그먼티드 컨트롤 레이아웃 전환 패턴. 격자/목록/컴팩트 세 가지 보기 방식을 전환하면 동일 데이터가 다른 레이아웃으로 렌더링됩니다. iOS Files/Photos 앱에서 활용하는 패턴입니다.',
+        story: 'Platform HIG의 세그먼티드 컨트롤 레이아웃 전환 패턴. 격자/목록/컴팩트 세 가지 보기 방식을 전환하면 동일 데이터가 다른 레이아웃으로 렌더링됩니다. iOS Files/Photos 앱에서 활용하는 패턴입니다.',
       },
     },
   },
-  render: () => <AppleLayoutSwitcherRender />,
+  render: () => <PlatformLayoutSwitcherRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Mantine 벤치마크: useToggle 순환 모드 패턴
-   Mantine의 useToggle([a, b, c]) → type-safe cycling.
+   AppUI 벤치마크: useToggle 순환 모드 패턴
+   AppUI의 useToggle([a, b, c]) → type-safe cycling.
    SegmentedControl 변경 시 const assertion 기반 순환 상태가 업데이트됩니다.
 -------------------------------------------------------------------------- */
 const VIEW_MODES = ['list', 'grid', 'kanban'] as const
 type _ViewMode = (typeof VIEW_MODES)[number]
 
-const MantineToggleCycleRender = () => {
+const AppUIToggleCycleRender = () => {
   const [modeIdx, setModeIdx] = useState(0)
   const mode = VIEW_MODES[modeIdx]
 
-  // Mantine useToggle pattern: [value, toggle] — cycling through const-asserted tuple
+  // AppUI useToggle pattern: [value, toggle] — cycling through const-asserted tuple
   const cycleMode = () => setModeIdx((prev) => (prev + 1) % VIEW_MODES.length)
 
   const ITEMS = ['디자인 토큰 구조', '컴포넌트 계층', '상태 관리 패턴', '접근성 체크리스트', '스타일 가이드', '테스트 전략']
@@ -887,24 +887,24 @@ const MantineToggleCycleRender = () => {
   )
 }
 
-export const Mantine_useToggle_순환_뷰_모드: Story = {
-  name: 'Mantine - useToggle 순환 뷰 모드 (list/grid/kanban)',
+export const AppUI_useToggle_순환_뷰_모드: Story = {
+  name: 'AppUI - useToggle 순환 뷰 모드 (list/grid/kanban)',
   parameters: {
     docs: {
       description: {
-        story: 'Mantine의 useToggle([...values] as const) 패턴. const assertion으로 타입 안전한 순환 상태를 구현합니다. "순환 →" 버튼이 useToggle()의 toggle() 호출을 시뮬레이션합니다.',
+        story: 'AppUI의 useToggle([...values] as const) 패턴. const assertion으로 타입 안전한 순환 상태를 구현합니다. "순환 →" 버튼이 useToggle()의 toggle() 호출을 시뮬레이션합니다.',
       },
     },
   },
-  render: () => <MantineToggleCycleRender />,
+  render: () => <AppUIToggleCycleRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Mantine 벤치마크: useCounter 이산 증감 패턴
-   Mantine의 useCounter(initial, { min, max }) → [count, { increment, decrement, set, reset }]
+   AppUI 벤치마크: useCounter 이산 증감 패턴
+   AppUI의 useCounter(initial, { min, max }) → [count, { increment, decrement, set, reset }]
    SegmentedControl로 페이지 단위(5/10/20/50)를 선택, 페이지네이션 상태와 연동합니다.
 -------------------------------------------------------------------------- */
-const MantineCounterPaginationRender = () => {
+const AppUICounterPaginationRender = () => {
   const PAGE_SIZES = [5, 10, 20, 50] as const
   const [pageSizeIdx, setPageSizeIdx] = useState(1)
   const pageSize = PAGE_SIZES[pageSizeIdx]
@@ -912,7 +912,7 @@ const MantineCounterPaginationRender = () => {
   const TOTAL = 87
   const totalPages = Math.ceil(TOTAL / pageSize)
 
-  // Mantine useCounter handlers (simulated)
+  // AppUI useCounter handlers (simulated)
   const increment = () => setPage((p) => Math.min(p + 1, totalPages))
   const decrement = () => setPage((p) => Math.max(p - 1, 1))
   const reset = () => setPage(1)
@@ -987,24 +987,24 @@ const MantineCounterPaginationRender = () => {
   )
 }
 
-export const Mantine_useCounter_페이지네이션: Story = {
-  name: 'Mantine - useCounter 이산 증감 페이지네이션 (min/max/reset)',
+export const AppUI_useCounter_페이지네이션: Story = {
+  name: 'AppUI - useCounter 이산 증감 페이지네이션 (min/max/reset)',
   parameters: {
     docs: {
       description: {
-        story: 'Mantine의 useCounter(initial, { min, max }) 패턴. [count, { increment, decrement, set, reset }] 튜플을 반환하며, 각 핸들러가 이산적인 상태 전환을 담당합니다.',
+        story: 'AppUI의 useCounter(initial, { min, max }) 패턴. [count, { increment, decrement, set, reset }] 튜플을 반환하며, 각 핸들러가 이산적인 상태 전환을 담당합니다.',
       },
     },
   },
-  render: () => <MantineCounterPaginationRender />,
+  render: () => <AppUICounterPaginationRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Mantine 벤치마크: useListState 필터 파이프라인 패턴
-   Mantine의 useListState([]) → [state, handlers] — append/remove/filter 이산 핸들러.
+   AppUI 벤치마크: useListState 필터 파이프라인 패턴
+   AppUI의 useListState([]) → [state, handlers] — append/remove/filter 이산 핸들러.
    SegmentedControl로 활성 필터 카테고리를 선택하고, 칩 형태로 누적 관리합니다.
 -------------------------------------------------------------------------- */
-const MantineListStateFilterRender = () => {
+const AppUIListStateFilterRender = () => {
   type Category = '상태' | '우선순위' | '담당자' | '기간'
   const [activeCategory, setActiveCategory] = useState<Category>('상태')
   const [filters, setFilters] = useState<{ id: string; label: string; category: Category }[]>([])
@@ -1016,7 +1016,7 @@ const MantineListStateFilterRender = () => {
     '기간': [{ id: 'd1', label: '오늘' }, { id: 'd2', label: '이번 주' }, { id: 'd3', label: '이번 달' }],
   }
 
-  // Mantine useListState handlers (simulated)
+  // AppUI useListState handlers (simulated)
   const append = (item: { id: string; label: string; category: Category }) =>
     setFilters((prev) => (prev.find((f) => f.id === item.id) ? prev : [...prev, item]))
   const remove = (id: string) => setFilters((prev) => prev.filter((f) => f.id !== id))
@@ -1089,20 +1089,20 @@ const MantineListStateFilterRender = () => {
   )
 }
 
-export const Mantine_useListState_필터_파이프라인: Story = {
-  name: 'Mantine - useListState 필터 파이프라인 (append/remove)',
+export const AppUI_useListState_필터_파이프라인: Story = {
+  name: 'AppUI - useListState 필터 파이프라인 (append/remove)',
   parameters: {
     docs: {
       description: {
-        story: 'Mantine의 useListState([]) 패턴. [state, { append, remove, filter, ... }] 튜플로 이산적인 리스트 조작을 담당합니다. SegmentedControl로 카테고리를 전환하며 필터를 누적합니다.',
+        story: 'AppUI의 useListState([]) 패턴. [state, { append, remove, filter, ... }] 튜플로 이산적인 리스트 조작을 담당합니다. SegmentedControl로 카테고리를 전환하며 필터를 누적합니다.',
       },
     },
   },
-  render: () => <MantineListStateFilterRender />,
+  render: () => <AppUIListStateFilterRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Google M3 — 색상 역할 기반 세그먼트 (Cycle 119)
+   Reference M3 — 색상 역할 기반 세그먼트 (Cycle 119)
    M3의 color role 시스템을 SegmentedControl에 적용
 -------------------------------------------------------------------------- */
 function M3ColorRoleSegmentRender() {
@@ -1157,12 +1157,12 @@ function M3ColorRoleSegmentRender() {
 }
 
 export const M3_색상_역할_기반_세그먼트: Story = {
-  name: 'Google M3 — 색상 역할 기반 세그먼트 (Cycle 119)',
+  name: 'Reference M3 — 색상 역할 기반 세그먼트 (Cycle 119)',
   parameters: {
     docs: {
       description: {
         story:
-          'Material 3의 color role 시스템을 SegmentedControl 설정 UI에 적용. 테마/밀도/모션 3가지 설정을 독립 세그먼트로 제어, 선택 상태 실시간 표시.',
+          'RoleToken Design의 color role 시스템을 SegmentedControl 설정 UI에 적용. 테마/밀도/모션 3가지 설정을 독립 세그먼트로 제어, 선택 상태 실시간 표시.',
       },
     },
   },
@@ -1170,10 +1170,10 @@ export const M3_색상_역할_기반_세그먼트: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Linear — 이슈 뷰 전환 세그먼트 (Cycle 119)
-   Linear의 compact issue view switcher 패턴
+   IssueTracker — 이슈 뷰 전환 세그먼트 (Cycle 119)
+   IssueTracker의 compact issue view switcher 패턴
 -------------------------------------------------------------------------- */
-function LinearIssueViewRender() {
+function IssueTrackerIssueViewRender() {
   const [viewMode, setViewMode] = useState(0)
   const [groupBy, setGroupBy] = useState(0)
 
@@ -1234,24 +1234,24 @@ function LinearIssueViewRender() {
   )
 }
 
-export const Linear_이슈_뷰_전환: Story = {
-  name: 'Linear — 이슈 뷰 전환 세그먼트 (Cycle 119)',
+export const IssueTracker_이슈_뷰_전환: Story = {
+  name: 'IssueTracker — 이슈 뷰 전환 세그먼트 (Cycle 119)',
   parameters: {
     docs: {
       description: {
         story:
-          'Linear의 issue view switcher 패턴. 보드/목록/캘린더 뷰 전환 + 그룹화 기준 선택을 SegmentedControl로 구현. 아이콘과 텍스트 조합.',
+          'IssueTracker의 issue view switcher 패턴. 보드/목록/캘린더 뷰 전환 + 그룹화 기준 선택을 SegmentedControl로 구현. 아이콘과 텍스트 조합.',
       },
     },
   },
-  render: () => <LinearIssueViewRender />,
+  render: () => <IssueTrackerIssueViewRender />,
 }
 
 /* --------------------------------------------------------------------------
-   M3 + Linear — 분석 기간 세그먼트 (Cycle 119)
+   M3 + IssueTracker — 분석 기간 세그먼트 (Cycle 119)
    대시보드 기간 필터 패턴 — 일/주/월/분기/연간
 -------------------------------------------------------------------------- */
-function M3LinearPeriodSegmentRender() {
+function M3IssueTrackerPeriodSegmentRender() {
   const [period, setPeriod] = useState(1)
   const [metric, setMetric] = useState(0)
 
@@ -1307,23 +1307,23 @@ function M3LinearPeriodSegmentRender() {
   )
 }
 
-export const M3_Linear_분석_기간_세그먼트: Story = {
-  name: 'M3 + Linear — 분석 기간 세그먼트 (Cycle 119)',
+export const M3_IssueTracker_분석_기간_세그먼트: Story = {
+  name: 'M3 + IssueTracker — 분석 기간 세그먼트 (Cycle 119)',
   parameters: {
     docs: {
       description: {
         story:
-          'Material 3 + Linear의 분석 대시보드 기간 필터 패턴. 기간(일/주/월/분기/연간) + 지표 선택을 SegmentedControl로 조합, 막대 차트로 데이터 시각화.',
+          'RoleToken Design + IssueTracker의 분석 대시보드 기간 필터 패턴. 기간(일/주/월/분기/연간) + 지표 선택을 SegmentedControl로 조합, 막대 차트로 데이터 시각화.',
       },
     },
   },
-  render: () => <M3LinearPeriodSegmentRender />,
+  render: () => <M3IssueTrackerPeriodSegmentRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Chakra UI — 콘텐츠 보기 모드 전환 (카드/리스트/컴팩트)
+   AccessibleUI — 콘텐츠 보기 모드 전환 (카드/리스트/컴팩트)
 -------------------------------------------------------------------------- */
-function ChakraViewModeSegmentRender() {
+function AccessibleViewModeSegmentRender() {
   const [modeIdx, setModeIdx] = useState(0)
   const modes = ['card', 'list', 'compact'] as const
   const mode = modes[modeIdx]
@@ -1394,22 +1394,22 @@ function ChakraViewModeSegmentRender() {
   )
 }
 
-export const Chakra_콘텐츠_보기_모드_전환: Story = {
-  name: 'Chakra UI — 콘텐츠 보기 모드 전환 (카드/리스트/컴팩트)',
+export const Accessible_콘텐츠_보기_모드_전환: Story = {
+  name: 'AccessibleUI — 콘텐츠 보기 모드 전환 (카드/리스트/컴팩트)',
   parameters: {
     docs: {
       description: {
-        story: 'Chakra UI ButtonGroup 대신 SegmentedControl로 보기 모드 전환. 아이콘만 있는 Trigger로 컴팩트하게 구성. 카드/리스트/컴팩트 레이아웃을 실시간으로 전환하는 패턴.',
+        story: 'AccessibleUI ButtonGroup 대신 SegmentedControl로 보기 모드 전환. 아이콘만 있는 Trigger로 컴팩트하게 구성. 카드/리스트/컴팩트 레이아웃을 실시간으로 전환하는 패턴.',
       },
     },
   },
-  render: () => <ChakraViewModeSegmentRender />,
+  render: () => <AccessibleViewModeSegmentRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Mantine — 데이터 집계 단위 전환 (실시간/5분/1시간/1일)
+   AppUI — 데이터 집계 단위 전환 (실시간/5분/1시간/1일)
 -------------------------------------------------------------------------- */
-function MantineDataAggregationSegmentRender() {
+function AppUIDataAggregationSegmentRender() {
   const [intervalIdx, setIntervalIdx] = useState(2)
   const intervalKeys = ['realtime', '5m', '1h', '1d'] as const
   const interval = intervalKeys[intervalIdx]
@@ -1461,22 +1461,22 @@ function MantineDataAggregationSegmentRender() {
   )
 }
 
-export const Mantine_데이터_집계_단위_전환: Story = {
-  name: 'Mantine — 데이터 집계 단위 전환 (실시간/5분/1시간/1일)',
+export const AppUI_데이터_집계_단위_전환: Story = {
+  name: 'AppUI — 데이터 집계 단위 전환 (실시간/5분/1시간/1일)',
   parameters: {
     docs: {
       description: {
-        story: 'Mantine SegmentedControl 패턴 — 실시간/5분/1시간/1일 집계 단위를 선택해 차트 데이터를 전환. 선택값에 따라 막대 높이와 통계값이 즉시 업데이트됩니다.',
+        story: 'AppUI SegmentedControl 패턴 — 실시간/5분/1시간/1일 집계 단위를 선택해 차트 데이터를 전환. 선택값에 따라 막대 높이와 통계값이 즉시 업데이트됩니다.',
       },
     },
   },
-  render: () => <MantineDataAggregationSegmentRender />,
+  render: () => <AppUIDataAggregationSegmentRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Radix UI — 에디터 정렬 툴바 (텍스트 정렬 + 줄 간격)
+   PrimitiveUI — 에디터 정렬 툴바 (텍스트 정렬 + 줄 간격)
 -------------------------------------------------------------------------- */
-function RadixEditorAlignSegmentRender() {
+function PrimitiveEditorAlignSegmentRender() {
   const [alignIdx, setAlignIdx] = useState(0)
   const [spacingIdx, setSpacingIdx] = useState(1)
   const alignKeys = ['left', 'center', 'right', 'justify'] as const
@@ -1528,23 +1528,23 @@ function RadixEditorAlignSegmentRender() {
   )
 }
 
-export const Radix_에디터_정렬_툴바: Story = {
-  name: 'Radix UI — 에디터 정렬 툴바 (텍스트 정렬 + 줄 간격)',
+export const Primitive_에디터_정렬_툴바: Story = {
+  name: 'PrimitiveUI — 에디터 정렬 툴바 (텍스트 정렬 + 줄 간격)',
   parameters: {
     docs: {
       description: {
-        story: 'Radix UI ToggleGroup 대신 SegmentedControl 두 개를 나란히 배치해 에디터 텍스트 정렬 + 줄 간격을 동시에 제어. 미리보기 텍스트에 실시간 반영.',
+        story: 'PrimitiveUI ToggleGroup 대신 SegmentedControl 두 개를 나란히 배치해 에디터 텍스트 정렬 + 줄 간격을 동시에 제어. 미리보기 텍스트에 실시간 반영.',
       },
     },
   },
-  render: () => <RadixEditorAlignSegmentRender />,
+  render: () => <PrimitiveEditorAlignSegmentRender />,
 }
 
 // ──────────────────────────────────────────────────────────────────────────────
-// Cycle 173: Linear Design + Tailwind UI
+// Cycle 173: IssueTracker Design + UtilityUI
 // ──────────────────────────────────────────────────────────────────────────────
 
-function LinearIssueFilterSegmentRender() {
+function IssueTrackerIssueFilterSegmentRender() {
   const [priority, setPriority] = useState(0)
   const [status, setStatus] = useState(0)
   const priorities = ['전체', 'Urgent', 'High', 'Medium', 'Low']
@@ -1603,19 +1603,19 @@ function LinearIssueFilterSegmentRender() {
   )
 }
 
-export const Linear_이슈_우선순위_상태_필터: Story = {
-  name: 'Linear — 이슈 우선순위 + 상태 이중 필터 세그먼트',
+export const IssueTracker_이슈_우선순위_상태_필터: Story = {
+  name: 'IssueTracker — 이슈 우선순위 + 상태 이중 필터 세그먼트',
   parameters: {
     docs: {
       description: {
-        story: 'Linear 이슈 트래커 필터 패턴. 우선순위(Urgent/High/Medium/Low) + 상태(Backlog/Todo/In Progress/Done) 2단 SegmentedControl 조합으로 이슈 교차 필터링.',
+        story: 'IssueTracker 이슈 트래커 필터 패턴. 우선순위(Urgent/High/Medium/Low) + 상태(Backlog/Todo/In Progress/Done) 2단 SegmentedControl 조합으로 이슈 교차 필터링.',
       },
     },
   },
-  render: () => <LinearIssueFilterSegmentRender />,
+  render: () => <IssueTrackerIssueFilterSegmentRender />,
 }
 
-function TailwindDashboardViewRender() {
+function UtilityCSSDashboardViewRender() {
   const [view, setView] = useState(0)
   const [period, setPeriod] = useState(1)
   const views = ['요약', '상세', '원시 데이터']
@@ -1683,19 +1683,19 @@ function TailwindDashboardViewRender() {
   )
 }
 
-export const Tailwind_대시보드_뷰_기간_이중_세그먼트: Story = {
-  name: 'Tailwind UI — 대시보드 뷰 + 기간 이중 SegmentedControl',
+export const UtilityCSS_대시보드_뷰_기간_이중_세그먼트: Story = {
+  name: 'UtilityUI — 대시보드 뷰 + 기간 이중 SegmentedControl',
   parameters: {
     docs: {
       description: {
-        story: 'Tailwind UI 대시보드 컨트롤 패턴. 뷰 모드(요약/상세/원시 데이터) + 기간(오늘/7일/30일/90일) 두 개의 SegmentedControl 동시 제어. 기간 배수로 메트릭 동적 계산.',
+        story: 'UtilityUI 대시보드 컨트롤 패턴. 뷰 모드(요약/상세/원시 데이터) + 기간(오늘/7일/30일/90일) 두 개의 SegmentedControl 동시 제어. 기간 배수로 메트릭 동적 계산.',
       },
     },
   },
-  render: () => <TailwindDashboardViewRender />,
+  render: () => <UtilityCSSDashboardViewRender />,
 }
 
-function LinearTailwindEditorModeRender() {
+function IssueTrackerUtilityCSSEditorModeRender() {
   const [lang, setLang] = useState(0)
   const [theme, setTheme] = useState(0)
   const langs = ['TypeScript', 'JavaScript', 'Python', 'Go']
@@ -1747,14 +1747,14 @@ function LinearTailwindEditorModeRender() {
   )
 }
 
-export const Linear_Tailwind_코드_에디터_세그먼트: Story = {
-  name: 'Linear + Tailwind — 코드 에디터 언어/테마 세그먼트',
+export const IssueTracker_UtilityCSS_코드_에디터_세그먼트: Story = {
+  name: 'IssueTracker + UtilityCSS — 코드 에디터 언어/테마 세그먼트',
   parameters: {
     docs: {
       description: {
-        story: 'Linear + Tailwind UI 코드 에디터 패턴. 언어(TS/JS/Python/Go) + 테마(Light/Dark/System) 두 개 SegmentedControl로 코드 스니펫과 에디터 스타일 동적 전환.',
+        story: 'IssueTracker + UtilityUI 코드 에디터 패턴. 언어(TS/JS/Python/Go) + 테마(Light/Dark/System) 두 개 SegmentedControl로 코드 스니펫과 에디터 스타일 동적 전환.',
       },
     },
   },
-  render: () => <LinearTailwindEditorModeRender />,
+  render: () => <IssueTrackerUtilityCSSEditorModeRender />,
 }

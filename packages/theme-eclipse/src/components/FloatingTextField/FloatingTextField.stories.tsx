@@ -275,11 +275,11 @@ export const 디자인QA = {
     error: false,
     width: '300px',
   },
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
+
   render: ({ width, ...args }: any) => <FloatingTextField {...args} style={{ width }} />,
 }
 
-// Chakra FormControl 패턴: 에러 + 헬퍼 텍스트 조합
+// Accessible FormControl 패턴: 에러 + 헬퍼 텍스트 조합
 const FormControlExample = ({
   label,
   helperText,
@@ -314,7 +314,7 @@ const FormControlExample = ({
   </div>
 )
 
-// Chakra FormControl 패턴: 실시간 유효성 검사 데모
+// Accessible FormControl 패턴: 실시간 유효성 검사 데모
 const ValidationDemoRender = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -332,7 +332,7 @@ const ValidationDemoRender = () => {
     <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', width: '400px', padding: '32px', background: '#fff', borderRadius: '16px', boxShadow: '0 4px 24px rgba(0,0,0,0.08)' }}>
       <div>
         <h3 style={{ margin: '0 0 4px', fontSize: '20px', fontWeight: '700', color: '#0f172a' }}>실시간 유효성 검사</h3>
-        <p style={{ margin: 0, fontSize: '13px', color: '#64748b' }}>Chakra UI FormControl 패턴 적용</p>
+        <p style={{ margin: 0, fontSize: '13px', color: '#64748b' }}>AccessibleUI FormControl 패턴 적용</p>
       </div>
       <FormControlExample
         label="이메일 주소"
@@ -375,7 +375,7 @@ export const 실시간유효성검사: Story = {
   render: () => <ValidationDemoRender />,
 }
 
-// 로그인 폼 레이아웃 (Chakra 필드 그룹 패턴)
+// 로그인 폼 레이아웃 (Accessible 필드 그룹 패턴)
 const LoginFormRender = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -448,8 +448,8 @@ export const 로그인폼: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Tailwind UI 벤치마크: 결제 정보 입력 폼
-   Tailwind UI checkout form 패턴 — 카드 번호/만료일/CVV 인라인 그룹
+   UtilityUI 벤치마크: 결제 정보 입력 폼
+   UtilityUI checkout form 패턴 — 카드 번호/만료일/CVV 인라인 그룹
 -------------------------------------------------------------------------- */
 function PaymentFormRender() {
   const [cardNum, setCardNum] = useState('')
@@ -518,18 +518,18 @@ function PaymentFormRender() {
         {canSubmit ? '결제하기' : '정보를 입력해 주세요'}
       </button>
       <div style={{ fontSize: 11, color: '#94a3b8', textAlign: 'center' }}>
-        Tailwind UI checkout form 패턴 — 카드 번호 포맷팅 + 유효성 검사
+        UtilityUI checkout form 패턴 — 카드 번호 포맷팅 + 유효성 검사
       </div>
     </div>
   )
 }
 
-export const Tailwind_결제_정보_폼: Story = {
+export const UtilityCSS_결제_정보_폼: Story = {
   parameters: {
     docs: {
       description: {
         story:
-          'Tailwind UI checkout form 패턴. 카드 번호 자동 포맷팅(4자리 공백 구분), MM/YY 마스킹, CVV 3자리 제한. 모든 필드가 유효할 때만 제출 버튼이 활성화됩니다.',
+          'UtilityUI checkout form 패턴. 카드 번호 자동 포맷팅(4자리 공백 구분), MM/YY 마스킹, CVV 3자리 제한. 모든 필드가 유효할 때만 제출 버튼이 활성화됩니다.',
       },
     },
   },
@@ -537,8 +537,8 @@ export const Tailwind_결제_정보_폼: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Mantine 벤치마크: 문자 수 카운터 + 힌트 텍스트
-   Mantine TextInput rightSection + description 패턴 — 실시간 글자 수 표시
+   AppUI 벤치마크: 문자 수 카운터 + 힌트 텍스트
+   AppUI TextInput rightSection + description 패턴 — 실시간 글자 수 표시
 -------------------------------------------------------------------------- */
 function CharCounterRender() {
   const [bio, setBio] = useState('')
@@ -611,18 +611,18 @@ function CharCounterRender() {
         </div>
       </div>
       <div style={{ fontSize: 11, color: '#94a3b8', textAlign: 'center' }}>
-        Mantine TextInput description + rightSection 패턴 — 실시간 글자 수 카운터
+        AppUI TextInput description + rightSection 패턴 — 실시간 글자 수 카운터
       </div>
     </div>
   )
 }
 
-export const Mantine_글자수_카운터: Story = {
+export const AppUI_글자수_카운터: Story = {
   parameters: {
     docs: {
       description: {
         story:
-          'Mantine TextInput의 description + rightSection 패턴 응용. 사용자 이름 포맷 검증, URL 형식 검사, 자기소개 글자 수 카운터를 조합한 프로필 편집 폼입니다.',
+          'AppUI TextInput의 description + rightSection 패턴 응용. 사용자 이름 포맷 검증, URL 형식 검사, 자기소개 글자 수 카운터를 조합한 프로필 편집 폼입니다.',
       },
     },
   },
@@ -630,8 +630,8 @@ export const Mantine_글자수_카운터: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Tailwind UI + Mantine 벤치마크: 주소 입력 멀티 스텝 폼
-   Tailwind UI의 단계별 주소 입력 + Mantine autocomplete hint 조합
+   UtilityUI + AppUI 벤치마크: 주소 입력 멀티 스텝 폼
+   UtilityUI의 단계별 주소 입력 + AppUI autocomplete hint 조합
 -------------------------------------------------------------------------- */
 function AddressFormRender() {
   const [step, setStep] = useState<0 | 1 | 2>(0)
@@ -723,18 +723,18 @@ function AddressFormRender() {
         </div>
       )}
       <div style={{ fontSize: 11, color: '#94a3b8', textAlign: 'center' }}>
-        Tailwind UI 다단계 폼 + Mantine 힌트 텍스트 조합 패턴
+        UtilityUI 다단계 폼 + AppUI 힌트 텍스트 조합 패턴
       </div>
     </div>
   )
 }
 
-export const Tailwind_Mantine_주소_멀티스텝: Story = {
+export const UtilityCSS_AppUI_주소_멀티스텝: Story = {
   parameters: {
     docs: {
       description: {
         story:
-          'Tailwind UI 다단계 폼 + Mantine description hint 조합. 우편번호 → 도시 → 도로명 순서로 단계별 입력을 유도하며, 각 단계마다 유효성 검사와 힌트를 제공합니다.',
+          'UtilityUI 다단계 폼 + AppUI description hint 조합. 우편번호 → 도시 → 도로명 순서로 단계별 입력을 유도하며, 각 단계마다 유효성 검사와 힌트를 제공합니다.',
       },
     },
   },
@@ -742,12 +742,12 @@ export const Tailwind_Mantine_주소_멀티스텝: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Radix UI — 접근성 강화 검색 필드
+   PrimitiveUI — 접근성 강화 검색 필드
    aria-label, autocomplete, 실시간 결과 카운트
 -------------------------------------------------------------------------- */
 const SEARCH_ITEMS = ['Button', 'TextField', 'Modal', 'Dropdown', 'Carousel', 'Avatar', 'Checkbox', 'Switch', 'Slider', 'Tooltip']
 
-const RadixSearchFieldDemo = () => {
+const PrimitiveSearchFieldDemo = () => {
   const [query, setQuery] = useState('')
   const results = SEARCH_ITEMS.filter((s) => s.toLowerCase().includes(query.toLowerCase()))
   return (
@@ -780,25 +780,25 @@ const RadixSearchFieldDemo = () => {
           검색 결과가 없습니다
         </div>
       )}
-      <p style={{ fontSize: 11, color: '#94a3b8' }}>Radix UI 접근성 패턴 — role, aria-* 속성 활용</p>
+      <p style={{ fontSize: 11, color: '#94a3b8' }}>PrimitiveUI 접근성 패턴 — role, aria-* 속성 활용</p>
     </div>
   )
 }
 
-export const Radix_접근성_검색_필드: Story = {
+export const Primitive_접근성_검색_필드: Story = {
   parameters: {
     docs: {
       description: {
         story:
-          'Radix UI의 접근성 강화 패턴. aria-label, role="combobox", aria-expanded, autocomplete 속성을 활용한 시맨틱 검색 입력 필드. 입력 시 실시간으로 필터링 결과 개수를 표시합니다.',
+          'PrimitiveUI의 접근성 강화 패턴. aria-label, role="combobox", aria-expanded, autocomplete 속성을 활용한 시맨틱 검색 입력 필드. 입력 시 실시간으로 필터링 결과 개수를 표시합니다.',
       },
     },
   },
-  render: () => <RadixSearchFieldDemo />,
+  render: () => <PrimitiveSearchFieldDemo />,
 }
 
 /* --------------------------------------------------------------------------
-   Chakra UI — 비밀번호 강도 측정 필드
+   AccessibleUI — 비밀번호 강도 측정 필드
    실시간 강도 측정 + 색상 피드백
 -------------------------------------------------------------------------- */
 const calcStrength = (pw: string): { score: number; label: string; color: string } => {
@@ -817,7 +817,7 @@ const calcStrength = (pw: string): { score: number; label: string; color: string
   return map[score]
 }
 
-const ChakraPasswordStrengthDemo = () => {
+const AccessiblePasswordStrengthDemo = () => {
   const [pw, setPw] = useState('')
   const strength = calcStrength(pw)
   return (
@@ -840,25 +840,25 @@ const ChakraPasswordStrengthDemo = () => {
       <div style={{ fontSize: 11, color: '#94a3b8' }}>
         영문 대문자, 숫자, 특수문자 포함 시 강도 증가
       </div>
-      <p style={{ fontSize: 11, color: '#94a3b8' }}>Chakra UI 비밀번호 강도 측정 패턴</p>
+      <p style={{ fontSize: 11, color: '#94a3b8' }}>AccessibleUI 비밀번호 강도 측정 패턴</p>
     </div>
   )
 }
 
-export const Chakra_비밀번호_강도_측정: Story = {
+export const Accessible_비밀번호_강도_측정: Story = {
   parameters: {
     docs: {
       description: {
         story:
-          'Chakra UI의 PasswordInput + 강도 측정 패턴. 영문 대문자, 숫자, 특수문자 포함 여부에 따라 4단계 강도를 색상과 레이블로 즉시 피드백합니다.',
+          'AccessibleUI의 PasswordInput + 강도 측정 패턴. 영문 대문자, 숫자, 특수문자 포함 여부에 따라 4단계 강도를 색상과 레이블로 즉시 피드백합니다.',
       },
     },
   },
-  render: () => <ChakraPasswordStrengthDemo />,
+  render: () => <AccessiblePasswordStrengthDemo />,
 }
 
 /* --------------------------------------------------------------------------
-   Radix + Chakra — OTP 입력 필드
+   Primitive + Accessible — OTP 입력 필드
    6자리 코드 분할 입력 UX 패턴
 -------------------------------------------------------------------------- */
 const OtpInputDemo = () => {
@@ -904,17 +904,17 @@ const OtpInputDemo = () => {
           인증 코드: {otp.join('')}
         </div>
       )}
-      <p style={{ fontSize: 11, color: '#94a3b8' }}>Radix 포커스 관리 + Chakra 단순 Props — 자동 포커스 이동 OTP 입력</p>
+      <p style={{ fontSize: 11, color: '#94a3b8' }}>Primitive 포커스 관리 + Accessible 단순 Props — 자동 포커스 이동 OTP 입력</p>
     </div>
   )
 }
 
-export const Radix_Chakra_OTP_입력: Story = {
+export const Primitive_Accessible_OTP_입력: Story = {
   parameters: {
     docs: {
       description: {
         story:
-          'Radix UI 포커스 관리 + Chakra UI 단순 props 철학 조합. 6자리 OTP를 개별 입력 필드로 분리하여 자동 포커스 이동을 구현합니다.',
+          'PrimitiveUI 포커스 관리 + AccessibleUI 단순 props 철학 조합. 6자리 OTP를 개별 입력 필드로 분리하여 자동 포커스 이동을 구현합니다.',
       },
     },
   },
@@ -922,19 +922,19 @@ export const Radix_Chakra_OTP_입력: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   shadcn/ui — 인라인 편집 필드
+   ComposableUI — 인라인 편집 필드
    클릭하여 편집 전환 + 저장/취소 패턴
 -------------------------------------------------------------------------- */
-const SHADCN_FIELDS = [
+const UTILITYUI_FIELDS = [
   { key: 'name', label: '프로젝트명', value: 'Orbit UI' },
   { key: 'slug', label: 'URL 슬러그', value: 'orbit-ui' },
   { key: 'desc', label: '설명', value: '다계층 React 디자인 시스템' },
 ]
 
-function ShadcnInlineEditRender() {
+function ComposableUIInlineEditRender() {
   const [editing, setEditing] = useState<string | null>(null)
   const [values, setValues] = useState<Record<string, string>>(
-    Object.fromEntries(SHADCN_FIELDS.map((f) => [f.key, f.value]))
+    Object.fromEntries(UTILITYUI_FIELDS.map((f) => [f.key, f.value]))
   )
   const [drafts, setDrafts] = useState<Record<string, string>>({})
 
@@ -951,7 +951,7 @@ function ShadcnInlineEditRender() {
   return (
     <div style={{ width: 340, display: 'flex', flexDirection: 'column', gap: 16 }}>
       <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>프로젝트 설정</div>
-      {SHADCN_FIELDS.map((field) => (
+      {UTILITYUI_FIELDS.map((field) => (
         <div key={field.key}>
           <div style={{ fontSize: 11, fontWeight: 600, color: '#64748b', marginBottom: 4, textTransform: 'uppercase', letterSpacing: '0.05em' }}>{field.label}</div>
           {editing === field.key ? (
@@ -982,35 +982,35 @@ function ShadcnInlineEditRender() {
           )}
         </div>
       ))}
-      <div style={{ fontSize: 11, color: '#94a3b8' }}>shadcn/ui 인라인 편집 패턴 — 클릭하여 FloatingTextField로 전환</div>
+      <div style={{ fontSize: 11, color: '#94a3b8' }}>ComposableUI 인라인 편집 패턴 — 클릭하여 FloatingTextField로 전환</div>
     </div>
   )
 }
 
-export const shadcn_인라인_편집_필드: Story = {
-  name: 'shadcn/ui — 인라인 편집 필드 (Click-to-edit)',
+export const ComposableUI_인라인_편집_필드: Story = {
+  name: 'ComposableUI — 인라인 편집 필드 (Click-to-edit)',
   parameters: {
     docs: {
       description: {
-        story: 'shadcn/ui의 Editable 컴포넌트 패턴. 정적 텍스트를 클릭하면 FloatingTextField로 전환되고, 저장/취소로 확정합니다. Notion/Linear 인라인 편집 UX와 동일한 패턴.',
+        story: 'ComposableUI의 Editable 컴포넌트 패턴. 정적 텍스트를 클릭하면 FloatingTextField로 전환되고, 저장/취소로 확정합니다. WorkspaceEditor/IssueTracker 인라인 편집 UX와 동일한 패턴.',
       },
     },
   },
-  render: () => <ShadcnInlineEditRender />,
+  render: () => <ComposableUIInlineEditRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Linear Design — 이슈 제목 + 설명 입력 폼
+   IssueTracker Design — 이슈 제목 + 설명 입력 폼
    미니멀 컴팩트 + 빠른 입력 패턴
 -------------------------------------------------------------------------- */
-const LINEAR_PRIORITIES = [
+const TRACKER_PRIORITIES = [
   { value: 'urgent', label: '긴급', color: '#ef4444' },
   { value: 'high', label: '높음', color: '#f59e0b' },
   { value: 'medium', label: '중간', color: '#6366f1' },
   { value: 'low', label: '낮음', color: '#94a3b8' },
 ]
 
-function LinearIssueFormRender() {
+function IssueTrackerIssueFormRender() {
   const [title, setTitle] = useState('')
   const [desc, setDesc] = useState('')
   const [priority, setPriority] = useState('medium')
@@ -1026,7 +1026,7 @@ function LinearIssueFormRender() {
     setPriority('medium')
   }
 
-  const pr = LINEAR_PRIORITIES.find((p) => p.value === priority)!
+  const pr = TRACKER_PRIORITIES.find((p) => p.value === priority)!
 
   return (
     <div style={{ width: 400, display: 'flex', flexDirection: 'column', gap: 12 }}>
@@ -1040,7 +1040,7 @@ function LinearIssueFormRender() {
           onChange={(e) => setPriority(e.target.value)}
           style={{ marginLeft: 'auto', fontSize: 11, fontWeight: 600, color: pr.color, border: `1px solid ${pr.color}30`, background: `${pr.color}10`, borderRadius: 6, padding: '3px 8px', cursor: 'pointer', outline: 'none' }}
         >
-          {LINEAR_PRIORITIES.map((p) => (
+          {TRACKER_PRIORITIES.map((p) => (
             <option key={p.value} value={p.value}>{p.label}</option>
           ))}
         </select>
@@ -1066,25 +1066,25 @@ function LinearIssueFormRender() {
         </button>
         <span style={{ fontSize: 11, color: '#94a3b8' }}>Enter로 빠른 저장</span>
       </div>
-      <div style={{ fontSize: 11, color: '#94a3b8' }}>Linear 이슈 입력 패턴 — 우선순위 선택 + 제목/설명 FloatingTextField</div>
+      <div style={{ fontSize: 11, color: '#94a3b8' }}>IssueTracker 이슈 입력 패턴 — 우선순위 선택 + 제목/설명 FloatingTextField</div>
     </div>
   )
 }
 
-export const Linear_이슈_생성_폼: Story = {
-  name: 'Linear Design — 이슈 생성 폼 (컴팩트 입력)',
+export const IssueTracker_이슈_생성_폼: Story = {
+  name: 'IssueTracker Design — 이슈 생성 폼 (컴팩트 입력)',
   parameters: {
     docs: {
       description: {
-        story: 'Linear 이슈 생성 UI 패턴. 우선순위 컬러 선택기 + 제목 FloatingTextField + 설명 FloatingTextField + Enter 단축키 제출. Linear의 미니멀 컴팩트 입력 패턴 구현.',
+        story: 'IssueTracker 이슈 생성 UI 패턴. 우선순위 컬러 선택기 + 제목 FloatingTextField + 설명 FloatingTextField + Enter 단축키 제출. IssueTracker의 미니멀 컴팩트 입력 패턴 구현.',
       },
     },
   },
-  render: () => <LinearIssueFormRender />,
+  render: () => <IssueTrackerIssueFormRender />,
 }
 
 /* --------------------------------------------------------------------------
-   shadcn/ui + Linear — 검색 + 필터 복합 인풋
+   ComposableUI + IssueTracker — 검색 + 필터 복합 인풋
    커맨드 팔레트 스타일 입력 패턴
 -------------------------------------------------------------------------- */
 const CMD_ITEMS = [
@@ -1098,7 +1098,7 @@ const CMD_ITEMS = [
 const STATUS_COLORS: Record<string, string> = { 'todo': '#94a3b8', 'in-progress': '#6366f1', 'done': '#10b981' }
 const TYPE_ICONS: Record<string, string> = { issue: '#', component: '◻', doc: '▤' }
 
-function ShadcnLinearSearchRender() {
+function ComposableUIIssueTrackerSearchRender() {
   const [query, setQuery] = useState('')
   const [focused, setFocused] = useState(false)
 
@@ -1133,25 +1133,25 @@ function ShadcnLinearSearchRender() {
           </div>
         </div>
       )}
-      <div style={{ marginTop: results.length > 0 && focused ? 8 : 48, fontSize: 11, color: '#94a3b8' }}>shadcn/ui + Linear — 커맨드 팔레트 스타일 검색 FloatingTextField</div>
+      <div style={{ marginTop: results.length > 0 && focused ? 8 : 48, fontSize: 11, color: '#94a3b8' }}>ComposableUI + IssueTracker — 커맨드 팔레트 스타일 검색 FloatingTextField</div>
     </div>
   )
 }
 
-export const shadcn_Linear_커맨드_팔레트_검색: Story = {
-  name: 'shadcn/ui + Linear — 커맨드 팔레트 스타일 검색',
+export const ComposableUI_IssueTracker_커맨드_팔레트_검색: Story = {
+  name: 'ComposableUI + IssueTracker — 커맨드 팔레트 스타일 검색',
   parameters: {
     docs: {
       description: {
-        story: 'shadcn/ui Command + Linear 검색바 패턴 조합. FloatingTextField에 포커스 시 드롭다운 결과가 노출되고, 타입 아이콘과 상태 도트로 결과를 구분합니다. 커맨드 팔레트 UX.',
+        story: 'ComposableUI Command + IssueTracker 검색바 패턴 조합. FloatingTextField에 포커스 시 드롭다운 결과가 노출되고, 타입 아이콘과 상태 도트로 결과를 구분합니다. 커맨드 팔레트 UX.',
       },
     },
   },
-  render: () => <ShadcnLinearSearchRender />,
+  render: () => <ComposableUIIssueTrackerSearchRender />,
 }
 
-// Cycle 140 — Mantine + Arco Design benchmark
-function MantiineInlineEdit140Render() {
+// Cycle 140 — AppUI + DataProductUI benchmark
+function AccessibleKitInlineEdit140Render() {
   const fields = [
     { key: 'name', label: '이름', value: '김희준' },
     { key: 'title', label: '직함', value: '시니어 프론트엔드 엔지니어' },
@@ -1184,7 +1184,7 @@ function MantiineInlineEdit140Render() {
     <div style={{ width: 380, fontFamily: 'system-ui, sans-serif' }}>
       <div style={{ marginBottom: 16 }}>
         <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>프로필 인라인 편집</div>
-        <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>Mantine InlineEdit 패턴</div>
+        <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>AppUI InlineEdit 패턴</div>
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
         {fields.map((field) => (
@@ -1217,19 +1217,19 @@ function MantiineInlineEdit140Render() {
   )
 }
 
-export const Mantine_인라인_프로필_편집: Story = {
-  name: 'Mantine — 인라인 프로필 편집 (Cycle 140)',
+export const AppUI_인라인_프로필_편집: Story = {
+  name: 'AppUI — 인라인 프로필 편집 (Cycle 140)',
   parameters: {
     docs: {
       description: {
-        story: 'Mantine InlineEdit 패턴. 각 필드를 클릭하면 FloatingTextField로 전환되어 즉시 편집. 저장/취소 버튼으로 확정.',
+        story: 'AppUI InlineEdit 패턴. 각 필드를 클릭하면 FloatingTextField로 전환되어 즉시 편집. 저장/취소 버튼으로 확정.',
       },
     },
   },
-  render: () => <MantiineInlineEdit140Render />,
+  render: () => <AccessibleKitInlineEdit140Render />,
 }
 
-function ArcoFormValidation140Render() {
+function DataProductFormValidation140Render() {
   const [form, setForm] = useState({ username: '', email: '', website: '' })
   const [touched, setTouched] = useState<Record<string, boolean>>({})
   const [submitted, setSubmitted] = useState(false)
@@ -1258,7 +1258,7 @@ function ArcoFormValidation140Render() {
     <div style={{ width: 360, fontFamily: 'system-ui, sans-serif' }}>
       <div style={{ marginBottom: 16 }}>
         <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>계정 설정</div>
-        <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>Arco Design Form Validation 패턴</div>
+        <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>DataProductUI Form Validation 패턴</div>
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
         {[
@@ -1296,19 +1296,19 @@ function ArcoFormValidation140Render() {
   )
 }
 
-export const Arco_폼_실시간_유효성_검사: Story = {
-  name: 'Arco Design — 폼 실시간 유효성 검사 (Cycle 140)',
+export const DataProduct_폼_실시간_유효성_검사: Story = {
+  name: 'DataProductUI — 폼 실시간 유효성 검사 (Cycle 140)',
   parameters: {
     docs: {
       description: {
-        story: 'Arco Design Form Validation 패턴. blur 시 실시간 검증, 오류 메시지 즉시 표시. 모든 필드 유효 시 제출 버튼 활성화.',
+        story: 'DataProductUI Form Validation 패턴. blur 시 실시간 검증, 오류 메시지 즉시 표시. 모든 필드 유효 시 제출 버튼 활성화.',
       },
     },
   },
-  render: () => <ArcoFormValidation140Render />,
+  render: () => <DataProductFormValidation140Render />,
 }
 
-function MantiineArcoMultiStep140Render() {
+function AccessibleKitDataProductMultiStep140Render() {
   const [step, setStep] = useState(0)
   const [data, setData] = useState({ fullName: '', email: '', company: '', role: '' })
   const [errors, setErrors] = useState<Record<string, string>>({})
@@ -1397,42 +1397,42 @@ function MantiineArcoMultiStep140Render() {
   )
 }
 
-export const Mantine_Arco_멀티스텝_가입_폼: Story = {
-  name: 'Mantine + Arco — 멀티스텝 가입 폼 (Cycle 140)',
+export const AppUI_DataProduct_멀티스텝_가입_폼: Story = {
+  name: 'AppUI + DataProduct — 멀티스텝 가입 폼 (Cycle 140)',
   parameters: {
     docs: {
       description: {
-        story: 'Mantine Stepper + Arco Design Form 패턴 조합. 3단계 가입 폼, 각 단계별 실시간 유효성 검사, 진행 표시 바 애니메이션.',
+        story: 'AppUI Stepper + DataProductUI Form 패턴 조합. 3단계 가입 폼, 각 단계별 실시간 유효성 검사, 진행 표시 바 애니메이션.',
       },
     },
   },
-  render: () => <MantiineArcoMultiStep140Render />,
+  render: () => <AccessibleKitDataProductMultiStep140Render />,
 }
 
 /* --------------------------------------------------------------------------
-   Cycle 162 — Raycast Extensions + Notion Design
-   Raycast: 빠른 명령 검색 입력 패턴 (Quick Action Search)
+   Cycle 162 — CommandPalette Extensions + WorkspaceEditor Design
+   CommandPalette: 빠른 명령 검색 입력 패턴 (Quick Action Search)
 -------------------------------------------------------------------------- */
-const RAYCAST_COMMANDS = [
+const LAUNCHER_COMMANDS = [
   { icon: '📋', title: '클립보드 히스토리', shortcut: '⌘ V', category: '시스템' },
   { icon: '📸', title: '스크린샷 캡처', shortcut: '⌘ ⇧ 5', category: '시스템' },
   { icon: '🔗', title: 'URL 단축', shortcut: '⌘ U', category: '도구' },
   { icon: '🌐', title: '번역', shortcut: '⌘ T', category: '도구' },
-  { icon: '📝', title: '노트 생성', shortcut: '⌘ N', category: 'Notion' },
+  { icon: '📝', title: '노트 생성', shortcut: '⌘ N', category: 'WorkspaceEditor' },
   { icon: '📅', title: '일정 추가', shortcut: '⌘ D', category: '캘린더' },
 ]
 
-function RaycastQuickSearchRender() {
+function CommandPaletteQuickSearchRender() {
   const [query, setQuery] = useState('')
   const [focused, setFocused] = useState(false)
 
   const filtered = query.length > 0
-    ? RAYCAST_COMMANDS.filter(c => c.title.includes(query) || c.category.includes(query))
-    : RAYCAST_COMMANDS
+    ? LAUNCHER_COMMANDS.filter(c => c.title.includes(query) || c.category.includes(query))
+    : LAUNCHER_COMMANDS
 
   return (
     <div style={{ width: 380, fontFamily: 'system-ui, sans-serif' }}>
-      <p style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 10 }}>Raycast — 빠른 명령 검색</p>
+      <p style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 10 }}>CommandPalette — 빠른 명령 검색</p>
       <div style={{ borderRadius: 12, overflow: 'hidden', border: `1.5px solid ${focused ? '#6366f1' : '#e2e8f0'}`, background: '#fff', boxShadow: focused ? '0 0 0 3px #6366f115' : '0 2px 8px rgba(0,0,0,0.05)', transition: 'all 150ms' }}>
         <div style={{ padding: '4px 12px' }}>
           <FloatingTextField
@@ -1470,22 +1470,22 @@ function RaycastQuickSearchRender() {
   )
 }
 
-export const Raycast_빠른_명령_검색_입력: Story = {
-  name: 'Raycast Extensions — 빠른 명령 검색 입력 패턴',
+export const CommandPalette_빠른_명령_검색_입력: Story = {
+  name: 'CommandPalette Extensions — 빠른 명령 검색 입력 패턴',
   parameters: {
     docs: {
       description: {
-        story: 'Raycast Quick Search 패턴. FloatingTextField로 명령 검색, 실시간 필터링, 카테고리+단축키 표시. 포커스 시 글로우 효과로 활성 상태 강조.',
+        story: 'CommandPalette Quick Search 패턴. FloatingTextField로 명령 검색, 실시간 필터링, 카테고리+단축키 표시. 포커스 시 글로우 효과로 활성 상태 강조.',
       },
     },
   },
-  render: () => <RaycastQuickSearchRender />,
+  render: () => <CommandPaletteQuickSearchRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Notion Design: 인라인 페이지 제목 편집 패턴
+   WorkspaceEditor Design: 인라인 페이지 제목 편집 패턴
 -------------------------------------------------------------------------- */
-function NotionInlineTitleEditRender() {
+function WorkspaceEditorInlineTitleEditRender() {
   const [title, setTitle] = useState('')
   const [subtext, setSubtext] = useState('')
   const [titleSaved, setTitleSaved] = useState(false)
@@ -1497,8 +1497,8 @@ function NotionInlineTitleEditRender() {
   }
 
   return (
-    <div style={{ width: 440, fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' }}>
-      <p style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 12 }}>Notion Design — 인라인 페이지 제목 편집</p>
+    <div style={{ width: 440, fontFamily: '"Segoe UI", sans-serif' }}>
+      <p style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 12 }}>WorkspaceEditor Design — 인라인 페이지 제목 편집</p>
       <div style={{ background: '#fff', borderRadius: 12, border: '1px solid #e5e7eb', padding: '24px 28px', boxShadow: '0 2px 12px rgba(0,0,0,0.05)' }}>
         {/* Page icon area */}
         <div style={{ marginBottom: 16, display: 'flex', alignItems: 'center', gap: 8 }}>
@@ -1506,7 +1506,7 @@ function NotionInlineTitleEditRender() {
           <div style={{ fontSize: 11, color: '#94a3b8' }}>아이콘 클릭으로 변경</div>
         </div>
 
-        {/* Title field — Notion 스타일: 큰 플레이스홀더 */}
+        {/* Title field — WorkspaceEditor 스타일: 큰 플레이스홀더 */}
         <div style={{ marginBottom: 12 }}>
           <div style={{ fontSize: 10, fontWeight: 600, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.07em', marginBottom: 6 }}>페이지 제목</div>
           <FloatingTextField
@@ -1547,20 +1547,20 @@ function NotionInlineTitleEditRender() {
   )
 }
 
-export const Notion_인라인_페이지_제목_편집: Story = {
-  name: 'Notion Design — 인라인 페이지 제목 편집 패턴',
+export const WorkspaceEditor_인라인_페이지_제목_편집: Story = {
+  name: 'WorkspaceEditor Design — 인라인 페이지 제목 편집 패턴',
   parameters: {
     docs: {
       description: {
-        story: 'Notion의 빈 페이지 제목 편집 UX. 큰 플레이스홀더("새 페이지"), 부제목 필드, 실시간 미리보기, 생성 버튼. FloatingTextField 2개 조합 패턴.',
+        story: 'WorkspaceEditor의 빈 페이지 제목 편집 UX. 큰 플레이스홀더("새 페이지"), 부제목 필드, 실시간 미리보기, 생성 버튼. FloatingTextField 2개 조합 패턴.',
       },
     },
   },
-  render: () => <NotionInlineTitleEditRender />,
+  render: () => <WorkspaceEditorInlineTitleEditRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Raycast + Notion: 복합 문서 검색 + 생성 패턴
+   CommandPalette + WorkspaceEditor: 복합 문서 검색 + 생성 패턴
 -------------------------------------------------------------------------- */
 const RECENT_DOCS = [
   { icon: '📊', title: '1분기 성과 리포트', date: '오늘', tag: '보고서' },
@@ -1569,7 +1569,7 @@ const RECENT_DOCS = [
   { icon: '📅', title: '스프린트 29 플래닝', date: '1주 전', tag: '기획' },
 ]
 
-function RaycastNotionDocSearchRender() {
+function CommandPaletteWorkspaceEditorDocSearchRender() {
   const [query, setQuery] = useState('')
   const [newDocTitle, setNewDocTitle] = useState('')
   const [created, setCreated] = useState(false)
@@ -1587,12 +1587,12 @@ function RaycastNotionDocSearchRender() {
 
   return (
     <div style={{ width: 420, fontFamily: 'system-ui, sans-serif' }}>
-      <p style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 10 }}>Raycast + Notion — 문서 검색 & 생성</p>
+      <p style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 10 }}>CommandPalette + WorkspaceEditor — 문서 검색 & 생성</p>
       <div style={{ background: '#fff', borderRadius: 14, border: '1px solid #e5e7eb', overflow: 'hidden', boxShadow: '0 4px 20px rgba(0,0,0,0.06)' }}>
         {/* Search */}
         <div style={{ padding: '12px 16px', borderBottom: '1px solid #f1f5f9' }}>
           <FloatingTextField
-            placeholder="문서 검색 (Raycast 패턴)"
+            placeholder="문서 검색 (CommandPalette 패턴)"
             value={query}
             onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setQuery(e.target.value)}
           />
@@ -1616,9 +1616,9 @@ function RaycastNotionDocSearchRender() {
           )}
         </div>
 
-        {/* Create new doc — Notion 패턴 */}
+        {/* Create new doc — WorkspaceEditor 패턴 */}
         <div style={{ padding: '12px 16px', borderTop: '1px solid #f1f5f9', background: '#fafafa' }}>
-          <div style={{ fontSize: 10, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.07em', marginBottom: 8 }}>새 문서 생성 (Notion 패턴)</div>
+          <div style={{ fontSize: 10, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.07em', marginBottom: 8 }}>새 문서 생성 (WorkspaceEditor 패턴)</div>
           <div style={{ display: 'flex', gap: 8 }}>
             <div style={{ flex: 1 }}>
               <FloatingTextField
@@ -1641,27 +1641,27 @@ function RaycastNotionDocSearchRender() {
   )
 }
 
-export const Raycast_Notion_문서_검색_생성_패널: Story = {
-  name: 'Raycast + Notion — 문서 검색 & 생성 패널',
+export const CommandPalette_WorkspaceEditor_문서_검색_생성_패널: Story = {
+  name: 'CommandPalette + WorkspaceEditor — 문서 검색 & 생성 패널',
   parameters: {
     docs: {
       description: {
-        story: 'Raycast 검색 목록 + Notion 인라인 생성 패턴 조합. FloatingTextField 2개를 각각 검색/생성 용도로 활용. 실시간 필터링, 빠른 문서 생성 UX.',
+        story: 'CommandPalette 검색 목록 + WorkspaceEditor 인라인 생성 패턴 조합. FloatingTextField 2개를 각각 검색/생성 용도로 활용. 실시간 필터링, 빠른 문서 생성 UX.',
       },
     },
   },
-  render: () => <RaycastNotionDocSearchRender />,
+  render: () => <CommandPaletteWorkspaceEditorDocSearchRender />,
 }
 
-// ─── Cycle 190: Vercel Design + Notion Design ───────────────────────────────
+// ─── Cycle 190: DeployPlatform Design + WorkspaceEditor Design ───────────────────────────────
 
-const VERCEL_ENV_VARS_190 = [
+const DEPLOY_ENV_VARS_190 = [
   { key: 'NEXT_PUBLIC_API_URL', value: 'https://api.example.com', env: 'Production' },
   { key: 'DATABASE_URL', value: 'postgresql://...', env: 'Preview' },
   { key: 'NEXTAUTH_SECRET', value: '', env: 'All' },
 ]
 
-function VercelApiKeyFieldRender() {
+function DeployPlatformApiKeyFieldRender() {
   const [apiKey, setApiKey] = useState('vrk_1234567890abcdef1234567890abcdef')
   const [show, setShow] = useState(false)
   const [copied, setCopied] = useState(false)
@@ -1682,7 +1682,7 @@ function VercelApiKeyFieldRender() {
       </div>
       <div style={{ padding: '0 24px 20px', display: 'flex', flexDirection: 'column', gap: 14 }}>
         <div style={{ fontSize: 11, color: '#64748b' }}>
-          Vercel API 키를 사용하면 REST API를 통해 프로젝트를 관리할 수 있습니다.
+          DeployPlatform API 키를 사용하면 REST API를 통해 프로젝트를 관리할 수 있습니다.
         </div>
         {/* API Key field with show/hide */}
         <div style={{ position: 'relative' }}>
@@ -1703,7 +1703,7 @@ function VercelApiKeyFieldRender() {
         </div>
         {/* Env var list */}
         <div style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.07em' }}>환경 변수</div>
-        {VERCEL_ENV_VARS_190.map((ev, i) => (
+        {DEPLOY_ENV_VARS_190.map((ev, i) => (
           <div key={i} style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
             <div style={{ flex: 1 }}>
               <FloatingTextField
@@ -1721,44 +1721,44 @@ function VercelApiKeyFieldRender() {
   )
 }
 
-export const Vercel_모노크롬_API_키_입력_필드: Story = {
-  name: 'Vercel — API 키 & 환경변수 관리 필드',
+export const DeployPlatform_모노크롬_API_키_입력_필드: Story = {
+  name: 'DeployPlatform — API 키 & 환경변수 관리 필드',
   parameters: {
     docs: {
       description: {
         story:
-          'Vercel 모노크롬 디자인 시스템 패턴. API 키 show/hide + 원클릭 복사 + 환경변수 인라인 입력. ' +
+          'DeployPlatform 모노크롬 디자인 시스템 패턴. API 키 show/hide + 원클릭 복사 + 환경변수 인라인 입력. ' +
           'FloatingTextField를 API 키 마스킹 및 환경 변수 편집 필드로 활용.',
       },
     },
   },
-  render: () => <VercelApiKeyFieldRender />,
+  render: () => <DeployPlatformApiKeyFieldRender />,
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
 
-const NOTION_DB_PROPS_190 = [
+const WORKSPACE_DB_PROPS_190 = [
   { label: '제목', value: '디자인 시스템 2025 로드맵', type: '텍스트' },
   { label: '담당자', value: 'HeeJun Kim', type: '사람' },
   { label: '마감일', value: '2025-12-31', type: '날짜' },
   { label: '우선순위', value: 'High', type: '선택' },
 ]
 
-function NotionPropertyFieldRender() {
-  const [vals, setVals] = useState(NOTION_DB_PROPS_190.map(p => p.value))
+function WorkspaceEditorPropertyFieldRender() {
+  const [vals, setVals] = useState(WORKSPACE_DB_PROPS_190.map(p => p.value))
   const [editing, setEditing] = useState<number | null>(null)
 
   return (
     <div style={{ width: 380, fontFamily: 'system-ui, sans-serif', border: '1px solid #e2e8f0', borderRadius: 12, overflow: 'hidden', background: '#fff' }}>
-      {/* Notion-style DB header */}
+      {/* WorkspaceEditor-style DB header */}
       <div style={{ padding: '14px 20px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', gap: 8 }}>
         <span style={{ fontSize: 18 }}>📋</span>
         <span style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>데이터베이스 속성</span>
-        <span style={{ marginLeft: 'auto', fontSize: 11, color: '#94a3b8' }}>Notion 패턴</span>
+        <span style={{ marginLeft: 'auto', fontSize: 11, color: '#94a3b8' }}>WorkspaceEditor 패턴</span>
       </div>
       {/* Property rows */}
       <div style={{ padding: '12px 20px', display: 'flex', flexDirection: 'column', gap: 10 }}>
-        {NOTION_DB_PROPS_190.map((prop, i) => (
+        {WORKSPACE_DB_PROPS_190.map((prop, i) => (
           <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
             <div style={{ width: 72, fontSize: 11, color: '#64748b', fontWeight: 500, flexShrink: 0 }}>
               <div>{prop.label}</div>
@@ -1798,23 +1798,23 @@ function NotionPropertyFieldRender() {
   )
 }
 
-export const Notion_프로퍼티_인라인_편집_필드: Story = {
-  name: 'Notion — 데이터베이스 속성 인라인 편집',
+export const WorkspaceEditor_프로퍼티_인라인_편집_필드: Story = {
+  name: 'WorkspaceEditor — 데이터베이스 속성 인라인 편집',
   parameters: {
     docs: {
       description: {
         story:
-          'Notion 데이터베이스 속성 패널 패턴. 셀 클릭 → FloatingTextField 인라인 편집 전환 → blur 시 저장. ' +
+          'WorkspaceEditor 데이터베이스 속성 패널 패턴. 셀 클릭 → FloatingTextField 인라인 편집 전환 → blur 시 저장. ' +
           '속성 타입 레이블, 비어 있음 placeholder, hover 강조 효과 포함.',
       },
     },
   },
-  render: () => <NotionPropertyFieldRender />,
+  render: () => <WorkspaceEditorPropertyFieldRender />,
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
 
-function VercelNotionMultiFieldRender() {
+function DeployPlatformWorkspaceEditorMultiFieldRender() {
   const [projectName, setProjectName] = useState('')
   const [domain, setDomain] = useState('')
   const [description, setDescription] = useState('')
@@ -1838,12 +1838,12 @@ function VercelNotionMultiFieldRender() {
           <span style={{ fontSize: 11, fontWeight: 900, color: '#000' }}>▲</span>
         </div>
         <span style={{ fontSize: 14, fontWeight: 700 }}>새 프로젝트 생성</span>
-        <span style={{ marginLeft: 'auto', fontSize: 10, background: '#222', padding: '3px 8px', borderRadius: 5, color: '#a3a3a3' }}>Vercel + Notion</span>
+        <span style={{ marginLeft: 'auto', fontSize: 10, background: '#222', padding: '3px 8px', borderRadius: 5, color: '#a3a3a3' }}>DeployPlatform + WorkspaceEditor</span>
       </div>
       {/* Form body */}
       <div style={{ padding: '20px 24px', display: 'flex', flexDirection: 'column', gap: 16 }}>
-        {/* Section: Vercel fields */}
-        <div style={{ fontSize: 10, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.07em' }}>Vercel 설정</div>
+        {/* Section: DeployPlatform fields */}
+        <div style={{ fontSize: 10, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.07em' }}>DeployPlatform 설정</div>
         <FloatingTextField
           placeholder="프로젝트 이름"
           value={projectName}
@@ -1856,16 +1856,16 @@ function VercelNotionMultiFieldRender() {
           onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setDomain(e.target.value)}
           style={{ width: '100%' }}
         />
-        {/* Section: Notion fields */}
-        <div style={{ fontSize: 10, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.07em', marginTop: 4 }}>Notion 연동 (선택)</div>
+        {/* Section: WorkspaceEditor fields */}
+        <div style={{ fontSize: 10, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.07em', marginTop: 4 }}>WorkspaceEditor 연동 (선택)</div>
         <FloatingTextField
-          placeholder="Notion 페이지 설명"
+          placeholder="WorkspaceEditor 페이지 설명"
           value={description}
           onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setDescription(e.target.value)}
           style={{ width: '100%' }}
         />
         <FloatingTextField
-          placeholder="Notion 통합 토큰"
+          placeholder="WorkspaceEditor 통합 토큰"
           value={token}
           onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setToken(e.target.value)}
           style={{ width: '100%' }}
@@ -1886,16 +1886,16 @@ function VercelNotionMultiFieldRender() {
   )
 }
 
-export const Vercel_Notion_다중_필드_프로젝트_생성_폼: Story = {
-  name: 'Vercel + Notion — 다중 FloatingTextField 프로젝트 생성 폼',
+export const DeployPlatform_WorkspaceEditor_다중_필드_프로젝트_생성_폼: Story = {
+  name: 'DeployPlatform + WorkspaceEditor — 다중 FloatingTextField 프로젝트 생성 폼',
   parameters: {
     docs: {
       description: {
         story:
-          'Vercel 모노크롬 + Notion 통합 설정 복합 폼. FloatingTextField 4개를 Vercel 필수 항목(이름/도메인)과 Notion 선택 항목(설명/토큰)으로 분리. ' +
+          'DeployPlatform 모노크롬 + WorkspaceEditor 통합 설정 복합 폼. FloatingTextField 4개를 DeployPlatform 필수 항목(이름/도메인)과 WorkspaceEditor 선택 항목(설명/토큰)으로 분리. ' +
           '필수 필드 검증 + 제출 성공 피드백 패턴.',
       },
     },
   },
-  render: () => <VercelNotionMultiFieldRender />,
+  render: () => <DeployPlatformWorkspaceEditorMultiFieldRender />,
 }

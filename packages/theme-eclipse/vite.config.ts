@@ -6,7 +6,6 @@ import {
   cssReorderPlugin,
 } from '@orbit-ui/vite-plugin'
 import babel, { getBabelOutputPlugin } from '@rollup/plugin-babel'
-import dynamicImportVars from '@rollup/plugin-dynamic-import-vars'
 import react from '@vitejs/plugin-react-swc'
 import autoprefixer from 'autoprefixer'
 import { BuildOptions, Plugin, UserConfig, defineConfig } from 'vite'
@@ -49,6 +48,7 @@ export default defineConfig(({ mode }) => {
           composites: path.resolve(__dirname, 'src/composites.ts'),
         },
         fileName: '[name]',
+        cssFileName: 'style',
       },
       rollupOptions: {
         external: (id) => {
@@ -69,6 +69,7 @@ export default defineConfig(({ mode }) => {
                 '@babel/preset-env',
                 {
                   targets: browserlist,
+                  modules: false,
                   useBuiltIns: false,
                   bugfixes: true,
                 },
@@ -76,7 +77,6 @@ export default defineConfig(({ mode }) => {
             ],
             plugins: [['@babel/plugin-transform-runtime', { corejs: false }]],
           }),
-          dynamicImportVars(),
         ] as NonNullable<BuildOptions['rollupOptions']>['plugins'],
         output: [
           {
@@ -121,7 +121,7 @@ export default defineConfig(({ mode }) => {
       testTimeout: 10000,
       exclude: [...configDefaults.exclude, 'e2e/*'],
       coverage: {
-        // @hyunseung.ryu - coverage 생성 시 이슈 발생 : https://github.com/vitest-dev/vitest/issues/5101
+        // @hyunseung.ryu - coverage 생성 시 이슈 발생 : https://code.example.com/vitest-dev/vitest/issues/5101
         exclude: [...coverageConfigDefaults.exclude, '**/*.css.ts', '**/*.stories.tsx'],
       },
       server: {

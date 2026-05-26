@@ -76,7 +76,7 @@ export const 기본 = {
 } satisfies StoryObj<typeof meta>
 
 export const 디자인_QA: Story = {
-  // eslint-disable-next-line
+
   render: (args) => {
     return (
       <div style={{ display: 'flex', flexDirection: 'column', border: '1px solid red' }}>

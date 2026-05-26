@@ -263,13 +263,13 @@ export const 필터_패널_드로어: Story = {
   render: () => <DrawerFilterRender />,
 }
 
-// ─── Apple HIG 스타일: 바텀시트 스냅 포인트 시뮬레이션 ───────────────────────
-// Apple HIG의 iOS Sheet 패턴:
+// ─── Platform HIG 스타일: 바텀시트 스냅 포인트 시뮬레이션 ───────────────────────
+// Platform HIG의 iOS Sheet 패턴:
 // - 핸들 바 + 스냅 포인트 (collapsed / half / full)
 // - 스냅 버튼으로 시뮬레이션
 // - 배경 오버레이 딤처리
 
-const AppleHIGBottomSheetRender = () => {
+const PlatformHIGBottomSheetRender = () => {
   const [snap, setSnap] = useState<'collapsed' | 'half' | 'full'>('half')
 
   const snapHeights = {
@@ -287,7 +287,7 @@ const AppleHIGBottomSheetRender = () => {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', alignItems: 'flex-start' }}>
       <div style={{ fontSize: '13px', color: '#64748b', lineHeight: '1.6' }}>
-        Apple HIG iOS Sheet 패턴: 스냅 포인트를 버튼으로 전환합니다.
+        Platform HIG iOS Sheet 패턴: 스냅 포인트를 버튼으로 전환합니다.
         실제 앱에서는 드래그 제스처로 스냅 포인트 간 이동이 가능합니다.
       </div>
 
@@ -396,18 +396,18 @@ const AppleHIGBottomSheetRender = () => {
   )
 }
 
-export const Apple_HIG_바텀시트: Story = {
-  name: 'Apple HIG 바텀시트 스냅 포인트 시뮬레이션',
-  render: () => <AppleHIGBottomSheetRender />,
+export const Platform_HIG_바텀시트: Story = {
+  name: 'Platform HIG 바텀시트 스냅 포인트 시뮬레이션',
+  render: () => <PlatformHIGBottomSheetRender />,
 }
 
-// ─── Raycast 스타일: 퀵 액션 사이드 패널 ────────────────────────────────────
-// Raycast의 Action Panel 패턴:
+// ─── CommandPalette 스타일: 퀵 액션 사이드 패널 ────────────────────────────────────
+// CommandPalette의 Action Panel 패턴:
 // - 단축키 힌트 목록
 // - 카테고리별 그룹 분리
 // - 컴팩트 밀도
 
-const RaycastActionPanelRender = () => {
+const CommandPaletteActionPanelRender = () => {
   const [selected, setSelected] = useState<string | null>(null)
 
   const actionGroups: Array<{
@@ -444,14 +444,14 @@ const RaycastActionPanelRender = () => {
     <Drawer>
       <Drawer.Trigger asChild>
         <Button color="primary" size="medium">
-          <Button.Center>Raycast 액션 패널 열기</Button.Center>
+          <Button.Center>CommandPalette 액션 패널 열기</Button.Center>
         </Button>
       </Drawer.Trigger>
       <Drawer.Content side="right">
         <Drawer.Header>
           <Drawer.Title>Quick Actions</Drawer.Title>
           <Drawer.Description>
-            Raycast Action Panel 패턴: 단축키 힌트와 카테고리별 그룹 액션
+            CommandPalette Action Panel 패턴: 단축키 힌트와 카테고리별 그룹 액션
           </Drawer.Description>
         </Drawer.Header>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '0', padding: '8px 0' }}>
@@ -527,13 +527,13 @@ const RaycastActionPanelRender = () => {
   )
 }
 
-export const Raycast_퀵액션_사이드패널: Story = {
-  name: 'Raycast 퀵 액션 사이드 패널',
-  render: () => <RaycastActionPanelRender />,
+export const CommandPalette_퀵액션_사이드패널: Story = {
+  name: 'CommandPalette 퀵 액션 사이드 패널',
+  render: () => <CommandPaletteActionPanelRender />,
 }
 
-// ─── shadcn/ui: 멀티스텝 온보딩 드로어 ───────────────────────────────────────
-// shadcn/ui Drawer의 핵심 패턴: 복잡한 온보딩 플로우를 Drawer 내에서 단계별로 처리
+// ─── ComposableUI: 멀티스텝 온보딩 드로어 ───────────────────────────────────────
+// ComposableUI Drawer의 핵심 패턴: 복잡한 온보딩 플로우를 Drawer 내에서 단계별로 처리
 // scrollable content + 고정 footer 액션 버튼 패턴
 const steps = [
   {
@@ -553,7 +553,7 @@ const steps = [
   },
 ]
 
-const ShadcnMultiStepRender = () => {
+const ComposableUIMultiStepRender = () => {
   const [step, setStep] = useState(0)
   const [values, setValues] = useState<Record<string, string>>({})
 
@@ -569,7 +569,7 @@ const ShadcnMultiStepRender = () => {
       </Drawer.Trigger>
       <Drawer.Content side="right">
         <Drawer.Header>
-          {/* shadcn 패턴: 단계 표시기를 헤더에 배치 */}
+          {/* ComposableUI 패턴: 단계 표시기를 헤더에 배치 */}
           <div style={{ display: 'flex', gap: '6px', marginBottom: '12px' }}>
             {steps.map((_, i) => (
               <div
@@ -588,7 +588,7 @@ const ShadcnMultiStepRender = () => {
           <Drawer.Description>{current.description}</Drawer.Description>
         </Drawer.Header>
 
-        {/* shadcn 핵심 패턴: 스크롤 영역과 고정 푸터 분리 */}
+        {/* ComposableUI 핵심 패턴: 스크롤 영역과 고정 푸터 분리 */}
         <div style={{ flex: 1, overflowY: 'auto', padding: '16px 0', display: 'flex', flexDirection: 'column', gap: '12px' }}>
           <div style={{ fontSize: '11px', fontWeight: 600, color: '#94a3b8', letterSpacing: '0.05em', textTransform: 'uppercase', marginBottom: '4px' }}>
             단계 {step + 1} / {steps.length}
@@ -635,17 +635,17 @@ const ShadcnMultiStepRender = () => {
   )
 }
 
-export const shadcn_멀티스텝_온보딩: Story = {
-  name: 'shadcn/ui — 멀티스텝 온보딩 드로어',
-  render: () => <ShadcnMultiStepRender />,
+export const ComposableUI_멀티스텝_온보딩: Story = {
+  name: 'ComposableUI — 멀티스텝 온보딩 드로어',
+  render: () => <ComposableUIMultiStepRender />,
 }
 
-// ─── Linear: 이슈 상세 패널 ───────────────────────────────────────────────────
-// Linear의 이슈 상세 사이드 패널 패턴:
+// ─── IssueTracker: 이슈 상세 패널 ───────────────────────────────────────────────────
+// IssueTracker의 이슈 상세 사이드 패널 패턴:
 // - 상태/우선순위/담당자를 상단에 표시
 // - 설명과 댓글을 스크롤 가능한 영역에 배치
 // - 액션 버튼을 하단 고정 푸터에 배치
-const LinearIssuePanelRender = () => {
+const IssueTrackerIssuePanelRender = () => {
   const [status, setStatus] = useState<'todo' | 'progress' | 'done'>('progress')
   const [priority, setPriority] = useState<'urgent' | 'high' | 'medium' | 'low'>('high')
 
@@ -782,15 +782,15 @@ const LinearIssuePanelRender = () => {
   )
 }
 
-export const Linear_이슈_상세_패널: Story = {
-  name: 'Linear — 이슈 상세 사이드 패널',
-  render: () => <LinearIssuePanelRender />,
+export const IssueTracker_이슈_상세_패널: Story = {
+  name: 'IssueTracker — 이슈 상세 사이드 패널',
+  render: () => <IssueTrackerIssuePanelRender />,
 }
 
-// ─── shadcn/ui: 설정 드로어 (반응형 스크롤 콘텐츠) ───────────────────────────
-// shadcn Drawer의 스크롤 가능 콘텐츠 + 하단 고정 액션 패턴
+// ─── ComposableUI: 설정 드로어 (반응형 스크롤 콘텐츠) ───────────────────────────
+// ComposableUI Drawer의 스크롤 가능 콘텐츠 + 하단 고정 액션 패턴
 // 긴 콘텐츠가 스크롤되어도 CTA 버튼은 항상 보이는 패턴
-const ShadcnSettingsDrawerRender = () => {
+const ComposableUISettingsDrawerRender = () => {
   const [notifications, setNotifications] = useState({ email: true, push: false, weekly: true })
   const [theme, setTheme] = useState<'system' | 'light' | 'dark'>('system')
   const [lang, setLang] = useState('ko')
@@ -901,7 +901,7 @@ const ShadcnSettingsDrawerRender = () => {
           </section>
         </div>
 
-        {/* 고정 푸터 — shadcn 핵심 패턴: 스크롤과 무관하게 항상 노출 */}
+        {/* 고정 푸터 — ComposableUI 핵심 패턴: 스크롤과 무관하게 항상 노출 */}
         <Drawer.Footer>
           <div style={{ display: 'flex', gap: '8px', width: '100%' }}>
             <Drawer.Close asChild>
@@ -921,17 +921,17 @@ const ShadcnSettingsDrawerRender = () => {
   )
 }
 
-export const shadcn_설정_드로어: Story = {
-  name: 'shadcn/ui — 설정 드로어 (스크롤 콘텐츠 + 고정 푸터)',
-  render: () => <ShadcnSettingsDrawerRender />,
+export const ComposableUI_설정_드로어: Story = {
+  name: 'ComposableUI — 설정 드로어 (스크롤 콘텐츠 + 고정 푸터)',
+  render: () => <ComposableUISettingsDrawerRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Cycle 66: shadcn/ui + Vercel Design 벤치마크
+   Cycle 66: ComposableUI + DeployPlatform Design 벤치마크
 -------------------------------------------------------------------------- */
 
-/* shadcn/ui Sheet — 검색 + 필터 사이드패널
-   shadcn의 Sheet(=Drawer) 핵심 패턴: 우측에서 슬라이드되는 검색/필터 패널.
+/* ComposableUI Sheet — 검색 + 필터 사이드패널
+   ComposableUI의 Sheet(=Drawer) 핵심 패턴: 우측에서 슬라이드되는 검색/필터 패널.
    헤더에 검색 입력, 바디에 필터 체크리스트, 푸터에 적용/초기화 버튼.
 -------------------------------------------------------------------------- */
 const FILTER_CATEGORIES = [
@@ -942,7 +942,7 @@ const FILTER_CATEGORIES = [
   { id: 'data', label: '데이터 페칭', count: 9, active: false },
 ]
 
-const ShadcnSearchFilterRender = () => {
+const ComposableUISearchFilterRender = () => {
   const [open, setOpen] = useState(false)
   const [query, setQuery] = useState('')
   const [selected, setSelected] = useState<Set<string>>(new Set(['ui', 'form']))
@@ -1039,20 +1039,20 @@ const ShadcnSearchFilterRender = () => {
   )
 }
 
-export const shadcn_검색_필터_사이드패널: Story = {
-  name: 'shadcn/ui — 검색 필터 사이드패널',
+export const ComposableUI_검색_필터_사이드패널: Story = {
+  name: 'ComposableUI — 검색 필터 사이드패널',
   parameters: {
     docs: {
       description: {
-        story: 'shadcn/ui Sheet 패턴. 우측에서 슬라이드되는 검색·필터 패널. 헤더 인라인 검색 입력, 바디 체크리스트, 푸터 적용/초기화 버튼의 3단 구조.',
+        story: 'ComposableUI Sheet 패턴. 우측에서 슬라이드되는 검색·필터 패널. 헤더 인라인 검색 입력, 바디 체크리스트, 푸터 적용/초기화 버튼의 3단 구조.',
       },
     },
   },
-  render: () => <ShadcnSearchFilterRender />,
+  render: () => <ComposableUISearchFilterRender />,
 }
 
-/* Vercel — 배포 로그 사이드패널
-   Vercel 배포 상세 뷰에서 영감. 우측 패널에 로그 스트림을 타임라인으로 표시.
+/* DeployPlatform — 배포 로그 사이드패널
+   DeployPlatform 배포 상세 뷰에서 영감. 우측 패널에 로그 스트림을 타임라인으로 표시.
    실시간 업데이트 시뮬레이션과 상태 배지.
 -------------------------------------------------------------------------- */
 const DEPLOY_LOG_STEPS = [
@@ -1063,7 +1063,7 @@ const DEPLOY_LOG_STEPS = [
   { time: '12:01:38', level: 'warn', msg: 'Some chunks are larger than 500 kB' },
   { time: '12:01:45', level: 'success', msg: 'Build completed in 23s' },
   { time: '12:01:46', level: 'info', msg: 'Uploading artifacts...' },
-  { time: '12:01:52', level: 'success', msg: 'Deployment ready: orbit-ui.vercel.app' },
+  { time: '12:01:52', level: 'success', msg: 'Deployment ready: orbit-ui.deploy.example.com' },
 ]
 
 const LEVEL_COLOR: Record<string, string> = {
@@ -1073,7 +1073,7 @@ const LEVEL_COLOR: Record<string, string> = {
   error: '#ef4444',
 }
 
-const VercelDeployLogRender = () => {
+const DeployPlatformDeployLogRender = () => {
   const [open, setOpen] = useState(false)
   const [visibleCount, setVisibleCount] = useState(0)
   const [running, setRunning] = useState(false)
@@ -1137,20 +1137,20 @@ const VercelDeployLogRender = () => {
   )
 }
 
-export const Vercel_배포_로그_패널: Story = {
-  name: 'Vercel — 배포 로그 사이드패널',
+export const DeployPlatform_배포_로그_패널: Story = {
+  name: 'DeployPlatform — 배포 로그 사이드패널',
   parameters: {
     docs: {
       description: {
-        story: 'Vercel 배포 상세 뷰 패턴. 우측 패널에 모노스페이스 로그 스트림을 타임라인으로 표시. 빌드 진행 상태 배지와 실시간 로그 시뮬레이션.',
+        story: 'DeployPlatform 배포 상세 뷰 패턴. 우측 패널에 모노스페이스 로그 스트림을 타임라인으로 표시. 빌드 진행 상태 배지와 실시간 로그 시뮬레이션.',
       },
     },
   },
-  render: () => <VercelDeployLogRender />,
+  render: () => <DeployPlatformDeployLogRender />,
 }
 
-/* Vercel — 팀 멤버 초대 드로어
-   Vercel 팀 설정의 멤버 초대 플로우. 이메일 + 역할 선택 + 확인의 단계적 UX.
+/* DeployPlatform — 팀 멤버 초대 드로어
+   DeployPlatform 팀 설정의 멤버 초대 플로우. 이메일 + 역할 선택 + 확인의 단계적 UX.
 -------------------------------------------------------------------------- */
 const ROLES = [
   { id: 'owner', label: 'Owner', desc: '모든 권한 (결제 포함)' },
@@ -1158,7 +1158,7 @@ const ROLES = [
   { id: 'viewer', label: 'Viewer', desc: '읽기 전용 접근' },
 ]
 
-const VercelInviteRender = () => {
+const DeployPlatformInviteRender = () => {
   const [open, setOpen] = useState(false)
   const [email, setEmail] = useState('')
   const [role, setRole] = useState('member')
@@ -1253,19 +1253,19 @@ const VercelInviteRender = () => {
   )
 }
 
-export const Vercel_팀_멤버_초대_드로어: Story = {
-  name: 'Vercel — 팀 멤버 초대 드로어',
+export const DeployPlatform_팀_멤버_초대_드로어: Story = {
+  name: 'DeployPlatform — 팀 멤버 초대 드로어',
   parameters: {
     docs: {
       description: {
-        story: 'Vercel 팀 설정 초대 플로우. 이메일 입력 + 역할 선택(Owner/Member/Viewer) + 전송 확인. 간결한 단일 패널에 완전한 초대 워크플로우를 담은 패턴.',
+        story: 'DeployPlatform 팀 설정 초대 플로우. 이메일 입력 + 역할 선택(Owner/Member/Viewer) + 전송 확인. 간결한 단일 패널에 완전한 초대 워크플로우를 담은 패턴.',
       },
     },
   },
-  render: () => <VercelInviteRender />,
+  render: () => <DeployPlatformInviteRender />,
 }
 
-const RAYCAST_SETTINGS_SECTIONS = [
+const LAUNCHER_SETTINGS_SECTIONS = [
   {
     id: 'general',
     title: '일반',
@@ -1286,7 +1286,7 @@ const RAYCAST_SETTINGS_SECTIONS = [
   },
 ]
 
-const RaycastExtensionSettingsRender = () => {
+const CommandPaletteExtensionSettingsRender = () => {
   const [open, setOpen] = useState(false)
   const [editingId, setEditingId] = useState<string | null>(null)
 
@@ -1305,12 +1305,12 @@ const RaycastExtensionSettingsRender = () => {
             </div>
             <div>
               <Drawer.Title>QuickSearch 설정</Drawer.Title>
-              <div style={{ fontSize: 11, color: '#6b7280', marginTop: 1 }}>Raycast Extension v1.4.2</div>
+              <div style={{ fontSize: 11, color: '#6b7280', marginTop: 1 }}>CommandPalette Extension v1.4.2</div>
             </div>
           </div>
         </Drawer.Header>
         <div style={{ flex: 1, overflowY: 'auto', padding: '0 16px 16px' }}>
-          {RAYCAST_SETTINGS_SECTIONS.map(section => (
+          {LAUNCHER_SETTINGS_SECTIONS.map(section => (
             <div key={section.id} style={{ marginBottom: 20 }}>
               <div style={{ fontSize: 11, fontWeight: 700, color: '#9ca3af', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 8 }}>{section.title}</div>
               <div style={{ border: '1px solid #f0f0f0', borderRadius: 10, overflow: 'hidden' }}>
@@ -1329,7 +1329,7 @@ const RaycastExtensionSettingsRender = () => {
           ))}
           <div style={{ padding: '12px 14px', background: '#f9fafb', borderRadius: 10, border: '1px solid #f0f0f0' }}>
             <div style={{ fontSize: 12, fontWeight: 600, color: '#374151', marginBottom: 4 }}>Extension 정보</div>
-            <div style={{ fontSize: 11, color: '#9ca3af' }}>Raycast Extension Settings 패턴 — 섹션별 설정 목록 + 인라인 편집</div>
+            <div style={{ fontSize: 11, color: '#9ca3af' }}>CommandPalette Extension Settings 패턴 — 섹션별 설정 목록 + 인라인 편집</div>
           </div>
         </div>
         <Drawer.Footer>
@@ -1349,19 +1349,19 @@ const RaycastExtensionSettingsRender = () => {
   )
 }
 
-export const Raycast_확장_설정_드로어: Story = {
-  name: 'Raycast - Extension 설정 드로어',
+export const CommandPalette_확장_설정_드로어: Story = {
+  name: 'CommandPalette - Extension 설정 드로어',
   parameters: {
     docs: {
       description: {
-        story: 'Raycast Extension Settings 패턴. 다크 배경 Extension 아이콘 + 이름 헤더, 섹션별 설정 목록(일반/외관), 항목 클릭 시 인라인 강조. 작은 우측 드로어에 집약적 설정 UI를 구현합니다.',
+        story: 'CommandPalette Extension Settings 패턴. 다크 배경 Extension 아이콘 + 이름 헤더, 섹션별 설정 목록(일반/외관), 항목 클릭 시 인라인 강조. 작은 우측 드로어에 집약적 설정 UI를 구현합니다.',
       },
     },
   },
-  render: () => <RaycastExtensionSettingsRender />,
+  render: () => <CommandPaletteExtensionSettingsRender />,
 }
 
-const NOTION_PAGE_PROPERTIES = [
+const WORKSPACE_PAGE_PROPERTIES = [
   { id: 'status', label: 'Status', type: 'select', value: 'In Progress', color: '#6366f1' },
   { id: 'assignee', label: 'Assignee', type: 'person', value: 'hjunkim' },
   { id: 'priority', label: 'Priority', type: 'select', value: 'High', color: '#ef4444' },
@@ -1370,7 +1370,7 @@ const NOTION_PAGE_PROPERTIES = [
   { id: 'estimate', label: 'Estimate', type: 'number', value: '3 points' },
 ]
 
-const NotionPagePropertiesRender = () => {
+const WorkspaceEditorPagePropertiesRender = () => {
   const [open, setOpen] = useState(false)
 
   return (
@@ -1383,11 +1383,11 @@ const NotionPagePropertiesRender = () => {
       <Drawer.Content side="right" style={{ width: 320 }}>
         <Drawer.Header>
           <Drawer.Title>페이지 속성</Drawer.Title>
-          <span style={{ fontSize: 12, color: '#6b7280', marginTop: 2 }}>Notion 페이지 속성 패널 패턴</span>
+          <span style={{ fontSize: 12, color: '#6b7280', marginTop: 2 }}>WorkspaceEditor 페이지 속성 패널 패턴</span>
         </Drawer.Header>
         <div style={{ flex: 1, overflowY: 'auto', padding: '0 16px 16px' }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-            {NOTION_PAGE_PROPERTIES.map(prop => (
+            {WORKSPACE_PAGE_PROPERTIES.map(prop => (
               <div key={prop.id} style={{ display: 'flex', alignItems: 'center', padding: '8px 10px', borderRadius: 6, cursor: 'pointer' }} onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = '#f9fafb' }} onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = '' }}>
                 <span style={{ width: 100, fontSize: 12, color: '#9ca3af', flexShrink: 0 }}>{prop.label}</span>
                 {prop.color ? (
@@ -1414,19 +1414,19 @@ const NotionPagePropertiesRender = () => {
   )
 }
 
-export const Notion_페이지_속성_드로어: Story = {
-  name: 'Notion - 페이지 속성 패널 드로어',
+export const WorkspaceEditor_페이지_속성_드로어: Story = {
+  name: 'WorkspaceEditor - 페이지 속성 패널 드로어',
   parameters: {
     docs: {
       description: {
-        story: 'Notion 페이지 속성 패널 패턴. Status/Assignee/Priority/Due Date 등 메타데이터를 레이블-값 행으로 표시합니다. 색상 배지로 선택 속성 타입을 강조하고 hover 시 배경을 강조합니다.',
+        story: 'WorkspaceEditor 페이지 속성 패널 패턴. Status/Assignee/Priority/Due Date 등 메타데이터를 레이블-값 행으로 표시합니다. 색상 배지로 선택 속성 타입을 강조하고 hover 시 배경을 강조합니다.',
       },
     },
   },
-  render: () => <NotionPagePropertiesRender />,
+  render: () => <WorkspaceEditorPagePropertiesRender />,
 }
 
-const SHADCN_KEYBOARD_SHORTCUTS = [
+const UTILITYUI_KEYBOARD_SHORTCUTS = [
   { category: '탐색', shortcuts: [
     { key: '⌘K', desc: '커맨드 팔레트 열기' },
     { key: '⌘/', desc: '사이드바 토글' },
@@ -1441,11 +1441,11 @@ const SHADCN_KEYBOARD_SHORTCUTS = [
   ]},
 ]
 
-const ShadcnKeyboardShortcutsRender = () => {
+const ComposableUIKeyboardShortcutsRender = () => {
   const [open, setOpen] = useState(false)
   const [query, setQuery] = useState('')
 
-  const filteredShortcuts = SHADCN_KEYBOARD_SHORTCUTS.map(cat => ({
+  const filteredShortcuts = UTILITYUI_KEYBOARD_SHORTCUTS.map(cat => ({
     ...cat,
     shortcuts: cat.shortcuts.filter(s =>
       query === '' || s.desc.toLowerCase().includes(query.toLowerCase()) || s.key.toLowerCase().includes(query.toLowerCase())
@@ -1500,27 +1500,27 @@ const ShadcnKeyboardShortcutsRender = () => {
   )
 }
 
-export const Shadcn_키보드_단축키_드로어: Story = {
-  name: 'shadcn/ui - 키보드 단축키 바텀 드로어',
+export const ComposableUI_키보드_단축키_드로어: Story = {
+  name: 'ComposableUI - 키보드 단축키 바텀 드로어',
   parameters: {
     docs: {
       description: {
-        story: 'shadcn/ui 스타일의 키보드 단축키 참고 드로어. 카테고리별 단축키 목록을 바텀 시트로 표시하며 실시간 검색 필터를 지원합니다. FloatingTextField로 단축키를 실시간으로 필터링합니다.',
+        story: 'ComposableUI 스타일의 키보드 단축키 참고 드로어. 카테고리별 단축키 목록을 바텀 시트로 표시하며 실시간 검색 필터를 지원합니다. FloatingTextField로 단축키를 실시간으로 필터링합니다.',
       },
     },
   },
-  render: () => <ShadcnKeyboardShortcutsRender />,
+  render: () => <ComposableUIKeyboardShortcutsRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Cycle 125 — MUI + Tailwind UI 벤치마크
+   Cycle 125 — EnterpriseUI + UtilityUI 벤치마크
 -------------------------------------------------------------------------- */
 
 /* --------------------------------------------------------------------------
-   MUI: Drawer 필터 패널 패턴
-   MUI Drawer + Filter — 검색 결과 필터를 슬라이드 패널로 표시
+   EnterpriseUI: Drawer 필터 패널 패턴
+   EnterpriseUI Drawer + Filter — 검색 결과 필터를 슬라이드 패널로 표시
 -------------------------------------------------------------------------- */
-function MUIFilterDrawerRender() {
+function EnterpriseUIFilterDrawerRender() {
   const [open, setOpen] = useState(false)
   const [filters, setFilters] = useState({
     status: new Set<string>(['active']),
@@ -1630,25 +1630,25 @@ function MUIFilterDrawerRender() {
   )
 }
 
-export const MUI_필터_패널_드로어: Story = {
-  name: 'MUI - 필터 패널 우측 드로어 패턴',
+export const EnterpriseUI_필터_패널_드로어: Story = {
+  name: 'EnterpriseUI - 필터 패널 우측 드로어 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'MUI Drawer + Filter List 패턴. 검색 결과 필터 옵션을 우측 슬라이드 패널에 ' +
+          'EnterpriseUI Drawer + Filter List 패턴. 검색 결과 필터 옵션을 우측 슬라이드 패널에 ' +
           '체크박스 그룹으로 표시합니다. 상태/우선순위/담당자 3개 필터 그룹과 초기화/적용 버튼을 포함합니다.',
       },
     },
   },
-  render: () => <MUIFilterDrawerRender />,
+  render: () => <EnterpriseUIFilterDrawerRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Tailwind UI: 모바일 내비게이션 드로어 패턴
-   Tailwind UI Mobile Menu — 좌측 슬라이드 내비게이션 메뉴
+   UtilityUI: 모바일 내비게이션 드로어 패턴
+   UtilityUI Mobile Menu — 좌측 슬라이드 내비게이션 메뉴
 -------------------------------------------------------------------------- */
-function TailwindMobileNavRender() {
+function UtilityCSSMobileNavRender() {
   const [open, setOpen] = useState(false)
   const [active, setActive] = useState('dashboard')
 
@@ -1729,25 +1729,25 @@ function TailwindMobileNavRender() {
   )
 }
 
-export const Tailwind_모바일_내비게이션_드로어: Story = {
-  name: 'Tailwind UI - 모바일 내비게이션 드로어 패턴',
+export const UtilityCSS_모바일_내비게이션_드로어: Story = {
+  name: 'UtilityUI - 모바일 내비게이션 드로어 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'Tailwind UI Mobile Menu 패턴. 좌측 슬라이드 내비게이션 드로어로 ' +
+          'UtilityUI Mobile Menu 패턴. 좌측 슬라이드 내비게이션 드로어로 ' +
           '워크스페이스/관리 그룹별 메뉴를 표시하고 사용자 프로필 영역을 하단에 배치합니다.',
       },
     },
   },
-  render: () => <TailwindMobileNavRender />,
+  render: () => <UtilityCSSMobileNavRender />,
 }
 
 /* --------------------------------------------------------------------------
-   MUI + Tailwind: 작업 생성 드로어 패턴
+   EnterpriseUI + UtilityCSS: 작업 생성 드로어 패턴
    두 시스템의 폼 드로어 패턴 결합
 -------------------------------------------------------------------------- */
-function MUITailwindCreateTaskRender() {
+function EnterpriseUIUtilityCSSCreateTaskRender() {
   const [open, setOpen] = useState(false)
   const [form, setForm] = useState({ title: '', priority: 'medium', assignee: '', due: '' })
   const [submitted, setSubmitted] = useState(false)
@@ -1777,7 +1777,7 @@ function MUITailwindCreateTaskRender() {
       <Drawer.Content side="right">
         <Drawer.Header>
           <Drawer.Title>새 작업 생성</Drawer.Title>
-          <Drawer.Description>MUI + Tailwind 폼 드로어 패턴</Drawer.Description>
+          <Drawer.Description>EnterpriseUI + UtilityCSS 폼 드로어 패턴</Drawer.Description>
         </Drawer.Header>
         <div style={{ flex: 1, overflowY: 'auto', padding: '20px' }}>
           {submitted ? (
@@ -1846,27 +1846,27 @@ function MUITailwindCreateTaskRender() {
   )
 }
 
-export const MUI_Tailwind_작업_생성_드로어: Story = {
-  name: 'MUI + Tailwind UI - 작업 생성 폼 드로어 패턴',
+export const EnterpriseUI_UtilityCSS_작업_생성_드로어: Story = {
+  name: 'EnterpriseUI + UtilityUI - 작업 생성 폼 드로어 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'MUI Drawer form + Tailwind UI 레이아웃 패턴 결합. 우측 드로어에 작업 생성 폼을 배치하고 ' +
+          'EnterpriseUI Drawer form + UtilityUI 레이아웃 패턴 결합. 우측 드로어에 작업 생성 폼을 배치하고 ' +
           '제목/우선순위/담당자를 입력 후 생성 성공 피드백을 인라인으로 표시합니다.',
       },
     },
   },
-  render: () => <MUITailwindCreateTaskRender />,
+  render: () => <EnterpriseUIUtilityCSSCreateTaskRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Vercel Design — 환경 변수 관리 드로어
-   Vercel의 compact dark 패널 — 환경변수 추가/편집 사이드 드로어
+   DeployPlatform Design — 환경 변수 관리 드로어
+   DeployPlatform의 compact dark 패널 — 환경변수 추가/편집 사이드 드로어
 -------------------------------------------------------------------------- */
 const ENV_SCOPES = ['Production', 'Preview', 'Development']
 
-function VercelEnvVarDrawerRender() {
+function DeployPlatformEnvVarDrawerRender() {
   const [open, setOpen] = useState(false)
   const [key, setKey] = useState('')
   const [value, setValue] = useState('')
@@ -1944,16 +1944,16 @@ function VercelEnvVarDrawerRender() {
   )
 }
 
-export const Vercel_환경변수_관리_드로어: Story = {
-  name: 'Vercel Design — 환경 변수 추가/편집 드로어',
+export const DeployPlatform_환경변수_관리_드로어: Story = {
+  name: 'DeployPlatform Design — 환경 변수 추가/편집 드로어',
   parameters: {
     docs: {
       description: {
-        story: 'Vercel의 환경변수 관리 사이드 드로어 패턴. Key/Value 인풋, Production/Preview/Development 스코프 체크박스, 저장 시 1.5초 후 자동 닫힘. 모노스페이스 Key 필드.',
+        story: 'DeployPlatform의 환경변수 관리 사이드 드로어 패턴. Key/Value 인풋, Production/Preview/Development 스코프 체크박스, 저장 시 1.5초 후 자동 닫힘. 모노스페이스 Key 필드.',
       },
     },
   },
-  render: () => <VercelEnvVarDrawerRender />,
+  render: () => <DeployPlatformEnvVarDrawerRender />,
 }
 
 /* --------------------------------------------------------------------------
@@ -2072,7 +2072,7 @@ export const Ant_데이터_내보내기_드로어: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Vercel + Ant Design — 팀 멤버 상세 드로어
+   DeployPlatform + Ant Design — 팀 멤버 상세 드로어
    팀원 프로필 + 권한/역할 설정 복합 패널
 -------------------------------------------------------------------------- */
 const PERMISSIONS = [
@@ -2081,7 +2081,7 @@ const PERMISSIONS = [
   { id: 'admin', label: '관리자', desc: '팀 설정 및 멤버 관리' },
 ]
 
-function VercelAntMemberDrawerRender() {
+function DeployPlatformAntMemberDrawerRender() {
   const [open, setOpen] = useState(false)
   const [role, setRole] = useState('member')
   const [notifications, setNotifications] = useState({ deploy: true, error: true, weekly: false })
@@ -2155,22 +2155,22 @@ function VercelAntMemberDrawerRender() {
   )
 }
 
-export const Vercel_Ant_팀_멤버_상세_드로어: Story = {
-  name: 'Vercel + Ant Design — 팀 멤버 상세/역할 설정 드로어',
+export const DeployPlatform_Ant_팀_멤버_상세_드로어: Story = {
+  name: 'DeployPlatform + Ant Design — 팀 멤버 상세/역할 설정 드로어',
   parameters: {
     docs: {
       description: {
-        story: 'Vercel 팀 관리 + Ant Design 권한 패널 패턴. 멤버 프로필 카드, RadioButton 역할 선택(뷰어/멤버/관리자), 알림 설정 체크박스. 실무 팀 설정 시나리오.',
+        story: 'DeployPlatform 팀 관리 + Ant Design 권한 패널 패턴. 멤버 프로필 카드, RadioButton 역할 선택(뷰어/멤버/관리자), 알림 설정 체크박스. 실무 팀 설정 시나리오.',
       },
     },
   },
-  render: () => <VercelAntMemberDrawerRender />,
+  render: () => <DeployPlatformAntMemberDrawerRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Cycle 190 — Vercel Design + Notion Design
+   Cycle 190 — DeployPlatform Design + WorkspaceEditor Design
 -------------------------------------------------------------------------- */
-const VERCEL_DEPLOY_LOG_190 = [
+const DEPLOY_DEPLOY_LOG_190 = [
   { time: '14:32:01', type: 'info', msg: 'Build started' },
   { time: '14:32:04', type: 'info', msg: 'Installing dependencies...' },
   { time: '14:32:18', type: 'success', msg: 'Dependencies installed (14.2s)' },
@@ -2178,7 +2178,7 @@ const VERCEL_DEPLOY_LOG_190 = [
   { time: '14:32:45', type: 'warn', msg: 'Chunk size exceeds 500kB warning' },
   { time: '14:32:58', type: 'success', msg: 'Build completed (39s)' },
   { time: '14:32:59', type: 'info', msg: 'Deploying to edge network...' },
-  { time: '14:33:07', type: 'success', msg: 'Ready — orbit-abc123.vercel.app' },
+  { time: '14:33:07', type: 'success', msg: 'Ready — orbit-abc123.deploy.example.com' },
 ]
 
 const LOG_STYLE_190: Record<string, { color: string }> = {
@@ -2188,7 +2188,7 @@ const LOG_STYLE_190: Record<string, { color: string }> = {
   error:   { color: '#f85149' },
 }
 
-function VercelDeployDetailRender() {
+function DeployPlatformDeployDetailRender() {
   const [open, setOpen] = useState(false)
   return (
     <div style={{ fontFamily: 'system-ui, sans-serif' }}>
@@ -2204,7 +2204,7 @@ function VercelDeployDetailRender() {
                 <Drawer.Title style={{ color: '#f0f6fc', fontSize: 14, fontWeight: 700 }}>배포 완료</Drawer.Title>
               </div>
               <Drawer.Description style={{ color: '#8b949e', fontSize: 11, marginTop: 4 }}>
-                orbit-abc123.vercel.app · 39초
+                orbit-abc123.deploy.example.com · 39초
               </Drawer.Description>
             </Drawer.Header>
             <div style={{ flex: 1, overflowY: 'auto', padding: '12px 24px' }}>
@@ -2223,7 +2223,7 @@ function VercelDeployDetailRender() {
               </div>
               <div style={{ fontSize: 11, fontWeight: 600, color: '#484f58', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 8 }}>빌드 로그</div>
               <div style={{ background: '#010409', borderRadius: 8, border: '1px solid #21262d', padding: '10px 12px', fontFamily: 'monospace' }}>
-                {VERCEL_DEPLOY_LOG_190.map((log, i) => (
+                {DEPLOY_DEPLOY_LOG_190.map((log, i) => (
                   <div key={i} style={{ display: 'flex', gap: 10, fontSize: 11, lineHeight: 1.8 }}>
                     <span style={{ color: '#484f58', flexShrink: 0 }}>{log.time}</span>
                     <span style={{ color: LOG_STYLE_190[log.type].color }}>{log.msg}</span>
@@ -2246,21 +2246,21 @@ function VercelDeployDetailRender() {
   )
 }
 
-export const Vercel_배포_로그_상세_드로어: Story = {
-  name: 'Vercel Design — 배포 로그 상세 사이드 드로어',
+export const DeployPlatform_배포_로그_상세_드로어: Story = {
+  name: 'DeployPlatform Design — 배포 로그 상세 사이드 드로어',
   parameters: {
     docs: {
       description: {
         story:
-          'Vercel Design 배포 상세 패턴. 다크 배경 + 빌드 로그(색상별 상태 구분: info/success/warn/error) + 메타 정보 패널. ' +
+          'DeployPlatform Design 배포 상세 패턴. 다크 배경 + 빌드 로그(색상별 상태 구분: info/success/warn/error) + 메타 정보 패널. ' +
           '재배포 / URL 복사 액션을 Footer에 배치합니다.',
       },
     },
   },
-  render: () => <VercelDeployDetailRender />,
+  render: () => <DeployPlatformDeployDetailRender />,
 }
 
-const NOTION_PROPS_190 = [
+const WORKSPACE_PROPS_190 = [
   { key: '상태', value: '진행 중', type: 'select', color: '#3b82f6' },
   { key: '담당자', value: '김희준', type: 'person', color: '#8b5cf6' },
   { key: '기한', value: '2026-04-30', type: 'date', color: '#f59e0b' },
@@ -2268,9 +2268,9 @@ const NOTION_PROPS_190 = [
   { key: '태그', value: 'Design, Frontend', type: 'multi', color: '#10b981' },
 ]
 
-function NotionPagePropertyRender() {
+function WorkspaceEditorPagePropertyRender() {
   const [open, setOpen] = useState(false)
-  const [props, setProps] = useState(NOTION_PROPS_190.map((p) => ({ ...p })))
+  const [props, setProps] = useState(WORKSPACE_PROPS_190.map((p) => ({ ...p })))
   const [editingKey, setEditingKey] = useState<string | null>(null)
   const [editVal, setEditVal] = useState('')
 
@@ -2291,7 +2291,7 @@ function NotionPagePropertyRender() {
         <Drawer.Content side="right">
           <Drawer.Header>
             <Drawer.Title>페이지 속성</Drawer.Title>
-            <Drawer.Description>Notion 인라인 속성 편집 패턴</Drawer.Description>
+            <Drawer.Description>WorkspaceEditor 인라인 속성 편집 패턴</Drawer.Description>
           </Drawer.Header>
           <div style={{ padding: '0 24px', flex: 1, overflowY: 'auto' }}>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
@@ -2335,21 +2335,21 @@ function NotionPagePropertyRender() {
   )
 }
 
-export const Notion_페이지_속성_인라인_편집_드로어: Story = {
-  name: 'Notion Design — 페이지 속성 인라인 편집 드로어',
+export const WorkspaceEditor_페이지_속성_인라인_편집_드로어: Story = {
+  name: 'WorkspaceEditor Design — 페이지 속성 인라인 편집 드로어',
   parameters: {
     docs: {
       description: {
         story:
-          'Notion 페이지 속성 패널 패턴. 속성 값 클릭 시 인라인 input으로 전환, Enter/blur로 저장. ' +
+          'WorkspaceEditor 페이지 속성 패널 패턴. 속성 값 클릭 시 인라인 input으로 전환, Enter/blur로 저장. ' +
           '속성 유형(select/person/date/multi)별 컬러 배지로 시각화합니다.',
       },
     },
   },
-  render: () => <NotionPagePropertyRender />,
+  render: () => <WorkspaceEditorPagePropertyRender />,
 }
 
-const VERCEL_NOTION_TEAM_190 = [
+const DEPLOY_WORKSPACE_TEAM_190 = [
   { name: '김희준', role: 'Lead Designer', avatar: 'KH', status: 'online', lastSeen: '지금' },
   { name: '이서연', role: 'Frontend Dev', avatar: 'LY', status: 'online', lastSeen: '5분 전' },
   { name: '박도현', role: 'UX Researcher', avatar: 'PD', status: 'offline', lastSeen: '2시간 전' },
@@ -2363,11 +2363,11 @@ const STATUS_STYLE_190: Record<string, { color: string; label: string }> = {
   offline: { color: '#6b7280', label: '오프라인' },
 }
 
-function VercelNotionTeamDrawerRender() {
+function DeployPlatformWorkspaceEditorTeamDrawerRender() {
   const [open, setOpen] = useState(false)
   const [search, setSearch] = useState('')
 
-  const filtered = VERCEL_NOTION_TEAM_190.filter((m) =>
+  const filtered = DEPLOY_WORKSPACE_TEAM_190.filter((m) =>
     m.name.includes(search) || m.role.toLowerCase().includes(search.toLowerCase())
   )
 
@@ -2380,7 +2380,7 @@ function VercelNotionTeamDrawerRender() {
         <Drawer.Content side="right">
           <Drawer.Header>
             <Drawer.Title>팀 멤버</Drawer.Title>
-            <Drawer.Description>Vercel + Notion — 멤버 목록 사이드 패널</Drawer.Description>
+            <Drawer.Description>DeployPlatform + WorkspaceEditor — 멤버 목록 사이드 패널</Drawer.Description>
           </Drawer.Header>
           <div style={{ padding: '0 24px 24px', flex: 1, overflowY: 'auto' }}>
             <FloatingTextField
@@ -2419,16 +2419,16 @@ function VercelNotionTeamDrawerRender() {
   )
 }
 
-export const Vercel_Notion_팀_멤버_검색_드로어: Story = {
-  name: 'Vercel + Notion — 팀 멤버 검색 사이드 패널',
+export const DeployPlatform_WorkspaceEditor_팀_멤버_검색_드로어: Story = {
+  name: 'DeployPlatform + WorkspaceEditor — 팀 멤버 검색 사이드 패널',
   parameters: {
     docs: {
       description: {
         story:
-          'Vercel + Notion 복합 패턴. FloatingTextField 검색 + 실시간 멤버 필터링 + 온라인/자리비움/오프라인 상태 도트. ' +
+          'DeployPlatform + WorkspaceEditor 복합 패턴. FloatingTextField 검색 + 실시간 멤버 필터링 + 온라인/자리비움/오프라인 상태 도트. ' +
           '아바타 + 역할 + 마지막 접속 시간 3단 멤버 카드 레이아웃.',
       },
     },
   },
-  render: () => <VercelNotionTeamDrawerRender />,
+  render: () => <DeployPlatformWorkspaceEditorTeamDrawerRender />,
 }

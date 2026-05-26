@@ -98,7 +98,7 @@ export const 비제어 = {
   },
 } satisfies Story
 
-/* ── Vercel: 배포 환경 선택 ── */
+/* ── DeployPlatform: 배포 환경 선택 ── */
 const DeployTargetDemo = () => {
   const [env, setEnv] = useState<string>('preview')
 
@@ -148,12 +148,12 @@ const DeployTargetDemo = () => {
   )
 }
 
-export const Vercel_배포_환경_선택: Story = {
-  name: 'Vercel — 배포 환경 선택',
+export const DeployPlatform_배포_환경_선택: Story = {
+  name: 'DeployPlatform — 배포 환경 선택',
   render: () => <DeployTargetDemo />,
 }
 
-/* ── Vercel: 엣지 지역 선택 ── */
+/* ── DeployPlatform: 엣지 지역 선택 ── */
 const RegionPickerDemo = () => {
   const [region, setRegion] = useState<string>('icn1')
 
@@ -208,12 +208,12 @@ const RegionPickerDemo = () => {
   )
 }
 
-export const Vercel_엣지_지역_선택: Story = {
-  name: 'Vercel — 엣지 지역 선택 (레이턴시 표시)',
+export const DeployPlatform_엣지_지역_선택: Story = {
+  name: 'DeployPlatform — 엣지 지역 선택 (레이턴시 표시)',
   render: () => <RegionPickerDemo />,
 }
 
-/* ── Vercel: 빌드 출력 설정 ── */
+/* ── DeployPlatform: 빌드 출력 설정 ── */
 const BuildOutputDemo = () => {
   const [output, setOutput] = useState<string>('auto')
 
@@ -221,7 +221,7 @@ const BuildOutputDemo = () => {
     { value: 'auto', label: '자동 감지', desc: '프레임워크를 자동으로 인식해 최적 설정을 적용합니다.', example: 'Next.js → .next/' },
     { value: 'static', label: '정적 파일', desc: '빌드 결과물이 정적 HTML/CSS/JS 파일로 구성됩니다.', example: 'Vite → dist/' },
     { value: 'edge', label: 'Edge Function', desc: '엣지에서 서버사이드 로직을 실행합니다.', example: 'Hono, Remix Edge' },
-    { value: 'serverless', label: 'Serverless', desc: '서버리스 함수를 통해 동적 렌더링을 처리합니다.', example: 'Lambda, Vercel Functions' },
+    { value: 'serverless', label: 'Serverless', desc: '서버리스 함수를 통해 동적 렌더링을 처리합니다.', example: 'Lambda, DeployPlatform Functions' },
   ]
 
   return (
@@ -257,13 +257,13 @@ const BuildOutputDemo = () => {
   )
 }
 
-export const Vercel_빌드_출력_설정: Story = {
-  name: 'Vercel — 빌드 출력 유형 선택 (그리드형)',
+export const DeployPlatform_빌드_출력_설정: Story = {
+  name: 'DeployPlatform — 빌드 출력 유형 선택 (그리드형)',
   render: () => <BuildOutputDemo />,
 }
 
 /* --------------------------------------------------------------------------
-   Google Material 3 벤치마크: 제안 칩 RadioGroup 패턴
+   RoleToken Design 벤치마크: 제안 칩 RadioGroup 패턴
    M3의 Suggestion Chip은 시스템이 추천하는 옵션을 제공합니다.
    RadioGroup과 결합해 "빠른 선택" UX를 구현합니다.
 -------------------------------------------------------------------------- */
@@ -350,12 +350,12 @@ const M3SuggestionChipDemo = () => {
 }
 
 export const M3_제안_칩_RadioGroup: Story = {
-  name: 'Material 3 — Suggestion Chip + RadioGroup 빠른 선택',
+  name: 'RoleToken Design — Suggestion Chip + RadioGroup 빠른 선택',
   render: () => <M3SuggestionChipDemo />,
 }
 
 /* --------------------------------------------------------------------------
-   Google Material 3 벤치마크: 동적 색상 체계 선택 패턴
+   RoleToken Design 벤치마크: 동적 색상 체계 선택 패턴
    M3의 Dynamic Color — Primary/Secondary/Tertiary/Neutral 역할 체계로
    앱 테마를 동적으로 변경합니다.
 -------------------------------------------------------------------------- */
@@ -461,12 +461,12 @@ const M3DynamicColorDemo = () => {
 }
 
 export const M3_동적_색상_체계: Story = {
-  name: 'Material 3 — 동적 색상 체계 선택 (Primary/Secondary/Tertiary 역할)',
+  name: 'RoleToken Design — 동적 색상 체계 선택 (Primary/Secondary/Tertiary 역할)',
   render: () => <M3DynamicColorDemo />,
 }
 
 /* --------------------------------------------------------------------------
-   Google Material 3 벤치마크: 어시스트 칩 RadioGroup — 빠른 액션
+   RoleToken Design 벤치마크: 어시스트 칩 RadioGroup — 빠른 액션
    M3의 Assist Chip은 시스템이 제안하는 행동을 나타냅니다.
    RadioGroup으로 인보이스 상태를 선택하면 어시스트 칩이 다음 권장 액션을 제안합니다.
 -------------------------------------------------------------------------- */
@@ -559,11 +559,11 @@ const M3AssistChipDemo = () => {
 }
 
 export const M3_어시스트_칩_RadioGroup: Story = {
-  name: 'Material 3 — Assist Chip + RadioGroup 상태별 권장 액션',
+  name: 'RoleToken Design — Assist Chip + RadioGroup 상태별 권장 액션',
   render: () => <M3AssistChipDemo />,
 }
 
-/* ── Tailwind UI: 배송 방법 선택 ── */
+/* ── UtilityUI: 배송 방법 선택 ── */
 const ShippingMethodDemo = () => {
   const [method, setMethod] = useState('standard')
 
@@ -575,7 +575,7 @@ const ShippingMethodDemo = () => {
 
   return (
     <div style={{ maxWidth: 420 }}>
-      <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 14 }}>배송 방법 선택 (Tailwind UI 패턴)</div>
+      <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 14 }}>배송 방법 선택 (UtilityUI 패턴)</div>
       <RadioGroup value={method} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setMethod(e.target.value)} name="shipping">
         <div style={{ display: 'flex', flexDirection: 'column', gap: 0, border: '1px solid var(--sem-eclipse-color-borderDefault)', borderRadius: 8, overflow: 'hidden' }}>
           {methods.map((m, i) => (
@@ -610,12 +610,12 @@ const ShippingMethodDemo = () => {
   )
 }
 
-export const Tailwind_배송_방법_선택: Story = {
-  name: 'Tailwind UI — 배송 방법 선택',
+export const UtilityCSS_배송_방법_선택: Story = {
+  name: 'UtilityUI — 배송 방법 선택',
   render: () => <ShippingMethodDemo />,
 }
 
-/* ── Tailwind UI: 팀 역할 권한 선택 ── */
+/* ── UtilityUI: 팀 역할 권한 선택 ── */
 const TeamRoleDemo = () => {
   const [role, setRole] = useState('editor')
 
@@ -680,12 +680,12 @@ const TeamRoleDemo = () => {
   )
 }
 
-export const Tailwind_팀_역할_권한_선택: Story = {
-  name: 'Tailwind UI — 팀 역할 권한 선택',
+export const UtilityCSS_팀_역할_권한_선택: Story = {
+  name: 'UtilityUI — 팀 역할 권한 선택',
   render: () => <TeamRoleDemo />,
 }
 
-/* ── Tailwind UI: 구독 플랜 전환 ── */
+/* ── UtilityUI: 구독 플랜 전환 ── */
 const SubscriptionSwitchDemo = () => {
   const [billing, setBilling] = useState<'monthly' | 'yearly'>('yearly')
   const [plan, setPlan] = useState('pro')
@@ -750,13 +750,13 @@ const SubscriptionSwitchDemo = () => {
   )
 }
 
-export const Tailwind_구독_플랜_전환: Story = {
-  name: 'Tailwind UI — 구독 플랜 전환 (월간/연간)',
+export const UtilityCSS_구독_플랜_전환: Story = {
+  name: 'UtilityUI — 구독 플랜 전환 (월간/연간)',
   render: () => <SubscriptionSwitchDemo />,
 }
 
 /* --------------------------------------------------------------------------
-   Radix UI — 알림 전달 채널 설정
+   PrimitiveUI — 알림 전달 채널 설정
    섹션별 그룹 + 아이콘 레이블 + 설명 텍스트 패턴
 -------------------------------------------------------------------------- */
 const NOTIFY_CHANNELS = [
@@ -766,7 +766,7 @@ const NOTIFY_CHANNELS = [
   { value: 'none', label: '알림 끄기', desc: '선택한 이벤트의 알림을 모두 수신 안 함', icon: '🔕' },
 ]
 
-const RadixNotifyChannelDemo = () => {
+const PrimitiveNotifyChannelDemo = () => {
   const [channel, setChannel] = useState('push')
   const [urgentOnly, setUrgentOnly] = useState(false)
   return (
@@ -804,25 +804,25 @@ const RadixNotifyChannelDemo = () => {
           </div>
         </label>
       )}
-      <div style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundDisabled)' }}>Radix UI Radio 패턴 — 아이콘 + 설명 텍스트 선택지</div>
+      <div style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundDisabled)' }}>PrimitiveUI Radio 패턴 — 아이콘 + 설명 텍스트 선택지</div>
     </div>
   )
 }
 
-export const Radix_알림_채널_설정: Story = {
-  name: 'Radix UI — 알림 채널 설정 (아이콘 + 설명)',
+export const Primitive_알림_채널_설정: Story = {
+  name: 'PrimitiveUI — 알림 채널 설정 (아이콘 + 설명)',
   parameters: {
     docs: {
       description: {
-        story: 'Radix UI RadioGroup에서 영감을 받은 알림 채널 선택 UI. 아이콘 + 레이블 + 설명 텍스트 패턴, 선택 시 테두리 강조, 긴급 알림 필터 체크박스 연동.',
+        story: 'PrimitiveUI RadioGroup에서 영감을 받은 알림 채널 선택 UI. 아이콘 + 레이블 + 설명 텍스트 패턴, 선택 시 테두리 강조, 긴급 알림 필터 체크박스 연동.',
       },
     },
   },
-  render: () => <RadixNotifyChannelDemo />,
+  render: () => <PrimitiveNotifyChannelDemo />,
 }
 
 /* --------------------------------------------------------------------------
-   Vercel Design — 배포 환경 선택
+   DeployPlatform Design — 배포 환경 선택
    프로덕션 / 프리뷰 / 개발 타깃 선택 + 메타 뱃지 패턴
 -------------------------------------------------------------------------- */
 type DeployTarget = 'production' | 'preview' | 'development'
@@ -833,7 +833,7 @@ const DEPLOY_TARGETS: { value: DeployTarget; label: string; badge: string; badge
   { value: 'development', label: 'Development', badge: 'local', badgeColor: '#f59e0b', desc: '로컬 개발 서버 연동 환경입니다. 외부 노출 없음.', branch: 'localhost' },
 ]
 
-const VercelDeployTargetDemo = () => {
+const DeployPlatformDeployTargetDemo = () => {
   const [target, setTarget] = useState<DeployTarget>('preview')
   const selected = DEPLOY_TARGETS.find((t) => t.value === target)!
   return (
@@ -865,36 +865,36 @@ const VercelDeployTargetDemo = () => {
       <div style={{ padding: '10px 14px', borderRadius: 8, background: 'var(--sem-eclipse-color-backgroundSecondary)', border: `1px solid ${selected.badgeColor}30`, fontSize: 12, color: 'var(--sem-eclipse-color-foregroundSecondary)' }}>
         선택됨: <span style={{ fontWeight: 700, color: selected.badgeColor }}>{selected.label}</span> — {selected.desc}
       </div>
-      <div style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundDisabled)' }}>Vercel Design 배포 환경 선택 패턴 — 컬러 코딩 + 상태 확장</div>
+      <div style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundDisabled)' }}>DeployPlatform Design 배포 환경 선택 패턴 — 컬러 코딩 + 상태 확장</div>
     </div>
   )
 }
 
-export const Vercel_배포_환경_선택_Cycle112: Story = {
-  name: 'Vercel Design — 배포 환경 선택 (Production/Preview/Dev)',
+export const DeployPlatform_배포_환경_선택_Cycle112: Story = {
+  name: 'DeployPlatform Design — 배포 환경 선택 (Production/Preview/Dev)',
   parameters: {
     docs: {
       description: {
-        story: 'Vercel 대시보드 배포 환경 선택 UI. Production/Preview/Development를 RadioGroup으로 선택하고, 선택 시 브랜치 패턴과 설명이 확장되어 노출됩니다. 환경별 컬러 코딩 패턴.',
+        story: 'DeployPlatform 대시보드 배포 환경 선택 UI. Production/Preview/Development를 RadioGroup으로 선택하고, 선택 시 브랜치 패턴과 설명이 확장되어 노출됩니다. 환경별 컬러 코딩 패턴.',
       },
     },
   },
-  render: () => <VercelDeployTargetDemo />,
+  render: () => <DeployPlatformDeployTargetDemo />,
 }
 
 /* --------------------------------------------------------------------------
-   Radix UI + Vercel — 보안 인증 방식 선택
+   PrimitiveUI + DeployPlatform — 보안 인증 방식 선택
    MFA / SSO / 비밀번호 방식 + 보안 레벨 시각화
 -------------------------------------------------------------------------- */
 type AuthMethod = 'password' | 'sso' | 'mfa'
 
 const AUTH_METHODS: { value: AuthMethod; label: string; level: number; color: string; hint: string }[] = [
   { value: 'password', label: '비밀번호 인증', level: 1, color: '#ef4444', hint: '기본 보안. 강력한 비밀번호 정책 별도 설정 권장.' },
-  { value: 'sso', label: 'SSO (OAuth 2.0)', level: 2, color: '#f59e0b', hint: 'Google / GitHub 계정으로 로그인. 팀 계정 관리 편리.' },
+  { value: 'sso', label: 'SSO (OAuth 2.0)', level: 2, color: '#f59e0b', hint: 'Reference / CodeHost 계정으로 로그인. 팀 계정 관리 편리.' },
   { value: 'mfa', label: 'MFA + SSO', level: 3, color: '#10b981', hint: '최고 보안. OTP 앱 또는 하드웨어 키 2단계 인증 필수.' },
 ]
 
-const RadixVercelAuthMethodDemo = () => {
+const PrimitiveDeployPlatformAuthMethodDemo = () => {
   const [method, setMethod] = useState<AuthMethod>('sso')
   const selected = AUTH_METHODS.find((m) => m.value === method)!
   return (
@@ -927,27 +927,27 @@ const RadixVercelAuthMethodDemo = () => {
       <div style={{ padding: '10px 14px', borderRadius: 8, background: `${selected.color}10`, border: `1px solid ${selected.color}30`, fontSize: 12, color: 'var(--sem-eclipse-color-foregroundSecondary)' }}>
         <span style={{ fontWeight: 700, color: selected.color }}>보안 레벨 {selected.level}/3</span> — {selected.hint}
       </div>
-      <div style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundDisabled)' }}>Radix UI + Vercel — 보안 레벨 시각화 선택지 패턴</div>
+      <div style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundDisabled)' }}>PrimitiveUI + DeployPlatform — 보안 레벨 시각화 선택지 패턴</div>
     </div>
   )
 }
 
-export const Radix_Vercel_보안_인증_방식: Story = {
-  name: 'Radix UI + Vercel — 보안 인증 방식 선택 (레벨 시각화)',
+export const Primitive_DeployPlatform_보안_인증_방식: Story = {
+  name: 'PrimitiveUI + DeployPlatform — 보안 인증 방식 선택 (레벨 시각화)',
   parameters: {
     docs: {
       description: {
-        story: 'Radix UI RadioGroup + Vercel 보안 설정 UI 조합. 인증 방식별 보안 레벨을 3단계 블록으로 시각화하고, 선택 시 힌트 텍스트가 하단에 표시됩니다.',
+        story: 'PrimitiveUI RadioGroup + DeployPlatform 보안 설정 UI 조합. 인증 방식별 보안 레벨을 3단계 블록으로 시각화하고, 선택 시 힌트 텍스트가 하단에 표시됩니다.',
       },
     },
   },
-  render: () => <RadixVercelAuthMethodDemo />,
+  render: () => <PrimitiveDeployPlatformAuthMethodDemo />,
 }
 
 /* --------------------------------------------------------------------------
-   Cycle 188 — MUI + Tailwind UI
+   Cycle 188 — EnterpriseUI + UtilityUI
 -------------------------------------------------------------------------- */
-const MUI_NOTIF_FREQUENCIES_188 = [
+const EnterpriseUI_NOTIF_FREQUENCIES_188 = [
   { value: 'realtime', label: '실시간', desc: '즉시 알림 수신', badge: '빠름' },
   { value: 'hourly', label: '매시간', desc: '1시간 단위로 요약', badge: null },
   { value: 'daily', label: '매일', desc: '하루 1회 다이제스트', badge: null },
@@ -955,17 +955,17 @@ const MUI_NOTIF_FREQUENCIES_188 = [
   { value: 'none', label: '끄기', desc: '알림 수신 안 함', badge: null },
 ]
 
-function MuiNotifFrequencyRender() {
+function EnterpriseUINotifFrequencyRender() {
   const [freq, setFreq] = React.useState('daily')
   return (
     <div style={{ width: 360, fontFamily: 'system-ui, sans-serif' }}>
       <div style={{ marginBottom: 14 }}>
         <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>알림 빈도 설정</div>
-        <div style={{ fontSize: 11, color: '#64748b', marginTop: 2 }}>MUI Radio 수직 목록 + 설명 패턴</div>
+        <div style={{ fontSize: 11, color: '#64748b', marginTop: 2 }}>EnterpriseUI Radio 수직 목록 + 설명 패턴</div>
       </div>
       <RadioGroup value={freq} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFreq(e.target.value)} name="notif-freq">
         <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-          {MUI_NOTIF_FREQUENCIES_188.map((f) => (
+          {EnterpriseUI_NOTIF_FREQUENCIES_188.map((f) => (
             <div
               key={f.value}
               onClick={() => setFreq(f.value)}
@@ -998,28 +998,28 @@ function MuiNotifFrequencyRender() {
   )
 }
 
-export const MUI_알림_빈도_설정: Story = {
-  name: 'MUI — 알림 빈도 수직 라디오 목록',
+export const EnterpriseUI_알림_빈도_설정: Story = {
+  name: 'EnterpriseUI — 알림 빈도 수직 라디오 목록',
   parameters: {
     docs: {
       description: {
         story:
-          'MUI 스타일 수직 RadioGroup 패턴. 빈도 옵션마다 설명 텍스트 + 상태 배지 조합. ' +
+          'EnterpriseUI 스타일 수직 RadioGroup 패턴. 빈도 옵션마다 설명 텍스트 + 상태 배지 조합. ' +
           '"끄기" 선택 시 경고 메시지 인라인 표시로 사용자가 선택 결과를 인지하도록 합니다.',
       },
     },
   },
-  render: () => <MuiNotifFrequencyRender />,
+  render: () => <EnterpriseUINotifFrequencyRender />,
 }
 
 const TAILWIND_PAYMENT_METHODS_188 = [
   { value: 'card', label: '신용카드', icon: '💳', hint: 'Visa, Mastercard, AMEX' },
   { value: 'bank', label: '계좌이체', icon: '🏦', hint: '국내 은행 직접 이체' },
-  { value: 'kakao', label: '카카오페이', icon: '💛', hint: '빠른 간편결제' },
-  { value: 'naver', label: '네이버페이', icon: '💚', hint: '포인트 적립 가능' },
+  { value: 'quickpay', label: '퀵페이', icon: '💛', hint: '빠른 간편결제' },
+  { value: 'pointpay', label: '포인트페이', icon: '💚', hint: '포인트 적립 가능' },
 ]
 
-function TailwindPaymentMethodRender() {
+function UtilityCSSPaymentMethodRender() {
   const [method, setMethod] = React.useState('card')
   return (
     <div style={{ width: 380, fontFamily: 'system-ui, sans-serif' }}>
@@ -1055,21 +1055,21 @@ function TailwindPaymentMethodRender() {
   )
 }
 
-export const Tailwind_결제_수단_그리드_선택: Story = {
-  name: 'Tailwind UI — 결제 수단 2열 그리드 선택',
+export const UtilityCSS_결제_수단_그리드_선택: Story = {
+  name: 'UtilityUI — 결제 수단 2열 그리드 선택',
   parameters: {
     docs: {
       description: {
         story:
-          'Tailwind UI 결제 수단 그리드 패턴. 2열 그리드 카드형 라디오 버튼 + 아이콘 + 설명. ' +
+          'UtilityUI 결제 수단 그리드 패턴. 2열 그리드 카드형 라디오 버튼 + 아이콘 + 설명. ' +
           '선택 시 굵은 테두리로 강조하고 하단에 선택 요약 + 결제 진행 버튼을 배치합니다.',
       },
     },
   },
-  render: () => <TailwindPaymentMethodRender />,
+  render: () => <UtilityCSSPaymentMethodRender />,
 }
 
-const MUI_DEPLOY_STRATEGIES_188 = [
+const EnterpriseUI_DEPLOY_STRATEGIES_188 = [
   { value: 'rolling', label: 'Rolling Update', desc: '점진적 교체. 무중단 배포. 평균 3분', risk: 'low' },
   { value: 'bluegreen', label: 'Blue/Green', desc: '전환 즉시 완료. 롤백 쉬움. 비용 2배', risk: 'low' },
   { value: 'canary', label: 'Canary', desc: '10% 트래픽 테스트. 점진적 확대', risk: 'medium' },
@@ -1082,20 +1082,20 @@ const RISK_STYLE_188: Record<string, { label: string; color: string; bg: string 
   high:   { label: '높음', color: '#ef4444', bg: '#fee2e2' },
 }
 
-function MuiTailwindDeployStrategyRender() {
+function EnterpriseUIUtilityCSSDeployStrategyRender() {
   const [strategy, setStrategy] = React.useState('rolling')
-  const selected = MUI_DEPLOY_STRATEGIES_188.find((s) => s.value === strategy)!
+  const selected = EnterpriseUI_DEPLOY_STRATEGIES_188.find((s) => s.value === strategy)!
   const risk = RISK_STYLE_188[selected.risk]
 
   return (
     <div style={{ width: 400, fontFamily: 'system-ui, sans-serif' }}>
       <div style={{ marginBottom: 12 }}>
         <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>배포 전략 선택</div>
-        <div style={{ fontSize: 11, color: '#64748b', marginTop: 2 }}>MUI + Tailwind UI 복합 선택 패턴</div>
+        <div style={{ fontSize: 11, color: '#64748b', marginTop: 2 }}>EnterpriseUI + UtilityUI 복합 선택 패턴</div>
       </div>
       <RadioGroup value={strategy} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setStrategy(e.target.value)} name="deploy-strategy">
         <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-          {MUI_DEPLOY_STRATEGIES_188.map((s) => {
+          {EnterpriseUI_DEPLOY_STRATEGIES_188.map((s) => {
             const r = RISK_STYLE_188[s.risk]
             return (
               <div
@@ -1131,16 +1131,16 @@ function MuiTailwindDeployStrategyRender() {
   )
 }
 
-export const MUI_Tailwind_배포_전략_선택: Story = {
-  name: 'MUI + Tailwind UI — 배포 전략 위험도 시각화 선택',
+export const EnterpriseUI_UtilityCSS_배포_전략_선택: Story = {
+  name: 'EnterpriseUI + UtilityUI — 배포 전략 위험도 시각화 선택',
   parameters: {
     docs: {
       description: {
         story:
-          'MUI + Tailwind UI 배포 전략 선택 패턴. 전략별 설명 + 위험도 배지 + 선택 시 요약 패널 변화. ' +
+          'EnterpriseUI + UtilityUI 배포 전략 선택 패턴. 전략별 설명 + 위험도 배지 + 선택 시 요약 패널 변화. ' +
           'Rolling/Blue-Green/Canary/Recreate 전략을 카드형 라디오로 명확하게 비교합니다.',
       },
     },
   },
-  render: () => <MuiTailwindDeployStrategyRender />,
+  render: () => <EnterpriseUIUtilityCSSDeployStrategyRender />,
 }

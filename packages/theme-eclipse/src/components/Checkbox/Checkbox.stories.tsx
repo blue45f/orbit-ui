@@ -12,7 +12,7 @@ const meta = {
   parameters: {
     docs: {
       description: {
-        component: "Checkbox는 Radix UI 기반 접근성 체크박스 컴포넌트입니다. 제어/비제어 모드를 모두 지원하며 키보드 네비게이션을 완벽하게 지원합니다.",
+        component: "Checkbox는 PrimitiveUI 기반 접근성 체크박스 컴포넌트입니다. 제어/비제어 모드를 모두 지원하며 키보드 네비게이션을 완벽하게 지원합니다.",
       },
     },
   },
@@ -54,7 +54,7 @@ export const 테마_재정의 = {
   },
 } satisfies Story
 
-// Mantine 권한 관리 — 역할별 접근 권한 체크박스 매트릭스
+// AppUI 권한 관리 — 역할별 접근 권한 체크박스 매트릭스
 export const 권한_관리_매트릭스 = {
   render: function Render() {
     type PermissionKey = 'view' | 'edit' | 'delete' | 'admin'
@@ -132,7 +132,7 @@ export const 권한_관리_매트릭스 = {
   },
 } satisfies Story
 
-// Mantine 할 일 목록 — 완료 처리 인터랙션 패턴
+// AppUI 할 일 목록 — 완료 처리 인터랙션 패턴
 export const 할일_목록 = {
   render: function Render() {
     type Task = { id: number; label: string; tag: string; tagColor: string; done: boolean }
@@ -214,7 +214,7 @@ export const 할일_목록 = {
   },
 } satisfies Story
 
-// Tailwind UI 다중 선택 필터 — 카테고리 필터링
+// UtilityUI 다중 선택 필터 — 카테고리 필터링
 export const 카테고리_다중_선택 = {
   render: function Render() {
     const categories = [
@@ -289,7 +289,7 @@ export const 카테고리_다중_선택 = {
   },
 } satisfies Story
 
-// 약관 동의 체크박스 그룹 (Chakra UI 실무 폼 패턴)
+// 약관 동의 체크박스 그룹 (AccessibleUI 실무 폼 패턴)
 export const 약관동의그룹 = {
   render: function Render() {
     const [agreed, setAgreed] = useState({
@@ -391,8 +391,8 @@ export const 약관동의그룹 = {
 } satisfies Story
 
 /* --------------------------------------------------------------------------
-   Tailwind UI 벤치마크: 플랜 선택 카드 (feature list + checkbox)
-   Tailwind UI의 체크박스 카드 그리드 패턴 — 각 옵션에 설명 포함
+   UtilityUI 벤치마크: 플랜 선택 카드 (feature list + checkbox)
+   UtilityUI의 체크박스 카드 그리드 패턴 — 각 옵션에 설명 포함
 -------------------------------------------------------------------------- */
 const PLAN_FEATURES = [
   { key: 'sso', label: 'SSO / SAML', desc: '엔터프라이즈 인증 연동', premium: false },
@@ -403,7 +403,7 @@ const PLAN_FEATURES = [
   { key: 'audit', label: '감사 로그', desc: '활동 이력 90일 보관', premium: true },
 ]
 
-function TailwindPlanFeaturesRender() {
+function UtilityCSSPlanFeaturesRender() {
   const [selected, setSelected] = useState<Set<string>>(new Set(['sso', 'api', 'custom']))
 
   const toggle = (key: string) => {
@@ -459,27 +459,27 @@ function TailwindPlanFeaturesRender() {
         {selected.size}개 기능 선택됨
       </div>
       <div style={{ fontSize: 11, color: '#94a3b8' }}>
-        Tailwind UI 체크박스 카드 그리드 패턴 — 기능 설명 포함 선택
+        UtilityUI 체크박스 카드 그리드 패턴 — 기능 설명 포함 선택
       </div>
     </div>
   )
 }
 
-export const Tailwind_플랜_기능_선택: Story = {
+export const UtilityCSS_플랜_기능_선택: Story = {
   parameters: {
     docs: {
       description: {
         story:
-          'Tailwind UI의 체크박스 카드 그리드 패턴. 각 기능에 레이블 + 설명 + 프리미엄 배지를 포함하며, 선택 상태에 따라 카드 테두리와 배경이 변합니다.',
+          'UtilityUI의 체크박스 카드 그리드 패턴. 각 기능에 레이블 + 설명 + 프리미엄 배지를 포함하며, 선택 상태에 따라 카드 테두리와 배경이 변합니다.',
       },
     },
   },
-  render: () => <TailwindPlanFeaturesRender />,
+  render: () => <UtilityCSSPlanFeaturesRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Mantine 벤치마크: 컬럼 표시 설정 (DataTable 컬럼 토글)
-   Mantine DataTable columnVisibility 패턴 — 표시할 컬럼 선택
+   AppUI 벤치마크: 컬럼 표시 설정 (DataTable 컬럼 토글)
+   AppUI DataTable columnVisibility 패턴 — 표시할 컬럼 선택
 -------------------------------------------------------------------------- */
 const DATA_COLUMNS = [
   { key: 'name', label: '이름', required: true },
@@ -551,18 +551,18 @@ function ManitneColumnVisibilityRender() {
         ))}
       </div>
       <div style={{ fontSize: 11, color: '#94a3b8' }}>
-        Mantine DataTable columnVisibility 패턴 — {visible.size}/{DATA_COLUMNS.length} 컬럼 표시
+        AppUI DataTable columnVisibility 패턴 — {visible.size}/{DATA_COLUMNS.length} 컬럼 표시
       </div>
     </div>
   )
 }
 
-export const Mantine_컬럼_표시_설정: Story = {
+export const AppUI_컬럼_표시_설정: Story = {
   parameters: {
     docs: {
       description: {
         story:
-          'Mantine DataTable의 columnVisibility 패턴. 필수 컬럼은 disabled 처리하고, 전체 선택/해제 제어와 개별 토글을 동시에 지원합니다.',
+          'AppUI DataTable의 columnVisibility 패턴. 필수 컬럼은 disabled 처리하고, 전체 선택/해제 제어와 개별 토글을 동시에 지원합니다.',
       },
     },
   },
@@ -570,24 +570,24 @@ export const Mantine_컬럼_표시_설정: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Tailwind UI 벤치마크: 비교 체크리스트 (pricing 페이지 패턴)
-   Tailwind UI pricing table — Orbit UI vs 경쟁 시스템 기능 비교
+   UtilityUI 벤치마크: 비교 체크리스트 (pricing 페이지 패턴)
+   UtilityUI pricing table — Orbit UI vs 경쟁 시스템 기능 비교
 -------------------------------------------------------------------------- */
 const COMPARE_ITEMS = [
-  { feature: 'TypeScript 완전 지원', orbitUI: true, shadcn: true, mui: true },
-  { feature: '3-Tier 토큰 시스템', orbitUI: true, shadcn: false, mui: false },
-  { feature: '빌드타임 CSS (0 런타임)', orbitUI: true, shadcn: false, mui: false },
-  { feature: 'Compound 컴포넌트 API', orbitUI: true, shadcn: true, mui: false },
-  { feature: 'theme prop 오버라이드', orbitUI: true, shadcn: false, mui: true },
-  { feature: 'Storybook 자동 문서화', orbitUI: true, shadcn: false, mui: true },
+  { feature: 'TypeScript 완전 지원', orbitUI: true, ComposableUI: true, enterpriseUi: true },
+  { feature: '3-Tier 토큰 시스템', orbitUI: true, ComposableUI: false, enterpriseUi: false },
+  { feature: '빌드타임 CSS (0 런타임)', orbitUI: true, ComposableUI: false, enterpriseUi: false },
+  { feature: 'Compound 컴포넌트 API', orbitUI: true, ComposableUI: true, enterpriseUi: false },
+  { feature: 'theme prop 오버라이드', orbitUI: true, ComposableUI: false, enterpriseUi: true },
+  { feature: 'Storybook 자동 문서화', orbitUI: true, ComposableUI: false, enterpriseUi: true },
 ]
 
-export const Tailwind_비교_체크리스트: Story = {
+export const UtilityCSS_비교_체크리스트: Story = {
   parameters: {
     docs: {
       description: {
         story:
-          'Tailwind UI pricing table 비교 패턴. 체크박스를 읽기 전용 상태로 활용해 기능 지원 여부를 시각적으로 비교합니다.',
+          'UtilityUI pricing table 비교 패턴. 체크박스를 읽기 전용 상태로 활용해 기능 지원 여부를 시각적으로 비교합니다.',
       },
     },
   },
@@ -600,7 +600,7 @@ export const Tailwind_비교_체크리스트: Story = {
         {/* Header */}
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 80px 80px 80px', padding: '10px 16px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0' }}>
           <div style={{ fontSize: 11, fontWeight: 700, color: '#64748b' }}>기능</div>
-          {['Orbit UI', 'shadcn', 'MUI'].map((name) => (
+          {['Orbit UI', 'ComposableUI', 'EnterpriseUI'].map((name) => (
             <div key={name} style={{ fontSize: 11, fontWeight: 700, color: name === 'Orbit UI' ? '#6366f1' : '#64748b', textAlign: 'center' }}>{name}</div>
           ))}
         </div>
@@ -616,7 +616,7 @@ export const Tailwind_비교_체크리스트: Story = {
             }}
           >
             <div style={{ fontSize: 12, color: '#374151' }}>{item.feature}</div>
-            {[item.orbitUI, item.shadcn, item.mui].map((val, ci) => (
+            {[item.orbitUI, item.ComposableUI, item.enterpriseUi].map((val, ci) => (
               <div key={ci} style={{ display: 'flex', justifyContent: 'center' }}>
                 <Checkbox
                   checked={val}
@@ -629,24 +629,24 @@ export const Tailwind_비교_체크리스트: Story = {
         ))}
       </div>
       <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 10 }}>
-        Tailwind UI pricing 비교 패턴 — 읽기 전용 체크박스로 기능 지원 표시
+        UtilityUI pricing 비교 패턴 — 읽기 전용 체크박스로 기능 지원 표시
       </div>
     </div>
   ),
 }
 
 /* --------------------------------------------------------------------------
-   Radix UI 벤치마크: 접근성 설정 그룹
-   Radix UI WAI-ARIA role="group" + aria-labelledby 패턴
+   PrimitiveUI 벤치마크: 접근성 설정 그룹
+   PrimitiveUI WAI-ARIA role="group" + aria-labelledby 패턴
    키보드 포커스 이동 시 그룹 레이블이 스크린리더에 읽히도록 구성
 -------------------------------------------------------------------------- */
-export const Radix_접근성_설정_그룹: Story = {
-  name: 'Radix UI - 접근성 알림 설정 그룹',
+export const Primitive_접근성_설정_그룹: Story = {
+  name: 'PrimitiveUI - 접근성 알림 설정 그룹',
   parameters: {
     docs: {
       description: {
         story:
-          'Radix UI의 WAI-ARIA `role="group"` + `aria-labelledby` 패턴. 각 체크박스가 그룹 레이블과 연결되어 스크린리더에서 "알림 설정, 이메일 알림, 체크됨" 순으로 읽힙니다.',
+          'PrimitiveUI의 WAI-ARIA `role="group"` + `aria-labelledby` 패턴. 각 체크박스가 그룹 레이블과 연결되어 스크린리더에서 "알림 설정, 이메일 알림, 체크됨" 순으로 읽힙니다.',
       },
     },
   },
@@ -736,7 +736,7 @@ export const Radix_접근성_설정_그룹: Story = {
           ))}
         </div>
         <div style={{ marginTop: 10, fontSize: 11, color: '#94a3b8' }}>
-          {'Radix UI WAI-ARIA role="group" + aria-labelledby 패턴'}
+          {'PrimitiveUI WAI-ARIA role="group" + aria-labelledby 패턴'}
         </div>
       </div>
     )
@@ -744,17 +744,17 @@ export const Radix_접근성_설정_그룹: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   MUI 벤치마크: 색상 역할 선택 체크박스
-   MUI의 color prop 시스템 — primary/success/error/warning 시맨틱 색상 역할
+   EnterpriseUI 벤치마크: 색상 역할 선택 체크박스
+   EnterpriseUI의 color prop 시스템 — primary/success/error/warning 시맨틱 색상 역할
    각 체크박스가 의미론적 색상으로 상태를 표현하는 엔터프라이즈 패턴
 -------------------------------------------------------------------------- */
-export const MUI_색상_역할_권한_선택: Story = {
-  name: 'MUI - 색상 역할 권한 선택 (시맨틱 color prop 패턴)',
+export const EnterpriseUI_색상_역할_권한_선택: Story = {
+  name: 'EnterpriseUI - 색상 역할 권한 선택 (시맨틱 color prop 패턴)',
   parameters: {
     docs: {
       description: {
         story:
-          'MUI의 `color` prop 시스템을 theme override로 재현. primary/success/warning/error 역할별 색상으로 권한 등급을 구분합니다.',
+          'EnterpriseUI의 `color` prop 시스템을 theme override로 재현. primary/success/warning/error 역할별 색상으로 권한 등급을 구분합니다.',
       },
     },
   },
@@ -848,7 +848,7 @@ export const MUI_색상_역할_권한_선택: Story = {
           )
         })}
         <div style={{ fontSize: 11, color: '#94a3b8' }}>
-          MUI color prop 패턴 — primary/success/warning/error 시맨틱 색상 역할
+          EnterpriseUI color prop 패턴 — primary/success/warning/error 시맨틱 색상 역할
         </div>
       </div>
     )
@@ -856,17 +856,17 @@ export const MUI_색상_역할_권한_선택: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Radix + MUI 조합: 온보딩 체크리스트
-   Radix의 WAI-ARIA 완성도 + MUI의 시각적 완료 상태 패턴
+   Primitive + EnterpriseUI 조합: 온보딩 체크리스트
+   Primitive의 WAI-ARIA 완성도 + EnterpriseUI의 시각적 완료 상태 패턴
    사용자가 완료할수록 프로그레스 바가 채워지는 온보딩 체크리스트
 -------------------------------------------------------------------------- */
-export const Radix_MUI_온보딩_체크리스트: Story = {
-  name: 'Radix + MUI - 온보딩 체크리스트',
+export const Primitive_EnterpriseUI_온보딩_체크리스트: Story = {
+  name: 'Primitive + EnterpriseUI - 온보딩 체크리스트',
   parameters: {
     docs: {
       description: {
         story:
-          'Radix WAI-ARIA + MUI 시각적 완료 상태 패턴. 각 항목 완료 시 색상이 변하고 완료율 Progress가 업데이트됩니다.',
+          'Primitive WAI-ARIA + EnterpriseUI 시각적 완료 상태 패턴. 각 항목 완료 시 색상이 변하고 완료율 Progress가 업데이트됩니다.',
       },
     },
   },
@@ -963,7 +963,7 @@ export const Radix_MUI_온보딩_체크리스트: Story = {
           </div>
         </div>
         <div style={{ marginTop: 10, fontSize: 11, color: '#94a3b8' }}>
-          Radix WAI-ARIA + MUI 완료 상태 패턴
+          Primitive WAI-ARIA + EnterpriseUI 완료 상태 패턴
         </div>
       </div>
     )
@@ -971,8 +971,8 @@ export const Radix_MUI_온보딩_체크리스트: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Apple HIG 벤치마크: 계층형 그룹 체크박스
-   Apple Settings-style 그룹 헤더 + 들여쓰기 + 부모/자식 체크박스
+   Platform HIG 벤치마크: 계층형 그룹 체크박스
+   Platform Settings-style 그룹 헤더 + 들여쓰기 + 부모/자식 체크박스
 -------------------------------------------------------------------------- */
 type HigAppGroup = { id: string; label: string; items: { id: string; label: string; desc: string }[] }
 
@@ -980,9 +980,9 @@ const HIG_APP_GROUPS: HigAppGroup[] = [
   {
     id: 'productivity', label: '생산성 앱',
     items: [
-      { id: 'notion', label: 'Notion', desc: '문서, 데이터베이스, 페이지' },
-      { id: 'linear', label: 'Linear', desc: '이슈 트래킹, 프로젝트 관리' },
-      { id: 'figma', label: 'Figma', desc: 'UI 디자인, 프로토타이핑' },
+      { id: 'workspace', label: 'WorkspaceEditor', desc: '문서, 데이터베이스, 페이지' },
+      { id: 'tracker', label: 'IssueTracker', desc: '이슈 트래킹, 프로젝트 관리' },
+      { id: 'design', label: 'DesignTool', desc: 'UI 디자인, 프로토타이핑' },
     ],
   },
   {
@@ -994,20 +994,20 @@ const HIG_APP_GROUPS: HigAppGroup[] = [
   },
 ]
 
-export const Apple_HIG_계층형_그룹_체크박스: Story = {
-  name: 'Apple HIG — 계층형 그룹 선택 패턴',
+export const Platform_HIG_계층형_그룹_체크박스: Story = {
+  name: 'Platform HIG — 계층형 그룹 선택 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'Apple HIG Settings 화면의 그룹 체크박스 패턴. 상위 그룹 체크박스로 하위 항목 일괄 선택/해제, ' +
+          'Platform HIG Settings 화면의 그룹 체크박스 패턴. 상위 그룹 체크박스로 하위 항목 일괄 선택/해제, ' +
           '부분 선택 시 상위 체크박스 indeterminate 상태(minus 아이콘), 그룹 간 명확한 시각적 구분.',
       },
     },
   },
-  render: function AppleHIGGroupCheckbox() {
+  render: function PlatformHIGGroupCheckbox() {
     const [checked, setChecked] = useState<Record<string, boolean>>({
-      notion: true, linear: false, figma: true, vscode: true, webstorm: false,
+      workspace: true, tracker: false, design: true, vscode: true, webstorm: false,
     })
 
     const getGroupState = (group: HigAppGroup): { allChecked: boolean; someChecked: boolean } => {
@@ -1082,7 +1082,7 @@ export const Apple_HIG_계층형_그룹_체크박스: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Google Material 3 벤치마크: 필터 칩 체크박스
+   RoleToken Design 벤치마크: 필터 칩 체크박스
    M3 Filter Chip — 체크 상태가 Chip 배경 채워짐으로 시각화
 -------------------------------------------------------------------------- */
 type M3FilterTag = { id: string; label: string; count: number }
@@ -1098,7 +1098,7 @@ const M3_FILTER_TAGS: M3FilterTag[] = [
 ]
 
 export const Material3_필터_칩_체크박스: Story = {
-  name: 'Google Material 3 — 필터 칩 체크박스 패턴',
+  name: 'RoleToken Design — 필터 칩 체크박스 패턴',
   parameters: {
     docs: {
       description: {
@@ -1179,7 +1179,7 @@ export const Material3_필터_칩_체크박스: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Google Material 3 벤치마크: 개인정보 설정 체크리스트
+   RoleToken Design 벤치마크: 개인정보 설정 체크리스트
    M3 Settings list — 데이터 수집 항목 체크박스 + 중요도 뱃지
 -------------------------------------------------------------------------- */
 type M3PrivacySetting = { id: string; title: string; desc: string; required: boolean; importance: 'high' | 'medium' | 'low' }
@@ -1199,7 +1199,7 @@ const M3_IMPORTANCE_STYLE: Record<M3PrivacySetting['importance'], { label: strin
 }
 
 export const Material3_개인정보_설정_체크리스트: Story = {
-  name: 'Google Material 3 — 개인정보 설정 체크리스트',
+  name: 'RoleToken Design — 개인정보 설정 체크리스트',
   parameters: {
     docs: {
       description: {
@@ -1289,7 +1289,7 @@ export const 디자인_QA = {
       options: ['check', 'minus'],
     },
   },
-  // eslint-disable-next-line
+
   render: function RenderComponent(args: any) {
     const [isChecked, setIsChecked] = useState(args.checked)
 
@@ -1302,11 +1302,11 @@ export const 디자인_QA = {
 } satisfies Story
 
 // ============================================================
-// Cycle 137 — Linear Design + Radix UI 벤치마크 반영
+// Cycle 137 — IssueTracker Design + PrimitiveUI 벤치마크 반영
 // ============================================================
 
-// Linear 스타일 — 이슈 레이블 필터 체크박스 (컴팩트 인라인)
-const LINEAR_LABELS_137 = [
+// IssueTracker 스타일 — 이슈 레이블 필터 체크박스 (컴팩트 인라인)
+const TRACKER_LABELS_137 = [
   { id: 'bug', label: 'Bug', color: '#ef4444' },
   { id: 'feature', label: 'Feature', color: '#6366f1' },
   { id: 'improvement', label: 'Improvement', color: '#0ea5e9' },
@@ -1315,18 +1315,18 @@ const LINEAR_LABELS_137 = [
   { id: 'chore', label: 'Chore', color: '#94a3b8' },
 ]
 
-export const Linear_이슈_레이블_필터: Story = {
-  name: 'Linear — 이슈 레이블 필터 체크박스 (Cycle 137)',
+export const IssueTracker_이슈_레이블_필터: Story = {
+  name: 'IssueTracker — 이슈 레이블 필터 체크박스 (Cycle 137)',
   parameters: {
     docs: {
       description: {
         story:
-          'Linear Issue Label Filter 패턴. 색상 도트 + 레이블명 + 선택 개수 배지. ' +
-          '복수 선택 가능하며 선택된 항목은 배경 강조. Linear의 컴팩트 밀도감 반영.',
+          'IssueTracker Issue Label Filter 패턴. 색상 도트 + 레이블명 + 선택 개수 배지. ' +
+          '복수 선택 가능하며 선택된 항목은 배경 강조. IssueTracker의 컴팩트 밀도감 반영.',
       },
     },
   },
-  render: function LinearLabelFilterRender() {
+  render: function IssueTrackerLabelFilterRender() {
     const [selected, setSelected] = useState<string[]>(['bug', 'feature'])
 
     function toggle(id: string) {
@@ -1343,7 +1343,7 @@ export const Linear_이슈_레이블_필터: Story = {
             <span style={{ fontSize: 11, color: '#6366f1', fontWeight: 600 }}>{selected.length}개 선택</span>
           )}
         </div>
-        {LINEAR_LABELS_137.map((l) => {
+        {TRACKER_LABELS_137.map((l) => {
           const checked = selected.includes(l.id)
           return (
             <div
@@ -1377,7 +1377,7 @@ export const Linear_이슈_레이블_필터: Story = {
   },
 }
 
-// Radix UI 스타일 — 권한 설정 매트릭스 체크박스
+// PrimitiveUI 스타일 — 권한 설정 매트릭스 체크박스
 const RADIX_PERMISSIONS_137 = [
   { resource: '컴포넌트', read: true, write: false, delete: false },
   { resource: '스토리북', read: true, write: true, delete: false },
@@ -1388,18 +1388,18 @@ const RADIX_PERMISSIONS_137 = [
 type PermRow = { resource: string; read: boolean; write: boolean; delete: boolean }
 type PermKey = 'read' | 'write' | 'delete'
 
-export const Radix_권한_설정_매트릭스: Story = {
-  name: 'Radix UI — 권한 설정 매트릭스 체크박스 (Cycle 137)',
+export const Primitive_권한_설정_매트릭스: Story = {
+  name: 'PrimitiveUI — 권한 설정 매트릭스 체크박스 (Cycle 137)',
   parameters: {
     docs: {
       description: {
         story:
-          'Radix UI CheckboxGroup 권한 매트릭스 패턴. 리소스 × 권한 타입(Read/Write/Delete) 2차원 그리드. ' +
+          'PrimitiveUI CheckboxGroup 권한 매트릭스 패턴. 리소스 × 권한 타입(Read/Write/Delete) 2차원 그리드. ' +
           '열 헤더 클릭으로 해당 열 전체 선택/해제(indeterminate 상태 포함). 접근성 완전 지원.',
       },
     },
   },
-  render: function RadixPermissionMatrixRender() {
+  render: function PrimitivePermissionMatrixRender() {
     const [perms, setPerms] = useState<PermRow[]>(RADIX_PERMISSIONS_137)
 
     function toggleCell(idx: number, key: PermKey) {
@@ -1467,7 +1467,7 @@ export const Radix_권한_설정_매트릭스: Story = {
   },
 }
 
-// Linear + Radix — 스프린트 완료 체크리스트 (애니메이션 취소선)
+// IssueTracker + Primitive — 스프린트 완료 체크리스트 (애니메이션 취소선)
 const SPRINT_TASKS_137 = [
   { id: 1, title: 'Checkbox 스토리 3개 추가', priority: 'high', done: false },
   { id: 2, title: 'Switch 스토리 3개 추가', priority: 'high', done: false },
@@ -1479,18 +1479,18 @@ const SPRINT_TASKS_137 = [
 
 const PRIORITY_COLOR_137: Record<string, string> = { high: '#ef4444', medium: '#f59e0b', low: '#64748b' }
 
-export const Linear_Radix_스프린트_체크리스트: Story = {
-  name: 'Linear + Radix — 스프린트 완료 체크리스트 (Cycle 137)',
+export const IssueTracker_Primitive_스프린트_체크리스트: Story = {
+  name: 'IssueTracker + Primitive — 스프린트 완료 체크리스트 (Cycle 137)',
   parameters: {
     docs: {
       description: {
         story:
-          'Linear Issue + Radix Checkbox 통합 패턴. 완료 시 취소선 애니메이션 + 체크 표시. ' +
+          'IssueTracker Issue + Primitive Checkbox 통합 패턴. 완료 시 취소선 애니메이션 + 체크 표시. ' +
           '전체 완료 시 진행 바가 초록으로 변하고 완료 메시지 표시. 우선순위 색상 도트.',
       },
     },
   },
-  render: function LinearSprintChecklistRender() {
+  render: function IssueTrackerSprintChecklistRender() {
     const [tasks, setTasks] = useState(SPRINT_TASKS_137)
 
     function toggle(id: number) {
@@ -1548,8 +1548,8 @@ export const Linear_Radix_스프린트_체크리스트: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Cycle 161 — Chakra UI + Arco Design
-   Chakra: 중첩 체크박스 그룹 패턴 (Nested Checkbox Group)
+   Cycle 161 — AccessibleUI + DataProductUI
+   Accessible: 중첩 체크박스 그룹 패턴 (Nested Checkbox Group)
 -------------------------------------------------------------------------- */
 type TreeNode = { id: string; label: string; children?: TreeNode[] }
 
@@ -1558,7 +1558,7 @@ const CHAKRA_TREE: TreeNode[] = [
     id: 'frontend', label: '프론트엔드', children: [
       { id: 'react', label: 'React' },
       { id: 'ts', label: 'TypeScript' },
-      { id: 'css', label: 'CSS/Tailwind' },
+      { id: 'css', label: 'CSS/UtilityCSS' },
     ]
   },
   {
@@ -1576,7 +1576,7 @@ const CHAKRA_TREE: TreeNode[] = [
   },
 ]
 
-function ChakraNestedCheckboxRender() {
+function AccessibleNestedCheckboxRender() {
   const [checked, setChecked] = useState<Set<string>>(new Set(['react', 'ts']))
 
   const toggleLeaf = (id: string) => {
@@ -1644,32 +1644,32 @@ function ChakraNestedCheckboxRender() {
   )
 }
 
-export const Chakra_중첩_체크박스_그룹: Story = {
-  name: 'Chakra UI — 중첩 트리 체크박스 그룹 패턴',
+export const Accessible_중첩_체크박스_그룹: Story = {
+  name: 'AccessibleUI — 중첩 트리 체크박스 그룹 패턴',
   parameters: {
     docs: {
       description: {
-        story: 'Chakra UI의 Nested Checkbox Group 패턴. 부모-자식 계층 구조에서 부분 선택(indeterminate)을 iconName="minus"로 표현합니다.',
+        story: 'AccessibleUI의 Nested Checkbox Group 패턴. 부모-자식 계층 구조에서 부분 선택(indeterminate)을 iconName="minus"로 표현합니다.',
       },
     },
   },
-  render: () => <ChakraNestedCheckboxRender />,
+  render: () => <AccessibleNestedCheckboxRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Arco Design: 데이터 테이블 행 선택 체크박스 패턴
+   DataProductUI: 데이터 테이블 행 선택 체크박스 패턴
 -------------------------------------------------------------------------- */
 const ARCO_ROWS = [
   { id: '1', name: '사용자_분석_보고서.csv', size: '2.4 MB', type: 'CSV', modified: '오늘' },
-  { id: '2', name: '컴포넌트_디자인_v2.fig', size: '18.7 MB', type: 'Figma', modified: '어제' },
+  { id: '2', name: '컴포넌트_디자인_v2.fig', size: '18.7 MB', type: 'DesignTool', modified: '어제' },
   { id: '3', name: '온보딩_플로우.pdf', size: '1.2 MB', type: 'PDF', modified: '2일 전' },
   { id: '4', name: 'orbit-ui-theme.ts', size: '45 KB', type: 'TypeScript', modified: '3일 전' },
   { id: '5', name: '스프린트_회고.md', size: '12 KB', type: 'Markdown', modified: '1주 전' },
 ]
 
-const FILE_TYPE_COLOR: Record<string, string> = { CSV: '#22c55e', Figma: '#8b5cf6', PDF: '#ef4444', TypeScript: '#3b82f6', Markdown: '#64748b' }
+const FILE_TYPE_COLOR: Record<string, string> = { CSV: '#22c55e', DesignTool: '#8b5cf6', PDF: '#ef4444', TypeScript: '#3b82f6', Markdown: '#64748b' }
 
-function ArcoTableRowSelectRender() {
+function DataProductTableRowSelectRender() {
   const [selected, setSelected] = useState<Set<string>>(new Set())
 
   const allSelected = selected.size === ARCO_ROWS.length
@@ -1735,20 +1735,20 @@ function ArcoTableRowSelectRender() {
   )
 }
 
-export const Arco_테이블_행_선택_체크박스: Story = {
-  name: 'Arco Design — 파일 목록 테이블 행 선택 체크박스 패턴',
+export const DataProduct_테이블_행_선택_체크박스: Story = {
+  name: 'DataProductUI — 파일 목록 테이블 행 선택 체크박스 패턴',
   parameters: {
     docs: {
       description: {
-        story: 'Arco Design의 Table Row Selection 패턴. 헤더 체크박스로 전체 선택/해제, 부분 선택 시 indeterminate(iconName="minus") 상태 표현.',
+        story: 'DataProductUI의 Table Row Selection 패턴. 헤더 체크박스로 전체 선택/해제, 부분 선택 시 indeterminate(iconName="minus") 상태 표현.',
       },
     },
   },
-  render: () => <ArcoTableRowSelectRender />,
+  render: () => <DataProductTableRowSelectRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Chakra + Arco: 권한 설정 매트릭스 + 역할별 체크박스 패턴
+   Accessible + DataProduct: 권한 설정 매트릭스 + 역할별 체크박스 패턴
 -------------------------------------------------------------------------- */
 const ROLES_161 = ['관리자', '개발자', '디자이너', '뷰어']
 const PERMISSIONS_161 = [
@@ -1768,7 +1768,7 @@ const DEFAULT_MATRIX: Matrix = {
   '뷰어': { read: true, write: false, delete: false, admin: false, deploy: false },
 }
 
-function ChakraArcoPermissionMatrixRender() {
+function AccessibleDataProductPermissionMatrixRender() {
   const [matrix, setMatrix] = useState<Matrix>(DEFAULT_MATRIX)
   const [saved, setSaved] = useState(false)
 
@@ -1828,14 +1828,14 @@ function ChakraArcoPermissionMatrixRender() {
   )
 }
 
-export const Chakra_Arco_권한_매트릭스_체크박스: Story = {
-  name: 'Chakra + Arco Design — 역할별 권한 매트릭스 체크박스 패턴',
+export const Accessible_DataProduct_권한_매트릭스_체크박스: Story = {
+  name: 'Accessible + DataProductUI — 역할별 권한 매트릭스 체크박스 패턴',
   parameters: {
     docs: {
       description: {
-        story: 'Chakra UI + Arco Design 복합 패턴. 역할-권한 2차원 매트릭스를 Checkbox 그리드로 구현하며 관리자 역할은 disabled 처리합니다.',
+        story: 'AccessibleUI + DataProductUI 복합 패턴. 역할-권한 2차원 매트릭스를 Checkbox 그리드로 구현하며 관리자 역할은 disabled 처리합니다.',
       },
     },
   },
-  render: () => <ChakraArcoPermissionMatrixRender />,
+  render: () => <AccessibleDataProductPermissionMatrixRender />,
 }

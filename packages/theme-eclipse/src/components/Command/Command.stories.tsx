@@ -24,7 +24,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'Command는 shadcn/ui Command 패턴을 구현한 검색/명령 팔레트 컴포넌트입니다. ' +
+          'Command는 ComposableUI Command 패턴을 구현한 검색/명령 팔레트 컴포넌트입니다. ' +
           'cmdk 기반으로 키보드 네비게이션(Arrow, Enter, Escape)을 완벽 지원합니다.',
       },
     },
@@ -35,7 +35,7 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 /* --------------------------------------------------------------------------
-   기본 스토리 — shadcn/ui Combobox 기본 패턴
+   기본 스토리 — ComposableUI Combobox 기본 패턴
 -------------------------------------------------------------------------- */
 export const 기본: Story = {
   render: () => (
@@ -67,7 +67,7 @@ export const 기본: Story = {
 
 /* --------------------------------------------------------------------------
    Cmd+K 글로벌 팔레트 패턴
-   shadcn/ui Dialog 내부에 Command를 삽입하는 공식 패턴.
+   ComposableUI Dialog 내부에 Command를 삽입하는 공식 패턴.
    여기서는 Dialog 없이 팔레트 UI 자체를 인라인으로 시연합니다.
 -------------------------------------------------------------------------- */
 
@@ -126,7 +126,7 @@ const CmdKPaletteDemo = () => {
         </span>
       </button>
 
-      {/* Inline palette (shadcn/ui Cmd+K Dialog 패턴 시연) */}
+      {/* Inline palette (ComposableUI Cmd+K Dialog 패턴 시연) */}
       {open && (
         <div
           role="dialog"
@@ -227,7 +227,7 @@ const CmdKPaletteDemo = () => {
         </div>
       )}
       <p style={{ margin: 0, fontSize: 12, color: '#94a3b8' }}>
-        Arrow 키로 탐색, Enter로 선택 (shadcn/ui Cmd+K 패턴)
+        Arrow 키로 탐색, Enter로 선택 (ComposableUI Cmd+K 패턴)
       </p>
     </div>
   )
@@ -238,7 +238,7 @@ export const CmdK_팔레트: Story = {
     docs: {
       description: {
         story:
-          'shadcn/ui 공식 Cmd+K 패턴. 그룹화된 명령 목록 + 키보드 단축키 힌트 + 빈 상태 표시를 포함합니다. ' +
+          'ComposableUI 공식 Cmd+K 패턴. 그룹화된 명령 목록 + 키보드 단축키 힌트 + 빈 상태 표시를 포함합니다. ' +
           '실무에서는 Dialog 안에 삽입하여 사용합니다.',
       },
     },
@@ -248,7 +248,7 @@ export const CmdK_팔레트: Story = {
 
 /* --------------------------------------------------------------------------
    설정 검색 패턴
-   Radix Combobox / shadcn Settings search 패턴
+   Primitive Combobox / ComposableUI Settings search 패턴
 -------------------------------------------------------------------------- */
 
 const settingsItems = [
@@ -262,7 +262,7 @@ const settingsItems = [
   { section: '외관', label: '언어 설정', desc: '인터페이스 언어 선택' },
   { section: '외관', label: '폰트 크기', desc: '편안한 읽기를 위한 글자 크기 조절' },
   { section: '통합', label: 'Slack 연결', desc: 'Slack 워크스페이스 연동' },
-  { section: '통합', label: 'GitHub 연결', desc: 'GitHub 리포지토리 연동 관리' },
+  { section: '통합', label: 'CodeHost 연결', desc: 'CodeHost 리포지토리 연동 관리' },
 ]
 
 const SettingsSearchDemo = () => {
@@ -343,7 +343,7 @@ export const 설정_검색: Story = {
     docs: {
       description: {
         story:
-          'Radix Combobox 패턴 응용. 설정 항목을 섹션별로 그룹화하고 최근 방문 항목을 상단에 표시합니다. ' +
+          'Primitive Combobox 패턴 응용. 설정 항목을 섹션별로 그룹화하고 최근 방문 항목을 상단에 표시합니다. ' +
           '선택 이벤트(onSelect)를 통해 상태를 업데이트합니다.',
       },
     },
@@ -353,7 +353,7 @@ export const 설정_검색: Story = {
 
 /* --------------------------------------------------------------------------
    멀티-셀렉트 필터 패턴
-   Radix Combobox multi-select 패턴 (shadcn/ui Fancy Multi Select 영감)
+   Primitive Combobox multi-select 패턴 (ComposableUI Fancy Multi Select 영감)
 -------------------------------------------------------------------------- */
 
 const filterOptions = [
@@ -512,7 +512,7 @@ export const 멀티셀렉트_필터: Story = {
     docs: {
       description: {
         story:
-          'shadcn/ui Fancy Multi Select 패턴. Command.Item의 onSelect를 활용해 체크 토글 상태를 관리합니다. ' +
+          'ComposableUI Fancy Multi Select 패턴. Command.Item의 onSelect를 활용해 체크 토글 상태를 관리합니다. ' +
           '선택된 항목은 상단에 태그로 표시되며 개별 제거가 가능합니다.',
       },
     },
@@ -521,7 +521,7 @@ export const 멀티셀렉트_필터: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Raycast 스포트라이트 런처 패턴
+   CommandPalette 스포트라이트 런처 패턴
    앱/파일/액션을 빠르게 실행하는 macOS Spotlight 스타일
 -------------------------------------------------------------------------- */
 
@@ -529,13 +529,13 @@ const spotlightItems = [
   { category: '최근', icon: '🕒', label: '스탠드업 미팅', sub: '오늘 오전 10:00', action: '참여' },
   { category: '최근', icon: '📄', label: 'Q4 리뷰 문서', sub: '어제 수정됨', action: '열기' },
   { category: '앱', icon: '💬', label: 'Slack', sub: '메시지 앱', action: '실행' },
-  { category: '앱', icon: '🎨', label: 'Figma', sub: '디자인 도구', action: '실행' },
+  { category: '앱', icon: '🎨', label: 'DesignTool', sub: '디자인 도구', action: '실행' },
   { category: '앱', icon: '🖥️', label: 'VS Code', sub: '코드 에디터', action: '실행' },
   { category: '액션', icon: '📋', label: '클립보드 기록 보기', sub: 'Cmd+Shift+V', action: '실행' },
-  { category: '액션', icon: '🔍', label: '웹에서 검색', sub: 'Google 검색', action: '검색' },
+  { category: '액션', icon: '🔍', label: '웹에서 검색', sub: 'Reference 검색', action: '검색' },
 ]
 
-const RaycastSpotlightDemo = () => {
+const CommandPaletteSpotlightDemo = () => {
   const [result, setResult] = useState<string | null>(null)
   return (
     <div style={{ padding: '32px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 16 }}>
@@ -624,23 +624,23 @@ const RaycastSpotlightDemo = () => {
   )
 }
 
-export const Raycast_스포트라이트_런처: Story = {
-  name: 'Raycast - 다크 스포트라이트 런처 패턴',
+export const CommandPalette_스포트라이트_런처: Story = {
+  name: 'CommandPalette - 다크 스포트라이트 런처 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'Raycast macOS 런처 스타일. 다크 배경 + 앱/파일/액션 카테고리 그룹 + 아이콘 + 서브 텍스트 + 단축키 힌트 ' +
+          'CommandPalette macOS 런처 스타일. 다크 배경 + 앱/파일/액션 카테고리 그룹 + 아이콘 + 서브 텍스트 + 단축키 힌트 ' +
           '하단 푸터를 갖춘 풀 스포트라이트 UI입니다.',
       },
     },
   },
-  render: () => <RaycastSpotlightDemo />,
+  render: () => <CommandPaletteSpotlightDemo />,
 }
 
 /* --------------------------------------------------------------------------
-   Linear 퀵 스위처 패턴
-   프로젝트/팀 전환을 위한 Linear-style quick switcher
+   IssueTracker 퀵 스위처 패턴
+   프로젝트/팀 전환을 위한 IssueTracker-style quick switcher
 -------------------------------------------------------------------------- */
 
 const workspaces = [
@@ -653,7 +653,7 @@ const workspaces = [
   { type: '뷰', icon: '📅', label: '이번 주 마감', sub: '3개', color: '#ef4444' },
 ]
 
-const LinearQuickSwitcherDemo = () => {
+const IssueTrackerQuickSwitcherDemo = () => {
   const [active, setActive] = useState('Design System')
   return (
     <div style={{ padding: '32px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12 }}>
@@ -713,34 +713,34 @@ const LinearQuickSwitcherDemo = () => {
   )
 }
 
-export const Linear_퀵_스위처: Story = {
-  name: 'Linear - 팀/프로젝트/뷰 퀵 스위처 패턴',
+export const IssueTracker_퀵_스위처: Story = {
+  name: 'IssueTracker - 팀/프로젝트/뷰 퀵 스위처 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'Linear 퀵 스위처 패턴. 팀·프로젝트·뷰를 그룹으로 분리, 선택된 항목은 컬러 체크 표시. ' +
+          'IssueTracker 퀵 스위처 패턴. 팀·프로젝트·뷰를 그룹으로 분리, 선택된 항목은 컬러 체크 표시. ' +
           '워크스페이스 컨텍스트 전환 UX에 최적화된 Command 활용법입니다.',
       },
     },
   },
-  render: () => <LinearQuickSwitcherDemo />,
+  render: () => <IssueTrackerQuickSwitcherDemo />,
 }
 
 /* --------------------------------------------------------------------------
-   Vercel 글로벌 검색 패턴
-   배포/도메인/팀/프로젝트를 한 곳에서 검색하는 Vercel Dashboard 패턴
+   DeployPlatform 글로벌 검색 패턴
+   배포/도메인/팀/프로젝트를 한 곳에서 검색하는 DeployPlatform Dashboard 패턴
 -------------------------------------------------------------------------- */
 
-const vercelResults = [
+const deployResults = [
   { type: '배포', icon: '🚀', label: 'orbit-ui – main', sub: 'prod • 2분 전', status: 'READY', statusColor: '#10b981' },
   { type: '배포', icon: '🚀', label: 'orbit-ui – feat/tokens', sub: 'preview • 10분 전', status: 'BUILDING', statusColor: '#f59e0b' },
   { type: '프로젝트', icon: '📦', label: 'orbit-ui', sub: 'blue45fs-projects', status: '', statusColor: '' },
   { type: '프로젝트', icon: '📦', label: 'orbit-landing', sub: 'blue45fs-projects', status: '', statusColor: '' },
-  { type: '도메인', icon: '🌐', label: 'orbit-ui.vercel.app', sub: '프로덕션 도메인', status: 'ACTIVE', statusColor: '#10b981' },
+  { type: '도메인', icon: '🌐', label: 'orbit-ui.deploy.example.com', sub: '프로덕션 도메인', status: 'ACTIVE', statusColor: '#10b981' },
 ]
 
-const VercelGlobalSearchDemo = () => {
+const DeployPlatformGlobalSearchDemo = () => {
   const [picked, setPicked] = useState<string | null>(null)
   return (
     <div style={{ padding: '32px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12 }}>
@@ -752,7 +752,7 @@ const VercelGlobalSearchDemo = () => {
               <span style={{ color: '#94a3b8', fontSize: 13 }}>검색 결과 없음</span>
             </Command.Empty>
             {['배포', '프로젝트', '도메인'].map((type) => {
-              const items = vercelResults.filter((r) => r.type === type)
+              const items = deployResults.filter((r) => r.type === type)
               return (
                 <Command.Group key={type} heading={type}>
                   {items.map((item) => (
@@ -802,23 +802,23 @@ const VercelGlobalSearchDemo = () => {
   )
 }
 
-export const Vercel_글로벌_검색: Story = {
-  name: 'Vercel - 배포/프로젝트/도메인 글로벌 검색 패턴',
+export const DeployPlatform_글로벌_검색: Story = {
+  name: 'DeployPlatform - 배포/프로젝트/도메인 글로벌 검색 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'Vercel Dashboard 글로벌 검색 패턴. 배포 상태 뱃지(READY/BUILDING/ACTIVE)를 컬러 필로 표시, ' +
+          'DeployPlatform Dashboard 글로벌 검색 패턴. 배포 상태 뱃지(READY/BUILDING/ACTIVE)를 컬러 필로 표시, ' +
           '프로젝트·도메인 그룹화, 간결한 결과 리스트가 특징입니다.',
       },
     },
   },
-  render: () => <VercelGlobalSearchDemo />,
+  render: () => <DeployPlatformGlobalSearchDemo />,
 }
 
 /* --------------------------------------------------------------------------
-   shadcn/ui 벤치마크: 최근 명령 히스토리 + 즐겨찾기 패턴
-   shadcn/ui CMDK 공식 예제 — 최근 사용 항목을 상단에 표시하는 패턴
+   ComposableUI 벤치마크: 최근 명령 히스토리 + 즐겨찾기 패턴
+   ComposableUI CMDK 공식 예제 — 최근 사용 항목을 상단에 표시하는 패턴
 -------------------------------------------------------------------------- */
 const RECENT_COMMANDS = [
   { id: 'r1', label: '대시보드로 이동', group: '최근', icon: <HomeLineIcon className="h-4 w-4" />, shortcut: 'G D' },
@@ -861,7 +861,7 @@ function CommandHistoryDemo() {
   return (
     <div style={{ maxWidth: 480, margin: '0 auto' }}>
       <div style={{ fontSize: 11, fontWeight: 700, color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 12 }}>
-        shadcn/ui CMDK — 최근 명령 히스토리 패턴
+        ComposableUI CMDK — 최근 명령 히스토리 패턴
       </div>
       <Command className="rounded-lg border shadow-md">
         <Command.Input
@@ -941,31 +941,31 @@ function CommandHistoryDemo() {
         </Command.List>
       </Command>
       <p style={{ marginTop: 10, fontSize: 11, color: '#94a3b8' }}>
-        shadcn/ui CMDK — 최근 명령 + 즐겨찾기 패턴 (별표로 즐겨찾기 토글)
+        ComposableUI CMDK — 최근 명령 + 즐겨찾기 패턴 (별표로 즐겨찾기 토글)
       </p>
     </div>
   )
 }
 
-export const shadcn_최근_명령_히스토리: Story = {
-  name: 'shadcn/ui - 최근 명령 히스토리 + 즐겨찾기 패턴',
+export const ComposableUI_최근_명령_히스토리: Story = {
+  name: 'ComposableUI - 최근 명령 히스토리 + 즐겨찾기 패턴',
   render: () => <CommandHistoryDemo />,
 }
 
 /* --------------------------------------------------------------------------
-   Vercel 벤치마크: 팀 전환 명령 팔레트
-   Vercel 팀 선택 + 최근 프로젝트 이동 패턴
+   DeployPlatform 벤치마크: 팀 전환 명령 팔레트
+   DeployPlatform 팀 선택 + 최근 프로젝트 이동 패턴
 -------------------------------------------------------------------------- */
-type VercelTeam = { id: string; name: string; plan: 'free' | 'pro' | 'enterprise'; members: number }
+type DeployPlatformTeam = { id: string; name: string; plan: 'free' | 'pro' | 'enterprise'; members: number }
 
-const VERCEL_TEAMS: VercelTeam[] = [
+const DEPLOY_TEAMS: DeployPlatformTeam[] = [
   { id: 't1', name: 'Personal', plan: 'pro', members: 1 },
   { id: 't2', name: 'orbit-ui', plan: 'pro', members: 4 },
   { id: 't3', name: 'heejun-labs', plan: 'free', members: 2 },
   { id: 't4', name: 'enterprise-corp', plan: 'enterprise', members: 24 },
 ]
 
-const VERCEL_PROJECTS = [
+const DEPLOY_PROJECTS = [
   { id: 'p1', name: 'orbit-ui-docs', team: 't2', status: 'READY' as const },
   { id: 'p2', name: 'personal-blog', team: 't1', status: 'READY' as const },
   { id: 'p3', name: 'design-tokens', team: 't2', status: 'BUILDING' as const },
@@ -984,21 +984,21 @@ const STATUS_CONFIG = {
   ERROR: { color: '#ef4444', dot: '#ef4444' },
 }
 
-function VercelTeamSwitcherDemo() {
+function DeployPlatformTeamSwitcherDemo() {
   const [query, setQuery] = useState('')
   const [activeTeam, setActiveTeam] = useState('t2')
 
-  const teamFiltered = VERCEL_TEAMS.filter((t) =>
+  const teamFiltered = DEPLOY_TEAMS.filter((t) =>
     t.name.toLowerCase().includes(query.toLowerCase())
   )
-  const projectFiltered = VERCEL_PROJECTS.filter((p) =>
+  const projectFiltered = DEPLOY_PROJECTS.filter((p) =>
     p.name.toLowerCase().includes(query.toLowerCase())
   )
 
   return (
     <div style={{ maxWidth: 480, margin: '0 auto' }}>
       <div style={{ fontSize: 11, fontWeight: 700, color: '#000', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 12 }}>
-        Vercel — 팀 전환 + 프로젝트 이동 팔레트
+        DeployPlatform — 팀 전환 + 프로젝트 이동 팔레트
       </div>
       <Command className="rounded-lg border shadow-md" style={{ background: '#fff' }}>
         <Command.Input
@@ -1048,7 +1048,7 @@ function VercelTeamSwitcherDemo() {
           <Command.Group heading="최근 프로젝트">
             {projectFiltered.map((project) => {
               const statusCfg = STATUS_CONFIG[project.status]
-              const teamName = VERCEL_TEAMS.find((t) => t.id === project.team)?.name
+              const teamName = DEPLOY_TEAMS.find((t) => t.id === project.team)?.name
               return (
                 <Command.Item key={project.id} className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
@@ -1072,20 +1072,20 @@ function VercelTeamSwitcherDemo() {
         </Command.List>
       </Command>
       <p style={{ marginTop: 10, fontSize: 11, color: '#94a3b8' }}>
-        Vercel — 팀 선택(체크마크 표시) + 배포 상태 색상 인디케이터 패턴
+        DeployPlatform — 팀 선택(체크마크 표시) + 배포 상태 색상 인디케이터 패턴
       </p>
     </div>
   )
 }
 
-export const Vercel_팀_전환_팔레트: Story = {
-  name: 'Vercel - 팀 전환 + 프로젝트 이동 팔레트',
-  render: () => <VercelTeamSwitcherDemo />,
+export const DeployPlatform_팀_전환_팔레트: Story = {
+  name: 'DeployPlatform - 팀 전환 + 프로젝트 이동 팔레트',
+  render: () => <DeployPlatformTeamSwitcherDemo />,
 }
 
 /* --------------------------------------------------------------------------
-   shadcn/ui 벤치마크: 다단계 드릴다운 팔레트
-   shadcn/ui의 pages 패턴 — 하위 명령 선택 시 새 레벨로 전환
+   ComposableUI 벤치마크: 다단계 드릴다운 팔레트
+   ComposableUI의 pages 패턴 — 하위 명령 선택 시 새 레벨로 전환
 -------------------------------------------------------------------------- */
 type DrillPage = 'root' | 'theme' | 'team' | 'account'
 
@@ -1138,7 +1138,7 @@ function CommandDrilldownDemo() {
   return (
     <div style={{ maxWidth: 480, margin: '0 auto' }}>
       <div style={{ fontSize: 11, fontWeight: 700, color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 12 }}>
-        shadcn/ui — pages 패턴 (드릴다운 팔레트)
+        ComposableUI — pages 패턴 (드릴다운 팔레트)
       </div>
       <Command className="rounded-lg border shadow-md">
         <div style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '6px 12px', borderBottom: '1px solid #f1f5f9' }}>
@@ -1189,20 +1189,20 @@ function CommandDrilldownDemo() {
         </Command.List>
       </Command>
       <p style={{ marginTop: 10, fontSize: 11, color: '#94a3b8' }}>
-        shadcn/ui — pages 드릴다운 패턴 (선택 시 하위 레벨 전환)
+        ComposableUI — pages 드릴다운 패턴 (선택 시 하위 레벨 전환)
       </p>
     </div>
   )
 }
 
-export const shadcn_드릴다운_팔레트: Story = {
-  name: 'shadcn/ui - pages 패턴 드릴다운 팔레트',
+export const ComposableUI_드릴다운_팔레트: Story = {
+  name: 'ComposableUI - pages 패턴 드릴다운 팔레트',
   render: () => <CommandDrilldownDemo />,
 }
 
-// --- Cycle 73: Mantine + Raycast benchmark ---
+// --- Cycle 73: AppUI + CommandPalette benchmark ---
 
-const MantineSpotlightRender = () => {
+const AppUISpotlightRender = () => {
   const [query, setQuery] = useState('')
   const [selected, setSelected] = useState<string | null>(null)
 
@@ -1299,40 +1299,40 @@ const MantineSpotlightRender = () => {
         )}
       </Command>
       <p style={{ marginTop: 10, fontSize: 11, color: '#94a3b8' }}>
-        Mantine Spotlight — 그룹별 단축키 + 최근 방문 패턴
+        AppUI Spotlight — 그룹별 단축키 + 최근 방문 패턴
       </p>
     </div>
   )
 }
 
-export const Mantine_Spotlight_팔레트: Story = {
-  name: 'Mantine - Spotlight 그룹별 단축키 팔레트',
+export const AppUI_Spotlight_팔레트: Story = {
+  name: 'AppUI - Spotlight 그룹별 단축키 팔레트',
   parameters: {
     docs: {
       description: {
         story:
-          'Mantine Spotlight 컴포넌트 벤치마크. 그룹별 액션 분류, 키보드 단축키 배지, 최근 방문 섹션을 조합한 생산성 팔레트 패턴.',
+          'AppUI Spotlight 컴포넌트 벤치마크. 그룹별 액션 분류, 키보드 단축키 배지, 최근 방문 섹션을 조합한 생산성 팔레트 패턴.',
       },
     },
   },
-  render: () => <MantineSpotlightRender />,
+  render: () => <AppUISpotlightRender />,
 }
 
-type RaycastActionCategory = 'all' | 'clipboard' | 'window' | 'system'
+type CommandPaletteActionCategory = 'all' | 'clipboard' | 'window' | 'system'
 
-const RaycastActionPanelRender = () => {
+const CommandPaletteActionPanelRender = () => {
   const [searchVal, setSearchVal] = useState('')
-  const [activeCategory, setActiveCategory] = useState<RaycastActionCategory>('all')
+  const [activeCategory, setActiveCategory] = useState<CommandPaletteActionCategory>('all')
   const [pinned, setPinned] = useState<string[]>(['클립보드 히스토리', '창 크기 조절'])
 
-  const CATEGORIES: { id: RaycastActionCategory; label: string }[] = [
+  const CATEGORIES: { id: CommandPaletteActionCategory; label: string }[] = [
     { id: 'all', label: '전체' },
     { id: 'clipboard', label: '클립보드' },
     { id: 'window', label: '창 관리' },
     { id: 'system', label: '시스템' },
   ]
 
-  const ACTIONS: { id: string; category: RaycastActionCategory; label: string; desc: string; shortcut: string }[] = [
+  const ACTIONS: { id: string; category: CommandPaletteActionCategory; label: string; desc: string; shortcut: string }[] = [
     { id: 'clip-hist', category: 'clipboard', label: '클립보드 히스토리', desc: '최근 복사 항목 보기', shortcut: '⌘⇧V' },
     { id: 'clip-clear', category: 'clipboard', label: '클립보드 지우기', desc: '클립보드 내용 삭제', shortcut: '⌘⌥C' },
     { id: 'win-resize', category: 'window', label: '창 크기 조절', desc: '좌/우/전체 분할', shortcut: '⌃⌥→' },
@@ -1427,26 +1427,26 @@ const RaycastActionPanelRender = () => {
         </Command>
       </div>
       <p style={{ marginTop: 10, fontSize: 11, color: '#94a3b8' }}>
-        Raycast Action Panel — 다크 팔레트, 카테고리 필터, 핀 고정 패턴
+        CommandPalette Action Panel — 다크 팔레트, 카테고리 필터, 핀 고정 패턴
       </p>
     </div>
   )
 }
 
-export const Raycast_액션_패널: Story = {
-  name: 'Raycast - 액션 패널 (다크 + 카테고리 필터)',
+export const CommandPalette_액션_패널: Story = {
+  name: 'CommandPalette - 액션 패널 (다크 + 카테고리 필터)',
   parameters: {
     docs: {
       description: {
         story:
-          'Raycast Extension Action Panel 벤치마크. 다크 팔레트, 카테고리 탭 필터, 핀 고정(즐겨찾기), 단축키 오버레이 패턴.',
+          'CommandPalette Extension Action Panel 벤치마크. 다크 팔레트, 카테고리 탭 필터, 핀 고정(즐겨찾기), 단축키 오버레이 패턴.',
       },
     },
   },
-  render: () => <RaycastActionPanelRender />,
+  render: () => <CommandPaletteActionPanelRender />,
 }
 
-const MantineCommandHistoryRender = () => {
+const AppUICommandHistoryRender = () => {
   const [query, setQuery] = useState('')
   const [history, setHistory] = useState(['사용자 초대', '프로젝트 생성', '결제 내역 조회'])
   const [lastRun, setLastRun] = useState<string | null>(null)
@@ -1545,30 +1545,30 @@ const MantineCommandHistoryRender = () => {
         </div>
       </Command>
       <p style={{ marginTop: 10, fontSize: 11, color: '#94a3b8' }}>
-        Mantine — 실행 히스토리 자동 업데이트 + 태그 배지 패턴
+        AppUI — 실행 히스토리 자동 업데이트 + 태그 배지 패턴
       </p>
     </div>
   )
 }
 
-export const Mantine_실행_히스토리_팔레트: Story = {
-  name: 'Mantine - 실행 히스토리 자동 업데이트 팔레트',
+export const AppUI_실행_히스토리_팔레트: Story = {
+  name: 'AppUI - 실행 히스토리 자동 업데이트 팔레트',
   parameters: {
     docs: {
       description: {
         story:
-          'Mantine useHotkeys + Spotlight history 벤치마크. 명령 실행 시 히스토리에 자동 추가되며 최근 실행 섹션에 표시. 태그 배지로 명령 분류.',
+          'AppUI useHotkeys + Spotlight history 벤치마크. 명령 실행 시 히스토리에 자동 추가되며 최근 실행 섹션에 표시. 태그 배지로 명령 분류.',
       },
     },
   },
-  render: () => <MantineCommandHistoryRender />,
+  render: () => <AppUICommandHistoryRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Notion 벤치마크: /command 블록 유형 선택기
-   Notion 슬래시 명령 메뉴 — 블록 타입을 키보드로 빠르게 선택
+   WorkspaceEditor 벤치마크: /command 블록 유형 선택기
+   WorkspaceEditor 슬래시 명령 메뉴 — 블록 타입을 키보드로 빠르게 선택
 -------------------------------------------------------------------------- */
-type NotionBlockType = {
+type WorkspaceEditorBlockType = {
   key: string
   label: string
   desc: string
@@ -1577,7 +1577,7 @@ type NotionBlockType = {
   shortcut: string
 }
 
-const NOTION_BLOCK_TYPES: NotionBlockType[] = [
+const WORKSPACE_BLOCK_TYPES: WorkspaceEditorBlockType[] = [
   { key: 'h1', label: '제목 1', desc: '큰 섹션 제목', icon: 'H1', group: '기본 블록', shortcut: '#' },
   { key: 'h2', label: '제목 2', desc: '중간 섹션 제목', icon: 'H2', group: '기본 블록', shortcut: '##' },
   { key: 'h3', label: '제목 3', desc: '작은 섹션 제목', icon: 'H3', group: '기본 블록', shortcut: '###' },
@@ -1592,13 +1592,13 @@ const NOTION_BLOCK_TYPES: NotionBlockType[] = [
   { key: 'table', label: '표', desc: '데이터 테이블', icon: '⊞', group: '미디어', shortcut: '' },
 ]
 
-function NotionBlockSelectorRender() {
+function WorkspaceEditorBlockSelectorRender() {
   const [blockQuery, setBlockQuery] = useState('')
   const [selected, setSelected] = useState('')
 
-  const groups = Array.from(new Set(NOTION_BLOCK_TYPES.map((b) => b.group)))
+  const groups = Array.from(new Set(WORKSPACE_BLOCK_TYPES.map((b) => b.group)))
 
-  const filtered = NOTION_BLOCK_TYPES.filter(
+  const filtered = WORKSPACE_BLOCK_TYPES.filter(
     (b) => b.label.toLowerCase().includes(blockQuery.toLowerCase()) || b.shortcut.includes(blockQuery)
   )
 
@@ -1607,7 +1607,7 @@ function NotionBlockSelectorRender() {
       {selected ? (
         <div style={{ padding: '10px 16px', borderRadius: 8, background: '#eff6ff', border: '1px solid #c7d2fe', fontSize: 13, color: '#4f46e5', display: 'flex', alignItems: 'center', gap: 8 }}>
           <span>✓ 선택된 블록 유형:</span>
-          <strong>{NOTION_BLOCK_TYPES.find((b) => b.key === selected)?.label}</strong>
+          <strong>{WORKSPACE_BLOCK_TYPES.find((b) => b.key === selected)?.label}</strong>
           <button onClick={() => setSelected('')} style={{ marginLeft: 8, fontSize: 11, color: '#6366f1', background: 'none', border: 'none', cursor: 'pointer' }}>
             초기화
           </button>
@@ -1660,32 +1660,32 @@ function NotionBlockSelectorRender() {
         </div>
       </Command>
       <p style={{ fontSize: 11, color: '#94a3b8', textAlign: 'center' }}>
-        Notion — 슬래시(/) 명령으로 블록 유형 선택
+        WorkspaceEditor — 슬래시(/) 명령으로 블록 유형 선택
       </p>
     </div>
   )
 }
 
-export const Notion_블록_유형_선택기: Story = {
-  name: 'Notion — /command 블록 유형 선택기',
+export const WorkspaceEditor_블록_유형_선택기: Story = {
+  name: 'WorkspaceEditor — /command 블록 유형 선택기',
   parameters: {
     docs: {
       description: {
         story:
-          'Notion 슬래시(/) 명령 메뉴 패턴. 블록 유형(제목/목록/코드/미디어)을 ' +
+          'WorkspaceEditor 슬래시(/) 명령 메뉴 패턴. 블록 유형(제목/목록/코드/미디어)을 ' +
           '이름 또는 Markdown 단축키로 검색해 선택. 그룹 헤더, 단축키 kbd 배지, ' +
           '아이콘 + 설명 2줄 구조.',
       },
     },
   },
-  render: () => <NotionBlockSelectorRender />,
+  render: () => <WorkspaceEditorBlockSelectorRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Raycast 벤치마크: 파일 빠른 열기
-   Raycast File Search — 파일명, 경로, 수정일, 유형으로 빠른 탐색
+   CommandPalette 벤치마크: 파일 빠른 열기
+   CommandPalette File Search — 파일명, 경로, 수정일, 유형으로 빠른 탐색
 -------------------------------------------------------------------------- */
-type RaycastFile = {
+type CommandPaletteFile = {
   name: string
   path: string
   ext: string
@@ -1694,7 +1694,7 @@ type RaycastFile = {
   pinned: boolean
 }
 
-const RAYCAST_FILES: RaycastFile[] = [
+const LAUNCHER_FILES: CommandPaletteFile[] = [
   { name: 'design-system-v2.fig', path: '~/Design/Orbit UI', ext: 'fig', modified: '방금', size: '12.4 MB', pinned: true },
   { name: 'CLAUDE.md', path: '~/WebstormProjects/orbit-ui', ext: 'md', modified: '1시간 전', size: '8.2 KB', pinned: true },
   { name: 'index.ts', path: '~/orbit-ui/packages/theme-eclipse/src', ext: 'ts', modified: '2시간 전', size: '3.1 KB', pinned: false },
@@ -1704,7 +1704,7 @@ const RAYCAST_FILES: RaycastFile[] = [
   { name: 'orbit-ui-cover.png', path: '~/Design/Assets', ext: 'png', modified: '1주 전', size: '2.1 MB', pinned: false },
 ]
 
-const RAYCAST_EXT_COLOR: Record<string, string> = {
+const LAUNCHER_EXT_COLOR: Record<string, string> = {
   fig: '#a259ff',
   md: '#0ea5e9',
   ts: '#3178c6',
@@ -1714,11 +1714,11 @@ const RAYCAST_EXT_COLOR: Record<string, string> = {
   default: '#64748b',
 }
 
-function RaycastFileSearchRender() {
+function CommandPaletteFileSearchRender() {
   const [fileQuery, setFileQuery] = useState('')
   const [opened, setOpened] = useState<string | null>(null)
 
-  const filtered = RAYCAST_FILES.filter(
+  const filtered = LAUNCHER_FILES.filter(
     (f) => f.name.toLowerCase().includes(fileQuery.toLowerCase()) || f.path.toLowerCase().includes(fileQuery.toLowerCase())
   )
 
@@ -1761,9 +1761,9 @@ function RaycastFileSearchRender() {
                 >
                   <div style={{
                     width: 28, height: 28, borderRadius: 6,
-                    background: (RAYCAST_EXT_COLOR[file.ext] ?? RAYCAST_EXT_COLOR['default']) + '18',
+                    background: (LAUNCHER_EXT_COLOR[file.ext] ?? LAUNCHER_EXT_COLOR['default']) + '18',
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    fontSize: 9, fontWeight: 800, color: RAYCAST_EXT_COLOR[file.ext] ?? RAYCAST_EXT_COLOR['default'],
+                    fontSize: 9, fontWeight: 800, color: LAUNCHER_EXT_COLOR[file.ext] ?? LAUNCHER_EXT_COLOR['default'],
                     flexShrink: 0, letterSpacing: -0.5,
                   }}>
                     .{file.ext.toUpperCase()}
@@ -1790,9 +1790,9 @@ function RaycastFileSearchRender() {
                 >
                   <div style={{
                     width: 28, height: 28, borderRadius: 6,
-                    background: (RAYCAST_EXT_COLOR[file.ext] ?? RAYCAST_EXT_COLOR['default']) + '18',
+                    background: (LAUNCHER_EXT_COLOR[file.ext] ?? LAUNCHER_EXT_COLOR['default']) + '18',
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    fontSize: 9, fontWeight: 800, color: RAYCAST_EXT_COLOR[file.ext] ?? RAYCAST_EXT_COLOR['default'],
+                    fontSize: 9, fontWeight: 800, color: LAUNCHER_EXT_COLOR[file.ext] ?? LAUNCHER_EXT_COLOR['default'],
                     flexShrink: 0, letterSpacing: -0.5,
                   }}>
                     .{file.ext.toUpperCase()}
@@ -1817,33 +1817,33 @@ function RaycastFileSearchRender() {
           <span>{filtered.length}개 파일</span>
         </div>
       </Command>
-      <p style={{ fontSize: 11, color: '#94a3b8' }}>Raycast — 파일 빠른 열기 (즐겨찾기 우선 표시)</p>
+      <p style={{ fontSize: 11, color: '#94a3b8' }}>CommandPalette — 파일 빠른 열기 (즐겨찾기 우선 표시)</p>
     </div>
   )
 }
 
-export const Raycast_파일_빠른_열기: Story = {
-  name: 'Raycast — 파일 빠른 열기 File Search',
+export const CommandPalette_파일_빠른_열기: Story = {
+  name: 'CommandPalette — 파일 빠른 열기 File Search',
   parameters: {
     docs: {
       description: {
         story:
-          'Raycast File Search 패턴. 파일명/경로 실시간 필터링, 즐겨찾기(pinned) 섹션 우선 표시, ' +
+          'CommandPalette File Search 패턴. 파일명/경로 실시간 필터링, 즐겨찾기(pinned) 섹션 우선 표시, ' +
           '확장자별 색상 배지, 수정 시각·파일 크기 메타 표시.',
       },
     },
   },
-  render: () => <RaycastFileSearchRender />,
+  render: () => <CommandPaletteFileSearchRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Notion 벤치마크: 데이터베이스 속성 필터 팔레트
-   Notion Filter — 속성별 필터 조건 설정 Command
+   WorkspaceEditor 벤치마크: 데이터베이스 속성 필터 팔레트
+   WorkspaceEditor Filter — 속성별 필터 조건 설정 Command
 -------------------------------------------------------------------------- */
-type NotionFilterProp = { key: string; label: string; type: 'text' | 'select' | 'date' | 'checkbox' }
-type NotionFilterOp = { key: string; label: string }
+type WorkspaceEditorFilterProp = { key: string; label: string; type: 'text' | 'select' | 'date' | 'checkbox' }
+type WorkspaceEditorFilterOp = { key: string; label: string }
 
-const NOTION_FILTER_PROPS: NotionFilterProp[] = [
+const WORKSPACE_FILTER_PROPS: WorkspaceEditorFilterProp[] = [
   { key: 'name', label: '이름', type: 'text' },
   { key: 'status', label: '상태', type: 'select' },
   { key: 'assignee', label: '담당자', type: 'select' },
@@ -1854,57 +1854,57 @@ const NOTION_FILTER_PROPS: NotionFilterProp[] = [
   { key: 'tags', label: '태그', type: 'select' },
 ]
 
-const NOTION_TEXT_OPS: NotionFilterOp[] = [
+const WORKSPACE_TEXT_OPS: WorkspaceEditorFilterOp[] = [
   { key: 'contains', label: '포함' },
   { key: 'not_contains', label: '포함 안 함' },
   { key: 'starts_with', label: '시작 문자' },
   { key: 'is_empty', label: '비어 있음' },
 ]
 
-const NOTION_SELECT_OPS: NotionFilterOp[] = [
+const WORKSPACE_SELECT_OPS: WorkspaceEditorFilterOp[] = [
   { key: 'is', label: '일치' },
   { key: 'is_not', label: '일치 안 함' },
   { key: 'is_empty', label: '비어 있음' },
 ]
 
-const NOTION_DATE_OPS: NotionFilterOp[] = [
+const WORKSPACE_DATE_OPS: WorkspaceEditorFilterOp[] = [
   { key: 'is', label: '날짜가' },
   { key: 'before', label: '이전' },
   { key: 'after', label: '이후' },
   { key: 'is_empty', label: '비어 있음' },
 ]
 
-const NOTION_CHECKBOX_OPS: NotionFilterOp[] = [
+const WORKSPACE_CHECKBOX_OPS: WorkspaceEditorFilterOp[] = [
   { key: 'is_checked', label: '체크됨' },
   { key: 'is_unchecked', label: '체크 안됨' },
 ]
 
-type NotionFilterStep = 'property' | 'operator'
+type WorkspaceEditorFilterStep = 'property' | 'operator'
 
-function NotionFilterPaletteRender() {
-  const [filterStep, setFilterStep] = useState<NotionFilterStep>('property')
+function WorkspaceEditorFilterPaletteRender() {
+  const [filterStep, setFilterStep] = useState<WorkspaceEditorFilterStep>('property')
   const [propQuery, setPropQuery] = useState('')
-  const [selectedProp, setSelectedProp] = useState<NotionFilterProp | null>(null)
+  const [selectedProp, setSelectedProp] = useState<WorkspaceEditorFilterProp | null>(null)
   const [filters, setFilters] = useState<{ prop: string; op: string }[]>([])
 
-  const filteredProps = NOTION_FILTER_PROPS.filter((p) =>
+  const filteredProps = WORKSPACE_FILTER_PROPS.filter((p) =>
     p.label.toLowerCase().includes(propQuery.toLowerCase())
   )
 
-  const getOpsForType = (type: NotionFilterProp['type']): NotionFilterOp[] => {
-    if (type === 'text') return NOTION_TEXT_OPS
-    if (type === 'date') return NOTION_DATE_OPS
-    if (type === 'checkbox') return NOTION_CHECKBOX_OPS
-    return NOTION_SELECT_OPS
+  const getOpsForType = (type: WorkspaceEditorFilterProp['type']): WorkspaceEditorFilterOp[] => {
+    if (type === 'text') return WORKSPACE_TEXT_OPS
+    if (type === 'date') return WORKSPACE_DATE_OPS
+    if (type === 'checkbox') return WORKSPACE_CHECKBOX_OPS
+    return WORKSPACE_SELECT_OPS
   }
 
-  const handlePropSelect = (prop: NotionFilterProp) => {
+  const handlePropSelect = (prop: WorkspaceEditorFilterProp) => {
     setSelectedProp(prop)
     setFilterStep('operator')
     setPropQuery('')
   }
 
-  const handleOpSelect = (op: NotionFilterOp) => {
+  const handleOpSelect = (op: WorkspaceEditorFilterOp) => {
     if (selectedProp) {
       setFilters((prev) => [...prev, { prop: selectedProp.label, op: op.label }])
     }
@@ -1912,7 +1912,7 @@ function NotionFilterPaletteRender() {
     setFilterStep('property')
   }
 
-  const TYPE_LABEL: Record<NotionFilterProp['type'], string> = {
+  const TYPE_LABEL: Record<WorkspaceEditorFilterProp['type'], string> = {
     text: 'Aa', select: '☰', date: 'cal', checkbox: '☑',
   }
 
@@ -1987,31 +1987,31 @@ function NotionFilterPaletteRender() {
           )}
         </Command.List>
       </Command>
-      <p style={{ fontSize: 11, color: '#94a3b8' }}>Notion — 속성 선택 → 조건 선택 드릴다운 필터</p>
+      <p style={{ fontSize: 11, color: '#94a3b8' }}>WorkspaceEditor — 속성 선택 → 조건 선택 드릴다운 필터</p>
     </div>
   )
 }
 
-export const Notion_데이터베이스_필터_팔레트: Story = {
-  name: 'Notion — 데이터베이스 속성 필터 팔레트',
+export const WorkspaceEditor_데이터베이스_필터_팔레트: Story = {
+  name: 'WorkspaceEditor — 데이터베이스 속성 필터 팔레트',
   parameters: {
     docs: {
       description: {
         story:
-          'Notion Database Filter 드릴다운 패턴. 속성 선택 → 조건 선택 2단계 Command 플로우. ' +
+          'WorkspaceEditor Database Filter 드릴다운 패턴. 속성 선택 → 조건 선택 2단계 Command 플로우. ' +
           '속성 유형별 조건 목록(텍스트/선택/날짜/체크박스) 자동 전환, ' +
           '적용된 필터 태그 칩으로 표시 및 개별 제거.',
       },
     },
   },
-  render: () => <NotionFilterPaletteRender />,
+  render: () => <WorkspaceEditorFilterPaletteRender />,
 }
 
 // ============================================================
-// Cycle 134 — Mantine + Arco Design 벤치마크 반영
+// Cycle 134 — AppUI + DataProductUI 벤치마크 반영
 // ============================================================
 
-// Mantine Spotlight 패턴 — 최근 항목 + 실시간 검색 + 단축키 힌트
+// AppUI Spotlight 패턴 — 최근 항목 + 실시간 검색 + 단축키 힌트
 type SpotlightItem = { id: string; label: string; desc: string; Icon: React.FC<{ size?: number }>; shortcut?: string; category: string }
 
 const SPOTLIGHT_RECENT: SpotlightItem[] = [
@@ -2026,7 +2026,7 @@ const SPOTLIGHT_ACTIONS: SpotlightItem[] = [
   { id: 'info', label: '도움말', desc: '도움말 센터 열기', Icon: CircleInfoLineIcon, shortcut: '?', category: '액션' },
 ]
 
-function MantineSpotlight134Render() {
+function AppUISpotlight134Render() {
   const [query, setQuery] = useState('')
   const [selected, setSelected] = useState<string | null>(null)
   const allItems = [...SPOTLIGHT_RECENT, ...SPOTLIGHT_ACTIONS]
@@ -2106,24 +2106,24 @@ function MantineSpotlight134Render() {
   )
 }
 
-export const Mantine_Spotlight_검색_팔레트: Story = {
-  name: 'Mantine Spotlight - 검색 팔레트',
+export const AppUI_Spotlight_검색_팔레트: Story = {
+  name: 'AppUI Spotlight - 검색 팔레트',
   parameters: {
     docs: {
       description: {
         story:
-          'Mantine Spotlight 패턴. 최근 방문 + 빠른 액션 그룹 분리, 단축키 힌트 배지, ' +
+          'AppUI Spotlight 패턴. 최근 방문 + 빠른 액션 그룹 분리, 단축키 힌트 배지, ' +
           '검색 시 카테고리 태그 + 설명 표시. 쿼리 유무에 따라 그룹 레이아웃 전환.',
       },
     },
   },
-  render: () => <MantineSpotlight134Render />,
+  render: () => <AppUISpotlight134Render />,
 }
 
-// Arco Design 스타일 — 애플리케이션 메뉴 팔레트 (복합 액션 + 위험 액션 구분)
-type ArcoAction = { id: string; label: string; desc: string; Icon: React.FC<{ size?: number }>; danger?: boolean; group: string }
+// DataProductUI 스타일 — 애플리케이션 메뉴 팔레트 (복합 액션 + 위험 액션 구분)
+type DataProductAction = { id: string; label: string; desc: string; Icon: React.FC<{ size?: number }>; danger?: boolean; group: string }
 
-const ARCO_ACTIONS: ArcoAction[] = [
+const ARCO_ACTIONS: DataProductAction[] = [
   { id: 'profile', label: '프로필 편집', desc: '이름, 이메일, 아바타 변경', Icon: OnePersonLineIcon, group: '계정' },
   { id: 'settings', label: '환경설정', desc: '테마, 언어, 알림 설정', Icon: SettingLineIcon, group: '계정' },
   { id: 'search', label: '전체 검색', desc: '프로젝트 내 전체 검색', Icon: SearchIcon, group: '작업' },
@@ -2132,7 +2132,7 @@ const ARCO_ACTIONS: ArcoAction[] = [
   { id: 'delete', label: '프로젝트 삭제', desc: '현재 프로젝트 영구 삭제', Icon: DeleteLineIcon, danger: true, group: '위험' },
 ]
 
-function ArcoAppMenuRender() {
+function DataProductAppMenuRender() {
   const [query, setQuery] = useState('')
   const groups = Array.from(new Set(ARCO_ACTIONS.map((a) => a.group)))
   const filtered = ARCO_ACTIONS.filter(
@@ -2185,21 +2185,21 @@ function ArcoAppMenuRender() {
   )
 }
 
-export const Arco_앱_메뉴_액션_팔레트: Story = {
-  name: 'Arco Design - 앱 메뉴 액션 팔레트',
+export const DataProduct_앱_메뉴_액션_팔레트: Story = {
+  name: 'DataProductUI - 앱 메뉴 액션 팔레트',
   parameters: {
     docs: {
       description: {
         story:
-          'Arco Design Menu 패턴. 계정/작업/위험 그룹 구분, 위험 액션 빨간색 + 위험 배지. ' +
+          'DataProductUI Menu 패턴. 계정/작업/위험 그룹 구분, 위험 액션 빨간색 + 위험 배지. ' +
           '검색 시 그룹 헤더 없이 플랫 리스트로 전환.',
       },
     },
   },
-  render: () => <ArcoAppMenuRender />,
+  render: () => <DataProductAppMenuRender />,
 }
 
-// Mantine + Arco — 프로젝트 전환 팔레트 (최근 + 즐겨찾기 탭)
+// AppUI + DataProduct — 프로젝트 전환 팔레트 (최근 + 즐겨찾기 탭)
 type ProjectItem = { id: string; name: string; desc: string; starred: boolean; color: string; lastVisited: string }
 
 const PROJECT_LIST: ProjectItem[] = [
@@ -2210,7 +2210,7 @@ const PROJECT_LIST: ProjectItem[] = [
   { id: 'p5', name: 'mobile-app', desc: 'React Native 앱', starred: true, color: '#8b5cf6', lastVisited: '1주 전' },
 ]
 
-function MantineArcoProjectSwitcherRender() {
+function AppUIDataProductProjectSwitcherRender() {
   const [tab, setTab] = useState<'recent' | 'starred'>('recent')
   const [query, setQuery] = useState('')
   const [selected, setSelected] = useState<string | null>(null)
@@ -2269,25 +2269,25 @@ function MantineArcoProjectSwitcherRender() {
   )
 }
 
-export const Mantine_Arco_프로젝트_전환_팔레트: Story = {
-  name: 'Mantine + Arco - 프로젝트 전환 팔레트',
+export const AppUI_DataProduct_프로젝트_전환_팔레트: Story = {
+  name: 'AppUI + DataProduct - 프로젝트 전환 팔레트',
   parameters: {
     docs: {
       description: {
         story:
-          'Mantine Spotlight + Arco 탭 패턴. 최근/즐겨찾기 탭 전환, 아바타 이니셜 + 즐겨찾기 별, ' +
+          'AppUI Spotlight + DataProduct 탭 패턴. 최근/즐겨찾기 탭 전환, 아바타 이니셜 + 즐겨찾기 별, ' +
           '마지막 방문 시간. 검색으로 전체 항목 실시간 필터링.',
       },
     },
   },
-  render: () => <MantineArcoProjectSwitcherRender />,
+  render: () => <AppUIDataProductProjectSwitcherRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Cycle 163 — Figma Plugin UI + Apple HIG
-   Figma Plugin: 레이어 선택 팔레트 패턴 (Layer Picker)
+   Cycle 163 — DesignTool Plugin UI + Platform HIG
+   DesignTool Plugin: 레이어 선택 팔레트 패턴 (Layer Picker)
 -------------------------------------------------------------------------- */
-const FIGMA_LAYERS = [
+const DESIGN_LAYERS = [
   { id: 'frame1', type: 'frame', name: 'Dashboard / Main', depth: 0, color: '#2563eb' },
   { id: 'group1', type: 'group', name: 'Header Group', depth: 1, color: '#7c3aed' },
   { id: 'text1', type: 'text', name: 'Title — 디자인 시스템', depth: 2, color: '#0891b2' },
@@ -2308,13 +2308,13 @@ const LAYER_TYPE_ICON: Record<string, string> = {
   rectangle: '■',
 }
 
-function FigmaLayerPickerRender() {
+function DesignToolLayerPickerRender() {
   const [query, setQuery] = useState('')
   const [selected, setSelected] = useState<string[]>([])
 
   const filtered = query
-    ? FIGMA_LAYERS.filter(l => l.name.toLowerCase().includes(query.toLowerCase()) || l.type.includes(query))
-    : FIGMA_LAYERS
+    ? DESIGN_LAYERS.filter(l => l.name.toLowerCase().includes(query.toLowerCase()) || l.type.includes(query))
+    : DESIGN_LAYERS
 
   const toggleLayer = (id: string) => {
     setSelected(prev => prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id])
@@ -2322,7 +2322,7 @@ function FigmaLayerPickerRender() {
 
   return (
     <div style={{ width: 340, fontFamily: 'system-ui, sans-serif' }}>
-      <p style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 10 }}>Figma Plugin UI — 레이어 선택 팔레트</p>
+      <p style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 10 }}>DesignTool Plugin UI — 레이어 선택 팔레트</p>
       <Command style={{ borderRadius: 10, border: '1px solid #e2e8f0', boxShadow: '0 4px 20px rgba(0,0,0,0.08)' }}>
         <Command.Input
           placeholder="레이어 검색..."
@@ -2356,48 +2356,48 @@ function FigmaLayerPickerRender() {
   )
 }
 
-export const Figma_레이어_선택_팔레트: Story = {
-  name: 'Figma Plugin UI — 레이어 선택 팔레트 패턴',
+export const DesignTool_레이어_선택_팔레트: Story = {
+  name: 'DesignTool Plugin UI — 레이어 선택 팔레트 패턴',
   parameters: {
     docs: {
       description: {
-        story: 'Figma Plugin API의 레이어 탐색 패턴. 계층 깊이별 들여쓰기, 레이어 타입 아이콘(frame/group/text/vector/component), 다중 선택, 실시간 검색. Command.Item depth-based indent.',
+        story: 'DesignTool Plugin API의 레이어 탐색 패턴. 계층 깊이별 들여쓰기, 레이어 타입 아이콘(frame/group/text/vector/component), 다중 선택, 실시간 검색. Command.Item depth-based indent.',
       },
     },
   },
-  render: () => <FigmaLayerPickerRender />,
+  render: () => <DesignToolLayerPickerRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Apple HIG: Spotlight 스타일 앱 검색 팔레트 패턴
+   Platform HIG: Spotlight 스타일 앱 검색 팔레트 패턴
 -------------------------------------------------------------------------- */
-const APPLE_APPS = [
+const NATIVE_APPS = [
   { category: '앱', name: 'Orbit UI', desc: '디자인 시스템 스토리북', icon: '🎨', shortcut: '⌘ 1' },
-  { category: '앱', name: 'Figma', desc: 'UI 디자인 툴', icon: '🖌️', shortcut: '⌘ 2' },
+  { category: '앱', name: 'DesignTool', desc: 'UI 디자인 툴', icon: '🖌️', shortcut: '⌘ 2' },
   { category: '앱', name: 'VS Code', desc: '코드 편집기', icon: '💻', shortcut: '⌘ 3' },
   { category: '파일', name: 'design-system.pdf', desc: '~/Downloads', icon: '📄', shortcut: '' },
   { category: '파일', name: 'orbit-ui-tokens.json', desc: '~/Projects', icon: '📦', shortcut: '' },
-  { category: '웹', name: 'Orbit UI Storybook', desc: 'orbit-ui.vercel.app', icon: '🌐', shortcut: '' },
+  { category: '웹', name: 'Orbit UI Storybook', desc: 'orbit-ui.deploy.example.com', icon: '🌐', shortcut: '' },
   { category: '연락처', name: '김희준', desc: 'hjunkim@orbit-ui.dev', icon: '👤', shortcut: '' },
 ]
 
-function AppleSpotlightCommandRender() {
+function PlatformSpotlightCommandRender() {
   const [query, setQuery] = useState('')
   const [selected, setSelected] = useState<string | null>(null)
 
   const filtered = query
-    ? APPLE_APPS.filter(a => a.name.toLowerCase().includes(query.toLowerCase()) || a.desc.toLowerCase().includes(query.toLowerCase()))
-    : APPLE_APPS
+    ? NATIVE_APPS.filter(a => a.name.toLowerCase().includes(query.toLowerCase()) || a.desc.toLowerCase().includes(query.toLowerCase()))
+    : NATIVE_APPS
 
-  const grouped = filtered.reduce<Record<string, typeof APPLE_APPS>>((acc, item) => {
+  const grouped = filtered.reduce<Record<string, typeof NATIVE_APPS>>((acc, item) => {
     if (!acc[item.category]) { acc[item.category] = [] }
     acc[item.category].push(item)
     return acc
   }, {})
 
   return (
-    <div style={{ width: 380, fontFamily: '-apple-system, BlinkMacSystemFont, system-ui, sans-serif' }}>
-      <p style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 10 }}>Apple HIG — Spotlight 스타일 검색 팔레트</p>
+    <div style={{ width: 380, fontFamily: 'system-ui, sans-serif' }}>
+      <p style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 10 }}>Platform HIG — Spotlight 스타일 검색 팔레트</p>
       <Command style={{ borderRadius: 14, border: 'none', background: 'rgba(255,255,255,0.88)', backdropFilter: 'blur(20px)', boxShadow: '0 8px 40px rgba(0,0,0,0.18), 0 0 0 1px rgba(0,0,0,0.06)' }}>
         <div style={{ display: 'flex', alignItems: 'center', padding: '12px 16px', borderBottom: '1px solid rgba(0,0,0,0.06)', gap: 10 }}>
           <SearchIcon className="h-5 w-5" style={{ color: '#8e8e93', flexShrink: 0 }} />
@@ -2442,30 +2442,30 @@ function AppleSpotlightCommandRender() {
   )
 }
 
-export const Apple_Spotlight_앱_검색_팔레트: Story = {
-  name: 'Apple HIG — Spotlight 스타일 앱 검색 팔레트',
+export const Platform_Spotlight_앱_검색_팔레트: Story = {
+  name: 'Platform HIG — Spotlight 스타일 앱 검색 팔레트',
   parameters: {
     docs: {
       description: {
-        story: 'Apple HIG Spotlight 검색 패턴. 앱/파일/웹/연락처 카테고리별 그룹화, 앱 아이콘 + 이름 + 설명, 단축키 배지. 블러 배경 + 라운드 디자인. Command.Group 다중 카테고리 패턴.',
+        story: 'Platform HIG Spotlight 검색 패턴. 앱/파일/웹/연락처 카테고리별 그룹화, 앱 아이콘 + 이름 + 설명, 단축키 배지. 블러 배경 + 라운드 디자인. Command.Group 다중 카테고리 패턴.',
       },
     },
   },
-  render: () => <AppleSpotlightCommandRender />,
+  render: () => <PlatformSpotlightCommandRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Figma + Apple HIG: 컴포넌트 속성 에디터 팔레트 복합 패턴
+   DesignTool + Platform HIG: 컴포넌트 속성 에디터 팔레트 복합 패턴
 -------------------------------------------------------------------------- */
-const FIGMA_COMPONENT_VARIANTS = [
+const DESIGN_COMPONENT_VARIANTS = [
   { prop: 'Type', options: ['Primary', 'Secondary', 'Ghost', 'Danger'], selected: 'Primary' },
   { prop: 'Size', options: ['Small', 'Medium', 'Large'], selected: 'Medium' },
   { prop: 'State', options: ['Default', 'Hover', 'Pressed', 'Disabled'], selected: 'Default' },
   { prop: 'Icon', options: ['None', 'Leading', 'Trailing', 'Both'], selected: 'Leading' },
 ]
 
-function FigmaAppleComponentEditorRender() {
-  const [variants, setVariants] = useState(FIGMA_COMPONENT_VARIANTS)
+function DesignToolPlatformComponentEditorRender() {
+  const [variants, setVariants] = useState(DESIGN_COMPONENT_VARIANTS)
   const [searchProp, setSearchProp] = useState('')
 
   const updateVariant = (propName: string, value: string) => {
@@ -2481,7 +2481,7 @@ function FigmaAppleComponentEditorRender() {
 
   return (
     <div style={{ width: 340, fontFamily: 'system-ui, sans-serif' }}>
-      <p style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 10 }}>Figma + Apple HIG — 컴포넌트 속성 에디터</p>
+      <p style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 10 }}>DesignTool + Platform HIG — 컴포넌트 속성 에디터</p>
 
       {/* Preview */}
       <div style={{ marginBottom: 10, padding: '14px', borderRadius: 10, background: '#f8fafc', border: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -2527,43 +2527,43 @@ function FigmaAppleComponentEditorRender() {
   )
 }
 
-export const Figma_Apple_컴포넌트_속성_에디터: Story = {
-  name: 'Figma + Apple HIG — 컴포넌트 속성 에디터 팔레트',
+export const DesignTool_Platform_컴포넌트_속성_에디터: Story = {
+  name: 'DesignTool + Platform HIG — 컴포넌트 속성 에디터 팔레트',
   parameters: {
     docs: {
       description: {
-        story: 'Figma Component Variant Inspector + Apple HIG Property Inspector 패턴. 속성(Type/Size/State/Icon)별 Command.Group, 라디오 스타일 선택, 실시간 미리보기. 검색으로 속성/옵션 필터링.',
+        story: 'DesignTool Component Variant Inspector + Platform HIG Property Inspector 패턴. 속성(Type/Size/State/Icon)별 Command.Group, 라디오 스타일 선택, 실시간 미리보기. 검색으로 속성/옵션 필터링.',
       },
     },
   },
-  render: () => <FigmaAppleComponentEditorRender />,
+  render: () => <DesignToolPlatformComponentEditorRender />,
 }
 
-// ─── Cycle 191: Raycast Extensions + Mantine ─────────────────────────────────
+// ─── Cycle 191: CommandPalette Extensions + AppUI ─────────────────────────────────
 
-const RAYCAST_ACTIONS_191 = [
+const LAUNCHER_ACTIONS_191 = [
   { label: '새 브라우저 탭 열기', shortcut: '⌘T', group: '브라우저', icon: '🌐' },
   { label: '스크린샷 캡처', shortcut: '⌘⇧4', group: '시스템', icon: '📸' },
   { label: '클립보드 히스토리', shortcut: '⌘⇧V', group: '클립보드', icon: '📋' },
-  { label: 'GitHub PR 열기', shortcut: '⌘P', group: 'GitHub', icon: '🔀' },
-  { label: 'Notion 페이지 생성', shortcut: '⌘N', group: 'Notion', icon: '📝' },
+  { label: 'CodeHost PR 열기', shortcut: '⌘P', group: 'CodeHost', icon: '🔀' },
+  { label: 'WorkspaceEditor 페이지 생성', shortcut: '⌘N', group: 'WorkspaceEditor', icon: '📝' },
   { label: 'Slack DM 보내기', shortcut: '⌘D', group: 'Slack', icon: '💬' },
   { label: '타이머 설정 — 25분', shortcut: '⌘⌥T', group: '생산성', icon: '⏱' },
-  { label: 'Figma 파일 열기', shortcut: '⌘F', group: 'Figma', icon: '🎨' },
+  { label: 'DesignTool 파일 열기', shortcut: '⌘F', group: 'DesignTool', icon: '🎨' },
 ]
 
-const RAYCAST_GROUPS_191 = ['브라우저', '시스템', '클립보드', 'GitHub', 'Notion', 'Slack', '생산성', 'Figma']
+const LAUNCHER_GROUPS_191 = ['브라우저', '시스템', '클립보드', 'CodeHost', 'WorkspaceEditor', 'Slack', '생산성', 'DesignTool']
 
-function RaycastCommandPaletteRender() {
+function CommandPaletteCommandPaletteRender() {
   const [q, setQ] = React.useState('')
   const [selected, setSelected] = React.useState<string | null>(null)
-  const [recentCmds, setRecentCmds] = React.useState<string[]>(['클립보드 히스토리', 'GitHub PR 열기'])
+  const [recentCmds, setRecentCmds] = React.useState<string[]>(['클립보드 히스토리', 'CodeHost PR 열기'])
 
-  const filtered = RAYCAST_ACTIONS_191.filter(
+  const filtered = LAUNCHER_ACTIONS_191.filter(
     (a) => a.label.toLowerCase().includes(q.toLowerCase()) || a.group.toLowerCase().includes(q.toLowerCase())
   )
 
-  const grouped = RAYCAST_GROUPS_191.reduce<Record<string, typeof RAYCAST_ACTIONS_191>>((acc, g) => {
+  const grouped = LAUNCHER_GROUPS_191.reduce<Record<string, typeof LAUNCHER_ACTIONS_191>>((acc, g) => {
     const items = filtered.filter((a) => a.group === g)
     if (items.length > 0) acc[g] = items
     return acc
@@ -2584,7 +2584,7 @@ function RaycastCommandPaletteRender() {
       )}
       <Command className="rounded-xl border shadow-xl" style={{ maxWidth: 540 }}>
         <div style={{ padding: '10px 14px 0', display: 'flex', alignItems: 'center', gap: 8 }}>
-          <span style={{ fontSize: 13, fontWeight: 800, color: '#0f172a', letterSpacing: '-0.02em' }}>Raycast</span>
+          <span style={{ fontSize: 13, fontWeight: 800, color: '#0f172a', letterSpacing: '-0.02em' }}>CommandPalette</span>
           <span style={{ fontSize: 10, color: '#94a3b8', background: '#f1f5f9', padding: '2px 7px', borderRadius: 6 }}>⌘Space</span>
         </div>
         <Command.Input
@@ -2598,7 +2598,7 @@ function RaycastCommandPaletteRender() {
           {q.length === 0 && recentCmds.length > 0 && (
             <Command.Group heading="최근 실행">
               {recentCmds.map((r) => {
-                const action = RAYCAST_ACTIONS_191.find((a) => a.label === r)
+                const action = LAUNCHER_ACTIONS_191.find((a) => a.label === r)
                 return action ? (
                   <Command.Item key={r} onSelect={() => handleSelect(r)}>
                     <span style={{ marginRight: 8 }}>{action.icon}</span>
@@ -2632,28 +2632,28 @@ function RaycastCommandPaletteRender() {
   )
 }
 
-export const Raycast_커맨드_팔레트_액션_런처: Story = {
-  name: 'Raycast — 액션 런처 커맨드 팔레트',
+export const CommandPalette_커맨드_팔레트_액션_런처: Story = {
+  name: 'CommandPalette — 액션 런처 커맨드 팔레트',
   parameters: {
     docs: {
       description: {
         story:
-          'Raycast Extensions 패턴 구현. 그룹별 명령어 분류, 키보드 단축키 표시, 최근 실행 히스토리. ' +
-          '실행 시 최근 목록 업데이트, 성공 피드백 토스트. Raycast의 빠른 액션 런처 UX.',
+          'CommandPalette Extensions 패턴 구현. 그룹별 명령어 분류, 키보드 단축키 표시, 최근 실행 히스토리. ' +
+          '실행 시 최근 목록 업데이트, 성공 피드백 토스트. CommandPalette의 빠른 액션 런처 UX.',
       },
     },
   },
-  render: () => <RaycastCommandPaletteRender />,
+  render: () => <CommandPaletteCommandPaletteRender />,
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
 
-const MANTINE_SPOTLIGHT_ITEMS_191 = [
+const ACCESSIBLEKIT_SPOTLIGHT_ITEMS_191 = [
   { label: '홈 대시보드', description: '메인 대시보드로 이동', icon: '🏠', href: '/dashboard' },
   { label: '컴포넌트 라이브러리', description: 'Orbit UI 컴포넌트 전체 목록', icon: '🧩', href: '/components' },
   { label: '디자인 토큰', description: '색상, 타이포그래피, 간격 토큰', icon: '🎨', href: '/tokens' },
   { label: '접근성 가이드', description: 'WAI-ARIA 구현 가이드', icon: '♿', href: '/a11y' },
-  { label: '마이그레이션 가이드', description: 'shadcn → Orbit UI 이전 방법', icon: '🔄', href: '/migration' },
+  { label: '마이그레이션 가이드', description: 'ComposableUI → Orbit UI 이전 방법', icon: '🔄', href: '/migration' },
   { label: 'Changelog', description: '최신 변경사항 확인', icon: '📋', href: '/changelog' },
   { label: '테마 에디터', description: 'Eclipse 테마 커스텀', icon: '✏', href: '/theme' },
 ]
@@ -2662,7 +2662,7 @@ function ManteineSpotlightSearchRender() {
   const [q, setQ] = React.useState('')
   const [pinned, setPinned] = React.useState<string[]>(['홈 대시보드'])
 
-  const filtered = MANTINE_SPOTLIGHT_ITEMS_191.filter(
+  const filtered = ACCESSIBLEKIT_SPOTLIGHT_ITEMS_191.filter(
     (item) =>
       item.label.toLowerCase().includes(q.toLowerCase()) ||
       item.description.toLowerCase().includes(q.toLowerCase())
@@ -2682,7 +2682,7 @@ function ManteineSpotlightSearchRender() {
         <div style={{ padding: '12px 16px 0', display: 'flex', alignItems: 'center', gap: 8 }}>
           <span style={{ fontSize: 18, fontWeight: 900, color: '#6366f1' }}>✦</span>
           <span style={{ fontSize: 13, fontWeight: 700, color: '#0f172a' }}>Orbit Spotlight</span>
-          <span style={{ marginLeft: 'auto', fontSize: 10, color: '#94a3b8' }}>Mantine Spotlight 패턴</span>
+          <span style={{ marginLeft: 'auto', fontSize: 10, color: '#94a3b8' }}>AppUI Spotlight 패턴</span>
         </div>
         <Command.Input
           placeholder="페이지, 문서, 설정 검색..."
@@ -2693,7 +2693,7 @@ function ManteineSpotlightSearchRender() {
           <Command.Empty>페이지를 찾을 수 없습니다</Command.Empty>
           {pinned.length > 0 && q.length === 0 && (
             <Command.Group heading="즐겨찾기">
-              {MANTINE_SPOTLIGHT_ITEMS_191.filter((item) => pinned.includes(item.label)).map((item) => (
+              {ACCESSIBLEKIT_SPOTLIGHT_ITEMS_191.filter((item) => pinned.includes(item.label)).map((item) => (
                 <Command.Item key={item.label}>
                   <span style={{ marginRight: 8 }}>{item.icon}</span>
                   <div style={{ flex: 1 }}>
@@ -2733,14 +2733,14 @@ function ManteineSpotlightSearchRender() {
   )
 }
 
-export const Mantine_Spotlight_탐색_검색_패널: Story = {
-  name: 'Mantine — Spotlight 탐색 검색 패널',
+export const AppUI_Spotlight_탐색_검색_패널: Story = {
+  name: 'AppUI — Spotlight 탐색 검색 패널',
   parameters: {
     docs: {
       description: {
         story:
-          'Mantine Spotlight 컴포넌트 패턴 구현. 즐겨찾기 고정/해제, 전체/필터 이원 그룹 표시. ' +
-          '아이콘 + 설명 2단 라벨 레이아웃, 실시간 검색 필터링. Mantine의 탐색 UX 패턴.',
+          'AppUI Spotlight 컴포넌트 패턴 구현. 즐겨찾기 고정/해제, 전체/필터 이원 그룹 표시. ' +
+          '아이콘 + 설명 2단 라벨 레이아웃, 실시간 검색 필터링. AppUI의 탐색 UX 패턴.',
       },
     },
   },
@@ -2749,7 +2749,7 @@ export const Mantine_Spotlight_탐색_검색_패널: Story = {
 
 // ─────────────────────────────────────────────────────────────────────────────
 
-const RAYCAST_MANTINE_THEMES_191 = [
+const LAUNCHER_ACCESSIBLEKIT_THEMES_191 = [
   { id: 'eclipse', name: 'Eclipse (기본)', preview: ['#0f172a', '#6366f1', '#fff'], tags: ['다크', '공식'] },
   { id: 'aurora', name: 'Aurora', preview: ['#0d1117', '#22d3ee', '#f0fdf4'], tags: ['다크', '사이언'] },
   { id: 'sunset', name: 'Sunset', preview: ['#fff', '#f59e0b', '#ef4444'], tags: ['라이트', '웜'] },
@@ -2757,11 +2757,11 @@ const RAYCAST_MANTINE_THEMES_191 = [
   { id: 'slate', name: 'Slate', preview: ['#0f172a', '#94a3b8', '#e2e8f0'], tags: ['다크', '중립'] },
 ]
 
-function RaycastMantineThemeSwitcherRender() {
+function CommandPaletteAppUIThemeSwitcherRender() {
   const [q, setQ] = React.useState('')
   const [active, setActive] = React.useState('eclipse')
 
-  const filtered = RAYCAST_MANTINE_THEMES_191.filter(
+  const filtered = LAUNCHER_ACCESSIBLEKIT_THEMES_191.filter(
     (t) =>
       t.name.toLowerCase().includes(q.toLowerCase()) ||
       t.tags.some((tag) => tag.includes(q))
@@ -2772,7 +2772,7 @@ function RaycastMantineThemeSwitcherRender() {
       <div style={{ marginBottom: 8, display: 'flex', alignItems: 'center', gap: 8 }}>
         <span style={{ fontSize: 11, color: '#64748b' }}>활성 테마:</span>
         <span style={{ fontSize: 12, fontWeight: 700, color: '#6366f1' }}>
-          {RAYCAST_MANTINE_THEMES_191.find((t) => t.id === active)?.name}
+          {LAUNCHER_ACCESSIBLEKIT_THEMES_191.find((t) => t.id === active)?.name}
         </span>
       </div>
       <Command className="rounded-xl border shadow-lg" style={{ maxWidth: 480 }}>
@@ -2783,7 +2783,7 @@ function RaycastMantineThemeSwitcherRender() {
         />
         <Command.List>
           <Command.Empty>일치하는 테마 없음</Command.Empty>
-          <Command.Group heading="테마 선택 (Raycast + Mantine 패턴)">
+          <Command.Group heading="테마 선택 (CommandPalette + AppUI 패턴)">
             {filtered.map((theme) => (
               <Command.Item key={theme.id} onSelect={() => setActive(theme.id)}>
                 {/* Color preview dots */}
@@ -2809,7 +2809,7 @@ function RaycastMantineThemeSwitcherRender() {
           </Command.Group>
         </Command.List>
         <div style={{ padding: '8px 14px', borderTop: '1px solid #f1f5f9', fontSize: 10, color: '#94a3b8', display: 'flex', justifyContent: 'space-between' }}>
-          <span>Raycast 테마 전환 + Mantine ColorScheme 패턴</span>
+          <span>CommandPalette 테마 전환 + AppUI ColorScheme 패턴</span>
           <span>{filtered.length}개 테마</span>
         </div>
       </Command>
@@ -2817,16 +2817,16 @@ function RaycastMantineThemeSwitcherRender() {
   )
 }
 
-export const Raycast_Mantine_테마_전환_커맨드: Story = {
-  name: 'Raycast + Mantine — 테마 전환 커맨드 팔레트',
+export const CommandPalette_AppUI_테마_전환_커맨드: Story = {
+  name: 'CommandPalette + AppUI — 테마 전환 커맨드 팔레트',
   parameters: {
     docs: {
       description: {
         story:
-          'Raycast 테마 스위처 + Mantine ColorScheme 전환 복합 패턴. 컬러 팔레트 미리보기 dots + 태그 분류 + 체크마크 활성 표시. ' +
-          '테마 이름/태그 검색 필터링. Raycast 빠른 선택 + Mantine 테마 관리 UX.',
+          'CommandPalette 테마 스위처 + AppUI ColorScheme 전환 복합 패턴. 컬러 팔레트 미리보기 dots + 태그 분류 + 체크마크 활성 표시. ' +
+          '테마 이름/태그 검색 필터링. CommandPalette 빠른 선택 + AppUI 테마 관리 UX.',
       },
     },
   },
-  render: () => <RaycastMantineThemeSwitcherRender />,
+  render: () => <CommandPaletteAppUIThemeSwitcherRender />,
 }

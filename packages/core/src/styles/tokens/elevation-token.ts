@@ -2,7 +2,7 @@
  * Foundation 컴포넌트의 elevation 레벨을 정의합니다.
  *
  * 이 파일은 Foundation 패키지에서만 사용되며, 자동 생성되지 않는 수동 관리 파일입니다.
- * Reference Token과 달리 Figma에서 자동 생성되지 않으므로, 여기서 직접 관리합니다.
+ * Reference Token과 달리 자동 생성되지 않으므로, 여기서 직접 관리합니다.
  *
  * 컴포넌트의 z-index는 이 elevation 시멘틱 토큰을 기반으로 정의됩니다.
  */

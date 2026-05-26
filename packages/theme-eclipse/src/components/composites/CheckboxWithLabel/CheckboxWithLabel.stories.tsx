@@ -39,7 +39,7 @@ export const 기본 = {
   },
 } satisfies Story
 
-/* ── shadcn/ui: 설명 있는 알림 설정 그룹 ── */
+/* ── ComposableUI: 설명 있는 알림 설정 그룹 ── */
 const NotificationGroupDemo = () => {
   type NotifKey = 'email' | 'push' | 'sms' | 'digest'
   const [checked, setChecked] = useState<Set<NotifKey>>(new Set(['email', 'push']))
@@ -99,14 +99,14 @@ const NotificationGroupDemo = () => {
   )
 }
 
-export const Shadcn_설명있는_알림_설정: Story = {
-  name: 'shadcn — 설명 있는 알림 설정 그룹',
+export const ComposableUI_설명있는_알림_설정: Story = {
+  name: 'ComposableUI — 설명 있는 알림 설정 그룹',
   render: () => <NotificationGroupDemo />,
 }
 
-/* ── shadcn/ui: 전체 선택 + indeterminate 패턴 ── */
+/* ── ComposableUI: 전체 선택 + indeterminate 패턴 ── */
 const SelectAllDemo = () => {
-  const ITEMS = ['TypeScript 5.7 업그레이드', 'Storybook 8 마이그레이션', 'Tailwind 토큰 최적화', 'TipTap 에디터 통합', 'Dark mode 전환'] as const
+  const ITEMS = ['TypeScript 5.7 업그레이드', 'Storybook 8 마이그레이션', 'UtilityCSS 토큰 최적화', 'TipTap 에디터 통합', 'Dark mode 전환'] as const
   type Item = (typeof ITEMS)[number]
   const [selected, setSelected] = useState<Set<Item>>(new Set())
 
@@ -177,12 +177,12 @@ const SelectAllDemo = () => {
   )
 }
 
-export const Shadcn_전체선택_패턴: Story = {
-  name: 'shadcn — 전체 선택 / indeterminate 패턴',
+export const ComposableUI_전체선택_패턴: Story = {
+  name: 'ComposableUI — 전체 선택 / indeterminate 패턴',
   render: () => <SelectAllDemo />,
 }
 
-/* ── shadcn/ui: 폼 유효성 검사 ── */
+/* ── ComposableUI: 폼 유효성 검사 ── */
 const FormValidationDemo = () => {
   const [submitted, setSubmitted] = useState(false)
   const [terms, setTerms] = useState(false)
@@ -245,8 +245,8 @@ const FormValidationDemo = () => {
   )
 }
 
-export const Shadcn_폼_유효성_검사: Story = {
-  name: 'shadcn — 폼 유효성 검사 (필수/선택 동의)',
+export const ComposableUI_폼_유효성_검사: Story = {
+  name: 'ComposableUI — 폼 유효성 검사 (필수/선택 동의)',
   render: () => <FormValidationDemo />,
 }
 
@@ -289,7 +289,7 @@ export const 디자인QA = {
       description: '두 번째 체크박스 비활성화 여부',
     },
   },
-   
+
   render: (args: any) => (
     <>
       <div style={{ marginBottom: '25px' }}>첫 번째 체크박스는 라벨이 없어요</div>
@@ -318,7 +318,7 @@ export const 디자인QA = {
 }
 
 /* --------------------------------------------------------------------------
-   Google Material 3 벤치마크: 컨테이너 색상 역할 패턴
+   RoleToken Design 벤치마크: 컨테이너 색상 역할 패턴
    M3의 Primary Container + On Primary Container 이중 색상 역할.
    선택된 체크박스 항목에 컨테이너 배경색을 적용해 강조합니다.
 -------------------------------------------------------------------------- */
@@ -406,12 +406,12 @@ const M3ContainerColorRoleDemo = () => {
 }
 
 export const M3_컨테이너_색상_역할: Story = {
-  name: 'Material 3 — 컨테이너 색상 역할 (Primary/Secondary/Tertiary Container)',
+  name: 'RoleToken Design — 컨테이너 색상 역할 (Primary/Secondary/Tertiary Container)',
   parameters: {
     docs: {
       description: {
         story:
-          'Google Material 3의 이중 색상 역할 시스템. ' +
+          'RoleToken Design의 이중 색상 역할 시스템. ' +
           'Primary/Secondary/Tertiary Container는 배경색, On*Container는 텍스트/아이콘 색으로 짝을 이룹니다. ' +
           '선택된 항목이 컨테이너 역할에 따라 시맨틱하게 강조됩니다.',
       },
@@ -421,7 +421,7 @@ export const M3_컨테이너_색상_역할: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Google Material 3 벤치마크: 상태 레이어 오버레이 패턴
+   RoleToken Design 벤치마크: 상태 레이어 오버레이 패턴
    M3의 state layer는 별도 hover 색상 토큰 없이 반투명 오버레이로 상태 표현.
    체크박스가 상태(idle/hover/pressed/focused)를 오버레이로 시각화합니다.
 -------------------------------------------------------------------------- */
@@ -530,12 +530,12 @@ const M3StateLayerDemo = () => {
 }
 
 export const M3_상태_레이어_오버레이: Story = {
-  name: 'Material 3 — 상태 레이어 오버레이 (hover +8%, pressed +12%)',
+  name: 'RoleToken Design — 상태 레이어 오버레이 (hover +8%, pressed +12%)',
   parameters: {
     docs: {
       description: {
         story:
-          'Google Material 3의 상태 레이어 시스템. hover/pressed 상태를 별도 색상 토큰 없이 ' +
+          'RoleToken Design의 상태 레이어 시스템. hover/pressed 상태를 별도 색상 토큰 없이 ' +
           '반투명 오버레이(8%/12%)로 표현합니다. boxShadow inset으로 구현했으며, ' +
           '각 상태별 오버레이 강도가 실시간으로 표시됩니다.',
       },
@@ -545,7 +545,7 @@ export const M3_상태_레이어_오버레이: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Google Material 3 벤치마크: 에러 컨테이너 폼 유효성 검사 패턴
+   RoleToken Design 벤치마크: 에러 컨테이너 폼 유효성 검사 패턴
    M3의 Error Container(#FFDAD6) + On Error Container(#410002) 색상 역할로
    폼 에러 상태를 시맨틱하게 표현합니다.
 -------------------------------------------------------------------------- */
@@ -645,12 +645,12 @@ const M3ErrorContainerDemo = () => {
 }
 
 export const M3_에러_컨테이너_폼_검증: Story = {
-  name: 'Material 3 — 에러 컨테이너 폼 유효성 검사 (ErrorContainer + OnErrorContainer)',
+  name: 'RoleToken Design — 에러 컨테이너 폼 유효성 검사 (ErrorContainer + OnErrorContainer)',
   parameters: {
     docs: {
       description: {
         story:
-          'Google Material 3의 Error Container 색상 역할. ' +
+          'RoleToken Design의 Error Container 색상 역할. ' +
           '에러 상태 항목에 ErrorContainer 배경(#fef2f2)과 OnErrorContainer 텍스트(#b91c1c)를 적용합니다. ' +
           '별도 에러 컴포넌트 없이 색상 역할만으로 시맨틱 에러 UX를 구현합니다.',
       },
@@ -659,7 +659,7 @@ export const M3_에러_컨테이너_폼_검증: Story = {
   render: () => <M3ErrorContainerDemo />,
 }
 
-/* ── Linear Design: 이슈 필터 다중 선택 ── */
+/* ── IssueTracker Design: 이슈 필터 다중 선택 ── */
 const IssueFilterDemo = () => {
   const [selected, setSelected] = useState<Set<string>>(new Set(['bug', 'urgent']))
 
@@ -703,12 +703,12 @@ const IssueFilterDemo = () => {
   )
 }
 
-export const Linear_이슈_레이블_필터: Story = {
-  name: 'Linear — 이슈 레이블 다중 필터',
+export const IssueTracker_이슈_레이블_필터: Story = {
+  name: 'IssueTracker — 이슈 레이블 다중 필터',
   render: () => <IssueFilterDemo />,
 }
 
-/* ── Linear Design: 스프린트 목표 체크리스트 ── */
+/* ── IssueTracker Design: 스프린트 목표 체크리스트 ── */
 const SprintGoalDemo = () => {
   const [items, setItems] = useState([
     { id: 'g1', label: 'Button 컴포넌트 loading 상태 추가', done: true, priority: 'high' },
@@ -753,12 +753,12 @@ const SprintGoalDemo = () => {
   )
 }
 
-export const Linear_스프린트_목표_체크리스트: Story = {
-  name: 'Linear — 스프린트 목표 체크리스트',
+export const IssueTracker_스프린트_목표_체크리스트: Story = {
+  name: 'IssueTracker — 스프린트 목표 체크리스트',
   render: () => <SprintGoalDemo />,
 }
 
-/* ── Linear Design: 팀 알림 채널 설정 ── */
+/* ── IssueTracker Design: 팀 알림 채널 설정 ── */
 const TeamNotifDemo = () => {
   const [settings, setSettings] = useState({
     comments: true,
@@ -780,7 +780,7 @@ const TeamNotifDemo = () => {
 
   return (
     <div style={{ maxWidth: 340 }}>
-      <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 4 }}>알림 설정 (Linear 패턴)</div>
+      <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 4 }}>알림 설정 (IssueTracker 패턴)</div>
       <div style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginBottom: 12 }}>슬랙 채널 #orbit-ui-dev로 알림 받기</div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
         {items.map((item, i) => (
@@ -805,32 +805,32 @@ const TeamNotifDemo = () => {
   )
 }
 
-export const Linear_팀_알림_설정: Story = {
-  name: 'Linear — 팀 알림 채널 설정',
+export const IssueTracker_팀_알림_설정: Story = {
+  name: 'IssueTracker — 팀 알림 채널 설정',
   render: () => <TeamNotifDemo />,
 }
 
 /* --------------------------------------------------------------------------
-   Mantine 벤치마크: 전체 선택 / 부분 선택 (Indeterminate) 패턴
-   Mantine의 Checkbox indeterminate 상태 — 그룹 중 일부 선택 시 부모 체크박스에 반영
+   AppUI 벤치마크: 전체 선택 / 부분 선택 (Indeterminate) 패턴
+   AppUI의 Checkbox indeterminate 상태 — 그룹 중 일부 선택 시 부모 체크박스에 반영
 -------------------------------------------------------------------------- */
-const MANTINE_TASKS = [
+const ACCESSIBLEKIT_TASKS = [
   { id: 'ts', label: 'TypeScript 설정', desc: 'tsconfig.json 구성' },
   { id: 'eslint', label: 'ESLint 설정', desc: '.eslintrc 규칙 정의' },
   { id: 'prettier', label: 'Prettier 설정', desc: '.prettierrc 포맷 설정' },
   { id: 'husky', label: 'Husky 설정', desc: 'pre-commit 훅 연결' },
-  { id: 'ci', label: 'CI 설정', desc: 'GitHub Actions 파이프라인' },
+  { id: 'ci', label: 'CI 설정', desc: 'CodeHost Actions 파이프라인' },
 ]
 
-function MantineIndeterminateDemo() {
+function AppUIIndeterminateDemo() {
   const [checked, setChecked] = useState<Set<string>>(new Set(['ts', 'eslint']))
 
-  const allChecked = checked.size === MANTINE_TASKS.length
+  const allChecked = checked.size === ACCESSIBLEKIT_TASKS.length
   const someChecked = checked.size > 0 && !allChecked
 
   const toggleAll = () => {
     if (allChecked) setChecked(new Set())
-    else setChecked(new Set(MANTINE_TASKS.map((t) => t.id)))
+    else setChecked(new Set(ACCESSIBLEKIT_TASKS.map((t) => t.id)))
   }
 
   const toggle = (id: string) => {
@@ -845,7 +845,7 @@ function MantineIndeterminateDemo() {
   return (
     <div style={{ maxWidth: 400 }}>
       <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 4 }}>프로젝트 초기화 작업</div>
-      <div style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginBottom: 12 }}>{checked.size}/{MANTINE_TASKS.length} 완료</div>
+      <div style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginBottom: 12 }}>{checked.size}/{ACCESSIBLEKIT_TASKS.length} 완료</div>
 
       {/* 전체 선택 */}
       <div
@@ -868,14 +868,14 @@ function MantineIndeterminateDemo() {
         </span>
         {someChecked && (
           <span style={{ marginLeft: 'auto', fontSize: 11, padding: '2px 8px', borderRadius: 8, background: 'rgba(99,102,241,0.1)', color: '#6366f1', fontWeight: 700 }}>
-            {checked.size}/{MANTINE_TASKS.length}
+            {checked.size}/{ACCESSIBLEKIT_TASKS.length}
           </span>
         )}
       </div>
 
       {/* 개별 항목 */}
       <div style={{ border: '1.5px solid var(--sem-eclipse-color-borderDefault)', borderRadius: '0 0 10px 10px', overflow: 'hidden' }}>
-        {MANTINE_TASKS.map((task, i) => (
+        {ACCESSIBLEKIT_TASKS.map((task, i) => (
           <div
             key={task.id}
             onClick={() => toggle(task.id)}
@@ -884,7 +884,7 @@ function MantineIndeterminateDemo() {
               alignItems: 'center',
               gap: 10,
               padding: '10px 14px',
-              borderBottom: i < MANTINE_TASKS.length - 1 ? '1px solid var(--sem-eclipse-color-borderSubtle)' : 'none',
+              borderBottom: i < ACCESSIBLEKIT_TASKS.length - 1 ? '1px solid var(--sem-eclipse-color-borderSubtle)' : 'none',
               background: checked.has(task.id) ? 'rgba(99,102,241,0.03)' : 'var(--sem-eclipse-color-backgroundPrimary)',
               cursor: 'pointer',
               transition: 'background 0.1s',
@@ -910,25 +910,25 @@ function MantineIndeterminateDemo() {
   )
 }
 
-export const Mantine_전체선택_부분선택_패턴: Story = {
-  name: 'Mantine — 전체 선택 / 부분 선택(Indeterminate) 패턴',
+export const AppUI_전체선택_부분선택_패턴: Story = {
+  name: 'AppUI — 전체 선택 / 부분 선택(Indeterminate) 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'Mantine Checkbox indeterminate 패턴. 부분 선택 시 부모 체크박스에 중간 상태 표시줄을 추가합니다. ' +
+          'AppUI Checkbox indeterminate 패턴. 부분 선택 시 부모 체크박스에 중간 상태 표시줄을 추가합니다. ' +
           '전체 선택/해제 버튼으로 일괄 토글이 가능합니다.',
       },
     },
   },
-  render: () => <MantineIndeterminateDemo />,
+  render: () => <AppUIIndeterminateDemo />,
 }
 
 /* --------------------------------------------------------------------------
-   Mantine 벤치마크: 이용약관 단계별 동의 (Required Validation)
-   Mantine의 Checkbox + Form validation 패턴 — 필수 동의 항목 검증
+   AppUI 벤치마크: 이용약관 단계별 동의 (Required Validation)
+   AppUI의 Checkbox + Form validation 패턴 — 필수 동의 항목 검증
 -------------------------------------------------------------------------- */
-function MantineTermsAgreementDemo() {
+function AppUITermsAgreementDemo() {
   const [agreed, setAgreed] = useState<Record<string, boolean>>({
     terms: false,
     privacy: false,
@@ -1024,23 +1024,23 @@ function MantineTermsAgreementDemo() {
   )
 }
 
-export const Mantine_이용약관_필수_동의: Story = {
-  name: 'Mantine — Form Validation 이용약관 필수 동의 패턴',
+export const AppUI_이용약관_필수_동의: Story = {
+  name: 'AppUI — Form Validation 이용약관 필수 동의 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'Mantine Checkbox + Form validation 패턴. 필수 약관 미동의 시 오류 강조 표시합니다. ' +
+          'AppUI Checkbox + Form validation 패턴. 필수 약관 미동의 시 오류 강조 표시합니다. ' +
           '전체 동의 체크박스로 일괄 선택/해제가 가능합니다.',
       },
     },
   },
-  render: () => <MantineTermsAgreementDemo />,
+  render: () => <AppUITermsAgreementDemo />,
 }
 
 /* --------------------------------------------------------------------------
-   Mantine 벤치마크: 태그 기반 관심사 필터 선택
-   Mantine의 Checkbox + Badge 조합 패턴 — 태그 형태의 멀티 필터 UI
+   AppUI 벤치마크: 태그 기반 관심사 필터 선택
+   AppUI의 Checkbox + Badge 조합 패턴 — 태그 형태의 멀티 필터 UI
 -------------------------------------------------------------------------- */
 const INTEREST_TAGS = [
   { id: 'frontend', label: 'Frontend', color: '#6366f1' },
@@ -1053,7 +1053,7 @@ const INTEREST_TAGS = [
   { id: 'db', label: 'Database', color: '#14b8a6' },
 ]
 
-function MantineTagFilterDemo() {
+function AppUITagFilterDemo() {
   const [selected, setSelected] = useState<Set<string>>(new Set(['frontend', 'design']))
 
   const toggle = (id: string) => {
@@ -1137,24 +1137,24 @@ function MantineTagFilterDemo() {
   )
 }
 
-export const Mantine_태그_기반_관심사_필터: Story = {
-  name: 'Mantine — Checkbox + Badge 태그 기반 관심사 필터',
+export const AppUI_태그_기반_관심사_필터: Story = {
+  name: 'AppUI — Checkbox + Badge 태그 기반 관심사 필터',
   parameters: {
     docs: {
       description: {
         story:
-          'Mantine Checkbox + Badge 조합 패턴. 체크박스를 태그 형태로 표시하여 관심사 필터 UI를 만듭니다. ' +
+          'AppUI Checkbox + Badge 조합 패턴. 체크박스를 태그 형태로 표시하여 관심사 필터 UI를 만듭니다. ' +
           '선택된 태그에 해당하는 피드 항목만 필터링됩니다.',
       },
     },
   },
-  render: () => <MantineTagFilterDemo />,
+  render: () => <AppUITagFilterDemo />,
 }
 
 /* --------------------------------------------------------------------------
-   Cycle 188 — MUI + Tailwind UI
+   Cycle 188 — EnterpriseUI + UtilityUI
 -------------------------------------------------------------------------- */
-const MUI_ROWS_188 = [
+const EnterpriseUI_ROWS_188 = [
   { id: 1, name: 'Button', category: 'Actions', status: 'stable', coverage: 94 },
   { id: 2, name: 'TextField', category: 'Inputs', status: 'stable', coverage: 88 },
   { id: 3, name: 'DataTable', category: 'Data', status: 'beta', coverage: 72 },
@@ -1162,13 +1162,13 @@ const MUI_ROWS_188 = [
   { id: 5, name: 'Skeleton', category: 'Feedback', status: 'stable', coverage: 85 },
 ]
 
-function MuiDataGridSelectRender() {
+function EnterpriseUIDataGridSelectRender() {
   const [selected, setSelected] = useState<Set<number>>(new Set())
-  const allSelected = selected.size === MUI_ROWS_188.length
+  const allSelected = selected.size === EnterpriseUI_ROWS_188.length
   const someSelected = selected.size > 0 && !allSelected
 
   const toggleAll = (checked: boolean) => {
-    setSelected(checked ? new Set(MUI_ROWS_188.map((r) => r.id)) : new Set())
+    setSelected(checked ? new Set(EnterpriseUI_ROWS_188.map((r) => r.id)) : new Set())
   }
 
   const toggleRow = (id: number, checked: boolean) => {
@@ -1199,7 +1199,7 @@ function MuiDataGridSelectRender() {
           </div>
         )}
       </div>
-      {MUI_ROWS_188.map((row) => (
+      {EnterpriseUI_ROWS_188.map((row) => (
         <div
           key={row.id}
           style={{
@@ -1229,18 +1229,18 @@ function MuiDataGridSelectRender() {
   )
 }
 
-export const MUI_데이터_그리드_전체선택_패턴: Story = {
-  name: 'MUI — DataGrid 스타일 전체선택 + 인디케이터',
+export const EnterpriseUI_데이터_그리드_전체선택_패턴: Story = {
+  name: 'EnterpriseUI — DataGrid 스타일 전체선택 + 인디케이터',
   parameters: {
     docs: {
       description: {
         story:
-          'MUI DataGrid 전체선택 패턴. 헤더 체크박스(indeterminate 상태 지원) + 행 체크박스 연동. ' +
+          'EnterpriseUI DataGrid 전체선택 패턴. 헤더 체크박스(indeterminate 상태 지원) + 행 체크박스 연동. ' +
           '선택 항목 수 표시 + 일괄 액션(내보내기/해제) 컨텍스트 툴바를 포함합니다.',
       },
     },
   },
-  render: () => <MuiDataGridSelectRender />,
+  render: () => <EnterpriseUIDataGridSelectRender />,
 }
 
 const TAILWIND_FILTER_CATEGORIES_188 = [
@@ -1252,7 +1252,7 @@ const TAILWIND_FILTER_CATEGORIES_188 = [
 
 const TAILWIND_FRAMEWORKS_188 = ['React', 'Vue', 'Angular', 'Svelte']
 
-function TailwindFilterSidebarRender() {
+function UtilityCSSFilterSidebarRender() {
   const [cats, setCats] = useState(new Set(['components']))
   const [frameworks, setFrameworks] = useState(new Set(['React']))
 
@@ -1317,26 +1317,26 @@ function TailwindFilterSidebarRender() {
   )
 }
 
-export const Tailwind_상품_필터_사이드바: Story = {
-  name: 'Tailwind UI — 필터 사이드바 체크박스 패턴',
+export const UtilityCSS_상품_필터_사이드바: Story = {
+  name: 'UtilityUI — 필터 사이드바 체크박스 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'Tailwind UI 이커머스 필터 사이드바 패턴. 유형 + 프레임워크 그룹별 체크박스 필터 + 선택 항목 수 실시간 표시 + 전체 초기화. ' +
+          'UtilityUI 이커머스 필터 사이드바 패턴. 유형 + 프레임워크 그룹별 체크박스 필터 + 선택 항목 수 실시간 표시 + 전체 초기화. ' +
           '레이블 + 카운트 배지 조합으로 명확한 필터 상태를 전달합니다.',
       },
     },
   },
-  render: () => <TailwindFilterSidebarRender />,
+  render: () => <UtilityCSSFilterSidebarRender />,
 }
 
-const MUI_PERMISSIONS_188 = ['읽기', '쓰기', '삭제', '관리']
-const MUI_RESOURCES_188 = ['컴포넌트', '스토리', '토큰', '배포']
+const EnterpriseUI_PERMISSIONS_188 = ['읽기', '쓰기', '삭제', '관리']
+const EnterpriseUI_RESOURCES_188 = ['컴포넌트', '스토리', '토큰', '배포']
 
-function MuiPermissionMatrixRender() {
+function EnterpriseUIPermissionMatrixRender() {
   const [matrix, setMatrix] = useState<Record<string, Set<string>>>(() =>
-    Object.fromEntries(MUI_RESOURCES_188.map((r) => [r, new Set(r === '컴포넌트' ? ['읽기', '쓰기'] : ['읽기'])]))
+    Object.fromEntries(EnterpriseUI_RESOURCES_188.map((r) => [r, new Set(r === '컴포넌트' ? ['읽기', '쓰기'] : ['읽기'])]))
   )
 
   const toggle = (resource: string, perm: string, checked: boolean) => {
@@ -1349,12 +1349,12 @@ function MuiPermissionMatrixRender() {
     })
   }
 
-  const allForPerm = (perm: string) => MUI_RESOURCES_188.every((r) => matrix[r].has(perm))
+  const allForPerm = (perm: string) => EnterpriseUI_RESOURCES_188.every((r) => matrix[r].has(perm))
 
   const toggleCol = (perm: string, checked: boolean) => {
     setMatrix((prev) => {
       const next = { ...prev }
-      MUI_RESOURCES_188.forEach((r) => {
+      EnterpriseUI_RESOURCES_188.forEach((r) => {
         const s = new Set(prev[r])
         if (checked) { s.add(perm) } else { s.delete(perm) }
         next[r] = s
@@ -1367,12 +1367,12 @@ function MuiPermissionMatrixRender() {
     <div style={{ width: 460, fontFamily: 'system-ui, sans-serif' }}>
       <div style={{ marginBottom: 12 }}>
         <div style={{ fontSize: 13, fontWeight: 700, color: '#111827' }}>권한 매트릭스</div>
-        <div style={{ fontSize: 11, color: '#6b7280', marginTop: 2 }}>MUI + Tailwind UI 권한 테이블 패턴</div>
+        <div style={{ fontSize: 11, color: '#6b7280', marginTop: 2 }}>EnterpriseUI + UtilityUI 권한 테이블 패턴</div>
       </div>
       <div style={{ border: '1px solid #e5e7eb', borderRadius: 10, overflow: 'hidden' }}>
         <div style={{ display: 'grid', gridTemplateColumns: '120px repeat(4, 1fr)', background: '#f9fafb', borderBottom: '1px solid #e5e7eb' }}>
           <div style={{ padding: '10px 12px', fontSize: 11, fontWeight: 600, color: '#374151' }}>리소스</div>
-          {MUI_PERMISSIONS_188.map((perm) => (
+          {EnterpriseUI_PERMISSIONS_188.map((perm) => (
             <div key={perm} style={{ padding: '8px 8px', textAlign: 'center' }}>
               <div style={{ fontSize: 10, fontWeight: 600, color: '#374151', marginBottom: 4 }}>{perm}</div>
               <div style={{ display: 'flex', justifyContent: 'center' }}>
@@ -1385,10 +1385,10 @@ function MuiPermissionMatrixRender() {
             </div>
           ))}
         </div>
-        {MUI_RESOURCES_188.map((resource) => (
+        {EnterpriseUI_RESOURCES_188.map((resource) => (
           <div key={resource} style={{ display: 'grid', gridTemplateColumns: '120px repeat(4, 1fr)', borderBottom: '1px solid #f9fafb', background: '#fff' }}>
             <div style={{ padding: '10px 12px', fontSize: 12, color: '#374151', fontWeight: 500 }}>{resource}</div>
-            {MUI_PERMISSIONS_188.map((perm) => (
+            {EnterpriseUI_PERMISSIONS_188.map((perm) => (
               <div key={perm} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '8px 0' }}>
                 <CheckboxWithLabel
                   checked={matrix[resource].has(perm)}
@@ -1404,16 +1404,16 @@ function MuiPermissionMatrixRender() {
   )
 }
 
-export const MUI_Tailwind_권한_매트릭스: Story = {
-  name: 'MUI + Tailwind UI — 권한 매트릭스 체크박스 테이블',
+export const EnterpriseUI_UtilityCSS_권한_매트릭스: Story = {
+  name: 'EnterpriseUI + UtilityUI — 권한 매트릭스 체크박스 테이블',
   parameters: {
     docs: {
       description: {
         story:
-          'MUI + Tailwind UI 권한 관리 패턴. 리소스 × 권한 교차 체크박스 테이블. ' +
+          'EnterpriseUI + UtilityUI 권한 관리 패턴. 리소스 × 권한 교차 체크박스 테이블. ' +
           '열 헤더 체크박스는 해당 권한의 전체/부분 선택 상태(indeterminate)를 표현합니다.',
       },
     },
   },
-  render: () => <MuiPermissionMatrixRender />,
+  render: () => <EnterpriseUIPermissionMatrixRender />,
 }

@@ -41,9 +41,9 @@ export const 디자인_QA = {
   render: (args) => <CounterBadge {...args} />,
 } satisfies Story
 
-// ── Vercel/Linear benchmark stories ────────────────────────────────────────
+// ── DeployPlatform/IssueTracker benchmark stories ────────────────────────────────────────
 
-// Vercel notification bell + counter — nav badge pattern
+// DeployPlatform notification bell + counter — nav badge pattern
 export const 네비게이션_알림_배지: Story = {
   render: () => {
     const navItems = [
@@ -78,7 +78,7 @@ export const 네비게이션_알림_배지: Story = {
   },
 }
 
-// Kanban column header with counter (Linear-style board header)
+// Kanban column header with counter (IssueTracker-style board header)
 export const 칸반_컬럼_헤더: Story = {
   render: () => {
     const columns = [
@@ -258,11 +258,11 @@ export const 실시간_업데이트: Story = {
   render: () => <RealtimeBadgeComponent />,
 }
 
-// ─── Linear Design 벤치마크: 이슈 보드 상태별 카운터 ─────────────────────────
-// Linear의 사이드바는 각 상태(Todo/In Progress/Done)별 이슈 수를 CounterBadge로 표시합니다.
+// ─── IssueTracker Design 벤치마크: 이슈 보드 상태별 카운터 ─────────────────────────
+// IssueTracker의 사이드바는 각 상태(Todo/In Progress/Done)별 이슈 수를 CounterBadge로 표시합니다.
 // 호버 시 배경색이 바뀌는 컴팩트한 행 레이아웃이 특징입니다.
 
-const LINEAR_STATUSES = [
+const TRACKER_STATUSES = [
   { key: 'backlog', label: 'Backlog', count: 14, color: '#94a3b8', dot: '#94a3b8' },
   { key: 'todo', label: 'Todo', count: 8, color: '#6366f1', dot: '#6366f1' },
   { key: 'inprogress', label: 'In Progress', count: 3, color: '#f59e0b', dot: '#f59e0b' },
@@ -271,8 +271,8 @@ const LINEAR_STATUSES = [
   { key: 'cancelled', label: 'Cancelled', count: 2, color: '#ef4444', dot: '#ef4444' },
 ]
 
-export const Linear_이슈_상태_카운터: Story = {
-  name: 'Linear Design - 이슈 상태별 카운터 사이드바',
+export const IssueTracker_이슈_상태_카운터: Story = {
+  name: 'IssueTracker Design - 이슈 상태별 카운터 사이드바',
   render: () => (
     <div
       style={{
@@ -295,7 +295,7 @@ export const Linear_이슈_상태_카운터: Story = {
       >
         Issues
       </div>
-      {LINEAR_STATUSES.map((status) => (
+      {TRACKER_STATUSES.map((status) => (
         <div
           key={status.key}
           style={{
@@ -335,14 +335,14 @@ export const Linear_이슈_상태_카운터: Story = {
         }}
       >
         <span style={{ fontSize: 11, color: '#475569' }}>전체</span>
-        <CounterBadge>{LINEAR_STATUSES.reduce((s, st) => s + st.count, 0)}</CounterBadge>
+        <CounterBadge>{TRACKER_STATUSES.reduce((s, st) => s + st.count, 0)}</CounterBadge>
       </div>
     </div>
   ),
 }
 
-// ─── Arco Design 벤치마크: 데이터 집계 배지 ─────────────────────────────────
-// Arco Design Statistic + Badge 조합 패턴:
+// ─── DataProductUI 벤치마크: 데이터 집계 배지 ─────────────────────────────────
+// DataProductUI Statistic + Badge 조합 패턴:
 // 대시보드 상단 KPI 카드에 CounterBadge를 부착해 변화량을 표시합니다.
 
 const ARCO_KPI_CARDS = [
@@ -372,8 +372,8 @@ const ARCO_KPI_CARDS = [
   },
 ]
 
-export const Arco_KPI_카드_배지: Story = {
-  name: 'Arco Design - KPI 카드 집계 배지 패턴',
+export const DataProduct_KPI_카드_배지: Story = {
+  name: 'DataProductUI - KPI 카드 집계 배지 패턴',
   render: () => (
     <div style={{ display: 'flex', gap: 16 }}>
       {ARCO_KPI_CARDS.map((card) => (
@@ -415,11 +415,11 @@ export const Arco_KPI_카드_배지: Story = {
   ),
 }
 
-// ─── Linear Design 벤치마크: 프로젝트 진행률 카운터 ─────────────────────────
-// Linear 프로젝트 뷰: 각 마일스톤 완료 수 / 전체 수를 한 행에 표시합니다.
+// ─── IssueTracker Design 벤치마크: 프로젝트 진행률 카운터 ─────────────────────────
+// IssueTracker 프로젝트 뷰: 각 마일스톤 완료 수 / 전체 수를 한 행에 표시합니다.
 // 작은 카운터 배지가 진행 상황을 직관적으로 나타냅니다.
 
-const LINEAR_PROJECTS = [
+const TRACKER_PROJECTS = [
   {
     name: 'Orbit UI v3.0',
     milestones: [
@@ -452,8 +452,8 @@ const LINEAR_PROJECTS = [
   },
 ]
 
-export const Linear_프로젝트_진행_카운터: Story = {
-  name: 'Linear Design - 프로젝트 마일스톤 진행 카운터',
+export const IssueTracker_프로젝트_진행_카운터: Story = {
+  name: 'IssueTracker Design - 프로젝트 마일스톤 진행 카운터',
   render: () => (
     <div
       style={{
@@ -483,12 +483,12 @@ export const Linear_프로젝트_진행_카운터: Story = {
         <span>마일스톤</span>
         <span>마감일</span>
       </div>
-      {LINEAR_PROJECTS.map((proj, i) => (
+      {TRACKER_PROJECTS.map((proj, i) => (
         <div
           key={proj.name}
           style={{
             padding: '12px 16px',
-            borderBottom: i < LINEAR_PROJECTS.length - 1 ? '1px solid #f8fafc' : 'none',
+            borderBottom: i < TRACKER_PROJECTS.length - 1 ? '1px solid #f8fafc' : 'none',
             display: 'grid',
             gridTemplateColumns: '1fr 180px 80px',
             gap: 8,
@@ -542,10 +542,10 @@ export const Linear_프로젝트_진행_카운터: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   MUI — 탭 배지 패턴
-   MUI Tabs + Badge 조합으로 탭마다 미확인 항목 수 표시
+   EnterpriseUI — 탭 배지 패턴
+   EnterpriseUI Tabs + Badge 조합으로 탭마다 미확인 항목 수 표시
 -------------------------------------------------------------------------- */
-const MUI_TABS = [
+const EnterpriseUI_TABS = [
   { id: 'inbox', label: '받은편지함', count: 12 },
   { id: 'sent', label: '보낸편지함', count: 0 },
   { id: 'draft', label: '임시저장', count: 3 },
@@ -553,12 +553,12 @@ const MUI_TABS = [
   { id: 'trash', label: '휴지통', count: 0 },
 ]
 
-const MuiTabBadgeDemo = () => {
+const EnterpriseUITabBadgeDemo = () => {
   const [activeTab, setActiveTab] = useState('inbox')
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 0, width: 480 }}>
       <div style={{ display: 'flex', borderBottom: '2px solid #e2e8f0' }}>
-        {MUI_TABS.map((tab) => (
+        {EnterpriseUI_TABS.map((tab) => (
           <button key={tab.id} onClick={() => setActiveTab(tab.id)} style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '12px 16px', border: 'none', background: 'none', cursor: 'pointer', fontSize: 14, fontWeight: activeTab === tab.id ? 700 : 400, color: activeTab === tab.id ? '#6366f1' : '#64748b', borderBottom: `2px solid ${activeTab === tab.id ? '#6366f1' : 'transparent'}`, marginBottom: -2, transition: 'all 0.2s' }}>
             {tab.label}
             {tab.count > 0 && <CounterBadge>{tab.count}</CounterBadge>}
@@ -566,33 +566,33 @@ const MuiTabBadgeDemo = () => {
         ))}
       </div>
       <div style={{ padding: '24px', color: '#64748b', fontSize: 14 }}>
-        {MUI_TABS.find((t) => t.id === activeTab)?.label} 내용 영역
+        {EnterpriseUI_TABS.find((t) => t.id === activeTab)?.label} 내용 영역
       </div>
       <div style={{ fontSize: 11, color: '#94a3b8', padding: '0 24px 16px' }}>
-        MUI Tabs + Badge — 탭별 미확인 항목 카운트 표시
+        EnterpriseUI Tabs + Badge — 탭별 미확인 항목 카운트 표시
       </div>
     </div>
   )
 }
 
-export const MUI_탭_배지_패턴: Story = {
-  name: 'MUI - 탭 배지 패턴 (미확인 항목 카운트)',
+export const EnterpriseUI_탭_배지_패턴: Story = {
+  name: 'EnterpriseUI - 탭 배지 패턴 (미확인 항목 카운트)',
   parameters: {
     docs: {
       description: {
         story:
-          'MUI Tabs + Badge 조합 패턴. 각 탭에 미확인 항목 수를 CounterBadge로 표시하며, 0인 탭은 배지를 숨깁니다. 선택된 탭 강조와 배지 색상을 일관되게 유지합니다.',
+          'EnterpriseUI Tabs + Badge 조합 패턴. 각 탭에 미확인 항목 수를 CounterBadge로 표시하며, 0인 탭은 배지를 숨깁니다. 선택된 탭 강조와 배지 색상을 일관되게 유지합니다.',
       },
     },
   },
-  render: () => <MuiTabBadgeDemo />,
+  render: () => <EnterpriseUITabBadgeDemo />,
 }
 
 /* --------------------------------------------------------------------------
-   Figma Plugin UI — 레이어 패널 오브젝트 카운트
-   Figma의 레이어 패널에서 그룹 내 오브젝트 수를 배지로 표시
+   DesignTool Plugin UI — 레이어 패널 오브젝트 카운트
+   DesignTool의 레이어 패널에서 그룹 내 오브젝트 수를 배지로 표시
 -------------------------------------------------------------------------- */
-const FIGMA_LAYERS = [
+const DESIGN_LAYERS = [
   { name: 'Components', type: 'frame', count: 24, color: '#6366f1', expanded: true },
   { name: 'Icons', type: 'group', count: 156, color: '#10b981', expanded: false },
   { name: 'Typography', type: 'frame', count: 8, color: '#f59e0b', expanded: false },
@@ -600,14 +600,14 @@ const FIGMA_LAYERS = [
   { name: 'Layout', type: 'frame', count: 6, color: '#3b82f6', expanded: true },
 ]
 
-const FigmaLayerPanelDemo = () => {
+const DesignToolLayerPanelDemo = () => {
   const [selected, setSelected] = useState('Components')
   return (
     <div style={{ width: 220, background: '#1e1e1e', borderRadius: 10, padding: '12px 0', color: '#fff' }}>
       <div style={{ padding: '4px 12px 10px', fontSize: 11, color: '#888', fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase' }}>
         Layers
       </div>
-      {FIGMA_LAYERS.map((layer) => (
+      {DESIGN_LAYERS.map((layer) => (
         <div key={layer.name} onClick={() => setSelected(layer.name)} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '7px 12px', cursor: 'pointer', background: selected === layer.name ? 'rgba(99,102,241,0.2)' : 'transparent', borderLeft: `2px solid ${selected === layer.name ? layer.color : 'transparent'}` }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
             <span style={{ width: 8, height: 8, borderRadius: '50%', background: layer.color, flexShrink: 0 }} />
@@ -617,28 +617,28 @@ const FigmaLayerPanelDemo = () => {
         </div>
       ))}
       <div style={{ padding: '10px 12px 4px', fontSize: 10, color: '#555' }}>
-        Figma Layer Panel — 오브젝트 수 배지
+        DesignTool Layer Panel — 오브젝트 수 배지
       </div>
     </div>
   )
 }
 
-export const Figma_레이어_패널_카운트: Story = {
-  name: 'Figma Plugin UI - 레이어 패널 오브젝트 카운트',
+export const DesignTool_레이어_패널_카운트: Story = {
+  name: 'DesignTool Plugin UI - 레이어 패널 오브젝트 카운트',
   parameters: {
     docs: {
       description: {
         story:
-          'Figma 레이어 패널 패턴. 그룹/프레임마다 내부 오브젝트 수를 CounterBadge로 표시하고, 다크 배경 + 컬러 점으로 레이어 타입을 구분합니다.',
+          'DesignTool 레이어 패널 패턴. 그룹/프레임마다 내부 오브젝트 수를 CounterBadge로 표시하고, 다크 배경 + 컬러 점으로 레이어 타입을 구분합니다.',
       },
     },
   },
-  render: () => <FigmaLayerPanelDemo />,
+  render: () => <DesignToolLayerPanelDemo />,
 }
 
 /* --------------------------------------------------------------------------
-   MUI + Figma — 쇼핑카트 / 장바구니 배지 시스템
-   MUI AppBar Badge + 실시간 카트 업데이트 패턴
+   EnterpriseUI + DesignTool — 쇼핑카트 / 장바구니 배지 시스템
+   EnterpriseUI AppBar Badge + 실시간 카트 업데이트 패턴
 -------------------------------------------------------------------------- */
 const SHOP_ITEMS = [
   { id: 'p1', name: 'Orbit UI Pro', price: 29 },
@@ -687,19 +687,19 @@ const ShoppingCartBadgeDemo = () => {
         })}
       </div>
       <div style={{ fontSize: 11, color: '#94a3b8' }}>
-        MUI AppBar Badge + 실시간 카트 카운트 패턴
+        EnterpriseUI AppBar Badge + 실시간 카트 카운트 패턴
       </div>
     </div>
   )
 }
 
-export const MUI_Figma_장바구니_배지: Story = {
-  name: 'MUI AppBar + Figma - 장바구니 배지 시스템',
+export const EnterpriseUI_DesignTool_장바구니_배지: Story = {
+  name: 'EnterpriseUI AppBar + DesignTool - 장바구니 배지 시스템',
   parameters: {
     docs: {
       description: {
         story:
-          'MUI AppBar Badge 패턴. 아이콘 버튼 우상단에 CounterBadge를 오버레이하여 장바구니 수량을 실시간으로 표시합니다. 99+ 오버플로우, 0일 때 숨김 처리가 포함됩니다.',
+          'EnterpriseUI AppBar Badge 패턴. 아이콘 버튼 우상단에 CounterBadge를 오버레이하여 장바구니 수량을 실시간으로 표시합니다. 99+ 오버플로우, 0일 때 숨김 처리가 포함됩니다.',
       },
     },
   },
@@ -707,7 +707,7 @@ export const MUI_Figma_장바구니_배지: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Tailwind UI — 알림 벨 + 채널별 배지
+   UtilityUI — 알림 벨 + 채널별 배지
    헤더 아이콘 배지 + 카테고리별 카운트 패턴
 -------------------------------------------------------------------------- */
 const TAILWIND_CHANNELS = [
@@ -717,7 +717,7 @@ const TAILWIND_CHANNELS = [
   { name: '배포 알림', unread: 0 },
 ]
 
-function TailwindNotifyBellRender() {
+function UtilityCSSNotifyBellRender() {
   const [open, setOpen] = useState(false)
   const [counts, setCounts] = useState(TAILWIND_CHANNELS.map((c) => c.unread))
   const total = counts.reduce((s, n) => s + n, 0)
@@ -752,21 +752,21 @@ function TailwindNotifyBellRender() {
           ))}
         </div>
       )}
-      <p style={{ marginTop: 56, fontSize: 11, color: 'var(--sem-eclipse-color-foregroundDisabled)' }}>Tailwind UI 알림 벨 + 채널별 배지 패턴</p>
+      <p style={{ marginTop: 56, fontSize: 11, color: 'var(--sem-eclipse-color-foregroundDisabled)' }}>UtilityUI 알림 벨 + 채널별 배지 패턴</p>
     </div>
   )
 }
 
-export const Tailwind_알림_벨_채널_배지: Story = {
-  name: 'Tailwind UI — 알림 벨 + 채널별 CounterBadge',
+export const UtilityCSS_알림_벨_채널_배지: Story = {
+  name: 'UtilityUI — 알림 벨 + 채널별 CounterBadge',
   parameters: {
     docs: {
       description: {
-        story: 'Tailwind UI 헤더 알림 패턴. 벨 버튼에 총 미읽음 CounterBadge, 드롭다운에서 채널별 카운트 표시 및 클릭 읽음 처리. 모두 읽음 일괄 처리.',
+        story: 'UtilityUI 헤더 알림 패턴. 벨 버튼에 총 미읽음 CounterBadge, 드롭다운에서 채널별 카운트 표시 및 클릭 읽음 처리. 모두 읽음 일괄 처리.',
       },
     },
   },
-  render: () => <TailwindNotifyBellRender />,
+  render: () => <UtilityCSSNotifyBellRender />,
 }
 
 /* --------------------------------------------------------------------------
@@ -817,17 +817,17 @@ function AntTabBadgeRender() {
           <div style={{ padding: '24px 0', textAlign: 'center', fontSize: 13, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>항목이 없습니다</div>
         )}
       </div>
-      <p style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundDisabled)' }}>Ant Design 탭 + CounterBadge 패턴 — GitHub 레포지터리 스타일</p>
+      <p style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundDisabled)' }}>Ant Design 탭 + CounterBadge 패턴 — CodeHost 레포지터리 스타일</p>
     </div>
   )
 }
 
 export const Ant_탭_배지_카운터: Story = {
-  name: 'Ant Design — 탭 + CounterBadge 카운터 (GitHub 스타일)',
+  name: 'Ant Design — 탭 + CounterBadge 카운터 (CodeHost 스타일)',
   parameters: {
     docs: {
       description: {
-        story: 'Ant Design Tabs + Badge 패턴. 탭 레이블 옆에 CounterBadge로 항목 수를 표시하고 선택된 탭 컬러와 동기화. GitHub 레포지터리 탭 UI와 동일한 패턴.',
+        story: 'Ant Design Tabs + Badge 패턴. 탭 레이블 옆에 CounterBadge로 항목 수를 표시하고 선택된 탭 컬러와 동기화. CodeHost 레포지터리 탭 UI와 동일한 패턴.',
       },
     },
   },
@@ -835,7 +835,7 @@ export const Ant_탭_배지_카운터: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Tailwind UI + Ant Design — 쇼핑 카트 + 재고 배지
+   UtilityUI + Ant Design — 쇼핑 카트 + 재고 배지
    상품 목록 재고 경고 + 장바구니 카운터 패턴
 -------------------------------------------------------------------------- */
 const PRODUCTS = [
@@ -845,7 +845,7 @@ const PRODUCTS = [
   { id: 4, name: 'CLI 도구 번들', price: 19000, stock: 0, inCart: 0 },
 ]
 
-function TailwindAntCartRender() {
+function UtilityCSSAntCartRender() {
   const [cart, setCart] = useState<Record<number, number>>(Object.fromEntries(PRODUCTS.map((p) => [p.id, 0])))
   const totalItems = Object.values(cart).reduce((s, n) => s + n, 0)
 
@@ -887,31 +887,31 @@ function TailwindAntCartRender() {
           </div>
         )
       })}
-      <p style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundDisabled)' }}>Tailwind + Ant Design 쇼핑 카트 + 재고 CounterBadge 패턴</p>
+      <p style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundDisabled)' }}>UtilityCSS + Ant Design 쇼핑 카트 + 재고 CounterBadge 패턴</p>
     </div>
   )
 }
 
-export const Tailwind_Ant_장바구니_재고_배지: Story = {
-  name: 'Tailwind UI + Ant Design — 쇼핑 카트 + 재고 배지',
+export const UtilityCSS_Ant_장바구니_재고_배지: Story = {
+  name: 'UtilityUI + Ant Design — 쇼핑 카트 + 재고 배지',
   parameters: {
     docs: {
       description: {
-        story: 'Tailwind UI 쇼핑 카트 + Ant Design Badge 조합. 재고 수량 CounterBadge, 장바구니 담기 카운터, 품절 비활성화, 총 장바구니 항목 수 표시 패턴.',
+        story: 'UtilityUI 쇼핑 카트 + Ant Design Badge 조합. 재고 수량 CounterBadge, 장바구니 담기 카운터, 품절 비활성화, 총 장바구니 항목 수 표시 패턴.',
       },
     },
   },
-  render: () => <TailwindAntCartRender />,
+  render: () => <UtilityCSSAntCartRender />,
 }
 
 // ============================================================
-// Cycle 133 — MUI + Chakra UI 벤치마크 반영
+// Cycle 133 — EnterpriseUI + AccessibleUI 벤치마크 반영
 // ============================================================
 
-// MUI 스타일 — BadgeGroup 다중 알림 카운터 (Inbox 패턴)
+// EnterpriseUI 스타일 — BadgeGroup 다중 알림 카운터 (Inbox 패턴)
 type InboxChannel = { id: string; label: string; icon: string; count: number; muted: boolean }
 
-function MuiInboxBadgeRender() {
+function EnterpriseUIInboxBadgeRender() {
   const [channels, setChannels] = useState<InboxChannel[]>([
     { id: 'mentions', label: '멘션', icon: '@', count: 14, muted: false },
     { id: 'replies', label: '댓글', icon: '💬', count: 7, muted: false },
@@ -963,22 +963,22 @@ function MuiInboxBadgeRender() {
   )
 }
 
-export const MUI_인박스_채널_배지_그룹: Story = {
-  name: 'MUI - 인박스 채널 뱃지 그룹',
+export const EnterpriseUI_인박스_채널_배지_그룹: Story = {
+  name: 'EnterpriseUI - 인박스 채널 뱃지 그룹',
   parameters: {
     docs: {
       description: {
         story:
-          'MUI Badge + List 패턴. 채널별 읽지 않은 수 CounterBadge, 총 미읽 합산, ' +
+          'EnterpriseUI Badge + List 패턴. 채널별 읽지 않은 수 CounterBadge, 총 미읽 합산, ' +
           '음소거 채널 회색 처리, 클릭 시 읽음 표시.',
       },
     },
   },
-  render: () => <MuiInboxBadgeRender />,
+  render: () => <EnterpriseUIInboxBadgeRender />,
 }
 
-// Chakra UI 스타일 — 실시간 카운터 애니메이션 (Pulse 패턴)
-function ChakraRealtimeCounterRender() {
+// AccessibleUI 스타일 — 실시간 카운터 애니메이션 (Pulse 패턴)
+function AccessibleRealtimeCounterRender() {
   const [counts, setCounts] = useState({ users: 1243, events: 58, errors: 3, rps: 892 })
   useEffect(() => {
     const interval = setInterval(() => {
@@ -1014,26 +1014,26 @@ function ChakraRealtimeCounterRender() {
   )
 }
 
-export const Chakra_실시간_모니터링_카운터: Story = {
-  name: 'Chakra UI - 실시간 모니터링 카운터',
+export const Accessible_실시간_모니터링_카운터: Story = {
+  name: 'AccessibleUI - 실시간 모니터링 카운터',
   parameters: {
     docs: {
       description: {
         story:
-          'Chakra UI Stat + Badge 패턴. 활성 사용자/이벤트/에러/RPS 실시간 카운터. ' +
+          'AccessibleUI Stat + Badge 패턴. 활성 사용자/이벤트/에러/RPS 실시간 카운터. ' +
           '1.5초 간격 자동 갱신, 색상 인디케이터 펄스.',
       },
     },
   },
-  render: () => <ChakraRealtimeCounterRender />,
+  render: () => <AccessibleRealtimeCounterRender />,
 }
 
-// MUI + Chakra — 소셜 피드 반응 카운터 (좋아요 + 댓글 + 공유)
+// EnterpriseUI + Accessible — 소셜 피드 반응 카운터 (좋아요 + 댓글 + 공유)
 type SocialPost133 = { id: number; author: string; initials: string; color: string; content: string; likes: number; comments: number; shares: number }
 
-function MuiChakraSocialFeedRender() {
+function EnterpriseUIAccessibleSocialFeedRender() {
   const [posts, setPosts] = useState<SocialPost133[]>([
-    { id: 1, author: '김희준', initials: 'HJ', color: '#6366f1', content: 'Tailwind로 디자인 토큰 시스템 구축 완료! 3-tier 토큰 구조 덕분에 테마 변경이 훨씬 편해졌어요.', likes: 42, comments: 8, shares: 3 },
+    { id: 1, author: '김희준', initials: 'HJ', color: '#6366f1', content: 'UtilityCSS로 디자인 토큰 시스템 구축 완료! 3-tier 토큰 구조 덕분에 테마 변경이 훨씬 편해졌어요.', likes: 42, comments: 8, shares: 3 },
     { id: 2, author: '박지수', initials: 'JS', color: '#10b981', content: 'Storybook autodocs 써보신 분? 컴포넌트 JSDoc만 잘 써두면 문서가 자동으로 생성되는 게 정말 편하더라고요.', likes: 31, comments: 12, shares: 5 },
     { id: 3, author: '이민준', initials: 'MJ', color: '#f59e0b', content: 'pnpm workspace 마이그레이션 완료. 패키지 간 의존성 관리가 훨씬 깔끔해졌습니다.', likes: 19, comments: 4, shares: 1 },
   ])
@@ -1082,31 +1082,31 @@ function MuiChakraSocialFeedRender() {
   )
 }
 
-export const MUI_Chakra_소셜_피드_반응_카운터: Story = {
-  name: 'MUI + Chakra - 소셜 피드 반응 카운터',
+export const EnterpriseUI_Accessible_소셜_피드_반응_카운터: Story = {
+  name: 'EnterpriseUI + Accessible - 소셜 피드 반응 카운터',
   parameters: {
     docs: {
       description: {
         story:
-          'MUI + Chakra UI 소셜 피드 패턴. 좋아요/댓글/공유 CounterBadge, ' +
+          'EnterpriseUI + AccessibleUI 소셜 피드 패턴. 좋아요/댓글/공유 CounterBadge, ' +
           '좋아요 토글 상태 반영, 아바타 + 컨텐츠 카드 조합.',
       },
     },
   },
-  render: () => <MuiChakraSocialFeedRender />,
+  render: () => <EnterpriseUIAccessibleSocialFeedRender />,
 }
 
 // ──────────────────────────────────────────────────────────────────────────────
-// Cycle 167: MUI + Mantine
+// Cycle 167: EnterpriseUI + AppUI
 // ──────────────────────────────────────────────────────────────────────────────
 
-export const Mantine_파일_트리_변경사항_배지: Story = {
-  name: 'Mantine — 파일 트리 변경사항 배지 (Cycle 167)',
+export const AppUI_파일_트리_변경사항_배지: Story = {
+  name: 'AppUI — 파일 트리 변경사항 배지 (Cycle 167)',
   parameters: {
     docs: {
       description: {
         story:
-          'Mantine FileTree 변경사항 카운터 패턴. 폴더별 수정/추가/삭제 파일 수를 ' +
+          'AppUI FileTree 변경사항 카운터 패턴. 폴더별 수정/추가/삭제 파일 수를 ' +
           'CounterBadge로 표시. 색상 구분 + 펼치기/접기 인터랙션.',
       },
     },
@@ -1185,18 +1185,18 @@ export const Mantine_파일_트리_변경사항_배지: Story = {
   },
 }
 
-export const MUI_데이터_테이블_필터_배지: Story = {
-  name: 'MUI — 데이터 테이블 필터 배지 (Cycle 167)',
+export const EnterpriseUI_데이터_테이블_필터_배지: Story = {
+  name: 'EnterpriseUI — 데이터 테이블 필터 배지 (Cycle 167)',
   parameters: {
     docs: {
       description: {
         story:
-          'MUI DataGrid 필터 활성 표시 패턴. 활성 필터 수를 CounterBadge로 표시. ' +
+          'EnterpriseUI DataGrid 필터 활성 표시 패턴. 활성 필터 수를 CounterBadge로 표시. ' +
           '필터 항목 토글 + 전체 초기화 기능.',
       },
     },
   },
-  render: function MUIDataTableFilterRender() {
+  render: function EnterpriseUIDataTableFilterRender() {
     type FilterKey = 'status' | 'priority' | 'assignee' | 'label' | 'milestone'
     const [activeFilters, setActiveFilters] = useState<FilterKey[]>(['status', 'priority'])
 
@@ -1255,18 +1255,18 @@ export const MUI_데이터_테이블_필터_배지: Story = {
   },
 }
 
-export const Mantine_MUI_이커머스_장바구니_뱃지: Story = {
-  name: 'Mantine + MUI — 이커머스 장바구니 뱃지 (Cycle 167)',
+export const AppUI_EnterpriseUI_이커머스_장바구니_뱃지: Story = {
+  name: 'AppUI + EnterpriseUI — 이커머스 장바구니 뱃지 (Cycle 167)',
   parameters: {
     docs: {
       description: {
         story:
-          'Mantine + MUI 쇼핑 카트 배지 패턴. 상품 추가/제거 + 수량 CounterBadge. ' +
+          'AppUI + EnterpriseUI 쇼핑 카트 배지 패턴. 상품 추가/제거 + 수량 CounterBadge. ' +
           '카테고리별 상품 리스트 + 장바구니 요약 패널.',
       },
     },
   },
-  render: function MantineMUICartRender() {
+  render: function AppUIEnterpriseUICartRender() {
     const PRODUCTS = [
       { id: 1, name: 'React 완전 정복', category: '도서', price: 35000 },
       { id: 2, name: 'TypeScript 핸드북', category: '도서', price: 28000 },
@@ -1335,9 +1335,9 @@ export const Mantine_MUI_이커머스_장바구니_뱃지: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Cycle 187 — Linear Design + shadcn/ui
+   Cycle 187 — IssueTracker Design + ComposableUI
 -------------------------------------------------------------------------- */
-const LINEAR_NAV_ITEMS_187 = [
+const TRACKER_NAV_ITEMS_187 = [
   { id: 'inbox', label: '수신함', count: 12 },
   { id: 'my', label: '내 이슈', count: 5 },
   { id: 'team', label: '팀 이슈', count: 48 },
@@ -1345,7 +1345,7 @@ const LINEAR_NAV_ITEMS_187 = [
   { id: 'reviews', label: '리뷰 요청', count: 3 },
 ]
 
-function LinearSidebarNavRender() {
+function IssueTrackerSidebarNavRender() {
   const [active, setActive] = useState('inbox')
   return (
     <div style={{ width: 220, background: '#111827', borderRadius: 12, padding: '16px 0', fontFamily: '"Inter", system-ui, sans-serif' }}>
@@ -1353,7 +1353,7 @@ function LinearSidebarNavRender() {
         <div style={{ fontSize: 13, fontWeight: 700, color: '#f9fafb' }}>My Workspace</div>
         <div style={{ fontSize: 10, color: '#4b5563', marginTop: 1 }}>orbit-ui / main</div>
       </div>
-      {LINEAR_NAV_ITEMS_187.map((item) => (
+      {TRACKER_NAV_ITEMS_187.map((item) => (
         <div
           key={item.id}
           onClick={() => setActive(item.id)}
@@ -1391,21 +1391,21 @@ function LinearSidebarNavRender() {
   )
 }
 
-export const Linear_사이드바_내비게이션_카운터: Story = {
-  name: 'Linear — 사이드바 내비게이션 카운터 배지',
+export const IssueTracker_사이드바_내비게이션_카운터: Story = {
+  name: 'IssueTracker — 사이드바 내비게이션 카운터 배지',
   parameters: {
     docs: {
       description: {
         story:
-          'Linear Design 사이드바 패턴. 다크 배경 네비게이션에 CounterBadge로 이슈 수를 표시. ' +
+          'IssueTracker Design 사이드바 패턴. 다크 배경 네비게이션에 CounterBadge로 이슈 수를 표시. ' +
           '활성 항목에는 인디고 색상 배지, 비활성에는 어두운 배지를 적용합니다.',
       },
     },
   },
-  render: () => <LinearSidebarNavRender />,
+  render: () => <IssueTrackerSidebarNavRender />,
 }
 
-const SHADCN_KANBAN_COLS_187 = [
+const UTILITYUI_KANBAN_COLS_187 = [
   { id: 'backlog', label: 'Backlog', count: 24, color: '#6b7280' },
   { id: 'todo', label: 'Todo', count: 8, color: '#f59e0b' },
   { id: 'inprogress', label: 'In Progress', count: 5, color: '#3b82f6' },
@@ -1413,8 +1413,8 @@ const SHADCN_KANBAN_COLS_187 = [
   { id: 'done', label: 'Done', count: 42, color: '#10b981' },
 ]
 
-function ShadcnKanbanHeaderRender() {
-  const [cols, setCols] = useState(SHADCN_KANBAN_COLS_187)
+function ComposableUIKanbanHeaderRender() {
+  const [cols, setCols] = useState(UTILITYUI_KANBAN_COLS_187)
   const [collapsed, setCollapsed] = useState<string[]>([])
 
   const toggle = (id: string) => {
@@ -1474,29 +1474,29 @@ function ShadcnKanbanHeaderRender() {
   )
 }
 
-export const Shadcn_칸반_컬럼_헤더_카운터: Story = {
-  name: 'shadcn/ui — 칸반 컬럼 헤더 카운터 배지',
+export const ComposableUI_칸반_컬럼_헤더_카운터: Story = {
+  name: 'ComposableUI — 칸반 컬럼 헤더 카운터 배지',
   parameters: {
     docs: {
       description: {
         story:
-          'shadcn/ui 칸반 보드 패턴. 각 컬럼 상태별 CounterBadge 표시 + 컬럼 접기/펼치기 + 이슈 추가 시 카운터 증가. ' +
+          'ComposableUI 칸반 보드 패턴. 각 컬럼 상태별 CounterBadge 표시 + 컬럼 접기/펼치기 + 이슈 추가 시 카운터 증가. ' +
           '상태 색상에 맞는 반투명 배지 배경을 적용합니다.',
       },
     },
   },
-  render: () => <ShadcnKanbanHeaderRender />,
+  render: () => <ComposableUIKanbanHeaderRender />,
 }
 
-const SHADCN_LINEAR_NOTIFICATION_TYPES_187 = [
+const UTILITYUI_TRACKER_NOTIFICATION_TYPES_187 = [
   { id: 'mentions', label: '멘션', count: 4, urgent: true },
   { id: 'comments', label: '댓글', count: 18, urgent: false },
   { id: 'status', label: '상태 변경', count: 7, urgent: false },
   { id: 'assigned', label: '담당자 지정', count: 2, urgent: true },
 ]
 
-function ShadcnLinearNotifRender() {
-  const [notifs, setNotifs] = useState(SHADCN_LINEAR_NOTIFICATION_TYPES_187)
+function ComposableUIIssueTrackerNotifRender() {
+  const [notifs, setNotifs] = useState(UTILITYUI_TRACKER_NOTIFICATION_TYPES_187)
   const [filter, setFilter] = useState('all')
 
   const markRead = (id: string) => {
@@ -1553,16 +1553,16 @@ function ShadcnLinearNotifRender() {
   )
 }
 
-export const Shadcn_Linear_알림_타입_카운터: Story = {
-  name: 'shadcn/ui + Linear — 알림 유형별 카운터 패널',
+export const ComposableUI_IssueTracker_알림_타입_카운터: Story = {
+  name: 'ComposableUI + IssueTracker — 알림 유형별 카운터 패널',
   parameters: {
     docs: {
       description: {
         story:
-          'shadcn/ui + Linear 복합 패턴. 알림 유형(멘션·댓글·상태변경·담당)별 CounterBadge + 긴급 필터 + 읽음 처리. ' +
+          'ComposableUI + IssueTracker 복합 패턴. 알림 유형(멘션·댓글·상태변경·담당)별 CounterBadge + 긴급 필터 + 읽음 처리. ' +
           '긴급 알림은 빨간 배지, 일반은 파란 배지로 구분합니다.',
       },
     },
   },
-  render: () => <ShadcnLinearNotifRender />,
+  render: () => <ComposableUIIssueTrackerNotifRender />,
 }

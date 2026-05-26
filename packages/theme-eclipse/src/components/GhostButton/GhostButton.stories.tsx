@@ -111,7 +111,7 @@ export const 디자인QA = {
     text: 'Ghost Action',
     disabled: false,
   },
-   
+
   render: ({ leading: _leading, trailing, text, ...args }: any) => {
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', paddingBottom: '2rem' }}>
@@ -130,11 +130,11 @@ export const 디자인QA = {
 }
 
 /* --------------------------------------------------------------------------
-   Chakra UI 벤치마크: Destructive 액션 그룹
-   Chakra UI Button variant="ghost" colorScheme="red" 패턴에 대응하는
+   AccessibleUI 벤치마크: Destructive 액션 그룹
+   AccessibleUI Button variant="ghost" colorScheme="red" 패턴에 대응하는
    GhostButton 조합 — 삭제/위험 액션을 투명 버튼으로 표현
 -------------------------------------------------------------------------- */
-export const Chakra_Destructive_액션_그룹: Story = {
+export const Accessible_Destructive_액션_그룹: Story = {
   render: () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '32px', maxWidth: '480px' }}>
       {/* 아이템 삭제 확인 카드 */}
@@ -200,11 +200,11 @@ export const Chakra_Destructive_액션_그룹: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Chakra UI 벤치마크: 링크형 버튼 패턴
-   Chakra UI Button variant="link" 패턴 — GhostButton을 링크처럼 사용하는
+   AccessibleUI 벤치마크: 링크형 버튼 패턴
+   AccessibleUI Button variant="link" 패턴 — GhostButton을 링크처럼 사용하는
    인라인 내비게이션, 본문 내 행동 유도, 연관 링크 그룹
 -------------------------------------------------------------------------- */
-export const Chakra_링크형_버튼: Story = {
+export const Accessible_링크형_버튼: Story = {
   render: () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '32px', maxWidth: '480px' }}>
       {/* 인라인 텍스트 링크 패턴 */}
@@ -242,7 +242,7 @@ export const Chakra_링크형_버튼: Story = {
         </div>
       </div>
 
-      {/* 공유/복사 액션 패턴 (Chakra ghost 버튼 툴바) */}
+      {/* 공유/복사 액션 패턴 (Accessible ghost 버튼 툴바) */}
       <div
         style={{
           padding: '16px 20px',
@@ -274,8 +274,8 @@ export const Chakra_링크형_버튼: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Chakra UI 벤치마크: 좋아요 토글 버튼 패턴
-   Chakra UI IconButton + isActive 패턴 — GhostButton을 토글 액션으로 사용
+   AccessibleUI 벤치마크: 좋아요 토글 버튼 패턴
+   AccessibleUI IconButton + isActive 패턴 — GhostButton을 토글 액션으로 사용
    소셜 피드, 피드백 버튼, 컨텐츠 반응 UI
 -------------------------------------------------------------------------- */
 const LikeToggleRender = () => {
@@ -293,8 +293,8 @@ const LikeToggleRender = () => {
 
   const items = [
     { id: '1', title: 'Design System 3-Tier Token 발표', likes: 128, liked: false },
-    { id: '2', title: 'Chakra UI → Orbit UI 마이그레이션 가이드', likes: 74, liked: true },
-    { id: '3', title: 'Tailwind vs CSS-in-JS 성능 비교', likes: 56, liked: false },
+    { id: '2', title: 'AccessibleUI → Orbit UI 마이그레이션 가이드', likes: 74, liked: true },
+    { id: '3', title: 'UtilityCSS vs CSS-in-JS 성능 비교', likes: 56, liked: false },
   ]
 
   const [itemLikes, setItemLikes] = useState(items)
@@ -377,15 +377,15 @@ const LikeToggleRender = () => {
   )
 }
 
-export const Chakra_좋아요_토글_버튼: Story = {
+export const Accessible_좋아요_토글_버튼: Story = {
   render: () => <LikeToggleRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Radix UI 아이콘 액션 툴바 패턴
-   Radix Toolbar: 아이콘 버튼을 그룹화, 그룹 사이 구분선, hover 강조
+   PrimitiveUI 아이콘 액션 툴바 패턴
+   Primitive Toolbar: 아이콘 버튼을 그룹화, 그룹 사이 구분선, hover 강조
 -------------------------------------------------------------------------- */
-const RadixIconToolbarRender = () => {
+const PrimitiveIconToolbarRender = () => {
   const [bold, setBold] = useState(false)
   const [italic, setItalic] = useState(false)
   const [underline, setUnderline] = useState(false)
@@ -469,31 +469,31 @@ const RadixIconToolbarRender = () => {
         textDecoration: underline ? 'underline' : 'none',
         background: '#fff',
       }}>
-        Orbit UI 디자인 시스템 — Radix Toolbar 패턴 미리보기
+        Orbit UI 디자인 시스템 — Primitive Toolbar 패턴 미리보기
       </div>
       <div style={{ fontSize: 11, color: '#94a3b8' }}>
-        Radix UI Toolbar 패턴 — aria-pressed로 토글 상태, role=&quot;toolbar&quot;로 접근성 구현
+        PrimitiveUI Toolbar 패턴 — aria-pressed로 토글 상태, role=&quot;toolbar&quot;로 접근성 구현
       </div>
     </div>
   )
 }
 
-export const Radix_아이콘_툴바: Story = {
-  name: 'Radix UI - 아이콘 액션 툴바 패턴',
+export const Primitive_아이콘_툴바: Story = {
+  name: 'PrimitiveUI - 아이콘 액션 툴바 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'Radix Toolbar 패턴. role="toolbar" + aria-label, aria-pressed로 접근성 구현. ' +
+          'Primitive Toolbar 패턴. role="toolbar" + aria-label, aria-pressed로 접근성 구현. ' +
           '그룹 구분선, 토글 버튼(B/I/U), 액션 버튼, 위험 버튼을 조합한 에디터 툴바입니다.',
       },
     },
   },
-  render: () => <RadixIconToolbarRender />,
+  render: () => <PrimitiveIconToolbarRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Google Material 3 Outlined Button 패턴
+   RoleToken Design Outlined Button 패턴
    M3 Outlined variant: 외곽선 + 투명 배경, hover 시 Primary 색상 얇게 채움
 -------------------------------------------------------------------------- */
 const M3OutlinedButtonsRender = () => {
@@ -558,19 +558,19 @@ const M3OutlinedButtonsRender = () => {
       </div>
 
       <div style={{ fontSize: 11, color: '#94a3b8' }}>
-        Google M3: 역할별 시맨틱 색상(Primary/Secondary/Error/Tertiary) 적용 Outlined 버튼
+        Reference M3: 역할별 시맨틱 색상(Primary/Secondary/Error/Tertiary) 적용 Outlined 버튼
       </div>
     </div>
   )
 }
 
 export const M3_Outlined_버튼_패턴: Story = {
-  name: 'Google Material 3 - 역할별 색상 Outlined 버튼 패턴',
+  name: 'RoleToken Design - 역할별 색상 Outlined 버튼 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'Google Material 3 Outlined Button. 역할에 따라 Primary/Secondary/Error/Tertiary 색상을 적용하고 ' +
+          'RoleToken Design Outlined Button. 역할에 따라 Primary/Secondary/Error/Tertiary 색상을 적용하고 ' +
           'hover 시 해당 색상을 8% opacity로 배경에 채웁니다. Orbit UI GhostButton으로 동일 표현 가능합니다.',
       },
     },
@@ -579,10 +579,10 @@ export const M3_Outlined_버튼_패턴: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Radix UI DropdownMenu 스타일 컨텍스트 메뉴 패턴
+   PrimitiveUI DropdownMenu 스타일 컨텍스트 메뉴 패턴
    GhostButton을 트리거로 사용, 오버레이 드롭다운 목록 시연
 -------------------------------------------------------------------------- */
-const RadixContextMenuRender = () => {
+const PrimitiveContextMenuRender = () => {
   const [open, setOpen] = useState(false)
   const [selected, setSelected] = useState<string | null>(null)
 
@@ -684,25 +684,25 @@ const RadixContextMenuRender = () => {
   )
 }
 
-export const Radix_컨텍스트_메뉴_트리거: Story = {
-  name: 'Radix UI - GhostButton 트리거 컨텍스트 메뉴 패턴',
+export const Primitive_컨텍스트_메뉴_트리거: Story = {
+  name: 'PrimitiveUI - GhostButton 트리거 컨텍스트 메뉴 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'Radix DropdownMenu 패턴. GhostButton을 트리거로 사용, aria-haspopup="menu"와 aria-expanded로 ' +
+          'Primitive DropdownMenu 패턴. GhostButton을 트리거로 사용, aria-haspopup="menu"와 aria-expanded로 ' +
           '접근성 구현. 구분선, 단축키 힌트, 위험 항목 색상 구분을 포함합니다.',
       },
     },
   },
-  render: () => <RadixContextMenuRender />,
+  render: () => <PrimitiveContextMenuRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Notion 벤치마크: 블록 에디터 인라인 포맷팅 툴바
-   Notion 문서 편집기에서 텍스트 선택 시 나타나는 인라인 툴바 패턴
+   WorkspaceEditor 벤치마크: 블록 에디터 인라인 포맷팅 툴바
+   WorkspaceEditor 문서 편집기에서 텍스트 선택 시 나타나는 인라인 툴바 패턴
 -------------------------------------------------------------------------- */
-const NOTION_FORMAT_TOOLS: { key: string; label: string; shortcut: string }[] = [
+const WORKSPACE_FORMAT_TOOLS: { key: string; label: string; shortcut: string }[] = [
   { key: 'bold', label: 'B', shortcut: 'Cmd+B' },
   { key: 'italic', label: 'I', shortcut: 'Cmd+I' },
   { key: 'underline', label: 'U', shortcut: 'Cmd+U' },
@@ -711,9 +711,9 @@ const NOTION_FORMAT_TOOLS: { key: string; label: string; shortcut: string }[] = 
   { key: 'link', label: 'Link', shortcut: 'Cmd+K' },
 ]
 
-function NotionEditorToolbarRender() {
+function WorkspaceEditorEditorToolbarRender() {
   const [active, setActive] = useState<Set<string>>(new Set())
-  const [text] = useState('Orbit UI는 React 기반 디자인 시스템입니다. Tailwind로 CSS-in-JS를 구현하며, 3단계 토큰 시스템을 사용합니다.')
+  const [text] = useState('Orbit UI는 React 기반 디자인 시스템입니다. UtilityCSS로 CSS-in-JS를 구현하며, 3단계 토큰 시스템을 사용합니다.')
 
   const toggle = (key: string) =>
     setActive((prev) => {
@@ -742,7 +742,7 @@ function NotionEditorToolbarRender() {
         boxShadow: '0 4px 16px rgba(0,0,0,0.25)',
         alignSelf: 'flex-start',
       }}>
-        {NOTION_FORMAT_TOOLS.map((tool, i) => (
+        {WORKSPACE_FORMAT_TOOLS.map((tool, i) => (
           <div key={tool.key} style={{ display: 'flex', alignItems: 'center' }}>
             {i === 5 && (
               <div style={{ width: 1, height: 18, background: '#334155', margin: '0 4px' }} />
@@ -780,32 +780,32 @@ function NotionEditorToolbarRender() {
       {/* Active format indicator */}
       {active.size > 0 && (
         <div style={{ fontSize: 11, color: '#94a3b8' }}>
-          적용된 포맷: {Array.from(active).map((k) => NOTION_FORMAT_TOOLS.find((t) => t.key === k)?.label).join(', ')}
+          적용된 포맷: {Array.from(active).map((k) => WORKSPACE_FORMAT_TOOLS.find((t) => t.key === k)?.label).join(', ')}
         </div>
       )}
     </div>
   )
 }
 
-export const Notion_블록_에디터_포맷_툴바: Story = {
-  name: 'Notion - 블록 에디터 인라인 포맷팅 툴바 패턴',
+export const WorkspaceEditor_블록_에디터_포맷_툴바: Story = {
+  name: 'WorkspaceEditor - 블록 에디터 인라인 포맷팅 툴바 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'Notion 인라인 텍스트 편집 툴바 패턴. 다크 배경 플로팅 툴바에 GhostButton을 나열, ' +
+          'WorkspaceEditor 인라인 텍스트 편집 툴바 패턴. 다크 배경 플로팅 툴바에 GhostButton을 나열, ' +
           '클릭 시 active 상태(색상 반전)로 토글되며 하단 텍스트 미리보기에 포맷이 즉시 반영됩니다.',
       },
     },
   },
-  render: () => <NotionEditorToolbarRender />,
+  render: () => <WorkspaceEditorEditorToolbarRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Raycast 벤치마크: 빠른 액션 커맨드 리스트 패턴
-   Raycast Extension Commands: GhostButton이 액션 트리거 역할을 하는 컴팩트 리스트
+   CommandPalette 벤치마크: 빠른 액션 커맨드 리스트 패턴
+   CommandPalette Extension Commands: GhostButton이 액션 트리거 역할을 하는 컴팩트 리스트
 -------------------------------------------------------------------------- */
-type RaycastCommand = {
+type CommandPaletteCommand = {
   id: string
   title: string
   subtitle: string
@@ -813,25 +813,25 @@ type RaycastCommand = {
   category: 'recent' | 'action' | 'nav'
 }
 
-const RAYCAST_COMMANDS: RaycastCommand[] = [
-  { id: 'r1', title: '새 이슈 생성', subtitle: 'Linear · 새 이슈를 빠르게 생성합니다', shortcut: 'N', category: 'action' },
+const LAUNCHER_COMMANDS: CommandPaletteCommand[] = [
+  { id: 'r1', title: '새 이슈 생성', subtitle: 'IssueTracker · 새 이슈를 빠르게 생성합니다', shortcut: 'N', category: 'action' },
   { id: 'r2', title: '클립보드 히스토리', subtitle: '최근 복사된 항목 보기', shortcut: 'V', category: 'recent' },
-  { id: 'r3', title: 'PR 리뷰 요청', subtitle: 'GitHub · 열린 PR 목록에서 선택', shortcut: 'P', category: 'action' },
+  { id: 'r3', title: 'PR 리뷰 요청', subtitle: 'CodeHost · 열린 PR 목록에서 선택', shortcut: 'P', category: 'action' },
   { id: 'r4', title: 'Storybook 열기', subtitle: 'localhost:6007 브라우저에서 열기', shortcut: 'S', category: 'nav' },
   { id: 'r5', title: '색상 피커', subtitle: 'HEX/RGB/HSL 색상 변환 도구', shortcut: 'C', category: 'action' },
 ]
 
-const CMD_CATEGORY_COLOR: Record<RaycastCommand['category'], string> = {
+const CMD_CATEGORY_COLOR: Record<CommandPaletteCommand['category'], string> = {
   recent: '#8b5cf6',
   action: '#6366f1',
   nav: '#14b8a6',
 }
 
-function RaycastCommandListRender() {
+function CommandPaletteCommandListRender() {
   const [activeId, setActiveId] = useState<string | null>('r1')
   const [query, setQuery] = useState('')
 
-  const filtered = RAYCAST_COMMANDS.filter(
+  const filtered = LAUNCHER_COMMANDS.filter(
     (c) => !query || c.title.toLowerCase().includes(query.toLowerCase())
   )
 
@@ -925,40 +925,40 @@ function RaycastCommandListRender() {
   )
 }
 
-export const Raycast_명령어_액션_팔레트: Story = {
-  name: 'Raycast - 빠른 명령어 액션 팔레트 패턴',
+export const CommandPalette_명령어_액션_팔레트: Story = {
+  name: 'CommandPalette - 빠른 명령어 액션 팔레트 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'Raycast Extension 커맨드 팔레트 패턴. 다크 배경, 검색 입력, 카테고리별 색상 키 힌트, ' +
+          'CommandPalette Extension 커맨드 팔레트 패턴. 다크 배경, 검색 입력, 카테고리별 색상 키 힌트, ' +
           'hover 시 GhostButton 액션 표시(opacity 0 → 1). 키보드 네비게이션 힌트 푸터 포함.',
       },
     },
   },
-  render: () => <RaycastCommandListRender />,
+  render: () => <CommandPaletteCommandListRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Linear 벤치마크: 뷰 전환 액션 툴바
-   Linear 이슈 뷰에서 리스트/보드/타임라인 전환 + 필터/그룹/정렬 GhostButton 조합
+   IssueTracker 벤치마크: 뷰 전환 액션 툴바
+   IssueTracker 이슈 뷰에서 리스트/보드/타임라인 전환 + 필터/그룹/정렬 GhostButton 조합
 -------------------------------------------------------------------------- */
-type LinearView = 'list' | 'board' | 'timeline'
+type IssueTrackerView = 'list' | 'board' | 'timeline'
 
-const LINEAR_VIEWS: { id: LinearView; label: string }[] = [
+const TRACKER_VIEWS: { id: IssueTrackerView; label: string }[] = [
   { id: 'list', label: 'List' },
   { id: 'board', label: 'Board' },
   { id: 'timeline', label: 'Timeline' },
 ]
 
-function LinearViewToolbarRender() {
-  const [view, setView] = useState<LinearView>('list')
+function IssueTrackerViewToolbarRender() {
+  const [view, setView] = useState<IssueTrackerView>('list')
   const [showFilters, setShowFilters] = useState(false)
   const [sortDir, setSortDir] = useState<'asc' | 'desc'>('desc')
 
   const MOCK_ISSUES = [
-    { id: 'ORB-312', title: '캘린더 스토리 Radix 패턴 추가', priority: 'high', status: 'progress' },
-    { id: 'ORB-311', title: 'GhostButton Notion 인라인 툴바', priority: 'medium', status: 'done' },
+    { id: 'ORB-312', title: '캘린더 스토리 Primitive 패턴 추가', priority: 'high', status: 'progress' },
+    { id: 'ORB-311', title: 'GhostButton WorkspaceEditor 인라인 툴바', priority: 'medium', status: 'done' },
     { id: 'ORB-310', title: 'Template 50 TravelBooking', priority: 'high', status: 'todo' },
     { id: 'ORB-309', title: 'AccessibilityGuide MDX 보강', priority: 'low', status: 'progress' },
   ]
@@ -975,7 +975,7 @@ function LinearViewToolbarRender() {
       <div style={{ display: 'flex', alignItems: 'center', gap: 4, padding: '8px 12px', background: '#fafafa', borderBottom: '1px solid #f1f5f9' }}>
         {/* View switcher */}
         <div style={{ display: 'flex', gap: 1, background: '#f1f5f9', borderRadius: 6, padding: 2 }}>
-          {LINEAR_VIEWS.map((v) => (
+          {TRACKER_VIEWS.map((v) => (
             <GhostButton
               key={v.id}
               color={view === v.id ? 'black' : 'gray'}
@@ -1056,18 +1056,18 @@ function LinearViewToolbarRender() {
   )
 }
 
-export const Linear_뷰_전환_액션_툴바: Story = {
-  name: 'Linear - 뷰 전환 + 필터/정렬 액션 툴바 패턴',
+export const IssueTracker_뷰_전환_액션_툴바: Story = {
+  name: 'IssueTracker - 뷰 전환 + 필터/정렬 액션 툴바 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'Linear 이슈 뷰 툴바 패턴. List/Board/Timeline 뷰 전환 GhostButton 그룹, ' +
+          'IssueTracker 이슈 뷰 툴바 패턴. List/Board/Timeline 뷰 전환 GhostButton 그룹, ' +
           'Filter/Sort/Group 액션 버튼, 열기/닫기 가능한 필터 바 조합.',
       },
     },
   },
-  render: () => <LinearViewToolbarRender />,
+  render: () => <IssueTrackerViewToolbarRender />,
 }
 
 const ANT_OPERATION_ACTIONS = [
@@ -1140,19 +1140,19 @@ export const Ant_테이블_행_작업_버튼: Story = {
   render: () => <AntTableOperationsRender />,
 }
 
-const MANTINE_TABS = [
+const ACCESSIBLEKIT_TABS = [
   { id: 'recent', label: '최근 항목' },
   { id: 'starred', label: '즐겨찾기' },
   { id: 'shared', label: '공유됨' },
 ]
 
-const MANTINE_ITEMS = {
-  recent: ['프로젝트 계획서.docx', '디자인 명세.figma', '스프린트 보드.notion'],
+const ACCESSIBLEKIT_ITEMS = {
+  recent: ['프로젝트 계획서.docx', '디자인 명세.design', '스프린트 보드.workspace'],
   starred: ['분기 OKR.sheet', '컴포넌트 가이드.md'],
   shared: ['팀 회의록.doc', '기술 스펙.pdf', '온보딩 자료.pptx', '릴리스 노트.md'],
 }
 
-const MantineContextMenuRender = () => {
+const AppUIContextMenuRender = () => {
   const [activeTab, setActiveTab] = useState<'recent' | 'starred' | 'shared'>('recent')
   const [hoveredItem, setHoveredItem] = useState<string | null>(null)
   const [copiedItem, setCopiedItem] = useState<string | null>(null)
@@ -1166,7 +1166,7 @@ const MantineContextMenuRender = () => {
     <div style={{ width: 360, fontFamily: 'Inter, system-ui, sans-serif', border: '1px solid #dee2e6', borderRadius: 10, overflow: 'hidden' }}>
       {/* Tab row */}
       <div style={{ display: 'flex', borderBottom: '1px solid #dee2e6', background: '#f8f9fa' }}>
-        {MANTINE_TABS.map(tab => (
+        {ACCESSIBLEKIT_TABS.map(tab => (
           <GhostButton
             key={tab.id}
             size="small"
@@ -1180,7 +1180,7 @@ const MantineContextMenuRender = () => {
       </div>
       {/* List */}
       <div style={{ padding: '8px 0' }}>
-        {MANTINE_ITEMS[activeTab].map(item => (
+        {ACCESSIBLEKIT_ITEMS[activeTab].map(item => (
           <div
             key={item}
             style={{ display: 'flex', alignItems: 'center', padding: '8px 14px', background: hoveredItem === item ? '#f8f9fa' : '#fff', transition: 'background 0.1s', cursor: 'default' }}
@@ -1196,33 +1196,33 @@ const MantineContextMenuRender = () => {
           </div>
         ))}
       </div>
-      <div style={{ padding: '8px 14px', borderTop: '1px solid #f0f0f0', fontSize: 11, color: '#adb5bd' }}>Mantine Tabs + hover 액션 패턴</div>
+      <div style={{ padding: '8px 14px', borderTop: '1px solid #f0f0f0', fontSize: 11, color: '#adb5bd' }}>AppUI Tabs + hover 액션 패턴</div>
     </div>
   )
 }
 
-export const Mantine_탭_컨텍스트_액션: Story = {
-  name: 'Mantine - 탭 + hover 컨텍스트 액션 버튼',
+export const AppUI_탭_컨텍스트_액션: Story = {
+  name: 'AppUI - 탭 + hover 컨텍스트 액션 버튼',
   parameters: {
     docs: {
       description: {
-        story: 'Mantine Tabs 패턴과 hover 시 드러나는 컨텍스트 액션을 GhostButton으로 구현. 최근/즐겨찾기/공유 탭 전환에 GhostButton을 탭 헤더로 활용하고, 리스트 항목 hover 시 링크 복사 버튼을 표시합니다.',
+        story: 'AppUI Tabs 패턴과 hover 시 드러나는 컨텍스트 액션을 GhostButton으로 구현. 최근/즐겨찾기/공유 탭 전환에 GhostButton을 탭 헤더로 활용하고, 리스트 항목 hover 시 링크 복사 버튼을 표시합니다.',
       },
     },
   },
-  render: () => <MantineContextMenuRender />,
+  render: () => <AppUIContextMenuRender />,
 }
 
-const MANTINE_TOOLBAR_ACTIONS = [
+const ACCESSIBLEKIT_TOOLBAR_ACTIONS = [
   { id: 'bold', label: 'B', title: '굵게', active: false },
   { id: 'italic', label: 'I', title: '기울임', active: false },
   { id: 'underline', label: 'U', title: '밑줄', active: false },
   { id: 'strike', label: 'S', title: '취소선', active: false },
 ] as const
 
-type ToolbarActionId = typeof MANTINE_TOOLBAR_ACTIONS[number]['id']
+type ToolbarActionId = typeof ACCESSIBLEKIT_TOOLBAR_ACTIONS[number]['id']
 
-const MantineRichTextToolbarRender = () => {
+const AppUIRichTextToolbarRender = () => {
   const [activeFormats, setActiveFormats] = useState<Set<ToolbarActionId>>(new Set())
   const [align, setAlign] = useState<'left' | 'center' | 'right'>('left')
 
@@ -1244,7 +1244,7 @@ const MantineRichTextToolbarRender = () => {
   return (
     <div style={{ width: 400, fontFamily: 'Inter, system-ui, sans-serif' }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: 2, padding: '6px 8px', border: '1px solid #dee2e6', borderBottom: 'none', borderRadius: '8px 8px 0 0', background: '#f8f9fa' }}>
-        {MANTINE_TOOLBAR_ACTIONS.map(action => (
+        {ACCESSIBLEKIT_TOOLBAR_ACTIONS.map(action => (
           <GhostButton
             key={action.id}
             size="small"
@@ -1270,28 +1270,28 @@ const MantineRichTextToolbarRender = () => {
       </div>
       <div style={{ padding: '12px 14px', border: '1px solid #dee2e6', borderRadius: '0 0 8px 8px', minHeight: 80, fontSize: 13, color: '#495057', lineHeight: 1.6 }}>
         <span style={{ fontWeight: activeFormats.has('bold') ? 700 : 400, fontStyle: activeFormats.has('italic') ? 'italic' : 'normal', textDecoration: activeFormats.has('underline') ? 'underline' : activeFormats.has('strike') ? 'line-through' : 'none', textAlign: align, display: 'block' }}>
-          Mantine RichTextEditor 툴바 패턴 — GhostButton으로 서식 버튼 구현. 활성 포맷은 배경색 강조로 표시됩니다.
+          AppUI RichTextEditor 툴바 패턴 — GhostButton으로 서식 버튼 구현. 활성 포맷은 배경색 강조로 표시됩니다.
         </span>
       </div>
     </div>
   )
 }
 
-export const Mantine_리치텍스트_서식_툴바: Story = {
-  name: 'Mantine - 리치텍스트 서식 툴바 패턴',
+export const AppUI_리치텍스트_서식_툴바: Story = {
+  name: 'AppUI - 리치텍스트 서식 툴바 패턴',
   parameters: {
     docs: {
       description: {
-        story: 'Mantine RichTextEditor의 서식 툴바 패턴. Bold/Italic/Underline/Strikethrough 토글과 텍스트 정렬 컨트롤을 GhostButton으로 구현합니다. 활성 상태는 배경색으로 강조되며 실제 텍스트 스타일이 실시간 반영됩니다.',
+        story: 'AppUI RichTextEditor의 서식 툴바 패턴. Bold/Italic/Underline/Strikethrough 토글과 텍스트 정렬 컨트롤을 GhostButton으로 구현합니다. 활성 상태는 배경색으로 강조되며 실제 텍스트 스타일이 실시간 반영됩니다.',
       },
     },
   },
-  render: () => <MantineRichTextToolbarRender />,
+  render: () => <AppUIRichTextToolbarRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Mantine 벤치마크: 사이드바 내비게이션 메뉴 버튼 패턴
-   Mantine NavLink — 아이콘+레이블+뱃지 결합 사이드바 항목
+   AppUI 벤치마크: 사이드바 내비게이션 메뉴 버튼 패턴
+   AppUI NavLink — 아이콘+레이블+뱃지 결합 사이드바 항목
 -------------------------------------------------------------------------- */
 const NAV_ITEMS = [
   { label: '대시보드', icon: '◉', count: null, active: true },
@@ -1301,7 +1301,7 @@ const NAV_ITEMS = [
   { label: '로드맵', icon: '◑', count: null, active: false },
 ] as const
 
-function MantineNavMenuRender() {
+function AppUINavMenuRender() {
   const [active, setActive] = useState<string>('대시보드')
 
   return (
@@ -1340,18 +1340,18 @@ function MantineNavMenuRender() {
   )
 }
 
-export const Mantine_사이드바_내비게이션_메뉴: Story = {
-  name: 'Mantine - 사이드바 내비게이션 메뉴 패턴',
+export const AppUI_사이드바_내비게이션_메뉴: Story = {
+  name: 'AppUI - 사이드바 내비게이션 메뉴 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'Mantine NavLink 패턴. GhostButton을 사이드바 내비게이션 항목으로 활용합니다. ' +
+          'AppUI NavLink 패턴. GhostButton을 사이드바 내비게이션 항목으로 활용합니다. ' +
           '활성 항목 배경 강조, 아이콘+레이블+카운트 뱃지 조합, 클릭 상태 전환을 구현합니다.',
       },
     },
   },
-  render: () => <MantineNavMenuRender />,
+  render: () => <AppUINavMenuRender />,
 }
 
 /* --------------------------------------------------------------------------
@@ -1431,10 +1431,10 @@ export const Ant_드롭다운_액션_그룹_메뉴: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Mantine + Ant Design 복합: 데이터 뷰 전환 + 내보내기 액션 바
+   AppUI + Ant Design 복합: 데이터 뷰 전환 + 내보내기 액션 바
    뷰 토글(리스트/그리드/테이블) + 내보내기 메뉴 조합
 -------------------------------------------------------------------------- */
-function MantineAntViewActionBarRender() {
+function AppUIAntViewActionBarRender() {
   const [view, setView] = useState<'list' | 'grid' | 'table'>('list')
   const [exporting, setExporting] = useState(false)
 
@@ -1498,28 +1498,28 @@ function MantineAntViewActionBarRender() {
       <div style={{ padding: '12px', background: '#fff', borderRadius: 8, border: '1px solid #f1f5f9', minHeight: 80, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <span style={{ fontSize: 13, color: '#94a3b8' }}>현재 뷰: <strong style={{ color: '#1e293b' }}>{view}</strong></span>
       </div>
-      <div style={{ fontSize: 11, color: '#94a3b8' }}>Mantine 뷰 토글 + Ant Design 내보내기 액션 바 패턴</div>
+      <div style={{ fontSize: 11, color: '#94a3b8' }}>AppUI 뷰 토글 + Ant Design 내보내기 액션 바 패턴</div>
     </div>
   )
 }
 
-export const Mantine_Ant_뷰전환_내보내기_액션바: Story = {
-  name: 'Mantine + Ant Design - 데이터 뷰 전환 + 내보내기 액션 바',
+export const AppUI_Ant_뷰전환_내보내기_액션바: Story = {
+  name: 'AppUI + Ant Design - 데이터 뷰 전환 + 내보내기 액션 바',
   parameters: {
     docs: {
       description: {
         story:
-          'Mantine + Ant Design 복합 패턴. 뷰 전환(목록/그리드/테이블)을 GhostButton 토글 그룹으로 구현하고, ' +
+          'AppUI + Ant Design 복합 패턴. 뷰 전환(목록/그리드/테이블)을 GhostButton 토글 그룹으로 구현하고, ' +
           'CSV/JSON/XLSX 내보내기 액션 버튼을 조합합니다. 활성 뷰는 배경색 반전으로 강조합니다.',
       },
     },
   },
-  render: () => <MantineAntViewActionBarRender />,
+  render: () => <AppUIAntViewActionBarRender />,
 }
 
-// ─── Cycle 154: MUI + Chakra UI ────────────────────────────────────────────
+// ─── Cycle 154: EnterpriseUI + AccessibleUI ────────────────────────────────────────────
 
-function MuiToolbarActionRender() {
+function EnterpriseUIToolbarActionRender() {
   const [active, setActive] = useState<string | null>(null)
   const actions = [
     { id: 'undo', label: '실행 취소', icon: <ChevronRightLineIcon size={12} style={{ transform: 'rotate(180deg)' }} /> },
@@ -1530,7 +1530,7 @@ function MuiToolbarActionRender() {
   ]
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 12, fontFamily: 'Inter, system-ui, sans-serif' }}>
-      <div style={{ fontSize: 12, fontWeight: 700, color: '#6b7280' }}>MUI 툴바 액션 버튼 패턴</div>
+      <div style={{ fontSize: 12, fontWeight: 700, color: '#6b7280' }}>EnterpriseUI 툴바 액션 버튼 패턴</div>
       <div style={{ display: 'flex', alignItems: 'center', gap: 2, padding: '4px 8px', background: '#f8fafc', borderRadius: 6, border: '1px solid #e2e8f0' }}>
         {actions.map((action, i) => (
           <div key={action.id} style={{ display: 'flex', alignItems: 'center' }}>
@@ -1553,26 +1553,26 @@ function MuiToolbarActionRender() {
           실행: {actions.find(a => a.id === active)?.label}
         </div>
       )}
-      <div style={{ fontSize: 11, color: '#9ca3af' }}>MUI IconButton + ButtonGroup 조합 패턴 재현</div>
+      <div style={{ fontSize: 11, color: '#9ca3af' }}>EnterpriseUI IconButton + ButtonGroup 조합 패턴 재현</div>
     </div>
   )
 }
 
-export const MUI_툴바_액션_버튼: StoryObj<typeof meta> = {
-  name: 'MUI - 툴바 액션 버튼 (구분선 포함)',
-  render: () => <MuiToolbarActionRender />,
+export const EnterpriseUI_툴바_액션_버튼: StoryObj<typeof meta> = {
+  name: 'EnterpriseUI - 툴바 액션 버튼 (구분선 포함)',
+  render: () => <EnterpriseUIToolbarActionRender />,
   parameters: {
     docs: {
       description: {
         story:
-          'MUI Toolbar + IconButton 패턴. 구분선으로 액션 그룹을 시각적으로 분리하고 클릭 상태를 강조 배경으로 표현합니다. ' +
-          'MUI ButtonGroup의 divider 패턴을 GhostButton 조합으로 재현합니다.',
+          'EnterpriseUI Toolbar + IconButton 패턴. 구분선으로 액션 그룹을 시각적으로 분리하고 클릭 상태를 강조 배경으로 표현합니다. ' +
+          'EnterpriseUI ButtonGroup의 divider 패턴을 GhostButton 조합으로 재현합니다.',
       },
     },
   },
 }
 
-function ChakraMenuItemRender() {
+function AccessibleMenuItemRender() {
   const [selected, setSelected] = useState<string | null>(null)
   const items = [
     { id: 'edit', label: '편집', icon: <CopyLineIcon size={12} />, shortcut: '⌘E' },
@@ -1582,7 +1582,7 @@ function ChakraMenuItemRender() {
   ]
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 12, fontFamily: 'Inter, system-ui, sans-serif' }}>
-      <div style={{ fontSize: 12, fontWeight: 700, color: '#6b7280' }}>Chakra UI 메뉴 아이템 패턴</div>
+      <div style={{ fontSize: 12, fontWeight: 700, color: '#6b7280' }}>AccessibleUI 메뉴 아이템 패턴</div>
       <div style={{ width: 200, background: '#fff', border: '1px solid #e2e8f0', borderRadius: 8, padding: 4, boxShadow: '0 4px 12px rgba(0,0,0,0.08)' }}>
         {items.map((item, i) => (
           <div key={item.id}>
@@ -1605,26 +1605,26 @@ function ChakraMenuItemRender() {
         ))}
       </div>
       {selected && <div style={{ fontSize: 11, color: '#0284c7' }}>선택됨: {items.find(i => i.id === selected)?.label}</div>}
-      <div style={{ fontSize: 11, color: '#9ca3af' }}>Chakra UI Menu.Item 패턴 — 아이콘 + 레이블 + 단축키</div>
+      <div style={{ fontSize: 11, color: '#9ca3af' }}>AccessibleUI Menu.Item 패턴 — 아이콘 + 레이블 + 단축키</div>
     </div>
   )
 }
 
-export const Chakra_메뉴_아이템_버튼: StoryObj<typeof meta> = {
-  name: 'Chakra UI - 컨텍스트 메뉴 아이템 (단축키 + 위험 액션)',
-  render: () => <ChakraMenuItemRender />,
+export const Accessible_메뉴_아이템_버튼: StoryObj<typeof meta> = {
+  name: 'AccessibleUI - 컨텍스트 메뉴 아이템 (단축키 + 위험 액션)',
+  render: () => <AccessibleMenuItemRender />,
   parameters: {
     docs: {
       description: {
         story:
-          'Chakra UI Menu.Item 패턴. 아이콘·레이블·단축키 3단 구성, 구분선으로 위험 액션 분리, 삭제 항목 빨간색 강조. ' +
-          'Chakra useMenuList hook의 isDestructive 옵션을 GhostButton 스타일로 재현합니다.',
+          'AccessibleUI Menu.Item 패턴. 아이콘·레이블·단축키 3단 구성, 구분선으로 위험 액션 분리, 삭제 항목 빨간색 강조. ' +
+          'Accessible useMenuList hook의 isDestructive 옵션을 GhostButton 스타일로 재현합니다.',
       },
     },
   },
 }
 
-function MuiChakraQuickActionRender() {
+function EnterpriseUIAccessibleQuickActionRender() {
   const [favorites, setFavorites] = useState<Set<string>>(new Set())
   const toggleFav = (id: string) => setFavorites(prev => {
     const next = new Set(prev)
@@ -1634,7 +1634,7 @@ function MuiChakraQuickActionRender() {
   const pages = ['디자인 시스템 문서', '스프린트 보드', '팀 위키', '회고 노트', 'API 명세서']
   return (
     <div style={{ width: 280, fontFamily: 'Inter, system-ui, sans-serif', color: '#1e293b' }}>
-      <div style={{ fontSize: 12, fontWeight: 700, color: '#6b7280', marginBottom: 8 }}>MUI + Chakra 퀵 액션 패널</div>
+      <div style={{ fontSize: 12, fontWeight: 700, color: '#6b7280', marginBottom: 8 }}>EnterpriseUI + Accessible 퀵 액션 패널</div>
       {pages.map(page => (
         <div key={page} style={{ display: 'flex', alignItems: 'center', gap: 4, padding: '2px 0' }}>
           <Flex style={{ flex: 1 }}>
@@ -1652,19 +1652,19 @@ function MuiChakraQuickActionRender() {
           </GhostButton>
         </div>
       ))}
-      <div style={{ marginTop: 8, fontSize: 11, color: '#94a3b8' }}>즐겨찾기: {favorites.size}개 — MUI List + Chakra 토글 패턴</div>
+      <div style={{ marginTop: 8, fontSize: 11, color: '#94a3b8' }}>즐겨찾기: {favorites.size}개 — EnterpriseUI List + Accessible 토글 패턴</div>
     </div>
   )
 }
 
-export const MUI_Chakra_퀵_액션_패널: StoryObj<typeof meta> = {
-  name: 'MUI + Chakra UI - 퀵 액션 패널 (즐겨찾기 토글)',
-  render: () => <MuiChakraQuickActionRender />,
+export const EnterpriseUI_Accessible_퀵_액션_패널: StoryObj<typeof meta> = {
+  name: 'EnterpriseUI + AccessibleUI - 퀵 액션 패널 (즐겨찾기 토글)',
+  render: () => <EnterpriseUIAccessibleQuickActionRender />,
   parameters: {
     docs: {
       description: {
         story:
-          'MUI + Chakra UI 복합 패턴. MUI List 스타일 페이지 목록에 Chakra UI 토글 버튼 패턴을 결합해 ' +
+          'EnterpriseUI + AccessibleUI 복합 패턴. EnterpriseUI List 스타일 페이지 목록에 AccessibleUI 토글 버튼 패턴을 결합해 ' +
           '즐겨찾기(하트 아이콘) + 탐색(화살표) 인라인 퀵 액션을 구현합니다.',
       },
     },
@@ -1672,14 +1672,14 @@ export const MUI_Chakra_퀵_액션_패널: StoryObj<typeof meta> = {
 }
 
 /* --------------------------------------------------------------------------
-   Cycle 181 — MUI + Google Material 3
+   Cycle 181 — EnterpriseUI + RoleToken Design
    Benchmark:
-   1. MUI IconButton: 데이터 테이블 인라인 액션 — 행별 편집/삭제/복사
-   2. Material 3: 컨텍스트 메뉴 고스트 액션 버튼 — 밀도 높은 컴팩트 메뉴
-   3. MUI + M3: 툴바 아이콘 버튼 그룹 — 구분선으로 기능 그룹 분리
+   1. EnterpriseUI IconButton: 데이터 테이블 인라인 액션 — 행별 편집/삭제/복사
+   2. RoleToken Design: 컨텍스트 메뉴 고스트 액션 버튼 — 밀도 높은 컴팩트 메뉴
+   3. EnterpriseUI + M3: 툴바 아이콘 버튼 그룹 — 구분선으로 기능 그룹 분리
 -------------------------------------------------------------------------- */
 
-function MUIDataTableActionRender() {
+function EnterpriseUIDataTableActionRender() {
   const [data, setData] = useState([
     { id: 1, name: 'Button', category: 'Actions', status: 'stable', stories: 28 },
     { id: 2, name: 'TextField', category: 'Forms', status: 'stable', stories: 24 },
@@ -1722,18 +1722,18 @@ function MUIDataTableActionRender() {
           </div>
         ))}
       </div>
-      <div style={{ marginTop: 8, fontSize: 11, color: '#94a3b8' }}>MUI IconButton 테이블 인라인 액션 패턴</div>
+      <div style={{ marginTop: 8, fontSize: 11, color: '#94a3b8' }}>EnterpriseUI IconButton 테이블 인라인 액션 패턴</div>
     </div>
   )
 }
 
-export const MUI_데이터_테이블_인라인_액션: StoryObj<typeof meta> = {
-  name: 'MUI — 데이터 테이블 인라인 액션 (복사/편집/삭제)',
-  render: () => <MUIDataTableActionRender />,
+export const EnterpriseUI_데이터_테이블_인라인_액션: StoryObj<typeof meta> = {
+  name: 'EnterpriseUI — 데이터 테이블 인라인 액션 (복사/편집/삭제)',
+  render: () => <EnterpriseUIDataTableActionRender />,
   parameters: {
     docs: {
       description: {
-        story: 'MUI DataGrid 인라인 액션 패턴. 각 행 우측에 복사/편집/삭제 GhostButton 아이콘 버튼 배치. 복사 성공 시 아이콘 색상 변경으로 피드백, 삭제 시 행 즉시 제거. MUI IconButton 테이블 액션 UX.',
+        story: 'EnterpriseUI DataGrid 인라인 액션 패턴. 각 행 우측에 복사/편집/삭제 GhostButton 아이콘 버튼 배치. 복사 성공 시 아이콘 색상 변경으로 피드백, 삭제 시 행 즉시 제거. EnterpriseUI IconButton 테이블 액션 UX.',
       },
     },
   },
@@ -1797,18 +1797,18 @@ function M3ContextMenuRender() {
 }
 
 export const M3_컨텍스트_메뉴_액션: StoryObj<typeof meta> = {
-  name: 'Material 3 — 컨텍스트 메뉴 고스트 버튼 (단축키 + 위험 액션)',
+  name: 'RoleToken Design — 컨텍스트 메뉴 고스트 버튼 (단축키 + 위험 액션)',
   render: () => <M3ContextMenuRender />,
   parameters: {
     docs: {
       description: {
-        story: 'Material 3 컨텍스트 메뉴 UX 패턴. GhostButton을 아이콘+텍스트+단축키 조합으로 배치, 구분선으로 그룹 분리. 위험 액션(삭제)은 빨간색으로 강조. full-width 컨텍스트 메뉴 항목 패턴.',
+        story: 'RoleToken Design 컨텍스트 메뉴 UX 패턴. GhostButton을 아이콘+텍스트+단축키 조합으로 배치, 구분선으로 그룹 분리. 위험 액션(삭제)은 빨간색으로 강조. full-width 컨텍스트 메뉴 항목 패턴.',
       },
     },
   },
 }
 
-function MUI_M3_ToolbarRender() {
+function EnterpriseUI_M3_ToolbarRender() {
   const [bold, setBold] = useState(false)
   const [italic, setItalic] = useState(false)
   const [align, setAlign] = useState<'left' | 'center' | 'right'>('left')
@@ -1857,18 +1857,18 @@ function MUI_M3_ToolbarRender() {
           텍스트 포맷: {bold ? '굵게' : '보통'} {italic ? '기울임' : ''} / 정렬: {align}
         </span>
       </div>
-      <div style={{ marginTop: 8, fontSize: 11, color: '#94a3b8' }}>MUI Toolbar + M3 IconButton 그룹 패턴</div>
+      <div style={{ marginTop: 8, fontSize: 11, color: '#94a3b8' }}>EnterpriseUI Toolbar + M3 IconButton 그룹 패턴</div>
     </div>
   )
 }
 
-export const MUI_M3_툴바_아이콘_그룹: StoryObj<typeof meta> = {
-  name: 'MUI + Material 3 — 텍스트 에디터 툴바 (구분선 그룹)',
-  render: () => <MUI_M3_ToolbarRender />,
+export const EnterpriseUI_M3_툴바_아이콘_그룹: StoryObj<typeof meta> = {
+  name: 'EnterpriseUI + RoleToken Design — 텍스트 에디터 툴바 (구분선 그룹)',
+  render: () => <EnterpriseUI_M3_ToolbarRender />,
   parameters: {
     docs: {
       description: {
-        story: 'MUI Toolbar + Material 3 IconButton 그룹 패턴. 서식(B/I) + 정렬(좌/중/우) + 액션(링크/공유/삭제) 3그룹을 구분선으로 분리. aria-pressed로 토글 상태 접근성 지원. 리치 텍스트 에디터 툴바 패턴.',
+        story: 'EnterpriseUI Toolbar + RoleToken Design IconButton 그룹 패턴. 서식(B/I) + 정렬(좌/중/우) + 액션(링크/공유/삭제) 3그룹을 구분선으로 분리. aria-pressed로 토글 상태 접근성 지원. 리치 텍스트 에디터 툴바 패턴.',
       },
     },
   },

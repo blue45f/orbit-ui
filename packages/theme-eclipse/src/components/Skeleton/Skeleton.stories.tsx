@@ -13,7 +13,7 @@ const meta = {
       description: {
         component:
           'Skeleton은 콘텐츠 로딩 중 자리를 차지하는 플레이스홀더 컴포넌트입니다. ' +
-          'shadcn/ui 패턴을 참고해 카드, 리스트, 테이블 등 다양한 레이아웃에 조합 사용합니다.',
+          'ComposableUI 패턴을 참고해 카드, 리스트, 테이블 등 다양한 레이아웃에 조합 사용합니다.',
       },
     },
   },
@@ -77,7 +77,7 @@ export const 기본: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   shadcn/ui 카드 그리드 스켈레톤 패턴
+   ComposableUI 카드 그리드 스켈레톤 패턴
    콘텐츠가 로드되기 전 그리드 레이아웃을 예약하는 패턴
 -------------------------------------------------------------------------- */
 export const 카드_그리드: Story = {
@@ -85,7 +85,7 @@ export const 카드_그리드: Story = {
     docs: {
       description: {
         story:
-          'shadcn/ui 공식 Skeleton 패턴. 3열 카드 그리드를 스켈레톤으로 표현합니다. ' +
+          'ComposableUI 공식 Skeleton 패턴. 3열 카드 그리드를 스켈레톤으로 표현합니다. ' +
           '이미지 영역 + 아바타 + 텍스트 라인의 조합으로 실제 카드 레이아웃을 미리 잡아줍니다.',
       },
     },
@@ -136,7 +136,7 @@ export const 리스트_스켈레톤: Story = {
     docs: {
       description: {
         story:
-          'Radix/shadcn/ui ListItem 로딩 패턴. 아바타 + 텍스트 2줄 구조가 반복됩니다. ' +
+          'Primitive/ComposableUI ListItem 로딩 패턴. 아바타 + 텍스트 2줄 구조가 반복됩니다. ' +
           '실무에서는 5~8개 행을 반복해 사용합니다.',
       },
     },
@@ -189,14 +189,14 @@ export const 리스트_스켈레톤: Story = {
 
 /* --------------------------------------------------------------------------
    테이블 스켈레톤 패턴
-   DataTable 로딩 상태 대응 패턴 (shadcn/ui DataTable 가이드라인)
+   DataTable 로딩 상태 대응 패턴 (ComposableUI DataTable 가이드라인)
 -------------------------------------------------------------------------- */
 export const 테이블_스켈레톤: Story = {
   parameters: {
     docs: {
       description: {
         story:
-          'shadcn/ui DataTable 로딩 상태 패턴. 헤더 행은 실선으로 구분하고 ' +
+          'ComposableUI DataTable 로딩 상태 패턴. 헤더 행은 실선으로 구분하고 ' +
           '각 셀을 다른 너비의 Skeleton으로 채워 실제 데이터 레이아웃을 예약합니다.',
       },
     },
@@ -268,7 +268,7 @@ type Article = {
 
 const articles: Article[] = [
   { title: 'Design Token 계층 구조 완전 정복', author: 'Heejun Kim', date: '2026-04-08', tag: 'Design', tagColor: '#6366f1' },
-  { title: 'Radix UI vs shadcn/ui 비교 분석', author: 'Park Minhye', date: '2026-04-07', tag: 'Dev', tagColor: '#10b981' },
+  { title: 'PrimitiveUI vs ComposableUI 비교 분석', author: 'Park Minhye', date: '2026-04-07', tag: 'Dev', tagColor: '#10b981' },
   { title: 'Storybook 8 마이그레이션 가이드', author: 'Lee Sujin', date: '2026-04-06', tag: 'Tool', tagColor: '#f59e0b' },
 ]
 
@@ -389,14 +389,14 @@ export const 로딩_전환_인터랙티브: Story = {
 
 /* --------------------------------------------------------------------------
    프로필 페이지 스켈레톤
-   shadcn/ui Profile page skeleton 패턴
+   ComposableUI Profile page skeleton 패턴
 -------------------------------------------------------------------------- */
 export const 프로필_페이지: Story = {
   parameters: {
     docs: {
       description: {
         story:
-          'shadcn/ui 프로필 페이지 스켈레톤. 커버 이미지 + 아바타 + 이름/소개 + 스탯 + 버튼 행을 ' +
+          'ComposableUI 프로필 페이지 스켈레톤. 커버 이미지 + 아바타 + 이름/소개 + 스탯 + 버튼 행을 ' +
           'Skeleton으로 재현합니다. 실제 프로필 카드 로딩 UX와 동일한 레이아웃을 예약합니다.',
       },
     },
@@ -460,11 +460,11 @@ export const 프로필_페이지: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Notion 벤치마크: 페이지 리스트 로딩 스켈레톤
-   Notion sidebar page list — 계층 들여쓰기 + 아이콘 스켈레톤 패턴
+   WorkspaceEditor 벤치마크: 페이지 리스트 로딩 스켈레톤
+   WorkspaceEditor sidebar page list — 계층 들여쓰기 + 아이콘 스켈레톤 패턴
 -------------------------------------------------------------------------- */
-export const Notion_페이지_리스트_스켈레톤 = {
-  name: 'Notion - 페이지 리스트 로딩',
+export const WorkspaceEditor_페이지_리스트_스켈레톤 = {
+  name: 'WorkspaceEditor - 페이지 리스트 로딩',
   render: () => (
     <div style={{ width: 240, padding: '8px 0' }}>
       {[0, 1, 2, 3, 4].map((i) => (
@@ -497,11 +497,11 @@ export const Notion_페이지_리스트_스켈레톤 = {
 }
 
 /* --------------------------------------------------------------------------
-   Linear 벤치마크: 이슈 리스트 테이블 스켈레톤
-   Linear issue list — 상태/우선순위/제목/담당자/날짜 컬럼 스켈레톤
+   IssueTracker 벤치마크: 이슈 리스트 테이블 스켈레톤
+   IssueTracker issue list — 상태/우선순위/제목/담당자/날짜 컬럼 스켈레톤
 -------------------------------------------------------------------------- */
-export const Linear_이슈_리스트_스켈레톤 = {
-  name: 'Linear - 이슈 리스트 테이블 로딩',
+export const IssueTracker_이슈_리스트_스켈레톤 = {
+  name: 'IssueTracker - 이슈 리스트 테이블 로딩',
   render: () => (
     <div style={{ width: '100%', maxWidth: 680 }}>
       {/* 헤더 */}
@@ -546,11 +546,11 @@ export const Linear_이슈_리스트_스켈레톤 = {
 }
 
 /* --------------------------------------------------------------------------
-   Vercel 벤치마크: 배포 대시보드 스켈레톤
-   Vercel deployments page — 프로젝트 카드 그리드 스켈레톤
+   DeployPlatform 벤치마크: 배포 대시보드 스켈레톤
+   DeployPlatform deployments page — 프로젝트 카드 그리드 스켈레톤
 -------------------------------------------------------------------------- */
-export const Vercel_배포_대시보드_스켈레톤 = {
-  name: 'Vercel - 배포 대시보드 로딩',
+export const DeployPlatform_배포_대시보드_스켈레톤 = {
+  name: 'DeployPlatform - 배포 대시보드 로딩',
   render: () => (
     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 16, maxWidth: 600 }}>
       {Array.from({ length: 4 }).map((_, i) => (
@@ -588,14 +588,14 @@ export const Vercel_배포_대시보드_스켈레톤 = {
   ),
 }
 
-// ─── Cycle 65: Radix UI + Ant Design ───────────────────────────────────────
+// ─── Cycle 65: PrimitiveUI + Ant Design ───────────────────────────────────────
 
-export const Radix_아바타_그룹_스켈레톤: Story = {
-  name: 'Radix UI - 팀 멤버 아바타 그룹 스켈레톤',
+export const Primitive_아바타_그룹_스켈레톤: Story = {
+  name: 'PrimitiveUI - 팀 멤버 아바타 그룹 스켈레톤',
   parameters: {
     docs: {
       description: {
-        story: 'Radix UI Avatar 스켈레톤 패턴. 원형 Avatar.Fallback 로딩 상태와 텍스트 라인 스켈레톤을 조합합니다. 팀 디렉토리, 협업자 목록 등 사람 정보 로딩에 활용됩니다.',
+        story: 'PrimitiveUI Avatar 스켈레톤 패턴. 원형 Avatar.Fallback 로딩 상태와 텍스트 라인 스켈레톤을 조합합니다. 팀 디렉토리, 협업자 목록 등 사람 정보 로딩에 활용됩니다.',
       },
     },
   },
@@ -704,16 +704,16 @@ export const Ant_폼_스켈레톤: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   MUI 벤치마크: 웨이브 애니메이션 콘텐츠 로딩
-   MUI Skeleton의 wave variant — 가로 방향 shimmer 애니메이션 패턴
+   EnterpriseUI 벤치마크: 웨이브 애니메이션 콘텐츠 로딩
+   EnterpriseUI Skeleton의 wave variant — 가로 방향 shimmer 애니메이션 패턴
 -------------------------------------------------------------------------- */
-export const MUI_웨이브_애니메이션_스켈레톤: Story = {
-  name: 'MUI - 웨이브 애니메이션 콘텐츠 로딩',
+export const EnterpriseUI_웨이브_애니메이션_스켈레톤: Story = {
+  name: 'EnterpriseUI - 웨이브 애니메이션 콘텐츠 로딩',
   parameters: {
     docs: {
       description: {
         story:
-          'MUI Skeleton wave variant 패턴. MUI는 pulse(기본)와 wave 두 가지 애니메이션을 제공합니다. ' +
+          'EnterpriseUI Skeleton wave variant 패턴. EnterpriseUI는 pulse(기본)와 wave 두 가지 애니메이션을 제공합니다. ' +
           '뉴스피드, 블로그, 소셜 카드 로딩에 적합하며 shimmer 효과가 시각적으로 진행 중임을 나타냅니다.',
       },
     },
@@ -721,7 +721,7 @@ export const MUI_웨이브_애니메이션_스켈레톤: Story = {
   render: () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 16, width: 400, fontFamily: 'system-ui, sans-serif' }}>
       <div style={{ fontSize: 12, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 4 }}>
-        MUI Wave Skeleton — 뉴스피드 로딩
+        EnterpriseUI Wave Skeleton — 뉴스피드 로딩
       </div>
       {[1, 2, 3].map((i) => (
         <div
@@ -749,7 +749,7 @@ export const MUI_웨이브_애니메이션_스켈레톤: Story = {
           </div>
         </div>
       ))}
-      {/* MUI-style 인라인 텍스트 스켈레톤 */}
+      {/* EnterpriseUI-style 인라인 텍스트 스켈레톤 */}
       <div
         style={{
           padding: '14px 16px', borderRadius: 12, border: '1px solid #f1f5f9',
@@ -767,16 +767,16 @@ export const MUI_웨이브_애니메이션_스켈레톤: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Chakra UI 벤치마크: 대시보드 위젯 스켈레톤
-   Chakra UI SkeletonText + SkeletonCircle 조합 패턴
+   AccessibleUI 벤치마크: 대시보드 위젯 스켈레톤
+   AccessibleUI SkeletonText + SkeletonCircle 조합 패턴
 -------------------------------------------------------------------------- */
-export const Chakra_대시보드_위젯_스켈레톤: Story = {
-  name: 'Chakra UI - 대시보드 위젯 스켈레톤',
+export const Accessible_대시보드_위젯_스켈레톤: Story = {
+  name: 'AccessibleUI - 대시보드 위젯 스켈레톤',
   parameters: {
     docs: {
       description: {
         story:
-          'Chakra UI SkeletonText + SkeletonCircle 조합 패턴. ' +
+          'AccessibleUI SkeletonText + SkeletonCircle 조합 패턴. ' +
           '대시보드 위젯의 아이콘/수치/설명 영역을 Skeleton으로 예약합니다. ' +
           'startColor/endColor 그라데이션 효과를 simulate합니다.',
       },
@@ -822,18 +822,18 @@ export const Chakra_대시보드_위젯_스켈레톤: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   MUI 벤치마크: 미디어 카드 비율 보존 스켈레톤
-   MUI Skeleton variant="rectangular" — 종횡비를 유지하는 이미지 플레이스홀더
+   EnterpriseUI 벤치마크: 미디어 카드 비율 보존 스켈레톤
+   EnterpriseUI Skeleton variant="rectangular" — 종횡비를 유지하는 이미지 플레이스홀더
 -------------------------------------------------------------------------- */
-export const MUI_미디어_카드_스켈레톤: Story = {
-  name: 'MUI - 미디어 카드 비율 보존 스켈레톤',
+export const EnterpriseUI_미디어_카드_스켈레톤: Story = {
+  name: 'EnterpriseUI - 미디어 카드 비율 보존 스켈레톤',
   parameters: {
     docs: {
       description: {
         story:
-          'MUI Skeleton rectangular variant 패턴. ' +
+          'EnterpriseUI Skeleton rectangular variant 패턴. ' +
           '이미지/비디오 영역은 실제 비율(16:9, 4:3, 1:1)을 미리 잡아 레이아웃 시프트를 방지합니다. ' +
-          'MUI 공식 가이드에서 권장하는 CLS(Cumulative Layout Shift) 방지 패턴입니다.',
+          'EnterpriseUI 공식 가이드에서 권장하는 CLS(Cumulative Layout Shift) 방지 패턴입니다.',
       },
     },
   },
@@ -883,16 +883,16 @@ export const MUI_미디어_카드_스켈레톤: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Chakra UI 벤치마크: 아바타 그룹 + 소셜 피드 스켈레톤
-   Chakra SkeletonCircle/SkeletonText — 소셜 카드 로딩 플레이스홀더
+   AccessibleUI 벤치마크: 아바타 그룹 + 소셜 피드 스켈레톤
+   Accessible SkeletonCircle/SkeletonText — 소셜 카드 로딩 플레이스홀더
 -------------------------------------------------------------------------- */
-export const Chakra_소셜_피드_스켈레톤: Story = {
-  name: 'Chakra UI - 소셜 피드 스켈레톤',
+export const Accessible_소셜_피드_스켈레톤: Story = {
+  name: 'AccessibleUI - 소셜 피드 스켈레톤',
   parameters: {
     docs: {
       description: {
         story:
-          'Chakra UI SkeletonCircle + SkeletonText 조합 패턴. ' +
+          'AccessibleUI SkeletonCircle + SkeletonText 조합 패턴. ' +
           '소셜 미디어 피드의 아바타(원형) + 이름/날짜(텍스트 라인) + 본문 이미지(직사각형) 구조를 재현합니다. ' +
           '각 카드는 서로 다른 너비의 텍스트 라인으로 자연스러운 로딩 상태를 연출합니다.',
       },
@@ -944,16 +944,16 @@ export const Chakra_소셜_피드_스켈레톤: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Arco Design 벤치마크: 테이블 + 페이지네이션 스켈레톤
-   Arco Table 로딩 상태 — 행/열 고정 그리드 플레이스홀더
+   DataProductUI 벤치마크: 테이블 + 페이지네이션 스켈레톤
+   DataProduct Table 로딩 상태 — 행/열 고정 그리드 플레이스홀더
 -------------------------------------------------------------------------- */
-export const Arco_테이블_페이지네이션_스켈레톤: Story = {
-  name: 'Arco Design - 테이블 + 페이지네이션 스켈레톤',
+export const DataProduct_테이블_페이지네이션_스켈레톤: Story = {
+  name: 'DataProductUI - 테이블 + 페이지네이션 스켈레톤',
   parameters: {
     docs: {
       description: {
         story:
-          'Arco Design Table loading 패턴. ' +
+          'DataProductUI Table loading 패턴. ' +
           '헤더 행을 굵게 처리하고 데이터 행을 균등한 높이로 반복해 실제 테이블 구조를 모방합니다. ' +
           '하단에 페이지네이션 컨트롤(이전/번호/다음) 스켈레톤을 배치해 완전한 테이블 로딩 UI를 구성합니다.',
       },
@@ -997,16 +997,16 @@ export const Arco_테이블_페이지네이션_스켈레톤: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Chakra + Arco 복합: 대시보드 통계 위젯 스켈레톤
+   Accessible + DataProduct 복합: 대시보드 통계 위젯 스켈레톤
    실시간 데이터 로딩 대기 상태 — KPI + 차트 + 최근 활동 조합
 -------------------------------------------------------------------------- */
-export const Chakra_Arco_대시보드_위젯_스켈레톤: Story = {
-  name: 'Chakra UI + Arco Design - 대시보드 통계 위젯 스켈레톤',
+export const Accessible_DataProduct_대시보드_위젯_스켈레톤: Story = {
+  name: 'AccessibleUI + DataProductUI - 대시보드 통계 위젯 스켈레톤',
   parameters: {
     docs: {
       description: {
         story:
-          'Chakra UI + Arco Design 복합 대시보드 로딩 패턴. ' +
+          'AccessibleUI + DataProductUI 복합 대시보드 로딩 패턴. ' +
           'KPI 카드 4개(숫자 + 트렌드 라인), 미니 바차트, 최근 활동 리스트를 스켈레톤으로 구성합니다. ' +
           '실제 대시보드 레이아웃을 그대로 모방해 로딩 중 레이아웃 시프트를 방지합니다.',
       },
@@ -1067,15 +1067,15 @@ export const Chakra_Arco_대시보드_위젯_스켈레톤: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Linear Design — 프로젝트 뷰 로딩 스켈레톤
-   Linear의 3컬럼 프로젝트 상태 보드 로딩 패턴
+   IssueTracker Design — 프로젝트 뷰 로딩 스켈레톤
+   IssueTracker의 3컬럼 프로젝트 상태 보드 로딩 패턴
 -------------------------------------------------------------------------- */
-export const Linear_프로젝트_보드_스켈레톤: Story = {
-  name: 'Linear Design — 프로젝트 보드 로딩 스켈레톤',
+export const IssueTracker_프로젝트_보드_스켈레톤: Story = {
+  name: 'IssueTracker Design — 프로젝트 보드 로딩 스켈레톤',
   parameters: {
     docs: {
       description: {
-        story: 'Linear 3컬럼 프로젝트 보드(백로그/진행중/완료) 로딩 스켈레톤. 각 컬럼에 이슈 카드 스켈레톤 3~4개, 컬럼 헤더 카운터 포함.',
+        story: 'IssueTracker 3컬럼 프로젝트 보드(백로그/진행중/완료) 로딩 스켈레톤. 각 컬럼에 이슈 카드 스켈레톤 3~4개, 컬럼 헤더 카운터 포함.',
       },
     },
   },
@@ -1109,15 +1109,15 @@ export const Linear_프로젝트_보드_스켈레톤: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Radix UI — 컴포넌트 문서 페이지 스켈레톤
-   Radix UI 문서 사이트 레이아웃 — 사이드바 + 본문 + 예시 코드 블록
+   PrimitiveUI — 컴포넌트 문서 페이지 스켈레톤
+   PrimitiveUI 문서 사이트 레이아웃 — 사이드바 + 본문 + 예시 코드 블록
 -------------------------------------------------------------------------- */
-export const Radix_문서_페이지_스켈레톤: Story = {
-  name: 'Radix UI — 컴포넌트 문서 페이지 스켈레톤',
+export const Primitive_문서_페이지_스켈레톤: Story = {
+  name: 'PrimitiveUI — 컴포넌트 문서 페이지 스켈레톤',
   parameters: {
     docs: {
       description: {
-        story: 'Radix UI 스타일 문서 페이지 로딩 스켈레톤. 좌측 네비게이션 + 본문 헤딩/단락/코드 블록 + 우측 목차 패널 3단 레이아웃.',
+        story: 'PrimitiveUI 스타일 문서 페이지 로딩 스켈레톤. 좌측 네비게이션 + 본문 헤딩/단락/코드 블록 + 우측 목차 패널 3단 레이아웃.',
       },
     },
   },
@@ -1160,15 +1160,15 @@ export const Radix_문서_페이지_스켈레톤: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Linear + Radix — 설정 페이지 폼 스켈레톤
-   Linear 설정 페이지 + Radix 접근성 레이아웃 로딩 패턴
+   IssueTracker + Primitive — 설정 페이지 폼 스켈레톤
+   IssueTracker 설정 페이지 + Primitive 접근성 레이아웃 로딩 패턴
 -------------------------------------------------------------------------- */
-export const Linear_Radix_설정_폼_스켈레톤: Story = {
-  name: 'Linear + Radix UI — 설정 페이지 폼 스켈레톤',
+export const IssueTracker_Primitive_설정_폼_스켈레톤: Story = {
+  name: 'IssueTracker + PrimitiveUI — 설정 페이지 폼 스켈레톤',
   parameters: {
     docs: {
       description: {
-        story: 'Linear 설정 페이지 + Radix 접근성 레이아웃. 섹션 헤더, 인풋 필드 행, 토글 설정 행, 저장 버튼 스켈레톤. 실제 폼 로딩 전 UX를 재현.',
+        story: 'IssueTracker 설정 페이지 + Primitive 접근성 레이아웃. 섹션 헤더, 인풋 필드 행, 토글 설정 행, 저장 버튼 스켈레톤. 실제 폼 로딩 전 UX를 재현.',
       },
     },
   },
@@ -1216,15 +1216,15 @@ export const Linear_Radix_설정_폼_스켈레톤: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Cycle 181 — MUI + Google Material 3
+   Cycle 181 — EnterpriseUI + RoleToken Design
    Benchmark:
-   1. MUI Skeleton: 소셜 피드 레이아웃 — 아바타 원형 + 텍스트 줄 + 미디어
-   2. Material 3: 카드 그리드 스켈레톤 — 이미지 영역 + 텍스트 계층
-   3. MUI + M3: 채팅 대화 스켈레톤 — 좌우 말풍선 + 타임스탬프
+   1. EnterpriseUI Skeleton: 소셜 피드 레이아웃 — 아바타 원형 + 텍스트 줄 + 미디어
+   2. RoleToken Design: 카드 그리드 스켈레톤 — 이미지 영역 + 텍스트 계층
+   3. EnterpriseUI + M3: 채팅 대화 스켈레톤 — 좌우 말풍선 + 타임스탬프
 -------------------------------------------------------------------------- */
 
-export const MUI_소셜_피드_스켈레톤: Story = {
-  name: 'MUI — 소셜 피드 스켈레톤 (아바타 + 텍스트 + 미디어)',
+export const EnterpriseUI_소셜_피드_스켈레톤: Story = {
+  name: 'EnterpriseUI — 소셜 피드 스켈레톤 (아바타 + 텍스트 + 미디어)',
   render: () => (
     <div style={{ width: 380, display: 'flex', flexDirection: 'column', gap: 16, fontFamily: 'system-ui, sans-serif' }}>
       {[0, 1, 2].map((i) => (
@@ -1252,20 +1252,20 @@ export const MUI_소셜_피드_스켈레톤: Story = {
           </div>
         </div>
       ))}
-      <div style={{ fontSize: 11, color: '#9ca3af', textAlign: 'center' }}>MUI Skeleton 소셜 피드 패턴</div>
+      <div style={{ fontSize: 11, color: '#9ca3af', textAlign: 'center' }}>EnterpriseUI Skeleton 소셜 피드 패턴</div>
     </div>
   ),
   parameters: {
     docs: {
       description: {
-        story: 'MUI Skeleton 소셜 피드 레이아웃 패턴. 아바타(원형) + 이름/날짜 텍스트 + 본문 3줄 + 미디어(조건부) + 액션 버튼 행. 카드 3개를 가변 너비 텍스트 줄로 구성해 자연스러운 로딩 UI 구현.',
+        story: 'EnterpriseUI Skeleton 소셜 피드 레이아웃 패턴. 아바타(원형) + 이름/날짜 텍스트 + 본문 3줄 + 미디어(조건부) + 액션 버튼 행. 카드 3개를 가변 너비 텍스트 줄로 구성해 자연스러운 로딩 UI 구현.',
       },
     },
   },
 }
 
 export const M3_카드_그리드_스켈레톤: Story = {
-  name: 'Material 3 — 카드 그리드 스켈레톤 (이미지 + 텍스트 계층)',
+  name: 'RoleToken Design — 카드 그리드 스켈레톤 (이미지 + 텍스트 계층)',
   render: () => (
     <div style={{ width: 380, fontFamily: 'system-ui, sans-serif' }}>
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
@@ -1288,19 +1288,19 @@ export const M3_카드_그리드_스켈레톤: Story = {
           </div>
         ))}
       </div>
-      <div style={{ marginTop: 12, fontSize: 11, color: '#9ca3af', textAlign: 'center' }}>Material 3 카드 그리드 스켈레톤 패턴</div>
+      <div style={{ marginTop: 12, fontSize: 11, color: '#9ca3af', textAlign: 'center' }}>RoleToken Design 카드 그리드 스켈레톤 패턴</div>
     </div>
   ),
   parameters: {
     docs: {
       description: {
-        story: 'Material 3 카드 컴포넌트 스켈레톤 패턴. 2열 그리드에 이미지 영역 + 카테고리 배지(둥근 pill) + 제목 2줄 + 저자 행. M3의 Emphasized Card 구조를 스켈레톤으로 표현.',
+        story: 'RoleToken Design 카드 컴포넌트 스켈레톤 패턴. 2열 그리드에 이미지 영역 + 카테고리 배지(둥근 pill) + 제목 2줄 + 저자 행. M3의 Emphasized Card 구조를 스켈레톤으로 표현.',
       },
     },
   },
 }
 
-function MUI_M3_ChatSkeletonRender() {
+function EnterpriseUI_M3_ChatSkeletonRender() {
   const [loaded, setLoaded] = useState(false)
 
   const messages = [
@@ -1343,7 +1343,7 @@ function MUI_M3_ChatSkeletonRender() {
             <div key={i} style={{ display: 'flex', flexDirection: 'column', alignItems: msg.mine ? 'flex-end' : 'flex-start' }}>
               {loaded ? (
                 <div style={{ maxWidth: '80%', padding: '8px 12px', borderRadius: msg.mine ? '14px 14px 4px 14px' : '14px 14px 14px 4px', background: msg.mine ? '#6366f1' : '#f3f4f6', fontSize: 12, color: msg.mine ? '#fff' : '#374151' }}>
-                  {msg.mine ? '안녕하세요! 스토리북 고도화 잘 되고 있나요?' : '네, 사이클 181 진행 중입니다. MUI + M3 패턴 적용 중이에요.'}
+                  {msg.mine ? '안녕하세요! 스토리북 고도화 잘 되고 있나요?' : '네, 사이클 181 진행 중입니다. EnterpriseUI + M3 패턴 적용 중이에요.'}
                   <div style={{ fontSize: 9, color: msg.mine ? 'rgba(255,255,255,0.6)' : '#9ca3af', marginTop: 3, textAlign: 'right' }}>{msg.time}</div>
                 </div>
               ) : (
@@ -1362,13 +1362,13 @@ function MUI_M3_ChatSkeletonRender() {
   )
 }
 
-export const MUI_M3_채팅_스켈레톤: Story = {
-  name: 'MUI + Material 3 — 채팅 UI 스켈레톤 (좌우 말풍선 전환)',
-  render: () => <MUI_M3_ChatSkeletonRender />,
+export const EnterpriseUI_M3_채팅_스켈레톤: Story = {
+  name: 'EnterpriseUI + RoleToken Design — 채팅 UI 스켈레톤 (좌우 말풍선 전환)',
+  render: () => <EnterpriseUI_M3_ChatSkeletonRender />,
   parameters: {
     docs: {
       description: {
-        story: 'MUI + M3 채팅 UI 스켈레톤 패턴. 좌(상대) / 우(나) 말풍선 구조, 헤더 아바타+이름+상태 모두 스켈레톤 처리. "콘텐츠 로드" 버튼으로 스켈레톤 → 실제 UI 전환 인터랙션 포함.',
+        story: 'EnterpriseUI + M3 채팅 UI 스켈레톤 패턴. 좌(상대) / 우(나) 말풍선 구조, 헤더 아바타+이름+상태 모두 스켈레톤 처리. "콘텐츠 로드" 버튼으로 스켈레톤 → 실제 UI 전환 인터랙션 포함.',
       },
     },
   },

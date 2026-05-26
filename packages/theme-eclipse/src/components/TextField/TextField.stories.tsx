@@ -185,13 +185,13 @@ export const 디자인QA = {
     disabled: false,
     error: false,
   },
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
+
   render: ({ placeholder, disabled, error, ...args }: any) => (
     <TextField placeholder={placeholder} disabled={disabled} error={error} {...args} />
   ),
 }
 
-// MUI FormControl 패턴: 라벨 + 헬퍼 텍스트 + 에러 메시지 조합
+// EnterpriseUI FormControl 패턴: 라벨 + 헬퍼 텍스트 + 에러 메시지 조합
 const FormFieldWrapper = ({
   label,
   required,
@@ -235,7 +235,7 @@ const FormFieldWrapper = ({
   </div>
 )
 
-// MUI 회원가입 폼 패턴
+// EnterpriseUI 회원가입 폼 패턴
 const SignupFormDemo = () => {
   const [form, setForm] = useState({ name: '', email: '', phone: '', company: '' })
   const [touched, setTouched] = useState({ name: false, email: false, phone: false, company: false })
@@ -262,7 +262,7 @@ const SignupFormDemo = () => {
     }}>
       <div style={{ marginBottom: '28px' }}>
         <div style={{ fontSize: '11px', fontWeight: '700', color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '6px' }}>
-          MUI FormControl Pattern
+          EnterpriseUI FormControl Pattern
         </div>
         <h2 style={{ margin: '0 0 6px', fontSize: '22px', fontWeight: '800', color: '#0f172a', letterSpacing: '-0.02em' }}>
           계정 만들기
@@ -364,14 +364,14 @@ const SignupFormDemo = () => {
   )
 }
 
-export const MUI_폼패턴: Story = {
-  name: 'MUI FormControl 패턴 (회원가입 폼)',
+export const EnterpriseUI_폼패턴: Story = {
+  name: 'EnterpriseUI FormControl 패턴 (회원가입 폼)',
   render: () => <SignupFormDemo />,
 }
 
-// MUI outlined/filled/standard 3-variant 비교 패턴
-export const MUI_Variant_비교: Story = {
-  name: 'MUI 3-Variant 비교 (Outlined / Filled / Standard)',
+// EnterpriseUI outlined/filled/standard 3-variant 비교 패턴
+export const EnterpriseUI_Variant_비교: Story = {
+  name: 'EnterpriseUI 3-Variant 비교 (Outlined / Filled / Standard)',
   render: () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '32px', width: '560px' }}>
       <div>
@@ -388,20 +388,20 @@ export const MUI_Variant_비교: Story = {
 
       <div style={{ padding: '20px', borderRadius: '12px', background: '#f8fafc', border: '1px solid #e2e8f0' }}>
         <div style={{ fontSize: '12px', fontWeight: '600', color: '#64748b', marginBottom: '10px' }}>
-          MUI vs Orbit UI 차이점
+          EnterpriseUI vs Orbit UI 차이점
         </div>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
           {[
-            { mui: 'outlined', orbit: 'TextField (기본)', note: '테두리 있는 형태 - 동일' },
-            { mui: 'filled', orbit: 'theme prop으로 배경색 적용', note: '배경 채워진 형태' },
-            { mui: 'standard', orbit: 'theme prop으로 언더라인만', note: '언더라인만 있는 형태' },
+            { enterpriseUi: 'outlined', orbit: 'TextField (기본)', note: '테두리 있는 형태 - 동일' },
+            { enterpriseUi: 'filled', orbit: 'theme prop으로 배경색 적용', note: '배경 채워진 형태' },
+            { enterpriseUi: 'standard', orbit: 'theme prop으로 언더라인만', note: '언더라인만 있는 형태' },
           ].map((row) => (
-            <div key={row.mui} style={{
+            <div key={row.enterpriseUi} style={{
               display: 'grid', gridTemplateColumns: '1fr 1.5fr 1.5fr',
               gap: '8px', padding: '8px 12px', borderRadius: '6px', background: '#fff',
               border: '1px solid #f1f5f9', fontSize: '12px',
             }}>
-              <span style={{ color: '#6366f1', fontWeight: '600' }}>MUI: {row.mui}</span>
+              <span style={{ color: '#6366f1', fontWeight: '600' }}>EnterpriseUI: {row.enterpriseUi}</span>
               <span style={{ color: '#374151' }}>{row.orbit}</span>
               <span style={{ color: '#94a3b8' }}>{row.note}</span>
             </div>
@@ -412,11 +412,11 @@ export const MUI_Variant_비교: Story = {
   ),
 }
 
-// 인라인 검색 + 필터 패턴 (Chakra Input group 패턴)
+// 인라인 검색 + 필터 패턴 (Accessible Input group 패턴)
 const InlineSearchDemo = () => {
   const [query, setQuery] = useState('')
   const [filter, setFilter] = useState('all')
-  const results = ['Apple', 'Banana', 'Cherry', 'Dragonfruit', 'Elderberry', 'Fig', 'Grape']
+  const results = ['Platform', 'Banana', 'Cherry', 'Dragonfruit', 'Elderberry', 'Fig', 'Grape']
   const filters = [
     { id: 'all', label: '전체' },
     { id: 'a-c', label: 'A-C' },
@@ -436,7 +436,7 @@ const InlineSearchDemo = () => {
   return (
     <div style={{ width: '400px' }}>
       <div style={{ fontSize: '11px', fontWeight: '700', color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '12px' }}>
-        Chakra Input Group Pattern
+        Accessible Input Group Pattern
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginBottom: '16px' }}>
         <TextField
@@ -488,13 +488,13 @@ const InlineSearchDemo = () => {
   )
 }
 
-export const Chakra_검색필터패턴: Story = {
-  name: 'Chakra Input Group 패턴 (검색 + 필터)',
+export const Accessible_검색필터패턴: Story = {
+  name: 'Accessible Input Group 패턴 (검색 + 필터)',
   render: () => <InlineSearchDemo />,
 }
 
-// Notion 인라인 편집 패턴: 클릭하면 입력 활성화, blur 시 저장
-const NotionInlineEditDemo = () => {
+// WorkspaceEditor 인라인 편집 패턴: 클릭하면 입력 활성화, blur 시 저장
+const WorkspaceEditorInlineEditDemo = () => {
   const properties = [
     { key: 'assignee', label: '담당자', value: '김희준' },
     { key: 'status', label: '상태', value: '진행 중' },
@@ -515,7 +515,7 @@ const NotionInlineEditDemo = () => {
       borderRadius: 12,
       border: '1px solid #e2e8f0',
       overflow: 'hidden',
-      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+      fontFamily: '"Segoe UI", sans-serif',
     }}>
       <div style={{
         padding: '12px 20px',
@@ -578,19 +578,19 @@ const NotionInlineEditDemo = () => {
         ))}
       </div>
       <div style={{ padding: '10px 20px', background: '#fafafa', borderTop: '1px solid #f1f5f9' }}>
-        <span style={{ fontSize: 11, color: '#94a3b8' }}>Notion — 인라인 편집 패턴</span>
+        <span style={{ fontSize: 11, color: '#94a3b8' }}>WorkspaceEditor — 인라인 편집 패턴</span>
       </div>
     </div>
   )
 }
 
-export const Notion_인라인_편집_필드: Story = {
-  name: 'Notion 인라인 편집 패턴 (클릭-편집-저장)',
-  render: () => <NotionInlineEditDemo />,
+export const WorkspaceEditor_인라인_편집_필드: Story = {
+  name: 'WorkspaceEditor 인라인 편집 패턴 (클릭-편집-저장)',
+  render: () => <WorkspaceEditorInlineEditDemo />,
 }
 
-// Apple HIG 검색 필드 패턴: 포커스 시 레이블 축소, clear 버튼
-const AppleHIGSearchDemo = () => {
+// Platform HIG 검색 필드 패턴: 포커스 시 레이블 축소, clear 버튼
+const PlatformHIGSearchDemo = () => {
   const [query, setQuery] = useState('')
   const [focused, setFocused] = useState(false)
   const suggestions = ['Button', 'Checkbox', 'DataTable', 'Dropdown', 'Modal', 'Progress', 'Slider', 'TextField', 'Toggle']
@@ -605,10 +605,10 @@ const AppleHIGSearchDemo = () => {
       background: '#f2f2f7',
       borderRadius: 16,
       padding: 20,
-      fontFamily: '-apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif',
+      fontFamily: '"Helvetica Neue", sans-serif',
     }}>
       <div style={{ fontSize: 11, fontWeight: 700, color: '#8e8e93', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 12 }}>
-        Apple HIG — Search Field
+        Platform HIG — Search Field
       </div>
       <div style={{ position: 'relative', marginBottom: filtered.length > 0 ? 4 : 0 }}>
         <div style={{
@@ -674,19 +674,19 @@ const AppleHIGSearchDemo = () => {
       )}
 
       <div style={{ marginTop: 16, fontSize: 11, color: '#8e8e93' }}>
-        Apple HIG — 검색 필드 + 자동완성 + 지우기 버튼 패턴
+        Platform HIG — 검색 필드 + 자동완성 + 지우기 버튼 패턴
       </div>
     </div>
   )
 }
 
-export const Apple_HIG_검색_필드: Story = {
-  name: 'Apple HIG 검색 필드 (자동완성 + Clear 버튼)',
-  render: () => <AppleHIGSearchDemo />,
+export const Platform_HIG_검색_필드: Story = {
+  name: 'Platform HIG 검색 필드 (자동완성 + Clear 버튼)',
+  render: () => <PlatformHIGSearchDemo />,
 }
 
-// Notion 빠른 캡처 패턴: 단일 입력 → 엔터 → 항목 추가
-const NotionQuickCaptureDemo = () => {
+// WorkspaceEditor 빠른 캡처 패턴: 단일 입력 → 엔터 → 항목 추가
+const WorkspaceEditorQuickCaptureDemo = () => {
   const [input, setInput] = useState('')
   const [items, setItems] = useState([
     '디자인 시스템 문서 업데이트',
@@ -708,7 +708,7 @@ const NotionQuickCaptureDemo = () => {
       borderRadius: 12,
       border: '1px solid #e2e8f0',
       overflow: 'hidden',
-      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+      fontFamily: '"Segoe UI", sans-serif',
     }}>
       <div style={{
         padding: '14px 20px',
@@ -776,20 +776,20 @@ const NotionQuickCaptureDemo = () => {
         ))}
       </div>
       <div style={{ padding: '10px 20px', background: '#fafafa', borderTop: '1px solid #f1f5f9' }}>
-        <span style={{ fontSize: 11, color: '#94a3b8' }}>Notion — 빠른 캡처 받은 편지함 패턴</span>
+        <span style={{ fontSize: 11, color: '#94a3b8' }}>WorkspaceEditor — 빠른 캡처 받은 편지함 패턴</span>
       </div>
     </div>
   )
 }
 
-export const Notion_빠른_캡처_받은편지함: Story = {
-  name: 'Notion 빠른 캡처 (받은 편지함 패턴)',
-  render: () => <NotionQuickCaptureDemo />,
+export const WorkspaceEditor_빠른_캡처_받은편지함: Story = {
+  name: 'WorkspaceEditor 빠른 캡처 (받은 편지함 패턴)',
+  render: () => <WorkspaceEditorQuickCaptureDemo />,
 }
 
 /* --------------------------------------------------------------------------
-   Radix UI 벤치마크: 실시간 유효성 검사 패턴
-   Radix의 uncontrolled → controlled 전환 + 실시간 피드백 패턴
+   PrimitiveUI 벤치마크: 실시간 유효성 검사 패턴
+   Primitive의 uncontrolled → controlled 전환 + 실시간 피드백 패턴
    입력 즉시 규칙 검사 후 아이콘/색상/메시지로 상태를 명확히 전달
 -------------------------------------------------------------------------- */
 type RuleState = 'idle' | 'valid' | 'invalid'
@@ -806,7 +806,7 @@ const RuleIcon = ({ state }: { state: RuleState }) => {
   return <span style={{ color: '#cbd5e1', fontSize: 13 }}>○</span>
 }
 
-const RadixLiveValidationDemo = () => {
+const PrimitiveLiveValidationDemo = () => {
   const [value, setValue] = useState('')
   const rules = validateRules(value)
   const allValid = Object.values(rules).every((r) => r === 'valid')
@@ -853,20 +853,20 @@ const RadixLiveValidationDemo = () => {
         )}
       </div>
       <div style={{ fontSize: 11, color: '#94a3b8' }}>
-        Radix UI 실시간 유효성 — uncontrolled → controlled 전환 + 즉각 피드백
+        PrimitiveUI 실시간 유효성 — uncontrolled → controlled 전환 + 즉각 피드백
       </div>
     </div>
   )
 }
 
-export const Radix_실시간_유효성_검사: Story = {
-  name: 'Radix UI - 실시간 유효성 검사 패턴',
-  render: () => <RadixLiveValidationDemo />,
+export const Primitive_실시간_유효성_검사: Story = {
+  name: 'PrimitiveUI - 실시간 유효성 검사 패턴',
+  render: () => <PrimitiveLiveValidationDemo />,
 }
 
 /* --------------------------------------------------------------------------
-   MUI 벤치마크: 헬퍼 텍스트 상태 패턴
-   MUI의 FormHelperText — hint / success / warning / error 4가지 상태
+   EnterpriseUI 벤치마크: 헬퍼 텍스트 상태 패턴
+   EnterpriseUI의 FormHelperText — hint / success / warning / error 4가지 상태
    각 상태가 명확한 색상과 아이콘으로 사용자에게 피드백을 제공
 -------------------------------------------------------------------------- */
 type HelperState = 'hint' | 'success' | 'warning' | 'error'
@@ -878,7 +878,7 @@ const helperConfig: Record<HelperState, { color: string; bg: string; border: str
   error:   { color: '#dc2626', bg: '#fef2f2', border: '#fecaca', icon: '✕', label: '오류' },
 }
 
-const MUIHelperTextDemo = () => {
+const EnterpriseUIHelperTextDemo = () => {
   const [activeState, setActiveState] = useState<HelperState>('hint')
   const cfg = helperConfig[activeState]
 
@@ -945,20 +945,20 @@ const MUIHelperTextDemo = () => {
         </div>
       </div>
       <div style={{ fontSize: 11, color: '#94a3b8' }}>
-        MUI FormHelperText 패턴 — hint / success / warning / error 4가지 상태
+        EnterpriseUI FormHelperText 패턴 — hint / success / warning / error 4가지 상태
       </div>
     </div>
   )
 }
 
-export const MUI_헬퍼_텍스트_상태: Story = {
-  name: 'MUI - 헬퍼 텍스트 상태 패턴 (hint/success/warning/error)',
-  render: () => <MUIHelperTextDemo />,
+export const EnterpriseUI_헬퍼_텍스트_상태: Story = {
+  name: 'EnterpriseUI - 헬퍼 텍스트 상태 패턴 (hint/success/warning/error)',
+  render: () => <EnterpriseUIHelperTextDemo />,
 }
 
 /* --------------------------------------------------------------------------
-   Radix + MUI 조합: 비밀번호 강도 인디케이터
-   Radix의 접근성 패턴(aria-describedby) + MUI의 시각적 강도 표시
+   Primitive + EnterpriseUI 조합: 비밀번호 강도 인디케이터
+   Primitive의 접근성 패턴(aria-describedby) + EnterpriseUI의 시각적 강도 표시
    실시간 문자 조합 분석으로 보안 강도를 4단계로 시각화
 -------------------------------------------------------------------------- */
 const calcStrength = (pwd: string) => {
@@ -1055,20 +1055,20 @@ const PasswordStrengthDemo = () => {
         </>
       )}
       <div style={{ fontSize: 11, color: '#94a3b8' }}>
-        Radix aria-describedby + MUI 시각적 강도 표시 패턴
+        Primitive aria-describedby + EnterpriseUI 시각적 강도 표시 패턴
       </div>
     </div>
   )
 }
 
-export const Radix_MUI_비밀번호_강도: Story = {
-  name: 'Radix + MUI - 비밀번호 강도 인디케이터',
+export const Primitive_EnterpriseUI_비밀번호_강도: Story = {
+  name: 'Primitive + EnterpriseUI - 비밀번호 강도 인디케이터',
   render: () => <PasswordStrengthDemo />,
 }
 
 /* --------------------------------------------------------------------------
-   Arco Design 벤치마크: 폼 실시간 검증 그룹
-   Arco Design Form 패턴 — 여러 입력 필드를 그룹화하고 실시간 검증 메시지를
+   DataProductUI 벤치마크: 폼 실시간 검증 그룹
+   DataProductUI Form 패턴 — 여러 입력 필드를 그룹화하고 실시간 검증 메시지를
    각 필드 아래에 표시하는 인라인 피드백 패턴.
 -------------------------------------------------------------------------- */
 const FIELD_RULES: Record<string, (v: string) => string | null> = {
@@ -1090,7 +1090,7 @@ const FIELD_RULES: Record<string, (v: string) => string | null> = {
   },
 }
 
-function ArcoFormValidationRender() {
+function DataProductFormValidationRender() {
   const [values, setValues] = useState({ username: '', email: '', phone: '' })
   const [touched, setTouched] = useState<Record<string, boolean>>({})
   const [submitted, setSubmitted] = useState(false)
@@ -1124,7 +1124,7 @@ function ArcoFormValidationRender() {
     <div style={{ display: 'flex', flexDirection: 'column', gap: 0, width: 360 }}>
       <div style={{ marginBottom: 20 }}>
         <div style={{ fontSize: 16, fontWeight: 700, color: '#0f172a' }}>회원 정보 등록</div>
-        <div style={{ fontSize: 12, color: '#94a3b8', marginTop: 4 }}>Arco Design Form 실시간 검증 패턴</div>
+        <div style={{ fontSize: 12, color: '#94a3b8', marginTop: 4 }}>DataProductUI Form 실시간 검증 패턴</div>
       </div>
 
       {[
@@ -1174,25 +1174,25 @@ function ArcoFormValidationRender() {
   )
 }
 
-export const Arco_폼_실시간_검증: Story = {
-  name: 'Arco Design - 폼 실시간 검증 그룹',
+export const DataProduct_폼_실시간_검증: Story = {
+  name: 'DataProductUI - 폼 실시간 검증 그룹',
   parameters: {
     docs: {
       description: {
         story:
-          'Arco Design Form 패턴. onBlur 시 각 필드별 검증 실행, 인라인 에러 메시지, 전체 유효 시 제출 허용. required 표시, 성공 체크마크 포함.',
+          'DataProductUI Form 패턴. onBlur 시 각 필드별 검증 실행, 인라인 에러 메시지, 전체 유효 시 제출 허용. required 표시, 성공 체크마크 포함.',
       },
     },
   },
-  render: () => <ArcoFormValidationRender />,
+  render: () => <DataProductFormValidationRender />,
 }
 
 /* --------------------------------------------------------------------------
-   shadcn/ui 벤치마크: OTP 인증 코드 입력
-   shadcn/ui의 InputOTP 패턴 — 6자리 인증 코드를 독립 셀로 분리해
+   ComposableUI 벤치마크: OTP 인증 코드 입력
+   ComposableUI의 InputOTP 패턴 — 6자리 인증 코드를 독립 셀로 분리해
    자동 포커스 이동 + Backspace 핸들링을 구현한 패턴.
 -------------------------------------------------------------------------- */
-function ShadcnOTPRender() {
+function ComposableUIOTPRender() {
   const OTP_LENGTH = 6
   const [digits, setDigits] = useState<string[]>(Array(OTP_LENGTH).fill(''))
   const [verified, setVerified] = useState<'idle' | 'success' | 'error'>('idle')
@@ -1279,36 +1279,36 @@ function ShadcnOTPRender() {
           </button>
         </div>
       )}
-      <div style={{ fontSize: 11, color: '#94a3b8' }}>shadcn/ui InputOTP 패턴 — 자동 포커스 이동 + Backspace 핸들링</div>
+      <div style={{ fontSize: 11, color: '#94a3b8' }}>ComposableUI InputOTP 패턴 — 자동 포커스 이동 + Backspace 핸들링</div>
     </div>
   )
 }
 
-export const shadcn_OTP_인증_입력: Story = {
-  name: 'shadcn/ui - OTP 인증 코드 입력',
+export const ComposableUI_OTP_인증_입력: Story = {
+  name: 'ComposableUI - OTP 인증 코드 입력',
   parameters: {
     docs: {
       description: {
         story:
-          'shadcn/ui InputOTP 패턴. 6자리 코드를 개별 셀로 분리, 숫자 입력 시 자동으로 다음 셀로 포커스 이동, Backspace 시 이전 셀로 이동. 정답(123456)과 비교해 성공/실패 상태 표시.',
+          'ComposableUI InputOTP 패턴. 6자리 코드를 개별 셀로 분리, 숫자 입력 시 자동으로 다음 셀로 포커스 이동, Backspace 시 이전 셀로 이동. 정답(123456)과 비교해 성공/실패 상태 표시.',
       },
     },
   },
-  render: () => <ShadcnOTPRender />,
+  render: () => <ComposableUIOTPRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Arco Design + shadcn/ui 벤치마크: 자동저장 인라인 편집 필드
-   shadcn/ui의 editable content 패턴 + Arco Design의 자동저장 피드백 패턴.
+   DataProductUI + ComposableUI 벤치마크: 자동저장 인라인 편집 필드
+   ComposableUI의 editable content 패턴 + DataProductUI의 자동저장 피드백 패턴.
    debounce 없이 blur 시 저장하고 "저장됨" / "저장 중..." 상태를 표시합니다.
 -------------------------------------------------------------------------- */
 const INLINE_FIELDS = [
   { id: 'title', label: '프로젝트 이름', value: 'Orbit UI Design System', multiline: false },
   { id: 'slug', label: 'URL 슬러그', value: 'orbit-ui-ds', multiline: false },
-  { id: 'desc', label: '설명', value: 'React 기반 Figma-first 디자인 시스템', multiline: false },
+  { id: 'desc', label: '설명', value: 'React 기반 DesignTool-first 디자인 시스템', multiline: false },
 ]
 
-function ArcoShadcnAutoSaveRender() {
+function DataProductComposableUIAutoSaveRender() {
   const [fields, setFields] = useState(INLINE_FIELDS)
   const [editingId, setEditingId] = useState<string | null>(null)
   const [localVal, setLocalVal] = useState('')
@@ -1336,7 +1336,7 @@ function ArcoShadcnAutoSaveRender() {
       <div style={{ marginBottom: 20 }}>
         <div style={{ fontSize: 15, fontWeight: 700, color: '#0f172a' }}>프로젝트 설정</div>
         <div style={{ fontSize: 12, color: '#94a3b8', marginTop: 4 }}>
-          필드를 클릭해 인라인 편집 (Arco + shadcn 자동저장 패턴)
+          필드를 클릭해 인라인 편집 (DataProduct + ComposableUI 자동저장 패턴)
         </div>
       </div>
 
@@ -1409,44 +1409,44 @@ function ArcoShadcnAutoSaveRender() {
         })}
       </div>
       <div style={{ marginTop: 10, fontSize: 11, color: '#94a3b8' }}>
-        Arco + shadcn 자동저장 패턴 — blur/Enter 저장, Esc 취소, 600ms 저장 피드백
+        DataProduct + ComposableUI 자동저장 패턴 — blur/Enter 저장, Esc 취소, 600ms 저장 피드백
       </div>
     </div>
   )
 }
 
-export const Arco_shadcn_자동저장_필드: Story = {
-  name: 'Arco + shadcn/ui - 인라인 자동저장 편집 필드',
+export const DataProduct_ComposableUI_자동저장_필드: Story = {
+  name: 'DataProduct + ComposableUI - 인라인 자동저장 편집 필드',
   parameters: {
     docs: {
       description: {
         story:
-          'Arco Design 자동저장 피드백 + shadcn/ui 인라인 편집 패턴. 클릭 시 편집 모드 전환, Enter/blur로 저장, Esc로 취소. 저장 중/완료 상태를 600ms 시뮬레이션으로 표시합니다.',
+          'DataProductUI 자동저장 피드백 + ComposableUI 인라인 편집 패턴. 클릭 시 편집 모드 전환, Enter/blur로 저장, Esc로 취소. 저장 중/완료 상태를 600ms 시뮬레이션으로 표시합니다.',
       },
     },
   },
-  render: () => <ArcoShadcnAutoSaveRender />,
+  render: () => <DataProductComposableUIAutoSaveRender />,
 }
 
 // ============================================================
-// Cycle 138 — Vercel Design + Chakra UI 벤치마크 반영
+// Cycle 138 — DeployPlatform Design + AccessibleUI 벤치마크 반영
 // ============================================================
 
-// Vercel 스타일 — 도메인 입력 필드 (실시간 유효성 + CNAME 안내)
+// DeployPlatform 스타일 — 도메인 입력 필드 (실시간 유효성 + CNAME 안내)
 const DOMAIN_REGEX = /^[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(\.[a-zA-Z]{2,})+$/
 
-export const Vercel_도메인_입력_필드: Story = {
-  name: 'Vercel Design — 도메인 입력 필드 (Cycle 138)',
+export const DeployPlatform_도메인_입력_필드: Story = {
+  name: 'DeployPlatform Design — 도메인 입력 필드 (Cycle 138)',
   parameters: {
     docs: {
       description: {
         story:
-          'Vercel Domain Input 패턴. 실시간 도메인 포맷 유효성 검사 + CNAME 레코드 안내. ' +
+          'DeployPlatform Domain Input 패턴. 실시간 도메인 포맷 유효성 검사 + CNAME 레코드 안내. ' +
           '유효 도메인 입력 시 초록 체크 + DNS 설정 안내 카드 노출. 잘못된 형식은 즉시 오류 표시.',
       },
     },
   },
-  render: function VercelDomainInputRender() {
+  render: function DeployPlatformDomainInputRender() {
     const [value, setValue] = useState('')
     const [touched, setTouched] = useState(false)
 
@@ -1480,7 +1480,7 @@ export const Vercel_도메인_입력_필드: Story = {
             <div style={{ marginTop: 8, padding: '8px 10px', borderRadius: 6, background: '#dcfce7', fontFamily: 'monospace', fontSize: 11, color: '#14532d' }}>
               <div>Type: CNAME</div>
               <div>Name: {value.startsWith('www.') ? 'www' : '@'}</div>
-              <div>Value: cname.vercel-dns.com</div>
+              <div>Value: cname.deploy-dns.example.com</div>
             </div>
           </div>
         )}
@@ -1494,19 +1494,19 @@ export const Vercel_도메인_입력_필드: Story = {
   },
 }
 
-// Chakra UI 스타일 — 태그 입력 필드 (Enter로 추가)
-export const Chakra_태그_입력_필드: Story = {
-  name: 'Chakra UI — 태그 입력 필드 (Cycle 138)',
+// AccessibleUI 스타일 — 태그 입력 필드 (Enter로 추가)
+export const Accessible_태그_입력_필드: Story = {
+  name: 'AccessibleUI — 태그 입력 필드 (Cycle 138)',
   parameters: {
     docs: {
       description: {
         story:
-          'Chakra UI Tag Input 패턴. Enter 또는 쉼표(,)로 태그 추가. X 클릭으로 개별 태그 제거. ' +
+          'AccessibleUI Tag Input 패턴. Enter 또는 쉼표(,)로 태그 추가. X 클릭으로 개별 태그 제거. ' +
           '10개 태그 제한 + 중복 방지 + 최대 20자 제한. TextField를 태그 입력 컨테이너와 조합.',
       },
     },
   },
-  render: function ChakraTagInputRender() {
+  render: function AccessibleTagInputRender() {
     const [tags, setTags] = useState<string[]>(['typescript', 'react', 'design-system'])
     const [input, setInput] = useState('')
     const [error, setError] = useState('')
@@ -1566,25 +1566,25 @@ export const Chakra_태그_입력_필드: Story = {
   },
 }
 
-// Vercel + Chakra — API 토큰 생성 폼 (스코프 선택 + 만료일)
+// DeployPlatform + Accessible — API 토큰 생성 폼 (스코프 선택 + 만료일)
 const TOKEN_SCOPES_138 = [
   { id: 'read', label: 'Read', desc: '프로젝트 읽기', on: true },
   { id: 'deploy', label: 'Deploy', desc: '배포 트리거', on: false },
   { id: 'admin', label: 'Admin', desc: '전체 관리 권한', on: false },
 ]
 
-export const Vercel_Chakra_API_토큰_생성: Story = {
-  name: 'Vercel + Chakra — API 토큰 생성 폼 (Cycle 138)',
+export const DeployPlatform_Accessible_API_토큰_생성: Story = {
+  name: 'DeployPlatform + Accessible — API 토큰 생성 폼 (Cycle 138)',
   parameters: {
     docs: {
       description: {
         story:
-          'Vercel + Chakra UI API Token Creation 패턴. 토큰 이름 TextField + 스코프 선택(Read/Deploy/Admin) + 만료일 선택. ' +
+          'DeployPlatform + AccessibleUI API Token Creation 패턴. 토큰 이름 TextField + 스코프 선택(Read/Deploy/Admin) + 만료일 선택. ' +
           '생성 완료 시 마스킹된 토큰 + 복사 버튼 노출. 한 번만 표시되는 경고 포함.',
       },
     },
   },
-  render: function VercelChakraTokenFormRender() {
+  render: function DeployPlatformAccessibleTokenFormRender() {
     const [name, setName] = useState('')
     const [scopes, setScopes] = useState(TOKEN_SCOPES_138)
     const [expiry, setExpiry] = useState('30d')
@@ -1690,21 +1690,21 @@ export const Vercel_Chakra_API_토큰_생성: Story = {
 }
 
 // ──────────────────────────────────────────────────────────────────────────────
-// Cycle 166: Tailwind UI + Linear Design
+// Cycle 166: UtilityUI + IssueTracker Design
 // ──────────────────────────────────────────────────────────────────────────────
 
-export const TailwindUI_회원가입_폼_패턴: Story = {
-  name: 'Tailwind UI — 회원가입 폼 패턴 (Cycle 166)',
+export const UtilityCSSUI_회원가입_폼_패턴: Story = {
+  name: 'UtilityUI — 회원가입 폼 패턴 (Cycle 166)',
   parameters: {
     docs: {
       description: {
         story:
-          'Tailwind UI Registration Form 패턴. 실시간 유효성 검사 + 에러 메시지 + ' +
+          'UtilityUI Registration Form 패턴. 실시간 유효성 검사 + 에러 메시지 + ' +
           '비밀번호 강도 인디케이터 조합.',
       },
     },
   },
-  render: function TailwindSignupFormRender() {
+  render: function UtilityCSSSignupFormRender() {
     const [form, setForm] = useState({ email: '', password: '', name: '' })
     const [touched, setTouched] = useState({ email: false, password: false, name: false })
 
@@ -1789,18 +1789,18 @@ export const TailwindUI_회원가입_폼_패턴: Story = {
   },
 }
 
-export const Linear_이슈_빠른_생성_폼: Story = {
-  name: 'Linear — 이슈 빠른 생성 폼 (Cycle 166)',
+export const IssueTracker_이슈_빠른_생성_폼: Story = {
+  name: 'IssueTracker — 이슈 빠른 생성 폼 (Cycle 166)',
   parameters: {
     docs: {
       description: {
         story:
-          'Linear Quick Issue Create 패턴. 제목 TextField + 인라인 우선순위/상태 선택. ' +
+          'IssueTracker Quick Issue Create 패턴. 제목 TextField + 인라인 우선순위/상태 선택. ' +
           'Ctrl+Enter 제출 + 단축키 힌트 표시.',
       },
     },
   },
-  render: function LinearQuickIssueRender() {
+  render: function IssueTrackerQuickIssueRender() {
     const [title, setTitle] = useState('')
     const [desc, setDesc] = useState('')
     const [priority, setPriority] = useState<'low' | 'medium' | 'high' | 'urgent'>('medium')
@@ -1878,18 +1878,18 @@ export const Linear_이슈_빠른_생성_폼: Story = {
   },
 }
 
-export const Tailwind_Linear_검색_필터_입력: Story = {
-  name: 'Tailwind UI + Linear — 검색 및 필터 입력 (Cycle 166)',
+export const UtilityCSS_IssueTracker_검색_필터_입력: Story = {
+  name: 'UtilityUI + IssueTracker — 검색 및 필터 입력 (Cycle 166)',
   parameters: {
     docs: {
       description: {
         story:
-          'Tailwind UI + Linear 검색 필터 패턴. 텍스트 검색 + 태그 필터 칩 조합. ' +
+          'UtilityUI + IssueTracker 검색 필터 패턴. 텍스트 검색 + 태그 필터 칩 조합. ' +
           '실시간 결과 카운트 + 필터 초기화 버튼.',
       },
     },
   },
-  render: function TailwindLinearSearchFilterRender() {
+  render: function UtilityCSSIssueTrackerSearchFilterRender() {
     const [query, setQuery] = useState('')
     const [activeFilters, setActiveFilters] = useState<string[]>([])
 

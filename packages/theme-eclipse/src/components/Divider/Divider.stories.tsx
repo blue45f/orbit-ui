@@ -151,7 +151,7 @@ export const 디자인QA = {
       exclude: ['as', 'children', 'onClick'],
     },
   },
-   
+
   render: ({ orientation, length, ...rest }: any) => {
     const vertical = orientation === 'vertical'
     return (
@@ -207,10 +207,10 @@ export const 텍스트_섹션_구분 = {
    카드 그리드 사이의 섹션 구분
 -------------------------------------------------------------------------- */
 /* --------------------------------------------------------------------------
-   shadcn/ui 벤치마크: OR/AND 라벨 구분선 (로그인 폼 패턴)
-   shadcn/ui LoginForm 패턴 — 소셜 로그인과 이메일 로그인 사이의 분리선
+   ComposableUI 벤치마크: OR/AND 라벨 구분선 (로그인 폼 패턴)
+   ComposableUI LoginForm 패턴 — 소셜 로그인과 이메일 로그인 사이의 분리선
 -------------------------------------------------------------------------- */
-export const shadcn_OR_구분선 = {
+export const ComposableUI_OR_구분선 = {
   render: () => (
     <Flex flexDirection="column" rowGap="24px" style={{ width: '360px', padding: '24px', background: '#fff', borderRadius: '12px', border: '1px solid #e2e8f0' }}>
       <Typography textStyle="subheadingSmall" style={{ textAlign: 'center', color: '#1e293b' }}>
@@ -219,8 +219,8 @@ export const shadcn_OR_구분선 = {
       {/* 소셜 로그인 버튼들 */}
       <Flex flexDirection="column" rowGap="8px">
         {[
-          { label: 'GitHub으로 계속하기', bg: '#24292f', color: '#fff' },
-          { label: 'Google로 계속하기', bg: '#fff', color: '#374151', border: '1px solid #e2e8f0' },
+          { label: 'CodeHost으로 계속하기', bg: '#24292f', color: '#fff' },
+          { label: 'Reference로 계속하기', bg: '#fff', color: '#374151', border: '1px solid #e2e8f0' },
         ].map((btn) => (
           <button
             key={btn.label}
@@ -235,7 +235,7 @@ export const shadcn_OR_구분선 = {
         ))}
       </Flex>
 
-      {/* shadcn/ui OR 구분선 */}
+      {/* ComposableUI OR 구분선 */}
       <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
         <Divider />
         <span style={{ fontSize: '12px', fontWeight: 500, color: '#94a3b8', whiteSpace: 'nowrap', letterSpacing: '0.05em' }}>
@@ -275,15 +275,15 @@ export const shadcn_OR_구분선 = {
         </button>
       </Flex>
       <Typography textStyle="descriptionSmall" style={{ textAlign: 'center', color: '#94a3b8' }}>
-        shadcn/ui 로그인 폼 패턴 — OR 구분선으로 인증 방식 분리
+        ComposableUI 로그인 폼 패턴 — OR 구분선으로 인증 방식 분리
       </Typography>
     </Flex>
   ),
 } satisfies Story
 
 /* --------------------------------------------------------------------------
-   Radix UI 벤치마크: 컨텍스트 메뉴 구분선 패턴
-   Radix UI ContextMenu.Separator 패턴 — 메뉴 항목 그룹 사이 구분
+   PrimitiveUI 벤치마크: 컨텍스트 메뉴 구분선 패턴
+   PrimitiveUI ContextMenu.Separator 패턴 — 메뉴 항목 그룹 사이 구분
 -------------------------------------------------------------------------- */
 function ContextMenuDividerDemo() {
   const [selected, setSelected] = useState<string | null>(null)
@@ -352,29 +352,29 @@ function ContextMenuDividerDemo() {
         </Typography>
       )}
       <Typography textStyle="descriptionSmall" style={{ color: '#94a3b8' }}>
-        Radix UI ContextMenu.Separator 패턴 — 그룹 사이 Divider로 시각적 계층 형성
+        PrimitiveUI ContextMenu.Separator 패턴 — 그룹 사이 Divider로 시각적 계층 형성
       </Typography>
     </Flex>
   )
 }
 
-export const Radix_컨텍스트_메뉴_구분선 = {
+export const Primitive_컨텍스트_메뉴_구분선 = {
   render: () => <ContextMenuDividerDemo />,
   parameters: {
     docs: {
       description: {
         story:
-          'Radix UI ContextMenu.Separator 패턴. 메뉴 항목을 기능 그룹별로 Divider로 구분합니다. 삭제 등 파괴적 액션은 별도 그룹에 분리해 실수를 방지합니다.',
+          'PrimitiveUI ContextMenu.Separator 패턴. 메뉴 항목을 기능 그룹별로 Divider로 구분합니다. 삭제 등 파괴적 액션은 별도 그룹에 분리해 실수를 방지합니다.',
       },
     },
   },
 } satisfies Story
 
 /* --------------------------------------------------------------------------
-   shadcn/ui 벤치마크: 프로필 카드 내부 구분선
-   shadcn/ui Card 패턴 — 사용자 정보와 통계 섹션을 Divider로 분리
+   ComposableUI 벤치마크: 프로필 카드 내부 구분선
+   ComposableUI Card 패턴 — 사용자 정보와 통계 섹션을 Divider로 분리
 -------------------------------------------------------------------------- */
-export const shadcn_프로필_카드_구분선 = {
+export const ComposableUI_프로필_카드_구분선 = {
   render: () => (
     <div
       style={{
@@ -504,19 +504,19 @@ export const 대시보드_섹션 = {
 } satisfies Story
 
 /* --------------------------------------------------------------------------
-   Cycle 69: Linear Design + Google Material 3 벤치마크
+   Cycle 69: IssueTracker Design + RoleToken Design 벤치마크
 -------------------------------------------------------------------------- */
 
-/* Linear — 미니멀 섹션 구분선
-   Linear 앱의 리스트 섹션 구분 패턴. 얇은 구분선 + 섹션 헤더 텍스트 조합.
+/* IssueTracker — 미니멀 섹션 구분선
+   IssueTracker 앱의 리스트 섹션 구분 패턴. 얇은 구분선 + 섹션 헤더 텍스트 조합.
    사이드바 그룹 구분, 설정 패널 섹션 분리에 활용되는 극도로 절제된 스타일.
 -------------------------------------------------------------------------- */
-export const Linear_미니멀_섹션_구분선 = {
-  name: 'Linear — 미니멀 섹션 구분선',
+export const IssueTracker_미니멀_섹션_구분선 = {
+  name: 'IssueTracker — 미니멀 섹션 구분선',
   parameters: {
     docs: {
       description: {
-        story: 'Linear 앱 사이드바 섹션 분리 패턴. 구분선 위 소문자 섹션 헤더(9-10px, 회색, 자간 넓음)와 함께 사용. 최소한의 시각적 노이즈로 계층 구분.',
+        story: 'IssueTracker 앱 사이드바 섹션 분리 패턴. 구분선 위 소문자 섹션 헤더(9-10px, 회색, 자간 넓음)와 함께 사용. 최소한의 시각적 노이즈로 계층 구분.',
       },
     },
   },
@@ -589,12 +589,12 @@ export const Linear_미니멀_섹션_구분선 = {
   },
 }
 
-/* Google Material 3 — 인셋 Divider (Inset Divider)
-   Material 3의 Inset Divider 패턴. 리스트 아이템에서 아바타/아이콘 영역 아래에는
+/* RoleToken Design — 인셋 Divider (Inset Divider)
+   RoleToken Design의 Inset Divider 패턴. 리스트 아이템에서 아바타/아이콘 영역 아래에는
    구분선을 그리지 않고 텍스트 시작점부터 그리는 패턴. 연속성 유지 + 시각 분리.
 -------------------------------------------------------------------------- */
 export const Material3_인셋_Divider = {
-  name: 'Google Material 3 — 인셋 Divider (리드 오프셋)',
+  name: 'RoleToken Design — 인셋 Divider (리드 오프셋)',
   parameters: {
     docs: {
       description: {
@@ -641,16 +641,16 @@ export const Material3_인셋_Divider = {
   },
 }
 
-/* Linear + Material 3 — 텍스트 레이블 구분선
-   Linear의 타임라인 날짜 구분 + Material 3의 중앙 텍스트 divider 패턴.
+/* IssueTracker + RoleToken Design — 텍스트 레이블 구분선
+   IssueTracker의 타임라인 날짜 구분 + RoleToken Design의 중앙 텍스트 divider 패턴.
    구분선 가운데에 날짜/라벨 텍스트를 삽입하는 "OR 구분선"의 발전형.
 -------------------------------------------------------------------------- */
-export const Linear_Material3_타임라인_날짜_구분선 = {
-  name: 'Linear + M3 — 타임라인 날짜 구분선',
+export const IssueTracker_Material3_타임라인_날짜_구분선 = {
+  name: 'IssueTracker + M3 — 타임라인 날짜 구분선',
   parameters: {
     docs: {
       description: {
-        story: 'Linear 타임라인 날짜 구분 + Material 3 텍스트 Divider 조합. 날짜 레이블을 가운데 배치하고 양쪽에 구분선을 늘여 시각적 타임라인 구성. 이슈 로그, 채팅, 활동 피드에 적합.',
+        story: 'IssueTracker 타임라인 날짜 구분 + RoleToken Design 텍스트 Divider 조합. 날짜 레이블을 가운데 배치하고 양쪽에 구분선을 늘여 시각적 타임라인 구성. 이슈 로그, 채팅, 활동 피드에 적합.',
       },
     },
   },
@@ -701,15 +701,15 @@ export const Linear_Material3_타임라인_날짜_구분선 = {
 }
 
 /* --------------------------------------------------------------------------
-   Tailwind UI — 폼 섹션 구분선 + 레이블
+   UtilityUI — 폼 섹션 구분선 + 레이블
    섹션 제목 인라인 Divider 패턴
 -------------------------------------------------------------------------- */
-export const Tailwind_폼_섹션_구분선: Story = {
-  name: 'Tailwind UI — 폼 섹션 구분선 + 레이블',
+export const UtilityCSS_폼_섹션_구분선: Story = {
+  name: 'UtilityUI — 폼 섹션 구분선 + 레이블',
   parameters: {
     docs: {
       description: {
-        story: 'Tailwind UI Form 패턴. "기본 정보", "보안 설정" 등 섹션 제목을 Divider와 인라인으로 배치하여 시각적 계층을 표현합니다. 레이블 좌측/우측 Divider 조합.',
+        story: 'UtilityUI Form 패턴. "기본 정보", "보안 설정" 등 섹션 제목을 Divider와 인라인으로 배치하여 시각적 계층을 표현합니다. 레이블 좌측/우측 Divider 조합.',
       },
     },
   },
@@ -737,7 +737,7 @@ export const Tailwind_폼_섹션_구분선: Story = {
             ))}
           </div>
         ))}
-        <p style={{ fontSize: 11, color: '#94a3b8', margin: '4px 0 0' }}>Tailwind UI 폼 섹션 구분 패턴 — 레이블 + Divider 인라인</p>
+        <p style={{ fontSize: 11, color: '#94a3b8', margin: '4px 0 0' }}>UtilityUI 폼 섹션 구분 패턴 — 레이블 + Divider 인라인</p>
       </div>
     )
   },
@@ -758,8 +758,8 @@ export const Ant_OR_구분선_로그인: Story = {
   },
   render: () => {
     const SOCIAL = [
-      { name: 'GitHub', color: '#0f172a', icon: 'G' },
-      { name: 'Google', color: '#ef4444', icon: 'G+' },
+      { name: 'CodeHost', color: '#0f172a', icon: 'G' },
+      { name: 'Reference', color: '#ef4444', icon: 'G+' },
     ]
     return (
       <div style={{ width: 320, display: 'flex', flexDirection: 'column', gap: 12, fontFamily: 'system-ui, sans-serif', padding: '24px 0' }}>
@@ -790,15 +790,15 @@ export const Ant_OR_구분선_로그인: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Tailwind UI + Ant Design — 메뉴 그룹 구분 Divider
+   UtilityUI + Ant Design — 메뉴 그룹 구분 Divider
    드롭다운 메뉴 섹션 분리 패턴
 -------------------------------------------------------------------------- */
-export const Tailwind_Ant_메뉴_그룹_구분: Story = {
-  name: 'Tailwind UI + Ant Design — 드롭다운 메뉴 그룹 구분',
+export const UtilityCSS_Ant_메뉴_그룹_구분: Story = {
+  name: 'UtilityUI + Ant Design — 드롭다운 메뉴 그룹 구분',
   parameters: {
     docs: {
       description: {
-        story: 'Tailwind UI Dropdown + Ant Design Menu 패턴. 메뉴 아이템을 기능별 그룹으로 나누고 Divider로 시각적으로 구분. 마지막 그룹(위험 액션)은 빨간색으로 강조.',
+        story: 'UtilityUI Dropdown + Ant Design Menu 패턴. 메뉴 아이템을 기능별 그룹으로 나누고 Divider로 시각적으로 구분. 마지막 그룹(위험 액션)은 빨간색으로 강조.',
       },
     },
   },
@@ -836,21 +836,21 @@ export const Tailwind_Ant_메뉴_그룹_구분: Story = {
             ))}
           </div>
         ))}
-        <p style={{ fontSize: 11, color: '#94a3b8', margin: '8px 14px 4px', textAlign: 'center' }}>Tailwind + Ant Design 메뉴 그룹 Divider 패턴</p>
+        <p style={{ fontSize: 11, color: '#94a3b8', margin: '8px 14px 4px', textAlign: 'center' }}>UtilityCSS + Ant Design 메뉴 그룹 Divider 패턴</p>
       </div>
     )
   },
 }
 
 // ============================================================
-// Cycle 133 — MUI + Chakra UI 벤치마크 반영
+// Cycle 133 — EnterpriseUI + AccessibleUI 벤치마크 반영
 // ============================================================
 
-// MUI 스타일 — List 섹션 구분 + subheader 패턴
-type MuiSetting = { label: string; desc: string; icon: string; active: boolean }
-type MuiSettingGroup = { group: string; items: MuiSetting[] }
+// EnterpriseUI 스타일 — List 섹션 구분 + subheader 패턴
+type EnterpriseUISetting = { label: string; desc: string; icon: string; active: boolean }
+type EnterpriseUISettingGroup = { group: string; items: EnterpriseUISetting[] }
 
-const MUI_SETTINGS: MuiSettingGroup[] = [
+const EnterpriseUI_SETTINGS: EnterpriseUISettingGroup[] = [
   {
     group: '계정',
     items: [
@@ -874,9 +874,9 @@ const MUI_SETTINGS: MuiSettingGroup[] = [
   },
 ]
 
-function MuiSettingsListRender() {
+function EnterpriseUISettingsListRender() {
   const [settings, setSettings] = useState(
-    MUI_SETTINGS.map((g) => ({ ...g, items: g.items.map((i) => ({ ...i })) }))
+    EnterpriseUI_SETTINGS.map((g) => ({ ...g, items: g.items.map((i) => ({ ...i })) }))
   )
   const toggle = (gi: number, ii: number) => {
     setSettings((prev) => prev.map((g, gi2) =>
@@ -919,25 +919,25 @@ function MuiSettingsListRender() {
   )
 }
 
-export const MUI_설정_목록_섹션_구분선: StoryObj = {
-  name: 'MUI - 설정 목록 섹션 구분선',
+export const EnterpriseUI_설정_목록_섹션_구분선: StoryObj = {
+  name: 'EnterpriseUI - 설정 목록 섹션 구분선',
   parameters: {
     docs: {
       description: {
         story:
-          'MUI List subheader 패턴. 설정 항목을 계정/보안/외관 그룹으로 나누고 ' +
+          'EnterpriseUI List subheader 패턴. 설정 항목을 계정/보안/외관 그룹으로 나누고 ' +
           'Divider로 섹션 경계를 표시. 토글 스위치 포함 인터랙티브 설정 패널.',
       },
     },
   },
-  render: () => <MuiSettingsListRender />,
+  render: () => <EnterpriseUISettingsListRender />,
 }
 
-// Chakra UI 스타일 — 카드 내부 Divider + 메타 정보 레이아웃
-type ChakraPost = { title: string; author: string; date: string; category: string; readTime: string; summary: string }
+// AccessibleUI 스타일 — 카드 내부 Divider + 메타 정보 레이아웃
+type AccessiblePost = { title: string; author: string; date: string; category: string; readTime: string; summary: string }
 
-const CHAKRA_POSTS: ChakraPost[] = [
-  { title: 'Tailwind로 동적 테마 구현하기', author: '김희준', date: '2026-04-10', category: '기술', readTime: '8분', summary: 'Tailwind의 createTheme API를 활용해 런타임 테마 전환을 구현하는 방법을 설명합니다.' },
+const CHAKRA_POSTS: AccessiblePost[] = [
+  { title: 'UtilityCSS로 동적 테마 구현하기', author: '김희준', date: '2026-04-10', category: '기술', readTime: '8분', summary: 'UtilityCSS의 createTheme API를 활용해 런타임 테마 전환을 구현하는 방법을 설명합니다.' },
   { title: '접근성 우선 컴포넌트 설계 원칙', author: '박지수', date: '2026-04-09', category: '접근성', readTime: '5분', summary: 'WAI-ARIA 패턴을 Orbit UI에 적용하면서 배운 실용적인 접근성 설계 원칙을 공유합니다.' },
   { title: 'Storybook 8의 새로운 기능 총정리', author: '이민준', date: '2026-04-08', category: '도구', readTime: '6분', summary: 'Storybook 8에서 추가된 autodocs, play function 개선, 퍼포먼스 향상 포인트를 정리했습니다.' },
 ]
@@ -946,13 +946,13 @@ const CATEGORY_COLOR: Record<string, string> = {
   '기술': '#3b82f6', '접근성': '#22c55e', '도구': '#f59e0b',
 }
 
-export const Chakra_블로그_카드_내부_구분선: StoryObj = {
-  name: 'Chakra UI - 블로그 카드 내부 Divider',
+export const Accessible_블로그_카드_내부_구분선: StoryObj = {
+  name: 'AccessibleUI - 블로그 카드 내부 Divider',
   parameters: {
     docs: {
       description: {
         story:
-          'Chakra UI Card 패턴. 제목/본문/푸터 영역을 Divider로 나눠 정보 계층 명확화. ' +
+          'AccessibleUI Card 패턴. 제목/본문/푸터 영역을 Divider로 나눠 정보 계층 명확화. ' +
           '카테고리 색상 배지, 작성자, 읽기 시간 메타 정보 조합.',
       },
     },
@@ -986,7 +986,7 @@ export const Chakra_블로그_카드_내부_구분선: StoryObj = {
   ),
 }
 
-// MUI + Chakra — 통계 대시보드 수평/수직 복합 구분선
+// EnterpriseUI + Accessible — 통계 대시보드 수평/수직 복합 구분선
 const STAT_ROWS = [
   { label: '총 컴포넌트', value: '47', sub: '지난달 대비 +8', trend: 'up' },
   { label: '스토리 수', value: '812', sub: '지난달 대비 +96', trend: 'up' },
@@ -997,13 +997,13 @@ const STAT_ROWS = [
 const CHART_BARS = [42, 58, 73, 61, 87, 92, 79, 95, 88, 102, 98, 112]
 const MONTHS = ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월']
 
-export const MUI_Chakra_대시보드_복합_구분선: StoryObj = {
-  name: 'MUI + Chakra - 통계 대시보드 복합 Divider',
+export const EnterpriseUI_Accessible_대시보드_복합_구분선: StoryObj = {
+  name: 'EnterpriseUI + Accessible - 통계 대시보드 복합 Divider',
   parameters: {
     docs: {
       description: {
         story:
-          'MUI + Chakra UI 대시보드 패턴. 수평 Divider로 섹션 구분 + 수직 Divider로 통계 열 구분. ' +
+          'EnterpriseUI + AccessibleUI 대시보드 패턴. 수평 Divider로 섹션 구분 + 수직 Divider로 통계 열 구분. ' +
           '바 차트 + KPI 카드 + 추세 표시 복합 레이아웃.',
       },
     },
@@ -1045,21 +1045,21 @@ export const MUI_Chakra_대시보드_복합_구분선: StoryObj = {
 }
 
 // ──────────────────────────────────────────────────────────────────────────────
-// Cycle 168: Vercel Design + shadcn/ui
+// Cycle 168: DeployPlatform Design + ComposableUI
 // ──────────────────────────────────────────────────────────────────────────────
 
-export const Vercel_배포_로그_타임라인_구분선: StoryObj = {
-  name: 'Vercel — 배포 로그 타임라인 구분선 (Cycle 168)',
+export const DeployPlatform_배포_로그_타임라인_구분선: StoryObj = {
+  name: 'DeployPlatform — 배포 로그 타임라인 구분선 (Cycle 168)',
   parameters: {
     docs: {
       description: {
         story:
-          'Vercel 배포 로그 패턴. 단계별 로그 섹션을 Divider로 구분. ' +
+          'DeployPlatform 배포 로그 패턴. 단계별 로그 섹션을 Divider로 구분. ' +
           '타임라인 라인 + 단계 레이블이 결합된 수직/수평 구분선 활용.',
       },
     },
   },
-  render: function VercelDeployLogRender() {
+  render: function DeployPlatformDeployLogRender() {
     const stages = [
       { label: 'Build', status: 'done', time: '00:12', logs: ['Installing dependencies...', 'pnpm install done (1.2s)', 'Running build...', 'Build complete (38.4s)'] },
       { label: 'Deploy', status: 'done', time: '00:05', logs: ['Uploading artifacts...', 'CDN propagation...', 'Edge functions deployed'] },
@@ -1104,18 +1104,18 @@ export const Vercel_배포_로그_타임라인_구분선: StoryObj = {
   },
 }
 
-export const Shadcn_설정_패널_섹션_구분: StoryObj = {
-  name: 'shadcn/ui — 설정 패널 섹션 구분 (Cycle 168)',
+export const ComposableUI_설정_패널_섹션_구분: StoryObj = {
+  name: 'ComposableUI — 설정 패널 섹션 구분 (Cycle 168)',
   parameters: {
     docs: {
       description: {
         story:
-          'shadcn/ui Settings Page 패턴. 섹션 헤더 + Divider 조합으로 설정 그룹 분리. ' +
+          'ComposableUI Settings Page 패턴. 섹션 헤더 + Divider 조합으로 설정 그룹 분리. ' +
           '라벨 내장 Divider 활용.',
       },
     },
   },
-  render: function ShadcnSettingsPanelRender() {
+  render: function ComposableUISettingsPanelRender() {
     const sections = [
       {
         title: '계정',
@@ -1165,18 +1165,18 @@ export const Shadcn_설정_패널_섹션_구분: StoryObj = {
   },
 }
 
-export const Vercel_Shadcn_프로필_카드_구분선: StoryObj = {
-  name: 'Vercel + shadcn/ui — 프로필 카드 구분선 (Cycle 168)',
+export const DeployPlatform_ComposableUI_프로필_카드_구분선: StoryObj = {
+  name: 'DeployPlatform + ComposableUI — 프로필 카드 구분선 (Cycle 168)',
   parameters: {
     docs: {
       description: {
         story:
-          'Vercel + shadcn/ui 프로필 카드 패턴. 수평 Divider로 헤더/본문/푸터 구분. ' +
+          'DeployPlatform + ComposableUI 프로필 카드 패턴. 수평 Divider로 헤더/본문/푸터 구분. ' +
           '수직 Divider로 통계 항목 구분.',
       },
     },
   },
-  render: function VercelShadcnProfileCardRender() {
+  render: function DeployPlatformComposableUIProfileCardRender() {
     const stats = [
       { label: '커밋', value: '1,204' },
       { label: 'PR', value: '87' },

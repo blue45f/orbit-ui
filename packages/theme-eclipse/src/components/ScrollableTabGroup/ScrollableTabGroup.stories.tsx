@@ -110,7 +110,7 @@ export const 디자인QA = {
       max: 10,
     },
   },
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/explicit-module-boundary-types
+
   render({ tabCount, defaultValue }: any) {
     return (
       <div style={{ width: '320px', height: '700px', border: '1px solid #ccc' }}>
@@ -145,8 +145,8 @@ export const 디자인QA = {
 }
 
 /* --------------------------------------------------------------------------
-   Vercel 스타일: 배포 환경 탭 필터
-   Vercel Dashboard의 Deployments 페이지처럼 환경별 탭 필터링 패턴
+   DeployPlatform 스타일: 배포 환경 탭 필터
+   DeployPlatform Dashboard의 Deployments 페이지처럼 환경별 탭 필터링 패턴
 -------------------------------------------------------------------------- */
 const environments = [
   { id: 'all', label: 'All', count: 128 },
@@ -170,7 +170,7 @@ const statusColors: Record<string, string> = {
   Error: '#ef4444',
 }
 
-const VercelDeploymentTabsRender = () => {
+const DeployPlatformDeploymentTabsRender = () => {
   const [activeIdx, setActiveIdx] = useState(0)
   const activeEnv = environments[activeIdx]
   const filtered = activeEnv.id === 'all'
@@ -178,7 +178,7 @@ const VercelDeploymentTabsRender = () => {
     : deployments.filter((d) => d.env === activeEnv.id)
 
   return (
-    <div style={{ width: '600px', border: '1px solid #e2e8f0', borderRadius: '14px', overflow: 'hidden', background: '#fff', fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' }}>
+    <div style={{ width: '600px', border: '1px solid #e2e8f0', borderRadius: '14px', overflow: 'hidden', background: '#fff', fontFamily: '"Segoe UI", sans-serif' }}>
       <div style={{ padding: '16px 20px', borderBottom: '1px solid #f1f5f9', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         <span style={{ fontSize: '15px', fontWeight: '700', color: '#0f172a' }}>Deployments</span>
         <span style={{ fontSize: '12px', color: '#94a3b8' }}>자동 새로고침 30초</span>
@@ -234,14 +234,14 @@ const VercelDeploymentTabsRender = () => {
   )
 }
 
-export const Vercel_배포환경_탭: typeof 기본 = {
+export const DeployPlatform_배포환경_탭: typeof 기본 = {
   render() {
-    return <VercelDeploymentTabsRender />
+    return <DeployPlatformDeploymentTabsRender />
   },
 }
 
 /* --------------------------------------------------------------------------
-   shadcn/ui 스타일: 이커머스 카테고리 필터 탭
+   ComposableUI 스타일: 이커머스 카테고리 필터 탭
    상품 카테고리를 스크롤 가능한 탭으로 필터링하는 e-commerce 패턴
 -------------------------------------------------------------------------- */
 const productCategories = [
@@ -273,7 +273,7 @@ const EcommerceTabFilterRender = () => {
   const filtered = activeId === 'all' ? productItems : productItems.filter((p) => p.category === activeId)
 
   return (
-    <div style={{ width: '380px', fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' }}>
+    <div style={{ width: '380px', fontFamily: '"Segoe UI", sans-serif' }}>
       <div style={{ marginBottom: '16px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <span style={{ fontSize: '16px', fontWeight: '700', color: '#0f172a' }}>디자인 에셋</span>
         <span style={{ fontSize: '12px', color: '#64748b' }}>{filtered.length}개 상품</span>
@@ -356,7 +356,7 @@ const inboxTabs = [
 
 const messages = [
   { id: 1, folder: 'inbox', sender: 'Orbit UI 팀', subject: '[공지] v2.0 업데이트 안내', preview: '안녕하세요! Orbit UI v2.0이 출시되었습니다.', time: '오전 10:32', unread: true },
-  { id: 2, folder: 'inbox', sender: 'GitHub', subject: 'New pull request: feat/dark-mode', preview: 'hjunkim opened a pull request in orbit-ui/orbit-ui...', time: '오전 9:15', unread: true },
+  { id: 2, folder: 'inbox', sender: 'CodeHost', subject: 'New pull request: feat/dark-mode', preview: 'hjunkim opened a pull request in orbit-ui/orbit-ui...', time: '오전 9:15', unread: true },
   { id: 3, folder: 'inbox', sender: '디자인팀', subject: '피그마 파일 업데이트 완료', preview: '버튼 컴포넌트 토큰 재정의가 완료되었습니다.', time: '어제', unread: false },
   { id: 4, folder: 'drafts', sender: '(나)', subject: '팀 회고 양식 초안', preview: '이번 스프린트 회고를 위한...', time: '3일 전', unread: false },
   { id: 5, folder: 'spam', sender: 'unknown@spam.co', subject: '당신이 선택되었습니다!!', preview: '지금 바로 클릭하세요...', time: '1주일 전', unread: true },
@@ -368,7 +368,7 @@ const InboxTabsRender = () => {
   const filtered = messages.filter((m) => m.folder === activeId)
 
   return (
-    <div style={{ width: '420px', border: '1px solid #e2e8f0', borderRadius: '14px', overflow: 'hidden', background: '#fff', fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' }}>
+    <div style={{ width: '420px', border: '1px solid #e2e8f0', borderRadius: '14px', overflow: 'hidden', background: '#fff', fontFamily: '"Segoe UI", sans-serif' }}>
       <div style={{ padding: '14px 20px', borderBottom: '1px solid #f1f5f9' }}>
         <span style={{ fontSize: '15px', fontWeight: '700', color: '#0f172a' }}>메일함</span>
       </div>
@@ -442,10 +442,10 @@ export const 메일함_탭패턴: typeof 기본 = {
 }
 
 /* --------------------------------------------------------------------------
-   Mantine 수평 스크롤 네비게이션 패턴
-   Mantine Tabs scrollable: 많은 탭을 좌우 스크롤로 탐색, 뱃지 카운트 포함
+   AppUI 수평 스크롤 네비게이션 패턴
+   AppUI Tabs scrollable: 많은 탭을 좌우 스크롤로 탐색, 뱃지 카운트 포함
 -------------------------------------------------------------------------- */
-const MantineNavTabsRender = () => {
+const AppUINavTabsRender = () => {
   const [active, setActive] = useState(0)
 
   const navItems = [
@@ -492,24 +492,24 @@ const MantineNavTabsRender = () => {
           {navItems[active].label} ({navItems[active].count}건)
         </div>
         <div style={{ fontSize: 12, color: '#94a3b8' }}>
-          Mantine Tabs scrollable 패턴 — 상태별 이슈 필터링
+          AppUI Tabs scrollable 패턴 — 상태별 이슈 필터링
         </div>
       </div>
     </div>
   )
 }
 
-export const Mantine_상태별_이슈_필터: typeof 기본 = {
+export const AppUI_상태별_이슈_필터: typeof 기본 = {
   render() {
-    return <MantineNavTabsRender />
+    return <AppUINavTabsRender />
   },
 }
 
 /* --------------------------------------------------------------------------
-   Chakra UI 제품 카테고리 탭 패턴
-   Chakra Tabs fitted: 각 탭이 동일 너비, 아이콘+텍스트 조합, 선택 강조
+   AccessibleUI 제품 카테고리 탭 패턴
+   Accessible Tabs fitted: 각 탭이 동일 너비, 아이콘+텍스트 조합, 선택 강조
 -------------------------------------------------------------------------- */
-const ChakraCategoryTabsRender = () => {
+const AccessibleCategoryTabsRender = () => {
   const [active, setActive] = useState(1)
 
   const categories = [
@@ -558,17 +558,17 @@ const ChakraCategoryTabsRender = () => {
   )
 }
 
-export const Chakra_상품_카테고리_탭: typeof 기본 = {
+export const Accessible_상품_카테고리_탭: typeof 기본 = {
   render() {
-    return <ChakraCategoryTabsRender />
+    return <AccessibleCategoryTabsRender />
   },
 }
 
 /* --------------------------------------------------------------------------
-   MUI 언어/로케일 선택 탭 패턴
-   MUI Tabs scrollButtons: 국제화 언어 선택 탭, 국기+이름 조합
+   EnterpriseUI 언어/로케일 선택 탭 패턴
+   EnterpriseUI Tabs scrollButtons: 국제화 언어 선택 탭, 국기+이름 조합
 -------------------------------------------------------------------------- */
-const MuiLocaleTabsRender = () => {
+const EnterpriseUILocaleTabsRender = () => {
   const [active, setActive] = useState(0)
 
   const locales = [
@@ -618,20 +618,20 @@ const MuiLocaleTabsRender = () => {
           {sampleText[current.code]}
         </div>
         <div style={{ fontSize: 11, color: '#94a3b8' }}>
-          MUI Tabs scrollButtons 패턴 — 국제화 로케일 탭{current.rtl ? ' (RTL)' : ''}
+          EnterpriseUI Tabs scrollButtons 패턴 — 국제화 로케일 탭{current.rtl ? ' (RTL)' : ''}
         </div>
       </div>
     </div>
   )
 }
 
-export const MUI_국제화_로케일_탭: typeof 기본 = {
+export const EnterpriseUI_국제화_로케일_탭: typeof 기본 = {
   render() {
-    return <MuiLocaleTabsRender />
+    return <EnterpriseUILocaleTabsRender />
   },
 }
 
-// ─── Cycle 62: Tailwind UI + MUI ───────────────────────────────────────────
+// ─── Cycle 62: UtilityUI + EnterpriseUI ───────────────────────────────────────────
 
 const TAILWIND_SECTIONS = [
   { id: 'overview', label: '개요', badge: null, summary: '프로젝트 전체 현황과 최근 활동을 확인합니다.', items: ['전체 태스크 48개', '완료 31개', '진행 중 12개', '지연 5개'] },
@@ -642,7 +642,7 @@ const TAILWIND_SECTIONS = [
   { id: 'settings', label: '설정', badge: null, summary: '프로젝트 기본 정보와 권한을 설정합니다.', items: ['알림 설정', '멤버 권한', '연동 서비스', '보안'] },
 ]
 
-const TailwindProjectNavRender = () => {
+const UtilityCSSProjectNavRender = () => {
   const [activeId, setActiveId] = useState('overview')
   const activeIdx = TAILWIND_SECTIONS.findIndex(s => s.id === activeId)
   const current = TAILWIND_SECTIONS[activeIdx]
@@ -680,26 +680,26 @@ const TailwindProjectNavRender = () => {
   )
 }
 
-export const Tailwind_프로젝트_내비게이션_탭: Story = {
-  name: 'Tailwind UI - 프로젝트 섹션 내비게이션 탭',
+export const UtilityCSS_프로젝트_내비게이션_탭: Story = {
+  name: 'UtilityUI - 프로젝트 섹션 내비게이션 탭',
   parameters: {
     docs: {
       description: {
-        story: 'Tailwind UI의 수평 탭 내비게이션 패턴. 배지 카운터가 달린 섹션 탭으로 프로젝트 대시보드 내부를 구조화합니다. 활성 탭 콘텐츠가 아래 패널에 즉시 반영됩니다.',
+        story: 'UtilityUI의 수평 탭 내비게이션 패턴. 배지 카운터가 달린 섹션 탭으로 프로젝트 대시보드 내부를 구조화합니다. 활성 탭 콘텐츠가 아래 패널에 즉시 반영됩니다.',
       },
     },
   },
-  render: () => <TailwindProjectNavRender />,
+  render: () => <UtilityCSSProjectNavRender />,
 }
 
-const MUI_METRICS = [
+const EnterpriseUI_METRICS = [
   { id: 'revenue', label: '매출', unit: '원', value: 8420000, prev: 7100000, color: '#22c55e' },
   { id: 'users', label: '사용자', unit: '명', value: 23410, prev: 19200, color: '#6366f1' },
   { id: 'orders', label: '주문', unit: '건', value: 1837, prev: 2100, color: '#f59e0b' },
   { id: 'refunds', label: '환불', unit: '건', value: 42, prev: 38, color: '#ef4444' },
 ]
 
-const MUI_PERIODS = [
+const EnterpriseUI_PERIODS = [
   { id: '1d', label: '1일' },
   { id: '1w', label: '1주' },
   { id: '1m', label: '1개월' },
@@ -708,9 +708,9 @@ const MUI_PERIODS = [
   { id: '1y', label: '1년' },
 ]
 
-const MuiMetricsDashboardRender = () => {
+const EnterpriseUIMetricsDashboardRender = () => {
   const [period, setPeriod] = useState('1m')
-  const periodIdx = MUI_PERIODS.findIndex(p => p.id === period)
+  const periodIdx = EnterpriseUI_PERIODS.findIndex(p => p.id === period)
   const multiplier = [0.15, 0.4, 1, 2.5, 5, 10][periodIdx] ?? 1
 
   return (
@@ -721,9 +721,9 @@ const MuiMetricsDashboardRender = () => {
         </div>
         <ScrollableTabGroup
           selectedIndex={periodIdx}
-          onTabChange={(i) => setPeriod(MUI_PERIODS[i].id)}
+          onTabChange={(i) => setPeriod(EnterpriseUI_PERIODS[i].id)}
         >
-          {MUI_PERIODS.map((p) => (
+          {EnterpriseUI_PERIODS.map((p) => (
             <ScrollableTabGroup.Tab key={p.id} value={p.id}>
               <ScrollableTabGroup.TabCenter>{p.label}</ScrollableTabGroup.TabCenter>
             </ScrollableTabGroup.Tab>
@@ -731,7 +731,7 @@ const MuiMetricsDashboardRender = () => {
         </ScrollableTabGroup>
       </div>
       <div style={{ padding: 20, display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
-        {MUI_METRICS.map((m) => {
+        {EnterpriseUI_METRICS.map((m) => {
           const val = Math.round(m.value * multiplier)
           const prev = Math.round(m.prev * multiplier)
           const diff = val - prev
@@ -755,19 +755,19 @@ const MuiMetricsDashboardRender = () => {
   )
 }
 
-export const MUI_기간별_지표_대시보드: Story = {
-  name: 'MUI - 기간별 지표 대시보드 탭',
+export const EnterpriseUI_기간별_지표_대시보드: Story = {
+  name: 'EnterpriseUI - 기간별 지표 대시보드 탭',
   parameters: {
     docs: {
       description: {
-        story: 'MUI Tabs의 scrollButtons="auto" 패턴. 1일~1년 기간 탭을 선택하면 매출/사용자/주문/환불 지표가 비례 계산되어 즉시 업데이트됩니다. 증감률을 색상으로 직관적으로 표현합니다.',
+        story: 'EnterpriseUI Tabs의 scrollButtons="auto" 패턴. 1일~1년 기간 탭을 선택하면 매출/사용자/주문/환불 지표가 비례 계산되어 즉시 업데이트됩니다. 증감률을 색상으로 직관적으로 표현합니다.',
       },
     },
   },
-  render: () => <MuiMetricsDashboardRender />,
+  render: () => <EnterpriseUIMetricsDashboardRender />,
 }
 
-const APPLE_APPS = [
+const NATIVE_APPS = [
   { id: 'mail', label: '메일', count: 14, content: ['받은 편지함 14개 미읽음', '보낸 편지함', '스팸 3개', '임시보관함 2개'] },
   { id: 'notes', label: '메모', count: null, content: ['오늘 추가된 메모 3개', '최근 7일 12개', '폴더 5개', '태그된 메모 8개'] },
   { id: 'calendar', label: '캘린더', count: 3, content: ['오늘 일정 3개', '이번 주 9개', '다음 주 5개', '반복 일정 4개'] },
@@ -776,18 +776,18 @@ const APPLE_APPS = [
   { id: 'files', label: '파일', count: null, content: ['최근 파일 8개', '공유된 파일 4개', '태그 6개', '용량 4.2GB'] },
 ]
 
-const AppleHIGTabsRender = () => {
+const PlatformHIGTabsRender = () => {
   const [activeIdx, setActiveIdx] = useState(0)
-  const current = APPLE_APPS[activeIdx]
+  const current = NATIVE_APPS[activeIdx]
 
   return (
-    <div style={{ width: 360, border: '1px solid #e2e8f0', borderRadius: 14, overflow: 'hidden', background: '#f2f2f7', fontFamily: '-apple-system, BlinkMacSystemFont, sans-serif' }}>
+    <div style={{ width: 360, border: '1px solid #e2e8f0', borderRadius: 14, overflow: 'hidden', background: '#f2f2f7', fontFamily: 'sans-serif' }}>
       <div style={{ padding: '14px 0 0', borderBottom: '1px solid #d1d5db' }}>
         <ScrollableTabGroup
           selectedIndex={activeIdx}
           onTabChange={setActiveIdx}
         >
-          {APPLE_APPS.map((app) => (
+          {NATIVE_APPS.map((app) => (
             <ScrollableTabGroup.Tab key={app.id} value={app.id}>
               <ScrollableTabGroup.TabCenter>{app.label}</ScrollableTabGroup.TabCenter>
               {app.count !== null && (
@@ -814,25 +814,25 @@ const AppleHIGTabsRender = () => {
   )
 }
 
-export const Apple_HIG_앱_섹션_탭: Story = {
-  name: 'Apple HIG - iOS 앱 섹션 탭 패턴',
+export const Platform_HIG_앱_섹션_탭: Story = {
+  name: 'Platform HIG - iOS 앱 섹션 탭 패턴',
   parameters: {
     docs: {
       description: {
-        story: 'Apple HIG의 iOS 세그먼티드/탭 패턴을 ScrollableTabGroup으로 구현. 시스템 앱 스타일의 그룹화된 콘텐츠 탭과 SF 심볼 스타일 배지를 사용해 알림 수를 빨간색으로 강조합니다.',
+        story: 'Platform HIG의 iOS 세그먼티드/탭 패턴을 ScrollableTabGroup으로 구현. 시스템 앱 스타일의 그룹화된 콘텐츠 탭과 SF 심볼 스타일 배지를 사용해 알림 수를 빨간색으로 강조합니다.',
       },
     },
   },
-  render: () => <AppleHIGTabsRender />,
+  render: () => <PlatformHIGTabsRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Linear 벤치마크: 사이클(스프린트) 탭 패턴
-   Linear의 Cycles — 활성/예정/완료 사이클을 수평 탭으로 전환하는 패턴
+   IssueTracker 벤치마크: 사이클(스프린트) 탭 패턴
+   IssueTracker의 Cycles — 활성/예정/완료 사이클을 수평 탭으로 전환하는 패턴
 -------------------------------------------------------------------------- */
-type LinearCycleStatus = 'active' | 'upcoming' | 'completed'
+type IssueTrackerCycleStatus = 'active' | 'upcoming' | 'completed'
 
-const LINEAR_CYCLE_TABS: Array<{ id: LinearCycleStatus; label: string; count: number }> = [
+const TRACKER_CYCLE_TABS: Array<{ id: IssueTrackerCycleStatus; label: string; count: number }> = [
   { id: 'active', label: '활성 사이클', count: 1 },
   { id: 'upcoming', label: '예정', count: 3 },
   { id: 'completed', label: '완료', count: 12 },
@@ -840,7 +840,7 @@ const LINEAR_CYCLE_TABS: Array<{ id: LinearCycleStatus; label: string; count: nu
 
 type CycleIssue = { id: string; title: string; progress: number; priority: 'urgent' | 'high' | 'medium' | 'low' }
 
-const CYCLE_CONTENT: Record<LinearCycleStatus, { title: string; dates: string; issues: CycleIssue[] }> = {
+const CYCLE_CONTENT: Record<IssueTrackerCycleStatus, { title: string; dates: string; issues: CycleIssue[] }> = {
   active: {
     title: 'Cycle 14 — Q2 품질 개선',
     dates: '2025-04-07 ~ 2025-04-20',
@@ -878,9 +878,9 @@ const PRIORITY_DOT: Record<CycleIssue['priority'], string> = {
   low:    '#94a3b8',
 }
 
-function LinearCycleTabsRender() {
+function IssueTrackerCycleTabsRender() {
   const [activeIdx, setActiveIdx] = useState(0)
-  const activeId = LINEAR_CYCLE_TABS[activeIdx].id
+  const activeId = TRACKER_CYCLE_TABS[activeIdx].id
   const cycle = CYCLE_CONTENT[activeId]
 
   return (
@@ -890,7 +890,7 @@ function LinearCycleTabsRender() {
         <span style={{ fontSize: 13, fontWeight: 700, color: '#0f172a' }}>Cycles</span>
       </div>
       <ScrollableTabGroup selectedIndex={activeIdx} onTabChange={setActiveIdx}>
-        {LINEAR_CYCLE_TABS.map((tab) => (
+        {TRACKER_CYCLE_TABS.map((tab) => (
           <ScrollableTabGroup.Tab key={tab.id} value={tab.id}>
             <ScrollableTabGroup.TabCenter>{tab.label}</ScrollableTabGroup.TabCenter>
             <ScrollableTabGroup.TabTrailing>
@@ -924,27 +924,27 @@ function LinearCycleTabsRender() {
   )
 }
 
-export const Linear_사이클_탭_패턴: Story = {
-  name: 'Linear - Cycles 활성/예정/완료 탭 패턴',
+export const IssueTracker_사이클_탭_패턴: Story = {
+  name: 'IssueTracker - Cycles 활성/예정/완료 탭 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'Linear의 Cycles 탭 패턴. 활성/예정/완료 사이클을 ScrollableTabGroup으로 전환하고 ' +
+          'IssueTracker의 Cycles 탭 패턴. 활성/예정/완료 사이클을 ScrollableTabGroup으로 전환하고 ' +
           '각 이슈에 우선순위 색상 도트, 진행률 바, 이슈 ID를 함께 표시합니다.',
       },
     },
   },
-  render: () => <LinearCycleTabsRender />,
+  render: () => <IssueTrackerCycleTabsRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Linear 벤치마크: 팀별 이슈 필터 탭
-   Linear의 Team Views — 팀/프로젝트별 이슈를 탭으로 분류하는 패턴
+   IssueTracker 벤치마크: 팀별 이슈 필터 탭
+   IssueTracker의 Team Views — 팀/프로젝트별 이슈를 탭으로 분류하는 패턴
 -------------------------------------------------------------------------- */
-type LinearTeamId = 'all' | 'engineering' | 'design' | 'product' | 'infra'
+type IssueTrackerTeamId = 'all' | 'engineering' | 'design' | 'product' | 'infra'
 
-const LINEAR_TEAM_TABS: Array<{ id: LinearTeamId; label: string; color: string; count: number }> = [
+const TRACKER_TEAM_TABS: Array<{ id: IssueTrackerTeamId; label: string; color: string; count: number }> = [
   { id: 'all',         label: '전체',      color: '#6366f1', count: 24 },
   { id: 'engineering', label: 'Engineering', color: '#0ea5e9', count: 12 },
   { id: 'design',      label: 'Design',      color: '#ec4899', count: 5  },
@@ -952,30 +952,30 @@ const LINEAR_TEAM_TABS: Array<{ id: LinearTeamId; label: string; color: string; 
   { id: 'infra',       label: 'Infra',       color: '#10b981', count: 3  },
 ]
 
-type LinearIssue94 = { id: string; title: string; team: LinearTeamId; status: 'todo' | 'in-progress' | 'done' }
+type IssueTrackerIssue94 = { id: string; title: string; team: IssueTrackerTeamId; status: 'todo' | 'in-progress' | 'done' }
 
-const LINEAR_ISSUES: LinearIssue94[] = [
+const TRACKER_ISSUES: IssueTrackerIssue94[] = [
   { id: 'ENG-01', title: 'Button 컴포넌트 접근성 보강', team: 'engineering', status: 'in-progress' },
   { id: 'ENG-02', title: 'DataTable 정렬 버그 수정', team: 'engineering', status: 'done' },
   { id: 'ENG-03', title: 'Calendar range 선택 구현', team: 'engineering', status: 'todo' },
   { id: 'DES-01', title: '디자인 토큰 갱신', team: 'design', status: 'in-progress' },
-  { id: 'DES-02', title: 'Figma 컴포넌트 매핑', team: 'design', status: 'todo' },
+  { id: 'DES-02', title: 'DesignTool 컴포넌트 매핑', team: 'design', status: 'todo' },
   { id: 'PRD-01', title: 'Roadmap Q2 기획', team: 'product', status: 'done' },
   { id: 'INF-01', title: 'CI/CD 파이프라인 최적화', team: 'infra', status: 'in-progress' },
 ]
 
-const STATUS_ICON: Record<LinearIssue94['status'], { icon: string; color: string }> = {
+const STATUS_ICON: Record<IssueTrackerIssue94['status'], { icon: string; color: string }> = {
   'todo':        { icon: '○', color: '#94a3b8' },
   'in-progress': { icon: '◑', color: '#6366f1' },
   'done':        { icon: '●', color: '#10b981' },
 }
 
-function LinearTeamFilterTabsRender() {
+function IssueTrackerTeamFilterTabsRender() {
   const [activeIdx, setActiveIdx] = useState(0)
-  const activeId = LINEAR_TEAM_TABS[activeIdx].id
+  const activeId = TRACKER_TEAM_TABS[activeIdx].id
 
-  const filtered = activeId === 'all' ? LINEAR_ISSUES : LINEAR_ISSUES.filter((i) => i.team === activeId)
-  const team = LINEAR_TEAM_TABS[activeIdx]
+  const filtered = activeId === 'all' ? TRACKER_ISSUES : TRACKER_ISSUES.filter((i) => i.team === activeId)
+  const team = TRACKER_TEAM_TABS[activeIdx]
 
   return (
     <div style={{ width: 400, border: '1px solid #e2e8f0', borderRadius: 12, overflow: 'hidden', background: '#fff', fontFamily: 'system-ui, sans-serif' }}>
@@ -985,7 +985,7 @@ function LinearTeamFilterTabsRender() {
         <span style={{ marginLeft: 'auto', fontSize: 12, color: '#94a3b8' }}>{filtered.length}개</span>
       </div>
       <ScrollableTabGroup selectedIndex={activeIdx} onTabChange={setActiveIdx}>
-        {LINEAR_TEAM_TABS.map((t) => (
+        {TRACKER_TEAM_TABS.map((t) => (
           <ScrollableTabGroup.Tab key={t.id} value={t.id}>
             <ScrollableTabGroup.TabCenter>{t.label}</ScrollableTabGroup.TabCenter>
             <ScrollableTabGroup.TabTrailing>
@@ -1014,27 +1014,27 @@ function LinearTeamFilterTabsRender() {
   )
 }
 
-export const Linear_팀별_이슈_필터_탭: Story = {
-  name: 'Linear - 팀별 이슈 필터 탭 패턴',
+export const IssueTracker_팀별_이슈_필터_탭: Story = {
+  name: 'IssueTracker - 팀별 이슈 필터 탭 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'Linear의 Team Views 패턴. 팀별 색상 코드 도트와 카운트 배지로 구분된 탭으로 이슈를 필터링하고, ' +
+          'IssueTracker의 Team Views 패턴. 팀별 색상 코드 도트와 카운트 배지로 구분된 탭으로 이슈를 필터링하고, ' +
           '이슈 상태를 진행 중(◑)/완료(●)/대기(○) 아이콘으로 표현합니다.',
       },
     },
   },
-  render: () => <LinearTeamFilterTabsRender />,
+  render: () => <IssueTrackerTeamFilterTabsRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Linear 벤치마크: 로드맵 분기(Quarter) 탭
-   Linear의 Roadmap — Q별 마일스톤을 탭으로 탐색하는 패턴
+   IssueTracker 벤치마크: 로드맵 분기(Quarter) 탭
+   IssueTracker의 Roadmap — Q별 마일스톤을 탭으로 탐색하는 패턴
 -------------------------------------------------------------------------- */
-type LinearQuarter = 'Q1' | 'Q2' | 'Q3' | 'Q4'
+type IssueTrackerQuarter = 'Q1' | 'Q2' | 'Q3' | 'Q4'
 
-const LINEAR_QUARTER_TABS: Array<{ id: LinearQuarter; label: string; year: number; status: 'past' | 'current' | 'future' }> = [
+const TRACKER_QUARTER_TABS: Array<{ id: IssueTrackerQuarter; label: string; year: number; status: 'past' | 'current' | 'future' }> = [
   { id: 'Q1', label: 'Q1 2025', year: 2025, status: 'past' },
   { id: 'Q2', label: 'Q2 2025', year: 2025, status: 'current' },
   { id: 'Q3', label: 'Q3 2025', year: 2025, status: 'future' },
@@ -1043,17 +1043,17 @@ const LINEAR_QUARTER_TABS: Array<{ id: LinearQuarter; label: string; year: numbe
 
 type RoadmapItem = { title: string; status: 'shipped' | 'in-progress' | 'planned'; team: string }
 
-const ROADMAP: Record<LinearQuarter, RoadmapItem[]> = {
+const ROADMAP: Record<IssueTrackerQuarter, RoadmapItem[]> = {
   Q1: [
     { title: '3단계 토큰 아키텍처', status: 'shipped', team: 'Engineering' },
     { title: 'Storybook 8.x 마이그레이션', status: 'shipped', team: 'Engineering' },
-    { title: 'Figma 컴포넌트 동기화', status: 'shipped', team: 'Design' },
+    { title: 'DesignTool 컴포넌트 동기화', status: 'shipped', team: 'Design' },
   ],
   Q2: [
     { title: 'DataTable 고도화', status: 'in-progress', team: 'Engineering' },
     { title: 'AccessibilityGuide.mdx', status: 'in-progress', team: 'Product' },
     { title: 'Calendar range 선택', status: 'planned', team: 'Engineering' },
-    { title: 'shadcn/ui 마이그레이션 가이드', status: 'planned', team: 'Product' },
+    { title: 'ComposableUI 마이그레이션 가이드', status: 'planned', team: 'Product' },
   ],
   Q3: [
     { title: '다크모드 전면 지원', status: 'planned', team: 'Engineering' },
@@ -1072,9 +1072,9 @@ const ROADMAP_STATUS: Record<RoadmapItem['status'], { label: string; color: stri
   planned:     { label: 'Planned', color: '#94a3b8', bg: '#f8fafc' },
 }
 
-function LinearRoadmapQuarterTabsRender() {
+function IssueTrackerRoadmapQuarterTabsRender() {
   const [activeIdx, setActiveIdx] = useState(1)
-  const quarter = LINEAR_QUARTER_TABS[activeIdx]
+  const quarter = TRACKER_QUARTER_TABS[activeIdx]
   const items = ROADMAP[quarter.id]
 
   const QUARTER_STATUS_STYLE: Record<typeof quarter.status, { labelColor: string }> = {
@@ -1092,7 +1092,7 @@ function LinearRoadmapQuarterTabsRender() {
         )}
       </div>
       <ScrollableTabGroup selectedIndex={activeIdx} onTabChange={setActiveIdx}>
-        {LINEAR_QUARTER_TABS.map((q) => (
+        {TRACKER_QUARTER_TABS.map((q) => (
           <ScrollableTabGroup.Tab key={q.id} value={q.id}>
             <ScrollableTabGroup.TabCenter>
               <span style={{ color: QUARTER_STATUS_STYLE[q.status].labelColor }}>{q.label}</span>
@@ -1121,22 +1121,22 @@ function LinearRoadmapQuarterTabsRender() {
   )
 }
 
-export const Linear_로드맵_분기_탭: Story = {
-  name: 'Linear - Roadmap Q1/Q2/Q3/Q4 분기 탭 패턴',
+export const IssueTracker_로드맵_분기_탭: Story = {
+  name: 'IssueTracker - Roadmap Q1/Q2/Q3/Q4 분기 탭 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'Linear의 Roadmap 분기별 탭 패턴. 과거/현재/미래 Q를 ScrollableTabGroup 탭으로 탐색하고, ' +
+          'IssueTracker의 Roadmap 분기별 탭 패턴. 과거/현재/미래 Q를 ScrollableTabGroup 탭으로 탐색하고, ' +
           '각 마일스톤을 Shipped/In Progress/Planned 상태 배지와 담당 팀으로 표시합니다.',
       },
     },
   },
-  render: () => <LinearRoadmapQuarterTabsRender />,
+  render: () => <IssueTrackerRoadmapQuarterTabsRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Cycle 122 — Ant Design + Mantine 벤치마크
+   Cycle 122 — Ant Design + AppUI 벤치마크
 -------------------------------------------------------------------------- */
 
 /* --------------------------------------------------------------------------
@@ -1230,16 +1230,16 @@ export const Ant_바코드_뱃지_탭: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Mantine: Tabs + Panel 연동 패턴
-   Mantine Tabs keepMounted + lazy 아이디어
+   AppUI: Tabs + Panel 연동 패턴
+   AppUI Tabs keepMounted + lazy 아이디어
 -------------------------------------------------------------------------- */
-export const Mantine_패널_연동_탭: Story = {
-  name: 'Mantine - 패널 연동 콘텐츠 탭 패턴',
+export const AppUI_패널_연동_탭: Story = {
+  name: 'AppUI - 패널 연동 콘텐츠 탭 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'Mantine Tabs 의 패널 연동 패턴. 탭 전환 시 콘텐츠 영역이 슬라이드 전환되고 ' +
+          'AppUI Tabs 의 패널 연동 패턴. 탭 전환 시 콘텐츠 영역이 슬라이드 전환되고 ' +
           '각 패널에 독립적인 상태(검색, 필터)를 유지하는 방식을 구현합니다.',
       },
     },
@@ -1312,16 +1312,16 @@ export const Mantine_패널_연동_탭: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Ant + Mantine: 데이터 분석 대시보드 탭 패턴
+   Ant + AppUI: 데이터 분석 대시보드 탭 패턴
    두 시스템의 세그먼트 뷰 + 지표 카드 결합
 -------------------------------------------------------------------------- */
-export const Ant_Mantine_분석_대시보드_탭: Story = {
-  name: 'Ant Design + Mantine - 분석 대시보드 탭 패턴',
+export const Ant_AppUI_분석_대시보드_탭: Story = {
+  name: 'Ant Design + AppUI - 분석 대시보드 탭 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'Ant Design Tabs + Mantine StatCard 아이디어를 결합한 분석 대시보드. ' +
+          'Ant Design Tabs + AppUI StatCard 아이디어를 결합한 분석 대시보드. ' +
           '기간별 탭 전환 시 KPI 지표와 트렌드를 업데이트하는 패턴입니다.',
       },
     },
@@ -1404,9 +1404,9 @@ export const Ant_Mantine_분석_대시보드_탭: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   MUI — 데이터 카테고리 탭 (동적 탭 추가/삭제 + 뱃지)
+   EnterpriseUI — 데이터 카테고리 탭 (동적 탭 추가/삭제 + 뱃지)
 -------------------------------------------------------------------------- */
-function MUIClosableTabsRender() {
+function EnterpriseUIClosableTabsRender() {
   const [tabs, setTabs] = useState([
     { id: 1, label: '전체', count: 142 },
     { id: 2, label: '활성', count: 89 },
@@ -1461,22 +1461,22 @@ function MUIClosableTabsRender() {
   )
 }
 
-export const MUI_동적_탭_추가_삭제: Story = {
-  name: 'MUI — 동적 탭 추가/삭제 (클로저블 탭)',
+export const EnterpriseUI_동적_탭_추가_삭제: Story = {
+  name: 'EnterpriseUI — 동적 탭 추가/삭제 (클로저블 탭)',
   parameters: {
     docs: {
       description: {
-        story: 'MUI 동적 탭(closable tabs) 패턴. 탭 우측 × 버튼으로 탭을 삭제하고 + 버튼으로 새 탭을 추가. 각 탭에 항목 카운트 뱃지 포함. 데이터 필터링 워크스페이스에서 활용.',
+        story: 'EnterpriseUI 동적 탭(closable tabs) 패턴. 탭 우측 × 버튼으로 탭을 삭제하고 + 버튼으로 새 탭을 추가. 각 탭에 항목 카운트 뱃지 포함. 데이터 필터링 워크스페이스에서 활용.',
       },
     },
   },
-  render: () => <MUIClosableTabsRender />,
+  render: () => <EnterpriseUIClosableTabsRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Arco Design — 대시보드 위젯 탭 (그룹별 지표 전환)
+   DataProductUI — 대시보드 위젯 탭 (그룹별 지표 전환)
 -------------------------------------------------------------------------- */
-function ArcoWidgetMetricTabRender() {
+function DataProductWidgetMetricTabRender() {
   const [activeIdx, setActiveIdx] = useState(0)
 
   const metrics = [
@@ -1516,22 +1516,22 @@ function ArcoWidgetMetricTabRender() {
   )
 }
 
-export const Arco_대시보드_위젯_탭: Story = {
-  name: 'Arco Design — 대시보드 위젯 탭 (그룹별 지표 전환)',
+export const DataProduct_대시보드_위젯_탭: Story = {
+  name: 'DataProductUI — 대시보드 위젯 탭 (그룹별 지표 전환)',
   parameters: {
     docs: {
       description: {
-        story: 'Arco Design 데이터 시각화 탭 패턴. 방문자/전환율/매출/이탈률 지표를 탭으로 전환하면 차트 데이터와 총합 수치가 실시간으로 업데이트. 대시보드 위젯에서 활용.',
+        story: 'DataProductUI 데이터 시각화 탭 패턴. 방문자/전환율/매출/이탈률 지표를 탭으로 전환하면 차트 데이터와 총합 수치가 실시간으로 업데이트. 대시보드 위젯에서 활용.',
       },
     },
   },
-  render: () => <ArcoWidgetMetricTabRender />,
+  render: () => <DataProductWidgetMetricTabRender />,
 }
 
 /* --------------------------------------------------------------------------
-   MUI + Arco — 실시간 서버 모니터링 탭 (상태 도트 + 자동 갱신 수)
+   EnterpriseUI + DataProduct — 실시간 서버 모니터링 탭 (상태 도트 + 자동 갱신 수)
 -------------------------------------------------------------------------- */
-function MUIArcoServerMonitorTabRender() {
+function EnterpriseUIDataProductServerMonitorTabRender() {
   const [activeIdx, setActiveIdx] = useState(0)
 
   const servers = [
@@ -1583,27 +1583,27 @@ function MUIArcoServerMonitorTabRender() {
   )
 }
 
-export const MUI_Arco_서버_모니터링_탭: Story = {
-  name: 'MUI + Arco — 실시간 서버 모니터링 탭 (상태 도트)',
+export const EnterpriseUI_DataProduct_서버_모니터링_탭: Story = {
+  name: 'EnterpriseUI + DataProduct — 실시간 서버 모니터링 탭 (상태 도트)',
   parameters: {
     docs: {
       description: {
-        story: 'MUI 탭 상태 표시 + Arco 데이터 시각화 조합. 각 서버 탭에 healthy/warning/critical 상태 도트 표시, 선택 시 CPU/Memory/요청수를 지표 카드로 표시. DevOps 모니터링 대시보드 패턴.',
+        story: 'EnterpriseUI 탭 상태 표시 + DataProduct 데이터 시각화 조합. 각 서버 탭에 healthy/warning/critical 상태 도트 표시, 선택 시 CPU/Memory/요청수를 지표 카드로 표시. DevOps 모니터링 대시보드 패턴.',
       },
     },
   },
-  render: () => <MUIArcoServerMonitorTabRender />,
+  render: () => <EnterpriseUIDataProductServerMonitorTabRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Cycle 177 — Mantine + Ant Design
+   Cycle 177 — AppUI + Ant Design
    Benchmark:
-   1. Mantine Tabs: 콘텐츠 패널 완전 분리 + 배지 인디케이터
+   1. AppUI Tabs: 콘텐츠 패널 완전 분리 + 배지 인디케이터
    2. Ant Design Tabs: status 색상 도트 + count 뱃지 + 탭 필터 조합
    3. 두 시스템 공통: 탭 헤더를 "네비게이션"처럼 활용하는 패턴
 -------------------------------------------------------------------------- */
 
-function MantineAuditLogTabRender() {
+function AppUIAuditLogTabRender() {
   const [active, setActive] = useState(0)
 
   const logTabs = [
@@ -1658,16 +1658,16 @@ function MantineAuditLogTabRender() {
   )
 }
 
-export const Mantine_감사_로그_탭: Story = {
-  name: 'Mantine — 감사 로그 카테고리 탭 (count 뱃지 + 심각도 도트)',
+export const AppUI_감사_로그_탭: Story = {
+  name: 'AppUI — 감사 로그 카테고리 탭 (count 뱃지 + 심각도 도트)',
   parameters: {
     docs: {
       description: {
-        story: 'Mantine Tabs의 우측 count indicator 패턴 적용. 각 로그 카테고리 탭에 활성 상태에 따라 색상이 변하는 count 배지 표시. 보안/접근/변경/시스템/API 분류로 감사 로그를 탐색하는 엔터프라이즈 패턴.',
+        story: 'AppUI Tabs의 우측 count indicator 패턴 적용. 각 로그 카테고리 탭에 활성 상태에 따라 색상이 변하는 count 배지 표시. 보안/접근/변경/시스템/API 분류로 감사 로그를 탐색하는 엔터프라이즈 패턴.',
       },
     },
   },
-  render: () => <MantineAuditLogTabRender />,
+  render: () => <AppUIAuditLogTabRender />,
 }
 
 function AntIssueStatusTabRender() {
@@ -1748,7 +1748,7 @@ export const Ant_이슈_상태_탭: Story = {
   render: () => <AntIssueStatusTabRender />,
 }
 
-function MantineAntAnalyticsTabRender() {
+function AppUIAntAnalyticsTabRender() {
   const [active, setActive] = useState(0)
 
   const analyticsTabs = [
@@ -1816,14 +1816,14 @@ function MantineAntAnalyticsTabRender() {
   )
 }
 
-export const Mantine_Ant_애널리틱스_탭: Story = {
-  name: 'Mantine + Ant Design — 애널리틱스 지표 탭 (LIVE 배지 + 지표 카드)',
+export const AppUI_Ant_애널리틱스_탭: Story = {
+  name: 'AppUI + Ant Design — 애널리틱스 지표 탭 (LIVE 배지 + 지표 카드)',
   parameters: {
     docs: {
       description: {
-        story: 'Mantine 탭의 아이콘+텍스트 조합 + Ant Design 실시간 인디케이터 패턴. 애널리틱스 대시보드 탭 — 개요/획득/행동/전환/리텐션/실시간(LIVE 배지). 각 탭 전환 시 해당 지표 카드 그리드 표시.',
+        story: 'AppUI 탭의 아이콘+텍스트 조합 + Ant Design 실시간 인디케이터 패턴. 애널리틱스 대시보드 탭 — 개요/획득/행동/전환/리텐션/실시간(LIVE 배지). 각 탭 전환 시 해당 지표 카드 그리드 표시.',
       },
     },
   },
-  render: () => <MantineAntAnalyticsTabRender />,
+  render: () => <AppUIAntAnalyticsTabRender />,
 }

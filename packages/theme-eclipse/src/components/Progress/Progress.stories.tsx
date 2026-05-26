@@ -269,10 +269,10 @@ export const 상태표현: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Linear 스타일: 프로젝트 목록 진행률
-   Linear의 팀/프로젝트 뷰에서 보여주는 컴팩트 프로젝트 진행 목록
+   IssueTracker 스타일: 프로젝트 목록 진행률
+   IssueTracker의 팀/프로젝트 뷰에서 보여주는 컴팩트 프로젝트 진행 목록
 -------------------------------------------------------------------------- */
-const LinearProjectListRender = () => {
+const IssueTrackerProjectListRender = () => {
   const projects = [
     { name: 'Orbit UI Design System', progress: 72, color: 'primary' as const, issues: 18, total: 25 },
     { name: 'Dashboard Redesign', progress: 45, color: 'warning' as const, issues: 9, total: 20 },
@@ -341,13 +341,13 @@ const LinearProjectListRender = () => {
   )
 }
 
-export const Linear_프로젝트_목록: Story = {
-  render: () => <LinearProjectListRender />,
+export const IssueTracker_프로젝트_목록: Story = {
+  render: () => <IssueTrackerProjectListRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Linear 스타일: 사이클 번다운 차트 시뮬레이션
-   Linear의 Cycle 뷰에서 볼 수 있는 진행률 + 통계 조합 패턴
+   IssueTracker 스타일: 사이클 번다운 차트 시뮬레이션
+   IssueTracker의 Cycle 뷰에서 볼 수 있는 진행률 + 통계 조합 패턴
 -------------------------------------------------------------------------- */
 const CycleBurndownRender = () => {
   const [day, setDay] = useState(5)
@@ -453,13 +453,13 @@ const CycleBurndownRender = () => {
   )
 }
 
-export const Linear_사이클_번다운: Story = {
+export const IssueTracker_사이클_번다운: Story = {
   render: () => <CycleBurndownRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Vercel 벤치마크: 빌드 파이프라인 진행 패턴
-   Vercel build pipeline — 스테이지별 순차 진행 Progress UI
+   DeployPlatform 벤치마크: 빌드 파이프라인 진행 패턴
+   DeployPlatform build pipeline — 스테이지별 순차 진행 Progress UI
 -------------------------------------------------------------------------- */
 const BUILD_STAGES = [
   { id: 'install', label: '패키지 설치', duration: 2000 },
@@ -537,19 +537,19 @@ function BuildPipelineRender() {
           ✓ 배포 완료 — Production에 반영되었습니다.
         </div>
       )}
-      <div style={{ marginTop: 12, fontSize: 11, color: '#94a3b8' }}>Vercel 빌드 파이프라인 패턴 — 스테이지별 순차 진행</div>
+      <div style={{ marginTop: 12, fontSize: 11, color: '#94a3b8' }}>DeployPlatform 빌드 파이프라인 패턴 — 스테이지별 순차 진행</div>
     </div>
   )
 }
 
-export const Vercel_빌드_파이프라인: Story = {
-  name: 'Vercel - 빌드 파이프라인 진행 패턴',
+export const DeployPlatform_빌드_파이프라인: Story = {
+  name: 'DeployPlatform - 빌드 파이프라인 진행 패턴',
   render: () => <BuildPipelineRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Notion 벤치마크: 페이지 완성도 트래커 패턴
-   Notion 체크리스트 진행률 — 섹션별 완성도 시각화 UI
+   WorkspaceEditor 벤치마크: 페이지 완성도 트래커 패턴
+   WorkspaceEditor 체크리스트 진행률 — 섹션별 완성도 시각화 UI
 -------------------------------------------------------------------------- */
 const PAGE_SECTIONS = [
   { id: 'intro', label: '소개', items: ['프로젝트 개요', '목표 설정', '팀 소개'], completed: [true, true, false] },
@@ -559,8 +559,8 @@ const PAGE_SECTIONS = [
 ]
 
 /* --------------------------------------------------------------------------
-   Tailwind UI 벤치마크: 파일 배치 업로드 진행
-   Tailwind UI의 multi-file upload 패턴 — 각 파일별 독립 Progress + 취소 버튼
+   UtilityUI 벤치마크: 파일 배치 업로드 진행
+   UtilityUI의 multi-file upload 패턴 — 각 파일별 독립 Progress + 취소 버튼
 -------------------------------------------------------------------------- */
 type UploadFile = {
   id: string
@@ -660,13 +660,13 @@ const BatchUploadRender = () => {
           </div>
         ))}
       </div>
-      <div style={{ fontSize: 11, color: '#94a3b8' }}>Tailwind UI 배치 업로드 패턴 — 파일별 독립 Progress + 상태 표시</div>
+      <div style={{ fontSize: 11, color: '#94a3b8' }}>UtilityUI 배치 업로드 패턴 — 파일별 독립 Progress + 상태 표시</div>
     </div>
   )
 }
 
-export const Tailwind_파일_업로드_배치: Story = {
-  name: 'Tailwind UI - 파일 배치 업로드 진행',
+export const UtilityCSS_파일_업로드_배치: Story = {
+  name: 'UtilityUI - 파일 배치 업로드 진행',
   render: () => <BatchUploadRender />,
 }
 
@@ -684,8 +684,8 @@ type SkillEntry = {
 const SKILLS: SkillEntry[] = [
   { label: 'TypeScript', value: 92, color: 'success', category: '언어' },
   { label: 'React', value: 88, color: 'success', category: '프레임워크' },
-  { label: 'CSS / Tailwind', value: 80, color: 'primary', category: '스타일' },
-  { label: 'Figma', value: 65, color: 'primary', category: '디자인' },
+  { label: 'CSS / UtilityCSS', value: 80, color: 'primary', category: '스타일' },
+  { label: 'DesignTool', value: 65, color: 'primary', category: '디자인' },
   { label: 'Node.js', value: 58, color: 'warning', category: '백엔드' },
   { label: 'GraphQL', value: 42, color: 'warning', category: '백엔드' },
 ]
@@ -754,7 +754,7 @@ export const Ant_역량_평가_차트: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Tailwind UI + Ant Design: 리소스 쿼터 대시보드
+   UtilityUI + Ant Design: 리소스 쿼터 대시보드
    API 호출 / 스토리지 / 시트 등의 사용량을 한 눈에 표시하는 엔터프라이즈 패턴
 -------------------------------------------------------------------------- */
 type QuotaItem = {
@@ -772,8 +772,8 @@ const QUOTAS: QuotaItem[] = [
   { label: '빌드 분', used: 280, total: 2000, unit: 'min', color: 'success' },
 ]
 
-export const Tailwind_Ant_리소스_쿼터: Story = {
-  name: 'Tailwind UI + Ant Design - 리소스 쿼터 대시보드',
+export const UtilityCSS_Ant_리소스_쿼터: Story = {
+  name: 'UtilityUI + Ant Design - 리소스 쿼터 대시보드',
   render: () => (
     <div style={{ maxWidth: 500 }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
@@ -840,13 +840,13 @@ export const Tailwind_Ant_리소스_쿼터: Story = {
         <span style={{ fontWeight: 700, cursor: 'pointer', textDecoration: 'underline' }}>플랜 업그레이드</span>
         를 고려해보세요.
       </div>
-      <div style={{ marginTop: 10, fontSize: 11, color: '#94a3b8' }}>Tailwind UI + Ant Design 엔터프라이즈 쿼터 대시보드 패턴</div>
+      <div style={{ marginTop: 10, fontSize: 11, color: '#94a3b8' }}>UtilityUI + Ant Design 엔터프라이즈 쿼터 대시보드 패턴</div>
     </div>
   ),
 }
 
-export const Notion_페이지_완성도: Story = {
-  name: 'Notion - 페이지 완성도 트래커 패턴',
+export const WorkspaceEditor_페이지_완성도: Story = {
+  name: 'WorkspaceEditor - 페이지 완성도 트래커 패턴',
   render: () => (
     <div style={{ maxWidth: 420 }}>
       <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a', marginBottom: 16 }}>프로젝트 완성도</div>
@@ -884,14 +884,14 @@ export const Notion_페이지_완성도: Story = {
           )
         })}
       </div>
-      <div style={{ marginTop: 12, fontSize: 11, color: '#94a3b8' }}>Notion 체크리스트 진행률 — 섹션별 완성도 시각화</div>
+      <div style={{ marginTop: 12, fontSize: 11, color: '#94a3b8' }}>WorkspaceEditor 체크리스트 진행률 — 섹션별 완성도 시각화</div>
     </div>
   ),
 }
 
 /* --------------------------------------------------------------------------
-   Linear Design 벤치마크: 팀별 사이클 완료율 대시보드
-   Linear의 Cycles 뷰 — 팀별 이슈 완료율과 남은 작업을 Progress로 시각화
+   IssueTracker Design 벤치마크: 팀별 사이클 완료율 대시보드
+   IssueTracker의 Cycles 뷰 — 팀별 이슈 완료율과 남은 작업을 Progress로 시각화
 -------------------------------------------------------------------------- */
 const CYCLE_TEAMS = [
   { name: 'Design System', completed: 18, total: 24, color: 'primary' as const, avatar: '🎨' },
@@ -900,7 +900,7 @@ const CYCLE_TEAMS = [
   { name: 'QA', completed: 7, total: 12, color: 'primary' as const, avatar: '🔍' },
 ]
 
-function LinearCycleTeamRender() {
+function IssueTrackerCycleTeamRender() {
   const [cycle, setCycle] = useState(12)
   const totalCompleted = CYCLE_TEAMS.reduce((s, t) => s + t.completed, 0)
   const totalIssues = CYCLE_TEAMS.reduce((s, t) => s + t.total, 0)
@@ -971,20 +971,20 @@ function LinearCycleTeamRender() {
         })}
       </div>
       <div style={{ marginTop: 16, fontSize: 11, color: '#94a3b8' }}>
-        Linear Design 패턴 — 팀별 사이클 완료율 대시보드
+        IssueTracker Design 패턴 — 팀별 사이클 완료율 대시보드
       </div>
     </div>
   )
 }
 
-export const Linear_팀_사이클_완료율: Story = {
-  name: 'Linear Design - 팀별 사이클 완료율 대시보드',
-  render: () => <LinearCycleTeamRender />,
+export const IssueTracker_팀_사이클_완료율: Story = {
+  name: 'IssueTracker Design - 팀별 사이클 완료율 대시보드',
+  render: () => <IssueTrackerCycleTeamRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Figma Plugin UI 벤치마크: 컴포넌트 커버리지 분석
-   Figma Plugin 패턴 — 디자인 시스템 컴포넌트 커버리지를 Progress로 분석하는 플러그인 UI
+   DesignTool Plugin UI 벤치마크: 컴포넌트 커버리지 분석
+   DesignTool Plugin 패턴 — 디자인 시스템 컴포넌트 커버리지를 Progress로 분석하는 플러그인 UI
 -------------------------------------------------------------------------- */
 const COVERAGE_CATEGORIES = [
   { label: '기본 입력', used: 8, total: 10, color: 'success' as const },
@@ -994,7 +994,7 @@ const COVERAGE_CATEGORIES = [
   { label: '내비게이션', used: 2, total: 5, color: 'warning' as const },
 ]
 
-function FigmaCoverageRender() {
+function DesignToolCoverageRender() {
   const [analyzing, setAnalyzing] = useState(false)
   const [progress, setProgress] = useState(100)
 
@@ -1091,20 +1091,20 @@ function FigmaCoverageRender() {
       </div>
 
       <div style={{ padding: '8px 14px', borderTop: '1px solid #f1f5f9', fontSize: 9, color: '#cbd5e1' }}>
-        Figma Plugin UI — DS Coverage Analyzer
+        DesignTool Plugin UI — DS Coverage Analyzer
       </div>
     </div>
   )
 }
 
-export const Figma_컴포넌트_커버리지: Story = {
-  name: 'Figma Plugin UI - 컴포넌트 커버리지 분석기',
-  render: () => <FigmaCoverageRender />,
+export const DesignTool_컴포넌트_커버리지: Story = {
+  name: 'DesignTool Plugin UI - 컴포넌트 커버리지 분석기',
+  render: () => <DesignToolCoverageRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Linear Design 벤치마크: OKR 키 결과 진행률 대시보드
-   Linear의 Goals 뷰 — 분기별 OKR과 Key Result 달성률을 Progress로 표현
+   IssueTracker Design 벤치마크: OKR 키 결과 진행률 대시보드
+   IssueTracker의 Goals 뷰 — 분기별 OKR과 Key Result 달성률을 Progress로 표현
 -------------------------------------------------------------------------- */
 type KeyResult = {
   id: string
@@ -1135,7 +1135,7 @@ const Q1_OKRS: Array<{ objective: string; owner: string; keyResults: KeyResult[]
   },
 ]
 
-function LinearOKRRender() {
+function IssueTrackerOKRRender() {
   return (
     <div style={{ maxWidth: 520 }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
@@ -1218,19 +1218,19 @@ function LinearOKRRender() {
         })}
       </div>
       <div style={{ marginTop: 14, fontSize: 11, color: '#94a3b8' }}>
-        Linear Goals 패턴 — OKR 키 결과 진행률 대시보드
+        IssueTracker Goals 패턴 — OKR 키 결과 진행률 대시보드
       </div>
     </div>
   )
 }
 
-export const Linear_OKR_키결과_진행률: Story = {
-  name: 'Linear Design - OKR 키 결과 진행률 대시보드',
-  render: () => <LinearOKRRender />,
+export const IssueTracker_OKR_키결과_진행률: Story = {
+  name: 'IssueTracker Design - OKR 키 결과 진행률 대시보드',
+  render: () => <IssueTrackerOKRRender />,
 }
 
-// Cycle 140 — Mantine + Arco Design benchmark
-function MantiineFileUpload140Render() {
+// Cycle 140 — AppUI + DataProductUI benchmark
+function AccessibleKitFileUpload140Render() {
   const [files, setFiles] = React.useState([
     { name: 'report_Q1_2026.pdf', size: '2.4 MB', progress: 100, status: 'done' as const },
     { name: 'design_assets.zip', size: '18.7 MB', progress: 64, status: 'uploading' as const },
@@ -1299,24 +1299,24 @@ function MantiineFileUpload140Render() {
         ))}
       </div>
       <div style={{ marginTop: 14, padding: '8px 12px', background: '#f8fafc', borderRadius: 6, fontSize: 11, color: '#94a3b8' }}>
-        Mantine DropzoneArea 패턴 — 실시간 업로드 진행률
+        AppUI DropzoneArea 패턴 — 실시간 업로드 진행률
       </div>
     </div>
   )
 }
 
-export const Mantine_파일_업로드_진행률: Story = {
-  name: 'Mantine — 파일 업로드 실시간 진행률 (Cycle 140)',
-  render: () => <MantiineFileUpload140Render />,
+export const AppUI_파일_업로드_진행률: Story = {
+  name: 'AppUI — 파일 업로드 실시간 진행률 (Cycle 140)',
+  render: () => <AccessibleKitFileUpload140Render />,
 }
 
-function ArcoSkillLevel140Render() {
+function DataProductSkillLevel140Render() {
   const skills = [
     { name: 'React / TypeScript', level: 92, category: '프론트엔드', trend: '+4%' },
     { name: 'Node.js / Express', level: 78, category: '백엔드', trend: '+2%' },
     { name: 'PostgreSQL', level: 65, category: '데이터베이스', trend: '+8%' },
     { name: 'Docker / K8s', level: 53, category: '인프라', trend: '+12%' },
-    { name: 'Figma / Design', level: 41, category: '디자인', trend: '+1%' },
+    { name: 'DesignTool / Design', level: 41, category: '디자인', trend: '+1%' },
   ]
 
   const colorAt = (pct: number) => (pct >= 80 ? 'success' : pct >= 60 ? 'primary' : pct >= 40 ? 'warning' : 'warning')
@@ -1325,7 +1325,7 @@ function ArcoSkillLevel140Render() {
     <div style={{ width: 380, fontFamily: 'system-ui, sans-serif', background: '#fff', border: '1px solid #e2e8f0', borderRadius: 10, padding: 20 }}>
       <div style={{ marginBottom: 16 }}>
         <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>스킬 레벨</div>
-        <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>Arco Design Progress 패턴</div>
+        <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>DataProductUI Progress 패턴</div>
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
         {skills.map((skill) => (
@@ -1348,12 +1348,12 @@ function ArcoSkillLevel140Render() {
   )
 }
 
-export const Arco_스킬_레벨_시각화: Story = {
-  name: 'Arco Design — 스킬 레벨 시각화 (Cycle 140)',
-  render: () => <ArcoSkillLevel140Render />,
+export const DataProduct_스킬_레벨_시각화: Story = {
+  name: 'DataProductUI — 스킬 레벨 시각화 (Cycle 140)',
+  render: () => <DataProductSkillLevel140Render />,
 }
 
-function MantiineArco140StepProgress140Render() {
+function AccessibleKitDataProduct140StepProgress140Render() {
   const [step, setStep] = React.useState(1)
   const [intervalId, setIntervalId] = React.useState<ReturnType<typeof setInterval> | null>(null)
   const totalSteps = 5
@@ -1434,13 +1434,13 @@ function MantiineArco140StepProgress140Render() {
   )
 }
 
-export const Mantine_Arco_스텝_파이프라인_진행률: Story = {
-  name: 'Mantine + Arco — 스텝 파이프라인 진행률 (Cycle 140)',
-  render: () => <MantiineArco140StepProgress140Render />,
+export const AppUI_DataProduct_스텝_파이프라인_진행률: Story = {
+  name: 'AppUI + DataProduct — 스텝 파이프라인 진행률 (Cycle 140)',
+  render: () => <AccessibleKitDataProduct140StepProgress140Render />,
 }
 
 // ──────────────────────────────────────────────────────────────────────────────
-// Cycle 165: Ant Design + Radix UI
+// Cycle 165: Ant Design + PrimitiveUI
 // ──────────────────────────────────────────────────────────────────────────────
 
 export const AntDesign_파일_업로드_진행률: Story = {
@@ -1526,23 +1526,23 @@ export const AntDesign_파일_업로드_진행률: Story = {
   },
 }
 
-export const RadixUI_기술_스킬_역량_게이지: Story = {
-  name: 'Radix UI — 기술 스킬 역량 게이지 (Cycle 165)',
+export const PrimitiveUI_기술_스킬_역량_게이지: Story = {
+  name: 'PrimitiveUI — 기술 스킬 역량 게이지 (Cycle 165)',
   parameters: {
     docs: {
       description: {
         story:
-          'Radix UI Progress 컴포넌트 패턴. 개발자 포트폴리오의 기술 역량 시각화. ' +
+          'PrimitiveUI Progress 컴포넌트 패턴. 개발자 포트폴리오의 기술 역량 시각화. ' +
           '카테고리별 그룹화 + 퍼센트 레이블 + 애니메이션 효과.',
       },
     },
   },
-  render: function RadixSkillGaugeRender() {
+  render: function PrimitiveSkillGaugeRender() {
     const skills = [
       { category: 'Frontend', items: [
         { name: 'React', level: 95, color: 'primary' as const },
         { name: 'TypeScript', level: 88, color: 'primary' as const },
-        { name: 'CSS/Tailwind', level: 82, color: 'primary' as const },
+        { name: 'CSS/UtilityCSS', level: 82, color: 'primary' as const },
       ]},
       { category: 'Backend', items: [
         { name: 'Node.js', level: 75, color: 'success' as const },
@@ -1578,18 +1578,18 @@ export const RadixUI_기술_스킬_역량_게이지: Story = {
   },
 }
 
-export const Ant_Radix_목표_달성_대시보드: Story = {
-  name: 'Ant Design + Radix UI — 목표 달성 대시보드 (Cycle 165)',
+export const Ant_Primitive_목표_달성_대시보드: Story = {
+  name: 'Ant Design + PrimitiveUI — 목표 달성 대시보드 (Cycle 165)',
   parameters: {
     docs: {
       description: {
         story:
-          'Ant Design Goal Tracker + Radix Progress 통합 패턴. 분기별 OKR 목표 달성도를 ' +
+          'Ant Design Goal Tracker + Primitive Progress 통합 패턴. 분기별 OKR 목표 달성도를 ' +
           'Progress bar로 시각화. 전체 달성률 + 카테고리별 세부 분류.',
       },
     },
   },
-  render: function AntRadixOKRDashboardRender() {
+  render: function AntPrimitiveOKRDashboardRender() {
     const [quarter] = React.useState('Q2 2025')
     const goals = [
       { id: 'rev', label: '매출 목표', target: '₩2.4B', current: '₩1.68B', pct: 70, color: 'primary' as const },

@@ -31,6 +31,9 @@ export * from './components/Editor'
 /* F */
 export * from './components/FloatingTextField'
 
+/* G */
+export * from './components/GhostButton'
+
 /* H */
 export * from './components/HoverCard'
 
@@ -41,6 +44,10 @@ export * from './components/Loading'
 
 /* M */
 export * from './components/Modal'
+
+/* O */
+export * from './components/OutlineButton'
+export * from './components/OutlineIconButton'
 
 /* P */
 export * from './components/PageDots'
@@ -55,6 +62,7 @@ export * from './components/RadioButton'
 
 /* S */
 export * from './components/ScrollableTabGroup'
+export * from './components/SearchBar'
 export * from './components/SectionTitle'
 export * from './components/SegmentedControl'
 export * from './components/Skeleton'

@@ -6,17 +6,17 @@ import { Meta, Unstyled } from '@storybook/blocks'
   <div style={{
     maxWidth: '960px',
     margin: '0 auto',
-    fontFamily: '"Pretendard Variable", "Pretendard", -apple-system, BlinkMacSystemFont, system-ui, sans-serif',
+    fontFamily: '"Pretendard Variable", "Pretendard", system-ui, sans-serif',
   }}>
 
     {/* Header */}
     <div style={{ marginBottom: '48px' }}>
       <div style={{ fontSize: '12px', fontWeight: '700', color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '8px' }}>Architecture</div>
       <h1 style={{ fontSize: '36px', fontWeight: '800', color: '#1e293b', letterSpacing: '-0.03em', margin: '0 0 12px' }}>3-Tier Architecture</h1>
-      <p style={{ fontSize: '16px', color: '#64748b', lineHeight: '1.7', margin: 0 }}>
+      <div style={{ fontSize: '16px', color: '#64748b', lineHeight: '1.7', margin: 0 }}>
         Orbit UI는 <strong style={{ color: '#1e293b' }}>Primitives → Core → Theme</strong> 3계층 구조로 설계되어,
         각 레이어가 명확한 책임을 가지며 유연한 확장이 가능합니다.
-      </p>
+      </div>
     </div>
 
     {/* Architecture Diagram */}
@@ -41,10 +41,10 @@ import { Meta, Unstyled } from '@storybook/blocks'
             <span style={{ fontSize: '18px', fontWeight: '700', color: '#1e293b' }}>Theme Layer</span>
             <code style={{ fontSize: '12px', color: '#6366f1', background: '#f1f5f9', padding: '2px 8px', borderRadius: '4px', fontFamily: '"JetBrains Mono", monospace' }}>@heejun-com/theme-eclipse</code>
           </div>
-          <p style={{ fontSize: '14px', color: '#64748b', lineHeight: '1.65', margin: '0 0 16px' }}>
+          <div style={{ fontSize: '14px', color: '#64748b', lineHeight: '1.65', margin: '0 0 16px' }}>
             사용자가 직접 사용하는 완성된 컴포넌트입니다. 디자인 토큰(색상, 크기, 간격)이 적용되어 있으며,
             <code style={{ fontSize: '12px', color: '#6366f1', background: '#f1f5f9', padding: '1px 4px', borderRadius: '3px' }}>EclipseProvider</code>를 통해 Light/Dark 테마를 전환할 수 있습니다.
-          </p>
+          </div>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
             {['SolidButton', 'OutlineButton', 'TextField', 'DataTable', 'Modal', 'Toast', 'Avatar', 'Chip'].map(c => (
               <span key={c} style={{
@@ -75,10 +75,10 @@ import { Meta, Unstyled } from '@storybook/blocks'
             <span style={{ fontSize: '18px', fontWeight: '700', color: '#1e293b' }}>Core Layer</span>
             <code style={{ fontSize: '12px', color: '#3b82f6', background: '#f1f5f9', padding: '2px 8px', borderRadius: '4px', fontFamily: '"JetBrains Mono", monospace' }}>@heejun-com/core</code>
           </div>
-          <p style={{ fontSize: '14px', color: '#64748b', lineHeight: '1.65', margin: '0 0 16px' }}>
+          <div style={{ fontSize: '14px', color: '#64748b', lineHeight: '1.65', margin: '0 0 16px' }}>
             스타일이 없는(Headless) 기본 컴포넌트입니다. 접근성(WAI-ARIA), 키보드 인터랙션, 상태 관리 로직을 담당합니다.
             <code style={{ fontSize: '12px', color: '#3b82f6', background: '#f1f5f9', padding: '1px 4px', borderRadius: '3px' }}>theme</code> prop으로 외부에서 스타일 토큰을 주입받습니다.
-          </p>
+          </div>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
             {['Button', 'TextField', 'Checkbox', 'RadioButton', 'Toggle', 'Dropdown', 'Sheet', 'Badge'].map(c => (
               <span key={c} style={{
@@ -108,10 +108,10 @@ import { Meta, Unstyled } from '@storybook/blocks'
             <span style={{ fontSize: '18px', fontWeight: '700', color: '#1e293b' }}>Primitives Layer</span>
             <span style={{ fontSize: '12px', color: '#94a3b8', fontStyle: 'italic' }}>Internal</span>
           </div>
-          <p style={{ fontSize: '14px', color: '#64748b', lineHeight: '1.65', margin: '0 0 16px' }}>
+          <div style={{ fontSize: '14px', color: '#64748b', lineHeight: '1.65', margin: '0 0 16px' }}>
             가장 낮은 수준의 빌딩 블록입니다. UI를 직접 구성하기보다는 Core/Theme 컴포넌트를 만들기 위한 도구입니다.
             레이어링, 슬롯, 애니메이션, 포탈 등 프레임워크 유틸리티를 제공합니다.
-          </p>
+          </div>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
             {['Layer', 'Slot', 'Animation', 'Presence', 'Flex', 'Portal', 'Spinner', 'ThemeProvider'].map(c => (
               <span key={c} style={{
@@ -196,10 +196,10 @@ const SolidButton = ({ color, size, ...props }) => (
     <section style={{ marginBottom: '56px' }}>
       <h2 style={{ fontSize: '24px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '24px' }}>Compound Component Pattern</h2>
 
-      <p style={{ fontSize: '14px', color: '#64748b', lineHeight: '1.7', marginBottom: '20px' }}>
+      <div style={{ fontSize: '14px', color: '#64748b', lineHeight: '1.7', marginBottom: '20px' }}>
         대부분의 컴포넌트는 <strong style={{ color: '#1e293b' }}>서브 컴포넌트 합성 패턴</strong>을 사용합니다.
         내부 로직을 건드리지 않고 원하는 요소를 자유롭게 배치할 수 있습니다.
-      </p>
+      </div>
 
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
         <div style={{
@@ -299,10 +299,10 @@ const SolidButton = ({ color, size, ...props }) => (
     {/* Layer Primitive Explanation */}
     <section style={{ marginBottom: '56px' }}>
       <h2 style={{ fontSize: '24px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '16px' }}>Internal: Layer 시스템</h2>
-      <p style={{ fontSize: '14px', color: '#64748b', lineHeight: '1.7', marginBottom: '24px' }}>
-        Layer는 Orbit UI의 핵심 Primitive입니다. 하나의 컴포넌트를 <strong style={{ color: '#1e293b' }}>4개의 물리적 레이어</strong>로 분리하여 
+      <div style={{ fontSize: '14px', color: '#64748b', lineHeight: '1.7', marginBottom: '24px' }}>
+        Layer는 Orbit UI의 핵심 Primitive입니다. 하나의 컴포넌트를 <strong style={{ color: '#1e293b' }}>4개의 물리적 레이어</strong>로 분리하여
         상태 효과(hover, press), 테두리, 콘텐츠를 독립적으로 제어합니다.
-      </p>
+      </div>
 
       <div style={{
         borderRadius: '16px', border: '1px solid #e2e8f0', padding: '32px',
@@ -387,10 +387,10 @@ const SolidButton = ({ color, size, ...props }) => (
       <div style={{ marginBottom: '32px' }}>
         <div style={{ fontSize: '12px', fontWeight: '700', color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '8px' }}>NPM Package Design</div>
         <h2 style={{ fontSize: '28px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', margin: '0 0 12px' }}>3개 패키지로 분리한 이유</h2>
-        <p style={{ fontSize: '15px', color: '#64748b', lineHeight: '1.7', margin: 0 }}>
+        <div style={{ fontSize: '15px', color: '#64748b', lineHeight: '1.7', margin: 0 }}>
           Orbit UI는 하나의 모놀리식 패키지 대신 <strong style={{ color: '#1e293b' }}>3개의 독립적인 npm 패키지</strong>로 구성되어 있습니다.
           각 패키지는 서로 다른 관심사를 분리하여 팀별 선택적 도입, 번들 최적화, 테마 확장을 가능하게 합니다.
-        </p>
+        </div>
       </div>
 
       {/* Package Cards */}
@@ -415,10 +415,10 @@ const SolidButton = ({ color, size, ...props }) => (
                 <code style={{ fontSize: '15px', fontWeight: '700', color: '#1e293b' }}>@heejun-com/icons</code>
                 <span style={{ fontSize: '11px', padding: '2px 8px', borderRadius: '100px', background: 'rgba(245, 158, 11, 0.12)', color: '#d97706', fontWeight: '600' }}>Zero-dependency</span>
               </div>
-              <p style={{ fontSize: '13px', color: '#64748b', margin: '0 0 12px', lineHeight: '1.6' }}>
+              <div style={{ fontSize: '13px', color: '#64748b', margin: '0 0 12px', lineHeight: '1.6' }}>
                 순수 SVG 기반 아이콘 컴포넌트 모음. React, CSS 프레임워크, 테마와 <strong style={{ color: '#475569' }}>완전히 무관하게</strong> 어떤 프로젝트에서도 사용 가능합니다.
                 별도의 Provider나 CSS import 없이 바로 사용합니다.
-              </p>
+              </div>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginBottom: '12px' }}>
                 {['Line variants', 'Fill variants', 'size prop', 'color prop', 'SVG 최적화', 'Tree-shakeable'].map(f => (
                   <span key={f} style={{ padding: '3px 8px', borderRadius: '5px', fontSize: '11px', fontWeight: '500', background: 'rgba(245, 158, 11, 0.08)', color: '#d97706', border: '1px solid rgba(245, 158, 11, 0.15)' }}>{f}</span>
@@ -468,12 +468,12 @@ import { HomeLineIcon, BellIcon } from '@heejun-com/icons'
                 <code style={{ fontSize: '15px', fontWeight: '700', color: '#1e293b' }}>@heejun-com/core</code>
                 <span style={{ fontSize: '11px', padding: '2px 8px', borderRadius: '100px', background: 'rgba(59, 130, 246, 0.10)', color: '#2563eb', fontWeight: '600' }}>Headless</span>
               </div>
-              <p style={{ fontSize: '13px', color: '#64748b', margin: '0 0 12px', lineHeight: '1.6' }}>
+              <div style={{ fontSize: '13px', color: '#64748b', margin: '0 0 12px', lineHeight: '1.6' }}>
                 스타일이 없는 Headless 컴포넌트 레이어. 접근성(WAI-ARIA), 키보드 인터랙션, 상태 관리, 애니메이션 로직을 제공합니다.
                 <strong style={{ color: '#475569' }}> theme prop</strong>으로 외부에서 CSS 토큰을 주입받아 자신만의 디자인 시스템을 구축할 수 있습니다.
-              </p>
+              </div>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginBottom: '12px' }}>
-                {['WAI-ARIA', '키보드 내비게이션', 'theme prop 주입', 'Tailwind CSS', 'Polymorphic', '상태 관리'].map(f => (
+                {['WAI-ARIA', '키보드 내비게이션', 'theme prop 주입', 'UtilityCSS CSS', 'Polymorphic', '상태 관리'].map(f => (
                   <span key={f} style={{ padding: '3px 8px', borderRadius: '5px', fontSize: '11px', fontWeight: '500', background: 'rgba(59, 130, 246, 0.06)', color: '#2563eb', border: '1px solid rgba(59, 130, 246, 0.12)' }}>{f}</span>
                 ))}
               </div>
@@ -530,13 +530,13 @@ const MyButton = ({ children }) => (
                 <code style={{ fontSize: '15px', fontWeight: '700', color: '#1e293b' }}>@heejun-com/theme-eclipse</code>
                 <span style={{ fontSize: '11px', padding: '2px 8px', borderRadius: '100px', background: 'rgba(99, 102, 241, 0.10)', color: '#6366f1', fontWeight: '600' }}>Production Ready</span>
               </div>
-              <p style={{ fontSize: '13px', color: '#64748b', margin: '0 0 12px', lineHeight: '1.6' }}>
+              <div style={{ fontSize: '13px', color: '#64748b', margin: '0 0 12px', lineHeight: '1.6' }}>
                 Core + Eclipse 디자인 토큰이 결합된 최종 컴포넌트. theme.css의 CSS 변수로 토큰을 관리하며,
                 EclipseProvider 하나로 Light/Dark 테마와 모바일/PC 플랫폼을 동시에 제어합니다.
                 <strong style={{ color: '#475569' }}>대부분의 프로젝트에서 이 패키지만 설치하면 됩니다.</strong>
-              </p>
+              </div>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginBottom: '12px' }}>
-                {['Light/Dark Mode', 'Mobile/PC 대응', 'Tailwind + CSS 변수', '디자인 토큰', '50+ Components', 'SSR 지원'].map(f => (
+                {['Light/Dark Mode', 'Mobile/PC 대응', 'UtilityCSS + CSS 변수', '디자인 토큰', '50+ Components', 'SSR 지원'].map(f => (
                   <span key={f} style={{ padding: '3px 8px', borderRadius: '5px', fontSize: '11px', fontWeight: '500', background: 'rgba(99, 102, 241, 0.06)', color: '#6366f1', border: '1px solid rgba(99, 102, 241, 0.12)' }}>{f}</span>
                 ))}
               </div>
@@ -589,7 +589,7 @@ import '@heejun-com/theme-eclipse/style.css'
             {/* core */}
             <div style={{ textAlign: 'center', padding: '12px 20px', borderRadius: '12px', border: '2px solid #93c5fd', background: 'rgba(59, 130, 246, 0.05)' }}>
               <div style={{ fontSize: '12px', fontWeight: '700', color: '#2563eb' }}>@heejun-com/core</div>
-              <div style={{ fontSize: '10px', color: '#94a3b8', marginTop: '2px' }}>Tailwind + Radix</div>
+              <div style={{ fontSize: '10px', color: '#94a3b8', marginTop: '2px' }}>UtilityCSS + Primitive</div>
             </div>
             <div style={{ padding: '0 12px', color: '#cbd5e1', fontSize: '18px' }}>→</div>
             {/* theme-eclipse */}
@@ -626,7 +626,7 @@ import '@heejun-com/theme-eclipse/style.css'
           {
             scenario: '사내 커스텀 디자인 시스템 구축 (Core 기반)',
             install: 'pnpm add @heejun-com/core @heejun-com/icons',
-            note: 'Core의 Headless 컴포넌트에 자체 CSS 변수나 Tailwind 클래스를 주입하여 고유한 테마를 만들 수 있습니다.',
+            note: 'Core의 Headless 컴포넌트에 자체 CSS 변수나 UtilityCSS 클래스를 주입하여 고유한 테마를 만들 수 있습니다.',
             color: '#3b82f6',
           },
           {
@@ -648,7 +648,7 @@ import '@heejun-com/theme-eclipse/style.css'
             </div>
             <div style={{ padding: '12px 16px', background: '#ffffff' }}>
               <pre style={{ margin: '0 0 8px', padding: '10px 14px', background: '#0f172a', borderRadius: '8px', color: '#e2e8f0', fontSize: '12px', fontFamily: '"JetBrains Mono", monospace' }}>{s.install}</pre>
-              <p style={{ margin: 0, fontSize: '12px', color: '#64748b', lineHeight: '1.5' }}>{s.note}</p>
+              <div style={{ margin: 0, fontSize: '12px', color: '#64748b', lineHeight: '1.5' }}>{s.note}</div>
             </div>
           </div>
         ))}
@@ -656,19 +656,19 @@ import '@heejun-com/theme-eclipse/style.css'
 
     </section>
 
-    {/* Benchmark: Arco Design vs Tailwind UI vs Orbit UI */}
+    {/* Benchmark: DataProductUI vs UtilityUI vs Orbit UI */}
     <section style={{ marginBottom: '56px' }}>
-      <h2 style={{ fontSize: '24px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '8px' }}>벤치마크: Arco Design / Tailwind UI 비교</h2>
-      <p style={{ fontSize: '14px', color: '#64748b', lineHeight: '1.65', marginBottom: '28px' }}>
+      <h2 style={{ fontSize: '24px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '8px' }}>벤치마크: DataProductUI / UtilityUI 비교</h2>
+      <div style={{ fontSize: '14px', color: '#64748b', lineHeight: '1.65', marginBottom: '28px' }}>
         Orbit UI는 여러 디자인 시스템에서 영감을 받아 설계되었습니다. 각 시스템의 강점을 분석하고 우리 컨텍스트에 맞게 재해석합니다.
-      </p>
+      </div>
 
       {/* 비교 테이블 */}
       <div style={{ overflowX: 'auto', marginBottom: '32px' }}>
         <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px' }}>
           <thead>
             <tr style={{ background: '#f8fafc' }}>
-              {['항목', 'Arco Design', 'Tailwind UI', 'Orbit UI'].map((h, i) => (
+              {['항목', 'DataProductUI', 'UtilityUI', 'Orbit UI'].map((h, i) => (
                 <th key={h} style={{
                   padding: '10px 14px',
                   textAlign: i === 0 ? 'left' : 'center',
@@ -682,7 +682,7 @@ import '@heejun-com/theme-eclipse/style.css'
           </thead>
           <tbody>
             {[
-              ['스타일 방식', 'CSS-in-JS (Less)', 'Utility CSS (Tailwind)', 'Tailwind + CSS 변수 토큰'],
+              ['스타일 방식', 'CSS-in-JS (Less)', 'Utility CSS (UtilityCSS)', 'UtilityCSS + CSS 변수 토큰'],
               ['컴포넌트 구조', '단일 컴포넌트 중심', 'HTML 스니펫 중심', '3계층 Headless 구조'],
               ['테마 변경', 'ConfigProvider + Design Token', '직접 CSS 수정', 'EclipseProvider + CSS Variables'],
               ['타입 안전성', 'TypeScript 지원', '정적 HTML/JSX', '완전한 TypeScript 타입 추론'],
@@ -702,11 +702,11 @@ import '@heejun-com/theme-eclipse/style.css'
         </table>
       </div>
 
-      {/* Arco Design 학습 포인트 */}
+      {/* DataProductUI 학습 포인트 */}
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '24px' }}>
         {[
           {
-            title: 'Arco Design에서 가져온 패턴',
+            title: 'DataProductUI에서 가져온 패턴',
             color: '#2563eb',
             bg: 'rgba(37,99,235,0.04)',
             border: 'rgba(37,99,235,0.12)',
@@ -719,7 +719,7 @@ import '@heejun-com/theme-eclipse/style.css'
             ],
           },
           {
-            title: 'Tailwind UI에서 가져온 패턴',
+            title: 'UtilityUI에서 가져온 패턴',
             color: '#0f766e',
             bg: 'rgba(15,118,110,0.04)',
             border: 'rgba(15,118,110,0.12)',
@@ -752,10 +752,10 @@ import '@heejun-com/theme-eclipse/style.css'
     {/* 커스텀 테마 Step-by-Step */}
     <section style={{ marginBottom: '56px' }}>
       <h2 style={{ fontSize: '24px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '8px' }}>커스텀 테마 만들기</h2>
-      <p style={{ fontSize: '14px', color: '#64748b', lineHeight: '1.65', marginBottom: '28px' }}>
+      <div style={{ fontSize: '14px', color: '#64748b', lineHeight: '1.65', marginBottom: '28px' }}>
         Orbit UI의 3계층 구조를 활용하여 완전히 새로운 테마를 만드는 방법입니다.
         Core 컴포넌트의 <code style={{ fontSize: '12px', color: '#6366f1', background: '#f1f5f9', padding: '1px 6px', borderRadius: '4px' }}>theme</code> prop에 CSS 변수 값을 주입하는 방식으로 동작합니다.
-      </p>
+      </div>
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
         {[
@@ -823,20 +823,20 @@ export default function RootLayout({ children }) {
             </div>
             <div style={{ padding: '16px' }}>
               <pre style={{ margin: '0 0 10px', padding: '12px 16px', background: '#0f172a', borderRadius: '8px', color: '#e2e8f0', fontSize: '12px', fontFamily: '"JetBrains Mono", monospace', overflowX: 'auto', whiteSpace: 'pre' }}>{step.code}</pre>
-              <p style={{ margin: 0, fontSize: '13px', color: '#64748b', lineHeight: '1.5' }}>{step.desc}</p>
+              <div style={{ margin: 0, fontSize: '13px', color: '#64748b', lineHeight: '1.5' }}>{step.desc}</div>
             </div>
           </div>
         ))}
       </div>
     </section>
 
-  {/* Cycle 41: Vercel Design 벤치마크 섹션 */}
+  {/* Cycle 41: DeployPlatform Design 벤치마크 섹션 */}
   <section style={{ marginTop: '48px', padding: '32px', background: 'linear-gradient(160deg, #0f172a 0%, #1e293b 100%)', borderRadius: '20px', color: '#e2e8f0' }}>
     <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px' }}>
       <div style={{ width: 36, height: 36, borderRadius: '10px', background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800, fontSize: 16, color: '#0f172a' }}>▲</div>
       <div>
-        <h2 style={{ margin: 0, fontSize: '20px', fontWeight: 800, color: '#fff' }}>Vercel Design (Geist) 벤치마크</h2>
-        <p style={{ margin: '2px 0 0', fontSize: '12px', color: 'rgba(255,255,255,0.5)' }}>Cycle 41 — Vercel의 Geist 디자인 시스템 주요 패턴 분석</p>
+        <h2 style={{ margin: 0, fontSize: '20px', fontWeight: 800, color: '#fff' }}>DeployPlatform Design (System) 벤치마크</h2>
+        <div style={{ margin: '2px 0 0', fontSize: '12px', color: 'rgba(255,255,255,0.5)' }}>Cycle 41 — DeployPlatform의 System 디자인 시스템 주요 패턴 분석</div>
       </div>
     </div>
 
@@ -849,22 +849,22 @@ export default function RootLayout({ children }) {
           orbit: 'Eclipse 테마의 color: "black" | "gray" | "primary" 체계와 직접 대응. 추가 semantic 색상 확장 가능.',
         },
         {
-          title: 'Geist 타이포그래피',
+          title: 'System 타이포그래피',
           icon: 'Aa',
-          desc: 'Geist Sans(UI) + Geist Mono(코드) 이중 폰트 체계. tabular-nums로 숫자 정렬, text-underline-offset: 2.5px로 링크 품질 향상.',
-          orbit: 'Typography 컴포넌트의 textStyle prop이 Geist의 명명 체계와 유사. monospace 폰트는 코드 블록에 적용 권장.',
+          desc: 'System Sans(UI) + System Mono(코드) 이중 폰트 체계. tabular-nums로 숫자 정렬, text-underline-offset: 2.5px로 링크 품질 향상.',
+          orbit: 'Typography 컴포넌트의 textStyle prop이 System의 명명 체계와 유사. monospace 폰트는 코드 블록에 적용 권장.',
         },
         {
           title: '컴팩트 밀도 그리드',
           icon: '⊞',
           desc: '32px 버튼 높이, 16px 아이콘, 6px 아이콘-텍스트 간격. xs/sm/md/lg 4단계 반응형 브레이크포인트.',
-          orbit: 'size="small"(32px)이 Vercel 기본 밀도에 대응. 8px 그리드 기반 spacing 시스템으로 정렬.',
+          orbit: 'size="small"(32px)이 DeployPlatform 기본 밀도에 대응. 8px 그리드 기반 spacing 시스템으로 정렬.',
         },
       ].map(({ title, icon, desc, orbit }) => (
         <div key={title} style={{ background: 'rgba(255,255,255,0.05)', borderRadius: '14px', border: '1px solid rgba(255,255,255,0.1)', padding: '18px' }}>
           <div style={{ fontSize: '22px', marginBottom: '10px' }}>{icon}</div>
           <div style={{ fontSize: '13px', fontWeight: 700, color: '#fff', marginBottom: '8px' }}>{title}</div>
-          <p style={{ margin: '0 0 10px', fontSize: '12px', color: 'rgba(255,255,255,0.6)', lineHeight: 1.6 }}>{desc}</p>
+          <div style={{ margin: '0 0 10px', fontSize: '12px', color: 'rgba(255,255,255,0.6)', lineHeight: 1.6 }}>{desc}</div>
           <div style={{ padding: '8px 10px', borderRadius: '8px', background: 'rgba(99,102,241,0.15)', border: '1px solid rgba(99,102,241,0.3)' }}>
             <span style={{ fontSize: '10px', fontWeight: 700, color: '#818cf8', display: 'block', marginBottom: '3px' }}>Orbit UI 적용</span>
             <span style={{ fontSize: '11px', color: 'rgba(255,255,255,0.7)', lineHeight: 1.5 }}>{orbit}</span>
@@ -878,7 +878,7 @@ export default function RootLayout({ children }) {
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
         {[
           { label: 'Ant Design', items: ['Table 컴포넌트 내장 ellipsis + tooltip', 'Form.Item validateStatus + help 패턴', '전체 기능 번들 (약 2MB gzip)', 'CSS-in-JS 런타임 오버헤드'], accent: '#f59e0b' },
-          { label: 'Orbit UI', items: ['Tooltip 독립 컴포넌트로 자유 조합', 'FloatingTextField + 커스텀 도움말 조합', '트리-쉐이킹 가능 (필요한 것만 import)', 'Tailwind 유틸리티 + CSS 변수 토큰'], accent: '#6366f1' },
+          { label: 'Orbit UI', items: ['Tooltip 독립 컴포넌트로 자유 조합', 'FloatingTextField + 커스텀 도움말 조합', '트리-쉐이킹 가능 (필요한 것만 import)', 'UtilityCSS 유틸리티 + CSS 변수 토큰'], accent: '#6366f1' },
         ].map(({ label, items, accent }) => (
           <div key={label}>
             <div style={{ fontSize: '11px', fontWeight: 700, color: accent, marginBottom: '6px' }}>{label}</div>
@@ -894,22 +894,22 @@ export default function RootLayout({ children }) {
   </section>
 
   {/* ─────────────────────────────────────────────────────
-      shadcn/ui + Radix UI 벤치마크 (Cycle 47)
+      ComposableUI + PrimitiveUI 벤치마크 (Cycle 47)
       ───────────────────────────────────────────────────── */}
   <section style={{ marginTop: '48px' }}>
     <div style={{ fontSize: '22px', fontWeight: '800', color: '#1e293b', marginBottom: '6px' }}>
-      shadcn/ui &amp; Radix UI 아키텍처 벤치마크
+      ComposableUI &amp; PrimitiveUI 아키텍처 벤치마크
     </div>
     <div style={{ fontSize: '14px', color: '#64748b', marginBottom: '24px', lineHeight: '1.6' }}>
-      shadcn/ui의 Copy-paste 친화적 API 설계와 Radix UI의 Primitive 기반 접근성 아키텍처를 Orbit UI와 비교합니다.
+      ComposableUI의 Copy-paste 친화적 API 설계와 PrimitiveUI의 Primitive 기반 접근성 아키텍처를 Orbit UI와 비교합니다.
     </div>
 
     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '14px', marginBottom: '24px' }}>
-      {/* shadcn/ui */}
+      {/* ComposableUI */}
       <div style={{ padding: '18px', borderRadius: '12px', background: '#fafaf9', border: '2px solid #e7e5e4' }}>
-        <div style={{ fontWeight: '700', fontSize: '14px', color: '#1e293b', marginBottom: '12px' }}>shadcn/ui</div>
+        <div style={{ fontWeight: '700', fontSize: '14px', color: '#1e293b', marginBottom: '12px' }}>ComposableUI</div>
         <ul style={{ listStyle: 'none', padding: 0, margin: 0, fontSize: '12px', color: '#44403c', lineHeight: '1.9' }}>
-          <li>Radix Primitive 위에 Tailwind CSS 스타일 레이어</li>
+          <li>Primitive Primitive 위에 UtilityCSS CSS 스타일 레이어</li>
           <li>소스 코드 직접 복사 (dependency-free)</li>
           <li>레지스트리 기반 컴포넌트 추가</li>
           <li>OR/AND 구분선, 피처 캐러셀 등 실무 패턴 포함</li>
@@ -917,9 +917,9 @@ export default function RootLayout({ children }) {
         </ul>
       </div>
 
-      {/* Radix UI */}
+      {/* PrimitiveUI */}
       <div style={{ padding: '18px', borderRadius: '12px', background: '#f5f3ff', border: '2px solid #ede9fe' }}>
-        <div style={{ fontWeight: '700', fontSize: '14px', color: '#1e293b', marginBottom: '12px' }}>Radix UI</div>
+        <div style={{ fontWeight: '700', fontSize: '14px', color: '#1e293b', marginBottom: '12px' }}>PrimitiveUI</div>
         <ul style={{ listStyle: 'none', padding: 0, margin: 0, fontSize: '12px', color: '#4c1d95', lineHeight: '1.9' }}>
           <li>스타일 없는 Primitive — 완전 커스텀 가능</li>
           <li>WAI-ARIA 완전 구현 (focus trap, keyboard nav)</li>
@@ -933,11 +933,11 @@ export default function RootLayout({ children }) {
       <div style={{ padding: '18px', borderRadius: '12px', background: '#f0fdf4', border: '2px solid #bbf7d0' }}>
         <div style={{ fontWeight: '700', fontSize: '14px', color: '#1e293b', marginBottom: '12px' }}>Orbit UI</div>
         <ul style={{ listStyle: 'none', padding: 0, margin: 0, fontSize: '12px', color: '#14532d', lineHeight: '1.9' }}>
-          <li>Radix Primitive 기반 + Tailwind 유틸리티 스타일</li>
+          <li>Primitive Primitive 기반 + UtilityCSS 유틸리티 스타일</li>
           <li>3-Tier 토큰으로 브랜드 테마 전환</li>
           <li>Compound 컴포넌트로 유연한 조합 API</li>
           <li>theme prop으로 런타임 토큰 오버라이드</li>
-          <li>shadcn/ui 패턴 + Radix 접근성 = Orbit UI 장점</li>
+          <li>ComposableUI 패턴 + Primitive 접근성 = Orbit UI 장점</li>
         </ul>
       </div>
     </div>
@@ -949,17 +949,17 @@ export default function RootLayout({ children }) {
           <thead>
             <tr style={{ background: '#f1f5f9' }}>
               <th style={{ padding: '9px 12px', textAlign: 'left', color: '#475569', fontWeight: '700', borderBottom: '2px solid #e2e8f0' }}>특성</th>
-              <th style={{ padding: '9px 12px', textAlign: 'left', color: '#44403c', fontWeight: '700', borderBottom: '2px solid #e2e8f0' }}>shadcn/ui</th>
-              <th style={{ padding: '9px 12px', textAlign: 'left', color: '#4c1d95', fontWeight: '700', borderBottom: '2px solid #e2e8f0' }}>Radix UI</th>
+              <th style={{ padding: '9px 12px', textAlign: 'left', color: '#44403c', fontWeight: '700', borderBottom: '2px solid #e2e8f0' }}>ComposableUI</th>
+              <th style={{ padding: '9px 12px', textAlign: 'left', color: '#4c1d95', fontWeight: '700', borderBottom: '2px solid #e2e8f0' }}>PrimitiveUI</th>
               <th style={{ padding: '9px 12px', textAlign: 'left', color: '#14532d', fontWeight: '700', borderBottom: '2px solid #e2e8f0' }}>Orbit UI</th>
             </tr>
           </thead>
           <tbody>
             <tr>
               <td style={{ padding: '9px 12px', fontWeight: '600', color: '#374151', borderBottom: '1px solid #e2e8f0' }}>스타일 방식</td>
-              <td style={{ padding: '9px 12px', color: '#44403c', borderBottom: '1px solid #e2e8f0' }}>Tailwind CSS</td>
+              <td style={{ padding: '9px 12px', color: '#44403c', borderBottom: '1px solid #e2e8f0' }}>UtilityCSS CSS</td>
               <td style={{ padding: '9px 12px', color: '#4c1d95', borderBottom: '1px solid #e2e8f0' }}>스타일 없음</td>
-              <td style={{ padding: '9px 12px', color: '#14532d', fontWeight: '600', borderBottom: '1px solid #e2e8f0' }}>Tailwind + CSS 변수 (빌드타임)</td>
+              <td style={{ padding: '9px 12px', color: '#14532d', fontWeight: '600', borderBottom: '1px solid #e2e8f0' }}>UtilityCSS + CSS 변수 (빌드타임)</td>
             </tr>
             <tr style={{ background: '#f8fafc' }}>
               <td style={{ padding: '9px 12px', fontWeight: '600', color: '#374151', borderBottom: '1px solid #e2e8f0' }}>설치 방식</td>

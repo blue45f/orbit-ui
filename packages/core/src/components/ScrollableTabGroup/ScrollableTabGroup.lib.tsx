@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-/* eslint-disable react-hooks/exhaustive-deps */
+
+
 import { MouseEvent, useRef } from 'react'
 
 const DRAG_THRESHOLD = 2

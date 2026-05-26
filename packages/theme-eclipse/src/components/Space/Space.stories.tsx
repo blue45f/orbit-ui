@@ -1,4 +1,4 @@
- 
+
 import React, { useState } from 'react'
 import { Meta, StoryObj } from '@storybook/react'
 
@@ -235,10 +235,10 @@ export const 간격_토큰_시각화 = {
 }
 
 /* --------------------------------------------------------------------------
-   Vercel Design 벤치마크: 카드 내부 밀도 비교
-   Vercel의 컴팩트/기본/여유 3가지 레이아웃 밀도를 Space로 구현
+   DeployPlatform Design 벤치마크: 카드 내부 밀도 비교
+   DeployPlatform의 컴팩트/기본/여유 3가지 레이아웃 밀도를 Space로 구현
 -------------------------------------------------------------------------- */
-export const Vercel_레이아웃_밀도_비교 = {
+export const DeployPlatform_레이아웃_밀도_비교 = {
   render: () => {
     const densities = [
       { label: '컴팩트', gap: spacingKeys[2], pad: spacingKeys[3] },
@@ -336,10 +336,10 @@ export const Ant_인터랙티브_간격_조절 = {
 }
 
 /* --------------------------------------------------------------------------
-   Vercel Design 벤치마크: 섹션 구분 패턴
-   Vercel 설정 페이지의 섹션 그룹핑 — 큰 Space로 섹션 분리, 작은 Space로 항목 분리
+   DeployPlatform Design 벤치마크: 섹션 구분 패턴
+   DeployPlatform 설정 페이지의 섹션 그룹핑 — 큰 Space로 섹션 분리, 작은 Space로 항목 분리
 -------------------------------------------------------------------------- */
-export const Vercel_설정_섹션_구분 = {
+export const DeployPlatform_설정_섹션_구분 = {
   render: () => (
     <div style={{ width: 360, padding: '24px', background: '#fff', borderRadius: 12, border: '1px solid #e2e8f0' }}>
       {/* 섹션 1 */}
@@ -384,26 +384,26 @@ export const Vercel_설정_섹션_구분 = {
       </div>
       <Space y={spacingKeys[3]} />
       <Typography textStyle="descriptionSmall" style={{ color: '#94a3b8', textAlign: 'center', display: 'block' }}>
-        Vercel 설정 페이지 패턴 — Space로 섹션 간 리듬 형성
+        DeployPlatform 설정 페이지 패턴 — Space로 섹션 간 리듬 형성
       </Typography>
     </div>
   ),
 }
 
 /* --------------------------------------------------------------------------
-   Cycle 67: Mantine + Arco Design 벤치마크
+   Cycle 67: AppUI + DataProductUI 벤치마크
 -------------------------------------------------------------------------- */
 
-/* Mantine — 폼 섹션 리듬
-   Mantine의 Stack 컴포넌트 패턴. 폼 섹션 간 일관된 수직 리듬을 Space로 구성.
+/* AppUI — 폼 섹션 리듬
+   AppUI의 Stack 컴포넌트 패턴. 폼 섹션 간 일관된 수직 리듬을 Space로 구성.
    헤딩, 입력 필드, 설명 텍스트 사이의 간격 계층을 명확히 표현.
 -------------------------------------------------------------------------- */
-export const Mantine_폼_섹션_리듬 = {
-  name: 'Mantine — 폼 섹션 수직 리듬',
+export const AppUI_폼_섹션_리듬 = {
+  name: 'AppUI — 폼 섹션 수직 리듬',
   parameters: {
     docs: {
       description: {
-        story: 'Mantine Stack 컴포넌트 패턴. 섹션 간 큰 Space(spacingKeys[6]), 필드 간 중간 Space(spacingKeys[3]), 레이블-인풋 간 작은 Space(spacingKeys[1])로 계층적 리듬 형성.',
+        story: 'AppUI Stack 컴포넌트 패턴. 섹션 간 큰 Space(spacingKeys[6]), 필드 간 중간 Space(spacingKeys[3]), 레이블-인풋 간 작은 Space(spacingKeys[1])로 계층적 리듬 형성.',
       },
     },
   },
@@ -461,8 +461,8 @@ export const Mantine_폼_섹션_리듬 = {
   ),
 }
 
-/* Arco Design — 카드 그리드 간격 패턴
-   Arco Design Grid 컴포넌트의 간격 제어 패턴. Space로 카드 사이 일관된 간격을 형성하고
+/* DataProductUI — 카드 그리드 간격 패턴
+   DataProductUI Grid 컴포넌트의 간격 제어 패턴. Space로 카드 사이 일관된 간격을 형성하고
    수평/수직 구분자를 Space로 대체하는 레이아웃 패턴.
 -------------------------------------------------------------------------- */
 const STAT_CARDS = [
@@ -472,12 +472,12 @@ const STAT_CARDS = [
   { label: '오픈 이슈', value: '12', change: '+2', up: false },
 ]
 
-export const Arco_카드_그리드_간격_패턴 = {
-  name: 'Arco Design — 카드 그리드 간격 패턴',
+export const DataProduct_카드_그리드_간격_패턴 = {
+  name: 'DataProductUI — 카드 그리드 간격 패턴',
   parameters: {
     docs: {
       description: {
-        story: 'Arco Design Grid 간격 제어 패턴. Space를 카드 간 구분과 섹션 내 수직 리듬에 활용. 통계 카드 → 상세 목록 레이아웃에서 섹션 간 시각적 리듬 형성.',
+        story: 'DataProductUI Grid 간격 제어 패턴. Space를 카드 간 구분과 섹션 내 수직 리듬에 활용. 통계 카드 → 상세 목록 레이아웃에서 섹션 간 시각적 리듬 형성.',
       },
     },
   },
@@ -533,15 +533,15 @@ export const Arco_카드_그리드_간격_패턴 = {
   ),
 }
 
-/* Arco Design — 인라인 태그 간격 패턴
-   Arco Design Space 컴포넌트의 wrap 모드. x축 Space로 인라인 요소들 사이
+/* DataProductUI — 인라인 태그 간격 패턴
+   DataProductUI Space 컴포넌트의 wrap 모드. x축 Space로 인라인 요소들 사이
    일관된 수평 간격을 형성하는 태그/칩 배열 패턴.
 -------------------------------------------------------------------------- */
 const TECH_TAGS = [
   { name: 'React', color: '#0ea5e9' },
   { name: 'TypeScript', color: '#3178c6' },
-  { name: 'Tailwind CSS', color: '#06b6d4' },
-  { name: 'Radix UI', color: '#c26dff' },
+  { name: 'UtilityCSS CSS', color: '#06b6d4' },
+  { name: 'PrimitiveUI', color: '#c26dff' },
   { name: 'Storybook', color: '#ff4785' },
   { name: 'Vite', color: '#646cff' },
   { name: 'Vitest', color: '#6e9f18' },
@@ -550,16 +550,16 @@ const TECH_TAGS = [
   { name: 'Prettier', color: '#f7b93e' },
 ]
 
-export const Arco_인라인_태그_간격_패턴 = {
-  name: 'Arco Design — 인라인 태그 x 간격 패턴',
+export const DataProduct_인라인_태그_간격_패턴 = {
+  name: 'DataProductUI — 인라인 태그 x 간격 패턴',
   parameters: {
     docs: {
       description: {
-        story: 'Arco Design Space wrap 모드. x축 Space로 인라인 태그·칩 사이 일관된 수평 간격 형성. gap 토큰 크기별 간격 비교 데모.',
+        story: 'DataProductUI Space wrap 모드. x축 Space로 인라인 태그·칩 사이 일관된 수평 간격 형성. gap 토큰 크기별 간격 비교 데모.',
       },
     },
   },
-  render: function ArcoInlineTags() {
+  render: function DataProductInlineTags() {
     const [gapIdx, setGapIdx] = useState(2)
     const gap = spacingKeys[gapIdx]
 
@@ -603,8 +603,8 @@ export const Arco_인라인_태그_간격_패턴 = {
 }
 
 /* --------------------------------------------------------------------------
-   Mantine 벤치마크: 대시보드 KPI 카드 그리드 간격 시스템
-   Mantine Grid 패턴 — Space로 카드 간 일정 간격 유지 + 섹션 구분
+   AppUI 벤치마크: 대시보드 KPI 카드 그리드 간격 시스템
+   AppUI Grid 패턴 — Space로 카드 간 일정 간격 유지 + 섹션 구분
 -------------------------------------------------------------------------- */
 const KPI_CARDS = [
   { label: '총 컴포넌트', value: '52', delta: '+3', up: true, color: '#6366f1' },
@@ -613,20 +613,20 @@ const KPI_CARDS = [
   { label: '타입 오류', value: '0', delta: '0', up: true, color: '#22c55e' },
 ]
 
-export const Mantine_KPI_카드_그리드_간격 = {
-  name: 'Mantine — KPI 카드 그리드 간격 시스템',
+export const AppUI_KPI_카드_그리드_간격 = {
+  name: 'AppUI — KPI 카드 그리드 간격 시스템',
   parameters: {
     docs: {
       description: {
         story:
-          'Mantine Grid 컴포넌트 간격 패턴. Space 컴포넌트로 KPI 카드 사이 일정 간격 유지. ' +
+          'AppUI Grid 컴포넌트 간격 패턴. Space 컴포넌트로 KPI 카드 사이 일정 간격 유지. ' +
           '헤더-카드-차트 섹션을 Space로 구분하는 수직 리듬 패턴.',
       },
     },
   },
   render: function ManitineKPIGrid() {
     const [spacing, setSpacing] = useState<Spacing>('250')
-    const MANTINE_KPI_SPACING_OPTIONS: { label: string; value: Spacing }[] = [
+    const ACCESSIBLEKIT_KPI_SPACING_OPTIONS: { label: string; value: Spacing }[] = [
       { label: '8px', value: '100' },
       { label: '12px', value: '150' },
       { label: '20px', value: '250' },
@@ -639,7 +639,7 @@ export const Mantine_KPI_카드_그리드_간격 = {
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <div style={{ fontSize: 16, fontWeight: 800, color: '#0f172a' }}>Orbit UI 현황</div>
           <div style={{ display: 'flex', gap: 6 }}>
-            {MANTINE_KPI_SPACING_OPTIONS.map((opt) => (
+            {ACCESSIBLEKIT_KPI_SPACING_OPTIONS.map((opt) => (
               <button
                 key={opt.value}
                 onClick={() => setSpacing(opt.value)}
@@ -700,23 +700,23 @@ export const Mantine_KPI_카드_그리드_간격 = {
 }
 
 /* --------------------------------------------------------------------------
-   Mantine 벤치마크: 프로필 카드 내부 수직 간격 시스템
-   Mantine Stack 패턴 — 프로필 요소들의 수직 간격을 Space로 조율
+   AppUI 벤치마크: 프로필 카드 내부 수직 간격 시스템
+   AppUI Stack 패턴 — 프로필 요소들의 수직 간격을 Space로 조율
 -------------------------------------------------------------------------- */
-export const Mantine_프로필_카드_수직_간격 = {
-  name: 'Mantine — 프로필 카드 수직 간격 시스템',
+export const AppUI_프로필_카드_수직_간격 = {
+  name: 'AppUI — 프로필 카드 수직 간격 시스템',
   parameters: {
     docs: {
       description: {
         story:
-          'Mantine Stack + Space 패턴. 프로필 카드 내부 요소(커버/아바타/이름/소개/스탯/버튼)의 ' +
+          'AppUI Stack + Space 패턴. 프로필 카드 내부 요소(커버/아바타/이름/소개/스탯/버튼)의 ' +
           '수직 간격을 Space 토큰으로 조율합니다. 간격 변경 시 전체 카드 리듬이 함께 조정됩니다.',
       },
     },
   },
-  render: function MantineProfileCard() {
+  render: function AppUIProfileCard() {
     const [vGap, setVGap] = useState<Spacing>('150')
-    const MANTINE_PROFILE_GAP_OPTIONS: { label: string; value: Spacing }[] = [
+    const ACCESSIBLEKIT_PROFILE_GAP_OPTIONS: { label: string; value: Spacing }[] = [
       { label: '4px', value: '50' },
       { label: '8px', value: '100' },
       { label: '12px', value: '150' },
@@ -728,7 +728,7 @@ export const Mantine_프로필_카드_수직_간격 = {
         {/* 간격 컨트롤 */}
         <div style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
           <span style={{ fontSize: 11, color: '#94a3b8', fontWeight: 600 }}>수직 간격:</span>
-          {MANTINE_PROFILE_GAP_OPTIONS.map((opt) => (
+          {ACCESSIBLEKIT_PROFILE_GAP_OPTIONS.map((opt) => (
             <button
               key={opt.value}
               onClick={() => setVGap(opt.value)}
@@ -806,8 +806,8 @@ export const Mantine_프로필_카드_수직_간격 = {
 }
 
 /* --------------------------------------------------------------------------
-   Arco Design 벤치마크: 설정 페이지 섹션 구분 간격
-   Arco Divider + Space 패턴 — 설정 섹션 사이 의미론적 간격 적용
+   DataProductUI 벤치마크: 설정 페이지 섹션 구분 간격
+   DataProduct Divider + Space 패턴 — 설정 섹션 사이 의미론적 간격 적용
 -------------------------------------------------------------------------- */
 const ARCO_SETTINGS_SECTIONS = [
   {
@@ -835,19 +835,19 @@ const ARCO_SETTINGS_SECTIONS = [
   },
 ]
 
-export const Arco_설정_섹션_의미론적_간격 = {
-  name: 'Arco Design — 설정 섹션 의미론적 간격',
+export const DataProduct_설정_섹션_의미론적_간격 = {
+  name: 'DataProductUI — 설정 섹션 의미론적 간격',
   parameters: {
     docs: {
       description: {
         story:
-          'Arco Design 설정 페이지 패턴. ' +
+          'DataProductUI 설정 페이지 패턴. ' +
           '섹션 제목과 항목 사이는 좁은 간격, 섹션 사이는 넓은 간격 적용. ' +
           'Space로 의미론적 계층 간격을 표현합니다.',
       },
     },
   },
-  render: function ArcoSettingsSections() {
+  render: function DataProductSettingsSections() {
     const [sectionGap, setSectionGap] = useState<Spacing>('300')
     const [itemGap, setItemGap] = useState<Spacing>('100')
     const ARCO_SECTION_GAP_OPTIONS: { label: string; value: Spacing }[] = [
@@ -914,16 +914,16 @@ export const Arco_설정_섹션_의미론적_간격 = {
 }
 
 /* --------------------------------------------------------------------------
-   Linear Design 벤치마크: 이슈 상세 레이아웃 간격 시스템
-   Linear Issue Detail — 섹션 구분 간격의 일관성 패턴
+   IssueTracker Design 벤치마크: 이슈 상세 레이아웃 간격 시스템
+   IssueTracker Issue Detail — 섹션 구분 간격의 일관성 패턴
 -------------------------------------------------------------------------- */
-export const Linear_이슈_상세_섹션_간격: Story = {
-  name: 'Linear Design - 이슈 상세 섹션 간격 패턴',
+export const IssueTracker_이슈_상세_섹션_간격: Story = {
+  name: 'IssueTracker Design - 이슈 상세 섹션 간격 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'Linear Issue Detail의 섹션 간격 시스템. 헤더/메타정보/설명/댓글 영역을 Space 컴포넌트로 구분해 ' +
+          'IssueTracker Issue Detail의 섹션 간격 시스템. 헤더/메타정보/설명/댓글 영역을 Space 컴포넌트로 구분해 ' +
           '콘텐츠 계층을 명확히 하고 시각적 리듬을 만듭니다. 40px 주요 구분, 16px 보조 구분 패턴을 적용합니다.',
       },
     },
@@ -984,22 +984,22 @@ export const Linear_이슈_상세_섹션_간격: Story = {
       </div>
 
       <Space y="100" />
-      <div style={{ fontSize: 11, color: '#94a3b8' }}>Linear 이슈 상세 — Space 컴포넌트로 섹션 리듬 설계</div>
+      <div style={{ fontSize: 11, color: '#94a3b8' }}>IssueTracker 이슈 상세 — Space 컴포넌트로 섹션 리듬 설계</div>
     </div>
   ),
 }
 
 /* --------------------------------------------------------------------------
-   Vercel Design 벤치마크: 컴팩트 설정 폼 간격 패턴
-   Vercel Settings 밀도 — 레이블/인풋/힌트 수직 간격 시스템
+   DeployPlatform Design 벤치마크: 컴팩트 설정 폼 간격 패턴
+   DeployPlatform Settings 밀도 — 레이블/인풋/힌트 수직 간격 시스템
 -------------------------------------------------------------------------- */
-export const Vercel_설정_폼_컴팩트_간격: Story = {
-  name: 'Vercel Design - 설정 폼 컴팩트 간격 패턴',
+export const DeployPlatform_설정_폼_컴팩트_간격: Story = {
+  name: 'DeployPlatform Design - 설정 폼 컴팩트 간격 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'Vercel Settings 폼의 컴팩트 밀도 간격 패턴. 레이블(4px), 입력(4px 힌트) 그룹 간 16px, ' +
+          'DeployPlatform Settings 폼의 컴팩트 밀도 간격 패턴. 레이블(4px), 입력(4px 힌트) 그룹 간 16px, ' +
           '섹션 간 32px 구분을 Space로 정밀 제어합니다. 고밀도 설정 폼에서 가독성과 밀도를 균형 있게 유지합니다.',
       },
     },
@@ -1047,13 +1047,13 @@ export const Vercel_설정_폼_컴팩트_간격: Story = {
       <Space y="50" />
       <div style={{ fontSize: 11, color: '#94a3b8' }}>패키지 루트 기준 실행됩니다</div>
       <Space y="100" />
-      <div style={{ fontSize: 11, color: '#94a3b8' }}>Vercel Settings — Space로 레이블/인풋/힌트 간격 정밀 제어</div>
+      <div style={{ fontSize: 11, color: '#94a3b8' }}>DeployPlatform Settings — Space로 레이블/인풋/힌트 간격 정밀 제어</div>
     </div>
   ),
 }
 
 /* --------------------------------------------------------------------------
-   Linear + Vercel 복합: 키보드 단축키 참조 레이아웃
+   IssueTracker + DeployPlatform 복합: 키보드 단축키 참조 레이아웃
    단축키 섹션 구분 + 항목 간 균등 간격 패턴
 -------------------------------------------------------------------------- */
 const SHORTCUTS = [
@@ -1062,13 +1062,13 @@ const SHORTCUTS = [
   { section: '뷰', items: [{ keys: ['⌘', '\\'], desc: '사이드바 토글' }, { keys: ['⌘', 'B'], desc: '보드 뷰' }] },
 ]
 
-export const Linear_Vercel_단축키_참조_레이아웃: Story = {
-  name: 'Linear + Vercel - 키보드 단축키 참조 레이아웃',
+export const IssueTracker_DeployPlatform_단축키_참조_레이아웃: Story = {
+  name: 'IssueTracker + DeployPlatform - 키보드 단축키 참조 레이아웃',
   parameters: {
     docs: {
       description: {
         story:
-          'Linear 단축키 참조 + Vercel 컴팩트 밀도 복합 패턴. ' +
+          'IssueTracker 단축키 참조 + DeployPlatform 컴팩트 밀도 복합 패턴. ' +
           '섹션 제목 간 32px, 항목 간 8px의 계층적 Space 간격으로 단축키 목록의 스캐닝 효율을 최적화합니다.',
       },
     },
@@ -1100,15 +1100,15 @@ export const Linear_Vercel_단축키_참조_레이아웃: Story = {
         </div>
       ))}
       <Space y="200" />
-      <div style={{ fontSize: 11, color: '#94a3b8' }}>Space로 계층적 섹션/항목 간격 제어 — Linear + Vercel 패턴</div>
+      <div style={{ fontSize: 11, color: '#94a3b8' }}>Space로 계층적 섹션/항목 간격 제어 — IssueTracker + DeployPlatform 패턴</div>
     </div>
   ),
 }
 
-// ─── Cycle 153: Mantine + Notion ───────────────────────────────────────────
+// ─── Cycle 153: AppUI + WorkspaceEditor ───────────────────────────────────────────
 
-export const Mantine_컴포넌트_간격_시스템: Story = {
-  name: 'Mantine - 컴포넌트 간격 시스템 쇼케이스',
+export const AppUI_컴포넌트_간격_시스템: Story = {
+  name: 'AppUI - 컴포넌트 간격 시스템 쇼케이스',
   render: () => {
     const SECTIONS = [
       { label: '헤더', height: 48, color: '#e0f2fe' },
@@ -1119,7 +1119,7 @@ export const Mantine_컴포넌트_간격_시스템: Story = {
     const GAPS = ['75', '150', '200', '300'] as const
     return (
       <div style={{ width: 360, fontFamily: 'Inter, system-ui, sans-serif', color: '#1e293b' }}>
-        <div style={{ fontSize: 13, fontWeight: 700, marginBottom: 12 }}>Mantine 간격 시스템</div>
+        <div style={{ fontSize: 13, fontWeight: 700, marginBottom: 12 }}>AppUI 간격 시스템</div>
         {SECTIONS.map((section, i) => (
           <div key={section.label}>
             {i > 0 && (
@@ -1137,7 +1137,7 @@ export const Mantine_컴포넌트_간격_시스템: Story = {
             </div>
           </div>
         ))}
-        <div style={{ marginTop: 12, fontSize: 11, color: '#94a3b8' }}>Mantine Stack/Group의 spacing prop을 Space 토큰으로 시각화</div>
+        <div style={{ marginTop: 12, fontSize: 11, color: '#94a3b8' }}>AppUI Stack/Group의 spacing prop을 Space 토큰으로 시각화</div>
       </div>
     )
   },
@@ -1145,15 +1145,15 @@ export const Mantine_컴포넌트_간격_시스템: Story = {
     docs: {
       description: {
         story:
-          'Mantine Stack 컴포넌트의 spacing 시스템 패턴. 헤더·내비·콘텐츠·푸터 4개 섹션 사이에 서로 다른 Space 토큰을 적용해 ' +
+          'AppUI Stack 컴포넌트의 spacing 시스템 패턴. 헤더·내비·콘텐츠·푸터 4개 섹션 사이에 서로 다른 Space 토큰을 적용해 ' +
           '레이아웃 계층 간격을 시각적으로 표현합니다.',
       },
     },
   },
 }
 
-export const Notion_페이지_레이아웃_공백: Story = {
-  name: 'Notion - 페이지 레이아웃 공백 구조',
+export const WorkspaceEditor_페이지_레이아웃_공백: Story = {
+  name: 'WorkspaceEditor - 페이지 레이아웃 공백 구조',
   render: () => {
     const BLOCKS = [
       { type: 'title', text: '2024 Q4 회고 보고서', fontSize: 22, fontWeight: 800, space: '200' },
@@ -1173,7 +1173,7 @@ export const Notion_페이지_레이아웃_공백: Story = {
             {i < BLOCKS.length - 1 && <Space y={block.space as Spacing} />}
           </div>
         ))}
-        <div style={{ marginTop: 16, fontSize: 11, color: '#94a3b8' }}>Notion 페이지 블록 간 수직 공백 — Space 토큰 계층 반영</div>
+        <div style={{ marginTop: 16, fontSize: 11, color: '#94a3b8' }}>WorkspaceEditor 페이지 블록 간 수직 공백 — Space 토큰 계층 반영</div>
       </div>
     )
   },
@@ -1181,15 +1181,15 @@ export const Notion_페이지_레이아웃_공백: Story = {
     docs: {
       description: {
         story:
-          'Notion 페이지 에디터의 블록 간격 패턴. 제목·부제목·헤딩·본문 블록에 맞게 Space 토큰을 달리 적용해 ' +
+          'WorkspaceEditor 페이지 에디터의 블록 간격 패턴. 제목·부제목·헤딩·본문 블록에 맞게 Space 토큰을 달리 적용해 ' +
           '읽기 흐름에 맞는 수직 리듬을 구성합니다.',
       },
     },
   },
 }
 
-export const Mantine_Notion_대시보드_그리드_공백: Story = {
-  name: 'Mantine + Notion - 대시보드 그리드 공백 레이아웃',
+export const AppUI_WorkspaceEditor_대시보드_그리드_공백: Story = {
+  name: 'AppUI + WorkspaceEditor - 대시보드 그리드 공백 레이아웃',
   render: () => {
     const CARDS = [
       { label: '총 페이지', value: '1,284', sub: '+12 이번 주', color: '#eff6ff' },
@@ -1221,7 +1221,7 @@ export const Mantine_Notion_대시보드_그리드_공백: Story = {
           </div>
         ))}
         <Space y="150" />
-        <div style={{ fontSize: 11, color: '#94a3b8' }}>Mantine Grid + Notion 대시보드의 공백 패턴을 Space 토큰으로 재현</div>
+        <div style={{ fontSize: 11, color: '#94a3b8' }}>AppUI Grid + WorkspaceEditor 대시보드의 공백 패턴을 Space 토큰으로 재현</div>
       </div>
     )
   },
@@ -1229,7 +1229,7 @@ export const Mantine_Notion_대시보드_그리드_공백: Story = {
     docs: {
       description: {
         story:
-          'Mantine + Notion 복합 패턴. 대시보드 카드 그리드와 활동 피드 사이에 Space 토큰을 계층별로 배치해 ' +
+          'AppUI + WorkspaceEditor 복합 패턴. 대시보드 카드 그리드와 활동 피드 사이에 Space 토큰을 계층별로 배치해 ' +
           '섹션 간 호흡과 내부 요소 간격을 구분합니다.',
       },
     },
@@ -1237,7 +1237,7 @@ export const Mantine_Notion_대시보드_그리드_공백: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Cycle 189 — Chakra UI + Arco Design
+   Cycle 189 — AccessibleUI + DataProductUI
 -------------------------------------------------------------------------- */
 const CHAKRA_FORM_SECTIONS_189 = [
   { label: '이름', placeholder: '홍길동', type: 'text' },
@@ -1245,13 +1245,13 @@ const CHAKRA_FORM_SECTIONS_189 = [
   { label: '조직', placeholder: 'Orbit Design Team', type: 'text' },
 ]
 
-function ChakraFormSpaceRender() {
+function AccessibleFormSpaceRender() {
   const [values, setValues] = React.useState({ name: '', email: '', org: '' })
   const keys = ['name', 'email', 'org'] as const
   return (
       <div style={{ width: 360, fontFamily: 'system-ui, sans-serif' }}>
         <div style={{ fontSize: 15, fontWeight: 700, color: '#0f172a' }}>프로필 설정</div>
-        <div style={{ fontSize: 11, color: '#64748b' }}>{'Chakra UI 폼 간격 패턴 — Space y="200" 섹션 분리'}</div>
+        <div style={{ fontSize: 11, color: '#64748b' }}>{'AccessibleUI 폼 간격 패턴 — Space y="200" 섹션 분리'}</div>
         <Space y="200" />
         <div style={{ fontSize: 11, fontWeight: 700, color: '#64748b', letterSpacing: '0.05em', textTransform: 'uppercase' }}>기본 정보</div>
         <Space y="100" />
@@ -1292,17 +1292,17 @@ function ChakraFormSpaceRender() {
     )
 }
 
-export const Chakra_폼_섹션_간격_리듬: StoryObj = {
-  name: 'Chakra UI — 폼 섹션 간격 리듬',
+export const Accessible_폼_섹션_간격_리듬: StoryObj = {
+  name: 'AccessibleUI — 폼 섹션 간격 리듬',
   parameters: {
     docs: {
       description: {
         story:
-          'Chakra UI 폼 레이아웃 간격 패턴. 섹션 헤더-필드 간(Space y="50"), 필드 간(Space y="100"), 섹션 간(Space y="200")으로 계층적 리듬을 적용합니다.',
+          'AccessibleUI 폼 레이아웃 간격 패턴. 섹션 헤더-필드 간(Space y="50"), 필드 간(Space y="100"), 섹션 간(Space y="200")으로 계층적 리듬을 적용합니다.',
       },
     },
   },
-  render: () => <ChakraFormSpaceRender />,
+  render: () => <AccessibleFormSpaceRender />,
 }
 
 const ARCO_CARD_SECTIONS_189 = [
@@ -1311,13 +1311,13 @@ const ARCO_CARD_SECTIONS_189 = [
   { title: '오류 발생률', value: '0.3%', delta: '+0.1%', positive: false },
 ]
 
-export const Arco_카드_내부_간격_시스템: StoryObj = {
-  name: 'Arco Design — 카드 내부 간격 시스템',
+export const DataProduct_카드_내부_간격_시스템: StoryObj = {
+  name: 'DataProductUI — 카드 내부 간격 시스템',
   parameters: {
     docs: {
       description: {
         story:
-          'Arco Design 카드 내부 간격 패턴. 카드 헤더-바디 간(Space y="100"), 지표 값-레이블 간(Space y="50"), 카드 간(Space y="150")을 Space 토큰으로 구성합니다.',
+          'DataProductUI 카드 내부 간격 패턴. 카드 헤더-바디 간(Space y="100"), 지표 값-레이블 간(Space y="50"), 카드 간(Space y="150")을 Space 토큰으로 구성합니다.',
       },
     },
   },
@@ -1325,7 +1325,7 @@ export const Arco_카드_내부_간격_시스템: StoryObj = {
     <div style={{ width: 340, fontFamily: 'system-ui, sans-serif' }}>
       <div style={{ fontSize: 13, fontWeight: 700, color: '#0f172a' }}>배포 지표</div>
       <Space y="50" />
-      <div style={{ fontSize: 11, color: '#64748b' }}>Arco Design 카드 간격 패턴 적용</div>
+      <div style={{ fontSize: 11, color: '#64748b' }}>DataProductUI 카드 간격 패턴 적용</div>
       <Space y="150" />
       {ARCO_CARD_SECTIONS_189.map((card, i) => (
         <React.Fragment key={card.title}>
@@ -1358,7 +1358,7 @@ const CHAKRA_ARCO_NAV_ITEMS_189 = [
   { label: '릴리즈', active: false },
 ]
 
-function ChakraArcoNavRender() {
+function AccessibleDataProductNavRender() {
   const [active, setActive] = React.useState('홈')
     return (
       <div style={{ display: 'flex', gap: 24, fontFamily: 'system-ui, sans-serif' }}>
@@ -1413,15 +1413,15 @@ function ChakraArcoNavRender() {
     )
 }
 
-export const Chakra_Arco_내비게이션_간격_리듬: StoryObj = {
-  name: 'Chakra UI + Arco Design — 내비게이션 간격 리듬',
+export const Accessible_DataProduct_내비게이션_간격_리듬: StoryObj = {
+  name: 'AccessibleUI + DataProductUI — 내비게이션 간격 리듬',
   parameters: {
     docs: {
       description: {
         story:
-          'Chakra UI + Arco Design 내비게이션 간격 패턴. 로고-네비게이션 간(Space y="300"), 섹션 구분(Space y="200"), 아이템 간(Space y="50") 계층 구조를 Space 토큰으로 표현합니다.',
+          'AccessibleUI + DataProductUI 내비게이션 간격 패턴. 로고-네비게이션 간(Space y="300"), 섹션 구분(Space y="200"), 아이템 간(Space y="50") 계층 구조를 Space 토큰으로 표현합니다.',
       },
     },
   },
-  render: () => <ChakraArcoNavRender />,
+  render: () => <AccessibleDataProductNavRender />,
 }

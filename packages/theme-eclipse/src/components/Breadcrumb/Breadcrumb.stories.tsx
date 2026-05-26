@@ -41,10 +41,10 @@ export const 기본: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Notion 스타일: 아이콘 포함 경로 네비게이션
-   Notion의 페이지 헤더에 표시되는 경로 탐색 패턴
+   WorkspaceEditor 스타일: 아이콘 포함 경로 네비게이션
+   WorkspaceEditor의 페이지 헤더에 표시되는 경로 탐색 패턴
 -------------------------------------------------------------------------- */
-export const Notion_아이콘_경로: Story = {
+export const WorkspaceEditor_아이콘_경로: Story = {
   render: () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
       <div>
@@ -107,10 +107,10 @@ export const Notion_아이콘_경로: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Notion 스타일: 줄임 처리 (ellipsis) 패턴
-   긴 경로를 "..." 으로 줄여 보여주는 Notion 네비게이션 패턴
+   WorkspaceEditor 스타일: 줄임 처리 (ellipsis) 패턴
+   긴 경로를 "..." 으로 줄여 보여주는 WorkspaceEditor 네비게이션 패턴
 -------------------------------------------------------------------------- */
-export const Notion_긴경로_줄임: Story = {
+export const WorkspaceEditor_긴경로_줄임: Story = {
   render: () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
       <p style={{ fontSize: '13px', color: '#64748b', margin: 0 }}>
@@ -149,15 +149,15 @@ export const Notion_긴경로_줄임: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Notion 스타일: 페이지 헤더 통합 패턴
-   Notion 문서 페이지 상단에 보이는 전체 헤더 영역 조합 패턴
+   WorkspaceEditor 스타일: 페이지 헤더 통합 패턴
+   WorkspaceEditor 문서 페이지 상단에 보이는 전체 헤더 영역 조합 패턴
 -------------------------------------------------------------------------- */
-export const Notion_페이지_헤더: Story = {
+export const WorkspaceEditor_페이지_헤더: Story = {
   render: () => (
     <div
       style={{
         maxWidth: '680px',
-        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+        fontFamily: '"Segoe UI", sans-serif',
       }}
     >
       <div
@@ -235,8 +235,8 @@ export const Notion_페이지_헤더: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Linear 스타일: 인터랙티브 경로 탐색
-   클릭으로 경로를 단계별로 이동하는 Linear 스타일 인터랙션
+   IssueTracker 스타일: 인터랙티브 경로 탐색
+   클릭으로 경로를 단계별로 이동하는 IssueTracker 스타일 인터랙션
 -------------------------------------------------------------------------- */
 const BreadcrumbNavigator = () => {
   const tree = [
@@ -352,8 +352,8 @@ export const 인터랙티브_경로_탐색: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Tailwind UI 벤치마크: 파일 시스템 경로 패턴
-   Tailwind UI Breadcrumb — 파일 탐색기 스타일 경로 + 컨텍스트 액션
+   UtilityUI 벤치마크: 파일 시스템 경로 패턴
+   UtilityUI Breadcrumb — 파일 탐색기 스타일 경로 + 컨텍스트 액션
 -------------------------------------------------------------------------- */
 const FS_PATHS = [
   [{ label: 'orbit-ui', icon: '📁' }],
@@ -363,8 +363,8 @@ const FS_PATHS = [
   [{ label: 'orbit-ui', icon: '📁' }, { label: 'packages', icon: '📁' }, { label: 'theme-eclipse', icon: '📁' }, { label: 'src', icon: '📁' }, { label: 'components', icon: '📁' }],
 ]
 
-export const Tailwind_파일시스템_경로: Story = {
-  name: 'Tailwind UI - 파일 시스템 경로 패턴',
+export const UtilityCSS_파일시스템_경로: Story = {
+  name: 'UtilityUI - 파일 시스템 경로 패턴',
   render: function Render() {
     const [pathIdx, setPathIdx] = useState(4)
     const currentPath = FS_PATHS[pathIdx]
@@ -419,15 +419,15 @@ export const Tailwind_파일시스템_경로: Story = {
             ))}
           </div>
         </div>
-        <p style={{ marginTop: 8, fontSize: 11, color: '#94a3b8' }}>Tailwind UI — 파일 탐색기 스타일 Breadcrumb 패턴</p>
+        <p style={{ marginTop: 8, fontSize: 11, color: '#94a3b8' }}>UtilityUI — 파일 탐색기 스타일 Breadcrumb 패턴</p>
       </div>
     )
   },
 }
 
 /* --------------------------------------------------------------------------
-   Radix UI 벤치마크: 다단계 설정 경로 패턴
-   Radix Breadcrumb primitive — 설정 페이지 계층 탐색 패턴
+   PrimitiveUI 벤치마크: 다단계 설정 경로 패턴
+   Primitive Breadcrumb primitive — 설정 페이지 계층 탐색 패턴
 -------------------------------------------------------------------------- */
 const SETTINGS_TREE = {
   label: '설정',
@@ -438,14 +438,14 @@ const SETTINGS_TREE = {
   },
 }
 
-export const Radix_설정_계층_탐색: Story = {
-  name: 'Radix UI - 다단계 설정 계층 탐색 패턴',
+export const Primitive_설정_계층_탐색: Story = {
+  name: 'PrimitiveUI - 다단계 설정 계층 탐색 패턴',
   render: function Render() {
     const [path, setPath] = useState<string[]>([])
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
     const getNode = (p: string[]): any => {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
       let node: any = SETTINGS_TREE
       for (const key of p) {
         node = node.children?.[key]
@@ -505,28 +505,28 @@ export const Radix_설정_계층_탐색: Story = {
             </div>
           )}
         </div>
-        <p style={{ marginTop: 8, fontSize: 11, color: '#94a3b8' }}>Radix UI Breadcrumb primitive — 계층형 설정 탐색 패턴</p>
+        <p style={{ marginTop: 8, fontSize: 11, color: '#94a3b8' }}>PrimitiveUI Breadcrumb primitive — 계층형 설정 탐색 패턴</p>
       </div>
     )
   },
 }
 
 /* --------------------------------------------------------------------------
-   Apple HIG: 파일 앱 폴더 계층 탐색 패턴
-   Apple Files.app의 폴더 드릴다운 Breadcrumb 패턴
+   Platform HIG: 파일 앱 폴더 계층 탐색 패턴
+   Platform Files.app의 폴더 드릴다운 Breadcrumb 패턴
 -------------------------------------------------------------------------- */
-type AppleFolder = {
+type PlatformFolder = {
   name: string
-  items: AppleFolder[]
+  items: PlatformFolder[]
 }
 
-const APPLE_FS: AppleFolder = {
+const NATIVE_FS: PlatformFolder = {
   name: 'iCloud Drive',
   items: [
     {
       name: 'Documents',
       items: [
-        { name: 'Design', items: [{ name: 'Orbit UI', items: [] }, { name: 'Figma', items: [] }] },
+        { name: 'Design', items: [{ name: 'Orbit UI', items: [] }, { name: 'DesignTool', items: [] }] },
         { name: 'Code', items: [{ name: 'orbit-ui', items: [] }, { name: 'next-app', items: [] }] },
       ],
     },
@@ -537,11 +537,11 @@ const APPLE_FS: AppleFolder = {
   ],
 }
 
-const AppleFilesDemo = () => {
+const PlatformFilesDemo = () => {
   const [path, setPath] = useState<string[]>([])
 
-  const getFolder = (p: string[]): AppleFolder => {
-    let node = APPLE_FS
+  const getFolder = (p: string[]): PlatformFolder => {
+    let node = NATIVE_FS
     for (const name of p) {
       const found = node.items.find((f) => f.name === name)
       if (found) node = found
@@ -558,7 +558,7 @@ const AppleFilesDemo = () => {
       background: '#f2f2f7',
       borderRadius: 16,
       overflow: 'hidden',
-      fontFamily: '-apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif',
+      fontFamily: '"Helvetica Neue", sans-serif',
     }}>
       {/* Top bar */}
       <div style={{ background: '#fff', padding: '10px 16px', borderBottom: '1px solid #e5e5ea' }}>
@@ -620,22 +620,22 @@ const AppleFilesDemo = () => {
         )}
       </div>
       <div style={{ padding: '8px 16px', fontSize: 11, color: '#8e8e93' }}>
-        Apple HIG — Files.app 폴더 계층 Breadcrumb
+        Platform HIG — Files.app 폴더 계층 Breadcrumb
       </div>
     </div>
   )
 }
 
-export const Apple_HIG_파일_앱_경로: Story = {
-  name: 'Apple HIG — Files.app 폴더 계층 탐색 패턴',
-  render: () => <AppleFilesDemo />,
+export const Platform_HIG_파일_앱_경로: Story = {
+  name: 'Platform HIG — Files.app 폴더 계층 탐색 패턴',
+  render: () => <PlatformFilesDemo />,
 }
 
 /* --------------------------------------------------------------------------
-   Notion 스타일: 공유 모달 페이지 경로
-   Notion share modal에서 페이지 경로를 표시하는 패턴
+   WorkspaceEditor 스타일: 공유 모달 페이지 경로
+   WorkspaceEditor share modal에서 페이지 경로를 표시하는 패턴
 -------------------------------------------------------------------------- */
-const NotionShareModalDemo = () => {
+const WorkspaceEditorShareModalDemo = () => {
   const [copied, setCopied] = useState(false)
   const shareLinks = [
     { label: '뷰어', icon: '👁' },
@@ -652,7 +652,7 @@ const NotionShareModalDemo = () => {
       border: '1px solid #e2e8f0',
       boxShadow: '0 8px 32px rgba(0,0,0,0.1)',
       overflow: 'hidden',
-      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+      fontFamily: '"Segoe UI", sans-serif',
     }}>
       {/* Header */}
       <div style={{ padding: '16px 20px 0' }}>
@@ -726,7 +726,7 @@ const NotionShareModalDemo = () => {
             fontSize: 12, color: '#94a3b8', overflow: 'hidden',
             textOverflow: 'ellipsis', whiteSpace: 'nowrap',
           }}>
-            https://notion.so/workspace/component-guide-abc123
+            https://workspace.example.com/component-guide
           </div>
           <button
             onClick={() => { setCopied(true); setTimeout(() => setCopied(false), 1500) }}
@@ -747,14 +747,14 @@ const NotionShareModalDemo = () => {
   )
 }
 
-export const Notion_공유_모달_경로: Story = {
-  name: 'Notion 공유 모달 — 페이지 경로 표시 패턴',
-  render: () => <NotionShareModalDemo />,
+export const WorkspaceEditor_공유_모달_경로: Story = {
+  name: 'WorkspaceEditor 공유 모달 — 페이지 경로 표시 패턴',
+  render: () => <WorkspaceEditorShareModalDemo />,
 }
 
 /* --------------------------------------------------------------------------
-   Apple HIG: 설정 앱 스타일 섹션 탐색
-   Apple Settings.app의 단계별 뒤로가기 Breadcrumb + 그룹 섹션 패턴
+   Platform HIG: 설정 앱 스타일 섹션 탐색
+   Platform Settings.app의 단계별 뒤로가기 Breadcrumb + 그룹 섹션 패턴
 -------------------------------------------------------------------------- */
 type SettingSection = {
   title: string
@@ -796,7 +796,7 @@ const SETTING_SECTIONS: Record<string, SettingSection> = {
   },
 }
 
-const AppleSettingsDemo = () => {
+const PlatformSettingsDemo = () => {
   const [stack, setStack] = useState<string[]>(['root'])
   const currentKey = stack[stack.length - 1]
   const section = SETTING_SECTIONS[currentKey] ?? SETTING_SECTIONS.root
@@ -807,7 +807,7 @@ const AppleSettingsDemo = () => {
       background: '#f2f2f7',
       borderRadius: 16,
       overflow: 'hidden',
-      fontFamily: '-apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif',
+      fontFamily: '"Helvetica Neue", sans-serif',
     }}>
       {/* Nav bar */}
       <div style={{
@@ -887,25 +887,25 @@ const AppleSettingsDemo = () => {
         ))}
       </div>
       <div style={{ padding: '8px 16px', fontSize: 11, color: '#8e8e93' }}>
-        Apple HIG — Settings.app 계층 탐색 패턴
+        Platform HIG — Settings.app 계층 탐색 패턴
       </div>
     </div>
   )
 }
 
-export const Apple_HIG_설정_앱_경로: Story = {
-  name: 'Apple HIG — Settings.app 계층 탐색 패턴',
-  render: () => <AppleSettingsDemo />,
+export const Platform_HIG_설정_앱_경로: Story = {
+  name: 'Platform HIG — Settings.app 계층 탐색 패턴',
+  render: () => <PlatformSettingsDemo />,
 }
 
 /* --------------------------------------------------------------------------
-   shadcn/ui 벤치마크: 전자상거래 카테고리 탐색 패턴
-   shadcn/ui Breadcrumb — 쇼핑몰 카테고리 계층 + 공유 버튼 패턴
+   ComposableUI 벤치마크: 전자상거래 카테고리 탐색 패턴
+   ComposableUI Breadcrumb — 쇼핑몰 카테고리 계층 + 공유 버튼 패턴
 -------------------------------------------------------------------------- */
 const CATEGORY_PATH = ['홈', '전자기기', '컴퓨터 & 노트북', '노트북']
 
-export const shadcn_카테고리_탐색: Story = {
-  name: 'shadcn/ui - 전자상거래 카테고리 탐색 패턴',
+export const ComposableUI_카테고리_탐색: Story = {
+  name: 'ComposableUI - 전자상거래 카테고리 탐색 패턴',
   render: () => (
     <div style={{ maxWidth: 560 }}>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 16 }}>
@@ -945,12 +945,12 @@ export const shadcn_카테고리_탐색: Story = {
           </div>
         ))}
       </div>
-      <p style={{ marginTop: 8, fontSize: 11, color: '#94a3b8' }}>shadcn/ui Breadcrumb — 전자상거래 카테고리 탐색 + 공유 버튼 패턴</p>
+      <p style={{ marginTop: 8, fontSize: 11, color: '#94a3b8' }}>ComposableUI Breadcrumb — 전자상거래 카테고리 탐색 + 공유 버튼 패턴</p>
     </div>
   ),
 }
 
-/* ── Linear Design: 이슈 컨텍스트 경로 ── */
+/* ── IssueTracker Design: 이슈 컨텍스트 경로 ── */
 const IssueContextBreadcrumbDemo = () => {
   const [path, setPath] = useState(['Orbit UI 팀', '백로그', '이슈 #247'])
 
@@ -999,12 +999,12 @@ const IssueContextBreadcrumbDemo = () => {
   )
 }
 
-export const Linear_이슈_컨텍스트_경로: Story = {
-  name: 'Linear — 이슈 컨텍스트 경로 탐색',
+export const IssueTracker_이슈_컨텍스트_경로: Story = {
+  name: 'IssueTracker — 이슈 컨텍스트 경로 탐색',
   render: () => <IssueContextBreadcrumbDemo />,
 }
 
-/* ── Linear Design: 프로젝트 계층 탐색 ── */
+/* ── IssueTracker Design: 프로젝트 계층 탐색 ── */
 const ProjectHierarchyDemo = () => {
   type Segment = { label: string; sublabel?: string }
   const [segments, setSegments] = useState<Segment[]>([
@@ -1059,12 +1059,12 @@ const ProjectHierarchyDemo = () => {
   )
 }
 
-export const Linear_프로젝트_계층_탐색: Story = {
-  name: 'Linear — 프로젝트 계층 탐색',
+export const IssueTracker_프로젝트_계층_탐색: Story = {
+  name: 'IssueTracker — 프로젝트 계층 탐색',
   render: () => <ProjectHierarchyDemo />,
 }
 
-/* ── Linear Design: 팀 워크스페이스 네비게이션 ── */
+/* ── IssueTracker Design: 팀 워크스페이스 네비게이션 ── */
 const WorkspaceNavDemo = () => {
   const [activeView, setActiveView] = useState('issues')
 
@@ -1111,16 +1111,16 @@ const WorkspaceNavDemo = () => {
   )
 }
 
-export const Linear_워크스페이스_네비게이션: Story = {
-  name: 'Linear — 워크스페이스 네비게이션',
+export const IssueTracker_워크스페이스_네비게이션: Story = {
+  name: 'IssueTracker — 워크스페이스 네비게이션',
   render: () => <WorkspaceNavDemo />,
 }
 
 /* --------------------------------------------------------------------------
-   Arco Design — 데이터 탐색 계층 경로 (Cycle 118)
-   Arco의 데이터 시각화 탐색 패턴 — 드릴다운 네비게이션
+   DataProductUI — 데이터 탐색 계층 경로 (Cycle 118)
+   DataProduct의 데이터 시각화 탐색 패턴 — 드릴다운 네비게이션
 -------------------------------------------------------------------------- */
-function ArcoDataDrilldownRender() {
+function DataProductDataDrilldownRender() {
   const paths = [
     [
       { label: '데이터 센터', href: '#' },
@@ -1176,24 +1176,24 @@ function ArcoDataDrilldownRender() {
   )
 }
 
-export const Arco_데이터_드릴다운_경로: Story = {
-  name: 'Arco Design — 데이터 드릴다운 경로 (Cycle 118)',
+export const DataProduct_데이터_드릴다운_경로: Story = {
+  name: 'DataProductUI — 데이터 드릴다운 경로 (Cycle 118)',
   parameters: {
     docs: {
       description: {
         story:
-          'Arco Design의 데이터 탐색 드릴다운 패턴. 뎁스 레벨 선택으로 계층 경로가 동적으로 변하며 현재 위치를 강조합니다.',
+          'DataProductUI의 데이터 탐색 드릴다운 패턴. 뎁스 레벨 선택으로 계층 경로가 동적으로 변하며 현재 위치를 강조합니다.',
       },
     },
   },
-  render: () => <ArcoDataDrilldownRender />,
+  render: () => <DataProductDataDrilldownRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Apple HIG — 설정 앱 계층 탐색 고도화 (Cycle 118)
+   Platform HIG — 설정 앱 계층 탐색 고도화 (Cycle 118)
    HIG의 back-navigation 패턴 — 전체 계층 표시 + 현재 위치 컨텍스트
 -------------------------------------------------------------------------- */
-function AppleHIGNavigationRender() {
+function PlatformHIGNavigationRender() {
   const tree: Record<string, { label: string; parent: string | null; children: string[] }> = {
     root: { label: '설정', parent: null, children: ['privacy', 'accessibility', 'display'] },
     privacy: { label: '개인 정보 보호', parent: 'root', children: ['location', 'camera'] },
@@ -1256,24 +1256,24 @@ function AppleHIGNavigationRender() {
   )
 }
 
-export const Apple_HIG_계층_설정_탐색: Story = {
-  name: 'Apple HIG — 계층 설정 탐색 (Cycle 118)',
+export const Platform_HIG_계층_설정_탐색: Story = {
+  name: 'Platform HIG — 계층 설정 탐색 (Cycle 118)',
   parameters: {
     docs: {
       description: {
         story:
-          'Apple HIG의 settings navigation 패턴. Breadcrumb으로 현재 위치 표시, 하위 항목 클릭으로 드릴다운, 경로 클릭으로 역탐색.',
+          'Platform HIG의 settings navigation 패턴. Breadcrumb으로 현재 위치 표시, 하위 항목 클릭으로 드릴다운, 경로 클릭으로 역탐색.',
       },
     },
   },
-  render: () => <AppleHIGNavigationRender />,
+  render: () => <PlatformHIGNavigationRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Arco + Apple — 파일시스템 경로 브레드크럼 (Cycle 118)
+   DataProduct + Platform — 파일시스템 경로 브레드크럼 (Cycle 118)
    파일 탐색기 경로 + 말줄임 처리 패턴
 -------------------------------------------------------------------------- */
-function ArcoAppleFilePathRender() {
+function DataProductPlatformFilePathRender() {
   const [path, setPath] = useState(['Users', 'heejun', 'Projects', 'orbit-ui', 'packages', 'theme-eclipse', 'src'])
   function navigateTo(index: number) {
     setPath((prev) => prev.slice(0, index + 1))
@@ -1324,23 +1324,23 @@ function ArcoAppleFilePathRender() {
   )
 }
 
-export const Arco_Apple_파일시스템_경로: Story = {
-  name: 'Arco + Apple — 파일시스템 경로 (Cycle 118)',
+export const DataProduct_Platform_파일시스템_경로: Story = {
+  name: 'DataProduct + Platform — 파일시스템 경로 (Cycle 118)',
   parameters: {
     docs: {
       description: {
         story:
-          'Arco Design + Apple HIG의 파일탐색기 경로 패턴. 긴 경로 말줄임 처리, 상위 이동, 하위 폴더 추가 인터랙션 포함.',
+          'DataProductUI + Platform HIG의 파일탐색기 경로 패턴. 긴 경로 말줄임 처리, 상위 이동, 하위 폴더 추가 인터랙션 포함.',
       },
     },
   },
-  render: () => <ArcoAppleFilePathRender />,
+  render: () => <DataProductPlatformFilePathRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Tailwind UI — 다단계 폼 진행 경로 (스텝 브레드크럼)
+   UtilityUI — 다단계 폼 진행 경로 (스텝 브레드크럼)
 -------------------------------------------------------------------------- */
-function TailwindFormStepBreadcrumbRender() {
+function UtilityCSSFormStepBreadcrumbRender() {
   const [currentStep, setCurrentStep] = useState(2)
   const steps = ['기본 정보', '주소 입력', '결제 수단', '주문 확인', '완료']
   return (
@@ -1380,16 +1380,16 @@ function TailwindFormStepBreadcrumbRender() {
   )
 }
 
-export const Tailwind_다단계_폼_진행_브레드크럼: Story = {
-  name: 'Tailwind UI — 다단계 폼 진행 경로 (스텝 브레드크럼)',
+export const UtilityCSS_다단계_폼_진행_브레드크럼: Story = {
+  name: 'UtilityUI — 다단계 폼 진행 경로 (스텝 브레드크럼)',
   parameters: {
     docs: {
       description: {
-        story: 'Tailwind UI의 step indicator + breadcrumb 조합 패턴. 완료 단계는 링크로, 현재 단계는 bold underline으로, 미래 단계는 비활성으로 표현. 완료 단계 클릭 시 해당 단계로 이동.',
+        story: 'UtilityUI의 step indicator + breadcrumb 조합 패턴. 완료 단계는 링크로, 현재 단계는 bold underline으로, 미래 단계는 비활성으로 표현. 완료 단계 클릭 시 해당 단계로 이동.',
       },
     },
   },
-  render: () => <TailwindFormStepBreadcrumbRender />,
+  render: () => <UtilityCSSFormStepBreadcrumbRender />,
 }
 
 /* --------------------------------------------------------------------------
@@ -1466,9 +1466,9 @@ export const Ant_코드_리뷰_파일_탐색: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   MUI — 관리자 대시보드 컨텍스트 (섹션 + 아이콘 + 오버플로우)
+   EnterpriseUI — 관리자 대시보드 컨텍스트 (섹션 + 아이콘 + 오버플로우)
 -------------------------------------------------------------------------- */
-function MUIAdminDashboardBreadcrumbRender() {
+function EnterpriseUIAdminDashboardBreadcrumbRender() {
   const sections = [
     { label: '대시보드', icon: '🏠' },
     { label: '사용자 관리', icon: '👥' },
@@ -1513,23 +1513,23 @@ function MUIAdminDashboardBreadcrumbRender() {
   )
 }
 
-export const MUI_관리자_대시보드_브레드크럼: Story = {
-  name: 'MUI — 관리자 대시보드 (섹션 + 아이콘)',
+export const EnterpriseUI_관리자_대시보드_브레드크럼: Story = {
+  name: 'EnterpriseUI — 관리자 대시보드 (섹션 + 아이콘)',
   parameters: {
     docs: {
       description: {
-        story: 'Material UI 관리자 UI의 아이콘 포함 Breadcrumb 패턴. 각 경로 항목에 섹션 아이콘을 추가하고 현재 섹션에 Admin 뱃지를 우측에 배치.',
+        story: 'Enterprise UI 관리자 UI의 아이콘 포함 Breadcrumb 패턴. 각 경로 항목에 섹션 아이콘을 추가하고 현재 섹션에 Admin 뱃지를 우측에 배치.',
       },
     },
   },
-  render: () => <MUIAdminDashboardBreadcrumbRender />,
+  render: () => <EnterpriseUIAdminDashboardBreadcrumbRender />,
 }
 
 // ──────────────────────────────────────────────────────────────────────────────
-// Cycle 175: Notion Design + Figma Plugin UI
+// Cycle 175: WorkspaceEditor Design + DesignTool Plugin UI
 // ──────────────────────────────────────────────────────────────────────────────
 
-function NotionPageHierarchyRender() {
+function WorkspaceEditorPageHierarchyRender() {
   const [selected, setSelected] = useState(2)
   const pages = [
     { label: 'Orbit UI', icon: '◉' },
@@ -1541,7 +1541,7 @@ function NotionPageHierarchyRender() {
 
   return (
     <div style={{ width: 520, background: 'var(--sem-eclipse-color-backgroundPrimary, #fff)', borderRadius: 10, border: '1px solid var(--sem-eclipse-color-borderPrimary, #e2e8f0)', overflow: 'hidden' }}>
-      {/* Notion-style page header */}
+      {/* WorkspaceEditor-style page header */}
       <div style={{ padding: '8px 16px', borderBottom: '1px solid var(--sem-eclipse-color-borderPrimary, #e2e8f0)', display: 'flex', alignItems: 'center' }}>
         <Breadcrumb>
           {activePath.map((page, i) => (
@@ -1574,7 +1574,7 @@ function NotionPageHierarchyRender() {
           <h2 style={{ fontSize: 22, fontWeight: 700, color: '#0f172a', margin: 0 }}>{activePath[activePath.length - 1].label}</h2>
         </div>
         <div style={{ fontSize: 13, color: '#64748b', lineHeight: 1.7 }}>
-          Notion 스타일 페이지 계층 탐색. 브레드크럼 클릭으로 상위 페이지 이동, 아이콘 + 제목 패턴.
+          WorkspaceEditor 스타일 페이지 계층 탐색. 브레드크럼 클릭으로 상위 페이지 이동, 아이콘 + 제목 패턴.
         </div>
         <div style={{ marginTop: 12, display: 'flex', gap: 6 }}>
           {['하위 페이지 추가', '공유', '내보내기'].map((action) => (
@@ -1588,19 +1588,19 @@ function NotionPageHierarchyRender() {
   )
 }
 
-export const Notion_페이지_계층_브레드크럼: Story = {
-  name: 'Notion Design — 페이지 계층 브레드크럼 (아이콘 + 클릭 탐색)',
+export const WorkspaceEditor_페이지_계층_브레드크럼: Story = {
+  name: 'WorkspaceEditor Design — 페이지 계층 브레드크럼 (아이콘 + 클릭 탐색)',
   parameters: {
     docs: {
       description: {
-        story: 'Notion 사이드바 페이지 계층 Breadcrumb 패턴. 아이콘 + 텍스트 조합, 클릭으로 상위 계층 이동, 현재 위치 아이콘 헤더 표시. 페이지 액션 버튼 연동.',
+        story: 'WorkspaceEditor 사이드바 페이지 계층 Breadcrumb 패턴. 아이콘 + 텍스트 조합, 클릭으로 상위 계층 이동, 현재 위치 아이콘 헤더 표시. 페이지 액션 버튼 연동.',
       },
     },
   },
-  render: () => <NotionPageHierarchyRender />,
+  render: () => <WorkspaceEditorPageHierarchyRender />,
 }
 
-function FigmaLayerBreadcrumbRender() {
+function DesignToolLayerBreadcrumbRender() {
   const layers = [
     { name: 'Page 1', type: 'page' },
     { name: 'Frame 1', type: 'frame' },
@@ -1615,7 +1615,7 @@ function FigmaLayerBreadcrumbRender() {
 
   return (
     <div style={{ width: 480, background: '#1e1e1e', borderRadius: 10, overflow: 'hidden' }}>
-      {/* Figma-style toolbar */}
+      {/* DesignTool-style toolbar */}
       <div style={{ padding: '8px 12px', background: '#2c2c2c', borderBottom: '1px solid #3c3c3c', display: 'flex', alignItems: 'center', gap: 6 }}>
         <Breadcrumb>
           {visible.map((layer, i) => (
@@ -1659,19 +1659,19 @@ function FigmaLayerBreadcrumbRender() {
   )
 }
 
-export const Figma_레이어_계층_브레드크럼: Story = {
-  name: 'Figma Plugin UI — 레이어 계층 브레드크럼 (타입 아이콘 + 속성 패널)',
+export const DesignTool_레이어_계층_브레드크럼: Story = {
+  name: 'DesignTool Plugin UI — 레이어 계층 브레드크럼 (타입 아이콘 + 속성 패널)',
   parameters: {
     docs: {
       description: {
-        story: 'Figma 플러그인 레이어 탐색 Breadcrumb. Page→Frame→Group→Component→Instance 계층 표시, 타입별 컬러 아이콘, 클릭 시 선택 레이어 변경, 하위 레이어 접근 버튼.',
+        story: 'DesignTool 플러그인 레이어 탐색 Breadcrumb. Page→Frame→Group→Component→Instance 계층 표시, 타입별 컬러 아이콘, 클릭 시 선택 레이어 변경, 하위 레이어 접근 버튼.',
       },
     },
   },
-  render: () => <FigmaLayerBreadcrumbRender />,
+  render: () => <DesignToolLayerBreadcrumbRender />,
 }
 
-function NotionFigmaDocBreadcrumbRender() {
+function WorkspaceEditorDesignToolDocBreadcrumbRender() {
   const [docPath, setDocPath] = useState(['Orbit UI Docs', 'Components', 'Navigation'])
   const allSections = ['Overview', 'Getting Started', 'Components', 'Design Tokens', 'Customization', 'Migration']
   const subsections: Record<string, string[]> = {
@@ -1729,7 +1729,7 @@ function NotionFigmaDocBreadcrumbRender() {
           ) : (
             <div style={{ fontSize: 13, color: '#64748b' }}>
               <strong style={{ color: '#0f172a' }}>{currentSection}</strong> 문서 페이지.
-              <br />Notion + Figma 스타일 브레드크럼 네비게이션 예시.
+              <br />WorkspaceEditor + DesignTool 스타일 브레드크럼 네비게이션 예시.
             </div>
           )}
         </div>
@@ -1738,14 +1738,14 @@ function NotionFigmaDocBreadcrumbRender() {
   )
 }
 
-export const Notion_Figma_문서_사이드바_브레드크럼: Story = {
-  name: 'Notion + Figma — 문서 사이드바 브레드크럼 (섹션 → 서브섹션 탐색)',
+export const WorkspaceEditor_DesignTool_문서_사이드바_브레드크럼: Story = {
+  name: 'WorkspaceEditor + DesignTool — 문서 사이드바 브레드크럼 (섹션 → 서브섹션 탐색)',
   parameters: {
     docs: {
       description: {
-        story: 'Notion 문서 + Figma 플러그인 네비게이션 패턴. 좌측 섹션 메뉴 클릭 → 브레드크럼 동적 업데이트 → 서브섹션 선택 → 3단계 경로 표시. 실제 문서 사이트 탐색 UX.',
+        story: 'WorkspaceEditor 문서 + DesignTool 플러그인 네비게이션 패턴. 좌측 섹션 메뉴 클릭 → 브레드크럼 동적 업데이트 → 서브섹션 선택 → 3단계 경로 표시. 실제 문서 사이트 탐색 UX.',
       },
     },
   },
-  render: () => <NotionFigmaDocBreadcrumbRender />,
+  render: () => <WorkspaceEditorDesignToolDocBreadcrumbRender />,
 }

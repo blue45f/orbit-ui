@@ -3,7 +3,7 @@ import React, { PropsWithChildren, useMemo } from 'react'
 /**
  * 메모이징을 적용한 프로바이더와, 이 프로바이더에 대응하는 컨슈머 훅을 `[프로바이더, 컨슈머]` 튜플로 반환해요.
  *
- * {@link https://github.com/radix-ui/primitives/tree/b324ec2d7ddf13a2a115cb5b11478e24d2f45b87/packages/react/context Radix UI}에서 일부 따옴
+ * 접근성 프리미티브 컨텍스트 패턴을 참고했습니다.
  *
  * @param providerName 컨텍스트를 제공할 루트 컴포넌트의 이름. 컨텍스트 프로바이더의 `displayName`과 컨슈머 오류 메시지에 사용해요.
  * @param defaultValue 컨텍스트 프로바이더를 찾을 수 없을 때 대신 사용할 기본값. 지정하지 않으면 이 컨텍스트는 필수 컨텍스트가 돼요. (컨슈머 훅에서 오류 발생 가능)

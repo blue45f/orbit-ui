@@ -22,7 +22,7 @@ export { customRender as render }
 
 type RAFCallback = (timestamp: number) => void
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+
 export const createRAFStub = () => {
   let timestamp = performance?.now() ?? Date.now()
   let callback: RAFCallback | null = null

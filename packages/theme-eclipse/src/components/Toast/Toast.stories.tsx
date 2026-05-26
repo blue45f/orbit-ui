@@ -53,7 +53,7 @@ export const 기본: Story = {
 
 /* --------------------------------------------------------------------------
    타입별 인터랙티브 스위처
-   Mantine Notification 패턴: 4가지 알림 타입을 한 화면에서 전환
+   AppUI Notification 패턴: 4가지 알림 타입을 한 화면에서 전환
 -------------------------------------------------------------------------- */
 const TypeSwitcherRender = (args: React.ComponentProps<typeof Toaster>) => {
   const types: Array<{ label: string; color: string; fn: () => void }> = [
@@ -127,7 +127,7 @@ export const 타입별스위처: Story = {
 
 /* --------------------------------------------------------------------------
    알림 큐 데모
-   Mantine Notification 패턴: 여러 알림을 순서대로 쌓고 제거
+   AppUI Notification 패턴: 여러 알림을 순서대로 쌓고 제거
 -------------------------------------------------------------------------- */
 const NotificationQueueRender = (args: React.ComponentProps<typeof Toaster>) => {
   const [count, setCount] = useState(0)
@@ -250,13 +250,13 @@ export const 폼제출플로우: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Apple HIG 스타일: 시스템 알림 배너 시뮬레이션
-   Apple HIG의 Banner Notification 패턴:
+   Platform HIG 스타일: 시스템 알림 배너 시뮬레이션
+   Platform HIG의 Banner Notification 패턴:
    - 상단 슬라이드인 애니메이션
    - 앱 아이콘 + 제목 + 서브텍스트 구조
    - 자동 dismiss (4초)
 -------------------------------------------------------------------------- */
-const AppleHIGBannerRender = (args: React.ComponentProps<typeof Toaster>) => {
+const PlatformHIGBannerRender = (args: React.ComponentProps<typeof Toaster>) => {
   const bannerTypes = [
     {
       label: '캘린더 알림',
@@ -298,7 +298,7 @@ const AppleHIGBannerRender = (args: React.ComponentProps<typeof Toaster>) => {
     <div style={{ padding: '2rem', height: '380px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
       <Toaster {...args} position="top-center" richColors />
       <div style={{ fontSize: '14px', fontWeight: 700, color: '#1e293b', marginBottom: '4px' }}>
-        Apple HIG — 시스템 알림 배너
+        Platform HIG — 시스템 알림 배너
       </div>
       <div style={{ fontSize: '12px', color: '#94a3b8', marginBottom: '8px' }}>
         iOS/macOS 스타일 알림 배너를 시뮬레이션합니다. 각 버튼을 눌러 상단 슬라이드인 알림을 확인하세요.
@@ -329,18 +329,18 @@ const AppleHIGBannerRender = (args: React.ComponentProps<typeof Toaster>) => {
   )
 }
 
-export const Apple_HIG_시스템_알림_배너: Story = {
-  render: (args) => <AppleHIGBannerRender {...args} />,
+export const Platform_HIG_시스템_알림_배너: Story = {
+  render: (args) => <PlatformHIGBannerRender {...args} />,
 }
 
 /* --------------------------------------------------------------------------
-   Raycast 스타일: 커맨드 실행 결과 알림
-   Raycast의 Toast 패턴:
+   CommandPalette 스타일: 커맨드 실행 결과 알림
+   CommandPalette의 Toast 패턴:
    - 간결한 단일 라인 메시지
    - 빠른 연속 실행 알림
    - 진행 중 / 완료 상태 전환 패턴
 -------------------------------------------------------------------------- */
-const RaycastCommandToastRender = (args: React.ComponentProps<typeof Toaster>) => {
+const CommandPaletteCommandToastRender = (args: React.ComponentProps<typeof Toaster>) => {
   const [running, setRunning] = useState(false)
 
   const runCommand = (name: string, cmd: string) => {
@@ -368,7 +368,7 @@ const RaycastCommandToastRender = (args: React.ComponentProps<typeof Toaster>) =
     <div style={{ padding: '2rem', height: '360px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
       <Toaster {...args} position="bottom-right" />
       <div style={{ fontSize: '14px', fontWeight: 700, color: '#1e293b' }}>
-        Raycast — 커맨드 실행 결과 알림
+        CommandPalette — 커맨드 실행 결과 알림
       </div>
       <div style={{ fontSize: '12px', color: '#94a3b8', marginBottom: '4px' }}>
         명령어를 실행하면 진행 중 상태에서 완료로 전환되는 Toast를 확인합니다.
@@ -412,13 +412,13 @@ const RaycastCommandToastRender = (args: React.ComponentProps<typeof Toaster>) =
   )
 }
 
-export const Raycast_커맨드_실행_알림: Story = {
-  render: (args) => <RaycastCommandToastRender {...args} />,
+export const CommandPalette_커맨드_실행_알림: Story = {
+  render: (args) => <CommandPaletteCommandToastRender {...args} />,
 }
 
 /* --------------------------------------------------------------------------
-   MUI 벤치마크: Snackbar 위치 데모
-   MUI Snackbar anchorOrigin 패턴 — 6가지 위치를 UI로 선택해 확인
+   EnterpriseUI 벤치마크: Snackbar 위치 데모
+   EnterpriseUI Snackbar anchorOrigin 패턴 — 6가지 위치를 UI로 선택해 확인
 -------------------------------------------------------------------------- */
 type ToasterPosition = 'top-left' | 'top-center' | 'top-right' | 'bottom-left' | 'bottom-center' | 'bottom-right'
 
@@ -434,7 +434,7 @@ const SnackbarPositionRender = () => {
     <div style={{ padding: '2rem', height: '380px', fontFamily: 'system-ui, sans-serif' }}>
       <Toaster key={pos} position={pos} />
       <div style={{ fontSize: '14px', fontWeight: 700, color: '#1e293b', marginBottom: '6px' }}>
-        MUI Snackbar — anchorOrigin 위치 선택
+        EnterpriseUI Snackbar — anchorOrigin 위치 선택
       </div>
       <div style={{ fontSize: '12px', color: '#94a3b8', marginBottom: '16px' }}>
         위치를 선택한 후 알림 띄우기 버튼을 눌러 해당 위치에 Toast가 나타나는 것을 확인합니다.
@@ -482,7 +482,7 @@ const SnackbarPositionRender = () => {
       <Button
         color="primary"
         size="medium"
-        onClick={() => toast.info(`위치: ${pos}`, { description: 'MUI anchorOrigin 패턴' })}
+        onClick={() => toast.info(`위치: ${pos}`, { description: 'EnterpriseUI anchorOrigin 패턴' })}
       >
         <Button.Center>알림 띄우기</Button.Center>
       </Button>
@@ -490,13 +490,13 @@ const SnackbarPositionRender = () => {
   )
 }
 
-export const MUI_Snackbar_위치_데모: Story = {
+export const EnterpriseUI_Snackbar_위치_데모: Story = {
   render: () => <SnackbarPositionRender />,
 }
 
 /* --------------------------------------------------------------------------
-   MUI 벤치마크: 실행취소 패턴 (Snackbar UNDO)
-   MUI의 대표적인 Snackbar 패턴 — 삭제 후 UNDO 액션으로 복구
+   EnterpriseUI 벤치마크: 실행취소 패턴 (Snackbar UNDO)
+   EnterpriseUI의 대표적인 Snackbar 패턴 — 삭제 후 UNDO 액션으로 복구
 -------------------------------------------------------------------------- */
 type ListItem = { id: number; text: string }
 
@@ -523,7 +523,7 @@ const UndoPatternRender = (args: React.ComponentProps<typeof Toaster>) => {
     <div style={{ padding: '2rem', maxWidth: '380px' }}>
       <Toaster {...args} position="bottom-center" />
       <div style={{ fontSize: '14px', fontWeight: 700, color: '#1e293b', marginBottom: '4px' }}>
-        MUI Snackbar UNDO 패턴
+        EnterpriseUI Snackbar UNDO 패턴
       </div>
       <div style={{ fontSize: '12px', color: '#94a3b8', marginBottom: '16px' }}>
         항목을 삭제하면 실행취소 버튼이 포함된 Toast가 5초간 표시됩니다.
@@ -567,13 +567,13 @@ const UndoPatternRender = (args: React.ComponentProps<typeof Toaster>) => {
   )
 }
 
-export const MUI_실행취소_패턴: Story = {
+export const EnterpriseUI_실행취소_패턴: Story = {
   render: (args) => <UndoPatternRender {...args} />,
 }
 
 /* --------------------------------------------------------------------------
-   MUI 벤치마크: Alert 스타일 토스트
-   MUI Alert severity 패턴 — error/warning/info/success variant를 Toast에 적용
+   EnterpriseUI 벤치마크: Alert 스타일 토스트
+   EnterpriseUI Alert severity 패턴 — error/warning/info/success variant를 Toast에 적용
    각 severity별 색상 팔레트와 아이콘을 Orbit UI Toast로 구현합니다.
 -------------------------------------------------------------------------- */
 type AlertSeverity = 'error' | 'warning' | 'info' | 'success'
@@ -588,9 +588,9 @@ const ALERT_CONFIGS: Record<AlertSeverity, { label: string; desc: string; icon: 
 const AlertStyleRender = (args: React.ComponentProps<typeof Toaster>) => (
   <div style={{ padding: '2rem', height: '360px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
     <Toaster {...args} position="top-right" richColors />
-    <div style={{ fontSize: '14px', fontWeight: 700, color: '#1e293b' }}>MUI Alert severity 패턴</div>
+    <div style={{ fontSize: '14px', fontWeight: 700, color: '#1e293b' }}>EnterpriseUI Alert severity 패턴</div>
     <div style={{ fontSize: '12px', color: '#94a3b8', marginBottom: '4px' }}>
-      MUI Alert의 4가지 severity(error/warning/info/success)를 Toast로 구현합니다.
+      EnterpriseUI Alert의 4가지 severity(error/warning/info/success)를 Toast로 구현합니다.
     </div>
     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '10px' }}>
       {(Object.entries(ALERT_CONFIGS) as [AlertSeverity, typeof ALERT_CONFIGS[AlertSeverity]][]).map(([severity, cfg]) => {
@@ -630,19 +630,19 @@ const AlertStyleRender = (args: React.ComponentProps<typeof Toaster>) => (
   </div>
 )
 
-export const MUI_Alert_스타일_토스트: Story = {
+export const EnterpriseUI_Alert_스타일_토스트: Story = {
   render: (args) => <AlertStyleRender {...args} />,
 }
 
 /* --------------------------------------------------------------------------
-   Cycle 67: Mantine + Arco Design 벤치마크
+   Cycle 67: AppUI + DataProductUI 벤치마크
 -------------------------------------------------------------------------- */
 
-/* Mantine — 로딩 후 성공 전환 알림
-   Mantine의 notifications.update() 패턴. 로딩 상태 알림을 비동기 완료 후
+/* AppUI — 로딩 후 성공 전환 알림
+   AppUI의 notifications.update() 패턴. 로딩 상태 알림을 비동기 완료 후
    성공/실패로 업데이트하는 UX. 비동기 작업 피드백의 가장 자연스러운 패턴.
 -------------------------------------------------------------------------- */
-const MantineLoadingSuccessRender = (args: React.ComponentProps<typeof Toaster>) => {
+const AppUILoadingSuccessRender = (args: React.ComponentProps<typeof Toaster>) => {
   const [loading, setLoading] = useState(false)
 
   const runAsync = (outcome: 'success' | 'error') => {
@@ -662,10 +662,10 @@ const MantineLoadingSuccessRender = (args: React.ComponentProps<typeof Toaster>)
   return (
     <div style={{ padding: '2rem', height: '320px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
       <Toaster {...args} position="top-right" />
-      <div style={{ fontSize: '14px', fontWeight: 700, color: '#1e293b' }}>Mantine — 로딩 후 성공/실패 전환</div>
+      <div style={{ fontSize: '14px', fontWeight: 700, color: '#1e293b' }}>AppUI — 로딩 후 성공/실패 전환</div>
       <div style={{ fontSize: '12px', color: '#64748b', marginBottom: '8px', lineHeight: 1.6 }}>
         비동기 작업 시작 시 loading Toast를 표시하고, 완료 후 동일 id로 성공/실패로 교체합니다.
-        Mantine의 notifications.update() 패턴을 Toast의 id 재사용으로 구현합니다.
+        AppUI의 notifications.update() 패턴을 Toast의 id 재사용으로 구현합니다.
       </div>
       <div style={{ display: 'flex', gap: '10px' }}>
         <button
@@ -695,20 +695,20 @@ const MantineLoadingSuccessRender = (args: React.ComponentProps<typeof Toaster>)
   )
 }
 
-export const Mantine_로딩_성공_전환_알림: Story = {
-  name: 'Mantine — 로딩 후 성공/실패 전환 알림',
+export const AppUI_로딩_성공_전환_알림: Story = {
+  name: 'AppUI — 로딩 후 성공/실패 전환 알림',
   parameters: {
     docs: {
       description: {
-        story: 'Mantine notifications.update() 패턴. 비동기 작업 시작 시 loading Toast를 표시하고 완료 후 동일 id로 성공/실패로 교체. 업로드, API 호출 등 비동기 작업 피드백에 최적.',
+        story: 'AppUI notifications.update() 패턴. 비동기 작업 시작 시 loading Toast를 표시하고 완료 후 동일 id로 성공/실패로 교체. 업로드, API 호출 등 비동기 작업 피드백에 최적.',
       },
     },
   },
-  render: (args) => <MantineLoadingSuccessRender {...args} />,
+  render: (args) => <AppUILoadingSuccessRender {...args} />,
 }
 
-/* Mantine — 알림 큐 관리
-   Mantine의 notifications 큐 패턴. 여러 알림이 순차적으로 쌓이고
+/* AppUI — 알림 큐 관리
+   AppUI의 notifications 큐 패턴. 여러 알림이 순차적으로 쌓이고
    자동으로 사라지는 스택 패턴. 최대 3개 동시 표시.
 -------------------------------------------------------------------------- */
 const QUEUE_MESSAGES = [
@@ -719,7 +719,7 @@ const QUEUE_MESSAGES = [
   { title: '구독 만료 예정', desc: '7일 후 구독이 만료됩니다. 갱신해 주세요.', type: 'info' as const },
 ]
 
-const MantineQueueRender = (args: React.ComponentProps<typeof Toaster>) => {
+const AppUIQueueRender = (args: React.ComponentProps<typeof Toaster>) => {
   const [count, setCount] = useState(0)
 
   const pushNotification = () => {
@@ -752,9 +752,9 @@ const MantineQueueRender = (args: React.ComponentProps<typeof Toaster>) => {
   return (
     <div style={{ padding: '2rem', height: '360px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
       <Toaster {...args} position="bottom-right" richColors />
-      <div style={{ fontSize: '14px', fontWeight: 700, color: '#1e293b' }}>Mantine — 알림 큐 관리</div>
+      <div style={{ fontSize: '14px', fontWeight: 700, color: '#1e293b' }}>AppUI — 알림 큐 관리</div>
       <div style={{ fontSize: '12px', color: '#64748b', marginBottom: '4px', lineHeight: 1.6 }}>
-        Mantine의 notifications 큐처럼 여러 알림이 순차적으로 쌓입니다. 우측 하단에서 스택으로 표시됩니다.
+        AppUI의 notifications 큐처럼 여러 알림이 순차적으로 쌓입니다. 우측 하단에서 스택으로 표시됩니다.
       </div>
       <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
         <button
@@ -783,23 +783,23 @@ const MantineQueueRender = (args: React.ComponentProps<typeof Toaster>) => {
   )
 }
 
-export const Mantine_알림_큐_관리: Story = {
-  name: 'Mantine — 알림 큐 관리',
+export const AppUI_알림_큐_관리: Story = {
+  name: 'AppUI — 알림 큐 관리',
   parameters: {
     docs: {
       description: {
-        story: 'Mantine notifications 큐 패턴. 5가지 알림 타입(info/success/warning/error)을 순차 발송하거나 동시에 5개 쌓기. 실시간 이벤트 알림 시스템 데모.',
+        story: 'AppUI notifications 큐 패턴. 5가지 알림 타입(info/success/warning/error)을 순차 발송하거나 동시에 5개 쌓기. 실시간 이벤트 알림 시스템 데모.',
       },
     },
   },
-  render: (args) => <MantineQueueRender {...args} />,
+  render: (args) => <AppUIQueueRender {...args} />,
 }
 
-/* Arco Design — 배치 작업 진행 알림
-   Arco Design의 진행률 표시 알림 패턴. 파일 다운로드, 데이터 내보내기 등
+/* DataProductUI — 배치 작업 진행 알림
+   DataProductUI의 진행률 표시 알림 패턴. 파일 다운로드, 데이터 내보내기 등
    장시간 작업의 진행률을 Toast로 실시간 업데이트.
 -------------------------------------------------------------------------- */
-const ArcoBatchRender = (args: React.ComponentProps<typeof Toaster>) => {
+const DataProductBatchRender = (args: React.ComponentProps<typeof Toaster>) => {
   const [progress, setProgress] = useState(0)
   const [running, setRunning] = useState(false)
 
@@ -831,9 +831,9 @@ const ArcoBatchRender = (args: React.ComponentProps<typeof Toaster>) => {
   return (
     <div style={{ padding: '2rem', height: '360px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
       <Toaster {...args} position="top-center" />
-      <div style={{ fontSize: '14px', fontWeight: 700, color: '#1e293b' }}>Arco Design — 배치 작업 진행 알림</div>
+      <div style={{ fontSize: '14px', fontWeight: 700, color: '#1e293b' }}>DataProductUI — 배치 작업 진행 알림</div>
       <div style={{ fontSize: '12px', color: '#64748b', lineHeight: 1.6, marginBottom: '8px' }}>
-        Arco Design의 Message.loading() 패턴을 응용. 내보내기/변환 등 장시간 작업의 진행률을 동일 id Toast로 실시간 갱신합니다.
+        DataProductUI의 Message.loading() 패턴을 응용. 내보내기/변환 등 장시간 작업의 진행률을 동일 id Toast로 실시간 갱신합니다.
       </div>
 
       {/* 진행률 시각화 */}
@@ -873,20 +873,20 @@ const ArcoBatchRender = (args: React.ComponentProps<typeof Toaster>) => {
   )
 }
 
-export const Arco_배치_작업_진행_알림: Story = {
-  name: 'Arco Design — 배치 작업 진행 알림',
+export const DataProduct_배치_작업_진행_알림: Story = {
+  name: 'DataProductUI — 배치 작업 진행 알림',
   parameters: {
     docs: {
       description: {
-        story: 'Arco Design Message.loading 패턴. 데이터 내보내기 등 장시간 작업의 진행률을 동일 id Toast로 실시간 갱신. 진행률 바와 처리 건수를 함께 표시.',
+        story: 'DataProductUI Message.loading 패턴. 데이터 내보내기 등 장시간 작업의 진행률을 동일 id Toast로 실시간 갱신. 진행률 바와 처리 건수를 함께 표시.',
       },
     },
   },
-  render: (args) => <ArcoBatchRender {...args} />,
+  render: (args) => <DataProductBatchRender {...args} />,
 }
 
-export const Linear_이슈_상태_변경_알림: Story = {
-  name: 'Linear - 이슈 상태 변경 Toast 패턴',
+export const IssueTracker_이슈_상태_변경_알림: Story = {
+  name: 'IssueTracker - 이슈 상태 변경 Toast 패턴',
   render: (args) => {
     const showStatusChange = () => {
       toast.success('ENG-101 상태 변경됨', {
@@ -919,7 +919,7 @@ export const Linear_이슈_상태_변경_알림: Story = {
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 10, fontFamily: 'Inter, system-ui, sans-serif' }}>
         <Toaster {...args} />
-        <div style={{ fontSize: 12, fontWeight: 700, color: '#6b7280', marginBottom: 4 }}>Linear 이슈 Toast 패턴</div>
+        <div style={{ fontSize: 12, fontWeight: 700, color: '#6b7280', marginBottom: 4 }}>IssueTracker 이슈 Toast 패턴</div>
         <div style={{ display: 'flex', gap: 8 }}>
           <Button color="black" size="small" onClick={showStatusChange}>
             <Button.Center>상태 변경</Button.Center>
@@ -931,20 +931,20 @@ export const Linear_이슈_상태_변경_알림: Story = {
             <Button.Center>이슈 완료</Button.Center>
           </Button>
         </div>
-        <div style={{ fontSize: 11, color: '#9ca3af' }}>Linear의 이슈 액션 Toast — 실행 취소 액션 버튼 포함</div>
+        <div style={{ fontSize: 11, color: '#9ca3af' }}>IssueTracker의 이슈 액션 Toast — 실행 취소 액션 버튼 포함</div>
       </div>
     )
   },
   parameters: {
     docs: {
       description: {
-        story: 'Linear 이슈 상태 변경 Toast 패턴. 상태 변경/이슈 생성/완료 처리 시 action 버튼(실행 취소/이슈 열기)을 포함한 Toast를 표시합니다. Linear 특유의 간결한 피드백 + 즉시 실행 취소 UX를 구현합니다.',
+        story: 'IssueTracker 이슈 상태 변경 Toast 패턴. 상태 변경/이슈 생성/완료 처리 시 action 버튼(실행 취소/이슈 열기)을 포함한 Toast를 표시합니다. IssueTracker 특유의 간결한 피드백 + 즉시 실행 취소 UX를 구현합니다.',
       },
     },
   },
 }
 
-const ArcoAsyncToastRender = (args: React.ComponentProps<typeof Toaster>) => {
+const DataProductAsyncToastRender = (args: React.ComponentProps<typeof Toaster>) => {
   const [running, setRunning] = useState(false)
 
   const simulateImport = async () => {
@@ -980,7 +980,7 @@ const ArcoAsyncToastRender = (args: React.ComponentProps<typeof Toaster>) => {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 10, fontFamily: 'Inter, system-ui, sans-serif' }}>
       <Toaster {...args} />
-      <div style={{ fontSize: 12, fontWeight: 700, color: '#6b7280', marginBottom: 4 }}>Arco Design 비동기 작업 알림</div>
+      <div style={{ fontSize: 12, fontWeight: 700, color: '#6b7280', marginBottom: 4 }}>DataProductUI 비동기 작업 알림</div>
       <div style={{ display: 'flex', gap: 8 }}>
         <Button color="black" size="small" onClick={() => { void simulateImport() }} disabled={running}>
           <Button.Center>임포트 시뮬레이션</Button.Center>
@@ -994,20 +994,20 @@ const ArcoAsyncToastRender = (args: React.ComponentProps<typeof Toaster>) => {
   )
 }
 
-export const Arco_작업_결과_알림_패턴: Story = {
-  name: 'Arco Design - 비동기 작업 결과 알림 패턴',
-  render: (args) => <ArcoAsyncToastRender {...args} />,
+export const DataProduct_작업_결과_알림_패턴: Story = {
+  name: 'DataProductUI - 비동기 작업 결과 알림 패턴',
+  render: (args) => <DataProductAsyncToastRender {...args} />,
   parameters: {
     docs: {
       description: {
-        story: 'Arco Design Message 패턴. 비동기 작업(임포트/동기화)의 loading 상태를 먼저 표시하고 완료 시 동일 Toast id를 success/error로 전환합니다. 재시도 액션 버튼으로 오류 복구 흐름을 지원합니다.',
+        story: 'DataProductUI Message 패턴. 비동기 작업(임포트/동기화)의 loading 상태를 먼저 표시하고 완료 시 동일 Toast id를 success/error로 전환합니다. 재시도 액션 버튼으로 오류 복구 흐름을 지원합니다.',
       },
     },
   },
 }
 
-export const Linear_커밋_배포_알림: Story = {
-  name: 'Linear + Vercel - 커밋 배포 완료 알림 패턴',
+export const IssueTracker_커밋_배포_알림: Story = {
+  name: 'IssueTracker + DeployPlatform - 커밋 배포 완료 알림 패턴',
   render: (args) => {
     const deployStages = [
       { label: '빌드 시작', type: 'info' as const },
@@ -1021,11 +1021,11 @@ export const Linear_커밋_배포_알림: Story = {
         await new Promise(res => setTimeout(res, 800))
         if (stage.type === 'success') {
           toast.success(stage.label, {
-            description: stage.label.includes('배포') ? 'orbit-ui.vercel.app' : '0 errors · 2 warnings',
+            description: stage.label.includes('배포') ? 'orbit-ui.deploy.example.com' : '0 errors · 2 warnings',
           })
         } else {
           toast(stage.label, {
-            description: stage.label.includes('빌드') ? 'pnpm build:storybook' : 'vercel deploy --scope blue45fs-projects',
+            description: stage.label.includes('빌드') ? 'pnpm build:storybook' : 'deployctl publish --workspace example',
           })
         }
       }
@@ -1036,7 +1036,7 @@ export const Linear_커밋_배포_알림: Story = {
         description: 'feat(stories): Cycle 99 스토리 추가 by hjunkim',
         action: {
           label: 'PR 보기',
-          onClick: () => toast.info('GitHub PR 페이지로 이동'),
+          onClick: () => toast.info('CodeHost PR 페이지로 이동'),
         },
         duration: 5000,
       })
@@ -1061,17 +1061,17 @@ export const Linear_커밋_배포_알림: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Linear + Vercel 배포 파이프라인 Toast 패턴. 빌드 시작 → 빌드 완료 → 배포 시작 → 배포 완료의 4단계 순차적 Toast 시퀀스로 CI/CD 진행 상황을 실시간 알립니다. PR 머지 알림에는 action 버튼을 포함합니다.',
+        story: 'IssueTracker + DeployPlatform 배포 파이프라인 Toast 패턴. 빌드 시작 → 빌드 완료 → 배포 시작 → 배포 완료의 4단계 순차적 Toast 시퀀스로 CI/CD 진행 상황을 실시간 알립니다. PR 머지 알림에는 action 버튼을 포함합니다.',
       },
     },
   },
 }
 
 /* --------------------------------------------------------------------------
-   Chakra UI 벤치마크: 상태 기반 알림 패턴
-   Chakra useToast — 커스텀 상태 전환(대기/진행/완료/오류) Toast 시퀀스
+   AccessibleUI 벤치마크: 상태 기반 알림 패턴
+   Accessible useToast — 커스텀 상태 전환(대기/진행/완료/오류) Toast 시퀀스
 -------------------------------------------------------------------------- */
-function ChakraStatusToastRender(args: React.ComponentProps<typeof Toaster>) {
+function AccessibleStatusToastRender(args: React.ComponentProps<typeof Toaster>) {
   const [status, setStatus] = React.useState<'idle' | 'loading' | 'done'>('idle')
 
   const runFlow = async () => {
@@ -1112,14 +1112,14 @@ function ChakraStatusToastRender(args: React.ComponentProps<typeof Toaster>) {
   )
 }
 
-export const Chakra_파일_업로드_상태_알림: Story = {
-  name: 'Chakra UI - 파일 업로드 상태 알림 패턴',
-  render: (args) => <ChakraStatusToastRender {...args} />,
+export const Accessible_파일_업로드_상태_알림: Story = {
+  name: 'AccessibleUI - 파일 업로드 상태 알림 패턴',
+  render: (args) => <AccessibleStatusToastRender {...args} />,
   parameters: {
     docs: {
       description: {
         story:
-          'Chakra UI useToast 패턴. 파일 업로드의 loading → success 상태 전환을 동일 Toast id로 관리합니다. ' +
+          'AccessibleUI useToast 패턴. 파일 업로드의 loading → success 상태 전환을 동일 Toast id로 관리합니다. ' +
           '오류 발생 시 action 버튼으로 재시도 흐름을 제공합니다.',
       },
     },
@@ -1127,10 +1127,10 @@ export const Chakra_파일_업로드_상태_알림: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Arco Design 벤치마크: 글로벌 알림 위치 제어 패턴
-   Arco Message maxCount & position — 다중 알림 위치별 표시 데모
+   DataProductUI 벤치마크: 글로벌 알림 위치 제어 패턴
+   DataProduct Message maxCount & position — 다중 알림 위치별 표시 데모
 -------------------------------------------------------------------------- */
-function ArcoPositionToastRender(args: React.ComponentProps<typeof Toaster>) {
+function DataProductPositionToastRender(args: React.ComponentProps<typeof Toaster>) {
   const positions = [
     { pos: 'top-left' as const, label: '좌상단' },
     { pos: 'top-center' as const, label: '상단 중앙' },
@@ -1156,30 +1156,30 @@ function ArcoPositionToastRender(args: React.ComponentProps<typeof Toaster>) {
           </Button>
         ))}
       </div>
-      <div style={{ fontSize: 11, color: '#9ca3af' }}>Arco Design Message position 옵션 대응 — 6방향 위치 선택</div>
+      <div style={{ fontSize: 11, color: '#9ca3af' }}>DataProductUI Message position 옵션 대응 — 6방향 위치 선택</div>
     </div>
   )
 }
 
-export const Arco_알림_위치_제어_패턴: Story = {
-  name: 'Arco Design - 알림 위치 제어 패턴',
-  render: (args) => <ArcoPositionToastRender {...args} />,
+export const DataProduct_알림_위치_제어_패턴: Story = {
+  name: 'DataProductUI - 알림 위치 제어 패턴',
+  render: (args) => <DataProductPositionToastRender {...args} />,
   parameters: {
     docs: {
       description: {
         story:
-          'Arco Design Message position 옵션 패턴. 6방향(top-left/center/right, bottom-left/center/right)에서 알림을 표시합니다. ' +
-          'Sonner의 position 파라미터를 활용해 Arco의 글로벌 알림 위치 제어를 재현합니다.',
+          'DataProductUI Message position 옵션 패턴. 6방향(top-left/center/right, bottom-left/center/right)에서 알림을 표시합니다. ' +
+          'Sonner의 position 파라미터를 활용해 DataProduct의 글로벌 알림 위치 제어를 재현합니다.',
       },
     },
   },
 }
 
 /* --------------------------------------------------------------------------
-   Chakra + Arco 복합: 다단계 폼 제출 알림 워크플로우
+   Accessible + DataProduct 복합: 다단계 폼 제출 알림 워크플로우
    폼 유효성 검사 → 저장 중 → 완료/오류 다단계 Toast 체인
 -------------------------------------------------------------------------- */
-function ChakraArcoFormToastRender(args: React.ComponentProps<typeof Toaster>) {
+function AccessibleDataProductFormToastRender(args: React.ComponentProps<typeof Toaster>) {
   const [step, setStep] = React.useState<'idle' | 'validating' | 'saving' | 'done'>('idle')
 
   const submitForm = async () => {
@@ -1230,23 +1230,23 @@ function ChakraArcoFormToastRender(args: React.ComponentProps<typeof Toaster>) {
   )
 }
 
-export const Chakra_Arco_다단계_폼_제출_알림: Story = {
-  name: 'Chakra UI + Arco Design - 다단계 폼 제출 알림 워크플로우',
-  render: (args) => <ChakraArcoFormToastRender {...args} />,
+export const Accessible_DataProduct_다단계_폼_제출_알림: Story = {
+  name: 'AccessibleUI + DataProductUI - 다단계 폼 제출 알림 워크플로우',
+  render: (args) => <AccessibleDataProductFormToastRender {...args} />,
   parameters: {
     docs: {
       description: {
         story:
-          'Chakra UI + Arco Design 복합 패턴. 폼 제출 시 유효성 검증 → 서버 저장 → 완료의 3단계 Toast 체인을 동일 id로 관리합니다. ' +
-          'Chakra useToast의 update 패턴과 Arco Message.loading의 비동기 처리 방식을 Sonner API로 재현합니다.',
+          'AccessibleUI + DataProductUI 복합 패턴. 폼 제출 시 유효성 검증 → 서버 저장 → 완료의 3단계 Toast 체인을 동일 id로 관리합니다. ' +
+          'Accessible useToast의 update 패턴과 DataProduct Message.loading의 비동기 처리 방식을 Sonner API로 재현합니다.',
       },
     },
   },
 }
 
-// ─── Cycle 153: Mantine + Notion ───────────────────────────────────────────
+// ─── Cycle 153: AppUI + WorkspaceEditor ───────────────────────────────────────────
 
-function MantineNotificationStackRender(args: React.ComponentProps<typeof Toaster>) {
+function AppUINotificationStackRender(args: React.ComponentProps<typeof Toaster>) {
   const [count, setCount] = useState(0)
   const notifications = [
     { title: '파일 업로드 완료', desc: 'report_q4.pdf 업로드됨', type: 'success' as const },
@@ -1266,7 +1266,7 @@ function MantineNotificationStackRender(args: React.ComponentProps<typeof Toaste
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 10, fontFamily: 'Inter, system-ui, sans-serif' }}>
       <Toaster {...args} />
-      <div style={{ fontSize: 12, fontWeight: 700, color: '#6b7280' }}>Mantine 알림 스택 관리</div>
+      <div style={{ fontSize: 12, fontWeight: 700, color: '#6b7280' }}>AppUI 알림 스택 관리</div>
       <div style={{ display: 'flex', gap: 8 }}>
         <Button color="black" size="small" onClick={addNotification}>
           <Button.Center>알림 추가</Button.Center>
@@ -1275,26 +1275,26 @@ function MantineNotificationStackRender(args: React.ComponentProps<typeof Toaste
           <Button.Center>전체 닫기</Button.Center>
         </Button>
       </div>
-      <div style={{ fontSize: 11, color: '#9ca3af' }}>성공 → 오류 → 정보 → 로딩 순환 (Mantine useNotifications 패턴)</div>
+      <div style={{ fontSize: 11, color: '#9ca3af' }}>성공 → 오류 → 정보 → 로딩 순환 (AppUI useNotifications 패턴)</div>
     </div>
   )
 }
 
-export const Mantine_알림_스택_관리: Story = {
-  name: 'Mantine - 알림 스택 관리 시스템',
-  render: (args) => <MantineNotificationStackRender {...args} />,
+export const AppUI_알림_스택_관리: Story = {
+  name: 'AppUI - 알림 스택 관리 시스템',
+  render: (args) => <AppUINotificationStackRender {...args} />,
   parameters: {
     docs: {
       description: {
         story:
-          'Mantine useNotifications 패턴. 성공·오류·정보·로딩 4종 알림을 스택 방식으로 축적하고 전체 일괄 해제를 지원합니다. ' +
-          'Mantine Notifications의 limit·autoClose·closeOnClick 옵션을 Sonner API로 재현합니다.',
+          'AppUI useNotifications 패턴. 성공·오류·정보·로딩 4종 알림을 스택 방식으로 축적하고 전체 일괄 해제를 지원합니다. ' +
+          'AppUI Notifications의 limit·autoClose·closeOnClick 옵션을 Sonner API로 재현합니다.',
       },
     },
   },
 }
 
-function NotionTaskConfirmRender(args: React.ComponentProps<typeof Toaster>) {
+function WorkspaceEditorTaskConfirmRender(args: React.ComponentProps<typeof Toaster>) {
   const TASKS = ['디자인 시스템 토큰 정리', '컴포넌트 문서 업데이트', '스프린트 회고 작성', 'API 엔드포인트 명세']
   const [completed, setCompleted] = useState<string[]>([])
   const completeTask = (task: string) => {
@@ -1321,26 +1321,26 @@ function NotionTaskConfirmRender(args: React.ComponentProps<typeof Toaster>) {
           </span>
         </div>
       ))}
-      <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 8 }}>{completed.length}/{TASKS.length} 완료 — Notion 체크박스 패턴</div>
+      <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 8 }}>{completed.length}/{TASKS.length} 완료 — WorkspaceEditor 체크박스 패턴</div>
     </div>
   )
 }
 
-export const Notion_작업_완료_확인_토스트: Story = {
-  name: 'Notion - 작업 완료 확인 Toast (실행 취소 지원)',
-  render: (args) => <NotionTaskConfirmRender {...args} />,
+export const WorkspaceEditor_작업_완료_확인_토스트: Story = {
+  name: 'WorkspaceEditor - 작업 완료 확인 Toast (실행 취소 지원)',
+  render: (args) => <WorkspaceEditorTaskConfirmRender {...args} />,
   parameters: {
     docs: {
       description: {
         story:
-          'Notion 체크박스 완료 패턴. 작업 체크 시 완료 Toast가 표시되며 "실행 취소" 액션으로 체크 해제를 지원합니다. ' +
-          'Notion의 인라인 체크박스 UX와 undo 패턴을 재현합니다.',
+          'WorkspaceEditor 체크박스 완료 패턴. 작업 체크 시 완료 Toast가 표시되며 "실행 취소" 액션으로 체크 해제를 지원합니다. ' +
+          'WorkspaceEditor의 인라인 체크박스 UX와 undo 패턴을 재현합니다.',
       },
     },
   },
 }
 
-function MantineNotionCollabRender(args: React.ComponentProps<typeof Toaster>) {
+function AppUIWorkspaceEditorCollabRender(args: React.ComponentProps<typeof Toaster>) {
   const [active, setActive] = useState(false)
   const events = [
     { user: '김민준', action: '페이지를 편집 중', icon: '✏️' },
@@ -1361,39 +1361,39 @@ function MantineNotionCollabRender(args: React.ComponentProps<typeof Toaster>) {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 10, fontFamily: 'Inter, system-ui, sans-serif' }}>
       <Toaster {...args} />
-      <div style={{ fontSize: 12, fontWeight: 700, color: '#6b7280' }}>Mantine + Notion 실시간 협업 알림</div>
+      <div style={{ fontSize: 12, fontWeight: 700, color: '#6b7280' }}>AppUI + WorkspaceEditor 실시간 협업 알림</div>
       <div style={{ fontSize: 11, color: '#9ca3af' }}>4명의 팀원이 순차적으로 활동합니다</div>
       <Button color="black" size="small" onClick={simulateCollab} disabled={active}>
         <Button.Center>{active ? '시뮬레이션 중...' : '협업 시뮬레이션'}</Button.Center>
       </Button>
-      <div style={{ fontSize: 11, color: '#9ca3af' }}>Mantine Notifications + Notion 실시간 협업 UI 패턴</div>
+      <div style={{ fontSize: 11, color: '#9ca3af' }}>AppUI Notifications + WorkspaceEditor 실시간 협업 UI 패턴</div>
     </div>
   )
 }
 
-export const Mantine_Notion_실시간_협업_알림: Story = {
-  name: 'Mantine + Notion - 실시간 협업 알림 스트림',
-  render: (args) => <MantineNotionCollabRender {...args} />,
+export const AppUI_WorkspaceEditor_실시간_협업_알림: Story = {
+  name: 'AppUI + WorkspaceEditor - 실시간 협업 알림 스트림',
+  render: (args) => <AppUIWorkspaceEditorCollabRender {...args} />,
   parameters: {
     docs: {
       description: {
         story:
-          'Mantine + Notion 복합 패턴. 여러 팀원의 실시간 활동(편집·댓글·업로드·멘션)이 1.2초 간격으로 Toast 스트림으로 전달됩니다. ' +
-          'Notion 협업 공간의 실시간 알림 UX와 Mantine 알림 지속시간 설정을 재현합니다.',
+          'AppUI + WorkspaceEditor 복합 패턴. 여러 팀원의 실시간 활동(편집·댓글·업로드·멘션)이 1.2초 간격으로 Toast 스트림으로 전달됩니다. ' +
+          'WorkspaceEditor 협업 공간의 실시간 알림 UX와 AppUI 알림 지속시간 설정을 재현합니다.',
       },
     },
   },
 }
 
 /* --------------------------------------------------------------------------
-   Cycle 179 — Tailwind UI + Vercel Design
+   Cycle 179 — UtilityUI + DeployPlatform Design
    Benchmark:
-   1. Tailwind UI: 폼 저장 패턴 — 저장 완료 + 실행 취소 액션 토스트
-   2. Vercel Design: 배포 완료/실패 알림 — URL 링크 + 상태 색상
-   3. Tailwind + Vercel: 일괄 작업 순차 토스트 — 진행 단계별 알림 시퀀스
+   1. UtilityUI: 폼 저장 패턴 — 저장 완료 + 실행 취소 액션 토스트
+   2. DeployPlatform Design: 배포 완료/실패 알림 — URL 링크 + 상태 색상
+   3. UtilityCSS + DeployPlatform: 일괄 작업 순차 토스트 — 진행 단계별 알림 시퀀스
 -------------------------------------------------------------------------- */
 
-function TailwindFormSaveToastRender(args: React.ComponentProps<typeof Toaster>) {
+function UtilityCSSFormSaveToastRender(args: React.ComponentProps<typeof Toaster>) {
   const [saved, setSaved] = useState(false)
 
   const handleSave = () => {
@@ -1434,26 +1434,26 @@ function TailwindFormSaveToastRender(args: React.ComponentProps<typeof Toaster>)
   )
 }
 
-export const Tailwind_폼_저장_알림: Story = {
-  name: 'Tailwind UI — 폼 저장 완료 토스트 (실행 취소 액션)',
-  render: (args) => <TailwindFormSaveToastRender {...args} />,
+export const UtilityCSS_폼_저장_알림: Story = {
+  name: 'UtilityUI — 폼 저장 완료 토스트 (실행 취소 액션)',
+  render: (args) => <UtilityCSSFormSaveToastRender {...args} />,
   parameters: {
     docs: {
       description: {
-        story: 'Tailwind UI Form 저장 패턴 구현. 저장 성공 시 toast.success() + 실행 취소 액션 버튼. 취소 클릭 시 상태를 되돌리고 취소 확인 토스트를 추가 표시. 5초 자동 닫기.',
+        story: 'UtilityUI Form 저장 패턴 구현. 저장 성공 시 toast.success() + 실행 취소 액션 버튼. 취소 클릭 시 상태를 되돌리고 취소 확인 토스트를 추가 표시. 5초 자동 닫기.',
       },
     },
   },
 }
 
-function VercelDeployToastRender(args: React.ComponentProps<typeof Toaster>) {
+function DeployPlatformDeployToastRender(args: React.ComponentProps<typeof Toaster>) {
   const triggerDeploy = (success: boolean) => {
     const id = toast.loading('배포 시작 중...')
     setTimeout(() => {
       if (success) {
         toast.success('배포가 완료되었습니다.', {
           id,
-          description: 'orbit-ui-preview.vercel.app — 빌드 시간: 38초',
+          description: 'orbit-ui-preview.deploy.example.com — 빌드 시간: 38초',
           action: { label: '사이트 열기', onClick: () => undefined },
           duration: 6000,
         })
@@ -1481,13 +1481,13 @@ function VercelDeployToastRender(args: React.ComponentProps<typeof Toaster>) {
   )
 }
 
-export const Vercel_배포_완료_알림: Story = {
-  name: 'Vercel Design — 배포 완료/실패 토스트 (로딩 → 결과)',
-  render: (args) => <VercelDeployToastRender {...args} />,
+export const DeployPlatform_배포_완료_알림: Story = {
+  name: 'DeployPlatform Design — 배포 완료/실패 토스트 (로딩 → 결과)',
+  render: (args) => <DeployPlatformDeployToastRender {...args} />,
   parameters: {
     docs: {
       description: {
-        story: 'Vercel 배포 UI 패턴 구현. toast.loading()으로 배포 시작 알림 후 2초 뒤 동일 id로 성공/실패 토스트로 업데이트. 성공 시 사이트 URL + 빌드 시간, 실패 시 오류 수 + 로그 보기 액션.',
+        story: 'DeployPlatform 배포 UI 패턴 구현. toast.loading()으로 배포 시작 알림 후 2초 뒤 동일 id로 성공/실패 토스트로 업데이트. 성공 시 사이트 URL + 빌드 시간, 실패 시 오류 수 + 로그 보기 액션.',
       },
     },
   },
@@ -1498,11 +1498,11 @@ const BATCH_STEPS = [
   { msg: 'ESLint 검사 완료 (0 경고)', type: 'success' as const },
   { msg: '스토리북 빌드 중...', type: 'loading' as const },
   { msg: '스토리북 빌드 완료 (38초)', type: 'success' as const },
-  { msg: 'Vercel 배포 업로드 중...', type: 'loading' as const },
+  { msg: 'DeployPlatform 배포 업로드 중...', type: 'loading' as const },
   { msg: '모든 작업이 완료되었습니다.', type: 'success' as const },
 ]
 
-function TailwindVercelBatchToastRender(args: React.ComponentProps<typeof Toaster>) {
+function UtilityCSSDeployPlatformBatchToastRender(args: React.ComponentProps<typeof Toaster>) {
   const [running, setRunning] = useState(false)
   const [step, setStep] = useState(0)
 
@@ -1546,13 +1546,13 @@ function TailwindVercelBatchToastRender(args: React.ComponentProps<typeof Toaste
   )
 }
 
-export const Tailwind_Vercel_일괄_작업_알림: Story = {
-  name: 'Tailwind UI + Vercel — 일괄 작업 순차 토스트 (파이프라인)',
-  render: (args) => <TailwindVercelBatchToastRender {...args} />,
+export const UtilityCSS_DeployPlatform_일괄_작업_알림: Story = {
+  name: 'UtilityUI + DeployPlatform — 일괄 작업 순차 토스트 (파이프라인)',
+  render: (args) => <UtilityCSSDeployPlatformBatchToastRender {...args} />,
   parameters: {
     docs: {
       description: {
-        story: 'Tailwind UI 진행 피드백 + Vercel CI/CD 파이프라인 패턴. typecheck→lint→build→deploy 6단계 작업을 1.3초 간격으로 토스트 스트림으로 표시. loading→success 전환, 단계 진행 도트 인디케이터 동반.',
+        story: 'UtilityUI 진행 피드백 + DeployPlatform CI/CD 파이프라인 패턴. typecheck→lint→build→deploy 6단계 작업을 1.3초 간격으로 토스트 스트림으로 표시. loading→success 전환, 단계 진행 도트 인디케이터 동반.',
       },
     },
   },

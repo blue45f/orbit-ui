@@ -17,7 +17,7 @@ export type CheckboxProps = Omit<BaseCheckboxProps, keyof BaseCheckboxSpecificPr
 
 /**
  * ### 💡 알아두기
- * - [🔗 figma 디자인가이드라인 바로가기](https://www.figma.com/design/j83TJjvORWmdqQ1mBWc3uR/%F0%9F%98%8E-%5B%ED%81%B4%EB%A0%88%EC%9D%B4%5D-%EC%BD%94%EC%96%B4-0.10.6?node-id=10375-4382&m=dev)
+ * - [🔗 design 디자인가이드라인 바로가기](https://design.example.com/reference)
  *
  * @example
  * ### 👇 기본 사용법

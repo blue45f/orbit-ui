@@ -150,7 +150,7 @@ export const 디자인_QA = {
       control: 'boolean',
     },
   },
-   
+
   render: function RenderComponent({ trailing, children: _children, ...rest }: any) {
     return (
       <PageNumber {...rest}>
@@ -164,12 +164,12 @@ export const 디자인_QA = {
   },
 }
 
-// ─── Cycle 65: Radix UI + Ant Design ───────────────────────────────────────
+// ─── Cycle 65: PrimitiveUI + Ant Design ───────────────────────────────────────
 
 const RADIX_TOTAL_ITEMS = 87
 const RADIX_PAGE_SIZE = 10
 
-const RadixPaginationRender = () => {
+const PrimitivePaginationRender = () => {
   const [current, setCurrent] = useState(1)
   const total = Math.ceil(RADIX_TOTAL_ITEMS / RADIX_PAGE_SIZE)
   const startItem = (current - 1) * RADIX_PAGE_SIZE + 1
@@ -219,21 +219,21 @@ const RadixPaginationRender = () => {
         </button>
         <PageNumber current={current} total={total} />
       </div>
-      <div style={{ marginTop: 8, fontSize: 11, color: '#94a3b8', textAlign: 'center' }}>Radix UI Pagination 패턴 — 데이터 리스트 페이지 네이션</div>
+      <div style={{ marginTop: 8, fontSize: 11, color: '#94a3b8', textAlign: 'center' }}>PrimitiveUI Pagination 패턴 — 데이터 리스트 페이지 네이션</div>
     </div>
   )
 }
 
-export const Radix_페이지네이션_데이터_리스트: Story = {
-  name: 'Radix UI - 데이터 리스트 페이지네이션',
+export const Primitive_페이지네이션_데이터_리스트: Story = {
+  name: 'PrimitiveUI - 데이터 리스트 페이지네이션',
   parameters: {
     docs: {
       description: {
-        story: 'Radix UI Pagination 패턴. 총 87개 항목을 10개씩 나눠 PageNumber와 이전/다음 버튼으로 페이지를 전환합니다. 현재 표시 범위와 total/current 상태를 실시간으로 보여줍니다.',
+        story: 'PrimitiveUI Pagination 패턴. 총 87개 항목을 10개씩 나눠 PageNumber와 이전/다음 버튼으로 페이지를 전환합니다. 현재 표시 범위와 total/current 상태를 실시간으로 보여줍니다.',
       },
     },
   },
-  render: () => <RadixPaginationRender />,
+  render: () => <PrimitivePaginationRender />,
 }
 
 type AntStep = {
@@ -245,7 +245,7 @@ type AntStep = {
 const ANT_STEPS: AntStep[] = [
   { id: 1, title: '프로젝트 정보', desc: '이름, 설명, 가시성 설정' },
   { id: 2, title: '팀 멤버 초대', desc: '협업할 팀원을 초대합니다' },
-  { id: 3, title: '통합 설정', desc: 'GitHub, Slack 연동' },
+  { id: 3, title: '통합 설정', desc: 'CodeHost, Slack 연동' },
   { id: 4, title: '완료', desc: '프로젝트가 생성되었습니다' },
 ]
 
@@ -368,17 +368,17 @@ export const Ant_갤러리_그리드_페이지네이션: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   shadcn/ui 벤치마크: 블로그/문서 아티클 목록 페이지네이션
-   shadcn Pagination 패턴 — 이전/다음 + 페이지 번호 + 생략(...) 조합
+   ComposableUI 벤치마크: 블로그/문서 아티클 목록 페이지네이션
+   ComposableUI Pagination 패턴 — 이전/다음 + 페이지 번호 + 생략(...) 조합
 -------------------------------------------------------------------------- */
-const SHADCN_ARTICLES = Array.from({ length: 48 }, (_, i) => ({
+const UTILITYUI_ARTICLES = Array.from({ length: 48 }, (_, i) => ({
   title: [
     'Design Token 계층 구조 완전 정복',
-    'Radix UI Primitive 설계 철학',
+    'PrimitiveUI Primitive 설계 철학',
     'Storybook 8 마이그레이션 가이드',
-    'Tailwind로 타입 안전 CSS 작성',
-    'Tailwind CSS v4 무엇이 바뀌었나',
-    'shadcn/ui Copy-paste 패턴의 진화',
+    'UtilityCSS로 타입 안전 CSS 작성',
+    'UtilityCSS CSS v4 무엇이 바뀌었나',
+    'ComposableUI Copy-paste 패턴의 진화',
   ][i % 6],
   date: `2026-04-${String(10 - (i % 10)).padStart(2, '0')}`,
   category: ['Design', 'Dev', 'Tool', 'CSS', 'React'][i % 5],
@@ -393,16 +393,16 @@ function buildPageNums(current: number, total: number): (number | '...')[] {
   return [1, '...', current - 1, current, current + 1, '...', total]
 }
 
-const ShadcnArticlePaginationRender = () => {
+const ComposableUIArticlePaginationRender = () => {
   const [page, setPage] = useState(1)
-  const totalPages = Math.ceil(SHADCN_ARTICLES.length / PER_PAGE)
-  const items = SHADCN_ARTICLES.slice((page - 1) * PER_PAGE, page * PER_PAGE)
+  const totalPages = Math.ceil(UTILITYUI_ARTICLES.length / PER_PAGE)
+  const items = UTILITYUI_ARTICLES.slice((page - 1) * PER_PAGE, page * PER_PAGE)
   const pageNums = buildPageNums(page, totalPages)
 
   return (
     <div style={{ width: 560, fontFamily: 'system-ui, sans-serif' }}>
       <div style={{ fontSize: 15, fontWeight: 800, color: '#0f172a', marginBottom: 16 }}>
-        아티클 ({SHADCN_ARTICLES.length}건)
+        아티클 ({UTILITYUI_ARTICLES.length}건)
       </div>
       {/* 목록 */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: 1, marginBottom: 20 }}>
@@ -451,29 +451,29 @@ const ShadcnArticlePaginationRender = () => {
         </button>
       </div>
       <div style={{ textAlign: 'center', fontSize: 11, color: '#94a3b8', marginTop: 8 }}>
-        {(page - 1) * PER_PAGE + 1}–{Math.min(page * PER_PAGE, SHADCN_ARTICLES.length)} / {SHADCN_ARTICLES.length}건
+        {(page - 1) * PER_PAGE + 1}–{Math.min(page * PER_PAGE, UTILITYUI_ARTICLES.length)} / {UTILITYUI_ARTICLES.length}건
       </div>
     </div>
   )
 }
 
-export const Shadcn_아티클_목록_페이지네이션: Story = {
-  name: 'shadcn/ui - 아티클 목록 페이지네이션',
+export const ComposableUI_아티클_목록_페이지네이션: Story = {
+  name: 'ComposableUI - 아티클 목록 페이지네이션',
   parameters: {
     docs: {
       description: {
         story:
-          'shadcn/ui Pagination 패턴. 48개 아티클을 6개씩 나눠 8페이지로 표시합니다. ' +
+          'ComposableUI Pagination 패턴. 48개 아티클을 6개씩 나눠 8페이지로 표시합니다. ' +
           '생략(..​.) 처리와 이전/다음 버튼이 포함된 실무형 페이지네이션입니다.',
       },
     },
   },
-  render: () => <ShadcnArticlePaginationRender />,
+  render: () => <ComposableUIArticlePaginationRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Vercel Design 벤치마크: 배포 로그 페이지네이션
-   Vercel Dashboard 스타일 — 컴팩트 테이블 + 페이지 번호 패턴
+   DeployPlatform Design 벤치마크: 배포 로그 페이지네이션
+   DeployPlatform Dashboard 스타일 — 컴팩트 테이블 + 페이지 번호 패턴
 -------------------------------------------------------------------------- */
 type DeployLog = { id: string; env: string; status: string; branch: string; time: string; dur: string }
 
@@ -494,7 +494,7 @@ const STATUS_STYLE: Record<string, { color: string; bg: string }> = {
 
 const LOGS_PER_PAGE = 8
 
-const VercelDeployLogRender = () => {
+const DeployPlatformDeployLogRender = () => {
   const [page, setPage] = useState(1)
   const total = Math.ceil(DEPLOY_LOGS.length / LOGS_PER_PAGE)
   const logs = DEPLOY_LOGS.slice((page - 1) * LOGS_PER_PAGE, page * LOGS_PER_PAGE)
@@ -554,25 +554,25 @@ const VercelDeployLogRender = () => {
   )
 }
 
-export const Vercel_배포_로그_페이지네이션: Story = {
-  name: 'Vercel Design - 배포 로그 컴팩트 페이지네이션',
+export const DeployPlatform_배포_로그_페이지네이션: Story = {
+  name: 'DeployPlatform Design - 배포 로그 컴팩트 페이지네이션',
   parameters: {
     docs: {
       description: {
         story:
-          'Vercel Dashboard 배포 로그 패턴. 30건의 배포 기록을 8개씩 나눠 표시합니다. ' +
+          'DeployPlatform Dashboard 배포 로그 패턴. 30건의 배포 기록을 8개씩 나눠 표시합니다. ' +
           '컴팩트 테이블 + 상태 배지 + PageNumber 페이지네이션을 조합한 실무 패턴.',
       },
     },
   },
-  render: () => <VercelDeployLogRender />,
+  render: () => <DeployPlatformDeployLogRender />,
 }
 
 /* --------------------------------------------------------------------------
-   shadcn/ui 벤치마크: 댓글 스레드 무한 스크롤 대안 페이지네이션
-   shadcn DataTable 패턴 — "더 보기" 버튼과 페이지 번호 혼합 방식
+   ComposableUI 벤치마크: 댓글 스레드 무한 스크롤 대안 페이지네이션
+   ComposableUI DataTable 패턴 — "더 보기" 버튼과 페이지 번호 혼합 방식
 -------------------------------------------------------------------------- */
-const SHADCN_COMMENTS = Array.from({ length: 35 }, (_, i) => ({
+const UTILITYUI_COMMENTS = Array.from({ length: 35 }, (_, i) => ({
   author: ['Heejun', 'Sora', 'Jaewon', 'Minji', 'Taeho'][i % 5],
   avatar: ['HJ', 'SR', 'JW', 'MJ', 'TH'][i % 5],
   color: ['#6366f1', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6'][i % 5],
@@ -580,8 +580,8 @@ const SHADCN_COMMENTS = Array.from({ length: 35 }, (_, i) => ({
     'Design Token 구조가 훨씬 명확해졌네요!',
     '스토리북 자동 배포 정말 편리합니다.',
     '컴포넌트 조합 패턴 잘 정리되어 있어요.',
-    'Radix 접근성 패턴 적용이 인상적입니다.',
-    'Tailwind 토큰 타입 안전성이 좋네요.',
+    'Primitive 접근성 패턴 적용이 인상적입니다.',
+    'UtilityCSS 토큰 타입 안전성이 좋네요.',
   ][i % 5],
   time: `${i + 1}분 전`,
   likes: (i * 7) % 23,
@@ -589,15 +589,15 @@ const SHADCN_COMMENTS = Array.from({ length: 35 }, (_, i) => ({
 
 const COMMENT_PAGE_SIZE = 5
 
-const ShadcnCommentPaginationRender = () => {
+const ComposableUICommentPaginationRender = () => {
   const [page, setPage] = useState(1)
-  const total = Math.ceil(SHADCN_COMMENTS.length / COMMENT_PAGE_SIZE)
-  const comments = SHADCN_COMMENTS.slice((page - 1) * COMMENT_PAGE_SIZE, page * COMMENT_PAGE_SIZE)
+  const total = Math.ceil(UTILITYUI_COMMENTS.length / COMMENT_PAGE_SIZE)
+  const comments = UTILITYUI_COMMENTS.slice((page - 1) * COMMENT_PAGE_SIZE, page * COMMENT_PAGE_SIZE)
 
   return (
     <div style={{ width: 480, fontFamily: 'system-ui, sans-serif' }}>
       <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a', marginBottom: 14 }}>
-        댓글 {SHADCN_COMMENTS.length}개
+        댓글 {UTILITYUI_COMMENTS.length}개
       </div>
       {/* 댓글 목록 */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 20 }}>
@@ -645,26 +645,26 @@ const ShadcnCommentPaginationRender = () => {
   )
 }
 
-export const Shadcn_댓글_스레드_페이지네이션: Story = {
-  name: 'shadcn/ui - 댓글 스레드 페이지네이션',
+export const ComposableUI_댓글_스레드_페이지네이션: Story = {
+  name: 'ComposableUI - 댓글 스레드 페이지네이션',
   parameters: {
     docs: {
       description: {
         story:
-          'shadcn/ui 댓글 목록 패턴. 35개 댓글을 5개씩 나눠 7페이지로 표시합니다. ' +
+          'ComposableUI 댓글 목록 패턴. 35개 댓글을 5개씩 나눠 7페이지로 표시합니다. ' +
           '아바타 + 이름 + 내용 + 좋아요 조합의 댓글 카드와 PageNumber 페이지네이션.',
       },
     },
   },
-  render: () => <ShadcnCommentPaginationRender />,
+  render: () => <ComposableUICommentPaginationRender />,
 }
 
 // ============================================================
-// Cycle 132 — Linear Design + Vercel Design 벤치마크 반영
+// Cycle 132 — IssueTracker Design + DeployPlatform Design 벤치마크 반영
 // ============================================================
 
-// Linear 스타일 — 이슈 목록 컴팩트 페이지네이션 (미니멀, 밀도 높은 UI)
-const LINEAR_ISSUES = Array.from({ length: 48 }, (_, i) => ({
+// IssueTracker 스타일 — 이슈 목록 컴팩트 페이지네이션 (미니멀, 밀도 높은 UI)
+const TRACKER_ISSUES = Array.from({ length: 48 }, (_, i) => ({
   id: `ORB-${1024 - i}`,
   title: ['Button 토큰 시스템 리팩터링', 'Tooltip 접근성 개선', 'DataTable 정렬 버그', 'Modal 포커스 트랩', 'Space 컴포넌트 문서화', 'Carousel 터치 지원', 'Badge 색상 확장', 'Select 키보드 내비게이션', 'Form 유효성 검사 패턴', 'Icon 사이즈 스펙 정리'][i % 10],
   priority: (['urgent', 'high', 'medium', 'low'] as const)[i % 4],
@@ -682,18 +682,18 @@ const STATUS_LABEL: Record<string, { label: string; color: string }> = {
   done: { label: '완료', color: '#22c55e' },
 }
 
-const PAGE_SIZE_LINEAR = 8
+const PAGE_SIZE_TRACKER = 8
 
-function LinearIssueListPaginationRender() {
+function IssueTrackerIssueListPaginationRender() {
   const [page, setPage] = useState(1)
-  const total = Math.ceil(LINEAR_ISSUES.length / PAGE_SIZE_LINEAR)
-  const items = LINEAR_ISSUES.slice((page - 1) * PAGE_SIZE_LINEAR, page * PAGE_SIZE_LINEAR)
+  const total = Math.ceil(TRACKER_ISSUES.length / PAGE_SIZE_TRACKER)
+  const items = TRACKER_ISSUES.slice((page - 1) * PAGE_SIZE_TRACKER, page * PAGE_SIZE_TRACKER)
   return (
     <div style={{ width: 520, fontFamily: 'system-ui, sans-serif' }}>
       {/* 헤더 */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
         <span style={{ fontSize: 13, fontWeight: 600, color: '#0f172a' }}>이슈 목록</span>
-        <span style={{ fontSize: 12, color: '#94a3b8' }}>{LINEAR_ISSUES.length}개</span>
+        <span style={{ fontSize: 12, color: '#94a3b8' }}>{TRACKER_ISSUES.length}개</span>
       </div>
       {/* 이슈 목록 */}
       <div style={{ border: '1px solid #e2e8f0', borderRadius: 8, overflow: 'hidden' }}>
@@ -719,7 +719,7 @@ function LinearIssueListPaginationRender() {
       {/* 페이지네이션 */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: 10 }}>
         <span style={{ fontSize: 11, color: '#94a3b8' }}>
-          {(page - 1) * PAGE_SIZE_LINEAR + 1}–{Math.min(page * PAGE_SIZE_LINEAR, LINEAR_ISSUES.length)} / {LINEAR_ISSUES.length}
+          {(page - 1) * PAGE_SIZE_TRACKER + 1}–{Math.min(page * PAGE_SIZE_TRACKER, TRACKER_ISSUES.length)} / {TRACKER_ISSUES.length}
         </span>
         <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
           <button
@@ -748,22 +748,22 @@ function LinearIssueListPaginationRender() {
   )
 }
 
-export const Linear_이슈_목록_컴팩트_페이지네이션: Story = {
-  name: 'Linear - 이슈 목록 컴팩트 페이지네이션',
+export const IssueTracker_이슈_목록_컴팩트_페이지네이션: Story = {
+  name: 'IssueTracker - 이슈 목록 컴팩트 페이지네이션',
   parameters: {
     docs: {
       description: {
         story:
-          'Linear의 컴팩트 밀도 UI 패턴. 48개 이슈를 8개씩 페이지 분할. ' +
+          'IssueTracker의 컴팩트 밀도 UI 패턴. 48개 이슈를 8개씩 페이지 분할. ' +
           '우선순위 색상 도트 + ID + 제목 + 상태 배지 조합. PageNumber current/total 동시 활용.',
       },
     },
   },
-  render: () => <LinearIssueListPaginationRender />,
+  render: () => <IssueTrackerIssueListPaginationRender />,
 }
 
-// Vercel 스타일 — 배포 이력 무한 스크롤 페이지네이션
-const VERCEL_DEPLOYS = Array.from({ length: 30 }, (_, i) => ({
+// DeployPlatform 스타일 — 배포 이력 무한 스크롤 페이지네이션
+const DEPLOY_DEPLOYS = Array.from({ length: 30 }, (_, i) => ({
   id: `dpl_${Math.random().toString(36).slice(2, 10)}`,
   branch: ['main', 'feat/tokens', 'fix/tooltip', 'chore/deps', 'feat/carousel'][i % 5],
   sha: Math.random().toString(16).slice(2, 9),
@@ -776,11 +776,11 @@ const DEPLOY_STATUS_COLOR: Record<string, string> = {
   ready: '#22c55e', error: '#ef4444', building: '#f59e0b',
 }
 
-function VercelDeployHistoryRender() {
+function DeployPlatformDeployHistoryRender() {
   const [page, setPage] = useState(1)
   const pageSize = 6
-  const total = Math.ceil(VERCEL_DEPLOYS.length / pageSize)
-  const items = VERCEL_DEPLOYS.slice((page - 1) * pageSize, page * pageSize)
+  const total = Math.ceil(DEPLOY_DEPLOYS.length / pageSize)
+  const items = DEPLOY_DEPLOYS.slice((page - 1) * pageSize, page * pageSize)
   return (
     <div style={{ width: 540, fontFamily: 'system-ui, sans-serif' }}>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12 }}>
@@ -831,21 +831,21 @@ function VercelDeployHistoryRender() {
   )
 }
 
-export const Vercel_배포_이력_페이지네이션: Story = {
-  name: 'Vercel Design - 배포 이력 페이지네이션',
+export const DeployPlatform_배포_이력_페이지네이션: Story = {
+  name: 'DeployPlatform Design - 배포 이력 페이지네이션',
   parameters: {
     docs: {
       description: {
         story:
-          'Vercel 대시보드 스타일. 30개 배포 이력을 6개씩 분할. ' +
+          'DeployPlatform 대시보드 스타일. 30개 배포 이력을 6개씩 분할. ' +
           '상태 도트 + 브랜치 + SHA + 소요시간 카드. 슬라이딩 윈도우 페이지 번호.',
       },
     },
   },
-  render: () => <VercelDeployHistoryRender />,
+  render: () => <DeployPlatformDeployHistoryRender />,
 }
 
-// Linear + Vercel — 프로젝트 파일 탐색기 페이지네이션
+// IssueTracker + DeployPlatform — 프로젝트 파일 탐색기 페이지네이션
 type FileItem132 = { name: string; type: 'folder' | 'file'; ext: string; size: string; modified: string }
 const REPO_FILES_132: FileItem132[] = [
   { name: 'packages', type: 'folder', ext: '', size: '—', modified: '2시간 전' },
@@ -866,7 +866,7 @@ const EXT_COLOR: Record<string, string> = {
   json: '#22c55e', ts: '#3b82f6', js: '#f59e0b', yaml: '#8b5cf6', md: '#6366f1', mdx: '#ec4899',
 }
 
-function LinearVercelFileBrowserRender() {
+function IssueTrackerDeployPlatformFileBrowserRender() {
   const [page, setPage] = useState(1)
   const pageSize = 5
   const total = Math.ceil(REPO_FILES_132.length / pageSize)
@@ -908,43 +908,43 @@ function LinearVercelFileBrowserRender() {
   )
 }
 
-export const Linear_Vercel_파일_탐색기_페이지네이션: Story = {
-  name: 'Linear + Vercel - 파일 탐색기 페이지네이션',
+export const IssueTracker_DeployPlatform_파일_탐색기_페이지네이션: Story = {
+  name: 'IssueTracker + DeployPlatform - 파일 탐색기 페이지네이션',
   parameters: {
     docs: {
       description: {
         story:
-          'Linear 컴팩트 + Vercel 모노크롬 스타일 결합. 12개 파일을 5개씩 분할. ' +
+          'IssueTracker 컴팩트 + DeployPlatform 모노크롬 스타일 결합. 12개 파일을 5개씩 분할. ' +
           '폴더/파일 타입 구분, 확장자 컬러 배지, 수정 시간 표시. PageNumber 헤더+푸터 동시 사용.',
       },
     },
   },
-  render: () => <LinearVercelFileBrowserRender />,
+  render: () => <IssueTrackerDeployPlatformFileBrowserRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Cycle 159 — Vercel Design + Ant Design
-   Vercel: 배포 인스턴스 리전별 페이지네이션 패턴
+   Cycle 159 — DeployPlatform Design + Ant Design
+   DeployPlatform: 배포 인스턴스 리전별 페이지네이션 패턴
 -------------------------------------------------------------------------- */
-const VERCEL_REGIONS = ['iad1', 'sfo1', 'sin1', 'hnd1', 'fra1']
-const VERCEL_LOG_ITEMS = Array.from({ length: 47 }, (_, i) => ({
+const DEPLOY_REGIONS = ['iad1', 'sfo1', 'sin1', 'hnd1', 'fra1']
+const DEPLOY_LOG_ITEMS = Array.from({ length: 47 }, (_, i) => ({
   id: `log-${i + 1}`,
-  region: VERCEL_REGIONS[i % VERCEL_REGIONS.length],
+  region: DEPLOY_REGIONS[i % DEPLOY_REGIONS.length],
   status: i % 7 === 0 ? 'error' : i % 3 === 0 ? 'warning' : 'success',
   message: `Function invocation ${i + 1} completed`,
   duration: Math.floor(Math.random() * 500 + 50) + 'ms',
   timestamp: `${String(Math.floor(i / 4)).padStart(2, '0')}:${String((i * 15) % 60).padStart(2, '0')}`,
 }))
 
-const VERCEL_PAGE_SIZE = 8
+const DEPLOY_PAGE_SIZE = 8
 
-function VercelRegionLogPaginationRender() {
+function DeployPlatformRegionLogPaginationRender() {
   const [page, setPage] = useState(1)
   const [selectedRegion, setSelectedRegion] = useState<string | null>(null)
 
-  const filtered = selectedRegion ? VERCEL_LOG_ITEMS.filter(l => l.region === selectedRegion) : VERCEL_LOG_ITEMS
-  const totalPages = Math.ceil(filtered.length / VERCEL_PAGE_SIZE)
-  const currentItems = filtered.slice((page - 1) * VERCEL_PAGE_SIZE, page * VERCEL_PAGE_SIZE)
+  const filtered = selectedRegion ? DEPLOY_LOG_ITEMS.filter(l => l.region === selectedRegion) : DEPLOY_LOG_ITEMS
+  const totalPages = Math.ceil(filtered.length / DEPLOY_PAGE_SIZE)
+  const currentItems = filtered.slice((page - 1) * DEPLOY_PAGE_SIZE, page * DEPLOY_PAGE_SIZE)
 
   const handleRegion = (r: string | null) => { setSelectedRegion(r); setPage(1) }
 
@@ -957,7 +957,7 @@ function VercelRegionLogPaginationRender() {
         <span style={{ fontSize: 11, color: '#94a3b8' }}>{filtered.length}개</span>
         <div style={{ marginLeft: 'auto', display: 'flex', gap: 4 }}>
           <button onClick={() => handleRegion(null)} style={{ padding: '3px 8px', fontSize: 10, borderRadius: 5, border: `1px solid ${!selectedRegion ? '#1e293b' : '#e2e8f0'}`, background: !selectedRegion ? '#1e293b' : '#fff', color: !selectedRegion ? '#fff' : '#64748b', cursor: 'pointer', fontWeight: 600 }}>ALL</button>
-          {VERCEL_REGIONS.map(r => (
+          {DEPLOY_REGIONS.map(r => (
             <button key={r} onClick={() => handleRegion(r)} style={{ padding: '3px 7px', fontSize: 10, borderRadius: 5, border: `1px solid ${selectedRegion === r ? '#1e293b' : '#e2e8f0'}`, background: selectedRegion === r ? '#1e293b' : '#fff', color: selectedRegion === r ? '#fff' : '#64748b', cursor: 'pointer', fontFamily: 'monospace', fontWeight: 600 }}>{r}</button>
           ))}
         </div>
@@ -983,16 +983,16 @@ function VercelRegionLogPaginationRender() {
   )
 }
 
-export const Vercel_리전별_로그_페이지네이션: Story = {
-  name: 'Vercel Design — 리전별 함수 실행 로그 페이지네이션',
+export const DeployPlatform_리전별_로그_페이지네이션: Story = {
+  name: 'DeployPlatform Design — 리전별 함수 실행 로그 페이지네이션',
   parameters: {
     docs: {
       description: {
-        story: 'Vercel Design의 Function Log 패턴. 리전 필터 + PageNumber로 서버리스 함수 실행 로그를 페이지네이션합니다.',
+        story: 'DeployPlatform Design의 Function Log 패턴. 리전 필터 + PageNumber로 서버리스 함수 실행 로그를 페이지네이션합니다.',
       },
     },
   },
-  render: () => <VercelRegionLogPaginationRender />,
+  render: () => <DeployPlatformRegionLogPaginationRender />,
 }
 
 /* --------------------------------------------------------------------------
@@ -1069,7 +1069,7 @@ export const Ant_데이터_테이블_페이지네이션: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Vercel + Ant: 분석 대시보드 페이지네이션 복합 패턴
+   DeployPlatform + Ant: 분석 대시보드 페이지네이션 복합 패턴
 -------------------------------------------------------------------------- */
 const DASHBOARD_METRICS = Array.from({ length: 28 }, (_, i) => ({
   id: i + 1,
@@ -1081,7 +1081,7 @@ const DASHBOARD_METRICS = Array.from({ length: 28 }, (_, i) => ({
 
 const DASHBOARD_PAGE_SIZE = 6
 
-function VercelAntDashboardPaginationRender() {
+function DeployPlatformAntDashboardPaginationRender() {
   const [page, setPage] = useState(1)
   const totalPages = Math.ceil(DASHBOARD_METRICS.length / DASHBOARD_PAGE_SIZE)
   const items = DASHBOARD_METRICS.slice((page - 1) * DASHBOARD_PAGE_SIZE, page * DASHBOARD_PAGE_SIZE)
@@ -1114,36 +1114,36 @@ function VercelAntDashboardPaginationRender() {
   )
 }
 
-export const Vercel_Ant_성능지표_대시보드_페이지네이션: Story = {
-  name: 'Vercel + Ant Design — 성능 지표 대시보드 페이지네이션 패턴',
+export const DeployPlatform_Ant_성능지표_대시보드_페이지네이션: Story = {
+  name: 'DeployPlatform + Ant Design — 성능 지표 대시보드 페이지네이션 패턴',
   parameters: {
     docs: {
       description: {
-        story: 'Vercel Design + Ant Design 복합 패턴. 다크 대시보드에서 PageNumber로 성능 지표 카드 그리드를 페이지네이션합니다.',
+        story: 'DeployPlatform Design + Ant Design 복합 패턴. 다크 대시보드에서 PageNumber로 성능 지표 카드 그리드를 페이지네이션합니다.',
       },
     },
   },
-  render: () => <VercelAntDashboardPaginationRender />,
+  render: () => <DeployPlatformAntDashboardPaginationRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Figma Plugin UI — 에셋 검색 결과 페이지네이션
+   DesignTool Plugin UI — 에셋 검색 결과 페이지네이션
 -------------------------------------------------------------------------- */
-const FIGMA_ASSETS = Array.from({ length: 48 }, (_, i) => ({
+const DESIGN_ASSETS = Array.from({ length: 48 }, (_, i) => ({
   id: i + 1,
   name: ['Button', 'Input', 'Card', 'Modal', 'Badge', 'Icon', 'Avatar', 'Chip'][i % 8] + `_${Math.floor(i / 8) + 1}`,
   type: ['Component', 'Frame', 'Group', 'Auto Layout'][i % 4],
   updated: `${Math.floor(Math.random() * 24) + 1}h 전`,
 }))
 
-const FIGMA_PAGE_SIZE = 8
+const DESIGN_PAGE_SIZE = 8
 
-function FigmaAssetSearchPaginationRender() {
+function DesignToolAssetSearchPaginationRender() {
   const [page, setPage] = useState(1)
   const [query, setQuery] = useState('')
-  const filtered = FIGMA_ASSETS.filter(a => a.name.toLowerCase().includes(query.toLowerCase()))
-  const totalPages = Math.max(1, Math.ceil(filtered.length / FIGMA_PAGE_SIZE))
-  const items = filtered.slice((page - 1) * FIGMA_PAGE_SIZE, page * FIGMA_PAGE_SIZE)
+  const filtered = DESIGN_ASSETS.filter(a => a.name.toLowerCase().includes(query.toLowerCase()))
+  const totalPages = Math.max(1, Math.ceil(filtered.length / DESIGN_PAGE_SIZE))
+  const items = filtered.slice((page - 1) * DESIGN_PAGE_SIZE, page * DESIGN_PAGE_SIZE)
 
   return (
     <div style={{ width: 260, background: '#2c2c2c', borderRadius: 8, border: '1px solid rgba(255,255,255,0.1)', fontFamily: 'system-ui, sans-serif', overflow: 'hidden' }}>
@@ -1184,22 +1184,22 @@ function FigmaAssetSearchPaginationRender() {
   )
 }
 
-export const Figma_에셋_검색_결과_페이지네이션: Story = {
-  name: 'Figma Plugin UI — 에셋 검색 결과 페이지네이션',
-  render: () => <FigmaAssetSearchPaginationRender />,
+export const DesignTool_에셋_검색_결과_페이지네이션: Story = {
+  name: 'DesignTool Plugin UI — 에셋 검색 결과 페이지네이션',
+  render: () => <DesignToolAssetSearchPaginationRender />,
   parameters: {
     docs: {
       description: {
         story:
-          'Figma Plugin UI 에셋 검색 패턴. 컴팩트한 다크 패널에서 컴포넌트/프레임을 검색하고 PageNumber로 페이지네이션합니다. ' +
-          'Figma 에셋 브라우저의 밀도감 있는 리스트 UI를 재현합니다.',
+          'DesignTool Plugin UI 에셋 검색 패턴. 컴팩트한 다크 패널에서 컴포넌트/프레임을 검색하고 PageNumber로 페이지네이션합니다. ' +
+          'DesignTool 에셋 브라우저의 밀도감 있는 리스트 UI를 재현합니다.',
       },
     },
   },
 }
 
 /* --------------------------------------------------------------------------
-   Arco Design — 고급 데이터 테이블 페이지네이션
+   DataProductUI — 고급 데이터 테이블 페이지네이션
 -------------------------------------------------------------------------- */
 const ARCO_TABLE_DATA = Array.from({ length: 50 }, (_, i) => ({
   id: i + 1,
@@ -1213,7 +1213,7 @@ const STATUS_COLOR: Record<string, string> = { stable: '#00b42a', beta: '#ff7d00
 const STATUS_BG: Record<string, string> = { stable: '#e8ffea', beta: '#fff7e8', deprecated: '#f2f3f5' }
 const ARCO_PAGE_SIZE = 8
 
-function ArcoAdvancedTablePaginationRender() {
+function DataProductAdvancedTablePaginationRender() {
   const [page, setPage] = useState(1)
   const totalPages = Math.ceil(ARCO_TABLE_DATA.length / ARCO_PAGE_SIZE)
   const items = ARCO_TABLE_DATA.slice((page - 1) * ARCO_PAGE_SIZE, page * ARCO_PAGE_SIZE)
@@ -1259,22 +1259,22 @@ function ArcoAdvancedTablePaginationRender() {
   )
 }
 
-export const Arco_고급_데이터_테이블_페이지네이션: Story = {
-  name: 'Arco Design — 고급 데이터 테이블 페이지네이션',
-  render: () => <ArcoAdvancedTablePaginationRender />,
+export const DataProduct_고급_데이터_테이블_페이지네이션: Story = {
+  name: 'DataProductUI — 고급 데이터 테이블 페이지네이션',
+  render: () => <DataProductAdvancedTablePaginationRender />,
   parameters: {
     docs: {
       description: {
         story:
-          'Arco Design 데이터 테이블 페이지네이션 패턴. 줄무늬 배경(zebra stripe)과 상태 배지가 있는 테이블을 PageNumber로 페이지네이션합니다. ' +
-          'Arco의 청색-회색 계열 색상과 컴팩트한 테이블 밀도를 반영합니다.',
+          'DataProductUI 데이터 테이블 페이지네이션 패턴. 줄무늬 배경(zebra pattern)과 상태 배지가 있는 테이블을 PageNumber로 페이지네이션합니다. ' +
+          'DataProduct의 청색-회색 계열 색상과 컴팩트한 테이블 밀도를 반영합니다.',
       },
     },
   },
 }
 
 /* --------------------------------------------------------------------------
-   Figma + Arco — 컴포넌트 라이브러리 브라우저 페이지네이션
+   DesignTool + DataProduct — 컴포넌트 라이브러리 브라우저 페이지네이션
 -------------------------------------------------------------------------- */
 const LIBRARY_COMPONENTS = Array.from({ length: 36 }, (_, i) => ({
   id: i + 1,
@@ -1285,7 +1285,7 @@ const LIBRARY_COMPONENTS = Array.from({ length: 36 }, (_, i) => ({
 
 const LIBRARY_PAGE_SIZE = 9
 
-function FigmaArcoLibraryBrowserRender() {
+function DesignToolDataProductLibraryBrowserRender() {
   const [page, setPage] = useState(1)
   const [filterA11y, setFilterA11y] = useState(false)
   const filtered = filterA11y ? LIBRARY_COMPONENTS.filter(c => c.hasA11y) : LIBRARY_COMPONENTS
@@ -1327,14 +1327,14 @@ function FigmaArcoLibraryBrowserRender() {
   )
 }
 
-export const Figma_Arco_컴포넌트_라이브러리_브라우저: Story = {
-  name: 'Figma Plugin UI + Arco Design — 컴포넌트 라이브러리 브라우저',
-  render: () => <FigmaArcoLibraryBrowserRender />,
+export const DesignTool_DataProduct_컴포넌트_라이브러리_브라우저: Story = {
+  name: 'DesignTool Plugin UI + DataProductUI — 컴포넌트 라이브러리 브라우저',
+  render: () => <DesignToolDataProductLibraryBrowserRender />,
   parameters: {
     docs: {
       description: {
         story:
-          'Figma Plugin UI + Arco Design 복합 패턴. Figma 에셋 패널 레이아웃과 Arco의 그리드+필터 패턴을 결합합니다. ' +
+          'DesignTool Plugin UI + DataProductUI 복합 패턴. DesignTool 에셋 패널 레이아웃과 DataProduct의 그리드+필터 패턴을 결합합니다. ' +
           '3열 카드 그리드로 컴포넌트를 표시하고 접근성 필터와 PageNumber로 페이지네이션합니다.',
       },
     },

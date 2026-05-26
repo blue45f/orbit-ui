@@ -47,7 +47,7 @@ export const 기본: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   FAQ 패턴 (단일 열기, MUI Accordion controlled 패턴)
+   FAQ 패턴 (단일 열기, EnterpriseUI Accordion controlled 패턴)
    하나만 열리는 FAQ 목록 - single type Accordion
 -------------------------------------------------------------------------- */
 const faqItems = [
@@ -82,7 +82,7 @@ const faqItems = [
       </svg>
     ),
     question: '토큰을 커스터마이즈할 수 있나요?',
-    answer: 'CSS 변수 직접 override, theme prop을 통한 컴포넌트별 토큰 주입, Tailwind createTheme을 통한 새 테마 클래스 생성 등 3가지 방법을 지원합니다.',
+    answer: 'CSS 변수 직접 override, theme prop을 통한 컴포넌트별 토큰 주입, UtilityCSS createTheme을 통한 새 테마 클래스 생성 등 3가지 방법을 지원합니다.',
   },
   {
     value: 'faq-4',
@@ -107,7 +107,7 @@ const FaqAccordionRender = () => {
           자주 묻는 질문
         </h3>
         <p style={{ margin: 0, fontSize: '13px', color: '#64748b' }}>
-          하나의 항목만 열립니다 (single type, MUI controlled 패턴)
+          하나의 항목만 열립니다 (single type, EnterpriseUI controlled 패턴)
         </p>
       </div>
       <Accordion
@@ -244,22 +244,22 @@ export const 중첩Accordion: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Vercel 스타일: 프로젝트 설정 패널
-   Vercel Dashboard의 Project Settings처럼 섹션별 설정을 Accordion으로 구성
+   DeployPlatform 스타일: 프로젝트 설정 패널
+   DeployPlatform Dashboard의 Project Settings처럼 섹션별 설정을 Accordion으로 구성
 -------------------------------------------------------------------------- */
-const VercelSettingsRender = () => {
+const DeployPlatformSettingsRender = () => {
   const [domainEnabled, setDomainEnabled] = useState(true)
   const [analyticsEnabled, setAnalyticsEnabled] = useState(false)
   const [previewEnabled, setPreviewEnabled] = useState(true)
 
   return (
-    <div style={{ width: '640px', fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' }}>
+    <div style={{ width: '640px', fontFamily: '"Segoe UI", sans-serif' }}>
       <div style={{ marginBottom: '24px' }}>
         <h2 style={{ margin: '0 0 4px', fontSize: '20px', fontWeight: '700', color: '#0f172a' }}>
           프로젝트 설정
         </h2>
         <p style={{ margin: 0, fontSize: '13px', color: '#64748b' }}>
-          Vercel Dashboard 스타일 - 섹션별 설정 그룹화 패턴
+          DeployPlatform Dashboard 스타일 - 섹션별 설정 그룹화 패턴
         </p>
       </div>
       <Accordion type="multiple" className="w-full">
@@ -276,7 +276,7 @@ const VercelSettingsRender = () => {
           </Accordion.Trigger>
           <Accordion.Content>
             <div style={{ padding: '4px 0 16px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
-              {['orbit-ui.vercel.app', 'orbit-ui.com', 'www.orbit-ui.com'].map((domain, i) => (
+              {['orbit-ui.deploy.example.com', 'orbit-ui.com', 'www.orbit-ui.com'].map((domain, i) => (
                 <div
                   key={domain}
                   style={{
@@ -339,7 +339,7 @@ const VercelSettingsRender = () => {
               }}>
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '4px' }}>
                   <span style={{ fontSize: '14px', fontWeight: '600', color: '#1e293b' }}>
-                    Vercel Analytics 활성화
+                    DeployPlatform Analytics 활성화
                   </span>
                   <Switch
                     checked={analyticsEnabled}
@@ -423,13 +423,13 @@ const VercelSettingsRender = () => {
   )
 }
 
-export const Vercel_설정패널: Story = {
+export const DeployPlatform_설정패널: Story = {
   args: { type: 'multiple' },
-  render: () => <VercelSettingsRender />,
+  render: () => <DeployPlatformSettingsRender />,
 }
 
 /* --------------------------------------------------------------------------
-   shadcn/ui 스타일: 기능 비교표 Accordion
+   ComposableUI 스타일: 기능 비교표 Accordion
    가격 플랜별 포함 기능을 Accordion으로 상세 설명하는 패턴
 -------------------------------------------------------------------------- */
 const featureSections = [
@@ -493,7 +493,7 @@ export const 플랜별_기능비교: Story = {
           플랜별 기능 비교
         </h2>
         <p style={{ margin: '0 0 16px', fontSize: '13px', color: '#64748b' }}>
-          shadcn/ui 스타일 — 카테고리별 기능을 Accordion으로 그룹화
+          ComposableUI 스타일 — 카테고리별 기능을 Accordion으로 그룹화
         </p>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '0', padding: '10px 0', borderBottom: '2px solid #e2e8f0', marginLeft: 'auto', marginRight: '0', width: '55%', textAlign: 'center' }}>
           {['Free', 'Pro', 'Enterprise'].map((plan) => (
@@ -546,8 +546,8 @@ export const 플랜별_기능비교: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Notion 벤치마크: 페이지 섹션 토글 블록 패턴
-   Notion 토글 블록 영감 — 문서/위키 섹션을 접을 수 있는 패턴
+   WorkspaceEditor 벤치마크: 페이지 섹션 토글 블록 패턴
+   WorkspaceEditor 토글 블록 영감 — 문서/위키 섹션을 접을 수 있는 패턴
 -------------------------------------------------------------------------- */
 const PAGE_SECTIONS = [
   {
@@ -555,7 +555,7 @@ const PAGE_SECTIONS = [
     badge: 'sale' as const,
     content: (
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, paddingTop: 4 }}>
-        {['React 18', 'TypeScript 5.7', 'Radix UI', 'Vite', 'Storybook 8', 'pnpm'].map((tech) => (
+        {['React 18', 'TypeScript 5.7', 'PrimitiveUI', 'Vite', 'Storybook 8', 'pnpm'].map((tech) => (
           <span
             key={tech}
             style={{
@@ -646,8 +646,8 @@ const PAGE_SECTIONS = [
   },
 ]
 
-export const Notion_페이지_섹션_토글 = {
-  name: 'Notion - 페이지 섹션 토글 블록 패턴',
+export const WorkspaceEditor_페이지_섹션_토글 = {
+  name: 'WorkspaceEditor - 페이지 섹션 토글 블록 패턴',
   render: () => (
     <div style={{ maxWidth: 480 }}>
       <div style={{ fontSize: 14, fontWeight: 700, color: '#1e293b', marginBottom: 16 }}>
@@ -671,18 +671,18 @@ export const Notion_페이지_섹션_토글 = {
         ))}
       </Accordion>
       <div style={{ marginTop: 12, fontSize: 11, color: '#94a3b8' }}>
-        Notion 토글 블록 패턴 — type=multiple로 여러 섹션 동시 열기 가능
+        WorkspaceEditor 토글 블록 패턴 — type=multiple로 여러 섹션 동시 열기 가능
       </div>
     </div>
   ),
 }
 
 /* --------------------------------------------------------------------------
-   Figma Plugin 벤치마크: 컴팩트 설정 패널 패턴
-   Figma 플러그인 속성 패널 스타일 — 최소 간격, 컴팩트 밀도
+   DesignTool Plugin 벤치마크: 컴팩트 설정 패널 패턴
+   DesignTool 플러그인 속성 패널 스타일 — 최소 간격, 컴팩트 밀도
 -------------------------------------------------------------------------- */
-export const Figma_플러그인_설정_패널 = {
-  name: 'Figma Plugin - 컴팩트 설정 패널 패턴',
+export const DesignTool_플러그인_설정_패널 = {
+  name: 'DesignTool Plugin - 컴팩트 설정 패널 패턴',
   render: function Render() {
     const [settings, setSettings] = useState({
       autoSync: true,
@@ -699,7 +699,7 @@ export const Figma_플러그인_설정_패널 = {
           borderRadius: 8,
           border: '1px solid #e2e8f0',
           overflow: 'hidden',
-          fontFamily: '-apple-system, sans-serif',
+          fontFamily: 'sans-serif',
         }}
       >
         <div
@@ -807,7 +807,7 @@ const FAQ_ITEMS = [
     a: 'EclipseProvider의 mode prop을 "dark"로 설정하면 됩니다. 런타임에 mode를 변경하면 즉시 전체 테마가 전환됩니다.',
   },
   {
-    q: 'shadcn/ui에서 마이그레이션하는 방법은?',
+    q: 'ComposableUI에서 마이그레이션하는 방법은?',
     a: 'Orbit UI는 Compound Component 패턴을 사용합니다. Button → SolidButton/OutlineButton/GhostButton으로 매핑되며, MigrationGuide.mdx를 참고하세요.',
   },
   {
@@ -816,15 +816,15 @@ const FAQ_ITEMS = [
   },
   {
     q: '번들 크기는 얼마나 되나요?',
-    a: 'Tailwind zero-runtime CSS를 사용하여 런타임 오버헤드가 없습니다. Tree-shaking이 완전히 지원되어 사용한 컴포넌트만 포함됩니다.',
+    a: 'UtilityCSS zero-runtime CSS를 사용하여 런타임 오버헤드가 없습니다. Tree-shaking이 완전히 지원되어 사용한 컴포넌트만 포함됩니다.',
   },
 ]
 
-// ─── MUI 벤치마크: Accordion + Summary 요약 표시 패턴 ─────────────────────────
-// MUI Accordion은 닫힌 상태에서 AccordionSummary에 핵심 정보를 표시합니다.
+// ─── EnterpriseUI 벤치마크: Accordion + Summary 요약 표시 패턴 ─────────────────────────
+// EnterpriseUI Accordion은 닫힌 상태에서 AccordionSummary에 핵심 정보를 표시합니다.
 // 설정 패널에서 현재 값을 요약으로 보여주는 패턴을 구현합니다.
 
-const MUI_SETTINGS = [
+const EnterpriseUI_SETTINGS = [
   {
     id: 'appearance',
     title: '외관',
@@ -872,12 +872,12 @@ const MUI_SETTINGS = [
   },
 ]
 
-function MuiSummaryAccordionRender() {
+function EnterpriseUISummaryAccordionRender() {
   const [open, setOpen] = useState<string | null>(null)
   return (
     <div style={{ width: 480, fontFamily: 'system-ui, sans-serif' }}>
       <div style={{ fontSize: 13, fontWeight: 700, color: '#1e293b', marginBottom: 14 }}>
-        계정 설정 — MUI Summary 패턴
+        계정 설정 — EnterpriseUI Summary 패턴
       </div>
       <Accordion
         type="single"
@@ -886,7 +886,7 @@ function MuiSummaryAccordionRender() {
         onValueChange={(v) => setOpen(v || null)}
         className="w-full"
       >
-        {MUI_SETTINGS.map((setting) => (
+        {EnterpriseUI_SETTINGS.map((setting) => (
           <Accordion.Item key={setting.id} value={setting.id}>
             <Accordion.Trigger>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%', paddingRight: 8 }}>
@@ -934,16 +934,16 @@ function MuiSummaryAccordionRender() {
   )
 }
 
-export const MUI_요약_표시_아코디언 = {
-  name: 'MUI - Summary 요약 표시 패턴 (닫힌 상태에서 현재 값 표시)',
-  render: () => <MuiSummaryAccordionRender />,
+export const EnterpriseUI_요약_표시_아코디언 = {
+  name: 'EnterpriseUI - Summary 요약 표시 패턴 (닫힌 상태에서 현재 값 표시)',
+  render: () => <EnterpriseUISummaryAccordionRender />,
 }
 
-// ─── Raycast 벤치마크: 커맨드 섹션 그루핑 패턴 ────────────────────────────────
-// Raycast Extensions UI: 커맨드들을 섹션별로 묶고 섹션을 Accordion으로 접을 수 있음.
+// ─── CommandPalette 벤치마크: 커맨드 섹션 그루핑 패턴 ────────────────────────────────
+// CommandPalette Extensions UI: 커맨드들을 섹션별로 묶고 섹션을 Accordion으로 접을 수 있음.
 // 키보드 단축키가 우측에 표시되는 컴팩트 리스트가 특징입니다.
 
-const RAYCAST_SECTIONS = [
+const LAUNCHER_SECTIONS = [
   {
     id: 'recent',
     title: '최근 사용',
@@ -962,7 +962,7 @@ const RAYCAST_SECTIONS = [
       { label: 'Git Status', shortcut: 'G S', desc: '변경사항 확인' },
       { label: 'Git Commit', shortcut: 'G C', desc: '커밋 생성' },
       { label: 'Build Storybook', shortcut: 'B', desc: 'pnpm build:storybook' },
-      { label: 'Deploy Vercel', shortcut: 'V D', desc: 'Vercel 배포' },
+      { label: 'Deploy DeployPlatform', shortcut: 'V D', desc: 'DeployPlatform 배포' },
     ],
   },
   {
@@ -977,7 +977,7 @@ const RAYCAST_SECTIONS = [
   },
 ]
 
-function RaycastSectionsRender() {
+function CommandPaletteSectionsRender() {
   const [openSections, setOpenSections] = useState<string[]>(['recent', 'dev'])
 
   return (
@@ -1013,7 +1013,7 @@ function RaycastSectionsRender() {
         className="w-full"
         style={{ background: 'transparent' }}
       >
-        {RAYCAST_SECTIONS.map((section) => (
+        {LAUNCHER_SECTIONS.map((section) => (
           <Accordion.Item key={section.id} value={section.id} style={{ border: 'none', borderBottom: '1px solid #2a2a3e' }}>
             <Accordion.Trigger style={{ padding: '6px 14px', background: '#252535', fontSize: 11 }}>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%', paddingRight: 6 }}>
@@ -1082,13 +1082,13 @@ function RaycastSectionsRender() {
   )
 }
 
-export const Raycast_커맨드_섹션_그루핑 = {
-  name: 'Raycast - 커맨드 섹션 그루핑 패턴 (단축키 포함)',
-  render: () => <RaycastSectionsRender />,
+export const CommandPalette_커맨드_섹션_그루핑 = {
+  name: 'CommandPalette - 커맨드 섹션 그루핑 패턴 (단축키 포함)',
+  render: () => <CommandPaletteSectionsRender />,
 }
 
-// ─── MUI 벤치마크: Dense 아코디언 릴리즈 노트 ────────────────────────────────
-// MUI dense 모드처럼 줄간격을 줄이고 tight한 레이아웃으로 많은 항목을 표시합니다.
+// ─── EnterpriseUI 벤치마크: Dense 아코디언 릴리즈 노트 ────────────────────────────────
+// EnterpriseUI dense 모드처럼 줄간격을 줄이고 tight한 레이아웃으로 많은 항목을 표시합니다.
 // LabelBadge를 활용해 변경 유형(feat/fix/docs)을 시각적으로 구분합니다.
 
 const RELEASE_ITEMS = [
@@ -1098,7 +1098,7 @@ const RELEASE_ITEMS = [
     type: 'major' as const,
     changes: [
       { kind: 'feat' as const, text: 'FileBrowser 템플릿 추가' },
-      { kind: 'feat' as const, text: 'SearchBar Chakra/M3 패턴 스토리' },
+      { kind: 'feat' as const, text: 'SearchBar Accessible/M3 패턴 스토리' },
       { kind: 'feat' as const, text: 'ChangelogPage 템플릿 추가' },
     ],
   },
@@ -1126,8 +1126,8 @@ const KIND_COLOR = { feat: '#10b981', fix: '#ef4444', docs: '#3b82f6' } as const
 const KIND_LABEL = { feat: 'FEAT', fix: 'FIX', docs: 'DOCS' } as const
 const TYPE_BADGE = { major: { bg: '#eff6ff', color: '#6366f1', label: 'MAJOR' }, minor: { bg: '#f0fdf4', color: '#10b981', label: 'MINOR' }, patch: { bg: '#fefce8', color: '#f59e0b', label: 'PATCH' } } as const
 
-export const MUI_Dense_릴리즈_노트 = {
-  name: 'MUI Dense - 릴리즈 노트 아코디언 (LabelBadge 조합)',
+export const EnterpriseUI_Dense_릴리즈_노트 = {
+  name: 'EnterpriseUI Dense - 릴리즈 노트 아코디언 (LabelBadge 조합)',
   render: function Render() {
     const [open, setOpen] = useState<string>('v2.0.0-beta.16')
     return (
@@ -1242,9 +1242,9 @@ export const FAQ_아코디언_패턴 = {
   },
 }
 
-// --- Cycle 75: shadcn/ui + Vercel Design 벤치마크 ---
+// --- Cycle 75: ComposableUI + DeployPlatform Design 벤치마크 ---
 
-const ShadcnChangelogRender = () => {
+const ComposableUIChangelogRender = () => {
   const [openItems, setOpenItems] = useState<string[]>(['v0.3.0'])
 
   const CHANGELOG = [
@@ -1254,7 +1254,7 @@ const ShadcnChangelogRender = () => {
       type: 'major',
       changes: [
         { kind: 'feat', text: 'Command 팔레트 컴포넌트 추가 (cmdk 기반)' },
-        { kind: 'feat', text: 'Toggle 컴포넌트 Radix Primitive 기반으로 재구현' },
+        { kind: 'feat', text: 'Toggle 컴포넌트 Primitive Primitive 기반으로 재구현' },
         { kind: 'fix', text: 'Modal 포커스 트랩 누락 수정 (ORB-130)' },
       ],
     },
@@ -1326,27 +1326,27 @@ const ShadcnChangelogRender = () => {
         ))}
       </Accordion>
       <div style={{ marginTop: 10, fontSize: 11, color: '#94a3b8' }}>
-        shadcn/ui — Changelog Accordion 패턴 (버전 타입 배지 + 변경 종류 태그)
+        ComposableUI — Changelog Accordion 패턴 (버전 타입 배지 + 변경 종류 태그)
       </div>
     </div>
   )
 }
 
-export const shadcn_Changelog_아코디언: Story = {
-  name: 'shadcn/ui - Changelog 버전 아코디언',
+export const ComposableUI_Changelog_아코디언: Story = {
+  name: 'ComposableUI - Changelog 버전 아코디언',
   args: { type: 'multiple' },
   parameters: {
     docs: {
       description: {
         story:
-          'shadcn/ui Accordion 벤치마크. 버전별 릴리즈 타입(major/minor) 배지, feat/fix/chore 변경 종류 태그, type="multiple"로 복수 열기 지원.',
+          'ComposableUI Accordion 벤치마크. 버전별 릴리즈 타입(major/minor) 배지, feat/fix/chore 변경 종류 태그, type="multiple"로 복수 열기 지원.',
       },
     },
   },
-  render: () => <ShadcnChangelogRender />,
+  render: () => <ComposableUIChangelogRender />,
 }
 
-const VercelProjectSettingsRender = () => {
+const DeployPlatformProjectSettingsRender = () => {
   const [openSection, setOpenSection] = useState('general')
 
   const SECTIONS = [
@@ -1365,8 +1365,8 @@ const VercelProjectSettingsRender = () => {
       title: '도메인',
       desc: '커스텀 도메인 연결',
       content: [
-        { label: '프로덕션 도메인', value: 'orbit-ui.vercel.app', editable: false },
-        { label: '브랜치 도메인', value: '*.vercel.app', editable: false },
+        { label: '프로덕션 도메인', value: 'orbit-ui.deploy.example.com', editable: false },
+        { label: '브랜치 도메인', value: '*.deploy.example.com', editable: false },
       ],
     },
     {
@@ -1433,27 +1433,27 @@ const VercelProjectSettingsRender = () => {
         ))}
       </Accordion>
       <div style={{ marginTop: 10, fontSize: 11, color: '#94a3b8' }}>
-        Vercel 프로젝트 설정 패널 — 섹션별 Accordion + 수정 버튼
+        DeployPlatform 프로젝트 설정 패널 — 섹션별 Accordion + 수정 버튼
       </div>
     </div>
   )
 }
 
-export const Vercel_프로젝트_설정_패널: Story = {
-  name: 'Vercel - 프로젝트 설정 섹션 아코디언',
+export const DeployPlatform_프로젝트_설정_패널: Story = {
+  name: 'DeployPlatform - 프로젝트 설정 섹션 아코디언',
   args: { type: 'single' },
   parameters: {
     docs: {
       description: {
         story:
-          'Vercel Project Settings 벤치마크. type=single collapsible, 섹션 제목+설명, 내부 코드 뱃지, 편집 가능 항목에 GhostButton 표시 패턴.',
+          'DeployPlatform Project Settings 벤치마크. type=single collapsible, 섹션 제목+설명, 내부 코드 뱃지, 편집 가능 항목에 GhostButton 표시 패턴.',
       },
     },
   },
-  render: () => <VercelProjectSettingsRender />,
+  render: () => <DeployPlatformProjectSettingsRender />,
 }
 
-const ShadcnVercelPricingRender = () => {
+const ComposableUIDeployPlatformPricingRender = () => {
   const [openPlan, setOpenPlan] = useState('pro')
 
   const PLANS = [
@@ -1547,31 +1547,31 @@ const ShadcnVercelPricingRender = () => {
         ))}
       </Accordion>
       <div style={{ marginTop: 10, fontSize: 11, color: '#94a3b8' }}>
-        shadcn + Vercel Pricing — 라디오 선택 Accordion + 기능 체크리스트 + Switch 연간 결제 토글
+        ComposableUI + DeployPlatform Pricing — 라디오 선택 Accordion + 기능 체크리스트 + Switch 연간 결제 토글
       </div>
     </div>
   )
 }
 
-export const shadcn_Vercel_플랜_선택_아코디언: Story = {
-  name: 'shadcn + Vercel - 플랜 선택 라디오 아코디언',
+export const ComposableUI_DeployPlatform_플랜_선택_아코디언: Story = {
+  name: 'ComposableUI + DeployPlatform - 플랜 선택 라디오 아코디언',
   args: { type: 'single' },
   parameters: {
     docs: {
       description: {
         story:
-          'shadcn/ui Accordion + Vercel Pricing 패턴 조합. 라디오 스타일 선택 인디케이터, 기능 체크리스트, Switch 연간/월간 결제 토글, 추천 배지.',
+          'ComposableUI Accordion + DeployPlatform Pricing 패턴 조합. 라디오 스타일 선택 인디케이터, 기능 체크리스트, Switch 연간/월간 결제 토글, 추천 배지.',
       },
     },
   },
-  render: () => <ShadcnVercelPricingRender />,
+  render: () => <ComposableUIDeployPlatformPricingRender />,
 }
 
 /* --------------------------------------------------------------------------
-   MUI — 확장 패널 설정 그룹 (Cycle 117)
-   MUI Accordion의 controlled expansion panel 패턴
+   EnterpriseUI — 확장 패널 설정 그룹 (Cycle 117)
+   EnterpriseUI Accordion의 controlled expansion panel 패턴
 -------------------------------------------------------------------------- */
-function MuiExpansionPanelSettingsRender() {
+function EnterpriseUIExpansionPanelSettingsRender() {
   const [expanded, setExpanded] = useState<string | false>('panel-general')
   function toggle(panel: string) {
     return () => setExpanded((prev) => (prev === panel ? false : panel))
@@ -1610,7 +1610,7 @@ function MuiExpansionPanelSettingsRender() {
   ]
   return (
     <div style={{ width: 480 }}>
-      <div style={{ marginBottom: 16, fontSize: 14, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>설정 패널 (MUI Expansion Pattern)</div>
+      <div style={{ marginBottom: 16, fontSize: 14, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>설정 패널 (EnterpriseUI Expansion Pattern)</div>
       <Accordion type="single" value={expanded || undefined} className="w-full">
         {sections.map((sec) => (
           <Accordion.Item key={sec.id} value={sec.id} onClick={toggle(sec.id)}>
@@ -1645,25 +1645,25 @@ function MuiExpansionPanelSettingsRender() {
   )
 }
 
-export const MUI_확장_패널_설정_그룹: Story = {
-  name: 'MUI — 확장 패널 설정 그룹 (Cycle 117)',
+export const EnterpriseUI_확장_패널_설정_그룹: Story = {
+  name: 'EnterpriseUI — 확장 패널 설정 그룹 (Cycle 117)',
   args: { type: 'single' },
   parameters: {
     docs: {
       description: {
         story:
-          'MUI Accordion의 controlled expansion panel 패턴. 설정 섹션을 아코디언으로 그룹화하여 한 번에 하나씩 펼침. 필드-값 쌍, 인라인 액션 버튼 포함.',
+          'EnterpriseUI Accordion의 controlled expansion panel 패턴. 설정 섹션을 아코디언으로 그룹화하여 한 번에 하나씩 펼침. 필드-값 쌍, 인라인 액션 버튼 포함.',
       },
     },
   },
-  render: () => <MuiExpansionPanelSettingsRender />,
+  render: () => <EnterpriseUIExpansionPanelSettingsRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Chakra UI — 스텝 가이드 아코디언 (Cycle 117)
-   Chakra의 step-by-step accordion guide 패턴
+   AccessibleUI — 스텝 가이드 아코디언 (Cycle 117)
+   Accessible의 step-by-step accordion guide 패턴
 -------------------------------------------------------------------------- */
-function ChakraStepGuideRender() {
+function AccessibleStepGuideRender() {
   const [completedSteps, setCompletedSteps] = useState<Set<string>>(new Set(['step-1']))
   function toggleStep(step: string) {
     setCompletedSteps((prev) => {
@@ -1727,25 +1727,25 @@ function ChakraStepGuideRender() {
   )
 }
 
-export const Chakra_스텝_가이드_아코디언: Story = {
-  name: 'Chakra UI — 스텝 가이드 아코디언 (Cycle 117)',
+export const Accessible_스텝_가이드_아코디언: Story = {
+  name: 'AccessibleUI — 스텝 가이드 아코디언 (Cycle 117)',
   args: { type: 'multiple' },
   parameters: {
     docs: {
       description: {
         story:
-          'Chakra UI의 step-by-step 아코디언 가이드 패턴. 완료 상태 인디케이터, 코드 블록, Switch로 완료 표시, LabelBadge로 상태 시각화.',
+          'AccessibleUI의 step-by-step 아코디언 가이드 패턴. 완료 상태 인디케이터, 코드 블록, Switch로 완료 표시, LabelBadge로 상태 시각화.',
       },
     },
   },
-  render: () => <ChakraStepGuideRender />,
+  render: () => <AccessibleStepGuideRender />,
 }
 
 /* --------------------------------------------------------------------------
-   MUI + Chakra — 이슈 트래커 아코디언 (Cycle 117)
+   EnterpriseUI + Accessible — 이슈 트래커 아코디언 (Cycle 117)
    이슈를 카테고리로 그룹화하는 프로젝트 관리 패턴
 -------------------------------------------------------------------------- */
-function MuiChakraIssueTrackerRender() {
+function EnterpriseUIAccessibleIssueTrackerRender() {
   const categories = [
     {
       id: 'bug',
@@ -1816,23 +1816,23 @@ function MuiChakraIssueTrackerRender() {
   )
 }
 
-export const MUI_Chakra_이슈_트래커_아코디언: Story = {
-  name: 'MUI + Chakra — 이슈 트래커 아코디언 (Cycle 117)',
+export const EnterpriseUI_Accessible_이슈_트래커_아코디언: Story = {
+  name: 'EnterpriseUI + Accessible — 이슈 트래커 아코디언 (Cycle 117)',
   args: { type: 'multiple' },
   parameters: {
     docs: {
       description: {
         story:
-          'MUI + Chakra UI의 그룹 아코디언 패턴을 이슈 트래커에 적용. 카테고리(버그/기능/개선) 그룹화, LabelBadge 카운트, 우선순위 색상 코딩.',
+          'EnterpriseUI + AccessibleUI의 그룹 아코디언 패턴을 이슈 트래커에 적용. 카테고리(버그/기능/개선) 그룹화, LabelBadge 카운트, 우선순위 색상 코딩.',
       },
     },
   },
-  render: () => <MuiChakraIssueTrackerRender />,
+  render: () => <EnterpriseUIAccessibleIssueTrackerRender />,
 }
 
-// Cycle 142 - Apple HIG + Google Material 3 benchmark
+// Cycle 142 - Platform HIG + RoleToken Design benchmark
 
-function AppleHIGSettingsGroup142Render() {
+function PlatformHIGSettingsGroup142Render() {
   const [enabled, setEnabled] = useState<Record<string, boolean>>({
     darkMode: true,
     pushNotif: false,
@@ -1875,7 +1875,7 @@ function AppleHIGSettingsGroup142Render() {
     <div style={{ width: 360, fontFamily: 'system-ui, sans-serif' }}>
       <div style={{ marginBottom: 14 }}>
         <div style={{ fontSize: 22, fontWeight: 700, color: '#0f172a' }}>설정</div>
-        <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>Apple HIG — 설정 그룹 아코디언</div>
+        <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>Platform HIG — 설정 그룹 아코디언</div>
       </div>
       <Accordion type="multiple" defaultValue={['화면 및 디스플레이', '보안', '시스템']}>
         {groups.map((group) => (
@@ -1907,17 +1907,17 @@ function AppleHIGSettingsGroup142Render() {
   )
 }
 
-export const Apple_HIG_설정_그룹_아코디언: Story = {
-  name: 'Apple HIG — 설정 그룹 아코디언 (Cycle 142)',
+export const Platform_HIG_설정_그룹_아코디언: Story = {
+  name: 'Platform HIG — 설정 그룹 아코디언 (Cycle 142)',
   args: { type: 'multiple' },
   parameters: {
     docs: {
       description: {
-        story: 'Apple HIG 설정 화면 패턴. multiple 타입 아코디언으로 카테고리 그룹화, Switch 토글로 옵션 제어. iOS 설정 앱 UX.',
+        story: 'Platform HIG 설정 화면 패턴. multiple 타입 아코디언으로 카테고리 그룹화, Switch 토글로 옵션 제어. iOS 설정 앱 UX.',
       },
     },
   },
-  render: () => <AppleHIGSettingsGroup142Render />,
+  render: () => <PlatformHIGSettingsGroup142Render />,
 }
 
 function M3ExpansionPanel142Render() {
@@ -1930,7 +1930,7 @@ function M3ExpansionPanel142Render() {
       subtitle: '3단계 토큰 시스템',
       badge: '완료',
       color: '#6750a4',
-      content: '레퍼런스 → 시맨틱 → 컴포넌트 토큰의 3단계 계층 구조. Tailwind 유틸 + CSS 변수로 완전한 타입 안전성 보장. 런타임 오버헤드 없는 제로-런타임 스타일링.',
+      content: '레퍼런스 → 시맨틱 → 컴포넌트 토큰의 3단계 계층 구조. UtilityCSS 유틸 + CSS 변수로 완전한 타입 안전성 보장. 런타임 오버헤드 없는 제로-런타임 스타일링.',
     },
     {
       id: 'components',
@@ -1946,7 +1946,7 @@ function M3ExpansionPanel142Render() {
       subtitle: '프로덕션 레디 테마',
       badge: 'v2 Beta',
       color: '#059669',
-      content: 'Figma 디자인 시스템과 1:1 매핑. 다크모드 CSS 변수 기반 자동 전환. 커스텀 테마 확장 API 제공. Storybook 141+ 사이클 스토리 포함.',
+      content: 'DesignTool 디자인 시스템과 1:1 매핑. 다크모드 CSS 변수 기반 자동 전환. 커스텀 테마 확장 API 제공. Storybook 141+ 사이클 스토리 포함.',
     },
   ]
 
@@ -1954,7 +1954,7 @@ function M3ExpansionPanel142Render() {
 
   return (
     <div style={{ width: 400, fontFamily: 'system-ui, sans-serif' }}>
-      <div style={{ marginBottom: 14, fontSize: 11, color: '#64748b' }}>Google Material 3 — Expansion Panel 패턴</div>
+      <div style={{ marginBottom: 14, fontSize: 11, color: '#64748b' }}>RoleToken Design — Expansion Panel 패턴</div>
       <Accordion type="single" value={openItem ?? ''} onValueChange={(v) => setOpenItem(v || null)}>
         {panels.map((panel) => (
           <Accordion.Item key={panel.id} value={panel.id} style={{ marginBottom: 8, border: `1px solid ${openItem === panel.id ? panel.color + '40' : 'var(--sem-eclipse-color-borderDefault)'}`, borderRadius: 12, overflow: 'hidden', transition: 'border-color 0.2s' }}>
@@ -1983,22 +1983,22 @@ function M3ExpansionPanel142Render() {
 }
 
 export const M3_익스팬션_패널: Story = {
-  name: 'Material 3 — Expansion Panel (Cycle 142)',
+  name: 'RoleToken Design — Expansion Panel (Cycle 142)',
   args: { type: 'single' },
   parameters: {
     docs: {
       description: {
-        story: 'Google Material 3 Expansion Panel 패턴. single 타입으로 하나만 열림. 활성 패널 테마 색상 보더/배경 강조, 배지 상태 표시.',
+        story: 'RoleToken Design Expansion Panel 패턴. single 타입으로 하나만 열림. 활성 패널 테마 색상 보더/배경 강조, 배지 상태 표시.',
       },
     },
   },
   render: () => <M3ExpansionPanel142Render />,
 }
 
-function AppleM3FAQ142Render() {
+function PlatformM3FAQ142Render() {
   const faqs = [
     { q: 'Orbit UI는 Next.js에서 사용할 수 있나요?', a: '네. theme-eclipse 패키지의 server/ 디렉토리에 서버 컴포넌트 래퍼가 포함되어 있습니다. Next.js 13+ App Router와 완전히 호환됩니다.' },
-    { q: '기존 Tailwind CSS 프로젝트에 적용하려면?', a: 'pnpm add @heejun-com/theme-eclipse 후, tailwind.config.ts에 orbit-ui 프리셋을 추가하세요. 기존 클래스와 충돌 없이 사용할 수 있습니다.' },
+    { q: '기존 UtilityCSS CSS 프로젝트에 적용하려면?', a: 'pnpm add @heejun-com/theme-eclipse 후, tailwind.config.ts에 orbit-ui 프리셋을 추가하세요. 기존 클래스와 충돌 없이 사용할 수 있습니다.' },
     { q: '커스텀 테마를 만들려면 어떻게 하나요?', a: 'EclipseProvider에 theme prop으로 토큰 오버라이드 객체를 전달하세요. CSS 변수 기반이라 런타임에서도 동적 변경이 가능합니다.' },
     { q: 'TypeScript 없이도 사용 가능한가요?', a: 'JavaScript로도 import 가능하나, 타입 추론과 자동완성의 이점을 위해 TypeScript 사용을 권장합니다.' },
     { q: '아이콘은 어떻게 사용하나요?', a: '@heejun-com/icons 패키지를 별도 설치하세요. 모든 아이콘은 SVG 기반 React 컴포넌트로 tree-shaking을 지원합니다.' },
@@ -2008,7 +2008,7 @@ function AppleM3FAQ142Render() {
     <div style={{ width: 420, fontFamily: 'system-ui, sans-serif' }}>
       <div style={{ marginBottom: 16 }}>
         <div style={{ fontSize: 18, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>자주 묻는 질문</div>
-        <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 3 }}>Apple HIG + M3 — FAQ 아코디언 패턴</div>
+        <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 3 }}>Platform HIG + M3 — FAQ 아코디언 패턴</div>
       </div>
       <Accordion type="single">
         {faqs.map((faq, i) => (
@@ -2028,21 +2028,21 @@ function AppleM3FAQ142Render() {
   )
 }
 
-export const Apple_M3_FAQ_아코디언: Story = {
-  name: 'Apple HIG + Material 3 — FAQ 아코디언 (Cycle 142)',
+export const Platform_M3_FAQ_아코디언: Story = {
+  name: 'Platform HIG + RoleToken Design — FAQ 아코디언 (Cycle 142)',
   args: { type: 'single' },
   parameters: {
     docs: {
       description: {
-        story: 'Apple HIG + Material 3 FAQ 패턴. single 타입 아코디언으로 하나만 펼쳐지는 표준 FAQ UI. Orbit UI 실제 사용법 Q&A로 구성.',
+        story: 'Platform HIG + RoleToken Design FAQ 패턴. single 타입 아코디언으로 하나만 펼쳐지는 표준 FAQ UI. Orbit UI 실제 사용법 Q&A로 구성.',
       },
     },
   },
-  render: () => <AppleM3FAQ142Render />,
+  render: () => <PlatformM3FAQ142Render />,
 }
 
 // ──────────────────────────────────────────────────────────────────────────────
-// Cycle 171: Ant Design + Mantine
+// Cycle 171: Ant Design + AppUI
 // ──────────────────────────────────────────────────────────────────────────────
 
 export const AntDesign_API_레퍼런스_아코디언: Story = {
@@ -2133,19 +2133,19 @@ export const AntDesign_API_레퍼런스_아코디언: Story = {
   },
 }
 
-export const Mantine_훅_기반_상태_아코디언: Story = {
-  name: 'Mantine — 훅 기반 상태 아코디언 (Cycle 171)',
+export const AppUI_훅_기반_상태_아코디언: Story = {
+  name: 'AppUI — 훅 기반 상태 아코디언 (Cycle 171)',
   args: { type: 'multiple' as const },
   parameters: {
     docs: {
       description: {
         story:
-          'Mantine useAccordion 훅 패턴. 프로그래매틱 제어 + 상태 추적. ' +
+          'AppUI useAccordion 훅 패턴. 프로그래매틱 제어 + 상태 추적. ' +
           '전체 펼침/접힘 버튼 + 현재 열린 섹션 카운터 표시.',
       },
     },
   },
-  render: function MantineAccordionStateRender() {
+  render: function AppUIAccordionStateRender() {
     const ITEMS = ['기본 설치', '테마 설정', '컴포넌트 사용', '고급 커스터마이징', '배포 최적화']
     const ALL_VALS = ITEMS.map((_, i) => String(i))
     const [openItems, setOpenItems] = useState<string[]>([])
@@ -2209,19 +2209,19 @@ export const Mantine_훅_기반_상태_아코디언: Story = {
   },
 }
 
-export const Ant_Mantine_대시보드_위젯_아코디언: Story = {
-  name: 'Ant Design + Mantine — 대시보드 위젯 아코디언 (Cycle 171)',
+export const Ant_AppUI_대시보드_위젯_아코디언: Story = {
+  name: 'Ant Design + AppUI — 대시보드 위젯 아코디언 (Cycle 171)',
   args: { type: 'multiple' as const },
   parameters: {
     docs: {
       description: {
         story:
-          'Ant Design + Mantine 대시보드 사이드 패널 패턴. 필터/통계/최근 활동을 ' +
+          'Ant Design + AppUI 대시보드 사이드 패널 패턴. 필터/통계/최근 활동을 ' +
           'Accordion 섹션으로 구성. 섹션별 배지 카운터 표시.',
       },
     },
   },
-  render: function AntMantineDashboardAccordionRender() {
+  render: function AntAppUIDashboardAccordionRender() {
     const stats = [
       { label: '총 사용자', value: '12,048', change: '+5.2%', up: true },
       { label: '월 활성 사용자', value: '8,341', change: '+2.1%', up: true },

@@ -134,7 +134,7 @@ export const 정렬: Story = {
 
 /* --------------------------------------------------------------------------
    컬럼 필터링 패턴
-   shadcn/ui Data Table 패턴: 이메일 검색 입력 + 컬럼 필터 연동.
+   ComposableUI Data Table 패턴: 이메일 검색 입력 + 컬럼 필터 연동.
    getFilteredRowModel()과 onColumnFiltersChange를 활용합니다.
 -------------------------------------------------------------------------- */
 const largeData: Payment[] = [
@@ -212,7 +212,7 @@ export const 컬럼필터링: Story = {
 
 /* --------------------------------------------------------------------------
    상태 필터 + 행 선택 조합 패턴
-   shadcn/ui 패턴: 상태별 탭 필터와 다중 선택, 선택된 행 카운트 표시.
+   ComposableUI 패턴: 상태별 탭 필터와 다중 선택, 선택된 행 카운트 표시.
    Row selection: "X of Y row(s) selected" 패턴 반영.
 -------------------------------------------------------------------------- */
 const StatusFilterRender = () => {
@@ -277,9 +277,9 @@ export const 상태필터링: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   확장 행 패턴 (Arco Design Table expandable row)
+   확장 행 패턴 (DataProductUI Table expandable row)
    각 행을 클릭하면 추가 상세 정보가 인라인으로 펼쳐지는 패턴.
-   Arco Design의 expandedRowRender 기능을 Orbit UI DataTable로 재현합니다.
+   DataProductUI의 expandedRowRender 기능을 Orbit UI DataTable로 재현합니다.
 -------------------------------------------------------------------------- */
 type Order = {
   id: string
@@ -376,7 +376,7 @@ const ExpandableTableRender = () => {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', width: '100%' }}>
       <div style={{ fontSize: '13px', color: '#64748b', padding: '4px 0' }}>
-        행의 <strong style={{ color: '#1e293b' }}>펼침 버튼</strong>을 클릭하면 하단에 상세 정보가 표시됩니다. (Arco Design expandable row 패턴)
+        행의 <strong style={{ color: '#1e293b' }}>펼침 버튼</strong>을 클릭하면 하단에 상세 정보가 표시됩니다. (DataProductUI expandable row 패턴)
       </div>
       <DataTable
         columns={orderColumns as any}
@@ -416,7 +416,7 @@ export const 확장행: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   고정 컬럼 + 대용량 데이터 패턴 (Arco Design Table fixed column)
+   고정 컬럼 + 대용량 데이터 패턴 (DataProductUI Table fixed column)
    첫 번째 컬럼(주문번호)과 마지막 컬럼(액션)을 고정하고
    가로 스크롤 시에도 항상 보이는 패턴.
 -------------------------------------------------------------------------- */
@@ -499,7 +499,7 @@ const StickyColumnTableRender = () => {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', width: '100%' }}>
       <div style={{ fontSize: '13px', color: '#64748b' }}>
-        Arco Design의 <strong style={{ color: '#1e293b' }}>고정 컬럼</strong> 패턴: 가로 스크롤 시 사번 컬럼이 고정됩니다.
+        DataProductUI의 <strong style={{ color: '#1e293b' }}>고정 컬럼</strong> 패턴: 가로 스크롤 시 사번 컬럼이 고정됩니다.
       </div>
       <div style={{ overflowX: 'auto', borderRadius: '8px', border: '1px solid #e2e8f0' }}>
         <DataTable
@@ -518,8 +518,8 @@ export const 고정컬럼: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Vercel 스타일 배포 현황 테이블
-   Vercel Design 패턴: 상태 dot indicator, 모노스페이스 해시, 시간 표시.
+   DeployPlatform 스타일 배포 현황 테이블
+   DeployPlatform Design 패턴: 상태 dot indicator, 모노스페이스 해시, 시간 표시.
    컴팩트 밀도 + 모노크롬 팔레트로 배포 목록을 표현합니다.
 -------------------------------------------------------------------------- */
 type Deployment = {
@@ -701,19 +701,19 @@ const DeploymentTableRender = () => {
 
       {/* Footer hint */}
       <div style={{ fontSize: '11px', color: '#cbd5e1', textAlign: 'right' }}>
-        Vercel Design 패턴: 상태 dot indicator + 모노스페이스 해시 + 컴팩트 밀도
+        DeployPlatform Design 패턴: 상태 dot indicator + 모노스페이스 해시 + 컴팩트 밀도
       </div>
     </div>
   )
 }
 
-export const Vercel_배포현황: Story = {
+export const DeployPlatform_배포현황: Story = {
   render: () => <DeploymentTableRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Notion 스타일: 인라인 프로퍼티 뷰 (view → edit 전환 패턴)
-   Notion의 데이터베이스 row 상세보기처럼 프로퍼티를 클릭하면 편집 가능한 필드로 전환.
+   WorkspaceEditor 스타일: 인라인 프로퍼티 뷰 (view → edit 전환 패턴)
+   WorkspaceEditor의 데이터베이스 row 상세보기처럼 프로퍼티를 클릭하면 편집 가능한 필드로 전환.
    Inspector panel + property list 조합 패턴.
 -------------------------------------------------------------------------- */
 type ProjectProperty = {
@@ -723,7 +723,7 @@ type ProjectProperty = {
   type: 'text' | 'status' | 'date' | 'person' | 'number'
 }
 
-const NotionPropertyViewRender = () => {
+const WorkspaceEditorPropertyViewRender = () => {
   const [editingId, setEditingId] = React.useState<string | null>(null)
   const [properties, setProperties] = React.useState<ProjectProperty[]>([
     { id: 'name', label: 'Name', value: 'Orbit UI Design System', type: 'text' },
@@ -896,7 +896,7 @@ const NotionPropertyViewRender = () => {
   return (
     <div style={{ maxWidth: '560px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
       <div style={{ fontSize: '12px', color: '#94a3b8', padding: '4px 0' }}>
-        Notion Database 패턴: 프로퍼티를 클릭하면 인라인 편집 모드로 전환됩니다 (Enter로 저장, Esc로 취소).
+        WorkspaceEditor Database 패턴: 프로퍼티를 클릭하면 인라인 편집 모드로 전환됩니다 (Enter로 저장, Esc로 취소).
       </div>
 
       {/* 프로퍼티 패널 */}
@@ -955,20 +955,20 @@ const NotionPropertyViewRender = () => {
       </div>
 
       <div style={{ fontSize: '11px', color: '#cbd5e1', textAlign: 'right' }}>
-        Notion Design 패턴: view to edit inline property panel
+        WorkspaceEditor Design 패턴: view to edit inline property panel
       </div>
     </div>
   )
 }
 
-export const Notion_인라인_프로퍼티: Story = {
-  render: () => <NotionPropertyViewRender />,
+export const WorkspaceEditor_인라인_프로퍼티: Story = {
+  render: () => <WorkspaceEditorPropertyViewRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Figma Plugin UI: 인스펙터 패널 (Inspector Panel)
+   DesignTool Plugin UI: 인스펙터 패널 (Inspector Panel)
    속성명 + 값 + 단위 선택기가 나란히 있는 컴팩트 디자인 도구 패턴.
-   선택된 레이어의 속성을 표시하고 편집하는 Figma 우측 패널 스타일.
+   선택된 레이어의 속성을 표시하고 편집하는 DesignTool 우측 패널 스타일.
 -------------------------------------------------------------------------- */
 type InspectorProp = {
   id: string
@@ -978,7 +978,7 @@ type InspectorProp = {
   units?: string[]
 }
 
-const FigmaInspectorRender = () => {
+const DesignToolInspectorRender = () => {
   const [props, setProps] = React.useState<InspectorProp[]>([
     { id: 'x', label: 'X', value: '120', unit: 'px' },
     { id: 'y', label: 'Y', value: '80', unit: 'px' },
@@ -1144,14 +1144,14 @@ const FigmaInspectorRender = () => {
       </div>
 
       <div style={{ padding: '6px 12px', borderTop: '1px solid #f1f5f9' }}>
-        <span style={{ fontSize: '10px', color: '#cbd5e1' }}>Figma Inspector Panel Pattern</span>
+        <span style={{ fontSize: '10px', color: '#cbd5e1' }}>DesignTool Inspector Panel Pattern</span>
       </div>
     </div>
   )
 }
 
-export const Figma_인스펙터_패널: Story = {
-  render: () => <FigmaInspectorRender />,
+export const DesignTool_인스펙터_패널: Story = {
+  render: () => <DesignToolInspectorRender />,
 }
 
 /* --------------------------------------------------------------------------
@@ -1337,8 +1337,8 @@ export const Ant_배치_액션_테이블: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Tailwind UI 벤치마크: 요약 통계 행 포함 테이블
-   Tailwind UI의 stacked list + summary row 패턴 — 집계 통계를 하단에 표시
+   UtilityUI 벤치마크: 요약 통계 행 포함 테이블
+   UtilityUI의 stacked list + summary row 패턴 — 집계 통계를 하단에 표시
 -------------------------------------------------------------------------- */
 type SalesEntry = {
   id: string
@@ -1460,22 +1460,22 @@ const SalesSummaryTableRender = () => {
         </div>
       </div>
       <div style={{ marginTop: 6, fontSize: 11, color: '#94a3b8' }}>
-        Tailwind UI 요약 통계 행 패턴 — 집계 지표를 테이블 하단에 표시
+        UtilityUI 요약 통계 행 패턴 — 집계 지표를 테이블 하단에 표시
       </div>
     </div>
   )
 }
 
-export const Tailwind_매출_요약_테이블: Story = {
-  name: 'Tailwind UI - 요약 통계 행 포함 매출 테이블',
+export const UtilityCSS_매출_요약_테이블: Story = {
+  name: 'UtilityUI - 요약 통계 행 포함 매출 테이블',
   render: () => <SalesSummaryTableRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Linear Design 벤치마크: 이슈 트래커 테이블
-   Linear의 이슈 목록 뷰 — 우선순위 아이콘, 상태 배지, 담당자 아바타 조합 패턴.
+   IssueTracker Design 벤치마크: 이슈 트래커 테이블
+   IssueTracker의 이슈 목록 뷰 — 우선순위 아이콘, 상태 배지, 담당자 아바타 조합 패턴.
 -------------------------------------------------------------------------- */
-type LinearIssue = {
+type IssueTrackerIssue = {
   id: string
   priority: 'urgent' | 'high' | 'medium' | 'low'
   title: string
@@ -1484,7 +1484,7 @@ type LinearIssue = {
   points: number
 }
 
-const LINEAR_ISSUES: LinearIssue[] = [
+const TRACKER_ISSUES: IssueTrackerIssue[] = [
   { id: 'ORB-421', priority: 'urgent', title: 'DataTable 정렬 오류 수정', status: 'in-progress', assignee: '김민지', points: 3 },
   { id: 'ORB-418', priority: 'high', title: 'Toast 스택 애니메이션 구현', status: 'in-review', assignee: '이동욱', points: 5 },
   { id: 'ORB-415', priority: 'high', title: 'TextArea 자동 높이 조절', status: 'todo', assignee: '박소연', points: 2 },
@@ -1500,7 +1500,7 @@ const PRIORITY_CFG = {
   low:    { color: '#94a3b8', label: '낮음', icon: '⚪' },
 } as const
 
-const LINEAR_STATUS_CFG = {
+const TRACKER_STATUS_CFG = {
   backlog:     { color: '#94a3b8', label: 'Backlog', bg: '#f8fafc' },
   todo:        { color: '#6366f1', label: 'Todo', bg: '#eff6ff' },
   'in-progress': { color: '#f59e0b', label: 'In Progress', bg: '#fffbeb' },
@@ -1508,14 +1508,14 @@ const LINEAR_STATUS_CFG = {
   done:        { color: '#10b981', label: 'Done', bg: '#f0fdf4' },
 } as const
 
-const LinearIssueTableRender = () => {
-  const [statusFilter, setStatusFilter] = React.useState<LinearIssue['status'] | 'all'>('all')
+const IssueTrackerIssueTableRender = () => {
+  const [statusFilter, setStatusFilter] = React.useState<IssueTrackerIssue['status'] | 'all'>('all')
 
   const filtered = statusFilter === 'all'
-    ? LINEAR_ISSUES
-    : LINEAR_ISSUES.filter((i) => i.status === statusFilter)
+    ? TRACKER_ISSUES
+    : TRACKER_ISSUES.filter((i) => i.status === statusFilter)
 
-  const issueColumns: ColumnDef<LinearIssue>[] = [
+  const issueColumns: ColumnDef<IssueTrackerIssue>[] = [
     {
       accessorKey: 'priority',
       header: '',
@@ -1560,7 +1560,7 @@ const LinearIssueTableRender = () => {
       accessorKey: 'status',
       header: '상태',
       cell: ({ row }) => {
-        const cfg = LINEAR_STATUS_CFG[row.original.status]
+        const cfg = TRACKER_STATUS_CFG[row.original.status]
         return (
           <span style={{
             display: 'inline-flex', alignItems: 'center', gap: 5,
@@ -1605,7 +1605,7 @@ const LinearIssueTableRender = () => {
     },
   ]
 
-  const statuses: Array<LinearIssue['status'] | 'all'> = ['all', 'backlog', 'todo', 'in-progress', 'in-review', 'done']
+  const statuses: Array<IssueTrackerIssue['status'] | 'all'> = ['all', 'backlog', 'todo', 'in-progress', 'in-review', 'done']
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 12, width: '100%', maxWidth: 680 }}>
@@ -1617,7 +1617,7 @@ const LinearIssueTableRender = () => {
         <div style={{ display: 'flex', gap: 4 }}>
           {statuses.map((s) => {
             const active = statusFilter === s
-            const cfg = s !== 'all' ? LINEAR_STATUS_CFG[s] : null
+            const cfg = s !== 'all' ? TRACKER_STATUS_CFG[s] : null
             return (
               <button
                 key={s}
@@ -1631,7 +1631,7 @@ const LinearIssueTableRender = () => {
                   whiteSpace: 'nowrap',
                 }}
               >
-                {s === 'all' ? 'All' : LINEAR_STATUS_CFG[s].label}
+                {s === 'all' ? 'All' : TRACKER_STATUS_CFG[s].label}
               </button>
             )
           })}
@@ -1639,22 +1639,22 @@ const LinearIssueTableRender = () => {
       </div>
       <DataTable columns={issueColumns as any} data={filtered as any} enableSorting={true} />
       <div style={{ fontSize: 11, color: '#94a3b8' }}>
-        Linear Design 패턴 — 우선순위 아이콘 + 상태 배지 + 담당자 아바타
+        IssueTracker Design 패턴 — 우선순위 아이콘 + 상태 배지 + 담당자 아바타
       </div>
     </div>
   )
 }
 
-export const Linear_이슈_트래커: Story = {
-  name: 'Linear Design - 이슈 트래커 테이블',
-  render: () => <LinearIssueTableRender />,
+export const IssueTracker_이슈_트래커: Story = {
+  name: 'IssueTracker Design - 이슈 트래커 테이블',
+  render: () => <IssueTrackerIssueTableRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Figma Plugin UI 벤치마크: 레이어 패널 테이블
-   Figma의 레이어 목록처럼 계층형 레이어 이름 + 타입 아이콘 + 크기 + 가시성 제어
+   DesignTool Plugin UI 벤치마크: 레이어 패널 테이블
+   DesignTool의 레이어 목록처럼 계층형 레이어 이름 + 타입 아이콘 + 크기 + 가시성 제어
 -------------------------------------------------------------------------- */
-type FigmaLayer = {
+type DesignToolLayer = {
   id: string
   depth: number
   type: 'frame' | 'component' | 'group' | 'text' | 'rect'
@@ -1665,7 +1665,7 @@ type FigmaLayer = {
   locked: boolean
 }
 
-const FIGMA_LAYERS: FigmaLayer[] = [
+const DESIGN_LAYERS: DesignToolLayer[] = [
   { id: 'l1', depth: 0, type: 'frame', name: 'Dashboard / Main', width: 1440, height: 900, visible: true, locked: false },
   { id: 'l2', depth: 1, type: 'component', name: 'AppBar', width: 1440, height: 64, visible: true, locked: true },
   { id: 'l3', depth: 1, type: 'group', name: 'Content Area', width: 1320, height: 780, visible: true, locked: false },
@@ -1683,8 +1683,8 @@ const LAYER_TYPE_CFG = {
   rect:      { icon: '▬', color: '#94a3b8', label: 'Rectangle' },
 } as const
 
-const FigmaLayerTableRender = () => {
-  const [layers, setLayers] = React.useState(FIGMA_LAYERS)
+const DesignToolLayerTableRender = () => {
+  const [layers, setLayers] = React.useState(DESIGN_LAYERS)
   const [selectedId, setSelectedId] = React.useState<string | null>('l5')
 
   const toggleVisible = (id: string) => {
@@ -1695,7 +1695,7 @@ const FigmaLayerTableRender = () => {
     setLayers((prev) => prev.map((l) => l.id === id ? { ...l, locked: !l.locked } : l))
   }
 
-  const layerColumns: ColumnDef<FigmaLayer>[] = [
+  const layerColumns: ColumnDef<DesignToolLayer>[] = [
     {
       accessorKey: 'name',
       header: 'Layer',
@@ -1797,20 +1797,20 @@ const FigmaLayerTableRender = () => {
         </div>
       )}
       <div style={{ fontSize: 11, color: '#94a3b8' }}>
-        Figma Plugin UI 패턴 — 레이어 패널: 타입 아이콘 + 깊이 들여쓰기 + 가시성/잠금 제어
+        DesignTool Plugin UI 패턴 — 레이어 패널: 타입 아이콘 + 깊이 들여쓰기 + 가시성/잠금 제어
       </div>
     </div>
   )
 }
 
-export const Figma_레이어_패널: Story = {
-  name: 'Figma Plugin UI - 레이어 패널 테이블',
-  render: () => <FigmaLayerTableRender />,
+export const DesignTool_레이어_패널: Story = {
+  name: 'DesignTool Plugin UI - 레이어 패널 테이블',
+  render: () => <DesignToolLayerTableRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Linear + Figma Plugin UI 벤치마크: 로드맵 마일스톤 테이블
-   Linear의 Roadmap 뷰 — 분기별 이니셔티브, 진행률, 상태를 한 눈에 보여주는 패턴
+   IssueTracker + DesignTool Plugin UI 벤치마크: 로드맵 마일스톤 테이블
+   IssueTracker의 Roadmap 뷰 — 분기별 이니셔티브, 진행률, 상태를 한 눈에 보여주는 패턴
 -------------------------------------------------------------------------- */
 type Milestone = {
   id: string
@@ -1825,7 +1825,7 @@ type Milestone = {
 const ROADMAP_DATA: Milestone[] = [
   { id: 'm1', quarter: 'Q1 2026', initiative: 'Design Token 시스템 고도화', owner: '김민지', completion: 100, status: 'completed', features: 12 },
   { id: 'm2', quarter: 'Q1 2026', initiative: 'Storybook 8 마이그레이션', owner: '이동욱', completion: 87, status: 'on-track', features: 6 },
-  { id: 'm3', quarter: 'Q2 2026', initiative: 'Figma MCP 인테그레이션', owner: '박소연', completion: 42, status: 'at-risk', features: 8 },
+  { id: 'm3', quarter: 'Q2 2026', initiative: 'DesignTool MCP 인테그레이션', owner: '박소연', completion: 42, status: 'at-risk', features: 8 },
   { id: 'm4', quarter: 'Q2 2026', initiative: 'RTL 지원 및 i18n', owner: '최준호', completion: 18, status: 'at-risk', features: 15 },
   { id: 'm5', quarter: 'Q3 2026', initiative: 'React Native 컴포넌트', owner: '정하은', completion: 0, status: 'planned', features: 24 },
   { id: 'm6', quarter: 'Q3 2026', initiative: 'Orbit AI 컴포넌트 생성기', owner: '황태양', completion: 0, status: 'planned', features: 10 },
@@ -1963,22 +1963,22 @@ const RoadmapTableRender = () => {
       </div>
       <DataTable columns={milestoneColumns as any} data={filtered as any} enableSorting={true} />
       <div style={{ fontSize: 11, color: '#94a3b8' }}>
-        Linear Roadmap + Figma Plugin UI 패턴 — 분기별 이니셔티브 진행률 테이블
+        IssueTracker Roadmap + DesignTool Plugin UI 패턴 — 분기별 이니셔티브 진행률 테이블
       </div>
     </div>
   )
 }
 
-export const Linear_Figma_로드맵_마일스톤: Story = {
-  name: 'Linear + Figma Plugin UI - 로드맵 마일스톤 테이블',
+export const IssueTracker_DesignTool_로드맵_마일스톤: Story = {
+  name: 'IssueTracker + DesignTool Plugin UI - 로드맵 마일스톤 테이블',
   render: () => <RoadmapTableRender />,
 }
 
 // ============================================================
-// Cycle 135 — shadcn/ui + Ant Design 벤치마크 반영
+// Cycle 135 — ComposableUI + Ant Design 벤치마크 반영
 // ============================================================
 
-// shadcn/ui 스타일 — 사용자 관리 테이블 (역할 필터 + 검색)
+// ComposableUI 스타일 — 사용자 관리 테이블 (역할 필터 + 검색)
 type OrgMember = { id: string; name: string; email: string; role: 'admin' | 'editor' | 'viewer'; status: 'active' | 'inactive'; joined: string }
 
 const ORG_MEMBERS: OrgMember[] = [
@@ -1996,7 +1996,7 @@ const ROLE_BADGE: Record<OrgMember['role'], { label: string; color: string; bg: 
   viewer: { label: '뷰어', color: '#374151', bg: '#f3f4f6' },
 }
 
-function ShadcnOrgMemberTableRender() {
+function ComposableUIOrgMemberTableRender() {
   const [search, setSearch] = useDataTableState('')
   const [roleFilter, setRoleFilter] = useDataTableState<OrgMember['role'] | 'all'>('all')
   const filtered = ORG_MEMBERS.filter((m) =>
@@ -2064,18 +2064,18 @@ function ShadcnOrgMemberTableRender() {
   )
 }
 
-export const Shadcn_조직_멤버_관리_테이블: Story = {
-  name: 'shadcn/ui - 조직 멤버 관리 테이블',
+export const ComposableUI_조직_멤버_관리_테이블: Story = {
+  name: 'ComposableUI - 조직 멤버 관리 테이블',
   parameters: {
     docs: {
       description: {
         story:
-          'shadcn/ui DataTable 패턴. 검색 + 역할 필터 + 상태 배지 + 가입일 정렬. ' +
+          'ComposableUI DataTable 패턴. 검색 + 역할 필터 + 상태 배지 + 가입일 정렬. ' +
           '이름/이메일 복합 셀, 역할별 색상 배지 인라인 렌더링.',
       },
     },
   },
-  render: () => <ShadcnOrgMemberTableRender />,
+  render: () => <ComposableUIOrgMemberTableRender />,
 }
 
 // Ant Design 스타일 — API 로그 테이블 (시간순 정렬 + 상태 코드 색상)
@@ -2159,7 +2159,7 @@ export const Ant_API_로그_테이블: Story = {
   ),
 }
 
-// shadcn/ui + Ant — 재무 보고서 테이블 (계층형 소계 + 컬럼 하이라이트)
+// ComposableUI + Ant — 재무 보고서 테이블 (계층형 소계 + 컬럼 하이라이트)
 type FinanceRow = { dept: string; q1: number; q2: number; q3: number; q4: number; total: number; change: number }
 
 const FINANCE_ROWS: FinanceRow[] = [
@@ -2170,13 +2170,13 @@ const FINANCE_ROWS: FinanceRow[] = [
   { dept: '합계', q1: 970, q2: 1090, q3: 1155, q4: 1180, total: 4395, change: 9.8 },
 ]
 
-export const Shadcn_Ant_재무_보고서_테이블: Story = {
-  name: 'shadcn/ui + Ant Design - 재무 보고서 테이블',
+export const ComposableUI_Ant_재무_보고서_테이블: Story = {
+  name: 'ComposableUI + Ant Design - 재무 보고서 테이블',
   parameters: {
     docs: {
       description: {
         story:
-          'shadcn/ui + Ant Design Table 결합 패턴. 부서별 분기 실적, 합계 행 강조, ' +
+          'ComposableUI + Ant Design Table 결합 패턴. 부서별 분기 실적, 합계 행 강조, ' +
           'YoY 변화율 컬럼(양수/음수 색상 구분), 전체 총계 행 굵은 폰트.',
       },
     },
@@ -2233,21 +2233,21 @@ export const Shadcn_Ant_재무_보고서_테이블: Story = {
 }
 
 // ──────────────────────────────────────────────────────────────────────────────
-// Cycle 170: Radix UI + Linear Design
+// Cycle 170: PrimitiveUI + IssueTracker Design
 // ──────────────────────────────────────────────────────────────────────────────
 
-export const Radix_권한_관리_테이블: Story = {
-  name: 'Radix UI — 역할별 권한 관리 테이블 (Cycle 170)',
+export const Primitive_권한_관리_테이블: Story = {
+  name: 'PrimitiveUI — 역할별 권한 관리 테이블 (Cycle 170)',
   parameters: {
     docs: {
       description: {
         story:
-          'Radix UI 접근성 패턴 기반 권한 관리 테이블. 역할(Admin/Editor/Viewer)별 기능 접근 권한을 ' +
+          'PrimitiveUI 접근성 패턴 기반 권한 관리 테이블. 역할(Admin/Editor/Viewer)별 기능 접근 권한을 ' +
           '체크박스 셀로 표시. 권한 변경 인터랙션 지원.',
       },
     },
   },
-  render: function RadixPermTableRender() {
+  render: function PrimitivePermTableRender() {
     const features = ['대시보드 조회', '콘텐츠 생성', '콘텐츠 삭제', '멤버 초대', '설정 변경', '데이터 내보내기', '결제 관리']
     type Role = 'admin' | 'editor' | 'viewer'
 
@@ -2323,13 +2323,13 @@ export const Radix_권한_관리_테이블: Story = {
   },
 }
 
-export const Linear_스프린트_이슈_트래킹: Story = {
-  name: 'Linear — 스프린트 이슈 트래킹 테이블 (Cycle 170)',
+export const IssueTracker_스프린트_이슈_트래킹: Story = {
+  name: 'IssueTracker — 스프린트 이슈 트래킹 테이블 (Cycle 170)',
   parameters: {
     docs: {
       description: {
         story:
-          'Linear 이슈 리스트 패턴. 스프린트 내 이슈 상태/우선순위/담당자/포인트를 ' +
+          'IssueTracker 이슈 리스트 패턴. 스프린트 내 이슈 상태/우선순위/담당자/포인트를 ' +
           'DataTable로 표시. 인라인 상태 변경 + 소팅.',
       },
     },
@@ -2423,18 +2423,18 @@ export const Linear_스프린트_이슈_트래킹: Story = {
   },
 }
 
-export const Radix_Linear_코드_리뷰_현황_테이블: Story = {
-  name: 'Radix UI + Linear — 코드 리뷰 현황 테이블 (Cycle 170)',
+export const Primitive_IssueTracker_코드_리뷰_현황_테이블: Story = {
+  name: 'PrimitiveUI + IssueTracker — 코드 리뷰 현황 테이블 (Cycle 170)',
   parameters: {
     docs: {
       description: {
         story:
-          'Radix UI + Linear 코드 리뷰 패턴. PR별 리뷰 상태/승인 여부/변경 파일 수를 ' +
+          'PrimitiveUI + IssueTracker 코드 리뷰 패턴. PR별 리뷰 상태/승인 여부/변경 파일 수를 ' +
           'DataTable로 한눈에 파악. 행 클릭 선택 지원.',
       },
     },
   },
-  render: function RadixLinearCodeReviewRender() {
+  render: function PrimitiveIssueTrackerCodeReviewRender() {
     const [selected, setSelected] = useDataTableState<number | null>(null)
 
     const prs = [

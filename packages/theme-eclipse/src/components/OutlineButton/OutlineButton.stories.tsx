@@ -123,7 +123,7 @@ export const 디자인QA = {
       exclude: ['as', 'children', 'onClick'],
     },
   },
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
+
   render: ({ leading, trailing, color, size, loading, ...rest }: any) => {
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', paddingBottom: '2rem' }}>
@@ -146,11 +146,11 @@ export const 디자인QA = {
   },
 }
 
-// ─── Material 3: Tonal / Outlined / Text 버튼 역할 분리 ──────────────────────
+// ─── RoleToken Design: Tonal / Outlined / Text 버튼 역할 분리 ──────────────────────
 // M3에서 Outlined Button은 Secondary 액션을 표현합니다.
 // 상태 레이어(State Layer): Hover 8%, Pressed 12% 불투명도로 피드백을 줍니다.
 export const Material3_버튼_역할_분리: Story = {
-  name: 'Material 3 - Outlined vs Filled 역할 분리',
+  name: 'RoleToken Design - Outlined vs Filled 역할 분리',
   render: () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '32px', maxWidth: '560px' }}>
       <div>
@@ -232,7 +232,7 @@ export const Material3_버튼_역할_분리: Story = {
           <div style={{ flex: 1 }}>
             <div style={{ fontSize: '14px', fontWeight: 600, color: '#0f172a', marginBottom: '4px' }}>새 버전 업데이트 가능</div>
             <div style={{ fontSize: '12px', color: '#64748b', marginBottom: '16px', lineHeight: 1.5 }}>
-              Orbit UI v3.2.0이 출시되었습니다. 새로운 Material 3 컴포넌트와 성능 개선이 포함되어 있습니다.
+              Orbit UI v3.2.0이 출시되었습니다. 새로운 RoleToken Design 컴포넌트와 성능 개선이 포함되어 있습니다.
             </div>
             <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
               <OutlineButton color="black" size="small">
@@ -249,8 +249,8 @@ export const Material3_버튼_역할_분리: Story = {
   ),
 }
 
-// ─── Mantine: useDisclosure 패턴 (확인/취소 인터랙션) ─────────────────────────
-// Mantine의 useDisclosure 훅은 열기/닫기 상태를 관리하는 패턴입니다.
+// ─── AppUI: useDisclosure 패턴 (확인/취소 인터랙션) ─────────────────────────
+// AppUI의 useDisclosure 훅은 열기/닫기 상태를 관리하는 패턴입니다.
 // OutlineButton을 활용한 모달 트리거 + 확인 흐름을 구현합니다.
 const DisclosurePatternRender = () => {
   const [step, setStep] = useState<'idle' | 'confirming' | 'done'>('idle')
@@ -258,7 +258,7 @@ const DisclosurePatternRender = () => {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', width: '360px' }}>
       <p style={{ margin: 0, fontSize: '12px', fontWeight: 700, color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
-        Mantine useDisclosure 패턴
+        AppUI useDisclosure 패턴
       </p>
 
       {step === 'idle' && (
@@ -308,16 +308,16 @@ const DisclosurePatternRender = () => {
   )
 }
 
-export const Mantine_useDisclosure_패턴: Story = {
-  name: 'Mantine - useDisclosure 패턴 (단계별 확인 흐름)',
+export const AppUI_useDisclosure_패턴: Story = {
+  name: 'AppUI - useDisclosure 패턴 (단계별 확인 흐름)',
   render: () => <DisclosurePatternRender />,
 }
 
-// ─── Tailwind UI: 버튼 그룹 패턴 ────────────────────────────────────────────
-// Tailwind UI Button Group 패턴: 연관된 액션을 인라인으로 묶어 컴팩트하게 표시합니다.
+// ─── UtilityUI: 버튼 그룹 패턴 ────────────────────────────────────────────
+// UtilityUI Button Group 패턴: 연관된 액션을 인라인으로 묶어 컴팩트하게 표시합니다.
 // 파일 시스템 툴바, 에디터 포맷 버튼, 페이지 네비게이션에 활용됩니다.
-export const Tailwind_버튼_그룹: Story = {
-  name: 'Tailwind UI - 버튼 그룹 패턴 (인접 버튼 묶음)',
+export const UtilityCSS_버튼_그룹: Story = {
+  name: 'UtilityUI - 버튼 그룹 패턴 (인접 버튼 묶음)',
   render: () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '32px', maxWidth: '560px' }}>
       <div>
@@ -405,8 +405,8 @@ export const Tailwind_버튼_그룹: Story = {
   ),
 }
 
-// ─── Tailwind UI: 3열 레이아웃 폼 내 보조 액션 패턴 ─────────────────────────
-// Tailwind UI Form Layout의 레이블 + 설명 + 액션 3열 구조에서
+// ─── UtilityUI: 3열 레이아웃 폼 내 보조 액션 패턴 ─────────────────────────
+// UtilityUI Form Layout의 레이블 + 설명 + 액션 3열 구조에서
 // OutlineButton은 보조 액션(취소, 초기화)을 담당합니다.
 function FormLayoutRender() {
   const [saved, setSaved] = useState(false)
@@ -545,13 +545,13 @@ function FormLayoutRender() {
   )
 }
 
-export const Tailwind_폼_레이아웃_보조_액션: Story = {
-  name: 'Tailwind UI - 3열 폼 레이아웃 내 보조 액션 패턴',
+export const UtilityCSS_폼_레이아웃_보조_액션: Story = {
+  name: 'UtilityUI - 3열 폼 레이아웃 내 보조 액션 패턴',
   render: () => <FormLayoutRender />,
 }
 
-// ─── Mantine: 로딩 상태 패턴 ─────────────────────────────────────────────────
-// Mantine의 Button loading prop 패턴: 비동기 작업 실행 중 버튼 비활성 + 스피너 표시
+// ─── AppUI: 로딩 상태 패턴 ─────────────────────────────────────────────────
+// AppUI의 Button loading prop 패턴: 비동기 작업 실행 중 버튼 비활성 + 스피너 표시
 // OutlineButton의 loading prop으로 동일한 UX를 구현합니다.
 function LoadingPatternRender() {
   const [loadingKey, setLoadingKey] = useState<string | null>(null)
@@ -570,7 +570,7 @@ function LoadingPatternRender() {
   return (
     <div style={{ maxWidth: 400 }}>
       <div style={{ fontSize: 11, fontWeight: 700, color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 16 }}>
-        Mantine Button loading prop 패턴
+        AppUI Button loading prop 패턴
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
         {actions.map((action) => {
@@ -608,14 +608,14 @@ function LoadingPatternRender() {
         })}
       </div>
       <div style={{ marginTop: 12, fontSize: 11, color: '#94a3b8' }}>
-        Mantine — loading prop으로 버튼 스피너 + 비활성화 동시 처리
+        AppUI — loading prop으로 버튼 스피너 + 비활성화 동시 처리
       </div>
     </div>
   )
 }
 
-export const Mantine_로딩_상태_패턴: Story = {
-  name: 'Mantine - 로딩 상태 패턴 (비동기 액션 피드백)',
+export const AppUI_로딩_상태_패턴: Story = {
+  name: 'AppUI - 로딩 상태 패턴 (비동기 액션 피드백)',
   render: () => <LoadingPatternRender />,
 }
 
@@ -748,8 +748,8 @@ export const Ant_뷰_전환_도구모음: Story = {
   render: () => <ViewSwitcherRender />,
 }
 
-// ─── Mantine: 알림 액션 카드 패턴 ───────────────────────────────────────────
-// Mantine의 Notification 컴포넌트처럼 알림 카드에 OutlineButton 액션 배치
+// ─── AppUI: 알림 액션 카드 패턴 ───────────────────────────────────────────
+// AppUI의 Notification 컴포넌트처럼 알림 카드에 OutlineButton 액션 배치
 function NotificationActionsRender() {
   const [dismissed, setDismissed] = useState<number[]>([])
 
@@ -795,7 +795,7 @@ function NotificationActionsRender() {
   return (
     <div style={{ maxWidth: 400 }}>
       <div style={{ fontSize: 11, fontWeight: 700, color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 14 }}>
-        Mantine Notification — 인라인 액션 OutlineButton 패턴
+        AppUI Notification — 인라인 액션 OutlineButton 패턴
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
         {notifications
@@ -847,28 +847,28 @@ function NotificationActionsRender() {
         )}
       </div>
       <div style={{ marginTop: 10, fontSize: 11, color: '#94a3b8' }}>
-        Mantine Notification — 알림 카드 인라인 OutlineButton 액션 패턴
+        AppUI Notification — 알림 카드 인라인 OutlineButton 액션 패턴
       </div>
     </div>
   )
 }
 
-export const Mantine_알림_액션_카드: Story = {
-  name: 'Mantine - 알림 카드 인라인 액션 OutlineButton 패턴',
+export const AppUI_알림_액션_카드: Story = {
+  name: 'AppUI - 알림 카드 인라인 액션 OutlineButton 패턴',
   render: () => <NotificationActionsRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Mantine 벤치마크: useCounter 핸들러 패턴
-   Mantine의 useCounter(n, { min, max }) → [value, { increment, decrement, set, reset }]
+   AppUI 벤치마크: useCounter 핸들러 패턴
+   AppUI의 useCounter(n, { min, max }) → [value, { increment, decrement, set, reset }]
    각 핸들러가 이산적인 OutlineButton 액션으로 표현됩니다.
 -------------------------------------------------------------------------- */
-const MantineCounterHandlerRender = () => {
+const AppUICounterHandlerRender = () => {
   const MIN = 0
   const MAX = 10
   const [count, setCount] = useState(0)
 
-  // Mantine useCounter 이산 핸들러 시뮬레이션
+  // AppUI useCounter 이산 핸들러 시뮬레이션
   const handlers = {
     increment: () => setCount((c) => Math.min(c + 1, MAX)),
     decrement: () => setCount((c) => Math.max(c - 1, MIN)),
@@ -911,28 +911,28 @@ const MantineCounterHandlerRender = () => {
   )
 }
 
-export const Mantine_useCounter_핸들러_패턴: Story = {
-  name: 'Mantine - useCounter 이산 핸들러 (increment/decrement/set/reset)',
+export const AppUI_useCounter_핸들러_패턴: Story = {
+  name: 'AppUI - useCounter 이산 핸들러 (increment/decrement/set/reset)',
   parameters: {
     docs: {
       description: {
-        story: 'Mantine의 useCounter(initial, { min, max }) 패턴. 각 핸들러(increment/decrement/set/reset)가 OutlineButton 액션으로 표현됩니다. 튜플 반환으로 데이터와 핸들러를 분리합니다.',
+        story: 'AppUI의 useCounter(initial, { min, max }) 패턴. 각 핸들러(increment/decrement/set/reset)가 OutlineButton 액션으로 표현됩니다. 튜플 반환으로 데이터와 핸들러를 분리합니다.',
       },
     },
   },
-  render: () => <MantineCounterHandlerRender />,
+  render: () => <AppUICounterHandlerRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Mantine 벤치마크: useDisclosure 확장 패턴
-   Mantine의 useDisclosure(false) → [opened, { open, close, toggle }]
+   AppUI 벤치마크: useDisclosure 확장 패턴
+   AppUI의 useDisclosure(false) → [opened, { open, close, toggle }]
    OutlineButton이 open/close/toggle 각 이산 핸들러를 담당합니다.
 -------------------------------------------------------------------------- */
-const MantineDisclosureRender = () => {
+const AppUIDisclosureRender = () => {
   const [panelOpen, setPanelOpen] = useState(false)
   const [loading, setLoading] = useState(false)
 
-  // Mantine useDisclosure 핸들러
+  // AppUI useDisclosure 핸들러
   const disclosure = {
     open: () => setPanelOpen(true),
     close: () => setPanelOpen(false),
@@ -986,26 +986,26 @@ const MantineDisclosureRender = () => {
   )
 }
 
-export const Mantine_useDisclosure_확장_패턴: Story = {
-  name: 'Mantine - useDisclosure 확장 (open/close/toggle 이산 핸들러)',
+export const AppUI_useDisclosure_확장_패턴: Story = {
+  name: 'AppUI - useDisclosure 확장 (open/close/toggle 이산 핸들러)',
   parameters: {
     docs: {
       description: {
-        story: 'Mantine의 useDisclosure(false) 패턴. [opened, { open, close, toggle }] 튜플로 이산적인 가시성 제어를 담당합니다. open/close/toggle 각각이 명확히 분리된 의도를 가집니다.',
+        story: 'AppUI의 useDisclosure(false) 패턴. [opened, { open, close, toggle }] 튜플로 이산적인 가시성 제어를 담당합니다. open/close/toggle 각각이 명확히 분리된 의도를 가집니다.',
       },
     },
   },
-  render: () => <MantineDisclosureRender />,
+  render: () => <AppUIDisclosureRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Mantine 벤치마크: useForm 단계별 제출 패턴
-   Mantine의 form.onSubmit, form.reset, form.setErrors — 이산 핸들러로 단계 전환.
+   AppUI 벤치마크: useForm 단계별 제출 패턴
+   AppUI의 form.onSubmit, form.reset, form.setErrors — 이산 핸들러로 단계 전환.
    OutlineButton이 각 단계(validate → submit → reset)를 담당합니다.
 -------------------------------------------------------------------------- */
 type FormStep = 'idle' | 'validating' | 'submitting' | 'done' | 'error'
 
-const MantineFormStepsRender = () => {
+const AppUIFormStepsRender = () => {
   const [step, setStep] = useState<FormStep>('idle')
   const [value, setValue] = useState('')
   const [errorMsg, setErrorMsg] = useState('')
@@ -1087,26 +1087,26 @@ const MantineFormStepsRender = () => {
   )
 }
 
-export const Mantine_useForm_단계별_제출: Story = {
-  name: 'Mantine - useForm 단계별 제출 (validate → submit → reset)',
+export const AppUI_useForm_단계별_제출: Story = {
+  name: 'AppUI - useForm 단계별 제출 (validate → submit → reset)',
   parameters: {
     docs: {
       description: {
-        story: 'Mantine의 useForm 패턴. form.onSubmit, form.reset, form.setErrors가 각각 이산적인 OutlineButton 액션으로 표현됩니다. 폼 상태 머신(idle→validating→submitting→done|error)을 시각화합니다.',
+        story: 'AppUI의 useForm 패턴. form.onSubmit, form.reset, form.setErrors가 각각 이산적인 OutlineButton 액션으로 표현됩니다. 폼 상태 머신(idle→validating→submitting→done|error)을 시각화합니다.',
       },
     },
   },
-  render: () => <MantineFormStepsRender />,
+  render: () => <AppUIFormStepsRender />,
 }
 
 /* --------------------------------------------------------------------------
-   MUI — 버튼 그룹 세그먼트 토글
+   EnterpriseUI — 버튼 그룹 세그먼트 토글
    ToggleButtonGroup 패턴 — 단일 선택
 -------------------------------------------------------------------------- */
 const VIEW_OPTIONS = ['리스트', '그리드', '캘린더'] as const
 type ViewOption = (typeof VIEW_OPTIONS)[number]
 
-const MuiSegmentToggleRender = () => {
+const EnterpriseUISegmentToggleRender = () => {
   const [view, setView] = useState<ViewOption>('그리드')
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
@@ -1132,25 +1132,25 @@ const MuiSegmentToggleRender = () => {
       <div style={{ padding: '14px 18px', borderRadius: 8, background: 'var(--sem-eclipse-color-backgroundSecondary)', fontSize: 13, color: 'var(--sem-eclipse-color-foregroundSecondary)' }}>
         현재 선택: <strong style={{ color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{view}</strong> 보기
       </div>
-      <p style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundDisabled)' }}>MUI ToggleButtonGroup 패턴 — 세그먼트 단일 선택</p>
+      <p style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundDisabled)' }}>EnterpriseUI ToggleButtonGroup 패턴 — 세그먼트 단일 선택</p>
     </div>
   )
 }
 
-export const MUI_세그먼트_토글_버튼_그룹: Story = {
-  name: 'MUI - 세그먼트 토글 버튼 그룹 (ToggleButtonGroup)',
+export const EnterpriseUI_세그먼트_토글_버튼_그룹: Story = {
+  name: 'EnterpriseUI - 세그먼트 토글 버튼 그룹 (ToggleButtonGroup)',
   parameters: {
     docs: {
       description: {
-        story: 'MUI ToggleButtonGroup에서 영감을 받은 세그먼트 컨트롤. 좌/중/우 borderRadius를 조합하여 연결된 버튼 그룹을 구성하고, 선택된 항목은 primary 색상으로 강조합니다.',
+        story: 'EnterpriseUI ToggleButtonGroup에서 영감을 받은 세그먼트 컨트롤. 좌/중/우 borderRadius를 조합하여 연결된 버튼 그룹을 구성하고, 선택된 항목은 primary 색상으로 강조합니다.',
       },
     },
   },
-  render: () => <MuiSegmentToggleRender />,
+  render: () => <EnterpriseUISegmentToggleRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Chakra UI — 아이콘 액션 버튼 도구 모음
+   AccessibleUI — 아이콘 액션 버튼 도구 모음
    Toolbar 패턴 — 텍스트 에디터 스타일
 -------------------------------------------------------------------------- */
 const TOOLBAR_ACTIONS = [
@@ -1162,7 +1162,7 @@ const TOOLBAR_ACTIONS = [
   { key: 'right', label: '≡', title: '오른쪽 정렬', group: 'align' },
 ]
 
-const ChakraToolbarRender = () => {
+const AccessibleToolbarRender = () => {
   const [active, setActive] = useState<Set<string>>(new Set(['bold', 'left']))
   const toggle = (key: string, group: string) => {
     setActive((prev) => {
@@ -1202,30 +1202,30 @@ const ChakraToolbarRender = () => {
       >
         Orbit UI 디자인 시스템 — 컴포넌트 라이브러리
       </div>
-      <p style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundDisabled)' }}>Chakra UI Toolbar 패턴 — 서식/정렬 토글 액션</p>
+      <p style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundDisabled)' }}>AccessibleUI Toolbar 패턴 — 서식/정렬 토글 액션</p>
     </div>
   )
 }
 
-export const Chakra_텍스트_에디터_도구_모음: Story = {
-  name: 'Chakra UI - 텍스트 에디터 도구 모음 (Toolbar)',
+export const Accessible_텍스트_에디터_도구_모음: Story = {
+  name: 'AccessibleUI - 텍스트 에디터 도구 모음 (Toolbar)',
   parameters: {
     docs: {
       description: {
-        story: 'Chakra UI Toolbar에서 영감을 받은 텍스트 에디터 액션 버튼 도구 모음. 서식(Bold/Italic/Underline)은 다중 선택, 정렬은 단일 선택으로 동작하며 실시간으로 미리보기 텍스트에 반영됩니다.',
+        story: 'AccessibleUI Toolbar에서 영감을 받은 텍스트 에디터 액션 버튼 도구 모음. 서식(Bold/Italic/Underline)은 다중 선택, 정렬은 단일 선택으로 동작하며 실시간으로 미리보기 텍스트에 반영됩니다.',
       },
     },
   },
-  render: () => <ChakraToolbarRender />,
+  render: () => <AccessibleToolbarRender />,
 }
 
 /* --------------------------------------------------------------------------
-   MUI + Chakra UI — 워크플로우 액션 버튼 바
+   EnterpriseUI + AccessibleUI — 워크플로우 액션 버튼 바
    PR 리뷰 스타일 Approve / Request Changes / Comment 패턴
 -------------------------------------------------------------------------- */
 type ReviewAction = 'approve' | 'request' | 'comment' | null
 
-const MuiChakraReviewActionsRender = () => {
+const EnterpriseUIAccessibleReviewActionsRender = () => {
   const [action, setAction] = useState<ReviewAction>(null)
   const [submitted, setSubmitted] = useState(false)
   const [comment, setComment] = useState('')
@@ -1277,25 +1277,25 @@ const MuiChakraReviewActionsRender = () => {
           <OutlineButton.Center>취소</OutlineButton.Center>
         </OutlineButton>
       </div>
-      <p style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundDisabled)' }}>MUI + Chakra UI GitHub PR 리뷰 액션 패턴</p>
+      <p style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundDisabled)' }}>EnterpriseUI + AccessibleUI CodeHost PR 리뷰 액션 패턴</p>
     </div>
   )
 }
 
-export const MUI_Chakra_PR_리뷰_액션_버튼_바: Story = {
-  name: 'MUI + Chakra UI - PR 리뷰 액션 버튼 바',
+export const EnterpriseUI_Accessible_PR_리뷰_액션_버튼_바: Story = {
+  name: 'EnterpriseUI + AccessibleUI - PR 리뷰 액션 버튼 바',
   parameters: {
     docs: {
       description: {
-        story: 'MUI ButtonGroup + Chakra UI 스타일의 GitHub PR 리뷰 액션 바. Approve / Request Changes / Comment 중 하나를 선택하면 코멘트 영역이 나타나고, 리뷰 제출 버튼이 활성화됩니다.',
+        story: 'EnterpriseUI ButtonGroup + AccessibleUI 스타일의 CodeHost PR 리뷰 액션 바. Approve / Request Changes / Comment 중 하나를 선택하면 코멘트 영역이 나타나고, 리뷰 제출 버튼이 활성화됩니다.',
       },
     },
   },
-  render: () => <MuiChakraReviewActionsRender />,
+  render: () => <EnterpriseUIAccessibleReviewActionsRender />,
 }
 
-// Cycle 141 - Raycast Extensions + Figma Plugin UI benchmark
-function RaycastActionPanel141Render() {
+// Cycle 141 - CommandPalette Extensions + DesignTool Plugin UI benchmark
+function CommandPaletteActionPanel141Render() {
   const [active, setActive] = React.useState<string | null>(null)
   const [copied, setCopied] = React.useState(false)
 
@@ -1362,19 +1362,19 @@ function RaycastActionPanel141Render() {
   )
 }
 
-export const Raycast_액션_패널: Story = {
-  name: 'Raycast — 액션 패널 (Cycle 141)',
+export const CommandPalette_액션_패널: Story = {
+  name: 'CommandPalette — 액션 패널 (Cycle 141)',
   parameters: {
     docs: {
       description: {
-        story: 'Raycast Action Panel 패턴. 그룹별 구분선, 키보드 단축키 표시, 위험 액션 red 강조. Copy 액션 클릭 시 "복사됨!" 피드백.',
+        story: 'CommandPalette Action Panel 패턴. 그룹별 구분선, 키보드 단축키 표시, 위험 액션 red 강조. Copy 액션 클릭 시 "복사됨!" 피드백.',
       },
     },
   },
-  render: () => <RaycastActionPanel141Render />,
+  render: () => <CommandPaletteActionPanel141Render />,
 }
 
-function FigmaToolPalette141Render() {
+function DesignToolToolPalette141Render() {
   type Tool = 'move' | 'frame' | 'pen' | 'text' | 'shape' | 'component'
   const [selected, setSelected] = React.useState<Tool>('move')
 
@@ -1389,7 +1389,7 @@ function FigmaToolPalette141Render() {
 
   return (
     <div style={{ fontFamily: 'system-ui, sans-serif' }}>
-      <div style={{ marginBottom: 12, fontSize: 11, color: '#64748b' }}>Figma Plugin UI — 도구 팔레트</div>
+      <div style={{ marginBottom: 12, fontSize: 11, color: '#64748b' }}>DesignTool Plugin UI — 도구 팔레트</div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 4, width: 160 }}>
         {tools.map((tool) => (
           <div key={tool.key} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
@@ -1417,19 +1417,19 @@ function FigmaToolPalette141Render() {
   )
 }
 
-export const Figma_도구_팔레트: Story = {
-  name: 'Figma Plugin UI — 도구 팔레트 (Cycle 141)',
+export const DesignTool_도구_팔레트: Story = {
+  name: 'DesignTool Plugin UI — 도구 팔레트 (Cycle 141)',
   parameters: {
     docs: {
       description: {
-        story: 'Figma Plugin UI 도구 팔레트 패턴. 선택된 도구는 primary 강조, 단축키 키캡 표시. 아이콘 Leading 슬롯 활용.',
+        story: 'DesignTool Plugin UI 도구 팔레트 패턴. 선택된 도구는 primary 강조, 단축키 키캡 표시. 아이콘 Leading 슬롯 활용.',
       },
     },
   },
-  render: () => <FigmaToolPalette141Render />,
+  render: () => <DesignToolToolPalette141Render />,
 }
 
-function RaycastFigma141FilterBar141Render() {
+function CommandPaletteDesignTool141FilterBar141Render() {
   const [filters, setFilters] = React.useState({
     status: 'all',
     priority: 'all',
@@ -1455,7 +1455,7 @@ function RaycastFigma141FilterBar141Render() {
 
   return (
     <div style={{ width: 460, fontFamily: 'system-ui, sans-serif' }}>
-      <div style={{ marginBottom: 10, fontSize: 11, color: '#64748b' }}>Raycast + Figma — 필터 바 패턴</div>
+      <div style={{ marginBottom: 10, fontSize: 11, color: '#64748b' }}>CommandPalette + DesignTool — 필터 바 패턴</div>
       <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 10 }}>
         {(Object.entries(OPTIONS) as [string, { v: string; l: string }[]][]).map(([key, opts]) => (
           <div key={key} style={{ display: 'flex', gap: 2 }}>
@@ -1484,34 +1484,34 @@ function RaycastFigma141FilterBar141Render() {
   )
 }
 
-export const Raycast_Figma_필터_바: Story = {
-  name: 'Raycast + Figma — 이슈 필터 바 (Cycle 141)',
+export const CommandPalette_DesignTool_필터_바: Story = {
+  name: 'CommandPalette + DesignTool — 이슈 필터 바 (Cycle 141)',
   parameters: {
     docs: {
       description: {
-        story: 'Raycast 필터 UI + Figma 컴팩트 패턴. 상태/우선순위/담당자 필터 토글. 활성 필터 적용 시 결과 카운트 변경, 초기화 버튼 동적 노출.',
+        story: 'CommandPalette 필터 UI + DesignTool 컴팩트 패턴. 상태/우선순위/담당자 필터 토글. 활성 필터 적용 시 결과 카운트 변경, 초기화 버튼 동적 노출.',
       },
     },
   },
-  render: () => <RaycastFigma141FilterBar141Render />,
+  render: () => <CommandPaletteDesignTool141FilterBar141Render />,
 }
 
 // ──────────────────────────────────────────────────────────────────────────────
-// Cycle 168: Vercel Design + shadcn/ui
+// Cycle 168: DeployPlatform Design + ComposableUI
 // ──────────────────────────────────────────────────────────────────────────────
 
-export const Vercel_배포_액션_버튼_그룹: Story = {
-  name: 'Vercel — 배포 액션 버튼 그룹 (Cycle 168)',
+export const DeployPlatform_배포_액션_버튼_그룹: Story = {
+  name: 'DeployPlatform — 배포 액션 버튼 그룹 (Cycle 168)',
   parameters: {
     docs: {
       description: {
         story:
-          'Vercel Dashboard 액션 버튼 패턴. 주요 액션은 SolidButton, 보조 액션은 OutlineButton. ' +
+          'DeployPlatform Dashboard 액션 버튼 패턴. 주요 액션은 SolidButton, 보조 액션은 OutlineButton. ' +
           '상태(Ready/Building/Failed)에 따라 버튼 활성/비활성 변경.',
       },
     },
   },
-  render: function VercelDeployActionRender() {
+  render: function DeployPlatformDeployActionRender() {
     type DeployStatus = 'ready' | 'building' | 'failed'
     const [status, setStatus] = useState<DeployStatus>('ready')
 
@@ -1564,19 +1564,19 @@ export const Vercel_배포_액션_버튼_그룹: Story = {
   },
 }
 
-export const Shadcn_태그_선택_칩_버튼: Story = {
-  name: 'shadcn/ui — 태그 선택 칩 버튼 (Cycle 168)',
+export const ComposableUI_태그_선택_칩_버튼: Story = {
+  name: 'ComposableUI — 태그 선택 칩 버튼 (Cycle 168)',
   parameters: {
     docs: {
       description: {
         story:
-          'shadcn/ui Toggle Group 패턴을 OutlineButton으로 구현. 다중 선택 가능한 태그 칩. ' +
+          'ComposableUI Toggle Group 패턴을 OutlineButton으로 구현. 다중 선택 가능한 태그 칩. ' +
           '선택된 항목은 primary 색상으로 강조.',
       },
     },
   },
-  render: function ShadcnTagChipRender() {
-    const tags = ['React', 'TypeScript', 'Tailwind', 'shadcn', 'Radix', 'Zod', 'tRPC', 'Prisma', 'Next.js', 'Remix']
+  render: function ComposableUITagChipRender() {
+    const tags = ['React', 'TypeScript', 'UtilityCSS', 'ComposableUI', 'Primitive', 'Zod', 'tRPC', 'Prisma', 'Next.js', 'Remix']
     const [selected, setSelected] = useState<string[]>(['React', 'TypeScript'])
 
     const toggle = (tag: string) => {
@@ -1616,18 +1616,18 @@ export const Shadcn_태그_선택_칩_버튼: Story = {
   },
 }
 
-export const Vercel_Shadcn_페이지_액션_바: Story = {
-  name: 'Vercel + shadcn/ui — 페이지 액션 바 (Cycle 168)',
+export const DeployPlatform_ComposableUI_페이지_액션_바: Story = {
+  name: 'DeployPlatform + ComposableUI — 페이지 액션 바 (Cycle 168)',
   parameters: {
     docs: {
       description: {
         story:
-          'Vercel + shadcn/ui 페이지 상단 액션 바 패턴. 뒤로가기 + 제목 + OutlineButton 액션 조합. ' +
+          'DeployPlatform + ComposableUI 페이지 상단 액션 바 패턴. 뒤로가기 + 제목 + OutlineButton 액션 조합. ' +
           '선택 상태에서 일괄 액션 버튼 표시.',
       },
     },
   },
-  render: function VercelShadcnActionBarRender() {
+  render: function DeployPlatformComposableUIActionBarRender() {
     const [selected, setSelected] = useState<number[]>([])
     const items = [
       { id: 1, name: 'orbit-preview-deploy', date: '2025-04-09' },

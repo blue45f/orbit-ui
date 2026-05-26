@@ -411,7 +411,7 @@ type DropdownComponent = typeof InternalDropdownRoot & {
 }
 
 /**
- * 드롭다운 메뉴 컴포넌트 (Radix UI 기반)
+ * 드롭다운 메뉴 컴포넌트
  *
  * 키보드 내비게이션, 포커스 관리, 포탈 렌더링, 외부 클릭 닫기,
  * 타입어헤드 검색을 기본 제공합니다.

@@ -54,7 +54,7 @@ export const 디자인_QA = {
     disabled: false,
   },
   argTypes: {},
-  // eslint-disable-next-line
+
   render: function Render({ disabled }: any) {
     const [selected, setSelected] = useState('햄버거')
 

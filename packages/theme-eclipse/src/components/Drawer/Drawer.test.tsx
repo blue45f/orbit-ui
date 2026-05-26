@@ -146,4 +146,24 @@ describe('Drawer', () => {
     const trigger = screen.getByText('열기')
     expect(trigger).toHaveAttribute('aria-haspopup', 'dialog')
   })
+
+  test('Title 또는 Description이 생략돼도 접근성 경고를 출력하지 않는다', async () => {
+    const consoleError = vi.spyOn(console, 'error').mockImplementation(() => undefined)
+
+    render(
+      <Drawer defaultOpen>
+        <Drawer.Content>
+          <div>Body</div>
+        </Drawer.Content>
+      </Drawer>
+    )
+
+    await waitFor(() => {
+      expect(screen.getByRole('dialog')).toBeInTheDocument()
+    })
+
+    const output = consoleError.mock.calls.flat().join(' ')
+    expect(output).not.toContain('requires a `DialogTitle`')
+    expect(output).not.toContain('Missing `Description`')
+  })
 })

@@ -88,7 +88,7 @@ export const 디자인_QA = {
     },
   },
 
-  // eslint-disable-next-line
+
   render: ({ visual, label, text, ...rest }: any) => {
     return (
       <AnimatedBadge {...rest}>
@@ -104,10 +104,10 @@ export const 디자인_QA = {
 }
 
 /* --------------------------------------------------------------------------
-   Linear 스타일: 이슈 상태 뱃지 세트
-   Linear의 이슈 트래커에서 볼 수 있는 컴팩트 상태 표시 패턴
+   IssueTracker 스타일: 이슈 상태 뱃지 세트
+   IssueTracker의 이슈 트래커에서 볼 수 있는 컴팩트 상태 표시 패턴
 -------------------------------------------------------------------------- */
-export const Linear_이슈_상태: Story = {
+export const IssueTracker_이슈_상태: Story = {
   render: () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
       <div>
@@ -172,8 +172,8 @@ export const Linear_이슈_상태: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Linear 스타일: 이슈 목록 컨텍스트 패턴
-   실제 Linear 이슈 목록에서 상태 뱃지가 어떻게 사용되는지 보여주는 패턴
+   IssueTracker 스타일: 이슈 목록 컨텍스트 패턴
+   실제 IssueTracker 이슈 목록에서 상태 뱃지가 어떻게 사용되는지 보여주는 패턴
 -------------------------------------------------------------------------- */
 const IssueListItem = ({
   title,
@@ -225,7 +225,7 @@ const IssueListItem = ({
   )
 }
 
-export const Linear_이슈_목록_패턴: Story = {
+export const IssueTracker_이슈_목록_패턴: Story = {
   render: () => (
     <div style={{ maxWidth: '560px', borderRadius: '12px', border: '1px solid #e2e8f0', overflow: 'hidden' }}>
       <div
@@ -251,8 +251,8 @@ export const Linear_이슈_목록_패턴: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Linear 스타일: 사이클 뱃지 애니메이션 데모
-   뱃지 상태가 동적으로 전환되는 Linear 스타일 인터랙션
+   IssueTracker 스타일: 사이클 뱃지 애니메이션 데모
+   뱃지 상태가 동적으로 전환되는 IssueTracker 스타일 인터랙션
 -------------------------------------------------------------------------- */
 const CyclingBadgeDemo = () => {
   const statuses: Array<{ color: 'white' | 'club' | 'sale'; label: string }> = [
@@ -306,8 +306,8 @@ export const 사이클_애니메이션: Story = {
   render: () => <CyclingBadgeDemo />,
 }
 
-// ─── shadcn/ui: 프로젝트 대시보드 상태 뱃지 ──────────────────────────────────
-// shadcn/ui의 Card + Badge 조합 패턴:
+// ─── ComposableUI: 프로젝트 대시보드 상태 뱃지 ──────────────────────────────────
+// ComposableUI의 Card + Badge 조합 패턴:
 // 대시보드에서 프로젝트 상태를 한 눈에 파악할 수 있는 카드 그리드 레이아웃
 const projects = [
   { name: 'Orbit UI', status: 'club', label: 'In Progress', progress: 72, team: 3, issues: 5 },
@@ -316,8 +316,8 @@ const projects = [
   { name: 'Mobile App', status: 'club', label: 'In Progress', progress: 48, team: 5, issues: 3 },
 ] as const
 
-export const shadcn_프로젝트_대시보드: Story = {
-  name: 'shadcn/ui — 프로젝트 대시보드 상태 카드',
+export const ComposableUI_프로젝트_대시보드: Story = {
+  name: 'ComposableUI — 프로젝트 대시보드 상태 카드',
   render: () => (
     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px', maxWidth: '580px' }}>
       {projects.map((proj) => (
@@ -366,9 +366,9 @@ export const shadcn_프로젝트_대시보드: Story = {
   ),
 }
 
-// ─── Linear: 우선순위 × 상태 매트릭스 ────────────────────────────────────────
-// Linear의 이슈 보드 패턴: 우선순위와 상태를 2축으로 표현하는 매트릭스 뷰
-// tabular-nums 패턴으로 숫자 정렬 최적화 (Linear 스타일)
+// ─── IssueTracker: 우선순위 × 상태 매트릭스 ────────────────────────────────────────
+// IssueTracker의 이슈 보드 패턴: 우선순위와 상태를 2축으로 표현하는 매트릭스 뷰
+// tabular-nums 패턴으로 숫자 정렬 최적화 (IssueTracker 스타일)
 const matrix = [
   { priority: 'Urgent', issues: [
     { id: 'ORB-301', status: 'club' as const, label: 'In Progress', title: '인증 토큰 만료 버그' },
@@ -384,8 +384,8 @@ const matrix = [
   ]},
 ]
 
-export const Linear_우선순위_매트릭스: Story = {
-  name: 'Linear — 우선순위 × 상태 매트릭스 뷰',
+export const IssueTracker_우선순위_매트릭스: Story = {
+  name: 'IssueTracker — 우선순위 × 상태 매트릭스 뷰',
   render: () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '0', border: '1px solid #e2e8f0', borderRadius: '12px', overflow: 'hidden', maxWidth: '520px' }}>
       {/* 헤더 */}
@@ -418,8 +418,8 @@ export const Linear_우선순위_매트릭스: Story = {
   ),
 }
 
-// ─── shadcn/ui + Linear: 활동 피드 실시간 상태 뱃지 ──────────────────────────
-// shadcn과 Linear 모두에서 사용하는 실시간 활동 피드 패턴:
+// ─── ComposableUI + IssueTracker: 활동 피드 실시간 상태 뱃지 ──────────────────────────
+// ComposableUI과 IssueTracker 모두에서 사용하는 실시간 활동 피드 패턴:
 // 이벤트 발생 시 뱃지 색상과 레이블이 전환되는 인터랙티브 데모
 const activityEvents = [
   { type: 'created', label: 'Backlog', color: 'white' as const, message: '새 이슈가 생성되었습니다' },
@@ -480,14 +480,14 @@ const ActivityFeedBadgeDemo = () => {
   )
 }
 
-export const shadcn_Linear_활동_피드_뱃지: Story = {
-  name: 'shadcn/ui + Linear — 활동 피드 실시간 상태 뱃지',
+export const ComposableUI_IssueTracker_활동_피드_뱃지: Story = {
+  name: 'ComposableUI + IssueTracker — 활동 피드 실시간 상태 뱃지',
   render: () => <ActivityFeedBadgeDemo />,
 }
 
 /* --------------------------------------------------------------------------
-   Mantine 벤치마크: 알림 센터 뱃지 그룹 패턴
-   Mantine Notification + Badge 조합 — 카테고리별 읽음/안읽음 분리
+   AppUI 벤치마크: 알림 센터 뱃지 그룹 패턴
+   AppUI Notification + Badge 조합 — 카테고리별 읽음/안읽음 분리
 -------------------------------------------------------------------------- */
 type NotifEntry = {
   id: string
@@ -497,7 +497,7 @@ type NotifEntry = {
   read: boolean
 }
 
-const MANTINE_NOTIFS_INIT: NotifEntry[] = [
+const ACCESSIBLEKIT_NOTIFS_INIT: NotifEntry[] = [
   { id: 'n1', cat: 'info', title: '새 PR 리뷰 요청', body: 'ORB-312: TextField 접근성 개선', read: false },
   { id: 'n2', cat: 'success', title: '배포 성공', body: 'Storybook v2.14.0 배포 완료', read: false },
   { id: 'n3', cat: 'warning', title: '번들 크기 경고', body: 'axe-core 청크 600kB 초과', read: false },
@@ -517,8 +517,8 @@ const NOTIF_LABEL: Record<NotifEntry['cat'], string> = {
   warning: 'Alert',
 }
 
-function MantineNotifCenterRender() {
-  const [notifs, setNotifs] = useState<NotifEntry[]>(MANTINE_NOTIFS_INIT)
+function AppUINotifCenterRender() {
+  const [notifs, setNotifs] = useState<NotifEntry[]>(ACCESSIBLEKIT_NOTIFS_INIT)
   const unread = notifs.filter((n) => !n.read)
 
   const markRead = (id: string) =>
@@ -587,9 +587,9 @@ function MantineNotifCenterRender() {
   )
 }
 
-export const Mantine_알림_센터_뱃지: Story = {
-  name: 'Mantine - 알림 센터 뱃지 그룹 패턴',
-  render: () => <MantineNotifCenterRender />,
+export const AppUI_알림_센터_뱃지: Story = {
+  name: 'AppUI - 알림 센터 뱃지 그룹 패턴',
+  render: () => <AppUINotifCenterRender />,
 }
 
 /* --------------------------------------------------------------------------
@@ -706,8 +706,8 @@ export const Ant_CI_배포_파이프라인: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Vercel 벤치마크: 배포 상태 대시보드 패턴
-   Vercel Dashboard 스타일 — 다크 배경 + 배포 이력 뱃지 피드
+   DeployPlatform 벤치마크: 배포 상태 대시보드 패턴
+   DeployPlatform Dashboard 스타일 — 다크 배경 + 배포 이력 뱃지 피드
 -------------------------------------------------------------------------- */
 type DeployRow = {
   id: string
@@ -718,7 +718,7 @@ type DeployRow = {
 }
 
 const DEPLOY_ROWS: DeployRow[] = [
-  { id: 'd1', branch: 'main', commit: '26ed273 feat(cycle-58): MUI + Chakra UI', status: 'success', ago: '2분 전' },
+  { id: 'd1', branch: 'main', commit: '26ed273 feat(cycle-58): EnterpriseUI + AccessibleUI', status: 'success', ago: '2분 전' },
   { id: 'd2', branch: 'reconstruct-history', commit: '9e700f4 fix: 스토리북 Switch 참조', status: 'success', ago: '1시간 전' },
   { id: 'd3', branch: 'feat/calendar', commit: 'd5fd051 feat: 3단계 토큰 시스템', status: 'running', ago: '방금' },
   { id: 'd4', branch: 'main', commit: '125b89f fix: 렌더링 오류 수정', status: 'pending', ago: '3시간 전' },
@@ -731,12 +731,12 @@ const DEPLOY_BADGE: Record<DeployRow['status'], { color: 'white' | 'club' | 'sal
 }
 
 /* --------------------------------------------------------------------------
-   Linear 벤치마크: 이슈 사이클 상태 배지 패턴
-   Linear의 Cycles 섹션 — 사이클(스프린트) 전환 시 상태 배지 변화 시뮬레이션
+   IssueTracker 벤치마크: 이슈 사이클 상태 배지 패턴
+   IssueTracker의 Cycles 섹션 — 사이클(스프린트) 전환 시 상태 배지 변화 시뮬레이션
 -------------------------------------------------------------------------- */
-type LinearCycleBadge94 = { id: string; title: string; status: 'active' | 'upcoming' | 'completed'; period: string; issueCount: number }
+type IssueTrackerCycleBadge94 = { id: string; title: string; status: 'active' | 'upcoming' | 'completed'; period: string; issueCount: number }
 
-const LINEAR_CYCLE_DATA94: LinearCycleBadge94[] = [
+const TRACKER_CYCLE_DATA94: IssueTrackerCycleBadge94[] = [
   { id: 'c14', title: 'Cycle 14', status: 'active',    period: '04/07 - 04/20', issueCount: 8  },
   { id: 'c15', title: 'Cycle 15', status: 'upcoming',  period: '04/21 - 05/04', issueCount: 6  },
   { id: 'c16', title: 'Cycle 16', status: 'upcoming',  period: '05/05 - 05/18', issueCount: 4  },
@@ -744,19 +744,19 @@ const LINEAR_CYCLE_DATA94: LinearCycleBadge94[] = [
   { id: 'c12', title: 'Cycle 12', status: 'completed', period: '03/10 - 03/23', issueCount: 9  },
 ]
 
-const CYCLE_BADGE94: Record<LinearCycleBadge94['status'], { color: 'white' | 'club' | 'sale'; label: string }> = {
+const CYCLE_BADGE94: Record<IssueTrackerCycleBadge94['status'], { color: 'white' | 'club' | 'sale'; label: string }> = {
   active:    { color: 'club',  label: 'Active'    },
   upcoming:  { color: 'white', label: 'Upcoming'  },
   completed: { color: 'sale',  label: 'Done'      },
 }
 
-export const Linear_사이클_상태_배지: Story = {
-  name: 'Linear - Cycles 스프린트 상태 배지 패턴',
+export const IssueTracker_사이클_상태_배지: Story = {
+  name: 'IssueTracker - Cycles 스프린트 상태 배지 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'Linear Cycles 패턴. 활성(club)/예정(white)/완료(sale) 세 가지 색상으로 사이클 상태를 표현합니다. ' +
+          'IssueTracker Cycles 패턴. 활성(club)/예정(white)/완료(sale) 세 가지 색상으로 사이클 상태를 표현합니다. ' +
           '각 행에 기간, 이슈 수, 상태 배지를 함께 배치하는 이슈 트래커 뷰 패턴입니다.',
       },
     },
@@ -766,10 +766,10 @@ export const Linear_사이클_상태_배지: Story = {
       <div style={{ padding: '12px 16px', borderBottom: '1px solid #f1f5f9', fontSize: 13, fontWeight: 700, color: '#0f172a' }}>
         Cycles
       </div>
-      {LINEAR_CYCLE_DATA94.map((c, i) => {
+      {TRACKER_CYCLE_DATA94.map((c, i) => {
         const badge = CYCLE_BADGE94[c.status]
         return (
-          <div key={c.id} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 16px', borderBottom: i < LINEAR_CYCLE_DATA94.length - 1 ? '1px solid #f8fafc' : 'none', cursor: 'pointer' }}>
+          <div key={c.id} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 16px', borderBottom: i < TRACKER_CYCLE_DATA94.length - 1 ? '1px solid #f8fafc' : 'none', cursor: 'pointer' }}>
             <div style={{ flex: 1 }}>
               <div style={{ fontSize: 13, fontWeight: c.status === 'active' ? 700 : 500, color: c.status === 'completed' ? '#94a3b8' : '#0f172a' }}>{c.title}</div>
               <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 1 }}>{c.period} · {c.issueCount}개 이슈</div>
@@ -785,14 +785,14 @@ export const Linear_사이클_상태_배지: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Linear 벤치마크: 프로젝트 헬스 배지 패턴
-   Linear의 Projects — 프로젝트 건강도를 실시간 상태 배지로 표시
+   IssueTracker 벤치마크: 프로젝트 헬스 배지 패턴
+   IssueTracker의 Projects — 프로젝트 건강도를 실시간 상태 배지로 표시
 -------------------------------------------------------------------------- */
 type ProjectHealth94 = 'on-track' | 'at-risk' | 'off-track'
 
-const LINEAR_PROJECTS94: Array<{ id: string; name: string; health: ProjectHealth94; progress: number; team: string }> = [
+const TRACKER_PROJECTS94: Array<{ id: string; name: string; health: ProjectHealth94; progress: number; team: string }> = [
   { id: 'p1', name: 'Orbit UI Design System v2', health: 'on-track',   progress: 68, team: 'Engineering' },
-  { id: 'p2', name: 'Figma 컴포넌트 동기화',     health: 'at-risk',   progress: 40, team: 'Design'      },
+  { id: 'p2', name: 'DesignTool 컴포넌트 동기화',     health: 'at-risk',   progress: 40, team: 'Design'      },
   { id: 'p3', name: '접근성 감사 대응',           health: 'off-track', progress: 15, team: 'Engineering' },
   { id: 'p4', name: 'Storybook 배포 자동화',      health: 'on-track',  progress: 92, team: 'Infra'       },
 ]
@@ -803,13 +803,13 @@ const HEALTH_BADGE94: Record<ProjectHealth94, { color: 'white' | 'club' | 'sale'
   'off-track': { color: 'white', label: 'Off Track', barColor: '#ef4444' },
 }
 
-export const Linear_프로젝트_헬스_배지: Story = {
-  name: 'Linear - 프로젝트 건강도 상태 배지 패턴',
+export const IssueTracker_프로젝트_헬스_배지: Story = {
+  name: 'IssueTracker - 프로젝트 건강도 상태 배지 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'Linear Projects 패턴. On Track(sale)/At Risk(club)/Off Track(white)로 프로젝트 건강도를 표현하고 ' +
+          'IssueTracker Projects 패턴. On Track(sale)/At Risk(club)/Off Track(white)로 프로젝트 건강도를 표현하고 ' +
           '진행률 바와 함께 실시간 상태를 직관적으로 전달합니다.',
       },
     },
@@ -817,7 +817,7 @@ export const Linear_프로젝트_헬스_배지: Story = {
   render: () => (
     <div style={{ width: 400, display: 'flex', flexDirection: 'column', gap: 10, fontFamily: 'system-ui, sans-serif' }}>
       <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a', marginBottom: 4 }}>Projects</div>
-      {LINEAR_PROJECTS94.map((p) => {
+      {TRACKER_PROJECTS94.map((p) => {
         const h = HEALTH_BADGE94[p.health]
         return (
           <div key={p.id} style={{ padding: '14px 16px', borderRadius: 12, border: '1px solid #e2e8f0', background: '#fff', display: 'flex', flexDirection: 'column', gap: 10 }}>
@@ -847,12 +847,12 @@ export const Linear_프로젝트_헬스_배지: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Linear 벤치마크: 실시간 이슈 활동 피드 배지
-   Linear의 Activity — 이슈 상태 변경을 실시간 배지 피드로 표현
+   IssueTracker 벤치마크: 실시간 이슈 활동 피드 배지
+   IssueTracker의 Activity — 이슈 상태 변경을 실시간 배지 피드로 표현
 -------------------------------------------------------------------------- */
 type ActivityEvent94 = { id: number; user: string; action: string; issue: string; status: 'white' | 'club' | 'sale'; statusLabel: string; ago: string }
 
-function LinearActivityFeedRender94() {
+function IssueTrackerActivityFeedRender94() {
   const [events, setEvents] = useState<ActivityEvent94[]>([
     { id: 1, user: '김희준', action: '완료로 변경',       issue: 'ORB-201 스켈레톤 스토리 추가', status: 'sale',  statusLabel: 'Done',        ago: '방금'   },
     { id: 2, user: '이서연', action: '진행 중으로 변경',   issue: 'ORB-202 TextField 접근성',    status: 'club',  statusLabel: 'In Progress', ago: '3분 전' },
@@ -916,22 +916,22 @@ function LinearActivityFeedRender94() {
   )
 }
 
-export const Linear_활동_피드_배지: Story = {
-  name: 'Linear - 이슈 활동 피드 실시간 배지 패턴',
+export const IssueTracker_활동_피드_배지: Story = {
+  name: 'IssueTracker - 이슈 활동 피드 실시간 배지 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'Linear Activity 패턴. 이슈 상태 변경 이벤트를 시간순 피드로 보여주고 AnimatedBadge로 상태를 강조합니다. ' +
+          'IssueTracker Activity 패턴. 이슈 상태 변경 이벤트를 시간순 피드로 보여주고 AnimatedBadge로 상태를 강조합니다. ' +
           '"이벤트 추가" 버튼으로 새 활동을 시뮬레이션합니다.',
       },
     },
   },
-  render: () => <LinearActivityFeedRender94 />,
+  render: () => <IssueTrackerActivityFeedRender94 />,
 }
 
-export const Vercel_배포_상태_대시보드: Story = {
-  name: 'Vercel - 배포 상태 대시보드 다크 패턴',
+export const DeployPlatform_배포_상태_대시보드: Story = {
+  name: 'DeployPlatform - 배포 상태 대시보드 다크 패턴',
   render: () => (
     <div style={{ width: 420, border: '1px solid #27272a', borderRadius: 14, overflow: 'hidden', background: '#09090b' }}>
       <div style={{ padding: '12px 16px', borderBottom: '1px solid #27272a', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
@@ -970,20 +970,20 @@ export const Vercel_배포_상태_대시보드: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Cycle 123 — shadcn/ui + Linear Design 벤치마크
+   Cycle 123 — ComposableUI + IssueTracker Design 벤치마크
 -------------------------------------------------------------------------- */
 
 /* --------------------------------------------------------------------------
-   shadcn/ui: 알림 카운터 배지 패턴
-   shadcn/ui Badge + 카운트 애니메이션 — 알림 센터 실시간 업데이트
+   ComposableUI: 알림 카운터 배지 패턴
+   ComposableUI Badge + 카운트 애니메이션 — 알림 센터 실시간 업데이트
 -------------------------------------------------------------------------- */
-export const Shadcn_알림_카운터_배지: Story = {
-  name: 'shadcn/ui - 알림 카운터 배지 패턴',
+export const ComposableUI_알림_카운터_배지: Story = {
+  name: 'ComposableUI - 알림 카운터 배지 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'shadcn/ui Badge 컴포넌트의 알림 카운터 패턴. 버튼 클릭으로 카운트를 증가/리셋하며 ' +
+          'ComposableUI Badge 컴포넌트의 알림 카운터 패턴. 버튼 클릭으로 카운트를 증가/리셋하며 ' +
           'AnimatedBadge 의 등장 애니메이션으로 신규 알림을 강조합니다.',
       },
     },
@@ -1034,16 +1034,16 @@ export const Shadcn_알림_카운터_배지: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Linear: 이슈 워크플로 상태 배지
-   Linear 이슈 상태 라이프사이클 — Todo→In Progress→Done 전환 배지
+   IssueTracker: 이슈 워크플로 상태 배지
+   IssueTracker 이슈 상태 라이프사이클 — Todo→In Progress→Done 전환 배지
 -------------------------------------------------------------------------- */
-export const Linear_이슈_워크플로_배지: Story = {
-  name: 'Linear - 이슈 워크플로 상태 배지 패턴',
+export const IssueTracker_이슈_워크플로_배지: Story = {
+  name: 'IssueTracker - 이슈 워크플로 상태 배지 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'Linear 이슈 상태 전환 라이프사이클 패턴. Todo → In Progress → In Review → Done 순서로 ' +
+          'IssueTracker 이슈 상태 전환 라이프사이클 패턴. Todo → In Progress → In Review → Done 순서로 ' +
           '상태를 전환하며 AnimatedBadge 로 현재 상태를 표시합니다.',
       },
     },
@@ -1110,16 +1110,16 @@ export const Linear_이슈_워크플로_배지: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   shadcn + Linear: 실시간 활동 피드 배지
+   ComposableUI + IssueTracker: 실시간 활동 피드 배지
    두 시스템의 실시간 업데이트 + 상태 배지 패턴 결합
 -------------------------------------------------------------------------- */
-export const Shadcn_Linear_실시간_활동_배지: Story = {
-  name: 'shadcn/ui + Linear - 실시간 활동 피드 배지 패턴',
+export const ComposableUI_IssueTracker_실시간_활동_배지: Story = {
+  name: 'ComposableUI + IssueTracker - 실시간 활동 피드 배지 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'shadcn/ui + Linear 실시간 활동 피드 패턴. useEffect로 1초마다 새 활동을 생성하고 ' +
+          'ComposableUI + IssueTracker 실시간 활동 피드 패턴. useEffect로 1초마다 새 활동을 생성하고 ' +
           'AnimatedBadge 로 활동 유형을 표시합니다. "Live" 배지로 실시간 상태를 표현합니다.',
       },
     },
@@ -1200,9 +1200,9 @@ export const Shadcn_Linear_실시간_활동_배지: Story = {
   },
 }
 
-// ─── Cycle 155: Arco Design + Raycast Extensions ───────────────────────────
+// ─── Cycle 155: DataProductUI + CommandPalette Extensions ───────────────────────────
 
-function ArcoNotificationBadgeRender() {
+function DataProductNotificationBadgeRender() {
   const [counts, setCounts] = useState({ message: 3, task: 12, alert: 1, system: 0 })
   const channels = [
     { key: 'message' as const, label: '메시지', color: '#165DFF' },
@@ -1214,7 +1214,7 @@ function ArcoNotificationBadgeRender() {
   const clearAll = () => setCounts({ message: 0, task: 0, alert: 0, system: 0 })
   return (
     <div style={{ width: 300, fontFamily: 'Inter, system-ui, sans-serif', color: '#1d2129' }}>
-      <div style={{ fontSize: 12, fontWeight: 700, color: '#6b7280', marginBottom: 10 }}>Arco Design 알림 배지 시스템</div>
+      <div style={{ fontSize: 12, fontWeight: 700, color: '#6b7280', marginBottom: 10 }}>DataProductUI 알림 배지 시스템</div>
       {channels.map(ch => (
         <div key={ch.key} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 0', borderBottom: '1px solid #f2f3f5' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
@@ -1230,31 +1230,31 @@ function ArcoNotificationBadgeRender() {
         </div>
       ))}
       <button onClick={clearAll} style={{ marginTop: 10, width: '100%', padding: '6px', fontSize: 12, border: '1px solid #e5e6eb', borderRadius: 6, cursor: 'pointer', background: '#f7f8fa' }}>전체 초기화</button>
-      <div style={{ marginTop: 8, fontSize: 11, color: '#9ca3af' }}>Arco Design Badge 채널별 색상 분리 패턴</div>
+      <div style={{ marginTop: 8, fontSize: 11, color: '#9ca3af' }}>DataProductUI Badge 채널별 색상 분리 패턴</div>
     </div>
   )
 }
 
-export const Arco_채널별_알림_배지: Story = {
-  name: 'Arco Design - 채널별 알림 배지 (색상 분리)',
-  render: () => <ArcoNotificationBadgeRender />,
+export const DataProduct_채널별_알림_배지: Story = {
+  name: 'DataProductUI - 채널별 알림 배지 (색상 분리)',
+  render: () => <DataProductNotificationBadgeRender />,
   parameters: {
     docs: {
       description: {
         story:
-          'Arco Design Badge 컴포넌트 패턴. 메시지·작업·경고·시스템 채널별로 배지 색상을 분리해 알림 유형을 직관적으로 구분합니다. ' +
-          'Arco의 color prop을 AnimatedBadge 인라인 스타일로 재현합니다.',
+          'DataProductUI Badge 컴포넌트 패턴. 메시지·작업·경고·시스템 채널별로 배지 색상을 분리해 알림 유형을 직관적으로 구분합니다. ' +
+          'DataProduct의 color prop을 AnimatedBadge 인라인 스타일로 재현합니다.',
       },
     },
   },
 }
 
-function RaycastCommandBadgeRender() {
+function CommandPaletteCommandBadgeRender() {
   const [activeExt, setActiveExt] = useState<string | null>(null)
   const extensions = [
-    { id: 'github', name: 'GitHub', badge: 5, icon: '⌥G', desc: 'PR 리뷰 대기' },
-    { id: 'linear', name: 'Linear', badge: 3, icon: '⌥L', desc: '할당된 이슈' },
-    { id: 'notion', name: 'Notion', badge: 0, icon: '⌥N', desc: '업데이트 없음' },
+    { id: 'codehost', name: 'CodeHost', badge: 5, icon: '⌥G', desc: 'PR 리뷰 대기' },
+    { id: 'tracker', name: 'IssueTracker', badge: 3, icon: '⌥L', desc: '할당된 이슈' },
+    { id: 'workspace', name: 'WorkspaceEditor', badge: 0, icon: '⌥N', desc: '업데이트 없음' },
     { id: 'slack', name: 'Slack', badge: 12, icon: '⌥S', desc: '미읽은 메시지' },
   ]
   return (
@@ -1280,26 +1280,26 @@ function RaycastCommandBadgeRender() {
           )}
         </div>
       ))}
-      <div style={{ marginTop: 8, padding: '0 4px', fontSize: 11, color: '#6d6d72' }}>Raycast 확장 목록 + 뱃지 패턴</div>
+      <div style={{ marginTop: 8, padding: '0 4px', fontSize: 11, color: '#6d6d72' }}>CommandPalette 확장 목록 + 뱃지 패턴</div>
     </div>
   )
 }
 
-export const Raycast_익스텐션_알림_배지: Story = {
-  name: 'Raycast - 익스텐션 알림 배지 (다크 팔레트)',
-  render: () => <RaycastCommandBadgeRender />,
+export const CommandPalette_익스텐션_알림_배지: Story = {
+  name: 'CommandPalette - 익스텐션 알림 배지 (다크 팔레트)',
+  render: () => <CommandPaletteCommandBadgeRender />,
   parameters: {
     docs: {
       description: {
         story:
-          'Raycast Extensions 목록 UI 패턴. 다크 배경에 파란 강조 배지를 사용해 확장별 미처리 항목 수를 표시합니다. ' +
-          'Raycast의 컴팩트 밀도와 iOS스러운 배지 스타일을 재현합니다.',
+          'CommandPalette Extensions 목록 UI 패턴. 다크 배경에 파란 강조 배지를 사용해 확장별 미처리 항목 수를 표시합니다. ' +
+          'CommandPalette의 컴팩트 밀도와 iOS스러운 배지 스타일을 재현합니다.',
       },
     },
   },
 }
 
-function ArcoRaycastStatusBadgeRender() {
+function DataProductCommandPaletteStatusBadgeRender() {
   const [phase, setPhase] = useState<'idle' | 'running' | 'done' | 'error'>('idle')
   const phaseConfig = {
     idle: { label: '대기', color: '#86909C', bg: '#F7F8FA', count: null },
@@ -1310,7 +1310,7 @@ function ArcoRaycastStatusBadgeRender() {
   const cfg = phaseConfig[phase]
   return (
     <div style={{ width: 320, fontFamily: 'Inter, system-ui, sans-serif', color: '#1d2129' }}>
-      <div style={{ fontSize: 12, fontWeight: 700, color: '#6b7280', marginBottom: 12 }}>Arco + Raycast 상태 배지 전환</div>
+      <div style={{ fontSize: 12, fontWeight: 700, color: '#6b7280', marginBottom: 12 }}>DataProduct + CommandPalette 상태 배지 전환</div>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '14px 16px', background: cfg.bg, borderRadius: 10, border: `1.5px solid ${cfg.color}25` }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
           <div style={{ width: 36, height: 36, borderRadius: 10, background: cfg.color + '20', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -1336,34 +1336,34 @@ function ArcoRaycastStatusBadgeRender() {
           </button>
         ))}
       </div>
-      <div style={{ marginTop: 8, fontSize: 11, color: '#9ca3af' }}>Arco Design + Raycast — 파이프라인 상태 배지 패턴</div>
+      <div style={{ marginTop: 8, fontSize: 11, color: '#9ca3af' }}>DataProductUI + CommandPalette — 파이프라인 상태 배지 패턴</div>
     </div>
   )
 }
 
-export const Arco_Raycast_파이프라인_상태_배지: Story = {
-  name: 'Arco Design + Raycast - 파이프라인 상태 배지 전환',
-  render: () => <ArcoRaycastStatusBadgeRender />,
+export const DataProduct_CommandPalette_파이프라인_상태_배지: Story = {
+  name: 'DataProductUI + CommandPalette - 파이프라인 상태 배지 전환',
+  render: () => <DataProductCommandPaletteStatusBadgeRender />,
   parameters: {
     docs: {
       description: {
         story:
-          'Arco Design + Raycast 복합 패턴. 대기·실행중·완료·오류 4단계 상태에 따라 배지 색상과 레이아웃이 전환됩니다. ' +
-          'Arco의 Badge status prop과 Raycast 명령 상태 표시 UI를 AnimatedBadge로 재현합니다.',
+          'DataProductUI + CommandPalette 복합 패턴. 대기·실행중·완료·오류 4단계 상태에 따라 배지 색상과 레이아웃이 전환됩니다. ' +
+          'DataProduct의 Badge status prop과 CommandPalette 명령 상태 표시 UI를 AnimatedBadge로 재현합니다.',
       },
     },
   },
 }
 
 /* --------------------------------------------------------------------------
-   Cycle 179 — Tailwind UI + Vercel Design
+   Cycle 179 — UtilityUI + DeployPlatform Design
    Benchmark:
-   1. Tailwind UI: 활동 피드 타임스탬프 배지 — 상대적 시간 표시 + 색상 분류
-   2. Vercel Design: 배포 상태 펄스 애니메이션 배지 — 실시간 진행 표시
-   3. Tailwind + Vercel: KPI 카드 트렌드 배지 — up/down 인디케이터
+   1. UtilityUI: 활동 피드 타임스탬프 배지 — 상대적 시간 표시 + 색상 분류
+   2. DeployPlatform Design: 배포 상태 펄스 애니메이션 배지 — 실시간 진행 표시
+   3. UtilityCSS + DeployPlatform: KPI 카드 트렌드 배지 — up/down 인디케이터
 -------------------------------------------------------------------------- */
 
-function TailwindActivityFeedBadgeRender() {
+function UtilityCSSActivityFeedBadgeRender() {
   const [now, setNow] = useState(Date.now())
 
   useEffect(() => {
@@ -1410,19 +1410,19 @@ function TailwindActivityFeedBadgeRender() {
   )
 }
 
-export const Tailwind_활동_피드_타임스탬프_배지: Story = {
-  name: 'Tailwind UI — 활동 피드 타임스탬프 배지 (상대 시간)',
+export const UtilityCSS_활동_피드_타임스탬프_배지: Story = {
+  name: 'UtilityUI — 활동 피드 타임스탬프 배지 (상대 시간)',
   parameters: {
     docs: {
       description: {
-        story: 'Tailwind UI Activity Feed 패턴 적용. 팀 활동 로그 각 항목에 AnimatedBadge로 상대 시간(45초 전, 3분 전)을 표시하고 활동 유형(success/error/info)별 색상 분류. 10초마다 타임스탬프 자동 갱신.',
+        story: 'UtilityUI Activity Feed 패턴 적용. 팀 활동 로그 각 항목에 AnimatedBadge로 상대 시간(45초 전, 3분 전)을 표시하고 활동 유형(success/error/info)별 색상 분류. 10초마다 타임스탬프 자동 갱신.',
       },
     },
   },
-  render: () => <TailwindActivityFeedBadgeRender />,
+  render: () => <UtilityCSSActivityFeedBadgeRender />,
 }
 
-function VercelDeployStatusBadgeRender() {
+function DeployPlatformDeployStatusBadgeRender() {
   const [deployPhase, setDeployPhase] = useState<'queued' | 'building' | 'ready' | 'error'>('queued')
   const [progress, setProgress] = useState(0)
 
@@ -1471,7 +1471,7 @@ function VercelDeployStatusBadgeRender() {
           </div>
         )}
         <div style={{ fontSize: 11, color: '#6b7280', marginBottom: 12 }}>
-          {deployPhase === 'ready' ? 'https://orbit-ui-preview.vercel.app' : `커밋: feat/cycle-179 · ${new Date().toLocaleDateString('ko-KR')}`}
+          {deployPhase === 'ready' ? 'https://orbit-ui-preview.deploy.example.com' : `커밋: feat/cycle-179 · ${new Date().toLocaleDateString('ko-KR')}`}
         </div>
         <div style={{ display: 'flex', gap: 6 }}>
           {(['queued', 'building', 'ready', 'error'] as const).map((p) => (
@@ -1485,19 +1485,19 @@ function VercelDeployStatusBadgeRender() {
   )
 }
 
-export const Vercel_배포_상태_배지: Story = {
-  name: 'Vercel Design — 배포 상태 배지 (Queued/Building/Ready/Error)',
+export const DeployPlatform_배포_상태_배지: Story = {
+  name: 'DeployPlatform Design — 배포 상태 배지 (Queued/Building/Ready/Error)',
   parameters: {
     docs: {
       description: {
-        story: 'Vercel 배포 상태 UI 패턴 구현. AnimatedBadge로 대기/빌드/완료/오류 4단계 상태를 색상+아이콘으로 표시. Building 상태에서 프로그레스 바 애니메이션 동반. 각 버튼으로 상태 전환 가능.',
+        story: 'DeployPlatform 배포 상태 UI 패턴 구현. AnimatedBadge로 대기/빌드/완료/오류 4단계 상태를 색상+아이콘으로 표시. Building 상태에서 프로그레스 바 애니메이션 동반. 각 버튼으로 상태 전환 가능.',
       },
     },
   },
-  render: () => <VercelDeployStatusBadgeRender />,
+  render: () => <DeployPlatformDeployStatusBadgeRender />,
 }
 
-function TailwindVercelKPITrendBadgeRender() {
+function UtilityCSSDeployPlatformKPITrendBadgeRender() {
   const kpis = [
     { label: '월간 활성 사용자', value: '24,831', change: +12.4, unit: '%', period: '지난달 대비' },
     { label: '컴포넌트 커버리지', value: '94.2', change: +2.1, unit: '%', period: '전 사이클 대비' },
@@ -1525,14 +1525,14 @@ function TailwindVercelKPITrendBadgeRender() {
   )
 }
 
-export const Tailwind_Vercel_KPI_트렌드_배지: Story = {
-  name: 'Tailwind UI + Vercel — KPI 카드 트렌드 배지 (증감 인디케이터)',
+export const UtilityCSS_DeployPlatform_KPI_트렌드_배지: Story = {
+  name: 'UtilityUI + DeployPlatform — KPI 카드 트렌드 배지 (증감 인디케이터)',
   parameters: {
     docs: {
       description: {
-        story: 'Tailwind UI Stats 컴포넌트 + Vercel 메트릭 카드 패턴. AnimatedBadge로 KPI 수치의 증감 트렌드(▲/▼ + %)를 시각화. 양수는 club(녹색), 음수는 sale(적색)로 자동 색상 분류. 번들 사이즈 감소는 긍정적이어도 sale로 표시해 맥락 파악 가능.',
+        story: 'UtilityUI Stats 컴포넌트 + DeployPlatform 메트릭 카드 패턴. AnimatedBadge로 KPI 수치의 증감 트렌드(▲/▼ + %)를 시각화. 양수는 club(녹색), 음수는 sale(적색)로 자동 색상 분류. 번들 사이즈 감소는 긍정적이어도 sale로 표시해 맥락 파악 가능.',
       },
     },
   },
-  render: () => <TailwindVercelKPITrendBadgeRender />,
+  render: () => <UtilityCSSDeployPlatformKPITrendBadgeRender />,
 }

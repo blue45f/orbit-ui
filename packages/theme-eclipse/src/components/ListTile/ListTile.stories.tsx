@@ -196,9 +196,9 @@ export const 디자인_QA: Story = {
   ),
 }
 
-// ── Linear-style benchmark stories ──────────────────────────────────────────
+// ── IssueTracker-style benchmark stories ──────────────────────────────────────────
 
-// Linear compact density: 32px row height, icon + title + metadata + badge
+// IssueTracker compact density: 32px row height, icon + title + metadata + badge
 const issueColors: Record<string, string> = {
   Todo: '#94a3b8',
   'In Progress': '#6366f1',
@@ -228,10 +228,10 @@ const demoIssues: Issue[] = [
   { id: 'ORB-103', title: 'Implement compact density mode for ListTile', status: 'Done', priority: 'medium', assignee: 'LY' },
   { id: 'ORB-104', title: 'Migrate CounterBadge to semantic tokens', status: 'Todo', priority: 'low', assignee: 'PM' },
   { id: 'ORB-105', title: 'Fix Popover z-index in Modal context', status: 'In Progress', priority: 'high', assignee: 'HJ', shortcut: 'F' },
-  { id: 'ORB-106', title: 'Write MigrationGuide for Chakra users', status: 'Cancelled', priority: 'low', assignee: 'CD' },
+  { id: 'ORB-106', title: 'Write MigrationGuide for Accessible users', status: 'Cancelled', priority: 'low', assignee: 'CD' },
 ]
 
-// Status dot indicator (Vercel-style compact status)
+// Status dot indicator (DeployPlatform-style compact status)
 const StatusDot: React.FC<{ status: Issue['status'] }> = ({ status }) => (
   <div style={{
     width: 8,
@@ -242,7 +242,7 @@ const StatusDot: React.FC<{ status: Issue['status'] }> = ({ status }) => (
   }} />
 )
 
-// Keyboard shortcut badge (Linear-style)
+// Keyboard shortcut badge (IssueTracker-style)
 const ShortcutBadge: React.FC<{ char: string }> = ({ char }) => (
   <div style={{
     display: 'inline-flex',
@@ -263,7 +263,7 @@ const ShortcutBadge: React.FC<{ char: string }> = ({ char }) => (
   </div>
 )
 
-// Compact avatar (Linear assignee chip)
+// Compact avatar (IssueTracker assignee chip)
 const AssigneeChip: React.FC<{ initials: string }> = ({ initials }) => (
   <div style={{
     width: 20,
@@ -282,8 +282,8 @@ const AssigneeChip: React.FC<{ initials: string }> = ({ initials }) => (
   </div>
 )
 
-// Linear-style compact issue row (32px height)
-const LinearCompactIssueList = () => {
+// IssueTracker-style compact issue row (32px height)
+const IssueTrackerCompactIssueList = () => {
   const [selectedId, setSelectedId] = useState<string | null>(null)
 
   return (
@@ -301,7 +301,7 @@ const LinearCompactIssueList = () => {
           <CounterBadge>{demoIssues.length}</CounterBadge>
         </div>
 
-        {/* Compact rows — 32px height, Linear-density */}
+        {/* Compact rows — 32px height, IssueTracker-density */}
         <div style={{ display: 'flex', flexDirection: 'column' }}>
           {demoIssues.map((issue) => {
             const isSelected = selectedId === issue.id
@@ -352,12 +352,12 @@ const LinearCompactIssueList = () => {
     )
 }
 
-export const Linear_컴팩트_이슈목록: Story = {
-  render: () => <LinearCompactIssueList />,
+export const IssueTracker_컴팩트_이슈목록: Story = {
+  render: () => <IssueTrackerCompactIssueList />,
 }
 
-// Linear-style drag-handle + checkbox list
-const LinearDragCheckbox = () => {
+// IssueTracker-style drag-handle + checkbox list
+const IssueTrackerDragCheckbox = () => {
   const [checked, setChecked] = useState<Set<string>>(new Set())
 
     const items = [
@@ -428,12 +428,12 @@ const LinearDragCheckbox = () => {
     )
 }
 
-export const Linear_드래그핸들_체크박스: Story = {
-  render: () => <LinearDragCheckbox />,
+export const IssueTracker_드래그핸들_체크박스: Story = {
+  render: () => <IssueTrackerDragCheckbox />,
 }
 
-// Project list with icon + title + metadata (Linear project list pattern)
-const LinearProjectList = () => {
+// Project list with icon + title + metadata (IssueTracker project list pattern)
+const IssueTrackerProjectList = () => {
   const [active, setActive] = useState('design-system')
 
   const projects = [
@@ -496,12 +496,12 @@ const LinearProjectList = () => {
     )
 }
 
-export const Linear_프로젝트목록: Story = {
-  render: () => <LinearProjectList />,
+export const IssueTracker_프로젝트목록: Story = {
+  render: () => <IssueTrackerProjectList />,
 }
 
-// Context menu row with keyboard shortcut hints (Linear command bar pattern)
-export const Linear_단축키_힌트: Story = {
+// Context menu row with keyboard shortcut hints (IssueTracker command bar pattern)
+export const IssueTracker_단축키_힌트: Story = {
   render: () => {
     const commands = [
       { label: 'New Issue', keys: ['C'], icon: '+', desc: 'Create a new issue' },
@@ -555,10 +555,10 @@ export const Linear_단축키_힌트: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   MUI 벤치마크: ListItem + ListItemIcon + ListItemText 조합
-   MUI의 다단계 내비게이션 패턴 — 아이콘 + 라벨 + 서브라벨 + 뱃지 조합
+   EnterpriseUI 벤치마크: ListItem + ListItemIcon + ListItemText 조합
+   EnterpriseUI의 다단계 내비게이션 패턴 — 아이콘 + 라벨 + 서브라벨 + 뱃지 조합
 -------------------------------------------------------------------------- */
-const MUINavMenuRender = () => {
+const EnterpriseUINavMenuRender = () => {
   const [active, setActive] = useState('home')
 
   const navItems: Array<{
@@ -650,13 +650,13 @@ const MUINavMenuRender = () => {
   )
 }
 
-export const MUI_내비게이션_메뉴: Story = {
-  render: () => <MUINavMenuRender />,
+export const EnterpriseUI_내비게이션_메뉴: Story = {
+  render: () => <EnterpriseUINavMenuRender />,
 }
 
 /* --------------------------------------------------------------------------
-   MUI 벤치마크: 폼 validation 상태 (error/success/warning helperText)
-   MUI FormControl + helperText 조합을 ListTile로 구현
+   EnterpriseUI 벤치마크: 폼 validation 상태 (error/success/warning helperText)
+   EnterpriseUI FormControl + helperText 조합을 ListTile로 구현
    설정 폼의 필드별 상태 표시 패턴
 -------------------------------------------------------------------------- */
 type ValidationStatus = 'idle' | 'success' | 'error' | 'warning'
@@ -671,7 +671,7 @@ const statusConfig: Record<
   warning: { label: '주의 필요', color: '#f59e0b', bg: '#fffbeb', border: '#fde68a' },
 }
 
-const MUIFormValidationRender = () => {
+const EnterpriseUIFormValidationRender = () => {
   const [statuses, setStatuses] = useState<Record<string, ValidationStatus>>({
     username: 'success',
     email: 'error',
@@ -790,17 +790,17 @@ const MUIFormValidationRender = () => {
   )
 }
 
-export const MUI_폼_유효성_상태: Story = {
-  render: () => <MUIFormValidationRender />,
+export const EnterpriseUI_폼_유효성_상태: Story = {
+  render: () => <EnterpriseUIFormValidationRender />,
 }
 
 /* --------------------------------------------------------------------------
-   MUI 벤치마크: 컨텍스트 메뉴 액션 패턴
-   MUI MenuItem + ListItemIcon + ListItemText — 우클릭 컨텍스트 메뉴,
+   EnterpriseUI 벤치마크: 컨텍스트 메뉴 액션 패턴
+   EnterpriseUI MenuItem + ListItemIcon + ListItemText — 우클릭 컨텍스트 메뉴,
    Dropdown 메뉴 내 아이콘 + 레이블 + 단축키 조합
 -------------------------------------------------------------------------- */
-export const MUI_컨텍스트_메뉴_액션: Story = {
-  name: 'MUI — 컨텍스트 메뉴 액션 패턴',
+export const EnterpriseUI_컨텍스트_메뉴_액션: Story = {
+  name: 'EnterpriseUI — 컨텍스트 메뉴 액션 패턴',
   render: () => {
     const actions: Array<{
       label: string
@@ -880,12 +880,12 @@ export const MUI_컨텍스트_메뉴_액션: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Notion 벤치마크: 페이지 속성 패널
-   Notion Page Properties — 키/값 속성 인라인 편집 ListTile 패턴
+   WorkspaceEditor 벤치마크: 페이지 속성 패널
+   WorkspaceEditor Page Properties — 키/값 속성 인라인 편집 ListTile 패턴
 -------------------------------------------------------------------------- */
-type NotionPropType = { key: string; label: string; value: string; icon: string; editable: boolean }
+type WorkspaceEditorPropType = { key: string; label: string; value: string; icon: string; editable: boolean }
 
-const NOTION_PAGE_PROPS: NotionPropType[] = [
+const WORKSPACE_PAGE_PROPS: WorkspaceEditorPropType[] = [
   { key: 'status', label: '상태', value: '진행 중', icon: '●', editable: true },
   { key: 'assignee', label: '담당자', value: '김지수', icon: '👤', editable: true },
   { key: 'due', label: '마감일', value: '2026-04-30', icon: '📅', editable: true },
@@ -894,29 +894,29 @@ const NOTION_PAGE_PROPS: NotionPropType[] = [
   { key: 'tags', label: '태그', value: 'Design System, UI', icon: '#', editable: true },
 ]
 
-const NOTION_STATUS_COLOR: Record<string, string> = {
+const WORKSPACE_STATUS_COLOR: Record<string, string> = {
   '진행 중': '#3b82f6',
   '완료': '#10b981',
   '검토 중': '#f59e0b',
   '중단': '#ef4444',
 }
 
-export const Notion_페이지_속성_패널: Story = {
-  name: 'Notion — 페이지 속성 인라인 편집 패널',
+export const WorkspaceEditor_페이지_속성_패널: Story = {
+  name: 'WorkspaceEditor — 페이지 속성 인라인 편집 패널',
   parameters: {
     docs: {
       description: {
         story:
-          'Notion Page Properties 패턴. 속성 키/값을 ListTile로 표현하고, ' +
+          'WorkspaceEditor Page Properties 패턴. 속성 키/값을 ListTile로 표현하고, ' +
           '편집 가능 항목 클릭 시 인라인 입력 전환. 상태 속성은 색상 점으로 구분, ' +
           '읽기 전용 속성은 비활성화 스타일 적용.',
       },
     },
   },
-  render: function NotionPagePropsPanel() {
+  render: function WorkspaceEditorPagePropsPanel() {
     const [editingKey, setEditingKey] = useState<string | null>(null)
     const [propValues, setPropValues] = useState<Record<string, string>>(
-      Object.fromEntries(NOTION_PAGE_PROPS.map((p) => [p.key, p.value]))
+      Object.fromEntries(WORKSPACE_PAGE_PROPS.map((p) => [p.key, p.value]))
     )
 
     return (
@@ -925,7 +925,7 @@ export const Notion_페이지_속성_패널: Story = {
           페이지 속성
         </div>
 
-        {NOTION_PAGE_PROPS.map((prop) => (
+        {WORKSPACE_PAGE_PROPS.map((prop) => (
           <ListTile
             key={prop.key}
             as={prop.editable ? 'button' : 'div'}
@@ -967,7 +967,7 @@ export const Notion_페이지_속성_패널: Story = {
                   display: 'flex', alignItems: 'center', gap: 4,
                 }}>
                   {prop.key === 'status' && (
-                    <span style={{ width: 6, height: 6, borderRadius: '50%', background: NOTION_STATUS_COLOR[propValues[prop.key]] ?? '#94a3b8', display: 'inline-block' }} />
+                    <span style={{ width: 6, height: 6, borderRadius: '50%', background: WORKSPACE_STATUS_COLOR[propValues[prop.key]] ?? '#94a3b8', display: 'inline-block' }} />
                   )}
                   {propValues[prop.key]}
                 </span>
@@ -981,33 +981,33 @@ export const Notion_페이지_속성_패널: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Raycast 벤치마크: 확장 프로그램 목록
-   Raycast Extensions List — 확장명 + 설명 + 활성화 토글 패턴
+   CommandPalette 벤치마크: 확장 프로그램 목록
+   CommandPalette Extensions List — 확장명 + 설명 + 활성화 토글 패턴
 -------------------------------------------------------------------------- */
-type RaycastExt = { id: string; name: string; desc: string; author: string; enabled: boolean; category: string }
+type CommandPaletteExt = { id: string; name: string; desc: string; author: string; enabled: boolean; category: string }
 
-const RAYCAST_EXTENSIONS: RaycastExt[] = [
-  { id: 'github', name: 'GitHub', desc: 'PR, 이슈, 알림 빠른 접근', author: 'Raycast', enabled: true, category: '개발' },
-  { id: 'linear', name: 'Linear', desc: '이슈 생성 및 검색', author: 'Linear', enabled: true, category: '개발' },
-  { id: 'figma', name: 'Figma', desc: 'Figma 파일 빠른 열기', author: 'Figma', enabled: false, category: '디자인' },
-  { id: 'notion', name: 'Notion', desc: '페이지 검색 및 생성', author: 'Notion', enabled: true, category: '생산성' },
+const LAUNCHER_EXTENSIONS: CommandPaletteExt[] = [
+  { id: 'codehost', name: 'CodeHost', desc: 'PR, 이슈, 알림 빠른 접근', author: 'CommandPalette', enabled: true, category: '개발' },
+  { id: 'tracker', name: 'IssueTracker', desc: '이슈 생성 및 검색', author: 'IssueTracker', enabled: true, category: '개발' },
+  { id: 'design', name: 'DesignTool', desc: 'DesignTool 파일 빠른 열기', author: 'DesignTool', enabled: false, category: '디자인' },
+  { id: 'workspace', name: 'WorkspaceEditor', desc: '페이지 검색 및 생성', author: 'WorkspaceEditor', enabled: true, category: '생산성' },
   { id: 'slack', name: 'Slack', desc: '채널 및 DM 빠른 열기', author: 'Slack', enabled: false, category: '커뮤니케이션' },
-  { id: 'vercel', name: 'Vercel', desc: '배포 현황 모니터링', author: 'Vercel', enabled: true, category: '개발' },
+  { id: 'deploy', name: 'DeployPlatform', desc: '배포 현황 모니터링', author: 'DeployPlatform', enabled: true, category: '개발' },
 ]
 
-export const Raycast_확장_프로그램_목록: Story = {
-  name: 'Raycast — 확장 프로그램 관리 목록',
+export const CommandPalette_확장_프로그램_목록: Story = {
+  name: 'CommandPalette — 확장 프로그램 관리 목록',
   parameters: {
     docs: {
       description: {
         story:
-          'Raycast Extensions List 패턴. 확장 프로그램명/설명/제작자 + 활성화 Switch 토글. ' +
+          'CommandPalette Extensions List 패턴. 확장 프로그램명/설명/제작자 + 활성화 Switch 토글. ' +
           '카테고리별 그룹, 활성/비활성 상태 시각적 구분.',
       },
     },
   },
-  render: function RaycastExtList() {
-    const [extensions, setExtensions] = useState(RAYCAST_EXTENSIONS)
+  render: function CommandPaletteExtList() {
+    const [extensions, setExtensions] = useState(LAUNCHER_EXTENSIONS)
 
     const toggle = (id: string) => {
       setExtensions((prev) =>
@@ -1066,10 +1066,10 @@ export const Raycast_확장_프로그램_목록: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Notion 벤치마크: 사이드바 페이지 트리
-   Notion Sidebar — 페이지 계층 구조, 중첩 들여쓰기, 즐겨찾기 패턴
+   WorkspaceEditor 벤치마크: 사이드바 페이지 트리
+   WorkspaceEditor Sidebar — 페이지 계층 구조, 중첩 들여쓰기, 즐겨찾기 패턴
 -------------------------------------------------------------------------- */
-type NotionPageNode = {
+type WorkspaceEditorPageNode = {
   id: string
   title: string
   icon: string
@@ -1078,7 +1078,7 @@ type NotionPageNode = {
   pinned: boolean
 }
 
-const NOTION_PAGES: NotionPageNode[] = [
+const WORKSPACE_PAGES: WorkspaceEditorPageNode[] = [
   { id: 'root1', title: 'Orbit UI 설계', icon: '📐', depth: 0, hasChildren: true, pinned: true },
   { id: 'child1', title: '컴포넌트 목록', icon: '📋', depth: 1, hasChildren: false, pinned: false },
   { id: 'child2', title: '토큰 시스템', icon: '🎨', depth: 1, hasChildren: true, pinned: false },
@@ -1089,20 +1089,20 @@ const NOTION_PAGES: NotionPageNode[] = [
   { id: 'child3', title: '2026-04 킥오프', icon: '○', depth: 1, hasChildren: false, pinned: false },
 ]
 
-export const Notion_사이드바_페이지_트리: Story = {
-  name: 'Notion — 사이드바 페이지 트리 패턴',
+export const WorkspaceEditor_사이드바_페이지_트리: Story = {
+  name: 'WorkspaceEditor — 사이드바 페이지 트리 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'Notion Sidebar 페이지 계층 트리 패턴. depth에 따른 들여쓰기, 즐겨찾기(pinned) 별 표시, ' +
+          'WorkspaceEditor Sidebar 페이지 계층 트리 패턴. depth에 따른 들여쓰기, 즐겨찾기(pinned) 별 표시, ' +
           '하위 항목 보유 여부 chevron 표시. ListTile의 padding + Leading 조합으로 계층 구현.',
       },
     },
   },
-  render: function NotionSidebarTree() {
+  render: function WorkspaceEditorSidebarTree() {
     const [pinnedMap, setPinnedMap] = useState<Record<string, boolean>>(
-      Object.fromEntries(NOTION_PAGES.map((p) => [p.id, p.pinned]))
+      Object.fromEntries(WORKSPACE_PAGES.map((p) => [p.id, p.pinned]))
     )
     const [activeId, setActiveId] = useState<string>('root1')
 
@@ -1116,7 +1116,7 @@ export const Notion_사이드바_페이지_트리: Story = {
           <span style={{ fontSize: 12, fontWeight: 700, color: '#0f172a' }}>Orbit UI 워크스페이스</span>
         </div>
 
-        {NOTION_PAGES.map((page) => (
+        {WORKSPACE_PAGES.map((page) => (
           <ListTile
             key={page.id}
             as="button"
@@ -1157,10 +1157,10 @@ export const Notion_사이드바_페이지_트리: Story = {
 }
 
 // ============================================================
-// Cycle 136 — Tailwind UI + Material UI 벤치마크 반영
+// Cycle 136 — UtilityUI + Enterprise UI 벤치마크 반영
 // ============================================================
 
-// Tailwind UI 스타일 — 연락처 목록 (밀도 높은 dense 패턴)
+// UtilityUI 스타일 — 연락처 목록 (밀도 높은 dense 패턴)
 const CONTACTS_136 = [
   { id: 1, name: '김희준', role: '디자인 시스템 리드', dept: 'Engineering', avatar: 'HJ', color: '#6366f1', online: true },
   { id: 2, name: '이재성', role: '프론트엔드 개발', dept: 'Engineering', avatar: 'JS', color: '#0ea5e9', online: true },
@@ -1169,18 +1169,18 @@ const CONTACTS_136 = [
   { id: 5, name: '정다은', role: 'QA 엔지니어', dept: 'QA', avatar: 'DE', color: '#ec4899', online: false },
 ]
 
-export const Tailwind_연락처_Dense_목록: Story = {
-  name: 'Tailwind UI — 연락처 Dense 목록 (Cycle 136)',
+export const UtilityCSS_연락처_Dense_목록: Story = {
+  name: 'UtilityUI — 연락처 Dense 목록 (Cycle 136)',
   parameters: {
     docs: {
       description: {
         story:
-          'Tailwind UI Contact List 패턴. 온라인 상태 인디케이터 + 역할/부서 이중 서브텍스트. ' +
+          'UtilityUI Contact List 패턴. 온라인 상태 인디케이터 + 역할/부서 이중 서브텍스트. ' +
           '클릭 시 활성 행 하이라이트. 밀도 있는 dense 레이아웃으로 많은 항목을 효율적으로 표시.',
       },
     },
   },
-  render: function TailwindContactListRender() {
+  render: function UtilityCSSContactListRender() {
     const [activeId, setActiveId] = useState<number | null>(null)
     return (
       <div style={{ width: 380, fontFamily: 'system-ui, sans-serif', borderRadius: 12, border: '1px solid #e2e8f0', overflow: 'hidden' }}>
@@ -1218,7 +1218,7 @@ export const Tailwind_연락처_Dense_목록: Story = {
   },
 }
 
-// MUI 스타일 — 알림 센터 목록 (읽음/안읽음 + 중요도)
+// EnterpriseUI 스타일 — 알림 센터 목록 (읽음/안읽음 + 중요도)
 const NOTIFICATIONS_136 = [
   { id: 1, type: 'deploy', title: 'orbit-ui 배포 완료', body: 'orbit-gtzymhbdp Production → Ready (2분 46초)', time: '방금 전', unread: true, level: 'success', color: '#22c55e' },
   { id: 2, type: 'review', title: 'PR #48 리뷰 요청', body: 'feat(DataTable): 컬럼 핀고정 기능 추가', time: '5분 전', unread: true, level: 'info', color: '#3b82f6' },
@@ -1227,18 +1227,18 @@ const NOTIFICATIONS_136 = [
   { id: 5, type: 'merge', title: 'main 브랜치 병합 완료', body: 'Cycle 135 스토리 22개 파일 → main', time: '2시간 전', unread: false, level: 'success', color: '#10b981' },
 ]
 
-export const MUI_알림_센터_목록: Story = {
-  name: 'MUI — 알림 센터 목록 (Cycle 136)',
+export const EnterpriseUI_알림_센터_목록: Story = {
+  name: 'EnterpriseUI — 알림 센터 목록 (Cycle 136)',
   parameters: {
     docs: {
       description: {
         story:
-          'Material UI Notification Center 패턴. 읽음/안읽음 상태별 배경 강조, 알림 유형별 색상 인디케이터. ' +
+          'Enterprise UI Notification Center 패턴. 읽음/안읽음 상태별 배경 강조, 알림 유형별 색상 인디케이터. ' +
           '클릭 시 읽음 처리(배경 리셋). 안읽은 알림 배지 카운터.',
       },
     },
   },
-  render: function MuiNotificationCenterRender() {
+  render: function EnterpriseUINotificationCenterRender() {
     const [items, setItems] = useState(NOTIFICATIONS_136)
     const unreadCount = items.filter((n) => n.unread).length
 
@@ -1286,7 +1286,7 @@ export const MUI_알림_센터_목록: Story = {
   },
 }
 
-// Tailwind UI + MUI — 검색 결과 목록 (하이라이트 + 카테고리 구분)
+// UtilityUI + EnterpriseUI — 검색 결과 목록 (하이라이트 + 카테고리 구분)
 const SEARCH_RESULTS_136 = [
   { id: 1, title: 'SolidButton', category: '컴포넌트', desc: '기본 CTA 버튼. color / size / width / loading 지원', match: 'Solid' },
   { id: 2, title: 'SolidIconButton', category: '컴포넌트', desc: '아이콘 전용 원형 버튼. 툴팁 연동 권장', match: 'Solid' },
@@ -1295,18 +1295,18 @@ const SEARCH_RESULTS_136 = [
   { id: 5, title: 'SolidButton 사용 가이드', category: '문서', desc: 'Do/Dont, 조합 패턴, 접근성 체크리스트', match: 'Solid' },
 ]
 
-export const Tailwind_MUI_검색_결과_목록: Story = {
-  name: 'Tailwind UI + MUI — 검색 결과 목록 (Cycle 136)',
+export const UtilityCSS_EnterpriseUI_검색_결과_목록: Story = {
+  name: 'UtilityUI + EnterpriseUI — 검색 결과 목록 (Cycle 136)',
   parameters: {
     docs: {
       description: {
         story:
-          'Tailwind UI + MUI Autocomplete 통합 검색 결과 패턴. 카테고리 구분선 + 매칭 키워드 볼드 하이라이트. ' +
+          'UtilityUI + EnterpriseUI Autocomplete 통합 검색 결과 패턴. 카테고리 구분선 + 매칭 키워드 볼드 하이라이트. ' +
           '입력값 변경 시 실시간 필터링. 클릭 시 활성 항목 표시.',
       },
     },
   },
-  render: function TailwindMuiSearchResultsRender() {
+  render: function UtilityCSSEnterpriseUISearchResultsRender() {
     const [query, setQuery] = useState('Solid')
     const [activeId, setActiveId] = useState<number | null>(null)
 
@@ -1375,21 +1375,21 @@ export const Tailwind_MUI_검색_결과_목록: Story = {
 }
 
 // ──────────────────────────────────────────────────────────────────────────────
-// Cycle 166: Tailwind UI + Linear Design
+// Cycle 166: UtilityUI + IssueTracker Design
 // ──────────────────────────────────────────────────────────────────────────────
 
-export const TailwindUI_사람_목록_선택_패턴: Story = {
-  name: 'Tailwind UI — 사람 목록 선택 패턴 (Cycle 166)',
+export const UtilityCSSUI_사람_목록_선택_패턴: Story = {
+  name: 'UtilityUI — 사람 목록 선택 패턴 (Cycle 166)',
   parameters: {
     docs: {
       description: {
         story:
-          'Tailwind UI Combobox 패턴. 팀원 목록에서 다중 선택. ' +
+          'UtilityUI Combobox 패턴. 팀원 목록에서 다중 선택. ' +
           '체크박스 + 아바타 + 역할 배지 조합. 선택된 항목 하단 요약 표시.',
       },
     },
   },
-  render: function TailwindPeopleListRender() {
+  render: function UtilityCSSPeopleListRender() {
     const people = [
       { id: 1, name: '김민준', role: 'Frontend', initials: 'KM', color: '#3b82f6' },
       { id: 2, name: '이지수', role: 'Design', initials: 'LJ', color: '#8b5cf6' },
@@ -1443,18 +1443,18 @@ export const TailwindUI_사람_목록_선택_패턴: Story = {
   },
 }
 
-export const Linear_이슈_트래커_리스트: Story = {
-  name: 'Linear — 이슈 트래커 리스트 (Cycle 166)',
+export const IssueTracker_이슈_트래커_리스트: Story = {
+  name: 'IssueTracker — 이슈 트래커 리스트 (Cycle 166)',
   parameters: {
     docs: {
       description: {
         story:
-          'Linear 이슈 리스트 패턴. 상태/우선순위 아이콘 + 간결한 타이포그래피 + 호버 액션. ' +
-          'Linear의 초고밀도 UI를 ListTile로 재현.',
+          'IssueTracker 이슈 리스트 패턴. 상태/우선순위 아이콘 + 간결한 타이포그래피 + 호버 액션. ' +
+          'IssueTracker의 초고밀도 UI를 ListTile로 재현.',
       },
     },
   },
-  render: function LinearIssueListRender() {
+  render: function IssueTrackerIssueListRender() {
     const [issues, setIssues] = React.useState([
       { id: 'ORB-142', title: 'Button 컴포넌트 ripple 효과 추가', status: 'in-progress', priority: 'high', assignee: 'KM', label: 'feat' },
       { id: 'ORB-141', title: 'TextField 포커스 링 색상 오류 수정', status: 'done', priority: 'medium', assignee: 'LJ', label: 'bug' },
@@ -1537,18 +1537,18 @@ export const Linear_이슈_트래커_리스트: Story = {
   },
 }
 
-export const Tailwind_Linear_알림_센터_리스트: Story = {
-  name: 'Tailwind UI + Linear — 알림 센터 리스트 (Cycle 166)',
+export const UtilityCSS_IssueTracker_알림_센터_리스트: Story = {
+  name: 'UtilityUI + IssueTracker — 알림 센터 리스트 (Cycle 166)',
   parameters: {
     docs: {
       description: {
         story:
-          'Tailwind UI Notification list + Linear 읽음/안읽음 패턴. ' +
+          'UtilityUI Notification list + IssueTracker 읽음/안읽음 패턴. ' +
           '타입별 아이콘 + 상대시간 + 액션 버튼 + 일괄 읽음 처리.',
       },
     },
   },
-  render: function TailwindLinearNotifRender() {
+  render: function UtilityCSSIssueTrackerNotifRender() {
     const [notifs, setNotifs] = React.useState([
       { id: 1, type: 'mention', title: '김민준님이 ORB-142에서 회원님을 멘션했습니다', time: '2분 전', read: false, icon: '💬' },
       { id: 2, type: 'assign', title: 'ORB-139 이슈가 회원님에게 배정되었습니다', time: '15분 전', read: false, icon: '📋' },

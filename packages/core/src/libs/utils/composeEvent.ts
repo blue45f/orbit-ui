@@ -7,7 +7,7 @@ function composeEventHandlers<E>(
   ourEventHandler?: (event: E) => void,
   { checkDefaultPrevented = true } = {}
 ) {
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+
   return function handleEvent(event: E) {
     originalEventHandler?.(event)
 

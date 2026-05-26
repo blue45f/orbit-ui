@@ -8,7 +8,6 @@ import { CircleCancelFillIcon } from '@heejun-com/icons'
 import React, { AllHTMLAttributes, forwardRef } from 'react'
 
 import { vars } from '../../styles/theme-vars'
-import { FilledIconButton } from '../SolidIconButton'
 
 export type FloatingTextFieldProps = Omit<
   Omit<BaseFloatingTextFieldProps, keyof BaseFloatingTextFieldSpecificProps>,
@@ -91,13 +90,7 @@ export const FloatingTextField = forwardRef<HTMLInputElement, FloatingTextFieldP
       >
         {children}
         <BaseFloatingTextField.ClearButton visibility="onFocused">
-          <FilledIconButton
-            color="white"
-            size="medium"
-            theme={{ enabledFillColor: vars.sem.color.fillNone }}
-          >
-            <CircleCancelFillIcon size={16} color={vars.sem.color.foregroundQuaternary} />
-          </FilledIconButton>
+          <CircleCancelFillIcon size={16} color={vars.sem.color.foregroundQuaternary} />
         </BaseFloatingTextField.ClearButton>
       </BaseFloatingTextField>
     )

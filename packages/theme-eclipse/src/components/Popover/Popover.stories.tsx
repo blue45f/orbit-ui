@@ -44,7 +44,7 @@ export const 기본: Story = {
   ),
 }
 
-// User profile card popover — Vercel/GitHub hover profile pattern
+// User profile card popover — DeployPlatform/CodeHost hover profile pattern
 export const 사용자_프로필_카드: Story = {
   render: () => (
     <div style={{ padding: '120px 60px', display: 'flex', justifyContent: 'center', gap: 32 }}>
@@ -172,7 +172,7 @@ export const 사용자_프로필_카드: Story = {
   ),
 }
 
-// Color picker popover — Mantine ColorPicker pattern
+// Color picker popover — AppUI ColorPicker pattern
 export const 컬러_피커_팝오버: Story = {
   render: function Render() {
     const [selectedColor, setSelectedColor] = useState('#6366f1')
@@ -227,7 +227,7 @@ export const 컬러_피커_팝오버: Story = {
   },
 }
 
-// Advanced filter panel — Tailwind UI filter pattern
+// Advanced filter panel — UtilityUI filter pattern
 export const 고급_필터_패널: Story = {
   render: function Render() {
     const [status, setStatus] = useState<string[]>(['active'])
@@ -359,7 +359,7 @@ export const 고급_필터_패널: Story = {
   },
 }
 
-// Quick action popover — Mantine floating action style
+// Quick action popover — AppUI floating action style
 export const 빠른_액션_팝오버: Story = {
   render: function Render() {
     const actions = [
@@ -373,7 +373,7 @@ export const 빠른_액션_팝오버: Story = {
       <div style={{ padding: '100px 80px', display: 'flex', justifyContent: 'center' }}>
         <div style={{ position: 'relative', padding: '24px 28px', borderRadius: 14, border: '1.5px solid #e2e8f0', background: '#fff', boxShadow: '0 2px 12px rgba(0,0,0,0.06)' }}>
           <Typography textStyle="descriptionLarge" style={{ color: '#374151', lineHeight: 1.6 }}>
-            Orbit UI는 Figma 기반의 React 디자인 시스템입니다. 3단계 토큰 아키텍처로 일관된 UI를 빠르게 구축할 수 있습니다.
+            Orbit UI는 DesignTool 기반의 React 디자인 시스템입니다. 3단계 토큰 아키텍처로 일관된 UI를 빠르게 구축할 수 있습니다.
           </Typography>
           <div style={{ position: 'absolute', top: 12, right: 12 }}>
             <Popover>
@@ -419,7 +419,7 @@ export const 빠른_액션_팝오버: Story = {
   },
 }
 
-// Notification detail popover (Vercel deployment notification style)
+// Notification detail popover (DeployPlatform deployment notification style)
 export const 알림_상세_팝오버: Story = {
   render: () => (
     <div style={{ padding: '100px 80px', display: 'flex', justifyContent: 'center' }}>
@@ -484,15 +484,15 @@ export const 알림_상세_팝오버: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Tailwind UI 벤치마크: 공유 옵션 팝오버
-   Tailwind UI Share/Export popover 패턴 — 링크 복사 + 권한 설정
+   UtilityUI 벤치마크: 공유 옵션 팝오버
+   UtilityUI Share/Export popover 패턴 — 링크 복사 + 권한 설정
 -------------------------------------------------------------------------- */
-export const Tailwind_공유_팝오버: Story = {
+export const UtilityCSS_공유_팝오버: Story = {
   render: function Render() {
     const [copied, setCopied] = useState(false)
     const [access, setAccess] = useState<'private' | 'team' | 'public'>('team')
 
-    const shareUrl = 'https://orbit-ui.vercel.app/story/eclipse-actions'
+    const shareUrl = 'https://orbit-ui.deploy.example.com/story/eclipse-actions'
 
     const handleCopy = () => {
       setCopied(true)
@@ -591,8 +591,8 @@ export const Tailwind_공유_팝오버: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Chakra UI 벤치마크: 단축키 참조 팝오버
-   Chakra UI Popover 활용 패턴 — 인라인 도움말, 키보드 단축키 목록
+   AccessibleUI 벤치마크: 단축키 참조 팝오버
+   AccessibleUI Popover 활용 패턴 — 인라인 도움말, 키보드 단축키 목록
 -------------------------------------------------------------------------- */
 const SHORTCUT_GROUPS = [
   {
@@ -613,7 +613,7 @@ const SHORTCUT_GROUPS = [
   },
 ]
 
-export const Chakra_단축키_팝오버: Story = {
+export const Accessible_단축키_팝오버: Story = {
   render: () => (
     <div style={{ padding: '100px 80px', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 16 }}>
       <Typography textStyle="descriptionLarge" style={{ color: '#475569' }}>
@@ -667,7 +667,7 @@ export const Chakra_단축키_팝오버: Story = {
             ))}
 
             <div style={{ fontSize: 11, color: '#94a3b8', paddingTop: 8, borderTop: '1px solid #f1f5f9' }}>
-              Chakra UI Popover 도움말 패턴 — 인라인 ?버튼으로 컨텍스트 도움말 제공
+              AccessibleUI Popover 도움말 패턴 — 인라인 ?버튼으로 컨텍스트 도움말 제공
             </div>
           </div>
         </Popover.Content>
@@ -677,12 +677,12 @@ export const Chakra_단축키_팝오버: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Tailwind + Chakra 벤치마크: 인라인 태그 편집 팝오버
+   UtilityCSS + Accessible 벤치마크: 인라인 태그 편집 팝오버
    콘텐츠 인라인 편집 패턴 — 클릭 시 팝오버로 태그 추가/제거
 -------------------------------------------------------------------------- */
 const ALL_TAGS = ['디자인', 'React', 'TypeScript', 'UI', '접근성', 'Storybook', '토큰', '피그마']
 
-export const Tailwind_태그_편집_팝오버: Story = {
+export const UtilityCSS_태그_편집_팝오버: Story = {
   render: function Render() {
     const [tags, setTags] = useState<string[]>(['디자인', 'React'])
 
@@ -697,7 +697,7 @@ export const Tailwind_태그_편집_팝오버: Story = {
             Orbit UI 소개
           </div>
           <div style={{ fontSize: 13, color: '#475569', marginBottom: 16, lineHeight: 1.6 }}>
-            React 기반 3-tier 아키텍처 디자인 시스템. Tailwind로 타입 안전한 스타일링을 제공합니다.
+            React 기반 3-tier 아키텍처 디자인 시스템. UtilityCSS로 타입 안전한 스타일링을 제공합니다.
           </div>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
@@ -756,14 +756,14 @@ export const Tailwind_태그_편집_팝오버: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Cycle 68: Raycast Extensions + Notion Design 벤치마크
+   Cycle 68: CommandPalette Extensions + WorkspaceEditor Design 벤치마크
 -------------------------------------------------------------------------- */
 
-/* Raycast — ActionPanel 섹션별 액션 팝오버
-   Raycast ActionPanel.Section 패턴. 액션을 카테고리별로 그룹화하고
+/* CommandPalette — ActionPanel 섹션별 액션 팝오버
+   CommandPalette ActionPanel.Section 패턴. 액션을 카테고리별로 그룹화하고
    키보드 단축키를 우측에 표시. 검색 가능한 액션 목록.
 -------------------------------------------------------------------------- */
-const RAYCAST_ACTIONS = [
+const LAUNCHER_ACTIONS = [
   {
     section: '파일 작업',
     items: [
@@ -788,19 +788,19 @@ const RAYCAST_ACTIONS = [
   },
 ]
 
-export const Raycast_ActionPanel_섹션_팝오버: Story = {
-  name: 'Raycast — ActionPanel 섹션별 액션 팝오버',
+export const CommandPalette_ActionPanel_섹션_팝오버: Story = {
+  name: 'CommandPalette — ActionPanel 섹션별 액션 팝오버',
   parameters: {
     docs: {
       description: {
-        story: 'Raycast ActionPanel.Section 패턴. 액션을 카테고리별로 그룹화하고 우측에 키보드 단축키 표시. 섹션 구분선 + 그룹 헤더로 스캐닝 효율화.',
+        story: 'CommandPalette ActionPanel.Section 패턴. 액션을 카테고리별로 그룹화하고 우측에 키보드 단축키 표시. 섹션 구분선 + 그룹 헤더로 스캐닝 효율화.',
       },
     },
   },
-  render: function RaycastActionPanel() {
+  render: function CommandPaletteActionPanel() {
     const [query, setQuery] = useState('')
 
-    const filtered = RAYCAST_ACTIONS.map((section) => ({
+    const filtered = LAUNCHER_ACTIONS.map((section) => ({
       ...section,
       items: section.items.filter((item) =>
         item.label.toLowerCase().includes(query.toLowerCase()),
@@ -868,18 +868,18 @@ export const Raycast_ActionPanel_섹션_팝오버: Story = {
           </Popover.Content>
         </Popover>
         <Typography textStyle="descriptionSmall" style={{ color: '#94a3b8' }}>
-          Raycast ActionPanel.Section 패턴
+          CommandPalette ActionPanel.Section 패턴
         </Typography>
       </div>
     )
   },
 }
 
-/* Notion — @멘션 사용자 팝오버
-   Notion의 @mention 자동완성 팝오버. 입력창에서 @ 입력 시
+/* WorkspaceEditor — @멘션 사용자 팝오버
+   WorkspaceEditor의 @mention 자동완성 팝오버. 입력창에서 @ 입력 시
    유저 목록이 팝오버로 표시되고 선택 시 멘션 텍스트로 삽입.
 -------------------------------------------------------------------------- */
-const NOTION_USERS = [
+const WORKSPACE_USERS = [
   { id: 'u1', name: 'Alice Kim', role: 'Design Lead', initials: 'AK', color: '#6366f1' },
   { id: 'u2', name: 'Bob Lee', role: 'Frontend Dev', initials: 'BL', color: '#0ea5e9' },
   { id: 'u3', name: 'Carol Park', role: 'Product Manager', initials: 'CP', color: '#10b981' },
@@ -887,22 +887,22 @@ const NOTION_USERS = [
   { id: 'u5', name: 'Eve Choi', role: 'QA Engineer', initials: 'EC', color: '#ef4444' },
 ]
 
-export const Notion_멘션_사용자_팝오버: Story = {
-  name: 'Notion — @멘션 사용자 팝오버',
+export const WorkspaceEditor_멘션_사용자_팝오버: Story = {
+  name: 'WorkspaceEditor — @멘션 사용자 팝오버',
   parameters: {
     docs: {
       description: {
-        story: 'Notion @mention 자동완성 패턴. 입력창에서 @ 입력 시 유저 목록 팝오버가 나타납니다. 검색 필터링 + Avatar 이니셜 + 역할 표시 + 키보드 방향키 스타일.',
+        story: 'WorkspaceEditor @mention 자동완성 패턴. 입력창에서 @ 입력 시 유저 목록 팝오버가 나타납니다. 검색 필터링 + Avatar 이니셜 + 역할 표시 + 키보드 방향키 스타일.',
       },
     },
   },
-  render: function NotionMentionPopover() {
+  render: function WorkspaceEditorMentionPopover() {
     const [open, setOpen] = useState(false)
     const [input, setInput] = useState('')
     const [mentionQuery, setMentionQuery] = useState('')
     const [mentions, setMentions] = useState<string[]>([])
 
-    const filteredUsers = NOTION_USERS.filter((u) =>
+    const filteredUsers = WORKSPACE_USERS.filter((u) =>
       u.name.toLowerCase().includes(mentionQuery.toLowerCase()),
     )
 
@@ -918,7 +918,7 @@ export const Notion_멘션_사용자_팝오버: Story = {
       }
     }
 
-    const selectUser = (user: typeof NOTION_USERS[0]) => {
+    const selectUser = (user: typeof WORKSPACE_USERS[0]) => {
       const atIdx = input.lastIndexOf('@')
       const newInput = input.slice(0, atIdx)
       setInput(newInput)
@@ -999,8 +999,8 @@ export const Notion_멘션_사용자_팝오버: Story = {
   },
 }
 
-/* Raycast + Notion — 슬래시 커맨드 블록 타입 선택기
-   Notion의 / 커맨드 메뉴. Raycast의 리스트 아이템 스타일로 블록 타입을 선택.
+/* CommandPalette + WorkspaceEditor — 슬래시 커맨드 블록 타입 선택기
+   WorkspaceEditor의 / 커맨드 메뉴. CommandPalette의 리스트 아이템 스타일로 블록 타입을 선택.
    검색 필터링과 카테고리 섹션 분류 포함.
 -------------------------------------------------------------------------- */
 const BLOCK_TYPES = [
@@ -1014,12 +1014,12 @@ const BLOCK_TYPES = [
   { id: 'divider', label: '구분선', desc: '페이지 섹션 분리', icon: '—', category: '고급' },
 ]
 
-export const Notion_슬래시_커맨드_블록_선택기: Story = {
-  name: 'Notion + Raycast — 슬래시 커맨드 블록 타입 선택기',
+export const WorkspaceEditor_슬래시_커맨드_블록_선택기: Story = {
+  name: 'WorkspaceEditor + CommandPalette — 슬래시 커맨드 블록 타입 선택기',
   parameters: {
     docs: {
       description: {
-        story: 'Notion / 커맨드 메뉴를 Raycast 리스트 스타일로 구현. 블록 타입을 카테고리별로 분류하고 검색 필터링 지원. 아이콘 + 제목 + 설명 3단 레이아웃.',
+        story: 'WorkspaceEditor / 커맨드 메뉴를 CommandPalette 리스트 스타일로 구현. 블록 타입을 카테고리별로 분류하고 검색 필터링 지원. 아이콘 + 제목 + 설명 3단 레이아웃.',
       },
     },
   },
@@ -1196,13 +1196,13 @@ export const Ant_담당자_선택_팝오버: Story = {
   render: () => <AntMemberSelectPopoverRender />,
 }
 
-const MANTINE_COLOR_SWATCHES = [
+const ACCESSIBLEKIT_COLOR_SWATCHES = [
   '#e03131', '#c2255c', '#9c36b5', '#6741d9', '#3b5bdb',
   '#1971c2', '#0c8599', '#087f5b', '#2f9e44', '#66a80f',
   '#f08c00', '#e8590c', '#868e96', '#343a40', '#f1f3f5',
 ]
 
-const MantineColorSwatchRender = () => {
+const AppUIColorSwatchRender = () => {
   const [pickedColor, setPickedColor] = useState('#3b5bdb')
   const [customColor, setCustomColor] = useState('')
 
@@ -1220,7 +1220,7 @@ const MantineColorSwatchRender = () => {
         <Popover.Content style={{ width: 210, padding: '12px' }}>
           <div style={{ fontSize: 11, fontWeight: 700, color: '#868e96', marginBottom: 8, textTransform: 'uppercase', letterSpacing: '0.05em' }}>스와치</div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: 5, marginBottom: 10 }}>
-            {MANTINE_COLOR_SWATCHES.map(color => (
+            {ACCESSIBLEKIT_COLOR_SWATCHES.map(color => (
               <div
                 key={color}
                 onClick={() => setPickedColor(color)}
@@ -1254,16 +1254,16 @@ const MantineColorSwatchRender = () => {
   )
 }
 
-export const Mantine_색상_스와치_팝오버: Story = {
-  name: 'Mantine - 색상 스와치 선택 팝오버',
+export const AppUI_색상_스와치_팝오버: Story = {
+  name: 'AppUI - 색상 스와치 선택 팝오버',
   parameters: {
     docs: {
       description: {
-        story: 'Mantine ColorPicker의 스와치 팝오버 패턴. 프리셋 색상 팔레트(5열 그리드) + HEX 직접 입력을 Popover 안에 구현합니다. 선택한 색상은 트리거 버튼의 Leading 색상 도트와 외부 미리보기에 실시간 반영됩니다.',
+        story: 'AppUI ColorPicker의 스와치 팝오버 패턴. 프리셋 색상 팔레트(5열 그리드) + HEX 직접 입력을 Popover 안에 구현합니다. 선택한 색상은 트리거 버튼의 Leading 색상 도트와 외부 미리보기에 실시간 반영됩니다.',
       },
     },
   },
-  render: () => <MantineColorSwatchRender />,
+  render: () => <AppUIColorSwatchRender />,
 }
 
 const ANT_CONFIRM_ITEMS = [
@@ -1337,8 +1337,8 @@ export const Ant_삭제_확인_팝컨펌: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   shadcn/ui 벤치마크: 이모지 피커 팝오버 패턴
-   shadcn Popover + Command — 이모지 검색 및 선택
+   ComposableUI 벤치마크: 이모지 피커 팝오버 패턴
+   ComposableUI Popover + Command — 이모지 검색 및 선택
 -------------------------------------------------------------------------- */
 const EMOJI_LIST = [
   { e: '😀', n: '웃음' }, { e: '👍', n: '좋아요' }, { e: '🎉', n: '파티' }, { e: '🔥', n: '불' },
@@ -1347,7 +1347,7 @@ const EMOJI_LIST = [
   { e: '🔗', n: '링크' }, { e: '💬', n: '댓글' }, { e: '📊', n: '차트' }, { e: '🛠️', n: '도구' },
 ]
 
-function ShadcnEmojiPickerRender() {
+function ComposableUIEmojiPickerRender() {
   const [open, setOpen] = useState(false)
   const [selected, setSelected] = useState<{ e: string; n: string } | null>(null)
   const [query, setQuery] = useState('')
@@ -1411,28 +1411,28 @@ function ShadcnEmojiPickerRender() {
       {selected && (
         <div style={{ fontSize: 12, color: '#64748b' }}>선택됨: <strong>{selected.e} {selected.n}</strong></div>
       )}
-      <div style={{ fontSize: 11, color: '#94a3b8' }}>shadcn/ui Popover + 이모지 그리드 검색 패턴</div>
+      <div style={{ fontSize: 11, color: '#94a3b8' }}>ComposableUI Popover + 이모지 그리드 검색 패턴</div>
     </div>
   )
 }
 
-export const Shadcn_이모지_피커_팝오버: Story = {
-  name: 'shadcn/ui - 이모지 피커 팝오버',
+export const ComposableUI_이모지_피커_팝오버: Story = {
+  name: 'ComposableUI - 이모지 피커 팝오버',
   parameters: {
     docs: {
       description: {
         story:
-          'shadcn/ui Popover + Command 패턴. 이모지 그리드에 검색 필터를 결합해 빠른 이모지 선택을 제공합니다. ' +
-          '선택된 이모지는 트리거 버튼에 즉시 반영되며, shadcn/ui의 Command + Popover 조합 패턴을 단순화해 구현합니다.',
+          'ComposableUI Popover + Command 패턴. 이모지 그리드에 검색 필터를 결합해 빠른 이모지 선택을 제공합니다. ' +
+          '선택된 이모지는 트리거 버튼에 즉시 반영되며, ComposableUI의 Command + Popover 조합 패턴을 단순화해 구현합니다.',
       },
     },
   },
-  render: () => <ShadcnEmojiPickerRender />,
+  render: () => <ComposableUIEmojiPickerRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Radix UI 벤치마크: 컨텍스트 메뉴 대체 팝오버 패턴
-   Radix ContextMenu → Popover — 우클릭 대신 항목별 액션 팝오버
+   PrimitiveUI 벤치마크: 컨텍스트 메뉴 대체 팝오버 패턴
+   Primitive ContextMenu → Popover — 우클릭 대신 항목별 액션 팝오버
 -------------------------------------------------------------------------- */
 const CONTEXT_ITEMS = [
   { id: 1, title: 'DataTable.stories.tsx', type: 'file', size: '4.2KB' },
@@ -1440,7 +1440,7 @@ const CONTEXT_ITEMS = [
   { id: 3, title: 'components/', type: 'folder', size: '—' },
 ]
 
-function RadixContextMenuPopoverRender() {
+function PrimitiveContextMenuPopoverRender() {
   const [openId, setOpenId] = useState<number | null>(null)
 
   return (
@@ -1492,28 +1492,28 @@ function RadixContextMenuPopoverRender() {
         </div>
       ))}
       <div style={{ padding: '6px 12px', fontSize: 11, color: '#94a3b8', background: '#fafafa', borderTop: '1px solid #e2e8f0' }}>
-        Radix ContextMenu 패턴 — ⋯ 버튼으로 컨텍스트 액션 제공
+        Primitive ContextMenu 패턴 — ⋯ 버튼으로 컨텍스트 액션 제공
       </div>
     </div>
   )
 }
 
-export const Radix_컨텍스트_메뉴_팝오버: Story = {
-  name: 'Radix UI - 컨텍스트 메뉴 대체 팝오버',
+export const Primitive_컨텍스트_메뉴_팝오버: Story = {
+  name: 'PrimitiveUI - 컨텍스트 메뉴 대체 팝오버',
   parameters: {
     docs: {
       description: {
         story:
-          'Radix UI ContextMenu → Popover 대체 패턴. 우클릭 대신 각 항목의 ⋯ 버튼으로 컨텍스트 액션(열기/이름변경/복사/이동/삭제)을 팝오버로 제공합니다. ' +
+          'PrimitiveUI ContextMenu → Popover 대체 패턴. 우클릭 대신 각 항목의 ⋯ 버튼으로 컨텍스트 액션(열기/이름변경/복사/이동/삭제)을 팝오버로 제공합니다. ' +
           '모바일 환경에서도 동작하며 접근성이 높은 대안 패턴입니다.',
       },
     },
   },
-  render: () => <RadixContextMenuPopoverRender />,
+  render: () => <PrimitiveContextMenuPopoverRender />,
 }
 
 /* --------------------------------------------------------------------------
-   shadcn + Radix 복합: 사용자 프리필 팝오버 패턴
+   ComposableUI + Primitive 복합: 사용자 프리필 팝오버 패턴
    멘션(@) 트리거 팝오버 — 텍스트 내 사용자 언급 자동완성
 -------------------------------------------------------------------------- */
 const MENTION_USERS = [
@@ -1523,7 +1523,7 @@ const MENTION_USERS = [
   { id: 4, name: 'James Kim', role: 'Backend', avatar: 'JK' },
 ]
 
-function ShadcnRadixMentionPopoverRender() {
+function ComposableUIPrimitiveMentionPopoverRender() {
   const [open, setOpen] = useState(false)
   const [query, setQuery] = useState('')
   const [mentions, setMentions] = useState<string[]>([])
@@ -1604,37 +1604,37 @@ function ShadcnRadixMentionPopoverRender() {
           ))}
         </div>
       )}
-      <div style={{ fontSize: 11, color: '#94a3b8' }}>shadcn/ui + Radix — @ 멘션 자동완성 팝오버</div>
+      <div style={{ fontSize: 11, color: '#94a3b8' }}>ComposableUI + Primitive — @ 멘션 자동완성 팝오버</div>
     </div>
   )
 }
 
-export const Shadcn_Radix_멘션_자동완성_팝오버: Story = {
-  name: 'shadcn/ui + Radix UI - @ 멘션 자동완성 팝오버',
+export const ComposableUI_Primitive_멘션_자동완성_팝오버: Story = {
+  name: 'ComposableUI + PrimitiveUI - @ 멘션 자동완성 팝오버',
   parameters: {
     docs: {
       description: {
         story:
-          'shadcn/ui + Radix UI 복합 팝오버 패턴. @ 트리거로 사용자 검색 팝오버를 열고 이름/역할로 필터링해 담당자를 지정합니다. ' +
-          '선택된 멘션은 태그 형태로 표시되며 ✕로 제거 가능합니다. Linear, GitHub의 담당자 멘션 UX와 동일한 패턴입니다.',
+          'ComposableUI + PrimitiveUI 복합 팝오버 패턴. @ 트리거로 사용자 검색 팝오버를 열고 이름/역할로 필터링해 담당자를 지정합니다. ' +
+          '선택된 멘션은 태그 형태로 표시되며 ✕로 제거 가능합니다. IssueTracker, CodeHost의 담당자 멘션 UX와 동일한 패턴입니다.',
       },
     },
   },
-  render: () => <ShadcnRadixMentionPopoverRender />,
+  render: () => <ComposableUIPrimitiveMentionPopoverRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Linear Design — 이슈 퀵 편집 팝오버
-   Linear의 인라인 상태/담당자/우선순위 즉시 변경 패턴
+   IssueTracker Design — 이슈 퀵 편집 팝오버
+   IssueTracker의 인라인 상태/담당자/우선순위 즉시 변경 패턴
 -------------------------------------------------------------------------- */
-const LINEAR_STATUSES = ['백로그', '할일', '진행중', '완료', '취소']
-const LINEAR_USERS = ['Alice Kim', 'Bob Lee', 'Carol Park', 'Dave Oh']
-const LINEAR_PRIORITIES = ['긴급', '높음', '중간', '낮음', '없음']
+const TRACKER_STATUSES = ['백로그', '할일', '진행중', '완료', '취소']
+const TRACKER_USERS = ['Alice Kim', 'Bob Lee', 'Carol Park', 'Dave Oh']
+const TRACKER_PRIORITIES = ['긴급', '높음', '중간', '낮음', '없음']
 const STATUS_COLORS: Record<string, string> = {
   '백로그': '#94a3b8', '할일': '#60a5fa', '진행중': '#f59e0b', '완료': '#10b981', '취소': '#6b7280',
 }
 
-function LinearIssueQuickEditRender() {
+function IssueTrackerIssueQuickEditRender() {
   const [status, setStatus] = useState('진행중')
   const [assignee, setAssignee] = useState('Alice Kim')
   const [priority, setPriority] = useState('중간')
@@ -1680,32 +1680,32 @@ function LinearIssueQuickEditRender() {
         <Typography textStyle="labelMedium" color="foregroundPrimary">팝오버 퀵 편집 구현</Typography>
       </div>
       <div style={{ display: 'flex', gap: 4, flexWrap: 'wrap' }}>
-        <Field label="상태" value={status} field="status" options={LINEAR_STATUSES} colors={STATUS_COLORS} />
-        <Field label="담당자" value={assignee} field="assignee" options={LINEAR_USERS} />
-        <Field label="우선순위" value={priority} field="priority" options={LINEAR_PRIORITIES} />
+        <Field label="상태" value={status} field="status" options={TRACKER_STATUSES} colors={STATUS_COLORS} />
+        <Field label="담당자" value={assignee} field="assignee" options={TRACKER_USERS} />
+        <Field label="우선순위" value={priority} field="priority" options={TRACKER_PRIORITIES} />
       </div>
-      <Typography textStyle="descriptionSmall" color="foregroundDisabled">Linear — 이슈 인라인 속성 퀵 편집 팝오버</Typography>
+      <Typography textStyle="descriptionSmall" color="foregroundDisabled">IssueTracker — 이슈 인라인 속성 퀵 편집 팝오버</Typography>
     </div>
   )
 }
 
-export const Linear_이슈_퀵_편집_팝오버: Story = {
-  name: 'Linear Design — 이슈 속성 퀵 편집 팝오버',
+export const IssueTracker_이슈_퀵_편집_팝오버: Story = {
+  name: 'IssueTracker Design — 이슈 속성 퀵 편집 팝오버',
   parameters: {
     docs: {
       description: {
-        story: 'Linear의 인라인 이슈 편집 패턴. 상태/담당자/우선순위를 각각 별도 Popover로 즉시 변경. 버튼 클릭 시 해당 팝오버만 열리고 나머지는 닫힘.',
+        story: 'IssueTracker의 인라인 이슈 편집 패턴. 상태/담당자/우선순위를 각각 별도 Popover로 즉시 변경. 버튼 클릭 시 해당 팝오버만 열리고 나머지는 닫힘.',
       },
     },
   },
-  render: () => <LinearIssueQuickEditRender />,
+  render: () => <IssueTrackerIssueQuickEditRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Radix UI — 접근성 중심 확인 팝오버
-   Radix의 포커스 트랩 + 키보드 탐색 패턴 — 삭제 확인 다이얼로그 대체
+   PrimitiveUI — 접근성 중심 확인 팝오버
+   Primitive의 포커스 트랩 + 키보드 탐색 패턴 — 삭제 확인 다이얼로그 대체
 -------------------------------------------------------------------------- */
-function RadixConfirmPopoverRender() {
+function PrimitiveConfirmPopoverRender() {
   const [items, setItems] = useState(['문서 A', '문서 B', '문서 C', '문서 D'])
   const [deletingItem, setDeletingItem] = useState<string | null>(null)
 
@@ -1717,7 +1717,7 @@ function RadixConfirmPopoverRender() {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 8, minWidth: 320 }}>
       <Typography textStyle="subheadingSmall" color="foregroundPrimary">문서 목록</Typography>
-      <Typography textStyle="descriptionSmall" color="foregroundTertiary">Radix — 키보드 접근성 삭제 확인 팝오버</Typography>
+      <Typography textStyle="descriptionSmall" color="foregroundTertiary">Primitive — 키보드 접근성 삭제 확인 팝오버</Typography>
       {items.length === 0 ? (
         <div style={{ padding: '24px', textAlign: 'center', border: '1px dashed var(--sem-eclipse-color-borderDefault)', borderRadius: 8 }}>
           <Typography textStyle="labelMedium" color="foregroundDisabled">모든 문서가 삭제되었습니다</Typography>
@@ -1752,21 +1752,21 @@ function RadixConfirmPopoverRender() {
   )
 }
 
-export const Radix_접근성_삭제_확인_팝오버: Story = {
-  name: 'Radix UI — 접근성 중심 삭제 확인 팝오버',
+export const Primitive_접근성_삭제_확인_팝오버: Story = {
+  name: 'PrimitiveUI — 접근성 중심 삭제 확인 팝오버',
   parameters: {
     docs: {
       description: {
-        story: 'Radix UI의 포커스 트랩 + 키보드 탐색 패턴. 삭제 버튼 클릭 시 확인 팝오버 표시, 취소/확인으로 처리. 경량 confirm 대화상자로 AlertDialog 대비 더 인라인 친화적.',
+        story: 'PrimitiveUI의 포커스 트랩 + 키보드 탐색 패턴. 삭제 버튼 클릭 시 확인 팝오버 표시, 취소/확인으로 처리. 경량 confirm 대화상자로 AlertDialog 대비 더 인라인 친화적.',
       },
     },
   },
-  render: () => <RadixConfirmPopoverRender />,
+  render: () => <PrimitiveConfirmPopoverRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Linear + Radix — 레이블 관리 팝오버
-   Linear의 멀티셀렉트 레이블 + Radix 접근성 패턴
+   IssueTracker + Primitive — 레이블 관리 팝오버
+   IssueTracker의 멀티셀렉트 레이블 + Primitive 접근성 패턴
 -------------------------------------------------------------------------- */
 const LABEL_OPTIONS = [
   { id: 'bug', name: '버그', color: '#ef4444' },
@@ -1777,7 +1777,7 @@ const LABEL_OPTIONS = [
   { id: 'design', name: '디자인', color: '#ec4899' },
 ]
 
-function LinearRadixLabelManagerRender() {
+function IssueTrackerPrimitiveLabelManagerRender() {
   const [selected, setSelected] = useState<string[]>(['bug', 'feature'])
   const [open, setOpen] = useState(false)
   const [search, setSearch] = useState('')
@@ -1841,27 +1841,27 @@ function LinearRadixLabelManagerRender() {
   )
 }
 
-export const Linear_Radix_레이블_관리_팝오버: Story = {
-  name: 'Linear + Radix UI — 멀티셀렉트 레이블 관리 팝오버',
+export const IssueTracker_Primitive_레이블_관리_팝오버: Story = {
+  name: 'IssueTracker + PrimitiveUI — 멀티셀렉트 레이블 관리 팝오버',
   parameters: {
     docs: {
       description: {
-        story: 'Linear 레이블 멀티셀렉트 + Radix 접근성 패턴. 검색 필터 + 색상 도트 + 체크 표시. 선택된 레이블은 컬러 태그로 외부 표시. CounterBadge로 선택 수 즉시 확인.',
+        story: 'IssueTracker 레이블 멀티셀렉트 + Primitive 접근성 패턴. 검색 필터 + 색상 도트 + 체크 표시. 선택된 레이블은 컬러 태그로 외부 표시. CounterBadge로 선택 수 즉시 확인.',
       },
     },
   },
-  render: () => <LinearRadixLabelManagerRender />,
+  render: () => <IssueTrackerPrimitiveLabelManagerRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Cycle 178 — Radix UI + Linear Design
+   Cycle 178 — PrimitiveUI + IssueTracker Design
    Benchmark:
-   1. Radix Popover: 폼 입력을 팝오버 내부에 배치하는 인라인 편집 패턴
-   2. Linear: 단축키 힌트 팝오버 — 호버 시 키보드 단축키 오버레이
-   3. Linear + Radix: 색상 선택 팝오버 — 팔레트 그리드 + 텍스트 입력
+   1. Primitive Popover: 폼 입력을 팝오버 내부에 배치하는 인라인 편집 패턴
+   2. IssueTracker: 단축키 힌트 팝오버 — 호버 시 키보드 단축키 오버레이
+   3. IssueTracker + Primitive: 색상 선택 팝오버 — 팔레트 그리드 + 텍스트 입력
 -------------------------------------------------------------------------- */
 
-function RadixInlineEditPopoverRender() {
+function PrimitiveInlineEditPopoverRender() {
   const [name, setName] = useState('Orbit UI')
   const [desc, setDesc] = useState('React 디자인 시스템')
   const [draft, setDraft] = useState({ name: 'Orbit UI', desc: 'React 디자인 시스템' })
@@ -1919,19 +1919,19 @@ function RadixInlineEditPopoverRender() {
   )
 }
 
-export const Radix_인라인_편집_팝오버: Story = {
-  name: 'Radix UI — 인라인 편집 팝오버 (폼 내장 + 저장/취소)',
+export const Primitive_인라인_편집_팝오버: Story = {
+  name: 'PrimitiveUI — 인라인 편집 팝오버 (폼 내장 + 저장/취소)',
   parameters: {
     docs: {
       description: {
-        story: 'Radix UI Popover 안에 폼 입력을 배치하는 인라인 편집 패턴. 저장 시 외부 값 업데이트 후 팝오버 닫기. Notion/Linear 인라인 편집 UX를 Orbit UI Popover로 구현. open 상태 제어로 저장/취소 동작.',
+        story: 'PrimitiveUI Popover 안에 폼 입력을 배치하는 인라인 편집 패턴. 저장 시 외부 값 업데이트 후 팝오버 닫기. WorkspaceEditor/IssueTracker 인라인 편집 UX를 Orbit UI Popover로 구현. open 상태 제어로 저장/취소 동작.',
       },
     },
   },
-  render: () => <RadixInlineEditPopoverRender />,
+  render: () => <PrimitiveInlineEditPopoverRender />,
 }
 
-function LinearShortcutHintPopoverRender() {
+function IssueTrackerShortcutHintPopoverRender() {
   const shortcuts = [
     { action: '이슈 생성', keys: ['C'] },
     { action: '검색', keys: ['⌘', 'K'] },
@@ -1971,7 +1971,7 @@ function LinearShortcutHintPopoverRender() {
               ))}
             </div>
             <div style={{ marginTop: 8, paddingTop: 8, borderTop: '1px solid #f1f5f9', fontSize: 10, color: '#94a3b8', textAlign: 'center' }}>
-              Linear 스타일 단축키 팝오버
+              IssueTracker 스타일 단축키 팝오버
             </div>
           </div>
         </Popover.Content>
@@ -1980,16 +1980,16 @@ function LinearShortcutHintPopoverRender() {
   )
 }
 
-export const Linear_단축키_팝오버: Story = {
-  name: 'Linear — 키보드 단축키 힌트 팝오버 (Linear 스타일)',
+export const IssueTracker_단축키_팝오버: Story = {
+  name: 'IssueTracker — 키보드 단축키 힌트 팝오버 (IssueTracker 스타일)',
   parameters: {
     docs: {
       description: {
-        story: 'Linear의 ? 단축키 팝오버 패턴 구현. 액션-단축키 쌍을 행으로 나열하고 kbd 스타일 키 칩으로 표시. Popover.Content 안에 단축키 테이블을 배치. 프로덕티비티 앱 키보드 힌트 UX.',
+        story: 'IssueTracker의 ? 단축키 팝오버 패턴 구현. 액션-단축키 쌍을 행으로 나열하고 kbd 스타일 키 칩으로 표시. Popover.Content 안에 단축키 테이블을 배치. 프로덕티비티 앱 키보드 힌트 UX.',
       },
     },
   },
-  render: () => <LinearShortcutHintPopoverRender />,
+  render: () => <IssueTrackerShortcutHintPopoverRender />,
 }
 
 const COLOR_PALETTE = [
@@ -1998,7 +1998,7 @@ const COLOR_PALETTE = [
   '#fee2e2', '#fef3c7', '#dcfce7', '#dbeafe', '#ede9fe',
 ]
 
-function RadixLinearColorPickerRender() {
+function PrimitiveIssueTrackerColorPickerRender() {
   const [color, setColor] = useState('#6366f1')
   const [hex, setHex] = useState('#6366f1')
   const [open, setOpen] = useState(false)
@@ -2056,14 +2056,14 @@ function RadixLinearColorPickerRender() {
   )
 }
 
-export const Radix_Linear_색상_피커_팝오버: Story = {
-  name: 'Radix + Linear — 색상 선택 팝오버 (팔레트 + HEX 입력)',
+export const Primitive_IssueTracker_색상_피커_팝오버: Story = {
+  name: 'Primitive + IssueTracker — 색상 선택 팝오버 (팔레트 + HEX 입력)',
   parameters: {
     docs: {
       description: {
-        story: 'Radix Popover + Linear 색상 선택기 패턴. 스와치 클릭 시 색상 선택 후 팝오버 닫기, HEX 직접 입력 지원. 모듈 레벨 COLOR_PALETTE 상수로 exhaustive-deps 경고 방지.',
+        story: 'Primitive Popover + IssueTracker 색상 선택기 패턴. 스와치 클릭 시 색상 선택 후 팝오버 닫기, HEX 직접 입력 지원. 모듈 레벨 COLOR_PALETTE 상수로 exhaustive-deps 경고 방지.',
       },
     },
   },
-  render: () => <RadixLinearColorPickerRender />,
+  render: () => <PrimitiveIssueTrackerColorPickerRender />,
 }

@@ -24,9 +24,9 @@ export const duration = {
 /**
  * Easing curves - cubic-bezier()
  *
- * Material/iOS/Linear 등 모던 디자인 시스템의 표준 곡선을 차용했습니다.
- * - standard   : 일반적 진입/이탈 (Linear/Vercel 표준)
- * - emphasized : 사용자가 시작한 큰 변화 (Material 3)
+ * 최신 인터페이스에서 널리 쓰이는 표준 곡선을 차용했습니다.
+ * - standard   : 일반적 진입/이탈
+ * - emphasized : 사용자가 시작한 큰 변화
  * - decelerate : 들어오는 요소 (모달 enter)
  * - accelerate : 나가는 요소 (모달 exit)
  * - spring     : 탄성 (success/error 피드백)

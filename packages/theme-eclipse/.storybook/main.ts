@@ -1,17 +1,18 @@
 import { dirname, join } from 'path'
 
 import type { StorybookConfig } from '@storybook/react-vite'
+import { mergeConfig } from 'vite'
 
 const config: StorybookConfig = {
   stories: [
     '../src/**/*.stories.@(ts|tsx)',
-    '../src/**/*.mdx',
     '../*.mdx',
     '../../core/src/**/primitives/**/*.stories.@(ts|tsx)',
   ],
   addons: [
     getAbsolutePath('@storybook/addon-links'),
     getAbsolutePath('@storybook/addon-essentials'),
+    getAbsolutePath('@storybook/addon-viewport'),
     getAbsolutePath('@storybook/addon-a11y'),
   ],
   core: {
@@ -21,6 +22,21 @@ const config: StorybookConfig = {
   docs: {
     autodocs: 'tag',
   },
+  viteFinal: async (viteConfig) =>
+    mergeConfig(viteConfig, {
+      build: {
+        chunkSizeWarningLimit: 2000,
+        rollupOptions: {
+          onwarn(warning: { code?: string; id?: string }, warn: (warning: unknown) => void) {
+            if (warning.code === 'EVAL' && warning.id?.includes('@storybook/core')) {
+              return
+            }
+
+            warn(warning)
+          },
+        },
+      },
+    }),
 }
 
 function getAbsolutePath(value: string) {

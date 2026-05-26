@@ -10,13 +10,11 @@ import { CircleCancelFillIcon, SearchIcon } from '@heejun-com/icons'
 import React, { AllHTMLAttributes, forwardRef, useState } from 'react'
 
 import { vars } from '../../styles/theme-vars'
-import { FilledIconButton } from '../SolidIconButton'
 import { Typography } from '../Text'
 
 const SEARCHBAR_CLASS = {
   captionWrapper: 'flex gap-[var(--ref-spacing-50)]',
   caption: 'whitespace-nowrap',
-  clearButton: 'w-6 h-6 overflow-visible',
   iconButton: 'shrink-0',
 }
 
@@ -57,11 +55,7 @@ export type SearchBarProps = Omit<
 export const SearchBar = forwardRef<HTMLInputElement, SearchBarProps>((props, ref) => {
   const { theme, children, placeholder, caption = '', onFocus, onBlur, onChange, ...rest } = props
 
-  const {
-    isFocused,
-    ref: selfRef,
-    ...handlers
-  } = useFocus({
+  const { isFocused, ref: selfRef, handlers } = useFocus({
     onFocus,
     onBlur,
   })
@@ -108,14 +102,11 @@ export const SearchBar = forwardRef<HTMLInputElement, SearchBarProps>((props, re
       </TextField.Center>
 
       <TextField.ClearButton visibility="onPopulated">
-        <FilledIconButton
-          color="white"
-          size="medium"
-          theme={{ enabledFillColor: vars.sem.color.fillNone }}
+        <CircleCancelFillIcon
           className={SEARCHBAR_CLASS.iconButton}
-        >
-          <CircleCancelFillIcon size={16} color={vars.sem.color.foregroundQuaternary} />
-        </FilledIconButton>
+          size={16}
+          color={vars.sem.color.foregroundQuaternary}
+        />
       </TextField.ClearButton>
     </TextField>
   )

@@ -93,14 +93,14 @@ export const 디자인_QA = {
     selected: false,
     disabled: false,
   },
-   
+
   render: (args: any) => {
     return <PageDots {...args} />
   },
 } satisfies Story
 
 /* --------------------------------------------------------------------------
-   Mantine 스타일 스텝 위저드
+   AppUI 스타일 스텝 위저드
    단계별 완료 상태와 레이블이 있는 멀티스텝 인디케이터 패턴
 -------------------------------------------------------------------------- */
 const WIZARD_STEPS = [
@@ -110,8 +110,8 @@ const WIZARD_STEPS = [
   { label: '완료', desc: '설정 완료' },
 ]
 
-export const Mantine_스텝_위저드: Story = {
-  render: function MantineStepWizard() {
+export const AppUI_스텝_위저드: Story = {
+  render: function AppUIStepWizard() {
     const [currentStep, setCurrentStep] = useState(1)
 
     return (
@@ -176,18 +176,18 @@ export const Mantine_스텝_위저드: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Arco Design 스타일 캐러셀 자동 재생
+   DataProductUI 스타일 캐러셀 자동 재생
    타이머 기반 자동 슬라이드 전환과 수동 제어가 결합된 캐러셀 패턴
 -------------------------------------------------------------------------- */
 const CAROUSEL_SLIDES = [
   { title: 'Design System 소개', subtitle: '3-tier 아키텍처로 확장 가능한 UI', color: '#6366f1', bg: '#eef2ff' },
-  { title: 'Eclipse 테마', subtitle: 'Tailwind + 토큰 기반 타입 안전 스타일링', color: '#0ea5e9', bg: '#f0f9ff' },
+  { title: 'Eclipse 테마', subtitle: 'UtilityCSS + 토큰 기반 타입 안전 스타일링', color: '#0ea5e9', bg: '#f0f9ff' },
   { title: '토큰 시스템', subtitle: 'Reference → Semantic → Component 3단계', color: '#10b981', bg: '#f0fdf4' },
   { title: 'Storybook 문서화', subtitle: '모든 컴포넌트의 인터랙티브 플레이그라운드', color: '#f59e0b', bg: '#fffbeb' },
 ]
 
-export const Arco_캐러셀_자동재생: Story = {
-  render: function ArcoCarousel() {
+export const DataProduct_캐러셀_자동재생: Story = {
+  render: function DataProductCarousel() {
     const [current, setCurrent] = useState(0)
     const [paused, setPaused] = useState(false)
 
@@ -244,7 +244,7 @@ export const Arco_캐러셀_자동재생: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Mantine 스타일 온보딩 진행률
+   AppUI 스타일 온보딩 진행률
    완료/진행 중/미완료 세 가지 상태가 있는 온보딩 체크리스트 패턴
 -------------------------------------------------------------------------- */
 const ONBOARDING_ITEMS = [
@@ -255,8 +255,8 @@ const ONBOARDING_ITEMS = [
   { id: 'deploy', label: '프로덕션 배포', done: false },
 ]
 
-export const Mantine_온보딩_진행률: Story = {
-  render: function MantineOnboarding() {
+export const AppUI_온보딩_진행률: Story = {
+  render: function AppUIOnboarding() {
     const [doneSet, setDoneSet] = useState<Set<string>>(new Set(['install', 'config']))
 
     const completedCount = doneSet.size
@@ -326,11 +326,11 @@ export const Mantine_온보딩_진행률: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Cycle 66: shadcn/ui + Vercel Design 벤치마크
+   Cycle 66: ComposableUI + DeployPlatform Design 벤치마크
 -------------------------------------------------------------------------- */
 
-/* shadcn/ui Carousel — 이미지 갤러리 캐러셀 인디케이터
-   shadcn의 Carousel 컴포넌트처럼 아래 점 인디케이터로 슬라이드 위치 표시.
+/* ComposableUI Carousel — 이미지 갤러리 캐러셀 인디케이터
+   ComposableUI의 Carousel 컴포넌트처럼 아래 점 인디케이터로 슬라이드 위치 표시.
    클릭으로 슬라이드 이동 + 자동 재생 토글.
 -------------------------------------------------------------------------- */
 const GALLERY_SLIDES = [
@@ -341,16 +341,16 @@ const GALLERY_SLIDES = [
   { title: '접근성 가이드', bg: '#fef2f2', accent: '#dc2626' },
 ]
 
-export const shadcn_이미지_갤러리_캐러셀: Story = {
-  name: 'shadcn/ui — 이미지 갤러리 캐러셀',
+export const ComposableUI_이미지_갤러리_캐러셀: Story = {
+  name: 'ComposableUI — 이미지 갤러리 캐러셀',
   parameters: {
     docs: {
       description: {
-        story: 'shadcn/ui Carousel 패턴. PageDots를 슬라이드 인디케이터로 활용. 클릭 이동 + 좌우 화살표 + 자동재생 토글. 5개 슬라이드 갤러리.',
+        story: 'ComposableUI Carousel 패턴. PageDots를 슬라이드 인디케이터로 활용. 클릭 이동 + 좌우 화살표 + 자동재생 토글. 5개 슬라이드 갤러리.',
       },
     },
   },
-  render: function ShadcnGalleryCarousel() {
+  render: function ComposableUIGalleryCarousel() {
     const [current, setCurrent] = useState(0)
     const [autoPlay, setAutoPlay] = useState(false)
     const total = GALLERY_SLIDES.length
@@ -418,8 +418,8 @@ export const shadcn_이미지_갤러리_캐러셀: Story = {
   },
 }
 
-/* Vercel — 온보딩 스텝 플로우
-   Vercel 신규 가입 온보딩 패턴. 4단계 설정 마법사.
+/* DeployPlatform — 온보딩 스텝 플로우
+   DeployPlatform 신규 가입 온보딩 패턴. 4단계 설정 마법사.
    PageDots로 현재 단계 표시, 각 단계마다 실질적인 입력 UI 포함.
 -------------------------------------------------------------------------- */
 const ONBOARDING_STEPS = [
@@ -436,7 +436,7 @@ const ONBOARDING_STEPS = [
   {
     title: '레포지토리 연결',
     desc: 'Git 레포지토리를 연결합니다.',
-    placeholder: 'github.com/username/repo',
+    placeholder: 'code.example.com/workspace/repo',
   },
   {
     title: '설정 완료',
@@ -444,16 +444,16 @@ const ONBOARDING_STEPS = [
   },
 ]
 
-export const Vercel_온보딩_스텝_플로우: Story = {
-  name: 'Vercel — 온보딩 스텝 플로우',
+export const DeployPlatform_온보딩_스텝_플로우: Story = {
+  name: 'DeployPlatform — 온보딩 스텝 플로우',
   parameters: {
     docs: {
       description: {
-        story: 'Vercel 신규 사용자 온보딩 패턴. 4단계 설정 마법사에 PageDots를 스텝 인디케이터로 활용. 각 단계마다 실질적 입력 UI와 이전/다음 내비게이션.',
+        story: 'DeployPlatform 신규 사용자 온보딩 패턴. 4단계 설정 마법사에 PageDots를 스텝 인디케이터로 활용. 각 단계마다 실질적 입력 UI와 이전/다음 내비게이션.',
       },
     },
   },
-  render: function VercelOnboarding() {
+  render: function DeployPlatformOnboarding() {
     const [step, setStep] = useState(0)
     const [values, setValues] = useState({ team: '', framework: '', repo: '' })
     const total = ONBOARDING_STEPS.length
@@ -553,8 +553,8 @@ export const Vercel_온보딩_스텝_플로우: Story = {
   },
 }
 
-/* Vercel — 기능 투어 슬라이더
-   Vercel 신기능 소개 패턴. 수평 슬라이더로 주요 기능을 순서대로 소개.
+/* DeployPlatform — 기능 투어 슬라이더
+   DeployPlatform 신기능 소개 패턴. 수평 슬라이더로 주요 기능을 순서대로 소개.
    PageDots를 하단 위치 인디케이터로 사용.
 -------------------------------------------------------------------------- */
 const FEATURE_SLIDES = [
@@ -588,16 +588,16 @@ const FEATURE_SLIDES = [
   },
 ]
 
-export const Vercel_기능_투어_슬라이더: Story = {
-  name: 'Vercel — 기능 투어 슬라이더',
+export const DeployPlatform_기능_투어_슬라이더: Story = {
+  name: 'DeployPlatform — 기능 투어 슬라이더',
   parameters: {
     docs: {
       description: {
-        story: 'Vercel 신기능 소개 슬라이더 패턴. 4가지 주요 기능을 카드 형태로 순차 소개. PageDots로 현재 위치 표시.',
+        story: 'DeployPlatform 신기능 소개 슬라이더 패턴. 4가지 주요 기능을 카드 형태로 순차 소개. PageDots로 현재 위치 표시.',
       },
     },
   },
-  render: function VercelFeatureTour() {
+  render: function DeployPlatformFeatureTour() {
     const [current, setCurrent] = useState(0)
     const total = FEATURE_SLIDES.length
     const slide = FEATURE_SLIDES[current]
@@ -659,8 +659,8 @@ export const Vercel_기능_투어_슬라이더: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Radix UI 벤치마크: 다이얼로그 스텝 인디케이터
-   Radix Dialog 내 멀티스텝 플로우 — PageDots로 진행 단계 표시
+   PrimitiveUI 벤치마크: 다이얼로그 스텝 인디케이터
+   Primitive Dialog 내 멀티스텝 플로우 — PageDots로 진행 단계 표시
 -------------------------------------------------------------------------- */
 const RADIX_DIALOG_STEPS = [
   { title: '사용 목적', desc: '어떤 용도로 사용하실 예정인가요?' },
@@ -678,19 +678,19 @@ const RADIX_PLANS = [
   { name: 'Team', price: '₩79,000/월', highlight: false },
 ]
 
-export const Radix_다이얼로그_스텝_인디케이터: Story = {
-  name: 'Radix UI - 다이얼로그 멀티스텝 인디케이터',
+export const Primitive_다이얼로그_스텝_인디케이터: Story = {
+  name: 'PrimitiveUI - 다이얼로그 멀티스텝 인디케이터',
   parameters: {
     docs: {
       description: {
         story:
-          'Radix UI Dialog 내 멀티스텝 플로우 패턴. ' +
+          'PrimitiveUI Dialog 내 멀티스텝 플로우 패턴. ' +
           'PageDots로 현재 단계 표시, 각 단계별 선택 UI 포함. ' +
           '가입/온보딩 플로우에 활용됩니다.',
       },
     },
   },
-  render: function RadixDialogSteps() {
+  render: function PrimitiveDialogSteps() {
     const [step, setStep] = useState(0)
     const [selections, setSelections] = useState({ purpose: '', size: '', plan: '' })
     const total = RADIX_DIALOG_STEPS.length
@@ -817,10 +817,10 @@ export const Radix_다이얼로그_스텝_인디케이터: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Linear 벤치마크: 이슈 상태 전환 흐름 표시
-   Linear 이슈 상세 — 상태 전환 히스토리를 dot으로 시각화
+   IssueTracker 벤치마크: 이슈 상태 전환 흐름 표시
+   IssueTracker 이슈 상세 — 상태 전환 히스토리를 dot으로 시각화
 -------------------------------------------------------------------------- */
-const LINEAR_STATES = [
+const TRACKER_STATES = [
   { label: '접수', color: '#94a3b8', done: true },
   { label: '검토 중', color: '#6366f1', done: true },
   { label: '개발 중', color: '#f59e0b', done: false },
@@ -828,19 +828,19 @@ const LINEAR_STATES = [
   { label: '완료', color: '#22c55e', done: false },
 ]
 
-export const Linear_이슈_상태_플로우: Story = {
-  name: 'Linear - 이슈 상태 전환 흐름',
+export const IssueTracker_이슈_상태_플로우: Story = {
+  name: 'IssueTracker - 이슈 상태 전환 흐름',
   parameters: {
     docs: {
       description: {
         story:
-          'Linear 이슈 상태 전환 히스토리 패턴. ' +
+          'IssueTracker 이슈 상태 전환 히스토리 패턴. ' +
           'PageDots로 이슈의 현재 상태와 이전/이후 상태를 시각화합니다. ' +
           '완료된 단계는 활성 dot, 미완료 단계는 비활성으로 표시됩니다.',
       },
     },
   },
-  render: function LinearIssueFlow() {
+  render: function IssueTrackerIssueFlow() {
     const [activeStep, setActiveStep] = useState(1)
 
     return (
@@ -862,8 +862,8 @@ export const Linear_이슈_상태_플로우: Story = {
           상태 전환 이력
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 0, marginBottom: 20 }}>
-          {LINEAR_STATES.map((state, i) => (
-            <div key={state.label} style={{ display: 'flex', alignItems: 'center', flex: i < LINEAR_STATES.length - 1 ? 1 : 'none' }}>
+          {TRACKER_STATES.map((state, i) => (
+            <div key={state.label} style={{ display: 'flex', alignItems: 'center', flex: i < TRACKER_STATES.length - 1 ? 1 : 'none' }}>
               <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6 }}>
                 <PageDots
                   selected={i <= activeStep}
@@ -873,7 +873,7 @@ export const Linear_이슈_상태_플로우: Story = {
                   {state.label}
                 </div>
               </div>
-              {i < LINEAR_STATES.length - 1 && (
+              {i < TRACKER_STATES.length - 1 && (
                 <div style={{ flex: 1, height: 2, margin: '0 4px', marginBottom: 18, background: i < activeStep ? '#e2e8f0' : '#f1f5f9' }} />
               )}
             </div>
@@ -882,15 +882,15 @@ export const Linear_이슈_상태_플로우: Story = {
 
         {/* 현재 상태 카드 */}
         <div style={{
-          padding: '14px 16px', borderRadius: 10, border: `1.5px solid ${LINEAR_STATES[activeStep].color}33`,
-          background: `${LINEAR_STATES[activeStep].color}0a`,
+          padding: '14px 16px', borderRadius: 10, border: `1.5px solid ${TRACKER_STATES[activeStep].color}33`,
+          background: `${TRACKER_STATES[activeStep].color}0a`,
         }}>
-          <div style={{ fontSize: 12, fontWeight: 700, color: LINEAR_STATES[activeStep].color, marginBottom: 4 }}>
-            현재: {LINEAR_STATES[activeStep].label}
+          <div style={{ fontSize: 12, fontWeight: 700, color: TRACKER_STATES[activeStep].color, marginBottom: 4 }}>
+            현재: {TRACKER_STATES[activeStep].label}
           </div>
           <div style={{ fontSize: 11, color: '#64748b' }}>
-            {activeStep < LINEAR_STATES.length - 1
-              ? `다음 단계: ${LINEAR_STATES[activeStep + 1].label}`
+            {activeStep < TRACKER_STATES.length - 1
+              ? `다음 단계: ${TRACKER_STATES[activeStep + 1].label}`
               : '이슈가 완료되었습니다.'}
           </div>
         </div>
@@ -904,9 +904,9 @@ export const Linear_이슈_상태_플로우: Story = {
             이전 상태
           </button>
           <button
-            onClick={() => setActiveStep((s) => Math.min(LINEAR_STATES.length - 1, s + 1))}
-            disabled={activeStep === LINEAR_STATES.length - 1}
-            style={{ flex: 1, padding: '8px 0', borderRadius: 6, border: 'none', background: activeStep < LINEAR_STATES.length - 1 ? '#0f172a' : '#e2e8f0', color: activeStep < LINEAR_STATES.length - 1 ? '#fff' : '#94a3b8', fontSize: 12, fontWeight: 600, cursor: activeStep === LINEAR_STATES.length - 1 ? 'not-allowed' : 'pointer' }}
+            onClick={() => setActiveStep((s) => Math.min(TRACKER_STATES.length - 1, s + 1))}
+            disabled={activeStep === TRACKER_STATES.length - 1}
+            style={{ flex: 1, padding: '8px 0', borderRadius: 6, border: 'none', background: activeStep < TRACKER_STATES.length - 1 ? '#0f172a' : '#e2e8f0', color: activeStep < TRACKER_STATES.length - 1 ? '#fff' : '#94a3b8', fontSize: 12, fontWeight: 600, cursor: activeStep === TRACKER_STATES.length - 1 ? 'not-allowed' : 'pointer' }}
           >
             다음 상태
           </button>
@@ -917,29 +917,29 @@ export const Linear_이슈_상태_플로우: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Linear 벤치마크: 툴팁 포지셔닝 데모 인디케이터
-   LinearUI 문서 스타일 — 인터랙티브 예제 슬라이드 내비게이션
+   IssueTracker 벤치마크: 툴팁 포지셔닝 데모 인디케이터
+   IssueTrackerUI 문서 스타일 — 인터랙티브 예제 슬라이드 내비게이션
 -------------------------------------------------------------------------- */
-const LINEAR_EXAMPLES = [
+const TRACKER_EXAMPLES = [
   { title: '기본 PageDot', desc: 'selected=false/true 두 가지 상태', bg: '#f8fafc' },
   { title: '캐러셀 인디케이터', desc: '콘텐츠 슬라이더의 현재 위치 표시', bg: '#f0f9ff' },
   { title: '스텝 인디케이터', desc: '멀티스텝 폼/온보딩 진행률 표시', bg: '#faf5ff' },
 ]
 
-export const Linear_문서_예제_슬라이드: Story = {
-  name: 'Linear - 문서 인터랙티브 예제 슬라이드',
+export const IssueTracker_문서_예제_슬라이드: Story = {
+  name: 'IssueTracker - 문서 인터랙티브 예제 슬라이드',
   parameters: {
     docs: {
       description: {
         story:
-          'Linear 컴포넌트 문서 스타일. 예제 카드들을 슬라이드로 순환하며 PageDots로 위치를 나타냅니다. ' +
+          'IssueTracker 컴포넌트 문서 스타일. 예제 카드들을 슬라이드로 순환하며 PageDots로 위치를 나타냅니다. ' +
           '컴포넌트 사용법 문서의 인터랙티브 예제 패턴입니다.',
       },
     },
   },
-  render: function LinearDocSlides() {
+  render: function IssueTrackerDocSlides() {
     const [current, setCurrent] = useState(0)
-    const example = LINEAR_EXAMPLES[current]
+    const example = TRACKER_EXAMPLES[current]
 
     return (
       <div style={{ width: 380, fontFamily: 'system-ui, sans-serif' }}>
@@ -951,7 +951,7 @@ export const Linear_문서_예제_슬라이드: Story = {
           transition: 'background 0.2s',
         }}>
           <div style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 8 }}>
-            예제 {current + 1} / {LINEAR_EXAMPLES.length}
+            예제 {current + 1} / {TRACKER_EXAMPLES.length}
           </div>
           <div style={{ fontSize: 17, fontWeight: 800, color: '#0f172a', marginBottom: 6 }}>
             {example.title}
@@ -961,7 +961,7 @@ export const Linear_문서_예제_슬라이드: Story = {
           </div>
           {/* 실제 PageDots 데모 */}
           <div style={{ marginTop: 16, display: 'flex', gap: 6 }}>
-            {LINEAR_EXAMPLES.map((_, i) => (
+            {TRACKER_EXAMPLES.map((_, i) => (
               <PageDots key={i} selected={i === current} />
             ))}
           </div>
@@ -969,7 +969,7 @@ export const Linear_문서_예제_슬라이드: Story = {
 
         {/* 외부 컨트롤 도트 */}
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8 }}>
-          {LINEAR_EXAMPLES.map((_, i) => (
+          {TRACKER_EXAMPLES.map((_, i) => (
             <PageDots key={i} selected={i === current} onClick={() => setCurrent(i)} />
           ))}
         </div>
@@ -982,8 +982,8 @@ export const Linear_문서_예제_슬라이드: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Tailwind UI 벤치마크: 갤러리 이미지 캐러셀 도트 인디케이터 패턴
-   Tailwind UI Carousel — 썸네일 미리보기 + 도트 탐색 조합
+   UtilityUI 벤치마크: 갤러리 이미지 캐러셀 도트 인디케이터 패턴
+   UtilityUI Carousel — 썸네일 미리보기 + 도트 탐색 조합
 -------------------------------------------------------------------------- */
 const GALLERY_ITEMS = [
   { title: 'Dashboard Overview', color: '#6366f1' },
@@ -993,7 +993,7 @@ const GALLERY_ITEMS = [
   { title: 'Profile Page', color: '#dc2626' },
 ]
 
-function TailwindGalleryCarouselRender() {
+function UtilityCSSGalleryCarouselRender() {
   const [current, setCurrent] = useState(0)
 
   const prev = () => setCurrent(i => (i - 1 + GALLERY_ITEMS.length) % GALLERY_ITEMS.length)
@@ -1048,27 +1048,27 @@ function TailwindGalleryCarouselRender() {
           />
         ))}
       </div>
-      <div style={{ fontSize: 11, color: '#94a3b8' }}>Tailwind UI 갤러리 캐러셀 — 오버레이 도트 + 썸네일 탐색</div>
+      <div style={{ fontSize: 11, color: '#94a3b8' }}>UtilityUI 갤러리 캐러셀 — 오버레이 도트 + 썸네일 탐색</div>
     </div>
   )
 }
 
-export const Tailwind_갤러리_캐러셀_도트_인디케이터: Story = {
-  name: 'Tailwind UI - 갤러리 캐러셀 도트 인디케이터 패턴',
+export const UtilityCSS_갤러리_캐러셀_도트_인디케이터: Story = {
+  name: 'UtilityUI - 갤러리 캐러셀 도트 인디케이터 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'Tailwind UI Carousel 패턴. 이미지 오버레이에 PageDots를 배치하고 하단 썸네일 스트립으로도 탐색합니다. ' +
+          'UtilityUI Carousel 패턴. 이미지 오버레이에 PageDots를 배치하고 하단 썸네일 스트립으로도 탐색합니다. ' +
           '이전/다음 버튼과 도트 클릭 모두 슬라이드를 전환합니다.',
       },
     },
   },
-  render: () => <TailwindGalleryCarouselRender />,
+  render: () => <UtilityCSSGalleryCarouselRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Google Material 3 벤치마크: 탭 인디케이터 대체 도트 내비게이션 패턴
+   RoleToken Design 벤치마크: 탭 인디케이터 대체 도트 내비게이션 패턴
    M3 PageIndicator — 모바일 뷰 페이지 위치 표시 도트
 -------------------------------------------------------------------------- */
 const M3_PAGES = [
@@ -1111,12 +1111,12 @@ function M3PageIndicatorRender() {
 }
 
 export const M3_모바일_페이지_도트_인디케이터: Story = {
-  name: 'Google Material 3 - 모바일 페이지 도트 인디케이터',
+  name: 'RoleToken Design - 모바일 페이지 도트 인디케이터',
   parameters: {
     docs: {
       description: {
         story:
-          'Google Material 3 PageIndicator 패턴. 모바일 앱 하단 네비게이션 도트로 현재 페이지 위치를 표시합니다. ' +
+          'RoleToken Design PageIndicator 패턴. 모바일 앱 하단 네비게이션 도트로 현재 페이지 위치를 표시합니다. ' +
           '2초 자동 전환 인터벌과 클릭 탐색을 동시에 지원합니다.',
       },
     },
@@ -1125,12 +1125,12 @@ export const M3_모바일_페이지_도트_인디케이터: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Tailwind UI + M3 복합: 다단계 폼 위저드 도트 진행 표시
+   UtilityUI + M3 복합: 다단계 폼 위저드 도트 진행 표시
    완료/진행중/대기 상태를 도트 크기와 색상으로 구분하는 패턴
 -------------------------------------------------------------------------- */
 const TM3_WIZARD_STEPS = ['계정 정보', '프로필 설정', '권한 선택', '검토 및 완료']
 
-function TailwindM3WizardRender() {
+function UtilityCSSM3WizardRender() {
   const [step, setStep] = useState(1)
 
   return (
@@ -1177,28 +1177,28 @@ function TailwindM3WizardRender() {
           {step === TM3_WIZARD_STEPS.length - 1 ? '완료' : '다음'}
         </button>
       </div>
-      <div style={{ fontSize: 11, color: '#94a3b8', textAlign: 'center' }}>Tailwind UI + M3 — 도트로 위저드 진행 상태 표시</div>
+      <div style={{ fontSize: 11, color: '#94a3b8', textAlign: 'center' }}>UtilityUI + M3 — 도트로 위저드 진행 상태 표시</div>
     </div>
   )
 }
 
-export const Tailwind_M3_위저드_도트_진행_표시: Story = {
-  name: 'Tailwind UI + M3 - 다단계 폼 위저드 도트 진행 표시',
+export const UtilityCSS_M3_위저드_도트_진행_표시: Story = {
+  name: 'UtilityUI + M3 - 다단계 폼 위저드 도트 진행 표시',
   parameters: {
     docs: {
       description: {
         story:
-          'Tailwind UI + Google Material 3 복합 패턴. 4단계 폼 위저드의 진행 상태를 PageDots로 표시합니다. ' +
+          'UtilityUI + RoleToken Design 복합 패턴. 4단계 폼 위저드의 진행 상태를 PageDots로 표시합니다. ' +
           '완료/진행중/대기 상태를 도트와 연결선으로 시각화하며 도트 클릭으로 단계 이동이 가능합니다.',
       },
     },
   },
-  render: () => <TailwindM3WizardRender />,
+  render: () => <UtilityCSSM3WizardRender />,
 }
 
-// ─── Cycle 156: Apple HIG + Google Material 3 ──────────────────────────────
+// ─── Cycle 156: Platform HIG + RoleToken Design ──────────────────────────────
 
-function AppleHigOnboardingRender() {
+function PlatformHigOnboardingRender() {
   const [current, setCurrent] = useState(0)
   const slides = [
     { title: '환영합니다', desc: 'Orbit UI 디자인 시스템에 오신 것을 환영합니다.', color: '#f0f9ff' },
@@ -1223,20 +1223,20 @@ function AppleHigOnboardingRender() {
           {current === slides.length - 1 ? '완료' : '다음'}
         </button>
       </div>
-      <div style={{ marginTop: 12, textAlign: 'center', fontSize: 11, color: '#94a3b8' }}>Apple HIG 온보딩 페이지 도트 패턴</div>
+      <div style={{ marginTop: 12, textAlign: 'center', fontSize: 11, color: '#94a3b8' }}>Platform HIG 온보딩 페이지 도트 패턴</div>
     </div>
   )
 }
 
-export const Apple_HIG_온보딩_페이지_도트: Story = {
-  name: 'Apple HIG - 온보딩 페이지 도트 인디케이터',
-  render: () => <AppleHigOnboardingRender />,
+export const Platform_HIG_온보딩_페이지_도트: Story = {
+  name: 'Platform HIG - 온보딩 페이지 도트 인디케이터',
+  render: () => <PlatformHigOnboardingRender />,
   parameters: {
     docs: {
       description: {
         story:
-          'Apple HIG 온보딩 플로우 패턴. 4단계 슬라이드를 PageDots로 표현하며 이전/다음 버튼과 연동됩니다. ' +
-          'Apple UIPageControl의 현재 페이지 하이라이트와 탭 이동 패턴을 재현합니다.',
+          'Platform HIG 온보딩 플로우 패턴. 4단계 슬라이드를 PageDots로 표현하며 이전/다음 버튼과 연동됩니다. ' +
+          'Platform UIPageControl의 현재 페이지 하이라이트와 탭 이동 패턴을 재현합니다.',
       },
     },
   },
@@ -1247,7 +1247,7 @@ function M3StepIndicatorRender() {
   const TOTAL = 5
   return (
     <div style={{ width: 300, fontFamily: 'Inter, system-ui, sans-serif' }}>
-      <div style={{ fontSize: 12, fontWeight: 700, color: '#6b7280', marginBottom: 12 }}>Material 3 스텝 인디케이터</div>
+      <div style={{ fontSize: 12, fontWeight: 700, color: '#6b7280', marginBottom: 12 }}>RoleToken Design 스텝 인디케이터</div>
       <div style={{ padding: '20px', background: '#fffbfe', borderRadius: 12, border: '1px solid #e8def8', marginBottom: 12 }}>
         <div style={{ fontSize: 13, fontWeight: 600, color: '#1c1b1f', marginBottom: 4 }}>단계 {step} / {TOTAL}</div>
         <div style={{ fontSize: 12, color: '#49454f', marginBottom: 16 }}>
@@ -1266,26 +1266,26 @@ function M3StepIndicatorRender() {
           </button>
         ))}
       </div>
-      <div style={{ marginTop: 10, fontSize: 11, color: '#94a3b8', textAlign: 'center' }}>M3 LinearProgressIndicator + Stepper 패턴</div>
+      <div style={{ marginTop: 10, fontSize: 11, color: '#94a3b8', textAlign: 'center' }}>M3 IssueTrackerProgressIndicator + Stepper 패턴</div>
     </div>
   )
 }
 
 export const M3_스텝_진행_인디케이터: Story = {
-  name: 'Google Material 3 - 스텝 진행 인디케이터',
+  name: 'RoleToken Design - 스텝 진행 인디케이터',
   render: () => <M3StepIndicatorRender />,
   parameters: {
     docs: {
       description: {
         story:
-          'Google Material 3 LinearProgressIndicator 패턴. 완료된 단계는 활성 상태로 표시되고 클릭으로 특정 단계로 이동합니다. ' +
+          'RoleToken Design IssueTrackerProgressIndicator 패턴. 완료된 단계는 활성 상태로 표시되고 클릭으로 특정 단계로 이동합니다. ' +
           'M3의 보라색 계열 Tertiary 색상 시스템을 PageDots로 재현합니다.',
       },
     },
   },
 }
 
-function AppleM3MediaRender() {
+function PlatformM3MediaRender() {
   const [track, setTrack] = useState(0)
   const [playing, setPlaying] = useState(false)
   const tracks = ['Orbit Theme', 'Eclipse Suite', 'Design System', 'Component Kit', 'Token Wave']
@@ -1315,31 +1315,31 @@ function AppleM3MediaRender() {
         </button>
         <button onClick={() => setTrack(p => (p + 1) % tracks.length)} style={{ width: 36, height: 36, borderRadius: '50%', border: 'none', background: '#2d2c32', color: '#e6e1e5', cursor: 'pointer', fontSize: 14 }}>&#8250;</button>
       </div>
-      <div style={{ marginTop: 12, fontSize: 11, color: '#938f99', textAlign: 'center' }}>Apple Music + M3 미디어 플레이어 도트 패턴</div>
+      <div style={{ marginTop: 12, fontSize: 11, color: '#938f99', textAlign: 'center' }}>Platform Music + M3 미디어 플레이어 도트 패턴</div>
     </div>
   )
 }
 
-export const Apple_M3_미디어_플레이어_도트: Story = {
-  name: 'Apple HIG + M3 - 미디어 플레이어 트랙 도트',
-  render: () => <AppleM3MediaRender />,
+export const Platform_M3_미디어_플레이어_도트: Story = {
+  name: 'Platform HIG + M3 - 미디어 플레이어 트랙 도트',
+  render: () => <PlatformM3MediaRender />,
   parameters: {
     docs: {
       description: {
         story:
-          'Apple HIG + Google Material 3 복합 패턴. 다크 배경의 미디어 플레이어에서 PageDots로 트랙을 표시합니다. ' +
-          'Apple Music의 미니 플레이어 레이아웃과 M3 다크 테마 색상(보라 계열)을 결합합니다.',
+          'Platform HIG + RoleToken Design 복합 패턴. 다크 배경의 미디어 플레이어에서 PageDots로 트랙을 표시합니다. ' +
+          'Platform Music의 미니 플레이어 레이아웃과 M3 다크 테마 색상(보라 계열)을 결합합니다.',
       },
     },
   },
 }
 
 /* --------------------------------------------------------------------------
-   Raycast Extensions — 커맨드 팔레트 스텝 도트
+   CommandPalette Extensions — 커맨드 팔레트 스텝 도트
 -------------------------------------------------------------------------- */
-const RAYCAST_STEPS = ['검색', '필터', '결과', '실행']
+const LAUNCHER_STEPS = ['검색', '필터', '결과', '실행']
 
-function RaycastCommandStepRender() {
+function CommandPaletteCommandStepRender() {
   const [step, setStep] = useState(0)
   return (
     <div
@@ -1356,16 +1356,16 @@ function RaycastCommandStepRender() {
       <div style={{ padding: '12px 16px', borderBottom: '1px solid rgba(255,255,255,0.08)', display: 'flex', alignItems: 'center', gap: 8 }}>
         <span style={{ fontSize: 13, color: 'rgba(255,255,255,0.5)' }}>&#8984;</span>
         <span style={{ fontSize: 13, fontWeight: 500, color: 'rgba(255,255,255,0.85)' }}>
-          {RAYCAST_STEPS[step]}
+          {LAUNCHER_STEPS[step]}
         </span>
         <div style={{ marginLeft: 'auto', display: 'flex', gap: 4, alignItems: 'center' }}>
-          {RAYCAST_STEPS.map((_, i) => (
+          {LAUNCHER_STEPS.map((_, i) => (
             <PageDots key={i} selected={i === step} onClick={() => setStep(i)} />
           ))}
         </div>
       </div>
       <div style={{ padding: 12 }}>
-        {RAYCAST_STEPS.map((label, i) => (
+        {LAUNCHER_STEPS.map((label, i) => (
           <button
             key={i}
             onClick={() => setStep(i)}
@@ -1388,38 +1388,38 @@ function RaycastCommandStepRender() {
         ))}
       </div>
       <div style={{ padding: '10px 16px', borderTop: '1px solid rgba(255,255,255,0.08)', fontSize: 11, color: 'rgba(255,255,255,0.3)', display: 'flex', justifyContent: 'space-between' }}>
-        <span>Raycast Command Palette</span>
+        <span>CommandPalette Command Palette</span>
         <span>&#9166; 실행</span>
       </div>
     </div>
   )
 }
 
-export const Raycast_커맨드_팔레트_스텝_도트: Story = {
-  name: 'Raycast — 커맨드 팔레트 스텝 도트',
-  render: () => <RaycastCommandStepRender />,
+export const CommandPalette_커맨드_팔레트_스텝_도트: Story = {
+  name: 'CommandPalette — 커맨드 팔레트 스텝 도트',
+  render: () => <CommandPaletteCommandStepRender />,
   parameters: {
     docs: {
       description: {
         story:
-          'Raycast Extensions 커맨드 팔레트 패턴. 검색→필터→결과→실행 흐름을 PageDots로 표현합니다. ' +
-          'Raycast의 다크 UI와 인디고 악센트를 활용한 단계 인디케이터입니다.',
+          'CommandPalette Extensions 커맨드 팔레트 패턴. 검색→필터→결과→실행 흐름을 PageDots로 표현합니다. ' +
+          'CommandPalette의 다크 UI와 인디고 악센트를 활용한 단계 인디케이터입니다.',
       },
     },
   },
 }
 
 /* --------------------------------------------------------------------------
-   Notion Design — 문서 섹션 내비게이션 도트
+   WorkspaceEditor Design — 문서 섹션 내비게이션 도트
 -------------------------------------------------------------------------- */
-const NOTION_SECTIONS = [
+const WORKSPACE_SECTIONS = [
   { title: '개요', icon: '📄', preview: '이 페이지는 Orbit UI 설계 원칙을 다룹니다.' },
   { title: '컴포넌트', icon: '🧩', preview: 'Button, Input, Modal 등 37개 컴포넌트를 제공합니다.' },
   { title: '토큰', icon: '🎨', preview: '3단계 디자인 토큰: Reference → Semantic → Component.' },
   { title: '접근성', icon: '♿', preview: 'WAI-ARIA 1.2 기준 키보드 내비게이션 완전 지원.' },
 ]
 
-function NotionSectionNavRender() {
+function WorkspaceEditorSectionNavRender() {
   const [section, setSection] = useState(0)
   return (
     <div style={{ width: 360, fontFamily: "'Inter', system-ui, sans-serif", background: '#fff', borderRadius: 8, border: '1px solid #e5e5e5' }}>
@@ -1427,20 +1427,20 @@ function NotionSectionNavRender() {
         <span style={{ fontSize: 16 }}>📝</span>
         <span style={{ fontSize: 14, fontWeight: 600, color: '#1a1a1a' }}>Orbit UI 문서</span>
         <div style={{ marginLeft: 'auto', display: 'flex', gap: 4, alignItems: 'center' }}>
-          {NOTION_SECTIONS.map((_, i) => (
+          {WORKSPACE_SECTIONS.map((_, i) => (
             <PageDots key={i} selected={i === section} onClick={() => setSection(i)} />
           ))}
         </div>
       </div>
       <div style={{ padding: '20px 20px 16px' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 10 }}>
-          <span style={{ fontSize: 20 }}>{NOTION_SECTIONS[section].icon}</span>
+          <span style={{ fontSize: 20 }}>{WORKSPACE_SECTIONS[section].icon}</span>
           <span style={{ fontSize: 15, fontWeight: 700, color: '#1a1a1a' }}>
-            {NOTION_SECTIONS[section].title}
+            {WORKSPACE_SECTIONS[section].title}
           </span>
         </div>
         <p style={{ margin: 0, fontSize: 13, color: '#666', lineHeight: 1.6 }}>
-          {NOTION_SECTIONS[section].preview}
+          {WORKSPACE_SECTIONS[section].preview}
         </p>
       </div>
       <div style={{ padding: '10px 20px', borderTop: '1px solid #f0f0f0', display: 'flex', justifyContent: 'space-between', gap: 8 }}>
@@ -1452,9 +1452,9 @@ function NotionSectionNavRender() {
           이전
         </button>
         <button
-          onClick={() => setSection(p => Math.min(NOTION_SECTIONS.length - 1, p + 1))}
-          disabled={section === NOTION_SECTIONS.length - 1}
-          style={{ flex: 1, padding: '6px 0', border: '1px solid #e5e5e5', borderRadius: 6, background: section === NOTION_SECTIONS.length - 1 ? '#f9f9f9' : '#1a1a1a', color: section === NOTION_SECTIONS.length - 1 ? '#ccc' : '#fff', fontSize: 12, cursor: section === NOTION_SECTIONS.length - 1 ? 'not-allowed' : 'pointer' }}
+          onClick={() => setSection(p => Math.min(WORKSPACE_SECTIONS.length - 1, p + 1))}
+          disabled={section === WORKSPACE_SECTIONS.length - 1}
+          style={{ flex: 1, padding: '6px 0', border: '1px solid #e5e5e5', borderRadius: 6, background: section === WORKSPACE_SECTIONS.length - 1 ? '#f9f9f9' : '#1a1a1a', color: section === WORKSPACE_SECTIONS.length - 1 ? '#ccc' : '#fff', fontSize: 12, cursor: section === WORKSPACE_SECTIONS.length - 1 ? 'not-allowed' : 'pointer' }}
         >
           다음
         </button>
@@ -1463,30 +1463,30 @@ function NotionSectionNavRender() {
   )
 }
 
-export const Notion_문서_섹션_내비게이션_도트: Story = {
-  name: 'Notion — 문서 섹션 내비게이션 도트',
-  render: () => <NotionSectionNavRender />,
+export const WorkspaceEditor_문서_섹션_내비게이션_도트: Story = {
+  name: 'WorkspaceEditor — 문서 섹션 내비게이션 도트',
+  render: () => <WorkspaceEditorSectionNavRender />,
   parameters: {
     docs: {
       description: {
         story:
-          'Notion 페이지 내비게이션 패턴. 문서 섹션을 PageDots로 표현하고 이전/다음 버튼으로 이동합니다. ' +
-          'Notion의 심플한 흑백 UI와 섹션별 아이콘을 활용한 문서 탐색 인터페이스입니다.',
+          'WorkspaceEditor 페이지 내비게이션 패턴. 문서 섹션을 PageDots로 표현하고 이전/다음 버튼으로 이동합니다. ' +
+          'WorkspaceEditor의 심플한 흑백 UI와 섹션별 아이콘을 활용한 문서 탐색 인터페이스입니다.',
       },
     },
   },
 }
 
 /* --------------------------------------------------------------------------
-   Raycast + Notion — 온보딩 투어 플로우
+   CommandPalette + WorkspaceEditor — 온보딩 투어 플로우
 -------------------------------------------------------------------------- */
 const TOUR_STEPS = [
-  { icon: '⚡', title: 'Raycast 확장 설치', desc: 'Orbit UI 컴포넌트를 Raycast 확장으로 바로 사용할 수 있습니다.', bg: '#1c1c1e', text: '#e5e7eb', accent: '#818cf8' },
-  { icon: '📝', title: 'Notion 페이지 연동', desc: '디자인 시스템 문서를 Notion에 자동 동기화합니다.', bg: '#fff', text: '#1a1a1a', accent: '#000' },
-  { icon: '🔗', title: '워크플로우 완성', desc: 'Raycast에서 검색 → Notion에서 문서 확인 → 개발 적용.', bg: '#f8fafc', text: '#1e293b', accent: '#6366f1' },
+  { icon: '⚡', title: 'CommandPalette 확장 설치', desc: 'Orbit UI 컴포넌트를 CommandPalette 확장으로 바로 사용할 수 있습니다.', bg: '#1c1c1e', text: '#e5e7eb', accent: '#818cf8' },
+  { icon: '📝', title: 'WorkspaceEditor 페이지 연동', desc: '디자인 시스템 문서를 WorkspaceEditor에 자동 동기화합니다.', bg: '#fff', text: '#1a1a1a', accent: '#000' },
+  { icon: '🔗', title: '워크플로우 완성', desc: 'CommandPalette에서 검색 → WorkspaceEditor에서 문서 확인 → 개발 적용.', bg: '#f8fafc', text: '#1e293b', accent: '#6366f1' },
 ]
 
-function RaycastNotionTourRender() {
+function CommandPaletteWorkspaceEditorTourRender() {
   const [step, setStep] = useState(0)
   const current = TOUR_STEPS[step]
   return (
@@ -1524,15 +1524,15 @@ function RaycastNotionTourRender() {
   )
 }
 
-export const Raycast_Notion_온보딩_투어_플로우: Story = {
-  name: 'Raycast + Notion — 온보딩 투어 플로우',
-  render: () => <RaycastNotionTourRender />,
+export const CommandPalette_WorkspaceEditor_온보딩_투어_플로우: Story = {
+  name: 'CommandPalette + WorkspaceEditor — 온보딩 투어 플로우',
+  render: () => <CommandPaletteWorkspaceEditorTourRender />,
   parameters: {
     docs: {
       description: {
         story:
-          'Raycast Extensions + Notion Design 복합 패턴. 각 스텝마다 UI 테마가 전환되는 온보딩 투어를 PageDots로 구현합니다. ' +
-          'Raycast의 다크 테마, Notion의 라이트 테마, 중간 단계의 블루 테마를 순환합니다.',
+          'CommandPalette Extensions + WorkspaceEditor Design 복합 패턴. 각 스텝마다 UI 테마가 전환되는 온보딩 투어를 PageDots로 구현합니다. ' +
+          'CommandPalette의 다크 테마, WorkspaceEditor의 라이트 테마, 중간 단계의 블루 테마를 순환합니다.',
       },
     },
   },

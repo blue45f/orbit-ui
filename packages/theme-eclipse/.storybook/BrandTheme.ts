@@ -36,6 +36,7 @@ export default create({
   inputBorderRadius: 8,
 
   // Typography
-  fontBase: '"Pretendard Variable", "Pretendard", -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif',
+  fontBase:
+    '"Pretendard Variable", "Pretendard", system-ui, "Segoe UI", "Noto Sans KR", "Malgun Gothic", sans-serif',
   fontCode: '"JetBrains Mono", "Fira Code", "SF Mono", Menlo, Consolas, "Liberation Mono", monospace',
 })

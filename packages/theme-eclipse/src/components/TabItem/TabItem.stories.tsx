@@ -98,7 +98,7 @@ export const 디자인QA = {
     leading: true,
     trailing: true,
   },
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
+
   render: ({ leading, trailing, ...args }: any) => {
     return (
       <Tab {...args}>
@@ -119,8 +119,8 @@ export const 디자인QA = {
 }
 
 /* --------------------------------------------------------------------------
-   Linear 벤치마크: 아이콘 + 텍스트 + 카운터 배지 탭 패턴
-   Linear의 사이드바 네비게이션 탭 스타일 (icon + label + count)
+   IssueTracker 벤치마크: 아이콘 + 텍스트 + 카운터 배지 탭 패턴
+   IssueTracker의 사이드바 네비게이션 탭 스타일 (icon + label + count)
 -------------------------------------------------------------------------- */
 type NavItem = {
   value: string
@@ -130,7 +130,7 @@ type NavItem = {
   badge?: 'urgent'
 }
 
-const linearNavItems: NavItem[] = [
+const trackerNavItems: NavItem[] = [
   { value: 'home', label: 'My Issues', icon: <HomeLineIcon size={16} />, count: 5, badge: 'urgent' },
   { value: 'team', label: 'Team', icon: <PeopleLineIcon size={16} />, count: 12 },
   { value: 'starred', label: 'Starred', icon: <StarLineIcon size={16} /> },
@@ -138,7 +138,7 @@ const linearNavItems: NavItem[] = [
   { value: 'settings', label: 'Settings', icon: <SettingLineIcon size={16} /> },
 ]
 
-const linearPanelContent: Record<string, { title: string; items: string[] }> = {
+const trackerPanelContent: Record<string, { title: string; items: string[] }> = {
   home: { title: 'My Issues', items: ['Fix Popover z-index', 'Update design tokens', 'Write migration guide', 'Implement compact density', 'Run typecheck CI'] },
   team: { title: 'Team Issues', items: Array.from({ length: 12 }, (_, i) => `Team task #${i + 1}`) },
   starred: { title: 'Starred', items: ['Design System Audit', 'Token Hierarchy v3'] },
@@ -146,9 +146,9 @@ const linearPanelContent: Record<string, { title: string; items: string[] }> = {
   settings: { title: 'Settings', items: ['Account', 'Notifications', 'Appearance', 'Integrations'] },
 }
 
-const LinearIconNavTabs = () => {
+const IssueTrackerIconNavTabs = () => {
   const [active, setActive] = useState('home')
-  const panel = linearPanelContent[active] ?? { title: '', items: [] }
+  const panel = trackerPanelContent[active] ?? { title: '', items: [] }
 
   return (
     <div style={{ width: 500, border: '1px solid #e2e8f0', borderRadius: 12, overflow: 'hidden', background: '#fff' }}>
@@ -158,7 +158,7 @@ const LinearIconNavTabs = () => {
         aria-label="Navigation"
         style={{ display: 'flex', borderBottom: '1px solid #f1f5f9', background: '#f8fafc' }}
       >
-        {linearNavItems.map((item) => (
+        {trackerNavItems.map((item) => (
           <Tab
             key={item.value}
             value={item.value}
@@ -192,12 +192,12 @@ const LinearIconNavTabs = () => {
   )
 }
 
-export const Linear_아이콘_네비게이션탭: Story = {
-  render: () => <LinearIconNavTabs />,
+export const IssueTracker_아이콘_네비게이션탭: Story = {
+  render: () => <IssueTrackerIconNavTabs />,
 }
 
 /* --------------------------------------------------------------------------
-   Radix UI 벤치마크: 제어 컴포넌트 (value + onValueChange) 패턴
+   PrimitiveUI 벤치마크: 제어 컴포넌트 (value + onValueChange) 패턴
    명확한 접근성 (aria-selected, aria-controls, role="tabpanel")
    Filter + View 전환 탭
 -------------------------------------------------------------------------- */
@@ -273,7 +273,7 @@ const filterContent: Record<string, React.ReactNode> = {
   ),
 }
 
-const RadixControlledTabs = () => {
+const PrimitiveControlledTabs = () => {
   const [value, setValue] = useState('grid')
 
   return (
@@ -286,7 +286,7 @@ const RadixControlledTabs = () => {
         </LabelBadge>
       </div>
 
-      {/* Controlled tab strip (Radix pattern: value + onValueChange) */}
+      {/* Controlled tab strip (Primitive pattern: value + onValueChange) */}
       <div
         role="tablist"
         aria-label="Project view tabs"
@@ -325,12 +325,12 @@ const RadixControlledTabs = () => {
   )
 }
 
-export const Radix_제어컴포넌트_탭패턴: Story = {
-  render: () => <RadixControlledTabs />,
+export const Primitive_제어컴포넌트_탭패턴: Story = {
+  render: () => <PrimitiveControlledTabs />,
 }
 
 /* --------------------------------------------------------------------------
-   Linear 단축키 힌트 탭 (cmd palette 내 카테고리 탭)
+   IssueTracker 단축키 힌트 탭 (cmd palette 내 카테고리 탭)
    탭 내 키보드 단축키 힌트 배지 표시
 -------------------------------------------------------------------------- */
 const shortcutTabs = [
@@ -341,7 +341,7 @@ const shortcutTabs = [
 ]
 
 const shortcutTabContent: Record<string, string[]> = {
-  issues: ['ORB-201 Implement Radix Tabs API', 'ORB-202 Add Linear compact density', 'ORB-203 Accessibility audit', 'ORB-204 Token migration'],
+  issues: ['ORB-201 Implement Primitive Tabs API', 'ORB-202 Add IssueTracker compact density', 'ORB-203 Accessibility audit', 'ORB-204 Token migration'],
   projects: ['Design System', 'Mobile App', 'Web Platform', 'Infrastructure'],
   views: ['All Issues', 'My Issues', 'Active Sprint'],
   members: ['heejun.kim', 'minji.park', 'dongwook.lee', 'soyeon.choi'],
@@ -366,7 +366,7 @@ const ShortcutKeyBadge = ({ char }: { char: string }) => (
   </div>
 )
 
-const LinearShortcutTabs = () => {
+const IssueTrackerShortcutTabs = () => {
   const [active, setActive] = useState('issues')
   const content = shortcutTabContent[active] ?? []
 
@@ -439,13 +439,13 @@ const LinearShortcutTabs = () => {
   )
 }
 
-export const Linear_단축키힌트_탭: Story = {
-  render: () => <LinearShortcutTabs />,
+export const IssueTracker_단축키힌트_탭: Story = {
+  render: () => <IssueTrackerShortcutTabs />,
 }
 
 /* --------------------------------------------------------------------------
-   Tailwind UI 언더라인 탭 패턴
-   Tailwind UI "Simple on dark" 스타일: 선택 탭 하단 2px 언더라인 + 상단 배경색 없음
+   UtilityUI 언더라인 탭 패턴
+   UtilityUI "Simple on dark" 스타일: 선택 탭 하단 2px 언더라인 + 상단 배경색 없음
 -------------------------------------------------------------------------- */
 const tailwindTabs = [
   { value: 'overview', label: 'Overview', badge: null },
@@ -494,12 +494,12 @@ const contentMap: Record<string, React.ReactNode> = {
   ),
 }
 
-const TailwindUnderlineTabs = () => {
+const UtilityCSSUnderlineTabs = () => {
   const [active, setActive] = useState('overview')
 
   return (
     <div style={{ width: 520, background: '#fff' }}>
-      {/* Tailwind UI "pills on gray" variant */}
+      {/* UtilityUI "pills on gray" variant */}
       <div style={{ borderBottom: '1px solid #e2e8f0' }}>
         <div role="tablist" style={{ display: 'flex', gap: 0 }}>
           {tailwindTabs.map((tab) => (
@@ -532,22 +532,22 @@ const TailwindUnderlineTabs = () => {
   )
 }
 
-export const TailwindUI_언더라인_탭: Story = {
-  name: 'Tailwind UI - 언더라인 + 카운트 뱃지 탭 패턴',
+export const UtilityCSSUI_언더라인_탭: Story = {
+  name: 'UtilityUI - 언더라인 + 카운트 뱃지 탭 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'Tailwind UI "Simple" 탭 패턴. 하단 언더라인 선택 표시 + 카운트 뱃지. ' +
-          'GitHub 프로필 네비게이션과 동일한 UX 패턴입니다.',
+          'UtilityUI "Simple" 탭 패턴. 하단 언더라인 선택 표시 + 카운트 뱃지. ' +
+          'CodeHost 프로필 네비게이션과 동일한 UX 패턴입니다.',
       },
     },
   },
-  render: () => <TailwindUnderlineTabs />,
+  render: () => <UtilityCSSUnderlineTabs />,
 }
 
 /* --------------------------------------------------------------------------
-   Apple HIG 세그먼트형 탭 패턴
+   Platform HIG 세그먼트형 탭 패턴
    iOS의 UISegmentedControl처럼 동작: 컨테이너 내부에서 활성 탭이 흰색 카드로 부상
 -------------------------------------------------------------------------- */
 const appleSegments = [
@@ -557,18 +557,18 @@ const appleSegments = [
 ]
 
 const appleSegmentContent: Record<string, string[]> = {
-  all: ['Orbit UI PR 머지됨', 'Token 시스템 업데이트', '새 스토리 15개 추가', 'Vercel 배포 완료'],
-  unread: ['Token 시스템 업데이트', 'Vercel 배포 완료'],
+  all: ['Orbit UI PR 머지됨', 'Token 시스템 업데이트', '새 스토리 15개 추가', 'DeployPlatform 배포 완료'],
+  unread: ['Token 시스템 업데이트', 'DeployPlatform 배포 완료'],
   mentions: ['@heejun Token migration 리뷰 요청'],
 }
 
-const AppleSegmentTabs = () => {
+const PlatformSegmentTabs = () => {
   const [active, setActive] = useState('all')
   const items = appleSegmentContent[active] ?? []
 
   return (
     <div style={{ width: 360, display: 'flex', flexDirection: 'column', gap: 16 }}>
-      {/* Apple HIG Segmented Control wrapper */}
+      {/* Platform HIG Segmented Control wrapper */}
       <div
         style={{
           display: 'flex',
@@ -645,38 +645,38 @@ const AppleSegmentTabs = () => {
       </div>
 
       <div style={{ fontSize: 11, color: '#94a3b8', textAlign: 'center' }}>
-        Apple HIG UISegmentedControl 패턴 — 흰 카드 부상 효과
+        Platform HIG UISegmentedControl 패턴 — 흰 카드 부상 효과
       </div>
     </div>
   )
 }
 
-export const AppleHIG_세그먼트_탭: Story = {
-  name: 'Apple HIG - UISegmentedControl 스타일 탭 패턴',
+export const PlatformHIG_세그먼트_탭: Story = {
+  name: 'Platform HIG - UISegmentedControl 스타일 탭 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'Apple HIG UISegmentedControl 패턴. 활성 탭이 흰 카드로 부상하는 iOS 스타일. ' +
+          'Platform HIG UISegmentedControl 패턴. 활성 탭이 흰 카드로 부상하는 iOS 스타일. ' +
           '150ms cubic-bezier 트랜지션으로 자연스러운 전환을 구현합니다.',
       },
     },
   },
-  render: () => <AppleSegmentTabs />,
+  render: () => <PlatformSegmentTabs />,
 }
 
 /* --------------------------------------------------------------------------
-   Vercel 콤팩트 탭 패턴
-   Vercel Dashboard의 소형 탭: Deployments / Settings / Logs 전환
+   DeployPlatform 콤팩트 탭 패턴
+   DeployPlatform Dashboard의 소형 탭: Deployments / Settings / Logs 전환
 -------------------------------------------------------------------------- */
-const vercelTabs = [
+const deployTabs = [
   { value: 'deployments', label: 'Deployments', count: 47 },
   { value: 'settings', label: 'Settings' },
   { value: 'logs', label: 'Logs' },
   { value: 'analytics', label: 'Analytics' },
 ]
 
-const vercelContent: Record<string, React.ReactNode> = {
+const deployContent: Record<string, React.ReactNode> = {
   deployments: (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
       {[
@@ -712,7 +712,7 @@ const vercelContent: Record<string, React.ReactNode> = {
   analytics: <div style={{ fontSize: 13, color: '#94a3b8', paddingTop: 8 }}>웹 애널리틱스</div>,
 }
 
-const VercelCompactTabs = () => {
+const DeployPlatformCompactTabs = () => {
   const [active, setActive] = useState('deployments')
 
   return (
@@ -725,7 +725,7 @@ const VercelCompactTabs = () => {
         </LabelBadge>
       </div>
       <div role="tablist" style={{ display: 'flex', borderBottom: '1px solid #f3f4f6', background: '#fafafa' }}>
-        {vercelTabs.map((tab) => (
+        {deployTabs.map((tab) => (
           <Tab
             key={tab.value}
             value={tab.value}
@@ -742,55 +742,55 @@ const VercelCompactTabs = () => {
         ))}
       </div>
       <div style={{ padding: 16 }}>
-        {vercelContent[active]}
+        {deployContent[active]}
       </div>
     </div>
   )
 }
 
-export const Vercel_콤팩트_대시보드_탭: Story = {
-  name: 'Vercel - 콤팩트 배포 대시보드 탭 패턴',
+export const DeployPlatform_콤팩트_대시보드_탭: Story = {
+  name: 'DeployPlatform - 콤팩트 배포 대시보드 탭 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'Vercel Dashboard 탭 패턴. 배포 상태(READY/BUILDING/ERROR)를 색상으로 표현하고 ' +
+          'DeployPlatform Dashboard 탭 패턴. 배포 상태(READY/BUILDING/ERROR)를 색상으로 표현하고 ' +
           '카운트 배지로 항목 수를 표시합니다.',
       },
     },
   },
-  render: () => <VercelCompactTabs />,
+  render: () => <DeployPlatformCompactTabs />,
 }
 
 /* --------------------------------------------------------------------------
-   shadcn/ui 벤치마크: 배지 카운터 탭 그룹 패턴
-   shadcn Tabs: 각 탭에 CounterBadge로 항목 수를 표시하는 실무 패턴
+   ComposableUI 벤치마크: 배지 카운터 탭 그룹 패턴
+   ComposableUI Tabs: 각 탭에 CounterBadge로 항목 수를 표시하는 실무 패턴
 -------------------------------------------------------------------------- */
-type ShadcnTabId = 'open' | 'in-review' | 'merged' | 'closed'
+type ComposableUITabId = 'open' | 'in-review' | 'merged' | 'closed'
 
-const SHADCN_TAB_DATA: { id: ShadcnTabId; label: string; count: number; color: string }[] = [
+const UTILITYUI_TAB_DATA: { id: ComposableUITabId; label: string; count: number; color: string }[] = [
   { id: 'open', label: 'Open', count: 12, color: '#10b981' },
   { id: 'in-review', label: 'In Review', count: 5, color: '#f59e0b' },
   { id: 'merged', label: 'Merged', count: 48, color: '#6366f1' },
   { id: 'closed', label: 'Closed', count: 7, color: '#94a3b8' },
 ]
 
-const SHADCN_MOCK_PRS: Record<ShadcnTabId, string[]> = {
-  open: ['feat: Calendar Radix 접근성 패턴', 'feat: GhostButton Raycast 팔레트', 'fix: Chip size prop 제거'],
-  'in-review': ['feat: Template TravelBooking', 'docs: BenchmarkComparison Mantine'],
-  merged: ['feat: cycle-59 완료 (Mantine+Ant)', 'feat: cycle-58 MUI+Chakra', 'feat: cycle-57 M3+Figma'],
+const UTILITYUI_MOCK_PRS: Record<ComposableUITabId, string[]> = {
+  open: ['feat: Calendar Primitive 접근성 패턴', 'feat: GhostButton CommandPalette 팔레트', 'fix: Chip size prop 제거'],
+  'in-review': ['feat: Template TravelBooking', 'docs: BenchmarkComparison AppUI'],
+  merged: ['feat: cycle-59 완료 (AppUI+Ant)', 'feat: cycle-58 EnterpriseUI+Accessible', 'feat: cycle-57 M3+DesignTool'],
   closed: ['fix: PasswordField onChange 타입', 'fix: OutlineIconButton Story annotation'],
 }
 
-function ShadcnBadgeTabsRender() {
-  const [active, setActive] = useState<ShadcnTabId>('open')
-  const items = SHADCN_MOCK_PRS[active]
+function ComposableUIBadgeTabsRender() {
+  const [active, setActive] = useState<ComposableUITabId>('open')
+  const items = UTILITYUI_MOCK_PRS[active]
 
   return (
     <div style={{ width: 480, border: '1px solid #e2e8f0', borderRadius: 14, overflow: 'hidden', background: '#fff' }}>
       {/* Tab row */}
       <div style={{ display: 'flex', padding: '0 12px', borderBottom: '1px solid #f1f5f9', background: '#fafafa' }}>
-        {SHADCN_TAB_DATA.map((tab) => (
+        {UTILITYUI_TAB_DATA.map((tab) => (
           <Tab
             key={tab.id}
             selected={active === tab.id}
@@ -816,7 +816,7 @@ function ShadcnBadgeTabsRender() {
       <div style={{ padding: '14px 16px', display: 'flex', flexDirection: 'column', gap: 8 }}>
         {items.map((pr) => (
           <div key={pr} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '8px 10px', borderRadius: 8, background: '#f8fafc', border: '1px solid #f1f5f9' }}>
-            <span style={{ width: 8, height: 8, borderRadius: '50%', background: SHADCN_TAB_DATA.find((t) => t.id === active)?.color, flexShrink: 0 }} />
+            <span style={{ width: 8, height: 8, borderRadius: '50%', background: UTILITYUI_TAB_DATA.find((t) => t.id === active)?.color, flexShrink: 0 }} />
             <span style={{ fontSize: 12, color: '#1e293b' }}>{pr}</span>
           </div>
         ))}
@@ -825,25 +825,25 @@ function ShadcnBadgeTabsRender() {
   )
 }
 
-export const Shadcn_배지_카운터_탭_그룹: Story = {
-  name: 'shadcn/ui - 배지 카운터 탭 그룹 패턴',
+export const ComposableUI_배지_카운터_탭_그룹: Story = {
+  name: 'ComposableUI - 배지 카운터 탭 그룹 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'shadcn/ui Tabs + Badge 조합 패턴. 각 탭의 Trailing 슬롯에 카운터 배지를 삽입, ' +
+          'ComposableUI Tabs + Badge 조합 패턴. 각 탭의 Trailing 슬롯에 카운터 배지를 삽입, ' +
           '선택 시 배지 배경색이 탭 고유 색상으로 전환됩니다. PR/이슈 목록 분류에 적합.',
       },
     },
   },
-  render: () => <ShadcnBadgeTabsRender />,
+  render: () => <ComposableUIBadgeTabsRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Notion 벤치마크: 사이드바 페이지 탭 네비게이션 패턴
-   Notion 좌측 사이드바의 페이지 계층 탭 — depth에 따른 들여쓰기, 호버 액션
+   WorkspaceEditor 벤치마크: 사이드바 페이지 탭 네비게이션 패턴
+   WorkspaceEditor 좌측 사이드바의 페이지 계층 탭 — depth에 따른 들여쓰기, 호버 액션
 -------------------------------------------------------------------------- */
-type NotionPage = {
+type WorkspaceEditorPage = {
   id: string
   title: string
   icon: string
@@ -852,7 +852,7 @@ type NotionPage = {
   unread: boolean
 }
 
-const NOTION_PAGES: NotionPage[] = [
+const WORKSPACE_PAGES: WorkspaceEditorPage[] = [
   { id: 'p1', title: 'Orbit UI 문서', icon: 'O', depth: 0, hasChildren: true, unread: false },
   { id: 'p2', title: 'GettingStarted', icon: 'G', depth: 1, hasChildren: false, unread: true },
   { id: 'p3', title: 'ThemeGuide', icon: 'T', depth: 1, hasChildren: false, unread: false },
@@ -862,7 +862,7 @@ const NOTION_PAGES: NotionPage[] = [
   { id: 'p7', title: 'Form 계열', icon: 'f', depth: 1, hasChildren: false, unread: false },
 ]
 
-function NotionSidebarTabsRender() {
+function WorkspaceEditorSidebarTabsRender() {
   const [activePage, setActivePage] = useState<string>('p1')
   const [hovered, setHovered] = useState<string | null>(null)
 
@@ -872,7 +872,7 @@ function NotionSidebarTabsRender() {
         워크스페이스
       </div>
       <div style={{ padding: '6px 4px', display: 'flex', flexDirection: 'column', gap: 1 }}>
-        {NOTION_PAGES.map((page) => (
+        {WORKSPACE_PAGES.map((page) => (
           <div
             key={page.id}
             style={{ paddingLeft: page.depth * 16 }}
@@ -882,7 +882,7 @@ function NotionSidebarTabsRender() {
             <Tab
               selected={activePage === page.id}
               onClick={() => setActivePage(page.id)}
-              
+
             >
               <Tab.Leading>
                 <span style={{
@@ -916,27 +916,27 @@ function NotionSidebarTabsRender() {
   )
 }
 
-export const Notion_사이드바_페이지_탭: Story = {
-  name: 'Notion - 사이드바 페이지 탭 네비게이션 패턴',
+export const WorkspaceEditor_사이드바_페이지_탭: Story = {
+  name: 'WorkspaceEditor - 사이드바 페이지 탭 네비게이션 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'Notion 좌측 사이드바 페이지 탭 패턴. depth에 따른 들여쓰기, 호버 시 "+" 액션 표시, ' +
+          'WorkspaceEditor 좌측 사이드바 페이지 탭 패턴. depth에 따른 들여쓰기, 호버 시 "+" 액션 표시, ' +
           '미읽음 페이지 파란 점 + 굵은 글씨, Leading 슬롯에 페이지 아이콘.',
       },
     },
   },
-  render: () => <NotionSidebarTabsRender />,
+  render: () => <WorkspaceEditorSidebarTabsRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Raycast 벤치마크: 검색 결과 카테고리 탭 패턴
-   Raycast Search: 검색 결과를 카테고리별로 분류하는 수평 탭 패턴
+   CommandPalette 벤치마크: 검색 결과 카테고리 탭 패턴
+   CommandPalette Search: 검색 결과를 카테고리별로 분류하는 수평 탭 패턴
 -------------------------------------------------------------------------- */
-type RaycastCategory = 'all' | 'apps' | 'files' | 'commands' | 'web'
+type CommandPaletteCategory = 'all' | 'apps' | 'files' | 'commands' | 'web'
 
-const RAYCAST_CATEGORIES: { id: RaycastCategory; label: string; count: number; icon: string }[] = [
+const LAUNCHER_CATEGORIES: { id: CommandPaletteCategory; label: string; count: number; icon: string }[] = [
   { id: 'all', label: 'All', count: 18, icon: '*' },
   { id: 'apps', label: 'Apps', count: 4, icon: 'A' },
   { id: 'files', label: 'Files', count: 6, icon: 'F' },
@@ -944,17 +944,17 @@ const RAYCAST_CATEGORIES: { id: RaycastCategory; label: string; count: number; i
   { id: 'web', label: 'Web', count: 3, icon: 'W' },
 ]
 
-const RAYCAST_RESULTS: Record<RaycastCategory, string[]> = {
-  all: ['Storybook Dev', 'orbit-ui/packages', 'pnpm typecheck', 'Mantine Docs', 'Linear Issue ORB-312'],
-  apps: ['Storybook Dev', 'WebStorm', 'Terminal', 'Figma'],
+const LAUNCHER_RESULTS: Record<CommandPaletteCategory, string[]> = {
+  all: ['Storybook Dev', 'orbit-ui/packages', 'pnpm typecheck', 'AppUI Docs', 'IssueTracker Issue ORB-312'],
+  apps: ['Storybook Dev', 'WebStorm', 'Terminal', 'DesignTool'],
   files: ['Templates.stories.tsx', 'GhostButton.stories.tsx', 'BenchmarkComparison.mdx', 'CLAUDE.md', 'pnpm-lock.yaml', 'tsconfig.json'],
-  commands: ['pnpm typecheck', 'pnpm lint', 'git commit', 'vercel deploy', 'pnpm build:storybook'],
-  web: ['Mantine Docs', 'Linear Issue ORB-312', 'Vercel Dashboard'],
+  commands: ['pnpm typecheck', 'pnpm lint', 'git commit', 'deploy deploy', 'pnpm build:storybook'],
+  web: ['AppUI Docs', 'IssueTracker Issue ORB-312', 'DeployPlatform Dashboard'],
 }
 
-function RaycastSearchTabsRender() {
-  const [activeTab, setActiveTab] = useState<RaycastCategory>('all')
-  const results = RAYCAST_RESULTS[activeTab]
+function CommandPaletteSearchTabsRender() {
+  const [activeTab, setActiveTab] = useState<CommandPaletteCategory>('all')
+  const results = LAUNCHER_RESULTS[activeTab]
 
   return (
     <div style={{
@@ -972,7 +972,7 @@ function RaycastSearchTabsRender() {
 
       {/* Category tabs */}
       <div style={{ display: 'flex', padding: '0 8px', borderBottom: '1px solid #27272a', background: '#0c0c0e' }}>
-        {RAYCAST_CATEGORIES.map((cat) => (
+        {LAUNCHER_CATEGORIES.map((cat) => (
           <Tab
             key={cat.id}
             selected={activeTab === cat.id}
@@ -1013,7 +1013,7 @@ function RaycastSearchTabsRender() {
               display: 'flex', alignItems: 'center', justifyContent: 'center',
               fontSize: 10, color: '#71717a', fontWeight: 700, flexShrink: 0,
             }}>
-              {RAYCAST_CATEGORIES.find((c) => c.id === activeTab)?.icon ?? '*'}
+              {LAUNCHER_CATEGORIES.find((c) => c.id === activeTab)?.icon ?? '*'}
             </span>
             <span style={{ fontSize: 13, color: i === 0 ? '#e4e4e7' : '#a1a1aa' }}>{result}</span>
           </div>
@@ -1028,30 +1028,30 @@ function RaycastSearchTabsRender() {
   )
 }
 
-export const Raycast_검색_결과_카테고리_탭: Story = {
-  name: 'Raycast - 검색 결과 카테고리 탭 패턴',
+export const CommandPalette_검색_결과_카테고리_탭: Story = {
+  name: 'CommandPalette - 검색 결과 카테고리 탭 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'Raycast 검색 결과 카테고리 탭 패턴. 다크 배경, 탭별 결과 수 카운트, ' +
+          'CommandPalette 검색 결과 카테고리 탭 패턴. 다크 배경, 탭별 결과 수 카운트, ' +
           '선택된 첫 번째 결과 하이라이트, 키보드 단축키 힌트 푸터.',
       },
     },
   },
-  render: () => <RaycastSearchTabsRender />,
+  render: () => <CommandPaletteSearchTabsRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Radix UI 벤치마크: 키보드 접근성 탭 패널
-   Radix Tabs — 좌우 화살표키 탭 이동, aria-controls/aria-labelledby 패턴
+   PrimitiveUI 벤치마크: 키보드 접근성 탭 패널
+   Primitive Tabs — 좌우 화살표키 탭 이동, aria-controls/aria-labelledby 패턴
 -------------------------------------------------------------------------- */
 const RADIX_DOCS_TABS = [
   {
     id: 'overview',
     label: '개요',
     content: [
-      { title: 'Radix Tabs vs Orbit Tab', body: 'Radix UI는 TabsPrimitive 기반으로 WAI-ARIA 1.1 Tabs 패턴을 완전히 구현합니다. Orbit UI는 동일한 접근성을 Tab 컴포넌트로 제공합니다.' },
+      { title: 'Primitive Tabs vs Orbit Tab', body: 'PrimitiveUI는 TabsPrimitive 기반으로 WAI-ARIA 1.1 Tabs 패턴을 완전히 구현합니다. Orbit UI는 동일한 접근성을 Tab 컴포넌트로 제공합니다.' },
       { title: '키보드 내비게이션', body: '← / → 화살표로 탭 이동, Home/End로 처음/마지막 탭으로 이동, Enter/Space로 활성화합니다.' },
     ],
   },
@@ -1060,7 +1060,7 @@ const RADIX_DOCS_TABS = [
     label: 'API 레퍼런스',
     content: [
       { title: 'Tab Props', body: 'selected: boolean — 탭 활성화 상태\nleading: ReactNode — 아이콘 슬롯\ntrailing: ReactNode — 카운터 배지 슬롯' },
-      { title: '비교: Radix vs Orbit', body: 'Radix: <Tabs.Trigger value="x" />\nOrbit: <Tab selected={active === "x"} />' },
+      { title: '비교: Primitive vs Orbit', body: 'Primitive: <Tabs.Trigger value="x" />\nOrbit: <Tab selected={active === "x"} />' },
     ],
   },
   {
@@ -1074,11 +1074,11 @@ const RADIX_DOCS_TABS = [
   },
 ]
 
-function RadixA11yTabPanelRender() {
+function PrimitiveA11yTabPanelRender() {
   const [active, setActive] = useState('overview')
 
   return (
-    <div style={{ maxWidth: 520 }} role="region" aria-label="Radix 접근성 탭 패널 예제">
+    <div style={{ maxWidth: 520 }} role="region" aria-label="Primitive 접근성 탭 패널 예제">
       {/* Tab list */}
       <div role="tablist" aria-label="문서 섹션" style={{ display: 'flex', borderBottom: '2px solid #e2e8f0', gap: 0 }}>
         {RADIX_DOCS_TABS.map((tab) => (
@@ -1127,25 +1127,25 @@ function RadixA11yTabPanelRender() {
   )
 }
 
-export const Radix_WAI_ARIA_키보드_탭_패널: Story = {
-  name: 'Radix UI — WAI-ARIA Tabs 키보드 접근성 패턴',
+export const Primitive_WAI_ARIA_키보드_탭_패널: Story = {
+  name: 'PrimitiveUI — WAI-ARIA Tabs 키보드 접근성 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'Radix UI Tabs의 WAI-ARIA 1.1 구현 패턴. role="tablist/tab/tabpanel", aria-selected, aria-controls, ' +
+          'PrimitiveUI Tabs의 WAI-ARIA 1.1 구현 패턴. role="tablist/tab/tabpanel", aria-selected, aria-controls, ' +
           'aria-labelledby를 완전히 구현합니다. ← / → 화살표키, Home, End 키보드 내비게이션을 지원합니다.',
       },
     },
   },
-  render: () => <RadixA11yTabPanelRender />,
+  render: () => <PrimitiveA11yTabPanelRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Radix UI 벤치마크: 제어/비제어 탭 상태 패턴
-   Radix의 defaultValue(비제어) vs value(제어) 이중 API — Orbit Tab으로 구현
+   PrimitiveUI 벤치마크: 제어/비제어 탭 상태 패턴
+   Primitive의 defaultValue(비제어) vs value(제어) 이중 API — Orbit Tab으로 구현
 -------------------------------------------------------------------------- */
-function RadixControlledTabDemo() {
+function PrimitiveControlledTabDemo() {
   const [controlled, setControlled] = useState<string | null>('activity')
   const [history, setHistory] = useState<string[]>(['activity'])
 
@@ -1183,7 +1183,7 @@ function RadixControlledTabDemo() {
           현재: {CTRL_TABS.find((t) => t.id === controlled)?.label ?? '없음'}
         </div>
         <div style={{ fontSize: 12, color: '#64748b' }}>
-          Radix value prop으로 외부에서 탭을 완전히 제어합니다.
+          Primitive value prop으로 외부에서 탭을 완전히 제어합니다.
         </div>
       </div>
 
@@ -1221,26 +1221,26 @@ function RadixControlledTabDemo() {
   )
 }
 
-export const Radix_제어_비제어_탭_API: Story = {
-  name: 'Radix UI — 제어/비제어 탭 상태 이중 API 패턴',
+export const Primitive_제어_비제어_탭_API: Story = {
+  name: 'PrimitiveUI — 제어/비제어 탭 상태 이중 API 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'Radix Tabs의 defaultValue(비제어)/value(제어) 이중 API 패턴. ' +
+          'Primitive Tabs의 defaultValue(비제어)/value(제어) 이중 API 패턴. ' +
           '외부 버튼으로 탭을 직접 제어하고 이동 히스토리를 기록합니다. ' +
           '라우터 연동이나 URL 동기화 시 제어 컴포넌트 패턴이 필수입니다.',
       },
     },
   },
-  render: () => <RadixControlledTabDemo />,
+  render: () => <PrimitiveControlledTabDemo />,
 }
 
 /* --------------------------------------------------------------------------
-   Radix UI 벤치마크: 탭 콘텐츠 지연 로딩 패턴
-   Radix Tabs의 forceMount + LazyMount — 탭 전환 시 콘텐츠 지연 마운트
+   PrimitiveUI 벤치마크: 탭 콘텐츠 지연 로딩 패턴
+   Primitive Tabs의 forceMount + LazyMount — 탭 전환 시 콘텐츠 지연 마운트
 -------------------------------------------------------------------------- */
-function RadixLazyTabRender() {
+function PrimitiveLazyTabRender() {
   const [active, setActive] = useState('summary')
   const [loaded, setLoaded] = useState<Set<string>>(new Set(['summary']))
 
@@ -1303,30 +1303,30 @@ function RadixLazyTabRender() {
   )
 }
 
-export const Radix_탭_콘텐츠_지연_로딩: Story = {
-  name: 'Radix UI — 탭 콘텐츠 지연 로딩(Lazy Mount) 패턴',
+export const Primitive_탭_콘텐츠_지연_로딩: Story = {
+  name: 'PrimitiveUI — 탭 콘텐츠 지연 로딩(Lazy Mount) 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'Radix Tabs forceMount/LazyMount 패턴. 탭을 처음 클릭할 때만 콘텐츠를 로드합니다. ' +
+          'Primitive Tabs forceMount/LazyMount 패턴. 탭을 처음 클릭할 때만 콘텐츠를 로드합니다. ' +
           '이후 전환 시에는 캐시된 콘텐츠를 즉시 표시합니다. ' +
           '미방문 탭에는 NEW 배지를 표시합니다.',
       },
     },
   },
-  render: () => <RadixLazyTabRender />,
+  render: () => <PrimitiveLazyTabRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Cycle 123 — shadcn/ui + Linear Design 벤치마크
+   Cycle 123 — ComposableUI + IssueTracker Design 벤치마크
 -------------------------------------------------------------------------- */
 
 /* --------------------------------------------------------------------------
-   shadcn/ui: 필터 탭 바 패턴
-   shadcn Tabs 의 underline 스타일 + 검색 가능한 탭 필터 조합
+   ComposableUI: 필터 탭 바 패턴
+   ComposableUI Tabs 의 underline 스타일 + 검색 가능한 탭 필터 조합
 -------------------------------------------------------------------------- */
-function ShadcnFilterTabRender() {
+function ComposableUIFilterTabRender() {
   const [active, setActive] = useState('all')
   const [query, setQuery] = useState('')
 
@@ -1421,25 +1421,25 @@ function ShadcnFilterTabRender() {
   )
 }
 
-export const Shadcn_필터_탭_바: Story = {
-  name: 'shadcn/ui - 필터 탭 바 + 검색 패턴',
+export const ComposableUI_필터_탭_바: Story = {
+  name: 'ComposableUI - 필터 탭 바 + 검색 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'shadcn/ui Tabs 언더라인 스타일 + 검색 입력 조합 패턴. 탭별 아이템 카운트 배지와 ' +
-          '검색어 필터를 결합하여 GitHub 이슈 목록과 유사한 인터페이스를 구현합니다.',
+          'ComposableUI Tabs 언더라인 스타일 + 검색 입력 조합 패턴. 탭별 아이템 카운트 배지와 ' +
+          '검색어 필터를 결합하여 CodeHost 이슈 목록과 유사한 인터페이스를 구현합니다.',
       },
     },
   },
-  render: () => <ShadcnFilterTabRender />,
+  render: () => <ComposableUIFilterTabRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Linear: 뷰 전환 탭 패턴
-   Linear 의 List/Board/Timeline 뷰 전환 — 탭 클릭으로 레이아웃 모드 변경
+   IssueTracker: 뷰 전환 탭 패턴
+   IssueTracker 의 List/Board/Timeline 뷰 전환 — 탭 클릭으로 레이아웃 모드 변경
 -------------------------------------------------------------------------- */
-function LinearViewSwitchTabRender() {
+function IssueTrackerViewSwitchTabRender() {
   const [view, setView] = useState<'list' | 'board' | 'timeline'>('list')
 
   const ISSUES = [
@@ -1532,25 +1532,25 @@ function LinearViewSwitchTabRender() {
   )
 }
 
-export const Linear_뷰_전환_탭: Story = {
-  name: 'Linear - 뷰 전환 탭 패턴 (List/Board/Timeline)',
+export const IssueTracker_뷰_전환_탭: Story = {
+  name: 'IssueTracker - 뷰 전환 탭 패턴 (List/Board/Timeline)',
   parameters: {
     docs: {
       description: {
         story:
-          'Linear의 이슈 뷰 전환 탭 패턴. List/Board/Timeline 3가지 뷰를 Tab으로 전환하며 ' +
+          'IssueTracker의 이슈 뷰 전환 탭 패턴. List/Board/Timeline 3가지 뷰를 Tab으로 전환하며 ' +
           '각 뷰에서 동일한 데이터를 다른 레이아웃으로 렌더링합니다.',
       },
     },
   },
-  render: () => <LinearViewSwitchTabRender />,
+  render: () => <IssueTrackerViewSwitchTabRender />,
 }
 
 /* --------------------------------------------------------------------------
-   shadcn + Linear: 설정 탭 패널 패턴
+   ComposableUI + IssueTracker: 설정 탭 패널 패턴
    두 시스템의 설정 화면 탭 패턴 결합 — 아이콘 탭 + 상세 설정 패널
 -------------------------------------------------------------------------- */
-function ShadcnLinearSettingsTabRender() {
+function ComposableUIIssueTrackerSettingsTabRender() {
   const [active, setActive] = useState('general')
 
   const SETTINGS_TABS = [
@@ -1665,24 +1665,24 @@ function ToggleSwitch() {
   )
 }
 
-export const Shadcn_Linear_설정_탭_패널: Story = {
-  name: 'shadcn/ui + Linear - 설정 탭 패널 패턴',
+export const ComposableUI_IssueTracker_설정_탭_패널: Story = {
+  name: 'ComposableUI + IssueTracker - 설정 탭 패널 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'shadcn/ui Settings 레이아웃 + Linear 워크스페이스 설정 패턴. 아이콘이 있는 탭으로 ' +
+          'ComposableUI Settings 레이아웃 + IssueTracker 워크스페이스 설정 패턴. 아이콘이 있는 탭으로 ' +
           '섹션(일반/알림/팀/결제)을 전환하고 각 패널에 맞는 설정 UI를 표시합니다.',
       },
     },
   },
-  render: () => <ShadcnLinearSettingsTabRender />,
+  render: () => <ComposableUIIssueTrackerSettingsTabRender />,
 }
 
 /* --------------------------------------------------------------------------
-   MUI — 아이콘 + 텍스트 탭 아이템 (수직 아이콘 레이아웃)
+   EnterpriseUI — 아이콘 + 텍스트 탭 아이템 (수직 아이콘 레이아웃)
 -------------------------------------------------------------------------- */
-function MUIIconVerticalTabRender() {
+function EnterpriseUIIconVerticalTabRender() {
   const [selected, setSelected] = useState(0)
 
   const tabs = [
@@ -1695,7 +1695,7 @@ function MUIIconVerticalTabRender() {
 
   return (
     <div style={{ maxWidth: 480, fontFamily: 'system-ui, sans-serif' }}>
-      <p style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginBottom: 10 }}>MUI Icon Tabs 패턴 — 아이콘 + 레이블 조합</p>
+      <p style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginBottom: 10 }}>EnterpriseUI Icon Tabs 패턴 — 아이콘 + 레이블 조합</p>
       <div style={{ display: 'flex', gap: 4 }}>
         {tabs.map((t, idx) => {
           const Icon = t.icon
@@ -1725,22 +1725,22 @@ function MUIIconVerticalTabRender() {
   )
 }
 
-export const MUI_아이콘_텍스트_탭: Story = {
-  name: 'MUI — 아이콘 + 텍스트 조합 탭 아이템',
+export const EnterpriseUI_아이콘_텍스트_탭: Story = {
+  name: 'EnterpriseUI — 아이콘 + 텍스트 조합 탭 아이템',
   parameters: {
     docs: {
       description: {
-        story: 'MUI Icon Tabs 패턴. Tab.Leading 아이콘 + Tab.Center 텍스트 조합으로 의미 있는 탭 구성. 알림 카운트는 Tab 외부에 절대 포지션 뱃지로 오버레이.',
+        story: 'EnterpriseUI Icon Tabs 패턴. Tab.Leading 아이콘 + Tab.Center 텍스트 조합으로 의미 있는 탭 구성. 알림 카운트는 Tab 외부에 절대 포지션 뱃지로 오버레이.',
       },
     },
   },
-  render: () => <MUIIconVerticalTabRender />,
+  render: () => <EnterpriseUIIconVerticalTabRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Arco Design — 필터 칩 스타일 탭 (색상 상태 + 선택 누적)
+   DataProductUI — 필터 칩 스타일 탭 (색상 상태 + 선택 누적)
 -------------------------------------------------------------------------- */
-function ArcoFilterChipTabRender() {
+function DataProductFilterChipTabRender() {
   const [selected, setSelected] = useState<number[]>([0])
 
   const filters = [
@@ -1794,22 +1794,22 @@ function ArcoFilterChipTabRender() {
   )
 }
 
-export const Arco_필터_칩_탭: Story = {
-  name: 'Arco Design — 필터 칩 스타일 탭 (다중 선택)',
+export const DataProduct_필터_칩_탭: Story = {
+  name: 'DataProductUI — 필터 칩 스타일 탭 (다중 선택)',
   parameters: {
     docs: {
       description: {
-        story: 'Arco Design 필터 탭 패턴. Tab을 필터 칩처럼 활용해 다중 선택을 지원. "전체" 선택 시 나머지 해제, 개별 항목 선택 시 "전체" 해제. 선택된 필터를 하단에 뱃지로 표시.',
+        story: 'DataProductUI 필터 탭 패턴. Tab을 필터 칩처럼 활용해 다중 선택을 지원. "전체" 선택 시 나머지 해제, 개별 항목 선택 시 "전체" 해제. 선택된 필터를 하단에 뱃지로 표시.',
       },
     },
   },
-  render: () => <ArcoFilterChipTabRender />,
+  render: () => <DataProductFilterChipTabRender />,
 }
 
 /* --------------------------------------------------------------------------
-   MUI + Arco — 코드 에디터 파일 탭 (수정 표시 + 닫기)
+   EnterpriseUI + DataProduct — 코드 에디터 파일 탭 (수정 표시 + 닫기)
 -------------------------------------------------------------------------- */
-function MUIArcoFileTabRender() {
+function EnterpriseUIDataProductFileTabRender() {
   const [files, setFiles] = useState([
     { id: 1, name: 'SolidButton.tsx', modified: true, lang: 'tsx' },
     { id: 2, name: 'SolidButton.stories.tsx', modified: false, lang: 'tsx' },
@@ -1872,27 +1872,27 @@ function MUIArcoFileTabRender() {
   )
 }
 
-export const MUI_Arco_파일_탭_에디터: Story = {
-  name: 'MUI + Arco — 코드 에디터 파일 탭 (수정 표시 + 닫기)',
+export const EnterpriseUI_DataProduct_파일_탭_에디터: Story = {
+  name: 'EnterpriseUI + DataProduct — 코드 에디터 파일 탭 (수정 표시 + 닫기)',
   parameters: {
     docs: {
       description: {
-        story: 'MUI 탭 닫기 패턴 + Arco 파일 상태 표시 조합. 파일 탭에 수정 여부 노란 점, 언어별 색상 아이콘, 닫기 버튼을 배치. VS Code 스타일 파일 탭 패턴을 Orbit UI Tab으로 구현.',
+        story: 'EnterpriseUI 탭 닫기 패턴 + DataProduct 파일 상태 표시 조합. 파일 탭에 수정 여부 노란 점, 언어별 색상 아이콘, 닫기 버튼을 배치. VS Code 스타일 파일 탭 패턴을 Orbit UI Tab으로 구현.',
       },
     },
   },
-  render: () => <MUIArcoFileTabRender />,
+  render: () => <EnterpriseUIDataProductFileTabRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Cycle 178 — Radix UI + Linear Design
+   Cycle 178 — PrimitiveUI + IssueTracker Design
    Benchmark:
-   1. Radix Tabs: 키보드 네비게이션 화살표키 지원 + aria-selected + role=tab
-   2. Linear: 탭에 단축키 힌트 오버레이 + 상태 아이콘 내장
-   3. Linear: 컴팩트 세로 탭 내비게이션 (사이드바 스타일)
+   1. Primitive Tabs: 키보드 네비게이션 화살표키 지원 + aria-selected + role=tab
+   2. IssueTracker: 탭에 단축키 힌트 오버레이 + 상태 아이콘 내장
+   3. IssueTracker: 컴팩트 세로 탭 내비게이션 (사이드바 스타일)
 -------------------------------------------------------------------------- */
 
-function RadixKeyboardNavTabRender() {
+function PrimitiveKeyboardNavTabRender() {
   const [active, setActive] = useState('overview')
 
   const tabs = [
@@ -1918,7 +1918,7 @@ function RadixKeyboardNavTabRender() {
   return (
     <div style={{ width: 400, fontFamily: 'system-ui, sans-serif' }}>
       <div style={{ fontSize: 11, color: '#94a3b8', marginBottom: 8, padding: '4px 8px', background: '#f8fafc', borderRadius: 6, display: 'inline-flex', alignItems: 'center', gap: 4 }}>
-        <span style={{ fontSize: 10 }}>⌨</span> 화살표키로 탭 이동 (Radix UI 패턴)
+        <span style={{ fontSize: 10 }}>⌨</span> 화살표키로 탭 이동 (PrimitiveUI 패턴)
       </div>
       <div role="tablist" aria-label="문서 섹션" style={{ display: 'flex', gap: 4, flexWrap: 'wrap' }}>
         {tabs.map((tab, i) => (
@@ -1942,25 +1942,25 @@ function RadixKeyboardNavTabRender() {
       </div>
       <div role="tabpanel" style={{ marginTop: 12, padding: '14px 16px', borderRadius: 10, background: '#f8fafc', border: '1px solid #f1f5f9', fontSize: 13, color: '#374151', lineHeight: 1.6 }}>
         {activeTab?.desc}
-        <div style={{ marginTop: 8, fontSize: 11, color: '#94a3b8' }}>→ Radix Tabs와 동일한 aria 패턴 (role=tab, aria-selected, tabIndex 관리)</div>
+        <div style={{ marginTop: 8, fontSize: 11, color: '#94a3b8' }}>→ Primitive Tabs와 동일한 aria 패턴 (role=tab, aria-selected, tabIndex 관리)</div>
       </div>
     </div>
   )
 }
 
-export const Radix_키보드_네비게이션_탭: Story = {
-  name: 'Radix UI — 키보드 화살표 내비게이션 탭 (단축키 힌트)',
+export const Primitive_키보드_네비게이션_탭: Story = {
+  name: 'PrimitiveUI — 키보드 화살표 내비게이션 탭 (단축키 힌트)',
   parameters: {
     docs: {
       description: {
-        story: 'Radix UI Tabs의 키보드 네비게이션 패턴 적용. ←→ 화살표키로 탭 포커스 이동, aria-selected + role=tab + tabIndex 관리. 각 탭에 ⌘1~4 단축키 힌트 칩 표시. 접근성 최우선 탭 구현 패턴.',
+        story: 'PrimitiveUI Tabs의 키보드 네비게이션 패턴 적용. ←→ 화살표키로 탭 포커스 이동, aria-selected + role=tab + tabIndex 관리. 각 탭에 ⌘1~4 단축키 힌트 칩 표시. 접근성 최우선 탭 구현 패턴.',
       },
     },
   },
-  render: () => <RadixKeyboardNavTabRender />,
+  render: () => <PrimitiveKeyboardNavTabRender />,
 }
 
-function LinearStatusNavTabRender() {
+function IssueTrackerStatusNavTabRender() {
   const [active, setActive] = useState('my')
 
   const statusTabs = [
@@ -2014,19 +2014,19 @@ function LinearStatusNavTabRender() {
   )
 }
 
-export const Linear_상태_도트_이슈_탭: Story = {
-  name: 'Linear — 이슈 상태 도트 탭 (내 이슈 / 생성 / 언급 / 구독)',
+export const IssueTracker_상태_도트_이슈_탭: Story = {
+  name: 'IssueTracker — 이슈 상태 도트 탭 (내 이슈 / 생성 / 언급 / 구독)',
   parameters: {
     docs: {
       description: {
-        story: 'Linear 이슈 목록 탭 패턴. 각 탭 앞에 활성 상태 도트, 뒤에 이슈 count 표시. 내 이슈/생성한 이슈/언급된 이슈/구독 중 탭으로 이슈를 필터링하는 Linear 특유의 컴팩트 탭 패턴.',
+        story: 'IssueTracker 이슈 목록 탭 패턴. 각 탭 앞에 활성 상태 도트, 뒤에 이슈 count 표시. 내 이슈/생성한 이슈/언급된 이슈/구독 중 탭으로 이슈를 필터링하는 IssueTracker 특유의 컴팩트 탭 패턴.',
       },
     },
   },
-  render: () => <LinearStatusNavTabRender />,
+  render: () => <IssueTrackerStatusNavTabRender />,
 }
 
-function RadixLinearSettingsTabRender() {
+function PrimitiveIssueTrackerSettingsTabRender() {
   const [active, setActive] = useState('profile')
 
   const settingsSections = [
@@ -2099,14 +2099,14 @@ function RadixLinearSettingsTabRender() {
   )
 }
 
-export const Radix_Linear_설정_사이드바_탭: Story = {
-  name: 'Radix + Linear — 설정 사이드바 세로 탭 (그룹 섹션 + 배지)',
+export const Primitive_IssueTracker_설정_사이드바_탭: Story = {
+  name: 'Primitive + IssueTracker — 설정 사이드바 세로 탭 (그룹 섹션 + 배지)',
   parameters: {
     docs: {
       description: {
-        story: 'Linear Settings 화면의 세로 사이드바 탭 패턴 + Radix 접근성 구조. Tab 컴포넌트를 세로 배치로 활용, 섹션 그룹(계정/워크스페이스/개발)으로 분류, 배지(권장/멤버수)로 중요도 표시.',
+        story: 'IssueTracker Settings 화면의 세로 사이드바 탭 패턴 + Primitive 접근성 구조. Tab 컴포넌트를 세로 배치로 활용, 섹션 그룹(계정/워크스페이스/개발)으로 분류, 배지(권장/멤버수)로 중요도 표시.',
       },
     },
   },
-  render: () => <RadixLinearSettingsTabRender />,
+  render: () => <PrimitiveIssueTrackerSettingsTabRender />,
 }

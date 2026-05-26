@@ -1,6 +1,6 @@
 import { Page, expect } from '@playwright/test'
 
-/* eslint-disable @typescript-eslint/member-ordering */
+
 class Busy {
   constructor(
     public pendingNetworkMap: Map<string, number>,

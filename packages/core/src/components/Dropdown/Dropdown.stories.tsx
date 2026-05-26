@@ -180,7 +180,7 @@ export const 디자인QA = {
       exclude: ['theme', 'className', 'style'],
     },
   },
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
+
   render: function RenderComponent({ leading, trailing, ...args }: any) {
     const [isOpen, setIsOpen] = useState(args.activated ?? false)
 

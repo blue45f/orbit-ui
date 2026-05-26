@@ -119,7 +119,7 @@ type SectionTitleComponent = typeof SectionTitleRoot & {
 
 /**
  * ### 💡 알아두기
- * - [🔗 figma 디자인가이드라인 바로가기](https://www.figma.com/design/nvbYsAN7MkMtI50gQpoWdk/-%EB%AF%BC%ED%8A%B8-2.0--%ED%81%B4%EB%A0%88%EC%9D%B4%EB%AF%BC%ED%8A%B8?node-id=13-5&m=dev)
+ * - [🔗 design 디자인가이드라인 바로가기](https://design.example.com/reference)
  * - 리스트 섹션의 헤더를 표시하는 컴포넌트예요. 제목과 설명, 그리고 액션 요소를 배치할 수 있어요.
  *
  * ### 🧩 서브컴포넌트

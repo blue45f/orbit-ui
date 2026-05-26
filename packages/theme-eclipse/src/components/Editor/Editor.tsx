@@ -156,7 +156,7 @@ export const Editor = ({
   injectEditorStyles()
 
   const extensions = [
-    StarterKit,
+    StarterKit.configure({ link: false }),
     Placeholder.configure({ placeholder }),
     Link.configure({ openOnClick: false }),
     ...(maxCharacters !== undefined

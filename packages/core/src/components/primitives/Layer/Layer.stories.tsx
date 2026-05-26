@@ -49,7 +49,7 @@ const labelStyle: React.CSSProperties = {
 }
 
 export const 기본 = {
-  // eslint-disable-next-line
+
   render: () => {
     return (
       <div style={{ maxWidth: '640px' }}>

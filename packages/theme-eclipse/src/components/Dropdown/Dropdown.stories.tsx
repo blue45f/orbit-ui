@@ -179,7 +179,7 @@ export const 디자인QA = {
       exclude: ['theme', 'className', 'style'],
     },
   },
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
+
   render: ({ leading, trailing, ...args }: any) => {
     return (
       <Dropdown {...args}>
@@ -198,8 +198,8 @@ export const 디자인QA = {
   },
 }
 
-// MUI Select 패턴: 폼 내 드롭다운 조합
-const MUISelectFormDemo = () => {
+// EnterpriseUI Select 패턴: 폼 내 드롭다운 조합
+const EnterpriseUISelectFormDemo = () => {
   const [country, setCountry] = useState('')
   const [city, setCity] = useState('')
   const [role, setRole] = useState('')
@@ -275,7 +275,7 @@ const MUISelectFormDemo = () => {
     }}>
       <div style={{ marginBottom: '28px' }}>
         <div style={{ fontSize: '11px', fontWeight: '700', color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '6px' }}>
-          MUI Select Pattern
+          EnterpriseUI Select Pattern
         </div>
         <h2 style={{ margin: '0 0 6px', fontSize: '22px', fontWeight: '800', color: '#0f172a', letterSpacing: '-0.02em' }}>
           프로필 설정
@@ -379,13 +379,13 @@ const MUISelectFormDemo = () => {
   )
 }
 
-export const MUI_Select_폼패턴: Story = {
-  name: 'MUI Select 패턴 (종속 드롭다운 폼)',
-  render: () => <MUISelectFormDemo />,
+export const EnterpriseUI_Select_폼패턴: Story = {
+  name: 'EnterpriseUI Select 패턴 (종속 드롭다운 폼)',
+  render: () => <EnterpriseUISelectFormDemo />,
 }
 
-// Chakra Menu 패턴: 다중 필터 드롭다운
-const ChakraFilterMenuDemo = () => {
+// Accessible Menu 패턴: 다중 필터 드롭다운
+const AccessibleFilterMenuDemo = () => {
   const [statusOpen, setStatusOpen] = useState(false)
   const [priorityOpen, setPriorityOpen] = useState(false)
   const [assigneeOpen, setAssigneeOpen] = useState(false)
@@ -461,7 +461,7 @@ const ChakraFilterMenuDemo = () => {
     <div style={{ width: '600px' }}>
       <div style={{ marginBottom: '20px' }}>
         <div style={{ fontSize: '11px', fontWeight: '700', color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '6px' }}>
-          Chakra Menu Pattern
+          Accessible Menu Pattern
         </div>
         <h3 style={{ margin: '0 0 4px', fontSize: '18px', fontWeight: '700', color: '#0f172a' }}>
           태스크 목록
@@ -561,20 +561,20 @@ const ChakraFilterMenuDemo = () => {
   )
 }
 
-export const Chakra_Menu_필터패턴: Story = {
-  name: 'Chakra Menu 패턴 (다중 필터 드롭다운)',
-  render: () => <ChakraFilterMenuDemo />,
+export const Accessible_Menu_필터패턴: Story = {
+  name: 'Accessible Menu 패턴 (다중 필터 드롭다운)',
+  render: () => <AccessibleFilterMenuDemo />,
 }
 
 /* --------------------------------------------------------------------------
-   Figma 벤치마크: 레이어 속성 드롭다운 패턴
-   Figma 속성 패널 — 레이어 블렌드 모드 + 폰트 선택 드롭다운 UI
+   DesignTool 벤치마크: 레이어 속성 드롭다운 패턴
+   DesignTool 속성 패널 — 레이어 블렌드 모드 + 폰트 선택 드롭다운 UI
 -------------------------------------------------------------------------- */
 const BLEND_MODES = ['Normal', 'Multiply', 'Screen', 'Overlay', 'Darken', 'Lighten', 'Color Dodge', 'Color Burn']
 const FONT_FAMILIES = ['Inter', 'Pretendard', 'Noto Sans KR', 'Roboto', 'SF Pro', 'Helvetica']
 
-export const Figma_레이어_속성_드롭다운: Story = {
-  name: 'Figma - 레이어 속성 드롭다운 패턴',
+export const DesignTool_레이어_속성_드롭다운: Story = {
+  name: 'DesignTool - 레이어 속성 드롭다운 패턴',
   render: function Render() {
     const [blend, setBlend] = useState('Normal')
     const [font, setFont] = useState('Inter')
@@ -642,14 +642,14 @@ export const Figma_레이어_속성_드롭다운: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Material 3 벤치마크: 노출된 드롭다운 메뉴 패턴
-   Material 3 ExposedDropdownMenu — outlined + filled 스타일 선택 UI
+   RoleToken Design 벤치마크: 노출된 드롭다운 메뉴 패턴
+   RoleToken Design ExposedDropdownMenu — outlined + filled 스타일 선택 UI
 -------------------------------------------------------------------------- */
 const COUNTRIES = ['대한민국', '미국', '일본', '영국', '프랑스', '독일', '캐나다', '호주']
 const LANGUAGES = ['한국어', 'English', '日本語', '中文', 'Español', 'Français']
 
 export const Material3_노출_드롭다운: Story = {
-  name: 'Material 3 - 노출된 드롭다운 메뉴 패턴',
+  name: 'RoleToken Design - 노출된 드롭다운 메뉴 패턴',
   render: function Render() {
     const [country, setCountry] = useState('')
     const [language, setLanguage] = useState('')
@@ -732,14 +732,14 @@ export const Material3_노출_드롭다운: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Cycle 69: Linear Design + Google Material 3 벤치마크
+   Cycle 69: IssueTracker Design + RoleToken Design 벤치마크
 -------------------------------------------------------------------------- */
 
-/* Linear — 이슈 상태 선택 드롭다운
-   Linear의 이슈 상태 선택기 패턴. 상태 아이콘 + 레이블 + 색상 도트로
+/* IssueTracker — 이슈 상태 선택 드롭다운
+   IssueTracker의 이슈 상태 선택기 패턴. 상태 아이콘 + 레이블 + 색상 도트로
    현재 상태를 직관적으로 표시. 컴팩트하고 밀도 높은 상태 관리 UX.
 -------------------------------------------------------------------------- */
-const LINEAR_STATUSES = [
+const TRACKER_STATUSES = [
   { value: 'backlog', label: '백로그', color: '#94a3b8', dot: '○' },
   { value: 'todo', label: '할 일', color: '#64748b', dot: '◐' },
   { value: 'in_progress', label: '진행 중', color: '#f59e0b', dot: '◑' },
@@ -748,22 +748,22 @@ const LINEAR_STATUSES = [
   { value: 'cancelled', label: '취소됨', color: '#ef4444', dot: '✕' },
 ]
 
-export const Linear_이슈_상태_선택기: Story = {
-  name: 'Linear — 이슈 상태 선택기',
+export const IssueTracker_이슈_상태_선택기: Story = {
+  name: 'IssueTracker — 이슈 상태 선택기',
   parameters: {
     docs: {
       description: {
-        story: 'Linear 이슈 상태 선택 패턴. 색상 도트 + 상태 레이블로 현재 상태를 표시. 상태별 시맨틱 색상으로 한눈에 진행 상황 파악. 컴팩트 밀도의 상태 드롭다운.',
+        story: 'IssueTracker 이슈 상태 선택 패턴. 색상 도트 + 상태 레이블로 현재 상태를 표시. 상태별 시맨틱 색상으로 한눈에 진행 상황 파악. 컴팩트 밀도의 상태 드롭다운.',
       },
     },
   },
-  render: function LinearStatusSelector() {
+  render: function IssueTrackerStatusSelector() {
     const [status, setStatus] = useState('in_progress')
-    const current = LINEAR_STATUSES.find((s) => s.value === status) ?? LINEAR_STATUSES[0]
+    const current = TRACKER_STATUSES.find((s) => s.value === status) ?? TRACKER_STATUSES[0]
 
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 16, padding: '8px 0', fontFamily: 'system-ui, sans-serif', width: 360 }}>
-        <div style={{ fontSize: 13, color: '#64748b' }}>Linear 스타일 이슈 상태 선택기</div>
+        <div style={{ fontSize: 13, color: '#64748b' }}>IssueTracker 스타일 이슈 상태 선택기</div>
 
         {/* 드롭다운 트리거 */}
         <div style={{ position: 'relative' }}>
@@ -779,7 +779,7 @@ export const Linear_이슈_상태_선택기: Story = {
 
           {/* 커스텀 옵션 목록 */}
           <div style={{ marginTop: 4, background: '#fff', borderRadius: 10, border: '1px solid #e2e8f0', boxShadow: '0 4px 16px rgba(0,0,0,0.08)', overflow: 'hidden' }}>
-            {LINEAR_STATUSES.map((s) => (
+            {TRACKER_STATUSES.map((s) => (
               <div
                 key={s.value}
                 onClick={() => setStatus(s.value)}
@@ -807,11 +807,11 @@ export const Linear_이슈_상태_선택기: Story = {
   },
 }
 
-/* Linear — 우선순위 선택 드롭다운
-   Linear의 이슈 우선순위 선택기. 4단계 우선순위를 아이콘과 색상으로 구분.
+/* IssueTracker — 우선순위 선택 드롭다운
+   IssueTracker의 이슈 우선순위 선택기. 4단계 우선순위를 아이콘과 색상으로 구분.
    긴급/높음/보통/낮음/없음의 명확한 시각적 계층.
 -------------------------------------------------------------------------- */
-const LINEAR_PRIORITIES = [
+const TRACKER_PRIORITIES = [
   { value: 'urgent', label: '긴급', icon: '!!', color: '#ef4444' },
   { value: 'high', label: '높음', icon: '!', color: '#f59e0b' },
   { value: 'medium', label: '보통', icon: '~', color: '#6366f1' },
@@ -819,23 +819,23 @@ const LINEAR_PRIORITIES = [
   { value: 'none', label: '없음', icon: '-', color: '#cbd5e1' },
 ]
 
-export const Linear_우선순위_선택_드롭다운: Story = {
-  name: 'Linear — 우선순위 선택 드롭다운',
+export const IssueTracker_우선순위_선택_드롭다운: Story = {
+  name: 'IssueTracker — 우선순위 선택 드롭다운',
   parameters: {
     docs: {
       description: {
-        story: 'Linear 이슈 우선순위 선택 패턴. 긴급/높음/보통/낮음/없음 5단계를 아이콘+색상으로 구분. Dropdown.Leading에 우선순위 아이콘 배치.',
+        story: 'IssueTracker 이슈 우선순위 선택 패턴. 긴급/높음/보통/낮음/없음 5단계를 아이콘+색상으로 구분. Dropdown.Leading에 우선순위 아이콘 배치.',
       },
     },
   },
-  render: function LinearPriorityDropdown() {
+  render: function IssueTrackerPriorityDropdown() {
     const [priority, setPriority] = useState('medium')
     const [open, setOpen] = useState(false)
-    const current = LINEAR_PRIORITIES.find((p) => p.value === priority) ?? LINEAR_PRIORITIES[2]
+    const current = TRACKER_PRIORITIES.find((p) => p.value === priority) ?? TRACKER_PRIORITIES[2]
 
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 12, fontFamily: 'system-ui, sans-serif', width: 300 }}>
-        <div style={{ fontSize: 12, color: '#94a3b8' }}>Linear 우선순위 선택기</div>
+        <div style={{ fontSize: 12, color: '#94a3b8' }}>IssueTracker 우선순위 선택기</div>
         <div style={{ position: 'relative' }}>
           <div onClick={() => setOpen((o) => !o)}>
             <Dropdown
@@ -852,7 +852,7 @@ export const Linear_우선순위_선택_드롭다운: Story = {
           </div>
           {open && (
             <div style={{ position: 'absolute', top: 'calc(100% + 4px)', left: 0, right: 0, background: '#fff', borderRadius: 10, border: '1px solid #e2e8f0', boxShadow: '0 8px 24px rgba(0,0,0,0.1)', zIndex: 10, overflow: 'hidden' }}>
-              {LINEAR_PRIORITIES.map((p) => (
+              {TRACKER_PRIORITIES.map((p) => (
                 <div
                   key={p.value}
                   onClick={() => { setPriority(p.value); setOpen(false) }}
@@ -876,8 +876,8 @@ export const Linear_우선순위_선택_드롭다운: Story = {
   },
 }
 
-/* Google Material 3 — 노출 드롭다운 (Exposed Dropdown Menu)
-   Material 3의 Exposed Dropdown Menu 패턴. 아웃라인 필드처럼 생긴 선택기.
+/* RoleToken Design — 노출 드롭다운 (Exposed Dropdown Menu)
+   RoleToken Design의 Exposed Dropdown Menu 패턴. 아웃라인 필드처럼 생긴 선택기.
    선택 시 레이블이 상단으로 올라가는 floating label 효과 + 옵션 목록.
 -------------------------------------------------------------------------- */
 const M3_SORT_OPTIONS = [
@@ -889,7 +889,7 @@ const M3_SORT_OPTIONS = [
 ]
 
 export const Material3_Exposed_드롭다운_메뉴: Story = {
-  name: 'Google Material 3 — Exposed Dropdown Menu',
+  name: 'RoleToken Design — Exposed Dropdown Menu',
   parameters: {
     docs: {
       description: {
@@ -960,27 +960,27 @@ export const Material3_Exposed_드롭다운_메뉴: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Tailwind UI 벤치마크: 태그 멀티 선택 드롭다운
+   UtilityUI 벤치마크: 태그 멀티 선택 드롭다운
    여러 항목을 선택해 인라인 태그로 표시하는 패턴
 -------------------------------------------------------------------------- */
 const TW_TAG_OPTIONS = [
   { value: 'react', label: 'React' },
   { value: 'typescript', label: 'TypeScript' },
-  { value: 'tailwind', label: 'Tailwind CSS' },
+  { value: 'tailwind', label: 'UtilityCSS CSS' },
   { value: 'nextjs', label: 'Next.js' },
   { value: 'storybook', label: 'Storybook' },
   { value: 'vitest', label: 'Vitest' },
   { value: 'playwright', label: 'Playwright' },
-  { value: 'figma', label: 'Figma' },
+  { value: 'design', label: 'DesignTool' },
 ]
 
-export const TailwindUI_태그_멀티선택_드롭다운: Story = {
-  name: 'Tailwind UI — 태그 멀티 선택 드롭다운',
+export const UtilityCSSUI_태그_멀티선택_드롭다운: Story = {
+  name: 'UtilityUI — 태그 멀티 선택 드롭다운',
   parameters: {
     docs: {
       description: {
         story:
-          'Tailwind UI Combobox(Multi) 패턴. 선택한 항목이 인라인 태그(chip)으로 트리거 내부에 표시되고, ' +
+          'UtilityUI Combobox(Multi) 패턴. 선택한 항목이 인라인 태그(chip)으로 트리거 내부에 표시되고, ' +
           '태그별 삭제 버튼으로 개별 제거 가능. 검색 필터로 옵션 실시간 탐색.',
       },
     },
@@ -1243,8 +1243,8 @@ export const Ant_계층형_카테고리_선택기: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Tailwind UI 벤치마크: 인원 배정 선택기
-   Tailwind UI Combobox(with avatar) 패턴
+   UtilityUI 벤치마크: 인원 배정 선택기
+   UtilityUI Combobox(with avatar) 패턴
 -------------------------------------------------------------------------- */
 type TwAssignee = { id: number; name: string; role: string; initials: string; color: string }
 const TW_ASSIGNEES: TwAssignee[] = [
@@ -1255,13 +1255,13 @@ const TW_ASSIGNEES: TwAssignee[] = [
   { id: 5, name: '정유나', role: 'QA 엔지니어', initials: '정', color: '#ef4444' },
 ]
 
-export const TailwindUI_인원_배정_드롭다운: Story = {
-  name: 'Tailwind UI — 인원 배정 아바타 Combobox',
+export const UtilityCSSUI_인원_배정_드롭다운: Story = {
+  name: 'UtilityUI — 인원 배정 아바타 Combobox',
   parameters: {
     docs: {
       description: {
         story:
-          'Tailwind UI Combobox with Avatar 패턴. 아바타 + 이름 + 직책으로 구성된 인원 목록에서 ' +
+          'UtilityUI Combobox with Avatar 패턴. 아바타 + 이름 + 직책으로 구성된 인원 목록에서 ' +
           '담당자를 배정하는 드롭다운. 선택된 인원이 트리거에 아바타로 표시됩니다.',
       },
     },
@@ -1359,31 +1359,31 @@ export const TailwindUI_인원_배정_드롭다운: Story = {
 }
 
 // ============================================================
-// Cycle 138 — Vercel Design + Chakra UI 벤치마크 반영
+// Cycle 138 — DeployPlatform Design + AccessibleUI 벤치마크 반영
 // ============================================================
 
-// Vercel 스타일 — 배포 환경 선택기 (Production/Preview/Development)
-const VERCEL_ENVS_138 = [
+// DeployPlatform 스타일 — 배포 환경 선택기 (Production/Preview/Development)
+const DEPLOY_ENVS_138 = [
   { value: 'production', label: 'Production', desc: '메인 브랜치 (main)', color: '#22c55e', badge: 'LIVE' },
   { value: 'preview', label: 'Preview', desc: '모든 PR 브랜치 자동 배포', color: '#6366f1', badge: 'BETA' },
   { value: 'development', label: 'Development', desc: '로컬 개발 환경', color: '#f59e0b', badge: 'DEV' },
 ]
 
-export const Vercel_배포_환경_선택기: Story = {
-  name: 'Vercel Design — 배포 환경 선택기 (Cycle 138)',
+export const DeployPlatform_배포_환경_선택기: Story = {
+  name: 'DeployPlatform Design — 배포 환경 선택기 (Cycle 138)',
   parameters: {
     docs: {
       description: {
         story:
-          'Vercel Environment Selector 패턴. Production/Preview/Development 환경별 색상 배지 + 설명 서브텍스트. ' +
+          'DeployPlatform Environment Selector 패턴. Production/Preview/Development 환경별 색상 배지 + 설명 서브텍스트. ' +
           '선택된 환경은 트리거에 색상 도트와 배지로 표시. 모노크롬 컴팩트 밀도.',
       },
     },
   },
-  render: function VercelEnvSelectorRender() {
+  render: function DeployPlatformEnvSelectorRender() {
     const [open, setOpen] = useState(false)
     const [env, setEnv] = useState('production')
-    const current = VERCEL_ENVS_138.find((e) => e.value === env) ?? VERCEL_ENVS_138[0]
+    const current = DEPLOY_ENVS_138.find((e) => e.value === env) ?? DEPLOY_ENVS_138[0]
 
     return (
       <div style={{ width: 320, fontFamily: 'system-ui, sans-serif', position: 'relative' }}>
@@ -1402,7 +1402,7 @@ export const Vercel_배포_환경_선택기: Story = {
         </Dropdown>
         {open && (
           <div style={{ position: 'absolute', top: 'calc(100% + 4px)', left: 0, right: 0, zIndex: 10, background: '#fff', borderRadius: 10, border: '1px solid #e2e8f0', boxShadow: '0 8px 24px rgba(0,0,0,0.10)', overflow: 'hidden' }}>
-            {VERCEL_ENVS_138.map((e) => (
+            {DEPLOY_ENVS_138.map((e) => (
               <div
                 key={e.value}
                 onClick={() => { setEnv(e.value); setOpen(false) }}
@@ -1430,7 +1430,7 @@ export const Vercel_배포_환경_선택기: Story = {
   },
 }
 
-// Chakra UI 스타일 — 배포 지역 선택기 (멀티 지역)
+// AccessibleUI 스타일 — 배포 지역 선택기 (멀티 지역)
 const CHAKRA_REGIONS_138 = [
   { value: 'iad1', label: 'Washington D.C.', region: 'us-east-1', latency: 12 },
   { value: 'sfo1', label: 'San Francisco', region: 'us-west-2', latency: 98 },
@@ -1446,18 +1446,18 @@ function getLatencyColor(ms: number) {
   return '#ef4444'
 }
 
-export const Chakra_배포_지역_선택기: Story = {
-  name: 'Chakra UI — 배포 지역 선택기 (Cycle 138)',
+export const Accessible_배포_지역_선택기: Story = {
+  name: 'AccessibleUI — 배포 지역 선택기 (Cycle 138)',
   parameters: {
     docs: {
       description: {
         story:
-          'Chakra UI Select + 지역 선택 패턴. 지역별 레이턴시 ms 표시 + 색상 코딩(녹/황/적). ' +
+          'AccessibleUI Select + 지역 선택 패턴. 지역별 레이턴시 ms 표시 + 색상 코딩(녹/황/적). ' +
           '현재 지역은 체크 표시 + 굵은 글씨. 레이턴시 기준 정렬 제안 UX.',
       },
     },
   },
-  render: function ChakraRegionSelectorRender() {
+  render: function AccessibleRegionSelectorRender() {
     const [open, setOpen] = useState(false)
     const [region, setRegion] = useState('icn1')
     const current = CHAKRA_REGIONS_138.find((r) => r.value === region) ?? CHAKRA_REGIONS_138[0]
@@ -1505,7 +1505,7 @@ export const Chakra_배포_지역_선택기: Story = {
   },
 }
 
-// Vercel + Chakra — 팀 & 프로젝트 계층 선택기
+// DeployPlatform + Accessible — 팀 & 프로젝트 계층 선택기
 const TEAMS_138 = [
   { id: 't1', name: 'blue45fs-projects', type: 'team', members: 3, projects: 12, avatar: 'B', color: '#6366f1' },
   { id: 't2', name: 'Personal Account', type: 'personal', members: 1, projects: 4, avatar: 'H', color: '#0ea5e9' },
@@ -1523,18 +1523,18 @@ const PROJECTS_138: Record<string, { id: string; name: string; env: string }[]> 
   ],
 }
 
-export const Vercel_Chakra_팀_프로젝트_선택기: Story = {
-  name: 'Vercel + Chakra — 팀/프로젝트 계층 선택기 (Cycle 138)',
+export const DeployPlatform_Accessible_팀_프로젝트_선택기: Story = {
+  name: 'DeployPlatform + Accessible — 팀/프로젝트 계층 선택기 (Cycle 138)',
   parameters: {
     docs: {
       description: {
         story:
-          'Vercel + Chakra UI 계층형 선택 드롭다운. 1단계 팀 선택 → 2단계 프로젝트 선택. ' +
+          'DeployPlatform + AccessibleUI 계층형 선택 드롭다운. 1단계 팀 선택 → 2단계 프로젝트 선택. ' +
           '팀 아바타 + 멤버/프로젝트 수 표시. 선택 완료 시 "팀/프로젝트" 조합 트리거에 표시.',
       },
     },
   },
-  render: function VercelChakraTeamProjectRender() {
+  render: function DeployPlatformAccessibleTeamProjectRender() {
     const [open, setOpen] = useState(false)
     const [step, setStep] = useState<'team' | 'project'>('team')
     const [teamId, setTeamId] = useState<string | null>(null)
@@ -1609,10 +1609,10 @@ export const Vercel_Chakra_팀_프로젝트_선택기: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Cycle 163 — Figma Plugin UI + Apple HIG
-   Figma Plugin: 컴포넌트 프레임 선택 드롭다운 패턴
+   Cycle 163 — DesignTool Plugin UI + Platform HIG
+   DesignTool Plugin: 컴포넌트 프레임 선택 드롭다운 패턴
 -------------------------------------------------------------------------- */
-const FIGMA_FRAME_OPTIONS = [
+const DESIGN_FRAME_OPTIONS = [
   '375 × 812 — iPhone SE',
   '390 × 844 — iPhone 14',
   '428 × 926 — iPhone 14 Pro Max',
@@ -1621,13 +1621,13 @@ const FIGMA_FRAME_OPTIONS = [
   '1440 × 900 — Desktop XL',
 ]
 
-function FigmaFrameSelectorRender() {
+function DesignToolFrameSelectorRender() {
   const [frame, setFrame] = useState('')
   const [open, setOpen] = useState(false)
 
   return (
     <div style={{ width: 320, fontFamily: 'system-ui, sans-serif' }}>
-      <p style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 12 }}>Figma Plugin UI — 프레임 선택 드롭다운</p>
+      <p style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 12 }}>DesignTool Plugin UI — 프레임 선택 드롭다운</p>
       <div style={{ background: '#1e1e1e', borderRadius: 10, padding: '16px', color: '#fff' }}>
         <div style={{ fontSize: 11, color: '#999', marginBottom: 6 }}>캔버스 프레임 크기</div>
         <Dropdown
@@ -1638,7 +1638,7 @@ function FigmaFrameSelectorRender() {
         />
         {open && (
           <div style={{ marginTop: 4, borderRadius: 8, background: '#2c2c2c', border: '1px solid #444', overflow: 'hidden' }}>
-            {FIGMA_FRAME_OPTIONS.map(opt => (
+            {DESIGN_FRAME_OPTIONS.map(opt => (
               <button key={opt} onClick={() => { setFrame(opt); setOpen(false) }} style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '9px 12px', background: frame === opt ? '#3a3a3a' : 'transparent', border: 'none', color: frame === opt ? '#818cf8' : '#d4d4d4', fontSize: 12, cursor: 'pointer', textAlign: 'left' }}>
                 <span>{opt.split(' — ')[1]}</span>
                 <span style={{ fontSize: 10, color: '#666', fontFamily: 'monospace' }}>{opt.split(' — ')[0]}</span>
@@ -1654,37 +1654,37 @@ function FigmaFrameSelectorRender() {
   )
 }
 
-export const Figma_프레임_크기_선택_드롭다운: Story = {
-  name: 'Figma Plugin UI — 캔버스 프레임 크기 선택',
+export const DesignTool_프레임_크기_선택_드롭다운: Story = {
+  name: 'DesignTool Plugin UI — 캔버스 프레임 크기 선택',
   parameters: {
     docs: {
       description: {
-        story: 'Figma Plugin의 Frame Size Picker 패턴. 다크 배경 플러그인 UI에 Dropdown 배치, 기기명 + 해상도 2단 표시, 선택 시 강조 색상 피드백.',
+        story: 'DesignTool Plugin의 Frame Size Picker 패턴. 다크 배경 플러그인 UI에 Dropdown 배치, 기기명 + 해상도 2단 표시, 선택 시 강조 색상 피드백.',
       },
     },
   },
-  render: () => <FigmaFrameSelectorRender />,
+  render: () => <DesignToolFrameSelectorRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Apple HIG: 공유 시트 / 내보내기 형식 선택 드롭다운
+   Platform HIG: 공유 시트 / 내보내기 형식 선택 드롭다운
 -------------------------------------------------------------------------- */
-const APPLE_EXPORT_FORMATS = [
+const NATIVE_EXPORT_FORMATS = [
   { value: 'png', label: 'PNG', desc: '투명 배경, 래스터', icon: '🖼️' },
   { value: 'svg', label: 'SVG', desc: '벡터, 확장 가능', icon: '✦' },
   { value: 'pdf', label: 'PDF', desc: '인쇄용 고해상도', icon: '📄' },
   { value: 'webp', label: 'WebP', desc: '웹 최적화', icon: '🌐' },
 ]
 
-const APPLE_SCALE_OPTIONS = ['1x', '2x', '3x']
+const NATIVE_SCALE_OPTIONS = ['1x', '2x', '3x']
 
-function AppleExportSheetRender() {
+function PlatformExportSheetRender() {
   const [format, setFormat] = useState('')
   const [scale, setScale] = useState('2x')
   const [formatOpen, setFormatOpen] = useState(false)
   const [exported, setExported] = useState(false)
 
-  const selectedFormat = APPLE_EXPORT_FORMATS.find(f => f.value === format)
+  const selectedFormat = NATIVE_EXPORT_FORMATS.find(f => f.value === format)
 
   const handleExport = () => {
     if (!format) { return }
@@ -1693,8 +1693,8 @@ function AppleExportSheetRender() {
   }
 
   return (
-    <div style={{ width: 320, fontFamily: '-apple-system, BlinkMacSystemFont, system-ui, sans-serif' }}>
-      <p style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 12 }}>Apple HIG — 내보내기 형식 선택</p>
+    <div style={{ width: 320, fontFamily: 'system-ui, sans-serif' }}>
+      <p style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 12 }}>Platform HIG — 내보내기 형식 선택</p>
       <div style={{ background: '#fff', borderRadius: 14, border: '1px solid #e5e7eb', boxShadow: '0 2px 16px rgba(0,0,0,0.06)', overflow: 'hidden' }}>
         {/* Header */}
         <div style={{ padding: '14px 16px', borderBottom: '1px solid #f5f5f7', display: 'flex', alignItems: 'center', gap: 10 }}>
@@ -1717,7 +1717,7 @@ function AppleExportSheetRender() {
             />
             {formatOpen && (
               <div style={{ marginTop: 4, borderRadius: 10, background: '#fff', border: '1px solid #e5e7eb', boxShadow: '0 4px 16px rgba(0,0,0,0.08)', overflow: 'hidden' }}>
-                {APPLE_EXPORT_FORMATS.map(f => (
+                {NATIVE_EXPORT_FORMATS.map(f => (
                   <button key={f.value} onClick={() => { setFormat(f.value); setFormatOpen(false) }} style={{ width: '100%', display: 'flex', alignItems: 'center', gap: 10, padding: '10px 14px', background: format === f.value ? '#f5f4ff' : 'transparent', border: 'none', cursor: 'pointer', textAlign: 'left', borderBottom: '1px solid #f5f5f7' }}>
                     <span style={{ fontSize: 18 }}>{f.icon}</span>
                     <div>
@@ -1735,7 +1735,7 @@ function AppleExportSheetRender() {
           <div>
             <div style={{ fontSize: 11, fontWeight: 600, color: '#8e8e93', marginBottom: 6, textTransform: 'uppercase', letterSpacing: '0.05em' }}>해상도</div>
             <div style={{ display: 'flex', gap: 6 }}>
-              {APPLE_SCALE_OPTIONS.map(s => (
+              {NATIVE_SCALE_OPTIONS.map(s => (
                 <button key={s} onClick={() => setScale(s)} style={{ flex: 1, padding: '8px 0', fontSize: 13, fontWeight: scale === s ? 600 : 400, borderRadius: 8, border: `1.5px solid ${scale === s ? '#5e5adb' : '#e5e7eb'}`, background: scale === s ? '#f5f4ff' : '#fff', color: scale === s ? '#5e5adb' : '#1c1c1e', cursor: 'pointer', transition: 'all 150ms' }}>{s}</button>
               ))}
             </div>
@@ -1750,31 +1750,31 @@ function AppleExportSheetRender() {
   )
 }
 
-export const Apple_내보내기_형식_선택_드롭다운: Story = {
-  name: 'Apple HIG — 내보내기 형식 선택 드롭다운',
+export const Platform_내보내기_형식_선택_드롭다운: Story = {
+  name: 'Platform HIG — 내보내기 형식 선택 드롭다운',
   parameters: {
     docs: {
       description: {
-        story: 'Apple HIG Share Sheet / Export 패턴. 형식(PNG/SVG/PDF/WebP) + 해상도(1x/2x/3x) Dropdown 조합. iOS 스타일 둥근 카드, 큰 내보내기 버튼, 완료 피드백 애니메이션.',
+        story: 'Platform HIG Share Sheet / Export 패턴. 형식(PNG/SVG/PDF/WebP) + 해상도(1x/2x/3x) Dropdown 조합. iOS 스타일 둥근 카드, 큰 내보내기 버튼, 완료 피드백 애니메이션.',
       },
     },
   },
-  render: () => <AppleExportSheetRender />,
+  render: () => <PlatformExportSheetRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Figma + Apple HIG: 폰트 및 타이포그래피 선택기 복합 드롭다운
+   DesignTool + Platform HIG: 폰트 및 타이포그래피 선택기 복합 드롭다운
 -------------------------------------------------------------------------- */
-const FIGMA_FONT_FAMILIES = [
+const DESIGN_FONT_FAMILIES = [
   { name: 'Inter', weights: ['Regular', 'Medium', 'SemiBold', 'Bold'] },
-  { name: 'Geist', weights: ['Light', 'Regular', 'Medium', 'Bold'] },
+  { name: 'System', weights: ['Light', 'Regular', 'Medium', 'Bold'] },
   { name: 'SF Pro', weights: ['Regular', 'Medium', 'Semibold', 'Bold'] },
   { name: 'Pretendard', weights: ['Regular', 'Medium', 'SemiBold', 'Bold', 'ExtraBold'] },
 ]
 
 const FONT_SIZES = ['11', '12', '13', '14', '16', '18', '20', '24', '28', '32']
 
-function FigmaAppleTypographyPickerRender() {
+function DesignToolPlatformTypographyPickerRender() {
   const [fontFamily, setFontFamily] = useState('')
   const [fontWeight, setFontWeight] = useState('')
   const [fontSize, setFontSize] = useState('14')
@@ -1782,11 +1782,11 @@ function FigmaAppleTypographyPickerRender() {
   const [weightOpen, setWeightOpen] = useState(false)
   const [sizeOpen, setSizeOpen] = useState(false)
 
-  const selectedFont = FIGMA_FONT_FAMILIES.find(f => f.name === fontFamily)
+  const selectedFont = DESIGN_FONT_FAMILIES.find(f => f.name === fontFamily)
 
   return (
     <div style={{ width: 340, fontFamily: 'system-ui, sans-serif' }}>
-      <p style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 12 }}>Figma + Apple HIG — 폰트 선택기</p>
+      <p style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 12 }}>DesignTool + Platform HIG — 폰트 선택기</p>
       <div style={{ background: '#fff', borderRadius: 12, border: '1px solid #e5e7eb', padding: '16px', boxShadow: '0 2px 12px rgba(0,0,0,0.05)' }}>
         {/* Preview */}
         <div style={{ marginBottom: 14, padding: '12px', borderRadius: 8, background: '#f8fafc', border: '1px solid #e5e7eb', textAlign: 'center' }}>
@@ -1803,7 +1803,7 @@ function FigmaAppleTypographyPickerRender() {
             <Dropdown value={fontFamily} placeholder="서체" activated={familyOpen} onClick={() => { setFamilyOpen(o => !o); setWeightOpen(false); setSizeOpen(false) }} />
             {familyOpen && (
               <div style={{ position: 'absolute', zIndex: 10, width: 160, marginTop: 4, borderRadius: 8, background: '#fff', border: '1px solid #e5e7eb', boxShadow: '0 4px 16px rgba(0,0,0,0.1)', overflow: 'hidden' }}>
-                {FIGMA_FONT_FAMILIES.map(f => (
+                {DESIGN_FONT_FAMILIES.map(f => (
                   <button key={f.name} onClick={() => { setFontFamily(f.name); setFontWeight(''); setFamilyOpen(false) }} style={{ width: '100%', padding: '8px 12px', background: fontFamily === f.name ? '#f0f4ff' : 'transparent', border: 'none', textAlign: 'left', cursor: 'pointer', fontSize: 13, color: fontFamily === f.name ? '#4338ca' : '#374151', fontFamily: f.name }}>
                     {f.name}
                   </button>
@@ -1845,14 +1845,14 @@ function FigmaAppleTypographyPickerRender() {
   )
 }
 
-export const Figma_Apple_폰트_타이포그래피_선택기: Story = {
-  name: 'Figma + Apple HIG — 폰트 & 타이포그래피 선택기',
+export const DesignTool_Platform_폰트_타이포그래피_선택기: Story = {
+  name: 'DesignTool + Platform HIG — 폰트 & 타이포그래피 선택기',
   parameters: {
     docs: {
       description: {
-        story: 'Figma Font Picker + Apple HIG Typography Inspector 패턴. 패밀리/굵기/크기 3개 Dropdown 연동, 실시간 폰트 미리보기. 패밀리 선택 시 굵기 옵션 동적 업데이트.',
+        story: 'DesignTool Font Picker + Platform HIG Typography Inspector 패턴. 패밀리/굵기/크기 3개 Dropdown 연동, 실시간 폰트 미리보기. 패밀리 선택 시 굵기 옵션 동적 업데이트.',
       },
     },
   },
-  render: () => <FigmaAppleTypographyPickerRender />,
+  render: () => <DesignToolPlatformTypographyPickerRender />,
 }

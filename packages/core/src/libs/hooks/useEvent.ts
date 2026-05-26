@@ -14,7 +14,7 @@ export const useEvent = <
   R = ReturnType<F>,
 >(
   cb: (...args: P) => R
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+
 ) => {
   const cache = useRef(cb)
 
@@ -22,6 +22,6 @@ export const useEvent = <
     cache.current = cb
   })
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+
   return useCallback((...args: P) => cache.current(...args), [])
 }

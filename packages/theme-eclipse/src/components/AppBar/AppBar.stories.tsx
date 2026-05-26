@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { TextField } from '@heejun-com/core'
 import {
   ArrowLeftIcon,
@@ -51,7 +51,7 @@ const meta = {
       options: ['start', 'equal-weight'],
       description: '레이아웃 정렬 방식',
     },
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
   } as any,
 } satisfies Meta<any>
 
@@ -284,7 +284,7 @@ export const 디자인QA: Story = {
     trailingActionCount: 3,
     fillColor: undefined,
     foregroundColor: undefined,
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
   } as any,
   argTypes: {
     title: {
@@ -308,9 +308,9 @@ export const 디자인QA: Story = {
       control: 'color',
       description: '전경색 (텍스트/아이콘 색상)',
     },
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
   } as any,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
   render: (args: any) => {
     const {
       height,
@@ -522,9 +522,9 @@ export const 탭내비게이션: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Chakra UI — 다크 사이드바 토글 앱바 (접기/펼치기 + 사용자 정보)
+   AccessibleUI — 다크 사이드바 토글 앱바 (접기/펼치기 + 사용자 정보)
 -------------------------------------------------------------------------- */
-function ChakraSidebarToggleAppBarRender() {
+function AccessibleSidebarToggleAppBarRender() {
   const [sidebarOpen, setSidebarOpen] = useState(true)
   const [darkMode, setDarkMode] = useState(false)
 
@@ -574,27 +574,27 @@ function ChakraSidebarToggleAppBarRender() {
           {sidebarOpen ? '사이드바 열림 — 메인 콘텐츠' : '사이드바 닫힘 — 콘텐츠 영역 최대화'}
         </div>
       </div>
-      <p style={{ fontSize: 10, color: '#94a3b8', padding: '4px 16px', textAlign: 'center' }}>Chakra UI 다크모드 + 사이드바 토글 AppBar 패턴</p>
+      <p style={{ fontSize: 10, color: '#94a3b8', padding: '4px 16px', textAlign: 'center' }}>AccessibleUI 다크모드 + 사이드바 토글 AppBar 패턴</p>
     </div>
   )
 }
 
-export const Chakra_다크_사이드바_토글_앱바: Story = {
-  name: 'Chakra UI — 다크 사이드바 토글 앱바',
+export const Accessible_다크_사이드바_토글_앱바: Story = {
+  name: 'AccessibleUI — 다크 사이드바 토글 앱바',
   parameters: {
     docs: {
       description: {
-        story: 'Chakra UI의 다크모드 토글 + 사이드바 접기/펼치기 패턴. AppBar를 중심으로 다크/라이트 전환 및 사이드바 너비 트랜지션을 연동. SaaS 앱 레이아웃의 전형적인 패턴.',
+        story: 'AccessibleUI의 다크모드 토글 + 사이드바 접기/펼치기 패턴. AppBar를 중심으로 다크/라이트 전환 및 사이드바 너비 트랜지션을 연동. SaaS 앱 레이아웃의 전형적인 패턴.',
       },
     },
   },
-  render: () => <ChakraSidebarToggleAppBarRender />,
+  render: () => <AccessibleSidebarToggleAppBarRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Mantine — 다단계 마법사 앱바 (단계 표시 + 뒤로/다음 버튼)
+   AppUI — 다단계 마법사 앱바 (단계 표시 + 뒤로/다음 버튼)
 -------------------------------------------------------------------------- */
-function MantineWizardAppBarRender() {
+function AppUIWizardAppBarRender() {
   const [step, setStep] = useState(1)
   const totalSteps = 4
   const stepLabels = ['계정 설정', '프로필 입력', '팀 초대', '검토 & 완료']
@@ -637,22 +637,22 @@ function MantineWizardAppBarRender() {
   )
 }
 
-export const Mantine_마법사_스텝_앱바: Story = {
-  name: 'Mantine — 다단계 마법사 앱바 (단계 표시)',
+export const AppUI_마법사_스텝_앱바: Story = {
+  name: 'AppUI — 다단계 마법사 앱바 (단계 표시)',
   parameters: {
     docs: {
       description: {
-        story: 'Mantine Stepper + AppBar 조합 패턴. 온보딩/마법사 플로우에서 현재 단계를 AppBar 내 진행 막대와 단계 레이블로 표현. 이전/다음 버튼이 AppBar 양 끝에 배치.',
+        story: 'AppUI Stepper + AppBar 조합 패턴. 온보딩/마법사 플로우에서 현재 단계를 AppBar 내 진행 막대와 단계 레이블로 표현. 이전/다음 버튼이 AppBar 양 끝에 배치.',
       },
     },
   },
-  render: () => <MantineWizardAppBarRender />,
+  render: () => <AppUIWizardAppBarRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Arco Design — 다중 환경 전환 앱바 (환경 드롭다운 + 배포 상태)
+   DataProductUI — 다중 환경 전환 앱바 (환경 드롭다운 + 배포 상태)
 -------------------------------------------------------------------------- */
-function ArcoEnvSwitchAppBarRender() {
+function DataProductEnvSwitchAppBarRender() {
   const [env, setEnv] = useState<'production' | 'staging' | 'development'>('production')
   const envConfig = {
     production: { label: 'Production', color: '#10b981', dot: '#059669' },
@@ -705,23 +705,23 @@ function ArcoEnvSwitchAppBarRender() {
   )
 }
 
-export const Arco_다중_환경_전환_앱바: Story = {
-  name: 'Arco Design — 다중 환경 전환 앱바 (환경 드롭다운)',
+export const DataProduct_다중_환경_전환_앱바: Story = {
+  name: 'DataProductUI — 다중 환경 전환 앱바 (환경 드롭다운)',
   parameters: {
     docs: {
       description: {
-        story: 'Arco Design의 환경 전환 패턴. Production/Staging/Development를 AppBar 내 드롭다운으로 전환, 각 환경에 색상 상태 도트와 뱃지를 표시. DevOps/SaaS 대시보드에서 자주 쓰이는 패턴.',
+        story: 'DataProductUI의 환경 전환 패턴. Production/Staging/Development를 AppBar 내 드롭다운으로 전환, 각 환경에 색상 상태 도트와 뱃지를 표시. DevOps/SaaS 대시보드에서 자주 쓰이는 패턴.',
       },
     },
   },
-  render: () => <ArcoEnvSwitchAppBarRender />,
+  render: () => <DataProductEnvSwitchAppBarRender />,
 }
 
 // ──────────────────────────────────────────────────────────────────────────────
-// Cycle 174: Vercel Design + MUI
+// Cycle 174: DeployPlatform Design + EnterpriseUI
 // ──────────────────────────────────────────────────────────────────────────────
 
-function VercelDeploymentAppBarRender() {
+function DeployPlatformDeploymentAppBarRender() {
   const [env, setEnv] = useState<'production' | 'preview' | 'development'>('production')
   const envConfig = {
     production: { label: 'Production', color: '#16a34a', bg: '#dcfce7' },
@@ -761,25 +761,25 @@ function VercelDeploymentAppBarRender() {
           <span style={{ fontSize: 12, color: '#0f172a', fontWeight: 600 }}>{cfg.label} 배포 완료</span>
           <span style={{ fontSize: 11, color: '#94a3b8', marginLeft: 'auto' }}>2분 전</span>
         </div>
-        <div style={{ fontSize: 11, color: '#64748b', marginTop: 4 }}>49a55fd — feat(stories): Cycle 173 Linear + Tailwind</div>
+        <div style={{ fontSize: 11, color: '#64748b', marginTop: 4 }}>49a55fd — feat(stories): Cycle 173 IssueTracker + UtilityCSS</div>
       </div>
     </div>
   )
 }
 
-export const Vercel_배포_환경_전환_앱바: Story = {
-  name: 'Vercel Design — 배포 환경 전환 앱바 (Production/Preview/Development)',
+export const DeployPlatform_배포_환경_전환_앱바: Story = {
+  name: 'DeployPlatform Design — 배포 환경 전환 앱바 (Production/Preview/Development)',
   parameters: {
     docs: {
       description: {
-        story: 'Vercel 배포 대시보드 AppBar 패턴. Production/Preview/Development 환경 탭 전환, 활성 환경 컬러 강조, 최근 배포 상태 표시.',
+        story: 'DeployPlatform 배포 대시보드 AppBar 패턴. Production/Preview/Development 환경 탭 전환, 활성 환경 컬러 강조, 최근 배포 상태 표시.',
       },
     },
   },
-  render: () => <VercelDeploymentAppBarRender />,
+  render: () => <DeployPlatformDeploymentAppBarRender />,
 }
 
-function MUIBreadcrumbAppBarRender() {
+function EnterpriseUIBreadcrumbAppBarRender() {
   const [page, setPage] = useState(2)
   const crumbs = ['홈', '컴포넌트', 'AppBar', '스토리']
   const activeCrumbs = crumbs.slice(0, page + 1)
@@ -824,19 +824,19 @@ function MUIBreadcrumbAppBarRender() {
   )
 }
 
-export const MUI_브레드크럼_네비게이션_앱바: Story = {
-  name: 'MUI — 브레드크럼 네비게이션 앱바 (계층 이동)',
+export const EnterpriseUI_브레드크럼_네비게이션_앱바: Story = {
+  name: 'EnterpriseUI — 브레드크럼 네비게이션 앱바 (계층 이동)',
   parameters: {
     docs: {
       description: {
-        story: 'MUI Breadcrumbs + AppBar 조합 패턴. 계층 탐색 시 브레드크럼 동적 생성, 뒤로가기 버튼, 다음 단계 진행 버튼. 관리자 패널이나 문서 시스템에서 활용.',
+        story: 'EnterpriseUI Breadcrumbs + AppBar 조합 패턴. 계층 탐색 시 브레드크럼 동적 생성, 뒤로가기 버튼, 다음 단계 진행 버튼. 관리자 패널이나 문서 시스템에서 활용.',
       },
     },
   },
-  render: () => <MUIBreadcrumbAppBarRender />,
+  render: () => <EnterpriseUIBreadcrumbAppBarRender />,
 }
 
-function VercelMUISearchAppBarRender() {
+function DeployPlatformEnterpriseUISearchAppBarRender() {
   const [query, setQuery] = useState('')
   const [focused, setFocused] = useState(false)
   const items = ['AppBar', 'Avatar', 'Breadcrumb', 'Calendar', 'Checkbox', 'DataTable', 'Divider', 'Dropdown', 'Editor', 'Loading', 'Modal', 'Progress', 'Slider', 'Switch', 'TextField', 'Toggle']
@@ -882,14 +882,14 @@ function VercelMUISearchAppBarRender() {
   )
 }
 
-export const Vercel_MUI_검색_앱바: Story = {
-  name: 'Vercel + MUI — 인라인 검색 앱바 (컴포넌트 자동완성)',
+export const DeployPlatform_EnterpriseUI_검색_앱바: Story = {
+  name: 'DeployPlatform + EnterpriseUI — 인라인 검색 앱바 (컴포넌트 자동완성)',
   parameters: {
     docs: {
       description: {
-        story: 'Vercel + MUI 검색 AppBar 패턴. 입력 시 컴포넌트 이름 자동완성 드롭다운, 포커스 시 border 색 전환, ⌘K 단축키 뱃지 표시.',
+        story: 'DeployPlatform + EnterpriseUI 검색 AppBar 패턴. 입력 시 컴포넌트 이름 자동완성 드롭다운, 포커스 시 border 색 전환, ⌘K 단축키 뱃지 표시.',
       },
     },
   },
-  render: () => <VercelMUISearchAppBarRender />,
+  render: () => <DeployPlatformEnterpriseUISearchAppBarRender />,
 }

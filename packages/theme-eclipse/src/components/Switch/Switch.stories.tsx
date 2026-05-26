@@ -43,8 +43,8 @@ export const 인터랙션_토글: Story = {
   },
 }
 
-// ─── Apple HIG: 설정 화면 패턴 ───────────────────────────────────────────────
-// Apple HIG에서 Switch(Toggle)는 설정 항목의 즉각적인 On/Off를 나타냅니다.
+// ─── Platform HIG: 설정 화면 패턴 ───────────────────────────────────────────────
+// Platform HIG에서 Switch(Toggle)는 설정 항목의 즉각적인 On/Off를 나타냅니다.
 // 레이블은 항상 좌측, 스위치는 우측에 배치하고 전체 행이 탭 타겟이 되어야 합니다.
 const SettingsListRender = () => {
   const [settings, setSettings] = useState({
@@ -118,13 +118,13 @@ const SettingsListRender = () => {
   )
 }
 
-export const Apple_HIG_설정_화면: Story = {
-  name: 'Apple HIG - 설정 화면 패턴 (전체 행이 탭 타겟)',
+export const Platform_HIG_설정_화면: Story = {
+  name: 'Platform HIG - 설정 화면 패턴 (전체 행이 탭 타겟)',
   render: () => <SettingsListRender />,
 }
 
-// ─── Apple HIG: 즉각 피드백 + 상태 설명 패턴 ─────────────────────────────────
-// Apple HIG 지침: 스위치 변경은 즉각 적용되며, 현재 상태를 텍스트로 보조 설명합니다.
+// ─── Platform HIG: 즉각 피드백 + 상태 설명 패턴 ─────────────────────────────────
+// Platform HIG 지침: 스위치 변경은 즉각 적용되며, 현재 상태를 텍스트로 보조 설명합니다.
 const ImmediateFeedbackRender = () => {
   const [wifiEnabled, setWifiEnabled] = useState(true)
   const [bluetoothEnabled, setBluetoothEnabled] = useState(false)
@@ -171,8 +171,8 @@ const ImmediateFeedbackRender = () => {
   )
 }
 
-export const Apple_HIG_즉각_피드백: Story = {
-  name: 'Apple HIG - 즉각 피드백 + 상태 설명 패턴',
+export const Platform_HIG_즉각_피드백: Story = {
+  name: 'Platform HIG - 즉각 피드백 + 상태 설명 패턴',
   render: () => <ImmediateFeedbackRender />,
 }
 
@@ -229,8 +229,8 @@ export const 마케팅_동의_설정: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Mantine 벤치마크: 앱 설정 패널 패턴
-   Mantine Switch 그룹 — 알림/외관/기능 설정 토글 목록
+   AppUI 벤치마크: 앱 설정 패널 패턴
+   AppUI Switch 그룹 — 알림/외관/기능 설정 토글 목록
 -------------------------------------------------------------------------- */
 type SettingItem = {
   id: string
@@ -296,14 +296,14 @@ function AppSettingsPanelRender() {
         </div>
       ))}
       <div style={{ fontSize: 11, color: '#94a3b8' }}>
-        Mantine Switch 그룹 패턴 — 카테고리별 설정 토글 ({Object.values(values).filter(Boolean).length}/{SETTINGS.length} 활성)
+        AppUI Switch 그룹 패턴 — 카테고리별 설정 토글 ({Object.values(values).filter(Boolean).length}/{SETTINGS.length} 활성)
       </div>
     </div>
   )
 }
 
-export const Mantine_앱_설정_패널 = {
-  name: 'Mantine - 앱 설정 패널 패턴',
+export const AppUI_앱_설정_패널 = {
+  name: 'AppUI - 앱 설정 패널 패턴',
   render: () => <AppSettingsPanelRender />,
 }
 
@@ -509,8 +509,8 @@ export const 온보딩_기능_선택 = {
 }
 
 /* --------------------------------------------------------------------------
-   Mantine 벤치마크: 테마 전환 스위치 패턴
-   Mantine의 ColorSchemeProvider + Switch 조합 — 테마 선택 시 미리보기 반영
+   AppUI 벤치마크: 테마 전환 스위치 패턴
+   AppUI의 ColorSchemeProvider + Switch 조합 — 테마 선택 시 미리보기 반영
 -------------------------------------------------------------------------- */
 type ThemeMode = 'light' | 'dark' | 'system'
 
@@ -533,7 +533,7 @@ function ThemeSwitcherRender() {
   return (
     <div style={{ maxWidth: 400 }}>
       <div style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 14 }}>
-        Mantine ColorSchemeProvider 패턴
+        AppUI ColorSchemeProvider 패턴
       </div>
 
       {/* Preview card */}
@@ -606,14 +606,14 @@ function ThemeSwitcherRender() {
         ))}
       </div>
       <div style={{ marginTop: 10, fontSize: 11, color: '#94a3b8' }}>
-        Mantine ColorSchemeProvider — 테마 선택 + 실시간 미리보기 패턴
+        AppUI ColorSchemeProvider — 테마 선택 + 실시간 미리보기 패턴
       </div>
     </div>
   )
 }
 
-export const Mantine_테마_전환_스위치 = {
-  name: 'Mantine - 테마 전환 스위치 (미리보기 반영)',
+export const AppUI_테마_전환_스위치 = {
+  name: 'AppUI - 테마 전환 스위치 (미리보기 반영)',
   render: () => <ThemeSwitcherRender />,
 }
 
@@ -735,8 +735,8 @@ export const Ant_역할_기반_접근_제어 = {
 }
 
 /* --------------------------------------------------------------------------
-   Mantine 벤치마크: 전체 선택 스위치 패턴
-   Mantine Checkbox.Group의 "전체 선택" 패턴을 Switch로 구현
+   AppUI 벤치마크: 전체 선택 스위치 패턴
+   AppUI Checkbox.Group의 "전체 선택" 패턴을 Switch로 구현
 -------------------------------------------------------------------------- */
 const FEATURE_LIST = [
   { id: 'realtime', label: '실시간 동기화', group: '데이터' },
@@ -772,7 +772,7 @@ function BulkToggleRender() {
   return (
     <div style={{ maxWidth: 380 }}>
       <div style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 14 }}>
-        Mantine Checkbox.Group — 전체 선택 패턴을 Switch로
+        AppUI Checkbox.Group — 전체 선택 패턴을 Switch로
       </div>
 
       {/* Global toggle */}
@@ -831,31 +831,31 @@ function BulkToggleRender() {
         </div>
       ))}
       <div style={{ fontSize: 11, color: '#94a3b8' }}>
-        Mantine — 전체 선택 마스터 토글 + 개별 항목 동기화 패턴
+        AppUI — 전체 선택 마스터 토글 + 개별 항목 동기화 패턴
       </div>
     </div>
   )
 }
 
-export const Mantine_전체_선택_토글 = {
-  name: 'Mantine - 전체 선택 토글 (마스터 Switch + 개별 동기화)',
+export const AppUI_전체_선택_토글 = {
+  name: 'AppUI - 전체 선택 토글 (마스터 Switch + 개별 동기화)',
   render: () => <BulkToggleRender />,
 }
 
 /* --------------------------------------------------------------------------
-   MUI — FormControlLabel 패턴
-   Switch + 라벨 + 설명을 FormGroup으로 묶는 MUI 패턴
+   EnterpriseUI — FormControlLabel 패턴
+   Switch + 라벨 + 설명을 FormGroup으로 묶는 EnterpriseUI 패턴
 -------------------------------------------------------------------------- */
-const MUI_FORM_SWITCHES = [
+const EnterpriseUI_FORM_SWITCHES = [
   { id: 'sw-email', label: '이메일 알림', desc: '새 메시지, 댓글, 언급 시 이메일 수신', defaultChecked: true },
   { id: 'sw-push', label: '푸시 알림', desc: '모바일 기기로 실시간 알림 수신', defaultChecked: true },
   { id: 'sw-weekly', label: '주간 요약', desc: '매주 월요일 활동 요약 리포트', defaultChecked: false },
   { id: 'sw-marketing', label: '마케팅 수신', desc: '신규 기능, 할인, 이벤트 소식 수신', defaultChecked: false },
 ]
 
-const MuiFormControlRender = () => {
+const EnterpriseUIFormControlRender = () => {
   const [states, setStates] = useState<Record<string, boolean>>(
-    Object.fromEntries(MUI_FORM_SWITCHES.map((s) => [s.id, s.defaultChecked]))
+    Object.fromEntries(EnterpriseUI_FORM_SWITCHES.map((s) => [s.id, s.defaultChecked]))
   )
   const toggle = (id: string) => setStates((prev) => ({ ...prev, [id]: !prev[id] }))
   const activeCount = Object.values(states).filter(Boolean).length
@@ -865,7 +865,7 @@ const MuiFormControlRender = () => {
         <span style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>알림 설정</span>
         <span style={{ fontSize: 12, color: '#6366f1', fontWeight: 600 }}>{activeCount}개 활성화</span>
       </div>
-      {MUI_FORM_SWITCHES.map((item, i) => (
+      {EnterpriseUI_FORM_SWITCHES.map((item, i) => (
         <div key={item.id}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '14px 0' }}>
             <div style={{ flex: 1, paddingRight: 16 }}>
@@ -880,36 +880,36 @@ const MuiFormControlRender = () => {
               onCheckedChange={() => toggle(item.id)}
             />
           </div>
-          {i < MUI_FORM_SWITCHES.length - 1 && (
+          {i < EnterpriseUI_FORM_SWITCHES.length - 1 && (
             <div style={{ height: 1, background: '#f1f5f9' }} />
           )}
         </div>
       ))}
       <div style={{ marginTop: 12, fontSize: 11, color: '#94a3b8' }}>
-        MUI FormControlLabel 패턴 — Switch + 라벨 + description 그룹
+        EnterpriseUI FormControlLabel 패턴 — Switch + 라벨 + description 그룹
       </div>
     </div>
   )
 }
 
-export const MUI_FormControlLabel_알림설정: Story = {
-  name: 'MUI - FormControlLabel 알림 설정 패턴',
+export const EnterpriseUI_FormControlLabel_알림설정: Story = {
+  name: 'EnterpriseUI - FormControlLabel 알림 설정 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'MUI의 FormControlLabel 패턴. Switch, 라벨, 설명 텍스트를 하나의 행으로 묶고, 전체 행에서 탭 포커스와 클릭을 지원합니다. 활성화된 항목 수를 헤더에 실시간 표시합니다.',
+          'EnterpriseUI의 FormControlLabel 패턴. Switch, 라벨, 설명 텍스트를 하나의 행으로 묶고, 전체 행에서 탭 포커스와 클릭을 지원합니다. 활성화된 항목 수를 헤더에 실시간 표시합니다.',
       },
     },
   },
-  render: () => <MuiFormControlRender />,
+  render: () => <EnterpriseUIFormControlRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Figma Plugin UI — 속성 패널 컴팩트 토글
-   Figma 플러그인에서 자주 쓰이는 고밀도 토글 행 패턴
+   DesignTool Plugin UI — 속성 패널 컴팩트 토글
+   DesignTool 플러그인에서 자주 쓰이는 고밀도 토글 행 패턴
 -------------------------------------------------------------------------- */
-const FIGMA_TOGGLES = [
+const DESIGN_TOGGLES = [
   { id: 'ft-grid', label: 'Show Grid', icon: '#' },
   { id: 'ft-rulers', label: 'Rulers', icon: '|' },
   { id: 'ft-snap', label: 'Snap to Grid', icon: '+' },
@@ -918,7 +918,7 @@ const FIGMA_TOGGLES = [
   { id: 'ft-proto', label: 'Prototyping', icon: 'P' },
 ]
 
-const FigmaPluginToggleRender = () => {
+const DesignToolPluginToggleRender = () => {
   const [active, setActive] = useState<Record<string, boolean>>({
     'ft-grid': true, 'ft-snap': true, 'ft-guides': false, 'ft-rulers': false, 'ft-outline': false, 'ft-proto': true,
   })
@@ -927,7 +927,7 @@ const FigmaPluginToggleRender = () => {
       <div style={{ padding: '4px 12px 10px', fontSize: 11, color: '#888', fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase' }}>
         View Options
       </div>
-      {FIGMA_TOGGLES.map((t) => (
+      {DESIGN_TOGGLES.map((t) => (
         <div key={t.id} onClick={() => setActive((p) => ({ ...p, [t.id]: !p[t.id] }))} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '5px 12px', cursor: 'pointer', background: active[t.id] ? 'rgba(99,102,241,0.15)' : 'transparent', transition: 'background 0.15s' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
             <span style={{ width: 16, height: 16, borderRadius: 3, background: active[t.id] ? '#6366f1' : '#444', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 9, color: '#fff', flexShrink: 0 }}>{t.icon}</span>
@@ -941,28 +941,28 @@ const FigmaPluginToggleRender = () => {
         </div>
       ))}
       <div style={{ padding: '10px 12px 4px', fontSize: 10, color: '#555' }}>
-        Figma Plugin UI — 고밀도 뷰 옵션 토글 패널
+        DesignTool Plugin UI — 고밀도 뷰 옵션 토글 패널
       </div>
     </div>
   )
 }
 
-export const Figma_플러그인_뷰_옵션_패널: Story = {
-  name: 'Figma Plugin UI - 컴팩트 뷰 옵션 토글 패널',
+export const DesignTool_플러그인_뷰_옵션_패널: Story = {
+  name: 'DesignTool Plugin UI - 컴팩트 뷰 옵션 토글 패널',
   parameters: {
     docs: {
       description: {
         story:
-          'Figma 플러그인 UI 패턴. 다크 배경 + 아이콘 + 컴팩트 행 높이(30px)로 고밀도 토글 패널을 구현합니다. 전체 행 클릭으로 토글 가능하며 활성 항목은 강조색 배경으로 구분됩니다.',
+          'DesignTool 플러그인 UI 패턴. 다크 배경 + 아이콘 + 컴팩트 행 높이(30px)로 고밀도 토글 패널을 구현합니다. 전체 행 클릭으로 토글 가능하며 활성 항목은 강조색 배경으로 구분됩니다.',
       },
     },
   },
-  render: () => <FigmaPluginToggleRender />,
+  render: () => <DesignToolPluginToggleRender />,
 }
 
 /* --------------------------------------------------------------------------
-   MUI + Figma — 데이터 시각화 레이어 토글
-   MUI DataGrid 컬럼 표시/숨김 + Figma 레이어 토글 조합
+   EnterpriseUI + DesignTool — 데이터 시각화 레이어 토글
+   EnterpriseUI DataGrid 컬럼 표시/숨김 + DesignTool 레이어 토글 조합
 -------------------------------------------------------------------------- */
 const DATA_COLUMNS = [
   { id: 'col-name', label: '이름', required: true },
@@ -1012,19 +1012,19 @@ const ColumnVisibilityRender = () => {
         </div>
       ))}
       <div style={{ padding: '10px 16px', fontSize: 11, color: '#94a3b8' }}>
-        MUI DataGrid + Figma Layer — 컬럼 가시성 토글 패턴
+        EnterpriseUI DataGrid + DesignTool Layer — 컬럼 가시성 토글 패턴
       </div>
     </div>
   )
 }
 
-export const MUI_Figma_컬럼_가시성_토글: Story = {
-  name: 'MUI DataGrid + Figma Layer - 컬럼 가시성 토글',
+export const EnterpriseUI_DesignTool_컬럼_가시성_토글: Story = {
+  name: 'EnterpriseUI DataGrid + DesignTool Layer - 컬럼 가시성 토글',
   parameters: {
     docs: {
       description: {
         story:
-          'MUI DataGrid의 컬럼 표시/숨김 패널 + Figma의 레이어 토글 패턴 조합. 필수 컬럼은 disabled 처리하고, 전체 선택/해제 버튼으로 일괄 처리가 가능합니다.',
+          'EnterpriseUI DataGrid의 컬럼 표시/숨김 패널 + DesignTool의 레이어 토글 패턴 조합. 필수 컬럼은 disabled 처리하고, 전체 선택/해제 버튼으로 일괄 처리가 가능합니다.',
       },
     },
   },
@@ -1032,8 +1032,8 @@ export const MUI_Figma_컬럼_가시성_토글: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Apple HIG 벤치마크: 세부 설정 그룹 스위치
-   Apple Settings Detail Screen — 그룹별 Switch 목록 + 그룹 설명 푸터
+   Platform HIG 벤치마크: 세부 설정 그룹 스위치
+   Platform Settings Detail Screen — 그룹별 Switch 목록 + 그룹 설명 푸터
 -------------------------------------------------------------------------- */
 type HigSwitchGroup = { title: string; footer: string; items: { id: string; label: string; desc?: string }[] }
 
@@ -1058,18 +1058,18 @@ const HIG_SWITCH_GROUPS: HigSwitchGroup[] = [
   },
 ]
 
-export const Apple_HIG_세부_설정_그룹: Story = {
-  name: 'Apple HIG — 세부 설정 화면 그룹 스위치',
+export const Platform_HIG_세부_설정_그룹: Story = {
+  name: 'Platform HIG — 세부 설정 화면 그룹 스위치',
   parameters: {
     docs: {
       description: {
         story:
-          'Apple HIG Settings Detail 화면 패턴. 그룹 제목 + Switch 목록 + 그룹 설명 푸터로 구성. ' +
+          'Platform HIG Settings Detail 화면 패턴. 그룹 제목 + Switch 목록 + 그룹 설명 푸터로 구성. ' +
           '각 항목은 레이블/설명 2줄 구조, 그룹 간 명확한 시각적 구분.',
       },
     },
   },
-  render: function AppleHIGDetailSettings() {
+  render: function PlatformHIGDetailSettings() {
     const [switches, setSwitches] = useState<Record<string, boolean>>({
       location: true, contacts: false, camera: true,
       push: true, badge: true, sound: false,
@@ -1080,7 +1080,7 @@ export const Apple_HIG_세부_설정_그룹: Story = {
     }
 
     return (
-      <div style={{ width: 320, fontFamily: 'system-ui, -apple-system, sans-serif', background: '#f2f2f7', borderRadius: 16, overflow: 'hidden' }}>
+      <div style={{ width: 320, fontFamily: 'system-ui, sans-serif', background: '#f2f2f7', borderRadius: 16, overflow: 'hidden' }}>
         {HIG_SWITCH_GROUPS.map((group, gi) => (
           <div key={group.title} style={{ marginBottom: gi < HIG_SWITCH_GROUPS.length - 1 ? 16 : 0 }}>
             <div style={{ padding: '8px 16px 4px', fontSize: 11, fontWeight: 600, color: '#6d6d72', textTransform: 'uppercase', letterSpacing: 0.4 }}>
@@ -1119,7 +1119,7 @@ export const Apple_HIG_세부_설정_그룹: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Google Material 3 벤치마크: 기기 권한 토글 패널
+   RoleToken Design 벤치마크: 기기 권한 토글 패널
    M3 Permission Settings — 아이콘 + 권한명 + 상태 설명 + Switch 패턴
 -------------------------------------------------------------------------- */
 type M3Permission = { id: string; icon: string; name: string; desc: string; risk: 'high' | 'medium' | 'low' }
@@ -1140,7 +1140,7 @@ const M3_RISK_COLOR: Record<M3Permission['risk'], string> = {
 }
 
 export const Material3_기기_권한_토글: Story = {
-  name: 'Google Material 3 — 기기 권한 토글 패널',
+  name: 'RoleToken Design — 기기 권한 토글 패널',
   parameters: {
     docs: {
       description: {
@@ -1215,8 +1215,8 @@ export const Material3_기기_권한_토글: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Apple HIG 벤치마크: 빠른 설정 패널
-   Apple Control Center — 기능별 아이콘 타일 + Switch 토글 패턴
+   Platform HIG 벤치마크: 빠른 설정 패널
+   Platform Control Center — 기능별 아이콘 타일 + Switch 토글 패턴
 -------------------------------------------------------------------------- */
 type HigQuickSetting = { id: string; label: string; icon: string; color: string }
 
@@ -1229,18 +1229,18 @@ const HIG_QUICK_SETTINGS: HigQuickSetting[] = [
   { id: 'focusmode', label: '집중 모드', icon: 'FOCUS', color: '#10b981' },
 ]
 
-export const Apple_HIG_빠른_설정_패널: Story = {
-  name: 'Apple HIG — 빠른 설정 Control Center 패널',
+export const Platform_HIG_빠른_설정_패널: Story = {
+  name: 'Platform HIG — 빠른 설정 Control Center 패널',
   parameters: {
     docs: {
       description: {
         story:
-          'Apple Control Center 빠른 설정 패턴. 아이콘 타일 + Switch 토글을 격자로 배치. ' +
+          'Platform Control Center 빠른 설정 패턴. 아이콘 타일 + Switch 토글을 격자로 배치. ' +
           '활성화 시 타일 배경 채워짐 + 아이콘 색상 전환으로 즉각적인 피드백.',
       },
     },
   },
-  render: function AppleQuickSettings() {
+  render: function PlatformQuickSettings() {
     const [settings, setSettings] = useState<Record<string, boolean>>(
       { wifi: true, bluetooth: true, dnd: false, darkmode: false, lowpower: false, focusmode: false }
     )
@@ -1250,7 +1250,7 @@ export const Apple_HIG_빠른_설정_패널: Story = {
     }
 
     return (
-      <div style={{ width: 280, fontFamily: 'system-ui, -apple-system, sans-serif' }}>
+      <div style={{ width: 280, fontFamily: 'system-ui, sans-serif' }}>
         <div style={{ fontSize: 13, fontWeight: 700, color: '#0f172a', marginBottom: 12 }}>빠른 설정</div>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 8 }}>
           {HIG_QUICK_SETTINGS.map((setting) => {
@@ -1296,11 +1296,11 @@ export const Apple_HIG_빠른_설정_패널: Story = {
 }
 
 // ============================================================
-// Cycle 137 — Linear Design + Radix UI 벤치마크 반영
+// Cycle 137 — IssueTracker Design + PrimitiveUI 벤치마크 반영
 // ============================================================
 
-// Linear 스타일 — 알림 환경설정 스위치 패널 (컴팩트)
-const LINEAR_NOTIF_SETTINGS_137 = [
+// IssueTracker 스타일 — 알림 환경설정 스위치 패널 (컴팩트)
+const TRACKER_NOTIF_SETTINGS_137 = [
   { id: 'issue_assigned', label: '이슈 담당자 지정', desc: '내가 담당자로 지정될 때', on: true },
   { id: 'issue_mentioned', label: '이슈 멘션', desc: '댓글에서 @멘션될 때', on: true },
   { id: 'pr_review', label: 'PR 리뷰 요청', desc: '리뷰어로 지정될 때', on: true },
@@ -1308,19 +1308,19 @@ const LINEAR_NOTIF_SETTINGS_137 = [
   { id: 'cycle_update', label: '사이클 업데이트', desc: '사이클 목표가 변경될 때', on: false },
 ]
 
-export const Linear_알림_환경설정_패널: Story = {
-  name: 'Linear — 알림 환경설정 스위치 패널 (Cycle 137)',
+export const IssueTracker_알림_환경설정_패널: Story = {
+  name: 'IssueTracker — 알림 환경설정 스위치 패널 (Cycle 137)',
   parameters: {
     docs: {
       description: {
         story:
-          'Linear Notification Settings 패턴. 알림 항목별 on/off 스위치 + 설명 서브텍스트. ' +
+          'IssueTracker Notification Settings 패턴. 알림 항목별 on/off 스위치 + 설명 서브텍스트. ' +
           '상단 "전체 알림" 마스터 스위치로 일괄 제어. 변경 즉시 하단 저장 버튼 활성화.',
       },
     },
   },
-  render: function LinearNotifSettingsRender() {
-    const [settings, setSettings] = useState(LINEAR_NOTIF_SETTINGS_137)
+  render: function IssueTrackerNotifSettingsRender() {
+    const [settings, setSettings] = useState(TRACKER_NOTIF_SETTINGS_137)
     const [saved, setSaved] = useState(true)
 
     function toggleItem(id: string) {
@@ -1382,7 +1382,7 @@ export const Linear_알림_환경설정_패널: Story = {
   },
 }
 
-// Radix UI 스타일 — 테마 / 접근성 설정 (고대비, 모션 감소)
+// PrimitiveUI 스타일 — 테마 / 접근성 설정 (고대비, 모션 감소)
 const RADIX_A11Y_SETTINGS_137 = [
   { id: 'high_contrast', label: '고대비 모드', desc: '색상 대비를 높여 가독성을 개선합니다 (WCAG AA 기준)', on: false, badge: 'AA' },
   { id: 'reduce_motion', label: '모션 감소', desc: '애니메이션과 전환 효과를 최소화합니다', on: false, badge: null },
@@ -1390,18 +1390,18 @@ const RADIX_A11Y_SETTINGS_137 = [
   { id: 'focus_ring', label: '포커스 링 강조', desc: '키보드 탐색 시 포커스 인디케이터를 강하게 표시합니다', on: true, badge: null },
 ]
 
-export const Radix_접근성_설정_스위치: Story = {
-  name: 'Radix UI — 접근성 설정 스위치 (Cycle 137)',
+export const Primitive_접근성_설정_스위치: Story = {
+  name: 'PrimitiveUI — 접근성 설정 스위치 (Cycle 137)',
   parameters: {
     docs: {
       description: {
         story:
-          'Radix UI AccessibilitySettings 패턴. 고대비/모션감소/큰텍스트/포커스링 등 접근성 옵션. ' +
+          'PrimitiveUI AccessibilitySettings 패턴. 고대비/모션감소/큰텍스트/포커스링 등 접근성 옵션. ' +
           '각 항목 설명 + 뱃지(WCAG 기준 표시). 토글 시 미리보기 영역에 즉시 반영.',
       },
     },
   },
-  render: function RadixA11ySettingsRender() {
+  render: function PrimitiveA11ySettingsRender() {
     const [settings, setSettings] = useState(RADIX_A11Y_SETTINGS_137)
 
     function toggle(id: string) {
@@ -1450,7 +1450,7 @@ export const Radix_접근성_설정_스위치: Story = {
   },
 }
 
-// Linear + Radix — 기능 플래그 토글 (개발자 도구 패턴)
+// IssueTracker + Primitive — 기능 플래그 토글 (개발자 도구 패턴)
 const FEATURE_FLAGS_137 = [
   { id: 'dark_mode', label: 'Dark Mode', env: 'beta', on: true, risk: 'low' },
   { id: 'new_datatable', label: 'New DataTable v2', env: 'alpha', on: false, risk: 'medium' },
@@ -1472,19 +1472,19 @@ const ENV_STYLE_137: Record<string, string> = {
   experimental: '#ec4899',
 }
 
-export const Linear_Radix_기능_플래그_토글: Story = {
-  name: 'Linear + Radix — 기능 플래그 토글 패널 (Cycle 137)',
+export const IssueTracker_Primitive_기능_플래그_토글: Story = {
+  name: 'IssueTracker + Primitive — 기능 플래그 토글 패널 (Cycle 137)',
   parameters: {
     docs: {
       description: {
         story:
-          'Linear Feature Flags + Radix Switch 통합 개발자 도구 패턴. ' +
+          'IssueTracker Feature Flags + Primitive Switch 통합 개발자 도구 패턴. ' +
           '환경(stable/beta/alpha/experimental) 배지 + 리스크 레벨(low/medium/high) 표시. ' +
           'high risk 플래그 활성화 시 경고 텍스트 인라인 표시.',
       },
     },
   },
-  render: function LinearRadixFeatureFlagsRender() {
+  render: function IssueTrackerPrimitiveFeatureFlagsRender() {
     const [flags, setFlags] = useState(FEATURE_FLAGS_137)
 
     function toggle(id: string) {
@@ -1526,7 +1526,7 @@ export const Linear_Radix_기능_플래그_토글: Story = {
 }
 
 // ──────────────────────────────────────────────────────────────────────────────
-// Cycle 165: Ant Design + Radix UI
+// Cycle 165: Ant Design + PrimitiveUI
 // ──────────────────────────────────────────────────────────────────────────────
 
 export const AntDesign_시스템_알림_설정_토글: Story = {
@@ -1591,18 +1591,18 @@ export const AntDesign_시스템_알림_설정_토글: Story = {
   },
 }
 
-export const RadixUI_개발자_환경_설정_스위치: Story = {
-  name: 'Radix UI — 개발자 환경 설정 스위치 (Cycle 165)',
+export const PrimitiveUI_개발자_환경_설정_스위치: Story = {
+  name: 'PrimitiveUI — 개발자 환경 설정 스위치 (Cycle 165)',
   parameters: {
     docs: {
       description: {
         story:
-          'Radix UI Switch 패턴. IDE/개발 환경 설정 패널. ' +
+          'PrimitiveUI Switch 패턴. IDE/개발 환경 설정 패널. ' +
           '실험적 기능 토글 + 위험도 경고 + 그룹별 설정 구성.',
       },
     },
   },
-  render: function RadixDevSettingsRender() {
+  render: function PrimitiveDevSettingsRender() {
     const [config, setConfig] = useState({
       typescript: true,
       eslint: true,
@@ -1675,18 +1675,18 @@ export const RadixUI_개발자_환경_설정_스위치: Story = {
   },
 }
 
-export const Ant_Radix_권한_관리_토글_패널: Story = {
-  name: 'Ant Design + Radix UI — 권한 관리 토글 패널 (Cycle 165)',
+export const Ant_Primitive_권한_관리_토글_패널: Story = {
+  name: 'Ant Design + PrimitiveUI — 권한 관리 토글 패널 (Cycle 165)',
   parameters: {
     docs: {
       description: {
         story:
-          'Ant Design + Radix Switch 통합 RBAC 패턴. 역할별 기능 권한을 스위치로 일괄/개별 제어. ' +
+          'Ant Design + Primitive Switch 통합 RBAC 패턴. 역할별 기능 권한을 스위치로 일괄/개별 제어. ' +
           '역할(Admin/Editor/Viewer) 선택 + 권한 그룹별 토글.',
       },
     },
   },
-  render: function AntRadixRBACRender() {
+  render: function AntPrimitiveRBACRender() {
     type Role = 'admin' | 'editor' | 'viewer'
     const [role, setRole] = useState<Role>('editor')
     const [perms, setPerms] = useState<Record<string, boolean>>({
@@ -1768,9 +1768,9 @@ export const Ant_Radix_권한_관리_토글_패널: Story = {
   },
 }
 
-// ─── Cycle 191: Raycast Extensions + Mantine ─────────────────────────────────
+// ─── Cycle 191: CommandPalette Extensions + AppUI ─────────────────────────────────
 
-const MANTINE_FEATURE_FLAGS_191 = [
+const ACCESSIBLEKIT_FEATURE_FLAGS_191 = [
   { id: 'betaDashboard', label: '베타 대시보드', description: '새로운 분석 대시보드 레이아웃 미리 체험', badge: 'Beta' },
   { id: 'aiSuggestions', label: 'AI 제안', description: '컴포넌트 조합을 AI가 자동 추천', badge: 'New' },
   { id: 'darkMode', label: '다크 모드', description: '시스템 다크 모드 자동 감지 및 전환', badge: null },
@@ -1784,7 +1784,7 @@ const BADGE_STYLE_191: Record<string, { bg: string; color: string }> = {
   Experimental: { bg: '#fefce8', color: '#92400e' },
 }
 
-function MantineFeatureFlagsRender() {
+function AppUIFeatureFlagsRender() {
   const [flags, setFlags] = useState<Record<string, boolean>>({
     betaDashboard: false,
     aiSuggestions: true,
@@ -1804,19 +1804,19 @@ function MantineFeatureFlagsRender() {
       <div style={{ padding: '14px 20px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         <div style={{ flex: 1 }}>
           <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>피처 플래그</div>
-          <div style={{ fontSize: 11, color: '#64748b', marginTop: 2 }}>Mantine Switch 그룹 패턴</div>
+          <div style={{ fontSize: 11, color: '#64748b', marginTop: 2 }}>AppUI Switch 그룹 패턴</div>
         </div>
         <div style={{ fontSize: 11, fontWeight: 600, color: '#6366f1', background: '#eef2ff', padding: '3px 10px', borderRadius: 20 }}>
-          {enabledCount}/{MANTINE_FEATURE_FLAGS_191.length} 활성화
+          {enabledCount}/{ACCESSIBLEKIT_FEATURE_FLAGS_191.length} 활성화
         </div>
       </div>
       <div style={{ padding: '12px 20px', display: 'flex', flexDirection: 'column', gap: 0 }}>
-        {MANTINE_FEATURE_FLAGS_191.map((flag, i) => {
+        {ACCESSIBLEKIT_FEATURE_FLAGS_191.map((flag, i) => {
           const badgeStyle = flag.badge ? BADGE_STYLE_191[flag.badge] : null
           return (
             <div
               key={flag.id}
-              style={{ display: 'flex', alignItems: 'center', gap: 14, padding: '12px 0', borderBottom: i < MANTINE_FEATURE_FLAGS_191.length - 1 ? '1px solid #f1f5f9' : 'none' }}
+              style={{ display: 'flex', alignItems: 'center', gap: 14, padding: '12px 0', borderBottom: i < ACCESSIBLEKIT_FEATURE_FLAGS_191.length - 1 ? '1px solid #f1f5f9' : 'none' }}
             >
               <div style={{ flex: 1 }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
@@ -1839,15 +1839,15 @@ function MantineFeatureFlagsRender() {
   )
 }
 
-export const Mantine_피처_플래그_스위치_그룹: Story = {
-  name: 'Mantine — 피처 플래그 Switch 그룹',
-  render: () => <MantineFeatureFlagsRender />,
+export const AppUI_피처_플래그_스위치_그룹: Story = {
+  name: 'AppUI — 피처 플래그 Switch 그룹',
+  render: () => <AppUIFeatureFlagsRender />,
   parameters: {
     docs: {
       description: {
         story:
-          'Mantine Switch 그룹 패턴. 피처 플래그별 beta/new/experimental 배지 + 설명 2단 레이아웃. ' +
-          '활성 개수 카운터, 경계선 구분 행 패턴. Mantine Settings 페이지 토글 UX.',
+          'AppUI Switch 그룹 패턴. 피처 플래그별 beta/new/experimental 배지 + 설명 2단 레이아웃. ' +
+          '활성 개수 카운터, 경계선 구분 행 패턴. AppUI Settings 페이지 토글 UX.',
       },
     },
   },
@@ -1855,28 +1855,28 @@ export const Mantine_피처_플래그_스위치_그룹: Story = {
 
 // ─────────────────────────────────────────────────────────────────────────────
 
-const RAYCAST_SHORTCUT_PREFS_191 = [
+const LAUNCHER_SHORTCUT_PREFS_191 = [
   { category: '글로벌', items: [
-    { id: 'cmdSpace', label: 'Raycast 열기', shortcut: '⌘Space', enabled: true },
+    { id: 'cmdSpace', label: 'CommandPalette 열기', shortcut: '⌘Space', enabled: true },
     { id: 'cmdH', label: '클립보드 히스토리', shortcut: '⌘⇧H', enabled: true },
   ]},
   { category: '확장 기능', items: [
-    { id: 'github', label: 'GitHub 빠른 접근', shortcut: '⌃G', enabled: false },
-    { id: 'notion', label: 'Notion 검색', shortcut: '⌃N', enabled: true },
-    { id: 'figma', label: 'Figma 파일 열기', shortcut: '⌃F', enabled: false },
+    { id: 'codehost', label: 'CodeHost 빠른 접근', shortcut: '⌃G', enabled: false },
+    { id: 'workspace', label: 'WorkspaceEditor 검색', shortcut: '⌃N', enabled: true },
+    { id: 'design', label: 'DesignTool 파일 열기', shortcut: '⌃F', enabled: false },
   ]},
 ]
 
-type RaycastPrefs = Record<string, boolean>
+type CommandPalettePrefs = Record<string, boolean>
 
-function RaycastShortcutPrefRender() {
-  const initPrefs: RaycastPrefs = {}
-  RAYCAST_SHORTCUT_PREFS_191.forEach((cat) => {
+function CommandPaletteShortcutPrefRender() {
+  const initPrefs: CommandPalettePrefs = {}
+  LAUNCHER_SHORTCUT_PREFS_191.forEach((cat) => {
     cat.items.forEach((item) => {
       initPrefs[item.id] = item.enabled
     })
   })
-  const [prefs, setPrefs] = useState<RaycastPrefs>(initPrefs)
+  const [prefs, setPrefs] = useState<CommandPalettePrefs>(initPrefs)
 
   function toggle(id: string) {
     setPrefs((prev) => ({ ...prev, [id]: !prev[id] }))
@@ -1887,9 +1887,9 @@ function RaycastShortcutPrefRender() {
       <div style={{ padding: '14px 18px', borderBottom: '1px solid #27272a', display: 'flex', alignItems: 'center', gap: 8 }}>
         <span style={{ fontSize: 16, fontWeight: 900, color: '#fff', letterSpacing: '-0.05em' }}>⚡</span>
         <span style={{ fontSize: 13, fontWeight: 700, color: '#fff' }}>단축키 환경설정</span>
-        <span style={{ marginLeft: 'auto', fontSize: 10, color: '#71717a', background: '#27272a', padding: '2px 8px', borderRadius: 6 }}>Raycast 패턴</span>
+        <span style={{ marginLeft: 'auto', fontSize: 10, color: '#71717a', background: '#27272a', padding: '2px 8px', borderRadius: 6 }}>CommandPalette 패턴</span>
       </div>
-      {RAYCAST_SHORTCUT_PREFS_191.map((cat) => (
+      {LAUNCHER_SHORTCUT_PREFS_191.map((cat) => (
         <div key={cat.category}>
           <div style={{ padding: '10px 18px 4px', fontSize: 10, fontWeight: 700, color: '#71717a', textTransform: 'uppercase', letterSpacing: '0.07em' }}>
             {cat.category}
@@ -1915,15 +1915,15 @@ function RaycastShortcutPrefRender() {
   )
 }
 
-export const Raycast_단축키_환경설정_다크_패널: Story = {
-  name: 'Raycast — 단축키 환경설정 다크 패널',
-  render: () => <RaycastShortcutPrefRender />,
+export const CommandPalette_단축키_환경설정_다크_패널: Story = {
+  name: 'CommandPalette — 단축키 환경설정 다크 패널',
+  render: () => <CommandPaletteShortcutPrefRender />,
   parameters: {
     docs: {
       description: {
         story:
-          'Raycast 설정 패널 다크 테마 패턴. 카테고리별 단축키 활성화 토글, 모노스페이스 키 표시. ' +
-          '다크 배경(#18181b)에 비활성 레이블 페이드아웃 효과. Raycast Preferences UX.',
+          'CommandPalette 설정 패널 다크 테마 패턴. 카테고리별 단축키 활성화 토글, 모노스페이스 키 표시. ' +
+          '다크 배경(#18181b)에 비활성 레이블 페이드아웃 효과. CommandPalette Preferences UX.',
       },
     },
   },
@@ -1931,14 +1931,14 @@ export const Raycast_단축키_환경설정_다크_패널: Story = {
 
 // ─────────────────────────────────────────────────────────────────────────────
 
-const MANTINE_RAYCAST_NOTIF_191 = [
-  { id: 'deploy', label: '배포 완료', desc: 'Vercel 배포 성공/실패 알림', channel: '이메일 + 슬랙' },
-  { id: 'review', label: 'PR 리뷰 요청', desc: 'GitHub Pull Request 새 리뷰어 추가', channel: 'Slack' },
+const ACCESSIBLEKIT_LAUNCHER_NOTIF_191 = [
+  { id: 'deploy', label: '배포 완료', desc: 'DeployPlatform 배포 성공/실패 알림', channel: '이메일 + 슬랙' },
+  { id: 'review', label: 'PR 리뷰 요청', desc: 'CodeHost Pull Request 새 리뷰어 추가', channel: 'Slack' },
   { id: 'mention', label: '멘션', desc: '이슈/PR/댓글에서 나를 언급한 경우', channel: '이메일' },
-  { id: 'release', label: '릴리스 알림', desc: '새 패키지 버전 출시 알림', channel: 'Raycast' },
+  { id: 'release', label: '릴리스 알림', desc: '새 패키지 버전 출시 알림', channel: 'CommandPalette' },
 ]
 
-function MantineRaycastNotifRender() {
+function AppUICommandPaletteNotifRender() {
   const [enabled, setEnabled] = useState<Record<string, boolean>>({
     deploy: true, review: true, mention: false, release: false,
   })
@@ -1948,7 +1948,7 @@ function MantineRaycastNotifRender() {
     const next = !globalEnabled
     setGlobalEnabled(next)
     const newEnabled: Record<string, boolean> = {}
-    MANTINE_RAYCAST_NOTIF_191.forEach((n) => { newEnabled[n.id] = next })
+    ACCESSIBLEKIT_LAUNCHER_NOTIF_191.forEach((n) => { newEnabled[n.id] = next })
     setEnabled(newEnabled)
   }
 
@@ -1962,7 +1962,7 @@ function MantineRaycastNotifRender() {
       <div style={{ padding: '14px 20px', background: globalEnabled ? '#f0fdf4' : '#f8fafc', borderBottom: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', gap: 12, transition: 'background 200ms' }}>
         <div style={{ flex: 1 }}>
           <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>알림 설정</div>
-          <div style={{ fontSize: 11, color: '#64748b', marginTop: 2 }}>Mantine + Raycast 패턴</div>
+          <div style={{ fontSize: 11, color: '#64748b', marginTop: 2 }}>AppUI + CommandPalette 패턴</div>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
           <span style={{ fontSize: 11, color: globalEnabled ? '#16a34a' : '#94a3b8', fontWeight: 600 }}>
@@ -1973,10 +1973,10 @@ function MantineRaycastNotifRender() {
       </div>
       {/* Individual items */}
       <div style={{ padding: '8px 20px' }}>
-        {MANTINE_RAYCAST_NOTIF_191.map((notif, i) => (
+        {ACCESSIBLEKIT_LAUNCHER_NOTIF_191.map((notif, i) => (
           <div
             key={notif.id}
-            style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '11px 0', borderBottom: i < MANTINE_RAYCAST_NOTIF_191.length - 1 ? '1px solid #f1f5f9' : 'none', opacity: globalEnabled ? 1 : 0.4, transition: 'opacity 200ms' }}
+            style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '11px 0', borderBottom: i < ACCESSIBLEKIT_LAUNCHER_NOTIF_191.length - 1 ? '1px solid #f1f5f9' : 'none', opacity: globalEnabled ? 1 : 0.4, transition: 'opacity 200ms' }}
           >
             <div style={{ flex: 1 }}>
               <div style={{ fontSize: 13, fontWeight: 500, color: '#0f172a' }}>{notif.label}</div>
@@ -1995,15 +1995,15 @@ function MantineRaycastNotifRender() {
   )
 }
 
-export const Mantine_Raycast_알림_글로벌_토글_패턴: Story = {
-  name: 'Mantine + Raycast — 알림 글로벌/개별 토글',
-  render: () => <MantineRaycastNotifRender />,
+export const AppUI_CommandPalette_알림_글로벌_토글_패턴: Story = {
+  name: 'AppUI + CommandPalette — 알림 글로벌/개별 토글',
+  render: () => <AppUICommandPaletteNotifRender />,
   parameters: {
     docs: {
       description: {
         story:
-          'Mantine Switch + Raycast 알림 설정 복합 패턴. 글로벌 토글이 개별 항목 전체를 제어 + disabled 시 opacity 페이드아웃. ' +
-          '채널 레이블(이메일/Slack/Raycast) 3단 행 레이아웃. 전체 켜짐/꺼짐 상태 동기화.',
+          'AppUI Switch + CommandPalette 알림 설정 복합 패턴. 글로벌 토글이 개별 항목 전체를 제어 + disabled 시 opacity 페이드아웃. ' +
+          '채널 레이블(이메일/Slack/CommandPalette) 3단 행 레이아웃. 전체 켜짐/꺼짐 상태 동기화.',
       },
     },
   },

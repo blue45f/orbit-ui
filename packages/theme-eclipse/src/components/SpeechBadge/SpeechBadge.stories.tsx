@@ -64,7 +64,7 @@ export const 디자인_QA = {
     },
   },
 
-   
+
   render: ({ text, ...rest }: any) => {
     return <SpeechBadge {...rest}>{text || 'SpeechBadge'}</SpeechBadge>
   },
@@ -134,7 +134,7 @@ const ChatSimulationRender = () => {
     <div style={{
       width: '360px', borderRadius: '16px', overflow: 'hidden',
       border: '1px solid #e2e8f0', background: '#f8fafc',
-      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+      fontFamily: '"Segoe UI", sans-serif',
       display: 'flex', flexDirection: 'column',
     }}>
       {/* Header */}
@@ -217,17 +217,17 @@ export const 채팅_대화_시뮬레이션: Story = {
    시스템 알림이나 툴팁 대체 표시 용도로 활용하는 패턴
 -------------------------------------------------------------------------- */
 /* --------------------------------------------------------------------------
-   Vercel Design: PR 리뷰 코멘트 스레드
-   Vercel과 GitHub의 PR 리뷰 UI에서 쓰이는 코드 리뷰 말풍선 패턴
+   DeployPlatform Design: PR 리뷰 코멘트 스레드
+   DeployPlatform과 CodeHost의 PR 리뷰 UI에서 쓰이는 코드 리뷰 말풍선 패턴
    인터랙티브: 좋아요(resolve), 새 댓글 추가 가능
 -------------------------------------------------------------------------- */
 type ReviewComment = { id: number; author: string; text: string; mine: boolean; time: string; resolved: boolean }
 
-const VercelPRReviewRender = () => {
+const DeployPlatformPRReviewRender = () => {
   const [comments, setComments] = useState<ReviewComment[]>([
     { id: 1, author: 'leesooyeon', text: 'Tooltip의 `side` 기본값을 `"top"`으로 변경하면 어떨까요? Ant Design 패턴과 일치합니다.', mine: false, time: '10분 전', resolved: false },
     { id: 2, author: 'me', text: '동의합니다! 이미 `side="top"`이 가장 많이 쓰이고 있어서 기본값으로 설정하는 게 맞을 것 같아요.', mine: true, time: '7분 전', resolved: false },
-    { id: 3, author: 'parkjiho', text: '`delayDuration` 기본값도 300ms → 200ms로 줄이는 건 어떨까요? Vercel이 그렇게 하더라고요.', mine: false, time: '4분 전', resolved: false },
+    { id: 3, author: 'parkjiho', text: '`delayDuration` 기본값도 300ms → 200ms로 줄이는 건 어떨까요? DeployPlatform이 그렇게 하더라고요.', mine: false, time: '4분 전', resolved: false },
   ])
   const [input, setInput] = useState('')
 
@@ -280,9 +280,9 @@ const VercelPRReviewRender = () => {
   )
 }
 
-export const Vercel_PR_리뷰_스레드: Story = {
-  name: 'Vercel Design — PR 리뷰 코멘트 스레드',
-  render: () => <VercelPRReviewRender />,
+export const DeployPlatform_PR_리뷰_스레드: Story = {
+  name: 'DeployPlatform Design — PR 리뷰 코멘트 스레드',
+  render: () => <DeployPlatformPRReviewRender />,
 }
 
 /* --------------------------------------------------------------------------
@@ -293,7 +293,7 @@ export const Vercel_PR_리뷰_스레드: Story = {
 const testimonials = [
   { author: 'K', name: '김민준', role: 'Frontend Lead', color: '#6366f1', text: '3단계 토큰 시스템이 정말 강력해요! 브랜드 컬러만 바꾸면 전체 UI가 업데이트되니까 디자이너-개발자 협업이 훨씬 원활해졌습니다.' },
   { author: 'L', name: '이서연', role: 'Product Designer', color: '#8b5cf6', text: 'Storybook autodocs 덕분에 별도 문서 없이도 컴포넌트 API를 바로 파악할 수 있어요. 온보딩 시간이 절반으로 줄었습니다.' },
-  { author: 'P', name: '박지호', role: 'Design System Engineer', color: '#0ea5e9', text: 'Tailwind로 타입 안전한 CSS를 작성할 수 있어서 런타임 오류가 사라졌어요. TypeScript 통합이 완벽합니다.' },
+  { author: 'P', name: '박지호', role: 'Design System Engineer', color: '#0ea5e9', text: 'UtilityCSS로 타입 안전한 CSS를 작성할 수 있어서 런타임 오류가 사라졌어요. TypeScript 통합이 완벽합니다.' },
 ]
 
 export const Ant_피드백_쇼케이스: Story = {
@@ -322,12 +322,12 @@ export const Ant_피드백_쇼케이스: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Vercel Design: 다크모드 배포 상태 알림
-   Vercel의 다크 팔레트에서 영감받은 배포 이벤트 타임라인
+   DeployPlatform Design: 다크모드 배포 상태 알림
+   DeployPlatform의 다크 팔레트에서 영감받은 배포 이벤트 타임라인
    컴팩트 밀도 + monochrome 컬러 시스템 적용
 -------------------------------------------------------------------------- */
 const deployEvents = [
-  { text: 'Production 배포 완료 — orbit-ui.vercel.app', status: 'success', time: '14:32' },
+  { text: 'Production 배포 완료 — orbit-ui.deploy.example.com', status: 'success', time: '14:32' },
   { text: 'Preview 빌드 시작 — PR #247 feat/button-api', status: 'building', time: '14:31' },
   { text: 'Lint + TypeCheck 통과 — 0 오류, 0 경고', status: 'success', time: '14:30' },
   { text: 'Webhook 실패 — POST /api/notify timeout', status: 'error', time: '14:28' },
@@ -339,8 +339,8 @@ const eventColors: Record<string, { color: string }> = {
   error: { color: '#ef4444' },
 }
 
-export const Vercel_배포_이벤트_타임라인: Story = {
-  name: 'Vercel Design — 배포 이벤트 타임라인',
+export const DeployPlatform_배포_이벤트_타임라인: Story = {
+  name: 'DeployPlatform Design — 배포 이벤트 타임라인',
   render: () => (
     <div style={{ background: '#0f172a', padding: '20px 24px', borderRadius: '14px', maxWidth: '420px', fontFamily: 'system-ui, sans-serif' }}>
       <div style={{ fontSize: '12px', fontWeight: 700, color: 'rgba(255,255,255,0.5)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '14px' }}>
@@ -415,9 +415,9 @@ export const 알림_말풍선: Story = {
   ),
 }
 
-// ─── Cycle 64: Linear Design + Figma Plugin UI ─────────────────────────────
+// ─── Cycle 64: IssueTracker Design + DesignTool Plugin UI ─────────────────────────────
 
-type LinearComment = {
+type IssueTrackerComment = {
   id: number
   author: string
   initials: string
@@ -427,17 +427,17 @@ type LinearComment = {
   side: 'left' | 'right'
 }
 
-const LINEAR_COMMENTS: LinearComment[] = [
+const TRACKER_COMMENTS: IssueTrackerComment[] = [
   { id: 1, author: 'Heejun', initials: 'HJ', color: '#6366f1', text: 'Button 컴포넌트 PR 리뷰 부탁드립니다', time: '10:24', side: 'right' },
   { id: 2, author: 'Soobin', initials: 'SB', color: '#22c55e', text: 'LGTM! 타입 정의 부분만 확인해 주세요', time: '10:31', side: 'left' },
   { id: 3, author: 'Heejun', initials: 'HJ', color: '#6366f1', text: '수정했어요. 다시 한번 봐주세요!', time: '10:45', side: 'right' },
   { id: 4, author: 'Soobin', initials: 'SB', color: '#22c55e', text: '완벽해요. Merge 진행하겠습니다', time: '10:52', side: 'left' },
 ]
 
-const LinearCommentThreadRender = () => {
+const IssueTrackerCommentThreadRender = () => {
   const [input, setInput] = useState('')
-  const [msgs, setMsgs] = useState(LINEAR_COMMENTS)
-  const [count, setCount] = useState(LINEAR_COMMENTS.length + 1)
+  const [msgs, setMsgs] = useState(TRACKER_COMMENTS)
+  const [count, setCount] = useState(TRACKER_COMMENTS.length + 1)
 
   const send = () => {
     if (!input.trim()) return
@@ -448,7 +448,7 @@ const LinearCommentThreadRender = () => {
 
   return (
     <div style={{ width: 360, border: '1px solid #e2e8f0', borderRadius: 14, overflow: 'hidden', fontFamily: 'system-ui, sans-serif' }}>
-      {/* Linear-style issue header */}
+      {/* IssueTracker-style issue header */}
       <div style={{ padding: '12px 16px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <div style={{ fontSize: 12, fontWeight: 700, color: '#0f172a' }}>ORB-142 · Button PR 리뷰</div>
         <div style={{ fontSize: 11, padding: '2px 8px', borderRadius: 100, background: '#dbeafe', color: '#1d4ed8', fontWeight: 600 }}>In Review</div>
@@ -489,19 +489,19 @@ const LinearCommentThreadRender = () => {
   )
 }
 
-export const Linear_이슈_코멘트_스레드: Story = {
-  name: 'Linear - 이슈 코멘트 스레드',
+export const IssueTracker_이슈_코멘트_스레드: Story = {
+  name: 'IssueTracker - 이슈 코멘트 스레드',
   parameters: {
     docs: {
       description: {
-        story: 'Linear의 이슈 코멘트 스레드 패턴. SpeechBadge의 color와 tailPosition을 활용해 발신/수신 메시지를 구분합니다. Enter 키로 새 메시지를 추가할 수 있는 인터랙티브 데모입니다.',
+        story: 'IssueTracker의 이슈 코멘트 스레드 패턴. SpeechBadge의 color와 tailPosition을 활용해 발신/수신 메시지를 구분합니다. Enter 키로 새 메시지를 추가할 수 있는 인터랙티브 데모입니다.',
       },
     },
   },
-  render: () => <LinearCommentThreadRender />,
+  render: () => <IssueTrackerCommentThreadRender />,
 }
 
-type FigmaAnnotation = {
+type DesignToolAnnotation = {
   id: number
   x: number
   y: number
@@ -510,18 +510,18 @@ type FigmaAnnotation = {
   color: 'pink' | 'blue'
 }
 
-const FIGMA_ANNOTATIONS: FigmaAnnotation[] = [
+const DESIGN_ANNOTATIONS: DesignToolAnnotation[] = [
   { id: 1, x: 60, y: 30, label: '1', note: 'Primary 색상: #6366f1', color: 'blue' },
   { id: 2, x: 200, y: 80, label: '2', note: '폰트: 14px / 700', color: 'pink' },
   { id: 3, x: 100, y: 140, label: '3', note: '패딩: 12px 16px', color: 'blue' },
 ]
 
-const FigmaAnnotationPinRender = () => {
+const DesignToolAnnotationPinRender = () => {
   const [active, setActive] = useState<number | null>(1)
 
   return (
     <div style={{ width: 340, fontFamily: 'system-ui, sans-serif' }}>
-      <div style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', marginBottom: 8, textTransform: 'uppercase', letterSpacing: '0.06em' }}>Figma 어노테이션 핀</div>
+      <div style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', marginBottom: 8, textTransform: 'uppercase', letterSpacing: '0.06em' }}>DesignTool 어노테이션 핀</div>
       {/* Canvas mockup */}
       <div style={{ position: 'relative', width: '100%', height: 200, background: '#f0f2f4', borderRadius: 12, border: '1px solid #e2e8f0' }}>
         {/* Mocked component */}
@@ -529,7 +529,7 @@ const FigmaAnnotationPinRender = () => {
           Solid Button
         </div>
         {/* Annotation pins */}
-        {FIGMA_ANNOTATIONS.map((ann) => (
+        {DESIGN_ANNOTATIONS.map((ann) => (
           <div key={ann.id} style={{ position: 'absolute', top: ann.y, left: ann.x }}>
             <div
               onClick={() => setActive(active === ann.id ? null : ann.id)}
@@ -552,16 +552,16 @@ const FigmaAnnotationPinRender = () => {
   )
 }
 
-export const Figma_어노테이션_핀_팝업: Story = {
-  name: 'Figma Plugin - 어노테이션 핀 팝업',
+export const DesignTool_어노테이션_핀_팝업: Story = {
+  name: 'DesignTool Plugin - 어노테이션 핀 팝업',
   parameters: {
     docs: {
       description: {
-        story: 'Figma의 어노테이션 핀 팝업 패턴. 클릭 시 SpeechBadge가 말풍선 형태로 속성 정보를 표시합니다. 디자인 스펙 문서화, 레이어 설명 패턴에 활용됩니다.',
+        story: 'DesignTool의 어노테이션 핀 팝업 패턴. 클릭 시 SpeechBadge가 말풍선 형태로 속성 정보를 표시합니다. 디자인 스펙 문서화, 레이어 설명 패턴에 활용됩니다.',
       },
     },
   },
-  render: () => <FigmaAnnotationPinRender />,
+  render: () => <DesignToolAnnotationPinRender />,
 }
 
 const ONBOARDING_STEPS = [
@@ -570,7 +570,7 @@ const ONBOARDING_STEPS = [
   { id: 2, target: '스토리북 연동', hint: '완성! 스토리북으로 확인하세요', color: 'pink' as const, x: 80, y: 120 },
 ]
 
-const LinearOnboardingGuideRender = () => {
+const IssueTrackerOnboardingGuideRender = () => {
   const [step, setStep] = useState(0)
   const _current = ONBOARDING_STEPS[step]
 
@@ -621,33 +621,33 @@ const LinearOnboardingGuideRender = () => {
   )
 }
 
-export const Linear_온보딩_가이드_핀: Story = {
-  name: 'Linear - 온보딩 가이드 말풍선 핀',
+export const IssueTracker_온보딩_가이드_핀: Story = {
+  name: 'IssueTracker - 온보딩 가이드 말풍선 핀',
   parameters: {
     docs: {
       description: {
-        story: 'Linear의 온보딩 UI 패턴. 단계별 SpeechBadge 힌트를 어두운 배경 위에 표시하고, 진행 표시줄로 현재 단계를 나타냅니다. 피처 투어, 기능 안내 팝업 패턴에 활용됩니다.',
+        story: 'IssueTracker의 온보딩 UI 패턴. 단계별 SpeechBadge 힌트를 어두운 배경 위에 표시하고, 진행 표시줄로 현재 단계를 나타냅니다. 피처 투어, 기능 안내 팝업 패턴에 활용됩니다.',
       },
     },
   },
-  render: () => <LinearOnboardingGuideRender />,
+  render: () => <IssueTrackerOnboardingGuideRender />,
 }
 
-const SHADCN_TOOLTIP_ITEMS = [
+const UTILITYUI_TOOLTIP_ITEMS = [
   { id: 'save', label: '저장', shortcut: '⌘S', tailPosition: 'trailing' as const, color: 'pink' as const },
   { id: 'copy', label: '복사', shortcut: '⌘C', tailPosition: 'leading' as const, color: 'blue' as const },
   { id: 'share', label: '공유', shortcut: '⌘⇧S', tailPosition: 'trailing' as const, color: 'pink' as const },
   { id: 'delete', label: '삭제', shortcut: '⌘⌫', tailPosition: 'leading' as const, color: 'blue' as const },
 ]
 
-const ShadcnTooltipPatternRender = () => {
+const ComposableUITooltipPatternRender = () => {
   const [hoveredId, setHoveredId] = useState<string | null>(null)
 
   return (
     <div style={{ width: 380, fontFamily: 'Inter, system-ui, sans-serif', padding: '24px', display: 'flex', flexDirection: 'column', gap: 20 }}>
-      <div style={{ fontSize: 12, fontWeight: 700, color: '#6b7280', marginBottom: 4 }}>shadcn/ui Tooltip 패턴 — SpeechBadge 활용</div>
+      <div style={{ fontSize: 12, fontWeight: 700, color: '#6b7280', marginBottom: 4 }}>ComposableUI Tooltip 패턴 — SpeechBadge 활용</div>
       <div style={{ display: 'flex', justifyContent: 'center', gap: 20, flexWrap: 'wrap' }}>
-        {SHADCN_TOOLTIP_ITEMS.map(item => (
+        {UTILITYUI_TOOLTIP_ITEMS.map(item => (
           <div
             key={item.id}
             style={{ position: 'relative', display: 'inline-block' }}
@@ -672,16 +672,16 @@ const ShadcnTooltipPatternRender = () => {
   )
 }
 
-export const Shadcn_툴팁_말풍선_패턴: Story = {
-  name: 'shadcn/ui - Tooltip 말풍선 4방향 패턴',
+export const ComposableUI_툴팁_말풍선_패턴: Story = {
+  name: 'ComposableUI - Tooltip 말풍선 4방향 패턴',
   parameters: {
     docs: {
       description: {
-        story: 'shadcn/ui Tooltip 컴포넌트 패턴을 SpeechBadge로 구현. 버튼 hover 시 상/하/좌/우 4방향으로 키보드 단축키 포함 툴팁을 표시합니다. 단축키는 kbd 스타일로 강조합니다.',
+        story: 'ComposableUI Tooltip 컴포넌트 패턴을 SpeechBadge로 구현. 버튼 hover 시 상/하/좌/우 4방향으로 키보드 단축키 포함 툴팁을 표시합니다. 단축키는 kbd 스타일로 강조합니다.',
       },
     },
   },
-  render: () => <ShadcnTooltipPatternRender />,
+  render: () => <ComposableUITooltipPatternRender />,
 }
 
 const TW_STATUS_MESSAGES = [
@@ -696,7 +696,7 @@ const TW_USER_AVATARS = [
   { id: 'u3', initial: 'MJ', color: '#f59e0b', statusId: 'busy' },
 ]
 
-const TailwindAvatarStatusRender = () => {
+const UtilityCSSAvatarStatusRender = () => {
   const [hoveredUser, setHoveredUser] = useState<string | null>(null)
 
   return (
@@ -729,37 +729,37 @@ const TailwindAvatarStatusRender = () => {
           )
         })}
       </div>
-      <div style={{ marginTop: 12, fontSize: 11, color: '#9ca3af', textAlign: 'center' }}>Tailwind UI Avatar + Status Tooltip 패턴</div>
+      <div style={{ marginTop: 12, fontSize: 11, color: '#9ca3af', textAlign: 'center' }}>UtilityUI Avatar + Status Tooltip 패턴</div>
     </div>
   )
 }
 
-export const Tailwind_아바타_상태_툴팁: Story = {
-  name: 'Tailwind UI - 아바타 상태 툴팁 패턴',
+export const UtilityCSS_아바타_상태_툴팁: Story = {
+  name: 'UtilityUI - 아바타 상태 툴팁 패턴',
   parameters: {
     docs: {
       description: {
-        story: 'Tailwind UI Avatar + Status Tooltip 패턴. 팀원 아바타 위에 온라인/자리 비움/바쁨 상태를 색상 도트로 표시하고, hover 시 SpeechBadge로 상세 상태 정보를 보여줍니다. 협업 도구, 팀 대시보드 UI에 적합합니다.',
+        story: 'UtilityUI Avatar + Status Tooltip 패턴. 팀원 아바타 위에 온라인/자리 비움/바쁨 상태를 색상 도트로 표시하고, hover 시 SpeechBadge로 상세 상태 정보를 보여줍니다. 협업 도구, 팀 대시보드 UI에 적합합니다.',
       },
     },
   },
-  render: () => <TailwindAvatarStatusRender />,
+  render: () => <UtilityCSSAvatarStatusRender />,
 }
 
-const SHADCN_STEPS = [
+const UTILITYUI_STEPS = [
   { id: 1, title: '코드 복사', desc: '컴포넌트 코드를 클립보드에 복사합니다', tip: '⌘C로 빠르게 복사!' },
   { id: 2, title: '프로젝트에 추가', desc: 'src/components/ 폴더에 파일을 붙여넣습니다', tip: '파일명은 컴포넌트명과 동일하게' },
   { id: 3, title: '임포트 및 사용', desc: 'import { Component } from "./Component"', tip: 'autodocs로 Props 확인 가능' },
 ]
 
-const ShadcnStepGuideRender = () => {
+const ComposableUIStepGuideRender = () => {
   const [activeStep, setActiveStep] = useState(0)
 
   return (
     <div style={{ width: 380, fontFamily: 'Inter, system-ui, sans-serif' }}>
-      <div style={{ fontSize: 13, fontWeight: 700, color: '#111', marginBottom: 16 }}>shadcn/ui Copy-paste 가이드</div>
+      <div style={{ fontSize: 13, fontWeight: 700, color: '#111', marginBottom: 16 }}>ComposableUI Copy-paste 가이드</div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
-        {SHADCN_STEPS.map((step, idx) => (
+        {UTILITYUI_STEPS.map((step, idx) => (
           <div key={step.id} style={{ position: 'relative' }}>
             <div
               onClick={() => setActiveStep(idx)}
@@ -778,40 +778,40 @@ const ShadcnStepGuideRender = () => {
                 </div>
               )}
             </div>
-            {idx < SHADCN_STEPS.length - 1 && (
+            {idx < UTILITYUI_STEPS.length - 1 && (
               <div style={{ position: 'absolute', left: 13, top: 40, width: 2, height: 20, background: activeStep > idx ? '#111' : '#f0f0f0', transition: 'background 0.2s' }} />
             )}
           </div>
         ))}
       </div>
-      <div style={{ marginTop: 8, fontSize: 11, color: '#9ca3af' }}>shadcn/ui 단계별 가이드 + SpeechBadge 팁 패턴</div>
+      <div style={{ marginTop: 8, fontSize: 11, color: '#9ca3af' }}>ComposableUI 단계별 가이드 + SpeechBadge 팁 패턴</div>
     </div>
   )
 }
 
-export const Shadcn_단계별_가이드_팁: Story = {
-  name: 'shadcn/ui - 단계별 가이드 SpeechBadge 팁',
+export const ComposableUI_단계별_가이드_팁: Story = {
+  name: 'ComposableUI - 단계별 가이드 SpeechBadge 팁',
   parameters: {
     docs: {
       description: {
-        story: 'shadcn/ui Copy-paste 가이드 패턴. 3단계 설치 과정을 스텝 UI로 표시하고, 활성 단계에 SpeechBadge로 추가 팁을 말풍선으로 안내합니다. 온보딩 플로우, 튜토리얼, 설치 가이드 UI에 적합합니다.',
+        story: 'ComposableUI Copy-paste 가이드 패턴. 3단계 설치 과정을 스텝 UI로 표시하고, 활성 단계에 SpeechBadge로 추가 팁을 말풍선으로 안내합니다. 온보딩 플로우, 튜토리얼, 설치 가이드 UI에 적합합니다.',
       },
     },
   },
-  render: () => <ShadcnStepGuideRender />,
+  render: () => <ComposableUIStepGuideRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Mantine 벤치마크: AI 챗봇 응답 스트리밍 말풍선 패턴
-   Mantine Notification + 스트리밍 텍스트 효과
+   AppUI 벤치마크: AI 챗봇 응답 스트리밍 말풍선 패턴
+   AppUI Notification + 스트리밍 텍스트 효과
 -------------------------------------------------------------------------- */
 const BOT_RESPONSES = [
   'Orbit UI는 3계층 아키텍처(Base → Theme → Custom)를 사용합니다.',
-  '컴포넌트를 확장하려면 Tailwind 유틸 클래스 파일을 수정하세요.',
+  '컴포넌트를 확장하려면 UtilityCSS 유틸 클래스 파일을 수정하세요.',
   '스토리북에서 autodocs 태그로 자동 문서가 생성됩니다.',
 ]
 
-function MantineChatbotRender() {
+function AppUIChatbotRender() {
   const [messages, setMessages] = useState<{ from: 'user' | 'bot'; text: string }[]>([
     { from: 'user', text: 'Orbit UI를 어떻게 확장하나요?' },
     { from: 'bot', text: BOT_RESPONSES[0] },
@@ -856,23 +856,23 @@ function MantineChatbotRender() {
           다음 질문하기
         </button>
       )}
-      <div style={{ fontSize: 11, color: '#94a3b8' }}>Mantine 챗봇 패턴 — 사용자/봇 말풍선 색상 구분</div>
+      <div style={{ fontSize: 11, color: '#94a3b8' }}>AppUI 챗봇 패턴 — 사용자/봇 말풍선 색상 구분</div>
     </div>
   )
 }
 
-export const Mantine_AI_챗봇_대화_패턴: Story = {
-  name: 'Mantine - AI 챗봇 대화 말풍선 패턴',
+export const AppUI_AI_챗봇_대화_패턴: Story = {
+  name: 'AppUI - AI 챗봇 대화 말풍선 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'Mantine Notification + 채팅 패턴. 사용자(pink/trailing)와 봇(blue/leading)을 색상과 방향으로 구분합니다. ' +
+          'AppUI Notification + 채팅 패턴. 사용자(pink/trailing)와 봇(blue/leading)을 색상과 방향으로 구분합니다. ' +
           '다음 질문 버튼으로 순차적 대화 시뮬레이션을 제공합니다.',
       },
     },
   },
-  render: () => <MantineChatbotRender />,
+  render: () => <AppUIChatbotRender />,
 }
 
 /* --------------------------------------------------------------------------
@@ -927,7 +927,7 @@ export const Ant_인앱_시스템_공지_말풍선: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Mantine + Ant Design 복합: 고객 지원 채팅 위젯 패턴
+   AppUI + Ant Design 복합: 고객 지원 채팅 위젯 패턴
    실시간 상담원 대화 + 상태 표시 + 빠른 답변 버튼
 -------------------------------------------------------------------------- */
 const SUPPORT_CHAT = [
@@ -938,7 +938,7 @@ const SUPPORT_CHAT = [
 
 const QUICK_REPLIES = ['에러 코드 공유', '문서 링크 요청', '담당자 연결']
 
-function MantineAntSupportChatRender() {
+function AppUIAntSupportChatRender() {
   const [msgs, setMsgs] = useState(SUPPORT_CHAT)
   const [typing, setTyping] = useState(false)
 
@@ -1001,38 +1001,38 @@ function MantineAntSupportChatRender() {
   )
 }
 
-export const Mantine_Ant_고객지원_채팅_위젯: Story = {
-  name: 'Mantine + Ant Design - 고객 지원 채팅 위젯 패턴',
+export const AppUI_Ant_고객지원_채팅_위젯: Story = {
+  name: 'AppUI + Ant Design - 고객 지원 채팅 위젯 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'Mantine + Ant Design 복합 채팅 패턴. 고객(pink/trailing)과 상담원(blue/leading) 말풍선, ' +
+          'AppUI + Ant Design 복합 채팅 패턴. 고객(pink/trailing)과 상담원(blue/leading) 말풍선, ' +
           '타이핑 인디케이터, 빠른 답변 버튼을 조합한 고객 지원 채팅 위젯입니다.',
       },
     },
   },
-  render: () => <MantineAntSupportChatRender />,
+  render: () => <AppUIAntSupportChatRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Cycle 157 — shadcn/ui + Linear Design
-   shadcn/ui: 커맨드 팔레트 힌트 말풍선 패턴
+   Cycle 157 — ComposableUI + IssueTracker Design
+   ComposableUI: 커맨드 팔레트 힌트 말풍선 패턴
 -------------------------------------------------------------------------- */
-const SHADCN_HINTS = [
+const UTILITYUI_HINTS = [
   { key: '⌘K', desc: '커맨드 팔레트 열기', side: 'trailing' as const },
   { key: '⌘P', desc: '빠른 파일 검색', side: 'leading' as const },
   { key: '⌘⇧P', desc: '모든 명령어 보기', side: 'trailing' as const },
 ]
 
-function ShadcnCommandHintRender() {
+function ComposableUICommandHintRender() {
   const [active, setActive] = useState(0)
 
   return (
     <div style={{ width: 320, fontFamily: 'system-ui, sans-serif', padding: 20 }}>
       <p style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 14 }}>키보드 단축키 힌트</p>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-        {SHADCN_HINTS.map((hint, i) => (
+        {UTILITYUI_HINTS.map((hint, i) => (
           <div
             key={hint.key}
             style={{ display: 'flex', alignItems: 'center', gap: 12, cursor: 'pointer' }}
@@ -1049,34 +1049,34 @@ function ShadcnCommandHintRender() {
   )
 }
 
-export const shadcn_커맨드_힌트_말풍선: Story = {
-  name: 'shadcn/ui — 커맨드 팔레트 힌트 말풍선 패턴',
+export const ComposableUI_커맨드_힌트_말풍선: Story = {
+  name: 'ComposableUI — 커맨드 팔레트 힌트 말풍선 패턴',
   parameters: {
     docs: {
       description: {
-        story: 'shadcn/ui의 Command Palette UI 패턴. 키보드 단축키와 SpeechBadge를 조합해 힌트 툴팁을 표현합니다.',
+        story: 'ComposableUI의 Command Palette UI 패턴. 키보드 단축키와 SpeechBadge를 조합해 힌트 툴팁을 표현합니다.',
       },
     },
   },
-  render: () => <ShadcnCommandHintRender />,
+  render: () => <ComposableUICommandHintRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Linear: 이슈 코멘트 반응 말풍선 패턴
+   IssueTracker: 이슈 코멘트 반응 말풍선 패턴
 -------------------------------------------------------------------------- */
-const LINEAR_ACTIVITY = [
+const TRACKER_ACTIVITY = [
   { user: 'Alex', action: 'PR을 병합했습니다', time: '방금', color: 'blue' as const, tail: 'leading' as const },
   { user: '나', action: '리뷰 완료 ✓ LGTM!', time: '1분 전', color: 'pink' as const, tail: 'trailing' as const },
   { user: 'Sarah', action: '스테이징 배포 완료 🚀', time: '3분 전', color: 'blue' as const, tail: 'leading' as const },
   { user: '나', action: 'QA 팀에 공유했어요', time: '5분 전', color: 'pink' as const, tail: 'trailing' as const },
 ]
 
-function LinearActivityBubbleRender() {
+function IssueTrackerActivityBubbleRender() {
   return (
     <div style={{ width: 300, fontFamily: 'system-ui, sans-serif', padding: 16, background: '#fafafa', borderRadius: 12, border: '1px solid #f1f5f9' }}>
       <p style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 16, margin: '0 0 16px' }}>이슈 #1242 — 최근 활동</p>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
-        {LINEAR_ACTIVITY.map((item, i) => (
+        {TRACKER_ACTIVITY.map((item, i) => (
           <div key={i} style={{ display: 'flex', alignItems: 'flex-end', gap: 8, flexDirection: item.tail === 'trailing' ? 'row-reverse' : 'row' }}>
             <div style={{ width: 28, height: 28, borderRadius: '50%', background: item.tail === 'trailing' ? '#6366f1' : '#64748b', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 11, color: '#fff', fontWeight: 700, flexShrink: 0 }}>
               {item.user[0]}
@@ -1094,30 +1094,30 @@ function LinearActivityBubbleRender() {
   )
 }
 
-export const Linear_이슈_활동_말풍선: Story = {
-  name: 'Linear — 이슈 활동 피드 말풍선 패턴',
+export const IssueTracker_이슈_활동_말풍선: Story = {
+  name: 'IssueTracker — 이슈 활동 피드 말풍선 패턴',
   parameters: {
     docs: {
       description: {
-        story: 'Linear의 이슈 Activity Feed 패턴. SpeechBadge로 팀원 활동을 채팅 형식으로 표현합니다.',
+        story: 'IssueTracker의 이슈 Activity Feed 패턴. SpeechBadge로 팀원 활동을 채팅 형식으로 표현합니다.',
       },
     },
   },
-  render: () => <LinearActivityBubbleRender />,
+  render: () => <IssueTrackerActivityBubbleRender />,
 }
 
 /* --------------------------------------------------------------------------
-   shadcn/ui + Linear: AI 제안 & 피드백 말풍선 복합 패턴
+   ComposableUI + IssueTracker: AI 제안 & 피드백 말풍선 복합 패턴
 -------------------------------------------------------------------------- */
 const AI_SUGGESTIONS = [
   { id: 'perf', msg: '이 함수는 O(n²) 복잡도입니다. Map을 사용하면 O(n)으로 최적화할 수 있어요.', type: 'warning' },
-  { id: 'style', msg: 'shadcn/ui 컨벤션에 따라 컴포넌트 이름을 PascalCase로 변경하는 것을 권장합니다.', type: 'info' },
-  { id: 'test', msg: '이 브랜치에 테스트 커버리지가 없습니다. Linear 이슈 #892를 확인하세요.', type: 'action' },
+  { id: 'style', msg: 'ComposableUI 컨벤션에 따라 컴포넌트 이름을 PascalCase로 변경하는 것을 권장합니다.', type: 'info' },
+  { id: 'test', msg: '이 브랜치에 테스트 커버리지가 없습니다. IssueTracker 이슈 #892를 확인하세요.', type: 'action' },
 ]
 
 const AI_TYPE_COLOR: Record<string, 'pink' | 'blue'> = { warning: 'pink', info: 'blue', action: 'pink' }
 
-function ShadcnLinearAIFeedbackRender() {
+function ComposableUIIssueTrackerAIFeedbackRender() {
   const [dismissed, setDismissed] = useState<Set<string>>(new Set())
 
   const dismiss = (id: string) => {
@@ -1160,34 +1160,34 @@ function ShadcnLinearAIFeedbackRender() {
   )
 }
 
-export const shadcn_Linear_AI_제안_말풍선: Story = {
-  name: 'shadcn/ui + Linear — AI 코드 리뷰 제안 말풍선 패턴',
+export const ComposableUI_IssueTracker_AI_제안_말풍선: Story = {
+  name: 'ComposableUI + IssueTracker — AI 코드 리뷰 제안 말풍선 패턴',
   parameters: {
     docs: {
       description: {
-        story: 'shadcn/ui + Linear 복합 패턴. AI 코드 리뷰 제안을 SpeechBadge로 표현하고 개별 해제 기능을 제공합니다.',
+        story: 'ComposableUI + IssueTracker 복합 패턴. AI 코드 리뷰 제안을 SpeechBadge로 표현하고 개별 해제 기능을 제공합니다.',
       },
     },
   },
-  render: () => <ShadcnLinearAIFeedbackRender />,
+  render: () => <ComposableUIIssueTrackerAIFeedbackRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Raycast Extensions — 확장 단축키 힌트 말풍선
+   CommandPalette Extensions — 확장 단축키 힌트 말풍선
 -------------------------------------------------------------------------- */
-const RAYCAST_SHORTCUTS = [
-  { key: '⌘K', label: '커맨드 팔레트 열기', tip: 'Raycast의 메인 진입점입니다.' },
+const LAUNCHER_SHORTCUTS = [
+  { key: '⌘K', label: '커맨드 팔레트 열기', tip: 'CommandPalette의 메인 진입점입니다.' },
   { key: '⌘⇧F', label: '파일 검색', tip: '프로젝트 내 모든 파일을 빠르게 탐색합니다.' },
   { key: '⌘⇧P', label: '플러그인 관리', tip: '확장 기능을 추가하거나 설정합니다.' },
 ]
 
-function RaycastShortcutHintRender() {
+function CommandPaletteShortcutHintRender() {
   const [active, setActive] = useState<number | null>(null)
   return (
     <div style={{ width: 320, fontFamily: "'Inter', system-ui, sans-serif", background: '#1c1c1e', borderRadius: 12, padding: 16, border: '1px solid rgba(255,255,255,0.1)' }}>
       <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.4)', marginBottom: 12, letterSpacing: '0.04em', textTransform: 'uppercase' }}>단축키 가이드</div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-        {RAYCAST_SHORTCUTS.map((item, i) => (
+        {LAUNCHER_SHORTCUTS.map((item, i) => (
           <div key={i}>
             <div
               onMouseEnter={() => setActive(i)}
@@ -1211,29 +1211,29 @@ function RaycastShortcutHintRender() {
   )
 }
 
-export const Raycast_확장_단축키_힌트_말풍선: Story = {
-  name: 'Raycast — 확장 단축키 힌트 말풍선',
-  render: () => <RaycastShortcutHintRender />,
+export const CommandPalette_확장_단축키_힌트_말풍선: Story = {
+  name: 'CommandPalette — 확장 단축키 힌트 말풍선',
+  render: () => <CommandPaletteShortcutHintRender />,
   parameters: {
     docs: {
       description: {
         story:
-          'Raycast Extensions 단축키 힌트 패턴. 단축키 항목에 호버하면 SpeechBadge로 설명이 표시됩니다. ' +
-          'Raycast의 다크 UI에서 인디고 악센트와 함께 맥락적 도움말을 제공합니다.',
+          'CommandPalette Extensions 단축키 힌트 패턴. 단축키 항목에 호버하면 SpeechBadge로 설명이 표시됩니다. ' +
+          'CommandPalette의 다크 UI에서 인디고 악센트와 함께 맥락적 도움말을 제공합니다.',
       },
     },
   },
 }
 
 /* --------------------------------------------------------------------------
-   Notion Design — 인라인 블록 코멘트 말풍선
+   WorkspaceEditor Design — 인라인 블록 코멘트 말풍선
 -------------------------------------------------------------------------- */
-const NOTION_COMMENTS = [
+const WORKSPACE_COMMENTS = [
   { user: 'Alex', avatar: 'A', msg: '이 섹션 설명이 조금 더 구체적이어야 할 것 같아요.', time: '방금', color: 'blue' as const },
   { user: 'Jin', avatar: 'J', msg: '동의합니다. 예시 코드도 추가하면 좋겠어요!', time: '1분 전', color: 'pink' as const },
 ]
 
-function NotionInlineCommentRender() {
+function WorkspaceEditorInlineCommentRender() {
   const [resolved, setResolved] = useState(false)
   return (
     <div style={{ width: 340, fontFamily: "'Inter', system-ui, sans-serif", background: '#fff', borderRadius: 8, border: '1px solid #e5e5e5' }}>
@@ -1245,7 +1245,7 @@ function NotionInlineCommentRender() {
       </div>
       {!resolved ? (
         <div style={{ padding: '12px 16px', display: 'flex', flexDirection: 'column', gap: 10 }}>
-          {NOTION_COMMENTS.map((c, i) => (
+          {WORKSPACE_COMMENTS.map((c, i) => (
             <div key={i} style={{ display: 'flex', gap: 8, alignItems: 'flex-start' }}>
               <div style={{ width: 24, height: 24, borderRadius: '50%', background: c.color === 'blue' ? '#dbeafe' : '#fce7f3', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 11, fontWeight: 700, color: c.color === 'blue' ? '#1d4ed8' : '#be185d', flexShrink: 0 }}>
                 {c.avatar}
@@ -1280,14 +1280,14 @@ function NotionInlineCommentRender() {
   )
 }
 
-export const Notion_인라인_블록_코멘트_말풍선: Story = {
-  name: 'Notion — 인라인 블록 코멘트 말풍선',
-  render: () => <NotionInlineCommentRender />,
+export const WorkspaceEditor_인라인_블록_코멘트_말풍선: Story = {
+  name: 'WorkspaceEditor — 인라인 블록 코멘트 말풍선',
+  render: () => <WorkspaceEditorInlineCommentRender />,
   parameters: {
     docs: {
       description: {
         story:
-          'Notion 인라인 코멘트 패턴. 문서 블록에 달린 팀원 코멘트를 SpeechBadge로 표현합니다. ' +
+          'WorkspaceEditor 인라인 코멘트 패턴. 문서 블록에 달린 팀원 코멘트를 SpeechBadge로 표현합니다. ' +
           '해결됨 토글 기능과 아바타 식별을 조합한 협업 UI입니다.',
       },
     },
@@ -1295,15 +1295,15 @@ export const Notion_인라인_블록_코멘트_말풍선: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Raycast + Notion — 워크플로우 팁 가이드 말풍선
+   CommandPalette + WorkspaceEditor — 워크플로우 팁 가이드 말풍선
 -------------------------------------------------------------------------- */
 const WORKFLOW_TIPS = [
-  { step: 1, source: 'Raycast', tip: '⌘K로 Orbit UI 컴포넌트를 즉시 검색하세요.', color: 'blue' as const, done: false },
-  { step: 2, source: 'Notion', tip: '디자인 토큰 문서를 Notion 페이지로 자동 동기화합니다.', color: 'pink' as const, done: false },
-  { step: 3, source: 'Raycast', tip: 'Storybook 스토리를 Raycast 퀵링크로 저장하세요.', color: 'blue' as const, done: false },
+  { step: 1, source: 'CommandPalette', tip: '⌘K로 Orbit UI 컴포넌트를 즉시 검색하세요.', color: 'blue' as const, done: false },
+  { step: 2, source: 'WorkspaceEditor', tip: '디자인 토큰 문서를 WorkspaceEditor 페이지로 자동 동기화합니다.', color: 'pink' as const, done: false },
+  { step: 3, source: 'CommandPalette', tip: 'Storybook 스토리를 CommandPalette 퀵링크로 저장하세요.', color: 'blue' as const, done: false },
 ]
 
-function RaycastNotionWorkflowRender() {
+function CommandPaletteWorkspaceEditorWorkflowRender() {
   const [done, setDone] = useState<Set<number>>(new Set())
   const toggle = (i: number) => {
     setDone(prev => {
@@ -1348,15 +1348,15 @@ function RaycastNotionWorkflowRender() {
   )
 }
 
-export const Raycast_Notion_워크플로우_팁_가이드_말풍선: Story = {
-  name: 'Raycast + Notion — 워크플로우 팁 가이드 말풍선',
-  render: () => <RaycastNotionWorkflowRender />,
+export const CommandPalette_WorkspaceEditor_워크플로우_팁_가이드_말풍선: Story = {
+  name: 'CommandPalette + WorkspaceEditor — 워크플로우 팁 가이드 말풍선',
+  render: () => <CommandPaletteWorkspaceEditorWorkflowRender />,
   parameters: {
     docs: {
       description: {
         story:
-          'Raycast + Notion 복합 워크플로우 팁 패턴. SpeechBadge로 단계별 팁을 표현하고 체크박스로 완료 처리합니다. ' +
-          'Raycast(인디고)와 Notion(핑크) 출처를 색상으로 구분합니다.',
+          'CommandPalette + WorkspaceEditor 복합 워크플로우 팁 패턴. SpeechBadge로 단계별 팁을 표현하고 체크박스로 완료 처리합니다. ' +
+          'CommandPalette(인디고)와 WorkspaceEditor(핑크) 출처를 색상으로 구분합니다.',
       },
     },
   },

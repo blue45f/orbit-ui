@@ -6,36 +6,36 @@ import { Meta, Unstyled } from '@storybook/blocks'
   <div style={{
     maxWidth: '960px',
     margin: '0 auto',
-    fontFamily: '"Pretendard Variable", "Pretendard", -apple-system, BlinkMacSystemFont, system-ui, sans-serif',
+    fontFamily: '"Pretendard Variable", "Pretendard", system-ui, sans-serif',
   }}>
 
     {/* Header */}
     <div style={{ marginBottom: '48px' }}>
       <div style={{ fontSize: '12px', fontWeight: '700', color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '8px' }}>Customization Guide</div>
       <h1 style={{ fontSize: '36px', fontWeight: '800', color: '#1e293b', letterSpacing: '-0.03em', margin: '0 0 12px' }}>커스터마이제이션 가이드</h1>
-      <p style={{ fontSize: '16px', color: '#64748b', lineHeight: '1.7', margin: 0 }}>
-        MUI의 <code style={{ background: '#f1f5f9', color: '#6366f1', padding: '2px 6px', borderRadius: '4px', fontSize: '14px' }}>createTheme</code>처럼,
+      <div style={{ fontSize: '16px', color: '#64748b', lineHeight: '1.7', margin: 0 }}>
+        EnterpriseUI의 <code style={{ background: '#f1f5f9', color: '#6366f1', padding: '2px 6px', borderRadius: '4px', fontSize: '14px' }}>createTheme</code>처럼,
         Orbit UI도 다양한 방법으로 브랜드 색상과 토큰을 커스터마이즈할 수 있습니다.
         프로젝트 규모와 요구사항에 맞는 방법을 선택하세요.
-      </p>
+      </div>
     </div>
 
-    {/* MUI vs Orbit UI 비교 */}
+    {/* EnterpriseUI vs Orbit UI 비교 */}
     <section style={{ marginBottom: '56px' }}>
-      <h2 style={{ fontSize: '24px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '8px' }}>MUI createTheme vs Orbit UI 커스텀</h2>
-      <p style={{ fontSize: '14px', color: '#64748b', lineHeight: '1.7', marginBottom: '20px' }}>
-        MUI는 JS 객체 기반의 단일 진입점(createTheme)을 제공하는 반면, Orbit UI는 CSS 변수 기반의 계층적 토큰 시스템을 사용합니다.
+      <h2 style={{ fontSize: '24px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '8px' }}>EnterpriseUI createTheme vs Orbit UI 커스텀</h2>
+      <div style={{ fontSize: '14px', color: '#64748b', lineHeight: '1.7', marginBottom: '20px' }}>
+        EnterpriseUI는 JS 객체 기반의 단일 진입점(createTheme)을 제공하는 반면, Orbit UI는 CSS 변수 기반의 계층적 토큰 시스템을 사용합니다.
         두 방식 모두 런타임 테마 전환을 지원하지만 구현 방식이 다릅니다.
-      </p>
+      </div>
 
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '24px' }}>
         <div style={{ borderRadius: '16px', border: '1px solid #e2e8f0', overflow: 'hidden' }}>
           <div style={{ padding: '12px 20px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <span style={{ fontSize: '13px', fontWeight: '700', color: '#475569' }}>MUI createTheme</span>
+            <span style={{ fontSize: '13px', fontWeight: '700', color: '#475569' }}>EnterpriseUI createTheme</span>
             <span style={{ fontSize: '11px', color: '#94a3b8', background: '#f1f5f9', padding: '2px 6px', borderRadius: '4px' }}>JS 객체 기반</span>
           </div>
           <pre style={{ margin: 0, padding: '16px', background: '#0f172a', color: '#e2e8f0', fontSize: '11px', lineHeight: '1.8', fontFamily: '"JetBrains Mono", monospace', overflow: 'auto' }}>
-{`import { createTheme, ThemeProvider } from '@mui/material'
+{`import { createTheme, ThemeProvider } from '@enterprise-ui/material'
 
 const brandTheme = createTheme({
   palette: {
@@ -96,8 +96,8 @@ import './globals.css'
 
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
         {[
-          { label: 'MUI', pros: ['단일 진입점 (createTheme)', 'TypeScript 자동완성 지원', 'sx prop으로 인라인 오버라이드'], cons: ['JS 번들 크기 증가', 'SSR 하이드레이션 불일치 주의', 'CSS specificity 충돌 가능'] },
-          { label: 'Orbit UI', pros: ['CSS 변수 기반으로 SSR 안전', '런타임 JS 없이 테마 전환 가능', 'Tailwind config와 자연스럽게 통합'], cons: ['CSS 변수명을 별도로 파악해야 함', 'TypeScript 자동완성 없음 (CSS 파일)', 'DevTools에서 변수 추적 필요'] },
+          { label: 'EnterpriseUI', pros: ['단일 진입점 (createTheme)', 'TypeScript 자동완성 지원', 'sx prop으로 인라인 오버라이드'], cons: ['JS 번들 크기 증가', 'SSR 하이드레이션 불일치 주의', 'CSS specificity 충돌 가능'] },
+          { label: 'Orbit UI', pros: ['CSS 변수 기반으로 SSR 안전', '런타임 JS 없이 테마 전환 가능', 'UtilityCSS config와 자연스럽게 통합'], cons: ['CSS 변수명을 별도로 파악해야 함', 'TypeScript 자동완성 없음 (CSS 파일)', 'DevTools에서 변수 추적 필요'] },
         ].map((item) => (
           <div key={item.label} style={{ padding: '16px 20px', borderRadius: '12px', border: '1px solid #e2e8f0' }}>
             <div style={{ fontSize: '13px', fontWeight: '700', color: '#1e293b', marginBottom: '10px' }}>{item.label}</div>
@@ -129,10 +129,10 @@ import './globals.css'
         <h2 style={{ fontSize: '22px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', margin: 0 }}>CSS 변수 직접 Override</h2>
         <span style={{ fontSize: '11px', color: '#10b981', background: 'rgba(16,185,129,0.08)', border: '1px solid rgba(16,185,129,0.2)', padding: '2px 8px', borderRadius: '100px', fontWeight: 600 }}>가장 간단</span>
       </div>
-      <p style={{ fontSize: '14px', color: '#64748b', lineHeight: '1.7', marginBottom: '20px', marginLeft: '40px' }}>
+      <div style={{ fontSize: '14px', color: '#64748b', lineHeight: '1.7', marginBottom: '20px', marginLeft: '40px' }}>
         글로벌 CSS 파일에서 Orbit UI의 CSS 변수를 직접 재정의합니다.
         빌드 과정 없이 즉시 적용되며, 다크모드도 자연스럽게 지원됩니다.
-      </p>
+      </div>
 
       <div style={{ borderRadius: '16px', border: '1px solid #e2e8f0', overflow: 'hidden', marginBottom: '16px' }}>
         <div style={{ padding: '10px 16px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0', fontSize: '12px', fontWeight: '600', color: '#475569' }}>
@@ -166,12 +166,12 @@ import './globals.css'
       </div>
 
       <div style={{ padding: '14px 18px', borderRadius: '10px', background: 'rgba(99,102,241,0.04)', border: '1px solid rgba(99,102,241,0.15)' }}>
-        <p style={{ margin: 0, fontSize: '13px', color: '#475569', lineHeight: '1.6' }}>
+        <div style={{ margin: 0, fontSize: '13px', color: '#475569', lineHeight: '1.6' }}>
           <strong style={{ color: '#1e293b' }}>토큰 네임스페이스:</strong>
           {' '}시맨틱 토큰은 <code style={{ background: '#f1f5f9', color: '#6366f1', padding: '1px 5px', borderRadius: '4px', fontSize: '12px' }}>{'--sem-eclipse-color-*'}</code>,
           컴포넌트 토큰은 <code style={{ background: '#f1f5f9', color: '#6366f1', padding: '1px 5px', borderRadius: '4px', fontSize: '12px' }}>{'--comp-eclipse-*'}</code> 패턴을 따릅니다.
           DevTools의 Computed 탭에서 사용 중인 변수를 확인하세요.
-        </p>
+        </div>
       </div>
     </section>
 
@@ -182,9 +182,9 @@ import './globals.css'
         <h2 style={{ fontSize: '22px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', margin: 0 }}>theme prop으로 컴포넌트 토큰 Override</h2>
         <span style={{ fontSize: '11px', color: '#f59e0b', background: 'rgba(245,158,11,0.08)', border: '1px solid rgba(245,158,11,0.2)', padding: '2px 8px', borderRadius: '100px', fontWeight: 600 }}>컴포넌트 단위</span>
       </div>
-      <p style={{ fontSize: '14px', color: '#64748b', lineHeight: '1.7', marginBottom: '20px', marginLeft: '40px' }}>
+      <div style={{ fontSize: '14px', color: '#64748b', lineHeight: '1.7', marginBottom: '20px', marginLeft: '40px' }}>
         특정 컴포넌트의 특정 토큰만 오버라이드할 때 사용합니다. 글로벌 변경 없이 일부 컴포넌트만 다른 스타일을 적용할 수 있습니다.
-      </p>
+      </div>
 
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
         <div style={{ borderRadius: '16px', border: '1px solid #e2e8f0', overflow: 'hidden' }}>
@@ -242,17 +242,17 @@ const BrandTextField = (props) => (
       </div>
     </section>
 
-    {/* 방법 3: Tailwind Config 통합 */}
+    {/* 방법 3: UtilityCSS Config 통합 */}
     <section style={{ marginBottom: '56px' }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '8px' }}>
         <div style={{ width: '28px', height: '28px', borderRadius: '8px', background: 'linear-gradient(135deg, #f59e0b, #d97706)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: '13px', fontWeight: '800', flexShrink: 0 }}>3</div>
-        <h2 style={{ fontSize: '22px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', margin: 0 }}>Tailwind Config 통합</h2>
+        <h2 style={{ fontSize: '22px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', margin: 0 }}>UtilityCSS Config 통합</h2>
         <span style={{ fontSize: '11px', color: '#f59e0b', background: 'rgba(245,158,11,0.08)', border: '1px solid rgba(245,158,11,0.2)', padding: '2px 8px', borderRadius: '100px', fontWeight: 600 }}>유틸리티 클래스</span>
       </div>
-      <p style={{ fontSize: '14px', color: '#64748b', lineHeight: '1.7', marginBottom: '20px', marginLeft: '40px' }}>
-        Orbit UI의 CSS 변수를 Tailwind CSS 설정에 연결하면, 유틸리티 클래스에서도 동일한 브랜드 토큰을 사용할 수 있습니다.
-        Tailwind 만으로 일관된 색상 시스템을 구축합니다.
-      </p>
+      <div style={{ fontSize: '14px', color: '#64748b', lineHeight: '1.7', marginBottom: '20px', marginLeft: '40px' }}>
+        Orbit UI의 CSS 변수를 UtilityCSS CSS 설정에 연결하면, 유틸리티 클래스에서도 동일한 브랜드 토큰을 사용할 수 있습니다.
+        UtilityCSS 만으로 일관된 색상 시스템을 구축합니다.
+      </div>
 
       <div style={{ borderRadius: '16px', border: '1px solid #e2e8f0', overflow: 'hidden' }}>
         <div style={{ padding: '10px 16px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0', fontSize: '12px', fontWeight: '600', color: '#475569' }}>
@@ -305,10 +305,10 @@ export default config
     {/* 실전 예제: 블루 기반 브랜드 테마 */}
     <section style={{ marginBottom: '56px' }}>
       <h2 style={{ fontSize: '24px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '8px' }}>실전 예제: Sky Blue 브랜드 테마</h2>
-      <p style={{ fontSize: '14px', color: '#64748b', lineHeight: '1.7', marginBottom: '24px' }}>
+      <div style={{ fontSize: '14px', color: '#64748b', lineHeight: '1.7', marginBottom: '24px' }}>
         위의 방법 1(CSS 변수 override)을 사용한 Sky Blue 브랜드 테마의 완전한 설정 예제입니다.
         Next.js 13+ App Router 기준으로 작성되었습니다.
-      </p>
+      </div>
 
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
         <div style={{ borderRadius: '16px', border: '1px solid #e2e8f0', overflow: 'hidden' }}>
@@ -403,10 +403,10 @@ export default function RootLayout({
             detail: '해당 컴포넌트 인스턴스에만 theme prop 전달. 글로벌 영향 없음',
           },
           {
-            scenario: 'Tailwind 프로젝트에서 일관된 색상 사용',
-            method: '방법 3 (Tailwind Config 통합)',
+            scenario: 'UtilityCSS 프로젝트에서 일관된 색상 사용',
+            method: '방법 3 (UtilityCSS Config 통합)',
             color: '#f97316',
-            detail: 'CSS 변수를 Tailwind 색상에 연결. text-brand-primary, bg-surface-container 등 유틸리티 클래스로 활용',
+            detail: 'CSS 변수를 UtilityCSS 색상에 연결. text-brand-primary, bg-surface-container 등 유틸리티 클래스로 활용',
           },
         ].map((item) => (
           <div key={item.scenario} style={{
@@ -428,13 +428,13 @@ export default function RootLayout({
     </section>
 
     <section style={{ marginBottom: '56px' }}>
-      <h2 style={{ fontSize: '22px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '8px' }}>Tailwind UI & Apple HIG 벤치마크 패턴</h2>
-      <p style={{ fontSize: '14px', color: '#64748b', lineHeight: '1.6', marginBottom: '24px' }}>Tailwind UI의 컴포넌트 조합 방식과 Apple HIG의 모바일 UX 원칙에서 학습한 커스터마이징 패턴을 정리합니다.</p>
+      <h2 style={{ fontSize: '22px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '8px' }}>UtilityUI & Platform HIG 벤치마크 패턴</h2>
+      <div style={{ fontSize: '14px', color: '#64748b', lineHeight: '1.6', marginBottom: '24px' }}>UtilityUI의 컴포넌트 조합 방식과 Platform HIG의 모바일 UX 원칙에서 학습한 커스터마이징 패턴을 정리합니다.</div>
 
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '24px' }}>
         <div style={{ borderRadius: '12px', border: '1px solid #e2e8f0', overflow: 'hidden' }}>
           <div style={{ padding: '12px 16px', background: 'linear-gradient(135deg, #0369a1, #0284c7)', color: '#fff' }}>
-            <div style={{ fontSize: '14px', fontWeight: '800' }}>Tailwind UI 핵심 패턴</div>
+            <div style={{ fontSize: '14px', fontWeight: '800' }}>UtilityUI 핵심 패턴</div>
           </div>
           <div style={{ padding: '16px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
             <div>
@@ -461,7 +461,7 @@ export default function RootLayout({
 
         <div style={{ borderRadius: '12px', border: '1px solid #e2e8f0', overflow: 'hidden' }}>
           <div style={{ padding: '12px 16px', background: 'linear-gradient(135deg, #374151, #1f2937)', color: '#fff' }}>
-            <div style={{ fontSize: '14px', fontWeight: '800' }}>Apple HIG 핵심 원칙</div>
+            <div style={{ fontSize: '14px', fontWeight: '800' }}>Platform HIG 핵심 원칙</div>
           </div>
           <div style={{ padding: '16px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
             <div>
@@ -499,11 +499,11 @@ export default function RootLayout({
             </thead>
             <tbody>
               {[
-                { pattern: '프리셋 날짜 선택', source: 'Tailwind UI', impl: 'Calendar + useState(프리셋 key) + button 사이드바' },
-                { pattern: 'Segmented Tab', source: 'Apple HIG', impl: 'Tab 컴포넌트 또는 button role=tab + CSS boxShadow 부상 효과' },
-                { pattern: '2단계 예약', source: 'Tailwind UI + Apple HIG', impl: 'Calendar (날짜) + button 그리드 (시간) + SolidButton (확정)' },
-                { pattern: '생일 입력 검증', source: 'Apple HIG', impl: 'input + Calendar + useState(error) + disabled={{ after: today }}' },
-                { pattern: '모바일 체크아웃', source: 'Apple HIG', impl: 'step state + SolidButton CTA + Progress 또는 커스텀 스텝 인디케이터' },
+                { pattern: '프리셋 날짜 선택', source: 'UtilityUI', impl: 'Calendar + useState(프리셋 key) + button 사이드바' },
+                { pattern: 'Segmented Tab', source: 'Platform HIG', impl: 'Tab 컴포넌트 또는 button role=tab + CSS boxShadow 부상 효과' },
+                { pattern: '2단계 예약', source: 'UtilityUI + Platform HIG', impl: 'Calendar (날짜) + button 그리드 (시간) + SolidButton (확정)' },
+                { pattern: '생일 입력 검증', source: 'Platform HIG', impl: 'input + Calendar + useState(error) + disabled={{ after: today }}' },
+                { pattern: '모바일 체크아웃', source: 'Platform HIG', impl: 'step state + SolidButton CTA + Progress 또는 커스텀 스텝 인디케이터' },
               ].map((row, i) => (
                 <tr key={row.pattern} style={{ background: i % 2 === 0 ? '#fff' : '#fafafa' }}>
                   <td style={{ padding: '8px 12px', color: '#1e293b', fontWeight: '600', borderBottom: '1px solid #f1f5f9' }}>{row.pattern}</td>
@@ -517,19 +517,19 @@ export default function RootLayout({
       </div>
     </section>
 
-    {/* Chakra UI + Google Material 3 테마 패턴 비교 */}
+    {/* AccessibleUI + RoleToken Design 테마 패턴 비교 */}
     <section style={{ marginBottom: '56px' }}>
-      <h2 style={{ fontSize: '24px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '8px' }}>Chakra UI + Google Material 3 테마 패턴</h2>
-      <p style={{ fontSize: '14px', color: '#64748b', lineHeight: '1.7', marginBottom: '24px' }}>
-        Chakra UI의 <code style={{ background: '#f1f5f9', color: '#319795', padding: '2px 6px', borderRadius: '4px', fontSize: '13px' }}>extendTheme</code>과
-        Material 3의 <code style={{ background: '#f1f5f9', color: '#6750a4', padding: '2px 6px', borderRadius: '4px', fontSize: '13px' }}>colorScheme</code> 기반 접근 방식을 Orbit UI 3-tier 토큰 시스템으로 매핑합니다.
-      </p>
+      <h2 style={{ fontSize: '24px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '8px' }}>AccessibleUI + RoleToken Design 테마 패턴</h2>
+      <div style={{ fontSize: '14px', color: '#64748b', lineHeight: '1.7', marginBottom: '24px' }}>
+        AccessibleUI의 <code style={{ background: '#f1f5f9', color: '#319795', padding: '2px 6px', borderRadius: '4px', fontSize: '13px' }}>extendTheme</code>과
+        RoleToken Design의 <code style={{ background: '#f1f5f9', color: '#6750a4', padding: '2px 6px', borderRadius: '4px', fontSize: '13px' }}>colorScheme</code> 기반 접근 방식을 Orbit UI 3-tier 토큰 시스템으로 매핑합니다.
+      </div>
 
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '28px' }}>
-        {/* Chakra UI */}
+        {/* AccessibleUI */}
         <div style={{ borderRadius: '16px', border: '1px solid #b2f5ea', overflow: 'hidden' }}>
           <div style={{ padding: '12px 20px', background: '#e6fffa', borderBottom: '1px solid #b2f5ea', display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <span style={{ fontSize: '13px', fontWeight: '700', color: '#234e52' }}>Chakra UI — extendTheme</span>
+            <span style={{ fontSize: '13px', fontWeight: '700', color: '#234e52' }}>AccessibleUI — extendTheme</span>
             <span style={{ fontSize: '11px', color: '#319795', background: '#c6f6f0', padding: '2px 6px', borderRadius: '4px' }}>시맨틱 토큰</span>
           </div>
           <pre style={{ margin: 0, padding: '16px', background: '#0f172a', color: '#e2e8f0', fontSize: '11px', lineHeight: '1.8', fontFamily: '"JetBrains Mono", monospace', overflow: 'auto' }}>
@@ -559,14 +559,14 @@ const brandTheme = extendTheme({
           </pre>
         </div>
 
-        {/* Google Material 3 */}
+        {/* RoleToken Design */}
         <div style={{ borderRadius: '16px', border: '1px solid #d8b4fe', overflow: 'hidden' }}>
           <div style={{ padding: '12px 20px', background: '#faf5ff', borderBottom: '1px solid #d8b4fe', display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <span style={{ fontSize: '13px', fontWeight: '700', color: '#44337a' }}>Google Material 3 — colorScheme</span>
+            <span style={{ fontSize: '13px', fontWeight: '700', color: '#44337a' }}>RoleToken Design — colorScheme</span>
             <span style={{ fontSize: '11px', color: '#6750a4', background: '#ede9fe', padding: '2px 6px', borderRadius: '4px' }}>Dynamic Color</span>
           </div>
           <pre style={{ margin: 0, padding: '16px', background: '#0f172a', color: '#e2e8f0', fontSize: '11px', lineHeight: '1.8', fontFamily: '"JetBrains Mono", monospace', overflow: 'auto' }}>
-{`// Material 3 Dynamic Color 시스템
+{`// RoleToken Design Dynamic Color 시스템
 // Source Color → Tonal Palette → Color Scheme
 
 const m3Scheme = {
@@ -593,8 +593,8 @@ const m3Scheme = {
           <thead>
             <tr style={{ background: '#f8fafc' }}>
               <th style={{ padding: '10px 16px', textAlign: 'left', fontWeight: '700', color: '#475569', borderBottom: '1px solid #e2e8f0' }}>용도</th>
-              <th style={{ padding: '10px 16px', textAlign: 'left', fontWeight: '700', color: '#319795', borderBottom: '1px solid #e2e8f0' }}>Chakra UI</th>
-              <th style={{ padding: '10px 16px', textAlign: 'left', fontWeight: '700', color: '#6750a4', borderBottom: '1px solid #e2e8f0' }}>Material 3</th>
+              <th style={{ padding: '10px 16px', textAlign: 'left', fontWeight: '700', color: '#319795', borderBottom: '1px solid #e2e8f0' }}>AccessibleUI</th>
+              <th style={{ padding: '10px 16px', textAlign: 'left', fontWeight: '700', color: '#6750a4', borderBottom: '1px solid #e2e8f0' }}>RoleToken Design</th>
               <th style={{ padding: '10px 16px', textAlign: 'left', fontWeight: '700', color: '#6366f1', borderBottom: '1px solid #e2e8f0' }}>Orbit UI</th>
             </tr>
           </thead>
@@ -636,20 +636,20 @@ const m3Scheme = {
       </div>
     </section>
 
-    {/* Google M3 + Figma Plugin UI 커스터마이징 섹션 */}
+    {/* Reference M3 + DesignTool Plugin UI 커스터마이징 섹션 */}
     <section style={{ marginBottom: '64px' }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px' }}>
-        <h2 style={{ fontSize: '22px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', margin: 0 }}>Google M3 + Figma Plugin UI 커스터마이징 패턴</h2>
+        <h2 style={{ fontSize: '22px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', margin: 0 }}>Reference M3 + DesignTool Plugin UI 커스터마이징 패턴</h2>
         <span style={{ padding: '3px 10px', background: '#f1f5f9', borderRadius: '20px', fontSize: '12px', fontWeight: '600', color: '#6366f1' }}>Cycle 57</span>
       </div>
 
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '20px', marginBottom: '28px' }}>
         <div style={{ padding: '24px', borderRadius: '14px', background: '#fff8f1', border: '1.5px solid #fed7aa' }}>
-          <div style={{ fontSize: '11px', fontWeight: '700', color: '#ea580c', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '8px' }}>Google Material 3</div>
+          <div style={{ fontSize: '11px', fontWeight: '700', color: '#ea580c', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '8px' }}>RoleToken Design</div>
           <div style={{ fontSize: '18px', fontWeight: '700', color: '#9a3412', marginBottom: '10px' }}>Dynamic Color System</div>
-          <p style={{ fontSize: '13px', color: '#c2410c', lineHeight: '1.7', margin: '0 0 16px' }}>
+          <div style={{ fontSize: '13px', color: '#c2410c', lineHeight: '1.7', margin: '0 0 16px' }}>
             M3의 동적 색상은 하나의 "seed color"에서 전체 색상 팔레트를 자동 생성합니다. Primary, Secondary, Tertiary, Error의 4개 역할과 각각의 Container, On- 색상으로 체계적인 색상 커스터마이징을 제공합니다.
-          </p>
+          </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '12px' }}>
             {[
               ['Icon Button Variant', 'Filled / Tonal / Outlined / Standard 4가지 역할 → OutlineIconButton color + style 조합으로 구현'],
@@ -665,11 +665,11 @@ const m3Scheme = {
         </div>
 
         <div style={{ padding: '24px', borderRadius: '14px', background: '#1e1e1e', border: '1px solid #3f3f46' }}>
-          <div style={{ fontSize: '11px', fontWeight: '700', color: '#71717a', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '8px' }}>Figma Plugin UI</div>
+          <div style={{ fontSize: '11px', fontWeight: '700', color: '#71717a', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '8px' }}>DesignTool Plugin UI</div>
           <div style={{ fontSize: '18px', fontWeight: '700', color: '#e4e4e7', marginBottom: '10px' }}>Compact Dark Canvas</div>
-          <p style={{ fontSize: '13px', color: '#a1a1aa', lineHeight: '1.7', margin: '0 0 16px' }}>
-            Figma 플러그인은 240~320px 너비의 컴팩트 다크 패널에 최대 밀도로 컨트롤을 배치합니다. #1e1e1e 배경, 9-11px 레이블, 4px 간격의 아이콘 그룹이 핵심 패턴입니다.
-          </p>
+          <div style={{ fontSize: '13px', color: '#a1a1aa', lineHeight: '1.7', margin: '0 0 16px' }}>
+            DesignTool 플러그인은 240~320px 너비의 컴팩트 다크 패널에 최대 밀도로 컨트롤을 배치합니다. #1e1e1e 배경, 9-11px 레이블, 4px 간격의 아이콘 그룹이 핵심 패턴입니다.
+          </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '12px' }}>
             {[
               ['도구 팔레트', '그룹별 OutlineIconButton + 활성 도구 border+color 강조, 9px 레이블'],
@@ -689,7 +689,7 @@ const m3Scheme = {
         <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px' }}>
           <thead>
             <tr style={{ background: '#f8fafc' }}>
-              {['커스터마이징 기준', 'Google M3', 'Figma Plugin UI', 'Orbit UI 반영'].map((col, i) => (
+              {['커스터마이징 기준', 'Reference M3', 'DesignTool Plugin UI', 'Orbit UI 반영'].map((col, i) => (
                 <th key={col} style={{ padding: '12px 16px', textAlign: 'left', fontWeight: 700, color: i === 3 ? '#6366f1' : '#475569', borderBottom: '1.5px solid #e2e8f0', whiteSpace: 'nowrap' }}>{col}</th>
               ))}
             </tr>
@@ -717,11 +717,11 @@ const m3Scheme = {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '12px', fontSize: '12px', color: '#374151', lineHeight: '1.7' }}>
           <div>
             <div style={{ fontWeight: '700', color: '#059669', marginBottom: '4px' }}>OutlineIconButton 고도화</div>
-            M3 Tonal 토글 그룹, Figma 컴팩트 도구 팔레트, M3 Extended FAB 스크롤 반응 3개 스토리 추가.
+            M3 Tonal 토글 그룹, DesignTool 컴팩트 도구 팔레트, M3 Extended FAB 스크롤 반응 3개 스토리 추가.
           </div>
           <div>
             <div style={{ fontWeight: '700', color: '#059669', marginBottom: '4px' }}>PasswordField 고도화</div>
-            M3 비밀번호 강도 체크리스트, Figma API 키 마스킹 패널, M3 비밀번호 재설정 단계폼 3개 스토리 추가.
+            M3 비밀번호 강도 체크리스트, DesignTool API 키 마스킹 패널, M3 비밀번호 재설정 단계폼 3개 스토리 추가.
           </div>
         </div>
       </div>
@@ -731,34 +731,34 @@ const m3Scheme = {
 
 
 <section style={{ marginTop: '48px', padding: '32px', background: 'linear-gradient(135deg, #fff7ed 0%, #fef3c7 100%)', borderRadius: '16px', border: '1px solid #fed7aa' }}>
-  <h2 style={{ fontSize: '22px', fontWeight: '800', color: '#7c2d12', marginBottom: '8px' }}>Cycle 70 — Tailwind UI + Ant Design 커스텀 패턴</h2>
-  <p style={{ color: '#c2410c', fontSize: '14px', marginBottom: '24px', fontWeight: '600' }}>AlertDialog 위험 작업 UX + Carousel 콘텐츠 슬라이더 + 알림 센터 패턴</p>
+  <h2 style={{ fontSize: '22px', fontWeight: '800', color: '#7c2d12', marginBottom: '8px' }}>Cycle 70 — UtilityUI + Ant Design 커스텀 패턴</h2>
+  <div style={{ color: '#c2410c', fontSize: '14px', marginBottom: '24px', fontWeight: '600' }}>AlertDialog 위험 작업 UX + Carousel 콘텐츠 슬라이더 + 알림 센터 패턴</div>
 
-  <h3 style={{ fontSize: '17px', fontWeight: '700', color: '#334155', marginBottom: '16px' }}>Tailwind UI에서 배운 것</h3>
+  <h3 style={{ fontSize: '17px', fontWeight: '700', color: '#334155', marginBottom: '16px' }}>UtilityUI에서 배운 것</h3>
   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '24px' }}>
     <div style={{ padding: '16px', borderRadius: '10px', background: '#fff', border: '1px solid #fed7aa' }}>
       <h4 style={{ fontSize: '14px', fontWeight: '700', color: '#ea580c', marginBottom: '8px' }}>파괴적 액션 확인 패턴</h4>
-      <p style={{ fontSize: '13px', color: '#475569', lineHeight: '1.6' }}>
-        단순한 "확인 / 취소"가 아닌, 삭제 대상 이름을 직접 입력하게 해서 실수를 원천 차단. GitHub 레포 삭제 등 고위험 작업에서 필수 UX 패턴.
-      </p>
+      <div style={{ fontSize: '13px', color: '#475569', lineHeight: '1.6' }}>
+        단순한 "확인 / 취소"가 아닌, 삭제 대상 이름을 직접 입력하게 해서 실수를 원천 차단. CodeHost 레포 삭제 등 고위험 작업에서 필수 UX 패턴.
+      </div>
     </div>
     <div style={{ padding: '16px', borderRadius: '10px', background: '#fff', border: '1px solid #fed7aa' }}>
       <h4 style={{ fontSize: '14px', fontWeight: '700', color: '#ea580c', marginBottom: '8px' }}>히어로 슬라이더 구성</h4>
-      <p style={{ fontSize: '13px', color: '#475569', lineHeight: '1.6' }}>
+      <div style={{ fontSize: '13px', color: '#475569', lineHeight: '1.6' }}>
         랜딩 페이지 히어로에 그라디언트 배경 + 텍스트 오버레이 슬라이드 패턴. 3-4초 자동 전환, 하단 pill 도트 인디케이터, smooth transition.
-      </p>
+      </div>
     </div>
     <div style={{ padding: '16px', borderRadius: '10px', background: '#fff', border: '1px solid #fed7aa' }}>
       <h4 style={{ fontSize: '14px', fontWeight: '700', color: '#ea580c', marginBottom: '8px' }}>팀원 소개 카드 캐러셀</h4>
-      <p style={{ fontSize: '13px', color: '#475569', lineHeight: '1.6' }}>
+      <div style={{ fontSize: '13px', color: '#475569', lineHeight: '1.6' }}>
         About 페이지 팀원 소개를 카드 캐러셀로 구성. 아바타 이니셜 + 직함 + 스킬 태그 조합. 모바일 반응형 핵심 패턴.
-      </p>
+      </div>
     </div>
     <div style={{ padding: '16px', borderRadius: '10px', background: '#fff', border: '1px solid #fed7aa' }}>
       <h4 style={{ fontSize: '14px', fontWeight: '700', color: '#ea580c', marginBottom: '8px' }}>알림 센터 레이아웃</h4>
-      <p style={{ fontSize: '13px', color: '#475569', lineHeight: '1.6' }}>
+      <div style={{ fontSize: '13px', color: '#475569', lineHeight: '1.6' }}>
         카테고리 탭 필터 + 읽음/안읽음 배지 카운트 + 일괄 읽음 처리. 알림 항목은 타입별 색상 코딩(info/success/warning/mention).
-      </p>
+      </div>
     </div>
   </div>
 
@@ -766,15 +766,15 @@ const m3Scheme = {
   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '24px' }}>
     <div style={{ padding: '16px', borderRadius: '10px', background: '#fff', border: '1px solid #fed7aa' }}>
       <h4 style={{ fontSize: '14px', fontWeight: '700', color: '#92400e', marginBottom: '8px' }}>폼 이탈 경고 3선택지</h4>
-      <p style={{ fontSize: '13px', color: '#475569', lineHeight: '1.6' }}>
+      <div style={{ fontSize: '13px', color: '#475569', lineHeight: '1.6' }}>
         "저장 후 이동 / 저장하지 않고 이동 / 계속 편집" 세 가지 명시적 선택지. 단순 Yes/No보다 사용자 의도를 정확히 반영하여 데이터 손실 방지.
-      </p>
+      </div>
     </div>
     <div style={{ padding: '16px', borderRadius: '10px', background: '#fff', border: '1px solid #fed7aa' }}>
       <h4 style={{ fontSize: '14px', fontWeight: '700', color: '#92400e', marginBottom: '8px' }}>공지 배너 타입별 색상</h4>
-      <p style={{ fontSize: '13px', color: '#475569', lineHeight: '1.6' }}>
+      <div style={{ fontSize: '13px', color: '#475569', lineHeight: '1.6' }}>
         info(blue)/warning(amber)/success(green) 타입별 색상 시스템 + 배지. 자동 슬라이더로 여러 공지를 컴팩트하게 순환 노출하는 대시보드 패턴.
-      </p>
+      </div>
     </div>
   </div>
 
@@ -782,15 +782,15 @@ const m3Scheme = {
   <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
     <div style={{ padding: '12px 16px', borderRadius: '8px', background: '#f8fafc', border: '1px solid #e2e8f0', fontSize: '13px' }}>
       <span style={{ fontWeight: '700', color: '#ea580c' }}>AlertDialog +3:</span>
-      <span style={{ color: '#475569', marginLeft: '8px' }}>Tailwind 구독 해지 확인, Tailwind 파일 영구 삭제(입력 검증), Ant 폼 이탈 경고(3선택지)</span>
+      <span style={{ color: '#475569', marginLeft: '8px' }}>UtilityCSS 구독 해지 확인, UtilityCSS 파일 영구 삭제(입력 검증), Ant 폼 이탈 경고(3선택지)</span>
     </div>
     <div style={{ padding: '12px 16px', borderRadius: '8px', background: '#f8fafc', border: '1px solid #e2e8f0', fontSize: '13px' }}>
       <span style={{ fontWeight: '700', color: '#0369a1' }}>Carousel +3:</span>
-      <span style={{ color: '#475569', marginLeft: '8px' }}>Tailwind 히어로 슬라이더, Tailwind 팀원 소개 캐러셀, Ant 공지 배너 슬라이더</span>
+      <span style={{ color: '#475569', marginLeft: '8px' }}>UtilityCSS 히어로 슬라이더, UtilityCSS 팀원 소개 캐러셀, Ant 공지 배너 슬라이더</span>
     </div>
     <div style={{ padding: '12px 16px', borderRadius: '8px', background: '#f8fafc', border: '1px solid #e2e8f0', fontSize: '13px' }}>
       <span style={{ fontWeight: '700', color: '#059669' }}>Template #60:</span>
-      <span style={{ color: '#475569', marginLeft: '8px' }}>TailwindNotificationCenter — 알림 센터, 카테고리 탭, 읽음 관리, Progress 진행률 시각화</span>
+      <span style={{ color: '#475569', marginLeft: '8px' }}>UtilityCSSNotificationCenter — 알림 센터, 카테고리 탭, 읽음 관리, Progress 진행률 시각화</span>
     </div>
   </div>
 </section>

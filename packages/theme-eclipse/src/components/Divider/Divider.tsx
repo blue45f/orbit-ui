@@ -16,7 +16,7 @@ export type DividerProps = Omit<BaseDividerProps, 'thickness'> & {
   length?: string | number
   /**
    * Divider 컴포넌트의 두께
-   * - Figma 명세에 따라 1px로 고정됩니다.
+   * - 디자인 명세에 따라 1px로 고정됩니다.
    * @defaultValue `1px`
    */
   thickness?: never
@@ -24,7 +24,7 @@ export type DividerProps = Omit<BaseDividerProps, 'thickness'> & {
 
 /**
  * ### 💡 알아두기
- * - [🔗 figma 디자인가이드라인 바로가기](https://www.figma.com/design/nvbYsAN7MkMtI50gQpoWdk/-%EB%AF%BC%ED%8A%B8-2.0--%ED%81%B4%EB%A0%88%EC%9D%B4%EB%AF%BC%ED%8A%B8?node-id=2827-139930&t=H8UboLdT0JP86Apg-11)
+ * - [🔗 design 디자인가이드라인 바로가기](https://design.example.com/reference)
  * - 목록이나 콘텐츠 등을 구분할 때 사용하는 컴포넌트에요.
  *
  * @example

@@ -29,10 +29,10 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 export const 기본 = {
-   
+
   render: () => {
     return (
-      <ChipLink href="https://github.com/blue45f/ui-forge" target="_blank">
+      <ChipLink href="https://code.example.com/orbit-ui" target="_blank">
         ChipLink
       </ChipLink>
     )
@@ -52,7 +52,7 @@ export const 모든상태: Story = {
         <tbody>
           <tr>
             <td>
-              <ChipLink href="https://github.com/blue45f/ui-forge" target="_blank">
+              <ChipLink href="https://code.example.com/orbit-ui" target="_blank">
                 <ChipLink.Leading>
                   <CheckIcon />
                 </ChipLink.Leading>
@@ -60,7 +60,7 @@ export const 모든상태: Story = {
               </ChipLink>
             </td>
             <td>
-              <ChipLink href="https://github.com/blue45f/ui-forge" target="_blank">
+              <ChipLink href="https://code.example.com/orbit-ui" target="_blank">
                 ChipLink
               </ChipLink>
             </td>
@@ -77,10 +77,10 @@ export const 디자인_QA = {
     borderWidth: 1,
     text: 'ChipLink',
   },
-   
+
   render: ({ leading, text, ...rest }: any) => {
     return (
-      <ChipLink {...rest} href="https://github.com/blue45f/ui-forge" target="_blank">
+      <ChipLink {...rest} href="https://code.example.com/orbit-ui" target="_blank">
         {leading && (
           <ChipLink.Leading>
             <CheckIcon />
@@ -93,7 +93,7 @@ export const 디자인_QA = {
 }
 
 /* --------------------------------------------------------------------------
-   Arco Design 스타일 태그 컬렉션
+   DataProductUI 스타일 태그 컬렉션
    카테고리별 태그 링크 그룹 패턴 - 아시아권 UI의 태그 클라우드 스타일
 -------------------------------------------------------------------------- */
 export const 태그_컬렉션: Story = {
@@ -120,9 +120,9 @@ export const 태그_컬렉션: Story = {
         </div>
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
           {[
-            { label: 'GitHub', icon: <LinkIcon /> },
+            { label: 'CodeHost', icon: <LinkIcon /> },
             { label: 'Storybook', icon: <StarLineIcon /> },
-            { label: 'Figma', icon: <SettingLineIcon /> },
+            { label: 'DesignTool', icon: <SettingLineIcon /> },
             { label: 'npm', icon: <SearchIcon /> },
           ].map(({ label, icon }) => (
             <ChipLink key={label} href="#">
@@ -137,7 +137,7 @@ export const 태그_컬렉션: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Arco Design 스타일 인터랙티브 필터 태그
+   DataProductUI 스타일 인터랙티브 필터 태그
    선택/해제 가능한 링크 태그 필터 패턴 - 상품 카테고리 필터 등에 활용
 -------------------------------------------------------------------------- */
 const filterCategories = [
@@ -231,7 +231,7 @@ export const 인터랙티브_필터_태그: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Arco Design 스타일 관련 링크 목록
+   DataProductUI 스타일 관련 링크 목록
    아티클/문서 페이지에서 볼 수 있는 관련 태그 링크 패턴
 -------------------------------------------------------------------------- */
 export const 관련_링크_패턴: Story = {
@@ -300,19 +300,19 @@ export const 관련_링크_패턴: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Mantine 스타일 칩 그룹 다중 선택
+   AppUI 스타일 칩 그룹 다중 선택
    Chip.Group multiple 패턴 - 기술 스택 필터 다중 선택 UI
 -------------------------------------------------------------------------- */
 const TECH_STACKS = [
   { id: 'react', label: 'React', icon: <StarLineIcon /> },
   { id: 'ts', label: 'TypeScript', icon: <CheckIcon /> },
-  { id: 'tailwind', label: 'Tailwind', icon: <SettingLineIcon /> },
+  { id: 'tailwind', label: 'UtilityCSS', icon: <SettingLineIcon /> },
   { id: 'vite', label: 'Vite', icon: <SearchIcon /> },
   { id: 'storybook', label: 'Storybook', icon: <LinkIcon /> },
   { id: 'vitest', label: 'Vitest', icon: <HeartLineIcon /> },
 ]
 
-const MantineChipGroupRender = () => {
+const AppUIChipGroupRender = () => {
   const [selected, setSelected] = useState<string[]>(['react', 'ts'])
 
   const toggle = (id: string) => {
@@ -378,12 +378,12 @@ const MantineChipGroupRender = () => {
   )
 }
 
-export const Mantine_칩_그룹_다중선택: Story = {
-  render: () => <MantineChipGroupRender />,
+export const AppUI_칩_그룹_다중선택: Story = {
+  render: () => <AppUIChipGroupRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Arco Design 스타일 기술 스택 배지 쇼케이스
+   DataProductUI 스타일 기술 스택 배지 쇼케이스
    아이콘과 레이블이 결합된 스택 배지 카드 패턴 - 포트폴리오/프로필 활용
 -------------------------------------------------------------------------- */
 const STACK_CATEGORIES = [
@@ -391,13 +391,13 @@ const STACK_CATEGORIES = [
     name: 'Frontend',
     color: '#6366f1',
     bg: '#eef2ff',
-    items: ['React', 'TypeScript', 'Tailwind CSS', 'Vite'],
+    items: ['React', 'TypeScript', 'UtilityCSS CSS', 'Vite'],
   },
   {
     name: 'Design System',
     color: '#0ea5e9',
     bg: '#f0f9ff',
-    items: ['Storybook', 'Radix UI', 'Figma', 'Design Tokens'],
+    items: ['Storybook', 'PrimitiveUI', 'DesignTool', 'Design Tokens'],
   },
   {
     name: 'Testing',
@@ -407,7 +407,7 @@ const STACK_CATEGORIES = [
   },
 ]
 
-export const Arco_기술스택_배지: Story = {
+export const DataProduct_기술스택_배지: Story = {
   render: () => (
     <div style={{ maxWidth: 520, padding: 28, fontFamily: 'system-ui, sans-serif', display: 'flex', flexDirection: 'column', gap: 20 }}>
       <div>
@@ -437,7 +437,7 @@ export const Arco_기술스택_배지: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Mantine 스타일 검색 태그 인터페이스
+   AppUI 스타일 검색 태그 인터페이스
    태그 기반 검색 필드 - 입력으로 태그 추가, 클릭으로 제거하는 패턴
 -------------------------------------------------------------------------- */
 const SearchTagsRender = () => {
@@ -487,7 +487,7 @@ const SearchTagsRender = () => {
       <div>
         <div style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', marginBottom: 8, textTransform: 'uppercase', letterSpacing: '0.06em' }}>추천 태그</div>
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
-          {['컴포넌트', 'UI Kit', '토큰', 'Figma', '접근성', '다크모드'].filter((s) => !tags.includes(s)).map((suggest) => (
+          {['컴포넌트', 'UI Kit', '토큰', 'DesignTool', '접근성', '다크모드'].filter((s) => !tags.includes(s)).map((suggest) => (
             <ChipLink
               key={suggest}
               href="#"
@@ -502,20 +502,20 @@ const SearchTagsRender = () => {
   )
 }
 
-export const Mantine_검색_태그: Story = {
+export const AppUI_검색_태그: Story = {
   render: () => <SearchTagsRender />,
 }
 
-// ─── Cycle 64: Linear Design + Figma Plugin UI ─────────────────────────────
+// ─── Cycle 64: IssueTracker Design + DesignTool Plugin UI ─────────────────────────────
 
-type LinearLabel = {
+type IssueTrackerLabel = {
   id: string
   name: string
   color: string
   count: number
 }
 
-const LINEAR_LABELS: LinearLabel[] = [
+const TRACKER_LABELS: IssueTrackerLabel[] = [
   { id: 'bug', name: 'Bug', color: '#ef4444', count: 3 },
   { id: 'feature', name: 'Feature', color: '#6366f1', count: 8 },
   { id: 'improvement', name: 'Improvement', color: '#22c55e', count: 5 },
@@ -523,7 +523,7 @@ const LINEAR_LABELS: LinearLabel[] = [
   { id: 'design', name: 'Design', color: '#ec4899', count: 4 },
 ]
 
-const LinearIssueLabelRender = () => {
+const IssueTrackerIssueLabelRender = () => {
   const [active, setActive] = useState<Set<string>>(new Set(['bug', 'feature']))
 
   const toggle = (id: string) => {
@@ -539,7 +539,7 @@ const LinearIssueLabelRender = () => {
     <div style={{ width: 360, fontFamily: 'system-ui, sans-serif' }}>
       <div style={{ fontSize: 12, fontWeight: 700, color: '#94a3b8', marginBottom: 10, textTransform: 'uppercase', letterSpacing: '0.06em' }}>이슈 레이블 필터</div>
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginBottom: 14 }}>
-        {LINEAR_LABELS.map((label) => {
+        {TRACKER_LABELS.map((label) => {
           const _isOn = active.has(label.id)
           return (
             <ChipLink
@@ -558,26 +558,26 @@ const LinearIssueLabelRender = () => {
       </div>
       <div style={{ fontSize: 12, color: '#64748b' }}>
         선택된 레이블: <strong style={{ color: '#0f172a' }}>{active.size}개</strong> ·
-        표시 이슈: <strong style={{ color: '#6366f1' }}>{LINEAR_LABELS.filter(l => active.has(l.id)).reduce((s, l) => s + l.count, 0)}개</strong>
+        표시 이슈: <strong style={{ color: '#6366f1' }}>{TRACKER_LABELS.filter(l => active.has(l.id)).reduce((s, l) => s + l.count, 0)}개</strong>
       </div>
-      <div style={{ marginTop: 6, fontSize: 11, color: '#94a3b8' }}>Linear 이슈 레이블 필터 패턴</div>
+      <div style={{ marginTop: 6, fontSize: 11, color: '#94a3b8' }}>IssueTracker 이슈 레이블 필터 패턴</div>
     </div>
   )
 }
 
-export const Linear_이슈_레이블_필터: Story = {
-  name: 'Linear - 이슈 레이블 필터 ChipLink',
+export const IssueTracker_이슈_레이블_필터: Story = {
+  name: 'IssueTracker - 이슈 레이블 필터 ChipLink',
   parameters: {
     docs: {
       description: {
-        story: 'Linear의 이슈 레이블 필터 패턴. ChipLink에 color dot Leading을 배치하고, 선택 여부에 따라 투명도로 활성 상태를 표현합니다. 선택된 레이블에 해당하는 이슈 수가 실시간으로 집계됩니다.',
+        story: 'IssueTracker의 이슈 레이블 필터 패턴. ChipLink에 color dot Leading을 배치하고, 선택 여부에 따라 투명도로 활성 상태를 표현합니다. 선택된 레이블에 해당하는 이슈 수가 실시간으로 집계됩니다.',
       },
     },
   },
-  render: () => <LinearIssueLabelRender />,
+  render: () => <IssueTrackerIssueLabelRender />,
 }
 
-type FigmaComponent = {
+type DesignToolComponent = {
   id: string
   name: string
   library: string
@@ -585,7 +585,7 @@ type FigmaComponent = {
   href: string
 }
 
-const FIGMA_COMPONENTS: FigmaComponent[] = [
+const DESIGN_COMPONENTS: DesignToolComponent[] = [
   { id: 'btn', name: 'SolidButton', library: 'Orbit UI', category: 'Actions', href: '#' },
   { id: 'inp', name: 'TextField', library: 'Orbit UI', category: 'Inputs', href: '#' },
   { id: 'bdg', name: 'LabelBadge', library: 'Orbit UI', category: 'Display', href: '#' },
@@ -593,15 +593,15 @@ const FIGMA_COMPONENTS: FigmaComponent[] = [
   { id: 'mdl', name: 'Drawer', library: 'Orbit UI', category: 'Overlay', href: '#' },
 ]
 
-const FigmaComponentLinkRender = () => {
+const DesignToolComponentLinkRender = () => {
   const [filter, setFilter] = useState('전체')
-  const categories = ['전체', ...Array.from(new Set(FIGMA_COMPONENTS.map(c => c.category)))]
+  const categories = ['전체', ...Array.from(new Set(DESIGN_COMPONENTS.map(c => c.category)))]
 
-  const filtered = FIGMA_COMPONENTS.filter(c => filter === '전체' || c.category === filter)
+  const filtered = DESIGN_COMPONENTS.filter(c => filter === '전체' || c.category === filter)
 
   return (
     <div style={{ width: 360, fontFamily: 'system-ui, sans-serif' }}>
-      <div style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', marginBottom: 10, textTransform: 'uppercase', letterSpacing: '0.06em' }}>Figma 컴포넌트 소스 링크</div>
+      <div style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', marginBottom: 10, textTransform: 'uppercase', letterSpacing: '0.06em' }}>DesignTool 컴포넌트 소스 링크</div>
       {/* Category filter */}
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginBottom: 14 }}>
         {categories.map((cat) => (
@@ -632,24 +632,24 @@ const FigmaComponentLinkRender = () => {
           </div>
         ))}
       </div>
-      <div style={{ marginTop: 8, fontSize: 11, color: '#94a3b8' }}>Figma 컴포넌트 라이브러리 링크 패턴</div>
+      <div style={{ marginTop: 8, fontSize: 11, color: '#94a3b8' }}>DesignTool 컴포넌트 라이브러리 링크 패턴</div>
     </div>
   )
 }
 
-export const Figma_컴포넌트_라이브러리_링크: Story = {
-  name: 'Figma Plugin - 컴포넌트 라이브러리 링크 태그',
+export const DesignTool_컴포넌트_라이브러리_링크: Story = {
+  name: 'DesignTool Plugin - 컴포넌트 라이브러리 링크 태그',
   parameters: {
     docs: {
       description: {
-        story: 'Figma Plugin UI의 컴포넌트 소스 링크 패턴. 카테고리 필터 ChipLink + 컴포넌트별 라이브러리 출처 ChipLink를 조합합니다. Leading에 Figma 아이콘 색상 도트를 배치해 라이브러리 출처를 표현합니다.',
+        story: 'DesignTool Plugin UI의 컴포넌트 소스 링크 패턴. 카테고리 필터 ChipLink + 컴포넌트별 라이브러리 출처 ChipLink를 조합합니다. Leading에 DesignTool 아이콘 색상 도트를 배치해 라이브러리 출처를 표현합니다.',
       },
     },
   },
-  render: () => <FigmaComponentLinkRender />,
+  render: () => <DesignToolComponentLinkRender />,
 }
 
-type LinearProject = {
+type IssueTrackerProject = {
   id: string
   name: string
   status: 'active' | 'paused' | 'completed'
@@ -657,7 +657,7 @@ type LinearProject = {
   count: number
 }
 
-const LINEAR_PROJECTS: LinearProject[] = [
+const TRACKER_PROJECTS: IssueTrackerProject[] = [
   { id: 'orbit', name: 'Orbit UI v2', status: 'active', statusColor: '#22c55e', count: 14 },
   { id: 'token', name: '토큰 시스템 재설계', status: 'active', statusColor: '#22c55e', count: 7 },
   { id: 'storybook', name: 'Storybook 고도화', status: 'paused', statusColor: '#f59e0b', count: 3 },
@@ -665,14 +665,14 @@ const LINEAR_PROJECTS: LinearProject[] = [
   { id: 'docs', name: 'MDX 문서화', status: 'active', statusColor: '#22c55e', count: 9 },
 ]
 
-const LinearProjectTagRender = () => {
+const IssueTrackerProjectTagRender = () => {
   const [selectedId, setSelectedId] = useState<string | null>(null)
 
   return (
     <div style={{ width: 380, fontFamily: 'system-ui, sans-serif' }}>
       <div style={{ fontSize: 12, fontWeight: 700, color: '#94a3b8', marginBottom: 10, textTransform: 'uppercase', letterSpacing: '0.06em' }}>프로젝트 태그 탐색</div>
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginBottom: 16 }}>
-        {LINEAR_PROJECTS.map((proj) => (
+        {TRACKER_PROJECTS.map((proj) => (
           <ChipLink
             key={proj.id}
             href="#"
@@ -690,7 +690,7 @@ const LinearProjectTagRender = () => {
         ))}
       </div>
       {selectedId && (() => {
-        const proj = LINEAR_PROJECTS.find(p => p.id === selectedId)
+        const proj = TRACKER_PROJECTS.find(p => p.id === selectedId)
         if (!proj) return null
         return (
           <div style={{ padding: '12px 14px', borderRadius: 10, border: `1px solid ${proj.statusColor}30`, background: proj.statusColor + '08' }}>
@@ -702,24 +702,24 @@ const LinearProjectTagRender = () => {
           </div>
         )
       })()}
-      <div style={{ marginTop: 8, fontSize: 11, color: '#94a3b8' }}>Linear 프로젝트 태그 링크 탐색 패턴</div>
+      <div style={{ marginTop: 8, fontSize: 11, color: '#94a3b8' }}>IssueTracker 프로젝트 태그 링크 탐색 패턴</div>
     </div>
   )
 }
 
-export const Linear_프로젝트_태그_탐색: Story = {
-  name: 'Linear - 프로젝트 태그 탐색 링크',
+export const IssueTracker_프로젝트_태그_탐색: Story = {
+  name: 'IssueTracker - 프로젝트 태그 탐색 링크',
   parameters: {
     docs: {
       description: {
-        story: 'Linear의 프로젝트 태그 탐색 패턴. ChipLink에 상태 색상 Leading 도트를 배치하고 선택 시 상세 정보 카드를 인라인으로 표시합니다. 프로젝트 탐색, 빠른 필터 링크 UI에 활용됩니다.',
+        story: 'IssueTracker의 프로젝트 태그 탐색 패턴. ChipLink에 상태 색상 Leading 도트를 배치하고 선택 시 상세 정보 카드를 인라인으로 표시합니다. 프로젝트 탐색, 빠른 필터 링크 UI에 활용됩니다.',
       },
     },
   },
-  render: () => <LinearProjectTagRender />,
+  render: () => <IssueTrackerProjectTagRender />,
 }
 
-const RAYCAST_ACTIONS = [
+const LAUNCHER_ACTIONS = [
   { id: 'copy', label: 'Copy Link', shortcut: '⌘C', icon: '⌘' },
   { id: 'open', label: 'Open in Browser', shortcut: '⌘O', icon: '↗' },
   { id: 'share', label: 'Share', shortcut: '⌘S', icon: '↑' },
@@ -727,14 +727,14 @@ const RAYCAST_ACTIONS = [
   { id: 'preview', label: 'Quick Look', shortcut: '⌘Space', icon: '⎵' },
 ]
 
-const RaycastQuickActionLinksRender = () => {
+const CommandPaletteQuickActionLinksRender = () => {
   const [activeId, setActiveId] = useState<string | null>(null)
 
   return (
     <div style={{ width: 320, fontFamily: 'Inter, system-ui, sans-serif', background: '#1c1c1e', borderRadius: 12, padding: '12px 0', boxShadow: '0 8px 32px rgba(0,0,0,0.4)' }}>
       <div style={{ padding: '4px 12px 10px', fontSize: 11, fontWeight: 600, color: '#8e8e93', textTransform: 'uppercase', letterSpacing: '0.06em' }}>Quick Actions</div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 2, padding: '0 6px' }}>
-        {RAYCAST_ACTIONS.map(action => (
+        {LAUNCHER_ACTIONS.map(action => (
           <div key={action.id} style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
             <ChipLink
               href="#"
@@ -750,62 +750,62 @@ const RaycastQuickActionLinksRender = () => {
           </div>
         ))}
       </div>
-      <div style={{ padding: '10px 12px 4px', fontSize: 10, color: '#48484a', textAlign: 'center' }}>Raycast Quick Action 패턴</div>
+      <div style={{ padding: '10px 12px 4px', fontSize: 10, color: '#48484a', textAlign: 'center' }}>CommandPalette Quick Action 패턴</div>
     </div>
   )
 }
 
-export const Raycast_퀵액션_링크: Story = {
-  name: 'Raycast - 퀵 액션 링크 패턴',
+export const CommandPalette_퀵액션_링크: Story = {
+  name: 'CommandPalette - 퀵 액션 링크 패턴',
   parameters: {
     docs: {
       description: {
-        story: 'Raycast 커맨드 팔레트의 액션 목록 패턴. 다크 배경에 ChipLink를 세로로 배치하고 키보드 단축키를 우측에 표시합니다. 커맨드 팔레트, 컨텍스트 메뉴, 퀵 액션 UI에 적합합니다.',
+        story: 'CommandPalette 커맨드 팔레트의 액션 목록 패턴. 다크 배경에 ChipLink를 세로로 배치하고 키보드 단축키를 우측에 표시합니다. 커맨드 팔레트, 컨텍스트 메뉴, 퀵 액션 UI에 적합합니다.',
       },
     },
   },
-  render: () => <RaycastQuickActionLinksRender />,
+  render: () => <CommandPaletteQuickActionLinksRender />,
 }
 
-const SHADCN_BREADCRUMB_ITEMS = [
+const UTILITYUI_BREADCRUMB_ITEMS = [
   { id: 'home', label: 'Home', href: '/' },
   { id: 'components', label: 'Components', href: '/docs/components' },
   { id: 'chip', label: 'ChipLink', href: '/docs/components/chip-link' },
 ]
 
-const ShadcnBreadcrumbRender = () => (
+const ComposableUIBreadcrumbRender = () => (
   <div style={{ width: 360, fontFamily: 'Inter, system-ui, sans-serif' }}>
     <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-      {SHADCN_BREADCRUMB_ITEMS.map((item, idx) => (
+      {UTILITYUI_BREADCRUMB_ITEMS.map((item, idx) => (
         <React.Fragment key={item.id}>
           <ChipLink href={item.href} onClick={(e: React.MouseEvent) => e.preventDefault()}>
             {item.label}
           </ChipLink>
-          {idx < SHADCN_BREADCRUMB_ITEMS.length - 1 && (
+          {idx < UTILITYUI_BREADCRUMB_ITEMS.length - 1 && (
             <span style={{ fontSize: 12, color: '#94a3b8' }}>/</span>
           )}
         </React.Fragment>
       ))}
     </div>
     <div style={{ marginTop: 12, padding: '12px 14px', background: '#f8fafc', borderRadius: 8, fontSize: 12, color: '#64748b' }}>
-      shadcn/ui 브레드크럼 네비게이션 패턴 — 계층적 경로를 ChipLink로 구현
+      ComposableUI 브레드크럼 네비게이션 패턴 — 계층적 경로를 ChipLink로 구현
     </div>
   </div>
 )
 
-export const Shadcn_브레드크럼_네비게이션: Story = {
-  name: 'shadcn/ui - 브레드크럼 네비게이션',
+export const ComposableUI_브레드크럼_네비게이션: Story = {
+  name: 'ComposableUI - 브레드크럼 네비게이션',
   parameters: {
     docs: {
       description: {
-        story: 'shadcn/ui Breadcrumb 컴포넌트 패턴을 ChipLink로 구현. 계층적 경로를 구분자(/)와 함께 수평으로 나열합니다. 문서 사이트, 관리자 대시보드, 파일 탐색기 UI에 적합합니다.',
+        story: 'ComposableUI Breadcrumb 컴포넌트 패턴을 ChipLink로 구현. 계층적 경로를 구분자(/)와 함께 수평으로 나열합니다. 문서 사이트, 관리자 대시보드, 파일 탐색기 UI에 적합합니다.',
       },
     },
   },
-  render: () => <ShadcnBreadcrumbRender />,
+  render: () => <ComposableUIBreadcrumbRender />,
 }
 
-const NOTION_BLOCK_TYPES = [
+const WORKSPACE_BLOCK_TYPES = [
   { id: 'text', label: 'Text', icon: 'T', desc: '일반 텍스트' },
   { id: 'heading', label: 'Heading 1', icon: 'H1', desc: '대형 제목' },
   { id: 'list', label: 'Bulleted List', icon: '•', desc: '순서 없는 목록' },
@@ -814,17 +814,17 @@ const NOTION_BLOCK_TYPES = [
   { id: 'code', label: 'Code', icon: '</>', desc: '코드 블록' },
 ]
 
-const NotionBlockTypeLinkRender = () => {
+const WorkspaceEditorBlockTypeLinkRender = () => {
   const [selected, setSelected] = useState<string>('text')
 
   return (
     <div style={{ width: 320, fontFamily: 'Inter, system-ui, sans-serif', border: '1px solid #e5e7eb', borderRadius: 10, overflow: 'hidden', boxShadow: '0 4px 16px rgba(0,0,0,0.08)' }}>
       <div style={{ padding: '10px 14px', borderBottom: '1px solid #f0f0f0', background: '#f9fafb' }}>
         <div style={{ fontSize: 12, fontWeight: 700, color: '#111' }}>블록 유형 전환</div>
-        <div style={{ fontSize: 11, color: '#9ca3af' }}>Notion 블록 타입 선택 패턴</div>
+        <div style={{ fontSize: 11, color: '#9ca3af' }}>WorkspaceEditor 블록 타입 선택 패턴</div>
       </div>
       <div style={{ padding: 8 }}>
-        {NOTION_BLOCK_TYPES.map(block => (
+        {WORKSPACE_BLOCK_TYPES.map(block => (
           <div key={block.id} style={{ marginBottom: 2 }}>
             <ChipLink
               href="#"
@@ -844,33 +844,33 @@ const NotionBlockTypeLinkRender = () => {
   )
 }
 
-export const Notion_블록_타입_전환: Story = {
-  name: 'Notion - 블록 타입 전환 링크 메뉴',
+export const WorkspaceEditor_블록_타입_전환: Story = {
+  name: 'WorkspaceEditor - 블록 타입 전환 링크 메뉴',
   parameters: {
     docs: {
       description: {
-        story: 'Notion 블록 타입 전환 팝업 패턴. 아이콘 + 이름 + 설명을 가진 ChipLink 목록으로 콘텐츠 블록 유형(Text/Heading/List/To-do 등)을 선택합니다. 인라인 슬래시 커맨드 메뉴에 적합합니다.',
+        story: 'WorkspaceEditor 블록 타입 전환 팝업 패턴. 아이콘 + 이름 + 설명을 가진 ChipLink 목록으로 콘텐츠 블록 유형(Text/Heading/List/To-do 등)을 선택합니다. 인라인 슬래시 커맨드 메뉴에 적합합니다.',
       },
     },
   },
-  render: () => <NotionBlockTypeLinkRender />,
+  render: () => <WorkspaceEditorBlockTypeLinkRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Cycle 125 — MUI + Tailwind UI 벤치마크
+   Cycle 125 — EnterpriseUI + UtilityUI 벤치마크
 -------------------------------------------------------------------------- */
 
 /* --------------------------------------------------------------------------
-   MUI: 탐색 경로(breadcrumb) 스타일 링크 칩 패턴
-   MUI Breadcrumbs 의 링크 스타일 — 클릭 가능한 경로 탐색 칩 체인
+   EnterpriseUI: 탐색 경로(breadcrumb) 스타일 링크 칩 패턴
+   EnterpriseUI Breadcrumbs 의 링크 스타일 — 클릭 가능한 경로 탐색 칩 체인
 -------------------------------------------------------------------------- */
-export const MUI_경로_탐색_링크_칩: Story = {
-  name: 'MUI - 경로 탐색 링크 칩 체인 패턴',
+export const EnterpriseUI_경로_탐색_링크_칩: Story = {
+  name: 'EnterpriseUI - 경로 탐색 링크 칩 체인 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'MUI Breadcrumbs + Chip 조합 아이디어. 클릭 가능한 ChipLink를 체인으로 연결하여 ' +
+          'EnterpriseUI Breadcrumbs + Chip 조합 아이디어. 클릭 가능한 ChipLink를 체인으로 연결하여 ' +
           '계층형 카테고리 탐색을 구현합니다. 현재 위치는 비활성 칩으로 표시합니다.',
       },
     },
@@ -965,16 +965,16 @@ export const MUI_경로_탐색_링크_칩: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Tailwind UI: 필터 태그 스택 패턴
-   Tailwind UI Filter chips — 검색 결과 필터를 ChipLink로 표현
+   UtilityUI: 필터 태그 스택 패턴
+   UtilityUI Filter chips — 검색 결과 필터를 ChipLink로 표현
 -------------------------------------------------------------------------- */
-export const Tailwind_검색_필터_태그_스택: Story = {
-  name: 'Tailwind UI - 검색 필터 태그 스택 패턴',
+export const UtilityCSS_검색_필터_태그_스택: Story = {
+  name: 'UtilityUI - 검색 필터 태그 스택 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'Tailwind UI 필터 태그 패턴. 활성 필터를 ChipLink 목록으로 표시하고 ' +
+          'UtilityUI 필터 태그 패턴. 활성 필터를 ChipLink 목록으로 표시하고 ' +
           '각 태그의 X 버튼으로 개별 제거, "전체 초기화" 링크로 모두 제거합니다.',
       },
     },
@@ -1045,16 +1045,16 @@ export const Tailwind_검색_필터_태그_스택: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   MUI + Tailwind: 기술 스택 매트릭스 링크 칩
+   EnterpriseUI + UtilityCSS: 기술 스택 매트릭스 링크 칩
    두 시스템의 태그/필터 패턴 결합 — 기술 매핑 탐색기
 -------------------------------------------------------------------------- */
-export const MUI_Tailwind_기술_스택_매트릭스: Story = {
-  name: 'MUI + Tailwind UI - 기술 스택 매트릭스 탐색기',
+export const EnterpriseUI_UtilityCSS_기술_스택_매트릭스: Story = {
+  name: 'EnterpriseUI + UtilityUI - 기술 스택 매트릭스 탐색기',
   parameters: {
     docs: {
       description: {
         story:
-          'MUI Chip group + Tailwind UI filter 패턴 결합. 레이어(Frontend/Backend/Infra)별로 ' +
+          'EnterpriseUI Chip group + UtilityUI filter 패턴 결합. 레이어(Frontend/Backend/Infra)별로 ' +
           '기술 스택을 ChipLink 그룹으로 탐색하고 선택된 기술의 상세 정보를 표시합니다.',
       },
     },
@@ -1065,7 +1065,7 @@ export const MUI_Tailwind_기술_스택_매트릭스: Story = {
         { id: 'react', label: 'React', desc: 'UI 컴포넌트 라이브러리', level: 'expert' },
         { id: 'ts', label: 'TypeScript', desc: '정적 타입 언어', level: 'expert' },
         { id: 'vite', label: 'Vite', desc: '빌드 도구', level: 'advanced' },
-        { id: 'tailwind', label: 'Tailwind', desc: 'CSS 유틸리티 프레임워크', level: 'advanced' },
+        { id: 'tailwind', label: 'UtilityCSS', desc: 'CSS 유틸리티 프레임워크', level: 'advanced' },
         { id: 'storybook', label: 'Storybook', desc: '컴포넌트 문서화', level: 'intermediate' },
       ],
       Backend: [
@@ -1075,8 +1075,8 @@ export const MUI_Tailwind_기술_스택_매트릭스: Story = {
         { id: 'graphql', label: 'GraphQL', desc: 'API 쿼리 언어', level: 'intermediate' },
       ],
       Infra: [
-        { id: 'vercel', label: 'Vercel', desc: '프론트엔드 배포', level: 'expert' },
-        { id: 'github', label: 'GitHub Actions', desc: 'CI/CD 파이프라인', level: 'advanced' },
+        { id: 'deploy', label: 'DeployPlatform', desc: '프론트엔드 배포', level: 'expert' },
+        { id: 'codehost', label: 'CodeHost Actions', desc: 'CI/CD 파이프라인', level: 'advanced' },
         { id: 'docker', label: 'Docker', desc: '컨테이너화', level: 'intermediate' },
       ],
     }
@@ -1131,8 +1131,8 @@ export const MUI_Tailwind_기술_스택_매트릭스: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Cycle 158 — Radix UI + Tailwind UI
-   Radix: 내비게이션 메뉴 링크 칩 패턴 (Navigation Menu Link Chips)
+   Cycle 158 — PrimitiveUI + UtilityUI
+   Primitive: 내비게이션 메뉴 링크 칩 패턴 (Navigation Menu Link Chips)
 -------------------------------------------------------------------------- */
 const RADIX_NAV_LINKS = [
   { href: '#', label: '시작하기', section: 'docs', active: true },
@@ -1142,12 +1142,12 @@ const RADIX_NAV_LINKS = [
   { href: '#', label: 'Colors', section: 'assets', active: false },
 ]
 
-function RadixNavChipRender() {
+function PrimitiveNavChipRender() {
   const [activeIdx, setActiveIdx] = useState(0)
 
   return (
     <div style={{ fontFamily: 'system-ui, sans-serif', width: 340 }}>
-      <p style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 12 }}>Radix UI 스타일 내비게이션 칩</p>
+      <p style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 12 }}>PrimitiveUI 스타일 내비게이션 칩</p>
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
         {RADIX_NAV_LINKS.map((link, i) => (
           <ChipLink
@@ -1167,31 +1167,31 @@ function RadixNavChipRender() {
   )
 }
 
-export const Radix_내비게이션_링크_칩: Story = {
-  name: 'Radix UI — 내비게이션 메뉴 링크 칩 패턴',
+export const Primitive_내비게이션_링크_칩: Story = {
+  name: 'PrimitiveUI — 내비게이션 메뉴 링크 칩 패턴',
   parameters: {
     docs: {
       description: {
-        story: 'Radix UI의 NavigationMenu 링크 칩 패턴. 섹션별 내비게이션을 ChipLink로 구현하며 활성 상태를 명확히 표시합니다.',
+        story: 'PrimitiveUI의 NavigationMenu 링크 칩 패턴. 섹션별 내비게이션을 ChipLink로 구현하며 활성 상태를 명확히 표시합니다.',
       },
     },
   },
-  render: () => <RadixNavChipRender />,
+  render: () => <PrimitiveNavChipRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Tailwind UI: 기술 스택 필터 + 프로젝트 카드 패턴
+   UtilityUI: 기술 스택 필터 + 프로젝트 카드 패턴
 -------------------------------------------------------------------------- */
 const TAILWIND_PROJECTS = [
   { name: 'Orbit UI', tech: ['React', 'TypeScript', 'Vite'], stars: 128 },
   { name: 'Clay Kit', tech: ['React', 'CSS'], stars: 84 },
-  { name: 'Eclipse Theme', tech: ['TypeScript', 'Radix UI'], stars: 56 },
+  { name: 'Eclipse Theme', tech: ['TypeScript', 'PrimitiveUI'], stars: 56 },
   { name: 'Icon Pack', tech: ['SVG', 'React'], stars: 210 },
 ]
 
-const ALL_TECH = ['React', 'TypeScript', 'Vite', 'CSS', 'Radix UI', 'SVG']
+const ALL_TECH = ['React', 'TypeScript', 'Vite', 'CSS', 'PrimitiveUI', 'SVG']
 
-function TailwindProjectFilterRender() {
+function UtilityCSSProjectFilterRender() {
   const [activeTech, setActiveTech] = useState<Set<string>>(new Set())
 
   const toggleTech = (t: string) => {
@@ -1248,20 +1248,20 @@ function TailwindProjectFilterRender() {
   )
 }
 
-export const Tailwind_프로젝트_기술스택_필터: Story = {
-  name: 'Tailwind UI — 기술 스택 필터 + 프로젝트 카드 패턴',
+export const UtilityCSS_프로젝트_기술스택_필터: Story = {
+  name: 'UtilityUI — 기술 스택 필터 + 프로젝트 카드 패턴',
   parameters: {
     docs: {
       description: {
-        story: 'Tailwind UI의 Filter Chips 패턴. ChipLink로 기술 스택 필터를 멀티선택하고 프로젝트 카드를 동적으로 필터링합니다.',
+        story: 'UtilityUI의 Filter Chips 패턴. ChipLink로 기술 스택 필터를 멀티선택하고 프로젝트 카드를 동적으로 필터링합니다.',
       },
     },
   },
-  render: () => <TailwindProjectFilterRender />,
+  render: () => <UtilityCSSProjectFilterRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Radix + Tailwind: 문서 사이드바 카테고리 내비게이션 패턴
+   Primitive + UtilityCSS: 문서 사이드바 카테고리 내비게이션 패턴
 -------------------------------------------------------------------------- */
 const DOC_CATEGORIES = [
   { id: 'overview', label: '개요', count: 3 },
@@ -1272,7 +1272,7 @@ const DOC_CATEGORIES = [
   { id: 'changelog', label: '변경 이력', count: 24 },
 ]
 
-function RadixTailwindDocSidebarRender() {
+function PrimitiveUtilityCSSDocSidebarRender() {
   const [selected, setSelected] = useState('components')
 
   return (
@@ -1302,29 +1302,29 @@ function RadixTailwindDocSidebarRender() {
           {DOC_CATEGORIES.find(c => c.id === selected)?.count}개 항목
         </p>
         <p style={{ fontSize: 11, color: '#94a3b8', margin: '8px 0 0', lineHeight: 1.6 }}>
-          Radix + Tailwind UI 사이드바 내비게이션 패턴. ChipLink로 카테고리 전환을 구현합니다.
+          Primitive + UtilityUI 사이드바 내비게이션 패턴. ChipLink로 카테고리 전환을 구현합니다.
         </p>
       </div>
     </div>
   )
 }
 
-export const Radix_Tailwind_문서_사이드바_내비게이션: Story = {
-  name: 'Radix + Tailwind UI — 문서 사이드바 카테고리 내비게이션 패턴',
+export const Primitive_UtilityCSS_문서_사이드바_내비게이션: Story = {
+  name: 'Primitive + UtilityUI — 문서 사이드바 카테고리 내비게이션 패턴',
   parameters: {
     docs: {
       description: {
-        story: 'Radix UI + Tailwind UI 복합 패턴. ChipLink로 사이드바 문서 카테고리 내비게이션을 구현하며 선택된 섹션을 동적으로 표시합니다.',
+        story: 'PrimitiveUI + UtilityUI 복합 패턴. ChipLink로 사이드바 문서 카테고리 내비게이션을 구현하며 선택된 섹션을 동적으로 표시합니다.',
       },
     },
   },
-  render: () => <RadixTailwindDocSidebarRender />,
+  render: () => <PrimitiveUtilityCSSDocSidebarRender />,
 }
 
 /* --------------------------------------------------------------------------
-   shadcn/ui — 태그 클라우드 컴포넌트 탐색
+   ComposableUI — 태그 클라우드 컴포넌트 탐색
 -------------------------------------------------------------------------- */
-const SHADCN_TAGS = [
+const UTILITYUI_TAGS = [
   { id: 'button', label: 'Button', weight: 3 },
   { id: 'input', label: 'Input', weight: 2 },
   { id: 'dialog', label: 'Dialog', weight: 2 },
@@ -1345,14 +1345,14 @@ const WEIGHT_STYLE: Record<number, { fontSize: number; padding: string }> = {
   3: { fontSize: 14, padding: '5px 12px' },
 }
 
-function ShadcnTagCloudRender() {
+function ComposableUITagCloudRender() {
   const [active, setActive] = useState<string | null>(null)
 
   return (
     <div style={{ width: 360, fontFamily: 'system-ui, sans-serif' }}>
       <div style={{ fontSize: 13, fontWeight: 600, color: '#0f172a', marginBottom: 12 }}>컴포넌트 태그 클라우드</div>
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
-        {SHADCN_TAGS.map(tag => {
+        {UTILITYUI_TAGS.map(tag => {
           const ws = WEIGHT_STYLE[tag.weight]
           return (
             <span key={tag.id} style={{ fontSize: ws.fontSize }}>
@@ -1369,32 +1369,32 @@ function ShadcnTagCloudRender() {
       </div>
       {active && (
         <div style={{ marginTop: 14, padding: '12px 14px', borderRadius: 8, background: '#f8fafc', border: '1px solid #e2e8f0', fontSize: 12, color: '#475569' }}>
-          <span style={{ fontWeight: 600, color: '#1e293b' }}>{SHADCN_TAGS.find(t => t.id === active)?.label}</span> 컴포넌트를 선택했습니다.
-          <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 4 }}>shadcn/ui 태그 클라우드 — 사용 빈도에 따라 크기가 다릅니다.</div>
+          <span style={{ fontWeight: 600, color: '#1e293b' }}>{UTILITYUI_TAGS.find(t => t.id === active)?.label}</span> 컴포넌트를 선택했습니다.
+          <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 4 }}>ComposableUI 태그 클라우드 — 사용 빈도에 따라 크기가 다릅니다.</div>
         </div>
       )}
     </div>
   )
 }
 
-export const shadcn_태그_클라우드_컴포넌트_탐색: Story = {
-  name: 'shadcn/ui — 태그 클라우드 컴포넌트 탐색',
-  render: () => <ShadcnTagCloudRender />,
+export const ComposableUI_태그_클라우드_컴포넌트_탐색: Story = {
+  name: 'ComposableUI — 태그 클라우드 컴포넌트 탐색',
+  render: () => <ComposableUITagCloudRender />,
   parameters: {
     docs: {
       description: {
         story:
-          'shadcn/ui 컴포넌트 탐색 패턴. 사용 빈도에 따라 ChipLink 크기를 3단계로 차별화한 태그 클라우드입니다. ' +
-          'shadcn의 미니멀한 인터랙션 디자인과 컴포넌트 발견 UX를 반영합니다.',
+          'ComposableUI 컴포넌트 탐색 패턴. 사용 빈도에 따라 ChipLink 크기를 3단계로 차별화한 태그 클라우드입니다. ' +
+          'ComposableUI의 미니멀한 인터랙션 디자인과 컴포넌트 발견 UX를 반영합니다.',
       },
     },
   },
 }
 
 /* --------------------------------------------------------------------------
-   Linear Design — 이슈 라벨 필터 + 이슈 목록
+   IssueTracker Design — 이슈 라벨 필터 + 이슈 목록
 -------------------------------------------------------------------------- */
-const LINEAR_FILTER_LABELS = [
+const TRACKER_FILTER_LABELS = [
   { id: 'all', label: '전체' },
   { id: 'bug', label: 'Bug' },
   { id: 'feature', label: 'Feature' },
@@ -1402,7 +1402,7 @@ const LINEAR_FILTER_LABELS = [
   { id: 'docs', label: 'Docs' },
 ]
 
-const LINEAR_ISSUES = [
+const TRACKER_ISSUES = [
   { id: 'ORB-241', title: 'DataTable 정렬 오작동', label: 'bug', priority: 'urgent' },
   { id: 'ORB-242', title: 'Drawer 스냅 포인트 지원', label: 'feature', priority: 'high' },
   { id: 'ORB-243', title: 'Chip 선택 상태 개선', label: 'improvement', priority: 'medium' },
@@ -1413,15 +1413,15 @@ const LINEAR_ISSUES = [
 
 const PRIORITY_COLOR: Record<string, string> = { urgent: '#ef4444', high: '#f97316', medium: '#eab308', low: '#94a3b8' }
 
-function LinearIssueLabelFilterRender() {
+function IssueTrackerIssueLabelFilterRender() {
   const [activeLabel, setActiveLabel] = useState('all')
 
-  const filtered = activeLabel === 'all' ? LINEAR_ISSUES : LINEAR_ISSUES.filter(i => i.label === activeLabel)
+  const filtered = activeLabel === 'all' ? TRACKER_ISSUES : TRACKER_ISSUES.filter(i => i.label === activeLabel)
 
   return (
     <div style={{ width: 360, fontFamily: "'Inter', system-ui, sans-serif" }}>
       <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginBottom: 12 }}>
-        {LINEAR_FILTER_LABELS.map(lbl => (
+        {TRACKER_FILTER_LABELS.map(lbl => (
           <ChipLink
             key={lbl.id}
             href="#"
@@ -1449,32 +1449,32 @@ function LinearIssueLabelFilterRender() {
   )
 }
 
-export const Linear_이슈_라벨_필터_칩_링크: Story = {
-  name: 'Linear Design — 이슈 라벨 필터 ChipLink',
-  render: () => <LinearIssueLabelFilterRender />,
+export const IssueTracker_이슈_라벨_필터_칩_링크: Story = {
+  name: 'IssueTracker Design — 이슈 라벨 필터 ChipLink',
+  render: () => <IssueTrackerIssueLabelFilterRender />,
   parameters: {
     docs: {
       description: {
         story:
-          'Linear 이슈 라벨 필터 패턴. ChipLink를 필터 탭으로 사용해 이슈 목록을 동적으로 필터링합니다. ' +
-          'Linear의 컴팩트한 이슈 리스트와 우선순위 색상 코딩 패턴을 재현합니다.',
+          'IssueTracker 이슈 라벨 필터 패턴. ChipLink를 필터 탭으로 사용해 이슈 목록을 동적으로 필터링합니다. ' +
+          'IssueTracker의 컴팩트한 이슈 리스트와 우선순위 색상 코딩 패턴을 재현합니다.',
       },
     },
   },
 }
 
 /* --------------------------------------------------------------------------
-   shadcn + Linear — 기술 스택 & 프로젝트 브라우저
+   ComposableUI + IssueTracker — 기술 스택 & 프로젝트 브라우저
 -------------------------------------------------------------------------- */
 const TECH_CATEGORIES_184 = ['프론트엔드', '백엔드', '인프라', '디자인']
 const TECH_MAP_184: Record<string, string[]> = {
-  '프론트엔드': ['React', 'TypeScript', 'Tailwind', 'Vite', 'Storybook'],
+  '프론트엔드': ['React', 'TypeScript', 'UtilityCSS', 'Vite', 'Storybook'],
   '백엔드': ['Node.js', 'Prisma', 'PostgreSQL', 'Redis', 'GraphQL'],
-  '인프라': ['Vercel', 'GitHub Actions', 'Docker', 'AWS S3'],
-  '디자인': ['Figma', 'Orbit UI', 'Radix UI', 'Inter'],
+  '인프라': ['DeployPlatform', 'CodeHost Actions', 'Docker', 'AWS S3'],
+  '디자인': ['DesignTool', 'Orbit UI', 'PrimitiveUI', 'Inter'],
 }
 
-function ShadcnLinearTechBrowserRender() {
+function ComposableUIIssueTrackerTechBrowserRender() {
   const [category, setCategory] = useState('프론트엔드')
   const [selected, setSelected] = useState<Set<string>>(new Set())
 
@@ -1533,14 +1533,14 @@ function ShadcnLinearTechBrowserRender() {
   )
 }
 
-export const shadcn_Linear_기술_스택_브라우저: Story = {
-  name: 'shadcn/ui + Linear — 기술 스택 브라우저',
-  render: () => <ShadcnLinearTechBrowserRender />,
+export const ComposableUI_IssueTracker_기술_스택_브라우저: Story = {
+  name: 'ComposableUI + IssueTracker — 기술 스택 브라우저',
+  render: () => <ComposableUIIssueTrackerTechBrowserRender />,
   parameters: {
     docs: {
       description: {
         story:
-          'shadcn/ui + Linear 복합 패턴. 카테고리 ChipLink로 섹션을 전환하고 기술 항목 ChipLink로 멀티 선택합니다. ' +
+          'ComposableUI + IssueTracker 복합 패턴. 카테고리 ChipLink로 섹션을 전환하고 기술 항목 ChipLink로 멀티 선택합니다. ' +
           'ChipLink.Leading에 상태 도트를 삽입해 선택 여부를 시각적으로 표현합니다.',
       },
     },

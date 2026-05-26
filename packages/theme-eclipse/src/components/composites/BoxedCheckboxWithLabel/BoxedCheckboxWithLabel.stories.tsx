@@ -78,7 +78,7 @@ export const 디자인QA = {
       description: '두 번째 체크박스 비활성화 여부',
     },
   },
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
+
   render: (args: any) => (
     <>
       <div style={{ marginBottom: '25px' }}>첫 번째 체크박스는 라벨이 없어요</div>
@@ -106,7 +106,7 @@ export const 디자인QA = {
   ),
 }
 
-/* ── shadcn/ui: 플랜 기능 선택 (카드형 다중 선택) ── */
+/* ── ComposableUI: 플랜 기능 선택 (카드형 다중 선택) ── */
 const PlanFeatureDemo = () => {
   type Feature = 'analytics' | 'api' | 'sso' | 'audit' | 'support'
   const [selected, setSelected] = useState<Set<Feature>>(new Set(['analytics']))
@@ -121,7 +121,7 @@ const PlanFeatureDemo = () => {
   const features: { key: Feature; label: string; desc: string; price: string }[] = [
     { key: 'analytics', label: 'Advanced Analytics', desc: '상세 사용량 지표와 팀 리포트', price: '+₩9,900/월' },
     { key: 'api', label: 'API Access', desc: 'REST API + Webhook 완전 지원', price: '+₩19,900/월' },
-    { key: 'sso', label: 'SSO 통합', desc: 'SAML 2.0, Google Workspace 연동', price: '+₩29,900/월' },
+    { key: 'sso', label: 'SSO 통합', desc: 'SAML 2.0, Reference Workspace 연동', price: '+₩29,900/월' },
     { key: 'audit', label: 'Audit Log', desc: '전체 활동 로그 90일 보관', price: '+₩9,900/월' },
     { key: 'support', label: '전담 지원', desc: '평일 4시간 이내 응답 SLA', price: '+₩49,900/월' },
   ]
@@ -176,12 +176,12 @@ const PlanFeatureDemo = () => {
   )
 }
 
-export const Shadcn_플랜_기능_선택: Story = {
-  name: 'shadcn — 플랜 기능 선택 (카드형)',
+export const ComposableUI_플랜_기능_선택: Story = {
+  name: 'ComposableUI — 플랜 기능 선택 (카드형)',
   render: () => <PlanFeatureDemo />,
 }
 
-/* ── shadcn/ui: 권한 설정 그룹 ── */
+/* ── ComposableUI: 권한 설정 그룹 ── */
 const PermissionsDemo = () => {
   type Perm = 'read' | 'write' | 'delete' | 'admin' | 'export'
   const ROLES: { label: string; default: Perm[] }[] = [
@@ -270,17 +270,17 @@ const PermissionsDemo = () => {
   )
 }
 
-export const Shadcn_권한_설정: Story = {
-  name: 'shadcn — 권한 설정 그룹',
+export const ComposableUI_권한_설정: Story = {
+  name: 'ComposableUI — 권한 설정 그룹',
   render: () => <PermissionsDemo />,
 }
 
 /* --------------------------------------------------------------------------
-   Radix UI 벤치마크: 제어/비제어 이중 API 패턴
-   Radix의 defaultChecked(비제어) + checked/onCheckedChange(제어) 이중 지원 패턴.
+   PrimitiveUI 벤치마크: 제어/비제어 이중 API 패턴
+   Primitive의 defaultChecked(비제어) + checked/onCheckedChange(제어) 이중 지원 패턴.
    동일 컴포넌트가 제어/비제어 모드로 사이드 바이 사이드 렌더링됩니다.
 -------------------------------------------------------------------------- */
-const RadixDualApiDemo = () => {
+const PrimitiveDualApiDemo = () => {
   const [controlled, setControlled] = useState<Set<string>>(new Set(['design']))
 
   const features = [
@@ -292,7 +292,7 @@ const RadixDualApiDemo = () => {
   return (
     <div style={{ maxWidth: 560, display: 'flex', flexDirection: 'column', gap: 20 }}>
       <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>
-        Radix 이중 API 패턴: 제어 vs 비제어
+        Primitive 이중 API 패턴: 제어 vs 비제어
       </div>
 
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
@@ -358,27 +358,27 @@ const RadixDualApiDemo = () => {
   )
 }
 
-export const Radix_제어_비제어_이중_API: Story = {
-  name: 'Radix UI — 제어/비제어 이중 API 패턴 (defaultChecked vs controlled)',
+export const Primitive_제어_비제어_이중_API: Story = {
+  name: 'PrimitiveUI — 제어/비제어 이중 API 패턴 (defaultChecked vs controlled)',
   parameters: {
     docs: {
       description: {
         story:
-          'Radix UI의 defaultChecked(비제어)와 checked+onChange(제어) 이중 API 패턴. ' +
+          'PrimitiveUI의 defaultChecked(비제어)와 checked+onChange(제어) 이중 API 패턴. ' +
           '동일 컴포넌트가 두 모드로 렌더링됩니다. 비제어는 내부 상태로 동작하고, ' +
           '제어는 외부 상태와 동기화됩니다.',
       },
     },
   },
-  render: () => <RadixDualApiDemo />,
+  render: () => <PrimitiveDualApiDemo />,
 }
 
 /* --------------------------------------------------------------------------
-   Radix UI 벤치마크: 데이터 속성(data-state) 기반 접근성 패턴
-   Radix는 data-state="checked|unchecked", data-disabled, data-highlighted 등
+   PrimitiveUI 벤치마크: 데이터 속성(data-state) 기반 접근성 패턴
+   Primitive는 data-state="checked|unchecked", data-disabled, data-highlighted 등
    데이터 속성으로 상태를 표현해 CSS 선택자와 스크린리더 모두 지원합니다.
 -------------------------------------------------------------------------- */
-const RadixDataStateDemo = () => {
+const PrimitiveDataStateDemo = () => {
   const [selected, setSelected] = useState<Set<string>>(new Set())
 
   const ROLES: { key: string; label: string; scope: string; ariaDesc: string }[] = [
@@ -400,7 +400,7 @@ const RadixDataStateDemo = () => {
       <div>
         <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 4 }}>팀 멤버 역할 선택</div>
         <div style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>
-          {'Radix data-state 기반 접근성 패턴 — aria-checked, role="checkbox"'}
+          {'Primitive data-state 기반 접근성 패턴 — aria-checked, role="checkbox"'}
         </div>
       </div>
 
@@ -451,7 +451,7 @@ const RadixDataStateDemo = () => {
       </div>
 
       <div style={{ fontSize: 10, fontFamily: 'monospace', padding: '8px 10px', borderRadius: 4, background: 'var(--sem-eclipse-color-backgroundSecondary)', color: 'var(--sem-eclipse-color-foregroundQuaternary)', lineHeight: 1.8 }}>
-        {`data-state="${selected.size > 0 ? 'checked' : 'unchecked'}" // Radix 패턴`}<br />
+        {`data-state="${selected.size > 0 ? 'checked' : 'unchecked'}" // Primitive 패턴`}<br />
         {`aria-checked={${selected.size > 0}} // 스크린리더 지원`}<br />
         {`role="group" aria-label="역할 선택" // 그룹 접근성`}
       </div>
@@ -459,27 +459,27 @@ const RadixDataStateDemo = () => {
   )
 }
 
-export const Radix_data_state_접근성_패턴: Story = {
-  name: 'Radix UI — data-state 기반 접근성 패턴 (aria-checked, role, fieldset)',
+export const Primitive_data_state_접근성_패턴: Story = {
+  name: 'PrimitiveUI — data-state 기반 접근성 패턴 (aria-checked, role, fieldset)',
   parameters: {
     docs: {
       description: {
         story:
-          'Radix UI의 data-state="checked|unchecked" 패턴. aria-checked, role="checkbox", ' +
+          'PrimitiveUI의 data-state="checked|unchecked" 패턴. aria-checked, role="checkbox", ' +
           'aria-describedby로 스크린리더를 완전히 지원합니다. ' +
           'fieldset/legend로 그룹 컨텍스트를 제공하고, 키보드(Space/Enter) 인터랙션을 지원합니다.',
       },
     },
   },
-  render: () => <RadixDataStateDemo />,
+  render: () => <PrimitiveDataStateDemo />,
 }
 
 /* --------------------------------------------------------------------------
-   Radix UI 벤치마크: 조합(Compound) 패턴 — 요금제 선택
-   Radix의 Root/Item/Indicator 조합 패턴에 대응하는
+   PrimitiveUI 벤치마크: 조합(Compound) 패턴 — 요금제 선택
+   Primitive의 Root/Item/Indicator 조합 패턴에 대응하는
    BoxedCheckboxWithLabel 기반 플랜 비교 + 기능 매트릭스 UI
 -------------------------------------------------------------------------- */
-const RadixCompoundPricingDemo = () => {
+const PrimitiveCompoundPricingDemo = () => {
   const [plan, setPlan] = useState<'starter' | 'pro' | 'enterprise'>('pro')
 
   const PLANS = [
@@ -514,7 +514,7 @@ const RadixCompoundPricingDemo = () => {
     <div style={{ maxWidth: 540, display: 'flex', flexDirection: 'column', gap: 16 }}>
       <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>요금제 선택</div>
 
-      {/* 요금제 카드 그룹 — Radix RadioGroup.Root 패턴 */}
+      {/* 요금제 카드 그룹 — Primitive RadioGroup.Root 패턴 */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 8 }} role="radiogroup" aria-label="요금제 선택">
         {PLANS.map((p) => (
           <div
@@ -574,22 +574,22 @@ const RadixCompoundPricingDemo = () => {
   )
 }
 
-export const Radix_조합_요금제_선택: Story = {
-  name: 'Radix UI — 조합 패턴 요금제 선택 (RadioGroup.Root/Item 대응)',
+export const Primitive_조합_요금제_선택: Story = {
+  name: 'PrimitiveUI — 조합 패턴 요금제 선택 (RadioGroup.Root/Item 대응)',
   parameters: {
     docs: {
       description: {
         story:
-          'Radix UI의 RadioGroup.Root/Item/Indicator 조합 패턴을 BoxedCheckboxWithLabel로 구현. ' +
+          'PrimitiveUI의 RadioGroup.Root/Item/Indicator 조합 패턴을 BoxedCheckboxWithLabel로 구현. ' +
           'role="radiogroup", aria-checked, 키보드 내비게이션으로 완전한 접근성을 갖추고, ' +
           '선택된 플랜에 따라 기능 매트릭스가 동적으로 업데이트됩니다.',
       },
     },
   },
-  render: () => <RadixCompoundPricingDemo />,
+  render: () => <PrimitiveCompoundPricingDemo />,
 }
 
-/* ── Vercel Design: 컴팩트 환경 변수 선택 ── */
+/* ── DeployPlatform Design: 컴팩트 환경 변수 선택 ── */
 const EnvVarScopeDemo = () => {
   const [scopes, setScopes] = useState<Set<string>>(new Set(['production', 'preview']))
 
@@ -645,12 +645,12 @@ const EnvVarScopeDemo = () => {
   )
 }
 
-export const Vercel_환경_변수_범위_선택: Story = {
-  name: 'Vercel — 환경 변수 범위 선택',
+export const DeployPlatform_환경_변수_범위_선택: Story = {
+  name: 'DeployPlatform — 환경 변수 범위 선택',
   render: () => <EnvVarScopeDemo />,
 }
 
-/* ── Vercel Design: 빌드 최적화 옵션 ── */
+/* ── DeployPlatform Design: 빌드 최적화 옵션 ── */
 const BuildOptimizeDemo = () => {
   const [opts, setOpts] = useState<Set<string>>(new Set(['minify', 'treeshake']))
 
@@ -672,7 +672,7 @@ const BuildOptimizeDemo = () => {
 
   return (
     <div style={{ maxWidth: 400 }}>
-      <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 12 }}>빌드 최적화 (Vercel 컴팩트 체크 패턴)</div>
+      <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 12 }}>빌드 최적화 (DeployPlatform 컴팩트 체크 패턴)</div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
         {options.map((opt) => (
           <div
@@ -707,20 +707,20 @@ const BuildOptimizeDemo = () => {
   )
 }
 
-export const Vercel_빌드_최적화_옵션: Story = {
-  name: 'Vercel — 빌드 최적화 옵션',
+export const DeployPlatform_빌드_최적화_옵션: Story = {
+  name: 'DeployPlatform — 빌드 최적화 옵션',
   render: () => <BuildOptimizeDemo />,
 }
 
-/* ── Vercel Design: 모노크롬 배포 채널 선택 ── */
+/* ── DeployPlatform Design: 모노크롬 배포 채널 선택 ── */
 const DeployChannelDemo = () => {
-  const [channels, setChannels] = useState<Set<string>>(new Set(['github']))
+  const [channels, setChannels] = useState<Set<string>>(new Set(['codehost']))
 
   const channelGroups = [
     {
       group: 'Git 연동',
       items: [
-        { value: 'github', label: 'GitHub', desc: 'main/master 푸시 시 자동 배포' },
+        { value: 'codehost', label: 'CodeHost', desc: 'main/master 푸시 시 자동 배포' },
         { value: 'gitlab', label: 'GitLab', desc: 'CI/CD 파이프라인 연동' },
         { value: 'bitbucket', label: 'Bitbucket', desc: 'Pipelines 통합 배포' },
       ],
@@ -744,7 +744,7 @@ const DeployChannelDemo = () => {
 
   return (
     <div style={{ maxWidth: 380 }}>
-      <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 12 }}>배포 채널 (Vercel 모노크롬 그룹 체크 패턴)</div>
+      <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 12 }}>배포 채널 (DeployPlatform 모노크롬 그룹 체크 패턴)</div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
         {channelGroups.map((grp) => (
           <div key={grp.group}>
@@ -779,16 +779,16 @@ const DeployChannelDemo = () => {
   )
 }
 
-export const Vercel_배포_채널_선택: Story = {
-  name: 'Vercel — 배포 채널 선택 (그룹 체크)',
+export const DeployPlatform_배포_채널_선택: Story = {
+  name: 'DeployPlatform — 배포 채널 선택 (그룹 체크)',
   render: () => <DeployChannelDemo />,
 }
 
 /* --------------------------------------------------------------------------
-   Mantine 벤치마크: Checkbox.Group 기능 선택 그리드
-   Mantine의 Checkbox.Group — 관련 기능 옵션을 카드 그리드로 선택하는 패턴
+   AppUI 벤치마크: Checkbox.Group 기능 선택 그리드
+   AppUI의 Checkbox.Group — 관련 기능 옵션을 카드 그리드로 선택하는 패턴
 -------------------------------------------------------------------------- */
-const MANTINE_FEATURES = [
+const ACCESSIBLEKIT_FEATURES = [
   { value: 'analytics', label: '고급 분석', desc: '데이터 인사이트 및 리포트', icon: '📊' },
   { value: 'collab', label: '실시간 협업', desc: '팀 동시 편집 지원', icon: '👥' },
   { value: 'api', label: 'API 접근', desc: 'REST/GraphQL 연동', icon: '🔌' },
@@ -797,7 +797,7 @@ const MANTINE_FEATURES = [
   { value: 'audit', label: '감사 로그', desc: '활동 기록 90일 보관', icon: '📋' },
 ]
 
-function MantineFeatureGridDemo() {
+function AppUIFeatureGridDemo() {
   const [selected, setSelected] = useState<Set<string>>(new Set(['analytics']))
 
   const toggle = (v: string) =>
@@ -815,7 +815,7 @@ function MantineFeatureGridDemo() {
         {selected.size > 0 ? `${selected.size}개 선택됨` : '기능을 선택하세요'}
       </div>
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
-        {MANTINE_FEATURES.map((f) => {
+        {ACCESSIBLEKIT_FEATURES.map((f) => {
           const isSelected = selected.has(f.value)
           return (
             <div
@@ -852,32 +852,32 @@ function MantineFeatureGridDemo() {
       </div>
       {selected.size > 0 && (
         <div style={{ marginTop: 14, padding: '10px 14px', borderRadius: 8, background: 'rgba(99,102,241,0.08)', border: '1.5px solid rgba(99,102,241,0.2)', fontSize: 12, color: '#6366f1', fontWeight: 600 }}>
-          선택: {Array.from(selected).map((v) => MANTINE_FEATURES.find((f) => f.value === v)?.label).join(', ')}
+          선택: {Array.from(selected).map((v) => ACCESSIBLEKIT_FEATURES.find((f) => f.value === v)?.label).join(', ')}
         </div>
       )}
     </div>
   )
 }
 
-export const Mantine_기능_선택_카드_그리드: Story = {
-  name: 'Mantine — Checkbox.Group 기능 선택 카드 그리드',
+export const AppUI_기능_선택_카드_그리드: Story = {
+  name: 'AppUI — Checkbox.Group 기능 선택 카드 그리드',
   parameters: {
     docs: {
       description: {
         story:
-          'Mantine Checkbox.Group 패턴. 기능 옵션을 카드 그리드로 표시하고 BoxedCheckboxWithLabel로 선택 상태를 관리합니다. ' +
+          'AppUI Checkbox.Group 패턴. 기능 옵션을 카드 그리드로 표시하고 BoxedCheckboxWithLabel로 선택 상태를 관리합니다. ' +
           '카드 전체 클릭으로 선택/해제가 가능합니다.',
       },
     },
   },
-  render: () => <MantineFeatureGridDemo />,
+  render: () => <AppUIFeatureGridDemo />,
 }
 
 /* --------------------------------------------------------------------------
-   Mantine 벤치마크: 조건부 추가 옵션 표시
-   Mantine의 Checkbox + Collapse 패턴 — 체크 시 하위 설정 펼치기
+   AppUI 벤치마크: 조건부 추가 옵션 표시
+   AppUI의 Checkbox + Collapse 패턴 — 체크 시 하위 설정 펼치기
 -------------------------------------------------------------------------- */
-function MantineConditionalOptionsDemo() {
+function AppUIConditionalOptionsDemo() {
   const [backupEnabled, setBackupEnabled] = useState(false)
   const [notifyEnabled, setNotifyEnabled] = useState(false)
   const [backupOptions, setBackupOptions] = useState<Set<string>>(new Set())
@@ -943,26 +943,26 @@ function MantineConditionalOptionsDemo() {
   )
 }
 
-export const Mantine_조건부_하위_옵션_표시: Story = {
-  name: 'Mantine — Checkbox + Collapse 조건부 하위 옵션',
+export const AppUI_조건부_하위_옵션_표시: Story = {
+  name: 'AppUI — Checkbox + Collapse 조건부 하위 옵션',
   parameters: {
     docs: {
       description: {
         story:
-          'Mantine Checkbox + Collapse 패턴. 체크박스를 선택하면 하위 추가 설정이 펼쳐집니다. ' +
+          'AppUI Checkbox + Collapse 패턴. 체크박스를 선택하면 하위 추가 설정이 펼쳐집니다. ' +
           '백업 주기와 알림 채널 두 그룹으로 구성됩니다.',
       },
     },
   },
-  render: () => <MantineConditionalOptionsDemo />,
+  render: () => <AppUIConditionalOptionsDemo />,
 }
 
 /* --------------------------------------------------------------------------
-   Mantine 벤치마크: 팀 역할별 권한 설정 매트릭스
-   Mantine의 Table + Checkbox 패턴 — 역할×권한 이중 축 체크박스 매트릭스
+   AppUI 벤치마크: 팀 역할별 권한 설정 매트릭스
+   AppUI의 Table + Checkbox 패턴 — 역할×권한 이중 축 체크박스 매트릭스
 -------------------------------------------------------------------------- */
-const MANTINE_ROLES = ['뷰어', '편집자', '관리자'] as const
-const MANTINE_PERMS = [
+const ACCESSIBLEKIT_ROLES = ['뷰어', '편집자', '관리자'] as const
+const ACCESSIBLEKIT_PERMS = [
   { id: 'read', label: '읽기' },
   { id: 'write', label: '쓰기' },
   { id: 'delete', label: '삭제' },
@@ -970,18 +970,18 @@ const MANTINE_PERMS = [
   { id: 'manage', label: '권한 관리' },
 ]
 
-type MantineRole = typeof MANTINE_ROLES[number]
+type AppUIRole = typeof ACCESSIBLEKIT_ROLES[number]
 
-const DEFAULT_MATRIX: Record<MantineRole, Set<string>> = {
+const DEFAULT_MATRIX: Record<AppUIRole, Set<string>> = {
   '뷰어': new Set(['read']),
   '편집자': new Set(['read', 'write', 'export']),
   '관리자': new Set(['read', 'write', 'delete', 'export', 'manage']),
 }
 
-function MantinePermissionMatrixDemo() {
-  const [matrix, setMatrix] = useState<Record<MantineRole, Set<string>>>(DEFAULT_MATRIX)
+function AppUIPermissionMatrixDemo() {
+  const [matrix, setMatrix] = useState<Record<AppUIRole, Set<string>>>(DEFAULT_MATRIX)
 
-  const toggle = (role: MantineRole, perm: string) => {
+  const toggle = (role: AppUIRole, perm: string) => {
     setMatrix((prev) => {
       const next = new Set(prev[role])
       if (next.has(perm)) next.delete(perm)
@@ -998,16 +998,16 @@ function MantinePermissionMatrixDemo() {
           <thead>
             <tr style={{ background: 'var(--sem-eclipse-color-backgroundSecondary)' }}>
               <th style={{ padding: '10px 14px', textAlign: 'left', fontSize: 12, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundTertiary)', borderBottom: '1.5px solid var(--sem-eclipse-color-borderDefault)' }}>권한</th>
-              {MANTINE_ROLES.map((role) => (
+              {ACCESSIBLEKIT_ROLES.map((role) => (
                 <th key={role} style={{ padding: '10px 14px', textAlign: 'center', fontSize: 12, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundSecondary)', borderBottom: '1.5px solid var(--sem-eclipse-color-borderDefault)' }}>{role}</th>
               ))}
             </tr>
           </thead>
           <tbody>
-            {MANTINE_PERMS.map((perm, i) => (
-              <tr key={perm.id} style={{ borderBottom: i < MANTINE_PERMS.length - 1 ? '1px solid var(--sem-eclipse-color-borderSubtle)' : 'none' }}>
+            {ACCESSIBLEKIT_PERMS.map((perm, i) => (
+              <tr key={perm.id} style={{ borderBottom: i < ACCESSIBLEKIT_PERMS.length - 1 ? '1px solid var(--sem-eclipse-color-borderSubtle)' : 'none' }}>
                 <td style={{ padding: '10px 14px', fontSize: 13, color: 'var(--sem-eclipse-color-foregroundPrimary)', fontWeight: 500 }}>{perm.label}</td>
-                {MANTINE_ROLES.map((role) => (
+                {ACCESSIBLEKIT_ROLES.map((role) => (
                   <td key={role} style={{ padding: '10px 14px', textAlign: 'center' }}>
                     <div style={{ display: 'flex', justifyContent: 'center' }}>
                       <BoxedCheckboxWithLabel
@@ -1030,25 +1030,25 @@ function MantinePermissionMatrixDemo() {
   )
 }
 
-export const Mantine_권한_매트릭스: Story = {
-  name: 'Mantine — Table + Checkbox 역할별 권한 매트릭스',
+export const AppUI_권한_매트릭스: Story = {
+  name: 'AppUI — Table + Checkbox 역할별 권한 매트릭스',
   parameters: {
     docs: {
       description: {
         story:
-          'Mantine Table + Checkbox 패턴. 역할(행) × 권한(열) 이중 축 매트릭스로 권한을 설정합니다. ' +
+          'AppUI Table + Checkbox 패턴. 역할(행) × 권한(열) 이중 축 매트릭스로 권한을 설정합니다. ' +
           '관리자/편집자/뷰어 세 역할의 권한을 독립적으로 체크할 수 있습니다.',
       },
     },
   },
-  render: () => <MantinePermissionMatrixDemo />,
+  render: () => <AppUIPermissionMatrixDemo />,
 }
 
 /* --------------------------------------------------------------------------
-   Mantine — 뉴스레터 구독 설정
+   AppUI — 뉴스레터 구독 설정
    이메일 토픽 다중 선택 + 빈도 선택 패턴
 -------------------------------------------------------------------------- */
-const MANTINE_TOPICS = [
+const ACCESSIBLEKIT_TOPICS = [
   { id: 'product', label: '제품 업데이트', desc: '새 기능 및 출시 소식' },
   { id: 'tutorial', label: '튜토리얼', desc: '컴포넌트 활용 가이드' },
   { id: 'changelog', label: 'Changelog', desc: '버전 변경 사항 요약' },
@@ -1056,7 +1056,7 @@ const MANTINE_TOPICS = [
   { id: 'security', label: '보안 공지', desc: '취약점 패치 및 긴급 공지' },
 ]
 
-const MANTINE_FREQ = ['즉시', '주간 다이제스트', '월간 요약']
+const ACCESSIBLEKIT_FREQ = ['즉시', '주간 다이제스트', '월간 요약']
 
 function ManNewsletterRender() {
   const [topics, setTopics] = useState(new Set(['product', 'changelog', 'security']))
@@ -1083,7 +1083,7 @@ function ManNewsletterRender() {
         <div style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>관심 있는 토픽을 선택하세요</div>
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-        {MANTINE_TOPICS.map((t) => (
+        {ACCESSIBLEKIT_TOPICS.map((t) => (
           <label key={t.id} onClick={() => toggle(t.id)} style={{ display: 'flex', gap: 12, alignItems: 'flex-start', padding: '10px 12px', borderRadius: 8, border: `1.5px solid ${topics.has(t.id) ? '#6366f1' : 'var(--sem-eclipse-color-borderSubtle)'}`, background: topics.has(t.id) ? '#6366f108' : 'var(--sem-eclipse-color-backgroundPrimary)', cursor: 'pointer', transition: 'all 0.15s' }}>
             <div style={{ paddingTop: 2 }}>
               <BoxedCheckboxWithLabel value={t.id} checked={topics.has(t.id)} onChange={() => toggle(t.id)} />
@@ -1098,7 +1098,7 @@ function ManNewsletterRender() {
       <div>
         <div style={{ fontSize: 12, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundSecondary)', marginBottom: 6 }}>발송 빈도</div>
         <div style={{ display: 'flex', gap: 6 }}>
-          {MANTINE_FREQ.map((f) => (
+          {ACCESSIBLEKIT_FREQ.map((f) => (
             <button key={f} onClick={() => setFreq(f)} style={{ flex: 1, padding: '7px 6px', borderRadius: 8, border: `1.5px solid ${freq === f ? '#6366f1' : 'var(--sem-eclipse-color-borderSubtle)'}`, background: freq === f ? '#6366f108' : 'transparent', color: freq === f ? '#6366f1' : 'var(--sem-eclipse-color-foregroundTertiary)', fontSize: 11, fontWeight: freq === f ? 700 : 400, cursor: 'pointer', transition: 'all 0.15s' }}>{f}</button>
           ))}
         </div>
@@ -1106,17 +1106,17 @@ function ManNewsletterRender() {
       <button onClick={save} disabled={topics.size === 0 || saved} style={{ padding: '10px', borderRadius: 8, border: 'none', background: topics.size > 0 ? '#0f172a' : '#e2e8f0', color: topics.size > 0 ? '#fff' : '#94a3b8', fontSize: 13, fontWeight: 700, cursor: topics.size > 0 ? 'pointer' : 'not-allowed', transition: 'all 0.15s' }}>
         {saved ? '저장됨 ✓' : `구독 저장 (${topics.size}개 토픽)`}
       </button>
-      <p style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundDisabled)' }}>Mantine 뉴스레터 구독 설정 패턴 — 카드형 다중 선택</p>
+      <p style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundDisabled)' }}>AppUI 뉴스레터 구독 설정 패턴 — 카드형 다중 선택</p>
     </div>
   )
 }
 
-export const Mantine_뉴스레터_구독_설정: Story = {
-  name: 'Mantine — 뉴스레터 구독 설정 (카드형 다중 선택)',
+export const AppUI_뉴스레터_구독_설정: Story = {
+  name: 'AppUI — 뉴스레터 구독 설정 (카드형 다중 선택)',
   parameters: {
     docs: {
       description: {
-        story: 'Mantine Checkbox 카드 그리드 패턴. 토픽별 BoxedCheckboxWithLabel + 설명 텍스트 카드, 선택 시 테두리 강조, 발송 빈도 세그먼트 선택, 선택 수 실시간 표시.',
+        story: 'AppUI Checkbox 카드 그리드 패턴. 토픽별 BoxedCheckboxWithLabel + 설명 텍스트 카드, 선택 시 테두리 강조, 발송 빈도 세그먼트 선택, 선택 수 실시간 표시.',
       },
     },
   },
@@ -1124,10 +1124,10 @@ export const Mantine_뉴스레터_구독_설정: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Notion Design — 블록 속성 토글
+   WorkspaceEditor Design — 블록 속성 토글
    페이지 속성 활성화/비활성화 체크박스 패턴
 -------------------------------------------------------------------------- */
-const NOTION_PROPS = [
+const WORKSPACE_PROPS = [
   { id: 'status', label: '상태', icon: '○', desc: '이슈 진행 상태', enabled: true },
   { id: 'priority', label: '우선순위', icon: '!', desc: '작업 우선순위', enabled: true },
   { id: 'assignee', label: '담당자', icon: '☻', desc: '작업 담당 멤버', enabled: false },
@@ -1136,8 +1136,8 @@ const NOTION_PROPS = [
   { id: 'tags', label: '태그', icon: '⌗', desc: '분류 및 검색 태그', enabled: false },
 ]
 
-function NotionBlockPropertyRender() {
-  const [props, setProps] = useState(NOTION_PROPS.map((p) => ({ ...p })))
+function WorkspaceEditorBlockPropertyRender() {
+  const [props, setProps] = useState(WORKSPACE_PROPS.map((p) => ({ ...p })))
   const enabledCount = props.filter((p) => p.enabled).length
 
   const toggle = (id: string) => setProps((prev) => prev.map((p) => p.id === id ? { ...p, enabled: !p.enabled } : p))
@@ -1160,25 +1160,25 @@ function NotionBlockPropertyRender() {
           <BoxedCheckboxWithLabel value={p.id} checked={p.enabled} onChange={() => toggle(p.id)} />
         </div>
       ))}
-      <p style={{ fontSize: 10, color: 'var(--sem-eclipse-color-foregroundDisabled)', padding: '8px 14px', margin: 0, textAlign: 'center', background: 'var(--sem-eclipse-color-backgroundSecondary)' }}>Notion 페이지 속성 토글 패턴</p>
+      <p style={{ fontSize: 10, color: 'var(--sem-eclipse-color-foregroundDisabled)', padding: '8px 14px', margin: 0, textAlign: 'center', background: 'var(--sem-eclipse-color-backgroundSecondary)' }}>WorkspaceEditor 페이지 속성 토글 패턴</p>
     </div>
   )
 }
 
-export const Notion_페이지_속성_토글: Story = {
-  name: 'Notion Design — 페이지 속성 활성화 토글',
+export const WorkspaceEditor_페이지_속성_토글: Story = {
+  name: 'WorkspaceEditor Design — 페이지 속성 활성화 토글',
   parameters: {
     docs: {
       description: {
-        story: 'Notion 페이지 속성 설정 패널 패턴. 속성별 아이콘 + 레이블 + 설명, BoxedCheckboxWithLabel로 활성화 여부 제어, 비활성 항목 opacity 0.6으로 시각적 구분.',
+        story: 'WorkspaceEditor 페이지 속성 설정 패널 패턴. 속성별 아이콘 + 레이블 + 설명, BoxedCheckboxWithLabel로 활성화 여부 제어, 비활성 항목 opacity 0.6으로 시각적 구분.',
       },
     },
   },
-  render: () => <NotionBlockPropertyRender />,
+  render: () => <WorkspaceEditorBlockPropertyRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Mantine + Notion — 온보딩 체크리스트
+   AppUI + WorkspaceEditor — 온보딩 체크리스트
    완료 진행률 + 단계별 BoxedCheckbox 패턴
 -------------------------------------------------------------------------- */
 const ONBOARDING_TASKS = [
@@ -1189,7 +1189,7 @@ const ONBOARDING_TASKS = [
   { id: 'storybook', label: 'Storybook 탐색', desc: '전체 컴포넌트 카탈로그 확인', done: false },
 ]
 
-function MantineNotionOnboardingRender() {
+function AppUIWorkspaceEditorOnboardingRender() {
   const [tasks, setTasks] = useState(ONBOARDING_TASKS.map((t) => ({ ...t })))
   const doneCount = tasks.filter((t) => t.done).length
   const pct = Math.round((doneCount / tasks.length) * 100)
@@ -1225,25 +1225,25 @@ function MantineNotionOnboardingRender() {
           모든 단계 완료! Orbit UI 준비됨
         </div>
       )}
-      <p style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundDisabled)' }}>Mantine + Notion 온보딩 체크리스트 — 진행률 바 + 취소선 완료</p>
+      <p style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundDisabled)' }}>AppUI + WorkspaceEditor 온보딩 체크리스트 — 진행률 바 + 취소선 완료</p>
     </div>
   )
 }
 
-export const Mantine_Notion_온보딩_체크리스트: Story = {
-  name: 'Mantine + Notion — 온보딩 체크리스트 (진행률 바)',
+export const AppUI_WorkspaceEditor_온보딩_체크리스트: Story = {
+  name: 'AppUI + WorkspaceEditor — 온보딩 체크리스트 (진행률 바)',
   parameters: {
     docs: {
       description: {
-        story: 'Mantine Progress + Notion 체크리스트 패턴 조합. BoxedCheckboxWithLabel 완료 시 취소선 + 녹색 배경 전환, 진행률 바 실시간 업데이트, 전체 완료 시 완료 메시지 표시.',
+        story: 'AppUI Progress + WorkspaceEditor 체크리스트 패턴 조합. BoxedCheckboxWithLabel 완료 시 취소선 + 녹색 배경 전환, 진행률 바 실시간 업데이트, 전체 완료 시 완료 메시지 표시.',
       },
     },
   },
-  render: () => <MantineNotionOnboardingRender />,
+  render: () => <AppUIWorkspaceEditorOnboardingRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Cycle 189 — Chakra UI + Arco Design
+   Cycle 189 — AccessibleUI + DataProductUI
 -------------------------------------------------------------------------- */
 const CHAKRA_FEATURES_189 = [
   { id: 'analytics', label: '사용량 분석', desc: '월별 사용량 리포트 수신' },
@@ -1252,7 +1252,7 @@ const CHAKRA_FEATURES_189 = [
   { id: 'tips', label: '팁 & 가이드', desc: '사용 팁과 가이드 알림' },
 ]
 
-function ChakraConsentFormRender() {
+function AccessibleConsentFormRender() {
   const [agreed, setAgreed] = useState<Set<string>>(new Set(['digest']))
   const [submitted, setSubmitted] = useState(false)
 
@@ -1278,7 +1278,7 @@ function ChakraConsentFormRender() {
     <div style={{ width: 360, fontFamily: 'system-ui, sans-serif' }}>
       <div style={{ marginBottom: 14 }}>
         <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>알림 선호도 설정</div>
-        <div style={{ fontSize: 11, color: '#64748b', marginTop: 2 }}>Chakra UI 체크박스 폼 패턴</div>
+        <div style={{ fontSize: 11, color: '#64748b', marginTop: 2 }}>AccessibleUI 체크박스 폼 패턴</div>
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 10, padding: '14px', background: '#f8fafc', borderRadius: 10, border: '1px solid #e2e8f0', marginBottom: 14 }}>
         {CHAKRA_FEATURES_189.map((f) => (
@@ -1314,17 +1314,17 @@ function ChakraConsentFormRender() {
   )
 }
 
-export const Chakra_알림_선호도_설정_폼: Story = {
-  name: 'Chakra UI — 알림 선호도 설정 체크박스 폼',
+export const Accessible_알림_선호도_설정_폼: Story = {
+  name: 'AccessibleUI — 알림 선호도 설정 체크박스 폼',
   parameters: {
     docs: {
       description: {
         story:
-          'Chakra UI 체크박스 폼 패턴. 레이블 + 설명 2단 구성의 그룹 체크박스 + 선택 수 표시 + 저장 후 완료 상태 전환을 보여줍니다.',
+          'AccessibleUI 체크박스 폼 패턴. 레이블 + 설명 2단 구성의 그룹 체크박스 + 선택 수 표시 + 저장 후 완료 상태 전환을 보여줍니다.',
       },
     },
   },
-  render: () => <ChakraConsentFormRender />,
+  render: () => <AccessibleConsentFormRender />,
 }
 
 const ARCO_PERM_GROUPS_189 = [
@@ -1355,7 +1355,7 @@ const ARCO_PERM_GROUPS_189 = [
   },
 ]
 
-function ArcoPermChecklistRender() {
+function DataProductPermChecklistRender() {
   const [perms, setPerms] = useState<Set<string>>(new Set(['read_comp', 'read_doc']))
 
   const toggle = (id: string) => {
@@ -1381,7 +1381,7 @@ function ArcoPermChecklistRender() {
     <div style={{ width: 320, fontFamily: 'system-ui, sans-serif' }}>
       <div style={{ marginBottom: 14 }}>
         <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>역할 권한 설정</div>
-        <div style={{ fontSize: 11, color: '#64748b', marginTop: 2 }}>Arco Design 그룹 체크박스 패턴</div>
+        <div style={{ fontSize: 11, color: '#64748b', marginTop: 2 }}>DataProductUI 그룹 체크박스 패턴</div>
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
         {ARCO_PERM_GROUPS_189.map((grp) => {
@@ -1413,18 +1413,18 @@ function ArcoPermChecklistRender() {
   )
 }
 
-export const Arco_그룹_권한_체크리스트: Story = {
-  name: 'Arco Design — 그룹별 권한 체크리스트',
+export const DataProduct_그룹_권한_체크리스트: Story = {
+  name: 'DataProductUI — 그룹별 권한 체크리스트',
   parameters: {
     docs: {
       description: {
         story:
-          'Arco Design 그룹 체크박스 패턴. 권한 그룹 헤더 클릭으로 그룹 전체 선택/해제 + 개별 항목 선택. ' +
+          'DataProductUI 그룹 체크박스 패턴. 권한 그룹 헤더 클릭으로 그룹 전체 선택/해제 + 개별 항목 선택. ' +
           '그룹 헤더에 색상 도트와 선택 비율(n/total)을 표시합니다.',
       },
     },
   },
-  render: () => <ArcoPermChecklistRender />,
+  render: () => <DataProductPermChecklistRender />,
 }
 
 const CHAKRA_ARCO_PLANS_189 = [
@@ -1442,7 +1442,7 @@ const ALL_FEATURES_189 = [
   { id: 'manage_user', label: '멤버 관리' },
 ]
 
-function ChakraArcoPlanCompareRender() {
+function AccessibleDataProductPlanCompareRender() {
   const [activePlan, setActivePlan] = useState('pro')
   const plan = CHAKRA_ARCO_PLANS_189.find((p) => p.id === activePlan)!
 
@@ -1450,7 +1450,7 @@ function ChakraArcoPlanCompareRender() {
     <div style={{ width: 420, fontFamily: 'system-ui, sans-serif' }}>
       <div style={{ marginBottom: 14 }}>
         <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>플랜별 기능 비교</div>
-        <div style={{ fontSize: 11, color: '#64748b', marginTop: 2 }}>Chakra UI + Arco Design 복합 패턴</div>
+        <div style={{ fontSize: 11, color: '#64748b', marginTop: 2 }}>AccessibleUI + DataProductUI 복합 패턴</div>
       </div>
       <div style={{ display: 'flex', gap: 6, marginBottom: 14 }}>
         {CHAKRA_ARCO_PLANS_189.map((p) => (
@@ -1491,15 +1491,15 @@ function ChakraArcoPlanCompareRender() {
   )
 }
 
-export const Chakra_Arco_플랜_기능_비교: Story = {
-  name: 'Chakra UI + Arco Design — 플랜별 기능 비교 체크박스',
+export const Accessible_DataProduct_플랜_기능_비교: Story = {
+  name: 'AccessibleUI + DataProductUI — 플랜별 기능 비교 체크박스',
   parameters: {
     docs: {
       description: {
         story:
-          'Chakra UI + Arco Design 복합 패턴. 플랜 탭 전환 시 해당 플랜에 포함된 기능 체크박스 활성화 + 미포함 기능은 비활성(opacity 0.4) + "업그레이드 필요" 레이블 표시.',
+          'AccessibleUI + DataProductUI 복합 패턴. 플랜 탭 전환 시 해당 플랜에 포함된 기능 체크박스 활성화 + 미포함 기능은 비활성(opacity 0.4) + "업그레이드 필요" 레이블 표시.',
       },
     },
   },
-  render: () => <ChakraArcoPlanCompareRender />,
+  render: () => <AccessibleDataProductPlanCompareRender />,
 }

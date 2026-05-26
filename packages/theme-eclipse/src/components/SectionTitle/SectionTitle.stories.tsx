@@ -74,7 +74,7 @@ export const 텍스트_버튼: Story = {
 
 /* --------------------------------------------------------------------------
    대시보드 섹션 구조
-   Material 3 스타일 List Section Header: 콘텐츠 블록을 의미 있는 섹션으로 구분
+   RoleToken Design 스타일 List Section Header: 콘텐츠 블록을 의미 있는 섹션으로 구분
 -------------------------------------------------------------------------- */
 const DashboardItem = ({
   title,
@@ -152,7 +152,7 @@ export const 대시보드_섹션_구조: Story = {
 
 /* --------------------------------------------------------------------------
    설정 페이지 그룹화
-   Material 3 Settings 패턴: 관련 설정 항목을 섹션별로 구분
+   RoleToken Design Settings 패턴: 관련 설정 항목을 섹션별로 구분
 -------------------------------------------------------------------------- */
 const SettingRow = ({
   label,
@@ -261,8 +261,8 @@ export const 설정_페이지_그룹화: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Material 3 스타일 List Section Header
-   Material 3 패턴: 색상 강조 레이블로 섹션 구분 (Surface/Container 계층 활용)
+   RoleToken Design 스타일 List Section Header
+   RoleToken Design 패턴: 색상 강조 레이블로 섹션 구분 (Surface/Container 계층 활용)
 -------------------------------------------------------------------------- */
 const M3SectionItem = ({
   icon,
@@ -429,7 +429,7 @@ export const 디자인QA = {
       exclude: ['theme', 'className', 'style'],
     },
   },
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
+
   render: ({ title, longTitle, description, hasTooltip, hasADBadge, hasLinkActionButton }: any) => {
     const displayTitle = longTitle ? '이것은 정말 길고 길고 긴~~~~~~~~~~ 타이틀이랍니다' : title
 
@@ -461,8 +461,8 @@ export const 디자인QA = {
 }
 
 /* --------------------------------------------------------------------------
-   Tailwind UI 벤치마크: 탭 기반 섹션 네비게이션
-   Tailwind UI의 Stacked Layout — 상단 섹션 헤더 + 탭 네비게이션 패턴
+   UtilityUI 벤치마크: 탭 기반 섹션 네비게이션
+   UtilityUI의 Stacked Layout — 상단 섹션 헤더 + 탭 네비게이션 패턴
 -------------------------------------------------------------------------- */
 const TW_TABS = [
   { id: 'overview', label: '개요', count: null },
@@ -471,7 +471,7 @@ const TW_TABS = [
   { id: 'billing', label: '결제', count: null },
 ]
 
-function TailwindSectionNavDemo() {
+function UtilityCSSSectionNavDemo() {
   const [activeTab, setActiveTab] = React.useState('overview')
 
   return (
@@ -527,23 +527,23 @@ function TailwindSectionNavDemo() {
   )
 }
 
-export const Tailwind_탭_섹션_네비게이션: Story = {
-  name: 'Tailwind UI - 탭 기반 섹션 네비게이션 패턴',
+export const UtilityCSS_탭_섹션_네비게이션: Story = {
+  name: 'UtilityUI - 탭 기반 섹션 네비게이션 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'Tailwind UI Stacked Layout 패턴. SectionTitle로 페이지 헤더를 구성하고 ' +
+          'UtilityUI Stacked Layout 패턴. SectionTitle로 페이지 헤더를 구성하고 ' +
           '하단에 탭 네비게이션을 결합합니다. 탭에 CounterBadge를 삽입해 항목 수를 표시합니다.',
       },
     },
   },
-  render: () => <TailwindSectionNavDemo />,
+  render: () => <UtilityCSSSectionNavDemo />,
 }
 
 /* --------------------------------------------------------------------------
-   Arco Design 벤치마크: 다단계 설정 그룹
-   Arco의 Descriptions + Collapse 패턴 — 설정 항목을 그룹별로 접을 수 있는 섹션 구성
+   DataProductUI 벤치마크: 다단계 설정 그룹
+   DataProduct의 Descriptions + Collapse 패턴 — 설정 항목을 그룹별로 접을 수 있는 섹션 구성
 -------------------------------------------------------------------------- */
 const ARCO_SETTING_GROUPS = [
   {
@@ -572,7 +572,7 @@ const ARCO_SETTING_GROUPS = [
   },
 ]
 
-function ArcoSettingGroupsDemo() {
+function DataProductSettingGroupsDemo() {
   const [expanded, setExpanded] = React.useState<Set<string>>(new Set(['general']))
 
   const toggle = (id: string) => {
@@ -625,28 +625,28 @@ function ArcoSettingGroupsDemo() {
   )
 }
 
-export const Arco_다단계_설정_그룹: Story = {
-  name: 'Arco Design - 아코디언 설정 그룹 패턴',
+export const DataProduct_다단계_설정_그룹: Story = {
+  name: 'DataProductUI - 아코디언 설정 그룹 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'Arco Design Collapse + Descriptions 패턴. SectionTitle을 아코디언 헤더로 활용해 ' +
+          'DataProductUI Collapse + Descriptions 패턴. SectionTitle을 아코디언 헤더로 활용해 ' +
           '설정 항목을 그룹별로 접고 펼 수 있습니다. 배지로 변경 항목 수를 표시합니다.',
       },
     },
   },
-  render: () => <ArcoSettingGroupsDemo />,
+  render: () => <DataProductSettingGroupsDemo />,
 }
 
 /* --------------------------------------------------------------------------
-   Tailwind UI 벤치마크: 필터링 섹션 헤더
-   Tailwind UI의 Application Shell — 리스트 위에 검색/필터 컨트롤을 배치하는 패턴
+   UtilityUI 벤치마크: 필터링 섹션 헤더
+   UtilityUI의 Application Shell — 리스트 위에 검색/필터 컨트롤을 배치하는 패턴
 -------------------------------------------------------------------------- */
 const FILTER_OPTIONS = ['전체', '진행 중', '완료', '보류'] as const
 type FilterOption = typeof FILTER_OPTIONS[number]
 
-function TailwindFilterSectionDemo() {
+function UtilityCSSFilterSectionDemo() {
   const [activeFilter, setActiveFilter] = React.useState<FilterOption>('전체')
   const [searchValue, setSearchValue] = React.useState('')
 
@@ -727,33 +727,33 @@ function TailwindFilterSectionDemo() {
   )
 }
 
-export const Tailwind_필터링_섹션_헤더: Story = {
-  name: 'Tailwind UI - 검색·필터 섹션 헤더 패턴',
+export const UtilityCSS_필터링_섹션_헤더: Story = {
+  name: 'UtilityUI - 검색·필터 섹션 헤더 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'Tailwind UI Application Shell 패턴. SectionTitle 하단에 검색 입력 + 상태 필터 버튼을 결합합니다. ' +
+          'UtilityUI Application Shell 패턴. SectionTitle 하단에 검색 입력 + 상태 필터 버튼을 결합합니다. ' +
           '실시간 필터링으로 리스트를 업데이트하는 실무 패턴입니다.',
       },
     },
   },
-  render: () => <TailwindFilterSectionDemo />,
+  render: () => <UtilityCSSFilterSectionDemo />,
 }
 
 /* --------------------------------------------------------------------------
-   Vercel 벤치마크: 환경변수 섹션 헤더
-   Vercel Project Settings > Environment Variables 패턴
+   DeployPlatform 벤치마크: 환경변수 섹션 헤더
+   DeployPlatform Project Settings > Environment Variables 패턴
    SectionTitle 트레일링에 추가 버튼 + 아이템 카운트 배지 배치
 -------------------------------------------------------------------------- */
 type EnvVar = { key: string; env: 'Production' | 'Preview' | 'Development'; secret: boolean }
 
-function VercelEnvSectionRender() {
+function DeployPlatformEnvSectionRender() {
   const [vars, setVars] = React.useState<EnvVar[]>([
     { key: 'NEXT_PUBLIC_API_URL',    env: 'Production',   secret: false },
     { key: 'DATABASE_URL',            env: 'Production',   secret: true  },
     { key: 'NEXT_PUBLIC_SITE_URL',    env: 'Preview',      secret: false },
-    { key: 'STRIPE_SECRET_KEY',       env: 'Development',  secret: true  },
+    { key: 'BILLING_SECRET_KEY',       env: 'Development',  secret: true  },
   ])
   const [adding, setAdding] = React.useState(false)
   const [newKey, setNewKey] = React.useState('')
@@ -818,23 +818,23 @@ function VercelEnvSectionRender() {
   )
 }
 
-export const Vercel_환경변수_섹션: Story = {
-  name: 'Vercel - 환경변수 관리 섹션 헤더 패턴',
+export const DeployPlatform_환경변수_섹션: Story = {
+  name: 'DeployPlatform - 환경변수 관리 섹션 헤더 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'Vercel Project Settings의 환경변수 관리 패턴. SectionTitle 트레일링에 CounterBadge + 추가 버튼을 배치하고, ' +
+          'DeployPlatform Project Settings의 환경변수 관리 패턴. SectionTitle 트레일링에 CounterBadge + 추가 버튼을 배치하고, ' +
           '인라인 입력으로 새 변수를 즉시 추가합니다. 환경별 색상 배지와 삭제 기능을 포함합니다.',
       },
     },
   },
-  render: () => <VercelEnvSectionRender />,
+  render: () => <DeployPlatformEnvSectionRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Vercel 벤치마크: 도메인 관리 섹션 헤더
-   Vercel Domains 패턴 — 도메인 목록을 섹션 헤더 + 상태 배지로 그룹화
+   DeployPlatform 벤치마크: 도메인 관리 섹션 헤더
+   DeployPlatform Domains 패턴 — 도메인 목록을 섹션 헤더 + 상태 배지로 그룹화
 -------------------------------------------------------------------------- */
 type DomainStatus95 = 'valid' | 'invalid' | 'pending'
 
@@ -846,10 +846,10 @@ const DOMAIN_STATUS_META: Record<DomainStatus95, { label: string; color: string;
   pending: { label: 'Pending', color: '#f59e0b', bg: '#fffbeb' },
 }
 
-const VercelDomainSectionRender = () => {
+const DeployPlatformDomainSectionRender = () => {
   const [domains] = React.useState<Domain95[]>([
-    { host: 'orbit-ui.vercel.app',      status: 'valid',   primary: false },
-    { host: 'orbit-ui-git-main.vercel.app', status: 'valid', primary: false },
+    { host: 'orbit-ui.deploy.example.com',      status: 'valid',   primary: false },
+    { host: 'orbit-ui-git-main.deploy.example.com', status: 'valid', primary: false },
     { host: 'orbitui.dev',               status: 'pending', primary: true  },
     { host: 'storybook.orbitui.dev',     status: 'invalid', primary: false },
   ])
@@ -899,24 +899,24 @@ const VercelDomainSectionRender = () => {
   )
 }
 
-export const Vercel_도메인_섹션: Story = {
-  name: 'Vercel - 도메인 관리 섹션 헤더 패턴',
+export const DeployPlatform_도메인_섹션: Story = {
+  name: 'DeployPlatform - 도메인 관리 섹션 헤더 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'Vercel Domains 패턴. SectionTitle 트레일링에 활성 도메인 수 배지를 표시하고, ' +
+          'DeployPlatform Domains 패턴. SectionTitle 트레일링에 활성 도메인 수 배지를 표시하고, ' +
           'Valid/Invalid/Pending 상태를 색상 도트와 설명으로 명확히 구분합니다. ' +
           'Primary 도메인에는 강조 태그를 추가합니다.',
       },
     },
   },
-  render: () => <VercelDomainSectionRender />,
+  render: () => <DeployPlatformDomainSectionRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Vercel 벤치마크: 사용량 제한 섹션
-   Vercel Usage 패턴 — 리소스 사용량을 시각적 미터로 표시하는 섹션
+   DeployPlatform 벤치마크: 사용량 제한 섹션
+   DeployPlatform Usage 패턴 — 리소스 사용량을 시각적 미터로 표시하는 섹션
 -------------------------------------------------------------------------- */
 type UsageMeter = { label: string; used: number; limit: number; unit: string; color: string }
 
@@ -927,7 +927,7 @@ const USAGE_METERS: UsageMeter[] = [
   { label: '이미지 최적화', used: 9, limit: 10, unit: '만 건', color: '#f59e0b' },
 ]
 
-const VercelUsageSectionRender = () => {
+const DeployPlatformUsageSectionRender = () => {
   const nearLimit = USAGE_METERS.filter((m) => m.used / m.limit >= 0.8)
 
   return (
@@ -977,31 +977,31 @@ const VercelUsageSectionRender = () => {
   )
 }
 
-export const Vercel_사용량_섹션: Story = {
-  name: 'Vercel - 리소스 사용량 미터 섹션 패턴',
+export const DeployPlatform_사용량_섹션: Story = {
+  name: 'DeployPlatform - 리소스 사용량 미터 섹션 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'Vercel Usage 패턴. SectionTitle 트레일링에 한도 근접 경고 배지를 표시하고, ' +
+          'DeployPlatform Usage 패턴. SectionTitle 트레일링에 한도 근접 경고 배지를 표시하고, ' +
           '각 리소스 사용량을 진행률 바와 수치로 시각화합니다. 80% 이상 시 경고 색상으로 전환됩니다.',
       },
     },
   },
-  render: () => <VercelUsageSectionRender />,
+  render: () => <DeployPlatformUsageSectionRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Radix UI — 접근성 섹션 헤더 패턴 (Cycle 121)
-   Radix의 heading 계층과 섹션 구조 패턴
+   PrimitiveUI — 접근성 섹션 헤더 패턴 (Cycle 121)
+   Primitive의 heading 계층과 섹션 구조 패턴
 -------------------------------------------------------------------------- */
-export const Radix_접근성_섹션_헤더: Story = {
-  name: 'Radix UI — 접근성 섹션 헤더 (Cycle 121)',
+export const Primitive_접근성_섹션_헤더: Story = {
+  name: 'PrimitiveUI — 접근성 섹션 헤더 (Cycle 121)',
   parameters: {
     docs: {
       description: {
         story:
-          'Radix UI의 시맨틱 heading 계층 패턴. 1단계(h2) → 2단계(h3) 섹션 구조, CounterBadge로 항목 수 표시, ChevronRight 탐색 링크.',
+          'PrimitiveUI의 시맨틱 heading 계층 패턴. 1단계(h2) → 2단계(h3) 섹션 구조, CounterBadge로 항목 수 표시, ChevronRight 탐색 링크.',
       },
     },
   },
@@ -1034,16 +1034,16 @@ export const Radix_접근성_섹션_헤더: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Tailwind UI — 대시보드 위젯 섹션 헤더 (Cycle 121)
-   Tailwind의 widget section header 패턴 — 제목 + 액션 버튼
+   UtilityUI — 대시보드 위젯 섹션 헤더 (Cycle 121)
+   UtilityCSS의 widget section header 패턴 — 제목 + 액션 버튼
 -------------------------------------------------------------------------- */
-export const Tailwind_위젯_섹션_헤더: Story = {
-  name: 'Tailwind UI — 대시보드 위젯 섹션 헤더 (Cycle 121)',
+export const UtilityCSS_위젯_섹션_헤더: Story = {
+  name: 'UtilityUI — 대시보드 위젯 섹션 헤더 (Cycle 121)',
   parameters: {
     docs: {
       description: {
         story:
-          'Tailwind UI의 dashboard widget section header 패턴. SectionTitle + Trailing 영역에 LabelBadge(상태) + TextButton(전체 보기) 조합.',
+          'UtilityUI의 dashboard widget section header 패턴. SectionTitle + Trailing 영역에 LabelBadge(상태) + TextButton(전체 보기) 조합.',
       },
     },
   },
@@ -1077,16 +1077,16 @@ export const Tailwind_위젯_섹션_헤더: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Radix + Tailwind — 중첩 섹션 계층 구조 (Cycle 121)
+   Primitive + UtilityCSS — 중첩 섹션 계층 구조 (Cycle 121)
    설정 페이지의 중첩 섹션 헤더 패턴
 -------------------------------------------------------------------------- */
-export const Radix_Tailwind_중첩_섹션_계층: Story = {
-  name: 'Radix + Tailwind — 중첩 섹션 계층 구조 (Cycle 121)',
+export const Primitive_UtilityCSS_중첩_섹션_계층: Story = {
+  name: 'Primitive + UtilityCSS — 중첩 섹션 계층 구조 (Cycle 121)',
   parameters: {
     docs: {
       description: {
         story:
-          'Radix UI + Tailwind의 nested section 패턴. 1단계 섹션 → 2단계 서브섹션 계층 구조. 인덴트 + Divider로 시각적 위계 표현.',
+          'PrimitiveUI + UtilityCSS의 nested section 패턴. 1단계 섹션 → 2단계 서브섹션 계층 구조. 인덴트 + Divider로 시각적 위계 표현.',
       },
     },
   },
@@ -1141,9 +1141,9 @@ export const Radix_Tailwind_중첩_섹션_계층: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Radix UI — 콜랩스 가능한 섹션 헤더 (아코디언 패턴)
+   PrimitiveUI — 콜랩스 가능한 섹션 헤더 (아코디언 패턴)
 -------------------------------------------------------------------------- */
-function RadixCollapseSectionRender() {
+function PrimitiveCollapseSectionRender() {
   const sections = [
     { id: 1, title: '기본 설정', desc: '3개 항목', items: ['언어 설정', '시간대', '날짜 형식'] },
     { id: 2, title: '알림 설정', desc: '5개 항목', items: ['이메일 알림', '푸시 알림', 'Slack 연동', '주간 다이제스트', '긴급 알림'] },
@@ -1187,27 +1187,27 @@ function RadixCollapseSectionRender() {
     )
 }
 
-export const Radix_콜랩스_섹션_헤더: Story = {
-  name: 'Radix UI — 콜랩스 가능한 섹션 헤더 (아코디언 패턴)',
+export const Primitive_콜랩스_섹션_헤더: Story = {
+  name: 'PrimitiveUI — 콜랩스 가능한 섹션 헤더 (아코디언 패턴)',
   parameters: {
     docs: {
       description: {
-        story: 'Radix UI Collapsible 패턴을 SectionTitle로 구현. 헤더 클릭 시 섹션 콘텐츠가 접히고 펼쳐지는 아코디언 패턴. 설정 패널이나 필터 그룹에 유용.',
+        story: 'PrimitiveUI Collapsible 패턴을 SectionTitle로 구현. 헤더 클릭 시 섹션 콘텐츠가 접히고 펼쳐지는 아코디언 패턴. 설정 패널이나 필터 그룹에 유용.',
       },
     },
   },
-  render: () => <RadixCollapseSectionRender />,
+  render: () => <PrimitiveCollapseSectionRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Vercel Design — 프로젝트 리소스 섹션 (사용량 + 업그레이드 CTA)
+   DeployPlatform Design — 프로젝트 리소스 섹션 (사용량 + 업그레이드 CTA)
 -------------------------------------------------------------------------- */
-export const Vercel_프로젝트_리소스_섹션: Story = {
-  name: 'Vercel Design — 프로젝트 리소스 섹션 (사용량 + 업그레이드 CTA)',
+export const DeployPlatform_프로젝트_리소스_섹션: Story = {
+  name: 'DeployPlatform Design — 프로젝트 리소스 섹션 (사용량 + 업그레이드 CTA)',
   parameters: {
     docs: {
       description: {
-        story: 'Vercel 프로젝트 대시보드의 리소스 섹션 패턴. SectionTitle에 현재 플랜 뱃지 + 업그레이드 링크를 Trailing으로 배치. 각 리소스의 사용량을 Progress 바로 표시.',
+        story: 'DeployPlatform 프로젝트 대시보드의 리소스 섹션 패턴. SectionTitle에 현재 플랜 뱃지 + 업그레이드 링크를 Trailing으로 배치. 각 리소스의 사용량을 Progress 바로 표시.',
       },
     },
   },
@@ -1254,9 +1254,9 @@ export const Vercel_프로젝트_리소스_섹션: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   shadcn/ui — 컴포넌트 문서 섹션 헤더 (앵커 링크 + 복사 버튼)
+   ComposableUI — 컴포넌트 문서 섹션 헤더 (앵커 링크 + 복사 버튼)
 -------------------------------------------------------------------------- */
-function ShadcnDocSectionRender() {
+function ComposableUIDocSectionRender() {
   const [copiedId, setCopiedId] = React.useState<string | null>(null)
 
     const docSections = [
@@ -1300,27 +1300,27 @@ function ShadcnDocSectionRender() {
     )
 }
 
-export const Shadcn_문서_섹션_헤더: Story = {
-  name: 'shadcn/ui — 컴포넌트 문서 섹션 헤더 (앵커 링크 + 복사)',
+export const ComposableUI_문서_섹션_헤더: Story = {
+  name: 'ComposableUI — 컴포넌트 문서 섹션 헤더 (앵커 링크 + 복사)',
   parameters: {
     docs: {
       description: {
-        story: 'shadcn/ui 문서 사이트의 섹션 헤더 패턴. SectionTitle에 앵커 링크 아이콘을 호버 시 표시하고, "새 기능" 뱃지와 우측에 "코드 복사" 버튼을 배치.',
+        story: 'ComposableUI 문서 사이트의 섹션 헤더 패턴. SectionTitle에 앵커 링크 아이콘을 호버 시 표시하고, "새 기능" 뱃지와 우측에 "코드 복사" 버튼을 배치.',
       },
     },
   },
-  render: () => <ShadcnDocSectionRender />,
+  render: () => <ComposableUIDocSectionRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Cycle 177 — Mantine + Ant Design
+   Cycle 177 — AppUI + Ant Design
    Benchmark:
-   1. Mantine Collapse: 섹션 타이틀에 접기/펼치기 토글 통합
+   1. AppUI Collapse: 섹션 타이틀에 접기/펼치기 토글 통합
    2. Ant Design List.Header: 우측 액션 버튼 그룹 + 정렬 컨트롤
    3. 두 시스템 공통: 섹션 헤더를 네비게이션 앵커로 사용
 -------------------------------------------------------------------------- */
 
-function MantineCollapseSectionRender() {
+function AppUICollapseSectionRender() {
   const [collapsed, setCollapsed] = React.useState<Record<string, boolean>>({
     recent: false,
     pinned: true,
@@ -1347,7 +1347,7 @@ function MantineCollapseSectionRender() {
       title: '보관함',
       desc: '완료된 작업',
       count: 14,
-      items: ['Cycle 170 리뷰 완료', 'MUI 벤치마크 결과'],
+      items: ['Cycle 170 리뷰 완료', 'EnterpriseUI 벤치마크 결과'],
     },
   ]
 
@@ -1387,17 +1387,17 @@ function MantineCollapseSectionRender() {
   )
 }
 
-export const Mantine_접기_펼치기_섹션: Story = {
-  name: 'Mantine — 접기/펼치기 섹션 그룹 (Collapse 패턴)',
+export const AppUI_접기_펼치기_섹션: Story = {
+  name: 'AppUI — 접기/펼치기 섹션 그룹 (Collapse 패턴)',
   parameters: {
     layout: 'centered',
     docs: {
       description: {
-        story: 'Mantine Collapse 컴포넌트의 섹션 헤더 패턴 적용. SectionTitle.Trailing에 접기/펼치기 버튼을 배치하고, count 배지로 항목 수 표시. 워크스페이스 사이드바의 섹션 그룹 탐색 UI.',
+        story: 'AppUI Collapse 컴포넌트의 섹션 헤더 패턴 적용. SectionTitle.Trailing에 접기/펼치기 버튼을 배치하고, count 배지로 항목 수 표시. 워크스페이스 사이드바의 섹션 그룹 탐색 UI.',
       },
     },
   },
-  render: () => <MantineCollapseSectionRender />,
+  render: () => <AppUICollapseSectionRender />,
 }
 
 function AntTaskGroupSectionRender() {
@@ -1483,7 +1483,7 @@ export const Ant_작업_그룹_섹션: Story = {
   render: () => <AntTaskGroupSectionRender />,
 }
 
-function MantineAntWidgetSectionRender() {
+function AppUIAntWidgetSectionRender() {
   const [activeFilter, setActiveFilter] = React.useState('all')
   const [metricPeriod, setMetricPeriod] = React.useState('week')
 
@@ -1538,15 +1538,15 @@ function MantineAntWidgetSectionRender() {
   )
 }
 
-export const Mantine_Ant_위젯_섹션: Story = {
-  name: 'Mantine + Ant Design — 대시보드 위젯 섹션 (필터 칩 + 지표 카드)',
+export const AppUI_Ant_위젯_섹션: Story = {
+  name: 'AppUI + Ant Design — 대시보드 위젯 섹션 (필터 칩 + 지표 카드)',
   parameters: {
     layout: 'centered',
     docs: {
       description: {
-        story: 'Mantine SegmentedControl 스타일의 필터 칩 + Ant Design Statistics 위젯 패턴. SectionTitle.Trailing에 전체/주간/월간/분기 필터 칩을 배치하고, 선택된 기간에 따라 지표 카드 트렌드 업데이트.',
+        story: 'AppUI SegmentedControl 스타일의 필터 칩 + Ant Design Statistics 위젯 패턴. SectionTitle.Trailing에 전체/주간/월간/분기 필터 칩을 배치하고, 선택된 기간에 따라 지표 카드 트렌드 업데이트.',
       },
     },
   },
-  render: () => <MantineAntWidgetSectionRender />,
+  render: () => <AppUIAntWidgetSectionRender />,
 }

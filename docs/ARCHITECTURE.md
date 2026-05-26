@@ -19,7 +19,7 @@ Orbit UI의 설계와 구현 원칙을 설명합니다.
 
 ## 개요
 
-Orbit UI는 Figma 기반 3계층 컴포넌트 아키텍처를 제공합니다.
+Orbit UI는 DesignTool 기반 3계층 컴포넌트 아키텍처를 제공합니다.
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
@@ -154,7 +154,7 @@ packages/foundation/src/tokens/
 
 ## 레이어 시스템
 
-Figma 구조를 반영한 레이어 기반 컴포넌트 구조:
+DesignTool 구조를 반영한 레이어 기반 컴포넌트 구조:
 
 ```
 ┌─────────────────────────────────────────┐
@@ -231,10 +231,10 @@ const [value, setValue] = useControllableState({
 
 ## 스타일링
 
-### Tailwind + CSS 변수
+### UtilityCSS + CSS 변수
 
-모든 스타일은 Tailwind 유틸리티 클래스로 작성합니다. 컴포넌트별 토큰은 정적 CSS 변수
-(`var(--sem-eclipse-color-*)`)로 노출되며, Tailwind arbitrary value 안에서 직접 참조합니다.
+모든 스타일은 UtilityCSS 유틸리티 클래스로 작성합니다. 컴포넌트별 토큰은 정적 CSS 변수
+(`var(--sem-eclipse-color-*)`)로 노출되며, UtilityCSS arbitrary value 안에서 직접 참조합니다.
 
 ```tsx
 import { cn } from '@heejun-com/core'
@@ -354,7 +354,7 @@ describe('Button', () => {
   it('disabled 상태에서 클릭 무시', () => {
     const onClick = vi.fn()
     render(<Button disabled onClick={onClick}>클릭</Button>)
-    
+
     fireEvent.click(screen.getByRole('button'))
     expect(onClick).not.toHaveBeenCalled()
   })

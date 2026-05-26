@@ -20,7 +20,7 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 /* --------------------------------------------------------------------------
-   기본 - GitHub 스타일 유저 프로필 미리보기
+   기본 - CodeHost 스타일 유저 프로필 미리보기
 -------------------------------------------------------------------------- */
 export const 기본: Story = {
   render: () => (
@@ -57,7 +57,7 @@ export const 기본: Story = {
 
 /* --------------------------------------------------------------------------
    사용자 프로필 미리보기
-   Mantine HoverCard 패턴: 아바타 호버 시 상세 프로필 카드 표시
+   AppUI HoverCard 패턴: 아바타 호버 시 상세 프로필 카드 표시
 -------------------------------------------------------------------------- */
 const UserAvatarSvg = ({ color = '#6366f1', size = 40 }: { color?: string; size?: number }) => (
   <svg width={size} height={size} viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -131,7 +131,7 @@ export const 사용자_프로필_미리보기: Story = {
 
 /* --------------------------------------------------------------------------
    링크 미리보기 카드
-   Mantine HoverCard 패턴: 링크 호버 시 메타데이터 미리보기 카드 표시
+   AppUI HoverCard 패턴: 링크 호버 시 메타데이터 미리보기 카드 표시
 -------------------------------------------------------------------------- */
 const LinkPreviewIcon = ({ color = '#6366f1' }: { color?: string }) => (
   <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -146,14 +146,14 @@ const LinkPreviewIcon = ({ color = '#6366f1' }: { color?: string }) => (
 const links = [
   {
     title: 'Orbit UI - React Design System',
-    domain: 'orbit-ui.vercel.app',
+    domain: 'orbit-ui.deploy.example.com',
     desc: '3-tier 아키텍처 기반의 모던 React 컴포넌트 라이브러리. Base → Theme → Custom 계층 구조.',
     color: '#6366f1',
     label: 'Orbit UI 공식 문서',
   },
   {
     title: 'Eclipse Theme Token Reference',
-    domain: 'orbit-ui.vercel.app/tokens',
+    domain: 'orbit-ui.deploy.example.com/tokens',
     desc: 'Reference → Semantic → Component 3단계 디자인 토큰 시스템 전체 레퍼런스.',
     color: '#8b5cf6',
     label: '토큰 레퍼런스',
@@ -269,7 +269,7 @@ export const 이미지_미리보기: Story = {
 
 /* --------------------------------------------------------------------------
    통계 데이터 미리보기
-   Material 3 Tooltip 확장 패턴: 지표 숫자 호버 시 상세 차트/데이터 팝오버
+   RoleToken Design Tooltip 확장 패턴: 지표 숫자 호버 시 상세 차트/데이터 팝오버
 -------------------------------------------------------------------------- */
 const MiniBarSvg = ({ values, color }: { values: number[]; color: string }) => {
   const max = Math.max(...values)
@@ -372,8 +372,8 @@ export const 통계_데이터_미리보기: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Tailwind UI 벤치마크: 팀 멤버 카드 호버 패턴
-   Tailwind UI Contact card — 아바타 + 상세 정보 팝업 패턴
+   UtilityUI 벤치마크: 팀 멤버 카드 호버 패턴
+   UtilityUI Contact card — 아바타 + 상세 정보 팝업 패턴
 -------------------------------------------------------------------------- */
 const TEAM = [
   { name: 'Heejun Kim', role: 'Frontend Lead', dept: 'Engineering', joined: '2024-03', projects: 12, color: '#6366f1' },
@@ -381,8 +381,8 @@ const TEAM = [
   { name: 'Jinho Park', role: 'Backend Engineer', dept: 'Engineering', joined: '2023-11', projects: 15, color: '#10b981' },
 ]
 
-export const Tailwind_팀_멤버_카드: Story = {
-  name: 'Tailwind UI - 팀 멤버 연락처 카드',
+export const UtilityCSS_팀_멤버_카드: Story = {
+  name: 'UtilityUI - 팀 멤버 연락처 카드',
   render: () => (
     <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap' }}>
       {TEAM.map((member) => (
@@ -431,17 +431,17 @@ export const Tailwind_팀_멤버_카드: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Radix UI 벤치마크: 링크 미리보기 패턴
-   Radix HoverCard primitive — URL 미리보기 + 메타데이터 표시 패턴
+   PrimitiveUI 벤치마크: 링크 미리보기 패턴
+   Primitive HoverCard primitive — URL 미리보기 + 메타데이터 표시 패턴
 -------------------------------------------------------------------------- */
 const LINKS = [
   { text: 'Orbit UI 시작하기', url: 'docs/getting-started', desc: '설치 방법, 첫 컴포넌트 사용법, EclipseProvider 설정', tag: '문서', color: '#6366f1' },
   { text: '디자인 토큰 가이드', url: 'docs/design-tokens', desc: '3-tier 토큰 아키텍처, Reference→Semantic→Component 흐름', tag: '가이드', color: '#10b981' },
-  { text: 'BenchmarkComparison', url: 'docs/benchmark', desc: 'shadcn, MUI, Mantine 대비 Orbit UI 장단점 비교 분석', tag: '분석', color: '#f59e0b' },
+  { text: 'BenchmarkComparison', url: 'docs/benchmark', desc: 'ComposableUI, EnterpriseUI, AppUI 대비 Orbit UI 장단점 비교 분석', tag: '분석', color: '#f59e0b' },
 ]
 
-export const Radix_링크_미리보기: Story = {
-  name: 'Radix UI - 링크 미리보기 패턴',
+export const Primitive_링크_미리보기: Story = {
+  name: 'PrimitiveUI - 링크 미리보기 패턴',
   render: () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 8, maxWidth: 360, padding: 24, background: '#f8fafc', borderRadius: 12 }}>
       <Typography textStyle="subheadingSmall" style={{ marginBottom: 8 }}>관련 문서</Typography>
@@ -474,8 +474,8 @@ export const Radix_링크_미리보기: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   shadcn/ui 벤치마크: 이슈 상세 미리보기 패턴
-   shadcn/ui Hover Card — 이슈 번호 위에 호버 시 상세 정보 팝업 패턴
+   ComposableUI 벤치마크: 이슈 상세 미리보기 패턴
+   ComposableUI Hover Card — 이슈 번호 위에 호버 시 상세 정보 팝업 패턴
 -------------------------------------------------------------------------- */
 const ISSUES = [
   { id: 'ORB-142', title: 'Avatar 컴포넌트 size prop 추가', status: '완료', priority: '보통', assignee: 'HK', color: '#10b981' },
@@ -483,8 +483,8 @@ const ISSUES = [
   { id: 'ORB-203', title: 'DataTable 가상 스크롤 성능 개선', status: '검토 중', priority: '긴급', assignee: 'JP', color: '#f59e0b' },
 ]
 
-export const shadcn_이슈_미리보기: Story = {
-  name: 'shadcn/ui - 이슈 미리보기 호버 카드 패턴',
+export const ComposableUI_이슈_미리보기: Story = {
+  name: 'ComposableUI - 이슈 미리보기 호버 카드 패턴',
   render: () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 10, maxWidth: 420 }}>
       <Typography textStyle="subheadingSmall" style={{ marginBottom: 4 }}>연관 이슈</Typography>
@@ -520,8 +520,8 @@ export const shadcn_이슈_미리보기: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Radix UI 벤치마크: 기여자 활동 그래프 미리보기
-   Radix HoverCard — 사용자 이름 위에 호버 시 GitHub 스타일 기여도 그래프 표시
+   PrimitiveUI 벤치마크: 기여자 활동 그래프 미리보기
+   Primitive HoverCard — 사용자 이름 위에 호버 시 CodeHost 스타일 기여도 그래프 표시
 -------------------------------------------------------------------------- */
 const CONTRIB_USERS = [
   { name: 'heejun', commits: 142, prs: 38, reviews: 67, streak: 21, level: 'core' },
@@ -599,14 +599,14 @@ function ContribGraphDemo() {
   )
 }
 
-export const Radix_기여자_활동_그래프: Story = {
-  name: 'Radix UI - 기여자 활동 그래프 미리보기',
+export const Primitive_기여자_활동_그래프: Story = {
+  name: 'PrimitiveUI - 기여자 활동 그래프 미리보기',
   parameters: {
     docs: {
       description: {
         story:
-          'Radix HoverCard의 openDelay/closeDelay 세밀 제어 패턴. 기여도 그래프를 인라인 미리보기로 표시합니다. ' +
-          'Radix는 hover 이벤트 지연 시간을 ms 단위로 제어해 의도치 않은 팝업을 방지합니다.',
+          'Primitive HoverCard의 openDelay/closeDelay 세밀 제어 패턴. 기여도 그래프를 인라인 미리보기로 표시합니다. ' +
+          'Primitive는 hover 이벤트 지연 시간을 ms 단위로 제어해 의도치 않은 팝업을 방지합니다.',
       },
     },
   },
@@ -614,10 +614,10 @@ export const Radix_기여자_활동_그래프: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Linear Design 벤치마크: 태스크 상세 미리보기
-   Linear의 이슈 목록에서 이슈 ID 위에 호버 시 상세 팝업 표시 패턴
+   IssueTracker Design 벤치마크: 태스크 상세 미리보기
+   IssueTracker의 이슈 목록에서 이슈 ID 위에 호버 시 상세 팝업 표시 패턴
 -------------------------------------------------------------------------- */
-type LinearTask = {
+type IssueTrackerTask = {
   id: string
   title: string
   status: 'backlog' | 'todo' | 'in_progress' | 'done' | 'cancelled'
@@ -628,7 +628,7 @@ type LinearTask = {
   dueDate: string
 }
 
-const LINEAR_STATUS_CFG: Record<LinearTask['status'], { label: string; color: string; symbol: string }> = {
+const TRACKER_STATUS_CFG: Record<IssueTrackerTask['status'], { label: string; color: string; symbol: string }> = {
   backlog: { label: '백로그', color: '#94a3b8', symbol: '○' },
   todo: { label: '예정', color: '#64748b', symbol: '◎' },
   in_progress: { label: '진행 중', color: '#6366f1', symbol: '◑' },
@@ -636,7 +636,7 @@ const LINEAR_STATUS_CFG: Record<LinearTask['status'], { label: string; color: st
   cancelled: { label: '취소', color: '#ef4444', symbol: '✕' },
 }
 
-const LINEAR_PRIORITY_CFG: Record<LinearTask['priority'], { label: string; color: string }> = {
+const TRACKER_PRIORITY_CFG: Record<IssueTrackerTask['priority'], { label: string; color: string }> = {
   urgent: { label: '긴급', color: '#ef4444' },
   high: { label: '높음', color: '#f97316' },
   medium: { label: '보통', color: '#f59e0b' },
@@ -644,19 +644,19 @@ const LINEAR_PRIORITY_CFG: Record<LinearTask['priority'], { label: string; color
   none: { label: '없음', color: '#cbd5e1' },
 }
 
-const LINEAR_TASKS: LinearTask[] = [
+const TRACKER_TASKS: IssueTrackerTask[] = [
   { id: 'ENG-451', title: 'DataTable 가상 스크롤 성능 50% 향상', status: 'in_progress', priority: 'high', assignee: 'HJ', estimate: 5, progress: 60, dueDate: '2026-04-18' },
   { id: 'ENG-389', title: 'TextField 접근성 개선 (ARIA 레이블)', status: 'todo', priority: 'medium', assignee: 'SY', estimate: 3, progress: 0, dueDate: '2026-04-25' },
   { id: 'ENG-312', title: 'EclipseProvider 다크모드 전환 애니메이션', status: 'done', priority: 'low', assignee: 'JH', estimate: 2, progress: 100, dueDate: '2026-04-10' },
 ]
 
-export const Linear_태스크_상세_미리보기: Story = {
-  name: 'Linear Design - 태스크 상세 미리보기 패턴',
+export const IssueTracker_태스크_상세_미리보기: Story = {
+  name: 'IssueTracker Design - 태스크 상세 미리보기 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'Linear의 이슈 목록 hover 패턴. 이슈 ID에 마우스를 올리면 상세 정보(상태, 우선순위, 진도, 담당자)가 팝업됩니다. ' +
+          'IssueTracker의 이슈 목록 hover 패턴. 이슈 ID에 마우스를 올리면 상세 정보(상태, 우선순위, 진도, 담당자)가 팝업됩니다. ' +
           '컴팩트한 정보 밀도와 색상 코딩으로 빠른 스캔을 지원합니다.',
       },
     },
@@ -664,9 +664,9 @@ export const Linear_태스크_상세_미리보기: Story = {
   render: () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 8, maxWidth: 480 }}>
       <Typography textStyle="subheadingSmall" style={{ marginBottom: 4 }}>스프린트 이슈</Typography>
-      {LINEAR_TASKS.map((task) => {
-        const st = LINEAR_STATUS_CFG[task.status]
-        const pr = LINEAR_PRIORITY_CFG[task.priority]
+      {TRACKER_TASKS.map((task) => {
+        const st = TRACKER_STATUS_CFG[task.status]
+        const pr = TRACKER_PRIORITY_CFG[task.priority]
         return (
           <div key={task.id} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 14px', borderRadius: 8, border: '1px solid #f1f5f9', background: '#fff' }}>
             <span style={{ fontSize: 16, color: st.color, flexShrink: 0 }}>{st.symbol}</span>
@@ -718,7 +718,7 @@ export const Linear_태스크_상세_미리보기: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Linear Design 벤치마크: 멤버 역할 관리 호버 카드
+   IssueTracker Design 벤치마크: 멤버 역할 관리 호버 카드
    팀 멤버 칩에 호버 시 역할/권한/마지막 활동 팝업 표시
 -------------------------------------------------------------------------- */
 type TeamMember = { name: string; role: 'owner' | 'admin' | 'member' | 'guest'; email: string; lastActive: string; projects: number }
@@ -814,13 +814,13 @@ function TeamRoleHoverDemo() {
   )
 }
 
-export const Linear_팀_멤버_역할_호버: Story = {
-  name: 'Linear Design - 팀 멤버 역할 관리 호버 카드',
+export const IssueTracker_팀_멤버_역할_호버: Story = {
+  name: 'IssueTracker Design - 팀 멤버 역할 관리 호버 카드',
   parameters: {
     docs: {
       description: {
         story:
-          'Linear의 팀 멤버 관리 UI 패턴. 멤버 칩에 호버 시 역할·권한·활동 정보가 팝업됩니다. ' +
+          'IssueTracker의 팀 멤버 관리 UI 패턴. 멤버 칩에 호버 시 역할·권한·활동 정보가 팝업됩니다. ' +
           'onMouseEnter/Leave로 트리거 스타일을 동기화해 시각적 피드백을 강화합니다.',
       },
     },
@@ -828,7 +828,7 @@ export const Linear_팀_멤버_역할_호버: Story = {
   render: () => <TeamRoleHoverDemo />,
 }
 
-/* ── Vercel Design: 배포 상태 호버 카드 ── */
+/* ── DeployPlatform Design: 배포 상태 호버 카드 ── */
 const DeployStatusHoverDemo = () => {
   const deploys = [
     { id: 'd1', branch: 'main', status: 'ready', hash: 'a3f9c12', time: '2분 전', duration: '48s', env: 'Production' },
@@ -878,17 +878,17 @@ const DeployStatusHoverDemo = () => {
   )
 }
 
-export const Vercel_배포_상태_호버: Story = {
-  name: 'Vercel — 배포 상태 호버 카드',
+export const DeployPlatform_배포_상태_호버: Story = {
+  name: 'DeployPlatform — 배포 상태 호버 카드',
   render: () => <DeployStatusHoverDemo />,
 }
 
-/* ── Vercel Design: 도메인 DNS 레코드 호버 ── */
+/* ── DeployPlatform Design: 도메인 DNS 레코드 호버 ── */
 const DnsHoverDemo = () => {
   const records = [
     { type: 'A', name: '@', value: '76.76.21.21', ttl: '3600', status: 'verified' },
-    { type: 'CNAME', name: 'www', value: 'cname.vercel-dns.com', ttl: '3600', status: 'pending' },
-    { type: 'TXT', name: '_vercel', value: 'vc-domain-verify=...abc123', ttl: '60', status: 'verified' },
+    { type: 'CNAME', name: 'www', value: 'cname.deploy-dns.example.com', ttl: '3600', status: 'pending' },
+    { type: 'TXT', name: '_deploy', value: 'vc-domain-verify=...abc123', ttl: '60', status: 'verified' },
   ]
 
   const statusInfo: Record<string, { color: string; label: string }> = {
@@ -933,12 +933,12 @@ const DnsHoverDemo = () => {
   )
 }
 
-export const Vercel_DNS_레코드_호버: Story = {
-  name: 'Vercel — DNS 레코드 호버 상세',
+export const DeployPlatform_DNS_레코드_호버: Story = {
+  name: 'DeployPlatform — DNS 레코드 호버 상세',
   render: () => <DnsHoverDemo />,
 }
 
-/* ── Vercel Design: 팀 멤버 권한 호버 ── */
+/* ── DeployPlatform Design: 팀 멤버 권한 호버 ── */
 const MemberPermissionHoverDemo = () => {
   const members = [
     { name: '김준희', email: 'junhee@orbit.io', avatar: 'KJ', color: '#6366f1', role: 'Owner', repos: 12, lastActive: '방금 전' },
@@ -993,16 +993,16 @@ const MemberPermissionHoverDemo = () => {
   )
 }
 
-export const Vercel_팀_멤버_권한_호버: Story = {
-  name: 'Vercel — 팀 멤버 권한 호버',
+export const DeployPlatform_팀_멤버_권한_호버: Story = {
+  name: 'DeployPlatform — 팀 멤버 권한 호버',
   render: () => <MemberPermissionHoverDemo />,
 }
 
 /* --------------------------------------------------------------------------
-   Raycast — 커맨드 단축키 호버 카드
-   Raycast Extensions의 shortcut preview 패턴
+   CommandPalette — 커맨드 단축키 호버 카드
+   CommandPalette Extensions의 shortcut preview 패턴
 -------------------------------------------------------------------------- */
-function RaycastShortcutHoverRender() {
+function CommandPaletteShortcutHoverRender() {
   const shortcuts = [
     { label: '파일 검색', keys: ['⌘', 'F'], desc: '프로젝트 내 파일을 빠르게 검색합니다' },
     { label: '클립보드 히스토리', keys: ['⌘', '⇧', 'V'], desc: '최근 복사한 항목을 불러옵니다' },
@@ -1040,16 +1040,16 @@ function RaycastShortcutHoverRender() {
   )
 }
 
-export const Raycast_커맨드_단축키_호버: Story = {
-  name: 'Raycast — 커맨드 단축키 호버 카드',
-  render: () => <RaycastShortcutHoverRender />,
+export const CommandPalette_커맨드_단축키_호버: Story = {
+  name: 'CommandPalette — 커맨드 단축키 호버 카드',
+  render: () => <CommandPaletteShortcutHoverRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Figma Plugin — 레이어 속성 호버 카드
-   Figma Plugin UI의 layer info tooltip 패턴
+   DesignTool Plugin — 레이어 속성 호버 카드
+   DesignTool Plugin UI의 layer info tooltip 패턴
 -------------------------------------------------------------------------- */
-function FigmaLayerInfoHoverRender() {
+function DesignToolLayerInfoHoverRender() {
   const layers = [
     { name: 'Button/Primary', type: 'COMPONENT', w: 120, h: 40, x: 0, y: 0, fill: '#6366f1', opacity: 100 },
     { name: 'Icon/Search', type: 'VECTOR', w: 24, h: 24, x: 48, y: 8, fill: '#ffffff', opacity: 80 },
@@ -1104,13 +1104,13 @@ function FigmaLayerInfoHoverRender() {
   )
 }
 
-export const Figma_레이어_속성_호버: Story = {
-  name: 'Figma Plugin — 레이어 속성 호버 카드',
-  render: () => <FigmaLayerInfoHoverRender />,
+export const DesignTool_레이어_속성_호버: Story = {
+  name: 'DesignTool Plugin — 레이어 속성 호버 카드',
+  render: () => <DesignToolLayerInfoHoverRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Raycast + Figma — 컴포넌트 속성 프리뷰 호버
+   CommandPalette + DesignTool — 컴포넌트 속성 프리뷰 호버
    컴포넌트 라이브러리에서 hover로 세부 속성 미리보기
 -------------------------------------------------------------------------- */
 function ComponentPropertyHoverRender() {
@@ -1164,17 +1164,17 @@ function ComponentPropertyHoverRender() {
   )
 }
 
-export const Raycast_Figma_컴포넌트_속성_프리뷰: Story = {
-  name: 'Raycast + Figma — 컴포넌트 속성 프리뷰',
+export const CommandPalette_DesignTool_컴포넌트_속성_프리뷰: Story = {
+  name: 'CommandPalette + DesignTool — 컴포넌트 속성 프리뷰',
   render: () => <ComponentPropertyHoverRender />,
 }
 
-// Cycle 143 - shadcn/ui + Tailwind UI benchmark
+// Cycle 143 - ComposableUI + UtilityUI benchmark
 
-function ShadcnUserProfile143Render() {
+function ComposableUIUserProfile143Render() {
   const users = [
-    { handle: '@hjunkim', name: '김희준', initials: 'HJ', color: '#3b82f6', bio: 'Design Systems Engineer. Orbit UI 메인테이너. shadcn/ui 팬.', followers: 284, following: 112, repos: 47 },
-    { handle: '@orbit_ui', name: 'Orbit UI', initials: 'OU', color: '#10b981', bio: '3-tier 컴포넌트 라이브러리. React + TS + Tailwind.', followers: 1203, following: 42, repos: 18 },
+    { handle: '@hjunkim', name: '김희준', initials: 'HJ', color: '#3b82f6', bio: 'Design Systems Engineer. Orbit UI 메인테이너. ComposableUI 팬.', followers: 284, following: 112, repos: 47 },
+    { handle: '@orbit_ui', name: 'Orbit UI', initials: 'OU', color: '#10b981', bio: '3-tier 컴포넌트 라이브러리. React + TS + UtilityCSS.', followers: 1203, following: 42, repos: 18 },
     { handle: '@design_bot', name: 'DesignBot', initials: 'DB', color: '#8b5cf6', bio: '디자인 시스템 자동화 봇. Cycle 143 진행 중.', followers: 89, following: 203, repos: 6 },
   ]
 
@@ -1213,19 +1213,19 @@ function ShadcnUserProfile143Render() {
   )
 }
 
-export const Shadcn_사용자_프로필_호버: Story = {
-  name: 'shadcn/ui — 사용자 프로필 호버 카드 (Cycle 143)',
+export const ComposableUI_사용자_프로필_호버: Story = {
+  name: 'ComposableUI — 사용자 프로필 호버 카드 (Cycle 143)',
   parameters: {
     docs: {
       description: {
-        story: 'shadcn/ui HoverCard 패턴. 핸들 텍스트 hover 시 Avatar + 이름/바이오 + 팔로워/저장소 통계 표시. GitHub 프로필 호버 UX.',
+        story: 'ComposableUI HoverCard 패턴. 핸들 텍스트 hover 시 Avatar + 이름/바이오 + 팔로워/저장소 통계 표시. CodeHost 프로필 호버 UX.',
       },
     },
   },
-  render: () => <ShadcnUserProfile143Render />,
+  render: () => <ComposableUIUserProfile143Render />,
 }
 
-function TailwindPricingHover143Render() {
+function UtilityCSSPricingHover143Render() {
   const plans = [
     {
       name: 'Hobby',
@@ -1288,28 +1288,28 @@ function TailwindPricingHover143Render() {
   )
 }
 
-export const Tailwind_플랜_비교_호버: Story = {
-  name: 'Tailwind UI — 요금제 비교 호버 (Cycle 143)',
+export const UtilityCSS_플랜_비교_호버: Story = {
+  name: 'UtilityUI — 요금제 비교 호버 (Cycle 143)',
   parameters: {
     docs: {
       description: {
-        story: 'Tailwind UI Pricing Card + HoverCard 조합. 플랜 카드 hover 시 기능 목록 전체 표시. Typography 계층, Divider, SolidButton 포함.',
+        story: 'UtilityUI Pricing Card + HoverCard 조합. 플랜 카드 hover 시 기능 목록 전체 표시. Typography 계층, Divider, SolidButton 포함.',
       },
     },
   },
-  render: () => <TailwindPricingHover143Render />,
+  render: () => <UtilityCSSPricingHover143Render />,
 }
 
-function ShadcnTailwindCommit143Render() {
+function ComposableUIUtilityCSSCommit143Render() {
   const commits = [
-    { sha: '3aa9cbe', msg: 'feat: Cycle 142 Apple HIG + M3', author: 'HJ', color: '#3b82f6', date: '2시간 전', additions: 590, deletions: 0 },
-    { sha: '03c1a69', msg: 'feat: Cycle 141 Raycast + Figma', author: 'DS', color: '#8b5cf6', date: '5시간 전', additions: 550, deletions: 12 },
-    { sha: '7347e9d', msg: 'feat: Cycle 140 Mantine + Arco', author: 'HJ', color: '#3b82f6', date: '어제', additions: 596, deletions: 0 },
+    { sha: '3aa9cbe', msg: 'feat: Cycle 142 Platform HIG + M3', author: 'HJ', color: '#3b82f6', date: '2시간 전', additions: 590, deletions: 0 },
+    { sha: '03c1a69', msg: 'feat: Cycle 141 CommandPalette + DesignTool', author: 'DS', color: '#8b5cf6', date: '5시간 전', additions: 550, deletions: 12 },
+    { sha: '7347e9d', msg: 'feat: Cycle 140 AppUI + DataProduct', author: 'HJ', color: '#3b82f6', date: '어제', additions: 596, deletions: 0 },
   ]
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 8, width: 420, fontFamily: 'system-ui, sans-serif' }}>
-      <div style={{ fontSize: 11, color: '#64748b', marginBottom: 4 }}>shadcn/ui + Tailwind — 커밋 히스토리 호버</div>
+      <div style={{ fontSize: 11, color: '#64748b', marginBottom: 4 }}>ComposableUI + UtilityCSS — 커밋 히스토리 호버</div>
       {commits.map((commit) => (
         <HoverCard key={commit.sha}>
           <HoverCard.Trigger>
@@ -1357,25 +1357,25 @@ function ShadcnTailwindCommit143Render() {
   )
 }
 
-export const Shadcn_Tailwind_커밋_히스토리_호버: Story = {
-  name: 'shadcn/ui + Tailwind UI — 커밋 히스토리 호버 (Cycle 143)',
+export const ComposableUI_UtilityCSS_커밋_히스토리_호버: Story = {
+  name: 'ComposableUI + UtilityUI — 커밋 히스토리 호버 (Cycle 143)',
   parameters: {
     docs: {
       description: {
-        story: 'shadcn/ui + Tailwind UI 커밋 목록 + HoverCard. 커밋 hover 시 Author Avatar + 추가/삭제 통계 + Progress 바. Avatar, LabelBadge, Progress, Divider 조합.',
+        story: 'ComposableUI + UtilityUI 커밋 목록 + HoverCard. 커밋 hover 시 Author Avatar + 추가/삭제 통계 + Progress 바. Avatar, LabelBadge, Progress, Divider 조합.',
       },
     },
   },
-  render: () => <ShadcnTailwindCommit143Render />,
+  render: () => <ComposableUIUtilityCSSCommit143Render />,
 }
 
 // ──────────────────────────────────────────────────────────────────────────────
-// Cycle 175: Notion Design + Figma Plugin UI
+// Cycle 175: WorkspaceEditor Design + DesignTool Plugin UI
 // ──────────────────────────────────────────────────────────────────────────────
 
-function NotionPagePreviewHoverRender() {
+function WorkspaceEditorPagePreviewHoverRender() {
   const pages = [
-    { title: 'Orbit UI Architecture', icon: '◉', updated: '3시간 전', author: 'HJ', content: '3계층 아키텍처: Core → Theme → Custom. Tailwind + CSS 변수 기반 토큰 시스템.' },
+    { title: 'Orbit UI Architecture', icon: '◉', updated: '3시간 전', author: 'HJ', content: '3계층 아키텍처: Core → Theme → Custom. UtilityCSS + CSS 변수 기반 토큰 시스템.' },
     { title: 'Component Roadmap', icon: '📋', updated: '1일 전', author: 'SW', content: 'Cycle 175까지 완성 목표. 60+ 컴포넌트, 900+ 스토리 달성 계획.' },
     { title: 'Design Token Guide', icon: '🎨', updated: '2일 전', author: 'JW', content: 'Reference → Semantic → Component 3단계 토큰 체계. CSS 변수 기반 런타임 전환.' },
   ]
@@ -1419,19 +1419,19 @@ function NotionPagePreviewHoverRender() {
   )
 }
 
-export const Notion_페이지_미리보기_호버: Story = {
-  name: 'Notion Design — 페이지 목록 미리보기 HoverCard',
+export const WorkspaceEditor_페이지_미리보기_호버: Story = {
+  name: 'WorkspaceEditor Design — 페이지 목록 미리보기 HoverCard',
   parameters: {
     docs: {
       description: {
-        story: 'Notion 사이드바 페이지 목록 hover preview 패턴. 아이콘 + 제목 + 수정 시간 표시, 호버 시 콘텐츠 미리보기 + 작성자 + 빠른 액션 버튼.',
+        story: 'WorkspaceEditor 사이드바 페이지 목록 hover preview 패턴. 아이콘 + 제목 + 수정 시간 표시, 호버 시 콘텐츠 미리보기 + 작성자 + 빠른 액션 버튼.',
       },
     },
   },
-  render: () => <NotionPagePreviewHoverRender />,
+  render: () => <WorkspaceEditorPagePreviewHoverRender />,
 }
 
-function FigmaComponentInspectHoverRender() {
+function DesignToolComponentInspectHoverRender() {
   const components = [
     { name: 'SolidButton', type: 'Component', props: ['color', 'size', 'disabled'], instances: 142, variant: 'primary/medium' },
     { name: 'TextField', type: 'Component Set', props: ['label', 'placeholder', 'error'], instances: 87, variant: 'filled/default' },
@@ -1484,19 +1484,19 @@ function FigmaComponentInspectHoverRender() {
   )
 }
 
-export const Figma_컴포넌트_인스펙트_호버: Story = {
-  name: 'Figma Plugin — 컴포넌트 레이어 인스펙트 HoverCard',
+export const DesignTool_컴포넌트_인스펙트_호버: Story = {
+  name: 'DesignTool Plugin — 컴포넌트 레이어 인스펙트 HoverCard',
   parameters: {
     docs: {
       description: {
-        story: 'Figma 플러그인 레이어 패널 컴포넌트 inspect 패턴. 다크 배경 레이어 목록, hover 시 type/variant/props/인스턴스 수/사용률 Progress 표시.',
+        story: 'DesignTool 플러그인 레이어 패널 컴포넌트 inspect 패턴. 다크 배경 레이어 목록, hover 시 type/variant/props/인스턴스 수/사용률 Progress 표시.',
       },
     },
   },
-  render: () => <FigmaComponentInspectHoverRender />,
+  render: () => <DesignToolComponentInspectHoverRender />,
 }
 
-function NotionFigmaReferenceHoverRender() {
+function WorkspaceEditorDesignToolReferenceHoverRender() {
   const tokens = [
     { name: 'colorPrimary', value: '#6366f1', type: 'color', usedIn: ['SolidButton', 'Progress', 'Switch', 'CounterBadge'], semantic: 'fillPrimary' },
     { name: 'spacing8', value: '8px', type: 'spacing', usedIn: ['Button padding', 'Card gap', 'Form margin'], semantic: 'paddingSmall' },
@@ -1551,14 +1551,14 @@ function NotionFigmaReferenceHoverRender() {
   )
 }
 
-export const Notion_Figma_디자인_토큰_호버: Story = {
-  name: 'Notion + Figma — 디자인 토큰 레퍼런스 HoverCard',
+export const WorkspaceEditor_DesignTool_디자인_토큰_호버: Story = {
+  name: 'WorkspaceEditor + DesignTool — 디자인 토큰 레퍼런스 HoverCard',
   parameters: {
     docs: {
       description: {
-        story: 'Notion + Figma 토큰 레퍼런스 패턴. 토큰 목록 hover 시 시맨틱 이름 / 컬러 프리뷰 / 사용 컴포넌트 / CSS 변수명 표시. LabelBadge로 타입 구분.',
+        story: 'WorkspaceEditor + DesignTool 토큰 레퍼런스 패턴. 토큰 목록 hover 시 시맨틱 이름 / 컬러 프리뷰 / 사용 컴포넌트 / CSS 변수명 표시. LabelBadge로 타입 구분.',
       },
     },
   },
-  render: () => <NotionFigmaReferenceHoverRender />,
+  render: () => <WorkspaceEditorDesignToolReferenceHoverRender />,
 }

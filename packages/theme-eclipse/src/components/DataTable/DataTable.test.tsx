@@ -31,7 +31,7 @@ const columns: ColumnDef<Row, unknown>[] = [
   { id: 'email', accessorKey: 'email', header: '이메일', enableSorting: false },
 ]
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+
 const Table = DataTable as any
 
 describe('DataTable', () => {

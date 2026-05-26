@@ -69,7 +69,7 @@ export const 디자인_QA = {
       options: ['check', 'minus'],
     },
   },
-  // eslint-disable-next-line
+
   render: function RenderComponent(args: any) {
     const [isChecked, setIsChecked] = useState(args.checked)
 
@@ -84,8 +84,8 @@ export const 디자인_QA = {
 } satisfies Story
 
 /* --------------------------------------------------------------------------
-   shadcn/ui 벤치마크: 권한 매트릭스 패턴
-   shadcn/ui Checkbox 그룹 패턴 — 역할별 권한 설정 UI
+   ComposableUI 벤치마크: 권한 매트릭스 패턴
+   ComposableUI Checkbox 그룹 패턴 — 역할별 권한 설정 UI
    실무에서 어드민 패널의 역할/권한 설정에 자주 사용되는 패턴입니다.
 -------------------------------------------------------------------------- */
 type Permission = 'read' | 'write' | 'delete'
@@ -191,18 +191,18 @@ function PermissionMatrixRender() {
         ))}
       </div>
       <div style={{ marginTop: 12, fontSize: 11, color: '#94a3b8' }}>
-        shadcn/ui Checkbox 그룹 패턴 응용 — 역할별 권한 매트릭스
+        ComposableUI Checkbox 그룹 패턴 응용 — 역할별 권한 매트릭스
       </div>
     </div>
   )
 }
 
-export const shadcn_권한_매트릭스 = {
+export const ComposableUI_권한_매트릭스 = {
   parameters: {
     docs: {
       description: {
         story:
-          'shadcn/ui Checkbox Group 패턴. 역할(Role) × 권한(Permission) 매트릭스로 구성된 어드민 권한 설정 UI입니다.',
+          'ComposableUI Checkbox Group 패턴. 역할(Role) × 권한(Permission) 매트릭스로 구성된 어드민 권한 설정 UI입니다.',
       },
     },
   },
@@ -210,8 +210,8 @@ export const shadcn_권한_매트릭스 = {
 }
 
 /* --------------------------------------------------------------------------
-   Radix UI 벤치마크: 약관 동의 그룹 패턴
-   Radix Checkbox primitive의 indeterminate 상태 활용
+   PrimitiveUI 벤치마크: 약관 동의 그룹 패턴
+   Primitive Checkbox primitive의 indeterminate 상태 활용
    "전체 동의" 체크박스가 하위 항목의 상태를 반영하는 패턴입니다.
 -------------------------------------------------------------------------- */
 const TERMS = [
@@ -301,18 +301,18 @@ function TermsAgreementRender() {
         </button>
       </div>
       <div style={{ marginTop: 8, fontSize: 11, color: '#94a3b8' }}>
-        Radix Checkbox indeterminate 패턴 — 필수(*) 모두 동의 시 버튼 활성화
+        Primitive Checkbox indeterminate 패턴 — 필수(*) 모두 동의 시 버튼 활성화
       </div>
     </div>
   )
 }
 
-export const Radix_약관_동의_그룹 = {
+export const Primitive_약관_동의_그룹 = {
   parameters: {
     docs: {
       description: {
         story:
-          'Radix Checkbox primitive의 indeterminate 상태 응용. iconName="minus"로 부분 선택 상태를 표현하고, 필수 항목 전체 동의 시 제출 버튼이 활성화됩니다.',
+          'Primitive Checkbox primitive의 indeterminate 상태 응용. iconName="minus"로 부분 선택 상태를 표현하고, 필수 항목 전체 동의 시 제출 버튼이 활성화됩니다.',
       },
     },
   },
@@ -446,8 +446,8 @@ export const Ant_폼_유효성_검사 = {
 }
 
 /* --------------------------------------------------------------------------
-   Tailwind UI 벤치마크: 알림 설정 패널
-   Tailwind UI Form pattern — 카테고리별 알림 설정 체크박스 그룹
+   UtilityUI 벤치마크: 알림 설정 패널
+   UtilityUI Form pattern — 카테고리별 알림 설정 체크박스 그룹
 -------------------------------------------------------------------------- */
 const NOTIFICATION_GROUPS = [
   {
@@ -545,11 +545,11 @@ function NotificationSettingsRender() {
   )
 }
 
-export const Tailwind_알림_설정 = {
+export const UtilityCSS_알림_설정 = {
   parameters: {
     docs: {
       description: {
-        story: 'Tailwind UI Form 패턴 — 카테고리별 알림 설정 체크박스 그룹. 선택 시 배경 강조로 상태를 명확히 표현합니다.',
+        story: 'UtilityUI Form 패턴 — 카테고리별 알림 설정 체크박스 그룹. 선택 시 배경 강조로 상태를 명확히 표현합니다.',
       },
     },
   },
@@ -557,8 +557,8 @@ export const Tailwind_알림_설정 = {
 }
 
 /* --------------------------------------------------------------------------
-   Chakra UI 벤치마크: 선택 카드 그룹
-   Chakra UI checkbox-inside-card 패턴 — 플랜/옵션 선택 카드 UI
+   AccessibleUI 벤치마크: 선택 카드 그룹
+   AccessibleUI checkbox-inside-card 패턴 — 플랜/옵션 선택 카드 UI
 -------------------------------------------------------------------------- */
 const PLAN_CARDS = [
   {
@@ -657,17 +657,17 @@ function PlanCardGroupRender() {
       </div>
 
       <div style={{ marginTop: 16, fontSize: 12, color: '#94a3b8' }}>
-        Chakra UI checkbox-inside-card 패턴 — {selected.size > 0 ? `${selected.size}개 플랜 선택됨` : '선택 없음'}
+        AccessibleUI checkbox-inside-card 패턴 — {selected.size > 0 ? `${selected.size}개 플랜 선택됨` : '선택 없음'}
       </div>
     </div>
   )
 }
 
-export const Chakra_선택_카드_그룹 = {
+export const Accessible_선택_카드_그룹 = {
   parameters: {
     docs: {
       description: {
-        story: 'Chakra UI의 checkbox-inside-card 패턴. 카드 전체를 클릭 영역으로 사용하며, 선택 시 테두리·배경·배지 색상이 연동 변경됩니다.',
+        story: 'AccessibleUI의 checkbox-inside-card 패턴. 카드 전체를 클릭 영역으로 사용하며, 선택 시 테두리·배경·배지 색상이 연동 변경됩니다.',
       },
     },
   },
@@ -675,7 +675,7 @@ export const Chakra_선택_카드_그룹 = {
 }
 
 /* --------------------------------------------------------------------------
-   Tailwind + Chakra 벤치마크: 데이터 테이블 행 선택
+   UtilityCSS + Accessible 벤치마크: 데이터 테이블 행 선택
    전체 선택(indeterminate) + 행별 체크박스 — 일괄 작업 패턴
 -------------------------------------------------------------------------- */
 const TABLE_ROWS = [
@@ -788,34 +788,34 @@ function TableRowSelectionRender() {
         </table>
       </div>
       <div style={{ marginTop: 8, fontSize: 11, color: '#94a3b8' }}>
-        Tailwind + Chakra 테이블 행 선택 패턴 — indeterminate 전체 선택 + 행 클릭 토글
+        UtilityCSS + Accessible 테이블 행 선택 패턴 — indeterminate 전체 선택 + 행 클릭 토글
       </div>
     </div>
   )
 }
 
-export const Tailwind_테이블_행_선택 = {
+export const UtilityCSS_테이블_행_선택 = {
   parameters: {
     docs: {
       description: {
-        story: 'Tailwind UI + Chakra UI 테이블 행 선택 패턴. 전체 선택 체크박스는 indeterminate 상태를 지원하고, 선택 시 일괄 작업 액션 바가 표시됩니다.',
+        story: 'UtilityUI + AccessibleUI 테이블 행 선택 패턴. 전체 선택 체크박스는 indeterminate 상태를 지원하고, 선택 시 일괄 작업 액션 바가 표시됩니다.',
       },
     },
   },
   render: () => <TableRowSelectionRender />,
 }
 
-// ─── Cycle 63: Chakra UI + Google Material 3 ───────────────────────────────
+// ─── Cycle 63: AccessibleUI + RoleToken Design ───────────────────────────────
 
 const CHAKRA_PLAN_FEATURES = [
   { id: 'components', label: '무제한 컴포넌트', desc: '모든 Orbit UI 컴포넌트 접근', included: true },
   { id: 'themes', label: '커스텀 테마', desc: '브랜드 토큰 시스템 커스터마이즈', included: true },
   { id: 'icons', label: 'Icon 라이브러리', desc: '500+ SVG 아이콘 제공', included: false },
-  { id: 'figma', label: 'Figma 파일', desc: '컴포넌트 원본 Figma 소스', included: false },
+  { id: 'design', label: 'DesignTool 파일', desc: '컴포넌트 원본 DesignTool 소스', included: false },
   { id: 'priority', label: '우선 지원', desc: '24시간 내 응답 보장', included: false },
 ]
 
-const ChakraPlanFeatureRender = () => {
+const AccessiblePlanFeatureRender = () => {
   const [selected, setSelected] = useState<Set<string>>(new Set(['components', 'themes']))
   const total = selected.size
 
@@ -857,20 +857,20 @@ const ChakraPlanFeatureRender = () => {
         <span style={{ fontSize: 13, color: '#64748b' }}>선택된 기능</span>
         <span style={{ fontSize: 14, fontWeight: 700, color: '#6366f1' }}>{total}개</span>
       </div>
-      <div style={{ marginTop: 6, fontSize: 11, color: '#94a3b8' }}>Chakra UI Checkbox 카드 선택 패턴</div>
+      <div style={{ marginTop: 6, fontSize: 11, color: '#94a3b8' }}>AccessibleUI Checkbox 카드 선택 패턴</div>
     </div>
   )
 }
 
-export const Chakra_플랜_기능_선택 = {
+export const Accessible_플랜_기능_선택 = {
   parameters: {
     docs: {
       description: {
-        story: 'Chakra UI의 CheckboxGroup 카드 패턴. 각 항목이 체크박스 + 설명 카드로 표현되며, 선택 시 보더와 배경이 즉시 변경됩니다. SaaS 플랜 기능 선택, 옵션 구성 화면에 활용됩니다.',
+        story: 'AccessibleUI의 CheckboxGroup 카드 패턴. 각 항목이 체크박스 + 설명 카드로 표현되며, 선택 시 보더와 배경이 즉시 변경됩니다. SaaS 플랜 기능 선택, 옵션 구성 화면에 활용됩니다.',
       },
     },
   },
-  render: () => <ChakraPlanFeatureRender />,
+  render: () => <AccessiblePlanFeatureRender />,
 }
 
 const M3_CONSENT_ITEMS = [
@@ -929,7 +929,7 @@ const Material3ConsentRender = () => {
       >
         동의하고 시작하기
       </button>
-      <div style={{ marginTop: 10, fontSize: 11, color: '#79747e', textAlign: 'center' }}>Material 3 Checkbox + 전체 동의 패턴</div>
+      <div style={{ marginTop: 10, fontSize: 11, color: '#79747e', textAlign: 'center' }}>RoleToken Design Checkbox + 전체 동의 패턴</div>
     </div>
   )
 }
@@ -938,7 +938,7 @@ export const Material3_약관_동의_체크박스 = {
   parameters: {
     docs: {
       description: {
-        story: 'Google Material 3 디자인의 약관 동의 체크박스 패턴. 전체 동의 체크박스는 indeterminate(minus) 상태를 지원하고, 필수 항목이 모두 선택되어야 확인 버튼이 활성화됩니다.',
+        story: 'RoleToken Design 디자인의 약관 동의 체크박스 패턴. 전체 동의 체크박스는 indeterminate(minus) 상태를 지원하고, 필수 항목이 모두 선택되어야 확인 버튼이 활성화됩니다.',
       },
     },
   },
@@ -948,8 +948,8 @@ export const Material3_약관_동의_체크박스 = {
 const M3_FILTER_TAGS = [
   { id: 'react', label: 'React', color: '#61dafb' },
   { id: 'typescript', label: 'TypeScript', color: '#3178c6' },
-  { id: 'tailwind', label: 'Tailwind', color: '#38bdf8' },
-  { id: 'figma', label: 'Figma', color: '#f24e1e' },
+  { id: 'tailwind', label: 'UtilityCSS', color: '#38bdf8' },
+  { id: 'design', label: 'DesignTool', color: '#f24e1e' },
   { id: 'storybook', label: 'Storybook', color: '#ff4785' },
   { id: 'vite', label: 'Vite', color: '#bd34fe' },
 ]
@@ -989,7 +989,7 @@ const Material3FilterChipRender = () => {
       <div style={{ marginTop: 12, fontSize: 12, color: '#49454f', textAlign: 'right' }}>
         {active.size}개 선택됨
       </div>
-      <div style={{ marginTop: 4, fontSize: 11, color: '#79747e' }}>Material 3 Filter Chip 패턴 — BoxedCheckbox 조합</div>
+      <div style={{ marginTop: 4, fontSize: 11, color: '#79747e' }}>RoleToken Design Filter Chip 패턴 — BoxedCheckbox 조합</div>
     </div>
   )
 }
@@ -998,14 +998,14 @@ export const Material3_기술스택_필터_칩 = {
   parameters: {
     docs: {
       description: {
-        story: 'Google Material 3의 Filter Chip 패턴을 BoxedCheckbox로 구현. 기술 스택 색상 도트와 ON/OFF 배지로 선택 상태를 시각화합니다. M3 팔레트(#6750a4 primary, #fffbfe surface)를 적용합니다.',
+        story: 'RoleToken Design의 Filter Chip 패턴을 BoxedCheckbox로 구현. 기술 스택 색상 도트와 ON/OFF 배지로 선택 상태를 시각화합니다. M3 팔레트(#6750a4 primary, #fffbfe surface)를 적용합니다.',
       },
     },
   },
   render: () => <Material3FilterChipRender />,
 }
 
-const FIGMA_LAYERS = [
+const DESIGN_LAYERS = [
   { id: 'frame1', name: 'Card Component', type: 'frame', depth: 0 },
   { id: 'group1', name: 'Content Group', type: 'group', depth: 1 },
   { id: 'text1', name: 'Title Text', type: 'text', depth: 2 },
@@ -1014,7 +1014,7 @@ const FIGMA_LAYERS = [
   { id: 'icon1', name: 'Icon / Arrow', type: 'component', depth: 1 },
 ]
 
-const FIGMA_TYPE_ICON: Record<string, string> = {
+const DESIGN_TYPE_ICON: Record<string, string> = {
   frame: '▣',
   group: '◱',
   text: 'T',
@@ -1022,8 +1022,8 @@ const FIGMA_TYPE_ICON: Record<string, string> = {
   component: '◈',
 }
 
-const FigmaLayerVisibilityRender = () => {
-  const [visible, setVisible] = useState<Set<string>>(new Set(FIGMA_LAYERS.map(l => l.id)))
+const DesignToolLayerVisibilityRender = () => {
+  const [visible, setVisible] = useState<Set<string>>(new Set(DESIGN_LAYERS.map(l => l.id)))
 
   const toggle = (id: string) => {
     setVisible(prev => {
@@ -1038,10 +1038,10 @@ const FigmaLayerVisibilityRender = () => {
     <div style={{ width: 260, fontFamily: 'Inter, system-ui, sans-serif', background: '#2c2c2c', borderRadius: 8, overflow: 'hidden' }}>
       <div style={{ padding: '8px 12px', borderBottom: '1px solid #3d3d3d', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <span style={{ fontSize: 11, fontWeight: 600, color: '#999', letterSpacing: '0.08em', textTransform: 'uppercase' }}>Layers</span>
-        <span style={{ fontSize: 10, color: '#666' }}>{visible.size}/{FIGMA_LAYERS.length} visible</span>
+        <span style={{ fontSize: 10, color: '#666' }}>{visible.size}/{DESIGN_LAYERS.length} visible</span>
       </div>
       <div style={{ padding: '4px 0' }}>
-        {FIGMA_LAYERS.map((layer) => {
+        {DESIGN_LAYERS.map((layer) => {
           const isVisible = visible.has(layer.id)
           return (
             <div
@@ -1050,7 +1050,7 @@ const FigmaLayerVisibilityRender = () => {
               onClick={() => toggle(layer.id)}
             >
               <BoxedCheckbox checked={isVisible} onChange={() => toggle(layer.id)} />
-              <span style={{ fontSize: 11, color: '#a78bfa', minWidth: 14, textAlign: 'center' }}>{FIGMA_TYPE_ICON[layer.type]}</span>
+              <span style={{ fontSize: 11, color: '#a78bfa', minWidth: 14, textAlign: 'center' }}>{DESIGN_TYPE_ICON[layer.type]}</span>
               <span style={{ fontSize: 12, color: isVisible ? '#e5e5e5' : '#888', flex: 1 }}>{layer.name}</span>
               {!isVisible && <span style={{ fontSize: 9, color: '#555', fontStyle: 'italic' }}>hidden</span>}
             </div>
@@ -1058,24 +1058,24 @@ const FigmaLayerVisibilityRender = () => {
         })}
       </div>
       <div style={{ padding: '8px 12px', borderTop: '1px solid #3d3d3d', fontSize: 11, color: '#666', textAlign: 'center' }}>
-        Figma Layers Panel 패턴
+        DesignTool Layers Panel 패턴
       </div>
     </div>
   )
 }
 
-export const Figma_레이어_가시성_패널 = {
+export const DesignTool_레이어_가시성_패널 = {
   parameters: {
     docs: {
       description: {
-        story: 'Figma 레이어 패널의 가시성 토글 패턴. 다크 테마 UI에서 레이어별 BoxedCheckbox로 표시/숨김을 제어합니다. 중첩 depth에 따른 들여쓰기와 레이어 타입 아이콘을 포함합니다.',
+        story: 'DesignTool 레이어 패널의 가시성 토글 패턴. 다크 테마 UI에서 레이어별 BoxedCheckbox로 표시/숨김을 제어합니다. 중첩 depth에 따른 들여쓰기와 레이어 타입 아이콘을 포함합니다.',
       },
     },
   },
-  render: () => <FigmaLayerVisibilityRender />,
+  render: () => <DesignToolLayerVisibilityRender />,
 }
 
-const FIGMA_EXPORT_FORMATS = [
+const DESIGN_EXPORT_FORMATS = [
   { id: 'png1x', label: 'PNG 1x', desc: '일반 해상도', selected: true },
   { id: 'png2x', label: 'PNG 2x', desc: 'Retina 디스플레이', selected: true },
   { id: 'svg', label: 'SVG', desc: '벡터 포맷', selected: false },
@@ -1083,8 +1083,8 @@ const FIGMA_EXPORT_FORMATS = [
   { id: 'webp', label: 'WebP', desc: '웹 최적화', selected: false },
 ]
 
-const FigmaExportSettingsRender = () => {
-  const [formats, setFormats] = useState(FIGMA_EXPORT_FORMATS)
+const DesignToolExportSettingsRender = () => {
+  const [formats, setFormats] = useState(DESIGN_EXPORT_FORMATS)
   const [includeBackground, setIncludeBackground] = useState(false)
   const [trimWhitespace, setTrimWhitespace] = useState(true)
 
@@ -1137,18 +1137,18 @@ const FigmaExportSettingsRender = () => {
   )
 }
 
-export const Figma_내보내기_설정 = {
+export const DesignTool_내보내기_설정 = {
   parameters: {
     docs: {
       description: {
-        story: 'Figma 내보내기 패널 패턴. 다양한 이미지 포맷(PNG 1x/2x, SVG, PDF, WebP)을 BoxedCheckbox로 다중 선택하고, 배경 포함/여백 자르기 옵션을 추가로 설정합니다.',
+        story: 'DesignTool 내보내기 패널 패턴. 다양한 이미지 포맷(PNG 1x/2x, SVG, PDF, WebP)을 BoxedCheckbox로 다중 선택하고, 배경 포함/여백 자르기 옵션을 추가로 설정합니다.',
       },
     },
   },
-  render: () => <FigmaExportSettingsRender />,
+  render: () => <DesignToolExportSettingsRender />,
 }
 
-const FIGMA_PROPERTIES = [
+const DESIGN_PROPERTIES = [
   { id: 'auto_layout', label: 'Auto Layout', category: 'layout', active: true },
   { id: 'constraints', label: 'Constraints', category: 'layout', active: false },
   { id: 'fill', label: 'Fill', category: 'design', active: true },
@@ -1157,8 +1157,8 @@ const FIGMA_PROPERTIES = [
   { id: 'prototype', label: 'Prototype Links', category: 'prototype', active: false },
 ]
 
-const FigmaComponentPropertiesRender = () => {
-  const [props, setProps] = useState(FIGMA_PROPERTIES)
+const DesignToolComponentPropertiesRender = () => {
+  const [props, setProps] = useState(DESIGN_PROPERTIES)
   const [viewMode, setViewMode] = useState<'all' | 'active'>('all')
 
   const toggleProp = (id: string) => {
@@ -1208,32 +1208,32 @@ const FigmaComponentPropertiesRender = () => {
   )
 }
 
-export const Figma_컴포넌트_속성_설정 = {
+export const DesignTool_컴포넌트_속성_설정 = {
   parameters: {
     docs: {
       description: {
-        story: 'Figma 컴포넌트 속성 패널 패턴. Layout/Design/Prototype 카테고리별로 속성을 BoxedCheckbox로 활성화/비활성화하고, 전체/활성 뷰 전환을 지원합니다.',
+        story: 'DesignTool 컴포넌트 속성 패널 패턴. Layout/Design/Prototype 카테고리별로 속성을 BoxedCheckbox로 활성화/비활성화하고, 전체/활성 뷰 전환을 지원합니다.',
       },
     },
   },
-  render: () => <FigmaComponentPropertiesRender />,
+  render: () => <DesignToolComponentPropertiesRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Cycle 124 — Vercel Design + Radix UI 벤치마크
+   Cycle 124 — DeployPlatform Design + PrimitiveUI 벤치마크
 -------------------------------------------------------------------------- */
 
 /* --------------------------------------------------------------------------
-   Vercel: 배포 알림 채널 설정 패턴
-   Vercel Notifications 설정 화면 — 이벤트별 알림 채널 체크박스
+   DeployPlatform: 배포 알림 채널 설정 패턴
+   DeployPlatform Notifications 설정 화면 — 이벤트별 알림 채널 체크박스
 -------------------------------------------------------------------------- */
-export const Vercel_배포_알림_설정 = {
-  name: 'Vercel - 배포 알림 채널 설정 패턴',
+export const DeployPlatform_배포_알림_설정 = {
+  name: 'DeployPlatform - 배포 알림 채널 설정 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'Vercel Notifications 설정 화면 패턴. 배포/도메인/팀 이벤트별로 ' +
+          'DeployPlatform Notifications 설정 화면 패턴. 배포/도메인/팀 이벤트별로 ' +
           'Email/Slack/Webhook 채널을 BoxedCheckbox로 개별 설정하는 인터페이스입니다.',
       },
     },
@@ -1304,16 +1304,16 @@ export const Vercel_배포_알림_설정 = {
 }
 
 /* --------------------------------------------------------------------------
-   Radix: 폼 권한 그룹 체크박스 패턴
-   Radix CheckboxGroup 아이디어 — role=group + indeterminate 상태
+   Primitive: 폼 권한 그룹 체크박스 패턴
+   Primitive CheckboxGroup 아이디어 — role=group + indeterminate 상태
 -------------------------------------------------------------------------- */
-export const Radix_폼_권한_그룹_체크박스 = {
-  name: 'Radix UI - 폼 권한 그룹 체크박스 패턴',
+export const Primitive_폼_권한_그룹_체크박스 = {
+  name: 'PrimitiveUI - 폼 권한 그룹 체크박스 패턴',
   parameters: {
     docs: {
       description: {
         story:
-          'Radix UI CheckboxGroup 접근성 패턴. role="group" + aria-labelledby로 그룹화하고 ' +
+          'PrimitiveUI CheckboxGroup 접근성 패턴. role="group" + aria-labelledby로 그룹화하고 ' +
           '권한 카테고리별로 분리된 체크박스 그룹과 indeterminate(minus) 상태를 지원합니다.',
       },
     },
@@ -1403,16 +1403,16 @@ export const Radix_폼_권한_그룹_체크박스 = {
 }
 
 /* --------------------------------------------------------------------------
-   Vercel + Radix: CI/CD 파이프라인 단계 설정
+   DeployPlatform + Primitive: CI/CD 파이프라인 단계 설정
    두 시스템의 카드형 체크박스 + 그룹화 패턴 결합
 -------------------------------------------------------------------------- */
-export const Vercel_Radix_파이프라인_단계_설정 = {
-  name: 'Vercel + Radix UI - CI/CD 파이프라인 단계 설정',
+export const DeployPlatform_Primitive_파이프라인_단계_설정 = {
+  name: 'DeployPlatform + PrimitiveUI - CI/CD 파이프라인 단계 설정',
   parameters: {
     docs: {
       description: {
         story:
-          'Vercel Build Settings + Radix CheckboxGroup 패턴 결합. 빌드 파이프라인 각 단계를 ' +
+          'DeployPlatform Build Settings + Primitive CheckboxGroup 패턴 결합. 빌드 파이프라인 각 단계를 ' +
           'BoxedCheckbox 카드로 활성화/비활성화하고 의존 관계를 시각적으로 표현합니다.',
       },
     },
@@ -1425,7 +1425,7 @@ export const Vercel_Radix_파이프라인_단계_설정 = {
       { id: 'test', label: 'Unit Test', desc: 'Vitest 단위 테스트', deps: ['lint', 'type_check'], required: false },
       { id: 'build', label: 'Build', desc: 'Vite 프로덕션 빌드', deps: ['lint', 'type_check'], required: true },
       { id: 'e2e', label: 'E2E Test', desc: 'Playwright 통합 테스트', deps: ['build'], required: false },
-      { id: 'deploy', label: 'Deploy', desc: 'Vercel 프리뷰 배포', deps: ['build'], required: false },
+      { id: 'deploy', label: 'Deploy', desc: 'DeployPlatform 프리뷰 배포', deps: ['build'], required: false },
     ]
 
     const [enabled, setEnabled] = useState<Set<StepId>>(
@@ -1499,17 +1499,17 @@ export const Vercel_Radix_파이프라인_단계_설정 = {
 }
 
 /* --------------------------------------------------------------------------
-   Cycle 157 — shadcn/ui + Linear Design
-   shadcn/ui: 설정 항목 카드 선택 패턴 (Settings Card Selection)
+   Cycle 157 — ComposableUI + IssueTracker Design
+   ComposableUI: 설정 항목 카드 선택 패턴 (Settings Card Selection)
 -------------------------------------------------------------------------- */
-const SHADCN_SETTINGS = [
+const UTILITYUI_SETTINGS = [
   { id: 'analytics', label: '사용량 분석', desc: '앱 사용 데이터를 수집해 개선에 활용합니다', icon: '📊' },
   { id: 'crash', label: '충돌 보고', desc: '앱 충돌 시 자동으로 보고서를 전송합니다', icon: '🛡️' },
   { id: 'updates', label: '자동 업데이트', desc: '새 버전이 출시되면 자동으로 업데이트합니다', icon: '🔄' },
   { id: 'beta', label: '베타 기능', desc: '아직 개발 중인 실험적 기능을 사용합니다', icon: '🧪' },
 ]
 
-function ShadcnSettingsCardRender() {
+function ComposableUISettingsCardRender() {
   const [selected, setSelected] = useState<Set<string>>(new Set(['analytics', 'crash']))
 
   const toggle = (id: string) => {
@@ -1527,7 +1527,7 @@ function ShadcnSettingsCardRender() {
         <p style={{ fontSize: 12, color: '#64748b', margin: '3px 0 0' }}>활성화할 기능을 선택하세요</p>
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-        {SHADCN_SETTINGS.map(item => {
+        {UTILITYUI_SETTINGS.map(item => {
           const isOn = selected.has(item.id)
           return (
             <div
@@ -1560,9 +1560,9 @@ function ShadcnSettingsCardRender() {
         })}
       </div>
       <div style={{ marginTop: 14, padding: '9px 14px', borderRadius: 8, background: '#f8fafc', fontSize: 12, color: '#475569', display: 'flex', justifyContent: 'space-between' }}>
-        <span>{selected.size}/{SHADCN_SETTINGS.length}개 활성화</span>
+        <span>{selected.size}/{UTILITYUI_SETTINGS.length}개 활성화</span>
         <button
-          onClick={() => setSelected(new Set(SHADCN_SETTINGS.map(s => s.id)))}
+          onClick={() => setSelected(new Set(UTILITYUI_SETTINGS.map(s => s.id)))}
           style={{ background: 'none', border: 'none', fontSize: 11, color: '#6366f1', cursor: 'pointer', fontWeight: 600 }}
         >모두 선택</button>
       </div>
@@ -1570,22 +1570,22 @@ function ShadcnSettingsCardRender() {
   )
 }
 
-export const shadcn_설정_카드_선택: Story = {
-  name: 'shadcn/ui — 설정 항목 카드 선택 패턴',
+export const ComposableUI_설정_카드_선택: Story = {
+  name: 'ComposableUI — 설정 항목 카드 선택 패턴',
   parameters: {
     docs: {
       description: {
-        story: 'shadcn/ui의 Settings Card Selection 패턴. 아이콘+설명이 있는 카드형 체크박스로 앱 환경설정을 제공합니다.',
+        story: 'ComposableUI의 Settings Card Selection 패턴. 아이콘+설명이 있는 카드형 체크박스로 앱 환경설정을 제공합니다.',
       },
     },
   },
-  render: () => <ShadcnSettingsCardRender />,
+  render: () => <ComposableUISettingsCardRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Linear: 이슈 필터 체크박스 패턴 (Issue Filter Multi-Select)
+   IssueTracker: 이슈 필터 체크박스 패턴 (Issue Filter Multi-Select)
 -------------------------------------------------------------------------- */
-const LINEAR_STATUSES = [
+const TRACKER_STATUSES = [
   { id: 'backlog', label: '백로그', color: '#94a3b8', dot: '○' },
   { id: 'todo', label: '할 일', color: '#64748b', dot: '◐' },
   { id: 'progress', label: '진행 중', color: '#f59e0b', dot: '◑' },
@@ -1593,7 +1593,7 @@ const LINEAR_STATUSES = [
   { id: 'cancelled', label: '취소됨', color: '#ef4444', dot: '✕' },
 ]
 
-function LinearIssueFilterRender() {
+function IssueTrackerIssueFilterRender() {
   const [checked, setChecked] = useState<Set<string>>(new Set(['todo', 'progress']))
 
   const toggle = (id: string) => {
@@ -1610,7 +1610,7 @@ function LinearIssueFilterRender() {
         <p style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', letterSpacing: '0.07em', textTransform: 'uppercase', margin: 0 }}>상태별 필터</p>
       </div>
       <div style={{ padding: '8px 0' }}>
-        {LINEAR_STATUSES.map(s => {
+        {TRACKER_STATUSES.map(s => {
           const isOn = checked.has(s.id)
           return (
             <div
@@ -1628,39 +1628,39 @@ function LinearIssueFilterRender() {
       </div>
       <div style={{ padding: '8px 14px 0', borderTop: '1px solid #f1f5f9', display: 'flex', gap: 8 }}>
         <button onClick={() => setChecked(new Set())} style={{ flex: 1, padding: '6px', fontSize: 11, borderRadius: 6, border: '1px solid #e2e8f0', background: '#fff', color: '#64748b', cursor: 'pointer' }}>초기화</button>
-        <button onClick={() => setChecked(new Set(LINEAR_STATUSES.map(s => s.id)))} style={{ flex: 1, padding: '6px', fontSize: 11, borderRadius: 6, border: 'none', background: '#6366f1', color: '#fff', cursor: 'pointer', fontWeight: 600 }}>전체 선택</button>
+        <button onClick={() => setChecked(new Set(TRACKER_STATUSES.map(s => s.id)))} style={{ flex: 1, padding: '6px', fontSize: 11, borderRadius: 6, border: 'none', background: '#6366f1', color: '#fff', cursor: 'pointer', fontWeight: 600 }}>전체 선택</button>
       </div>
     </div>
   )
 }
 
-export const Linear_이슈_필터_멀티_선택: Story = {
-  name: 'Linear — 이슈 상태 필터 멀티 선택 패턴',
+export const IssueTracker_이슈_필터_멀티_선택: Story = {
+  name: 'IssueTracker — 이슈 상태 필터 멀티 선택 패턴',
   parameters: {
     docs: {
       description: {
-        story: 'Linear의 Issue Filter 패턴. 상태 컬러 닷과 함께 체크박스로 이슈 필터를 멀티 선택합니다.',
+        story: 'IssueTracker의 Issue Filter 패턴. 상태 컬러 닷과 함께 체크박스로 이슈 필터를 멀티 선택합니다.',
       },
     },
   },
-  render: () => <LinearIssueFilterRender />,
+  render: () => <IssueTrackerIssueFilterRender />,
 }
 
 /* --------------------------------------------------------------------------
-   shadcn/ui + Linear: 팀 역할 & 권한 복합 설정 패턴
+   ComposableUI + IssueTracker: 팀 역할 & 권한 복합 설정 패턴
 -------------------------------------------------------------------------- */
 const TEAM_FEATURES = [
-  { id: 'cycles', label: '사이클', desc: 'Linear 스프린트 기능', tier: 'Pro' },
+  { id: 'cycles', label: '사이클', desc: 'IssueTracker 스프린트 기능', tier: 'Pro' },
   { id: 'roadmap', label: '로드맵', desc: '장기 계획 타임라인', tier: 'Pro' },
   { id: 'insights', label: '인사이트', desc: '팀 생산성 리포트', tier: 'Business' },
   { id: 'sla', label: 'SLA 트래킹', desc: '응답/해결 시간 관리', tier: 'Business' },
-  { id: 'git', label: 'Git 연동', desc: 'GitHub/GitLab 자동 연결', tier: 'Free' },
+  { id: 'git', label: 'Git 연동', desc: 'CodeHost/GitLab 자동 연결', tier: 'Free' },
   { id: 'api', label: 'API 접근', desc: '외부 도구 연동용 API', tier: 'Pro' },
 ]
 
 const TIER_COLOR: Record<string, string> = { Free: '#22c55e', Pro: '#6366f1', Business: '#f59e0b' }
 
-function ShadcnLinearTeamFeatureRender() {
+function ComposableUIIssueTrackerTeamFeatureRender() {
   const [enabled, setEnabled] = useState<Set<string>>(new Set(['git']))
   const currentTier = 'Pro'
   const tierOrder = ['Free', 'Pro', 'Business']
@@ -1724,22 +1724,22 @@ function ShadcnLinearTeamFeatureRender() {
   )
 }
 
-export const shadcn_Linear_팀_기능_설정: Story = {
-  name: 'shadcn/ui + Linear — 팀 기능 플랜 설정 패턴',
+export const ComposableUI_IssueTracker_팀_기능_설정: Story = {
+  name: 'ComposableUI + IssueTracker — 팀 기능 플랜 설정 패턴',
   parameters: {
     docs: {
       description: {
-        story: 'shadcn/ui + Linear 복합 패턴. 플랜 티어별 접근 가능 여부를 시각화하며 BoxedCheckbox로 팀 기능을 ON/OFF합니다.',
+        story: 'ComposableUI + IssueTracker 복합 패턴. 플랜 티어별 접근 가능 여부를 시각화하며 BoxedCheckbox로 팀 기능을 ON/OFF합니다.',
       },
     },
   },
-  render: () => <ShadcnLinearTeamFeatureRender />,
+  render: () => <ComposableUIIssueTrackerTeamFeatureRender />,
 }
 
 /* --------------------------------------------------------------------------
-   shadcn/ui — 기능 플래그 토글 대시보드
+   ComposableUI — 기능 플래그 토글 대시보드
 -------------------------------------------------------------------------- */
-const SHADCN_FLAGS = [
+const UTILITYUI_FLAGS = [
   { id: 'dark-mode', label: '다크 모드', desc: '시스템 설정 또는 수동 전환 지원', tag: 'UI', stable: true },
   { id: 'ai-suggestions', label: 'AI 제안', desc: '코드 자동 완성 및 개선 제안', tag: 'AI', stable: false },
   { id: 'analytics', label: '사용 분석', desc: '컴포넌트 사용 통계 수집', tag: 'Data', stable: true },
@@ -1754,7 +1754,7 @@ const FLAG_TAG_COLOR: Record<string, { bg: string; color: string }> = {
   Beta: { bg: '#fdf4ff', color: '#7e22ce' },
 }
 
-function ShadcnFeatureFlagDashboardRender() {
+function ComposableUIFeatureFlagDashboardRender() {
   const [enabled, setEnabled] = useState<Set<string>>(new Set(['dark-mode', 'shortcuts']))
 
   const toggle = (id: string) => {
@@ -1770,10 +1770,10 @@ function ShadcnFeatureFlagDashboardRender() {
     <div style={{ width: 360, fontFamily: 'system-ui, sans-serif' }}>
       <div style={{ marginBottom: 16 }}>
         <div style={{ fontSize: 15, fontWeight: 700, color: '#0f172a' }}>기능 플래그</div>
-        <div style={{ fontSize: 12, color: '#64748b', marginTop: 2 }}>shadcn/ui 스타일 피처 플래그 토글 대시보드</div>
+        <div style={{ fontSize: 12, color: '#64748b', marginTop: 2 }}>ComposableUI 스타일 피처 플래그 토글 대시보드</div>
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-        {SHADCN_FLAGS.map(flag => {
+        {UTILITYUI_FLAGS.map(flag => {
           const isOn = enabled.has(flag.id)
           const tagStyle = FLAG_TAG_COLOR[flag.tag] ?? { bg: '#f1f5f9', color: '#475569' }
           return (
@@ -1815,20 +1815,20 @@ function ShadcnFeatureFlagDashboardRender() {
       </div>
       <div style={{ marginTop: 12, padding: '10px 14px', borderRadius: 8, background: '#f8fafc', border: '1px solid #e2e8f0', display: 'flex', justifyContent: 'space-between', fontSize: 11, color: '#64748b' }}>
         <span>{enabled.size}개 활성화</span>
-        <span>{SHADCN_FLAGS.length - enabled.size}개 비활성화</span>
+        <span>{UTILITYUI_FLAGS.length - enabled.size}개 비활성화</span>
       </div>
     </div>
   )
 }
 
-export const shadcn_기능_플래그_토글_대시보드: Story = {
-  name: 'shadcn/ui — 기능 플래그 토글 대시보드',
-  render: () => <ShadcnFeatureFlagDashboardRender />,
+export const ComposableUI_기능_플래그_토글_대시보드: Story = {
+  name: 'ComposableUI — 기능 플래그 토글 대시보드',
+  render: () => <ComposableUIFeatureFlagDashboardRender />,
   parameters: {
     docs: {
       description: {
         story:
-          'shadcn/ui 스타일 피처 플래그 패턴. BoxedCheckbox와 인라인 토글을 결합해 기능 ON/OFF를 명확하게 표현합니다. ' +
+          'ComposableUI 스타일 피처 플래그 패턴. BoxedCheckbox와 인라인 토글을 결합해 기능 ON/OFF를 명확하게 표현합니다. ' +
           '태그 분류, 실험적 기능 표시, 활성화 카운트 요약을 포함합니다.',
       },
     },
@@ -1836,9 +1836,9 @@ export const shadcn_기능_플래그_토글_대시보드: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Linear Design — 이슈 속성 선택 그리드
+   IssueTracker Design — 이슈 속성 선택 그리드
 -------------------------------------------------------------------------- */
-const LINEAR_LABELS = [
+const TRACKER_LABELS = [
   { id: 'bug', label: 'Bug', color: '#ef4444' },
   { id: 'feature', label: 'Feature', color: '#6366f1' },
   { id: 'improvement', label: 'Improvement', color: '#10b981' },
@@ -1847,7 +1847,7 @@ const LINEAR_LABELS = [
   { id: 'infra', label: 'Infra', color: '#0ea5e9' },
 ]
 
-function LinearIssueLabelGridRender() {
+function IssueTrackerIssueLabelGridRender() {
   const [selected, setSelected] = useState<Set<string>>(new Set(['bug']))
 
   const toggle = (id: string) => {
@@ -1866,7 +1866,7 @@ function LinearIssueLabelGridRender() {
         <span style={{ fontSize: 11, color: '#64748b' }}>{selected.size}개 선택됨</span>
       </div>
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 6 }}>
-        {LINEAR_LABELS.map(lbl => {
+        {TRACKER_LABELS.map(lbl => {
           const isOn = selected.has(lbl.id)
           return (
             <div
@@ -1898,7 +1898,7 @@ function LinearIssueLabelGridRender() {
       {selected.size > 0 && (
         <div style={{ marginTop: 10, display: 'flex', gap: 5, flexWrap: 'wrap' }}>
           {Array.from(selected).map(id => {
-            const lbl = LINEAR_LABELS.find(l => l.id === id)
+            const lbl = TRACKER_LABELS.find(l => l.id === id)
             if (!lbl) return null
             return (
               <span key={id} style={{ fontSize: 10, padding: '2px 8px', borderRadius: 10, background: lbl.color + '15', color: lbl.color, fontWeight: 600, border: `1px solid ${lbl.color}30` }}>
@@ -1912,22 +1912,22 @@ function LinearIssueLabelGridRender() {
   )
 }
 
-export const Linear_이슈_라벨_선택_그리드: Story = {
-  name: 'Linear Design — 이슈 라벨 멀티 선택 그리드',
-  render: () => <LinearIssueLabelGridRender />,
+export const IssueTracker_이슈_라벨_선택_그리드: Story = {
+  name: 'IssueTracker Design — 이슈 라벨 멀티 선택 그리드',
+  render: () => <IssueTrackerIssueLabelGridRender />,
   parameters: {
     docs: {
       description: {
         story:
-          'Linear 이슈 라벨 선택 패턴. BoxedCheckbox를 2열 그리드로 배치하고 각 라벨 색상을 활성화 피드백에 반영합니다. ' +
-          'Linear의 컴팩트하고 색상 코드화된 라벨 UI를 재현합니다.',
+          'IssueTracker 이슈 라벨 선택 패턴. BoxedCheckbox를 2열 그리드로 배치하고 각 라벨 색상을 활성화 피드백에 반영합니다. ' +
+          'IssueTracker의 컴팩트하고 색상 코드화된 라벨 UI를 재현합니다.',
       },
     },
   },
 }
 
 /* --------------------------------------------------------------------------
-   shadcn + Linear — 권한 관리 역할 매트릭스
+   ComposableUI + IssueTracker — 권한 관리 역할 매트릭스
 -------------------------------------------------------------------------- */
 const PERM_ROLES = ['뷰어', '편집자', '관리자']
 const PERM_LIST = [
@@ -1938,7 +1938,7 @@ const PERM_LIST = [
   { id: 'billing', label: '결제', desc: '구독 및 결제 관리', defaults: [false, false, true] },
 ]
 
-function ShadcnLinearPermissionMatrixRender() {
+function ComposableUIIssueTrackerPermissionMatrixRender() {
   const [matrix, setMatrix] = useState<Record<string, boolean[]>>(
     Object.fromEntries(PERM_LIST.map(p => [p.id, [...p.defaults]]))
   )
@@ -1994,14 +1994,14 @@ function ShadcnLinearPermissionMatrixRender() {
   )
 }
 
-export const shadcn_Linear_권한_관리_역할_매트릭스: Story = {
-  name: 'shadcn/ui + Linear — 권한 관리 역할 매트릭스',
-  render: () => <ShadcnLinearPermissionMatrixRender />,
+export const ComposableUI_IssueTracker_권한_관리_역할_매트릭스: Story = {
+  name: 'ComposableUI + IssueTracker — 권한 관리 역할 매트릭스',
+  render: () => <ComposableUIIssueTrackerPermissionMatrixRender />,
   parameters: {
     docs: {
       description: {
         story:
-          'shadcn/ui + Linear 복합 패턴. BoxedCheckbox를 테이블 셀에 배치해 역할(뷰어/편집자/관리자) × 권한(읽기/쓰기/삭제 등) 매트릭스를 구현합니다.',
+          'ComposableUI + IssueTracker 복합 패턴. BoxedCheckbox를 테이블 셀에 배치해 역할(뷰어/편집자/관리자) × 권한(읽기/쓰기/삭제 등) 매트릭스를 구현합니다.',
       },
     },
   },

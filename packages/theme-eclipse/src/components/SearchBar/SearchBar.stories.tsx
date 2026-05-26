@@ -152,13 +152,13 @@ export const 디자인QA = {
     placeholder: '검색어를 입력하세요',
     onChange: fn(),
   },
-   
+
   render: ({ ...args }: any) => <SearchBar {...args} />,
 }
 
 // ─── Ant Design 자동완성 드롭다운 패턴 ───────────────────────────────────────
 // Ant Design Select / AutoComplete 컴포넌트의 dropdown 제안 패턴을 참고했습니다.
-const SUGGESTIONS = ['React', 'TypeScript', 'Tailwind CSS', 'Storybook', 'Vite', 'Vitest', 'Orbit UI']
+const SUGGESTIONS = ['React', 'TypeScript', 'UtilityCSS CSS', 'Storybook', 'Vite', 'Vitest', 'Orbit UI']
 
 const AutocompleteDemoRender = () => {
   const [query, setQuery] = useState('')
@@ -283,8 +283,8 @@ export const 필터칩_검색_조합: Story = {
   render: () => <FilterChipSearchRender />,
 }
 
-// ─── Chakra UI 실시간 사용자 검색 패턴 ────────────────────────────────────────
-// Chakra UI InputGroup + InputLeftElement 패턴 — 아바타와 함께 표시되는 유저 검색
+// ─── AccessibleUI 실시간 사용자 검색 패턴 ────────────────────────────────────────
+// AccessibleUI InputGroup + InputLeftElement 패턴 — 아바타와 함께 표시되는 유저 검색
 
 const MOCK_USERS = [
   { id: 'u1', name: '김지수', role: '프론트엔드 개발자', avatar: 'KJ', color: '#6366f1' },
@@ -295,7 +295,7 @@ const MOCK_USERS = [
   { id: 'u6', name: '한승호', role: '데이터 분석가', avatar: 'HS', color: '#ec4899' },
 ]
 
-function ChakraUserSearchRender() {
+function AccessibleUserSearchRender() {
   const [query, setQuery] = useState('')
   const [selected, setSelected] = useState<(typeof MOCK_USERS)[0] | null>(null)
   const [open, setOpen] = useState(false)
@@ -436,12 +436,12 @@ function ChakraUserSearchRender() {
   )
 }
 
-export const Chakra_실시간_사용자_검색: Story = {
-  name: 'Chakra 실시간 사용자 검색 (아바타 드롭다운)',
-  render: () => <ChakraUserSearchRender />,
+export const Accessible_실시간_사용자_검색: Story = {
+  name: 'Accessible 실시간 사용자 검색 (아바타 드롭다운)',
+  render: () => <AccessibleUserSearchRender />,
 }
 
-// ─── Google Material 3 스코프 전환 검색 패턴 ─────────────────────────────────
+// ─── RoleToken Design 스코프 전환 검색 패턴 ─────────────────────────────────
 // M3 Search 컴포넌트의 scope chip 패턴 — 탭으로 검색 범위를 전환하는 UI
 
 type M3SearchScope = 'all' | 'docs' | 'issues' | 'code'
@@ -559,16 +559,16 @@ function Material3ScopeSearchRender() {
 }
 
 export const Material3_스코프_전환_검색: Story = {
-  name: 'Material 3 스코프 전환 검색 (Scope Chip 패턴)',
+  name: 'RoleToken Design 스코프 전환 검색 (Scope Chip 패턴)',
   render: () => <Material3ScopeSearchRender />,
 }
 
-// ─── Chakra UI 최근 검색 히스토리 패턴 ───────────────────────────────────────
-// Chakra UI Combobox + history 패턴 — 최근 검색어 표시 및 삭제
+// ─── AccessibleUI 최근 검색 히스토리 패턴 ───────────────────────────────────────
+// AccessibleUI Combobox + history 패턴 — 최근 검색어 표시 및 삭제
 
-const DEFAULT_HISTORY = ['디자인 시스템', 'Storybook 배포', 'Radix UI', 'Figma 토큰']
+const DEFAULT_HISTORY = ['디자인 시스템', 'Storybook 배포', 'PrimitiveUI', 'DesignTool 토큰']
 
-function ChakraSearchHistoryRender() {
+function AccessibleSearchHistoryRender() {
   const [query, setQuery] = useState('')
   const [history, setHistory] = useState<string[]>(DEFAULT_HISTORY)
   const [open, setOpen] = useState(false)
@@ -717,14 +717,14 @@ function ChakraSearchHistoryRender() {
   )
 }
 
-export const Chakra_최근_검색_히스토리: Story = {
-  name: 'Chakra 최근 검색 히스토리 (History Combobox 패턴)',
-  render: () => <ChakraSearchHistoryRender />,
+export const Accessible_최근_검색_히스토리: Story = {
+  name: 'Accessible 최근 검색 히스토리 (History Combobox 패턴)',
+  render: () => <AccessibleSearchHistoryRender />,
 }
 
-// --- Cycle 74: Arco Design + Linear 벤치마크 ---
+// --- Cycle 74: DataProductUI + IssueTracker 벤치마크 ---
 
-const ArcoGlobalSearchRender = () => {
+const DataProductGlobalSearchRender = () => {
   const [query, setQuery] = useState('')
   const [activeTab, setActiveTab] = useState<'all' | 'docs' | 'issues' | 'members'>('all')
   const [searching, setSearching] = useState(false)
@@ -825,26 +825,26 @@ const ArcoGlobalSearchRender = () => {
         </div>
       )}
       <p style={{ marginTop: 10, fontSize: 11, color: '#94a3b8' }}>
-        Arco Design — 탭 분류 + 카운트 배지 전역 검색 패턴
+        DataProductUI — 탭 분류 + 카운트 배지 전역 검색 패턴
       </p>
     </div>
   )
 }
 
-export const Arco_탭_분류_전역_검색: Story = {
-  name: 'Arco Design - 탭 분류 전역 검색 (카운트 배지)',
+export const DataProduct_탭_분류_전역_검색: Story = {
+  name: 'DataProductUI - 탭 분류 전역 검색 (카운트 배지)',
   parameters: {
     docs: {
       description: {
         story:
-          'Arco Design GlobalSearch 벤치마크. 탭으로 결과 카테고리 분류(전체/문서/이슈/멤버), 탭별 카운트 배지, 로딩 상태, 빈 결과 처리 포함.',
+          'DataProductUI GlobalSearch 벤치마크. 탭으로 결과 카테고리 분류(전체/문서/이슈/멤버), 탭별 카운트 배지, 로딩 상태, 빈 결과 처리 포함.',
       },
     },
   },
-  render: () => <ArcoGlobalSearchRender />,
+  render: () => <DataProductGlobalSearchRender />,
 }
 
-const LinearIssueSearchRender = () => {
+const IssueTrackerIssueSearchRender = () => {
   const [query, setQuery] = useState('')
   const [selected, setSelected] = useState<string | null>(null)
 
@@ -935,26 +935,26 @@ const LinearIssueSearchRender = () => {
         </div>
       )}
       <p style={{ marginTop: 8, fontSize: 11, color: '#94a3b8' }}>
-        Linear — 이슈 인라인 검색 (상태 dot + 우선순위 배지 + 담당자 아바타)
+        IssueTracker — 이슈 인라인 검색 (상태 dot + 우선순위 배지 + 담당자 아바타)
       </p>
     </div>
   )
 }
 
-export const Linear_이슈_인라인_검색: Story = {
-  name: 'Linear - 이슈 인라인 검색 (상태 + 우선순위)',
+export const IssueTracker_이슈_인라인_검색: Story = {
+  name: 'IssueTracker - 이슈 인라인 검색 (상태 + 우선순위)',
   parameters: {
     docs: {
       description: {
         story:
-          'Linear 이슈 검색 패턴 벤치마크. ID/제목 인라인 필터, 상태 dot 인디케이터, 우선순위 배지(긴급/높음/보통/낮음), 담당자 아바타 조합.',
+          'IssueTracker 이슈 검색 패턴 벤치마크. ID/제목 인라인 필터, 상태 dot 인디케이터, 우선순위 배지(긴급/높음/보통/낮음), 담당자 아바타 조합.',
       },
     },
   },
-  render: () => <LinearIssueSearchRender />,
+  render: () => <IssueTrackerIssueSearchRender />,
 }
 
-const ArcoLinearCommandSearchRender = () => {
+const DataProductIssueTrackerCommandSearchRender = () => {
   const [query, setQuery] = useState('')
   const [recentSearches, setRecentSearches] = useState(['컴포넌트 가이드', 'Button API', '다크모드'])
   const [pinned] = useState(['대시보드', '릴리즈 노트'])
@@ -1041,31 +1041,31 @@ const ArcoLinearCommandSearchRender = () => {
         </div>
       </div>
       <p style={{ marginTop: 8, fontSize: 11, color: '#94a3b8' }}>
-        Arco + Linear — 고정 북마크 + 최근 검색 히스토리 복합 패턴
+        DataProduct + IssueTracker — 고정 북마크 + 최근 검색 히스토리 복합 패턴
       </p>
     </div>
   )
 }
 
-export const Arco_Linear_고정_북마크_검색: Story = {
-  name: 'Arco + Linear - 고정 북마크 + 최근 검색 복합',
+export const DataProduct_IssueTracker_고정_북마크_검색: Story = {
+  name: 'DataProduct + IssueTracker - 고정 북마크 + 최근 검색 복합',
   parameters: {
     docs: {
       description: {
         story:
-          'Arco Design Search + Linear 고정 항목 패턴 조합. 고정(핀) 북마크 섹션, 최근 검색 히스토리, 실시간 자동완성 제안, 클릭 시 히스토리 자동 추가.',
+          'DataProductUI Search + IssueTracker 고정 항목 패턴 조합. 고정(핀) 북마크 섹션, 최근 검색 히스토리, 실시간 자동완성 제안, 클릭 시 히스토리 자동 추가.',
       },
     },
   },
-  render: () => <ArcoLinearCommandSearchRender />,
+  render: () => <DataProductIssueTrackerCommandSearchRender />,
 }
 
 /* --------------------------------------------------------------------------
-   shadcn/ui 벤치마크: 전역 커맨드 검색 (Command Palette 스타일)
-   shadcn/ui Command 컴포넌트의 핵심 UX — 섹션 구분(최근/제안/페이지)과
+   ComposableUI 벤치마크: 전역 커맨드 검색 (Command Palette 스타일)
+   ComposableUI Command 컴포넌트의 핵심 UX — 섹션 구분(최근/제안/페이지)과
    키보드 탐색 힌트를 포함한 전역 검색 패턴.
 -------------------------------------------------------------------------- */
-const SHADCN_RESULTS = {
+const UTILITYUI_RESULTS = {
   recent: [
     { id: 'r1', label: 'DataTable 기본', path: '/eclipse/data-display/datatable/기본', icon: '🕐' },
     { id: 'r2', label: 'Button 색상 변형', path: '/eclipse/inputs/button/색상', icon: '🕐' },
@@ -1084,15 +1084,15 @@ const SHADCN_RESULTS = {
   ],
 }
 
-const ShadcnCommandSearchRender = () => {
+const ComposableUICommandSearchRender = () => {
   const [query, setQuery] = useState('')
   const [selected, setSelected] = useState<string | null>(null)
 
-  const filterItems = (items: typeof SHADCN_RESULTS.components) =>
+  const filterItems = (items: typeof UTILITYUI_RESULTS.components) =>
     query ? items.filter((i) => i.label.toLowerCase().includes(query.toLowerCase())) : items
 
-  const filteredPages = filterItems(SHADCN_RESULTS.pages)
-  const filteredComponents = filterItems(SHADCN_RESULTS.components)
+  const filteredPages = filterItems(UTILITYUI_RESULTS.pages)
+  const filteredComponents = filterItems(UTILITYUI_RESULTS.components)
   const hasResults = filteredPages.length > 0 || filteredComponents.length > 0
 
   return (
@@ -1122,7 +1122,7 @@ const ShadcnCommandSearchRender = () => {
               <div style={{ padding: '8px 14px 4px', fontSize: 10, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
                 최근 방문
               </div>
-              {SHADCN_RESULTS.recent.map((item) => (
+              {UTILITYUI_RESULTS.recent.map((item) => (
                 <button
                   key={item.id}
                   onClick={() => setSelected(item.path)}
@@ -1206,28 +1206,28 @@ const ShadcnCommandSearchRender = () => {
         </div>
       </div>
       <div style={{ marginTop: 10, fontSize: 11, color: '#94a3b8' }}>
-        shadcn/ui Command 패턴 — 섹션 구분 + 키보드 힌트 + 최근 방문
+        ComposableUI Command 패턴 — 섹션 구분 + 키보드 힌트 + 최근 방문
       </div>
     </div>
   )
 }
 
-export const shadcn_커맨드_팔레트_검색: Story = {
-  name: 'shadcn/ui - 전역 커맨드 팔레트 검색',
+export const ComposableUI_커맨드_팔레트_검색: Story = {
+  name: 'ComposableUI - 전역 커맨드 팔레트 검색',
   parameters: {
     docs: {
       description: {
         story:
-          'shadcn/ui Command 컴포넌트 패턴. 최근 방문 섹션(쿼리 없을 때), 검색 시 문서/컴포넌트로 섹션 구분, 하단 키보드 단축키 힌트 포함.',
+          'ComposableUI Command 컴포넌트 패턴. 최근 방문 섹션(쿼리 없을 때), 검색 시 문서/컴포넌트로 섹션 구분, 하단 키보드 단축키 힌트 포함.',
       },
     },
   },
-  render: () => <ShadcnCommandSearchRender />,
+  render: () => <ComposableUICommandSearchRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Arco Design 벤치마크: 고급 필터 결합 검색
-   Arco Design Search 패턴 — 타입/상태/날짜 범주 칩 필터와 텍스트 검색을
+   DataProductUI 벤치마크: 고급 필터 결합 검색
+   DataProductUI Search 패턴 — 타입/상태/날짜 범주 칩 필터와 텍스트 검색을
    결합해 대용량 데이터를 효율적으로 필터링하는 엔터프라이즈 패턴.
 -------------------------------------------------------------------------- */
 const ARCO_ITEMS = [
@@ -1253,7 +1253,7 @@ const ARCO_STATUS_CFG = {
   done:        { label: '완료', color: '#10b981' },
 } as const
 
-const ArcoAdvancedFilterRender = () => {
+const DataProductAdvancedFilterRender = () => {
   const [query, setQuery] = useState('')
   const [typeFilter, setTypeFilter] = useState<string | null>(null)
   const [statusFilter, setStatusFilter] = useState<string | null>(null)
@@ -1360,28 +1360,28 @@ const ArcoAdvancedFilterRender = () => {
         )}
       </div>
       <div style={{ marginTop: 10, fontSize: 11, color: '#94a3b8' }}>
-        Arco Design 고급 검색 패턴 — 텍스트 + 타입/상태 칩 필터 결합
+        DataProductUI 고급 검색 패턴 — 텍스트 + 타입/상태 칩 필터 결합
       </div>
     </div>
   )
 }
 
-export const Arco_고급_필터_결합_검색: Story = {
-  name: 'Arco Design - 고급 필터 결합 검색',
+export const DataProduct_고급_필터_결합_검색: Story = {
+  name: 'DataProductUI - 고급 필터 결합 검색',
   parameters: {
     docs: {
       description: {
         story:
-          'Arco Design 엔터프라이즈 검색 패턴. 텍스트 검색 + 타입 필터(Task/Bug/Docs/Feat) + 상태 필터(오픈/진행중/리뷰/완료)를 결합. 각 필터는 토글로 작동하고 결과 수를 실시간 표시합니다.',
+          'DataProductUI 엔터프라이즈 검색 패턴. 텍스트 검색 + 타입 필터(Task/Bug/Docs/Feat) + 상태 필터(오픈/진행중/리뷰/완료)를 결합. 각 필터는 토글로 작동하고 결과 수를 실시간 표시합니다.',
       },
     },
   },
-  render: () => <ArcoAdvancedFilterRender />,
+  render: () => <DataProductAdvancedFilterRender />,
 }
 
 /* --------------------------------------------------------------------------
-   shadcn/ui + Arco Design 벤치마크: 퍼지 하이라이트 검색
-   shadcn/ui의 highlight 매칭 + Arco의 스코어링 패턴 — 검색어 문자를
+   ComposableUI + DataProductUI 벤치마크: 퍼지 하이라이트 검색
+   ComposableUI의 highlight 매칭 + DataProduct의 스코어링 패턴 — 검색어 문자를
    개별적으로 강조 표시하는 고급 UX 패턴.
 -------------------------------------------------------------------------- */
 const FUZZY_ITEMS = [
@@ -1418,7 +1418,7 @@ function highlightMatch(text: string, query: string): React.ReactNode {
   return <>{parts}</>
 }
 
-const ShadcnArcoFuzzySearchRender = () => {
+const ComposableUIDataProductFuzzySearchRender = () => {
   const [query, setQuery] = useState('dt')
 
   const scored = FUZZY_ITEMS
@@ -1485,47 +1485,47 @@ const ShadcnArcoFuzzySearchRender = () => {
         )}
       </div>
       <div style={{ marginTop: 10, fontSize: 11, color: '#94a3b8' }}>
-        shadcn/ui + Arco 퍼지 매칭 패턴 — 문자 순서 매칭 + 노란 하이라이트
+        ComposableUI + DataProduct 퍼지 매칭 패턴 — 문자 순서 매칭 + 노란 하이라이트
       </div>
     </div>
   )
 }
 
-export const shadcn_Arco_퍼지_하이라이트_검색: Story = {
-  name: 'shadcn/ui + Arco - 퍼지 하이라이트 검색',
+export const ComposableUI_DataProduct_퍼지_하이라이트_검색: Story = {
+  name: 'ComposableUI + DataProduct - 퍼지 하이라이트 검색',
   parameters: {
     docs: {
       description: {
         story:
-          'shadcn/ui 문자 하이라이트 + Arco 스코어링 패턴. 검색어 문자를 순서대로 매칭해 각 글자를 개별 강조 표시. 점수가 높은 순서로 정렬됩니다. "dt" 입력 시 DataTable, DrawerPanel 등을 찾습니다.',
+          'ComposableUI 문자 하이라이트 + DataProduct 스코어링 패턴. 검색어 문자를 순서대로 매칭해 각 글자를 개별 강조 표시. 점수가 높은 순서로 정렬됩니다. "dt" 입력 시 DataTable, DrawerPanel 등을 찾습니다.',
       },
     },
   },
-  render: () => <ShadcnArcoFuzzySearchRender />,
+  render: () => <ComposableUIDataProductFuzzySearchRender />,
 }
 
 // ============================================================
-// Cycle 139 — shadcn/ui + Notion Design 벤치마크 반영
+// Cycle 139 — ComposableUI + WorkspaceEditor Design 벤치마크 반영
 // ============================================================
 
-// shadcn/ui 스타일 — 문서 내 검색 (find in page 패턴)
-export const Shadcn_문서_내_검색: Story = {
-  name: 'shadcn/ui — 문서 내 검색 (Cycle 139)',
+// ComposableUI 스타일 — 문서 내 검색 (find in page 패턴)
+export const ComposableUI_문서_내_검색: Story = {
+  name: 'ComposableUI — 문서 내 검색 (Cycle 139)',
   parameters: {
     docs: {
       description: {
         story:
-          'shadcn/ui Find in Page 패턴. 검색어 입력 시 문서 내 매칭 위치를 강조 표시. ' +
+          'ComposableUI Find in Page 패턴. 검색어 입력 시 문서 내 매칭 위치를 강조 표시. ' +
           '이전/다음 버튼으로 매칭 간 이동 + 현재 위치 카운터 표시. 대소문자 무시.',
       },
     },
   },
-  render: function ShadcnFindInPageRender() {
+  render: function ComposableUIFindInPageRender() {
     const CONTENT_139 = [
       '컴포넌트 기반 개발 — Orbit UI는 재사용 가능한 컴포넌트를 중심으로 설계됩니다.',
       '3-tier 토큰 시스템으로 Reference Token, Semantic Token, Component Token을 계층화합니다.',
       '각 컴포넌트는 Storybook으로 문서화되며 TypeScript 타입이 완전히 지원됩니다.',
-      'Tailwind + CSS 변수 기반 테마 시스템으로 빌드 타임에 안전한 토큰 추론를 제공합니다.',
+      'UtilityCSS + CSS 변수 기반 테마 시스템으로 빌드 타임에 안전한 토큰 추론를 제공합니다.',
       '컴포넌트 API는 Compound Component 패턴으로 유연한 조합을 지원합니다.',
     ]
 
@@ -1605,8 +1605,8 @@ export const Shadcn_문서_내_검색: Story = {
   },
 }
 
-// Notion 스타일 — 블록 타입 필터 검색
-const NOTION_BLOCKS_139 = [
+// WorkspaceEditor 스타일 — 블록 타입 필터 검색
+const WORKSPACE_BLOCKS_139 = [
   { type: 'text', label: '텍스트', desc: '일반 텍스트 블록', icon: 'T' },
   { type: 'heading1', label: '제목 1', desc: '큰 섹션 헤딩', icon: 'H1' },
   { type: 'heading2', label: '제목 2', desc: '중간 섹션 헤딩', icon: 'H2' },
@@ -1621,24 +1621,24 @@ const NOTION_BLOCKS_139 = [
   { type: 'image', label: '이미지', desc: '이미지 업로드 또는 URL', icon: '▣' },
 ]
 
-export const Notion_블록_타입_검색: Story = {
-  name: 'Notion — 블록 타입 필터 검색 (Cycle 139)',
+export const WorkspaceEditor_블록_타입_검색: Story = {
+  name: 'WorkspaceEditor — 블록 타입 필터 검색 (Cycle 139)',
   parameters: {
     docs: {
       description: {
         story:
-          'Notion Block Selector 패턴. 블록 타입(텍스트/제목/목록/코드/표/이미지 등) 검색 필터링. ' +
+          'WorkspaceEditor Block Selector 패턴. 블록 타입(텍스트/제목/목록/코드/표/이미지 등) 검색 필터링. ' +
           '아이콘 + 이름 + 설명 3줄 구조. 검색어 매칭 하이라이트. 키보드 Enter로 선택.',
       },
     },
   },
-  render: function NotionBlockSearchRender() {
+  render: function WorkspaceEditorBlockSearchRender() {
     const [query, setQuery] = useState('')
     const [selected, setSelected] = useState<string | null>(null)
 
     const filtered = query
-      ? NOTION_BLOCKS_139.filter((b) => b.label.includes(query) || b.desc.includes(query) || b.type.includes(query))
-      : NOTION_BLOCKS_139
+      ? WORKSPACE_BLOCKS_139.filter((b) => b.label.includes(query) || b.desc.includes(query) || b.type.includes(query))
+      : WORKSPACE_BLOCKS_139
 
     return (
       <div style={{ width: 320, fontFamily: 'system-ui, sans-serif' }}>
@@ -1673,7 +1673,7 @@ export const Notion_블록_타입_검색: Story = {
         </div>
         {selected && (
           <div style={{ marginTop: 8, padding: '8px 12px', borderRadius: 8, background: '#f0f9ff', border: '1px solid #bae6fd', fontSize: 12, color: '#0369a1' }}>
-            선택됨: <strong>{NOTION_BLOCKS_139.find((b) => b.type === selected)?.label}</strong>
+            선택됨: <strong>{WORKSPACE_BLOCKS_139.find((b) => b.type === selected)?.label}</strong>
           </div>
         )}
       </div>
@@ -1681,7 +1681,7 @@ export const Notion_블록_타입_검색: Story = {
   },
 }
 
-// shadcn/ui + Notion — 전역 검색 + 최근 항목 + 퀵 액션
+// ComposableUI + WorkspaceEditor — 전역 검색 + 최근 항목 + 퀵 액션
 const GLOBAL_SEARCH_RECENT_139 = [
   { id: 'r1', title: 'Toggle 스토리 추가', type: '최근', icon: '◈', time: '방금 전' },
   { id: 'r2', title: 'BenchmarkComparison.mdx', type: '최근', icon: '◉', time: '5분 전' },
@@ -1701,18 +1701,18 @@ const GLOBAL_DOCS_139 = [
   { id: 'd4', title: 'Carousel setApi 패턴', path: 'eclipse/Data Display/Carousel', type: '컴포넌트' },
 ]
 
-export const Shadcn_Notion_전역_검색: Story = {
-  name: 'shadcn/ui + Notion — 전역 검색 + 퀵 액션 (Cycle 139)',
+export const ComposableUI_WorkspaceEditor_전역_검색: Story = {
+  name: 'ComposableUI + WorkspaceEditor — 전역 검색 + 퀵 액션 (Cycle 139)',
   parameters: {
     docs: {
       description: {
         story:
-          'shadcn/ui + Notion 전역 검색 패턴. 최근 항목 / 컴포넌트 문서 / 퀵 액션 3개 섹션. ' +
+          'ComposableUI + WorkspaceEditor 전역 검색 패턴. 최근 항목 / 컴포넌트 문서 / 퀵 액션 3개 섹션. ' +
           '검색어 없으면 최근 항목 + 퀵 액션 표시, 입력 시 실시간 문서 필터링.',
       },
     },
   },
-  render: function ShadcnNotionGlobalSearchRender() {
+  render: function ComposableUIWorkspaceEditorGlobalSearchRender() {
     const [query, setQuery] = useState('')
 
     const filteredDocs = query
@@ -1781,8 +1781,8 @@ export const Shadcn_Notion_전역_검색: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   Cycle 164 — Google Material 3 + shadcn/ui
-   Material 3: 검색 바 + 칩 필터 패턴 (Search with Suggestion Chips)
+   Cycle 164 — RoleToken Design + ComposableUI
+   RoleToken Design: 검색 바 + 칩 필터 패턴 (Search with Suggestion Chips)
 -------------------------------------------------------------------------- */
 const M3_SUGGESTIONS = ['Button', 'TextField', 'Modal', 'DataTable', 'Toggle', 'Slider', 'Progress', 'Toast']
 const M3_CATEGORIES = ['전체', '입력', '피드백', '내비게이션', '표시']
@@ -1818,7 +1818,7 @@ function M3SearchWithChipsRender() {
 
   return (
     <div style={{ width: 400, fontFamily: 'system-ui, sans-serif' }}>
-      <p style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 10 }}>Material 3 — 검색 + 제안 칩 패턴</p>
+      <p style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 10 }}>RoleToken Design — 검색 + 제안 칩 패턴</p>
       <div style={{ borderRadius: 14, border: '1px solid #e5e7eb', overflow: 'hidden', background: '#fff', boxShadow: '0 2px 12px rgba(0,0,0,0.05)' }}>
         <div style={{ padding: '8px 12px' }}>
           <SearchBar
@@ -1869,11 +1869,11 @@ function M3SearchWithChipsRender() {
 }
 
 export const Material3_검색_칩_필터_패턴: Story = {
-  name: 'Google Material 3 — 검색 + 제안/필터 칩 패턴',
+  name: 'RoleToken Design — 검색 + 제안/필터 칩 패턴',
   parameters: {
     docs: {
       description: {
-        story: 'Material 3 Search + Suggestion Chip + Filter Chip 패턴. 검색어 입력 전 제안 칩 표시, 카테고리 필터 칩(Filter Chip), 검색 결과 + Chip 배지 조합. M3 색상 역할 시스템 적용.',
+        story: 'RoleToken Design Search + Suggestion Chip + Filter Chip 패턴. 검색어 입력 전 제안 칩 표시, 카테고리 필터 칩(Filter Chip), 검색 결과 + Chip 배지 조합. M3 색상 역할 시스템 적용.',
       },
     },
   },
@@ -1881,10 +1881,10 @@ export const Material3_검색_칩_필터_패턴: Story = {
 }
 
 /* --------------------------------------------------------------------------
-   shadcn/ui: 전역 검색 + 스코프 선택 패턴
+   ComposableUI: 전역 검색 + 스코프 선택 패턴
 -------------------------------------------------------------------------- */
-const SHADCN_SEARCH_SCOPES = ['전체', '컴포넌트', '문서', '예시']
-const SHADCN_SCOPE_RESULTS: Record<string, Array<{ title: string; desc: string; icon: string }>> = {
+const UTILITYUI_SEARCH_SCOPES = ['전체', '컴포넌트', '문서', '예시']
+const UTILITYUI_SCOPE_RESULTS: Record<string, Array<{ title: string; desc: string; icon: string }>> = {
   '전체': [
     { title: 'SolidButton', desc: 'packages/theme-eclipse/src/components', icon: '◆' },
     { title: 'Button 사용 가이드', desc: 'docs/components/button', icon: '📄' },
@@ -1905,17 +1905,17 @@ const SHADCN_SCOPE_RESULTS: Record<string, Array<{ title: string; desc: string; 
   ],
 }
 
-function ShadcnGlobalSearchRender() {
+function ComposableUIGlobalSearchRender() {
   const [query, setQuery] = useState('')
   const [scope, setScope] = useState('전체')
 
-  const results = (SHADCN_SCOPE_RESULTS[scope] ?? []).filter(r =>
+  const results = (UTILITYUI_SCOPE_RESULTS[scope] ?? []).filter(r =>
     !query || r.title.toLowerCase().includes(query.toLowerCase()) || r.desc.toLowerCase().includes(query.toLowerCase())
   )
 
   return (
     <div style={{ width: 400, fontFamily: 'system-ui, sans-serif' }}>
-      <p style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 10 }}>shadcn/ui — 전역 검색 + 스코프 선택</p>
+      <p style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 10 }}>ComposableUI — 전역 검색 + 스코프 선택</p>
       <div style={{ borderRadius: 12, border: '1px solid #e5e7eb', overflow: 'hidden', background: '#fff', boxShadow: '0 2px 12px rgba(0,0,0,0.05)' }}>
         <div style={{ padding: '8px 12px 0' }}>
           <SearchBar
@@ -1925,9 +1925,9 @@ function ShadcnGlobalSearchRender() {
           />
         </div>
 
-        {/* Scope tabs (shadcn/ui TabsList 패턴) */}
+        {/* Scope tabs (ComposableUI TabsList 패턴) */}
         <div style={{ display: 'flex', padding: '6px 12px', gap: 0, borderBottom: '1px solid #f1f5f9' }}>
-          {SHADCN_SEARCH_SCOPES.map(s => (
+          {UTILITYUI_SEARCH_SCOPES.map(s => (
             <button key={s} onClick={() => setScope(s)} style={{ flex: 1, padding: '5px 0', fontSize: 11, border: 'none', background: 'transparent', cursor: 'pointer', color: scope === s ? '#6366f1' : '#64748b', fontWeight: scope === s ? 700 : 400, borderBottom: scope === s ? '2px solid #6366f1' : '2px solid transparent', transition: 'all 150ms' }}>{s}</button>
           ))}
         </div>
@@ -1955,24 +1955,24 @@ function ShadcnGlobalSearchRender() {
   )
 }
 
-export const Shadcn_전역_검색_스코프_선택: Story = {
-  name: 'shadcn/ui — 전역 검색 + 스코프 선택 패턴',
+export const ComposableUI_전역_검색_스코프_선택: Story = {
+  name: 'ComposableUI — 전역 검색 + 스코프 선택 패턴',
   parameters: {
     docs: {
       description: {
-        story: 'shadcn/ui 전역 검색 패턴. SearchBar + 스코프 탭(전체/컴포넌트/문서/예시) 조합. 탭 전환으로 검색 스코프 변경, 스코프별 결과 아이콘 차별화. shadcn/ui 공식 문서 검색 UX 모방.',
+        story: 'ComposableUI 전역 검색 패턴. SearchBar + 스코프 탭(전체/컴포넌트/문서/예시) 조합. 탭 전환으로 검색 스코프 변경, 스코프별 결과 아이콘 차별화. ComposableUI 공식 문서 검색 UX 모방.',
       },
     },
   },
-  render: () => <ShadcnGlobalSearchRender />,
+  render: () => <ComposableUIGlobalSearchRender />,
 }
 
 /* --------------------------------------------------------------------------
-   Material 3 + shadcn/ui: 복합 실시간 검색 + 히스토리 관리 패턴
+   RoleToken Design + ComposableUI: 복합 실시간 검색 + 히스토리 관리 패턴
 -------------------------------------------------------------------------- */
 const M3_TRENDING = ['SolidButton', 'DataTable', 'TextField', 'Progress']
 
-function M3ShadcnSearchHistoryRender() {
+function M3ComposableUISearchHistoryRender() {
   const [query, setQuery] = useState('')
   const [history, setHistory] = useState<string[]>(['Modal', 'Toggle', 'Chip'])
   const [focused, setFocused] = useState(false)
@@ -1993,7 +1993,7 @@ function M3ShadcnSearchHistoryRender() {
 
   return (
     <div style={{ width: 380, fontFamily: 'system-ui, sans-serif' }}>
-      <p style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 10 }}>Material 3 + shadcn/ui — 검색 히스토리 관리</p>
+      <p style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 10 }}>RoleToken Design + ComposableUI — 검색 히스토리 관리</p>
       <div style={{ position: 'relative' }}>
         <SearchBar
           placeholder="컴포넌트 이름으로 검색..."
@@ -2031,7 +2031,7 @@ function M3ShadcnSearchHistoryRender() {
               </div>
             )}
 
-            {/* History — shadcn/ui 패턴 */}
+            {/* History — ComposableUI 패턴 */}
             {history.length > 0 && !query && (
               <div style={{ padding: '6px 0' }}>
                 <div style={{ fontSize: 10, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.07em', padding: '4px 12px' }}>최근 검색</div>
@@ -2050,14 +2050,14 @@ function M3ShadcnSearchHistoryRender() {
   )
 }
 
-export const M3_Shadcn_검색_히스토리_관리: Story = {
-  name: 'Material 3 + shadcn/ui — 실시간 검색 + 히스토리 관리',
+export const M3_ComposableUI_검색_히스토리_관리: Story = {
+  name: 'RoleToken Design + ComposableUI — 실시간 검색 + 히스토리 관리',
   parameters: {
     docs: {
       description: {
-        story: 'Material 3 검색 트렌딩 + shadcn/ui 자동완성 패턴 결합. 포커스 시 트렌딩/히스토리 드롭다운, 입력 시 자동완성(매칭 텍스트 강조), 히스토리 삭제. 검색 경험의 3단계(트렌딩→자동완성→히스토리 관리) 완성.',
+        story: 'RoleToken Design 검색 트렌딩 + ComposableUI 자동완성 패턴 결합. 포커스 시 트렌딩/히스토리 드롭다운, 입력 시 자동완성(매칭 텍스트 강조), 히스토리 삭제. 검색 경험의 3단계(트렌딩→자동완성→히스토리 관리) 완성.',
       },
     },
   },
-  render: () => <M3ShadcnSearchHistoryRender />,
+  render: () => <M3ComposableUISearchHistoryRender />,
 }

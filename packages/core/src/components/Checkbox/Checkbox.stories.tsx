@@ -128,7 +128,7 @@ export const 아이콘크기 = {
   args: {
     iconSize: 18,
   },
-  // eslint-disable-next-line
+
   render: function IconSize({ iconSize, ...rest }: any) {
     return (
       <Checkbox {...rest} theme={normalTheme}>
