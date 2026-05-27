@@ -3,975 +3,426 @@ import { Meta, Unstyled } from '@storybook/blocks'
 <Meta title='Intro/마이그레이션 가이드' />
 
 <Unstyled>
-  <div style={{
-    maxWidth: '960px',
-    margin: '0 auto',
-    fontFamily: '"Pretendard Variable", "Pretendard", system-ui, sans-serif',
-    padding: '0 24px',
-  }}>
+  <style>{`
+    [data-orbit-doc] .orbit-tabs {
+      margin-top: 24px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2px;
+      padding: 4px;
+      background: var(--orbit-surface-sunken);
+      border: 1px solid var(--orbit-line);
+      border-radius: 10px;
+      width: fit-content;
+    }
+    [data-orbit-doc] .orbit-tabs a {
+      padding: 6px 14px;
+      border-radius: 7px;
+      font-family: var(--orbit-display);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: -0.012em;
+      color: var(--orbit-ink-3);
+      text-decoration: none !important;
+      transition:
+        background-color 160ms cubic-bezier(0.2, 0, 0, 1),
+        color 160ms cubic-bezier(0.2, 0, 0, 1);
+    }
+    [data-orbit-doc] .orbit-tabs a:hover {
+      color: var(--orbit-ink);
+      background: var(--orbit-surface);
+    }
 
-    {/* Header */}
-    <div style={{ marginBottom: '48px', paddingTop: '48px' }}>
-      <div style={{ fontSize: '12px', fontWeight: '700', color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '8px' }}>Migration Guide</div>
-      <h1 style={{ fontSize: '36px', fontWeight: '800', color: '#1e293b', letterSpacing: '-0.03em', margin: '0 0 12px' }}>마이그레이션 가이드</h1>
-      <div style={{ fontSize: '16px', color: '#64748b', lineHeight: '1.6', margin: 0 }}>
-        AccessibleUI, ComposableUI, EnterpriseUI에서 Orbit UI로 마이그레이션하는 방법을 안내합니다.
-        각 라이브러리별 컴포넌트 대응표와 코드 예시를 제공합니다.
-      </div>
-    </div>
+    [data-orbit-doc] .orbit-map {
+      margin-top: 24px;
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      font-size: 13px;
+    }
+    [data-orbit-doc] .orbit-map thead th {
+      padding: 12px 16px;
+      border-top: 1px solid var(--orbit-line-2);
+      border-bottom: 1px solid var(--orbit-line-2);
+      font-family: var(--orbit-mono);
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--orbit-ink-4);
+      text-align: left;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    [data-orbit-doc] .orbit-map tbody td {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--orbit-line);
+      vertical-align: top;
+      color: var(--orbit-ink-2);
+      line-height: 1.55;
+    }
+    [data-orbit-doc] .orbit-map tbody tr:last-child td {
+      border-bottom: 1px solid var(--orbit-line-2);
+    }
+    [data-orbit-doc] .orbit-map .from {
+      font-family: var(--orbit-mono);
+      font-size: 12.5px;
+      color: var(--orbit-ink);
+      font-weight: 580;
+    }
+    [data-orbit-doc] .orbit-map .arrow {
+      width: 24px;
+      color: var(--orbit-ink-4);
+      font-family: var(--orbit-mono);
+      text-align: center;
+    }
+    [data-orbit-doc] .orbit-map .to {
+      font-family: var(--orbit-mono);
+      font-size: 12.5px;
+      color: var(--orbit-accent);
+      font-weight: 580;
+    }
+    [data-orbit-doc] .orbit-map .note {
+      font-size: 12.5px;
+      color: var(--orbit-ink-3);
+    }
 
-    {/* Quick nav */}
-    <div style={{
-      display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '48px',
-      padding: '16px 20px', borderRadius: '12px',
-      background: '#f8fafc', border: '1px solid #e2e8f0',
-    }}>
-      {[
-        { label: 'AccessibleUI', anchor: '#chakra' },
-        { label: 'ComposableUI', anchor: '#ComposableUI' },
-        { label: 'EnterpriseUI (Enterprise UI)', anchor: '#enterpriseUi' },
-      ].map((item) => (
-        <a key={item.anchor} href={item.anchor} style={{
-          padding: '6px 14px', borderRadius: '20px',
-          background: '#6366f1', color: '#fff',
-          fontSize: '13px', fontWeight: 600, textDecoration: 'none',
-        }}>
-          {item.label}
-        </a>
-      ))}
-    </div>
+    [data-orbit-doc] .orbit-diff {
+      margin-top: 24px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    [data-orbit-doc] .orbit-diff .pane {
+      border: 1px solid var(--orbit-line);
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--orbit-surface);
+    }
+    [data-orbit-doc] .orbit-diff .pane .head {
+      padding: 9px 16px;
+      border-bottom: 1px solid var(--orbit-line);
+      background: var(--orbit-surface-sunken);
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 12px;
+      font-family: var(--orbit-mono);
+      font-size: 11px;
+      color: var(--orbit-ink-3);
+    }
+    [data-orbit-doc] .orbit-diff .pane .tag {
+      font-family: var(--orbit-mono);
+      font-size: 10.5px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    [data-orbit-doc] .orbit-diff .pane.from .tag { color: var(--orbit-ink-4); }
+    [data-orbit-doc] .orbit-diff .pane.to .tag { color: var(--orbit-accent); }
+    [data-orbit-doc] .orbit-diff .pane pre {
+      margin: 0;
+      padding: 16px 18px;
+      font-family: var(--orbit-mono);
+      font-size: 12px;
+      line-height: 1.7;
+      color: var(--orbit-ink);
+      background: transparent;
+      overflow-x: auto;
+      white-space: pre;
+    }
 
-    {/* ===== COMPOSABLE UI ===== */}
-    <section id="chakra" style={{ marginBottom: '64px' }}>
-      <h2 style={{ fontSize: '24px', fontWeight: '800', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '8px' }}>
-        AccessibleUI &rarr; Orbit UI
-      </h2>
-      <div style={{ fontSize: '14px', color: '#64748b', marginBottom: '24px' }}>
-        AccessibleUI의 FormControl 패턴, Button, Input 컴포넌트를 Orbit UI로 대체합니다.
-      </div>
+    [data-orbit-doc] .orbit-source {
+      margin-top: 40px;
+      padding-bottom: 40px;
+      border-bottom: 1px solid var(--orbit-line);
+    }
+    [data-orbit-doc] .orbit-source:last-of-type { border-bottom: 0; padding-bottom: 0; }
+    [data-orbit-doc] .orbit-source h3 {
+      margin: 0;
+      font-size: 22px;
+      font-weight: 680;
+      letter-spacing: -0.02em;
+      color: var(--orbit-ink);
+    }
+    [data-orbit-doc] .orbit-source .summary {
+      margin: 8px 0 0;
+      max-width: 60ch;
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--orbit-ink-3);
+    }
 
-      {/* Correspondence table */}
-      <div style={{ overflowX: 'auto', borderRadius: '12px', border: '1.5px solid #e2e8f0', marginBottom: '32px' }}>
-        <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '14px' }}>
+    [data-orbit-doc] .orbit-note {
+      margin-top: 16px;
+      padding: 12px 16px;
+      border: 1px solid var(--orbit-line);
+      border-radius: 10px;
+      background: var(--orbit-surface);
+      font-size: 13px;
+      line-height: 1.55;
+      color: var(--orbit-ink-2);
+    }
+    [data-orbit-doc] .orbit-note strong {
+      display: block;
+      margin-bottom: 4px;
+      font-family: var(--orbit-mono);
+      font-size: 10.5px;
+      font-weight: 700;
+      color: var(--orbit-ink-3);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    [data-orbit-doc] .orbit-note code {
+      padding: 1px 6px;
+      border-radius: 5px;
+      background: var(--orbit-surface-sunken);
+      border: 1px solid var(--orbit-line);
+      font-family: var(--orbit-mono);
+      font-size: 12px;
+      color: var(--orbit-ink-2);
+    }
+
+    @media (max-width: 760px) {
+      [data-orbit-doc] .orbit-diff { grid-template-columns: 1fr; }
+      [data-orbit-doc] .orbit-map thead th:nth-child(4),
+      [data-orbit-doc] .orbit-map tbody td:nth-child(4) { display: none; }
+    }
+  `}</style>
+
+  <div data-orbit-doc>
+    <div className='orbit-wrap'>
+
+      {/* HEADER */}
+      <header className='orbit-page-head'>
+        <div>
+          <div className='orbit-eyebrow'><span className='num'>01</span>Migration</div>
+          <h1 className='orbit-h1'>마이그레이션 가이드</h1>
+          <p className='orbit-lede'>
+            널리 쓰이는 헤드리스·디자인 시스템에서 Orbit UI로 옮길 때의 컴포넌트 대응표와 코드 전환 예시.
+            한 번에 다 바꿀 필요는 없습니다, 페이지 단위로 점진 마이그레이션이 권장됩니다.
+          </p>
+        </div>
+        <div className='orbit-page-meta'>
+          <div><strong>3</strong> sources</div>
+          <div>incremental</div>
+          <div>codemod-friendly</div>
+        </div>
+      </header>
+
+      {/* QUICK NAV */}
+      <nav className='orbit-tabs' aria-label='Sources'>
+        <a href='#composable'>ComposableUI</a>
+        <a href='#enterprise'>EnterpriseUI</a>
+        <a href='#headless'>Headless Toolkit</a>
+      </nav>
+
+      {/* COMPOSABLE UI */}
+      <section className='orbit-sect orbit-source' id='composable'>
+        <div className='orbit-sect-head'>
+          <div>
+            <div className='orbit-eyebrow'><span className='num'>02</span>Source 01</div>
+            <h3>ComposableUI → Orbit UI</h3>
+            <p className='summary'>FormControl 패턴 + variant prop 기반 라이브러리. Orbit UI에서는 variant가 별도 컴포넌트로 분리됩니다.</p>
+          </div>
+        </div>
+
+        <table className='orbit-map'>
           <thead>
-            <tr style={{ background: '#f8fafc' }}>
-              {['AccessibleUI', 'Orbit UI', '설명'].map((col) => (
-                <th key={col} style={{ padding: '12px 16px', textAlign: 'left', fontWeight: 700, color: '#475569', borderBottom: '1.5px solid #e2e8f0' }}>{col}</th>
-              ))}
+            <tr>
+              <th style={{ width: '24%' }}>From</th>
+              <th style={{ width: '4%' }}></th>
+              <th style={{ width: '32%' }}>To (Orbit UI)</th>
+              <th>설명</th>
             </tr>
           </thead>
           <tbody>
-            {[
-              ['Button', 'SolidButton / OutlineButton / GhostButton', '버튼 변형(variant)은 별도 컴포넌트로 분리'],
-              ['Input', 'TextField / FloatingTextField', 'FloatingTextField: 플로팅 라벨 스타일'],
-              ['Textarea', 'TextArea', '동일 기능, prop 이름 일부 상이'],
-              ['Checkbox', 'Checkbox / BoxedCheckbox', 'BoxedCheckbox: 박스 형태 체크박스'],
-              ['Radio', 'RadioButton', 'RadioButton.Group 미제공, fieldset으로 구성'],
-              ['Switch', 'Switch', '동일 기능'],
-              ['Modal', 'Modal', 'Primitive Dialog 기반으로 접근성 동일'],
-              ['Tooltip', 'Tooltip', 'Primitive Tooltip 기반, Provider 필요'],
-              ['FormControl', '없음 (div + helper text 조합)', 'FormControl 래퍼 없이 직접 구성'],
-              ['FormLabel', '없음 (label 태그 직접 사용)', ''],
-              ['FormHelperText', '없음 (Typography/Text 컴포넌트 활용)', ''],
-              ['Avatar', 'Avatar', '동일 기능'],
-              ['Badge', 'LabelBadge / CounterBadge / AnimatedBadge', '뱃지 목적에 따라 컴포넌트 선택'],
-              ['Progress', 'Progress', '동일 기능'],
-              ['Skeleton', 'Skeleton', '동일 기능'],
-            ].map((row, i) => (
-              <tr key={i} style={{ background: i % 2 === 0 ? '#fff' : '#fafafa' }}>
-                {row.map((cell, j) => (
-                  <td key={j} style={{
-                    padding: '11px 16px', borderBottom: '1px solid #f1f5f9',
-                    fontSize: j === 0 || j === 1 ? '13px' : '12px',
-                    fontFamily: j < 2 ? 'monospace' : 'inherit',
-                    color: j === 0 ? '#0f172a' : j === 1 ? '#6366f1' : '#64748b',
-                    fontWeight: j < 2 ? 500 : 400,
-                  }}>{cell}</td>
-                ))}
-              </tr>
-            ))}
+            <tr><td className='from'>Button</td><td className='arrow'>→</td><td className='to'>SolidButton · OutlineButton · GhostButton</td><td className='note'>variant prop 대신 별도 컴포넌트.</td></tr>
+            <tr><td className='from'>Input</td><td className='arrow'>→</td><td className='to'>TextField · FloatingTextField</td><td className='note'>플로팅 라벨이 필요하면 FloatingTextField.</td></tr>
+            <tr><td className='from'>Checkbox</td><td className='arrow'>→</td><td className='to'>Checkbox · BoxedCheckbox</td><td className='note'>박스형 변형은 BoxedCheckbox.</td></tr>
+            <tr><td className='from'>Radio</td><td className='arrow'>→</td><td className='to'>RadioButton</td><td className='note'>Group 컴포넌트는 fieldset + legend 직접 구성.</td></tr>
+            <tr><td className='from'>Switch</td><td className='arrow'>→</td><td className='to'>Switch</td><td className='note'>API 거의 동일.</td></tr>
+            <tr><td className='from'>Modal</td><td className='arrow'>→</td><td className='to'>Modal · AlertDialog</td><td className='note'>경고·확인 다이얼로그는 AlertDialog.</td></tr>
+            <tr><td className='from'>Tooltip</td><td className='arrow'>→</td><td className='to'>Tooltip · HoverCard</td><td className='note'>리치 콘텐츠는 HoverCard.</td></tr>
+            <tr><td className='from'>FormControl, FormLabel, FormHelperText</td><td className='arrow'>→</td><td className='to'>없음</td><td className='note'>label + helper 텍스트를 직접 구성. <code>htmlFor</code>·<code>aria-describedby</code> 명시.</td></tr>
+            <tr><td className='from'>Badge</td><td className='arrow'>→</td><td className='to'>LabelBadge · CounterBadge · AnimatedBadge</td><td className='note'>용도에 따라 분리.</td></tr>
           </tbody>
         </table>
-      </div>
 
-      {/* Code examples */}
-      <h3 style={{ fontSize: '18px', fontWeight: '700', color: '#1e293b', marginBottom: '16px' }}>코드 변환 예시</h3>
-
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '24px' }}>
-        <div>
-          <div style={{ fontSize: '12px', fontWeight: 700, color: '#ef4444', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.06em' }}>Before (AccessibleUI)</div>
-          <pre style={{
-            background: '#0f172a', color: '#e2e8f0', padding: '16px', borderRadius: '10px',
-            fontSize: '12px', lineHeight: '1.7', margin: 0, overflowX: 'auto',
-          }}>{`import {
-  Button,
-  Input,
-  FormControl,
-  FormLabel,
-  FormHelperText,
-  FormErrorMessage,
-} from '@chakra-ui/react'
-
-<FormControl isInvalid={isError}>
+        <div className='orbit-diff'>
+          <div className='pane from'>
+            <div className='head'>
+              <span className='tag'>before</span>
+              <span>ComposableUI</span>
+            </div>
+            <pre>{`<FormControl isInvalid={!!error}>
   <FormLabel>이메일</FormLabel>
   <Input
-    type="email"
+    variant='outlined'
+    placeholder='you@example.com'
     value={email}
-    onChange={e => setEmail(e.target.value)}
+    onChange={(e) => setEmail(e.target.value)}
   />
-  {!isError ? (
-    <FormHelperText>
-      유효한 이메일을 입력하세요
-    </FormHelperText>
-  ) : (
-    <FormErrorMessage>
-      이메일 형식이 올바르지 않습니다
-    </FormErrorMessage>
-  )}
-</FormControl>
-
-<Button colorScheme="purple" onClick={submit}>
-  제출
-</Button>`}</pre>
-        </div>
-        <div>
-          <div style={{ fontSize: '12px', fontWeight: 700, color: '#10b981', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.06em' }}>After (Orbit UI)</div>
-          <pre style={{
-            background: '#0f172a', color: '#e2e8f0', padding: '16px', borderRadius: '10px',
-            fontSize: '12px', lineHeight: '1.7', margin: 0, overflowX: 'auto',
-          }}>{`import {
-  FloatingTextField,
-  SolidButton,
-  Text,
-} from '@heejun-com/theme-eclipse'
-
-<div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-  <FloatingTextField
-    placeholder="이메일"
-    type="email"
-    value={email}
-    error={isError}
-    onChange={e => setEmail(e.target.value)}
-  />
-  <Text
-    textStyle="caption"
-    style={{ color: isError ? '#ef4444' : '#64748b' }}
-  >
-    {isError
-      ? '이메일 형식이 올바르지 않습니다'
-      : '유효한 이메일을 입력하세요'}
-  </Text>
-</div>
-
-<SolidButton color="primary" size="medium">
-  <SolidButton.Center>제출</SolidButton.Center>
-</SolidButton>`}</pre>
-        </div>
-      </div>
-    </section>
-
-    {/* ===== UTILITY UI ===== */}
-    <section id="ComposableUI" style={{ marginBottom: '64px' }}>
-      <h2 style={{ fontSize: '24px', fontWeight: '800', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '8px' }}>
-        ComposableUI &rarr; Orbit UI
-      </h2>
-      <div style={{ fontSize: '14px', color: '#64748b', marginBottom: '24px' }}>
-        ComposableUI는 PrimitiveUI 기반 컴포넌트입니다. Orbit UI도 동일하게 PrimitiveUI를 사용하므로 접근성 패턴이 동일합니다.
-      </div>
-
-      <div style={{ overflowX: 'auto', borderRadius: '12px', border: '1.5px solid #e2e8f0', marginBottom: '32px' }}>
-        <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '14px' }}>
-          <thead>
-            <tr style={{ background: '#f8fafc' }}>
-              {['ComposableUI', 'Orbit UI', '비고'].map((col) => (
-                <th key={col} style={{ padding: '12px 16px', textAlign: 'left', fontWeight: 700, color: '#475569', borderBottom: '1.5px solid #e2e8f0' }}>{col}</th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {[
-              ['Button', 'SolidButton / OutlineButton / GhostButton', 'variant prop 대신 컴포넌트 선택'],
-              ['Input', 'TextField / FloatingTextField', ''],
-              ['Textarea', 'TextArea', ''],
-              ['Checkbox', 'Checkbox', '동일 패턴'],
-              ['RadioGroup + RadioGroupItem', 'RadioButton (fieldset 조합)', 'Group 컴포넌트 없음'],
-              ['Switch', 'Switch / Toggle', ''],
-              ['Dialog', 'Modal', 'Primitive Dialog 기반 동일'],
-              ['Select', 'Dropdown', ''],
-              ['Command', 'Command', 'cmdk 기반 동일'],
-              ['Tooltip', 'Tooltip', 'Provider 패턴 동일'],
-              ['Badge', 'LabelBadge / CounterBadge', ''],
-              ['Card', '없음 (div + 스타일 직접 구성)', ''],
-              ['Separator', 'Divider', ''],
-              ['Avatar', 'Avatar', ''],
-              ['Progress', 'Progress', ''],
-              ['Skeleton', 'Skeleton', ''],
-              ['Accordion', 'Accordion', ''],
-              ['Tabs', 'TabGroup + TabItem', ''],
-              ['Slider', 'Slider', ''],
-              ['HoverCard', 'HoverCard', ''],
-              ['Popover', 'Popover', ''],
-            ].map((row, i) => (
-              <tr key={i} style={{ background: i % 2 === 0 ? '#fff' : '#fafafa' }}>
-                {row.map((cell, j) => (
-                  <td key={j} style={{
-                    padding: '11px 16px', borderBottom: '1px solid #f1f5f9',
-                    fontSize: j === 0 || j === 1 ? '13px' : '12px',
-                    fontFamily: j < 2 ? 'monospace' : 'inherit',
-                    color: j === 0 ? '#0f172a' : j === 1 ? '#6366f1' : '#64748b',
-                    fontWeight: j < 2 ? 500 : 400,
-                  }}>{cell}</td>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-
-      <h3 style={{ fontSize: '18px', fontWeight: '700', color: '#1e293b', marginBottom: '16px' }}>코드 변환 예시</h3>
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
-        <div>
-          <div style={{ fontSize: '12px', fontWeight: 700, color: '#ef4444', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.06em' }}>Before (ComposableUI)</div>
-          <pre style={{
-            background: '#0f172a', color: '#e2e8f0', padding: '16px', borderRadius: '10px',
-            fontSize: '12px', lineHeight: '1.7', margin: 0, overflowX: 'auto',
-          }}>{`import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogDescription,
-} from '@/components/ui/dialog'
-import { Button } from '@/components/ui/button'
-
-<Dialog open={open} onOpenChange={setOpen}>
-  <DialogContent>
-    <DialogHeader>
-      <DialogTitle>확인</DialogTitle>
-      <DialogDescription>
-        정말 삭제하시겠습니까?
-      </DialogDescription>
-    </DialogHeader>
-    <Button variant="destructive">삭제</Button>
-    <Button variant="outline" onClick={() => setOpen(false)}>
-      취소
-    </Button>
-  </DialogContent>
-</Dialog>`}</pre>
-        </div>
-        <div>
-          <div style={{ fontSize: '12px', fontWeight: 700, color: '#10b981', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.06em' }}>After (Orbit UI)</div>
-          <pre style={{
-            background: '#0f172a', color: '#e2e8f0', padding: '16px', borderRadius: '10px',
-            fontSize: '12px', lineHeight: '1.7', margin: 0, overflowX: 'auto',
-          }}>{`import {
-  Modal,
-  SolidButton,
-  OutlineButton,
-  Text,
-} from '@heejun-com/theme-eclipse'
-
-<Modal open={open} onOpenChange={setOpen}>
-  <Modal.Content>
-    <Modal.Header>
-      <Text textStyle="heading2">확인</Text>
-      <Text textStyle="body2" style={{ color: '#64748b' }}>
-        정말 삭제하시겠습니까?
-      </Text>
-    </Modal.Header>
-    <Modal.Footer>
-      <SolidButton color="danger" size="medium">
-        <SolidButton.Center>삭제</SolidButton.Center>
-      </SolidButton>
-      <OutlineButton size="medium" onClick={() => setOpen(false)}>
-        <OutlineButton.Center>취소</OutlineButton.Center>
-      </OutlineButton>
-    </Modal.Footer>
-  </Modal.Content>
-</Modal>`}</pre>
-        </div>
-      </div>
-    </section>
-
-    {/* ===== EnterpriseUI ===== */}
-    <section id="enterpriseUi" style={{ marginBottom: '64px' }}>
-      <h2 style={{ fontSize: '24px', fontWeight: '800', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '8px' }}>
-        EnterpriseUI (Enterprise UI) &rarr; Orbit UI
-      </h2>
-      <div style={{ fontSize: '14px', color: '#64748b', marginBottom: '24px' }}>
-        EnterpriseUI는 Material Design 기반입니다. Orbit UI는 Eclipse 테마를 사용하며 3-Tier 토큰 시스템으로 유연한 커스터마이징이 가능합니다.
-      </div>
-
-      <div style={{ overflowX: 'auto', borderRadius: '12px', border: '1.5px solid #e2e8f0', marginBottom: '32px' }}>
-        <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '14px' }}>
-          <thead>
-            <tr style={{ background: '#f8fafc' }}>
-              {['EnterpriseUI', 'Orbit UI', '비고'].map((col) => (
-                <th key={col} style={{ padding: '12px 16px', textAlign: 'left', fontWeight: 700, color: '#475569', borderBottom: '1.5px solid #e2e8f0' }}>{col}</th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {[
-              ['Button (contained)', 'SolidButton', 'variant="contained" -> SolidButton'],
-              ['Button (outlined)', 'OutlineButton', 'variant="outlined" -> OutlineButton'],
-              ['Button (text)', 'GhostButton', 'variant="text" -> GhostButton'],
-              ['TextField (outlined)', 'TextField', ''],
-              ['TextField (filled)', 'FloatingTextField', '플로팅 라벨 스타일'],
-              ['Checkbox', 'Checkbox', ''],
-              ['Radio + RadioGroup', 'RadioButton (fieldset)', ''],
-              ['Switch', 'Switch / Toggle', ''],
-              ['Dialog', 'Modal', 'Primitive 기반, EnterpriseUI와 접근성 동일'],
-              ['Tooltip', 'Tooltip', 'Provider 필요'],
-              ['Chip', 'Chip / ChipLink', ''],
-              ['Avatar', 'Avatar', ''],
-              ['IssueTrackerProgress', 'Progress', ''],
-              ['Skeleton', 'Skeleton', ''],
-              ['Accordion', 'Accordion', ''],
-              ['Tabs + Tab', 'TabGroup + TabItem', ''],
-              ['Slider', 'Slider', ''],
-              ['DataGrid', 'DataTable', ''],
-              ['Snackbar', 'Toast', ''],
-              ['Breadcrumbs', 'Breadcrumb', ''],
-              ['Badge', 'CounterBadge / LabelBadge', ''],
-            ].map((row, i) => (
-              <tr key={i} style={{ background: i % 2 === 0 ? '#fff' : '#fafafa' }}>
-                {row.map((cell, j) => (
-                  <td key={j} style={{
-                    padding: '11px 16px', borderBottom: '1px solid #f1f5f9',
-                    fontSize: j === 0 || j === 1 ? '13px' : '12px',
-                    fontFamily: j < 2 ? 'monospace' : 'inherit',
-                    color: j === 0 ? '#0f172a' : j === 1 ? '#6366f1' : '#64748b',
-                    fontWeight: j < 2 ? 500 : 400,
-                  }}>{cell}</td>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-
-      <h3 style={{ fontSize: '18px', fontWeight: '700', color: '#1e293b', marginBottom: '16px' }}>코드 변환 예시</h3>
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
-        <div>
-          <div style={{ fontSize: '12px', fontWeight: 700, color: '#ef4444', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.06em' }}>Before (EnterpriseUI)</div>
-          <pre style={{
-            background: '#0f172a', color: '#e2e8f0', padding: '16px', borderRadius: '10px',
-            fontSize: '12px', lineHeight: '1.7', margin: 0, overflowX: 'auto',
-          }}>{`import {
-  Button,
-  TextField,
-  Checkbox,
-  FormControlLabel,
-} from '@enterprise-ui/material'
-
-<TextField
-  label="이메일"
-  variant="outlined"
-  value={email}
-  onChange={e => setEmail(e.target.value)}
-  error={isError}
-  helperText={isError ? '이메일을 확인하세요' : ''}
-  fullWidth
-/>
-
-<FormControlLabel
-  control={<Checkbox checked={agreed} onChange={e => setAgreed(e.target.checked)} />}
-  label="약관에 동의합니다"
-/>
-
-<Button variant="contained" color="primary" fullWidth>
-  가입하기
-</Button>`}</pre>
-        </div>
-        <div>
-          <div style={{ fontSize: '12px', fontWeight: 700, color: '#10b981', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.06em' }}>After (Orbit UI)</div>
-          <pre style={{
-            background: '#0f172a', color: '#e2e8f0', padding: '16px', borderRadius: '10px',
-            fontSize: '12px', lineHeight: '1.7', margin: 0, overflowX: 'auto',
-          }}>{`import {
-  FloatingTextField,
-  Checkbox,
-  SolidButton,
-  Text,
-} from '@heejun-com/theme-eclipse'
-
-<div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-  <FloatingTextField
-    placeholder="이메일"
-    value={email}
-    error={isError}
-    onChange={e => setEmail(e.target.value)}
-    style={{ width: '100%' }}
-  />
-  {isError && (
-    <Text textStyle="caption" style={{ color: '#ef4444' }}>
-      이메일을 확인하세요
-    </Text>
-  )}
-</div>
-
-<div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-  <Checkbox
-    checked={agreed}
-    onChange={(checked) => setAgreed(checked)}
-  />
-  <label>약관에 동의합니다</label>
-</div>
-
-<SolidButton color="primary" size="medium" style={{ width: '100%' }}>
-  <SolidButton.Center>가입하기</SolidButton.Center>
-</SolidButton>`}</pre>
-        </div>
-      </div>
-    </section>
-
-    {/* Key differences */}
-    <section style={{ marginBottom: '64px' }}>
-      <h2 style={{ fontSize: '22px', fontWeight: '700', color: '#1e293b', marginBottom: '20px' }}>핵심 차이점 요약</h2>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '16px' }}>
-        {[
-          {
-            title: 'Compound Component 패턴',
-            color: '#6366f1',
-            bg: 'rgba(99,102,241,0.05)',
-            desc: 'SolidButton.Center, Modal.Content 처럼 서브 컴포넌트를 명시적으로 조합합니다. 더 명확한 구조와 유연한 조합이 가능합니다.',
-          },
-          {
-            title: '3-Tier 토큰 시스템',
-            color: '#8b5cf6',
-            bg: 'rgba(139,92,246,0.05)',
-            desc: 'Reference -> Semantic -> Component 토큰 계층으로 일관된 테마 커스터마이징이 가능합니다. theme prop으로 컴포넌트별 오버라이드를 지원합니다.',
-          },
-          {
-            title: 'FormControl 없음',
-            color: '#f59e0b',
-            bg: 'rgba(245,158,11,0.05)',
-            desc: 'Accessible/EnterpriseUI의 FormControl 래퍼 대신 div와 Text 컴포넌트를 직접 조합합니다. 더 단순하고 예측 가능한 구조입니다.',
-          },
-          {
-            title: 'PrimitiveUI 기반',
-            color: '#10b981',
-            bg: 'rgba(16,185,129,0.05)',
-            desc: 'Modal, Tooltip, Dropdown 등 복잡한 상호작용 컴포넌트는 PrimitiveUI 기반으로 ComposableUI와 동일한 접근성 패턴을 사용합니다.',
-          },
-        ].map((item) => (
-          <div key={item.title} style={{
-            padding: '20px', borderRadius: '12px',
-            background: item.bg, border: `1.5px solid ${item.color}30`,
-          }}>
-            <div style={{ fontSize: '14px', fontWeight: 700, color: item.color, marginBottom: '8px' }}>{item.title}</div>
-            <div style={{ fontSize: '13px', color: '#64748b', lineHeight: '1.6' }}>{item.desc}</div>
+  <FormHelperText>{error}</FormHelperText>
+</FormControl>`}</pre>
           </div>
-        ))}
-      </div>
-    </section>
-
-    {/* ===== Ant Design ===== */}
-    <section id="ant" style={{ marginBottom: '64px' }}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '20px' }}>
-        <div style={{ width: '32px', height: '32px', borderRadius: '8px', background: '#ff4d4f', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-          <span style={{ color: '#fff', fontWeight: 900, fontSize: '14px' }}>A</span>
-        </div>
-        <h2 style={{ fontSize: '22px', fontWeight: '800', color: '#1e293b', margin: 0 }}>
-          Ant Design &rarr; Orbit UI
-        </h2>
-      </div>
-
-      <div style={{ fontSize: '14px', color: '#64748b', lineHeight: '1.7', marginBottom: '24px' }}>
-        Ant Design은 엔터프라이즈 애플리케이션에 최적화된 풍부한 컴포넌트를 제공합니다.
-        Orbit UI로 마이그레이션 시 주요 차이점과 대응 컴포넌트를 정리합니다.
-      </div>
-
-      <div style={{ borderRadius: '12px', border: '1px solid #e2e8f0', overflow: 'hidden', marginBottom: '28px' }}>
-        <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-          <thead>
-            <tr style={{ background: '#fff8f0' }}>
-              <th style={{ padding: '10px 16px', textAlign: 'left', fontSize: '12px', fontWeight: '700', color: '#ff4d4f', textTransform: 'uppercase', letterSpacing: '0.05em', borderBottom: '1px solid #e2e8f0' }}>Ant Design</th>
-              <th style={{ padding: '10px 16px', textAlign: 'left', fontSize: '12px', fontWeight: '700', color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.05em', borderBottom: '1px solid #e2e8f0' }}>Orbit UI</th>
-              <th style={{ padding: '10px 16px', textAlign: 'left', fontSize: '12px', fontWeight: '700', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.05em', borderBottom: '1px solid #e2e8f0' }}>비고</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr style={{ borderBottom: '1px solid #f1f5f9' }}>
-              <td style={{ padding: '10px 16px', fontSize: '13px' }}><code style={{ background: '#fff0f0', color: '#ff4d4f', padding: '2px 6px', borderRadius: '4px' }}>Button type="primary"</code></td>
-              <td style={{ padding: '10px 16px', fontSize: '13px' }}><code style={{ background: '#f0f0ff', color: '#6366f1', padding: '2px 6px', borderRadius: '4px' }}>SolidButton color="primary"</code></td>
-              <td style={{ padding: '10px 16px', fontSize: '12px', color: '#64748b' }}>type &rarr; color prop으로 변경</td>
-            </tr>
-            <tr style={{ borderBottom: '1px solid #f1f5f9' }}>
-              <td style={{ padding: '10px 16px', fontSize: '13px' }}><code style={{ background: '#fff0f0', color: '#ff4d4f', padding: '2px 6px', borderRadius: '4px' }}>Button type="default"</code></td>
-              <td style={{ padding: '10px 16px', fontSize: '13px' }}><code style={{ background: '#f0f0ff', color: '#6366f1', padding: '2px 6px', borderRadius: '4px' }}>OutlineButton</code></td>
-              <td style={{ padding: '10px 16px', fontSize: '12px', color: '#64748b' }}>기본 아웃라인 스타일</td>
-            </tr>
-            <tr style={{ borderBottom: '1px solid #f1f5f9' }}>
-              <td style={{ padding: '10px 16px', fontSize: '13px' }}><code style={{ background: '#fff0f0', color: '#ff4d4f', padding: '2px 6px', borderRadius: '4px' }}>Button type="text"</code></td>
-              <td style={{ padding: '10px 16px', fontSize: '13px' }}><code style={{ background: '#f0f0ff', color: '#6366f1', padding: '2px 6px', borderRadius: '4px' }}>GhostButton</code></td>
-              <td style={{ padding: '10px 16px', fontSize: '12px', color: '#64748b' }}>배경 없는 텍스트 버튼</td>
-            </tr>
-            <tr style={{ borderBottom: '1px solid #f1f5f9' }}>
-              <td style={{ padding: '10px 16px', fontSize: '13px' }}><code style={{ background: '#fff0f0', color: '#ff4d4f', padding: '2px 6px', borderRadius: '4px' }}>Input</code></td>
-              <td style={{ padding: '10px 16px', fontSize: '13px' }}><code style={{ background: '#f0f0ff', color: '#6366f1', padding: '2px 6px', borderRadius: '4px' }}>TextField</code></td>
-              <td style={{ padding: '10px 16px', fontSize: '12px', color: '#64748b' }}>label, placeholder 동일 지원</td>
-            </tr>
-            <tr style={{ borderBottom: '1px solid #f1f5f9' }}>
-              <td style={{ padding: '10px 16px', fontSize: '13px' }}><code style={{ background: '#fff0f0', color: '#ff4d4f', padding: '2px 6px', borderRadius: '4px' }}>Modal</code></td>
-              <td style={{ padding: '10px 16px', fontSize: '13px' }}><code style={{ background: '#f0f0ff', color: '#6366f1', padding: '2px 6px', borderRadius: '4px' }}>Modal</code></td>
-              <td style={{ padding: '10px 16px', fontSize: '12px', color: '#64748b' }}>PrimitiveUI 기반, onIsPresentedChange 사용</td>
-            </tr>
-            <tr style={{ borderBottom: '1px solid #f1f5f9' }}>
-              <td style={{ padding: '10px 16px', fontSize: '13px' }}><code style={{ background: '#fff0f0', color: '#ff4d4f', padding: '2px 6px', borderRadius: '4px' }}>Modal.confirm</code></td>
-              <td style={{ padding: '10px 16px', fontSize: '13px' }}><code style={{ background: '#f0f0ff', color: '#6366f1', padding: '2px 6px', borderRadius: '4px' }}>AlertDialog (Alert)</code></td>
-              <td style={{ padding: '10px 16px', fontSize: '12px', color: '#64748b' }}>Alert.Action / Alert.Close 패턴</td>
-            </tr>
-            <tr style={{ borderBottom: '1px solid #f1f5f9' }}>
-              <td style={{ padding: '10px 16px', fontSize: '13px' }}><code style={{ background: '#fff0f0', color: '#ff4d4f', padding: '2px 6px', borderRadius: '4px' }}>Select</code></td>
-              <td style={{ padding: '10px 16px', fontSize: '13px' }}><code style={{ background: '#f0f0ff', color: '#6366f1', padding: '2px 6px', borderRadius: '4px' }}>Dropdown</code></td>
-              <td style={{ padding: '10px 16px', fontSize: '12px', color: '#64748b' }}>Primitive Select 기반, 키보드 지원</td>
-            </tr>
-            <tr style={{ borderBottom: '1px solid #f1f5f9' }}>
-              <td style={{ padding: '10px 16px', fontSize: '13px' }}><code style={{ background: '#fff0f0', color: '#ff4d4f', padding: '2px 6px', borderRadius: '4px' }}>Checkbox</code></td>
-              <td style={{ padding: '10px 16px', fontSize: '13px' }}><code style={{ background: '#f0f0ff', color: '#6366f1', padding: '2px 6px', borderRadius: '4px' }}>Checkbox / BoxedCheckbox</code></td>
-              <td style={{ padding: '10px 16px', fontSize: '12px', color: '#64748b' }}>BoxedCheckbox는 카드형 체크박스</td>
-            </tr>
-            <tr style={{ borderBottom: '1px solid #f1f5f9' }}>
-              <td style={{ padding: '10px 16px', fontSize: '13px' }}><code style={{ background: '#fff0f0', color: '#ff4d4f', padding: '2px 6px', borderRadius: '4px' }}>Table</code></td>
-              <td style={{ padding: '10px 16px', fontSize: '13px' }}><code style={{ background: '#f0f0ff', color: '#6366f1', padding: '2px 6px', borderRadius: '4px' }}>DataTable</code></td>
-              <td style={{ padding: '10px 16px', fontSize: '12px', color: '#64748b' }}>정렬, 페이지네이션, 행 선택 지원</td>
-            </tr>
-            <tr>
-              <td style={{ padding: '10px 16px', fontSize: '13px' }}><code style={{ background: '#fff0f0', color: '#ff4d4f', padding: '2px 6px', borderRadius: '4px' }}>Progress</code></td>
-              <td style={{ padding: '10px 16px', fontSize: '13px' }}><code style={{ background: '#f0f0ff', color: '#6366f1', padding: '2px 6px', borderRadius: '4px' }}>Progress</code></td>
-              <td style={{ padding: '10px 16px', fontSize: '12px', color: '#64748b' }}>percent prop 대신 value/max 사용</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div style={{ borderRadius: '12px', border: '1px solid #e2e8f0', overflow: 'hidden', marginBottom: '28px' }}>
-        <div style={{ padding: '8px 16px', background: '#fff0f0', borderBottom: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          <span style={{ fontSize: '12px', color: '#ff4d4f', fontWeight: '700' }}>Before (Ant Design)</span>
-          <span style={{ fontSize: '11px', color: '#94a3b8' }}>Modal.confirm 패턴</span>
-        </div>
-        <pre style={{ margin: 0, padding: '20px', background: '#0f172a', color: '#e2e8f0', fontSize: '12px', lineHeight: '1.8', fontFamily: '"JetBrains Mono", monospace', overflow: 'auto' }}>
-{`import { Modal, Button } from 'antd'
-
-// Ant Design: 명령형 API — 코드에서 직접 호출
-Button.onClick={() => {
-  Modal.confirm({
-    title: '프로젝트를 삭제하시겠습니까?',
-    content: '이 작업은 되돌릴 수 없습니다.',
-    okText: '삭제',
-    okType: 'danger',
-    cancelText: '취소',
-    onOk() {
-      deleteProject()
-    },
-  })
-}}`}
-        </pre>
-      </div>
-
-      <div style={{ borderRadius: '12px', border: '1px solid #e2e8f0', overflow: 'hidden', marginBottom: '28px' }}>
-        <div style={{ padding: '8px 16px', background: '#f0f0ff', borderBottom: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          <span style={{ fontSize: '12px', color: '#6366f1', fontWeight: '700' }}>After (Orbit UI)</span>
-          <span style={{ fontSize: '11px', color: '#94a3b8' }}>선언적 AlertDialog 패턴</span>
-        </div>
-        <pre style={{ margin: 0, padding: '20px', background: '#0f172a', color: '#e2e8f0', fontSize: '12px', lineHeight: '1.8', fontFamily: '"JetBrains Mono", monospace', overflow: 'auto' }}>
-{`import { Alert } from '@heejun-com/theme-eclipse'
-import { SolidButton } from '@heejun-com/theme-eclipse'
-
-// Orbit UI: 선언적 JSX — PrimitiveUI Dialog 기반
-function DeleteProjectButton() {
-  return (
-    <Alert>
-      <Alert.Trigger asChild>
-        <SolidButton color="primary" style={{ background: '#ef4444' }}>
-          <SolidButton.Center>프로젝트 삭제</SolidButton.Center>
-        </SolidButton>
-      </Alert.Trigger>
-      <Alert.Top>
-        <Alert.Title>프로젝트를 삭제하시겠습니까?</Alert.Title>
-        <Alert.Description>이 작업은 되돌릴 수 없습니다.</Alert.Description>
-      </Alert.Top>
-      <Alert.Bottom direction="horizontal">
-        <Alert.Close asChild>
-          <SolidButton color="gray" size="large" width="100%">
-            <SolidButton.Center>취소</SolidButton.Center>
-          </SolidButton>
-        </Alert.Close>
-        <Alert.Action asChild>
-          <SolidButton color="primary" size="large" width="100%"
-            style={{ background: '#ef4444' }} onClick={deleteProject}>
-            <SolidButton.Center>삭제</SolidButton.Center>
-          </SolidButton>
-        </Alert.Action>
-      </Alert.Bottom>
-    </Alert>
-  )
-}`}
-        </pre>
-      </div>
-
-      <div style={{ padding: '16px 20px', borderRadius: '10px', background: 'rgba(99,102,241,0.04)', borderLeft: '3px solid #6366f1', marginBottom: '16px' }}>
-        <div style={{ fontSize: '13px', fontWeight: '700', color: '#6366f1', marginBottom: '6px' }}>주요 차이점</div>
-        <ul style={{ margin: 0, padding: '0 0 0 18px', fontSize: '13px', color: '#475569', lineHeight: '1.9' }}>
-          <li>Ant Design은 <strong>명령형 API</strong> (Modal.confirm())를, Orbit UI는 <strong>선언적 JSX</strong>를 사용합니다</li>
-          <li>Ant Design의 <code style={{ background: '#f1f5f9', padding: '1px 5px', borderRadius: '3px', fontSize: '12px' }}>type="danger"</code> 대신 <code style={{ background: '#f1f5f9', padding: '1px 5px', borderRadius: '3px', fontSize: '12px' }}>style</code>로 직접 색상을 지정합니다</li>
-          <li>Ant Design의 <code style={{ background: '#f1f5f9', padding: '1px 5px', borderRadius: '3px', fontSize: '12px' }}>onOk</code>/<code style={{ background: '#f1f5f9', padding: '1px 5px', borderRadius: '3px', fontSize: '12px' }}>onCancel</code> 대신 <code style={{ background: '#f1f5f9', padding: '1px 5px', borderRadius: '3px', fontSize: '12px' }}>Alert.Action</code>/<code style={{ background: '#f1f5f9', padding: '1px 5px', borderRadius: '3px', fontSize: '12px' }}>Alert.Close</code> 내부에서 처리합니다</li>
-          <li>Orbit UI의 AlertDialog는 WAI-ARIA alertdialog role을 자동으로 적용합니다</li>
-        </ul>
-      </div>
-    </section>
-
-    {/* Cycle 40: ComposableUI 마이그레이션 가이드 */}
-    <section style={{ marginTop: '48px', marginBottom: '40px' }}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '20px' }}>
-        <div style={{ width: 36, height: 36, borderRadius: '10px', background: '#0f172a', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontWeight: 800, fontSize: 16 }}>S</div>
-        <div>
-          <h2 style={{ margin: 0, fontSize: '20px', fontWeight: 800, color: '#0f172a' }}>ComposableUI에서 마이그레이션</h2>
-          <div style={{ margin: '2px 0 0', fontSize: '12px', color: '#64748b' }}>Cycle 40 벤치마크 — ComposableUI 패턴을 Orbit UI로 옮기는 방법</div>
-        </div>
-      </div>
-
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '24px' }}>
-        {[
-          {
-            title: 'Button 컴포넌트',
-            ComposableUI: `<Button variant="outline" size="sm">\n  클릭\n</Button>`,
-            orbit: `<OutlineButton color="gray" size="small">\n  <OutlineButton.Center>클릭</OutlineButton.Center>\n</OutlineButton>`,
-          },
-          {
-            title: 'Dialog → Drawer',
-            ComposableUI: `<Drawer>\n  <DrawerTrigger>\n    <Button>열기</Button>\n  </DrawerTrigger>\n  <DrawerContent>\n    <DrawerHeader>\n      <DrawerTitle>제목</DrawerTitle>\n    </DrawerHeader>\n    <DrawerFooter>\n      <DrawerClose asChild>\n        <Button>닫기</Button>\n      </DrawerClose>\n    </DrawerFooter>\n  </DrawerContent>\n</Drawer>`,
-            orbit: `<Drawer>\n  <Drawer.Trigger asChild>\n    <SolidButton color="primary" size="medium">\n      <SolidButton.Center>열기</SolidButton.Center>\n    </SolidButton>\n  </Drawer.Trigger>\n  <Drawer.Content side="right">\n    <Drawer.Header>\n      <Drawer.Title>제목</Drawer.Title>\n    </Drawer.Header>\n    <Drawer.Footer>\n      <Drawer.Close asChild>\n        <SolidButton color="black" size="medium">\n          <SolidButton.Center>닫기</SolidButton.Center>\n        </SolidButton>\n      </Drawer.Close>\n    </Drawer.Footer>\n  </Drawer.Content>\n</Drawer>`,
-          },
-        ].map(({ title, ComposableUI, orbit }) => (
-          <div key={title} style={{ borderRadius: '12px', border: '1.5px solid #e2e8f0', overflow: 'hidden' }}>
-            <div style={{ padding: '10px 14px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0', fontSize: '12px', fontWeight: 700, color: '#1e293b' }}>{title}</div>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr' }}>
-              <div style={{ padding: '12px', borderRight: '1px solid #f1f5f9' }}>
-                <div style={{ fontSize: '10px', fontWeight: 700, color: '#94a3b8', marginBottom: '6px' }}>ComposableUI</div>
-                <pre style={{ margin: 0, fontSize: '10px', color: '#475569', lineHeight: 1.6, fontFamily: 'monospace', whiteSpace: 'pre-wrap' }}>{ComposableUI}</pre>
-              </div>
-              <div style={{ padding: '12px' }}>
-                <div style={{ fontSize: '10px', fontWeight: 700, color: '#6366f1', marginBottom: '6px' }}>Orbit UI</div>
-                <pre style={{ margin: 0, fontSize: '10px', color: '#475569', lineHeight: 1.6, fontFamily: 'monospace', whiteSpace: 'pre-wrap' }}>{orbit}</pre>
-              </div>
+          <div className='pane to'>
+            <div className='head'>
+              <span className='tag'>after</span>
+              <span>Orbit UI</span>
             </div>
+            <pre>{`<div>
+  <FloatingTextField
+    label='이메일'
+    placeholder='you@example.com'
+    value={email}
+    onChange={(e) => setEmail(e.target.value)}
+    error={!!error}
+    helperText={error}
+  />
+</div>`}</pre>
           </div>
-        ))}
-      </div>
+        </div>
+      </section>
 
-      <div style={{ padding: '16px 20px', borderRadius: '12px', background: '#f0fdf4', border: '1.5px solid #a7f3d0' }}>
-        <div style={{ fontSize: '13px', fontWeight: 700, color: '#166534', marginBottom: '8px' }}>ComposableUI 대비 Orbit UI의 장점</div>
-        <ul style={{ margin: 0, padding: '0 0 0 20px' }}>
-          {[
-            '3단계 토큰 시스템(Reference → Semantic → Component)으로 브랜드 테마 한 곳에서 변경',
-            'UtilityCSS 유틸리티 + CSS 변수 토큰으로 TypeScript와 자연스럽게 결합',
-            'Compound 컴포넌트 패턴으로 Leading/Center/Trailing 슬롯을 유연하게 조합',
-            'Storybook Autodocs로 모든 컴포넌트 API 자동 문서화',
-            'DesignTool 디자인 파일과 토큰 동기화 지원',
-          ].map((item) => (
-            <li key={item} style={{ fontSize: '12px', color: '#15803d', lineHeight: '1.7', marginBottom: '3px' }}>{item}</li>
-          ))}
-        </ul>
-      </div>
-    </section>
-
-    {/* Footer */}
-    <div style={{
-      padding: '24px', borderRadius: '12px',
-      background: 'linear-gradient(135deg, rgba(99,102,241,0.06), rgba(139,92,246,0.06))',
-      border: '1.5px solid rgba(99,102,241,0.15)',
-      marginBottom: '48px',
-    }}>
-      <div style={{ fontSize: '14px', fontWeight: 700, color: '#6366f1', marginBottom: '8px' }}>도움이 필요하신가요?</div>
-      <div style={{ fontSize: '13px', color: '#64748b', lineHeight: '1.7' }}>
-        마이그레이션 과정에서 문제가 발생하면 컴포넌트 스토리를 참고하거나 CodeHost 이슈를 통해 문의해주세요.
-        각 컴포넌트의 Props와 사용 예시는 Storybook autodocs에서 확인할 수 있습니다.
-      </div>
-    </div>
-
-    {/* EnterpriseUI + AccessibleUI 마이그레이션 섹션 */}
-    <section style={{ marginBottom: '64px' }}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px' }}>
-        <h2 style={{ fontSize: '22px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', margin: 0 }}>EnterpriseUI + AccessibleUI 마이그레이션 가이드</h2>
-        <span style={{ padding: '3px 10px', background: '#f1f5f9', borderRadius: '20px', fontSize: '12px', fontWeight: '600', color: '#6366f1' }}>Cycle 58</span>
-      </div>
-
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '20px', marginBottom: '28px' }}>
-        {/* EnterpriseUI → Orbit UI */}
-        <div style={{ padding: '24px', borderRadius: '14px', background: '#f0f7ff', border: '1.5px solid #bfdbfe' }}>
-          <div style={{ fontSize: '11px', fontWeight: '700', color: '#1d4ed8', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '8px' }}>EnterpriseUI → Orbit UI</div>
-          <div style={{ fontSize: '14px', fontWeight: '700', color: '#1e3a8a', marginBottom: '12px' }}>Chip + Badge 마이그레이션</div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', fontSize: '12px' }}>
-            {[
-              { from: '<EnterpriseUIChip label="React" onDelete={fn} />', to: '<Chip onClick={fn}><Chip.Trailing><CancelIcon /></Chip.Trailing>React</Chip>' },
-              { from: '<EnterpriseUIChip variant="outlined" />', to: 'Chip은 기본 outlined 스타일 (variant 불필요)' },
-              { from: '<EnterpriseUIChip color="primary" />', to: 'selected prop으로 활성 상태 강조' },
-              { from: '<Badge badgeContent={4} />', to: '<CounterBadge>{4}</CounterBadge>' },
-              { from: '<Chip size="small" />', to: '<Chip size="small"> (동일 API)' },
-            ].map(({ from, to }) => (
-              <div key={from} style={{ background: '#fff', borderRadius: '8px', padding: '10px', border: '1px solid #bfdbfe' }}>
-                <div style={{ fontFamily: 'monospace', fontSize: '11px', color: '#ef4444', marginBottom: '4px', wordBreak: 'break-all' }}>{from}</div>
-                <div style={{ fontSize: '11px', color: '#94a3b8', marginBottom: '4px' }}>→</div>
-                <div style={{ fontFamily: 'monospace', fontSize: '11px', color: '#10b981', wordBreak: 'break-all' }}>{to}</div>
-              </div>
-            ))}
+      {/* ENTERPRISE UI */}
+      <section className='orbit-sect orbit-source' id='enterprise'>
+        <div className='orbit-sect-head'>
+          <div>
+            <div className='orbit-eyebrow'><span className='num'>03</span>Source 02</div>
+            <h3>EnterpriseUI → Orbit UI</h3>
+            <p className='summary'>JS 객체 테마 + Snackbar·Alert 조합 기반 시스템. Orbit UI는 CSS 변수 토큰과 단일 토스트 API로 단순화.</p>
           </div>
         </div>
 
-        {/* Accessible → Orbit UI */}
-        <div style={{ padding: '24px', borderRadius: '14px', background: '#f0fdf4', border: '1.5px solid #bbf7d0' }}>
-          <div style={{ fontSize: '11px', fontWeight: '700', color: '#15803d', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '8px' }}>AccessibleUI → Orbit UI</div>
-          <div style={{ fontSize: '14px', fontWeight: '700', color: '#14532d', marginBottom: '12px' }}>Tag + Badge 마이그레이션</div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', fontSize: '12px' }}>
-            {[
-              { from: '<Tag colorScheme="green">태그</Tag>', to: '<LabelBadge color="benefit"><LabelBadge.Label>태그</LabelBadge.Label></LabelBadge>' },
-              { from: '<Tag colorScheme="red">오류</Tag>', to: '<LabelBadge color="sale"><LabelBadge.Label>오류</LabelBadge.Label></LabelBadge>' },
-              { from: '<TagCloseButton />', to: 'Chip + <Chip.Trailing><CancelIcon /></Chip.Trailing> 패턴 사용' },
-              { from: '<Badge variant="solid" />', to: '<LabelBadge>로 교체 (variant 불필요)' },
-              { from: '<Wrap spacing={2}>', to: 'div + flexWrap으로 동일 효과 구현' },
-            ].map(({ from, to }) => (
-              <div key={from} style={{ background: '#fff', borderRadius: '8px', padding: '10px', border: '1px solid #bbf7d0' }}>
-                <div style={{ fontFamily: 'monospace', fontSize: '11px', color: '#ef4444', marginBottom: '4px', wordBreak: 'break-all' }}>{from}</div>
-                <div style={{ fontSize: '11px', color: '#94a3b8', marginBottom: '4px' }}>→</div>
-                <div style={{ fontFamily: 'monospace', fontSize: '11px', color: '#10b981', wordBreak: 'break-all' }}>{to}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* Chip API 비교표 */}
-      <div style={{ overflowX: 'auto', borderRadius: '12px', border: '1.5px solid #e2e8f0', marginBottom: '24px' }}>
-        <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px' }}>
+        <table className='orbit-map'>
           <thead>
-            <tr style={{ background: '#f8fafc' }}>
-              {['기능', 'EnterpriseUI Chip', 'Accessible Tag', 'Orbit UI Chip'].map((col, i) => (
-                <th key={col} style={{ padding: '12px 16px', textAlign: 'left', fontWeight: 700, color: i === 3 ? '#6366f1' : '#475569', borderBottom: '1.5px solid #e2e8f0', whiteSpace: 'nowrap' }}>{col}</th>
-              ))}
+            <tr>
+              <th style={{ width: '24%' }}>From</th>
+              <th style={{ width: '4%' }}></th>
+              <th style={{ width: '32%' }}>To (Orbit UI)</th>
+              <th>설명</th>
             </tr>
           </thead>
           <tbody>
-            {[
-              ['삭제 버튼', 'onDelete prop', 'TagCloseButton', 'Chip.Trailing + CancelIcon'],
-              ['아이콘', 'icon prop', 'TagLeftIcon', 'Chip.Leading + 아이콘 컴포넌트'],
-              ['색상', 'color="primary"', 'colorScheme="green"', 'selected prop (단일 활성 색상)'],
-              ['크기', 'size="small/medium"', 'size="sm/md/lg"', 'size="small/medium/large"'],
-              ['비활성화', 'disabled prop', 'isDisabled prop', 'disabled prop (동일)'],
-              ['클릭 가능', 'onClick prop', 'onClick prop', 'onClick prop (동일)'],
-            ].map((row, i) => (
-              <tr key={i} style={{ background: i % 2 === 0 ? '#fff' : '#fafafa' }}>
-                {row.map((cell, j) => (
-                  <td key={j} style={{ padding: '10px 16px', color: j === 3 ? '#4f46e5' : '#334155', borderBottom: '1px solid #f1f5f9', fontWeight: j === 0 ? 600 : 400, fontFamily: j === 0 ? 'inherit' : 'inherit' }}>{cell}</td>
-                ))}
-              </tr>
-            ))}
+            <tr><td className='from'>createTheme + ThemeProvider</td><td className='arrow'>→</td><td className='to'>CSS 변수 + EclipseProvider</td><td className='note'>객체 대신 <code>--ref-*</code> CSS 변수 오버라이드.</td></tr>
+            <tr><td className='from'>Snackbar + Alert</td><td className='arrow'>→</td><td className='to'>toast.success · toast.error</td><td className='note'>Provider 없이 함수 호출.</td></tr>
+            <tr><td className='from'>Stepper + Step + StepLabel</td><td className='arrow'>→</td><td className='to'>PageIndicator + Progress</td><td className='note'>인디케이터 + 진행률 분리.</td></tr>
+            <tr><td className='from'>Accordion + AccordionSummary</td><td className='arrow'>→</td><td className='to'>Accordion.Item + Accordion.Trigger</td><td className='note'>슬롯 컴파운드.</td></tr>
+            <tr><td className='from'>TextField variant='outlined'</td><td className='arrow'>→</td><td className='to'>FloatingTextField</td><td className='note'>error prop으로 단일 처리.</td></tr>
+            <tr><td className='from'>IconButton</td><td className='arrow'>→</td><td className='to'>SolidIconButton · OutlineIconButton</td><td className='note'>variant에 맞춰 분리.</td></tr>
+            <tr><td className='from'>Chip + onDelete</td><td className='arrow'>→</td><td className='to'>Chip + Chip.Trailing</td><td className='note'>슬롯에 IconClose.</td></tr>
+            <tr><td className='from'>Skeleton + variant='text'</td><td className='arrow'>→</td><td className='to'>Skeleton</td><td className='note'>variant 없이 width·height 직접.</td></tr>
           </tbody>
         </table>
-      </div>
 
-      <div style={{ padding: '20px', borderRadius: '12px', background: 'linear-gradient(135deg, #f0fdf4, #ecfdf5)', border: '2px solid #bbf7d0' }}>
-        <div style={{ fontSize: '13px', fontWeight: '700', color: '#065f46', marginBottom: '12px' }}>Orbit UI 반영 결과</div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '12px', fontSize: '12px', color: '#374151', lineHeight: '1.7' }}>
-          <div>
-            <div style={{ fontWeight: '700', color: '#059669', marginBottom: '4px' }}>Chip 고도화</div>
-            EnterpriseUI Autocomplete 태그 선택기, Accessible 태그 클라우드(인기도 기반 크기), EnterpriseUI 상태 필터 칩 툴바 3개 스토리 추가.
+        <div className='orbit-diff'>
+          <div className='pane from'>
+            <div className='head'>
+              <span className='tag'>before</span>
+              <span>EnterpriseUI toast</span>
+            </div>
+            <pre>{`<Snackbar
+  open={open}
+  anchorOrigin={{
+    vertical: 'bottom',
+    horizontal: 'center',
+  }}
+>
+  <Alert severity='success'>
+    저장 완료
+  </Alert>
+</Snackbar>`}</pre>
           </div>
-          <div>
-            <div style={{ fontWeight: '700', color: '#059669', marginBottom: '4px' }}>LabelBadge 고도화</div>
-            EnterpriseUI 서비스 상태 대시보드, Accessible 알림 유형 분류 배지, Accessible 카테고리 멀티 배지 필터 3개 스토리 추가.
+          <div className='pane to'>
+            <div className='head'>
+              <span className='tag'>after</span>
+              <span>Orbit UI toast</span>
+            </div>
+            <pre>{`toast.success('저장 완료', {
+  description: '자동으로 닫힙니다',
+  action: {
+    label: '실행취소',
+    onClick: handleUndo,
+  },
+})`}</pre>
           </div>
         </div>
-      </div>
-    </section>
 
+        <aside className='orbit-note'>
+          <strong>토스트 마이그레이션 팁</strong>
+          Orbit UI의 toast는 Sonner 기반으로 Provider 없이 호출 가능합니다. <code>toast.success</code>·<code>toast.error</code>·<code>toast.warning</code>·<code>toast.info</code>로 의미를 분리.
+        </aside>
+      </section>
+
+      {/* HEADLESS TOOLKIT */}
+      <section className='orbit-sect orbit-source' id='headless'>
+        <div className='orbit-sect-head'>
+          <div>
+            <div className='orbit-eyebrow'><span className='num'>04</span>Source 03</div>
+            <h3>Headless Toolkit → Orbit UI</h3>
+            <p className='summary'>스타일 없는 헤드리스 프리미티브 라이브러리에서 옮길 때. ARIA·키보드는 거의 일대일 매핑.</p>
+          </div>
+        </div>
+
+        <table className='orbit-map'>
+          <thead>
+            <tr>
+              <th style={{ width: '24%' }}>From</th>
+              <th style={{ width: '4%' }}></th>
+              <th style={{ width: '32%' }}>To (Orbit UI)</th>
+              <th>설명</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td className='from'>Dialog.Root + Trigger + Content</td><td className='arrow'>→</td><td className='to'>Modal + Modal.Trigger + Modal.Content</td><td className='note'>슬롯 패턴 동일.</td></tr>
+            <tr><td className='from'>Popover.Root + Trigger + Content</td><td className='arrow'>→</td><td className='to'>Popover + Popover.Trigger + Popover.Content</td><td className='note'>API 동일.</td></tr>
+            <tr><td className='from'>Tooltip.Provider + Tooltip + Trigger</td><td className='arrow'>→</td><td className='to'>Tooltip (Provider 없음)</td><td className='note'>EclipseProvider가 자동.</td></tr>
+            <tr><td className='from'>DropdownMenu.Root + Content + Item</td><td className='arrow'>→</td><td className='to'>Dropdown + Dropdown.Item</td><td className='note'>API 거의 동일.</td></tr>
+            <tr><td className='from'>Toggle / Switch</td><td className='arrow'>→</td><td className='to'>Switch</td><td className='note'>동일.</td></tr>
+            <tr><td className='from'>Tabs.Root + List + Trigger + Content</td><td className='arrow'>→</td><td className='to'>TabGroup + TabItem</td><td className='note'>슬롯 명 약간 상이.</td></tr>
+            <tr><td className='from'>Accordion.Root + Item + Trigger + Content</td><td className='arrow'>→</td><td className='to'>Accordion + Accordion.Item + Accordion.Trigger + Accordion.Content</td><td className='note'>API 동일.</td></tr>
+            <tr><td className='from'>Slot</td><td className='arrow'>→</td><td className='to'><code>as</code> 프롭</td><td className='note'>asChild 패턴 대신 polymorphic as.</td></tr>
+          </tbody>
+        </table>
+
+        <div className='orbit-diff'>
+          <div className='pane from'>
+            <div className='head'>
+              <span className='tag'>before</span>
+              <span>Headless toolkit (asChild)</span>
+            </div>
+            <pre>{`<Button asChild>
+  <Link href='/dashboard'>
+    대시보드로
+  </Link>
+</Button>`}</pre>
+          </div>
+          <div className='pane to'>
+            <div className='head'>
+              <span className='tag'>after</span>
+              <span>Orbit UI (as prop)</span>
+            </div>
+            <pre>{`<SolidButton as={Link} href='/dashboard'>
+  <SolidButton.Center>
+    대시보드로
+  </SolidButton.Center>
+</SolidButton>`}</pre>
+          </div>
+        </div>
+
+        <aside className='orbit-note'>
+          <strong>점진 마이그레이션 전략</strong>
+          기존 라이브러리와 Orbit UI는 한 페이지에 공존 가능합니다. 가장 자주 쓰는 컴포넌트 (Button, TextField) 먼저 옮기고
+          페이지 단위로 점진 교체하세요. CSS 변수 충돌만 주의 (네임스페이스가 다르므로 일반적으로 안전).
+        </aside>
+      </section>
+
+      {/* FOOTER */}
+      <footer className='orbit-foot'>
+        <div>3 sources · incremental · codemod-friendly</div>
+        <div>
+          <a href='?path=/docs/intro-시작하기--docs'>시작하기 →</a>
+        </div>
+      </footer>
+
+    </div>
   </div>
 </Unstyled>
-
-{/* ========== CYCLE 64: IssueTracker Design + DesignTool Plugin UI ========== */}
-<section style={{ marginBottom: '48px' }}>
-  <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '20px' }}>
-    <div style={{ width: '36px', height: '36px', borderRadius: '10px', background: 'linear-gradient(135deg, #5e6ad2, #f24e1e)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontWeight: '800', fontSize: '15px' }}>L</div>
-    <div>
-      <div style={{ fontSize: '22px', fontWeight: '800', color: '#0f172a', letterSpacing: '-0.5px' }}>Cycle 64 — IssueTracker Design + DesignTool Plugin UI 벤치마크</div>
-      <div style={{ fontSize: '13px', color: '#64748b', marginTop: '2px' }}>컴팩트 이슈 UI, 말풍선 어노테이션, 플러그인 마켓플레이스 패턴 분석</div>
-    </div>
-  </div>
-
-  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '16px', marginBottom: '24px' }}>
-    <div style={{ padding: '20px', borderRadius: '12px', background: 'linear-gradient(135deg, #f0f0ff, #e8e8ff)', border: '1px solid #c7c7ff' }}>
-      <div style={{ fontSize: '14px', fontWeight: '700', color: '#3730a3', marginBottom: '12px' }}>IssueTracker Design 핵심 패턴</div>
-      <ul style={{ margin: 0, padding: '0 0 0 16px', fontSize: '13px', color: '#312e81', lineHeight: '1.8' }}>
-        <li>컴팩트 이슈 리스트 + 사이드 상세 패널</li>
-        <li>레이블 색상 코딩으로 즉각적 상태 인식</li>
-        <li>키보드 우선 인터랙션 패턴</li>
-        <li>이슈 코멘트 스레드 말풍선 UI</li>
-        <li>프로젝트 태그 링크 필터 탐색</li>
-      </ul>
-    </div>
-    <div style={{ padding: '20px', borderRadius: '12px', background: 'linear-gradient(135deg, #fff5f0, #ffe8e0)', border: '1px solid #ffc9b5' }}>
-      <div style={{ fontSize: '14px', fontWeight: '700', color: '#c2410c', marginBottom: '12px' }}>DesignTool Plugin UI 핵심 패턴</div>
-      <ul style={{ margin: 0, padding: '0 0 0 16px', fontSize: '13px', color: '#9a3412', lineHeight: '1.8' }}>
-        <li>컴팩트 도구 팔레트 (아이콘 밀도 높음)</li>
-        <li>어노테이션 핀 팝업 (클릭 → 말풍선)</li>
-        <li>컴포넌트 소스 라이브러리 링크 태그</li>
-        <li>플러그인 마켓플레이스 설치/제거 UX</li>
-        <li>#09090b 다크 + DesignTool 오렌지 브랜드 색상</li>
-      </ul>
-    </div>
-  </div>
-
-  <div style={{ overflowX: 'auto', borderRadius: '12px', border: '1.5px solid #e2e8f0', marginBottom: '24px' }}>
-    <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px' }}>
-      <thead>
-        <tr style={{ background: '#f8fafc' }}>
-          {['기준', 'IssueTracker Design', 'DesignTool Plugin UI', 'Orbit UI 반영'].map((col, i) => (
-            <th key={col} style={{ padding: '12px 16px', textAlign: 'left', fontWeight: 700, color: i === 3 ? '#6366f1' : '#475569', borderBottom: '1.5px solid #e2e8f0', whiteSpace: 'nowrap' }}>{col}</th>
-          ))}
-        </tr>
-      </thead>
-      <tbody>
-        {[
-          ['코멘트 UI', '이슈 스레드 말풍선', '어노테이션 핀 팝업', 'SpeechBadge 스레드·핀·온보딩 3패턴'],
-          ['링크 태그', '레이블/프로젝트 ChipLink', '컴포넌트 소스 링크', 'ChipLink 레이블·라이브러리·프로젝트 3패턴'],
-          ['마켓플레이스', '이슈 리스트 + 사이드패널', '플러그인 설치/제거', 'PluginMarketplace 복합 템플릿'],
-          ['밀도', '컴팩트 이슈 행 (36px)', '툴바 아이콘 밀집', 'Avatar + LabelBadge 인라인 배치'],
-          ['색상 코딩', '레이블 color dot', '라이브러리 브랜드 색상', 'Leading 도트로 출처/상태 즉각 인식'],
-        ].map((row, i) => (
-          <tr key={i} style={{ background: i % 2 === 0 ? '#fff' : '#fafafa' }}>
-            {row.map((cell, j) => (
-              <td key={j} style={{ padding: '11px 16px', color: j === 3 ? '#4f46e5' : '#334155', borderBottom: '1px solid #f1f5f9', fontWeight: j === 0 ? 600 : 400 }}>{cell}</td>
-            ))}
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  </div>
-
-  <div style={{ padding: '20px', borderRadius: '12px', background: 'linear-gradient(135deg, #f0f0ff, #fff5f0)', border: '2px solid #c7c7ff' }}>
-    <div style={{ fontSize: '13px', fontWeight: '700', color: '#3730a3', marginBottom: '12px' }}>Orbit UI 반영 결과 (Cycle 64)</div>
-    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '12px', fontSize: '12px', color: '#374151', lineHeight: '1.7' }}>
-      <div>
-        <div style={{ fontWeight: '700', color: '#5e6ad2', marginBottom: '4px' }}>SpeechBadge +3</div>
-        IssueTracker 이슈 코멘트 스레드(실시간 입력), DesignTool 어노테이션 핀 팝업(클릭 토글), IssueTracker 온보딩 가이드 핀(단계별) 추가.
-      </div>
-      <div>
-        <div style={{ fontWeight: '700', color: '#f24e1e', marginBottom: '4px' }}>ChipLink +3</div>
-        IssueTracker 이슈 레이블 필터(color dot), DesignTool 컴포넌트 라이브러리 링크, IssueTracker 프로젝트 태그 탐색 3패턴 추가.
-      </div>
-      <div>
-        <div style={{ fontWeight: '700', color: '#5e6ad2', marginBottom: '4px' }}>Template 54: PluginMarketplace</div>
-        TextField 검색, Chip 카테고리, Avatar, LabelBadge 태그, SolidButton 설치/제거, Progress 평점, Divider 조합.
-      </div>
-    </div>
-  </div>
-</section>
-
-{/* Cycle 68: CommandPalette Extensions + WorkspaceEditor Design */}
-<section style={{ marginTop: '48px' }}>
-  <h2 style={{ fontSize: '22px', fontWeight: '800', color: '#0f172a', marginBottom: '8px' }}>
-    Cycle 68 — CommandPalette Extensions + WorkspaceEditor Design 벤치마크
-  </h2>
-  <div style={{ color: '#64748b', fontSize: '14px', marginBottom: '24px' }}>
-    Popover(ActionPanel, 멘션, 슬래시 커맨드) + SolidIconButton(필터 토글, 포맷 툴바, 히스토리 내비게이션) 강화.
-  </div>
-
-  <h3 style={{ fontSize: '17px', fontWeight: '700', color: '#334155', marginBottom: '12px' }}>CommandPalette Extensions 장점 분석</h3>
-  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '12px', marginBottom: '24px' }}>
-    <div style={{ padding: '16px', borderRadius: '12px', background: '#fafafa', border: '1px solid #e2e8f0' }}>
-      <div style={{ fontWeight: '700', color: '#0f172a', marginBottom: '6px', fontSize: '13px' }}>ActionPanel.Section 패턴</div>
-      <div style={{ fontSize: '12px', color: '#475569', lineHeight: '1.7' }}>
-        액션을 카테고리 섹션으로 그룹화. 섹션 헤더(회색 소문자) + 액션 아이템 + 우측 단축키 배지.
-        Orbit Popover 내부에 동일 패턴 구현.
-      </div>
-    </div>
-    <div style={{ padding: '16px', borderRadius: '12px', background: '#fafafa', border: '1px solid #e2e8f0' }}>
-      <div style={{ fontWeight: '700', color: '#0f172a', marginBottom: '6px', fontSize: '13px' }}>키보드 단축키 뱃지</div>
-      <div style={{ fontSize: '12px', color: '#475569', lineHeight: '1.7' }}>
-        monospace 폰트 + 회색 배경 pill로 ↵/⌘↵/⌃X 등 단축키 표시. 스캐닝 효율 극대화.
-        Orbit Counter/Label badge로 대체 구현 가능.
-      </div>
-    </div>
-    <div style={{ padding: '16px', borderRadius: '12px', background: '#fafafa', border: '1px solid #e2e8f0' }}>
-      <div style={{ fontWeight: '700', color: '#0f172a', marginBottom: '6px', fontSize: '13px' }}>인라인 검색 필터링</div>
-      <div style={{ fontSize: '12px', color: '#475569', lineHeight: '1.7' }}>
-        팝오버 상단 인라인 검색 입력으로 액션 즉시 필터링. autoFocus로 열리자마자 타이핑 가능.
-        Orbit SearchBar를 Popover.Content 내부에 조합.
-      </div>
-    </div>
-  </div>
-
-  <h3 style={{ fontSize: '17px', fontWeight: '700', color: '#334155', marginBottom: '12px' }}>WorkspaceEditor Design 장점 분석</h3>
-  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '12px', marginBottom: '24px' }}>
-    <div style={{ padding: '16px', borderRadius: '12px', background: '#fffbeb', border: '1px solid #fde68a' }}>
-      <div style={{ fontWeight: '700', color: '#92400e', marginBottom: '6px', fontSize: '13px' }}>@멘션 자동완성 팝오버</div>
-      <div style={{ fontSize: '12px', color: '#475569', lineHeight: '1.7' }}>
-        입력창에서 @ 감지 → 즉시 Popover 표시 → 유저 선택 → 텍스트 삽입. 상태 기반 개방/닫힘 제어.
-        Orbit Popover.open + onOpenChange로 정확히 구현.
-      </div>
-    </div>
-    <div style={{ padding: '16px', borderRadius: '12px', background: '#fffbeb', border: '1px solid #fde68a' }}>
-      <div style={{ fontWeight: '700', color: '#92400e', marginBottom: '6px', fontSize: '13px' }}>/ 슬래시 커맨드 메뉴</div>
-      <div style={{ fontSize: '12px', color: '#475569', lineHeight: '1.7' }}>
-        아이콘(28px 정사각 배경) + 제목 + 설명 2줄 레이아웃. 카테고리 섹션 분류 + 인라인 검색.
-        Orbit Popover에 블록 타입 선택기로 구현.
-      </div>
-    </div>
-    <div style={{ padding: '16px', borderRadius: '12px', background: '#fffbeb', border: '1px solid #fde68a' }}>
-      <div style={{ fontWeight: '700', color: '#92400e', marginBottom: '6px', fontSize: '13px' }}>인라인 포맷 툴바</div>
-      <div style={{ fontSize: '12px', color: '#475569', lineHeight: '1.7' }}>
-        다크 배경(#1e293b) 플로팅 툴바에 아이콘 버튼 클러스터. B/I/U 포맷을 SolidIconButton
-        color="primary"(활성) vs "gray"(비활성)으로 구분.
-      </div>
-    </div>
-  </div>
-
-  <h3 style={{ fontSize: '17px', fontWeight: '700', color: '#334155', marginBottom: '12px' }}>이번 사이클 적용 결과</h3>
-  <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-    <div style={{ padding: '12px 16px', borderRadius: '8px', background: '#f8fafc', border: '1px solid #e2e8f0', fontSize: '13px' }}>
-      <span style={{ fontWeight: '700', color: '#7c3aed' }}>Popover +3:</span>
-      <span style={{ color: '#475569', marginLeft: '8px' }}>CommandPalette ActionPanel 섹션 팝오버, WorkspaceEditor @멘션 사용자 팝오버, WorkspaceEditor 슬래시 커맨드 블록 선택기</span>
-    </div>
-    <div style={{ padding: '12px 16px', borderRadius: '8px', background: '#f8fafc', border: '1px solid #e2e8f0', fontSize: '13px' }}>
-      <span style={{ fontWeight: '700', color: '#0369a1' }}>SolidIconButton +3:</span>
-      <span style={{ color: '#475569', marginLeft: '8px' }}>CommandPalette 빠른 필터 토글 그룹, WorkspaceEditor 인라인 텍스트 포맷 도구 모음, CommandPalette+WorkspaceEditor 히스토리 내비게이션</span>
-    </div>
-    <div style={{ padding: '12px 16px', borderRadius: '8px', background: '#f8fafc', border: '1px solid #e2e8f0', fontSize: '13px' }}>
-      <span style={{ fontWeight: '700', color: '#059669' }}>Template #58:</span>
-      <span style={{ color: '#475569', marginLeft: '8px' }}>KnowledgeBase — 지식 베이스 뷰어 (카테고리 사이드바, 태그, 카드 그리드, ScrollableTabGroup 탭)</span>
-    </div>
-  </div>
-</section>
-
-<section style={{ marginTop: '32px', padding: '20px', borderRadius: '10px', border: '1px solid #e2e8f0', background: '#fafafa' }}>
-  <h3 style={{ fontSize: '16px', fontWeight: '700', color: '#0f172a', margin: '0 0 4px' }}>Cycle 74 — DataProductUI + IssueTracker 벤치마크</h3>
-  <div style={{ fontSize: '12px', color: '#94a3b8', margin: '0 0 16px' }}>2026-04-10 / 대상 컴포넌트: SearchBar, Text</div>
-
-  <h4 style={{ fontSize: '13px', fontWeight: '600', color: '#334155', margin: '0 0 8px' }}>DataProductUI SearchBar 마이그레이션</h4>
-  <ul style={{ fontSize: '12px', color: '#475569', margin: '0 0 12px', paddingLeft: '18px', lineHeight: '1.8' }}>
-    <li><strong>탭 분류 드롭다운</strong>: DataProduct Search `<Search.SearchBar allowClear enterButton />` → Orbit UI SearchBar + 탭 헤더 div 조합으로 동일 UX 구현.</li>
-    <li><strong>로딩 상태</strong>: DataProduct `loading` prop → `setTimeout` + `searching` 상태 변수로 모방, 검색 중 텍스트 표시.</li>
-    <li><strong>고정 북마크 섹션</strong>: DataProduct Mentions `prefix` 기능 → pinned 배열 상태 + 별표 아이콘 렌더링으로 마이그레이션.</li>
-  </ul>
-
-  <h4 style={{ fontSize: '13px', fontWeight: '600', color: '#334155', margin: '0 0 8px' }}>IssueTracker 타이포그래피 마이그레이션</h4>
-  <ul style={{ fontSize: '12px', color: '#475569', margin: '0 0 12px', paddingLeft: '18px', lineHeight: '1.8' }}>
-    <li><strong>이슈 상세 헤딩</strong>: IssueTracker CSS `font-size: 18px; font-weight: 600` → Orbit UI `Text textStyle="headlineSmall"` 로 대체.</li>
-    <li><strong>메타 정보 라벨</strong>: IssueTracker `text-xs text-gray-500` → `Text textStyle="labelSmall" color="onSurfaceVariant"` 로 시맨틱 매핑.</li>
-    <li><strong>본문 텍스트</strong>: IssueTracker `text-sm leading-relaxed` → `Text textStyle="bodyMedium"` 으로 줄간격 포함 자동 적용.</li>
-  </ul>
-
-  <h4 style={{ fontSize: '13px', fontWeight: '600', color: '#334155', margin: '0 0 8px' }}>Orbit UI 반영 사항</h4>
-  <ul style={{ fontSize: '12px', color: '#475569', margin: '0 0 12px', paddingLeft: '18px', lineHeight: '1.8' }}>
-    <li>SearchBar: DataProduct 탭 분류 전역 검색, IssueTracker 이슈 인라인 검색(상태+우선순위+담당자), DataProduct+IssueTracker 고정 북마크+히스토리 +3 스토리</li>
-    <li>Text: DataProduct 데이터 테이블 타이포그래피 계층, IssueTracker 이슈 상세 뷰 타이포그래피, DataProduct+IssueTracker README 문서 계층 +3 스토리</li>
-    <li>Template #64 ComponentBrowser: SearchBar 검색 + Text 계층 + Chip 태그 + LabelBadge 상태 + SectionTitle + Breadcrumb 조합</li>
-  </ul>
-
-  <div style={{ borderTop: '1px solid #e2e8f0', paddingTop: '10px', marginTop: '4px' }}>
-    <span style={{ fontWeight: '700', color: '#059669' }}>Template #64:</span>
-    <span style={{ color: '#475569', marginLeft: '8px' }}>ComponentBrowser — 컴포넌트 브라우저 (DataProduct 탭 검색 + IssueTracker 타이포그래피 + Chip/LabelBadge 조합)</span>
-  </div>
-</section>

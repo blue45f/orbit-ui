@@ -5,25 +5,25 @@
 }
 
 :root {
-  --storybook-docs-bg: #f7f8fa;
-  --storybook-docs-surface: #ffffff;
-  --storybook-docs-border: #dfe3ea;
-  --storybook-docs-text: #1f2937;
-  --storybook-docs-muted: #5f6b7a;
-  --storybook-docs-accent: #2563eb;
-  --storybook-docs-code-bg: #eef2f7;
-  --storybook-docs-shadow: 0 1px 2px rgb(15 23 42 / 0.06);
+  --storybook-docs-bg: rgb(243, 245, 247);
+  --storybook-docs-surface: rgb(255, 255, 255);
+  --storybook-docs-border: rgba(24, 26, 28, 0.1);
+  --storybook-docs-text: rgb(24, 26, 28);
+  --storybook-docs-muted: rgba(24, 26, 28, 0.6);
+  --storybook-docs-accent: rgb(37, 99, 235);
+  --storybook-docs-code-bg: rgba(24, 26, 28, 0.04);
+  --storybook-docs-shadow: 0 1px 2px rgba(15, 23, 42, 0.05);
 }
 
 :root.dark {
-  --storybook-docs-bg: #10131a;
-  --storybook-docs-surface: #171b24;
-  --storybook-docs-border: #2b3340;
-  --storybook-docs-text: #edf2f7;
-  --storybook-docs-muted: #a8b1bf;
-  --storybook-docs-accent: #7aa2ff;
-  --storybook-docs-code-bg: #222938;
-  --storybook-docs-shadow: 0 1px 2px rgb(0 0 0 / 0.25);
+  --storybook-docs-bg: rgb(15, 18, 22);
+  --storybook-docs-surface: rgb(20, 24, 29);
+  --storybook-docs-border: rgba(255, 255, 255, 0.09);
+  --storybook-docs-text: rgb(239, 243, 247);
+  --storybook-docs-muted: rgba(239, 243, 247, 0.62);
+  --storybook-docs-accent: rgb(122, 162, 255);
+  --storybook-docs-code-bg: rgba(255, 255, 255, 0.05);
+  --storybook-docs-shadow: 0 1px 2px rgba(0, 0, 0, 0.32);
 }
 
 html,
@@ -185,7 +185,11 @@ body {
 
 ::selection {
   color: inherit;
-  background: rgb(37 99 235 / 0.18);
+  background: rgb(37 99 235 / 0.2);
+}
+
+:root.dark ::selection {
+  background: rgb(122 162 255 / 0.24);
 }
 
 ::-webkit-scrollbar {
@@ -220,5 +224,228 @@ body {
 
   .sbdocs-content {
     padding: 28px 18px !important;
+  }
+}
+
+/* ========================================================================
+ * Shared design tokens + base layout for Intro/* MDX docs.
+ * Pages opt in by wrapping content in <div data-orbit-doc>.
+ * Pages may override variables locally for page-specific tonal needs.
+ * ======================================================================== */
+
+[data-orbit-doc] {
+  --orbit-bg: rgb(243, 245, 247);
+  --orbit-surface: rgb(255, 255, 255);
+  --orbit-surface-sunken: rgba(24, 26, 28, 0.025);
+  --orbit-ink: rgb(24, 26, 28);
+  --orbit-ink-2: rgba(24, 26, 28, 0.78);
+  --orbit-ink-3: rgba(24, 26, 28, 0.56);
+  --orbit-ink-4: rgba(24, 26, 28, 0.33);
+  --orbit-line: rgba(24, 26, 28, 0.08);
+  --orbit-line-2: rgba(24, 26, 28, 0.14);
+  --orbit-accent: rgb(37, 99, 235);
+  --orbit-accent-soft: rgba(37, 99, 235, 0.08);
+  --orbit-positive: rgb(0, 132, 77);
+  --orbit-positive-soft: rgba(0, 185, 107, 0.1);
+  --orbit-negative: rgb(187, 37, 35);
+  --orbit-negative-soft: rgba(255, 64, 62, 0.08);
+  --orbit-warning: rgb(187, 69, 0);
+  --orbit-warning-soft: rgba(255, 132, 0, 0.1);
+  --orbit-mono:
+    "JetBrains Mono", "SFMono-Regular", ui-monospace, Consolas, monospace;
+  --orbit-display:
+    "Pretendard Variable", "Pretendard", system-ui, "Segoe UI",
+    "Noto Sans KR", sans-serif;
+
+  min-height: 100vh;
+  padding: 72px 48px 96px;
+  color: var(--orbit-ink);
+  background: var(--orbit-bg);
+  font-family: var(--orbit-display);
+  -webkit-font-smoothing: antialiased;
+  transition:
+    background-color 200ms cubic-bezier(0.2, 0, 0, 1),
+    color 200ms cubic-bezier(0.2, 0, 0, 1);
+}
+
+:root.dark [data-orbit-doc] {
+  --orbit-bg: rgb(21, 23, 25);
+  --orbit-surface: rgb(28, 31, 35);
+  --orbit-surface-sunken: rgba(255, 255, 255, 0.03);
+  --orbit-ink: rgb(247, 248, 250);
+  --orbit-ink-2: rgba(247, 248, 250, 0.78);
+  --orbit-ink-3: rgba(247, 248, 250, 0.56);
+  --orbit-ink-4: rgba(247, 248, 250, 0.36);
+  --orbit-line: rgba(255, 255, 255, 0.08);
+  --orbit-line-2: rgba(255, 255, 255, 0.14);
+  --orbit-accent: rgb(96, 165, 250);
+  --orbit-accent-soft: rgba(96, 165, 250, 0.14);
+  --orbit-positive: rgb(59, 210, 141);
+  --orbit-positive-soft: rgba(59, 210, 141, 0.12);
+  --orbit-negative: rgb(255, 139, 141);
+  --orbit-negative-soft: rgba(255, 98, 98, 0.12);
+  --orbit-warning: rgb(255, 186, 119);
+  --orbit-warning-soft: rgba(255, 158, 59, 0.14);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not(.light) [data-orbit-doc] {
+    --orbit-bg: rgb(21, 23, 25);
+    --orbit-surface: rgb(28, 31, 35);
+    --orbit-surface-sunken: rgba(255, 255, 255, 0.03);
+    --orbit-ink: rgb(247, 248, 250);
+    --orbit-ink-2: rgba(247, 248, 250, 0.78);
+    --orbit-ink-3: rgba(247, 248, 250, 0.56);
+    --orbit-ink-4: rgba(247, 248, 250, 0.36);
+    --orbit-line: rgba(255, 255, 255, 0.08);
+    --orbit-line-2: rgba(255, 255, 255, 0.14);
+    --orbit-accent: rgb(96, 165, 250);
+    --orbit-accent-soft: rgba(96, 165, 250, 0.14);
+    --orbit-positive: rgb(59, 210, 141);
+    --orbit-positive-soft: rgba(59, 210, 141, 0.12);
+    --orbit-negative: rgb(255, 139, 141);
+    --orbit-negative-soft: rgba(255, 98, 98, 0.12);
+    --orbit-warning: rgb(255, 186, 119);
+    --orbit-warning-soft: rgba(255, 158, 59, 0.14);
+  }
+}
+
+[data-orbit-doc] * { box-sizing: border-box; }
+
+[data-orbit-doc] .orbit-wrap {
+  width: 100%;
+  max-width: 1040px;
+  margin: 0 auto;
+}
+
+[data-orbit-doc] .orbit-page-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 32px;
+  align-items: end;
+  padding-bottom: 28px;
+  border-bottom: 1px solid var(--orbit-line);
+}
+
+[data-orbit-doc] .orbit-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--orbit-mono);
+  font-size: 11px;
+  color: var(--orbit-ink-4);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+[data-orbit-doc] .orbit-eyebrow .num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 22px;
+  height: 18px;
+  padding: 0 6px;
+  border-radius: 4px;
+  background: var(--orbit-surface-sunken);
+  border: 1px solid var(--orbit-line);
+  color: var(--orbit-ink-3);
+  font-size: 10.5px;
+}
+
+[data-orbit-doc] h1.orbit-h1 {
+  margin: 12px 0 0;
+  font-size: clamp(40px, 5vw, 56px);
+  font-weight: 720;
+  letter-spacing: -0.035em;
+  line-height: 1;
+  color: var(--orbit-ink);
+}
+
+[data-orbit-doc] .orbit-lede {
+  max-width: 56ch;
+  margin: 18px 0 0;
+  font-size: 17px;
+  line-height: 1.55;
+  color: var(--orbit-ink-2);
+  letter-spacing: -0.008em;
+}
+
+[data-orbit-doc] .orbit-page-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+  font-family: var(--orbit-mono);
+  font-size: 12px;
+  color: var(--orbit-ink-3);
+}
+
+[data-orbit-doc] .orbit-page-meta strong {
+  color: var(--orbit-ink-2);
+  font-weight: 600;
+}
+
+[data-orbit-doc] .orbit-sect { margin-top: 80px; }
+
+[data-orbit-doc] .orbit-sect-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--orbit-line);
+}
+
+[data-orbit-doc] .orbit-sect-head h2 {
+  margin: 8px 0 0;
+  font-size: 24px;
+  font-weight: 680;
+  letter-spacing: -0.02em;
+  color: var(--orbit-ink);
+}
+
+[data-orbit-doc] .orbit-sect-head p {
+  margin: 4px 0 0;
+  max-width: 60ch;
+  font-size: 14px;
+  color: var(--orbit-ink-3);
+  line-height: 1.6;
+}
+
+[data-orbit-doc] .orbit-foot {
+  margin-top: 96px;
+  padding-top: 28px;
+  border-top: 1px solid var(--orbit-line);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 24px;
+  justify-content: space-between;
+  align-items: baseline;
+  font-family: var(--orbit-mono);
+  font-size: 11.5px;
+  color: var(--orbit-ink-4);
+}
+
+[data-orbit-doc] .orbit-foot a {
+  color: var(--orbit-accent);
+  text-decoration: none !important;
+  font-weight: 600;
+}
+
+[data-orbit-doc] .orbit-foot a:hover {
+  text-decoration: underline !important;
+  text-underline-offset: 3px;
+}
+
+@media (max-width: 760px) {
+  [data-orbit-doc] { padding: 48px 22px 72px; }
+
+  [data-orbit-doc] .orbit-page-head {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+
+  [data-orbit-doc] .orbit-page-meta {
+    align-items: flex-start;
   }
 }

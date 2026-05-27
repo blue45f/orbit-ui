@@ -3,558 +3,1101 @@ import { Meta, Unstyled } from '@storybook/blocks'
 <Meta title='Intro/컴포넌트 개요' />
 
 <Unstyled>
-  <div style={{
-    maxWidth: '960px',
-    margin: '0 auto',
-    fontFamily: '"Pretendard Variable", "Pretendard", system-ui, sans-serif',
-  }}>
+  <style>{`
+    [data-orbit-doc] {
+      --orbit-bg: rgb(243, 245, 247);
+      --orbit-surface: rgb(255, 255, 255);
+      --orbit-surface-sunken: rgba(24, 26, 28, 0.025);
+      --orbit-ink: rgb(24, 26, 28);
+      --orbit-ink-2: rgba(24, 26, 28, 0.78);
+      --orbit-ink-3: rgba(24, 26, 28, 0.56);
+      --orbit-ink-4: rgba(24, 26, 28, 0.33);
+      --orbit-line: rgba(24, 26, 28, 0.08);
+      --orbit-line-2: rgba(24, 26, 28, 0.14);
+      --orbit-accent: rgb(37, 99, 235);
+      --orbit-accent-soft: rgba(37, 99, 235, 0.08);
+      --orbit-positive: rgb(0, 132, 77);
+      --orbit-positive-soft: rgba(0, 185, 107, 0.1);
+      --orbit-negative: rgb(187, 37, 35);
+      --orbit-negative-soft: rgba(255, 64, 62, 0.08);
+      --orbit-mono: "JetBrains Mono", "SFMono-Regular", ui-monospace, Consolas, monospace;
+      --orbit-display: "Pretendard Variable", "Pretendard", system-ui, "Segoe UI", "Noto Sans KR", sans-serif;
+    }
+    :root.dark [data-orbit-doc] {
+      --orbit-bg: rgb(21, 23, 25);
+      --orbit-surface: rgb(28, 31, 35);
+      --orbit-surface-sunken: rgba(255, 255, 255, 0.03);
+      --orbit-ink: rgb(247, 248, 250);
+      --orbit-ink-2: rgba(247, 248, 250, 0.78);
+      --orbit-ink-3: rgba(247, 248, 250, 0.56);
+      --orbit-ink-4: rgba(247, 248, 250, 0.36);
+      --orbit-line: rgba(255, 255, 255, 0.08);
+      --orbit-line-2: rgba(255, 255, 255, 0.14);
+      --orbit-accent: rgb(96, 165, 250);
+      --orbit-accent-soft: rgba(96, 165, 250, 0.14);
+      --orbit-positive: rgb(59, 210, 141);
+      --orbit-positive-soft: rgba(59, 210, 141, 0.12);
+      --orbit-negative: rgb(255, 139, 141);
+      --orbit-negative-soft: rgba(255, 98, 98, 0.12);
+    }
+    @media (prefers-color-scheme: dark) {
+      :root:not(.light) [data-orbit-doc] {
+        --orbit-bg: rgb(21, 23, 25);
+        --orbit-surface: rgb(28, 31, 35);
+        --orbit-surface-sunken: rgba(255, 255, 255, 0.03);
+        --orbit-ink: rgb(247, 248, 250);
+        --orbit-ink-2: rgba(247, 248, 250, 0.78);
+        --orbit-ink-3: rgba(247, 248, 250, 0.56);
+        --orbit-ink-4: rgba(247, 248, 250, 0.36);
+        --orbit-line: rgba(255, 255, 255, 0.08);
+        --orbit-line-2: rgba(255, 255, 255, 0.14);
+        --orbit-accent: rgb(96, 165, 250);
+        --orbit-accent-soft: rgba(96, 165, 250, 0.14);
+        --orbit-positive: rgb(59, 210, 141);
+        --orbit-positive-soft: rgba(59, 210, 141, 0.12);
+        --orbit-negative: rgb(255, 139, 141);
+        --orbit-negative-soft: rgba(255, 98, 98, 0.12);
+      }
+    }
 
-    {/* Header */}
-    <div style={{ marginBottom: '48px' }}>
-      <div style={{ fontSize: '12px', fontWeight: '700', color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '8px' }}>Component Overview</div>
-      <h1 style={{ fontSize: '36px', fontWeight: '800', color: '#1e293b', letterSpacing: '-0.03em', margin: '0 0 12px' }}>컴포넌트 개요</h1>
-      <div style={{ fontSize: '16px', color: '#64748b', lineHeight: '1.6', margin: 0 }}>50개 이상의 프로덕션 레디 컴포넌트로 구성된 완전한 디자인 시스템</div>
-    </div>
+    [data-orbit-doc] {
+      min-height: 100vh;
+      padding: 72px 48px 96px;
+      color: var(--orbit-ink);
+      background: var(--orbit-bg);
+      font-family: var(--orbit-display);
+      -webkit-font-smoothing: antialiased;
+      transition: background-color 200ms cubic-bezier(0.2, 0, 0, 1), color 200ms cubic-bezier(0.2, 0, 0, 1);
+    }
+    [data-orbit-doc] * { box-sizing: border-box; }
+    [data-orbit-doc] .orbit-wrap { width: 100%; max-width: 1040px; margin: 0 auto; }
 
-    {/* Design Principles */}
-    <section style={{ marginBottom: '64px' }}>
-      <h2 style={{ fontSize: '22px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '24px' }}>Design Principles</h2>
+    /* HEADER */
+    [data-orbit-doc] .orbit-page-head {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 32px;
+      align-items: end;
+      padding-bottom: 28px;
+      border-bottom: 1px solid var(--orbit-line);
+    }
+    [data-orbit-doc] .orbit-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--orbit-mono);
+      font-size: 11px;
+      color: var(--orbit-ink-4);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+    [data-orbit-doc] .orbit-eyebrow .num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 22px;
+      height: 18px;
+      padding: 0 6px;
+      border-radius: 4px;
+      background: var(--orbit-surface-sunken);
+      border: 1px solid var(--orbit-line);
+      color: var(--orbit-ink-3);
+      font-size: 10.5px;
+    }
+    [data-orbit-doc] h1.orbit-h1 {
+      margin: 12px 0 0;
+      font-size: clamp(40px, 5vw, 56px);
+      font-weight: 720;
+      letter-spacing: -0.035em;
+      line-height: 1;
+      color: var(--orbit-ink);
+    }
+    [data-orbit-doc] .orbit-lede {
+      max-width: 56ch;
+      margin: 18px 0 0;
+      font-size: 17px;
+      line-height: 1.55;
+      color: var(--orbit-ink-2);
+      letter-spacing: -0.008em;
+    }
+    [data-orbit-doc] .orbit-page-meta {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 4px;
+      font-family: var(--orbit-mono);
+      font-size: 12px;
+      color: var(--orbit-ink-3);
+    }
+    [data-orbit-doc] .orbit-page-meta strong { color: var(--orbit-ink-2); font-weight: 600; }
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px' }}>
+    /* SECTIONS */
+    [data-orbit-doc] .orbit-sect { margin-top: 80px; }
+    [data-orbit-doc] .orbit-sect-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 24px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--orbit-line);
+    }
+    [data-orbit-doc] .orbit-sect-head h2 {
+      margin: 8px 0 0;
+      font-size: 24px;
+      font-weight: 680;
+      letter-spacing: -0.02em;
+      color: var(--orbit-ink);
+    }
+    [data-orbit-doc] .orbit-sect-head p {
+      margin: 4px 0 0;
+      max-width: 60ch;
+      font-size: 14px;
+      color: var(--orbit-ink-3);
+      line-height: 1.6;
+    }
+
+    /* CATALOG */
+    [data-orbit-doc] .orbit-cat {
+      padding: 32px 0;
+      border-bottom: 1px solid var(--orbit-line);
+    }
+    [data-orbit-doc] .orbit-cat:last-child { border-bottom: 0; }
+    [data-orbit-doc] .orbit-cat-row {
+      display: grid;
+      grid-template-columns: 180px 1fr;
+      gap: 48px;
+      align-items: start;
+    }
+    [data-orbit-doc] .orbit-cat-head .tag {
+      display: inline-block;
+      font-family: var(--orbit-mono);
+      font-size: 11px;
+      color: var(--orbit-ink-4);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    [data-orbit-doc] .orbit-cat-head .title {
+      margin-top: 4px;
+      font-size: 22px;
+      font-weight: 680;
+      letter-spacing: -0.018em;
+      color: var(--orbit-ink);
+    }
+    [data-orbit-doc] .orbit-cat-head .count {
+      margin-top: 8px;
+      font-family: var(--orbit-mono);
+      font-size: 11.5px;
+      color: var(--orbit-ink-3);
+    }
+    [data-orbit-doc] .orbit-cat-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      column-gap: 32px;
+      row-gap: 2px;
+    }
+    [data-orbit-doc] .orbit-cat-list .item {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 12px;
+      align-items: baseline;
+      padding: 8px 0;
+      border-bottom: 1px dashed var(--orbit-line);
+    }
+    [data-orbit-doc] .orbit-cat-list .item .name {
+      font-family: var(--orbit-mono);
+      font-size: 13px;
+      font-weight: 580;
+      color: var(--orbit-ink);
+      letter-spacing: -0.005em;
+    }
+    [data-orbit-doc] .orbit-cat-list .item .desc {
+      font-size: 12.5px;
+      color: var(--orbit-ink-3);
+      text-align: right;
+      letter-spacing: -0.005em;
+    }
+
+    /* PRINCIPLES */
+    [data-orbit-doc] .orbit-principles {
+      margin-top: 24px;
+    }
+    [data-orbit-doc] .orbit-principle {
+      display: grid;
+      grid-template-columns: 64px minmax(0, 4fr) minmax(0, 6fr);
+      gap: 32px;
+      padding: 28px 0;
+      border-bottom: 1px solid var(--orbit-line);
+      align-items: baseline;
+    }
+    [data-orbit-doc] .orbit-principle:last-child { border-bottom: 0; }
+    [data-orbit-doc] .orbit-principle .idx {
+      font-family: var(--orbit-mono);
+      font-size: 11px;
+      color: var(--orbit-ink-4);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    [data-orbit-doc] .orbit-principle h3 {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 660;
+      letter-spacing: -0.015em;
+      color: var(--orbit-ink);
+    }
+    [data-orbit-doc] .orbit-principle p {
+      margin: 0;
+      font-size: 14.5px;
+      line-height: 1.65;
+      color: var(--orbit-ink-2);
+    }
+    [data-orbit-doc] .orbit-principle p code {
+      padding: 1px 6px;
+      border-radius: 5px;
+      background: var(--orbit-surface-sunken);
+      border: 1px solid var(--orbit-line);
+      font-family: var(--orbit-mono);
+      font-size: 12.5px;
+      color: var(--orbit-ink-2);
+    }
+
+    /* API TABLE */
+    [data-orbit-doc] .orbit-api {
+      margin-top: 24px;
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      font-size: 13px;
+    }
+    [data-orbit-doc] .orbit-api thead th {
+      padding: 14px 16px;
+      border-top: 1px solid var(--orbit-line-2);
+      border-bottom: 1px solid var(--orbit-line-2);
+      font-family: var(--orbit-mono);
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--orbit-ink-4);
+      text-align: left;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    [data-orbit-doc] .orbit-api tbody td {
+      padding: 16px;
+      border-bottom: 1px solid var(--orbit-line);
+      vertical-align: top;
+      color: var(--orbit-ink-2);
+      line-height: 1.6;
+    }
+    [data-orbit-doc] .orbit-api tbody tr:last-child td { border-bottom: 1px solid var(--orbit-line-2); }
+    [data-orbit-doc] .orbit-api code {
+      font-family: var(--orbit-mono);
+      font-size: 12.5px;
+      color: var(--orbit-ink);
+    }
+    [data-orbit-doc] .orbit-api .prop code {
+      font-weight: 600;
+      color: var(--orbit-accent);
+    }
+    [data-orbit-doc] .orbit-api .vals { font-family: var(--orbit-mono); font-size: 12px; color: var(--orbit-ink-3); }
+
+    /* DO/DONT */
+    [data-orbit-doc] .orbit-dodont {
+      margin-top: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+    [data-orbit-doc] .orbit-dodont-topic {
+      display: grid;
+      grid-template-columns: 200px minmax(0, 1fr) minmax(0, 1fr);
+      gap: 28px;
+      padding-bottom: 28px;
+      border-bottom: 1px solid var(--orbit-line);
+    }
+    [data-orbit-doc] .orbit-dodont-topic:last-child {
+      padding-bottom: 0;
+      border-bottom: 0;
+    }
+    [data-orbit-doc] .orbit-dodont-topic .topic {
+      font-family: var(--orbit-mono);
+      font-size: 12px;
+      color: var(--orbit-ink-3);
+      line-height: 1.5;
+      letter-spacing: -0.005em;
+    }
+    [data-orbit-doc] .orbit-dodont-topic .topic strong {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--orbit-ink);
+      font-weight: 600;
+      font-family: var(--orbit-display);
+      font-size: 15px;
+      letter-spacing: -0.012em;
+    }
+    [data-orbit-doc] .orbit-do, [data-orbit-doc] .orbit-dont {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    [data-orbit-doc] .orbit-marker {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--orbit-mono);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    [data-orbit-doc] .orbit-marker.do { color: var(--orbit-positive); }
+    [data-orbit-doc] .orbit-marker.dont { color: var(--orbit-negative); }
+    [data-orbit-doc] .orbit-marker svg {
+      width: 12px;
+      height: 12px;
+      stroke: currentColor;
+      stroke-width: 2;
+      fill: none;
+    }
+    [data-orbit-doc] .orbit-do p, [data-orbit-doc] .orbit-dont p {
+      margin: 0;
+      font-size: 13.5px;
+      line-height: 1.55;
+      color: var(--orbit-ink-2);
+    }
+    [data-orbit-doc] .orbit-do pre, [data-orbit-doc] .orbit-dont pre {
+      margin: 0;
+      padding: 12px 14px;
+      border-radius: 8px;
+      background: var(--orbit-surface);
+      border: 1px solid var(--orbit-line);
+      font-family: var(--orbit-mono);
+      font-size: 11.5px;
+      line-height: 1.55;
+      overflow-x: auto;
+      color: var(--orbit-ink-2);
+      white-space: pre;
+    }
+    [data-orbit-doc] .orbit-do pre {
+      border-top: 1px solid var(--orbit-positive-soft);
+      box-shadow: 0 -1px 0 0 var(--orbit-positive-soft) inset;
+    }
+    [data-orbit-doc] .orbit-dont pre {
+      border-top: 1px solid var(--orbit-negative-soft);
+      box-shadow: 0 -1px 0 0 var(--orbit-negative-soft) inset;
+    }
+
+    /* A11Y CHECKLIST */
+    [data-orbit-doc] .orbit-a11y {
+      margin-top: 24px;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 40px 48px;
+    }
+    [data-orbit-doc] .orbit-a11y h3 {
+      margin: 0 0 12px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--orbit-line);
+      font-size: 14px;
+      font-weight: 660;
+      letter-spacing: -0.01em;
+      color: var(--orbit-ink);
+    }
+    [data-orbit-doc] .orbit-a11y .check {
+      display: grid;
+      grid-template-columns: 16px 1fr;
+      gap: 12px;
+      padding: 9px 0;
+      align-items: start;
+      border-bottom: 1px dashed var(--orbit-line);
+    }
+    [data-orbit-doc] .orbit-a11y .check:last-child { border-bottom: 0; }
+    [data-orbit-doc] .orbit-a11y .box {
+      width: 14px;
+      height: 14px;
+      margin-top: 3px;
+      border-radius: 3px;
+      border: 1.25px solid var(--orbit-line-2);
+      background: transparent;
+      position: relative;
+    }
+    [data-orbit-doc] .orbit-a11y .check.req .box {
+      background: var(--orbit-ink);
+      border-color: var(--orbit-ink);
+    }
+    :root.dark [data-orbit-doc] .orbit-a11y .check.req .box {
+      background: var(--orbit-ink);
+      border-color: var(--orbit-ink);
+    }
+    [data-orbit-doc] .orbit-a11y .check.req .box::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: var(--orbit-surface);
+      clip-path: polygon(10% 50%, 38% 75%, 88% 22%, 75% 12%, 38% 55%, 22% 40%);
+    }
+    [data-orbit-doc] .orbit-a11y .check .label {
+      font-size: 13px;
+      color: var(--orbit-ink-2);
+      line-height: 1.5;
+    }
+    [data-orbit-doc] .orbit-a11y .check .opt {
+      margin-left: 8px;
+      padding: 0 6px;
+      font-family: var(--orbit-mono);
+      font-size: 10px;
+      color: var(--orbit-ink-4);
+      background: var(--orbit-surface-sunken);
+      border: 1px solid var(--orbit-line);
+      border-radius: 4px;
+      letter-spacing: 0;
+    }
+
+    /* COMPOSITION PATTERNS */
+    [data-orbit-doc] .orbit-compose {
+      margin-top: 24px;
+    }
+    [data-orbit-doc] .orbit-pattern {
+      display: grid;
+      grid-template-columns: 200px minmax(0, 1fr);
+      gap: 32px;
+      padding: 22px 0;
+      border-bottom: 1px solid var(--orbit-line);
+      align-items: start;
+    }
+    [data-orbit-doc] .orbit-pattern:last-child { border-bottom: 0; }
+    [data-orbit-doc] .orbit-pattern .pattern-name {
+      font-size: 15px;
+      font-weight: 660;
+      letter-spacing: -0.012em;
+      color: var(--orbit-ink);
+    }
+    [data-orbit-doc] .orbit-pattern .pattern-use {
+      margin-top: 4px;
+      font-family: var(--orbit-mono);
+      font-size: 11px;
+      color: var(--orbit-ink-4);
+      letter-spacing: 0;
+    }
+    [data-orbit-doc] .orbit-pattern .pattern-body p {
+      margin: 0 0 12px;
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--orbit-ink-2);
+    }
+    [data-orbit-doc] .orbit-pattern .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    [data-orbit-doc] .orbit-pattern .chips code {
+      padding: 3px 8px;
+      border-radius: 6px;
+      background: var(--orbit-surface-sunken);
+      border: 1px solid var(--orbit-line);
+      font-family: var(--orbit-mono);
+      font-size: 11.5px;
+      color: var(--orbit-ink-2);
+      letter-spacing: -0.005em;
+    }
+
+    /* FOOTER LINK */
+    [data-orbit-doc] .orbit-foot {
+      margin-top: 96px;
+      padding-top: 28px;
+      border-top: 1px solid var(--orbit-line);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px 24px;
+      justify-content: space-between;
+      align-items: baseline;
+      font-family: var(--orbit-mono);
+      font-size: 11.5px;
+      color: var(--orbit-ink-4);
+    }
+    [data-orbit-doc] .orbit-foot a {
+      color: var(--orbit-accent);
+      text-decoration: none !important;
+      font-weight: 600;
+    }
+    [data-orbit-doc] .orbit-foot a:hover { text-decoration: underline !important; text-underline-offset: 3px; }
+
+    @media (max-width: 760px) {
+      [data-orbit-doc] { padding: 48px 22px 72px; }
+      [data-orbit-doc] .orbit-page-head { grid-template-columns: 1fr; align-items: start; }
+      [data-orbit-doc] .orbit-page-meta { align-items: flex-start; }
+      [data-orbit-doc] .orbit-cat-row { grid-template-columns: 1fr; gap: 16px; }
+      [data-orbit-doc] .orbit-cat-list { grid-template-columns: 1fr; }
+      [data-orbit-doc] .orbit-principle { grid-template-columns: 1fr; gap: 8px; }
+      [data-orbit-doc] .orbit-dodont-topic { grid-template-columns: 1fr; gap: 16px; }
+      [data-orbit-doc] .orbit-a11y { grid-template-columns: 1fr; gap: 32px; }
+      [data-orbit-doc] .orbit-pattern { grid-template-columns: 1fr; gap: 8px; }
+      [data-orbit-doc] .orbit-api thead th:nth-child(3), [data-orbit-doc] .orbit-api tbody td:nth-child(3) { display: none; }
+    }
+  `}</style>
+
+  <div data-orbit-doc>
+    <div className='orbit-wrap'>
+
+      {/* HEADER */}
+      <header className='orbit-page-head'>
+        <div>
+          <div className='orbit-eyebrow'><span className='num'>01</span>Catalog</div>
+          <h1 className='orbit-h1'>컴포넌트 개요</h1>
+          <p className='orbit-lede'>
+            56개 컴포넌트가 5개 카테고리로 정리되어 있습니다. 모든 컴포넌트는 <code style={{ fontFamily: 'var(--orbit-mono)', fontSize: '0.9em', padding: '1px 6px', borderRadius: 5, background: 'var(--orbit-surface-sunken)', border: '1px solid var(--orbit-line)' }}>forwardRef</code>, 폴리모픽 <code style={{ fontFamily: 'var(--orbit-mono)', fontSize: '0.9em', padding: '1px 6px', borderRadius: 5, background: 'var(--orbit-surface-sunken)', border: '1px solid var(--orbit-line)' }}>as</code> 프롭, 슬롯 컴파운드, <code style={{ fontFamily: 'var(--orbit-mono)', fontSize: '0.9em', padding: '1px 6px', borderRadius: 5, background: 'var(--orbit-surface-sunken)', border: '1px solid var(--orbit-line)' }}>theme</code> 프롭 오버라이드를 동일한 인터페이스로 따릅니다.
+          </p>
+        </div>
+        <div className='orbit-page-meta'>
+          <div><strong>56</strong> components</div>
+          <div>3 npm packages</div>
+          <div>WCAG&nbsp;AA</div>
+        </div>
+      </header>
+
+      {/* CATALOG */}
+      <section className='orbit-sect'>
+        <div className='orbit-sect-head'>
+          <div>
+            <div className='orbit-eyebrow'><span className='num'>02</span>By Category</div>
+            <h2>카테고리별 컴포넌트</h2>
+            <p>같은 vocabulary, 다른 affordance. 컴포넌트 이름을 클릭하면 해당 페이지로 이동합니다.</p>
+          </div>
+          <span className='orbit-eyebrow'>5 groups</span>
+        </div>
+
         {[
           {
-            title: 'Soft Elevation',
-            desc: '빛의 물리적 특성을 고려한 다층적 그림자 시스템으로 자연스러운 깊이감을 제공합니다.',
-            gradient: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)',
+            tag: 'Actions',
+            title: '액션',
+            count: '10 components',
+            items: [
+              { name: 'SolidButton', desc: '결정적 primary' },
+              { name: 'OutlineButton', desc: '보조 secondary' },
+              { name: 'GhostButton', desc: '거부·취소 tertiary' },
+              { name: 'SolidIconButton', desc: '아이콘 전용 solid' },
+              { name: 'OutlineIconButton', desc: '아이콘 전용 outline' },
+              { name: 'Chip', desc: '필터·태그 토글' },
+              { name: 'ChipLink', desc: '내비게이션용 칩' },
+              { name: 'SegmentedControl', desc: '분절 선택' },
+              { name: 'TabGroup', desc: '탭 내비게이션' },
+              { name: 'ScrollableTabGroup', desc: '가로 스크롤 탭' },
+            ],
           },
           {
-            title: 'Micro-Interactions',
-            desc: '모든 상호작용에 물리 기반 애니메이션을 적용하여 생동감 있는 피드백을 전달합니다.',
-            gradient: 'linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%)',
+            tag: 'Inputs',
+            title: '입력',
+            count: '13 components',
+            items: [
+              { name: 'FloatingTextField', desc: '플로팅 라벨 필드' },
+              { name: 'PasswordField', desc: '비밀번호 토글' },
+              { name: 'SearchBar', desc: '검색 입력' },
+              { name: 'Checkbox', desc: '체크박스' },
+              { name: 'BoxedCheckbox', desc: '박스형 체크박스' },
+              { name: 'RadioButton', desc: '라디오 선택' },
+              { name: 'Switch', desc: '온오프 토글' },
+              { name: 'Dropdown', desc: '드롭다운 선택' },
+              { name: 'Slider', desc: '범위 슬라이더' },
+              { name: 'Calendar', desc: '날짜 선택기' },
+              { name: 'Editor', desc: '리치 텍스트 에디터' },
+              { name: 'Command', desc: '커맨드 팔레트' },
+              { name: 'Carousel', desc: '컨텐츠 캐러셀' },
+            ],
           },
           {
-            title: 'Glassmorphism',
-            desc: '투명도와 블러 효과의 SurfaceGlass 토큰으로 배경과 콘텐츠의 깊이를 표현합니다.',
-            gradient: 'linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%)',
+            tag: 'Data Display',
+            title: '데이터 표시',
+            count: '11 components',
+            items: [
+              { name: 'DataTable', desc: '정렬·선택·페이지네이션' },
+              { name: 'Avatar', desc: '사용자 아바타' },
+              { name: 'LabelBadge', desc: '상태 라벨' },
+              { name: 'CounterBadge', desc: '수치 카운터' },
+              { name: 'AnimatedBadge', desc: '애니메이션 배지' },
+              { name: 'SpeechBadge', desc: '말풍선 배지' },
+              { name: 'ListTile', desc: '리스트 행' },
+              { name: 'Accordion', desc: '접기·펼치기' },
+              { name: 'HoverCard', desc: '호버 카드' },
+              { name: 'SectionTitle', desc: '섹션 헤더' },
+              { name: 'Tooltip', desc: '툴팁 오버레이' },
+            ],
           },
-        ].map((item, i) => (
-          <div key={i} style={{
-            borderRadius: '16px',
-            overflow: 'hidden',
-          }}>
-            <div style={{
-              height: '4px',
-              background: item.gradient,
-            }} />
-            <div style={{
-              padding: '24px',
-              border: '1px solid #e2e8f0',
-              borderTop: 'none',
-              borderRadius: '0 0 16px 16px',
-            }}>
-              <h3 style={{ fontSize: '16px', fontWeight: '700', color: '#1e293b', margin: '0 0 8px' }}>{item.title}</h3>
-              <div style={{ fontSize: '13px', color: '#64748b', lineHeight: '1.65', margin: 0 }}>{item.desc}</div>
+          {
+            tag: 'Feedback',
+            title: '피드백·오버레이',
+            count: '10 components',
+            items: [
+              { name: 'Modal', desc: '다이얼로그 모달' },
+              { name: 'AlertDialog', desc: '확인·경고 모달' },
+              { name: 'Drawer', desc: '사이드 시트' },
+              { name: 'Popover', desc: '팝오버 컨텐츠' },
+              { name: 'Toast', desc: '비차단 알림 (core)' },
+              { name: 'Progress', desc: '진행률 바' },
+              { name: 'Skeleton', desc: '로딩 스켈레톤' },
+              { name: 'Loading', desc: '스피너' },
+              { name: 'Dropdown', desc: '드롭다운 메뉴' },
+              { name: 'PullToRefresh', desc: '당겨서 새로고침' },
+            ],
+          },
+          {
+            tag: 'Navigation',
+            title: '내비게이션',
+            count: '8 components',
+            items: [
+              { name: 'AppBar', desc: '앱 상단바' },
+              { name: 'Breadcrumb', desc: '경로 탐색' },
+              { name: 'TabItem', desc: '탭 아이템' },
+              { name: 'PageIndicator', desc: '페이지 인디케이터' },
+              { name: 'PageNumber', desc: '페이지 번호' },
+              { name: 'PageDots', desc: '페이지 도트' },
+              { name: 'Divider', desc: '구분선' },
+              { name: 'Space', desc: '간격 유틸' },
+            ],
+          },
+        ].map((cat, i) => (
+          <div className='orbit-cat' key={i}>
+            <div className='orbit-cat-row'>
+              <div className='orbit-cat-head'>
+                <div className='tag'>{cat.tag}</div>
+                <div className='title'>{cat.title}</div>
+                <div className='count'>{cat.count}</div>
+              </div>
+              <div className='orbit-cat-list'>
+                {cat.items.map((it, j) => (
+                  <div className='item' key={j}>
+                    <span className='name'>{it.name}</span>
+                    <span className='desc'>{it.desc}</span>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         ))}
-      </div>
-    </section>
+      </section>
 
-    {/* Component Map */}
-    <section style={{ marginBottom: '64px' }}>
-      <h2 style={{ fontSize: '22px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '24px' }}>Component Map</h2>
-
-      {[
-        {
-          category: 'Actions',
-          color: '#6366f1',
-          bg: 'rgba(99, 102, 241, 0.04)',
-          components: [
-            { name: 'SolidButton', desc: 'Primary CTA 버튼' },
-            { name: 'OutlineButton', desc: '보조 액션 버튼' },
-            { name: 'GhostButton', desc: '최소 스타일 버튼' },
-            { name: 'SolidIconButton', desc: '아이콘 전용 버튼' },
-            { name: 'Chip', desc: '필터/태그 칩' },
-            { name: 'TabGroup', desc: '탭 네비게이션' },
-            { name: 'SegmentedControl', desc: '분절 선택 컨트롤' },
-          ],
-        },
-        {
-          category: 'Inputs',
-          color: '#8b5cf6',
-          bg: 'rgba(139, 92, 246, 0.04)',
-          components: [
-            { name: 'TextField', desc: '텍스트 입력 필드' },
-            { name: 'FloatingTextField', desc: '플로팅 라벨 필드' },
-            { name: 'PasswordField', desc: '비밀번호 입력' },
-            { name: 'SearchBar', desc: '검색 입력바' },
-            { name: 'Checkbox', desc: '체크박스 선택' },
-            { name: 'RadioButton', desc: '라디오 선택' },
-            { name: 'Toggle / Switch', desc: '온오프 전환' },
-            { name: 'Dropdown', desc: '드롭다운 선택' },
-            { name: 'Slider', desc: '범위 슬라이더' },
-            { name: 'Calendar', desc: '날짜 선택기' },
-          ],
-        },
-        {
-          category: 'Data Display',
-          color: '#3b82f6',
-          bg: 'rgba(59, 130, 246, 0.04)',
-          components: [
-            { name: 'DataTable', desc: '정렬/선택/페이지네이션 테이블' },
-            { name: 'Avatar', desc: '사용자 아바타' },
-            { name: 'LabelBadge', desc: '상태 라벨 배지' },
-            { name: 'CounterBadge', desc: '수치 카운터 배지' },
-            { name: 'AnimatedBadge', desc: '애니메이션 배지' },
-            { name: 'ListTile', desc: '리스트 타일' },
-            { name: 'Accordion', desc: '접기/펼치기' },
-            { name: 'Carousel', desc: '캐러셀 슬라이더' },
-          ],
-        },
-        {
-          category: 'Feedback',
-          color: '#f59e0b',
-          bg: 'rgba(245, 158, 11, 0.04)',
-          components: [
-            { name: 'Modal', desc: '다이얼로그 모달' },
-            { name: 'AlertDialog', desc: '확인/경고 다이얼로그' },
-            { name: 'Toast', desc: '토스트 알림' },
-            { name: 'Tooltip', desc: '툴팁 오버레이' },
-            { name: 'HoverCard', desc: '호버 카드 팝업' },
-            { name: 'Popover', desc: '팝오버 컨텐츠' },
-            { name: 'Progress', desc: '진행률 표시' },
-            { name: 'Skeleton', desc: '로딩 스켈레톤' },
-            { name: 'Loading', desc: '로딩 스피너' },
-          ],
-        },
-        {
-          category: 'Navigation',
-          color: '#10b981',
-          bg: 'rgba(16, 185, 129, 0.04)',
-          components: [
-            { name: 'AppBar', desc: '앱 상단바' },
-            { name: 'Breadcrumb', desc: '경로 탐색' },
-            { name: 'ScrollableTabGroup', desc: '스크롤 탭' },
-            { name: 'PageIndicator', desc: '페이지 인디케이터' },
-            { name: 'PageNumber', desc: '페이지 번호' },
-            { name: 'PageDots', desc: '페이지 도트' },
-          ],
-        },
-      ].map((section, i) => (
-        <div key={i} style={{ marginBottom: '24px' }}>
-          <div style={{
-            display: 'flex', alignItems: 'center', gap: '10px',
-            marginBottom: '12px',
-          }}>
-            <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: section.color }} />
-            <h3 style={{ fontSize: '16px', fontWeight: '700', color: '#1e293b', margin: 0 }}>{section.category}</h3>
-            <span style={{ fontSize: '12px', color: '#94a3b8', fontWeight: '500' }}>{section.components.length} components</span>
+      {/* PRINCIPLES */}
+      <section className='orbit-sect'>
+        <div className='orbit-sect-head'>
+          <div>
+            <div className='orbit-eyebrow'><span className='num'>03</span>Principles</div>
+            <h2>네 가지 원칙.</h2>
+            <p>모든 컴포넌트가 이 네 줄을 따릅니다. DESIGN.md의 named rules 발췌.</p>
           </div>
+          <span className='orbit-eyebrow'>4 rules</span>
+        </div>
 
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
-            gap: '8px',
-          }}>
-            {section.components.map((comp, j) => (
-              <div key={j} style={{
-                padding: '12px 16px',
-                borderRadius: '8px',
-                border: '1px solid #f1f5f9',
-                background: section.bg,
-              }}>
-                <div style={{ fontSize: '13px', fontWeight: '600', color: '#1e293b' }}>{comp.name}</div>
-                <div style={{ fontSize: '11px', color: '#94a3b8', marginTop: '2px' }}>{comp.desc}</div>
-              </div>
-            ))}
+        <div className='orbit-principles'>
+          <div className='orbit-principle'>
+            <div className='idx'>01 · Color</div>
+            <h3>The One Voice Rule.</h3>
+            <p>
+              Cobalt(<code>#2563EB</code>) accent는 어떤 화면에서도 10% 이하만 차지합니다.
+              primary 액션, 포커스 링, 현재 선택 표시, 링크에만 사용. 아이콘 장식, 카드 배경,
+              제목 밑줄로 절대 사용하지 않습니다.
+            </p>
+          </div>
+          <div className='orbit-principle'>
+            <div className='idx'>02 · Elevation</div>
+            <h3>The Flat-By-Default Rule.</h3>
+            <p>
+              어떤 컴포넌트도 기본 상태에서 <code>box-shadow</code>를 갖지 않습니다.
+              깊이는 surface 톤 차이(Ash Cream 아래, Paper White 위)와 1px hairline border로 표현.
+              그림자는 modal·dropdown·drag처럼 *진짜 떠야 하는* 순간에만.
+            </p>
+          </div>
+          <div className='orbit-principle'>
+            <div className='idx'>03 · Typography</div>
+            <h3>The One Family Rule.</h3>
+            <p>
+              Pretendard 한 패밀리가 display부터 caption까지 모든 위계를 운반합니다.
+              hierarchy는 weight 대비(400/500/700)와 1.2-1.4 scale ratio로. display font 페어링은 금지.
+            </p>
+          </div>
+          <div className='orbit-principle'>
+            <div className='idx'>04 · Composition</div>
+            <h3>The Slot Pattern.</h3>
+            <p>
+              Button, ListTile, Chip 모두 <code>Leading</code>·<code>Center</code>·<code>Trailing</code>{' '}
+              슬롯으로 구성됩니다. props 배열이 아닌 *합성*이 API. <code>as</code> 프롭으로 태그 교체,
+              <code>theme</code> 프롭으로 부분 토큰 오버라이드.
+            </p>
           </div>
         </div>
-      ))}
-    </section>
+      </section>
 
-    {/* Design Guidelines */}
-    <section style={{ marginBottom: '40px' }}>
-      <h2 style={{ fontSize: '22px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '24px' }}>Design Guidelines</h2>
-
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '12px' }}>
-        {[
-          { title: '8px Grid', desc: '모든 간격과 크기는 8px 단위(0.5rem)로 설계', icon: '#' },
-          { title: 'Type-safe', desc: 'TypeScript로 강력한 타입 추론과 자동완성 제공', icon: 'TS' },
-          { title: 'Accessible', desc: 'WCAG AA 등급 준수, WAI-ARIA 패턴 적용', icon: 'A' },
-        ].map((item, i) => (
-          <div key={i} style={{
-            padding: '24px',
-            borderRadius: '12px',
-            background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.04), rgba(168, 85, 247, 0.04))',
-            border: '1px solid rgba(99, 102, 241, 0.08)',
-            textAlign: 'center',
-          }}>
-            <div style={{
-              width: '36px', height: '36px', borderRadius: '8px',
-              background: '#6366f1', color: '#ffffff',
-              display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
-              fontSize: '13px', fontWeight: '800', marginBottom: '12px',
-              fontFamily: '"JetBrains Mono", monospace',
-            }}>{item.icon}</div>
-            <div style={{ fontSize: '15px', fontWeight: '700', color: '#1e293b', marginBottom: '4px' }}>{item.title}</div>
-            <div style={{ fontSize: '12px', color: '#64748b', lineHeight: '1.5' }}>{item.desc}</div>
+      {/* API */}
+      <section className='orbit-sect'>
+        <div className='orbit-sect-head'>
+          <div>
+            <div className='orbit-eyebrow'><span className='num'>04</span>API Surface</div>
+            <h2>모든 컴포넌트가 같은 인터페이스.</h2>
+            <p>예측 가능성이 곧 학습 비용. 6개 프롭이 전체 카탈로그의 90%를 설명합니다.</p>
           </div>
-        ))}
-      </div>
-    </section>
+          <span className='orbit-eyebrow'>6 props</span>
+        </div>
 
-    {/* Do / Don't */}
-    <section style={{ marginBottom: '64px' }}>
-      <h2 style={{ fontSize: '22px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '8px' }}>Do / Don't</h2>
-      <div style={{ fontSize: '14px', color: '#64748b', marginBottom: '28px' }}>컴포넌트를 올바르게 사용하는 방법과 피해야 할 패턴을 안내합니다.</div>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-        {[
-          {
-            topic: 'SolidButton — 컴파운드 패턴',
-            do: 'Center, Leading, Trailing 서브컴포넌트를 사용해 버튼 내부 레이아웃을 구성합니다.',
-            dont: '버튼 내부에 임의의 div나 span을 직접 삽입하면 스타일과 접근성이 깨질 수 있습니다.',
-            doCode: `<SolidButton color="primary" size="medium">
-  <SolidButton.Leading><PlusIcon /></SolidButton.Leading>
-  <SolidButton.Center>항목 추가</SolidButton.Center>
-</SolidButton>`,
-            dontCode: `<SolidButton color="primary" size="medium">
+        <table className='orbit-api'>
+          <thead>
+            <tr>
+              <th style={{ width: '14%' }}>Prop</th>
+              <th style={{ width: '36%' }}>Accepted Values</th>
+              <th>설명</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td className='prop'><code>color</code></td>
+              <td className='vals'>"primary" | "black" | "gray" | "white"</td>
+              <td>시각적 색상 변형. 버튼·칩·아이콘버튼 등 모든 액션 컴포넌트에 동일.</td>
+            </tr>
+            <tr>
+              <td className='prop'><code>size</code></td>
+              <td className='vals'>"small" | "medium" | "large"</td>
+              <td>패딩·폰트·아이콘이 동시에 스케일링. 같은 행에서는 같은 size 사용.</td>
+            </tr>
+            <tr>
+              <td className='prop'><code>disabled</code></td>
+              <td className='vals'>boolean</td>
+              <td><code>aria-disabled</code>, <code>cursor: not-allowed</code> 자동 적용.</td>
+            </tr>
+            <tr>
+              <td className='prop'><code>theme</code></td>
+              <td className='vals'>{`Partial<ComponentToken>`}</td>
+              <td>CSS 작성 없이 TypeScript로 컴포넌트 토큰을 surgical 오버라이드.</td>
+            </tr>
+            <tr>
+              <td className='prop'><code>as</code></td>
+              <td className='vals'>"button" | "a" | ElementType</td>
+              <td>시각은 유지, 렌더링 태그만 교체. 링크 버튼·라우터 통합에 사용.</td>
+            </tr>
+            <tr>
+              <td className='prop'><code>ref</code></td>
+              <td className='vals'>ForwardedRef</td>
+              <td>루트 엘리먼트에 항상 <code>forwardRef</code> 적용. 포커스 제어, 측정에 사용.</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      {/* DO / DONT */}
+      <section className='orbit-sect'>
+        <div className='orbit-sect-head'>
+          <div>
+            <div className='orbit-eyebrow'><span className='num'>05</span>Do / Don't</div>
+            <h2>자주 어긋나는 4가지.</h2>
+            <p>슬롯을 무시하거나, 인터페이스를 우회하거나, 색상을 직접 박는 패턴은 시스템과 충돌합니다.</p>
+          </div>
+          <span className='orbit-eyebrow'>4 topics</span>
+        </div>
+
+        <div className='orbit-dodont'>
+
+          <div className='orbit-dodont-topic'>
+            <div className='topic'>
+              <strong>SolidButton 슬롯</strong>
+              컴파운드 패턴으로 내부 레이아웃을 구성합니다.
+            </div>
+            <div className='orbit-do'>
+              <div className='orbit-marker do'>
+                <svg viewBox='0 0 16 16'><path d='M3 8l3 3 7-7' strokeLinecap='round' strokeLinejoin='round' /></svg>
+                Do
+              </div>
+              <p>Center·Leading·Trailing 슬롯을 사용해 시각 구조와 콘텐츠를 분리합니다.</p>
+              <pre>{`<SolidButton color="primary" size="medium">
+  <SolidButton.Leading>
+    <IconPlus />
+  </SolidButton.Leading>
+  <SolidButton.Center>
+    항목 추가
+  </SolidButton.Center>
+</SolidButton>`}</pre>
+            </div>
+            <div className='orbit-dont'>
+              <div className='orbit-marker dont'>
+                <svg viewBox='0 0 16 16'><path d='M4 4l8 8M12 4l-8 8' strokeLinecap='round' /></svg>
+                Don't
+              </div>
+              <p>버튼 내부에 임의 div·span을 직접 삽입하면 스타일과 접근성이 깨집니다.</p>
+              <pre>{`<SolidButton color="primary" size="medium">
   <div style={{ display: 'flex', gap: 8 }}>
-    <PlusIcon />
+    <IconPlus />
     항목 추가
   </div>
-</SolidButton>`,
-          },
-          {
-            topic: 'Toast — 피드백 타입 분리',
-            do: 'toast.success / toast.error / toast.warning / toast.info를 상황에 맞게 사용합니다.',
-            dont: '모든 피드백에 기본 toast()를 사용하면 사용자가 결과를 구분하기 어렵습니다.',
-            doCode: `// 저장 성공
-toast.success('변경사항이 저장되었습니다.')
+</SolidButton>`}</pre>
+            </div>
+          </div>
 
-// 네트워크 오류
+          <div className='orbit-dodont-topic'>
+            <div className='topic'>
+              <strong>Toast 타입 분리</strong>
+              피드백 종류에 맞는 메서드를 사용합니다.
+            </div>
+            <div className='orbit-do'>
+              <div className='orbit-marker do'>
+                <svg viewBox='0 0 16 16'><path d='M3 8l3 3 7-7' strokeLinecap='round' strokeLinejoin='round' /></svg>
+                Do
+              </div>
+              <p>toast.success·toast.error·toast.warning·toast.info를 의미에 맞게 호출합니다.</p>
+              <pre>{`toast.success('변경사항이 저장되었습니다.')
+
 toast.error('요청에 실패했습니다.', {
   description: '잠시 후 다시 시도해 주세요.',
-})`,
-            dontCode: `// 타입 구분 없이 모두 동일
-toast('저장되었습니다.')
+})`}</pre>
+            </div>
+            <div className='orbit-dont'>
+              <div className='orbit-marker dont'>
+                <svg viewBox='0 0 16 16'><path d='M4 4l8 8M12 4l-8 8' strokeLinecap='round' /></svg>
+                Don't
+              </div>
+              <p>모든 피드백에 기본 toast()를 사용하면 사용자가 결과를 구분하기 어렵습니다.</p>
+              <pre>{`toast('저장되었습니다.')
 toast('실패했습니다.')
-toast('주의가 필요합니다.')`,
-          },
-          {
-            topic: 'Toggle — 제어 vs 비제어',
-            do: 'controlled(제어) 사용 시 checked + onCheckedChange를 함께 지정합니다.',
-            dont: 'checked만 지정하고 onCheckedChange를 생략하면 상태가 변경되지 않습니다.',
-            doCode: `const [enabled, setEnabled] = useState(false)
+toast('주의가 필요합니다.')`}</pre>
+            </div>
+          </div>
 
-<Toggle
+          <div className='orbit-dodont-topic'>
+            <div className='topic'>
+              <strong>Switch 제어 모드</strong>
+              controlled 사용 시 두 프롭을 함께 지정.
+            </div>
+            <div className='orbit-do'>
+              <div className='orbit-marker do'>
+                <svg viewBox='0 0 16 16'><path d='M3 8l3 3 7-7' strokeLinecap='round' strokeLinejoin='round' /></svg>
+                Do
+              </div>
+              <p>checked와 onCheckedChange를 함께 지정해 외부 상태와 동기화합니다.</p>
+              <pre>{`const [enabled, setEnabled] = useState(false)
+
+<Switch
   checked={enabled}
   onCheckedChange={setEnabled}
-/>`,
-            dontCode: `// onCheckedChange 없으면 동작 안 함
-<Toggle checked={true} />`,
-          },
-          {
-            topic: 'API 일관성 — color / size / disabled',
-            do: '모든 인터랙티브 컴포넌트는 동일한 color, size, disabled 인터페이스를 따릅니다.',
-            dont: '컴포넌트마다 다른 prop 이름을 사용하거나 HTML 속성을 직접 조작하지 않습니다.',
-            doCode: `// 통일된 인터페이스
-<SolidButton color="primary" size="medium" disabled />
+/>`}</pre>
+            </div>
+            <div className='orbit-dont'>
+              <div className='orbit-marker dont'>
+                <svg viewBox='0 0 16 16'><path d='M4 4l8 8M12 4l-8 8' strokeLinecap='round' /></svg>
+                Don't
+              </div>
+              <p>checked만 지정하고 onCheckedChange를 생략하면 토글이 동작하지 않습니다.</p>
+              <pre>{`<Switch checked={true} />`}</pre>
+            </div>
+          </div>
+
+          <div className='orbit-dodont-topic'>
+            <div className='topic'>
+              <strong>인라인 스타일 회피</strong>
+              color·size·theme 프롭을 통해 변경합니다.
+            </div>
+            <div className='orbit-do'>
+              <div className='orbit-marker do'>
+                <svg viewBox='0 0 16 16'><path d='M3 8l3 3 7-7' strokeLinecap='round' strokeLinejoin='round' /></svg>
+                Do
+              </div>
+              <p>표준 인터페이스를 사용해 시스템이 토큰을 라우팅하도록 합니다.</p>
+              <pre>{`<SolidButton color="primary" size="medium" disabled />
 <OutlineButton color="black" size="large" disabled />
-<GhostButton color="gray" size="small" disabled />`,
-            dontCode: `// 임의로 색상을 인라인 스타일로 변경
-<SolidButton style={{ background: '#ff0000' }}>
+<GhostButton color="gray" size="small" disabled />`}</pre>
+            </div>
+            <div className='orbit-dont'>
+              <div className='orbit-marker dont'>
+                <svg viewBox='0 0 16 16'><path d='M4 4l8 8M12 4l-8 8' strokeLinecap='round' /></svg>
+                Don't
+              </div>
+              <p>인라인 스타일로 컴포넌트 시각을 깨뜨리지 않습니다. theme 프롭이 정답.</p>
+              <pre>{`<SolidButton style={{ background: '#ff0000' }}>
   버튼
-</SolidButton>`,
-          },
-        ].map(({ topic, do: doText, dont, doCode, dontCode }, i) => (
-          <div key={i} style={{ borderRadius: '14px', border: '1.5px solid #e2e8f0', overflow: 'hidden' }}>
-            <div style={{ padding: '14px 20px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0' }}>
-              <span style={{ fontSize: '13px', fontWeight: 700, color: '#475569' }}>{topic}</span>
+</SolidButton>`}</pre>
             </div>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 0 }}>
-              <div style={{ padding: '20px', borderRight: '1px solid #e2e8f0' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '10px' }}>
-                  <div style={{ width: '20px', height: '20px', borderRadius: '50%', background: '#10b981', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '11px', fontWeight: 800, color: '#fff' }}>O</div>
-                  <span style={{ fontSize: '12px', fontWeight: 700, color: '#10b981' }}>Do</span>
-                </div>
-                <div style={{ fontSize: '13px', color: '#475569', lineHeight: '1.6', margin: '0 0 12px' }}>{doText}</div>
-                <pre style={{ margin: 0, padding: '12px', borderRadius: '8px', background: '#f0fdf4', border: '1px solid #bbf7d0', fontSize: '11px', color: '#15803d', lineHeight: '1.6', overflowX: 'auto' }}>{doCode}</pre>
+          </div>
+
+        </div>
+      </section>
+
+      {/* A11Y */}
+      <section className='orbit-sect'>
+        <div className='orbit-sect-head'>
+          <div>
+            <div className='orbit-eyebrow'><span className='num'>06</span>Accessibility</div>
+            <h2>접근성 체크리스트.</h2>
+            <p>WAI-ARIA 기반. 필수 항목은 컴포넌트가 자동 처리, 선택 항목은 사용처에서 지정.</p>
+          </div>
+          <span className='orbit-eyebrow'>20 items</span>
+        </div>
+
+        <div className='orbit-a11y'>
+
+          <div>
+            <h3>키보드 내비게이션</h3>
+            <div className='check req'>
+              <span className='box'></span>
+              <span className='label'>Tab 키로 포커스 이동 가능</span>
+            </div>
+            <div className='check req'>
+              <span className='box'></span>
+              <span className='label'>Enter·Space로 버튼·체크박스 활성화</span>
+            </div>
+            <div className='check req'>
+              <span className='box'></span>
+              <span className='label'>화살표 키로 라디오 그룹 탐색</span>
+            </div>
+            <div className='check req'>
+              <span className='box'></span>
+              <span className='label'>Escape로 모달·팝오버 닫기</span>
+            </div>
+            <div className='check'>
+              <span className='box'></span>
+              <span className='label'>포커스 트랩: 모달 내부에서만 Tab 순환<span className='opt'>선택</span></span>
+            </div>
+          </div>
+
+          <div>
+            <h3>ARIA 속성</h3>
+            <div className='check req'>
+              <span className='box'></span>
+              <span className='label'>aria-label 또는 aria-labelledby 지정</span>
+            </div>
+            <div className='check req'>
+              <span className='box'></span>
+              <span className='label'>aria-disabled로 비활성 상태 표현</span>
+            </div>
+            <div className='check req'>
+              <span className='box'></span>
+              <span className='label'>aria-expanded로 열림·닫힘 표현</span>
+            </div>
+            <div className='check'>
+              <span className='box'></span>
+              <span className='label'>aria-live로 동적 콘텐츠 알림<span className='opt'>선택</span></span>
+            </div>
+            <div className='check'>
+              <span className='box'></span>
+              <span className='label'>role="alert"로 에러 메시지 전달<span className='opt'>선택</span></span>
+            </div>
+          </div>
+
+          <div>
+            <h3>색상 및 대비</h3>
+            <div className='check req'>
+              <span className='box'></span>
+              <span className='label'>텍스트 대비율 4.5:1 이상 (WCAG AA)</span>
+            </div>
+            <div className='check req'>
+              <span className='box'></span>
+              <span className='label'>아이콘 대비율 3:1 이상</span>
+            </div>
+            <div className='check req'>
+              <span className='box'></span>
+              <span className='label'>색상만으로 상태를 구분하지 않음</span>
+            </div>
+            <div className='check req'>
+              <span className='box'></span>
+              <span className='label'>포커스 링 시각적으로 명확</span>
+            </div>
+            <div className='check'>
+              <span className='box'></span>
+              <span className='label'>고대비 모드 (forced-colors) 지원<span className='opt'>선택</span></span>
+            </div>
+          </div>
+
+          <div>
+            <h3>폼 컴포넌트</h3>
+            <div className='check req'>
+              <span className='box'></span>
+              <span className='label'>label과 input이 htmlFor·id로 연결</span>
+            </div>
+            <div className='check req'>
+              <span className='box'></span>
+              <span className='label'>에러 메시지가 aria-describedby로 연결</span>
+            </div>
+            <div className='check req'>
+              <span className='box'></span>
+              <span className='label'>필수 항목에 aria-required 표시</span>
+            </div>
+            <div className='check req'>
+              <span className='box'></span>
+              <span className='label'>라디오 그룹에 fieldset + legend 사용</span>
+            </div>
+            <div className='check'>
+              <span className='box'></span>
+              <span className='label'>인터미디에이트 체크박스 aria-checked="mixed"<span className='opt'>선택</span></span>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      {/* COMPOSITION */}
+      <section className='orbit-sect'>
+        <div className='orbit-sect-head'>
+          <div>
+            <div className='orbit-eyebrow'><span className='num'>07</span>Composition</div>
+            <h2>실무 조합 패턴.</h2>
+            <p>자주 등장하는 6가지 조합. 같은 vocabulary로 다양한 화면이 만들어집니다.</p>
+          </div>
+          <span className='orbit-eyebrow'>6 patterns</span>
+        </div>
+
+        <div className='orbit-compose'>
+          {[
+            {
+              name: '검색 + 필터 헤더',
+              use: 'list · directory · admin',
+              desc: '목록 페이지 상단에서 검색과 필터를 함께 제공합니다. 검색은 라이브, 필터는 칩 그룹으로.',
+              chips: ['SearchBar', 'Dropdown', 'Chip', 'SolidButton'],
+            },
+            {
+              name: '폼 입력 묶음',
+              use: 'signup · settings',
+              desc: '회원가입·설정 저장 등 다종 입력을 단일 폼으로 묶습니다. 마지막 행에 primary action.',
+              chips: ['FloatingTextField', 'RadioButton', 'Checkbox', 'Switch', 'SolidButton'],
+            },
+            {
+              name: '알림 + 피드백',
+              use: 'upload · async · payment',
+              desc: '액션에 대한 즉각 피드백과 결과 표시. 비차단 토스트가 기본, 결정 필요 시 alert dialog.',
+              chips: ['Toast', 'AlertDialog', 'Modal', 'Progress', 'Loading'],
+            },
+            {
+              name: '내비게이션 쉘',
+              use: 'dashboard · admin · saas',
+              desc: '앱 전체 레이아웃의 골격. AppBar + Drawer + Breadcrumb 조합이 가장 안정적.',
+              chips: ['AppBar', 'Breadcrumb', 'TabGroup', 'Drawer', 'Avatar'],
+            },
+            {
+              name: '데이터 테이블 도구모음',
+              use: 'admin · ops · billing',
+              desc: '행 선택, 필터, 행별 액션이 결합된 고급 테이블. 일괄 액션은 헤더 popover.',
+              chips: ['DataTable', 'Checkbox', 'Dropdown', 'Popover', 'CounterBadge'],
+            },
+            {
+              name: '컨텐츠 카드',
+              use: 'feed · profile · members',
+              desc: '사용자·컨텐츠 정보를 균일한 단위로 표시. hover로 상세, skeleton으로 로딩.',
+              chips: ['Avatar', 'LabelBadge', 'HoverCard', 'GhostButton', 'Skeleton'],
+            },
+          ].map((p, i) => (
+            <div className='orbit-pattern' key={i}>
+              <div>
+                <div className='pattern-name'>{p.name}</div>
+                <div className='pattern-use'>{p.use}</div>
               </div>
-              <div style={{ padding: '20px' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '10px' }}>
-                  <div style={{ width: '20px', height: '20px', borderRadius: '50%', background: '#ef4444', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '11px', fontWeight: 800, color: '#fff' }}>X</div>
-                  <span style={{ fontSize: '12px', fontWeight: 700, color: '#ef4444' }}>Don't</span>
+              <div className='pattern-body'>
+                <p>{p.desc}</p>
+                <div className='chips'>
+                  {p.chips.map((c) => <code key={c}>{c}</code>)}
                 </div>
-                <div style={{ fontSize: '13px', color: '#475569', lineHeight: '1.6', margin: '0 0 12px' }}>{dont}</div>
-                <pre style={{ margin: 0, padding: '12px', borderRadius: '8px', background: '#fef2f2', border: '1px solid #fecaca', fontSize: '11px', color: '#b91c1c', lineHeight: '1.6', overflowX: 'auto' }}>{dontCode}</pre>
               </div>
             </div>
-          </div>
-        ))}
-      </div>
-    </section>
-
-    {/* Accessibility Checklist — AppUI style */}
-    <section style={{ marginBottom: '64px' }}>
-      <h2 style={{ fontSize: '22px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '8px' }}>접근성 체크리스트</h2>
-      <div style={{ fontSize: '14px', color: '#64748b', marginBottom: '24px' }}>Orbit UI 컴포넌트를 사용하기 전에 아래 체크리스트를 확인하세요. WAI-ARIA 패턴을 기반으로 작성되었습니다.</div>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '16px' }}>
-        {[
-          {
-            category: '키보드 내비게이션',
-            color: '#6366f1',
-            items: [
-              { label: 'Tab 키로 포커스 이동 가능', required: true },
-              { label: 'Enter / Space 키로 버튼·체크박스 활성화', required: true },
-              { label: '화살표 키로 라디오 그룹 탐색', required: true },
-              { label: 'Escape 키로 모달·팝오버 닫기', required: true },
-              { label: '포커스 트랩: 모달 내부에서만 Tab 순환', required: false },
-            ],
-          },
-          {
-            category: 'ARIA 속성',
-            color: '#3b82f6',
-            items: [
-              { label: 'aria-label 또는 aria-labelledby 지정', required: true },
-              { label: 'aria-disabled로 비활성 상태 표현', required: true },
-              { label: 'aria-expanded로 열림/닫힘 상태 표현', required: true },
-              { label: 'aria-live로 동적 콘텐츠 변경 알림', required: false },
-              { label: 'role="alert"로 에러 메시지 전달', required: false },
-            ],
-          },
-          {
-            category: '색상 및 대비',
-            color: '#10b981',
-            items: [
-              { label: '텍스트 대비율 4.5:1 이상 (WCAG AA)', required: true },
-              { label: '아이콘 대비율 3:1 이상', required: true },
-              { label: '색상만으로 상태를 구분하지 않음', required: true },
-              { label: '포커스 링 시각적으로 명확하게 표시', required: true },
-              { label: '고대비 모드(forced-colors) 지원', required: false },
-            ],
-          },
-          {
-            category: '폼 컴포넌트',
-            color: '#f59e0b',
-            items: [
-              { label: 'label 과 input이 htmlFor/id로 연결', required: true },
-              { label: '에러 메시지가 aria-describedby로 연결', required: true },
-              { label: '필수 항목에 aria-required 표시', required: true },
-              { label: '라디오 그룹에 fieldset + legend 사용', required: true },
-              { label: '체크박스 인터미디에이트에 aria-checked="mixed"', required: false },
-            ],
-          },
-        ].map((section, i) => (
-          <div key={i} style={{ borderRadius: '14px', border: '1.5px solid #e2e8f0', overflow: 'hidden' }}>
-            <div style={{
-              padding: '12px 18px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0',
-              display: 'flex', alignItems: 'center', gap: 8,
-            }}>
-              <div style={{ width: 10, height: 10, borderRadius: '50%', background: section.color, flexShrink: 0 }} />
-              <span style={{ fontSize: '13px', fontWeight: 700, color: '#475569' }}>{section.category}</span>
-            </div>
-            <div style={{ padding: '14px 18px', display: 'flex', flexDirection: 'column', gap: 8 }}>
-              {section.items.map((item, j) => (
-                <div key={j} style={{ display: 'flex', alignItems: 'flex-start', gap: 10 }}>
-                  <div style={{
-                    width: 16, height: 16, borderRadius: 4, flexShrink: 0, marginTop: 1,
-                    background: item.required ? section.color : 'transparent',
-                    border: `2px solid ${item.required ? section.color : '#d1d5db'}`,
-                    display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  }}>
-                    {item.required && (
-                      <svg width="9" height="9" viewBox="0 0 12 12" fill="none">
-                        <polyline points="2,6 5,9 10,3" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                      </svg>
-                    )}
-                  </div>
-                  <div>
-                    <span style={{ fontSize: '12px', color: '#374151', lineHeight: '1.5' }}>{item.label}</span>
-                    {!item.required && (
-                      <span style={{ marginLeft: 6, fontSize: '10px', color: '#94a3b8', fontWeight: 600, background: '#f1f5f9', padding: '1px 5px', borderRadius: 4 }}>선택</span>
-                    )}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        ))}
-      </div>
-    </section>
-
-    {/* Component Composition Patterns — UtilityUI style */}
-    <section style={{ marginBottom: '64px' }}>
-      <h2 style={{ fontSize: '22px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '8px' }}>컴포넌트 조합 패턴</h2>
-      <div style={{ fontSize: '14px', color: '#64748b', marginBottom: '24px' }}>실무에서 자주 사용되는 컴포넌트 조합과 권장 패턴을 안내합니다.</div>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-        {[
-          {
-            pattern: '검색 + 필터 헤더',
-            components: ['SearchBar', 'Dropdown', 'Chip', 'SolidButton'],
-            description: '목록 페이지 상단에서 검색과 필터를 함께 제공하는 패턴.',
-            useCase: '상품 목록, 사용자 관리, 데이터 탐색 화면',
-            color: '#6366f1',
-          },
-          {
-            pattern: '폼 입력 묶음',
-            components: ['TextField', 'RadioButton', 'Checkbox', 'Toggle', 'SolidButton'],
-            description: '회원가입, 설정 저장 등 데이터를 입력받는 폼 레이아웃.',
-            useCase: '회원가입, 프로필 편집, 환경 설정',
-            color: '#3b82f6',
-          },
-          {
-            pattern: '알림 + 피드백',
-            components: ['Toast', 'AlertDialog', 'Modal', 'Progress', 'Loading'],
-            description: '사용자 액션에 대한 즉각적인 피드백과 결과 표시 패턴.',
-            useCase: '파일 업로드, 결제 처리, 비동기 작업',
-            color: '#f59e0b',
-          },
-          {
-            pattern: '내비게이션 쉘',
-            components: ['AppBar', 'Breadcrumb', 'TabGroup', 'Drawer', 'Avatar'],
-            description: '앱 전체 레이아웃을 구성하는 내비게이션 컴포넌트 조합.',
-            useCase: '대시보드, 관리자 패널, SaaS 앱',
-            color: '#10b981',
-          },
-          {
-            pattern: '데이터 테이블 도구모음',
-            components: ['DataTable', 'Checkbox', 'Dropdown', 'Popover', 'CounterBadge'],
-            description: '행 선택, 필터, 액션 메뉴가 결합된 고급 데이터 테이블 패턴.',
-            useCase: '사용자 관리, 주문 목록, 컨텐츠 관리',
-            color: '#8b5cf6',
-          },
-          {
-            pattern: '컨텐츠 카드',
-            components: ['Avatar', 'LabelBadge', 'HoverCard', 'GhostButton', 'Skeleton'],
-            description: '사용자/컨텐츠 정보를 카드 형태로 표시하는 패턴.',
-            useCase: '팀 멤버 목록, 게시물 피드, 프로필 페이지',
-            color: '#ec4899',
-          },
-        ].map((item, i) => (
-          <div key={i} style={{ padding: '18px 20px', borderRadius: '12px', border: '1.5px solid #e2e8f0', background: '#fff', display: 'flex', gap: 20, alignItems: 'flex-start' }}>
-            <div style={{ width: 4, borderRadius: 99, background: item.color, alignSelf: 'stretch', flexShrink: 0 }} />
-            <div style={{ flex: 1 }}>
-              <div style={{ fontSize: '14px', fontWeight: 700, color: '#1e293b', marginBottom: 6 }}>{item.pattern}</div>
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 5, marginBottom: 8 }}>
-                {item.components.map((comp) => (
-                  <code key={comp} style={{ fontSize: '11px', fontWeight: 600, color: item.color, background: `${item.color}12`, padding: '2px 8px', borderRadius: 5, fontFamily: 'monospace' }}>{comp}</code>
-                ))}
-              </div>
-              <div style={{ fontSize: '12px', color: '#64748b', lineHeight: '1.6', marginBottom: 4 }}>{item.description}</div>
-              <div style={{ fontSize: '11px', color: '#94a3b8' }}>사용 예시: {item.useCase}</div>
-            </div>
-          </div>
-        ))}
-      </div>
-    </section>
-
-    {/* API Consistency */}
-    <section style={{ marginBottom: '64px' }}>
-      <h2 style={{ fontSize: '22px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '8px' }}>API 일관성</h2>
-      <div style={{ fontSize: '14px', color: '#64748b', marginBottom: '24px' }}>Ant Design에서 영감을 받아 모든 컴포넌트가 예측 가능한 인터페이스를 따릅니다.</div>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '14px' }}>
-        {[
-          { prop: 'color', values: '"primary" | "black" | "gray" | "white"', desc: '시각적 색상 변형. 모든 버튼/입력 컴포넌트에 동일하게 적용.' },
-          { prop: 'size', values: '"small" | "medium" | "large"', desc: '컴포넌트 크기. 패딩, 폰트, 아이콘 크기가 연동하여 변경.' },
-          { prop: 'disabled', values: 'boolean', desc: '비활성화 상태. HTML aria-disabled와 cursor: not-allowed가 자동 적용.' },
-          { prop: 'theme', values: 'ComponentToken 부분 오버라이드', desc: 'CSS 변수 없이 TypeScript로 토큰을 직접 오버라이드.' },
-          { prop: 'ref', values: 'ForwardedRef', desc: '모든 루트 엘리먼트에 forwardRef가 적용되어 DOM 접근 가능.' },
-          { prop: 'as', values: '"button" | "a" | ...', desc: '렌더링 엘리먼트를 변경. 링크 버튼 구현 시 사용.' },
-        ].map(({ prop, values, desc }, i) => (
-          <div key={i} style={{ padding: '18px', borderRadius: '10px', border: '1.5px solid #e2e8f0', background: '#fff' }}>
-            <code style={{ fontSize: '13px', fontWeight: 700, color: '#6366f1', background: '#f0f4ff', padding: '2px 8px', borderRadius: '5px' }}>{prop}</code>
-            <div style={{ fontSize: '11px', color: '#94a3b8', marginTop: '8px', marginBottom: '6px', fontFamily: 'monospace' }}>{values}</div>
-            <div style={{ fontSize: '12px', color: '#64748b', lineHeight: '1.5' }}>{desc}</div>
-          </div>
-        ))}
-      </div>
-    </section>
-
-    {/* DataProductUI + AppUI 벤치마크 */}
-    <section style={{ marginBottom: '64px' }}>
-      <div style={{ background: 'linear-gradient(160deg, #0c0a1e 0%, #1a1040 100%)', padding: '40px', borderRadius: '20px' }}>
-        <div style={{ fontSize: '11px', fontWeight: 700, color: '#a78bfa', letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: '10px' }}>
-          Cycle 42 Benchmark
+          ))}
         </div>
-        <h2 style={{ fontSize: '22px', fontWeight: 800, color: '#fff', letterSpacing: '-0.02em', marginBottom: '8px' }}>
-          DataProductUI vs AppUI
-        </h2>
-        <div style={{ fontSize: '13px', color: '#a78bfa', marginBottom: '28px' }}>
-          ByteDance의 엔터프라이즈 UI와 React Hook First 접근법의 교차점에서 발견한 패턴들
+      </section>
+
+      {/* FOOTER */}
+      <footer className='orbit-foot'>
+        <div>56 components · 332 icons · MIT licensed</div>
+        <div>
+          <a href='?path=/docs/intro-소개--docs'>← Back to overview</a>
         </div>
+      </footer>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '16px', marginBottom: '28px' }}>
-          <div style={{ padding: '20px', borderRadius: '12px', background: 'rgba(167,139,250,0.08)', border: '1px solid rgba(167,139,250,0.2)' }}>
-            <div style={{ fontSize: '12px', fontWeight: 700, color: '#a78bfa', marginBottom: '14px' }}>DataProductUI 특징</div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-              {[
-                { feature: '통합 테마 시스템', detail: 'Less 변수 기반 전역 테마 설정' },
-                { feature: '중국어 최적화', detail: '아시아권 레이아웃 밀도 최적화' },
-                { feature: '테이블 가상화', detail: '수만 행 처리용 Virtual Table' },
-                { feature: '차트 통합', detail: 'G2Plot 기반 내장 차트 컴포넌트' },
-              ].map(({ feature, detail }) => (
-                <div key={feature} style={{ display: 'flex', gap: '8px', alignItems: 'flex-start' }}>
-                  <div style={{ width: 5, height: 5, borderRadius: '50%', background: '#a78bfa', marginTop: 5, flexShrink: 0 }} />
-                  <div>
-                    <div style={{ fontSize: '12px', fontWeight: 600, color: '#e2e8f0' }}>{feature}</div>
-                    <div style={{ fontSize: '11px', color: '#94a3b8' }}>{detail}</div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div style={{ padding: '20px', borderRadius: '12px', background: 'rgba(99,102,241,0.08)', border: '1px solid rgba(99,102,241,0.2)' }}>
-            <div style={{ fontSize: '12px', fontWeight: 700, color: '#818cf8', marginBottom: '14px' }}>AppUI 특징</div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-              {[
-                { feature: 'Hooks 우선 설계', detail: 'useDisclosure, useHover 등 40+ 훅' },
-                { feature: 'CSS Modules 방식', detail: '빌드 타임 CSS 추출로 zero-runtime' },
-                { feature: 'Chip.Group', detail: '라디오/체크박스 대체용 칩 그룹' },
-                { feature: '다크모드 기본 지원', detail: 'ColorSchemeProvider로 OS 연동' },
-              ].map(({ feature, detail }) => (
-                <div key={feature} style={{ display: 'flex', gap: '8px', alignItems: 'flex-start' }}>
-                  <div style={{ width: 5, height: 5, borderRadius: '50%', background: '#818cf8', marginTop: 5, flexShrink: 0 }} />
-                  <div>
-                    <div style={{ fontSize: '12px', fontWeight: 600, color: '#e2e8f0' }}>{feature}</div>
-                    <div style={{ fontSize: '11px', color: '#94a3b8' }}>{detail}</div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        <div style={{ overflowX: 'auto' }}>
-          <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '12px' }}>
-            <thead>
-              <tr>
-                {['기준', 'DataProductUI', 'AppUI', 'Orbit UI'].map((h) => (
-                  <th key={h} style={{ padding: '10px 14px', textAlign: 'left', color: '#a78bfa', fontWeight: 700, borderBottom: '1px solid rgba(167,139,250,0.2)' }}>{h}</th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {[
-                ['스타일 방식', 'Less 변수', 'CSS Modules', 'UtilityCSS + CSS 변수'],
-                ['TypeScript', '부분 지원', '완전 지원', '완전 지원'],
-                ['Hook 수', '20+', '40+', '컴포넌트 내장'],
-                ['번들 크기', '~800KB', '~400KB', '~220KB'],
-                ['토큰 계층', '1단계', '2단계', '3단계'],
-                ['DesignTool 연동', '미지원', '미지원', '네이티브 연동'],
-              ].map(([criterion, arco, accessibleKit, orbit]) => (
-                <tr key={criterion} style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
-                  <td style={{ padding: '10px 14px', color: '#94a3b8', fontWeight: 600 }}>{criterion}</td>
-                  <td style={{ padding: '10px 14px', color: '#e2e8f0' }}>{arco}</td>
-                  <td style={{ padding: '10px 14px', color: '#e2e8f0' }}>{accessibleKit}</td>
-                  <td style={{ padding: '10px 14px', color: '#a78bfa', fontWeight: 600 }}>{orbit}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-
+    </div>
   </div>
 </Unstyled>

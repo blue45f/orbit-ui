@@ -3,162 +3,371 @@ import { Meta, Unstyled } from '@storybook/blocks'
 <Meta title='Intro/시작하기' />
 
 <Unstyled>
-  <div style={{
-    maxWidth: '800px',
-    margin: '0 auto',
-    fontFamily: '"Pretendard Variable", "Pretendard", system-ui, sans-serif',
-  }}>
+  <style>{`
+    [data-orbit-doc] .orbit-step {
+      display: grid;
+      grid-template-columns: 84px minmax(0, 1fr);
+      gap: 32px;
+      padding: 40px 0;
+      border-bottom: 1px solid var(--orbit-line);
+      align-items: start;
+    }
+    [data-orbit-doc] .orbit-step:last-of-type { border-bottom: 0; }
+    [data-orbit-doc] .orbit-step .step-mark {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      padding-top: 6px;
+    }
+    [data-orbit-doc] .orbit-step .step-num {
+      font-family: var(--orbit-mono);
+      font-size: 36px;
+      font-weight: 480;
+      letter-spacing: -0.02em;
+      color: var(--orbit-ink);
+      line-height: 1;
+    }
+    [data-orbit-doc] .orbit-step .step-tag {
+      font-family: var(--orbit-mono);
+      font-size: 10.5px;
+      color: var(--orbit-ink-4);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    [data-orbit-doc] .orbit-step h2 {
+      margin: 0 0 6px;
+      font-size: 22px;
+      font-weight: 680;
+      letter-spacing: -0.018em;
+      color: var(--orbit-ink);
+    }
+    [data-orbit-doc] .orbit-step .step-desc {
+      margin: 0 0 20px;
+      max-width: 58ch;
+      font-size: 14.5px;
+      line-height: 1.6;
+      color: var(--orbit-ink-2);
+    }
+    [data-orbit-doc] .orbit-step .step-desc code,
+    [data-orbit-doc] .orbit-step .step-note code {
+      padding: 1px 6px;
+      border-radius: 5px;
+      background: var(--orbit-surface-sunken);
+      border: 1px solid var(--orbit-line);
+      font-family: var(--orbit-mono);
+      font-size: 12.5px;
+      color: var(--orbit-ink-2);
+    }
 
-    {/* Header */}
-    <div style={{ marginBottom: '48px' }}>
-      <div style={{ fontSize: '12px', fontWeight: '700', color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '8px' }}>Getting Started</div>
-      <h1 style={{ fontSize: '36px', fontWeight: '800', color: '#1e293b', letterSpacing: '-0.03em', margin: '0 0 12px' }}>시작하기</h1>
-      <div style={{ fontSize: '16px', color: '#64748b', lineHeight: '1.6', margin: 0 }}>Orbit UI Eclipse 테마를 프로젝트에 적용하는 방법을 안내합니다.</div>
-    </div>
+    [data-orbit-doc] .orbit-pkgs {
+      display: flex;
+      flex-direction: column;
+      border-top: 1px solid var(--orbit-line);
+      border-bottom: 1px solid var(--orbit-line);
+    }
+    [data-orbit-doc] .orbit-pkgs .row {
+      display: grid;
+      grid-template-columns: 64px minmax(0, 1fr) auto;
+      gap: 16px;
+      align-items: center;
+      padding: 14px 16px;
+      border-top: 1px solid var(--orbit-line);
+    }
+    [data-orbit-doc] .orbit-pkgs .row:first-child { border-top: 0; }
+    [data-orbit-doc] .orbit-pkgs .pm {
+      font-family: var(--orbit-mono);
+      font-size: 11px;
+      color: var(--orbit-ink-4);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    [data-orbit-doc] .orbit-pkgs code {
+      font-family: var(--orbit-mono);
+      font-size: 13px;
+      color: var(--orbit-ink);
+      background: transparent;
+      border: 0;
+      padding: 0;
+      letter-spacing: -0.005em;
+    }
+    [data-orbit-doc] .orbit-pkgs .badge {
+      font-family: var(--orbit-mono);
+      font-size: 10.5px;
+      font-weight: 600;
+      color: var(--orbit-accent);
+      background: var(--orbit-accent-soft);
+      padding: 2px 8px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
 
-    {/* Step 1: Installation */}
-    <section style={{ marginBottom: '48px' }}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '20px' }}>
-        <div style={{
-          width: '28px', height: '28px', borderRadius: '8px', background: '#6366f1',
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
-          color: '#ffffff', fontSize: '14px', fontWeight: '700', flexShrink: 0,
-        }}>1</div>
-        <h2 style={{ fontSize: '20px', fontWeight: '700', color: '#1e293b', margin: 0 }}>패키지 설치</h2>
-      </div>
+    [data-orbit-doc] .orbit-code {
+      margin: 0;
+      border: 1px solid var(--orbit-line);
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--orbit-surface);
+    }
+    [data-orbit-doc] .orbit-code-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 9px 16px;
+      border-bottom: 1px solid var(--orbit-line);
+      background: var(--orbit-surface-sunken);
+      font-family: var(--orbit-mono);
+      font-size: 11px;
+      color: var(--orbit-ink-3);
+      letter-spacing: 0;
+    }
+    [data-orbit-doc] .orbit-code-head .tag {
+      color: var(--orbit-ink-4);
+      text-transform: uppercase;
+      font-size: 10.5px;
+      letter-spacing: 0.08em;
+    }
+    [data-orbit-doc] .orbit-code pre {
+      margin: 0;
+      padding: 18px 20px;
+      font-family: var(--orbit-mono);
+      font-size: 12.5px;
+      line-height: 1.7;
+      color: var(--orbit-ink);
+      background: transparent;
+      overflow-x: auto;
+      white-space: pre;
+    }
 
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-        <div style={{
-          display: 'flex', alignItems: 'center', gap: '12px',
-          padding: '12px 16px', borderRadius: '10px',
-          background: '#0f172a', fontFamily: '"JetBrains Mono", monospace',
-          border: '1px solid rgba(99, 102, 241, 0.3)',
-        }}>
-          <span style={{ fontSize: '11px', color: '#64748b', fontWeight: '600', minWidth: '36px', textTransform: 'uppercase' }}>pnpm</span>
-          <code style={{ fontSize: '13px', color: '#e2e8f0' }}>pnpm add @heejun-com/theme-eclipse @heejun-com/icons</code>
-          <span style={{ fontSize: '10px', color: '#6366f1', fontWeight: '600', marginLeft: 'auto', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Recommended</span>
+    [data-orbit-doc] .orbit-twocode {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    [data-orbit-doc] .orbit-props {
+      margin-top: 20px;
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      font-size: 13px;
+    }
+    [data-orbit-doc] .orbit-props thead th {
+      padding: 12px 16px;
+      border-top: 1px solid var(--orbit-line-2);
+      border-bottom: 1px solid var(--orbit-line-2);
+      font-family: var(--orbit-mono);
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--orbit-ink-4);
+      text-align: left;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    [data-orbit-doc] .orbit-props tbody td {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--orbit-line);
+      vertical-align: top;
+      color: var(--orbit-ink-2);
+      line-height: 1.55;
+    }
+    [data-orbit-doc] .orbit-props tbody tr:last-child td {
+      border-bottom: 1px solid var(--orbit-line-2);
+    }
+    [data-orbit-doc] .orbit-props code {
+      font-family: var(--orbit-mono);
+      font-size: 12.5px;
+      color: var(--orbit-ink);
+    }
+    [data-orbit-doc] .orbit-props .prop code {
+      font-weight: 600;
+      color: var(--orbit-accent);
+    }
+    [data-orbit-doc] .orbit-props .vals {
+      font-family: var(--orbit-mono);
+      font-size: 12px;
+      color: var(--orbit-ink-3);
+    }
+    [data-orbit-doc] .orbit-props .def {
+      font-family: var(--orbit-mono);
+      font-size: 12px;
+      color: var(--orbit-ink-4);
+    }
+
+    [data-orbit-doc] .orbit-note {
+      margin: 16px 0 0;
+      padding: 14px 18px;
+      border: 1px solid var(--orbit-line);
+      border-radius: 10px;
+      background: var(--orbit-surface);
+      font-size: 13.5px;
+      line-height: 1.6;
+      color: var(--orbit-ink-2);
+      letter-spacing: -0.005em;
+    }
+    [data-orbit-doc] .orbit-note strong {
+      display: block;
+      margin-bottom: 4px;
+      font-family: var(--orbit-mono);
+      font-size: 10.5px;
+      font-weight: 700;
+      color: var(--orbit-ink-3);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    @media (max-width: 760px) {
+      [data-orbit-doc] .orbit-step { grid-template-columns: 1fr; gap: 12px; padding: 28px 0; }
+      [data-orbit-doc] .orbit-step .step-mark { flex-direction: row; align-items: baseline; gap: 12px; padding-top: 0; }
+      [data-orbit-doc] .orbit-step .step-num { font-size: 28px; }
+      [data-orbit-doc] .orbit-pkgs .row { grid-template-columns: 56px 1fr; }
+      [data-orbit-doc] .orbit-pkgs .row .badge { grid-column: 2; justify-self: start; }
+      [data-orbit-doc] .orbit-twocode { grid-template-columns: 1fr; }
+      [data-orbit-doc] .orbit-props thead th:nth-child(3),
+      [data-orbit-doc] .orbit-props tbody td:nth-child(3) { display: none; }
+    }
+  `}</style>
+
+  <div data-orbit-doc>
+    <div className='orbit-wrap'>
+
+      {/* HEADER */}
+      <header className='orbit-page-head'>
+        <div>
+          <div className='orbit-eyebrow'><span className='num'>01</span>Getting Started</div>
+          <h1 className='orbit-h1'>시작하기</h1>
+          <p className='orbit-lede'>
+            Eclipse 테마를 프로젝트에 적용하는 데 필요한 4단계. 설치 후 30초 안에 첫 컴포넌트를 렌더링할 수 있습니다.
+          </p>
         </div>
-        <div style={{
-          display: 'flex', alignItems: 'center', gap: '12px',
-          padding: '12px 16px', borderRadius: '10px',
-          background: '#0f172a', fontFamily: '"JetBrains Mono", monospace',
-          border: '1px solid #1e293b',
-        }}>
-          <span style={{ fontSize: '11px', color: '#64748b', fontWeight: '600', minWidth: '36px', textTransform: 'uppercase' }}>npm</span>
-          <code style={{ fontSize: '13px', color: '#e2e8f0' }}>npm install @heejun-com/theme-eclipse @heejun-com/icons</code>
+        <div className='orbit-page-meta'>
+          <div><strong>4</strong> steps</div>
+          <div>~30s setup</div>
+          <div>React 18·19</div>
         </div>
-        <div style={{
-          display: 'flex', alignItems: 'center', gap: '12px',
-          padding: '12px 16px', borderRadius: '10px',
-          background: '#0f172a', fontFamily: '"JetBrains Mono", monospace',
-          border: '1px solid #1e293b',
-        }}>
-          <span style={{ fontSize: '11px', color: '#64748b', fontWeight: '600', minWidth: '36px', textTransform: 'uppercase' }}>yarn</span>
-          <code style={{ fontSize: '13px', color: '#e2e8f0' }}>yarn add @heejun-com/theme-eclipse @heejun-com/icons</code>
+      </header>
+
+      {/* STEP 1 */}
+      <section className='orbit-step'>
+        <div className='step-mark'>
+          <div className='step-num'>01</div>
+          <div className='step-tag'>Install</div>
         </div>
-      </div>
-    </section>
+        <div>
+          <h2>패키지 설치</h2>
+          <p className='step-desc'>
+            대부분의 프로젝트는 <code>theme-eclipse</code>와 <code>icons</code> 두 패키지면 충분합니다.
+            헤드리스 layer가 필요하면 <code>@heejun-com/core</code>도 추가하세요.
+          </p>
 
-    {/* Step 2: Setup */}
-    <section style={{ marginBottom: '48px' }}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '20px' }}>
-        <div style={{
-          width: '28px', height: '28px', borderRadius: '8px', background: '#6366f1',
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
-          color: '#ffffff', fontSize: '14px', fontWeight: '700', flexShrink: 0,
-        }}>2</div>
-        <h2 style={{ fontSize: '20px', fontWeight: '700', color: '#1e293b', margin: 0 }}>환경 설정</h2>
-      </div>
-
-      <div style={{ fontSize: '14px', color: '#64748b', marginBottom: '16px', lineHeight: '1.6' }}>
-        프로젝트 최상단에 <code style={{ background: '#f1f5f9', color: '#6366f1', padding: '2px 6px', borderRadius: '4px', fontSize: '13px', fontWeight: '500' }}>EclipseProvider</code>를 적용하고, 스타일 CSS를 import 해주세요.
-      </div>
-
-      <div style={{
-        borderRadius: '12px', border: '1px solid #e2e8f0', overflow: 'hidden', marginBottom: '24px',
-      }}>
-        <div style={{ padding: '8px 16px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', gap: '6px' }}>
-          <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#f87171' }} />
-          <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#fbbf24' }} />
-          <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#34d399' }} />
-          <span style={{ marginLeft: '8px', fontSize: '11px', color: '#94a3b8', fontWeight: '500' }}>App.tsx</span>
+          <div className='orbit-pkgs'>
+            <div className='row'>
+              <span className='pm'>pnpm</span>
+              <code>pnpm add @heejun-com/theme-eclipse @heejun-com/icons</code>
+              <span className='badge'>recommended</span>
+            </div>
+            <div className='row'>
+              <span className='pm'>npm</span>
+              <code>npm install @heejun-com/theme-eclipse @heejun-com/icons</code>
+              <span />
+            </div>
+            <div className='row'>
+              <span className='pm'>yarn</span>
+              <code>yarn add @heejun-com/theme-eclipse @heejun-com/icons</code>
+              <span />
+            </div>
+          </div>
         </div>
-        <pre style={{ margin: 0, padding: '20px', background: '#0f172a', color: '#e2e8f0', fontSize: '13px', lineHeight: '1.8', fontFamily: '"JetBrains Mono", monospace', overflow: 'auto' }}>
-{`import { EclipseProvider } from '@heejun-com/theme-eclipse'
+      </section>
+
+      {/* STEP 2 */}
+      <section className='orbit-step'>
+        <div className='step-mark'>
+          <div className='step-num'>02</div>
+          <div className='step-tag'>Provider</div>
+        </div>
+        <div>
+          <h2>EclipseProvider 적용</h2>
+          <p className='step-desc'>
+            앱 루트에 <code>EclipseProvider</code>를 두고 글로벌 CSS를 import 합니다.
+            테마 토큰, 폰트 스케일, Portal·Lottie 컨텍스트가 한 번에 주입됩니다.
+          </p>
+
+          <div className='orbit-code'>
+            <div className='orbit-code-head'>
+              <span className='tag'>TSX</span>
+              <span>App.tsx</span>
+            </div>
+            <pre>{`import { EclipseProvider } from '@heejun-com/theme-eclipse'
 import '@heejun-com/theme-eclipse/style.css'
 
-function MyApp() {
+function App() {
   return (
-    <EclipseProvider mode="light">
-      <AppComponents />
+    <EclipseProvider mode='light'>
+      <YourApp />
     </EclipseProvider>
   )
-}`}
-        </pre>
-      </div>
-
-      <div style={{ fontSize: '13px', fontWeight: '600', color: '#475569', marginBottom: '12px' }}>EclipseProvider Props</div>
-      <div style={{ borderRadius: '12px', border: '1px solid #e2e8f0', overflow: 'hidden' }}>
-        <table style={{ width: '100%', borderCollapse: 'collapse', margin: 0 }}>
-          <thead>
-            <tr style={{ background: '#f8fafc' }}>
-              <th style={{ padding: '10px 16px', textAlign: 'left', fontSize: '12px', fontWeight: '600', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.05em', borderBottom: '1px solid #e2e8f0' }}>Prop</th>
-              <th style={{ padding: '10px 16px', textAlign: 'left', fontSize: '12px', fontWeight: '600', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.05em', borderBottom: '1px solid #e2e8f0' }}>Type</th>
-              <th style={{ padding: '10px 16px', textAlign: 'left', fontSize: '12px', fontWeight: '600', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.05em', borderBottom: '1px solid #e2e8f0' }}>Default</th>
-              <th style={{ padding: '10px 16px', textAlign: 'left', fontSize: '12px', fontWeight: '600', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.05em', borderBottom: '1px solid #e2e8f0' }}>Description</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td style={{ padding: '10px 16px', borderBottom: '1px solid #f1f5f9' }}><code style={{ background: '#f1f5f9', color: '#6366f1', padding: '2px 6px', borderRadius: '4px', fontSize: '12px', fontWeight: '600' }}>mode</code></td>
-              <td style={{ padding: '10px 16px', borderBottom: '1px solid #f1f5f9', fontSize: '13px', color: '#64748b' }}>'light' | 'dark'</td>
-              <td style={{ padding: '10px 16px', borderBottom: '1px solid #f1f5f9', fontSize: '13px', color: '#64748b' }}>'light'</td>
-              <td style={{ padding: '10px 16px', borderBottom: '1px solid #f1f5f9', fontSize: '13px', color: '#475569' }}>라이트/다크 모드 전환</td>
-            </tr>
-            <tr>
-              <td style={{ padding: '10px 16px' }}><code style={{ background: '#f1f5f9', color: '#6366f1', padding: '2px 6px', borderRadius: '4px', fontSize: '12px', fontWeight: '600' }}>baseTextSize</code></td>
-              <td style={{ padding: '10px 16px', fontSize: '13px', color: '#64748b' }}>'small' | 'medium' | 'large'</td>
-              <td style={{ padding: '10px 16px', fontSize: '13px', color: '#64748b' }}>'medium'</td>
-              <td style={{ padding: '10px 16px', fontSize: '13px', color: '#475569' }}>기본 텍스트 크기</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
-
-    {/* Step 3: SSR */}
-    <section style={{ marginBottom: '48px' }}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '20px' }}>
-        <div style={{
-          width: '28px', height: '28px', borderRadius: '8px', background: '#6366f1',
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
-          color: '#ffffff', fontSize: '14px', fontWeight: '700', flexShrink: 0,
-        }}>3</div>
-        <h2 style={{ fontSize: '20px', fontWeight: '700', color: '#1e293b', margin: 0 }}>Server Side Rendering</h2>
-      </div>
-
-      <div style={{
-        padding: '16px 20px', borderRadius: '10px', marginBottom: '16px',
-        background: 'linear-gradient(90deg, rgba(99, 102, 241, 0.04) 0%, transparent 100%)',
-        borderLeft: '3px solid #6366f1',
-      }}>
-        <div style={{ fontSize: '14px', color: '#475569', margin: 0, lineHeight: '1.6' }}>
-          SSR 환경에서 초기 렌더링 시 깜빡임을 방지하려면 <code style={{ background: '#f1f5f9', color: '#6366f1', padding: '2px 6px', borderRadius: '4px', fontSize: '13px', fontWeight: '500' }}>getTheme()</code>을 사용해주세요.
-        </div>
-      </div>
-
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
-        <div style={{ borderRadius: '12px', border: '1px solid #e2e8f0', overflow: 'hidden' }}>
-          <div style={{ padding: '8px 16px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-            <span style={{ fontSize: '12px', color: '#64748b', fontWeight: '600' }}>Pages Router</span>
-            <span style={{ fontSize: '11px', color: '#94a3b8' }}>_document.tsx</span>
+}`}</pre>
           </div>
-          <pre style={{ margin: 0, padding: '16px', background: '#0f172a', color: '#e2e8f0', fontSize: '11px', lineHeight: '1.7', fontFamily: '"JetBrains Mono", monospace', overflow: 'auto' }}>
-{`import { getTheme } from '@heejun-com/theme-eclipse/server'
+
+          <table className='orbit-props'>
+            <thead>
+              <tr>
+                <th style={{ width: '18%' }}>Prop</th>
+                <th style={{ width: '34%' }}>Type</th>
+                <th style={{ width: '14%' }}>Default</th>
+                <th>설명</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td className='prop'><code>mode</code></td>
+                <td className='vals'>'light' | 'dark'</td>
+                <td className='def'>'light'</td>
+                <td>라이트·다크 모드 전환. <code>prefers-color-scheme</code>와 연동 시 외부에서 제어.</td>
+              </tr>
+              <tr>
+                <td className='prop'><code>platform</code></td>
+                <td className='vals'>'mobile' | 'pc'</td>
+                <td className='def'>'mobile'</td>
+                <td>플랫폼 컨텍스트. 일부 컴포넌트의 hover·touch 분기에 영향.</td>
+              </tr>
+              <tr>
+                <td className='prop'><code>baseTextSize</code></td>
+                <td className='vals'>'small' | 'medium' | 'large'</td>
+                <td className='def'>'medium'</td>
+                <td>전체 타이포 스케일 기준. 모든 텍스트 스타일이 일관 비율로 조정.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      {/* STEP 3 */}
+      <section className='orbit-step'>
+        <div className='step-mark'>
+          <div className='step-num'>03</div>
+          <div className='step-tag'>SSR</div>
+        </div>
+        <div>
+          <h2>Server Side Rendering</h2>
+          <p className='step-desc'>
+            SSR 환경에서 초기 렌더 깜빡임을 방지하려면 <code>getTheme()</code>으로 클래스 이름을
+            <code>html</code> 또는 <code>body</code>에 미리 박아 둡니다.
+          </p>
+
+          <div className='orbit-twocode'>
+            <div className='orbit-code'>
+              <div className='orbit-code-head'>
+                <span className='tag'>Pages Router</span>
+                <span>_document.tsx</span>
+              </div>
+              <pre>{`import { getTheme } from '@heejun-com/theme-eclipse/server'
 
 export default function Document() {
   return (
-    <Html lang="ko">
+    <Html lang='ko'>
       <Head />
       <body className={getTheme()}>
         <Main />
@@ -166,221 +375,92 @@ export default function Document() {
       </body>
     </Html>
   )
-}`}
-          </pre>
-        </div>
-        <div style={{ borderRadius: '12px', border: '1px solid #e2e8f0', overflow: 'hidden' }}>
-          <div style={{ padding: '8px 16px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-            <span style={{ fontSize: '12px', color: '#64748b', fontWeight: '600' }}>App Router</span>
-            <span style={{ fontSize: '11px', color: '#94a3b8' }}>app/layout.tsx</span>
-          </div>
-          <pre style={{ margin: 0, padding: '16px', background: '#0f172a', color: '#e2e8f0', fontSize: '11px', lineHeight: '1.7', fontFamily: '"JetBrains Mono", monospace', overflow: 'auto' }}>
-{`import { getTheme } from '@heejun-com/theme-eclipse/server'
+}`}</pre>
+            </div>
+            <div className='orbit-code'>
+              <div className='orbit-code-head'>
+                <span className='tag'>App Router</span>
+                <span>app/layout.tsx</span>
+              </div>
+              <pre>{`import { getTheme } from '@heejun-com/theme-eclipse/server'
 import '@heejun-com/theme-eclipse/style.css'
 
 export default function RootLayout({
   children,
 }: { children: React.ReactNode }) {
   return (
-    <html lang="ko">
+    <html lang='ko'>
       <body className={getTheme()}>
         {children}
       </body>
     </html>
   )
-}`}
-          </pre>
+}`}</pre>
+            </div>
+          </div>
+
+          <aside className='orbit-note'>
+            <strong>Why this matters</strong>
+            클라이언트 하이드레이션 전에 테마 클래스가 박혀 있어야 토큰이 즉시 적용됩니다. 그렇지 않으면 첫 페인트에서 light로 그렸다가 dark로 점프하는 깜빡임이 발생합니다.
+          </aside>
         </div>
-      </div>
-    </section>
+      </section>
 
-    {/* Step 4: Components */}
-    <section style={{ marginBottom: '48px' }}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '20px' }}>
-        <div style={{
-          width: '28px', height: '28px', borderRadius: '8px', background: '#6366f1',
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
-          color: '#ffffff', fontSize: '14px', fontWeight: '700', flexShrink: 0,
-        }}>4</div>
-        <h2 style={{ fontSize: '20px', fontWeight: '700', color: '#1e293b', margin: 0 }}>컴포넌트 사용</h2>
-      </div>
+      {/* STEP 4 */}
+      <section className='orbit-step'>
+        <div className='step-mark'>
+          <div className='step-num'>04</div>
+          <div className='step-tag'>Compose</div>
+        </div>
+        <div>
+          <h2>첫 컴포넌트 조립</h2>
+          <p className='step-desc'>
+            슬롯 컴파운드 패턴으로 컴포넌트 내부를 구성합니다. <code>Leading</code> · <code>Center</code> · <code>Trailing</code>{' '}
+            세 슬롯이 시각과 콘텐츠를 분리합니다.
+          </p>
 
-      <div style={{ borderRadius: '12px', border: '1px solid #e2e8f0', overflow: 'hidden', marginBottom: '24px' }}>
-        <pre style={{ margin: 0, padding: '20px', background: '#0f172a', color: '#e2e8f0', fontSize: '13px', lineHeight: '1.8', fontFamily: '"JetBrains Mono", monospace', overflow: 'auto' }}>
-{`import { SolidButton, TextField, Toggle } from '@heejun-com/theme-eclipse'
-import { BellIcon } from '@heejun-com/icons'
+          <div className='orbit-code'>
+            <div className='orbit-code-head'>
+              <span className='tag'>TSX</span>
+              <span>MyForm.tsx</span>
+            </div>
+            <pre>{`import { SolidButton, FloatingTextField, Switch } from '@heejun-com/theme-eclipse'
+import { IconBell, IconPlus } from '@heejun-com/icons'
 
-function MyForm() {
+export function MyForm() {
   return (
-    <div>
-      <TextField label="이름" placeholder="홍길동" />
-      <Toggle label="알림 수신" />
-      <SolidButton>
-        <SolidButton.Leading><BellIcon /></SolidButton.Leading>
-        <SolidButton.Center>저장하기</SolidButton.Center>
+    <form>
+      <FloatingTextField label='이름' placeholder='홍길동' />
+      <Switch label='알림 수신' />
+
+      <SolidButton color='primary' size='medium'>
+        <SolidButton.Leading>
+          <IconPlus />
+        </SolidButton.Leading>
+        <SolidButton.Center>
+          저장하기
+        </SolidButton.Center>
       </SolidButton>
-    </div>
+    </form>
   )
-}`}
-        </pre>
-      </div>
+}`}</pre>
+          </div>
 
-      <div style={{
-        padding: '16px 20px', borderRadius: '10px',
-        background: 'linear-gradient(90deg, rgba(99, 102, 241, 0.04) 0%, transparent 100%)',
-        borderLeft: '3px solid #6366f1',
-      }}>
-        <div style={{ fontSize: '14px', color: '#475569', margin: 0, lineHeight: '1.6' }}>
-          더 많은 컴포넌트와 사용 예시는 사이드바의 <strong>Eclipse</strong> 섹션에서 확인할 수 있습니다.
+          <aside className='orbit-note'>
+            <strong>Next</strong>
+            전체 컴포넌트 카탈로그는 사이드바의 <code>Eclipse</code> 섹션 또는 <a href='?path=/docs/intro-컴포넌트-개요--docs' style={{ color: 'var(--orbit-accent)', textDecoration: 'none' }}>컴포넌트 개요</a>에서 확인할 수 있습니다.
+          </aside>
         </div>
-      </div>
-    </section>
+      </section>
 
-    {/* EnterpriseUI + CommandPalette 벤치마크 */}
-    <section style={{ marginBottom: '48px' }}>
-      <h2 style={{ fontSize: '20px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '8px' }}>
-        마이그레이션 가이드
-      </h2>
-      <div style={{ fontSize: '14px', color: '#64748b', marginBottom: '20px' }}>
-        EnterpriseUI 또는 CommandPalette Extension UI에서 Orbit UI로 전환하는 핵심 패턴을 비교합니다. (Cycle 44 벤치마크)
-      </div>
+      {/* FOOTER */}
+      <footer className='orbit-foot'>
+        <div>4 steps · pnpm·npm·yarn · CSR + SSR</div>
+        <div>
+          <a href='?path=/docs/intro-컴포넌트-개요--docs'>컴포넌트 카탈로그 →</a>
+        </div>
+      </footer>
 
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-        {[
-          {
-            from: 'EnterpriseUI TextField + FormControl',
-            to: 'Orbit UI TextField / PasswordField',
-            code: `// EnterpriseUI\n<FormControl error={hasError}>\n  <TextField label="이메일" variant="outlined" />\n  <FormHelperText>에러 메시지</FormHelperText>\n</FormControl>\n\n// Orbit UI\n<TextField\n  placeholder="이메일"\n  error={hasError}\n/>`,
-            gain: '별도 FormControl 없이 error prop 단일 처리',
-          },
-          {
-            from: 'EnterpriseUI Snackbar + Alert',
-            to: 'Orbit UI Toast (Sonner 기반)',
-            code: `// EnterpriseUI (Snackbar + Alert 조합)\n<Snackbar open={open} anchorOrigin={{ vertical: "bottom", horizontal: "center" }}>\n  <Alert severity="success">저장 완료</Alert>\n</Snackbar>\n\n// Orbit UI\ntoast.success("저장 완료", { description: "자동으로 닫힙니다" })`,
-            gain: 'Provider 없이 toast() 함수 호출만으로 사용',
-          },
-          {
-            from: 'CommandPalette Toast API',
-            to: 'Orbit UI Toast action pattern',
-            code: `// CommandPalette\nawait showToast({ title: "Done", style: Toast.Style.Success })\n\n// Orbit UI\ntoast.success("Done", {\n  action: { label: "실행취소", onClick: handleUndo }\n})`,
-            gain: 'async/await 없이 즉시 호출, UNDO 액션 내장',
-          },
-        ].map(({ from, to, code, gain }) => (
-          <div key={from} style={{ borderRadius: '12px', border: '1px solid #e2e8f0', overflow: 'hidden' }}>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', borderBottom: '1px solid #f1f5f9' }}>
-              <div style={{ padding: '10px 14px', background: '#fff5f5', borderRight: '1px solid #f1f5f9' }}>
-                <div style={{ fontSize: '10px', fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', marginBottom: '2px' }}>Before</div>
-                <div style={{ fontSize: '12px', color: '#ef4444', fontWeight: 600 }}>{from}</div>
-              </div>
-              <div style={{ padding: '10px 14px', background: '#f0fdf4' }}>
-                <div style={{ fontSize: '10px', fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', marginBottom: '2px' }}>After</div>
-                <div style={{ fontSize: '12px', color: '#10b981', fontWeight: 600 }}>{to}</div>
-              </div>
-            </div>
-            <pre style={{ margin: 0, padding: '14px', background: '#0f172a', fontSize: '11px', color: '#e2e8f0', overflowX: 'auto', fontFamily: 'monospace', lineHeight: '1.6' }}>
-              {code}
-            </pre>
-            <div style={{ padding: '8px 14px', background: '#f8fafc', fontSize: '11px', color: '#10b981', fontWeight: 600, borderTop: '1px solid #f1f5f9' }}>
-              ✓ {gain}
-            </div>
-          </div>
-        ))}
-      </div>
-    </section>
-
-    {/* EnterpriseUI + CommandPalette 마이그레이션 가이드 */}
-    <section style={{ marginBottom: '56px' }}>
-      <h2 style={{ fontSize: '24px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '8px' }}>EnterpriseUI / CommandPalette 패턴 → Orbit UI 전환</h2>
-      <div style={{ fontSize: '14px', color: '#64748b', lineHeight: '1.7', marginBottom: '24px' }}>
-        EnterpriseUI의 Stepper, Accordion 패턴과 CommandPalette Extension의 커맨드 팔레트 패턴을 Orbit UI 컴포넌트로 구현하는 방법입니다.
-      </div>
-
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginBottom: '28px' }}>
-        {[
-          {
-            pattern: 'EnterpriseUI Stepper',
-            orbitComponents: 'PageIndicator + Progress',
-            desc: '단계별 위자드 UI — PageIndicator가 현재 단계 표시, Progress가 완료율을 보여줍니다.',
-            code: `// EnterpriseUI
-<Stepper activeStep={step}>
-  <Step><StepLabel>정보 입력</StepLabel></Step>
-  <Step><StepLabel>확인</StepLabel></Step>
-</Stepper>
-
-// Orbit UI
-<PageIndicator currentPage={step} onPageChange={setStep}>
-  {steps.map((_, i) => <span key={i} />)}
-</PageIndicator>
-<Progress value={(step / steps.length) * 100} />`,
-          },
-          {
-            pattern: 'EnterpriseUI Accordion + Summary',
-            orbitComponents: 'Accordion.Item + Trigger',
-            desc: '닫힌 상태에서 요약 정보를 표시하는 패턴 — Trigger 내부에 조건부로 요약 텍스트를 추가합니다.',
-            code: `// EnterpriseUI
-<AccordionSummary expandIcon={<ExpandMoreIcon />}>
-  <Typography>{title}</Typography>
-  <Typography sx={{ color: 'text.secondary' }}>
-    {isOpen ? '' : summary}
-  </Typography>
-</AccordionSummary>
-
-// Orbit UI
-<Accordion.Trigger>
-  <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
-    <span>{title}</span>
-    {!isOpen && <span style={{ color: '#94a3b8' }}>{summary}</span>}
-  </div>
-</Accordion.Trigger>`,
-          },
-          {
-            pattern: 'CommandPalette Section List',
-            orbitComponents: 'Accordion (multiple) + LabelBadge',
-            desc: '키보드 단축키가 있는 섹션별 커맨드 목록 — Accordion multiple 모드로 여러 섹션을 동시에 열 수 있습니다.',
-            code: `// CommandPalette Extension
-<List.Section title="최근 사용" subtitle={String(items.length)}>
-  {items.map(item => (
-    <List.Item title={item.title} subtitle={item.desc}
-      actions={<Action.Push shortcut={{ modifiers: [], key: 'd' }} />}
-    />
-  ))}
-</List.Section>
-
-// Orbit UI
-<Accordion type="multiple" value={openSections} onValueChange={setOpenSections}>
-  {sections.map(section => (
-    <Accordion.Item key={section.id} value={section.id}>
-      <Accordion.Trigger>{section.title}</Accordion.Trigger>
-      <Accordion.Content>
-        {section.items.map(item => (
-          <div key={item.label} style={{ display: 'flex', justifyContent: 'space-between' }}>
-            <span>{item.label}</span>
-            <kbd>{item.shortcut}</kbd>
-          </div>
-        ))}
-      </Accordion.Content>
-    </Accordion.Item>
-  ))}
-</Accordion>`,
-          },
-        ].map((item) => (
-          <div key={item.pattern} style={{ borderRadius: '12px', border: '1px solid #e2e8f0', overflow: 'hidden' }}>
-            <div style={{ padding: '12px 16px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', gap: '10px' }}>
-              <span style={{ fontSize: '13px', fontWeight: '700', color: '#0f172a' }}>{item.pattern}</span>
-              <span style={{ fontSize: '11px', color: '#6366f1', background: '#eff6ff', padding: '2px 8px', borderRadius: '4px', fontWeight: '600' }}>
-                → {item.orbitComponents}
-              </span>
-            </div>
-            <div style={{ padding: '10px 16px', background: '#fffbf0', borderBottom: '1px solid #e2e8f0' }}>
-              <div style={{ margin: 0, fontSize: '13px', color: '#64748b', lineHeight: '1.6' }}>{item.desc}</div>
-            </div>
-            <pre style={{ margin: 0, padding: '14px 16px', background: '#0f172a', color: '#e2e8f0', fontSize: '11px', lineHeight: '1.8', fontFamily: '"JetBrains Mono", monospace', overflowX: 'auto' }}>
-              {item.code}
-            </pre>
-          </div>
-        ))}
-      </div>
-    </section>
-
+    </div>
   </div>
 </Unstyled>

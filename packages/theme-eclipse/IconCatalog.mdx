@@ -6,16 +6,18 @@ import * as Icons from '@heejun-com/icons';
 const iconEntries = Object.entries(Icons)
   .filter(([name]) => name.endsWith('Icon'))
   .sort(([a], [b]) => a.localeCompare(b))
-const toneOptions = [
-  { key: 'flat', label: 'Flat' },
-  { key: 'soft', label: 'Soft' },
-  { key: 'premium', label: 'Premium' },
-] satisfies Array<{ key: IconTone; label: string }>
 
-<Meta title="Intro/아이콘 카탈로그" />
+const toneOptions = [
+  { key: 'flat', label: 'Flat', desc: '단색, 시스템 톤에 가장 잘 어울리는 기본' },
+  { key: 'soft', label: 'Soft', desc: '톤이 부드럽게 들어간 중간 채도' },
+  { key: 'premium', label: 'Premium', desc: '브랜드 액센트 강화' },
+] satisfies Array<{ key: IconTone; label: string; desc: string }>
+
+<Meta title='Intro/아이콘 카탈로그' />
 
 const ToneCatalog = () => {
-  const [tone, setTone] = useState<IconTone>('premium')
+  const [tone, setTone] = useState<IconTone>('flat')
+
   const iconNodes = useMemo(
     () =>
       iconEntries.map(([name, Icon]) => (
@@ -28,172 +30,277 @@ const ToneCatalog = () => {
 
   return (
     <Unstyled>
-      <div
-        style={{
-          maxWidth: '960px',
-          margin: '0 auto',
-          fontFamily: '"Pretendard Variable", "Pretendard", system-ui, sans-serif',
-        }}
-      >
-        {/* Header */}
-        <div style={{ marginBottom: '32px' }}>
-          <div
-            style={{
-              fontSize: '12px',
-              fontWeight: '700',
-              color: '#6366f1',
-              textTransform: 'uppercase',
-              letterSpacing: '0.1em',
-              marginBottom: '8px',
-            }}
-          >
-            Icon Catalog
-          </div>
-          <h1
-            style={{
-              fontSize: '36px',
-              fontWeight: '800',
-              color: '#1e293b',
-              letterSpacing: '-0.03em',
-              margin: '0 0 12px',
-            }}
-          >
-            아이콘 카탈로그
-          </h1>
-          <div style={{ fontSize: '16px', color: '#64748b', lineHeight: '1.6', margin: '0 0 24px' }}>
-            Orbit UI에서 제공하는 전체 아이콘 목록입니다. 모든 아이콘은 <code
-              style={{ background: '#f1f5f9', color: '#6366f1', padding: '2px 6px', borderRadius: '4px', fontSize: '14px', fontWeight: '500' }}>
-              size
-            </code>와 <code
-              style={{ background: '#f1f5f9', color: '#6366f1', padding: '2px 6px', borderRadius: '4px', fontSize: '14px', fontWeight: '500' }}>
-              color
-            </code> 속성을 지원합니다.
-          </div>
+      <style>{`
+        [data-orbit-doc] .orbit-code {
+          margin: 0;
+          border: 1px solid var(--orbit-line);
+          border-radius: 12px;
+          overflow: hidden;
+          background: var(--orbit-surface);
+        }
+        [data-orbit-doc] .orbit-code-head {
+          display: flex;
+          justify-content: space-between;
+          align-items: baseline;
+          gap: 16px;
+          padding: 9px 16px;
+          border-bottom: 1px solid var(--orbit-line);
+          background: var(--orbit-surface-sunken);
+          font-family: var(--orbit-mono);
+          font-size: 11px;
+          color: var(--orbit-ink-3);
+        }
+        [data-orbit-doc] .orbit-code-head .tag {
+          color: var(--orbit-ink-4);
+          text-transform: uppercase;
+          font-size: 10.5px;
+          letter-spacing: 0.08em;
+        }
+        [data-orbit-doc] .orbit-code pre {
+          margin: 0;
+          padding: 18px 20px;
+          font-family: var(--orbit-mono);
+          font-size: 12.5px;
+          line-height: 1.7;
+          color: var(--orbit-ink);
+          background: transparent;
+          overflow-x: auto;
+          white-space: pre;
+        }
 
-          {/* Usage Example */}
-          <div
-            style={{
-              borderRadius: '12px',
-              border: '1px solid #e2e8f0',
-              overflow: 'hidden',
-            }}
-          >
-            <div
-              style={{
-                padding: '8px 16px',
-                background: '#f8fafc',
-                borderBottom: '1px solid #e2e8f0',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '6px',
-              }}
-            >
-              <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#f87171' }} />
-              <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#fbbf24' }} />
-              <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#34d399' }} />
-              <span style={{ marginLeft: '8px', fontSize: '11px', color: '#94a3b8', fontWeight: '500' }}>
-                Usage
-              </span>
+        [data-orbit-doc] .orbit-icon-controls {
+          margin-top: 28px;
+          display: grid;
+          grid-template-columns: minmax(0, 1fr) auto;
+          gap: 32px;
+          align-items: center;
+          padding: 20px 24px;
+          border: 1px solid var(--orbit-line);
+          border-radius: 12px;
+          background: var(--orbit-surface);
+        }
+        [data-orbit-doc] .orbit-icon-controls .summary {
+          display: flex;
+          flex-direction: column;
+          gap: 4px;
+        }
+        [data-orbit-doc] .orbit-icon-controls .summary .count {
+          font-family: var(--orbit-mono);
+          font-size: 14px;
+          color: var(--orbit-ink-2);
+          letter-spacing: -0.005em;
+        }
+        [data-orbit-doc] .orbit-icon-controls .summary .count strong {
+          font-size: 22px;
+          font-weight: 660;
+          color: var(--orbit-ink);
+          margin-right: 6px;
+        }
+        [data-orbit-doc] .orbit-icon-controls .summary .hint {
+          font-size: 12.5px;
+          color: var(--orbit-ink-3);
+        }
+        [data-orbit-doc] .orbit-tone-group {
+          display: inline-flex;
+          padding: 4px;
+          gap: 2px;
+          border: 1px solid var(--orbit-line);
+          border-radius: 10px;
+          background: var(--orbit-bg);
+        }
+        [data-orbit-doc] .orbit-tone-group button {
+          height: 30px;
+          padding: 0 14px;
+          border: 0;
+          border-radius: 7px;
+          background: transparent;
+          color: var(--orbit-ink-3);
+          font-family: var(--orbit-display);
+          font-size: 13px;
+          font-weight: 600;
+          letter-spacing: -0.012em;
+          cursor: pointer;
+          transition:
+            background-color 160ms cubic-bezier(0.2, 0, 0, 1),
+            color 160ms cubic-bezier(0.2, 0, 0, 1);
+        }
+        [data-orbit-doc] .orbit-tone-group button:hover { color: var(--orbit-ink); }
+        [data-orbit-doc] .orbit-tone-group button[aria-pressed='true'] {
+          background: var(--orbit-surface);
+          color: var(--orbit-ink);
+          box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
+        }
+        :root.dark [data-orbit-doc] .orbit-tone-group button[aria-pressed='true'] {
+          background: rgb(46, 50, 56);
+        }
+
+        [data-orbit-doc] .orbit-tone-info {
+          margin-top: 16px;
+          font-size: 13px;
+          color: var(--orbit-ink-3);
+          line-height: 1.55;
+        }
+        [data-orbit-doc] .orbit-tone-info code {
+          padding: 1px 6px;
+          border-radius: 5px;
+          background: var(--orbit-surface-sunken);
+          border: 1px solid var(--orbit-line);
+          font-family: var(--orbit-mono);
+          font-size: 12.5px;
+          color: var(--orbit-ink-2);
+        }
+
+        [data-orbit-doc] .orbit-gallery-wrap {
+          margin-top: 32px;
+          padding: 24px;
+          border: 1px solid var(--orbit-line);
+          border-radius: 14px;
+          background: var(--orbit-surface);
+          color: var(--orbit-ink);
+        }
+        [data-orbit-doc] .orbit-gallery-wrap .sbdocs-icon,
+        [data-orbit-doc] .orbit-gallery-wrap [class*='IconItem'] {
+          color: var(--orbit-ink) !important;
+        }
+        [data-orbit-doc] .orbit-rule {
+          margin-top: 24px;
+          padding: 14px 18px;
+          border: 1px solid var(--orbit-line);
+          border-radius: 10px;
+          background: var(--orbit-surface);
+          font-size: 13.5px;
+          line-height: 1.6;
+          color: var(--orbit-ink-2);
+        }
+        [data-orbit-doc] .orbit-rule strong {
+          display: block;
+          margin-bottom: 4px;
+          font-family: var(--orbit-mono);
+          font-size: 10.5px;
+          font-weight: 700;
+          color: var(--orbit-ink-3);
+          text-transform: uppercase;
+          letter-spacing: 0.08em;
+        }
+        [data-orbit-doc] .orbit-rule code {
+          padding: 1px 6px;
+          border-radius: 5px;
+          background: var(--orbit-surface-sunken);
+          border: 1px solid var(--orbit-line);
+          font-family: var(--orbit-mono);
+          font-size: 12.5px;
+          color: var(--orbit-ink-2);
+        }
+
+        @media (max-width: 760px) {
+          [data-orbit-doc] .orbit-icon-controls {
+            grid-template-columns: 1fr;
+            gap: 16px;
+            align-items: start;
+          }
+        }
+      `}</style>
+
+      <div data-orbit-doc>
+        <div className='orbit-wrap'>
+
+          {/* HEADER */}
+          <header className='orbit-page-head'>
+            <div>
+              <div className='orbit-eyebrow'><span className='num'>01</span>Icon Catalog</div>
+              <h1 className='orbit-h1'>아이콘 카탈로그</h1>
+              <p className='orbit-lede'>
+                전체 {iconEntries.length}개 아이콘. 모든 아이콘은 <code style={{ fontFamily: 'var(--orbit-mono)', fontSize: '0.9em', padding: '1px 6px', borderRadius: 5, background: 'var(--orbit-surface-sunken)', border: '1px solid var(--orbit-line)' }}>size</code>, <code style={{ fontFamily: 'var(--orbit-mono)', fontSize: '0.9em', padding: '1px 6px', borderRadius: 5, background: 'var(--orbit-surface-sunken)', border: '1px solid var(--orbit-line)' }}>color</code>, <code style={{ fontFamily: 'var(--orbit-mono)', fontSize: '0.9em', padding: '1px 6px', borderRadius: 5, background: 'var(--orbit-surface-sunken)', border: '1px solid var(--orbit-line)' }}>tone</code> 프롭을 지원합니다.
+              </p>
             </div>
-            <pre
-              style={{
-                margin: 0,
-                padding: '16px',
-                background: '#0f172a',
-                color: '#e2e8f0',
-                fontSize: '13px',
-                lineHeight: '1.8',
-                fontFamily: '"JetBrains Mono", monospace',
-              }}
-            >
-{`import { HomeLineIcon, SearchIcon } from '@heejun-com/icons'
+            <div className='orbit-page-meta'>
+              <div><strong>{iconEntries.length}</strong> icons</div>
+              <div>Line · Fill</div>
+              <div>zero-dep</div>
+            </div>
+          </header>
 
-<HomeLineIcon size={24} tone="premium" color="primary" />`}
-            </pre>
-          </div>
-        </div>
+          {/* USAGE */}
+          <section className='orbit-sect'>
+            <div className='orbit-sect-head'>
+              <div>
+                <div className='orbit-eyebrow'><span className='num'>02</span>Usage</div>
+                <h2>한 줄로 import.</h2>
+                <p>Tree-shaking으로 사용한 아이콘만 번들에 포함됩니다.</p>
+              </div>
+            </div>
 
-        {/* Stats + tone control */}
-        <div style={{ display: 'flex', gap: '12px', marginBottom: '32px', alignItems: 'end', flexWrap: 'wrap' }}>
-          <div
-            style={{
-              padding: '12px 20px',
-              borderRadius: '10px',
-              background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.06), rgba(168, 85, 247, 0.06))',
-              border: '1px solid rgba(99, 102, 241, 0.1)',
-            }}
-          >
-            <span style={{ fontSize: '18px', fontWeight: '800', color: '#6366f1' }}>
-              {iconEntries.length}
-            </span>
-            <span style={{ fontSize: '13px', color: '#64748b', marginLeft: '8px' }}>Icons Available</span>
-          </div>
-          <div
-            style={{
-              padding: '12px 20px',
-              borderRadius: '10px',
-              background: 'rgba(16, 185, 129, 0.06)',
-              border: '1px solid rgba(16, 185, 129, 0.1)',
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '8px',
-            }}
-          >
-            <span style={{ fontSize: '13px', color: '#10b981', fontWeight: '600' }}>Tone</span>
-            <select
-              value={tone}
-              onChange={(e) => setTone(e.target.value as IconTone)}
-              style={{
-                border: '1px solid #cbd5e1',
-                borderRadius: '8px',
-                background: '#fff',
-                color: '#334155',
-                padding: '4px 8px',
-              }}
-            >
-              {toneOptions.map((option) => (
-                <option key={option.key} value={option.key}>
-                  {option.label}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div
-            style={{
-              padding: '12px 20px',
-              borderRadius: '10px',
-              background: 'rgba(16, 185, 129, 0.06)',
-              border: '1px solid rgba(16, 185, 129, 0.1)',
-            }}
-          >
-            <span style={{ fontSize: '13px', color: '#10b981', fontWeight: '600' }}>
-              Line & Fill variants supported
-            </span>
-          </div>
-        </div>
-      </div>
+            <div style={{ marginTop: 24 }}>
+              <div className='orbit-code'>
+                <div className='orbit-code-head'>
+                  <span className='tag'>TSX</span>
+                  <span>example.tsx</span>
+                </div>
+                <pre>{`import { IconHomeLine, IconSearch } from '@heejun-com/icons'
 
-      <IconGallery>{iconNodes}</IconGallery>
+<IconHomeLine size={24} tone='flat' color='currentColor' />
+<IconSearch size={20} tone='premium' />`}</pre>
+              </div>
+            </div>
 
-      {/* Optional premium preview for token customization */}
-      <div
-        style={{
-          marginTop: '24px',
-          border: '1px solid #e2e8f0',
-          borderRadius: '12px',
-          padding: '16px',
-          background:
-            'linear-gradient(135deg, rgba(99,102,241,0.03), rgba(16,185,129,0.03))',
-        }}
-      >
-        <div style={{ fontSize: '12px', fontWeight: 700, color: '#475569', marginBottom: '8px' }}>
-          CSS 커스텀 토큰(Hint)
-        </div>
-        <div style={{ margin: 0, color: '#64748b', fontSize: '13px', lineHeight: '1.6' }}>
-          앱 레벨에서 <code style={{ background: '#f8fafc', padding: '2px 4px', borderRadius: '4px' }}>--heejun-icon-tone-premium-filter</code>와 <code style={{ background: '#f8fafc', padding: '2px 4px', borderRadius: '4px' }}>--heejun-icon-tone-soft-filter</code>를 오버라이드해 전체 톤을 디자인에 맞게 조정할 수 있습니다.
+            <div className='orbit-icon-controls'>
+              <div className='summary'>
+                <div className='count'><strong>{iconEntries.length}</strong>icons available</div>
+                <div className='hint'>아래 갤러리는 선택한 톤으로 렌더링됩니다.</div>
+              </div>
+              <div className='orbit-tone-group' role='group' aria-label='Tone'>
+                {toneOptions.map((option) => (
+                  <button
+                    key={option.key}
+                    type='button'
+                    aria-pressed={tone === option.key}
+                    onClick={() => setTone(option.key)}
+                  >
+                    {option.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div className='orbit-tone-info'>
+              <strong style={{ color: 'var(--orbit-ink-2)' }}>{toneOptions.find((o) => o.key === tone)?.label}</strong>: {toneOptions.find((o) => o.key === tone)?.desc}.
+              {' '}앱 레벨에서 <code>--heejun-icon-tone-premium-filter</code>와 <code>--heejun-icon-tone-soft-filter</code>를 오버라이드해 톤을 디자인에 맞게 조정할 수 있습니다.
+            </div>
+          </section>
+
+          {/* GALLERY */}
+          <section className='orbit-sect'>
+            <div className='orbit-sect-head'>
+              <div>
+                <div className='orbit-eyebrow'><span className='num'>03</span>Gallery</div>
+                <h2>전체 목록.</h2>
+                <p>각 아이콘 아래의 이름이 import 식별자입니다.</p>
+              </div>
+              <span className='orbit-eyebrow'>{iconEntries.length} items</span>
+            </div>
+
+            <div className='orbit-gallery-wrap'>
+              <IconGallery>{iconNodes}</IconGallery>
+            </div>
+
+            <aside className='orbit-rule'>
+              <strong>Custom CSS tokens</strong>
+              아이콘 톤은 <code>--heejun-icon-tone-premium-filter</code>, <code>--heejun-icon-tone-soft-filter</code>{' '}
+              CSS 변수로 글로벌 오버라이드할 수 있습니다. 프로덕트 브랜드에 맞춰 한 번에 조정 가능.
+            </aside>
+          </section>
+
+          {/* FOOTER */}
+          <footer className='orbit-foot'>
+            <div>{iconEntries.length} icons · Line · Fill · zero-dep</div>
+            <div>
+              <a href='?path=/docs/intro-디자인토큰--docs'>디자인 토큰 →</a>
+            </div>
+          </footer>
+
         </div>
       </div>
-    </div>
+    </Unstyled>
   )
 }
 
