@@ -8,7 +8,7 @@
     "build": "pnpm -r build",
     "test": "pnpm -r test",
     "test:watch": "pnpm -r test:watch",
-    "typecheck": "pnpm -r typecheck",
+    "typecheck": "pnpm -r --sort --if-present build:dts && pnpm -r typecheck",
     "lint": "eslint packages",
     "lint:fix": "eslint packages --fix",
     "format": "prettier --write \"packages/**/*.{ts,tsx,json,md}\"",
