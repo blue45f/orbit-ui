@@ -58,7 +58,7 @@
     "clean": "rm -rf dist coverage storybook-static"
   },
   "dependencies": {
-    "@babel/runtime": "^7.26.0",
+    "@babel/runtime": "^7.29.7",
     "@heejun-com/core": "workspace:*",
     "@heejun-com/icons": "workspace:*",
     "@radix-ui/react-avatar": "^1.1.11",
