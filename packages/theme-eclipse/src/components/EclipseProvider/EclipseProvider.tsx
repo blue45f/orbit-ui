@@ -1,10 +1,11 @@
 import { ThemeProvider, LottieProvider, Portal, TextStyleBaseSize } from '@heejun-com/core'
 import clsx from 'clsx'
-import { PropsWithChildren } from 'react'
+import { PropsWithChildren, useMemo } from 'react'
 
 import { darkTheme, lightTheme, textStyleTheme } from '../../styles'
 
 import { ReusableSVG } from './ReusableSVG'
+import { EclipseThemeContext, type EclipseThemeContextValue } from './useEclipseTheme'
 
 import '@heejun-com/core/style.css'
 import '../../styles/theme.css'
@@ -63,16 +64,23 @@ export const EclipseProvider: React.FC<PropsWithChildren<EclipseProviderProps>> 
   }
   const textStyleClass = textStyleTheme[baseTextSize]
 
+  const eclipseContext = useMemo<EclipseThemeContextValue>(
+    () => ({ mode, platform, baseTextSize }),
+    [mode, platform, baseTextSize],
+  )
+
   return (
     <ThemeProvider
       mode={mode}
       themeClass={clsx(themeClass, textStyleClass)}
       baseTextSize={baseTextSize}
     >
-      <Portal>
-        <ReusableSVG />
-      </Portal>
-      <LottieProvider>{children}</LottieProvider>
+      <EclipseThemeContext.Provider value={eclipseContext}>
+        <Portal>
+          <ReusableSVG />
+        </Portal>
+        <LottieProvider>{children}</LottieProvider>
+      </EclipseThemeContext.Provider>
     </ThemeProvider>
   )
 }
