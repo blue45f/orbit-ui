@@ -72,4 +72,62 @@ describe('Checkbox (eclipse)', () => {
     render(<Checkbox data-testid="cb" iconName="minus" checked />)
     expect(screen.getByTestId('cb')).toBeInTheDocument()
   })
+
+  test('Space 키로 onChange가 호출된다', async () => {
+    const onChange = vi.fn()
+    render(<Checkbox data-testid="cb" onChange={onChange} />)
+
+    const cb = screen.getByTestId('cb')
+    cb.focus()
+    await userEvent.keyboard(' ')
+
+    expect(onChange).toHaveBeenCalledWith(true)
+  })
+
+  test('disabled이면 Space 키 입력도 무시한다', async () => {
+    const onChange = vi.fn()
+    render(<Checkbox data-testid="cb" disabled onChange={onChange} />)
+
+    const cb = screen.getByTestId('cb')
+    cb.focus()
+    await userEvent.keyboard(' ')
+
+    expect(onChange).not.toHaveBeenCalled()
+  })
+
+  test('focus가 button 요소에 적용된다', () => {
+    render(<Checkbox data-testid="cb" />)
+    const cb = screen.getByTestId('cb')
+
+    cb.focus()
+    expect(document.activeElement).toBe(cb)
+  })
+
+  test('aria-label로 시각 라벨 없이도 접근성 이름을 부여할 수 있다', () => {
+    render(<Checkbox data-testid="cb" aria-label="이메일 알림 동의" />)
+    expect(screen.getByTestId('cb')).toHaveAttribute('aria-label', '이메일 알림 동의')
+  })
+
+  test('aria-labelledby로 외부 요소를 라벨로 참조할 수 있다', () => {
+    render(
+      <>
+        <span id="cb-label">개인정보 수집 동의</span>
+        <Checkbox data-testid="cb" aria-labelledby="cb-label" />
+      </>,
+    )
+    expect(screen.getByTestId('cb')).toHaveAttribute('aria-labelledby', 'cb-label')
+  })
+
+  test('uncontrolled에서 클릭 시 aria-checked 상태가 토글된다', async () => {
+    render(<Checkbox data-testid="cb" />)
+    const cb = screen.getByTestId('cb')
+
+    expect(cb).toHaveAttribute('aria-checked', 'false')
+
+    await userEvent.click(cb)
+    expect(cb).toHaveAttribute('aria-checked', 'true')
+
+    await userEvent.click(cb)
+    expect(cb).toHaveAttribute('aria-checked', 'false')
+  })
 })
