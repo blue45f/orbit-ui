@@ -33,14 +33,8 @@ jobs:
       - name: 의존성 설치
         run: pnpm install --frozen-lockfile
 
-      - name: 타입 체크
-        run: pnpm typecheck
-
-      - name: 테스트
-        run: pnpm test
-
-      - name: 빌드
-        run: pnpm build
+      - name: Verify
+        run: pnpm run verify
 
   lint:
     name: 린트
