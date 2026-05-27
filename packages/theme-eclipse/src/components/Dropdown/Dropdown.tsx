@@ -83,7 +83,7 @@ const DropdownRoot = forwardRef<HTMLButtonElement, DropdownProps>((props, ref) =
     >
       {leading.length > 0 && (
         <BaseDropdown.Leading>
-          <IconPropsContext.Provider value={{ forcedColor: leadingColor }}>
+          <IconPropsContext.Provider value={{ forcedColor: leadingColor, tone: 'soft' }}>
             {leading[0]}
           </IconPropsContext.Provider>
         </BaseDropdown.Leading>
@@ -93,7 +93,7 @@ const DropdownRoot = forwardRef<HTMLButtonElement, DropdownProps>((props, ref) =
 
       {trailing.length > 0 && (
         <BaseDropdown.Trailing>
-          <IconPropsContext.Provider value={{ forcedColor: trailingColor }}>
+          <IconPropsContext.Provider value={{ forcedColor: trailingColor, tone: 'soft' }}>
             {trailing[0]}
           </IconPropsContext.Provider>
         </BaseDropdown.Trailing>

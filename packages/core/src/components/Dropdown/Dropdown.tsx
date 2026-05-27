@@ -289,7 +289,7 @@ const DropdownChevron: React.FC = () => {
         activated && 'rotate-180'
       )}
     >
-      <ChevronDownLineIcon />
+      <ChevronDownLineIcon tone="soft" />
     </span>
   )
 }

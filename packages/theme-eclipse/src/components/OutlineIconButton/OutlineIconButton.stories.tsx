@@ -26,12 +26,16 @@ const meta = {
   title: 'eclipse/Actions/Buttons/OutlineIconButton',
   component: OutlineIconButton,
   tags: ['autodocs'],
-  args: { color: 'black', size: 'medium', disabled: false },
+  args: { color: 'black', size: 'medium', iconTone: 'soft', disabled: false },
   argTypes: {
     onClick: { action: 'clicked' },
     color: {
       control: 'select',
       options: ['black', 'gray'],
+    },
+    iconTone: {
+      control: 'select',
+      options: ['flat', 'soft', 'premium'],
     },
     size: {
       control: 'select',

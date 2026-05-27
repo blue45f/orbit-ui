@@ -29,6 +29,29 @@ test('size 프롭이 없고 IconPropsContext에 size가 있으면 그 크기를 
   expect(screen.getByText('icon')).toHaveAttribute('height', '72')
 })
 
+test('tone 프롭으로 스타일이 적용된다', () => {
+  render(<IconRoot tone="premium">icon</IconRoot>)
+  const icon = screen.getByText('icon')
+
+  expect(icon.getAttribute('style')).toContain('drop-shadow')
+  expect(icon).toHaveStyle({ opacity: 'var(--heejun-icon-tone-premium-opacity, 0.98)' })
+})
+
+test('IconPropsContext의 tone이 prop보다 우선한다', () => {
+  render(
+    <IconPropsContext.Provider value={{ tone: 'soft' }}>
+      <IconRoot tone="premium">icon</IconRoot>
+    </IconPropsContext.Provider>
+  )
+  const icon = screen.getByText('icon')
+
+  expect(icon.getAttribute('style')).toContain(
+    'var(--heejun-icon-tone-soft-filter, drop-shadow(0 1px 1px rgba(14, 20, 34, 0.08)))'
+  )
+  expect(icon.getAttribute('style')).not.toContain('premium-filter')
+  expect(icon.getAttribute('style')).not.toContain('var(--heejun-icon-tone-premium-filter')
+})
+
 test('size 프롭도 없고 IconPropsContext도 없으면 기본 값을 사용한다', () => {
   render(<IconRoot>icon</IconRoot>)
 
