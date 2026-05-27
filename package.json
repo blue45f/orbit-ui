@@ -15,6 +15,7 @@
     "format:check": "pnpm -r --if-present run format:check",
     "clean": "pnpm -r clean && rm -rf node_modules",
     "ci": "pnpm run format:check && pnpm run lint && pnpm run typecheck && pnpm run test && pnpm run build",
+    "verify": "pnpm run ci",
     "gen": "pnpm --filter @orbit-ui/generator gen",
     "changeset": "changeset",
     "version": "changeset version",
