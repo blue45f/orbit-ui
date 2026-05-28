@@ -1,22 +1,23 @@
 import { Meta, IconGallery, IconItem, Unstyled } from '@storybook/blocks';
 import React, { useMemo, useState } from 'react';
-import type { IconTone } from '@heejun-com/icons';
-import * as Icons from '@heejun-com/icons';
+import * as IconsModule from '@heejun-com/icons';
 
-const iconEntries = Object.entries(Icons)
+export const Icons = IconsModule;
+
+export const iconEntries = Object.entries(Icons)
   .filter(([name]) => name.endsWith('Icon'))
   .sort(([a], [b]) => a.localeCompare(b))
 
-const toneOptions = [
+export const toneOptions = [
   { key: 'flat', label: 'Flat', desc: '단색, 시스템 톤에 가장 잘 어울리는 기본' },
   { key: 'soft', label: 'Soft', desc: '톤이 부드럽게 들어간 중간 채도' },
   { key: 'premium', label: 'Premium', desc: '브랜드 액센트 강화' },
-] satisfies Array<{ key: IconTone; label: string; desc: string }>
+]
 
 <Meta title='Intro/아이콘 카탈로그' />
 
-const ToneCatalog = () => {
-  const [tone, setTone] = useState<IconTone>('flat')
+export const ToneCatalog = () => {
+  const [tone, setTone] = useState('flat')
 
   const iconNodes = useMemo(
     () =>
