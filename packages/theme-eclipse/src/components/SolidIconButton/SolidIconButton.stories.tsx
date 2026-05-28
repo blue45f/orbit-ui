@@ -27,12 +27,16 @@ const meta = {
   title: 'eclipse/Actions/Buttons/SolidIconButton',
   component: SolidIconButton,
   tags: ['autodocs'],
-  args: { color: 'black', size: 'medium', disabled: false },
+  args: { color: 'black', size: 'medium', iconTone: 'premium', disabled: false },
   argTypes: {
     onClick: { action: 'clicked' },
     color: {
       control: 'select',
       options: ['black', 'white'],
+    },
+    iconTone: {
+      control: 'select',
+      options: ['flat', 'soft', 'premium'],
     },
     size: {
       control: 'select',

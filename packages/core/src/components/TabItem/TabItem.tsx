@@ -157,7 +157,9 @@ export type TabItemLeadingProps = {
 
 const TabItemLeading: React.FC<TabItemLeadingProps> = ({ size = 20, children }) => (
   <span className="inline-flex items-center justify-center">
-    <IconPropsContext.Provider value={{ size }}>{children}</IconPropsContext.Provider>
+    <IconPropsContext.Provider value={{ size, tone: 'soft' }}>
+      {children}
+    </IconPropsContext.Provider>
   </span>
 )
 
@@ -168,7 +170,9 @@ export type TabItemTrailingProps = {
 
 const TabItemTrailing: React.FC<TabItemTrailingProps> = ({ size = 20, children }) => (
   <span className="inline-flex items-center justify-center">
-    <IconPropsContext.Provider value={{ size }}>{children}</IconPropsContext.Provider>
+    <IconPropsContext.Provider value={{ size, tone: 'soft' }}>
+      {children}
+    </IconPropsContext.Provider>
   </span>
 )
 

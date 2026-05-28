@@ -241,7 +241,7 @@ const ButtonLeading: React.FC<ButtonLeadingProps> = ({
       className={cn('inline-flex items-center justify-center', className)}
       style={style}
     >
-      <IconPropsContext.Provider value={{ size }}>{children}</IconPropsContext.Provider>
+      <IconPropsContext.Provider value={{ size, tone: 'soft' }}>{children}</IconPropsContext.Provider>
     </span>
   )
 }
@@ -282,7 +282,7 @@ const ButtonTrailing: React.FC<ButtonTrailingProps> = ({
       className={cn('inline-flex items-center justify-center overflow-hidden', className)}
       style={style}
     >
-      <IconPropsContext.Provider value={{ size }}>{children}</IconPropsContext.Provider>
+      <IconPropsContext.Provider value={{ size, tone: 'soft' }}>{children}</IconPropsContext.Provider>
     </span>
   )
 }

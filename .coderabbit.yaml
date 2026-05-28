@@ -1,0 +1,23 @@
+# yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
+language: ko-KR
+early_access: false
+
+reviews:
+  profile: assertive
+  request_changes_workflow: true
+  high_level_summary: true
+  review_status: true
+  review_details: false
+  auto_review:
+    enabled: true
+    drafts: false
+  path_filters:
+    - "!**/dist/**"
+    - "!**/node_modules/**"
+  path_instructions:
+    - path: "packages/**/*.ts"
+      instructions: |
+        타입 안정성, 공개 API 변경, 브레이크킹 변화가 없도록 검토해 주세요. 변경이 사용자에게 미치는 영향이 있다면 꼭 코멘트와 이유를 남겨 주세요.
+    - path: "packages/**/*.tsx"
+      instructions: |
+        접근성(a11y), 시맨틱 마크업, 컴포넌트 렌더링 성능 이슈를 우선적으로 확인해 주세요.

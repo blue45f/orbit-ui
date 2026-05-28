@@ -39,7 +39,7 @@ export const BoxedCheckbox = forwardRef<HTMLButtonElement, BoxedCheckboxProps>((
       borderWidth={2}
     >
       <Checkbox.Icon>
-        {iconName === 'minus' ? <MinusIcon size={18} /> : <CheckIcon size={18} />}
+        {iconName === 'minus' ? <MinusIcon size={18} tone="soft" /> : <CheckIcon size={18} tone="soft" />}
       </Checkbox.Icon>
     </Checkbox>
   )
