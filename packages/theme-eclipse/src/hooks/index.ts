@@ -1,3 +1,4 @@
+export * from './useArray'
 export * from './useClipboard'
 export * from './useCounter'
 export * from './useDebounce'
