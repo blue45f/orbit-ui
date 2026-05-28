@@ -1,44 +1,43 @@
-name: Dependabot 자동 머지
-
-# 모든 필수 체크(빌드 및 테스트 · 린트 · CodeRabbit review gate)가 통과한 dependabot PR을
-# 자동으로 squash 머지합니다. 보안 업데이트와 patch/minor 범위만 자동 머지하고,
-# major 업데이트는 사람이 직접 확인합니다.
+name: Dependabot auto-merge
 
 on:
   pull_request:
+    branches: [main]
     types: [opened, reopened, synchronize, labeled]
 
 permissions:
   contents: write
   pull-requests: write
 
+concurrency:
+  group: dependabot-auto-merge-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
 jobs:
   auto-merge:
-    name: 자동 머지 활성화
+    name: Enable safe Dependabot auto-merge
+    if: |
+      github.event.pull_request.user.login == 'dependabot[bot]' &&
+      github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest
-    if: github.actor == 'dependabot[bot]'
+    timeout-minutes: 5
     steps:
-      - name: dependabot 메타데이터 추출
+      - name: Fetch Dependabot metadata
         id: meta
         uses: dependabot/fetch-metadata@v3
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: patch · minor · security 만 auto-merge
+      # Enable auto-merge only for low-risk updates. Production dependency
+      # majors stay manual because they can change runtime behavior.
+      - name: Enable auto-merge on safe bumps
         if: |
           steps.meta.outputs.update-type == 'version-update:semver-patch' ||
           steps.meta.outputs.update-type == 'version-update:semver-minor' ||
-          steps.meta.outputs.dependency-type == 'direct:development'
+          steps.meta.outputs.package-ecosystem == 'github_actions' ||
+          (steps.meta.outputs.update-type == 'version-update:semver-major' &&
+           steps.meta.outputs.dependency-type == 'direct:development')
+        run: gh pr merge --auto --squash --delete-branch "$PR_URL"
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_URL: ${{ github.event.pull_request.html_url }}
-        run: |
-          gh pr merge --auto --squash "$PR_URL"
-
-      - name: major 업데이트는 코멘트만 남김
-        if: steps.meta.outputs.update-type == 'version-update:semver-major'
-        env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PR_URL: ${{ github.event.pull_request.html_url }}
-        run: |
-          gh pr comment "$PR_URL" --body "🚨 Major 업데이트는 자동 머지하지 않습니다. CHANGELOG / breaking changes 확인 후 직접 머지해 주세요."

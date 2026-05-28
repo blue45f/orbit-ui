@@ -9,10 +9,15 @@ on:
         default: main
         type: string
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
 jobs:
   protect-main:
     name: main 브랜치 보호 규칙 적용
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     permissions:
       contents: read
     steps:

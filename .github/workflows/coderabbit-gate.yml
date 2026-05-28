@@ -1,87 +1,148 @@
-name: CodeRabbit 리뷰 게이트
+name: CodeRabbit review gate
 
 on:
   pull_request:
     types: [opened, synchronize, reopened, ready_for_review]
   pull_request_review:
-    types: [submitted, dismissed, edited]
-  workflow_dispatch:
+    types: [submitted, edited, dismissed]
 
 permissions:
   contents: read
   pull-requests: read
 
 concurrency:
-  group: coderabbit-gate-${{ github.event.pull_request.number || github.ref }}
-  cancel-in-progress: true
+  group: coderabbit-review-gate-${{ github.event.pull_request.number || github.event.review.pull_request_url || github.ref }}
+  cancel-in-progress: false
 
 jobs:
-  coderabbit-gate:
-    name: CodeRabbit 리뷰 통과
-    if: github.event.pull_request.draft == false
+  review-gate:
+    name: CodeRabbit review gate
     runs-on: ubuntu-latest
+    timeout-minutes: 5
+    # Draft PRs don't get auto-reviewed by CodeRabbit (and shouldn't be
+    # merged anyway), so skip the gate for them. PR template's
+    # "Ready for review" transition will re-trigger this workflow.
+    if: |
+      (github.event_name == 'pull_request' && github.event.pull_request.draft == false) ||
+      (github.event_name == 'pull_request_review')
     steps:
-      - name: 리뷰 상태 확인
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PR_NUMBER: ${{ github.event.pull_request.number }}
-          REPO: ${{ github.repository }}
-        run: |
-          set -euo pipefail
+      - name: Verify CodeRabbit approved the latest PR head
+        uses: actions/github-script@v9
+        with:
+          # CodeRabbit posts each review under a bot login. We accept any of
+          # the historical login spellings so a future rename doesn't silently
+          # turn the gate green.
+          script: |
+            const eventPr = context.payload.pull_request;
+            const reviewPr = context.payload.review?.pull_request_url;
+            let prNumber = eventPr?.number;
+            if (!prNumber && typeof reviewPr === "string") {
+              const m = reviewPr.match(/\/pulls\/(\d+)$/);
+              if (m) prNumber = Number(m[1]);
+            }
+            if (!prNumber) {
+              core.setFailed(
+                "Could not determine PR number for the CodeRabbit gate."
+              );
+              return;
+            }
 
-          echo "PR #$PR_NUMBER 의 CodeRabbit 리뷰 상태를 확인합니다."
+            const { data: pr } = await github.rest.pulls.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: prNumber,
+            });
 
-          pr_user=$(gh api "repos/$REPO/pulls/$PR_NUMBER" --jq '.user.login')
-          echo "PR 작성자: $pr_user"
+            if (pr.draft) {
+              core.notice(`PR #${prNumber} is draft; skipping CodeRabbit gate.`);
+              return;
+            }
 
-          if [ "$pr_user" = "dependabot[bot]" ]; then
-            echo "✅ dependabot PR은 CodeRabbit 리뷰 게이트를 자동 통과합니다."
-            exit 0
-          fi
+            const headSha = pr.head?.sha;
+            if (!headSha) {
+              core.setFailed(`Could not determine head SHA for PR #${prNumber}.`);
+              return;
+            }
 
-          reviews=$(gh api "repos/$REPO/pulls/$PR_NUMBER/reviews" --paginate \
-            --jq '[.[] | select(.user.login | ascii_downcase | test("coderabbit"))]')
+            const reviews = await github.paginate(
+              github.rest.pulls.listReviews,
+              {
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: prNumber,
+                per_page: 100,
+              }
+            );
 
-          count=$(echo "$reviews" | jq 'length')
+            // CodeRabbit's review author has changed spelling over time;
+            // accept every variant we've seen in the wild.
+            const codeRabbitLogins = new Set([
+              "coderabbitai[bot]",
+              "coderabbitai",
+              "coderabbit-ai[bot]",
+              "coderabbit[bot]",
+            ]);
+            const codeRabbitReviews = reviews.filter((r) =>
+              codeRabbitLogins.has(r.user?.login ?? "")
+            );
+            const headReviews = codeRabbitReviews.filter(
+              (r) => r.commit_id === headSha
+            );
 
-          if [ "$count" -eq 0 ]; then
-            echo "::error title=CodeRabbit 리뷰 누락::CodeRabbit이 아직 PR을 리뷰하지 않았습니다."
-            echo ""
-            echo "다음 중 하나를 시도하세요:"
-            echo "  1. PR 코멘트에 @coderabbitai review 를 입력해 즉시 리뷰 트리거"
-            echo "  2. 새 커밋을 push 해 자동 리뷰 재실행"
-            echo "  3. PR이 draft 상태라면 'Ready for review' 로 변경"
-            exit 1
-          fi
+            if (headReviews.length === 0) {
+              core.setFailed(
+                `CodeRabbit has not reviewed the latest PR head (${headSha}) yet. The gate stays red until CodeRabbit posts a review for the current commit. ` +
+                  "If CodeRabbit is disabled for your repo, ask an admin to install the GitHub App."
+              );
+              return;
+            }
 
-          latest=$(echo "$reviews" | jq 'sort_by(.submitted_at) | last')
-          state=$(echo "$latest" | jq -r '.state')
-          submitted_at=$(echo "$latest" | jq -r '.submitted_at')
-          html_url=$(echo "$latest" | jq -r '.html_url')
+            // Sort newest first by submitted_at so the *latest* state on the
+            // current head SHA wins —
+            // i.e. a CHANGES_REQUESTED that the user later resolved (and
+            // CodeRabbit re-approved) flips the gate back to green.
+            headReviews.sort((a, b) => {
+              const ta = new Date(a.submitted_at ?? 0).getTime();
+              const tb = new Date(b.submitted_at ?? 0).getTime();
+              return tb - ta;
+            });
+            const latest = headReviews[0];
+            const state = String(latest.state ?? "").toUpperCase();
 
-          echo "마지막 CodeRabbit 리뷰: state=$state, submitted_at=$submitted_at"
-          echo "리뷰 링크: $html_url"
+            core.info(
+              `Latest CodeRabbit review for ${headSha}: state=${state} id=${latest.id} at=${latest.submitted_at}`
+            );
 
-          case "$state" in
-            APPROVED)
-              echo "✅ CodeRabbit이 PR을 승인했습니다. 게이트 통과."
-              exit 0
-              ;;
-            CHANGES_REQUESTED)
-              echo "::error title=CodeRabbit 변경 요청::CodeRabbit이 변경을 요청했습니다. 리뷰 코멘트를 확인하고 수정 후 다시 push 해 주세요."
-              echo "리뷰 링크: $html_url"
-              exit 1
-              ;;
-            COMMENTED)
-              echo "::error title=CodeRabbit 코멘트만 작성::CodeRabbit이 코멘트만 남겼고 명시적인 승인이 없습니다. @coderabbitai review 로 재리뷰를 요청하거나 추가 push 로 트리거하세요."
-              exit 1
-              ;;
-            DISMISSED)
-              echo "::error title=리뷰 dismiss::CodeRabbit 리뷰가 dismiss 되었습니다. 새 커밋을 push 해 재리뷰를 트리거하세요."
-              exit 1
-              ;;
-            *)
-              echo "::error title=알 수 없는 리뷰 상태::CodeRabbit 리뷰 상태가 미정입니다 (state=$state)."
-              exit 1
-              ;;
-          esac
+            const summaryLines = [
+              "## CodeRabbit review gate",
+              "",
+              `- PR: #${prNumber}`,
+              `- Head SHA: \`${headSha}\``,
+              `- Latest review state: \`${state}\``,
+              `- Review id: \`${latest.id}\``,
+              `- Submitted at: \`${latest.submitted_at}\``,
+              `- Reviewer: \`${latest.user?.login}\``,
+              "",
+            ];
+            await core.summary.addRaw(summaryLines.join("\n")).write();
+
+            if (state === "APPROVED") {
+              core.notice(
+                `CodeRabbit approved PR #${prNumber} (review id ${latest.id}).`
+              );
+              return;
+            }
+
+            if (state === "CHANGES_REQUESTED") {
+              core.setFailed(
+                "CodeRabbit requested changes. Address the review comments and push a new commit — CodeRabbit will re-review and the gate will flip back to green."
+              );
+              return;
+            }
+
+            // COMMENTED / DISMISSED / PENDING / anything else — explicit fail
+            // so the gate is never accidentally green from an "I just left
+            // a comment" review.
+            core.setFailed(
+              `CodeRabbit's latest review state is '${state}'. The gate requires 'APPROVED'.`
+            );
