@@ -26,6 +26,6 @@ catalog:
 
   # 테스팅 라이브러리
   '@testing-library/dom': ^10.4.0
-  '@testing-library/jest-dom': ^6.6.3
+  '@testing-library/jest-dom': ^6.9.1
   '@testing-library/react': ^16.0.1
   '@testing-library/user-event': ^14.5.2
