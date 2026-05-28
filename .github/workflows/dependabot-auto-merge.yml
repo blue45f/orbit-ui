@@ -1,6 +1,6 @@
 name: Dependabot 자동 머지
 
-# 모든 필수 체크(빌드 및 테스트 · 린트 · CodeRabbit 리뷰 게이트)가 통과한 dependabot PR을
+# 모든 필수 체크(빌드 및 테스트 · 린트 · CodeRabbit review gate)가 통과한 dependabot PR을
 # 자동으로 squash 머지합니다. 보안 업데이트와 patch/minor 범위만 자동 머지하고,
 # major 업데이트는 사람이 직접 확인합니다.
 

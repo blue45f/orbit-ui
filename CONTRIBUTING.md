@@ -260,7 +260,7 @@ pnpm changeset
 
 1. **빌드 및 테스트** — `pnpm verify` (타입체크 · 테스트 · 빌드)
 2. **린트** — `pnpm lint`
-3. **CodeRabbit 리뷰 통과** — CodeRabbit이 PR을 `APPROVED` 상태로 리뷰해야 합니다.
+3. **CodeRabbit review gate** — CodeRabbit이 PR의 최신 head SHA를 `APPROVED` 상태로 리뷰해야 합니다.
 
 CodeRabbit은 PR이 열리거나 새 커밋이 푸시될 때 자동으로 리뷰를 수행합니다. 변경 요청(`CHANGES_REQUESTED`)이 들어오면 코멘트를 확인하고 수정 후 다시 푸시해 재리뷰를 트리거하세요. 수동 재리뷰는 PR 코멘트에 `@coderabbitai review` 를 입력합니다.
 

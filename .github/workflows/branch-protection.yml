@@ -39,7 +39,7 @@ jobs:
               "contexts": [
                 "빌드 및 테스트",
                 "린트",
-                "CodeRabbit 리뷰 통과"
+                "CodeRabbit review gate"
               ]
             },
             "enforce_admins": false,
