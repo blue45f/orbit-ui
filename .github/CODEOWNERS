@@ -1,0 +1,22 @@
+# CODEOWNERS — 자동 리뷰 요청 대상
+
+# 기본 fallback: 모든 변경은 owner에게
+* @blue45f
+
+# 패키지별 ownership
+/packages/core/                  @blue45f
+/packages/icons/                 @blue45f
+/packages/theme-eclipse/         @blue45f
+/packages/generator/             @blue45f
+/packages/vite-plugin/           @blue45f
+/packages/eslint-plugin/         @blue45f
+
+# CI 인프라와 머지 게이트는 본인만 변경
+/.github/workflows/              @blue45f
+/.github/dependabot.yml          @blue45f
+/.github/CODEOWNERS              @blue45f
+
+# 디자인 시스템 정합성 문서
+/DESIGN.md                       @blue45f
+/PRODUCT.md                      @blue45f
+/CLAUDE.md                       @blue45f
