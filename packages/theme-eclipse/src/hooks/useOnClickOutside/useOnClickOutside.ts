@@ -1,4 +1,4 @@
-import { type RefObject, useEffect, useRef } from 'react'
+import { type RefObject, useEffect, useLayoutEffect, useRef } from 'react'
 
 export type UseOnClickOutsideOptions = {
   /**
@@ -39,7 +39,7 @@ export function useOnClickOutside<T extends HTMLElement>(
 ): void {
   const { enabled = true, event = 'mousedown' } = options
   const handlerRef = useRef(handler)
-  handlerRef.current = handler
+  useLayoutEffect(() => { handlerRef.current = handler })
 
   useEffect(() => {
     if (!enabled || typeof document === 'undefined') return

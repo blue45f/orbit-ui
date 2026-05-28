@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useLayoutEffect, useRef } from 'react'
 
 /**
  * `delay`ms 후 콜백을 한 번 실행합니다. `delay`가 `null`이면 일시 중단.
@@ -13,7 +13,7 @@ import { useEffect, useRef } from 'react'
  */
 export function useTimeout(callback: () => void, delay: number | null): void {
   const callbackRef = useRef(callback)
-  callbackRef.current = callback
+  useLayoutEffect(() => { callbackRef.current = callback })
 
   useEffect(() => {
     if (delay === null) return

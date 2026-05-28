@@ -1,4 +1,4 @@
-import { type RefObject, useEffect, useRef } from 'react'
+import { type RefObject, useEffect, useLayoutEffect, useRef } from 'react'
 
 type Target = Window | Document | HTMLElement | EventTarget
 
@@ -37,7 +37,7 @@ export function useEventListener<T extends Target | null>(
   options?: boolean | AddEventListenerOptions,
 ): void {
   const handlerRef = useRef(handler)
-  handlerRef.current = handler
+  useLayoutEffect(() => { handlerRef.current = handler })
 
   useEffect(() => {
     const node: Target | null =

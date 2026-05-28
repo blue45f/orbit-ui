@@ -2,10 +2,15 @@ import type { Meta, StoryObj } from '@storybook/react'
 import { useEffect, useRef, useState } from 'react'
 
 import {
+  useAnimationFrame,
+  useCountdown,
   useDebounce,
+  useDebouncedState,
   useInterval,
   useLatest,
   usePrevious,
+  useRafCallback,
+  useRafState,
   useThrottle,
   useTimeout,
 } from '../index'
@@ -395,3 +400,471 @@ function LatestDemo() {
   )
 }
 export const Latest: Story = { render: () => <LatestDemo /> }
+
+/* useDebouncedState ----------------------------------------- */
+function DebouncedStateDemo() {
+  const { value, debouncedValue, setValue, flush, cancel } = useDebouncedState('', 400)
+  return (
+    <Panel
+      title="useDebouncedState"
+      signature="const { value, debouncedValue, setValue } = useDebouncedState(initial, delay)"
+    >
+      <input
+        type="text"
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+        placeholder="검색어를 입력하세요"
+        style={{
+          width: '100%',
+          height: 38,
+          padding: '0 12px',
+          marginBottom: 12,
+          borderRadius: 8,
+          border: '1px solid var(--orbit-line-2, rgba(24,26,28,0.14))',
+          fontFamily: 'inherit',
+          fontSize: 14,
+        }}
+      />
+      <div style={{ display: 'flex', gap: 6, marginBottom: 14 }}>
+        <button
+          type="button"
+          onClick={flush}
+          style={{
+            height: 28,
+            padding: '0 10px',
+            borderRadius: 6,
+            border: '1px solid var(--orbit-line-2, rgba(24,26,28,0.14))',
+            background: 'transparent',
+            color: 'var(--orbit-ink, rgb(24,26,28))',
+            fontFamily: 'inherit',
+            fontSize: 12,
+            fontWeight: 600,
+            cursor: 'pointer',
+          }}
+        >
+          Flush
+        </button>
+        <button
+          type="button"
+          onClick={cancel}
+          style={{
+            height: 28,
+            padding: '0 10px',
+            borderRadius: 6,
+            border: '1px solid var(--orbit-line-2, rgba(24,26,28,0.14))',
+            background: 'transparent',
+            color: 'var(--orbit-ink, rgb(24,26,28))',
+            fontFamily: 'inherit',
+            fontSize: 12,
+            fontWeight: 600,
+            cursor: 'pointer',
+          }}
+        >
+          Cancel
+        </button>
+      </div>
+      <Readout label="value (즉시)" value={value || '(empty)'} />
+      <Readout label="debouncedValue (400ms)" value={debouncedValue || '(empty)'} />
+      <div
+        style={{
+          marginTop: 10,
+          fontFamily: '"JetBrains Mono", monospace',
+          fontSize: 11.5,
+          color: 'var(--orbit-ink-3, rgba(24,26,28,0.56))',
+          lineHeight: 1.55,
+        }}
+      >
+        타이핑 멈춤 → 400ms 뒤 debouncedValue 가 따라옵니다. 검색·필터에 그대로 사용.
+      </div>
+    </Panel>
+  )
+}
+export const DebouncedState: Story = { render: () => <DebouncedStateDemo /> }
+
+/* useCountdown -------------------------------------------- */
+function CountdownDemo() {
+  const { remaining, isRunning, isFinished, start, pause, reset } = useCountdown({
+    from: 10_000,
+    interval: 100,
+  })
+  const seconds = (remaining / 1000).toFixed(1)
+
+  return (
+    <Panel
+      title="useCountdown"
+      signature="const { remaining, start, pause, reset } = useCountdown({ from: 10_000 })"
+    >
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'baseline',
+          gap: 6,
+          fontFamily: '"JetBrains Mono", monospace',
+          fontSize: 42,
+          fontWeight: 660,
+          letterSpacing: '-0.02em',
+          marginBottom: 14,
+          color: isFinished
+            ? 'rgb(187, 37, 35)'
+            : isRunning
+              ? 'var(--orbit-ink, rgb(24,26,28))'
+              : 'var(--orbit-ink-3, rgba(24,26,28,0.56))',
+        }}
+      >
+        {seconds}
+        <span style={{ fontSize: 16, fontWeight: 600 }}>s</span>
+      </div>
+      <div style={{ display: 'flex', gap: 6, marginBottom: 14 }}>
+        <button
+          type="button"
+          onClick={start}
+          disabled={isRunning}
+          style={{
+            height: 30,
+            padding: '0 12px',
+            borderRadius: 6,
+            border: 0,
+            background: isRunning ? 'var(--orbit-surface-sunken, rgba(24,26,28,0.025))' : 'rgb(37, 99, 235)',
+            color: isRunning ? 'var(--orbit-ink-4, rgba(24,26,28,0.33))' : 'rgb(255,255,255)',
+            fontFamily: 'inherit',
+            fontSize: 12.5,
+            fontWeight: 600,
+            cursor: isRunning ? 'not-allowed' : 'pointer',
+          }}
+        >
+          {isFinished ? '↻ Restart' : '▶ Start'}
+        </button>
+        <button
+          type="button"
+          onClick={pause}
+          disabled={!isRunning}
+          style={{
+            height: 30,
+            padding: '0 12px',
+            borderRadius: 6,
+            border: '1px solid var(--orbit-line-2, rgba(24,26,28,0.14))',
+            background: 'transparent',
+            color: isRunning ? 'var(--orbit-ink, rgb(24,26,28))' : 'var(--orbit-ink-4, rgba(24,26,28,0.33))',
+            fontFamily: 'inherit',
+            fontSize: 12.5,
+            fontWeight: 600,
+            cursor: isRunning ? 'pointer' : 'not-allowed',
+          }}
+        >
+          ❚❚ Pause
+        </button>
+        <button
+          type="button"
+          onClick={reset}
+          style={{
+            height: 30,
+            padding: '0 12px',
+            borderRadius: 6,
+            border: '1px solid var(--orbit-line-2, rgba(24,26,28,0.14))',
+            background: 'transparent',
+            color: 'var(--orbit-ink, rgb(24,26,28))',
+            fontFamily: 'inherit',
+            fontSize: 12.5,
+            fontWeight: 600,
+            cursor: 'pointer',
+          }}
+        >
+          ↺ Reset
+        </button>
+      </div>
+      <Readout label="remaining (ms)" value={remaining} />
+      <Readout label="isRunning" value={String(isRunning)} />
+      <Readout label="isFinished" value={String(isFinished)} />
+    </Panel>
+  )
+}
+export const Countdown: Story = { render: () => <CountdownDemo /> }
+
+/* useRafState ----------------------------------------------- */
+function RafStateDemo() {
+  const [position, setPosition] = useRafState({ x: 0, y: 0 })
+  const boxRef = useRef<HTMLDivElement>(null)
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = boxRef.current?.getBoundingClientRect()
+    if (!rect) return
+    setPosition({ x: Math.round(e.clientX - rect.left), y: Math.round(e.clientY - rect.top) })
+  }
+
+  return (
+    <Panel title="useRafState" signature="const [position, setPosition] = useRafState({ x: 0, y: 0 })">
+      <div
+        ref={boxRef}
+        onMouseMove={handleMouseMove}
+        style={{
+          height: 160,
+          borderRadius: 12,
+          background: 'var(--orbit-surface-sunken, rgba(24,26,28,0.025))',
+          border: '1px solid var(--orbit-line, rgba(24,26,28,0.08))',
+          position: 'relative',
+          cursor: 'crosshair',
+          marginBottom: 14,
+          overflow: 'hidden',
+        }}
+      >
+        <div
+          style={{
+            position: 'absolute',
+            left: position.x,
+            top: position.y,
+            width: 8,
+            height: 8,
+            borderRadius: '50%',
+            background: 'rgb(37, 99, 235)',
+            transform: 'translate(-50%, -50%)',
+            pointerEvents: 'none',
+            transition: 'none',
+          }}
+        />
+        <span
+          style={{
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            fontFamily: '"JetBrains Mono", monospace',
+            fontSize: 12,
+            color: 'var(--orbit-ink-4, rgba(24,26,28,0.33))',
+            pointerEvents: 'none',
+          }}
+        >
+          마우스를 움직여 보세요
+        </span>
+      </div>
+      <Readout label="x (element)" value={`${position.x}px`} />
+      <Readout label="y (element)" value={`${position.y}px`} />
+      <div
+        style={{
+          marginTop: 10,
+          fontFamily: '"JetBrains Mono", monospace',
+          fontSize: 11.5,
+          color: 'var(--orbit-ink-3, rgba(24,26,28,0.56))',
+          lineHeight: 1.55,
+        }}
+      >
+        고빈도 mousemove 업데이트를 RAF로 병합 — 불필요한 리렌더를 줄입니다.
+      </div>
+    </Panel>
+  )
+}
+export const RafState: Story = { render: () => <RafStateDemo /> }
+
+/* useRafCallback -------------------------------------------- */
+function RafCallbackDemo() {
+  const [lastFired, setLastFired] = useState<number | null>(null)
+  const [clickCount, setClickCount] = useState(0)
+  const [animate, cancel] = useRafCallback(() => {
+    setLastFired(Date.now())
+  })
+
+  const handleClick = () => {
+    setClickCount((c) => c + 1)
+    animate()
+  }
+
+  return (
+    <Panel
+      title="useRafCallback"
+      signature="const [animate, cancel] = useRafCallback(callback)"
+    >
+      <div style={{ display: 'flex', gap: 8, marginBottom: 14 }}>
+        <button
+          type="button"
+          onClick={handleClick}
+          style={{
+            height: 34,
+            padding: '0 14px',
+            border: 0,
+            borderRadius: 8,
+            background: 'rgb(37, 99, 235)',
+            color: 'rgb(255,255,255)',
+            fontFamily: 'inherit',
+            fontWeight: 600,
+            fontSize: 13.5,
+            cursor: 'pointer',
+          }}
+        >
+          빠르게 클릭
+        </button>
+        <button
+          type="button"
+          onClick={() => {
+            cancel()
+            setClickCount(0)
+            setLastFired(null)
+          }}
+          style={{
+            height: 34,
+            padding: '0 14px',
+            border: '1px solid var(--orbit-line-2, rgba(24,26,28,0.14))',
+            borderRadius: 8,
+            background: 'transparent',
+            color: 'var(--orbit-ink, rgb(24,26,28))',
+            fontFamily: 'inherit',
+            fontWeight: 600,
+            fontSize: 13.5,
+            cursor: 'pointer',
+          }}
+        >
+          Cancel &amp; Reset
+        </button>
+      </div>
+      <Readout label="click count" value={clickCount} />
+      <Readout
+        label="lastFired"
+        value={lastFired !== null ? new Date(lastFired).toISOString().slice(11, 23) : '(not yet)'}
+      />
+      <div
+        style={{
+          marginTop: 10,
+          fontFamily: '"JetBrains Mono", monospace',
+          fontSize: 11.5,
+          color: 'var(--orbit-ink-3, rgba(24,26,28,0.56))',
+          lineHeight: 1.55,
+        }}
+      >
+        연속 클릭을 RAF 1회로 합산합니다. cancel 시 pending RAF가 취소됩니다.
+      </div>
+    </Panel>
+  )
+}
+export const RafCallbackStory: Story = { render: () => <RafCallbackDemo /> }
+
+/* useAnimationFrame ----------------------------------------- */
+function AnimationFrameDemo() {
+  const [active, setActive] = useState(false)
+  const angleRef = useRef(0)
+  const [angle, setAngle] = useState(0)
+  const deltasRef = useRef<number[]>([])
+  const [fps, setFps] = useState(0)
+
+  useAnimationFrame(
+    (delta) => {
+      if (delta > 0) {
+        angleRef.current = (angleRef.current + delta * 0.18) % 360
+        setAngle(Math.round(angleRef.current))
+
+        deltasRef.current.push(delta)
+        if (deltasRef.current.length > 30) deltasRef.current.shift()
+        const avgDelta =
+          deltasRef.current.reduce((a, b) => a + b, 0) / deltasRef.current.length
+        setFps(Math.round(1000 / avgDelta))
+      }
+    },
+    active,
+  )
+
+  const handleToggle = () => {
+    if (!active) {
+      deltasRef.current = []
+    }
+    setActive((v) => !v)
+  }
+
+  return (
+    <Panel
+      title="useAnimationFrame"
+      signature="useAnimationFrame(callback, active)"
+    >
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          height: 140,
+          marginBottom: 14,
+        }}
+      >
+        <div
+          style={{
+            width: 80,
+            height: 80,
+            borderRadius: '50%',
+            border: `3px solid var(--orbit-accent, rgb(37,99,235))`,
+            borderTopColor: 'transparent',
+            transform: `rotate(${angle}deg)`,
+            transition: 'none',
+            position: 'relative',
+          }}
+        >
+          <div
+            style={{
+              position: 'absolute',
+              top: -4,
+              left: '50%',
+              transform: 'translateX(-50%)',
+              width: 8,
+              height: 8,
+              borderRadius: '50%',
+              background: 'var(--orbit-accent, rgb(37,99,235))',
+            }}
+          />
+        </div>
+      </div>
+      <div style={{ display: 'flex', gap: 8, marginBottom: 14 }}>
+        <button
+          type="button"
+          onClick={handleToggle}
+          style={{
+            height: 34,
+            padding: '0 14px',
+            border: 0,
+            borderRadius: 8,
+            background: active ? 'rgb(187, 37, 35)' : 'rgb(37, 99, 235)',
+            color: 'rgb(255,255,255)',
+            fontFamily: 'inherit',
+            fontWeight: 600,
+            fontSize: 13.5,
+            cursor: 'pointer',
+          }}
+        >
+          {active ? 'Stop' : 'Start'}
+        </button>
+        <button
+          type="button"
+          onClick={() => {
+            setActive(false)
+            angleRef.current = 0
+            setAngle(0)
+            setFps(0)
+            deltasRef.current = []
+          }}
+          style={{
+            height: 34,
+            padding: '0 14px',
+            border: '1px solid var(--orbit-line-2, rgba(24,26,28,0.14))',
+            borderRadius: 8,
+            background: 'transparent',
+            color: 'var(--orbit-ink, rgb(24,26,28))',
+            fontFamily: 'inherit',
+            fontWeight: 600,
+            fontSize: 13.5,
+            cursor: 'pointer',
+          }}
+        >
+          Reset
+        </button>
+      </div>
+      <Readout label="active" value={String(active)} />
+      <Readout label="angle (deg)" value={`${angle}°`} />
+      <Readout label="fps" value={fps > 0 ? `${fps}` : '—'} />
+      <div
+        style={{
+          marginTop: 10,
+          fontFamily: '"JetBrains Mono", monospace',
+          fontSize: 11.5,
+          color: 'var(--orbit-ink-3, rgba(24,26,28,0.56))',
+          lineHeight: 1.55,
+        }}
+      >
+        active=false 전달 시 RAF 루프가 즉시 취소됩니다. delta(ms)로 일정한 속도를 유지합니다.
+      </div>
+    </Panel>
+  )
+}
+export const AnimationFrame: Story = { render: () => <AnimationFrameDemo /> }

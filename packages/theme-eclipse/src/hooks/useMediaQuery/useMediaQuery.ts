@@ -31,6 +31,7 @@ export function useMediaQuery(query: string, options: UseMediaQueryOptions = {})
     const handleChange = (event: MediaQueryListEvent) => {
       setMatches(event.matches)
     }
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMatches(mq.matches)
     if (typeof mq.addEventListener === 'function') {
       mq.addEventListener('change', handleChange)

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
 
 export type UseLocalStorageOptions<T> = {
   /**
@@ -47,20 +47,20 @@ export function useLocalStorage<T>(
 
   const serializeRef = useRef(serialize)
   const deserializeRef = useRef(deserialize)
-  serializeRef.current = serialize
-  deserializeRef.current = deserialize
+  useLayoutEffect(() => {
+    serializeRef.current = serialize
+    deserializeRef.current = deserialize
+  })
 
-  const readValue = useCallback((): T => {
+  const [stored, setStored] = useState<T>(() => {
     if (typeof window === 'undefined') return initialValue
     try {
       const raw = window.localStorage.getItem(key)
-      return raw === null ? initialValue : deserializeRef.current(raw)
+      return raw === null ? initialValue : deserialize(raw)
     } catch {
       return initialValue
     }
-  }, [key, initialValue])
-
-  const [stored, setStored] = useState<T>(readValue)
+  })
 
   const setValue = useCallback(
     (value: SetValue<T>) => {

@@ -1,4 +1,4 @@
-import { type MutableRefObject, useRef } from 'react'
+import { type MutableRefObject, useLayoutEffect, useRef } from 'react'
 
 /**
  * 값의 항상-최신 ref를 반환합니다. effect·timer·이벤트 핸들러에서 stale closure를 회피.
@@ -19,6 +19,6 @@ import { type MutableRefObject, useRef } from 'react'
  */
 export function useLatest<T>(value: T): MutableRefObject<T> {
   const ref = useRef<T>(value)
-  ref.current = value
+  useLayoutEffect(() => { ref.current = value })
   return ref
 }

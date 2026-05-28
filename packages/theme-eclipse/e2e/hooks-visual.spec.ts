@@ -29,6 +29,24 @@ const TIMING_DEPENDENT = new Set<string>([
   // Window/screen-dependent
   'hooks-environment--window-size',
   'hooks-environment--media-query',
+  // Environment state varies per run (network status, tab visibility,
+  // separate sessionStorage namespace per tab) — captured only as docs.
+  'hooks-environment--online',
+  'hooks-environment--page-visibility',
+  'hooks-environment--session-storage',
+  // Long-press demo runs a progress fill animation as a separate timer
+  // that races the screenshot.
+  'hooks-interaction--long-press',
+  // Idle detector toggles based on activity timeout — never deterministic
+  // between renders.
+  'hooks-environment--idle',
+  // Debounced state captures a transient input value and a debounced one;
+  // the headless renderer might land mid-transition.
+  'hooks-timing--debounced-state',
+  // Countdown's "remaining" number changes per second — race the screenshot.
+  'hooks-timing--countdown',
+  // ScrollPosition reads window.scrollY which differs per Storybook frame.
+  'hooks-environment--scroll-position',
 ])
 
 const visualStoryIds = Object.keys(storyList.entries)

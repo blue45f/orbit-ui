@@ -81,11 +81,11 @@ import { Meta, Unstyled } from '@storybook/blocks'
           <div className='orbit-eyebrow'><span className='num'>01</span>Hooks</div>
           <h1 className='orbit-h1'>훅 카탈로그</h1>
           <div className='orbit-lede'>
-            컴포넌트 외부에서 자주 쓰는 합성 로직을 32개의 공식 훅으로 노출합니다. 모두 SSR 안전, 의존성 0개, TypeScript 타입 추론.
+            컴포넌트 외부에서 자주 쓰는 합성 로직을 101개의 공식 훅으로 노출합니다. 모두 SSR 안전, 의존성 0개, TypeScript 타입 추론.
           </div>
         </div>
         <div className='orbit-page-meta'>
-          <div><strong>32</strong> hooks</div>
+          <div><strong>101</strong> hooks</div>
           <div>tree-shakeable</div>
           <div>SSR-safe</div>
         </div>
@@ -153,6 +153,82 @@ useEffect(() => {
             <pre>{`const [theme, setTheme] = useLocalStorage<'light' | 'dark'>('theme', 'light')
 
 setTheme((prev) => (prev === 'light' ? 'dark' : 'light'))`}</pre>
+          </div>
+        </div>
+
+        <div className='orbit-hook'>
+          <div className='orbit-hook-head'>
+            <code className='signature'>useSessionStorage</code>
+            <div className='tagline'>
+              <code>sessionStorage</code> 버전. 탭 단위로만 유지되므로 임시 폼 드래프트·다단계 흐름 상태에 적합. cross-tab sync는 일부러 빠져 있음.
+            </div>
+          </div>
+          <div className='orbit-code'>
+            <div className='orbit-code-head'><span>example</span><span>useSessionStorage</span></div>
+            <pre>{`const [draft, setDraft, clearDraft] = useSessionStorage('compose-draft', '')`}</pre>
+          </div>
+        </div>
+
+        <div className='orbit-hook'>
+          <div className='orbit-hook-head'>
+            <code className='signature'>useHash</code>
+            <div className='tagline'>
+              URL 해시 조각(<code>location.hash</code>)을 React state로 동기화. <code>hashchange</code> 이벤트 구독, <code>setHash</code>로 명시적 변경, SSR 안전.
+            </div>
+          </div>
+          <div className='orbit-code'>
+            <div className='orbit-code-head'><span>example</span><span>useHash</span></div>
+            <pre>{`const { hash, setHash } = useHash()
+// SPA tab 활성화를 URL에 반영
+<button onClick={() => setHash('#pricing')}>요금제</button>`}</pre>
+          </div>
+        </div>
+
+        <div className='orbit-hook'>
+          <div className='orbit-hook-head'>
+            <code className='signature'>useOnline</code>
+            <div className='tagline'>
+              브라우저 네트워크 연결 여부. <code>online</code>/<code>offline</code> 이벤트로 즉시 갱신, SSR에서는 <code>true</code>로 가정.
+            </div>
+          </div>
+          <div className='orbit-code'>
+            <div className='orbit-code-head'><span>example</span><span>useOnline</span></div>
+            <pre>{`const isOnline = useOnline()
+if (!isOnline) return <Banner role='status'>오프라인 — 변경사항은 로컬에 저장됩니다</Banner>`}</pre>
+          </div>
+        </div>
+
+        <div className='orbit-hook'>
+          <div className='orbit-hook-head'>
+            <code className='signature'>useNetwork</code>
+            <div className='tagline'>
+              Network Information API를 래핑해 연결 품질(<code>effectiveType</code> · <code>downlink</code> · <code>rtt</code>)과 데이터 절약 모드(<code>saveData</code>)를 실시간 구독. 미지원 브라우저에서는 <code>supported: false</code> 반환.
+            </div>
+          </div>
+          <div className='orbit-code'>
+            <div className='orbit-code-head'><span>example</span><span>useNetwork</span></div>
+            <pre>{`const { online, effectiveType, downlink, rtt, saveData } = useNetwork()
+
+// 느린 연결에서 저화질 이미지로 전환
+const quality = effectiveType === '4g' ? 'high' : 'low'`}</pre>
+          </div>
+        </div>
+
+        <div className='orbit-hook'>
+          <div className='orbit-hook-head'>
+            <code className='signature'>usePageVisibility</code>
+            <div className='tagline'>
+              현재 탭의 가시 상태(<code>visible</code> / <code>hidden</code>). 백그라운드로 들어간 탭의 폴링·애니메이션·fetch를 일시정지하는 데 사용.
+            </div>
+          </div>
+          <div className='orbit-code'>
+            <div className='orbit-code-head'><span>example</span><span>usePageVisibility</span></div>
+            <pre>{`const visibility = usePageVisibility()
+useEffect(() => {
+  if (visibility === 'hidden') return
+  const id = setInterval(fetchUpdates, 5000)
+  return () => clearInterval(id)
+}, [visibility])`}</pre>
           </div>
         </div>
 
@@ -246,6 +322,29 @@ errors.set('email', '이메일 형식 오류')`}</pre>
 
         <div className='orbit-hook'>
           <div className='orbit-hook-head'>
+            <code className='signature'>usePagination</code>
+            <div className='tagline'>
+              전체 페이지 수, 형제 수(<code>siblings</code>)를 받아 ellipsis 포함 항목 배열(<code>items</code>) 을 반환. next · prev · first · last · setPage 컨트롤, isFirst · isLast 경계 플래그, onChange 콜백 포함.
+            </div>
+          </div>
+          <div className='orbit-code'>
+            <div className='orbit-code-head'><span>example</span><span>usePagination</span></div>
+            <pre>{`const { page, items, next, prev, isFirst, isLast } = usePagination({
+  total: 50,
+  siblings: 1,
+  onChange: (p) => router.push({ query: { page: p } }),
+})
+
+{items.map((item) =>
+  item.type === 'ellipsis'
+    ? <span key={item.key}>…</span>
+    : <button key={item.value} onClick={() => setPage(item.value)} aria-current={item.isActive}>{item.value}</button>
+)}`}</pre>
+          </div>
+        </div>
+
+        <div className='orbit-hook'>
+          <div className='orbit-hook-head'>
             <code className='signature'>usePrevious</code>
             <div className='tagline'>
               직전 렌더의 값을 반환. 값 변경 감지, 트랜지션 entry 방향 결정에 사용. 첫 렌더에서는 <code>undefined</code>.
@@ -257,6 +356,114 @@ errors.set('email', '이메일 형식 오류')`}</pre>
 useEffect(() => {
   if (prev !== undefined && prev !== count) onCountChange(prev, count)
 }, [count, prev])`}</pre>
+          </div>
+        </div>
+
+        <div className='orbit-hook'>
+          <div className='orbit-hook-head'>
+            <code className='signature'>useObjectState</code>
+            <div className='tagline'>
+              객체 state에 부분 업데이트(<code>patch</code>)를 적용하는 <code>useState</code>. 함수형 setter도 지원. <code>reset()</code>으로 초기값 복원. 복잡한 폼 필드 객체나 필터 상태 관리에 적합.
+            </div>
+          </div>
+          <div className='orbit-code'>
+            <div className='orbit-code-head'><span>example</span><span>useObjectState</span></div>
+            <pre>{`const [form, setForm, resetForm] = useObjectState({ name: '', email: '' })
+
+// 부분 업데이트 — name만 바꿈
+setForm({ name: '홍길동' })
+
+// 함수형 업데이트
+setForm((prev) => ({ email: prev.name ? prev.email : '' }))`}</pre>
+          </div>
+        </div>
+
+        <div className='orbit-hook'>
+          <div className='orbit-hook-head'>
+            <code className='signature'>useSearchParam</code>
+            <div className='tagline'>
+              URL 검색 파라미터(<code>?key=value</code>) 하나를 React state로 동기화. <code>popstate</code> 이벤트 구독으로 브라우저 뒤로/앞으로 반영. <code>set(null)</code>로 파라미터 제거.
+            </div>
+          </div>
+          <div className='orbit-code'>
+            <div className='orbit-code-head'><span>example</span><span>useSearchParam</span></div>
+            <pre>{`const [tab, setTab] = useSearchParam('tab')
+// URL: /settings?tab=account → tab === 'account'
+
+<button onClick={() => setTab('security')}>보안 탭</button>
+<button onClick={() => setTab(null)}>파라미터 제거</button>`}</pre>
+          </div>
+        </div>
+
+        <div className='orbit-hook'>
+          <div className='orbit-hook-head'>
+            <code className='signature'>useControllableState</code>
+            <div className='tagline'>
+              디자인 시스템 컴포넌트 표준 패턴. <code>value</code>가 있으면 controlled, 없으면 <code>defaultValue</code>로 내부 상태 사용. <code>onChange</code>는 두 모드 모두에서 호출됨. <code>useUncontrolled</code>보다 단순한 API.
+            </div>
+          </div>
+          <div className='orbit-code'>
+            <div className='orbit-code-head'><span>example</span><span>useControllableState</span></div>
+            <pre>{`const [open, setOpen] = useControllableState({
+  value: openProp,
+  defaultValue: false,
+  onChange: onOpenChange,
+})`}</pre>
+          </div>
+        </div>
+
+        <div className='orbit-hook'>
+          <div className='orbit-hook-head'>
+            <code className='signature'>useSafeState</code>
+            <div className='tagline'>
+              언마운트 후 <code>setState</code> 호출을 자동으로 무시하는 <code>useState</code> 래퍼. 비동기 콜백에서 unmounted 컴포넌트 업데이트 경고를 방지. API는 <code>useState</code>와 동일.
+            </div>
+          </div>
+          <div className='orbit-code'>
+            <div className='orbit-code-head'><span>example</span><span>useSafeState</span></div>
+            <pre>{`const [data, setData] = useSafeState<User | null>(null)
+
+useEffect(() => {
+  fetchUser().then((user) => setData(user)) // unmount 후면 무시됨
+}, [])`}</pre>
+          </div>
+        </div>
+
+        <div className='orbit-hook'>
+          <div className='orbit-hook-head'>
+            <code className='signature'>useQueue</code>
+            <div className='tagline'>
+              FIFO 큐 자료구조를 React state로 관리. <code>enqueue</code> · <code>dequeue</code> · <code>peek</code> · <code>clear</code>와 <code>size</code> · <code>isEmpty</code> 플래그 포함. 알림 대기열, 토스트 순서 처리, 비동기 작업 대기줄에 적합.
+            </div>
+          </div>
+          <div className='orbit-code'>
+            <div className='orbit-code-head'><span>example</span><span>useQueue</span></div>
+            <pre>{`const { queue, enqueue, dequeue, peek, size, isEmpty } = useQueue<string>()
+
+enqueue('첫 번째')
+enqueue('두 번째')
+peek()    // '첫 번째' (제거 없음)
+dequeue() // '첫 번째' (제거 없음)
+dequeue() // '첫 번째' (제거됨)
+// size: 1, isEmpty: false`}</pre>
+          </div>
+        </div>
+
+        <div className='orbit-hook'>
+          <div className='orbit-hook-head'>
+            <code className='signature'>useUndoable</code>
+            <div className='tagline'>
+              실행 취소·다시 실행이 가능한 상태 관리. <code>set(value)</code>로 값 변경 시 이전 값을 히스토리에 저장. <code>undo()</code>·<code>redo()</code>로 이동, <code>canUndo</code>·<code>canRedo</code>로 가용 여부 확인. 텍스트 편집기, 드로잉 앱, 폼 변경 취소에 적합.
+            </div>
+          </div>
+          <div className='orbit-code'>
+            <div className='orbit-code-head'><span>example</span><span>useUndoable</span></div>
+            <pre>{`const { value, set, undo, redo, canUndo, canRedo } = useUndoable('')
+
+set('Hello')   // value: 'Hello', canUndo: true
+set('World')   // value: 'World', canUndo: true
+undo()         // value: 'Hello', canRedo: true
+redo()         // value: 'World'`}</pre>
           </div>
         </div>
       </section>
@@ -294,6 +501,84 @@ useEffect(() => {
             <div className='orbit-code-head'><span>example</span><span>useInterval</span></div>
             <pre>{`const [seconds, setSeconds] = useState(0)
 useInterval(() => setSeconds((s) => s + 1), paused ? null : 1000)`}</pre>
+          </div>
+        </div>
+
+        <div className='orbit-hook'>
+          <div className='orbit-hook-head'>
+            <code className='signature'>useRafState</code>
+            <div className='tagline'>
+              <code>requestAnimationFrame</code>으로 업데이트를 일괄 처리하는 <code>useState</code> 변형. 고빈도 이벤트(scroll·mousemove) 에서 연속 setState를 RAF로 병합해 불필요한 리렌더를 줄임. unmount 시 pending RAF 자동 취소.
+            </div>
+          </div>
+          <div className='orbit-code'>
+            <div className='orbit-code-head'><span>example</span><span>useRafState</span></div>
+            <pre>{`const [position, setPosition] = useRafState({ x: 0, y: 0 })
+
+useEffect(() => {
+  const handleMove = (e: MouseEvent) =>
+    setPosition({ x: e.clientX, y: e.clientY })
+  window.addEventListener('mousemove', handleMove)
+  return () => window.removeEventListener('mousemove', handleMove)
+}, [setPosition])`}</pre>
+          </div>
+        </div>
+
+        <div className='orbit-hook'>
+          <div className='orbit-hook-head'>
+            <code className='signature'>useRafCallback</code>
+            <div className='tagline'>
+              콜백을 다음 애니메이션 프레임에 실행하도록 래핑. 안정적인 <code>rafCallback</code>과 <code>cancel</code> 함수를 반환. unmount 시 pending RAF 자동 취소.
+            </div>
+          </div>
+          <div className='orbit-code'>
+            <div className='orbit-code-head'><span>example</span><span>useRafCallback</span></div>
+            <pre>{`const [animate, cancelAnimate] = useRafCallback(() => {
+  // RAF에 동기화된 애니메이션 로직
+})
+
+// 이벤트에서 호출 — 다음 RAF까지 디바운스됨
+onScroll={() => animate()}`}</pre>
+          </div>
+        </div>
+
+        <div className='orbit-hook'>
+          <div className='orbit-hook-head'>
+            <code className='signature'>useAnimationFrame</code>
+            <div className='tagline'>
+              <code>requestAnimationFrame</code> 루프를 선언적으로 관리. <code>active</code> 플래그로 일시정지·재개. 콜백에 이전 프레임 이후 경과 시간(ms)을 전달해 프레임 독립적 애니메이션 구현. unmount 시 자동 취소.
+            </div>
+          </div>
+          <div className='orbit-code'>
+            <div className='orbit-code-head'><span>example</span><span>useAnimationFrame</span></div>
+            <pre>{`const [angle, setAngle] = useState(0)
+const [running, setRunning] = useState(true)
+
+useAnimationFrame((delta) => {
+  setAngle((a) => (a + delta * 0.1) % 360)
+}, running)
+
+return <div style={{ transform: \`rotate(\${angle}deg)\` }}>🌀</div>`}</pre>
+          </div>
+        </div>
+
+        <div className='orbit-hook'>
+          <div className='orbit-hook-head'>
+            <code className='signature'>useThrottle</code>
+            <div className='tagline'>
+              값을 최대 <code>delay</code>ms에 한 번만 갱신(leading-edge). 스크롤 핸들러·resize·마우스 트래킹처럼 고빈도 이벤트를 구독할 때 불필요한 리렌더를 차단. <code>useDebounce</code>가 "멈춘 뒤"라면 <code>useThrottle</code>은 "눌리는 순간".
+            </div>
+          </div>
+          <div className='orbit-code'>
+            <div className='orbit-code-head'><span>example</span><span>useThrottle</span></div>
+            <pre>{`const [mouse, setMouse] = useState({ x: 0, y: 0 })
+const throttled = useThrottle(mouse, 50)
+
+useEventListener('mousemove', (e) =>
+  setMouse({ x: e.clientX, y: e.clientY })
+)
+
+// throttled.x / throttled.y — 50ms 간격으로만 갱신`}</pre>
           </div>
         </div>
       </section>
@@ -353,6 +638,174 @@ const prefersDark = useMediaQuery('(prefers-color-scheme: dark)')`}</pre>
   autoplay={!reduce}
   loop={!reduce}
 />`}</pre>
+          </div>
+        </div>
+
+        <div className='orbit-hook'>
+          <div className='orbit-hook-head'>
+            <code className='signature'>useWindowSize</code>
+            <div className='tagline'>
+              브라우저 창의 현재 <code>&#123; width, height &#125;</code>를 반환하고 resize 시 즉시 갱신. JS 레벨 반응형 분기(<code>useMediaQuery</code>가 CSS 미디어 쿼리라면 이쪽은 픽셀 값이 필요한 경우)에 사용. SSR에서는 <code>&#123; width: 0, height: 0 &#125;</code> 반환.
+            </div>
+          </div>
+          <div className='orbit-code'>
+            <div className='orbit-code-head'><span>example</span><span>useWindowSize</span></div>
+            <pre>{`const { width, height } = useWindowSize()
+
+// 640px 미만일 때 모바일 레이아웃
+const isMobile = width > 0 && width < 640`}</pre>
+          </div>
+        </div>
+
+        <div className='orbit-hook'>
+          <div className='orbit-hook-head'>
+            <code className='signature'>useBreakpoint</code>
+            <div className='tagline'>
+              현재 활성 Tailwind 브레이크포인트(<code>xs→2xl</code>)를 반환. <code>isAtLeast('md')</code>·<code>isAtMost('lg')</code> 비교 헬퍼 포함. <code>useMediaQuery</code>보다 간결한 반응형 분기.
+            </div>
+          </div>
+          <div className='orbit-code'>
+            <div className='orbit-code-head'><span>example</span><span>useBreakpoint</span></div>
+            <pre>{`const { breakpoint, isMd, isAtLeast } = useBreakpoint()
+
+// md 이상이면 사이드바 표시
+const showSidebar = isAtLeast('md')
+// → xs·sm: collapsed, md·lg·xl·2xl: expanded`}</pre>
+          </div>
+        </div>
+
+        <div className='orbit-hook'>
+          <div className='orbit-hook-head'>
+            <code className='signature'>useDevicePixelRatio</code>
+            <div className='tagline'>
+              <code>window.devicePixelRatio</code>를 추적. 다중 모니터 환경에서 창을 이동하거나 디스플레이 설정을 바꾸면 즉시 갱신. 캔버스 선명도 조정, 레티나 이미지 로딩에 사용.
+            </div>
+          </div>
+          <div className='orbit-code'>
+            <div className='orbit-code-head'><span>example</span><span>useDevicePixelRatio</span></div>
+            <pre>{`const dpr = useDevicePixelRatio()
+
+useEffect(() => {
+  canvas.width = width * dpr
+  canvas.height = height * dpr
+  ctx.scale(dpr, dpr)
+}, [dpr])`}</pre>
+          </div>
+        </div>
+
+        <div className='orbit-hook'>
+          <div className='orbit-hook-head'>
+            <code className='signature'>useBattery</code>
+            <div className='tagline'>
+              Battery Status API를 래핑해 <code>level</code>·<code>charging</code>·<code>chargingTime</code>·<code>dischargingTime</code>를 실시간 구독. <code>supported</code>·<code>loading</code> 플래그 포함. 미지원 환경에서는 <code>supported: false</code>.
+            </div>
+          </div>
+          <div className='orbit-code'>
+            <div className='orbit-code-head'><span>example</span><span>useBattery</span></div>
+            <pre>{`const { level, charging, supported, loading } = useBattery()
+
+// 배터리 부족 경고 (20% 미만 · 미충전)
+if (supported && !loading && level !== null && level < 0.2 && !charging)
+  return <BatteryWarning level={level} />`}</pre>
+          </div>
+        </div>
+
+        <div className='orbit-hook'>
+          <div className='orbit-hook-head'>
+            <code className='signature'>useWindowFocus</code>
+            <div className='tagline'>
+              현재 탭/창에 포커스가 있는지 추적. <code>focus</code>/<code>blur</code> 이벤트로 즉시 갱신. 포커스 손실 시 실시간 업데이트·polling 일시정지, 재집중 시 즉시 재개하는 패턴에 사용.
+            </div>
+          </div>
+          <div className='orbit-code'>
+            <div className='orbit-code-head'><span>example</span><span>useWindowFocus</span></div>
+            <pre>{`const isFocused = useWindowFocus()
+
+useEffect(() => {
+  if (!isFocused) return
+  const id = setInterval(refreshData, 3000)
+  return () => clearInterval(id)
+}, [isFocused])`}</pre>
+          </div>
+        </div>
+
+        <div className='orbit-hook'>
+          <div className='orbit-hook-head'>
+            <code className='signature'>useFullscreen</code>
+            <div className='tagline'>
+              요소에 대한 전체화면 모드를 제어. <code>isFullscreen</code>·<code>enter()</code>·<code>exit()</code>·<code>toggle()</code>·<code>supported</code> 반환. <code>fullscreenchange</code> 이벤트로 Esc 키 종료도 자동 감지.
+            </div>
+          </div>
+          <div className='orbit-code'>
+            <div className='orbit-code-head'><span>example</span><span>useFullscreen</span></div>
+            <pre>{`const videoRef = useRef<HTMLVideoElement>(null)
+const { isFullscreen, toggle, supported } = useFullscreen(videoRef)
+
+<button onClick={toggle}>{isFullscreen ? '전체화면 종료' : '전체화면'}</button>
+<video ref={videoRef} />`}</pre>
+          </div>
+        </div>
+
+        <div className='orbit-hook'>
+          <div className='orbit-hook-head'>
+            <code className='signature'>useColorScheme</code>
+            <div className='tagline'>
+              시스템 색상 구성표 기본 설정을 추적. <code>'light' | 'dark' | 'no-preference'</code> 를 반환하며 변경 시 즉시 갱신. SSR에서는 <code>'light'</code> 반환.
+            </div>
+          </div>
+          <div className='orbit-code'>
+            <div className='orbit-code-head'><span>example</span><span>useColorScheme</span></div>
+            <pre>{`const colorScheme = useColorScheme()
+// 시스템 다크모드를 useEclipseTheme과 독립적으로 감지
+const isDark = colorScheme === 'dark'`}</pre>
+          </div>
+        </div>
+
+        <div className='orbit-hook'>
+          <div className='orbit-hook-head'>
+            <code className='signature'>useOs</code>
+            <div className='tagline'>
+              현재 운영 체제를 감지. <code>'macos' | 'windows' | 'linux' | 'ios' | 'android' | 'undetermined'</code> 반환. SSR 안전. 단축키 힌트(Cmd vs Ctrl)나 OS별 분기 UI에 사용.
+            </div>
+          </div>
+          <div className='orbit-code'>
+            <div className='orbit-code-head'><span>example</span><span>useOs</span></div>
+            <pre>{`const os = useOs()
+// macOS는 ⌘, 그 외는 Ctrl 표시
+const modKey = os === 'macos' ? '⌘' : 'Ctrl'`}</pre>
+          </div>
+        </div>
+
+        <div className='orbit-hook'>
+          <div className='orbit-hook-head'>
+            <code className='signature'>useOrientation</code>
+            <div className='tagline'>
+              기기 화면 방향을 실시간 구독. <code>screen.orientation</code> API 우선 사용, 구형 Safari는 <code>window.orientationchange</code> 폴백. portrait/landscape 4분할 타입 + 각도.
+            </div>
+          </div>
+          <div className='orbit-code'>
+            <div className='orbit-code-head'><span>example</span><span>useOrientation</span></div>
+            <pre>{`const { type, angle } = useOrientation()
+// 가로모드일 때만 풀스크린 UI 표시
+if (type.startsWith('landscape')) return <LandscapeLayout />`}</pre>
+          </div>
+        </div>
+
+        <div className='orbit-hook'>
+          <div className='orbit-hook-head'>
+            <code className='signature'>useCssVariable</code>
+            <div className='tagline'>
+              CSS 커스텀 속성(<code>--token-name</code>)을 읽고 쓰는 훅. <code>getComputedStyle</code>로 현재 값을 읽고, <code>setValue</code>로 해당 element의 인라인 스타일에 반영. element를 지정하지 않으면 <code>document.documentElement</code>에 적용.
+            </div>
+          </div>
+          <div className='orbit-code'>
+            <div className='orbit-code-head'><span>example</span><span>useCssVariable</span></div>
+            <pre>{`const [accent, setAccent] = useCssVariable('--orbit-accent')
+
+// 동적 테마 전환
+<button onClick={() => setAccent('#ff6b6b')}>빨강</button>
+<button onClick={() => setAccent('#4dabf7')}>파랑</button>
+<div style={{ color: 'var(--orbit-accent)' }}>{accent}</div>`}</pre>
           </div>
         </div>
       </section>
@@ -415,6 +868,221 @@ useHotkey('escape', onClose, { ignoreInputs: false })`}</pre>
             <pre>{`useOnClickOutside([triggerRef, contentRef], () => setOpen(false))`}</pre>
           </div>
         </div>
+
+        <div className='orbit-hook'>
+          <div className='orbit-hook-head'>
+            <code className='signature'>useMergeRefs</code>
+            <div className='tagline'>
+              여러 ref(RefObject + RefCallback)를 하나의 ref로 합성. <code>forwardRef</code> 컴포넌트에서 내부 ref와 외부에서 전달된 ref를 동시에 동일한 DOM 노드에 연결하는 표준 패턴.
+            </div>
+          </div>
+          <div className='orbit-code'>
+            <div className='orbit-code-head'><span>example</span><span>useMergeRefs</span></div>
+            <pre>{`const internalRef = useRef<HTMLButtonElement>(null)
+const mergedRef = useMergeRefs(internalRef, forwardedRef)
+
+return <button ref={mergedRef}>...</button>`}</pre>
+          </div>
+        </div>
+
+        <div className='orbit-hook'>
+          <div className='orbit-hook-head'>
+            <code className='signature'>useMouse</code>
+            <div className='tagline'>
+              마우스의 뷰포트 좌표(<code>x</code>·<code>y</code>)와 특정 요소 기준 상대 좌표(<code>elementX</code>·<code>elementY</code>)를 동시에 추적. 커스텀 커서, 툴팁 위치, 드래그 미리보기 등에 사용.
+            </div>
+          </div>
+          <div className='orbit-code'>
+            <div className='orbit-code-head'><span>example</span><span>useMouse</span></div>
+            <pre>{`const { ref, mouse } = useMouse<HTMLDivElement>()
+
+return (
+  <div ref={ref}>
+    viewport: {mouse.x}, {mouse.y}
+    element: {mouse.elementX}, {mouse.elementY}
+  </div>
+)`}</pre>
+          </div>
+        </div>
+
+        <div className='orbit-hook'>
+          <div className='orbit-hook-head'>
+            <code className='signature'>useFocusVisible</code>
+            <div className='tagline'>
+              키보드 탐색 중(<code>Tab</code> 등)일 때만 <code>true</code>를 반환해 포커스 링 표시 여부를 제어. 마우스 클릭 포커스에서는 <code>false</code>로 유지. 브라우저의 <code>:focus-visible</code> 의사 클래스 의미론을 JS 레벨로 재현.
+            </div>
+          </div>
+          <div className='orbit-code'>
+            <div className='orbit-code-head'><span>example</span><span>useFocusVisible</span></div>
+            <pre>{`const { isFocusVisible, focusVisibleProps } = useFocusVisible()
+
+<button
+  {...focusVisibleProps}
+  className={isFocusVisible ? 'ring-2 ring-blue-500' : ''}
+>
+  저장
+</button>`}</pre>
+          </div>
+        </div>
+
+        <div className='orbit-hook'>
+          <div className='orbit-hook-head'>
+            <code className='signature'>useHover</code>
+            <div className='tagline'>
+              <code>&#123; isHovering, hoverProps &#125;</code>를 반환. <code>hoverProps</code>를 대상 엘리먼트에 spread하면 <code>onPointerEnter</code>/<code>onPointerLeave</code> 기반으로 hover 상태를 추적하며 메모리 누수 없이 정리. 터치 기기의 spurious hover는 자동 무시.
+            </div>
+          </div>
+          <div className='orbit-code'>
+            <div className='orbit-code-head'><span>example</span><span>useHover</span></div>
+            <pre>{`const { isHovering, hoverProps } = useHover()
+
+<div {...hoverProps}>
+  {isHovering && <Tooltip>설명 텍스트</Tooltip>}
+  <Avatar src={user.avatar} />
+</div>`}</pre>
+          </div>
+        </div>
+
+        <div className='orbit-hook'>
+          <div className='orbit-hook-head'>
+            <code className='signature'>useDrag</code>
+            <div className='tagline'>
+              드래그 시작·이동·종료 이벤트를 선언적으로 처리. <code>isDragging</code> 상태와 <code>dragProps</code>(draggable + 3개 핸들러)를 반환. delta·start 좌표 포함. ghost-frame(0,0) 이벤트 자동 무시.
+            </div>
+          </div>
+          <div className='orbit-code'>
+            <div className='orbit-code-head'><span>example</span><span>useDrag</span></div>
+            <pre>{`const { isDragging, dragProps } = useDrag({
+  onDragEnd: ({ deltaX, deltaY }) => move(deltaX, deltaY),
+})
+
+<div {...dragProps} style={{ opacity: isDragging ? 0.5 : 1 }}>드래그 가능</div>`}</pre>
+          </div>
+        </div>
+
+        <div className='orbit-hook'>
+          <div className='orbit-hook-head'>
+            <code className='signature'>useClipboardPaste</code>
+            <div className='tagline'>
+              <code>document</code>의 paste 이벤트를 구독해 텍스트·파일을 실시간 추출. <code>text</code>는 평문, <code>files</code>는 <code>File[]</code>. 이미지 붙여넣기, 코드 스니펫 캐치, 파일 드롭 대체 패턴.
+            </div>
+          </div>
+          <div className='orbit-code'>
+            <div className='orbit-code-head'><span>example</span><span>useClipboardPaste</span></div>
+            <pre>{`const { text, files } = useClipboardPaste({
+  onPaste: ({ files }) => {
+    if (files[0]?.type.startsWith('image/')) uploadImage(files[0])
+  },
+})`}</pre>
+          </div>
+        </div>
+
+        <div className='orbit-hook'>
+          <div className='orbit-hook-head'>
+            <code className='signature'>usePointerLock</code>
+            <div className='tagline'>
+              요소에 포인터 잠금을 요청. <code>isLocked</code>·<code>lock()</code>·<code>unlock()</code>·<code>supported</code> 반환. FPS 카메라·캔버스 드로잉·3D 뷰어 등 마우스 이동 전체를 캡처해야 하는 인터랙션용.
+            </div>
+          </div>
+          <div className='orbit-code'>
+            <div className='orbit-code-head'><span>example</span><span>usePointerLock</span></div>
+            <pre>{`const canvasRef = useRef<HTMLCanvasElement>(null)
+const { isLocked, lock, unlock, supported } = usePointerLock(canvasRef)
+
+<canvas ref={canvasRef} onClick={isLocked ? unlock : lock} />`}</pre>
+          </div>
+        </div>
+
+        <div className='orbit-hook'>
+          <div className='orbit-hook-head'>
+            <code className='signature'>useSelection</code>
+            <div className='tagline'>
+              페이지의 현재 텍스트 선택을 추적. <code>text</code>는 선택 문자열, <code>rects</code>는 바운딩 박스 목록. 선택 해제 시 초기화. 선택 직후 팝업 메뉴(복사·공유)를 띄우는 패턴에 사용.
+            </div>
+          </div>
+          <div className='orbit-code'>
+            <div className='orbit-code-head'><span>example</span><span>useSelection</span></div>
+            <pre>{`const { text, rects } = useSelection()
+
+{text && (
+  <FloatingMenu anchor={rects[0]}>
+    <button onClick={() => navigator.clipboard.writeText(text)}>복사</button>
+  </FloatingMenu>
+)}`}</pre>
+          </div>
+        </div>
+
+        <div className='orbit-hook'>
+          <div className='orbit-hook-head'>
+            <code className='signature'>useFocusWithin</code>
+            <div className='tagline'>
+              컨테이너 자식 중 하나라도 포커스를 가지면 <code>true</code>. CSS <code>:focus-within</code>의 JS 버전. <code>focusin</code>/<code>focusout</code>+<code>relatedTarget</code> 비교로 내부 이동은 무시.
+            </div>
+          </div>
+          <div className='orbit-code'>
+            <div className='orbit-code-head'><span>example</span><span>useFocusWithin</span></div>
+            <pre>{`const formRef = useRef<HTMLFormElement>(null)
+const isFocusWithin = useFocusWithin(formRef)
+<form ref={formRef} style={{ outline: isFocusWithin ? '2px solid blue' : 'none' }}>`}</pre>
+          </div>
+        </div>
+
+        <div className='orbit-hook'>
+          <div className='orbit-hook-head'>
+            <code className='signature'>useShareAPI</code>
+            <div className='tagline'>
+              Web Share API 래퍼. <code>isSupported</code>로 지원 여부 확인. <code>share({ title, text, url })</code>로 OS 네이티브 공유 시트 호출. <code>canShare(data)</code>로 파일 공유 가능 여부 사전 확인.
+            </div>
+          </div>
+          <div className='orbit-code'>
+            <div className='orbit-code-head'><span>example</span><span>useShareAPI</span></div>
+            <pre>{`const { isSupported, share } = useShareAPI()
+
+<button
+  disabled={!isSupported}
+  onClick={() => share({ title: '페이지 공유', url: location.href })}
+>
+  공유
+</button>`}</pre>
+          </div>
+        </div>
+
+        <div className='orbit-hook'>
+          <div className='orbit-hook-head'>
+            <code className='signature'>useGamepad</code>
+            <div className='tagline'>
+              Gamepad API를 구독해 연결된 게임패드 목록을 반환. <code>gamepadconnected</code>·<code>gamepaddisconnected</code> 이벤트를 감지해 자동 갱신. <code>isSupported</code>로 API 지원 여부 확인.
+            </div>
+          </div>
+          <div className='orbit-code'>
+            <div className='orbit-code-head'><span>example</span><span>useGamepad</span></div>
+            <pre>{`const { gamepads, isSupported } = useGamepad()
+
+if (!isSupported) return <div>게임패드 미지원</div>
+
+{gamepads.filter(Boolean).map((gp) => (
+  <div key={gp!.index}>{gp!.id} — {gp!.buttons.length}버튼</div>
+))}`}</pre>
+          </div>
+        </div>
+
+        <div className='orbit-hook'>
+          <div className='orbit-hook-head'>
+            <code className='signature'>useEyeDropper</code>
+            <div className='tagline'>
+              EyeDropper API 래퍼. <code>open()</code>을 호출하면 브라우저의 컬러 피커를 열어 사용자가 화면의 색상을 선택할 수 있도록 함. <code>sRGBHex</code>로 선택된 색상, <code>isSupported</code>로 지원 여부 확인.
+            </div>
+          </div>
+          <div className='orbit-code'>
+            <div className='orbit-code-head'><span>example</span><span>useEyeDropper</span></div>
+            <pre>{`const { isSupported, sRGBHex, open, error } = useEyeDropper()
+
+<button disabled={!isSupported} onClick={open}>
+  색상 선택
+</button>
+{sRGBHex && <div style={{ background: sRGBHex }}>{sRGBHex}</div>}`}</pre>
+          </div>
+        </div>
       </section>
 
       <section className='orbit-sect'>
@@ -445,6 +1113,79 @@ useEffect(() => { if (isIntersecting) loadMore() }, [isIntersecting])`}</pre>
 
         <div className='orbit-hook'>
           <div className='orbit-hook-head'>
+            <code className='signature'>useInfiniteScroll</code>
+            <div className='tagline'>
+              sentinel 요소가 뷰포트에 진입하면 <code>onLoadMore</code>를 호출. <code>hasMore=false</code>면 자동 disconnect. <code>isLoading</code> 플래그 포함. <code>rootMargin</code>으로 사전 로드 거리 조정.
+            </div>
+          </div>
+          <div className='orbit-code'>
+            <div className='orbit-code-head'><span>example</span><span>useInfiniteScroll</span></div>
+            <pre>{`const { sentinelRef, isLoading } = useInfiniteScroll({
+  hasMore: page < totalPages,
+  onLoadMore: () => loadNextPage(),
+  rootMargin: '200px',
+})
+
+{items.map((item) => <Card key={item.id} {...item} />)}
+<div ref={sentinelRef} />
+{isLoading && <Spinner />}`}</pre>
+          </div>
+        </div>
+
+        <div className='orbit-hook'>
+          <div className='orbit-hook-head'>
+            <code className='signature'>useInViewport</code>
+            <div className='tagline'>
+              요소가 현재 뷰포트 안에 있는지 여부만 반환하는 <code>boolean</code>. <code>useIntersectionObserver</code>의 단순화 버전. <code>once: true</code>로 한 번 보인 후 자동 disconnect. lazy 이미지·애니메이션 트리거에 적합.
+            </div>
+          </div>
+          <div className='orbit-code'>
+            <div className='orbit-code-head'><span>example</span><span>useInViewport</span></div>
+            <pre>{`const ref = useRef<HTMLDivElement>(null)
+const isVisible = useInViewport(ref, { threshold: 0.5, once: true })
+
+<div ref={ref} style={{ opacity: isVisible ? 1 : 0, transition: 'opacity 300ms' }}>`}</pre>
+          </div>
+        </div>
+
+        <div className='orbit-hook'>
+          <div className='orbit-hook-head'>
+            <code className='signature'>useElementSize</code>
+            <div className='tagline'>
+              ResizeObserver로 요소의 <code>width</code>·<code>height</code>를 추적. <code>ref</code>(RefCallback)를 대상에 붙이면 크기 변경 시 즉시 갱신. <code>useResizeObserver</code>의 값 추출 특화 버전.
+            </div>
+          </div>
+          <div className='orbit-code'>
+            <div className='orbit-code-head'><span>example</span><span>useElementSize</span></div>
+            <pre>{`const { ref, width, height } = useElementSize()
+
+return (
+  <div ref={ref}>
+    {width} × {height}
+  </div>
+)`}</pre>
+          </div>
+        </div>
+
+        <div className='orbit-hook'>
+          <div className='orbit-hook-head'>
+            <code className='signature'>useMutationObserver</code>
+            <div className='tagline'>
+              DOM 트리 변경을 MutationObserver로 감시. 콜백은 ref로 보관되어 항상 최신 버전 호출. options 변경 시 옵저버 재연결. 팝오버 콘텐츠 변경 감지·포털 위치 재계산에 사용.
+            </div>
+          </div>
+          <div className='orbit-code'>
+            <div className='orbit-code-head'><span>example</span><span>useMutationObserver</span></div>
+            <pre>{`const ref = useRef<HTMLDivElement>(null)
+useMutationObserver(ref, (mutations) => {
+  // 자식 노드 추가/제거 시 위치 재계산
+  recalcPosition()
+}, { childList: true, subtree: true })`}</pre>
+          </div>
+        </div>
+
+        <div className='orbit-hook'>
+          <div className='orbit-hook-head'>
             <code className='signature'>useResizeObserver</code>
             <div className='tagline'>
               요소의 content-box 크기 변화를 즉시 추적. <code>getBoundingClientRect</code> polling 대체. <code>{`{ size, entry }`}</code> 반환.
@@ -456,6 +1197,28 @@ useEffect(() => { if (isIntersecting) loadMore() }, [isIntersecting])`}</pre>
 const { size } = useResizeObserver(ref)
 
 return <div ref={ref}>{size && \`\${Math.round(size.width)}px\`}</div>`}</pre>
+          </div>
+        </div>
+
+        <div className='orbit-hook'>
+          <div className='orbit-hook-head'>
+            <code className='signature'>useReadingProgress</code>
+            <div className='tagline'>
+              스크롤 위치를 읽기 진행률(0–100%)로 변환. 컨테이너 ref를 전달하면 해당 요소 내부, 그렇지 않으면 문서 전체 스크롤 기준. 블로그 포스트·장문 콘텐츠의 진행 표시줄에 사용.
+            </div>
+          </div>
+          <div className='orbit-code'>
+            <div className='orbit-code-head'><span>example</span><span>useReadingProgress</span></div>
+            <pre>{`const progress = useReadingProgress()
+
+<div
+  style={{
+    position: 'fixed', top: 0, left: 0,
+    height: 3, background: 'var(--orbit-accent)',
+    width: \`\${progress}%\`,
+    transition: 'width 100ms linear',
+  }}
+/>`}</pre>
           </div>
         </div>
       </section>
@@ -486,6 +1249,167 @@ return <div ref={ref}>{size && \`\${Math.round(size.width)}px\`}</div>`}</pre>
     </SolidButton>
   )
 }`}</pre>
+          </div>
+        </div>
+
+        <div className='orbit-hook'>
+          <div className='orbit-hook-head'>
+            <code className='signature'>useScrollPosition</code>
+            <div className='tagline'>
+              윈도우 <code>scrollX</code>·<code>scrollY</code>. <code>passive</code> 리스너 + <code>requestAnimationFrame</code> 으로 프레임당 1회 리렌더로 제한. sticky 헤더·scroll-spy에 사용.
+            </div>
+          </div>
+          <div className='orbit-code'>
+            <div className='orbit-code-head'><span>example</span><span>useScrollPosition</span></div>
+            <pre>{`const { y } = useScrollPosition()
+return <header style={{ background: y > 80 ? 'white' : 'transparent' }} />`}</pre>
+          </div>
+        </div>
+
+        <div className='orbit-hook'>
+          <div className='orbit-hook-head'>
+            <code className='signature'>useKeyPress</code>
+            <div className='tagline'>
+              특정 키가 눌려있는 동안 <code>true</code>. blur 시 강제 해제로 stuck-pressed 방지, input 필드 내부 입력은 기본적으로 무시. 단발 핸들러는 <code>useHotkey</code> 사용.
+            </div>
+          </div>
+          <div className='orbit-code'>
+            <div className='orbit-code-head'><span>example</span><span>useKeyPress</span></div>
+            <pre>{`const isShift = useKeyPress('Shift')
+<button>{isShift ? '복수 선택' : '한 개 선택'}</button>`}</pre>
+          </div>
+        </div>
+
+        <div className='orbit-hook'>
+          <div className='orbit-hook-head'>
+            <code className='signature'>useCountdown</code>
+            <div className='tagline'>
+              지정한 ms 부터 0 까지 카운트다운. start·pause·reset 컨트롤, 일시정지 후 남은 시간 그대로 재개, onFinish 콜백. OTP 재전송 쿨다운·자동 리다이렉트 카운터에 사용.
+            </div>
+          </div>
+          <div className='orbit-code'>
+            <div className='orbit-code-head'><span>example</span><span>useCountdown</span></div>
+            <pre>{`const { remaining, isFinished, start } = useCountdown({
+  from: 30_000,
+  onFinish: () => sendOtp(),
+})
+
+<button onClick={start}>{isFinished ? 'Resend' : \`\${remaining / 1000}s\`}</button>`}</pre>
+          </div>
+        </div>
+
+        <div className='orbit-hook'>
+          <div className='orbit-hook-head'>
+            <code className='signature'>useUncontrolled</code>
+            <div className='tagline'>
+              <code>value</code> 가 주어지면 controlled, 없으면 <code>defaultValue</code> 로 내부 state 사용. controlled·uncontrolled 양쪽 API 를 한 번에 노출하는 컴포넌트의 보일러플레이트 제거.
+            </div>
+          </div>
+          <div className='orbit-code'>
+            <div className='orbit-code-head'><span>example</span><span>useUncontrolled</span></div>
+            <pre>{`const [value, setValue] = useUncontrolled({
+  value: checked,
+  defaultValue: defaultChecked,
+  finalValue: false,
+  onChange,
+})`}</pre>
+          </div>
+        </div>
+
+        <div className='orbit-hook'>
+          <div className='orbit-hook-head'>
+            <code className='signature'>useDebouncedState</code>
+            <div className='tagline'>
+              즉시값(<code>value</code>)과 디바운스된 값(<code>debouncedValue</code>)을 함께 노출. 입력은 끊김 없이 보여주고 비싼 작업은 잠시 멈춘 뒤에만 트리거. <code>flush</code> 와 <code>cancel</code> 지원.
+            </div>
+          </div>
+          <div className='orbit-code'>
+            <div className='orbit-code-head'><span>example</span><span>useDebouncedState</span></div>
+            <pre>{`const { value, debouncedValue, setValue } = useDebouncedState('', 300)
+const { data } = useQuery(['search', debouncedValue], () => fetch(debouncedValue))
+return <input value={value} onChange={(e) => setValue(e.target.value)} />`}</pre>
+          </div>
+        </div>
+
+        <div className='orbit-hook'>
+          <div className='orbit-hook-head'>
+            <code className='signature'>useScrollIntoView</code>
+            <div className='tagline'>
+              참조 요소를 뷰포트에 부드럽게 스크롤. sticky 헤더 만큼의 <code>offset</code> 보정, 호출 시점에 옵션 override 가능. <code>prefers-reduced-motion</code> 사용자는 브라우저가 자동으로 instant로 대체.
+            </div>
+          </div>
+          <div className='orbit-code'>
+            <div className='orbit-code-head'><span>example</span><span>useScrollIntoView</span></div>
+            <pre>{`const ref = useRef<HTMLDivElement>(null)
+const scrollIntoView = useScrollIntoView(ref, { offset: 64 })
+
+useEffect(() => {
+  if (matchedId === item.id) scrollIntoView()
+}, [matchedId])`}</pre>
+          </div>
+        </div>
+
+        <div className='orbit-hook'>
+          <div className='orbit-hook-head'>
+            <code className='signature'>useFocusTrap</code>
+            <div className='tagline'>
+              컨테이너 안쪽으로 Tab 포커스를 가두는 키보드 트랩. 자동 포커스 진입, 닫힐 때 원위치 복원, Tab/Shift+Tab 양방향 순환. Radix 기반 컴포넌트는 자체 트랩이 있으므로 커스텀 floating UI 용도.
+            </div>
+          </div>
+          <div className='orbit-code'>
+            <div className='orbit-code-head'><span>example</span><span>useFocusTrap</span></div>
+            <pre>{`const ref = useRef<HTMLDivElement>(null)
+useFocusTrap(ref, { enabled: open })
+
+return open ? <div ref={ref} role='dialog'>{children}</div> : null`}</pre>
+          </div>
+        </div>
+
+        <div className='orbit-hook'>
+          <div className='orbit-hook-head'>
+            <code className='signature'>useStateHistory</code>
+            <div className='tagline'>
+              값에 undo·redo 타임라인을 붙입니다. 새 값을 set 하면 redo 가지는 자동 폐기, 같은 값은 push 하지 않음, capacity 초과 시 가장 오래된 항목부터 잘려나갑니다.
+            </div>
+          </div>
+          <div className='orbit-code'>
+            <div className='orbit-code-head'><span>example</span><span>useStateHistory</span></div>
+            <pre>{`const { state, set, undo, redo, canUndo, canRedo } = useStateHistory('')
+
+<textarea value={state} onChange={(e) => set(e.target.value)} />
+<button disabled={!canUndo} onClick={undo}>Undo</button>`}</pre>
+          </div>
+        </div>
+
+        <div className='orbit-hook'>
+          <div className='orbit-hook-head'>
+            <code className='signature'>useIdle</code>
+            <div className='tagline'>
+              사용자가 일정 시간 무활동이면 <code>true</code>. mouse/key/scroll 한 번이면 즉시 active 로 복귀, 탭이 hidden 되면 즉시 idle 로 간주. 자동 로그아웃·절전 모드에 사용.
+            </div>
+          </div>
+          <div className='orbit-code'>
+            <div className='orbit-code-head'><span>example</span><span>useIdle</span></div>
+            <pre>{`const isIdle = useIdle({ timeout: 30_000 })
+
+useEffect(() => {
+  if (!isIdle) return
+  showAutoLogoutWarning()
+}, [isIdle])`}</pre>
+          </div>
+        </div>
+
+        <div className='orbit-hook'>
+          <div className='orbit-hook-head'>
+            <code className='signature'>useLongPress</code>
+            <div className='tagline'>
+              일정 시간 누른 채로 유지되면 콜백을 호출. Pointer Events 기반이라 마우스·터치·펜이 모두 동일 경로로 동작하며, 일정 거리 이상 끌면 자동 취소.
+            </div>
+          </div>
+          <div className='orbit-code'>
+            <div className='orbit-code-head'><span>example</span><span>useLongPress</span></div>
+            <pre>{`const handlers = useLongPress(() => setMenuOpen(true), { delay: 600 })
+return <button {...handlers}>길게 눌러 메뉴 열기</button>`}</pre>
           </div>
         </div>
 
@@ -553,6 +1477,22 @@ useEffect(() => {
 
         <div className='orbit-hook'>
           <div className='orbit-hook-head'>
+            <code className='signature'>useUpdateEffect</code>
+            <div className='tagline'>
+              <code>useEffect</code>와 동일하지만 마운트 시 첫 실행을 건너뛰고 이후 deps 변경 시에만 실행. 초기 렌더를 트리거 없이 특정 값의 변경만 감지해 사이드이펙트를 일으켜야 할 때 사용.
+            </div>
+          </div>
+          <div className='orbit-code'>
+            <div className='orbit-code-head'><span>example</span><span>useUpdateEffect</span></div>
+            <pre>{`// 마운트 시에는 실행되지 않음 — filter가 실제로 바뀔 때만 실행
+useUpdateEffect(() => {
+  refetch(filter)
+}, [filter])`}</pre>
+          </div>
+        </div>
+
+        <div className='orbit-hook'>
+          <div className='orbit-hook-head'>
             <code className='signature'>useLatest</code>
             <div className='tagline'>
               값의 항상-최신 ref. setInterval·setTimeout·rAF·이벤트 핸들러에서 stale closure 회피용 표준 escape hatch.
@@ -580,10 +1520,377 @@ useEffect(() => {
             <pre>{`useDocumentTitle(\`\${project.name} · Orbit\`)`}</pre>
           </div>
         </div>
+
+        <div className='orbit-hook'>
+          <div className='orbit-hook-head'>
+            <code className='signature'>useAsync</code>
+            <div className='tagline'>
+              비동기 함수의 <code>idle → pending → success | error</code> 상태를 추적. <code>immediate: true</code>이면 마운트 시 자동 실행, 중복 호출 시 이전 결과는 silently 폐기(stale 방지). <code>reset()</code>으로 idle로 복귀.
+            </div>
+          </div>
+          <div className='orbit-code'>
+            <div className='orbit-code-head'><span>example</span><span>useAsync</span></div>
+            <pre>{`const { data, isPending, isError, error, run, reset } = useAsync(fetchUser)
+
+return (
+  <>
+    {isPending && <Spinner />}
+    {isError && <ErrorBanner>{error.message}</ErrorBanner>}
+    {data && <UserCard user={data} />}
+    <SolidButton onClick={run}>불러오기</SolidButton>
+  </>
+)`}</pre>
+          </div>
+        </div>
+
+        <div className='orbit-hook'>
+          <div className='orbit-hook-head'>
+            <code className='signature'>usePermission</code>
+            <div className='tagline'>
+              브라우저 Permissions API 로 권한 상태를 실시간 구독. <code>PermissionStatus.onchange</code>를 연결해 허용·거부 변경을 즉시 반영. 지원하지 않는 환경에서는 <code>'unsupported'</code> 반환.
+            </div>
+          </div>
+          <div className='orbit-code'>
+            <div className='orbit-code-head'><span>example</span><span>usePermission</span></div>
+            <pre>{`const cameraState = usePermission('camera')
+// 'granted' | 'denied' | 'prompt' | 'unsupported'
+
+if (cameraState !== 'granted') {
+  return <Banner>카메라 권한이 필요합니다.</Banner>
+}`}</pre>
+          </div>
+        </div>
+
+        <div className='orbit-hook'>
+          <div className='orbit-hook-head'>
+            <code className='signature'>useGeolocation</code>
+            <div className='tagline'>
+              <code>navigator.geolocation.watchPosition</code>을 래핑해 실시간 위치를 구독. SSR·geolocation 미지원 환경에서는 <code>loading: false, coords: null</code> 반환. unmount 시 <code>clearWatch</code> 자동 호출.
+            </div>
+          </div>
+          <div className='orbit-code'>
+            <div className='orbit-code-head'><span>example</span><span>useGeolocation</span></div>
+            <pre>{`const { loading, error, coords } = useGeolocation({ enableHighAccuracy: true })
+
+if (loading) return <Spinner />
+if (error) return <ErrorBanner>{error.message}</ErrorBanner>
+return <Map lat={coords!.latitude} lng={coords!.longitude} />`}</pre>
+          </div>
+        </div>
+
+        <div className='orbit-hook'>
+          <div className='orbit-hook-head'>
+            <code className='signature'>useFavicon</code>
+            <div className='tagline'>
+              <code>&lt;link rel="icon"&gt;</code> 를 동적으로 교체. 기존 link 가 있으면 href 만 갱신(node 재사용), 없으면 새로 생성. 알림 뱃지·상태에 따른 favicon 교체(빨간 점·회색)에 사용. unmount 후에도 마지막 값 유지.
+            </div>
+          </div>
+          <div className='orbit-code'>
+            <div className='orbit-code-head'><span>example</span><span>useFavicon</span></div>
+            <pre>{`const hasUnread = unreadCount > 0
+useFavicon(hasUnread ? '/favicon-alert.svg' : '/favicon.svg', {
+  type: 'image/svg+xml',
+})`}</pre>
+          </div>
+        </div>
+
+        <div className='orbit-hook'>
+          <div className='orbit-hook-head'>
+            <code className='signature'>useAbortController</code>
+            <div className='tagline'>
+              <code>AbortController</code>를 컴포넌트 생명주기에 결합. unmount 시 자동 abort, <code>reset()</code>으로 새 컨트롤러 생성. fetch·XHR 취소, 스트림 중단 패턴의 보일러플레이트 제거.
+            </div>
+          </div>
+          <div className='orbit-code'>
+            <div className='orbit-code-head'><span>example</span><span>useAbortController</span></div>
+            <pre>{`const { signal, abort, reset } = useAbortController()
+
+const fetchData = async () => {
+  reset() // 이전 요청 취소 후 새 컨트롤러
+  const res = await fetch('/api/data', { signal })
+  setData(await res.json())
+}`}</pre>
+          </div>
+        </div>
+
+        <div className='orbit-hook'>
+          <div className='orbit-hook-head'>
+            <code className='signature'>useEventEmitter</code>
+            <div className='tagline'>
+              컴포넌트 내부 pub/sub 이벤트 버스. <code>on(handler)</code>는 cleanup 함수를 반환. <code>emit(payload)</code>은 모든 구독자를 동기 호출. 형제 컴포넌트 간 이벤트 전달.
+            </div>
+          </div>
+          <div className='orbit-code'>
+            <div className='orbit-code-head'><span>example</span><span>useEventEmitter</span></div>
+            <pre>{`const { emit, on } = useEventEmitter<string>()
+
+// 부모에서 생성 → 자식 A에 emit, 자식 B에 on
+useEffect(() => on((msg) => toast(msg)), [on])
+
+<button onClick={() => emit('저장 완료')}>저장</button>`}</pre>
+          </div>
+        </div>
+
+        <div className='orbit-hook'>
+          <div className='orbit-hook-head'>
+            <code className='signature'>useIsomorphicLayoutEffect</code>
+            <div className='tagline'>
+              SSR에서 <code>useLayoutEffect</code> 사용 시 발생하는 React 경고를 방지. 브라우저에서는 <code>useLayoutEffect</code>, 서버에서는 <code>useEffect</code>로 자동 전환. Next.js·Remix 통합 컴포넌트 내부용.
+            </div>
+          </div>
+          <div className='orbit-code'>
+            <div className='orbit-code-head'><span>example</span><span>useIsomorphicLayoutEffect</span></div>
+            <pre>{`// SSR에서도 경고 없이 layout effect 사용
+useIsomorphicLayoutEffect(() => {
+  // DOM 치수 측정 등 layout 시점 작업
+  const { width } = ref.current!.getBoundingClientRect()
+  setWidth(width)
+}, [])`}</pre>
+          </div>
+        </div>
+
+        <div className='orbit-hook'>
+          <div className='orbit-hook-head'>
+            <code className='signature'>useObjectUrl</code>
+            <div className='tagline'>
+              <code>Blob</code>·<code>MediaSource</code>에서 Object URL을 생성하고 unmount 또는 blob 변경 시 자동으로 <code>URL.revokeObjectURL</code>. 메모리 누수 없는 미리보기 이미지·동영상 src 처리.
+            </div>
+          </div>
+          <div className='orbit-code'>
+            <div className='orbit-code-head'><span>example</span><span>useObjectUrl</span></div>
+            <pre>{`const [file, setFile] = useState<File | null>(null)
+const previewUrl = useObjectUrl(file)
+
+<img src={previewUrl ?? undefined} alt="미리보기" />`}</pre>
+          </div>
+        </div>
+
+        <div className='orbit-hook'>
+          <div className='orbit-hook-head'>
+            <code className='signature'>useScrollTo</code>
+            <div className='tagline'>
+              <code>Element</code> 또는 <code>&#123; x, y &#125;</code> 좌표로 부드럽게 스크롤. <code>behavior</code>·<code>block</code>·<code>inline</code> 옵션 지원. <code>scrollIntoView</code>와 <code>window.scrollTo</code>를 단일 API로 통합.
+            </div>
+          </div>
+          <div className='orbit-code'>
+            <div className='orbit-code-head'><span>example</span><span>useScrollTo</span></div>
+            <pre>{`const { scrollTo } = useScrollTo()
+
+// 특정 요소로 스크롤
+scrollTo(errorRef.current, { behavior: 'smooth', block: 'center' })
+
+// 절대 좌표로 스크롤
+scrollTo({ x: 0, y: 0 })`}</pre>
+          </div>
+        </div>
+
+        <div className='orbit-hook'>
+          <div className='orbit-hook-head'>
+            <code className='signature'>useCallbackRef</code>
+            <div className='tagline'>
+              콜백을 ref로 안정화해 이벤트 리스너·타이머가 항상 최신 버전을 호출하도록 함. 반환 함수 참조는 절대 바뀌지 않으므로 <code>useEffect</code> 의존성 배열에 넣어도 재구독이 발생하지 않음.
+            </div>
+          </div>
+          <div className='orbit-code'>
+            <div className='orbit-code-head'><span>example</span><span>useCallbackRef</span></div>
+            <pre>{`const stableOnChange = useCallbackRef(onChange)
+
+useEffect(() => {
+  element.addEventListener('change', stableOnChange)
+  return () => element.removeEventListener('change', stableOnChange)
+}, [stableOnChange]) // stableOnChange는 절대 바뀌지 않음`}</pre>
+          </div>
+        </div>
+
+        <div className='orbit-hook'>
+          <div className='orbit-hook-head'>
+            <code className='signature'>useDeepCompareEffect</code>
+            <div className='tagline'>
+              <code>useEffect</code>와 동일하지만 의존성을 deep equality(<code>JSON.stringify</code>)로 비교. 객체·배열 deps가 동일한 내용으로 재생성되어도 effect가 재실행되지 않음. JSON 직렬화 가능한 값에 사용.
+            </div>
+          </div>
+          <div className='orbit-code'>
+            <div className='orbit-code-head'><span>example</span><span>useDeepCompareEffect</span></div>
+            <pre>{`useDeepCompareEffect(() => {
+  fetchData(filters)
+}, [filters]) // filters 객체가 재생성되어도 내용이 같으면 재실행 안 함`}</pre>
+          </div>
+        </div>
+
+        <div className='orbit-hook'>
+          <div className='orbit-hook-head'>
+            <code className='signature'>useIsFirstRender</code>
+            <div className='tagline'>
+              첫 번째 렌더에서만 <code>true</code>, 이후 모든 렌더에서 <code>false</code>. <code>useUpdateEffect</code>가 "첫 렌더 건너뜀"이라면 이 훅은 "지금이 첫 렌더?"를 직접 질문하는 버전.
+            </div>
+          </div>
+          <div className='orbit-code'>
+            <div className='orbit-code-head'><span>example</span><span>useIsFirstRender</span></div>
+            <pre>{`const isFirstRender = useIsFirstRender()
+
+useEffect(() => {
+  if (!isFirstRender) {
+    // 업데이트 시에만 실행되는 사이드이펙트
+    onFilterChange(filters)
+  }
+})`}</pre>
+          </div>
+        </div>
+
+        <div className='orbit-hook'>
+          <div className='orbit-hook-head'>
+            <code className='signature'>useForceUpdate</code>
+            <div className='tagline'>
+              외부 mutable 레퍼런스(ref, 외부 스토어)의 변경을 UI에 즉시 반영해야 할 때 컴포넌트를 강제로 리렌더링. 반환 함수는 마운트 동안 안정적(stable)이며 어떤 인자도 필요 없음.
+            </div>
+          </div>
+          <div className='orbit-code'>
+            <div className='orbit-code-head'><span>example</span><span>useForceUpdate</span></div>
+            <pre>{`const forceUpdate = useForceUpdate()
+
+const handleExternalChange = () => {
+  externalStore.mutate()
+  forceUpdate() // 리렌더 트리거
+}`}</pre>
+          </div>
+        </div>
+
+        <div className='orbit-hook'>
+          <div className='orbit-hook-head'>
+            <code className='signature'>useWebWorker</code>
+            <div className='tagline'>
+              함수를 Web Worker에서 실행해 메인 스레드를 차단하지 않음. Blob URL 방식이므로 별도 파일 불필요. <code>run(...args)</code>·<code>terminate()</code>와 <code>status</code>(<code>idle→running→success|error|terminated</code>) 반환.
+            </div>
+          </div>
+          <div className='orbit-code'>
+            <div className='orbit-code-head'><span>example</span><span>useWebWorker</span></div>
+            <pre>{`const { run, result, status } = useWebWorker((n: number) => {
+  // 메인 스레드를 막지 않고 무거운 계산 수행
+  let sum = 0
+  for (let i = 0; i < n; i++) sum += i
+  return sum
+})
+
+<button onClick={() => run(1_000_000)}>계산 시작</button>
+{status === 'success' && <div>결과: {result}</div>}`}</pre>
+          </div>
+        </div>
+
+        <div className='orbit-hook'>
+          <div className='orbit-hook-head'>
+            <code className='signature'>useVibrate</code>
+            <div className='tagline'>
+              Vibration API를 래핑해 단순 진동(ms)과 패턴 진동(<code>[on, off, on, …]</code>)을 제어. <code>supported</code> 플래그로 미지원 환경을 분기. unmount 시 진행 중인 진동 자동 취소. SSR 안전.
+            </div>
+          </div>
+          <div className='orbit-code'>
+            <div className='orbit-code-head'><span>example</span><span>useVibrate</span></div>
+            <pre>{`const { vibrate, supported } = useVibrate()
+
+// 단순 200ms 진동
+<button onClick={() => vibrate()}>Buzz</button>
+
+// 패턴 진동 [on, off, on]
+<button onClick={() => vibrate([100, 50, 100])}>Pattern</button>`}</pre>
+          </div>
+        </div>
+
+        <div className='orbit-hook'>
+          <div className='orbit-hook-head'>
+            <code className='signature'>useFetch</code>
+            <div className='tagline'>
+              URL 변경·refetch 트리거 시 자동으로 기존 요청을 중단(<code>AbortController</code>)하고 새 요청을 시작. <code>status</code>는 <code>idle</code>·<code>loading</code>·<code>success</code>·<code>error</code>. <code>refetch()</code>로 수동 재요청.
+            </div>
+          </div>
+          <div className='orbit-code'>
+            <div className='orbit-code-head'><span>example</span><span>useFetch</span></div>
+            <pre>{`const { status, data, error, refetch } = useFetch<User>(\`/api/users/\${id}\`)
+
+if (status === 'loading') return <Spinner />
+if (status === 'error') return <ErrorView error={error} onRetry={refetch} />
+return <UserCard user={data} />`}</pre>
+          </div>
+        </div>
+
+        <div className='orbit-hook'>
+          <div className='orbit-hook-head'>
+            <code className='signature'>useWebSocket</code>
+            <div className='tagline'>
+              WebSocket 연결 상태(<code>connecting</code>·<code>open</code>·<code>closed</code>·<code>error</code>)를 추적. <code>send()</code>로 메시지 전송, <code>reconnect</code> 옵션으로 자동 재연결. unmount 시 연결 자동 해제.
+            </div>
+          </div>
+          <div className='orbit-code'>
+            <div className='orbit-code-head'><span>example</span><span>useWebSocket</span></div>
+            <pre>{`const { status, send } = useWebSocket('wss://echo.example.com', {
+  onMessage: (e) => setMessages((m) => [...m, e.data]),
+  reconnect: true,
+  reconnectDelay: 3000,
+})
+
+<button disabled={status !== 'open'} onClick={() => send('ping')}>Send</button>`}</pre>
+          </div>
+        </div>
+
+        <div className='orbit-hook'>
+          <div className='orbit-hook-head'>
+            <code className='signature'>useBroadcastChannel</code>
+            <div className='tagline'>
+              BroadcastChannel API 래퍼. 동일 출처의 여러 탭·창 간 메시지를 주고받음. <code>lastMessage</code>로 최신 수신 메시지, <code>postMessage</code>로 다른 탭에 발송. unmount 시 채널 자동 해제.
+            </div>
+          </div>
+          <div className='orbit-code'>
+            <div className='orbit-code-head'><span>example</span><span>useBroadcastChannel</span></div>
+            <pre>{`const { lastMessage, postMessage } = useBroadcastChannel<{ type: string }>('app')
+
+// 다른 탭에서 로그아웃 감지
+useEffect(() => {
+  if (lastMessage?.type === 'logout') router.push('/login')
+}, [lastMessage])
+
+<button onClick={() => postMessage({ type: 'logout' })}>모든 탭 로그아웃</button>`}</pre>
+          </div>
+        </div>
+
+        <div className='orbit-hook'>
+          <div className='orbit-hook-head'>
+            <code className='signature'>useNotification</code>
+            <div className='tagline'>
+              Notification API 래퍼. <code>requestPermission()</code>으로 권한 요청, <code>notify(title, options)</code>으로 OS 알림 발송. <code>permission</code>·<code>isSupported</code>로 현재 상태 확인.
+            </div>
+          </div>
+          <div className='orbit-code'>
+            <div className='orbit-code-head'><span>example</span><span>useNotification</span></div>
+            <pre>{`const { permission, requestPermission, notify } = useNotification()
+
+<button onClick={async () => {
+  if (permission !== 'granted') await requestPermission()
+  notify('새 메시지', { body: '홍길동님이 메시지를 보냈습니다.' })
+}}>
+  알림 켜기
+</button>`}</pre>
+          </div>
+        </div>
+
+        <div className='orbit-hook'>
+          <div className='orbit-hook-head'>
+            <code className='signature'>useWakeLock</code>
+            <div className='tagline'>
+              Screen Wake Lock API 래퍼. <code>request()</code>로 화면 잠금 방지, <code>release()</code>로 해제. 페이지가 background로 이동 시 자동 해제 후 복귀하면 자동 재요청. 프레젠테이션·레시피 앱에 적합.
+            </div>
+          </div>
+          <div className='orbit-code'>
+            <div className='orbit-code-head'><span>example</span><span>useWakeLock</span></div>
+            <pre>{`const { isSupported, isActive, request, release } = useWakeLock()
+
+<button onClick={isActive ? release : request} disabled={!isSupported}>
+  {isActive ? '화면 잠금 허용' : '화면 유지'}
+</button>`}</pre>
+          </div>
+        </div>
       </section>
 
       <footer className='orbit-foot'>
-        <div>32 hooks · SSR-safe · tree-shakeable · zero deps</div>
+        <div>101 hooks · SSR-safe · tree-shakeable · zero deps</div>
         <div>
           <a href='?path=/docs/intro-시작하기--docs'>← 시작하기</a>
         </div>

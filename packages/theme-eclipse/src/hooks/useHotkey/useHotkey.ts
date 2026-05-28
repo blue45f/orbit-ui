@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useLayoutEffect, useRef } from 'react'
 
 import { useEventListener } from '../useEventListener'
 
@@ -49,7 +49,7 @@ export function useHotkey(
 ): void {
   const { disabled = false, ignoreInputs = true, preventDefault = true } = options
   const handlerRef = useRef(handler)
-  handlerRef.current = handler
+  useLayoutEffect(() => { handlerRef.current = handler })
 
   useEventListener('keydown', (event: Event) => {
     if (!(event instanceof KeyboardEvent)) return

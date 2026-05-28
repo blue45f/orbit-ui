@@ -1,7 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { useRef, useState } from 'react'
 
-import { useIntersectionObserver, useResizeObserver } from '../index'
+import {
+  useElementSize,
+  useInfiniteScroll,
+  useIntersectionObserver,
+  useMutationObserver,
+  useResizeObserver,
+  useInViewport,
+} from '../index'
 
 const meta = {
   title: 'Hooks/Observer',
@@ -182,3 +189,329 @@ function ResizeDemo() {
   )
 }
 export const Resize: Story = { render: () => <ResizeDemo /> }
+
+/* useElementSize ------------------------------------------- */
+function ElementSizeDemo() {
+  const { ref, width, height } = useElementSize<HTMLTextAreaElement>()
+  return (
+    <Panel title="useElementSize" signature="const { ref, width, height } = useElementSize()">
+      <textarea
+        ref={ref}
+        defaultValue="이 textarea를 크기 조절해 보세요..."
+        rows={4}
+        style={{
+          width: '100%',
+          padding: 12,
+          borderRadius: 8,
+          border: '1px solid var(--orbit-line-2, rgba(24,26,28,0.14))',
+          fontFamily: 'inherit',
+          fontSize: 14,
+          resize: 'both',
+          marginBottom: 14,
+          boxSizing: 'border-box',
+        }}
+      />
+      <div
+        style={{
+          fontFamily: '"JetBrains Mono", monospace',
+          fontSize: 12,
+          color: 'var(--orbit-ink-2, rgba(24,26,28,0.78))',
+          lineHeight: 1.8,
+        }}
+      >
+        width: <strong>{Math.round(width)}px</strong> &middot; height:{' '}
+        <strong>{Math.round(height)}px</strong>
+      </div>
+    </Panel>
+  )
+}
+export const ElementSize: Story = { render: () => <ElementSizeDemo /> }
+
+/* useMutationObserver -------------------------------------- */
+function MutationObserverDemo() {
+  const [log, setLog] = useState<string[]>([])
+  const [items, setItems] = useState<string[]>([])
+  const ref = useRef<HTMLDivElement>(null)
+
+  useMutationObserver(ref, (mutations) => {
+    for (const m of mutations) {
+      if (m.addedNodes.length)
+        setLog((prev) => [...prev.slice(-4), `+${m.addedNodes.length}개 추가`])
+      if (m.removedNodes.length)
+        setLog((prev) => [...prev.slice(-4), `−${m.removedNodes.length}개 제거`])
+    }
+  })
+
+  return (
+    <Panel
+      title="useMutationObserver"
+      signature="useMutationObserver(ref, callback, { childList: true })"
+    >
+      <div style={{ display: 'flex', gap: 8, marginBottom: 14 }}>
+        <button
+          type="button"
+          onClick={() => setItems((prev) => [...prev, `항목 ${prev.length + 1}`])}
+          style={{
+            height: 34,
+            padding: '0 14px',
+            border: 0,
+            borderRadius: 8,
+            background: 'rgb(0, 132, 77)',
+            color: 'rgb(255,255,255)',
+            fontFamily: 'inherit',
+            fontWeight: 600,
+            fontSize: 13.5,
+            cursor: 'pointer',
+          }}
+        >
+          + 항목 추가
+        </button>
+        <button
+          type="button"
+          onClick={() => setItems((prev) => prev.slice(0, -1))}
+          disabled={items.length === 0}
+          style={{
+            height: 34,
+            padding: '0 14px',
+            border: '1px solid var(--orbit-line-2, rgba(24,26,28,0.14))',
+            borderRadius: 8,
+            background: 'transparent',
+            color:
+              items.length === 0
+                ? 'var(--orbit-ink-4, rgba(24,26,28,0.33))'
+                : 'var(--orbit-ink, rgb(24,26,28))',
+            fontFamily: 'inherit',
+            fontWeight: 600,
+            fontSize: 13.5,
+            cursor: items.length === 0 ? 'not-allowed' : 'pointer',
+          }}
+        >
+          − 마지막 제거
+        </button>
+      </div>
+      <div
+        ref={ref}
+        style={{
+          minHeight: 60,
+          padding: 12,
+          borderRadius: 8,
+          border: '1px solid var(--orbit-line, rgba(24,26,28,0.08))',
+          background: 'var(--orbit-surface-sunken, rgba(24,26,28,0.025))',
+          fontSize: 13,
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 6,
+          marginBottom: 14,
+        }}
+      >
+        {items.length === 0 ? (
+          <span style={{ color: 'var(--orbit-ink-4, rgba(24,26,28,0.33))' }}>
+            (항목이 없습니다)
+          </span>
+        ) : (
+          items.map((item, i) => (
+            <div
+              key={i}
+              style={{
+                padding: '6px 10px',
+                borderRadius: 6,
+                background: 'var(--orbit-surface, rgb(255,255,255))',
+                border: '1px solid var(--orbit-line, rgba(24,26,28,0.08))',
+                fontFamily: '"JetBrains Mono", monospace',
+                fontSize: 12,
+              }}
+            >
+              {item}
+            </div>
+          ))
+        )}
+      </div>
+      <div
+        style={{
+          fontFamily: '"JetBrains Mono", monospace',
+          fontSize: 11.5,
+          color: 'var(--orbit-ink-3, rgba(24,26,28,0.56))',
+          lineHeight: 1.8,
+        }}
+      >
+        <strong>Mutation log (최근 5건):</strong>
+        {log.length === 0 ? (
+          <div style={{ color: 'var(--orbit-ink-4, rgba(24,26,28,0.33))' }}>(없음)</div>
+        ) : (
+          log.map((entry, i) => <div key={i}>{entry}</div>)
+        )}
+      </div>
+    </Panel>
+  )
+}
+export const MutationObserver: Story = { render: () => <MutationObserverDemo /> }
+
+/* useInViewport -------------------------------------------- */
+function InViewportDemo() {
+  const containerRef = useRef<HTMLDivElement>(null)
+  const sentinelRef = useRef<HTMLDivElement>(null)
+  const isInViewport = useInViewport(sentinelRef, { threshold: 0.5 })
+
+  return (
+    <Panel
+      title="useInViewport"
+      signature="const isInViewport = useInViewport(ref, { threshold })"
+    >
+      <div
+        style={{
+          fontSize: 12,
+          color: 'var(--orbit-ink-3, rgba(24,26,28,0.56))',
+          marginBottom: 8,
+        }}
+      >
+        컨테이너를 스크롤해 하단 sentinel 박스를 화면에 띄워 보세요.
+      </div>
+      <div
+        ref={containerRef}
+        style={{
+          height: 300,
+          overflow: 'auto',
+          border: '1px solid var(--orbit-line, rgba(24,26,28,0.08))',
+          borderRadius: 10,
+          padding: 16,
+          marginBottom: 14,
+        }}
+      >
+        {Array.from({ length: 12 }).map((_, i) => (
+          <div
+            key={i}
+            style={{
+              padding: '8px 0',
+              borderBottom: '1px dashed var(--orbit-line, rgba(24,26,28,0.08))',
+              fontFamily: '"JetBrains Mono", monospace',
+              fontSize: 12,
+              color: 'var(--orbit-ink-3, rgba(24,26,28,0.56))',
+            }}
+          >
+            row {i + 1}
+          </div>
+        ))}
+        <div
+          ref={sentinelRef}
+          style={{
+            marginTop: 20,
+            padding: '16px 20px',
+            borderRadius: 8,
+            background: isInViewport
+              ? 'rgba(0, 132, 77, 0.12)'
+              : 'rgba(24, 26, 28, 0.04)',
+            border: isInViewport
+              ? '1px solid rgba(0, 132, 77, 0.3)'
+              : '1px solid var(--orbit-line, rgba(24,26,28,0.08))',
+            color: isInViewport
+              ? 'rgb(0, 132, 77)'
+              : 'var(--orbit-ink-4, rgba(24,26,28,0.33))',
+            fontFamily: '"JetBrains Mono", monospace',
+            fontSize: 12.5,
+            fontWeight: 600,
+            textAlign: 'center',
+            transition: 'all 200ms cubic-bezier(0.2,0,0,1)',
+          }}
+        >
+          {isInViewport ? '✓ sentinel is in viewport' : '⏳ sentinel is out of viewport'}
+        </div>
+      </div>
+      <Readout label="isInViewport" value={String(isInViewport)} />
+    </Panel>
+  )
+}
+export const InViewport: Story = { render: () => <InViewportDemo /> }
+
+/* useInfiniteScroll ---------------------------------------- */
+const PAGE_SIZE = 10
+const MAX_ITEMS = 50
+
+function InfiniteScrollDemo() {
+  const [items, setItems] = useState<number[]>(() =>
+    Array.from({ length: PAGE_SIZE }, (_, i) => i + 1),
+  )
+  const [isLoadingMore, setIsLoadingMore] = useState(false)
+  const hasMore = items.length < MAX_ITEMS
+
+  const handleLoadMore = () => {
+    setIsLoadingMore(true)
+    setTimeout(() => {
+      setItems((prev) => {
+        const next = Array.from(
+          { length: Math.min(PAGE_SIZE, MAX_ITEMS - prev.length) },
+          (_, i) => prev.length + i + 1,
+        )
+        return [...prev, ...next]
+      })
+      setIsLoadingMore(false)
+    }, 200)
+  }
+
+  const { sentinelRef } = useInfiniteScroll({
+    hasMore,
+    onLoadMore: handleLoadMore,
+    rootMargin: '40px',
+  })
+
+  return (
+    <Panel
+      title="useInfiniteScroll"
+      signature="const { sentinelRef, isLoading } = useInfiniteScroll({ hasMore, onLoadMore })"
+    >
+      <div
+        style={{
+          fontSize: 12,
+          color: 'var(--orbit-ink-3, rgba(24,26,28,0.56))',
+          marginBottom: 8,
+        }}
+      >
+        리스트 하단으로 스크롤하면 항목을 추가로 불러옵니다 (최대 {MAX_ITEMS}개).
+      </div>
+      <div
+        style={{
+          height: 300,
+          overflow: 'auto',
+          border: '1px solid var(--orbit-line, rgba(24,26,28,0.08))',
+          borderRadius: 10,
+          padding: '0 16px',
+          marginBottom: 14,
+        }}
+      >
+        {items.map((item) => (
+          <div
+            key={item}
+            style={{
+              padding: '10px 0',
+              borderBottom: '1px dashed var(--orbit-line, rgba(24,26,28,0.08))',
+              fontFamily: '"JetBrains Mono", monospace',
+              fontSize: 12.5,
+              color: 'var(--orbit-ink, rgb(24,26,28))',
+            }}
+          >
+            항목 #{item}
+          </div>
+        ))}
+        <div
+          ref={sentinelRef}
+          style={{
+            padding: '14px 0',
+            textAlign: 'center',
+            fontFamily: '"JetBrains Mono", monospace',
+            fontSize: 12,
+            color: 'var(--orbit-ink-4, rgba(24,26,28,0.33))',
+          }}
+        >
+          {isLoadingMore
+            ? '불러오는 중…'
+            : hasMore
+              ? '스크롤해서 더 보기'
+              : '모든 항목을 불러왔습니다'}
+        </div>
+      </div>
+      <Readout label="items.length" value={items.length} />
+      <Readout label="hasMore" value={String(hasMore)} />
+      <Readout label="isLoadingMore" value={String(isLoadingMore)} />
+    </Panel>
+  )
+}
+export const InfiniteScroll: Story = { render: () => <InfiniteScrollDemo /> }

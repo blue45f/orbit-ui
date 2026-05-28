@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useLayoutEffect, useRef } from 'react'
 
 /**
  * unmount 시 한 번 실행되는 cleanup 함수.
@@ -14,7 +14,7 @@ import { useEffect, useRef } from 'react'
  */
 export function useUnmount(callback: () => void): void {
   const callbackRef = useRef(callback)
-  callbackRef.current = callback
+  useLayoutEffect(() => { callbackRef.current = callback })
 
   useEffect(() => {
     return () => {
