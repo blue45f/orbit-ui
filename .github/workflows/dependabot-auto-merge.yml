@@ -1,0 +1,44 @@
+name: Dependabot 자동 머지
+
+# 모든 필수 체크(빌드 및 테스트 · 린트 · CodeRabbit 리뷰 게이트)가 통과한 dependabot PR을
+# 자동으로 squash 머지합니다. 보안 업데이트와 patch/minor 범위만 자동 머지하고,
+# major 업데이트는 사람이 직접 확인합니다.
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize, labeled]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  auto-merge:
+    name: 자동 머지 활성화
+    runs-on: ubuntu-latest
+    if: github.actor == 'dependabot[bot]'
+    steps:
+      - name: dependabot 메타데이터 추출
+        id: meta
+        uses: dependabot/fetch-metadata@v2
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: patch · minor · security 만 auto-merge
+        if: |
+          steps.meta.outputs.update-type == 'version-update:semver-patch' ||
+          steps.meta.outputs.update-type == 'version-update:semver-minor' ||
+          steps.meta.outputs.dependency-type == 'direct:development'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_URL: ${{ github.event.pull_request.html_url }}
+        run: |
+          gh pr merge --auto --squash "$PR_URL"
+
+      - name: major 업데이트는 코멘트만 남김
+        if: steps.meta.outputs.update-type == 'version-update:semver-major'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_URL: ${{ github.event.pull_request.html_url }}
+        run: |
+          gh pr comment "$PR_URL" --body "🚨 Major 업데이트는 자동 머지하지 않습니다. CHANGELOG / breaking changes 확인 후 직접 머지해 주세요."
