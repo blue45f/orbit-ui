@@ -93,7 +93,7 @@
     "@babel/preset-env": "^7.26.0",
     "@orbit-ui/tsconfig": "workspace:*",
     "@orbit-ui/vite-plugin": "workspace:*",
-    "@playwright/test": "^1.49.1",
+    "@playwright/test": "^1.60.0",
     "@rollup/plugin-babel": "^6.0.4",
     "@storybook/addon-a11y": "^8.6.15",
     "@storybook/addon-essentials": "^8.6.15",
