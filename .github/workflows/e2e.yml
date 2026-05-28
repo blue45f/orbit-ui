@@ -20,7 +20,7 @@ jobs:
 
     steps:
       - name: 체크아웃
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: pnpm 설정
         uses: pnpm/action-setup@v6
@@ -28,7 +28,7 @@ jobs:
           version: 9.14.4
 
       - name: Node.js 설정
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: '22'
           cache: 'pnpm'
@@ -53,7 +53,7 @@ jobs:
 
       - name: 실패 시 리포트 업로드
         if: failure()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: playwright-report
           path: packages/theme-eclipse/playwright-report
@@ -61,7 +61,7 @@ jobs:
 
       - name: 실패 시 비주얼 diff 업로드
         if: failure()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: playwright-test-results
           path: packages/theme-eclipse/test-results
