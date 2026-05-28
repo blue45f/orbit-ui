@@ -1182,8 +1182,8 @@ function AccessibleBirthDatePickerRender() {
             selected={selected}
             onSelect={(d) => { setSelected(d); setSubmitted(false) }}
             disabled={(d) => d > maxDate || d < minDate}
-            fromYear={today.getFullYear() - 120}
-            toYear={today.getFullYear() - 14}
+            startMonth={new Date(today.getFullYear() - 120, 0)}
+            endMonth={new Date(today.getFullYear() - 14, 11)}
             captionLayout="dropdown"
           />
         </div>
