@@ -42,7 +42,7 @@ jobs:
           fi
 
       - name: 체크아웃
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
           ref: ${{ github.event.workflow_run.head_sha }}
@@ -53,7 +53,7 @@ jobs:
           version: 9.14.4
 
       - name: Node.js 설정
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: '22'
           cache: 'pnpm'

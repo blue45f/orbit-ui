@@ -28,7 +28,7 @@ Orbit UI에 관심을 가져주셔서 감사합니다!
 
 ```bash
 # 저장소 클론
-git clone https://github.com/orbit-ui/orbit-ui.git
+git clone https://github.com/blue45f/orbit-ui.git
 cd orbit-ui
 
 # 의존성 설치
@@ -260,7 +260,7 @@ pnpm changeset
 
 1. **빌드 및 테스트** — `pnpm verify` (타입체크 · 테스트 · 빌드)
 2. **린트** — `pnpm lint`
-3. **CodeRabbit 리뷰 통과** — CodeRabbit이 PR을 `APPROVED` 상태로 리뷰해야 합니다.
+3. **CodeRabbit review gate** — CodeRabbit이 PR의 최신 head SHA를 `APPROVED` 상태로 리뷰해야 합니다.
 
 CodeRabbit은 PR이 열리거나 새 커밋이 푸시될 때 자동으로 리뷰를 수행합니다. 변경 요청(`CHANGES_REQUESTED`)이 들어오면 코멘트를 확인하고 수정 후 다시 푸시해 재리뷰를 트리거하세요. 수동 재리뷰는 PR 코멘트에 `@coderabbitai review` 를 입력합니다.
 
@@ -271,4 +271,4 @@ CodeRabbit은 PR이 열리거나 새 커밋이 푸시될 때 자동으로 리뷰
 ## 도움이 필요하신가요?
 
 - 📖 [아키텍처 문서](./docs/ARCHITECTURE.md)
-- 🐛 [이슈 리포트](https://github.com/orbit-ui/orbit-ui/issues)
+- 🐛 [이슈 리포트](https://github.com/blue45f/orbit-ui/issues)
