@@ -381,10 +381,10 @@ import { Meta, Unstyled } from '@storybook/blocks'
         <div>
           <div className='orbit-eyebrow'><span className='num'>01</span>Architecture</div>
           <h1 className='orbit-h1'>3-tier 아키텍처</h1>
-          <p className='orbit-lede'>
+          <div className='orbit-lede'>
             Theme · Core · Primitives 세 레이어가 서로 다른 책임을 가집니다.
             소비자는 Theme만 import하고, 커스텀 시스템 구축 시 Core로 내려가며, Primitives는 항상 내부에 머무릅니다.
-          </p>
+          </div>
         </div>
         <div className='orbit-page-meta'>
           <div><strong>3</strong> tiers</div>
@@ -399,7 +399,7 @@ import { Meta, Unstyled } from '@storybook/blocks'
           <div>
             <div className='orbit-eyebrow'><span className='num'>02</span>Layers at a Glance</div>
             <h2>위에서 아래로, 추상에서 구체로.</h2>
-            <p>위쪽으로 갈수록 디자인 결정이 들어가고, 아래쪽으로 갈수록 순수 동작과 빌딩 블록만 남습니다.</p>
+            <div>위쪽으로 갈수록 디자인 결정이 들어가고, 아래쪽으로 갈수록 순수 동작과 빌딩 블록만 남습니다.</div>
           </div>
         </div>
 
@@ -438,7 +438,7 @@ import { Meta, Unstyled } from '@storybook/blocks'
           <div>
             <div className='orbit-eyebrow'><span className='num'>03</span>Per Layer</div>
             <h2>각 레이어의 책임.</h2>
-            <p>같은 컴포넌트 이름이 레이어마다 다른 형태로 존재합니다. <code>Button</code>은 Core에 있고, <code>SolidButton</code>은 Theme에 있습니다.</p>
+            <div>같은 컴포넌트 이름이 레이어마다 다른 형태로 존재합니다. <code>Button</code>은 Core에 있고, <code>SolidButton</code>은 Theme에 있습니다.</div>
           </div>
           <span className='orbit-eyebrow'>3 layers</span>
         </div>
@@ -450,10 +450,10 @@ import { Meta, Unstyled } from '@storybook/blocks'
             <div className='file'>packages/theme-eclipse</div>
           </div>
           <div>
-            <p>
+            <div>
               디자인 토큰이 모두 적용된 최종 컴포넌트. <code>SolidButton color='primary'</code>처럼 결정 한 줄로
               완성된 시각을 얻습니다. 토큰 일부 오버라이드가 필요하면 <code>theme</code> 프롭을 사용.
-            </p>
+            </div>
             <div className='examples'>
               <code>SolidButton</code><code>OutlineButton</code><code>FloatingTextField</code>
               <code>DataTable</code><code>Modal</code><code>Toast</code><code>AppBar</code>
@@ -468,10 +468,10 @@ import { Meta, Unstyled } from '@storybook/blocks'
             <div className='file'>packages/core</div>
           </div>
           <div>
-            <p>
+            <div>
               스타일이 비어 있는 컴포넌트. 접근성·키보드·상태 로직만 담당합니다.
               자체 디자인 시스템을 만들고 싶을 때 Theme 대신 Core를 직접 사용. <code>theme</code> 프롭으로 토큰 주입.
-            </p>
+            </div>
             <div className='examples'>
               <code>Button</code><code>TextField</code><code>Checkbox</code><code>Toggle</code>
               <code>Dropdown</code><code>Sheet</code><code>Badge</code><code>ThemeProvider</code>
@@ -486,10 +486,10 @@ import { Meta, Unstyled } from '@storybook/blocks'
             <div className='file'>packages/core/src/primitives</div>
           </div>
           <div>
-            <p>
+            <div>
               레이어링, 슬롯, 모션, 포탈, 플렉스 같은 React 프레임워크 유틸리티. 직접 import 하지 않습니다.
               Core가 이 모듈로 자기 자신을 만듭니다.
-            </p>
+            </div>
             <div className='examples'>
               <code>Layer</code><code>Slot</code><code>Animation</code><code>Presence</code>
               <code>Flex</code><code>Portal</code><code>Spinner</code>
@@ -504,7 +504,7 @@ import { Meta, Unstyled } from '@storybook/blocks'
           <div>
             <div className='orbit-eyebrow'><span className='num'>04</span>Composition</div>
             <h2>레이어 간 합성.</h2>
-            <p>아래 두 코드 조각이 시스템 전체를 요약합니다. Primitives를 Core가 합성하고, Core를 Theme이 입힙니다.</p>
+            <div>아래 두 코드 조각이 시스템 전체를 요약합니다. Primitives를 Core가 합성하고, Core를 Theme이 입힙니다.</div>
           </div>
         </div>
 
@@ -554,7 +554,7 @@ export const SolidButton = ({ color, size, ...rest }) => (
           <div>
             <div className='orbit-eyebrow'><span className='num'>05</span>Compound Pattern</div>
             <h2>슬롯으로 합성.</h2>
-            <p>props 배열이 아닌 컴포넌트 트리가 API. Leading · Center · Trailing 슬롯이 시각 구조를 노출합니다.</p>
+            <div>props 배열이 아닌 컴포넌트 트리가 API. Leading · Center · Trailing 슬롯이 시각 구조를 노출합니다.</div>
           </div>
         </div>
 
@@ -604,7 +604,7 @@ export const SolidButton = ({ color, size, ...rest }) => (
           <div>
             <div className='orbit-eyebrow'><span className='num'>06</span>Token Flow</div>
             <h2>Reference → Semantic → Component.</h2>
-            <p>같은 값이 세 번 명명되는 게 아니라, 의미 계층이 한 단계씩 더해집니다. 소비자는 어느 단계에서든 끼어들 수 있습니다.</p>
+            <div>같은 값이 세 번 명명되는 게 아니라, 의미 계층이 한 단계씩 더해집니다. 소비자는 어느 단계에서든 끼어들 수 있습니다.</div>
           </div>
         </div>
 
@@ -638,7 +638,7 @@ export const SolidButton = ({ color, size, ...rest }) => (
           <div>
             <div className='orbit-eyebrow'><span className='num'>07</span>Internal</div>
             <h2>Layer 프리미티브.</h2>
-            <p>하나의 인터랙티브 요소는 사실 네 개의 물리 레이어가 합쳐진 결과입니다. 상태 효과, 보더, 콘텐츠가 분리되어 각자 책임만 집니다.</p>
+            <div>하나의 인터랙티브 요소는 사실 네 개의 물리 레이어가 합쳐진 결과입니다. 상태 효과, 보더, 콘텐츠가 분리되어 각자 책임만 집니다.</div>
           </div>
         </div>
 
@@ -676,7 +676,7 @@ export const SolidButton = ({ color, size, ...rest }) => (
           <div>
             <div className='orbit-eyebrow'><span className='num'>08</span>npm Packages</div>
             <h2>세 패키지로 분리한 이유.</h2>
-            <p>모놀리식 단일 패키지 대신 세 개로 쪼개서 선택적 도입과 번들 최소화를 가능하게 합니다.</p>
+            <div>모놀리식 단일 패키지 대신 세 개로 쪼개서 선택적 도입과 번들 최소화를 가능하게 합니다.</div>
           </div>
           <span className='orbit-eyebrow'>3 packages</span>
         </div>
@@ -686,10 +686,10 @@ export const SolidButton = ({ color, size, ...rest }) => (
             <code>@heejun-com/icons</code>
             <span className='badge'>zero-dep</span>
           </div>
-          <p>
+          <div>
             순수 SVG 아이콘 컴포넌트. React만 있으면 어떤 디자인 시스템과도 독립적으로 사용 가능. <strong>Provider 없음, CSS import 없음.</strong>
             기존 시스템 교체 없이 아이콘만 도입할 수 있고, tree-shaking으로 사용한 아이콘만 번들에 포함됩니다.
-          </p>
+          </div>
           <div className='why'>
             <code>Line · Fill 두 스타일</code>
             <code>size·color 프롭</code>
@@ -713,10 +713,10 @@ export const SolidButton = ({ color, size, ...rest }) => (
             <code>@heejun-com/core</code>
             <span className='badge'>headless</span>
           </div>
-          <p>
+          <div>
             스타일이 비어 있는 헤드리스 컴포넌트. <strong>접근성·키보드·상태 로직만</strong> 담고, <code>theme</code> 프롭으로 외부 토큰을 받아 스타일링.
             자체 디자인 시스템을 구축하면서 접근성·인터랙션은 기존 구현을 재사용하고 싶을 때 사용합니다.
-          </p>
+          </div>
           <div className='why'>
             <code>WAI-ARIA 내장</code>
             <code>키보드 내비게이션</code>
@@ -749,10 +749,10 @@ export const MyButton = ({ children }) => (
             <code>@heejun-com/theme-eclipse</code>
             <span className='badge is-rec'>recommended</span>
           </div>
-          <p>
+          <div>
             토큰이 모두 적용된 완성 컴포넌트 + <code>EclipseProvider</code>. 대부분의 프로젝트는 이 패키지 하나로 충분합니다.
             Light·Dark 모드, 모바일·PC 분기, baseTextSize 스케일이 Provider 한 줄로 켜집니다.
-          </p>
+          </div>
           <div className='why'>
             <code>56 components</code>
             <code>Light + Dark</code>
