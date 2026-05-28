@@ -31,6 +31,14 @@ jobs:
 
           echo "PR #$PR_NUMBER 의 CodeRabbit 리뷰 상태를 확인합니다."
 
+          pr_user=$(gh api "repos/$REPO/pulls/$PR_NUMBER" --jq '.user.login')
+          echo "PR 작성자: $pr_user"
+
+          if [ "$pr_user" = "dependabot[bot]" ]; then
+            echo "✅ dependabot PR은 CodeRabbit 리뷰 게이트를 자동 통과합니다."
+            exit 0
+          fi
+
           reviews=$(gh api "repos/$REPO/pulls/$PR_NUMBER/reviews" --paginate \
             --jq '[.[] | select(.user.login | ascii_downcase | test("coderabbit"))]')
 
